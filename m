@@ -1,117 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977338;
-	b=4ayUUFtFgPfPHlWes/bTIyYjDHvNOv7zVoFL1PRHUEYHDBiBp771WYRAPhqocR2GJXFz
-	 YmyGNSdOAwiBm8wPd1HD/nv8wgApTP+RTad8n72J2mP0RH8UWo7xl+W6qaCjkWkEnE19z
-	 lVQPEbaeL/3yeQ+g7glPH6gTza9P74xX12wqmSNhY2prDYLC4/DNDz7hAFxGCKxBRK0/7
-	 inDifjxgF9FjAj1vxKxP/8gDl7CZQclT2zxnk7N1/z5cH5Nje3VpQxQY5a2Oz2Ncfzu+/
-	 WOjY+ZuKuimDvO++oNswgQPuP9gs4/hFV97PsbyDs8C1Qfg4pX2MAe3B+xtzkXtNE9A==
+	t=1793977344;
+	b=18i84WchOH9q0Db9/mpPplDzojxVPw9OXKdgI60all7quzWzGtnMIsdXKbOtbCfZjj6Z
+	 Ch6Pu49hU/0U5l0Gqj6lSUkBWL75AnwvPdg09DV8M1/IPFZUV4rVup4MinFE+iTW+9myA
+	 UspzdB33joNjc4Y0fJN5JP4+kpBLPffjwx1xjJCT5C2v28Abzv1C+m4soUsuabZqvCTnl
+	 zTkzJ9gDx42FLTmBft7GzPai6gqk/f5hdBqHF0Z63Ry4EsyomWW2Wb1m+yrT2FNxsEb7W
+	 fGbBt20g6g5H2IXVPGihRF1bt4oWezI+IEXpM3WjaONGcYY0g9RtRB7HqnWgIi2dckQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977338;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
-	b=0MrRXzM3ZjFP7tGwaQ8aoIw2U8Yeut890CWalW4szGYtqkhPuBx3dUfXc5Xhx7cy5UdD
-	 AQ0GKeChjex8Fjli9jlBMEEXaae3nEQnkhkLssuE244jwfyt0UJ8ZqK7tC19oFFezeRoE
-	 Qx1o8Yanv/0TSWRD9jjQ0MUYkegwlgw9ZyL/mNX3pWJLGULrx56E9XRBCmcO6wzPjw7Yp
-	 axtshd33y2JDFtMinMQs7LN4k16lYVuA0V/AM63D/q2QIU1NbcNsYr81SbhyI+NdPiWS0
-	 naVhOvfNEI1TzWndDXPKQxEeGaxdL51PZN3Kyu5pbzJfySkMVBn3QuZPE7zbW7g6bAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977344;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7TtPrQ9Bg1ashGXbzDbz4fIf6+H9qB3vHmh8Bznvg68=;
+	b=Ot7XhLHNnh8N0RJyn8xfL6iKj9+BW2+/SXjqiYy/w5UhMtwBpx1GwSD3cmoNXBZo0CLx
+	 9aqgLYT2bs/5l+iJQLRkDCpeSdCIzc4rAfTY1844NbiC7hvWtmvwudvI+ZULG7qM+A4Uy
+	 fiPYyrgBmlqULFQoXs7/md6s+6q8O77sYjTnUEkuYmugTjvGQ6kNcueW/8d0XlX6JJY2b
+	 qY6AkBbwGVZtPRfpNZf/lMR4AOsAI9inNB+i3cZzRyiDj4ZH5S9UgsPcIdg+4f0XnIz7i
+	 8s62UO21HrsmziN9KCkpQkgq+9lh0ahgxrF4cy+B0bGEIebjY5VH1G+Z5HsVAmaz+bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MVW024mu;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1Lr3dwzb;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MVW024mu;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1Lr3dwzb;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v3d3LxOm;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C302606A331;
-	Fri,  6 Nov 2026 15:02:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C302606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD746606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:02:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD746606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MVW024mu;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1Lr3dwzb;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MVW024mu;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1Lr3dwzb
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 42E9522189;
-	Fri,  6 Nov 2026 15:02:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793977336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
-	b=MVW024mu3KUwb1eDIw9bJ7PUOylrtjz83alILp27tKzUsdCksGRqb2eNBKhuCftDFHtDtf
-	KABuC9It6O4tyCiPhUZjyZ0u1CeiNtO1HN59BmgR16E4h4eTs/ZpBWkV5LTiB8N+XVmgMb
-	7B6PnDrfL/H4DtYHAIw1gx2QjGhRbKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793977336;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
-	b=1Lr3dwzbGO42cHRrGquEh+E16qepkp47m3zjRAPxn7qf0CmFHNw6zxA6wxNnbXYCoqd78j
-	473SBMFwRpWhQHDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793977336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
-	b=MVW024mu3KUwb1eDIw9bJ7PUOylrtjz83alILp27tKzUsdCksGRqb2eNBKhuCftDFHtDtf
-	KABuC9It6O4tyCiPhUZjyZ0u1CeiNtO1HN59BmgR16E4h4eTs/ZpBWkV5LTiB8N+XVmgMb
-	7B6PnDrfL/H4DtYHAIw1gx2QjGhRbKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793977336;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TDtXPdEsZccRCyjiEYbL6djLMqFzCkE9S7yHHucO/Y0=;
-	b=1Lr3dwzbGO42cHRrGquEh+E16qepkp47m3zjRAPxn7qf0CmFHNw6zxA6wxNnbXYCoqd78j
-	473SBMFwRpWhQHDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 19C6F132C9;
-	Fri,  6 Nov 2026 15:02:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id guvJOffr7WpFFwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 15:02:16 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id A02AA21BA3; Fri, 06 Nov 2026 16:02:00 +0100 (CET)
-Date: Fri, 6 Nov 2026 16:02:00 +0100
-From: Jan Kara <jack@suse.cz>
-To: Bence =?utf-8?B?Q3PDs2vDoXM=?= <bence.csokas@arm.com>
-Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/2] Add scope-based cleanup capability to eventfd_ctx
-Message-ID: <boyk6gdk2qmgj4fxhbluqbtcbhqkgnyiq36hurhomfib6vrogw@tjgi2oxtbvmd>
-References: <20261027-efd-autofree-v3-0-caa2442e1beb@arm.com>
- <20261106-hinein-lagebericht-abbezahlen-cb826d68d175@brauner>
- <bba04255-5dee-4dd2-a877-5e169edceadc@arm.com>
- <sp6gvawt6petvrlky7g6pqaqsp3jwouu6ixarevis5m5vd7fwe@xjxeakzi3nn3>
- <803191ed-6597-4b8d-af7d-812b1b494fee@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v3d3LxOm
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c45551fa84eso106000966b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:02:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793977342; x=1794582142; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7TtPrQ9Bg1ashGXbzDbz4fIf6+H9qB3vHmh8Bznvg68=;
+        b=v3d3LxOmbmLV3oeMndwwf0G59Th727hprEWpBhAUqDprLmS3KRhbvWYnoEHI1vfmrM
+         heNUOx83bERl4AumWpLD7S3dtqq+u5u+//2azM2w/GtZn4XURumfF8Txp/RBiE/VsnPM
+         fK8Mc1j6UrRA5SdY29JSqrgwy+3nASoNFmU/mWMxt/2QRprqEbkAiRqL/+ldxwZU82rD
+         rDJk4QHukdvkVgJkij9xHYF1HxCm2/uD1eBzk+wJYPyO/fcMYnIHCifDimeYlfm0FW8J
+         KcApHVZga08igvrgIqpsIKMAQPvPrHn3UPbxk2mgTzy+Kd69/rfB6YnM9qOc2zTcJmld
+         99yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793977342; x=1794582142;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7TtPrQ9Bg1ashGXbzDbz4fIf6+H9qB3vHmh8Bznvg68=;
+        b=Sh6ATtPPxfcIKGSYMNWVNS9aFWR1za8v/auw8NbEA9ZN+rDhpha65xMFmctESn+yQ+
+         pFkH+yHDalzAbZ9lahbxIw9GpMD7crBb49ESoYH+sPBaCnlWfYgTgTAHw9y8pq7QgZUY
+         bLI477YbSFpU18DGhoej9QipjH0y4ZG/npGHZbbNRCK9XLUaab1wMtVwRv1cwli4BQpU
+         U0J0mc9hVl8ZQN8VpHeigGXyJ6D+zQybp5fNkEmMJgw8vlDWkwjVMAnXCuIluwNAHnCF
+         BoECjBS3qtnQYTmR0k3ZgBVsMmdM9zXFy0UfwlUECbRSLuGbuAf1lDhQ/uDbLwiLPVB4
+         /9Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBwtizDskfD7YYV8N5qnUnrC4LMMLjC4Ved1iZUdGMva9Lx9OgeD+mf6mGq6hf2dDKiyonhLAlbXqmyJ9Mo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZZnH5o26GQ0tw8cjBoDfSN5KXKZ7y+61X7EYEQI96vXfkD/MX
+	m0v5j09H8ahYUuhzrliOjvwHUOLV0q6qApG1o1tu2vm08eXUZvPxqoqd
+X-Gm-Gg: AYBFou0xbdyQ/Tuafu+y0tnUCOLy0LE+vVc/2UpLheqik1XdnU/HfXFQz6xGShLIJ8l
+	sorECAnJ4eGm+BdRK8fs4iXBtrXqiz8oM4QZVQeOhltiL75bODL5gxtjBjTFsCGeTHrdIE1L1wu
+	k8NKd9yVAk34C7HOzCLNuCfu3sOWyfoRp/XTEpFVXk672qmUR6EDqoiVoEFzfLsm/cxTGlgsve/
+	WMlv45D1Q5JVG6fRJTbYby62D3uY5umXmihj1niXohKo3GPfIW7s+ir158gt4NX68++/O2MG9uD
+	ej1jDH8FFXcMAdaV3o7E4YdP1Pv3fuAoX81jm/zDSls3P6kNqir+QY32qJAncyE/THSgGUU5P+w
+	xgB3Ch6Og4xZ1rIX8B9BlN5nlZuTLLFfqZByECS5DIpW+4vFcnDGa/Sv2DIg4fo/BBwgHPoGRQq
+	HhmFtW/giSD2yuAcQXHaiDrAO2O2fKAoZdh9X5IeI7SgmHrAuqcEqIFIqAQDZXWuxLC58cnUD3W
+	aoj0ZkeKbUuFUBZ5/F5xY4wn/7v2X4JvvwnOpysb7Gy82+9r2oNVv9t5sqmTUXNGbO4nCBqivql
+	cq0JVLLqvXJfCF1gYXsnfDOVafwhxv8dIDM1po8SdwCm0WJRfuJxJiBDTdzIbmcpAxCJ9st7Mqi
+	14jSWxO66ldHRvTjen2N5AQbNxZkBXapXKj+EiZQOanDBdkalu30CExFqpkDQt08eRZXKtryhFp
+	iX
+X-Received: by 2002:a05:6938:a013:10b0:c3f:dce3:20d5 with SMTP id a640c23a62f3a-c4d354e39c4mr186808566b.22.1793977342099;
+        Fri, 06 Nov 2026 07:02:22 -0800 (PST)
+Received: from desktop.home.arpa (2a02-1810-1e16-ac80-898e-1938-27eb-b890.ip6.access.telenet.be. [2a02:1810:1e16:ac80:898e:1938:27eb:b890])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664aff32dsm873989a12.25.2026.11.06.07.02.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 07:02:15 -0800 (PST)
+From: Stijn Cleynhens <stijncleynhens@gmail.com>
+To: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Cc: netdev@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 2/2] net: dsa: realtek: rtl8365mb: keep the neutral PVID in VLAN-unaware bridges
+Date: Fri,  6 Nov 2026 16:02:09 +0100
+Message-ID: <20261106150209.3659653-1-stijncleynhens@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <autRCms7HolT2-au@analog.com>
+References: <autRCms7HolT2-au@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,101 +109,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <803191ed-6597-4b8d-af7d-812b1b494fee@arm.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,kernel.org,zeniv.linux.org.uk,linux.intel.com,suse.de,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,arm.com:email,suse.com:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
 
-Hi!
+On Wed, Nov 04, 2026 at 04:57:44PM +0100, Alvin Å ipraga wrote:
+> This part threw me off a bit. What do you mean by "VID of the bridge
+> entries"? If the neutral PVID is programmed on the port of a
+> VLAN-unaware bridge, I would expect all untagged frames to be classified
+> VID=0. And with IVL this should be classified local to the bridge. Is
+> that what you want to say, or am I missing something?
 
-On Fri 06-11-26 15:30:07, Bence Csókás wrote:
-> On 2026. 11. 06. 15:13, Jan Kara wrote:
-> > Hi!
-> > 
-> > On Fri 06-11-26 10:31:58, Bence Csókás wrote:
-> > > On 2026. 11. 06. 10:05, Christian Brauner wrote:
-> > > > On Tue, Oct 27, 2026 at 05:22:00PM +0100, Bence Csokas wrote:
-> > > > > Add __free() support to eventfd and update drm_syncobj to use it as an
-> > > > > example consumer.
-> > > > > 
-> > > > > A minor discrepancy I encountered is whether to put a semicolon after
-> > > > > DEFINE_FREE(). It seems some in-tree code does, some doesn't. In the end,
-> > > > > I followed the example set in core-api/cleanup.rst, and omitted it.
-> > > > > 
-> > > > > Signed-off-by: Bence Csokas <bence.csokas@arm.com>
-> > > > > ---
-> > > > 
-> > > > I'm really having trouble seeing how this improves anything
-> > > > significantly. Probably others have the same impression which is why
-> > > > this doesn't get a lot of review.
-> > > 
-> > > The goal of the __free() API is to reduce the number of goto-based error
-> > > paths. Normally, you'd have to keep the state of every local in your head
-> > > for every early return. (Has it been initialized? Has it been consumed? Or
-> > > does it need to be freed?) Then you need to arrange your "goto tree" (error
-> > > labels) in a way that frees everything, and then for every early exit, jump
-> > > to the correct one. This can be quite complex for some functions. Look at
-> > > KVM or HyperV eventfd code, for example.
-> > > 
-> > > By contrast, you just mark the local var with _free() and an appropriate
-> > > destructor snippet, and the consumption point (the point after which we
-> > > don't need to free it on a return) with no_free_ptr(), and the compiler
-> > > instruments every early return accordingly.
-> > 
-> > Sure, but there's also the other side about which you don't speak: unless
-> > the destructor is trivial (like kfree()), there are implications about
-> > locking, when resources (such as references held by the object) get
-> > released etc. So it can also be more complex to wrap your head around
-> > __free usage than around standard cleanup code.
-> 
-> Sure. Thankfully eventfd_ctx_put() is one of the pretty trivial ones,
-> basically just calling kfree() on itself when the kref drops to 0.
+Yes, that is what I meant: untagged frames go to VID 0, the VID that DSA
+uses for the FDB and MDB entries of a VLAN-unaware bridge. One detail:
+it is the per-bridge EFID that keeps the lookup local to the bridge; IVL
+makes the VID part of the key. I reworded it in v2.
 
-Ok, fair.
+> Please separate the variables on their own lines.
+> I think an else { pvid = 0; } would be more explicit than setting it
+> upstairs, but it's a nitpick.
 
-> > So unless __free is providing a noticeable simplification of some goto
-> > hell, cleanup in many functions or similar, I generally don't find it worth
-> > it...
-> 
-> Look into for instance mshv_irqfd_assign() and weep... And then imagine how
-> much simpler it'd be if it were using __free() instead.
+Both done in v2.
 
-Well, over the years I've seen much worse things :) But I agree for that
-function using __free would be a simplification.
+> Can we unify _set and _clear somehow? The code gets quite confusing with
+> the two variants, and it seems now that with the vlan_filtering
+> argument, you can unify the logic.
 
-> For the example in 2/2, I deliberately chose one callsite where it's trivial
-> to deduce that behaviour is unchanged.
+Agreed. v2 replaces both with rtl8365mb_vlan_pvid_port_commit(), which
+takes the target VID (0 for the neutral PVID) and the filtering state,
+and is the only place that sets the frame filter, so
+rtl8365mb_port_vlan_filtering() no longer touches it. Tested again on an
+RTL8367S and an RTL8367S-VB.
 
-Well, the change is kind of "meh, I don't care much" for me. So I guess if
-you include some conversion that actually makes code simpler, I guess
-Christian might be open to merging this.
-
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Thanks for the review,
+Stijn
