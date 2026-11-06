@@ -1,114 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793992135;
-	b=zTvu/nZAEugY9wpt8nkWrrgfsh9na6f7fzOY42dXjzA6KrNYOx91ttzh10oFzzdOq1UD
-	 2bENXhIJI8+OZbAKKQ05I1CNmucuwGS3YWfoJc9AQFi3j46PrVrLd6qHJGu4g0q6QZQkh
-	 dTQ88jKr0DO1dCMAl4UMraQtOhUv5Zb4XcT9kJi90saFiE7dDG0PauBEV9p9jyopOPM+k
-	 KlJNhfa4bpJZNNdsRZgbaqvj0wc/BLB+Tt8TcRbI1FM4pyLbCIJVXxriHuTqqyLlyc5GX
-	 6bhJn6+K4vOi3gzJj2p27Opn50Gf3k5W33jRqM65BzdNh7JeRSxQHQhbhQczHOY0TFw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793992135;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Dfz06uyEH0WMW48I0eiFiHa5o/v99I/A9YzZqqFlVAg=;
-	b=2N+fQvVjgbaCZVrwAu1I6q1+48sxkpCgVlUXnFyOIwq+F3s48Ng66HfJXcE4VIQCNA+1
-	 nnYUHY/Xro0uVseBW+mtB1uZiVvMqvlR+4TqmInYSNfqG+6TNEzNX4tbYFY8aaQrxJMRB
-	 +3DTTKc5aVLkxYtLKHUd7Vhrx0tzkPE8F/uk7bfTmbbkEQj69urX8baSFxIDcDgudnzG1
-	 DmINXaRSnGngYyBwbyAOI1NbpWsO7EPdhO0e+0tOw8DoxVF+GeuFv5ZRdnnPMWQyYD2Sf
-	 QKsED399xxXTXzy6Qr9M1zaYaiJMxeaj0fuUGpfDdWSC08Gsafl/HvwixzFFc/ZUiCw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mGbbdJDI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.58
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012058.outbound.protection.outlook.com [40.93.195.58])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793992147;
+	b=wf12icsyjlMFrN2yzFGzLkEk5u/V3lKcJNmUOhaDWquwbUn//76Lku94wmuFP9RHZE5l
+	 DMbdrFCDIBV5R7N8s+7E/k4EWidj4wJOyGZYzOGqoIY9ZnYhelHVz4Yk3c05SZLe9Fr1i
+	 d1ECQBozxyjBUfCR6tnW+scTYKQM+VtRp7JnS49PKmUqJLqoY0A870Xlx/SCMeSR8TIy1
+	 lvS+Z1EOSdglBe0ArcYTwvWak1V6Ubjq5b6BHhVHMNDoGK0jFWugwZ8Dg3hVWWctM/VYu
+	 ZEWJR3u7Cc1uX8yzyMXSiTAGt3a3AvRD4BIA5UHmuhWrRDoU8xyMtkR/0vWqinsu1Ow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992147;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=aOC42W17EU5SSNPPRauB9nqXAwDytYAProQBIoMXw80=;
+	b=PIWORYs84khaHLMV3/FBbVp/9ObdK2X+6zfbIMcGmLdotHExGfvIgghhY1SJUfGVvh+I
+	 0FSojur+GqYahUzMA1zrHwAlYm3J/Zgu0WrUTPaR6b8Qpdg0tY/fBbvPWWfBTak2dpoTA
+	 WG26qLKELuR5kkRckiOgquySZWVXfok4mIdy/OoSB2pD4kqsv+apaQQ1jT/L9K+hhimHb
+	 DdKS+Js1wUL8OkxHkdcZGeiRuDy1U0vk8W17PIDUSwsBbQRkP0gUiK/6OsYZ1yibHUBE0
+	 JD+QjCvbogZHK+XR6P7HfisZggzMEpRQMIJhNz3WX4QlXX/9dAdAteP2L38gVxFCrfw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EsbygLqL;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448CF606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:08:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 448CF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1884F606A329;
+	Fri,  6 Nov 2026 19:09:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1884F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mGbbdJDI
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qicz+A0lsFUujQmktGTPH+o6pnp4VxQfrOOGu3L5ttfr9otMlmn1djeXGYuUU8OsQsVHVJRV47XXpn3BKlDiXbZIdkI8fJJcSxhOrxHKs/Pw2mwoJ5kQ2EHfZtj0ZJuUU8drvYDUMxYIImtnIpcKRnQqKfxqYjq524bDr+Ni/McIvq5DifLY8vIZ6vJIgaxnpl6/1tp34ZYwzDKSLGgYLTYavO6UZSM9MWv4dbvh8aS2czxEPGDJXqdurJ0aAPkS3R+9ZSPWeBcOFSSONrxYpxkJIpMhIW9WuVIakxuXmVot7mGPppVvgzFEo61Y4dLchm6HbhG9fYC7e7sY/pCuAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dfz06uyEH0WMW48I0eiFiHa5o/v99I/A9YzZqqFlVAg=;
- b=dLGcYQO25xarGp8U69sC7tdtNzJOCP8SyX0hl5ArJmGvRc/GBwN4UHdgow/DLr5FiCLnGnpe8+OAvZ4pRKHMNyrB81D9a+du5JeNyn9SSQPL0ifSqg5BRrvmTSl1akoB6CM8R9yFYX7J5XVH2xRzNW69YqMfk0NkCPSB+2QkCGVejBWJZ4SiIWYj9wqm0UpUjpwEb4Mu1tPopePiI9YD8qX2VU13n/Xb5VS5k64iS6+7Lhv+ePJ6wg+dC3cgMOlRXbe42lr0rp1S/JrbAE627HikT7vkKgYpUENam9B5fQeQgpF+So93wBurd086GGFOX6nNkjkD9QRbO2gRQ6vDXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dfz06uyEH0WMW48I0eiFiHa5o/v99I/A9YzZqqFlVAg=;
- b=mGbbdJDI0DsICsR5cqbqcn1R2WPeae/INCa5MhrDULPJXb55ORoGvIZEQYuaFmSadCvo+mnUsQMm6VQ1/U42heT61/PCqjNGc06j3omiOGUH4R1DnRHtjjNbavmtpypGsBXqAGL+oWZdVezwcY3J5tlOLoAEhM86PN1+EfcK3FA8ULiNqzyoxDmIEu4RjWPy0kS9hpJHS0R2IX1/aMcquSskkrN0r87Uvb/ZrKh6t8vDEbXyfnnoJ05LmNwU/zb3YhWdpATPKjKrTIg/P0uB6FBo6R8tymeLmLhjaTVMwrVxuCroHtvoUOY+0ql9TkFjYEhCILXJWJPimDiibdLsjA==
-Received: from SJ0PR13CA0126.namprd13.prod.outlook.com (2603:10b6:a03:2c6::11)
- by CH1PPF5EBD457EF.namprd12.prod.outlook.com (2603:10b6:61f:fc00::610) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
- 2026 19:08:50 +0000
-Received: from CO1PEPF00018862.namprd02.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::3c) by SJ0PR13CA0126.outlook.office365.com
- (2603:10b6:a03:2c6::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.5 via Frontend Transport; Fri, 6
- Nov 2026 19:08:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CO1PEPF00018862.mail.protection.outlook.com (10.167.249.251) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 19:08:49 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
- 2026 11:08:30 -0800
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
- 2026 11:08:29 -0800
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Fri, 6 Nov 2026 11:08:26 -0800
-Date: Fri, 6 Nov 2026 11:08:23 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
-	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
-	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>
-Subject: Re: [PATCH v9 16/25] iommu/arm-smmu-v3-kvm: Emulate CMDQ for host
-Message-ID: <au4lp8sAnWm3/Sw5@nvidia.com>
-References: <20261015200903.2735565-1-smostafa@google.com>
- <20261015200903.2735565-17-smostafa@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EsbygLqL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793992145;
+	bh=r6VDpg3FAxOwfz4ISFxVWsC4rSt8VUYBM2cnkHmSp+U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=EsbygLqLPWd0rmghvY5UCxhMhDSZWcS5VFmeTbrrpV7uViRl31ScU8dw4/v/oAuCO
+	 cTChOITZ/SIqYTBkqVKnNpUZcq3aYEoDiOz9dMGSImoOsYw9dfcNt6oXy05l7JHx9f
+	 8gM35kyfDF4sghgXyAYrvXgwaf1f6TB97a3UJFkDJPChIbxF24+Qsltaf+bF/Vhqyi
+	 7+sRiFvqROb+M2NxQ8w7rixEFRxgv/V7YzW893/WnDoGTmoe66J8ekeRgNRppcXedH
+	 gJqKDnvycf/t6Axq2D72A+dpN5d5uDWqsy7BvLaKcjukXEPfHdpeoBsxsEzbIVFTSO
+	 w5MFs93Ruhk/Q==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 327CF17E0411;
+	Fri, 06 Nov 2026 20:09:02 +0100 (CET)
+Message-ID: <8f3c80b4b518835e2d8b3da62e84572338657f68.camel@collabora.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: rob.clark@oss.qualcomm.com
+Cc: Robert Mader <robert.mader@collabora.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,  Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Bryan
+ O'Donoghue <bod@kernel.org>,  Stanimir Varbanov
+ <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Jordan Crouse	 <jordan@cosmicpenguin.net>,
+ linux-media@vger.kernel.org, Vikash Garodia	
+ <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
+ <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Date: Fri, 06 Nov 2026 14:09:01 -0500
+In-Reply-To: <CACSVV03Nz=das+fneMqx9UE1Vzps55=_An-DtmufRTxdhv2idw@mail.gmail.com>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+	 <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+	 <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+	 <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
+	 <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
+	 <CACSVV03Nz=das+fneMqx9UE1Vzps55=_An-DtmufRTxdhv2idw@mail.gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-MRU/X/3RbhtvxHzHto3I"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,64 +105,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261015200903.2735565-17-smostafa@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018862:EE_|CH1PPF5EBD457EF:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7806c83-bf3d-48d2-9690-08df3c3963eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|23010399003|10067099003|22082099003|18002099003|261102123227099003|3023799007|56012099006|4143699003|261022075727099003|261021121427099003|11063799006|261021135927099003;
-X-Microsoft-Antispam-Message-Info:
-	VP9Pfj37HmicBiONQto109CWNu33yKdt17W915Dxh6ZsHQt6f9DonCWTbv+7eqFfdziDKzieLJ6APRcKKsmaJs6WwrjeYTnXDIu73mX/zV35cmK9s/D6okNJHMegSxe87QMqSSwBQ30PTblWsLYy8/A34ZsTGYBGLzHbxgcKEB9ZEZb/fmH/kIS04+Q23RXkpRmjgx4U4h32R/+rSRrH/GnvukaN66VTi3cJBgoDPRn8GwOfwwKIG/DhiACBhsVouFuauAeoNzC8rCsXT/K5lhdblD0tVUPYoi5gMQJYrL0/B9wM1pEGPzzAMr5XrXgYrDP0jhrDls9Wv+nwH7gGlO+WJc1dRivubkEfpgjmMAtPbDVFVXjKjtWcsghKd3qDnc3JaDlhatiUU+rpLNhhF2P0C/QCFWYErRbSmBRttfOKB5FVGm/S6y47oebOHqSJFAZmCgrVbHVxrTrh8+L0tQwEeRK0ahnXQ4poOr+RNS/ZKHB6kO9YUp/GQMCmXdls/HJFdN0Q//g2eq9rYr9Ov1sqWMzERT3udzwzjaJsqyHuGTuIkSjgS/cL4IOYmRWJPyBm30QVjNcbZ6Ud/PpbMDHrXxf2AntxXWlPO6sVxmGAcApRnaAl/mps9AufYNWKbId4N3E2uxHZ862kL37ygg4NtGGMgiVVZGA5qvj3oPm6FE6xGz6xWHYDXCzKqlp4sehFuuYyufHLeNlT4r1Rjg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(22082099003)(18002099003)(261102123227099003)(3023799007)(56012099006)(4143699003)(261022075727099003)(261021121427099003)(11063799006)(261021135927099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	K3CC555CfZAZ1lr1l43Xf0v7fmiImH1xAbfqwCVNU66NswQirp7zMMXE1TZ2zREcZt+76MDn1zw4/hCk5licsVk39CI6+pJkp5kGgsaiuDil4SVG1E4KF6o5RfpehFbVUAjyrKnfe1xbqMTFsyN2hsvDjiWuEOmVaBJC/WdjEVD4tmz/DCcDbi2VsI2+3M2TXwyfMfRiHd7q108DUl6Zxipuw5Z7vfvCVIa16l2jsl9f0LJpmYtnspuCHQAUfZ+k2HjK3gfRUQZh4XWtqUM568RJ2g3b21Q+RF5BDCRDmJC2yOQzajrT1UfNOS8NjKIWODbau01yF8JD73zwd0edYmFuebO8ZX4PzTrb/uzlMWMtyJ3gNNStqOpyYgqpt5M0uGioSLrD4xSGwosJLRK0+yFRJJICmw7FqwJKEoeaNIHqyF/shky7BeIEM1WQJueU
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 19:08:49.6095
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7806c83-bf3d-48d2-9690-08df3c3963eb
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00018862.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF5EBD457EF
 
-On Thu, Oct 15, 2026 at 08:08:47PM +0000, Mostafa Saleh wrote:
-> @@ -385,18 +482,51 @@ static bool smmu_dabt_device(struct hyp_arm_smmu_v3_device *smmu,
->  		 */
->  		mask = read_only & ~(IDR0_S2P | IDR0_VMID16 | IDR0_MSI | IDR0_HYP | IDR0_ATS);
->  		break;
-> -	/* Passthrough the register access for bisectability, handled later */
->  	case ARM_SMMU_CMDQ_BASE:
-> +		/*
-> +		 * Although allowed to use smaller size, we rely on the SMMUv3 driver
-> +		 * using 64-bit store instruction for simplicity.
-> +		 */
-> +		if (len != sizeof(u64))
-> +			break;
->  		if (is_write) {
->  			/* Not allowed by the architecture */
->  			if (is_cmdq_enabled(smmu))
+--=-MRU/X/3RbhtvxHzHto3I
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The spec says the register is RO when CMDQEN=0. So, maybe it should
-be allowed by just ignoring the write?
+Le jeudi 05 novembre 2026 =C3=A0 12:52 -0800, Rob Clark a =C3=A9crit=C2=A0:
+> On Thu, Nov 5, 2026 at 12:35=E2=80=AFPM Nicolas Dufresne
+> <nicolas.dufresne@collabora.com> wrote:
+> >=20
+> > Le jeudi 05 novembre 2026 =C3=A0 13:35 +0100, Robert Mader a =C3=A9crit=
+ :
+> > > On 04.11.26 23:11, Rob Clark wrote:
+> > > > On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@=
+collabora.com> wrote:
+> > > > > Nice, very happy to see the series!
+> > > > >=20
+> > > > > On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > > > > > The comment describing the QC10C buffer layout calls it a compr=
+essed
+> > > > > > P010. It is not:
+> > > > > If I'm not mistaken the display engine / the DRM side (including =
+Mesa)
+> > > > > describes it as P010+QCOM_COMPRESSED as well, and so does my pend=
+ing
+> > > > > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> > > > > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wi=
+re that
+> > > > > up everywhere etc. OTOH if we want to keep the DRM side as is, th=
+en the
+> > > > > comment should reflect that, IMO.
+> > > > IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P0=
+10
+> > > > as distinct formats, both with and without UBWC.  I'm not sure if t=
+he
+> > > > same is true on video side but P010+UBWC was never exposed, or if i=
+t
+> > > > truely only supports linear P010 and UBWC TP10.
+> > >=20
+> > > Oh, do I understand you correctly that the P010+UBWC implementation i=
+s
+> > > not compatible with QC10C, meaning on the GPU side (Mesa and display)=
+ we
+> > > don't yet have any support for QC10C exposed to userspace? If that's =
+so
+> > > then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
+> > >=20
+> > > On the plus side - this would allow us to make the format single plan=
+e,
+> > > matching what we get on the V4L2 side.
+> >=20
+> > Since its single plane, we should aim for a variation of
+> > DRM_FORMAT_YUV420_10BIT. Similar to YUV420_10BIT, there is no obvious l=
+inear
+> > single plane packing for that, it would only be there to support the
+> > compression. Or maybe this one is abstract enough to be used anyway?
+>=20
+> Oh, sorry, maybe I was a bit misleading/unclear.   TP10 is still a
+> semi-planar format with a Y and UV plane.  But each of those planes
+> combines UBWC metadata and pixel data.
+>=20
+> Within each plane, the pixel part of the data combines 3 samples in
+> 32b (compared to P010 which is a single sample per 16b.  So not quite
+> the same thing as DRM_FORMAT_YUV420_10BIT.
 
->  	case ARM_SMMU_CMDQ_CONS:
-> +		if (len != sizeof(u32))
-> +			break;
-> +		if (is_write) {
-> +			if (WARN_ON(is_cmdq_enabled(smmu)))
-> +				break;
+I believe DRM_FORMAT_YUV420_10BIT is defined as fully packed, no padding in=
+deed,
+but I'm not sure if it actually matters considering there is no linear
+representation of these. What really matter is that its a single stride/off=
+set
+format, which TP10 is not. I would not mind to see another pair for format,=
+ but
+I just wanted to emphasis about the number of expected strides.
 
-Ditto
+Nicolas
 
-Nicolin
+>=20
+> BR,
+> -R
+>=20
+> > Nicolas
+> >=20
+> > >=20
+> > > >=20
+> > > > BR,
+> > > > -R
+> > > >=20
+> > > > > Best regards,
+> > > > >=20
+> > > > > Robert
+> > > > >=20
+> > > > > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_req=
+uests/8195
+> > > > >=20
+> > > > > > P010 stores each sample in 16 bits, QC10C packs three
+> > > > > > 10-bit samples in each 32-bit word, which is what the stride co=
+mputed
+> > > > > > below (width * 4 / 3) assumes. Name the format correctly.
+> > > > > >=20
+> > > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.=
+com>
+> > > > > > ---
+> > > > > >    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> > > > > >    1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > > >=20
+> > > > > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/d=
+rivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > > index eb8de60c1177..ec2bf2a2d953 100644
+> > > > > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struc=
+t iris_inst *inst)
+> > > > > >=20
+> > > > > >    /*
+> > > > > >     * QC10C:
+> > > > > > - * UBWC-compressed format for P010.
+> > > > > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples p=
+acked in 32 bits.
+> > > > > >     * Contains 4 planes in the following order -
+> > > > > >     * (A) Y_Meta_Plane
+> > > > > >     * (B) Y_UBWC_Plane
+> > > > > >=20
+
+--=-MRU/X/3RbhtvxHzHto3I
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4lzQAKCRDZQZRRKWBy
+9FnqAP49S1oZaKGOY3Hv3ojnOCcc44EO1hORyLd//hdYPKnC3QEA75cJxJYAPQ2S
+4kb8vGbFauZWYlct28W1Lw1n+jFKpgY=
+=RDiY
+-----END PGP SIGNATURE-----
+
+--=-MRU/X/3RbhtvxHzHto3I--
