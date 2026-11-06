@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793992482;
-	b=2EnTzAXPcguMKNC98wu1HZ/rgoCnMj0o3al0x5Vyo/yTTSmEYnUQ+rjuOcdmiMcelPyW
-	 Y6z8oQmMDWoH6RwQen4IMxghSjlYy38UAiUA9oJy6PkxZw2DOy0Osk/7PpQeuzNAMDfT1
-	 gPaxfrzZmXNJdpVLhJfIy1bKrT6WAU7Riel+T6ufIMRv3NTObrzYmvVYFO6it2mFzFhih
-	 0jF0Js7NnO15p2tQrhJimURyBg4erZNO3kyyr7IRDAnm10D04XNckFNR8e/jtfNpt91V2
-	 sQy55hD3dT4aiXfhDhG2MrxizLjtchkQwaU2vDx/qS5IDxxgegAaobkLL8Plx8+WNCw==
+	t=1793992488;
+	b=bQUJ2YowTF2ZUWmiPrqXOACo7Q8CXgxg5iwmIuupKsfpmB5IMuc00vRB9/zI1SdhA2++
+	 aj0G1ehTzVIxFXSQgrNLD6ov3BQCqZ6OFFx6i2LElwcu52HNl4xNKoqNSDmYVSRvop54R
+	 erkkX8H0Yvitg32elPDwtvCGZDS8f8XNJpIVGdYVSNUTtP/iRQq64zY7dM6wMRRZRdQEZ
+	 mQd6JfTJ7uol3BaSdDyTxSTE9J4PlH4A4pbQFMf4DGuufJ/Mz/PnNgJOZ50HfskqBiIQa
+	 Li0NG/f1ce+JeCYthPRTtTPZuP5iLxpdKsN7nm38hmt2cYd9C86bBteMX3kGKwTQvNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793992482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992488;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=kR7S8/i1XKTNJkCLT9lP58PFvpoVq2NqyFukFmYlwWE=;
-	b=1Aq4BPF4smr5ptWJChH7ZuUhqA8yqK3tmu1x5Miq+6djG4nL/Dl9rQNatHJUghiRMOQG
-	 cy+tLqOxw1dNopyyyVs4YdqAS5Df/DgolXQax7rS9piOOq+wpUdDY5bRPGR/N0qVDA9c9
-	 vdNfl80isTcxOmkNr5XE9ioDxkTcAUXevG6/erwquU7K2YZv4H/HiBbeebkvM6Wl0vwlD
-	 1yJEqdRYe1j2w4/Zkj7PweZ/RH8xdV+osJVdmx71scJda/3lZKtzcTma67REgI+/E4b58
-	 lKBcdX7UOE+t+4zAPHiK5iXyTw02XxHaiq7JaV2Ixq2HcHG4uW9Hlie/VGeb+0QODCg==
+	bh=RBHpMRzf0eXM8WBZB8WQfweRMvvNhErIo9L3xk/Va88=;
+	b=4RuMqTjRbUxH3WYC+obiiY5RIHA/pbpupo+84zKEZpc82nreahWfdLu1u6gFxFPdOTO0
+	 9h0NQGnnBazNx0U+hF/xd+pKqsf2cDL5EKWOktl2Q+5C2pk+z+VcmusjBNlBz1uPyocSs
+	 7VtSelvOaYev7zMulN70k2Jso04SIRbB0/nO89LFeO2ur9FpDdGyrwMgsknFmOlvWthp8
+	 /vEHsOmR1RrsjUcMQ2LrJdIh1wI316UA+Iz5qSlpNB7ktyl0UJncg8bShAfL43SLZ6MTI
+	 kbgdyBTgYV5sHTuIXG2ZgdNLheAdu/7jQAqK6QcCXkYwaR+399aCeeHwoT0TRhDjVag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=dama.to;
 	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hueZ5o77;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="r7hGXi/Y";
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2264E606A33B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2264E606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43693606D809
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:14:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43693606D809
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hueZ5o77
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdb628232d2so497351a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:14:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=r7hGXi/Y
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so611595b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:14:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1793992480; x=1794597280; darn=vger.kernel.org;
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1793992487; x=1794597287; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kR7S8/i1XKTNJkCLT9lP58PFvpoVq2NqyFukFmYlwWE=;
-        b=hueZ5o77w0GjbixA9TUefLk/Qk2bmsTihilVYhlQVmeIQl/8hgG39XKrLqIdCQ/Bb/
-         2qRat2cs8sYtcAESSLbzRDghv9hPq/rN7I1Gvo4LP6pnG/WXDO4bOyujeAbl2Zgnfewk
-         Nq0V5ey4fhKgb97cUsks8ewTQaCsKt4qzl/HjHKavifbAaSUbNHKt1wtRP4GiqKnohMy
-         DNcpvFi0hdmbU8RgUSksBbjESGYjOwFCMPpt0BfNQT+UJnDMRRsLppX2uhiavk0cvwm7
-         LBlJRT8pTTWjgtF/x88JKTSFEFOYkx3fA2XGF+/oxAit/WIKGAb3niHt70YnhQVRlzei
-         hj1w==
+        bh=RBHpMRzf0eXM8WBZB8WQfweRMvvNhErIo9L3xk/Va88=;
+        b=r7hGXi/Yh42H1YZYvUGa31LpcwK56AU1OyVWfVwF06XqBTMDtElkNvLVSkeAuPqVSb
+         jduCAyYlfzyArk7AnS7pv5YX8ILHOSkb/vdbLM05MVQKAiTxQ17yN7nZyXPhpfuCZV9c
+         xrw7eQzyAt4cqBtTOsEbsQJDJ4TGxcOvssQhGP0bMELx1smr6iEyFa2cERC6dgNDbeG+
+         0nxnwhUtB5DlrMBeHEWq1yMmzNZcBbn1d5pOq3+DE9ZHsOspqfmHmBHjjPOE7BS7ghyJ
+         PwgE+H7Ei4SVEIdzn3yQps3Kqm269bbhG9UH1KuBTdBdbZPX2qsE5otiqg6z3UxOWsuz
+         dWmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793992480; x=1794597280;
+        d=1e100.net; s=20260707; t=1793992487; x=1794597287;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kR7S8/i1XKTNJkCLT9lP58PFvpoVq2NqyFukFmYlwWE=;
-        b=eaqyl3WK8c99nx3V+EtSPQSZ99fQgR/+o9o3EDnDRW8+E/Hzpqh7xB57BdMKt8ps1c
-         cpo3sMLCqfP3r8NUTuWlekqHDELsJnOI8abN9KH0oiTZd/8bDU1UzdMVCgUHAqVNE0VY
-         6Bbk9K7Qx8ROZFCEqD0llvu3AV0SU04jN6wr4VjX++/ort99ElYa9KPXCTqGrmv3PPZ6
-         RLUwaL2496ake4YaN6h/PuJK18HPS1LYVGpTop2iuc196sG4n+l4XWr+IVAx2Qx1E2Af
-         PVHXrH1KLoA+7FpBdk6HrdRio37XWrfKlf6LsXfFM9q509rsm7u9DCYUglJFGQ9XZPBe
-         Jrzw==
-X-Forwarded-Encrypted: i=1; AL+hErF0e8VrgTuiJUwpQZY9kgfW2tpVL70SHiKxrF6am6jZ+KTh/Zh4LeK3r5//exxWVbUcafJuNue/xEuAZWo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/O6vISjhWyKZIPTvCu3SkJMudnzWUw1MynheFCTEiluQ4gMSu
-	tN+yuFdNHa6kOuH1ca2smvrSm8uqk/nPr/f16Iyf6EBF+Kl1PR6h1Zl8mk27dNfct3A=
-X-Gm-Gg: AYBFou3G4g0LdYOXYhMT6WYk8NAF5EYRVvNYl4FB9M+nuUMCib4MGq9sWTZfFHkrd5d
-	VEkcNvDA6JUFXleGgulf3nR1cDs2peGrQP09zhV2QoIZ6Zehp/FXc8oHg922T6y1JdFM8oS0buy
-	Ml/S8/LW8JGQ3cIw9O+jNV+AryXOD0uiOEs++eMu7ob2ZISQ5vzatsMR0Dlcd5ezbhHlLHO8AWF
-	Rb1Kxo4fXc5UbhFBG+BT1PglKjDltxov+fgkBQEBVv7im8UEp41n/fC+BkgH5a9/sy2X4GQkpDY
-	dNfFKzA/laFnxEnLQ3OPFD4hutxLb5QZJfQdaGJtahRVdIwLAwbrat5hYIr7r7JPpBnyDgGeyuk
-	R27SQHlo7N6qsemQkEmHjW0pI+lLukS5XdwiWrWzSYWPIllU1KG+w+tiqcRX5N8z5OooJ8UK0vx
-	YymzUpfktasQomjFEvKq8bnvCBHkl3AOdgqTecQ8FCwig5z7sx8jmpjZ3ih5TJX8bxADlocCKzV
-	4zWVrIPnCaO8FC3ZfEvQ6FPUJ7aqSLU4HAOIeNOCXYYiSCsgltQtIisJ533RMUTE2OQ1AIyqtbB
-	R23zF69Cjk20dJ+2tBHEsu5R/ygu2qkybntFZqWoia0=
-X-Received: by 2002:a17:90b:2650:b0:3ab:36c4:b500 with SMTP id 98e67ed59e1d1-3b0db6058fbmr3536892a91.5.1793992480508;
-        Fri, 06 Nov 2026 11:14:40 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:5e::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105854fa9sm77446a91.15.2026.11.06.11.14.39
+        bh=RBHpMRzf0eXM8WBZB8WQfweRMvvNhErIo9L3xk/Va88=;
+        b=OI8/Ydj4Jhbx8Hrk3zSiibDu8h8Lo2/A5N3bfPyJ5X5/vrq4Akeo8IwU5aWZYxkaMm
+         M1UbRn1NFSBtn60cWtta0BHwv2WpntG67/UEx5+pDdC1rLMl9+ICZlD/CPL2JKNkUyPt
+         54syrmt10Qo82H4dyLGSKVHdmEBSKGMygo635aEnHj+Zamxy/yC6SyuhY2neSqdzXvdc
+         RN4dv1W2LE7zA6aUbFR9Tq2/qlFJzOlz7wun5m/gljgprZLLpNjn1G8Ckpa3R+MwRq9h
+         c0hZS5T0yP8LzpMIX+oChHqs/Cybb6rpIITKppAsyGV0uBNwtdPN0WEju2iYg2Rc2QuQ
+         veIg==
+X-Forwarded-Encrypted: i=1; AKwUvBygFmz7xXkb+FNOQSYCQHxWAd4UvQEY0/d5Xu9sqV3xSm00AkLtK0wJKZ+8XTptKEYwp3tgG6ooNJXXdIQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MJft0LCUbwG0e4FyjNw2syc0Go5WabfqTK7uaR1tuj4wejarE
+	/7NXDEDgsYUvOpqE+gcLLnAsFgjBQTroaqMHooD97p3J/8vpujAHG7LHcCbPolouUfs=
+X-Gm-Gg: AYBFou3blhkRzLAJDsdu+CkiAZXp9cKd8ybsxlAt7PHFDzNtcqXCc/YLlysCWsBuvFv
+	cOp2vNC/vSPXJwfDbqiBwgicpid1gfGpLai9he0LbxMssjMTQFIBw8oM5GX5tIDmzNPiHv2dw51
+	NcWjuEohqsYJAUOUCf2faMXafi93xML7JhgbOm7+s/IHehrIowyr9Zik3Y+3bc4m3B+6bisJIyu
+	Nsw8ZggTcbi7RHTy9E4QbwlXvSWTKiJDsz/DwNRZuXqLBgC4JJqfPFreXZ19KSEnoKXDnNrwwNp
+	vSP8RpViqH1pYEL36VDhrp3oMytaIlqZL3PzKa+ALTg7AfXMFqkc7OQ6uOMzoQ0xHbwznIhNFrV
+	1MELESNSz5WWFWgsVPfBcGfcRXH/azIop0wnZ+/mHuqYGmugBLRL9s1LFP6500DG98RyQoXzYKh
+	eq0vzx8/A93vHgjtPvl/lil+R3JlT0T1yFF9jQiCuu6Ps+6L2O8jXKhpzkqtyyGpBxhxqClKOci
+	mjnoaAKwbEZaDtWfhDRf6ajyAIyxFNWE2q2rE4Y31nAQmtX6v1nah/J0tEH84xSKD0c6cFSNthl
+	lBIIZXc1mHyz64FdV+qN6OV4KreJDkf2gEQz4DcfSg2Hc0N2Y/yVRAWd64/Eou3E
+X-Received: by 2002:a05:6a00:3a18:b0:880:b709:cefb with SMTP id d2e1a72fcca58-8b37bf4f837mr3321843b3a.45.1793992487685;
+        Fri, 06 Nov 2026 11:14:47 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:73::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b356c287a8sm936695b3a.3.2026.11.06.11.14.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 11:14:40 -0800 (PST)
+        Fri, 06 Nov 2026 11:14:47 -0800 (PST)
 From: Joe Damato <joe@dama.to>
 To: netdev@vger.kernel.org,
 	Michael Chan <michael.chan@broadcom.com>,
@@ -92,9 +92,9 @@ Cc: edumazet@google.com,
 	horms@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Joe Damato <joe@dama.to>
-Subject: [PATCH net v5 1/4] bnxt_en: return the RING_FREE status to callers
-Date: Fri,  6 Nov 2026 11:14:17 -0800
-Message-ID: <20261106191423.4194081-2-joe@dama.to>
+Subject: [PATCH net v5 4/4] bnxt_en: refuse to open a device with stopped DMA
+Date: Fri,  6 Nov 2026 11:14:20 -0800
+Message-ID: <20261106191423.4194081-5-joe@dama.to>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106191423.4194081-1-joe@dama.to>
 References: <20261106191423.4194081-1-joe@dama.to>
@@ -109,116 +109,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hwrm_ring_free_send_msg() reports failure to its caller, returning -EIO
-when the firmware rejects HWRM_RING_FREE or never answers it. All three
-ring free helpers that send the command discard the value.
+Add BNXT_STATE_DMA_STOPPED and set it in bnxt_stop_dma() to signal that
+the device had DMA disabled. When opening the device later, check this
+bit and exit with an error.
 
-Return it instead. No caller acts on it yet, so there is no functional
-change.
+This is a very rare case, but when it happens the device needs manual
+intervention by the user to become usable again.
 
 Fixes: 74608fc98d28 ("bnxt_en: Ring free response from close path should use completion ring")
 Signed-off-by: Joe Damato <joe@dama.to>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 48 +++++++++++++----------
- 1 file changed, 27 insertions(+), 21 deletions(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 26 ++++++++++++++++++++---
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h |  1 +
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index 33c4cacc8ffe..ea8529c78994 100644
+index b5ef86bf92bf..eb885fd74064 100644
 --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
 +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -7679,50 +7679,55 @@ static int hwrm_ring_free_send_msg(struct bnxt *bp,
- 	return 0;
+@@ -7833,9 +7833,20 @@ static void bnxt_stop_dma(struct bnxt *bp)
+ {
+ 	netdev_err(bp->dev,
+ 		   "Disabling DMA before releasing ring memory, the driver must be rebound to recover\n");
++	set_bit(BNXT_STATE_DMA_STOPPED, &bp->state);
+ 	pci_clear_master(bp->pdev);
  }
  
--static void bnxt_hwrm_tx_ring_free(struct bnxt *bp,
--				   struct bnxt_tx_ring_info *txr,
--				   bool close_path)
-+static int bnxt_hwrm_tx_ring_free(struct bnxt *bp,
-+				  struct bnxt_tx_ring_info *txr,
-+				  bool close_path)
++static int bnxt_check_dma_stopped(struct bnxt *bp)
++{
++	if (!test_bit(BNXT_STATE_DMA_STOPPED, &bp->state))
++		return 0;
++
++	netdev_err(bp->dev,
++		   "DMA was disabled after the firmware failed to free rings, rebind the driver to recover\n");
++	return -ENODEV;
++}
++
+ static int __bnxt_trim_rings(struct bnxt *bp, int *rx, int *tx, int max,
+ 			     bool shared);
+ static int bnxt_trim_rings(struct bnxt *bp, int *rx, int *tx, int max,
+@@ -13426,9 +13437,10 @@ static int __bnxt_open_nic(struct bnxt *bp, bool irq_re_init, bool link_re_init)
+ 
+ int bnxt_open_nic(struct bnxt *bp, bool irq_re_init, bool link_re_init)
  {
- 	struct bnxt_ring_struct *ring = &txr->tx_ring_struct;
- 	u32 cmpl_ring_id;
+-	int rc = 0;
 +	int rc;
  
- 	if (ring->fw_ring_id == INVALID_HW_RING_ID)
--		return;
-+		return 0;
- 
- 	cmpl_ring_id = close_path ? bnxt_cp_ring_for_tx(bp, txr) :
- 		       INVALID_HW_RING_ID;
--	hwrm_ring_free_send_msg(bp, ring, RING_FREE_REQ_RING_TYPE_TX,
--				cmpl_ring_id);
-+	rc = hwrm_ring_free_send_msg(bp, ring, RING_FREE_REQ_RING_TYPE_TX,
-+				     cmpl_ring_id);
- 	ring->fw_ring_id = INVALID_HW_RING_ID;
-+	return rc;
- }
- 
--static void bnxt_hwrm_rx_ring_free(struct bnxt *bp,
--				   struct bnxt_rx_ring_info *rxr,
--				   bool close_path)
-+static int bnxt_hwrm_rx_ring_free(struct bnxt *bp,
-+				  struct bnxt_rx_ring_info *rxr,
-+				  bool close_path)
+-	if (test_bit(BNXT_STATE_ABORT_ERR, &bp->state))
++	rc = bnxt_check_dma_stopped(bp);
++	if (!rc && test_bit(BNXT_STATE_ABORT_ERR, &bp->state))
+ 		rc = -EIO;
+ 	if (!rc)
+ 		rc = __bnxt_open_nic(bp, irq_re_init, link_re_init);
+@@ -13445,7 +13457,11 @@ int bnxt_open_nic(struct bnxt *bp, bool irq_re_init, bool link_re_init)
+  */
+ int bnxt_half_open_nic(struct bnxt *bp)
  {
- 	struct bnxt_ring_struct *ring = &rxr->rx_ring_struct;
- 	u32 grp_idx = rxr->bnapi->index;
- 	u32 cmpl_ring_id;
+-	int rc = 0;
 +	int rc;
++
++	rc = bnxt_check_dma_stopped(bp);
++	if (rc)
++		goto half_open_err;
  
- 	if (ring->fw_ring_id == INVALID_HW_RING_ID)
--		return;
-+		return 0;
+ 	if (test_bit(BNXT_STATE_ABORT_ERR, &bp->state)) {
+ 		netdev_err(bp->dev, "A previous firmware reset has not completed, aborting half open\n");
+@@ -13505,6 +13521,10 @@ static int bnxt_open(struct net_device *dev)
+ 	struct bnxt *bp = netdev_priv(dev);
+ 	int rc;
  
- 	cmpl_ring_id = bnxt_cp_ring_for_rx(bp, rxr);
--	hwrm_ring_free_send_msg(bp, ring,
--				RING_FREE_REQ_RING_TYPE_RX,
--				close_path ? cmpl_ring_id :
--				INVALID_HW_RING_ID);
-+	rc = hwrm_ring_free_send_msg(bp, ring,
-+				     RING_FREE_REQ_RING_TYPE_RX,
-+				     close_path ? cmpl_ring_id :
-+				     INVALID_HW_RING_ID);
- 	ring->fw_ring_id = INVALID_HW_RING_ID;
- 	bp->grp_info[grp_idx].rx_fw_ring_id = INVALID_HW_RING_ID;
-+	return rc;
- }
++	rc = bnxt_check_dma_stopped(bp);
++	if (rc)
++		return rc;
++
+ 	if (test_bit(BNXT_STATE_ABORT_ERR, &bp->state)) {
+ 		rc = bnxt_reinit_after_abort(bp);
+ 		if (rc) {
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+index 41d05efd6307..7e65b61b6bf8 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+@@ -2474,6 +2474,7 @@ struct bnxt {
+ #define BNXT_STATE_FW_NON_FATAL_COND	13
+ #define BNXT_STATE_FW_ACTIVATE_RESET	14
+ #define BNXT_STATE_HALF_OPEN		15	/* For offline ethtool tests */
++#define BNXT_STATE_DMA_STOPPED		16
  
--static void bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
--				       struct bnxt_rx_ring_info *rxr,
--				       bool close_path)
-+static int bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
-+				      struct bnxt_rx_ring_info *rxr,
-+				      bool close_path)
- {
- 	struct bnxt_ring_struct *ring = &rxr->rx_agg_ring_struct;
- 	u32 grp_idx = rxr->bnapi->index;
- 	u32 type, cmpl_ring_id;
-+	int rc;
- 
- 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS)
- 		type = RING_FREE_REQ_RING_TYPE_RX_AGG;
-@@ -7730,14 +7735,15 @@ static void bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
- 		type = RING_FREE_REQ_RING_TYPE_RX;
- 
- 	if (ring->fw_ring_id == INVALID_HW_RING_ID)
--		return;
-+		return 0;
- 
- 	cmpl_ring_id = bnxt_cp_ring_for_rx(bp, rxr);
--	hwrm_ring_free_send_msg(bp, ring, type,
--				close_path ? cmpl_ring_id :
--				INVALID_HW_RING_ID);
-+	rc = hwrm_ring_free_send_msg(bp, ring, type,
-+				     close_path ? cmpl_ring_id :
-+				     INVALID_HW_RING_ID);
- 	ring->fw_ring_id = INVALID_HW_RING_ID;
- 	bp->grp_info[grp_idx].agg_fw_ring_id = INVALID_HW_RING_ID;
-+	return rc;
- }
- 
- static void bnxt_hwrm_cp_ring_free(struct bnxt *bp,
+ #define BNXT_NO_FW_ACCESS(bp)					\
+ 	(test_bit(BNXT_STATE_FW_FATAL_COND, &(bp)->state) ||	\
 -- 
 2.53.0-Meta
 
