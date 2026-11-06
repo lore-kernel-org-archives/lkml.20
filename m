@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929833;
-	b=yS9VtpBu5OdRbBPaGGolnP1RimL06D370tdMRA/9plvXZUL+JcXDY2X1IumJ/rQD57YB
-	 19tgWUi6bmOGxGj2gfhoGgJryScsRqRbbniSUIr2km5k8O3NA4LldjZ8pd+vhxw4vwQP/
-	 xQjfsT8W0iz83dd/VPP0Nq7J2Gs6hwp8SesqCMmw9U1qq/D3nUks4dxZ6QVdg/aFYGdTv
-	 ChOiJQjgXtb7UGAtnVcH/gICxvUCWZ8xx8AX7H95yhemWrIZqb5dwB5Jc7+RHpiHzBho5
-	 Y5cyq26FUY2nFUXEHSDojhb0i0t6x8aMqKJwccdVL5QMUTFBAoMZUosjjGw18xlVTKw==
+	t=1793929834;
+	b=BIDn27ULQYEX1wuKXYeW6/yPAQTidXmg5jSm9o1fDrGeGzwwVcncFJojanw5nhpvRKGD
+	 BUZNm/fL/wzz31YGgBuQbqCyHOSsdluTkjXIHKZd4xwOP6d3tAJuvSoDBVhsmZx57MfLz
+	 Q0cr9FpHJcvBmsR7KVh2FbEocRWihEfs8/UZnUtzoNeHKZ5vvHmyUG9fjX59uiFkuDm1o
+	 E9sdjrHbjQAbSUgm7UCu6BSnaJ091vIpgwi8+OwQg1Y584Ch4BF8L0nJgBiPlmbFsrO6/
+	 QHcUDWQTRLVXlCjSJqqgGDFcdBP30ZYhQNa7H/TChLnwXdEKuhscOuvUQOuFw+nQCNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929834;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=RAewxd9+PEcCdF8Fwg2UTOtSDMqmFi0KIUl9u9FAQBw=;
-	b=3T6Ab9EBlfflnz3cMvxlN+7c4E1KRh8zDinIu94jvUoPZalcQw/oG1tABNunB9JOjLl2
-	 PcbBdL+uHyYfLBXWz/4BIAEH9w5zin1fJYWCaBrtEWI/daoIvLLk2gmCbnH/ZZGN1wI0Y
-	 n9DryOhzK2e88mkiapNV0ThXNpRZqGwG8nBaufCJkXlqRXphGsr0kik3YI/YRhadQ7+hO
-	 D7ydXhFJsjpuozsw86rcBNoPndFblVCrgodVQfYr+VXe8o35g4CrdZ7dOkKDzIlMLeztZ
-	 ePlYOiWd0xWyXQxLo3phe+LVn07PmnqgS3U3UwYh5JEYA2NBDMOHPp+JqfaSa1UhpLQ==
+	bh=L0P/AIwyg9rrBt9AKpocPfHXt7KBUvl+jRY4OOml8XM=;
+	b=K0EisTNjQ0OieE3fWB/UnLTrxwVTDaYnk/AT39T61DX8I2lQpdu45aL374JssLCFQ3Jd
+	 ccRloMEv8+G7lpReXZBw/HnW0e3xJuc2BL39cMIEjUq/I+a+Aeh0NECIpfX9/bbnffqux
+	 AJb0KUpD2haZvqF/T++CiCE4aq4AAoBeQ5El/liEUQLs7Hm7zF6krXsasoNATkB5gExYY
+	 pgb4bL39kVJy/kDJXrmQ1JaVAFSEvqMgkzFgqoY2lv9rhYTRsme2hpqTtShzVnfMCXF2g
+	 aUG27sqaCorgtzTLBNCmbHuTs71y3hKBE9AiM+5wvUjmX5wHTcgUjbK93z/vneWzYHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HYRzI7OI;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AIry+6yZ;
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D03C606A329;
-	Fri,  6 Nov 2026 01:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D03C606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C09B606A333;
+	Fri,  6 Nov 2026 01:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C09B606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HYRzI7OI
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AIry+6yZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929832; x=1825465832;
+  t=1793929833; x=1825465833;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=4qYcfZuBzVUeYYmLj7ixMFnAtydAwbCLFI3fsIcxRas=;
-  b=HYRzI7OIg+J8RnSKlVdiQHQcTqRwFbw6yvXNGUkLVibAQmBklHQfujqg
-   KEc1PPx68HErnXZKBE2sDrz6x8Jn5nFcpzmUj5QtA8MlCzRZ89GnjQx+n
-   EhUK0cGHan0McTJpJ9S961Hx5ZrVs2cZ10EwvsPNBGZ9ong0ethreiGHq
-   B06zEH1NXXxJRj1cpCF0MlLb3rsR7WJG5GcY17kwK5Z1bcIiwmh3YvB+a
-   n6zJrnyTh22qel7Lh3xP7dzDkpXN6IAmUn3Mm/5aczcf+iOL1OhXkZDPb
-   y4d/YH0l4ctTrjWGLEnWef0H1t+xOlaPoDILlHiPXHbufhF/RCGI3h+H8
-   A==;
-X-CSE-ConnectionGUID: btE+kVDHTV6a9Ro5y98zkQ==
-X-CSE-MsgGUID: J/TtIeubQ8+a54lEB90/dQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740114"
+  bh=YVWLUKG8MIL2NJqzRY3H8YrX8VQ+HZA6G2J6gkJ601Y=;
+  b=AIry+6yZZB7PZ0e1A7Vv+B68orPZAzNFN+puf8+0BkdPWvQQ4bjV/gF+
+   7xTblFjzGA+VQnQcEi6Z64hmFvgRMKVYAa5ohNFw1PEJSRPDw6kE7pd3T
+   rTzdeBnO7hIiAOEmgAS1Sob2F2w+iFgBjw9yd+vxCKlEuBmDJM9KPYIf0
+   2AY7xABQXpeRwMTqLAJo/663hHPsO4w0yKYa1cqg8eLKNr/xnSaAyFKPV
+   oEToQpYcqnMiq9Fb35P0aS4oebQvTPhrTUTgQ2fYRSkLWsHKyeYpYc+5M
+   4eUYUCejt9ZpL/ydXF+FS4RStb2cUDW730Rd1EcpR3AUbL25rq+S80Zlz
+   Q==;
+X-CSE-ConnectionGUID: RhDwWQpGS9CP+gVW9Rrt/A==
+X-CSE-MsgGUID: 7rQd1Ub8SB2BhV4MMqemtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740136"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740114"
+   d="scan'208";a="2740136"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:30 -0800
-X-CSE-ConnectionGUID: qDT5Ui0oQwWBqHOrgQfwIQ==
-X-CSE-MsgGUID: IKXhFjEEQou2kBHm94JBxQ==
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
+X-CSE-ConnectionGUID: 0SAgthxxS5Sw0qH2rADziw==
+X-CSE-MsgGUID: fVX0xJHuTdyL6t3qoPqkQg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067167"
+   d="scan'208";a="7067181"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:30 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
 From: Zide Chen <zide.chen@intel.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 01/18] KVM: x86/pmu: Remove redundant Perf Global Status MSR bit definitions
-Date: Thu,  5 Nov 2026 18:39:10 -0700
-Message-ID: <20261106013927.166209-2-zide.chen@intel.com>
+Subject: [PATCH v3 06/18] KVM: x86/pmu: Expose kvm_host_pmu to vendor modules
+Date: Thu,  5 Nov 2026 18:39:15 -0700
+Message-ID: <20261106013927.166209-7-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
 References: <20261106013927.166209-1-zide.chen@intel.com>
@@ -94,82 +94,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IA32_PERF_GLOBAL_STATUS and its SET/RESET counterparts share bit
-definitions with perf_event.h, which is the canonical home for Intel
-PMU bit definitions (e.g., PERFEVTSEL, FIXED_CTR_CTRL, GLOBAL_STATUS).
-Drop the duplicate definitions from msr-index.h and update KVM code to
-use the macros from perf_event.h.
+kvm_host_pmu holds the unadulterated host PMU capabilities, which
+can be used to compare against guest capabilities to determine whether
+certain MSRs should be intercepted by KVM.
 
-Drop the comment as well, since the macros now match the MSR
-naming.
+Exposing it directly avoids the need to introduce per-field accessors,
+which would add boilerplate without hiding any implementation detail
+worth encapsulating.
 
-No functional change intended.
+Opportunistically, fix typo "Unadultered" in the comment.
 
 Signed-off-by: Zide Chen <zide.chen@intel.com>
 Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 Reviewed-by: Jim Mattson <jmattson@google.com>
 ---
- arch/x86/include/asm/msr-index.h |  8 --------
- arch/x86/kvm/vmx/pmu_intel.c     | 11 ++---------
- arch/x86/kvm/vmx/vmx.c           |  2 +-
- 3 files changed, 3 insertions(+), 18 deletions(-)
+ arch/x86/kvm/pmu.c | 5 +++--
+ arch/x86/kvm/pmu.h | 1 +
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-index 3a8e51a0c9e8..30cd04c0ace9 100644
---- a/arch/x86/include/asm/msr-index.h
-+++ b/arch/x86/include/asm/msr-index.h
-@@ -1245,14 +1245,6 @@
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index 6cd67f044b6e..b9c493c6db48 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -27,8 +27,9 @@
+ /* This is enough to filter the vast majority of currently defined events. */
+ #define KVM_PMU_EVENT_FILTER_MAX_EVENTS 300
  
- #define MSR_PERF_METRICS		0x00000329
+-/* Unadultered PMU capabilities of the host, i.e. of hardware. */
+-static struct x86_pmu_capability __read_mostly kvm_host_pmu;
++/* Unadulterated PMU capabilities of the host, i.e. of hardware. */
++struct x86_pmu_capability __read_mostly kvm_host_pmu;
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_host_pmu);
  
--/* PERF_GLOBAL_OVF_CTL bits */
--#define MSR_CORE_PERF_GLOBAL_OVF_CTRL_TRACE_TOPA_PMI_BIT	55
--#define MSR_CORE_PERF_GLOBAL_OVF_CTRL_TRACE_TOPA_PMI		(1ULL << MSR_CORE_PERF_GLOBAL_OVF_CTRL_TRACE_TOPA_PMI_BIT)
--#define MSR_CORE_PERF_GLOBAL_OVF_CTRL_OVF_BUF_BIT		62
--#define MSR_CORE_PERF_GLOBAL_OVF_CTRL_OVF_BUF			(1ULL <<  MSR_CORE_PERF_GLOBAL_OVF_CTRL_OVF_BUF_BIT)
--#define MSR_CORE_PERF_GLOBAL_OVF_CTRL_COND_CHGD_BIT		63
--#define MSR_CORE_PERF_GLOBAL_OVF_CTRL_COND_CHGD			(1ULL << MSR_CORE_PERF_GLOBAL_OVF_CTRL_COND_CHGD_BIT)
--
- /* Geode defined MSRs */
- #define MSR_GEODE_BUSCONT_CONF0		0x00001900
- 
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 70a8c4816135..36d91215f42a 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -579,17 +579,10 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 			 ((BIT_ULL(pmu->nr_arch_fixed_counters) - 1) << KVM_FIXED_PMC_BASE_IDX));
- 	pmu->global_ctrl_rsvd = counter_rsvd;
- 
--	/*
--	 * GLOBAL_STATUS and GLOBAL_OVF_CONTROL (a.k.a. GLOBAL_STATUS_RESET)
--	 * share reserved bit definitions.  The kernel just happens to use
--	 * OVF_CTRL for the names.
--	 */
- 	pmu->global_status_rsvd = pmu->global_ctrl_rsvd
--			& ~(MSR_CORE_PERF_GLOBAL_OVF_CTRL_OVF_BUF |
--			    MSR_CORE_PERF_GLOBAL_OVF_CTRL_COND_CHGD);
-+			& ~(GLOBAL_STATUS_BUFFER_OVF | GLOBAL_STATUS_COND_CHG);
- 	if (vmx_pt_mode_is_host_guest())
--		pmu->global_status_rsvd &=
--				~MSR_CORE_PERF_GLOBAL_OVF_CTRL_TRACE_TOPA_PMI;
-+		pmu->global_status_rsvd &= ~GLOBAL_STATUS_TRACE_TOPAPMI;
- 
- 	if (perf_capabilities & PERF_CAP_PEBS_FORMAT) {
- 		if (perf_capabilities & PERF_CAP_PEBS_BASELINE) {
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index b341af4c6057..efde96e15533 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -8477,7 +8477,7 @@ static unsigned int vmx_handle_intel_pt_intr(void)
- 		return 0;
- 
- 	kvm_make_request(KVM_REQ_PMI, vcpu);
--	__set_bit(MSR_CORE_PERF_GLOBAL_OVF_CTRL_TRACE_TOPA_PMI_BIT,
-+	__set_bit(GLOBAL_STATUS_TRACE_TOPAPMI_BIT,
- 		  (unsigned long *)&vcpu->arch.pmu.global_status);
- 	return 1;
+ /* KVM's PMU capabilities, i.e. the intersection of KVM and hardware support. */
+ struct x86_pmu_capability __read_mostly kvm_pmu_cap;
+diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
+index 016935c3a8ec..98e6f2443b82 100644
+--- a/arch/x86/kvm/pmu.h
++++ b/arch/x86/kvm/pmu.h
+@@ -252,6 +252,7 @@ static inline bool pmc_is_locally_enabled(struct kvm_pmc *pmc)
+ 	return !kvm_pmu_call(pmc_is_disabled_in_current_mode)(pmc);
  }
+ 
++extern struct x86_pmu_capability kvm_host_pmu;
+ extern struct x86_pmu_capability kvm_pmu_cap;
+ 
+ void kvm_init_pmu_capability(struct kvm_pmu_ops *pmu_ops);
 -- 
 2.56.0
 
