@@ -1,116 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975962;
-	b=uKvrKXVy/Kn/TD8KVYj5R6rNyBUjRoeAeTFyZ3vcA7+eNMKnYs6JyX32PLjNqKpRbOGG
-	 21SfNF6v+RLn2D0vKnBjUYpHsXth79T2djTkHvfVgmSO5/x4R3Q90QkGLc0pcuDFD0jH8
-	 5WnD7Twf6Ege99XObd8Ilv4fQlKjmS8wzxbiW6vD6pSAAAfZK/cFyw0cjzBfJh5CLvov+
-	 RpN+EwBAr+qY5oQd3ILn11Ev1LNd4P/S7c6dsmCELfpDHBECn6rXLurklE9M0yP7tRAtL
-	 aguZkRyBDEjPL6FuChkgNaHLNApUKzuiCC0Etrfu40IJGCPFl23rr7g7SjXKDh4VOYw==
+	t=1793975980;
+	b=on+018BkEgFzy8gWQGnH4NuOpp6UShX5+fuoxg4WYsLEM5eRfSOJzxmO0omr0vWDnIhU
+	 KAhUoPvRooJL8bg9RUgThWUiy82AhYBq/1tFyXZBXrli2AqcgH8NaTA7PiOgwiUSb2lxM
+	 Pr/mCXnXK/de0+Vk7ezys5QSpkaYKLEzNj1CFqQ/px5ZkePk9AfkQtHFYutBxXbeDdkp9
+	 mv5/bULHhK4vqq4W9rcBwLtVnu8e0h6BrQb9DHj/REzpYRv7dsO6Z78zrOOvz2equJDdP
+	 7bhXsD7C0ycrNL/9ZfBo2y2cb7yP8JaeAS6NEzwgQsd/9u8IIZhQajpQ84SKiBxHTTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975962;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8NLwtf7QYxfGCOsBeRSPlOa0BaKLAPm2183RpOle/E0=;
-	b=xUcFGJWJ6th/bWXyoXIR6lsJMnrCSRZBFxoHbi94VD4t3gSho4D9uv7rr71My+wfrI7W
-	 uTLBNuqDbuw1fnNENcPk70Ojx1+ne4/v4m0c9rnk7rx98fqhKW6U9ULKs6fiyrj+5favI
-	 foi2WEE1952mpdlGSbV2RaKDICys8mPclAFO2pfIpS84tIJ/dbOPMc2/AW9wxBfCG59ol
-	 +y5RfPQlUT3LFoV555OkYR7vZ/rpip5FExAnlMZbMuMRJQPqW1U91muNQeb8II+n3f8cn
-	 +ykvwKNt6IUxrOMvEeCGuA8UqU61TYVWgbnc7o2qCaEnijhCaVD9Ke5letHxDVJgUJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975980;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uby/azzGeVUPOBj9cIS7TzhQ50RQ5+dHAaKVnGJvY20=;
+	b=Eb/SsiYH+PmjO/Az6vcTX3iiU3Ze/pTkn5Yj5KnzozNnLxQ7VpxE3SZBJVuQIOCKxpWm
+	 p7m8QOfD4dICnpzfXZ7WgGYxqSWZBs+hjk0W3HNokd3D1jxK1RIhGKjIsazPcy73VdIql
+	 JlMwO9AeihgXBrhGz1K36u6Jfr1NH9HlBuPgO/aYY8ofsPtOXPjeDG0ZnaVWR1Vvle/5l
+	 OyCEy5Qu+SSIbjCv0qqd07uFPw+euM0QWaLMDJWdbZwjU7bfUhcNYmTDzOq0hrza/ZU/D
+	 Xe7d7sMlwmvy6p0NWIv5JEHFZp7v2Lpr0s1K+JfHIMi5+IYFSTAiZaY0rs3hTzivMbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZHJEv0gv;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="fAM6/AAk";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZMHM6gXx;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028B2606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:39:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 028B2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60516606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:39:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60516606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZHJEv0gv;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=fAM6/AAk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793975960;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8NLwtf7QYxfGCOsBeRSPlOa0BaKLAPm2183RpOle/E0=;
-	b=ZHJEv0gvhofCKl461vRZfyoKikUtoEcNqowg0jdxpQTd9zOlJqt5iI+82M4R0x5n5kPUmf
-	xFyLQr6xxdwjm1CBsxGgbpppGPVewLrRv1JxFWsb8evK7/7TiccMoICZ6JPbPkWww+cIYn
-	AO+GXjq8iiKe6phlB0yYcP75OCYuyf4=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-539-pp4LL30BP96z5BdElPoCtw-1; Fri, 06 Nov 2026 09:39:19 -0500
-X-MC-Unique: pp4LL30BP96z5BdElPoCtw-1
-X-Mimecast-MFC-AGG-ID: pp4LL30BP96z5BdElPoCtw_1793975958
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4916bd6e3baso766845f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:39:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZMHM6gXx
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33fb4680717so1320381eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:39:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793975958; x=1794580758; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8NLwtf7QYxfGCOsBeRSPlOa0BaKLAPm2183RpOle/E0=;
-        b=fAM6/AAkZexi9ShT4PKSlVPSFrda+suPwTL5oZMjGDK2hGpPJqgPhlNRy+RYpqjkWf
-         2JMG4IMJl2M34C7L+thWdoURU0kuca/K0IMjZjFfojQT/a6pFbyX1N9e3RnoJBusoB7Z
-         4taG5137kJT944e02AtliUekeg5HaJ35thqj769B8rtEN48zv+io8HuVV4XNq/K2CQhE
-         YP2VXsnMhq4HWxMdmwfFEkKQLJcWGXoktxmXYwTQLbsfHInpUhQmv2P/Lse9pSAfgr7A
-         04i2/9jlTNS6LJlIdG1S9VvJMWEUTLA5VDg0VDhUs6UrhtJNJiRaA+t+SiiOfd9gPS22
-         lzSQ==
+        d=gmail.com; s=20260707; t=1793975979; x=1794580779; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uby/azzGeVUPOBj9cIS7TzhQ50RQ5+dHAaKVnGJvY20=;
+        b=ZMHM6gXxRODvX0c9H3q8RpqsUMvpaIdJ2sh1WlzcrOw3qSB7vyD7tfmrqNNlv2cbEn
+         JUvEUVgo/sIxUwBd0Dvezlq0F0ncY1aHpV03WmLIfm4lbLtI/GWKrU2Swy0c/jkEXnMl
+         /fZo70YLyrv73twujbTgNVFTRsmmM1Je3ggjG7bjWc/ZAtCkNh8fG1HrZZ2cWbRKB2Np
+         fiKTl9FIyFGf6eIYp6BGSsNZxU/SXosLZgpM6ty1F6EjTH2DZiP+RyZmjLc3zWDqq6O5
+         xKL8RdeVKDbUO+HLUcfdMF2PjPM6aE/QOLyWvsuQAaBoU86DRh9YmN81H3rOHHcdOu77
+         NhmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793975958; x=1794580758;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8NLwtf7QYxfGCOsBeRSPlOa0BaKLAPm2183RpOle/E0=;
-        b=0wDMmvGmVJF9xuid7Opo40EIYylibOoSHSePQh7entRkU20hvNg8knO2+xPE3za7k8
-         HKtOWJ9C6BcpI18weWwdffEv9Ba8LluGfeoamDJeiq6EmTEjQLQB0g78CHpDzAKHAXSf
-         a1L/QaRVEj5iqnYwrYePTMLEh23oDPaYjEbQBSFElXPMUZhPKlxyZK8S9UolQ0sdeLhu
-         5KnAKG6y1xVuV/AfHJt9G4ByWEfyE3/cZat+qY0yf9oDjjYj0UKcz421e2DhgHWiciEa
-         rmSzEuIYt0/3Zmhr0np24p1+tvt+yMiMHUaLIYdAYkKIhxke1pWd9t0UPHSVGFOQIQyD
-         hyFg==
-X-Forwarded-Encrypted: i=1; AL+hErG/zuuboq45+mDiyKa6BhdQw1zN99VJgV67Dp4gR27gG17SlvJAnNc4P9+IAjcN753N96sJoH1x553XFzU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b45JPGzdOmrRqUW12a9cRJWoMllqdcnseJ1brk7QTLaCNdLtM
-	g9TjCGKWEDG7LZQA9tqqXjPkxVkZjCMjVPKpRxi0A/AsrAO+p18Jm2MVlnqs22/FoPJnWRTxvF2
-	mGlpGOlydt6FDkI8uvLXH3I5zwZu8EAQ1WXXEVVrjwIXhxbeVbf9vjrHbOjp8JpbPmQ==
-X-Gm-Gg: AYBFou3tXgxaO86Ww+XQnqYJtV9oj+kmILNotSkOEmEfvcEK0cdnwCveZnW85YHp5Fj
-	0CJTn3xbzGhhk73wOsydedKPVec40FBqRU3PNgv/ROYqRJl9BQJxUVIQj1jXk6wOXXqdPX9LRCm
-	pTSrg+cJYlzuveAzInJWEZcWgYsaddfjWQ87epaLLLsDsWcMY/z64mryBokXeN8rHfJ4qpHnlw7
-	9vsVyjdb2fdj0mxphDv91ZzgTlvQJUTFUrs6Qgd5SYTHNp2UdYbH3gM5gvPXCwuklBVlXDqbg3W
-	5zScMm2VcMToTIGICoDm6Gk8HYkyRPzQdkYqW4MsRCwifIehCG8erFEoMIKCfeSsqlV6grNNL92
-	9KHaEWq/Cm+4Jh0430hrgp4x9+kj3BsYeFDMxAYxTH/9Mm59M8IW0
-X-Received: by 2002:a05:6000:26cc:b0:48e:60ed:b012 with SMTP id ffacd0b85a97d-4927817451amr5363050f8f.57.1793975958189;
-        Fri, 06 Nov 2026 06:39:18 -0800 (PST)
-X-Received: by 2002:a05:6000:26cc:b0:48e:60ed:b012 with SMTP id ffacd0b85a97d-4927817451amr5363018f8f.57.1793975957758;
-        Fri, 06 Nov 2026 06:39:17 -0800 (PST)
-Received: from sgarzare-redhat ([80.116.143.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d63ad7sm4518709f8f.15.2026.11.06.06.39.14
+        d=1e100.net; s=20260707; t=1793975979; x=1794580779;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uby/azzGeVUPOBj9cIS7TzhQ50RQ5+dHAaKVnGJvY20=;
+        b=YsUI150KUGMUcqvcIRWEHNwg5MJC71fQu1dw69FQbXT7GvYpRV3BaluWhPqBq/dMzB
+         1korQPfeO/1GG8Ml5eiSdY1VPFCeY6mcpbfN2q5GrJ3fpZG+0Vx54CeaAPOPflSOv96j
+         KgDhpopazLJU3PNmeD90g8JntVHPGuf3fTNa1bPFudnk0OAghFgnTAnXtZdN3FhdhD6/
+         oKOm+3ik73pc2LovZgy66E3uJtWhWMlvnS+PTvDYVccqICjPgBQX24QaXoq/GLwOa4ml
+         WAwGf5Rkhu4NBXpHL5zgW4y4Pv3yyWJxBViHD6WFHxfOZzF8EGqaQlBBgGRbXwGQHkOS
+         JaMg==
+X-Forwarded-Encrypted: i=1; AL+hErFuex9/XpYTtlgrchMBUzYvTCPWPG+moFyiMxkH69Unfj3dNHoMQEfR2zXxRNK1wHK5VcFJFPmO92DTnpw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wDdm38E7ymDcPSCiEfpkNNgywjkCzfm8nbAhWdPojjXRcfEfR
+	2yrgPMmMuhNp5TwpzyLHv+ojpSCaRZTtCaxKPGH4eJOmFL2DDWDwUS9z
+X-Gm-Gg: AYBFou0Nmn3n0bhvHp3JY30Ebl4jK13UUYYfJyKycZlnP4qLP0dfG0cQh/D3Na7UlIW
+	5KpAbX2RQOAxUPxEbeaEcHyiZPN84wR8BrnGSV1O4xKP/pVXflSSnBP+Ks4rmebAXN/uD1fzpEo
+	/Nr4F3Rk4t1Ryz7/7cvXpu/bq24eH1oGc4O7t5b22vpARaJSI0juPVcrmQ8CpqrUAALJ3eG3x+X
+	ql8SHT+oSdWxY0HW+LTYeYTlKyDzNzkNw2Cql4UjIGBFDnoUdPAo14QB8ofBdzaL6l+HUzY1es/
+	x3JyfgqwwmnGy+6IeQ3+eQ8QswGEoeIJ2v8+RmBJMz1/dIKL/nFhXvu6K033lnqZAsVkQplpHO/
+	uyjI2VX4lxR1QKAws4QERmzN/d0GFxR4WdGKl3MeU/IoMk1S2JxOlr7F/JTW8n1rlQsatGmsP+H
+	McNt55p0/OrdLSHU32Qa9Ea3SGD7qmIUbeacGfpkeDt0riwEsSx9stX+JwJEJfOhgrmbbNox/L4
+	cRl18UzINasHF8rVLjBLh3WzfrjNvMadSvLp2kLAaxMX30HYydID2ybPOprgCQKBAZYPi++GuI7
+	fLbNPVxMRzr75kWk+7lcEOgbv0VDomROAHxCIZ8=
+X-Received: by 2002:a05:7300:8281:b0:369:f2f4:b227 with SMTP id 5a478bee46e88-36f75b1ffd2mr3080840eec.18.1793975978031;
+        Fri, 06 Nov 2026 06:39:38 -0800 (PST)
+Received: from kernel.. ([216.195.201.23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa6a649csm7182068eec.26.2026.11.06.06.39.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 06:39:15 -0800 (PST)
-Date: Fri, 6 Nov 2026 15:39:10 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	Simon Horman <horms@kernel.org>, Luigi Leonardi <leonardi@redhat.com>, 
-	Xuewei Niu <niuxuewei.nxw@antgroup.com>, linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] hv_sock: Report no unread data before a channel is
- available
-Message-ID: <au3k0TggFXTn6usw@sgarzare-redhat>
-References: <20261106123920.162131-1-parri.andrea@gmail.com>
+        Fri, 06 Nov 2026 06:39:36 -0800 (PST)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: dave@stgolabs.net,
+	paulmck@kernel.org,
+	josh@joshtriplett.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	boqun@kernel.org,
+	urezki@gmail.com
+Cc: rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH 0/5] rcu: Record callback enqueue stacks and add torture tests
+Date: Fri,  6 Nov 2026 22:39:08 +0800
+Message-ID: <20261106143913.3627722-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,68 +106,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261106123920.162131-1-parri.andrea@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 01:39:18PM +0100, Andrea Parri wrote:
->The Hyper-V transport is assigned before the asynchronous VMBus channel
->offer completes.  Its zero-initialized hvsock therefore has a NULL chan
->until hvs_open_connection() associates the channel with the socket.
->
->SIOCINQ can query the assigned transport while the socket is connecting,
->or after connect() fails once the transport has been assigned.  Unlike
->poll(), that path does not check stream_is_active() before calling the
->transport's stream_has_data callback.  hvs_stream_has_data() then 
->passes
->the NULL channel to hvs_channel_readable_payload(), and any user in the
->guest can trigger an oops:
->
->  BUG: kernel NULL pointer dereference, address: 0000000000000178
->  RIP: 0010:hvs_stream_has_data+0x23/0x120
->  Call Trace:
->   <TASK>
->   ? vsock_ioctl+0x74/0xf0
->   sock_do_ioctl+0x42/0xf0
->   sock_ioctl+0x27d/0x310
->   do_vfs_ioctl+0x700/0x810
->   __x64_sys_ioctl+0x7d/0xf0
->
->Return zero unread bytes when no channel is available, before accessing
->the receive state or ring.  Leave the existing channel-backed receive
->handling unchanged.
->
->The oops was reproduced on an unmodified v7.4-rc1 kernel in a WSL2
->guest with a small user-space program, available on request.  With this
->patch, the program reports zero unread bytes and the kernel logs nothing.
->Other vsock_test cases were not run, as most of them need a host-side
->peer.
->
->AI assistance was used to identify the issue and develop the fix.
->
->Fixes: f7c722659275 ("vsock: Add support for SIOCINQ ioctl")
->Cc: stable@vger.kernel.org
->Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
->---
->An alternative is to check stream_is_active() in vsock_do_ioctl(), as
->vsock_poll() does.  That would also change SIOCINQ on VMCI sockets that
->are not connected yet, from -ENOENT to 0.  I kept this fix in hv_sock to
->limit it to the crash, and can send the generic check separately for
->net-next.
+This series adds KASAN auxiliary stack recording for RCU Tasks
+callbacks, rcutorture coverage for duplicate-callback detection,
+and KASAN aux-stack verification tests across RCU and SRCU flavors.
 
-Yeah, I was going to suggest the same, but I agree that for net this is 
-a better and self contained fix:
+This series is based on [1]. For testing, I also applied Joel
+Fernandes' fix for debugobjects tracking of barrier callbacks
+[2], which is needed for the barrier tests.
 
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+The changes:
+- Record the enqueueing stack in call_rcu_tasks_generic().
+- Enable duplicate-callback testing for the "tasks" and
+  "tasks-tracing" torture types.
+- Add a KASAN aux-stack verification test module with a Kconfig
+  choice for each supported flavor.
+- Add one rcutorture scenario per flavor for the verification
+  test.
 
->
->The reproducer is a new vsock_test case.  I have not posted it, as
->Documentation/process/security-bugs.rst asks for reproducers of bugs
->found with AI assistance.  I can send it privately, and will post it
->once this fix is merged.
+Tested on x86_64:
 
-Yes please, post it upstream when merged.
+- TASKS01, TASKS02, TASKS03, TRACE01, and TRACE02 completed
+  3-minute runs successfully.
 
-Thanks,
-Stefano
+- With CONFIG_DEBUG_OBJECTS_RCU_HEAD=y and
+  rcutorture.object_debug=1, duplicate-callback detection was
+  triggered as expected for both torture types.
+
+- TRACE01 was run for 1 minute with
+  CONFIG_DEBUG_OBJECTS_RCU_HEAD=y and
+  rcutorture.object_debug=1. The test detected both duplicate
+  callback heads through the SRCU enqueue path:
+[    0.405836] rcutorture: WARN: Duplicate call_tasks-tracing() test starting.
+[    0.405852] ODEBUG: activate active (active state 1) object: 0000000020df980d object type: rcu_head hint: 0x0
+[    0.734724] rcu: __call_srcu(): Duplicate call_srcu() CB 0000000020df980d->rcu_torture_leak_cb+0x0/0x10()
+[    0.734780] ODEBUG: activate active (active state 1) object: 000000006634e8c9 object type: rcu_head hint: 0x0
+[    0.776688] rcu: __call_srcu(): Duplicate call_srcu() CB 000000006634e8c9->rcu_torture_leak_cb+0x0/0x10()
+[    0.779126] rcutorture: WARN: Duplicate call_tasks-tracing() test complete.
+[   65.411342] tasks-tracing-torture:--- End of test: SUCCESS: ...
+
+Both duplicate callback heads (the stack-allocated rh2 and
+the kmalloc-allocated rhp) were rejected and neither was invoked.
+
+- With CONFIG_DEBUG_OBJECTS_RCU_HEAD=y,
+  object_debug=1, and n_barrier_cbs=4, the TASKS01 barrier
+  test completed 630/630 rounds without barrier errors.
+  The only debugobjects warnings were the four intentional
+  warnings from the duplicate-callback test at startup.
+
+- All five aux-stack scenarios (TASKSKASAN01, TREEKASAN01,
+  SRCUKASAN01, TINYKASAN01, and SRCUTINYKASAN01) produced the
+  expected KASAN use-after-free reports. Each report's
+  "Last potentially related work creation" entry showed the
+  expected enqueue helper:
+
+===== TASKSKASAN01 =====
+[    1.244567] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
+[    1.244707] Last potentially related work creation:
+[    1.244716]  aux_test_call_rcu_tasks.constprop.0+0xc/0x20
+
+===== TREEKASAN01 =====
+[    0.670399] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
+[    0.670561] Last potentially related work creation:
+[    0.670571]  aux_test_call_rcu_tree.constprop.0+0xc/0x20
+
+===== SRCUKASAN01 =====
+[    0.658679] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0xc0
+[    0.658919] Last potentially related work creation:
+[    0.658932]  aux_test_call_srcu.constprop.0+0x16/0x30
+
+===== TINYKASAN01 =====
+[    0.951503] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
+[    0.951641] Last potentially related work creation:
+[    0.951650]  aux_test_call_rcu_tiny.constprop.0+0xc/0x20
+
+===== SRCUTINYKASAN01 =====
+[    1.009005] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0xc0
+[    1.009141] Last potentially related work creation:
+[    1.009150]  aux_test_call_srcu.constprop.0+0x16/0x30
+
+
+These reports are intentional and are counted as runtime
+errors by rcutorture.
+
+[1] https://lore.kernel.org/all/20261027070923.3054462-1-kunwu.chan@gmail.com/
+[2] https://lore.kernel.org/all/20261104153046.965890-1-joelagnelf@nvidia.com/
+
+Kunwu Chan (5):
+  rcu-tasks: Record callback enqueue stack
+  rcutorture: Test duplicate call_rcu_tasks() callback enqueue
+  rcutorture: Test duplicate call_rcu_tasks_trace() callback enqueue
+  rcu: Add KASAN aux-stack verification test
+  rcutorture: Add KASAN aux-stack verification scenarios
+
+ kernel/rcu/Kconfig.debug                      |  38 +++++++
+ kernel/rcu/Makefile                           |   1 +
+ kernel/rcu/rcu_kasan_aux_test.c               | 107 ++++++++++++++++++
+ kernel/rcu/rcutorture.c                       |   2 +
+ kernel/rcu/tasks.h                            |   4 +
+ .../rcutorture/configs/rcu/SRCUKASAN01        |   6 +
+ .../rcutorture/configs/rcu/SRCUKASAN01.boot   |   2 +
+ .../rcutorture/configs/rcu/SRCUTINYKASAN01    |  12 ++
+ .../configs/rcu/SRCUTINYKASAN01.boot          |   2 +
+ .../rcutorture/configs/rcu/TASKSKASAN01       |  13 +++
+ .../rcutorture/configs/rcu/TASKSKASAN01.boot  |   2 +
+ .../rcutorture/configs/rcu/TINYKASAN01        |  12 ++
+ .../rcutorture/configs/rcu/TINYKASAN01.boot   |   2 +
+ .../rcutorture/configs/rcu/TREEKASAN01        |   6 +
+ .../rcutorture/configs/rcu/TREEKASAN01.boot   |   2 +
+ 15 files changed, 211 insertions(+)
+ create mode 100644 kernel/rcu/rcu_kasan_aux_test.c
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01.boot
+
+-- 
+2.43.0
 
