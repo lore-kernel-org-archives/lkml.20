@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968599;
-	b=sT16EWOQVfkER3pA55U9eDlkZUYDySlXQ6pQMCt1vTVhz2I05PLqc6Ml1JkC9I4kQAyb
-	 c6POFRdt5fb2VKIBkiDdS7YutEyk+7+JXxvEMMttkdsQqZhLFk61flC+jsuBc1Mx1p6rU
-	 zZdVXUIaUqJZlgIbgX8cQIRLI8aycBOaWX8rN+6vv1G7DrlY+jGoRgr2DY6nwb7ZFaDk1
-	 0JOAbcl4B+8w+vFNOuTEMtjLR4QRoKopAO7gBmrI73w7D2ozd8jUCEr3DAlpTOyv3lE/9
-	 RjR9OyOEiCOkty3RE93Vm0QQcQv5uP/yubkisInuXNpVZ/GjyK/k0SQhT22KK0EudXQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968599;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=WPaaf/nAUIxU/MujCzQxnBmdoAj91DZqtwr0DLfU74g=;
-	b=DrlDeE85AzhdzfRkxIWvbaDER8tdv8syGauSj5f5tpeR7N9siX8cSrDM1u+GEmDH+JN3
-	 SaXbpSRUdEE/q2wv6cChZJ8SPgnXoDoqH8+QRdQcqy7ETp4aBk4TYtTZk77Mdm9z3l6vF
-	 IzW1WTIAYQc+tlu2f7pPBmrNf1TVf5qPz+N08ddEGJzgkMaZkBtoFVa/S9RPMVdxzwIea
-	 tzcBCOREhgjcrGDM2jMP7R/rH6Iwuci5UPWymJbo9HRZoC4R5TiQ14gO8mMKOGvaBPld+
-	 tH3K1S0wOOmZClFnkin+4SGqRSBx7ygM4XZGEl5qHKaQnm+zheK1cKD9MTdtgzA/OMg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBlYtI71;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793968616;
+	b=wPHLYzzw4haW0jkocwAXHYqqXjxXOn48bqMF5ez5wUXSrgV1lbvaw3w5oRl13q4t9hGO
+	 850Aq28gDKAwcRCUEqYsYIixoVx/IQdjw8wbL/6MUB9cgDZS/1xKvWN569xCq8Z1OY+32
+	 kYu9DhQvXi4jr6jYr/MTh3lwgNWBT3jSMW6Kve15Q5p0ZOanel3NvXR0yB6tekv3bO1N1
+	 OPw+LQQTx9mA0KzDk10yFO43B+sfGLNiD82QEWTHgBheZk2r1EapvLk/LxXOZ2T8Fvdtk
+	 2qjwi61K9Qw3WuvRID0KmSZenspbABDT2h7zrI+RZZXsq2Kjf0bjqg0eMrdVhb3ATeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968616;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=NidmzHz68mc/Fcdwi5jwG9oqQzz3k8pzMt+p0hi/rcc=;
+	b=o6oyi57MvnT6waX8zKkyEAdxu14ZprcftC8IuaGPkMUy8FfC5hzNdKl+Owrs1gHqfwca
+	 yLH1rbqQVeJcV1sT10Bq7Sn6usy8I+a1zUW9jr2yLoTRUfcYLe3I4kR0khSXxDvA8w49k
+	 ZaGYHOGMA+P+t7tkVm1kIxtW0J/2VtMQ46CNzf5wN8zLQ/gstJjJMrSWFp4kExvDVbGbs
+	 WDb7emcw1wudY79O+Oz4Z3NkTQYbYz+9E8aQysSClRqlEfxAl4mBv3dosmED3CZWHGG8n
+	 2c9akziyzJ3p6tSb1ZtESocxlaoQX+AZ89QV+tdcFmiP7/NcGWvJEt2U26yc3P1qiUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gud4523E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206DE606A333;
-	Fri,  6 Nov 2026 12:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96790606A326;
+	Fri,  6 Nov 2026 12:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96790606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBlYtI71
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA691F008A1;
-	Fri,  6 Nov 2026 12:36:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968598;
-	bh=WPaaf/nAUIxU/MujCzQxnBmdoAj91DZqtwr0DLfU74g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oBlYtI71uLsKhVv7lyV38yeBfN5N672YIfMRZFQzXth03EH1SfECRBI77Maw2IXFN
-	 gegEJLZn7Ty8f51PP2PrEP3G2x1lPCkrWVoN+qYicRwkgL8c+6mg+fh7TD9TsB+feO
-	 oJ5F+vpo04+73w6/VmoJfcQQS+XHoQEEy3YBVKQhCaKO3K7smd12C+8VeeG/6CULZD
-	 MmE8Ce+eZl7asicy/G8DKDEzw51+uNSIx1/l1PL9XFqckxK1r1ZRLucENVqb1qTjY7
-	 2kftkySzx0oWIzYpC7obWNbLlMeV5T0unQ4lMm+VaZZ3WcO1VQhxoAspnrvctVbF7G
-	 HHrlbfEDZW67A==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Fri, 06 Nov 2026 13:36:12 +0100
-Subject: [PATCH v2 1/2] mm: free unused page table allocated by
- do_set_pmd()
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gud4523E
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0B7E120011E;
+	Fri, 06 Nov 2026 13:36:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793968614;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NidmzHz68mc/Fcdwi5jwG9oqQzz3k8pzMt+p0hi/rcc=;
+	b=gud4523EVcuFSmcCXwTj+Wxe4po1mH47GTMCaoUJ9HNLrWULF5r0oa5JEI9BmTfl/EEE5f
+	kYPki0z1sk+Dle8DRALKBa068I426qDB+6WGm2kKqGrmbtW1cxHQYUH6soQbwrBdO7e4Ro
+	CDUpLsPSNp/RsBLFNJ3Md4oYBCBBDT53gK1jqW5ylPUwnjqanaid17xXmGHsZc6pT81OHs
+	UBDGXqJ0Vrr9LGffgpHa/yu8fiqDnd6WIb11uH5RmHCzrCXr3YelwKVeoETQgA08WL302V
+	mATmz0dXc2T9pxJJrP+9NkodyL29Ohe2OnSjSGbS15ScLcSlIvorfejwCmhEyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793968614;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NidmzHz68mc/Fcdwi5jwG9oqQzz3k8pzMt+p0hi/rcc=;
+	b=Frj+CbBQ4aZKiE/lwG6U/0s/moyUeiEfTrTBkTAbk+zV7bmDv/t+l/cqJ1T5w3WsbDhL87
+	+hE0lu40qjijK2NRIW+7bMwqYiKAKwMAmiCEoLlsaXHf4ob0/zeohEmucvdTM9KZnd8LFH
+	1XgbNtzpzMp//8OTzW3Z5c6GS3qluLxrvInqtSy+TlDniaUhzpoA/JcPVYMahHmn6gSMqf
+	MgJJchDfcB+3JK/MPO164SKs5x0iiwnO4b39rTkn/D70+QLDzkpKjdWR2AjOXZTl22/Oae
+	k8YVPnl84YIr+Ybc45yFmn7Kf45TngT3KLRe5dXTKoNMrR25M77mj/B/xlzVJw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793968614; a=rsa-sha256;
+	cv=none;
+	b=U7rbTuYVs2wVPwXvVyxOH2D77727yNuCOGP1esf4xEFquI6Dhr686MkcHXI0KhPrrZz/jn
+	jnnNBjzlw3Luvk4syoiaSLsW7zlQKDsVWp6R4/1Qw3O4WOrf2a3QHereWwxDW5zxG6iDat
+	61DPWOeMfH0IdjyTYmfR4qOI2siqXee0ixLnJWXPEzJ3RztvSQYtHfZZF5CE/UQ2hgm2pi
+	p+v7K/uhlUAu3R3hXN3q2kA/iQ0NLne1+b2mcYS7KfOYFuNK+L0JNUNYdpsPdEFKWNANSK
+	paSjxFokFwRoq9ZJjCB9Yuy/b1ybZQ0jMPEtjN0bivjXfp3+KyKb6zXmv8dMkA==
+Message-ID: <0ea54ed9b958b5b9b80dd0f3a6a4976ef1cdc495.camel@pengutronix.de>
+Subject: Re: [PATCH] dt-bindings: reset: Remove orphan bt1-ccu.h
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: "Rob Herring (Arm)" <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Date: Fri, 06 Nov 2026 13:36:53 +0100
+In-Reply-To: <20261105143542.2716484-1-robh@kernel.org>
+References: <20261105143542.2716484-1-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,89 +92,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-References: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2341; i=david@kernel.org;
- h=from:subject:message-id; bh=OS/dNIms28mbW/vsOf9xV2Ck+BtJzYDFrVVoI/C2V7I=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLenjz3WX+qichp2en9C24Vffqzf5G3zNy2vJdzuAL7l
- X7P7+Lp6ihlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiE3cxMhz1zy7UiVeftfl/
- 5FdTx9jqCwv8WKoVWx69TvbstoxmiWVk+NSk7nKaa4WczmmfDPt+Hi8GYZ3X76asT8u4ENroFFv
- PDQA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-deposited page table, such as PowerPC with the hash MMU. If the PMD is
-no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-without consuming that table.
+On Do, 2026-11-05 at 08:35 -0600, Rob Herring (Arm) wrote:
+> The Baikal-T1 platform was removed, but the reset/bt1-ccu.h include was
+> missed. Remove it now.
+>=20
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-userfaultfd operation can install a PTE table before taking the folio
-lock. If that races with set_huge_pmd(), the unused preallocated table
-is lost when its local vm_fault goes out of scope.
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Track whether do_set_pmd() allocated the table and free it after dropping
-the PMD lock if it was not consumed. Preserve any preallocated table
-supplied by the caller for PTE fallback. Successful PMD installation
-consumes the table and clears the pointer.
-
-Returning without a preallocated table matches the existing behavior on
-architectures that do not need a deposited table. All callers
-already handle that case.
-
-Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/memory.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index becf53a2a0944..421064aef3cf0 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 	struct vm_area_struct *vma = vmf->vma;
- 	bool write = vmf->flags & FAULT_FLAG_WRITE;
- 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-+	bool pgtable_allocated = false;
- 	pmd_t entry;
- 	vm_fault_t ret = VM_FAULT_FALLBACK;
- 
-@@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
- 		if (!vmf->prealloc_pte)
- 			return VM_FAULT_OOM;
-+		pgtable_allocated = true;
- 	}
- 
- 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
-@@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 	count_vm_event(THP_FILE_MAPPED);
- out:
- 	spin_unlock(vmf->ptl);
-+	if (pgtable_allocated && vmf->prealloc_pte) {
-+		pte_free(vma->vm_mm, vmf->prealloc_pte);
-+		vmf->prealloc_pte = NULL;
-+	}
- 	return ret;
- }
- #else
-
--- 
-2.43.0
-
+regards
+Philipp
