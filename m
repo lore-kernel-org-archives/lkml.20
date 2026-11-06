@@ -1,126 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793937235;
-	b=pdOA0pd7rc/Or9UUutrw3tUKvC3wkaJ0jDwLATWNS06niHr5MFLVwl+q1lJ1VOvcuYx0
-	 4wJHi6rjzKTUuyandgLIKKpnwlY7DJGJsW8+IHRKV85nQhtFVeeoROdMjmzDY+FKLf8xG
-	 wGtLq2bqLqwS0CSMWd77Ar0krcyEGUDjF5U6YLyFZWK/RrAXWwipJQGeGKz6SWp/IMfjp
-	 0hsLQ1qxy/+T1cgCg5zkUS5w3d95DzRKViES7sHy8yMiGdIXXSsEIHiY5UpwejPjcQIoX
-	 /gic0ryLvfI7GcFHNrV8wYLHqdyrva5uG/b6lF4nVA+89Ci8d7stUmQQ8OyZb/G8oiA==
+	t=1793937292;
+	b=V8yPrpIXg8xtyE23mBqj6E6QGjU4wAy2dw74XMwy5Ku+JlWpiX8I7i7o4FurV2Dz2Zge
+	 Oc3D6P9JUWlnnDz/OzodCFuaOiyRG6lKnrjxGqq4RCzxCYGV2C7r/r74VcHlxPO310PVF
+	 71ueeF/6+bT6zjBd1Cb/NGGlEdDBi8cGOOPho12RQCPtBy5Uw5KV3BhdyY37dJvTC/ZHc
+	 QBTobBLVgPOa4kOqvd7pRxmQ3j7tLHuaXmIIVZC0TX38Qfu0pQygVv3Rpvca411D22F4G
+	 VY4deE9Q/PjXP9sYwqTlhO2bbA4yzYl/5ALjBoNmfKz0eQ4JsDWb28NrcxElIPVMXtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793937235;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=/uJY+lXVAYz2u+NeiYxSeggW68B7e2gaqanprkeHSEc=;
-	b=klxhhmKMtFSnzvyOE3y+kWLTwhwqhk6te0Z0PNx/J2+T3K4bB9CJl6jyJ/IxPjmMrBmf
-	 IF4h63KBiJKj5liVDGj29wSUP56FgMKlXDeT0T6sjzxSWJvGDch9cIdDUHFaMyjGWSEvj
-	 VDRL1xMq4XYGAcMDs254ZxrvAAeCK3WMvDJXH1gNF/BkGYFeZUWdwafzWrajWPAT9W+TB
-	 +NgG64V3eXZaJ4h34FKz11Q5/kiEIZRJvWqdkirk1IyOsRCP3pP0lTmHnf8MCf2xLu5S3
-	 Mk1XAPqODAeXoevwYzipCoH3BtL1T+y1dOemp5UzqMsyx1JGBsUhm1+YBVfKBm3WsEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793937292;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Wo+U7tZm1O/9g1FtQojmGc28SKGLLrtaIZFZnhNRIR0=;
+	b=2GOxfPsmw2quj6i6Iltagor/VbAfAYRIktP6HxPXEgUe2bQ0XX/cyROjLnfnbt9aPVwG
+	 0jwT318zrcGQNjLvXqUdFuygSFwriuFJHi+HFLPNmq5e0appVJAfMVEAy4WBr4Rt4SPjM
+	 PYtA5eqgX79YlngMXyh6FcPoTkwW4/yZdPVm/EcPJdEXU6TbXv9wdg95JimQN9ZuxK2q2
+	 38SgUWUHGA00O4/DPM8WHzS5R1UsNbhZnhL1HVZMIYOyirI8GzCn8zX8NLA3nnb/iHhqh
+	 AnwCcIXjmB0K4Gxbx/gA9T249LkCDNws9pK8L0W0yEdNezC92kSdWdxV2TFj71Jc36Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=rly9AuXR;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=weo7LL6n;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEwuZNEj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0C6606A33A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:53:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B0C6606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A1D606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:54:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=rly9AuXR;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=weo7LL6n
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 8FE7AEC01D6
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:53:53 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 05 Nov 2026 22:53:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1793937233; x=
-	1794023633; bh=/uJY+lXVAYz2u+NeiYxSeggW68B7e2gaqanprkeHSEc=; b=r
-	ly9AuXRueb3go+G5FqPXEg0czhtuYYppfJyt3HSX/bTgdCmDBpEACEC7wWneuBur
-	q+JVtR+zkiNiQv1WjNYiXL06HntZqTpLGsf5qj/uEvZYKMSJHRd9DoySREmf6lh1
-	pys5UzmJJvR8FZXLIRGzlGjpQTUnaBS2WCjcJWqaDDfnTv4CcuhdrW25pWAsOOYu
-	rArb+6IqkYyFB6FNkSpyVoYmJqeF9PKqS4tHg3qIqVXMg2APxX/Rj1TfJHxyHzwF
-	vFyhlTt+cdRVH/LSG9CTxtqxuVc3K0I57heoUy1AzK8g1L1tuayvJFySF4ivuUF3
-	8tjmbv/ilZ0fCde4klHuQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1793937233; x=1794023633; bh=/
-	uJY+lXVAYz2u+NeiYxSeggW68B7e2gaqanprkeHSEc=; b=weo7LL6nP7x0whKDf
-	JfdW0zy/aDe+Qzopl7yPopg38uIOuLLt1I2xu3l/h1w1I2mZ5WnvP9uQ2j7t00oM
-	Ob2RyDCHAj+feo3fPibnkB11Yz8tPPcjDEkq3w4pa8aYpH7YyGJVq9ztu1P+oT9d
-	SbZ5i2zmW4UbQVH57h7i0x5P8aCDrnrTDBwlqwfkVb4hE0ayjysTq/+q1JeIP7ih
-	HuzUW0njDQ8Z+0yrXVBxYKMx2e+2jCa+OfBCDkbFFaffQvNEyXSXwJJrs42nMsH2
-	VZkJQVSSyWfQS3056gAUYH6kG/fQfStUXNbF0VmJ3mn4R9XzdgkCAqt95xGfCiyB
-	673qg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793937233; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:APFEL61WS7tAVc3/5Bm4DQD2WF2qDHIxSF/Irxj6+stEu08
-	iX+1HY6ZVBsKU1KCMMvT+1MikGhcmqOyEdgF/rRr9pRPh/V+8NUfeOg0T2JXBvY2
-	+0a+lROwSe+zpbxKTSYUvBhM9q4IRsMuB/n3DAETB3hThbYx6hi5LXooLxwL3Sxh
-	zKlHZpyC16d3xZEwmf8b0OAv4Apy81ZAMcTeHhyLSTDQEuc5+DkiZ+5a0yPAdwfm
-	nZgMjgl3Lu5SLJT8uCdUlDQWb4usHefsNN3K2SJTE/JHJ5KQKdg9NP8Vf8IgC8S7
-	8RjrcQwJtmHTwYCASZBZq3UeTf35Y0Vgo1Th2Sw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:EITy810PDyQ8pZ19Zt6SZd2Zc3MHCK2HTSqO2aM9uyU=:2TPWuyUjk1/sxLv3frLk6/y6HSSkb6ZrGStJTm0Cz8Y=;
-X-ME-Sender: <xms:UU_tatTNpNyQesHRdIPAnuLsfDbsS40GJ-qBSxCJA_1XwY1ATMmruQ>
-    <xme:UU_taiwZQHuxicEH6xb6e_xIK3LArov1x16mTa_yr86Q12HE1OD1qdW5qsiS8wbAr
-    WXqn0q7VkKaItj1BB7v_zfkwT6nZvxGSP0qllkpyooMsyO8j-NM-wHc>
-X-ME-Received: <xmr:UU_talCQO_CcTQ00w3xvu4g9XW9R6ZHeElaCPMV6TdxvJlNlKGIUaWixMCVVfCG2>
-X-ME-Proxy-Cause: dmFkZTFIjkh/VkrFtaLZ47zpZzzrVb1j87A4M4dFjd8r9QlZeldkq2H9HL9mTFPhexGiWy
-    I0wK29+khresqZAE5vlBKDqddYRQaNjPdsGWL/77YszKh7M0swfOmPyXXm3mqQLXMNsU7l
-    //jsYHqPtoa4/gNJNhb6ERabdIBEzztwM4Pjx+fleEmj3dQUhDne/H180wHsjwOiCzxwP5
-    Y4appzIa6Ek2olO9Rp8Qx/8tY+lq2cKslHR6GV7KjHGBskFIUOVZb9C9RonqmAd8qm8yqA
-    m2DSX62OvTbYVYiBEh7k+5I6i7vhrLQb93jchtUugUltCpS6UMDdqLZgU+qjomZXzVHRNI
-    baXz9w+l1xANH0tS/dOF2TU00+MjMkbALQh1IRljjpQqymgx3HQ4L6vPHlQtspqJvVk6kn
-    7AqNeHEPv3nTVQnchD6ckBNug2CzJaQ0Qg9NqySKq8f6SvE1guOaEtAfzwj1521goSzc+Z
-    h4JxsoftqltKS7eF4rqIFCO7veA7OV7lkh0ZlngUuK6M0muryuVg93fAZCQ/yqwoPSe58O
-    /yq+SJgM3Y37tR8cI2OOEKsv8JU5AxpsWXOBkkzIbfjmcMnVML4evpS+cd3FtqrLqTKYzr
-    qwtMiVzclevAKqw8z2CfpHaLNcoA0lQ9vtQ5AHfQRPazGHoxb8LL+YCqTGXQ
-X-ME-Proxy: <xmx:UU_tamEyeGlrQsTNZxR1QhQJktBBvAuXB5h3VMaPPhTpC6qI1hge-A>
-    <xmx:UU_takNu-vtkre9y3z6W7yS4oogll9GNe0T3TJFagrz-xsZaPi7GXQ>
-    <xmx:UU_tav7ZARZzdDZtuLoKAOo_BIBWVPcB0R1jPVLxJGT6baYxea20cg>
-    <xmx:UU_tavg0TMQQZB8AFGmQLd5lu8SirpAWdKPfrltvCPYGbuAk1oNTEg>
-    <xmx:UU_tao7QCsZ4YkbrUU2bZrDKsNLEVnacoG_27r9q3jyCBxEJZnOTfpgg>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 22:53:52 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] ksmbd: skip metadata-only opens in sharing checks
-Date: Thu,  5 Nov 2026 21:53:44 -0600
-Message-ID: <20261106035345.728454-2-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261106035345.728454-1-icb@fastmail.org>
-References: <20261106035345.728454-1-icb@fastmail.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEwuZNEj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927021F0089F;
+	Fri,  6 Nov 2026 03:54:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793937291;
+	bh=Wo+U7tZm1O/9g1FtQojmGc28SKGLLrtaIZFZnhNRIR0=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=dEwuZNEjvMqXG5ttD9ZvpeLY7N4d18U6N9gpe+P2Ta6iT5yUbzKnE+v2/Ggoxyd8Z
+	 1c/KC7pTuDtGtP84C8LMSPP1zlHKgqlPMFkN6B1IBGXua0+M8UK2zZm++iABYnTeaR
+	 NLQ/uH6RLeaUlVR2pNplW3wCMVMbUxRaG7qZcE44RlhGZzpauTgQpjZsd3bDusG0xu
+	 6uaSc9gJaDaal6iKA3CMV0PRzwX7Snmipk0t44psEA/jdWBvwwy/pxgU/scPJPLN6Q
+	 R9iE6ZPRlpyNk3Tu3P87BtX/ZBt6jjm8DQUqOMZIefhGj1C7dzPreYZjBJdYG2U46T
+	 viBgk4gAOv2oA==
+Message-ID: <c5f90170-90b9-485f-852c-b85e9638f741@kernel.org>
+Date: Fri, 6 Nov 2026 11:54:47 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,232 +51,840 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
+Subject: Re: [f2fs-dev] [PATCH 08/20] f2fs: adapt range operations and mmap
+ for subpage blocks
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261102193952.3002018-1-daeho43@gmail.com>
+ <20261102193952.3002018-9-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261102193952.3002018-9-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A READ_CONTROL open without sharing can block later reads, writes and
-deletes even though it holds no data, execute or delete access.
+On 11/3/26 03:39, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
+> 
+> - A writable PTE covers the whole folio, so page_mkwrite prepares
+>    every block of the folio up to EOF and dirties only those blocks.
+> - Align zero range, punch hole, preallocation and truncation to the
+>    block size instead of PAGE_SIZE. When i_size grows, write-protect the
+>    folio straddling the old EOF so that stores to its new blocks fault
+>    into page_mkwrite.
+> - Unmap every base page overlapping a punched or zeroed range, and
+>    truncate the page cache without truncate_pagecache_range(), whose
+>    unmap underflows for a range ending in the first page.
+> - For SEEK_DATA, treat a NEW_ADDR block as data only if the block
+>    itself is dirty.
+> - When truncation zeroes the tail of a page, mark only the block
+>    holding the new EOF dirty, not the blocks after it.
 
-Keep the existing attribute-only exception. For other pairs, require
-both effective access masks to hold one of those rights. MS-FSA
-2.1.5.1.2 grants FILE_WRITE_DATA when an open overwrites a file or
-stream, or creates a named stream on an existing file. Use that granted
-access for sharing checks while keeping the requested access on the
-returned handle.
+IIUC, we will call pagecache_isize_extended() after i_size updates.
 
-The Time Machine AFP_AfpInfo synthesis keeps its requested access.
-ksmbd implements FILE_SUPERSEDE by truncating the file, so count it as
-a write.
+Will f2fs_zero_post_eof_page() cover this case? if it missed anything after we
+enable subpage block feature, how about fixing inside f2fs_zero_post_eof_page()?
 
-This also prevents an overwrite from truncating a file while another
-open that holds data, execute or delete access does not share writing.
+Minor cleanup comments below.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+> 
+> The SEEK_DATA change also applies to large folios when the block size
+> equals PAGE_SIZE.
+> 
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> ---
+>   fs/f2fs/data.c |  58 +++++++++--
+>   fs/f2fs/f2fs.h |   4 +-
+>   fs/f2fs/file.c | 263 ++++++++++++++++++++++++++++++++-----------------
+>   3 files changed, 228 insertions(+), 97 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 41246f83b31d..77915a2eb190 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -3198,7 +3198,7 @@ bool f2fs_ffs_dirty_blk_range(struct folio *folio, unsigned int from,
+>   
+>   static bool find_next_valid_block(const struct folio *folio,
+>   				  size_t orig_off, size_t *need_off,
+> -				  size_t len)
+> +				  size_t len, bool read_full)
+>   {
+>   	struct f2fs_sb_info *sbi = F2FS_M_SB(folio->mapping);
+>   	size_t start = orig_off;
+> @@ -3206,6 +3206,20 @@ static bool find_next_valid_block(const struct folio *folio,
+>   	size_t head, tail;
+>   	pgoff_t index;
+>   
+> +	/* Find every block that is not uptodate, not only the partial ones. */
+> +	if (read_full) {
+> +		for (head = round_down(*need_off, F2FS_BLKSIZE(sbi)); head < end;
+> +		     head += F2FS_BLKSIZE(sbi)) {
+> +			index = f2fs_folio_lblk(sbi, folio) +
+> +				F2FS_BYTES_TO_BLK(sbi, head);
+> +			if (!f2fs_ffs_test_blk_uptodate(folio, index)) {
+> +				*need_off = head;
+> +				return true;
+> +			}
+> +		}
+> +		return false;
+> +	}
+> +
+>   	if (start & (F2FS_BLKSIZE(sbi) - 1)) {
 
-Notes:
-    An authenticated user can trigger this on any share, and a guest can on
-    a guest-enabled share. Without a stored DACL, directory search
-    permission can be enough to hold a metadata-only open without sharing
-    and block the file owner's access.
-    
-    Tested on ksmbd-for-next 957772008502 with KASAN. Targeted tests and
-    KUnit matrices covered access masks, sharing modes, create dispositions
-    and streams. smbtorture matched the base. There were no KASAN reports or
-    warnings.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance.
+F2FS_BLKSIZE_MASK(sbi)
 
- fs/smb/server/smb2pdu.c    | 30 ++++++++++++++++++++++--------
- fs/smb/server/smb_common.c | 34 +++++++++++++++++++++++++++++++++-
- fs/smb/server/smb_common.h |  5 +++++
- fs/smb/server/vfs_cache.h  |  2 ++
- 4 files changed, 62 insertions(+), 9 deletions(-)
+>   		head = round_down(start, F2FS_BLKSIZE(sbi));
+>   		index = f2fs_folio_lblk(sbi, folio) +
+> @@ -5222,7 +5236,8 @@ static bool f2fs_balance_fs_folio_locked(struct folio *folio,
+>   
+>   static int prepare_large_folio_write_begin(struct inode *inode,
+>   					  struct folio *folio, loff_t pos,
+> -					  unsigned int len, bool *need_balance)
+> +					  unsigned int len, bool read_full,
+> +					  bool preallocated, bool *need_balance)
+>   {
+>   	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+>   	struct f2fs_folio_state *ffs;
+> @@ -5238,8 +5253,7 @@ static int prepare_large_folio_write_begin(struct inode *inode,
+>   	 * Reserve blocks without f2fs_balance_fs() since the folio is locked;
+>   	 * the caller balances after unlocking it if *need_balance is set.
+>   	 */
+> -	if (!is_inode_flag_set(inode, FI_PREALLOCATED_ALL) &&
+> -	    !IS_DEVICE_ALIASING(inode)) {
+> +	if (!preallocated && !IS_DEVICE_ALIASING(inode)) {
+>   		pgoff_t first = F2FS_BYTES_TO_BLK(sbi, pos);
+>   		pgoff_t last = F2FS_BLK_ALIGN(sbi, pos + len);
+>   		pgoff_t idx;
+> @@ -5261,14 +5275,15 @@ static int prepare_large_folio_write_begin(struct inode *inode,
+>   	/* Skip read if the folio is already fully uptodate or the write
+>   	 * covers the entire folio.
+>   	 */
+> -	if (folio_test_uptodate(folio) || len == folio_size(folio))
+> +	if (folio_test_uptodate(folio) ||
+> +	    (!read_full && len == folio_size(folio)))
+>   		return 0;
+>   
+>   	/*
+>   	 * Skip read if the write starts at a block boundary and reaches EOF,
+>   	 * and zero the rest of the folio instead.
+>   	 */
+> -	if (!f2fs_verity_in_progress(inode) &&
+> +	if (!read_full && !f2fs_verity_in_progress(inode) &&
+>   	    !(pos & (F2FS_BLKSIZE(sbi) - 1)) && (pos + len) >= i_size_read(inode)) {
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index b084cca8813c..5bbc33d5a3a8 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3541,7 +3541,8 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
- 
- static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 					       struct ksmbd_file *fp,
--					       char *stream_name, int s_type)
-+					       char *stream_name, int s_type,
-+					       bool *created)
- {
- 	const struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	size_t xattr_stream_size;
-@@ -3605,6 +3606,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
- 	if (rc < 0)
- 		pr_err("Failed to store XATTR stream name :%d\n", rc);
-+	else
-+		*created = true;
- 	return 0;
- }
- 
-@@ -4394,6 +4397,7 @@ int smb2_open(struct ksmbd_work *work)
- 	char *stream_name = NULL;
- 	bool file_present = false, created = false, already_permitted = false;
- 	bool app_instance_id_checked = false, app_instance_closed;
-+	bool stream_created = false;
- 	int share_ret, need_truncate = 0;
- 	u64 time, alloc_size = 0;
- 	umode_t posix_mode = 0;
-@@ -5138,7 +5142,8 @@ int smb2_open(struct ksmbd_work *work)
- 		rc = smb2_set_stream_name_xattr(&path,
- 						fp,
- 						stream_name,
--						s_type);
-+						s_type,
-+						&stream_created);
- 		if (rc)
- 			goto err_out;
- 		file_info = FILE_CREATED;
-@@ -5146,13 +5151,25 @@ int smb2_open(struct ksmbd_work *work)
- 
- 	fp->attrib_only = !(req->DesiredAccess & ~(FILE_READ_ATTRIBUTES_LE |
- 			FILE_WRITE_ATTRIBUTES_LE | FILE_SYNCHRONIZE_LE));
-+	need_truncate = !S_ISDIR(file_inode(filp)->i_mode) &&
-+			open_flags & O_TRUNC && !fp->attrib_only && !stream_name;
-+	/*
-+	 * Count the FILE_WRITE_DATA that MS-FSA 2.1.5.1.2 grants an overwrite,
-+	 * supersede included, or a new named stream on an existing file.
-+	 * An attribute-only open of the file is not truncated, and the
-+	 * synthesized AFP_AfpInfo stream is not created by the client.
-+	 */
-+	fp->implied_write = need_truncate ||
-+			    (stream_name &&
-+			     (open_flags & O_TRUNC ||
-+			      (file_present && stream_created)));
- 
- 	fp->is_posix_ctxt = posix_ctxt;
- 	fp->posix_append = posix_ctxt && !!(open_flags & O_APPEND);
- 
- 	/* fp should be searchable through ksmbd_inode.m_fp_list
--	 * after daccess, saccess, attrib_only, and stream are
--	 * initialized.
-+	 * after daccess, saccess, attrib_only, implied_write, and
-+	 * stream are initialized.
- 	 */
- 	down_write(&fp->f_ci->m_lock);
- 	list_add(&fp->node, &fp->f_ci->m_fp_list);
-@@ -5173,11 +5190,8 @@ int smb2_open(struct ksmbd_work *work)
- 	if (file_present || created)
- 		path_put(&path);
- 
--	if (!S_ISDIR(file_inode(filp)->i_mode) && open_flags & O_TRUNC &&
--	    !fp->attrib_only && !stream_name) {
-+	if (need_truncate)
- 		smb_break_all_oplock(work, fp);
--		need_truncate = 1;
--	}
- 
- 	share_ret = ksmbd_smb_check_shared_mode(fp->filp, fp);
- 	if (!test_share_config_flag(work->tcon->share_conf, KSMBD_SHARE_FLAG_OPLOCKS) ||
-diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
-index f9fb3741ada3..e7a987af64ba 100644
---- a/fs/smb/server/smb_common.c
-+++ b/fs/smb/server/smb_common.c
-@@ -695,10 +695,24 @@ static void smb_shared_mode_error(int error, struct ksmbd_file *prev_fp,
- 		    prev_fp->saccess, curr_fp->daccess);
- }
- 
-+/*
-+ * Sharing checks use fp->daccess plus the FILE_WRITE_DATA that MS-FSA
-+ * grants an open that overwrites data or creates a named stream.
-+ * fp->daccess keeps the open's own access.
-+ */
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp)
-+{
-+	if (fp->implied_write)
-+		return fp->daccess | FILE_WRITE_DATA_LE;
-+	return fp->daccess;
-+}
-+
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- {
- 	int rc = 0;
- 	struct ksmbd_file *prev_fp;
-+	__le32 curr_access = ksmbd_sharing_daccess(curr_fp);
-+	__le32 access;
- 
- 	/*
- 	 * Lookup fp in master fp list, and check desired access and
-@@ -719,6 +733,24 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		if (prev_fp->attrib_only != curr_fp->attrib_only)
- 			continue;
- 
-+		/*
-+		 * MS-FSA checks sharing per stream, so a named stream open's
-+		 * implied write is not a write against the primary stream.
-+		 * It still decides whether the pair is checked.
-+		 */
-+		access = curr_access;
-+		if (ksmbd_stream_fd(curr_fp) && !ksmbd_stream_fd(prev_fp))
-+			access = curr_fp->daccess;
-+
-+		/*
-+		 * Two opens conflict only if both hold a right in
-+		 * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
-+		 * 2.1.5.1.2.2)
-+		 */
-+		if (!(ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) ||
-+		    !(curr_access & FILE_SHARE_CHECKED_ACCESS_LE))
-+			continue;
-+
- 		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
- 		    curr_fp->daccess & FILE_DELETE_LE) {
- 			smb_shared_mode_error(SHARE_DELETE_ERROR,
-@@ -745,7 +777,7 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
- 		}
- 
- 		if (!(prev_fp->saccess & FILE_SHARE_WRITE_LE) &&
--		    curr_fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
-+		    access & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) {
- 			smb_shared_mode_error(SHARE_WRITE_ERROR,
- 					      prev_fp,
- 					      curr_fp);
-diff --git a/fs/smb/server/smb_common.h b/fs/smb/server/smb_common.h
-index a9cc09e31721..d3d19f1a23ea 100644
---- a/fs/smb/server/smb_common.h
-+++ b/fs/smb/server/smb_common.h
-@@ -69,6 +69,10 @@
- 		FILE_EXECUTE | FILE_DELETE_CHILD | \
- 		FILE_READ_ATTRIBUTES | FILE_WRITE_ATTRIBUTES)
- 
-+/* Rights that make an open take part in sharing checks */
-+#define FILE_SHARE_CHECKED_ACCESS_LE	(FILE_EXECUTE_LE | FILE_READ_DATA_LE | \
-+		FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE | FILE_DELETE_LE)
-+
- #define SMB_COM_NEGOTIATE		0x72 /* See MS-CIFS 2.2.2.1 */
- 
- /* See MS-CIFS 2.2.3.1 */
-@@ -284,6 +288,7 @@ int ksmbd_extract_shortname(struct ksmbd_conn *conn,
- 
- int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command);
- 
-+__le32 ksmbd_sharing_daccess(const struct ksmbd_file *fp);
- int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp);
- int __ksmbd_override_fsids(struct ksmbd_work *work,
- 			   struct ksmbd_share_config *share);
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index a0239ec178d8..57c81287efe6 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -131,6 +131,8 @@ struct ksmbd_file {
- 
- 	bool				is_nt_open;
- 	bool				attrib_only;
-+	/* writes data on open, see ksmbd_sharing_daccess() */
-+	bool				implied_write;
- 	bool				allocation_size_set;
- 
- 	char				client_guid[16];
--- 
-2.47.3
+F2FS_BLKSIZE_MASK(sbi)
+
+>   		size_t zoff = ori_off + len;
+>   
+> @@ -5281,7 +5296,7 @@ static int prepare_large_folio_write_begin(struct inode *inode,
+>   	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
+>   
+>   	while (find_next_valid_block(folio, ori_off,
+> -				     &need_off, len)) {
+> +				     &need_off, len, read_full)) {
+>   		struct dnode_of_data dn;
+>   		pgoff_t index = f2fs_folio_lblk(sbi, folio) +
+>   				F2FS_BYTES_TO_BLK(sbi, need_off);
+> @@ -5382,6 +5397,20 @@ static int prepare_large_folio_atomic_write_begin(struct inode *inode,
+>   	return 0;
+>   }
+>   
+> +int f2fs_prepare_subpage_mkwrite(struct inode *inode, struct folio *folio,
+> +				 loff_t pos, unsigned int len)
+> +{
+> +	bool need_balance = false;
+> +
+> +	/*
+> +	 * mkwrite runs without inode_lock, so FI_PREALLOCATED_ALL may have
+> +	 * been set by a concurrent write() for a different range. It calls
+> +	 * f2fs_balance_fs() before locking the folio, so ignore need_balance.
+> +	 */
+> +	return prepare_large_folio_write_begin(inode, folio, pos, len, true,
+> +					       false, &need_balance);
+> +}
+> +
+>   static int f2fs_write_begin(const struct kiocb *iocb,
+>   			    struct address_space *mapping,
+>   			    loff_t pos, unsigned len, struct folio **foliop,
+> @@ -5490,7 +5519,9 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>   					mapping, folio, pos, len, retried);
+>   	} else {
+>   		err = prepare_large_folio_write_begin(inode, folio, pos, blen,
+> -						      &need_balance);
+> +				false,
+> +				is_inode_flag_set(inode, FI_PREALLOCATED_ALL),
+> +				&need_balance);
+>   	}
+>   	if (err) {
+>   		if (err == -EAGAIN) {
+> @@ -5566,6 +5597,7 @@ static int f2fs_write_end(const struct kiocb *iocb,
+>   			struct folio *folio, void *fsdata)
+>   {
+>   	struct inode *inode = folio->mapping->host;
+> +	loff_t old_size = i_size_read(inode);
+>   
+>   	trace_f2fs_write_end(inode, pos, len, copied);
+>   
+> @@ -5595,6 +5627,8 @@ static int f2fs_write_end(const struct kiocb *iocb,
+>   		if (pos + copied > i_size_read(inode) &&
+>   				!f2fs_verity_in_progress(inode))
+>   			f2fs_i_size_write(inode, pos + copied);
+> +		if (i_size_read(inode) > old_size)
+> +			pagecache_isize_extended(inode, old_size, pos);
+>   		return copied;
+>   	}
+>   #endif
+> @@ -5620,6 +5654,14 @@ static int f2fs_write_end(const struct kiocb *iocb,
+>   unlock_out:
+>   	f2fs_folio_put(folio, true);
+>   	f2fs_update_time(F2FS_I_SB(inode), REQ_TIME);
+> +
+> +	/*
+> +	 * The folio straddling the old EOF may still be mapped writable, and
+> +	 * the blocks between the old EOF and pos in it are not prepared.
+> +	 * Write-protect it so that mmap stores to them fault.
+> +	 */
+> +	if (i_size_read(inode) > old_size)
+> +		pagecache_isize_extended(inode, old_size, pos);
+>   	return copied;
+>   }
+>   
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index aab1095ad5ff..8e3224eacdb5 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4094,7 +4094,7 @@ int f2fs_getattr(const struct mnt_idmap *idmap, const struct path *path,
+>   		 struct kstat *stat, u32 request_mask, unsigned int flags);
+>   int f2fs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+>   		 struct iattr *attr);
+> -int f2fs_truncate_hole(struct inode *inode, pgoff_t pg_start, pgoff_t pg_end);
+> +int f2fs_truncate_hole(struct inode *inode, pgoff_t blk_start, pgoff_t blk_end);
+>   void f2fs_truncate_data_blocks_range(struct dnode_of_data *dn, int count);
+>   int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
+>   						bool readonly, bool need_lock);
+> @@ -4539,6 +4539,8 @@ void f2fs_ffs_clear_subrange_uptodate(struct folio *folio, size_t offset,
+>   				      size_t len);
+>   bool f2fs_ffs_dirty_blk_range(struct folio *folio, unsigned int from,
+>   			      unsigned int to, unsigned int *start, unsigned int *count);
+> +int f2fs_prepare_subpage_mkwrite(struct inode *inode, struct folio *folio,
+> +				 loff_t pos, unsigned int len);
+>   void f2fs_write_failed(struct inode *inode, loff_t to);
+>   void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+>   bool f2fs_release_folio(struct folio *folio, gfp_t wait);
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index be548f39e33e..e68553cef777 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -41,18 +41,19 @@ static int fill_zero(struct inode *inode, pgoff_t index,
+>   
+>   static int do_zero_post_eof_page(struct inode *inode, loff_t new_size)
+>   {
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+>   	loff_t old_size = i_size_read(inode);
+>   	unsigned int offset, len;
+> -	pgoff_t index;
+> +	pgoff_t bidx;
+>   	int err;
+>   
+> -	offset = old_size & (PAGE_SIZE - 1);
+> +	offset = old_size & (F2FS_BLKSIZE(sbi) - 1);
+
+F2FS_BLKSIZE_MASK(sbi)
+
+>   
+>   	if (!offset)
+>   		return 0;
+>   
+> -	len = min_t(loff_t, PAGE_SIZE - offset, new_size - old_size);
+> -	index = old_size >> PAGE_SHIFT;
+> +	len = min_t(loff_t, F2FS_BLKSIZE(sbi) - offset, new_size - old_size);
+> +	bidx = F2FS_BYTES_TO_BLK(sbi, old_size);
+>   
+>   	if (f2fs_has_inline_data(inode)) {
+>   		/* data post eof should be always zero */
+> @@ -63,7 +64,7 @@ static int do_zero_post_eof_page(struct inode *inode, loff_t new_size)
+>   			return err;
+>   	}
+>   
+> -	err = fill_zero(inode, index, offset, len);
+> +	err = fill_zero(inode, bidx, offset, len);
+>   	if (err)
+>   		return err;
+>   	return filemap_write_and_wait_range(inode->i_mapping,
+> @@ -144,11 +145,11 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   	bool need_alloc = !f2fs_is_pinned_file(inode);
+>   	pgoff_t pidx = folio->index + folio_page_idx(folio, vmf->page);
+>   	loff_t pos = (loff_t)pidx << PAGE_SHIFT;
+> +	pgoff_t bidx = F2FS_BYTES_TO_BLK(sbi, pos + offset_in_page(vmf->address));
+>   	loff_t isize;
+>   	loff_t folio_start;
+>   	loff_t valid_end;
+>   	size_t dirty_len;
+> -	size_t subpage_off;
+>   	pgoff_t i, nr;
+>   	int err = 0;
+>   	vm_fault_t ret;
+> @@ -212,14 +213,12 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   	folio_lock(folio);
+>   	isize = i_size_read(inode);
+>   	folio_start = folio_pos(folio);
+> -	subpage_off = offset_in_folio(folio, pos);
+>   	valid_end = min_t(loff_t, folio_start + folio_size(folio), isize);
+>   	dirty_len = valid_end - folio_start;
+>   
+>   	if (unlikely(folio->mapping != inode->i_mapping ||
+>   			pos >= isize ||
+> -			!f2fs_ffs_test_blk_uptodate(folio,
+> -			folio->index + (subpage_off >> PAGE_SHIFT)))) {
+> +			!f2fs_ffs_test_blk_uptodate(folio, bidx))) {
+>   		folio_unlock(folio);
+>   		err = -EFAULT;
+>   		goto out_sem;
+> @@ -240,6 +239,24 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   
+>   	nr = DIV_ROUND_UP(dirty_len, PAGE_SIZE);
+>   
+> +	if (f2fs_has_subpage_blocks(sbi)) {
+> +		/*
+> +		 * A writable PTE covers the whole base folio.  Like ext4's
+> +		 * block_page_mkwrite(), prepare every filesystem block through EOF
+> +		 * before returning it writable, but dirty only those blocks.  This
+> +		 * prevents a later store in a sibling 4K block from bypassing block
+> +		 * allocation while also keeping blocks beyond i_size clean.
+> +		 */
+> +		f2fs_folio_wait_writeback(folio, false, true);
+> +		err = f2fs_prepare_subpage_mkwrite(inode, folio,
+> +						   folio_pos(folio), dirty_len);
+> +		if (err) {
+> +			folio_unlock(folio);
+> +			goto out_sem;
+> +		}
+> +		goto zero_tail;
+> +	}
+> +
+>   	for (i = 0; i < nr; i++) {
+>   		err = f2fs_get_block_mkwrite(inode, folio, folio->index + i,
+>   					     need_alloc);
+> @@ -249,6 +266,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   		}
+>   	}
+>   
+> +zero_tail:
+>   	/* page is wholly or partially inside EOF */
+>   	if (folio_start + folio_size(folio) > isize) {
+>   		size_t offset = offset_in_folio(folio, isize);
+> @@ -256,8 +274,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   		folio_zero_segment(folio, offset, folio_size(folio));
+>   	}
+>   
+> -	if (folio_test_large(folio))
+> -		f2fs_ffs_mark_subrange_dirty(folio, 0, dirty_len);
+> +	f2fs_ffs_mark_subrange_dirty(folio, 0, dirty_len);
+>   	folio_mark_dirty(folio);
+>   
+>   	f2fs_update_iostat(sbi, inode, APP_MAPPED_IO, dirty_len);
+> @@ -503,7 +520,9 @@ static bool __found_offset(struct address_space *mapping,
+>   {
+>   	block_t blkaddr = f2fs_data_blkaddr(dn);
+>   	struct inode *inode = mapping->host;
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+>   	bool compressed_cluster = false;
+> +	bool dirty = false;
+>   
+>   	if (f2fs_compressed_file(inode)) {
+>   		block_t first_blkaddr = data_blkaddr(dn->inode, dn->node_entry,
+> @@ -512,12 +531,37 @@ static bool __found_offset(struct address_space *mapping,
+>   		compressed_cluster = first_blkaddr == COMPRESS_ADDR;
+>   	}
+>   
+> +	if (blkaddr == NEW_ADDR) {
+> +		pgoff_t f_index = f2fs_lblk_to_folio_index(sbi, index);
+> +
+> +		if (xa_get_mark(&mapping->i_pages, f_index, PAGECACHE_TAG_DIRTY)) {
+> +			struct folio *folio = filemap_get_folio(mapping, f_index);
+> +
+> +			if (!IS_ERR(folio)) {
+> +				/*
+> +				 * ffs is freed under the folio lock. We hold the
+> +				 * dnode, so only trylock the folio, and take the
+> +				 * block as dirty, as the dirty tag says, if the
+> +				 * folio is busy.
+> +				 */
+> +				if (folio_trylock(folio)) {
+> +					if (folio->mapping == mapping)
+> +						dirty = f2fs_ffs_test_blk_dirty(folio,
+> +									index);
+> +					folio_unlock(folio);
+> +				} else {
+> +					dirty = true;
+> +				}
+> +				f2fs_folio_put(folio, false);
+> +			}
+> +		}
+> +	}
+> +
+>   	switch (whence) {
+>   	case SEEK_DATA:
+>   		if (__is_valid_data_blkaddr(blkaddr))
+>   			return true;
+> -		if (blkaddr == NEW_ADDR &&
+> -		    xa_get_mark(&mapping->i_pages, index, PAGECACHE_TAG_DIRTY))
+> +		if (dirty)
+>   			return true;
+>   		if (compressed_cluster)
+>   			return true;
+> @@ -815,20 +859,23 @@ void f2fs_truncate_data_blocks_range(struct dnode_of_data *dn, int count)
+>   					 dn->ofs_in_node, nr_free);
+>   }
+>   
+> -static int truncate_partial_data_page(struct inode *inode, u64 from,
+> +static int truncate_partial_data_block(struct inode *inode, u64 from,
+>   								bool cache_only)
+>   {
+> -	pgoff_t index = from >> PAGE_SHIFT;
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> +	pgoff_t bidx = F2FS_BYTES_TO_BLK(sbi, from);
+> +	pgoff_t f_index = f2fs_has_subpage_blocks(sbi) ?
+> +		f2fs_lblk_to_folio_index(sbi, bidx) : (from >> PAGE_SHIFT);
+>   	struct address_space *mapping = inode->i_mapping;
+>   	struct folio *folio;
+>   	size_t folio_off;
+>   	size_t blk_end;
+>   
+> -	if (!(from & (PAGE_SIZE - 1)) && !cache_only)
+> +	if (!(from & (F2FS_BLKSIZE(sbi) - 1)) && !cache_only)
+
+F2FS_BLKSIZE_MASK(sbi)
+
+>   		return 0;
+>   
+>   	if (cache_only) {
+> -		folio = filemap_lock_folio(mapping, index);
+> +		folio = filemap_lock_folio(mapping, f_index);
+>   		if (IS_ERR(folio))
+>   		       return 0;
+>   		if (folio_test_uptodate(folio))
+> @@ -837,7 +884,7 @@ static int truncate_partial_data_page(struct inode *inode, u64 from,
+>   		return 0;
+>   	}
+>   
+> -	folio = f2fs_get_lock_data_folio(inode, index, true);
+> +	folio = f2fs_get_lock_data_folio(inode, bidx, true);
+>   	if (IS_ERR(folio))
+>   		return PTR_ERR(folio) == -ENOENT ? 0 : PTR_ERR(folio);
+>   truncate_out:
+> @@ -848,14 +895,15 @@ static int truncate_partial_data_page(struct inode *inode, u64 from,
+>   	folio_zero_segment(folio, folio_off, blk_end);
+>   
+>   	/* An encrypted inode should have a key and truncate the last page. */
+> -	f2fs_bug_on(F2FS_I_SB(inode), cache_only && IS_ENCRYPTED(inode));
+> +	f2fs_bug_on(sbi, cache_only && IS_ENCRYPTED(inode));
+>   	if (!cache_only) {
+>   		/*
+>   		 * The folio was read back above, so the subpage is
+> -		 * already uptodate and dirty data stays valid.
+> +		 * already uptodate and dirty data stays valid. Mark only
+> +		 * the block holding the new EOF dirty.
+>   		 */
+>   		f2fs_ffs_mark_subrange_dirty(folio, folio_off,
+> -				blk_end - folio_off);
+> +			round_up(folio_off, F2FS_BLKSIZE(sbi)) - folio_off);
+>   		folio_mark_dirty(folio);
+>   	}
+>   	f2fs_folio_put(folio, true);
+> @@ -944,9 +992,9 @@ int f2fs_do_truncate_blocks(struct inode *inode, u64 from, bool lock)
+>   	if (lock)
+>   		f2fs_unlock_op(sbi, &lc);
+>   free_partial:
+> -	/* lastly zero out the first data page */
+> +	/* lastly zero out the first data block */
+>   	if (!err)
+> -		err = truncate_partial_data_page(inode, from, truncate_page);
+> +		err = truncate_partial_data_block(inode, from, truncate_page);
+
+s/truncate_page/truncate_block ?
+
+Thanks,
+
+>   out_err:
+>   	trace_f2fs_truncate_blocks_exit(inode, err);
+>   	return err;
+> @@ -1310,7 +1358,7 @@ const struct inode_operations f2fs_file_inode_operations = {
+>   	.fileattr_set	= f2fs_fileattr_set,
+>   };
+>   
+> -static int fill_zero(struct inode *inode, pgoff_t index,
+> +static int fill_zero(struct inode *inode, pgoff_t bidx,
+>   					loff_t start, loff_t len)
+>   {
+>   	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> @@ -1324,15 +1372,14 @@ static int fill_zero(struct inode *inode, pgoff_t index,
+>   	f2fs_balance_fs(sbi, true);
+>   
+>   	f2fs_lock_op(sbi, &lc);
+> -	folio = f2fs_get_new_data_folio(inode, NULL, index, false);
+> +	folio = f2fs_get_new_data_folio(inode, NULL, bidx, false);
+>   	f2fs_unlock_op(sbi, &lc);
+>   
+>   	if (IS_ERR(folio))
+>   		return PTR_ERR(folio);
+>   
+>   	f2fs_folio_wait_writeback(folio, true, true);
+> -	folio_off = offset_in_folio(folio,
+> -				   (loff_t)index << PAGE_SHIFT) + start;
+> +	folio_off = f2fs_folio_byte_offset(sbi, folio, bidx) + start;
+>   	folio_zero_range(folio, folio_off, len);
+>   	/*
+>   	 * This subpage must be uptodate here, which is guaranteed by
+> @@ -1344,41 +1391,68 @@ static int fill_zero(struct inode *inode, pgoff_t index,
+>   	return 0;
+>   }
+>   
+> -int f2fs_truncate_hole(struct inode *inode, pgoff_t pg_start, pgoff_t pg_end)
+> +int f2fs_truncate_hole(struct inode *inode, pgoff_t blk_start, pgoff_t blk_end)
+>   {
+>   	int err;
+>   
+> -	while (pg_start < pg_end) {
+> +	while (blk_start < blk_end) {
+>   		struct dnode_of_data dn;
+>   		pgoff_t end_offset, count;
+>   
+>   		set_new_dnode(&dn, inode, NULL, NULL, 0);
+> -		err = f2fs_get_dnode_of_data(&dn, pg_start, LOOKUP_NODE);
+> +		err = f2fs_get_dnode_of_data(&dn, blk_start, LOOKUP_NODE);
+>   		if (err) {
+>   			if (err == -ENOENT) {
+> -				pg_start = f2fs_get_next_block_offset(&dn,
+> -								pg_start);
+> +				blk_start = f2fs_get_next_block_offset(&dn,
+> +								blk_start);
+>   				continue;
+>   			}
+>   			return err;
+>   		}
+>   
+>   		end_offset = ADDRS_PER_PAGE(dn.node_entry, inode);
+> -		count = min(end_offset - dn.ofs_in_node, pg_end - pg_start);
+> +		count = min(end_offset - dn.ofs_in_node, blk_end - blk_start);
+>   
+>   		f2fs_bug_on(F2FS_I_SB(inode), count == 0 || count > end_offset);
+>   
+>   		f2fs_truncate_data_blocks_range(&dn, count);
+>   		f2fs_put_dnode(&dn);
+>   
+> -		pg_start += count;
+> +		blk_start += count;
+>   	}
+>   	return 0;
+>   }
+>   
+> +/*
+> + * unmap_mapping_range() computes page count solely from holelen, which causes
+> + * under-unmapping when start is not PAGE_SIZE aligned. Outward-align to PAGE_SIZE
+> + * to guarantee all overlapping base pages are unmapped.
+> + *
+> + * Then truncate the page cache without truncate_pagecache_range(), whose own
+> + * unmap underflows when the range ends in the first page and unmaps the rest
+> + * of the file.
+> + */
+> +static void f2fs_truncate_pagecache_range(struct inode *inode,
+> +					  loff_t start, loff_t end)
+> +{
+> +	struct address_space *mapping = inode->i_mapping;
+> +	loff_t unmap_start, unmap_len;
+> +
+> +	if (!f2fs_has_subpage_blocks(F2FS_I_SB(inode))) {
+> +		truncate_pagecache_range(inode, start, end - 1);
+> +		return;
+> +	}
+> +
+> +	unmap_start = round_down(start, PAGE_SIZE);
+> +	unmap_len = round_up(end, PAGE_SIZE) - unmap_start;
+> +	unmap_mapping_range(mapping, unmap_start, unmap_len, 0);
+> +	truncate_inode_pages_range(mapping, start, end - 1);
+> +}
+> +
+>   static int f2fs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+>   {
+> -	pgoff_t pg_start, pg_end;
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> +	pgoff_t blk_start, blk_end;
+>   	loff_t off_start, off_end;
+>   	int ret;
+>   
+> @@ -1390,47 +1464,46 @@ static int f2fs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+>   	if (ret)
+>   		return ret;
+>   
+> -	pg_start = ((unsigned long long) offset) >> PAGE_SHIFT;
+> -	pg_end = ((unsigned long long) offset + len) >> PAGE_SHIFT;
+> +	blk_start = F2FS_BYTES_TO_BLK(sbi, offset);
+> +	blk_end = F2FS_BYTES_TO_BLK(sbi, offset + len);
+>   
+> -	off_start = offset & (PAGE_SIZE - 1);
+> -	off_end = (offset + len) & (PAGE_SIZE - 1);
+> +	off_start = offset & F2FS_BLKSIZE_MASK(sbi);
+> +	off_end = (offset + len) & F2FS_BLKSIZE_MASK(sbi);
+>   
+> -	if (pg_start == pg_end) {
+> -		ret = fill_zero(inode, pg_start, off_start,
+> +	if (blk_start == blk_end) {
+> +		ret = fill_zero(inode, blk_start, off_start,
+>   						off_end - off_start);
+>   		if (ret)
+>   			return ret;
+>   	} else {
+>   		if (off_start) {
+> -			ret = fill_zero(inode, pg_start++, off_start,
+> -						PAGE_SIZE - off_start);
+> +			ret = fill_zero(inode, blk_start++, off_start,
+> +						F2FS_BLKSIZE(sbi) - off_start);
+>   			if (ret)
+>   				return ret;
+>   		}
+>   		if (off_end) {
+> -			ret = fill_zero(inode, pg_end, 0, off_end);
+> +			ret = fill_zero(inode, blk_end, 0, off_end);
+>   			if (ret)
+>   				return ret;
+>   		}
+>   
+> -		if (pg_start < pg_end) {
+> -			loff_t blk_start, blk_end;
+> -			struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> +		if (blk_start < blk_end) {
+> +			loff_t byte_start, byte_end;
+>   			struct f2fs_lock_context lc;
+>   
+>   			f2fs_balance_fs(sbi, true);
+>   
+> -			blk_start = (loff_t)pg_start << PAGE_SHIFT;
+> -			blk_end = (loff_t)pg_end << PAGE_SHIFT;
+> +			byte_start = F2FS_BLK_TO_BYTES(sbi, blk_start);
+> +			byte_end = F2FS_BLK_TO_BYTES(sbi, blk_end);
+>   
+>   			f2fs_down_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
+>   			filemap_invalidate_lock(inode->i_mapping);
+>   
+> -			truncate_pagecache_range(inode, blk_start, blk_end - 1);
+> +			f2fs_truncate_pagecache_range(inode, byte_start, byte_end);
+>   
+>   			f2fs_lock_op(sbi, &lc);
+> -			ret = f2fs_truncate_hole(inode, pg_start, pg_end);
+> +			ret = f2fs_truncate_hole(inode, blk_start, blk_end);
+>   			f2fs_unlock_op(sbi, &lc);
+>   
+>   			filemap_invalidate_unlock(inode->i_mapping);
+> @@ -1621,7 +1694,7 @@ static int __clone_blkaddrs(struct inode *src_inode, struct inode *dst_inode,
+>   			f2fs_folio_wait_writeback(fdst, true, true);
+>   			memcpy_folio(fdst, dst_off, fsrc, src_off,
+>   				    F2FS_BLKSIZE(sbi));
+> -			if (folio_test_large(fdst)) {
+> +			if (f2fs_is_multiblock_folio(sbi, fdst)) {
+>   				f2fs_ffs_mark_subrange_uptodate(fdst,
+>   						dst_off, F2FS_BLKSIZE(sbi));
+>   				f2fs_ffs_mark_subrange_dirty(fdst, dst_off,
+> @@ -1830,7 +1903,7 @@ static int f2fs_zero_range(struct inode *inode, loff_t offset, loff_t len,
+>   {
+>   	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+>   	struct address_space *mapping = inode->i_mapping;
+> -	pgoff_t index, pg_start, pg_end;
+> +	pgoff_t blk_start, blk_end;
+>   	loff_t new_size = i_size_read(inode);
+>   	loff_t off_start, off_end;
+>   	int ret = 0;
+> @@ -1851,31 +1924,33 @@ static int f2fs_zero_range(struct inode *inode, loff_t offset, loff_t len,
+>   	if (ret)
+>   		return ret;
+>   
+> -	pg_start = ((unsigned long long) offset) >> PAGE_SHIFT;
+> -	pg_end = ((unsigned long long) offset + len) >> PAGE_SHIFT;
+> +	blk_start = F2FS_BYTES_TO_BLK(sbi, offset);
+> +	blk_end = F2FS_BYTES_TO_BLK(sbi, offset + len);
+>   
+> -	off_start = offset & (PAGE_SIZE - 1);
+> -	off_end = (offset + len) & (PAGE_SIZE - 1);
+> +	off_start = offset & F2FS_BLKSIZE_MASK(sbi);
+> +	off_end = (offset + len) & F2FS_BLKSIZE_MASK(sbi);
+>   
+> -	if (pg_start == pg_end) {
+> -		ret = fill_zero(inode, pg_start, off_start,
+> +	if (blk_start == blk_end) {
+> +		ret = fill_zero(inode, blk_start, off_start,
+>   						off_end - off_start);
+>   		if (ret)
+>   			return ret;
+>   
+>   		new_size = max_t(loff_t, new_size, offset + len);
+>   	} else {
+> +		pgoff_t index;
+> +
+>   		if (off_start) {
+> -			ret = fill_zero(inode, pg_start++, off_start,
+> -						PAGE_SIZE - off_start);
+> +			ret = fill_zero(inode, blk_start++, off_start,
+> +						F2FS_BLKSIZE(sbi) - off_start);
+>   			if (ret)
+>   				return ret;
+>   
+>   			new_size = max_t(loff_t, new_size,
+> -					(loff_t)pg_start << PAGE_SHIFT);
+> +					F2FS_BLK_TO_BYTES(sbi, blk_start));
+>   		}
+>   
+> -		for (index = pg_start; index < pg_end;) {
+> +		for (index = blk_start; index < blk_end;) {
+>   			struct dnode_of_data dn;
+>   			struct f2fs_lock_context lc;
+>   			unsigned int end_offset;
+> @@ -1884,9 +1959,9 @@ static int f2fs_zero_range(struct inode *inode, loff_t offset, loff_t len,
+>   			f2fs_down_write(&F2FS_I(inode)->i_gc_rwsem[WRITE]);
+>   			filemap_invalidate_lock(mapping);
+>   
+> -			truncate_pagecache_range(inode,
+> -				(loff_t)index << PAGE_SHIFT,
+> -				((loff_t)pg_end << PAGE_SHIFT) - 1);
+> +			f2fs_truncate_pagecache_range(inode,
+> +				F2FS_BLK_TO_BYTES(sbi, index),
+> +				F2FS_BLK_TO_BYTES(sbi, blk_end));
+>   
+>   			f2fs_lock_op(sbi, &lc);
+>   
+> @@ -1900,7 +1975,7 @@ static int f2fs_zero_range(struct inode *inode, loff_t offset, loff_t len,
+>   			}
+>   
+>   			end_offset = ADDRS_PER_PAGE(dn.node_entry, inode);
+> -			end = min(pg_end, end_offset - dn.ofs_in_node + index);
+> +			end = min(blk_end, end_offset - dn.ofs_in_node + index);
+>   
+>   			ret = f2fs_do_zero_range(&dn, index, end);
+>   			f2fs_put_dnode(&dn);
+> @@ -1916,11 +1991,11 @@ static int f2fs_zero_range(struct inode *inode, loff_t offset, loff_t len,
+>   
+>   			index = end;
+>   			new_size = max_t(loff_t, new_size,
+> -					(loff_t)index << PAGE_SHIFT);
+> +					F2FS_BLK_TO_BYTES(sbi, index));
+>   		}
+>   
+>   		if (off_end) {
+> -			ret = fill_zero(inode, pg_end, 0, off_end);
+> +			ret = fill_zero(inode, blk_end, 0, off_end);
+>   			if (ret)
+>   				goto out;
+>   
+> @@ -1930,10 +2005,14 @@ static int f2fs_zero_range(struct inode *inode, loff_t offset, loff_t len,
+>   
+>   out:
+>   	if (new_size > i_size_read(inode)) {
+> -		if (mode & FALLOC_FL_KEEP_SIZE)
+> +		if (mode & FALLOC_FL_KEEP_SIZE) {
+>   			file_set_keep_isize(inode);
+> -		else
+> +		} else {
+> +			loff_t old_size = i_size_read(inode);
+> +
+>   			f2fs_i_size_write(inode, new_size);
+> +			pagecache_isize_extended(inode, old_size, new_size);
+> +		}
+>   	}
+>   	return ret;
+>   }
+> @@ -2034,7 +2113,7 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+>   			.should_migrate_blocks = false,
+>   			.err_gc_skipped = true,
+>   			.nr_free_secs = 0 };
+> -	pgoff_t pg_start, pg_end;
+> +	pgoff_t blk_start, blk_end;
+>   	loff_t new_size;
+>   	loff_t off_end;
+>   	block_t expanded = 0;
+> @@ -2054,12 +2133,12 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+>   
+>   	f2fs_balance_fs(sbi, true);
+>   
+> -	pg_start = ((unsigned long long)offset) >> PAGE_SHIFT;
+> -	pg_end = ((unsigned long long)offset + len) >> PAGE_SHIFT;
+> -	off_end = (offset + len) & (PAGE_SIZE - 1);
+> +	blk_start = F2FS_BYTES_TO_BLK(sbi, offset);
+> +	blk_end = F2FS_BYTES_TO_BLK(sbi, offset + len);
+> +	off_end = (offset + len) & F2FS_BLKSIZE_MASK(sbi);
+>   
+> -	map.m_lblk = pg_start;
+> -	map.m_len = pg_end - pg_start;
+> +	map.m_lblk = blk_start;
+> +	map.m_len = blk_end - blk_start;
+>   	if (off_end)
+>   		map.m_len++;
+>   
+> @@ -2071,9 +2150,9 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+>   		block_t sec_len;
+>   
+>   		if (map.m_lblk % sec_blks) {
+> -			pg_start = rounddown(map.m_lblk, sec_blks);
+> -			map.m_lblk = pg_start;
+> -			map.m_len = pg_end - pg_start;
+> +			blk_start = rounddown(map.m_lblk, sec_blks);
+> +			map.m_lblk = blk_start;
+> +			map.m_len = blk_end - blk_start;
+>   			if (off_end)
+>   				map.m_len++;
+>   		}
+> @@ -2089,7 +2168,7 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+>   				f2fs_warn_ratelimited(sbi,
+>   					"ino:%llu, start:%lu, end:%lu, need to trigger GC to "
+>   					"reclaim enough free segment when checkpoint is enabled",
+> -					inode->i_ino, pg_start, pg_end);
+> +					inode->i_ino, blk_start, blk_end);
+>   				goto out_err;
+>   			}
+>   		}
+> @@ -2135,20 +2214,24 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+>   		if (!expanded)
+>   			return err;
+>   
+> -		last_off = pg_start + expanded - 1;
+> +		last_off = blk_start + expanded - 1;
+>   
+>   		/* update new size to the failed position */
+> -		new_size = (last_off == pg_end) ? offset + len :
+> -					(loff_t)(last_off + 1) << PAGE_SHIFT;
+> +		new_size = (last_off == blk_end) ? offset + len :
+> +					F2FS_BLK_TO_BYTES(sbi, last_off + 1);
+>   	} else {
+> -		new_size = ((loff_t)pg_end << PAGE_SHIFT) + off_end;
+> +		new_size = F2FS_BLK_TO_BYTES(sbi, blk_end) + off_end;
+>   	}
+>   
+>   	if (new_size > i_size_read(inode)) {
+> -		if (mode & FALLOC_FL_KEEP_SIZE)
+> +		if (mode & FALLOC_FL_KEEP_SIZE) {
+>   			file_set_keep_isize(inode);
+> -		else
+> +		} else {
+> +			loff_t old_size = i_size_read(inode);
+> +
+>   			f2fs_i_size_write(inode, new_size);
+> +			pagecache_isize_extended(inode, old_size, new_size);
+> +		}
+>   	}
+>   
+>   	return err;
+> @@ -5758,8 +5841,12 @@ static ssize_t f2fs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from,
+>   
+>   	if (ret < 0)
+>   		goto out;
+> -	if (pos + ret > inode->i_size)
+> +	if (pos + ret > inode->i_size) {
+> +		loff_t old_size = inode->i_size;
+> +
+>   		f2fs_i_size_write(inode, pos + ret);
+> +		pagecache_isize_extended(inode, old_size, pos + ret);
+> +	}
+>   	if (!do_opu)
+>   		set_inode_flag(inode, FI_UPDATE_WRITE);
+>   
 
