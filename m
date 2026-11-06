@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997892;
-	b=CJyC6H0zSJACVU0r/J1o3NpAs+Ulok55g1i11kWDtrAGQyMSP2IhUPVe4QQvwz0GAcA5
-	 B7SJwdT9LVBQfve5MGarq4zJQlUcSmANnl2AzaCy6dAB2xdMinTHUB4EdvVcgy7BJ5dAA
-	 Pf0SA96jttkHaxi0ndk/oUjVPDnhZuLel6LlayOyxww0SxhRp3TFRtQFOjmdiiOs5Iic4
-	 /GpOfow0X6sTxPckdgmwsSJapNR7Uoxcjx+LGi+AI90PgpBEviDQuQQEx+DyX27RngwaL
-	 1GHQWzCTYyOvQce5X2k73MoqStoaeox8Adb9vqAneEG5kpG0Mvr3CjF3F/esW1zwyOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997892;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TUX6youhnFPrGvYeU+pJ1avCVsOlphuFIqYLTiOl4y0=;
-	b=oFWHfHfigiRS4HpinIWAl6XyoGZrom//SpFwrhtXVyplgEk1oMMHqs7oyszmsx6Y2h7v
-	 DeNxP/vwFToS9WWKJEiI1fYcYfS3X/oCh2ac2tPLWkYsRXKbj/Tqrg87NE2a7y4mt9ru1
-	 Lw3L9SP0tPXXUFUoPy8xTrVrkOWp58p3++rAPHPPytPxGJAxU2pm/6s1xz8NHJG7YOWzt
-	 1NqxaQnJxQ0DfZe6eHNZ4xtHAk/2bo8BzjvYQhLJaWqD711MRASE9ROZCA7UJnw+HfaDQ
-	 xTq2X2JwjOeD5xsM0M8+hAs74ILLD2R5frCQVfQqztlnaOZBeFzb6EHwPCOkWMviInw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RoZSWYg8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.4
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793997962;
+	b=CptKqPPprxaGuNLNoNhaLt748uhfFuufyv3dGJbdliOUadOyKAMwSUyOQXIbkpdKNCZW
+	 /5XV4tdfsc3NjsF9CvqU+2gNP/rWJXT//vU7evkWfQyvVjjRsakOQoqKcqf2wSdU0Q2O9
+	 4nMZUsbUKXtdDQx9xvFnIrXyn9pz4g+5i6qV0L6MtdnZoC3AzXXcdwlEZAcd+tavZwd3X
+	 t1KRX0ZRKImPxDyyzw/1xMT4e62F7boZehB7+nexrlqtuZiqm21XUIOz133yGiZ8nuS0J
+	 Poy+tsrkEEa80cMGZrVDjgVrn6F/7t9OgrK5qHZtGMnTB0XMasj6lbLpiqwhKHCHbXw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997962;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cRpWlI+onPFsN5X1uDhg6aMvyPfBkVJCBRJd8YjDViU=;
+	b=QHLOmmPf4PaTojapw9aXcxeAFs78yaSgMbal7Et8EsFakZ0WsK38lCGvR6CfNfegcsVh
+	 eIycwjaKR4pYvG5nowDTls3J0Fw3/Rrznl5xS8u0g6rOxJGdcYk6lyjffFSY/AkLjsPh5
+	 NR4YT9yQpyVsZvZXGapV6qPboO2+jY0TRhX/qKrRZZWDCqSFQfQBKhENb5mYwuWyjROBb
+	 SUIX9FzRqRhjOW2c+F7hoThNqM+75TrJ6/RGNhOTmkUS7ldR6vmoX9ZYs3EnZx579Z4d5
+	 Ycjlni4PpJ4LQUZqmDC6hXthuisIgLZo3TJKSOwhE0/LssMBKwSbAn9fFssyH4FYw1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="27rZd/CO";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.4
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013004.outbound.protection.outlook.com [40.93.201.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897C4606A326;
-	Fri,  6 Nov 2026 20:44:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35E3606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:46:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E35E3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RoZSWYg8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D8C1F0089F;
-	Fri,  6 Nov 2026 20:44:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793997892;
-	bh=TUX6youhnFPrGvYeU+pJ1avCVsOlphuFIqYLTiOl4y0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RoZSWYg8QitL0GYcOrie8WCPNu7m0hXKq/ot0GX77lPOskVbUTIosB3gUSEX0bfs1
-	 nyCG+d63mv2gPixZ4MDnJSPfdssODbCLHKAMvxOXegpzjQVpdDilAWLMFDOCVV2T5W
-	 mTGLJmqTWI6PvZSlzelPkUZpWr8tZqAx1STnZbUvLDQzXbPA9MFhVE+Gnz/GVTvAae
-	 Y66COZnizRE5m3Rvcru5Uyg4aBAdRHrHBZUL/IyWOcW4kX21stIlp5m3w4N9ECi/K4
-	 uUzTIg5UwTss4Us/M9f8HAEXoRMZbFbjcSKtYdkuHsGjeraZjO0DUdafwXei8u88LR
-	 van6A/Ja2bq7Q==
-Message-ID: <f85dbae0-e7a1-4441-901b-e1efd0fd4a65@kernel.org>
-Date: Fri, 6 Nov 2026 21:44:44 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=27rZd/CO
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MaqnODZvvOno0P+e4Os59A33elIyoVBg9PLA/iv+e+fBUnltBgL/dICmcIUj0gcuxYTgZsYfLrCObKAHG0tm58zGD6tvw8Qp3cmot0TZENKysDkF484cxxTpxKk2L693l9qQZBhoB8jlTN5MIcDvAxkC2hwTWRHwmZy2YwZz/JZvGRc7x7OsBx3H2UvFU9TW+G6X2qPdHD/YkI4dQZnWZdBfYVl3pkI/nrM84j+zVm6UfMzsxhazn3xwXn/SE33BKeF9vfbIK1syGbM1VBtGC6iVtxCOcOh+//lHpGaRJcPG2EWCuc7akE3h/6yw8WTIeXqNsTDJDkawBWVwR2rGCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cRpWlI+onPFsN5X1uDhg6aMvyPfBkVJCBRJd8YjDViU=;
+ b=TtLhWEOg+87M7f+qRvx82S2G9at3o+nFllbWczC45HaKR4BRsH829f/1Wk2RVTqNMid2EqD046gABN86v936aNtZbx/2e2gwy2h9tX2wIsRYnt0LY0QTJsRFN5L8yINlR7dUZg7bkkcO9xco5Mzjjnj6EMf0KNHyCJuLTvwi5CSTUj6xOmooxX3/MYe6vYZiKxIvqqk48LmZs+HEOz0fYBtlBJIltfxdf2xMULgBW0L56nzeutZDsSG2NJO6eWnIfT0wD9vz+NbDR+QYHccjpJAJvSMuWOf6YVIe5elu9jqst9JFxu+Mnqos1p2vH4f8yQ9naZHSlWff7UXrkvntdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cRpWlI+onPFsN5X1uDhg6aMvyPfBkVJCBRJd8YjDViU=;
+ b=27rZd/COpxcuBM15zvoDxXWubPJQbtdQnoe8Gfxb1sbPEwngPU5cKoiDcrQFSaN8SJEFX7Nkbc9WxGdMq6chzLrJQpCdlJTI5bw4VcjqAiuWtAkEVuvzpTJbcbxES6bcsuZpXzXL5p2UJbr3Nk+qGzbx6L0CZzeCE2pUkDYBUPA=
+Received: from PH7PR17CA0039.namprd17.prod.outlook.com (2603:10b6:510:323::18)
+ by BL3PR12MB6571.namprd12.prod.outlook.com (2603:10b6:208:38e::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 20:45:58 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:510:323:cafe::4) by PH7PR17CA0039.outlook.office365.com
+ (2603:10b6:510:323::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 20:45:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 20:45:58 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
+ 2026 14:45:57 -0600
+Received: from [172.19.68.247] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 6 Nov 2026 14:45:56 -0600
+Message-ID: <eecbf66e-d2f8-4872-bd97-672ffaa2c7b4@amd.com>
+Date: Fri, 6 Nov 2026 12:45:56 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,124 +102,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] mm/memfd: handle GUP references reliably when
- write-sealing
-To: David Rheinsberg <david@readahead.eu>, Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>
-References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
- <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
- <2c95ecf1-058e-4d81-9de5-622e32dc57df@app.fastmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH V1] accel/amdxdna: Use vma->vm_mm consistently in
+ amdxdna_hmm_register()
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20261106203516.2734090-1-lizhi.hou@amd.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <2c95ecf1-058e-4d81-9de5-622e32dc57df@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20261106203516.2734090-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|BL3PR12MB6571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04a125d5-04ce-4912-773d-08df3c46f5fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|261026140227099003|261026121527099003|11063799006|56012099006|261009223027099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261028144727099003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	J+WCNzVp1nANd/GL5ZpMuqN8PHF5bX4IiK8y0+Ws8/uklTTN66cM+enWCRtpc7cUKiDfkDAzl2+7qYce0HJGj8LNCdmREQ0UKVzgB2WpDPPL+FWRUJNOkGYLpKRwOFM5UJ++Q7tdDD/zIIHVahpcK47yR7DXf6XV1mDnreTNEvjh6GuQQ8HcVfipyt4ZGme2IwXJ9pzvzLdWudoGO7QiHpsz2CQs5aH850cHgbpJTdmt08622gvN6cOIEx1SOsqe2lfXtekZWsH/x7ge3xPY1CXGjKOsimHSo+Dd+yElQ85m6sMBwkB+zDkfeLKWD91kPrGvoe2Mt5cUy9y/J7BO3rTvIeUCpqxSQ1iQGkyEW5ROPI8z00ODRES+aA6zjUXjJu/Y2KJ7ohSOcomQ5gRO0xD42NxyTlPl3RP4vWlWTJQq/BBY1MTtVGs2+5psiKkSCwq2P3xxXUatWQd+Eo+TnrOdjpAjuUscgnPw25c8zcYNFszH1wBeb4ZWWdTxqaxvFExCxjPwO/dZtQhU56KMo9xy+5MHrdrCzsp1lg57YQYeW0VqTurmOfYHJvOTnVir6TpphC86it1C61MdMveLdiOXszk5ruudj/QyDkfLf9cC5f7Sw4OZQxQgfzqw08ede8DmPXDQPMi1El46+BN21EKz6nC/LQbN0dHwAIbfPFsP2En9bRoXS/wjmhdR6hrNJoSiWFe+eeCUXtWXZCqKGA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(261026140227099003)(261026121527099003)(11063799006)(56012099006)(261009223027099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261028144727099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	q73IykKYqW/6MRebArb0W0tb5GSl6s6vzCdj31dCZjRQ9RyJv0S4zJOCBEWqYtjH7tIGz5HzjsCcXg5UF5uVv+1e/FmHYnXP/Lw8IOB5EJM9D7gnLs7JmB/iGViBIqdO5lXHkuKrl2I4tzj3/IpdJrafGp+fsSfFK9KUa6MD2bFDcnPaZmbnS+oTykcnGAV0nU7MGgGIR8bbaLUeHAv+YtmF+NtI9BRA3NFrQj+VyuYHql/W+1yhSV6CbfOYCp1CNJZ9JZ3N5+7M3l5iXS4zoO94qrbqO3hgc8nvAQeubKvLkbzZqPwi7WkHq+by/wvw3xnPzFTL5suWFU3u3tft+MYODykdA+zSxn1AtrcwvWGHE3aP+DTCpdHiW5w6rvtlcmJRmeAeYKh4qqf1J8IaFQy6zBHiJZF3Jd+9IU5KM2bo+EpZuabooedWidHduOWM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 20:45:58.1631
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04a125d5-04ce-4912-773d-08df3c46f5fd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6571
 
-On 11/6/26 20:46, David Rheinsberg wrote:
-> Hi David
 
-Hi!
 
+On 11/6/2026 Fri 12:35, Lizhi Hou wrote:
+> amdxdna_hmm_register() keys the umap list lookup and the interval
+> notifier insertion on current->mm, while amdxdna_hmm_unregister() and
+> amdxdna_mark_mapp_invalid() match the same list entries against
+> vma->vm_mm. The two are identical for the ->mmap() callback, so this is
+> not a functional change, but the inconsistency makes the code harder to
+> follow.
 > 
-> On Tue, Nov 3, 2026, at 7:31 PM, David Hildenbrand (Arm) wrote:
->> We made a big mistake when introducing write-sealing: we should have
->> disallowed *any* file mappings while we are write-sealing. Write-sealing is
->> usually done by a producer that wants to hand-off some data to a consumer.
->> Having the producer have a read-only mapping (private or read-only shared)
->> of the memfd while sealing is rather odd: it couldn't have been used to
->> fill the memfd in the first place.
->>
->> Most identified public users don't do anything like that: they either never
->> map the memfd before write-sealing (using write() instead), or munmap()
->> before write-sealing:
->>
->>  - systemd's journal writes, fwupd, Flatpak, runc, crun and
->>    containers/storage write to the memfd without mmap'ing it, before
->>    sealing it [1,2,3,4,5,6]. The FD consumer will not access the memfd
->>    before sealing.
->>
->>  - dbus-broker, Mutter, Chromium's Android linker, KWin, Weston and glycin
->>    map the memfd file, but unmap it before sealing [7,8,9,10,11,12].
->>    glycin retries sealing while waiting for the loader to unmap.
->>
->>  - go-memfd exposes a shared writable mapping before F_SEAL_WRITE and a
->>    private read-only mapping afterwards. Its API explicitly requires
->>    unmapping the writable mapping before sealing [13].
+> Use vma->vm_mm in both places. It is the mm whose mmap_lock is held
+> across ->mmap(), which is what mmu_interval_notifier_insert_locked()
+> asserts on, and it is the mm the teardown paths look the mapping up by.
 > 
-> When I wrote memfd-sealing, we had this use-case where an application writes a buffer and then shares it both with in-process and out-of-process tasks. Only if out-of-process tasks are actually involved, the buffer is sealed. Otherwise, it is kept unsealed and can be recycled. Hand-off to other processes was optional, rare and asynchronous, so sealing could happen at any time. Yet, we wanted to keep the buffers mapped to avoid costly TLB flushes. Mappings were readonly, but writes were done through syscalls.
+> Assisted-by: LLM
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> We still do this, but I don't think any of the open-source users picked this up.
-
-Ok. So internally you would have to accept the additional insecurity and enable
-the kernel workaround through the parameter. How much of a problem would such a
-workaround be in your fleet once you upgrade the kernel?
-
-Not nice, but there is simply not proper way to fix this mess right now in a
-better way.
-
-> I did not follow the folio changes, so I am quite unsure whether the implementation was racy from the beginning, or whether new infrastructure introduced the races.
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 09e48c794e1b..92125bc753c7 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -443,7 +443,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+>   
+>   	down_read(&xdna->notifier_lock);
+>   	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+> -		if (compare_range(mapp, current->mm, addr, addr + len)) {
+> +		if (compare_range(mapp, vma->vm_mm, addr, addr + len)) {
+>   			up_read(&xdna->notifier_lock);
+>   			return 0;
+>   		}
+> @@ -477,7 +477,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+>   	kref_init(&mapp->refcnt);
+>   
+>   	ret = mmu_interval_notifier_insert_locked(&mapp->notifier,
+> -						  current->mm,
+> +						  vma->vm_mm,
+>   						  addr,
+>   						  len,
+>   						  &amdxdna_hmm_ops);
 > 
-> Can you elaborate why folio ref-counts are unreliable / unstable?
+> base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
 
-I'll have to point you at the doc of folio_expected_ref_count() where this is
-properly documented.
-
-Back when you used page_count() vs. page_mapcount() you probably had no idea
-that this is completely racy as we didn't have any such helper to spell it out.
-
--- 
-Cheers,
-
-David
