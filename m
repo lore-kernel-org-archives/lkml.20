@@ -1,91 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984185;
-	b=A6lJVLCCxW6S2uvnoIygUXm5hbptVqTEmoUWhhCjsM8tZq2QPKj+0Ty6xgjly82mmisW
-	 dy7xTXEEc09BlOl/IXXK6WhGMkA1y+Bvs8J/2HSraLCn7mnZ0EibJ7Vy+dTCar00uO0Sz
-	 o5+i0rsXXvaBMol5fL5vD98qfUd2Z63qeFOL0voqAMI3HKspj31W3BIr3v2cjHSzsmIn5
-	 miv1RGAU2HTR1KPhevdlrgivJFTHbEItKyj5R9aTBHGdg40rqTao3IOFyfjYSzPjJZeJp
-	 g6njSdM/+1pZ8B55JK2pfLpyBbdPIufonbfsyIG1oRnKmqfbjGYctJSXDN17ViDnNDw==
+	t=1793984190;
+	b=iAz6KYKTgO2JwqLSKADhTWTFIB4wOZ6+Z7Pa1R1T8NMZBZyzwYxi0Sorrf2GjZU3Zohl
+	 BeVu5cD0LQ3+2IM+AWTF07KYMfA91XIHEm80ipBO6O9jsoDPeZsg4Hdsi3gaGxntzlH44
+	 4HrtefBBPUbhR030QFXyQDEzdCjXlMOJiNHThd6zhpWMHRqGS8iPSE2jzleFW2trEncO3
+	 fdLjpWVNE4trzWRvNVKX7lHd2e+Dxspi/xiLO3XmhMpuj8jmlE6HSLyUQ+jUKgdPAC+o+
+	 aGaCOqF0QR5NnVOKBPTw7W+fd9O7F4z7nPhrGSVnb9bn23FT8cQe92irrTI+jY7OMNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984185;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=mildQKcldMkDmSjfhIpmMkbxI9eJlgqNxmqam7PIgl4=;
-	b=BtPbAsChdwXfADu7E2cYbVwqCCXiNTvo20AacA8WjBSh74lDlmmc+j34v1nLmvJwp8QC
-	 YPM13Wt+MYG/gfc1vr0i8zkhD/jyuJypameCMHLzvnFds0acEbiTmFpp5HBnHK6b+h14U
-	 55xSXKluxstD4KcsJEorPOqJ8zQMJUmuzcnSU1fIceNh5gXUyJCa2a4R++GuBFze50bAu
-	 mrvE+/Zm84ElnSWVgLKwSLOWPHmQwrlV3EfOYYx0xOqgK/kPVz9RCFpZVi45lU9ycbuR6
-	 EYrisb2g8I3fU+XXyC7ajKLr1Raw7i8eH7DoBnih1NbC94GzS2g2MByGxZPGZt3Rqxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984190;
+	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc;
+	bh=6MyheDk9AmIiMUlnMcbJVkjS1qaDN78uIvkLvU/yuaI=;
+	b=Wgp3HfFKiAhlTr9kfPiEv6XKvJRYODog55KLWXWp5rPfgWccQtoI01M+De4T6irWc54G
+	 WkVtbI2GMuvlNYrEJdMDlv3sIzHCEwgCzqvfpzpmvH5QlHfU/m31JOQ+GSKjBB8jzaQbs
+	 pF9sXo+o6Bp+iTOLsC66K7EgCVaPGhQEruxWYutqyVFeKhPKG55GfvXrIUvsBC0ZMLZdd
+	 35mehuWmqGPm6ruTIk2v+vjdKt4vUq5EVuwesLDmev+oFJWEMEGFFQYs0aYptzjwFUZnh
+	 EN2Ed58GsaRRy+WtBVP4fvSni0Q3i8abj9rY5iBP8PkzY/IFKHEW02l0vGi52lI8gMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZeovEfKr;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=cyberchaos.dev;
+	spf=pass smtp.mailfrom=cyberchaos.dev;
+	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=r4AAqOq8;
+	arc=none smtp.remote-ip=195.39.247.168
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAA2606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDAA2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649EE606A33E;
+	Fri,  6 Nov 2026 16:56:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 649EE606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZeovEfKr
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so1212066c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:56:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793984184; x=1794588984; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mildQKcldMkDmSjfhIpmMkbxI9eJlgqNxmqam7PIgl4=;
-        b=ZeovEfKrzoVohaBy0IJUc4H9KVlLpncflAbI0M/vM/FEX4ib+VS82nn/U9FhwN6R7K
-         2Hu1NPaG1TIKN+Po1IGjpPP00oyTmK0BhXmHKEVExcALNk3UPnOMe6hzhBIKsSpJ3NfV
-         JC1tydh3s1j1ZtuhsHrLQ6rDeHnTDi7rrVueN9P6IqZWdi8dzMU7FEcWHRmLYH9g3UFm
-         Fw9T+UOA3uMeTaF85MjXRIjQ3d/s7NIwwSOzFMRQ3yViMm9OshJ+jo2bu9Y+7dk/sovt
-         0Mqz1Ifc7zUdA1Td8+dWcxH++JG4pvkjNa/MygOcsDsBql/jPXNf4Hpuv8AUnhJoSAbU
-         dcZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793984184; x=1794588984;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mildQKcldMkDmSjfhIpmMkbxI9eJlgqNxmqam7PIgl4=;
-        b=Z8F0OtQluwfkEyqUMBvzUqkuJx22QtLNIg8yC20JZubX8qYc6sdzwkhPehZFaSU8Zy
-         oBnq25XtFNfdwJUIPUS/lHC9S3oOfFAlsrbfeMSnGQF90HqjhY9Gcqv4bgpsDPo+nvNH
-         50oFmg05vJvoZw15Kif12gwt5ZMDCCySr+NjTz5P0iNHG3Z+E3PUBO0u+j1XVlg9fY7V
-         T4GM0tQnN4i9GCsvc2iuMRtuIm02N60jRDeHRGFsoYixL2ocEZJ7/LIyY7+SXn1prpTZ
-         w07z4cpHlZXSzAz0EA+U8/JRnbbh1FwzvFKZjyNt3OSBNYbVl69tG6hpRei/lI69aprX
-         d/dQ==
-X-Gm-Message-State: APuU4Z/kUbAXZtbDTuKSxCUGSbPN9DyV4clzUzA6vkBeBT1l57DYxOPV
-	045CMqCvL27kBw5JIQH8OB1iiie2popIHphGUPsA3gYj39fu925/hlSM
-X-Gm-Gg: AYBFou0uNs+KdMxw7iAlhblqa2sSRMCcvI7S1CO99Hg5aPXiV6iIwseNC5B/7cRy+Hv
-	+2MTBuXWAGlejih/OWClVcjTnoqr6NwCS7dxWIxAM0/E0p1wmIJllGDS07hHMacEcOp8tb+CyiZ
-	T0su3QcAfIOsDqCQv1ySLsUxPfL2jx3I7c0ZrPPlRenXFUuJApQbTaI7rBLlBRRSUZAmxz7zdSJ
-	eadghge2oVODW3mkkwRg2ftS7lP7f9mwEi9GIHYsuVgaaTBvS1fFic9AWE3ydhwf2Fy1HNzQFe4
-	OgUD8UOZsoytqFJe7GM/3RAv/04VFaw31WjYUUO61R/Bi4sqlNaSTot+0pwg61bFQbZdO28t1CK
-	gpCVGbdIAnzWua335rILmO6b7w0nS6myhGDC3ObZ+OrjJ6N/BG5Q9MoCtnN+r5dWnt9fxGL/Qo3
-	Vgd7h31m9O7VHYhYtGYx7kPIUFF0Wjnk3qsGscbniEDx8GqosnnIcz1sO0tsWIE1jMYUrtsOdf/
-	hadOrn9vnf7eKZUbo8POl/ld4uzQxcWoL4tygDIWSaYLf6zlTqDuCcnzeJziJuiBhBtVAD8yxb1
-	QBi8uxFkMy06KlhnNc8yLnL/sZTlQ9pRtwB38ZTYsgac6n6oMppy
-X-Received: by 2002:a05:7022:96:b0:1ae:b906:7733 with SMTP id a92af1059eb24-1b25d329fc2mr3326367c88.23.1793984183585;
-        Fri, 06 Nov 2026 08:56:23 -0800 (PST)
-Received: from localhost.localdomain ([103.177.253.113])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4df114sm7329756c88.18.2026.11.06.08.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:56:23 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH] ALSA: control: Trim whitespace from sysfs input
-Date: Fri,  6 Nov 2026 16:55:31 +0000
-Message-ID: <20261106165531.4074-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=r4AAqOq8
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1793984181;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6MyheDk9AmIiMUlnMcbJVkjS1qaDN78uIvkLvU/yuaI=;
+	b=r4AAqOq8CJd+WTHowBxNRL530plm6NayXIfPIEa5uB3JxaKIo3+XIPHPKYd3WdtC8RLm+J
+	lpDE8LhyJi+o6Mcx00buFdcGDFwJa+6CyCV6iaWwdGdHSOGAYqNIIglrf0fx52tluWVjqc
+	YFjAfVqkS5Ml/iQKlRFlxOpYPN1zfVA=
+Date: Fri, 06 Nov 2026 17:56:13 +0100
+Subject: [PATCH v2 1/4] arm64: dts: apple: t8132: Fix indentation-related
+ dt-check-style issues
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,43 +56,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-apple-dts-m4-dt-style-check-v2-1-1e715e80b066@cyberchaos.dev>
+References: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
+In-Reply-To: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yureka Lilian <yureka@cyberchaos.dev>
 
-The attach and detach sysfs interfaces receive input from
-userspace.
+This fixes `dt-check-style --mode=strict` issues related to
+indentation in the t8132 device trees, specifically replacing the use of
+8 or more spaces for alignment with n//8 tabs + n%8 spaces.
 
-When userspace writes a value using echo, the input normally
-ends with a newline character.
-
-The parser does not remove this newline in all input formats.
-For example, a bare numeric ID can be treated as a control name,
-and an unquoted name= field can include the newline.
-
-Trim leading and trailing whitespace before parsing the input.
-
-This keeps spaces inside mixer control names unchanged.
-
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
- sound/core/control_led.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm64/boot/dts/apple/t8132.dtsi | 64 ++++++++++++++++++------------------
+ 1 file changed, 32 insertions(+), 32 deletions(-)
 
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index 501387287ae6..a640e7835ce2 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -518,6 +518,11 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
+diff --git a/arch/arm64/boot/dts/apple/t8132.dtsi b/arch/arm64/boot/dts/apple/t8132.dtsi
+index afec92a06015..58805c6ab002 100644
+--- a/arch/arm64/boot/dts/apple/t8132.dtsi
++++ b/arch/arm64/boot/dts/apple/t8132.dtsi
+@@ -241,12 +241,12 @@ pinctrl_nub: pinctrl@3881f0000 {
+ 			#interrupt-cells = <2>;
+ 			interrupt-parent = <&aic>;
+ 			interrupts = <AIC_IRQ 499 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 500 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 501 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 502 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 503 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 504 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 505 IRQ_TYPE_LEVEL_HIGH>;
++				     <AIC_IRQ 500 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 501 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 502 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 503 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 504 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 505 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
  
- 	if (strscpy(buf2, buf, sizeof(buf2)) < 0)
- 		return -E2BIG;
-+
-+	s = strim(buf2);
-+	if (s != buf2)
-+		memmove(buf2, s, strlen(s) + 1);
-+
- 	memset(&id, 0, sizeof(id));
- 	id.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 	s = buf2;
+ 		pmgr_mini: power-management@388280000 {
+@@ -278,12 +278,12 @@ pinctrl_smc: pinctrl@38c820000 {
+ 			#interrupt-cells = <2>;
+ 			interrupt-parent = <&aic>;
+ 			interrupts = <AIC_IRQ 552 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 553 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 554 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 555 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 556 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 557 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 558 IRQ_TYPE_LEVEL_HIGH>;
++				     <AIC_IRQ 553 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 554 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 555 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 556 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 557 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 558 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
+ 		pinctrl_aop: pinctrl@390824000 {
+@@ -299,12 +299,12 @@ pinctrl_aop: pinctrl@390824000 {
+ 			#interrupt-cells = <2>;
+ 			interrupt-parent = <&aic>;
+ 			interrupts = <AIC_IRQ 423 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 424 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 425 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 426 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 427 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 428 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 429 IRQ_TYPE_LEVEL_HIGH>;
++				     <AIC_IRQ 424 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 425 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 426 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 427 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 428 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 429 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
+ 		pinctrl_ap: pinctrl@39a000000 {
+@@ -321,36 +321,36 @@ pinctrl_ap: pinctrl@39a000000 {
+ 			#interrupt-cells = <2>;
+ 			interrupt-parent = <&aic>;
+ 			interrupts = <AIC_IRQ 303 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 304 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 305 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 306 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 307 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 308 IRQ_TYPE_LEVEL_HIGH>,
+-			             <AIC_IRQ 309 IRQ_TYPE_LEVEL_HIGH>;
++				     <AIC_IRQ 304 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 305 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 306 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 307 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 308 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 309 IRQ_TYPE_LEVEL_HIGH>;
+ 
+ 			i2c0_pins: i2c0-pins {
+ 				pinmux = <APPLE_PINMUX(104, 1)>,
+-				         <APPLE_PINMUX(103, 1)>;
++					 <APPLE_PINMUX(103, 1)>;
+ 			};
+ 
+ 			i2c1_pins: i2c1-pins {
+ 				pinmux = <APPLE_PINMUX(106, 1)>,
+-				         <APPLE_PINMUX(105, 1)>;
++					 <APPLE_PINMUX(105, 1)>;
+ 			};
+ 
+ 			i2c2_pins: i2c2-pins {
+ 				pinmux = <APPLE_PINMUX(44, 1)>,
+-				         <APPLE_PINMUX(43, 1)>;
++					 <APPLE_PINMUX(43, 1)>;
+ 			};
+ 
+ 			i2c3_pins: i2c3-pins {
+ 				pinmux = <APPLE_PINMUX(42, 1)>,
+-				         <APPLE_PINMUX(41, 1)>;
++					 <APPLE_PINMUX(41, 1)>;
+ 			};
+ 
+ 			i2c4_pins: i2c4-pins {
+ 				pinmux = <APPLE_PINMUX(108, 1)>,
+-				         <APPLE_PINMUX(107, 1)>;
++					 <APPLE_PINMUX(107, 1)>;
+ 			};
+ 		};
+ 
+@@ -458,9 +458,9 @@ timer {
+ 		interrupt-parent = <&aic>;
+ 		interrupt-names = "phys", "virt", "hyp-phys", "hyp-virt";
+ 		interrupts = <AIC_FIQ AIC_TMR_GUEST_PHYS IRQ_TYPE_LEVEL_HIGH>,
+-		             <AIC_FIQ AIC_TMR_GUEST_VIRT IRQ_TYPE_LEVEL_HIGH>,
+-		             <AIC_FIQ AIC_TMR_HV_PHYS IRQ_TYPE_LEVEL_HIGH>,
+-		             <AIC_FIQ AIC_TMR_HV_VIRT IRQ_TYPE_LEVEL_HIGH>;
++			     <AIC_FIQ AIC_TMR_GUEST_VIRT IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_FIQ AIC_TMR_HV_PHYS IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_FIQ AIC_TMR_HV_VIRT IRQ_TYPE_LEVEL_HIGH>;
+ 	};
+ };
+ 
+
 -- 
-2.55.0
+2.56.0
 
