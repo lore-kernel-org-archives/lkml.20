@@ -1,68 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958993;
-	b=sBriIcfffThIIGyCruFqhmZWGOW4SRmPjVc/S980tFolSrjOe2iFoew0R1bZhYYgseWn
-	 OJe7UDtoaETgnbtz8ZkAmzAxaoB6ztCYPEBU6vF/DqR8/Z1ogHc0zsEJ+nq6YYb6jaiMi
-	 eTTF5FuhrPJIgt0p4ooKaRHJu8XV0LEvZs2Str9bPWf+c53jK7XNPb1v0HMjmRINPetat
-	 w09RFT9sVG1H0HDFx68e5Y946iFAUVm6/lzeLvCkaDWgCudRAt7HnOXJtzvTKrIPejZzw
-	 ky9q3pIoUmk1YGYrUXmcOcwkRTFoup+9Oew29+634Y15plq+Q4rP0xHZVgTklLZFSSA==
+	t=1793959002;
+	b=aM+1MHiH2SRowojD6iLo2BR531FWRo8sVAlFHlBBEdIU0NJcV8TdrLbQSfvnr7Nb3apL
+	 +qVykQq2wRPnPGjAjuU85jFYD4Ze1jk+zUGZmjrWsCllFFKWWxdVXWhNlvrzTZzPq/VU/
+	 eSAD8zXfeedV9lDmgWisaJx8j2SA6NW6D06Lrv9UnQBokSqztCy2joIDI++kfV/fesqt7
+	 k7+uehmAMkTN3Gfn0V093nKa3+soQM7CmSxhjZGlOsFf0mMKBosD+s3Mihy85C6qLqurk
+	 ISlSrkXsyjFk6Kp9lQJuhh2BTG5j+OYCPOCnFUef0nxwN+6ymodSkg9Gs+6ySjozYrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958993;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=p4X9nuP6o1sozZLarhxMvxYA/A7FXv7bB7EJQ813gtI=;
-	b=cpCwzALTSpNC1qHI5r2dds6HJucFTfZn9vFKY3iRNvpXWoyXAta7XyrDmOHglDBDE0OK
-	 oJmIPY9+Sy9qWL6nuJZ3Z+LcINZn8iAc8+2qdxmZQ1tiJi78Fp6NlKmFaqqspLoJfb3ss
-	 LnX8KgR4MO1PDirxCwARlmYcBH9t2dgqQizLxRKDBLa5iGMw56JAKaK6frVFhDoRU4YO3
-	 wHYbXnumgQXcciG2wUruKq5ale2AwWCqGwbwetj7kqCLm3GGIxSzoXruZMl/V+RqIWIzo
-	 mD+iWIwV5RABNRx2bfUE//KSZooupi8BPbOJFS/S3HcH4s0eDjP7ezkwHhRKkhYMiKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959002;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=wc90mkhV4JCZVgq6sGZ1LOiDWQRHHrmx5sOWDPhx3UA=;
+	b=0okxsvYPZOAEVmeFmRGHKHkUjQOFEjfredCIq2X/C7MNOZ1hNaHM9DNxor2ueqaY6Qen
+	 LZb/Fvcvm9ylsIIdGoiwfDOgchNe49Hg+WlKVaDt2Tx49G46ayer32Kshq7n/1f6RX+Ps
+	 HOkXuNLi1Pz2E98VqbezZ8M1b+gvXfYVXLVaZLYpiT9Dxp5VKBpiB8p2mvYzh+ZOhnXod
+	 8Ll8VrlYDhDxmCofOaRE3Ui+baAMrE9ciQcLB50js/ZgZsPmQeU/T/isNP+hsw+NvGy0N
+	 2hoaBoL90elAtCIVCKN8mPThA8DsLFwBfaGdiS2QVgnuyTuIva1Bn4sCv08b8HUUfwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=hW+M13Ay;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC42A606A330;
-	Fri,  6 Nov 2026 09:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC42A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="l5SK2y/z";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=UHiBLwk6;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D3C606D824;
+	Fri,  6 Nov 2026 09:56:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0D3C606D824
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=hW+M13Ay
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=hW+M13Ay8YZkujMbRUInHccf5kp+F8emucIp9FflfFLfxnlLZwP6jZJa92gUc84s02ETTDgrPEEcb
-	 V+sqXyLCOIbU7ROKi8H0YmtuFQ3JA8pjX97r3VXxRu9aUkyTjghTW9XPpv8A86idW20Cm9ersAiWi9
-	 aSvHXaBNrCKBNo9Y=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeda44bf73-7d991;
-	Fri, 06 Nov 2026 17:56:29 +0800 (CST)
-X-RM-TRANSID:2ee66aeda44bf73-7d991
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36aeda44ca67-1bcff;
-	Fri, 06 Nov 2026 17:56:28 +0800 (CST)
-X-RM-TRANSID:2ee36aeda44ca67-1bcff
-From: xujiahao <xujiahao@cmss.chinamobile.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xujiahao <xujiahao@cmss.chinamobile.com>
-Subject: [PATCH net-next] liquidio: enlarge the interrupt name buffer
-Date: Fri,  6 Nov 2026 17:51:14 +0800
-Message-ID: <20261106095114.3564335-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=l5SK2y/z;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=UHiBLwk6
+Date: Fri, 06 Nov 2026 09:56:38 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793958999;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wc90mkhV4JCZVgq6sGZ1LOiDWQRHHrmx5sOWDPhx3UA=;
+	b=l5SK2y/zcV4gsnXBmTyLjWTfJYJTD9xIpH76/JJPQmfsdAtKfeLnBa5N8s/MeE/g6J0a51
+	p0d/i4CMT9UGpGAD1fLL51YLNkJ5lyq/J/OwqCygIXna+Jc7JiimI15z/e3Ik1qHsWUOxK
+	69wZBA4GI5b7bIAy/XqzPaXDwlEocSpJIMSX7g8OyBbo4vmsnU7xPxZg3iCanmGko21L+0
+	wwSd+H5G9kzzdO7wGR5a4wyLHxThsPjFagteVKc427CJX/Zz2muax81NSg0XNrCfQM19zo
+	85j92SbWAaweGC2x+MziFJp/twvTS8UHiZFRSiJkC7rM0poniZ6gcW+aOutlwg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793958999;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wc90mkhV4JCZVgq6sGZ1LOiDWQRHHrmx5sOWDPhx3UA=;
+	b=UHiBLwk6pSs3q7ieIGTVKPR6RXHo/oGedMzD/LrxVILAkAWFRtztVmv6dRPmRscRA3qceL
+	0bFKBLnWeeBBIOAA==
+From: "tip-bot2 for Ridge Lomont" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/kcfi: Don't emit KCFI_REFERENCE() in modules
+Cc: Ridge Lomont <cyridge@proton.me>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261027-kcfi-reference-modules-v2-1-3a3247f15806@proton.me>
+References: <20261027-kcfi-reference-modules-v2-1-3a3247f15806@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,39 +79,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179395899801.1009794.675922309720546453.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-The PF and VF interrupt names are assembled as "LiquidIO%u-pf%u-rxtx-%u"
-and "LiquidIO%u-vf%u-rxtx-%u" into INTRNAMSIZ (32-byte) slots.  Three
-full-range %u do not fit, which gcc reports in a W=1 build:
+The following commit has been merged into the x86/urgent branch of tip:
 
-  drivers/net/ethernet/cavium/liquidio/lio_core.c:1119:76: warning: '%u' directive output may be truncated writing between 1 and 10 bytes into a region of size between 0 and 13 [-Wformat-truncation=]
-  drivers/net/ethernet/cavium/liquidio/lio_core.c:1124:76: warning: '%u' directive output may be truncated writing between 1 and 10 bytes into a region of size between 0 and 13 [-Wformat-truncation=]
+Commit-ID:     fb685de78e6bf79e49854e7d149f69b125583de5
+Gitweb:        https://git.kernel.org/tip/fb685de78e6bf79e49854e7d149f69b1255=
+83de5
+Author:        Ridge Lomont <cyridge@proton.me>
+AuthorDate:    Tue, 27 Oct 2026 15:29:21 -07:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Fri, 06 Nov 2026 10:47:57 +01:00
 
-Enlarge INTRNAMSIZ to 64 bytes.  queue_irq_names is allocated with
-kcalloc(num_interrupts, INTRNAMSIZ) and the auxiliary name with
-kzalloc(INTRNAMSIZ), so both follow the new size.
+x86/kcfi: Don't emit KCFI_REFERENCE() in modules
 
-Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
+KCFI_REFERENCE() takes the address of a symbol so that the compiler
+emits its __kcfi_typeid_ symbol, which the SYM_TYPED_FUNC_START()
+assembly implementing it needs. It is used from arch/x86 headers for
+__clear_pages_unrolled(), copy_page(), __memset() and __memmove(), and
+all of that assembly is built into vmlinux.
+
+Modules include the same headers, so with CONFIG_CFI=3Dy every module
+also gets an __ADDRESSABLE() reference to each of these symbols in
+.discard.addressable. This serves no purpose there, and since
+__clear_pages_unrolled() is EXPORT_SYMBOL_GPL, modpost now rejects any
+GPL-incompatible module that includes <linux/mm.h>:
+
+  ERROR: modpost: GPL-incompatible module repro.ko uses GPL-only
+  symbol '__clear_pages_unrolled'
+
+even though the module never uses the symbol. This makes OpenZFS
+impossible to build against CFI kernels; its configure checks fail
+in the same way and are misreported as CONFIG_DEBUG_LOCK_ALLOC.
+
+scripts/module.lds.S does not help here: modpost checks <module>.o
+before the final link, and even after it the discarded section only
+loses its relocations, the undefined symbols stay in .symtab, where
+the module loader resolves them with the same license check.
+
+Only emit the reference when building vmlinux.
+
+Tested on x86_64 with clang 23.1.3 and CONFIG_CFI=3Dy, with both
+CONFIG_LTO_CLANG_FULL=3Dy (the configuration from the Fixes: commit) and
+CONFIG_LTO_CLANG_THIN=3Dy: vmlinux links without warnings and still contains
+__kcfi_typeid___clear_pages_unrolled, __kcfi_typeid_copy_page,
+__kcfi_typeid___memset and __kcfi_typeid___memmove. It boots in QEMU
+with no CFI failures. A minimal module with MODULE_LICENSE("Proprietary")
+including <linux/mm.h> fails modpost before this change and builds and
+loads after it. OpenZFS builds against a CFI kernel with this change,
+and its pool, encryption, checksum and send/recv operations run
+without CFI failures, in QEMU and on a desktop with CFI enforcing.
+
+Fixes: 9b041a4b66b3 ("x86/mm: Ensure clear_page() variants always have __kcfi=
+_typeid_ symbols")
+Assisted-by: LLM
+Signed-off-by: Ridge Lomont <cyridge@proton.me>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Acked-by: Nathan Chancellor <nathan@kernel.org>
+Link: https://github.com/openzfs/zfs/issues/18092
+Link: https://patch.msgid.link/20261027-kcfi-reference-modules-v2-1-3a3247f15=
+806@proton.me
 ---
- drivers/net/ethernet/cavium/liquidio/liquidio_common.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/compiler.h | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/cavium/liquidio/liquidio_common.h b/drivers/net/ethernet/cavium/liquidio/liquidio_common.h
-index 4da90757c..131e39299 100644
---- a/drivers/net/ethernet/cavium/liquidio/liquidio_common.h
-+++ b/drivers/net/ethernet/cavium/liquidio/liquidio_common.h
-@@ -102,7 +102,7 @@ enum octeon_tag_type {
- 
- #define BYTES_PER_DHLEN_UNIT        8
- #define MAX_REG_CNT                 2000000U
--#define INTRNAMSIZ                  32
-+#define INTRNAMSIZ                  64
- #define IRQ_NAME_OFF(i)             ((i) * INTRNAMSIZ)
- #define MAX_IOQ_INTERRUPTS_PER_PF   (64 * 2)
- #define MAX_IOQ_INTERRUPTS_PER_VF   (8 * 2)
--- 
-2.43.0
-
-
-
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index 0ea7150..ea161a7 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -258,10 +258,13 @@ void ftrace_likely_update(struct ftrace_likely_data *f,=
+ int val,
+=20
+ #endif /* __KERNEL__ */
+=20
+-#if defined(CONFIG_CFI) && !defined(__DISABLE_EXPORTS) && !defined(BUILD_VDS=
+O)
++#if defined(CONFIG_CFI) && !defined(__DISABLE_EXPORTS) && !defined(BUILD_VDS=
+O) && \
++	!defined(MODULE)
+ /*
+  * Force a reference to the external symbol so the compiler generates
+- * __kcfi_typid.
++ * __kcfi_typid. Only vmlinux needs it, as that is where the assembly
++ * using the typeid lives; in a module it would only add a reference to
++ * the symbol, which fails modpost if the symbol is GPL-only.
+  */
+ #define KCFI_REFERENCE(sym) __ADDRESSABLE(sym)
+ #else
