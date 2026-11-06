@@ -1,52 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957310;
-	b=iL2DPnU/j9bkuOJbSsDsBRqDnjIgLM5QnwADaiac6HcKI50S9SZheDSWU436Hln8V0/6
-	 V24zXUuOCrn3RzdRuIMyq1sC5OK+R9a3R6IUr1g52fu5BPo8yxlFiVDhjXqLuFXRWw+7D
-	 UARCbInFnVwomKprtcCONh/cUEQSTFk67anttzRb2B+QZnwO7xlXUjeVE4/LwvnH7dIDN
-	 ct9hhKjgoKP67NwpwkNumsmWR4Gkml4GmfZwezfEClrbkskxIEcEc1RUqmbMdJlQaIeeA
-	 FHoGa6XAnGgn7MlzmUu7e07ALg0bXUFc1JzsomX0Udms7xv35A52kFUYazhh/Ulrn2g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957310;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=s2yPprdtKSVM/pEbDCZgmatvxfAjK6EQ7JH+7rJ37Jk=;
-	b=ahTKbNxujAN7VeZF1NnddxAObD1nBHZlNhpFAfcqHQoE4xMqnhtCZjrCc2qyHWWIeGMT
-	 P5t28Wi4gs+uP+qXV+GG9JwOvpK13y1uUv/V11LPSiGw68UZqVog9umFpuGX1Yoiww/+M
-	 7Nxtj40msg2B77zKoutocHtKDu2tkvp3eneLNRq4Q63wrWgtrLXR5Loryz+RJVkJpxCk+
-	 0K9fh9VM0ohZ29KjjRnmDI0eNmvkM+8jBi201nu1kXiW52tbXWNZ/FOd99Aqm0ReOTsv2
-	 UBiS/xQRGFkq2WIlByKIQ7FFZtjw5Be4WvmvwZatGBoZSXTFEuz/Z7JlZ4Is/8qZDdw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13608606A328;
-	Fri,  6 Nov 2026 09:28:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13608606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8AxYdGzne1q1gUdAA--.19002S3;
-	Fri, 06 Nov 2026 17:28:19 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxRs2one1qAMEyAA--.25383S4;
-	Fri, 06 Nov 2026 17:28:16 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] perf tests: Use TEST_ASSERT_EQUAL for all watchpoint tests
-Date: Fri,  6 Nov 2026 17:28:08 +0800
-Message-ID: <20261106092808.6914-3-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20261106092808.6914-1-yangtiezhu@loongson.cn>
-References: <20261106092808.6914-1-yangtiezhu@loongson.cn>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793957316;
+	b=bUFoCG9j4yopABgOHJmmTUsPEcsPCo9IuFD2U0q9HBfHa3eSfosAu0dTwqI7CEzdwu97
+	 L4dGGTNRadC6MeVmu8NS+cxg11pB+IfMM4QSFuTl0A9KtXO28Qpz1VHK3FYOimoIPcX3x
+	 ghtQ84nf8VuCMk7kBUjCLPP9wugrb+zG+2x3Ztp03ax0WhZGHdxBHXnEma9YMGQ+sz9TL
+	 lofNO0wnM+y1HjMBirmIESdCUxtQcC4Yuckw3TePA52TKJb1tm7cAkgPg016SgtHeq75b
+	 zKLQUir4aTeXVFNtkb3Z1l4R/0F6J25EuFD9eRt891ruRIprJs/rxIaxJay4Dn+Tsgg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957316;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=U6oPa2ZJHjZNJ3jw6GfOwDyY59OJDmTAAq1w/QD2M+E=;
+	b=H/0pPlDq50OyW0M/vH+bOrLZZ7s+uDrQbJ93AyMa2QM1xtVUFH6zodRP9gH7PShEoqUc
+	 9BdMMq+qroIlkWB3Z79dazcOzPSUo92tJMS33ZRgcVfpGD5ffr7Vm/h9+lSpE9Bil64Ee
+	 a54M+FsWHqqesjnz+BiLBrSbRY6m6q2hHz6jKfU+5c4x7+UXsH9LNz+01WNZp1pigrI/Y
+	 ecyjLfAxjY8HIP4MQ9bTy7QcyR0JTHL1ItXi7I92vlCQtEqAtDSZ1WLsY6EPx8XL5vfc+
+	 zR9VXcGe5lfIM0Be+UPQil18MJR/UsWJ+lkhWWu8qqs+uSAi7eDylXTVuZXSWc4TH7g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcFsuNMd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507E2606A331;
+	Fri,  6 Nov 2026 09:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcFsuNMd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793957316;
+	b=f9asUT1T2RPEeC6c/JtMB95mmxevhlKwTrxrjyVEBmuM/tiehWe1fLkZH+Gs8Lvh6Qpa
+	 l+rhYZjwfl44+uTegaqZcqLeX6/dZS61meKkFtJ+oRCub2VskX9kimGY+ydFn7mpcbcwf
+	 Ye5xdokrhl6WKRfls7dgnA/T/SwLRiAEM5Iv+bpJ40OQykrjN9zMV3+fjVUTcX2N5LYS7
+	 qCYPFhU9Fbt9KzfFIxSxhMwhwtmy7gvZCf8BTqGYZPehv22DjzzyZbvKI13Eye0gFz8zW
+	 jkwYYkNKct2igRjuXR1kF9K/Mf5T/JzSFoDrtf1zHuGBq3glyiPpWCtfpqNHrCIeyKw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793957316;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=U6oPa2ZJHjZNJ3jw6GfOwDyY59OJDmTAAq1w/QD2M+E=;
+	b=eLX1kY+XS12KZCj8n2hg0VaqXoK1IMJ3BJSFt1eoFJvd625FOC3A34j0Ctsa8P3APdUy
+	 Isb1Ky28aRmP0lrrLPtNV5Fzx1UKeAfsJAJ7fvdaV3DYo5tHPtzdayBpNPvR1Tsm5AXZS
+	 W4/XXC73HPyqyvB6lBlCLymfp97wOyucs9gEHx7zmyPFPnaevJObtnQU1QNAyEKyU27Qw
+	 pPuM8oAA9CmlJb7mP6yGK7L3uat0h5tan5xgkZc9PHoQktYt7u5nfKlniHRGBYcZOKKeL
+	 V5q3MZHHfx6E6jFef997IMFNsJO468kQokmXD53WMKRt3rMLYxJOVgqwV6O0sFYTnwA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 949931F008A2;
+	Fri,  6 Nov 2026 09:28:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793957316;
+	bh=U6oPa2ZJHjZNJ3jw6GfOwDyY59OJDmTAAq1w/QD2M+E=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=LcFsuNMdujcQFiGeV+iA91OZ+2H8rrMesKYasVfX/+ZLpeUA6aPVaFSjnGpV7yCyR
+	 n2N3s9/E8CUuVLHKsdYK0TkUt82zAkvXifqxdHFqv0q2Bg64/Q8GqdH5h9sVhj/w6b
+	 rgngKjtCrTJ0SQHxmpxoynWZiB3D7niCgmrNQraYqUxwesWn+3n83YoPFUQBs4+NOz
+	 B1hCbUWg8G1Xc5ppE+9mcb7oDdqCdyekgcaEn8Cc1sZzeuXxRj5AvM6YL9/wfi+5cf
+	 Aftu9SNl7nvRdRF55+j0Ea26HJ4rPofqmIw/tO15TRZNqZsiOi0cGs8vxQm9EsobbI
+	 jgdVL1iIjDiww==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E9DC145B3F;
+	Fri,  6 Nov 2026 09:28:34 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Fri, 06 Nov 2026 17:28:26 +0800
+Subject: [PATCH] usb: core: hcd: Skip PHY rollback on failed autoresume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,140 +82,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxRs2one1qAMEyAA--.25383S4
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxZr1UCFWDKw1xWr4ktw4UKFX_yoWrJFWfpw
-	4YyFy8trW5Wa10q3W2vw1DuF4DGryqqFy3Gr1Sg3yIyFs8CFsIk3y8tryktF1qyrZ3uw15
-	Z3s8Gr43C3yxCFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Fb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
-	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
-	CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF
-	0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
-	AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
-	KfnxnUUI43ZEXa7IU8EeHDUUUUU==
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-fix-usb-hcd-autoresume-phy-rollback-v1-1-1ed900ddcd2d@qq.com>
+X-B4-Tracking: v=1; b=H4sIALmd7WoC/yXNwQ7CIBCE4Vdp9uwmhUYafRXjAegoaC0NW4ym6
+ buLevwO889KghwhdGxWynhGiWmqULuGfLDTFRyHatKtNkq1hi/xxUUcBz+wLUvKkPIAz+HNOY2
+ js/7OOKCHdvvOmJ5qac6os9/L6fy3FHeDX75p2rYP/5Q1aYcAAAA=
+X-Change-ID: 20261106-fix-usb-hcd-autoresume-phy-rollback-e9e7e2b53667
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Alan Stern <stern@rowland.harvard.edu>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Chunfeng Yun <chunfeng.yun@mediatek.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957314; l=2560;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=+UkhgORE1S10jMlcch7WwpiOoh63ObUq75ZT5p51K+0=;
+ b=qMn9jaDlRH01ky+tRH0T1p+YC0f/c0Y3Dxtj7ZuSDT9aOB8MWY05ZJWqILt28oU5ZZznq7RcG
+ n3eBDhIsR9vBDbD+clBxoJbVA31y6tJSzXulewfhD9IW0JLV3kJlqeC
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
+Content-Transfer-Encoding: 7bit
 
-Currently, WP_TEST_ASSERT_VAL uses TEST_ASSERT_VAL which only prints
-the failure message but drops the actual and expected counters. This
-makes debugging hard when a watchpoint test fails due to arch-specific
-hardware behavior or counter mismatches.
+From: Cunhao Lu <1579567540@qq.com>
 
-Rename WP_TEST_ASSERT_VAL to WP_TEST_ASSERT_EQUAL and use the built-in
-TEST_ASSERT_EQUAL macro. This ensures that both the expected and actual
-counter values are automatically printed upon failure.
+hcd_bus_resume() resumes the root-hub PHYs only for non-automatic PM
+events, but its failure path suspends them unconditionally.
 
-Here is the log when executing "./perf test -v 'Read Only Watchpoint'".
+A failed autoresume therefore drops PHY power references without a
+matching acquisition. If wakeup is disabled for the controller, it can
+also drop PHY initialization references. Subsequent cleanup can then
+report unbalanced regulator disables.
 
-Before:
-  FAILED tests/wp.c:90 RO watchpoint
+Guard the failure-path PHY suspend with !PMSG_IS_AUTO(msg), matching
+the condition used for PHY resume.
 
-After:
-  FAILED tests/wp.c:90 RO watchpoint (2 != 1)
-
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Fixes: 178a0bce05cb ("usb: core: hcd: integrate the PHY wrapper into the HCD core")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
- tools/perf/tests/wp.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+This USB core issue was found during the RK3572 mainlining work.
 
-diff --git a/tools/perf/tests/wp.c b/tools/perf/tests/wp.c
-index f0b829b82f2b..253e551f10d2 100644
---- a/tools/perf/tests/wp.c
-+++ b/tools/perf/tests/wp.c
-@@ -13,11 +13,11 @@
- #include "cloexec.h"
- #include "../perf-sys.h"
- 
--#define WP_TEST_ASSERT_VAL(fd, text, val)       \
--do {                                            \
--	long long count;                        \
--	wp_read(fd, &count, sizeof(long long)); \
--	TEST_ASSERT_VAL(text, count == val);    \
-+#define WP_TEST_ASSERT_EQUAL(fd, text, val)		\
-+do {							\
-+	long long count;				\
-+	wp_read(fd, &count, sizeof(long long));		\
-+	TEST_ASSERT_EQUAL(text, (int)count, (int)val);	\
- } while (0)
- 
- #ifdef __i386__
-@@ -87,10 +87,10 @@ static int test__wp_ro(struct test_suite *test __maybe_unused,
- 		return fd == -ENODEV ? TEST_SKIP : -1;
- 
- 	tmp = data1;
--	WP_TEST_ASSERT_VAL(fd, "RO watchpoint", 1);
-+	WP_TEST_ASSERT_EQUAL(fd, "RO watchpoint", 1);
- 
- 	data1 = tmp1 + tmp;
--	WP_TEST_ASSERT_VAL(fd, "RO watchpoint", 1);
-+	WP_TEST_ASSERT_EQUAL(fd, "RO watchpoint", 1);
- 
- 	close(fd);
- 	return 0;
-@@ -111,10 +111,10 @@ static int test__wp_wo(struct test_suite *test __maybe_unused,
- 		return fd == -ENODEV ? TEST_SKIP : -1;
- 
- 	tmp = data1;
--	WP_TEST_ASSERT_VAL(fd, "WO watchpoint", 0);
-+	WP_TEST_ASSERT_EQUAL(fd, "WO watchpoint", 0);
- 
- 	data1 = tmp1 + tmp;
--	WP_TEST_ASSERT_VAL(fd, "WO watchpoint", 1);
-+	WP_TEST_ASSERT_EQUAL(fd, "WO watchpoint", 1);
- 
- 	close(fd);
- 	return 0;
-@@ -136,10 +136,10 @@ static int test__wp_rw(struct test_suite *test __maybe_unused,
- 		return fd == -ENODEV ? TEST_SKIP : -1;
- 
- 	tmp = data1;
--	WP_TEST_ASSERT_VAL(fd, "RW watchpoint", 1);
-+	WP_TEST_ASSERT_EQUAL(fd, "RW watchpoint", 1);
- 
- 	data1 = tmp1 + tmp;
--	WP_TEST_ASSERT_VAL(fd, "RW watchpoint", 2);
-+	WP_TEST_ASSERT_EQUAL(fd, "RW watchpoint", 2);
- 
- 	close(fd);
- 	return 0;
-@@ -160,7 +160,7 @@ static int test__wp_modify(struct test_suite *test __maybe_unused, int subtest _
- 		return fd == -ENODEV ? TEST_SKIP : -1;
- 
- 	data1 = tmp;
--	WP_TEST_ASSERT_VAL(fd, "Modify watchpoint", 1);
-+	WP_TEST_ASSERT_EQUAL(fd, "Modify watchpoint", 1);
- 
- 	/* Modify watchpoint with disabled = 1 */
- 	get__perf_event_attr(&new_attr, HW_BREAKPOINT_W, (void *)&data2[0],
-@@ -179,7 +179,7 @@ static int test__wp_modify(struct test_suite *test __maybe_unused, int subtest _
- 	}
- 
- 	data2[1] = tmp; /* Not Counted */
--	WP_TEST_ASSERT_VAL(fd, "Modify watchpoint", 1);
-+	WP_TEST_ASSERT_EQUAL(fd, "Modify watchpoint", 1);
- 
- 	/* Enable the event */
- 	ret = ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
-@@ -190,10 +190,10 @@ static int test__wp_modify(struct test_suite *test __maybe_unused, int subtest _
- 	}
- 
- 	data2[1] = tmp; /* Counted */
--	WP_TEST_ASSERT_VAL(fd, "Modify watchpoint", 2);
-+	WP_TEST_ASSERT_EQUAL(fd, "Modify watchpoint", 2);
- 
- 	data2[2] = tmp; /* Not Counted */
--	WP_TEST_ASSERT_VAL(fd, "Modify watchpoint", 2);
-+	WP_TEST_ASSERT_EQUAL(fd, "Modify watchpoint", 2);
- 
- 	close(fd);
- 	return 0;
--- 
-2.42.0
+hcd_bus_resume() resumes the root-hub PHYs only for system PM, but its
+failure path suspends them even for an automatic resume. This releases
+PHY power references without a matching acquisition and, depending on
+the wakeup policy, can also drop initialization references. Subsequent
+cleanup can then produce unbalanced regulator-disable warnings.
+
+This patch guards the failure-path PHY suspend with the same
+!PMSG_IS_AUTO(msg) condition as the PHY resume. This preserves the PHY
+references when an automatic resume fails and retains the existing
+system-PM rollback.
+
+Validation:
+
+- Hardware testing on the Forlinx OK3572-C reproduced native xHCI
+  Run/Stop timeouts in two USB2-only configurations. With the fix,
+  eleven failed automatic resumes returned -ESHUTDOWN. Tracing showed
+  unchanged PHY initialization and power counts across each call, no
+  extra PHY suspend, power-off or exit calls, and no regulator warnings.
+  No trace events were lost or probes missed.
+---
+ drivers/usb/core/hcd.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
+index 8e8a5f59b319b..fc4c28b7d4398 100644
+--- a/drivers/usb/core/hcd.c
++++ b/drivers/usb/core/hcd.c
+@@ -2368,7 +2368,9 @@ int hcd_bus_resume(struct usb_device *rhdev, pm_message_t msg)
+ 		}
+ 	} else {
+ 		hcd->state = old_state;
+-		usb_phy_roothub_suspend(hcd->self.sysdev, hcd->phy_roothub);
++		if (!PMSG_IS_AUTO(msg))
++			usb_phy_roothub_suspend(hcd->self.sysdev,
++						hcd->phy_roothub);
+ 		dev_dbg(&rhdev->dev, "bus %s fail, err %d\n",
+ 				"resume", status);
+ 		if (status != -ESHUTDOWN)
+
+---
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+change-id: 20261106-fix-usb-hcd-autoresume-phy-rollback-e9e7e2b53667
+
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
+
 
