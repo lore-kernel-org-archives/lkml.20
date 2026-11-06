@@ -1,87 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794130428;
-	b=4pf4uMnI7KdgmOCwe2gN6MB696JAYI0WPLD5UuSgj8c6bZWBVOXBez154h/5ezVuc03j
-	 bTb7NnZTfa0PEf3Dnyyl4WeoDMpM+szPEjyaRwR5vV1XhQwjfu5+DDG/XbAcgAXAo+Khs
-	 KMwH37uZCOOwh/DE2Ysm5+z4S7+fpn33ASYzzfYjjHAkwOQrJ1mMN49UhWoR2c5JFH7jD
-	 NfVj29nV4CrgRH5k9CzqY8/CyDrjGRFauVl0aa5PI+jboiCvd+x/ypx38pWiKheL56MpV
-	 BRkXMQHzo56IigyacAE+/5qJX41rMGdPLGxNvVGArTFupKUI720IkHGP+DU5V8s0Ghw==
+	t=1794130489;
+	b=sTl1Nm1Gsc7BjVkX2O5mTnLUCTqEJt+YGrg3Q+/hZ7AFSBS6mimydqSOd4c8kt8zhbFV
+	 VVok/R7KI0UP+vxXLI1uV0hOTOaZE6lujcPKyJawsGNPjtcDNxceGyG4zUAyOoLL19Tz5
+	 95SHKJ6xQv8G/egimy5hBBBSEOPSa3kIchBXHW85RqDFasKqbbBxKa9sLpKFHuBgcWrSM
+	 C/ylNdYmAUas3gbwsj01a3GisPwBmKR2IzhbpqwQUtbwZvIf9xfOAMwBgf/MZuWVGQH0j
+	 3AkMKwg1fMpWDLx2QiyH79l8/NOw66DzixWbGDRZxSkaCN8Y3gXjWge0tkg1V5tXUhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794130428;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=L1j8Lq8aH3eQS1NmaOYlRxmMWR7OBcOWfEbp3qYjkPs=;
-	b=0bFH8Aah0yiHeW3EK4IubgWu4UUKQkIC6GEX8VjeHAXIoWdvG+fpmAYjx5iHIwjDzqGX
-	 kM6g0QP0GM+h5k6mfNZIo1rCDMNbE62Fe3W/rCu29f2+JOfH003XG6jUMlTokHxdtWJBQ
-	 t7W2rLc/qSPSD9RiiXqWtveVxvQffagosZkJ+fxeYaL7h+1vETRiSrBgsjTXIl7oWtVcR
-	 edegnKhYcAlpkNOLm8l8M4a+j8YxC81iMXjypkqK8I1Uyeeo54WJbHH6sBVcVUaK0UKbv
-	 1ALunGH5NpbPkVfBscvyFUQ8JyTuJNJEhhl0qUHDeypYuYp8s9BFBSwbHps1uWjM+iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794130489;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=26mdlMVJY/cCagL9S9DgkIy3gT2A9gcY1ogtAJRX8+o=;
+	b=H17opcqXMlG7wFI48SpmG/vPrvk6SKqLMZQesKTumJaV/rEYVVziZ9A1W+Dw+MBvMR3r
+	 Xl4RhrkDXzabyPtci6H+5hL+eAIecVJBBVP7gHCxCSOMeXf5apjyo41NfDGtjGkv1XmGx
+	 EyC5IBsN3XUuJIb1LjzQWZ/kUFHcKH3+oUBDoL+ud4071nfsJMlnILhtN/zmCNEMD1ZSH
+	 I1WLIP9A7ElUiBoLbrkZeifersNxP58QZnZWorya+btcnhoaqn0nFNFe+mRpDMy0m+NjD
+	 EDiE3GUrzgcx/j7VHz4m6jG5fyqcg+l0wqZAC8ZTMNiHptkaRM+yBCy0QT4hsCkDaHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RP9z165K;
-	arc=none smtp.remote-ip=74.125.227.132
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c5Gq5RgZ;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2CC606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:33:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A2CC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A750606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:34:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A750606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RP9z165K
-Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2e96b8bfb43so1495995ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:33:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794130427; x=1794735227; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=L1j8Lq8aH3eQS1NmaOYlRxmMWR7OBcOWfEbp3qYjkPs=;
-        b=RP9z165KEp+5MwPPHpTSYj+QoMN/W5Amb8JZDE8BDIdWdwVJ+JgeDnYtlBp+2NyMM2
-         dLJj9JcsLedjiWVMfim4M0hzOlwK2AiVSBKyf0wTAimcq0vbIPkpl1Vi22kgV/H4M2u+
-         0mjpaxWA8ngIS6A88jwH+YAu2kvjYcoY/oxDx01pnsOVCl32UX1QMcLQ4HC15BWlL6m8
-         DUx33dH2vlpP6iHPC0vgvOSBnoFcaLxeLbSBIRaHCZA4SozxjlbMTCtYhQffbQUC4Cd3
-         hplthFOJaDj+X9a/9Hxr4WgXxtYLK7xoM4vE7Y7l8fDV43CTV055fFLJQvEfGy6zLwZb
-         kM1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794130427; x=1794735227;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=L1j8Lq8aH3eQS1NmaOYlRxmMWR7OBcOWfEbp3qYjkPs=;
-        b=Mc3WdShBip/EhM7GLD0DDiDngOR0wa+yPSmlq1qrxZhLzzOncNgtTZB9KSWqRQWkar
-         5pyiggdtAPUOM+PTTfnb/kKhcEJ25qj9hUN9+GLcSDYeP0zRuewgyxOqwvXwRP1W6OkS
-         kbwzZNQmLhA1HMvsvSwDKOuYoTE4xmXArLgC9yo5Z5w2LiAEcFvnjBN3A+a5k6eVYQL3
-         6Wl0Kekj5X9hdQvtJnVF/sMfixxC/q0IFUNR9EegXHRKaSwKFksvub0dCKoTCdX8Es9u
-         r47vWxCj1uVF8seU1Aa7v5b18hOWCdS3aPqkRmwWc7iZtYTLjRTTeO8BRNt/OWl4ZabA
-         suiw==
-X-Forwarded-Encrypted: i=1; AL+hErHb3/rXORIAWt7XnFDRoAZEVIKkDMQbGb4ifA2Gsi4AWV2YvXSVSTi5VslK4y0+r5tFnBerv4A1f9mAQk8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/biol8AaYZiThUujaT3bcWOXNSmOAK4topO53sTq5PP2VdtQWU
-	ArE+LJBmgngUEjwZ3fi+ymqrCuU14iKHy3Ap7miwLYzHpONIVBvLSM6N4m3EvdYsmNjUAf/X
-X-Gm-Gg: AYBFou2XPpPlfETRSdS6syYaDvE+ZGRKnPH1DV8of4hysGZZ7iW0pieu38KJUvVHSJt
-	gceHr74bxzFbxcT6ggBXpQXsqVRXRHEaRNu2UoAiMuQy7ECqBdhaCGgPVDH00bZ1Zo63i9KV8Wh
-	jaYhmXN/Nn7IKjerZ0IR5fPs8SCU8+dsWUnPhySKqvehGcOXX6VBRon4eUMcgOijjNYsdZwsSN3
-	jSmDzDJw59BIuyUom8B2hxvDw9uGYTdV4KBNzmoQDcTZMV887thpPSWA8C+AjJi2jPuudCKiRjd
-	ezuYZDnGTvDH3a8gS0ouc8n84sf0NNkPpLtyX7XK6PJZQjMSiqQ0b9/8LOyy0pncvKxiuguTc8f
-	v9FVwAJw+V0/cwM8VnM4CjfqsaQehph/w4DETE0LVi/k8S+lHowtTA7NpB90ggxUQIZMym2GnOH
-	KxOCBypL4R5bwJhAdTTUxDGcJ1vh9jGSPW8rqhAtHL6hpjFugDZ3C3WeHkFyCHh8A1F1ThNT029
-	MSDehF/MBa2r724jw3tTgG9HRCDovN4hQLgz/sxAiSfo3v77OqGPfEmhBcX99B6VC13LED8Yqv5
-	6p13DO9+Juo4N2t00CIyDGB3qkEA43R6c18B1tONYO4HnzWMN2vcyWc+I9KS
-X-Received: by 2002:a05:6a21:485:b0:3de:71c4:a228 with SMTP id adf61e73a8af0-3eed232050bmr1065043637.15.1794130426673;
-        Sun, 08 Nov 2026 01:33:46 -0800 (PST)
-Received: from [192.168.50.20] ([50.7.253.42])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb969314a5sm558346a12.17.2026.11.08.01.33.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 01:33:46 -0800 (PST)
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Sun, 08 Nov 2026 20:15:39 +1100
-Subject: [PATCH] drm/amdkfd: preserve the byte address when removing retry
- faults
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c5Gq5RgZ
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A87iX853944789;
+	Sun, 8 Nov 2026 09:34:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=26mdlM
+	VJY/cCagL9S9DgkIy3gT2A9gcY1ogtAJRX8+o=; b=c5Gq5RgZxdtde19j+ldiu7
+	qUPj8Hcyz+4M/yKrvg4PSJwws9J/Sz28XFeTebERCG9SHk2g4tI3Fxdi2w3ubouF
+	Zlh/xnP4JG/GTS/Hj+4wr2f7njVxD0+hayPcpCMrfRg+2AOzSss1XTBMUbevaMPZ
+	9X3f12T+L/RWxcEi1OR3Rc5WnfnsV8VKeYwbUYXkd5IHSoHBl6xO5U3sLRfhvYnC
+	Xb78b5ZZ2EHyT6uAZ7P4L+bDd0fPBFi1FqBAy4Y40+hMFP2TcrQ7+ruYOlMyZHNo
+	WRmop5LsNDWbwfrAJd5LtrQp/sVSEsos8A4+kqpYPorUmciQej8a5riq9jfDhUuw
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumue2um-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 08 Nov 2026 09:34:11 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A87ns221117441;
+	Sun, 8 Nov 2026 09:34:10 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4htghfs6mu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 08 Nov 2026 09:34:10 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A89Y8R455181806
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 8 Nov 2026 09:34:09 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9078F25C83;
+	Sun,  8 Nov 2026 09:33:34 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E3CDD24EA1;
+	Fri,  6 Nov 2026 08:59:13 +0000 (GMT)
+Received: from [9.43.97.220] (unknown [9.43.97.220])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  6 Nov 2026 08:59:12 +0000 (GMT)
+Message-ID: <b361a5d7-d107-4fbd-a08f-1c89d71e3886@linux.ibm.com>
+Date: Fri, 6 Nov 2026 14:29:11 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,127 +86,294 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-kfd-fault-filter-address-20261108-v1-1-ef13f9dd24e4@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2N3QrCMAxGX0VybWAtMn9eRbxI19RFZyfJNoSxd
- 3dV2OX5+DhnBmMVNrjsZlCexKTPK7j9DpqW8p1R4srgK187V53wmSImGrsBk3QDK1KMyma4PQ6
- pOtfJB0+OYPW8lZN8fo3r7c82hgc3QxGXRyBjDEq5actUEja9sMydZEZW7XUrHGFZvmGsM4y4A
- AAA
-X-Change-ID: 20261108-kfd-fault-filter-address-20261108-4f096f2b2a1a
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, honghuan@amd.com, honglei1.huang@amd.com, 
- linux-kernel@vger.kernel.org, 
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, 
- Natalie Vock <nat@pixelcluster.dev>, Philip Yang <Philip.Yang@amd.com>, 
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, 
- Prike Liang <Prike.Liang@amd.com>, psirt@amd.com, sashiko-bot@kernel.org, 
- sashiko-reviews@lists.linux.dev, Simona Vetter <simona@ffwll.ch>, 
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
- Sunil Khatri <sunil.khatri@amd.com>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/crash: Add only the onlined CPU's node to the
+ crash FDT
+To: Vishal Chourasia <vishalc@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+        x86@kernel.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        chleroy@kernel.org, sshegde@linux.ibm.com, tglx@kernel.org,
+        mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+        akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
+        pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
+        seanjc@google.com, sourabhjain@linux.ibm.com
+References: <20261104053848.1381005-1-vishalc@linux.ibm.com>
+Content-Language: en-US
+From: samir <samir@linux.ibm.com>
+In-Reply-To: <20261104053848.1381005-1-vishalc@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA4MDAzNiBTYWx0ZWRfXx7pUdwHhJFGz
+ yCTjm5dI5XqXlRiYqUY/9zcvBG16CagNbNgfUlOt3H8iDhVBPHe8mTcvex7NOhUDJ6In1nQG886
+ vMelCwX268psW3gI2gStrmWfShcpt50=
+X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af04214 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=WK97a0cl3x871QaWk5EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: gGX8h1OsfJFICuAbGlI8T9wEWLmMFXFU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA4MDAzNiBTYWx0ZWRfXzlg6L82NvpKt
+ 5EDxA821838PbQ/WML3iKPSslEaxlJuJegrrmXyRbqyUs3Niyt+woF4cmDjLSOzDL1Ejor2pNi8
+ fhrwD+W7OdQdDIYb42n70K+pe/UhiTMMcgGziiHE2QcshyVkUjgn4Lqel6OKWt5L8RI+VKWj5b5
+ oLsApvVHeY851pPP3H+lLl3Ls5OM1IKgiWm/d19U0YfUMImbwri0b99SoRFaU2BIuhBK/66sZJa
+ PtedTTvJ7t24lraI9mfweW6OrXDs0ThKWtJVbykQxC3Rhd2GnTeyWNLYRMIFDWeLH99oXGpdhk7
+ e2MdIBrNnuXoGakDNtAcALjavGjRvARrR5a6pQ4RnrxVPuEJ/VKuFHgQmhO6R3E6zyndtAVZojH
+ uxfybuIAq9GnUEEkk5Dd267aD9UySuTNjxBIdhpFlPWM4C1c+t9+gGyGyQZwKMESWsrewgtDF8h
+ a2jPZYvFYxYPXM77tzg==
+X-Proofpoint-ORIG-GUID: DAss56jNuKtoIAlVmp3D2uTiX8ErBuW8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-08_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611080036
 
-svm_range_restore_pages() receives a CPU page number, but passes it
-unchanged to amdgpu_gmc_filter_faults_remove() when recovery is deferred
-or returns -EAGAIN. The software fault filter uses a byte address and
-PASID as its key, so this can leave the fault filtered until the entry
-ages out.
+Hi All,
 
-Pass the original byte address to svm_range_restore_pages() and derive
-the CPU page number locally for range operations. Use the original
-address for both filter removals. This also preserves the GPU subpage
-offset when CPU pages are larger than the 4 KiB GPU page size.
+On 04/11/26 11:08 am, Vishal Chourasia wrote:
+> A CPU coming online never changes the nodes that are already in the FDT,
+> so add only the node of that CPU. update_crash_fdt() looks up the device
+> node of the onlined CPU and does nothing if the FDT already has a node of
+> that name, which is the case when an offlined CPU comes back online. Only
+> when the node is missing, the crash image is invalidated while the node is
+> created with fdt_add_subnode() and its properties are copied from the live
+> device node with fdt_setprop(). All of this is done directly in
+> update_crash_fdt().
+>
+> fdt_add_subnode() inserts the node as the first child of /cpus, which is
+> the same position a node attached to the live device tree takes, so the
+> FDT keeps the order of the live tree.
+>
+> Signed-off-by: Vishal Chourasia <vishalc@linux.ibm.com>
+> ---
+>   arch/powerpc/kexec/crash.c | 65 +++++++++++++++++++++++++++++++-------
+>   arch/x86/kernel/crash.c    |  2 +-
+>   kernel/crash_core.c        | 11 +++++--
+>   3 files changed, 64 insertions(+), 14 deletions(-)
+>
+> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
+> index 775895f31037..ca37006bddea 100644
+> --- a/arch/powerpc/kexec/crash.c
+> +++ b/arch/powerpc/kexec/crash.c
+> @@ -18,6 +18,7 @@
+>   #include <linux/types.h>
+>   #include <linux/libfdt.h>
+>   #include <linux/memory.h>
+> +#include <linux/of.h>
+>   
+>   #include <asm/processor.h>
+>   #include <asm/machdep.h>
+> @@ -584,32 +585,71 @@ static int get_fdt_index(struct kimage *image)
+>   }
+>   
+>   /**
+> - * update_crash_fdt - updates the cpus node of the crash FDT.
+> + * update_crash_fdt - add the node of the onlined CPU to the crash FDT.
+>    *
+>    * @image: a pointer to kexec_crash_image
+> + * @cpu: the CPU that was onlined
+> + *
+> + * The node is added as the first child of /cpus, the same position a node
+> + * attached to the live device tree takes. Nothing is done if the FDT already
+> + * has the node, for example when an offlined CPU comes back.
+>    */
+> -static void update_crash_fdt(struct kimage *image)
+> +static void update_crash_fdt(struct kimage *image, unsigned int cpu)
+>   {
+> +	struct device_node *dn;
+> +	struct property *pp;
+>   	void *fdt;
+> -	int fdt_index;
+> +	int fdt_index, cpus_offset, node_offset;
+> +
+> +	dn = of_get_cpu_node(cpu, NULL);
+> +	if (!dn) {
+> +		pr_err("No device node found for CPU %u\n", cpu);
+> +		return;
+> +	}
+>   
+>   	fdt_index = get_fdt_index(image);
+>   	if (fdt_index < 0) {
+>   		pr_err("Unable to locate FDT segment.\n");
+> -		return;
+> +		goto put;
+>   	}
+>   
+>   	fdt = __va((void *)image->segment[fdt_index].mem);
+>   
+> -	/* Temporarily invalidate the crash image while it is replaced */
+> +	cpus_offset = fdt_path_offset(fdt, "/cpus");
+> +	if (cpus_offset < 0) {
+> +		pr_err("Malformed device tree: error reading /cpus node: %s\n",
+> +		       fdt_strerror(cpus_offset));
+> +		goto put;
+> +	}
+> +
+> +	/* Node already present, e.g. an offlined CPU came back online */
+> +	if (fdt_subnode_offset(fdt, cpus_offset, dn->full_name) >= 0)
+> +		goto put;
+> +
+> +	/* Temporarily invalidate the crash image while it is updated */
+>   	xchg(&kexec_crash_image, NULL);
+>   
+> -	/* update FDT to reflect changes in CPU resources */
+> -	if (update_cpus_node(fdt))
+> -		pr_err("Failed to update crash FDT");
+> +	node_offset = fdt_add_subnode(fdt, cpus_offset, dn->full_name);
+> +	if (node_offset < 0) {
+> +		pr_err("Unable to add %s subnode: %s\n", dn->full_name,
+> +		       fdt_strerror(node_offset));
+> +		goto out;
+> +	}
+>   
+> +	for_each_property_of_node(dn, pp) {
+> +		int ret = fdt_setprop(fdt, node_offset, pp->name, pp->value, pp->length);
+> +
+> +		if (ret < 0) {
+> +			pr_err("Unable to add %s property: %s\n", pp->name,
+> +			       fdt_strerror(ret));
+> +			break;
+> +		}
+> +	}
+> +out:
+>   	/* The crash image is now valid once again */
+>   	xchg(&kexec_crash_image, image);
+> +put:
+> +	of_node_put(dn);
+>   }
+>   
+>   int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
+> @@ -625,10 +665,11 @@ int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
+>    * arch_crash_handle_hotplug_event - Handle crash CPU/Memory hotplug events to update the
+>    *				     necessary kexec segments based on the hotplug event.
+>    * @image: a pointer to kexec_crash_image
+> - * @arg: struct memory_notify handler for memory hotplug case and NULL for CPU hotplug case.
+> + * @arg: struct memory_notify handler for memory hotplug case and pointer to the
+> + *	 cpu number for CPU hotplug case.
+>    *
+>    * Update the kdump image based on the type of hotplug event, represented by image->hp_action.
+> - * CPU add: Update the FDT segment to include the newly added CPU.
+> + * CPU add: Add the node of the newly added CPU to the FDT segment, if missing.
+>    * CPU remove: No action is needed, with the assumption that it's okay to have offline CPUs
+>    *	       part of the FDT.
+>    * Memory add/remove: No action is taken as this is not yet supported.
+> @@ -636,13 +677,15 @@ int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
+>   void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>   {
+>   	struct memory_notify *mn;
+> +	unsigned int cpu;
+>   
+>   	switch (image->hp_action) {
+>   	case KEXEC_CRASH_HP_REMOVE_CPU:
+>   		return;
+>   
+>   	case KEXEC_CRASH_HP_ADD_CPU:
+> -		update_crash_fdt(image);
+> +		cpu = *(unsigned int *)arg;
+> +		update_crash_fdt(image, cpu);
+>   		break;
+>   
+>   	case KEXEC_CRASH_HP_REMOVE_MEMORY:
+> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+> index e6f23933a6df..1660f26f3a44 100644
+> --- a/arch/x86/kernel/crash.c
+> +++ b/arch/x86/kernel/crash.c
+> @@ -441,7 +441,7 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+>    * arch_crash_handle_hotplug_event() - Handle hotplug elfcorehdr changes
+>    * @image: a pointer to kexec_crash_image
+>    * @arg: struct memory_notify handler for memory hotplug case and
+> - *       NULL for CPU hotplug case.
+> + *       pointer to the cpu number (unused here) for CPU hotplug case.
+>    *
+>    * Prepare the new elfcorehdr and replace the existing elfcorehdr.
+>    */
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index d0bd2d0cf899..53d4f2c1760c 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -651,6 +651,9 @@ int crash_check_hotplug_support(void)
+>    * NR_CPUS and CRASH_MAX_MEMORY_RANGES. The elfcorehdr is
+>    * excluded from SHA verification by default if the architecture
+>    * supports crash hotplug.
+> + *
+> + * @arg is a struct memory_notify pointer for memory hotplug events and a
+> + * pointer to the unsigned int cpu number for CPU hotplug events.
+>    */
+>   static void crash_handle_hotplug_event(unsigned int hp_action, unsigned int cpu, void *arg)
+>   {
+> @@ -676,10 +679,14 @@ static void crash_handle_hotplug_event(unsigned int hp_action, unsigned int cpu,
+>   		goto out;
+>   
+>   	if (hp_action == KEXEC_CRASH_HP_ADD_CPU ||
+> -		hp_action == KEXEC_CRASH_HP_REMOVE_CPU)
+> +		hp_action == KEXEC_CRASH_HP_REMOVE_CPU) {
+>   		pr_debug("hp_action %u, cpu %u\n", hp_action, cpu);
+> -	else
+> +		/* CPU events are raised with no argument, the CPU number is passed instead */
+> +		WARN_ON(arg);
+> +		arg = &cpu;
+> +	} else {
+>   		pr_debug("hp_action %u\n", hp_action);
+> +	}
+>   
+>   	/*
+>   	 * The elfcorehdr_index is set to -1 when the struct kimage
 
-Fixes: b3dc91f97317 ("drm/amdkfd: enable subsequent retry fault")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-203586@kernel.org
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
----
-No testing on AMD hardware. Any test will be appreciated.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 7 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h   | 4 ++--
- 3 files changed, 7 insertions(+), 6 deletions(-)
+I tested the patch with the following configuration and performed 
+performance and functional validation
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c41e9c0916b7..86ef849097fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3092,7 +3092,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		drm_exec_fini(&exec);
- 
- 		if (!svm_range_restore_pages(adev, pasid, vmid,
--					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
-+					     node_id, addr, ts, write_fault))
- 			return true;
- 
- 		/* Re-acquire the VM lock, could be that the VM was freed in between. */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 79455e23a030..c85d6bb73629 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3130,8 +3130,9 @@ svm_fault_allowed(struct vm_area_struct *vma, bool write_fault)
- int
- svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 			uint32_t vmid, uint32_t node_id,
--			uint64_t addr, uint64_t ts, bool write_fault)
-+			uint64_t fault_addr, uint64_t ts, bool write_fault)
- {
-+	uint64_t addr = fault_addr >> PAGE_SHIFT;
- 	unsigned long start, last, size;
- 	struct mm_struct *mm = NULL;
- 	struct svm_range_list *svms;
-@@ -3249,7 +3250,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 	mutex_lock(&prange->migrate_mutex);
- 
- 	if (svm_range_skip_recover(prange)) {
--		amdgpu_gmc_filter_faults_remove(node->adev, addr, pasid);
-+		amdgpu_gmc_filter_faults_remove(node->adev, fault_addr, pasid);
- 		r = 0;
- 		goto out_unlock_range;
- 	}
-@@ -3353,7 +3354,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 
- 	if (r == -EAGAIN) {
- 		pr_debug("recover vm fault later\n");
--		amdgpu_gmc_filter_faults_remove(node->adev, addr, pasid);
-+		amdgpu_gmc_filter_faults_remove(node->adev, fault_addr, pasid);
- 		r = 0;
- 	}
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index c7d7adae4476..38744e716f74 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -178,7 +178,7 @@ int svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
- 			    bool clear);
- void svm_range_vram_node_free(struct svm_range *prange);
- int svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
--			    uint32_t vmid, uint32_t node_id, uint64_t addr, uint64_t ts,
-+			    uint32_t vmid, uint32_t node_id, uint64_t fault_addr, uint64_t ts,
- 			    bool write_fault);
- int svm_range_evict_svm_bo(struct amdgpu_bo *bo);
- 
-@@ -230,7 +230,7 @@ static inline void svm_range_list_fini(struct kfd_process *p)
- static inline int svm_range_restore_pages(struct amdgpu_device *adev,
- 					  unsigned int pasid,
- 					  uint32_t client_id, uint32_t node_id,
--					  uint64_t addr, uint64_t ts, bool write_fault)
-+					  uint64_t fault_addr, uint64_t ts, bool write_fault)
- {
- 	return -EFAULT;
- }
+Test Configuration:
+-------------------
+System         : PowerPC LPAR
+LPAR Mode      : Dedicated
+CPU/Memory     : 50 cores / 80 GB
+Kernel Version : 7.4.0-rc1
 
----
-base-commit: 403b3d68346d7ba25f474f0686ad1d05feb65b7c
-change-id: 20261108-kfd-fault-filter-address-20261108-4f096f2b2a1a
+Case 1: SMT Switching Performance
+---------------------------------
+We measured SMT ON/OFF times with and without the patches, with
+expedited RCU enabled via /sys/kernel/rcu_expedited and the crash
+kernel image loaded (kexec_crash_loaded verified).
 
-Best regards,
---  
-Aveline Noir <jm5905938@gmail.com>
+SMT Mode | Without Patch (s) | With Patch (s) | Improvement (%)
+----------------------------------------------------------------
+SMT ON   |      66.331       |      6.155     |  90.72% faster
+SMT OFF  |       6.402       |      6.339     |   0.98% faster
 
+Observation:
+With the crash kernel loaded, SMT ON takes significantly longer
+without the patches. The patches reduce SMT ON time by 90.72%,
+while SMT OFF performance remains nearly unchanged.
+
+Case 2: Functional Validation
+-----------------------------
+
+Test 1: Crash Dump Collection
+-----------------------------
+After performing CPU DLPAR with the crash kernel enabled, we
+triggered a crash on CPU 3 using:
+
+echo 1 > /proc/sys/kernel/sysrq
+taskset -c 3 bash -c "echo c > /proc/sysrq-trigger"
+
+Result: PASS - The crash kernel successfully collected the vmcore.
+
+Test 2: CPU/NUMA Node Verification
+----------------------------------
+Verified that the newly added CPUs after DLPAR were correctly
+reflected in NUMA node 5, including the updated CPU count and
+adjusted logical CPU numbering.
+
+Result: PASS
+
+Overall, the patch significantly improve SMT ON performance,
+and both functional validation tests passed.
+
+
+Regards,
+Samir
