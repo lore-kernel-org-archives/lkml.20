@@ -1,108 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973648;
-	b=rfOm/lvZhWoQK9c2lPKKDAFL6lpTq0LWhbT29AmcO8YPwli2SwSK+SJOdNNLPVXlHmp1
-	 d48LRvZV38TSJFpjRCpmvrHU+7fNVpdUyAXQZJWzW309ndO70LWrHlKLAkHQtWZWOh/+O
-	 mZTr8dAQhrNk6JLnIHghxdmYH2SMeYYL/KlM+RaujaFREPLDpLGDnhFPOH0LtBcaqNq8S
-	 yKoIwZBFEUAZHdnhjhYdj9+vRC6emTPflOx0waj/9RlDJyM+kTHpyq+0IGG8OrNbgiBh0
-	 QOWE4wD/di9pzKK7dn8UbJKtd76d0jX4GYC1hU1O/bhTQJ7OqO03VDEP7L/gk1dDLcQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973648;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=jPlpJWdi7NyNryjJIwCr2HHmGQ0FuOccYfUi3UFq+5o=;
-	b=ik/YtXLEdNQPlJR/9v17RgbSgiFiAa+g1l9KM3KZudVAVXBBF37PQzA31m0t0/7FuYVT
-	 ynam/UCqInyc+nohttdcmwmfjOTiKpd1KvyPvBovI14Tq1otr14aO6i5rqnou4nC6I9MK
-	 m/FQiKRXyGjIxDGv6rWZrIalYQD+oYzkQuLHC1tx9PVA+DB4EUJ0peFPapO1OMfXTdZM4
-	 se30SN3ggWcPuLktaIYjpuo1Oh6KssCjLGzx3N7t8R1bBaDM6GHUG+/d8r99TaAuaZ01I
-	 Q6NtTAeqlWSc7uleJlXQWtGg5X2ntyc2Ujisk1VNkz0u54GlpY4oJG09dzlEbTPEAdg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=J7CPtgIX;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zE4I49ov;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=vF9wScOA;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8GBbK90+;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793973658;
+	b=C6mbUy2VYy77ptdRghd3xPx+sz1lgNQfnxSQLTfsBRloSFbKUyI+Mx1l5zKodSKf4Lnz
+	 hdLKky5vOtFpshI9ufeemg4LWHqJJ8If8ZVABjhXpzlvq4YY3PJm301HcDy1LCuh+e0cL
+	 577be9xj069zmK8CCZJW08mcCsXuPYkSzmqjtOyw8ufJVrhHnjFlULLBvy+P5DbD3AUHy
+	 12ylGnmX0Wyf4vGVSgK2+wC1NzrzfgkbdHYwWDXruMLWo4n6GulFdTxp8/xBZGPUoofXg
+	 cJeeZmEHYb8Lh1K+i+uNyDsO2NpP3QYR4iWTwjgYxkaI7Ko2yQ5qOV62bjdKuuDZK5w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973658;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=N4ROuVU9vfjyHzDgItD3nKZQjrXj2RH+3oWdZlQA3tg=;
+	b=yd63Hf0rbe/A8jvJyYZM6rgQSE1zOPbqJJsrusLG7nW0D003g/GOMj2XaqwjyeM8eN0i
+	 tT6lb6thbO2a51c87NmwDmoyjxIig/4vkld36maAoIsarr5Jg3XKX/xjQE39IN3SIsBUJ
+	 HRK0Yo/BL38Ud3rc0+bA6ba6AzIw0CMQ5FEziSbxw/aNJ05Ib1DVtNX/iF0v58uuo0wAG
+	 OI1c+iBLbEM7Qi32XoffpIq8s/cRjEESYILJKpEghN5JkjH5p8I9TYvDJ2cG9AyuYByLS
+	 81DcaJkTq66fQFPuTNefrgYaWZBQteBHOJnjj2u6Rf7FNlFkb2RTZUbTDdTao1eblfA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X6KMw97z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8476082BD9;
-	Fri,  6 Nov 2026 14:00:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B8476082BD9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD2D606EE82
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:00:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD2D606EE82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=J7CPtgIX;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zE4I49ov;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=vF9wScOA;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8GBbK90+
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1CDB71F45A;
-	Fri,  6 Nov 2026 14:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793973646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jPlpJWdi7NyNryjJIwCr2HHmGQ0FuOccYfUi3UFq+5o=;
-	b=J7CPtgIX3F1KLC4py2du8N5yRmVc7UY13zzOMImTEEJZWqktaFiVSsRAwdWwBDB6yO2fPP
-	KPWViBWoF0kB04qebr/crlVlWb9k8fGE6BV8ZWC/9wURmrDcgw2fesilTZpu7AkyKNKM0i
-	HEjrBwynK76kGTz/uAKsWKODqdbNtNw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793973646;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jPlpJWdi7NyNryjJIwCr2HHmGQ0FuOccYfUi3UFq+5o=;
-	b=zE4I49ovzsSHXOfiydju5AMwvBouJyc7dM5/2X5gChkv7t6bTf4mWn+vbU2GJXgbsFnbja
-	CzHJMM8WejTOU9CA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793973645; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jPlpJWdi7NyNryjJIwCr2HHmGQ0FuOccYfUi3UFq+5o=;
-	b=vF9wScOAy2oQfm/2zL0kmIjrfxH0T0E+vqegP3ICx/kklBMRBmuPYf9t7QblXxPUWHarlW
-	Yhmdf+PXwllU44vOJkaJtFdwIXrNy3YUasZ5R0GTyNi0DtddtMB+0iTwRjvu3iQ7EU0l8U
-	J13vJq/PWSCJwy3yX6ILDfrDB964zkg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793973645;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jPlpJWdi7NyNryjJIwCr2HHmGQ0FuOccYfUi3UFq+5o=;
-	b=8GBbK90+lZlb+hJNDtdWj86zEx+2WJmvzcp0oXp6Z7YzxDRZAqQBax9RbLAiFoEqBR2Du0
-	vYEBdG4su5dYT/AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E610E134E9;
-	Fri,  6 Nov 2026 14:00:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uN1PLYzd7Wr1VgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 14:00:44 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 6A58921B74; Fri, 06 Nov 2026 15:00:29 +0100 (CET)
-Date: Fri, 6 Nov 2026 15:00:29 +0100
-From: Jan Kara <jack@suse.cz>
-To: Jianping Liu <frankljpliu@gmail.com>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, frankjpliu@tencent.com, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ext4: fix soft lockup while shrinking the extent
- status cache
-Message-ID: <d3in4smnhaax2qin65hbxmdylpup4sahdpowkshcgpatxozzxy@6szn2sqo2sva>
-References: <20261106033141.1509656-1-frankljpliu@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X6KMw97z
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535a54bed9so981624eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:00:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793973657; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DaecDDD94Tp0JtqBoUw05FhrfGbHPfAnoafF/ZjL8Kbc1sLXAIljIhLVWR8a1NKkWr
+         8a4hae7l9q1q66iUurtFpZefGtHMeUHiSvF6HvKSdxcKXwizaCBuEa5q/QqNd8LE+5Ih
+         w0PMfXU4HaWwtqvM4I/cbzRGoVIW8qeJmuQB7LGjx+Kqs89yFXrAVGGo5FnZ7PXwBA3D
+         a0GIgdNYCorSlWIfVXbJciM1FOe/dfLZP8vxDzIK5X5bYYMU79K8WARfcdFqGoUJbtv5
+         0L4o8X+56GUSs4BrxzJ11QJWylh0TgDkSm060cYLZ/Kn3qdYjTyBqrQz+AN4cXq8Uney
+         cqTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=N4ROuVU9vfjyHzDgItD3nKZQjrXj2RH+3oWdZlQA3tg=;
+        fh=w69g+XL2eeTXoFBy3v5t9eHhtAgMj4PbnUxGow8oI2w=;
+        b=K4puOJ7WmZBR8QPxMTS5SPoSBkbb3ebsk1bJXkTeVxeqjtIR71VoA0MW9VDK7bCFDp
+         wwoR3WJiiK2dwT4NHzuTX6wYwTCtT8fKaJr1LQ/W7VLo1J5z+lTNvOjszIvoMpBE0/Dl
+         6do9PWRbZ39VEvmdOwbdKduoBVw/IWLpiylchV07jzLm0U/MqopJyFRqIjrUc67uVAXD
+         ZmNnvrYIzyid+m5uYNQlALAusalb/SjxvVWZ7pa2teSyKy2/k5Wagk5qwZiTnv5IyGYw
+         EnXeolhxfCmyByMsuNk1wfo1OPJneyo/77q8/1BmuI6GcOTEZqoBsjIam76cHJ/HFg4G
+         DhfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793973657; x=1794578457; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N4ROuVU9vfjyHzDgItD3nKZQjrXj2RH+3oWdZlQA3tg=;
+        b=X6KMw97zBJaLw9npQYgU+zPk0K55Bo5Binv+n7TNlrFsT2AIDpjJCw0Bs3eZJWBmZE
+         AuDXQ9oIz5ILpGb5NnE+alzi7Cm0hhxrj0ujTu4uJRW9Cc9ZkwRw6Z0lgpkedPsfaU14
+         JiiMFe4lRA7aKQWZIeaohEye7HoPjWY2m4Sk2TwQl+/anOOx3q7if9Pue4V/qcxQIZhc
+         4wxHg6qZK9E39Nc6aqtzlsU7PqE2EC8I5wgAiQOm8etFopaFn1F1q3XOPTGMFYvf287y
+         Jpym/YDs0EnBCTTjIBfIyKN9Js/qzq0oqqfI7k2I6Ivk5MG+erpAZCbmSdNdBRRPWOnr
+         buFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793973657; x=1794578457;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N4ROuVU9vfjyHzDgItD3nKZQjrXj2RH+3oWdZlQA3tg=;
+        b=h/ZTOJ5YqhKvtSaciJ1a1J63TG2t9Zy2/xpmYpceKmUPPABxDLRiTH/wBCSoyTH59Q
+         xy1hLOQlCO+fHSsT/cuPUSFjzFW3qv3fW6y5FaGWSNUQXVT3Pz3cNPV4fxcy1+20uvW5
+         hQC0LBY1zrJ3t6Zh5GwVRnp92Ov0FKCCrjKhigdu5VAgE1eZXzp8BdyuJ/z8Vr6kR0aF
+         WW1i94x622VJJSAVnptpfyBcbUucuxRvrVa1BkrrQUEdfETvfXQdvuPHoXAX4mzilGxL
+         dLduINWjEAjIkNT3A7c/5dxAqeFE77SmSH/ekeaWBfS74IpvQ1nHnCl8DzaLAT5yikNv
+         KkVQ==
+X-Forwarded-Encrypted: i=1; AL+hErHdpAgieHn5x7TuvkzKD6eBfGyQxr/zVAvjwnTNyXjYhA20avNSKpg2CbbISrBJ8L6Ih74kPa5VJr8PXX8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l2X60s0JXcEZ1upI5Vq5ereXsU/W3r/F6vBHV6BbBPwGkCdXP
+	W0XxFPiL1BswG4JB4DTyv2ROCfFTU68i/gNKn6bZx5HhgIkVYAQECuzVdoMsWRx2g3cg67fHXXH
+	R9aBfnuGgZ3nAQH5vkaTv/N7+NJ6OlAc=
+X-Gm-Gg: AYBFou2+1cPnsmcfJkPdk2z9THKK/ua7vkDXjPZV1oSAQ1NuGE2p0E8CGAK3BKaBrXp
+	3/OJJbHmw3uOg8qpq/GBVXvvVjFGp7XsaYSJFbHL6+UxlwgJHJQ3Fn3yq24bQGGIWC0Kn6KAAI4
+	izBB0m+0+3qilds5OG42ZXlEEADGj+9hbIL/6N7nbHLyfwnGrtZ2jwIxT9Gr/qyGLg7C+HRS8Ww
+	d7ftRWAQWpVRO7xiKy7emwNDyx0ffT7gHSS7rm/iOccb5RiACXL5AcQNi/Z+JljKcdzBAQgYNEq
+	MyEmhau/tZFWS2BbHL5Izs5jl50UnvsBzok00NinOdys7erXTgzAelk1vT9oT/jkEdnJXa64QtH
+	2hJ457d7jcf09cx2ensQ6/7dan2AhKHrjVR9Mfx+k/ZOROcnjfBh3TkxEQPXlxDEAPrX813wpuq
+	YeIGu0SINkVt2LgTMb+BawnbK5CHTmPA==
+X-Received: by 2002:a05:7301:c88:b0:36e:1fbe:357a with SMTP id
+ 5a478bee46e88-36f75443c1cmr3326733eec.13.1793973656931; Fri, 06 Nov 2026
+ 06:00:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,106 +105,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106033141.1509656-1-frankljpliu@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,tencent.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,ozlabs.org:url,suse.cz:email,suse.com:email,tencent.com:email]
-X-Spam-Score: -11.30
+References: <20261105140510.165165-1-clamor95@gmail.com> <20261105140510.165165-3-clamor95@gmail.com>
+ <au3TcHXFt5Yhs_V8@orome>
+In-Reply-To: <au3TcHXFt5Yhs_V8@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 6 Nov 2026 16:00:45 +0200
+X-Gm-Features: AclHuK_Yq17ZZfT-X8-aPL0HIpgqp80MKKwHsNn8Kpc_N4CDrvvxE70OSsxRMSo
+Message-ID: <CAPVz0n0ngn4nf9uTOsM6OKB9jgTnJN1FrPp0UyeHwuAwoL5_tA@mail.gmail.com>
+Subject: Re: [PATCH v6 02/10] drm/panel: Convert Hitachi TX10D07VM0BAA to use
+ MIPI DBI bus
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri 06-11-26 11:31:41, Jianping Liu wrote:
-> From: Jianping Liu <frankjpliu@tencent.com>
-> 
-> __es_shrink() walks sbi->s_es_list and reclaims extents from each
-> inode. On a non-preemptible kernel that walk never gives up the CPU.
-> 
-> There is a soft lockup report on our company's machine. The machine
-> with millions of active inodes, 256 CPUs, and heavy memory pressure,
-> concurrent shrinkers run too long.
-> 
-> i_es_lock is dropped after es_reclaim_extents(), and s_es_lock is not
-> taken again until the next inode. When nr_to_scan remains, call
-> cond_resched_tasks_rcu_qs() before continuing the scan.
-> 
-> cond_resched() does not report the RCU quiescent state needed here.
-> It is compiled out when CONFIG_PREEMPTION=y. Otherwise it schedules
-> through preempt_schedule(), and RCU records that switch as a
-> preemption. An RCU-tasks read-side section ends only at a voluntary
-> context switch, cond_resched_tasks_rcu_qs(), idle, or return to
-> userspace. The helper reports that voluntary quiescent state and still
-> lets a non-preemptible kernel reschedule.
-> 
-> ---
-> Changes from v1:
-> - Delete time out logic.
-> - Change "cond_resched" to "cond_resched_tasks_rcu_qs".
-> ---
-> ====================
+=D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:19=
+ Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Nov 05, 2026 at 04:05:02PM +0200, Svyatoslav Ryhel wrote:
+> > Switch from a generic platform driver to a dedicated MIPI DBI driver.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 167 ++++++++----------
+> >  1 file changed, 78 insertions(+), 89 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/driv=
+ers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> > index 83c2af1be9755..d5d7ba2096608 100644
+> > --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> > +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> > @@ -14,6 +14,7 @@
+> >  #include <video/mipi_display.h>
+> >
+> >  #include <drm/drm_mipi_dbi.h>
+> > +#include <drm/drm_mipi_dbi_bus.h>
+> >  #include <drm/drm_modes.h>
+> >  #include <drm/drm_of.h>
+> >  #include <drm/drm_panel.h>
+> > @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx10d=
+07vm0baa_supplies[] =3D {
+> >
+> >  struct hitachi_tx10d07vm0baa {
+> >       struct drm_panel panel;
+> > -     struct mipi_dbi *dbi;
+> > +     struct mipi_dbi_device *dbi;
+>
+> It's somewhat difficult to exactly see the difference between mipi_dbi
+> and mipi_dbi_device. Maybe that should be explained better in the cover
+> letter of patch 1? Or the documentation added in patch1.
+>
 
-Please, the changes since v1 should not be in the part of email that goes
-to commit log. Next time please put it below diffstat. Otherwise feel free
-to add:
+It is already documented in detail in the drm_mipi_dbi.h
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> >
+> >       struct regulator_bulk_data *supplies;
+> >       struct gpio_desc *reset_gpio;
+> > @@ -36,13 +37,12 @@ static inline struct hitachi_tx10d07vm0baa *to_hita=
+chi_tx10d07vm0baa(struct drm_
+> >       return container_of(panel, struct hitachi_tx10d07vm0baa, panel);
+> >  }
+> >
+> > -#define panel_dbi_command(priv, cmd, seq...) \
+> > +#define panel_dbi_command(dbidev, cmd, seq...) \
+> >  ({ \
+> >       const u8 d[] =3D { seq }; \
+> > -     struct drm_panel *panel =3D &(priv)->panel; \
+> > -     struct device *dev =3D panel->dev; \
+> > +     struct device *dev =3D &(dbidev)->dev; \
+> >       int ret; \
+> > -     ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE=
+(d)); \
+> > +     ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SI=
+ZE(d)); \
+> >       if (ret) \
+> >               dev_err_ratelimited(dev, "error %d when sending command %=
+#02x\n", ret, cmd); \
+> >       ret; \
+> > @@ -54,10 +54,6 @@ static int hitachi_tx10d07vm0baa_prepare(struct drm_=
+panel *panel)
+> >       struct device *dev =3D panel->dev;
+> >       int ret;
+> >
+> > -     priv->dbi =3D dev_get_drvdata(dev->parent);
+> > -     if (!priv->dbi)
+> > -             return -ENODEV;
+> > -
+> >       gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> >
+> >       ret =3D regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_su=
+pplies), priv->supplies);
+> > @@ -79,123 +75,116 @@ static int hitachi_tx10d07vm0baa_enable(struct dr=
+m_panel *panel)
+> >  {
+> >       struct hitachi_tx10d07vm0baa *priv =3D to_hitachi_tx10d07vm0baa(p=
+anel);
+> >
+> > -     panel_dbi_command(priv, MIPI_DCS_SET_PARTIAL_ROWS, 0x00, 0x00, 0x=
+03, 0x1f);
+> > -     panel_dbi_command(priv, MIPI_DCS_SET_SCROLL_AREA, 0x00, 0x00, 0x0=
+3, 0x20,
+> > +     panel_dbi_command(priv->dbi, MIPI_DCS_SET_PARTIAL_ROWS, 0x00, 0x0=
+0, 0x03, 0x1f);
+> > +     panel_dbi_command(priv->dbi, MIPI_DCS_SET_SCROLL_AREA, 0x00, 0x00=
+, 0x03, 0x20,
+> >                         0x00, 0x00);
+>
+> The majority of the changes in this file are s/priv/priv->dbi/, so maybe
+> just make it so that priv =3D priv->db and keep the changes to a minimum?
+>
 
-								Honza
+I will consider this.
 
-> 
-> Link: https://patchwork.ozlabs.org/project/linux-ext4/patch/20261028061628.1209508-1-frankljpliu@gmail.com/
-> Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
-> ---
->  fs/ext4/extents_status.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-> index 018b6146b9d8..62346eaf4350 100644
-> --- a/fs/ext4/extents_status.c
-> +++ b/fs/ext4/extents_status.c
-> @@ -1721,6 +1721,16 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
->  
->  		if (nr_to_scan <= 0)
->  			goto out;
-> +
-> +		/*
-> +		 * Report a voluntary RCU-tasks quiescent state before continuing.
-> +		 * cond_resched() is not enough: it is compiled out under
-> +		 * CONFIG_PREEMPTION, and otherwise switches via preemption, which
-> +		 * does not end an RCU-tasks read-side section.
-> +		 * This also lets a non-preemptible kernel reschedule.
-> +		 */
-> +		cond_resched_tasks_rcu_qs();
-> +
->  		spin_lock(&sbi->s_es_lock);
->  	}
->  	spin_unlock(&sbi->s_es_lock);
-> -- 
-> 2.43.7
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Thierry
