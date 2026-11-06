@@ -1,57 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793956818;
-	b=P4yI5r3O+NVjyfd8Ky0aDJekNjD1k+siHgRh4mdqdITFuyZM4UFrQppembLSwiVkjFpf
-	 5fHyfcmZcqPRX6mYY9/Q49F9FO1NpIMHKUXMG9duVd5C9oKaQQMSsW8Q+JlHKQ6PW7ACs
-	 fhUjGJdUSCnhCNuRSJ7AOUjtAqpO8i1STn64LmNh75yBKD2TyGdWSrQVilceXY/BjL9kN
-	 splJRrEJqTTGjZXUgjSpxhK/wcZvmrE0UVU/GYQAUzzEO0VeK4owglkIUL8XkscHBj534
-	 3uA4/cTlMSi4vXVNtJJUwNcqnOF1hW6IbGqeLHPGrYa13phxMgrxT5k2FdVq3bApB6w==
+	b=RONC0ht12fDv6Eepplq0e0ivx5JL/ahNU1bCe5kpjYZurb14Pmv3NzowI26AmCXcN8Tf
+	 O/jNTknd33Zr86J83Wt4XCBmcjBgS/Z3dgO93QxlAyW1E6oFyo3TAf9mq8FVS6mAEQfmR
+	 qt4EPJkKDfQmlwmxULXq6vRPsElAjr4ektoiU9Pz2G/kwb4Ji9E8Y2i+6oxjljmeot6GM
+	 KX3uEnmg66sYJ229hrZyZrGRsqNsIKZU/3ULOviMLWqzF1K7vb9siCIkE6I0CuSzQc1F3
+	 XN3GSaoyAB/Grjuohn+3c9w02z9VCkH6d8WVQZWAg5Hcf+BVXXLtIcTHSIsnk897DUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793956818;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=F/tOfpxYZmCQGHqlxGX/lo3Gghl5kOhbvjqdN5993ZU=;
-	b=DMZ49EV+al92zsYa+wTtNWfjg2uFelY7wwnJdyEXhjhI0QD/wPRzwxX8nByaG3BxaW61
-	 QRDAhS3YOcT6WyYeqcEKKheSH9Eqt8mgaQf+E8lAXwHIFszmkBsXMJG2AmdBWVjK/HBm8
-	 2gIkJF8KLbl09FNHqrd3xDX670CYbO81XaNt9sfMpSQ+NbcHhZbo4NK3nk32roMIr6LYv
-	 XHzazKN7szY9gO+V7zsAKjTqf4sPR8FpQ9AR0y87rGQ6C3wHSTVLMko4VglMqQmGGOOf/
-	 F/9YceouVf1WhGszE2Y48Jxj2f7pnwkbaoCOrNPHHa/023DWgXEqTKsGzSLRo6MDK0w==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
+	b=5FpZSIA8G2wpY3Q0z1D0Njr6Zu6uqY4X0mX3IpnVkm4trPVCgtnAu0Wwe+K/XFTV9jJ1
+	 tohebqudoWHw5zyL0gkBMA1lEa5dJkTzYf1jjNXiqtVNEgEqG2qnDcplcuidTkAG055fc
+	 xTjx2v8uC7aYHtkmzJ5KWAgrTdaNMGfe/wLLs/HhCDGMSsiQYmig1ID6sxsD4MbtGRD0I
+	 u3A3lPjdPP2Wstb/uw/nQZad5E6nLjeKnb67StmWDIVmETbBF3pnj47g8PmwX+z/faiQ2
+	 c6pXo+IwCI0YbrXS+Gbeuh7b3G/D7x6qZ3AyT7yCpKYcwdJtfizJXJtnMztpVlpIcIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oN93Xil6;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDC7606EEB2;
-	Fri,  6 Nov 2026 09:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FDC7606EEB2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAXJpfGm+1qoTlrAA--.5294S2;
-	Fri, 06 Nov 2026 17:20:06 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: mcanal@igalia.com,
-	airlied@gmail.com
-Cc: dave.stevenson@raspberrypi.com,
-	dri-devel@lists.freedesktop.org,
-	kernel-list@raspberrypi.com,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
-Date: Fri,  6 Nov 2026 09:20:16 +0000
-Message-Id: <20261106092016.2282805-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
-References: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4B5606D836
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:20:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE4B5606D836
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oN93Xil6
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so3093385e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:20:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793956816; x=1794561616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
+        b=oN93Xil6UfBn7yVRhg6frgSrSIimFgqT44JhM7qqaPimBhIWP5FBUZFJkH+KfzHsgZ
+         2SLQnmaAStlJcdtt00AdNoLKpHgC6fl5p7Ml7m7Q+2AkatDQYyPZJ8iwaRsZL9twxKR3
+         81tb4SRPMpBNziBbDUcidG0uKjjXEiGk+zoGZCh/gX0+Vx1abnP74JwqEAaXqdc5g1gS
+         zdFkhDe7CPMRRpxsKmzwYUXTTST3k/RzVaQL/Tj8+PQrvXCCrhIcyO0wiW9/BX8QbwkP
+         QQ0LD54NiFGhmcOnDdJlDKQXXao/roCWrl5WZrg0KzT8ydxhHdvmu88vvR+EMCE15xed
+         4maw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793956816; x=1794561616;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
+        b=EfQAD3/4O7CKfcAhpc0t5h3nGe302tuwpRL4BICqxXmzUpN7AjMJJzjGkxIeH24zP6
+         UBapWkz2LfKyGKzxnEkMMsG+rgj3zIWRWkWxDpb13ub13VJ86v+hqkwTgrsv2rxdYJ++
+         j321pIlXDDl+aWairb1q5E+xtnFGCckR33JmtS2/qv8Ce8RCKUulruqBU9M9m4uxDBmY
+         2C+8upzQejNEI3nNCykOY+7aSzVCMkt5ztoLID9WXedg+CabeqPSSHpMl9NRgJEeFUvb
+         HZTJVOY8ishO/DMVE7g7VOJBLbiNAwfjjFleOkb9Hc6rvAlWUmll0/MRzwxf04QtML5V
+         0JqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBycBOBH2rvATMkR7NeJeG4J+uRO2OhHW2AfviUtHN8lb5ii4+HxKtJ76JlRFnTgh2NO2Q+hJTqGMVP7Fhk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Y314Mc/8k5DNUBodxk+hefgCMjPhA8ZH2y2VxJw1MkEXgCtK0
+	XND+NXvB6huNMlNcogxOfJRYd8RaJGMMcZf0B8j2IoPveZDQNK81jS9L
+X-Gm-Gg: AYBFou2NeVOppLdxwlsrFug/AHOs8CjHscOKqmEHesZ4fqiNTQPqw8do3ALcssLt4zW
+	07mPBB9L/X9vt2U/tjLB7i6N6MtIJGWuhLlHVLHFE0iUPUnB8c2oIFRR3k5I4BUildojWlfmiHu
+	26v4jjkuj9N0Hc6U16dSHgPf3n1IltRQeuBYenVhCPdlwh80lYsHaS3Kcj8SrA6DNGSjl+QqgEc
+	6MiZgdU18I8v3cTdvsmql1ccv7ddigQt35iJQngSewooXtQanWPEyC8z4xfG0wTM9WKjgc+pTDP
+	sGiI404PFFuy8yqTfXUNQEx/3CGVH643w2w4maX37G4v/OCjXNEndUH3cXB2i4LA53jU6cAI9t0
+	YaGTGNLxs/MJBOs8F9qmdcfNXdO6K+vlTmzW/ZWCeebTXEyM2C5fg3o5/paA4+OVH/DNd3cXlwL
+	SHZ50wWGSlog46KUsUuieLjjPjJU0gTWleLeZps+jPYi/H3ekcADUH0yVgNMbdEGeOiIZWGvjak
+	AzVCms7CzQr4gi5oLhOegMr/YaccdxfvOKOIkI3y1mpurONqnDMcbUuBfJyCGjESHzT0WNzDHXz
+	vgWBU5Z2On4lZmBpWI5c83mlgfxqvc7BoGUz6wbp0+lgbRhx7Dc4/h9FZt36WArgXNJ/nQMfy6K
+	NqplQQt/MmQ==
+X-Received: by 2002:a05:600c:1d0c:b0:4b2:612d:908c with SMTP id 5b1f17b1804b1-4b6df9beb91mr29536225e9.34.1793956816082;
+        Fri, 06 Nov 2026 01:20:16 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 01:20:15 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Esben Haabendal <esben@geanix.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Nikita Travkin <nikita@trvn.ru>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/4] dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
+Date: Fri,  6 Nov 2026 11:19:42 +0200
+Message-ID: <20261106091943.35783-4-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106091943.35783-1-clamor95@gmail.com>
+References: <20261106091943.35783-1-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,91 +113,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAXJpfGm+1qoTlrAA--.5294S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZry3WrW8Ww4kZwb_yoW5JryUpF
-	43GFWYyrWDGrWfK3y0yr4kZFySyan3JrWfCry8u3Z5Cr1rArykJry0y39YgryUAFW8J3W3
-	GFnxtr1xJF1DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9mb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
-	0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07UZSdgUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtlCIdSAAAso
 
-The firmware reference taken via rpi_firmware_get() is leaked when
-either of the devm_clk_get() calls for the core or display clocks
-fails, as both error paths return without releasing it.
+The LTR-659PS-01 is a proximity sensor similar to the LTR-559ALS-01, but
+without ambient light sensing support.
 
-Fix it by moving the firmware lookup below the clock lookups, so that
-the reference is taken right before the firmware property is read and
-released immediately afterwards.  The rpi_firmware_find_node() call
-moves with it: the device node reference it returns would otherwise be
-leaked by those same error paths.
-
-The candidate was found by our static analysis tooling, and this change
-was prepared with assistance from DeepSeek-V4.1-Flash and GPT-6.1-Sol.
-
-Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
-Cc: stable@vger.kernel.org
-Suggested-by: Maíra Canal <mcanal@igalia.com>
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- Sorry for the very late reply, and thanks for the review.
-- Move the firmware and device node lookups below the clock lookups
-  instead of adding rpi_firmware_put() to the two error paths, as
-  suggested by Maíra.
-- Link to v1: https://lore.kernel.org/all/20260916154137.2058618-1-vulab@iscas.ac.cn/
----
- drivers/gpu/drm/vc4/vc4_hvs.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index b1fb096858cc..537aaa992129 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -1677,15 +1677,6 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 		struct device_node *node;
- 		unsigned int max_rate;
+diff --git a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+index 20abd7da080d6..85ac3b540c206 100644
+--- a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
++++ b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+@@ -17,6 +17,7 @@ properties:
+       - liteon,ltr329
+       - liteon,ltr501
+       - liteon,ltr559
++      - liteon,ltr659
  
--		node = rpi_firmware_find_node();
--		if (!node)
--			return -EINVAL;
--
--		firmware = rpi_firmware_get(node);
--		of_node_put(node);
--		if (!firmware)
--			return -EPROBE_DEFER;
--
- 		hvs->core_clk = devm_clk_get(&pdev->dev,
- 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
- 		if (IS_ERR(hvs->core_clk)) {
-@@ -1700,6 +1691,15 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 			return PTR_ERR(hvs->disp_clk);
- 		}
- 
-+		node = rpi_firmware_find_node();
-+		if (!node)
-+			return -EINVAL;
-+
-+		firmware = rpi_firmware_get(node);
-+		of_node_put(node);
-+		if (!firmware)
-+			return -EPROBE_DEFER;
-+
- 		max_rate = rpi_firmware_clk_get_max_rate(firmware,
- 							 RPI_FIRMWARE_CORE_CLK_ID);
- 		rpi_firmware_put(firmware);
+   reg:
+     maxItems: 1
 -- 
-2.34.1
+2.53.0
 
