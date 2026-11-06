@@ -1,154 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.85
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793935561;
-	b=cwuoDl2y76hL3rYsJun5q94X6XJrmcZq+4ImCah/fqrPzGf/y6YOfpPfwEOfOj6Fm70j
-	 BMyFm6y7t+bMYsAiVtZC3qqR2vD6/5Mcdttgki8GP6QyBTL85EURx8yO4nuZiguUWbOUQ
-	 nMXpBY9171uH29PHzwW+jCNKLy7BbMJBBMjAj4tWNZBJsVkPe5nzgZB7Vyc5WAUjTpz80
-	 WKtMyots9Od5SDTVX1cuhWkrFY8ZbKpcnoVX9wz6v8QyV/M3gtqkf0TUGezACl+xQ+aab
-	 cJ8LR27NqcN5VfdDQ7cN9kJwTGfusDuLB/w3qbKgzR+EA8VPbfS7DPZ8Xj0BPAbh7vQ==
+	t=1793935535;
+	b=Sj+WIbwZao7f5e2JhANBkzcWExb44LsB7jDHYt9/ZQeGdXt2IgJozv9sirM1x9ruwCic
+	 2dvmyKMl5n7Kk49BblO4V45YrJp2n/k6G7kgfPwBjVveBheMMn05ichbOxwo6jIDMUOS8
+	 8jllI3tIvde9NsmDCoSxqiURFEokfS7iCKNvJwF93BjN3qKHxMTUi5a8KXH/pem32A5EC
+	 XzEOXWwKCBL4PDZbdILfgK1jc3w/Ir9P6xWl9CugxtPPiKQVZyTSeSWfvlYuycNG8U2oB
+	 sHuzqu64oPFV2fiDa8BrIJpv7HeSbGz5+7kM4krqrHOaq99O0oFTl5Qaqxi907hLcpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793935561;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
-	b=HsE8WD45dCgwF4fT+s+UBe3QsxadNn44HcsJBvzXA1XOMzGbIFoN+Cv9VDXrNbBF7QDq
-	 7pIkq+XNQRexfBefgAI12hwmWqnaMagf0QOY+N7uztjjUDiQ9fKFZdxs5cRRfFqxgcA69
-	 ECWkoPEAwnryh8nDptjsrnkLZKL13Mvo9HIylQbZx86U0YCbx2Cc+trm4ovN4hiEddor3
-	 kClDUmFJi0xiCCcZbWBhs56ipnf8Lfukuk6X7s9gRldIsHxlKATZhQfMk0nCVsWhqCDXm
-	 ZqBCgwmjnLzEVojjfAkzQSvMAgP8fWPQOXLfrA4irNH5Xoqow2XXHBVlhBJWO641pTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935535;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	b=swYHMkTU/2a0om9RUitVXdiV6o7N/9RNBQWBxUboBUk8z8rp6hvF5ZBZNAmIOvREnyjS
+	 XXntrlo3p8NVWzuC7QEvcIX+nR2tySphwyTWChWNDzQ0+GxL1+1m6JVjnX50JMeGeAJNB
+	 rMNNpTWzJsv/C0EMxY4wdhrhAnzssPfjxhsb05Mn5EAgCyf1r13RZmN9KX3Dp0+DrF3yp
+	 BzrAXlIaK6cQduNtnuf9PWSjt1O2X4YgAK5Yftm9HyeUKDUeHkwwE5F23KDCW9fFo+MKF
+	 7Pp7B/zRI2nA4dIkhLlmOmt0qn5qO8O1bOlCNuEtEwOcz6gjt5Ch3OxECdA3QT7ByFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=HHyEkdmY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.85
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazolkn19013085.outbound.protection.outlook.com [52.103.74.85])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzU9QK71;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33B8606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:26:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C33B8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB003606A326;
+	Fri,  6 Nov 2026 03:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=HHyEkdmY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oJwCtVEWE53gjhEby0D23N1yQT7cyNlB5C5LdjsYI3cgEFt5Hc/88i/vThtSx1n3HBOKUuhWE7rbLf1SNcxAB+jcwuOk0tmLN9LNVeqkymIhdYdElj4E9nWH1P9DD3W2iy070k1R/3AcoF7cxqyT2Ui7oogOQv6dR19WnQINz9mUJkAYgjtCBIMVPx9r9AWaMbx/UCmld545uXnOHTgbF3FdfLspPzAmGMMHSLZszSiDEPSJczL3We0JcAKWus38HMSMJAZdiMTBdLfHydb4LAXYT6PJDL8HWUK3xDXWwonukQITfGZb4/wDsoiP66I+uLKQ8TYbQqKmyb0rEbRWyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
- b=i/8hJ9wTyaLm3/hhb/Fo1LGdHr3pgtG/iLS7rIXWtDYkaby9ob9wcV6xGsRWnE53S3UE4MvoAiB5JcK9EVC1hG8wLtQS4lKJuSNVAx1DWzTX6BvXE75nMz+VXQLzX4mPJLU5Xcy7nmUXrn7Bw0fF6XCAIi5oNMsyLDWcjTCrc6nqVIKHYR444XU7rp4Z1Wg5R/nJYKpSHBDi21fQc/cohDmm1lOjACqHAZr3jbn4Fc8sic+2luogF4a+POYBe4MSxUg1Mv6tvz5mzqJbjBRCW2uQNuYwnUkpl6NeshDuD1T0gECrXZts512IHK+mGKmri57iZFuglXFMw1CyM4/oWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
- b=HHyEkdmYKF4bWIfuzRg2MNFmkz5pl+DoND13TQ0MbxS2vQ6t4d1mV3lMIMYVi4SV/aMt3rnd8Rvad4DsWufgC3KPeZDTl9uf3x3vU3vp/hqKmyNZe3Zrhx2eVB3kMMkhAX6cImKVoUswzjT8+lffXTxfIinEIRFNkW53Sm5psZ6GN0bn2NyEladlVRxerOrDuqCO6QxMg59fiVRh0yNOFAumB6xwLRcqM/vgP8i2/p25woJKJ+UrwDLzjjoOsh6bKhssBf3AWd8gaYDA8ZxchNTbrlrbzpMOVvXXZExGygVTC/wjMzcRKGt/RLKAjj0mcojFn2+3G+61NHMXdPyh4A==
-Received: from SEYPR04MB9237.apcprd04.prod.outlook.com (2603:1096:101:2f1::20)
- by TYSPR04MB7281.apcprd04.prod.outlook.com (2603:1096:400:476::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 03:25:55 +0000
-Received: from SEYPR04MB9237.apcprd04.prod.outlook.com
- ([fe80::decd:90bc:3bca:9f8]) by SEYPR04MB9237.apcprd04.prod.outlook.com
- ([fe80::decd:90bc:3bca:9f8%3]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 03:25:54 +0000
-From: Zhang Zhenzhe <zhenzhe.zhang@outlook.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
-	<alexander.deucher@amd.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
-	<christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Austin Zheng <austin.zheng@amd.com>, Jun Lei
-	<jun.lei@amd.com>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
-Thread-Topic: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
-Thread-Index: AQHcsvuFzeiUQFQOEEa7ePJTe6Ab+Lch1p95
-Date: Fri, 6 Nov 2026 03:25:54 +0000
-Message-ID:
- <SEYPR04MB923770653CE59AF6FE8E9485E6762@SEYPR04MB9237.apcprd04.prod.outlook.com>
-References:
- <KUZPR04MB9265F4DDEF7627D2E3747BBBE645A@KUZPR04MB9265.apcprd04.prod.outlook.com>
-In-Reply-To:
- <KUZPR04MB9265F4DDEF7627D2E3747BBBE645A@KUZPR04MB9265.apcprd04.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEYPR04MB9237:EE_|TYSPR04MB7281:EE_
-x-ms-office365-filtering-correlation-id: 490aaa6a-8e4a-48d7-2b75-08df3bb5aa75
-x-microsoft-antispam:
- BCL:0;ARA:14566002|19101099003|25010399006|15030799006|51005399006|31061999003|15080799012|19110799012|22091999003|8062599012|24121999003|8060799015|40105399003|102099032|3412199025|440099028;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?qjto9+7DC76FA3KxPNd7ld6MDAcvsSotwfFu5onf/f5wn1Xwa38jc7C9CY?=
- =?iso-8859-1?Q?s6J2Zy+IpDO32/fC5oQG6xlwsoCWclKb6ebdleishLxpCVOUcIvgxDcCx2?=
- =?iso-8859-1?Q?iO+7WLeAtCqSFc2yA0E2EEqUwKcZO2z2+LJUUGchPx5gzvk+HgWxAHaWxK?=
- =?iso-8859-1?Q?f8S6sky6nAWk9BBHrdLtc1QB/JnoXOvVef/qSMlabVMfYvZB6w8fdhsWzE?=
- =?iso-8859-1?Q?WBSFie071c5ba/v5b33sinluyQagfYbin2S3b1hNtvmYii8/o1bUtv7HnD?=
- =?iso-8859-1?Q?XZn7v7P89MDPd576lx/9V6NyeTr01xUXdYTCkBuWeo+DQCSscygMD0F40N?=
- =?iso-8859-1?Q?xw50Z/jtbzolckscMNfRbuFWv1x+6rPE+5qCXKBZoJ8cjTdh8Q/sNwJKV5?=
- =?iso-8859-1?Q?O++3ta8mILCKR2QxNh4gQfMes0ChuZZ2ljkL0NMmRaP+m1xELTnqd2t3Og?=
- =?iso-8859-1?Q?ANvG+DiSs3OWolxVTSKa+0A/FGERQoCA8ssYGBhLZYpc6UlS8Ffx9t7fcu?=
- =?iso-8859-1?Q?PUEZl/Wejt/br550qWcNFws3ICrOn+HVR9w8eduabxKjXcE5W4C/o9B/oV?=
- =?iso-8859-1?Q?SItp1o+61nE8AyAf8I/jPCMswgHMjLd3/OHmlM3ZjuTm3JV+f1bzDl297h?=
- =?iso-8859-1?Q?kUVr/VfGHbymbgfWmd9ceMxWWdLP7z4pwVUXwaIg8Nh+Pqo7frwCWmIk7V?=
- =?iso-8859-1?Q?lWh2ET8h4S46I6KcLxvNCbnnzysaG8NJfPHxTene3YHkwXhd70UClSFzmr?=
- =?iso-8859-1?Q?G77aOY0PwZAKqF7Er8oa5RN3Cdn5uSLBul/3jNVzDEBQJGmRBkn3BlHy7V?=
- =?iso-8859-1?Q?bEV+NppfFr9BE3Nbrj6AxEnVryGVhvCrixUUgAdjzGZxO8mc3xgWw6Rhah?=
- =?iso-8859-1?Q?mz8ItsBdVgE3f7PdKfzK+wAkHvmPH4PiueE3IeXSIvee3KJw6AP3P2RJuB?=
- =?iso-8859-1?Q?Iti++mFycFDzdipU2WUSRLSnU4RXBCsbC9ylxEht03ZS4Vmngcy8OjHxfn?=
- =?iso-8859-1?Q?3G6/EUkIitgwDFw0U7ibvgkE9D834DsJoRps6PZx7D/vUkj2WNK3Uz7RU0?=
- =?iso-8859-1?Q?RNgctcNWkj9WMnIsSCoT3hE=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?cTw4YhmGtm0hxyaY2vXv1FZ4zVz/E1LDPk2IKy8SZryyHi8RQkZpWOri2F?=
- =?iso-8859-1?Q?vmuXUbl5k3zlO50jIPBiQdsnZScPnWZoob2aRH64mNDCiMXd/AcU9Y+Nbm?=
- =?iso-8859-1?Q?kMLWwWttL5nnNXS/Ot4W8Red8q76KtFRn+1y1uJtnRyOiL3q9mWDOO50Ob?=
- =?iso-8859-1?Q?CNqt6qytnz02rC+avq5T/69pnVIrshbAHLE1UqmR2X+yiCUxdzhuyDvukn?=
- =?iso-8859-1?Q?2D02tP4EkDZw6euvX00HAIxg9RfOoSe2EZeI+5v01pHQhNydZ1lIM8pU2w?=
- =?iso-8859-1?Q?m/laicw0lJBTfZGgwtgsljyghyv+30miuVw+x9/nYYncH56C9rgReKGRVL?=
- =?iso-8859-1?Q?rPazu8tSgJZtdKNncUhfW3WR4EMLonWwQ3DraBkHCWCbdmDa6uSYvXlmaX?=
- =?iso-8859-1?Q?krjkI3B4Zba4YrKdtwTGkDSIRcOJl1T8tuViDPA+11L7aDlCpREpnGWIMD?=
- =?iso-8859-1?Q?Zm/Jvczd73cyE966Qvf0x+djM1wkmlXgO/SZo4spav6ZG18QRlFStS5yZ9?=
- =?iso-8859-1?Q?4RzVKJBI3vX+k4tWLZPYk6y+9tyUQns3QfWsS0DD97IpeHJKb/DCmbxarA?=
- =?iso-8859-1?Q?ITCaAKLDiF6DsOYhSsoYgdhhL/MiqZ+JDFcbpPKT5EVi4a0b7N/6mKd4zo?=
- =?iso-8859-1?Q?3Dj9qI/MN1eDZZD6oVE7UGF4rCCQBxU9HD2+uRkeesu3a68Ra7fm2vH2z7?=
- =?iso-8859-1?Q?soheK2u4V0u4aYEXCqS38Mjgx/SL07HBTYC9neifyJiusywafKTh3Z7dOy?=
- =?iso-8859-1?Q?ABxPDLkQwhPMuBE2XTNTRZ/c+P3p71FeCmg+wbyFL4P0irFQaIuCF/PR47?=
- =?iso-8859-1?Q?cAFm0u+ukRcyrXMxAzpZ/ly1wzhu3tKxg1fIhOVbDjIPFEAIQei5/b4akW?=
- =?iso-8859-1?Q?70z8zrYHnq7i5VbcwgZPRWZ2QCyGOmkfMj5NrhsnPJbDib0E2y73WrB7UE?=
- =?iso-8859-1?Q?XyVMMsETXpHHXN3EuR9POrS0Qp75fbzk2q4cFgHZy/m9PP1kMfiZ3S22pn?=
- =?iso-8859-1?Q?ViCtbdXfyWIrW5snEgeOCYzK5zzAp3wj2PvOIkY5zJDj8IoSLUglQHLJUT?=
- =?iso-8859-1?Q?oMGYj22x3SwgPM21bOvlQmIfaH6B1iuUnQz+3mhc7oupbfpf542wNgvAS9?=
- =?iso-8859-1?Q?8ZzpkfFXzufDijT2VfIiXcaSxo4wjG2BXVn/Q2MHuXnLUUyHnVD6IOM+IO?=
- =?iso-8859-1?Q?1DYdQ6Jx0ERqzQyYBs3i/FbYlQxUOcbd/grQZAtUTw1S7US5rJAdub89h6?=
- =?iso-8859-1?Q?Y1ST2nhO5zlX2VnkuMeK+RQ9ufQjqCK4OhCTQBnXpLHUNX/U+wyzsiwNeS?=
- =?iso-8859-1?Q?rurh5pLblubiUhZQbFO8tk2e3vLlzWCy8jdnLs71KITgw95kc3XC/L+7/t?=
- =?iso-8859-1?Q?nJiYdX6PwE9ht6bTdVd4YLAqFjAL4uLMkNPZmm95PrxHeYE8UGRQG5Oh7w?=
- =?iso-8859-1?Q?qcxzvBG/0GUnelhq?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzU9QK71
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793935534;
+	b=Oall/iB4qLeI4mRD/Zp5aPdhXrWVRkNPdsb6tKQS1J1vLbXDso7BxKkuumsp82sQZlx8
+	 n5UcKuQgaB6Ji+2mWTyFHvPRkI5mXO3et7/7IltD2JW53ljxWySot+Es6Y0orE2BLFKy5
+	 V4Oi0SkLLtkuG+qiI9IDwVRmYluu6uzBeOKZwdDzLOvprEhmEyruWG/SRLeZJKgPsGAbo
+	 ZYFJDQ0cwvI13+ZHAJertTrVW8Kvw9ANoQYtyf/bRc+QFdiTCtmycRFxB3qxpxRYwaHjX
+	 lcJD+9n6vI6tecAg6UNh0xxHwLEaV4/mG4TeR2naWds0brp9i1NMOWgK/etodTIuh6w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793935534;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	b=nyPQR2uvZlXvs+ZWwVDp3usXcwD0J98e9eTs/yhr9Mdy9RFi5DkesymOrLAgnfs47V4Z
+	 iMLxZqNAtrYF1GLWKZvPM19K0iSkC2Onv7bMOESqblJ+g+FhuvJ4e9kweeyZ8JQQLbiOJ
+	 YS5YNqiKFN9PtOSdT4PqUyxy/Jas8cIT4jueAWwXX67B1dFEaXTVqCIe/bv6Ghb5fxIHA
+	 YmaR3cxgfucqqfCQjaBvODH8D+prb/Re7+jrAr0TLIsbmdyNuWR7MLGrOxWoqRcphSABQ
+	 dqO6lcdW7Fi/5I9YrcoyBF4mBKwQ3/jePRad8CO9l0iqD2k/I7HUHrP8gFgZQJeOrmg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 28D4E1F008A2;
+	Fri,  6 Nov 2026 03:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793935534;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=GzU9QK71AlaYTzjyjJyYRcKBnkxMo1OZ+54aqyIMfEasKnEK9x14DnKpPXG+0dQjU
+	 RnmtKCWjIbhWckJirQc4NXIdqMi09HK1TJ9Fu8jG8kzqfwIYmV0kX9Ky8XGOUJPMxh
+	 IWDUSch24Bwl7wtloxL8RGaIPMAesrsmqcxgg4DFo7umVERMwdG0mcQWNWb9tQiK8Y
+	 BrQzGGaKW0HNElUr4zBggVvyRIi6FI6U69G5F383xC1uTvdVaijci3h43lYRmF/ckJ
+	 Yw+uFiaVo0GT/SgtwWc6KWOr/BbEECP2R9wa2VBv2oBKLzqouadusTBBmVwb6Z+uU4
+	 34A9vAn+FwLOA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 789DD45B8A;
+	Fri,  6 Nov 2026 03:25:32 +0000 (UTC)
+From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
+Subject: [PATCH v2 0/5] media: qcom: camss: Add SM8150 CAMSS support
+Date: Fri, 06 Nov 2026 03:24:51 +0000
+Message-Id: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -158,35 +83,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR04MB9237.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 490aaa6a-8e4a-48d7-2b75-08df3bb5aa75
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 03:25:54.4517
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR04MB7281
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0K6dkhbQMSV9zAsxnaAmlBMB6uG9
+ O4CHsDlS95/fxFMwRGLc7aIQNGxm/wK+pAJM6DvCZxdWWipj0rJEng8qUpCrPMSglFgcGQGW1h
+ bkdSoainW7SNQ595799r+mJ+3O5l5i23G4Hiewmc/jmrz/n1EBRJqbKqixAa17i7obaBX73rym
+ FuKok0pfQFJ665r0wAAAA==
+X-Change-ID: 20261104-sm8150-v7.4-rc1-camss-d3dd5e02a170
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793935531; l=3089;
+ i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
+ bh=qLVJbZNBqU02j9nDuuDniRv57jjqg5cA/kA8QxuVntM=;
+ b=PYcC/EQh4zF8hn21EmdBlq17VpmgZQ2Cy3YQKqECxFxBxwEjdcRuRJvErOXRfOiPgGiLpqDCP
+ 3JJI6lxH6/GD/K7zuBWszqJYI4oiPWM9cN2uUitJrhKPBqzDL8LrtwQ
+X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
+ pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
+X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
+ auth_id=1402
+X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
+Reply-To: mail@andrewgigena.dev
 
-Hi,=0A=
-=0A=
-Just following up on this patch, as it hasn't received any maintainer feedb=
-ack yet.=0A=
-=0A=
-This patch follows the same approach as commit 318917e1d8ec ("drm/amd/displ=
-ay: Increase DCN35 SR enter/exit latency"), which addresses a similar displ=
-ay underflow issue on DCN35.=0A=
-=0A=
-On DCN314 with LPDDR5 memory, increasing the SR enter/exit latencies by 1us=
- also resolves the underflow issue in my testing.=0A=
-=0A=
-I also noticed that the original commit message incorrectly used the Fixes:=
- tag for a GitLab issue. I'll change it to Closes: in v2 if needed.=0A=
-=0A=
-Could someone from the AMD display team take a look and let me know if any =
-additional testing or changes are needed?=0A=
-=0A=
-Thanks,=0A=
-Zhenzhe=
+This series adds SoC-level CAMSS support for the Qualcomm SM8150
+(Snapdragon 855), based on v7.4-rc1.
+
+SM8150 contains four CSIPHY, four CSID (two full and two lite), two
+VFE and two VFE-Lite instances. The blocks are close to the existing
+SDM845/SM8250/SC8280XP implementations, so the driver change only adds
+platform data and hooks the SoC into the existing Gen2 CSIPHY, Gen2
+CSID and VFE 17x code paths. No new register programming sequences are
+introduced.
+
+The series documents the SM8150 CCI compatible, which the CCI nodes use
+with qcom,msm8996-cci as the fallback. The patches are ordered bindings
+first, then driver data, then the DT description. The series is
+intentionally SoC-level only: it does not add a board DTS, camera
+sensor drivers, or board-specific camera wiring.
+
+Testing: with a local Pixel 4 (google-flame) board port and
+out-of-tree IMX363, IMX481 and IMX520 sensor drivers, the rear wide
+(IMX363) and rear tele (IMX481) cameras stream, and the front (IMX520)
+path has produced frames. The board port itself is not part of this
+series.
+
+checkpatch reports no errors. The only warning is the new-binding
+"MAINTAINERS needs updating" prompt, which is a false positive because
+the existing CAMSS entry already covers qcom,*camss* bindings.
+
+Changes in v2:
+- Address the review comments from Sashiko, Bryan and Val.
+- Drop the internal CAMCC *_src clocks from the binding, the example and
+  the DTS; the binding now lists 27 clocks instead of 42.
+- Remove clock-lanes from the CSI endpoints and use an unnumbered
+  endpoint in the example, matching the other CAMSS bindings.
+- Describe vdda-phy-supply as 0.88V and vdda-pll-supply as 1.2V.
+- Move the CSIPHY supplies from the CSID resources to the CSIPHY
+  resources, so they are enabled before the PHY is accessed.
+- Add a separate fix for the VFE lite clock rates
+- Tidy the CAMSS_8150 switch ordering.
+- Link to v1: https://patch.msgid.link/20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev
+
+Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+---
+Andrew Gigena (5):
+      dt-bindings: i2c: qcom-cci: Document SM8150 compatible
+      dt-bindings: media: qcom,sm8150-camss: Add SM8150 CAMSS
+      media: qcom: camss: Match VFE lite clocks by name prefix
+      media: qcom: camss: Add support for SM8150
+      arm64: dts: qcom: sm8150: Add CAMSS and CCI nodes
+
+ .../devicetree/bindings/i2c/qcom,i2c-cci.yaml      |   2 +
+ .../bindings/media/qcom,sm8150-camss.yaml          | 412 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8150.dtsi               | 320 ++++++++++++++++
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
+ drivers/media/platform/qcom/camss/camss-vfe.c      |   3 +
+ drivers/media/platform/qcom/camss/camss.c          | 267 +++++++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ 7 files changed, 1007 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261104-sm8150-v7.4-rc1-camss-d3dd5e02a170
+
+Best regards,
+--  
+Andrew Gigena <mail@andrewgigena.dev>
+
+
