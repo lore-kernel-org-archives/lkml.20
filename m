@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980088;
-	b=VUIAEWsd9NtCsEnWLmX2ADST+8H5hMQgz57/yFl/ZjzrxmSJ+Veh33tLQvniADwfDvYz
-	 I+w3D8MMzsuG8pC/2QecAo5705kQllrYrK2ArFASKNmdShPbgYw2MlXJfDzzZoh33UskM
-	 sJpbU21+S2iakvWHkiBM781WkSYyjoux8xJHYFiR1BoiTlRM2+cYLQUdgO0TuU+Qk3Er9
-	 6mEUVtqktSjt28vO3ZARQaVc+IeOeGJ6QH/UbLdU0P3urlzExUtkyUb6BRjgVXqS0ps+5
-	 XZhW9UeDxKFExLeT0s/Se1MyyBOtoUTjbzeT+XJiZQBc6CvBy4T6jdis69HPstXJs6g==
+	t=1793980130;
+	b=WccDm4RfrfXNyXMG2tB+PPkFwZs8+0XNpzfzFHuakieEWiJeycHWmsXFNQ7YrMJGYwjs
+	 bftG3jvOPulpRmQhAVEy9MT5rch899LkWfaE1ZiCRRTb9G1orYKIaKa9lkGcRJUCJyIY+
+	 wEP8MKYxivrz9iqRO6BFkilW1N1wtCVjkn2UxVon7QArpcOsmSA8MvlrarjD2JYdJSYA+
+	 q08vo+R8+UNTI7GeNGQvUkSkl7ou71vVKZ54cZT1JIpgem/LvXjeAyBPnhk3fwMBxjoPN
+	 3z63hBEyQTFADsYf2ZDvni8kRBhtHwYQXC+7OXNe+qiahN5A6gTvI6Sec6nTnNfV3oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980088;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=ya7OB1mVqTIxqpI9rlmDOEIgR2N3ToDyqlFZeda2RZ0=;
-	b=cyJr+OslE/jqZSQldCmJgq/pR20AglUT2EiUB9u07D+i0xgiN9tjU/H1g/UiTjX6zcu0
-	 7qTEQwIq6f2W4OcWT/UpZ2QJWXF65U39PlXmrcl8G9lrWXN6u3loP4ZxCud5Sojt2bVYj
-	 31amSvbVPY11amIe9iwR6BzKN0eH73bKVaN8VSji3ua7ghhIzf31g0eZ0D7pYkHx+iWsY
-	 CpPjHlHirx2JfBGUI4trWnRasYydWkcK27v0QCoxp+ytAdX/NYwQz2nJtzHCpAn7Glsju
-	 I48CrzsiNo2DpPxrbnlwpxmUw9z2DEI3kP8CS51dDU9aollck6fj2pfER+DYBWdBOzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980130;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=tYP5TleIEch3VLAIP9Ft5HxHg1kcwlIJDfJyqYRyetQ=;
+	b=rriQpzxsgdH3T8fLlFNrVYp0zxsmktSV7HH5Lp/4ziOKPqKICyJVyJVfdRgCS+dlQ5yc
+	 reQ/+OTsQOCkMcWl1yQ5aDlQxzF3mOKOkbk8fc/VchFtaVym0Qmj6ayuyo+ReW1TpGZdA
+	 rCPHJ8qpRbroXVTYHZJi6fgr5PXbtG0UZracdJosyUdx45BIHWjrPfKiJb3Mr6YVkCwoC
+	 qodPSy3T6qyQW58eqskQ6P0hp6qDJyzvKbI0d1nIQNyA+91JBoJD1FeX1z4nv6g4JFlWf
+	 +cIkn7omx9fixbUreCs/8GhHEg8FbcctkekhPh3JLp/eVIVGkjpljvkmDBUg1iaUn9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=kawekjpF;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF75606A32C;
-	Fri,  6 Nov 2026 15:48:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DF75606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLk915xmBz5B12k;
-	Fri, 06 Nov 2026 23:48:05 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6A6Flx8X080941;
-	Fri, 6 Nov 2026 23:47:59 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 6 Nov 2026 23:48:01 +0800 (CST)
-X-Zmail-TransId: 2afa6aedf6b18d4-a685b
-X-Mailer: Zmail v1.0
-Message-ID: <20261106234801838-FDh9tSFfnurdJmKLz1ay@zte.com.cn>
-In-Reply-To: <20261106234751020Egf42VCVVlsSC_Msov4HO@zte.com.cn>
-References: 20261106234751020Egf42VCVVlsSC_Msov4HO@zte.com.cn
-Date: Fri, 6 Nov 2026 23:48:01 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F238606A326;
+	Fri,  6 Nov 2026 15:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F238606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=kawekjpF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=tYP5TleIEch3VLAIP9Ft5HxHg1kcwlIJDfJyqYRyetQ=; b=kawekjpFkeEGdTL/oDhrDnFvls
+	K1D01E+FexEpQanMibxBalmMtyOvnUTJ+UVQ8QxUMrKmFHlioowyeYzLKNbVsfgIp7VObIcFExEpf
+	vqYossnW/QB+XhOiQZEppddiMVHXWse+H6IqywSELZUSdLbBdVk4mDFaLTGnjY6c1zXFYdGRZviu1
+	a1JRUdlohP6HrX1J+E2nkajmSx1GeiVHJV/RkCNrWDiGtvZFHB+MgKikLbDD8f/s+7y4Wh1Uqfyl8
+	3xiLyWiCoerUT2LoIv1B8UEwXKqw9UuoY2k0ksG4hzsmmN4H47F7SWp6jznWjd8iBPUPCXWoA9lv+
+	luXUpRbA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xPMBA-009OCi-2T;
+	Fri, 06 Nov 2026 15:48:37 +0000
+Date: Fri, 6 Nov 2026 07:48:30 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Jan Kara <jack@suse.cz>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Julian Sun <sunjunchao@bytedance.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH 2/4] writeback: name the bdi in the slow writeback report
+Message-ID: <au32skMUJvDOSsgb@gmail.com>
+References: <20261106-writeback_stall_report-v1-0-bf0c3b9023a5@debian.org>
+ <20261106-writeback_stall_report-v1-2-bf0c3b9023a5@debian.org>
+ <n7s5cijjaiso6mhaqolsmfkyyfk7wkb4l4o2cnxqadjfllik7b@hh6u4v5f6t2t>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,66 +75,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <broonie@kernel.org>, <linux-spi@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-        <pjw@kernel.org>, <samuel.holland@sifive.com>,
-        <william.zhang@broadcom.com>, <kursad.oney@broadcom.com>,
-        <jonas.gorski@gmail.com>, <bcm-kernel-feedback-list@broadcom.com>,
-        <anand.gore@broadcom.com>, <florian.fainelli@broadcom.com>,
-        <rafal@milecki.pl>, <linux-arm-kernel@lists.infradead.org>,
-        <sven@kernel.org>, <j@jannau.net>, <neal@gompa.dev>,
-        <asahi@lists.linux.dev>, <ryan.wanner@microchip.com>,
-        <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
-        <claudiu.beznea@tuxon.dev>
-Subject: =?UTF-8?B?W1BBVENIIDQvNV0gc3BpOiBhcHBsZTogZml4IGRpdmlzaW9uIGJ5IHplcm8gaW4gY2xvY2sgZGl2aXNvciBjYWxjdWxhdGlvbg==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A6Flx8X080941
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 06 Nov 2026 23:48:05 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEDF6B5.002/4jLk915xmBz5B12k
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <n7s5cijjaiso6mhaqolsmfkyyfk7wkb4l4o2cnxqadjfllik7b@hh6u4v5f6t2t>
+X-Debian-User: leitao
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Fri, Nov 06, 2026 at 03:27:49PM +0100, Jan Kara wrote:
+> On Fri 06-11-26 04:26:32, Breno Leitao wrote:
+> > The slow writeback report names the waiting task and how long it has
+> > waited, but not what it is waiting on. On a machine with several
+> > filesystems there is no way to tell which device is slow.
+> > 
+> > Pass the bdi to wb_wait_for_completion() and print its name on a second
+> > line, together with the number of work items still outstanding. A sync
+> > issues one work item per cgroup wb with dirty inodes, so the count also
+> > shows whether a single cgroup is holding up the others.
+> > 
+> > wb_wait_for_completion() took the bdi until commit 5b9cce4c7eb0
+> > ("writeback: Generalize and expose wb_completion") made it usable for
+> > the memcg foreign flushes. memcg tracks those by bdi id only and passes
+> > NULL, which bdi_dev_name() prints as "(unknown)".
+> > 
+> > The first line does not change, so anything matching on it keeps
+> > working. A sync on a throttled null_blk device now reports:
+> > 
+> >   INFO: The task sync:180 has been waiting for writeback completion for more than 28 seconds.
+> >         bdi 252:0, work items left: 1
+> > 
+> > Signed-off-by: Breno Leitao <leitao@debian.org>
+> 
+> Dunno, I'd put everything on one line. Otherwise things can get interleaved
+> by other messages. Kernel messages are not really an ABI, we can change
+> them...
 
-A SPI device without a valid speed (no spi-max-frequency property, or
-created through the spidev sysfs new_device interface without a speed)
-gets max_speed_hz == 0.  spi_setup() only clamps that to the controller
-limit when host->max_speed_hz is set, and this driver does not set it, so
-the zero reaches apple_spi_prep_transfer() and DIV_ROUND_UP() divides by
-it.
+Ack!
 
-On arm64 the divide instruction returns zero instead of trapping, so
-CLKDIV is programmed as zero.  That selects the fastest clock and can
-exceed the rate the attached device supports.
+I will get them in a single line and respin,
 
-Clamp the divisor to 1 Hz so the divider calculation is well defined.
-
-Fixes: c36212b2610d ("spi: apple: Add driver for Apple SPI controller")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-
----
-
-diff --git a/drivers/spi/spi-apple.c b/drivers/spi/spi-apple.c
-index 61eefb08d2a7..8dbf05936db1 100644
---- a/drivers/spi/spi-apple.c
-+++ b/drivers/spi/spi-apple.c
-@@ -196,9 +196,13 @@ static void apple_spi_set_cs(struct spi_device *device, bool is_high)
- static bool apple_spi_prep_transfer(struct apple_spi *spi, struct spi_transfer *t)
- {
- 	u32 cr, fifo_threshold;
-+	u32 speed_hz;
-+
-+	/* A device with max_speed_hz == 0 must not divide by zero */
-+	speed_hz = max_t(u32, t->speed_hz, 1);
- 
- 	/* Calculate and program the clock rate */
--	cr = DIV_ROUND_UP(clk_get_rate(spi->clk), t->speed_hz);
-+	cr = DIV_ROUND_UP(clk_get_rate(spi->clk), speed_hz);
- 	reg_write(spi, APPLE_SPI_CLKDIV, min_t(u32, cr, APPLE_SPI_CLKDIV_MAX));
- 
- 	/* Update bits per word */
+--breno
