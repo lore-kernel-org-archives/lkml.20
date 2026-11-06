@@ -1,90 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995439;
-	b=xNERnN0/WPAXBKaSm8dMyNEJVJ9YoPL1GQqii35WYK8A0qGgsVYcyNEQ3Gl4eKLXc0XG
-	 y4WuzK5RS3Nd4+xwxRSTu3YqMVGr3SsACvUR0zKKBPPsRIWQO/fwevseMMwefYfsuj2gm
-	 2IGJ8f5uVR2Udw0FoBe4q4c7H6+qPJvowg+3jV3qPsQ3556c434zr2nyKTsfMRpDWSLFF
-	 LtOOF/HKhnCIeAe6AoijHr7Y6h8+K2Jt3Z8ZYGepaAQ6ZihiOxNiLf5y4uMbSaTddoJN7
-	 EzE1ArRUTgCuXjgVRHUR6dUgvhIUCMUgoRujGP3L/RMSY3+7o9GGfd/w7jwX3dg+O6A==
+	t=1793995475;
+	b=nYpc+XgHxM0sbRUn9zTNd++VWxjHX4LMvUS9CBkc/wV2zRDMVhygdjNXhrsM2BnAtQ5F
+	 wBWjAZPGlJhhTA0wEXkPf9+hqlBLiLNSelFQF55hKlxuP+pSgCIBj/7TaxzDUrqDf7x55
+	 M23+QQuuy8N9adOntwqcoenHUgWdQdS+9+ROZP5J1+EgsmIVX9ZO9WUmNFcj1+mygH60x
+	 OGCd/Sva7vFPv+IvKazKEqP8sclBr350eWESBqe3RYmTvlELDhSPif1lTpFvIA/Pmikow
+	 lD/RgMuvw9J6CDc6Tw6VmLT6QPS3YIcpTBnpuvNmTTQb6mXW7dvpHvr6GcIZ0x0+XQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995439;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995475;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=SOuZsP/y9xq/TzGg7mOta+j2cGpkuhLYFhFIr9N0YU8=;
-	b=WIN8YBttS26Qsr1px+y1W48z1en7ewaGc1Y9n3GH8U3294FlWjdVTbBVlYBVAo6zCt9R
-	 e7cmmvW611knDVX6ef3W4YEHntKo7/V/5HfMu59hS3+42Z08eHYs8c4xDcc8ggyyna7UN
-	 HCXmB/4d1fDGaR2pJTTm0MrffvTaGD2i5DOaHnNAQOwDg2aK45dKAKjiZwIuGhCNtBjiS
-	 eUmIrQcuPS688Whp/o1mxEQN2v7fQeJ9qH0E3cXK14txH+Vn3qyWnMxoHpop7rTo59eYQ
-	 MuZR9kh2738THk6P/5lfwCiXVD3hRQliP2IIoqrOo4GAQW8KtIR6cyV7vJVnqwO/XRQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
+	b=2RuYXdyKFjGRhWuzG7h4fTRjs2a+6rTLMcCGq2CJ9k+J4A+tmuEVhYLOEtA5ECQ5Cr52
+	 8A/jntaCz4EwnGI/ALnJDNVDGNI13Cia2JnUl0AQGuPk7cJEvhg0VnBuG5p1HnSSpi2GM
+	 wvP2zQPKYmxbFWGSM0ASrRA8w1Wd+QM758Iwc+lJurHX7TdePbScNP+HCgeDGwxB8Kxpp
+	 lcsPrvOeH8EN4wYb7OtOVOAZtgp9VgKWztBZPPY0JwIlYQG8KYGoVfa/ugoyjQFdonVVe
+	 kTBlBgcojySMebM7UcPUFGBXPQurl5C4XyFqUG+3Yw00lZPZ3l9P6/SGUiR83giCwCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=dmCRAjfq;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0EaSKAHq;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D407B606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:03:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D407B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984AC606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:04:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 984AC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=dmCRAjfq
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4322d310e7so157409766b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:03:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0EaSKAHq
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so8487145e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:04:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793995436; x=1794600236; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SOuZsP/y9xq/TzGg7mOta+j2cGpkuhLYFhFIr9N0YU8=;
-        b=dmCRAjfqJQwsKcX+aHrTgrTRqIJdg+k9SFLsWpGQ+P+41R5j9aS5CEwIXDn+eakTve
-         5U+GNQQRXGgCs3E+9Hlk9GIcrKajtHeD726ELCBX8HEEcnLHew0SSiw87gUhLpKrsVcL
-         fojGVnEsy+Al734Rbk78gOVWTyojys22Q2oJg=
+        d=gmail.com; s=20260707; t=1793995473; x=1794600273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
+        b=0EaSKAHqfT6MH8ZkinKIWE9zvrSc79drozCAYUhfgwN1m4IXV5z8n7RslTiGPtjbks
+         8vK9vNKjmpB2vCiu82GrSYnB7PriyUI9woE+kdH/u1SeQ6RDamBgmFLd3Q3y6RWgAYpL
+         gmxNBdiPLUIC9Iq9auW8I24skXfVqMt1s8SVEl5yAEoY0A/eN2BAwW7kWLtmS4SMKYau
+         6RTbon4zvOqZi9yMA+4XmSKUmzQReJL1OAEaiOteb/X1HYQoOIwIMqUPcm1S8w/mM2SU
+         tMZhlgkHK0CHkJKjkLF+F+7KNVaEUCCaTOShURJCGPeygCU6Z11sKRGrVyg+Xz7e3+Ob
+         yz6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793995436; x=1794600236;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SOuZsP/y9xq/TzGg7mOta+j2cGpkuhLYFhFIr9N0YU8=;
-        b=H2bcTj3JwGRzMWWFKUFaK6b+5L3BT3VS8uvYNAfWerNoTnqrF/qZR95lPY0H77ZwT6
-         gAaElrFt5XDnJfHT1cGZGyxoPHnoxjMdKvj+Jln2bidS+Ns6zRM8N0XoyRp5K82PB5mb
-         X2JhSv4UOtDVDCtwJ2ITFgcTtqdjuXjKbPl6UTL4UHOx7sqH/2yaXfLePW+Pbk0024PR
-         1Zcip1+71pVjP/1gqYhxcfPq5CRnOG5PlhM3pN5Wuooo0EdpPv0pqNT5B6U315cLdJaE
-         TuMboHCPVOvDb1UCTJpXIeuYen3eD710RxmdNEqmGo5z2z+/lo86oadrGnX5x7htQh6r
-         1R4w==
-X-Forwarded-Encrypted: i=1; AL+hErGDo1M0eAeiU30GhMhDPjGvJe0hEZuNCVX1RANyz9u4RhsuoHRvVev6C8zvObbibym2QCrzJNsyd/vHru4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zz2vU19GiTODFUYepg8oMG0hSdyAWa+llAWZiYYr2FurTFF3n
-	xG3G4qkhNss+T5WnrVX0SQ3KIzAYYvDTEMDXKQoPjyuD29P0PT/eJc5Xo3377d1O4AmGvCj0hXX
-	M0DUkQi0dEw==
-X-Gm-Gg: AYBFou1E/hef22P19bswZBy2fwlodZhvTrlENfvQzjiuEljyPpstS7VwMkbVJNphaS7
-	QxEhdTRuEMtdJr7j357Xqu9cjEXFXV5AMwoxgmJF0DmQRugaDtq6iQKl2Ra6QP9lmEyCeVRUxSH
-	7J2pd5t/jUA3GB/9HcKQvU4QIrecD4ugii3mLpAy4pnDwJeyxgbGTrHB5DU7zk7+zUiy/p14pg3
-	fuZIwC7nhi6GSYw3TnVudv7nDFUZH1yNFHmqGD05qyQbtRygDnhtRT1k41Q3O3SC18Bwf2XL0Mm
-	Mp/dpKJbWSX3qYuVxrR0OIb63BUOFUIz+l4rn8dp9reBPTNQhtWmkuQAHsbN/HishFfVpYEaF4G
-	bVmdbz+YjJpuEBDHTj767RHYfNiGVfgiam/RIo44lBI+HJrt8SJZ6VweaFEdUTRI1ERJjGcfn/a
-	iC5qIRzuI4wl3uWy3H0tLpZOqJdAOIHUSbnGFNQMZGv+WWkKUeUAK3oV8hFpHe4X+8U7oX6szcG
-	a9AjbcKD86GPuVPhkYXexMKh+2yvW7pcGogpjGj/XerxOQTcK0bEqbzfQW5N42r/WTwE3vTqiHS
-	EGISBxeqNP+vk/RJyIrnBQZLkd5MBoi5sRdKXsaCB3K4E7AgP11YmN/mnNhUi3kT5QpFM6vwX/+
-	XNA==
-X-Received: by 2002:a17:907:9807:b0:c49:91a9:c7e4 with SMTP id a640c23a62f3a-c4d34ce94b2mr302935766b.27.1793995436247;
-        Fri, 06 Nov 2026 12:03:56 -0800 (PST)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356c776csm103019966b.70.2026.11.06.12.03.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 12:03:55 -0800 (PST)
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c34bff61551so167772666b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:03:55 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx6HousOO+IagZxMwsD93XDtpkhzWMOQ91zrnUWuPKOuGMF3rLacyHicmPO/G7cbOnGyDk2iC6F73RvScU=@vger.kernel.org
-X-Received: by 2002:a17:907:c0a:b0:c2e:5efe:f1cb with SMTP id
- a640c23a62f3a-c4d34c5a0b4mr312829466b.8.1793995435035; Fri, 06 Nov 2026
- 12:03:55 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793995473; x=1794600273;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
+        b=aiZe6KvSxpzfzIOJ2TvypHFaLvetth9CoZLbBwKLWeHND+yCbLZhTG2BT1IsMkMUBJ
+         gjJXoTZOeKm5v2wkl7b6R2RCDIdmBoiMOqC01AGYalqzGHKVku0e5m9+6GZFzoz4iETU
+         aoa3KkyrqTngaIgC+LSnQLVK6aTTriKaIHi8PMw9ykv0WPKZKSz7jgfB/PGMmXXNmrh6
+         QH8nlQVab/H7leY1vunHSLGBK3hFwl8sXR9MSc4zQ7ko34I5YmpEDKN5tq5FRyUkpeI3
+         WyV/CsjIAsDPSBbpMtdSQwJUPBXMcKqFxtdXcmWJi5mAdYTz49jApZ3351SrMnc1oDEk
+         11GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy441XxENkpxmFC4vjlUI7l51zQ0De1dWpkDb7QVXUMhPeL7nvzB6BRscDby0mgRkejYo0/OeRieA6zkWY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8chfrQxX/dUyUcKzgMvE46/QZI2Qcot6H1Mv6YNpFLThPS9w+f
+	mzDH3OD6870nUi/jQA7g58AwhEBqaTzuv7Y0R9dCRDv5NAR2C/miTFsE
+X-Gm-Gg: AYBFou1YyHSJ10vzqpMYI7m3Fr8coTXKHS/aLW1ykG36l+oz88h8MBxh0YaO7uw0G8y
+	I+M2r0AXuYt5kfkH2Ca+af/QZ/LQpSVuNBeBSxoAv9qkNYUmxgIJvHAjMmWwIbyquYhzoqDnHvI
+	tZFGvAVqgPiU1gmMr7qGhe8ZOZ+Q0ywvs80X8qnLE96WfXG6DbN0VwrDxt+1oxAwKlhhAHC9AhX
+	pfg7g6jvcVGy9aWGD7xX70ynX1HAsK3e/K97d7QIyjXMD0Q3oAIj0/6G6atCr2m+9gCsRpWKz0+
+	DNrOUT1RwWmet3P/5d791yOP0/JoybnnIboooW4tWaHkuyV+g3ouzsn6Q+wrbp8o5AbGzt6ObRQ
+	aIJap3if0dLrfrGE5FLU8vG5AvteOpUnmGQ3IaAMpq2FYe5MmiEzRXgvYl+Tm0NtzHMw6B21pvs
+	TsLckb2sEJXhlzaEOZQ3Wz5IkuM9QdmswlHIRVEf2MnbU6tiHOtTvyQz7BFHJSscS2eAViiuWSr
+	fesEwDRatlcNkS5vvk9w+8RmGIRCkR21mY8C5Ln877xLn8I13kfU6I2pDhX8RYuJozfIKs/P2SA
+	3bNUuxEu0fAr8myxq05M5wAZa3Mv0PW+xpI8Ow==
+X-Received: by 2002:a05:600c:3ba0:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4b6db1c5f48mr71249715e9.4.1793995472786;
+        Fri, 06 Nov 2026 12:04:32 -0800 (PST)
+Received: from fedora.domain.name ([217.218.152.94])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbdb9cdsm16959195e9.1.2026.11.06.12.04.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 12:04:32 -0800 (PST)
+From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+To: ampr.mhd@gmail.com
+Cc: dhowells@redhat.com,
+	lukas@wunner.de,
+	ignat@cloudflare.com,
+	herbert@gondor.apana.org.au,
+	keyrings@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] pkcs7: Return -EOPNOTSUPP for data-taking algorithms in pkcs7_get_digest()
+Date: Fri,  6 Nov 2026 23:33:56 +0330
+Message-ID: <20261106200423.37769-1-ampr.mhd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,67 +100,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
- <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
- <20261104-allein-bepacken-hitzig-5e517d3c129f@brauner> <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
-In-Reply-To: <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 6 Nov 2026 12:03:37 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiBsoUD=_V3vQr+sgArezxdk0aVk+_8yTX+gK+JVyNH+w@mail.gmail.com>
-X-Gm-Features: AclHuK8ZOQnPnzaiKmUJOJtxse2KcPSfRUhBBgxVSOLQ5inoQjgyGjpXmIAMBaI
-Message-ID: <CAHk-=wiBsoUD=_V3vQr+sgArezxdk0aVk+_8yTX+gK+JVyNH+w@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
- entries (Part 5/7)
-To: Christian Brauner <brauner@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
-	Christoph Hellwig <hch@lst.de>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 4 Nov 2026 at 15:35, Christian Brauner <brauner@kernel.org> wrote:
->
-> > I resent once after I cleaned things up post RFC and I don't plan on
-> > resending (one failed attempt due to my network dropping).
->
-> A git tree with all of the patches can be found at:
->
->     https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git/log/?h=work.procfs.cleanup
+pkcs7_get_digest() is documented to return a digest for IMA to use
+when verifying a modsig.  For signature algorithms where the public
+key algorithm consumes the raw data rather than a precomputed hash
+(algo_takes_data, currently ML-DSA), pkcs7_digest() does not produce
+an intermediate digest.
 
-Thanks. Looking at it again, I now reacted to the PCI
-proc_bus_pci_read() patch again, and decided that what I *really* hate
-about it is that it uses those "unsigned int" variables in the first
-place.
+When such a signature has no authenticated attributes, sig->m points
+at the raw data and m_free is false, so the existing check rejects it.
+But when the signature does have authenticated attributes, sig->m is
+an allocated buffer containing a modified copy of the AuthAttrs and
+m_free is true.  The existing check therefore returns that buffer to
+the caller as if it were a digest.
 
-And even worse, proc_bus_pci_write() uses the signed "int" variables.
+Test for algo_takes_data directly and report that no digest is
+available, before attempting to call pkcs7_digest().  This covers
+both ML-DSA cases consistently and removes the now-dead m_free check.
 
-That's just wrong. It's all garbage. It shouldn't use "int" at all. I
-think it's just that all this code is two decades+ old, and 64-bit
-issues weren't a thing, and even "loff_t" was a newfangled interface
-at the time.
+The only in-tree caller, ima_collect_modsig(), does not check the
+return value of pkcs7_get_digest(); for a data-taking algorithm it
+will now leave the digest fields unset and fall through with no
+digest, which is the correct outcome for an algorithm that does not
+produce an intermediate digest.  Callers that do care can detect the
+new -EOPNOTSUPP return.
 
-"pos" should just be loff_t, and "size" and "cnt" should be "size_t".
-Those are the correct types for those things. Not "unsigned int" and
-certainly not "int".
+Fixes: f3eccecd782d ("pkcs7: Allow the signing algo to do whatever digestion it wants itself")
+Cc: stable@vger.kernel.org # v7.0+
+Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+---
+v2:
+ - Add algorithm name to the pr_notice_once() message (Ignat)
+ - Add Fixes: and Cc: stable tags (Ignat)
 
-And yeah, cfg_size in "struct pci_dev" really is "int", and that's an
-independent issue and likely a bug in the PCI layer.
+ crypto/asymmetric_keys/pkcs7_verify.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-     int pci_cfg_space_size(struct pci_dev *dev);
+diff --git a/crypto/asymmetric_keys/pkcs7_verify.c b/crypto/asymmetric_keys/pkcs7_verify.c
+index 474e2c1ae21b..c2e0eda502e2 100644
+--- a/crypto/asymmetric_keys/pkcs7_verify.c
++++ b/crypto/asymmetric_keys/pkcs7_verify.c
+@@ -147,14 +147,15 @@ int pkcs7_get_digest(struct pkcs7_message *pkcs7, const u8 **buf, u32 *len,
+ 	if (sinfo == NULL || sinfo->next != NULL)
+ 		return -EBADMSG;
+ 
++	if (sinfo->sig->algo_takes_data) {
++		pr_notice_once("%s: No digest for data-taking algorithm (%s)\n",
++			       __func__, sinfo->sig->pkey_algo);
++		return -EOPNOTSUPP;
++	}
++
+ 	ret = pkcs7_digest(pkcs7, sinfo);
+ 	if (ret)
+ 		return ret;
+-	if (!sinfo->sig->m_free) {
+-		pr_notice_once("%s: No digest available\n", __func__);
+-		return -EINVAL; /* TODO: MLDSA doesn't necessarily calculate an
+-				 * intermediate digest. */
+-	}
+ 
+ 	*buf = sinfo->sig->m;
+ 	*len = sinfo->sig->m_size;
+-- 
+2.55.0
 
-doesn't seem able to actually return signed values (I think it returns
-either 256 or 4096), but "int" is still not a great type for it - and
-the comparisons with proper variables like 'size_t' will then turn the
-comparison unsigned anyway.
-
-This is all ancient code that works, but isn't pretty. But I'd rather
-fix the types than do things like
-
-        if (*ppos >= size)
-                return 0;
-        pos = *ppos;
-
-which first does the comparison in the right type before it then
-truncates it to the wrong one...
-
-           Linus
