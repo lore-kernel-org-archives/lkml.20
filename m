@@ -1,75 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996421;
-	b=0md0SetcTEpA9DNpz0b6KQXjK8wipfJG6FpiiV4QOCZmQ4xxvG3jtvP424Dkn7eqNUK8
-	 P1xMxj5sbKK6u3R8Rh1jxfvQwfGcpZJVNsBYYAOgmAmN3X3TNMjPeRUFTa/eLV5s9Uykl
-	 4XxbUjJeBrJPcvWFPjhvceMfndNMvOis4tgY6C4LACH+LuagJoN6SAaLojA/hw1aHn0lF
-	 xDfstxxbaqF3oGPniM45kuQXl/zsxXSN1Mp0o57zGjq1H/AU52oMLRLFQokIIdEAF1Ezz
-	 JHrqKGahwI2201qO2ELJQDvqtdof5Jx92gKopEJQSmChNXuWKfXkawvixjvMIb8v0yA==
+	t=1793996410;
+	b=0UUoLbV4qep56HbbeiHdIPu5Vjhb/23Em6/pTTXa3/XrWuRKDk8iu82kQcm6812bFKPd
+	 9PWjvh8CVU4WL2JmSH5djs/IhnzpypEZdZ38i6x3ZRNvS+xc058GN2ijIExI3kNKr7ZD/
+	 GfCIg6m8alKQcw9T819XKkBTxvNGjLqSlKecohgU/dpamKdpMBxhCl+9qXqmfIufdRJxv
+	 X8YmA101Cci6nC5fOMBnPz1ZIArw3pfbyQ8FC/JvVbBUpB1rqa+wsgUjjRt6Y4DjQM7MN
+	 79kked49XO3mrmIggtjLGH5PVL2xNxsxOSS+GYvQd1PvXiwHsDnI32YGHg6VzvDz5fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996410;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-B4-Tracking:X-Change-Id:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=wYRpy/O7KBx8gWbkCOvTZNiGZUKxKn/aaUwwAjHzOcQ=;
-	b=SxFFI2Mm2hpJXwQ80+1RXtj04H22Ff0ode5GqNV5xppC/r9gFbiBAodVmKiCvHl6WmnA
-	 5sKF9yHsRf1spsGAo1dIgKLHitk06xyMqpPQZ9bZ6X7+6MXoebgc9OxpKOreVZi1wDVbT
-	 9Cg4xuYjXFBaxkW7WihN57DKuE9ImUvPvo2XayWrQwBu8sUgf92R9PfpFm3WxX270hpp3
-	 MUw0w/7fM3YX4WlSQjgn+8ZvtdqnnishuYF2fEy/cA8j0lxSt4hUdKAtMbwhOQ1ZPnZK6
-	 hA3lbfIcXoxkabrgirFARhKz4bjxsVPDG25SxYa4d05IoE3jZ7aCADqi96FrwjKVlGQ==
+	bh=2YbFKs9nRA6MfgMEJuRTCHwLHgaje7B0LRpZLEgpNVg=;
+	b=d5HfBfVpMgTZFpYQhXAmolBd90zFteJo+nPNEP717sNjt1VJbKHoSd/Rgr6WtS+pvOKe
+	 Lwv8z85Q7Qg+oJmY9ymsVBV2Tq7j2ClWgCJRm/mLHgyBO0oPwzHF2gUHN+8tzTwek97OR
+	 7Njtq6LdL36GFL+1D5vRcTBVNZPCz6lrreJBbcCGXEWboi3xtgG43D7GudRsy1k3lURWF
+	 cq/7L/8UT9Gwn+LwyPdPCAp/eIdpwM3+mYRIBeFojoORQP+DEVmdd6O2TYaYo43xWSfeY
+	 hm0vWR6GqzCpkWpLzI2UjXbQ8B5Eh5FnsVu4pNi88S3ZsWTx8cPpgpaA9+rDXiI8gHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YlscIqfh;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oQqnp485;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676C1606A33A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 676C1606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B07606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B07606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YlscIqfh
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so1004011a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oQqnp485
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a030e0f9c1so1058282b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793996421; x=1794601221; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wYRpy/O7KBx8gWbkCOvTZNiGZUKxKn/aaUwwAjHzOcQ=;
-        b=YlscIqfhbVnCLNXoHezz7lXtxhhaPr/5sO/KCNaPP+1Karteu+j1JKjalE22EoGs8h
-         9u9E/2KnXV+Q0aRVOFIpiARkNxi8LmUVdNCWhNSgOm1FsxdTzAUGCmAUQwRRLDe17ITb
-         DE5suTx50BRrfH6qP36VQiQwuB7MQgoYnOYHgE5eZHRH7Lz1NENI4D69VQIps0DMwadG
-         C+/pOTSPqlyKwZJM7N+gl7IHlOSCbEfgCW5c/lxZ1bvc2gve3/miAE4sqahtTcWG7wY8
-         sahpn0IbOc2u2j60gvMXlX/qIKq0FLLFnv9PruVupn3xWmxsUg2QcR1gP0PiMRrNshOd
-         jbJw==
+        d=google.com; s=20260707; t=1793996409; x=1794601209; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2YbFKs9nRA6MfgMEJuRTCHwLHgaje7B0LRpZLEgpNVg=;
+        b=oQqnp48505ul8fce1kiykiCLp2RBCB0id+7wMmH30erQLzA8JQmunrOmBs4cSNdOnp
+         2iNKZqJWYUFQZ47unpZxxxX0f/iH/7ULrKTrrYMEEjQsDlWVORyHPyVBhvS8rCmZ/fhN
+         o7jT9adJGO14Qrl6r6L2xIM8t5Xg5yR/AaxTHGoKVbTTau2on1yr7YC6/P2TG8xvPXoC
+         FEMJZeADDOVyBg6XKdFgSjHTGG3FBAt4N4dQGuCI2/yuf2umK2hUZCoKNeGRw0pPFTnS
+         bcVkwTCIxGxdl78z4+gT0PSaYM3vIYomHZeF4LisCxXaNA4K5aqLiA0ut714gukBKsye
+         MUgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793996421; x=1794601221;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wYRpy/O7KBx8gWbkCOvTZNiGZUKxKn/aaUwwAjHzOcQ=;
-        b=yCGeXRruIi9DyrvmBZpsIGUM9Nle4cS5HjUNSAEtbrUjsegEFQbacu10r5IvfTJ3/I
-         hkMwKb94l+ePs0/xAfzVKYj6CyEKzEQ3C13fCoqIUeBXT1Iy6TO+C8emGm/q+tcczSia
-         10v6uj01oSNiH0yRER2Htiby4771snzTnxiSxCqYWDnGLaqqTB50YpLAn1Z7g7uAKLL2
-         vPgk84jwifMPZypStEfU33jfNJCbJDXFcVEGZSqsTQ8lgnVAuOO1+v3/tRJN+vyL0hrW
-         wOgWezNv+fMcl1V4jwH5H5zYVWuUu30wkfdriyXNiC5NpfT8rumIO1beaAu7HhXLWaRM
-         S3MA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXfe6oTACr6Mle2dfnSJBf8UXTKuRio7jMuD24DayZ0dHGy1BkG9YpbWtFaCIGavBYeW38ox7462+ndC4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HL5ow5pyYeiS9Xol6D1s+TExf6ck/IJ7UGRepdVdUmjc6YEXL
-	Mnh8nWpqytj5UaAfa3kl/vJ266si4NEZNzDxpxVm1y+tsA16q83VlMUvQ7qVx0j6kT/t7rwHp1f
-	8bjuPvpr30cPfQg8/uA==
-X-Received: from pfo19.prod.google.com ([2002:a05:6a00:2f3:b0:88f:9775:7fcd])
+        d=1e100.net; s=20260707; t=1793996409; x=1794601209;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2YbFKs9nRA6MfgMEJuRTCHwLHgaje7B0LRpZLEgpNVg=;
+        b=MQW2GKpRYMk1hvZ75glfX7jVzRMpIuopx0i1fD2r0zCJimzBwQ6OBEkqzObITS1YpB
+         NifNZ+oHomK0x/3hFOL5p7EVn0VJ3Yc0Zu31rYYG5TFpYkFHmOV9pqjNf/2pTq9CBb0L
+         /kr0Rco+Xob3DHDdw2lXokRcbZA6LRsB1VkynfpATdlV3kdnf/RTp/1mAIVmzFZVqFAf
+         msWsb1hzU8czOxbgRMBCJWB5+jOxgdajzEq6L+WKvrBy7QZvj3VU3tt1so//F/qxguv1
+         nBUPxsaNiyDMc7DoLxk34bmpvIaGD6tvkjaJR04AmEGDecREFpcA2mS74qff27adIWtW
+         3bMA==
+X-Forwarded-Encrypted: i=1; AKwUvBzG+fQ6lKLBgvhHJPcWdS/khzlicAaUBoszry0h4Z+n1NNO3YDAA9nXYb1hBQz2Zjb6fzaYsUiJ33pYQPI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WbcfpWvhAWC+11TuodC8uLH89Kp+/fY4R+uexBRVPZ8qn8mIO
+	xJ0HlsdQ3paCGf8QRRCV86oJyeF8MoY8A+S69U6Dju7Nol8c34akcGy8ThLKPoKMBHvUrXx+laY
+	ZQJQtp2VDzwNE7qsmlw==
+X-Received: from pfhx2.prod.google.com ([2002:a05:6a00:1882:b0:89f:5522:3f42])
  (user=sidnayyar job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:da05:b0:3e1:8890:8400 with SMTP id adf61e73a8af0-3ebb297f700mr3991183637.15.1793996420375;
- Fri, 06 Nov 2026 12:20:20 -0800 (PST)
-Date: Fri, 06 Nov 2026 20:19:53 +0000
-In-Reply-To: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
+ 2002:a05:6a00:139c:b0:8a6:58cb:eeaa with SMTP id d2e1a72fcca58-8b37bb5f095mr3365577b3a.36.1793996408786;
+ Fri, 06 Nov 2026 12:20:08 -0800 (PST)
+Date: Fri, 06 Nov 2026 20:19:47 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,11 +77,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
+X-B4-Tracking: v=1; b=H4sIAGM27moC/x2MQQrCMBAAv1L27MJmLQW9Cn2AV/FQ040uljRko
+ xRK/27qcQZmVjDJKgbnZoUsXzWdYwV3aMC/hvgU1LEyMHHnHDFO9pYJreSPLzgnQzrSiVpufRg YapayBF3+yxtc+8vuHilglKXAfdt+OM0/UHMAAAA=
+X-Change-Id: 20261102-lskel-struct-ops-03090424cfa2
 X-Mailer: b4 0.14.3
-Message-ID: <20261106-lskel-struct-ops-v1-6-a4486ffc79cb@google.com>
-Subject: [PATCH RFC bpf-next 6/7] bpftool: Generate attach and detach for
- struct_ops in light skeletons
+Message-ID: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
+Subject: [PATCH RFC bpf-next 0/7] bpf: Support struct_ops in light skeletons
 From: Siddharth Nayyar <sidnayyar@google.com>
 To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
 	John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
@@ -98,144 +97,129 @@ Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Maxime Ripard <mripard@kernel.org>, Siddharth Nayyar <sidnayyar@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-Update codegen_attach_detach() to iterate over BPF_MAP_TYPE_STRUCT_OPS
-maps with BPF_F_LINK set. Generate dedicated per-map attach functions
-calling skel_link_create(), chain them in skel__attach(), and close the
-corresponding link FDs with skel_closenz() in skel__detach().
+BPF light skeletons (bpftool gen skeleton -L) compile BPF object loading
+into a self-contained BPF_PROG_TYPE_SYSCALL loader program (gen_loader)
+embedded in a C header, removing any runtime dependency on libbpf or
+userspace BTF parsing. Currently, light skeletons do not support
+BPF_MAP_TYPE_STRUCT_OPS maps or BPF_PROG_TYPE_STRUCT_OPS programs
+because preparing a struct_ops map normally relies on libbpf parsing the
+target vmlinux or kernel module BTF in userspace to resolve type IDs,
+struct sizes, member byte offsets, and member indices.
 
-Also skip gen_st_ops_shadow() when generating light skeletons so
-skel->struct_ops is not emitted between skel->maps and skel->progs,
-preserving the ctx layout expected by bpf_gen__finish().
+This series adds BPF_MAP_TYPE_STRUCT_OPS support for link-based
+(SEC(".struct_ops.link")) maps in light skeletons across both vmlinux
+and kernel module BTF targets:
 
-Finally, reject struct_ops maps without BPF_F_LINK in light skeletons.
-Because the loader program runs BPF_MAP_UPDATE_ELEM during skel__load(),
-non-link struct_ops maps would register prematurely before
-skel__attach() and leak in the kernel if a later load step fails.
+- Patch 1 adds a new bpf_btf_get_struct_member_info() helper for
+  BPF_PROG_TYPE_SYSCALL programs to query a struct's byte size (when the
+  member name is NULL) or a named member's byte offset and member index
+  from vmlinux or module BTF at load time.
+- Patches 2-5 wire up struct_ops initialization, map creation, program
+  loading, and map update in libbpf's gen_loader. At runtime, the loader
+  program resolves the kernel wrapper type bpf_struct_ops_<name> and
+  target <name> struct BTF IDs (and module BTF FDs) via
+  bpf_btf_find_by_name_kind(), queries struct sizes and member
+  offsets/indices via bpf_btf_get_struct_member_info(), constructs the
+  kernel vdata buffer in the loader data blob, passes the resolved BTF
+  metadata to BPF_MAP_CREATE and BPF_PROG_LOAD, and populates the
+  callback program FDs before issuing BPF_MAP_UPDATE_ELEM.
+- Patch 6 teaches bpftool to generate per-map skel_link_create() attach
+  functions and skel__attach() / skel__detach() plumbing for BPF_F_LINK
+  struct_ops maps in light skeletons, skips gen_st_ops_shadow() so the
+  light skeleton ctx layout is preserved, and rejects non-link
+  struct_ops maps.
+- Patch 7 adds light skeleton struct_ops selftests covering both vmlinux
+  (tcp_congestion_ops) and bpf_testmod (bpf_testmod_ops, including a
+  subset struct with reordered members, scalar fields, detach, and
+  re-attachment).
+
+Adding a new BPF helper and alternative kfunc approach
+======================================================
+I am aware that BPF helpers have been frozen for several years in favor
+of kfuncs. I propose adding bpf_btf_get_struct_member_info() as a BPF
+helper (restricted exclusively to BPF_PROG_TYPE_SYSCALL loader programs,
+alongside bpf_btf_find_by_name_kind()) because, to my knowledge, there
+is no better way to enable struct_ops support in light skeletons.
+
+Before settling on a BPF helper, I explored an alternative approach
+using a kfunc, which hit a roadblock. Calling a kfunc directly from the
+light skeleton loader program is not possible because kfunc calls
+(BPF_PSEUDO_KFUNC_CALL) require the target kfunc's BTF ID in insn->imm
+when the loader program itself is loaded, whereas light skeletons ship
+pre-generated loader bytecode without userspace BTF resolution. Although
+I was able to resolve a kfunc's BTF ID at runtime via
+bpf_btf_find_by_name_kind() and patch and load a separate BPF program to
+run the kfunc and gather struct_ops member info, running that program
+from the light skeleton loader required re-enabling BPF_PROG_TEST_RUN in
+bpf_sys_bpf(). Calling BPF_PROG_TEST_RUN from BPF programs was
+explicitly disabled in commit 86f44fcec22c ("bpf: Disallow bpf programs
+call prog_run command.") because the verifier cannot perform sufficient
+validation of the bpf_attr->test.ctx_in pointer.
+
+Non-link struct_ops support
+===========================
+I have not enabled non-link struct_ops programs/maps (SEC(".struct_ops")
+without BPF_F_LINK) in this series, though I intend to enable them in
+the future and can extend this series to support them if maintainers
+deem it necessary.
+
+I left non-link struct_ops out for now because in light skeletons,
+BPF_MAP_UPDATE_ELEM runs inside the loader program during skel__load().
+For non-link struct_ops maps, BPF_MAP_UPDATE_ELEM immediately registers
+and activates the struct_ops callbacks in the kernel before
+skel__attach() is called, prevents re-attaching after detach, and would
+leak an active registration if a later step in the loader program fails
+(since loader cleanup only closes FDs via bpf_sys_close() rather than
+issuing BPF_MAP_DELETE_ELEM). Supporting non-link struct_ops will
+require deferring BPF_MAP_UPDATE_ELEM to userspace skel__attach().
+
+AI assistance and testing
+=========================
+This series (code, selftests, commit messages, and cover letter) was
+developed interactively with an AI coding assistant (Google Gemini),
+with me guiding the design step by step across each patch and reviewing
+all changes.
+
+The series was built with clang/LLVM and tested in a QEMU x86_64 VM
+using test_progs (covering the new struct_ops_lskel selftests for both
+vmlinux tcp_congestion_ops and bpf_testmod_ops, as well as existing
+struct_ops and light skeleton tests), along with manual verification of
+loading and inspecting a struct_ops light skeleton via bpftool.
+
+Feedback on the overall approach and on introducing this
+BPF_PROG_TYPE_SYSCALL helper is very welcome.
 
 Signed-off-by: Siddharth Nayyar <sidnayyar@google.com>
 ---
- tools/bpf/bpftool/gen.c | 71 ++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 67 insertions(+), 4 deletions(-)
+Siddharth Nayyar (7):
+      bpf: Add bpf_btf_get_struct_member_info() helper
+      libbpf: Implement bpf_gen__init_kern_struct_ops() for light skeletons
+      libbpf: Support BPF_MAP_TYPE_STRUCT_OPS in bpf_gen__map_create()
+      libbpf: Support BPF_PROG_TYPE_STRUCT_OPS in bpf_gen__prog_load()
+      libbpf: Implement bpf_gen__struct_ops_update_elem() for light skeletons
+      bpftool: Generate attach and detach for struct_ops in light skeletons
+      selftests/bpf: Add light skeleton struct_ops tests
 
-diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
-index ee680f7c2116..98e92a34326b 100644
---- a/tools/bpf/bpftool/gen.c
-+++ b/tools/bpf/bpftool/gen.c
-@@ -569,6 +569,8 @@ static void codegen_asserts(struct bpf_object *obj, const char *obj_name)
- static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
- {
- 	struct bpf_program *prog;
-+	struct bpf_map *map;
-+	char ident[256];
- 
- 	bpf_object__for_each_program(prog, obj) {
- 		const char *tp_name;
-@@ -608,6 +610,30 @@ static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
- 			", bpf_program__name(prog));
- 	}
- 
-+	bpf_object__for_each_map(map, obj) {
-+		if (!get_map_ident(map, ident, sizeof(ident)))
-+			continue;
-+		if (bpf_map__type(map) != BPF_MAP_TYPE_STRUCT_OPS)
-+			continue;
-+		if (!(bpf_map__map_flags(map) & BPF_F_LINK))
-+			continue;
-+
-+		codegen("\
-+			\n\
-+			\n\
-+			static inline int					    \n\
-+			%1$s__%2$s__attach(struct %1$s *skel)			    \n\
-+			{							    \n\
-+				int map_fd = skel->maps.%2$s.map_fd;		    \n\
-+				int fd = skel_link_create(map_fd, 0, BPF_STRUCT_OPS);\n\
-+										    \n\
-+				if (fd > 0)					    \n\
-+					skel->links.%2$s_fd = fd;		    \n\
-+				return fd;					    \n\
-+			}							    \n\
-+			", obj_name, ident);
-+	}
-+
- 	codegen("\
- 		\n\
- 									    \n\
-@@ -625,6 +651,20 @@ static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
- 			", obj_name, bpf_program__name(prog));
- 	}
- 
-+	bpf_object__for_each_map(map, obj) {
-+		if (!get_map_ident(map, ident, sizeof(ident)))
-+			continue;
-+		if (bpf_map__type(map) != BPF_MAP_TYPE_STRUCT_OPS)
-+			continue;
-+		if (!(bpf_map__map_flags(map) & BPF_F_LINK))
-+			continue;
-+
-+		codegen("\
-+			\n\
-+				ret = ret < 0 ? ret : %1$s__%2$s__attach(skel);   \n\
-+			", obj_name, ident);
-+	}
-+
- 	codegen("\
- 		\n\
- 			return ret < 0 ? ret : 0;			    \n\
-@@ -642,6 +682,20 @@ static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
- 			", bpf_program__name(prog));
- 	}
- 
-+	bpf_object__for_each_map(map, obj) {
-+		if (!get_map_ident(map, ident, sizeof(ident)))
-+			continue;
-+		if (bpf_map__type(map) != BPF_MAP_TYPE_STRUCT_OPS)
-+			continue;
-+		if (!(bpf_map__map_flags(map) & BPF_F_LINK))
-+			continue;
-+
-+		codegen("\
-+			\n\
-+				skel_closenz(skel->links.%1$s_fd);	    \n\
-+			", ident);
-+	}
-+
- 	codegen("\
- 		\n\
- 		}							    \n\
-@@ -1323,8 +1377,15 @@ static int do_skeleton(int argc, char **argv)
- 			continue;
- 		}
- 
--		if (bpf_map__type(map) == BPF_MAP_TYPE_STRUCT_OPS)
-+		if (bpf_map__type(map) == BPF_MAP_TYPE_STRUCT_OPS) {
-+			if (use_loader && !(bpf_map__map_flags(map) & BPF_F_LINK)) {
-+				p_err("struct_ops map '%s' requires BPF_F_LINK for light skeleton",
-+				      bpf_map__name(map));
-+				err = -ENOTSUP;
-+				goto out;
-+			}
- 			attach_map_cnt++;
-+		}
- 
- 		map_cnt++;
- 	}
-@@ -1385,9 +1446,11 @@ static int do_skeleton(int argc, char **argv)
- 	}
- 
- 	btf = bpf_object__btf(obj);
--	err = gen_st_ops_shadow(obj_name, btf, obj);
--	if (err)
--		goto out;
-+	if (!use_loader) {
-+		err = gen_st_ops_shadow(obj_name, btf, obj);
-+		if (err)
-+			goto out;
-+	}
- 
- 	if (prog_cnt) {
- 		printf("\tstruct {\n");
+ include/linux/bpf.h                                |   1 +
+ include/uapi/linux/bpf.h                           |  13 +
+ kernel/bpf/btf.c                                   |  73 +++++
+ kernel/bpf/syscall.c                               |   2 +
+ tools/bpf/bpftool/gen.c                            |  71 ++++-
+ tools/include/uapi/linux/bpf.h                     |  13 +
+ tools/lib/bpf/bpf_gen_internal.h                   |   7 +
+ tools/lib/bpf/gen_loader.c                         | 297 ++++++++++++++++++++-
+ tools/lib/bpf/libbpf.c                             |  59 ++--
+ tools/lib/bpf/libbpf_internal.h                    |  26 ++
+ tools/testing/selftests/bpf/Makefile.skel          |   3 +-
+ .../selftests/bpf/prog_tests/struct_ops_lskel.c    | 122 +++++++++
+ tools/testing/selftests/bpf/progs/struct_ops_mod.c |  51 ++++
+ .../selftests/bpf/progs/struct_ops_vmlinux.c       |  42 +++
+ 14 files changed, 747 insertions(+), 33 deletions(-)
+---
+base-commit: 3e18218484126afb9da722080659c038cb2256ab
+change-id: 20261102-lskel-struct-ops-03090424cfa2
 
+Best regards,
 -- 
-2.56.0.455.g6c5a503b38-goog
+Siddharth Nayyar <sidnayyar@google.com>
 
