@@ -1,111 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793994409;
-	b=zvD7NEUG9kPLHErHhDPnCzd4NQ7cga1TFLB4ZKYu75bnYiwXaEf8JyQdOe7nzIWS87Ro
-	 BwgAVmeHXGlZCWoAGRkKDRAISYFTDCX5faLxF4tJlr3jhiJ04kNnBdnE1KbFzUN8hXvdW
-	 ZYX3UvTglnTCd7QLU/qgt3HDd4D9fPB3sbZtn9lAOSycDMpDChDVSBmyg5Pt03kud1Z4k
-	 kBsQCj7tbe0F4zhGwxc+r8o/6ZkcCt973ZKrK5IcWrv/OlyNM5hvofPg9m3HF/4UA3ZNL
-	 bi6ab8ykRxVXLRDSqzKM/erGremaPnmN6SkmmK8m6A4CAPr47SMyXOK1jbgLa5owANg==
+	t=1793994423;
+	b=C6PSmoAGYvTbZhkTbJ7+rbdpPyaFnKxilgHH6R3cTWAvFJCqrp18driBEx6M0pb1Ay8i
+	 Xzcx/S5Dtj3ZPPyq27sYBSWU6973WI+zKqwlOq233OZeABi9B11Zpn5qu+mZ3R9dq/7D+
+	 tqMVef3FbNE4kamVDrlWwIaObXXqCLp/9rLPteynhECqbKuwz6XXNV7x/ygDnOUaZY2uj
+	 IY6GcMgvAvGiViUAx53AAW2Q1gtL6bYpOyBwqdgpllTwvEgtNe6OtoyiY2/+Qeq+986MZ
+	 M7KhakiMpup+5ZlT5Xn2GHO952NBSwOx0bBh+wz+Oqamzfj4Repy89g5SibaAZo59HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994409;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=;
-	b=uYPwM2V8oPXc0CkG3haG7Ne11/TIVY7TBiceQlYXlGahILhRER90rx5jpYWcc+WfOUJB
-	 EkXC/bADovrc6CJQMit/2Tktjo7Yn0oylktkLhAuaVa9E38c6CCSLjjn0wHgNxZDEU/5w
-	 fQjmPdGHB8N2PvfEgx2mDbiLVuDWAvlKbzt2lKX0FFiXw0XJWV8wSLkiRB7wOOIEC2/bP
-	 CQzULSlZ6i4zQ3v5+J837NGu3bMO8Jq6g0qQcnOVA9sAvIh/83mA6R/03sUL8Aw6BfOS1
-	 mY3vnCzIGw6ZjRhX/Z3jcokAstSWvKtWdjWvSRMbYuBc3IufGW0wGmPI6q6XE6QN9TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994423;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UGRkW91UEtZGZyGYD0O6bXaeLB7w9goCGwmJI1NFJ9Q=;
+	b=X7Q0RkIkowgIOeqVoeRm+CkcyUiGQpfYI22vUN3xEDFZNvu7AZKqnCEHp3Tk1YDTk1wK
+	 7fmYtwR1hvewK5PuxF4ymxrg+jTYp6ErnKqH0QADEoROllSAsml61+BoP2GH0PPkzE53B
+	 pMKEdyadUSzbogN+Kw2LZ6++iE+ZX6sOCRJSVJ9kHfKFwOCCCynWvYjw6k4P/S2svqxQv
+	 ImJMXUAUmExv7YrHG7V2apBFb32Y8ImQoyZ5kl1OnBzsFKDXs/BpeSUj3WDOljH6ML9YU
+	 b7MkecOxVDckXfQ/5RySNtaFHoBZC0tHQSyctWOSeMzgQgSaQUKoTg+h3AkCm1T5RvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=readahead.eu;
-	spf=pass smtp.mailfrom=readahead.eu;
-	dkim=pass header.d=readahead.eu header.i=@readahead.eu header.a=rsa-sha256 header.s=fm2 header.b=ag2Z2H5T;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="WbCGlWg/";
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ep3uIcyd;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33E2606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:46:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B33E2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readahead.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=readahead.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F37606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F37606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=readahead.eu header.i=@readahead.eu header.a=rsa-sha256 header.s=fm2 header.b=ag2Z2H5T;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WbCGlWg/
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id E3281EC0854
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:46:42 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 06 Nov 2026 14:46:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=readahead.eu; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793994394;
-	 x=1794080794; bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=; b=
-	ag2Z2H5Ti0ErRYro1uqfcVsQLshlA3jWD0g8g9qfGfL1maXy5+q4FQU+jgyev3Xr
-	RmtIbH6AdOVvGyanXJgpIAqFbz+HctLRgRqb2cxdEMJBw+g7IGde9jH3cF5IZ4BS
-	Y3hJI/WSOc2BU8CyYXbN9Y926BZpWa5mdfueI1iHhOFJCAFIV///2ql7AOGUaEaj
-	cWinNQIUfZJ8dyaGWTfd7Dv+AA7+TEm8ejvwGKg/1tm6gnYLaT79TLq2YHnAMcfC
-	6JkAwoenbKTif6dCiwPllfWHuirkaa/EyQNr0ddZdYIfhMbG55cmUrENHR6SphaO
-	LGxLpAGEf063GBZ3w+1bGQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793994394; x=
-	1794080794; bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=; b=W
-	bCGlWg/gc/GYzyDYF9V10w76mEB4pXNz/yllOVx1JvJoN042i9QLIyYX/psmtdl7
-	0mMcTbGqK8N4kR3F+OH7pLAXB8BRgaDH5S9HvFsvvfnIwql9m5unLub7LujogHLr
-	clPb+t3TaoO9NIG+433gs3xpu+eeY6i0Ol8PbQ+R9/3GqohjaX3nk4x+2JcCbzoq
-	ZQV16IUS4Hcz6J3qC7Nxkx9OwQvSym5Lw5gMrxGV5COnfGQwzMeKJsR4gLQjYPWp
-	O2MIbF8H0WyQ9ZYpsmnsFRtLlkdfFmsRbW7WLmJE5zR+qyZx3dabQr3OFYpJnHpB
-	sf1uW3Z+D/bH0eYzlFRCg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=readahead.eu a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793994394; d=readahead.eu;
-	mf=PGRhdmlkQHJlYWRhaGVhZC5ldT4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:CwXa0BI0LdAdR9StGzRkXZVbWb+UDE6B4S0zGO9jQ8tIoiq
-	TH3oofZ1rMGb7u230oEPdktRw9R+Ib8hyXlIUo6hZxx1ky3fxgtw6OTCK9GdUo1Y
-	F6GKe5Y0PE6rmxJlixWdlFa+blUWpYkMgBVCTSk1Bb5E2nIew3p0Ax1bEj0F8Eu4
-	ek7FEK9y3frcYGfajPGuk84qDoeE30ilSzYZZGk76lIYAy9Qww/xNztN5zVUPKfN
-	2LjWyhVw9s0ZJSgq5dWMT19dVoolKFBx7C/VypCxfzQLei8d7H53b3v7Qd7sU2Jx
-	e4lKC/Xi0FVDi6tp8yReVPLk1rFpGsyMwaNe72A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ZXYMNTvVJSIN7d7nypu287vHLlCVFtx1p+56iwTdm2U=:YVR9YXua2pXGceoVU1tO4HWt1dT9IBqHvzi7bV/+K30=;
-X-ME-Sender: <xms:lC7uaiy08CXPYJX_-oMjkrCLTLCvz_9vEVHdF9JV-aQZcfo37H8XNA>
-    <xme:lC7uapESe4X2r4-9tbosgocOP3mUXBiaG6Bj9W74leR6UsXMdR3n6Eh5MK1FctiV_
-    4aXtO1rwrCdNhwcwoRbxa0hkth5g0M9jTk4fJm5CUfFqHk-VvXgWvAM>
-X-ME-Proxy-Cause: dmFkZTGUo7IC6fGRL1KVNl4H3kKPTqlVG3UIT2AdgMMD6pZ2tEb1YktnY/FHMj6Q5TyF8S
-    4cPLg+L1p6KVN+PKIKLa6P18N3Tuw2cahYHmZHUQ59vKq9SJUxlw8rmWe8DXJXQOEdLs99
-    U1c0jX4tkCS07Q0pBU2hQOzLWuCpnoF4Sd0SbE7swUwx5nbO1uIuYHYE0GB9cxqJZA7jBA
-    ULB75RlnzHYXaUIAVbS1kVKhGBdzr4ZFrGFbJNXjXJ1aGEpxmH0KT9naxZ1oH/T9jP7xSn
-    /fzjAAPjNRojDUct0j6UDS8pDqdDK/UomwyxVtV7L9toWyEJYSSbG3S5/2ypOIdY4MwKtZ
-    zybKxSTT2yfOBX70vjqtGwKVX64NrDMFqeC41H+O0uIQs+9wiD5N/uhoOJMaWHvR+EKiY6
-    YHkVId0B1PrQCuC7nx9cDRHeeoWvietuEokrqBrkTQqAJwxKKXFmh1z3z+H2vqV7F2GASI
-    5plmwvEfFKK4eo5WPkzpnT1vFb7nyV3ZrujVNdKexZadm3uVVGZ9UMJqm5tuUO6nHxj0Cr
-    GVlHaDDpANsqqxyHdZgXD2eQ1Dk6VBv3M9i+Qk1Gi5axtYWjPemSyXSegoekVDREJpCoT0
-    jYoIyDcoQAC+AmkdsvXb32LmtX/+ZqqjHYrqVtWUxGdLWvhAgu2ETjpuapPA
-X-ME-Proxy: <xmx:ly7uakESJVpTbvlQpkTh3h5TN24Pz9dEfjXw7iokr1dFh2XQxmj52g>
-    <xmx:ly7uauvCNUSmqjbus2WAkxD1WNAAR1RN3n0DsZT28DNv7BMUh31tYw>
-    <xmx:ly7uanbfXW4c8hS5uy24KQdRDX_10cYgNLfvTiFFU8tcwsozohhIVg>
-    <xmx:ly7uauXfeq3jiR0atVVOrlAPquBYDiD3JfUAjpDggUaVAxH8j1M1lg>
-    <xmx:mi7uaiK-3bDIvhGZDRgh3uzguemoevRUSBWP3S4NschLy2i6ZmjxcjxM>
-Feedback-ID: id2994666:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4F08A32A0097; Fri,  6 Nov 2026 14:46:28 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ep3uIcyd
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso10456055e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:47:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793994421; x=1794599221; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UGRkW91UEtZGZyGYD0O6bXaeLB7w9goCGwmJI1NFJ9Q=;
+        b=Ep3uIcyd6rQoTA68m8oqyrJ+cxyThXI7w6/aXQ3tSUE2HqG3fuHEyAZdzwGO+7Vso6
+         BUPg1wn+1kU2CvnJyb4juaMNydFgd9yMmryO7l2L2EJbEB/I4MpUArNulLEvM2QvYWSk
+         QIOHw45ZQw2hFRlaitAYBALGKnKoPVS4XJmVi+7vwie9AP8b3U+vhuO8y68c4GQmpZtn
+         L80JhgS0MXiRMBXtZFA68tleZWevIQIgGO4gMpWfHM+vjqo8UdmFXYYza4xV5tYauJMw
+         /RsGghueCQbHiPaEj3vZdv8rXy9xngIWAEdl8YC86mKNWNBU/f6mUF0IYTbOJ904EvnJ
+         xASw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793994421; x=1794599221;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UGRkW91UEtZGZyGYD0O6bXaeLB7w9goCGwmJI1NFJ9Q=;
+        b=bJMvqKq+qfxXRW6BRo8F719yU5ckpqcCFFKXXhslFPTjIJoByPNPrBaAL9hMJOVCYU
+         mIIfn2D3irzFADB+76lcAz7Skc/Z0hrAPTE+qc2589LhtHiVKqPMqhACUB3mAL7Tp8Jq
+         Dx6LJSDtUABFoxkHOt+vPkKe9TyNPWABGGhFWjR9xPNjWeBrPq0kbmTj0GsWCkRg57rJ
+         O/ypSRFCpCAAlcKNaKstrh7SRZWJ7MI7cgLvhTaF9TzkiHt/AVZlyKg8e23kt1NuXcKV
+         sbjnrVFZpcPSEI3Umk08q++uO/XhUPoPvYRmnReuhtg/GHYrbzatGQhYYq9nMKDiu8rT
+         MMEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAI/1tCLxVflkCitxYW3E8/p24IjOWXHo7uZ79JE4GYSLkcOj/tRg6sNjxfn6YZ03thjno4RsXxLg+c4o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FY8gOKsyk4igzEUhN6S5aHD4XV3W0FuYKPfTS0sjotkmkJPFj
+	Zzfk6JpTCPKtQvw4F8fzokHe8XkQGuB2YEozLmltAk584BiL7qPc2w6vn5UK5QuN
+X-Gm-Gg: AYBFou3szDgnDBZKQyvbdKww6f9YdbOiYnVONGKyGPlGH+07GjwOng7gAyG3Mfk3h8f
+	oD4QDfhB/Mum52OSYlld91N2aEI/ZBqf9b/Zye6XEJTCxDbeffVC2f6aztGt/Lzd7rSkyc5XvGF
+	af5/E4lBGAjT4bcpgt6kBajfLLAMiWYSSifTSgNCBlt1ruoxViDl1Ch6KUcpVo1kd0CaebFpkuj
+	5hTLZNdGJJWGR2gdB69+lB5aACdsqaVnILtfvE4G/dGJAzjDW8whCmbo14GtD9b9S/YT9rMCP6m
+	PfwbTQiCQvDVquhSJz5VMNKYHoUKcxNRFwKMxNfuZ+KIswkkX+aW2V5QsKBVpcI7/gkOZE8cdCA
+	A+i88jilL28bxJ9T+E2oBOvdwupxyrq4oNAkNAbGb5GkhHU0hQqKHGxoW6DymDX6ZEwPm/gfPuk
+	r50v/PM1FnDvGKOA+sqLuTZhZB/nY7wT9EkAEROBQqDi9L162u/iqFlbV2Q1dhq41cgIn0EPu22
+	rA1svagWuPUaZvQ0cnEXro/dWKRnOgmsuYZSZrgeDGAPiC8fZj7GGAE910PS0vJ5dAUfv1iH6A/
+	c2EOpYn8awZTlk4mopVi+eW6bkwpFrl8MRYT
+X-Received: by 2002:a05:600c:8712:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4b6df7d4a3dmr61300245e9.20.1793994420985;
+        Fri, 06 Nov 2026 11:47:00 -0800 (PST)
+Received: from [192.168.1.50] ([81.196.40.160])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad610sm6072745e9.3.2026.11.06.11.46.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 11:46:59 -0800 (PST)
+Message-ID: <3bd7d396-bb54-41bc-890a-bfeab90dca3a@gmail.com>
+Date: Fri, 6 Nov 2026 21:46:56 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,61 +92,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AWOKgKtlazLR
-Date: Fri, 06 Nov 2026 20:46:07 +0100
-From: "David Rheinsberg" <david@readahead.eu>
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- "Hugh Dickins" <hughd@google.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>,
- "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
- "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, stable@vger.kernel.org,
- "Chris Mason" <mason@kernel.org>
-Message-Id: <2c95ecf1-058e-4d81-9de5-622e32dc57df@app.fastmail.com>
-In-Reply-To: <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
-References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
- <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
-Subject: Re: [PATCH 2/2] mm/memfd: handle GUP references reliably when write-sealing
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH rtw-next v2 6/7] wifi: rtw88: 88xxa: adapt channel sensing
+ to receiver gain
+To: Luka Gejak <luka.gejak@linux.dev>, Ho Jie Feng <hjf3108@gmail.com>,
+ Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261031070950.425176-1-hjf3108@gmail.com>
+ <20261031070950.425176-7-hjf3108@gmail.com>
+ <4ada79186cd882a6d3344c43579e5addc4d4e644@linux.dev>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <4ada79186cd882a6d3344c43579e5addc4d4e644@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi David
+On 06/11/2026 19:34, Luka Gejak wrote:
+> Hi Jie Feng and Bitterblue,
+> 
+> Thanks for fixing the scan latency. A few comments below.
+> 
+>> diff --git a/drivers/net/wireless/realtek/rtw88/phy.c b/drivers/net/wireless/realtek/rtw88/phy.c
+>> index 69998c0d7c1f851bb30d2702233d62e14b305bf0..7a04aec9a045f1e308a4c5d331c900e013996bd5 100644
+>> --- a/drivers/net/wireless/realtek/rtw88/phy.c
+>> +++ b/drivers/net/wireless/realtek/rtw88/phy.c
+>> @@ -377,6 +377,10 @@ void rtw_phy_dig_set_max_coverage(struct rtw_dev *rtwdev)
+>>               DIG_CVRG_MIN);
+>>
+>>       rtw_phy_dig_write(rtwdev, DIG_CVRG_MIN);
+>> +
+>> +     /* EDCCA thresholds can be relative to the IGI */
+>> +     if (!rtw_fw_feature_check(&rtwdev->fw, FW_FEATURE_ADAPTIVITY))
+>> +             rtw_phy_adaptivity(rtwdev);
+>>  }
+> 
+> This and the call in rtw_phy_dig_reset() also reach
+> rtw8822b_adaptivity() and rtw8822c_adaptivity() when the firmware
+> doesn't handle adaptivity. They use igi_history[0], so as far as I can
+> see they just write the same thresholds again, but since this is core
+> code it would be good to mention it in the commit message.
+> 
+> [ ... ]
+> 
+>> diff --git a/drivers/net/wireless/realtek/rtw88/rtw88xxa.c b/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
+>> index 851d198f76f3b10d5ba77c7e07e4be9d7fd54e4b..ee72380757721dab7dc409aabc24b2b825969465 100644
+>> --- a/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
+>> +++ b/drivers/net/wireless/realtek/rtw88/rtw88xxa.c
+> 
+> [ ... ]
+> 
+>> +#define EDCCA_LB_START_88XXA         (EDCCA_L2H_H2L_DIFF - 30)
+>> +#define EDCCA_LB_RETRY_88XXA         (EDCCA_LB_START_88XXA + 18)
+> 
+> Maybe a short comment on where the 18 comes from. As far as I can see it
+> is the vendor condition for searching a second time (IGI upper bound of
+> 0x26 or lower), worked out for an initial L2H of -17.
+> 
+> [ ... ]
+> 
+>> +     rtw_write32(rtwdev, REG_DBGSEL, 0);
+>> +     for (i = 0; i < 3 &&
+>> +          rtw_read32(rtwdev, REG_DBGRPT) & BIT_DBG_CCA_BUSY; i++)
+>> +             usleep_range(3000, 3500);
+> 
+> The register read in the loop condition is a bit hard to follow. Maybe
+> read_poll_timeout() would read easier, like efuse.c uses it:
+> 
+>         read_poll_timeout(rtw_read32, val, !(val & BIT_DBG_CCA_BUSY),
+>                           3000, 9000, false, rtwdev, REG_DBGRPT);
+> 
+> [ ... ]
+> 
+>> +void rtw88xxa_adaptivity_init(struct rtw_dev *rtwdev)
+>> +{
+>> +     struct rtw_dm_info *dm_info = &rtwdev->dm_info;
+>> +     u32 dbgsel = rtw_read32(rtwdev, REG_DBGSEL);
+>> +     s8 l2h;
+>> +
+>> +     rtw_write32_clr(rtwdev, REG_TX_PTCL_CTRL, BIT_DIS_EDCCA);
+> 
+> Bitterblue reported on that "firmware failed to leave lps state" shows
+> up a lot more often with this patch and stops when EDCCA is disabled,
+> and you replied that it only prints a line in dmesg. On rtw-next it is
+> more than a message now. Since dc16902cad9c ("wifi: rtw88: ps: Trigger
+> firmware recovery when failing to leave LPS state"), rtw_fw_leave_lps_check() 
+> goes on to a firmware recovery after the warning:
+> 
+>         rtw_warn(rtwdev, "firmware failed to leave lps state\n");
+>         rtw_fw_dump_dbg_info(rtwdev);
+>         rtw_fw_recovery(rtwdev);
+> 
+> So a failed leave now ends in a firmware recovery, with a "firmware
+> crash, start reset and recover" WARN and ieee80211_restart_hw(). With
+> power saving on, rtw_watch_dog_work() calls rtw_leave_lps() every 2
+> seconds before the dynamic mechanisms, so I think this needs to be
+> solved before the patch can go in.
+> 
+> About a longer timeout, according to the comment in
+> __rtw_fw_leave_lps_check_reg() the firmware restores REG_TCR once the AP
+> has acked its null frame, so I think it would mostly hide the problem.
+> Leaving this patch out of v3 and sending it again once the cause is
+> known sounds fine to me, then the rest of the series doesn't have to
+> wait.
+> 
+> Bitterblue, did you turn EDCCA off through the edcca_enable debugfs file?
 
-On Tue, Nov 3, 2026, at 7:31 PM, David Hildenbrand (Arm) wrote:
-> We made a big mistake when introducing write-sealing: we should have
-> disallowed *any* file mappings while we are write-sealing. Write-sealing is
-> usually done by a producer that wants to hand-off some data to a consumer.
-> Having the producer have a read-only mapping (private or read-only shared)
-> of the memfd while sealing is rather odd: it couldn't have been used to
-> fill the memfd in the first place.
->
-> Most identified public users don't do anything like that: they either never
-> map the memfd before write-sealing (using write() instead), or munmap()
-> before write-sealing:
->
->  - systemd's journal writes, fwupd, Flatpak, runc, crun and
->    containers/storage write to the memfd without mmap'ing it, before
->    sealing it [1,2,3,4,5,6]. The FD consumer will not access the memfd
->    before sealing.
->
->  - dbus-broker, Mutter, Chromium's Android linker, KWin, Weston and glycin
->    map the memfd file, but unmap it before sealing [7,8,9,10,11,12].
->    glycin retries sealing while waiting for the loader to unmap.
->
->  - go-memfd exposes a shared writable mapping before F_SEAL_WRITE and a
->    private read-only mapping afterwards. Its API explicitly requires
->    unmapping the writable mapping before sealing [13].
+Yes, that's what I did.
 
-When I wrote memfd-sealing, we had this use-case where an application writes a buffer and then shares it both with in-process and out-of-process tasks. Only if out-of-process tasks are actually involved, the buffer is sealed. Otherwise, it is kept unsealed and can be recycled. Hand-off to other processes was optional, rare and asynchronous, so sealing could happen at any time. Yet, we wanted to keep the buffers mapped to avoid costly TLB flushes. Mappings were readonly, but writes were done through syscalls.
+> With this patch that only switches to RTW_EDCCA_NORMAL, and
+> rtw88xxa_adaptivity() then keeps EDCCA on with the higher normal
+> thresholds. If that is what made it stop, it would point at the
+> thresholds used in adaptivity mode (ETSI and JP regions) rather than at
+> EDCCA itself.
+> 
+> Jie Feng, maybe comparing the IGI in the hardware when the leave fails
+> with the IGI the thresholds were computed from would show more.
+> 
+> [ ... ]
+> 
+>> +     /* igi_history[0] keeps the pre-scan IGI while scanning */
+>> +     u8 igi = rtw_read32_mask(rtwdev, REG_RXIGI_A, 0x7f);
+> 
+> The comment sits on a line that doesn't use igi_history[0], so it reads
+> a bit confusing. Maybe something like "read the IGI in use,
+> igi_history[0] still holds the old value while scanning".
+> 
+> Best regards,
+> Luka Gejak
 
-We still do this, but I don't think any of the open-source users picked this up. I did not follow the folio changes, so I am quite unsure whether the implementation was racy from the beginning, or whether new infrastructure introduced the races.
-
-Can you elaborate why folio ref-counts are unreliable / unstable?
-
-Thanks
-David
