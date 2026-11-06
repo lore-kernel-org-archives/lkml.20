@@ -1,58 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993675;
-	b=YzgFHnl7GFte25BX9LS1jLpXoiPyVWOsGC+wDNkssd6TtdVE/JSiUZMwPVMNPou+lNxU
-	 YzV1a20uP/a1bIWyuQ6WEVhM8JPXTmy7hX4xVXUpxTvvx1+k7M32Sy2BVo1LaBCAo33jp
-	 zsHkGESXxeX+8pBPdrrQbDnJArbp41GuEauMsyhb9WYdFdrq5WSQcROBte8pzWUbwlBsu
-	 yIVucbznZZlqJE2MapaWdS0aH+0YJC1jUI4HMe0Xy9ipE3Bj1n1w0BLENBEdLgheBti0J
-	 18Rgz/YSfNZVDkdswzvAdq01ahnAHYyasf/qBdOc0HxAvDr/11XWY5JNuPzk4m235TA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993675;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=88C97N6UH9Uyrq41e1ngidp2rYbzeD72tqfq3U+ZGhg=;
-	b=wYy4ZEQG0ZDzBnzQUlbm+7ZS23a7PPGiOzy91Sqe72MhneUItMhKQlhIUrVF8G+0jSSz
-	 o7GIe6QlfHAD+a7yX/U9wLAws64ZD+MyEY6ou0PnbJ6QwdAcXmOsWccU+U1nMG9VjG+ij
-	 4XWdYx0iDnorSEv3fIOMyRjXJpT7myCJy0gXA8+NwAv/6mYFNp8et3b6E+/183yiHzuBu
-	 Txzg7Cw2grTksERacGJKxkTgdx4OyJKwYTvxVtYUFJEup1jSoGJQpn0gSfTPsagAPVpUj
-	 OmK0xxMozEfBlPZl64w6Z5We0l0FZ/eVLW8qW+s2sYYG5Fu6+FyUWqXD1O2hpwl+tfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYMyLm1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793993672;
+	b=Savppp2FsW59dklJ6k6Iul8+ejoVD2HjxJ45aj9nne9cBriBVnSh/Tjqz8+47Y9e4+yY
+	 axNlqb+qHLN2kLlexdfcO9RwNFxH99bmyc4V87p6uhpBCcI/nwULKEbK4R4aldClpPARA
+	 Ga+g8TTJ89NImussAHPB72BPBnwIGL0++ul0PcGXkXtXiDti0OLRrMXMgCHTCxoFzeG+j
+	 bNn9584yEpRq1BLURquMT0InJAuRUZb0Rt+r0xcPGvN5NkrJbzSoPlf4EuQ/ZVOzftB8m
+	 YGOKu9mxDn2z4qLRC2Ti0mYAwepHheox3xrVy3yCed7tV914InR9CMZoLPm2yAQwpWw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993672;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-NVConfidentiality:
+	 Content-Transfer-Encoding:Content-Type:X-NV-OnPremToCloud:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QpjGU/2sze6YDHHHuLGzC0v+aKkWGJ5XQ/zgM/akByw=;
+	b=hNFeYAlPqipQmcSMissEhv4VHNwb2qFrFjmdzsU0K5/KVEOw3nLdRWKG+U1az3AwYNwG
+	 4RaV7HFeXDpPxGuarco0iErPHbwEJEWrrkmiR0uvJEjJQ8n6eRXfHPvUgyNDu4geu7Ngw
+	 +qsYEZm1MhhAdfl0xbsGeYAXNivM8DMvtTLrPi2+3mEsk68yahliiZipOBSp7m55ZhQoi
+	 5mgyOtAGc1DxuTIBFn8GkT912gE+MmiV9gyXvppSYfWg9g0Mn4w3HeUeNXv82V58KXTxN
+	 jQxFPxtum7TGsypEfmNSPzHkYtL1zL/ZNFMtMDnMPa2bHvEd5LZa+TgIb58gtrhMIWg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=o2krKo24;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.59
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011059.outbound.protection.outlook.com [52.101.52.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAD4606A337;
-	Fri,  6 Nov 2026 19:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19029606A32D;
+	Fri,  6 Nov 2026 19:34:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19029606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYMyLm1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89641F008A4;
-	Fri,  6 Nov 2026 19:34:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793993674;
-	bh=88C97N6UH9Uyrq41e1ngidp2rYbzeD72tqfq3U+ZGhg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bVYMyLm1nDv27Q2qjtwhqnzl4hU2tyTPpIn+sRFquHEo6/5vMMdWZsKKjCjhWYYHc
-	 TfTVg0v24uLDFhjNjnQmmogI+G8fXKuWqf76T0QEW6RcnJ/eTyHjflEppwmFApBkQq
-	 FhwrKE+W/4f2jfp8mGYSm47ULtFcT328UvVYB/0+Blc8+7eYoz5eWUghd73epEyAFO
-	 iJF/Nj+eRYLnvmamsx9uZANUrfs/0TSIJtrtFIKiMP7Z2MIA9Su6R5kHKQoXn7SPiZ
-	 2IGve5m0VEfd9wAvfkh4uhBnZPtNNV+P3eO+l2fIVPUI+zDi0vSrI6+hDdLz9IvY+6
-	 OneYkL/ql9WXw==
-Date: Fri, 6 Nov 2026 19:34:32 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
-	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
-	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [PATCH v3 05/18] KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters
- from kvm_pmu
-Message-ID: <au4pSeg5AcHEbfDv@google.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-6-zide.chen@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=o2krKo24
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WPmNr0/noSAE/Q/ykcTe6XUUOvNJ4P0rhxbnnmIvcGx7oiSK4JHndafCo+zS5EE6xHfLYgguCagT6lFoAUjnRVAFnBzW7voXYX3dgd5p/307LZt2wWBrpDl3HCsh5p+ONnfmrEZL+suKGOqMVJ61qOYkHsU0uXpyWBO4QwJ+rui2Ge2zXiWLnHzIDCGHkER0x7AFNJLgUSLacwoqzThMtS3CHB5Nnu4VBLXcPOJVYgP1rIYWsUxeiz7Xe9oRqmLwqQYKuNqr2+Zopc0iazfaaMVUBC/TmclS9tFS23T/qGZNEqaoqOj//eu/RqUMjFVayEt1SPzGsZox/R7Y8ehPzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QpjGU/2sze6YDHHHuLGzC0v+aKkWGJ5XQ/zgM/akByw=;
+ b=RfIe47Ezonb9uWqZwxuMBnm57/slgyqodUppJLytEsBhi6mJ8+uezZzab/hJLVNbF/N6yOOSjOZGYXo2H8rdE0gbxugppWqffZkY+qsYXmDAU6/9Zb9mELghdYlX5oUwa9i6kZaIg3fR1xoUrsTvFa+mZ9LTWBqdRn83PrkbopOLrze1hcQlGPYzhbi2XDFryQP9RAno1u3WH0f84GSBKoCm5VOtSWbqi1jenh4moFY+gZqq0Q9pSPACjK0LWdOfgaxTg8k7qjuHome0TiMFM7+7hmP0SfYFkWYjqB/caNl7U7NtJR9i1PGcMnC6lNg23HBep6djlNikr4bKAEGTUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QpjGU/2sze6YDHHHuLGzC0v+aKkWGJ5XQ/zgM/akByw=;
+ b=o2krKo24gA/rd9bG1kbaz0AxXItnaVJT1LolEbUGPQWppq52iM0K3Lzyf+t5rEAjfF6fJwPC3vWOmunk8XqUCCUjAsMigisDgsD80XCTW96B6X4Qvda5REr8/V2FTocQW0yk5dGBc76IG+jPiVUhTWL4j/YdZOCzho10w9zWDr2maeholtgEHOXUEhTMeyl+s4fGxNvIELycsKt//Nwazb3amXVP17LRTBWF2M0RNbaza9pr8nNwybiqVZVFKH0RMJiSE1S4oUouycIRKsR30PTbVnkQWa+0cKTXQcrVf9LfbV+altxsIadkYsxkYo34C54WBmgO3KHZoojX6hvNKQ==
+Received: from CH3P221CA0023.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1e7::23)
+ by DM3PR12MB9285.namprd12.prod.outlook.com (2603:10b6:0:49::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.11; Fri, 6 Nov 2026 19:34:24 +0000
+Received: from CH3PEPF0002457B.namprd04.prod.outlook.com
+ (2603:10b6:610:1e7:cafe::7b) by CH3P221CA0023.outlook.office365.com
+ (2603:10b6:610:1e7::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 19:34:22 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ CH3PEPF0002457B.mail.protection.outlook.com (10.167.252.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 19:34:22 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
+ 2026 11:34:09 -0800
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 6 Nov 2026 11:34:08 -0800
+Received: from sumitg-l4t.nvidia.com (10.127.8.14) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Fri, 6 Nov 2026 11:34:02 -0800
+From: Sumit Gupta <sumitg@nvidia.com>
+To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <pierre.gondois@arm.com>,
+	<christian.loehle@arm.com>, <ionela.voinescu@arm.com>,
+	<zhenglifeng1@huawei.com>, <zhanjie9@hisilicon.com>, <lenb@kernel.org>,
+	<ray.huang@amd.com>, <mario.limonciello@amd.com>, <perry.yuan@amd.com>,
+	<kprateek.nayak@amd.com>, <maciej.wieczor-retman@intel.com>,
+	<pawel.chmielewski@intel.com>, <linux-pm@vger.kernel.org>,
+	<linux-acpi@vger.kernel.org>, <acpica-devel@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>
+CC: <treding@nvidia.com>, <jonathanh@nvidia.com>, <vsethi@nvidia.com>,
+	<ksitaraman@nvidia.com>, <sanjayc@nvidia.com>, <mochs@nvidia.com>,
+	<bbasu@nvidia.com>, <sumitg@nvidia.com>
+Subject: [PATCH v9 4/8] cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
+Date: Sat, 7 Nov 2026 01:03:00 +0530
+Message-ID: <20261106193304.3347374-5-sumitg@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106193304.3347374-1-sumitg@nvidia.com>
+References: <20261106193304.3347374-1-sumitg@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,215 +122,373 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106013927.166209-6-zide.chen@intel.com>
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457B:EE_|DM3PR12MB9285:EE_
+X-MS-Office365-Filtering-Correlation-Id: de3cb00c-406d-46d3-9ade-08df3c3cf59f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|18002099003|22082099003|10067099003|921020|5023799004|11063799006|261102123227099003|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261022105027099003|261022113327099003|261022075727099003|261021121427099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	BWyT4ffZxFMGRv+UF4ETyaNqirLjrqFaCySLKD5n3A0gMNAvICe7IJAbr8dVehm6ftuBWuXdgDFH2Y3/dM63vlV6c++f1+Ow0QWlXAjkv4V6n559xFKoOqnkTkOLV8Q+ZtCxZ/sKGHPSxLnam8s1PehFgr763xyVX+zirsBxyxV/BfDi6f1fmXilmuiBXl5FPngtcECHKfBW4XD+I4kwErTBg2FuS61xpVghKA4wIkX9jUHZ2Up/iRNH6pfZBuRrtBEhPPo4PPnfv13wHAJPs8029J3Mt7GDZdJ92GHYxlDJ2DRTtLcwWAlRfJYXPUrp7NdogXAOB+IPJIBnmSLU69+flssjGkWbDY9Ixbp7HS/iMWAdbUPSBky8LU6a3q7tArnCFtlFuzcpWHCwmdifeaDK/oUy9d92alxCa4eMnjBFxtTaHNvlxhKp2ITaVRCJwPO2t4TnZKZWWU7fkr7Ldfp8xtFlBoO9++vz+0M0a9aguaJ7ryGcfBf0Q+RL6gZJ69S4xUSv+N5/rA3O2vVoPIUpVUNxE8TrrKsr+ZjrS3LOMOXXyzjoXg8tOIm7U9pBxGH8zKvj2YqaLkOA5HY0WBVq2f76RKV0lBpNiwkEjxQVqv0rXGoL4D4NK+5PBElHcsC/4aJNoZJ7bHa9cadnms5p3ZSDT/TTUkMPbHWT4ggVd5L4a+4s2Wce0mJKYFRnRG8to4Iqc0u7HzQNNKxvH4MTq0wz/Hdzchz8/B2hQI8RB3z5P87xBpXhC7ct4xAQ
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(22082099003)(10067099003)(921020)(5023799004)(11063799006)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261022105027099003)(261022113327099003)(261022075727099003)(261021121427099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ae8gvLqcwQRZaaWWAO2zcIEfYyGaIrk75m5O8D6LyPTpc40RYHHbTPbffok6nkAxsJgdQGqZedxzXezQaG9VLB1Q45FpeJdAKG2AAPsz07faqqt0Urgk9Xi0XIrAsNSysqbLq6IyWrotrD8TZMyV+la0AmErGPsdLm4VHIDLifn84162yiNa2RnyRvpReit8e7zo1Yo8/cJBCbeotxF1+GDY2KAaOzTYZ9m82YvclP39hrV7EHILkHWkxmtHrT5D2XPHVwrici1ysYe3XnbQ9Gh/cmB76rw3bPIfYlCxNuJfg5DSSu2ACarZbjtHFj1tM4XphdkMcJJFftp1O4CBWU3gzvI/W5wZRoENB1cZ1LCsJPX+aJCVLxddF7FQ1SevuaYKFBAhnsUoIBqCdd0tge0jYyTuhGEfOaAbZNk41UqIfc44XhtKH9sZhuKwoccQ
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 19:34:22.4963
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de3cb00c-406d-46d3-9ade-08df3c3cf59f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0002457B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9285
 
-> @@ -979,8 +979,6 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
->  	kvm_pmu_reset(vcpu);
->  
->  	pmu->version = 0;
-> -	pmu->nr_arch_gp_counters = 0;
-> -	pmu->nr_arch_fixed_counters = 0;
->  	pmu->counter_bitmask[KVM_PMC_GP] = 0;
->  	pmu->counter_bitmask[KVM_PMC_FIXED] = 0;
->  	/*
-> @@ -1008,16 +1006,12 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
->  	 * in the global controls).  Emulate that behavior when refreshing the
->  	 * PMU so that userspace doesn't need to manually set PERF_GLOBAL_CTRL.
->  	 */
-> -	if (pmu->nr_arch_gp_counters &&
-> +	if (kvm_gp_pmc_mask(pmu) &&
->  	    (kvm_pmu_has_perf_global_ctrl(pmu) || kvm_vcpu_has_mediated_pmu(vcpu)))
-> -		pmu->global_ctrl = GENMASK_ULL(pmu->nr_arch_gp_counters - 1, 0);
-> +		pmu->global_ctrl = kvm_gp_pmc_mask(pmu);
->  
->  	if (kvm_vcpu_has_mediated_pmu(vcpu))
->  		kvm_pmu_call(write_global_ctrl)(pmu->global_ctrl);
-> -
-> -	bitmap_set(pmu->pmc_exists, 0, pmu->nr_arch_gp_counters);
-> -	bitmap_set(pmu->pmc_exists, KVM_FIXED_PMC_BASE_IDX,
-> -		   pmu->nr_arch_fixed_counters);
+Values written to OSPM-set CPPC registers via sysfs are not handled in
+two cases:
 
-I understand the vendor modules are responsible of initializing this
-now, but should we clear it before calling into the vendors like other
-fields above?
+  - Across CPU hotplug: the platform may reset a CPU's registers while it
+    is offline, and the value is lost.
+  - On driver unload: the value stays in the register instead of
+    returning to its pre-driver state.
 
->  }
->  
->  void kvm_pmu_init(struct kvm_vcpu *vcpu)
-> @@ -1328,6 +1322,8 @@ static __always_inline u32 gp_eventsel_msr(u32 idx)
->  static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
->  {
->  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
-> +	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
-> +	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
+Handle both by saving a firmware value and a requested value for each
+register:
 
-All these should go away if we pass the pmu into the iterators.
+  - On init(), save each register's firmware value before the driver
+    programs anything. Also use it as the requested value. If the OS
+    never writes a register and the platform resets it while the CPU is
+    offline, online() then restores the firmware value.
+  - Save each successful sysfs write as the requested value.
+  - On offline(), restore the firmware values.
+  - On online(), reapply the requested values after reprogramming the
+    performance controls.
+  - On exit(), nothing is needed, as the core calls offline() first, which
+    already restored the firmware values.
 
->  	struct kvm_pmc *pmc;
->  	u32 i;
->  
-> @@ -1336,14 +1332,14 @@ static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
->  	 * is intercepted if hardware has counters that aren't visible to the
->  	 * guest (KVM will inject #GP as appropriate).
->  	 */
-> -	for (i = 0; i < pmu->nr_arch_gp_counters; i++) {
-> +	kvm_for_each_gp_counter(i, gp_mask) {
->  		pmc = &pmu->gp_counters[i];
->  
->  		if (pmc->counter != rdpmc(i))
->  			wrmsrq(gp_counter_msr(i), pmc->counter);
->  		wrmsrq(gp_eventsel_msr(i), pmc->eventsel_hw);
->  	}
-> -	for (i = 0; i < pmu->nr_arch_fixed_counters; i++) {
-> +	kvm_for_each_fixed_counter(i, fixed_mask) {
->  		pmc = &pmu->fixed_counters[i];
->  
->  		if (pmc->counter != rdpmc(INTEL_PMC_FIXED_RDPMC_BASE | i))
-[..]
-> @@ -117,7 +116,7 @@ static bool amd_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
->  		return pmu->version > 1;
->  	default:
->  		if (msr > MSR_F15H_PERF_CTR5 &&
-> -		    msr < MSR_F15H_PERF_CTL0 + 2 * pmu->nr_arch_gp_counters)
-> +		    msr < MSR_F15H_PERF_CTL0 + 2 * hweight_long(kvm_gp_pmc_mask(pmu)))
+The value reapplied at online() is the last one the OS wrote, and it stays
+in effect until userspace changes it. The performance controls are not
+reapplied this way. online() recomputes them from the current policy
+limits.
 
-This assumes the MSRs are contiguous, which IIUC is always true, but I
-wonder if it should also be handled since the series claims to also
-prepare for discontiguous GP counters.
+Also split the auto_act_window store out of the handler it shared with
+perf_limited, so that it can save the requested value. perf_limited is
+not tracked, as writing it only clears status bits.
 
->  			return pmu->version > 1;
->  		break;
->  	}
-[..]
-> @@ -107,6 +108,8 @@ static struct kvm_pmc *intel_rdpmc_ecx_to_pmc(struct kvm_vcpu *vcpu,
->  	if (WARN_ON_ONCE(!pmu->version))
->  		return NULL;
->  
-> +	idx &= INTEL_RDPMC_INDEX_MASK;
-> +
->  	/*
->  	 * General Purpose (GP) PMCs are supported on all PMUs, and fixed PMCs
->  	 * are supported on all architectural PMUs, i.e. on all virtual PMUs
-> @@ -117,23 +120,25 @@ static struct kvm_pmc *intel_rdpmc_ecx_to_pmc(struct kvm_vcpu *vcpu,
->  	 */
->  	switch (type) {
->  	case INTEL_RDPMC_FIXED:
-> +		if (!kvm_is_fixed_pmc_supported(pmu, idx))
-> +			return NULL;
-> +
->  		counters = pmu->fixed_counters;
-> -		num_counters = pmu->nr_arch_fixed_counters;
-> +		num_counters = KVM_MAX_NR_INTEL_FIXED_COUNTERS;
->  		bitmask = pmu->counter_bitmask[KVM_PMC_FIXED];
->  		break;
->  	case INTEL_RDPMC_GP:
-> +		if (!kvm_is_gp_pmc_supported(pmu, idx))
-> +			return NULL;
-> +
->  		counters = pmu->gp_counters;
-> -		num_counters = pmu->nr_arch_gp_counters;
-> +		num_counters = KVM_MAX_NR_INTEL_GP_COUNTERS;
+Cover the Autonomous Selection (auto_sel), Energy Performance Preference
+(EPP) and Autonomous Activity Window (auto_act_window) registers. Writes
+to EPP and auto_act_window only have meaning while auto_sel is enabled,
+so write auto_sel before them when enabling it and after them when
+disabling it. While autonomous selection stays disabled, the platform may
+ignore those writes.
 
-num_counters is no longer an accurate name, is it? Maybe max_counter
-(and use KVM_MAX_* - 1) or max_nr_counters?
+Suggested-by: Pierre Gondois <pierre.gondois@arm.com>
+Link: https://lore.kernel.org/all/86780f97-29ee-4a72-b311-38c89434b707@arm.com/
+Tested-by: Christian Loehle <christian.loehle@arm.com>
+Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+---
+ drivers/cpufreq/cppc_cpufreq.c | 227 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 222 insertions(+), 5 deletions(-)
 
->  		bitmask = pmu->counter_bitmask[KVM_PMC_GP];
->  		break;
->  	default:
->  		return NULL;
->  	}
->  
-> -	idx &= INTEL_RDPMC_INDEX_MASK;
-> -	if (idx >= num_counters)
-> -		return NULL;
-> -
->  	*mask &= bitmask;
->  	return &counters[array_index_nospec(idx, num_counters)];
->  }
-> @@ -495,9 +500,10 @@ static __always_inline u64 intel_get_fixed_pmc_eventsel(unsigned int index)
->  
->  static void intel_pmu_enable_fixed_counter_bits(struct kvm_pmu *pmu, u64 bits)
->  {
-> +	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
->  	int i;
->  
-> -	for (i = 0; i < pmu->nr_arch_fixed_counters; i++)
-> +	kvm_for_each_fixed_counter(i, fixed_mask)
->  		pmu->fixed_ctr_ctrl_rsvd &= ~intel_fixed_bits_by_idx(i, bits);
->  }
->  
-> @@ -509,6 +515,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  	union cpuid10_eax eax;
->  	union cpuid10_edx edx;
->  	u64 perf_capabilities;
-> +	u64 fixed_mask;
-> +	int nr_gp_counters;
->  	u64 counter_rsvd;
->  
->  	if (!lbr_desc)
-> @@ -535,8 +543,6 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  	if (!pmu->version)
->  		return;
->  
-> -	pmu->nr_arch_gp_counters = min_t(int, eax.split.num_counters,
-> -					 kvm_pmu_cap.num_counters_gp);
->  	eax.split.bit_width = min_t(int, eax.split.bit_width,
->  				    kvm_pmu_cap.bit_width_gp);
->  	pmu->counter_bitmask[KVM_PMC_GP] = BIT_ULL(eax.split.bit_width) - 1;
-> @@ -544,6 +550,17 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  				      kvm_pmu_cap.events_mask_len);
->  	pmu->available_event_types = ~entry->ebx & (BIT_ULL(eax.split.mask_length) - 1);
->  
-> +	fixed_mask = BIT_ULL(edx.split.num_counters_fixed) - 1;
-> +	fixed_mask &= BIT_ULL(kvm_pmu_cap.num_counters_fixed) - 1;
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 3f7d740e04af..27ef1ea41a3e 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -29,6 +29,185 @@
+ 
+ static struct cpufreq_driver cppc_cpufreq_driver;
+ 
++/*
++ * OSPM-set CPPC registers tracked for save/restore. A value the OS wrote is
++ * reapplied from online() across CPU hotplug, and the firmware value is
++ * restored from offline().
++ *
++ * Autonomous Selection (auto_sel) is kept first, as the registers after it
++ * only have meaning while it is enabled.
++ */
++enum cppc_saved_reg_id {
++	CPPC_SAVED_AUTO_SEL,
++	CPPC_SAVED_EPP,
++	CPPC_SAVED_AUTO_ACT_WINDOW,
++	CPPC_NR_SAVED_REGS,
++};
++
++struct cppc_saved_reg {
++	const char *name;
++	int (*get)(int cpu, u64 *val);
++	int (*set)(int cpu, u64 val);
++};
++
++static const struct cppc_saved_reg cppc_saved_regs[CPPC_NR_SAVED_REGS] = {
++	[CPPC_SAVED_AUTO_SEL] = {
++		.name = "auto_sel",
++		.get = cppc_get_auto_sel,
++		.set = cppc_set_auto_sel,
++	},
++	[CPPC_SAVED_EPP] = {
++		.name = "epp",
++		.get = cppc_get_epp_perf,
++		.set = cppc_set_epp,
++	},
++	[CPPC_SAVED_AUTO_ACT_WINDOW] = {
++		.name = "auto_act_window",
++		.get = cppc_get_auto_act_window,
++		.set = cppc_set_auto_act_window,
++	},
++};
++
++enum cppc_saved_type {
++	CPPC_SAVED_FIRMWARE,
++	CPPC_SAVED_REQUESTED,
++	CPPC_NR_SAVED_TYPES,
++};
++
++/*
++ * Per-policy values saved for each register in cppc_saved_regs[], U64_MAX
++ * if the register is not implemented or not readable:
++ *   CPPC_SAVED_FIRMWARE  - value before the driver touched it, saved at
++ *                          init() and written back when the policy goes
++ *                          offline
++ *   CPPC_SAVED_REQUESTED - value the OS asked for, reapplied at online().
++ *                          It starts as the firmware value and changes only
++ *                          when a write from the OS succeeds.
++ */
++struct cppc_policy_state {
++	u64 regs[CPPC_NR_SAVED_REGS][CPPC_NR_SAVED_TYPES];
++};
++
++static DEFINE_PER_CPU(struct cppc_policy_state, cppc_policy_state);
++
++/*
++ * Per-policy state is kept in the per-CPU variable of the first CPU the policy
++ * manages. related_cpus (the policy's full set of CPUs) never changes while the
++ * policy exists, so this CPU (unlike policy->cpu) stays the same across CPU
++ * hotplug, and every callback reaches the same copy.
++ */
++static struct cppc_policy_state *
++cppc_cpufreq_policy_state(struct cpufreq_policy *policy)
++{
++	const struct cpumask *policy_cpus = policy->related_cpus;
++
++	/*
++	 * related_cpus is empty during init(), as the core fills it in only
++	 * after init() returns. Use policy->cpus then, which has the same
++	 * first CPU.
++	 */
++	if (cpumask_empty(policy_cpus))
++		policy_cpus = policy->cpus;
++
++	return &per_cpu(cppc_policy_state, cpumask_first(policy_cpus));
++}
++
++/*
++ * Save each tracked register's firmware value before the driver programs
++ * anything. Also start the requested value from it. If the OS never writes a
++ * register and the platform resets it while the CPU is offline, online() then
++ * writes the firmware value back.
++ *
++ * Skip a register that is not implemented or not readable. Fail on any other
++ * read error, as the firmware value is needed to put the register back later.
++ */
++static int cppc_cpufreq_save_firmware_regs(struct cpufreq_policy *policy)
++{
++	struct cppc_policy_state *st = cppc_cpufreq_policy_state(policy);
++	unsigned int cpu = policy->cpu;
++	u64 val;
++	int i, ret;
++
++	for (i = 0; i < CPPC_NR_SAVED_REGS; i++) {
++		ret = cppc_saved_regs[i].get(cpu, &val);
++		if (ret == -EOPNOTSUPP)
++			val = U64_MAX;
++		else if (ret)
++			return ret;
++
++		st->regs[i][CPPC_SAVED_FIRMWARE] = val;
++		st->regs[i][CPPC_SAVED_REQUESTED] = val;
++	}
++
++	return 0;
++}
++
++/*
++ * After a successful write to a tracked register, save the value so that
++ * online() can reapply it.
++ */
++static void cppc_cpufreq_save_requested(struct cpufreq_policy *policy,
++					enum cppc_saved_reg_id reg, u64 val)
++{
++	cppc_cpufreq_policy_state(policy)->regs[reg][CPPC_SAVED_REQUESTED] = val;
++}
++
++/*
++ * Write one tracked register, skipping it when there is no saved value.
++ * A register the platform does not allow writing is not an error.
++ */
++static void cppc_cpufreq_write_saved_reg(unsigned int cpu,
++					 enum cppc_saved_reg_id reg, u64 val,
++					 enum cppc_saved_type saved_type)
++{
++	const char *op = (saved_type == CPPC_SAVED_FIRMWARE) ?
++			 "restore firmware" : "reapply requested";
++	int ret;
++
++	if (val == U64_MAX)
++		return;
++
++	ret = cppc_saved_regs[reg].set(cpu, val);
++	if (ret == -EOPNOTSUPP)
++		return;
++	if (ret)
++		pr_debug("Failed to %s %s=%llu on CPU%u (%d)\n", op,
++			 cppc_saved_regs[reg].name, val, cpu, ret);
++}
++
++/*
++ * Apply the saved firmware or requested value to each tracked register.
++ *
++ * Write auto_sel first when the value being applied enables autonomous
++ * selection and last when it disables it, so the writes to the dependent
++ * registers can still take effect. While autonomous selection stays disabled,
++ * the platform may ignore those writes. Do not enable it temporarily to force
++ * them through.
++ */
++static void cppc_cpufreq_apply_saved_regs(struct cpufreq_policy *policy,
++					  enum cppc_saved_type saved_type)
++{
++	const struct cppc_policy_state *st = cppc_cpufreq_policy_state(policy);
++	unsigned int cpu = policy->cpu;
++	u64 auto_sel, val;
++	int i;
++
++	auto_sel = st->regs[CPPC_SAVED_AUTO_SEL][saved_type];
++
++	if (auto_sel)
++		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
++					     saved_type);
++
++	for (i = CPPC_SAVED_AUTO_SEL + 1; i < CPPC_NR_SAVED_REGS; i++) {
++		val = st->regs[i][saved_type];
++		cppc_cpufreq_write_saved_reg(cpu, i, val, saved_type);
++	}
++
++	if (!auto_sel)
++		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
++					     saved_type);
++}
++
+ #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
+ static enum {
+ 	FIE_UNSET = -1,
+@@ -790,6 +969,12 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+ 	policy->cur = cppc_perf_to_khz(caps, desired_perf);
+ 	cpu_data->perf_ctrls.desired_perf = desired_perf;
+ 
++	ret = cppc_cpufreq_save_firmware_regs(policy);
++	if (ret) {
++		pr_debug("Err reading CPU%d firmware values: ret:%d\n", cpu, ret);
++		goto out;
++	}
++
+ 	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
+ 	if (ret) {
+ 		pr_debug("Err setting perf value:%d on CPU:%d. ret:%d\n",
+@@ -821,12 +1006,14 @@ static void cppc_cpufreq_cpu_exit(struct cpufreq_policy *policy)
+  *
+  * The platform may have disabled CPPC and reset the performance controls
+  * (desired, min and max performance) while the CPU was offline. Re-enable
+- * CPPC and reprogram the controls.
++ * CPPC, reprogram the controls and reapply the requested values of the
++ * OSPM-set registers, which offline() reset to firmware values.
+  *
+  * Log failures but do not return them, as the core would free the policy.
+  * Continue after a failure to enable CPPC, as the writes that follow fail
+- * on their own if the platform does not take them. A failed controls write
+- * is not fatal, as the next frequency change writes the controls again.
++ * on their own if the platform does not take them. If the controls write
++ * fails, still reapply the OSPM-set registers, as frequency changes rewrite
++ * only the controls.
+  */
+ static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
+ {
+@@ -872,6 +1059,8 @@ static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
+ 		WRITE_ONCE(cpu_data->perf_limits_valid, true);
+ 	}
+ 
++	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_REQUESTED);
++
+ 	/* Restart what offline() stopped, with a new counter snapshot. */
+ 	cppc_cpufreq_cpu_fie_init(policy);
+ 
+@@ -889,6 +1078,9 @@ static int cppc_cpufreq_cpu_offline(struct cpufreq_policy *policy)
+ 	unsigned int cpu = policy->cpu;
+ 	int ret;
+ 
++	/* Leave the platform in its pre-driver state. */
++	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_FIRMWARE);
++
+ 	/*
+ 	 * Stop the frequency invariance updates and cancel the pending work, so
+ 	 * that no sample spans the offline window. online() restarts them with
+@@ -1097,6 +1289,8 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
+ 		WRITE_ONCE(cpu_data->perf_limits_valid, true);
+ 	}
+ 
++	cppc_cpufreq_save_requested(policy, CPPC_SAVED_AUTO_SEL, val);
++
+ 	return count;
+ }
+ 
+@@ -1144,8 +1338,30 @@ static ssize_t store_##_name(struct cpufreq_policy *policy,		\
+ 					    buf, count);		\
+ }
+ 
+-CPPC_CPUFREQ_ATTR_RW_U64(auto_act_window, cppc_get_auto_act_window,
+-			 cppc_set_auto_act_window)
++static ssize_t show_auto_act_window(struct cpufreq_policy *policy, char *buf)
++{
++	return cppc_cpufreq_sysfs_show_u64(policy->cpu, cppc_get_auto_act_window,
++					   buf);
++}
++
++static ssize_t store_auto_act_window(struct cpufreq_policy *policy,
++				     const char *buf, size_t count)
++{
++	u64 val;
++	int ret;
++
++	ret = kstrtou64(buf, 0, &val);
++	if (ret)
++		return ret;
++
++	ret = cppc_set_auto_act_window(policy->cpu, val);
++	if (ret)
++		return ret;
++
++	cppc_cpufreq_save_requested(policy, CPPC_SAVED_AUTO_ACT_WINDOW, val);
++
++	return count;
++}
+ 
+ static ssize_t
+ show_energy_performance_preference_val(struct cpufreq_policy *policy, char *buf)
+@@ -1170,6 +1386,7 @@ store_energy_performance_preference_val(struct cpufreq_policy *policy,
+ 		return ret;
+ 
+ 	cpu_data->perf_ctrls.energy_perf = val;
++	cppc_cpufreq_save_requested(policy, CPPC_SAVED_EPP, val);
+ 
+ 	return count;
+ }
+-- 
+2.34.1
 
-Why not do min() like the old code?
-
-> +
-> +	/*
-> +	 * The number of counters comes from guest CPUID data. Clamp the value
-> +	 * to avoid a shift-by-64 in BIT_ULL().
-> +	 */
-> +	nr_gp_counters = min_t(int, eax.split.num_counters, X86_PMC_IDX_MAX - 1);
-> +	pmu->pmc_exists64 = (BIT_ULL(nr_gp_counters) - 1) &
-> +			    (BIT_ULL(kvm_pmu_cap.num_counters_gp) - 1);
-
-Why not just do min(eax.split.num_counters, kvm_pmu_cap.num_counters_gp)
-directly like it used to be?
-
-> +
->  	entry = kvm_find_cpuid_entry_index(vcpu, 7, 0);
->  	if (entry &&
->  	    (boot_cpu_has(X86_FEATURE_HLE) || boot_cpu_has(X86_FEATURE_RTM)) &&
-> @@ -565,8 +582,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  	if (pmu->version == 1)
->  		return;
->  
-> -	pmu->nr_arch_fixed_counters = min_t(int, edx.split.num_counters_fixed,
-> -					    kvm_pmu_cap.num_counters_fixed);
-> +	pmu->pmc_exists64 |= fixed_mask << INTEL_PMC_IDX_FIXED;
->  	edx.split.bit_width_fixed = min_t(int, edx.split.bit_width_fixed,
->  					  kvm_pmu_cap.bit_width_fixed);
->  	pmu->counter_bitmask[KVM_PMC_FIXED] = BIT_ULL(edx.split.bit_width_fixed) - 1;
-> @@ -575,8 +591,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  						 INTEL_FIXED_0_USER |
->  						 INTEL_FIXED_0_ENABLE_PMI);
->  
-> -	counter_rsvd = ~((BIT_ULL(pmu->nr_arch_gp_counters) - 1) |
-> -			 ((BIT_ULL(pmu->nr_arch_fixed_counters) - 1) << KVM_FIXED_PMC_BASE_IDX));
-> +	counter_rsvd = ~((u64)kvm_gp_pmc_mask(pmu) |
-> +			 ((u64)kvm_fixed_pmc_mask(pmu) << KVM_FIXED_PMC_BASE_IDX));
->  	pmu->global_ctrl_rsvd = counter_rsvd;
->  
->  	pmu->global_status_rsvd = pmu->global_ctrl_rsvd
-> @@ -591,7 +607,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  			pmu->pebs_data_cfg_rsvd = ~0xff00000full;
->  			intel_pmu_enable_fixed_counter_bits(pmu, ICL_FIXED_0_ADAPTIVE);
->  		} else {
-> -			pmu->pebs_enable_rsvd = ~(BIT_ULL(pmu->nr_arch_gp_counters) - 1);
-> +			pmu->pebs_enable_rsvd = ~(u64)kvm_gp_pmc_mask(pmu);
->  		}
->  	}
->  }
