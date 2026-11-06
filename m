@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793938622;
-	b=Z3A/DD30QoxCXi/AhpzRUaYN0ur2uiFvGxC1q0EnD0wZjQhDw4OU3UdBFybR2oTcoD0m
-	 Xuj72XWNnNU23+3dszk5sMddrtAOpeLmZT7WNDSkfqfwsW7osn4nv3tL48eFLNtz8deAL
-	 UtYwal6Q6vEgDq2d8+gUKDvjIjxgN0uk0VLPpsar6SK0/EdD4LViqhi1ccRH2AjMc+if7
-	 s0KmvRXdb4A1HwVuCzxVUEtjWE69J3ZJNn5E0pTdbUxlTPdgNuk9EQdjol+qfukVahXQR
-	 FIi+k7MmChJ/tbu9ABYRBOIgH23C09M8besgVQw/cOCRXAvDRhTz4OoE5J2qTqt8Blw==
+	t=1793938626;
+	b=xLveX0I87NehKSTgeBSCskCxVIFTx/qTVaICrCg6tEhCXz8J9iTKhAmma95N9ZFK5wS0
+	 hFrL4MBURE13PWPsc7di7UURIZWUpsZxtXym/RcGXMl1QnP1myjZEAIBZCg8BlBCPCTWb
+	 fWyXUk+DsSckdVrRlCxG9rm8pOzbFJFj61S78I6qbaS5T5DUrCd2d3M8YiXf2FoYifuZ2
+	 8QqwJ0LgkVJpzF/azWEYns4Bnh5BAFCN4xLs8td9M4LyauuWSNmMFXSdwP0xUvG2yzssR
+	 YPiSqGWrGk1ei3fgIX3R7JXVdWEUJrDpNtKL6rvB0bsUdCKzplBiu90Edpn+N1VCOTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793938622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IFRCE426UTc7sdwYXe1TU+8o/imwLSKisQnbNMcuaUE=;
-	b=U5JiPjkkSYj7O9eCkL38aJq/E9mGp5mARrkFCk9aQeFra73Vd+Ln6KHLknK/eW6Y+JN5
-	 Jp4nQ0Wolroc8J2hdDTJLPoGQTC2xL5mbcnxCnHtEIjCAvEFBh6KxtuCN/bjMFzY7Qr5c
-	 li60/rGS8XE7TF9MUwXujGEWm2RST9pH1dLGdXdysyuCMvGcsXRF9YtpISpya73jhFI3N
-	 r+5Ldt4hrKnQTYvlNkXqJCTwKN44F295PbpETcqpJC00A7TJHkVW1ghHFiKrJAI3u9xBb
-	 zJx5gHxD1WUKs5b6aK19U7p3kuzVubOwTEXaNU9XUYqJkjZ/5gwbeAqOciyhdLlUyZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793938626;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=+7h44Ealm8F6r3GvegvUhK6yyPzSxh+/wV8eDBiBA7I=;
+	b=DyGPj3zYTMed79XtFWmLOpeGjd49dEAbrSBTShr2CDKfBWO0EbWBSq7CujHAyo8PZ6tH
+	 qlgAe2lat/u143IQavvd9zTp/+V5RRYVx0EfuwhwAirfnHW/+ThUWtNX8M7HHmsMLhMam
+	 gz/vCSj5JoQwP5LiFxWCHfrA8eM26Btqzz6npTMgp6s8AM4sioKTgxLsVKwxyE+TUhR9q
+	 3Kf0oK96wVBNfaDPh5SjXEILsZY5YRCw34N6NkoeHw4Z42cdFPdX94bXD43gduLFCqQNb
+	 TsVlaTnlnHrP+d7n8FSyOt3khJH4EFTFRbcafmvtXCm7ruy2xEo1w3wVhPJjQfcBuKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0PSuoYQ/";
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A131606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A131606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0PSuoYQ/
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1ae18eb9b69so356134c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 20:17:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793938620; x=1794543420; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IFRCE426UTc7sdwYXe1TU+8o/imwLSKisQnbNMcuaUE=;
-        b=0PSuoYQ/sCYEOgxrzrYUEjIs689Jf5aIAV/ibbqqocYuVykp3jPiOXUR6N8O0mRQ0g
-         FxYoiOcpXXbj5DwaFwQIjWrFFbCgpi7EjrwRiykn3++Pj6+twbNrTV+jEtawKZgMlJFM
-         SwhNl7gijMdnYJV3vldVZmtExXfOMWiSQCxMqOPwAfo9oN2/yxsGZivmuhmpeCGZcJM5
-         WnBB0Sd2hyIYoHY89EYpDJ5cvhBnQ0glC22sFfqJWndLiUm+Sm/o4DpbJWrtsza/bVq+
-         bx2zNKG6oJoTLNX6cuojFw16Lu7tNewxblxsSmEy75pjOQYUhzcpB/+WIZGXgzDjbWJ0
-         55Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793938620; x=1794543420;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IFRCE426UTc7sdwYXe1TU+8o/imwLSKisQnbNMcuaUE=;
-        b=r3QEzfmxB1sJMdwqFxCC+dvRTLXRy7UpH4YTSKVhgEh5xIbT828uES4BnCxYvmnz0w
-         GlMquUCEEpBtj5T6JWSzCVqN1DJUZOyuKqTuo91sXhPStRLM6cTLAgZCrSn94S3EFdHP
-         QcyfPNMS37E31PTMBAy/bctxNAXpdRGsgRmF0IsKPIIsCocKMWq7nO1a2JnYMFUE4Srd
-         5oTV9jyl2mSQ0RjfSVjq7OpJym8KfnwJvVAONqnLm7vH/fwWj/xPiocEpG/ChGi/nlbp
-         j7VP5zX5juddI9OtEuzhDLt02/Z4rTAIUvsH9Q5jReVwAzztgqR0Oj8WQAjQAU5DrawC
-         SYvg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2mwnvwDVvNV+9H7d/7ctwH6ZHbtIk8Cw8Jqb2Y0Obo6NXRFVkIIAPm0wFj4nUImnVtmRKcu44hWNBi2A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8W251LtQYpqJqcaKVuDvbHeUNRlYWwr9jQv4/JFvbxxTD3Flh8
-	DwfQ8IAFp/yLOoLagzzgy/Gu7pUJfqJPPQw3dOFVvKqrLdXpoM+JvGKw
-X-Gm-Gg: AYBFou07V1AykD8x129i78I0gvtFek7qet4dQHwFsB/xwZ+1f8/SbT/lk4o5TSq3dR4
-	cWcwZ1PLVjDWFv8Cc/zS+XwnFOokIELifT5mCEXwtYaUu6aYwpF/ZZrupEGOQ/7iWqG1wrPnolZ
-	+kNoEzhvv4E+sbiZsXFUXSQTL0oOyCBA+XtKjMr+Q3ngPaRImRADyqBtKn08pEKZDxkgR4+T63i
-	VW6ixsISggXYgoCak4Y3EqDxwuz5rUMOdsNr2QNSaZsOrLUDf3cfqUog8TQ9I069yA8F2gM8+Z+
-	6411Qq+eEwS1sWzmdyibFGj43rAJsBhgZA9L+lrhaYDrEBJ86hG/UDitjjd+4Iw3gEZJogKHpLT
-	GBhV+U9PxI6J8hZ72Z+Ha537oZzRHjF+JvucCwqFz+TQ5lFqyigPn6zFN1lc7d7y4+3hTx3zoSe
-	dEWPce/c+Z8rH+om04zms7YNsIkcKGlcTevngi9As+Ena1gZwxvJUiTDorv2XnRW75JOPx8SrJP
-	4fLtf0p7sdge9tg2I33qOsy7xbMlCBRRhIfZSl/E37p9t3/u4t4QEQcUQFmVYo4Fr8guzjigrZN
-	F3EpSjpmOiS9JAZh/BQG81meMRsTOeB9loExOzDjxBhqtP9DWjHdBst0nR31
-X-Received: by 2002:a05:7022:5f1a:b0:1b2:4e79:bfb0 with SMTP id a92af1059eb24-1b25d31aafcmr1190947c88.23.1793938620004;
-        Thu, 05 Nov 2026 20:17:00 -0800 (PST)
-Received: from homik.search.charter.net ([2603:8002:ad40:56f0:5644:8cb0:c50e:37b6])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4f03f5sm1698464c88.21.2026.11.05.20.16.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 20:16:58 -0800 (PST)
-From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	kees@kernel.org,
-	justinstitt@google.com,
-	morbo@google.com,
-	alx@kernel.org,
-	shlomojune6@gmail.com,
-	Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Subject: [PATCH v3] media: siano: Replace strlcat() with seq_buf in sms_ir_init()
-Date: Thu,  5 Nov 2026 20:16:53 -0800
-Message-ID: <20261106041653.439536-1-nikitash.mariiaw@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104090239.311074-1-nikitash.mariaw@gmail.com>
-References: <20261104090239.311074-1-nikitash.mariaw@gmail.com>
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62379606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:16:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62379606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jLQqD42rzz2tcQf;
+	Fri,  6 Nov 2026 12:16:40 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jLQqD2D0fz2tcQf;
+	Fri,  6 Nov 2026 12:16:40 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id DF15016E7;
+	Fri,  6 Nov 2026 12:16:31 +0800 (CST)
+Received: from qiuzhiteng-2U-Workstation.hygon.cn (172.25.64.90) by
+ cncheex04.Hygon.cn (172.23.18.114) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Fri, 6 Nov 2026 12:16:40 +0800
+From: Zhiteng Qiu <qiuzhiteng@hygon.cn>
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>
+CC: Ying Huang <ying.huang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
+	<joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
+	<gourry@gourry.net>, Alistair Popple <apopple@nvidia.com>, Xin Hao
+	<xhao@linux.alibaba.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Zhiteng Qiu
+	<qiuzhiteng@hygon.cn>
+Subject: [PATCH] mm/migrate: don't batch the TLB flush when there is nothing to batch
+Date: Fri, 6 Nov 2026 12:16:28 +0800
+Message-ID: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,62 +64,137 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-In preparation for removing the deprecated strlcat() API[1],
-replace the strscpy() and strlcat() calls with seq_buf operations
-to construct the IR device path.
+Since commit 7e12beb8ca2a ("migrate_pages: batch flushing TLB"), every
+MIGRATE_ASYNC migration unmaps with TTU_BATCH_FLUSH.  That includes NUMA
+balancing and memory-tiering promotion, which migrate one folio per call
+through migrate_misplaced_folio().  For an order-0 folio with a single
+mapping the batch holds one PTE and there is nothing to merge, but the
+flush still changes: on x86, arch_tlbbatch_flush() sends a full TLB
+flush to every CPU in mm_cpumask() instead of invalidating that one page.
 
-This preserves the resulting string, including truncation behavior.
+On a 2-socket, 384-CPU x86 server without INVLPGB, a 4 KiB-page,
+memory-heavy multithreaded workload takes about 200 TLB shootdown
+interrupts per page migrated by NUMA balancing (v5.15 on the same machine
+takes about 11), and balancing costs it 13-16% of its throughput.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Skip the batched flush only when the batch cannot merge anything: the
+folio is the only one in this migrate_pages_batch() call, it is not a
+large folio, and it is mapped only once.  The rmap walk then meets at
+most one PTE, and ptep_clear_flush() invalidates just that page.
+Everything else keeps the batched flush, including PTE-mapped large
+folios, folios mapped more than once, and the batch of sub-folios
+produced when a partially mapped large folio is split during migration.
+
+PMD-mapped THPs already invalidate their mappings through
+set_pmd_migration_entry(), independently of TTU_BATCH_FLUSH, so their
+flush behaviour is unchanged.  On arm64 the batched path only defers the
+final DSB, so a one-PTE batch should cost about the same either way.
+
+migrate_folio_unmap() cannot see how many folios its caller is
+migrating, so migrate_pages_batch() passes that down.
+
+Measured on v7.3: 120 GiB anonymous working set, 384 threads, 180 s per
+run, three A/B pairs (numa_balancing on vs. off, same boot) per kernel.
+
+                                    v7.3            patched
+  throughput loss from balancing   13.0-16.5%      0.5-6.3%
+  kernel cycles per hinting PTE    1.18-1.22M      0.28-0.31M
+  TLB interrupts / migrated page   202-210         12.7-13.6
+
+Signed-off-by: Zhiteng Qiu <qiuzhiteng@hygon.cn>
 ---
-Changes in v3:
-- Replace snprintf() with seq_buf operations after reproducing
-  the GCC -Wformat-truncation warning noted by David Laight.
-- Drop the previous Reviewed-by tags due to the implementation change.
+Notes:
 
-Changes in v2:
-- No code changes.
-- Remove the statement about buffer capacities from the commit message.
-- Add Reviewed-by tags from Alejandro Colomar and Shihuang Liu.
+An earlier version decided on reason == MR_NUMA_MISPLACED.  That also
+dropped batching for the split sub-folio batch mentioned above.  In a
+test that splits partially mapped 2 MiB THPs during NUMA migration, the
+earlier version raised TLB interrupts per migrated page from 0.13 to
+16.1; this version keeps them at 0.11.  For 64 KiB mTHP and for a
+MAP_SHARED mapping used by two processes, this version behaves like the
+base kernel (TLB interrupts per migrated page: mTHP 2.2-2.7 patched vs.
+2.6-3.3 base; shared 31.3-31.5 vs. 31.2-31.7).
 
- drivers/media/common/siano/smsir.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+The earlier version behaves the same as this one for order-0, private,
+single-mapped memory.  These results were measured with it:
+ - 192 CPUs (SMT off, 192 threads, 4 pairs): balancing loss
+   3.1-14.7% patched vs. 7.4-54.3% base.
+ - Memory first-touched on the remote socket, threads on the local
+   socket (6 runs per kernel): no regression in time to convergence or
+   in throughput after convergence.
+ - 2 MiB THP (2 pairs): no difference, as expected for PMD-mapped
+   folios.
+ - A 30-minute run with compaction forced every 30 s: no warnings.
 
-diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/siano/smsir.c
-index 283770d583d5..faca379ceebc 100644
---- a/drivers/media/common/siano/smsir.c
-+++ b/drivers/media/common/siano/smsir.c
-@@ -12,6 +12,7 @@
+With this version, tools/testing/selftests/mm/migration passes 6/6
+(including the THP and hugetlb cases), the LTP move_pages and
+migrate_pages cases pass 14/14, and the scenario tests above saw no data
+mismatches.
+
+There is no Fixes: tag.  This changes a performance trade-off in code
+that has been there since v6.4, and nobody has reported it as a
+regression.  Please add one if you see it that way.
+---
+ mm/migrate.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 953af633ec..0f3404c3d7 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -1222,7 +1222,7 @@ static void migrate_folio_done(struct folio *src,
+ static int migrate_folio_unmap(new_folio_t get_new_folio,
+ 		free_folio_t put_new_folio, unsigned long private,
+ 		struct folio *src, struct folio **dstp, enum migrate_mode mode,
+-		struct list_head *ret)
++		bool single_folio, struct list_head *ret)
+ {
+ 	struct folio *dst;
+ 	int rc = -EAGAIN;
+@@ -1344,7 +1344,18 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
+ 		/* Establish migration ptes */
+ 		VM_BUG_ON_FOLIO(folio_test_anon(src) &&
+ 			       !folio_test_ksm(src) && !anon_vma, src);
+-		try_to_migrate(src, mode == MIGRATE_ASYNC ? TTU_BATCH_FLUSH : 0);
++		/*
++		 * Batching only pays off when the rmap walk can meet more than
++		 * one PTE.  A lone order-0 folio with a single mapping has
++		 * exactly one, and on x86 the batched flush turns that one-page
++		 * invalidation into a full flush of mm_cpumask().
++		 */
++		bool batch_flush = mode == MIGRATE_ASYNC;
++
++		if (single_folio && !folio_test_large(src) &&
++		    !folio_maybe_mapped_shared(src))
++			batch_flush = false;
++		try_to_migrate(src, batch_flush ? TTU_BATCH_FLUSH : 0);
+ 		old_folio_state |= FOLIO_WAS_MAPPED;
+ 	}
  
- #include "smscoreapi.h"
+@@ -1835,6 +1846,7 @@ static int migrate_pages_batch(struct list_head *from,
+ 	LIST_HEAD(unmap_folios);
+ 	LIST_HEAD(dst_folios);
+ 	bool nosplit = (reason == MR_NUMA_MISPLACED);
++	bool single_folio = list_is_singular(from);
  
-+#include <linux/seq_buf.h>
- #include <linux/types.h>
- #include <linux/input.h>
+ 	VM_WARN_ON_ONCE(mode != MIGRATE_ASYNC &&
+ 			!list_empty(from) && !list_is_singular(from));
+@@ -1925,7 +1937,8 @@ static int migrate_pages_batch(struct list_head *from,
+ 			}
  
-@@ -41,6 +42,7 @@ int sms_ir_init(struct smscore_device_t *coredev)
- 	int err;
- 	int board_id = smscore_get_board_id(coredev);
- 	struct rc_dev *dev;
-+	struct seq_buf s;
- 
- 	pr_debug("Allocating rc device\n");
- 	dev = rc_allocate_device(RC_DRIVER_IR_RAW);
-@@ -55,8 +57,10 @@ int sms_ir_init(struct smscore_device_t *coredev)
- 	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
- 		 "SMS IR (%s)", sms_get_board(board_id)->name);
- 
--	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
--	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
-+	seq_buf_init(&s, coredev->ir.phys, sizeof(coredev->ir.phys));
-+	seq_buf_puts(&s, coredev->devpath);
-+	seq_buf_puts(&s, "/ir0");
-+	seq_buf_terminate(&s);
- 
- 	dev->device_name = coredev->ir.name;
- 	dev->input_phys = coredev->ir.phys;
+ 			rc = migrate_folio_unmap(get_new_folio, put_new_folio,
+-					private, folio, &dst, mode, ret_folios);
++					private, folio, &dst, mode, single_folio,
++					ret_folios);
+ 			/*
+ 			 * The rules are:
+ 			 *	0: folio will be put on unmap_folios list,
+
+base-commit: dba8aba0a9a00ff781c03d82ae534fc6f8c2e263
 -- 
-2.43.0
+2.51.0
+
 
