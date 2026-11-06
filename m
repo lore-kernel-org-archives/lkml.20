@@ -1,94 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965611;
-	b=hq7nW5u5zI1iONnwSU/wY9+RnJ3a5dZvg4NmtyvGHpJGUoK3McX5+vHQelOFR86h2N7b
-	 q0gM2I9DvLF6p5TengqltoggaOFvjirsFlCnFgNLBokNdcZpSlUwMd9jMnj1hEUS2fyb3
-	 wEIhlRkdMoBPRPsrWnMBPtF6D8QXjNAqda89gqs+qf4bLVQBl+9P1Lhvv4a00q8Irwdwo
-	 dveyKaV0+I4gmCDIOvmSkGTUUKRoxNJ8vcMsD7NcYXxSuszqKZjK5sYNiJgI/BnGghNID
-	 gi/zTHPtnGYZoW5RMVm1g8nwzwgrfgs7HBtWXkTWtO0tAR6kn1lAvjaJ3cz3COkwP4Q==
+	t=1793965624;
+	b=n8euPAPYhIMS+Ncm37qmJGcf0qrQTzhJjVIOq6KkOj1asg7UQBVORU1xqnW7Ni8/hOZN
+	 6/BWSqrh5JmhY3bqPGG5ITV0x8A0d4WaB5XwhobdFBOXyNn8eJJqdN1HmWxgrtCOM1Cps
+	 tRgsYxymwL4cia6k2DYc5SU9gNl2Nt0p8zlGtyv6/fdGfyb6XmxMtF40LqZbvBoD6z8e0
+	 Wfif4sHS5LZznm0VvIEgyGPTPZWtn/PjQYCE+NZxQqTsP7iywtMcKkDkM3r1dA/0QBiQl
+	 2wrfl3ovzs4s2juU/AAlLMos9FeyWMPydfDv53jgHXKqcU+7YOms/CxHGXPKf8Q3u2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965611;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ewbAZCHPYD2+chpQfW+XsvxDzLbZ1NT6epDC+c8eB2U=;
-	b=Gv9Gs9h7FDvcMWzJZdOVNCOHJZe8d0r1rn5QMsiD4fgWP3GmDH2+9my9+S51heQynbiC
-	 f6+RjTfwqRf1Zqk/3hEhkqhi0ty8cKUaHu/J1VpeyuT+w/ZOf8DC+2bHEMEc0b0b0KTlC
-	 oZSgdj6jiUgtQZtCU5J53uPEz28iiVrjhjvrtJQt6Ev6c9AElf/R1TnRUsZP99C5kjZnv
-	 CUmVQTcvqHiCCtE6KBYXwi4qCLQ0dsG0d1uQGyK5gJp+1B+nxXagYiaIHQL1/mvT3x89C
-	 /CRnDMrEmjTVYsNlMVKhqaoW+loqaTQjmpjrPLwjkWI0pP0Nds/Fg01mBNuwCOwtK2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965624;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mmCJKWmPBAetLsmyF2KDGRLUSU9wtqnr7FZpaiea0rw=;
+	b=BzPmcBjgr3Ad028oyv4DfMHwzm8u0fBaU/cidJDQiYJ6iVAgbp0P9gP6UZd6WVu5/zHW
+	 1QgzQMHxLAJWj6fxWoIpw+dk14nChwRem/eGGg9dK06pm6X8hCcRwjSWovMub2UiXeVYT
+	 TXJ2OvaIK3bmk9AuYY0Qer0rI2G40pInYdbRvsGqBJIopwjDFnQUIcP51JBA8qV84xtzo
+	 4tZDJic/bdJ1m/6NMna8Rv4zHZKPLIvEgXrp9LDf+s9rwnZL4nhERTwD/i3JMYSC4Zpjn
+	 VgHnk1RoiM73gtSF9IiKvvml7tLHEbZ1gkcFf97+B4awZnnYVfyw3XgYlGw7VwpfICA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p99OWJ7k;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Onnm5/ul";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDDE606A333
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACDDE606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51169606A32E;
+	Fri,  6 Nov 2026 11:47:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p99OWJ7k
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so341987b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:46:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793965610; x=1794570410; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ewbAZCHPYD2+chpQfW+XsvxDzLbZ1NT6epDC+c8eB2U=;
-        b=p99OWJ7kmAedUPv6+7kfP4cA6i4cIzm0B6jrcYVuOlZbnnvtgMJfTYlzzAeOtbyx+J
-         NyXYVOkUjR/5hVj3g2ZKhH56r1+xXYJWJf9SvHnD3K6oE50aHHHTjVnPIT5vQFo6te1k
-         P1KfnYahJ1I7h7Gd1/NUkCyB/qjZeiuajXMX4WAxroYG2VAvwo+YRAvyzebXjKdRGTHR
-         g70rTX08dm21A3hL1cgnjUtlrvS/m8RSqXVqcrDcpoVvCjW2dy4IVCJa3XnJgFfKx/KQ
-         h4xmg7kA01ckFbrM8cBuxvKunKvhI8+NWzwVKGrc2qprR13tg+MZHxinItmZ+mhpp8Rx
-         OWxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793965610; x=1794570410;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ewbAZCHPYD2+chpQfW+XsvxDzLbZ1NT6epDC+c8eB2U=;
-        b=rPPKX4aUuXHjXZhNZRWibP/5nvrzzFFkFUNH7vuYioKZiAjoaR2GWHt9x3ILjnc1BH
-         E8/Rxh5Xp6p8VWCtwnrNCt8FWGNNPHxOqPK6iPPlBujq4NStMOfYd/zbH9PfgiZlVj6G
-         NmlyRVT7yWUXejQeHxDN5dyaWT7tzMp7o4kWi9H3HiDjgF2mNhbaVkjIje4+ymP0cGeM
-         NkO+P3Hfu6wW9cN3tqRlhh23kjQbEA9Ca615YRWmD+t/fpABGAR1LZtPsZ7Yi/SCvOyU
-         GyIMDJX3WvoNbjuzG5It4y6BFR8r8o9RhUoVF5p/6hbufQ9VUsJ7wzVwoLFYUqtKXVK5
-         Dxlg==
-X-Forwarded-Encrypted: i=1; AKwUvBwUONL4XSxTYYwKy5tOxxkRcltS5RwZi9gmYNPiOFGhcsVmxcl+J1dG8OOeT9UUrTUcP2coMqRLpKghQ0k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ml8033w9WbcTaXbTAT4CnRLPxNIS5tH3uZPEdi0VGspNfPvPY
-	44sx9PeFnaH8BBtDbsedETaGYjchjxdenYvEJF6ang+VsjNdSad2yhIk
-X-Gm-Gg: AYBFou0n/YC9BI5qh+A9A7UfMSxI5oWtMo9uDoKKSlW+Fvg0lmkABFitqrgB6cNl6j1
-	HUg4r/c9PoVyEMzUq6A8eDWIoT3b4x0QeD3pykB4UMjURYmIb1gP9rjcnSF5Vub0r9dlebHWEsV
-	IZ0wsQhcddxKnJwxvatQkHT7MXu0enXbhEjiWe2Z77xJpGBUxeL6i16md9RaBJkqSKGYj3HpFZS
-	Ah+v5Wu/HgynaKN+f2GNwtXLmAArAyo2CsIBfT/KeCx2C9Mv1erE8NsltkuoCXE0mUKQETOPV0B
-	BjMlqkdNNEqRsMuLlHvs6PUnB7tvz94BOQvsNowacoBaXJ4U0mQupwWjxwXTDaRd1Xh3wzcDlnk
-	FIJjuWr3EPvewO/DqlILD5UnTB0XpDvsav8Mw8mZ8EOokL4n5X8BkgkDdmWIss6afSsel22eOV0
-	t7ORhKDn8h9Wbd5RsN8kLxtMLMpFx1sMOBE0DsfSGR08wIueKkp8+59FFZF54IjqQeQFWlLedau
-	UR/ZlwGZATj5XLauNyYcN9fuvhGoyaI0alW1wJ5N8Ql+X++iRl74OKDA2FbGbadqRRVtVebS+g/
-	hk8FqmKNb/25pkJLYnJ4c6oxD/vF1hVz6PM+Y85fprTbEza7
-X-Received: by 2002:a05:6a00:2188:b0:8a0:3072:ee9 with SMTP id d2e1a72fcca58-8b37ab9ec04mr2326503b3a.13.1793965609946;
-        Fri, 06 Nov 2026 03:46:49 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b35921deb7sm509832b3a.12.2026.11.06.03.46.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:46:49 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v3] ASoC: codecs: wcd-mbhc-v2: cancel button long-press work on deinit
-Date: Fri,  6 Nov 2026 20:46:28 +0900
-Message-ID: <20261106114628.2555176-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Onnm5/ul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC921F0089F;
+	Fri,  6 Nov 2026 11:47:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793965623;
+	bh=mmCJKWmPBAetLsmyF2KDGRLUSU9wtqnr7FZpaiea0rw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Onnm5/ulWr0sv+JICpebrelYSa3gBbRBbi/0Iy4J8PVZwpMbDekgmjOTnHS3MMz6h
+	 FyqnBYDaIfWxhSIPADFOs/bCqIzFiFQUSxlMrA9M/6/zJ/an/YPY1nIkAD0qdp/9Cx
+	 YS6SsS9r8EaLVRHlkGke0YsVDVJ95wuJPuWZGd9Woervr9neNdimreSYFWRDY6XMxA
+	 RW+A+J6hl/7lq5gTEBHAm5pg2mIRCM1FsRjQ7gxRkSJbBbl13bcl6KUfxWQT3KoBQW
+	 ioSAb9xkidzgHEGGIUfEyrpXydMOmp1wk5DFrm8AcN2L+ckM59lybYcez6JXxurMLx
+	 PHmiDbL28t2bQ==
+Message-ID: <66da4fbf-7449-4c49-9963-02d22ce5705e@kernel.org>
+Date: Fri, 6 Nov 2026 11:46:58 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,81 +51,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
+ <IWvxuoWpGYwCLU5ciL8gkh5DK0QqOKvsLCmpHsl5wj-04snX7qeL5mH24L7rzTMihCKZN4yX0_gDn78dY71OSA==@protonmail.internalid>
+ <540014fb-d271-4e20-9a3c-3f2fb66723ce@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <540014fb-d271-4e20-9a3c-3f2fb66723ce@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On 06/11/2026 11:20, Vladimir Zapolskiy wrote:
+>> +maintainers:
+>> +  - Andrew Gigena<mail@andrewgigena.dev>
+>> +
+>> +description: |
+>> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: qcom,sm8150-camss
+>> +
+>> +  clocks:
+>> +    minItems: 27
+>> +    maxItems: 27
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: camnoc_axi
+>> +      - const: cpas_ahb
+>> +      - const: csiphy0
+>> +      - const: csiphy0_timer
+>> +      - const: csiphy1
+>> +      - const: csiphy1_timer
+>> +      - const: csiphy2
+>> +      - const: csiphy2_timer
+>> +      - const: csiphy3
+>> +      - const: csiphy3_timer
+> I ask you to switch to the new CSI2 PHY driver, please exclude these I/O
+> spaces from the CAMSS container device.
+> 
+> It makes no sense to deal with all-phy-combined supplies and the multitude
+> of other solved problems.
+> 
+> The cost of changing the device to exploit the new CSIPHY driver is
+> close to zero.
+> 
+> --
+> Best wishes,
+> Vladimir
 
-wcd_mbhc_deinit() drains two of the three works embedded in struct
-wcd_mbhc before freeing it - correct_plug_swch (via
-wcd_cancel_hs_detect_plug()) and mbhc_plug_detect_work - but not the
-button long-press delayed work mbhc_btn_dwork:
+So I'm fine to take the patch as is - but if Andrew _wants_ to take on 
+switching to csiphy driver - that would be a welcome series ofc.
 
-	mutex_lock(&mbhc->lock);
-	wcd_cancel_hs_detect_plug(mbhc, &mbhc->correct_plug_swch);
-	cancel_work_sync(&mbhc->mbhc_plug_detect_work);
-	mutex_unlock(&mbhc->lock);
+Its up to you Andrew.
 
-	kfree(mbhc);
-
-mbhc_btn_dwork is armed from the button-press interrupt handler
-wcd_mbhc_btn_press_handler() with a 400 ms delay:
-
-	schedule_delayed_work(&mbhc->mbhc_btn_dwork, msecs_to_jiffies(400));
-
-and its handler wcd_btn_long_press_fn() dereferences @mbhc
-(container_of(), mbhc->current_plug, mbhc->jack).
-
-wcd_mbhc_deinit() frees the MBHC interrupts first, which stops new work
-from being queued, but free_irq() does not cancel a delayed work that was
-already scheduled. If a button was pressed within ~400 ms of component
-removal, mbhc_btn_dwork is still pending when kfree(mbhc) runs, so
-wcd_btn_long_press_fn() later executes against freed memory
-(use-after-free).
-
-The freeing of mbhc was introduced by commit a5475829adcc ("ASoC: codecs:
-wcd-mbhc-v2: fix resource leaks on component remove"), which switched mbhc
-to kzalloc() and added the kfree(mbhc) above; the deinit path cancels
-correct_plug_swch (added with the multi-button support in 0e5c9e7ff899)
-and, later, mbhc_plug_detect_work (added in 0c105997eefd), but
-mbhc_btn_dwork has never been cancelled there.
-
-Use the existing wcd_mbhc_cancel_pending_work() helper, which cancels
-mbhc_btn_dwork (via wcd_cancel_btn_work()) and then correct_plug_swch,
-matching the other cancellation sites in this file and ensuring
-mbhc_btn_dwork is cancelled before wcd_cancel_hs_detect_plug() briefly
-drops mbhc->lock.
-
-Found by code review; not runtime-reproduced (requires WCD codec hardware
-and a button-press event racing component removal).
-
-Fixes: a5475829adcc ("ASoC: codecs: wcd-mbhc-v2: fix resource leaks on component remove")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-v3:
- - Resend as a standalone patch; the previous version was mistakenly
-   sent as a reply to the original posting (per Mark Brown's request).
-   No functional change from v2.
-v2:
- - Use the existing wcd_mbhc_cancel_pending_work() helper instead of an
-   open-coded cancel_delayed_work_sync(), per review - it cancels
-   mbhc_btn_dwork before wcd_cancel_hs_detect_plug() drops the lock and
-   matches the other cancellation sites.
- - Add Fixes: tag and correct the commit history in the changelog (the v1
-   reference to CVE-2023-53842 was inaccurate), per review.
-
- sound/soc/codecs/wcd-mbhc-v2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
---- a/sound/soc/codecs/wcd-mbhc-v2.c
-+++ b/sound/soc/codecs/wcd-mbhc-v2.c
-@@ -1623,7 +1623,7 @@ void wcd_mbhc_deinit(struct wcd_mbhc *mbhc)
- 	free_irq(mbhc->intr_ids->mbhc_sw_intr, mbhc);
-
- 	mutex_lock(&mbhc->lock);
--	wcd_cancel_hs_detect_plug(mbhc,	&mbhc->correct_plug_swch);
-+	wcd_mbhc_cancel_pending_work(mbhc);
- 	cancel_work_sync(&mbhc->mbhc_plug_detect_work);
- 	mutex_unlock(&mbhc->lock);
-
+bod
