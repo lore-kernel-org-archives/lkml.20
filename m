@@ -1,55 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955701;
-	b=BNHMsn/8Cf5yb3YTkqT6t53IzmmnbI8CeViPJWrAgsqEj6725s7+3662AAkSJk+hSVkD
-	 RxIu1eryYXnqz01wA5il7M69rxvQIU9PEUg8XkISmNMGmgUHZH4WuT1ZYtUEwXICEGJHT
-	 U+7ZtUg3Spg9Nkzz18BdlAofJZbjf8z5Ban9qnOfp3aSIlr6vWatVBS3f4PtROYg+QSXP
-	 Qk3DSpliNSVVl/K4TNI9ObSH4OQhO/Avmg+xHL6xp/Za2Mmkq9vSbL+XC3xUSfaiIl70C
-	 B6UyKnMtYcSo9Vzk33+bNRprPUadGRmrwh1GCFrtcxvvQnAXfw6Nop4OCqfG21uPl1A==
+	t=1793955727;
+	b=Ah20UQ51jM7IemDdGPdt4UhJ8sn2knK2xGwkOGiDx3suRHjdodjN3htmX1310UlyNkJh
+	 AiYhTeJOxfPMT7a3KrQZEtH7fGsvaLk6nPy3aI8lKDjtVTe0ZWOoTHFqc35TFwxJRC735
+	 cf1qeSuRNzycF2psliwkxVet1Q8Jtcg09RAXRUlRin5uUKPHq7YaSpS7VjdsLe/1l1UJW
+	 pnuCqUN9P+TvCoh3cBqOYAVYze0F9CVRumqsJFSGgC0t9jEtmUKqb3qH2Dha45cLTR6os
+	 OzTrBSuH4ir09oXWBMaOV8YaiYbk6E4IOjLhhtE66GSn2fBltfGPLQFtG0ueQm6huOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955701;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=u6acokGNj4SYKyhK/qU5+s8LM63HA4bdVeXm6C7i5AY=;
-	b=Ri9abmWB/AXP5QEXdIXhOf3ST0049X9HljBdF4KFnd3U9lZKJ9FtqHRX03MgIEwv/Nd7
-	 BH/56xmb4Fq5856vh9UBJIha/fsVZlGdqpGF7QHINsA11ZFyXn8WnTVzR5r9K3ulx2d2Q
-	 GXqKEmzVwu40LRJoaCoMiYdDhjK4d57/cGufpWF1Uywf1AdzF1OEmmWl883wcFalJ56tA
-	 20/STWu88plNZi0Se6hIr+MkHLHA6rJGhk/G+4MslrLegtD4zvWJPxeR8Wo3VQnD/39GX
-	 onSvxAiyNcu6P75FNc1cs9wuohTnTleaB9AYHEH4OBWys0QO7GBcexHQq2Tw26eQP+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955727;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=CuWyynZvQW4q5L3nWEhe4ZZZaEyaXbxC48e5/yJQ1/w=;
+	b=ZFits1kwMS9njQmfSfLF//Gq6wUETx9yQazgJQt9c0zwgxF9aqj2qAiXuq+yur7kg4oF
+	 TZUwmje2/bs5Ku8n2wg9+eewj+HPiuI8JlFsuyls8tL7/R6TAQVOYUC9E32JmpuGSIpnl
+	 jvXhLcL/+zvD9llk1sigmChtD2Dyd3YLWDFUz2hnngxyat8ODgxLcKSImAoh72OSzQHTC
+	 BdOEI623EJQS9xw4WdSZ904zTatZJcFQzRdGHj1ygMHxvdzBd6jE48Bq+NNqnLQ1mMwt+
+	 TUxQmpHNd3V7tECPbIZeRQC9BUgAApg5FdtlUI0iifA3qOYEY4aP/sOvfnEreg1mf8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qdq8U7E9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="PQ1q7N/7";
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2ED7606A32C;
-	Fri,  6 Nov 2026 09:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DBE606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:02:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93DBE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qdq8U7E9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EAB71F008A4;
-	Fri,  6 Nov 2026 09:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793955700;
-	bh=u6acokGNj4SYKyhK/qU5+s8LM63HA4bdVeXm6C7i5AY=;
-	h=From:To:Cc:Subject:Date;
-	b=Qdq8U7E9qzee9YQO26jrXBSFguUlc6f2HjFQzX7S9GBljxGA3ZPRwqNfAXvQxcw5B
-	 l8/MnGSTveFNF/sbTaytRn2BlprxoihDkCnfqy21aJJNIY89xzY/3GOkGNPBP+IZfX
-	 TMQlUR4BZViS8JmZ+rWMMq79LwWntSobG5U2YH795GT4xwAIOTCCbSU1rUKhKrAoH8
-	 26d0yCcWdwdG+cZkWqROTeVZI6SqFWaCqObTC+s+6/I1SsRLdhufMwHpqj8MuP5Igi
-	 7AabH8FbzQacrRPgj4HmKgLcQduKjYd+Z86pnCKVVMNw+HempP+YFWDHA5/BmkYW4Q
-	 MOKIwQQOlwkHg==
-From: Thorsten Blum <blum@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH] tty: use isdigit() in tty_find_polling_driver()
-Date: Fri,  6 Nov 2026 10:01:23 +0100
-Message-ID: <20261106090122.2265-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=PQ1q7N/7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=CuWyynZvQW4q5L3nWEhe4ZZZaEyaXbxC48e5/yJQ1/w=; b=PQ1q7N/7Lj5MaJMuhGPvk1X0HB
+	0jsYY56jpRASFIs8/isyXZ9+E60W1CNAQ1/35gPryQVXXYRGe4qiKi2TqrdTIu5BgyCqe7deSvysw
+	LJh/T3p40LcomnZ/AzNCf7Q8cN5J+szIgSRhTdlAJM8clm9OBe0JKopyBVKBzQXdaVVom9hNt2Y/b
+	2oUHOaI0bW/JH4QZDmdfDp3EESnEF5uk255gUxavU6HYxhG+gOnPyN/x5c9osj+Ly0+CgyNF2Gluh
+	hAwihgWNVVemnmi4ipDESGFGHI9yfCBEYg89dMhNmdTfB+GRruVCfPIEBBSL9a8OpidNmSz9dZPy5
+	97qrk0Bg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xPFpa-00000002K38-0MtL;
+	Fri, 06 Nov 2026 09:01:54 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id A6887300302; Fri, 06 Nov 2026 10:01:53 +0100 (CET)
+Date: Fri, 6 Nov 2026 10:01:53 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com, joshdon@google.com,
+	tj@kernel.org, jakub@okonski.org
+Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
+ tg::idle
+Message-ID: <20261106090153.GD1779021@noisy.programming.kicks-ass.net>
+References: <20261105165525.011876858@infradead.org>
+ <20261105170157.616859418@infradead.org>
+ <auzB7x4lVcFmTVMs@scheduler.schedules>
+ <20261106083106.GC1779021@noisy.programming.kicks-ass.net>
+ <au2VkE9005PlW8VN@scheduler.schedules>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,27 +74,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=624; i=blum@kernel.org; h=from:subject; bh=OUltn+uyiPEBSzXpzM/GpZAigvtO8FjmPHwVGN/+M2s=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlvpyets7xwQ41Jrudssu72RXelXjyYsmr+w0k+16ZM9 /9gz8N5oqOUhUGMi0FWTJHlwawfM3xLayo3mUTshJnDygQyhIGLUwAm4pfFyHBt+UZr5yTJrA9+ Kct3FTcnObXmLl14/+Pfvst9r9tX7jnJyNBz+sihyFbRf/X7tuzmOlOZ5OOw95Tpf2a59We/SjA c/8kHAA==
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au2VkE9005PlW8VN@scheduler.schedules>
 
-Use isdigit() to replace the open-coded implementation.
+On Fri, Nov 06, 2026 at 11:57:03AM +0300, Kayra Cizmeci wrote:
+> On Fri, Nov 06, 2026 at 09:31:06AM +0100, Peter Zijlstra wrote:
+> > On Thu, Nov 05, 2026 at 10:20:00PM +0300, Kayra Cizmeci wrote:
+> > > On Thu, Nov 05, 2026 at 05:55:27PM +0100, Peter Zijlstra wrote:
+> > > > Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
+> > > > all ancestor tg::idle. This makes it trivial to tell if the current cgroup
+> > > > is marked idle somewhere along its ancestral path.
+> > > > 
+> > > > This makes se_id_idle() behave differently. Notably is will now be true
+> > > > when there is a idle cgroup anywhere in the ancestor path. This
+> > > > addresses an issue where preemption of cgroup::idle was overlooked when
+> > > > flattening the runqueue.
+> > > 
+> > > How? The diff doesn't touches se_is_idle(). se_is_idle() just looks to
+> > > the policy for tasks:
+> > > 
+> > > static int se_is_idle(struct sched_entity *se)
+> > > {
+> > > 	if (entity_is_task(se))
+> > > 		return task_has_idle_policy(task_of(se));
+> > > 	return cfs_rq_is_idle(group_cfs_rq(se));
+> > > }
+> > 
+> > > Or am I getting something wrong?
+> > 
+> > cfs_rq_is_idle() := cfs_rq->idle > 0
+> > 
+> > and cfs_rq->idle is now getting incremented for the whole subtree. So if
+> > any ancestor is idle, this is now true.
+> 
+> 
+> Yeah, it is for group path. But we call se_is_idle for tasks in
+> wakeup_preempt_fair(). Not groups, no?
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/tty/tty_io.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Ah, that's what you meant. So we should do something like:
 
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 1a6c8a1bc764..3575310c72e0 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -383,7 +383,7 @@ struct tty_driver *tty_find_polling_driver(char *name, int *line)
- 	char *str, *stp;
- 
- 	for (str = name; *str; str++)
--		if ((*str >= '0' && *str <= '9') || *str == ',')
-+		if (isdigit(*str) || *str == ',')
- 			break;
- 	if (!*str)
- 		return NULL;
+	if (entity_is_task(se))
+		return task_has_idle_policy(task_of(se)) || cfs_rq_is_idle(cfs_rq_of(se));
+	return cfs_rq_is_idle(group_cfs_rq(se));
+
+
+no?
+
