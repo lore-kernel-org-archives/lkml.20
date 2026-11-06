@@ -1,85 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793948955;
-	b=Eyh9AIyhgOmq4+HxFPhSX1ZAEgOcX25fBw8y7wXoNADw6c+Yor+srYmKpU0F2jsdYNWI
-	 41U3S5Vddgp8ecN0m33oRNHqCNrHMjrFq4HQExmElTg2wdyMB96KxPzV5sp29fuB9iXZk
-	 KUV19pCczmgu1ltP4RMejQFrHrvzHY+cSl7FqKdSI+3l0/FtJXB9ZQn7cyZvxSDYP5Gl7
-	 TrjvxSNQ4MJ/m10jjQ04NjKFkO8gmHBcqQBrSt+kk7zi/cY6zHmVgeSPcGfl7sVQL2pNS
-	 LMnMEHzcMfn3cLG2/bXPhAhgTNKojYlrRi3WVJhKTzjGYWt6Zm3HEoEH5J2QRpvOsTg==
+	t=1793948980;
+	b=T0knEM4lCO3f82hXriENlagAc46lICff8N3CpYFSJsZ3S43cDvXKTpHPDzagEWyUe7Xv
+	 gpLjT+IwaR+HJFgD8XCUd3O2vvPGn8MHrp2U7XBroZyRZCvwsisbBC7aq7bnQgNa7pqpt
+	 ONgppASL5G6fOIVmiXBS5b4MMuQIU+inKtHTmSw3casFVjJGkBGjI4uHi1BIVgtCjAzQA
+	 RQAhUAgQnute60UjwJCv+x3Oxls8bBgCQEzEVZCqVGFPQniYXVUKNXltGGrtWcDGBoaZB
+	 ku4jHLVQtzRGeBO4NWn6t8haTST9JgzBhmqhzMJsjrm+ezHgb3UQmQXjanXH83sdivg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793948955;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=uSP1e8tjhRCF2yov9TbbHsNIAFeukBIuVHEfqVmWF8k=;
-	b=5i3grTVH8tSq8TPTPqakZhiS0bOMovaKtxp7Rj+i6bsMlRuMmUGk5RX5cfEmW1YqwviT
-	 lp9eATMTOw5e33xr320gnfd0/q/IJQDu05ZUeg31nhwwDFiuCJPkveZgSS5nYQR0QH4vB
-	 puWrMeXzSo1MCCurIIChIftVnR9tieka4v1jJ/MSTi+9vSNLsIhNF/Zfg2BCbPFBPYPVb
-	 fjqL5jc8tCd8lqFifHYSJ6T0vtNSk2GWfNDZ5Y6DofHImP3sKy1tRI5cmPmKfH6Ni2+jI
-	 fBlSoKLx3BgJDGkZjqLOFbXVZ1DJ4gKGvemcOoxBJH71OX3ee6e7u/UochnlnTTHwpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793948980;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=lN1N4KZ8AZXe4NT1Y3Gc7RwuWfpfondMmc4ML4yUGYQ=;
+	b=vPeQx0bn/SQPADu8p99LB0U47maQ/RXzRekEe2WvOt4pMtuvtryEl6GW25eemPEYUd2h
+	 jEqetdIn3N/Rl16l1g9+j+cmsEm79PkvEzs9RhLyblrztXrnoHbk4QUQArsqBjdpweVD5
+	 glvRP0LjCMUXmJVtK/NRUF8R4aNl5Rgj6UKORQu89n2zboMVLKintaL0PdAQOmuiKVS8E
+	 6CcgLcKevYIDTcSq0T4ZIaOriIjvuv8jzVNjUW8gUnA2hHpy2VRnDfXrw2tvy06/mVIhO
+	 Na9d7m7c0tfoc0jCfdwQhOSqEC10m/wic/k7b7H8X1iprPhu1nAx6zmLTtVvFQW7+Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=H9k2j5Nx;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PY7BJYbu;
+	arc=none smtp.remote-ip=74.125.227.134
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103AA606A32E;
-	Fri,  6 Nov 2026 07:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103AA606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93CE606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C93CE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=H9k2j5Nx
-X-UUID: f0d1dad0d9b011f18dc8c9802ae25ab1-20261106
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:To:From:Subject:Message-ID; bh=uSP1e8tjhRCF2yov9TbbHsNIAFeukBIuVHEfqVmWF8k=;
-	b=H9k2j5Nx4VV9iSFTFhmHLoqoEZvz4dk5nYMGH5Ts1G8qfaQDzFUQtBXI4AWaRF6gqyDDpp9nwX33gF+B0ga44GgebwCdFarCEoKXPGwnZZ5IHPXhlafdRXx9D1umZER7nV0IIAtOO1UHdZR5ZnBIHlfPPLy6VlSOnLNLgNwf6MM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:e185a437-5967-4853-8447-8aa1cda2ad72,IP:0,U
-	RL:0,TC:0,Content:2,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:2
-X-CID-META: VersionHash:b0318ac,CLOUDID:4dded750-c3c8-4d20-8dd5-7bb1d154dc26,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:4|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
-	nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f0d1dad0d9b011f18dc8c9802ae25ab1-20261106
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 828544094; Fri, 06 Nov 2026 15:09:00 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 6 Nov 2026 15:08:59 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Fri, 6 Nov 2026 15:08:59 +0800
-Message-ID: <95e5b0daac7835593c35755ed948ed8cec1dfcde.camel@mediatek.com>
-Subject: Re: [PATCH v6 1/3] scsi: ufs: core: Clear saved errors in
- ufshcd_link_recovery()
-From: Peter Wang <peter.wang@mediatek.com>
-To: HOYOUNG SEO <hy50.seo@samsung.com>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bvanassche@acm.org>, <mkp@kernel.org>,
-	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
-	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
-	<kwmad.kim@samsung.com>, <cpgs@samsung.com>, <h10.kim@samsung.com>
-Date: Fri, 6 Nov 2026 15:08:58 +0800
-In-Reply-To: <a0b59fb709e8c53a72e2839bb6b1635a4a20f395.1793931113.git.hy50.seo@samsung.com>
-References: <cover.1793931113.git.hy50.seo@samsung.com>
-	 <CGME20261106022020epcas2p397f84c634df3397fcb1c98d1837bb83f@epcas2p3.samsung.com>
-	 <a0b59fb709e8c53a72e2839bb6b1635a4a20f395.1793931113.git.hy50.seo@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PY7BJYbu
+Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3ad41b6b2ebso43079a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:09:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793948979; x=1794553779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lN1N4KZ8AZXe4NT1Y3Gc7RwuWfpfondMmc4ML4yUGYQ=;
+        b=PY7BJYbutqfiy6LaW+IaPa+QKyMjcDIbiBI7igHuQaYSt5aLy1r0kmj6EhNdzU4W5i
+         rEUAfmzzk7Wi1mNInOSlW1oS/c64YaPmZQ2hheG0HZFy2Y0jCtDHKf6KfLW3pkFE9hwk
+         6dAoEdHSbdwJK9matLz7Q+YUr5yoA9nHnmNAFeXeYQapTEBX+nS+ba5nmL5FOclQXfdF
+         g3HT8esOrpl0nIN3fXNr6geOY++OcQgtUKoyMnRd7wtsOP8/A2XgwCu5z9ADqthZfRov
+         618cotgQJliOx8Co/zV6igSmVDEfKE56+BXBaRXHG2NpAU9dQ41vlrEiAwax1WRTF2p7
+         rfYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793948979; x=1794553779;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lN1N4KZ8AZXe4NT1Y3Gc7RwuWfpfondMmc4ML4yUGYQ=;
+        b=iRYEp6MP+mMztVmQJOJYg/bmBtmbSnQ7bSSLIS8zOTsMBGxjoyuE9Bu3ISJOIAo9ik
+         s3hFBjxrr+cdwX2R5PXo24QOSyOhLSzpKmN07HT9lfwnqeW08TlCjpE5k9CZkW97LqzR
+         uV51KbZo4I+eHwkCLJuhBX0uk9Hf9zTANUG/+tvKW051gwxVd+sd4s95Lp+5vvrdIBWt
+         ZIVoLsoFEJ/9rnGdZb+l+U4TFbEC0r1t5Yw7dJ6SyOs+3hvvQQbp1h0/u3UF89CbS6uz
+         gC3tpO0t6X4FeDSKaq/7rzayYBVvCKxWTO981RpHMZvgi3HvCTtZCkRIBmrinh6zzBCl
+         sA9A==
+X-Forwarded-Encrypted: i=1; AL+hErEnNuXgLk6l/4q7hsZtFRsdbP3oOxxnTohK2nxtjKFxDxCHPrmdpYBMoq0iB0mgHbpatWvuBt3eIy88KxM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+f7OhWnusjtMIse7D1M4e5g/ans2GokuUqnqitLpdG7g2p4QTF
+	Q8wyakxpogulxdO+MPYvAoXzlgvUwkHC4J7LlV8CsTCMF7wyu/KmbfnRL32gq3FrGmf9nw==
+X-Gm-Gg: AYBFou3TjXfCGcFlXASYgF3GJPChwnmbfz8//qhLIWjwUZ1bAkEWyj8SkpE8lxmzDq6
+	LZTLfjME7lhG9dP3/xT92Mj18SvX8CUvqcdBWzzg39QxTWusd4Q0lmdxiCay3rFoEUiI4eSqLYa
+	1Hyg7tHKZZjEvU+tWyK3Q1fz/4XAIwp6MEpjrPog6FEASgjGcfT+6CqRDupCPBEe2g+q8DMv1xW
+	f7aHwpIUsVOdTFzcYyDEdHvl/AVtIxxKzAHPE3MvimArdAYGTIY2Rhq5dplLzhDKl0XaI5oJM5M
+	aD41GDdPLUof7vUUe+LZBqz/LjqhlufpihRZ0AlRLA5Tn0XWBxkMQrb33XYAtzPfamqOHlho2qv
+	km5a5vOQgy3ABec9ef4JGgnJgq6eQxFd2w+A1cx6rHbE4ihLImofIANb5hGhYs6bndKHkCmodsg
+	l19NFGzxnVG6bIbMfej+tjzQR3KZdM9Nht+PpfDH4GUBYQq6jZqEBeWhvh+hTAHJiMNh8H1T+nb
+	BTHTEQcB2Z/yffPm7nE31NOcIquBlV9lQmaxSTJzcWD7cFiHqfts7gXdTNO6xSEHDG75N2eE5W3
+	BiS1Y8gvGWMn0bv6YBTu3xqcBXdkm2ey960TXjxU58uLUyDFqBo=
+X-Received: by 2002:a17:90a:fc46:b0:3b0:9bfa:72ac with SMTP id 98e67ed59e1d1-3b0db6d61b8mr1079443a91.21.1793948978988;
+        Thu, 05 Nov 2026 23:09:38 -0800 (PST)
+Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.143.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7cb26f5sm2064903a91.16.2026.11.05.23.09.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 23:09:38 -0800 (PST)
+From: Boyan Liu <yymhvert@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+02480a85e1a0d4f5@bugs.sh
+Subject: Re: [PATCH] usb: gadget: f_ncm: Fix use-after-free in ncm_wrap_ntb()
+Date: Fri,  6 Nov 2026 15:09:14 +0800
+Message-ID: <20261106070914.3637-1-yymhvert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015024508.3179-1-yymhvert@gmail.com>
+References: <20261015024508.3179-1-yymhvert@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,36 +99,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-11-06 at 11:15 +0900, HOYOUNG SEO wrote:
-> ufshcd_link_recovery() resets both the device and the host and then
-> re-establishes the link. Unlike ufshcd_reset_and_restore(), however,
-> it
-> does not clear hba->saved_err, hba->saved_uic_err and hba-
-> >force_reset,
-> so the errors latched before the recovery remain pending after the
-> link
-> has already been recovered.
->=20
-> When ufshcd_err_handler() runs afterwards,
-> ufshcd_err_handling_should_stop() sees these stale errors. The error
-> handler then quiesces all queues and, depending on the latched errors
-> (e.g. a fatal error or UFSHCD_UIC_DL_PA_INIT_ERROR), performs another
-> full ufshcd_reset_and_restore() on a link that is already
-> operational.
->=20
-> Cache and clear the saved errors before the reset, as
-> ufshcd_reset_and_restore() does, so that only errors raised during or
-> after the recovery are left to the error handler. Put them back if
-> the
-> recovery fails.
->=20
-> Fixes: 35dabf4503b9 ("scsi: ufs: core: Use link recovery when h8 exit
-> fails during runtime resume")
-> Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
-> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-> ---
+Hi Greg,
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+I wanted to follow up on this fix. The use-after-free addressed by v1
+is independent of the two pre-existing issues raised by Sashiko.
 
+For the skb2 leak in the same err: path, would you prefer that I fold
+
+	if (skb2)
+		dev_kfree_skb_any(skb2);
+
+into a v2 of this patch, or keep it as a separate follow-up? My plan
+for the independent ncm->netdev NULL-dereference race is to handle it
+separately.
+
+Is the use-after-free fix otherwise acceptable, or are any other
+changes needed?
+
+Thanks,
+Boyan
