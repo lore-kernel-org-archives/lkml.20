@@ -1,95 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986648;
-	b=ufFEv21thhrcXqlsK46AmvZGfeFjc+rz3kz4z4Qz1ZLwQnYHdXE7cL9Pc5LlLeJbppLC
-	 Kde2YhNNbDyw7Jj5BsYmPZDgddAJtHtBlms1q9sEpq+HPKC4QrrFPiV7OIOyxMEczNPwF
-	 I5id20zvJYlETUz/WGsA/50r4ja+Fu8aihCdyu709y1Ce0izPwkGxwjG3Y27HJd7tRIat
-	 NaZ6+y7P9MXQuO2E4d6c6+TC2jcIs6s07wqgm9mEulOKPQIBUiN8DAb+X4FciOcwcZX+S
-	 FuNb7hEsJ3fCehgeUregOVevVT28PiFOxZJteKIXBDaoZCf3Cn3+m52W+rABTktxS7A==
+	t=1793986651;
+	b=pvhFntRaU0WZ8+BbHHmDGZHbdfhKKEZQ5BwCKjYTUvRO32YBZJ4lYhSTLTbVR5+fLcvZ
+	 ISIgL9ttu2vXgueAhOn7Q1z4uDnJD0E/VPQYvTbotMHa4nj/pYySG+z1LVCGr9cRUaR/I
+	 svOkkjCRXlaPdbds1aR29/6fkbTKdcMAFbDSbnbWt91ayFBuAykCpmQbt8Oy8RB0g8F05
+	 FqFQK7fNL3HJNjtqrQd0+z6eKajHfS1qkHOijNJqjVPSPEDp+l7eDteGyyKmyrfkOG9ue
+	 jUZyCNP5HegaxBCNwRgkvt/w+UaW8ggMn7HxadZYsyrHCKt7rm8p31Lya1Es4mRZKUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=OKETz/chb1tHYfkJYLjvADpiiSfrqEQjXyv0+LotoW4=;
-	b=v1r4xBPNRj/qC/9pGBHHw36D0NnhQjpFbpR7LK9uFujiJvwgslZB7hOBs3t2mnshd5zo
-	 VwCWX8FIXgXPeCu3Beft/BAUoWj4gDQO3VG8g1JadpPGOd2YM/BJX6pfKI9artxx89W/h
-	 Fkp/5gzagg+zRsgfGfJY0XrSSwUbYXMz3O8EqtIXNyTjkPLbJU0U0cwl7LvGWZjRstnFN
-	 IJFWaVQwUkIzAI02cP+ygYs5skrfQJ5YA6AA4Te+OeU3XPHok3eO0PypqkWeNxqY1vPER
-	 0kcMowupWFlauPL1e/SDA0aZOjSOOXkkyK0Lld45+Ef38yN3GfpDcjxXlkc3TaDoxpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986651;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=vfcUvvZkx9v8w0lzqLbCBLBuOKdNBnroc0QPMFVOYVc=;
+	b=1ZxgGI1wxIt6uHSemDntcWd0qdsN7NXjB98HVImzIfCdCefo0h2JJ5JY5Gnz7BMpIwBN
+	 X3Q/rwxsU3AYvDscNJEKIqNR0VhhYJQsN2niS8w4UED83naAdAMZMxWBTVclMDfgmQRgs
+	 4E7Bs8Or53PfkLyKRCXFVJpSN80v5jjlJrcgBUksyt1XZ5pQL3Nb9bvwFSfEtuf6FbfkN
+	 YRLScsrpfogQMwSfn/iMrIp6DQB/xRbo+IFl9MODSW483RnspABiJHGnJ/0B4RzxBQfX0
+	 UAbyGGeIBSp5nghWff5GnrLce5GXylNGC2g+HjhBivFlSOS1oa8BnGdnwhy3g5W+vrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jv4JtOFW;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fo0N9uhF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fstgmRUI;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89464606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:37:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89464606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2989B606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2989B606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jv4JtOFW
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b1a705b88aso616768b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:37:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fo0N9uhF;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fstgmRUI
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F0Ivt1039998
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 17:37:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=vfcUvvZkx9v8w0lzqLbCBLBuOKdNBnroc0Q
+	PMFVOYVc=; b=Fo0N9uhFYfLY6usSQURyUGdNlg7cDLWV+qqLg/8kQMViadKA/ED
+	rReBf2trqAb4kGxF0976H/t/Xl/sT9MtaiU36y504gbdtmJOPCS0ZnVOyKemSm4z
+	c39fZ59DRp1rXFXduwvUrsnF31oVDIAmC8QH3lswOhTGGJE3ECEj12PgN6nTYWCC
+	h5On/4v961yZtJ3Xjp5b0D8hvCn637velKIbfujeCny8Vc5cEv/YP88wqOcb0m83
+	06epewpsvbBPY5k4V42cXM4DDxhxoglL9FPfUFxHo/qw0W1CwAxbzP6+PzBDp5gc
+	Jj/dXrCzO3SWCzleiPH2Nf8iBbqSlKsRajQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9uyj2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 17:37:29 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caf6c528aso173463385a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:37:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793986647; x=1794591447; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OKETz/chb1tHYfkJYLjvADpiiSfrqEQjXyv0+LotoW4=;
-        b=jv4JtOFW99wiV4NDqacB3xGxzaIoev9XxzTmlZKpB4s5HgPqYQAP9WjI0lJyyAdZ0n
-         AVtBO+jFOjMVpXF4CqRP9I52o35we8R7SppFx0ThINAFmXTKPAnY9sKUf03XpOkZxulw
-         PQR78jkhiQi5OmslTsz4oFAxfbw4Hd7XaLeO4/VnwrAUTqSIX44x4NFPvZ19f23re1lp
-         n9X2/q1v5BGUxI+SGFovsN+eGe4eaIgwNH/MCCbNyszQ40+DAFGfhrhB8uOadGJNueXl
-         WLvbQ7u6v71wtjPEE5EbxtnN17tlIzSORnxNmVlSvJqFmumjfzGWVsRZZUOG8xVyBgRv
-         L3/g==
+        d=oss.qualcomm.com; s=google; t=1793986648; x=1794591448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vfcUvvZkx9v8w0lzqLbCBLBuOKdNBnroc0QPMFVOYVc=;
+        b=fstgmRUIAd+AEsyHKFv8vqkbX57OCzJ+RQdTRcFVT5zPB8RFr0wa9217dSVe44Jxwr
+         NCLn77ecZRFZ9DLVRqgbJ3h1Fa+6R/AWmY2JzalmWC6d/WMcDHNRZ0qPA+i7hDiXDwSR
+         9lsgs+MNRMuDIOsvCLJTvtvFOAFcqodg03o2I2eXxLEDYrHIsWn/wNMfhusR0LmuuO/I
+         ua6Fqy0zz8tumMy2wSmQGO9JypZCXcQGqsym5lFoB3DyvR58tp808SmGF4AzgQMLFubb
+         J/B2NQMQWuGuPjVMYp2YFBb0cZQNW+c4VLwbG10/9eDtE/rA45/QWBzaNJpIe0fStAgn
+         ZBCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793986647; x=1794591447;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OKETz/chb1tHYfkJYLjvADpiiSfrqEQjXyv0+LotoW4=;
-        b=RZQkrgIvsMf1qqp5300Be5WxgCWkLgOPf3JfpzByOjXdxzskpWeeUFxlsg29djXihs
-         1kn/L/KsvhtaOD7kGcGmxNkzBdarysdN5aj84NRpobKkJN4VunglEulqAyUGTXI5Mejj
-         34b/Vl46749hXAgvG9g7dehgp6vea6YjI1pNSdD/VUeRaSwn86gr8Wp999TXkyPykUsw
-         P0Ocb1LnSX8PIqlPJTJN5IqyStyq/yXoIdaYRjXCi+xaeK8XEXhy0RPiGqyJt1pg58Ez
-         lTAX4qG4ym+VSBHZHnJOWhOmzLjb8rVG79NrBBRVpUGd7fNk2YCTqMo49WEGOVgBIALG
-         eesQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzqAVDVzJ1yXJNX2NlJoT0aYRpRHGclbJXUkm+QoTUw8QrpVmpc4OwCiGH9ZZmSrH24g69QkqOTsIzRw2Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D9sUNdJastV/nk2SoKtyQB3WYXfbVvRJ8Ha7icWusX4kZTrB2
-	wF/19qV/clxTr33ML7xMGEsEgaiWQF4e+UjOVnzqCw1XCgbEo8vrxnTgiqX7tauEA5uU9JbWZhI
-	en6DG
-X-Gm-Gg: AYBFou2jokhzjxW0QKgKnsD0TXwJKyaKE6RgAIO/LVpqt/ejimRRzJQnu5cRo+gwN3X
-	AhpYcSgP/OzibQaVnU6+HMCYq1HPEQugTdZJDO0/FDPFqIWmyxyJ1q6EuG8RYE/0ZzjZMhLDaQL
-	KQuQilHrtO44GjcbMzJCSI5K/dYMoTQ2C791eGaNZPg6YuUuEkLtWzTw33EVnnOZXESaZrj0GZe
-	lDHzmY1QhpNeCHG+TlW1Ek1YWNYthn+iot25ls3TuW9giYp2zyFIv/C8fHe2KgAcM8HT7hBhIBc
-	4MB5nkii2kxphGV13fEXwl4nSS9zi3sQ7ihyQ4FxkZ3o4Ub3vZcHK7jJWvybRS9gd3YVXfsF5hY
-	SsJ74rFYPAQ6C6lImktaX5o9QIOMO+kc3w9bUzTLgm4nwfnVZaBG71tFvwlUh6i4A94rJurDD2X
-	NpeT7mmsAB/78Y9gyBTvFmiv77jmlKnyZSY+Zxf0n/MT9iYn9A+ijiG9UAlwn5ldn5jG3nlDNp+
-	wDrkG8kRhNVaw6RiZXrYTr39OMMUGLPl0yz1MNtgFf0eJGdXWnPieUJY8TAUc6rg5gaqa60NHJl
-	UjLDfFIr7rgAux8etLLYoHj/M2ogS1w=
-X-Received: by 2002:a05:6a00:2e16:b0:899:13ee:1bd7 with SMTP id d2e1a72fcca58-8b37bb5b9afmr3072808b3a.35.1793986646752;
-        Fri, 06 Nov 2026 09:37:26 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:b47c:40a0:a4eb:29ee])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597f0539sm855952b3a.31.2026.11.06.09.37.25
+        d=1e100.net; s=20260707; t=1793986648; x=1794591448;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vfcUvvZkx9v8w0lzqLbCBLBuOKdNBnroc0QPMFVOYVc=;
+        b=zSDHqs4/Ukjvq2ABm+Fx4sihjd2/mQS589A8pEPgrJdGGFMWVsyoLcgQjNAi2HCkNj
+         3IalrdsQX/kRW7jLFKj+S2Qmjq13sy6UdpMiVNVdTgBy9qguRdSDTEA4nJ/gAbyWn3wD
+         jhePep9748uc05eAexGjGSwth5HUsE00+OIiGc8KpQUHgRKAOO7YvAGsf4aDXYWrIRyd
+         dov2s3pswmbXwKRD1cehc7bz3j9Laj4J0aq9UVPrmPE6w0N4+Yr/RQ2H50oU3hT77DJL
+         5GYLeb4tep7gdkHd7jgfWtULwKuL0hIqVtU54X1Ercd8IaMgbD9I+aBp3h66Wil8OJY2
+         NDdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYBmRflrSepmD/R7S/5YQRCdqC1JnGjWx5zLRd24OT2+7ynQtRNl70Y1wyHhM5b2pP16FpBw87ZW9a3QI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wRLR7PycRjYbF00jPeJ6wQrJo8/hatn0sHfWpaxB29sE/i+cq
+	nSoKrV3fCpIp5gpjcu91lF7UKoaIMORF82qohg0Eps54LIM/gh6w+9I3LDTSIW4Lo7kEJRqyX7f
+	5u+jYVE4nBliB1Ve+AHHzpjg57cY/E7kSYad3vWTxwId+UJ6mXm7noRVxyPyrJBKv6HEDfSSz+B
+	o=
+X-Gm-Gg: AYBFou0hrcOfCnC9pyBG+Km3i3SWdKa9kt+3BtV1x2P3jfyw8To9571hxcQbcg7PhYo
+	XKnZqlV+dNoeSuZU3elh5V2ONcN59gTDg/PuauQfX4Es/Eoy97hPdkMyOO5jhPgx+RSs3HmLV/2
+	tm10m+6nmZqcI4yYuwuW19l2koyugBhT99SrrEpaNLkDTkJLRXvgyYIgi7R/lxrbc/fNDqkgjnf
+	BxahqGnd7O7C1RbQBDHcUPLwq1P1Auy2pfAyzDE96EIYi1n5BfwNt03RZh98oUjpkrFk3R9ATTG
+	fPqB/D/J2uuyl+yZm8qvucLJAIzZQZdmb81fJhvjbFFGEtd6lguHo51r8wlS+awm08qZyZAChwo
+	r2BMZ4Ydc+Rq7zaF735gIQR5CNNe2uvU8Pbsg1b/hBTUBk92q4bn+J2zx5LE9TQ==
+X-Received: by 2002:a05:620a:3194:b0:92e:bc28:5479 with SMTP id af79cd13be357-945f32a3da3mr493258185a.2.1793986648272;
+        Fri, 06 Nov 2026 09:37:28 -0800 (PST)
+X-Received: by 2002:a05:620a:3194:b0:92e:bc28:5479 with SMTP id af79cd13be357-945f32a3da3mr493253885a.2.1793986647771;
+        Fri, 06 Nov 2026 09:37:27 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6af5f0c63sm84256135e9.6.2026.11.06.09.37.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 06 Nov 2026 09:37:26 -0800 (PST)
-Date: Fri, 6 Nov 2026 11:37:24 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Tanmay Shah <tanmay.shah@amd.com>,
-	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] virtio_rpmsg: fix config space alignment
-Message-ID: <au4QVFyk7Zzc6y2u@p14s>
-References: <20261101-rpmsg-config-size-v1-1-65686b445b22@valla.it>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
+        Dang Huynh <danct12@riseup.net>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: [PATCH 1/2] arm64: dts: qcom: msm8937: Fix CPU4 thermal trip point type
+Date: Fri,  6 Nov 2026 18:37:20 +0100
+Message-ID: <20261106173719.276668-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,74 +126,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101-rpmsg-config-size-v1-1-65686b445b22@valla.it>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1236; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=cWi/sRCq4/psEC0lzvEToo4ZOL2Ky8kWa/kBXNHZ8aA=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq7hBQCZUMPp9KYItNyPqEg4img3WYZELzqxUP4
+ mos81WLoI2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCau4QUAAKCRDBN2bmhouD
+ 1zicEACP59pIrSjdTgQicn3Mt0vt/PWdfrht2zlzS6Vd1+kwt56M5FphY8nJtURhhnOrdc1ERay
+ hEMM0TkQj7O1CRFab956TZCz6pFX+MD1cvNO9cPvDvPKHgCcWZR3rHfEt+IMS9/UYh8y2aGNK8w
+ 4ElvNM2pc7UF83jvIp/oZ4bF/55/3H2FENQMxhtAu3vx234GgH6lUvrEarOg9PnO9sGdMfFwH0C
+ sxT5l5PdKeTAk6M1nD9uu3sv9+cpVJD5Wyh5P1ygY90M7RJWB+ZqmsWZ+NfT+PxlE7orTTVzwlX
+ 4DxqcDOGZASECO6k4dGh0tG1xWv77WE0hj6Sj5Avbpj+kVe4oo//ci9R4b9N9nNkpor/RP6CVA3
+ nLI+5vn8kqF89BE2o4RlF+NkXddvi7rv4bP1w0ro+VzmZ77oyTt7UBsIKU+PceDLEQdmg8MF4EJ
+ hgo3E+IK7kRzSacPincswBkv+JnnPHHAbcvvIvybX680zvp/6fQ0TMXt8XThqfBGGsq790smjxq
+ MVcsa9t0N8SeAMhhKQsfnUpm/RJ5IcSfDMjXeSGGVdrSPBZODCFAiREKjQB92Z7GC9vP9Get5x1
+ q0qx/ZlI4/f4zz6iNAAVjjYrSaG9jfbXhMCXngiZT40PRUgh8Hdj3wvnEXRjUqxfs+zkVQRsPUq 3xWYWqwjDKTu6fw==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA3MCBTYWx0ZWRfX0DGPr18jzqg2
+ mjn2fUeQey3NjdlRClS31VowcHWnB+TJDJxHRDQgmEC0uFPqQRnT0z78UlXM/vfvb26g3qvCGB3
+ sntIZn2NoQdL4hyiZ6qz+/4+TwvCeWk=
+X-Proofpoint-GUID: Tg4-TXaa7ShUr3uAo_s_XkckpVYCVa7I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA3MCBTYWx0ZWRfX1OMIKw4UqOg8
+ 2xDoZHU/F+L0GCQ6GGHig5lf0Iy9CIx52hltnILliJ9mF7N2H2nqLA3O3YWQmHLn1WcvUX0oXk+
+ V7RH0BhqYFZ6LfYMwlc4cGtUG39w8dbkouL4Dhd8i3tKmwi57ry0mLb9MSXx4GQ+SmvuGEltrcA
+ Wawl4vB/Crf8qvoxSjcVk0aHf+a1yLGy5hxbJxoPVoshPFuL/AHyeb+viDZyd1nd8YqCmJNHwzE
+ bXOLGVe3XSwICw9jn7quZ3FJNE3OBrpE/ChohPtTEK8ZLCY7P06vpe+bc44HqS9NMcl42lnjxcd
+ zhtNh3rDqd7e2OfgiQ1HrrqSQMSLM15wmr+BGbB90DVvUZg2RWi2aTv3cdGIdsQ2EojABcbM/0L
+ EkmelQh66Nt2X7qyGRfhxXQLWQKUaMUg3X6IvO4CmSJ0fRRE4wTurnP8+zG6WcN4L0CHHIjWnkH
+ +tQQY+Ku5SndPTS69lQ==
+X-Proofpoint-ORIG-GUID: Tg4-TXaa7ShUr3uAo_s_XkckpVYCVa7I
+X-Authority-Analysis: v=2.4 cv=ZIZCCn7b c=1 sm=1 tr=0 ts=6aee1059 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=uPNVP4c7M2W6CD1-7SQA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060070
 
-On Sun, Nov 01, 2026 at 02:54:03PM +0100, Francesco Valla wrote:
-> The comment for virtio_rpmsg_config says that this structure is
-> naturally aligned to 32 bits, and this is desirable by some
-> architectures that don't get along with unaligned accesses.
-> The content of the structure itself however isn't aligned, and the
-> __packed attribute prevent the compiler to add this alignment.
-> 
-> Fix this by adding a padding byte.
-> 
-> Fixes: ca96ea25e51a ("rpmsg: virtio_rpmsg_bus: Get buffer size from config space")
-> Signed-off-by: Francesco Valla <francesco@valla.it>
-> ---
-> Hello,
-> 
-> unfortunately I missed this when the original patch set was sent, but I
-> think it's worth fixing (or at least discussing) this now before it
-> enters a stable kernel.
-> 
-> The same support in open-amp has already been merged [1], but maybe it
-> can be fixed before the next release there too?
-> 
-> Another, lower-impact solution would be to fix the comment, but that can
-> then led to issues on architectures that does not support unaligned
-> accesses (e.g.: AMR Cortex-M0).
->
+CPU4 thermal zone, unlike the rest CPU5-7, has reversed types for
+75 and 85 *C trips: the "passive", not "hot" should be used for alert
+triggering cooling device.  Wrong types could cause missing thermal
+throttling of CPU4.
 
-Thanks for bringing this to my attention.  I agree with this patch.  I will give
-Arnaud a couple of weeks to reply to this email though.
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-3ae74c01-648b-445f-9a65-114b2d3b2ac6
+Fixes: a829f6f2e8a7 ("arm64: dts: qcom: Add initial support for MSM8937")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/msm8937.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/msm8937.dtsi b/arch/arm64/boot/dts/qcom/msm8937.dtsi
+index 7de6447de48f..6729b39c3f2e 100644
+--- a/arch/arm64/boot/dts/qcom/msm8937.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8937.dtsi
+@@ -1942,13 +1942,13 @@ trips {
+ 				cpu4_alert0: trip-point0 {
+ 					temperature = <75000>;
+ 					hysteresis = <2000>;
+-					type = "passive";
++					type = "hot";
+ 				};
  
-> Thank you
-> 
-> Francesco
-> 
-> [1] https://github.com/OpenAMP/open-amp/commit/744376f566c3ec7e06a7d093d785295b78aa486f
-> ---
->  include/linux/rpmsg/virtio_rpmsg.h | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/include/linux/rpmsg/virtio_rpmsg.h b/include/linux/rpmsg/virtio_rpmsg.h
-> index 0872cbca4593..d24fedb63023 100644
-> --- a/include/linux/rpmsg/virtio_rpmsg.h
-> +++ b/include/linux/rpmsg/virtio_rpmsg.h
-> @@ -23,6 +23,7 @@
->   *
->   * @version:	version of this structure, currently %RPMSG_VDEV_CONFIG_V1.
->   * @size:	size of this structure in bytes.
-> + * @reserved:	padding, reserved for future usage.
->   * @txbuf_size:	Tx buf size from remote's view. For Linux this is rx buf size.
->   * @rxbuf_size:	Rx buf size from remote's view. For Linux this is tx buf size.
->   *
-> @@ -33,6 +34,7 @@
->  struct virtio_rpmsg_config {
->  	u8 version;
->  	__virtio16 size;
-> +	u8 reserved;
->  	/* The tx/rx individual buffer size (if VIRTIO_RPMSG_F_BUFSZ) */
->  	__virtio32 txbuf_size;
->  	__virtio32 rxbuf_size;
-> 
-> ---
-> base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
-> change-id: 20261101-rpmsg-config-size-0dbe9ea63c6d
-> 
-> Best regards,
-> --  
-> Francesco Valla <francesco@valla.it>
-> 
+ 				cpu4_alert1: trip-point1 {
+ 					temperature = <85000>;
+ 					hysteresis = <2000>;
+-					type = "hot";
++					type = "passive";
+ 				};
+ 
+ 				cpu4_crit: cpu-crit {
+-- 
+2.53.0
+
