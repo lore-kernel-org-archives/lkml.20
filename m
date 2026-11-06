@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962209;
-	b=yyOju/V9d0LlfmPKe21EPyRHin1IIQtjrp4VVKFVVypuDupEgHik+KbrQwtIVEFSjpIj
-	 o8A12Tks3TZoXL7bAltdbcDEUylcERWKD2R1a8XomoyrlT6UZh/1vcH8CyPcEjWDvvNVd
-	 ZIBJ4VI9LNbymtbMBZJMtMYXTu9DM4jcP8JPAbLkdE5B01/gcuzmUl6gLxDaEF9mIkJbl
-	 CVvUSDy5j5G9orz5zfqleTySj+ZPMLbD3waWHSZq0KRkaKs8f/gfmGC3kEY/wagGhYRtf
-	 4pidWhqHtY0Bqs70PJM7Tt61wclzgzBI8vhk44YLkqr6pchhh+uWtYBN9cK4/7HHcMQ==
+	t=1793962230;
+	b=GagFxeVQ+3RMIgGuWSUzcSe1W4nEG20TkfH3S4uUpTW3tVc6piCEEuUoHAVaTGDlZuLo
+	 QW4QWV5SvyQ5Tm5fbcOOH64/PTOaaz4sISWA2VNGPqZcYVLcCTWfhTpUQYXI7RP6YSz5i
+	 xxkj/vQvu6IucAlnHL4juCYHHs/m46n92xUUOe+F5xnYw6qvtn06WM2nbFbjTKO9pmOk1
+	 c21DrPiQv7KFTERofcvZ+AvDJ9zLMmAgxNG21vNEnWCeONYIyM82i49WJJqrjCrnqXHdp
+	 0mFag6HCh2q0HxQ2xXUmcNqvklQiKPabLP4jp26Ouh2X4akyZGi+MLZVFejWOvw5wSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962209;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=xYW39RZi6BQZ7wB7I4RRp3gBwQGPXTwbaw7HbZN2BsI=;
-	b=oOsiNTwS7I9lbRKxrgoonRf0EcgG12BbRuTewFnlOBdW5h+W70vj8STH7OETEp7JhS6j
-	 anKSeE46C01ArcUQX0FMJZdQAKeftqQWHnsCfK6BZhQPr2kw7v0NhmZ8Hdp9OD9dpiiiG
-	 zzJ3E9IWn1I4xOu/ZhfEPgaZHrhYb/cop2eqh0wddos8x9xTEfuyA9GCp6rHgZoLV9/yh
-	 ILpqi7kVvX+WqM2FZgkX8hZER1jKMk3zvvWTQ6a6mnpfM0c2slIP+pdR8iCj7/KxUBuoX
-	 /jpd9qSRnc9PT2GvuHQnKkkP/lrkMoCII7buX2swz1HU/6N/YNiX8fuWw3fobg0kjMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962230;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=F3j0iHgsvVEM9g/FO+OCD0ojcpYSh6uoBVd9FxVq2l0=;
+	b=m/iVlqOba0fbwLk9kvW3AjuK/wX+EZvbrmJdJu9MZ5J4zy/Am/yoA7nb0qGYXqCaGCea
+	 CCuk7om7VkdFqgcYkgmzv3Wxqa9I5l5IuHrL67vN22Bk1Hem+MDerNOeWs83aUuk+9X6F
+	 OY4qA2X/q/BeDxFDqc4/kCk7kHAGa7CP0ywTo8SpqFm6XWblqi5INSFuKtsovzhtwLnR1
+	 oWcpqJKmZEGVUt0gmwbNOwFTC1Ife1wPSu88tFXmaxDD9QywUC7qqgXxrhFo6lwkFK/fs
+	 RMvqwQcnKvez/20pLyCvL2NXL/xLhpSrIKVJcQcofZIkMhQS44h/UizjasgJq+qVD7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=poBvO1j7;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnsTGtAh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB582606EEAC;
-	Fri,  6 Nov 2026 10:50:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB582606EEAC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B9402606D81F;
+	Fri,  6 Nov 2026 10:50:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=poBvO1j7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=xYW39RZi6BQZ7wB7I4RRp3gBwQGPXTwbaw7HbZN2BsI=; b=poBvO1j7MwZvUIGsLTn3iJCmx/
-	CSuYqhq//CeM0atUd9aOwTyvnO52sxlX/0pRX7c2Ot1CP3q4viXf3nFpCGIBHXD93M654Z0GncDYY
-	0s/1FckqirvBZN5ryvJADB/GI+hUbi2XTPmU3wwN8X5ZPmYswmFE/ZducjrM0jNSxIMj6rssVzP9m
-	naSTva9/+9GWSpeTjIKwW9H2Kh5a3K+BKEQiwKWouEQlv379jB/f0yiHjPSVkzyaDpaWxCloZkqLM
-	bonIjdGN2fblCQ1oVoKGBsT8yFdWAO0Gqy+F/n5vYu55b3XvzakgJpRQJXhk5siDP9j1z63fgygBZ
-	pNqHHb5A==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPHWF-000000039C3-3mMH;
-	Fri, 06 Nov 2026 10:50:03 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7DB0E300882; Fri, 06 Nov 2026 11:50:03 +0100 (CET)
-Date: Fri, 6 Nov 2026 11:50:03 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Tejun Heo <tj@kernel.org>, linux-rt-devel@lists.linux.dev,
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: Re: [PATCH] sched: Remove CONFIG_RT_GROUP_SCHED
-Message-ID: <20261106105003.GU1813469@noisy.programming.kicks-ass.net>
-References: <20261105164724.yxONBd03@linutronix.de>
- <auy6nyTUuHBlgrV_@slm.duckdns.org>
- <20261105193010.tXUDDu2w@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnsTGtAh
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 718C71F0089F;
+	Fri,  6 Nov 2026 10:50:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793962229;
+	bh=F3j0iHgsvVEM9g/FO+OCD0ojcpYSh6uoBVd9FxVq2l0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VnsTGtAhSRzs7xTi91YjadjWR5t8/vPO/RM47Oqfj69hA43xVFGrxHne7Uy9DDKg6
+	 qtGsT2GjJR7roX6U8KjSJpKgVErUqTAnFnqsSkbfUkMbBtZFIcIG4A0mymYfQ1gfju
+	 3DKa7+wlxj9OEUx+2mBb+iZkR2W5hadY6weotTqKORoiSkBO61ZcaX74V5OpeprIuT
+	 DOivm9wndqSF27jdZ64nPLdsRmDR9VaUkiOZBFFZ0TBf2x+0eCwn7h/npb/zU9pRfY
+	 UXfjYZ0GjqEowYi03mRq2Iix4H7w3bqGAtSRM5UTC7kX3GFfoeNKOOxLfoK5jr4ck4
+	 9GGNoufhzmynQ==
+Date: Fri, 6 Nov 2026 11:50:24 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Tyler Baker <tyler.baker@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Abel Vesa <abel.vesa@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: shared: drop the parent check for reset-gpio
+ devices
+Message-ID: <7n2raovkmf3obzq4d5fk3a4444oeyc4sen3vyqyt7r3xacgvrz@gr2kgob3kzod>
+References: <20261106052851.2741296-1-tyler.baker@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,22 +60,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105193010.tXUDDu2w@linutronix.de>
+In-Reply-To: <20261106052851.2741296-1-tyler.baker@oss.qualcomm.com>
 
-On Thu, Nov 05, 2026 at 08:30:10PM +0100, Sebastian Andrzej Siewior wrote:
-> On 2026-11-05 07:19:27 [-1000], Tejun Heo wrote:
-> > Hello, Sebastian.
-> Hi Tejun,
+On Fri, Nov 06, 2026 at 12:28:50AM -0500, Tyler Baker wrote:
+> gpio_shared_dev_is_reset_gpio() requires the reset-gpio device's parent
+> to carry the GPIO chip's fwnode. Once the reset core parents that device
+> to the GPIO controller instead, this fails on controllers with a
+> gpio_chip and fwnode per bank, so their shared reset lines are no longer
+> matched.
+>
+
+Again: mixing up of the naming convention for devices. It should be:
+
+"gpio_shared_dev_is_reset_gpio() requires the reset-gpio device's parent
+to carry the GPIO controller's fwnode. Once the reset core parents that device
+to the GPIO controller's parent instead, this fails on controllers with a
+gpio_chip and separate fwnode per bank, so their shared reset lines are no
+longer matched."
+
+> The check is redundant: only devices compatible with "reset-gpio" get
+> here, and their reset-gpios reference must already name the chip's
+> fwnode. Drop it.
 > 
-> > 
-> > I'm not against it but wonder whether it'd be useful to do it more gradually
-> > so that people can pipe up if they depend on it. ie. Mark it deprecated and
-> > put it behind EXPORT for a bit and then BROKEN before actual removal.
-> 
-> I would be surprised if this is actually used especially since it is
-> cg-v1 and v2 is the default/ used by everyone (?). 
+> Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
+> ---
+> On top of Abel's "reset: gpio: Parent the reset-gpio device to the GPIO
+> controller":
+> https://lore.kernel.org/r/20261026-b4-reset-gpio-parent-to-gpio-controller-v1-1-11549e6ea930@oss.qualcomm.com
 
-So I would love to actually delete this. But IIRC there were actually
-people who used it.
+This passes my tests, though I have it in the back of my head that there
+was a reason for this more strict check. I can't remember what it was
+anymore so I'm fine with the change, if it introduces a regression, we
+can revert it.
 
-But yes, we need to replace this with that other thing.
+Abel's patch introduces a regression that this patch fixes so we should squash
+the two, get an Acked-by from Philipp and sent them via the GPIO tree.
+
+Bart
