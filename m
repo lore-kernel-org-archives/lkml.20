@@ -1,55 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974097;
-	b=o6tv8Au37cQg+lLDRmA/8XSfjOoZlWzbyeeOeTQlPaOI+ReQkaYqyBb/V7lVVPkiXoPD
-	 wZuWk01HJtUcyzOvVGehIOKsDVefZFOzuKMK9PRm5RotVghhixwsR8yE0+CUeE35OlT/D
-	 acNxRBT+eS4QUd5CmBFOqK50iyEp7zqEDciXZGxcZ4YM4E/Gn3X9kV2+wLSkTWBKeJjjM
-	 BOM7xMpDvlhFzsbzMP4xu+DDnCdvMckh1RGgPsw2KBDA07f61yceXfs86qum5FjZJjuoW
-	 aJHN/mjRKn7KQyi8km2Hgxo0Zte6nPRDXK3GKsMO9cPQOpHxYwCxs7hV0N5qye7E2lg==
+	t=1793974163;
+	b=TFRjMVllV6ymwDbiorTYkBTHnpUCMPwXlydACGJXpdYwymPYd2RUd76U34FfnDk339HN
+	 BdSOzDZvVCsFRyvjkn4ZnAVat0KGUA1qUPcUwDHpReKALgotAotjoPNLy9UJUC8fQeRoQ
+	 Tz3q5EJMkfjOi+AcDlYo2PiHaJ7Ryb6XcyB/BkPqo0Kb5sx81XrrEeej3diOzfh1UaZqb
+	 gBYitk+DQXYf1EK2+uhb/3etbnqpXUJEXlp2K9eOzjvZX8PrjDgaslK8bxTSdnoSAP4mw
+	 rKvMOcmoKjWpA/jz7gLXKIk35f6RD/pOWvI7+ukEZH9LfklFUHk2UVVwSM6Wma53Ksg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974097;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8HZmgLYGzClHR0aDQci0yoL1gMD6nTmTkstgLN6HwNs=;
-	b=klu9X2SnOk0yOd6eLO3BNpm373wGhuS9j6jJPdW5o9wlMKvs7No83QNijLXkec4Ph1rF
-	 yxsHOANMOBLWFol+REweo3/ao8dVEs2ip3ZpIkqk8H5WXVzaiQpHT7nZQT0JLA8yDmwzv
-	 fXm8bbLS8rRdG7LHHgEfC1e5DiVEbtdNbOmY/JJPfgor3T0ypICvtun2nc/K0HfPDm6xY
-	 1bnjDLHNLgrdBE/59IjvySrj7QDdCwxFJ2d6yJ7FIUXxUkpMP5/h/RJbGAiaWusrtwU82
-	 JPqcR0M6zlJPi/36UQYPt8gkt0e3TDONyC2vd7D3WpbMYaFn/BUG+5mxxOI4bhMopHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974163;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+l3jNbIDS76WPNvh/NK944sUo4wbpr4s9at1CgYGR6g=;
+	b=3h04aN4iHlGJxNDwCY60yDOGmDAFTuP7pTvoh+NVw/1wzBN8AhECFzacxkbl5gMIPp6y
+	 R2iRU0IVoIHyyjRQMeedEHqWsT2FJhaoCImedOXteqpH0oMQHw3UzxTCRz3rjErOhWnD4
+	 8k1JbC4VlY/T+knqVt9bYRZV3m9Pr2QjyBzL1yOtRRfBL10ffwLgZdNQlOypfwOtaynNP
+	 dflFq2kTUr9p3Y/8W/h8DfIV0hKsN+ujJ7I6FqNiSzz+aJa9NRTlx50lceLLom6UFpNOn
+	 83cQQ4x3VwFhAOmFyP+u2BE7Ys8fp2b3BgAbL8MJ8wOi5ULEYCeSthtHG61SkFIXtfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjqeVlsh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WeDynIun;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5EE606D80C;
-	Fri,  6 Nov 2026 14:08:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA31606A326;
+	Fri,  6 Nov 2026 14:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjqeVlsh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF951F0089F;
-	Fri,  6 Nov 2026 14:08:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WeDynIun
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884051F0089F;
+	Fri,  6 Nov 2026 14:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974096;
-	bh=8HZmgLYGzClHR0aDQci0yoL1gMD6nTmTkstgLN6HwNs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CjqeVlshTKe9+fAg0yLJVn8Q3M9Bj+HK6dEp7RdsY5ODKFPlHFLSZXsTB7/NBLCHL
-	 aSWn8FClEZ71rCbT0RCIudBXjxGEsh8nzspTcW+gNDAj4P8sBGpDwZvlY6CK9TkjFH
-	 MnwHo4LfWx9QA+8Yo9A8mIvdlAvL1DoEbRp1hQtMoF3ry3jaJLw8wyxof5g/G/75Q1
-	 8LI4VzYpktz5IgYTqIUFNe2tn0LoFgiLtXd5UCgR+AdELcETokqAMmpLW28lliKwAZ
-	 DmzTSCFB1WyhVbzm/frLvSiFwIrOF6CoK+fUCRvjeBp+ozks7sETCeazGHIsprPdWW
-	 6Be4laao/2U+A==
-Date: Fri, 6 Nov 2026 15:08:12 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 35/38] proc: sysctl: don't hold the tables while
- readdir copies to userspace
-Message-ID: <20261106-raufen-heilfroh-abblitzen-d77ebbf36816@brauner>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-35-59422ed3e465@kernel.org>
- <ntnca5ndnjaoi7bvfh346zek2jphi4kfmaxv7yd4bqfrfcwjl6@2wdnnptu4igg>
+	s=k20260515; t=1793974162;
+	bh=+l3jNbIDS76WPNvh/NK944sUo4wbpr4s9at1CgYGR6g=;
+	h=From:To:Cc:Subject:Date;
+	b=WeDynIunenyp7YlBM64P8U3/KYF0JPTr973XGHfE2NzH0frBK2n8pb+XsD1F0/euL
+	 meQ9bkWa3mWhIUnXMqfJu1iDyFgS7gfyHOANjx/AP+MzknIFIv4FIP5liLS4jmZaBY
+	 7RJpgWn7SZKCjxI39fU1kIQokvODS75dvDCyQtU5t8N2jsip/1wZd9owG5lNwtqRVc
+	 ZvmjiHLQHoiuVdQs2ww8KXJDqJ4PT/51uBXAMWFEV8qcemh50A5zSm8DhjYrQ+u5yZ
+	 2Pk+E1OiGo3xH9DrRXl5xFuZED716nN+JsCyUuM7bVriCNc38R567HkPjm6oRYXnGh
+	 +SHu+aFUatZgA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Matthew Brost <matthew.brost@intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 0/8] rust: Add drm::JobQueue
+Date: Fri,  6 Nov 2026 15:07:45 +0100
+Message-ID: <20261106140752.520386-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,24 +77,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ntnca5ndnjaoi7bvfh346zek2jphi4kfmaxv7yd4bqfrfcwjl6@2wdnnptu4igg>
+Content-Transfer-Encoding: 8bit
 
-On Thu, 5 Nov 2026 13:55:56 +0100, Jan Kara wrote:
-> So I didn't really carefully check all the details but overall this looks
-> sane to me. Just one thing that was confusing me is: Why is sysctl_dirent
-> separate from sysctl_cursor? Wouldn't it be more logical for sysctl_cursor
-> itself to start what it needs to pin the entry it wants to restart from?
+Changes since RFCv7:
+  - Write a bunch of documentation, mostly about the kill() backend_ops.
+  - Add creations of own work_queues (requires some work with the life
+    times still; last relevant TODO AFAICS).
 
-Because they have different lifetimes. The cursor lives in the file
-between two getdents() calls. So nothing in the cursor may be something
-that unregistering the sysctl table waits for. So it only remembers the
-name of the last entry and the position behind it.
+Depends on the workqueue series:
+https://lore.kernel.org/rust-for-linux/20261020-rust-workqueue-v3-0-ea7c74d02068@google.com/
 
-sysctl_dirent is the state of one call. It does hold a grabbed header
-which we drop before the call returns.
+Besides based on drm-rust-next
 
-If the cursor were to hold the header too then every open directory
-would keep the table of its last entry pinned until the next getdents()
-or close() which is the indefinite delay this patch kills.
+Daniel tested an earlier RFC (v6 I think) on Tyr and reports that it ran
+well. In v2 I want to have our own workqueues ready, perhaps after the
+workqueue has gone upstream.
+
+But I thought it's time to present this as v1 since we settled on the
+design, it's mostly working already and we can now begin diving out the
+remaining problems.
+
+So please review :)
+
+Thx again to everyone who helped with moving this forward.
+
+Last RFC:
+https://lore.kernel.org/dri-devel/20261103153138.1087330-2-phasta@kernel.org/
+
+Repo:
+https://gitlab.freedesktop.org/pstanner/linux-drm-work/-/tree/jobqueue-jobqueue-v1-2?ref_type=heads
+
+
+PS:
+Note that this version now obtains a fence->error under lock,
+because I strongly suspect that this pattern
+
+if (dma_fence_is_signaled(f))
+  pr_info("err: %i\n", f->error);
+
+is UB since there is no memory ordering between the reads (which would
+proof that fences' locks are not "just for the cb_list", as was sometimes
+suggested). My discussions regarding fixing that in C can be found here:
+
+https://lore.kernel.org/dri-devel/20261020100034.759183-2-phasta@kernel.org/
+https://lore.kernel.org/dri-devel/2db0f1b4-6628-465e-928e-d779b89f59dc@amd.com/
+
+
+Philipp Stanner (8):
+  rust: DmaFence: Implement Deref for FenceContext
+  rust: DmaFence: Add ID accessor for FenceContext
+  rust: DmaFence: Don't drop on signal
+  rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+  rust: DmaFence: Replace is_signaled() with status()
+  rust: DmaFence: Pass result in callbacks
+  rust: drm: Add JobQueue
+  MAINTAINERS: Add drm::JobQueue to drm_sched's entry
+
+ MAINTAINERS                      |   1 +
+ rust/helpers/dma_fence.c         |   4 +-
+ rust/kernel/dma_buf/dma_fence.rs | 234 ++++-----
+ rust/kernel/dma_buf/mod.rs       |   3 +-
+ rust/kernel/drm/job_queue.rs     | 873 +++++++++++++++++++++++++++++++
+ rust/kernel/drm/mod.rs           |   4 +
+ 6 files changed, 996 insertions(+), 123 deletions(-)
+ create mode 100644 rust/kernel/drm/job_queue.rs
+
+
+base-commit: 7a6bc132f1b51437063c9203e7221067b40a791e
+prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+prerequisite-patch-id: e4ebcb108207c2d06130382c59c12ffe09a7a6db
+prerequisite-patch-id: 8dc24064e858240a6bb5411a261a987a7eae3fad
+prerequisite-patch-id: eefbd4a72ed6da0083e20811882738cc3b05604f
+prerequisite-patch-id: ea89aac6f42582c91174068c1db4d171bd7a8920
+-- 
+2.56.0
+
