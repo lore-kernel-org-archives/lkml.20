@@ -1,52 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.126
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996857;
-	b=SzmWjoAHbbV1Bh79qS4lDyaX3ZTbgL8rLdRaZ3HBTOsDtYOUbcxYDE/yo90cjvfcAtDp
-	 MGGE8nhtdr1LHT9cEs3+JgLTWjSV7TP4kBl5GLUecwJppCFWDdggxlZkCAziv29z10GRK
-	 hv4eDh2BVRDfWXc0+UPc7kyWL4j4K9tl4MA0nGahiH/Xo//yZ1BfWombv4zb61g+100po
-	 NZKlAIPQLyZdLr9T9RTK9jknC8mt1x1xJiHu2hPBSh9dKGZ3Hcn+q76A98T3cZXJGe7Yi
-	 DDQqnbaFisj8hJUUSDZ3cD9dwDMBufxbNeoECmoxUuDGDZ0vCrkR6oZuRi3WGsEx6ng==
+	t=1793996982;
+	b=MqWzmLqo1wjU0wAjQxofSOYgglrJCi5E2oAJ+o5m3EGyeie71+F8y7XkMCRQ1Ag6p2qK
+	 larpAQZeYMUJ5IGTIZbFixTdatoND0t61IgGS4CmGEocr1LIFlQk29ZenF2ZpqH108Lbe
+	 kLBme9Vn/qRvVbOQ22J92XC+mVHkR+M3EnZalQLpESc4Vx87XRk6IO3l6HSizN1o5ZKLr
+	 dUrQcsHuCwHhwE4BDFWjkWgAEaSkmDwO9pGWnQIqrRM4DOS42qajKAi6/ElVexH+UoPfF
+	 ETKvvCWoX14SBIH19dzMEmG3kOR28S7eSSEja8+B0rv3qA8pTqCsjcu2cecWD94wKwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996857;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=5CwGPfss3o4B2UDwxJPyt7xPqbandq8EHhhTglsWcE4=;
-	b=DAr05/+szmNtWR1BTcMJ+n2mf33j1XBI1URV128YcDvasz2iWoASknRqASpppGOHe4Ua
-	 JB0nkogR9OAV8qdp+riPwduizFmUw3zXCKk02CrmewuYgx98fTAAS7LjQeEbSPFWTWD9A
-	 sX01M8bYFas3wvnoddjJegNITx1DbHPkUpgN/u3uOFw+zL0VPkjtYhMl3brq1BGSJr4p+
-	 Nfk1JmCHkbJrMSlfofztlq7inWMJ7pke46fuOyMoORZlsWN4MgTCaNwCiu5lo1RRuNAxP
-	 LKK7HoNlUEBIHjAgsgNmCsJNFRCqsZ+Fc8DCcuFuIqapQ02PvlODv4AOmmqg/PF7H+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996982;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=HrXkiiGdUBmwU/LbSqgOWqBj4+1gSdkVc3p2fHsXaTk=;
+	b=VQhqiTL9Yyo7DNC7rGzTXnSvr5tcwbHK7i3SvYWLAFlczOkLXLro0a5pZ2uR/tN8wz8L
+	 goy2oAYleF4BOM+YUeG6GrviOzmpgnYQTXKRhWtCppHNhwcVgenkBNR1mTXJhvGam/LlG
+	 YWzfY83m6cXpPors1eyeYg2Ywin15bGNQIu8yKNoWzrLyFnjkjvWLazUgkWanaLEv/uCX
+	 7L0aGLZvGvl7BOp/26Zjx0DOpgwiLfcH0RE1gNXZCqS1K/mHgSGQRDTjk0+tAfr2EwXuI
+	 z/Na+4X0JM4Pa6cqQkfDvnDmNQJwAAokhqYQhCPfiwCUWCDbGAESGwpH+X1Y5saN5UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KaCVBGhO;
-	arc=none smtp.remote-ip=91.218.175.126
-Received: from mta0.migadu.com (out-126.mta0.migadu.com [91.218.175.126])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b="YITxRy/H";
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB400606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:27:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB400606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2D0606A32F;
+	Fri,  6 Nov 2026 20:29:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC2D0606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KaCVBGhO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=43lSI3je5SgzVn0fvn0HfJb/Ol5l8VVjob7w0n5ta/k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793996848; v=1; x=1794601648;
- b=KaCVBGhOFNko4IdzlRU2aIGG4WN0YSqAO6FhiAglIuFMTGCFOVl1y27PZ6s6EXzmJGiSYAx5
- wCdtaSMl8BfQyK/fBfy9sysOh8fJA9mAfRzTLc0lc8MjVRIY+V8fk0Eerw84NA/2pNoKsQxDnqo
- CdNIbSsroH/6foBdJ+N51WfE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 009fa777757b40f2;
-	Fri, 06 Nov 2026 20:27:28 +0000
-X-Mizu-Trace-ID: 009fa777757b40f2
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=YITxRy/H
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=HrXkiiGdUBmwU/LbSqgOWqBj4+1gSdkVc3p2fHsXaTk=; b=YITxRy/HbXJm1Ad71+dJ1GnA7k
+	FQwQtX8nd+8e8LMWhluvLtF/1NtD6J4SY1VHF5PzsyuWPiS+SGzEnjO6pbomf649Z49n/AjcsRsRF
+	9Y6395JGcR94EskTCbhA+dsxZlLJyVRYmqFUTbTylILK4C96Ssej/8RWHdWFQR7HN7cDCe9gE/ofh
+	QLVXJiNgSwFgtSJtIE0k0kPia2syppa//6J+2cJtwMsMpojKeLmPcSWNco6vGsonOmT7PaudJENgp
+	SvIcrWNvyMuXk8owIrd9KIrOvUtWiPcLIkPK9J6/F2aBy/2pcPndZsWScKzaEA3OU4NSZjk4xS/NY
+	+GCpgGhg==;
+Received: from [151.115.150.205] (port=56674 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xPQZD-00000001I6n-2K02;
+	Fri, 06 Nov 2026 21:29:40 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 2/2] xfrm: fix selector matching for IPv6 atomic fragments
+Date: Fri,  6 Nov 2026 20:29:08 +0000
+Message-ID: <20261106202910.723098-6-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,63 +77,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 06 Nov 2026 20:27:28 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <1d7fe388a84ba7a078efbf1972869d63cb8234ea@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v2 6/7] wifi: rtw88: 88xxa: adapt channel
- sensing to receiver gain
-To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ho Jie Feng"
- <hjf3108@gmail.com>, "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <3bd7d396-bb54-41bc-890a-bfeab90dca3a@gmail.com>
-References: <20261031070950.425176-1-hjf3108@gmail.com>
- <20261031070950.425176-7-hjf3108@gmail.com>
- <4ada79186cd882a6d3344c43579e5addc4d4e644@linux.dev>
- <3bd7d396-bb54-41bc-890a-bfeab90dca3a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-November 6, 2026 at 8:46 PM, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>=
- wrote:
+Commit 7e3a42a12c4b ("xfrm6: handling fragment") stopped decoding IPv6
+selector fields after a Fragment header. That is correct for real
+fragments because later fragments do not carry those fields, yet an
+atomic fragment is different because it contains the complete
+datagram, which allows XFRM to read its ports, ICMPv6 type and code,
+and GRE key. Leaving those fields zero lets a plaintext atomic
+fragment miss a policy that matches on one of them.
 
->=20
->=20On 06/11/2026 19:34, Luka Gejak wrote:
->=20
->>=20
+Leave ports, ICMPv6 type and code, and GRE key unset for real
+fragments. For atomic fragments, treat the packet as a complete
+datagram during IPv6 session decoding and recover the ports at the
+transport offset found by the flow dissector.
 
-[ ... ]
+Have ipv6_find_hdr() report non-atomic Fragment headers while it walks
+the extension header chain. Pull the base IPv6 header before calling
+it so nonlinear skbs are safe, and recover selectors only when every
+Fragment header it sees is atomic.
 
->>=20=20
->>=20 Bitterblue, did you turn EDCCA off through the edcca_enable debugfs=
- file?
->>=20
->=20Yes, that's what I did.
->=20
+Fixes: 7e3a42a12c4b ("xfrm6: handling fragment")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ include/net/ipv6.h      |  1 +
+ net/ipv6/exthdrs_core.c |  6 +++++-
+ net/xfrm/xfrm_policy.c  | 17 ++++++++++++++++-
+ 3 files changed, 22 insertions(+), 2 deletions(-)
 
-Thanks=20for the answer. So I think EDCCA itself is fine with this patch,
-and it is the lower thresholds of the adaptivity mode that keep the
-firmware from leaving LPS.
+diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+index 3de07e738538f..10785721b013d 100644
+--- a/include/net/ipv6.h
++++ b/include/net/ipv6.h
+@@ -1110,6 +1110,7 @@ enum {
+ 	IP6_FH_F_FRAG		= (1 << 0),
+ 	IP6_FH_F_AUTH		= (1 << 1),
+ 	IP6_FH_F_SKIP_RH	= (1 << 2),
++	IP6_FH_F_NON_ATOMIC	= (1 << 3),
+ };
+ 
+ /* find specified header and get offset to it */
+diff --git a/net/ipv6/exthdrs_core.c b/net/ipv6/exthdrs_core.c
+index 4a9748338cf40..9b9e2ce72e170 100644
+--- a/net/ipv6/exthdrs_core.c
++++ b/net/ipv6/exthdrs_core.c
+@@ -183,7 +183,8 @@ EXPORT_SYMBOL_GPL(ipv6_find_tlv);
+  * isn't NULL.
+  *
+  * if flags is not NULL and it's a fragment, then the frag flag
+- * IP6_FH_F_FRAG will be set. If it's an AH header, the
++ * IP6_FH_F_FRAG will be set. IP6_FH_F_NON_ATOMIC will be set for a
++ * non-atomic Fragment header. If it's an AH header, the
+  * IP6_FH_F_AUTH flag is set and target < 0, then this function will
+  * stop at the AH header. If IP6_FH_F_SKIP_RH flag was passed, then this
+  * function will skip all those routing headers, where segements_left was 0.
+@@ -254,6 +255,9 @@ int ipv6_find_hdr(const struct sk_buff *skb, unsigned int *offset,
+ 			if (!fp)
+ 				return -EBADMSG;
+ 
++			if (flags && (*fp & htons(IP6_OFFSET | IP6_MF)))
++				*flags |= IP6_FH_F_NON_ATOMIC;
++
+ 			_frag_off = ntohs(*fp) & ~0x7;
+ 			if (_frag_off) {
+ 				if (target < 0 &&
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index bda5100c9fdbf..679343b23df35 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -3526,9 +3526,24 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
+ 		decode_session4(&flkeys, fl, reverse);
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+-	case AF_INET6:
++	case AF_INET6: {
++		unsigned int offset = 0;
++		int fh_flags = 0;
++
++		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
++		    pskb_network_may_pull(skb, sizeof(struct ipv6hdr)) &&
++		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
++		    (fh_flags & IP6_FH_F_FRAG) &&
++		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
++			flkeys.control.flags &= ~FLOW_DIS_IS_FRAGMENT;
++			flkeys.ports.ports = skb_flow_get_ports(skb,
++								flkeys.control.thoff,
++								flkeys.basic.ip_proto,
++								NULL, 0);
++		}
+ 		decode_session6(&flkeys, fl, reverse);
+ 		break;
++	}
+ #endif
+ 	default:
+ 		return -EAFNOSUPPORT;
+-- 
+2.47.3
 
-To me this looks a lot like b0435910e47d ("wifi: rtw88: 8822b: Relax
-ETSI EDCCA threshold on 2.4 GHz"). There an RTL8812BU running as a 2.4
-GHz AP wasn't seen in scans and failed to get TX reports under the
-ETSI threshold, mostly because of energy from the adapter's own USB 3
-link. The fix was to use the normal threshold on 2.4 GHz under ETSI,
-capped for EN 300 328. Your network is on channel 13, so that would fit.
-
-The 8812au vendor drivers don't use the adaptivity thresholds by default
-either. Both v5.6.4.2 and 8812au-20210820 build with
-
-        CONFIG_RTW_ADAPTIVITY_EN =3D disable
-
-and as far as I can see phydm_adaptivity() then stays on the normal
-(mode2) thresholds.
-
-Jie Feng, maybe doing the same as 8822b would work for v3, the normal
-thresholds on 2.4 GHz under ETSI and the adaptivity ones for 5 GHz and
-JP. Bitterblue, is the adapter on a USB 3 port, and do you see the LPS
-failures on 5 GHz as well?
-
-Best regards,
-Luka Gejak
