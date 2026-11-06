@@ -1,84 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973963;
-	b=UklapGLSk0jh6B6AQl5pEtlOUGfJPaz1O8t1YsczjNt381Ubh+D/q4dhQiuFcFUIoySl
-	 9kgWnDoUPlVem8SlEgJNForJj1obLhNstmriDq7psLyVhP5eZSQaJ4SKoA6lZau+8NhGd
-	 0GlEosdaoaxTTEbmrLEHpyKZpQxWAGz4cwlmEGRLvIxtppKlGtAghRBIGIL0s6uNp457H
-	 V2MAim/tUH/wF0B5s9C+uw+EI1YsN7CJBN9Ee5Wy0nOFT27XmGFfjmFva3mBxUyhEiTb6
-	 OmQZG2S6uq0ceaqeO5hd1XW9XXk2ymYSZIJk0J8jlLsDKzL2f3j2fVLrod1FF6tACQA==
+	t=1793973973;
+	b=18lpDRHZ5jyjFnQlj4mHZ3ZGO9T9A3qVY60jDyFaWq8Z0666WdRI/NGf9A8veGgtpcQE
+	 iq20X4b7TXyHr4aXwlLyhe5aRoy8lbtgcQfXhMqwxM4ZR4V8viS6fKcCWRaTuafuWnLAt
+	 Gad+JzPiQ3GGrBeF003pIzO8DuKgu38E9Cl9JPzIRe2/Y8QCKpuH1iu6JOuUSTNAn5oIt
+	 oPqMw06OF3zWDvLfyEPDS/b1rZvod/WesylwD5JEaxNjCf2vtcIQZS2F7WGGaV67p82n1
+	 h+HQ87UPaebJqt0OJzf4zd4wSie3kh4LNiYsfM5gtVYSicyDH38yjIudrmVyHGncNRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973963;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PuZSxoPIfBuBWYT5kGfR/wiii4e+fymaeZzVU1jtsaI=;
-	b=ukcJMfzFiiSdjIsTYIzEjkpn6TxZFCI1yyqfsRXETz9Nbhe3O3JNtru3Tv9QOA5yj2aA
-	 1jLfkX1OcHulW34E9Scgk7kdlGU5ec8kQ93nXt0awMjw7Wti1EDxP158Uy5IJiPALJuyJ
-	 cFT1pscXUfmdCBZpZdltdTUvVyl3yE5kq3hRdfaizJ/D96cdh5Y70/9oBHkRvrJ6Bbvrl
-	 jOOI2w/cN10t9iV136344N7GW5ueL2e73aGQZj6ZBdE532wawHysU9OpX/JkwjyFLC5Ho
-	 iACsmVpac/pmXVkLNmwEca8pzA1OuUIvBnpbiz2pm6lWw2r7QNfLkK1GOiNdWsEXmKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973973;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=eqhBVbUtw3dy734MGt0XscJMrayl/heBjdE55TwHpBE=;
+	b=jdcf4NG1cpFhxls8pZrV5YL74GmUN2KDlGWKZInFSYdqGl3oDkF9mx78UDWt0UbIZhKq
+	 RU8NVEF1oleIgBTGg5aN8AURdwHZo9XVjSQQxxdmsNo77rEkSBHmi0olEn87VUNyhRUZs
+	 ASQ0XflU+n0CdQ4NZKM3z549U+5qCjZuKLkvuM6X7PtqGAXUeJ9XcygZQvCojNor580MJ
+	 L93lpdVy2CEjAwefFneGqfBKQBmWPMTRTE6NPVZj9RHpddtD0pTfWkQm6Lov9KW34xzMe
+	 qO3yJcyGdhhBB57qzCcsAadw9D1l2QRsO8Z5ysvRCQP5KcIC/Cn+eyDeDUlrDKXZAeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LVdL5OTg;
-	arc=none smtp.remote-ip=95.215.58.228
-Received: from mta1.migadu.com (out-228.mta1.migadu.com [95.215.58.228])
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=rEFjIsRc;
+	arc=none smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCF4606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:06:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CCF4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29EE606A32F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:06:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E29EE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LVdL5OTg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KdFDOOwfZpllsNIG61lzpXhrUDjzYe3zHf7j2d/rM0w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793973959; v=1; x=1794578759;
- b=LVdL5OTgDLMIMrDfJNp3W6jbpvLzebf6/nHzDbVsgTI0/F2WoQhDR4vMHHY/shEStctNJS22
- dd7IxwlftsFazxu7/U6NZrUo2Y07ny27+rcGp8oRXvl5hSd/nIpV9I9I0S59iRX/LC+xgzdwdnv
- ibgHVLBtX3zy2134lTvrWdOs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 5b86ef43620373c7;
-	Fri, 06 Nov 2026 14:05:59 +0000
-X-Mizu-Trace-ID: 5b86ef43620373c7
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	jbohac@suse.cz,
-	david@kernel.org,
-	hbathini@linux.ibm.com,
-	leitao@debian.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kas@kernel.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	linux-s390@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: Re: [PATCH] crash: keep crashkernel CMA pages reserved if activation fails
-Date: Fri,  6 Nov 2026 06:05:54 -0800
-Message-ID: <20261106140556.1667159-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <0a3c64d1-2b8f-4e0b-87ca-5397d1aaa3ee@linux.ibm.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=rEFjIsRc
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0d63f60bcso7616447b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:06:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1793973967; x=1794578767; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eqhBVbUtw3dy734MGt0XscJMrayl/heBjdE55TwHpBE=;
+        b=rEFjIsRctA59Iu2/BHBn1Bio1Z530ac+g4EEE4umpjlRFctJ/W1yi+oJAJdR8sIKtC
+         0ANk4+IEeh+gWZdP8+5Abj0Wi+7JUGtI3eOPnJ0wMnngrGVtvT7+mdXKDwBc4VjMOreA
+         HRXNX16MAj9gPw3V6sQG29RsCMeifuq7vktm82eZ1OL9M0wUFDM8b1mHYrWOWDjP7hoA
+         FgchrqECOX93FzgDhG9Sn07L+FCR1PCSxN8pDG5a+ABli7EEuG5ifSugYUsuO9WbK3uX
+         2labLzJdsWWlMl8/Ibz30wICnbSFS6Rx+DAJRAtH3OrhgDaH9x+c/HNq/PuJNNkUGIVa
+         0UdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793973967; x=1794578767;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eqhBVbUtw3dy734MGt0XscJMrayl/heBjdE55TwHpBE=;
+        b=kNwiW7fWWM/bRBqVg3gvbbVVMv196y4FvARZjSJdrUgm+i58FqHLPRdh4i9jI6YyYH
+         NTo29p/W2cycIki5Qtw/Pzjfo9MLT36fW3WiPuZydgu3VyPV7wOlqGElAa0RP/b7XMiZ
+         ttQn0b0ZHPJjeuQJvb2TjVeZj8BHzwoI7pMnPonOU3zzzPbnd0yrefRuJPXjDtwEwtl1
+         6zD+riADYUKNSyJS67qq3qJPfayK+uWr6lic9BiCN2NAsLeiLzGPCKpDc2qnHLCff5ez
+         WCVF7OoYpN+12ORsZfpT9w/H1JSKLFLlNfFWhzjt3tMfJjXQncRT0Du8y8whA53FMWGb
+         +78g==
+X-Forwarded-Encrypted: i=1; AL+hErEUuZZujdSb4NgzYjMtA904njeyJQjC/G+Mey/jx0joWIwM1G3fviKhWFZPubEiAZon3wwTYxKRZKDFAys=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SIKrwYxIq8y9wEDSKWpwE/KacIlJHVbYOOktAiEZunmps9WF/
+	u5FsCoGHBeRLpinQF/j9i39kAX9q7tR+Q9j9nTqZEPP8vXSlbFeV7LY0WqZnG4g1zpo=
+X-Gm-Gg: AYBFou05nUfSpY/lpH56KsLwoa6pdD4nqdNIv8NdiGi2uAuL6v+QhWhjdYjzmiNi8fI
+	9oKKlPv7wacbKAA5gW5/bMkJzdEIP8fj6d+9cvoN5E3ZAO3MQ13JANeEKsIQj8QxW/2pIVQN189
+	vwzJylKYm832F+5cFRn5AL23vKqCRzlbelfJD1+gowNsO0xq9IztveVw9qY6F7ey6W+aE6CCBKc
+	s1X6NZS9cpzWj0OaT1aZwZwdW6pe6zeVhRA4qqJO4HfzvEcx5Ti68i+Aj1wDhSIURNpwOqSNoBv
+	BkuQvzdg/onrnKnr6QKzPC4Z5r/34KBOOMDfbmNKJgHRHkma9A+hTx45L/A5MoFdaQZYjXxL0cx
+	s/sFU8JUQtWmACxxY/EBTwWzTw8uHy0JB9AFxmglQmvtSZBl80ZoQ3GO2TwsI33kqrSdf1EEcj2
+	fSTesz1BE0uNnU5hYDi+POgIdL+aiCku7XVamiHernvaadPf+D0Upkixic6esjMFV3KftDkYPGh
+	7AXlWx1S4dkLXDgxvyXi3Z1squBqGHdGTdYVt/Sfqnz1axFyxW4ltkQI7eQxHCYNHbuRtWSRo8j
+	RsXYFc/TGgYZ2FGjMM5PZqneRIhG
+X-Received: by 2002:a05:690c:560f:10b0:8b3:10df:54a3 with SMTP id 00721157ae682-8b341b1ebe2mr10611897b3.65.1793973966605;
+        Fri, 06 Nov 2026 06:06:06 -0800 (PST)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f856f99sm19108527b3.34.2026.11.06.06.06.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 06:06:04 -0800 (PST)
+Date: Fri, 6 Nov 2026 09:06:00 -0500
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Dave Chinner <dgc@kernel.org>
+Cc: Kaitao Cheng <kaitao.cheng@linux.dev>, gregkh@linuxfoundation.org,
+	arve@android.com, tkjos@android.com, brauner@kernel.org,
+	cmllamas@google.com, aliceryhl@google.com, nat@pixelcluster.dev,
+	arunpravin.paneerselvam@amd.com, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+	simona@ffwll.ch, viro@zeniv.linux.org.uk, agruenba@redhat.com,
+	trondmy@kernel.org, anna@kernel.org, cel@kernel.org,
+	jlayton@kernel.org, cem@kernel.org, akpm@linux-foundation.org,
+	david@fromorbit.com, david@kernel.org, hughd@google.com,
+	yosry@kernel.org, nphamcs@gmail.com, matthew.auld@intel.com,
+	matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+	jack@suse.cz, neil@brown.name, okorniev@redhat.com,
+	Dai.Ngo@oracle.com, tom@talpey.com, qi.zheng@linux.dev,
+	roman.gushchin@linux.dev, muchun.song@linux.dev, ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com, liam@infradead.org,
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+	kas@kernel.org, mhocko@kernel.org, shakeel.butt@linux.dev,
+	ljs@kernel.org, kasong@tencent.com, axelrasmussen@google.com,
+	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+	chengming.zhou@linux.dev, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+	gfs2@lists.linux.dev, linux-nfs@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH] mm/list_lru: Account node removals in isolation helpers
+Message-ID: <au3eyCrHiuhbJx3u@cmpxchg.org>
+References: <20261103045053.59548-1-kaitao.cheng@linux.dev>
+ <aupITfr9pBKPrU20@dread>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,59 +120,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aupITfr9pBKPrU20@dread>
 
-On Fri, 6 Nov 2026 12:21:12 +0100 Mikhail Zaslonko <zaslonko@linux.ibm.com> wrote:
-
-> 
-> 
-> On 04-Nov-26 15:56, Usama Arif wrote:
-> > reserve_crashkernel_cma() adds each crashkernel CMA area to
-> > crashk_cma_ranges[] as soon as it is declared. If the area later fails
-> > activation, e.g. because movablecore= put the ZONE_MOVABLE boundary
-> > inside it, cma_activate_area() releases the pages to the buddy allocator
-> > as ordinary memory. The range is still handed to the crash kernel and
-> > excluded from the vmcore, so kernel data that lands there is overwritten
-> > by the crash kernel and missing from the dump.
+On Wed, Nov 04, 2026 at 07:47:09AM +1100, Dave Chinner wrote:
+> On Tue, Nov 03, 2026 at 12:50:53PM +0800, Kaitao Cheng wrote:
+> > From: Kaitao Cheng <chengkaitao@kylinos.cn>
 > > 
-> > Mark the areas with cma_reserve_pages_on_error(), so that a failed
-> > activation leaves the pages reserved: lost to the first kernel, but safe
-> > for the crash kernel to use.
+> > Successful writeback calls zswap_entry_free(), which removes the entry
+> > from the LRU and decrements both the sublist and node item counts.
+> > shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
+> > to decrement the node count again.
 > > 
-> > Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
-> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> > ---
-> s390 hits this without movablecore= (adding the s390 maintainers and
-> linux-s390) since ZONE_DMA ends at 2G here.
-> CMA tries to reserve areas above 4G first, but falls back to lower
-> memory when it doesn't fit, so a cma area can end up across the 2G boundary.
-> I ran into this while adding crashkernel=,cma support for s390, which I
-> will post soon, and came up with the same fix.
+> > The affected call path before this change is:
+> > 
+> >   __list_lru_walk_one()
+> >     shrink_memcg_cb()
+> >       zswap_writeback_entry()
+> >         zswap_entry_free()
+> >           zswap_lru_del()
+> >             list_lru_del()
+> >               __list_lru_del()
+> >                 atomic_long_dec()  /* first node count decrement */
+> >       return LRU_REMOVED_RETRY
+> >     atomic_long_dec()              /* second node count decrement */
 > 
-> About dropping the range instead, as you offered for v2: I'd keep this
-> version. With the range dropped, the kdump kernel gets less memory than
-> configured, and that only shows at crash time. With this patch, the
-> the first kernel 'loses' the memory as with a regular crashkernel= reservation
-> of the same size.
+> That's a bug in the zswap code. You shouldn't be calling
+> list_lru_del() from __list_lru_walk_one() context.
 
-Yes, I do agree with this. Losing memory in first kernel is preferrable
-and it will then force someone to fix whatever is broken rather than
-finding out when their kernel crashes.
+Grr, Kaitao you dropped the wrong thing that I thought had merit in my
+proposal...
 
-> 
-> There is a second problem in the same loop: all areas are named
-> "crashkernel", which breaks the CMA sysfs and debugfs entries when
-> there are several. I've sent a separate fix for that:
-> 
-> https://lore.kernel.org/r/20261106104309.3669583-1-zaslonko@linux.ibm.com
-> 
+Dave, would you mind taking a look at my patch at
+https://lore.kernel.org/all/auJkvb-Lq0M5Enkz@cmpxchg.org/?
 
-Thanks! I reviewed this now.
+Ignore zswap for a second. I know it has problems. Most of it stems
+from the fact that we rely on the swap locking and do none of our own
+locking/lifetime on the zswap entry. As a result we work around it in
+odd ways. Sorry, you didn't ask :-) That's worth revisiting, although
+it's likely more invasive work.
 
-> Reviewed-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-> Tested-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-> 
+The observation that led to the patch above was a much simpler one:
+since we now have the caller-locked __list_lru_del() anyway, the only
+difference between that and the list_lru_isolate* is the
+accounting. The patch is about one thing: removing the isolate helpers
+entirely. There is then simply one tool for caller-locked list
+unlinking, __list_lru_del(). It removes an avoidable distinction,
+shrinks the API surface, makes it harder to screw up.
 
-Thanks for testing and reviewing!
-
-Usama
+The zswap weirdness made me look at list_lru. Consider it a stress
+test from idiotic code :-) But I would propose the list_lru
+simplification for its own sake, regardless of what we do with zswap.
