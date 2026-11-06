@@ -1,54 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793961560;
-	b=fMFe95qovvFwUIa+TcFDrELL6dAFCrsf/5hGBqhfLnh6abog/xWdyiOWxgHmRihIs1Jg
-	 vtntA34Kr8IgxtFy/Kvuwgtwy1+kFvVjRHAmKWbZhnsLdBSD/kJI1z+kMUYqcCGpQRTNQ
-	 /qhRncN6Sa6DDKKqLFvmOi5rulR8lYo3GNyJSm+HrXSzm+z3KxKTCoJdgK1BJdmty2rEc
-	 +U/qJCVYKwe2NfrCd9gIBC2Q/TU1lP9NnKCPhgym3oWfOIV7MOpOlEFZVVVv2TGcfYKkP
-	 T+a8nAk1cMlShq4REqXP/sXpTqnCa3tV4vLJDeOfXn04Z7UZ0vD5uKQPnvrjSzOEyrQ==
+	t=1793961576;
+	b=0SzZ1qJ4QPJxp8nmUuqFNApnturBQjk9iE9C7TGfPgQ6HYFxAvIa+HaLFYknvlaCLzRv
+	 lewyCSIdBhX/P7A0mMJcCwaaisl1Q8MAsJ3zuVXgeQFcY3A0uP7iNNngw/SpKMWQ13Yfk
+	 ChY3rM1i+TUA+TpbY0CkwHChcZ/ITaSbqN2q8AGr1/oNQdKcFcQgzF8mntvAApE6pTvMz
+	 g2RY2WiWvnxB26/BsnVN6gNYhJPxZ/YvzGilQBiDc5MiTJ33iy4rodyXdgZ99H1XfToJJ
+	 tmX3HLkGcKTyLamy5u6Gphl/Zm0kG7a1HhUVo6PqVx1NgsvceIuzastKKnCYBdMtH2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961560;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BwwvAo48JOYLLTzc9WNwZXD+5ptM0E8s9q01W8x4TE4=;
-	b=GoQp/sERhO0P+oUuS/gryc568a/MGVE3z5f7Z6KpeXC1OL6Ezhxu5cDNNzb+Y/M4CBHH
-	 GwK2pewpxkMAtgHXCkoLDmixHmn2+jqb4lggrsGJl7AmmeKxeimUnRNboT5ffUJPcarJP
-	 Zfja33EVmCZHSYukCGdJFf8WtXroD4lFLWLL5DXz0UyLJZAQPK2yJMKdEYZxs9TrwDFNj
-	 iLJdgZNNhaW3auveUqKbL54/KeO2j8groJdsdB+8mKBriyaLUQ1xvv1b/GVrwLBA6Sywv
-	 wUfdxqhqK6U8ecmGoBZWMcn/6u2DrTSLnT6DHYubKIHsRhwpCa6mzJ6kDcZMR+lVSRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961576;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=gaoHfM3wTtwoxj8HG7vLz81hToomm6xkkEefXaJGFa0=;
+	b=zyQnC/WknG0X7IMz8/i+uxsp/papHGVzvhe6DPJVdWytZ9cxChbKXCTlcPHAstTUROKw
+	 c+3i9QeKamVfCAXfp357qGtzva6BhDRqhq+J5WKJQ1XQ2EtfuC9d+Zetq7N0BAn67QHf0
+	 tK2O3XEdI4dlmNtEF89JvQxDGEcCovflv89Nybb40GExzhfd/6LUEIFtTEMq5zo4Yg8mv
+	 /LWR2spNoQNbb/UMyFQT5Korpoj5wDUA+u4FdWLDiz1J1YMM48x/RkwFfgEk4TylTOM1i
+	 w52B2WP8QVzrvXegvO/uOaOt3l2laCUFnz46m+LJwVwvZnvMFpI0J6eoLMSNw4c+qQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keOrL6Kz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877AE606A329;
-	Fri,  6 Nov 2026 10:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keOrL6Kz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264091F008A3;
-	Fri,  6 Nov 2026 10:39:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793961560;
-	bh=BwwvAo48JOYLLTzc9WNwZXD+5ptM0E8s9q01W8x4TE4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=keOrL6Kz2bU/G7KBVO2KMtdauhOKy4N+EzLxg0uIfrdL+CJvX5ZJ8M1A0lFJw8lI+
-	 dFSjAql8AHOGCt6pzX+ee4VPgBbFdkHnm9Gwofutgmg1O02Yo3k4A8gcyOEPquCBwz
-	 /vQnKbdmoV23yA/uog560Ad2ECCZVxG3PxRyk/2loooav/mPhWqUSC/G9JqlNSHWN8
-	 nXFft9ClmvcWFbyZA97Pt0VZfIEyvOpiINxoY2Mfm4wDuc2AhIGqCzw56wU56xKioJ
-	 B2qrh2q3JghKHnqYymA+45Qic5LkKxRlJ3dm8JiyvoMd74zPV9YED+Xpms9MMKfwVV
-	 gGieffLSFsmew==
-Date: Fri, 6 Nov 2026 11:39:15 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: hverkuil@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, kees@kernel.org, 
-	justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
- drivers
-Message-ID: <au2uDjVhB9232IuB@devuan>
-References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A224A606A329;
+	Fri,  6 Nov 2026 10:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A224A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 6DBD168BEB; Fri,  6 Nov 2026 11:39:32 +0100 (CET)
+Date: Fri, 6 Nov 2026 11:39:32 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: shao.mingyin@zte.com.cn
+Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] nvmet: zero out unused data of fixed-size log pages
+Message-ID: <20261106103932.GA5633@lst.de>
+References: <20261105215753914RuQA4AVkFtXzpBkieEscY@zte.com.cn> <20261105215759419k4-bV6cgNlque5OLcc4E9@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,145 +48,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3p7qdtfmdp5yngpy"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
+In-Reply-To: <20261105215759419k4-bV6cgNlque5OLcc4E9@zte.com.cn>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
+Given none of these are in a fast path, should we simply zero the
+entire transfer length first?
 
---3p7qdtfmdp5yngpy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: hverkuil@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, kees@kernel.org, 
-	justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
- drivers
-Message-ID: <au2uDjVhB9232IuB@devuan>
-References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
-
-Hi Mariia,
-
-> Date: 2026-11-05 23:46:39-0800
-> From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
->
-> In preparation for removing the deprecated strlcat() API[1],
-> replace the strscpy() and strlcat() calls used to construct
-> V4L2 card names in the TEA5777 and TEA575x radio drivers.
->=20
-> seq_buf tracks the current write position and remaining capacity
-> across appends, avoiding repeated scans of the destination buffer.
-> This preserves the resulting strings, including truncation behavior.
->=20
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> ---
->  drivers/media/radio/radio-tea5777.c | 10 ++++++++--
->  drivers/media/radio/tea575x.c       | 10 ++++++++--
->  2 files changed, 16 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/media/radio/radio-tea5777.c b/drivers/media/radio/ra=
-dio-tea5777.c
-> index fb9de7bbcd19..2b1c7f6ddd60 100644
-> --- a/drivers/media/radio/radio-tea5777.c
-> +++ b/drivers/media/radio/radio-tea5777.c
-> @@ -13,6 +13,7 @@
->  #include <linux/init.h>
->  #include <linux/module.h>
->  #include <linux/sched.h>
-> +#include <linux/seq_buf.h>
->  #include <linux/slab.h>
->  #include <media/v4l2-device.h>
->  #include <media/v4l2-dev.h>
-> @@ -255,10 +256,15 @@ static int vidioc_querycap(struct file *file, void =
- *priv,
->  					struct v4l2_capability *v)
->  {
->  	struct radio_tea5777 *tea =3D video_drvdata(file);
-> +	struct seq_buf s;
-> =20
->  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
-> -	strscpy(v->card, tea->card, sizeof(v->card));
-> -	strlcat(v->card, " TEA5777", sizeof(v->card));
-> +
-> +	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-> +	seq_buf_puts(&s, (const char *)tea->card);
-> +	seq_buf_puts(&s, " TEA5777");
-> +	seq_buf_terminate(&s);
-> +
-
-Why are the casts needed?
-
-
-Have a lovely day!
-Alex
-
->  	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
->  	return 0;
->  }
-> diff --git a/drivers/media/radio/tea575x.c b/drivers/media/radio/tea575x.c
-> index c37315226c42..e49228eb7c46 100644
-> --- a/drivers/media/radio/tea575x.c
-> +++ b/drivers/media/radio/tea575x.c
-> @@ -9,6 +9,7 @@
->  #include <linux/module.h>
->  #include <linux/init.h>
->  #include <linux/slab.h>
-> +#include <linux/seq_buf.h>
->  #include <linux/sched.h>
->  #include <asm/io.h>
->  #include <media/v4l2-device.h>
-> @@ -221,10 +222,15 @@ static int vidioc_querycap(struct file *file, void =
- *priv,
->  					struct v4l2_capability *v)
->  {
->  	struct snd_tea575x *tea =3D video_drvdata(file);
-> +	struct seq_buf s;
-> =20
->  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
-> -	strscpy(v->card, tea->card, sizeof(v->card));
-> -	strlcat(v->card, tea->tea5759 ? " TEA5759" : " TEA5757", sizeof(v->card=
-));
-> +
-> +	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-> +	seq_buf_puts(&s, (const char *)tea->card);
-> +	seq_buf_puts(&s, tea->tea5759 ? " TEA5759" : " TEA5757");
-> +	seq_buf_terminate(&s);
-> +
->  	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
->  	return 0;
->  }
-> --=20
-> 2.43.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---3p7qdtfmdp5yngpy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrtrkYACgkQ64mZXMKQ
-wqlT8g//f3NZDvoQVpI2Aw9DfPje8gah3Ujc2CYMbHUmYlfiRNNnq94R9DZXgsM8
-WV5/dKP+r+WEZwJ5pY45KlKY9vTky/Dk6E2w8gHDBFQG37jrPEyNb+DUVGMLz5ky
-l4IjLyjNeP74YMjiCY2wY8zopBR8dmoMe2ICY06CmM3h7DKynDL7XW5nILrCWnPu
-K6GVvgON9dUUco1+NuSRta0DBDKWBxtT+lBbbyxubvQx8TANo2qRR/gmFi6Ex7qn
-hDfbQyP7tsfwXo4IxYwixMewwbLQ8Qw3+yVaDlL9mijdnm5ON+zXsNbv2EhHkodK
-Xe0l6CmqIY01nqXL2GaR5wH7XqP/qDD8+O8xjwblySbWHNu2kaDkJWVvmNalnkLG
-nJNMRHiuA2KPBupa8fk/fEZccR7pS7TgOhfD4HCECVLRoiJjqSHjBT8BAQz591HO
-sX8bNIHQXv8zstQKLwY3ilDwzLHlG5qKP2G5QhKVI3hSpvXx91paf9BOybkfN+Cc
-dvbxI1UmDDrUTbwXOdSEGSlPiCRFtDdrgeTTNBKRV7p/M3+6mAunHdIdK8WUG29R
-m2yiB/ZPJDDv8BcyvjYyIzwUHUvylraQgp7jxEM6GZTNzrvPFH7xHp8Er0WgBlWG
-oRYpgAfVQUW1PxmYSPecMtcznGOoeVq5VPzZZdka7EJj15xyFFw=
-=c77U
------END PGP SIGNATURE-----
-
---3p7qdtfmdp5yngpy--
+Also please cut down the commit messages a bit to be on-point.
