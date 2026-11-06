@@ -1,82 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988976;
-	b=tTghwcF6hdRFd2bINg0gfNaCYqkAGXe6xy8MZfgU/sz8QGvNRO2bcmsczdm61XVHR8Ip
-	 FcGa6hx/1ZLyxDWrRyH07484yLfyM3lveM2JIesuQE6FrCOUE69Yt5JcRZs4+P8yeG5uz
-	 k4NDhGaBCFs1EZJr60VKHQSWZRXzWTiMSFE0t1v8hvxva2OiXGoy2cSGKrNeyKQuDufVf
-	 /jGJ6NK1oqicXaScXlDoSkP+b/tjKhWAHXgj902wzC9rthPnFNTyvs0gKl3kklJeZM9B9
-	 iklgn+tjkQrPpxSkmW7UCKJCA8kt+CnLOZnJJAFZEz6lGPqmYUBZgFHridRLJwHnFGg==
+	t=1793988994;
+	b=eo1LlvAkoHAzU+PTI0opVlIlu48227zPnqs00RgoXkxKNqRDgg6QEmJEzg5+XE3rBYTF
+	 ebAUyxD/0fSz3ol0HyRCCq1BkpYarYbIHowumQJK0keRxHTOboe5jdWNKUjAgeR/h72fN
+	 Vem4k0V4IaNmBxAcAWSgiVRDocGe+aXFNiSxmyDdmft/8s6kRiqbOtDH3FF+iBZMQ8K1a
+	 j8VzNDB0nBRwi1LGlJaWFlMa6cAeeayXnzRTEPFII6WhUvEDzeHYRbaBBov6evaGTZYJ2
+	 n2j7J3PHJSFTvE74erycG2a/XHhc9guE3sZhzMu+VE/wViqhML65c4IKmj+9Kv+dHpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988976;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oj7yyLGXka6snyLwwPDV89YPr2tF7hbTbrbYfPXXDNc=;
-	b=FdhHlAtPsCnPeUoWhRQ4XaOLNY2YLqyGIk38OmJn3ZYbhcv1ke1XPmDPMlAmzyfGqNZG
-	 ZgXtlWGM9dNRg7+GFYKDv8Tusu/EsHdJ14+fWa4/1CFLyU/gdZE2qB+EJ5xZKEb7XYHOK
-	 +VAon2DnvHb952ws6JxpEE5hfch4rnBjpCruLid5jdXi2q4cRttIAgnaDTvXplmvoNdvl
-	 jG/fw5z8HtV21sDdOnBIGd3soMLw/wOUAw/Xv5Eeh7YlH15JnVyjdEbmlvHP871WhmwDE
-	 jK8fA9OYwXVu1TL2X4kXaCMgU+Qb1xtHaTWfcQdFs/hj0uO1Amqtc7S6Kfequ1mhh1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988994;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=np0rBc7IjhEQu4p09VCEWlO9o9RBufgirnMcmCHN/No=;
+	b=yBceXuDr8divBw06ySIdPX07wd8p8yaHARl3VV8N1AQm0iEh2ASXFLjfA8GgISWJSrE7
+	 Ch+orpt1wxNReJrW6u0ubhNPdAxABdITkQPNZD6aDohzIterWmpJr9EYS4xw8LLIS8FD4
+	 0m+JpZZQkPzhmQCP9VDyhRnIphb47A8vP4AcX15rMqu/XysYeZKGMrLeNNr4qR3WQaCsq
+	 q3MYXyw+nnbKs/UFlmjicyKhLr6BKwBDOZzsOY5VYD9AuouOITdY4O3x+a6RtdByCz//s
+	 rjIRTEz05t3pE3EMPGxah6sm3vWYhkOxEHJhwBxDK7SsDcM3UJmJHG/IHKiM+TOqj4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=T8bVa0HA;
-	arc=none smtp.remote-ip=115.124.30.99
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F498606A329;
-	Fri,  6 Nov 2026 18:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F498606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="d95EKw/c";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5FF59606A332
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:16:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FF59606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=T8bVa0HA
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793988972; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=oj7yyLGXka6snyLwwPDV89YPr2tF7hbTbrbYfPXXDNc=;
-	b=T8bVa0HANS3Twz08sAhyHtzokmQQYzTA/JpbpY/Sn0yZ6Se9G7MIIuQS1JUsaT7A9RYMLoq8RZjUxMjKL2Lb2rVhQE9aPy3n2DMfmetNZpiypB5a+pfuqNMxrUgof2z7hr9Qbv3H6ldhL8aH7aWOue7Sq9iWOBRa/g0MsLBXoHY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XECMC2V_1793988969;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XECMC2V_1793988969 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 07 Nov 2026 02:16:10 +0800
-From: Chen Pei <cp0613@linux.alibaba.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	memxor@gmail.com,
-	bjorn@kernel.org,
-	puranjay@kernel.org,
-	alexei.starovoitov@gmail.com
-Cc: eddyz87@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	pulehui@huawei.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	luke.r.nels@gmail.com,
-	xi.wang@gmail.com,
-	shuah@kernel.org,
-	rgbi3307@gmail.com,
-	guoren@kernel.org,
-	bpf@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 bpf-next 2/3] selftests/bpf: Enable private stack tests for riscv64
-Date: Sat,  7 Nov 2026 02:15:57 +0800
-Message-ID: <20261106181558.1564-3-cp0613@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106181558.1564-1-cp0613@linux.alibaba.com>
-References: <20261106181558.1564-1-cp0613@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=d95EKw/c
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BE0E1682;
+	Fri,  6 Nov 2026 10:16:29 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 71F2B3F673;
+	Fri,  6 Nov 2026 10:16:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793988992; bh=E0Ux+rJXBJFRHQCF+PiknD1DijpMrELS0VMmKTqZ/Rs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d95EKw/c2iQCv93H00PxABDJ9kn1MVxtlxP3CD2v2pOefm8L8SnZROUPuT75jGECz
+	 FiWX+xTnOiS0ChTukXnbcxOAwocaOMf2G6SdagNl8JqWw2/kjzCGqKv5pEh+lv5McW
+	 HPQvygA8GlxZMRkHs5bw7kwl+PDlEUmoZ7rfAi8A=
+Date: Fri, 6 Nov 2026 18:16:27 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: syzbot <syzbot@kernel.org>
+Cc: syzkaller-bugs@googlegroups.com,
+	Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, ada.coupriediaz@arm.com,
+	linux-kernel@vger.kernel.org, mark.rutland@arm.com,
+	ruanjinjie@huawei.com, syzbot@lists.linux.dev,
+	vladimir.murzin@arm.com
+Subject: Re: [PATCH] arm64: suspend: Only track cpuidle context for idle tasks
+Message-ID: <au4Ze0u6L91ve4u7@arm.com>
+References: <c49d0138-9e6d-40d4-b46c-518240685bf1@mail.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,127 +64,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c49d0138-9e6d-40d4-b46c-518240685bf1@mail.kernel.org>
 
-The RV64 JIT now supports the private stack. Allow the existing
-verifier and struct_ops private-stack tests to run on riscv64 and add
-the expected RV64 JITed instruction patterns.
+On Thu, Nov 05, 2026 at 08:19:45PM +0000, syzbot wrote:
+> From: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
+> 
+> Commit 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic") moved
+> the calls to ct_cpuidle_enter() and ct_cpuidle_exit() into cpu_suspend() so
+> that arm64 cpuidle could keep RCU watching longer and manage context
+> tracking internally. However, cpu_suspend() is called not only by cpuidle
+> via psci_cpu_suspend_enter() (which runs in the context of the idle task),
+> but also during system suspend via psci_system_suspend_enter() (which runs
+> in the context of the task initiating suspend, such as a process writing to
+> /sys/power/state).
+> 
+> When entering system suspend, current is a non-idle task. Calling
+> ct_cpuidle_enter() invokes ct_kernel_exit() from kernel space (!user) on a
+> non-idle task. With CONFIG_RCU_EQS_DEBUG enabled, this violates context
+> tracking invariants and triggers a warning:
+> 
+> WARNING: kernel/context_tracking.c:120 at ct_kernel_exit+0x1b4/0x1f4
+> kernel/context_tracking.c:118
+> Call trace:
+>  ct_kernel_exit+0x1b4/0x1f4 kernel/context_tracking.c:118
+>  ct_idle_enter+0x20/0x34 kernel/context_tracking.c:299
+>  ct_cpuidle_enter include/linux/cpuidle.h:134 [inline]
+>  cpu_suspend+0x264/0x474 arch/arm64/kernel/suspend.c:136
+>  psci_system_suspend_enter+0x4c/0x80 drivers/firmware/psci/psci.c:544
+>  suspend_enter kernel/power/suspend.c:468 [inline]
+>  suspend_devices_and_enter+0x88c/0xd0c kernel/power/suspend.c:533
+>  enter_state kernel/power/suspend.c:618 [inline]
+>  pm_suspend+0x498/0x698 kernel/power/suspend.c:644
+>  state_store+0x14c/0x1fc kernel/power/main.c:819
+>  kobj_attr_store+0x6c/0x90 lib/kobject.c:842
+>  sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+>  kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+>  vfs_write+0x51c/0xa0c fs/read_write.c:687
+>  ksys_write+0x12c/0x228 fs/read_write.c:739
+> 
+> A corresponding warning is subsequently triggered in ct_kernel_enter() via
+> ct_cpuidle_exit() upon resume.
+> 
+> Fix this by checking is_idle_task(current) in cpu_suspend() and only
+> invoking ct_cpuidle_enter() and ct_cpuidle_exit() when executing in the
+> context of an idle task.
+> 
+> Fixes: 19235e472798 ("cpuidle, arm64: Fix the ARM64 cpuidle logic")
+> Assisted-by: Gemini:gemini-3.8-flash Gemini:gemini-3.1-pro-preview syzbot
+> Reported-by: syzbot+79883955da3a62652a80@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=79883955da3a62652a80
+> Link: https://syzkaller.appspot.com/ai_job?id=5359e16f-013b-4850-9cbc-ddfb3bac95e5
+> Signed-off-by: Uladzislau Zhauniarovich <uladzislau.zhauniarovich@gmail.com>
 
-Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
-Reviewed-by: Pu Lehui <pulehui@huawei.com>
----
- .../bpf/prog_tests/struct_ops_private_stack.c |  3 +-
- .../bpf/progs/verifier_private_stack.c        | 41 ++++++++++++++++++-
- 2 files changed, 42 insertions(+), 2 deletions(-)
+The patch looks fine to me but the authorship is confusing. It was sent
+by a bot, also generated by a bot. Uladzislau tested the earlier RFC
+(thanks!) and syzbot decided to make him author while dropping the
+Tested-by. The original tested-by:
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c b/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c
-index 2b3ec2b79091..103179ff8733 100644
---- a/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c
-+++ b/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c
-@@ -6,7 +6,8 @@
- #include "struct_ops_private_stack_recur.skel.h"
- #include "struct_ops_private_stack_large.skel.h"
- 
--#if defined(__x86_64__) || defined(__aarch64__) || defined(__powerpc64__)
-+#if defined(__x86_64__) || defined(__aarch64__) || defined(__powerpc64__) || \
-+	(defined(__riscv) && __riscv_xlen == 64)
- static void test_private_stack(void)
- {
- 	struct struct_ops_private_stack *skel;
-diff --git a/tools/testing/selftests/bpf/progs/verifier_private_stack.c b/tools/testing/selftests/bpf/progs/verifier_private_stack.c
-index aa15361bcca5..3cde7b1af126 100644
---- a/tools/testing/selftests/bpf/progs/verifier_private_stack.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_private_stack.c
-@@ -8,7 +8,8 @@
- /* From include/linux/filter.h */
- #define MAX_BPF_STACK    512
- 
--#if defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64)
-+#if defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64) || \
-+	(defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64)
- 
- struct elem {
- 	struct bpf_timer t;
-@@ -42,6 +43,14 @@ __jited("	mov	x0, #0x2a")
- __jited("	str	x0, [x27]")
- __jited("...")
- __jited("	ldp	x25, x27, [sp], {{.*}}")
-+__arch_riscv64
-+__jited("	addi	sp, sp, -0x20")
-+__jited("...")
-+__jited("	sd	s5, 0x10(sp)")
-+__jited("...")
-+__jited("	sd	a0, -0x100(s5)")
-+__jited("...")
-+__jited("	ld	s5, 0x10(sp)")
- __naked void private_stack_single_prog(void)
- {
- 	asm volatile ("			\
-@@ -60,6 +69,10 @@ __jited("	subq	$0x8, %rsp")
- __arch_arm64
- __jited("	mov	x25, sp")
- __jited("	sub	sp, sp, #0x10")
-+__arch_riscv64
-+__jited("	addi	sp, sp, -0x30")
-+__jited("...")
-+__jited("	addi	s5, sp, 0x10")
- __naked void no_private_stack_nested(void)
- {
- 	asm volatile ("			\
-@@ -153,6 +166,14 @@ __jited("	str	x0, [x27]")
- __jited("	bl	{{.*}}")
- __jited("...")
- __jited("	ldp	x25, x27, [sp], {{.*}}")
-+__arch_riscv64
-+__jited("	addi	sp, sp, -0x20")
-+__jited("...")
-+__jited("	sd	s5, 0x8(sp)")
-+__jited("...")
-+__jited("	sd	a0, -0x200(s5)")
-+__jited("...")
-+__jited("	ld	s5, 0x8(sp)")
- __naked void private_stack_nested_1(void)
- {
- 	asm volatile ("				\
-@@ -223,6 +244,16 @@ __jited("	bl	0x{{.*}}")
- __jited("	mov	x8, x0")
- __jited("	mov	x8, #0x0")
- __jited("	ldp	x25, x27, [sp], {{.*}}")
-+__arch_riscv64
-+__jited("func #1")
-+__jited("...")
-+__jited("	addi	sp, sp, -0x20")
-+__jited("...")
-+__jited("	sd	s5, 0x8(sp)")
-+__jited("...")
-+__jited("	sd	a0, -0x200(s5)")
-+__jited("...")
-+__jited("	ld	s5, 0x8(sp)")
- __naked void private_stack_callback(void)
- {
- 	asm volatile ("			\
-@@ -452,6 +483,10 @@ __arch_arm64
- __jited("	mrs	x10, TPIDR_EL{{[0-1]}}")
- __jited("	add	x27, x27, x10")
- __jited("	add	x25, x27, {{.*}}")
-+__arch_riscv64
-+__jited("	addi	sp, sp, -0x20")
-+__jited("...")
-+__jited("	sd	s5, 0x8(sp)")
- int private_stack_async_callback_1(void)
- {
- 	struct bpf_timer *arr_timer;
-@@ -481,6 +516,10 @@ __arch_x86_64
- __jited("	subq	$0x100, %rsp")
- __arch_arm64
- __jited("	sub	sp, sp, #0x100")
-+__arch_riscv64
-+__jited("	addi	sp, sp, -0x120")
-+__jited("...")
-+__jited("	addi	s5, sp, 0x100")
- int private_stack_async_callback_2(void)
- {
- 	struct bpf_timer *arr_timer;
+https://lore.kernel.org/all/3e92ccb0-2952-4317-af4c-45457c15efae@gmail.com/
+
+I don't think #syz upstream should automatically translate to
+Signed-off-by.
+
+What do we even do with such bot-generated fixes (which may be correct,
+so can't be entirely ignored)?
+
 -- 
-2.50.1
-
+Catalin
