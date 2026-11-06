@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997594;
-	b=5eWMxyDICP798zEipuOLVrjPlTXiUZPwnYXdtKJcMb7rzv/n1aMM7u99l5L3X5vSknQG
-	 WE+SoRwhxi3lqgNalOCmG0APG5Hmd4DO9fhTWg9t9FAGbH0sTDYNTk5eeHZiZ9CoSKdUZ
-	 BwZcZ+mzTozEhLw1MJZREEY5yF6+4Hh8HPp6TMHXzt41qEC+8mWl6M58lLUsbyunsxH4T
-	 caxAjmD0Vs5V9Paqk49QdGdXd0nGZVsB8E4gMYbheo7CMSmZ9fe1tvG9IK/+a+lxXeNNm
-	 m3myggQmIpPcKWmuq6It/vvxhGljk6cAsfa5bVpZzE4HUb7EFdb2hzaMV9CHeu+QbRw==
+	t=1793997605;
+	b=otUIllvLZVMNGfbAHsA3ykzRDeEV6Rz4BLXGCtjmaL6pu/jl5Iune28lKomnNoJHwp+b
+	 1rHOePu0SNtBPLzJXzjG67wMVCkoI/NtXen8NByqYWUeB7ySvIH+xcakujIGjUTjSDKLX
+	 3PLh3jXuL4qZgf8dZJuPGHkLaKXE1HDeNHJnaX2ftAMF9sXIK4uGwX/WDZXMmhKCOqKBA
+	 cEva6fDGIFfgn5QRrSOP+Ji2t7pXIW1b3+3UoHKQcDLvyfSUm2R2jpWIJdtP/wQQ4Lpnq
+	 VnTPAwpLFohUzDNmm5Md6s9ORfZpLXC/d/OYeayMXMG5xNMeFuF9PEo8+dpZQA+2gMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997594;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=wJrOzcEQroAAuzq1S9zpcuWlXHd3ETBGQmhVYJ/5Neo=;
-	b=5eMWSrcjSrp+h5gRrGc/W6jcvUKGooGCv5ljbhfyNV+eqaSWC51TGbQAOK2cWUO7QOCd
-	 xcn/Nw4vF3uXBXi4dF4kakzwNPJz+sMTsiC2/7PyP4OFyTy1eSUDhqmSvltrjSrGV6mE+
-	 px1xsiN+rFWS//iiJZ+9LZniQ0aH4ZRzCn9pZb0HVjN+cYo8ZpWlcT4pUpesv4BPRqjsJ
-	 hFDJMQvv1VoVETn05RIKaVI9g9OOpxuL43UAQ1i+3Bm++fffLoYtz0KEqxVPaU5WMw9g3
-	 Vx5BMV0nMVo3mymjtpt10rbf+TItJfyk2sO5+/EmybbdnBQvnW/IJqEntRLcD9kqleA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997605;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=NxUp48EJkiGxY+Ocge8pL9nNXlcYwAjL6UsjCiffpBc=;
+	b=cs5/npqZnuxJuHHjMs04Fk2/27ZKNohnkrp5TYP9tiHMfnI5E1D/KxvEWtRpGsW9LdLn
+	 8WriyzgWKNCy4cnJ4Sf/1d+9vMwVV8PSD2AQt3dzMUjBRsd4y21XNOTcFeV/GPUBEEQ5U
+	 q8bdhrvXsSFbeqj3moiZQtPOomcSIBHh1L7rVa/9DFZQxe9gD/2zwBycaVpI/keLCMJZc
+	 U+1doC42ygvGwMT6QRsM1Ehbn1asixTAK9ZyezpyGInWjZXNheJee2p/u1GTNjfBD0SwM
+	 GKzeJTKXzrKpHASkUeKWUIKvWawZFCcLVCuTB3SfEVNu3MIuN5zNSrewjJHDKfh0eAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVgxCtXr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8854606A326;
-	Fri,  6 Nov 2026 20:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVgxCtXr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9FD1F0089F;
-	Fri,  6 Nov 2026 20:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793997593;
-	bh=wJrOzcEQroAAuzq1S9zpcuWlXHd3ETBGQmhVYJ/5Neo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aVgxCtXrKIKwV8BnPAbg6C+6la+unNBGjIKGvx+9KLlUBqQAXpkd/70UiPVgVgMuU
-	 3+QI+vakOCthsK8j83gsY1JRor1AzSMzzfxRHfZY52bAzZzu8QlY+zkyAbSfIGPEzb
-	 ZvUazqMRKyeGzrvpvPQtk/X8PKqxLi3z8vx5mHaEvWs3OA0I7Lcei1jwaaJ9nguRv8
-	 o3dAtHq9PWJknTdDCMYOi/Op6pED0XiqbzvowCqbc3nrQpsgQzAh/18lsd+tnJq5/C
-	 F6PwxZGfM5yCCQqFHUVvmaN/hKYILeFVYwVRQu5SX9LWK44IXvpNA2IaspTLIXBGx9
-	 CfzZWcUAPmMOw==
-Date: Fri, 6 Nov 2026 14:39:50 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-Cc: devicetree@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Dragos Bogdan <dragos.bogdan@analog.com>, linux@analog.com,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, jic23@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ad7405: Add
- ADuM7801/7802/7811/7812 support
-Message-ID: <179399758998.1528830.11972412583872645520.robh@kernel.org>
-References: <20261105093531.7562-1-pop.ioan-daniel@analog.com>
- <20261105093531.7562-2-pop.ioan-daniel@analog.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BF0606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:40:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5BF0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b597558c4cso1265830b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:40:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793997604; x=1794602404;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NxUp48EJkiGxY+Ocge8pL9nNXlcYwAjL6UsjCiffpBc=;
+        b=Y5hCqqY9oyVQXNa1Kcgz6t/r/rEkYy/Glcl7iB1NZMbj6avA8WUbNeRGU2kbICdwym
+         cNVZMgO0Y1PybM67+vTqR6raaZFqepOhYE5Fuc/Nrlc9AyZcMkmldBMIo7jXqdo7I6BG
+         Fqbc+8mlYht00BqkmG2HYIoO1482PQWbjEw2qF7CaXO8Xz0Yv2VOR/BuXov1dNsMCyjI
+         vaYMHhpOI+v0Qv48MVfl91P8P/Kn+dnFxgvg9oOveHPmtmB0HhmicWnovf7EPga/+axE
+         icFwES/hr9eRaPc7bnzGyV9NZyghlEhd4kcobWPOutkUxiQTndOddvfGJMAduOj2ZRTy
+         7JbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzo8f0igaYsLhden9tdwYvqLvK6cnXBiaBPzN+ltzih1nsRo3I6YqEcRMjYhBju6kriYMrHTGOC/g69FM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xsu0f8L027vlwHwZKrYrsjy847i8U+KzhDhpblWBPbjusVjEw
+	4Mv81ReYISaHnb/Pb9e4Ey0sNOeIHJakz1fAYvW7b8ErpJgLWGR9ELCDmW/IudXqnT/QvEIr0BY
+	rWekBcs0qc9dnrsEbXTS/mTdehHi9SaW6sLEpafcmvPfHa9uXwRH/WNZPdCc=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,32 +58,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105093531.7562-2-pop.ioan-daniel@analog.com>
+X-Received: by 2002:a05:6808:1c0e:b0:510:7dc8:5ff7 with SMTP id
+ 5614622812f47-567e0f98f3dmr2846345b6e.19.1793997603806; Fri, 06 Nov 2026
+ 12:40:03 -0800 (PST)
+Date: Fri, 06 Nov 2026 12:40:03 -0800
+In-Reply-To: <20261106192154.480-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aee3b23.45cab1c5.12a849.0000.GAE@google.com>
+Subject: Re: [syzbot] [dm?] divide error in cache_ctr
+From: syzbot <syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com>
+To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot tried to test the proposed patch but the build/boot failed:
+
+drivers/md/dm-cache-target.c:2386:27: error: use of undeclared identifier 'U32'
 
 
-On Thu, 05 Nov 2026 11:35:30 +0200, Pop Ioan Daniel wrote:
-> Add compatible strings for the ADuM7801, ADuM7802, ADuM7811 and
-> ADuM7812 16-bit isolated sigma-delta modulators.
-> 
-> The ADuM7801 and ADuM7811 have the same ±320 mV full-scale input range
-> as the ADuM7701, and the ADuM7802 and ADuM7812 have the same ±64 mV
-> full-scale input range as the ADuM7702. Apart from that, software
-> handles them the same way. The ADuM780x support a master clock of up
-> to 25 MHz and the ADuM781x of up to 50 MHz, which needs no special
-> handling. Use the ADuM7701 and ADuM7702 as fallback compatibles.
-> 
-> Signed-off-by: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-> ---
-> changes in v2:
->  - use adi,adum7701 as fallback compatible for ADuM7801/7811 and
->    adi,adum7702 for ADuM7802/7812
-> 
->  .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++++----
->  1 file changed, 20 insertions(+), 5 deletions(-)
-> 
+Tested on:
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+commit:         ddfe51b0 Add linux-next specific files for 20261105
+git tree:       linux-next
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3dffa811bfeed6b4
+dashboard link: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=179e9abe580000
 
