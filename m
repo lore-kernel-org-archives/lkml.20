@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962117;
-	b=xjdmk2T8UnuktwcuKjmIcoOSQxmZa7KedGeaNB1uwvmtPJuysybTNO1OQiI6s8xYwflC
-	 zM+LNxnklh8Id/TIymbHLVylbJ7AKMEdPMsCZcWEwy0DNm/uDECu6fhOSJf+E+1yI87LO
-	 oq1AziHj1TaOhpK4MhDTLnKXiEDnAUvMY7E7qJ637mQmBd5N0E+M2tdjAEQ61ia87cK0W
-	 HWS/nC7lB4GzzsBmrVQbd2cImWblql9yCmtaaWcNWLl1dy++xz5d9SXh0w8Q9I7h5jh6T
-	 t5zSgemV3iE+fpe1CVfhm9gaRgQ4Dts9EhfZAFmgI9gFAInzkZzi6LR2TeJyxCTV/xA==
+	t=1793962165;
+	b=XUee+/pZS6ssv9SIsUKtq3O0yefPNG7bKTB5TuckmJfKDzyjRS0BNrZTREEDEMa6gpHy
+	 Iog9z3gTzFT/cekUjPan55e5gJPUyBWHzSZLYPH4uozq+TyGPCKMYQTTnBGTsz2Oo1joN
+	 8ZZEbOTp8Z7MRCI1cyq5K5T+9CvIw4rGTLcaEO2l1eD2Stc2z0mGfbmts+iK/SrKqeLmT
+	 r7g9DnIIxoKxfpAq2IFKp95z5lm0AesFZJXIVBVjjDZiphVweyeECW3YCc6xx6U6c0IL4
+	 x46RtXLiW100YDPazm60MylpblAJN7Gj9fUB7NRuE+W353Vxi30NfpA22/WL4124m+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962117;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962165;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=QPhlS7hNAGme7fTUkdKF49UIBocGWfyVeEHaKEHHT+U=;
-	b=4LyuFsI+5Fbeg11i24r6byLEbEP3AC+wu8JF0/Te3qpUovgLmU8pcjg0g6hpasTUUvBT
-	 r9kRWwQbJfBvWVQ0xS0UU3E/4S2+rnuQOiz+1U5+MSvZ4LlNPBAosWBW85g5AhW0tyClB
-	 ferSHzUG8MvVBpDtp1vEuy+965Kr042+8JN3feNS/oMbAITX+HaGrpaFaT8SO44izUWst
-	 j8q+GRFAPvHBJTt9oB4T81pFPkXs5mQ9eWhpNsYYyheDQbMqKtHf/X6/5z71dJSY1JbDp
-	 LHmy47tI6MRMxTv9ejJ4ol4ahFLuq/buLtA3wBcsQZ1R2nc88ZwapZIuIDzpfb3Zgtw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n21l4rAHkH6encd8aStoBcV6YaH3+037KdgWxZqVYd4=;
+	b=1PVZgJx8edZS98u0rQg7He5lws8VmHiJjyQHU+e54Kr6OWfC5fr1D7WdJyJ4j0lyaGCs
+	 V6LdJJRUTKKbFUrpf0CCZmj2hV6uqdkYy2lvnne+4aVK3AuPf7eNabk5ZQt2zXJFD+Pjd
+	 kWc/8cJtutn8wtPLtz/cW7qk7jc4XtPzra3l2R7n6itpvaZYB1J0ikdz2h7wng2vYbJ6X
+	 kizbhtZQap1x2qX5r5lSWBPay/cDjTvVSJnGqveR/iwJw9RzBn34Aut0pcJKKDtL9uHIp
+	 j8PJwtItjUGo+UwX0l0KpCqjjF3I/6fGBaqnAV/YyxpB05ONQLSEyOG0lJrpkaaO6uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a7nNAOzt;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ded1J5dR;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9DD606D823
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:48:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF9DD606D823
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B712606A338
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B712606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a7nNAOzt
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso2183615e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:48:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ded1J5dR
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so4574625e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:49:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793962115; x=1794566915; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QPhlS7hNAGme7fTUkdKF49UIBocGWfyVeEHaKEHHT+U=;
-        b=a7nNAOztDIRAE0EaFYTkDJcetY/0vMZ8fv5QVLf5WAQ3Y7hpF+2H2986u3hs1dqCAl
-         8JMPZtucl+vr1+4+XUPYD6pk8J4GFheRRdMSK5hEDKlD8X5zLaoUd3aL+DXG/ix2O6kC
-         5O7Av9rGcjzD8dVi6YFTOPPSmrEN1L3jOb37UOMuGZ70gv4Qy0+/Bt7h88PvkjAHQobh
-         7vHQdyNPgk+X2/zCbBa94ASwRIJ1MOq6XpedM6w8Uw6Elf7e3BaPucgQy5Pno0Lmf7QK
-         3OokzOpOu/QYTUeAkDNtaR3SwHFDSBo6qYoJ5PTtfQB3UCzzT22jqTTmCs8XKoY23IpR
-         7qvg==
+        d=gmail.com; s=20260707; t=1793962164; x=1794566964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n21l4rAHkH6encd8aStoBcV6YaH3+037KdgWxZqVYd4=;
+        b=Ded1J5dRchaGyXOPHjr+bKs3LDOkr61JRsl5YDUrTVhPzdz/5ZyDaKlolLtwYYLht2
+         chex9UJ9izr7kbUu79ISH4XuRGhbGHxeTFGFM2psCbepMLVlmF1GbgxkRgKg4qD97e9l
+         36K+GNkwSmwF9gDnrwgbg+OgKKzc9J0shHdK16BlAKa27PlREjKcGcJOZoFFEsXxhMNa
+         NsDXtJMvEfHO/v7z1sbb/i6Q/nO9iu6taPsXOpSihe3gZ0BF1P50h3IAw228ez+ZTbOo
+         OGF0kzPwRP17ytsZwMpYJzxf1crDJ7hsRyTIqrV6SPqV8fDd38rmeRwGtVnlDfBrfSrs
+         xalA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793962115; x=1794566915;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QPhlS7hNAGme7fTUkdKF49UIBocGWfyVeEHaKEHHT+U=;
-        b=HCQqEO3IEgikbNip4QSeGFU1K8HJEsa77O/riXIslPDR5zSK1CxtYak2EY8lFyNNWM
-         cXPrVthTN7vL0IaAHIyXKc44dln+KESvtj4I1RdUD7hh2kKWI/419JpGqGu6k4/Qr1vq
-         TjqJ3dWTIa4YBw/W/iXWquo5HDainEVgCiCAJ6R1JJUGtYaUGDwlYab8Y2H+emXqU22L
-         whmv9QAwukSsw1T+0NtbxBwHzhni3spmkHiPdY9BV2bcjKxeHt6esIHmLgMnhTiVSNNm
-         +wT++XPo5/DKstZWfdYUW30LCuIDNZVu90sa76xUc5HEYNyLDbKoyhCR+nF7+/8a1Qqj
-         KUbA==
-X-Forwarded-Encrypted: i=1; AKwUvByUL9KGpMq7bpIyasKcBDRMGkaqK3hl8bmNkGlvGJI5GqpTT0g8Jv9UNVoErDEkyKH16Oheo/L5OiwXfzc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jLqVFw23nh5jIWWMFLxCtDBUhUEM43zgjXCRpfGqQJgMBgAfK
-	zZDKKRJotXg1nHcnce6jKivhlTN3NuiNb4ESnZktXAJmRYKiBGmEVuG2XacRwMBxynA=
-X-Gm-Gg: AYBFou2y5DkYEeFJmqDZ2na8F/4OUZRqia4UZ/QUOT2EUMJwFSUwri2Ka9ZNJgBqP04
-	kbODuAZKZu8XLytJb+sbvvTWWUGbC8ykYXPbV5oP9STbG+sYncLSF63jgpLXCfOBaLFRUw8RrAT
-	Jc/5+teXMtuC49z1nLY36ESo9Z+PMnIqp8KNZ5w6d8RNdTyQAIYkFbuU9JFAi2ngFpvBt0Hnjgo
-	2LIIsYfm3I7Pxg3L9UKSVCJccJD95QwAXZeb8nbTmEeouUdqpvLNbH8UyC1nGNjU8W5zmUP9hhK
-	3u2LebtFh9VlxbKBB9BSIf5rFWqk2EUva7QhoOvutQWY2cx9B+wWK/qOx3ccjXbDwQCLYkMklcr
-	UuJwBYdRFnM8cFX4xP1iyPjqtWANFClaQSSfY9+WstvKNotE8ffXDfSa/hVyKjGmB9OEpT0m7O8
-	ALAvH0rSEdSm90+VJMO0ZmUcw3qIK0eJrmDjP7mR4dvgaY36k5Q05f233aJdTK8tIqOy6Hwb5Vt
-	YbYLPryGwths6ffQ5BQHAExrNSJ7Rt6lizcClobgGmyXQzTIw9dfg/qEIjTYZkZvoha420GJybV
-	srcVRrtb8eKSphjmWo0WCfrdYOWDfO5n
-X-Received: by 2002:a05:600c:4e14:b0:4a9:18f4:925e with SMTP id 5b1f17b1804b1-4b6df8c9443mr32392275e9.18.1793962115177;
-        Fri, 06 Nov 2026 02:48:35 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d63ae2sm3232248f8f.11.2026.11.06.02.48.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 02:48:34 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Subject: [PATCH v2 0/4] perf tools: LLVM dwarf and flaky test fixes
-Date: Fri, 06 Nov 2026 10:48:06 +0000
-Message-Id: <20261106-james-perf-test-fixes-v2-0-9a912662f822@linaro.org>
+        d=1e100.net; s=20260707; t=1793962164; x=1794566964;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n21l4rAHkH6encd8aStoBcV6YaH3+037KdgWxZqVYd4=;
+        b=qZjJEsjc0j/eLuxCoNL01QiQc4JDIn/0kbkLGRYaCsMjJFx3hAxRH+svTZzapM5BXU
+         pK/sRgsyY14olstQr6sIqoltB+j4c5m2JtO6OwAvcZzbFZT4SvUxLX4jp4puJPAp/Osa
+         jJRisjW+0VDGIsUFHDdst+LWbvWG0fklkjm/XSsY2PlJSkXGEXeieZUo5JBPAMCwMLVi
+         RW6hQkROOfhXHVk8pDAlDtFOnJ7qQJPstwN6TZ4UDaJ2NZy3p1YfkZyCW1j3BnOlYL3T
+         2PQ9W95rj+HW42o/tgl9iMweh7B0bng/sNG57Fd1vzNEBY4VMM2KJGpCiqxG+2LZS/GM
+         qMuQ==
+X-Forwarded-Encrypted: i=1; AKwUvByF7qHRodU0dYsSEoUl5n3ZT7De0ZkaZW8mbAb69pzR2ouqM3a8QzCnHvDDd20ICbajmyBUV6gJarMLgfg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y83UKCb2E32qHNb7y3GWy6JIlmOFXJdUyIXgVBWm1ume/gEen
+	wjXzZP71iQXFObim/oPDmrYj3fW8qtVu/UTMgIZHTDUrffCFVoFAt35cuW9xhHKOPro=
+X-Gm-Gg: AYBFou12yhrwT+FCfPxmXt2sjPuQiExB9x6NmKddJWi1SDt1HNYnpOlu56hSQ/j5IPS
+	gbeKvxwI6HUn9dy6qRwvguMUfVoupOD1mcWddqiZPzS5dLjjdqxprmeEyJmdW3S5ymyagUmCS0D
+	j+yOWE4PlRUxFBYn2fw4u5tQ8bVOauR0IRMVAiaJ7ETGiOSoiUm2Lev4m6KM2pDmcKQ9GaVpqkT
+	5EPFVpn2wevo+DiC0QuiJMzgymHAs1k/eV7azN2gkK+soI60QeOyGbFxiNlLoa5pX7hWj4MIGLn
+	liAsullkJb1DWsimaJUCvj6uw1QzdCqynDqOx0eXl+KZs0JzR3dbGVJY/JUNaHqNlQJXdBTpPKG
+	tDtinOtuiZcX6vgSaRuPJFNRlki284uVQ4BYWYX2Ek++qNxVsLmNNs0IIvT01T9IBtKmnsVVkLR
+	TbvD585j5KCVvIRTH7hWsM2tFTdwJHtAxh+J5dZuO6aUxGJh8M+iI/9plzMl+8qAyX9cBwwETcM
+	vu7LgxapZLY+jDtv482KqL/F/qTXDnMjBXJ/C/EZ6bd+4oADVwnAoH++nLegUx4Inymg+m9iNmB
+	eDLG1l7bleKuO47hGjF904U=
+X-Received: by 2002:a05:600c:5295:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4b6de973c5fmr32952175e9.6.1793962163759;
+        Fri, 06 Nov 2026 02:49:23 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e24012c3sm46488775e9.13.2026.11.06.02.49.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 02:49:22 -0800 (PST)
+Message-ID: <1188802c-3661-441d-85a7-3ac68042e022@gmail.com>
+Date: Fri, 6 Nov 2026 11:49:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,59 +92,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
+ after scanning enough VMAs
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
+ <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
+ <551892bd-d7ca-4c79-9c7b-9d3d08c913e4@gmail.com> <au2lAPUNPlRtaeFY@gremlin>
+ <5c084ac1-930d-40c7-b6d0-b56673da9cf5@gmail.com> <au2sZrlidH_f39kL@gremlin>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <au2sZrlidH_f39kL@gremlin>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGaw7WoC/3WNTQ6CMBBGr0Jm7Zi2WFBW3sOwKDBAiVLSqURDu
- LsF49Lly/fzFmDylhiKZAFPs2XrxgjqkEDdm7EjtE1kUEJlUooTDuZBjBP5FgNxwNa+Ire5Upn
- WqWykgbidPO1BnN7KL/OzGqgO29nW6C0H59+7eJZb7+fQfxyzRIGiUvmlItLnVFzvdjTeHZ3vo
- FzX9QOtSMu4zQAAAA==
-X-Change-ID: 20261104-james-perf-test-fixes-f72265531d1a
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
- Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
 
-Running the tests on an LLVM build results in some dwarf issues that
-need fixing. And there is an easy fix for some flakiness caused when
-tests are run in parallel.
+On 11/6/26 11:33 AM, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Nov 06, 2026 at 11:29:00AM +0100, Jose A. Perez de Azpillaga wrote:
+>>>> with pages_to_scan below 4 the batch is 0, so under constant contention
+>>>> we keep dropping the lock at the cursor and never scan anything, don't we?
+>>>
+>>> This feels like repackaged AI review...
+>>>
+>>> The mmap lock won't be eternally contended and if it is, with pages_to_scan
+>>> under 4, I think that's fine.
+>>>
+>>> Alternatively could make that >= an == and the post-++ a pre-++ and the 0 will
+>>> never be hit in this case.
+>>>
+>>> Or could have a minimum cap.
+>>
+>> with >= a minimum cap needs to be 2, since the cursor can stop at hend
+>> inside the VMA we just scanned and the walk lands on it again after the
+>> drop. with == only batch - 1 VMAs get scanned per cycle, so a batch of 1
+>> scans nothing, today's batch-0 loop at pages_to_scan 4..7, and a batch
+>> of 2 hits the hend case. it's safe from 3 up.
+> 
+> Please don't copy/paste LLM responses. I'm sure it's in good faith, but it's not
+> helpful. I will run any changes through AI myself.
 
-Assisted by Claude Opus 5.5
+it wasn't my intention. I am bad at writing reviews, so AI assists me to
+reword it, so it's polished, and I still check all the output. now
+onward, maybe my reviews get a bit clumsy, and not polished. I will stop
+rewording them.
 
-Signed-off-by: James Clark <james.clark@linaro.org>
----
-Changes in v2:
-- Break perf probe line (Namhyung)
-- Use a software event instead of cycles for VM compatibility (Namhyung)
-- Link to v1: https://patch.msgid.link/20261105-james-perf-test-fixes-v1-0-0b279bee5830@linaro.org
-
----
-James Clark (4):
-      perf libdw: Find the CU by iterating all CUs when aranges are missing
-      perf dwarf-aux: Support DW_OP_addrx locations for global variables
-      perf test probe_vfs_getname: Fix missing debuginfo detection
-      perf test: Don't starve per-process tests with system-wide events
-
- tools/perf/tests/shell/lib/probe_vfs_getname.sh |  6 ++-
- tools/perf/tests/shell/record.sh                |  6 +--
- tools/perf/tests/shell/record_lbr.sh            |  2 +-
- tools/perf/tests/shell/record_sideband.sh       |  4 +-
- tools/perf/util/annotate-data.c                 | 27 +---------
- tools/perf/util/dwarf-aux.c                     | 70 ++++++++++++++++++++++---
- tools/perf/util/dwarf-aux.h                     |  3 ++
- tools/perf/util/libdw.c                         | 19 +++----
- 8 files changed, 89 insertions(+), 48 deletions(-)
----
-base-commit: 29fd95dbd25cda35ac1e38d096a85809e952274b
-change-id: 20261104-james-perf-test-fixes-f72265531d1a
-
-Best regards,
---  
-James Clark <james.clark@linaro.org>
-
+-- 
+cheers,
+jose a. p-a
