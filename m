@@ -1,76 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983659;
-	b=zyaGl0p0xc69TcRMBiV2oc0wtTONd042NF0o06EcXUPjr1BcnAGZ5HoOJ3Oh9Cudm0b5
-	 FmrEmVWp6ffigOrpXOcdLtxeOJFbJGi03q6PdLKd5bynwYjeLIoUCBBBUy6/mSuvbgjgt
-	 Iv4IYjR1NQFNc+aAycT1t8qJxxQOKuIXJF8LFX0C1aWv2xtT+Y3zkvN+xLStNDIQ+4ZYd
-	 EdRMdkQnLxP/j20a5G+LGOOEz+74caHL4BM3pEDZT0P3VS+c94b/ogWHM5wBVlTyPObw2
-	 SvIQQ7DjN0t3DLRBMbPhjoM0AfBRgzlcqcaEZx40jkvmcgM7blKXgM1A/MsA0FQ82kw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983659;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
-	 To:Cc:Content-Type;
-	bh=zti4JuFLZG8tZuk4JJOYaWVhoy6VLoz9Y+1Og8ZFPPU=;
-	b=Hktu0EVi09Ehqvx7AJp9V3QHVJ+W+UQjqK/jcNiXY7GLqHTAS+b4a/AXIE1Y1OgA/8lt
-	 IS33qiXgp7iCUFdFxy8V+jeTtc928VLYYfaa8DKB5XAeKhvYhyasJur5Kt9R7Ts5wuSft
-	 mY1+0Ol7v2dEaBkPx+hZANZ2oLeyrFHG0l5qldbZQyKEUGBrm3XeH5A4lDs2aG6wPu74k
-	 xU8fBBDpZLBFlBJeWvZDdOHLxFhTgT/Y0PHxinGWMkCCT94iLHcFb63nRxj2pXybWB7Qs
-	 ENiWfApaEjANyt+V367aBcKDkLi0aPvICI8DjzNizwyHe3lCXcB0sTYLJ1/XdisGRyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EU+y8ts+;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793983661;
+	b=SRXCL6ReYvnqEauLxBIFiP89ITWg2hL5WAZRxYzfRUBroZ52BhyDwPXQNaomr+FpcZxr
+	 uxBP2jXkCkUekHQjtTN5kOzEtYjI8YCnL/dY5OgWgrZXDSh8ugGHSGXHdSHEGmte/HSh+
+	 50abgcIPAwjj3tNxQNdjzXmdtzgYvWkDCBXhOxu7alH0y/0WSUNsqfHQAksQgea+vSmOI
+	 txdpqzvAIgpRvvViPKQyP92fqhEDKhq+97ucq72/fjMG1yC8ZOqnAcCRyYkwbYX15GN9Q
+	 9gYoXP0ge3vritTbxks0A2EIM0HVm5T9DFRAU2R4BU6G0r3bSPr8/YrTU5Gqi6HMx2w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983661;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sA72syNsEojY02ASAdhXT00NGGKnJKJbR+gA7p8G8oo=;
+	b=E7PfPvnJX7u61euR96K9EPYsXjLK91KFZdWa7CC2jkKhaIxpZVfjpPgvzvyLlbPzszJa
+	 lgdfwpRvihqq8G0i6XArGQNnkhsB+lZ4P/qHazKEt2RD+vLd0DWaB5X679hWHuxgEOIFD
+	 tpHeTW6bpCU39KDWF9MoWQuSNV7bCjyGM8WTKQ9OuUseAiiVKLE96cs2PBgAM4D92GUhB
+	 apTTQ/OTXfRmtgs/dhhpUUMcpWbFGsI6/Ywil9IgZTADAFiqqabv1aSwBObAf4bnRVhK9
+	 stAhJI5pKK4CUc4Oerb8geYbJmmNq+zyIBwCZTZBpYZBcF4X7KtfAfYWUxyKNgJRYlg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JG7c5a8V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.25
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013025.outbound.protection.outlook.com [52.101.83.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5BB606A33B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:47:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD5BB606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B09606D802;
+	Fri,  6 Nov 2026 16:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70B09606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EU+y8ts+
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so635093b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:47:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793983658; x=1794588458; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zti4JuFLZG8tZuk4JJOYaWVhoy6VLoz9Y+1Og8ZFPPU=;
-        b=EU+y8ts+c5IPNHBp7a/U5oL5cJJGNP6x78Zjw2VAaB5X5VijDh7NNxVGqF3c9JiMGT
-         M597ZT0+idqiWEcsSUPqWfWX5VEdcXMB+1S6rQ3POGjfAccdgZZsOERarQs/5bIEHZtD
-         /7SFGiNmgYdtCP1FpdiQQDXPOyr6gG9JFJaOKYo1nx4bQMeXKC2njLa+i0g1e5XL+HK1
-         zsqzw391h1iYcAuYhjjsupo0Qekkr95p50iteAee9eK9pbuxPZqj11DON/5gdgSiuRMc
-         j+8dK3jlA3j+i2ic9P712FZNTmECJ4Tux0JLHAITgnGNRy4qH7MUtM0qd66pGzTJoyhZ
-         Bk2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793983658; x=1794588458;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zti4JuFLZG8tZuk4JJOYaWVhoy6VLoz9Y+1Og8ZFPPU=;
-        b=07PrQeXI4cPu1RU+sTlDEiCNqhdSP++fifMZQk6zWjqf/ZE2Tu8fddkUDnDID6bvKJ
-         lnN3VjtWgdR0oy/vbnohVJAqouBoo916Ni+CwRIpvAHPFkgj7pkojHEG5lOzmkQkkLS/
-         ZnWRaRZ4DuFqdCbzwvvHYL28JoFgtSljAW9vaLStQLSw7xvhgtMRKlym+NAFOK6SBc47
-         qbSfXH0nM0uswPmn06HMsaYdWveNI8kxtz5+qnnNQEkcrqDcYDRFKR50SXGMyYQ8g4lz
-         Rk/88//7Jw4ms5GCFlpLcZLEMaikcZm0Ly/nnjlgmPZDwtoG37dA63YfuizG4StBDSwL
-         S1vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ+rOgJbo3jawgteR0BrOhqmsY06urr+9HDP1MT6WCjkZvnEdZiFzMzwOKY7QRZj6pqtahiSawtI4z5Ps=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82k8QPjLKJAyxmde2SwaoiBd8+tPZvcjMGythx8+BlG0PLfW/f
-	UNWep+VYTOYjbt9WIw6N0enIvpNo8qujtjZs2D6KgQ5t8FllznGw/Wdnxi9MMpwOfNZH45+abQn
-	QkoSV3Q==
-X-Received: from pfbfw6.prod.google.com ([2002:a05:6a00:61c6:b0:8a0:6a08:e927])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:140b:b0:8a0:3336:4b45
- with SMTP id d2e1a72fcca58-8b37aa9f637mr3084436b3a.12.1793983657844; Fri, 06
- Nov 2026 08:47:37 -0800 (PST)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri,  6 Nov 2026 08:47:32 -0800
-In-Reply-To: <20261105-tdx-selftests-v16-18-2024e8fa517a@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JG7c5a8V
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=am4xf44k+i4FTgZCV/3AtQsAKywBsQybf15azHwLhysHIF71AyqIVWkNudX7bs8H9lbag2xEgdbJGeb4Y/Wkz2WMe2r+jKVvktXAkCbyODo8yEYM59DePy2/rLJbCVX4PxCVOlJRkiPWRZeP/ditie1pEkqgKUeK6hn43GrRzekJrUmCaJXKEGXGQy4NnXHD7RFB26o9WW3ef1fwmeBuBLEmD1lvA0hI7WvuFmzkglSbaa5pVbq+kyipFSW53mX9ch9tGeBA5OfXH4e+gjtBtr3+X37XI21inQKLEzEbDCHfpWS4GlCBv6Mr39AVG3md2sBTfSpyCdR1KxcQXl1ReQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sA72syNsEojY02ASAdhXT00NGGKnJKJbR+gA7p8G8oo=;
+ b=OYMC6Oadb7UfTSf/nPDhdkNi+woGf7Vzhovy+sRgQ9wfgTQUN5XEoeav4xjI2dEYPvQqLT/5vmmsDecxaXm+Ru7+Td4njb3Ey0r228XTsJPW8lyUebI217brxB84eW9aXIctkpFQTkiJAq40vrvfv87544GXLYBHWw/4SzpGfU/rcc7U0OlDIFi4ANCPnRdPtvvWkn5ZQLwOnZ0SeJlrCo/1NJ4C8Yw3aDwMBYzq//Uv5d5TxzlgHuZghxjySjc4sOMc05BGvB5fO/7L7catutDcKf73Qr7PcfCwZLo1OdG98wpY5z3ZqAFN/k+aPUc2M0qmUwqvubHcvRWeqDBI5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sA72syNsEojY02ASAdhXT00NGGKnJKJbR+gA7p8G8oo=;
+ b=JG7c5a8VG1cli2jZdwFQ5GTXCeF9nV8F1Rbw1VwfF/dNAZvckkT3PXyEIvN3omQ0r0+H8ZlA1BHJu962Uo/fwi8fFuGv1dBGjX9ecP9m/G76pQ5Xi/3gNqTb0TL3wKsPGB6dKdUKi53ate1jzHkVz8Bms0FQ/WDXlDsl4rdxIiXg6klDVEluxCu4lT+2MXcXRhZtMncIkkY3G1ZH6y0nWRff3T6xaKEVvil7gN7bu4tFz9iNHepo7Licf1YvuIVYQErx2xoQDb+AaNpSJJaNEeBPr6A/ygeO4sbXsfV0CRE4jjdHwyJaXpmMy7RfgM8vw/gCGjyA1UHXfNRgDSnYLw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS8PR04MB7880.eurprd04.prod.outlook.com (2603:10a6:20b:2a5::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 16:47:36 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 16:47:36 +0000
+Date: Fri, 6 Nov 2026 10:47:25 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Leonhard Hesse <leonhard.hesse@bshg.com>
+Subject: Re: [PATCH v2 3/8] ARM: dts: imx6ulz: Adjust BSH SMM-M2 Wi-Fi and
+ Bluetooth pin settings
+Message-ID: <au4EnWiIRT4xoT-6@SMW015318>
+References: <20261105-add-bsh-smm-m2-v2-0-fb5ffc7da486@cn.bosch.com>
+ <20261105-add-bsh-smm-m2-v2-3-fb5ffc7da486@cn.bosch.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-add-bsh-smm-m2-v2-3-fb5ffc7da486@cn.bosch.com>
+X-ClientProxiedBy: PH8P220CA0005.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:345::25) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,174 +102,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261105-tdx-selftests-v16-18-2024e8fa517a@google.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261106164732.3939387-1-seanjc@google.com>
-Subject: [PATCH v16.1] KVM: selftests: Add support for TDX ucalls, via TDVMCALL_REPORT_FATAL_ERROR
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sagi Shahar <sagis@google.com>, Lisa Wang <wyihan@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Ackerley Tng <ackerleytng@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB7880:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9332814-636f-4fbd-b0e3-08df3c25a972
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|366016|1800799024|22082099003|18002099003|10067099003|11063799006|56012099006|4143699003|261021121427099003|261102123227099003|261021123027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	aUIa6XC94nfHYugYpQGJLtuaT8waFi8OWEkG7Nur+FAWCPknmJqxNzttpFJfiMAWBf+ozeNOwOIgljqDLHDnRmtGk48iCtoCrQ37FgKp8YmIl1HpfsDY8nnVQr+rusED9QsNUZD8vNk71p7YHjIfzCr/mPVGN4Y9XvPtdoy+ZJ9GHspwsKAmZZH799KLDatQ8GI5eH/r9gG4bvin+2X0tRlC6PbcNyWbFs+5SnIP7GtDuof4EnfqXQ+tolFzgnC4bcA6xa4pASWdw43IOCR5Jt3+n7fVjOkH/gRDz9nngIeCLIybFQJ7NS7oEDpaX2ZgcXczsqoIUF9q4oh+jdN+aNcNmA18zcj8/z6xljmpIFfiEIE9LmP4FnDhBAGk9qJkMl2HeF0/dzZkvzFj1KfJ70xwY655N0lYl6ngWvdrkTZEP6PZf9H1GsDhoBoyjUOWoiT9cYb2h7gjAXe3J9jXjD8sIihsMiG7Yy7weQkGAbOEB2omKXEs/ZzT/xwJ7lLnMSReoMM2Ww0c3MDmiSSXAYO7+PitpdPnYkySSU4SGsO6DL9k38auHTF41uHsp0jdGpD9Nc7bRsNWUkHtXMsMifZmUm6zIleufBT7JPhHnkcoQm7ozN9mOjCJh8NxWQd2z3P5SAP5JKeboJCavqDXYACrz98z/4WupPmVkAcGEZ4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(4143699003)(261021121427099003)(261102123227099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?KvI1Zd/hjcDVw1GenqK1Ny4+cL3G6Or0Xjb6h7QQDVpfM8tO4kMB5T5+Rq96?=
+ =?us-ascii?Q?jOLmcPEOBddRa7JcruJhSbnJeCNFccfvzX3vcheyAHgoDfbcC7qt3ErKwFDb?=
+ =?us-ascii?Q?/cofKlqiNpi++3NML8GmPtbfonN4VbWzHCys1zmGiYaLm+fHrwLxQa64Ov7c?=
+ =?us-ascii?Q?qSs1aPAehRkdkpFoTVKeb2QMP0wgreDl2WGiNoQ+NP1U45JPbcUuwwpAy95f?=
+ =?us-ascii?Q?60djzZZiLxn5FUJx0vij3PGWO8n7tOV/GKOF0anzJNIdGT+Jk2s6oQo3xvxn?=
+ =?us-ascii?Q?NsmPEtdF3zc/juDgG5NssIuYpO2U5aRSe3pvuY3ULUUO3FNNY2FslZgs52rM?=
+ =?us-ascii?Q?H83lmboctWlkCgOadpzJpxS9aPbK2jqc8sLHfpBajRW+MJtZfmQ9JjLyPCiY?=
+ =?us-ascii?Q?kxfMgJ1lWaOt/1OuIzgxHNlMYy2/5P1HduMfnR03M/afAjafPYH4fUQOVItQ?=
+ =?us-ascii?Q?duP7iZwPUc12uWQdd8E7I8Ob1D1YosTweSX4/lx8UVLQLFYIcWCZaCg41d8m?=
+ =?us-ascii?Q?I6SniEqyZUKds6P7eoKRkXVWlE95Cq13NQCahxS75G73zZac5Jnmqc2NYZo3?=
+ =?us-ascii?Q?b5u18UHgUz+DXpm1nHsEYK/WxAkiEor/Xk+H0XgNY+jkdpMYFfx+F4Xr4EF1?=
+ =?us-ascii?Q?O5M+hXaj/PIIOnYGRcB06jPjwhkgfaI59mt1kyNRw4G0VZBc0WJmG1izcEOM?=
+ =?us-ascii?Q?4D33HBwSUn8rL6bt5N81iQH4bA1k2KrWcuyOqFpH4dFmnHQkENiUvkxxjg7u?=
+ =?us-ascii?Q?QkobLh/fRpuVZsEy3H5gESRJ6bZP+ppy2tt8CXZ4kRLoJKpgzvlfNEzcbibr?=
+ =?us-ascii?Q?YA4A5xkQnld25U2kNw196hvqFvaMSkzJho2QnZ5yQAO719AHMjjyMxLKY9Pj?=
+ =?us-ascii?Q?Laj95vKtOaY6yA9aF6lTl1lh1P8VUAiEejGPBhJgbY1yMmbaSP1SSUa8PVCe?=
+ =?us-ascii?Q?/uO9TLI5bIIQt9aByHPFf4EDsndbF29VRwBXSm+o+U404KYTLUpP98EB5Uz/?=
+ =?us-ascii?Q?D+PW4OiZDdyF7G7y/XE1o7+i0f5xB8vrsfXhQF7axRq7AQLxwskV/PngbPtv?=
+ =?us-ascii?Q?jDbYXqjJKJV/0M7Nzbd9OOex8+OB1kkHgZvaInJzJjdafnY6QErHzzDq/iWz?=
+ =?us-ascii?Q?x3vv4pq/oOK7zRWWJst5/EojUBUA4ii2rO18cXUOoXQHzuGwimHX7MwaZoaY?=
+ =?us-ascii?Q?8/dYeHKyQwLD9d1OalAjk2NOvEVIQ7BCRB/4N2EtRc3pBvVnM4ppBMBBmWXa?=
+ =?us-ascii?Q?5+008i3p6S3rHwC2I93mQXGEgJAvndZrEkVIrAf4i8470/zvqlajr+Ttw/RQ?=
+ =?us-ascii?Q?TBvhm6n3uCUJvG9Pd+snyh4LGq2UJuMzekVKLPcfmcPoIU4Kyx6833QHJh3k?=
+ =?us-ascii?Q?WLp3jwm9qCIqCVEBQgRnc38SYWCsxfgUsM3QKPGyAhYxEIw8xk4LBXNm+y2h?=
+ =?us-ascii?Q?pUW7kyrh4qC7TupknbnY57/q8D+q9+TfRYXkh+iTVX5MyRBqg2aDEnuy6cbQ?=
+ =?us-ascii?Q?oGHYH8FitYPItms+ws2AWFBsB67XmMRC2D4KRUX1CGvVwSqb40E8LF+maZxd?=
+ =?us-ascii?Q?NRvkLrnulmKCEDk3U5Vowj1/o5BKl2Crw1Vkg0O1pgtztsW8o9lJcvqWVxiJ?=
+ =?us-ascii?Q?s0FDqvhOT4DjAYfJpq7tXe5sq8WequODiiG+I2yLNoOI3Sl7NnuRubm0278F?=
+ =?us-ascii?Q?kbHhVSuHHdYn1JGFUbdxB0b1aj68F4car2oP+OKlPgOO+DeYACeCUrVbxmTa?=
+ =?us-ascii?Q?yraVr/aJz9l8F7s+sn+KDOVc3Og0ghJrEk1Ynhprj5RFOi8ntK5K?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9332814-636f-4fbd-b0e3-08df3c25a972
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 16:47:36.6330
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GicaSJZNzfWOQ+EHqg/n5KonBTWN8If9j/QW5/Dg8O4SSWeLllIXex7CtrjDZxsxDYXSOGzuHpHmRYyBbao7HesZrPj1a49DNCPLOQnxjOiHH4BL/6zJ7GaJTstSI8LC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7880
 
-Add support for doing ucalls on TDX by abusing TDVMCALL_REPORT_FATAL_ERROR
-to pass the address of the payload to the host.  The "fatal error" TDVMCALL
-is perfectly suited for passing information to host userspace, as both the
-TDX Module and KVM allow the guest to pass (almost) all registers to the
-host, i.e. provide enough of a data payload to make a collision with a real
-fatal error practically impossible.
+On Thu, Nov 05, 2026 at 10:41:17AM +0800, Haoning Cheng wrote:
+> From: Leonhard Hesse <leonhard.hesse@bshg.com>
+>
+> Adjustment of wifi and bluetooth REG_ON pin settings.
+> Tests have shown that minor changes in drive strength, slew rate
+> and speed resulted in the best performance.
 
-TDX can't use port I/O, as the TDX ABI doesn't allow the guest to share
-arbitrary register state with the host on a port I/O exit, and the port I/O
-data payload is limited to 4 bytes, i.e. would potentially truncate the
-ucall address.
+It is just GPIO, why strength, slew rate impact performace?
 
-Alternatively, TDX could use MMIO, but using a magic emulated MMIO address
-is fragile (see the TODO in __vm_create()), especially for TDX since TDX
-doesn't support read-only memslots, i.e. doesn't have line of sight towards
-addressing the TODO.  E.g. TDX could hardcode the address to something that
-is all but guaranteed to be unused on x86, e.g. the I/O APIC base address
-or the HPET address, but that doesn't truly address the fragility concerns,
-and it's ugly because ucall_arch_init() would completely ignore the passed
-in @mmio_gpa despite obviously utilizing emulated MMIO.
+Frank
 
-Use a simple flag to route vCPUs/VMs to the right do_ucall() routine, and
-take care to set the flag via write_guest_global() so that ucall_arch_init()
-is thread safe (in the *extremely* unlikely scenario a single test creates
-both TDX and non-TDX VMs *concurrently).
-
-Alternatively, a virtual function pointer could be used to dispatch to the
-correct do_ucall() via an indirect branch, but that has zero advantages
-other than making ucall_arch_do_ucall() look prettier, at the cost of being
-slightly harder to understand and making ucall_arch_init() uglier.  KISS.
-
-Cc: Sagi Shahar <sagis@google.com>
-Cc: Lisa Wang <wyihan@google.com>
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: Ackerley Tng <ackerleytng@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- .../selftests/kvm/include/x86/tdx/tdx.h       |  7 +++
- .../testing/selftests/kvm/include/x86/ucall.h |  6 +--
- tools/testing/selftests/kvm/lib/x86/ucall.c   | 53 +++++++++++++++++--
- 3 files changed, 58 insertions(+), 8 deletions(-)
-
-diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-index d41a1efc8a63..9982aaaba885 100644
---- a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-+++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-@@ -4,6 +4,13 @@
- 
- #include <linux/types.h>
- 
-+/* TDX hypercall Leaf IDs */
-+#define TDVMCALL_GET_TD_VM_CALL_INFO		0x10000
-+#define TDVMCALL_MAP_GPA			0x10001
-+#define TDVMCALL_GET_QUOTE			0x10002
-+#define TDVMCALL_REPORT_FATAL_ERROR		0x10003
-+#define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT	0x10004
-+
- u64 __tdvmcall(u64 fn, u64 r12, u64 r13, u64 r14, u64 r15);
- 
- #endif /* SELFTEST_KVM_TDX_TDX_H */
-diff --git a/tools/testing/selftests/kvm/include/x86/ucall.h b/tools/testing/selftests/kvm/include/x86/ucall.h
-index 0e4950041e3e..aca582bb2cd5 100644
---- a/tools/testing/selftests/kvm/include/x86/ucall.h
-+++ b/tools/testing/selftests/kvm/include/x86/ucall.h
-@@ -2,12 +2,8 @@
- #ifndef SELFTEST_KVM_UCALL_H
- #define SELFTEST_KVM_UCALL_H
- 
--#include "kvm_util.h"
-+#include <linux/kvm.h>
- 
- #define UCALL_EXIT_REASON       KVM_EXIT_IO
- 
--static inline void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
--{
--}
--
- #endif
-diff --git a/tools/testing/selftests/kvm/lib/x86/ucall.c b/tools/testing/selftests/kvm/lib/x86/ucall.c
-index 38050c60a067..bb4a7215d9b1 100644
---- a/tools/testing/selftests/kvm/lib/x86/ucall.c
-+++ b/tools/testing/selftests/kvm/lib/x86/ucall.c
-@@ -5,16 +5,40 @@
-  * Copyright (C) 2018, Red Hat, Inc.
-  */
- #include "kvm_util.h"
-+#include "tdx/tdx.h"
-+#include "tdx/tdx_util.h"
- 
--#define UCALL_PIO_PORT ((u16)0x1000)
-+#define UCALL_PIO_PORT		((u16)0x1000)
-+#define UCALL_TDX_MAGIC		0xabacadabaULL
- 
--void ucall_arch_do_ucall(gva_t uc)
-+static void ucall_tdx_do_ucall(gva_t uc)
-+{
-+	__tdvmcall(TDVMCALL_REPORT_FATAL_ERROR, UCALL_TDX_MAGIC, uc, 0, 0);
-+}
-+
-+static void *ucall_tdx_get_ucall(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_run *run = vcpu->run;
-+
-+	/*
-+	 * KVM_SYSTEM_EVENT_TDX_FATAL stores R0..R15 in data[0..15].  R12
-+	 * holds the ucall magic and R13 holds the ucall GVA.
-+	 */
-+	if (run->exit_reason == KVM_EXIT_SYSTEM_EVENT &&
-+	    run->system_event.type == KVM_SYSTEM_EVENT_TDX_FATAL &&
-+	    run->system_event.data[12] == UCALL_TDX_MAGIC)
-+		return (void *)(run->system_event.data[13]);
-+
-+	return NULL;
-+}
-+
-+static void ucall_x86_do_ucall(gva_t uc)
- {
- 	asm volatile("in %[port], %%al"
- 		: : [port] "d" (UCALL_PIO_PORT), "D" (uc) : "rax", "memory");
- }
- 
--void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
-+static void *ucall_x86_get_ucall(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_run *run = vcpu->run;
- 
-@@ -26,3 +50,26 @@ void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
- 	}
- 	return NULL;
- }
-+
-+static bool ucall_is_tdx_vm;
-+
-+void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
-+{
-+	write_guest_global(vm, ucall_is_tdx_vm, is_tdx_vm(vm));
-+}
-+
-+void ucall_arch_do_ucall(gva_t uc)
-+{
-+	if (ucall_is_tdx_vm)
-+		return ucall_tdx_do_ucall(uc);
-+
-+	return ucall_x86_do_ucall(uc);
-+}
-+
-+void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
-+{
-+	if (is_tdx_vm(vcpu->vm))
-+		return ucall_tdx_get_ucall(vcpu);
-+
-+	return ucall_x86_get_ucall(vcpu);
-+}
-
-base-commit: 4aeb1c3931544fb3bb64397391c2e7153a81f824
--- 
-2.56.0.567.gdb80ae8cd5-goog
-
+>
+> Signed-off-by: Leonhard Hesse <leonhard.hesse@bshg.com>
+> Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+> ---
+>  arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
+> index aac211a9f9eb..dabe17222f13 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
+> @@ -125,7 +125,7 @@ MX6UL_PAD_UART3_TX_DATA__UART3_DCE_TX	0x1b0b1
+>  			MX6UL_PAD_UART3_RX_DATA__UART3_DCE_RX	0x1b099
+>  			MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
+>  			MX6UL_PAD_UART3_CTS_B__UART3_DCE_CTS	0x1b099
+> -			MX6UL_PAD_GPIO1_IO01__GPIO1_IO01	0x79		/* BT_REG_ON */
+> +			MX6UL_PAD_GPIO1_IO01__GPIO1_IO01	0x100b1		/* BT_REG_ON */
+>  			MX6UL_PAD_SD1_CLK__GPIO2_IO17		0x100b1		/* BT_DEV_WAKE out */
+>  			MX6UL_PAD_ENET2_TX_EN__GPIO2_IO13	0x1b0b0		/* BT_HOST_WAKE in */
+>  		>;
+> @@ -146,7 +146,7 @@ MX6UL_PAD_CSI_DATA00__USDHC2_DATA0	0x17059
+>  			MX6UL_PAD_CSI_DATA01__USDHC2_DATA1	0x17059
+>  			MX6UL_PAD_CSI_DATA02__USDHC2_DATA2	0x17059
+>  			MX6UL_PAD_CSI_DATA03__USDHC2_DATA3	0x17059
+> -			MX6UL_PAD_SD1_DATA3__GPIO2_IO21		0x79		/* WL_REG_ON */
+> +			MX6UL_PAD_SD1_DATA3__GPIO2_IO21		0x3029		/* WL_REG_ON */
+>  			MX6UL_PAD_UART2_CTS_B__GPIO1_IO22	0x100b1		/* WL_DEV_WAKE - WiFi_GPIO_4 - WiFi FW UART */
+>  			MX6UL_PAD_UART1_CTS_B__GPIO1_IO18	0x1b0b1		/* WL_HOST_WAKE - WIFI_GPIO_0 - OOB IRQ */
+>  			MX6UL_PAD_ENET1_RX_EN__OSC32K_32K_OUT	0x4001b031	/* OSC 32Khz wifi clk in */
+>
+> --
+> 2.43.0
+>
+>
