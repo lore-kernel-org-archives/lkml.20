@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965860;
-	b=z31u4sOOrdTKBmftmpSrKxpukb4yzo/81DhLmjxWacJg3CALo/XF+hk0tg4ysksSxVcS
-	 NUUKK4Ue3ayMXfYvWIwzSHOtrO9nsrqHJ1s4VdWW2+MosseibLs/00AeykEnCBvyf2wup
-	 IrKMBN8q6UkFURXrb+hTBI76Cf1PLluIk+fuP8M8yLWTkLhsvCfvrJ7trNU5qe23VGUjI
-	 jC2COBCCbMdHD0jVYFzvO/5EGGM8IxpBRHV9nEVRUKt/4qiMTzZ2cxfKUUO9kGekg05hN
-	 nmEXOXJc4ClQjGs0bSimISbF/J/azVRhTliPxFMOJtttqNR8NAX8p7NDHtqrqrJujqw==
+	t=1793965915;
+	b=vbDFJIIapL88gvjD8prFfs8Wf178q9z4IcZO+Vdd/YFpTZLsoivV1bHnYLbPt/GN1q2Q
+	 a5tUFhunBuCecs3Z1bTewJa81O/xU1X+rVt58RbPFvlZ8OPI9m4uXJjXYrorJSBGQIwSH
+	 Fmcql3/YCTzflabwGHhKe9eXrP/iXzyYxG5BZ4laeVGn3Hg5uSNYCKZ5EAFmnBI651m2E
+	 53GNNIIOFA4yl4TYlGMSxBhLOuVyV1dkg6GpQcCfnL4UHChKwgoPNIPbcOqkMdHvEXqRj
+	 l47D50IIwx8t8uQdyg+MKvnuRyclpWitG7VChxdH00Wmh4EXwAct9g0UkLee+icRXLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965860;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
-	bh=gM1MjWcnGqQlHTA7Do9f7yi6ogS9ecmItrbj0c1PYw8=;
-	b=EIDoE/VvGXIlKBB7G8FTaLkmKPKkZCQmZ5UXc4lAJwG/mXq6aJ8WRUXLD1GDBGtSL0/2
-	 p//9Cqic33xGUrYCfYqpYPiULm5kcbqNwd26iJl0lRWdC6IMMUtzPq6yrBUFahH90xtHK
-	 PGsD5JD+OPp/pn/Sv4IaQcjmg6PbAJri8M1eOKw0O+HntNqT62lVGov0vb2pnY3gD/gGw
-	 dHsaJ12obXv6R3uv/Urg3kGsCbNHRQ4Z/yScEw9WiwSjEhcqFJnJLeU9O6Znb4MO44wG8
-	 e0RCN0Oz56beF13fW0C8ri3WmAm/L2h4s8qAly7py0wHsTg6aLUsxrkzj3JL8o9XoWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965915;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
+	bh=E2wwc7zaFaKTAagn5XMB9neG9tz4zIsm5fHynsnqTz8=;
+	b=C+taAG7GzGcKrUH1nH9Og86I3rA5FyTLSPIJ+uM0rsevk3FgqPcIdKT9/ZpksvD+Lzo6
+	 01Zdd4Z/Vu92dBElDwWCmiuLuy/XabVd5EgiZ+LBy6dJmsSAS3H7trSBLdWYLDxux5UGM
+	 HQRyAo46Ic2tfYlKqatITXqkSjWoQVnb6XzpEfV+o8oeSAPmh3Yzclu/eJPLi/KxRVNTY
+	 rcDK3HQQ9Lhs93vBRX7alrJNx/NpIR3rpCUMbMtG/ooVjIs4aAzkMTNN1eLayzz6nBlFT
+	 ZMPYrdM0LZ4GHtPbna9kwMZbJguc8Blo6O2uBhSRkmY/sT41PStia6usLbTXFwfdGsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jmu.edu.cn;
-	spf=pass smtp.mailfrom=jmu.edu.cn;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	dmarc=pass header.from=disroot.org;
+	spf=pass smtp.mailfrom=disroot.org;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=e8bCn0xj;
+	arc=none smtp.remote-ip=178.21.23.139
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B46606A329;
-	Fri,  6 Nov 2026 11:50:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B46606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.26])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 53c584876;
-	Fri, 6 Nov 2026 19:50:46 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: coiaprant@gmail.com
-Cc: amadeus@jmu.edu.cn,
-	bigfoot@classfun.cn,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	heiko@sntech.de,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC2C606A326;
+	Fri,  6 Nov 2026 11:51:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC2C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=e8bCn0xj
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id DD71080449;
+	Fri, 06 Nov 2026 12:51:51 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id oszisWeC_mLU; Fri,  6 Nov 2026 12:51:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1793965911; bh=r6rXpQ7fhFSWHIdpUzyK8xO9/DWNH+d88klaR/M4tpE=;
+	h=From:To:Cc:Subject:Date;
+	b=e8bCn0xjo8DYglI3sgomLSMSiwhNWF7PY6QTs0R9FHuWU9Dx2FI/bI4uJTlU/xriz
+	 NHM+2uYfP2o8GgCVfPSX08s59okwapKY8LLwjMRI2Yw2dkHgdMO4CH5xbfLvk/o5Uv
+	 TVN7oWdmhX+ePJdezI5g1SH96peAC8iHkqoIkRlgQq7TAPmdoQURFERz3rdtXbbW9N
+	 7iWpNJcSDOLBv7XWY/Le0EO7KUlY2T1ksoUbclL5vBwWfUBnhh+oZcEqO7hciiWUaE
+	 XxUAJhZADeqLtrICJ/RUbmcx5q08UJ4viSKP3X2PICallR5+UIJjzuGWI+4cHbwZ1l
+	 Hu92Hpz15VMtA==
+From: Florian Maurer <fmaurer@disroot.org>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v3 5/6] arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
-Date: Fri,  6 Nov 2026 19:50:40 +0800
-Message-Id: <20261106115040.1199269-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CALj3r0ijsuzadYoi0NPkSpT8smRyi607APfxLS8_u3JSH3+dPg@mail.gmail.com>
-References: <CALj3r0ijsuzadYoi0NPkSpT8smRyi607APfxLS8_u3JSH3+dPg@mail.gmail.com>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH wireless 0/2] wifi: mt76: npu: fix rx ring handling
+Date: Fri,  6 Nov 2026 11:51:11 +0000
+Message-ID: <cover.1793927986.git.fmaurer@disroot.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,34 +73,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1b0b26f7a03a2kunmdfed847049a20
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGksfVhhJSE8aQhpDQh9PS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUlNWVdZFhoPEhUdFFlBWU9LSFVCQklOS1
-	VKS0tVSkJLQlkG
 
-Hi,
+On a Gemtek W1700K (Airoha AN7581 + MT7996) with the NPU offload
+enabled, 5 GHz rx load crashed the board within seconds. Patch 1 fixes
+that crash.
 
->    (5V_BOOST and 5V_OUT). Adding a `vcc` prefix would break the 1:1
->    mapping between the DTS and the schematic, making it harder for
->    anyone tracing the board power.
+With patch 1 applied, the two WARN_ON_ONCE() checks in
+mt7996_mac_tx_free() fired on misframed rx frames. A debug patch counted
+2-4 of these bogus events per 30 minutes. Patch 2 fixes the misframing.
+It needs multi-slot frames, which were frequent here because of a patch
+that leaves the de-aggregation of mesh A-MSDUs to mac80211 [1]. Without
+that patch the race may be hard to hit.
 
-I didn't mean to change the nodename, but rather aliases.
-BTW nodes should be sorted by nodename (placed at the top).
+Lorenzo, I have no documentation for the NPU. Everything here relies on
+what I inferred from the code, so can you confirm these?
+- dma_idx is the host's consumer index, and the NPU leaves one slot free
+  in front of it.
+- The NPU writes the info word before it sets DONE in ctrl.
 
->  ... However, 5V_OUT
->  is a distinct net in the schematic. Keeping the node makes the DT
->  power tree accurately reflect the hardware and clearly documents
->  that both the USB VBUS and HDMI 5V domains share this OR-ed source.
+Also, with patch 1 the NPU can no longer get slots without buffers, so
+a lasting page pool failure can stall the ring until something else
+polls it. mt76_dma_rx_poll() has the same behaviour, so I left it. I
+haven't tested this case.
 
-It is not an independent network. 5V_BOOST and 5V_OUT are on the same
-VOUT, only separated by a diode. The device tree describes the hardware.
-5V_OUT is not a regulator, it has no enable control, so treating it as
-a standalone regulator is incorrect.
+Tested on OpenWrt with kernel 6.18.55 and openwrt/mt76 at 467ae2e3. Its
+npu.c differs from this tree only in mt76_npu_setup_tc_block_cb(). The
+test image also carried [1], [2] and other local patches. The W1700K
+was meshed with an ath11k node and ran iperf3 in both directions on 2.4
+and 5 GHz for 60 minutes (5 GHz rx mostly around 220 Mbit/s). There was
+no reboot, and neither WARN_ON_ONCE() fired. That image had no debug
+patch to count bogus events directly.
 
->  ...  For now, chaining
->    `vcc5v0_usb30_otg0` -> `5v_out` -> `5v_boost` is the most accurate
->    representation.
+Reset/restart: repeated wifi down/up rounds under about 30 Mbit/s of
+rx load were clean, but they don't reach the rx queue reset that
+patch 1 changes.
 
-Adding a fake regulator is just a waste of startup time.
+Recovery itself can't be tested on this board because of a separate
+problem, which I don't think comes from these patches: a build without
+them also became unreachable after `echo 0,8` into the mt7996
+sys_recovery debugfs file (full system error recovery, the same path a
+real firmware crash takes). I will report this separately.
+
+With the patches, the same trigger wedges the board with and without
+rx load: the MT7996 stops responding on PCIe (completion timeout), the
+firmware reload fails, and the retry loop deadlocks in
+mt76_worker_disable(). A sysrq dump shows kthread_park() blocked on a
+TX worker kthread that is already parked. `echo 0,1` ended in the same
+state.
+
+On this tree the patches are only build-tested (arm64, W=1); the
+above was tested on the 6.18.55 image. Not tested: a completed
+recovery with patch 1, and MT7992.
+
+The same code is also open as a pull request against the OpenWrt mt76
+tree [3].
+
+[1] https://github.com/openwrt/mt76/pull/1170
+    ("wifi: mt76: mt7996: let mac80211 de-aggregate mesh A-MSDUs")
+[2] https://github.com/openwrt/mt76/pull/1132
+    ("wifi: mt76: mt7996: use own MAC as BSS BSSID for mesh interfaces")
+[3] https://github.com/openwrt/mt76/pull/1169
+
+Florian Maurer (2):
+  wifi: mt76: npu: return rx slots to the NPU only after refilling them
+  wifi: mt76: npu: read the rx slot count after the first slot is
+    complete
+
+ drivers/net/wireless/mediatek/mt76/npu.c | 28 +++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+
+base-commit: c4328134f3f7c2ce141121a8f82a5ec0cc8a709c
+-- 
+2.47.3
+
