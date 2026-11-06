@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793965469;
-	b=uI7h8yvGRHh2W1xPgkGnYuK3FQVl1kZjjA9U9qwASCXXJ5utsoJilZck3Zyjr8fXummc
-	 bsRPucxf7/vZMCIH2nB6JRgXeD/xmNN9hoP/f26/c1tUqvdu7cGl5Fhh/WyCQhXGi0Z2M
-	 ddUxcsbzyqKoCsKAdFTaszg6vTmgtbb8UoHvQfZZRMMH2WzqcpGshxUGLas+ifL2m+Jl4
-	 YKZ5EbmGXX0DeMXOIogAErq6/+GtSGu5x3iIQKvew8dwi/J527gEVyCqEmwoQ7DSQEZ9y
-	 yLuH8MZUBxWbWX9Poj19yYJLXgUK2nD4/YejHOaHUQdqJjAZIMwH/ZDlG8MngZWKe3Q==
+	b=N0YBs/7EsPthre6+zBFE7rzh2UidQ5wgyQDUtKco/EQtSTvwTiJKOipBznmv8lw5jWI7
+	 +g52QXAhjrHfItGHPTIO+3jRnXGZNpG62TUNfHW7gHPWWPwb9JQ80vlThceHnk/pNbRJi
+	 FZ40ToXD3/d04EmzIKKkXvSb4MZPmf64uC7P7qcjzPVq0yF5y2pcwd1InAM4XcJDd4IpH
+	 BKy/HJJSKFxEpAJNbYbq4qUfk4U8Ieil+sMd5Wz510l/dbhD3mupmaDKq36sgYRgF/7s+
+	 3YK28QfixSKQ/3D46rWN0jAOGLL+TptkzLydXsjso/eV1WKWcoG44nN8l+5T4qzQnDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793965469;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
 	 Content-Type:Content-Transfer-Encoding:MIME-Version:Date:Message-ID:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=yZRVvWiLJU6lKe1IgV0S3vol1scJQqPQxcRJ6n5s7aQ=;
-	b=DoIWlN79ZHvcwjl874w/q/lN8ma28b7darr1IOyhE+DOVq+G6mlF3/7nqX0jtIW8MPjJ
-	 Cz/S/+K5Yhp8PYe3WeWllj7pqsht+etr+aDAijBgGKwnaWoQwko0q5ZsqydzsJ2jIgZPO
-	 9Nplxkb/TN+2IT0DJP9AOfFR5dlwaXDaN8k00ibOXjp/mdAeedbhV34E2HJNEiKh2dh01
-	 CEF8G+s02kcR6pcaTUSRuR/XQQXvwC1wpjN2ehJzOIMjQGPr+u2ZLTqzTyX0gq6WujVEp
-	 OvvVW8bjY2ctzx81NQOUYDJTpO9XdiOfyxR5sWo26EPU+NFD5fpJQiAdWg5sxzQhx0w==
+	bh=VCwC09cnno+tqr+oLIW7Qixi9w0adICGJtp8fL9fLtg=;
+	b=5elbqPwjfhF5WLaixI/KmIVnL42Ej+joVe1Aop3ZYaOfhw5eT00AVSY1+986yOp6bI6E
+	 zX83rIN+hg0CjpU45cUrcAJo6PkuCrwgceMtB0YCQDQIFjFuANUSRLKxijeH7JR2TkpcF
+	 gSueq98jXmioWCAc49nqP0gADn4AP6xT2cRlBKQIlUX22byU1J7ClW1mgY3V7j73sBrEZ
+	 fl35VTUrHxBKqde/LIatPCdEJMqk3BNE7ibS59ODdJRAH8ug1PsGiDTTYCPCxN8Psvwvm
+	 a5/Shn/DAll/zm7tf0AVzI+J68/v7gBjU62r+ppxT1YmRlCYdthoq1HrC5hM9RA+dbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,23 +25,25 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80777606A90C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48285606A905;
 	Fri,  6 Nov 2026 11:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80777606A90C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48285606A905
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnro8RvO1qkOpsAA--.21855S16;
-	Fri, 06 Nov 2026 19:37:55 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowACnro8RvO1qkOpsAA--.21855S3;
+	Fri, 06 Nov 2026 19:37:54 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: Jonathan Cameron <jic23@kernel.org>
-Cc: andy@kernel.org, dlechner@baylibre.com, email@sirat.me,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com
-Subject: Re: [PATCH] iio: proximity: vl53l1x: Fix trigger reference leak in
- vl53l1x_probe()
-In-Reply-To: <20260917014027.757b0677@jic23-hlaptop>
-References: <20260916164255.2084644-1-vulab@iscas.ac.cn>
- <20260917014027.757b0677@jic23-hlaptop>
+Cc: andy@kernel.org, dan@dlrobertson.com, dlechner@baylibre.com,
+ jagathjog1996@gmail.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nuno.sa@analog.com, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH] iio: accel: bma400: Fix trigger reference leak in bma400_probe()
+In-Reply-To: <20260917012143.1ee8ddc3@jic23-hlaptop>
+References: <20260916160825.2082355-1-vulab@iscas.ac.cn>
+ <20260917011724.1b0f181a@jic23-hlaptop>
+ <20260917012143.1ee8ddc3@jic23-hlaptop>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -53,35 +55,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 06 Nov 2026 11:38:05 -0000
-Message-ID: <179396508517.2291875.13493077005928497044@iscas.ac.cn>
-X-CM-TRANSID:rQCowACnro8RvO1qkOpsAA--.21855S16
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYp7k0a2IF6w4kM7kC6x804xWl1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_Gc
-	WlOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxAIw28IcxkI7VAKI48JMxAIw28I
-	cVCjz48v1sIEY20_Gr43Wr1UJr1l4c8EcI0En4kS14v26r1q6r43MxAqzxv26xkF7I0En4
-	kS14v26Fy26r43JwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4U
-	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bb8nOUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIDA2rtlCKYJAAAsD
+Date: Fri, 06 Nov 2026 11:38:03 -0000
+Message-ID: <179396508383.2291875.10410747579980805826@iscas.ac.cn>
+X-CM-TRANSID:rQCowACnro8RvO1qkOpsAA--.21855S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr4ftF1xWF17ur4rZr1UJrb_yoWxurXE9a
+	yv9343u3W09Fs2kr43Ga1jvr43Aayqyr17Cay8X3yYk348XFW7CFZIk3s5ZryYqFWFqr1D
+	KFnav3yYkw129jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAI
+	w28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
+	5DG7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgADA2rtkziavgAAsO
 
 Hi Jonathan,
 
-Sorry for the very late reply.
+Sorry for the very late reply, and thank you for taking another look.
 
-I understand your feedback: this fix should not depend on a subtle
-ordering constraint in the driver. Trigger lifetime handling needs a
-broader solution in the IIO core, as you explained in the bma220 thread.
+I understand that, even if this change addresses the reported failure
+paths, it is still not the long-term solution you want for trigger
+reference management. The lifetime handling needs a broader solution
+rather than an ordering constraint in this driver.
 
 Please disregard this patch; I will not resend this approach as v2.
-Thank you for the review.
+Thank you for the explanation.
 
 For transparency, we use static analysis tools to identify candidates,
 then DeepSeek and GPT-6.1 Sol to assist with auditing and preparing fixes.
