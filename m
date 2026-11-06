@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793988636;
-	b=wlkTGe4eQKfBwdmNMPLquz/yEZXV3h3MTl9OwZco1NVWLsQTor0vhvm2lNgsysIxt4g9
-	 Uo7d2jWmw0pCdkMxBGtsU3pZmnDfSOAtKRHwsX7UNNmw/xB6nCRladFY+v8xj19mZGkQ1
-	 xojqHh/w04YCim6kWpVAYDnl2bHPNO0r7MvIsSIWd+pwiWebEo45L7/jDGlzERNY5scIY
-	 /7k8TAWu8i3TXk90umUDMIjA05VSyud54ZyCgNGTxamBIpOt69YoXw6s6CYql1WoaVUGT
-	 HE37i9NSNLkk/Umvn37FOd4XkE2kHzPCZNQQvOJB7mIXfpCG50Vi1AfITfQt3m9eB/A==
+	b=l+gz9vj6KYx40NLgGbjDhHYP8C2AiHLvtnho5fh3kha3a/VtdhRpJ1gKXk2m9GhiSNAD
+	 fN6d8dwfq7oqeqW0tgFDEORLfujilLLqc8QeYx/A+X2I01YC5hbXsCc6XYEtPhpsFJeb+
+	 930Omb8pe63wczD+3fKdjWPKS2vPX4XKVdMtxb/i/+FrrQuC7N/QGo4MtcpNOHf3iTVL5
+	 kzGq1Rrpkn+G3ClJa06P0fNkpfblR3LlrbB+bLXSUJP8VxEaYqneg4qdZy6pNZ5jExe+N
+	 Ot0icrx9uYF6L/1hpr9/hBAmbVGS2UO1jrxDZFSlu+OIdkIgRyYlq8D0+nqFLW0wAlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793988636;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=H7Xjhzr6DF5SZMmFJEMnASxBGf/Gmuq3UHu0ZMOBjw0=;
-	b=0PVRxRMoyteiJwKJlNuQYs7useAFwNpMn4x697Z2c3xjireecxy66idywJqcjHQ/srVn
-	 Om2ZURDYWZibMK27d+Bi7z6PDN71uIARYLwjkDjylczgaDIpy1OWopZcvzuKhOmsvc1JX
-	 iRspfpBkkae0EODuDmYPYtsqkhacdkB0yiGnSPg2pgSUBjFDFm7EEEfSV2ZebAElF3pDA
-	 Ud7J2XuyFelrbPoFeIZepkx/F95otZ7gVoV0YO0G3hlqCXLH4S682zO9s8nckcvEYwZ/h
-	 BSVxmkFCkVHJzAMCZRFlgukimngdpzVrehlI6XzRI+VSZ1NJyglaiqguJROpGb84B9A==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=srzoV+ideYabaTr3Mldr3P6lqUJLkQHddHcBO4S+sFo=;
+	b=gv1FM07v/Fggs9L6FFReRt4DmbPJljrIlYomyAJrYalU0noiJLjswwvJjhATRV7xDg/N
+	 ibD5NtB0DtNXXFVCcte5NCKSId8XV4UQeYgMk0AhQF3uN5RIUf1VoDYPlbDXCG4XHr1yI
+	 yZLk+0fwj5zkvgpfQnnRMTyWaIVlzjYV5yClt5EgcMMvCwF3cCe2Q0Qfa6kH4TlW1Qu49
+	 jJqFKteoBAMre86ucTfhXU1a6CkkP9aslVCCDTrlHNNzu2jhc0ipQ7Hb6+mJKcnJgqHVd
+	 mxqeurBOivTsT/JFphhJnAN+2FA/6BQ1u/Vgh5w4O0Z1TdV14nE37D7v8kLdd9GQG5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BShUJPYf;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE4D606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1867606A329
 	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:10:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AE4D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a45b3f0bdfso1300712b6e.1
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1867606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BShUJPYf
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so9713805e9.2
         for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:10:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793988634; x=1794593434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=srzoV+ideYabaTr3Mldr3P6lqUJLkQHddHcBO4S+sFo=;
+        b=BShUJPYfR6oc2gRoPqvXmoTtBY0FJt+yRk4EMOurIBf1Q7sAGmy0J47znQU5w+oIZ1
+         ln0A5xuLTf8OKmdwFqm148fdKKveHP7B2cAN2OqsBORpfiDIMGyAUXBO3dndeyVkNJfP
+         ueCJjolK6LBpTRfPymOWJIg+WhkTquwKHbWhlBp09pcl04F2UaiHZwGBmSMijeQK5CF4
+         /Hu2rPwh7KmF/OBjAKgtXRLMtBUcTKu0IHuRXh2kWwLwccuITy4XxFwVqiYQQEgrChOO
+         c9gS9olV2du+aeTohB2hDP9AXDtC4GLRhSJQWRAXCMaOzWKySDt8Kd85l5gBiJwr2LtZ
+         4yZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988635; x=1794593435;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=H7Xjhzr6DF5SZMmFJEMnASxBGf/Gmuq3UHu0ZMOBjw0=;
-        b=1OZurupoG0OVqbFPFc8uW3/r/VW+EjH3tRCVEoxxPFSsDTQXSu3e+pNTm/mCvpYy7A
-         Pny19n/1to0YIIAr0/+SqtAVzQO8ovjgliPGq5fpdfIclOWQRLJL37E2QaAbzK3Tyts1
-         WOaNLJpwvJHSlQS9Z1qd62nuX+53nUaiTxxyUkrYIbseW715MOjvCYdi11/GBvzF7UAu
-         Vx/frt6f94tfiVn36NRxKCsuaWEzt9DJ4oxQEHwAkqYFYd6eduJx39TQhN6WMMHWNP8j
-         jQ79kL4Ay+4sgyq+jMLkDxvp+3SsERcqAl4AlrEpxf5ykvuAOnZHIaR/AdOy6JpVzQhP
-         QBFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzodB//AkeCmqN7fDUZ7bYcAvtd4LzsESJMfxeHDk6ko5zymK61Vr4Pf+ol5hVRO/Q9jTydgWz675MqriQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Oc2fpM9PaNjDoJqxuomDlB89U2/OaIozVn2nDfAKz9GMMuffB
-	Ifag5BhRNw056imbf0f/nYu5ocfqFBcEhIEDWX3wZVaUmud6ekO1gk7EtKgsVxjeox1HmTZmz0N
-	9dwTuZGz3CgwEid7o/JDWfLWgCH4ts825d89GIZ90pw03WeaGBMpDSMTS2Rk=
+        d=1e100.net; s=20260707; t=1793988634; x=1794593434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=srzoV+ideYabaTr3Mldr3P6lqUJLkQHddHcBO4S+sFo=;
+        b=tVK2mGDCdQ8yaG8rZy4wHoOVJJ/GwlOhq6Vsv0eoTxwUb9mDtS6d412BP4gK79H8X1
+         sADzx1QIZqim0ic07pJF9Gy5eSNc6qeXjVExMYHb6p8HAK3zW0w1NkCePZi2Zx0xF7wD
+         6YC4wxfIiwrnpx4D12KOzqGml9t5X7ABMkBEQ0XfqQvVUSdEU1DaOdj9PiD+BANSy6Bk
+         hQebeGXg/bBbJ3cC7aXZJJO8MIfR9xXnXVeZTyfbESGreWR5nLiJOKEAR0Sdz5i/z+Zl
+         EI3O4GWzRaC5L3NnKKw1dJ0Arr461yCD28EMFOXBg9uvJkxWsUU70s28LeBMMl16DGR/
+         7nHA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/rtFhPK0mW/v28LbM9BrXrFRs5CoUMUVkEkcrGtfrIZxjIxm0H9pu21oU0FYNuEJ1VN6thVI9P6df1T0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81DU2oGmUBk2WecdrBIy7GJX7lmE8Fv3xnNH8BPiJuZUhU1Xwt
+	7J2w5jle5RxGvzOucoiFWbqB90Dx+u6YTjcvA26+FAspXUGiqa+AWJZz
+X-Gm-Gg: AYBFou3BudHDYdfHPDQYZJ5XFjEvziNQHEbBzyo6x/qrYN5DrTfqJ+Q9tG7hJlYEUNY
+	ANYusyxqTncXE4uKHRfLXDvwy3nlE8hjqfGiPMn5VXQwB4UQ3anzt3CXm3JJWO7o1dyPZz7e1uV
+	PhCzAWGOtCz8BzIuKPg3pWWH7SR3kDvX1wZGQQ+iRp4eTX3MBMN2tBXtyg2JqPFA+fAoHmRkOQX
+	qUoVM2D9T60XhnsFOSVM724+2B9Yc0LMRZxYDvdVo2AUfMbhlBwJ8A0vnx4HkFiQ6mNy6XsWN2D
+	t66BY5UKUO+s7K2nWyzBl0PjCfSAQFDnU/5WHqr/rRzO4140jrJIFHV8S7KjNphs+9Vum/x+ozy
+	kufBM1Sd2e3rmptOzo7EUkrXFcP88bmXW3xUXhDaGD70/iREI5Y4gSiuGMoL3IZH3DgqoGP76Wj
+	7YlvNr3M3vuLWKEVQloOPrJ4DAxUNaXfzIH8cuflEVxToTDAsl3WsiQKWMqUhIMUk2zajd1eUbH
+	GVAlQJnqHAM2PCO0z9UVsEbnimEvmZLIiYP5pzceabuufCGDdIu/D1Wr2SI7edV4FFBWUZzunyp
+	QNzieYrjwSQl3px6I89chdeq7JsT7+AS3jJ8TfbtAR7P6bHmqJYH3o/oY8vdloRMBNq45i5MyJL
+	5w6AeNn4V5Tm+/P3JRmv6M1oC4ah/lXpSg0EKfTWJBMdBMRJumDaaf4yK1iib
+X-Received: by 2002:a05:600c:c0c8:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4b6e5ab6ea2mr38781175e9.10.1793988633951;
+        Fri, 06 Nov 2026 10:10:33 -0800 (PST)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.99.148.33])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d6385fsm4790715f8f.16.2026.11.06.10.10.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:10:33 -0800 (PST)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
+Cc: syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com,
+	kmsan-dev@googlegroups.com,
+	glider@google.com,
+	dvyukov@google.com,
+	jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Subject: [PATCH] dm cache: fix divide error in too_many_discard_blocks()
+Date: Fri,  6 Nov 2026 19:10:31 +0100
+Message-ID: <20261106181031.1446-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,42 +101,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3a0d:b0:4f4:4eef:52cc with SMTP id
- 5614622812f47-567e16701c8mr2303497b6e.43.1793988635141; Fri, 06 Nov 2026
- 10:10:35 -0800 (PST)
-Date: Fri, 06 Nov 2026 10:10:35 -0800
-In-Reply-To: <20261106181031.1446-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aee181b.dede2635.b849c.0005.GAE@google.com>
-Subject: Re: [PATCH] dm cache: fix divide error in too_many_discard_blocks()
-From: syzbot <syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com
-Cc: drifabdelmalekmohamedsaid@gmail.com, dvyukov@google.com, glider@google.com, 
-	jack@suse.cz, kmsan-dev@googlegroups.com, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-upstream-moderation@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> #syz test
+#syz test
 
-This crash does not have a reproducer. I cannot test it.
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index 1a5072425c4a..2d40d6047ef1 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -2383,9 +2383,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
+ static bool too_many_discard_blocks(sector_t discard_block_size,
+ 				    sector_t origin_size)
+ {
+-	(void) sector_div(origin_size, discard_block_size);
+-
+-	return origin_size > MAX_DISCARD_BLOCKS;
++	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
+ }
+ 
+ static sector_t calculate_discard_block_size(sector_t cache_block_size,
+-- 
+2.43.0
 
->
-> diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-> index 1a5072425c4a..2d40d6047ef1 100644
-> --- a/drivers/md/dm-cache-target.c
-> +++ b/drivers/md/dm-cache-target.c
-> @@ -2383,9 +2383,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
->  static bool too_many_discard_blocks(sector_t discard_block_size,
->  				    sector_t origin_size)
->  {
-> -	(void) sector_div(origin_size, discard_block_size);
-> -
-> -	return origin_size > MAX_DISCARD_BLOCKS;
-> +	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
->  }
->  
->  static sector_t calculate_discard_block_size(sector_t cache_block_size,
-> -- 
-> 2.43.0
->
