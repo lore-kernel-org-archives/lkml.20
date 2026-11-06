@@ -1,66 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983739;
-	b=QLUeUR4olNr+mFUDe/sU9K1z9Sk3b6EZZ9HQQFELj7ECORPZwxPgJWD2rrIJssjS/rHM
-	 rCZ8Wq9mRXJ6jAoVi6xnenGiRlMFwyZWcv32AWOJOMSbQLFcDm4g8O3dVUoKzpcyYTNbP
-	 yx6SErrBp138fd3QgHPgYbuNYEvNeUpJpT2wRGFk5KISZBJylUT8/G9K+1Do2ZXFD74u5
-	 2uMvl4QqGL6tlBhV2HS3Fq4eQ5qTCQ6EwgCHDFTzBVCFDvLD5WU26p5WF55Bmncv1YG15
-	 OXrKa1HRZE3/04qjULMpurx/tFgkyR/E3GIHEtbKMb2UHXT2gpEP5/lK2aS6iTonV5Q==
+	t=1793983788;
+	b=hKlNn0l6GBaoCssjVVE4c63R20cP71CzVFMl4emeseAz6MkqYu8Xpsf1ZAO6GbvskxZD
+	 r4J8RebjeVL+VpimMk5VGqNLT8v14r75NZra/LUUPAhBdV2vhB/sUxDsYamO/Xx11Fgnh
+	 ExQCq5b1Pj5NuBnEnqA3OnbJiFWq7z1PCyscgEWWSZQ5eqdIvm3UDeVw9HIfuqYjDvPAw
+	 kon70srDtBH7+yqlwnNAHFSMrQFVgfmBTdDljdValI50m4ho4OdaqCqdbXIqVeZLxDOaX
+	 AaXBxrD1YrUefK+XDDKvKxFOkrrBos7IiBLhcu+tqqSYQYnF1yaFcdAkiOReNKUPclQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983739;
-	h=Received:DKIM-Signature:Date:From:To:Subject:Message-Id:In-Reply-To:
-	 References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983788;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=HqTUPu4uDFtmEky3eJGu8FbX8sNx+Or+hz+eWSfrOqw=;
-	b=fQf5XI7BXh4b399YEzgZFep0eU1HkDJ90nmQjZLB1AissvxObj7FPhMMM2fmnTdh1Q/2
-	 hxyhK9fnbJgTbb65NKjmxERBubsZg0qh3ikDrnNn3ovohO673crQzwxZ97uauUFTvW1ks
-	 Qg/VH4PTkBP7BQPdpba4IfMukbEfhJMfsJXCahzCiJUhfUDIlD1KO5J+rZZS7y9oCtgyn
-	 j96FpYYQ0jZpheIl5ZJ0DaQrbFIkGK8+CEYUYUbspkikmjv66AJwzVWBYALXPiYhCZ6W/
-	 OC19TSQa19siD5JPf/QQyEwR5Hkqpe6Cv3F6tq5I/mTJsCTwgQNJL1rJiNjxFIa2w8w==
+	bh=XqDNg4W7673UpH/nlCNn5xwA3tbLFD35COXqGvji1qM=;
+	b=AHt62TjAvHAojoZz+8HB414xVWwsvR0QUT7pQXwkyAt1ryO4KiH4Xim4LGOpVKIObbSr
+	 xX0OQ6YoflUTweLF+ZQEqH0/lAADaB+I7tzeBuFT/9whsHlrp+GNBVdKusO0hR8tufuf/
+	 lXmrU73BlUl5Si5KW4iHyi1NGwlAlV7SznH3x40EHJYNL5BViCudLz/3GDAKVnjqAhRjC
+	 DF8IM/vn1WQds1yaGBG6/E6Fqm/pq8NFF2ZuCZiCF8iq/D3d+30uXvpb8tcrhe+RE+VQ8
+	 ZZITfksj2+qxpw2EIKzV2ft8z0AXDtQSzjArMQ78g0kv/dRCBPGbXsOfkfU6iQkyaNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=KrB138xA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bitmesra.ac.in;
+	spf=pass smtp.mailfrom=bitmesra.ac.in;
+	dkim=pass header.d=bitmesra.ac.in header.i=@bitmesra.ac.in header.a=rsa-sha256 header.s=google header.b=Z7TODvfW;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECC7606A326;
-	Fri,  6 Nov 2026 16:48:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F222A606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F222A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitmesra.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitmesra.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=KrB138xA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FAAA1F0089F;
-	Fri,  6 Nov 2026 16:48:57 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=bitmesra.ac.in header.i=@bitmesra.ac.in header.a=rsa-sha256 header.s=google header.b=Z7TODvfW
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso354084a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:49:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793983738;
-	bh=HqTUPu4uDFtmEky3eJGu8FbX8sNx+Or+hz+eWSfrOqw=;
-	h=Date:From:To:Subject:In-Reply-To:References;
-	b=KrB138xAbdqLx8TVda6AqfjjiVZ0NsgU1TRW1cY618TT61y16rSjHyRHAkKV03uqz
-	 EuGNu32HEURaTyQCeheMZKE+ynBrS6XYkA6s95y02MrhkypV+S2pgdVQW34S+4eq/o
-	 Pt7wGOjdZo8mi7Wok+w4eX/kTwtVv8PT19SVyadw=
-Date: Fri, 6 Nov 2026 08:48:56 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>, "David Hildenbrand (Arm)"
- <david@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev
- Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
- <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau
- <kas@kernel.org>, Peter Xu <peterx@redhat.com>, Alex Williamson
- <alex@shazbot.org>, kvm@vger.kernel.org, =?ISO-8859-1?Q?Lo=EFc?= Molinari
- <loic.molinari@collabora.com>, Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan
- <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v5 0/4] mm/huge_memory: copy PMDs at fork like the PTE
- path does
-Message-Id: <20261106084856.4b254c973694345ee58a9b63@linux-foundation.org>
-In-Reply-To: <20261105211819.2a6a349b2edc077784ca52f9@linux-foundation.org>
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
-	<20261105211819.2a6a349b2edc077784ca52f9@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=bitmesra.ac.in; s=google; t=1793983785; x=1794588585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XqDNg4W7673UpH/nlCNn5xwA3tbLFD35COXqGvji1qM=;
+        b=Z7TODvfWLWlnUBtrtersYwQUYVhj4fzJY9Lc8GcTOeZhyHaj0S5aWlEYl50CsTmACb
+         /r1AeD4v2ND4j5tOdAfUCPmzu8ccWt4YtViOXR9FzMWWZi2wSIzrG6s94uVSYdUJRRbg
+         W3kQ3dJH1ToL7EK2Xk+/lFTVhum59/haUf4Gg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793983785; x=1794588585;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XqDNg4W7673UpH/nlCNn5xwA3tbLFD35COXqGvji1qM=;
+        b=OgS1jpKZ2E58d1zmxWzsmKv3Tr8R0Qiezkf5Y30BlMf5/QmaKu73aMCwDb7p9PEHjg
+         todK6TXewhQW/EPuXCu/m+s0gM/CwMKfQRD+6kOpqr3muo2bh7moiwECEo2rN5Zcm3Xo
+         e1IGt2LDtUGqZKBNg95UvXl17M4LqJdpJBhWg8xoRWjo9IapROaANtnBjQLwEjVl4hRt
+         6zPAssmZ1tPIAAM+iCIgNzgZvIgzhZ9Vh0byGN6VFiXB7jnOhyPTJSdByq1c6p/w8By7
+         w4LlUpvHdtpeVgt4DIDd8UX5oiGZXNacPcxxlHB+B0PaQBXhwKc1SjlNZUUzr0xXO2hE
+         zd6A==
+X-Forwarded-Encrypted: i=1; AL+hErFFBltrAriZuCJKRueZPSLe64RGJWTVhtx3e90AAnAQ0hbbIIfQUjIrn+tZ3UZ82beS090NzvGiru5OQG0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kVaTE4LS1zsrx950kWbwfc1L7cb9C70BeY+u9679vHaJRKqeP
+	lr5pEZTuSBUjRhQ7w5ovHM4nnNSvxtMr/+ylwW/Th/T+BI2A2pCOnrOGOh4uOXD1Ag==
+X-Gm-Gg: AYBFou3qDmaGhX/u4AJ4wexuhjiFOeyYskM9WgV9zX91Pl+57kRt2W6T7yZiO+oZceq
+	P042tDnRVKxCY8uO/rT6WthP5i2UwJXi7u9TrZso9v0RS/MxNCEZmYhLro1hERLTLsn3uyo58OT
+	zmHHgqsnig5iSF4eecW0ccS32ogs2HLLCkB3xkvxRPqGcRIgGBAbUymQhlikAWduba0WDF2e07Z
+	zXn5Mioldo8U4BOqlsDk8JoLwwWUhz26s0gediOCs21Rofzk/X4NnXvQRTH4DGek4N6sQXn3xmD
+	iwXEkkFIw/3bea45FLIbPzX93eu6mrmVNhO4JPtD7AsJAt0jEVuulY4wlaxFFWqEi9XE38I8K+v
+	+dIOvUX4KY22KvScdJ+b+4O3ggmNeYk4xGFcpvAs1bXZOwSFVl7EFbp9zk2CTC7DUa+3IFDhS57
+	bGUqchfE7BGSFWGfTPrE/4+8RvGfH4BlR8OiH0XPFKZJYktjyd5gsxNeH5l07UT5bzvx1rqYp4d
+	kjPow0bVwmz+v62JtO883bJxvmPogvBTr3+X0FVPArSQyGe1vhrGOoZB3eX+fUC7GQyvIdFWycH
+	7KgbyhwEp2q7N+MNJCWAl+1LyyVRBCfedCogxhepWgRj2LGhAyXZSw==
+X-Received: by 2002:a17:90b:540f:b0:3ac:80dc:f40c with SMTP id 98e67ed59e1d1-3b0db6d7586mr3040386a91.14.1793983785266;
+        Fri, 06 Nov 2026 08:49:45 -0800 (PST)
+Received: from fedora.bitnetwork.com ([115.245.53.98])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc4dc7a8sm264494a91.3.2026.11.06.08.49.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 08:49:44 -0800 (PST)
+From: Kurmapu Sai Devansh Prasad <btech10487.26@bitmesra.ac.in>
+To: sudipm.mukherjee@gmail.com,
+	teddy.wang@siliconmotion.com,
+	gregkh@linuxfoundation.org
+Cc: linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Kurmapu Sai Devansh Prasad <btech10487.26@bitmesra.ac.in>
+Subject: [PATCH] staging: sm750fb: constify g_fbmode array
+Date: Fri,  6 Nov 2026 22:19:35 +0530
+Message-ID: <20261106164935.18502-1-btech10487.26@bitmesra.ac.in>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,71 +94,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 5 Nov 2026 21:18:19 -0800 Andrew Morton <akpm@linux-foundation.org> wrote:
+The g_fbmode array contains string pointers that do not need to be
+modified. Add the 'const' keyword to lock these pointers, making
+the entire array read-only. This allows the compiler to safely move
+it into the .rodata section.
 
-> I'm attempting to runtime test this on local LLM-driven live kernel
-> test setup, but it keeps on kicking me out and calling me a
-> cybercriminal.  Sigh.  Giving up
+Fixes checkpatch warning:
+WARNING: static const char * array should probably be static const char * const
 
-Success.
+Signed-off-by: Kurmapu Sai Devansh Prasad <btech10487.26@bitmesra.ac.in>
+---
+ drivers/staging/sm750fb/sm750.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-tl;dr: all seems good.  The expected performance gains and losses were
-observed.  Can't performance-test powerpc because the unpatched kernels
-crashed due to the bug the series fixes.
-
-: I tested the four v5 patches and the selftest fix on matched x86-64
-: kernels. Both shmem fork tests passed with the series and skipped on
-: the pre-series kernel, as expected. They checked inherited PMDs,
-: private and shared writes, parent mappings and ShmemPmdMapped after
-: child exit.
-: 
-: The special-PMD race was reproduced with a virtual QXL device mapped
-: through VFIO. Revocation before fork produced SIGBUS on both kernels.
-: When revocation completed during a controlled pause in fork, the child
-: accessed the revoked mapping before the series and received SIGBUS with
-: the series. Both pauses were reached without timing out. No BUG,
-: WARNING, KASAN report or oops appeared in these x86-64 runs.
-: 
-: I also built matched PowerPC kernels and tested a POWER9/pseries
-: hash-MMU guest under software emulation: two vCPUs, 2 GiB RAM, 64 KiB
-: base pages and 16 MiB PMDs. A trace confirmed order-8 VFIO PMD
-: insertion from a 64 MiB virtual PCI shared-memory BAR. On the
-: pre-series kernel, the child's first access after fork caused a NULL
-: pointer dereference in __hash_page_thp() and a soft lockup; that guest
-: required a bounded timeout. With the series, the child read and exited
-: normally. Revocation before fork gave the child SIGBUS with the series.
-: This is one comparison, not a PowerPC stress test.
-: 
-: I measured fork costs with a 512 MiB private shmem mapping, including
-: 510 MiB actually mapped with PMDs. Median times from 100 forks per
-: condition on each x86-64 kernel, following five warmups:
-: 
-:                          Before    With series
-:   fork only                49 us       63 us
-:   fork through child exit,
-:     no child reads        132 us      202 us
-:   fork through child exit,
-:     one read per PMD      637 us      326 us
-: 
-: This workload pays more at fork and takes about half as long end-to-end
-: when the child reads every PMD. These are single-boot measurements, not
-: a broader performance characterization. The timing kernels had KASAN,
-: lockdep and DEBUG_VM disabled; the correctness kernels had them enabled.
-: The x86-64 KVM guests had 8 GiB, four vCPUs (one virtual socket, four
-: single-threaded virtual cores) and one virtual NUMA node. The host has
-: 64 physical cores and 128 SMT threads on one physical NUMA node;
-: individual vCPUs were not pinned.
-: 
-: I attempted a PowerPC VFIO fork-only timing comparison. The pre-series
-: kernel faulted on the first child exit, even without a child read, and
-: the guest was stopped after a 90-second timeout. The patched kernel
-: completed 100 fork/exit operations, averaging 2.77 ms under software
-: emulation with tracing enabled. There is no matched PowerPC performance
-: comparison.
-: 
-: Tested-by: Andrew Morton <akpm@linux-foundation.org>
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 21e310274330..47d2917cc1d6 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -12,7 +12,7 @@
+ static int g_hwcursor = 1;
+ static int g_noaccel __ro_after_init;
+ static int g_nomtrr __ro_after_init;
+-static const char *g_fbmode[] = {NULL, NULL};
++static const char * const g_fbmode[] = {NULL, NULL};
+ static const char * const g_def_fbmode = "1024x768-32@60";
+ static char *g_settings;
+ static int g_dualview __ro_after_init;
+-- 
+2.56.0
 
