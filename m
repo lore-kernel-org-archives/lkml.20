@@ -1,64 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989120;
-	b=wQPNzexV2cZwwJGdsCfVFKf9GJaUBl/eJfBVQNDv5w79uXtb7K6sdQ2cd84qzRw2N7an
-	 l2Ifq0rLDEHz7dUcgU8E6udPmJHSxNnXTyv3S+Axbf2E1qWYn2lPWvbOMhrB/hwXKPoJ/
-	 wNKON0PTXSW6Onh+39EY/1dXE2hfLGHsuow+IT9/O7mEY+mjuGVRynu79dhNY5SCGrPhT
-	 yqBWlM9e001hIfATUzepytVFxdhW3s9pjIx4G3tSI2gA6CKjNnZzFd+B3QlabiuxCYKX7
-	 kGm7b3XPYIJ6lshTZlmBH5iX93G9wL8kev7Afe76Gzm7Y3CVMpRP25TYoNrtbet+5Jw==
+	t=1793989153;
+	b=R9U8qNi2Eu27FIrka6qMHGKn+4XYDBk6hMWO2MMJgF7biqhNfNW25iB7yw1fwJX1Vsl3
+	 g65nOjw4BCcKMQFDvsldcfuYncOHYqwkid7MRaSNXolA755behxGBoUbDfO8sQySKSeiQ
+	 YUEpJg/Q99WK2FybyBzR2teMt+n8L5tEzN7+QniT6NkQqMwg5RTTBWMMbQ0gyXBqqF2PG
+	 VqIUbqR8r64seO43CShPiCK2PDTJErD0EyU+UFKHBMUAIsGB7Z8rpGiVreuj2XZSeN7hF
+	 rEVeiZHngGJQSB2afSYk0CuOyfT4SwosrURFsCQTxqV5wC61yxe5hkgkD7ld/DuXFvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989120;
-	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dyygcqcAN6zPeXsDXub4yWu3eaYgS8p+qfGLoA+tRmk=;
-	b=AcTfUqURb/B63DVU4G8JSxhD1j42VNY6seb+fhTcbGiztRRlON3SB0ui+nTR5OfCgU9s
-	 VVdXYVX1hWBBU8gM0EscW1Z9IEEPPlamFp6Yb6SUHJ08Q5VFh1Mp5D57sRfcVgRN7Rel/
-	 7v4XIiErGcGrhOn7P3SqBP9J7VQNz3z3Nj9whVGxnDwT+HbU4OfBfP5NHaXG6uFocZBqv
-	 ZKOQrbksBHvcx8n12MlenkYjTm9N1g89DAmDiNdQ5VMuEGQ1VNyE8anCD/UqrkVQLqtfE
-	 87NWdpaXaeBP6yfEYTcYLkj+Otv1PEdx8snq+iUkp6KxTsaCeWakfejWG7gpi5J/thw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989153;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CAF05veWd1mXwHgLUVPA/XS7GxgSXTHbtWBtdYeysgM=;
+	b=TG7OAtvt2vCP4uI/3zcI4s7Benhcx+21+Pxa20uEeegKHwlWHNaWJekJeVx5gjOiGhg4
+	 iEFGfHi/UyaVtS1iIJ4JQHEI0szyTD6hEUxD3RrRYPPKccgrd+JYFN11rwTxJBF1qUKgz
+	 L7sAC+DmUCk2VQywE1aCfwRIHcniGsTKl4rzixfF6wnj6NNpGcS2mk31M2ggMd2h/8noA
+	 n0YQKr+tdiPBuqWBXp/gGP6Duz2a6G1svhoD27A8F5mlXREFJLdygey5tAO0iFugu2Hje
+	 shjOs8dBZJKnZPr458aC4fWfxat/c7kPeVPrXUAOhrLdVrQ24BevOxelGTrZ/PNe7dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=openai.com;
+	spf=pass smtp.mailfrom=openai.com;
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=LVuBiX+j;
+	arc=none smtp.remote-ip=209.85.167.171
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC43606A32C;
-	Fri,  6 Nov 2026 18:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCC43606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
-Date: Fri, 6 Nov 2026 19:18:26 +0100
-X-Lima-ML-UUID: 52e3c1d7-73c4-420c-837c-f7ae052149fb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793989110;
-	bh=QKKFbfCa9dHm2YxFOGcOT17+76twgyOoEkQPZtq3Y0Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Ft3ZTQYazgHJy+WiOicPJcdpdkn0Av1qnb5U8ypS+7+NwSnstj3u5W5OQ7i+LxZcv
-	 dqQv1FMGNoXEfpKUelayYiq5xLIAHld+EOG46Bdv9KCwyi4y2BbdD8K5VFM2MSCvqj
-	 NcMr3O1JWGDe11wiVU6xi+r9l7CYoUFND5rtTkJ+i5q1KyfpjX6/M1Ou6XVPeWNs0/
-	 g/+GYf3xTU9B4Z2Tfga6WhoIGJ+qEga6y3eA9BSB/uwIvF+6IRdpS9a0FA7KOanhpS
-	 7iAFFMX3K2cT/KOSR42AOTyuyruQPTGOa7mWvgU2z6TzFH+0W1+XxRwoR8tAvzbXIN
-	 flBdU7MnQin/Q==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: <asahi@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>,
- <brcm80211@lists.linux.dev>, <dberlin@dberlin.org>, <frankyl@broadcom.com>,
- <gustavoars@kernel.org>, <j@jannau.net>, <kees@kernel.org>,
- <kvalo@kernel.org>, <linux-hardening@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-wireless@vger.kernel.org>,
- <marcan@marcan.st>, <meuleman@broadcom.com>, <michael.reeves077@gmail.com>,
- <pieterpg@broadcom.com>, <vanhoefm@gmail.com>
-Subject: Re: [PATCH 05/13] wifi: brcmfmac: Negotiate PCIe mailbox transport
- with firmware
-Message-ID: <20261106191826.4ddb997a@kait2en-mbp15-1>
-In-Reply-To: <1a1b1ef4b20.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
-References: <20261106153612.2aadef2a@kait2en-mbp15-1>
-	<1a1b1ef4b20.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA41606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBA41606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=LVuBiX+j
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-53a448f86e0so502535b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:19:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1793989152; x=1794593952; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CAF05veWd1mXwHgLUVPA/XS7GxgSXTHbtWBtdYeysgM=;
+        b=LVuBiX+joeb3pSJCi0epMSN/iLWHS48SKAnhhJR8pws4FBtgVL6RUoWpGdeeTdMq4I
+         G6W7n2kTNnVElNS9HZevKmcgGkMQRXn7JWHfAtp38xR19DFlUlVVOh2xXr+DEFC3JRzv
+         IEXTglSmZ2tTNW72/KX0p3676c0MA8s0MCsco=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793989152; x=1794593952;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CAF05veWd1mXwHgLUVPA/XS7GxgSXTHbtWBtdYeysgM=;
+        b=A//9Mn6I4QechvwXkJ5p1RDSIOMeScdc1xWueaVQkgw7vYv+mB0sUJ+eQbj0zF/YVx
+         eJam+j5umEIbs0KQXGr5fhtS8oBiocimItYpL8eJJIy1Sxftbqa7oZXUYT4klOM90Yn9
+         FBybsv17y1zc0anYlJFM6XNPCH/J0qxi2UvKETSj5zZWHvCR4V2EoBFZPggJWbcNZk0+
+         c3xr8pbVnRNnxqT91JU7tqfxWbNPX6q3PP1/ZsEnxRp7I7GGo5ppCHJHxXFCqsVIAPDh
+         lXypnaf9tWYzJ4Pu4/MQiuWXjneoEJVN+95ZrXIZ6J4zd8Q4e/gXaeyx3/E6n+fC8Cp2
+         p4Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBzt0Cxb4WThVsmP+z0WIHkIegr7bbY2cDQscJ0xLsng+nlEd7NgnDtt2vwjhvW7D9+FsPzrD7rXeRyAaPU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8q286iGEKhSEnmvCtuUZN11dZgvLcTVnFP1pnCWNgYaWNHHD5b
+	HsX6ntZDqMmtNi64z1bKVChhEznvK0iHqtwGfixIrf9nKBC4yUQZbEFATiGzOJ6SqXQ=
+X-Gm-Gg: AYBFou3brcDgu0kOZyAzVSKlSOvsiaTYXjzhgMow+Vvu7CWcjIPn/+faVHo9qX4lyIo
+	UNpzZ7z3aA8JlBerLcl/GOUJ9tQhg6LRUPPjv9/4pDD3MdUNvtycnpKMCOFQEYNvgxX9XH7x63L
+	cp2jSJ8X8KUUCiVo5hMYogH5c9sVN/3+IY2RkbUayIare78XMix6wlD3yenSwcLX9pTyaz9dJuJ
+	NiIjFbnpHR+/KyShDysmZerblDz3S5bzwJ2maUcTa6sSbMp5o96cUTrnVWqBoxDbyz7Q7ORS9ea
+	A6oRloXE4XGMxz6owiLyGfGnB79HFZZqHN9uECYBcsEWrIzNGv+T9m6Paz/hMB2qrdF6FjTTRFp
+	cqhxEtKzwhMxZOrQg6NY890LpAocx1cJ/40x4MHa3fEF0hVQ/3vVsa9wL6RBbkVvaF4GIPb9Yf9
+	SIQNz9vnQCapnW2wXwF9VnnQlhGsinQ9KGpctOOWaXoWRSrwNLoRIpyY67IX7MmmxEyD3wYPlz9
+	iy8qaE0yE42AIJ4C0qANlN2lpVM0VkfTKb4M7cxdu7Iw+0OnVTHk9qGInxAFJKlPPKXlXFzA1Pd
+	rjs6xy81f6lo2i7o1+th9c4lylS7wcklw5BUqI36lyhkkUvNgjGTbTOMb2/BY7bn6Kp4TZ3YQby
+	+iDSp4HqwwIO1AknpI9Ww83a5KoyC
+X-Received: by 2002:a05:6808:1a21:b0:561:fa43:1b2f with SMTP id 5614622812f47-567e0fc17c3mr2329340b6e.20.1793989151828;
+        Fri, 06 Nov 2026 10:19:11 -0800 (PST)
+Received: from com-75606 ([199.47.143.1])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7e5f6e2sm2027411b6e.11.2026.11.06.10.19.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:19:11 -0800 (PST)
+Date: Fri, 6 Nov 2026 10:19:08 -0800
+From: Kyle Zeng <kylebot@openai.com>
+To: kernel test robot <yi1.lai@intel.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com,
+	Lukas Maar <lukas.maar@tugraz.at>, linux-kernel@vger.kernel.org,
+	tglx@kernel.org, mingo@redhat.com, outbounddisclosures@openai.com
+Subject: Re: [PATCH v2] futex: Use a keyed hash for global futex buckets
+Message-ID: <au4aHJEyPVADFf7L@com-75606>
+References: <20261019183334.29433-1-kylebot@openai.com>
+ <202611050816.9e42490c-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,34 +96,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202611050816.9e42490c-lkp@intel.com>
 
-On Fri, 06 Nov 2026 18:36:52 +0100
-Arend van Spriel <arend.vanspriel@broadcom.com> wrote:
+On Thu, Nov 05, 2026 at 09:04:47AM +0800, kernel test robot wrote:
+> 
+> Hello,
+> 
+> kernel test robot noticed a -6.0% regression of will-it-scale.per_thread_ops on:
+> 
+> 
+> commit: c44a057178cbedbc04c63404258524975e87a64f ("[PATCH v2] futex: Use a keyed hash for global futex buckets")
+> url: https://github.com/intel-lab-lkp/linux/commits/Kyle-Zeng/futex-Use-a-keyed-hash-for-global-futex-buckets/20261019-113334
+> patch link: https://lore.kernel.org/all/20261019183334.29433-1-kylebot@openai.com/
+> patch subject: [PATCH v2] futex: Use a keyed hash for global futex buckets
+> 
+> testcase: will-it-scale
+> config: x86_64-rhel-9.4
+> compiler: gcc-14
+> test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 512G memory
+> parameters:
+> 
+>   nr_task: 100%
+>   mode: thread
+>   test: futex2
+>   cpufreq_governor: performance
+> 
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <yi1.lai@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202611050816.9e42490c-lkp@intel.com
+> 
+> 
+> Details are as below:
+> -------------------------------------------------------------------------------------------------->
+> 
+> 
+> The kernel config and materials to reproduce are available at:
+> https://download.01.org/0day-ci/archive/20261105/202611050816.9e42490c-lkp@intel.com
+> 
+> =========================================================================================
+> compiler/cpufreq_governor/kconfig/mode/nr_task/rootfs/tbox_group/test/testcase:
+>   gcc-14/performance/x86_64-rhel-9.4/thread/100%/debian-13-x86_64-20250902.cgz/lkp-spr-2sp5/futex2/will-it-scale
+> 
+> commit: 
+>   0fcb05b723 ("Merge tag 'libcrypto-fixes-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux")
+>   c44a057178 ("[PATCH v2] futex: Use a keyed hash for global futex buckets")
+> 
+> 0fcb05b72344f408 c44a057178cbedbc04c63404258
+> ---------------- --------------------------- 
+>          %stddev     %change         %stddev
+>              \          |                \  
+>  7.026e+08            -6.0%  6.607e+08        will-it-scale.224.threads
+>    3136755            -6.0%    2949754        will-it-scale.per_thread_ops
+>  7.026e+08            -6.0%  6.607e+08        will-it-scale.workload
+> 
+> 
+> Disclaimer:
+> Results have been estimated based on internal Intel analysis and are provided
+> for informational purposes only. Any difference in system hardware or software
+> design or configuration may affect actual performance.
+> 
+> 
+> -- 
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+> 
+> 
 
-> Sorry, you lost me there. What is the relation between the patch in
-> this subject and D3 ack.
+I wonder what is the best way to run this above regression test and what
+will be an acceptable threshold for the patch to be merged.
+I'd like to iterate on the patch, fixing the issue while avoiding the
+the performance regression.
 
-Hi Arend,
-
-D3_INFORM and D3_ACK are mailbox messages, and 05 changes how they are
-exchanged. Without 05 brcmfmac writes D3_INFORM to the TCM mailbox
-and our cursed Apple 4377 firmware on the 9,1 doesn't read it.
-
-That is why I mentioned the D3 ACK timeout handling patch. I
-submitted that because I was sure the firmware wouldn't send it.
-But actually the transport was broken.
-
-https://lore.kernel.org/all/20261001085308.1688049-1-dev@deq.rocks/
-
-which was superseded by Sebastian's patch here:
-
-https://lore.kernel.org/linux-wireless/20260915-brcmfmac-bcm43752-suspend-fix-v2-1-1bd84914998b@collabora.com/
-
-So probably for addressing Sebastian's issue this needs to stay
-anyways. My memory served me wrong. I just read that his device is not
-an Apple product, but his patch incidentally worked around the same
-problem. Sorry if i was causing unneccessary noise. 
-
-Andre
+Best,
+Kyle
