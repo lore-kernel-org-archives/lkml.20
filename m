@@ -1,47 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964151;
-	b=HdtSLZz1CiHgM5bOHqtocNTxUVY9g09sE9+PClfoyN6cy2s/mhTfNobs0+bV2SBpanl6
-	 sikKdvEvwMKHxRNhjN+BMDXFtHTTP/cBD3kqAq0FlWff/IefMUCdMqCkgKk4EOqrnFyrE
-	 zswYakH/lDq4cr/T8sjas/8BzX8oaJUtij+KEK4GYC7Kz3XbTPxkfHleD4gNwqEIjvzG8
-	 E3/56ss1Pu1SJZfYWaI1drRAnmkoyLCpVIZMewEdMpL841tfan0xBxF5Hfhrflv+ug/64
-	 /UY0j21/OIbV+zsDzLKSX/MawfrzmO+F8C7R4lRaTBiqUmOfA+3obZ6qNljWfYhixtA==
+	t=1793964167;
+	b=bFL2gi49rVcva9lQo7/U00GG9pxTJ/bP5/Y8JTalrem491UMXwRfWEyYiQitaTlfFbn5
+	 0A4W17PTQMbWBWVPXuQb7SBUlf0IgnSY111qcOBmqG9Dj94JRJgxepS1LxH9++rf5XhGP
+	 WjbuH9g4CMEToVQiGY3HnKN0B0mJGEujfUjvAIT5/1aHxVlTLUQrGqa1BC/mhDaaAHDt7
+	 MOiS9Np4dy0hEmHyFXNix70ZaB3NEb3HUJQEnvhL/FqDuKzJIlsoihcEJKwD59PvsLJh4
+	 fMuQY0xMJNclPBa0j8k5KwmiTWifr1zP5mHeLZVzfSUWSqgIWpWad/EX0MYoSfeSnyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964151;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1SJvXdR9B8C22Oe5tHH9Z7Qn9s3LSfGUpIZXJCfQuqg=;
-	b=RkMRpWzERc/dVzndOUZajWgvPWKxGj7wdCWQxsniDtf91YKmPBjyNcNoIbzQ7H2kGDtV
-	 U5URM5WpuS9EaNeEVtJV/3WDsI9VokdgFpLyW0TInjiPaRvimI4XeE2VDFzL19AzoDjAE
-	 Uj85wFETyDhWJusX1nxD9GoTUAh5Q1Hmo1yUx/7n1+fhL/lHG6pdMumDueiELWopgB673
-	 sFb84CJDwoqsIpHzukyWKoFDsk0XWd8bSbqv0Ba2PhK6++mU0DgJ/kcI4L6k3T14McyZI
-	 2kjgfrwsJQJcsfIi0IOof34VkKlvBoLWtRahggN3uCy4jh3OVx2hLI1dmSlHjwWfJMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964167;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
+	b=iVA3vWNtnpkdIXNNlXi4T9n5oqChL3nN5EomkdrewaLLRKT97q0+uqnt/C+NF146YBAA
+	 wAwQNBrgMlzBSfBQlE2v9TYobfqPGu3AvWfxx5ajQblUqh4lOQ3C0YdVsIJCGJbS4oiJQ
+	 w8ewZfkEz+NU1kluKp3DI2OWG+vIeddP8mgUhxB0R8g8K64RlwvCjG41ThNJpTbLnhw/y
+	 Dw98qaZ9rkR4nLfMFifG8oQIGgq89Q4COaka4sRUiTdVoUGWgi/gHaob0E9CP5Ps9aRuL
+	 LqMm4C21L1hccwA6g3qnHRN9Q2cJhRRGg8Zv2P65pll7/3FP2VYRIxpqCKsGx6ye6zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bfd7JWLI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A56bH+AK;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DB4606A333;
-	Fri,  6 Nov 2026 11:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E112A606D81B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:22:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E112A606D81B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bfd7JWLI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B87A1F008A2;
-	Fri,  6 Nov 2026 11:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793964150;
-	bh=1SJvXdR9B8C22Oe5tHH9Z7Qn9s3LSfGUpIZXJCfQuqg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Bfd7JWLI+lC5cU8W67WQSGOM4aMg4R8Kgg99fB9EiVem2y3MUBt2OJuCPJv8kcRar
-	 xBThkjSfcrkGcwGDM18zdey+7znkvDIj7nlt4fFGJRqnUJrgoxXqfIdBYAgydpU0Wi
-	 KMxC6TCZ1pfgzuklk/PoyUv1W8rTl08B/K5uOdoXIn2+uLLyQJEAAWpJYUHZb6001B
-	 Vsp93y6ZzFsbDAWc5CFW14oH08Rr43PE5Xm+5NMnvUnUEeqGYR2M+yOdpZIJ7GPRdP
-	 Kr9WbLlADI2Lhxl12su9U7b0h1dVqxDwEDMcge+zdJpGPoLZnuXNfvPaCzBptnTAk6
-	 Kdf/bCnLrMdpA==
-Message-ID: <4f1e52d9-0788-4601-8f67-898256a776b4@kernel.org>
-Date: Fri, 6 Nov 2026 12:22:15 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A56bH+AK
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-491971ac844so449929f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:22:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793964165; x=1794568965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
+        b=A56bH+AKoKn3WxGkU/3FShzWyjMsOWNXmrDjIMbboHHrTJksHZGtdhCYMn9Lv90sC5
+         rkYXo1y7hX4deXW2sWOoz1Ac2mbU5okpF8OWrr7bm1GrRw8jBtYFo6a/zBui61xax3pb
+         MxM+Hgcmv4uwI9ilLgwv08sZ5aBb9rG6kDxrv/no5lF61erZujFajEcHhgPTadNbLwon
+         NXstFFc5hlWtNweNmvNby/AFeMq0ftId2PcCN7wb8fvPlTXFADo0HqfVVJ7GGN30q57W
+         /D2t9o9OspR62OBxhuhrHVRGv8sJfx7t8PVb/a5eZappR2Y4uMYS7v7j+PqntEt2VIq6
+         4Paw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793964165; x=1794568965;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
+        b=1zYFs4uth5cWdLefd3Ju3KI7L7B+NOx18UAs3tkxjvSupbezC3ZZBK3jC28nxLuM0s
+         IP5MdA9xH8kuO5CMgOGY++vCPud2u4W15cpyjINp526CY4pT0GOPujzlPu2jDsUtO80p
+         KdyNNvGq1yaIpOmAQTlclzHDIFE7qgTGlPhKS7bzk1k49qaeCDNvNtOpt2Np+zVQaiLr
+         9yM8xSW1SoX80tVr2MVeq3fDcNZ9Su5rKUMUsRVwj9QgxxAvCYYu/UBY5yAeU7NsEtrr
+         O8L53ueBcYzqfmYSseNj4aO9kqJ/4M153PIX8TQqM4QpvGOwpE0Zq5CKqinc76svLAI2
+         7xpw==
+X-Forwarded-Encrypted: i=1; AL+hErGqE24/UwAN2RmRfYuyIx1AyHZIHLL7JJu4h2P2P40NYs/UI/MOY0RX2DvyGfrIZFP3zzFdl5Bj+EYOhUU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FbCQAcxgPZ2UAo9auyt7tT3D4/gzhdUJvn2dcuLad0wnGn3v/
+	dKKk2td0WCU5AFFAnvO43iQyuZjtEZev7cjgZzo4+u1GF/3w4nKijZ0xRTtQJpvUivI=
+X-Gm-Gg: AYBFou3cv4B5p8ZEqp4I29fqSHqSAb7Ey0zQbKallAXrq3BIFt9XrE3eS3J2Lk4QZrS
+	IIJRNaB2bE5Jhe/ioSDbaslKxrHOPErwzZE4U14jPCx2O6UCoqFIpGvklmOzN+K+KmtGSPbsWRt
+	/PydANjREdhua2RQwWNcKbi5UAsgMKyplno/AP9WNAVaD7HGrWmxKtY69FoK41D270xes0pRVRB
+	0LmbrboUWUvsEgwovtbJ5nG2D7JFV3cw4GeN8kBeqIyBZkyTL8j4gaoKYrOaehZLYaoI2NLmq6N
+	wuh0K1fx91PEzY2Gg+4ClzWhOMFC7GE44xpGUVbDBfvkBnPXQmw4msGO1c2MozqZxmydRc8K/LI
+	YX4cpb4OjEhe5GsQR13llZDjBLjlKlG+FTK80Go0G6Z/G7eyBoguXT9I4OE4MaUkkyGVzsDyTal
+	fcACh6RMCc27zZgJsAraMS/WQFNnWvDy43pw1os+94Jju2VkPET0bHGcRJIlfruq03ADiImrVSF
+	9+eq4kOKousze3nxQFASK52q8W6fHuJQBdtuJb7oc6WfxWaCnMDv3oDJUT+VIW37TOFl9rw+gsn
+	39MzXG/oJa49yvND6ifyfNxGBSLhyIclS46p1VVNyUgVg+rBjFtI+06wVNwL6o5tRlNILSFW690
+	uj1ddBT/p
+X-Received: by 2002:a05:6000:1861:b0:493:803e:800f with SMTP id ffacd0b85a97d-493803e802cmr669893f8f.29.1793964165187;
+        Fri, 06 Nov 2026 03:22:45 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5c25:f8d1:d9d7:54c1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-493070bde9bsm2890244f8f.36.2026.11.06.03.22.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 03:22:44 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD controller
+Date: Fri,  6 Nov 2026 12:21:28 +0100
+Message-ID: <20261106112128.14213-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
+References: <20261025191640.13592-3-olivier@mgcrea.io> <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,111 +111,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 25/25] MAINTAINERS: add RISC-V Metanoia SoC support
-To: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Samuel Holland <samuel.holland@sifive.com>,
- Ben Zong-You Xie <ben717@andestech.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>,
- Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>,
- Minas Harutyunyan <hminas@synopsys.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- =?UTF-8?B?UmFuZG9scGggU2hlbmctS2FpIExpbijmnpfogZblh7Ep?=
- <randolph@andestech.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-pm@vger.kernel.org, linux-phy@lists.infradead.org,
- Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-watchdog@vger.kernel.org
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
- <20261106-mt2824-v1-25-86087eaf5af4@bootlin.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-mt2824-v1-25-86087eaf5af4@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/11/2026 10:30, Benoît Monin wrote:
-> Add a maintainer entry for the Metanoia MT2824 SoC, covering the
-> SoC-specific DT bindings, the SoC and the evaluation board device trees,
-> and the phy driver.
-> 
-> Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
-> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
-> ---
->  MAINTAINERS | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065..310544f96204 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24072,6 +24072,17 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
->  F:	Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
->  F:	drivers/iommu/riscv/
->  
-> +RISC-V METANOIA SoC SUPPORT
-> +M:	Jun Chang <jun.chang@metanoia-comm.com>
+Hi Nikolaus,
 
-So Jun will handle the patches? Can we get an Ack for this?
+On Thu, Nov 05, 2026 at 11:27:12AM +0100, H. Nikolaus Schaller wrote:
+> The manual for the x1600 is a bit ambiguous, but the x2000 and x2600
+> documentation identifies this block as the "DPU (Display Processing Unit)
+> Display Controller" (located at base address 0x13050000 on all three SoC).
+[...]
+> Please update the compatible string to "ingenic,x1600-dpu" (with "ingenic,dpu"
+> as the fallback) and rename the file to ingenic-dpu.c to reflect that this is
+> a scalable DPU driver not limited to "LCD".
 
+Agreed on the name, v3 uses ingenic,x1600-dpu. The X1600 manual says
+DPU too in its register and clock names, and when I checked the driver
+against the X2000 manual it came out as the X2000's DPU without the
+composer.
 
-Best regards,
-Krzysztof
+No ingenic,dpu fallback though: writing-bindings.rst asks for SoC
+compatibles rather than family names, so an X2000 would be
+ingenic,x2000-dpu, with the X1600's as its fallback if its registers
+allow.
+
+The driver keeps its file name for now. It only drives what the X1600
+has and what I can test (parallel RGB from one plane), so the split
+between the core and the interfaces, and the X2600's rotation, is better
+shaped by whoever adds the X2000 with a board to test it on.
+
+> However, this approach triggered a kernel lockup during boot
+> right after successfully running lg35583_get_modes().
+
+I can't reproduce it here, the R1 comes up with its panel at every boot
+(with v3 again today). With nothing on the pins I don't know yet where
+it would hang. If you get a log of it (the last lines with
+initcall_debug) I'll have a look.
+
+v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
+
+Thanks for the review,
+Olivier
