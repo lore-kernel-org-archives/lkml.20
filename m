@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929780;
-	b=U8psex3SmxTYBemGB7/YIsdtTk7p4FrBn9JHiHYiWeLDAK93DoJh/C6YJoDLLUuq12vi
-	 uu/L5TLco4+6sVEaVNPmYhJS9bmh2fj6h+YVdMYKZZrXlvdKtb8s6X8U2XIlB/ByegjYJ
-	 c9YoyX4+zA8FlaZiyXiaO2kgeoT2Km06LySoiKJ40LeJLlG/a0l33kNHrmgH4fOsomw5D
-	 XROFKpOiE0A4Y6p6iR8sA0LUlD2eGfFfrtaUPwT07SIqjr2yANPvuTTab6KxBy/ZUkDmc
-	 vzdvOyWvji2FvTkaau8Mgnmtt5W6VCGPN923CHNh9ZR2oQv/5iOU2GDu1qq0czo6zAA==
+	t=1793929792;
+	b=Q6YZG46L52pIe7H4xck3e0l8VDv8rTJr539Zrg+AR1ZezfNhwbtYYhIJM24RZiLivf3u
+	 dfqAFd3ZJLmQw5fefGEu+5hmcTrSWgE+d+3mQIAfQCSj4EkB62oKIi1EHlpeix+NCUNv+
+	 XsmYEbQ17HO+ILuTvSdm9cNX9ZIvi669NAsgzOa6FrEiJcSWemMfRr13PHZNhvvzjeWqH
+	 62279wVBmJZJzsHvT37jOIdB2CZKnNTwG8GvV/hzM+i/vSAoPDSDnkuq/MtU4LNWJ4K8d
+	 ASCu9nR7bvsTnTBSf6swozt3314k91uJgYlPqSDVFSkRNdmdlwa/f8Wxjhv8dEV18AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929792;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3wVPvgXMObIvEiKqVWoN+3DnMWZhPdBWHG1bhWGhuUQ=;
-	b=19oZ0+6pcxpgSMCrwUKNUeEfKHfs5vZ2+ThyYazHkRzEtPYyeBrrJ+TGRS07hyMSzo/m
-	 wIN3yab2nLL3qF1ZE5fAUkwUWUPxNLGgZ3Z0Li9iBlNaLK7074ltYy2QA9dNNOG62JRfj
-	 DT3fVvfq4GO21MVewNrvhYMUFoqDzs7umYcTlu9xzCNSs8Grqx86Cz121p4yL/xH9BFZS
-	 4kogCtH7zKtEBE++RUHuEnV303Gte3nIDgnzGGcl75lnoZk1JoNXxKN/1vSMOZ2WfuJ5l
-	 1aM5y/QCVJeeCU7nThhwTLSDGIIHYSdjsHLzyGgjQnO+R89fMTOHyiPqskBxlpKYLkw==
+	bh=NnTn0Ia9l5NUTREGcxxA3UJ00sB7jgz3g4XdKs+soTg=;
+	b=Rr6t5o1IeYHm5BREoeNMnWSVT7UUuAuTIfjzM5DEMgoBHu06b/zMoAi7/c0NDwLjUcq5
+	 vEOkUdFcdMkidR/+Cq4dccawEPZTYgez0BRXcGpofIvNBeXQj1Twhi/BJDtNyEdpvAIdM
+	 aNsJCu8UCChKd+cyG9CMEv+DOStjxxYvFuzBfFwcTHq6AUtWpIxpRQ3FbZieENnb0dU3A
+	 +w3RozA5PLuQcFWKf2AWUEeZYabdLzBzhBP9SY1Bk+CsZvclAKaI5/khEY79ARWFLVxWS
+	 YNJkF6qAXuqniEtO/pAejPAq3BVLEWxB1NefR1KnTXrO8X0sku+BSc3z984Mg31cSjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hkYXfZ3O;
-	arc=none smtp.remote-ip=115.124.28.149
-Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com [115.124.28.149])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q2+HlJhi;
+	arc=none smtp.remote-ip=115.124.28.196
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38EF606A32E;
-	Fri,  6 Nov 2026 01:49:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B38EF606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04BD606D808;
+	Fri,  6 Nov 2026 01:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04BD606D808
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hkYXfZ3O
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q2+HlJhi
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793929770; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=3wVPvgXMObIvEiKqVWoN+3DnMWZhPdBWHG1bhWGhuUQ=;
-	b=hkYXfZ3O2uKn/GBin3CGL5JYXX0AZzWwNy3viJuCsM2mRuV52T6+vvBlYtb1a6F+qHkenfd51TZXzuye0mZ6fdhpi19EfFH7zoWIRxwivTqE4d3lJZHmMSF+EmK+KlVanqQ6Lqq/VkB8ts1P/rvmBZevAnjNTtZQSKq5qCf4VjU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0840445|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00178982-0.000206233-0.998004;FP=17750681906991275378|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jxs7sS._1793929769;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jxs7sS._1793929769 cluster:ay29)
+	t=1793929788; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=NnTn0Ia9l5NUTREGcxxA3UJ00sB7jgz3g4XdKs+soTg=;
+	b=q2+HlJhiLGBterG9qGa1UJ/xmvWm1SAe/RRF+NAkYUUlgZ355yekUrpBTh+iVNHSrjtPg/RnvQFZj6McEPgLjjr+pbGJ9r3IKX4acErpxII77mXvIO9nkNyNo3SyeKiRe/O2rf/ljDOZodh0m1hw4qWRY6wzkhz03/7IT7l1UYw=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1010723|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00350199-0.000410909-0.996087;FP=3059557656939865650|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jxwwjER_1793929787;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxwwjER_1793929787 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 09:49:29 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liuc63@xiaopeng.com,
+          Fri, 06 Nov 2026 09:49:48 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Jonathan Buzzard <jonathan@buzzard.org.uk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3] Input: lpc32xx-keys - reject matrices bigger than the hardware has
-Date: Fri,  6 Nov 2026 09:49:28 +0800
-Message-ID: <20261106014928.328020-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <aurPvymSFACa_kXH@google.com>
-References: <aurPvymSFACa_kXH@google.com>
+Subject: [PATCH] char: toshiba: restrict the SMM device to root
+Date: Fri,  6 Nov 2026 09:49:47 +0800
+Message-ID: <20261106014947.4128799-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,69 +63,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The scanner state array holds the last state of eight matrix
-columns, and the interrupt handler walks the matrix size that the
-device tree declared:
+The toshiba misc device is registered without a .mode member:
 
-	u8 lastkeystates[8];
-	...
-	for (i = 0; i < kscandat->matrix_sz; i++)
-		lpc32xx_mod_states(kscandat, i);
+static struct miscdevice tosh_device = {
+	TOSH_MINOR_DEV,
+	"toshiba",
+	&tosh_fops
+};
 
-The probe path only checks that rows and columns match; the
-hardware supports square matrices from 1x1 up to 8x8, but nothing
-stops a device tree from declaring more, which makes the state
-array index run past the field into the rest of the driver data -
-including the keymap pointer the same code dereferences.
+misc_devnode() only overrides the default when ->mode is non-zero, so
+/dev/toshiba is created with the default 0666: every local user can
+open it and issue TOSH_SMM ioctls.
 
-Reject matrices larger than the hardware supports.
+tosh_ioctl() copies caller-supplied SMMRegisters into the CPU and
+enters System Management Mode via inb $0xb2. The filter in front of
+the call only rejects two HCI selectors (ax 0xff00/0xfe00 with
+bx > 0x0069), so every other SMM entry point the BIOS offers, along
+with caller-chosen register values, is reachable by unprivileged
+userspace.
 
-Fixes: 69690bec400e ("Input: add support for key scan interface of the LPC32xx SoC")
+Give the misc device a mode of 0600 so the node is only usable by
+root, which is what a ring -2 firmware interface should require.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
-v3: actually include the LPC32XX_MAX_MATRIX_SIZE definition that v2
-    referenced but forgot to add; compile-tested with
-    CONFIG_KEYBOARD_LPC32XX enabled.
+ drivers/char/toshiba.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
- drivers/input/keyboard/lpc32xx-keys.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/input/keyboard/lpc32xx-keys.c b/drivers/input/keyboard/lpc32xx-keys.c
-index 2392e7e..b3c1dc1 100644
---- a/drivers/input/keyboard/lpc32xx-keys.c
-+++ b/drivers/input/keyboard/lpc32xx-keys.c
-@@ -39,6 +39,8 @@
- 
- #define LPC32XX_KSCAN_DEB_NUM_DEB_PASS(n)	((n) & 0xFF)
- 
-+#define LPC32XX_MAX_MATRIX_SIZE		8
-+
- #define LPC32XX_KSCAN_SCOND_IN_IDLE		0x0
- #define LPC32XX_KSCAN_SCOND_IN_SCANONCE		0x1
- #define LPC32XX_KSCAN_SCOND_IN_IRQGEN		0x2
-@@ -65,7 +67,7 @@ struct lpc32xx_kscan_drv {
- 	unsigned int row_shift;
- 	unsigned short *keymap;	/* Pointer to key map for the scan matrix */
- 
--	u8 lastkeystates[8];
-+	u8 lastkeystates[LPC32XX_MAX_MATRIX_SIZE];
+diff --git a/drivers/char/toshiba.c b/drivers/char/toshiba.c
+index 776abbfd8..bea2643ec 100644
+--- a/drivers/char/toshiba.c
++++ b/drivers/char/toshiba.c
+@@ -87,9 +87,10 @@ static const struct file_operations tosh_fops = {
  };
  
- static void lpc32xx_mod_states(struct lpc32xx_kscan_drv *kscandat, int col)
-@@ -141,6 +143,12 @@ static int lpc32xx_parse_dt(struct device *dev,
- 		dev_err(dev, "rows and columns must be equal!\n");
- 		return -EINVAL;
- 	}
-+	if (rows > LPC32XX_MAX_MATRIX_SIZE) {
-+		dev_err(dev, "rows and columns must be at most %d!\n",
-+			LPC32XX_MAX_MATRIX_SIZE);
-+		return -EINVAL;
-+	}
-+
+ static struct miscdevice tosh_device = {
+-	TOSH_MINOR_DEV,
+-	"toshiba",
+-	&tosh_fops
++	.minor	= TOSH_MINOR_DEV,
++	.name	= "toshiba",
++	.fops	= &tosh_fops,
++	.mode	= 0600,
+ };
  
- 	kscandat->matrix_sz = rows;
- 	kscandat->row_shift = get_count_order(columns);
+ /*
 -- 
-2.43.0
+2.50.1
 
