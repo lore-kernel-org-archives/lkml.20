@@ -1,121 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972539;
-	b=ev/Sub2goJD9y+ljv73vJZIbQ+nT9N5VqNIUb2Bi81NqBHgKYqiKLvc1+rvoUIYJGgfA
-	 FaJEgVRq071XQN5juV/B6oHpo9L/ilBm+oNYwlsDYoVEvpA6/ela+aIqqc4xbhXd6zH+2
-	 vfnsH8ZFss1eGM91ycVRPi2sqK6nio05g6q47eY6l+NjZOTRjD5cHD8nV3RtXMfexKvyd
-	 ArEIauhfuXZ7P3WkjT7BgZS/2817E+K08RX5FJt8tCTPlg3IXvHEAyFS1vLFKOA8n+cLO
-	 gzJWdggmobMpHWQt3AJm6H2enbVgJHucPIprbwYCPGNfjjCH573V4zQ3QsHwyrYtimA==
+	t=1793972546;
+	b=e6mqHK6ie80BmmfKYKtYVXY2VCwMgW5uHpDfnPeuuKJEHOi7aVg+3T7iJ7qn03WlsQ2a
+	 vW/cqUBHUzhGukLfT+Blc1kqh7uYsEjQ5ll4nG68zlUsq4ZqnU0tHvJukXFvULe5FwMMl
+	 5ZqdbIaC4WhIx9VTYx+d94kAeRgjVvA/K41cpTfXP/bPFtq5FlYj2X4+U702d7TWKGcE5
+	 OJ3NzRP7k17820V5TY4kVJ78RcBBs6F8q2j7AAkG8CGm/lPWCCVK3CQaaFe3Ng5XUUIXx
+	 qj2fBQMVO+lH6WN1kNTsktElW7rzn46PvZIYYTLDBB1wL8jNt9Ng+FG1LGG+XUFdWyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972539;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=M2OtBz6UMPgdGIuaycWDBNbfaEpTV0kfhUa+atvwSh8=;
-	b=zTwAN1b0o5yFR61GdbUE7WuXb96GMGh0WGgmTaMGIiIOz2AblFLlzS5e1ALjYN/eymIm
-	 3E7WwwuLJjJolFE9Bp7/PzY5XugMGGhxPhVEvY5Go+Wd2zU6gZ6XIG8BVUTc5dOThldcJ
-	 8wyqdf2xb3iXwh6Ju9K4N5du6I8OafpmjMGs88ZjHWV7/6chAdMfcgBJEsMKjoNOEYpWg
-	 DPtkzb3ar2ZXFLYaQYLT7Wjkxfhoe6WoK9IdZ3eZYP09NP/4+RWhjW2g2Wx3fN/yqVwsx
-	 QSmvs+q8+ZMlgOw9a3z8Ni/yMPjGa8lvSpV1Ox9xzQu3ZlGHrRQOjR9lbKcgm0lgL1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972546;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=80OQ1QRH/eXZDpRFnnohWK41eyPKM5qief5OGMWCxl0=;
+	b=aU70R/paQdVVi4NQ4+y5n7Zd5c70gsm3x8F8A3AF0sGen+jVO8JOQo4pBtZuBiD5z74e
+	 LawqCL/N9zgIjvarWmCWxkqnUrfYSRNbSuP9w4dHb06TwC7t5HzKl7G5wneXHAXjx41QC
+	 leAfUdl+4xrPbM6h6zU2Hm/V6n7n2mKVbw66oSkuX4ReoFbSOpj67V5kuiT3AYE+QPdS5
+	 wmIANVceu7P4NuByK9vnaAoPqsU1CoSfookBiypeATHA7XomAWfvEcIEUeMdtBaPuoYfA
+	 sFzDWVGrQttZskIj2TLZlr6HYvKLDjFAGy33TKa0Ma4JCldBtX7zBcQflkpZdsbbD2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JNAQxlhn;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nhnolO2m;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4Q2ednR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51060606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:42:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51060606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59833606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:42:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JNAQxlhn;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nhnolO2m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793972538;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M2OtBz6UMPgdGIuaycWDBNbfaEpTV0kfhUa+atvwSh8=;
-	b=JNAQxlhnXixGlRXjLedQdGG+uFiZGIPcK3VX9R4fgOzVolVAVPDEqz6/pQI2+aF9q6/jth
-	VqOaYHtM04ryJL18o7I4Ux4jQzt57Q7LAF8Ekl1YGalqFQ+yOymKVZRh1iUBiOt2HnRakB
-	meCrTgmKtG0vRW+/LCe9O3gZkQr6TQ4=
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
- [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-500-5_tYCWWkP4inJvjbJBcatg-1; Fri, 06 Nov 2026 08:42:15 -0500
-X-MC-Unique: 5_tYCWWkP4inJvjbJBcatg-1
-X-Mimecast-MFC-AGG-ID: 5_tYCWWkP4inJvjbJBcatg_1793972535
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-6799288480dso954169d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:42:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793972535; x=1794577335; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=M2OtBz6UMPgdGIuaycWDBNbfaEpTV0kfhUa+atvwSh8=;
-        b=nhnolO2mnG/dIXW1NWmgUqxAJwG48k9brC0aSkEsA0aR6IYjYD4/yTbM8w7IthbqhT
-         aZ5aq/Q9iP0a7n66LpZuOx4wlsdowHeKYFr+NnM/1uzrBZdXJ44gyOmeuE2I5I8ePAID
-         tTvrIY/emDSOvBZwYwobHWJahI409afdv240Z3ep5xnIk7bKsofSXF39175nLGW1zG3B
-         y3UVmn44I8zSz1cHQyFk+lrY2QQzLNLi/oYa/CH8sOJ/IAQIf/iTKAeFYlRwlbPOirZu
-         qqIE3l99hn4TFn6KSoX7SkiSj1Kzxy8NkaLq23hzAg2juq4Y9F8hxlOu2qP4STSJM+bX
-         ugog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793972535; x=1794577335;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M2OtBz6UMPgdGIuaycWDBNbfaEpTV0kfhUa+atvwSh8=;
-        b=1zUuNFfs8/HCtIlqitO+plhMoWHA92iwz2L32qrOjGSjvlFnxltKfIGZRDqnHXO2wp
-         K+h/hNXqKQ4BTN/u9L42Oew7q/xERRzWn/XdX6X/7gzlr4syglBXhPpJcKsVFeZvn63V
-         SZBVwGvAXaXvfq9PghbEFIvcK2n/3VCJM5pGJlCyiz6MmUMynet4fnqqaPmoCOhqXpkC
-         8hDy9sZjLLp6O+UVpJLVryxEODqH7oGWfJDW4c0c0scVHEdo3qxfZUumzDPzYaRVUBaM
-         VWQf93diOej5PzvcyM8vRNqN8wC3LO6RqbmmXX091MUrMCPDAsjfYH5WFVj2FUeiLsKt
-         FAyA==
-X-Forwarded-Encrypted: i=1; AL+hErH/z3wewNiWwMnn1zn3AcHl3xaF8rk3VVlT4etIOdv8YC6ElhOKYV0QyMrSkuSaEHP+5JDj9BhvsmDXpp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8j+79v+ADEmQK3kiclBjkyeRzmNupUfhmK5BEeszzfalA3kDmL
-	9B1j5xFi9OCABM2SbmMsOA7HXHhKdL3xOfM3yYfTxFm1sufLk5I2CfIoFW5RsXMZ91ZqasMMx66
-	E7TMSRdy0TVqrPBZ7fAYiwbxyrz6C2aoflRWeKRInGrAd74HK+HE1k8Eu+SPoUPpYkw==
-X-Gm-Gg: AYBFou1pTtR6HodnPmEOARsO7GsbW2tZPKV4zJfLTZSQwS8BnRbfutPsgxR5e43kQgN
-	gGXRYsCnTQZiSdvn/VbQlBGzDCmzze8CGFGujNYBp8p8VW0jpeV6v6GQ2kXOTs1jiH7sx6hLKaY
-	kRRQUtKC8B9ty8G7ogv7fM52ARGB2wwCSV5z7XUyqDvxWJo2ktgJX67ESJucQBNJnNFHPcbjNqE
-	/hyHtDM015VILHCLskMtBg28HabRuVLgK21e1luv4LO6T78G8jlVA92Rg7qq4z2nlW1MLrx43wk
-	4lso8C77jiM2+7TF2QV5l3TXcI0WfZ831iCTqEDB1+davNLF352lwmuQ8kpfq+qgumy370NvYjU
-	NZnOmKj9jKRIrUrEQb0e2lpv4MaV7QquT/UtHdtQIKCq4sYxUvhxyHGKEQyd743kEzk7JVTSmx4
-	AJfMRaFw4SPL6tDw6EF3q+Mtw9NvIlJIIOj16uAhn7pDcsQwG602NgqRd1xF9vh0V4acCPvJM=
-X-Received: by 2002:a05:690e:4385:b0:675:3ec2:25e3 with SMTP id 956f58d0204a3-67c1456dd29mr910183d50.50.1793972535235;
-        Fri, 06 Nov 2026 05:42:15 -0800 (PST)
-X-Received: by 2002:a05:690e:4385:b0:675:3ec2:25e3 with SMTP id 956f58d0204a3-67c1456dd29mr910167d50.50.1793972534598;
-        Fri, 06 Nov 2026 05:42:14 -0800 (PST)
-Received: from loberman-thinkpadp16gen3.rmtusma.csb ([2600:6c65:2440:d8c:aa2b:ddff:fe88:da74])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c135ada39sm1930977d50.16.2026.11.06.05.42.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 05:42:13 -0800 (PST)
-Message-ID: <e89f5d5656ef983e21e27a8557ddd178e108295d.camel@redhat.com>
-Subject: Re: [PATCH 5/5] scsi: st: factor out the end-of-medium completion
- test
-From: Laurence Oberman <loberman@redhat.com>
-To: shao.mingyin@zte.com.cn, bvanassche@acm.org, mkp@kernel.org, 
-	linux-scsi@vger.kernel.org
-Cc: James.Bottomley@HansenPartnership.com, alim.akhtar@samsung.com, 
-	beanhuo@micron.com, stanleyjhu@google.com, jmeneghi@redhat.com, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 06 Nov 2026 08:42:12 -0500
-In-Reply-To: <20261106154249447T0sEhKHXg8J8MF0Fo1Op0@zte.com.cn>
-References: 
-	20261105193339565ydLHLai73bbBko0TtjrtV@zte.com.cn,1023acf9-999f-4e42-8dff-e84a69c7e259@acm.org <20261106154249447T0sEhKHXg8J8MF0Fo1Op0@zte.com.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4Q2ednR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F223B1F008A1;
+	Fri,  6 Nov 2026 13:42:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793972546;
+	bh=80OQ1QRH/eXZDpRFnnohWK41eyPKM5qief5OGMWCxl0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n4Q2ednRlVhyS6o83zuVUPh1fFBZvEs3k9Ab5lVQwGwFnZrF+DG1jpgagzs/XWfiq
+	 XA7uGcSqJNl7/G5z85PFKMcjen230uoWlYGJttit4iU7O7+Gfq5PZwcFDgrejlqSk3
+	 inROeRhXo5Y6xygl7jysRevHqduboC7l3PLAQj4Mp7CRVxD4IJalo8digWAXgMNMoI
+	 cJU0/eipkYaDsTsPp18kLZvdYr1IMkuQEimSGPW2AJJUwAF8o251hEU+/J9wo7s/Jr
+	 erb/h5/T0RWkcxIu3TP7wr7f/7N44zGD8RW4uwr0HyuPeB4UWL3mo7r/MnyuVx80Ti
+	 +VtLPL/WX43Tg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 29DFF2807F0A; Fri, 06 Nov 2026 13:36:20 +0000 (GMT)
+Date: Fri, 6 Nov 2026 13:36:20 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Mike Looijmans <mike.looijmans@topic.nl>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH 1/2] regulator: pwm-regulator: Revert "Calculate the
+ output voltage for disabled PWMs"
+Message-ID: <1ec088e2-f588-4acf-87e6-0dbf719784bc@sirena.org.uk>
+References: <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.44efb263-5265-4fae-9cff-e8eaefbc0afd@emailsignatures365.codetwo.com>
+ <20261106130010.340950-1-mike.looijmans@topic.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,47 +61,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MEobprugY+dfeo1I"
+Content-Disposition: inline
+In-Reply-To: <20261106130010.340950-1-mike.looijmans@topic.nl>
+X-Cookie: Whoever dies with the most toys wins.
 
-On Fri, 2026-11-06 at 15:42 +0800, shao.mingyin@zte.com.cn wrote:
-> On 11/5/26 09:21, Bart Van Assche wrote:
-> > The first occurrence is in st_flush_write_buffer(). That function
-> > submits a synchronous WRITE(6) command and has nothing to do with
-> > write-behind. Additionally, I count five conditions instead of six.
-> > Please fix the patch description.
+
+--MEobprugY+dfeo1I
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Nov 06, 2026 at 01:59:55PM +0100, Mike Looijmans wrote:
+> This reverts commit 6a7d11efd691 ("regulator: pwm-regulator: Calculate the
+> output voltage for disabled PWMs")
+
+Adding Martin who wrote that patch - please CC people if you're directly
+updating their patches.
+
 >=20
-> You are right on both counts.=C2=A0 I will describe it as the synchronous
-> WRITE(6) issued by st_flush_write_buffer() and drop the condition
-> count.
+> A disabled PWM is not the same as "set to 0%". If the PWM is disabled,
+> this could also mean that its output pin is tristated for example.
 >=20
-> > Please declare the argument const and please choose a more
-> > descriptive
-> > name, e.g. st_all_written_at_eom(). The "All written at EOM early
-> > warning" comment from st_flush_write_buffer() could be moved above
-> > this
-> > function.
+> If the PWM range is limited to something else than 0..100% this causes the
+> probe function to fail with messages like:
+>  dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
+>  pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to registe=
+r regulator pwm-regulator
+>  pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator failed wi=
+th error -131
 >=20
-> Will do: const struct st_cmdstatus *cmdstatp,
-> st_all_written_at_eom(), and
-> the comment moved above the helper.=C2=A0 v2 will follow.
+> The reason is that regulator_register() calls get_voltage(). The PWM is
+> disabled at this point, and then the validity check triggers.
 >=20
-> Thanks,
-> Shao
+> Anything that calls get_voltage() while the PWM is disabled would get an
+> -ENOTRECOVERABLE return value for a pwm-regulator that doesn't allow 0%.
+>=20
+> Signed-off-by: Mike Looijmans <mike.looijmans@topic.nl>
+> ---
+>=20
+>  drivers/regulator/pwm-regulator.c | 7 -------
+>  1 file changed, 7 deletions(-)
+>=20
+> diff --git a/drivers/regulator/pwm-regulator.c b/drivers/regulator/pwm-re=
+gulator.c
+> index 7434b6b22d325..f50530c77d92f 100644
+> --- a/drivers/regulator/pwm-regulator.c
+> +++ b/drivers/regulator/pwm-regulator.c
+> @@ -157,13 +157,6 @@ static int pwm_regulator_get_voltage(struct regulato=
+r_dev *rdev)
+> =20
+>  	pwm_get_state(drvdata->pwm, &pstate);
+> =20
+> -	if (!pstate.enabled) {
+> -		if (pstate.polarity =3D=3D PWM_POLARITY_INVERSED)
+> -			pstate.duty_cycle =3D pstate.period;
+> -		else
+> -			pstate.duty_cycle =3D 0;
+> -	}
+> -
+>  	voltage =3D pwm_get_relative_duty_cycle(&pstate, duty_unit);
+>  	if (voltage < min(max_uV_duty, min_uV_duty) ||
+>  	    voltage > max(max_uV_duty, min_uV_duty))
+> ---
+> base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+> branch: linux-master-pwm-regulator
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+> Met vriendelijke groet / kind regards,
+>=20
+> Mike Looijmans
+> System Expert
+>=20
+>=20
+> TOPIC Embedded Products B.V.
+> Materiaalweg 4, 5681 RJ Best
+> The Netherlands
+>=20
+> T: +31 (0) 499 33 69 69
+> E: mike.looijmans@topic.nl
+> W: www.topic.nl
+>=20
+> Please consider the environment before printing this e-mail
 
-Hi,
+--MEobprugY+dfeo1I
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks for the patch.
+-----BEGIN PGP SIGNATURE-----
 
-The refactor looks correct, but I don't think it buys enough to justify
-touching this code. The EOM handling in st is mature and subtle around
-buffered writes and residuals, and having the condition inline at each
-call site, with its comment, makes it clear what "success at EOM" means
-in that context. A helper named st_eom_ok() hides that.
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau3X0wAKCRAv73Ows9A4
+iXn2AQDCko6gNE9BSWSt4homaAjCbuEWGVhbONdl3k7WPWgbYAD/Zp3WfuDcPglb
+YGYF6Sp6OxpgHwpjF5nVJ6DYScqZ8gg=
+=Bc+i
+-----END PGP SIGNATURE-----
 
-Unless this is a prerequisite for a functional fix, I'd prefer to leave
-it as is.
-
-NAK for now.
-
-Regards,
-Laurence
-
+--MEobprugY+dfeo1I--
