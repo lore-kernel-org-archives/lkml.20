@@ -1,54 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954561;
-	b=GU7Q47UHz9nkEEnjo6NeJiD67nhGnD23fJKZ4Jd5CSpU/3dBPOPzSdAOK9y/JEYbsaXE
-	 u211+oNMSe1L3he920cQ4M1c050Gl9ZgKKmcVby3iNdc46OTZEvYcb6qPkgCzsAblqgdU
-	 NSQ8UIvT5zCRRDjHixKZB5a2GEIVZGOgqmBTPjmXzAL2Cv7TadMp13XxPVSy5hf4uZ2ah
-	 uWFWRp5NiBW4vsGsxCFNjzlEChTmRO3pz0pGnrTC6c7ZKHHyOQxvmScZKTkBg1CTBBsFp
-	 vjF7fagS0Q+nBV9OZxYuj5Mt87V+i4BWWyUujDqberucauNRxYMONuvEy4/MG8QDWwQ==
+	t=1793954577;
+	b=ZReTm/4RplXmCHO1EIJfP+rvy7CQOm+biQUjjEpKta69Pq42tWUmzznRixpgpJ/kYp2t
+	 9/0cuBiSj5xLhFl4cveTcPOxmMFSKjCmbHpcXDTe45xnKorl41Vr8KQsQ8dlpEgaeybKD
+	 UIUqonD7uf/a7FzoRUDq7AdOkwzJDvw98K0+d7mLHsv+zh+4XjIz4s87Wi2A/IjIawKoy
+	 zZrE9PiNYg2u87XiMgtuvViEq5PiEPNeWnmTzdZrWrZ7bHwydd9i228ic/q7eTqFRHd3T
+	 7l/LQhS1ALG8g0afTAEuwdSfKgWls7ij3c6t7neXEfPudYvXR6GcIZ7was8/dR5p3nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954561;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=M8yDQ/yIYjf1yjkinMkq3f1GifKllueCDz6yFTcJFC8=;
-	b=U5OuN7jckvsWqkWiC5Zvy+AJA7k/2O/HceR3fYXzBDpTAE2oHkIHLb4PA+l+9KMb4esR
-	 hfufRXvLz/tyXq079bwE7AZf/7qjBCZwYdINvq0CX7RWwAELMRWdTj3Q7OICoP7oO7Qwu
-	 cVZV3tiL2wyYReXMyRkdSPrBRQIA94y42x0s0iDD62ZqiFp4yxSnwiA0wtP/f8/DcDUTy
-	 P96oeAU9eEelun5Rw+L/4/EgVGdxcWUSxmOqsuhIlEi5Mo279tC8hTnX82vWi1hO3S5jr
-	 8sfgW1M67GQaKnza23BSu7eg2UiojSB3hoUVy0LaNrbqjxUm/6e9u9PurhyiBfH+6Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954577;
+	h=DMARC-Filter:Received:Subject:From:To:Cc:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=7rHYnxYTu4CtmRREkp9VVD+YtIyQ5uRuglguRrV9UfI=;
+	b=rKTP6TnW+IM5HNyHxVHlYGnnereX5h7sfFQ/KNWDPSDmjKIo02zJbwF9qzOqOtlVSrcK
+	 IMZprA5Y1O7sYP/BXVlo3WDS3nex5VLySONEv+WIm8QaCfhN9shOIk9Kl90NOItrxm7sn
+	 5G2c6+9FG6T8cf0oetxBR24dq1+Sw5c6oQyJHhOFQsEgsuBROIdossR2YuXGG8eAmgpJg
+	 EGTkE9MRSKLEWk6tv4+z6E2b1Qi1Qe6/9LYCnixtXbS7FA5yFpLIZ0XXutLHLCVDcFI6w
+	 dABvKkiBNoXQaRVI3JVfOk/iuyPiKZql+xTRTwGYJUKRTbFzCIXACPr3SANayR0ZhIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F314606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:42:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F314606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a7de733fa9so474676b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:42:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793954560; x=1794559360;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=M8yDQ/yIYjf1yjkinMkq3f1GifKllueCDz6yFTcJFC8=;
-        b=okohfEoN5nlNpjebjf8/V4+vmE8bVssFnhSnR8BiZWTM2THxReTT0ert6h872mhg8o
-         arDX2OFySFOfFVdl1+QbNPxwWjd5nUHxrg6t2QfcTmEmkyEQx1WQi3lBzBkQnZL6PUfH
-         K9PQSdsCO//+nQEk+lplWW3d8HI8iR/S/WDiM4/O32TX1Nj8JWP9onhMK/koW3vTwg1e
-         2rtx0xovknnJD4RQlIK0gR2Vb4h7CAH6HlDeRHjoJsjjWejLZRhw0pqSUD52K4Z4JMv8
-         Yq16KHyHmSqMJHgutIX+TnpPYCp81lww480eYSP4s2UWIKqe8FJGKjbQsHZDvcNxXxrm
-         EuJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwUrIeVYzB3cEkCzDj9p7wCjfwWDOcAGK2+0gBgItfrvdFUvZmHUhKWubvFrLhwn44QY7s4Nkzx204FFKc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/R03P5eQlNUyJduQe+SwXgTX/rcG+InYx0XLCGX4m1a9kxSAq+
-	s6Nc1UY10lIgY53CqAshdaVLrWk5EGBGs1PmLP78GiW6H3pROkYx4vgIUSld1qffxyEXNcwx4ch
-	qfVhHgLZcLMjxirZcoKe30wfEi02XKHoQRmLH1iUBUA6U+wyJQLWT5kob4r0=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA17606A326;
+	Fri,  6 Nov 2026 08:42:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA17606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAXsbYFk+1qC3huAA--.1570S2;
+	Fri, 06 Nov 2026 16:42:45 +0800 (CST)
+Subject: 
+ [PATCH v2] dmaengine: qcom_hidma: Fix runtime PM leak in hidma_issue_task()
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Sinan Kaya <okaya@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, vulab@iscas.ac.cn
+Date: Fri, 06 Nov 2026 08:42:52 -0000
+Message-ID: <179395457228.2120679.13809646473624751961@iscas.ac.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,126 +54,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3097:b0:4b3:7b31:8df7 with SMTP id
- 5614622812f47-567e0faab32mr1577450b6e.14.1793954559883; Fri, 06 Nov 2026
- 00:42:39 -0800 (PST)
-Date: Fri, 06 Nov 2026 00:42:39 -0800
-In-Reply-To: <6aec6433.0ce67c00.35143.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aed92ff.a716b02e.a4a62.0000.GAE@google.com>
-Subject: Re: [syzbot] [rdma?] [f2fs?] memory leak in radix_tree_insert (3)
-From: syzbot <syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com>
-To: chao@kernel.org, edwards@nvidia.com, hemanth.selam@gmail.com, 
-	jaegeuk@kernel.org, jgg@ziepe.ca, kartikey406@gmail.com, leon@kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, michael.j.ruhl@intel.com, mrgolin@amazon.com, 
-	syzkaller-bugs@googlegroups.com, yishaih@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
+X-CM-TRANSID:zQCowAAXsbYFk+1qC3huAA--.1570S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFWxtrW7JF43GrWDAry7Wrg_yoW8WFykp3
+	93XF4SkrWjgw17t3WrCw4UZFyYk39xG3y3KrykKa4kur45XFy2q34kCrWjgF1jyrZ5AFsF
+	ka18t3y3uF12y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
+	87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+	1lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU7nmRUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUDA2rtTc-XHAABsT
 
-syzbot has found a reproducer for the following issue on:
+hidma_issue_task() bumps the device usage counter with
+pm_runtime_get_sync() without checking the return value. The counter is
+incremented even when the resume fails, e.g. when runtime PM has been
+disabled or the device is suspending, and nothing drops it in that case,
+so each failure leaves the device with an elevated usage count and it can
+no longer runtime suspend.
 
-HEAD commit:    d68ce4e71248 Merge tag 'mm-core-7.4-rc2' of git://git.kern..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1781772d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4361b1bb937ae1c4
-dashboard link: https://syzkaller.appspot.com/bug?extid=d60be66dd00b4490fa96
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=169572fd580000
+Use pm_runtime_resume_and_get(), which drops the reference it took when
+the resume fails, and do not start the transfer in that case. The counter
+taken by a successful resume is still dropped by hidma_callback() as
+before.
 
-AI-generated root cause summary:
-In lib/radix-tree.c:__radix_tree_create(), intermediate radix_tree_node
-(xa_node) structures are allocated and linked into parent slots as the function
-descends through tree levels (shift -= RADIX_TREE_MAP_SHIFT). If a subsequent
-node allocation fails with -ENOMEM before reaching the leaf slot,
-__radix_tree_create() returns the error immediately without unwinding or
-deleting the newly allocated empty intermediate nodes. Consequently, slot-based
-iterators such as radix_tree_for_each_slot() used during cleanup (e.g. in
-uverbs_destroy_api() -> uapi_remove_range()) never encounter the empty nodes
-(which have count == 0), causing those radix_tree_node objects to leak when the
-containing object is destroyed.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=d60be66dd00b4490fa96
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff8881102cb918 (size 576):
-  comm "syz.1.20", pid 6842, jiffies 4294945826
-  hex dump (first 32 bytes):
-    0c 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 ef c5 11 81 88 ff ff 30 b9 2c 10 81 88 ff ff  ........0.,.....
-  backtrace (crc c4ea6eb8):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
-    radix_tree_node_alloc.constprop.0+0x81/0x1a0 lib/radix-tree.c:276
-    __radix_tree_create lib/radix-tree.c:624 [inline]
-    radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
-    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:27 [inline]
-    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:16 [inline]
-    uapi_add_get_elm+0x61/0x140 drivers/infiniband/core/uverbs_uapi.c:41
-    uapi_merge_obj_tree drivers/infiniband/core/uverbs_uapi.c:178 [inline]
-    uapi_merge_def+0x4c4/0xb60 drivers/infiniband/core/uverbs_uapi.c:297
-    uapi_merge_def+0xf0/0xb60 drivers/infiniband/core/uverbs_uapi.c:286
-    uverbs_alloc_api+0x85/0xc50 drivers/infiniband/core/uverbs_uapi.c:659
-    ib_uverbs_create_uapi drivers/infiniband/core/uverbs_main.c:1140 [inline]
-    ib_uverbs_add_one+0x1b1/0x350 drivers/infiniband/core/uverbs_main.c:1196
-    add_client_context+0x290/0x480 drivers/infiniband/core/device.c:755
-    enable_device_and_get+0x106/0x250 drivers/infiniband/core/device.c:1375
-    ib_register_device drivers/infiniband/core/device.c:1503 [inline]
-    ib_register_device+0x4fe/0x7f0 drivers/infiniband/core/device.c:1441
-    siw_device_register drivers/infiniband/sw/siw/siw_main.c:71 [inline]
-    siw_newlink drivers/infiniband/sw/siw/siw_main.c:433 [inline]
-    siw_newlink+0x36a/0x3f0 drivers/infiniband/sw/siw/siw_main.c:415
-    nldev_newlink+0x26f/0x3e0 drivers/infiniband/core/nldev.c:1859
-    rdma_nl_rcv_msg+0x1ad/0x2d0 drivers/infiniband/core/netlink.c:195
-    rdma_nl_rcv_skb.constprop.0.isra.0+0x175/0x1f0 drivers/infiniband/core/netlink.c:239
-    netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
-    netlink_unicast+0x3e0/0x530 net/netlink/af_netlink.c:1361
-
-BUG: memory leak
-unreferenced object 0xffff88811021f488 (size 576):
-  comm "syz.1.20", pid 6842, jiffies 4294945826
-  hex dump (first 32 bytes):
-    06 09 00 00 00 00 00 00 18 b9 2c 10 81 88 ff ff  ..........,.....
-    00 ef c5 11 81 88 ff ff a0 f4 21 10 81 88 ff ff  ..........!.....
-  backtrace (crc 8219f7d7):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    kmem_cache_alloc_noprof+0x35b/0x3e0 mm/slub.c:5047
-    radix_tree_node_alloc.constprop.0+0x81/0x1a0 lib/radix-tree.c:276
-    __radix_tree_create lib/radix-tree.c:624 [inline]
-    radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
-    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:27 [inline]
-    uapi_add_elm drivers/infiniband/core/uverbs_uapi.c:16 [inline]
-    uapi_add_get_elm+0x61/0x140 drivers/infiniband/core/uverbs_uapi.c:41
-    uapi_merge_obj_tree drivers/infiniband/core/uverbs_uapi.c:178 [inline]
-    uapi_merge_def+0x4c4/0xb60 drivers/infiniband/core/uverbs_uapi.c:297
-    uapi_merge_def+0xf0/0xb60 drivers/infiniband/core/uverbs_uapi.c:286
-    uverbs_alloc_api+0x85/0xc50 drivers/infiniband/core/uverbs_uapi.c:659
-    ib_uverbs_create_uapi drivers/infiniband/core/uverbs_main.c:1140 [inline]
-    ib_uverbs_add_one+0x1b1/0x350 drivers/infiniband/core/uverbs_main.c:1196
-    add_client_context+0x290/0x480 drivers/infiniband/core/device.c:755
-    enable_device_and_get+0x106/0x250 drivers/infiniband/core/device.c:1375
-    ib_register_device drivers/infiniband/core/device.c:1503 [inline]
-    ib_register_device+0x4fe/0x7f0 drivers/infiniband/core/device.c:1441
-    siw_device_register drivers/infiniband/sw/siw/siw_main.c:71 [inline]
-    siw_newlink drivers/infiniband/sw/siw/siw_main.c:433 [inline]
-    siw_newlink+0x36a/0x3f0 drivers/infiniband/sw/siw/siw_main.c:415
-    nldev_newlink+0x26f/0x3e0 drivers/infiniband/core/nldev.c:1859
-    rdma_nl_rcv_msg+0x1ad/0x2d0 drivers/infiniband/core/netlink.c:195
-    rdma_nl_rcv_skb.constprop.0.isra.0+0x175/0x1f0 drivers/infiniband/core/netlink.c:239
-    netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
-    netlink_unicast+0x3e0/0x530 net/netlink/af_netlink.c:1361
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
+Fixes: 67a2003e0607 ("dmaengine: add Qualcomm Technologies HIDMA channel driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Changes in v2:
+- Use pm_runtime_resume_and_get() instead of pm_runtime_get_sync()
+  followed by pm_runtime_put_noidle(), as Frank Li suggested.
+- Link to v1: https://lore.kernel.org/all/20260916093032.2003397-1-vulab@iscas.ac.cn/
+- Sorry for the very late reply to this review.
+
+ drivers/dma/qcom/hidma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
+index 1349066b1544..c49cf622e5fb 100644
+--- a/drivers/dma/qcom/hidma.c
++++ b/drivers/dma/qcom/hidma.c
+@@ -219,7 +219,8 @@ static void hidma_issue_task(struct tasklet_struct *t)
+ {
+ 	struct hidma_dev *dmadev = from_tasklet(dmadev, t, task);
+ 
+-	pm_runtime_get_sync(dmadev->ddev.dev);
++	if (pm_runtime_resume_and_get(dmadev->ddev.dev) < 0)
++		return;
+ 	hidma_ll_start(dmadev->lldev);
+ }
+ 
+-- 
+2.34.1
+
