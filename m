@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794000330;
-	b=IIiNpOsMBILqTJjykXCYloJOUIzrpTSKZsh4Acv1uvuYMIGe+fQIo8Ju+kDdFT6vApe6
-	 7m3tLjHp4WrqZvuP9AJ/iespsgKZ6JFWbR566kf9DDbNDN4e2zRCwvFiMdWJc+HOf/P4+
-	 eFBSsyIDaTp+prnQgcV4fyJuQ5CGBg95dNkwXtgTB05/8hINPvtHAq+61FK1icB0DA8NT
-	 0AZTfPUNLZt7+T/V1fIBAvSHxU+em8DxGIZilz+gTz/JkPrH6lRj6beoe51dRONhcWHZL
-	 /ru2vUx3+76iuifdbizVBEsNCDydYhqVCUPPAtDIwjqR6DYm6DzeHRIhrAtIYd8x4lQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000330;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=D75xnHEgEQErGUOR7h9XEUbUTbEHhDcv8kD4EeaNl/M=;
-	b=q3jS1YpZkUZoZuipTSMfLzmMAmVvMxegwQvQidQT+Kvnc+KQRCWORWc3Gt4IxEK7tQDH
-	 u8k8DMZNvVgDIDs4P3RBTm0Yfgzk51Ad7/1NhhOgbRSfN+UYo2v7PyvTSg7sRVpopF/VA
-	 0T9zZ9GZMJ5ocaqlJBd/ai76KQeFMbxrLKZVuGFbrLGwdWDnG+MZJZ1ixxnpHweih1+ik
-	 2hhyl9dxUVJ2tk8qhEhkwVZEwxCSnN+GYQGaOEnB43W0ZfqRj9rYnfYNR5lbGllORUyBE
-	 WxICxJ5fKHIJbPMVm0AuoHlOKHlWeTxOUuaBSayE7ZUdRc4BIv+H7q0H1M5anhAg/bg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EoKh2jvn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.55
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794000359;
+	b=Q2J27KZjHsB/ok2n1bDfzm3G4XDzZX4eSKJwk2phTMNlTjv2Pvzf31sN+HFJELUxrujg
+	 WIyHKlkoebZc3BMVCb9zuoT/4DsWKyDUZQKiiCzgZg1Er8boUvK0Ui4Xvkkd5mc1czwx6
+	 i9UMhxvlh/jOC3RYEU+BxRLtdzWCjvqI+VBeSdRMaFfJDezaGnFbEQidnqNQa57B8ZzDg
+	 ckXCA/G9bcczQ9ccEvYEwokp1rEHPCn1Jz/N7ZXiVcI4/4iibPZo4859jSFn01EDeCBRy
+	 oy2jdLPYd+rLIoHE45h8i/s3g+4jL9/EZpzV18IWLThEmisZgUTVIk0Sc8G3pyKcwDw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794000359;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=dyqsHg7vpitMU6S0mFCKx1gpAu25ciOzUS5O3SNFW0k=;
+	b=z7tyWpMrKUw8YYZVu48iu/aufTdidT63Qmn5NN1C6bA2EIR0GiefwazAXibji3pGhnF2
+	 FD9VLnOUNs00ZDia2mI0bh7QIy/y5BRNA10iFC9eBP3WBGeEAIoIEkCWvCACODNLNhNeZ
+	 vm6TH5rH2uFcUPON8p9TVxiTk3PBPecFjaSPeaBjnzmGhCfK2NOq/covwvEaA/vZQfz51
+	 jhmCuqPGQDGmU7p4OPHNr9S4+TXk/3XD6zggYWNXM7DwxWHK4y30r5agiw2hH2LNuN+h/
+	 t8Q11gJe6DJs9kTGimDX67HzseQE0yDuHVZsfCdPuFKpwm0VmRqgJNxoTOUkkuxpRIg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sQIuJcGl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.55
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010055.outbound.protection.outlook.com [52.101.201.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C686606A330;
-	Fri,  6 Nov 2026 21:25:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7F7606A32D;
+	Fri,  6 Nov 2026 21:25:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B7F7606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EoKh2jvn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13B51F008A1;
-	Fri,  6 Nov 2026 21:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794000330;
-	bh=D75xnHEgEQErGUOR7h9XEUbUTbEHhDcv8kD4EeaNl/M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EoKh2jvnbEJsJ282GpLsZXxdoLIQqxHvKW7d2Nj8JZAsOQclK+XJPhfmZT3Z6yuQp
-	 M5Azz5ReSqtK1KyTgpd0oIuWHBiZBcAhVAacUviOjyY29Dn/Hk4g5HGgMF3Qb4AMKd
-	 BAW2wamAqN80OVZFCb9poFYkzW9ZMQAm3d0JVojRCqujNBrpXyaIaM1XfW8QCvHu0c
-	 ADMdIjamA+QjstNWyUY3hZXQqujp0BTvnwYmOwaijdhol/XmAWL1k9hwv2o8sVsBYi
-	 ttGRjuimzjXqso/vjoSgPfTIGNO8Q3DA85GF0mdkn2/Gx3mF2jyj2dECFDlehKVUSd
-	 jHrBzDh1c2KCA==
-From: Jakub Kicinski <kuba@kernel.org>
-To: me@marleb.org
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: phy: realtek: register hwmon thermal zones
-Date: Fri,  6 Nov 2026 13:25:28 -0800
-Message-ID: <20261106212528.948836-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-realtek-hwmon-tz-v1-1-e672723c58cb@marleb.org>
-References: <20261103-realtek-hwmon-tz-v1-1-e672723c58cb@marleb.org>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sQIuJcGl
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Eqv71gVVLXW1HSLVmYYAnUtNdHlpQlE4MWWlEuYrL+uJ15uNB8wZYbp1bxXPT9xy+ZfyF4w7HRn/fsYo//FdAGuMZ/iYcKXP8MizkE+k7oqziUEShCMtgSpnknFCJVhjrkEFq9+Rz80JuNz2SU6lNQ20ktQAjwOIOok2QyE4Qz8bi/Y39I0zcwT6ea25ejCPB5EvDM1/ZCUKTbrs9Q59iPCWxVGv7xFqKCN34j2k6kdRkjObSFtybVtkewHt7J0Dnk4276EJL1mD//YAiz6nLK9s8W/4qiyW1shaz64RXWtw7lKCPQfMziBNxKFXpVyxe03Epj2YM0SYyJNnSxdN7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dyqsHg7vpitMU6S0mFCKx1gpAu25ciOzUS5O3SNFW0k=;
+ b=eU9/3C7+HLcAT/xWnKr18t8HcyC9nkXxWNm0BswhQmOSlrlh5GjiKx26trOWMdpXEbiRhJxy33Zp921LE5n7oNFJkWpE5g/ploNEoXANnWuw7BKLVmipCvhfO4s1IBuCVptftV5o5LUUBTUOehYKBdZnGhoBpsQXuWriP6xINjWo4rVqrdng/Qwmz5xBrEe8MH2nwjMp0++8jON/TiNZhibFinCdX8mpbvqGCFZXP1o3VGJpBe9OeZ80/wLX1FsoPFpvXPdzguemqMuel0gKSWRHWfb6SWzkd9kd0e/5oN6NFOtf1xAo4CyFfUxs2UYTRTh8fHwHY+Vpu6cVNGyygw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dyqsHg7vpitMU6S0mFCKx1gpAu25ciOzUS5O3SNFW0k=;
+ b=sQIuJcGl5FHGnTf48yVEmyfbQcLtRng4rgg/bpF9bxjocGEzT2OmGmYNhnvDjUWnmlFTLybOW5RK/vji7XsdVwVIJoWjQPU6UgLou4n7BuCUw9nm6S65GYH0qEAqC3YEm2Y7CPQWj0TlTGSKhqYL573CLOyFjuyArFrx3+jbhfY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by DS7PR12MB5743.namprd12.prod.outlook.com (2603:10b6:8:72::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 21:25:54 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
+ 21:25:53 +0000
+Message-ID: <39598840-29b1-4524-806f-9ef9dc2a3944@amd.com>
+Date: Fri, 6 Nov 2026 15:25:51 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/5] selftests/resctrl: Use bandwidth values for AMD
+ MBA schemata
+To: Reinette Chatre <reinette.chatre@intel.com>,
+ Swapnil Sapkal <swapnil.sapkal@amd.com>, tony.luck@intel.com,
+ fenghua.yu@intel.com, shuah@kernel.org
+Cc: Dave.Martin@arm.com, james.morse@arm.com, peternewman@google.com,
+ eranian@google.com, tan.shaopeng@fujitsu.com, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, x86@kernel.org
+References: <20261022132517.46805-1-swapnil.sapkal@amd.com>
+ <20261022132517.46805-5-swapnil.sapkal@amd.com>
+ <b250f681-5726-403c-86af-cb4bc35b9d1d@intel.com>
+ <e30b8e81-938c-4426-8b4a-2a3a8d5163ad@amd.com>
+ <4f656f59-9f2c-4774-9d9b-3a4d7b7b509d@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <4f656f59-9f2c-4774-9d9b-3a4d7b7b509d@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR03CA0052.namprd03.prod.outlook.com
+ (2603:10b6:610:b3::27) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,138 +104,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|DS7PR12MB5743:EE_
+X-MS-Office365-Filtering-Correlation-Id: 324c959f-ab65-4459-5efc-08df3c4c899f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|22082099003|18002099003|6133799003|10067099003|3023799007|4143699003|11063799006|261028144727099003|261102123227099003|261026140227099003|261026121527099003|261022105027099003|261021121427099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	5Wnk/8rxY6xUaasnjfFw1KY+Tgx4cOCl8NA4oTfr4dygx/UggYqH6yexBcgRr9i+S0OZ5MMFvvctA469YLB1DA5mLpxOn2FfD7VXQZhRMKuW/gM0mLk9c+VVkbmkft996MxBWnT55AQDfZZnAc3d2KlxE3q034cZYbbVY+hyHbbCjl9OoWnwAtmXlVUfQDoe7rtj0/b2kxhd9o4rGJa1S1VMpU8FOAw9uhi+M5BksAjQgJRpb/1wnuqwsTxmOu/D6eYq29TacEADFm8X6gaHSXot/ZEt9JWFY3t4ZnMBJnosYONJwxiJrCTmLIWwBEeCqKia30iWkBv/ZeVfm95UEmIrG3FVh6KvrwWOADWl0fZcvYhkl0WBPBfWWf2pKg4AJ/rXOsi4cPKkJHpowC/m1ut60KQ1j1+tw4n0LyVUL103LqLoqydSQRbQ1U9AB7PDZUthOufiScGzmYWZdJ3PLAk89GAtpOwSRjAJ79nGt9OqhqJGCAXvFZmkAfk5AjQ80W+EkcbEafOBldEsL7dke3+pUPhnSS9yrmlc5Gl0l3wUsryMpgCnbViNREVQacQTj8mA0AXUAJnd4UHrZBtBjLgL30Xvf8cVZkFQ4AgLNb6fhJbSkWIJ4Ky5JPhsNIQfo+HXqn46bWuyXg/FWcF2qi1pkCyJN4mTIzLNhZs775I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(6133799003)(10067099003)(3023799007)(4143699003)(11063799006)(261028144727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261021121427099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WjVyLzNYV0ZDM3JhVy8vN1pVU3RjTW95L0RhTHlRemhVZ212SDNLa0JlUGFu?=
+ =?utf-8?B?eFI0K0RhcmVEaE93OE9mZXJoTkg3WnF2UlhpaTZnb0ZONThMbnpDR3dlak9R?=
+ =?utf-8?B?NzBQWnNaYTFUTERva09IZU1jM1gyWmo5U3ZLbVNOcVY1MzE0ejJENjJkdjZ1?=
+ =?utf-8?B?VFR5WHI0YndONVAvWTU4U2x5czBoMjQ4TWZjVVE5TUE4dE10RURnWFh5MFZ1?=
+ =?utf-8?B?OUs4bmhjU2h3R3lNSXhiaWEyQjFNZjd3MXh4R0tsVGtBck14VUNDNWRLTmZw?=
+ =?utf-8?B?cnNmUEJTZjJmUTJzV1lCT0NmV3dlb0hDdUV6dTZCZzY4NEtJMnFCd0hkVFU0?=
+ =?utf-8?B?aU4xMUhTZiswVWtreVozclRiVEJYbkc3ZVVmR2ZsUjd3ek5pYUpTZytxKy9Z?=
+ =?utf-8?B?N3VSU1VwWWJZd0JybFNGOEN5VTJxWW04UGRpWURjQXU0ME5rZU0reXFJZVl3?=
+ =?utf-8?B?eWRkM0VRekpwMmJTYVJDbjZZaUZ3TGFQdEs5WTVud0ZDM0IyV2ZGS2VyaUMz?=
+ =?utf-8?B?ajdqa2cyaXhKOWF6WTREcmgwTHdJSVorRVNYVGI0RDNobW1Sa25pVzloWWZB?=
+ =?utf-8?B?czlvR2JHdEp3cjdLYVdsdERFZHpxZmxJYVh1RXhsR2w1dVY4eFREVWVvYkV4?=
+ =?utf-8?B?d1kzYXNGVDV5S3pzbGtmN3lWdmpqalZCTytCY0pCYVhTSVMvNUNYM1h1ZXhr?=
+ =?utf-8?B?Y3BNMXliWFVJUlFZdjhXRzlNdXVhT1M1T2ZubXZSd2VqV1N2cjVKS0cxMWxn?=
+ =?utf-8?B?cXBmdkQ5cCtJUStFUmhndERWVXhRWlFWZWo1aTk0N3lmL1hpdlpGSHIwN0Vm?=
+ =?utf-8?B?Nk9iSHZaUGpJVTJZQ2JJTjUwVGNkSnc2cmx2RmU3UTVIV0pRSFVMSGdJU0Zk?=
+ =?utf-8?B?eGxuYVgrMEpJOGtvZHNLc1hVVk9zc1BXMUR4L2FmZWNBSHB1R1lxdEM3WHJQ?=
+ =?utf-8?B?NGVSdmppUVJndzI1TEhtU3FQYVhONUVBYU1KSTBkd2xWdHlQNDVIMWUrYWsx?=
+ =?utf-8?B?SXMzVnRmWlRTVmJ2bXBJandpRm51b3Ruc3R2d3E4NE1za2g2c1JiYytWN29h?=
+ =?utf-8?B?MklLbm9TdCtSWkxORDdpK2NoVGFKazZWNG02M0szMVRkNXE5NzlqN0dXWkI0?=
+ =?utf-8?B?N1hCZVhTaEMzaldha05WZUlxb3hybjZ1YUV1VHpIM0hzb1RvbnZpcGxXQ2ZH?=
+ =?utf-8?B?T1RkVXRuSStsZzlXcWR5WXBNSG13ZnFBa0NBMjNWVWhvS2RyYU40RHdUcTNW?=
+ =?utf-8?B?R2tQdzA2c3A1TzlJdzhKaVd3Tm1EVDk4bkNKMnpzcU1vU3RybnhmSUhZUTBY?=
+ =?utf-8?B?OUIwVzRnbDlaZTZaelVMdStYMnRwUDl0N2dnOWppbStOSXZNWFVKWlFCUjdv?=
+ =?utf-8?B?QjlVOWlEd0dYaWpvd2dEY1RyRWdFdWcvOGZSU3ljamJaZC9NMGZ4OW1RWVBp?=
+ =?utf-8?B?cEtibklNUnI3UzBnK2lheXA5MFg1TmJmck5zS3RhSXcwOU1rdEgySGI5VVM1?=
+ =?utf-8?B?blBiY3pUSE91K0c3eWh4anY3L1dJMWpnVC9jWmRKajl1QWQybHpvb2NIUjBD?=
+ =?utf-8?B?aFcwcGJNSytOQVh1dUFSTWk1QUpFMEF1amF2VUFQS3FnQWR3eVYxZSs1eEl1?=
+ =?utf-8?B?OWo4ZnJRRmZ0S1E2QzVoQm8yS0VJZTRXaUJNZWtwbzlMWHdOc0tnSVZrbE16?=
+ =?utf-8?B?MHBpVGJ3cEh2OHpCWjAwd3Q0cGhIcHFUZFVzMldFN1lvdGpuTG5GVW4yU0tk?=
+ =?utf-8?B?MDJ3Z0x4blZ4UHc4VzlSV0I4Ymx4LzZJWlNiSVFaU3ZrSWFxcFlZSEFHUWJD?=
+ =?utf-8?B?L215NXdTVmtLcXYyTG1qS3hBaGM1WFNhRFVCOWd5cEI3N1RKT2JOY2VHQXh6?=
+ =?utf-8?B?Z0dRbTZCMGNobXdmRlRmM3RCMXFpUkpydWhPOEZQRVVRQ2lKU1M4YXdHRmpK?=
+ =?utf-8?B?bU1vNXk3RHRqUmhOTG1rOWRyVUJSQStkUnhOU2NiMlZkM05kTlYydHdDcDZ1?=
+ =?utf-8?B?TGlQc0MxUTE1MnpIMVp3a1I4cHVpTUhEdTJXZStpdHlWYnVIejA0SnZSaFky?=
+ =?utf-8?B?eVphQUFueHdGbSs5RVJoNkRwaXp4cHZFODJwOThoMDlRQUtPZGtkZ1AzZjNG?=
+ =?utf-8?B?bXJhQy8xRXhkY3NLeGk4S1RiNG9rdVlrYWlmSWVpb0dmVDJldjFtZFZ0YmQz?=
+ =?utf-8?B?am91STd0WjJtcmcydUxxQ3VzVWxGUEVxUnlkWkM4YWdCUFVKSzZ0TWhJa3JS?=
+ =?utf-8?B?blpOd1FQeGZsQUVRRUtpeERIYjBqRlNBZVBnc1Zmb3BvYnU4cVlocG9sazBo?=
+ =?utf-8?Q?PfNeBrwrn0av+l78Wg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 324c959f-ab65-4459-5efc-08df3c4c899f
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 21:25:53.6229
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bAaleGIcTer/pMawkaj8MZ3AHUmq6QP+bxCJbWvZZgf7eUx0xt37F0cjH0v3xY0d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5743
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: phy: realtek: register hwmon thermal zones
+Hi Reinette,
 
-This commit adds HWMON_C_REGISTER_TZ to the channel info of the Realtek
-PHY hwmon device. With it, the hwmon core registers the PHY temperature
-sensor with the thermal framework, so device-tree thermal zones that
-reference the PHY can bind.
+On 11/4/26 22:16, Reinette Chatre wrote:
+> Hi Swapnil,
+> 
+> On 11/4/26 8:05 PM, Swapnil Sapkal wrote:
+>> On 29-10-2026 00:15, Reinette Chatre wrote:
+>>> On 10/22/26 6:25 AM, Swapnil Sapkal wrote:
+>>>
+>>>> diff --git a/tools/testing/selftests/resctrl/mba_test.c b/tools/testing/selftests/resctrl/mba_test.c
+>>>> index 17ae73d3476c..947735e26099 100644
+>>>> --- a/tools/testing/selftests/resctrl/mba_test.c
+>>>> +++ b/tools/testing/selftests/resctrl/mba_test.c
+>>>> @@ -13,10 +13,51 @@
+>>>>    #define RESULT_FILE_NAME    "result_mba"
+>>>>    #define NUM_OF_RUNS        5
+>>>>    #define MAX_DIFF_PERCENT    15
+>>>> +
+>>>> +/* Intel MBA is specified as a percentage: 10%, 20% ... 100%. */
+>>>
+>>> The percentage based interface is the generic interface and not Intel specific.
+>>> You can drop "Intel" from references to this interface.
+>>>
+>>
+>> Sure, will do.
+>>
+>>>>    #define ALLOCATION_MAX        100
+>>>>    #define ALLOCATION_MIN        10
+>>>>    #define ALLOCATION_STEP        10
+>>>>    +/*
+>>>> + * AMD MBA is not a percentage but an absolute memory bandwidth value. The
+>>>> + * test sweeps the bandwidth from 4 GB/s to 40 GB/s in steps of 4 GB/s,
+>>>> + * which the hardware represents in units of 1/8 GB/s (i.e. 4 GB/s -> 32,
+>>>> + * 8 GB/s -> 64, ... 40 GB/s -> 320).
+>>>> + */
+>>>> +#define AMD_ALLOCATION_MAX    320
+>>>
+>>> The AMD maximum is enumerated from hardware. How can it be ensured this is
+>>> the appropriate maximum for all AMD systems?
+>>>
+>>
+>> As Babu mentioned, it's difficult for a single-threaded workload to
+>> reach the hardware-reported value. For that reason, I used these
+>> values to verify whether throttling takes effect.
+> 
+> Just to confirm, my question was not about needing this value to be the actual
+> maximum of a system. Instead, I just wanted to confirm that this "320" value that
+> is hardcoded here for all AMD systems is a _valid_ value. Since the actual maximum
+> value is enumerated from  hardware it is not obvious to me that all systems will support
+> this hardcoded maximum.
+> 
 
-> Set the flag, as the Aquantia PHY driver does. This lets the RTL8261N
-> sensors on the Zyxel XGS1250-12 B1 drive the chassis fan through
-> thermal cooling maps.
->
-> Tested on a Zyxel XGS1250-12 B1 with OpenWrt's Linux 6.18.55: the
-> three PHY thermal zones register, and an emulated 85 C reading on one
-> of them (CONFIG_THERMAL_EMULATION) switches the fan on through the
-> existing 80 C trip and off again once cleared.
+The value 320 corresponds to 40 GB/s. I have tested this on several 
+systems and was able to achieve the expected 40 GB/s bandwidth. The 
+tests did not fail.
 
-[Severity: Medium]
-Does this description hold for the mainline driver?
+There are some older systems where the test is not expected to run 
+because AMD UMC support is not available.
 
-rtl822x_hwmon_init() has only one caller, rtl822x_probe() in
-drivers/net/phy/realtek/realtek_main.c:
+If you are concerned, since we are no longer depending on the maximum 
+value, we can be conservative and start with the following adjusted values:
 
-    if (IS_ENABLED(CONFIG_REALTEK_PHY_HWMON) &&
-        phydev->phy_id != RTL_GENERIC_PHYID)
-            return rtl822x_hwmon_init(phydev);
+#define AMD_ALLOCATION_MIN	32
+#define AMD_ALLOCATION_STEP	16
 
-Only four entries use that probe: RTL8221B-VB-CG, RTL8221B-VM-CG,
-RTL8251B and Realtek Internal NBASE-T PHY.
+This allows the value to reach 32 + 16 × 10(num_allocs) = 192, which 
+corresponds to approximately 24 GB/s.
 
-The RTL8261C/CE/D_VM entries use rtl8261x_probe(). That probe only
-allocates priv and picks a firmware name. It never calls
-rtl822x_hwmon_init(). The driver table also has no RTL8261N ID.
+Hope this answers your question.
 
-An external C45 PHY cannot fall back to the internal NBASE-T entry
-either, because rtl_internal_nbaset_match_phy_device() has:
-
-    if (phydev->is_c45)
-        return false;
-    ...
-    return rtlgen_supports_2_5gbps(phydev) && !rtlgen_supports_mmd(phydev);
-
-So on mainline, no RTL8261 PHY seems to register a hwmon device. The
-three thermal zones seen in testing would then come from out-of-tree
-OpenWrt PHY support.
-
-Could the commit message name the PHYs that actually gain thermal zone
-registration (RTL8221B, RTL8251B and the internal NBASE-T PHYs)? Or
-could it say that RTL8261 hwmon support is a missing prerequisite?
-
-> diff --git a/drivers/net/phy/realtek/realtek_hwmon.c b/drivers/net/phy/realtek/realtek_hwmon.c
-> index ac96e2d1ebe82..e6235df288c32 100644
-> --- a/drivers/net/phy/realtek/realtek_hwmon.c
-> +++ b/drivers/net/phy/realtek/realtek_hwmon.c
-> @@ -51,6 +51,7 @@ static const struct hwmon_ops rtl822x_hwmon_ops = {
->  };
->  
->  static const struct hwmon_channel_info * const rtl822x_hwmon_info[] = {
-> +	HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
-
-[Severity: Low]
-Does this need a DT binding update to go with it?
-
-With HWMON_C_REGISTER_TZ set, hwmon_thermal_add_sensor() calls
-devm_thermal_of_zone_register() on the PHY's of_node. Thermal-of finds
-zones through thermal-sensors phandles, so the PHY node needs a
-#thermal-sensor-cells property.
-
-None of the relevant schemas seem to allow that property:
-
-  realtek,rtl9301-mdio.yaml is the RTL930x MDIO binding used by the
-  board in the commit message. Its ethernet-phy@ children are
-  $ref: ethernet-phy.yaml# with unevaluatedProperties: false.
-
-  realtek,rtl8224-package.yaml restricts its PHY children the same way.
-
-  realtek,rtl82xx.yaml, which covers the
-  ethernet-phy-id001c.c849/c84a/c862 compatibles, ends with
-  unevaluatedProperties: false.
-
-  ethernet-phy.yaml does not evaluate any thermal property.
-
-Would a DTS that adds #thermal-sensor-cells = <0> to an ethernet-phy@N
-node under a realtek,rtl9301-mdio bus fail dtbs_check?
-
-The Aquantia and Marvell PHYs have the same gap, but this patch makes
-Realtek PHYs new users of it.
-
-[Severity: Medium]
-With this flag, rtl822x_hwmon_read() becomes the get_temp backend of a
-thermal zone that drives cooling devices. Should it check phy_read_mmd()
-for errors now?
-
-drivers/net/phy/realtek/realtek_hwmon.c:rtl822x_hwmon_read() {
-    ...
-	case hwmon_temp_input:
-		raw = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_TSRR) & 0x3ff;
-		*val = rtl822x_hwmon_get_temp(raw);
-		break;
-    ...
-	return 0;
-}
-
-The mask turns a negative errno into a plausible temperature, and the
-function returns success. For example, -EIO becomes 0x3fb, which reads
-as -2500 millidegrees. -ETIMEDOUT reads as -55000.
-
-hwmon_thermal_get_temp() treats only ret < 0 as a failure:
-
-	ret = hwdev->chip->ops->read(tdata->dev, hwmon_temp, hwmon_temp_input,
-				     tdata->index, &t);
-	if (ret < 0)
-		return ret;
-
-	*temp = t;
-
-If one MDIO read fails while the PHY is hot, the thermal core gets a
-sub-zero reading. Could the governor then switch the fan off for at
-least one polling interval? If the errno were returned, the thermal
-core would keep its previous state.
-
-The hwmon_temp_max path, which reads TSSR and shifts by 6, has the same
-unchecked pattern, although thermal does not use it.
-
-The masking itself goes back to commit 33700ca45b7d2e ("net: phy:
-realtek: add hwmon support for temp sensor on RTL822x"). This patch is
-what connects it to a cooling control loop.
-
->  	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_MAX),
->  	NULL
->  };
+Thanks,
+Babu
