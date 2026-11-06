@@ -1,118 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793992618;
-	b=fkTRMCnFn5UbHCT3aGAQt5AIulTSanJBDZXra87E4CrKt49CJnz3ShWMzv0XqtcNdbo0
-	 NwQx/bn/wxFME65iDa/Afx0N4RESe+Fhr2HS7+lM1iF2qMZA5DQpmYIRT206nmwwTouwR
-	 DKq4It6KUGa2yCtvq9s3z90huzFAJIBnu/ZKJ9M5R41fsQ1RKUOyDkx4/qzjCDgIlr0UK
-	 NrEx/YKMTeFOqgavHt1EPE1oMmeiW8Gpj1k307uBhku0W4FxsT9C8RYCt1Z73unyPje5Y
-	 4opJAXQ7vzwXi1vPG6kfWdCIDRMhy4fU/K7uGP6E77lNyoAbFjcysfco+sfMTsw2WMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793992618;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9HUtdZJ9XLLFCha34yuudb7CicOBsCnYTd+vd0PBeFg=;
-	b=5nJ2bqmcoL21hnhDX8Er/T/6pyqixWV5saUL5Opj56zMwytt+Y3VzVNfHuAOxpXir+uG
-	 Fo9SFY8yV3S4ZOLdbaTQ6XdGvDrRK3dAxqXz9jRdnVMiGaFmDJKaTsCHU97YU7evUsyWw
-	 my+FLZSvMOr6KgMpvoWEjtGzzfAYKgmGMrQzwn2683aDq0DK5DA6Cj4iTWtUgGOrjE3ok
-	 CB9SiGLeWICHxh0hJqKAafbY3mCNCdY9seyhY0Jp+pgd79k+DItcHnznY7bPghXnqozWf
-	 Ii8CElYj8niCiWg4MxZl9O2N1A2wm5hw3W3Gytv98bTl5W5DrtGrxtRggfwmYFGiJnw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1I5t6Ch+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.67
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010067.outbound.protection.outlook.com [52.101.201.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793992675;
+	b=i1IAWY3OOisc5OShjErAulfKyB5cAzyPHAwh2mrYELVkap5fUtP5Q4hTVKbPICPQZRLs
+	 dgY5/uW7yzE4Iw7KW9cbDGZBBcakRp3Ic2O+eh/d2R3j9mXGi/Ez1Pzd/In3I1V1Er75r
+	 NuNJ124LCzBzq5s9AcTRkLZMJnDTp/TOWYSVK5tul/fTHiIIg3Fxalgv3NXdVfWOrDv9F
+	 GO3jPnzxphNof+HnTJo0QMgjyl+F5u7pNtF9VD+CJwPsRJm71m6UUjXVRlsfPVj4/5+9v
+	 jhcp9SSbuMT0HPfAPXs8ra9ibVJdsdXjioglaOfewqt9Ds1orctYJoudPc880NEHDJQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992675;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ymJzB0WN5FbKDzsluXNV7fmXp6O2GJpqiouyp8507gw=;
+	b=EjW9EKMeZKKB8kS/tCgmdiNrBPkyvU/Wxx+HzMcFGY21oedbZBy/GCFBxdDuWPDe7+hS
+	 fxmlYY2iRKGPugP8dN4Y03UEwrwZrYJ6EVgLQaC40ipTxHq24iv1GkhCaylNnv2IISDUV
+	 UekNhfYPEcXKm7YGZvVHcsHIFigo3snX8/8OdDymZ3Ab+t3frpDMkd4kp9NnX6kM8cVKK
+	 M9P2Y5GrRvIqiePacNjjnxzXTItkDheM4suRm7atBHKx0x9TsfcKKYIBRgBql3NRm75xu
+	 au5oP58z5F9MwSqxV8t5NYaYeSs5iKHYRE0fJKMoPI6ofmbWSScCzfUtkKIHoAuuQZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Ew6S5qex;
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B974606A32C;
-	Fri,  6 Nov 2026 19:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B974606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08E1606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:17:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C08E1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1I5t6Ch+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rCCz0X3y+g/xifEimOMCORzM9Ae7QyjQRL6qO5u3oiL7Tm9rBgm87FmFeuS27YinKCTRWqz+44N41jEXHoL0DJdIL8xNEPqG7zPdTzZMBljDj0FYInJ30pTyuNZ7wd8R8fd7NcWQaL0rMlOV708VhzkWRiph8B3mDfR10Kd+EqozwNiC4+GMW2u9h9m4CBhSw5RRJXSEwE+iang6tbpfyPFEiZ9LEujYOHMg+yNe3FmgRDTqiYW+uvKXz7Gwox2ivgfq239tKaWaI0Wt80KELKeKCeWLEAWzn7UZO95nLdub+5fFOFO3S4aQdrFCmweAysTRgEuiaF+WsGDr889dfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9HUtdZJ9XLLFCha34yuudb7CicOBsCnYTd+vd0PBeFg=;
- b=Q8Wl0qA6kZdNjmBC9AqCZewwsdqJ6VCKDPZztlyl8T1IYa/eZed57r1BPa/grNssEKwKYf4O/Y5Tkd/ozai3iClL0qpHh+RdJEHFt+S06GwHLSx/+Pf3BneTMiROL4Us3bpNWURc/DHPvDl3xS6hi93XJj09kQFkUSd5h0DQb7SaYzLxfeky7udRt43DPSQ5n63S+EOo7WpGXzMSnEHPkpg17tjk1/o2VTLQaQUlj3nNvDAXoawDx4fnpirfH6a9u+g2eRYpc4dhi8UGQ82J0Z16ARAH8gqrlW0Yj9chySBczPizwTqKC3vZmTpyP4qsq/eX1vVKYIVfDls5GSBqGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9HUtdZJ9XLLFCha34yuudb7CicOBsCnYTd+vd0PBeFg=;
- b=1I5t6Ch+GDDeZamug2j8T/DXjzRtp40jMON64Wb38YQ31SzpiDeZJTYLvcvTBD/FCn9VXC4bRATNWCBAOro6PJfH6Z0S3wPCZFYGr1XZcwVrcJQe+fHQLOkTVDAE8z845Qo86goNPRGZvrXzMSzptCUIlsyvyYC1p8Zo7MMCDPs=
-Received: from MN0PR03CA0003.namprd03.prod.outlook.com (2603:10b6:208:52f::8)
- by IA0PR12MB7751.namprd12.prod.outlook.com (2603:10b6:208:430::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 19:16:53 +0000
-Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
- (2603:10b6:208:52f:cafe::6b) by MN0PR03CA0003.outlook.office365.com
- (2603:10b6:208:52f::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 19:16:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 19:16:53 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 13:16:53 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 13:16:53 -0600
-Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 13:16:43 -0600
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-To: <broonie@kernel.org>
-CC: <Sunil-kumar.Dommati@amd.com>, <vijendar.mukunda@amd.com>,
-	<Mario.Limonciello@amd.com>, <venkataprasad.potturu@amd.com>, "Syed Saba
- Kareem" <Syed.SabaKareem@amd.com>, Vijendar Mukunda
-	<Vijendar.Mukunda@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, "Jaroslav
- Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, "Mario Limonciello (AMD)"
-	<superm1@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>, Aaron Ma <aaron.ma@canonical.com>,
-	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] ASoC: amd: acp: add SoundWire speaker quirks for Dell platforms
-Date: Sat, 7 Nov 2026 00:46:11 +0530
-Message-ID: <20261106191627.1590542-3-syed.sabakareem@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106191627.1590542-1-syed.sabakareem@amd.com>
-References: <20261106191627.1590542-1-syed.sabakareem@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Ew6S5qex
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso128301366b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:17:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793992673; x=1794597473; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ymJzB0WN5FbKDzsluXNV7fmXp6O2GJpqiouyp8507gw=;
+        b=Ew6S5qexV5qWeuX6X5vRBcE2ISMnLuronhr2aJPX7VOKzmIrU+DuUX+IdTV8F1+xEp
+         xhmTZ9S7Q976JY7+pit3uG/D2mLnUP92C8ZJoNpDvj0q4VuvQOMUqecC7Bbug3lBnoqz
+         l2EIVdl84fYcOohqeViEeAtvvrAg7lQ+QU1ag=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793992673; x=1794597473;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ymJzB0WN5FbKDzsluXNV7fmXp6O2GJpqiouyp8507gw=;
+        b=zzll36Pw1L9vvTk7KNSXYHN+IAbfMghWd2by32X8znKzLQOON9HLY/5K/7mVDWVcff
+         /hcz20s6QCZkPXWGpLGifDs1K/xi/KbteEtlDJ3LKlAtxvekBj3/nUcIqmMdcbI5Iwfb
+         T8+c5KFmbI05U2ipmUlfg2W1uQEGxWx2mcbnXBigtHOG5zoZP4pWDa0ICzgA6mSC3OIg
+         DP0Cug20EFmEHy2n8IcJdo/r1pnmIsZMT4gkeGNQpRdDhu9RfF/NIUte+++DAPtJDKtJ
+         PVe1pOsPkAy6emqYhRL2yVcPywt0T6vbqT3cQGX4lLwfvorPiwslY45AF7C2ThSUSEvz
+         88mA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6uHlf7pB72YEULFuKCyct52xWUZhIYpJvl9YbFoBvoGXeMiaNASpElpEkRksUtUVUQBdv0FhIsRlQiPk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Q+PTLFA3QYVI8nmVQzsv+G5r6uUid1/bE+7UsRK6qdM2EJT/8
+	go37ZOankvvdIgq/f/3yMRLElABFxDNqyDf7i85hmAHML1otKaSmy/VbErffKPKckx4bITm1Lsh
+	5Q7PN3rD0
+X-Gm-Gg: AYBFou0hHxs4upAEDwwSL9i+/NYhe9KwePvcZHdDY+hcO6xRM1gWKaNEkT3U31pTF7G
+	gEkeoeWP2P4tUM6BvOoSC0FSnkrmsmsez5AvqW46mBqIkpO1fPsAFgFiXplYDqqp+KvfRvD/mgm
+	rtHmcDjD2yu+3J16+V2ATkqUrLNQFQaeN3XbEiar5/pnIvM0TfRTRxky7t9sUQq79UWvDT8p3iP
+	TDDttkKwJUYCofT7I3MroB2TzZ/6BkarIsF/brlCqXF3VOX1/d6YKqFWSU5jHmHXajM15YIm/lr
+	oxB3WOHeMrOQL5iLA0QTdjqSIxqWsSUa91cRs4ETg0mnxBYoJ3hiUbxziBSXzv0xa3fW97VTevJ
+	w+EXkm/qbD4KI2VGtscB35g8iinpnyMXt7hS8nXycNOc3e7legPXVNUYvFQWzPjcV3q7+SmNaRD
+	rI+gfzPRxYJ1Qt/E3zw0wpERsXF6e/EYHjI2Nl8keR1t/iyITnXzCUMSlSl+Ap0dCQ1ZpFnwLPn
+	rO/aW8wdceIT9qZ+0pfekMcv544Lrgwc0Dg0zZF+eMMyvxW5IUqfqjUVV1nHkXaCTNKvQjkZMeO
+	QsOFJnApSN8zgYvKtmJtxwWM4Xvn6B3d4dqDqzNsmR6FlPhT5FQ8h/io8a4bU7JHIR2p
+X-Received: by 2002:a17:907:c5c3:b0:c46:9ee4:8f0 with SMTP id a640c23a62f3a-c4d34a64b33mr301683766b.10.1793992673088;
+        Fri, 06 Nov 2026 11:17:53 -0800 (PST)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com. [209.85.221.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356eab3esm100830066b.87.2026.11.06.11.17.52
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 11:17:52 -0800 (PST)
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso918998f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:17:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFu1UJ9+eJt1MrBI1sm6YbPyR5LsUwfgX2ioxGOd260GMZzyJZuxj7W36CbVX0iN6MVj/FV2ad6bOOgyAI=@vger.kernel.org
+X-Received: by 2002:a05:6000:1869:b0:490:a3e7:8af3 with SMTP id
+ ffacd0b85a97d-49277219a56mr7321822f8f.35.1793992671239; Fri, 06 Nov 2026
+ 11:17:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,105 +94,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|IA0PR12MB7751:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9ccae24-ea99-418d-e1f8-08df3c3a846d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|7416014|376014|1800799024|82310400026|56012099006|11063799006|261021121427099003|261021123027099003|261009223027099003|261022075727099003|261102123227099003|261026121527099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FsjFt8meWl0JoQYSPJauTxGRaEG+TeKWuCJTbSGfhUxnz65T75Hg4Gz7YBh68c375f4sAMe+unHIMGVxa4nFF4eo9suO+XCsyIQdpfEcpkS1GYMjdXZa5rlYTm2upyWwo25wqKACQEUDjBX+7v3I6ewoXioeEwx2T80beOWMzK6uKYQxCxTNFflbvZQI8VQwk0aL8os+0jYNCZTgq2BCFT6Li/cXhzTxg+FqG7GvEDiCnSsKGDRVIfwiCigz0al899VXFF1/6le4QzNg/Lf8cyD2BCIJ9DC3QnIP77ey4taD5s2ogesF5ykB6KbT6ueboA/1ViOUMCovydP/AVephD3r93MVd6+wtIM+kY1iUM47c0x6mQcU1mMg21WEc2DbNJ4I9AKXbda+qkG9Q7mltcEJu9jl5o8FZRU1mTFtHMGiWhCmHW7cYKbnR0+Q3p6YSu/Ub6DA2HSyDUEwCgs1ek6kO1h81GMBzqD16c41/RKqvZVCb4TeOdFKlOcs+UnZT1d5cJbFLiXfNyNgiG3KBff00dbBmAN06cmylhKi7LDg6avKcc3mPWTQyNYfmExP/IMxRpl2ZwBsB1Ol3OO71JdwbDXDLbzz59QtIJluRJSqnTWn/QUozMfkdOaZQ+WMZ1teDhSSbpUBAzv1WxkfcPOD8dGw7XE/U0ie4J1bW8D9KX1WGZ2DbKVv3SlrIfXc2wq+MP3R5397z17PIUB1MA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261009223027099003)(261022075727099003)(261102123227099003)(261026121527099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	abFJqwUPLgXa8lVxIqnlEonghomKgaddjrqpzF3pTc9GVEa/Nd5P+Jkkt8KCYGI4Cn+NGTT2svMk64+b2Ifv4/dYqcC98OjTAGWLfToHIELqp3Y6pre5XDpTroc3gVoX1dZqJcdjNkMMNsQ7wpX0PPR23Y/ZDte2cec7G1AS7LpNBN9W340cvZSRVC5cjfepCBfXJI+s1brJHlmvJpf0KcHdL6zyIkz7BuUphjDehI4mFwGR3fW/Rvbyxbm52iJP7NW6AitkrRKvHtgAFrkmNfSOpEuMaFEJgFelb85F+NpS1jZ9f0KUv0XG5onOyPMo8IH68rxCbq4TwV0CBHF9GG+AKeaQWpW4p2ffXDcshebFZeYG+V0kEQDgZEhELGsMdQCal2N4oYwEEVRGyp7A6WzI7dXg0gBhaShzG6XkwOyz8XG3BdhZmpw1mF3BfGAQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 19:16:53.7072
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9ccae24-ea99-418d-e1f8-08df3c3a846d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBB.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7751
+References: <20261106-panel-edp-boe-ns140wum-l61-v1-1-4c9747ec9186@oss.qualcomm.com>
+In-Reply-To: <20261106-panel-edp-boe-ns140wum-l61-v1-1-4c9747ec9186@oss.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 6 Nov 2026 11:17:39 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UaXzyEbzE2iuz9_Sgsw8FZ9ueaTTwZkwgHFgLOJ-_dfw@mail.gmail.com>
+X-Gm-Features: AclHuK-_kku1KjQXSkbP2droWmHGBLJtmBrXMtrNqV8mW9pN1c52FbMy49q66lY
+Message-ID: <CAD=FV=UaXzyEbzE2iuz9_Sgsw8FZ9ueaTTwZkwgHFgLOJ-_dfw@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: add BOE NS140WUM-L61 entry
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Hi,
 
-Add sof_sdw_quirk_table DMI entries for the Dell 0EF1, 0EF2, 0EF3, 0EF4,
-0F12 and 0F13 platforms, setting the ASOC_SDW_CODEC_SPKR quirk so that
-the SoundWire speaker amplifiers are enabled on these systems.
+On Fri, Nov 6, 2026 at 7:36=E2=80=AFAM Abel Vesa <abel.vesa@oss.qualcomm.co=
+m> wrote:
+>
+> The Lenovo ThinkPad T14s Gen 7 (Mahua) LCD variant ships with a
+> 14" 1920x1200 BOE NS140WUM-L61 panel, which reports itself as BOE
+> 0x0d9d. Since there is no matching entry, panel-edp warns about an
+> unknown panel and uses the conservative timings.
+>
+> Raw EDID of the panel on this machine:
+>
+>   00 ff ff ff ff ff ff 00 09 e5 9d 0d 00 00 00 00
+>   0c 23 01 04 a5 1e 13 78 07 53 38 a3 57 4b 99 25
+>   0f 51 57 00 00 00 01 01 01 01 01 01 01 01 01 01
+>   01 01 01 01 01 01 10 44 80 18 71 b0 78 40 30 20
+>   f6 0c 2e bc 10 00 00 1a 00 00 00 fd 00 1e 3c 4f
+>   4f 11 01 0a 20 20 20 20 20 20 00 00 00 fe 00 42
+>   4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fc
+>   00 4e 53 31 34 30 57 55 4d 2d 4c 36 31 0a 01 2c
+>
+>   70 20 79 02 00 81 00 15 74 1a 00 00 03 51 1e 3c
+>   00 00 6a 3e 6a 3e 3c 00 00 00 00 80 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   00 00 00 00 00 00 00 00 00 00 00 00 00 00 87 90
+>
+>   Manufacturer: BOE
+>   Model: 0x0d9d
+>   Made in: week 12 of 2025
+>   Display Product Name: 'NS140WUM-L61'
+>   ASCII String: 'BOE CQ'
+>   DTD 1: 1920x1200 60.000000 Hz 16:10 (302 mm x 188 mm)
+>
+> No datasheet was at hand, so use delay_200_500_e80, which is what
+> the other 14" WUXGA BOE panels in the table (NE140WUM-N6S and
+> NE140WUM-N41) use.
+>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/acp/acp-sdw-sof-mach.c | 48 ++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-index 1d7487c87265..4e21d85d4724 100644
---- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-@@ -47,6 +47,54 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 		},
- 		.driver_data = (void *)RT711_JD2,
- 	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0EF1"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0EF2"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0EF3"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0EF4"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0F12"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0F13"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
- 	{}
- };
- 
--- 
-2.43.0
+Pushed to drm-misc-next:
 
+[1/1] drm/panel-edp: add BOE NS140WUM-L61 entry
+      commit: 2d5a8313d9cf989b8f53a5689a96e891bf99fb2c
