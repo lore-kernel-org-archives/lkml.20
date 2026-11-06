@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.187
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955049;
-	b=mJE6hE646Ap3pBjqSFHk3HOttrsFopERwPr3APsgWCBtZJtSarN1NUsksaBuWRsFA+Ah
-	 NWK/Zs6YKJds3qvsc/bjChscv0iojQ1ndEw2aBBV/aTJ3rt+W5GHIihjgj9WYY1TE4bGZ
-	 PcJbVNelPjJsKXFs+L93ZdqRDN7aOLcDr0U00eN7rUfq4TFERsrV2OIw3gTEOs9X0V/FG
-	 qW83y60VcgEmHrXc1qwwovZ3ZdjyoHtMpKqRAmB+KhIyUQKapWTK0I/t5+f5zLSzdRvip
-	 TvUh61aBfC1FoZjOF7IG6OVkGVSXu5X2c93aMS+8216nRQjJPTJEhvokt5/neYF8eyw==
+	t=1793955060;
+	b=jiNKKGnZf0wcfsiqcc6i3uuZsmpQ8Ol4dW/nIfuywNTniQVQVBfoADp6JxKyEuuFfvkS
+	 U78y81Z75yl81rPgAjIOsuyPV7nebFA+a399FsLXQmCq791e9BKq26mQ6TXs6x+KyWTfv
+	 02S49PwGGybzYNzQdDYdmK3VOpZydug6LiqS30KFGzMpG52dmANmyTpHN0i+T2prpmkTX
+	 AAENzVivvCVLvOuX+TOqlnFC2h75D01L9Gg/Z8T+/RKqJVDiKClGyLZtWzGOm3uWDCZg5
+	 mdtGpHxdfOaxrMUjNZGlBC3XzGvBlipxuIRZbATnIdXDFt9gTQoqLncqsCClExw4MyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955049;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=02bTvKdX/nLQXHFQBIjVYXN/kxrugSr5DOL02V9CjOk=;
-	b=B5EjEvjkIVD1FFb0UsbmfM3T0tjyugh+5l49NN+lXXSUcQgmPqBjaogEzw2PDtUqZ6uX
-	 05n3EBrQiewLn2yk/NB6zrKNRha9WQw9Bcx0BlisJ5nrvId7wLDCnVrA5bHF+Sl4n1rIx
-	 kRV+Wmh5KzsGRnRbhfGHExhQnN/xeWT0fsS5WBIfM+SD/0dMSzR/JK4d4AOYoE0cvKmY8
-	 EGNlYAGRjEwkoyhzx6+2yeKE3cKa6mY01egkA5NVXceyvwEkCskaV8wS9p99bHlnGf8jI
-	 1YeunayzmX5Oq9dEG1T1Ki7KWrIEaKs9sEtKw9Ld/fjZ4JPGOMhbBQQwpYSW5r+2C8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955060;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=MaBpahE5on5Sl4GYtu75lY6Lms5s0cdDMV8oWkRKTUc=;
+	b=2C02NPBDXI6ayOrMDQE2TVtAEJCbhjT+lJjY4M2YPBIqsLus43EC8PxvuX5PfM1dRZe9
+	 g7hPREa1qZv5sABLhu7P0HDLKkn+4UIM/4OejuRvpy+oYc9KVYtHZUvacZ74mlpqo3+iz
+	 ZJZHYIRCjuLhUhNBuasHdZS0C9KbqkC5luDomwisitSvLyB+7vtMHWztH+aU2Nvs7baTn
+	 QK2Qjys6P0hcTzKPO/6L3IFYitF5XNQ/V54yKIIcI8KBRt7NnAFD7V2TBOsrHNic6oek8
+	 5wBkxzcqG2JAttdhnqG+ywbC/KWXZLt3lNRdJTdyndtA9pQ7L6PAig/QM7d/gMtZVjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHTrEBdD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hwgvHP45;
+	arc=none smtp.remote-ip=95.215.58.187
+Received: from mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2BF606A32E;
-	Fri,  6 Nov 2026 08:50:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDAC606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:50:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEDAC606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHTrEBdD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05EF1F0089F;
-	Fri,  6 Nov 2026 08:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793955049;
-	bh=02bTvKdX/nLQXHFQBIjVYXN/kxrugSr5DOL02V9CjOk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=PHTrEBdDBSiwKzS96GP4yyPbf54VPsZhbqgUKooUIbljVADoG67pbUzARy3kLUqfn
-	 3sIZAg7KmzyWCHPA+ZdfHII8SIPAfdwqe4nc3g3VDWJq9ZmI15ZF3MDkQIZfRjNwsy
-	 v7FF6UEpMj9UjlNL8x2U7uPmVYS41Qnowsqk27Sbg/99eaX7YxroTO9KnXlhl536B4
-	 N5ec3hTgYO0RrMmJSC8aqug7YGJzjd2/NULM6TtRy2yW30Sp2JTe0j1vj0two5dH8S
-	 YGHlW3ge4m3cRbn3GxdEvcRP6VgGPiaC40z3Pnhcv/f5fr0BRrKXoRdQR9ezvfBmuD
-	 38wN3f+UpUJkA==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Luo Qiu <luoqiu@kylinsec.com.cn>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <A977B5B944F3C7C3+20261027122647.1837472-1-luoqiu@kylinsec.com.cn>
-References: <A977B5B944F3C7C3+20261027122647.1837472-1-luoqiu@kylinsec.com.cn>
-Subject: Re: [PATCH] fs: fix typo in do_open() comment
-Message-Id: <20261106-spinnen-infotag-rodung-330f26be4c2e@brauner>
-Date: Fri, 06 Nov 2026 09:50:45 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hwgvHP45
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ws20T3ir/rSpZSbCcrdGuZ9EK9Lt6saLzdZjYEVOCZo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793955056; v=1; x=1794559856;
+ b=hwgvHP454oznGGxqb9vavzgk5HJtDzCEynbqsPa5GrkJ4G9+K4zF4EmsHw3QDxrkNyU8kVwE
+ b63VDpJ1Rj2HCyEJU3Ibum6MbwJo/sMDmg6B2OGG2N9xgeGzWmIeuenrhiqy7u68nhOmB4CkICW
+ PmCcnc8rXGAd+gDNeV7Xq/ek=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 4b52ee87e83fa511;
+	Fri, 06 Nov 2026 08:50:56 +0000
+X-Mizu-Trace-ID: 4b52ee87e83fa511
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,31 +57,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-ce4c1
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v3 12/12] mm: hugetlb_vmemmap: make vmemmap PTE conversion
+ folio-oriented
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <auxL1Q4S9wllEn6B@localhost.localdomain>
+Date: Fri, 6 Nov 2026 16:50:37 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <22FB374A-CC9F-4F9E-B510-88F71EF89119@linux.dev>
+References: <20261104023510.260766-1-songmuchun@bytedance.com>
+ <20261104023510.260766-13-songmuchun@bytedance.com>
+ <auxL1Q4S9wllEn6B@localhost.localdomain>
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-On Tue, 27 Oct 2026 20:26:47 +0800, Luo Qiu wrote:
-> Fix "acess" -> "access"
-> 
-> Fixes: 161ce1e692d0 ("fs: avoid spurious dentry ref/unref cycle on open")
 
-Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.misc branch should appear in linux-next soon.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+> On Nov 5, 2026, at 17:26, Oscar Salvador (SUSE) <osalvador@kernel.org> =
+wrote:
+>=20
+> On Wed, Nov 04, 2026 at 10:35:10AM +0800, Muchun Song wrote:
+>> Converting a folio's vmemmap mappings from PMDs to PTEs is a =
+per-folio
+>> operation, but the current interface exposes a raw address range and
+>> hardcodes deferred TLB flushing.  This splits the common mechanism
+>> across layers and couples it to the HugeTLB batching policy.
+>>=20
+>> Make the folio the unit of PTE conversion and let callers select the =
+TLB
+>> flush policy through the folio-oriented interface.  This keeps
+>> HugeTLB-specific eligibility and batching outside the common =
+operation.
+>>=20
+>> No functional change intended.
+>>=20
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+>> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+>> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+>=20
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Thanks for your review.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+>=20
+> But I have to say that I would put the vmemmap_optimizable_order() =
+check
+> upfront in the caller, so by the time we call vmemmap_pteify_folio()
+> we now we can proceed.
+>=20
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.misc
+Since I'll be sending an updated version anyway, I'll also remove
+the eligibility check from vmemmap_pteify_folio().
 
-[1/1] fs: fix typo in do_open() comment
-      https://git.kernel.org/vfs/vfs/c/37ebe00ac282
+Thanks,
+Muchun
+
+>=20
+> --=20
+> Oscar Salvador
+> SUSE Labs
+
 
