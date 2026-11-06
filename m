@@ -1,61 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965390;
-	b=4fsDhiDa+4Ka5k5aEZZz/4TJQvXmeTgVDHgv8kYg6vkJOgN0Q/Tc80p1o22frokgNqnV
-	 mBGbmCFY1boQKvABZrWE1cDdYwFoIGDkhlUzYtfd8EFusRNABMs+9JC7LMvcO6a3MM4ER
-	 uudghTtXgeImqwzBf20SxwfMfR1CrAX8vagkcFwnrdppIzjfJB/uI5qvOpFjpEG0mye7P
-	 TBY90gcU1mIsWO703grI3xlaR27xsQG2HGm1i7jLV708Xz3dFtycnfrCT1pZ0KE1+3INx
-	 0puOF0aap6cHDrBYGTe2CbzRUb/Qml3A+mbCscc5LudHn7fmZHshmkWUYpOGJRFxzQA==
+	t=1793965393;
+	b=WqCdRVC+u0Ty4krKjkmpNpjfAA7ENzOXoiTPZcJAbuRuggxm5wELbvnowxg8XZtAeNHT
+	 YzXJ3zZqXXZygccvGVXNGj8Uj/KBlka1IvKc560YxKdVgxdjrsn9shxB4m2lpea3dupnr
+	 J9Mp7/LIPDBuQxWrKTXhDYEi3nIKvOlms48xlPt44paZ7YMDhp2uISk3U4au1w/Pakr4I
+	 4HD4XzxIvtjfYX+tKteJ4RSPEvabeEacRJmb7PAMJvIabK7bVXBMKauB9h3CnwDDtzUHD
+	 V3BxiKI3UMVu1AN126OH62sFGBBTo6Yrc8N22T6Lyb5tszMHFDZp2pt+gugGoLI2Odg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965390;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=lQhKFhqTK/py/+bxxobhuRvMFWyvoqHPsKRi9pJf9NE=;
-	b=JdJolZEKWdUVyy0jthqzbeBUYEGyjS5AqH8zItTgnDzu/Y92kk57XIaKs6ZOoNFnsy7G
-	 09ojnjPsgODPnSf1kWueuTxXugLkhfRFlLoYxEfNAi/mci83i99xk4Wl5ddVS5PQno2uC
-	 i4te9gvJUv6VL5oz6bKa7Rak8tGPgVLpvBraQnucPqomU1+5mgreInGiKFv1DhWazCYHP
-	 mHC5ztc7P+/UtDuqvPitUR9QmOwDFy4Z0kgGjzY3lzbPHhdzjahNACiQC1dB0fl2EhguU
-	 lMehmRoDVC+3C/3jIgNIAggN1+A0Vw1Dc7XvlbUyubwA4u8jir0r7AlVeuK+gJXc/pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965393;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vGWDvyTZcD/X4Tcli9Wn0Aq/2+luEsPmy4hQ7ZtpaL8=;
+	b=0jeFDSaNRXg9VPLc6SeQTbGMh4TexzLUEhtVUV8zWfbMW9OHZI75Xel4QXZ/p91GP/aL
+	 Bvg29n45Lp71AklhbzQEF/Fdfg03dD/3CcKgVEsvXffKbx8CH8kNfunmysIvGM2AaDTu7
+	 mDybEL3nFKsfaUbJ1f3gCAxpqMct05tYasXV3av23YAavFqVjbwZBzVPAkfn+BVSHksEA
+	 Xc0ZU9YBglS51RBw8B04a/9ChqIL3SRqIZhPWIQCJ7sltoygPtm3s8JSd2ikUcC/IqB7l
+	 sB+2Vi689l0H2+t8NT7CPYZY5ieP8vFh+446uhnE+67zOeYkR/XItwLNOlnLFHu1PbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=MiFy2cMg;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64055606A93B;
-	Fri,  6 Nov 2026 11:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64055606A93B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=miget.com;
+	spf=pass smtp.mailfrom=miget.com;
+	dkim=pass header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=c1KQp4gq;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87388606EE97
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:43:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87388606EE97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=MiFy2cMg
+	dkim=pass (1024-bit key, unprotected) header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=c1KQp4gq
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c45551fa84eso78234066b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:43:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=lQhKFhqTK/py/+bxxobhuRvMFWyvoqHPsK
-	Ri9pJf9NE=; b=MiFy2cMg91XDBJqIXWWbJ5XuhC/6+6cymxIr69boNyuBdvmBPP
-	tYulebUPzXhdYe5droI86iM77MU+g6kFcx4C2F3Bk7UDTa2PsdVE7zEU7k+vliHC
-	JB/d26nrrh7zwAL949fdb06k4Ky+yDEFF+yKlPW0Wp2W50jG91o6y1r4Q=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.75])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn3DA8ve1qfj2PAA--.533S4;
-	Fri, 06 Nov 2026 19:43:01 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v8 2/2] regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
-Date: Fri,  6 Nov 2026 19:42:52 +0800
-Message-ID: <20261106114252.988023-3-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
+        d=miget.com; s=google; t=1793965391; x=1794570191; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vGWDvyTZcD/X4Tcli9Wn0Aq/2+luEsPmy4hQ7ZtpaL8=;
+        b=c1KQp4gqdZGxoOCGa/RfgQZ+zO07LYra6iMg591qnQblSZcT1F0fUywCGO4BdaB/t4
+         QqR5qFNTheKqi5DAYz+UmqQdwOE5s9bfohMp0eDs+ecHHCHu16M9wNxeU/VccdoKsarq
+         3fapVuynIHn8TZTK2AK6K71YsbnIrlvush6Sc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793965391; x=1794570191;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vGWDvyTZcD/X4Tcli9Wn0Aq/2+luEsPmy4hQ7ZtpaL8=;
+        b=oqcV24JqBt9htCRDF4Sv1hqzNmcn1mAC0Tv7bvF21TeJDQAI0Fx1CAESHRq9xF6fB+
+         qdalFocZQL3A8/zYI5ZJuJfEOzXSNJNhR2D07aOwHldYN3yyGqHh04nlUnl103aB92W7
+         dbQcGYRdmUGV0d8waXWfWGckpsem7PjGcY8ryGMwgZYiafHBSSA/nxk/qlhUzVRMGq+w
+         9Ur2VGtKEGfU4fg0ousgMXu9v5vLHUjqFQcLomnCfEBgtNTSg4f6Mxx9Xp2fvKBDXgI4
+         1xGtTpBJEWJqoOWusZSx1BCpx+V4OLYRm6NevzQJspAjKuBIrkkhA+ooevcS94RHWHiZ
+         Ep/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwlni/oLUEDJ1Vd7ahgs4iGhO2s/SLUAZARtWMmDKyCBgYXFE+/JhvWAIgI4LwKOoe0JQD4n3RzrYZkwfE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/QIlnz/p4F8QGSa5HXQ05jl/FFCUGcNLQwXJy2Mhi6dI8h6ekS
+	yth6XQGlHNFrmeaB/DdCTwMbVsJEkkFAG79iRuaH3RPw2YtNweYDm6OkcvQzQliW6fY=
+X-Gm-Gg: AYBFou1YSQu95E3so4o8TSLRX3r8szwVI3sF0UjVcN3DZAZ18JbreoOCAU3V9/gcNo4
+	9wLiNiFEmhEXhDn7eM7BGLtJ9nqBW2viwMmX3v9xyGxAzT1iXzgrC3VKJZ2JE6alDKGecHOw5gc
+	9rHTXBH95a+4wKdhTRW4Abz0YRDK73Fet+2gUSLbEWF+RokJD2mkPKCIhFbbUwLJkwjEtKVl6Tn
+	iMUmqspecW3B7gC5zr/kwNseKX0v1x0V3oHqB3sxNKQLR43VLRsgFvTmb2LYURN/vhCJ+fCsHqi
+	6vjpTWN4SpfzoysRE+9lzVj0H8HcDOcyrfOWcPiXF66TCEEG/PCaQxC6KuPmyf60zsmk8iex7SL
+	/cQOW7QrNtLBQT8tr4T7S+p2JxcDAEDb2ey6zd3x+39zq4UgTBAl5erXze4XQ/FXgvaF2iSHewk
+	GsDjrCs1U3mpYsE7zmiJGl9bcgAuLM+zv9xzTTvawKpL+m0xAnSY4qs3OEDmchBsyC3j2uXN7PZ
+	o6tZ6kj89VzsXoHBpN5wAckhsLVS8XKA184Mxu4LHNm415wQnEnJM4z/T3/GsRjVEHq8pkyom/U
+	CgMixc9v/0ZivIaqfjvKtQ8gLIOuHcIcc/iLnqEW1nA+vv0=
+X-Received: by 2002:a17:907:7b86:b0:c4c:f85f:aa12 with SMTP id a640c23a62f3a-c4d35538423mr176866466b.31.1793965390484;
+        Fri, 06 Nov 2026 03:43:10 -0800 (PST)
+Received: from xia ([83.142.187.210])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356e7035sm71377866b.80.2026.11.06.03.43.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 03:43:09 -0800 (PST)
+From: Chris Taraszka <chris@miget.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingyou Chen <qby140326@gmail.com>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+	Armin Wolf <W_Armin@gmx.de>,
+	KentoNion <kento@kekto.ru>,
+	Matias Civadda <matias.civadda2342001@gmail.com>,
+	Arsenova <7z0423arsenova@proton.me>,
+	Chris Taraszka <chris@miget.com>
+Subject: [PATCH v4 3/4] platform/x86: bitland-mifs-wmi: Add Xiaomi Book Pro 14 quirk
+Date: Fri,  6 Nov 2026 12:42:59 +0100
+Message-ID: <20261106114300.936782-4-chris@miget.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106114300.936782-1-chris@miget.com>
+References: <20261106114300.936782-1-chris@miget.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,349 +103,90 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBn3DA8ve1qfj2PAA--.533S4
-X-Coremail-Antispam: 1UD129KBjvJXoW3ZrWfGF4kKrWxuFyUCrWfZrb_yoWkXw13pF
-	s8Jas3Kr4kGrWFgrZ7Ar1IvF1Ygrs2qryayry8C3yfZw17AFy2qF9a9FW5AFyDGrn7XFyS
-	qayUJa48CF4DuaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
-	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI
-	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z2
-	80aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bFLvNUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAA7sl
 
-The WL2868C is an I2C camera power management IC with seven LDOs.
-LDO1 and LDO2 are fed from VIN12 and cover 0.496 V to 1.512 V with a
-7-bit voltage selector; LDO3 and LDO4 share VIN34, and LDO5 to LDO7
-have one input each, covering 1.504 V to 3.544 V with an 8-bit
-selector. All outputs step by 8 mV.
+The Xiaomi Book Pro 14 (board TM2424) implements SystemPerMode with
+its own values. Its firmware ignores 0x00 and 0x01, and GET returns one
+of 0x02, 0x03, 0x04, 0x09 or 0x0a, so with the default table balanced
+and balanced-performance are no-ops and reading the profile fails with
+-EINVAL whenever the firmware is in 0x04, 0x09 or 0x0a. The failed read
+also aborts system suspend.
 
-Every output is gated by a per-LDO bit in the enable register, and the
-whole chip is additionally gated by the SYS_EN bit in the same
-register. The driver sets SYS_EN together with the LDO bit on enable
-and requires both to read back before reporting the regulator as
-enabled, because no output comes up while SYS_EN is clear. An
-optional active-low RST_N GPIO is released during probe, followed by
-a 1 ms delay for the device to come up, and is asserted again when
-the driver is unbound.
+The firmware passes the mode to Intel DTT as an OEM design variable.
+The DTT tables in its data vault name the modes and set the sustained
+package power limit (PL1) for each, by power source. For the H484 CPU
+variant (H404 has the same layout with lower limits):
 
-The enable register is written as a whole rather than updated bit by
-bit: the per-LDO bits can be preset by the firmware while SYS_EN is
-clear, and setting SYS_EN together with a single LDO bit would then
-switch the preset outputs on as well. The driver therefore tracks the
-set of LDOs enabled by consumers and writes exactly those bits, so
-enabling one output cannot power another one. That set is seeded from
-the register during probe, so an output the firmware left on is not
-cleared by the first enable() of a different one, and disable()
-commits the tracked state only after the register write went through,
-so a failed write cannot make a later enable() switch off an output
-that the core still believes is on.
+  value  AC                 battery
+  0x02   Silent  15-25 W    Silent  15-25 W
+  0x0a   Silent  15-25 W    Silent  15-25 W
+  0x09   Balance 35-45 W    Balance 32-40 W
+  0x03   Smart   36-37 W    Turbo   50-58 W
+  0x04   Crazy   50-58 W    no entry
 
-The I2C interface is powered from the higher of VIN7 and VSYS, so the
-"vsys" supply is enabled for as long as the driver is bound, before
-the device ID is read; without it the device does not answer on the
-bus.
+Map low-power, balanced and performance to 0x02, 0x09 and 0x04, and
+use 0x03 for performance on battery, where it gives what 0x04 gives on
+AC. 0x0a selects the same tables as 0x02, so report it as low-power
+without offering it for SET. There is no balanced-performance mode.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+The machine is USB-C only and WMI_FN_SYSTEM_AC_TYPE is not implemented,
+so skip the AC type check.
+
+Signed-off-by: Chris Taraszka <chris@miget.com>
 ---
- drivers/regulator/Kconfig             |  11 ++
- drivers/regulator/Makefile            |   1 +
- drivers/regulator/wl2868c-regulator.c | 246 ++++++++++++++++++++++++++
- 3 files changed, 258 insertions(+)
- create mode 100644 drivers/regulator/wl2868c-regulator.c
 
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index be6b72daa7..f0a604afe5 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1877,6 +1877,17 @@ config REGULATOR_VQMMC_IPQ4019
- 	  This driver provides support for the VQMMC LDO I/0
- 	  voltage regulator of the IPQ4019 SD/EMMC controller.
+Notes:
+    v4: moved after the battery support (Mingyou), so 0x03 is the battery
+    entry from the start. The code at the end of the series is unchanged.
+    
+    Tested on the Xiaomi Book Pro 14 (TM2424, BIOS XMAPT4B0P0A0A, H484)
+    with this series on top of v15. Firmware mode (EC 0x68), DTT OEM
+    variable 1 and PL1 a few seconds after each set:
+    
+      AC       low-power    0x02  ODV1 2  25 W
+               balanced     0x09  ODV1 0  45 W
+               performance  0x04  ODV1 4  58 W
+      battery  low-power    0x02  ODV1 2  25 W
+               performance  0x03  ODV1 1  58 W
+    
+    Rechecked on v7.4-rc1: on battery, balanced, performance and low-power
+    set 0x09, 0x03 and 0x02.
+
+ drivers/platform/x86/bitland-mifs-wmi.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+index 97dafd510ba8..4d02cd9e8a6b 100644
+--- a/drivers/platform/x86/bitland-mifs-wmi.c
++++ b/drivers/platform/x86/bitland-mifs-wmi.c
+@@ -114,7 +114,28 @@ static const struct bitland_mifs_quirks default_quirks = {
+ 	.num_profile_entries = ARRAY_SIZE(default_profile_entries),
+ };
  
-+config REGULATOR_WL2868C
-+	tristate "Will Semiconductor WL2868C regulator"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Support the seven LDO outputs of the Will Semiconductor WL2868C
-+	  camera power management IC.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called wl2868c-regulator.
-+
- config REGULATOR_WM831X
- 	tristate "Wolfson Microelectronics WM831x PMIC regulators"
- 	depends on MFD_WM831X
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 6aabcc5438..37ffa93a9c 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -214,6 +214,7 @@ obj-$(CONFIG_REGULATOR_RZG2L_VBCTRL) += renesas-usb-vbus-regulator.o
- obj-$(CONFIG_REGULATOR_VCTRL) += vctrl-regulator.o
- obj-$(CONFIG_REGULATOR_VEXPRESS) += vexpress-regulator.o
- obj-$(CONFIG_REGULATOR_VQMMC_IPQ4019) += vqmmc-ipq4019-regulator.o
-+obj-$(CONFIG_REGULATOR_WL2868C) += wl2868c-regulator.o
- obj-$(CONFIG_REGULATOR_WM831X) += wm831x-dcdc.o
- obj-$(CONFIG_REGULATOR_WM831X) += wm831x-isink.o
- obj-$(CONFIG_REGULATOR_WM831X) += wm831x-ldo.o
-diff --git a/drivers/regulator/wl2868c-regulator.c b/drivers/regulator/wl2868c-regulator.c
-new file mode 100644
-index 0000000000..64baeeacf3
---- /dev/null
-+++ b/drivers/regulator/wl2868c-regulator.c
-@@ -0,0 +1,246 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Will Semiconductor WL2868C seven-channel camera regulator driver.
-+ *
-+ * Copyright (C) 2026 Qianhui Xu
-+ */
-+
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/driver.h>
-+
-+#define WL2868C_DEVICE_ID		0x00
-+#define WL2868C_DEVICE_ID_VALUE		0x82
-+#define WL2868C_LDO_ENABLE		0x0e
-+#define WL2868C_SYS_ENABLE		BIT(7)
-+#define WL2868C_LDO_ENABLE_MASK		GENMASK(6, 0)
-+
-+struct wl2868c {
-+	struct regmap *regmap;
-+	/* LDO enable bits owned by consumers, in WL2868C_LDO_ENABLE layout. */
-+	unsigned int enabled;
-+	/* Protects enabled. */
-+	struct mutex lock;
++static const struct bitland_profile_entry tm2424_profile_entries[] = {
++	{ PLATFORM_PROFILE_LOW_POWER,   0x02 },
++	{ PLATFORM_PROFILE_LOW_POWER,   0x0a, true },
++	{ PLATFORM_PROFILE_BALANCED,    0x09 },
++	{ PLATFORM_PROFILE_PERFORMANCE, 0x04 },
++	{ PLATFORM_PROFILE_PERFORMANCE, 0x03, .battery = true },
 +};
 +
-+static int wl2868c_enable(struct regulator_dev *rdev)
-+{
-+	struct wl2868c *chip = rdev_get_drvdata(rdev);
-+	unsigned int bits = rdev->desc->enable_mask;
-+	unsigned int ldos;
-+	int ret;
-+
-+	guard(mutex)(&chip->lock);
-+
-+	/*
-+	 * The enable register is written as a whole on purpose. SYS_EN gates
-+	 * every output of the chip, and the per-LDO bits may be preset by the
-+	 * firmware while SYS_EN is still clear: setting only SYS_EN and our own
-+	 * bit would then bring the preset LDOs up as well. Writing the register
-+	 * with the bits of the LDOs consumers have enabled, and only those,
-+	 * keeps the other outputs off. chip->enabled was seeded from the
-+	 * register in probe(), so an output the firmware left on is carried
-+	 * over instead of being cleared by the first enable.
-+	 */
-+	ldos = (chip->enabled | bits) & WL2868C_LDO_ENABLE_MASK;
-+	ret = regmap_write(chip->regmap, WL2868C_LDO_ENABLE,
-+			   WL2868C_SYS_ENABLE | ldos);
-+	if (ret)
-+		return ret;
-+
-+	chip->enabled = ldos;
-+
-+	return 0;
-+}
-+
-+static int wl2868c_disable(struct regulator_dev *rdev)
-+{
-+	struct wl2868c *chip = rdev_get_drvdata(rdev);
-+	unsigned int bits = rdev->desc->enable_mask;
-+	unsigned int ldos;
-+	int ret;
-+
-+	guard(mutex)(&chip->lock);
-+
-+	/*
-+	 * SYS_EN stays set while at least one output is enabled; the per-LDO
-+	 * bits of the other outputs stay clear so that setting it cannot
-+	 * switch anything else on.
-+	 */
-+	ldos = (chip->enabled & ~bits) & WL2868C_LDO_ENABLE_MASK;
-+
-+	/*
-+	 * The tracked state is committed only once the register write went
-+	 * through: a failed write leaves the output on, and the regulator core
-+	 * keeps its own use count unchanged, so dropping the bit here would
-+	 * make the next enable() of another output switch this one off.
-+	 */
-+	ret = regmap_write(chip->regmap, WL2868C_LDO_ENABLE,
-+			   ldos ? WL2868C_SYS_ENABLE | ldos : 0);
-+	if (ret)
-+		return ret;
-+
-+	chip->enabled = ldos;
-+
-+	return 0;
-+}
-+
-+static int wl2868c_is_enabled(struct regulator_dev *rdev)
-+{
-+	unsigned int mask = WL2868C_SYS_ENABLE | rdev->desc->enable_mask;
-+	unsigned int value;
-+	int ret;
-+
-+	ret = regmap_read(rdev->regmap, WL2868C_LDO_ENABLE, &value);
-+	if (ret)
-+		return ret;
-+
-+	return (value & mask) == mask;
-+}
-+
-+static const struct regulator_ops wl2868c_ops = {
-+	.list_voltage = regulator_list_voltage_linear,
-+	.map_voltage = regulator_map_voltage_linear,
-+	.set_voltage_sel = regulator_set_voltage_sel_regmap,
-+	.get_voltage_sel = regulator_get_voltage_sel_regmap,
-+	.enable = wl2868c_enable,
-+	.disable = wl2868c_disable,
-+	.is_enabled = wl2868c_is_enabled,
++static const struct bitland_mifs_quirks tm2424_quirks = {
++	.profile_entries = tm2424_profile_entries,
++	.num_profile_entries = ARRAY_SIZE(tm2424_profile_entries),
++	.skip_ac_type_check = true,
 +};
 +
-+/*
-+ * LDO1 and LDO2 have a 7-bit voltage selector, the other five have an 8-bit
-+ * one; all of them step by 8 mV.
-+ */
-+#define WL2868C_LDO(_num, _supply, _min, _n_voltages, _vsel_reg, _mask, _en) { \
-+	.name = "ldo" #_num,				\
-+	.of_match = "ldo" #_num,			\
-+	.regulators_node = "regulators",		\
-+	.id = (_num) - 1,				\
-+	.type = REGULATOR_VOLTAGE,			\
-+	.owner = THIS_MODULE,				\
-+	.ops = &wl2868c_ops,				\
-+	.supply_name = _supply,				\
-+	.min_uV = _min,					\
-+	.uV_step = 8000,				\
-+	.n_voltages = _n_voltages,			\
-+	.vsel_reg = _vsel_reg,				\
-+	.vsel_mask = _mask,				\
-+	.enable_reg = WL2868C_LDO_ENABLE,		\
-+	.enable_mask = _en,				\
-+	.enable_time = 150,				\
-+}
-+
-+static const struct regulator_desc wl2868c_regulators[] = {
-+	WL2868C_LDO(1, "vin12", 496000, 128, 0x03, 0x7f, BIT(0)),
-+	WL2868C_LDO(2, "vin12", 496000, 128, 0x04, 0x7f, BIT(1)),
-+	WL2868C_LDO(3, "vin34", 1504000, 256, 0x05, 0xff, BIT(2)),
-+	WL2868C_LDO(4, "vin34", 1504000, 256, 0x06, 0xff, BIT(3)),
-+	WL2868C_LDO(5, "vin5", 1504000, 256, 0x07, 0xff, BIT(4)),
-+	WL2868C_LDO(6, "vin6", 1504000, 256, 0x08, 0xff, BIT(5)),
-+	WL2868C_LDO(7, "vin7", 1504000, 256, 0x09, 0xff, BIT(6)),
-+};
-+
-+static const struct regmap_config wl2868c_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0x25,
-+};
-+
-+static void wl2868c_reset(void *data)
-+{
-+	gpiod_set_value_cansleep(data, 1);
-+}
-+
-+static int wl2868c_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct regulator_config config = { .dev = dev };
-+	struct regulator_dev *rdev;
-+	struct gpio_desc *reset;
-+	struct wl2868c *chip;
-+	unsigned int id, value;
-+	int ret, i;
-+
-+	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-+	if (!chip)
-+		return -ENOMEM;
-+
-+	mutex_init(&chip->lock);
-+	config.driver_data = chip;
-+
-+	reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get reset GPIO\n");
-+
-+	if (reset) {
-+		ret = devm_add_action_or_reset(dev, wl2868c_reset, reset);
-+		if (ret)
-+			return ret;
-+		fsleep(1000);
-+	}
-+
-+	chip->regmap = devm_regmap_init_i2c(client, &wl2868c_regmap_config);
-+	config.regmap = chip->regmap;
-+	if (IS_ERR(config.regmap))
-+		return dev_err_probe(dev, PTR_ERR(config.regmap),
-+				     "Failed to create regmap\n");
-+
-+	/*
-+	 * The I2C interface is powered from the higher of VIN7 and VSYS, so the
-+	 * system supply has to be up before the device can answer at all. It
-+	 * stays enabled for as long as the driver is bound.
-+	 */
-+	ret = devm_regulator_get_enable(dev, "vsys");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable the system supply\n");
-+
-+	ret = regmap_read(config.regmap, WL2868C_DEVICE_ID, &id);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read device ID\n");
-+	if (id != WL2868C_DEVICE_ID_VALUE)
-+		return dev_err_probe(dev, -ENODEV, "Unexpected device ID: %#x\n", id);
-+
-+	/*
-+	 * Seed the tracked set with the outputs the firmware left enabled, so
-+	 * that the first enable() or disable() of any output preserves them.
-+	 * The regulator core reads the state back through is_enabled(), which
-+	 * does not look at this set.
-+	 */
-+	ret = regmap_read(config.regmap, WL2868C_LDO_ENABLE, &value);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read the enable register\n");
-+
-+	chip->enabled = value & WL2868C_LDO_ENABLE_MASK;
-+
-+	for (i = 0; i < ARRAY_SIZE(wl2868c_regulators); i++) {
-+		rdev = devm_regulator_register(dev, &wl2868c_regulators[i], &config);
-+		if (IS_ERR(rdev))
-+			return dev_err_probe(dev, PTR_ERR(rdev),
-+					     "Failed to register LDO%d\n", i + 1);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id wl2868c_of_match[] = {
-+	{ .compatible = "willsemi,wl2868c" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, wl2868c_of_match);
-+
-+static struct i2c_driver wl2868c_driver = {
-+	.driver = {
-+		.name = "wl2868c",
-+		.of_match_table = wl2868c_of_match,
+ static const struct dmi_system_id bitland_mifs_dmi_table[] = {
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
++			DMI_EXACT_MATCH(DMI_BOARD_NAME, "TM2424"),
++		},
++		.driver_data = (void *)&tm2424_quirks,
 +	},
-+	.probe = wl2868c_probe,
-+};
-+module_i2c_driver(wl2868c_driver);
-+
-+MODULE_DESCRIPTION("Will Semiconductor WL2868C regulator driver");
-+MODULE_LICENSE("GPL");
+ 	{}
+ };
+ 
+-- 
+2.56.0
 
