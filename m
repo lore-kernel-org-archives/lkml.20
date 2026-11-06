@@ -1,47 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975725;
-	b=SyNtHljOLgwNGOO149Ejin+CwMA9bPsLge+xlp7SOXapmMbi4zkvxEZsaswFpulWHTBD
-	 6GX69+k+kU5c9FuhggTJYJqLBBOjzvc3XUu6uEsgyz17p242qTJX2dgs345znulVWz9D8
-	 nsc0bi3Afp2+QKk7qbHT16nXujnvm+Lx1aOVR8Nz0NEoVXfB+qUXhk8wYDVkUHKevp49L
-	 8+OgFH3Q+PPbIHAtL84d3TE1mzvPibycfmK5mQHaQZ3Ezrzwnjuyhchs3AxEgshl2166U
-	 7BF1ViMrG1h5lMMr2aAeu3CmZ0lTivm6CC8GXhv+paJSOlXuLXlv0e9ustaxzBPBxvw==
+	t=1793975759;
+	b=jBNVufpAbui68hoPQk2z1ooFs+aeMkvjK/m6WrGyFj+QAgDNWzD+J3GDZimKRwtFdGLL
+	 Iu8/09hD+cJw2WHG7G8K+iTymksXR7Rt3mI41zRzwpIkqYhNKdpBz4kj8scBCFuHP05p8
+	 rOw+2P5+lXUbJzxN3ZPf2PWAwGsrprnNxvj7yBrC94NekKjbCtZJcNUzBUqPCAPu1K9DO
+	 +v7dR0Mm56OrjIdAjPu+sp8+C3HC6jq/O0PXG5eDq9WTSEarR3mqUiRlPj+pFzB0OgkT8
+	 vG3QDQZ/OKd/1ZNifeKbUAmuHX664ASYQaMdUcFbTd5joFsbVrkF21kUn8KXW+rr2dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975725;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dVYlhG5zwe3KP2A+EnIMjZEgzahfx4Lny8jKmNJoSns=;
-	b=yLWGOtmC5Yn7QADGDpaf12wb4p1FOP5A5791hhSwrLQze1JSG/aXpFV5+2+mAWBWkJyU
-	 DT5qCQ1kKeCb0xbWdozEQ/KtJnYEdM102Jw+e+iXTmH/+l/eUGfwPUi8VLst8in3oYeTI
-	 ajH5ewrpNzjWc4xpDGDoJwkwUtsc+L4NgfOlDjjkM0VLA66F7PNb4huLS2pPUI4MU5tyX
-	 4R9heSwmEPuRbO023aX8tBrQfp3Gd8CouW7IJ2EUFNJJoZmbaMFWCmWzmCYIGl2sZLIpt
-	 ier7l2gcQCtFIYhfzCFhMqGBv2xukNFeqT7nsN/LvL7pYf1+jZ8fjlTS7bRi4Kz6UZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975759;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=9ne3EpNoMJHND53sLVjB8iHYRzBbI+NXjoTQbJvnLE4=;
+	b=Jmt708yKXK3NCwHJx9lj0kEc6UoSq8V0a8VRacicQ1kRElgs4+3KPxxzqP6XMlBaZ0kT
+	 uBHY0y6vP9bZ41+KPukjFB491zYscX3noEPt0be9QDEDSs2mfc4WS6COHSIcAHl3s/KaE
+	 igR46CmRzdanbVwJqvgWHB/VBPoNqQmhBOKNPSizDmJld6PxMZqlcUddlKs2o/412lSzI
+	 iX/gLRhj9MqcSmGl6KEXpE/tOKXbEpWiZoSKrhX6G+vmfJmA7Q8Rn7nJ+vhcf2Bx9+eST
+	 If6cuKgTY3heobyajRu1CPVpMMc/qkHy8GYkMNCBD225+P7WT+7x9/Ck4RZ7i3fxtXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbS5o8Rc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UOiPmKzs;
+	arc=none smtp.remote-ip=91.218.175.134
+Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C499F606A326;
-	Fri,  6 Nov 2026 14:35:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20831606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:35:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20831606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbS5o8Rc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32EB91F0089F;
-	Fri,  6 Nov 2026 14:35:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793975724;
-	bh=dVYlhG5zwe3KP2A+EnIMjZEgzahfx4Lny8jKmNJoSns=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bbS5o8RcEMSXv+wnNKUX2QlPsL3eYMot1atUWBvd2g07t7FbPNdIHI1p7vV5CR6HS
-	 zbmWeQpU8ByWX50kTNamEbcSnT1e9HT/c07ylE8QiRp83ZcVf6gJ31FJWS6N7JFrsl
-	 Tooqt0/DM80yb1TjjXEcDHgflkxA/vYfmpwGfidJdjHWpIwpCOUGXUJOALdqb9Nusd
-	 ddqgc4AoOIYX5vLfBxknD9yLoCszK3cdeF/SOm9uZ57yEFqqQdWnI12Oig0UXv2i4K
-	 GuwrCZVcwoRPVBCv4Igxf7uv7q3Ynp3EgEYA3o1Yf5hsmd1qeZqB3nt09CPz5H9und
-	 9eQ13pQ/tn2DA==
-Message-ID: <d0ea7929-7c12-4245-ba3f-6dd5c0269e6b@kernel.org>
-Date: Fri, 6 Nov 2026 15:35:01 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UOiPmKzs
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9ne3EpNoMJHND53sLVjB8iHYRzBbI+NXjoTQbJvnLE4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793975750; v=1; x=1794580550;
+ b=UOiPmKzsKQcEoSPab25f5vJkH7dcWsq7wjBs4xvttqDa/K0UZDvXV1tvNDDpyrEapsPODfem
+ eb7MlsyRPvfiIwkM+D7IBGvFdT5VqdSRRDL7Jkso6nhj5uKXIfNtpCr0/7Q+QQKG1Tt25vSrVoV
+ nKN3OaB0O5BDwOmWtx1DNtkk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4b0fbca80f8f0604;
+	Fri, 06 Nov 2026 14:35:33 +0000
+X-Mizu-Trace-ID: 4b0fbca80f8f0604
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bfca2a2af4so73e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:35:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByiT7O2VgU9f0a1KZpOB/4Y7ZTlFoUZgGvYG3/BIPynHHtJq8CS4LkgkmwOskrB2jqM03L/n9HkBAuYFfk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8R3nmezzzSePNsosBS4dfXSuYoch4RAaW54DqYunJmb57pH5jV
+	1HcX5VpcXbJAbAAWiIHqv1ahRzrFSfZLAQQAixv7c6dvNOrxh1BgM00xDaCoIuwtMJcbkxpgxsA
+	gsDC3NGsYdLGkAyxEGP6ngjnWGC3o2jKIWnPC9kfT
+X-Received: by 2002:a05:6512:4019:b0:5c0:50:ff89 with SMTP id
+ 2adb3069b0e04-5c0071d689fmr69373e87.14.1793975731712; Fri, 06 Nov 2026
+ 06:35:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,157 +66,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/13] mm: continue vma_flags_t conversion
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>,
- SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
- David Rientjes <rientjes@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, John Johansen
- <john.johansen@canonical.com>, Georgia Garcia
- <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, damon@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261105-hyp-pool-and-map-v2-0-44a6ca90190b@cs.columbia.edu>
+ <20261105-hyp-pool-and-map-v2-3-44a6ca90190b@cs.columbia.edu>
+ <CA+EHjTx-X_2DaO6Yt-AHsP55SFWjz_EYxEr-TB9WSN-ZT+d3FQ@mail.gmail.com> <CAPOPQMB6eU0MYNewcq8HKsEMchwY-X3aT0Km9uULBappFWZcjQ@mail.gmail.com>
+In-Reply-To: <CAPOPQMB6eU0MYNewcq8HKsEMchwY-X3aT0Km9uULBappFWZcjQ@mail.gmail.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 6 Nov 2026 14:34:55 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTz-R016BwhcptZ3xVQe+a8C7au6ZL8jwZANdTf=cXRZHQ@mail.gmail.com>
+X-Gm-Features: AclHuK_pCYkO0OW5l_wmtgWxAs8e930i-uFO6iYlwOczI7StHxm9o788PZxd9Ls
+Message-ID: <CA+EHjTz-R016BwhcptZ3xVQe+a8C7au6ZL8jwZANdTf=cXRZHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] KVM: arm64: Don't replace a valid hyp block
+ mapping with a table
+To: Xuheng Li <xuheng@cs.columbia.edu>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/5/26 22:30, Lorenzo Stoakes (ARM) wrote:
-> Continue the conversion of legacy vm_flags_t flags to the new vma_flags_t
-> bitmap type.
-> 
-> Do some more core mm conversion (we really should be the first to
-> completely move to the new scheme :), but also update some mm-adjacent and
-> otherwise straightforward cases - /proc/$pid/maps and friends, the coredump
-> VMA dump size logic, uprobes, perf and LSM mmap/mprotect hooks.
-> 
-> This series only makes strictly mechanical changes to keep things gentle
-> during this very busy cycle.
-> 
-> No functional change intended.
-> 
-> Build tested on x86-64 (allmodconfig, each patch individually), i386,
-> arm64, riscv nommu and ppc64le.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
-> Lorenzo Stoakes (ARM) (13):
->       mm/gup: convert GUP code to use vma_flags_t
->       mm/filemap: convert fault and readahead logic to use vma_flags_t
->       mm/rmap: convert remaining VMA flag tests to use vma_flags_t
->       mm/migrate: convert VMA flag tests to use vma_flags_t
->       mm: convert THP VMA flag tests to use vma_flags_t
->       mm/ksm: convert VMA flag tests to use vma_flags_t
->       mm/madvise: convert madvise_vma_behavior() to use vma_flags_t
->       mm: convert miscellaneous VMA flag tests to use vma_flags_t
->       fs/proc/task_mmu: convert VMA flag tests to use vma_flags_t
->       fs/coredump: convert vma_dump_size() to use vma_flags_t
->       uprobes: convert VMA flag tests to use vma_flags_t
->       perf: convert VMA flag tests to use vma_flags_t
->       security: convert VMA flag tests to use vma_flags_t
-> 
+On Fri, 6 Nov 2026 at 14:34, Xuheng Li <xuheng@cs.columbia.edu> wrote:
+>
+> Hi Fuad,
+>
+> On Fri, Nov 06, 2026 at 12:03:29PM +0000, Fuad Tabba wrote:
+> > Could you mention in the message that the WARN_ON() is fatal at EL2,
+> > so a caller there gets a hyp panic rather than -EEXIST?
+> > kvm_pgtable_hyp_map() is already documented as rejecting such a
+> > mapping "with an error and a WARN()", which is a better reason than a
+> > future caller.
+>
+> Thanks. I'll reword the message to say that the WARN_ON() is fatal at
+> EL2, and point to kvm_pgtable_hyp_map()'s documented "error and a
+> WARN()" instead of a future caller. With patches 1 and 2 dropped, I'll
+> resend this one on its own once reviews have settled.
 
-I agree that this should be picked separately. For example, I will pick
-everything that falls into my realm to reduce conflicts.
+Actually, like Vincent pointed out, why the WARN_ON(). The caller can
+just handle the error.
 
-Ideally, patches really only touch one component.
-
-[PATCH 07/13] mm/madvise: convert madvise_vma_behavior() to use vma_flags_t
-
-is all over the place :)
-
--- 
 Cheers,
-
-David
+/fuad
