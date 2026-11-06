@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.98
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993779;
-	b=zYLhNv67HEHl4z4eLbkIzNFJdy21q4iZzaHvFCHfkvleadx5Bqtf8ABhPxuusmy+h4QC
-	 2YXt+qouAQgk7a3o8dd578yG+kE6/YvLAXwvCBKQ9p5nN2edPx5po4+Z1KF46R2cZVZ4q
-	 3TOA6IyEJTvE1jy++nWlCObZpSehZ2gE64yT4zTKMsZ8EYnnQ99qmtHfq5UufpzyTjo2s
-	 erPpWsVZafcpiYWJKQiLh1LvaEa2M6uJnyyk0KG4C6gXsJL3e4Cjh4QAkwbLzC0GHCasv
-	 0C+4b7OAKsnGmc40OoDEB8LIl0mQygion8UIS60FerteZVz5GjDqjJXDulIApTy11Vw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993779;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6xTKEOGFRLXidPHrCfmBqE6GgEsv5eOpzmihaPx4Isg=;
-	b=rWG0/u+2mDECliMBWFvnjS2uWLPqdiWWjY6UwOjQ0g6YNCROTdz/OFaplkJqYwI7RFwv
-	 QU96TbEQnQwmW3o1TSSuckWDS2MHztwMzTREqHcgd5hd9KGAi9QY5n2BfzKSN40T9VSh6
-	 znRiYFUiD8PKier87zwSvJw4LeNKiN1Uqm8iLvw5OhxQEcaYljM4oEFf7ehFU1IaAbIZ1
-	 ejSPXS1Ij5DEkBHDyRkP/KMb2kZTnCZ/8t7OGcYAf5izz+A6pNwrJacB9LIP/MsvsWZm2
-	 VA18bg4NfQjOM6uhRW/rpLrMBjC7rKD93EvJNyirK55njtqp6a6uQ8OUjh7Xr8Y8dAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=O03VjtsC;
-	arc=none smtp.remote-ip=185.70.43.98
-Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793993787;
+	b=chBP5E5Q0zuAGTwOdJliDGz12n96HFseljTb6IInCaa8BNf+0Kb8JVb2/j4gk2kvNiJG
+	 0kgE2BwwbtjrATb9ehxMi2IDkDyAEwCFa/fyT3Pu8Bn08fLs3CKZ72nKQQQO9ldyFV0+0
+	 aPGLASPxfW6e2uYFXl/QklTO/gaQWeIBFieitWagyLt2lbKMywWg8FTJlZwr2ZLh1P5e/
+	 PrKkBFFmW6XC/eI0reiBNGBnRrLc9OKp2pJVmQVyw6Zq5N/7GpIlfe4vuunqOSVaCjIG2
+	 rQQ1n89zP8NRnf+sgce6rgTRlKNc4k/mmG4fpmkBcywceKX31jqJksMa6NojoMNrm/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993787;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=HaDvqqM1aHY770KYqszI2Ek8CtfQ6a2OxvtP+NU3+wQ=;
+	b=YKfpFj3pByucupCjtdSwGcwzEGGEG/zD+S4vQVQCWJc4LKdSStxKId0UiP31fDTUoGvy
+	 EL2qdzUwUiLjdZpb8Hj9t+grimjNRJZdshI3rHjtXfPTNZvR161ay7ADK16azzIsXyruz
+	 hW4h+oDSMC8QcQSFL71nnNlK2MT7WKxTVNgbL9aZyzbULiseuVCbdbfIrjSyjOHC06/Of
+	 lQNhLXOYS1BiPaNFbcgLPhuF/DbmnKPPZq6PRNM0CE1VLL5rZqbL4RZNZGT4P14KMWUxI
+	 tD1AaepOMvNvlrtzL+1xBnDiDnqf9FaE54xj5w6uMPNjSxEcbM15L0D/rwVjlnjILpQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n68uJ+U5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9B6606A329;
+	Fri,  6 Nov 2026 19:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n68uJ+U5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793993787;
+	b=ET3kLOz5WloWf1li2EW/6t8EVVKpGxLZ6fznm8tjtXUvqIwbQ+LuPPEsFqOUbTkmHTdD
+	 BkQ9e01aqQhxpQDvArH1zlV8jB2My5R13//cj3ffSm+5HYVeefep77AbL1bd23SnkrJmi
+	 ik/x4lwOF5DUgVnwYA0vPkoMEQdI8YoQ1Dt2sWJClk08f06qJvPcamGCBjWR4EFK313g/
+	 kgDxBUUj56nkdM/UgxdZGg93e/jK/2OnPCaw2smG+5vgMsuBAMDZaAbvKe0nHQMe5eGOz
+	 dnn3KtxRwUHPOJIg8rOEG7rqnmVIPN3hnmYOVYrIf904kKc5NCg2cdEWJniRTOOuV4Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793993787;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=HaDvqqM1aHY770KYqszI2Ek8CtfQ6a2OxvtP+NU3+wQ=;
+	b=LYdM64DEyk0kWJEhQBdKAwxQtSpUwsgj1FdI6d+5K6QHEuZfxgsXyPXEyW+LBZVmTVfA
+	 LzLwc8HGSw3XjBq9AVotm7+IWTWkCD01gZzw1onqkEKufCdtiGlohe0H0dl4v56G3iDsL
+	 DmSZPkfY3dN5577bByCxWS19r6ll59AoTOaqXsHmw+PmVNoNCQPuPCNWTzDrc3yVp0lI5
+	 j/Xbvw8Eh8f/LVDrgYczPyKCHV70j0NYuUQC1ESdPA5QHJG7zFDXSgRd0GF0p6gX7q3Ni
+	 F5cC39W4BZ8wxH9zoos9kC6bCGwj0cNvTW7nGfr3GVHLT62Yl/ZLoiwUET+NzXXhiZg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57B1606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:36:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C57B1606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=O03VjtsC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1793993774; x=1794252974;
-	bh=6xTKEOGFRLXidPHrCfmBqE6GgEsv5eOpzmihaPx4Isg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=O03VjtsCY5bZQorTEx3GDBoMlcCM6LY58ixfoMVronH0DkRdO5QEQKeUEIrKPUG9F
-	 9QSU5u2Uf5kj1iS8sVpiOJqaNi4MMCJJcMWLZrHdwiBlaMVUA+3peZK2NIzGL+4cVH
-	 fPmeuoE8Cuy3oSNiWZp2s5+EpWpByvVCFEsYLZUus/HQQE/tPSeZIkk6KvckFzVS0t
-	 I0a8vUQm92JcXmgL6rhSNTHwEVBx0jYgsHcpBqfSmcyGo5NBRWbFx/AEfUpMynt3jO
-	 1eS5e4kWEKsOXLWOJKETZcbLO2siyrGhaF63fqHuAJLeqZv51CYYaIgNz8pvCPA1al
-	 Sq+JmjylcG7tQ==
-Date: Fri, 06 Nov 2026 19:36:07 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Johan Hovold <johan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, driver-core@lists.linux.dev, linux-media@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] Documentation: devres: warn about device nodes in managed memory
-Message-ID: <20261106193600.3267465-2-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 9b7570ea9211575eca35ac2ab2eedd2b8679507e
+	by smtp.kernel.org (Postfix) with ESMTPS id 7BA901F008A4;
+	Fri,  6 Nov 2026 19:36:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793993787;
+	bh=HaDvqqM1aHY770KYqszI2Ek8CtfQ6a2OxvtP+NU3+wQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=n68uJ+U5eFp5xCb1ybbQb2QmwrOD/Yy8TBgYcViRNPLPsXvBvKEmorHiuaYujc5+S
+	 FPqdBx4QpbaqQXSRV3qhwITAOlbfdnMZqjHprYOTVj5h1j/K0gpGNaGc+WEEd+hrWo
+	 LUMu2nKz4OW3jjfdlVR5MoLjlePMgQzHnyrfMX7WCfnGoBnsvcd3HuG2TIBYQWDkHF
+	 UXMdpcQYoAP2ORVoo+8mV/Yapa99qSK1Slf0q7t8D6Wf+As3CBi5rEDlXc3oDmPutt
+	 ZqnRqpHjUsUoOAk64nAU+19XNSfEo/49/dFZvFrcIq7TTNh8LRZy8rvU5ONRDuJ/pi
+	 3Seg44L6t3FQw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D95794783A;
+	Fri,  6 Nov 2026 19:36:25 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Date: Sat, 07 Nov 2026 03:36:07 +0800
+Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: add Zhihe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,89 +82,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261107-a210-pinctrl-v1-1-6ddedfb0b76b@iscas.ac.cn>
+References: <20261107-a210-pinctrl-v1-0-6ddedfb0b76b@iscas.ac.cn>
+In-Reply-To: <20261107-a210-pinctrl-v1-0-6ddedfb0b76b@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>, 
+ Han Gao <gaohan@iscas.ac.cn>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793993783; l=895;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=NfTLhXrzvQ5lJQxz8O7S6dCaG/HAPcHpRM6wkHRi+5Q=;
+ b=jXSpmF5KYuPWmqUmA8jIye9cqYSZ78cKrjemBzTsQkLr4lAxawkA/NLoOQjMABq6qjFLYAyei
+ vajxHFbcLs7D9lJUYcfjl+eCyQSqwyV74P4gAQNdWJoT63PX2PPpf/7
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
 
-devres entries are not reference counted, so managed memory must not
-hold state that can still be reached after the driver unbinds. State
-that rule for its common case, a cdev, miscdevice or video_device
-embedded in devm_kzalloc()'d driver state that an open file can still
-reach, including the v4l2_device and media_device that v4l2_release() in
-v4l2-dev.c reads on every close, and say where each kind of node frees
-its state on the last reference: the struct device release behind
-cdev_device_add(), per its kernel-doc in fs/char_dev.c, and the
-v4l2_device release callback in
-Documentation/driver-api/media/v4l2-device.rst. That the video_device
-release callback runs first, and must not free the shared state, follows
-v4l2_device_release() in v4l2-dev.c, the video_device's struct device
-release. A miscdevice has no release callback, so a kref, with its
-ordering against misc_deregister(), is spelled out here; it is not in
-the miscdevice documentation. An embedded media_device is also reached
-by media request files and the media device node without a v4l2_device
-reference, and has no reference count of its own; the text says so and
-leaves its lifetime out. The point that unregistering does not close
-open files follows the cdev_del() kernel-doc. That an open through a
-cached inode can still reach ->open() follows chrdev_open(), which uses
-inode->i_cdev while the cdev has references; the same kernel-doc says
-the cdev can no longer be opened, which holds for a new lookup, and for
-a cached inode only once the last reference is gone.
+From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+Add the vendor prefix for Zhihe Computing.
+
+Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- .../driver-api/driver-model/devres.rst        | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/driver-api/driver-model/devres.rst b/Documentati=
-on/driver-api/driver-model/devres.rst
-index 4f0b90e7e1..6dc6ab261e 100644
---- a/Documentation/driver-api/driver-model/devres.rst
-+++ b/Documentation/driver-api/driver-model/devres.rst
-@@ -208,6 +208,42 @@ Lifetime of a devres entry begins on devres allocation=
- and finishes
- when it is released or destroyed (removed and freed) - no reference
- counting.
-=20
-+Because nothing counts references, managed memory must not hold state
-+that the core or the driver's file operations can still reach after the
-+driver unbinds. A common case is driver state in devm_kzalloc()'d
-+memory that an open file can still reach: state embedding a struct cdev
-+or struct video_device, or the v4l2_device and media_device a
-+video_device points to, which the core touches on every close, or a
-+struct miscdevice whose file operations use the state. Unregistering
-+the node in ->remove() does not close files that are already open, and
-+for a cdev an open through an already cached inode can still reach the
-+driver's ->open(). Allocate such state with kzalloc() and free it when
-+the last reference to it is dropped:
-+
-+- for a cdev, from the release callback of a struct device embedded in
-+  the same state, with dev->devt set, and added with cdev_device_add();
-+  see its kernel-doc in fs/char_dev.c. ->remove() calls
-+  cdev_device_del() and then put_device(); a probe that fails after
-+  device_initialize() calls cdev_device_del() if cdev_device_add()
-+  succeeded, then put_device(), never kfree().
-+- for a video_device, from the release callback of its v4l2_device; see
-+  Documentation/driver-api/media/v4l2-device.rst. The video_device
-+  release callback runs before that and must not free the state. The
-+  v4l2_device release callback is not the last access to an embedded
-+  struct media_device: media request files and the media device node
-+  reach it without a v4l2_device reference, and the media core gives it
-+  no reference count, so its lifetime is not covered here.
-+- a miscdevice has no release callback, so the driver counts the
-+  references itself, for example with a kref that ->probe()
-+  initializes, ->open() takes (and drops again if it then fails) and
-+  ->release() drops, and that ->remove(), or a probe that fails after
-+  misc_register(), drops only after misc_deregister() has returned.
-+
-+In each case, dropping a reference is the last access to the state by
-+whoever drops it. Keeping the memory is not enough on its own: file
-+operations that run after ->remove() must not touch the hardware or
-+other managed resources.
-+
- devres core guarantees atomicity to all basic devres operations and
- has support for single-instance devres types (atomic
- lookup-and-add-if-not-found).  Other than that, synchronizing
---=20
-2.43.0
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..e6db332510bc 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1995,6 +1995,8 @@ patternProperties:
+     description: Zealz
+   "^zeitec,.*":
+     description: ZEITEC Semiconductor Co., LTD.
++  "^zhihe,.*":
++    description: Zhihe Computing Limited
+   "^zidoo,.*":
+     description: Shenzhen Zidoo Technology Co., Ltd.
+   "^zii,.*":
+
+-- 
+2.55.0
 
 
