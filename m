@@ -1,54 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.31.26.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967568;
-	b=DcF0HcCy/knJrjQeM+OBydtEUCElQnmj5c0khKC5JaUD403aAUtHpf51LjEjIqy3v1xt
-	 TjKjjI2wZFXgHyeld2e/X/gPEwWpkJBRk1/VFaCxLDx4XhNA5Ene5+ogwXiIVVwIXMW5m
-	 K/rvmEZy6aq1spOhc+f4t+tM5WDJTkCYiRqZYdirAWVzgnnHUeOXVVUCHDRWB8RI5zQJw
-	 fJxhYadtSqHMlXkqYGv+uQE5da2jhEiIcbwkv5HoUDUkWbRZ5zZBget6AAHMBRDV4aX6k
-	 x8HKNFWywe2N4zDiULPHlpxd4mfg7Kb76t8JcWSqd161OFqDGpkxFKPDc8mm7v95RHg==
+	t=1793967637;
+	b=gWlmQLDMtSANqzTgfU5gP8CFzybgBXb6SBz74gQ0p/7jy/aA1AbH99H1A71o3YLE3pn4
+	 9bmoIPYQ1mmjq0HEpw3Y+v2xLX4UuqPx2SasArAjybANNduHqmn4jNYiXTUC6cjNWKDhL
+	 sV6P99Kt6uM92XyY1vA5FxYSIhpg+lV6xZqtPrEsTczaQDXkKJcNGiu7n/N1Uip/bLvFq
+	 Ok3ojsdpicw9CNaHoBrOI83MOerjaguJr8tfbrFYNXMiQFxEVMbWJGg6AEn/u4axfUsh7
+	 KypQGC1rdIw2+v+4HxSL+9W4EI38mwS+rdI52DuyFKQoBIOasCHPyvGV3L/YAfhlFTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967568;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0vUodaVAX93mqin2v1QRnZrq0sGDMtFLDBopNWg3Nj0=;
-	b=x08w0xyadTLZG5aek4LNhMwl7DMkNqtW82ci7fu2P2d0/HwnmPuhQcFNIC1a0dnpZ4FN
-	 etf0h5wL9DOeWvYXa/i+40BFPfRnhUruBplsHGPDUM1cSHKtaCkgtVH979iU/urF4uar3
-	 QKfRMU8bR3oufa1S4OgtHNusDOkQgSKHNoE1PdTTW6ZLGml3bU04V0z9sVp4CU3dHO0a+
-	 hS1temHDRr622p0gGaNukshU+mjwnEkU0LlQXPhgH4BtoO0MC+STvewtis9xehHCg8sGw
-	 MMDXEPqNZFDpXCEoxXOV1xncaVgqFHIzjZtU4kayFJnhepIyA15wCrnQPrqimIGQX8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967637;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=SfHCWdK/R6hFCAoqy3I3O/kaxO5mPuAnlKQhvji6+UE=;
+	b=1deY/qGZ2f3GtScV4aEhWrr8nGIhJXPcJtZZ9cXE20Wf82URrZF+BHDl5rlUMxlfAFKX
+	 Q7FqCYmhuJPS3YRFRN6WGGBau7hE+vCN90PZZbmi8VAqvuQ4eiMBeicrROf5eSeeGlIhX
+	 h4BZwpmE3vesK+87AKPY1571MairSeNhpV20D4k1wyzJIDFm2kJSBkIBCxt9rNCAyI+iS
+	 bNo6+L3yMQSDi3ohRxAxJkBZ+/zZUPSfx0wC0y8+0E0lp2lGuVtxczyCCEwjcmA11xlJC
+	 rcpNiUjHP7kDpso1eMVtfxRkdsjCtCGfSNqK1xsT8X+H2/a+bgXcbgznr3SnyiWE5HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V5G0adXI;
-	arc=none smtp.remote-ip=91.218.175.35
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rudorff.com;
+	spf=pass smtp.mailfrom=rudorff.com;
+	arc=none smtp.remote-ip=193.31.26.27
+Received: from rudorff.com (rudorff.com [193.31.26.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FE1606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:19:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66FE1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V5G0adXI
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UjpdCFHkVQinke0+LhWk+0IZR4eqn7V48c0aBGCBqmM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793967564; v=1; x=1794572364;
- b=V5G0adXIb2lsE3Gshq9LuKJbAg5bI+F8TdF831riiz2dwOtFOnthMGJ1DD8ovycfnsqfJCX/
- 6U7vCM1JJanEDINxX/xUDk2m1fAsLhqHwJuJSD33bPrkoHvu60W8QGwOWmmq6Bi2/LCzhz0tcjZ
- Qvt35+skZqDdWbc9VKphXNY0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f0b4435a6e72b80c;
-	Fri, 06 Nov 2026 12:19:24 +0000
-X-Mizu-Trace-ID: f0b4435a6e72b80c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a6c89fe9-a239-4b97-a912-2b08b9a84e21@linux.dev>
-Date: Fri, 6 Nov 2026 13:19:23 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DA2606A32C;
+	Fri,  6 Nov 2026 12:20:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92DA2606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
+Received: from [127.0.0.1] (dynamic-2a02-3102-b60c-0d00-92f6-52ff-0000-04cc.310.pool.telefonica.de [IPv6:2a02:3102:b60c:d00:92f6:52ff:0:4cc])
+	by rudorff.com (Postfix) with ESMTPSA id BF3A1404D7;
+	Fri,  6 Nov 2026 13:20:34 +0100 (CET)
+From: Christoph Rudorff <chris@rudorff.com>
+Date: Fri, 06 Nov 2026 13:20:23 +0100
+Subject: [PATCH v2] mac80211: fix ieee80211_set_antenna() return value
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,51 +45,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ASoC: SDCA: Add port constraints into
- sdca_asoc_set_constraints()
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20261105134952.1728147-1-ckeepax@opensource.cirrus.com>
- <20261105134952.1728147-3-ckeepax@opensource.cirrus.com>
- <1cae1b17-4c49-4a10-922e-c552e90593c4@linux.dev>
- <au2dxajs3ua9M61q@opensource.cirrus.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <au2dxajs3ua9M61q@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-fix-set-antenna-v2-1-23889392e64a@rudorff.com>
+X-B4-Tracking: v=1; b=H4sIAAbG7WoC/3WNwQ7CIBAFf6XZs2uApLR68j+aHlpYLCaCAdpoG
+ v5dqGePk8ybt0OkYCnCtdkh0Gaj9a6AODWglsndCa0uDIIJyRmXaOwbIyWcXCLnJmyZYK1WvVS
+ zhLJ6BSrKURzGH8d1fpBKNVONxcbkw+e43Hj1/tc3jhyJdVxLaTrTX25h1T4Yc1b+CWPO+QvjK
+ oV8wgAAAA==
+X-Change-ID: 20261016-fix-set-antenna-50205dc86cb6
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christoph Rudorff <chris@rudorff.com>, 
+ "John W. Linville" <linville@tuxdriver.com>, 
+ Bruno Randolf <br1@einfach.org>
+X-Mailer: b4 0.16.0
 
+Actually ieee80211_set_antenna() returns -EOPNOTSUPP in case the device is
+"started". That is confusing. Return -EBUSY instead. That makes clear that
+the device must be stopped beforehand.
 
->>> -	if (entity->type != SDCA_ENTITY_TYPE_IT)
->>> -		return 0;
->>> +	/* FIXME: Currently only a single unshared port is supported */
->>
->> I must admit I have no idea how we'd handle ports that can be connected
->> to multiple terminals. It's allowed in the spec, even between Functions
->> which are then no longer independent, and I was told it was due to
->> hardware restrictions, but still I hope we never have to deal with this...
-> 
-> lol yeah me too. For now I am mostly just putting these FIXME's
-> in at all the places where this is going to become relevant. I
-> must confess I haven't reviewed this part of the spec in detail.
-> It feels like sharing a couple of ports for a single terminal is
-> probably tractable if a little annoying. But yeah, if we got as
-> far as sharing a port across functions that seems like a total
-> nightmare. We would probably need to do a bit of re-architecting
-> and add a port abstraction at the device level, but hopefully
-> people are wise enough to not build hardware like that.
-I re-read the spec and I think the main usage for the Terminal to ports
-mapping is bandwidth management, possibly across multiple lanes. But
-that's a 1:N terminal to port mapping, not M:1 or M:N. It's complicated
-but not earth-shattering. Also the mapping is supposed to be pre-made in
-DisCo tables, not something that requires much intelligence in drivers -
-until the tables are wrong but that's a different story.
+Given an active wifi device:
 
-I didn't see any wording on sharing ports across functions, I am 100%
-sure this was talked about in the WG but maybe it didn't make it in the
-final 1.0 version. That said it's not described as forbidden either so a
-well-intended creative hardware designer will probably make that
-"optimization" at some point...
+$ iw phy0 set antenna 0x3
+command failed: Operation not supported (-95)
+
+expected output:
+command failed: Device or resource busy (-16)
+
+drv_set_antenna() later on will check if the driver supports it.
+
+Fixes: 15d967532148 ("mac80211: Add antenna configuration")
+Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+---
+I was confused that none of my wifi devices can set_antenna.
+
+Given a fresh inserted usb wifi device:
+
+$ iw phy0 set antenna 0x3
+command failed: Operation not supported (-95)
+
+$ rfkill block wlan
+$ iw phy0 set antenna 0x3
+
+Oh, wonder, it works!
+
+expected output:
+$ iw phy0 set antenna 0x3
+command failed: Device or resource busy (-16)
+
+So fix the return value of ieee80211_set_antenna() and later on
+drv_set_antenna() checks if the driver supports it.
+
+This is a good candidate for backport. The patch is just a one liner.
+---
+Changes in v2:
+- accelerated commit messages
+- Link to v1: https://patch.msgid.link/20261016-fix-set-antenna-v1-1-e071d66f7f89@rudorff.com
+
+To: Johannes Berg <johannes@sipsolutions.net>
+To: "John W. Linville" <linville@tuxdriver.com>
+To: Bruno Randolf <br1@einfach.org>
+Cc: linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ net/mac80211/cfg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index a1753335eb9d..87a9ead7c638 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -4920,7 +4920,7 @@ static int ieee80211_set_antenna(struct wiphy *wiphy, int radio_idx,
+ 	int ret;
+ 
+ 	if (local->started)
+-		return -EOPNOTSUPP;
++		return -EBUSY;
+ 
+ 	ret = drv_set_antenna(local, tx_ant, rx_ant);
+ 	if (ret)
+
+---
+base-commit: 79a907609d53d5cd645b42c11550d295d43abf99
+change-id: 20261016-fix-set-antenna-50205dc86cb6
+
+Best regards,
+--  
+Christoph Rudorff <chris@rudorff.com>
+
