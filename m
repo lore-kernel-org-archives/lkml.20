@@ -1,130 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953664;
-	b=XuoSewjxLMZQj0tyKKF0CK7C8Vm5JENbEWPgQykdGlovOTO6G4CQbqS/u3B643V+OGHl
-	 0qzVv6CjxF95H01ujZAF4z5mvOhdX5FwrKjvqrbKWTzgQwvnrwcr7Pee76gVwI4l+Aqu7
-	 S2oDLk5EV9aE0+pPCJWlG7mhk+l1I9g1voHKQRSBjfzdWmqZKPg/17WDFnKn3wD7bpXsY
-	 dol2ThWIsJBpbF0++XdgRFxlz/nBhjp+L39vHzdLwaZVgApWrvdUV0IB0OpZ7oS61ezS2
-	 JlWMZOigrl+SKv8/qIcVd1tsVbkQ5fMb/ZtAc5cB3u3EIpBaihQ97aou5OfkLGXULEA==
+	t=1793953675;
+	b=aSQ9+uqUBXKpbQsX5Y7VUAQhn78/lZ9fSMCmOLROjryi424FG48SQiSxCgX7IePfSRPa
+	 DLQoURqt37ins1NwigmtvpPCKWLOfK1L2e1Vo1Ltr22UGM/RymDoMmaifI/BqW6wc40iN
+	 +uwp6TajCjM+3a9U2R2X3LfzjTkrte2r/T+/GlUMsMvfiVQxL1/5Ica2Fe4TEW+falOxu
+	 OZHS09GvRcgUzEwjdi24k3oHRh/S1k3BHE5tJRqrvsnq8D57p/5ODq6sAyoCmQfBvAV49
+	 wJdvzDzQxY7qbHo6MaJNSrfkq1YmJ3Z4Uv0U1VbCXdPBXn9ef1icO4cn4YII1CaLHEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953664;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=9tk+I4vZOr9XanR7g9lQ0IcR5uGKfPMbK/eELVN/uXM=;
-	b=H7trXy+ehGLvKKMcbzepALrJ0FCwrGqU6QyInFBL+TBFpzBjHNL1roLWwQQqgJifP28v
-	 UHhzCo1L6ysf7BlrsZHnKa8qAJr5KziV0v33a9MuA/oFrjD+ARhQ4gkO0veuzQ3QPVIK1
-	 I5Pqfob1Id0+qqk2D+w3hPuMUh2w4WdFvcvL+UV7W0VeF75Aesa3kfGM1JYEtqYeKbE2/
-	 wKiK/SIz5DdQ2lk9xo9MxfnamUiE9cjRPM2wdBwaLyZTWzKIW80bweu3SBNPFZTm12Scc
-	 SijLi9RCyflLeqHVf4Yy4qNKADxaS0oaCybS/EBYkyQpDVvtMzsTZFdmTRZMP0qv7UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953675;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=eFyf1J2eCmzdcygEsnj9uuRDnIkV5nwpe7sUFMbcNPA=;
+	b=fo3yT/PstroabOS4s9KdLvUE42ZmhoFWWT7eGSQCNgdfqbFTH4/2NTWwYPXbiD8hk/tM
+	 j8EOyPfuAis+plIYAaCcAkiMUAYDWqmMf/rht4+X8eAdWZRuYRKm8wJLtLdyJoDkkiv99
+	 BoCUwPwe3VnmqectVMbuv1FqZ6+RfRA4A4ZBxoLsparfYBn2PlHjNNnaWU5O9f3YHBS0r
+	 Po0bVB+stNJfIQ/0fpcB0P6OfQUaLGQdJMM2otL+6DEytNVa2deNn8ZFjFxYKRQCwYiDU
+	 EueqyWn0VT1+GSYcL7Ed44MxPhCtDtuNsbUkn0gHMYH+J+UkA8bGnzIiTwu8VKNKjBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E5z0jlUu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AoSR8SL3;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b="B/rSxcDl";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AC8606A332
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:27:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78AC8606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A15D606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:27:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A15D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E5z0jlUu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AoSR8SL3
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67R21n128919
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 08:27:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=9tk+I4vZOr9
-	XanR7g9lQ0IcR5uGKfPMbK/eELVN/uXM=; b=E5z0jlUuI84O/9TmJuPY8MefdF+
-	ncOvlz9BVDgebFROOGx4/yn5ZcGe+YXewiUd/VCnYAS/v2sCHOP1pln2r7FQXNgJ
-	fu5XF/4Vq9Pa8lMbhGpAUwFlxoU7QDULMx5ehsChvwbtVfOYUBWVp43qfL/9yCkq
-	fBT7ArP1Vu/yMdjY+eUceDAG8vXkp82QwOZrPyuWJf/zWJc4wINevAACZiMfjCe/
-	fsc5Z/2tM91xR1kAxjnoKR13HI82vgqwiLhK08ulH3ZbXGeB+RYLexXTbyBpeBRs
-	hxeB89qBvAmH92WSPpH0RD0hAtdPvLIZu7JZS2lqnw9ZU1wbitewLY2swAw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9svh5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:27:43 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso632297a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:27:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=B/rSxcDl
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so2485685e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:27:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793953662; x=1794558462; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9tk+I4vZOr9XanR7g9lQ0IcR5uGKfPMbK/eELVN/uXM=;
-        b=AoSR8SL3i823moGVYyzm7GRUwif/+xj1twJwQ53T8u0dq+/4k7NaZA1TAvN/b7OwNv
-         FPDyOdf9DtsvJUjVl52MxDbLPQ4Iolem4IyKuevmgYECvgp/1c36NLUipq1y/uFpk6G8
-         e5eohCHhVZ943/K3eGRTsXoMa8K8GBuhgyI2mjL4ujDXPKQwHRRXjvp/Ighj5Yo+81Uc
-         z0OfWymrT7K897arwStwgKHzANfa3ggy+wGZ9b+WKXcd0cPsUksjWfs1dknllJcGOhcm
-         cfrM+MKwMJf+jZuCJsKGJmJkdOhue4Dzbp4XpIEQxz9j9opWkb1Mb3//Qmmr3zmdpmpa
-         RYtQ==
+        d=resnulli.us; s=google; t=1793953668; x=1794558468; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eFyf1J2eCmzdcygEsnj9uuRDnIkV5nwpe7sUFMbcNPA=;
+        b=B/rSxcDlMYnthEPXsv+Dey7MmueZn3MQHpzmfFmdz1qKA5YAzHst+P9vXXtmfUjBQd
+         Hdo9pdjh+loJd+rBiJmMoikQfhb0UunnrP0Elsn0wtcOJK5yGfwrv7yB5A5r1O7aEZ6N
+         JKoqxQnRiR3gEpt3AYwAVsU2u4+l2q+hP33U4CSayE/Uxg/PHBIy+CSfOyKmo3a6U0hF
+         CoMD+sTdwlw31W6xMku/iAxMVKl4QD+AzugLDDpHwuzMW/hxt5bfWmEDVgpP/L4oJclM
+         6+zD7o/sl2wTljFv+oUaeCGHHdQWPtNEG2pghabPaWW4g0MZgOfU+JN06X9amJ35uAOt
+         hiZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793953662; x=1794558462;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9tk+I4vZOr9XanR7g9lQ0IcR5uGKfPMbK/eELVN/uXM=;
-        b=X6MbWVrbOD69z13OD8PPT7V86G/yuWmhCpUxUC9LsqmvTCg12x+ibfa3aEQX0QrWOc
-         U81q4D9/U45W8YjCWuAl8DfSpiilOte4CCfZ8tvfGFIr1Bs9bslh9QLwgVymItRM6GGx
-         gfrRiLu+4cGMOQ+/eRHKbPqgdCQv1KCX/2/P97UsamPc3F873U/j6/aiV7iqyP0lEVi5
-         pSn7/9HNOyayfkBNEKipXNHlu7prmzRsTQAwDQoqBSCT8P0i6fAvv2dt3ayR3TgWxEL1
-         lTttfg/S+vlE90yb5NsKaH2hRxNoJ2JO4/5K9svtbqr5pQJ4Xm5uymTY+zxbkTC48ZBI
-         4+yg==
-X-Forwarded-Encrypted: i=1; AL+hErHwvC+skT0YBlSJ5RC9O0vjB6HjfH1Qf3E3c+SF49MmOVfHohsuwowTeXi5wnh6PEgZffmYWSZKeDjOfJY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KnUatue9Iasy52fZArMxHzaKR/LwDuXhpAig99l1wR79Pj/CJ
-	leW6/RdALOenXvAJqrd8edhdb2cR7QXCJyTn0yJdDgCYoOse7fcq4AGfqjfjMEvQcJk42K1XSVN
-	IwlWOFnejUsL2Te4ZwBCwy7ldKh1CigHLcAO6PwgI+H/AJBQk8bH85H0NjibYANEoRaw=
-X-Gm-Gg: AYBFou3ta9WXfHQCjhVHtN/msXkmEq/0u6o0a0XDwLvv2rc9kj6es2/7iN0sazfEryW
-	g0JpJdbqEeyADGmZpWdbJpb8bqHKi4pdfdt1VRqECBG9SeFDMUeLEc7N841TY8diuXRcRUypu7k
-	sTl8JZdMrKseQHdcsCTbZBZkeOvcC+b1BgRNO9xxkmQINbpY6/zEeU967B+j0wGr9f0KQ7OQLZ2
-	M/eEH0dG+3meUaOhRSchETSz5cWg1QsV1A5J5hrTLCTk4XlzRZc1MKQ4JswqKFTRO22sA3NHz+Z
-	uTZj4jpYmXFLRDUnwjagaO5TBxo5PxzdRaXNZ3R+DHEoV+/TvXAmV68f3TrpNVj/htY9DKcw5G2
-	PQhD9Lhu4Q+nj62UnnaubkKUJPVSPesCqmwMR5UUWXcGXNXuXRkw+BWaW8xSP+RFTomYwZ9hTlS
-	PtQA==
-X-Received: by 2002:a17:90b:52cf:b0:3b0:ae41:2706 with SMTP id 98e67ed59e1d1-3b0db5f60efmr1936186a91.4.1793953662480;
-        Fri, 06 Nov 2026 00:27:42 -0800 (PST)
-X-Received: by 2002:a17:90b:52cf:b0:3b0:ae41:2706 with SMTP id 98e67ed59e1d1-3b0db5f60efmr1936132a91.4.1793953661802;
-        Fri, 06 Nov 2026 00:27:41 -0800 (PST)
-Received: from hu-taparana-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42a72sm2433951a91.3.2026.11.06.00.27.36
+        d=1e100.net; s=20260707; t=1793953668; x=1794558468;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eFyf1J2eCmzdcygEsnj9uuRDnIkV5nwpe7sUFMbcNPA=;
+        b=b5Aw616bt55KOrU2U7H+gr+lvqS/iESADWyqU3YELY/HbjZXC5pPbdPV1gaIqX2Xa8
+         RhIXnjeM7pK43xJMXw0Cq+RLq9W4EFUCr8QByA6kSjFcak7FZJVVaRJ2PvrnJvMetRkB
+         DEy1VCR8CkAdzdbO+pg8fQbfAlN4/HFWc7TTkdogoTa0A4pkzTWoyas+LMJnBg0CJwdV
+         Kr2C9axOJW+PgYPcQBcUFroM+rQhA+rmApivzfkjf0Wk/6A4RPBcjyfPaXgKCWuMMMCD
+         NrghAGjjCSl+bO6aEq09yIsNXwjS72C3NcWjhOahctlmQArPOL6MS2wqyJ15dNFZngj4
+         tIxQ==
+X-Forwarded-Encrypted: i=1; AKwUvByr62S0Nzs/YYS3dvNoh6oJRjlGlFg+fMY/FJWn9AsFSa1TyRoseRqzKJzrvzoUVSFVjfjer8YqzUUajd0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IHCDC8dQ9/XbKJJX9CwQYHfip5q1HC7fFyreefpor9AmG2RSZ
+	o9fIe/22cVImFtXntUCzAhC0vm75/iAtuXbSoeg8rcyejdjWlxU4vP0xMYS+u2N9msQ=
+X-Gm-Gg: AYBFou1iLGp5VE4QzFBmj7HriFv/O8kBboXaNzu/ija9YIKIDm0sj70wRssXiSPPxrn
+	q/Rg+hO85YDICVGVwYk8VVy/y6fxzCKFRSArzjlqixJFZdyC2ExWP0w6tSVsZgw+UOe30eU+SYq
+	er83yZJabIBNOvjI/6LVLkRqmigKj5p5D9Y/jh7j3j7TWH9zLN4V2crD962ZwG4uyQ9I8osXaxj
+	CdW1UeoiYNwJGgVV6TJgAJS1ujtll5Jemh9EMmPDEMIBabP61JAh2T4T7I3KIbE+3qhrxeYUjZp
+	soFMr/qBWdE+VAUusvFWcR6qT0qscPmdNZC/qg5IQASKkd/66GKRMJ9c/CieWEAI4nsCSMj6W4k
+	rHsf+lyJmApGru4DtqGfgI+JMk1/EeZ768gFjrGAYGyoALbpoFDB/iBdhEwUUdBUMM83FJY2Q4I
+	UjDLKG2Ui9GCmuDXCAtJU/ipO/UA2P1nqwQzLCYSmCDfyiq9HWZElxGY/1tZF7YY6qaLYGzn3tf
+	gxFOJKPr0tqmKS+JAuq8cPTqzZE9HQJSAVzO/rN8BAPesXrR0fWPOUX8v5V3v2lhurN5xGXoD7z
+	zeGaKdZQPb0z5Qof9eaFo3v4bDIWBk5l8+BWjiTWHHT1YPqyYIZnqhI2HmLw
+X-Received: by 2002:a05:600c:3e0e:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4b6dfba908bmr27264855e9.24.1793953667539;
+        Fri, 06 Nov 2026 00:27:47 -0800 (PST)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b73ee651b7sm16201965e9.0.2026.11.06.00.27.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 00:27:41 -0800 (PST)
-From: Tapas Rana <tapas.rana@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Esteban Urrutia <esteuwu@proton.me>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Ronak Raheja <ronak.raheja@oss.qualcomm.com>,
-        Faisal Hassan <faisal.hassan@oss.qualcomm.com>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        prashanth.k@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Tapas Rana <tapas.rana@oss.qualcomm.com>
-Subject: [PATCH 3/3] usb: dwc3: qcom: pass live SS-link state into PHY at suspend entry
-Date: Fri,  6 Nov 2026 13:57:16 +0530
-Message-ID: <20261106082716.128968-4-tapas.rana@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106082716.128968-1-tapas.rana@oss.qualcomm.com>
-References: <20261106082716.128968-1-tapas.rana@oss.qualcomm.com>
+        Fri, 06 Nov 2026 00:27:46 -0800 (PST)
+Date: Fri, 6 Nov 2026 09:27:42 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, aneesh.kumar@kernel.org
+Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
+Message-ID: <auy7IM0_S2tv7EZX@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-18-jiri@resnulli.us>
+ <auuDcABX27EeTApl@e129823.arm.com>
+ <20261104194622.GC3889730@ziepe.ca>
+ <aux01NUd85PabtZu@FV6GYCPJ69>
+ <auyKE2sGqtfjk4v5@e129823.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,120 +108,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMyBTYWx0ZWRfXzsmDQrcisc4k
- bhMHHSrQXxBDgSVFdr/PGjVMEuaYMLSNyfFnQs+BOqpd9lqyfcmaey3gldVY8en9loqTGeNkmRQ
- W8JPRpR3j9BDFGU3YZdyOjzhfEU4w+o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMyBTYWx0ZWRfX4aLIHbOQGHQ0
- bo1RNZ9l5Icxe1tcqausCvapgKO667/hEnitWF8U1nXRqDVJ4AXmMUQuuVX9Y1gRy77JqNXNF/F
- SS8WuPeQKtl1aS3s/KJr52CGIXVEauSEx9g0VbEI4BLgz29qUnSi1ssNUTc+A3nydrA4+0w2YWi
- v8nSTF4PoPOdPw5HQGRxmVBIIE5m7hVyb0zKbVZx7hqqjIlO2DiuU4ivKJULa+UCsjmKP3vMmPo
- VQdn4M2tL3rrYLaaMCGxagb/NHyDtK07JFADi2RZ1l1b+ZrTLdSvbeM6/27IpGV/8kV8hJoJoKU
- +EvWdyhUY2UXu7yIU/QY+W81pJNu5tQKfNtakkG9Xom5ZZr80J8c8rTCfIXLRrKbLshRJOtNOGE
- a37qq3i1hMbA8aAhlkQKjkcOF9pwMIV+7THiPqhjXcGir/Q+zs6uQLk9eSJX2f397XfYpnlyBWf
- u5g18PAwKh4qUoUbubA==
-X-Proofpoint-ORIG-GUID: dkBEO0FfEAqhvy5ZOjV6fiAL0FkM-6My
-X-Authority-Analysis: v=2.4 cv=f6Pdl+yM c=1 sm=1 tr=0 ts=6aed8f7f cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=qBW0Ez0WUtIADFg3DaYA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: dkBEO0FfEAqhvy5ZOjV6fiAL0FkM-6My
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0
- adultscore=0 spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060033
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auyKE2sGqtfjk4v5@e129823.arm.com>
 
-dwc3_qcom_suspend() puts each host port into autonomous/wake mode
-without ever telling the PHY whether a SuperSpeed device is currently
-attached. qmp_combo_enable_autonomous_mode(), made SS-aware in the
-previous patch, therefore has no live signal to act on and always
-sees QCOM_USB_SS_UNKNOWN, falling back to the legacy receiver-detect
-mask regardless of actual link state.
+Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
+>On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
+>> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
+>> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
+>> >> [..snip..]
+>> >> 
+>> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
+>> >> > +					       const struct ctlv_cursor *request,
+>> >> > +					       struct attestation_evidence_request *decoded,
+>> >> > +					       struct attestation_evidence_object_request **objects)
+>> >> > +{
+>> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
+>> >> > +	u32 challenge_length;
+>> >> > +
+>> >> > +	decoded->challenge =
+>> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
+>> >> > +	decoded->challenge_length = challenge_length;
+>> >> > +	if (challenge_length < caps->min_challenge_length ||
+>> >> > +	    challenge_length > caps->max_challenge_length)
+>> >> 
+>> >> Hmm, I'm not sure whether this check is required for
+>> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
+>> >> 
+>> >> for example, if the provider provides two evidence:
+>> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
+>> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
+>> >> 
+>> >> might challenge is reuiqred for generating the token
+>> >> and this would be marked at min/max_challenge_size in evidence_cap.
+>> >> 
+>> >> However, in case of eventlog, it wouldn't require challenge.
+>> >> for example, TPM event log or CCEL event log.
+>> >
+>> >Right
+>> >
+>> >> Do we need some field on attestation_evidence_supported_object whether
+>> >> it requires challenge or not and applies this sanity check per the object?
+>> >> 
+>> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
+>> >> always.
+>> >
+>> >I wonder if we should have two interfaces here for signed and unsigned
+>> >evidence? It would be clearer for userspace then when it needs to
+>> >provide a challenge or not.
+>> 
+>> Isn't the challenge field provided/not-provided enough?
+>> 
+>> Currently on the introspection side, device-get op would provide
+>> challenge-lengths array:
+>> 
+>>         evidence?:
+>>           challenge-lengths[8]:
+>>             length?: uint(..4096)
+>>             min-length?: uint(..4096)
+>>             max-length?: uint(..4096)
+>>  	  objects[16]:
+>>             blob-class: evidence-blob-class
+>>             max-length: uint
+>>             blob-instance?: uint(..u32-max)
+>> 
+>> I think it would make sense to have challenge-lengths array per object:
+>> 
+>>  	  objects[16]:
+>>             blob-class: evidence-blob-class
+>>             max-length: uint
+>>             blob-instance?: uint(..u32-max)
+>>             challenge-lengths[8]:
+>>               length?: uint(..4096)
+>>               min-length?: uint(..4096)
+>>               max-length?: uint(..4096)
+>> 
+>> Then the unsigned object would just simply have challenge-lengths empty?
+>
+>This looks good to me. :)
 
-Add dwc3_qcom_read_ss_state() to check each port's USB3 roothub for
-an attached child device running at SuperSpeed or above, and pass the
-result as the submode argument of phy_set_mode_ext() so the PHY can
-select LFPS detection when appropriate.
+The challenge is one of several open points that all depend on what an
+evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
+"primary", "raw" and the format strings. Here is my proposal to settle
+these together:
 
-Signed-off-by: Tapas Rana <tapas.rana@oss.qualcomm.com>
----
- drivers/usb/dwc3/dwc3-qcom.c | 36 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
+The model:
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index ac68b4218b56..d4ba095e47eb 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -19,6 +19,7 @@
- #include <linux/iopoll.h>
- #include <linux/usb/hcd.h>
- #include <linux/usb.h>
-+#include <linux/phy/phy-qcom-qmp-usb-ss.h>
- #include "core.h"
- #include "glue.h"
- 
-@@ -66,6 +67,7 @@ struct dwc3_qcom_port {
- 	int			dm_hs_phy_irq;
- 	int			ss_phy_irq;
- 	enum usb_device_speed	usb2_speed;
-+	enum qcom_usb_ss_state  ss_state;
- };
- 
- struct dwc3_qcom {
-@@ -251,6 +253,34 @@ static enum usb_device_speed dwc3_qcom_read_usb2_speed(struct dwc3_qcom *qcom, i
- 	return udev->speed;
- }
- 
-+static enum qcom_usb_ss_state dwc3_qcom_read_ss_state(struct dwc3_qcom *qcom, int port_index)
-+{
-+	struct usb_device *udev;
-+	struct usb_hcd __maybe_unused *hcd, *usb3_hcd;
-+	struct dwc3 *dwc = &qcom->dwc;
-+
-+	/*
-+	 * FIXME: Fix this layering violation.
-+	 */
-+	hcd = platform_get_drvdata(dwc->xhci);
-+	if (!hcd)
-+		return QCOM_USB_SS_ABSENT;
-+
-+#ifdef CONFIG_USB
-+	usb3_hcd = hcd->shared_hcd ? hcd->shared_hcd : hcd;
-+	if (!usb3_hcd->self.root_hub)
-+		return QCOM_USB_SS_ABSENT;
-+
-+	udev = usb_hub_find_child(usb3_hcd->self.root_hub, port_index + 1);
-+#else
-+	udev = NULL;
-+#endif
-+	if (!udev)
-+		return QCOM_USB_SS_ABSENT;
-+
-+	return udev->speed >= USB_SPEED_SUPER ? QCOM_USB_SS_PRESENT : QCOM_USB_SS_ABSENT;
-+}
-+
- static void dwc3_qcom_enable_wakeup_irq(int irq, unsigned int polarity)
- {
- 	if (!irq)
-@@ -359,8 +389,12 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
- 	 * freezable workqueue.
- 	 */
- 	if (dwc3_qcom_is_host(qcom) && wakeup) {
--		for (i = 0; i < qcom->num_ports; i++)
-+		for (i = 0; i < qcom->num_ports; i++) {
- 			qcom->ports[i].usb2_speed = dwc3_qcom_read_usb2_speed(qcom, i);
-+			qcom->ports[i].ss_state = dwc3_qcom_read_ss_state(qcom, i);
-+			phy_set_mode_ext(qcom->dwc.usb3_generic_phy[i], PHY_MODE_USB_HOST,
-+					 qcom->ports[i].ss_state);
-+		}
- 		dwc3_qcom_enable_interrupts(qcom);
- 	}
- 
--- 
-2.43.0
+1. device-get lists each object with an id, a class (signed, event-log,
+   cert-chain or auxiliary), the formats it may come in, its max-length
+   and, for signed objects only, challenge-lengths.
+2. evidence-get names objects by id, as MR ops name MRs, each with its
+   output blob. It carries a challenge exactly when it names a signed
+   object, and the challenge has to fit each of them.
+3. The reply gives each object's format, length and, where the TCB
+   vouches for it, the TCB's digest. The output is always {label, data}.
+4. A signed object is made by the call, over the challenge, and never
+   reused. The rest are read as they stand.
 
+This settles following issues discussed during this patchset review:
+
+1. One op, not two. Per-object challenge-lengths tell userspace when to
+   pass a challenge, and one call returns the signed object with the log
+   and certificates needed to check it.
+2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
+   /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
+3. TDX's Quote object lists the legacy and the DICE format. The provider
+   labels what the host returned and fails on a Quote it cannot label.
+4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
+   spdm-measurements and tdisp-report become formats, and signature
+   goes, as a signed object carries its own.
+5. "raw" goes with the representation attr. The TCB digest is a reply
+   field, so a blob always holds the object's own bytes.
+
+Formats become an enum each provider family defines, instead of free
+strings. I'm still unsure if format should be entirely provider-specific
+and defined as "extension", or it should be somehow mixture of common
+and provider-specific. Looks there is not really much common
+anyway, so I lean towards provider-specific only. So far I have:
+
+======  ============  ==========  =========  ===========================
+Family  Format        Class       Challenge  Bytes
+======  ============  ==========  =========  ===========================
+tdx     quote         signed      64         Intel TDX DCAP Quote
+tdx     quote-dice    signed      64         DICE-based TDX Quote
+tdx     ccel          event-log   none       ACPI CCEL log area, a TCG
+                                             crypto-agile event log
+spdm    cert-chain    cert-chain  none       SPDM certificate chain,
+                                             instance = slot 0-7
+spdm    vca           auxiliary   none       SPDM version, capabilities
+                                             and algorithms transcript
+spdm    measurements  signed      32         SPDM GET_MEASUREMENTS
+                                             response
+spdm    tdisp-report  auxiliary   none       TDISP interface report
+tpm     quote         signed      varies     TPM2_Quote's attestation
+                                             structure and signature
+tpm     event-log     event-log   none       TCG PC Client crypto-agile
+                                             event log
+tpm     ek-cert       cert-chain  none       EK certificate from NV
+armcca  token         signed      64         CCA attestation token,
+                                             platform and realm parts
+armcca  event-log     event-log   none       Realm firmware log, if any
+snp     report        signed      64         SNP attestation report
+snp     cert-table    cert-chain  none       VCEK or VLEK, ASK and ARK
+======  ============  ==========  =========  ===========================
+
+Did I miss something that would break us here?
+
+CTLV layout draft:
+
+    device-get reply, caps.evidence:
+      objects[16]:
+        id: uint(..15)
+        class: evidence-class
+        # The reply says which one was written.
+        formats[4]: evidence-format
+        max-length: uint
+        # Signed objects only, entries as today.
+        challenge-lengths[8]?: ...
+        # Descriptive, such as an SPDM slot.
+        instance?: uint(..u32-max)
+        # When the TCB vouches for the object with a digest.
+        tcb-digest-algo?: hash-algo
+
+    evidence-get request:
+      # Required exactly when a signed object is named.
+      challenge?: binary(1..4K)
+      objects[16]:
+        id: uint(..15)
+        data: blob(out, va memfd dma-buf)
+      # selection, privlevel, service and options as now.
+
+    evidence-get reply:
+      # In request order.
+      objects[16]:
+        format: evidence-format
+        length: uint
+        tcb-digest?:
+          hash-algo: hash-algo
+          data: binary(16..64)
+      # The generations as now.
+
+Makes sense?
