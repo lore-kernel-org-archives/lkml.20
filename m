@@ -1,106 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.69
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793953623;
-	b=mRpxQYKkLK+uSuFPG9x2xZId/ka9l1woJ2hYFKOEGWoQVjZpEKvF0T7ug9zADsugZwv7
-	 kIjGJOZ0KGLFRPbzHPJgLb90CmV1+fxrUAljCBznfxiHP9q6tVpJE0AoZ/6eJ5U16dFLA
-	 04gNpORUDxizQNPpwdOBmXbv984nF8UOE+9lZBpqIHd7hexVFgeA8HVK/++ZH6cCt0omH
-	 ApOu7tQ2zS80jP5TxxjdA6Fjs2P2a/AmdqDtZwSpkTuQI8yfmYPS9Rded2/D9Ibh6Z4h5
-	 RIW1NBpf/1yn+I6YMPFJkek1AaTz7zEc0fSYmda8rEZE4bHrW2QUAa/t6kAkr11UZvw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953623;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WTplfK3CeLU4amsy6yd4ZzKwUbptVYSg85LuEM2OtXE=;
-	b=Rr4qlHuW2FV1HWjn6cFqT0uGML13vAJSFBUVhaLLApurX+ej9fwFeth3+FFgVJ9HJwJA
-	 CMeJahTWEUQ5zw/9gy4E+Zg0OglvC67QVKAhbYobbWSqLlLvrFxgihZ7l3cXCrrNxfMlj
-	 ge6ezfMpEcV1RAZohYa07NW6lvX37V76bGq91iWurpCUf6CuIW0WB1zIYuxnKVvlzDXQF
-	 ReoFy2H7vfJlmltH5td4rsQlHjVPCBilpOOq/1+0Kt9HgDU2s5d1gxNZUd/NsIYjgxF0P
-	 NMhhz/+x7r2/Py6vuTGuvv2UsioK9PVtKIozaFItd5a5cdqZP4517QMN9ZRbbuKk/XA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="5B0ReqA/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.69
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011069.outbound.protection.outlook.com [40.93.194.69])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793953646;
+	b=Z2X/fK8MqexafGs6il90S2J+ZHrIFw/isHBUn1MSVpEmMw8AGmn5XFNE6p35+jWhejFp
+	 5w8nbIrcORMy6XpE5qR+9FELUrTPa+8O3sA1FDMh4Mq8lhM6vVvSuokOiIndmdPq5lAu3
+	 PPGTDAJ/nSWGaBMXE3kMjvHx6JbEqrENBhdDbSepsd3L6spewLkTx89KVQdJL81xYcvaV
+	 qsSszX7KxDAaLK8QQa7lzm/KuhVoxAkoQSCFbDpqubaUQSaIwVhYKTjYJsJVq2zk6YTmi
+	 eWFaCY0+lOHEVyoVK5pqTayCh/AWU6ZXLm8xqZyEjpaKRBYXY1SZxcT5MAHHp+HUY9w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953646;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Fi22M5AWeWKIqAQK7fYG+4+YJmJtfLKtzwXj1Fjk21E=;
+	b=QQ8FeY7BQqiCy8IEnSrstuz5jt9v8i5FeH8vuyovmKivyh8ZJTvbeAQMVpPe9DymLbUn
+	 TjZhBF0CQPhmFhLJa3zzJ1DcnKiFaubH1R+ICm43skkwEMTEEvFQv53ETN2VyvmsnLacY
+	 TlJ8R/ER9D+lTIQoj93dLQwsavkctcdyh+r7EDHIJ6I4kf7egUEs92pnI+tYvpq7+NMct
+	 NDlUb63/VTmxLps+4dXJEEIrpflhqM4Kxb3n3lyLrHuVte+Pw9POgIzYbI4DaQ4vPK+YO
+	 vMYrQ3lp0sclUkgQNqDiCTs0rjnR4VR4+BdiNcLY1Xwy3v40H3bwcb5DEgQlhi8Bb/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="VAzK8f/P";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cMyszcda;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605E9606A33E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:27:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 605E9606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06166606D807
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:27:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06166606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5B0ReqA/
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UUi17mWIGufAv693Z2b1q/2ub1onkKB+OkCZgOve6XLLxFUytoZgYSED9nZ2SW1bwiN4ZOQ8lqt+e6/Qn2So7lJ6WNW1sh3lZk2cqvT1b+7Gw6iK+YDS6stopovDcywHUShVtecDsrQnQHhaijyrsUBiSqsu0LKC4GA6agkG2eayPE7dFbS3Jd4+lX3a0Oqn2gHZ1QjQMtzAxKOZxYOnFpVfNC7S2AeCNvOcOGWv4WuS1QPEWfJF6QCrM57/k5FJRepCVc7ukiJWXyvNjVwrufGXzn03mmv90FowRqzSCrmbRILJuOhFedIjDEupW843FEDnh9sZWt//UW77gB1Ckg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WTplfK3CeLU4amsy6yd4ZzKwUbptVYSg85LuEM2OtXE=;
- b=dnbr1JgGz4ajLq8hDQEjXkEJB4gpEDaLy4/VCODaOyo4orALis3pJmRjA5vMFpuyY4I39b/VSNk2/m9hdy9gYsErNo6NiSJ2yFVkwARTkhRyn/X0zOcRo3tgr06SvM0YlfK/dCOCnN/uW2DW8QUfR0LuWR1PV49tYB/fxIlYDTxoUKkQqxtXHI+KebwpJpMAd+LMdXP7aeZaTOxNKXkLsLWncuiKAGvE6gryJQ1K8zSJBIFQmCW9GOq94qOoHnyu68aZQls6vrcqC3YVqdJwzLGiS+6XwZVSDW1yDPcxSbJDXhPqWGZXa1jdycJ/aosRbMKpn6XsdPuu0MtXzZGeSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WTplfK3CeLU4amsy6yd4ZzKwUbptVYSg85LuEM2OtXE=;
- b=5B0ReqA/6QWXDzIaCGQjC0qMEcDoRUobhfK4EykL3TSZGbliUqpA4RjRdTnKKb4Jea8uWEBBcZvE3WhupWR/hyMRDIYSPHll8xmH5CokjjnXtIzOCXJ0weMFgDbyHjrEyvtf2nAJ4hHvAmPQF89VHL/ayTYKRetAsI+HFW18mfg=
-Received: from MW4PR04CA0321.namprd04.prod.outlook.com (2603:10b6:303:82::26)
- by DM4PR12MB6422.namprd12.prod.outlook.com (2603:10b6:8:b9::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 08:26:57 +0000
-Received: from CO1PEPF0001885D.namprd02.prod.outlook.com
- (2603:10b6:303:82:cafe::45) by MW4PR04CA0321.outlook.office365.com
- (2603:10b6:303:82::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 08:26:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF0001885D.mail.protection.outlook.com (10.167.249.246) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 08:26:55 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 02:26:50 -0600
-From: Honglei Huang <honghuan@amd.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Akihiko Odaki
-	<odaki@rsg.ci.i.u-tokyo.ac.jp>, David Airlie <airlied@redhat.com>, "Gerd
- Hoffmann" <kraxel@redhat.com>
-CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
-	<olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
-Subject: [RFC PATCH v10 4/4] drm/virtio: wire blob ioctl creation to userptr objects
-Date: Fri, 6 Nov 2026 16:26:25 +0800
-Message-ID: <20261106082625.812860-5-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106082625.812860-1-honghuan@amd.com>
-References: <20261106082625.812860-1-honghuan@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VAzK8f/P;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cMyszcda
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RJpJ1679473
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 08:27:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Fi22M5AWeWKIqAQK7fYG+4+YJmJtfLKtzwX
+	j1Fjk21E=; b=VAzK8f/PU6/PwE6Sv5E6eILvFl//DgpBsZ43k45z4PJsbk3U49m
+	Pp5H/fqHTAFEahXIRqhtpm97p6IjB5YyJDyAH2I1HviPoNpRfqRDlllZ3Vunc063
+	aoMCJzqpUsdsIMjAHgYEwbNTfAUFOpAK1G27JjbGcsNmok+mj9QXJSTfJ9zaDxKw
+	j164fGMhDakTJ5NvgMwhk2ojwklk+DwRoB4Yy/yWVdhcBEUtUfCbdPVMbl0CbAMh
+	QgDZ/5tYLYQ9SQn5xw4prsVB/SVlarEsknG+cTyAlha1Kgbgukb3lEop24ztdnyO
+	sK3i3aKz6yGaPhFd/t6qKD7HiwsZqYjd2ZA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pc9upf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:27:25 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso689728a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:27:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793953644; x=1794558444; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Fi22M5AWeWKIqAQK7fYG+4+YJmJtfLKtzwXj1Fjk21E=;
+        b=cMyszcdavbObhSkmu5xcIPuPPkjDQtdpPRwcJ+NORHttlTxWazR+tOFYn9ejafFRxq
+         A7b2d4jKGkXrWzfzjOT1fBDGGRW7PhIq2XLCrVDlB7wmeSPqAVMrDQQT57Sfe8g8egNJ
+         sAILYGMROKwcLzIwMpjMVgCiET8z/SJVS4MjbziVLWVPx/3jH75QpafrOK+5WfTJbKaY
+         AKFWrNgbFUDe5WvExhzAQZ21FHfyiB+IVPaASNfUdRl1W7nWWcUbNhlwjxL4TAq0ff4P
+         0QvhcTwvh/VDY3zgWYWXS0RCo6vNzJOFfNqhcz0TQ0byv1LG53sGIQeu40mW9Hg0WXiH
+         jqYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793953644; x=1794558444;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fi22M5AWeWKIqAQK7fYG+4+YJmJtfLKtzwXj1Fjk21E=;
+        b=PBz1LJZLAKnQQYHrx7nA0O6vo8HHpJFJJpYvG5cBw5b1kCMymoA0nNB8Nd1vXis6/6
+         OK7yxkXWYmOZMBHBKtWc9EeVUps27jUKlOxTd6pgJTup/fuCHZ9WrR528GF/SQUmU7Sd
+         ev/wy80gl8V5pSn/5MM18xS9oR62EppT99QzyWKfDKFtuEptDYR+y/0U06NZno1Af7xQ
+         lIuxWnUNaoqWL5Tv8prgsYuHCyYZqGe1JmknojqYYIoSrroBldo6mjujNZQRok8khq2+
+         y0E9S7bxym5pu6Q9s4upNZn37/OlmAuTU+5mUZHJttaSJgTlcVcm9NEKnMdXx2NWU3Lp
+         32yw==
+X-Forwarded-Encrypted: i=1; AL+hErGRUqjegj4mnr1i1j6SBqmFxMkmbQh2FbF3nUsyY2vurmke6CDgKrUJseM0pvlCv0lVgLCKqVws/lYTTcw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xp0isYlDxRbfHUGDXqC4hxjEy9qw7FI/kFrz8nUDQY1yMgZQ8
+	7pr4A6VF/5oshYqUpwhpwnvcNP1TtSvxuJincpPOk5s7tkUnRhMBgMh8w9Rm2uBSTsa2o+U3aqI
+	iKFD4gEGSjCQvdPU77eO2jp/K+ZZMZifhPTr6d2oA/ID3ax9XdsR8vL95zkSX4qjeQOI=
+X-Gm-Gg: AYBFou14SZfOK9bqDRCbqOQCH2fW0ngOS2HJ2BDIjy5XEwd3yK+u6CQFTX5s/0nHNz5
+	OYadWyviISCZUS+OstNKKjfh9js+Gw35B282NBEzF+zDJgvY53o9HZ+c6Rki2hLIcJsp4XgRA9b
+	4kxyWhMzX9xuNhQKZTFOT9TkjAnuHNuDt+YCcuXdObhc/vhrTzaiiFAks9ZaWWaXuocR6ui8Ev7
+	E4WvfSIpIZpoE14pby3zvpqwLAss/uWdoQtM7tTH7YKQ6d/rq9XiHUD0BEojJdFdivWXloLgNAl
+	L8Z0IE56pQsPLU2mDCkuI19akJNflGFR7bW13Qyo3hA7YlxDPB/2L6YQQDCIUOz6/EHQeJPgaVS
+	2RosSJGbmhSeAeGi3diOMdcM8d+oolGQvPQFIvGjvudrQZq0OqJ3Czi9r86VRxoZinBrQUxCJWg
+	6dTQ==
+X-Received: by 2002:a17:90b:5307:b0:3ab:24b2:9016 with SMTP id 98e67ed59e1d1-3b0db6c9e98mr1738382a91.25.1793953644456;
+        Fri, 06 Nov 2026 00:27:24 -0800 (PST)
+X-Received: by 2002:a17:90b:5307:b0:3ab:24b2:9016 with SMTP id 98e67ed59e1d1-3b0db6c9e98mr1738351a91.25.1793953643921;
+        Fri, 06 Nov 2026 00:27:23 -0800 (PST)
+Received: from hu-taparana-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42a72sm2433951a91.3.2026.11.06.00.27.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 00:27:23 -0800 (PST)
+From: Tapas Rana <tapas.rana@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Esteban Urrutia <esteuwu@proton.me>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Ronak Raheja <ronak.raheja@oss.qualcomm.com>,
+        Faisal Hassan <faisal.hassan@oss.qualcomm.com>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        prashanth.k@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Tapas Rana <tapas.rana@oss.qualcomm.com>
+Subject: [PATCH 0/3] phy: qcom: carry live SS-link state without growing enum phy_mode
+Date: Fri,  6 Nov 2026 13:57:13 +0530
+Message-ID: <20261106082716.128968-1-tapas.rana@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,217 +132,91 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF0001885D:EE_|DM4PR12MB6422:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb8da829-1094-4b26-dfbe-08df3bdfb7ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|22082099003|18002099003|10067099003|11063799006|261102123227099003|261026121527099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261009221727099003|261009221227099003|261009223327099003|261009220027099003;
-X-Microsoft-Antispam-Message-Info:
-	VCzAoSYcl+3nFN/pvTJ079voS1+sIbMqaRMkJrjzeoFoVd/KGt/gUl3EIOnUbZs7uWICNzoag3p/lItjlvdeUd2/VTgo+vGE1AqgaPGIe0D19KTj5M7zJPWsMQsdoXJFoOfNiXnSn70hpqnHOknK1PCiXZeupqGA2oDZGCHg6BdmEdVxRmzDt3YptGQ2nOuDbW0rlreOEscqM24xIrXUBYunhFzzYMzUxNjVAWxBW0ScHn9YuUeZ8NgodeZduceLRfJ39fsgdezIgNaqc9uXSLWMCEDQ1qChYiyk4XMt311/dP+Z4oPFIq+1mymz4FvOSTBgc0jnzcUNEwSjQnAB7Wws+jk4VALjBD74/RyWaQzHCWeu+Xc6h9lGxmfa5C4k7b7zB1ieWJy5jc9vCxiPzrYk2EGUJi1wXAXOqa7oYxNaCGYFW6ZzXmT8mm89SvZ1qnqFdlw/cwiaFBn9kiD6ZnMjUpIZeTuoofwa//Qpyvnn0HffhlRHLAaEKtfbj/3epgCDmgpkG73ljSvO/kepvqBruOW4ygwi4TW0baB/SwSBYiw9Zo32R/M4Owt65j61Y18aB3TvtpBK3qu21CaAsvWrJ2gEOQeUzg9vGLv+QH7V9bTyDNrCdVjz9o3Uc+B5CSpqH2Yf9gKZ43v9NO7vdMKdM+o391cTAp4Sn3RlDFY1CiVpOIMPVRdpIYqmuPv5BAxStBabFioI223kzGdelg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(261102123227099003)(261026121527099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261009221727099003)(261009221227099003)(261009223327099003)(261009220027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kU94/cpjdrYQ1FRH5Ljdo8SiuljH2nvFZOUHUBiVfBMtyPUS6gWuhSprHROr13vOceg/vJhZFbdV/EyeF7eKgB1KrftPzz8vaKsREix9oNbzWk8HzS9gYgvBTQ/OGsPjY4dry/hhetZL1HzcWpOhZcy4wGnATfagWvn1H2UBDYdby6Ktk31Qv8Iak9Eq744zUe6ZvtzoHRusTmTKsh3wQnv8r5rcPB6qOAojurfeXSCk09lLrrfJJl9wfvIfmAPXHWkYIDmImcd7/jjLyx2/EzRqK/17gtY9OePoSTgfPRUn4OBZZseJSFj2SbfsCPvwh5OBvKQLv+IomRXTeTHM1EqmmThQ4d5VAXXI5bWx5iFeqCoTXGgOCQIOM/dFI+FtBZ4KdXR4pIo/ZCGyJNtBFH1nuJ2rdKMRBpABqleYvAOtRy2gtYnCZ0pWmxireV+B
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 08:26:55.3736
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb8da829-1094-4b26-dfbe-08df3bdfb7ab
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF0001885D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6422
+X-Proofpoint-ORIG-GUID: 7FqTbTOnAcvaa8889oDjoJCM4_GH79NW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMyBTYWx0ZWRfX7lnXfCm4OHXo
+ MZ6d4IX7myjuBQjPiGVEpsfhCNELoFHUkfdIjuRytawPgqgPYUxd7/XdWSp5vQ+guRN7ATn90R0
+ jOLLsJwL5ZAFnoETrIDW7bUB8jccGoZ9HJ5gfRu2aurZI1e6Y6BqjE4vz0PEd1029SQ4hLS+EJg
+ MJ3JJKbxDxOG8O8pXrAGBWkvtWUxLv4xcCfyTcSApJer1sZ4mdH9jdJzpVLgZtoDGsOkMmYmUu4
+ 5DN+YXgipr+Z9nT4beS0Ea1IM609T9MyxchGatBCBJ0fsCpoWOk13D+EXjHNAPByQnQXYvXvfAi
+ Wtdsz5PtDg9/g5wkf/dZqKb9kTb8JrNkPCAD5WdQwuuutRpI78lGuYWR3DIpESoY2r3vUo1GfTz
+ s90F344iKaKr/MnoOkhTNkmgDQEirgFdGNztRLjmPpUErCbMynSGP4QoaaF9XxF7c/HqmoH8Z8X
+ VKozQnGtKkOQVEvyFEA==
+X-Proofpoint-GUID: 7FqTbTOnAcvaa8889oDjoJCM4_GH79NW
+X-Authority-Analysis: v=2.4 cv=TI3Q2Fla c=1 sm=1 tr=0 ts=6aed8f6d cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=rQF6O0ERi8bj5yKtaRIA:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMyBTYWx0ZWRfX9KfRsJa3QGpF
+ jwFqlYseZptWKp1bU5AW2bYS2J1TKdOSGG7IEMv+MbwPJDhYfaeIVslO+pnpMZz28FcH7Us7IZP
+ ToPW744t4JxdO3+rKQltabdql4Yeh+U=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060033
 
-Integrate userptr into the blob resource creation ioctl.
+QMP PHY drivers always enable receiver detection (ARCVR_DTCT_EN) in
+autonomous mode, and additionally enable LFPS detection (ALFPS_DTCT_EN)
+when a SuperSpeed link is present; otherwise they fall back to
+receiver-detect event selection (ARCVR_DTCT_EVENT_SEL). This choice is
+made by comparing phy_mode against
+PHY_MODE_USB_HOST_SS/PHY_MODE_USB_DEVICE_SS. However, dwc3 core only
+calls phy_set_mode()/phy_set_mode_ext() with the base
+PHY_MODE_USB_HOST or PHY_MODE_USB_DEVICE, never the _SS/_HS/_FS/_LS
+submodes. As a result, the comparison is always false and the PHY
+always falls back to ARCVR_DTCT_EVENT_SEL, the legacy USB2
+receiver-detect path, regardless of actual link state.
 
-- A non-zero userptr selects virtio_gpu_userptr_create()
-- Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
-- Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
-  advertised VIRTIO_GPU_F_BLOB_READONLY
-- Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
-- Add VIRTIO_GPU_F_BLOB_READONLY to the driver's features[] array
+Add a dedicated qcom_usb_ss_state submode and carry it through the
+generic submode argument phy_set_mode_ext() already defines for this
+purpose, instead of adding more values to the already-overloaded
+phy_mode USB host/device submode list.
 
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
- drivers/gpu/drm/virtio/virtgpu_drv.c     |  1 +
- drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 49 +++++++++++++++++++-----
- drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 +++-
- 4 files changed, 47 insertions(+), 12 deletions(-)
+Patch 1 adds the shared enum qcom_usb_ss_state (UNKNOWN/PRESENT/
+ABSENT) as the submode contract. Patch 2 makes
+phy-qcom-qmp-combo.c switch on it instead of on phy_mode. Patch 3
+makes dwc3-qcom.c sample live SuperSpeed child-device presence at
+suspend entry and pass it down.
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-index 3a68a16b58..b8b9b40584 100644
---- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-@@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
- 			    vgdev->has_resource_assign_uuid);
- 
- 	virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
-+	virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
- 	virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
- 	virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
- 	virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 2aaa7cb080..f1edd20c37 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -182,6 +182,7 @@ static unsigned int features[] = {
- 	VIRTIO_GPU_F_RESOURCE_BLOB,
- 	VIRTIO_GPU_F_CONTEXT_INIT,
- 	VIRTIO_GPU_F_BLOB_ALIGNMENT,
-+	VIRTIO_GPU_F_BLOB_READONLY,
- };
- 
- #ifdef CONFIG_PM_SLEEP
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 3d8e4ccdb7..e57750588d 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -36,7 +36,10 @@
- 
- #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
- 				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
--				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
-+				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
-+				    VIRTGPU_BLOB_FLAG_USE_READONLY)
-+
-+#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
- 
- /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
- static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
-@@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
- 			return -ENOENT;
- 		value = vgdev->blob_alignment;
- 		break;
-+	case VIRTGPU_PARAM_USERPTR:
-+		value = 1;
-+		break;
-+	case VIRTGPU_PARAM_BLOB_READONLY:
-+		value = vgdev->has_blob_readonly ? 1 : 0;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 	if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
- 		return -EINVAL;
- 
-+	if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
-+		return -EINVAL;
-+
- 	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
- 		if (!vgdev->has_resource_assign_uuid)
- 			return -EINVAL;
- 	}
- 
-+	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
-+		if (!vgdev->has_blob_readonly)
-+			return -EINVAL;
-+	}
-+
-+	if (rc_blob->userptr &&
-+	    rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
-+		return -EINVAL;
-+
- 	switch (rc_blob->blob_mem) {
- 	case VIRTGPU_BLOB_MEM_GUEST:
- 		*guest_blob = true;
-@@ -495,10 +516,15 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 	params->blob = true;
- 	params->blob_flags = rc_blob->blob_flags;
- 	params->blob_hints = rc_blob->blob_hints;
-+	params->userptr = rc_blob->userptr;
- 
--	if (vgdev->has_blob_alignment &&
--	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
--		return -EINVAL;
-+	if (vgdev->has_blob_alignment) {
-+		if (!IS_ALIGNED(params->size, vgdev->blob_alignment))
-+			return -EINVAL;
-+
-+		if (!IS_ALIGNED(params->userptr, vgdev->blob_alignment))
-+			return -EINVAL;
-+	}
- 
- 	return 0;
- }
-@@ -518,9 +544,10 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
- 	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
- 	struct drm_virtgpu_resource_create_blob *rc_blob = data;
- 
--	if (verify_blob(vgdev, vfpriv, &params, rc_blob,
--			&guest_blob, &host3d_blob))
--		return -EINVAL;
-+	ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
-+			  &guest_blob, &host3d_blob);
-+	if (ret)
-+		return ret;
- 
- 	if (vgdev->has_virgl_3d)
- 		virtio_gpu_create_context(dev, file);
-@@ -538,7 +565,9 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
- 				      vfpriv->ctx_id, NULL, NULL);
- 	}
- 
--	if (guest_blob)
-+	if (guest_blob && params.userptr)
-+		ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
-+	else if (guest_blob)
- 		ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
- 	else if (!guest_blob && host3d_blob)
- 		ret = virtio_gpu_vram_create(vgdev, &params, &bo);
-@@ -557,14 +586,14 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
- 	if (params.blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
- 		ret = virtio_gpu_resource_assign_uuid(vgdev, bo);
- 		if (ret) {
--			drm_gem_object_release(obj);
-+			drm_gem_object_put(obj);
- 			return ret;
- 		}
- 	}
- 
- 	ret = drm_gem_handle_create(file, obj, &handle);
- 	if (ret) {
--		drm_gem_object_release(obj);
-+		drm_gem_object_put(obj);
- 		return ret;
- 	}
- 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 1d4d3bf46a..06c2bded49 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 		vgdev->blob_alignment = blob_alignment;
- 	}
- 
-+	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
-+		vgdev->has_blob_readonly = true;
-+
- 	DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
- 		 vgdev->has_virgl_3d    ? '+' : '-',
- 		 vgdev->has_edid        ? '+' : '-',
- 		 vgdev->has_resource_blob ? '+' : '-',
- 		 vgdev->has_host_visible ? '+' : '-');
- 
--	DRM_INFO("features: %ccontext_init %cblob_alignment\n",
-+	DRM_INFO("features: %ccontext_init %cblob_alignment %cblob_readonly\n",
- 		 vgdev->has_context_init ? '+' : '-',
--		 vgdev->has_blob_alignment ? '+' : '-');
-+		 vgdev->has_blob_alignment ? '+' : '-',
-+		 vgdev->has_blob_readonly ? '+' : '-');
- 
- 	ret = virtio_gpu_find_vqs(vgdev);
- 	if (ret) {
+The contract is intentionally generic so phy-qcom-qmp-usb.c can adopt
+it the same way for the gadget-side case in a follow-up series,
+without a second mechanism.
+
+Tested on an x1e80100 CRD. On a host port with a SuperSpeed hub
+attached, suspended the system and then connected a SuperSpeed USB
+pendrive to the hub; confirmed ALFPS_DTCT_EN is set instead of the
+legacy ARCVR_DTCT_EVENT_SEL mask. Repeated the same sequence on the
+USB-OTG capable port with the same result. As a cross-check, repeated
+both suspend scenarios with a High-Speed-only pendrive attached, and
+again with nothing attached, and confirmed the PHY falls back to
+ARCVR_DTCT_EVENT_SEL in both cases, as expected when no SuperSpeed
+device is present.
+
+This series spans both the generic PHY framework tree and the USB/DWC3
+tree: patch 1 adds a new header, patch 2 depends on patch 1 and touches
+drivers/phy/qualcomm/, patch 3 depends on patches 1-2 and touches
+drivers/usb/dwc3/. All three should be merged in order and ideally
+through the same tree (or with an immutable branch) to avoid a window
+where dwc3-qcom.c references a submode phy-qcom-qmp-combo.c doesn't
+yet switch on. ARM/QUALCOMM MAILING LIST (linux-arm-msm@vger.kernel.org)
+is Cc'd on all three patches since it covers both directories.
+
+Tapas Rana (3):
+  phy: qcom-qmp-usb-ss: add shared SS-link-state submode contract
+  phy: qcom: qmp-combo: Select LFPS detect only when SS link is
+    confirmed present
+  usb: dwc3: qcom: pass live SS-link state into PHY at suspend entry
+
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 27 +++++++++++++++--
+ drivers/usb/dwc3/dwc3-qcom.c              | 36 ++++++++++++++++++++++-
+ include/linux/phy/phy-qcom-qmp-usb-ss.h   | 17 +++++++++++
+ 3 files changed, 76 insertions(+), 4 deletions(-)
+ create mode 100644 include/linux/phy/phy-qcom-qmp-usb-ss.h
+
 -- 
-2.34.1
+2.43.0
 
