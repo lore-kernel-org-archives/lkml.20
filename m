@@ -1,56 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977617;
-	b=Y/UC9Xzyug02scilTNtMhGDA/2mpgbLtLDqLjM5ZqBRvqX/1Ss3LJJPE7HKkqogCosGw
-	 YHmKGOl76YrdKoqk2zDPyFlpgPKpQTwfPU/o3tyFPCieADSNsUtAoolxCw+m5c83zZ3L+
-	 x1G5hVcWskCqloPiO9FoZnIkCOQNAWjVn1Ey87qMz0tRzTsJXFMxCsiLZW80D8vKtqJ7/
-	 oqcwCObR+L/PQJmpkHy226hyJ/9kFeq8EqnzanW0TSXi4jpxXrStRt1bcAqeBfCyfzsi9
-	 mWSg8Y3gtF6jT5aeN62fxiqDqdE6dK9qeEUlo+YEpl1qXq/wY3tYX6XgZRO+U5S4EXw==
+	t=1793977700;
+	b=APesC9uD/rH6Ttxq38E9nuch5AbQpnGRCv8kqOY+D9PNSGCc4KskCPHhl9MUvNUTWvP7
+	 wjaQsZFxXMXEdRBFD2g+5aB1/mdxxFbOwP/M/gEU+luBcaVxnurZYn2s3FPNem5cnasLn
+	 F45TbNMBgEIp9a+mzkUQ+tPHm3oiHKRuRm9KQ9WAQhtPlp5COcozj3nPuACDRytpu32l2
+	 BPn6xcRlTgeAb34FEYBLjCiGgeuEqRukNJpA2aTEWwLjW+CvfM9SObO9qthCcpUqXBOQX
+	 3r8JSxAxqW24KqbIgxHopotOriVF4yDsfno/hhI923zPZvyr3IhJ3R7N6vU6FZiz5Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977617;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=gqJdpxgraavV9cayMwotUN97OO7P7jUb+2s38dDaeHo=;
-	b=33eMxmeW6/Guszm/7g4kxeiYd49H1vIP91d068658HvekUQbclzjxSJYEDUDgjkQX2z5
-	 3NfIvqMx535uZ8DhIrw7NHSYqu4DE1AATshUizfbTqmj5YLPCYrw3mjYHxE7yzK9yBRLH
-	 r3ZOXEQeyETwVPZGhmm8Y2n2w3lvHDZ5MloId8vuKg0FP5KsrNovwFcKwPBNtFNDLKWva
-	 OyuhdoARXmqF/WfmUn6O+AQvLPwc/ADsz7MUNvT0gTO7fiSj/mfeb89QSeKwsL+ptCeTH
-	 WUu3SGWOiqcN82XbxqlWuDh0YsKoVvj82WwQJe2L087AlojQSAAMRiM8pAhTXw/ENTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977700;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:MIME-Version:Content-Type;
+	bh=3vp3q6lh6TXy5on50j0jpxtnhhR94Zm7KWhjqrQdFt4=;
+	b=nk7ehtViDyu+SP134ix/vYXrJq8yeCX3Snfd+IetlCHHVSK2x8fTvFd6lcXZ7eC7Bzio
+	 8aSr1kr4z+Bd3dsOWdtvpGUepQKy6DOl2tYd2osLzljqPGtG2VWqf2XYtGCKolO9ayz5Y
+	 +913ABGIgMBq4aa5x/0VV9qa/yJROvr9ZO7T7tXP5flG+Y/bq1G2iX3icrlJexwIBOsoo
+	 DvDtYwaLm93z7iD7xDcHolRhlqjIE/grsCRs204xBiVwIi3a3MH5UeCdx89x3fMQTkDB4
+	 FSalQ1Ah37Dy41YvFhrXbBLJZO3NYZRQKBwL64Q0KIVZgMBihr8gmbl/Ors1eeVtotA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cp1OsbjF;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=n8ufY3cU;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC864606A32C;
-	Fri,  6 Nov 2026 15:06:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC864606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <71aa432f71144f446dba2037ab5664eea3569fdc.camel@crapouillou.net>
-Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display
- controller
-From: Paul Cercueil <paul@crapouillou.net>
-To: Olivier Louvignes <olivier@mgcrea.io>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong
- <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>, Thomas
- Petazzoni	 <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
- 	devicetree@vger.kernel.org, linux-mips@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 06 Nov 2026 16:06:50 +0100
-In-Reply-To: <20261106143827.15926-1-olivier@mgcrea.io>
-References: <20261106112000.1612-4-olivier@mgcrea.io>
-	 <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
-	 <20261106143827.15926-1-olivier@mgcrea.io>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E635606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:08:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E635606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cp1OsbjF;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=n8ufY3cU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793977699;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3vp3q6lh6TXy5on50j0jpxtnhhR94Zm7KWhjqrQdFt4=;
+	b=cp1OsbjF5nUm2XXzP1Yrf4p/Ht/ftqiop6GvjOOGl4yOTchounjZA1+Rgm1j0xnqwivPaA
+	IRrczrSqU8P+SLIck1uIBD6HU/o5ZMVnHnN/VzAArz7//Cea7c4osHlz4tgEp2MaRYTTaz
+	pYQUGp8oTtbLl96k7BNtzVNRP4P/A+E=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-134-K7EuHIDLOju5bM5F7WImBw-1; Fri, 06 Nov 2026 10:08:16 -0500
+X-MC-Unique: K7EuHIDLOju5bM5F7WImBw-1
+X-Mimecast-MFC-AGG-ID: K7EuHIDLOju5bM5F7WImBw_1793977695
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4901562b819so820429f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:08:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793977695; x=1794582495; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3vp3q6lh6TXy5on50j0jpxtnhhR94Zm7KWhjqrQdFt4=;
+        b=n8ufY3cUDQpD7iDSD/RVDVONRIeOFwi+FYM3c1hK0KpkX4vEqP+n+CQtLi0HrO8Uy+
+         ExULCAO83DS5QHtcRbad0LKvA/aAYXJkTlle8q4Ha+edNGnGe18RO3Eib6enV3HJPa2B
+         jYa8MinYllp86cd9UAkd2puBur2iawLy5sALNx4+FZ7ydvfdOPnqxUTuI5Y6UhAlAb8L
+         o8BspxKHKg25nsfWhOky96W7AOZ3QtMoNHhwqc4m/frALtGncQVmM77m7Cvekwbcbage
+         /FP0whc9i0Y+jmmkE8csrHxI/0w/EyHpFvSpRaCbBHQ1miqph1pUki19D0vLWW7w9jD0
+         1uhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793977695; x=1794582495;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3vp3q6lh6TXy5on50j0jpxtnhhR94Zm7KWhjqrQdFt4=;
+        b=hlkZ9IToSDq2kya8aG/tvASPJiV1hSHYnUS7CSDXn0Foy4azX3v7TbZldVlqw0J3t/
+         TuYupnuJhYr/LO1cXL0w9hOyVmJI3aNCYKOpLEYMXQKODiRhUu+gUQkPBBqs/SsUGM27
+         DNjz0+q+N5ZpN8ek9s+yNj21Xe6VKo7FsfLR5SOIDuwNgesWHgxDvR+kkumPlbAXfN/F
+         8OdOIxuLf456XmXpJ+fsDESz2+Q4+Otd4KkmveiGxjW4KUNgCZRx3IDFBKZuGzVg0xEr
+         J2en2hIk2pJ8bV4dkuuSNTKGZyzsZ0AVYGpaE46bpNgIBOYEfe5WHtiQzp6xmHN0WnpN
+         yRIQ==
+X-Forwarded-Encrypted: i=1; AL+hErHj/N/vsWHMsXdTpv/r44ild9Xu5+dK+LhMeYIJDK3mcoRG9v76h6Z1C0gX95pyF8YIF9B8zcHOObcIEAo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GurJWzWxnY1jGNp4zcl4yR4r5LyLEe2nIXfRx8ig1zW/zSWnu
+	bj7FC7ZpKmBa7ROK7x05g2eyTtxBd2wN4DrgenO1IlGT+mx2sVEOsvlzDvJG4o+WAYw5K7DgTK+
+	UlK6ivIbJVsO30SR3v2RFFvhb8jIXZ8GnVhi0dV8j922Fv7sCo91ZtAP4wlwG5EmutQ==
+X-Gm-Gg: AYBFou1SbfQyjoRgP8o6q4Le9eWK7SeQ/EqHxOUltVqAbz3t2VUiOU8VMeTEarUS+Ae
+	vP5JIeJy91ISD/0AkclO5EnhA7qZXNEpN3ZzS20WCqb1u4Nb/mpSeHMQpXQjJeAkkLEgHpqrR86
+	YH5vb9YW1QjKj6wmVjiXpItR1oCFP4BqLPGc60k5SxLF8qcXw3JnN5mH+45hWuDAE0TKkuAb1O0
+	ScGnLsgmT99LAm7xpHKw3JaOqombK3du7dqWgWGqcEIO5478R6mO8yIqOBlDnTzI2Vc6D00/EFP
+	2PqcwrgDtYs3a7eogBY8nVj6pOB+j6dsmNnJRW9LW/GOXkLsGi3ocpMqJXZqvA9IqyzhBVg0XAw
+	b81J47Fz0Sszb8O/eya5wZQ1mdK5QYRnRrG8xk1uLTx5PXWKx/e9ybGBJm7h7mcg4OIy56lHrks
+	+Rlb79ZWWwi5ViJT8=
+X-Received: by 2002:a05:6000:1788:b0:48e:752b:9f90 with SMTP id ffacd0b85a97d-492772197c5mr5796946f8f.38.1793977695560;
+        Fri, 06 Nov 2026 07:08:15 -0800 (PST)
+X-Received: by 2002:a05:6000:1788:b0:48e:752b:9f90 with SMTP id ffacd0b85a97d-492772197c5mr5796888f8f.38.1793977695161;
+        Fri, 06 Nov 2026 07:08:15 -0800 (PST)
+Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb (g3.ign.cz. [91.219.240.17])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723320csm3831907f8f.26.2026.11.06.07.08.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 07:08:14 -0800 (PST)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Manuel Andreas
+ <manuel.andreas@tum.de>
+Subject: Re: [PATCH v2 0/2] KVM: nVMX: eVMCS consistency check fixes
+In-Reply-To: <20261105190733.3741959-1-seanjc@google.com>
+References: <20261105190733.3741959-1-seanjc@google.com>
+Date: Fri, 06 Nov 2026 16:08:13 +0100
+Message-ID: <kuppkwihuaq.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,112 +116,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain
 
-Le vendredi 06 novembre 2026 =C3=A0 15:38 +0100, Olivier Louvignes a =C3=A9=
-crit=C2=A0:
-> Hi Paul,
->=20
-> On Fri, Nov 06, 2026 at 02:34:08PM +0100, Paul Cercueil wrote:
-> > > +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
-> >=20
-> > This bothers me a bit, shouldn't it be using 'crtc_state'?
->=20
-> Yes. v4 takes the mode from crtc_state.
->=20
-> > > +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
-> > > X1600_LCD_CLR_ST);
-> >=20
-> > Not fond of the writel(readl()) nesting here.
->=20
-> OK, a local in v4, here and in probe.
->=20
-> > > +	writel(val, lcd->base + X1600_LCD_DISP_COM);
-> >=20
-> > This whole block above looks like out of place. Why not do it in
-> > x1600_lcd_encoder_atomic_mode_set()?
-> >=20
-> > Bonus point, you wouldn't need the 'bus_flags' and 'color_order' variab=
-les.
->=20
-> The controller only takes register writes while its clock runs, and the
-> clock is off when atomic_mode_set() is called: on a full modeset the
-> CRTC's atomic_disable() has stopped it, and atomic_enable() starts it
-> again afterwards. I checked it on the R1: with the clock gated (CLKGR0
-> bit 23), every register reads 0x80, and a write to TFT_HSYNC is lost,
-> the register still holds the old value once the clock is back.
->=20
-> So moving the block means starting the clock in atomic_mode_set() too,
-> or leaving it running while the CRTC is off. I'd rather keep the writes
-> in atomic_enable(), next to clk_prepare_enable(), and look the bus
-> format up in the new connector state there, so the two fields go
-> anyway. Would that work for you?
+Sean Christopherson <seanjc@google.com> writes:
 
-Is there really a point in enabling the clock on-demand? Why not keep it en=
-abled
-always? It makes the driver more complex and I don't see a real benefit.
+> Fix two benign-for-real-guests bugs where KVM incorrectly performs eVMCS
+> consistency checks on VMCS fields that are supposed to be ignored.
+>
+> v2: Properly guard the checks instead of simply deleting the WARN.
+>
+> v1: https://lore.kernel.org/all/f1f39118-2e1b-476b-9a84-ef7d56412bdc@tum.de
+>
 
->=20
-> > > +	if (pixels > X1600_LCD_MAX_PIXELS)
-> > > +		return MODE_MEM;
-> >=20
-> > The max resolution is 1280x720 so you should check mode->hdisplay / mod=
-e-
-> > > vdisplay individually. Otherwise bogus resolutions like 1920x480 woul=
-d be
-> > accepted.
->=20
-> Right for 1920x480, but 720 per side would refuse the R1's own panel,
-> which is 480x800 in portrait. The manual only says "frame size up to
-> 720p". v4 can bound each side by 1280 and keep the 1280x720 pixel count,
-> would that do?
+FWIW, makes sense to me so:
 
-Ok. Then I guess keep the current check.
+Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
 
-> > > +		spin_lock(&lcd->drm.event_lock);
-> >=20
-> > spin_lock() can sleep with CONFIG_PREEMPT_RT so it looks wrong in an IR=
-Q
-> > handler. I *think* you don't need to lock it here anyway, as the spinlo=
-ck is
-> > locked in other places using spin_lock_irq().
->=20
-> On PREEMPT_RT the handler doesn't run in hard IRQ context:
-> force_irqthreads() is always true there, and the IRQ is requested
-> without IRQF_NO_THREAD, so the handler runs in a thread, where a
-> spinlock_t is fine (Documentation/locking/locktypes.rst).
->=20
-> And it needs the lock: drm_crtc_send_vblank_event() wants the caller to
-> hold event_lock, and lcd->event is shared with queue_event() and
-> atomic_disable(). Their spin_lock_irq() only keeps the handler off the
-> CPU they run on. armada, omapdrm and malidp take event_lock the same way
-> in their handlers. So I'd keep it.
+> Sean Christopherson (2):
+>   KVM: nVMX: Do eVMCS consistency check on secondary controls iff
+>     they're enable
+>   KVM: nVMX: Do eVMCS consistency check on VMFUNC controls iff they're
+>     enable
+>
+>  arch/x86/kvm/vmx/hyperv.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+>
+>
+> base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
 
-Ok.
+-- 
+Vitaly
 
-> > You enable it later in the probe, so you could just use
-> > devm_clk_get_enabled()
-> > here.
->=20
-> Probe only enables it to stop what the boot loader left running, and
-> disables it again before drm_dev_register(). From then on atomic_enable()
-> and atomic_disable() gate it. devm_clk_get_enabled() would keep it
-> running for as long as the driver is bound, display off included.
-
-Yeah, I forgot that the devm action would cause a clk_disable_unprepare() t=
-o be
-called on unprobe, which wouldn't work here. So ignore that.
-
-As for the clock running for as long as the driver is bound, I don't think
-that's much of a problem.
-
-> > I saw a patch from Maxime replacing these - you should be calling
-> > drm_mode_config_create_initial_state(drm) here (and handle the error).
->=20
-> Will do, it's in drm-misc-next already.
->=20
-> I'll leave v3 a few more days for the drm-misc side before sending v4.
-
-Great.
-
-Cheers,
--Paul
