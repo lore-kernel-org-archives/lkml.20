@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985133;
-	b=Z6H0q5RjZjleWsrFtLraUKNu5bOES50neFNbOoyHEiGSLnsYinYp3cOcIzIGBWxlAgWH
-	 NjVx9ZohfeTCoT9IrO0Z5tXptkWLqQ6UziOFgkmNcPbQ9b7aUBrfj/0wXMSCTdgQuc3Mr
-	 4Nkqnk25Xh0oCSQMmz3krp0VWbTBgoo7ytmObkupA/jlsaN81EtPZNn5lovz/6wDM4ZWn
-	 Giwq/a3VAAUNr2dRQo+4WIKBmNO6LBYHBRODIgvcjIfZu5kwog4Paapy9olm7nV74fpzP
-	 A8bbpYvDfZKakmUVjBudwQMVRrK8+qqaagJr4+bQ0hBt8MH8THTbypXbEjpVvhIF7ow==
+	t=1793985208;
+	b=noeLtBcsUAd/LHe4Sg+RVoaD7py1AruF5q3xOonZyBBVZ0L+hyt0HweeOfevFjv1wz9B
+	 ZLDhk6O3cxpZoPXNyTIysO0vlX1c/tNHY1bj+xXatqppZozp3xFIYGRXkx13ohGd0puaF
+	 6lJZo66Dt1+Ooy56pk+5R1SAiNlLbVQ8doZ27NXsqo3Qxfm9kWQmn5XAyp9lov1TWJWB6
+	 s8tg8W2TwbPbqIQ8Z9OxlXipWUAIo/9zUun6ECXMhQuUKdQK+CCjJj3wF6tfPzq//L7Bc
+	 nQle4YlidrivUCzM4/0X6BGHjGiulnaAkX9yCPladLMtdQWDPVzAwLk76vKf2rCDI/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985133;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yw+fiJnGacYZip0Sy8vz5R4fiYZZxfSHrVr/u3AJtsg=;
-	b=1Hy9wrb3pcmQGxjAmvcPE5ulJr56rg33Am2M76miNP56M/b6HqKzWHVDFlaNb7Lj71cd
-	 8CBF1KbT2s7pdOyS8it9Kh0XiqBxwdi5goEw4Zo1viJj1/YrmjZrfxl1lu6dI/MNiy57Q
-	 cniywFIpOHgEfNgOzu6/4TCFH2BrRB+8DVIBSYJczvsUyQkD1tqnh7+vTMj28lO8bwle2
-	 u0UM3MC0b40N4MKud5a9eY6N6TgRmymSg0eMQibslbfM7N8QW6bxOeMKZiTh1iamOviol
-	 RYt3xJJLqzE8LkNvHwRyR1JRunm6d77SnqY2KiOodfAp5Re+A7HS02+qWZBpWnT0lVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985208;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bPnDFLjtsMX7BueMtx9r8dp1yZvMpehBGipGAVCydqs=;
+	b=XjpuAS7FD3iHWV10EgsIbswLe/cjWnL0P53uZ4nTf8LBN95M40ieIaI4vzZAFLaBThL5
+	 zAqJl/9iHWwXr73GsgZ6BQHJAQf8JERGoiaK16DVFeult3SkyRtk4xgaBcHCmgLKCnnss
+	 0vmlOBBnUHJUXE0oiWoKewZYi1zy7LzqLdth6ej/EKbRYYob0xCnduI67pCpqnPiKBZki
+	 U66rAd5LYLzJ6lcSeuvj1gKYd/yefmIoWlyzXkZpW5uwyLRjOeun+YmKsy49RktkA/qU5
+	 229UYIJ9IqOp35TOfjFke2RVCm3q9p3CMcQXu8+dCHTm9M1JRJCzvS0zkqN4yMlV6Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXZYGJ+9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkPI8UND;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F495606A326;
-	Fri,  6 Nov 2026 17:12:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA39606A326;
+	Fri,  6 Nov 2026 17:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXZYGJ+9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00EDD1F0089F;
-	Fri,  6 Nov 2026 17:12:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkPI8UND
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9038F1F0089F;
+	Fri,  6 Nov 2026 17:13:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985132;
-	bh=yw+fiJnGacYZip0Sy8vz5R4fiYZZxfSHrVr/u3AJtsg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MXZYGJ+9hZDzjTHk5gS409UcyjiXbtdAcctcAVsuxMbKKud7ZX74SVCglsnmLnC3+
-	 d9FWwycn9H4X1JX5q03xBf/WL4xEy9Bp+3E3VHRrPD4aNj6e2Jni7BD89MOBNO+AWZ
-	 ACiGWawy/gW1dTl3y5KQ5fQRjeNKhMVmvZODcBoiO5WB1gk1np4zqQJkmlk/HMWmm0
-	 3iyT6P5mcoOuK7Hpz+EJ7E2BZ+V5+brqLJVHV0JTgbIEbe6QflMFdMLwg7UJWZWs3j
-	 FfU8i6UShk63PKhDydd8dGKpMT8hGLGG3n06/pPFyJ91X8vgPB6cwrwVrOckKw4L+e
-	 8U4tSZLUFduQA==
-Date: Fri, 6 Nov 2026 17:12:08 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v8 1/2] regulator: dt-bindings: willsemi,wl2868c: add the
- WL2868C camera PMIC
-Message-ID: <20261106-lucrative-sadden-741ffe6c43e9@spud>
-References: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261106114252.988023-2-xiaqinghuan@mail.ustc.edu.cn>
+	s=k20260515; t=1793985207;
+	bh=bPnDFLjtsMX7BueMtx9r8dp1yZvMpehBGipGAVCydqs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TkPI8UNDklgLg24An0CwLzEX1nUXsMqpKIdUlZ239MrmVy4gbbxjw1PH5hwp9sw1E
+	 aH0VxuxlrEDr4hWf2TQbx17n1vTj2OJEMRY6PR1+BkDwoCEZz5S5UZof9HYnAu2MNv
+	 S0dDRX/8wnisoz3OjNlPaeZvVdq8GiepQUvEiBLk7bLZTw57XQT7cU8fvTiC8gs2/J
+	 3vLeQsabyMMIY7PapuwdmTJekLnHjMoAraVZfWD79iOgYmdQGckzf+Tbmszf4bngg8
+	 VwYakwG2MJpd7hgoJjPQdv7HzjdFJGtOY89OF7dZjE6riU1nsUGTe3Ud+CrZxHLyAn
+	 WeKRm4PWN3yHw==
+Message-ID: <82efa7f5-c5b4-4934-a72d-7399ce52496c@kernel.org>
+Date: Fri, 6 Nov 2026 11:13:23 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,194 +51,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="K6bwFbsNcc6jfS5d"
-Content-Disposition: inline
-In-Reply-To: <20261106114252.988023-2-xiaqinghuan@mail.ustc.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Use hibernate callbacks when shutting down the system
+Content-Language: en-US
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Len Brown <lenb@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Denis Benato <benato.denis96@gmail.com>,
+ AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ =?UTF-8?Q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-pm@vger.kernel.org, Eric Naim <dnaim@cachyos.org>,
+ Bartu Alev <bartualev@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Driver Core Devel <driver-core@vger.kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>
+References: <20261102-superm1-s4-at-s5-v1-0-313e0012dd39@kernel.org>
+ <CAJZ5v0i07G06GDGX76f3-ppumfNUFD0nTB-Wz8k4PS=Ra13CsA@mail.gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <CAJZ5v0i07G06GDGX76f3-ppumfNUFD0nTB-Wz8k4PS=Ra13CsA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---K6bwFbsNcc6jfS5d
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 11/6/26 10:57, Rafael J. Wysocki (Intel) wrote:
+> On Mon, Nov 2, 2026 at 2:54 PM Mario Limonciello <superm1@kernel.org> wrote:
+>>
+>> OEM systems that ship with Linux preloaded need to go through energy
+>> certifications that match regulatory bodies in the regions that they
+>> will ship.
+>>
+>> If any of those certifications don't pass then OEMs might not be able
+>> to ship systems preloaded in applicable regions.
+>>
+>> Multiple models of systems are reported to fail in Linux but pass
+>> for Windows on the exact same hardware.
+>>
+>> By looking at a breakdown of power consumption across devices the
+>> issue is that some devices aren't turned off when user puts the
+>> system into S5 (shutdown).
+>>
+>> A few years ago when I first root caused this I submitted patches
+>> to PCI core to change the PCI policy at shutdown [1].
+>>
+>> But through various iterations I've come up with a better approach.
+>> Instead of changing policy in each subsystem we can instead
+>> change our shutdown command to run hibernate callbacks for all hardware.
+>>
+>> In order to accomplish that the last 17 kernel cycles I've been slowly
+>> drippping changes into the hibernate code paths of all subsystems to make
+>> sure they behave as intended.
+>>
+>> Those are all merged as of kernel 7.4-rc1, and thus I am now ready to
+>> start using the hibernate codepath at shutdown. This series adds that
+>> support.
+>>
+>> I'm not naïve; there is definitely risk involved with this change as it
+>> will essentially affect anything running Linux that gets turned off.
+>>
+>> To that I will say that I have been running, rebasing and iterating this
+>> series on my personal development tree ever since December 2023.
+>> Various rolling distro community members have also been testing iterations
+>> of these patches in their hardware and distros.
+>>
+>> I've also put a few guard rails in place:
+>>
+>> 1. Don't mandate hibernate support. If not compiled with it, just use
+>>     previous shutdown paths.
+>> 2. If hibernate callback fail, emit a `pr_emerg()` message but fallback
+>>     to previous shutdown paths.
+>> 3. Offer a kernel command line option `shutdown=legacy` that any affected
+>>     user could use to roll back to previous behavior while we root cause
+>>     any issues.
+>>
+>> I did split out the kernel command line option to a second commit.  If we
+>> later decide that we want to keep this behavior but drop the rollback knob
+>> we can revert that commit.
+>>
+>> Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limonciello@amd.com/#t
+> 
+> I have a couple of concerns regarding this, after looking at the patches.
+> 
+> First off, dpm_suspend_start() seems to be called during shutdown
+> while user space is running.  That is risky because at least some
+> things in the power-off code path assume that user space has been
+> frozen.  I think that freezing tasks, along the lines of what system
+> suspend does, before running dpm_suspend_start(), is requisite or you
+> will get into trouble with people who run fuzzers across shutdown or
+> similar.
 
-On Fri, Nov 06, 2026 at 07:42:51PM +0800, Qianhui Xu wrote:
-> The WL2868C is an I2C-controlled camera power management IC from Will
-> Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
-> from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 sha=
-re
-> VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
-> 3.544 V. All outputs are programmable in 8 mV steps and are gated by
-> per-output enable bits with a chip-wide SYS_EN master. The chip also
-> exposes an optional active-low RST_N input.
->=20
-> VIN7 and VSYS are both inputs of the internal control logic, which is
-> powered from the higher of the two voltages, so a device tree has to
-> describe at least one of them. The remaining inputs only feed LDOs, so
-> they stay optional: an input can be left unconnected when the outputs it
-> feeds are unused on a given board.
->=20
-> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Hmm.  I'll see about adding that to this path, thanks.
 
-Rob#s feedback on v6 was ignored:
-https://lore.kernel.org/all/20261106141036.GA2921668-robh@kernel.org/
+> 
+> The other concern is that the "legacy" shutdown should be the default
+> or people will get confused.  Arguably, it is not even necessary to
+> try to change that in many cases.
+> 
+> Of course, this means that the new shutdown arrangement will not be
+> used to start with, so there needs to be a plan to migrate users to
+> this new order and I would start with the systems where it actually is
+> an improvement.
 
-pw-bot: changes-requested
+It's improved every system I've tried and measured; but the level of 
+improvement comes down to what hardware is contained.
 
-Thanks,
-Conor.
+The most demonstrable improvement comes from systems with dGPUs.
 
-> ---
->  .../bindings/regulator/willsemi,wl2868c.yaml  | 104 ++++++++++++++++++
->  MAINTAINERS                                   |   7 ++
->  2 files changed, 111 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,=
-wl2868c.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c=
-=2Eyaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-> new file mode 100644
-> index 0000000000..df7990d0d8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-> @@ -0,0 +1,104 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Will Semiconductor WL2868C camera power management IC
-> +
-> +maintainers:
-> +  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> +
-> +description:
-> +  The WL2868C is a camera power management IC with seven programmable LD=
-Os.
-> +  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3=
- and
-> +  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504=
- V to
-> +  3.544 V. All outputs are programmable in 8 mV steps.
-> +
-> +  VIN7 and VSYS feed the internal control logic, which is powered from t=
-he
-> +  higher of the two, so at least one of them has to be connected. The ot=
-her
-> +  inputs only feed LDOs, so an input may be left unconnected on a board
-> +  that does not use the outputs it feeds, which is why they are not
-> +  mandatory.
-> +
-> +properties:
-> +  compatible:
-> +    const: willsemi,wl2868c
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: Active-low RST_N input.
-> +
-> +  vin12-supply:
-> +    description: Input supply for LDO1 and LDO2.
-> +
-> +  vin34-supply:
-> +    description: Input supply for LDO3 and LDO4.
-> +
-> +  vin5-supply:
-> +    description: Input supply for LDO5.
-> +
-> +  vin6-supply:
-> +    description: Input supply for LDO6.
-> +
-> +  vin7-supply:
-> +    description:
-> +      Input supply for LDO7 and one of the two supplies of the internal
-> +      control logic.
-> +
-> +  vsys-supply:
-> +    description:
-> +      System supply, the other supply of the internal control logic. The
-> +      control logic is powered from the higher of VIN7 and VSYS.
-> +
-> +  regulators:
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    patternProperties:
-> +      "^ldo[1-7]$":
-> +        type: object
-> +        $ref: regulator.yaml#
-> +        unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - regulators
-> +
-> +anyOf:
-> +  - required:
-> +      - vin7-supply
-> +  - required:
-> +      - vsys-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        pmic@2f {
-> +            compatible =3D "willsemi,wl2868c";
-> +            reg =3D <0x2f>;
-> +            vsys-supply =3D <&vsys_reg>;
-> +
-> +            regulators {
-> +                ldo1 {
-> +                    regulator-max-microvolt =3D <1128000>;
-> +                    regulator-min-microvolt =3D <1128000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +    vsys_reg: regulator-vsys {
-> +        compatible =3D "regulator-fixed";
-> +        regulator-name =3D "vsys";
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fe23913b1e..08cfa3db0e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -30180,6 +30180,13 @@ L:	linux-input@vger.kernel.org
->  S:	Maintained
->  F:	drivers/hid/hid-wiimote*
-> =20
-> +WILLSEMI WL2868C CAMERA PMIC
-> +M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> +L:	linux-kernel@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-> +F:	drivers/regulator/wl2868c-regulator.c
-> +
->  WILOCITY WIL6210 WIRELESS DRIVER
->  L:	linux-wireless@vger.kernel.org
->  S:	Orphan
->=20
+> 
+> I would try to add the shutdown= option upfront in the first patch and
+> make it take one of two options, "classic" (the regular shutdown
+> callbacks) or "pm-aware" (hibernation callbacks etc) with the first
+> one being the default at least to start with.
+> 
 
---K6bwFbsNcc6jfS5d
-Content-Type: application/pgp-signature; name=signature.asc
+OK.
 
------BEGIN PGP SIGNATURE-----
+> Then, you can add a DMI quirk table or similar with a list of systems
+> where "pm-aware" works better than "classic" and expand its use going
+> forward.  My expectation would be that, at one point in time, the
+> majority of x86 platforms using ACPI would be better off with
+> "pm-aware" than with "classic", but I'm not sure that this point in
+> time is today.  Beyond that, it is really hard to say how cards will
+> fall.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4KaAAKCRB4tDGHoIJi
-0kbNAP47h6RwmupUnRM9xwGx1Lucs3meQvJTVY0/eCU7Vg0W9gEAwy3QyeC+rxAB
-Zy/7INF+1GiqpqZAlT+DoTNEmRpyBQg=
-=g8S0
------END PGP SIGNATURE-----
+How would you feel about a heuristic to turn it on for anything with > 1 
+GPU/accelerator for now?  I think that's the biggest bang for the buck 
+right now.
 
---K6bwFbsNcc6jfS5d--
+But deciding when/how to turn it on for more systems than that I think 
+is going to require a wider call for testing.
+
