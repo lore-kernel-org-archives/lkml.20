@@ -1,47 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968733;
-	b=R3W4jZ4JTSigIqDkneBtoiXdZc+QE8WE1KaDcrR5SKuqGVknKAEUJpeNMZwYGyaOvU0z
-	 xqM6MnPM5wuf2lW+oAfeOy4kBbKld9tR5D90T8ZHHYrZGC4i5Ef/ZB5op9TNX8B66+555
-	 bucMLl+qXCan9Mlff8KT9clnQAONmisNGIB4GbnQjILtbWEw5lCujX10ZyGWs0C1KC0qt
-	 MEHPCmBgXYNN8xtAamd2lB830DhOMYi3PtQfjniHehadSSIA0SsDbPeA450NOkkAoecXf
-	 BbQYxZQLciAW/iU9ejBlG2W3nJ6i7wMSBLfmgMe0jZ3zq0jT6eVYIVaX0T3oDKJbtgQ==
+	t=1793968755;
+	b=hoJtJjEh/ZpQwRT9UxX/V1KMaS2f68yJ0VIo+Ykot3gvTpR75vxysg29lGenBmzLHju/
+	 fyD6sInBkWTq94KGOTXKYI1NwRwe9JddTbtJkL1hAdGwukJNewzOZOuA44NEHntgIJUII
+	 RDBCQAGdz9bJ4u5BTduJOuWv8zQ1bzf2CxxNa88jr/+34MwkuXE8QOlI7iwORyjgZkW1H
+	 9t4SpicyehhsefIo0YXwVWinyWayal4q9kIlTKkRWzXczZOlfQObvo2kV29/lPfHhAdvH
+	 VhFmJ7SoVYs2EdzuhAR5gUAxCfvTraT9HkfQZUlfd4s+5eYOQQ2wBqD06LLK8mE5eHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968733;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sLdUC4Dy0rzYN6SNOPoi87adYyDpl146R+DLmZmqN5k=;
-	b=IVQcnEtv+6eBpi6jY1OobgTM1+PE8Tc0Kx6bE4OENelxKUm9VlqpT/WcKRBG+z7upWBO
-	 ycKQ4Kk1Dmv0bnUxz8rPqauH0v2IzA8RTxFk9KPIu8LCcGsZb0aqXDi8nqwn/5XqDk29r
-	 sfaMFsCLR7Wp9lD0z584nHr9py0PLdMlMijNlwXz4SX8GDzWOTndUkYhofhR1/odegdF8
-	 IPoReDeEoSALkkqBjwJ24439e2CZ0QOH+OTpan1qFW2sufa7GhiC17psbziZtXKhrjww3
-	 DGM3SczYwvmLK1eaJLWZ8iuFCPecaRlEQFVAeALE6bSZUiJOtXjk+5e0IoxkmBaZ6Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968755;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Jv9BjT5rPlXMxhVAAGgckLW4HJ6LS8pG25jymZiZcwI=;
+	b=c8MJh4EMckhNXrPIYVfnpazE8fSn0kW+w2+c/HCy6W0jb5l6J10DmRMdF5W2PcuJ9E0B
+	 HlqfEmffu//hSPOLSUm8HcH23OIbP3VghDDOjozLG2RwDO35bV9FwKqLOZqcue7ic6spr
+	 ny112cXiHJ27LZBfj8yvqwWk/GdHhdvagPkIxt+JmVU8vIrV2SxhkoQRH7xiWMSq5hM8n
+	 oKnAQOjpBMsBRQVJON5r1HMWxcqjrc2Ph9MfA3M2Q6+xjMH64SHzImW1iXtE9c6CjT57c
+	 E4Fb7R+FEVRJoFOzDNehcgUVKaodVJbfdY2kxxX4/amlm/YvJkWZFegsV+wLvjBTruA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUZRTMii;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="DftmM/pW";
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B071606D802
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:38:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398D2606A32F;
+	Fri,  6 Nov 2026 12:39:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 398D2606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUZRTMii
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95ABF1F0089F;
-	Fri,  6 Nov 2026 12:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968733;
-	bh=sLdUC4Dy0rzYN6SNOPoi87adYyDpl146R+DLmZmqN5k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kUZRTMiiYfuTSKX1UiKtrxAx8J7ITGdv0i/nEpv1JHzH6XuLBzRZ2oI6n9fgytLqi
-	 wejIghDottL4e2EFMBAcTNwRosFRy2YnOFiaCgUOMJ2Bq6PPHFuElG5HMsjh3rxfpl
-	 7lL4v4AuLXxbb5lujDWInFq2T1SWeQLsnrIUGTfN8r6OVki941A+WzyWflcppAY2LW
-	 uJvJ8HgoFKbYE4BWF1ud6nS6XFo0lnA3f+qrguCXbCSBbr+pTB3ohqDTa5CadmVJJ9
-	 ygVrBsz+nJtjtXo6xG7ZOgrcnvzVBcby11/plPVs9RZjs439vedhKgalK3fJMAcMF5
-	 tiSRAKXr1wnPQ==
-Message-ID: <1904cd51-66d5-4305-864c-57219b69bca2@kernel.org>
-Date: Fri, 6 Nov 2026 13:38:42 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DftmM/pW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793968755; x=1825504755;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Zw9yNBbukFlVCZOIwf6Jb11Yr7CgjJugTt9KNNA9rho=;
+  b=DftmM/pWRspGc5AFlaI86i05ifLtcG3oGL1sYP1uECYKlLaij6yQeacc
+   iVSQSEGgBsaOJ16vT038l4XwBijC2gNhZ3/eN5qHkuAysxX8THlwqy8MT
+   CMz6rL7h/1xNgXp6elwinszuEYlyqwlRB8g3llFKBki/tDXr8PSCBOG5E
+   xbwgIf+UjWeFFbb+n8GFNS8X3FWZ2dKn7G7U99BXn6fyD+dtRGsFNSIdc
+   1fNVATWVTQlWtzHvMrmPEM/JCIlmqvuoL1SIcsa0wyultvEij2YAzyh5C
+   szyS0smZwGnkV5cOuqYrvtjGG6wmuB5I6DZ7xYN8lEm9Msz7X/WGJE4DC
+   Q==;
+X-CSE-ConnectionGUID: u7P2C88OTMiTs0fA5ZNKWg==
+X-CSE-MsgGUID: aAKYylXTQlan/gAvlJXP0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2665628"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2665628"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 04:39:02 -0800
+X-CSE-ConnectionGUID: vrGw8kM4Q6C9VMbHsjSiOQ==
+X-CSE-MsgGUID: swvuZCQpQ4O2yeFbowREag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7599727"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 06 Nov 2026 04:39:00 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id CF60C99; Fri, 06 Nov 2026 13:38:58 +0100 (CET)
+Date: Fri, 6 Nov 2026 13:38:58 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: fusb302: Drop unacknowledged
+ Get_Source_Cap_Extended
+Message-ID: <au3KYk13lFTjhltb@black.igk.intel.com>
+References: <20261102-fusb302-getsourcecap-v1-1-26b5bfea4b2b@flipper.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,96 +82,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kdump: Give crashkernel CMA areas unique names
-To: Mikhail Zaslonko <zaslonko@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- Jiri Bohac <jbohac@suse.cz>, Usama Arif <usama.arif@linux.dev>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, kexec@lists.infradead.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-fusb302-getsourcecap-v1-1-26b5bfea4b2b@flipper.net>
 
-On 11/6/26 11:43, Mikhail Zaslonko wrote:
-> reserve_crashkernel_cma() names every CMA area it reserves
-> "crashkernel". If the requested size can't be reserved in one piece,
-> it falls back to several smaller areas, all with the same name.
-> With CONFIG_CMA_SYSFS, cma_sysfs_init() then fails to create the second
-> directory:
+On Mon, Nov 02, 2026 at 05:09:05PM +0400, Alexey Charkov wrote:
+> The chip mistakes Get_Source_Cap_Extended for a GoodCRC, as it apparently
+> decodes only the low four bits of the message type. As a result, it sends
+> no GoodCRC for it, but still queues it in the RX FIFO. The partner never
+> sees the message as delivered due to no GoodCRC, so it retries and then
+> sends a Soft_Reset. When FUSB302 receives the Soft_Reset, it finally
+> raises its interrupt, at which point TCPM sees Get_Source_Cap_Extended in
+> the RX FIFO instead of the Soft_Reset it just received, and answers it
+> Not_Supported, which is not a valid reply to Soft_Reset, so the partner
+> escalates to a hard reset instead of getting a chance to gracefully handle
+> a lost Get_Source_Cap_Extended.
 > 
->   sysfs: cannot create duplicate filename '/kernel/mm/cma/crashkernel'
+> Discard Get_Source_Cap_Extended, which FUSB302 can never properly receive
+> due to its inability to automatically GoodCRC it, and answering it from
+> the host within the protocol specified 250us window without so much as an
+> interrupt cannot be made to work.
 > 
-> and the error path removes the sysfs entries of all CMA areas.
+> This way the TCPM view of the PD exchange at least matches what the
+> partner saw on the wire. This lets the TCPM complete a PD negotiation over
+> the FUSB302 with e.g. an Apple Studio Display, which otherwise always ends
+> in hard resets.
 > 
-> With CONFIG_CMA_DEBUGFS, debugfs refuses the duplicate directories as
-> well:
-> 
->   debugfs: 'crashkernel' already exists in 'cma'
-> 
-> so only the first area shows up in debugfs.
-> 
-> Keep the name of the first area and add the index to the others:
-> crashkernel, crashkernel1, crashkernel2, ...
-> 
-> Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
-> Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
 > ---
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+>  drivers/usb/typec/tcpm/fusb302.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
+> index 3319f6a2b0c9..96dc48250d6a 100644
+> --- a/drivers/usb/typec/tcpm/fusb302.c
+> +++ b/drivers/usb/typec/tcpm/fusb302.c
+> @@ -1463,6 +1463,19 @@ static int fusb302_pd_read_message(struct fusb302_chip *chip,
+>  	fusb302_log(chip, "PD message header: %x", msg->header);
+>  	fusb302_log(chip, "PD message len: %d", len);
+>  
+> +	/*
+> +	 * The chip only decodes the low four bits of the message type, so it
+> +	 * mistakes Get_Source_Cap_Extended (17) for a GoodCRC (1): it neither
+> +	 * acknowledges it nor raises GCRCSENT, yet still queues it in the RX
+> +	 * FIFO. Without a GoodCRC the partner never considers it delivered and
+> +	 * will retry and then soft reset, so it must not be answered.
+> +	 */
+> +	if ((!len) &&
+> +	    (pd_header_type_le(msg->header) == PD_CTRL_GET_SOURCE_CAP_EXT)) {
+> +		fusb302_log(chip, "dropping unacknowledged PD message");
+> +		return ret;
+> +	}
+> +
+>  	/*
+>  	 * Check if we've read off a GoodCRC message. If so then indicate to
+>  	 * TCPM that the previous transmission has completed. Otherwise we pass
+> 
+> ---
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> change-id: 20261102-fusb302-getsourcecap-01c38dccb230
+> 
+> Best regards,
+> --  
+> Alexey Charkov <alchark@flipper.net>
 
 -- 
-Cheers,
-
-David
+heikki
