@@ -1,190 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793949861;
-	b=DUz7Uy6jtSI/FwmVClxP386KEn8+iTUtuKgsvjKA+5jq8451meYM2OKm/mkFSxQXOkv7
-	 oyzOINZ+3rpA3mHkFmIYrJ6wl/tz3vZOIc8HfbWc2LWwnaKtSjFOagn9R98TuYnm/lbGR
-	 v6VxG1jByslz61ZxcoYSxxAPq8JnAs7gxuC/ajYtZUSuEp80c1Hws9G31XVeBQ84gPubo
-	 qaH7ltn91PdIBlbi3uGluy8pXqcLdTWBGptGf+okFzgorzGhtNXXkIHLsUcay1HRSURVu
-	 RSooh3k16qIFiFlonHM0ASoPwYpnZrnGEjLjED2gyW+JDyjgjYI+kY6jZYJ6V1wsZeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949861;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=GsVvaNwS7N3QwUXv4BYYZVODcIwLAWZzT0RIF5lLU2A=;
-	b=OPs7HHYCYp8ZiPJ1+fg19B+wWxm4Ek5BXPuuuh3b80ZZWHyVRyNLR2GTAMVSimN0U6Zm
-	 1vILD39eyordtmv1VYUrE100nSNRX2FAnez7Ui6ecsAs2/LOI5Si+O0WDQf9e7WRw+wpP
-	 RWkmtl/nbUwGYEqqKJ2wNVhA3qyUMj6GUci5hxbDEUu6qrlVXbgzzhwZvcD4WOUcJ0lxg
-	 cfP6gt2kUQd7mmrjmBlqjEnDJVG4n9WuV/RyAhUa0NOmCElLuB3r+ydf4q1qN6y+k8xHe
-	 1F9wv0D5R3VxAurKu/6XECuOgwRbc8ToBLiGPqJDVuprqPMV6HZIAJvKkzJnux9UAMw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eKKymtkN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793949859;
+	b=okzS6syw+X8XjyB+TOOcGbZNj0cJQ6bfM2m9KTOKbLOaNOtR0aTs03WMvtOoYK5hQztS
+	 GnsOo0UAHBe5UsJ96jsY/aFpleajSNmFqTmkxcUDGJvTFysMwxkLie+papCABEeSP5LOg
+	 7qOuV7GRvVTSiwgT293Of2+AJ7L8Iz9HaDDb1gmeNxg66I3hcou7LlUrURTB6xH0+ZSzx
+	 BTbfAUXAc8S6U4wHjz7oRdUMcCZnlYoLD6yMDbtLUxV9yTh2m2ZZLU8+MbvwbaV1VNpV+
+	 q4VMZomJYV7fIxfuUeOEYDSVWipw0s4NdY7+Q2+Ei+7p1WzUM/G9h6SjbyOFDZQ7F2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949859;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2o9B9YhK3smzCObX+gQHTUgf7FfettUJfDQIQUIuKAI=;
+	b=qw/R/lqrD+Vr30IthKaXLgv1tbxK0xxW8B++D5yW7QEKTb6ZbWc7F5cN5RbeA7SVX950
+	 oVgVyf6zDwOD+G47W2kvU3Lq8kAZOjBh/qYd7hGYYP8AkAjRU1d4EcsxxBHEbS029aQ9O
+	 5SgmeMQccm0BBVH6L3of4CyhD2SW2Hs7NFiNqDibqC6aiO33rsbBXC2Cneh4k2lzlNiGC
+	 OlpaBLsHdm+ra6FIFCrdg2TFjYtAzZ7Pg/kEid8fBAWyb5QyK59JMNJDHnTZDV/4A5/l4
+	 jU5jADAqou6V8SijkF/GLUtzGaYf2VsyQP3CzrnsLCzdG8U206TJ4D0VXNjHcsHvlOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WXztraq+;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C69F606A333;
-	Fri,  6 Nov 2026 07:24:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C69F606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F9E606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:24:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49F9E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eKKymtkN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793949861; x=1825485861;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=TauPnZSbcKKGxHh8ctAMNqEqmW6jwhiFx3Q6MbbsISc=;
-  b=eKKymtkN7eIYRL0qDfTusfY1ILpSUxz25eaBAJZOqp5wP+EgZJyA6WxN
-   T8TAnTEaa2ISJL4/UEuYNbpcjMnaeLZeJ+Qwpq2TfEjHXrx3B6oAWNnyU
-   w0lzoifjRM1CK3KZJ1IPhZ3JSktan4Y3Ka4qAdrrQnIWfoJQd12KsKV6G
-   05lMiy8sWyOSDG69r6fqNYdSdcW5puhCzBi8F2VgU0xtB6z6wjuTIWeCR
-   aCC/YZsyiyuN0HMPZqIp5udl0v5j4Yxr9t6Ehq09tbs1jj5nasSpoGll8
-   p/zCnc312XiIBU9pHdF3TB/FfXfQ1fJsNERGAICQkxyMnSvmzwX5dHskg
-   w==;
-X-CSE-ConnectionGUID: cA89Fm1ZTOaBDAJ1+uGvXg==
-X-CSE-MsgGUID: vUqNl8naSdWaq35LrlMwPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2636065"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2636065"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:24:20 -0800
-X-CSE-ConnectionGUID: fB4HC0WiSDSjSo/OZ5y6lQ==
-X-CSE-MsgGUID: 5Xj08iasRNSpCF88HoFJUw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7253734"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:24:19 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 23:24:19 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 23:24:19 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.9) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 23:24:18 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h1PCZGa24M4L52PBhGj6fZQ2NuTP8aNR9kCMxdA2JX2U99mDBkZPJI3SClx659M4MDvmIVvY+CsFsnN/VIN0klhup8BG+kagI+QXI2xUzFIpunyP/6GeNKVfkrQuudMjWXw/VkJwI/z2HXnZG/kdPvlbg0HKacpRo6HMPsLyg2OjwWLo0llAzYHPfZFwidWiyYaU5nPbxR/hiHcrGp56bymIJOu6mCk5nj9sShEAoHea70Sy0Kcb5+6Z5qN1Rrgqq1o4BlaEYwA7MIVfRR+lhhW2eHx+vAGCkUa8qlJhotcNBazrjYB6Uf+8wFcf9xP9act4PkfDhu8kTZXFagpxfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GsVvaNwS7N3QwUXv4BYYZVODcIwLAWZzT0RIF5lLU2A=;
- b=IhHq3gDebAQLR3LkDLAjsbryI2SDuv6nwXWB5OZY8HJkmb8BhSMnaEJmLNC0Z/bLXLqCisxubER5TLbXvEi994HBoPFCoJkbrW1sCc1OjJm83zwdDBbXz8Iu/wwaoHL6FKf4eTg22C7/P7jQRpoF15n9j6DLJJ/0fgCERwYyh+BrVI6QZ153X9jlb4ZzKkjb7blhbmz/MacuPC4BeURAjUK6FbKMnizzSZTeqa5IQMAyL4vJ4yxlna92bvXCM8PGu+ljwUnjh7j5flGk3gWMGHw3yB2ZncrpCar//vJHwoiNUqVu6hdm7YqZ5s3jVUsdL+173/c6iNBpe2Whl9qIcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SA2PR11MB4844.namprd11.prod.outlook.com (2603:10b6:806:f9::6)
- by CH3PR11MB359463.namprd11.prod.outlook.com (2603:10b6:610:347::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 07:24:10 +0000
-Received: from SA2PR11MB4844.namprd11.prod.outlook.com
- ([fe80::61e5:7b38:b8a4:1abb]) by SA2PR11MB4844.namprd11.prod.outlook.com
- ([fe80::61e5:7b38:b8a4:1abb%7]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 07:24:10 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
-CC: Alex Williamson <alex@shazbot.org>, Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>, Jonathan Cameron
-	<jic23@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Krishna Reddy
-	<vdumpa@nvidia.com>, Lukas Wunner <lukas@wunner.de>, Nicolin Chen
-	<nicolinc@nvidia.com>, Robin Murphy <robin.murphy@arm.com>, Samuel Ortiz
-	<sameo@rivosinc.com>, Shameer Kolothum
-	<shameerali.kolothum.thodi@huawei.com>, Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, Suzuki K Poulose
-	<suzuki.poulose@arm.com>, Thierry Reding <thierry.reding@kernel.org>, "Vasant
- Hegde" <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>, Xu Yilun
-	<yilun.xu@linux.intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>
-Subject: RE: [PATCH v8 08/15] iommufd: Add a vDEVICE operation ioctl framework
-Thread-Topic: [PATCH v8 08/15] iommufd: Add a vDEVICE operation ioctl
- framework
-Thread-Index: AQHdbHgfT+Dhvps6X0q+VQdBJAhigbcgpQMQ
-Date: Fri, 6 Nov 2026 07:24:10 +0000
-Message-ID: <SA2PR11MB48448A47798E60C34BFCDF9E8C762@SA2PR11MB4844.namprd11.prod.outlook.com>
-References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
- <20261104161632.3547423-9-aneesh.kumar@kernel.org>
-In-Reply-To: <20261104161632.3547423-9-aneesh.kumar@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA2PR11MB4844:EE_|CH3PR11MB359463:EE_
-x-ms-office365-filtering-correlation-id: 79ac534c-0924-4579-3f92-08df3bd6f380
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|38070700021|11063799006|4143699003|56012099006|261009223027099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: wjTesfWGKXimNyTnxCeahnAYa1W5O9ekIqm80axFDFFjinSExG7uwkVcc8qfeV6BQXbCxX2RYmVDJ2Uc6K4xyZ48vVIbfxszVH5QI0FlXzAleJDw8CkL52RoPBJPLyX2/u10nFFbz/LDHYXT+JSGEoebqE4GNlw7qw0S2vHfP0xj/HwFEZuWrHYY3C9VHch9BchusoeCdVgovST27JesZELTpVmcpyowb5P6zM+stJoyFP8Cp6u70kQqvPaBk9B5l+JX4nWRK1Hvi4krSEjVuMdaJhfABNtw/AqBr4iyaWrDnX/zJFZvULJM/FRX8gbp+Sl9UxkxlBq/hTMTv/1egyNjIILyC0YmXtBkQrUT/hxzK3ve9mB0tZyuov/z3DO+h0uzctdRHugbYJmKy5o07aKyjhLE+exw9WEHbl6MuIoYisd5qrwp5V8zCnj4Ho9rAFIG3UWwhasmQf9JXmKaP2pAfi0/tMAVjEN1quJlu6GSYUF9lnP5/Farmajz8K7wuhF2qY9Ud/9Lh+iBOowa+7ylSQFlWnPNGiuWa10OQinVJSXl8vHNHhRQG3IvFd2NxC4C2LrL4HnTvpn5Qjjgd4wzNitvhuCorrl+n1d+7ENTZz4voICJYJnD3vX0CmVFqpVaSilrjV2UU4GHw+wPBth+Z1hhyKF4BqpLtXQHFhK6xB0aPAgijWH6pMDywNTqWWZ9mBzNBES0fPd/1+h1VlwZ0VZ0RXgCR163kVfJdLc=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR11MB4844.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(38070700021)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?l3JNG4E2XQBqi6BYby6ziJ9N8tuEFRGC960iM7pnFb4GSNVmmUVn1k6cVkrf?=
- =?us-ascii?Q?ScFMX5jNaPCTsS1LYWetg8g/Z8cdkbF/TlsCVgzidOX2pBr1XcnOfgMD0cmW?=
- =?us-ascii?Q?x9l7uPRbUWvPvXwQp9QvnL7fN7Xgbt4Z1G7S26/XvTndVpljBJAaK7DgO6Tv?=
- =?us-ascii?Q?njfBpIu4lGUhIduh7x3hCm/dTQcehA/N1DBI5GiNxcYWnUkGKQNQWu30I5oV?=
- =?us-ascii?Q?gi3B0mlIjqY97u5S/9TilH2lLwenH1zRyexkyFIwsI9d3Abp5LPT/3jJRJ+b?=
- =?us-ascii?Q?QLK91M4krHdo71cumXdTEXPE3YNTzQZBWJCe1SbiJyO2AeRFOWonbMGOHA5T?=
- =?us-ascii?Q?48cILDiAeqqaOQ0JctZRIiYyD9GpqYOE8RoA7F6wuOD3Xu56c+AynUk0Nlxc?=
- =?us-ascii?Q?b2qA9fpUJyRvh7l6/0Bu5u16AhyRCF4DBerlntR+//vPu13MAf5KFxZL8uwN?=
- =?us-ascii?Q?ht8h5pnG8MuEPcI0jFiVXtGsxLZ0+O+LKY0vsTn0f1Nz3xXYa1jEKOJ+dzBS?=
- =?us-ascii?Q?IcIecusOjwafNVtogaDJs1o3sctaYo7vkfHOspDgP4J8xOwPTPBIJj7XsR2G?=
- =?us-ascii?Q?XynsLRdgcP59SiTA14+ZX6PpoTigWU+y8WxWTNY8XWZXUwF9zGjS/0ssDXeT?=
- =?us-ascii?Q?LwkGx27jj7FDLe7SWVF9JukR7R3uWbZKfDyw5rqchVJ3kKYljfqmHxTXAjXl?=
- =?us-ascii?Q?9HKbbhi1Z0Tv1iAn8ads1i0HZTUWfUtA6VdrkJmJMfEbZhf+h7NlOHklbQaX?=
- =?us-ascii?Q?I2lUUPZ3GiHkQ+pWldTNaZgujSqZmqC99itYSpBee0Ys6zEuZVJK6bQP/n56?=
- =?us-ascii?Q?dPM0cRnRLmFCWAhJsX5JUkywubLoSgcIx7XYpf/gzdTB5ZhihqWJdDwQ1HYU?=
- =?us-ascii?Q?5NAYPjkZe2YQZYfWj5bkG5H6pnCvGwSAh7HWBfe9SJ4ldnqY9cjfzWbc+Sw1?=
- =?us-ascii?Q?16jg5FifFa9LwbWXDcNiZ4wKCDDT5iKE9sCvAwXgEMLvbeWP0W/VF3tOEvtY?=
- =?us-ascii?Q?4uaannfH0O7Ysdgb8N0nUVUk3R9TtTmsif7M1f3zEKEQm8YL9b9DTbDUWtNv?=
- =?us-ascii?Q?XnMPW0EfjRLlTX1ALcqerk/KJJbDYIbiQWrfX4eIUil5+Kpfoak9oBLG2+qG?=
- =?us-ascii?Q?W9WUVDFGCw5hSbZwyM6/pHFqA8H1ODCtWXA28o/9qzPS+Gv7njKqEIb+hBNe?=
- =?us-ascii?Q?otXfLAkoY4zKTEKeADkDudBe3W85/Vnp+D5HBDrk4O2+9N3NFRdxoJHQa8WC?=
- =?us-ascii?Q?bfrmkdtC74ihzaHFy+faV2OCa8wlP2katf02htPQvVQXRY8Upn1rSxNdQrhh?=
- =?us-ascii?Q?7O+xoiBAcjNjTgdmjOgW1Vkq2akp+pWOSHFHyWcxPE1N5oXY04/dHapsreni?=
- =?us-ascii?Q?2lWcSd38a5yyGAJktWLhlGtqcnXixu/wHQUBkKOKoAVdTnjd4M10DBQ5rMGS?=
- =?us-ascii?Q?wQoL3SJu2fGEGY+tNJh6NIS1A0r2jR38jUWSBhZqdq4dlSC8DTxTsoSlf2Fk?=
- =?us-ascii?Q?mUWIEsBP64irNsCyfag3Kwq4oX8q1OTb+xHSls43UET/cF2mkaeyDQLTP6cB?=
- =?us-ascii?Q?sKip3hOAzZCfW/rzxMGxQaRQVQeTcXBh6Rp5cKg/FTXzw5/vSVZqFr2xaJma?=
- =?us-ascii?Q?hdMskvfAkK0+tVdAa9ubGVRLKFCkueepBrBuOs+zPO/giT1S2pfifgJ3nZ2d?=
- =?us-ascii?Q?cEoC5pEU9orD2mYXOyQeUTNlK02unxg6o6dwhfUBGS3W4Ttv?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WXztraq+
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a2af4c8d00so881347c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:24:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793949858; x=1794554658; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2o9B9YhK3smzCObX+gQHTUgf7FfettUJfDQIQUIuKAI=;
+        b=WXztraq+XnZPMlh2bB/V7L8i2s3moysoEQbEucldlkjFSB8dQSgBow5w/u0I86r/1A
+         AtEePNIhDBFp7NLMCbmVLfOp4+cKTUEFR5Vc0dSGSHmtViAwaUUX3KhwwpUBzsTPWor6
+         iBsB+c43xuBXqZ/rbkR2BnqlahqTyY6Pp4k20Oo200HAamTxpp0c6WIwUBT0A8eTjHDb
+         wWt3J3rzKRGUPhz0IljJcnU3//20UsEXjkiZbo1xiDNNEPTKlCcpTV8jsDpwDc0a+e4i
+         w72x4i7lbF5HIrBD8HznDCmotSRoiVlKESs5qqGYkJaWqe0XO40OGDE05leVu9bhhg1U
+         h9sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793949858; x=1794554658;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2o9B9YhK3smzCObX+gQHTUgf7FfettUJfDQIQUIuKAI=;
+        b=e75swj/7CIDqCX1KzTmuXmyYX6rNDIstQSwmdFcavkOTV69sWoQAVhmFMDCiW2Pgog
+         PaVLJJpnRw+ii/UePQp1Z0YL5zrjEbfFmbXL7btxn0KB3URyXRq8GKUVfRdsEaGBZcJ0
+         cZg339whYPutMlBaHpTvh5NK54k0APfGpZ6LbT5jgtWk2F1X0RzcP9CTzHbGm+N8+yOv
+         d0TtUlwi9spZvoczMJ9zePnAWNgzARxZqTQUk9yDiX1HfYTZu2TgWKkSNvua/BzjVU/y
+         9Kyd2lvxiG+ybU4G49oWxnvJJOWc32ztqFPPTZ9dd2e/v0EpBsmUU5vDs4fa0N7s/dNj
+         H9KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzp7Qw2qJ0D120gVqE7ixPsvZhRRjaRMVuEvMXQTFzkmD0YlwYbdr3NT2pMR5IihyoVSYjXGqCsmeRRoUk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8zBOYrexvDRrnzZLOvcUp6wY/n9lIOxNEOM3tqYmyqmgqVKCpy
+	AjOnWSaI43ZYCEA11AVo1SCpLMekDZtYvxytF+VFhxq47mWY6xyLmvod
+X-Gm-Gg: AYBFou3VFkHy2I+Mj5qkk/K8pkmSuWQ6tpEvg3gvMPFfDg/+QID1KhmBHGjZfnPHkmt
+	jg3c635KAjdA2VliNcfgk6dgFam8VpPqtE02tSoC8HNDyN9+rlhl5QUT4im+bsjONc5RzDkez2+
+	/zWdDO/AUPrM/r/o/sReja28/sM8N8F+4zYDgHBSXvURjKsp3UozG+sb4IgM0nez7d/OTrCgbDX
+	K/IBow0krSuJpgZNXCD7uQjUSIqQD8rlLzIVBfAtZiT/OK53vpGQyg+SWKuDkW/YihdQu+S/uLr
+	O6CsCZfDLmLvpnmM1IwrCLBftPmnzWn3PTta64iTfWLNBhszFPv27CKoC3oO0Njlc/20qnS6Z5O
+	H/Ji0158WHi/dMrVsj/zzC2hKz7sm/uWAlOdwUeUe7HasuZowCq5fI00dY7tfJNEd4x4Ah1mF9N
+	eW6xYP+JQOuWjFp/LVsdpp6yaRTnSYnAJSaMJo3i/zHw9uARElCLROVydnTidUR3b9mHGDqQxiS
+	3kicOZUrGpEnoWsNDYupFgEjg82BRzU4/Pvi+WaptQCQLzIqsDi+qBJWSviEBCoGYblqm6Jn/2i
+	QozSSCNgMfzXpY9I70hvfQfDFYACHokxjVNIPTd8Ysbs+PjxN+FVXrQbsSPLab4=
+X-Received: by 2002:a05:701b:465e:b0:1b2:4e2e:d95a with SMTP id a92af1059eb24-1b25d2892b4mr1893983c88.2.1793949857890;
+        Thu, 05 Nov 2026 23:24:17 -0800 (PST)
+Received: from penguin.lxd ([12.187.136.98])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4840f3sm6262220c88.5.2026.11.05.23.24.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 23:24:17 -0800 (PST)
+From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+To: hannes@cmpxchg.org,
+	yosry@kernel.org,
+	nphamcs@gmail.com,
+	chengming.zhou@linux.dev,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	kanchanapsridhar2026@gmail.com,
+	linux-kernel@vger.kernel.org
+Cc: rientjes@google.com,
+	willy@infradead.org,
+	senozhatsky@chromium.org
+Subject: [PATCH v3 0/8] Batched zswap_store() framework with compression batching.
+Date: Thu,  5 Nov 2026 23:24:04 -0800
+Message-Id: <20261106072412.7909-1-kanchanapsridhar2026@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -194,46 +105,373 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: TcjZDbiM/JM4ffvCgIxowGw06s7bssNbWUgDBXOIrnBqW4XcQ9zPbCGbTAs49cT9Ba4MIQqVBZZnWz4Qp4+onyWPfY3j6XbM9wGmr7l1RjuD0NcCvCqlYG1Y8V5KDJOXNsKL7mNiQfjNcqPRDQtmAXisjDTxGVniYK3rFX6pLRHgOL3ox1bggaYL5L87TU5fGDWaaKYd+I2X7SQEncfZ61jKQeTn8v5qB2fOJ8n/tJqIIRZRF7vv4hHiHtc20HDrdMFrht7cadY46Zfh2r2R7hZlKJ1RVtZE+q/XRlCRrAzODJ8HJfjkyx8l9wU7lhUipwa9UBb9M3egmICEUn4r3w==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA2PR11MB4844.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79ac534c-0924-4579-3f92-08df3bd6f380
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 07:24:10.3844
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PcX+UiUSj5LSAiFHhi1fmBEwOCrbeJBgQTsqSLT/LHCS7cKzJwe2h+DnMPZPTvbB5wj1Ajxx+J1O5+wLFeCIfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB359463
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> Sent: Thursday, November 5, 2026 12:16 AM
->=20
-> @@ -11,6 +11,7 @@ iommufd-y :=3D \
->  	viommu.o
->=20
->  iommufd-$(CONFIG_IOMMUFD_NOIOMMU) +=3D hwpt_noiommu.o
-> +
->  iommufd-$(CONFIG_IOMMUFD_TEST) +=3D selftest.o
+v3: Batched zswap_store() framework with compression batching
+=============================================================
 
-unnecessary blank line
+This series is a spin-off of "v14: zswap compression batching with optimized
+iaa_crypto driver" [1], and focuses on the generic crypto_acomp and zswap
+compression batching enablers. Resuming work on this series following a gap
+since v14 (January 2026). Please note that my email address and affiliation have
+changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gmail.com. I
+have retained the original Intel sign-offs on prior patches for historical
+attribution while signing off v3 of this series with my current address.
 
-> @@ -453,6 +453,7 @@ union ucmd_buffer {
->  	struct iommu_veventq_alloc veventq;
->  	struct iommu_vfio_ioas vfio_ioas;
->  	struct iommu_viommu_alloc viommu;
-> +	struct iommu_vdevice_op vdevice_op;
+The main focus of v3 was to incorporate Sashiko's code review comments and
+gather results by disabling memory.high overage-driven stalls, based on Yosry's
+comment in [3]. The rest of the validation methodology remains the same: 
+2 usemem processes, PMD THP enabled in an experiment with 56% over-commit.
 
-in alphabetical order
+To summarize the main contribution of this patch series: Batching is introduced
+in zswap_store() of large folios: we carve out a large folio into batches of
+ZSWAP_MAX_BATCH_SIZE (4 pages) for software compressors, and store each
+batch. Moving the fundamental operations that need to be happen to store a page
+to now work at the granularity of a batch offers opportunities to optimize them
+from these perspectives:
 
-> @@ -516,6 +517,8 @@ static const struct iommufd_ioctl_op
-> iommufd_ioctl_ops[] =3D {
->  		 __reserved),
->  	IOCTL_OP(IOMMU_VIOMMU_ALLOC, iommufd_viommu_alloc_ioctl,
->  		 struct iommu_viommu_alloc, out_viommu_id),
-> +	IOCTL_OP(IOMMU_VDEVICE_OP, iommufd_vdevice_op_ioctl,
-> +		 struct iommu_vdevice_op, resp_uptr),
+1) Utilize existing kernel API that minimize obtaining locks for bulk
+   operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
 
-ditto
+2) We keep the working set for each of the core store functionalities
+   (alloc/initialize zswap entries, compress pages, store pages in zsmalloc,
+   pool/objcg reference increments, objcg charging) to be focused on a
+   batch, thereby minimizing cache evictions and benefiting from cache
+   locality.
+
+3) Along the lines of (1), the main zswap_compress() batching routine obtains
+   the comp_ctx mutex lock once per batch, and releases it after it has
+   processed all pages in that batch.
+
+4) Any zswap store functionality that works on a batch can potentially be
+   optimized via bulk-processing/parallelized as a next step, to further improve
+   performance.
+
+Performance data: usemem with 56% over-commit:
+==============================================
+Validation was done with mm-unstable as of 10-25-2026 (Baseline) and with this
+patch series. To minimize variation in the data and to help drive useful
+conclusions, I made these changes to my performance measurement methodology:
+
+1) Reduced the number of usemem processes to 2. Each process tries to allocate
+   2400M, in a 3G cgroup memory.high budget, effectively accomplishing a 56.25%
+   over-commit.
+
+2) Modified memcontrol.c/calculate_high_delay() to always return 0 to mirror the
+   "hack" noted by Yosry in [3] to minimize variation due to process throttling
+   when memory.high is breached.
+
+3) Enabled PMD THP, which forces zswap_store()/zswap_compress() latency to be in
+   the critical path, and also generates sufficient samples for reliable
+   bpftrace measurements.
+
+4) v3 does not report usemem throughput metrics, instead focuses solely on bpftrace
+   p50/p95/p99 latencies of zswap_store() and zswap_compress() to validate the
+   benefit of store batching and compress batching respectively.
+
+5) I used lhist() instead of hist() in bpftrace to gather latencies at a finer
+   level of granularity and accuracy.
+
+Testing was done on a Chromebook with a QEMU "vng" VM running in Crostini.
+    
+Chromebook Diagnostics reports:
+  Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+  RAM: 16GB
+
+vng setup:
+         Memory: 7G
+           Swap: 3G
+    Pinned CPUs: 2 (E-Cores: 2,3)
+
+zswap compressor:
+  ZSTD
+
+mTHP enabled:
+  2048kB (PMD THP)
+
+I used the help of an LLM to write the bpftrace data post-processing scripts
+that generate latency percentiles.
+
+vm-scalability/usemem setup:
+
+  cgroup memory.high: 3G
+  2 usemem processes, each allocates 2400M anonymous memory, reads the
+  Silesia dataset [2] from a pre-fork-allocated buffer into the 2400M,
+  writes to each unsigned long in the 2400M, sleeps for 10 sec, then
+  frees the memory and exits.
+
+    usemem -w --read-silesia -O -b 1 -s 10 -n 2 2400M
+
+ usemem metrics are reported from a single run after starting the QEMU VM.
+ Further, I have tabulated the bpftrace p50/p95/p99 latencies with these labels:
+
+ "zswap_store_higher_order_folio":
+    zswap_store() of PMD folios.
+
+ "zswap_store_order0_folio":
+    zswap_store() of order-0 folios.
+
+ "zswap_batch_compress_per_page":
+    zswap_compress() per-page latency of store batches generated from PMD
+    folios.
+
+ "zswap_single_compress_per_page":
+    zswap_compress() per-page latency of order-0 folios.
+
+ =============================================================================
+   usemem PMD THP BPFTRACE
+ =============================================================================
+           Baseline           zswap           zswap          Change    Change
+        mm-unstable           store        compress            with      with
+         10-25-2026        batching        batching        compress  compress
+                        (patch 6-7)       (patch 8)        batching  batching
+                                                               (ns)       %
+ =============================================================================
+  zswap_store_order0_folio (ns):
+ =============================================================================
+  p50        39,631          37,538          37,765          -1,866    -4.71% 
+  p95        53,088          49,690          49,349          -3,739    -7.04% 
+  p99        65,065          63,529          57,404          -7,661   -11.77%
+ =============================================================================
+  zswap_store_higher_order_folio (ns):
+ =============================================================================
+  p50    21,460,366      21,201,411      20,383,233      -1,077,133    -5.02%
+  p95    25,975,341      27,558,253      25,045,350        -929,991    -3.58%
+  p99    29,538,493      61,926,648      27,184,835      -2,353,658    -7.97%
+ =============================================================================
+  zswap_single_compress_per_page (ns):
+ =============================================================================
+  p50        37,545          39,320          37,218            -327    -0.87%
+  p95        51,549          66,503          51,481             -68    -0.13%
+  p99        89,866         134,854          87,091          -2,775    -3.09%
+ =============================================================================
+  zswap_batch_compress_per_page (ns):            
+ =============================================================================
+  p50                                        40,493           2,948     7.85%
+  p95                                        56,944           5,395    10.47%
+  p99                                        76,242         -13,624   -15.16%
+ =============================================================================
+
+ ==========================================================================
+  vmstat summary:
+ ==========================================================================
+  usemem                          Baseline           zswap           zswap
+  PMD THP                      mm-unstable           store        compress
+                                10-25-2026        batching        batching
+                                               (patch 6-7)       (patch 8)
+ ==========================================================================
+  zswpin                           989,367       1,050,081         949,046       
+  zswpout                        1,567,607       1,634,772       1,533,088       
+  2048kB-alloc                       2,500           2,504           2,500   
+  2048kB-zswpout                     1,557           1,552           1,539   
+  2048kB-swpout-fallback               793             834             743     
+  2048kB-swpout                          0               0               0
+  pswpin                                 0               0               0
+  pswpout                                0               0               0
+  zswpwb                                 0               0               0
+ ==========================================================================
+
+ ==========================================================================
+  zswap stats after workload finishes:
+ ==========================================================================
+  usemem                          Baseline           zswap           zswap
+  PMD THP                      mm-unstable           store        compress
+                                10-25-2026        batching        batching
+                                               (patch 6-7)       (patch 8)
+ ==========================================================================
+  pool_limit_hit                         0               0               0
+  written_back_pages                     0               0               0
+  reject_alloc_fail                      0               0               0
+  reject_kmemcache_fail                  0               0               0
+  reject_reclaim_fail                    0               0               0
+  reject_compress_fail                   0               0               0
+  reject_compress_poor                   0               0               0
+  decompress_fail                        0               0               0
+  stored_incompressible_pages            0               0               0
+  stored_pages                           0               0               0
+  pool_total_size                        0               0               0
+ ==========================================================================
+
+
+Conclusions based on the data:
+==============================
+
+ The batching of zswap_store() phases, and compress batching optimizations
+ benefit zswap_store() and zswap_compress_per_page() median and tail latencies
+ for PMD folios and base 4K folios. The benefits are attributable to the store
+ batching framework added in patches 6-7, that is fully utilized to improve
+ zswap_compress() latency by giving it a batch of pages to be compressed. As the
+ bpftrace data shows, patches 6-7 alone are not sufficient for the gains. Batch
+ compression added in patch 8 benefits latency significantly, for these reasons:
+
+  1) Per-CPU sg_table with ZSWAP_MAX_BATCH_SIZE scatterlists that are statically
+     mapped to compression dst buffers for that CPU, thereby minimizing local SG
+     lists initialization, and using compact new crypto_acomp API introduced in
+     patches 1-4 that set up an acomp_req's src/dst to be SG lists.
+
+  2) Patch 6 allocates ZSWAP_MAX_BATCH_SIZE destination buffers in the per-CPU
+     acomp_ctx, for an added memory overhead of ~12 KB per-CPU. The trade-off pays
+     off in significant latency improvements which can potentially be used to
+     drive higher memory over-commit.
+
+  3) A one-shot zswap_update_entries() does all the zsmalloc handle allocation
+     and copying for the batch. The key concept driving efficiency is that the
+     working set is kept focused on batch-centric data pertaining to a handful
+     of operations on the batch, to minimize cache evictions and benefit from
+     cache locality.
+
+  4) By making zswap_compress() more efficient, we are able to lock the comp
+     mutex per batch of ZSWAP_MAX_BATCH_SIZE (4) pages instead of per-page.
+     
+ The exceptions are p50/p95 batch compress latencies (normalized per-page), even
+ though the p99 batch compress latency improves significantly, by 15% over
+ mm-unstable. Batch compress latency can be optimized further in subsequent
+ patches. The batching framework established in this series allows us to make
+ locking and bulk-processing improvements in each stage of zswap_store(). One of
+ the ideas that shown very promising results is to replace zsmalloc with SLUB
+ compressed caches and will be submitted separately. This is expected to resolve
+ the p50 batch compress latency issue since it will be directly optimizing
+ zswap_update_entries(), where compressed buffers can be binned based on size
+ and bulk allocated from SLUB.
+ 
+ The speedup with zswap store batching of large folios has a propelling effect
+ on other parts of mm, especially, by enabling large folios to be swapped out
+ without splitting, as the data shows. This enables other mm components that are
+ optimized for large folios, such as munmap(), folio refcounts/mapcounts
+ updates, PTE invalidation upon freeing memory, zswap_invalidate(); which
+ benefit from xarray offsets/range continuity. As a result, subsequent large
+ folio swapouts are more likely to find contiguous swap slots, there are fewer
+ large folio splits during reclaim and the cycle continues. As the data
+ demonstrates, this directly contributes to more memory over-commit
+ opportunity.
+
+[1]: https://patchwork.kernel.org/project/linux-mm/cover/20260125033537.334628-1-kanchana.p.sridhar@intel.com/
+[2]: https://wanos.co/assets/silesia.tar
+[3]: https://lore.kernel.org/all/auOZBtRqQGzFcbAT@google.com/
+
+
+Changes since v2:
+=================
+
+Resolved v2 code review issues highlighted by Sashiko. Baseline mm-unstable as
+of 10-25-2026, commit a2abad0d7f45.
+
+1) Patch 3:
+  - Re-wrote the fast path conditional to be !acomp_is_async(tfm) instead of
+    !acomp_req_on_stack(req).
+  - Moved the state-flag changes from acomp_save_req() back to
+    acomp_virt_to_sg().
+
+2) Patch 4:
+  - Replaced the ambiguous use of "cra_flags & CRYPTO_ALG_TYPE_ACOMPRESS" with
+    directly checkinf for "cra_type == &crypto_acomp_type" to detect an
+    acomp_alg.
+
+3) Patch 5:
+  - Fixed the off-by-one bitfield width by modifying
+    ZSWAP_MAX_COMPR_LENGTH_SHIFT to 19U and the build time assertion check for
+    BUILD_BUG_ON(ZSWAP_MAX_COMPR_LENGTH_SHIFT <= PAGE_SHIFT)).
+
+4) Patch 6:
+  - Moved the "u8 compr_batch_size" to struct zswap_comp_ctx, which is
+    per-CPU to address the "unsynchronized write to pool->compr_batch_size on
+    CPU hotplug" issue Sashiko highlighted.
+
+5) Patch 7:
+  - The special casing for comp_ret=0 with dlen == PAGE_SIZE (among other
+    end-cases) when writeback is disabled, is replicated in the batched
+    version of zswap_compress() as well.
+
+6) Patch 8:
+  - Added obj_cgroup_charge_zswap_many() to correctly account for MEMCG_ZSWAP*
+    counters with bulk-charging total compressed bytes to zswap.
+  - Resolved zsmalloc() handles leak issue in case of compress batch failures
+    in zswap_update_entries().
+  - Deleted zswap_pool_get().
+
+
+Changes since v1:
+=================
+1) Rebased to mm-unstable as of 10-25-2026, commit a2abad0d7f45.
+
+2) Addressed Herbert's comments on checking for the req->unit_size being equal
+   to the req->slen to identify singleton acomp_reqs and to quickly
+   short-circuit with setting the dst SG list length instead of going through
+   the request chaining flow. Further, the most common code path is the very
+   first check, with the short-circuit, in crypto_acomp_compress().
+   
+3) Addressed Yosry's comments wrt:
+   - struct zswap_entry "length" field build-time assertion to have sufficient
+     bit-fields for the architecture's PAGE_SIZE.
+   - Use kmem_cache_alloc() instead of kmem_cache_alloc_node() in
+     zswap_entry_cache_alloc().
+
+4) Established a reliable and accurate performance validation methodology, based
+   on Yosry's comments.
+
+5) Refactored the sub-components of zswap_store_pages() where each routine
+   processes a batch. The new zswap_account_stores() gets refs, updates
+   statistics and charges cgroup for the batch, rather than for a page at a
+   time. zswap_store_pages() is more readable and maintainable. This batching
+   framework can be immediately useful for implementing more ideas such as SLUB
+   bulk allocation of compressed data, reclaiming a batch of folios from
+   shrink_folio_list(), etc.
+
+
+Changes since [1]:
+==================
+1) Better cacheline placement of struct zswap_pool and struct zswap_entry
+   members for temporal memory access efficiency in zswap store/load hot paths,
+   while minimizing holes.
+
+2) Refactored the core compression batching functionality to a separate
+   __zswap_compress() function, which is called by zswap_compress(), as per
+   Nhat's and Yosry's comments. Hopefully this helps explain the outer "store
+   batching" zswap_compress() vis-a-vis the inner "compress batching"
+   __zswap_compress() distinction.
+
+3) The acomp_ctx is locked once and is passed to the routine that compresses a
+   batch, per the algorithm's batch-size. Similarly, the folio's node id and
+   writeback_enabled status are computed once and passed to the routines that
+   implement the different store functionalities, to save latency by avoid
+   localized recomputes of information that doesn't change.
+
+4) Moved the folio node id being stored in zswap_entry to a separate patch, per
+   Yosry's comment.
+
+5) Addressed the kunmap_local() issue flagged by Jixin He in the
+   IS_ERR_VALUE(handle) error path
+   (https://patchwork.kernel.org/comment/27095925) - thanks!
+
+6) Moved comments inline, per Yosry's suggestions.
+
+
+Thanks,
+Kanchana
+
+
+Kanchana P. Sridhar (8):
+  crypto: acomp - Define a unit_size in struct acomp_req to enable
+    batching. mm: zswap: Set the unit size for zswap to PAGE_SIZE.
+  crypto: acomp - Add bit to indicate segmentation support.
+  crypto: acomp - Add trivial segmentation wrapper.
+  crypto: acomp - Add API to get a compression algorithm's batch-size.
+  mm: zswap: Store the folio's node id in the zswap_entry.
+  mm: zswap: Store large folios in batches.
+  mm: zswap: Refactor and optimize zswap_store_pages() batch operations.
+  mm: zswap: Batched zswap_compress() for storing large folios in
+    batches.
+
+ crypto/acompress.c                  |  48 +-
+ include/crypto/acompress.h          |  66 ++-
+ include/crypto/algapi.h             |   5 +
+ include/crypto/internal/acompress.h |  10 +-
+ include/linux/crypto.h              |   5 +-
+ include/linux/memcontrol.h          |   7 +
+ mm/memcontrol.c                     |  36 ++
+ mm/zswap.c                          | 671 +++++++++++++++++++++-------
+ 8 files changed, 673 insertions(+), 175 deletions(-)
+
+-- 
+2.39.5
 
