@@ -1,101 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793974288;
-	b=3U6wEFrUsam9As1N02SEYZBC3nj35vo66U5rLRSU8Q5MSQ7yoKC7OMaWUidHVa8hA/G+
-	 wh9KgJHCSes1LchGleAQ7iRIcdKJoR7QtWFXnXlMMeJjpse7kb9a6h4T5rEIiR+aHRfDW
-	 FV5cwTMGyk3+/SP2dU/ACovQHTjaPEAcepuNQbFvZpFjkAVz7hAkd5foIJYh2bcoR4NsW
-	 ejwNXCs3ulQ8q51HWZOHjcBuxeBOpbAYEXr25673dmcxyNshVAU+3cOop9IiqZIBqjYpj
-	 HdA5z9SUc8ieRIMZkQBsGLdOJcPBZGs9UZjZ+vWpajQsFt7rV/BxyqioU6HgeXJMmPA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974288;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rUBgknGD0vcmexz+RXVBFNFmvAB8yyeZ1WyDa2+Y5Qs=;
-	b=DAEJHv8qsmleJtBzVoMSCJpv527UoDyYfiRqFqZ1I7SN3tGG6D83M9RehSqgYP60en//
-	 X1Yrm6Wa5OIIRTu4y3TAonE96mLbHxB47lpnFuIkGGxiWzwdqhFiLaGWqk8uG+D1q0DJ5
-	 +gYwN3OPqUj9Q9bwbEL0Kq9S8jrku2AuAjcDAhefoW+KK4pJZriiWl51ZRvhXNzKBe5A9
-	 PePYO5yU5CbP/rXKszSKIwiWWVvhl/LVfS9KyunbW9N31bv8aeVl9PGR/33gjIt4Rysag
-	 bHufz2Msf3ZaE7oHJgPXW8hkrhnm3tPWZ4tenD9lhpFc/euuXIvjgAqSBydtoLD7Hug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wlF9vvx0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793974295;
+	b=qy2vLVYt2KkWoLb50Gb6ExYPvIklK6mDbjgFi/Zlz9aAlr9bUXtoGLz6tPyavJzH2WAw
+	 icyi+9y1CvbaZTm4GOV0bRpSw3Z7LlYwL7X/JYWzYJxwEi3HZ5pGUCbiJFF45iIQiK+Fk
+	 BtpplV+w73iFlTu5s3yxatE29ccL+OC5JsL8fCUaLFG2o/cgVkFHHgyLTyat2/ZV/GeKQ
+	 LlW6yrI4JgyIA+Xjl8XCSCAaQlyisoJtc3St9UF8r0Bq83CnG+Eo6rFBQ8vUPAm5yRfiy
+	 2XZBz2ItUlmsWUgpmPoxIW+VIzfEwspBzK88zIj/YwUdTCOE13mJZaoi6HLoZreAnCg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974295;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=BLPH8onp6C7AoW4lZMqXDExv0D9uGk4L9LfjO8m+oHo=;
+	b=F9eb6Ftw5C5DwPnXpWCmqZuEvgAB/JXvOvH9BkaZmozsSmXQUeKink/ZB4YfBDP8pbzi
+	 Vpcl5dCVsy+BzPPIyryXt32BAf/F6owhLKleTe2SdGWhW0tO573R2i3vahZmeRTdIYdmd
+	 lF3enq2BJIg4cpgeXW4WmfU8G/fmEeYCxnzL3cRH7cX4MWwEL3Qc9dHX9zq8u30eKnP2r
+	 Yw9wIpxYZHeas7aZWZWA4bWGYts037Eku/0CYjTY83JvX9H7DRT105kyT7FWMX0Srs1EB
+	 OaFL7WUrLAB+5zfAq8YPLd77HZWJE1ya2iUH1JnE6HRxBy9aUjZVjRkFLsf93Mdi/xA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g2ewZjrC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCDC606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CCDC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D96606A332;
+	Fri,  6 Nov 2026 14:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wlF9vvx0
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso96729366b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:11:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793974287; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Jo/+y5xdqkZwzBYwe2PLxw8lw+6NZR+A/0J/BTB34xWbGi1QChqFfowIO1prTWUimj
-         4wP7svSFh6I1eBMq6UFgvsyq306GSVNZHXtYzMss9F/Ydgfpy8NngfHxgGrfwCqNmVTG
-         sZZP5Dhbi+EpQePS8DGx/8GD30ug4aGutWdOGIVdLP1C3MAAOsMz66cjslQLJgCZFfIK
-         INXt1WwmCrHn22KyzRi0PelY6wLh+iT8LRRHEPCw2GAKva2UjrarYhxO+qTTiaOw6W94
-         8T1Yv6+R8QNF3Wpginq6ocu/blYFycnCdevZTSjnrOGH+udCf2Dbd5s4RxTmCEpGxojM
-         ZCOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rUBgknGD0vcmexz+RXVBFNFmvAB8yyeZ1WyDa2+Y5Qs=;
-        fh=tdBJ0DS/j+uwmPpoFbfh4HyKBS4+4QJ906DQTni0SzM=;
-        b=NByM08c/HxYskGGg4533X5n2KQhHp/QQ/NX9K8tY41qUSSE5LyGP92RBn7qMfkyq+2
-         hR3ljdxBKR1VAz+myyXb91oj3pDewEASsJMGcwTMjp3eELr9I0Dx7nlnWiw8WtiQhhlE
-         V7zFsTThTPNG2kzPkJajUhlASP4jm4r7ZiQEXgZUrUlQxVS9JH+mqLeHw6MQhrkpS8h3
-         MhmeCrQq1l99zaeV7sGorRpi7pjNpYl/OuXTN+P3kePNBOBuFwsONPmRZ40si5rOiZdA
-         y4PuMJ4dhlsuLoL+AT9pmhDUFhXD6OtvWwHkXReLA4yZ4c5Jquvny+Ci1kC6ZQPDtqJS
-         898A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793974287; x=1794579087; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rUBgknGD0vcmexz+RXVBFNFmvAB8yyeZ1WyDa2+Y5Qs=;
-        b=wlF9vvx0jjxE9XlesKjv7QSscrOhN4uaUzQXjeIb+ig4zHVGuWCB7p7+ABbzV/xMB9
-         v7QxICPrlsJx9mwTtSctvbTJ3/f6d3Sye/9JZDoHyrMCbuGZdZ8rlzMY9Wglhk5uK/EY
-         J98XpdHuLfOMg6ZH2rPyE2gHC19j+bxjIkhL7oMyDqF0ItWJEgiHdJZgxiZQ1bXRgpnU
-         +B6/nuEOkEmf4scBkKkpbR374nG79tbJsqukzj64xnPULQ7q0Iu/BNmEPeAz1OeevHte
-         HePrgXhcAfQT9VSS/UCDvZxmdjO8x+neHVtWLYHaSxuXB47Ld3p+asftyratZmZQXnqM
-         JSUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793974287; x=1794579087;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rUBgknGD0vcmexz+RXVBFNFmvAB8yyeZ1WyDa2+Y5Qs=;
-        b=Tp8Yb7bMMM923K37C/1Y/gybAxI8x1RtLo2A+pOiE8Xu4Uo4WkE6jPb+LfTZvcPjAd
-         A0c2avXt6PC+ANGaS9JwV9siamFHVKUpmExI7igmK5gqDVXfq0Esx5oJ5LMHWtWHsHwc
-         5fiEq2ANOBTcbyK+YOpev4bLUepb0oRvR5/kLE5q0Lb6EilrbzxjbCz4Boj3NDBEoaNm
-         Z50rt4nTepxpYHonLq0iiLdKrHctVqkX0xJcCsOcerB5kEGKLBUxkMCDO/PG7alkvVcE
-         W86kryGLJChDY4i8gGVAvAKiMWfXhJRUna4kU9Vr8Q0KcbyC/xNP6tRUAwZUfssdkxd2
-         h73w==
-X-Forwarded-Encrypted: i=1; AKwUvByOx69e+LsbK1aygtpvEh81uHC+EUE+aFZeuVyQoeAy0aad0ja1N4zMm7IhktgWkTG/4Py9dWIHCgCGBQ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8I1ZMVHdzkhBicGSolqoMWKHPhNFS3kI07au9e3K0QPFSxZxg4
-	X8f0kXOyVVCWSKe3mGZnu9E7cEV0+rEm8RcSngu0/q4WaL0aYwoV1xvsnciWIvR8bndSvbH9qsj
-	c5kOhMw4+suAsky/wxY58IUfzz94U/Gc=
-X-Gm-Gg: AYBFou25fGBEieY8chK8/gM9kjmXTfmPiooD9QPMyxtpt9vqbG3O+bILk1xWyJdeDJk
-	MqnDeC3Bjo/+5I5OSzgVYFAPPr7eNui4u03ao1Qd0CqSTppi5vu1WLfHdgoEUvkaLxxlD/zQ5ZJ
-	OBcciKABVyy9ROnwDjZ9AvJ7hb/ZBh9IJNUUER2mrbxd8zJj78ccu2KwoYHaw+5wJEO9NPAoOwK
-	pDxcnpGkGbOODlKmgDxNrunbKyB4RfilvUvgHjg9kQrza7/iGTiiylcGhZgwW2tFj5NEkj4kPn9
-	xDJXDk0J5qOIM51ql2+XV6v1NZbBOvqGDI+e7dUrMTqnLlRYEGwPRDeluypJ6iWD8LPoo0r9AH9
-	3PGZcu582gW5OrwhbX4C84qDOgq3IXpHFSGbpB9aWNKoflBK6JE229P9wpuO4HWbs0ODdqkk2N8
-	CUUYGXsN/ldlLAkvfGV52xOo2XDP1uQA==
-X-Received: by 2002:a17:907:3e8e:b0:c44:16ad:c31d with SMTP id
- a640c23a62f3a-c4d3526bc65mr237868866b.4.1793974286564; Fri, 06 Nov 2026
- 06:11:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g2ewZjrC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2C2F1F008A3;
+	Fri,  6 Nov 2026 14:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793974294;
+	bh=BLPH8onp6C7AoW4lZMqXDExv0D9uGk4L9LfjO8m+oHo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=g2ewZjrCHw3WTRPfHVHQxqbS1wA2g3wTh8480oj0lnvKZf5Py0zb7HkGFUGjZ6QSA
+	 RBZ/BrP5GFgfXjKQaVwBIgtyh70yIGqFmj4eNHDJaFS+UrScNolIuIm1Irq/glNT9u
+	 RMDoXxZQVVC2FARzVwO+iCwWeWc9ptgaHE6/yBn88hSeN9ODaTw6HiftZ+zI5VCmSw
+	 G4llq4/bkghvyG2s/hIh6+lM2R0qBGt3H1Mi+CnIcMHeiJUSx23GA0JPC0gbGv+KTT
+	 KZ8ZhjL0UGyyvHaMcFPS0aaWi+hoWsnP7ATmE7NywBYeukjSNn2NrqVIxtLA9oW0aY
+	 RDRxL2XiQij7A==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush Yadav
+ <pratyush@kernel.org>,  kexec@lists.infradead.org,
+  linux-doc@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-kselftest@vger.kernel.org,  linux-mm@kvack.org,  Alexander Graf
+ <graf@amazon.com>,  Andrew Morton <akpm@linux-foundation.org>,  Baolin
+ Wang <baolin.wang@linux.alibaba.com>,  Christian Brauner
+ <brauner@kernel.org>,  David Hildenbrand <david@kernel.org>,  Hugh Dickins
+ <hughd@google.com>,  Jonathan Corbet <corbet@lwn.net>,  "Liam R. Howlett"
+ <liam@infradead.org>,  Lorenzo Stoakes <ljs@kernel.org>,  Michal Hocko
+ <mhocko@suse.com>,  Mike Rapoport <rppt@kernel.org>,  Randy Dunlap
+ <rdunlap@infradead.org>,  Samiullah Khawaja <skhawaja@google.com>,  Shuah
+ Khan <skhan@linuxfoundation.org>,  Suren Baghdasaryan <surenb@google.com>,
+  Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [PATCH v3 09/10] mm/shmem_luo: Allow retrieving tmpfs files
+ with O_RDONLY
+In-Reply-To: <auuzKNZsPD10XM4q@google.com> (David Matlack's message of "Wed, 4
+	Nov 2026 22:35:20 +0000")
+References: <20261103010216.3447716-1-dmatlack@google.com>
+	<20261103010216.3447716-10-dmatlack@google.com>
+	<2vxz5wyck08d.fsf@kernel.org> <auuJ4msatqzoOrjN@google.com>
+	<auuzKNZsPD10XM4q@google.com>
+Date: Fri, 06 Nov 2026 15:11:29 +0100
+Message-ID: <2vxzse1ehwxa.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,73 +74,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105140510.165165-1-clamor95@gmail.com> <20261105140510.165165-10-clamor95@gmail.com>
- <au3etybQlb5CtjBL@orome>
-In-Reply-To: <au3etybQlb5CtjBL@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 6 Nov 2026 16:11:12 +0200
-X-Gm-Features: AclHuK8vFqFS9sw3roYv91eoeg5V28eK0ZMbIUEIj7uPY5ywLKX-LdV7NUmea50
-Message-ID: <CAPVz0n3o5pc62eF6gv+PYmJh1KN1a5s=qmjxpNGJfxbCC4tqzQ@mail.gmail.com>
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-=D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:08=
- Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Thu, Nov 05, 2026 at 04:05:09PM +0200, Svyatoslav Ryhel wrote:
-> > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > Tegra20/30 SoCs display controller.
-> >
-> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++++++++
-> >  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
-> >  2 files changed, 135 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvi=
-dia,tegra20-dbi.yaml
-> >
-> [...]
-> > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,teg=
-ra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra=
-20-dc.yaml
-> > index 69be95afd5627..ffeb124905dbf 100644
-> > --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc=
-.yaml
-> > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc=
-.yaml
-> > @@ -79,6 +79,16 @@ properties:
-> >    rgb:
-> >      type: object
-> >
-> > +  "#address-cells":
-> > +    const: 1
-> > +
-> > +  "#size-cells":
-> > +    const: 0
-> > +
-> > +patternProperties:
-> > +  "^dbi@[0-1]$":
-> > +    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
->
-> I think it might be better to group these under a separate dbi node at
-> the top-level, making it a sibling to the "rgb" node. If you add
-> #address-cells and #size-cells here, I think that means technically the
-> "rgb" is now in the same address space as those new dbi nodes and would
-> need its own "reg" property and such.
->
+On Wed, Nov 04 2026, David Matlack wrote:
 
-Only 1 DBI node per DC is available. Adding address/size cells means
-nothing for rgb.
+> On 2026-11-04 02:45 PM, Pasha Tatashin wrote:
+>> On 11-04 17:52, Pratyush Yadav wrote:
+>> > On Tue, Nov 03 2026, David Matlack wrote:
+>> > [...]
+>> > 
+>> > Can't you put all your binaries in a separate session, retrieve it as
+>> > the very first thing, and then finish the session? Then you can execute
+>> > those and retrieve all the other sessions.
+>> 
+>> This is a good workaround. I am not opposed to this patch for 
+>> completeness of functionality, but if we decide to keep it, perhaps it 
+>> should simply be squashed into an earlier patch. The current diffstat
+>> looks bad, as it mostly deletes code that was introduced earlier in this 
+>> series.
+>> 
+>> In any case, given Pratyush's suggestion, we could also drop it.
+>> 
+>> > 
+>> > Why do we need to support this in the kernel?
+>
+> That would work for binaries, and I agree that use case alone doesn't
+> justify this. But I see O_RDONLY as part of the retrieve interface, not
+> a feature for one use case. The retrieve argument is modeled on
+> openat(), and openat() lets you open an existing file read-only.
+>
+> open(O_TMPFILE) only requires write access because it creates an empty
+> file, and an empty read-only file is useless. A retrieved file isn't
+> empty, it has the preserved contents, so O_RDONLY makes as much sense as
+> it does for any other existing file. Without it, every retrieved file is
+> writable, even when userspace only needs to read it.
+>
+> Preserve already works the same way: a file can be preserved through a
+> read-only fd, as long as the caller has permission to write to it.
+>
+> If we keep it, I'll squash it into patch 7 in v4, so retrieve supports
+> O_RDONLY from the start. The commit message will lead with the openat()
+> reasoning and keep binaries as just an example.
 
-> Thierry
+I'm guessing this all goes away after you do Christian's suggestion? I
+don't think we should be retrieving anything into a file that userspace
+has opened O_RDONLY. Retrieval is in effect a write operation. So
+userspace _has_ to retrieve a file and reopen it O_RDONLY after
+finishing the session.
+
+-- 
+Regards,
+Pratyush Yadav
