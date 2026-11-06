@@ -1,68 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793994090;
-	b=nPYRiwyrwyAveo8re9PqQkicDJgVF1p8+y/scY8qWaMovZPlbAA9V3AdoDI3K7FH1OK4
-	 MgUioTdxjpFc7SmTFJ+U25lqwouPgVTAsAEizwte0VSsehtZ0RBanp616ym51/ZyW9krr
-	 TpMUAtwK370uT5yTTb6zRPytf4jnQLg4t2L82t1Gq2Mne9UvYJwml5w25F1XUBVBHf84n
-	 Aa+Q5t4lcVS/aSFIJRtcXth3dct+kCYfmt4y6U5nSdMeLxlCJC6po7HNDCwNJx6hCX2mS
-	 9BbxekQC3CPb78A5ucpgw7M5TnqFluAdOtzwlkYFd1p2wHPrdRKqnCy6AKtl5cg7/nQ==
+	t=1793994085;
+	b=efUWnmdNn1LJDQj7qUzrQVXcfp+a3IDnnRDpAX8u1tTAnbPIRDvSaU9B+nMGEo1bVoiZ
+	 a6+QDHs8ShOHFOaA14yTmcmAr7PEHxobUPV2YLIIpIXUBMayETCoF2VpAy17SWeORsOpk
+	 CbWrUdT+b0Y9ix2hXQriW6Y3O5VlY0YQ2BgX2wjAdtONRRu7HWwWp5MeF3krO1UDMOUPP
+	 yQ0J92fkiEsHFAh2OEdhwdlI7AeyUkCNcMjbgrQdbwKa2K2TWymdJmwDLjzZCQMdcEuR2
+	 31yeNCADJCrRdSKXBUOIDbk6wswHBGpsUCmzUc+Ob40ptqem1JCGrMprZj3ESm4LyPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994090;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=0sJnTvTIwCUMqEIvWSmIp/R0LwPfW88aqxkk8F5wStU=;
-	b=R5BeXgSqL9TtpabmEAsv7enTKIHfUm541e6ZOs0Cv2nzHhgCMll0vDapPHVfNRnIsCCZ
-	 GREZ7tTKD6HzjBf4Jgjw6nReChwRv3jROlGhvhOV8f3TTzhrXU8PyJVy0FQP0O8l0NCFE
-	 Ei4gpDZd4f90pX0zFHD321zpV4R4I2IKIsYHMEL4SI/5oa+eH1R+d2mf45IM7bexJWtaD
-	 wlAX5dJ8Yphj0x8JyRRLqwcyofL3DFhG0JS1kggF4DcDj4Duzc3qbZfe53xJIBdzCMIk5
-	 v/SOkcEHoLGsxdWxyDNiuT5cHBf5Jj8G/05fQbi9Uvb7v41sKM97gAWMhEmS54GKgTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994085;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YlgLvuvi6MzXcCGFPDS7jIHqHR1YP7BKidunKoP0lJU=;
+	b=b7enz1Sp529C7t43vZKHGOQv73mJionMknI3t3Xl1znyu6MMhAB+RCrRZb3ZI5W88osu
+	 VAPA80ACy+excfWT26Uv09M3cwo1muCZ3SJ2rd8ePhmYea37foke8rKhlfUfJYufqUeL8
+	 RQonHssEmI4QEVOwld/3br+D7Ks7HHwPCOFRP3UDYBJM03JtP91VML9AKDGAjRAgPX4Tw
+	 NCssGVpeXdzsCDOM70dASedOi2d2p9Aepwny7Y59HnUEFUgYiAK6LAklgdXH8xNa25Rwf
+	 /9AQRvQpEPSSMxp1ZAx/ADQjCPWK5+8IMpLk0aeEN9tPuLjPHXsIp3cY69ExLdr6XPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BfDa10aI;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbFnx05l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E59606A333;
-	Fri,  6 Nov 2026 19:41:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E59606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6948B606A326;
+	Fri,  6 Nov 2026 19:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BfDa10aI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793994090; x=1825530090;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=lu9luSVPu9/ZJIYiQZYq+QgP7xm0bIdpZHlk42TGXFk=;
-  b=BfDa10aIMh2xL4Ey6sc4wibWFBXA+3pXWwja0q2G/xpyEXg7YffWSPOV
-   hMXuk5uNnTgogxvZFFYuZu4vL01kL9qYTIrj2Z1ICUegV8OUUeez9HDBT
-   617qSLyBd2Yr++ZXFZaRSq0mfjQhr8RZOSopK632FUcmEdLN6Ir0df4qj
-   omN802qsP4U0o6l6Q6CKMU8W28DlDhhYhXYpv46rA52j5PJVhfOwVOrP9
-   Kl359rAHdjjXds/Nx81jOrZYzX5gzQzF/neFoRoRn2o3SZ0AExihuHkC8
-   3MOdX8M110MoQdg6ihqiicfxr8N3/yylvlqGoWwrcv97H4rQlZGHd4yIS
-   Q==;
-X-CSE-ConnectionGUID: Js0WgKPRRl2Zt4qiIKVPUQ==
-X-CSE-MsgGUID: FCXwZxirRxSNa5YjylIYAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2915240"
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="2915240"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 11:41:29 -0800
-X-CSE-ConnectionGUID: xAGiIvoQRdi1ZYRaINcayw==
-X-CSE-MsgGUID: 5Rl+VzXGR4aTcCiYEZ6Sew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="7248293"
-Received: from unknown (HELO [10.241.240.140]) ([10.241.240.140])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 11:41:29 -0800
-Message-ID: <d10e4235-dd25-40e6-b682-bf7530ab931d@linux.intel.com>
-Date: Fri, 6 Nov 2026 11:41:28 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbFnx05l
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8F7141F0089F;
+	Fri,  6 Nov 2026 19:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793994085;
+	bh=YlgLvuvi6MzXcCGFPDS7jIHqHR1YP7BKidunKoP0lJU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gbFnx05ldh2Nzu3gMRUeaATbqhszyMS3oVk2c2PpERZp+mAWal0/IuPNDDekgB1RA
+	 dvvgHjv35kv3yrgd8wePjns+ri3xOyvUmRArByEeMRk/z4p44avenpMSH169hTAWNn
+	 DOrtMGDmo3/TmkuDuVJGZQ6y748uRufKosPvzTB65Omc7Un3dfZX5UsC1MvZZhHsQs
+	 j6yAwxEZiwq0Okn51UQ9qUYIMFWlgnpNMKuy0LRA7E2XJAFPsJLw6XzKv5DzdXn7X5
+	 zlO/3kUChmzTr/sxexYJuQH7aRvcawMo+chIWZzolfUUUPD46ACSxAmDl9pJLxVINo
+	 ui6pEL+Nu07Aw==
+Date: Fri, 6 Nov 2026 21:41:21 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Hannes Reinecke <hare@suse.de>, David Howells <dhowells@redhat.com>,
+	bpf@vger.kernel.org, dm-devel@lists.linux.dev,
+	fsverity@lists.linux.dev, keyrings@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
+Message-ID: <au4tYR8ZgTLVDWHv@kernel.org>
+References: <20261105031401.956609-1-jarkko@kernel.org>
+ <20261105031401.956609-3-jarkko@kernel.org>
+ <27015846-0161-4700-b810-4643e1f7b63a@suse.de>
+ <20261106090516.GA1973@sol>
+ <93e6b4e6-43c3-462d-b57c-26676aec85ec@suse.de>
+ <au4k69xNBUjsNErr@kernel.org>
+ <20261106191920.GA3383096@google.com>
+ <au4q4Wh7PK1-Ge9P@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,167 +91,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powercap: intel_rapl: Expose package CPUs in
- associated_cpus
-To: Dennis Chen <dechen@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106183046.208283-1-dechen@redhat.com>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20261106183046.208283-1-dechen@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au4q4Wh7PK1-Ge9P@kernel.org>
 
-
-
-On 11/6/2026 10:30 AM, Dennis Chen wrote:
-> Commit 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in
-> PMU cpumask") expanded cpumask to include all CPUs in the package.
-> Since perf opens an event for every CPU in cpumask, the value returned
-> for power/energy-pkg/ is roughly scaled by the number of CPUs.
-
-Thanks for catching this. You are right. perf treats cpumask as the set
-of CPUs to open events on, so a package-scoped counter gets summed once
-per CPU. My change broke that expectation.
-
+On Fri, Nov 06, 2026 at 09:30:45PM +0200, Jarkko Sakkinen wrote:
+> > SipHash is also useful for resistance against denial-of-service attacks,
+> > where a user puts all their keys in one hash bucket.
+> > 
+> > As I mentioned, it's already used for secure hash tables elsewhere in
+> > the kernel.  That is what it's for; see
+> > Documentation/security/siphash.rst.  It's very fast as well, so if you
+> > are thinking of cryptography as being something very slow and hard to
+> > use, that is not what this is (or ever needed to be).
+> > 
+> > Let's just use it and not over-complicate things.
 > 
-> On a single-socket 72-core DMR machine the reported value is roughly
-> 72x higher than when perf is restricted to reading from a single CPU:
-> 
-> $ perf stat -e power/energy-pkg/ -- sleep 1
->  Performance counter stats for 'system wide':
-> 
->           8,052.48 Joules power/energy-pkg/
-> 
->        1.010483558 seconds time elapsed
-> 
-> $ perf stat -C 5 -e power/energy-pkg/ -- sleep 1
-> 
->  Performance counter stats for 'CPU(s) 5':
-> 
->             112.15 Joules power/energy-pkg/
-> 
->        1.009685587 seconds time elapsed
-> 
-> Revert cpumask to only include the CPU with the lowest ID in the
-> package and instead expose CPUs which can read from the PMU in
-> associated_cpus, akin to uncore PMU drivers with per-package counters.
-> 
-> This retains flexibility for userspace tools while maintaining semantic
-> consistency for perf's use of cpumask.
-> 
+> I'm pretty much non-opionated when it comes to this detail. I just
+> merely represent all the possible if anything comes up to mind. DoS
+> protection that you explained was not something I did even consider so
+> that seals it for me.
 
-Is there a user of associated_cpus? Neither perf nor turbostat reads it
-today. The "any CPU in the package" support that turbostat needed comes
-from commit 7537bae8b6eb ("powercap: intel_rapl: Remove incorrect CPU
-check in PMU context") and from is_rp_pmu_cpu(). Your patch keeps both.
+I'm cutting hairs now but indices + siphash adds to defence in depth as
+it only takes DoS protection from SipHash while not protecting a secret.
+Not sure if this has that much pratical meaning tho  :-)
 
-If there is no consumer, I would prefer a plain revert of 525e0064f3d8.
-It fixes the issue with a smaller diff and does not add new sysfs ABI.
-If you do want to keep associated_cpus, please add an entry under
-Documentation/ABI for it.
-
-> Assisted-by: LLM
-> Fixes: 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in PMU cpumask")
-> Signed-off-by: Dennis Chen <dechen@redhat.com>
-
-This has been in since v7.0, so please add Cc: stable@vger.kernel.org.
-
-
-> ---
->  drivers/powercap/intel_rapl_common.c | 43 ++++++++++++++++++++--------
->  1 file changed, 31 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/powercap/intel_rapl_common.c b/drivers/powercap/intel_rapl_common.c
-> index 70cab5f08bc6..4197f7146afc 100644
-> --- a/drivers/powercap/intel_rapl_common.c
-> +++ b/drivers/powercap/intel_rapl_common.c
-> @@ -1139,7 +1139,8 @@ static struct rapl_pmu rapl_pmu;
->  
->  /* PMU helpers */
->  
-> -static void set_pmu_cpumask(struct rapl_package *rp, cpumask_var_t mask)
-> +static void rapl_pmu_collect_cpus(struct rapl_package *rp, cpumask_var_t mask,
-> +				  bool all_online)
->  {
->  	int cpu;
->  
-> @@ -1151,9 +1152,15 @@ static void set_pmu_cpumask(struct rapl_package *rp, cpumask_var_t mask)
->  		return;
->  
->  	/* TPMI/MSR RAPL uses any CPU in the package for PMU */
-> -	for_each_online_cpu(cpu)
-> -		if (topology_physical_package_id(cpu) == rp->id)
-> -			cpumask_set_cpu(cpu, mask);
-> +	for_each_online_cpu(cpu) {
-> +		if (topology_physical_package_id(cpu) != rp->id)
-> +			continue;
-> +
-> +		cpumask_set_cpu(cpu, mask);
-> +		/* Stop at first CPU in package if not all CPUs are requested */
-> +		if (!all_online)
-> +			return;
-> +	}
->  }
->  
->  static bool is_rp_pmu_cpu(struct rapl_package *rp, int cpu)
-> @@ -1430,8 +1437,7 @@ static struct attribute_group pmu_events_group = {
->  	.attrs = attrs_empty,
->  };
->  
-> -static ssize_t cpumask_show(struct device *dev,
-> -			    struct device_attribute *attr, char *buf)
-> +static ssize_t rapl_pmu_cpus_show(char *buf, bool all_online)
->  {
->  	struct rapl_package *rp;
->  	cpumask_var_t cpu_mask;
-> @@ -1444,23 +1450,36 @@ static ssize_t cpumask_show(struct device *dev,
->  
->  	cpumask_clear(cpu_mask);
->  
-> -	/* Choose a cpu for each RAPL Package */
-> -	list_for_each_entry(rp, &rapl_packages, plist) {
-> -		set_pmu_cpumask(rp, cpu_mask);
-> -	}
-> +	/* Choose a set of CPUs for each RAPL Package */
-> +	list_for_each_entry(rp, &rapl_packages, plist)
-> +		rapl_pmu_collect_cpus(rp, cpu_mask, all_online);
->  	cpus_read_unlock();
->  
->  	ret = sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpu_mask));
-> -
->  	free_cpumask_var(cpu_mask);
-> -
->  	return ret;
->  }
->  
-> +static ssize_t cpumask_show(struct device *dev __always_unused,
-> +			    struct device_attribute *attr __always_unused,
-> +			    char *buf)
-> +{
-> +	return rapl_pmu_cpus_show(buf, false);
-> +}
-> +
-> +static ssize_t associated_cpus_show(struct device *dev __always_unused,
-> +				    struct device_attribute *attr __always_unused,
-> +				    char *buf)
-> +{
-> +	return rapl_pmu_cpus_show(buf, true);
-> +}
-> +
->  static DEVICE_ATTR_RO(cpumask);
-> +static DEVICE_ATTR_RO(associated_cpus);
->  
->  static struct attribute *pmu_cpumask_attrs[] = {
->  	&dev_attr_cpumask.attr,
-> +	&dev_attr_associated_cpus.attr,
->  	NULL
->  };
->  
-
--- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
-
+Br, Jarkko
