@@ -1,85 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979445;
-	b=KNLXSwTLFOz+Gu6UbuH/sTRTCtckuzGt2GGuXi81xSnEFvtV9g9naKz0cfXisEHQ3HCE
-	 cM+AQakJr6u1gbM122UaW3gFz7EqyA9h3ZfEpovhK2E+6Nz79B3/l0IL47HDSX1kuuVzi
-	 B57Dxp4z/QmpiqlobPK1X0ZK8Vk4z4AkQ1G5DiR+vZ8y1FP3uzDU4btP/UJ3RLabqYlDm
-	 Kh1BzKsRCrLG8VSov5EKYfT9pmYVHqcKOUBTdJ3zJi6Rr3wE9+SSioo6Bixvm7HjaikNo
-	 zPt4MgSkHtz6SCuqHmPyZWZ5OZ88jLdUJVOjen3odCFvOC401iEJuLX4unFo1wiUmKw==
+	t=1793979457;
+	b=lfqaAi8BWz4CdTmp1r7YQLMAGUC2tnYDkvtT/G3bqexHKV4X/iJsRLHlRf+zCV2YKqYk
+	 pnMDHqzztAl60SY3eCb5ycwY39eMuWp/DjDSxfDp4O5povPZdh4mVLuWdbzEJXEeibc0L
+	 M9wBRTrrsgIhGeHIbEEeB8ckrQFQsvy143mxr7yn+BpeyEgsDLImRMbAc2XawrESaHlbf
+	 ErREfEAgvEBPB6mOu0bpzzz22LmwpKtoQsJ3n+dGvl4DqPMdAuz189qad+FWry0kMN1Dk
+	 Z+YIzvryDF/HxnkXR3K4SYUIe1uU636ODgS1lozEtsOY89jkatKZaHlevjHnX4gKnOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979445;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=WbInPTtgeVQVaR+YtMP5Ieeyl2biDusMLIdL8tIaNf8=;
-	b=QTss/y1JyTyFYqMJlY3efmZgHnbLtAWI6kLs6ljiBVnHS8PortY/50umqgrroHUQfvPM
-	 bGfgXCpq7t8qp4LpckDY4sTiB4rW3SnNnfr0k4SN3tBEk1NEjwqcV56buId+uK+Czevwx
-	 1gU93YL/U35LtOWnh/k767+BpYloALnktbKRHKHM5NX+QeEybUe/4xiA05HfjWvNMKfUS
-	 7e9R7yjS1uCwBbdB1sYD+BuzerQ85wjB3pvAE7VGE4q7xdVelElmb92PcOcblCbYvZKKA
-	 D+kuIvOrvtigmdlrsV9Ict8Hh9vWtOFv3uAfJECWZ2hkDpjGAcL2ZEh/+Obq3gOGVnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979457;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3I1BCAsuvr/3ldrIukp083xit1CTPI4404rHCJ/nKZ8=;
+	b=UrMEaGcLkuGTF0t4Fmm1/ZC0VEMeLQMEvxT0p3Jh5LJ9oV/rNeKApCZiHYnJ4vwG2XPA
+	 rZV2ICrJDFRjEu+YQQLhxDAmWivsqndy/L5snVEsh3kabHjvMQ7dR6iaOS71oJDlrKMFZ
+	 KMlCb8BBWFWitWXkukotac9mGvtD4EBKYJoWpP/TpApfGPg8cUPVFAu5ahVZBlGcFFebR
+	 tc3THlDQ2YlkZpCCdCB8fBmm8GO10Sf4vf8n+8yVNGJB9QJQqhQFKLd5lxXyDkTOJNwYV
+	 B2oKsD3hrl3T3ySVg/JR/hmAdIyc4h79pKxQ+iO3gU1HLQsmh3y/H8ohmaYoshaWbGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WX68Z5yL;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 024D3606A336;
-	Fri,  6 Nov 2026 15:37:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 024D3606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=seanlyon.dev;
+	spf=pass smtp.mailfrom=seanlyon.dev;
+	dkim=pass header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=rjPCGEZm;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=k2eD09i9;
+	arc=none smtp.remote-ip=202.12.124.149
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592A0606A33E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:37:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 592A0606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WX68Z5yL
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DEC4F1650;
-	Fri,  6 Nov 2026 07:37:19 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8047E3F632;
-	Fri,  6 Nov 2026 07:37:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793979442; bh=7EK+OV8cc6RynWDVsBo3aQX5rI+zXYDSLKEL403LmQM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WX68Z5yL6OyzNuu6ZywpIXZrFSwK9X2UJrdZ6ELbVJWB/Rx0VdMU5Rbmy0NZFI+PD
-	 m1eJazJZTMQLnD3Wv7gPUGVEW1c51bZ3fbQ9BWbBFFx622ozPIILzlDy0QQ8ZDBTKa
-	 ZKgMtPWWAQZ7ODXi1Gn2Q1+KL1k+y4WW/FQyfpNw=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	maz@kernel.org,
-	oupton@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	corbet@lwn.net,
-	pbonzini@redhat.com,
-	yuzenghui@huawei.com,
-	wangzhou1@hisilicon.com,
-	yangjinqian1@huawei.com,
-	caijian11@h-partners.com,
-	liuyonglong@huawei.com,
-	tangchengchang@huawei.com,
-	yezhenyu2@huawei.com,
-	yubihong@huawei.com,
-	linuxarm@huawei.com,
-	joey.gouly@arm.com,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	fuad.tabba@linux.dev,
-	mark.rutland@arm.com,
-	seanjc@google.com,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v5 12/15] KVM: arm64: Derive the VM hardware dirty mode from dirty logging
-Date: Fri,  6 Nov 2026 15:37:14 +0000
-Message-ID: <au30Kg7zCnTjoD0u@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <191ab0e3-9913-4927-9f84-c861c8f3bcd5@huawei.com>
-References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-13-zhengtian10@huawei.com> <auimPtktqZ1cwk3-@LeoBrasDK> <191ab0e3-9913-4927-9f84-c861c8f3bcd5@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=rjPCGEZm;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=k2eD09i9
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id D876A1D00094
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:37:36 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Fri, 06 Nov 2026 10:37:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793979456; x=1794065856; bh=3I1BCAsuvr
+	/3ldrIukp083xit1CTPI4404rHCJ/nKZ8=; b=rjPCGEZmjsYU3jXZ3b2FLiJk9J
+	x8AgJnvLHDR7/e/bcV39ljL9RTgMw39Y6K1FpeqW1PXZ2p36FW+D4nRPlhodMdVl
+	rEKiT3w5VQy778hXyFSy3y4BGU6uGu1ZwkVBFMIyVW8A05G3blwSPxB2J04idGlP
+	WAJHgmCbgR6J25iBpGuktdWYEB0264Rug/YNLY6tlQAmkQIURbrxCYq51zeHV7Cl
+	gRZVQf39uct7gtgDKUuUUNSeWzWlzWuElkw5V7SRh3orjuCBp+X+rvye3fgEMxws
+	khVLT307oCWqVzeRgflSzaWzY48r9vY+wNwkGUDEwqWeu61H3ZJIlBVvbobQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793979456; x=1794065856; bh=3I1BCAsuvr/3ldrIukp083xit1CTPI4404r
+	HCJ/nKZ8=; b=k2eD09i9waK+IsAcfULXGkuyAR1ao8FcpFn44UBKWaQvHYzPpCO
+	X2lPufqF/egMDHyXfj4qsggf2UJBaQK8sIvpZZ76J/BuN7VJLOkjOVhxEV+IWzfP
+	ulXaw3KDLY/HA69AVN+ucn68vdiOrhxDR9uV2Wk9qp0xObFH+GhhKmw8FWq9HwEa
+	ex53HxTy/XXrmUbFQ+sHityWmHIruCkRDIDFIYzpRHt+tQDr0PB2bwqpgjFgbe3N
+	bh7h3mW42A35VTomz45aneDwNSwiJVg3iwXt+uoaZa0k+E2oxoERPjA2dukllBaJ
+	DsPu1ojrx0t47FrGdcBdhog9ppykgbeXWrw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=seanlyon.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793979456; d=seanlyon.dev;
+	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:m67e098MVmWgVGmkM3VPh8OH6cBBuImU2SjuzM3nNBy3tEk
+	zXJnxEYmyymunEbjEjtTalPyHZMbvkr60XEKK5kpvKLgGkBt+7xV5aLDkcA6RDAS
+	Ke+83eEXoVVQEWDYqyCdq/PpIettI0jvWhQMi5QABTGGqHbRyYS3WqRy0q2A2GrZ
+	Q5Ymr8GwSRcoZrgmiUkNqyD9nmVw37NzogSKOLH90oHJu/n6tmpqTvs2uYv/JqoI
+	rywNbtROg68QBG1N7zsIeqiKgK7FVbg38lorD8uOZQXJfN6L30f/AHPF2cYuc6SW
+	FASD5fOPJ/m3OzV5a2VTm0xp0jsLbjm6qdcFzEQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:hMWIR663YLcGpmRnr8B7JFwGzsfgwKDvBnpv4IVgMBw=:wzK9TzPZfmrjaEwIl+Vvxyoy1JTMv5wgohAotlyVAiY=;
+X-ME-Sender: <xms:P_TtarRD5fcUdnmQQZPdo5r-KpF_Jk7A-TAtpBdvV7v2ZiFS5e9c0w>
+    <xme:P_TtaoraZOVyzr2u2ChtojIiJJauRXgtGDL9x28O7THlMfjg5uUDVUw8m3gtcr6xh
+    DHZW3uow0HKgpd9pWr9E17-6KOJlGV-N_zfAZ3UOsNqDC52MOVqduuV>
+X-ME-Received: <xmr:P_TtasXvlHQ6gNMZJ4uCAwM8uksbt8y7s5_5991-lgeruu9Ze7EGgG7PxcqjBoAMNmg4_S7gFa_fxdG5wI9z_Ro26ts>
+X-ME-Proxy-Cause: dmFkZTE85sSYL6ax+V3Zv/R5qKBM/5s/tc8Ryip5ZndsHxL9I5o9azwy7zUowQCaVmya+y
+    pHU/TkBlm1ju10kwNaZXHavf7L/0dy3gtL8uWZZFTtK1+hzoay1Lihza/qqNhQ3EzpG9ZQ
+    DM3miZu6/rPJ8qbkfrAt1YU9yf05zlbzTi70E+ARo94OjBsFs0/nHVb4f3wGOwsxyZEamn
+    2M9L1N9AbiI8AlnVuEhQN5Clct3a+oS9eYzdKl2zbrcxQoV6rrS29gURqWW+LP6DbQftTf
+    z2tHZzvKWTOHUMturYQ6rmq+V2hzaR1sRdP0U6tEafCNJYdhDC4Yeby3Ps7cF8mPHdOZon
+    0nzio15v6y/iHyeIMtUSt6KeDwNnAv321Tzyk0acBkN5aS5RvRpNCFf4KJ4z89YlLqcwYv
+    oUNH+FVa79fXTqB+WreGkc7hbXop2pL5J5Ur5NprsiyKL6BiAG2FTbk/km9UbwjW+3aFdZ
+    EKgelrPpa5KrBzjP0DVPgqdHAZ8nDCEYNIbzQ7zPU9ep4i/vjlI8pNVYrjSBvny7YaCkrI
+    eeyC6FwHR4n6Aj6+2R7ePvDMoVWnEUFiFIW9cUQJyxHBUqlI21zvWZVYT6OiX3wv2Rmegc
+    Jjki6x1rGjcpJKC8qPoodZu3+ZHsoMOwIrtzoUHHChcC32F3N0VvW0h01f9Q
+X-ME-Proxy: <xmx:P_Ttau_-46WxxgzHGp3CmIS_pYETHfbEB1JRqIrF-Jq5G2s5VeNEIg>
+    <xmx:P_Ttasb-3Tq1qqOdllyWKtP1Hbq4LaNHRwchuozgrUkDa7wCmjc9Fw>
+    <xmx:P_Ttauf0TtaumaAc9uOe1xfqAKgQluR5eme9RZoBsj1KBsEevOJDsA>
+    <xmx:P_TtaurxY1CHBu2kLTJlEUSc4ILaG_4P8x3Tiw_oTQru53NBQRbCxA>
+    <xmx:QPTtamld-LUiOJKB8jTHcti8_ILBPCnxxVJazrf6Th2ovYR_jm8decZf>
+Feedback-ID: i07c64b5b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 10:37:35 -0500 (EST)
+Date: Fri, 6 Nov 2026 10:37:34 -0500
+From: Sean Lyon <sean@seanlyon.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+Message-ID: <au30PlcYPAQDilX2@ncase>
+References: <20261104211038.406938024@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,35 +129,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 
-On Fri, Nov 06, 2026 at 06:46:46PM +0800, Tian Zheng wrote:
-> 
-> 
-> On 11/2/2026 11:03 PM, Leonardo Bras wrote:
-> > On Tue, Sep 29, 2026 at 06:36:52PM +0800, Tian Zheng wrote:
-> > > Both HAFDBS and HDBSS flip VTCR_EL2.HD at memslot-update time. Two
-> > > independent toggles allow an intermediate HDBSS-set/HD-clear state,
-> > > an illegal combination, and need locking against concurrent updates.
-> > > 
-> > > Replace both with kvm_arch_update_hw_dirty_mode(), a pure function
-> > > of the static capabilities and the number of logging memslots:
-> > > 
-> > >    - logging && HDBSS-capable  -> HD|HA|HDBSS
-> > >    - logging, no HDBSS         -> off
-> > >    - !logging && HAFDBS-cap.   -> HD|HA
-> > 
-> > This last one is gone now, so I guess most of this patch has to be
-> > reworked, right?
-> > 
-> > Thanks!
-> > Leo
-> 
-> Hi Leo,
-> 
-> Yes, the last one is no longer needed as we discussed earlier in [1], so
-> I'll rework this patch.
-> 
+On Wed, Nov 04, 2026 at 04:03:04PM -0500, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Awesome, thanks!
-Leo
+Built, booted, and tested on hardware for x86_64:
+
+- AMD Ryzen 9 5900X, Nvidia RTX 3080 (nouveau)
+
+No regressions found.
+
+Tested-by: Sean Lyon <sean@seanlyon.dev>
+
+Thanks!
+Sean
