@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995537;
-	b=j5EQ4in/xbl6OuEB2HQeRSCZ/zkxtcuP7jJsVIdwifkxBF0s8w1dw1oQORipt8Mk55bK
-	 hwzxKIDVYMP3B8RKuWaPelVM4IBWBSn/6tE0019RmHVl4m6KwTF5o4OD0gDu1sHdUh7QH
-	 muNqzQF1QezL0MfE7RaOEksBGi+uOdCrqfRWJthoaKTdPyAXILHExHXMpY7mt6aunzTSR
-	 c2E6gVQnPwNZeKb3y6/bDTjgZdEuZl7PFrJx6OfMav4kpRnUoSeWfqIjUu9Jn/SOTwZjQ
-	 UF7jEO/dI8pGkWVlCq2XW2af5vO/9NPG7Qcqw4urKUDLgGXuKAu5kKFfdNQjgLMndIw==
+	t=1793995543;
+	b=SuT/MlsGQQRPVDW2SEI7qtrIrLHrU2mskqxScPNAkiz3zwK/gGUW9WRiSy0Mxd69JceF
+	 ut+Euv5LjvmBYkLIDRaqjPVYJjraxwCfqQQq8UzgMgDK8tfITIgabQf6CLz72409eftjc
+	 ESyxpkLMpzcpRX7MZcum3LJhJfC/YDsWGsPw4ZLvJfHzv3PXSTNb+IKc1/VTibayiIAU1
+	 dGOfWtGKYfwyOV8mIBAe7ciFtkWed84r9QBHlxRbSkh9epZyuHoDPdmdf7aducsFk+BqJ
+	 0WqhYVyeMAr+QYCziCe6uejQF/xTON2XVIuhnBHoVndb+B5dOd2X/JdpkYApezTAK7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995537;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=8Mw7V/0cbeSEgOWRVzam31usqXbWxTAghwJGS5x4VEQ=;
-	b=LuHP/PoiFRVA8AwRDB661N2mjKfN2BEPz3ao+kcKW6wOX/DNdqvp2SAB/nfXEwypvZig
-	 NvgWMtBivStrXS/Y56wYh+sTkLnLA4ubd3GJTKjQ2d9lENGPr+aTKu9Rh08ohYlGjAQd3
-	 XCPTS+09HiXToc5h1EvilxRA8qB08C7YGWU8uW9mMQrYjp7yByvydItbp2Z19HKEfwYYF
-	 6YKZwViw5a8Aw3UWRat4n7UsGLDp6myKuq4iGvuf7Krhx27VFv4aZHVMF+huVHheGhPiz
-	 2977Wkwd9Ol7Tu2R51Yo81BK0MY+G1nCiqnzoMzr0N3f7C9eTmza7LOsfbdX9aUMfJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995543;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DXxoL98QCRNwCGckBEQzGBg1h5hzKBx69crOcdi0dRc=;
+	b=2QFFcLSu0Mw5dUDkKvyJKtNCu7XbSSR6w9yAWbhBKC9LCDoIOWywJpWBe96eEkW1Za3W
+	 Bg1HYxDsBbJ2wQEP/GhkjkGeIP/96jCjjI1fZcs+SekJ2FyMVgpdFlrn0c+uZDBDflp4u
+	 NLUD6j3C3REfSTZP3TafwOsGQm/nkl8uhZ5eDD8YGp3GnVnGtB71bdq6NfrMxe/Q9nSiH
+	 vwitFv+g9JoEkCuBduNeFGAWmC6j5M9Zwmjnxb3VZvcWQ4juj3MoaFjHmkAOTM5W7Mw0O
+	 iQh1zC67ghx8Il4xxP1jnBoKRcZKfC6wGxC6hPnQ7pxjCsZdY9w29DCGm4O/9zI2vNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mJQLWutE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIMkbi4y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A4E606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D317606A326;
+	Fri,  6 Nov 2026 20:05:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mJQLWutE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1B01F008A1
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:05:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIMkbi4y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7A21F0089F;
+	Fri,  6 Nov 2026 20:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793995536;
-	bh=8Mw7V/0cbeSEgOWRVzam31usqXbWxTAghwJGS5x4VEQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mJQLWutEVebQlOiqkbO5iVmSVRWtUwVl4kJHnbIQs4UVZtdKsNwXv/1MTZSbow3lt
-	 r1WdxBVS5vSxvwbChYQXRfI5S4ZCHZfW7+F0ne/drD6Bb53ZF9xVsckm3XKh261fT4
-	 /Gb/U4bOwMTDg3SwyryCVCd/Jil0JTiEfcQQEFAAk4nFT6ryCVA2nCvGaXmQ5Epj6W
-	 qWMmVwIswcvcs04teaW19r9axISl2RkO/ZPjbdQsznnCa2UoIdaQDFOkjMtIz5w+wE
-	 MBrty+Z+4P0+fCEcV+O15hg8u0JqX2WjeD3dI6EJGZuxHra/MVnb9tZnjG82r0NoQb
-	 QKFMfAYcyAOHg==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so928118e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:05:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGIK//nPEY5YtwdGd/oQ3mBhpJgMgI0WszEg2geLg3WdVQMXUZCqA3o1jYbKXjCPcG8+KQIf3zuWMiuMCs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JCHtxhD4eEp3RCD53RSXHpAI2lpeCsz+EQK2DUfx0vaHCpDoK
-	hIuci4b1D7grX+wYeYHlWPR3/zFZ2r59VVlfbu0Ax1FQrNbfWaMyl0lwAd6jLK45hcJWBiK6gC3
-	2o+lbJvPv5NAlGACrJ1ZpnlXOK3KbR9Y=
-X-Received: by 2002:a05:6512:1586:b0:5bf:a352:9c25 with SMTP id
- 2adb3069b0e04-5c003804e87mr1159674e87.5.1793995534685; Fri, 06 Nov 2026
- 12:05:34 -0800 (PST)
+	s=k20260515; t=1793995542;
+	bh=DXxoL98QCRNwCGckBEQzGBg1h5hzKBx69crOcdi0dRc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aIMkbi4yc77dZ6oyyyPoG+Zy5y38RYADLo4bGPk4FmcqYE/eAizYw+WYqm45y7uy0
+	 Vin0wiJmkrRLxFF5JzfMbjdA8bU36SpjZKhBwKkgShkJzSugE3h85YqEl5/NcPuxtr
+	 qD1/hR9Ay6IuEyuAstjId43SFlGvPpWsbq2rV71J/TxL6txzc+j4ya8StW8STxGbIa
+	 86A23OT1SiCOmBfd+lnBuiuA6iexwSRFnlo0Qz6P/PSEsCYMdP3vFHkP+JXZOW3cTr
+	 WBy69WyF35UMJ2Yw2Ycj4kJ0xPKqiH0lPtYA3Iizir35KxQniyxo8+DBBf7Xofuq9V
+	 qbSFslGHCOahg==
+Date: Fri, 6 Nov 2026 20:05:40 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
+	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [PATCH v3 08/18] KVM: x86/pmu: Switch to bitmask-based KVM PMU
+ capabilities
+Message-ID: <au4wUM4fwB47Yss9@google.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-9-zide.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,167 +62,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-b4-pm-sleep-hibernation-fixes-v1-0-51fac96d080d@oss.qualcomm.com>
- <20261102-b4-pm-sleep-hibernation-fixes-v1-1-51fac96d080d@oss.qualcomm.com> <CAJZ5v0i4ZpQJQ_9kgfdT=h=UQj6L83G4d3_eqtxLGhjidwLr-A@mail.gmail.com>
-In-Reply-To: <CAJZ5v0i4ZpQJQ_9kgfdT=h=UQj6L83G4d3_eqtxLGhjidwLr-A@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 6 Nov 2026 21:05:21 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0g3zU51Q4sQvmTNH-Jtycu1D5Qm9c6r2t_DCp03ePzV-g@mail.gmail.com>
-X-Gm-Features: AclHuK9ffEJOtXbm6XH9DB_bSh2KJbZwL0soeflK3rXbvjZmu6oY38SsaZSSydI
-Message-ID: <CAJZ5v0g3zU51Q4sQvmTNH-Jtycu1D5Qm9c6r2t_DCp03ePzV-g@mail.gmail.com>
-Subject: Re: [PATCH 1/2] PM: sleep: Do not mark devices without PM callbacks
- active on resume
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Pavel Machek <pavel@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="00000000000092f9ab065fa122f5"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106013927.166209-9-zide.chen@intel.com>
 
---00000000000092f9ab065fa122f5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+> index adafd6fa2c54..3310c370c5fa 100644
+> --- a/arch/x86/kvm/cpuid.c
+> +++ b/arch/x86/kvm/cpuid.c
+> @@ -1535,10 +1535,18 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
+>  		}
+>  
+>  		eax.split.version_id = kvm_pmu_cap.version;
+> -		eax.split.num_counters = kvm_pmu_cap.num_counters_gp;
+> +
+> +		/* Contiguous GP counters only. */
+> +		eax.split.num_counters =
+> +			find_first_zero_bit(kvm_pmu_cap.cntr_mask,
+> +					    KVM_MAX_NR_GP_COUNTERS);
+>  		eax.split.bit_width = kvm_pmu_cap.bit_width_gp;
+>  		eax.split.mask_length = kvm_pmu_cap.events_mask_len;
+> -		edx.split.num_counters_fixed = kvm_pmu_cap.num_counters_fixed;
+> +
+> +		/* Contiguous fixed counters only. */
+> +		edx.split.num_counters_fixed =
+> +			find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
+> +					    KVM_MAX_NR_FIXED_COUNTERS);
+>  		edx.split.bit_width_fixed = kvm_pmu_cap.bit_width_fixed;
+>  
+>  		if (kvm_pmu_cap.version)
+> @@ -1903,7 +1911,7 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
+>  
+>  		cpuid_entry_override(entry, CPUID_8000_0022_EAX);
+>  
+> -		ebx.split.num_core_pmc = kvm_pmu_cap.num_counters_gp;
+> +		ebx.split.num_core_pmc = hweight64(kvm_pmu_cap.cntr_mask64);
 
-On Fri, Nov 6, 2026 at 7:46=E2=80=AFPM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
->
-> On Mon, Nov 2, 2026 at 3:47=E2=80=AFPM Abel Vesa <abel.vesa@oss.qualcomm.=
-com> wrote:
-> >
-> > Devices without system sleep callbacks get power.smart_suspend set in
-> > device_prepare_smart_suspend(), unless their parent or a supplier
-> > prevents it, so device_resume_noirq() sets their runtime PM status to
-> > "active" whenever dev_pm_skip_resume() returns false. That is always
-> > the case for PM_EVENT_RESTORE.
-> >
-> > Nothing resumes such a device, though.
->
-> Too bad because it should be resumed in the "restore" phase of
-> hibernation.  The concept of keeping devices in runtime suspend across
-> hibernation is just fundamentally broken.
+Should this be the number of contiguous counters?
 
-But if this happens to work somehow, then oh well.
+>  		entry->ebx = ebx.full;
+>  		break;
+>  	}
+[..]  
+> @@ -516,7 +517,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	union cpuid10_edx edx;
+>  	u64 perf_capabilities;
+>  	u64 fixed_mask;
+> -	int nr_gp_counters;
+> +	int nr_gp_counters, nr_fixed_counters;
+>  	u64 counter_rsvd;
+>  
+>  	if (!lbr_desc)
+> @@ -550,16 +551,25 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  				      kvm_pmu_cap.events_mask_len);
+>  	pmu->available_event_types = ~entry->ebx & (BIT_ULL(eax.split.mask_length) - 1);
+>  
+> -	fixed_mask = BIT_ULL(edx.split.num_counters_fixed) - 1;
+> -	fixed_mask &= BIT_ULL(kvm_pmu_cap.num_counters_fixed) - 1;
+> +	/*
+> +	 * CPUID.0AH:EDX[4:0] can only enumerate contiguous counters. Clamp the
+> +	 * value to the number of contiguous fixed counters supported by KVM.
+> +	 */
+> +	nr_fixed_counters = min_t(int, edx.split.num_counters_fixed,
+> +				  find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
+> +						      KVM_MAX_NR_FIXED_COUNTERS));
+> +
+> +	fixed_mask = BIT_ULL(nr_fixed_counters) - 1;
+> +	fixed_mask &= kvm_pmu_cap.fixed_cntr_mask64;
 
-> > If its bus or driver manages
-> > resources from runtime PM callbacks, those resources stay off while the
-> > device is now reported as active, and the next runtime suspend releases
-> > them a second time.
-> >
-> > AMBA devices are an example, since the AMBA bus only has runtime PM
-> > callbacks, which enable and disable the APB clock. After restoring from
-> > hibernation on a Qualcomm Glymur CRD, the runtime-suspended CoreSight
-> > devices are marked active, and the following runtime suspend of each of
-> > them hits:
-> >
-> >   qdss already disabled
-> >   WARNING: drivers/clk/clk.c:1259 at clk_core_disable+0xa4/0xac
-> >   Call trace:
-> >    clk_core_disable+0xa4/0xac (P)
-> >    clk_disable+0x30/0x4c
-> >    amba_pm_runtime_suspend+0x58/0x74
-> >    __rpm_callback+0x48/0x1e0
-> >    rpm_callback+0x58/0x64
-> >    rpm_suspend+0x10c/0x5a4
-> >    pm_runtime_work+0xc8/0xd8
-> >
-> > followed by "qdss already unprepared".
-> >
-> > On suspend-to-RAM this does not happen, because such devices take the
-> > direct_complete path and device_resume_noirq() returns early for them.
-> >
-> > Leave the runtime PM status of devices without PM callbacks as it is.
->
-> If I'm not mistaken, doing so may break the cases in which a device
-> without PM callbacks and runtime PM enabled is the parent of a device
-> with smart_suspend set because there will be a runtime-active device
-> under a runtime-suspended parent.
+Isn't nr_fixed_counters already clamped to the number of contiguous bits
+in fixed_cntr_mask?
 
-So yeah, smart_suspend should not be set for devices with existing
-runtime PM callbacks even if they have no system-wide PM callbacks.
-
-Please try the attached patch (untested).
-
-> > Fixes: bca84a7b93fd ("PM: sleep: Use DPM_FLAG_SMART_SUSPEND conditional=
-ly")
-> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> > ---
-> >  drivers/base/power/main.c | 7 ++++++-
-> >  1 file changed, 6 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-> > index 88a31e09e4f3..16a1f017051e 100644
-> > --- a/drivers/base/power/main.c
-> > +++ b/drivers/base/power/main.c
-> > @@ -839,10 +839,15 @@ static void device_resume_noirq(struct device *de=
-v, pm_message_t state, bool asy
-> >          * Otherwise, the device is going to be resumed, so set its PM-=
-runtime
-> >          * status to "active" unless its power.smart_suspend flag is cl=
-ear, in
-> >          * which case it is not necessary to update its PM-runtime stat=
-us.
-> > +        *
-> > +        * A device without system sleep callbacks is not going to be r=
-esumed
-> > +        * by anyone, though, so leave its PM-runtime status as is. Oth=
-erwise,
-> > +        * resources managed by its runtime PM callbacks, like the bus =
-clock of
-> > +        * an AMBA device, would end up unbalanced on the next runtime =
-suspend.
-> >          */
-> >         if (skip_resume)
-> >                 pm_runtime_set_suspended(dev);
-> > -       else if (dev_pm_smart_suspend(dev))
-> > +       else if (dev_pm_smart_suspend(dev) && !dev->power.no_pm_callbac=
-ks)
-> >                 pm_runtime_set_active(dev);
-> >
-> >         if (dev->pm_domain) {
-> >
-> > --
-> > 2.54.0
-> >
-
---00000000000092f9ab065fa122f5
-Content-Type: text/x-patch; charset="US-ASCII"; name="pm-sleep-no-callbacks.patch"
-Content-Disposition: attachment; filename="pm-sleep-no-callbacks.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mw5eizf70>
-X-Attachment-Id: f_mw5eizf70
-
-LS0tCiBkcml2ZXJzL2Jhc2UvcG93ZXIvbWFpbi5jICAgIHwgICAgNSArKystLQogZHJpdmVycy9i
-YXNlL3Bvd2VyL3Bvd2VyLmggICB8ICAgIDQgKysrKwogZHJpdmVycy9iYXNlL3Bvd2VyL3J1bnRp
-bWUuYyB8ICAgIDYgKysrKysrCiAzIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDIg
-ZGVsZXRpb25zKC0pCgotLS0gYS9kcml2ZXJzL2Jhc2UvcG93ZXIvbWFpbi5jCisrKyBiL2RyaXZl
-cnMvYmFzZS9wb3dlci9tYWluLmMKQEAgLTIxNzksMTMgKzIxNzksMTQgQEAgc3RhdGljIGJvb2wg
-ZGV2aWNlX3ByZXBhcmVfc21hcnRfc3VzcGVuZAogCiAJLyoKIAkgKiBUaGUgInNtYXJ0IHN1c3Bl
-bmQiIGZlYXR1cmUgaXMgZW5hYmxlZCBmb3IgZGV2aWNlcyB3aG9zZSBkcml2ZXJzIGFzawotCSAq
-IGZvciBpdCBhbmQgZm9yIGRldmljZXMgd2l0aG91dCBQTSBjYWxsYmFja3MuCisJICogZm9yIGl0
-IGFuZCBmb3IgZGV2aWNlcyB3aXRob3V0IGFueSBQTSBjYWxsYmFja3MgKGluY2x1ZGluZyBydW50
-aW1lIFBNCisJICogY2FsbGJhY2tzKS4KIAkgKgogCSAqIEhvd2V2ZXIsIGlmICJzbWFydCBzdXNw
-ZW5kIiBpcyBub3QgZW5hYmxlZCBmb3IgdGhlIGRldmljZSdzIHBhcmVudAogCSAqIG9yIGFueSBv
-ZiBpdHMgc3VwcGxpZXJzIHRoYXQgdGFrZSBydW50aW1lIFBNIGludG8gYWNjb3VudCwgaXQgY2Fu
-bm90CiAJICogYmUgZW5hYmxlZCBmb3IgdGhlIGRldmljZSBlaXRoZXIuCiAJICovCi0JaWYgKCFk
-ZXYtPnBvd2VyLm5vX3BtX2NhbGxiYWNrcyAmJgorCWlmICgoIWRldi0+cG93ZXIubm9fcG1fY2Fs
-bGJhY2tzIHx8IHBtX3J1bnRpbWVfY2FsbGJhY2tzX2V4aXN0KGRldikpICYmCiAJICAgICFkZXZf
-cG1fdGVzdF9kcml2ZXJfZmxhZ3MoZGV2LCBEUE1fRkxBR19TTUFSVF9TVVNQRU5EKSkKIAkJcmV0
-dXJuIGZhbHNlOwogCi0tLSBhL2RyaXZlcnMvYmFzZS9wb3dlci9wb3dlci5oCisrKyBiL2RyaXZl
-cnMvYmFzZS9wb3dlci9wb3dlci5oCkBAIC0xMzEsNiArMTMxLDggQEAgZXh0ZXJuIHZvaWQgd2Fr
-ZXVwX3NvdXJjZV9zeXNmc19yZW1vdmUocwogCiBleHRlcm4gaW50IHBtX3dha2V1cF9zb3VyY2Vf
-c3lzZnNfYWRkKHN0cnVjdCBkZXZpY2UgKnBhcmVudCk7CiAKK2V4dGVybiBib29sIHBtX3J1bnRp
-bWVfY2FsbGJhY2tzX2V4aXN0KHN0cnVjdCBkZXZpY2UgKmRldik7CisKICNlbHNlIC8qICFDT05G
-SUdfUE1fU0xFRVAgKi8KIAogc3RhdGljIGlubGluZSB2b2lkIGRldmljZV9wbV9zbGVlcF9pbml0
-KHN0cnVjdCBkZXZpY2UgKmRldikge30KQEAgLTE2MCw2ICsxNjIsOCBAQCBzdGF0aWMgaW5saW5l
-IGludCBwbV93YWtldXBfc291cmNlX3N5c2ZzCiAJcmV0dXJuIDA7CiB9CiAKK3N0YXRpYyBpbmxp
-bmUgYm9vbCBwbV9ydW50aW1lX2NhbGxiYWNrc19leGlzdChzdHJ1Y3QgZGV2aWNlICpkZXYpIHsg
-cmV0dXJuIGZhbHNlOyB9CisKICNlbmRpZiAvKiAhQ09ORklHX1BNX1NMRUVQICovCiAKIHN0YXRp
-YyBpbmxpbmUgdm9pZCBkZXZpY2VfcG1faW5pdChzdHJ1Y3QgZGV2aWNlICpkZXYpCi0tLSBhL2Ry
-aXZlcnMvYmFzZS9wb3dlci9ydW50aW1lLmMKKysrIGIvZHJpdmVycy9iYXNlL3Bvd2VyL3J1bnRp
-bWUuYwpAQCAtMjEzNiw0ICsyMTM2LDEwIEBAIGJvb2wgcG1fcnVudGltZV9uZWVkX25vdF9yZXN1
-bWUoc3RydWN0IGQKIAkJIGRldi0+cG93ZXIuaWdub3JlX2NoaWxkcmVuKTsKIH0KIAorYm9vbCBw
-bV9ydW50aW1lX2NhbGxiYWNrc19leGlzdChzdHJ1Y3QgZGV2aWNlICpkZXYpCit7CisJcmV0dXJu
-ICFkZXYtPnBvd2VyLm5vX2NhbGxiYWNrcyAmJiAoR0VUX0NBTExCQUNLKGRldiwgcnVudGltZV9y
-ZXN1bWUpIHx8CisJCUdFVF9DQUxMQkFDSyhkZXYsIHJ1bnRpbWVfc3VzcGVuZCkpOworfQorCiAj
-ZW5kaWYgLyogQ09ORklHX1BNX1NMRUVQICovCg==
---00000000000092f9ab065fa122f5--
+>  
+>  	/*
+> -	 * The number of counters comes from guest CPUID data. Clamp the value
+> -	 * to avoid a shift-by-64 in BIT_ULL().
+> +	 * CPUID.0AH:EAX[15:8] can only enumerate contiguous counters. Clamp the
+> +	 * value to the number of contiguous GP counters supported by KVM.
+>  	 */
+> -	nr_gp_counters = min_t(int, eax.split.num_counters, X86_PMC_IDX_MAX - 1);
+> -	pmu->pmc_exists64 = (BIT_ULL(nr_gp_counters) - 1) &
+> -			    (BIT_ULL(kvm_pmu_cap.num_counters_gp) - 1);
+> +	nr_gp_counters = min_t(int, eax.split.num_counters,
+> +			       find_first_zero_bit(kvm_pmu_cap.cntr_mask,
+> +						   KVM_MAX_NR_GP_COUNTERS));
+> +	pmu->pmc_exists64 = BIT_ULL(nr_gp_counters) - 1;
+>  
+>  	entry = kvm_find_cpuid_entry_index(vcpu, 7, 0);
