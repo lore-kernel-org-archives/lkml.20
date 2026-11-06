@@ -1,103 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987511;
-	b=yXKduUJ3ufRU8gYdGd76s1mXCQVjCUoc2Eom9e5bZ/Ois4HkzI0dG+kw17H3J8rGRAsS
-	 mXf6m5ImIrvn1mG5NFwQjknYT1QsqL8aVdd+cKubCySpgPKLVqv1u44RET1qO1ZgWyx+M
-	 g9VAw4ZOx7Z2FEDn2Ld8Q4yOu4Rbe8K7Hy/z6x46Aqutv+ZOhwwLh78yGvVJDEskSkbgt
-	 8nx9LAN7HTMOy6FKJx0Gj3rPEwpCQwVEsuTwlR8k+cHETKCMdAp++0AL7pCuyp+o6HYQJ
-	 vdtcSdHtZOjB5kDTOwielxTxkHIfI4aRMxxFVjTnzsh8mcR8IeDVddSDbatuwjz8QyQ==
+	t=1793987562;
+	b=Ce2dEWkBeR7apCbaklQRejPVKqXO6BFWz2ron3+UYn+xLn6mqQDVD9K78u5kCGOI8RBl
+	 sKEbbpJdZDYtGt4VNdteiEaSKuyGbTWoERGMtPNGD/ix7AEcKWiomjma1N6KJO0UQSUgw
+	 PF04En6qz3AEthQniqfPRWCx/eqPH6H5z2jEvXANBLA/04VVFwe4BCkTNyd2yCvK7LZTT
+	 +MA/GJ2WVBsL3qBMtN8lqAi6Rfj/SiJbWfNNJtxWsmBEDkrJ1ckBHxiEoBbVoO28pJIco
+	 T9eRE3Y7BgQkqNoE6+9oJX4WcAouuZsatX60116Ebo1K2kdnByMVIWzfN2kbzFbhQiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987511;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987562;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6WEB/QmqGNShWN2WfpdxFDs5dt086xZeyrUN/pg7o0I=;
-	b=KzawSQgwmCCJ8s3UF/PW72Mxt3rrPNmAHqmw69Jzul71qZATT0HBcK0BspWJVOkZhX6w
-	 RuGg+83Rkp6WtTYdlaViLLLOP0CGcaFCuCMNw0BNeNGtMX2MjJw3aJXGZQhGcjC2BsKAD
-	 Dkc610zruTEVrXxEclA5wt4ji3UFmQTBmR14RVFU09Z/SP2bKevI9IcmzRO1kcH1jzqDm
-	 xDrq01KRm0mzlz2IXln31LSFZJFWfe1rtOa9DVQZFCSdCLoXhJqvG6G0BqldQz2F0EdHY
-	 IHVmVK63pWnvGGvYjuFOXNlauy99ks5aQi7hg5b0XHQs92p31kQY78RB54aVU3OyCrA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
+	b=jmzbvRnjFqx24z4QPcTW7b4h44I8vOQr7+lV++hdWu1PmhGD/Yh1sxLH3k+yUEUYmNFx
+	 Nb7qUaxXiM32rWiGITDwBkc5fp7Ery69Y9ltKwgMq5nTpqv0HCRt4TNjltkZzSE0W/gSM
+	 7ThsLTz6XKqstKpkrijFRjksmnIR6JEXC/WLeiZqUipWTqBHrHOSIuJ7wDLyFCqRC/a82
+	 XolQw6KSDIhdeZmOa5buN1XGWCFB4zyxFvcHPh/xelBmcjhwTJwKX9PfP0/HuvVApq3jJ
+	 p2lJyIZF03VzGVpcsE36guTCkeAX1Z1FbUr3/Nle6QT72HTKcA4xBa9/wRZTBYHquSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SfWnW+pY;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=dJnL6VCC;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D7B606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:51:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29D7B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B38606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:52:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B38606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SfWnW+pY
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so8087435e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:51:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=dJnL6VCC
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48fd2e38825so608615f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:52:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793987509; x=1794592309; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6WEB/QmqGNShWN2WfpdxFDs5dt086xZeyrUN/pg7o0I=;
-        b=SfWnW+pYyUwOMGSdBGHMoixeHCbffSAajOYltsvFXeb8G1aGGwNOsjpy/pzGGJH5co
-         F2k0Qp3wT79r1aCHEa8tnSJ9jfgUrxBq2e8qN/4yZep8COwwSF7U3p7/R563H+mBLl28
-         D0cldKz+2DVmlWdEqgteclR45OM0JP+weL/agwc3ez+2gMONtMFvdEtSEO7OI/6NX+HB
-         v+zEx2pxCv83ynG42gi9aOuRQ6SuHXQy6T1Wpg1QRmMbLy+1/YAJHEnByWy03Zgf5+66
-         /eqvLlDqpxDcqwycbg8lZPAZmZusX1LrD0zXCv5gOpm1U3vGcEuOBfZQAT3Wa8Ckf4Kd
-         xI4Q==
+        d=flipper.net; s=google; t=1793987560; x=1794592360; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
+        b=dJnL6VCCzjqn0HtRC+I0cQEvdVy8RK/ZpiYGX7AetqpS0imrsttLKo2pQBEoybw7e8
+         ENPuVT194VNF4IeFX/wZif1U51zIXWpNbWI00p5B/+PRnVir1l4rwzP68+oOvP+/SgbS
+         zVqufQTjDULfOG5tkwVwwFfWNRWAqcOjYMvpe8OlRKoeR2O1d7OEVzPc1Bu/oMKsvpTj
+         m/3TQPrSIf3uvY0fyaO32bnslN4hSxIXT1uho1hgilMPZR9BPPWi60TT0YBi6XFGmsP/
+         vnRD/QTwwe+n08dhenpHMbEuatW5H9thqPSYqxhgb7VdzJNU43hNzmxfH2kqdAE3b/iN
+         XkMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987509; x=1794592309;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6WEB/QmqGNShWN2WfpdxFDs5dt086xZeyrUN/pg7o0I=;
-        b=Aa16PzpJAws5Xvq2htZso+qz0JWxJftTw5Zoujsr6BMUwiIESRsiudMLNhATfBQvKy
-         kkxf5IV/242lJdbXpTiLxdkjWEbodWcEsSgu1+yq/iIoCXZZgCI5NMUZ4JXhBY07hB3a
-         evhfjyMPnxiJSvp6g5PBHkmlIH88SB0LyZCIQ8MjLbtfD2/eA9Bp0D0yrUcG9FHo2vbo
-         EIoAH17GBxq7EpWxajh+kNIknhwsxSazjt5SBCuaiDYFRGC6UPethYkjt2rtFXcZxvBW
-         IWi+SmkFytaDgOJNi4DXq6uC+TdNrwPzsWzyIFbpfq1l3wfF1pFxxb/twvTQ4soC3cPZ
-         I7bA==
-X-Forwarded-Encrypted: i=1; AKwUvBwb/uKIVOLEibs0w4rlAvw5WrVcxUYeJcHiiujpZb2k9EvTXBX3NTs88pAgJV/wnufdsmlv4fYAYYqe1Yo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7z+l0tuXqQtKWD3lDajE1wn5vqTL1uYYi0yvAdPK2TAQqD6hK
-	yI3f3unNaM7F+nFeSaOk1FsN/jkQ/XlbGdH34MVNyDhXk3MA/rF9szfKnDHWSjoqaQ==
-X-Gm-Gg: AYBFou1QmjuCLdR7moAAlEzZcH5rBk33dutBEa41tZZeY3xOUtDdqW+KxhDcu98YUoP
-	WfZ4xYwOyjxNSuZlWVrGGqSVb/B/ZBEI/80zBZ9Z+Hv8Ch1iby0oC72Q6sjqqIOoDTyAwrPpe5O
-	7ln5lWAO72ZFwLO9YBByxDHnbiKqCuNSRDaMmr3c5dFAvEJs4VLhOxKeMGFHb13UhsThQTMx/G8
-	3P6YKUXfPCAqLNGLO1aTn523rGWqKNU6tbiTtQ5CY0WEqW4MxrrR0b/oOLgfrQQmXFDies2ijsX
-	/TleC17LhrGkA2AcVzq5bnrW5isatvvkYIEXObGFergNxJFYvmTGwqsfvVu6v3Ij92PCAOHCK73
-	M1PRuSZQ4v3kD9TCgxyRny8lEaJ5+5ZytgJlKuAf6v9gPK+zee962fMJ9Ssot7rrJlSFJpEqV2k
-	VfpWjMibaZZsJ80Ixi4eghf1oBWXXYCwxzC3q1nTA0z947Qkk8mJ3IaKUzUlkq7Yu7Nr3WCKkry
-	XFtAScVn9O6S6+B1R4jras5AZN74qXJ8CH7AEXr3ZxarZc5NxOi+XXppL8FwGf8yqqmRSTdgMf4
-	9/juKNksmLFzYaAHF2bLckCfd0iM1h2LGaO1TcoyfFD+d8NvOR5G8oCbEjK0+eNOiGF1ZVgj1lM
-	32D4gT4m1eA==
-X-Received: by 2002:a05:600c:620c:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4b6dea6881fmr58086205e9.11.1793987509034;
-        Fri, 06 Nov 2026 09:51:49 -0800 (PST)
-Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbd082dsm7811725e9.1.2026.11.06.09.51.48
+        d=1e100.net; s=20260707; t=1793987560; x=1794592360;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
+        b=Vx4qEK9E1dxknenQAeY5WxYJ4A8jgtLJVubVSb70aHRN/604ugXIAW4pm0RFid6n2T
+         UI/bbmn56pYpImAuuwuhdj+rFcqRUjob8bGjKSIEM0c+tqeyGaOyopNxP7mgDI7xRAKR
+         TcR3GFWpN1hF9ITfhRSBTvsFfhf5QqLyx7xTsUnv0jyre2Tq/+KUhLuP/u0Jt3+1Th3y
+         yYiriyLaYrxqvAnYhp3Qpv5dFi5Vlgn0KvGN6Md04Oy4Qk/tgmwqrfKibRnsOVDzFD+k
+         laVTrKrqXSAEx6OjoFBv66AtH35YSsa3ljlWZev8bRRXPo3anlZ+2YDv+dKLSsxv5UTO
+         YYlA==
+X-Forwarded-Encrypted: i=1; AL+hErEXi2uyiHRAqiS5Ii7l70cAQEQB0FuMRFNb6zfD66xHWX9tqbdCdWurx6fJMN/Zmzb/fe+EBI5UBNm+StI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bdEO+WYtQbqkiqVsO7IWO5pp2CiZLuL1lFAvbuX+g/LjUM2Ai
+	V0u7EQcH4rT6U5YQ6Uz2jKbOr/tDKD7iy+oqtDOM7ahwXPmODNMXtRU3jAqdF/85V8SN3sH31hZ
+	Ag4Fu/ETV9A==
+X-Gm-Gg: AYBFou0EE0+mVl0WOI9vD5SQyXHESJOzZnqOSVDtU1hpRH2+gQe+mfhdoazrwy4YM7J
+	/uv6pobqPN4kB443Q/hdzxsr30oNLHRZ+Q/V9Mk/xNLrmCJsjf3LWH6DyyBmr1Q/43EQhkHWqPL
+	XJtY/0JS3Xk4rAPSQ50RR8nMmsS4s7ao7EAJ7ykqS/0WmnHmHyUJRb9RweH31ZkMvjKMiZu1BvH
+	ixXRcrYEB36yLYDcWhzrstsoje7HYTuESMs5WwgearuP7iJSIB08jQfTszHshAze4QuWZdNwZJ/
+	C9UfU+cqbhfPpMr7IIamDb9AiGmzbWY3ASGJ4JyEBJrUMto7sZ3KyGv+wScNPYgvXYm0V9rmqqp
+	nFon8cnAEvMxha4lKUmK8HWtRRM+1+6b+tJKGAD/CHNysE4Rz91+ktjLxfix8vgTZiXt2oWLlVU
+	tflYmO6bAiJmt4Wy5tgxFHkP2D+ZsuhX8dh9q1G96RI6qcFoS+iozRIblzBHZ6R09JupFZFE176
+	Zglwh4K52F+hkRhjYLsg1vPHJ9FtQCTPSGsx96zcG35ajdQtr9qnOXbzRbCX9gOGeaoKpagLRkR
+	CrEERuMCYyuO8XBlCmkBPBeDv5oXeh7HwOjfAuejuzORQqFhL78/t8zwLRpSEkeU/hs11HLzRTz
+	/bvm+3PQ5VA==
+X-Received: by 2002:a05:6000:4b17:b0:48e:4561:8a17 with SMTP id ffacd0b85a97d-49275fe4f50mr6153448f8f.16.1793987560021;
+        Fri, 06 Nov 2026 09:52:40 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d6382dsm4427671f8f.19.2026.11.06.09.52.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:51:48 -0800 (PST)
-Date: Fri, 6 Nov 2026 17:51:44 +0000
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] KVM: arm64: Allocate a protected vCPU's SVE state at
- EL2
-Message-ID: <au4TsO50x7BcFYpi@google.com>
-References: <20261105130456.1617185-1-fuad.tabba@linux.dev>
- <20261105130456.1617185-3-fuad.tabba@linux.dev>
+        Fri, 06 Nov 2026 09:52:39 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Fri, 06 Nov 2026 21:52:35 +0400
+Subject: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
+ EVB1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,51 +94,257 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105130456.1617185-3-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm3S8jMQr2JcMGMHqgmaKRATw
+ t0ZZfkt3tvAJKkYXIsNkqxq+p4y+FJAGPtpENRHNpRUOmZymF5V0zqU1TOOi/mKGYkkhhjrvqM
+ OcvlJEvX7v97up23xTwnzbwX7fgDI0qS2dwAAAA==
+X-Change-ID: 20261106-rk3576-evb1-husb311-00efcff4a808
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5103; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=Bsdyugnk6OoKTZGf3182OVL5hFUwb7G3DqCpOh/DVH8=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWS9E356PT+1Oc+onVHtN5c/m+fkZfEfbN/o3K4unBac9
+ spw9eeVHRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ oZGOsY4RAxenAEy1piHD/0jlzK8xASsOlqnsPih7Ujw6X1Byvvb29dkyOWdP9cVbqzMynN3n+Cw
+ 3NoajdvvXrhNybAnxvYlB1670fhav3FKXwf+WBQA=
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-> @@ -1243,6 +1253,9 @@ int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
->  			    PSCI_0_2_AFFINITY_LEVEL_ON) != PSCI_0_2_AFFINITY_LEVEL_ON_PENDING)
->  		return -ECANCELED;
->  
-> +	if (vcpu_has_sve(&hyp_vcpu->vcpu))
-> +		memset(hyp_vcpu->vcpu.arch.sve_state, 0, vcpu_sve_state_size(&hyp_vcpu->vcpu));
-> +
+RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
+controller and a fixed-voltage VBUS supply.
 
-Why wasn't this line around before?
+Describe it in the device tree, including the wiring for both the USB and
+the DP side.
 
->  	kvm_reset_vcpu_core(&hyp_vcpu->vcpu);
->  	kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
->  
-> diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-> index 32e82653ebf7e..06ea91415ad8b 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-> @@ -570,6 +570,7 @@ static const struct sys_reg_desc_reset pvm_sys_reg_reset_vals[] = {
->  	RESET_UNKNOWN(MAIR_EL1),
->  	RESET_ZERO(AMAIR_EL1),
->  	RESET_ZERO(MDSCR_EL1),
-> +	RESET_ZERO(ZCR_EL1),
->  	RESET_ZERO(CNTV_CTL_EL0),
->  	RESET_UNKNOWN(TTBR0_EL1),
->  	RESET_UNKNOWN(TTBR1_EL1),
-> diff --git a/arch/arm64/kvm/reset.c b/arch/arm64/kvm/reset.c
-> index 10eb7249aa9e8..aaaa1b8634ba4 100644
-> --- a/arch/arm64/kvm/reset.c
-> +++ b/arch/arm64/kvm/reset.c
-> @@ -52,6 +52,8 @@ int __init kvm_arm_init_sve(void)
->  		if (WARN_ON(kvm_sve_max_vl > VL_ARCH_MAX))
->  			kvm_sve_max_vl = VL_ARCH_MAX;
->  
-> +		kvm_nvhe_sym(kvm_sve_max_vl) = kvm_sve_max_vl;
-> +
->  		/*
->  		 * Don't even try to make use of vector lengths that
->  		 * aren't available on all CPUs, for now:
-> -- 
-> 2.47.3
-> 
+This makes the data roles follow the Type-C port's negotiation, so the
+port stops being host only. It also leaves the VBUS regulator to be
+managed by TCPM instead of being hardwired via the tangentially related
+phy-supply on a USB controller. DP lanes are also muxed dynamically by
+the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
+lane muxing also goes away.
 
--- 
-Vincent
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+ arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts | 150 ++++++++++++++++++++++-
+ 1 file changed, 147 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
+index f83d129f96f1..a9b27cdb2dfa 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
+@@ -11,6 +11,7 @@
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
+ #include <dt-bindings/soc/rockchip,vop2.h>
++#include <dt-bindings/usb/pd.h>
+ #include "rk3576.dtsi"
+ 
+ / {
+@@ -334,6 +335,22 @@ &combphy1_psu {
+ 	status = "okay";
+ };
+ 
++&dp {
++	status = "okay";
++};
++
++&dp0_in {
++	dp0_in_vp1: endpoint {
++		remote-endpoint = <&vp1_out_dp>;
++	};
++};
++
++&dp0_out {
++	dp0_out_con: endpoint {
++		remote-endpoint = <&usbdp_phy_dp_in>;
++	};
++};
++
+ &gmac0 {
+ 	clock_in_out = "output";
+ 	phy-mode = "rgmii-rxid";
+@@ -772,6 +789,58 @@ regulator-state-mem {
+ &i2c2 {
+ 	status = "okay";
+ 
++	usbc0: typec-portc@4e {
++		compatible = "hynetek,husb311", "richtek,rt1711h";
++		reg = <0x4e>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <RK_PA5 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&usbc0_int>;
++		vbus-supply = <&vbus5v0_typec>;
++
++		connector {
++			compatible = "usb-c-connector";
++			label = "USB-C";
++			data-role = "dual";
++			power-role = "source";
++			source-pdos = <PDO_FIXED(5000, 2000,
++						 PDO_FIXED_USB_COMM | PDO_FIXED_DATA_SWAP)>;
++
++			altmodes {
++				displayport {
++					svid = /bits/ 16 <0xff01>;
++					vdo = <0x00001c46>;
++				};
++			};
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					usbc0_hs: endpoint {
++						remote-endpoint = <&usb_drd0_hs_ep>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++					usbc0_ss: endpoint {
++						remote-endpoint = <&usbdp_phy_ss_out>;
++					};
++				};
++
++				port@2 {
++					reg = <2>;
++					usbc0_sbu: endpoint {
++						remote-endpoint = <&usbdp_phy_dp_out>;
++					};
++				};
++			};
++		};
++	};
++
+ 	hym8563: rtc@51 {
+ 		compatible = "haoyu,hym8563";
+ 		reg = <0x51>;
+@@ -944,6 +1013,14 @@ usb_otg0_pwren: usb-otg0-pwren {
+ 		usbc0_int: usbc0-int {
+ 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
++
++		usbc0_sbu1: usbc0-sbu1 {
++			rockchip,pins = <2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		usbc0_sbu2: usbc0-sbu2 {
++			rockchip,pins = <2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
+ 	};
+ 
+ 	wifi {
+@@ -1008,7 +1085,6 @@ &u2phy0 {
+ };
+ 
+ &u2phy0_otg {
+-	phy-supply = <&vbus5v0_typec>;
+ 	status = "okay";
+ };
+ 
+@@ -1051,13 +1127,74 @@ &ufshc {
+ };
+ 
+ &usbdp_phy {
+-	rockchip,dp-lane-mux = <2 3>;
++	mode-switch;
++	orientation-switch;
++	pinctrl-names = "default";
++	pinctrl-0 = <&usbc0_sbu1 &usbc0_sbu2>;
++	sbu1-dc-gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
++	sbu2-dc-gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
+ 	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++
++			usbdp_phy_ss_out: endpoint {
++				remote-endpoint = <&usbc0_ss>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++
++			usbdp_phy_ss_in: endpoint {
++				remote-endpoint = <&usb_drd0_ss_ep>;
++			};
++		};
++
++		port@2 {
++			reg = <2>;
++
++			usbdp_phy_dp_in: endpoint {
++				remote-endpoint = <&dp0_out_con>;
++			};
++		};
++
++		port@3 {
++			reg = <3>;
++
++			usbdp_phy_dp_out: endpoint {
++				remote-endpoint = <&usbc0_sbu>;
++			};
++		};
++	};
+ };
+ 
+ &usb_drd0_dwc3 {
+-	dr_mode = "host";
++	usb-role-switch;
+ 	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++			usb_drd0_hs_ep: endpoint {
++				remote-endpoint = <&usbc0_hs>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			usb_drd0_ss_ep: endpoint {
++				remote-endpoint = <&usbdp_phy_ss_in>;
++			};
++		};
++	};
+ };
+ 
+ &usb_drd1_dwc3 {
+@@ -1079,3 +1216,10 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+ 		remote-endpoint = <&hdmi_in_vp0>;
+ 	};
+ };
++
++&vp1 {
++	vp1_out_dp: endpoint@a {
++		reg = <ROCKCHIP_VOP2_EP_DP0>;
++		remote-endpoint = <&dp0_in_vp1>;
++	};
++};
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261106-rk3576-evb1-husb311-00efcff4a808
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
+
