@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972417;
-	b=0doVuqOCQcdd8RT+McJKgwW8C5D3w2SQRWoJ3lgfU3lpE0hSwkBBJyl1n+XDKWv1nkmC
-	 fl+npyDhHpecL9BrY83LDDrF4/BZWosqzuA5DvIi5MsrTijTysd6p+XGhlPGKv0Nom1sY
-	 GJHeo24RYrhAm5ND6eNWcXF6QCNiav4y1r74DGdSwgBEKMx+HwrAyBdA3tYFCLDG2t2CF
-	 11IPnkeC1awkGIHLhEL7tepnPL5hxJngdoBGl/U6fj0Dl6yqLzBtWAmKVEQsKgYge/Izn
-	 K1/3I5cJK0Yg8VFcgmmEYBkiGGe8dKeQPrQsJYEV+ofiaRs9rlqqseHUILH6uf/3RIg==
+	t=1793972399;
+	b=TMAhsXxffjrs1btGqX6kIFL/2gkhZ3kaL1Sb+VHmKO7VGnLdpiKSrnWBt8sh7NeLiRVW
+	 sjwnry/odflEVxy+aNmAzaDDuJnHiJTk4DdZB0gUYnluFS3ZFJaCd1thtW/57j6N6syoG
+	 r8fBa1sTibx5GAYCPjF0Cmp+b+2hJNkBcE8mA479dlOOdgXCgv/Z6jMisjzGO/uA0Hpcv
+	 w6lfsSS0bUoY0hfXx8rpaqtdTkZsXA7EF48i3/E9hmmV/rap7Tw7FnWNxXF7zsK0j8qQh
+	 isI/KIRyGlKcAdTsr0cpRScmgj2CK8pWRhqplCaXNYbEDW8qqs0y9JwP2nyTGKdXD8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972417;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=3rATodojpsxEqkftZ1FEKOTyrl/GuBlbM9Q9jLKkyls=;
-	b=QwnJKwUxpIngzACJTAtgXjLp2Ql93ueyPckR4KHq5cnSDgJNt9c05N+KTgGTI4aWa076
-	 MBqtwwfiHxrKCY76IWAG/da+RJ8ZLDnXUQvUl/1ZtjKl/KK6LXVRRipZb+dNrvpbLiLjm
-	 9O5VmkWzEH9OYOjzuZFu857lbjGqVlFX0B5exqeOtf9NXkBKYuf7vLZJkAsgL4jXNLDNk
-	 bOcZzkfmFzmKh06zqfumRB18XgM8NOPRWJwFR7ZerraT+C0BWFeAHM74KYjjxoepxi6Qx
-	 b4YOBY+8gFeZtU3EYR31ijGTLXDKBnt3WvnnpvAiz29q4JfPSVm1Z5I4fy6uD74ksGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972399;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=4fAqEgZbj2e5oLEOZkZvURhkWP3v80P26gp72BkUr3w=;
+	b=EYU+ViqgnNKOrBMxzro7QghcYPub1glTZstOd8ggnPYXptxFaN5UwBrf3SHN8GRJP4qh
+	 xzHeFq7oMbtmq3PRiMjYhzbmaWrTx/pALHxSsKqwvLyzkTFBQex3B1+/sl1K8wBGHIoRm
+	 +Do5NYtToecr3ufYEt4FBCeDCopz81cETOIFtCUVOA6S6YrQ8FCL8ZBf7hfeKbbbZMYVo
+	 hbpr9Eg1xh06bjVHHKe0UJpOUlZxan5YpdfpK0Eru02C+x5JRfqY9lBuGDu1jAmZtioaM
+	 drcOjmdq9oVK/JFP0p0M8oQK24UVQDb2ooPQyeh2s9I3wKWoFvalHzBds2tEd/2vPVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hnWrxozl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YimdJFjx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1B5606A335;
-	Fri,  6 Nov 2026 13:40:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D32606A337;
+	Fri,  6 Nov 2026 13:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hnWrxozl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018451F0089F;
-	Fri,  6 Nov 2026 13:40:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YimdJFjx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6F51F008A3;
+	Fri,  6 Nov 2026 13:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972417;
-	bh=3rATodojpsxEqkftZ1FEKOTyrl/GuBlbM9Q9jLKkyls=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hnWrxozl6fgklbBYR94ILVesaaLnMI85nZvhReOChn8irCGUXVHsR/jrFA54a2Krx
-	 F0P7SBUSECSqPBv5nklAanE00bWOj3ZBd57AGQwR6rPCvX1tHSkEDsXPwAA8Lo3yZ0
-	 reeZSCDzEb8SEF/3am924Jnf0DL6UWD1ENStCq9358h5nqdJR/eofcqDpsq+n0gfSi
-	 m+ckgATYZqAxojBjuj6ZL8my0S7SKD4GiRfDKpHFXBJJbLRW//yQdXU52hbb6eX9pj
-	 xbgGEynKFGTqMY9Dub6BaupMckwVI4g09wTNaRiJVTyZ5v7LejRcMI6EjQfKdBdG4Y
-	 ggTSvbJAOgiBQ==
-From: Christian Brauner <brauner@kernel.org>
-To: viro@zeniv.linux.org.uk, Hungyu Lin <dennylin0707@gmail.com>
-Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261027044257.90408-1-dennylin0707@gmail.com>
-References: <20261027044257.90408-1-dennylin0707@gmail.com>
-Subject: Re: [PATCH] fs: allow sendfile EOF at the file size limit
-Message-Id: <20261106-benzinkanister-gehen-rhodium-13157543d782@brauner>
-Date: Fri, 06 Nov 2026 14:40:13 +0100
+	s=k20260515; t=1793972398;
+	bh=4fAqEgZbj2e5oLEOZkZvURhkWP3v80P26gp72BkUr3w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YimdJFjx5dlTOd3ynA2eVbkw4VaqeC0xHFU6rYBfb+dzh2/1Ca66HFp0vXxudLZXP
+	 ATFvwCXysV3GfA795ACIQKZvlAkGxr8tQrKiE2W/di6yVfo+bIAtsezre1Ak+h92aA
+	 G5oXm6uaQQmhzIIhnI6pqqzGrXQg2XEmC+J8MFM5OOhqwQcgUXFLTJ6xLox9SBfong
+	 Zzk+6PaYdmfBzxCAMO1BGtYu+WP31okjTjI5OIn3hWxSTB8ffJxEj6iCGOA/K15jm0
+	 iWc197ETuhUXzveKcLbflfTjVVp/4e0ntZdI04tsgC+5cISIcQCEt9CWFWbcsEkKJv
+	 QXroTjCzcX70Q==
+From: Joshua Crofts <crofts@kernel.org>
+To: Peter Chen <peter.chen@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Bin Liu <b-liu@ti.com>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] usb: dwc3: remove redundant pm_runtime_dont_use_autosuspend() calls
+Date: Fri,  6 Nov 2026 13:39:33 +0000
+Message-ID: <20261106133933.1577-4-crofts@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106133933.1577-1-crofts@kernel.org>
+References: <20261106133933.1577-1-crofts@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,37 +61,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-ce4c1
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 04:42:57 +0000, Hungyu Lin wrote:
-> do_sendfile() returns EOVERFLOW when a positive-count request starts
-> at the effective file size limit. If the input file ends exactly at
-> that limit, this rejects the final EOF probe even though no bytes
-> remain to be copied.
-> 
-> For example, Python 3.12 shutil.copyfile() copies all 4294967295 bytes
-> of a maximum-size FAT32 file to ext4, then raises EOVERFLOW on its
-> next sendfile() call instead of completing successfully.
-> 
-> [...]
+Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
+driver core is now responsible for undoing any
+pm_runtime_use_autosuspend() calls on driver exit.
 
-Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.misc branch should appear in linux-next soon.
+Remove the redundant function calls.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Signed-off-by: Joshua Crofts <crofts@kernel.org>
+---
+ drivers/usb/dwc3/core.c      | 2 --
+ drivers/usb/dwc3/dwc3-am62.c | 1 -
+ 2 files changed, 3 deletions(-)
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.misc
-
-[1/1] fs: allow sendfile EOF at the file size limit
-      https://git.kernel.org/vfs/vfs/c/7c1cb643ddb7
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c59..c4f0aa962747 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -2431,7 +2431,6 @@ int dwc3_core_probe(const struct dwc3_probe_data *data)
+ err_allow_rpm:
+ 	pm_runtime_allow(dev);
+ 	pm_runtime_disable(dev);
+-	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_set_suspended(dev);
+ 	pm_runtime_put_noidle(dev);
+ err_disable_clks:
+@@ -2486,7 +2485,6 @@ void dwc3_core_remove(struct dwc3 *dwc)
+ 
+ 	pm_runtime_allow(dwc->dev);
+ 	pm_runtime_disable(dwc->dev);
+-	pm_runtime_dont_use_autosuspend(dwc->dev);
+ 	pm_runtime_put_noidle(dwc->dev);
+ 	/*
+ 	 * HACK: Clear the driver data, which is currently accessed by parent
+diff --git a/drivers/usb/dwc3/dwc3-am62.c b/drivers/usb/dwc3/dwc3-am62.c
+index d03b3950ce04..0df7e436aeb0 100644
+--- a/drivers/usb/dwc3/dwc3-am62.c
++++ b/drivers/usb/dwc3/dwc3-am62.c
+@@ -322,7 +322,6 @@ static void dwc3_ti_remove(struct platform_device *pdev)
+ 
+ 	pm_runtime_put_sync(dev);
+ 	pm_runtime_disable(dev);
+-	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_set_suspended(dev);
+ }
+ 
+-- 
+2.47.3
 
