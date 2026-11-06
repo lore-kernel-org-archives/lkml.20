@@ -1,88 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794001248;
-	b=vjspD5TMpcX9rVa7eHfX9eplBJtOS9Ar6Vc7WwfC9J+60SFhnGEn+ZOVBILhm78g8AGD
-	 lDV2qQlQgq0iHiyzHr6DM39SjulupSf68DHEyyR4Ilv/jf4nKPOubhMOKqRkkq6KkFScw
-	 Viy9T++BG8Sls98uc5aTuX36nYxUi6ujvvb7EpAY+j/KLdIwSzFfafcPAG2o2xxhELXXb
-	 r2l4vEayWGX8UB+lmEyJQuYCAayy6vkWHANCnePvOJi5I7J8thlIgWN8Hf6In1PJBO4K5
-	 /+TuaX22i0coqnQLmL38Ov+WhKNtscFKAQeZ4kBhRsN+HKgcxcazTmapGPm9p3lGmgQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794001248;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=HDC3HGct+N1kATD3ozLle6tkVgbjKWtzjQkKlLDrKRY=;
-	b=rNVCvykXY8xddfhe+yPQ3+1fP7OltsqWAoIbIQMPh4Jhaw/uhraTHGS0LCNmAkPzeKnc
-	 XH+dFtKSdPl81AbLpusUMXyr74cVlZONU0ZYpJI19dGvn748DM7zKLMFz6Q5QYp8rMJvT
-	 HR2QGDg9UjuF6Fl0ocDSarlzPpWHSjCB4rXVIGALaNr7cezDnW3uWEb8PD3Et8MZKpLPi
-	 sGAVwbXTeaa7adD1deP3iAtYFrND9ZRCLCmRY4WtesaE+agXxk1eiQHGtWiq/Af7usKNW
-	 xf0Yx9HtFKvyjCm05LyYldnU0TyoK5Z6RNxuABD3sxDVulws2EXjox1G8sxTYXx22aQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lk7q8SwX;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794001305;
+	b=ecDHyspuGu+3Id9SBUOK6XopopN3kD1olUPPqLX0DrO+jpKqkGUlRUE9eqtNCrpkwMG4
+	 YVzYbjkqak9BSTPfkKjY7DFlGtzSxVtI/hLVIu9jBPYfsFntyJpA3Vsh936BPFizCVTXx
+	 MOqjANao1ZTLfsmqZraV+OUy+psvAAlPAd01PwuzcjGpCVHbkX2voQ2hzddYMuUKacOtu
+	 mcxyXbSTstvLFVZk1//GpCSTfE4I/BrQwuJpT2hr/9KcklsoyDUiJa8peXwbzScUiIeVl
+	 Sw1r39dS15v0JHEDljq8boXf5NcaCd4wL2wgHdFZh6yyhj9/cFT7Wi7SxF4MPFL2Z9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794001305;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8N9lrQmdH9TJEi89yEj0VetBUOAEnwvVBAMls1vdLM8=;
+	b=N3b7tOE+j0pBkX3bOzXTDxBIiQtbQiOdss2Qw+Ho0SVGv0qmKLbX4J81aege6FN8RE6A
+	 vbMNxURKBigxf1FXTCU3e72lxISGaUjGrrhdqfut1AoapDeRf46Tl1xlcp7eA2woVGl9a
+	 DutZUt3WDb/JfK8emffiBsLdiUyGXj6DA+EJ0h7rHdWiuBlK86uvLGojQ6daJA8Os+lrL
+	 9pFi16FCsechMdZlGyWBVKb9wOLJaepbqZrs0h23a1mKxaN57arZOGpE4x4IsWcQCBA2C
+	 LsoF484qEE7Cn+MF/uQkXBTXgyxIwNL+E6NujdEhMraMsEBV/an7V9jWk11GYGUfrpA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Bn0Tc5yA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.22
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011022.outbound.protection.outlook.com [52.101.65.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA86606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CA86606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736B7606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:41:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 736B7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lk7q8SwX
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4b76c15ae36so6225e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 13:40:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794001245; x=1794606045; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HDC3HGct+N1kATD3ozLle6tkVgbjKWtzjQkKlLDrKRY=;
-        b=lk7q8SwXuna/HE2iiiMlyVcoL7yI2SAWKVqoxClIP/wSAqDxTRgly2E+zFPvHr47IN
-         xD8FNxo+ibPoOO6WkHJajZj5eDdJujEBcelV2iDO1JTxHN2X0uM3r5CTxDpAfSOO2Afd
-         nGd+Z28R6QnWNYZTZC+MLnIS5Y2/Kbfkj3Dye/BagbNF8FHfoBoskvSIT0KnYxCsHNMD
-         brYEou7p+RVeB/Km3pDNSUECAxgxLeUSrXzMDUxiweSGez+kWIAAOq14qcPfJaacHnnA
-         N2CF4Rq80fnpiBd9satdmiIv0Nf1jfKrNakIKToAL85O+z9SXhb+Y07D41X7SxIGUqW+
-         YlTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794001245; x=1794606045;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=HDC3HGct+N1kATD3ozLle6tkVgbjKWtzjQkKlLDrKRY=;
-        b=201tytGXWQ8P+UNBkvSwmrFRblj7Ss7DM3gg2acVulIxXBzzVUU5cevzi/ctFLJiXx
-         iV/Jv8yDz0Zt42ZZjQy6qctGnImTK/Icn+We/LlT5QfpA4HYzUHvIEqkTSZsNPB6PEhE
-         lMQ4u4Fo+/v806voNpPueiRsM4+dJXM0gkuSw9S7K2OBNGF3OMIxBtEisaFkVCq9w5w6
-         haFKYHsq+vd0VV134VXg5xqoEqqza3hmZsDjrJJ6bPTqABqzEpcu/aWmExHakYva+DCM
-         4wrAkz1OqFdNd4bIVk9k57KN4qPHuC4cQTraCKC5wxAacI3euJefMLNvhENIKDlumkPZ
-         PgfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzvcw+hVCNIG/wuXP3nJNWLSY4T+7yVcExP+jzp6q61XoIB+iyygsZKQ9JQlc9mnBLY7+njHTywGR/8g8c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JJyPfMlW6fItiNm+lyiY+r2OxnyR1E5YRgm0WOfdXH67wxkF3
-	3sv3RZ9WG330KGkhD725BCYl6qVkg3ZXbmpsvWjJ+V3oA0cKPY8hPKdNE62555vdPQ==
-X-Gm-Gg: AYBFou25Um2UjaREvYIAQN3PlDfo0fOQxOtzrzqOZTBNP7n+HR+VYCT1/1eUt2p6Vjx
-	3KC7EknyrMwNaSB1MK1YUnIngvapa78wl6hjLTHsmNvhlb1j4ebuij/TinnYUWKnVmIE13aVuiN
-	IEwvICAaK9v5NGsgUhI93wcjohPxVYDauR9t0ANh1l1C+7q5Hsr5bO2JXQ1YrNAnCFhuBzVv4hR
-	O6TJJNVxoeGB83FHfZiCNEgOKKXaP3I3jeB7xG892wezQ1hEzu1UDkQYuGJufJ3bg31R1l3AjmT
-	WUAfNkEXmsCJFs/c67Dfj8d8N5ieRXjVlau6XpOC156Y5R10kW06zWhyoj4razPR4nDtl85fnEE
-	+Y5cbc5EcOVd1ppX513aXfSS9+dn5CxSh4BhqD9b4os+Yr67fyqyl7AGXzX9GIzcRfUNeRUnwT/
-	Uas3FXmH89uNixEeqpMwJzYac0en4o8KqejICEsNExMT8VJ68DDMsFryAy1hraDznsWgLdSeaW0
-	TY5BSegBxYW+ChfxKIpiJJ5Y+Ue7W7RzERATT+jzZZEC8Y/1GIEL5maF7y8wcziujZu2DUOELDe
-	Zu0j7Yc8AHE61wweP9Th3NZYRHSp7o4a4paLyPmyi8fLssUo+4PW1OEQtIjIxtCTsDj5bQlO93v
-	BEtWCabWMlzy78XmIygtQ/pJ53uq2CkSqGIY=
-X-Received: by 2002:a05:600c:8b31:b0:4a1:d7fa:ae36 with SMTP id 5b1f17b1804b1-4b8190f3b55mr98285e9.4.1794001245067;
-        Fri, 06 Nov 2026 13:40:45 -0800 (PST)
-Received: from localhost ([2a00:79e0:288a:8:476d:4cff:b13d:f028])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7701bfasm5887936f8f.40.2026.11.06.13.40.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 13:40:44 -0800 (PST)
-From: Jann Horn <jannh@google.com>
-Date: Fri, 06 Nov 2026 22:40:31 +0100
-Subject: [PATCH net] cipso: stop modifying live ip_options_rcu
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Bn0Tc5yA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jtpXAvduZ6BDfWkK+CRYH5LCCaMbzJsu4IOw0XELIzc32twDfVKbupCcvf3W7SW1TPVYLs+Uy/hPP0WKxjehOAgDfT0AW4vQ69eAgXAwtJvW4cMNuHIK/P/YKdq/6UqvI7db5a4llR7GBmSqLgV9Lp4K4l5Zz9dQopnXwOYAk9TXQgaS23Ok+sdN0Kpd1NeA/TwCNCRsAybGNcqX1XictNh++CmRLS0gJ2IebzGn9BNHVCejx4t3zTRQMpEWJiv2FM+OUlk/8NveYfG3Xp/Hze5czHrzX96e7M9XO0dKX97gz+fJsRs9LmzmS/mtkee3c3PJAoetVqvIYIEspqsU4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8N9lrQmdH9TJEi89yEj0VetBUOAEnwvVBAMls1vdLM8=;
+ b=og4hE9/ynXFmHmlfiBVjIdYDO8g1IrWUAwO0Oa1j0986tY422caS7zn+Rte2PEwp/fAO/zB2yKh66IXGSakHkOT5CDBeFzzscuEH8s00/oeQ2T7P50Ng5dMkh7kY+72w5R51DYwSBi4U2vw8EjB8KKximMWq5+vudp/GIOs72Kf0wMPzYPml2liblHNslPz1KIznEMumhUqEVQZZzmiJh+pcPGhL+3yiUlxq6+8ROoX6T8qA4rtspl/7F+7OwIpwlClLjvx0dUMfauOWhA6Jte5um3pm+YtVAVaJX4/DQLzqwH7qJdfFE15UTBsFbFewj4oCM+ZUj/GaznN3cPdc8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8N9lrQmdH9TJEi89yEj0VetBUOAEnwvVBAMls1vdLM8=;
+ b=Bn0Tc5yAjH6/Hs6Vsga/MVv7aX8KtE5NG7E0tHjp79+JsJwuWsHaz+XpfRcqa40QGxxky8oj1lRXxx9K801vSd0n4dA9XnxABnj0Hx4l73UXecxQOmkW+E0h0AwjtyrJEgjyOp3MWt3eh/qkd/WpG521sYxSSa9fO0ITJKQ/2wH4jtAf1iqmIg5TYBvJoNESbnT1Xx8kxDHGlkBPiSKtsGvKAwbPMWCKXZdvMIgK1UMWMkJn3YQqQB4SPP2jsk7/U5A+GHWcQeCjFeSv/2o+uopL0mgXCO6HeMBvaSKDo9Jegh0NOQ2+zXvjfLFtI5tUnmcEfToS9y1AABsaYS3+Qg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM9PR04MB7586.eurprd04.prod.outlook.com (2603:10a6:20b:2d5::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 21:41:41 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
+ 21:41:41 +0000
+From: Frank.Li@oss.nxp.com
+To: Matt Porter <mporter@kernel.crashing.org>,
+	Alexandre Bounine <alex.bou9@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Danilo Krummrich <dakr@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] rapidio/tsi721: move dma_device from rio_mport to tsi721_device
+Date: Fri,  6 Nov 2026 16:41:21 -0500
+Message-ID: <20261106214132.4172049-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DS1P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:451::6)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,372 +98,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
-X-B4-Tracking: v=1; b=H4sIAE5J7moC/yWMQQrDIBQFrxLeukK0rZBcJXRh7Lf9Xaj4TQiE3
- L02Xc7AzA6hwiQYux2FVhZOsYG+dPBvF1+k+NkYpjdW694qz1mSKn5JuYoiY0Nwt/t8HQxakws
- F3s7fhEgVj7+UZf6Qr78TjuML9iD+83YAAAA=
-X-Change-ID: 20261106-cipso-rcuopts-e26ffa45b392
-To: Paul Moore <paul@paul-moore.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Simon Horman <horms@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Casey Schaufler <casey@schaufler-ca.com>, netdev@vger.kernel.org, 
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- selinux@vger.kernel.org, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794001239; l=11224;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=sFzK60Ujof6oKkoUevi0RWgNEC3MXkp1co13ojYs7hk=;
- b=ej7CqHV2tcGY7zGDHHLVd8mlD+53sVeZqHB/LxVS7JAqkBTxC9XWBqz93yNoSe62PFZyDBayT
- 2629yyXmgJ9CUPFiQcovKdF2pBDFI4WKrcPwToXC3u6z9XjHzAG4Zc2
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB7586:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04cae035-09c9-4a52-5f8d-08df3c4ebe88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|19092799006|11063799006|56012099006|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261009221227099003|261102123227099003|261028144727099003|261026140227099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RVARVYZpYNicRpuBde3rTw4tUbvRgVnJpZ/oqvXQqgMUipnDN42dFpJR8RyYjHRVJc18IjYAy+VzVPrixlRvDkYerO8f6XLtszIT04x70IYAvQeoER+YYC7c63DPgHJGrxoHBrnVq8f6QgaJTgv+SNqfYvFgstGKzSDfNStDDUnSvsV0dWEuk2cBo2PU6jXi+MSC//6s/whrIVlyYi6iIWQH4NAVoGe0jHDPcCqjgbGV2IDkp+s8vGE5fhZixi7/qoYiwjihP1+ekn0KzFiqMnh162eACFLs810/Ey5Zq5NGXjO+L4ye1w7tOGdfYGdf2tSfgJB3ftdGKMpX3N1pvgv4Qm9+zyhQP6ucXQZBDRHQZdwaId/jn8su8AY3fReB6+DSLUctko1SxvJ1PFPWPFX5pOohjiPbvrp+0pNiOWDJNx3KbIdM3yo4p0KHVRxH6zZ7tUHB+WMOly53003X1SQHv8iDq6isnCHPLqDD2I0ntkdEir+Y5klHXwBAfaqyNoJDsIDUSfyJYAevJejvuBFbCCpL3u5b2ojcjnllKZvOQ2Aq5UVfyeoTfa2Uj4NDThgUlXyjCovEXtS8Z4UM+dGzFcPZKXa2KazrAfdoY7kSfaKjPyMs2gaCf1BnfYqVK/Xg1nBKwpuQ62i+GbyZMww090kQc5/sT8qlP6YE5xE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(19092799006)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261009221227099003)(261102123227099003)(261028144727099003)(261026140227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vetU5mDaAH5lWvuUvOZa9CoQjzdo3TmswB6+IMwktKLZyxWqjvdudVswm2g2?=
+ =?us-ascii?Q?eXj1riK25U32o6Od5ZZ8POtjL5m0aDc7o5mXBfOFsUNBq7BVOpHfgu0XVuOo?=
+ =?us-ascii?Q?MMby5a2e9g0Wkn5ym8QM5Oj7wE8fYKjmH+GAdizcQbr5hkGXoLmtNI6LWXsp?=
+ =?us-ascii?Q?7jawPmafnXnvsa/ImZWbpo3fhpj/bCfOEUss3ar48YPGwz2+Ga0X94l8naP8?=
+ =?us-ascii?Q?EzJJgI+Iph7Zf5PhnNGPLMucIH0U/9cf0gG8OuUwLWx/mzAkUTE3FjS0EF23?=
+ =?us-ascii?Q?1xiOX8j3rkPPysYGI9E/faVjh1c5Vv/wAcYFnOoza6L/e/6LEWLvFFdi1tG1?=
+ =?us-ascii?Q?UbS8jiMDXReiBQp7WQlLjOayyfIk9c61mRc6mcn+obeLdAtwcrDbtmsjWtYY?=
+ =?us-ascii?Q?1lYC3pqKbUwsGIdVSdlWJSTyxBG38c5E8/zkPuoHq5octI5ScSow0B/aa/NZ?=
+ =?us-ascii?Q?QERhxugqg86n9pbvytFUGoVIR/3q8/WYLwh5MOTdjdXwWCNf/qERN8jI9qDL?=
+ =?us-ascii?Q?3AbIO6g3ZwJ6TEDEoiHUcOmj5sfweEHJW4usegH+cPtXPbn8TozqYlemLDN7?=
+ =?us-ascii?Q?9SCNGQC001WI1wmzIwro55xpxw8zphlXR0aO8hQRi9pArSxiOpUUkBIo7b+8?=
+ =?us-ascii?Q?falhC11kVYhKltpnJhi8hO5CHlhLIqRcs9j2yddZN90OGShkClnPPTS7ni9Z?=
+ =?us-ascii?Q?aeL2vDnGnHhgNSEtGtFPcV1HJjAHoEjQIj89HoRGDkoG97ShUBUwvn7oMSNP?=
+ =?us-ascii?Q?03bc/z83EP38m67U8LenzSw0RZCF1gY8Tt//kx92BwZSnI9deJioYXUir0T+?=
+ =?us-ascii?Q?nJ20XJNag1IqBWXNEOfG7oEuq9NSJ0uQqF4ATpFMx4iS0q8fJr0QrlraPaqN?=
+ =?us-ascii?Q?diIatBWK4bDtnhUhyWCybhQy9ss5yGO/+uuCx544mLFwoBFKuD+MOj588la8?=
+ =?us-ascii?Q?UAx8rdwt7VdSqEzg/5w6R+VBtb2zAKeowdJT41D6CxMo3RE7y30yoOO280iq?=
+ =?us-ascii?Q?Xv3QPfoAsTz5PhJEjplTcZeWrb2lXmQY2Sg4uT4RFdwYcIbXRLPX2LGCbVwZ?=
+ =?us-ascii?Q?qTjDY7Er9WdGsIjRBvFfk7Luj2VxBNwyYnQEizcOpaacgP9jPYZ24XsDWJf/?=
+ =?us-ascii?Q?PgUkVDJkmw7e+EpJq/eSsT7m7khS9XcxDSHqxkfZ7eWaXsLsR4ER4B76xOgb?=
+ =?us-ascii?Q?4W3BvwttC+DYVP1PGVL+GWShZBiyrIWUhJpuYFxpRzvrAK5rBJg1zcXhi82k?=
+ =?us-ascii?Q?6DZY6RLoEERnHcGXYS3vcDF1suMwH843bP77K6LO6HUEGOMZFYXHSbnlnXqi?=
+ =?us-ascii?Q?mcvUZrRMZB+7FEG0ZxJ7arGFslsbITiEklaCXRjYd0tv0bZwT4tsDY61FkZc?=
+ =?us-ascii?Q?Bq6WY8CO+KE0LoToZCcnlICz9ttREuUFPsF5mx1O+QTRz1g/4+dR3YwMpx08?=
+ =?us-ascii?Q?zI/KNPD+EXuuJGUIk5swRlOBb/128MxdM6DblR1yONaEUtYa93/9WQ/WSgae?=
+ =?us-ascii?Q?U6igK4OH0/RdR+IYO4NMW6UqA+JWbZTeNJAa4R9bGK3aR3+VUbcxHaxd/bKf?=
+ =?us-ascii?Q?M6iqOCKL3shBPF7wEfvoCVNUK1UEY/sresHMRSE2jLeOanAGHZST6xg+eNZx?=
+ =?us-ascii?Q?FJrY8bd2NiFhVNUJNp7eEKzF13DNyaN0f242tjHehSvus2mzgqPtCWks2cAF?=
+ =?us-ascii?Q?o9Ff6LhfZKiIvK6YKsM6pLbj4KhuxyrrtEGK3MxkSUpNQZ0U6riCcRA1WVgm?=
+ =?us-ascii?Q?RQCtYahXtuEmQn2xMV5ZZnxm7hnvcG0hfUpGj+14tvzbBQ5otGkL?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04cae035-09c9-4a52-5f8d-08df3c4ebe88
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 21:41:41.2763
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R8UhkWMoTO1m30iqemJD8wpIlDqtpyzDo5gT1naFT1ItMGmyyElv0DbrG8rTtf740/mkHD2/bP9+nh5kK9UjQiDMpbciwhg2oVVTKMNunFafY2SqWS4A33FrsCraAfb0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7586
 
-cipso_v4_delopt() operates on the ip_options_rcu of a socket or a request
-socket, and tries to remove CIPSO options from the middle by moving all
-subsequent options.
-That's not allowed - ip_options_rcu can be read locklessly and must always
-be consistent. For example, ip_options_undo() reads trusted offsets and
-length values from the options buffer.
-Fix it by doing the modification in a copy.
+From: Frank Li <Frank.Li@nxp.com>
 
-The core change is in cipso_v4_delopt(), the rest is ugly plumbing to
-propagate memory allocation failures.
+The embedded struct dma_device in struct rio_mport is only used by the
+tsi721 driver. Move it into struct tsi721_device where it belongs, and
+replace it with a pointer in struct rio_mport so that the generic RapidIO
+code (rio_chan_filter) can still compare channel ownership without a
+driver-specific container_of.
 
-Triggering this bug requires that the system is configured to use CIPSO.
-(Setting up CIPSO requires privileges in init_user_ns.)
+Prepare move struct dma_device to private.
 
-Fixes: f6d8bd051c39 ("inet: add RCU protection to inet->opt")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
 ---
-I've sent a separate mail with a reproducer to Paul Moore.
+build test only
+combine with other on going reviewed rio patches. drivers/rapidio can
+build with allyesconfig after move struct dma_device to
+drivers/dmaengine.h
 ---
- include/net/cipso_ipv4.h     | 11 ++++++-----
- include/net/netlabel.h       | 11 ++++++-----
- net/ipv4/cipso_ipv4.c        | 16 +++++++++++++---
- net/netlabel/netlabel_kapi.c | 24 ++++++++++--------------
- security/selinux/netlabel.c  |  5 +++--
- security/smack/smack_lsm.c   | 14 +++++++++-----
- 6 files changed, 47 insertions(+), 34 deletions(-)
+ drivers/rapidio/devices/tsi721.h     |  1 +
+ drivers/rapidio/devices/tsi721_dma.c | 44 ++++++++++++++--------------
+ drivers/rapidio/rio.c                |  2 +-
+ include/linux/rio.h                  |  8 ++---
+ 4 files changed, 26 insertions(+), 29 deletions(-)
 
-diff --git a/include/net/cipso_ipv4.h b/include/net/cipso_ipv4.h
-index d6780d7903f4..b41672221797 100644
---- a/include/net/cipso_ipv4.h
-+++ b/include/net/cipso_ipv4.h
-@@ -185,12 +185,12 @@ int cipso_v4_sock_setattr(struct sock *sk,
- 			  const struct cipso_v4_doi *doi_def,
- 			  const struct netlbl_lsm_secattr *secattr,
- 			  bool sk_locked);
--void cipso_v4_sock_delattr(struct sock *sk);
-+int cipso_v4_sock_delattr(struct sock *sk);
- int cipso_v4_sock_getattr(struct sock *sk, struct netlbl_lsm_secattr *secattr);
- int cipso_v4_req_setattr(struct request_sock *req,
- 			 const struct cipso_v4_doi *doi_def,
- 			 const struct netlbl_lsm_secattr *secattr);
--void cipso_v4_req_delattr(struct request_sock *req);
-+int cipso_v4_req_delattr(struct request_sock *req);
- int cipso_v4_skbuff_setattr(struct sk_buff *skb,
- 			    const struct cipso_v4_doi *doi_def,
- 			    const struct netlbl_lsm_secattr *secattr);
-@@ -221,8 +221,9 @@ static inline int cipso_v4_sock_setattr(struct sock *sk,
- 	return -ENOSYS;
+diff --git a/drivers/rapidio/devices/tsi721.h b/drivers/rapidio/devices/tsi721.h
+index 4f996ce627254..2df3955581af3 100644
+--- a/drivers/rapidio/devices/tsi721.h
++++ b/drivers/rapidio/devices/tsi721.h
+@@ -886,6 +886,7 @@ struct tsi721_device {
+ 	u32		pw_discard_count;
+ 
+ 	/* BDMA Engine */
++	struct dma_device	dma;
+ 	struct tsi721_bdma_maint mdma; /* Maintenance rd/wr request channel */
+ 
+ #ifdef CONFIG_RAPIDIO_DMA_ENGINE
+diff --git a/drivers/rapidio/devices/tsi721_dma.c b/drivers/rapidio/devices/tsi721_dma.c
+index 52749f1d2a11a..09faaf2f334cc 100644
+--- a/drivers/rapidio/devices/tsi721_dma.c
++++ b/drivers/rapidio/devices/tsi721_dma.c
+@@ -51,7 +51,7 @@ static inline struct tsi721_bdma_chan *to_tsi721_chan(struct dma_chan *chan)
+ 
+ static inline struct tsi721_device *to_tsi721(struct dma_device *ddev)
+ {
+-	return container_of(ddev, struct rio_mport, dma)->priv;
++	return container_of(ddev, struct tsi721_device, dma);
  }
  
--static inline void cipso_v4_sock_delattr(struct sock *sk)
-+static inline int cipso_v4_sock_delattr(struct sock *sk)
- {
-+	return 0;
- }
+ static inline
+@@ -437,7 +437,7 @@ static int tsi721_submit_sg(struct tsi721_tx_desc *desc)
+ 	rio_addr = desc->rio_addr;
+ 	next_addr = -1;
+ 	bcount = 0;
+-	sys_size = dma_to_mport(dchan->device)->sys_size;
++	sys_size = to_tsi721(dchan->device)->mport.sys_size;
  
- static inline int cipso_v4_sock_getattr(struct sock *sk,
-@@ -238,9 +239,9 @@ static inline int cipso_v4_req_setattr(struct request_sock *req,
- 	return -ENOSYS;
- }
+ 	rd_idx = ioread32(bdma_chan->regs + TSI721_DMAC_DRDCNT);
+ 	rd_idx %= (bdma_chan->bd_num + 1);
+@@ -965,9 +965,7 @@ int tsi721_register_dma(struct tsi721_device *priv)
+ 	int i;
+ 	int nr_channels = 0;
+ 	int err;
+-	struct rio_mport *mport = &priv->mport;
+-
+-	INIT_LIST_HEAD(&mport->dma.channels);
++	INIT_LIST_HEAD(&priv->dma.channels);
  
--static inline void cipso_v4_req_delattr(struct request_sock *req)
-+static inline int cipso_v4_req_delattr(struct request_sock *req)
- {
--	return;
-+	return 0;
- }
+ 	for (i = 0; i < TSI721_DMA_MAXCH; i++) {
+ 		struct tsi721_bdma_chan *bdma_chan = &priv->bdma[i];
+@@ -977,7 +975,7 @@ int tsi721_register_dma(struct tsi721_device *priv)
  
- static inline int cipso_v4_skbuff_setattr(struct sk_buff *skb,
-diff --git a/include/net/netlabel.h b/include/net/netlabel.h
-index 02914b1df38b..f896b9d52ed1 100644
---- a/include/net/netlabel.h
-+++ b/include/net/netlabel.h
-@@ -477,7 +477,7 @@ int netlbl_sock_setattr(struct sock *sk,
- 			u16 family,
- 			const struct netlbl_lsm_secattr *secattr,
- 			bool sk_locked);
--void netlbl_sock_delattr(struct sock *sk);
-+int netlbl_sock_delattr(struct sock *sk);
- int netlbl_sock_getattr(struct sock *sk,
- 			struct netlbl_lsm_secattr *secattr);
- int netlbl_conn_setattr(struct sock *sk,
-@@ -485,7 +485,7 @@ int netlbl_conn_setattr(struct sock *sk,
- 			const struct netlbl_lsm_secattr *secattr);
- int netlbl_req_setattr(struct request_sock *req,
- 		       const struct netlbl_lsm_secattr *secattr);
--void netlbl_req_delattr(struct request_sock *req);
-+int netlbl_req_delattr(struct request_sock *req);
- int netlbl_skbuff_setattr(struct sk_buff *skb,
- 			  u16 family,
- 			  const struct netlbl_lsm_secattr *secattr);
-@@ -626,8 +626,9 @@ static inline int netlbl_sock_setattr(struct sock *sk,
- {
- 	return -ENOSYS;
- }
--static inline void netlbl_sock_delattr(struct sock *sk)
-+static inline int netlbl_sock_delattr(struct sock *sk)
- {
-+	return 0;
- }
- static inline int netlbl_sock_getattr(struct sock *sk,
- 				      struct netlbl_lsm_secattr *secattr)
-@@ -645,9 +646,9 @@ static inline int netlbl_req_setattr(struct request_sock *req,
- {
- 	return -ENOSYS;
- }
--static inline void netlbl_req_delattr(struct request_sock *req)
-+static inline int netlbl_req_delattr(struct request_sock *req)
- {
--	return;
-+	return 0;
- }
- static inline int netlbl_skbuff_setattr(struct sk_buff *skb,
- 				      u16 family,
-diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
-index e65a3f29d2ca..ee0c72fbc877 100644
---- a/net/ipv4/cipso_ipv4.c
-+++ b/net/ipv4/cipso_ipv4.c
-@@ -2004,11 +2004,16 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 	if (!opt || opt->opt.cipso == 0)
- 		return 0;
- 	if (opt->opt.srr || opt->opt.rr || opt->opt.ts || opt->opt.router_alert) {
-+		struct ip_options_rcu *old_opt = opt;
- 		u8 cipso_len;
- 		u8 cipso_off;
- 		unsigned char *cipso_ptr;
- 		int optlen_new;
+ 		bdma_chan->regs = priv->regs + TSI721_DMAC_BASE(i);
  
-+		/* ip_options_rcu must not be modified in place, use a copy */
-+		opt = kmemdup(opt, sizeof(*opt) + opt->opt.optlen, GFP_ATOMIC);
-+		if (!opt)
-+			return -ENOMEM;
- 		cipso_off = opt->opt.cipso - sizeof(struct iphdr);
- 		cipso_ptr = &opt->opt.__data[cipso_off];
- 		cipso_len = cipso_ptr[1];
-@@ -2036,6 +2041,8 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 
- 		memset(&opt->opt.__data[optlen_new], IPOPT_END,
- 		       opt->opt.optlen - optlen_new);
-+		rcu_assign_pointer(*opt_ptr, opt);
-+		kfree_rcu(old_opt, rcu);
- 	} else {
- 		/* only the cipso option was present on the socket so we can
- 		 * remove the entire option struct */
-@@ -2055,7 +2062,7 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
-  * Removes the CIPSO option from a socket, if present.
-  *
-  */
--void cipso_v4_sock_delattr(struct sock *sk)
-+int cipso_v4_sock_delattr(struct sock *sk)
- {
- 	struct inet_sock *sk_inet;
- 	int hdr_delta;
-@@ -2068,6 +2075,7 @@ void cipso_v4_sock_delattr(struct sock *sk)
- 		sk_conn->icsk_ext_hdr_len -= hdr_delta;
- 		sk_conn->icsk_sync_mss(sk, sk_conn->icsk_pmtu_cookie);
+-		bdma_chan->dchan.device = &mport->dma;
++		bdma_chan->dchan.device = &priv->dma;
+ 		bdma_chan->dchan.cookie = 1;
+ 		bdma_chan->dchan.chan_id = i;
+ 		bdma_chan->id = i;
+@@ -992,40 +990,42 @@ int tsi721_register_dma(struct tsi721_device *priv)
+ 		tasklet_init(&bdma_chan->tasklet, tsi721_dma_tasklet,
+ 			     (unsigned long)bdma_chan);
+ 		list_add_tail(&bdma_chan->dchan.device_node,
+-			      &mport->dma.channels);
++			      &priv->dma.channels);
+ 		nr_channels++;
  	}
-+	return (hdr_delta < 0) ? hdr_delta : 0;
+ 
+-	mport->dma.chancnt = nr_channels;
+-	dma_cap_zero(mport->dma.cap_mask);
+-	dma_cap_set(DMA_PRIVATE, mport->dma.cap_mask);
+-	dma_cap_set(DMA_SLAVE, mport->dma.cap_mask);
++	priv->dma.chancnt = nr_channels;
++	dma_cap_zero(priv->dma.cap_mask);
++	dma_cap_set(DMA_PRIVATE, priv->dma.cap_mask);
++	dma_cap_set(DMA_SLAVE, priv->dma.cap_mask);
+ 
+-	mport->dma.dev = &priv->pdev->dev;
+-	mport->dma.device_alloc_chan_resources = tsi721_alloc_chan_resources;
+-	mport->dma.device_free_chan_resources = tsi721_free_chan_resources;
+-	mport->dma.device_tx_status = tsi721_tx_status;
+-	mport->dma.device_issue_pending = tsi721_issue_pending;
+-	mport->dma.device_prep_slave_sg = tsi721_prep_rio_sg;
+-	mport->dma.device_terminate_all = tsi721_terminate_all;
++	priv->dma.dev = &priv->pdev->dev;
++	priv->dma.device_alloc_chan_resources = tsi721_alloc_chan_resources;
++	priv->dma.device_free_chan_resources = tsi721_free_chan_resources;
++	priv->dma.device_tx_status = tsi721_tx_status;
++	priv->dma.device_issue_pending = tsi721_issue_pending;
++	priv->dma.device_prep_slave_sg = tsi721_prep_rio_sg;
++	priv->dma.device_terminate_all = tsi721_terminate_all;
+ 
+-	err = dma_async_device_register(&mport->dma);
++	err = dma_async_device_register(&priv->dma);
+ 	if (err)
+ 		tsi_err(&priv->pdev->dev, "Failed to register DMA device");
++	else
++		priv->mport.dma = &priv->dma;
+ 
+ 	return err;
+ }
+ 
+ void tsi721_unregister_dma(struct tsi721_device *priv)
+ {
+-	struct rio_mport *mport = &priv->mport;
+ 	struct dma_chan *chan, *_c;
+ 	struct tsi721_bdma_chan *bdma_chan;
+ 
+ 	tsi721_dma_stop_all(priv);
+-	dma_async_device_unregister(&mport->dma);
++	priv->mport.dma = NULL;
++	dma_async_device_unregister(&priv->dma);
+ 
+-	list_for_each_entry_safe(chan, _c, &mport->dma.channels,
++	list_for_each_entry_safe(chan, _c, &priv->dma.channels,
+ 					device_node) {
+ 		bdma_chan = to_tsi721_chan(chan);
+ 		if (bdma_chan->active) {
+diff --git a/drivers/rapidio/rio.c b/drivers/rapidio/rio.c
+index 3ac83721c0e94..d2dbc9d94cc51 100644
+--- a/drivers/rapidio/rio.c
++++ b/drivers/rapidio/rio.c
+@@ -1754,7 +1754,7 @@ static bool rio_chan_filter(struct dma_chan *chan, void *arg)
+ 	struct rio_mport *mport = arg;
+ 
+ 	/* Check that DMA device belongs to the right MPORT */
+-	return mport == container_of(chan->device, struct rio_mport, dma);
++	return mport->dma == chan->device;
  }
  
  /**
-@@ -2078,9 +2086,11 @@ void cipso_v4_sock_delattr(struct sock *sk)
-  * Removes the CIPSO option from a request socket, if present.
-  *
-  */
--void cipso_v4_req_delattr(struct request_sock *req)
-+int cipso_v4_req_delattr(struct request_sock *req)
- {
--	cipso_v4_delopt(&inet_rsk(req)->ireq_opt);
-+	int hdr_delta = cipso_v4_delopt(&inet_rsk(req)->ireq_opt);
-+
-+	return (hdr_delta < 0) ? hdr_delta : 0;
- }
+diff --git a/include/linux/rio.h b/include/linux/rio.h
+index f42379775ce8f..98ded5db5a2a1 100644
+--- a/include/linux/rio.h
++++ b/include/linux/rio.h
+@@ -257,7 +257,7 @@ struct rio_dbell {
+  * @name: Port name string
+  * @dev: device structure associated with an mport
+  * @priv: Master port private data
+- * @dma: DMA device associated with mport
++ * @dma: DMA device pointer associated with mport
+  * @nscan: RapidIO network enumeration/discovery operations
+  * @state: mport device state
+  * @pwe_refcnt: port-write enable ref counter to track enable/disable requests
+@@ -288,7 +288,7 @@ struct rio_mport {
+ 	struct device dev;
+ 	void *priv;		/* Master port private data */
+ #ifdef CONFIG_RAPIDIO_DMA_ENGINE
+-	struct dma_device	dma;
++	struct dma_device *dma;		/* associated DMA device, if any */
+ #endif
+ 	struct rio_scan *nscan;
+ 	atomic_t state;
+@@ -513,10 +513,6 @@ struct rio_dma_data {
+ 	enum rio_write_type wr_type; /* preferred RIO write operation type */
+ };
+ 
+-static inline struct rio_mport *dma_to_mport(struct dma_device *ddev)
+-{
+-	return container_of(ddev, struct rio_mport, dma);
+-}
+ #endif /* CONFIG_RAPIDIO_DMA_ENGINE */
  
  /**
-diff --git a/net/netlabel/netlabel_kapi.c b/net/netlabel/netlabel_kapi.c
-index 3583fa63dd01..c0eddb6afef3 100644
---- a/net/netlabel/netlabel_kapi.c
-+++ b/net/netlabel/netlabel_kapi.c
-@@ -1045,18 +1045,18 @@ int netlbl_sock_setattr(struct sock *sk,
-  * ensuring that @sk is locked.
-  *
-  */
--void netlbl_sock_delattr(struct sock *sk)
-+int netlbl_sock_delattr(struct sock *sk)
- {
- 	switch (sk->sk_family) {
- 	case AF_INET:
--		cipso_v4_sock_delattr(sk);
--		break;
-+		return cipso_v4_sock_delattr(sk);
- #if IS_ENABLED(CONFIG_IPV6)
- 	case AF_INET6:
- 		calipso_sock_delattr(sk);
- 		break;
- #endif /* IPv6 */
- 	}
-+	return 0;
- }
- 
- /**
-@@ -1156,8 +1156,7 @@ int netlbl_conn_setattr(struct sock *sk,
- 		case NETLBL_NLTYPE_UNLABELED:
- 			/* just delete the protocols we support for right now
- 			 * but we could remove other protocols if needed */
--			netlbl_sock_delattr(sk);
--			ret_val = 0;
-+			ret_val = netlbl_sock_delattr(sk);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1185,8 +1184,7 @@ int netlbl_conn_setattr(struct sock *sk,
- 		case NETLBL_NLTYPE_UNLABELED:
- 			/* just delete the protocols we support for right now
- 			 * but we could remove other protocols if needed */
--			netlbl_sock_delattr(sk);
--			ret_val = 0;
-+			ret_val = netlbl_sock_delattr(sk);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1234,8 +1232,7 @@ int netlbl_req_setattr(struct request_sock *req,
- 						       entry->cipso, secattr);
- 			break;
- 		case NETLBL_NLTYPE_UNLABELED:
--			netlbl_req_delattr(req);
--			ret_val = 0;
-+			ret_val = netlbl_req_delattr(req);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1255,8 +1252,7 @@ int netlbl_req_setattr(struct request_sock *req,
- 						      entry->calipso, secattr);
- 			break;
- 		case NETLBL_NLTYPE_UNLABELED:
--			netlbl_req_delattr(req);
--			ret_val = 0;
-+			ret_val = netlbl_req_delattr(req);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1280,18 +1276,18 @@ int netlbl_req_setattr(struct request_sock *req,
- * Remove all the NetLabel labeling from @req.
- *
- */
--void netlbl_req_delattr(struct request_sock *req)
-+int netlbl_req_delattr(struct request_sock *req)
- {
- 	switch (req->rsk_ops->family) {
- 	case AF_INET:
--		cipso_v4_req_delattr(req);
--		break;
-+		return cipso_v4_req_delattr(req);
- #if IS_ENABLED(CONFIG_IPV6)
- 	case AF_INET6:
- 		calipso_req_delattr(req);
- 		break;
- #endif /* IPv6 */
- 	}
-+	return 0;
- }
- 
- /**
-diff --git a/security/selinux/netlabel.c b/security/selinux/netlabel.c
-index d51dfe892312..24b11d1891d8 100644
---- a/security/selinux/netlabel.c
-+++ b/security/selinux/netlabel.c
-@@ -557,9 +557,10 @@ static int selinux_netlbl_socket_connect_helper(struct sock *sk,
- 	 * is set to AF_UNSPEC, if that is what is happening we want to reset
- 	 * the socket */
- 	if (addr->sa_family == AF_UNSPEC) {
--		netlbl_sock_delattr(sk);
-+		rc = netlbl_sock_delattr(sk);
-+		if (rc)
-+			return rc;
- 		sksec->nlbl_state = NLBL_REQSKB;
--		rc = 0;
- 		return rc;
- 	}
- 	secattr = selinux_netlbl_sock_genattr(sk);
-diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 28a8e12603ce..3a4a33568297 100644
---- a/security/smack/smack_lsm.c
-+++ b/security/smack/smack_lsm.c
-@@ -2656,22 +2656,26 @@ static int smack_netlbl_add(struct sock *sk)
-  *
-  * Remove the outbound smack value from a socket
-  */
--static void smack_netlbl_delete(struct sock *sk)
-+static int smack_netlbl_delete(struct sock *sk)
- {
- 	struct socket_smack *ssp = smack_sock(sk);
-+	int rc;
- 
- 	/*
- 	 * Take the label off the socket if one is set.
- 	 */
- 	if (ssp->smk_state != SMK_NETLBL_LABELED)
--		return;
-+		return 0;
- 
- 	local_bh_disable();
- 	bh_lock_sock_nested(sk);
--	netlbl_sock_delattr(sk);
-+	rc = netlbl_sock_delattr(sk);
- 	bh_unlock_sock(sk);
- 	local_bh_enable();
-+	if (rc)
-+		return rc;
- 	ssp->smk_state = SMK_NETLBL_UNLABELED;
-+	return 0;
- }
- 
- /**
-@@ -2711,7 +2715,7 @@ static int smk_ipv4_check(struct sock *sk, struct sockaddr_in *sap)
- 		 * Clear the socket netlabel if it's set.
- 		 */
- 		if (!rc)
--			smack_netlbl_delete(sk);
-+			rc = smack_netlbl_delete(sk);
- 	}
- 	rcu_read_unlock();
- 
-@@ -4548,7 +4552,7 @@ static int smack_inet_conn_request(const struct sock *sk, struct sk_buff *skb,
- 	if (hskp == NULL)
- 		rc = netlbl_req_setattr(req, &ssp->smk_out->smk_netlabel);
- 	else
--		netlbl_req_delattr(req);
-+		rc = netlbl_req_delattr(req);
- 
- 	return rc;
- }
-
----
-base-commit: a91337fb5e8e0127c8b5be87be9f3027f95b48bc
-change-id: 20261106-cipso-rcuopts-e26ffa45b392
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
+-- 
+2.43.0
 
