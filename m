@@ -1,72 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949972;
-	b=TpdiSBLewbSO3Nq6zXZC0TnaGFNrWRMPw9HpFl6osPhjZHfeJezk1ju+CxuTNRWNZfUD
-	 Df4uqFvpVRWfDbkPzURE1K7fCKbf9ASln021zpRGe4PQW5CqokQPbTxFNwW6Km0CYkftg
-	 LoQbLjqlfiNF6Nt9Ftv19sYbHYP3mrw4KclbwfgazkTWm9A2IQpcMasn09Sfg2OP1f87x
-	 cNNuZ3F4WvM3B0/IEbZGtjL+chqOjDJ0XzHnCxnnQNsfQgn9LMCzgC9rnAjiJVeVBI6Iy
-	 1z3OyLETB9n7dEtDR6IWAqNNh4JnFn24vyCqdRjIhQ7oxVQSu8ttgRDOfehmH1btW5A==
+	t=1793949978;
+	b=MABPsehk1umlZ69BT/cDN02xaPxexDpbZogFcEFnEBFqW/vJYJXrWIo3SsoIZ0lw/aiE
+	 7KTQwN3og/ngBwO3w4X4QZZt6xXvpmzqmxQGle1gzdvBh7BxAcuwb9eR58aXFw34DFFHO
+	 n6H6bbX96sh+iNsEgitG16ks70obUY1S7jnPBLFkb2+Mk9hUSeib6tJmG0VpYSWbzdEt0
+	 Fa8GZhtaM0+K89mZgrttt35M2QH/mm3gUn8PVccfzwmxnQXtwwEhiZ+qhFXtPeGrYx4Z/
+	 w5BYRi67F3a+Ljylv7CAx/6wi0erQbVywvrWwa8xRdtLiRgsIWPXLE/uEy4GdUYvffg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949972;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yDXzD4LpNs0QWYrDFXSMyqQ3Gk4yqaMPN5IR5YNQq6Q=;
-	b=V2uwr9phyGdo+WOpvrmI1LKMlXjWBSoDg66ca0sZt41eaPvd922+sAomHZs8QMarHKet
-	 mdW49mMj8N/bnQrYRvajiI0glfTNaHwLqbHak49uFfsLDB4w3bZ2qJOE2mX9LD2Ct+/NZ
-	 cs/UffYjt7gg4ePI+eE3F8K5jP0cMXb5usK33yDV3nVqoNvxoJhGSpoN3W9/dH3RR7qbt
-	 auDvy4fJDHl1+biyHuj3BVuHDOwh6rH8Wj7pcuz/UFw7VU+ULW/d52RfUapA8CYQ+YKsQ
-	 ZAnH1G25xOFJrc4pIngGuTvmAHD2/37WSzAJsX0fKDdMl2PtBsX0JpiE2xQnVwyaWlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949978;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uX2ZGs6EwvXrx7z1KhmYJO6G0yNzijk1f5Wl5IdM9HI=;
+	b=ai7gJzR/KQ60A31wz2H5JddOaRUYCzMb/diFphbEjUMpPBSAUGzyBGUATx6W2T0kXCuO
+	 80cdTAlQ3/RfjPgdHMJl4Lq2E96YKOa9A8NKqnkGXJvV8+l8KFqnDGffacdq4OX/AE6lT
+	 HkgyzfA35slX2hcqB6PHIqypZhm+rZr+BrH5rp8hbnHfZLaX5dhv8SmLieRE+VFY3cSS4
+	 ZWQjzHu8fySgmc3QTVED+0m8ROAzpF3OK53+6tI90UFBxeZzWzR/b1z29rAbdddL6fCiu
+	 0f9SKISC8bBdqRafD6XflowYZSkdwrlF/wMrt9IubKNGIUX7KCm/yBr2dxy9j8BqHMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcULH+Uo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wwmut9Ga;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A99606A336;
-	Fri,  6 Nov 2026 07:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F377F606D810
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:26:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F377F606D810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcULH+Uo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E599F1F0089F;
-	Fri,  6 Nov 2026 07:26:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793949971;
-	bh=yDXzD4LpNs0QWYrDFXSMyqQ3Gk4yqaMPN5IR5YNQq6Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DcULH+Uol8sp6/KVDXkGVE/rUznUzWIRD29mucp1hxUOYyLf6luqdzGhhBhGy+upS
-	 MA9pehoP7Z98vltYiG87FMojRQDtZZMebKX3e99/caEWwZXUX8jl5VNNiLDTxpUBzn
-	 dKhIE06MQ6oXILJPPywRKdOZ1NZaIm4ayv+dbI1JSxPt76D+F1Me+qlf+2u2YDa2AH
-	 FzK1QWApo0gSly334rnGQLnfIaF/CmiVpHA3pfLTM5enFWJwgnldM15mdavUuBjIxF
-	 1MIy38J2qcCrya+r52JZoy2WtVJMvDeAqfRuBq5QXtgUMSS3zFabEhq871sYjlFV9s
-	 ifCaJGiaROpiQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.18 0000/1005] 6.18.61-rc1 review
-Date: Fri,  6 Nov 2026 08:25:52 +0100
-Message-ID: <20261106072552.90943-1-ojeda@kernel.org>
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wwmut9Ga
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e940d5d2beso965015ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:26:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793949977; x=1794554777; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uX2ZGs6EwvXrx7z1KhmYJO6G0yNzijk1f5Wl5IdM9HI=;
+        b=wwmut9GadiMoOHRx7X68DKO9jBcSnJlN8hSTjT1gvaC3YKyBqjxQ1+HIlYK8iClGdq
+         uNt7JD+2lb9SgHWGTDAknbBJiECFgPslB5jKhcTuLdpt4hAgVYt2d+6GPju4aoMa1Ei+
+         UxjzpbVQuiVbQnxgXzq1QfPrFUPuqela95zoubJ8VG/75Td75zu4QuOFMasRzZpo9+hw
+         GwE6tvGtA2ihngoOWUnjQyM9DwJKpEPqDLZufafQHg23bGx/ihAeAVtRReREhJs0LDBx
+         6mj0jPsmyyvcfxAw/Hsr2vewdetw3tauHnDLcFmzy9BPkXdWl/lFOkNU5izuLN0LaBk4
+         cxyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793949977; x=1794554777;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uX2ZGs6EwvXrx7z1KhmYJO6G0yNzijk1f5Wl5IdM9HI=;
+        b=VwVvLkpu2LvaRksBgNLg/7OmciUVWeTE4bq2oQf/51/iqx7BWkhNnhdVtS26NL1+YZ
+         arF85hKh7R+QiDFWaWsIDrR31JjCSPTYzn11miAJEP3zJQJ2Qa5WQfBGRuOCmug+j7yb
+         DwS2nGiU7F2JMUlz6om78ywtJKhSBXC7EE1jj5arLf0HgacDuBA61lBqbciAA4fkL7XX
+         X2YuhAqfOC1nhCtq+QeYHvRtc9FeasatrT8Q2g1LGL2MaGS4Lg4BJP1yE22O5xBY+TF9
+         xh4CJ3hU5kQb2WWaMEibs3xcJjedRVVnnZsruE/IoQrIz/GxW23Ig9amx8wOFuu3cYbb
+         tikg==
+X-Forwarded-Encrypted: i=1; AL+hErFDpGwgpqMHBAWIVFbiFHoDw+4RHViZZURxGtLt+R2NqenW6SMdCavegaFipHVqFfEhpn+w5QdHbiJhc9I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Bh2seB5loXdMFl6HkZPRZRgYpWF2AnCaTGA0qYyqcR2KnKIYT
+	6jsPpO+UKxlVVNUyGMe6LnF2ai3S1TiA+2g2uaE2ppQbyrbeDn+2XWdx
+X-Gm-Gg: AYBFou3dxXgoROMPTQshKdWDYGfxJv9eCC470lfUJPrHxZ1utMH3BDm8dJfgXpWJNH9
+	4wlyPi2bkCuCdZLNNxaqPs/qHOh5/2cioloEzo640xqR9uSlhB30I+ptfHzb+6Zus9YbP49bN5M
+	jfkmX8mBhI5ZmVZ5GO0maE0AJMn9v8GpHEV7nxzT+/45ewBM1whIC3xYvHcAtEymuMtlHPi+cGs
+	F+EAqFhrht99pQTJGUYuOgsM8/JKiwVNK+uyN7b4ijrgyxrmEwkfNTnH8ITosNhE042OO3ocj6K
+	y1C9v84rrP0rqiX9soebPB074O87F4/0wYXZwEIQZBlLDsSdgNENGtFkFPvQSFwZOwhAT+RPfJ0
+	Z7Yfo94MEYPfmSTjpZRiONvQw5I0izdEA8lB54Du82XsBNJ4luFK8L+ddi/f1UT2wi8Cuthcl1y
+	dkCxz/oP7ZhIp9MjhT6aTYVjSIQlRohTMp/k3XexvsNxn4lWql2moPWeilw1sqSAQsc6OC0gRH6
+	awTNS5J+PgdjpjiDCeBty/VV3XjDPme1uyNvJdHNHNWDLyba8u1KOWKDGJeBpvN4YEoCI7o4aDI
+	kvaUMSONvGxjkSKAwvCl5blLm0vDkFzfWFWynM4ETqMd6OcM+yby
+X-Received: by 2002:a17:903:22c2:b0:2ed:146c:cbba with SMTP id d9443c01a7336-2ed409890b5mr21876185ad.21.1793949977227;
+        Thu, 05 Nov 2026 23:26:17 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d89976sm2633715ad.66.2026.11.05.23.26.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 23:26:16 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] dmaengine: pl08x: Use the channel count from the device tree
+Date: Fri,  6 Nov 2026 15:25:59 +0800
+Message-ID: <20261106072602.77560-3-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106072602.77560-1-mmyangfl@gmail.com>
+References: <20261106072602.77560-1-mmyangfl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,39 +102,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 04 Nov 2026 15:55:33 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 6.18.61 release.
-> There are 1005 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
-> Anything received after that time might be too late.
+The Hi3798MV100 DMAC is a plain PL080 except for the channel count: 4
+instead of 8. The part ID does not say, and the driver takes the count
+from the matched vendor_data entry. The entry is shared between
+instances; the adjustment lands in a private copy. dma-common.yaml
+already defines dma-channels for a controller node. Honor it.
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ drivers/dma/amba-pl08x.c | 25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
+index 9f5e4f5fb877..27c61a7f2082 100644
+--- a/drivers/dma/amba-pl08x.c
++++ b/drivers/dma/amba-pl08x.c
+@@ -282,7 +282,7 @@ struct pl08x_driver_data {
+ 	bool has_slave;
+ 	void __iomem *base;
+ 	struct amba_device *adev;
+-	const struct vendor_data *vd;
++	struct vendor_data *vd;
+ 	struct pl08x_platform_data *pd;
+ 	struct pl08x_phy_chan *phy_chans;
+ 	struct dma_pool *pool;
+@@ -2698,6 +2698,7 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 	struct device_node *np = adev->dev.of_node;
+ 	struct reset_control *rst;
+ 	u32 tsfr_size;
++	u32 channels;
+ 	int ret = 0;
+ 	int i;
+ 
+@@ -2719,7 +2720,6 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 
+ 	/* Assign useful pointers to the driver state */
+ 	pl08x->adev = adev;
+-	pl08x->vd = vd;
+ 
+ 	pl08x->base = ioremap(adev->res.start, resource_size(&adev->res));
+ 	if (!pl08x->base) {
+@@ -2727,6 +2727,17 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 		goto out_no_ioremap;
+ 	}
+ 
++	/*
++	 * vd points into the shared id table; give the instance its own
++	 * copy before anything below starts adjusting it.
++	 */
++	pl08x->vd = devm_kmemdup(&adev->dev, vd, sizeof(*vd), GFP_KERNEL);
++	if (!pl08x->vd) {
++		ret = -ENOMEM;
++		goto out_no_platdata;
++	}
++	vd = pl08x->vd;
++
+ 	/* Release the reset before reading registers */
+ 	rst = devm_reset_control_get_optional_shared_deasserted(&adev->dev, NULL);
+ 	if (IS_ERR(rst)) {
+@@ -2756,6 +2767,16 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 		vd->dualmaster = !!(val & BIT(9));
+ 	}
+ 
++	/* Read the channel number from the node if specified */
++	if (!of_property_read_u32(np, "dma-channels", &channels) && channels) {
++		if (channels > vd->channels)
++			dev_warn(&adev->dev,
++				 "using %u channels, instead of %u from the node\n",
++				 vd->channels, channels);
++		else
++			vd->channels = channels;
++	}
++
+ 	/* Initialize memcpy engine */
+ 	dma_cap_set(DMA_MEMCPY, pl08x->memcpy.cap_mask);
+ 	pl08x->memcpy.dev = &adev->dev;
+-- 
+2.53.0
 
-I replied individually about a few things I noticed in bitmap,
-loongarch64 and UML:
-
-  https://lore.kernel.org/stable/20261106070543.89122-1-ojeda@kernel.org/
-  https://lore.kernel.org/stable/20261106070701.89282-1-ojeda@kernel.org/
-  https://lore.kernel.org/stable/20261106071743.90363-1-ojeda@kernel.org/
-
-[ Cc'ing Konstantin: I guess this may have been mentioned before, in
-  which case I am sorry for the noise, but just in case: public-inbox
-  or Lore seems to have a maximum of 1000 emails in a thread (?), which
-  given the size of the recent stable releases, it makes it a bit hard
-  to see here the reports etc.:
-
-    https://lore.kernel.org/stable/20261104211043.516122098@linuxfoundation.org/
-
-  ]
-
-Thanks!
-
-Cheers,
-Miguel
