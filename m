@@ -1,134 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794003051;
-	b=CXlgLZsO319/z2CxtZfu7G1YQA7tisW8nJjSfn4meJgQ1GkuEPEUQMoIQyIEMKtiEVhh
-	 xDcrb4GHjCyB+/JHFLI6sjO7PzGiFQHFISueGRF4e4BDOy5BDtmyEx3gQJ9TA7+3yakAQ
-	 U8w4La60LiebHNDL+aIbptUfymmiUdwMUkJDlERD2MUFl6ZbBSj18snAhMwnOO4+sVkSK
-	 Oj1PAlbXd3glX4CHlFa0XOPjS7Bblurui3J+uJQbvJnbFQbeY6Au38PUanXcJCcB19yUc
-	 083j5Hrg6N9VUDpAlYg5F0W/JBU9jPOXVLdHq482amTHoINnSzuQ/Edmu+Tvj8o4F+Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794003051;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QccVIHCCeW+j3JKH26Y//JlAzW2DNSmEXbLjeGbZAa4=;
-	b=e/s/dv3mXKGXk+zFcVdrEMfAWtYQNnateSCCaEMGwWHzekrhp0V8miZPEOLN1BRvLXhF
-	 Tz++DKBdLB6+a4w01/tVxTBGZSUIDxf5VEoOKW96bZT3vd7W3OKicQO0hSkF5f3nywS5i
-	 ohs2XG3bocUGqfJOaXWTdtKjGYPx/Hdg3Vvaff9MTaAKSL+RBP5v/GU1oqPZ90+w/3G4y
-	 iGy2HVXDyhmE6GkvHBC9z+57ZzoZRZRQcALAPmWRe3Do8d+OjwI4JYqvmWARlxsMGYURz
-	 be48/W62sWTw39bTrUVmuyKKFVdckqFhOuxXXRs4nhhjTmAsPxtLE/4DHnl+c0MlCSQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=UqWEWw2G;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Wq1B0bzJ;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794003115;
+	b=TxQV6A/L2B381W/ouXe8Dh/xyE8nv6InZ7EjZ8LDLudFDEB+o06WkgasP1FtuVaOPO9Y
+	 q7ieILbUXYyodxr0EADwKzEkNBNuTCpU2Odd8siWoWE0hFTVUwfozZeFhk6j0HAvpFBqv
+	 ZH4HC9UaOsYMjLxzMRRVtgBcy9cjl+PORbVf48IMrm+mVuijFJcNb0UAxuOS4Ybn0h2y2
+	 ITsjSf/dxh29ae60SPjh5VnK32Roo83YsLTd03TmvEbyqvxwP29Pj0n3AoofV5OmJ3f9y
+	 di37pVzf+Sb5lPLeSaG7Ft2E8+hWob5FrBZgaJRaRpNGBGuyyF5PTn/XJyIg5LR1yXg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794003115;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fYROGaWWEuzGAu5dtTnw4QlTAW+v+opptPz7qagaCgE=;
+	b=xh2DBaMoPx3CYtCoDaLt4ZWcrkTX+/8flNh9s18I0j89b/yS2+Psf6wqQv/D27uvX2Mg
+	 qwjm+0jGD9jLmsRqCaBloVoqWrHdLnRLtMgN3Y6juNTix83bqpY/q0wvC+VzdUOZry/7z
+	 A01R7CZyAgOsic+24t1MHYQ6FJ9JktBg6Ks94TxvAAwEW/mabhYEMyxqxqKZciq4m8SjO
+	 ANqK5mBHRyGs0+de/FicR2mUq8IjEnGHwBi8aFNYvgeusObAjg5J6dplxBxzes2saecec
+	 mz8XD7UYb85zmQ4MVXq0PB3CvS849r3KXRUydiiKGttMgf03V+vh9w20f4zCT4IEM4A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lLkofCIK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.42
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010042.outbound.protection.outlook.com [52.101.84.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC59F606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC59F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2F7606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:11:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B2F7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=UqWEWw2G;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Wq1B0bzJ
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1A218EC0211
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:10:49 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Fri, 06 Nov 2026 17:10:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794003048;
-	 x=1794089448; bh=QccVIHCCeW+j3JKH26Y//JlAzW2DNSmEXbLjeGbZAa4=; b=
-	UqWEWw2GThoHEJKQfjEHOdcQALnA/VCr6x9lVMMMC71RoKJRbfK0srKiPF6XeIFw
-	Pz56TDxJl9BvHN5ckSE3wGU2HPkQ0TQk94jBpsZjmn1ORGdTC3DGDHY3MvNdIxyI
-	s+kCtN7Ej6JCPc/XPNmoH2hAOOjP9Rc/f7URbOc5stOfAQPq4wiIxkc7/XmIBf+f
-	ZXzmHN7mG3ytv1Nyk0hY9l1pk4xcoJCSJeB+yldBbxBLSUMH+OqjmkxvQOL4wIej
-	wZTGPs7S/78T79pK8UBCNLw9hzcnwX77Xv7SufDL0LkL2qCq0uMp2EY2uPolxWID
-	f5Hzp8q1qh/V7pyMyC5E8Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794003048; x=
-	1794089448; bh=QccVIHCCeW+j3JKH26Y//JlAzW2DNSmEXbLjeGbZAa4=; b=W
-	q1B0bzJxngvd5pxx1z8Hvhzh8EXp0hulAtSMvOThvCtFKm8zjbaYr4nqk1Wp+lzQ
-	/ld4JBCtYlqq1qS09Bw+uyWC2dNGlBNQ7/LH1Y9BSpHAd2S2p6bEhYYLnGyftQrV
-	eAPkB59GLXHIjL8/muu2wmHQknowY096n4iR30+yQSr3MQ8i9SE5kyorQbDAbY0P
-	dfGs7qZVtvBMmwQevPcgxImyhdZoWvYHUopQC6lMyJbdHRZiVnLkCETHqXiEMJQD
-	jFnKSa59fagVVVk/42vySejrWbOCKl6qZnAlmQwd+P1V0DbSC66My4earSd9ocHa
-	4YLZMO1ITY9Xb87KrTogQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794003048; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:JC1apbHNxT/2YtUpOQxdmav6n5oaU9fT819YF3PqQGk5dPj
-	rjNJjmjumfU+vGQpXXlfF+h7s2R4vwdZZ4rLs/XaJ536QF4Yz8kxSdDW7mxESyt+
-	BwAlztxeVKVjILRkEjXQgKiSqikqmjskQESKVFbBk2oemdSrbIc0A0qSHBSXNHnz
-	v9uEGVP9e7mvrubW/nJsewSA9wckGzrs4/4NCaKi+z0u/BCqnqO+seGxxqD0fr9C
-	PAaP3kv/rAlgMPwm6UCfvUktNBbqgsU7yWnbqqaCXY48E4zEERqBz2obNlawr6HS
-	/6KxM2MYKGe6xei27WFFTKDxruSyocHlhov/KDA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:uakpYHZNRFDsNZuJ/8u5kiVH2K39n3URm1dmZQoYTzk=:jx6GhieGqJzW+u2Qbw2RejWE42x0NhlAuL8kxBNmgcY=;
-X-ME-Sender: <xms:aFDuamkMqkGei2S1R9k1GfJOVd99MhZqFJJoZPiuU9Qj6YD2HsogIA>
-    <xme:aFDuaoowkgoHMmc1cj3qYSU1M7whBtB8u7w8Fxj28IT6cpPEAAl0TOuzzUcZ_IINF
-    RaQ5M80Vq4is70IqX5_9IFJNP6Iu_sQwharag48bwRbmL1CWNPU1g>
-X-ME-Received: <xmr:aFDuai5zOhXH7L-hw6ck12LEVnE5Xj-U-7kVxisHnU2RHy5WkF9fJzb06bIkJQ>
-X-ME-Proxy-Cause: dmFkZTF6YVreCUYhzzKLlDVeG/7YeI1VDYvZ8MjzsWdEpydaVQgMvCsQCMOJIezXFfo1ZM
-    xcwNLTI7Yq8fBZx2BpX9IyJHugdOW6C4ss+oT0iw0ZFClgtApOWdlLljryuA5JkOg6iins
-    eQloH9nrnF6xd03wnx67JDcxKiB4wxXwXta2idirSp8KRsIvc9tHK4ZU3GH68GN2oSHN3p
-    15v93jn/GdnEi3FKcDmnY4xXliG3LGd+jqSVQPp0YsRjKeCrUZqTprybumbfhYgFN10IPq
-    f7mzuyt+nfq4qWSttf8h0o1aQLAetFI+sFGgdHb8BKxDXgiVlsVpGH3VR/5fvsmOoHojf3
-    UaiPwXVxxbe5Ukgg6U4OKl/9ASvi1r0J6G0fuh2iutVvvdePH4xex2KDplCyWaJgePtyoQ
-    fS2UaQpIvmIJK7S6j2LevBzBliosWRG/qS8TR7UWfK/gS0SdFGSMEYMJ6BLhbqDmKCFKkY
-    Bn+gM/CXLCerU2kVOXQNY5b24Ze8KMcsmo6lmQcPeGADiDbXONyl+dcUmOBw7ff4Eta77T
-    hANaWJlbKGww8odVkO1HjEF6Z8NoRcN6x0PqZ/isGe47TjZRO2hgXAKZnicGSWg3BYfAO1
-    WC5CwjzPnmLLMoh2lR7anVc2rCM3cyGOql4QdJo4znkQRK6mfnatmgUWTHJQ
-X-ME-Proxy: <xmx:aFDuaqIWrqlxbGIH76Pp-LvguoNAnb3RWsK2tlZqyMeInf-_KCx2Ow>
-    <xmx:aFDuaumvXOQ2HKVievZm7Bn9ZCNMXuoFuMvSmWmdlWVPua3CWTIXQA>
-    <xmx:aFDuah-HLMUTzbhn8_btzGP2pjzgoSdZQfvcNEV5YdrzyCABIHYLVQ>
-    <xmx:aFDual5-RCURO6Vu61vYmI0-XSThO5Smg1EnN-LkR6Tu5gwaK7WiCA>
-    <xmx:aFDuaoVw8b8tKPw6wSQjgMP1sH02DPEjQ-NyUv6FXYJQ5itR3V9z_Pkb>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 17:10:45 -0500 (EST)
-Date: Fri, 6 Nov 2026 15:10:43 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: <mhonap@nvidia.com>
-Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- alex@shazbot.org
-Subject: Re: [PATCH v6 11/31] vfio/pci: Virtualize the CXL DVSEC in
- vfio_pci_config.c
-Message-ID: <20261106151043.4f47679f@shazbot.org>
-In-Reply-To: <20261016161839.2765592-12-mhonap@nvidia.com>
-References: <20261016161839.2765592-1-mhonap@nvidia.com>
-	<20261016161839.2765592-12-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lLkofCIK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SJ7QlGEVsZIgCKxDJ/k+t5aTcD4TTeOYoazyYzt+aY06AN/UGF0lGMbCKx2kLCld16gbewAtIRCHJ3Lhca5Gogm43RbymAaH074cIeALFDATekfIU5mt1RIbptVpYvT1XMx5tkuu0GSVD210WR6Xkw/xAtBrG6X3O+DyVU7CQRPBojlekvdnpL9jGtBgRYLOv8q89npiM3l3oy7VVDugRA3KncTGNn4EmAjafAv8Xul4PbrbfZtpCaIdK0W7JpWAMDHjb1IHjyM03gsERu64OvurI5zm1UwkXPG+DTmE6JogIDW3POaJQQYkMaoFNcDSvgHiOgXWhgXVKIjBKLVfwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fYROGaWWEuzGAu5dtTnw4QlTAW+v+opptPz7qagaCgE=;
+ b=Q4Nx9d6a7RwMm8L7bR/CrERUUL1W1UDhSuj5sa9PwBIWNlfBDqxmv33p3e6Sf001FRKhyNsg35G1lWBGtJ42vnHVndEw2bTsA6Q1pJG93ec84rnIsZXyHxyf8hGE7OAosZ5YmEGi8wPmprayn7hxG1ns8fg4PuGv42/cU/3nz8C3LjV1NiilqpHTJUcLvbWbNPf2wqswxDhlZgPan8wf2aqxKLp5QKQZ3V6PEEmpJk+kHtYE81QacAedNBDXCBIr8E0zvFdKrj+L5uiaBu5q6cValQOeS9x3xEX5UeU/0w5g7RWotvqHdwsAATAbBX6R5RpGBELkcbCP+zF1/hOGLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fYROGaWWEuzGAu5dtTnw4QlTAW+v+opptPz7qagaCgE=;
+ b=lLkofCIKqZZl5ti68K7rToeUYnjLIq1FlaGA0BLNfsckwA702Bv8PZ6jOxGpXxWp6DcdrdmHh9nhDOKNCv2DGmar43qmZ9nsNzjIgrAl5gFNcO/OI67MkxQUXex9D0UCN71wv4QWS/Ll4QiGVSTKl9XSUcVS5tKrvdnVgHmlav+mFwrEqQuiPGKDC4zUjPTwBtGlrlKau92ZKFSluJxj2ZvSjqQIhnhoCHiC0rfwR613XDdYEQO0rVZCfLXyPEPC/4hU8fPpcz6730zhDtupv9Bh7wZVU5uAjl/iBKRLK8Nyms6PAvCXkjxMef89tcJ2leFVlzUO+PEtCZqs1K7Gjw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MA9PR04MB629231.eurprd04.prod.outlook.com (2603:10a6:250:10a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 22:11:51 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
+ 22:11:51 +0000
+Date: Fri, 6 Nov 2026 17:11:42 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Defa Li <defa.li@mediatek.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, wsd_upstream@mediatek.com,
+	mingchang.jia@mediatek.com, yuhan.wei@mediatek.com,
+	hao.lin@mediatek.com
+Subject: Re: [PATCH] i3c: master: Set I2C client for dynamically attached
+ devices
+Message-ID: <au5QnvfvZmfjRxWd@lizhi-Precision-Tower-5810>
+References: <20261106055637.563626-1-defa.li@mediatek.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106055637.563626-1-defa.li@mediatek.com>
+X-ClientProxiedBy: PH7PR02CA0023.namprd02.prod.outlook.com
+ (2603:10b6:510:33d::30) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,340 +103,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MA9PR04MB629231:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92b76f6f-a876-4411-8a6c-08df3c52f558
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|11063799006|56012099006|261021121427099003|261102123227099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	MbW77KVWwv/5SgS846vll8Ma7qJQI3g53dE3EX9YM6Tohvl3qomovNYHXZu2JorsWsFnXzlro4XD8Xt6cDvf4TPvl+SQJevHF/QDpCiyX7eja9VuIMKFfqzLe8CU0bpTYRpJ+xTdJ64wAFwKbfEeTzsAMc+CqJCGvnpnWztNrKDmJx65GrTo/z3Owp5CDQjMspN6dx1dOzngbJ+1oCN+BbRslCm0Ufin+Hv+TqNU0YgteGW61SEnOXmaAs3/BvhWhm0YF4Sw+cxt+fntlq6gsTPCuw2FguwxEw1rMeFotWv5zkgtSuDieOSQOA+C5cJqzKT3XaZQiAPOgAFeQuPl3f4Q2hSzqZ1zRwRJHUVnNj9CJyHkCIOYOZnhYJGkorXYtktZLgDEX9MvHCT4w46TNg/AaQPLntpvnWpg52wrjsHnngfw3IQAnr9YElvqFE1IgtVOr5negtj+QEFMZu0Pf6BAQKI4gZBqzoD209ih0EOAGUE5ylLndbOJOgb9+YH1TAPPNgUt2hChAkrZdfV3w8UTifhjWpS+Jc4DhfqITXvcb63DVvgvQi54MTwH/DvcAcUwYX74AyAW5DWCwBL34xHnBg3J+5KHZ8xAAcZuip9s4vlOlLWC+gtEUhYGLgHPyoduVORkUkG47sfIYltAv9UB708CTNv4E5eKqX7aUus=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799006)(56012099006)(261021121427099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vKkOF5EXP5RLfwgvMTKftKPlFxxt1hjKsw2P5EQIE4RFYJHlxV4a/tQ2VCDu?=
+ =?us-ascii?Q?wmMa8x/7RE4tj5Ob2H0ftn0zG7biYAlUpBH2fcz/gEXI1Bcgig4KdiglnkmS?=
+ =?us-ascii?Q?Q5mmDhaA0WzL2vmGFUuIQKuRXsU5vTr/4qnR7OG8SYXLcx7yLBWy5sFHATq4?=
+ =?us-ascii?Q?evVL73buTUMB1VxOA4zXgJA6iT3Kn3LNBG3fQq3LcMPEbMxG0cMnB1cqRHgh?=
+ =?us-ascii?Q?+pYoxm3Sr7ia1dp2wpjx5QegPp9qGAb4rv1Iorhsch/fnqGCJ/J+ko54rnob?=
+ =?us-ascii?Q?29kX3feooRd3fbfHx+NUmVGYKo2vj6p6gmDAlXJsKZSDWN1zBglrzgiYd8n3?=
+ =?us-ascii?Q?Zk3PgWXX/s/uqOpyE+ZjbRoW0BTYXq2tQMJvnjjyot0HPFa2jnxI+p75iVYN?=
+ =?us-ascii?Q?QPdIY71YZvs0qE0W1UnBSF8ZzailMGYcYnJK6fIg/j2h3Cw7g26sl8yXSGMx?=
+ =?us-ascii?Q?/4LSTUZxCIPuo7fxfWnt8MMbWQ27D1BKYkEFhUVriSDNxno/9FJSXW1jVtdQ?=
+ =?us-ascii?Q?Wd1qchV9oFgkGxQDyAOAFlVAdxO+wShXMaTV+bOeChgzkQR7apKMW56ay72D?=
+ =?us-ascii?Q?yhY2rvx09V917IDnK4t0/E3n4QqUNbqiC+Ye20avDt8m+/z9Qv36u2TVIaQv?=
+ =?us-ascii?Q?j4im5FudlzTyPsSDJyl24jIAk6Vc+imn/943oiH4q/t2H80PKOP+jTyyfmL+?=
+ =?us-ascii?Q?0aDCiUqfhZpfHIgY+UjbuFNhRDgbtZMrFayWg/IzovzBQzhn63UME73avZwv?=
+ =?us-ascii?Q?QYyf/ocqcqJ96NL2H4teSPaVwgmVg6zWcYE5ZAp9Otl6lJD1eDqrcoK+E8LW?=
+ =?us-ascii?Q?HUw/Y+3K77ZAfxxRHilEox8BR6oKzAGDV9tu0r5v6fxe8r+wtDLXfrc5Nyov?=
+ =?us-ascii?Q?w/j+jThxER18KmIUGMmJ2Env2mbBq97dPURfo4jgWMVpoVqE6ho+DrL5yusW?=
+ =?us-ascii?Q?mHuvrgACcO19q536imRlDYiryPc6VryK0R+zwcdqBoa6VVjMCgSybUvwjyjB?=
+ =?us-ascii?Q?dgy2tA3WgKscahHeD/CYnYKQB9QWF8QsCRYaz0Pt8LL+gKQDWDvqwpDLxR97?=
+ =?us-ascii?Q?EaEQXO0ZqNvtf2hj/os+oLVAZFohHjzl2FNmnx/Hooxa6e2JIyaJb83CMbb0?=
+ =?us-ascii?Q?qCHwhiaL+H2RqSwve7lPEorW6cSrklPwe4gkd9n0yUxU58jfoSLW2ONwGfPV?=
+ =?us-ascii?Q?3D9JGKX2ulOBR6Mt2ZP7b9ROF17z0BGn6WYgmsUnaB2yCqaFaWhgjC6xgfyw?=
+ =?us-ascii?Q?YiXIlmTzsqrp01uqeSMMwfIP0/kUGRi2O25ynDM+HejseQ7QMfXE4C72riuT?=
+ =?us-ascii?Q?6yuLyTKe1GsraSAjjye7cEYYs3eGKk2exOzzKpln7rnuBZeo3LOzNAACNQku?=
+ =?us-ascii?Q?Dz+3nHQvxlJtl5SO5X/kwne2PP7N6sGDWMrds4oMK6hjmZcLsNra4TgA5sPm?=
+ =?us-ascii?Q?twf78q3kjo/jioHazte0qZ5d+YI7BXAo9m11UBHqohaK9qeonbnld0h9lbSO?=
+ =?us-ascii?Q?NLQqcQMdlkAZ4bjN/81SW4fSc87IYkii1iBCmEkXE3jkFGBxfvjNTjM3HGWN?=
+ =?us-ascii?Q?sFJ/sT4Oi+v0g58uAxlVg/m4r6eGyh2kKKVOrGDMv4mFmmd0ET9IF3GEk/F3?=
+ =?us-ascii?Q?VmQHENYc8dtwb3MDeg78C7VA3pZlNYHv39DhygkpxPXEnG1MuHU7Fe4tvaQg?=
+ =?us-ascii?Q?DEemQyL14Ka8vITk1TOW39/4C8A7n2Y3Dkn7+f++MNnuTcT5DUEVV0vKZKD/?=
+ =?us-ascii?Q?3i9ZZ7Q+eSC/mUBkCZN1e8SXpGOnGM37X+f8ar07SUMmzMnGGxvJ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92b76f6f-a876-4411-8a6c-08df3c52f558
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 22:11:51.2322
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7ay1XZln0DCvZJxKotznxUosPqzyX5SntGnt70uTymLOozNWeZrdiznCp11WKxUxDmtFnysB8dqREarg83RO72+CAsI3f9JGN0BwF0IoyqWejmrgI7KAN5ZAjLC3wUSe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR04MB629231
 
-On Fri, 16 Oct 2026 21:48:18 +0530
-<mhonap@nvidia.com> wrote:
-
-> From: Manish Honap <mhonap@nvidia.com>
-> 
-> A CXL Type-2 device is reprogrammable through its CXL DVSEC: a guest could
-> set Config Lock, toggle CXL.cache and CXL.mem enable, or rewrite the HDM
-> range registers that govern host memory decode. Virtualize the DVSEC so
-> the guest sees a shadow it cannot use to reprogram the hardware.
-> 
-> Build a per-device cxl_perm permission map, modeled on msi_perm. When
-> the device is bound through the CXL provider (e.g. vfio-cxl), the whole
-> CXL DVSEC is served from the vconfig shadow; only Control and Control2
-> are guest programmable, while Capability, Status, Lock and the Range
-> registers keep their firmware snapshot. A vendor DVSEC on the same
-> device is unaffected: the map is selected by the CXL DVSEC's range,
-> since every DVSEC has the same ID in the config map and two DVSECs can
-> be adjacent.
-> 
-> A Type-2 function bound without the provider (the provider is absent,
-> its init failed, or the extensions are disabled) gets a guard map
-> instead. The DVSEC reads from hardware, Control and Control2 stay
-> writable and the RW1C status bits stay clearable, but writes to Lock and
-> the Range registers are dropped, since they outlive the user. Initiate
-> CXL Reset uses the same doorbell; a cache write-back goes to the device.
-
-The guard map actually changes the device ABI.  This may be necessary,
-but if so, it should be pulled out into a Fixes: patch.  The device
-aspects that change need to be well justified.  Access to CXL reset
-without coordination is certainly not good.  Config lock has side
-effects that we may not want to deal with.  Is there value in exposing
-the CXL DVSEC at all when we're operating in vfio-pci mode?  What do we
-expect a type-2 driver does with the guarded capability?
-
-Maybe the right answer is to drop it from the chain and make it
-read-only.
- 
-> Control2 carries the CXL reset and cache write-back-invalidate initiate
-> bits as self-clearing doorbells. With the provider, vfio never forwards
-> them to hardware, so a custom writefn synthesizes their completion in
-> the shadow: the initiate bit self-clears and the matching Status2 bit
-> (Cache Invalid or Reset Done) is set, so a guest that writes back its
-> cache (CXL r4.0 sec 9.6) and then runs CXL Reset (sec 9.7.2) progresses
-> instead of timing out. Cache Invalid is reported only while Disable
-> Caching is set, as the spec requires. The host performs the real cache
-> write-back and reset at the vfio reset points. Until a later patch in
-> this series runs the real reset from the doorbell, Initiate CXL Reset
-> completes in the shadow only.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+On Fri, Nov 06, 2026 at 01:56:10PM +0800, Defa Li wrote:
+> The I2C attach callback allocates a descriptor for clients added after
+> the adapter is registered. Store the client in the descriptor after
+> attaching it, matching the setup used for board-info devices.
+>
+> Signed-off-by: Defa Li <defa.li@mediatek.com>
 > ---
->  drivers/vfio/pci/vfio_pci_config.c | 206 ++++++++++++++++++++++++++++-
->  include/linux/vfio_pci_core.h      |   3 +
->  2 files changed, 205 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
-> index 9914f3ac69ae..1fc463540211 100644
-> --- a/drivers/vfio/pci/vfio_pci_config.c
-> +++ b/drivers/vfio/pci/vfio_pci_config.c
-> @@ -1747,6 +1747,194 @@ static const struct pci_device_id known_bogus_vf_intx_pin[] = {
->   * for each area requiring emulated bits, but the array of pointers
->   * would be comparable in size (at least for standard config space).
->   */
 
-This comment above used to be attached to vfio_config_init() and now
-it's miles away!
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-> +static int vfio_cxl_dvsec_write(struct vfio_pci_core_device *vdev, int pos,
-> +				int count, struct perm_bits *perm,
-> +				int offset, __le32 val)
-> +{
-> +	u16 start = vdev->cxl_dvsec;
-> +	__le16 *pctrl2, *pstatus2;
-> +	u16 ctrl2, status2;
-> +
-> +	count = vfio_default_config_write(vdev, pos, count, perm, offset, val);
-> +	if (count < 0)
-> +		return count;
-> +
-> +	/* Only Control2 carries the self-clearing doorbells. */
-> +	if (offset > PCI_DVSEC_CXL_CTRL2 ||
-> +	    offset + count <= PCI_DVSEC_CXL_CTRL2)
-> +		return count;
-> +
-> +	pctrl2 = (__le16 *)&vdev->vconfig[start + PCI_DVSEC_CXL_CTRL2];
-> +	pstatus2 = (__le16 *)&vdev->vconfig[start + PCI_DVSEC_CXL_STATUS2];
-> +	ctrl2 = le16_to_cpu(*pctrl2);
-> +	status2 = le16_to_cpu(*pstatus2);
-> +
-> +	/*
-> +	 * INIT_CACHE_WBI and INIT_CXL_RST are self-clearing doorbells. With a
-> +	 * provider neither reaches hardware: synthesize their completion in the
-> +	 * shadow so the guest poll finishes, clearing the initiate bit and
-> +	 * setting the matching Status2 completion. Cache Invalid is set only
-> +	 * while caching is disabled and reads 0 otherwise (CXL r4.0 sec 8.1.3.5,
-> +	 * Table 8-9). Under the guard map INIT_CACHE_WBI and Cache Invalid go to
-> +	 * the device; only INIT_CXL_RST and its completion are virtualized.
-> +	 */
-> +	if (ctrl2 & PCI_DVSEC_CXL_INIT_CACHE_WBI) {
-> +		ctrl2 &= ~PCI_DVSEC_CXL_INIT_CACHE_WBI;
-> +		if (ctrl2 & PCI_DVSEC_CXL_DISABLE_CACHING)
-> +			status2 |= PCI_DVSEC_CXL_CACHE_INV;
-> +	}
-> +	if (!(ctrl2 & PCI_DVSEC_CXL_DISABLE_CACHING))
-> +		status2 &= ~PCI_DVSEC_CXL_CACHE_INV;
-> +	if (ctrl2 & PCI_DVSEC_CXL_INIT_CXL_RST) {
-> +		ctrl2 &= ~PCI_DVSEC_CXL_INIT_CXL_RST;
-> +		status2 &= ~PCI_DVSEC_CXL_RST_ERR;
-> +		status2 |= PCI_DVSEC_CXL_RST_DONE;
-> +	}
-> +
-> +	*pctrl2 = cpu_to_le16(ctrl2);
-> +	*pstatus2 = cpu_to_le16(status2);
-> +
-> +	return count;
-> +}
-> +
-> +static int init_cxl_dvsec_perm(struct perm_bits *perm, int len)
-> +{
-> +	if (alloc_perm_bits(perm, len))
-> +		return -ENOMEM;
-> +
-> +	perm->writefn = vfio_cxl_dvsec_write;
-> +
-> +	/* Serve the whole CXL DVSEC from the shadow. */
-> +	for (int i = 0; i < len; i++)
-> +		p_setb(perm, i, (u8)ALL_VIRT, NO_WRITE);
-> +
-> +	/*
-> +	 * Control and Control2 are guest programmable; Capability, Status,
-> +	 * Lock and the Range registers keep their firmware snapshot, so the
-> +	 * guest cannot set Config Lock or rewrite the capability and ranges.
-> +	 */
-> +	p_setw(perm, PCI_DVSEC_CXL_CTRL, (u16)ALL_VIRT, (u16)ALL_WRITE);
-> +	p_setw(perm, PCI_DVSEC_CXL_CTRL2, (u16)ALL_VIRT, (u16)ALL_WRITE);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Without a CXL provider the device is bound without the CXL extensions, so
-> + * the DVSEC is read from hardware, Control and Control2 stay writable, and
-> + * the RW1C status bits in Status and Status2 (for example Viral_Status) can
-> + * still be cleared. Drop the writes whose effect outlives the user: Config
-> + * Lock and the Range registers. Initiate CXL Reset goes through the same
-> + * doorbell as with a provider, so the reset runs at a vfio reset point under
-> + * memory_lock.
-> + */
-> +static int init_cxl_dvsec_guard_perm(struct perm_bits *perm, int len)
-> +{
-> +	if (alloc_perm_bits(perm, len))
-> +		return -ENOMEM;
-> +
-> +	perm->writefn = vfio_cxl_dvsec_write;
-> +
-> +	/* Extended capability header: ID and next pointer from vconfig. */
-> +	p_setd(perm, 0, ALL_VIRT, NO_WRITE);
-> +
-> +	p_setw(perm, PCI_DVSEC_CXL_CTRL, NO_VIRT, (u16)ALL_WRITE);
-> +	p_setw(perm, PCI_DVSEC_CXL_CTRL2, PCI_DVSEC_CXL_INIT_CXL_RST,
-> +	       (u16)ALL_WRITE);
-> +	/* Status (offset 0Eh, between Control and Control2): RW1C to the device. */
-> +	p_setw(perm, PCI_DVSEC_CXL_CTRL + 2, NO_VIRT, (u16)ALL_WRITE);
-> +	p_setw(perm, PCI_DVSEC_CXL_STATUS2,
-> +	       PCI_DVSEC_CXL_RST_DONE | PCI_DVSEC_CXL_RST_ERR,
-> +	       (u16)~(PCI_DVSEC_CXL_RST_DONE | PCI_DVSEC_CXL_RST_ERR));
-> +
-> +	return 0;
-> +}
-> +
-> +/* Virtualize the CXL DVSEC so a guest cannot reprogram the device through it. */
-> +static int vfio_cxl_dvsec_init(struct vfio_pci_core_device *vdev)
-> +{
-> +	struct pci_dev *pdev = vdev->pdev;
-> +	u32 dword;
-> +	u16 dvsec, cap;
-> +	int len, ret;
-> +
-> +	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
-> +					  PCI_DVSEC_CXL_DEVICE);
-> +	if (!dvsec)
-> +		return 0;
-> +
-> +	ret = pci_read_config_dword(pdev, dvsec + PCI_DVSEC_HEADER1, &dword);
-> +	if (ret)
-> +		return pcibios_err_to_errno(ret);
-> +	len = PCI_DVSEC_HEADER1_LEN(dword);
-> +
-> +	/*
-> +	 * The virtualization writes fixed DVSEC offsets up to Status2 (the reset
-> +	 * doorbell stamps it). A device that reports a shorter DVSEC is not a
-> +	 * usable Type-2 function; leave its DVSEC unvirtualized rather than
-> +	 * index the device-length-sized perm allocation past its end.
-> +	 */
-> +	if (len < PCI_DVSEC_CXL_STATUS2 + 2)
-> +		return 0;
-> +
-> +	/*
-> +	 * Without a provider, guard only a CXL Type-2 function, with the same
-> +	 * test vfio-pci-core uses to load the provider.
-> +	 */
-
-Cryptic comment.  Why don't we expose vfio_pci_is_cxl_type2() and use
-it here?
-
-> +	if (!vdev->cxl_ops) {
-> +		if (!pcie_is_cxl(pdev))
-> +			return 0;
-> +		ret = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CAP, &cap);
-> +		if (ret)
-> +			return pcibios_err_to_errno(ret);
-> +		if (!(cap & PCI_DVSEC_CXL_CACHE_CAPABLE) ||
-> +		    !(cap & PCI_DVSEC_CXL_MEM_CAPABLE))
-> +			return 0;
-> +	}
-> +
-> +	vdev->cxl_perm = kmalloc_obj(*vdev->cxl_perm, GFP_KERNEL_ACCOUNT);
-> +	if (!vdev->cxl_perm)
-> +		return -ENOMEM;
-> +
-> +	if (vdev->cxl_ops)
-> +		ret = init_cxl_dvsec_perm(vdev->cxl_perm, len);
-> +	else
-> +		ret = init_cxl_dvsec_guard_perm(vdev->cxl_perm, len);
-> +	if (ret) {
-> +		kfree(vdev->cxl_perm);
-> +		vdev->cxl_perm = NULL;
-> +		return ret;
-> +	}
-> +
-> +	vdev->cxl_dvsec = dvsec;
-> +	vdev->cxl_dvsec_len = len;
-> +
-> +	return 0;
-> +}
-> +
-> +static void vfio_cxl_dvsec_exit(struct vfio_pci_core_device *vdev)
-> +{
-> +	if (!vdev->cxl_perm)
-> +		return;
-> +
-> +	free_perm_bits(vdev->cxl_perm);
-> +	kfree(vdev->cxl_perm);
-> +	vdev->cxl_perm = NULL;
-> +	vdev->cxl_dvsec = 0;
-> +	vdev->cxl_dvsec_len = 0;
-> +}
-> +
-> +/*
-> + * Every DVSEC carries the same ID in pci_config_map, so vfio_find_cap_start()
-> + * can walk from one DVSEC into an adjacent one. Match the CXL DVSEC by range.
-> + */
-
-IMO, a comment is more relevant below.
-
-> +static bool vfio_cxl_dvsec_contains(struct vfio_pci_core_device *vdev,
-> +				    loff_t pos)
-> +{
-> +	return vdev->cxl_perm && pos >= vdev->cxl_dvsec &&
-> +	       pos < vdev->cxl_dvsec + vdev->cxl_dvsec_len;
-> +}
-> +
->  int vfio_config_init(struct vfio_pci_core_device *vdev)
->  {
->  	struct pci_dev *pdev = vdev->pdev;
-> @@ -1842,6 +2030,10 @@ int vfio_config_init(struct vfio_pci_core_device *vdev)
+>  drivers/i3c/master.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index 01e05bad8661..690a045bffa0 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+> @@ -3467,6 +3467,8 @@ static int i3c_master_i2c_attach(struct i2c_adapter *adap, struct i2c_client *cl
 >  	if (ret)
->  		goto out;
->  
-> +	ret = vfio_cxl_dvsec_init(vdev);
-> +	if (ret)
-> +		goto out;
+>  		goto out_free_dev;
+>
+> +	i2cdev->dev = client;
 > +
 >  	return 0;
->  
->  out:
-> @@ -1863,6 +2055,7 @@ void vfio_config_free(struct vfio_pci_core_device *vdev)
->  		kfree(vdev->msi_perm);
->  		vdev->msi_perm = NULL;
->  	}
-> +	vfio_cxl_dvsec_exit(vdev);
-
-Teardown in opposite order of init.  Last initialized ~ first exit.
-
->  }
->  
->  /*
-> @@ -1926,12 +2119,17 @@ ssize_t vfio_pci_config_rw_single(struct vfio_pci_core_device *vdev,
->  			 * of the extended capability list.  Use default, ro
->  			 * access, which will virtualize the id and next values.
->  			 */
-> -			if (cap_id > PCI_EXT_CAP_ID_MAX)
-> +			cap_start = vfio_find_cap_start(vdev, *ppos);
-> +
-> +			if (cap_id > PCI_EXT_CAP_ID_MAX) {
->  				perm = &direct_ro_perms;
-> -			else
-> +			} else if (cap_id == PCI_EXT_CAP_ID_DVSEC &&
-> +				   vfio_cxl_dvsec_contains(vdev, *ppos)) {
-> +				perm = vdev->cxl_perm;
-
-				/*
-				 * Multiple DVSECs may be back-to-back, resulting
-				 * in bogus cap_start.
-				 */
-
-Thanks,
-Alex
-
-> +				cap_start = vdev->cxl_dvsec;
-> +			} else {
->  				perm = &ecap_perms[cap_id];
-> -
-> -			cap_start = vfio_find_cap_start(vdev, *ppos);
-> +			}
->  		} else {
->  			WARN_ON(cap_id > PCI_CAP_ID_MAX);
->  
-> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-> index 70acb03d466e..fd1ad0baf470 100644
-> --- a/include/linux/vfio_pci_core.h
-> +++ b/include/linux/vfio_pci_core.h
-> @@ -120,6 +120,9 @@ struct vfio_pci_core_device {
->  	u8			*pci_config_map;
->  	u8			*vconfig;
->  	struct perm_bits	*msi_perm;
-> +	struct perm_bits	*cxl_perm;
-> +	u16			cxl_dvsec;
-> +	u16			cxl_dvsec_len;
->  	spinlock_t		irqlock;
->  	struct mutex		igate;
->  	struct xarray		ctx;
-
+>
+>  out_free_dev:
+> --
+> 2.43.0
+>
