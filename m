@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959072;
-	b=RsJU12FsGUmzkoxGMFZIFI4dfgwRaJvR74ipF9mhAJzIO8kF+SaFrOOQaqJyjSR+0u0w
-	 XD6RlX2ayvPZce1tbg8ag5eojkpjSYJGIVcQzn81uszvqpwfT3Ipcvi8Y4MliPXZM/g6f
-	 yQcj3OMJ5Hp7xyxJRHMI70DNdSYT9azaobaXKxewDJKi+iucPsS3xjHNRakjAAoXZAOrk
-	 4RHMf1SJpokNbXH5zXmPENkhdI/+X7mhuS6aip917t0egBMRR0VM3zM3qY8xkeSLVe87x
-	 whVYMwR4I1KR/Ua/i5CQ5uw9uEFGbAr4dQnuKGrboniU0Hfowq05BjxB38V3HzNHVMg==
+	t=1793959113;
+	b=NpLg7M5JZ/2xoDX6y1GAZqLSx6MPVYqvphjRiNTYe2kt4yEf3O5RW87uqgrBk3AErLb/
+	 MUZQ/bDj8656M4oUFnu+f5r/0E2on9Pdpy5VKFo+4paQyGyDWrIcwbtPPVfYdglwiGYWR
+	 NiUVMsgzAzV/p3A1wbgKjZ0VQvhRWgI1D4g56z52jwZX/PSU5ec1XMmRfhvaHdmBcemoU
+	 7NP7dizGi4K9i7gsbugqTxvMn1gmPW6D7TQSPIozlCV1yTf6EsfGr+2uwmQiPIJvAv+F7
+	 gvuFFefDhztAZyDDYP/eSqBdvOaBm9md8yRM35Wfc6AOsMx43epuMJiD6AiQbxX80lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959072;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qaNMR3nruX0CYwtyHVZpUwzyiLtHlWQmL7Y9VO2VBlY=;
-	b=EjMveGR0Wa+tt9/4XuiKudop3hb9PFTnb1T4GJCFnSrG5muH104+QL32jCpi92WNP8km
-	 mRKPg4FsY/+UiijGQZOzx3q/Ky3wAukYKwqo8qhxKqkvPY5S7jgZldHt2scm1AdioXwej
-	 ohqMfaWUnGfqcObAJpVlgxM51uxj2R1Lp0V9ZB2zoTknLEpnAhYa503dLRwgHwtIq7LHV
-	 KWJyfz+73E+MZGu8iMHx/rBLy2XoDawLknnCIP3U/sxWu96IE9qpPjVV0Pkv8s7C9vAx7
-	 Ume40ehg0VtwKg83Jrv9twS5O8moxLS8ViPD/4jN57LuQlCQmasU4GKYQwE3mNOoCDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959113;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=kbFOWcR5A6GDWO1RwMhPHFn30qJ8DBxtRSmC21gCtx4=;
+	b=oyIclmmMrhUytxhJWHexsm5Zek/SbYb3yl/hQGdUJuLZimJwawzETRUwj8wYw9bYPRbR
+	 Y1IZ1ONVhW6wAoV6wdDSclxqn+RATW/zsV4fomXq3jp8JwgS0G/qmiwFFHnIQxolQxhNE
+	 pEPwAIUJDBld2hSRBvDqAUX6fz3XOGE1ds/T41NuCnpga9iHgIv+s6x/lwQrjLthglFMw
+	 btmisNDpdK1G1q+L6eo4rQ2qhM30bzuSHsLV0YTiZOLp9wO4TFQTqGbDMvYomx7VoZRXK
+	 ODH2lJQemm+An0TzpdkbZTJ2HaC18ni/sY6/dwvdaAL518VgrgyEl6LHWCLkAZfgQ6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WpWTbD5O;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B24C5606D805
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:57:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B24C5606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tcvCobbY;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46258606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:58:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46258606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WpWTbD5O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=WpWTbD5O+I1qBhYxRhUoMwr1RkpnWbPp8QK3mp15S6j5u5W9JrH61xHYTQ/62/f7bX8/zwpYXkPR8
-	 /whB4ZNaXWb0dRbCdwgBtc9OYRUH8k57P7iTI7rbtLzjOwXxFyjpUUv0tfkLeQGWomy8uHRRojfx2X
-	 R4+l3kVYvrgHB/v0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46aeda49910d-50d56;
-	Fri, 06 Nov 2026 17:57:49 +0800 (CST)
-X-RM-TRANSID:2ee46aeda49910d-50d56
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aeda49bbde-1be40;
-	Fri, 06 Nov 2026 17:57:48 +0800 (CST)
-X-RM-TRANSID:2ee76aeda49bbde-1be40
-From: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	David Airlie <airlied@gmail.com>
-Cc: tongzhiwei@cmss.chinamobile.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/syncobj: Fix fence and syncobj leak on dma_fence_chain_alloc failure
-Date: Fri,  6 Nov 2026 17:57:20 +0800
-Message-ID: <20261106095730.166-1-tongzhiwei@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.45.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tcvCobbY
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5ECF54E413F4;
+	Fri,  6 Nov 2026 09:58:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1B4EA5FFBC;
+	Fri,  6 Nov 2026 09:58:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2BA12103291F9;
+	Fri,  6 Nov 2026 10:58:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793959104; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=kbFOWcR5A6GDWO1RwMhPHFn30qJ8DBxtRSmC21gCtx4=;
+	b=tcvCobbYjIy6MNOP2TZqIe7RrPmlVaebdIin+t8AfwE/41bMrqrla3DBS9z9LQQQESELE1
+	dkoOfHDwF+Q1ZnOPqvI6/n5Lvzwh8s3rdV9KSfSzczS6mwwjM+pVQt2VA0pzESp2teTxdm
+	KE3imiAZSUXihBW8LJ4UmGJlcSe6FX2989eLUTfqo+PaUzx0mi2aj7kcTQJy6TBLiBcpav
+	nP9xslvjHOkOh6Xq0WxtWUCMkvLq9Fz8LAmv2ESPxceLVSSIP980DIjZazGdaedDOucMZa
+	1PUTFIr6QnqCp+nXdvFdL6c0UzT/Ku8sYE7A5sTYD8FelifqE4hnBIJ6TFByiw==
+Message-ID: <1e12523f-a294-4f98-93d9-4ea3479d4456@bootlin.com>
+Date: Fri, 6 Nov 2026 10:58:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,44 +62,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mfd: Use named initializers for acpi_device_id
+To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
+ Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Zha Qipeng <qipeng.zha@intel.com>, Qunqin Zhao <zhaoqunqin@loongson.cn>,
+ Andy Shevchenko <andy@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-crypto@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>
+References: <20261104-acpi-mfd-v2-0-64b9dee3baaf@thegoodpenguin.co.uk>
+ <20261104-acpi-mfd-v2-2-64b9dee3baaf@thegoodpenguin.co.uk>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20261104-acpi-mfd-v2-2-64b9dee3baaf@thegoodpenguin.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-NOTE: this commit is worked by llm completely
+On 11/4/26 5:09 PM, Pawel Zalewski wrote:
+> Use a designated initializer for the acpi_device_id fields which makes the
+> code more readable and consistent with how lists are initialized in the
+> rest of the kernel code base. Also drop explicitly setting fields to 0
+> where it is redundant.
+> 
+> Unify the list terminator to have a single space between the brackets and
+> no trailing comma.
+> 
+> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+> ---
+>  drivers/mfd/axp20x-i2c.c              | 2 +-
+>  drivers/mfd/cs42l43-i2c.c             | 8 ++++----
+>  drivers/mfd/intel_pmc_bxt.c           | 2 +-
+>  drivers/mfd/intel_soc_pmic_bxtwc.c    | 2 +-
+>  drivers/mfd/intel_soc_pmic_chtdc_ti.c | 4 ++--
+>  drivers/mfd/intel_soc_pmic_chtwc.c    | 2 +-
+>  drivers/mfd/intel_soc_pmic_crc.c      | 4 ++--
+>  drivers/mfd/intel_soc_pmic_mrfld.c    | 4 ++--
+>  drivers/mfd/kempld-core.c             | 6 +++---
+>  drivers/mfd/loongson-se.c             | 2 +-
+>  drivers/mfd/upboard-fpga.c            | 6 +++---
+Acked-by: Thomas Richard <thomas.richard@bootlin.com> # upboard-fpga.c
 
-In drm_syncobj_import_sync_file_fence(), when point is non-zero and
-dma_fence_chain_alloc() returns NULL, the function returns -ENOMEM
-without releasing the fence reference (obtained via sync_file_get_fence)
-or the syncobj reference (obtained via drm_syncobj_find).  Both
-references are permanently leaked.
-
-Add dma_fence_put(fence) and drm_syncobj_put(syncobj) before returning
--ENOMEM on the allocation failure path.
-
-Assisted-by: LLM
-Signed-off-by: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
----
- drivers/gpu/drm/drm_syncobj.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index f1d4da168545..1825055e9b54 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -743,8 +743,11 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
- 	if (point) {
- 		struct dma_fence_chain *chain = dma_fence_chain_alloc();
- 
--		if (!chain)
-+		if (!chain) {
-+			dma_fence_put(fence);
-+			drm_syncobj_put(syncobj);
- 			return -ENOMEM;
-+		}
- 
- 		drm_syncobj_add_point(syncobj, chain, fence, point);
- 	} else {
--- 
-2.43.0
-
-
-
+Best Regards,
+Thomas
