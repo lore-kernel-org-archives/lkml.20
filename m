@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929836;
-	b=lZ2/z/EGqN0l6kzXp1ZZOg3ZzCPJfANIp3LPJNMH2aDLGXx/1RJ8onGBJw03yK9M2Upg
-	 fsUErc5uw4MqIJFfcNTCM5DsXq8/2EH5IVC1r5y7r1CrOrmVtelLCFTf4RSJNomlDXzn2
-	 UiYKjhtWgcZWWc/7NWq8uwalmB9ZLJ34AQ81ORRABxGsdDBV0mLlcyjHoq3ox/7QLdimK
-	 ai2oxSxJ8gJY7WXVw6pt7Z0JlhDXE1diJMhKX0DVlxCBIhCDLTlTgm5Ajd6gn7NoovCDX
-	 +j5IgAyl2KeUhI3i1xTUMu+DvKa6YLiscPSOaShaZ+nM7h0UJbDU79bBzIjAivFG2Zw==
+	t=1793929837;
+	b=l/6Q/4OpiaSee5hT8zvgtg+udOfWLWMMHJwpmMO13plCWAH+B0yXtkGUTpzkTdVrkxFh
+	 Hiv00ebxPnkaxv5DED89VGTbStoaI01ktg64WrPIVeSg9OpvYaSjD8dWy76NqtsoD1mlg
+	 UcAA8oRKpqV+KqaGrw65QSY1v3Fit2jTpLgmQUOqAEnInuUf41WOiG3p939PBIbl9bq/1
+	 sYumKTVeKp8x+oIFSOTC71xCRO7wLIC6YWDrb/VXeyajQ6j0Zo1ZndYQ0/wX6pLE3146W
+	 TepaVZMKcf7vjqrKMfANuf7xtkmWC5VmqqaHmxQ6xRW8myR2PjN5Iye+Ee64550m+yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929837;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+URcv+8Ai3eH2FF67Uq0NAwZiPJiDT0cSxhHs5mI56I=;
-	b=n4OtO5JGqh1WXxbNmNirMga9ndDqRNa9n0fderhrMK6KcCMEK7oEIQJw4/FQBqpbys8m
-	 t5zrmron5CPnpWPXD0Pe2mKnrhDapFi6BCumNXCVbq+TYFdreHD8BuZsuZelhUuNbhaRX
-	 V476SU8VH/0b9KF/+mzcPy+H5i7WwVaPVo8+dutAHCQP5YeozHJSEnqaf7m0LTjKcdz+h
-	 2UNNphKG6XaXL3hVeauJu62MmVGF3pOxwjCBrMTDZQCMb9imskndWcaRoxsa5+uP9fG4f
-	 fGnbim9X4CNhYQwPqjpOE+rOc3/Wk+LguX4H7Imdk5jDmXCbwuWd0YhrHwkpTncHuJg==
+	bh=auAaQ5tE/or0gZlHrxldn+XgqPlfz9jhSbOxji13PNw=;
+	b=ipy674YgQSkamEYUBasG524wrIBwqKdKgw9orScY4Iz7w1sI3EvzaQ7Wz/We1aPjHhra
+	 V+jIV9Q0ExabqFhhefmkWTn5mPdl2ki4aO2b0DwfxDbJyHd/3fq8qE1CLhC0qyJuWbDvN
+	 TxqBs/Jbnm247hVVN/nmFh0EJ9a4u6ulduog5u++9dG5ZHlQiB1P+9aar/BajUSrRv4ij
+	 pNuiTXCCxF4JwCrfD81E26X7XkHzH/HE4bhQZKUc4Zog+PdSLzL3Lu65W2zUQLWhOE40C
+	 HJ7upRD3lEBF/1gPkW5mDLaSLI7eHEZwNG1GECeZwAN4oXlopsyLU/clMDrQEVGmvtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nHx5ZkWi;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ap2xX3b4;
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C83606D812;
-	Fri,  6 Nov 2026 01:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73C83606D812
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09188606A32F;
+	Fri,  6 Nov 2026 01:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09188606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nHx5ZkWi
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ap2xX3b4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929835; x=1825465835;
+  t=1793929837; x=1825465837;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=aBiUjoPalsS7/pBONIabaXH7JEINV6DcYrro9xagAIM=;
-  b=nHx5ZkWiC62PJUnebOqm77s6I5QYVYa/dQVlOUGLdzo7R2DsadK+AFN7
-   XtYkbtmqdGES6jMEGLQc5W+LlB3IuKyCuM6uN4O4g6K0e7B5cL8jL5TTY
-   Q8FYRvlmCgugjoalrbA0TdtILyg/MTPkYr4/GjNNJkXEbMl95lOuoiKhv
-   IUT0jXvxSOwkG9/+88VJrwoqA/R2EI/XgvxUzg/AieaIlVGSwav0RYXfn
-   guwkuVsGYM2uvIwAlutI+bq2r4ZTtsx5Jmu7nVgNfvxDHkkPCSKioXBxh
-   dKNH8HvOZjsq696JBNf3hw0XS7Mm2+u9jTzq+TcS9T6LgQlpM+KZPfZMU
-   g==;
-X-CSE-ConnectionGUID: zTEIvkfITBKOMqkCh8gYfQ==
-X-CSE-MsgGUID: 11/FbavXT1a89nIxLmdbVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740154"
+  bh=AQ9OGKMv4fdIkri1AeOf1nwjyAMbRU3Lcz6ASrfEnIg=;
+  b=Ap2xX3b4sD1ge3/KIfGZjYG8FBcaM3OXB4seYrtNbR4y/GqLBAyq+v1q
+   Y2pBk2PJwu13oVVqUoKSUnXNp0WNM/zfWnTrLoDNprq0jjQRRzyixcQ/T
+   SOYFmduWxO8xGFNhHyXfLXAMdXqhu7u9AvNFku6jWM9wpL4HIOvLP5OOv
+   nYdsXdBLOWv2p7TN7zFKUxlbUO/Fsz0FijuBDFqvsmeEmqkbX8zFDvffH
+   HW0h3dk/boFsuX9aQ2EisIY5w577gIt2qtNBIipFdGeCDckVSnqCEr1KK
+   nerawM7c7Omlv4jJgLdSyN+m3M38aKpmZiFlgmz905fbkXBN17m9g3Kg6
+   Q==;
+X-CSE-ConnectionGUID: M2lPT/3/SzqSUAzB77/lWQ==
+X-CSE-MsgGUID: dhVq6pspQRi0H7OCpYLDKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740177"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740154"
+   d="scan'208";a="2740177"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
   by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
-X-CSE-ConnectionGUID: eIEKRu/mSt2/9EzAnWNk4Q==
-X-CSE-MsgGUID: ovgDGnZfTH2z0TL7BPbsfg==
+X-CSE-ConnectionGUID: RmLSupXKQTWYA6KBJPEJeg==
+X-CSE-MsgGUID: kF4V3q85SDS8fzI7fT8WsQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067188"
+   d="scan'208";a="7067197"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
 From: Zide Chen <zide.chen@intel.com>
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 08/18] KVM: x86/pmu: Switch to bitmask-based KVM PMU capabilities
-Date: Thu,  5 Nov 2026 18:39:17 -0700
-Message-ID: <20261106013927.166209-9-zide.chen@intel.com>
+Subject: [PATCH v3 11/18] KVM: x86/pmu: Emulate IA32_PERF_GLOBAL_STATUS_SET MSR
+Date: Thu,  5 Nov 2026 18:39:20 -0700
+Message-ID: <20261106013927.166209-12-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
 References: <20261106013927.166209-1-zide.chen@intel.com>
@@ -94,272 +94,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Intel PerfMon v4 introduces IA32_PERF_GLOBAL_STATUS_SET (0x391) to
+allow software to set individual bits in the global status MSR. Reads
+of IA32_PERF_GLOBAL_STATUS_SET always return zero.
 
-Intel platforms support non-contiguous fixed counters via CPUID.0AH:ECX
-starting with PerfMon v5, and support non-contiguous GP counters
-through the Architectural PerfMon Extension (CPUID leaf 23H).
+IA32_PERF_GLOBAL_STATUS_SET is not part of the VM state, so it doesn't
+need to be advertised to userspace, nor saved and restored during live
+migration.
 
-struct x86_pmu_capability now exposes {,fixed_}cntr_mask64 bitmaps,
-which may contain sparse bits representing non-contiguous counters.
-Switch KVM's kvm_host_pmu and kvm_pmu_cap consumers over to the new
-bitmask fields, including iterating kvm_host_pmu bitmasks directly in
-VMX and SVM PMU MSR intercept setup.
+Always intercept IA32_PERF_GLOBAL_STATUS_SET to prevent the guest from
+modifying status bits that are not virtualized by KVM.
 
-CPUID.0AH:EAX[15:8] and CPUID.0AH:EDX[4:0] enumerate only contiguous
-counters. Derive these values from kvm_pmu_cap.{,fixed_}cntr_mask64 as
-the number of consecutive counters starting at index 0.
+Bit 63 (CondChgd) stays unreserved in pmu->global_status_rsvd to
+architecturally allow the guest to write this bit on STATUS_RESET (0x390)
+to clear it, and allow userspace to set it on GLOBAL_STATUS (0x38E).
 
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Co-developed-by: Zide Chen <zide.chen@intel.com>
+However, bit 63 is architecturally reserved in STATUS_SET per the SDM.
+Reject writes to bit 63, injecting #GP for guest writes. While older
+processors had silicon errata that accepted writes without #GP (e.g.
+SKX95), strictly enforce the architectural specification for
+deterministic behavior across migrations.
+
+Platform-specific EDS clarifies that CondChgd indicates a change to
+IA32_MISC_ENABLE[7], which KVM intercepts and keeps strictly read-only
+for guests. This guarantees hardware will never assert CondChgd during
+guest execution.
+
+Thus, the architectural asymmetry among these three MSRs is safe; being
+unable to restore bit 63 to hardware via STATUS_SET is benign because
+the guest will never legitimately observe CondChgd. Filter it out
+defensively before writing to hardware in intel_mediated_pmu_load().
+
+Originally-by: Yang Weijiang <weijiang.yang@intel.com>
 Signed-off-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 ---
 v3:
-- Iterate kvm_host_pmu bitmasks directly in VMX and SVM intercept loops.
-- Clamp nr_{gp,fixed}_counters to the number of contiguous counters
-  supported by KVM in intel_pmu_refresh(). (Jim, Sashiko)
-- Drop redundant !enable_mediated_pmu clamp on fixed_cntr_mask64. (Sashiko)
----
- arch/x86/kvm/cpuid.c         | 14 +++++++++++---
- arch/x86/kvm/msrs.c          | 12 ++++++------
- arch/x86/kvm/pmu.c           | 17 ++++++++---------
- arch/x86/kvm/svm/pmu.c       |  2 +-
- arch/x86/kvm/svm/svm.c       |  7 +++----
- arch/x86/kvm/vmx/pmu_intel.c | 28 +++++++++++++++++++---------
- arch/x86/kvm/vmx/vmx.c       |  4 ++--
- 7 files changed, 50 insertions(+), 34 deletions(-)
+- Split from combined v2 patch into standalone GLOBAL_STATUS_SET patch.
+- Always intercept IA32_PERF_GLOBAL_STATUS_SET to prevent passthrough of
+  unvirtualized status bits. (Jim)
+- Reject writing bit 63 (CondChgd) to IA32_PERF_GLOBAL_STATUS_SET. (Jim)
+- Filter out bit 63 before writing to hardware in intel_mediated_pmu_load().
+- Move validation for MSR_CORE_PERF_GLOBAL_STATUS_SET to pmu_intel.c rather
+  than common pmu.c to avoid exposing the Intel MSR on AMD.
 
-diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
-index adafd6fa2c54..3310c370c5fa 100644
---- a/arch/x86/kvm/cpuid.c
-+++ b/arch/x86/kvm/cpuid.c
-@@ -1535,10 +1535,18 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
- 		}
- 
- 		eax.split.version_id = kvm_pmu_cap.version;
--		eax.split.num_counters = kvm_pmu_cap.num_counters_gp;
-+
-+		/* Contiguous GP counters only. */
-+		eax.split.num_counters =
-+			find_first_zero_bit(kvm_pmu_cap.cntr_mask,
-+					    KVM_MAX_NR_GP_COUNTERS);
- 		eax.split.bit_width = kvm_pmu_cap.bit_width_gp;
- 		eax.split.mask_length = kvm_pmu_cap.events_mask_len;
--		edx.split.num_counters_fixed = kvm_pmu_cap.num_counters_fixed;
-+
-+		/* Contiguous fixed counters only. */
-+		edx.split.num_counters_fixed =
-+			find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
-+					    KVM_MAX_NR_FIXED_COUNTERS);
- 		edx.split.bit_width_fixed = kvm_pmu_cap.bit_width_fixed;
- 
- 		if (kvm_pmu_cap.version)
-@@ -1903,7 +1911,7 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
- 
- 		cpuid_entry_override(entry, CPUID_8000_0022_EAX);
- 
--		ebx.split.num_core_pmc = kvm_pmu_cap.num_counters_gp;
-+		ebx.split.num_core_pmc = hweight64(kvm_pmu_cap.cntr_mask64);
- 		entry->ebx = ebx.full;
- 		break;
- 	}
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index e91650af44c2..01fb130a7d24 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -2621,20 +2621,20 @@ static void kvm_probe_msr_to_save(u32 msr_index)
- 		break;
- 	case MSR_ARCH_PERFMON_PERFCTR0 ...
- 	     MSR_ARCH_PERFMON_PERFCTR0 + KVM_MAX_NR_GP_COUNTERS - 1:
--		if (msr_index - MSR_ARCH_PERFMON_PERFCTR0 >=
--		    kvm_pmu_cap.num_counters_gp)
-+		if (!(BIT_ULL(msr_index - MSR_ARCH_PERFMON_PERFCTR0) &
-+		      kvm_pmu_cap.cntr_mask64))
- 			return;
- 		break;
- 	case MSR_ARCH_PERFMON_EVENTSEL0 ...
- 	     MSR_ARCH_PERFMON_EVENTSEL0 + KVM_MAX_NR_GP_COUNTERS - 1:
--		if (msr_index - MSR_ARCH_PERFMON_EVENTSEL0 >=
--		    kvm_pmu_cap.num_counters_gp)
-+		if (!(BIT_ULL(msr_index - MSR_ARCH_PERFMON_EVENTSEL0) &
-+		      kvm_pmu_cap.cntr_mask64))
- 			return;
- 		break;
- 	case MSR_ARCH_PERFMON_FIXED_CTR0 ...
- 	     MSR_ARCH_PERFMON_FIXED_CTR0 + KVM_MAX_NR_FIXED_COUNTERS - 1:
--		if (msr_index - MSR_ARCH_PERFMON_FIXED_CTR0 >=
--		    kvm_pmu_cap.num_counters_fixed)
-+		if (!(BIT_ULL(msr_index - MSR_ARCH_PERFMON_FIXED_CTR0) &
-+		      kvm_pmu_cap.fixed_cntr_mask64))
- 			return;
- 		break;
- 	case MSR_AMD64_PERF_CNTR_GLOBAL_CTL:
+v2:
+- Add the missing vmcs02 updates for these two MSRs.
+- Change "> 3" to ">= 4" to make the "v4-gated" more obvious and match
+  the existing code style.
+---
+ arch/x86/kvm/pmu.c           | 13 +++++++++++++
+ arch/x86/kvm/vmx/pmu_intel.c | 14 ++++++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
+
 diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index b9c493c6db48..27d6a9169821 100644
+index 27d6a9169821..2cb5bccc7044 100644
 --- a/arch/x86/kvm/pmu.c
 +++ b/arch/x86/kvm/pmu.c
-@@ -20,7 +20,6 @@
- #include <asm/perf_event.h>
- #include <asm/cpu_device_id.h>
- #include "x86.h"
--#include "cpuid.h"
- #include "lapic.h"
- #include "pmu.h"
- 
-@@ -156,8 +155,8 @@ void kvm_init_pmu_capability(struct kvm_pmu_ops *pmu_ops)
- 		 * there are a non-zero number of counters, but fewer than what
- 		 * is architecturally required.
- 		 */
--		if (!kvm_host_pmu.num_counters_gp ||
--		    WARN_ON_ONCE(kvm_host_pmu.num_counters_gp < min_nr_gp_ctrs))
-+		if (!kvm_host_pmu.cntr_mask64 ||
-+		    WARN_ON_ONCE(hweight64(kvm_host_pmu.cntr_mask64) < min_nr_gp_ctrs))
- 			enable_pmu = false;
- 		else if (is_intel && !kvm_host_pmu.version)
- 			enable_pmu = false;
-@@ -177,10 +176,10 @@ void kvm_init_pmu_capability(struct kvm_pmu_ops *pmu_ops)
- 
- 	memcpy(&kvm_pmu_cap, &kvm_host_pmu, sizeof(kvm_host_pmu));
- 	kvm_pmu_cap.version = min(kvm_pmu_cap.version, 2);
--	kvm_pmu_cap.num_counters_gp = min(kvm_pmu_cap.num_counters_gp,
--					  pmu_ops->MAX_NR_GP_COUNTERS);
--	kvm_pmu_cap.num_counters_fixed = min(kvm_pmu_cap.num_counters_fixed,
--					     KVM_MAX_NR_FIXED_COUNTERS);
-+	kvm_pmu_cap.cntr_mask64 &=
-+		GENMASK_ULL(pmu_ops->MAX_NR_GP_COUNTERS - 1, 0);
-+	kvm_pmu_cap.fixed_cntr_mask64 &=
-+		GENMASK_ULL(KVM_MAX_NR_FIXED_COUNTERS - 1, 0);
- 
- 	kvm_pmu_eventsel.INSTRUCTIONS_RETIRED =
- 		perf_get_hw_event_config(PERF_COUNT_HW_INSTRUCTIONS);
-@@ -788,8 +787,8 @@ static bool kvm_need_any_pmc_intercept(struct kvm_vcpu *vcpu)
- 	 * KVM's capabilities are constrained based on KVM support, i.e. KVM's
- 	 * capabilities themselves may be a subset of hardware capabilities.
- 	 */
--	return kvm_gp_pmc_mask(pmu) != BIT_ULL(kvm_host_pmu.num_counters_gp) - 1 ||
--	       kvm_fixed_pmc_mask(pmu) != BIT_ULL(kvm_host_pmu.num_counters_fixed) - 1;
-+	return kvm_gp_pmc_mask(pmu) != kvm_host_pmu.cntr_mask64 ||
-+	       kvm_fixed_pmc_mask(pmu) != kvm_host_pmu.fixed_cntr_mask64;
- }
- 
- bool kvm_need_perf_global_ctrl_intercept(struct kvm_vcpu *vcpu)
-diff --git a/arch/x86/kvm/svm/pmu.c b/arch/x86/kvm/svm/pmu.c
-index 0943ccc1d6b8..fb5a298244ec 100644
---- a/arch/x86/kvm/svm/pmu.c
-+++ b/arch/x86/kvm/svm/pmu.c
-@@ -203,7 +203,7 @@ static void amd_pmu_refresh(struct kvm_vcpu *vcpu)
- 	}
- 
- 	pmu->pmc_exists64 = (BIT_ULL(nr_gp_counters) - 1) &
--			    (BIT_ULL(kvm_pmu_cap.num_counters_gp) - 1);
-+			    kvm_pmu_cap.cntr_mask64;
- 
- 	if (pmu->version > 1) {
- 		pmu->global_ctrl_rsvd = ~pmu->pmc_exists64;
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index e21abcedea70..c9ed6a6e8325 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -773,7 +773,7 @@ static void svm_recalc_pmu_msr_intercepts(struct kvm_vcpu *vcpu)
- 					  MSR_TYPE_RW, intercept || !test_bit(i, &gp_mask));
- 
- 	intercept |= !guest_cpu_cap_has(vcpu, X86_FEATURE_PERFCTR_CORE);
--	for (i = 0; i < kvm_pmu_cap.num_counters_gp; i++)
-+	for_each_set_bit(i, kvm_host_pmu.cntr_mask, AMD64_NUM_COUNTERS_CORE)
- 		svm_set_intercept_for_msr(vcpu, MSR_F15H_PERF_CTR + 2 * i,
- 					  MSR_TYPE_RW, intercept || !test_bit(i, &gp_mask));
- 
-@@ -5719,9 +5719,8 @@ static __init void svm_set_cpu_caps(void)
- 		 * access to enough counters to virtualize "core" support,
- 		 * otherwise limit vPMU support to the legacy number of counters.
- 		 */
--		if (kvm_pmu_cap.num_counters_gp < AMD64_NUM_COUNTERS_CORE)
--			kvm_pmu_cap.num_counters_gp = min(AMD64_NUM_COUNTERS,
--							  kvm_pmu_cap.num_counters_gp);
-+		if (hweight64(kvm_pmu_cap.cntr_mask64) < AMD64_NUM_COUNTERS_CORE)
-+			kvm_pmu_cap.cntr_mask64 &= GENMASK_ULL(AMD64_NUM_COUNTERS - 1, 0);
- 		else
- 			kvm_cpu_cap_check_and_set(X86_FEATURE_PERFCTR_CORE);
- 
+@@ -855,6 +855,7 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
+ 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
+ 	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
++	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
+ 		msr_info->data = 0;
+ 		break;
+ 	default:
+@@ -921,6 +922,18 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ 		if (!msr_info->host_initiated)
+ 			pmu->global_status &= ~data;
+ 		break;
++	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
++		/*
++		 * Bit 63 (CondChgd) is architecturally reserved in STATUS_SET.
++		 * Older CPUs errantly accepted writes without #GP (e.g. SKX95),
++		 * but KVM strictly enforces the architectural spec to ensure
++		 * consistent behavior across migrations.
++		 */
++		if (data & (pmu->global_status_rsvd | GLOBAL_STATUS_COND_CHG))
++			return 1;
++		if (!msr_info->host_initiated)
++			pmu->global_status |= data;
++		break;
+ 	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
+ 		if (!msr_info->host_initiated)
+ 			pmu->global_status |= data & ~pmu->global_status_rsvd;
 diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 7770200d0e91..ce668ea08da5 100644
+index ce668ea08da5..e81a3f8b9b02 100644
 --- a/arch/x86/kvm/vmx/pmu_intel.c
 +++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -494,7 +494,8 @@ static __always_inline u64 intel_get_fixed_pmc_eventsel(unsigned int index)
- 	 * have a known encoding for the associated general purpose event.
- 	 */
- 	eventsel = perf_get_hw_event_config(fixed_pmc_perf_ids[index]);
--	WARN_ON_ONCE(!eventsel && index < kvm_pmu_cap.num_counters_fixed);
-+	WARN_ON_ONCE(!eventsel &&
-+		     (kvm_pmu_cap.fixed_cntr_mask64 & BIT_ULL(index)));
- 	return eventsel;
- }
- 
-@@ -516,7 +517,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 	union cpuid10_edx edx;
- 	u64 perf_capabilities;
- 	u64 fixed_mask;
--	int nr_gp_counters;
-+	int nr_gp_counters, nr_fixed_counters;
- 	u64 counter_rsvd;
- 
- 	if (!lbr_desc)
-@@ -550,16 +551,25 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 				      kvm_pmu_cap.events_mask_len);
- 	pmu->available_event_types = ~entry->ebx & (BIT_ULL(eax.split.mask_length) - 1);
- 
--	fixed_mask = BIT_ULL(edx.split.num_counters_fixed) - 1;
--	fixed_mask &= BIT_ULL(kvm_pmu_cap.num_counters_fixed) - 1;
-+	/*
-+	 * CPUID.0AH:EDX[4:0] can only enumerate contiguous counters. Clamp the
-+	 * value to the number of contiguous fixed counters supported by KVM.
-+	 */
-+	nr_fixed_counters = min_t(int, edx.split.num_counters_fixed,
-+				  find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
-+						      KVM_MAX_NR_FIXED_COUNTERS));
+@@ -197,6 +197,8 @@ static bool intel_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
+ 	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
+ 	case MSR_CORE_PERF_FIXED_CTR_CTRL:
+ 		return kvm_pmu_has_perf_global_ctrl(pmu);
++	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
++		return pmu->version >= 4;
+ 	case MSR_IA32_PEBS_ENABLE:
+ 		ret = vcpu_get_perf_capabilities(vcpu) & PERF_CAP_PEBS_FORMAT;
+ 		break;
+@@ -827,8 +829,16 @@ static void intel_mediated_pmu_load(struct kvm_vcpu *vcpu)
+ 	toggle = pmu->global_status ^ global_status;
+ 	if (global_status & toggle)
+ 		wrmsrq(MSR_CORE_PERF_GLOBAL_OVF_CTRL, global_status & toggle);
+-	if (pmu->global_status & toggle)
+-		wrmsrq(MSR_CORE_PERF_GLOBAL_STATUS_SET, pmu->global_status & toggle);
 +
-+	fixed_mask = BIT_ULL(nr_fixed_counters) - 1;
-+	fixed_mask &= kvm_pmu_cap.fixed_cntr_mask64;
++	/*
++	 * CondChgd is architecturally reserved in GLOBAL_STATUS_SET. Unless
++	 * set by malicious userspace, this bit should never be set in
++	 * pmu->global_status; filter it out defensively to protect against
++	 * a host #GP.
++	 */
++	if ((pmu->global_status & toggle) & ~GLOBAL_STATUS_COND_CHG)
++		wrmsrq(MSR_CORE_PERF_GLOBAL_STATUS_SET,
++		       (pmu->global_status & toggle) & ~GLOBAL_STATUS_COND_CHG);
  
- 	/*
--	 * The number of counters comes from guest CPUID data. Clamp the value
--	 * to avoid a shift-by-64 in BIT_ULL().
-+	 * CPUID.0AH:EAX[15:8] can only enumerate contiguous counters. Clamp the
-+	 * value to the number of contiguous GP counters supported by KVM.
- 	 */
--	nr_gp_counters = min_t(int, eax.split.num_counters, X86_PMC_IDX_MAX - 1);
--	pmu->pmc_exists64 = (BIT_ULL(nr_gp_counters) - 1) &
--			    (BIT_ULL(kvm_pmu_cap.num_counters_gp) - 1);
-+	nr_gp_counters = min_t(int, eax.split.num_counters,
-+			       find_first_zero_bit(kvm_pmu_cap.cntr_mask,
-+						   KVM_MAX_NR_GP_COUNTERS));
-+	pmu->pmc_exists64 = BIT_ULL(nr_gp_counters) - 1;
- 
- 	entry = kvm_find_cpuid_entry_index(vcpu, 7, 0);
- 	if (entry &&
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 944ecbf351cf..9db6107943ec 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -4264,7 +4264,7 @@ static void vmx_recalc_pmu_msr_intercepts(struct kvm_vcpu *vcpu)
- 
- 	vm_exit_controls_changebit(vmx, vm_exit_controls_bits, has_mediated_pmu);
- 
--	for (i = 0; i < kvm_pmu_cap.num_counters_gp; i++) {
-+	for_each_set_bit(i, kvm_host_pmu.cntr_mask, INTEL_PMC_MAX_GENERIC) {
- 		bool pmc_intercept = intercept || !test_bit(i, &gp_mask);
- 
- 		vmx_set_intercept_for_msr(vcpu, MSR_IA32_PERFCTR0 + i,
-@@ -4273,7 +4273,7 @@ static void vmx_recalc_pmu_msr_intercepts(struct kvm_vcpu *vcpu)
- 					  pmc_intercept || !fw_writes_is_enabled(vcpu));
- 	}
- 
--	for (i = 0; i < kvm_pmu_cap.num_counters_fixed; i++) {
-+	for_each_set_bit(i, kvm_host_pmu.fixed_cntr_mask, INTEL_PMC_MAX_FIXED) {
- 		bool pmc_intercept = intercept || !test_bit(i, &fixed_mask);
- 
- 		vmx_set_intercept_for_msr(vcpu, MSR_CORE_PERF_FIXED_CTR0 + i,
+ 	wrmsrq(MSR_CORE_PERF_FIXED_CTR_CTRL, pmu->fixed_ctr_ctrl_hw);
+ }
 -- 
 2.56.0
 
