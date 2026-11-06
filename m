@@ -1,193 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793952426;
-	b=dotLr2HCjGfPFLTX3Cn60ZSrfvyyA+w1+UlPnS8/ORTozRU2sZo/oo6+n+1n6E7N2Znh
-	 mivN1alefIEAcK9oaxf/BGSjczpvR0qAWABYXNNzo05Z91z970x5EK8I4SM7y3S9ghgC3
-	 xdCQTOUgoRC3ROF5k+IWNn5o9BMApZ7ocLMYqj4V9+OBA0QizkyuCIIx1TDahSYAJnFjY
-	 Skk67iQA9Mmm4scBKWEcNcPbj9vKbF1MamVhSkxbjcyVt4BpuTqhCZWMDS0SAEVogWfRs
-	 hsEO/InvJIf7IH7vWpqLmE9A1IfVkrVb6QqW/5YNRKAxldhzTnNzZXHz1jZlkmJjQmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952426;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=D9DOpQgq+b701cWzO6KiL6SE7PKag/3HRAs92OaSpcY=;
-	b=0rsKupaTzzBiJah3aQ7Y2ce9v/H6V0KWbhtQ+B0Xh426NmBxAtRJH67u0S9gKq9q1wE1
-	 bIk98PZfhq5ADZZ+tI7xv44/GgTaCH9lvzbotDKqYCF5awUpgQVA5dLNkBE+yD9DDjdPf
-	 4RqBAA2fyAwXxtCz7FvDDucXTZrN7KqxR2Ov1XO4CCUCgrd8Bloor7tuxRyv1sPFzIzqu
-	 zLtQV9Po1kyqoJCdgjCjPl/M5cQmd3T64M2JbIiBVZIwlGU2CD7zJLpuEhC/+DNgv7cE+
-	 wVfVUVHzxUntTsfHAMflHzmtVORkAmAWZwsu4GUzoFS7HbiuSIZDnkAB4I4tdepCEJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IJCaiXRX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793952494;
+	b=yenhzycE404MDrqlzd/ceOJ2BhciqT5D/nRBd+JFLWHhPfIQKmWAlV4chfokKrrI9Foo
+	 gXgJgZQjKQedD0fSa5doMritWvimMaYBrCwOM+fKL+9+LhHD9nI9xYETcvGNM87TFCxG4
+	 TVNkcD3LI1o1mdGcdCzWOGMs0Dh53ycQrUlQo40xMPPWzJiaFiW+XGl/aj4awN14W0KvW
+	 /PMw083mN2gCZaCNgPyJnFF6yv33wapiXMeOBWAPFWmcnRQetLG8fTaq8TyFix4E7IqN6
+	 nhHyqDiaKC4p4X4US8W3zltfdcr1gWfdR7hQ1tBI+Ha0Y+1eJhPsfYzanM0DNaF91GQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952494;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=9n3N1yIikpCYIu+X6VsuHby7yUa6y7Py3MWjLaVcKX8=;
+	b=H2VlEzi6UdYdYZwGoP7cTZrJoMxVa+AVhn3zPEvua3k3Jtd9qSWiuO1bHvFupdTpopYx
+	 mIblvfdAy4IfJmLZn9kJxJSGgRZtr1HEEPHDiI1CpJ/RbjlUgsE2DPq5TcJZIWVRMXfRz
+	 1j9ZSxPztcwTfsemWTQtgPJtVyRTtfpsfJbCDIgT0Kt4uwIt3gJ/7AOBNh9q08ma5w+bx
+	 zrnElhFxEn3TIKzVlkKxubjfyYrApsLWJhoFJDwBCre99Tyx1UaZsKlHOC7fcT3LGEcuF
+	 6fj0p/k8Ulzd/j128w29luprRregvUnaDrgvTHpk6NHM2AN+9oORarANeDhLZosea/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.45
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669F0606A328;
-	Fri,  6 Nov 2026 08:07:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 669F0606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IJCaiXRX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793952426; x=1825488426;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=E2N2c8q0M36Y5wfLFtg/+awSSJWRGzcXJEszu3drs7A=;
-  b=IJCaiXRXmH73mbZO/5kaQOymbhATyuf6d8HuStmkFYpUhbYboQMKrNMR
-   DnUAxK6WOPCXdEwt+FVQDAFP/wbvzCCAdAYvIrduN7yrGzbpKE3dxxSno
-   ZTLmvnJnOcchOWPyhZK6WSmwhtz/4CrytS+KtVj8/620YqCXSblhOA9un
-   wZQkBhdu07XI8yR6BB1QzBJE7SiwB4RFe1ic3wvyckUzSnx6yWjrnbhek
-   NnG20XPHltkmlU3lp7m6iQkws2WctOM9X0HVepC0LmKw9wK6qTavLSRIr
-   NWEYRrvklI0bcALpY5saGYGrH9EWzTe5KXIw7ugU7MekBnRNQPkL5ebYL
-   g==;
-X-CSE-ConnectionGUID: YOAJwMmDSC+ef5yfGQUmaw==
-X-CSE-MsgGUID: kg64f85KR2+FqkRDdTyS0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2655492"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2655492"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 00:07:04 -0800
-X-CSE-ConnectionGUID: Te4n6craQaqjbpsVlm2c4A==
-X-CSE-MsgGUID: yEybgTkaQQyv6Y5QWzAATA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7107951"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 00:07:04 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 6 Nov 2026 00:07:03 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 6 Nov 2026 00:07:03 -0800
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.68) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 6 Nov 2026 00:07:03 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kTf6dhRABCJF45Vjv9UOgayhCSOnCyRjN5qOkjhQFDuDHi/wn+0Ag9dmLZ3CHv7tITBGRZ24Zv8TqiZ3UJVcGKH0fVJkTobARWGlMKlYY+aczQLHgsaJx7sOCEj++RPXlOdsjok0mlYK/h8O3WQXyvo1lxl1WGO2KcT3SaUdcoszN3/fRvjetYhaeFpImjWPzb9WpGIGttRdZE6sw9OxHGyvwN+4Jwi9ieHC05bzRG7dEY27romZAkTrZaHX24ojvY1ZqlDCfeiqoszY1moxy8emgbAVrLFx+gPMBhISnh8Fdqp/hDve9pNJaFHP9OT93gfEYF/Uxa99i89RHuh8Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D9DOpQgq+b701cWzO6KiL6SE7PKag/3HRAs92OaSpcY=;
- b=xDCx/riPVKEE8LqnXLtGusgcumaUVCU1Up7yuRMrhN5r4ydrUXdfKMmkphXwCam+rJmaw0W2PHfc8ooHQhwj/B78Tqvm0xd4elRUpusA7eDIwoKn7LO1SQ7zxSiW5/6RApCHkJ6noyc3fr5ZVMiBhVEwXkU8470LtTIFl0pBWDX24behqjVt/BGTtjv0PWd5srgRDe3jK3D8tOnouJx27E183/97v1DBuGf1yPO3Y5TSl+ooBQh3CdG74R4cM0V6B8yuo5Ei/7w9Pghpy25FPTAD53mXW56CNnZg8XeDoiePrWc3exS8Qbg8VbPeOGGAOE8LJrK0Au58QJgzGOTTPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
- by CH3PR11MB8139.namprd11.prod.outlook.com (2603:10b6:610:157::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 08:03:52 +0000
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 08:03:48 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Jacob Pan <jacob.pan@linux.microsoft.com>, Jason Gunthorpe <jgg@ziepe.ca>
-CC: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>, Alex Williamson
-	<alex@shazbot.org>, Alexey Kardashevskiy <aik@amd.com>, Bjorn Helgaas
-	<bhelgaas@google.com>, Catalin Marinas <catalin.marinas@arm.com>, "Joerg
- Roedel" <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, "Jonathan
- Hunter" <jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>, "Lukas
- Wunner" <lukas@wunner.de>, Nicolin Chen <nicolinc@nvidia.com>, Robin Murphy
-	<robin.murphy@arm.com>, Samuel Ortiz <sameo@rivosinc.com>, Shameer Kolothum
-	<shameerali.kolothum.thodi@huawei.com>, Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, Suzuki K Poulose
-	<suzuki.poulose@arm.com>, Thierry Reding <thierry.reding@kernel.org>, "Vasant
- Hegde" <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>, Xu Yilun
-	<yilun.xu@linux.intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>
-Subject: RE: [PATCH v8 12/15] iommufd/viommu: Allow PCI TSM backends to
- provide vIOMMU operations
-Thread-Topic: [PATCH v8 12/15] iommufd/viommu: Allow PCI TSM backends to
- provide vIOMMU operations
-Thread-Index: AQHdbHg6xXjL5aZ9d0memJQCvEO+p7cejimAgAAX8wCAARO1AIAA9ejA
-Date: Fri, 6 Nov 2026 08:03:48 +0000
-Message-ID: <CO1PR11MB48352506BB91C461F25147098C762@CO1PR11MB4835.namprd11.prod.outlook.com>
-References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
-	<20261104161632.3547423-13-aneesh.kumar@kernel.org>
-	<20261104152351.00002565@linux.microsoft.com>
-	<20261105004934.GE3889730@ziepe.ca>
- <20261105091622.00004a9c@linux.microsoft.com>
-In-Reply-To: <20261105091622.00004a9c@linux.microsoft.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|CH3PR11MB8139:EE_
-x-ms-office365-filtering-correlation-id: 52d8ed45-5dfd-4f1d-c042-08df3bdc7d38
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|38070700021|11063799006|4143699003|56012099006|261022115727099003|261022105027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: CbTVXBm/6MSu0buyKDG2tZRXdReXSA323Fxi8//RXGlCN1pcnEbm78beR1Xp5mjrOKYDfAfUt8HAdqFEIHPe46+9iTw4SGZRMlZZqCLWsjzfVZqY1JY1KmbFErhWy7r1+Yw5/kcmFHRQa4ctDkGhn2UnLqKmTJQYXeVdumAkYMEkTsYP1FDtuhRfmCOIeSFHyb0zP1irIXF3T9tUkqirYKxnnm3EKlm3A1xWL7UpmCTYP5Vi7Pa9suVtzfP7qHHTnFo+vB0nPVlCALEv1eqvo7es6p9NcrbaHfa3Qxh9rrjPv6atDP/G2cXjIdyiSeWfqLH4rGo6QHQf+06XgUVGcpX1mPcBTfzlCeO6JN6jzDDJoexkH/fizioV/NEbNvGtmAQQKbOavWtNKvLvPGRTJTKCUqthkXK/T6d5bbmQkuLlWlsOwI+23xmrpWIA6bVJ0ds8JM4YJOEmwNHE+3OTLdj1Gi4eCH9I8G9hY+ifnsHP+pXWdoFRAQly/rWQeKO60/FbKR5WIhzsx1YSNar4o9vwi9+r1F/e+41NrRV6iP+dQtM+3UwM1Ll/7RJZndGvV1NBRb5HZmP3FUX5Hllz/7jbzvvQ1hz5uB6G9QaLnLqJodE0HA+wjVHsw7EtLYfkELHkOwFZBmSIAdk7TsYy0PfQap+1oFOIRmLz80r6oj/VQGQ6MdW510/xGXk46iLINuzs1pOcu4ssH6dp7C9cdrQLkE9woVhz+mAfIsndKTI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(38070700021)(11063799006)(4143699003)(56012099006)(261022115727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1PSgDN8vEhh4i54hSu6Ym1pAETJmBWy5CD4sw9icuP+l4dmbP21F6v+he7Y5?=
- =?us-ascii?Q?EqQDfp4IlTklqLIPRFnwPKBe8pOp3ejOmoZC0WN+26wQVYZb+/HjVht4LCVM?=
- =?us-ascii?Q?5dxwfL+pzsRzJSKXz43Ppse1+QO9zXU0RZi5A+7DWWyz02BwsZKoRYjy4Jw8?=
- =?us-ascii?Q?tUqSjJnTiFk1fi89sDygTCw0UCkPV7o5JE9QCbdPUnnkGVFCN5VyNUbgoBVS?=
- =?us-ascii?Q?WId31DHZmeCZkBt9CvOT0X9GZh1/eeNPwP3QwYLEuWI8Cj05CVBcnZZjAENI?=
- =?us-ascii?Q?AN0Vnd+Fn7R4pM8sa1+Qs2PA/2oWnbNHYurv4X4gNPGZ4gAP4OFy//XpqQqN?=
- =?us-ascii?Q?sj3/tvn5d034W909ZN5fNcXzUh3qIlqCFxNACNxMbNK4xbJP0W4KBbJ3Xo3Q?=
- =?us-ascii?Q?jVZl0H/prLNXH+w2cO85x+2e8g0Nf2GOjcJ1WQjD1Pgxo5Rg1nnPoiJKrJ2D?=
- =?us-ascii?Q?2/BCKKhkfkqECrb0+P6T9/dg+IKCiV0d2fbfh6u1I1fi6iBDT+NBap1dI2gD?=
- =?us-ascii?Q?t8mbQsYkSK4+PiLyYCFQ7UHb9g3qZB0C06o4jyjP2yVX+Dlwcw0CC8HlpyHo?=
- =?us-ascii?Q?t4OKeBGJI520L2MfoNoGJOi9hRi6tRCLhvk4I9enAWvkZPAA6o/rkj/FpT9b?=
- =?us-ascii?Q?RO0hg/aEBhLkO3qX/qnFGDz40SU/6LDAOnRNN5rb9MaD0Wbco79yj/3boQuo?=
- =?us-ascii?Q?5YgNa6iQh63t0cZs28kZdT0a2kooZVD8mw1zumTY5PRLK/NFxmrHiIAHVpDa?=
- =?us-ascii?Q?ynLiww6/NdyWAHqn37FyrY1NwaSmv/ImR5ef4KmU2bKBZRzBVc8Bxj5F5KYg?=
- =?us-ascii?Q?7ol4926bvMkPy/pCFYxSSWf5BSqxw6ovlC0o80bJk5c1eT/AnBmvbSg+P5Mr?=
- =?us-ascii?Q?sLEvcuYMCzOrQfFlRfNfa1hYlmbEnYRq1TInMd/GOJUqHobpH/RlY1w0kEKN?=
- =?us-ascii?Q?9g0F7iFzWuppEVpgM+kShEMuz78KygiSZTPyfGCy3ycBX/jaAlduzK8xGa2f?=
- =?us-ascii?Q?S8up/SpRjattVDNrwkBhJuYa+l5jAVKXQeiP+1Z32eWjkp3r/tZUGIsYDxMB?=
- =?us-ascii?Q?3FCW5mB8RdFAVc2hJbYouVeoA+FnWmuyXJJ+lvGy3uqpeEdreTgXiwMdQGr6?=
- =?us-ascii?Q?7klBcr/om4GgC6t9jPiJAZ/KpGCk/RBShzrz80FK4Im//CpDODrFL0LdbfvM?=
- =?us-ascii?Q?FEoxP/g5SDBqkfIuPdbPMh5+QBkfluPPaXoompOgjF69+XqBeSW1sxs94M+S?=
- =?us-ascii?Q?eEAv6R7jXD3aCXjkcDMI98nWjX+LrZf+MxOkMl7te0bRKcnK5CTn6dCmz9Vq?=
- =?us-ascii?Q?E8lfU1uwLoJzVahK/djZXZXnQ7j+BB2WRqakAdAO1YYHe16XO+WHZTKVjRml?=
- =?us-ascii?Q?c8GZT667KiCaviiVukiwLCwuVnfhJZCfGVF+90kQ2pITB4Cnf68kye6Lgjup?=
- =?us-ascii?Q?HMgZiGmmxpP3Ue3kdWRpJOvzwJcYZzNhrPSlQuYrdJ6u3xizxASDpuHoXLgC?=
- =?us-ascii?Q?pyLYCPETfEw2wK4tl6jwka0q9vT20sPN6bo2lxt3ce5cX3iUK3vzwYCtS5RF?=
- =?us-ascii?Q?YAiQeFAFk0Tr9HNQG947ya5W+oGPbiA9ccM73watWeSg2QgipxMUOyOvgZi9?=
- =?us-ascii?Q?cJsNVssJ45AcLxf5M1nDB/aoKv58X4iIVb55ufioRn4np7GZazKT4HydkRsM?=
- =?us-ascii?Q?4XUtCn6gUtOilte2KXVt9oPgQ4EN+f+dTpbRpwKJQJxtIlLY?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1587606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:08:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1587606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so1169922241.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:08:13 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793952492; x=1794557292;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9n3N1yIikpCYIu+X6VsuHby7yUa6y7Py3MWjLaVcKX8=;
+        b=p30f8fqA2ejdJQEJ59Z4xg+kz6kNjrHcsg4rkQ6/r/rznZ2k4808e5Ki7H2Hu7eaBg
+         VW7Lt0ezd602rYQIWpr7osYzeeRjSoW4dfdxaw16zQg1FJpN3XD5jkITGZ8BmnqsebQ8
+         LVcxRHfPvWd7e5+EIgq+ZbJRjKGSu2bmj00qnipa9Lp1vhZVw94+BOlu1joVPfI7GDGD
+         2Cw4lM0Dy35yUaJz2XcuQ5pK/nQQNq1benggIMXJnOpbYKtj4uu0SbxZLL/WyY5Pwsy2
+         5WBH6OrOmh8eNLROV9grdTea69n7yrzlg4yFHSQ5fj9uMtP6JS9xilsfFKewlhonXRc6
+         sFmw==
+X-Forwarded-Encrypted: i=1; AKwUvBwW8nea4BmNt8Hhs55ndQuXWYIIhE+qY6Irt+ruPAgbvpZIZxrwz81SfusggLu4aXtg1i83UaqoD0UY5ZY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IzMlau85ezyz0ndjvnSdUybNWltCPbefBWwF4E1T7v6o3TEMJ
+	zYz/Rn8Mq5PDzvUBA98sN50OrfIZwR5p8ozaSOSaXXq03nD9IWHrj6UKY5cqJ1rc5hk=
+X-Gm-Gg: AYBFou37yc0mrKGi9RHDKH/AjaeDZwRjDmkxAsDaJftnlYW1N4+OQi8NVoByUNWvoWf
+	MMVAhFqng+vaSkPvQBW1VTGhSJ0fGeOV1nX9KJqSQJFyP3Uc9+pPHPAPrj/OMIQKHXHlIKB0L5U
+	hLHFRbipYMx+FZjsLHbDEpwkh2HD7Rxepjtp2o+vSmv62n+X6L+pLq5+Yx4VxT7uNyfD8towRi4
+	mqdeCTChwByK8F7KsyIqw5cTGYJUrJ+q2U0TBqDtTDAL07sb3M+dHhSGLCqiSZjvxvDrT7OgtNe
+	LuIOxo5vCXYxkxyYI72E8EURlj9x6JF1XK6JngdtN4+fVqBABhLGEfgvv00XgEEg6G/2n8sFHdY
+	orY4+qucdAJQWUksNY8V99twbqrkjrUB9we6rvC5s0qG4o4lDICiWpijQ6z4orvHMRnpkrlFnaY
+	0E17+bb2F4PaLUxG+ldwqB3NDdedpN3YJA1fd0P0oMn5nixquA+OJK0bbUYgv+CV/SGsakJCj7d
+	R7ka7LjQltzzMXyCpYWegF6+YXIUzsoMDWUtI0y3YQsVPZK8Z12fBnN0TpDKExheoZMM0tVubma
+	GhEmwugjpaqTFcTir0+P/WnuuiLS/UHHuliDjZwbCPbyQ2xqh0+oJ1lwF9mgD/UjPQ==
+X-Received: by 2002:a05:6102:4456:b0:7af:efe6:2bbe with SMTP id ada2fe7eead31-7d286a26167mr2062608137.16.1793952492334;
+        Fri, 06 Nov 2026 00:08:12 -0800 (PST)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com. [209.85.222.46])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d2a85beb50sm781949137.1.2026.11.06.00.08.11
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 00:08:11 -0800 (PST)
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-9909e82513fso260243241.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:08:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxR2ueSkXXyTbPEF4bEu0y+9ikZiMHAzEGrSIZVeCjEcOHY0lzT8nuKA9+OhA2hu+VkSTHD9gcoec+r3VA=@vger.kernel.org
+X-Received: by 2002:a05:6102:a181:10b0:7d2:8735:49f6 with SMTP id
+ ada2fe7eead31-7d287354e7cmr1863139137.42.1793952490879; Fri, 06 Nov 2026
+ 00:08:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -197,57 +80,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: wI6AukWpR4PozkuTJAUz2TXq40f1lWaVv7toZ88b2LfVbXebDalmOdvgpPD6y1xEpvqKvpQWGcMHLi4JDin8fyhl9viGHc+Ze5rbvjlS7qfVZPnxvlgZXRLeJK4EzIw0GEDoO0cV/p2sZgLxeJ1IgPt29BIQS2bkH2aXswdtFxNY6Ee9qycd0ShJKtL0MSbRe94RFu3wZOwoQLWDI0rhF4GqJZZL9igKqWsfaWTpZWJhLkxNbtB8cZShlRrvJF1a6xRkwOMtcsgp81/GbqCvL5fMWbZFbcXbrYbxuASkXwJC3zxmsgFCgXoudF6/xITPu21F1t47365QTzjScX79xA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52d8ed45-5dfd-4f1d-c042-08df3bdc7d38
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 08:03:48.9013
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +9kX/P2yI/Yb03TQbu3pDWCkR5BO26pqyi5NQzY4zdkP9+15sQlP3CyTUNJ3D1SDLzzmT5tLNkicLega+55JjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8139
-X-OriginatorOrg: intel.com
+References: <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-0-47f23de6bdb1@bp.renesas.com>
+ <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-2-47f23de6bdb1@bp.renesas.com>
+ <CAMuHMdX5XuDpdmcUhPHU_uNggpXq_L=6DRSN3ftWEApubu+VMw@mail.gmail.com> <TY3PR01MB11346986F12DEE0E3370264C386762@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB11346986F12DEE0E3370264C386762@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 6 Nov 2026 09:07:59 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWiCM3JXmqTzKCAPoZgNa2ouUgF0a739Vm2UDmjC23zow@mail.gmail.com>
+X-Gm-Features: AclHuK_SUotAyJZdKz7d5Cmpgoj7rV-v-BlqVYe7acZYOqsrJWZuNWbULoxF0Eg
+Message-ID: <CAMuHMdWiCM3JXmqTzKCAPoZgNa2ouUgF0a739Vm2UDmjC23zow@mail.gmail.com>
+Subject: Re: [PATCH 2/2] clk: renesas: rzv2h: Report the DSI duty cycle from
+ the LVDS divider
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Tommaso Merciai <tomm.merciai@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> From: Jacob Pan <jacob.pan@linux.microsoft.com>
-> Sent: Friday, November 6, 2026 1:16 AM
->=20
-> Hi Jason,
->=20
-> On Wed, 4 Nov 2026 20:49:34 -0400
-> Jason Gunthorpe <jgg@ziepe.ca> wrote:
->=20
-> > On Wed, Nov 04, 2026 at 03:23:51PM -0800, Jacob Pan wrote:
-> >
-> > > I am thinking MSHV/pKVM can register an assignment-only tsm_dev to
-> > > leverage this? Could PCI/TSM support this role without
-> > > device-security?
-> >
-> > It is certainly not what TSM was originally imagined for, but with our
-> > new arrangement, yah maybe so?
-> I will rebase on this set and send out patches for a detailed review.
->=20
-> > TSM basically just becomes this weird overlay driver on the PCI device
-> > that does stuff. Some of the stuff it might do:
-> >  - Register an attestation subsystem device to do SPDM
-> >  - Register to allow iommufd to create a viommu
-> >  - Some status sysfs ?
-> >  - ??
-> >
-> So we may expand pci tsm to have more than one role? currently it has
-> one.
-> int pci_tsm_register(struct tsm_dev *tsm_dev) {
-> ...
-> 	roles =3D is_link_tsm(tsm_dev) + is_devsec_tsm(tsm_dev) +
-> 		is_assignment_tsm(tsm_dev);
-> 	if (roles !=3D 1)
-> 		return -EINVAL;
+Hi Biju,
 
-Not sure what'd be a proper name for this, but it sounds to me that
-it tries to over-abstract something into tsm. The reused logic related
-to assignment or viommu is relatively small, so the other option below
-sounds better if it can work.
+On Fri, 6 Nov 2026 at 08:41, Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > From: Geert Uytterhoeven <geert@linux-m68k.org>
+> > On Thu, 29 Oct 2026 at 15:26, Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > > The 4/7 duty cycle of the LVDS path comes from the division by 7, not
+> > > from the PLLDSI mux, as an odd divider cannot produce a 50% duty cycle.
+> >
+> > Note that the latter is not true in general: if an odd divider looks at both edges of the parent clock
+> > signal, the output will have a 50% duty cycle (assumed the parent has a 50% duty cycle).
+> > If an odd divider looks only at rising or falling edges, the output will indeed have a non-50% duty
+> > cycle.
+> >
+> > > Report it from a dedicated LVDS divider clock type and let the core
+> > > walk up to the selected parent through CLK_DUTY_CYCLE_PARENT. The
+> > > reported values do not change, the mux keeps selecting the path, and
+> > > its duty cycle constants go away.
+> > >
+> > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> >
+> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> i.e. will queue in renesas-clk for v7.5.
+> >
+> > > --- a/drivers/clk/renesas/rzv2h-cpg.c
+> > > +++ b/drivers/clk/renesas/rzv2h-cpg.c
+> >
+> > > @@ -890,6 +863,94 @@ rzv2h_cpg_fixed_mod_status_clk_register(const struct cpg_core_clk *core,
+> > >         return &clk_hw_data->fix.hw;
+> > >  }
+> > >
+> > > +static int rzv2h_cpg_plldsi_div_lvds_get_duty_cycle(struct clk_hw *hw,
+> > > +                                                   struct clk_duty
+> > > +*duty) {
+> > > +       struct clk_fixed_factor *fix = to_clk_fixed_factor(hw);
+> > > +
+> > > +       /*
+> > > +        * An odd divider cannot generate a 50% duty cycle: the output stays
+> > > +        * high for (div + 1) / 2 input clock cycles out of div, e.g. a divider
+> > > +        * of 7 gives a duty cycle of 4/7.
+> > > +        */
+> > > +       duty->num = DIV_ROUND_UP(fix->div, 2);
+> > > +       duty->den = fix->div;
+> > > +
+> > > +       return 0;
+> > > +}
+> > > +
+> > > +static int rzv2h_cpg_plldsi_div_lvds_determine_rate(struct clk_hw *hw,
+> > > +                                                   struct
+> > > +clk_rate_request *req) {
+> > > +       return clk_fixed_factor_ops.determine_rate(hw, req); }
+> > > +
+> > > +static int rzv2h_cpg_plldsi_div_lvds_set_rate(struct clk_hw *hw,
+> > > +                                             unsigned long rate,
+> > > +                                             unsigned long
+> > > +parent_rate) {
+> > > +       return clk_fixed_factor_ops.set_rate(hw, rate, parent_rate); }
+> > > +
+> > > +static unsigned long rzv2h_cpg_plldsi_div_lvds_recalc_rate(struct clk_hw *hw,
+> > > +                                                          unsigned
+> > > +long parent_rate) {
+> > > +       return clk_fixed_factor_ops.recalc_rate(hw, parent_rate); }
+> > > +
+> > > +static unsigned long
+> > > +rzv2h_cpg_plldsi_div_lvds_recalc_accuracy(struct clk_hw *hw,
+> > > +                                         unsigned long
+> > > +parent_accuracy) {
+> > > +       return clk_fixed_factor_ops.recalc_accuracy(hw,
+> > > +parent_accuracy); }
+> > > +
+> > > +static const struct clk_ops rzv2h_cpg_plldsi_div_lvds_ops = {
+> > > +       .determine_rate = rzv2h_cpg_plldsi_div_lvds_determine_rate,
+> > > +       .set_rate = rzv2h_cpg_plldsi_div_lvds_set_rate,
+> > > +       .recalc_rate = rzv2h_cpg_plldsi_div_lvds_recalc_rate,
+> > > +       .recalc_accuracy = rzv2h_cpg_plldsi_div_lvds_recalc_accuracy,
+> > > +       .get_duty_cycle = rzv2h_cpg_plldsi_div_lvds_get_duty_cycle,
+> > > +};
+> > > +
+> > > +static struct clk_hw * __init
+> > > +rzv2h_cpg_plldsi_div_lvds_clk_register(const struct cpg_core_clk *core,
+> > > +                                      struct rzv2h_cpg_priv *priv) {
+> > > +       struct clk_init_data init = { };
+> > > +       struct clk_fixed_factor *fix;
+> > > +       const struct clk_hw *parent;
+> > > +       const char *parent_name;
+> > > +       int ret;
+> > > +
+> > > +       WARN_DEBUG(core->parent >= priv->num_core_clks);
+> > > +       parent = priv->clks[core->parent];
+> > > +       if (IS_ERR(parent))
+> > > +               return ERR_CAST(parent);
+> > > +
+> > > +       parent_name = clk_hw_get_name(parent);
+> > > +
+> > > +       fix = devm_kzalloc(priv->dev, sizeof(*fix), GFP_KERNEL);
+> > > +       if (!fix)
+> > > +               return ERR_PTR(-ENOMEM);
+> > > +
+> > > +       init.name = core->name;
+> > > +       init.ops = &rzv2h_cpg_plldsi_div_lvds_ops;
+> > > +       init.flags = CLK_SET_RATE_PARENT;
+> > > +       init.parent_names = &parent_name;
+> > > +       init.num_parents = 1;
+> > > +
+> > > +       fix->hw.init = &init;
+> > > +       fix->mult = core->mult;
+> > > +       fix->div = core->div;
+> > > +
+> > > +       ret = devm_clk_hw_register(priv->dev, &fix->hw);
+> > > +       if (ret)
+> > > +               return ERR_PTR(ret);
+> > > +
+> > > +       return &fix->hw;
+> > > +}
+> > > +
+> > >  static struct clk_hw
+> > >  *rzv2h_cpg_clk_src_twocell_get(struct of_phandle_args *clkspec,
+> > >                                void *data)
+> >
+> > Since there are now two copies of this code (see rzg3l_cpg_lvds_div_*), perhaps the time is ripe to
+> > add odd duty cycle support to clk_fixed_factor?  As duty->num can be rounded up or down, I am
+> > envisioning two new mutually-exclusive fixflags parameters, e.g.:
+> >
+> >     CLK_FIXED_FACTOR_ODD_DUTY_DOWN
+> >     CLK_FIXED_FACTOR_ODD_DUTY_UP
+>
+> For Renesas it is 4/7 odd divider
+>
+> For other vendor SoCs it can be 1/7 .. 6/7
+> So not sure CLK_FIXED_FACTOR_ODD_DUTY_{UP,DOWN}
+> applies? I believe if it is generic we need to pass
+> both Nr/Dr for the duty cycle.
+>
+> I may be wrong. Please correct me if it is the case.
 
-Or it may be the original provider framework that Aneesh proposed,
-so tsm/MSHV/pKVM can each register its own backend...
+Right, some dividers may use other duty cycle values.
+Looking at users of clk_duty, there don't seem to be many
+that could make use of this...
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
