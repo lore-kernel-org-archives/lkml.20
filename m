@@ -1,101 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.221.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793972147;
-	b=tA4JnYznFfePSzrkROpIjrC/Olna10Zem9TY+39PeREUNipT2aDotEq2M1dIGckEtIzr
-	 Wd/Y5jRVk5L85ofmFtlwM+9VpyNEbFOZLkLQvrDW4kDHLpDn5fLorwcknQ5vmIbXbf6W5
-	 Xk4yBj7ADNyWzeOCI3dDhknIkv0Dj94GuMl6ryyXZ/Bh7J12Uua9SP/Gikv8HlxlyVhpA
-	 9OT3Sa7Yh8bGpDX6h2deQ5wvwNGTjtLheGoa0bUuQQbb3beP2jQ7nI7jgOU2Pt3KbLsMR
-	 z1AGaFAYrVfJz8k3/jbJOGm8xUAApd6Ut8hv05g0/41XDduan9NFpo+2PyOaQOoprhQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972147;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793972223;
+	b=LxC+06e9qr24ct41k21F7KJGkKsnYvLq+iTaunKZcloSvku4KbKsUxfxhis+NkCHFmoT
+	 z2BAyz9b+T5o78Cfo+5t+rktP38GF7b8C2y6g9JXAaFWb7nfEs50pTUn7IkHNyDJU+Vnc
+	 uxubKxpe5/oByCriWKlZVS9Z1THGYlIS4vZH1Fg4VsmiqT6aBNF2SX7TkC3pp7Nsl6jbA
+	 NbwRj+sVQDwSXvF+BW/0BBdHW3aw8bX34BZrgKzAtMa7ZCa5Deq+dM/33a4uBBatkztnu
+	 ciufy+1cvyFmDR+9Bpqse76FDxnITaihDslP9s0KJ9MxhnzhVxDVLDl9rfN1Keajkxw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972223;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vqiBZf8MCJNi5yln1icHnq1nqZ0cACTANM4u61mdQZk=;
-	b=Scu9jvHX/fEnPevjlr/VUR55lM4R14GPQqkDUbjDebXOBQ6gxt60kOpjM2DtLDwnhiWE
-	 caQuIXkz1PzCDQtiVAV030ex3noydIseyyYencfp/kit6f3p88TpEGXYFBDCKikFeI2th
-	 U1vnNrDn1Zo9jeOuxxXktO3dt/wjvn0y3dvbQq9esZtHVdk1CUi/zQRW1ARK6m3SMSZf4
-	 gv1hk8cB89rPQO6a/PT8B36e3eTvWHbCpuQCZ2JhW2XMjgSPJx6l2oniFqw4m1xmY0Jfw
-	 M6us11BHG5lnWGNnB8zN7Uwpg8XZHFTljgJT0aF3Hi8WlrFpLQfW/JiT0W9SkzO5JDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AJF3puIu;
-	arc=fail smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=R22Hkg58AODA+U2Qc/D03rkLftDWo9zEEkg5H+BLiYE=;
+	b=ZUTT42949jNAqiKBm8NPyaI/UpajjIZKiDjQB1MnkH9AzUC4BBIld5pZyBfMGrhaQAHy
+	 VtwSy56daS/vTACWiNMz7/UkjY17m7gPNJA1yc0HCnvpf5brTVDvvr1xumoAsiuZOB/kA
+	 zn92kSCHhpScfI+mE4EU9I5sBUA/7tM+QrJ0+Xgx/ioomPKUWVpILysVXZxkZaXyQA+9Y
+	 UXdCTo1c5VfgX1bvswB4PNjNs8HzMRfAyd0TWONU7BCPg3/7brtswMjUXQOu4wFqgCU7y
+	 w2E+LANaaJLXQTXPoZbC7p1aqyrza7Z4cpLtguLmMuGJkBo62H0Ic1IHk7oLjqRrrCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=gkWNNu78;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D932606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:35:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D932606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4173606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4173606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AJF3puIu
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b001cd92bso363077f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:35:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793972145; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D1e8BYvyJddJPUStW0L9ENyKc00mC01HSf4q3giRUtIgI3P+GBNpBtapINBqgdO+bf
-         ag3abuDEG1hgLJn0uj71iZWPmZ292xTaXDx7S/dlBot0+MevpcFv8YtvyVpFhOZj7s2Y
-         LdhPsuTM5Kok7xOweYNnL1NaLUpVEvSJvtxDPwLq0XSHbTYi2ISV8jvHlgK165Wexc6n
-         R201evD9kxYCb9xD7MqGis52apKyqRofpTNw2Ek04x8vCsD7o1EQ+3ZAqsBg5aNHbV4P
-         xwKHKbLJWvz/SXP8sK9F3DELEcsp6Tze6/iCd7Mh4ixuEx7Lmbi8KEdglv61J+D7rnsD
-         mB+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vqiBZf8MCJNi5yln1icHnq1nqZ0cACTANM4u61mdQZk=;
-        fh=EeiRl7ozkS0Ry6OGr2uKGFMm5jt8fsvBW4YyrFemmfw=;
-        b=PNyHAyV4ciXdHqqJtQmGoeutsX8smFLJTqKdN0wFfW1kGr1WUUbUZsFVYbz1+RKwDt
-         KWZkTCpqCpd88223zLIylFDsCnJG0FTU+JuYD/5mWglIIKJB7iHGWs5Cfnkk8Yb3LeiZ
-         n1CYJ70ojQYXe5+W95b/voM7QifTcTJSm4dvhsURFMaBWyurbhtTF+9NGQXhGDAvYcAw
-         m9gWR+JrzKKyEdYtPyHtKIHXivSoRqXtXhAd7gaDDCTPo7FbK7uOVoaNkOBl9QUe7vuS
-         9V4jE4uwoHlpTgKoXlmCQeykLbHVqZPaKpVzRBRnMLAUEimbSFZaaFWiLaBzQen39J9d
-         ZORA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=gkWNNu78
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91c60e30054so6771056d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:37:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793972145; x=1794576945; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vqiBZf8MCJNi5yln1icHnq1nqZ0cACTANM4u61mdQZk=;
-        b=AJF3puIuRtNIJRLWbcLSabiCREtpW/FffWanMMkKvADW6k0WIXxsBRYfyaeu3auUn3
-         Css5wFsawN7zzsyih8CxMOXs6kSAPS9c8MbAXxty84qFWfadQpsBcq23EO55FfC6NOa4
-         3TpPwt5DGai5wE0jaDLlvrVjGosG7YALHiM9cR9mu7RNRYRLDYnsduEJSdPXsjCGguMW
-         Mk3eV+VsGnV8sFSU0eDuxcgLilQTpvp+kyldgsKohj4UYNdmeOHecB2Fie1gQMlIGGkf
-         Dp5IcoNq3SN8fdLuptYFs4NnMwLgEllTAsNUkvWMXAdms1qCJ4i5fQZ+UrrqM/DOYBvb
-         aOnA==
+        d=toxicpanda.com; s=google; t=1793972221; x=1794577021; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R22Hkg58AODA+U2Qc/D03rkLftDWo9zEEkg5H+BLiYE=;
+        b=gkWNNu78khkp2N7JJzNw53OIVvJ8eQ5FFYZDHuquu9acu4HQLITZ6DV74RUI3eTFjB
+         gINFXaPzBbO3l06TUdPY7eNhpvCgTP7NRMk1aAKAxvBog3XyaP7BjSFN1I6OdNPi9Zkw
+         eQ2wKzfQptD3t3P5A9b3qjpkYMbAJhrs0uJPBb3L1d1AVWmZfqT5PIIcl31vz+My7RLH
+         1WVOtQmjbc+6COqdaEIyebDCTaREyh5Cqv/xiP4xeX0KO26184ygoCvKZJzSJ9ihtAK3
+         7p4juAISXuw7pdAuTQ/T0/oLXH76vCjtkXve8yrCnDCmptT0kFMEBwEScuDMKf/xnYG1
+         KiWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793972145; x=1794576945;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793972221; x=1794577021;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vqiBZf8MCJNi5yln1icHnq1nqZ0cACTANM4u61mdQZk=;
-        b=d4cbEYK/BWiOdwhrzb+cY6PpYN/Ywp5Oiv4Gs1nmy2+HUslzqwkUWfeEU3j2EA3HYs
-         Ne1eWO0pwLsl1lKPvc3Bx3Z9Rv5+MVlsmMRzPaN/ZvpqxyiZdaOfU2P4+c2sHhFYJk4l
-         PTCpgQq7D+cFLMrZ8C5A7H94OMAYVeg/ZxTBvZp6ADz8DxgX+gazu2G6qiKFobCKSP9a
-         DOU+e3sPwI/0+Ae0v0X+xRbRJkRuOB328vB5+5MACX3bL/bXU1RZKHu3UqeHSjTy9imf
-         LYSPERLp+gbyiV9PYlQWJxW1DsWNr9rwFDpfLygVsAkNWawFC8q5UUVJRhnl1dI26XgJ
-         zRQw==
-X-Forwarded-Encrypted: i=1; AL+hErFRv7jGYmyBiAltj3iRzUg6HFFo4eZA0LL0lqeQYQn4jiDvJXU86ABNybAIxIx01CSn/CKddoqQ3Ww23AU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Z35fHFm8uf53g5EE11JbOz3nA0gIccBK1N6iczDn63fNadbK0
-	9fU1whyFUdh3gA8vKN5Hg2mFpnxcyWIdzuLPdFOg+CRKC3g0nC++rwTup1xhrswOGap/IP19+Jw
-	B4IesQanEmR6bK9tzePyxeqHVcVyQp+o=
-X-Gm-Gg: AYBFou2ixEMzeOPahiePEg3M2WhKf8gyYmpMsiLo7EZL7yyqiW5FXM8B664J+G0Xl/0
-	3Ucoz5hbx6pw2QCa+nYpbZL0ZksgJfjneiVPTPwOQvnuwzv+Q6tI9xpOmalChkvvDs0mG/kfUoJ
-	deEoGPLomUJfgPosmjV2sQEwHMoAIz5JyNw3Jxa5CdK6GFIC5fTuzA7dp7uEhF3LKpA06NPVuVa
-	pu835NkWZ19mLWgu3Elk1XUqQZYEZkVWtsHGeOAiEVxdj/XQmqBct/Ds7WajjuDB59sxxxrGk8/
-	AjH/Ka7uyWGZ35HGwJLEz3MNN5GkcErFMVA+h1Hv6CEbIHoKMKiBGLcF6sJTGFWT6+I9dZt48Zl
-	xIt8ZjpB7A39VBuRNC+Gf34JgtJvntzvMqeDWsNC8ZuJqb1nUTIlkdnl2AKJrGZu6KHHCpK+uoC
-	MTyALL41P75UWwpp6iZgbgH7AUa2FCui2pmC3xM74b9VM5U8c0ao7Y
-X-Received: by 2002:a05:6000:4282:b0:48b:9ed:b81f with SMTP id
- ffacd0b85a97d-492760da82cmr5408804f8f.10.1793972144669; Fri, 06 Nov 2026
- 05:35:44 -0800 (PST)
+        bh=R22Hkg58AODA+U2Qc/D03rkLftDWo9zEEkg5H+BLiYE=;
+        b=BS4WoXntX43WM5BKuxskGHVqkEVDwOc6l+lBsBCxpiD59z5MpprZJk2zJ2K+e0AW79
+         hkyoLhXM+BvQMg8WdJm7K5W5mVwVvjmMv/iu6V3RLv05P78ZHqoOgFTR4bBGFyBJVqFm
+         25bVJOR+bI0h5YUkDR7MgAxXEfb6r5Ahra62vaJUru5CY/dY6kmzsdGKpJjFndwbJ2+a
+         ci3K/fi2eDo2PwALFoQ5o5SC6B6+DaSpESWLLHKYNaPXZpE0oR4/34dm6K8VLnLKUrcB
+         bAu13s+7oyd5OPVaVvUzZBDMVM1gaqeZUx/njER6AkHkdgQHS3rg6wG55blxFVXy12cA
+         wrAw==
+X-Forwarded-Encrypted: i=1; AL+hErGIX2Kfg4Owi+ESbj9HMVxiwRorv9flLDIzArzBUmLLCTUo/i7geiwj+1YQ34GaNgpjwV8UEzimV+/TVtU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xAa/ri2xRxNWZTIjmXVCfdPiEdh6Bao5W53bTkT/Szdiev8Lc
+	RH80YhdhogPZkyGN39Gkh6JDwO0U4s83lSjIotwft8XdzL3JZ99bGiAiK1znu4OioA332xFWB1t
+	8T1FM2TAq1w==
+X-Gm-Gg: AYBFou3vqwhTx8mSOccxNy3VfAUpAIjYniGO2PmEdvymaZ8LWan63d7NjJFPbmMKtkM
+	KOPO2G7TGeINO5Oc0zUnf0nyTNPJ+oJ+sn61POm2FavYsQ+MZX7vlysuRBCfs8d4wgCkeIsj5mX
+	+ExNAjbQ8x90Knzotio0hR5S0jvpXXLsE6VW2l8+7T7k03d1sggj4R5yQTlS7lQCF7z+j/ZZs9Z
+	xGsfz6WKDNZmvgVjnlKb+vzd2/TcKfldbGtqdZuEVB6qtq3Z0t718YPd/V7pDYGwamuQjGQZqFy
+	c/PKhKX2eVNEOX3BYoV/Q2R23cu/R1tokMayoD34mUtUFNbgA540XDxJP+QLw/e5dwUtXOT6zbJ
+	R5KwGUF9+lvbnruwq0PyJUMIXbUGMtANFtgzm1101HCqLkbgjcUr9tqRXcb050pxfxNBEsp1384
+	QJRRs1P9FsXVwulfyoGGyw9+5Ix5JqTHRjmYimKInqilebDq7mMyExq0cdC9tN3twlQlY+4Hs6e
+	aWK71dQJ4hCKhxgAKdk56ZKdE717Q8mobeJFtCVNY8K2eYHxof3PKfkqdJ4wcrcXE5L2RCMnExN
+	F322mYapzcj56YSlU+tGT66M8mv67k8D94t3mnWwYN006wQOz1PEkRMAKGgvOS3t7zo=
+X-Received: by 2002:a05:6214:4b13:b0:91e:87a9:beec with SMTP id 6a1803df08f44-91ea88636fcmr30751606d6.0.1793972221400;
+        Fri, 06 Nov 2026 05:37:01 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.254])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a638a7sm20768656d6.22.2026.11.06.05.37.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 05:37:00 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Fri, 06 Nov 2026 13:36:43 +0000
+Subject: [PATCH v4 1/8] ovl: expand fsync mount options
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,91 +93,356 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019160615.2348500-1-nphamcs@gmail.com> <CAMgjq7AEg6XEUJPaM3mMBQAeS_KiDv8_za4w-R2WaZ=ZGenvuw@mail.gmail.com>
- <CAKEwX=O=PL3DEaEDe=F-=zhQ=VW3_UtcqesdX9fH_cr6orb2wQ@mail.gmail.com> <CAMgjq7BSzYTbrzbA4vGqMbvegoHnDtJ0vA9PcwCet-m6Ow3ouA@mail.gmail.com>
-In-Reply-To: <CAMgjq7BSzYTbrzbA4vGqMbvegoHnDtJ0vA9PcwCet-m6Ow3ouA@mail.gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 6 Nov 2026 06:35:33 -0700
-X-Gm-Features: AclHuK_c4e-RdWwmOq4OypJaP6HdPutPsMXoulXmVlinw_aIwzodsE6iH8OD2N4
-Message-ID: <CAKEwX=O0s9n2x5p-BL1Hru3e-9z88Eg+JVM6OM02QTeY9a=xdQ@mail.gmail.com>
-Subject: Re: [PATCH] mm, swap: revalidate populated clusters before scanning
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, linux-mm <linux-mm@kvack.org>, 
-	LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-b4-ovl-containerized-sync-v4-1-6ddde0b7dd8a@toxicpanda.com>
+References: <20261106-b4-ovl-containerized-sync-v4-0-6ddde0b7dd8a@toxicpanda.com>
+In-Reply-To: <20261106-b4-ovl-containerized-sync-v4-0-6ddde0b7dd8a@toxicpanda.com>
+To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Christoph Hellwig <hch@infradead.org>, Chris Mason <mason@kernel.org>, 
+ Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793972217; l=12726;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=zAKuXkDringwd4Kp10q8DoNDDNPh2S1hdJ7wVREgXkc=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QBEq63KkvULzXOvOmdf6QM0AQwvVzv6RQQRMA6HSdDHk3tRfhv5HCaFAycFgvNFc+vi2wIChMr4
+ qukNlOF7OGgs=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Wed, Oct 21, 2026 at 11:53=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wro=
-te:
->
->
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -449,9 +449,13 @@ static void swap_cluster_free_table(struct
-> swap_cluster_info *ci)
->         swap_cluster_free_count_table(table);
->  }
->
-> -static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t =
-gfp)
-> +static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t =
-gfp,
-> +               bool locked)
->  {
->         struct swap_table *table =3D NULL;
-> +       struct swap_memcg_table *memcg_table =3D NULL;
-> +       unsigned long *zeromap =3D NULL;
-> +
->         struct folio *folio;
->
->         /* The cluster must be empty and not on any list during allocatio=
-n. */
-> @@ -472,8 +476,8 @@ static int swap_cluster_alloc_table(struct
-> swap_cluster_info *ci, gfp_t gfp)
->  #ifdef CONFIG_MEMCG
->         if (!mem_cgroup_disabled()) {
->                 VM_WARN_ON_ONCE(ci->memcg_table);
-> -               ci->memcg_table =3D kzalloc_obj(*ci->memcg_table, gfp);
-> -               if (!ci->memcg_table) {
-> +               memcg_table =3D kzalloc_obj(*ci->memcg_table, gfp);
-> +               if (!memcg_table) {
->                         swap_cluster_free_count_table(table);
->                         return -ENOMEM;
->                 }
-> @@ -484,8 +488,8 @@ static int swap_cluster_alloc_table(struct
-> swap_cluster_info *ci, gfp_t gfp)
->         VM_WARN_ON_ONCE(ci->zero_bitmap);
->         ci->zero_bitmap =3D bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
->         if (!ci->zero_bitmap) {
-> -               swap_cluster_free_table(ci);
->                 swap_cluster_free_count_table(table);
-> +               kfree(memcg_table);
->                 return -ENOMEM;
->         }
->  #endif
-> @@ -494,6 +498,20 @@ static int swap_cluster_alloc_table(struct
-> swap_cluster_info *ci, gfp_t gfp)
->          * Make tables visible to cluster_is_usable() after everything is
->          * ready.
->          */
-> +       if (!locked) {
-> +               / * Lock it here before assign, not after the asssign
-> and return */
-> ...
->
-> This should fix all potential issues I think?
+From: Amir Goldstein <amir73il@gmail.com>
 
-Lol this shows up twice under vswap's sashiko reports:
+The fsync mount option currently accepts three values:
+"volatile", "strict" and "auto".
 
-https://lore.kernel.org/all/sashiko-outbox-181084@kernel.org
-https://lore.kernel.org/all/sashiko-outbox-181086@kernel.org
+All other "enum" mount options have "on" and "off" values and this is
+used by the generic _check_overlay_feature helper in fstests to probe
+for support for enabling overlayfs features.
 
-Now it's personal :P
+This commit adds support for values "on", "off" and "relaxed" and makes
+the value of "auto" depend on a kconfig/module option fsync_auto.
 
-Anyway, I'm sending a patch soon based on your idea (will keep your
-attribution around, if you don't mind - but we'd need more eyes to
-review it to ironclad it). I also have a couple more fixes along the
-way. Nice thing about sashiko is that it's digging out existing issues
-while reviewing new code, for free!
+The value of "off" behaves almost the same as "volatile", not
+persisting changes to upper layer, but it does not create the directory
+"$workdir/work/incompat/volatile", which prevents a mount cycle of a
+volatile overlayfs. Some users requested to opt-out of this guard rail.
+
+With upperdir on tmpfs, overlayfs now falls back to "fsync=off", because
+the other fsync modes are futile on tmpfs.
+
+The new value "relaxed" is a preparation for not syncing the entire
+upper fs on syncfs(2) and unmount and instead tracking and syncing only
+the upper inodes modified by this overlayfs.
+
+The value of "on" is the traditional overlayfs behavior and it behaves
+the same as the current value "auto", releasing the value of "auto" to
+differ by the kconfig/module option fsync_auto.
+
+By default, with kconfig/module option fsync_auto=Y, the meaning of the
+value "auto" is that filesystems that support RENAME_WHITEOUT default to
+"relaxed" and filesystems that do not support RENAME_WHITEOUT default to
+the traditional "fsync=on".
+
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ Documentation/filesystems/overlayfs.rst | 36 ++++++++++++++++++++++++++++-----
+ fs/overlayfs/Kconfig                    | 21 +++++++++++++++++++
+ fs/overlayfs/overlayfs.h                | 24 +++++++++++++++++++---
+ fs/overlayfs/params.c                   | 18 +++++++++++++----
+ fs/overlayfs/params.h                   |  2 ++
+ fs/overlayfs/super.c                    | 22 ++++++++++++++++++--
+ 6 files changed, 109 insertions(+), 14 deletions(-)
+
+diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
+index 16c35b491dad..1a59500834a1 100644
+--- a/Documentation/filesystems/overlayfs.rst
++++ b/Documentation/filesystems/overlayfs.rst
+@@ -826,27 +826,53 @@ The fsync during copy up only guarantees that if a copy up is observed
+ after a crash, the observed data is not zeroes or intermediate values
+ from the copy up staging area.
+ 
++Traditionally, syncfs(2) and unmount of an overlay sync the entire upper
++filesystem, including the dirty data of other overlays that share it.
++Overlayfs can be told to only write back the files that were modified
++through the overlay, and then ask the upper filesystem to commit its
++metadata.
++
+ On traditional local filesystems with a single journal (e.g. ext4, xfs),
+ fsync on a file also persists the parent directory changes, because they
+ are usually modified in the same transaction, so metadata durability during
+-data copy up effectively comes for free.  Overlayfs further limits risk by
+-disallowing network filesystems as upper layer.
++data copy up and the persistence of other upper changes such as whiteouts
++effectively come for free.  Other filesystems (e.g. ubifs) require an explicit
++fsync(2) on the copied up files and directories to persist their metadata.
+ 
+ Overlayfs can be tuned to prefer performance or durability when storing
+ to the underlying upper layer.  This is controlled by the "fsync" mount
+ option, which supports these values:
+ 
+-- "auto": (default)
++- "volatile": [*]
++    Prefer performance over durability (see `Volatile mount`_)
++- "off":
++    Same as "volatile", but does not prevent mounting the overlay again
++    after unmount (see `Volatile mount`_)
++- "relaxed":
+     Call fsync(2) on upper file before completion of data copy up.
+     No explicit fsync(2) on directory or metadata-only copy up.
++    syncfs(2) and unmount only write back the files that were modified
++    through the overlay.
++- "auto": (default)
++    "relaxed" if the upper filesystem supports RENAME_WHITEOUT,
++    otherwise "on".
++- "on":
++    syncfs(2) syncs the entire upper filesystem.
++    Copy up behaves like "relaxed".
+ - "strict":
++    syncfs(2) syncs the entire upper filesystem.
+     Call fsync(2) on upper file and directories before completion of any
+     copy up.
+-- "volatile": [*]
+-    Prefer performance over durability (see `Volatile mount`_)
+ 
+ [*] The mount option "volatile" is an alias to "fsync=volatile".
+ 
++The default is "fsync=on" instead of "fsync=auto" with the module option
++"fsync_auto=N" or with the kernel config option
++CONFIG_OVERLAY_FS_FSYNC_AUTO=n.
++
++If the upper filesystem has no writeback (e.g. tmpfs), a non-default mode
++falls back to "fsync=off".
++
+ 
+ Volatile mount
+ --------------
+diff --git a/fs/overlayfs/Kconfig b/fs/overlayfs/Kconfig
+index 2ac67e04a6fb..f1b2f3784c76 100644
+--- a/fs/overlayfs/Kconfig
++++ b/fs/overlayfs/Kconfig
+@@ -108,6 +108,27 @@ config OVERLAY_FS_XINO_AUTO
+ 
+ 	  If unsure, say N.
+ 
++config OVERLAY_FS_FSYNC_AUTO
++	bool "Overlayfs: auto select the fsync mode by default"
++	default y
++	depends on OVERLAY_FS
++	help
++	  If this config option is enabled then overlay filesystems will use
++	  "fsync=auto" by default, which selects "fsync=relaxed" if the upper
++	  filesystem supports RENAME_WHITEOUT and "fsync=on" otherwise.
++	  With "fsync=relaxed", syncfs(2) and unmount of an overlay only write
++	  back the files that were modified through the overlay, instead of
++	  syncing the entire upper filesystem.
++
++	  If this config option is disabled then overlay filesystems will use
++	  "fsync=on" by default.  It is still possible to change the default
++	  with the "fsync_auto" module option or on a filesystem instance
++	  basis with the "fsync" mount option.
++
++	  For more information, see Documentation/filesystems/overlayfs.rst
++
++	  If unsure, say Y.
++
+ config OVERLAY_FS_METACOPY
+ 	bool "Overlayfs: turn on metadata only copy up feature by default"
+ 	depends on OVERLAY_FS
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index 92da556598da..5b1a097ce543 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -102,8 +102,11 @@ enum {
+ };
+ 
+ enum {
++	OVL_FSYNC_OFF,
+ 	OVL_FSYNC_VOLATILE,
++	OVL_FSYNC_RELAXED,
+ 	OVL_FSYNC_AUTO,
++	OVL_FSYNC_ON,
+ 	OVL_FSYNC_STRICT,
+ };
+ 
+@@ -660,7 +663,8 @@ static inline bool ovl_xino_warn(struct ovl_fs *ofs)
+ 
+ static inline bool ovl_should_sync(struct ovl_fs *ofs)
+ {
+-	return ofs->config.fsync_mode != OVL_FSYNC_VOLATILE;
++	return ofs->config.fsync_mode != OVL_FSYNC_OFF &&
++	       ofs->config.fsync_mode != OVL_FSYNC_VOLATILE;
+ }
+ 
+ static inline bool ovl_should_sync_metadata(struct ovl_fs *ofs)
+@@ -668,9 +672,23 @@ static inline bool ovl_should_sync_metadata(struct ovl_fs *ofs)
+ 	return ofs->config.fsync_mode == OVL_FSYNC_STRICT;
+ }
+ 
+-static inline bool ovl_is_volatile(struct ovl_config *config)
++/*
++ * With fsync=relaxed, track the files that were modified through the overlay,
++ * so that syncfs(2) and unmount only write back those.
++ */
++static inline bool ovl_tracks_dirty(struct ovl_fs *ofs)
++{
++	return ofs->config.fsync_mode == OVL_FSYNC_RELAXED;
++}
++
++/*
++ * With fsync=relaxed, syncfs(2) and unmount only write back the files that were
++ * modified through the overlay.  Otherwise they sync the entire upper
++ * filesystem.
++ */
++static inline bool ovl_should_sync_upper_fs(struct ovl_fs *ofs)
+ {
+-	return config->fsync_mode == OVL_FSYNC_VOLATILE;
++	return ovl_should_sync(ofs) && !ovl_tracks_dirty(ofs);
+ }
+ 
+ /*
+diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
+index 5a15e5478a6b..549fc1e83ac9 100644
+--- a/fs/overlayfs/params.c
++++ b/fs/overlayfs/params.c
+@@ -28,6 +28,11 @@ module_param_named(xino_auto, ovl_xino_auto_def, bool, 0644);
+ MODULE_PARM_DESC(xino_auto,
+ 		 "Auto enable xino feature");
+ 
++static bool ovl_fsync_auto_def = IS_ENABLED(CONFIG_OVERLAY_FS_FSYNC_AUTO);
++module_param_named(fsync_auto, ovl_fsync_auto_def, bool, 0644);
++MODULE_PARM_DESC(fsync_auto,
++		 "Default to fsync=auto instead of fsync=on");
++
+ static bool ovl_index_def = IS_ENABLED(CONFIG_OVERLAY_FS_INDEX);
+ module_param_named(index, ovl_index_def, bool, 0644);
+ MODULE_PARM_DESC(index,
+@@ -142,8 +147,11 @@ static int ovl_verity_mode_def(void)
+ }
+ 
+ static const struct constant_table ovl_parameter_fsync[] = {
++	{ "off",	OVL_FSYNC_OFF      },
+ 	{ "volatile",	OVL_FSYNC_VOLATILE },
++	{ "relaxed",	OVL_FSYNC_RELAXED  },
+ 	{ "auto",	OVL_FSYNC_AUTO     },
++	{ "on",		OVL_FSYNC_ON       },
+ 	{ "strict",	OVL_FSYNC_STRICT   },
+ 	{}
+ };
+@@ -153,9 +161,9 @@ static const char *ovl_fsync_mode(struct ovl_config *config)
+ 	return ovl_parameter_fsync[config->fsync_mode].name;
+ }
+ 
+-static int ovl_fsync_mode_def(void)
++int ovl_fsync_mode_def(void)
+ {
+-	return OVL_FSYNC_AUTO;
++	return ovl_fsync_auto_def ? OVL_FSYNC_AUTO : OVL_FSYNC_ON;
+ }
+ 
+ const struct fs_parameter_spec ovl_parameter_spec[] = {
+@@ -689,9 +697,11 @@ static int ovl_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 		break;
+ 	case Opt_fsync:
+ 		config->fsync_mode = result.uint_32;
++		ctx->set.fsync = true;
+ 		break;
+ 	case Opt_volatile:
+ 		config->fsync_mode = OVL_FSYNC_VOLATILE;
++		ctx->set.fsync = true;
+ 		break;
+ 	case Opt_userxattr:
+ 		config->userxattr = true;
+@@ -896,8 +906,8 @@ int ovl_fs_params_verify(const struct ovl_fs_context *ctx,
+ 		config->index = false;
+ 	}
+ 
+-	if (!config->upperdir && ovl_is_volatile(config)) {
+-		pr_info("option \"volatile\" is meaningless in a non-upper mount, ignoring it.\n");
++	if (!config->upperdir && set.fsync) {
++		pr_info("options \"fsync\" and \"volatile\" are meaningless in a non-upper mount, ignoring them.\n");
+ 		config->fsync_mode = ovl_fsync_mode_def();
+ 	}
+ 
+diff --git a/fs/overlayfs/params.h b/fs/overlayfs/params.h
+index ffd53cdd8482..5f3572b270f3 100644
+--- a/fs/overlayfs/params.h
++++ b/fs/overlayfs/params.h
+@@ -15,6 +15,7 @@ struct ovl_opt_set {
+ 	bool redirect;
+ 	bool nfs_export;
+ 	bool index;
++	bool fsync;
+ };
+ 
+ #define OVL_MAX_STACK 500
+@@ -42,3 +43,4 @@ int ovl_fs_params_verify(const struct ovl_fs_context *ctx,
+ 			 struct ovl_config *config);
+ int ovl_show_options(struct seq_file *m, struct dentry *dentry);
+ const char *ovl_xino_mode(struct ovl_config *config);
++int ovl_fsync_mode_def(void);
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index 19b6d54c4500..81da70fd53a6 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -15,6 +15,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/posix_acl_xattr.h>
+ #include <linux/exportfs.h>
++#include <linux/backing-dev.h>
+ #include <linux/file.h>
+ #include <linux/fs_context.h>
+ #include <linux/fs_parser.h>
+@@ -737,6 +738,11 @@ static int ovl_make_workdir(struct super_block *sb, struct ovl_fs *ofs,
+ 	if (!rename_whiteout)
+ 		pr_warn("upper fs does not support RENAME_WHITEOUT.\n");
+ 
++	/* fsync=auto that is not resolved to fsync=relaxed means fsync=on */
++	if (ofs->config.fsync_mode == OVL_FSYNC_AUTO && rename_whiteout &&
++	    mnt->mnt_sb->s_bdi != &noop_backing_dev_info)
++		ofs->config.fsync_mode = OVL_FSYNC_RELAXED;
++
+ 	/*
+ 	 * Check if upper/work fs supports (trusted|user).overlay.* xattr
+ 	 */
+@@ -789,9 +795,9 @@ static int ovl_make_workdir(struct super_block *sb, struct ovl_fs *ofs,
+ 
+ 	/*
+ 	 * For volatile mount, create a incompat/volatile/dirty file to keep
+-	 * track of it.
++	 * track of it.  fsync=off allows mounting the overlay again.
+ 	 */
+-	if (ovl_is_volatile(&ofs->config)) {
++	if (ofs->config.fsync_mode == OVL_FSYNC_VOLATILE) {
+ 		err = ovl_create_volatile_dirty(ofs);
+ 		if (err < 0) {
+ 			pr_err("Failed to create volatile/dirty file.\n");
+@@ -1456,6 +1462,18 @@ static int ovl_fill_super_creds(struct fs_context *fc, struct super_block *sb)
+ 			return err;
+ 
+ 		upper_sb = ovl_upper_mnt(ofs)->mnt_sb;
++		/*
++		 * An upper fs without writeback has nothing to sync and nothing
++		 * to lose, so every fsync mode behaves like fsync=off.  Keep the
++		 * default mode, which is not shown in mountinfo.
++		 */
++		if (upper_sb->s_bdi == &noop_backing_dev_info &&
++		    ofs->config.fsync_mode != ovl_fsync_mode_def() &&
++		    ofs->config.fsync_mode != OVL_FSYNC_OFF) {
++			pr_warn("upper fs does not support writeback, falling back to fsync=off.\n");
++			ofs->config.fsync_mode = OVL_FSYNC_OFF;
++		}
++
+ 		if (!ovl_should_sync(ofs)) {
+ 			ofs->errseq = errseq_sample(&upper_sb->s_wb_err);
+ 			if (errseq_check(&upper_sb->s_wb_err, ofs->errseq)) {
+
+-- 
+2.55.0
+
