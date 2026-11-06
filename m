@@ -1,88 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959998;
-	b=sZExl56yth2mUeMvBtWoPgnbQvC99gHoJF0Geoy9R453+Ws65+/NVh87TDMgsvZ8/zgl
-	 54PdSt6+GqsoRD11IZG4CQH668MKJAyUzEslbqhz2UrlsBJNUNnZArQvgXgyatffMoM3Q
-	 Z/aMVSNn/phurjIMnep7OK1beyPhxdAH4NjPFQFFMh/JH+4o4rpvA0RWmoxbOgkh+iotb
-	 9f+s9Kb/Ytc2ajyK1NYqpZQSJHgpNJT5QnBPJNyJQZws7hhBMHL5Pw6r7iTOn9AmVVIbL
-	 lbybnylJbwKOl46koTv9OGpMuHtNKgqGw43tVvvU8p6M4QbJcs6MQtHW+74c1+I2pqw==
+	t=1793960019;
+	b=CpDIUxVRlE+P7YqcKDUAXfH6286jl9XDy9S+Hj76yLtlu+KZ+dxLUKJc3BEO+lx1nZ7B
+	 pnTWfXKmb0ubsOUag4KR7jdWCAc/NrG8PxVz1cP3U5KfJyiZfV1uh7ZznCM89wVaqz2a1
+	 CbP6Yj3cPsP855vE5pKNVfw2cXdbAOMyKL5fW1OZnOl8G2PFX9pMD8Z+t+EoT64luvSvS
+	 PAtKAqWuQhfz3S9olf1ZJWFKmmpHrtPHCCalwZalYCYetbp1r4bqJl4Xev0dQtV797Iz0
+	 1J5P+HXw8NZXBO37C14X/xbfvIrxx9vp9gnrxANKXC6RcHm/mnHJxhxdqcJCgTXi0sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959998;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fLL3XmqFz5Pf3FaFIovTOe/0d0X3Y15DtdwfOU4Sa2o=;
-	b=ls2yk1aEm8sYIqUR7MdXBsNiE87hQ+kVfANgCBYOmAdHWSUu679ofVLU8D6F68q4hzon
-	 zepERCnGJOrTL9/rbnNLxdu2/3buUJR1YCet8GwOAz5nHo3yohzLwr3cPhVxI/TbQvWW1
-	 kRw+AymPumjz1tZ7OS4ef4DR1WW86vKHlGGwiuzINabQHBpZdILd7AkjWiwoXPl95L6Ba
-	 SbgO4BsMuyN1ECn/7mQ/uoP/HmNkharU9kZ6f91O6EeNctH4JjvD3BuvVT+j8nwoAOLz/
-	 XMH5PioQMUqCY10cGakPfpTDSjW2ZE2ellB6Gp8lKOZPsoOXDnN8gIuTXhsfZjGqJ2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960019;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=rX0XLb4rNBe6MC2T6ZKpG0ovSwZvZlIxj0EJQ4gRtjw=;
+	b=ijDErNcYWowoM8i2z5Nci1VOznGt0GyE+YZRdpzjtdyJgkD7GEShygvi6tPJ99lDTZ7W
+	 +Yrehz88VNsN6ebp9d2fznoJ59Wm9AQC+OqcKDVaB0ZZUtG7BCzGD5d+uSuZg3hsIr/RT
+	 M6Vl4NYSCgIGOGQ7gpgEOmiwNLYjCguWpnaVUq+Nr6MguKUvNrBXVYZ9b/naZlpBFIDNE
+	 I1OvpPXhN2POoWcrvHoX24AZU7GPst0ZdNVSLxIEorksZ+9Tqluep8dI1FbUoNb8cu7pa
+	 4UdwVzzYlEL7CuQjqBog//M0r4YNDHyD7P3guhdg2DbOdsVPcEHOuwDfoa3zhU8LksQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmi5Q0Fv;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=BiIDXwNV;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8DF606A338
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A8DF606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83698606D806
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:13:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83698606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmi5Q0Fv
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so471046f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:13:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793959997; x=1794564797; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fLL3XmqFz5Pf3FaFIovTOe/0d0X3Y15DtdwfOU4Sa2o=;
-        b=lmi5Q0Fv7T71Md66nuBX67PlvPoEFrAFoRKV1Sq9HgiIufOQpo6A5qA4voQ9XVsQnI
-         Y5Hj/M5KiCFqmc99z/aMxLeWTTEEj7wwOi2WSlzSWmo/tAk3DTZOxVOHqmd3JGBbyX5p
-         MjxD+nIIkXrtlDg79Rto+zQPgz6nVr2WPvpz2LPA0t+/5xqCmE79Ud+YVNwx95IDOpUY
-         6gKHohlLzrUuTmWRolrPZjIckPQ9XVpyHmmteUBXc8zNdemlnEFZM9+mZVxPhBgRgSxd
-         OK8xZxmBxgiJbDDXxSodZkJXJeAnpIIx2xVIJR2W/+gMaMI2CJhuiL6Zi46Q+a4Dwvd2
-         pmHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793959997; x=1794564797;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fLL3XmqFz5Pf3FaFIovTOe/0d0X3Y15DtdwfOU4Sa2o=;
-        b=kzpXXey2vW9Cjvqdm3TkuWKazF8sWVPR9QdcCaTJyILfyV2hVSYdyt6M/nwx38JlfI
-         zlDbO6C/Fjc5V7jLJPmEU1oWBr9NLEAuOFk6f9UV/nuBc1oV14s5GKgFUfQwPSXIpL/M
-         3u6a2f8+wW6K4ZJos1B1WhKFmLqJqyqGAojRjLGpsygpXtvJKT0HDAvY9W7Jz+AWgWNU
-         M4XZqAI3twOqGFEDoAPDPvlJ8iQDBj2tBvW1E7KS0PRXaslBBKj7bdsW6KDwznvJwMdj
-         aZDFTeeQ1N+0x2UlV36IFecuKHS9ZQZVu5pLKqZRypMYFXCKqImEVkyVgi+NhwqASYFF
-         Bolg==
-X-Forwarded-Encrypted: i=1; AKwUvByHBad6tAF697UaV1IE1EgCMtl4mJ0QgIhNfQr1xlQPIM4lKg+yTqMA3JGT3jN/g/5xDZQuX4GEGrjf38c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/PfPdoXKBgNIVzuhn38KnKMrm6niTXHhpNMLrvRU7EtUJ9VWFH
-	y6AM9h8gUayRPew+f4E5bhOtnl22PcwVdjoKWlVHQwt/bBlfH/dAEC8J
-X-Gm-Gg: AYBFou29lRShzDc7UEDjv3G3bdIsUpFZcRJtIksj8W558GCKqY025jA5zWPZdx9ve0q
-	Sq8Yw5cxTr23ejp3nSLYgIlklZMxv77NTAB5UB4t9NO4X9+WFKqJzE7Ef9w+4EGk1ihiIKvb+aZ
-	NWlK+kbjfx/oxJuqYxemHO2uQhIayTotBWAT/JLzFBRHEyA5bLHIB9Vv7QDnvkOOQmCcxejvLZH
-	/0dF+RYWvBywnqzn4jPTTfhpZc7DRuSOy8ntFY7xbZwzyMsnI2DjYRNLxJpvxg9sCv/PRrojIZ8
-	uKm9xt+C9Sn46CIh2Wi7GV4NhHrq73/BUyK7+O/I0ZXNNvb9xrau22HDrQS+mjrTCUd8XGRom6v
-	AWEBwP2XSD3DtMPmFqVuk8Rbm66ITifDw90Wtw/054Sguh7gtgxNFgDMhKOlzlUtdgeLl+d/2oT
-	CMSyhagmmTL5a4xft/HrK7N+dkgP1NOdTa8Ffdi1M73YhPa7sJeTZm8TBMmS+lphMgtq1gOuB2d
-	JKM+WekwE5PQOcPhytuyWGmRsTusokCZ89tbfXxkjl1t9oFNXQ8+3c3WBq38TevEv5VsJrxbfQ9
-	1+WjFNuxs7d0tpP87GLBfiE=
-X-Received: by 2002:a05:600c:310f:b0:4b6:bb67:bb9 with SMTP id 5b1f17b1804b1-4b6ded4a3b0mr30188925e9.29.1793959996617;
-        Fri, 06 Nov 2026 02:13:16 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba207sm121341505e9.10.2026.11.06.02.13.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 02:13:16 -0800 (PST)
-Message-ID: <4763a039-60f8-4263-8124-beb0f9ab3366@gmail.com>
-Date: Fri, 6 Nov 2026 11:13:13 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=BiIDXwNV
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0DAB61A135D;
+	Fri,  6 Nov 2026 10:13:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C88195FFBC;
+	Fri,  6 Nov 2026 10:13:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 209E4103292CA;
+	Fri,  6 Nov 2026 11:13:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793960015; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rX0XLb4rNBe6MC2T6ZKpG0ovSwZvZlIxj0EJQ4gRtjw=;
+	b=BiIDXwNV2roS8rdAO4nHuPF8flMYVgTqleLnG7JHyE17SmeDGT5LEy8rD9nEAzBIA84Vbg
+	OYlK9M066a6Cj3B7XHWRUNk2LvCkPkcDGajPYzht13QTAoIPzU40h8C//zHO3CJaGJ8XVj
+	Ft/cm+GC4T529Cc9pDXWjQq8av2I++YvTIpIVJyZ98QBc3GXfXaGuHqyeQ7N46nDovIHcw
+	k98JEYMnB1tX3OJX6+fYqmJ1O/dfLZJ3ZbLxPm7veJmemBAZkjQLy49Ye0ww06gLfk/yRz
+	2W5y3vyafPRCy340WuIOWSthEDn2VXfwmt+mEEFA0MlnbqI8mbaA+4P465azrA==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Date: Fri, 06 Nov 2026 11:12:20 +0100
+Subject: [PATCH v5 1/3] regulator: dt-bindings: Add TI LM51772 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,104 +63,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] mm/gup: limit pagecache folio refcount when grabbing
- references
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- iommu@lists.linux.dev, stable@vger.kernel.org
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <20261105-refcount_overflow_stable-v1-5-70b9c655da3e@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261105-refcount_overflow_stable-v1-5-70b9c655da3e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261106-paul-lm51772-v5-1-0e83ac9711d9@bootlin.com>
+References: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
+In-Reply-To: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793960009; l=8712;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=TP0RTEhxJyi5/x1EMXLgHB4xABAu/LOEq3c5jcsJ/mM=;
+ b=rmGOHzNtNy159GEv1LWc0wlWkuOIVKveaaq/ZwsAJ/wREu+H28nxt2dNVsEQAZ15GQVkMkPnj
+ pMY4yjIRGroCWjYlrpTAIErL6GN3MGyx24aALkHg0ork1cdSbaU/8jy
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/5/26 2:10 PM, David Hildenbrand (Arm) wrote:
-> Let's replace our existing safety check by the new
-> folio_ref_count_over_limit() check in fast and slow GUP before acquiring
-> additional references or pins.
-> 
-> Keep it simple and use the check for all folio types.
-> 
-> Drop the WARN_ON_ONCE(), because apparently these things can currently
-> happen with large pagecache folios.
-> 
-> Keep the zero-refcount rejection if the refcount is 0.
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/gup.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 2ab42fc6834e5..db9db6b2a4662 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -77,7 +77,7 @@ static inline struct folio *try_get_folio(struct page *page, int refs)
->  
->  retry:
->  	folio = page_folio(page);
-> -	if (WARN_ON_ONCE(folio_ref_count(folio) < 0))
-> +	if (unlikely(folio_ref_count_over_limit(folio)))
->  		return NULL;
->  	if (unlikely(!folio_ref_try_add(folio, refs)))
->  		return NULL;
-> @@ -140,7 +140,11 @@ static void gup_put_folio(struct folio *folio, int refs, unsigned int flags)
->  int __must_check try_grab_folio(struct folio *folio, int refs,
->  				unsigned int flags)
->  {
-> -	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
-> +	if ((flags & (FOLL_GET | FOLL_PIN)) &&
-> +	    unlikely(folio_ref_count_over_limit(folio)))
-> +		return -ENOMEM;
-> +
-> +	if (WARN_ON_ONCE(!folio_ref_count(folio)))
->  		return -ENOMEM;
->  
->  	if (unlikely(!(flags & FOLL_PCI_P2PDMA) && folio_is_pci_p2pdma(folio)))
-> @@ -1482,8 +1486,8 @@ static long __get_user_pages(struct mm_struct *mm,
->  				struct folio *folio = page_folio(page);
->  
->  				/*
-> -				 * Since we already hold refcount on the
-> -				 * large folio, this should never fail.
-> +				 * Grabbing more references can fail once we
-> +				 * hit folio refcount limits.
->  				 */
->  				if (try_grab_folio(folio, page_increm - 1,
->  						   gup_flags)) {
+Add device tree binding for the TI LM51772 buck-boost voltage regulator,
+which consist of a primary VOUT output, and a fixed 5V LDO.
 
-this can fail now, so shouldn't the error path below return -ENOMEM like
-the first page does, instead of -EFAULT?
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+ .../devicetree/bindings/regulator/ti,lm51772.yaml  | 230 +++++++++++++++++++++
+ MAINTAINERS                                        |   5 +
+ 2 files changed, 235 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+new file mode 100644
+index 000000000000..9d2618304c37
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+@@ -0,0 +1,230 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/ti,lm51772.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI LM51772 buck-boost voltage regulator
++
++maintainers:
++  - Paul Louvel <paul.louvel@bootlin.com>
++
++description: |
++  The LM51772 is a buck-boost controller with I2C control, designed for
++  USB Power Delivery applications. The output voltage is software
++  configurable between 1V to 48V, with:
++
++    – 1V up to 24V in 10mV monotonous steps.
++    – 3.3V up to 48V in 20mV monotonous steps.
++
++  The LM51772 also provides an auxiliary fixed 5 V regulator output
++  (VCC1).
++
++properties:
++  compatible:
++    const: ti,lm51772
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++    description: Fault / warning irq.
++
++  vin-supply:
++    description: Regulator supply for the chip.
++
++  regulators:
++    type: object
++    description: List of regulators provided by this PMIC.
++    additionalProperties: false
++
++    properties:
++      vout:
++        type: object
++        $ref: regulator.yaml#
++        description: Main output voltage.
++        unevaluatedProperties: false
++
++        properties:
++          ti,active-discharge-strength-microamp:
++            description: Discharge current for VOUT.
++            multipleOf: 25000
++            minimum: 25000
++            maximum: 75000
++            default: 25000
++
++          ti,pcm-window-low-permille:
++            description: |
++              When VIN is inside a programmable window around VOUT, the PWM
++              logic stops switching entirely and the regulator connect VIN to VOUT.
++              This mode is called the Programmable Conduction Mode (PCM), and is an
++              efficiency features allowing the unit to avoid unnecessary switching
++              operation when VIN ≈ VOUT.
++
++              Lower threshold of the Programmable Conduction Mode (PCM)
++              window, expressed in permille (1/1000) below VOUT target.
++              If this property is zero, PCM is disabled.
++            $ref: /schemas/types.yaml#/definitions/uint32
++            multipleOf: 25
++            minimum: 0
++            maximum: 775
++            default: 300
++
++          regulator-temp-warn-kelvin:
++            enum: [0, 1, 368, 383, 398, 413]
++
++          regulator-ramp-delay:
++            enum: [40000, 20000, 1000, 500]
++
++          regulator-min-microvolt:
++            minimum: 1000000
++            maximum: 48000000
++
++          regulator-max-microvolt:
++            minimum: 1000000
++            maximum: 48000000
++
++          regulator-min-microamp:
++            minimum: 500000
++            maximum: 7000000
++
++          regulator-max-microamp:
++            minimum: 500000
++            maximum: 7000000
++
++      vcc1:
++        type: object
++        $ref: regulator.yaml#
++        description: |
++          LDO regulator for auxiliary use.
++          It can used to power, for example, a PD controller that will drive this PMIC.
++        unevaluatedProperties: false
++
++        properties:
++          regulator-min-microvolt:
++            minimum: 5000000
++            maximum: 5000000
++
++          regulator-max-microvolt:
++            minimum: 5000000
++            maximum: 5000000
++
++  ti,sync-pin:
++    description: |
++      Selects the function of the SYNC pin, used when several converters
++      operate in parallel.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [input-rising, input-falling, output-rising, output-falling]
++    default: input-rising
++
++  ti,ivp-thres-microvolt:
++    description: |
++      Input Overvoltage Protection and Regulation Threshold.
++      It shall avoid any damage to the device in case the current flows from the
++      output to the input and the input source cannot sink current.
++      This threshold is used for IVP (Input Voltage Protection) and IVR (Input
++      Voltage Regulation).
++    oneOf:
++      - multipleOf: 125000
++        minimum: 4750000
++        maximum: 23250000
++      - multipleOf: 250000
++        minimum: 23500000
++        maximum: 50000000
++    default: 50000000
++
++  ti,input-voltage-mode:
++    description: |
++      Select the input voltage mode.
++
++      In protection mode, the input voltage protection (IVP) is enabled:
++      the converter stops switching when the input voltage reaches the
++      threshold.
++
++      In regulation mode, the input voltage regulation (IVR) is enabled:
++      the input voltage is regulated at the threshold by limiting the
++      current.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [protection, regulation]
++
++  ti,nint:
++    description: |
++      Configures the nFLT/nINT pin to act as an interrupt pin.
++
++      nFLT mode: The pin remains low until the cause of the status change ceases.
++      In this mode use an level irq trigger.
++
++      nINT mode: The pin is asserted low to signal a status change.
++      In this mode use an edge irq trigger.
++    type: boolean
++
++  ti,iset-pin:
++    description: |
++      Select the ISET pin as the source of the current limit, instead of
++      the ILIM DAC. When this property is present, the ISET pin is forced
++      in its active configuration and the ILIM DAC is disabled, so the
++      current limit can no longer be programmed through the
++      dedicated register.
++    type: boolean
++
++  shunt-resistor-micro-ohms:
++    description: |
++      Value of the current sense resistor connected between the ISNSP
++      and ISNSN pins, used to translate the ILIM threshold voltage into
++      a current limit and vice versa.
++      TI recommands a value of 10000.
++    default: 10000
++
++  ti,cable-drop-compensation:
++    description: |
++      The cable drop compensation feature helps to keep the output voltage at the
++      nominal value over a wide range of load current without the need for
++      additional remote sensing. The cable drop compensation measures the
++      current and offsets the output voltage proportionally to the measured
++      current.
++    type: boolean
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@6a {
++            compatible = "ti,lm51772";
++            reg = <0x6a>;
++            interrupt-parent = <&irqc>;
++            interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
++
++            ti,nint;
++
++            regulators {
++                vcc1 {
++                    regulator-max-microvolt = <5000000>;
++                    regulator-min-microvolt = <5000000>;
++                    regulator-name = "vcc1";
++                };
++
++                vout {
++                    regulator-max-microamp = <5000000>;
++                    regulator-max-microvolt = <20000000>;
++                    regulator-min-microamp = <1000000>;
++                    regulator-min-microvolt = <5000000>;
++                    regulator-name = "vout";
++                    regulator-ov-protection-microvolt = <1000000>;
++                    regulator-temp-warn-kelvin = <368>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 57285ff29a16..c958e116cd66 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27461,6 +27461,11 @@ S:	Maintained
+ F:	sound/soc/codecs/isabelle*
+ F:	sound/soc/codecs/lm49453*
+ 
++TI LM51772 BUCK-BOOST REGULATOR DRIVER
++M:	Paul Louvel <paul.louvel@bootlin.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
++
+ TI LMP92064 ADC DRIVER
+ M:	Leonard Göhrs <l.goehrs@pengutronix.de>
+ R:	kernel@pengutronix.de
 
 -- 
-cheers,
-jose a. p-a
+2.56.0
+
