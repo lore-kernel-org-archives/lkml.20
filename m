@@ -1,61 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946763;
-	b=VftFaA4JowtP56XbclKIgrMc5ghtv14tLWwDLLlAo5DxUCY1Gp7RMhtWTmHq55j4inoC
-	 TaXh0omprcP6zuCZZA90B5Iiy7XdgdyXmPj36pv8onJhl5Pmlma2INGYtjoWtRuIOfb54
-	 xwnnmszomi1oYM8zPcdzKLj5NouECKhT1i+Ea0zAVn8f8C37SiUcRBvyAJW6kypSAwV7f
-	 3412aixkuHhmBZ6Sb5xdC0545bJunUH0duWNnJy90VQNI94FtVHAACrPSZV0rUqTZoM06
-	 jvSgz3PnOTVhJp9TceF3opqmSCLieguhncMPHiEy22OE1E6BmK7dRdSG/maIorM0InA==
+	t=1793946909;
+	b=HVa3XHcHceKPQvBM2ajxC50l/NRlb4Qrec8TqVMLTibNtUYjKad64IQ90dti/7RyD1Vl
+	 Mws91+qmPf8EFNBvKK4820vTGpDNpFh80TAOJq/EJ2Yj2lNeMGqy8ztyX2Y9UdWyuKtxY
+	 VqJ5RjdsnIAj0sLn/xKoBYc3ff7rV8QPtTOPIXGTgfoZrrKV3U/dpJH7QHFZE10LwZ8C8
+	 bNbsKuWC5vXpPQYyX+5pAUb1GW9Rb+bHymieltn+VmX0+hofqRemLSUZpNeIQbWodzNxF
+	 ui2uyqcsgI6sNpIri+6b5wLISOIUfuzUgRmuEnlCJBW3LG5Jlgm2iibECikW4coQNgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946763;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=/wPKfZLdL/IZzj15ecN1qG972aE0esZBki0eol8syMY=;
-	b=Gwta0bjhaZ4hqkC88SjPUMIpcmCFcxjl8muScx9HMWfSgZ+7kp9/NGPnHSZzC5cuWSHu
-	 Nwr020+BusjU0iYIopbDjQSuAKy7yQiEYdsE0nuJ9vdTttkAKgcDV8C9BBJj8ClPiaFYr
-	 dnnQ3BJEhqg5ko+CmO9oJjb8ZGMq2vwbpRad6hG0YkRTElZvSUvkfS+0OoznrSiWX/DbO
-	 YlmQIMp9DFi/8wuNvG2uaT5SB/xFMBhoiK0gEhLC5jHJLeny/y1t6mHUFPgiHe9g5Ib0w
-	 h3sh7YOROZAc+VvodmPnW6TDOJrJB6WAWMvJqRMVdvcDYfmIrAFXUOYucWMzsutuYBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946909;
+	h=DMARC-Filter:DKIM-Signature:From:Message-Id:Mime-Version:
+	 Content-Type:Reply-To:Date:Received:X-Lms-Return-Path:X-Original-From:
+	 Content-Transfer-Encoding:To:Cc:Subject:User-Agent:References:
+	 In-Reply-To;
+	bh=6pxqqWwqCMBNjMrohGkp19CQsBRYc3520S8CYGPY6s0=;
+	b=J3VQylKA0ZEIumLJkpz6DjDmzavGO9ZClyFN6t+0W4OkFwN/aaekhy1oJPw2jIcNW6Zd
+	 dRTUCZAsQJoVBnULZnq9JAnXacqBvKa/dt39qCWiqx66UrHsws5fPZEEaDv9sA4+CEGtM
+	 QhSOemO3jYedPvhqjQjQHnLSKfcSyVjs0ymf/5IdxYNJwAO96wo7pCOUmCP8SiOvDoI+a
+	 0SnAbay3L3e+ldRJeXgbEm9CetDxJcTPQj0Z4GwR9dLCsMuLL8VxgJD61XJ5VDSWPXI44
+	 4QqOiS6+DsTC6uY/j2tiSfLJjZ7M1aEfHZE0HK7dCtskNTEyy/qFIHgXTlERqd3bbUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=vNV9pC+v;
-	arc=none smtp.remote-ip=115.124.28.221
-Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=EOpl5MrY;
+	arc=none smtp.remote-ip=209.127.231.41
+Received: from va-2-41.ptr.blmpb.com (va-2-41.ptr.blmpb.com [209.127.231.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF43606A326;
-	Fri,  6 Nov 2026 06:32:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FF43606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA62606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BA62606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=vNV9pC+v
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793946757; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version;
-	bh=/wPKfZLdL/IZzj15ecN1qG972aE0esZBki0eol8syMY=;
-	b=vNV9pC+v6DTaQuE2r7ikzm3Y2cTrTEpLjzfK0B2GWesdu+IGZgg8nomyxIQQxkjCOi3lw59tvBIjzsWs6OEn1Z2Fqj6oT9bfbgajB2emYlJLxLhvrp7Pa0uLo8ep5nojffpzE/hsUKwMEkZWPeIeoGOLi69ADa5B6zq6Kdu/L6k=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2764088|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00278728-0.000457728-0.996755;FP=2717549084337474812|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jy6SOB6_1793946756;
-Received: from 127.0.0.1(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jy6SOB6_1793946756 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 14:32:36 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Markus Armbruster <armbru@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject:
- Re: [PATCH v2] Input: xen-kbdfront - bound the backend-supplied keycode
-Date: Fri, 06 Nov 2026 14:32:36 +0800
-Message-ID: <179394675606.2415331.18232448967087865312@xiaopeng.com>
-In-Reply-To: <au1xwKh4LVxHyUMW@google.com>
-References: <20261106014957.4130059-1-guozh23@xiaopeng.com>
- <20261106020217.48481-1-guozh23@xiaopeng.com> <au1xwKh4LVxHyUMW@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=EOpl5MrY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793946900;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=6pxqqWwqCMBNjMrohGkp19CQsBRYc3520S8CYGPY6s0=;
+ b=EOpl5MrYGjW7qy/J3V5VUo+NGhB3jGeEdB6yMhrgDkZ6e7t5ClgLRX1WxEoY6AoBcRTohW
+ ph0lbbfIbTtW/61XT3qIdPIjNajFWhgH6cTRRz/SZDTbiewEp+ZWL11DghtF18k7ijvQWD
+ sLhLxne9K6xztc6wMj5AxWdXSayWr6wAslQgJzMRJME/zCKP3TecY3oLbLzSrEKGPtlwvv
+ oAG3AtvH2pgN3uFWw8Yzo5AH5Bv49C5S8RTmFp/OJEbT9w7xdQGtgBuDwobUhZfOt0HaVI
+ seXLESbZkaaxZU6UciGYr7168K5hqCU4/ePEulN7KIS4Gt6f6FutRcQlNYlgNw==
+From: "yu kuai" <yukuai@fygo.io>
+Message-Id: <bc03d165-55fa-4029-b653-eb5359a2816c@fygo.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,46 +54,160 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Reply-To: yukuai@fygo.io
+Date: Fri, 6 Nov 2026 14:34:54 +0800
+Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Fri, 06 Nov 2026 06:34:58 +0000
+X-Lms-Return-Path: <lba+26aed7513+be8761+vger.kernel.org+yukuai@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+To: "Zizhi Wo" <wozizhi@huaweicloud.com>, <song@kernel.org>, 
+	<magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, "yu kuai" <yukuai@fygo.io>
+Cc: <linux-kernel@vger.kernel.org>, <yangerkun@huawei.com>, 
+	<chengzhihao1@huawei.com>, <wozizhi@huawei.com>
+Subject: Re: [PATCH V3 1/3] md/raid0: reject a takeover whose zones cannot cover the array
+User-Agent: Mozilla Thunderbird
+References: <20261102083815.127751-1-wozizhi@huaweicloud.com> <20261102083815.127751-2-wozizhi@huaweicloud.com>
+In-Reply-To: <20261102083815.127751-2-wozizhi@huaweicloud.com>
 
-Hi Dmitry,
+Hi,
 
-The threat model is a compromised backend: the xenbus device model gives
-the backend write access to the shared ring page for the entire lifetime
-of the frontend, and the guest has no way to distinguish well-formed
-input from forged input once the peer on the other end is malicious.
+=E5=9C=A8 2026/11/2 16:38, Zizhi Wo =E5=86=99=E9=81=93:
+> From: Zizhi Wo <wozizhi@huawei.com>
+>
+> If a raid0 takeover builds strip zones that cover less than the advertise=
+d
+> array size, the block layer still accepts I/O for the whole size.
+> raid0_make_request() hands any request past the zones to the mapping code=
+,
+> which fails to map it and triggers a BUG_ON.
+>
+> The zones are built from the member sizes in rdev->sectors, which may not
+> match the size the array already advertises, so the zones can come out
+> covering less than it. The extreme case is a member with no size recorded
+> at all: an array created without metadata imports its devices through
+> md_import_device(dev, -1, -1), which never sets rdev->sectors, and
+> bind_rdev_to_array() does not reject such a member either, because its
+> check that mddev->dev_sectors fits inside a member is skipped when
+> rdev->sectors is zero.
+>
+> Refuse a raid0 takeover when its zones cannot cover the size the gendisk
+> advertises. This prevents the takeover from silently shrinking the array,
+> mirroring the rule raid5_start_reshape() and raid10_start_reshape() apply
+> to a reshape.
+>
+> The check iterates the same devices and uses the same rounding as
+> create_strip_zones(). It does not skip devices with rdev->raid_disk < 0:
+> such devices cannot be raid0 members, so counting them only overestimates
+> the coverage and, if present, the takeover fails later in
+> create_strip_zones() anyway.
+>
+> Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and Raid10->Raid0 =
+takeover")
+> Fixes: fc3a08b85b7a ("Add raid1->raid0 takeover support")
+> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+> ---
+>   drivers/md/raid0.c | 37 +++++++++++++++++++++++++++++++++++++
+>   1 file changed, 37 insertions(+)
+>
+> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+> index 35e103f0c2c3..fccc62a5fecc 100644
+> --- a/drivers/md/raid0.c
+> +++ b/drivers/md/raid0.c
+> @@ -643,6 +643,34 @@ static void raid0_error(struct mddev *mddev, struct =
+md_rdev *rdev)
+>   	}
+>   }
+>  =20
+> +/*
+> + * Refuse a takeover whose strip zones cannot cover the capacity the gen=
+disk
+> + * advertises: raid0 derives those zones from the sizes of its members, =
+so
+> + * find_zone() cannot map I/O that falls beyond them.
+> + */
+> +static int raid0_takeover_check(struct mddev *mddev, int chunk)
+> +{
+> +	sector_t capacity =3D get_capacity(mddev->gendisk);
+> +	sector_t coverage =3D 0;
+> +	struct md_rdev *rdev;
+> +
+> +	rdev_for_each(rdev, mddev) {
+> +		sector_t sectors =3D rdev->sectors;
+> +
+> +		sector_div(sectors, chunk);
+> +		coverage +=3D sectors * chunk;
+> +	}
+> +
+> +	if (coverage < capacity) {
+> +		pr_warn("md/raid0:%s: refusing takeover, zones cover only %llu of %llu=
+ sectors\n",
+> +			mdname(mddev), (unsigned long long)coverage,
+> +			(unsigned long long)capacity);
 
-Two scenarios where that peer is not fully trusted:
+Other than raid1, other levels already have mddev->chunk_secotrs set, and r=
+aid456/raid10 already
+have a full functional raid0, their takeover can not fail.
 
-- Multi-tenant hosts. The backend lives in dom0, so a kernel compromise
-  of the host should not immediately translate into kernel memory
-  corruption inside the guests. Frontends are the last line of defence
-  there: every frontend that consumes ring data without validation hands
-  the attacker a structured memory-corruption primitive in the guest,
-  which is a meaningful step beyond "the host can already do anything".
+Noted normally mdadm will set rdev->sectors and 1.x metadata will reject ze=
+ro rdev->sectors in super_1_load.
+However, it's still possible raid1 can be created with rdev->sectors be zer=
+o, this is the root cause of the
+problem syzbot reported.
 
-- Driver domain disaggregation. Backends can also run in unprivileged
-  driver domains, where compromising the backend is much cheaper than
-  compromising dom0.
+Although raid0_takeover_raid1() already calculate chunksect by mddev->array=
+_sectors, which is exactly the
+real rdev->sectors for raid1, and it should be guaranteed such takeover can=
+ succeed. However, as it's legacy
+usage that rdev->sectors can be zero, I'll suggest just checking rdev->sect=
+ors in raid0_takeover_raid1() and
+reject if it's 0.
 
-This is the same model under which mainline keeps accepting frontend
-hardening, for example:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static void *raid0_takeover_raid45(struct mddev *mddev)
+>   {
+>   	struct md_rdev *rdev;
+> @@ -665,6 +693,9 @@ static void *raid0_takeover_raid45(struct mddev *mdde=
+v)
+>   		rdev->sectors =3D mddev->dev_sectors;
+>   	}
+>  =20
+> +	if (raid0_takeover_check(mddev, mddev->chunk_sectors))
+> +		return ERR_PTR(-EINVAL);
+> +
+>   	/* Set new parameters */
+>   	mddev->new_level =3D 0;
+>   	mddev->new_layout =3D 0;
+> @@ -707,6 +738,9 @@ static void *raid0_takeover_raid10(struct mddev *mdde=
+v)
+>   		return ERR_PTR(-EINVAL);
+>   	}
+>  =20
+> +	if (raid0_takeover_check(mddev, mddev->chunk_sectors))
+> +		return ERR_PTR(-EINVAL);
+> +
+>   	/* Set new parameters */
+>   	mddev->new_level =3D 0;
+>   	mddev->new_layout =3D 0;
+> @@ -750,6 +784,9 @@ static void *raid0_takeover_raid1(struct mddev *mddev=
+)
+>   		/* array size does not allow a suitable chunk size */
+>   		return ERR_PTR(-EINVAL);
+>  =20
+> +	if (raid0_takeover_check(mddev, chunksect))
+> +		return ERR_PTR(-EINVAL);
+> +
+>   	/* Set new parameters */
+>   	mddev->new_level =3D 0;
+>   	mddev->new_layout =3D 0;
 
-  9b4cf60c6b73 ("9p/xen: validate the response size from the backend")
-  d33846c8dcc0 ("xen/pvcalls: bound backend response req_id before indexing r=
-sp[]")
-  992df081bc88 ("xen/scsifront: check for a NULL shadow entry on a backend re=
-sponse")
-  808e530654a5 ("misc: nsm: bound the device-reported response length")
-  e3046eeada29 ("hwrng: virtio: clamp device-reported used.len at copy_data()=
-")
-
-and the READ_ONCE() snapshot in v2 follows the same convention as
-8135cf8b0927 ("xen/pciback: Save xen_pci_op commands before processing it").
-
-The keycode here is the kbdfront instance of that pattern: a plain u32
-read from the shared page and used as a bitmap index, with nothing
-between the fetch and the use.
-
+--=20
 Thanks,
-Guo Zihao
+Kuai
