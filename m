@@ -1,101 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794012171;
-	b=i8fdm5edzmJULCrrjPDPiInYdJIA4HPWC0s9PsNqmcORN34qhjKRVU9YwVrv+pUaRPzo
-	 vR0vfa8W+gZBfrFnRsXox7IyQQeGOv8Bik8fE9zqF//QE763O0X35h1zCeUNJismL+GbM
-	 +DQ0ECe0VyPDtN59AZ40xAKsUB23eX08zmRur7Ae13jOSIAIF2E78dIdaMRvEKDq5RMnB
-	 Ry1boFh872tProe3A39/m1PGJBbgddOZjnfbJiwf2vduYSSWPa7AwlQWMHV/jiKukWeBj
-	 uGWt6/h6VX4u4hpHPCX8KlVJznvwEczHP3QtxqZ01ou9QGxkHh8DzSOc192WftLZjfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794012171;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rxfr2Q/cVJbpK3vZD6NPrJBBDTXMr9aYYK9hIqRSdxA=;
-	b=t2bHnsaNg983jjASM2hzb6FXd+1AFiefjh5iLb8spEUUvocC0thstH1yRXOU7u+rRM3I
-	 6Qy0PoEIhP4JJqUT2bkjlrV4bQSCQyBEBoFYA1uSsa/H5saEdv++yA0KveU5/jvT28v9w
-	 i4Bbn3HZMC7HDcBdXIDEO1NjlezdFNd70WLI80jmnYTt8e1Rqo5UbvcuoPxW517vWJFor
-	 gpDMbhHrwBAGPKm3WN/QzM/SAAGitsgj5yfs5Arno+3KngB9HAwX9+owppk+MQ0SdveIH
-	 06BolR6uVGF1Pch7SmdlKX4/mMkM7fUezE2w2OOX2YuIGkRzU6rak2Ckg99YL1GQD7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mKRLzxSU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794012241;
+	b=z9EcYdAGwpdRxyI2ZVIi9VAIDMO2WeIduU9qpKR542exgodXZ1t/NMpaHZ619s4w+G9U
+	 7gW4rGxNNEdHst/zZOKI44cZoNpQJZ9nwXLR68IyWOylUQMeZFs3Zp05PKd49y6zMVWbk
+	 zcy2WR85C2N6QNLrhS8U6wPl7Riw7Vcf0oo64r0O0sh+FmsC2Uw83wjKXY4lgP5erJzpn
+	 B0EKDAZbOaJLt+n8e7Z02oXemRr+l3DiIjRJllLyBCdfbd68KGdn10z3sPiJcF0v71hM4
+	 BLwQs4wazYEergW17zFZ6b1Ho+x8Lh4lykBzGyWPS6E0F99lcISapOfh66pTBDvbD7w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794012241;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=mgxIMf7VPWpAsivL89NwXprZXyc4QaXDamELp8vRhWk=;
+	b=hnpjNZvUs2DanRorY7nVqylIYE8mFEP2NcNHwHeEAeAyb+beYFqDr3jyGpSsxU8ffbAF
+	 MQCtbuZf57PgkmWvnnZPw+Bw54XTiGUWZVzvg5OCB6I233rC5wHOcAksMxrbNJx7cqgaP
+	 uh1oO+MqZC3eV/RLhZZpvcttdmbFg696KjePOiZR07NZOyVakQbICmpUXPN9o5ZAAJK4W
+	 SX61emXnHmXNvVuHYgBL2RRNfepv+jfZnPVxoSVdeZ4HwthLGcI4Jggf3i+rcKJVXWphi
+	 I8f5qpKFmr41vXfM63qFWWhi6Y1JsVda2+3k8fxRvAynVUYBXshm1i9omHlXwOReQAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hp+bm6XC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393F5606AF8A
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:42:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 393F5606AF8A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0785606A32C;
+	Sat,  7 Nov 2026 00:44:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mKRLzxSU
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b6966d9508so1202a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:42:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794012169; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HVUmKnXolZ6xN7cirS2SeRpE23ByC9ksKgcwW0+dh57KLPYIE3TU/D9oFwYBmJqYs/
-         uLLkVzLCYZ+lC9xXwgsmcYcP++aJZzr+hoNV7BjdHSbwNoNCU8ac6uw3eA4Pi3zf9r0y
-         4adFZzeiYUHBwSRsr5Sg+K9owQK2rPP1RiQscUpGVKzQwZx6MDuNclxEA9xUprGf8Kgf
-         Tl93xASDpY/N03d3avpDW56oym9kUV8m1USP+flPEWUERVfUoGP13M9k1/cpAg+y3Pvt
-         vqqVEU5PTvipQcR4WTh+ZeuNZNXAqP3NapzkDz8poTuTgSMcR7CxHM50yfVqgfewXq4S
-         yJzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rxfr2Q/cVJbpK3vZD6NPrJBBDTXMr9aYYK9hIqRSdxA=;
-        fh=sXfLi6Toff4mrwSTYKi7Nz1OrQ9zo2Guf+fj9K3bThY=;
-        b=YuEE5DTRUGK+7NogQrrXshXDhsW2RVrx6de47f0vvZIKTQKTjIaF0IblnpsmA1Y3Pq
-         sJFCaprrexmUU07FkEF7pHjLjzYGISRlWKWs4ykRusVmyBhHkQaip8co9wMcGAjr7PfK
-         FJxc8Y0F54MLQ5NgompZQSZ6CD5h+SMXKg8uqT7t44ntlcodLq30iXwf1VFF2MaDglU3
-         pBNSpHYb4letw2qj0RMrh1Z55Q9xuvE7Dz9aAf5FY+0r9Cpi2exYvsyLeTm8/zU1m3e+
-         lwTOOX7EoqAjp665TkXvv82l+K7VfbhirXpNLAYG99fjapkZeexka9yfQEJM8awaK3Yu
-         q3uw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794012169; x=1794616969; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rxfr2Q/cVJbpK3vZD6NPrJBBDTXMr9aYYK9hIqRSdxA=;
-        b=mKRLzxSUVgY24YecrcJ2AcvYnbBZ+zfgqgNTwySkaHLr3sYJ4KGCdAMTeX+1IgEmlj
-         ORc/4Z8PHsyV1r+MO/g4w5jlgrKwVqmoESKULmRAG1LSNlbdGMjwSO3ZaBkJLvhUPl+t
-         fPeZnxOIqdlwon8FgstmjvzCXVWxS+43KT3umXTqRmLFMdiQPRQfc6s/MkDZjRq98Nlb
-         APdRo19ffSELwNg+MvLfyBciRveCqjdvLn/+q+U1sEj6dh3yhESLqoSixt3AxdgCyCqe
-         dpPByT+bCI1MerNC2vSTejTp1knH82PA82sD22vaHD72+4LP9eD5QCIZ0rnxAKVvxhQB
-         zvrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794012169; x=1794616969;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rxfr2Q/cVJbpK3vZD6NPrJBBDTXMr9aYYK9hIqRSdxA=;
-        b=twp+CCxe2kINaZ+QFWpwRos45W9GzAZUTnvbD/Ot33DX5BhvQpnaIuIbCqmLHFN72D
-         kmfPo95g2afuBFpHubykmS7RTMGfDwZPlOzxtk359rbqUsICri7mMH5nJdKZZArffVog
-         jiWk2u7gRRxCp5ZV+2pD6g/p8JJf4N4kcIsCDf+YBDvLBnKciF3etH2voEcTs2DsTQyY
-         PEuvEhYLcOaaDzCrvmQUE09h1FM2fjhX/zDdlXhWQzvzCXJUwW+hn/5WrvEto4S+oaJD
-         uoLRvWCUXntgmRfEFffuXk62+SyY34nP1DGXyWsB6XkGX0ZjIsIiOHc6xBmZfUIyF6Hb
-         hQuQ==
-X-Forwarded-Encrypted: i=1; AL+hErG+AfqyNxK9v8s7i3U1LRIyJO2h1/XzYkPYclPio/qKAnL5V9Lro3Aarjkq/YTI9+jjh+Yuqy5hiQi6N8U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2PFJ5KIltErmLk/9+qCYR+qD42jinRqgongpeCJhokpvTsKWI
-	pck2DmZzNFGh75jKvsTESIyQQtJpsqaiqpr3QGZWuLtYLkDU7aE/yBGbxd+E2V8T6GC9JDk8/pf
-	oWuQK6rDjeziXSN3ksVlHvTZR3FcxbvpfmgAS2c1u
-X-Gm-Gg: AYBFou2w5eFgwN8L4c5ajcoYanX7daKX9tunrr9xqIPDrVW+KBagrx/favQefGP0Dej
-	Or6JhvcfSFcWAQI1Cuwv9EE5K4TXqh+KuIIDKy6ZzMrWMsQSHOkPUYrJOm5mANAmPNotvs+RDjs
-	tBraDfCibzRo9T6Wycq3EbRgc6+HEkmL56AGiryr8AX1CDek+R75MnQhLYXVprnZFV7EutQ9P1M
-	9ssmsfdl/D6RzosPnCe4LCUAYjIQKvSU3e6Vx0zXVfbCrVwLrc2AZUV00DRuT6nb6RgCjKu1kCT
-	O0C9+9EVQ3Um07/V1o41ARutNNOYRYKku9hFeQpn1MF6aU4evXFo9FwSyINK2AZWyYKaP/mE4/e
-	gIAtf3NFZDcE/YdJfdCAldgdx3jlaiq9CQ/mp1ZZOoLECAXLLMXFtqo30qS3F26w4J6n4bEEO/n
-	eFR+aKDFg8jpjLsksILDC60kjL
-X-Received: by 2002:a05:6402:c549:20b0:6b1:b3bd:1576 with SMTP id
- 4fb4d7f45d1cf-6b6fef69aebmr13396a12.8.1794012168067; Fri, 06 Nov 2026
- 16:42:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hp+bm6XC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466D21F008AB;
+	Sat,  7 Nov 2026 00:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794012240;
+	bh=mgxIMf7VPWpAsivL89NwXprZXyc4QaXDamELp8vRhWk=;
+	h=From:To:Cc:Subject:Date;
+	b=hp+bm6XC4IshqIdXxccsXK00aYnB9kOswrgeZV9Kr4ipaTkzmYJ/RcmJi/nj1fx1y
+	 dSNGe9s7EDN7uINQimOaoWfod6D7M01txbtGB74mdn7EWG0CmfEtm7TNf4bDMacHZl
+	 yrgXZh4K8l20K0U9TGZ/PeXqyEoRZ3Abu8lZz3cIlekFUs5aT4IuRHjAkKvsaktKrw
+	 Hl3xuxQ5KjEatLjOS5CT+ivMjUrexLg1rJvVqNlmPk7vmaY8MoqF54izyZ5W0CMny9
+	 HvtHx6m3jHHCnZMtRwaG/oIrYw5l3cVGlzujWyK45CybpXmPwwffPxdkcUCaDdZtDZ
+	 yEybNPuirC7LA==
+From: Thorsten Blum <blum@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	bui duc phuc <phucduc.bui@gmail.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: info: Use snprintf() in snd_info_card_create()
+Date: Sat,  7 Nov 2026 01:43:37 +0100
+Message-ID: <20261107004338.323417-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,81 +63,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106013927.166209-1-zide.chen@intel.com> <20261106013927.166209-6-zide.chen@intel.com>
- <au4pSeg5AcHEbfDv@google.com>
-In-Reply-To: <au4pSeg5AcHEbfDv@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 6 Nov 2026 16:42:36 -0800
-X-Gm-Features: AclHuK9NRM_gDWCKM7JVrOv3NMzvD81_ZshQ0dqGboabAvUVaSpIbTnBv2z0vjM
-Message-ID: <CALMp9eQZQ7-cGgmssAn5xd5hd7Yqi7fzFJVrTawJpdxZBS4Btg@mail.gmail.com>
-Subject: Re: [PATCH v3 05/18] KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters
- from kvm_pmu
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=707; i=blum@kernel.org; h=from:subject; bh=2wtZEpDXo4iMrkN/FXglZU5GVC2BSNKOQaYVY/7gxPs=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnvSqw29t3+MmXz4oPLlrH8a/678/DjS5Y9Ususo2U2F qa5RqYIdJSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEqjgY/rufdX50LLrEf6p6 6ccGxoXN2d5ln2X2fg+7sNQi1DlqsSnDH34upcPuNeuZ1FrYV72bKtl94sWi0nhWRZOiSRPqjv+ 4yg8A
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 6, 2026 at 11:34=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> > @@ -979,8 +979,6 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
-> >       kvm_pmu_reset(vcpu);
-> >
-> >       pmu->version =3D 0;
-> > -     pmu->nr_arch_gp_counters =3D 0;
-> > -     pmu->nr_arch_fixed_counters =3D 0;
-> >       pmu->counter_bitmask[KVM_PMC_GP] =3D 0;
-> >       pmu->counter_bitmask[KVM_PMC_FIXED] =3D 0;
-> >       /*
-> > @@ -1008,16 +1006,12 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
-> >        * in the global controls).  Emulate that behavior when refreshin=
-g the
-> >        * PMU so that userspace doesn't need to manually set PERF_GLOBAL=
-_CTRL.
-> >        */
-> > -     if (pmu->nr_arch_gp_counters &&
-> > +     if (kvm_gp_pmc_mask(pmu) &&
-> >           (kvm_pmu_has_perf_global_ctrl(pmu) || kvm_vcpu_has_mediated_p=
-mu(vcpu)))
-> > -             pmu->global_ctrl =3D GENMASK_ULL(pmu->nr_arch_gp_counters=
- - 1, 0);
-> > +             pmu->global_ctrl =3D kvm_gp_pmc_mask(pmu);
-> >
-> >       if (kvm_vcpu_has_mediated_pmu(vcpu))
-> >               kvm_pmu_call(write_global_ctrl)(pmu->global_ctrl);
-> > -
-> > -     bitmap_set(pmu->pmc_exists, 0, pmu->nr_arch_gp_counters);
-> > -     bitmap_set(pmu->pmc_exists, KVM_FIXED_PMC_BASE_IDX,
-> > -                pmu->nr_arch_fixed_counters);
->
-> I understand the vendor modules are responsible of initializing this
-> now, but should we clear it before calling into the vendors like other
-> fields above?
+While the current code works correctly, replace the unbounded sprintf()
+with snprintf() to bound the formatted string to the str buffer.
 
-pmc_exists is zeroed further up in kvm_pmu_refresh. See patch 02/18.
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ sound/core/info.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[..]
-
-> > @@ -117,7 +116,7 @@ static bool amd_is_valid_msr(struct kvm_vcpu *vcpu,=
- u32 msr)
-> >               return pmu->version > 1;
-> >       default:
-> >               if (msr > MSR_F15H_PERF_CTR5 &&
-> > -                 msr < MSR_F15H_PERF_CTL0 + 2 * pmu->nr_arch_gp_counte=
-rs)
-> > +                 msr < MSR_F15H_PERF_CTL0 + 2 * hweight_long(kvm_gp_pm=
-c_mask(pmu)))
->
-> This assumes the MSRs are contiguous, which IIUC is always true, but I
-> wonder if it should also be handled since the series claims to also
-> prepare for discontiguous GP counters.
-
-Actually, since KVM_MAX_NR_AMD_GP_COUNTERS is 6 and MSR_F15H_PERF_CTR5
-is MSR_F15H_PERF_CTL0 + 11, this condition is always false today,
-rendering the default case dead code. What situation is this intended
-to address?
+diff --git a/sound/core/info.c b/sound/core/info.c
+index 023b4736aa6d..b0ed66d0336d 100644
+--- a/sound/core/info.c
++++ b/sound/core/info.c
+@@ -484,7 +484,7 @@ int snd_info_card_create(struct snd_card *card)
+ 	if (snd_BUG_ON(!card))
+ 		return -ENXIO;
+ 
+-	sprintf(str, "card%i", card->number);
++	snprintf(str, sizeof(str), "card%i", card->number);
+ 	entry = create_subdir(card->module, str);
+ 	if (!entry)
+ 		return -ENOMEM;
