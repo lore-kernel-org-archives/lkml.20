@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794017788;
-	b=nBCfP3wYwvTPh6Tykq1MHpO/SCguHLGACix807/BfjeNrCG01/6BUR2telUZtaxaJPcm
-	 xgzNsaO0oQu7WG3Zdtvlbj0EJvrXfF7zvoBxFJ5/AN/ktPFHfUmzZkytRwL7wd9sPum9t
-	 cuEG2JtjLKCS+coZqPioT/bPHb9vw1Q/KsbitEolASHwx48gwxtQ5ZNbUttJyx30Oqf6l
-	 Rf6N4HJ94C/ZVSZUiwkQ145rtq6TqP7QXIdQL0GpBK9EAccWZ0AMFtu6FDvC6/p9Bhx7l
-	 UZkABaUzxVbycPclrmyFI+12gkNHCuYqLXt6BDv0sZoHPK5LkR8i2GXai5XoUIcGThA==
+	t=1794017932;
+	b=zGBLkI8JbKguwR4tbjtrrB5tKfK4o33D7s6kJerjj4krbdihyrSYdI9rdaeHIGuTDq/M
+	 nHk7zr/0aIlHabX5Nky7YoL/vaL/pzXpoQb/2VPbHWKBwdwMpUkARBAD3GXOPZVO2iR6W
+	 oP5FVsVo4T5crygVXEiT16d3OxBmLiwh95gKBmKttkHCi/WbokPvhJjLeH4+vrP/9/UxB
+	 lxTXMdIbaYTBxejGy94m45rCMUtu3iFZWWKgv9NyF8t/vo5Z870CY5rc+tt+oPHT5bhno
+	 yfnkRu6sH8ftrFboPdPK4yTET8GIvn4ihUQRubDHJgTLkuuxqr2zc1tkOqN1iVKd00Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794017788;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=blAcGwT6RrU9VkPRjXupRrOhmEXz2ix0BTNPVck3W3E=;
-	b=exVnkRbBIqn3TDTwfvWbnngHt1t1iMA0YHxJ7zqib+a8ybuT8udqSzYAzAbNofIFIEUw
-	 83R4i0sCNBeyGZ3pZHDHqvNW7/POjeHMpDc8PgpjtjqmynP/aHEjC0FYH/xQEeS/kwk47
-	 dnVibN90lbW7UfG8QGvZ8o0QzTDFXHhBYcO3A1px/XgQC+SlVveI7sEz3CBwugBXky9lD
-	 0O0O5kxPbUd6bpARLCbKt7GShhOSX+ZU+5I9+YKNsdWHlAZaZy+z+ElihShQTHffQsWvf
-	 yoCHUbzF42oI1aLi4BKtMzfvAgzpHx2EN9gpMA6njVr86h0ibEEUl2IY/rNOz71u3UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794017932;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JQ1C2ky/Lad3SoNI9yNFlJIbV1dy/UU8jiTiXydNucc=;
+	b=dmrQLkeuW5P1zT4LoiPbUC6zeSazeekMDxdmK93jDx4jln/YjjSLHSkNc46l+XcFq+g2
+	 zvJPKM8Sibg42V55cuttKydoPm+yGb1xdfLss+p7sUmRQCTu08sbHQfBJigKDPIC36BJR
+	 JTuIAUfhBJVG/1YkV8uPSeGztHfya9Zvdg2Hcmk0tvivyts8JWdapxSTp0Halz4gtvSjq
+	 WcwF0EfAH3tS/yZ6k4DS9YSDLLrhtCNhkDxeRqL5p9Bl6F03xV4zf2SNLHQaLIrSe00y1
+	 42Y1H3D2xxkrtx6UiVx6Wio0Yux6nDc8Ec8dNqKQKtqu8VyN/90cy6pEnpOSeNauG0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E7CD606A326;
-	Sat,  7 Nov 2026 02:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E7CD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8AxS_D4ie5qOEwdAA--.19238S3;
-	Sat, 07 Nov 2026 10:16:24 +0800 (CST)
-Received: from [127.0.0.1] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAxX8_zie5qfOEyAA--.38436S2;
-	Sat, 07 Nov 2026 10:16:20 +0800 (CST)
-Subject: Re: [PATCH v1 2/2] LoongArch: BPF: Use beqz and bnez instructions for
- trampoline
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: bot+bpf-ci@kernel.org, hengqi.chen@gmail.com, loongarch@lists.linux.dev,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, ast@kernel.org,
- andrii@kernel.org, daniel@iogearbox.net, martin.lau@kernel.org,
- eddyz87@gmail.com, yonghong.song@linux.dev, mason@kernel.org,
- ihor.solodrai@linux.dev
-References: <20261102072808.23080-3-yangtiezhu@loongson.cn>
- <c3b8e6ae47164ab1a643a1730f0600993de03c8a30e35122a9812ac73d807697@mail.kernel.org>
- <1276eb14-b851-aee7-36ad-d61e2ddd9ba4@loongson.cn>
- <CAAhV-H4GyC5=PvF5yvYnoBpUpU3VTuE8kdNUnApNqvN4vHZfhg@mail.gmail.com>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <20f7051a-4f56-7122-c241-93948c465dc9@loongson.cn>
-Date: Sat, 7 Nov 2026 10:16:19 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncj1XSZP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE86E606A326;
+	Sat,  7 Nov 2026 02:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncj1XSZP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AB591F0089F;
+	Sat,  7 Nov 2026 02:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794017931;
+	bh=JQ1C2ky/Lad3SoNI9yNFlJIbV1dy/UU8jiTiXydNucc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ncj1XSZPjaGaxp7wacV8elNpClU+7/v9BzjfsYN8GrMhCwjys4MvR33G7kZiY0lER
+	 eMHq0EdjaQTwZj1AncNKg73VJk5syuCVZ2R0ZJlkl2CTjsPF3DSvxWf++Rpmywpsai
+	 9+7k5SMRkxqCXVt8V2Vk9IYJI21VjAHU/0o3PHGnykqJCDnombGLYdPp0LVqdSw7ie
+	 YELursxOvrGN6Cuj2ud4eQBr6b4W5DmwWMYP0odSVS87Y0zI5Tr0bsGae1UDW5IwOo
+	 aR+fZP3SmxyquieoI75f9JIVvuHTn2k7x0oo4htCUfW6eAocY04MR8L+qSVpyTkRdD
+	 GohFUiFYxMlJw==
+Message-ID: <sashiko-outbox-202497@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 09/26] sched/deadline: Reset the deadline and the
+ runtime with the parameters
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261107014451.1487825-10-mathieu.desnoyers@efficios.com>
+References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
+ <20261107014451.1487825-10-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 02:18:50 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,59 +60,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-In-Reply-To: <CAAhV-H4GyC5=PvF5yvYnoBpUpU3VTuE8kdNUnApNqvN4vHZfhg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxX8_zie5qfOEyAA--.38436S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Kw4DJr1DJw1fArW3ZFWrJFc_yoW8JFWDpw
-	s5JF17KF95tr47Zrs2y3yFga4Fkw1IvFW7W3W5CFyrGw1rAr1IqrWxWryS9FyUXr1I9F1F
-	vFyvqFWkWa1UZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l
-	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUceOJUUUUU
 
-On 11/6/26 10:45 PM, Huacai Chen wrote:
-> On Tue, Nov 3, 2026 at 10:27 AM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
->>
->> On 2026/11/2 下午3:53, bot+bpf-ci@kernel.org wrote:
->>>> LoongArch: BPF: Use beqz and bnez instructions for trampoline
->>>
->>> TL;DR: Commit message only: the claimed branch-overflow risk looks impossible,
->>> since trampolines fit in one page and the old code behaved identically, so the
->>> Fixes: and Cc: stable tags may not be justified.
->>
->> ...
->>
->>> Could the changelog drop the overflow-risk wording, or describe the change
->>> as a cleanup, and could the Fixes: and Cc: stable tags be reconsidered given
->>> that stable-kernel-rules requires a fix for a real bug?
->>
->> Will update the commit message and remove the 'Fixes' and 'Cc: stable'
->> tags. If no more comments, I will send out v2 next week.
-> Fixes can be removed but I suggest keep Cc: stable, the overflow risk
-> actually exists.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] sched/deadline: unreset donor period in switched_from_dl()
+  when dl_runtime !=3D 0
+- [Medium] sched/deadline: donor deadline and runtime kept on deboost
+  after setattr
+--
 
-Since the branch overflow is technically impossible under the current
-1-page limit of BPF trampoline, I plan to drop the Fixes and Cc: stable
-tags in v2 to align with standard upstream cleanup rules.
+commit e10fc72d0029b6302955712a86b151e84624b177
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-If you still prefer to backport this for architecture-level defense,
-please feel free to append the Cc: stable tag when applying the patch.
+sched/deadline: Reset the deadline and the runtime with the parameters
 
-Thanks,
-Tiezhu
+This commit resets dl_se->deadline and dl_se->runtime in
+__dl_clear_params() and in switched_from_dl() when a deboosted task has no
+dl_runtime of its own.
 
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index b8b0076870a64..f389620e6fc9a 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -3580,6 +3580,16 @@ static void switched_from_dl(struct rq *rq, struct=
+ task_struct *p)
+>  	if (task_on_rq_queued(p) && p->dl.dl_runtime)
+>  		task_non_contending(&p->dl, false);
+> =20
+> +	/*
+> +	 * Deboosted from priority inheritance with no parameters of its own:
+> +	 * the deadline and the runtime are the donor's. A change into the
+> +	 * class then starts a period from the parameters it is given.
+> +	 */
+> +	if (!p->dl.dl_runtime) {
+> +		p->dl.deadline =3D 0;
+> +		p->dl.runtime =3D 0;
+> +	}
+
+[Severity: Medium]
+What happens in switched_from_dl() when a task that still carries pre-0-lag
+parameters (p->dl.dl_runtime !=3D 0) is PI-boosted by a SCHED_DEADLINE wait=
+er
+and then deboosted?
+
+When the task is boosted before its inactive_timer fires, switched_to_dl()
+cancels inactive_timer and replenish_dl_entity() overwrites p->dl.deadline
+and p->dl.runtime from the donor's pi_params.  On deboost, p->dl.dl_runtime
+is non-zero, so switched_from_dl() skips the reset and passes the
+donor-modified deadline and runtime to task_non_contending(), mixing them
+with the task's old dl_period and dl_runtime.
+
+Depending on the donor's parameters, this either releases the task's old
+bandwidth before its real 0-lag time or leaves the donor's future deadline
+and runtime in place for a subsequent entry into SCHED_DEADLINE.
+
+[Severity: Medium]
+Can a task keep the donor's deadline and runtime if sched_setattr() gives
+it SCHED_DEADLINE parameters while it is PI-boosted?
+
+If a non-deadline task is boosted into dl_sched_class and then configured
+as SCHED_DEADLINE via sched_setattr() before unlocking the rt_mutex, both
+__sched_setscheduler() and the subsequent deboost in rt_mutex_setprio()
+keep the task in dl_sched_class without calling switched_from_dl():
+
+kernel/sched/core.c:rt_mutex_setprio() {
+    ...
+		} else {
+			p->dl.dl_boosted =3D 0;
+		}
+    ...
+}
+
+When rt_mutex_setprio() clears dl_boosted, enqueue_dl_entity() only calls
+setup_new_dl_entity() if dl_se->deadline is already in the past, so the
+task runs unboosted on the donor's remaining runtime and deadline instead
+of starting a period from its own parameters.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107014451.1487=
+825-1-mathieu.desnoyers@efficios.com?part=3D9
