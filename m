@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794067376;
-	b=E3hfyBN7L9gv7jz1/HlB9NSjqyIf+/L8hHtBxEUHmUcE1P5mpEJQLz1xksXxLhlGxyVH
-	 yTpdF9F0qDpvJRLPXvh1yZY3KmCwPUjkT07TaIMoYPw26DaaBX4yJoQO7RW8IpUwROAMs
-	 ymn7OiSfQ46bmMRMDlM4xXbIP6V9EUU3Gx9NcFSoHeBa84a1RiNEW2bqhrZ1efKcAIGVj
-	 va2NZ5ZDBsLbrAMlVkcGZ/rBFt7QdNvqZuJQVbK8PSRzyqtWhO1xK9UM24S2iOTfSmWP9
-	 /pd32UDnIHuqbZ8O3JJSP3KFgxlYdGr7H5DxWfjnA90sAR0g353ANZdJFmaXkoWZyLg==
+	t=1794067447;
+	b=KFtgLWL6Pnt+6eTs84DRkWRfcqENWrmkoPdp2sb6NOCpMrc2F+Y761OME3ZLUWdZ3UAe
+	 5+DrzsUUt6VgEyGvUx2EWCro+QZ6Qs3zw6qmQcHtiV5okUQlFna3v3ZasU4BZWcClfNLl
+	 cQ8VQip/4rH3zgDCLVazQUNnkt8OO9ILKxAt76e4N+xZvElZ9KKg7no77m34rxrqpwFrc
+	 e4OSDhZseBAKr0pgBAHQhZIv7+bkeIu74uod1QKfQDValeYyTDn1tACHfKyPRQGvJizJx
+	 BGxcVGDnJpYJPnbc3JoFYrFZHTkTQPM/fQb5tvy2NCIyyxqVDTHiTcJSD1fhGsqHx8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794067376;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794067447;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=1+WgV12xOWLepB+h+NqExv8xc49Q4Y0LZlKj22kQkl0=;
-	b=rfQlmYGyqutFSnbLl0fPkwpGVutMO4WDMGMuzj56nt/DozPFWclKKFJ1Fy8ZyZuYQtgc
-	 Wj3JvCQLZpePYdysA+gK8T9jPpdAk1gTYQXld/8SXH47omQKU+gZwLRJ6qlc3ltuLNeA9
-	 EJ6M/ewzQjJGNH6pdab3zZNJTFwzoKe4f0blWgZbNah2LKEXAcHzrwljheOgPPATYAhZp
-	 GgoIam5h5RlZOfWlpiZ/sNrOfHCd3LObtkwX+AWGtOJq0tEUN3XH9/10JHK4jxvx9BaIl
-	 jg2/p4fMsfizsUM/3ia3wGFtetlTWIxhwNNHESpIaUpAvsk7KCW7/8rIZwppE23Dkug==
+	bh=NtVqZMd664OMZ9IpVYAbFo+i4+3IRzNzsuls05T01jQ=;
+	b=tN14x13c0GlLhHQIY9UwvzaU5bEFdaACIV8kb4mYPPlcGlLPTtA/iLadjUXHBoxKXJZY
+	 /NXDkGlQlxywVie4q4p7XXU1L0mqm5UuPdlwsdvsNs4VrxN/TdPfPsPk/aPh4QhLAU4uA
+	 UoyQ8EiTUsvHO6tZs9ccLIp/kHbgHNHuA+ntUAOhUVXN0cTQflcexVoC6YIA3fI+JHmbD
+	 46zZZl1DjGcTIjLiyyg9t9n/M9jp0/Sa/WkmKV51Hcbc893Xpj5TWvHaTXEKkPC68lHno
+	 ElpDMso1G0tfbGXKfogRXr9f4QnlGUmKfM58eIuNvTN5v0kmg8ck0PfrirFWq3D6s1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqXOtbUy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=000ty.net;
+	spf=pass smtp.mailfrom=000ty.net;
+	dkim=pass header.d=000ty.net header.i=@000ty.net header.a=rsa-sha256 header.s=protonmail2 header.b=ZP9T3KqD;
+	arc=none smtp.remote-ip=185.70.43.99
+Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B187606A326;
-	Sat,  7 Nov 2026 16:02:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDC3606A326;
+	Sat,  7 Nov 2026 16:04:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFDC3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=000ty.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=000ty.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqXOtbUy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5601F0089F;
-	Sat,  7 Nov 2026 16:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794067376;
-	bh=1+WgV12xOWLepB+h+NqExv8xc49Q4Y0LZlKj22kQkl0=;
-	h=From:To:Cc:Subject:Date;
-	b=CqXOtbUy5cWeGjjpBjT6WN7VRjQkwOmnzP2vbv5etFX+eqkjZSYmwzmMLOtWYdKOj
-	 xgKjYeY6V7xKfJ2OoJ5rzpCc+Y13Y+clWIa7yN8sRlRXIQMr7+Z1yrWeFbZ+ck1WV6
-	 2YlfjGPxTdICqdKU74PJrqG4C//QHkcrriZlnmI0FBfRqD5OAlu0tv+oUjcgAbQ0yl
-	 z+aH7FCeKS0nwbnrwFDDwr8M+pyXS/Pg/I5RoOek4wcfpenokoV69oiLk3xvGnNEuc
-	 Q5x3LW57BVJgDW/HE1XFq/z2Ra8w7lzI4COVdI7JSxXxs3uNkP30ux06tLSdDydiq3
-	 s2JZUzgwoQFWw==
-From: Thorsten Blum <blum@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	Dmitry Torokhov <dtor@insightbb.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Input: amijoy - fix memory region leak on registration failure
-Date: Sat,  7 Nov 2026 17:01:57 +0100
-Message-ID: <20261107160159.367919-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=000ty.net header.i=@000ty.net header.a=rsa-sha256 header.s=protonmail2 header.b=ZP9T3KqD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=000ty.net;
+	s=protonmail2; t=1794067443; x=1794326643;
+	bh=NtVqZMd664OMZ9IpVYAbFo+i4+3IRzNzsuls05T01jQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ZP9T3KqDSNlIyWaAPpLgd8uCbvuc1a3DczxAGHebq8NHNf++ZR3QxxoUXiN0WTMPq
+	 et9Yj56IdGMZ/w+dMUF7HBtETS6FkJHeqt3XfOZ9Y6pGtgDrjgNbUkhto4gX/1dg56
+	 dom3HhFTk7lYwL2z2lrV2RcZnRjedtKCB6DyHwgtVibX+b3IB1EajSCOaT40a1oSbE
+	 BvfDoNfj66oM/HUPRCSvg3s828waOyMutKfZ8RpU9OC2oVrxL8e4AYQQZnepbHMgOe
+	 +eu3H7f0UfbDs6SbfEK2MHtWp/3NwMKRDrYujE5T0FzN5JPPdsL7kxPiYHUAgCO8TB
+	 ZIIDjizif9c1w==
+Date: Sat, 07 Nov 2026 16:03:57 +0000
+To: netfilter-devel@vger.kernel.org
+From: Tamaki Yanagawa <ty@000ty.net>
+Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, coreteam@netfilter.org, linux-kernel@vger.kernel.org, ty@000ty.net
+Subject: [PATCH nf] netfilter: nft_inner: always save the parsed tunnel context
+Message-ID: <20261107160350.1359-1-ty@000ty.net>
+Feedback-ID: 168296199:user:proton
+X-Pm-Message-ID: 86f354ef732ef347dcaa492700a6a6cd4a4d70f4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,29 +61,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=832; i=blum@kernel.org; h=from:subject; bh=DeZR4zzouKciSMIXZqJOBT2CBDtS60HduEg68fkVA6c=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnvvctdt5RXRc5cq3JM+G2F+ELZjBVxe7cE5fXFl747d appRf7DjlIWBjEuBlkxRZYHs37M8C2tqdxkErETZg4rE8gQBi5OAZjIymxGhj0Cxw0sk79dEl40 yzmmsdrVc82MqJ3TUno8Ev6sZTjGW8vIMHXz69VlMRECPpm/D/p1f668WiIp9zH9V4R2VYN1tN9 7bgA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-If input_register_device() fails in amijoy_init(), release the memory
-region for port i before cleaning up the previously registered ports.
+nft_inner_save_tun_ctx() only updates the per-cpu tunnel context when
+its cookie differs from the skb being evaluated. The cookie is the skb
+address, so once an skb is freed and its address is reused by the next
+packet on that cpu, the context parsed for the new packet is never
+stored, and every following inner expression in the chain restores the
+offsets and protocols of the previous packet instead. A tunnelled
+packet can then be matched against another packet's headers, e.g. a
+"vxlan tcp dport 22 drop" rule misses a packet whose inner IP header
+length differs from the one before it. Store the context
+unconditionally.
 
-Fixes: 127278ce2254 ("Input: joysticks - handle errors when registering input devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+Fixes: 7b1d83da254b ("netfilter: nft_inner: incorrect percpu area handling =
+under softirq")
+Signed-off-by: Tamaki Yanagawa <ty@000ty.net>
+Assisted-by: Claude:claude-opus-5-5
 ---
- drivers/input/joystick/amijoy.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/netfilter/nft_inner.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/input/joystick/amijoy.c b/drivers/input/joystick/amijoy.c
-index cdb2b8f15348..3c2357ba7dc3 100644
---- a/drivers/input/joystick/amijoy.c
-+++ b/drivers/input/joystick/amijoy.c
-@@ -132,6 +132,7 @@ static int __init amijoy_init(void)
- 		err = input_register_device(amijoy_dev[i]);
- 		if (err) {
- 			input_free_device(amijoy_dev[i]);
-+			release_mem_region(CUSTOM_PHYSADDR + 10 + i * 2, 2);
- 			goto fail;
- 		}
- 	}
+diff --git a/net/netfilter/nft_inner.c b/net/netfilter/nft_inner.c
+index 97fb4eea2d..3af5ddd5ff 100644
+--- a/net/netfilter/nft_inner.c
++++ b/net/netfilter/nft_inner.c
+@@ -265,8 +265,7 @@ static void nft_inner_save_tun_ctx(const struct nft_pkt=
+info *pkt,
+ =09local_bh_disable();
+ =09local_lock_nested_bh(&nft_pcpu_tun_ctx.bh_lock);
+ =09this_cpu_tun_ctx =3D this_cpu_ptr(&nft_pcpu_tun_ctx.ctx);
+-=09if (this_cpu_tun_ctx->cookie !=3D tun_ctx->cookie)
+-=09=09*this_cpu_tun_ctx =3D *tun_ctx;
++=09*this_cpu_tun_ctx =3D *tun_ctx;
+ =09local_unlock_nested_bh(&nft_pcpu_tun_ctx.bh_lock);
+ =09local_bh_enable();
+ }
+
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+--=20
+2.52.0
+
+
