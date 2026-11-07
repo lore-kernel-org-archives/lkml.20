@@ -1,52 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794012845;
-	b=MHf1ZK35a7csBGHzVsZ6mI6XoK/G3T156fR/RJmPxjx2pKIhYgJwDbfATCWf8uXiSOYx
-	 Nzb83KymntGI/wuxjLyRr0u5u96CfNp0++HloKpw2WKXXSzNqUkJUU4kJVUNXQIs4FOPn
-	 Cr/GmKTZjFicAb6crdBQwLsZqztCzPC5AMC+5vav34kRyPrqZ746iW6MNaob4UA5v4QvB
-	 4DfYjdcSuv6WaDjV2Ouvct3hR72qkJT9Io2bAYo8DmTKfKtOLlRtSRoCMcBb0ArxEd05t
-	 NKYfttk2WnDddvj+No25RpmtqElLaH5zY8BeWoUjr1c4HEfcCGESiVT1aKehYqgqzxA==
+	t=1794013206;
+	b=3Es5GFKbacWcQ04MZd3k9LPs3a8EJw3AaGHLS4yzG2y8POokiiky/2r95z8FFvxV5C1A
+	 Kanrgw5fnPlj9fhzTeR7By5FZ2PI1XaLx3mAeCA/t4NJWtvDhiQem1gGu6NtIi5559xoi
+	 FH7sUbYIEfaeMdUS1Vnbfm5BAkL0A5vKHI5oyBJxp2Qh8VRG5HKqin4HcTN8psaKy6TRs
+	 6VRAoFBYPDWYKaj/0Io0Sc2zzY+UZ62anH0MM0RuqtBtDHWh2AHL8ug5jpSpQjoplUTBj
+	 yt/8eCwQGVZ+AHLdG+8kg0r3GmlwWJ3I1E3S7fYwj5QNVtYVvipC/JfeOBe5iDzdk6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794012845;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pjNeBK7qaQR2cfSs28TNbrSZTUgLgAf+poVMpkxqhFQ=;
-	b=AOHRgqb7Hm9ik3IrANnWESgq5355pcYmDnclQ/FaSHftVkVZ5rAtSpkeEjD2DYJROlOG
-	 N9e70MHEFEigxp72f5AT+igaDQNI5QG/DjshwsQ6/bZtiMCmRoqYWJq5IUZf6pMgmJuPM
-	 2P4X0u6cY5o+xNrGodLOc7qQbS2epUr2lzJnL8BGknqBoXRO8ZDB11knD0HVASTaF8hJn
-	 tMD/FjYoMrzPIEd7H59+9wPB/JCZ7HeHGogNnW3Fq7eozNUcH0I9ICnJuibu65RyuroVj
-	 ygcAhhp/W49hmcHNz8KPJK8oOcmLZDLIMMXAGu3lgfRZXdI6iwJ0/WXSlCpNd/xM4Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794013206;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=f5siVNgFbxLBQ1QMnUvIOA6GSr9qzcA82CUcS7hu/DQ=;
+	b=wJdpBNNB+4PrfzXrY8UPTRIYvCjBFp3LSGucL/lI14I442G0yMF/g1KHiDm/rl2jlUGD
+	 LAZqW375+hjdQ8cnmNnezp8sZAnfDKsvOwrnQmCf0l6N7CdojLnR1245aPb7DfeCsWXOY
+	 nG4vgL9nwOfqCo21SBmeSGLOJGq62IUzw2pv2xMxv9KWSFxwNgqqEvssIxutUURhni4Jo
+	 g1tgnBSNB9QdvUk6p8H2yltjd8mfuNSHW7xrVgC7IOlBZbFjb4K0y49gWtad0WwrjeCiz
+	 q8eTfKmO92IKIQs6+b7a6nk92i06WycXBMFrCtlpxOqTiZwR52/fN4bYU55TTE3ovDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy3YG7sD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P+Wf/7xZ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F495606A333;
-	Sat,  7 Nov 2026 00:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87154606A326;
+	Sat,  7 Nov 2026 01:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy3YG7sD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D951F008A1;
-	Sat,  7 Nov 2026 00:54:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+Wf/7xZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8311F008A2;
+	Sat,  7 Nov 2026 01:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794012845;
-	bh=pjNeBK7qaQR2cfSs28TNbrSZTUgLgAf+poVMpkxqhFQ=;
-	h=From:To:Cc:Subject:Date;
-	b=Fy3YG7sDVYMMmQkBgSspBY2tPckDWj/BAUZ0gEzSSShq5gf/Are+KnwGBBfQodYAL
-	 8IdCkRiEv2Bo5jnKc1GYbMBbv5MUIEC9euN0/8AlMgKwqjjXLQU+bU6cwkITcgElMQ
-	 vpZbsRMZK+kLXv+B/FnTLLG0Xq59RIo2XGI0MiUBvjEmxbYaXBkW5EKna2XLdt4K7y
-	 C5FrHdbrlVEHxVgDRjPII8wD4uLG1Y89uBgeLNQtPVrfxZIKbWrkvgzVr4BvfTWrN2
-	 C9odlR8cZ1XnV8lz7nNuZ48/8J+CN7EsHV+kOEtkYAYMcrDtpscJ5zSLl4NU3MGMEA
-	 KEBGy6TP1ZuIg==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2] MIPS: sgi-ip32: Fence PIO reads on CRIME 1.1
-Date: Sat,  7 Nov 2026 01:52:45 +0100
-Message-ID: <20261107005245.20299-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=k20260515; t=1794013206;
+	bh=f5siVNgFbxLBQ1QMnUvIOA6GSr9qzcA82CUcS7hu/DQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=P+Wf/7xZtzjUn9Y3NP6BsZnSb87fAX68Z1jxc9Gc5/vQgc8oscEHlbx0cNhRqBliL
+	 GGEmnVIZhhZU2/Resp5s0VBve/5kPspsu64w7R1YcFKR87Jqho++cdiE3X4nkqVCig
+	 o3VAZdJjeE6UQbaWKfEbxkfc1Ad4fGrYOmYBJGRBiPuaaR609DyXRL8y57DPz3LPLC
+	 3e7unQ9wEA0PVOBXzxB/6ZNE+1QQFBKom5Zw3sN/NufhdPq11Cf7ShJWiB5tPhEk0M
+	 rpx2/WBSiWiAcgUchlwX9LRpPDuslKInhjThthrXxj1Sw/ZoGMp7OdYTZyq8WZVNcg
+	 7PPtaoPiLvgeg==
+Date: Sat, 7 Nov 2026 00:59:58 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
+ mripard@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: at91_adc: fix NULL pointer deref in trigger
+ removal
+Message-ID: <20261107005958.706c6bd8@jic23-hlaptop>
+In-Reply-To: <20261106200809.53799-1-abdelnasserhussein11@gmail.com>
+References: <20261106200809.53799-1-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,190 +63,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On CRIME 1.1, the next MACE or PCI load after a read of the aic7880
-HCNTRL, INTSTAT or ERROR register can return that register's data
-instead of its own; a gap of about 2us avoids it. Under audio and SCSI
-DMA, repeating aic7xxx's ahc_pause(), register read, ahc_unpause() can
-hang; fenced, it runs clean. The next load can be an interrupt
-handler's, so the fence follows the trigger.
+On Fri,  6 Nov 2026 22:08:09 +0200
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-Add a read hook to the MIPS accessors that, on CRIME 1.1, follows each
-MMIO and port read by 5us with interrupts off. Other platforms compile
-it out.
+> If 'atmel,adc-use-external-triggers' is not set in the device tree,
+> at91_adc_trigger_init() leaves the external trigger slots in st->trig
+> as NULL. at91_adc_trigger_remove(), also used by the probe error path,
+> then calls iio_trigger_unregister() and iio_trigger_free() on them
+> unconditionally, causing a NULL pointer dereference.
+> 
+> Skip NULL triggers when unregistering and freeing.
+Good catch.
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
-Changes in v2:
-- Reworded the first paragraph of the commit message.
+There doesn't seem to be anything stopping us just moving the
+registration and tear down handling of these over to devm managed
+calls.  That way we'd not need to clean them up explicitly at all.
 
-v1: https://lore.kernel.org/r/20261021192418.7246-5-kaloz@kernel.org
+That would mean calling devm_input_allocate_device() for the input
+path and devm_iio_triggered_buffer_setup(), devm_iio_trigger_alloc()
+devm_iio_trigger_register() and devm_iio_device_register() for iio instead
+of the non devm cases.  The error handling and remove path would
+go away + the NULL dereference would be solved because no cleanup
+would be registered for the the case where the trigger was never
+there.  I'd consider carefully if the various helpers make sense
+after this change.  I suspect you'd be better off with these
+calls inline in at91_adc_probe()  for the IIO ones at least
+as less done in those than the input related one.
 
- arch/mips/include/asm/io.h                    | 11 +++++++
- .../include/asm/mach-generic/read-fence.h     | 20 +++++++++++++
- arch/mips/include/asm/mach-ip32/read-fence.h  | 29 +++++++++++++++++++
- arch/mips/sgi-ip32/crime.c                    | 12 ++++++++
- 4 files changed, 72 insertions(+)
- create mode 100644 arch/mips/include/asm/mach-generic/read-fence.h
- create mode 100644 arch/mips/include/asm/mach-ip32/read-fence.h
+Whilst it will be more lines of code changed, it would both fix
+the bug and improve the code.  So that would definitely be my
+preferred solution.
 
-diff --git a/arch/mips/include/asm/io.h b/arch/mips/include/asm/io.h
-index 980187a83053..a5c49d319546 100644
---- a/arch/mips/include/asm/io.h
-+++ b/arch/mips/include/asm/io.h
-@@ -26,6 +26,7 @@
- #include <asm/pgtable-bits.h>
- #include <asm/string.h>
- #include <mangle-port.h>
-+#include <read-fence.h>
- 
- /*
-  * Raw operations are never swapped in software.  OTOH values that raw
-@@ -222,6 +223,8 @@ static inline void pfx##write##bwlq(type val,				\
- static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
- {									\
- 	volatile type *__mem;						\
-+	unsigned long __rflags;						\
-+	bool __fence;							\
- 	type __val;							\
- 									\
- 	__mem = (void *)__swizzle_addr_##bwlq((unsigned long)(mem));	\
-@@ -229,6 +232,7 @@ static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
- 	if (barrier)							\
- 		iobarrier_rw();						\
- 									\
-+	__fence = plat_read_fence_begin(&__rflags);			\
- 	if (sizeof(type) != sizeof(u64) || sizeof(u64) == sizeof(long)) \
- 		__val = *__mem;						\
- 	else if (cpu_has_64bits) {					\
-@@ -251,6 +255,8 @@ static inline type pfx##read##bwlq(const volatile void __iomem *mem)	\
- 		__val = 0;						\
- 		BUG();							\
- 	}								\
-+	if (__fence)							\
-+		plat_read_fence_end(__rflags);				\
- 									\
- 	/* prevent prefetching of coherent DMA data prematurely */	\
- 	if (!relax)							\
-@@ -283,6 +289,8 @@ static inline void pfx##out##bwlq(type val, unsigned long port)		\
- static inline type pfx##in##bwlq(unsigned long port)			\
- {									\
- 	volatile type *__addr;						\
-+	unsigned long __rflags;						\
-+	bool __fence;							\
- 	type __val;							\
- 									\
- 	__addr = (void *)__swizzle_addr_##bwlq(mips_io_port_base + port); \
-@@ -292,7 +300,10 @@ static inline type pfx##in##bwlq(unsigned long port)			\
- 	if (barrier)							\
- 		iobarrier_rw();						\
- 									\
-+	__fence = plat_read_fence_begin(&__rflags);			\
- 	__val = *__addr;						\
-+	if (__fence)							\
-+		plat_read_fence_end(__rflags);				\
- 									\
- 	/* prevent prefetching of coherent DMA data prematurely */	\
- 	if (!relax)							\
-diff --git a/arch/mips/include/asm/mach-generic/read-fence.h b/arch/mips/include/asm/mach-generic/read-fence.h
-new file mode 100644
-index 000000000000..0147ed88bc01
---- /dev/null
-+++ b/arch/mips/include/asm/mach-generic/read-fence.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_MACH_GENERIC_READ_FENCE_H
-+#define __ASM_MACH_GENERIC_READ_FENCE_H
-+
-+#include <linux/types.h>
-+
-+/*
-+ * Called around every MMIO and port read; plat_read_fence_end() runs only
-+ * when plat_read_fence_begin() returned true.
-+ */
-+static inline bool plat_read_fence_begin(unsigned long *flags)
-+{
-+	return false;
-+}
-+
-+static inline void plat_read_fence_end(unsigned long flags)
-+{
-+}
-+
-+#endif /* __ASM_MACH_GENERIC_READ_FENCE_H */
-diff --git a/arch/mips/include/asm/mach-ip32/read-fence.h b/arch/mips/include/asm/mach-ip32/read-fence.h
-new file mode 100644
-index 000000000000..7e3105af4c6f
---- /dev/null
-+++ b/arch/mips/include/asm/mach-ip32/read-fence.h
-@@ -0,0 +1,29 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_MACH_IP32_READ_FENCE_H
-+#define __ASM_MACH_IP32_READ_FENCE_H
-+
-+#include <linux/irqflags.h>
-+#include <linux/types.h>
-+
-+extern bool crime_read_fence;
-+void crime_read_fence_end(unsigned long flags);
-+
-+/*
-+ * CRIME 1.1 can return a PCI read's data again to the next MACE or PCI
-+ * read issued within about 2us, so each read is followed by 5us with
-+ * interrupts off.
-+ */
-+static inline bool plat_read_fence_begin(unsigned long *flags)
-+{
-+	if (!crime_read_fence)
-+		return false;
-+	local_irq_save(*flags);
-+	return true;
-+}
-+
-+static inline void plat_read_fence_end(unsigned long flags)
-+{
-+	crime_read_fence_end(flags);
-+}
-+
-+#endif /* __ASM_MACH_IP32_READ_FENCE_H */
-diff --git a/arch/mips/sgi-ip32/crime.c b/arch/mips/sgi-ip32/crime.c
-index a24424437c6b..0b94150fbec1 100644
---- a/arch/mips/sgi-ip32/crime.c
-+++ b/arch/mips/sgi-ip32/crime.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2005 Ilya A. Volynets <ilya@total-knowledge.com>
-  */
- #include <linux/types.h>
-+#include <linux/delay.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/interrupt.h>
-@@ -25,6 +26,16 @@ struct sgi_mace __iomem *mace;
- 
- EXPORT_SYMBOL_GPL(mace);
- 
-+bool crime_read_fence __read_mostly;
-+EXPORT_SYMBOL(crime_read_fence);
-+
-+void crime_read_fence_end(unsigned long flags)
-+{
-+	udelay(5);
-+	local_irq_restore(flags);
-+}
-+EXPORT_SYMBOL(crime_read_fence_end);
-+
- void __init crime_init(void)
- {
- 	static const char * const revs[] = { "1.1", "1.3", "1.4" };
-@@ -41,6 +52,7 @@ void __init crime_init(void)
- 	switch (id & CRIME_ID_IDBITS) {
- 	case CRIME_ID_IDVALUE:
- 		rev = revs[min_t(u64, id >> 32, ARRAY_SIZE(revs) - 1)];
-+		crime_read_fence = !(id >> 32);
- 		break;
- 	case CRIME_ID_IDVALUE_B:
- 		rev = "1.5";
--- 
-2.47.3
+Thanks,
+
+Jonathan
+
+
+> 
+> Fixes: 0e589d5fb317 ("ARM: AT91: IIO: Add AT91 ADC driver.")
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
+>  drivers/iio/adc/at91_adc.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
+> index 0ac74ad92fca..c7fc06214c05 100644
+> --- a/drivers/iio/adc/at91_adc.c
+> +++ b/drivers/iio/adc/at91_adc.c
+> @@ -660,6 +660,8 @@ static int at91_adc_trigger_init(struct iio_dev *idev)
+>  
+>  error_trigger:
+>  	for (i--; i >= 0; i--) {
+> +		if (!st->trig[i])
+> +			continue;
+>  		iio_trigger_unregister(st->trig[i]);
+>  		iio_trigger_free(st->trig[i]);
+>  	}
+> @@ -673,6 +675,8 @@ static void at91_adc_trigger_remove(struct iio_dev *idev)
+>  	int i;
+>  
+>  	for (i = 0; i < st->caps->trigger_number; i++) {
+> +		if (!st->trig[i])
+> +			continue;
+>  		iio_trigger_unregister(st->trig[i]);
+>  		iio_trigger_free(st->trig[i]);
+>  	}
 
