@@ -1,45 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794058755;
-	b=gvsSWBbXv9Ea5i5YrfZHw7myoVM6Owpy7qQjMm2OQ1i/P9rpo3cL3yE+osqn4mP7idC4
-	 SZfvk2vntnL4a2Sdn4PhVulMt+VTuNuHsNBIltLuHhedMV/gRqO583UwHpS8pw6ByLTb8
-	 a1r3u//bpu5otnnQAni6kbZ8HrtqAO7ESBZx8sM0wMdAuVLVg6MyJWxC2DJv++WAPsbUm
-	 HZWNY90+usWJKJE8KQlXZsA0AUoNpcES2PKKO0OWbbsICqI0A6hDXLxBqvUVexGLqZqyP
-	 XO7qTh26jFjKxCZOw418jeoHMMaFOD4Sb0TJhbs0oV7H/sDfrSkjCSzMKM30X/cqxqg==
+	t=1794058752;
+	b=yOMw2LZrjODhB5+FY3p2G6IcXNmjxCO4evXTIsS1WwJtQgcjh2wTfRWQe2I5v7DZ7b8r
+	 /VfVKvi+z8EMt3rO218siH3PCuRYzWJqBMvIv+IPBPdPTW9/S35OHVOWfI7DlL+ATIFyv
+	 I0hCFXcRUEBJNKkqYdIz7pZq3VimrjaodmHpU4ycrgD3wfCwM+MBVFVqU0lxkDJZpfuj8
+	 vZRg1n9rgPEfuO1R3UC964hPinaAtOzYhEylDELJjzc3Xjiu4q1UqS0dnuclZNPQBo4Ka
+	 U6K6CvBlsphhZy1iRqGQ5QpT8NUAq3ZxlXtWJW/eqY0W2/OPlzSTLlqLmY1waBnXTmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058755;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=4es2IsCQPonbHHAQ/6wK0aeBm5W5dYmKZ3AtzLiTk+o=;
-	b=TgedQTfSH+IymxLEBGDt+QXk0ZyheRStWR97LiexHDoirpEX632o4aSwO0e7EAqGd0ad
-	 J4IWKgudS2gXAAxPao+OVNlc0Rfhy8vQDpjPd/HU2vYwmVDCAlnKT/lqd6Z4BEPDXYRq6
-	 xem06Dh8RI6D80vVuvcJGMWIR42MLTRfInpLJEWUVa3p649g44boFttfbRT2JZvvda0SD
-	 eTHZCszFAKd/aQ+uOLCQVBOjzTX7Q12GeEy6kjeDmH2JBaztdCpH7wnkZa9TRTAyL8pux
-	 x98H6ZQeo/HI4km5XRCwfQM4GZMSFuos2URvZPyyJPBIOjlqYKLD/DTSbIdvTgSzlMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794058752;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=dJYm2TImWbj5dfwHqPoqbjQsYL/GbiBHCiSucATnMBU=;
+	b=JtELrb9Dtl6RTWfHiUX65J+fP/unsgCC7EZce4rOshMqBiZC98kGnFnNdqTk+itGt/gs
+	 2U1dS6yJckFS54dSCUqT7sb8LneIHzPhLqUY0Ob5eUnrER1XtQm1B19JLI6QR+xtlqJOl
+	 H/jBYrsXfdnvFJeaTzPddupOyagcOZXLOiJ59nUqsiclxWCeeNnGswHypVwPQIjDW9Dwa
+	 /9VULGubmCl+sARv8NO9GBKx+Pcz9fNR2+0Pf1MXJfiUPcFtWfKkBYxJg8UpurwJbdV11
+	 /GYcc0Q5nP61fZ6y6CRqUWIB/8gl8I4jk2eHpvHHM0kesXScy/UT2DfKOc8lZdy2npQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+GgHmVi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 75B0C606D80A;
-	Sat,  7 Nov 2026 13:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+GgHmVi
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8B2551F008A7;
-	Sat,  7 Nov 2026 13:39:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794058755;
-	bh=4es2IsCQPonbHHAQ/6wK0aeBm5W5dYmKZ3AtzLiTk+o=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=i+GgHmVikWs41jZ6spAYkPpKUH36jcXDnfkqC+t1av7XMB1xGhjO9eSh/Kgjh1mV+
-	 rJNNM6XCg4+ynh7xbQSgmFDtQiwwdc2i/DyC8IMjYiE0aldf5lVRKhbwUf8RIfcgdb
-	 phbkWZF7TsHFqni9BEG8JenfHeAAXs1zCBrqKyMRVFVrL7/SKL8syx4Jm6qltJDvM3
-	 2J3GFX2M/8mA3AubAUVJoVeDdPfeaVaT9tOoRtghAI+KXvDZra1RMhXSoPjbQOVYei
-	 lso1kd3Z0sMZKwBEQVmj9SnGbXq3aDifvgT4eKGUB7KhT2fTxvt4H9jpBHzfDdfbUu
-	 3UNmGP8ARiCNQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B620606A326;
+	Sat,  7 Nov 2026 13:39:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B620606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jMHFZ0R10z55y2J;
+	Sat, 07 Nov 2026 21:38:58 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl1.zte.com.cn with SMTP id 6A7DcrEa017445;
+	Sat, 7 Nov 2026 21:38:53 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 7 Nov 2026 21:38:56 +0800 (CST)
+X-Zmail-TransId: 2afa6aef29f0f9c-e49ea
+X-Mailer: Zmail v1.0
+Message-ID: <20261107213856462Jx8pIdgdtLvPLfOFTwV4X@zte.com.cn>
+Date: Sat, 7 Nov 2026 21:38:56 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,63 +56,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 0/3] kbuild: don't print DESCEND messages from
- tools/ build
-From: Nicolas Schier <nsc@kernel.org>
-To: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261107-kbuild-descend-spam-v2-0-3bb0a7c4781c@weissschuh.net>
-References: <20261107-kbuild-descend-spam-v2-0-3bb0a7c4781c@weissschuh.net>
-Date: Sat, 07 Nov 2026 14:38:03 +0100
-Message-Id: <179405868303.60865.9461804119640294826.b4-review@b4>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=885; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=mTRT05V0WKqTklSHcD3uM4+lnv/RjbeOoolXVRLRnt0=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq7ym9cQDMTrTbGZjz77WavsaZy59/ePKE80WaS
- hhTDJfTekWJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCau8pvQAKCRAHUgpwFiYS
- aQd2EADUECPYd57j+3u7+Yq1x62uO6b5YEufEoT/lHI+KaoDT4ixyk2DFHd2EHMcetK9i+xx/31
- AMluDnMA9UQPbUxL3Todz5HL53scUL/amZNQ7NFEaLVlqkDEfHzpCG8ai8KpmYGev/oLKXFayh3
- hWaIBhPgGvyJeK9wbRSMmIipkdjncdwwRd1agYCTL2OAAbEcYsiAHsbx62hCapURcF/14DdKAq5
- pELyQ329TXyaeGfGEqT/rNaV9sdOnzMicKTVuQbaM8aQW+3uxuyzwWmgwE5xCxWeNGNQCqGD1om
- WSHb3x+dJtBerxuL1Y/muaBDo3PIVntNhQzoAtrue1IUPyIzmBAl6DAldzBQK1iWNUUNXK+89UH
- Guj+88ZoBWME9MbCzn+FerYyobtAvtKfajm2RoPmeTL0h+oVdb1s7dX7jIrpgQdf38+imQ9zGQA
- YzAXrFjwT9dqr+gu9yXArOBLRk14+GjYeDnJnlI6rZGSygh/r7wJGkoewuKsADSJUQIh285HAGQ
- AkMGmdpYKzin+PPxujcDAfKsTBkgNDHrqpcSGXyEdJnANmNzsHSjD0fS2p1xF/ZOv8I7l3UtAyc
- kON8NS9ZSleMI5TCduIG0v26Uf/9KB4OOQqKnDg8rMQB1PAv9qwK0xD8+ZxFw9LgiBaWkZAGRXr
- nA79ocjwZ2jdtIA==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <akpm@linux-foundation.org>, <david@kernel.org>
+Cc: <linux-mm@kvack.org>, <ziy@nvidia.com>, <matthew.brost@intel.com>,
+        <joshua.hahnjy@gmail.com>, <byungchul@sk.com>, <gourry@gourry.net>,
+        <ying.huang@linux.alibaba.com>, <apopple@nvidia.com>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBtbS9taWdyYXRlOiBmaXggc29mdGxvY2t1cCBpbiBkb19wYWdlc19tb3ZlKCkgd2l0aCBodWdlIHBhZ2UgYXJyYXlz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A7DcrEa017445
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 21:38:58 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEF29F2.000/4jMHFZ0R10z55y2J
 
-> kbuild itself does not print the directories it descends into, the
-> tools/ build however does so. When kbuild executes the tools/ build
-> these messages are out of place.
-> 
-> Forward kbuild's behavior to the tools/ build:
-> Nothing is printed by default, the full command is printed with V=1.
-> 
-> Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-> ---
-> Changes in v2:
-> - Pick up tags from Nathan.
-> - Move override logic to the tools/ build.
-> - Reorder the patches.
-> - Link to v1: https://patch.msgid.link/20261102-kbuild-descend-spam-v1-0-caff4f840cb7@weissschuh.net
-> 
-> ---
-> Thomas Weißschuh (3):
->       kbuild: drop the tools/ target
->       tools/build: Deduplicate the descend commands
->       tools/build: Don't print DESCEND messages when executed through kbuild
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Thanks!
+mm/migrate: fix softlockup in do_pages_move() with huge page arrays
 
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
+do_pages_move() walks the user page array one page at a time.  For each
+entry it performs two get_user() calls, an mmap_read_lock()/unlock()
+around a folio walk, and an optional store_status(); none of them has to
+sleep when the arrays stay resident and the rwsem is uncontended.
+move_pages_and_store_status() returns early while the page list is
+empty, so an array whose entries all resolve to the same node can run
+the whole loop without any scheduling point.  nr_pages comes straight
+from move_pages(), so a huge array can hold a CPU past the watchdog
+threshold on a non-preemptible kernel; with KASAN and function tracing
+enabled, ten million entries can exceed it.
 
--- 
-Nicolas
+Add cond_resched() so that long calls yield periodically.
+do_pages_stat() has the same problem and is being fixed separately.  In
+current mainline only alpha, hexagon and classic m68k can still select
+PREEMPT_NONE, and they cannot enable CONFIG_NUMA, so this mainly
+targets pre-v7.0 stable kernels.
 
+Fixes: a49bd4d71637 ("mm, numa: rework do_pages_move")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+ mm/migrate.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 875079464930..3122ecb85270 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2372,6 +2372,8 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
+ 		const void __user *p;
+ 		int node;
+ 
++		cond_resched();
++
+ 		err = -EFAULT;
+ 		if (in_compat_syscall()) {
+ 			compat_uptr_t cp;
