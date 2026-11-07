@@ -1,69 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794061193;
-	b=oOehcRMaI454nq0jx05t/L/gLrlGUxEWyOG6dyawQfbbtwTznW+NXG6mJmRRLD+73vRK
-	 qnStKSVdHn5B+lEwe3VXXmSsCPYs2vH/1VnA7Tt59bWQ2g4DUPQ1SbflKU0X6BvgKNO77
-	 Q6ip4/xcWSXLnNHLBq2iOMRUs5gyuHYk4Eafwp2mAP5cGIySU/TwD20efKPmSF/uqDFm1
-	 waWz48y27vNR0XPkiXC9VeaJ/fS0lxGGCg9mG/BCkYE2lhn7xUnh5O1UfRrUiQDP61jfz
-	 98WOYMw4lV9dn+IMc3k5SgQklRW1gz9wJHOde5orVMT5KBpceAdq3l0oKKLx8hwLYCA==
+	t=1794061220;
+	b=1vdn17LLGzt2nBfADOvQ4uOopmsO/1UAT8ccZqFNvsA+Y4RDbIH5BLHkMsxCTQz08byG
+	 8GrCuk+10sRL+amGoMe481vNqIzaYbIFW8F0Ebi00eV1AYNA+rfbTleYg4lT6eocO63pY
+	 c3trgpYDgP4K1CyHQwwEuWjduLCDpmzzKcxfi2edYM1LtJ+BuvK2js09EANTCaC6MZMMM
+	 +u0IB+nq9FjSpP7DAsnvxmW8G5MGfwtqdA1g6XCxUoag3KeSiIbakwvzsnSt/+bgpjL1A
+	 h5MfsjLGyy17/Ui8ZjoL6N8wV61vmrEjnAa6B0uzwwYjcAeswMc65lumqpCn0JVp/lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794061193;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794061220;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=6Xy4g2k9SgZBU5SQWNQcYqwfJeIbihBIIqmeCYm2TIs=;
-	b=kqRK3ooK8fzlz2PtqApzURN4upJvjOpc+mz6OIm9ezCN78hduLUtQD+Evkwt4ikKSfdG
-	 wOrqLp2umcd4Rwtn8PrzhrGcC667vIg+Yz2YqmJXJNoFSICjNYZ0c+eqCHtpPt+PtqtlI
-	 Jv5e7q903qxPMylAXxX1/9cA4G+EF34Rm52OxG6uJBhFxzmTvGU0EsXFBhJgeMnKgxhAe
-	 pppAz90dI560tE62FxBoNxHt3uF4cEfonU/01lzSPKAQb1yHu6iM17qI1ZxYZtAH/Tyd0
-	 kirjFEdW97/A7mE0LuBqPJjtRSPJYqanUgPIgXvfGSdDzVLKySbeI/0f+nkvsLN7BnA==
+	bh=Nq7TMgdP67AQJEH8b+kZWGdLv4SVRS2B3Pui2dDDqM8=;
+	b=dNbR5qug+2YnhUefLLtyj82Ux3f5Qn3ye+KOrFRef3kaTLF8CBTmQsVSwEN95vbXDTkt
+	 lxfTy/CBLsMfiobgF6AkV3o7WNWqAwCdUzcEL3z8Y+Xj+4RLyN87dS41pvchNEB2mUCyP
+	 b2Anew5fd/dYEHMy4TqWtyeW0w3iai7kLMozTxLXSmTS6V+2JtQcQbyWR+p46+4J/7lVq
+	 FEp8LI+Tfvef1qTGiR4LYqnCuyuWe5uttYH6QLyOmFZYjSmPR0L8Qwe/lIrbTxjTMQqpq
+	 Gb6XcB1XW7ZAAFv6poQTSeFzFbrpTQvmU0QZHbt6HyVKYkU4OI8Z7Wu7cF5C/o7p4OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=OfoZT1md;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B3EEC606A326;
-	Sat,  7 Nov 2026 14:19:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3EEC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="TUT02lU/";
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD3E606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:20:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD3E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=OfoZT1md
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TUT02lU/
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1518562c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 06:20:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=OfoZT1mdEV1XwpGxGjrElEH0VxKM7xWy8hj6ScvZu/fK/lGZH2KUTc0M3cAQOwMeQs8XZyYTQSp1O
-	 auK57dKui2koR4W18X4TmUSbN3XZAfq9ChAgf1nWgIj6hEoMikmhRYM645W9Mcde/ViKs4RaWQgner
-	 87cSA96ODVUKBqUc=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76aef337ba39-b8122;
-	Sat, 07 Nov 2026 22:19:44 +0800 (CST)
-X-RM-TRANSID:2ee76aef337ba39-b8122
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [198.18.0.79] (unknown[112.23.104.16])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6aef337e00c-47617;
-	Sat, 07 Nov 2026 22:19:44 +0800 (CST)
-X-RM-TRANSID:2eea6aef337e00c-47617
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, David S. Miller <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yanqing Wang <ot_yanqing.wang@mediatek.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- yana06070@163.com
-Subject: [PATCH net-next] net: ethernet: mtk-star-emac: fix device_node leak
- in mtk_star_probe()
-Date: Sat, 07 Nov 2026 22:19:42 +0800
-Message-ID: <1794061182000.57993.3986467551914992480@cmss.chinamobile.com>
+        d=gmail.com; s=20260707; t=1794061219; x=1794666019; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nq7TMgdP67AQJEH8b+kZWGdLv4SVRS2B3Pui2dDDqM8=;
+        b=TUT02lU/jlFCsnVOhUhT1N8m20Y35Z/eHxf9abrzTZo/VbEolQzmTQ1NyySvYShKST
+         qDkW4MslSeAxqdfKUCxB5x9bfeszVmSa8xeNMAIi5jYAYkyWhsBt/ZmhKodeE2UYMWkj
+         Pvgoc8ClyIDxNZ7HXXxS1OjnxD07Qk9mRV3+L8xPKu3h3XHcL/QaHVrS+HYHou7O8D0F
+         wV2F9p87PoNrS/DXeeqe6cRmiBBHWuLTbr0ZXGfLqJRR85W/4zRogGPxEGi4/fa3MGQl
+         dSyTaUnYo80o1EsVy4T2k1SK2Fp9GwnOSe4PIdEfiSGgAvLEJiUQ/8ItEdoZuVcuaTZB
+         ZhlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794061219; x=1794666019;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nq7TMgdP67AQJEH8b+kZWGdLv4SVRS2B3Pui2dDDqM8=;
+        b=CSOwiggcC1rU5EXmfSPOzcQp1V7KbmHOPj9Z6OdrrUpccShegWZ/j8LA5si1K9cq3m
+         S2XN2uoj6hOnIzSQgQ4XBnM5OlPRudxcaOYj82f7WiiJURGHi2Fhk7H0EZAp1oDLexGE
+         P3X6I1FQT7w7JLt3eeBPralLiZ3Ni4lavtYtRxG2dbVcWiGEg+B6kuoocpKmPcR0bhy8
+         /cfouctEsxTuk0IuVwMQP418NXjBkN2m9eZNIVc8aBaEg0Qs/Pi33ym3BlqGTL1HDh62
+         V4EFL0I9KvtVlob5nWX4D38vW7oUi7+QcGR0XbZuiBODeTrX2Kf3OMd/JuTLq2zkgKYS
+         BRMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxdhsvW5ugWYUQtPxJ2SMtm8/MFNw8HZXK8NSfgLFkuyakFZ5PFhweFsgLI+bCKzjzjEWcUwbmJW5JIxuU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/51p8fIIV7JLKAayHdO3TrUNEt9RUlTtkdUkgCpY0mJqnsbjOR
+	wpZsEpvvAmPvzfhbbdEyz6q/cLd+F/z39swlkNK+qYo3/RyTN6vhL3/LUQmb8PM6
+X-Gm-Gg: AYBFou0ss+RHB/oDmTfOuDPxrRgg6EdsrqcHgCJkIoYzOWg7zAVUnkfwJNv2fHAU9xw
+	2yl//mWs7c018np2iiEaPI0AHHOpD7F+Nl0MHAlWVzZZnr5P6MITbY4J8QlVLeNyErhTwsrrdij
+	kJwfZoz3SHtgqueUX/E2Ap7yJ40CHs/X5YRGXrTD5rrsv+ucPU9vWb9BW9mpB+hkI7UPglJGTp+
+	qH0+rHSmz71jqVVZeHyoDfx8XQZgnluiAhc0pghvzMDT/Gkjcf2hKYL11slhjYn6OBf5YPZWOTa
+	VxhE+p50RnL5GkdBgKIwCLL43B2FywD6bDzL7+KD+kod7KVx5W4AnZUchvhi2k/DUvOlwzwZqPY
+	PS8iSsyZcnzIAYA1oLXkdTQLFVvZKwDGRAtAmkeep5ZQWPidb60HZi7EDMXlaSNQTye7oZcK7Wj
+	Xpl/2uPhOsA5hWT5HIcfXlXUbmb683jVAXc7Rx4KK57aHbUcb/UhcrQusb0Nb/WNrqdfztULlQ3
+	LtNTgnRM4+fPkMbmmQattGm2j7uNETNz81IwAcbToRcR5ZCbE/3Zq7DyXUAf6CeGdCvJiwapfm4
+	9AZ7gPJ8dc0Q7H8xBNW3jOgyEdH9QgGMSI9TcsKTKQ9mtPMrHDVtMlXNEUURr2of3gPHGkI=
+X-Received: by 2002:a05:701b:2505:b0:185:fd0c:4585 with SMTP id a92af1059eb24-1b25d346ecbmr6821632c88.33.1794061218976;
+        Sat, 07 Nov 2026 06:20:18 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4840f3sm25727366c88.5.2026.11.07.06.20.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 06:20:18 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: twl6040: cancel jack-detect work on component remove
+Date: Sat,  7 Nov 2026 23:20:06 +0900
+Message-ID: <20261107142006.3711973-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,56 +100,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-mtk_star_probe() gets the PHY node from the "phy-handle" property
-with of_parse_phandle(). The helper takes a reference on the node it
-returns. The node is used by of_phy_connect() each time the netdevice
-is opened.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-That reference is never dropped. Every error return after the lookup
-leaks it. Unbind leaks it as well: the driver is devm-only and has no
-remove callback.
+twl6040_remove() frees the plug IRQ but does not drain the delayed
+jack-detect work that the IRQ arms, so the work can run after the
+component and its devm-allocated private data have been freed.
 
-Release it with a devm action, registered right after the lookup.
-The error paths and the unbind path then drop the node through the
-devm cleanup.
+The plug IRQ handler twl6040_audio_handler() queues hs_jack.work with a
+200 ms delay, and the worker twl6040_accessory_work() dereferences the
+component via container_of():
 
-Found during a code review of the OF node handling in ethernet drivers.
+	struct twl6040_data *priv = container_of(work,
+				struct twl6040_data, hs_jack.work.work);
+	struct snd_soc_component *component = priv->component;
+	...
+	twl6040_hs_jack_report(component, hs_jack->jack, hs_jack->report);
 
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+priv is devm_kzalloc(component->dev) and is released by devres once
+component removal completes. twl6040_remove() only calls
+free_irq(priv->plug_irq, component); it does not cancel hs_jack.work. A
+jack event that fires in the ~200 ms window before removal leaves the
+delayed work queued; it then runs against the freed priv/component after
+twl6040_remove() returns and devres frees priv (use-after-free).
+
+Cancel the work after free_irq() (so the now-detached IRQ handler can no
+longer re-arm it) in twl6040_remove().
+
+Found by static analysis and code review; not tested on real hardware
+(needs a TWL6040 audio codec with headset-detect wiring).
+
+Fixes: a2d2362edf9f ("ASoC: twl6040: Add jack support for headset and handset")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- drivers/net/ethernet/mediatek/mtk_star_emac.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/soc/codecs/twl6040.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/mediatek/mtk_star_emac.c b/drivers/net/ethernet/mediatek/mtk_star_emac.c
-index b83886a41121..bac4a24c5979 100644
---- a/drivers/net/ethernet/mediatek/mtk_star_emac.c
-+++ b/drivers/net/ethernet/mediatek/mtk_star_emac.c
-@@ -1501,6 +1501,11 @@
- 	clk_bulk_disable_unprepare(MTK_STAR_NCLKS, priv->clks);
+diff --git a/sound/soc/codecs/twl6040.c b/sound/soc/codecs/twl6040.c
+index 650836f..826bde1 100644
+--- a/sound/soc/codecs/twl6040.c
++++ b/sound/soc/codecs/twl6040.c
+@@ -1136,6 +1136,7 @@ static void twl6040_remove(struct snd_soc_component *component)
+ 	struct twl6040_data *priv = snd_soc_component_get_drvdata(component);
+ 
+ 	free_irq(priv->plug_irq, component);
++	cancel_delayed_work_sync(&priv->hs_jack.work);
  }
  
-+static void mtk_star_of_node_put(void *data)
-+{
-+	of_node_put(data);
-+}
-+
- static int mtk_star_set_timing(struct mtk_star_priv *priv)
- {
- 	struct device *dev = mtk_star_get_dev(priv);
-@@ -1603,6 +1608,11 @@
- 		return -ENODEV;
- 	}
- 
-+	ret = devm_add_action_or_reset(dev, mtk_star_of_node_put,
-+				       priv->phy_node);
-+	if (ret)
-+		return ret;
-+
- 	priv->rmii_rxc = of_property_read_bool(of_node, "mediatek,rmii-rxc");
- 	priv->rx_inv = of_property_read_bool(of_node, "mediatek,rxc-inverse");
- 	priv->tx_inv = of_property_read_bool(of_node, "mediatek,txc-inverse");
-
+ static const struct snd_soc_component_driver soc_component_dev_twl6040 = {
+-- 
+2.43.0
 
