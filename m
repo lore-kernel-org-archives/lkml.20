@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794083172;
-	b=dzudb6XzGa68BacsmH3Nm6JK7CVwA2eHA2NxBENPA8+ntsEhWMVTGb8feB7HqKMazuRx
-	 cUxjfBedpG9rj66L02nF3WnXy8rNRAU5KsXx3E93T50QKNO9AQTPU3ond9jaoLg9q+fES
-	 BYFt+WyUPXocrFxy1zqJVNhL+zHNL7MsHujOgQpII6ipapRY870xUHKsoHqO8osVmdZqM
-	 UYqD0BLKvSHVYa9hZcNpyuJ2ysY5zVkw53Wito/zvb/xudMp2fAxvdOSKP0gw8pTFShDm
-	 xnCKTeiwbO0MlpZS609PgpqrRV1rfL9cEgo90FXQwtE+vn3n3srxP7DfKYKCUzCQQlA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794083172;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=e3d75uKi/3kvcv2MEIqtUxR6V1ebLArnKx3P4aRw3vU=;
-	b=X4xmHaUe6112JYl51LJ6F2zIhhb/O1P4C6Go5SD5i8I3PGZyMcMiLpRqZ4gOyK4o5Lqq
-	 ZvlE0YkkHkKoYtHYeTrd2Uu5CLsbzkwMoYOiopW5g+OIz7NPIbqp1NTrE/ZRNE51BrLJQ
-	 zfRiy2ANT2FUR0pUwtLwPZOs2yGHAYJYGtu4/a0CBaROFVVHSuMb+mtwPm3b66hDCB/46
-	 5jSC/kxBeZD/clSsl7jWZIX8536+ri5C8Omp3/ovOV+vWlON9iLxySYAhK4S80xc41jgX
-	 yBaZJQptj9Ks/dTRYzyeot5taxaYnFijylJsdT1TXrRseuC5gVN6Yn0n1MlqJIaPe5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lTxdkSCc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794083353;
+	b=Zz7kgBLDBmKH4p+IsH3YUaHHEEBybLwUlAQDN/f5obU36HQ9xjfg/ldWjJUT5vRW+N32
+	 WWQebH4OpgeuS9PqoP1ifq+ondQLWhYL1WF6x1zI5JLE/Eh4d6o+foVyTVClxSr1PmqnT
+	 /on4gKRJ7eVn7I98oOiR7qQBaTqbXiYLUaKK3Hgrdo1bpewtnKxU/8d0SBiKUJ5hJ4Amr
+	 9jr+QK0G3vOa+0gUTGt05MMo1TW8Jv7UxgwSFFZxG0lLO94BjHtkH+CDAPVTm84w6Kzrq
+	 Cn441x9IEPlK0RZeMrzzQ1nd9csw+FOqcKjRQ6tfnPNhXdGK9eTNxWfHUxrE7HuMvWw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794083353;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Wf8LRi7Uf3+oQW7K9E6o9x3Rb0ptS6c5Ok2tb6AzWHQ=;
+	b=jA2fSYSMXRG4wMwor84chlJM5TZ3UlIiJ7LDXY+KqGaLvT5tQeibVJwxyQ4RatFh3kJp
+	 kBccOVBVIHn4vzdYJgtCPzCBFedQ1onxbMDgNfH6cqYIQrJtjxFNqmCCoGtgNFIIrIOIC
+	 q0QWH3XtUqhx2vGpBGxlzVnEJxuUfqtI1aCVrf4cqNFOqli90FxEfLDlHZ6i+Qh2GLmql
+	 c1S1rV6N1wQ4L83f8vCErFuCc6mZVlq1eKUHJ4GWiMPvp21WNyLeShNTRZ9TEUZoul/y2
+	 Pc3CcWW6XWGKK/uFWwFXHvDSLiD/7YopTLnkbk3NXjBZ4df46UHmRzawsrFFDiejmtg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edNNXuer;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE47606A32F;
-	Sat,  7 Nov 2026 20:26:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186F4606A326;
+	Sat,  7 Nov 2026 20:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lTxdkSCc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794083172;
-	b=SCYof7XAEhPfAb87lKhzk00t+XlWt8GUqLRuCDiKSOl4IMMqHSCMUN9MYVGu2ulLSXB1
-	 dgFSwdy3IXgjDtsQbX3gyfc0O6YHwlMsuWqRL+KIftKXI9fWutlBdHShDlEOdHWHVJGjB
-	 w126YTvO17FyEeaa6DXmCVe7bOo7v71/c/THwgrige9BlPgjdzlOXMX7LtaOtxfFs/r6V
-	 +wdEERg//+cpr9Ys4BwodC3PytVBQv2Zcur0z1yksPc5CYR0byv583KB7YuBZRAZ4sO5r
-	 qO1mmxil9q3FzqpFM6lTDpfC+xsiKWWGZak8d89Ny/o8buldLW3ihBiNBc16Df0+yyQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794083172;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=e3d75uKi/3kvcv2MEIqtUxR6V1ebLArnKx3P4aRw3vU=;
-	b=dDzZFRU+sQIFtfTBLBYbXILAmuh1FV7zzSr/uJqggmbhtSy8Mol4E8OiAU1Q0dLxwqdt
-	 rrkmo+ou9Y4D8JuHZn2/SRfnZODlFMcyn95QyvZJwgHIHTzGapHarWLTzEo/Qp+XIZ3pA
-	 q0rzVYHPr15sxOjI4foft2UlQhA1d8B0foAdRoBkGFqJlppjTYSBMeCmVvO3i2A6uT2aG
-	 LcHCV9X0P9vntA6VSauEiS67eBbzC4yTBXdSIiw3HT7Z8Amjbgsc8t1fsgWsQkfqalBjw
-	 wZwR+YKvRmePueO+f86fqKDFOB17VtgVbYPrfGLwtiPXbCMD50qqIlhCKptjojdXLOQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0D4E41F0089F;
-	Sat,  7 Nov 2026 20:26:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edNNXuer
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B922F1F0089F;
+	Sat,  7 Nov 2026 20:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794083172;
-	bh=e3d75uKi/3kvcv2MEIqtUxR6V1ebLArnKx3P4aRw3vU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=lTxdkSCcmIdCVgFbXnGSbkOjddF/gUv0SFmJ2KMiesh6iFssOn0gcox9wRNtIjLt1
-	 /mUlAiG3GAXHGLouh3I1HI7zUAOErM/XGA0G8RHIKPPYHmBo2Y6axnKT5q097nLR6P
-	 VcYhiUDHY90/wt+FdgwvPF2iZ7wOFHiOfnthRAqedPmyWqjv4k1Ph5s9kQFjVpiShJ
-	 +zWN3pbAGJM/7rJLl676n6UKGsrYhqpB/Twuiymh/KcF6SE6tQaVmqXH5rnhNi5b8H
-	 aaPU7OYoucrCw1eHdqlXWQOX5gHYSC0EhsdI4zzZF4NVRtlxcOXgJquhxHmAoLyfAI
-	 K6s9jYgx33jjw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8567447CFB;
-	Sat,  7 Nov 2026 20:26:10 +0000 (UTC)
-From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 17:26:08 -0300
-Subject: [PATCH v3 2/4] drm/msm/a5xx: Reset the GPU when resuming it
+	s=k20260515; t=1794083352;
+	bh=Wf8LRi7Uf3+oQW7K9E6o9x3Rb0ptS6c5Ok2tb6AzWHQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=edNNXuer2i6+dBOSWwbk5rBCGZYCkrG3521+DcYD4chBZjmaFaFlMZMzWptLtHDqI
+	 pL4Ip40b13HeTbM5WzDLMLCTKJIrnrsvCHQ3rJBmRtk0BDXIieLy2a+icKRqYUcVnX
+	 ImGLItlkOgavPUhVJuGfqdU4uffn5r9nsr2WZQPfT7dpc4c3tjiuzBnLmZGIMyM3I3
+	 v3muTTIy5WSDf4whh69/sNWJLHHmSPxOxrkHF2zxy+hc7gyEGRTZ9eQXHBiyxay/fI
+	 efAxHA32MxAydnHlWUu+IGYnBOAsUYdMQ7Qx2OPZJg6RQ5Ungedbd/f/CDBP4JeLT0
+	 MO1svhtvh9RtQ==
+Date: Sat, 7 Nov 2026 20:29:04 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Joshua Crofts <crofts@kernel.org>, linux@analog.com,
+ linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] staging: iio: addac: adt7316: sort headers
+ alphabetically
+Message-ID: <20261107202904.2b3db8a0@jic23-hlaptop>
+In-Reply-To: <20261104183429.20125-2-abdelnasserhussein11@gmail.com>
+References: <20261104183429.20125-1-abdelnasserhussein11@gmail.com>
+	<20261104183429.20125-2-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,113 +65,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-a5xx-gpu-pm-v3-2-e2480408abea@gmail.com>
-References: <20261107-a5xx-gpu-pm-v3-0-e2480408abea@gmail.com>
-In-Reply-To: <20261107-a5xx-gpu-pm-v3-0-e2480408abea@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Paul Sajna <sajattack@postmarketos.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Fabricio Akio <fabricioakio@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794083169; l=3443;
- i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=swuB5qHfUrNVomwySv4f22B0nyHsJGRFcNLJX68gYv0=;
- b=XX5HFn28yfKDmvaz2ANFIekhZVEN3ZUH3GamTeBzF5FnVQiNCJq+DoxFv54PGVP/GwWgjFZCB
- u2ceCRfNmvhAk3uYL0E6m5kfPeHlk3+1dQHiGSg0bGnNC0jbkiJvD6a
-X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
- pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
-X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
- auth_id=1076
-X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
-Reply-To: fabricioakio@gmail.com
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-From: Fabricio Akio <fabricioakio@gmail.com>
+On Wed,  4 Nov 2026 20:34:28 +0200
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-On SDM630, SDM660 and MSM8998 the device tree attaches the GPU's GX
-power domain to its SMMU, whose own domain is CX, so GX switches off
-only once the SMMU suspends as well. A GPU resumed with GX still on
-keeps its state, and the CP keeps its ringbuffer read pointer.
-a5xx_hw_init() then rewinds the ringbuffer and writes CP_ME_INIT at its
-start, while the CP goes on from its old position, executes stale
-ringbuffer contents and hangs:
+> Sort included headers alphabetically without altering the list of
+> inclusions. Keep the <linux/iio/*> subsystem headers separated from
+> the <linux/*> group, and add a blank line before the local "adt7316.h"
+> header.
+> 
+> Reviewed-by: Joshua Crofts <crofts@kernel.org>
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Needed a small tweak as kstrtox.h was added recently.
 
-  timeout waiting to drain ringbuffer 0 rptr/wptr = 23/C
-
-Soft reset the GPU in a5xx_pm_resume() once it is powered, so that
-every resume starts from the reset state. The downstream driver resets
-only when it finds the GPU's power left on; resetting a GPU that was
-powered off changes nothing, and on A508 the reset takes about 2 us of
-a resume of about 1.5 ms, so do it every time.
-
-The reset also clears the busy counter devfreq samples as the baseline
-of its next poll, so resume devfreq after it.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
----
-Changes in v3:
-- Say that the device tree attaches GX to the SMMU, whose own domain
-  is CX (Konrad, Akhil)
-- Resume devfreq after the reset instead of taking its baseline again,
-  on the previous patch (Akhil)
-- Dropped Dmitry's Tested-by: devfreq now resumes after the reset
-  instead of resampling the busy counter
-
-Changes in v2:
-- Take devfreq's busy-cycle baseline again after the reset, which
-  clears the busy counter (Sashiko)
-
-Downstream resets when it finds a GPU regulator left on, and resumes
-its frequency scaling only after that:
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno.c#L1336-L1351
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2596-L2606
-
-A stall with the same signature, the CP's read pointer past the write
-pointer just after CP_ME_INIT, was reported on an A509:
-https://lore.kernel.org/linux-arm-msm/20260308-adreno-ringbuffer-drain-timeout-recovery-v1-1-985a33faf108@postmarketos.org/
-
-Tested on A508 only; the reset runs on every A5xx.
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index c81f67c639c8..5b5429033986 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1367,6 +1367,19 @@ static int a5xx_pm_resume(struct msm_gpu *gpu)
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * The GX power domain is not necessarily switched off while we are
-+	 * suspended: on SDM630, SDM660 and MSM8998 the device tree attaches it
-+	 * to the GPU's SMMU rather than the GPU. If it stayed on, the CP still
-+	 * holds its old ringbuffer read pointer and would execute stale
-+	 * ringbuffer contents once hw_init restarts it. Soft reset the GPU so
-+	 * that it always resumes from its reset state.
-+	 */
-+	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 1);
-+	gpu_read(gpu, REG_A5XX_RBBM_SW_RESET_CMD);
-+	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 0);
-+
-+	/* devfreq samples the busy counter, which the reset clears */
- 	msm_devfreq_resume(gpu);
- 
- 	/* Adreno 505, 506, 508, 509, 510, 512 needs manual RBBM sus/res control */
-
--- 
-2.56.0
-
+> ---
+>  drivers/staging/iio/addac/adt7316.c | 17 +++++++++--------
+>  1 file changed, 9 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+> index 20f6052cc7fb..515f1fdae46b 100644
+> --- a/drivers/staging/iio/addac/adt7316.c
+> +++ b/drivers/staging/iio/addac/adt7316.c
+> @@ -5,22 +5,23 @@
+>   * Copyright 2010 Analog Devices Inc.
+>   */
+>  
+> -#include <linux/interrupt.h>
+> +#include <linux/device.h>
+>  #include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+>  #include <linux/irq.h>
+> -#include <linux/workqueue.h>
+> -#include <linux/device.h>
+>  #include <linux/kernel.h>
+> -#include <linux/slab.h>
+> -#include <linux/sysfs.h>
+>  #include <linux/list.h>
+> -#include <linux/i2c.h>
+> -#include <linux/rtc.h>
+>  #include <linux/module.h>
+> +#include <linux/rtc.h>
+> +#include <linux/slab.h>
+> +#include <linux/sysfs.h>
+> +#include <linux/workqueue.h>
+>  
+> -#include <linux/iio/iio.h>
+>  #include <linux/iio/events.h>
+> +#include <linux/iio/iio.h>
+>  #include <linux/iio/sysfs.h>
+> +
+>  #include "adt7316.h"
+>  
+>  /*
 
