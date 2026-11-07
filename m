@@ -1,76 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.204.81.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029363;
-	b=iSgZc+WDb+fjRbQtrrAr63oiECO9X9psSq9gaemwogmzCSfPuAx99p5YW7Oz84lPGP/S
-	 sRROQYX0WPpdxbkqmpnaSJULyx/lUDy/pgTpE04vfy1YlhfB1hJoHmf05i2J99Bgu8sSB
-	 BgyYcqowvj4X26wZOK1/vUv7Fu2ii+cv8S/nXySq6oUnxPCtE4SCP5u/fZ17R795ZJs/D
-	 pAYS+aLl5PTgD+URjMG1WYYyeIDuVkbGEu4ucIYqmQnV/MN6isodEQ5kj/l9bmWsOhOH0
-	 tcf0e9l66Oda08lznxkTAbuKNCaC4e/xVFyaEH9P3JosbR3DlvtPhpXDxIAM9pzZpnA==
+	t=1794029371;
+	b=AV2E7aKyLL8oQswgHuHiu0umSk66l857hjSYWztHFh6czYE5Vu7ha8bQR3S+vMZVMUcQ
+	 z8s/rrOAks6CbYe0mTdCQfNfXcP64b4Kr/mgoByLP0nYiXWJZy33BTcwj+oCS5cJP5F+b
+	 9RphV0HSyR2SfAxPGYw2ohO9eLJzAXKkuXF7FjH5bieOazP8XbaNxu9VF++GDo2d1cGk+
+	 5yCvUa1t0/j7ht3W7GTAVSy5LzmFcOKkLCIhY7l4/1jhSfBgBogX1rmF5tPXXC0Q3UTWi
+	 DJ9HlQo1CGmFfTqtXk0WpbRfohJTb+iUuc3FqVafkjpw9HaZkULVKyVQroeVNSLCTRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029371;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
 	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=sNYnc3n/8WPWGMfkk+IBbZNZiTf8D9ASWX8DJwvBfpc=;
-	b=JD85kgToEmtWKr1V27ONq9Spq56bCVz0G4cvvPinWM1nzP6jNRQVcXowms6bNGG0UduA
-	 2m070F4zU9IKKrMtZETh/CXMt8BZqp3DTwns1UB6EF9kzXuZC5BF7GOjc+I1IECaKhEKv
-	 TLdjsmSDtWj/ANS2gNUBkVDt5zHXTJ0X/rBLVu7mL0o5BVE84lzroejgGuaml1s+Ot1LD
-	 dRVF7qZAcqfbK49W/X5AwSDtchDuHdpJssc3WCQgg004NFCT36LRvlW5Xs39k6ZIIC5j+
-	 rygj4JpShxzIWbT2eIbIhBV5eTn1klMrFhLmJcOmcRDVLVUulUBuzijKT9ep2/v13wA==
+	bh=Nq5w7tqX+Crh0A207ydeLLwQB2c0ADg2faM9Ie5AIOM=;
+	b=QJvt5Hk0FISTOZgVheg/5TwuLmT6YOS7ch5FqkXg6NjvQB/A/VMGCVeMiJMGVqJMRgHE
+	 k1+3VU4iromG/ezwqS/qtRxNYFu88775MEgJUhXsDsMHSyiiLtYmvgxAWtM3HrfEJz2EH
+	 l2/oFjmPLueSsLoZaohxqNYiNG6SEc7c4WI9TNdvWDWaoK26FjrMdN80OvIfbzkBdodgj
+	 w9HF+5PnDTOKEN3FYy3BzaB+vIo00zFBB6tvnEd75m7i5L8XZ/MpohKQm1HnTwnZiKl5M
+	 OVl/R3zdUtAVcEZ9Mb3jNlEsLP3uH3meW6Qo6aAlIcZn637RBeusNlaQMyHyRvhfpCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=squashfs.org.uk;
 	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=Z7Y2gV0s;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=rseoV3fy;
-	arc=none smtp.remote-ip=188.121.53.108
-Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [188.121.53.108])
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=U9WkOfsN;
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b="Ocs5rCZ/";
+	arc=none smtp.remote-ip=92.204.81.224
+Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [92.204.81.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5AB606A332
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A5AB606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC0B606D804
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BC0B606D804
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=Z7Y2gV0s;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=rseoV3fy
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=U9WkOfsN;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=Ocs5rCZ/
 Received: from avalon.fritz.box ([82.69.79.175])
 	by :SMTPAUTH: with ESMTPA
-	id PYyzxFofBjLMrPYzIx4cr8; Sat, 07 Nov 2026 05:29:13 +0000
+	id PYyzxFofBjLMrPYzLx4crV; Sat, 07 Nov 2026 05:29:16 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794029354;
-	bh=sNYnc3n/8WPWGMfkk+IBbZNZiTf8D9ASWX8DJwvBfpc=;
+	s=secureserver2; t=1794029357;
+	bh=Nq5w7tqX+Crh0A207ydeLLwQB2c0ADg2faM9Ie5AIOM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z7Y2gV0sdcR0jVKqf+fMl/jecpPApRLMxijZf9Yn78olAl3vMdEOLdpW7dHnN41Fv
-	 J9FDl5P0Z2NHsf7Uh/ntp5ctqN9tqj2IG5OZud7nQo8QzOHEJoBSxK1Gwl+xyo2xVZ
-	 gFqimy3kVUitnFyWxGm3QTQ3OmlbehEpCrxxrLNHpH1MArnnsdpHMlQMyLXzlu8vJ7
-	 Sgmoo/2Md8gI9D4NbfkCK2iQ54ZvflgINnSr3F/VS7/tB83Tjt/T5YmjfEHOA+Z/bm
-	 UMNdyn/D9bAIIxugOsKQhOnMRjG8ryLwKlgpeupeTf/EZk1dMly8DKCmi+NIXhZ3mo
-	 8NfG2VrAFJn2Q==
+	b=U9WkOfsN7sCyan8MEEKEdu6JlX4fFh6QlmpiCyjhMx86HFPtpNgGgBbvOTTEqiJWd
+	 292QTv96COc2XxRzMt3ydfPnTrRJueebEgPD24VoTqaMaxutl9xt0InwlKTE9aAt0Y
+	 YOrinUGE4NlViAAOijsSEhKwQaBTpMm51GwEDbDcdz3SQayBNQsKbOJQgNUJdB+HDx
+	 3VyW29C6OggsSy+DN0BGMzJmIw2ZSopVayB9lyV2HXjcdunkuyn/zPQuq97JrHK4Ev
+	 tls0Rl5+iZJe26x2xMUDMAy2zwRoD/0l/C22GwpGnBn/n+z8614BSfGHh9Mju8CQBO
+	 CF12+f6UfXyeg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794029354;
-	bh=sNYnc3n/8WPWGMfkk+IBbZNZiTf8D9ASWX8DJwvBfpc=;
+	s=secureserver1; t=1794029357;
+	bh=Nq5w7tqX+Crh0A207ydeLLwQB2c0ADg2faM9Ie5AIOM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rseoV3fyRTRlQZUxtWZwX9fsH/k0piIx1B23kDfQ8FszqLweD8jnhkcO+86I0iBR9
-	 87tjBcJcP/1R7Cw2VMsO71waQ79FlbhSt4b4puSUO/FzSjPq7tq4IWzodUOe9451eG
-	 y+05xojscgNC/0jG2lduxPXdTqcDMcBuUFR1IEfPi4NwfhkNSpKqmTLXAUCcM+ZRfi
-	 mJNr3fSFv/5QIK8U2t5/mni9ndN/bkuJ7lODucHV5zQhsFoib5HgFDp9WvbsFU3y89
-	 BGAr+ZlZDXGmY1jtLXNOCAy93sT5uhmqsCits/DDm0fU9TgBZ489WArojTbmQe2eOd
-	 zaBQ7vjYuV5Bg==
-X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb729
+	b=Ocs5rCZ/BKxbLLvb3Mqz05aQ0hxe3+41jvWvxYPXZM0XNnbzl8ip5tRwBMPoPgOOS
+	 0nr4SLki/iF6iVA2kwX4TWif7Uqh9vVhf9mGTlStO4edFCGpDy6qGeWted8+dYSBn2
+	 m1QSIfIRazP8m87yKE2w4cd9G7G4PZjB/chbIfrzEVCNXbsOBPcw1f+Wd5fzSfCgfS
+	 ptMKkYIszpNqmTXexvJvt6MEY4ul+TddNrG9TYmxzz70hO45zZen6QjY26hN3JGMQF
+	 SiwdPr4Ipl+WcTqGYE+kXNt/2gTMhJveEIF4yPHoAJnxaB0hygy9GFYAdmDMCTaaBb
+	 OxDHOXo6ddJsQ==
+X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb72d
  a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
- a=_bInhHkTttLfAsG6xnIA:9 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: b3f1dbd05727008a7a9e92bb44b3ff30:squashfs.org.uk:ssnet
+ a=dA03S5-tUKIFcmplmssA:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: 902e72f66683d716cb92feed616fdd09:squashfs.org.uk:ssnet
 X-SECURESERVER-ACCT: phillip@squashfs.org.uk
 From: Phillip Lougher <phillip@squashfs.org.uk>
 To: akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org
 Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH 04/18] Squashfs: convert SQUASHFS_LOOKUP_* to inline functions
-Date: Sat,  7 Nov 2026 05:28:29 +0000
-Message-ID: <20261107052843.725239-5-phillip@squashfs.org.uk>
+Subject: [PATCH 06/18] Squashfs: convert SQUASHFS_XATTR_* to inline functions
+Date: Sat,  7 Nov 2026 05:28:31 +0000
+Message-ID: <20261107052843.725239-7-phillip@squashfs.org.uk>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261107052843.725239-1-phillip@squashfs.org.uk>
 References: <20261107052843.725239-1-phillip@squashfs.org.uk>
@@ -84,9 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfPM/KkY7Fmd2n6x1sIRUGQs6qWWmswIw6k8uaoZ0iz9S785P3ghUUVUBO9lZj61d4UCaZTaLBJRGRPulUo+LF8dqT9FbjGr0DeMV/Gc8WIxykcRSzd+L
- p4XkrC5vZqhqJyvjYKNaG2Vzbf45Y6SztCvdrqRhSYtSs0xbmXw9lbawKp+hM7LHNVUbpVTnPiaiIDqMbOgHofKIqTTEaGcRbMgQJ6uGKy/KoFoXAaQzGvQH
- f5w3EQhyO4mk0T5Di8WUyXhcmFcSaP9kTYCXQkLDlk/Jqx7Z+hSXpjJSvf3SVOhM
+X-CMAE-Envelope: MS4xfK/6xQXLwiaULTGWBmnjsrkOVZiPTe5SVKqSt3/YuWTjHT2CHZHOKDgXtOKBzmu7pA9l8osxZ3RUreGo/EkpVZtI5KLS53Ac1wnQJd+KK4Y1tPIU7TiR
+ CWIXMHIbyP3tGxwyFYEHwcBoVasLK+KzRkxdvQ6mrxBOLbiJXESQdIZ6oNQhBI26d9Emcnlu5bkV0ouY2L3dOOe/JJXZqIO7l3B0UMxPVtr6cmYxQTnBBLg9
+ VHC7oiiTLvmkAaeezXzPYqt3uUvPCqAqdWMDKYbETjg8SCJQrU/kWx+fn9zWoQXk
 
 Convert old fashioned #define macros into inline functions.  This has
 the following improvements:
@@ -102,108 +102,177 @@ the following improvements:
 
 Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
 ---
- fs/squashfs/export.c           |  9 +++++----
- fs/squashfs/squashfs_fs.h      | 16 ----------------
- fs/squashfs/squashfs_helpers.h | 27 +++++++++++++++++++++++++++
- 3 files changed, 32 insertions(+), 20 deletions(-)
+ fs/squashfs/squashfs_fs.h      | 19 -----------------
+ fs/squashfs/squashfs_helpers.h | 37 ++++++++++++++++++++++++++++++++++
+ fs/squashfs/xattr.c            | 18 ++++++++---------
+ fs/squashfs/xattr_id.c         |  9 +++++----
+ 4 files changed, 51 insertions(+), 32 deletions(-)
 
-diff --git a/fs/squashfs/export.c b/fs/squashfs/export.c
-index 62972f0ff868..ad7cc882d789 100644
---- a/fs/squashfs/export.c
-+++ b/fs/squashfs/export.c
-@@ -31,6 +31,7 @@
+diff --git a/fs/squashfs/squashfs_fs.h b/fs/squashfs/squashfs_fs.h
+index 25dd89a2c6ad..3e7d0730b2d9 100644
+--- a/fs/squashfs/squashfs_fs.h
++++ b/fs/squashfs/squashfs_fs.h
+@@ -107,25 +107,6 @@ static inline int squashfs_block_size(__le32 raw)
+ 	return (size >> 25) ? -EIO : size;
+ }
+ 
+-/* xattr id lookup table defines */
+-#define SQUASHFS_XATTR_BYTES(A)		(((u64) (A)) * sizeof(struct squashfs_xattr_id))
+-
+-#define SQUASHFS_XATTR_BLOCK(A)		(SQUASHFS_XATTR_BYTES(A) / \
+-					SQUASHFS_METADATA_SIZE)
+-
+-#define SQUASHFS_XATTR_BLOCK_OFFSET(A)	(SQUASHFS_XATTR_BYTES(A) % \
+-					SQUASHFS_METADATA_SIZE)
+-
+-#define SQUASHFS_XATTR_BLOCKS(A)	((SQUASHFS_XATTR_BYTES(A) + \
+-					SQUASHFS_METADATA_SIZE - 1) / \
+-					SQUASHFS_METADATA_SIZE)
+-
+-#define SQUASHFS_XATTR_BLOCK_BYTES(A)	(SQUASHFS_XATTR_BLOCKS(A) *\
+-					sizeof(u64))
+-#define SQUASHFS_XATTR_BLK(A)		((unsigned int) ((A) >> 16))
+-
+-#define SQUASHFS_XATTR_OFFSET(A)	((unsigned int) ((A) & 0xffff))
+-
+ /* cached data constants for filesystem */
+ #define SQUASHFS_CACHED_BLKS		8
+ 
+diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
+index b9c517a50642..4088e598400f 100644
+--- a/fs/squashfs/squashfs_helpers.h
++++ b/fs/squashfs/squashfs_helpers.h
+@@ -132,4 +132,41 @@ static inline s16 squashfs_id_block_bytes(u16 ids)
+ {
+ 	return squashfs_id_blocks(ids) * sizeof(long long);
+ }
++
++/* xattr id lookup table defines */
++static inline s64 squashfs_xattr_bytes(u32 xattrs)
++{
++	return (s64) xattrs * sizeof(struct squashfs_xattr_id);
++}
++
++static inline s32 squashfs_xattr_block(u32 xattrs)
++{
++	return squashfs_xattr_bytes(xattrs) / SQUASHFS_METADATA_SIZE;
++}
++
++static inline s16 squashfs_xattr_block_offset(u32 xattrs)
++{
++	return squashfs_xattr_bytes(xattrs) % SQUASHFS_METADATA_SIZE;
++}
++
++static inline s32 squashfs_xattr_blocks(u32 xattrs)
++{
++	return (squashfs_xattr_bytes(xattrs) + SQUASHFS_METADATA_SIZE - 1) /
++		SQUASHFS_METADATA_SIZE;
++}
++
++static inline s32 squashfs_xattr_block_bytes(u32 xattrs)
++{
++	return squashfs_xattr_blocks(xattrs) * sizeof(long long);
++}
++
++static inline u32 squashfs_xattr_blk(s64 xattr)
++{
++	return xattr >> 16;
++}
++
++static inline s16 squashfs_xattr_offset(s64 xattr)
++{
++	return xattr & 0xffff;
++}
+ #endif
+diff --git a/fs/squashfs/xattr.c b/fs/squashfs/xattr.c
+index ce6608cabd49..f9ef669544f8 100644
+--- a/fs/squashfs/xattr.c
++++ b/fs/squashfs/xattr.c
+@@ -19,6 +19,7 @@
  #include "squashfs_fs.h"
  #include "squashfs_fs_sb.h"
  #include "squashfs_fs_i.h"
 +#include "squashfs_helpers.h"
  #include "squashfs.h"
  
- /*
-@@ -39,8 +40,8 @@
- static long long squashfs_inode_lookup(struct super_block *sb, int ino_num)
+ static const struct xattr_handler *squashfs_xattr_handler(int);
+@@ -29,9 +30,9 @@ ssize_t squashfs_listxattr(struct dentry *d, char *buffer,
+ 	struct inode *inode = d_inode(d);
+ 	struct super_block *sb = inode->i_sb;
+ 	struct squashfs_sb_info *msblk = sb->s_fs_info;
+-	u64 start = SQUASHFS_XATTR_BLK(squashfs_i(inode)->xattr)
+-						 + msblk->xattr_table;
+-	int offset = SQUASHFS_XATTR_OFFSET(squashfs_i(inode)->xattr);
++	u64 start = squashfs_xattr_blk(squashfs_i(inode)->xattr)
++						+ msblk->xattr_table;
++	int offset = squashfs_xattr_offset(squashfs_i(inode)->xattr);
+ 	int count = squashfs_i(inode)->xattr_count;
+ 	size_t rest = buffer_size;
+ 	int err;
+@@ -107,14 +108,13 @@ static int squashfs_xattr_get(struct inode *inode, int name_index,
+ {
+ 	struct super_block *sb = inode->i_sb;
+ 	struct squashfs_sb_info *msblk = sb->s_fs_info;
+-	u64 start = SQUASHFS_XATTR_BLK(squashfs_i(inode)->xattr)
+-						 + msblk->xattr_table;
+-	int offset = SQUASHFS_XATTR_OFFSET(squashfs_i(inode)->xattr);
++	u64 start = squashfs_xattr_blk(squashfs_i(inode)->xattr)
++						+ msblk->xattr_table;
++	int offset = squashfs_xattr_offset(squashfs_i(inode)->xattr);
+ 	int count = squashfs_i(inode)->xattr_count;
+ 	int name_len = strlen(name);
+ 	int err, vsize;
+ 	char *target = kmalloc(name_len, GFP_KERNEL);
+-
+ 	if (target == NULL)
+ 		return  -ENOMEM;
+ 
+@@ -158,9 +158,9 @@ static int squashfs_xattr_get(struct inode *inode, int name_index,
+ 				if (err < 0)
+ 					goto failed;
+ 				xattr = le64_to_cpu(xattr_val);
+-				start = SQUASHFS_XATTR_BLK(xattr) +
++				start = squashfs_xattr_blk(xattr) +
+ 							msblk->xattr_table;
+-				offset = SQUASHFS_XATTR_OFFSET(xattr);
++				offset = squashfs_xattr_offset(xattr);
+ 			}
+ 			/* read xattr value */
+ 			err = squashfs_read_metadata(sb, &val, &start, &offset,
+diff --git a/fs/squashfs/xattr_id.c b/fs/squashfs/xattr_id.c
+index c8469c656e0d..ff85247e2d80 100644
+--- a/fs/squashfs/xattr_id.c
++++ b/fs/squashfs/xattr_id.c
+@@ -19,6 +19,7 @@
+ 
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
++#include "squashfs_helpers.h"
+ #include "squashfs.h"
+ #include "xattr.h"
+ 
+@@ -29,8 +30,8 @@ int squashfs_xattr_lookup(struct super_block *sb, unsigned int index,
+ 		int *count, unsigned int *size, unsigned long long *xattr)
  {
  	struct squashfs_sb_info *msblk = sb->s_fs_info;
--	int blk = SQUASHFS_LOOKUP_BLOCK(ino_num - 1);
--	int offset = SQUASHFS_LOOKUP_BLOCK_OFFSET(ino_num - 1);
-+	int blk = squashfs_lookup_block(ino_num - 1);
-+	int offset = squashfs_lookup_block_offset(ino_num - 1);
- 	u64 start;
- 	__le64 ino;
+-	int block = SQUASHFS_XATTR_BLOCK(index);
+-	int offset = SQUASHFS_XATTR_BLOCK_OFFSET(index);
++	int block = squashfs_xattr_block(index);
++	int offset = squashfs_xattr_block_offset(index);
+ 	u64 start_block;
+ 	struct squashfs_xattr_id id;
  	int err;
-@@ -115,8 +116,8 @@ static struct dentry *squashfs_get_parent(struct dentry *child)
- __le64 *squashfs_read_inode_lookup_table(struct super_block *sb,
- 		u64 lookup_table_start, u64 next_table, unsigned int inodes)
- {
--	unsigned int length = SQUASHFS_LOOKUP_BLOCK_BYTES(inodes);
--	unsigned int indexes = SQUASHFS_LOOKUP_BLOCKS(inodes);
-+	unsigned int length = squashfs_lookup_block_bytes(inodes);
-+	unsigned int indexes = squashfs_lookup_blocks(inodes);
- 	int n;
- 	__le64 *table;
- 	u64 start, end;
-diff --git a/fs/squashfs/squashfs_fs.h b/fs/squashfs/squashfs_fs.h
-index 3dbd174b5f21..89b998f57a2b 100644
---- a/fs/squashfs/squashfs_fs.h
-+++ b/fs/squashfs/squashfs_fs.h
-@@ -107,22 +107,6 @@ static inline int squashfs_block_size(__le32 raw)
- 	return (size >> 25) ? -EIO : size;
- }
+@@ -79,8 +80,8 @@ __le64 *squashfs_read_xattr_id_table(struct super_block *sb, u64 table_start,
+ 	if (*xattr_ids == 0)
+ 		return ERR_PTR(-EINVAL);
  
--/* inode lookup table defines */
--#define SQUASHFS_LOOKUP_BYTES(A)	((A) * sizeof(u64))
--
--#define SQUASHFS_LOOKUP_BLOCK(A)	(SQUASHFS_LOOKUP_BYTES(A) / \
--					SQUASHFS_METADATA_SIZE)
--
--#define SQUASHFS_LOOKUP_BLOCK_OFFSET(A)	(SQUASHFS_LOOKUP_BYTES(A) % \
--					SQUASHFS_METADATA_SIZE)
--
--#define SQUASHFS_LOOKUP_BLOCKS(A)	((SQUASHFS_LOOKUP_BYTES(A) + \
--					SQUASHFS_METADATA_SIZE - 1) / \
--					SQUASHFS_METADATA_SIZE)
--
--#define SQUASHFS_LOOKUP_BLOCK_BYTES(A)	(SQUASHFS_LOOKUP_BLOCKS(A) *\
--					sizeof(u64))
--
- /* uid/gid lookup table defines */
- #define SQUASHFS_ID_BYTES(A)		((A) * sizeof(unsigned int))
+-	len = SQUASHFS_XATTR_BLOCK_BYTES(*xattr_ids);
+-	indexes = SQUASHFS_XATTR_BLOCKS(*xattr_ids);
++	len = squashfs_xattr_block_bytes(*xattr_ids);
++	indexes = squashfs_xattr_blocks(*xattr_ids);
  
-diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
-index b99ca67c729a..aafc75a3a435 100644
---- a/fs/squashfs/squashfs_helpers.h
-+++ b/fs/squashfs/squashfs_helpers.h
-@@ -78,4 +78,31 @@ static inline s32 squashfs_fragment_index_bytes(u32 fragments)
- {
- 	return squashfs_fragment_indexes(fragments) * sizeof(long long);
- }
-+
-+/* inode lookup table defines */
-+static inline s64 squashfs_lookup_bytes(u32 inodes)
-+{
-+	return (s64) inodes * sizeof(s64);
-+}
-+
-+static inline s32 squashfs_lookup_block(u32 inodes)
-+{
-+	return squashfs_lookup_bytes(inodes) / SQUASHFS_METADATA_SIZE;
-+}
-+
-+static inline s16 squashfs_lookup_block_offset(u32 inodes)
-+{
-+	return squashfs_lookup_bytes(inodes) % SQUASHFS_METADATA_SIZE;
-+}
-+
-+static inline s32 squashfs_lookup_blocks(u32 inodes)
-+{
-+	return (squashfs_lookup_bytes(inodes) + (SQUASHFS_METADATA_SIZE - 1)) /
-+		SQUASHFS_METADATA_SIZE;
-+}
-+
-+static inline s32 squashfs_lookup_block_bytes(u32 inodes)
-+{
-+	return squashfs_lookup_blocks(inodes) * sizeof(long long);
-+}
- #endif
+ 	/*
+ 	 * The computed size of the index table (len bytes) should exactly
 -- 
 2.47.3
 
