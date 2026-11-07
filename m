@@ -1,45 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093497;
-	b=s6vMkY+eW2Xzifr8cjKMdyvGABajcEHD+Evi1SKKN51TQPCCkiN2jipeZscsukOt9+5T
-	 QCtcawLkcWVspqllIspJXW2YBUSWO0x8hEQSDBdMLMtqHG5UIp0fXuFLsfFSV1yaR76VM
-	 wyvcODjYGw/0GfspnZlv8BVUI0pzWjx72f3cbT+olJb+PRn0IbDjwv2It6znSF6QIhfEJ
-	 DC8aMJ/qErfSIYjH/Yoky7o5CNr+s3/RxgH8QAzQ1WNbHOhel+Pnn7K+E+uygFArgwjFa
-	 846qwhBJ18gv/sEw0Y/QrVYMc977xpt6eJM+lo/q+w9/fQmI31i11wvwJapBHeXw33Q==
+	t=1794093582;
+	b=ef+NSHpIxX7t95f2skwbVbxrmD0FZULpjjpLECSQMaa2PrSEFnjExEBqlM2rgmE3Ru7g
+	 J3D3WY4TYbZhlvjpgscGDn8lYIg7reGY3ckDYBR05PxcfaAysrK7UczJRas5g0NUJE3z+
+	 iBvr4P8RUu59QmzrO8Vzh1wweciStzi/3zWUTQnZ7qJ6dJaUrzoj4MesNHd0SlmruHMcf
+	 TopNZht2SH6/NRNv7ibu8PZX5ewyTdbOKziqY8fnVbVmQMmjQOHM1MO3E2cetxa6UUuKK
+	 pO2fxr8oKDgpsqJfxgcuZD1dZEe3JzXk+dylV0TY6HzW/OdK3IA9wc1IA2oJ43F0Jjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093497;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
-	 In-Reply-To;
-	bh=B+YhXZl+/eWRBv4RgozyREqWo5C8cExmqjC652z4jDc=;
-	b=k+TtibECMBnpWn2iPGdwhgP4MwfTiL2HMtRlSxCLwDKHcN2adchccXsOA2sZhC0j9rDX
-	 Zleu9pD4UKo7x5yPjy3hyWfaAfDHXf9ofIy5tQbxJDkJTer6Mj2iwbIgCq1jVHyLGUNOm
-	 QIQI7VL97zSCs3e1+XZnWgJOK/lgkoeobPeKKqnExrIApAtjc3DnTNjsHsolsr5gG3q1C
-	 W8cs6/TrmVP7RnZ9OruTsiEQ4CkqsIAzU3rd7ZqgdD7/H2oyYDNoImUIsP0lMyjBAvZQk
-	 e855pGHEJqXeTBmrZe6pbAILdRTIOao+6dnrSZ1/gsUoyHCsQpHcAN6puq8hsG5aUhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794093582;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=PF69+SS9PhWTeKC4YFDrHLixVGiRvKbZmk5tU1R2LTg=;
+	b=cic8wJ46i4E1kiywDrskXRfNc7bbYwVf1Fc2irZDh4Tya9DKkXQRU7KRj8pQcaFF2pRk
+	 a0g5VkW4BbUDshP+d7fmLd8tbDtMh5sJLXn0gtYhpw+cFW4LrvprBBgxc9NXf1feMbaI3
+	 IeqDQdYeiH0k+J6tXQv6sZRi1qzzsZHyJ2zwdll4fsEy5m0EIkwC+yvzFfFMEyW+PPzJu
+	 Z24RLfU+2ekrrq5xPpf0oM0/hIDdoSpltadGMkfdP+sm/Dgr+zBiVQIhR+i4SB7sBld7V
+	 dp4QNVK7YkHQHkfRG8AenyeggDHLoXvkwlhmnOdmNuYNPGM8YU5/AYDX9/dcYJslaPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMw1HOP4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Grf1uZT1;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D3E606A326;
-	Sat,  7 Nov 2026 23:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9019B606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 23:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9019B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMw1HOP4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8C11F0089F;
-	Sat,  7 Nov 2026 23:18:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794093496;
-	bh=B+YhXZl+/eWRBv4RgozyREqWo5C8cExmqjC652z4jDc=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=lMw1HOP4tnW3JvJhlRS8xA+R2LNpa3onQ1CAogENBEfkTxzwNmmROKB0asKESEdHa
-	 LPIFeYVb3lS1Dz/iFj/qicZ3WDrRan1q0WmYQMKdOmySZWwKAyYqj5h3Ue0MzFgZ/+
-	 9TEKM6luuvc7jGFr4RZoSECPhQJjVn1VcGYbIDdVIK36Rj6y6VKjavPgCBtGMT87ml
-	 +f896MxhHF4w08uLf3NpmqjGiitdaHUvjreWODi0J4zt1FQxJkBFnQIyeV2izKbLu7
-	 nGH2dRZ0aaKmytkZrSSMcmRvqg9Fzc9PBJjsNk4a8qe7s06vm5RyJTirG0+5Tf+6aF
-	 UE3hcIKF20jDw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Grf1uZT1
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1931ff67a29so109286c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 15:19:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794093582; x=1794698382; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PF69+SS9PhWTeKC4YFDrHLixVGiRvKbZmk5tU1R2LTg=;
+        b=Grf1uZT1ki6mWyW6f7JfaUBUTdfJJZNUf8KE/6UoQdKUEinzHOM96u/IGcERcgjFY0
+         rLSUqmsJMkefK4LraaJljvg3j70lHLDRHxLLVNz5lIT49VfWCVCqlHxOdvmS0NqjQFga
+         XLj3HKGtvxFPvA6YA+dS5ZcjUx+KoqG6RnbJDOR5Nrof2Bz6y0Wjt2vk+Y5cSwkLHsNX
+         uF1m7QsrQPj8o79znxlTlw05OSLIT4co/1/FL6H1zpIELPqFWoBJLuwlkmO1AIN5GNMA
+         Ms6Ieji8QrTv9JzHveGngRty2/n5b6LlsyBknRy/BrHM6J+x0mO2Mepoga96eXOUs6uS
+         vWmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794093582; x=1794698382;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PF69+SS9PhWTeKC4YFDrHLixVGiRvKbZmk5tU1R2LTg=;
+        b=04FENsWwo6pQ8lDwu3F+A4zm7ofGtXhFBN4qWkO5LJsUdlhpUc/LsNIk5QjaJkDdwh
+         97ZuchafC8nO23vUtbiO/su4pG80JsNYLKdVWE34Bzx4m5uDhiYvTN+X8oT6iMaSK+Ld
+         IoeWeIRP7foXKI8/J5r8WyJDWP9bOceI4qin8Tv23VFJ6V5hLAymvX1xds8+91NZu2+z
+         y1HFEwOiaW70JlKoeAl443RjeYM6uYtEjMzXUSIbRr4cs8bWpZPNlCkwSlDyds0aRzIq
+         PDRLNOXZP66dvjVjdMhUxt4E5frDURkpnETRn7H7I/zLTgYJNcE8uqeEg6GViUotfGwc
+         J1rA==
+X-Forwarded-Encrypted: i=1; AKwUvBxY8C2c5tYS/a/82X7X8Q+i6nvCTcnkdNObOTyDSbnUfkhqDsHnp5goHmv2JZoa6TVDqlTRYLDSp1m0vpk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PVEY9XRsQb8jdfwq4zyxIofqSoTIFk3T7iFta1INQkZJP4XRm
+	ov4oV6M1B6vVqkSfKOwNKSjA02wAkoCwr5pqTFjGLL8/s7h8PnJsTuhC
+X-Gm-Gg: AYBFou2boxw8RnzcKGpC1JXXg8djsAC0vteLBgwdSK0tVHG7VJmQu4ZnKzDOl8i1oqh
+	4kElb6u+JQxpm/4xxDWeP4mREvQFfUpKpBog6F8s8rF84MggvGZ8A6O8iC6Zstl7f40cK+RIW9d
+	LX3yhFDPNyj5icCv9yKtXex/VcLS8Z8tL9cufZ/Pz9y9xu9pc66ngZtifzCPjVIMhDOTN/r3Ng4
+	hh4HY50UdPxjIhhifht6SH3svCazuo0ICjgVPeHOBV36cGojs+7Usgyl06mF0pAWpPNiAlZTB4Q
+	igB4yAxmnboJgl/JeUyG9qAfmu046HoYyNq3N02mxRJfwEZMvlYqkz+Bxp1rSnWnW9WSlg3k98j
+	bsnOY9ZceZr/YehOfQmemRp1lAeDGI+GH1loyeRMhMu4tgAMB8/L6f2OroFtvdudGuNzrW5g6pv
+	4LnJ0pazsr9MiKnc+8SgQS7/jnJJmDtQo3yKEkR3xceLnDxhsT7Z+zTRlN9Z6zuN/3E5qJTbNjT
+	ThKv5uze6NJm1+XdSgeAWVS+YpuMBrnJhukbNPufSdrdEjzWTc2UUY8lPAGtkew/R1epAc9dcBO
+	B4u+RPnDBMr5dSauZq5e08JFqy8WY02h+mX61gSrwboJAjfZAO3ZQpm80HVgt28BPTvG
+X-Received: by 2002:a05:7022:5f05:b0:18c:e014:6f1d with SMTP id a92af1059eb24-1b39fe2ebbdmr64845c88.1.1794093581391;
+        Sat, 07 Nov 2026 15:19:41 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:5a4:1cb9:242d:4f00])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375603ee8sm1483648c88.9.2026.11.07.15.19.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 15:19:39 -0800 (PST)
+Date: Sat, 07 Nov 2026 15:19:38 -0800
+Message-ID: <f7574ee1581d609d45e0ff35e6d908b0@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: amijoy - mark amijoy_phys as __initconst
+In-Reply-To: <20261107174739.369375-2-blum@kernel.org>
+References: <20261107174739.369375-2-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,120 +97,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 08 Nov 2026 00:18:12 +0100
-Message-Id: <DMPD2CDIAW74.2Q60A9JGEPTR2@kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
- module data
-Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
- <jhubbard@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
- <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
- <20261014154554.231015-2-vladazaharova2018@gmail.com>
- <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
- <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
- <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
-In-Reply-To: <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Sat Nov 7, 2026 at 2:32 PM CET, Alexandre Courbot wrote:
-> On Sat Nov 7, 2026 at 10:14 PM JST, Danilo Krummrich wrote:
->> On Sat Nov 7, 2026 at 7:47 AM CET, Alexandre Courbot wrote:
->>> On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
->>> Another thing: since this is declaring now a proper interface, can you
->>> move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module=
-,
->>> say `debugfs.rs`?
->>
->> I think that makes sense.
->>
->>>>  impl InPlaceModule for NovaCoreModule {
->>>>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self=
-, Error> {
->>>> -        let dir =3D debugfs::Dir::new(c"nova-core");
->>>> -
->>>> -        // SAFETY: We are the only driver code running during init, s=
-o there
->>>> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
->>>> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
->>>> -
->>>>          try_pin_init!(Self {
->>>> +            _debugfs <- DebugfsData::new(),
->>>> +            _: {
->>>> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a devi=
-ce is bound, which cannot
->>>> +                // happen until the driver is registered below. What =
-it points at is dropped only
->>>> +                // once the driver is unregistered, so it is valid fo=
-r as long as any device is
->>>> +                // bound, and nothing reads it outside of that.
->>>> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
->>>> +            },
->>>
->>> Let's move this initialization into `DebugfsData::new`, using
->>> `pin_chain`:
->>>
->>>     /// Returns an initializer that creates the shared debugfs data.
->>>     ///
->>>     /// # Safety
->>>     ///
->>>     /// The returned initializer must be run exactly once before the dr=
-iver is registered. The
->>>     /// initialized [`DebugfsData`] must outlive the driver registratio=
-n.
->>>     pub(super) unsafe fn new() -> impl PinInit<Self> {
->>>         pin_init!(Self {
->>>             root: debugfs::Dir::new(c"nova-core"),
->>>         })
->>>         .pin_chain(|debugfs| {
->>>             // SAFETY: Per the method's safety block, the driver is not=
- registered yet, meaning that
->>>             // no device can be probed and thus nothing can access `DEB=
-UGFS_DATA` concurrently.
->>>             //
->>>             // INVARIANT: Per the method's safety block, `DEBUGFS_DATA`=
- is written before the driver
->>>             // is registered and points to a valid instance of `Debugfs=
-Data`, which is pinned
->>>             // and dropped after the driver is unregistered.
->>>             unsafe { DEBUGFS_DATA =3D &*debugfs };
->>>             Ok(())
->>>         })
->>>     }
->>>
->>> That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
->>> relies exclusively on `new` (and we made it unsafe to force the caller
->>> to do that).
->>
->> Actually, I would leave that part as is.
->>
->> Eventually we'll have registration data for driver registrations to shar=
-e module
->> data. Once we have that, we'd need to change DebugfsData::new() again an=
-d move
->> that part bnack into NovaCoreModule::init().
->>
->> Besides that, DebugfsData has nothing to do with the current limitation =
-of
->> publishing module data to driver registrations; the module code seems li=
-ke the
->> correct place to deal with this.
+Hi Thorsten,
+
+On Sat, Nov 07, 2026 at 06:47:38PM +0100, Thorsten Blum wrote:
+> amijoy_phys is only read by the __init function amijoy_init().
 >
-> Makes sense, let's reduce the churn indeed. In this case I guess
-> `DEBUGFS_DATA` will need to be made `pub(super)` so this module can
-> initialize it.
+> Also declare amijoy_phys as const.
+...
+> -static char *amijoy_phys[2] = { "amijoy/input0", "amijoy/input1" };
+> +static const char * const amijoy_phys[2] __initconst = {
+> +	"amijoy/input0",
+> +	"amijoy/input1",
+> +};
 
-I think DEBUGFS_DATA still belongs into nova_core.rs (including the
-debugfs_data() accessor) since it is a workaround to make module data
-accessible.
+While this technically works because __initconst only places the pointer
+array itself into .init.rodata and leaves the string literals in .rodata,
+I find it too subtle and fragile. input_register_device() retains the
+dev->phys pointer for the entire lifetime of the input device, so if
+anyone later turns amijoy_phys into a 2D char array to avoid pointer
+indirection, the strings themselves will move into .init.rodata and
+dev->phys will become a dangling pointer after init (with no warning
+from modpost since the reference is inside amijoy_init()).
 
-I'd also like the accessor to be an associated function:
-NovaCoreModule::debugfs_data().
+Could we either just mark amijoy_phys as const without __initconst (it
+is only 8 bytes on m68k), or drop amijoy_phys altogether and do:
 
-Thanks,
-Danilo
+	amijoy_dev[i]->phys = i ? "amijoy/input1" : "amijoy/input0";
+
+in amijoy_init() (which stays in .init.text anyway)?
+
+Thanks.
+
+-- 
+Dmitry
