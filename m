@@ -1,54 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794026021;
-	b=B8h1BN1Lhd1cUjiub3Lq6PL03zao8QQkuLDCTliC1lWMdOfcCwkladAjTFpxld/Kk3Le
-	 toXNJutn34umDfJ96R3f4IqkVaeBTuRpwxMVZrCurKEknuG06Q5wT4pEB1X0P1yvIF51Q
-	 mbjfxNlalvaufuz3RQUKlpl3o6DtOxZFYZNCNJswsINMcngKbSTH6lXSDfflM9SUSq8cV
-	 EBZPRPaiHSI2GDlLUYT4szFhNSJuWImt0qhLFoAl+wgwQR3W9hxfuk2iwnMxcOyS8IdaT
-	 egvdLNRFs/LL2eCEkJ4rrF1e7YGwNGroRP12MrZ8mzZaNSeyRVCMM0sRGd/zefGlOaQ==
+	t=1794026141;
+	b=kspq9S4D3K1s4lZgY1bJ688oRmZaiND9gzxWknc0iWjYOCnNBB7qnSpo4kurddd8WgaH
+	 0murEDX7+j8BL4YvJuy0LOyI8k8upVH7DXiZZxjVEpn82OZ0JaEBkGYcj93FZSl0fRkL4
+	 mOZRlx9kk7jwZP1UpWRwUZq/eOpZKBcobHOgRLvrXizNRXfXLDHLSfhQDMmXN0qbUYhTX
+	 A5dJgAMaxrkzbdFM1H8z1yLzckRQxGbF42jjGU0yN7CtfsQ144z6RsSR1y62F5AWl+twy
+	 faOByowcda2bHBACb3nvFXkRO4fKwtx5jMFmTQPUcgj78vugCMEqPY4FVl2eidk0z0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794026021;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=7NFle5EcCexVV6wXsp0CMRBUK7BzcYXOnIxO69P4PHU=;
-	b=41Lb7kdGlXr1QF6aWeuIR8jE6KOk3eT+PG8bx0sYdzPMnE6cyw8HV+AF4k1DaL7TbiEQ
-	 SueahAkrr7V8ad54iTRtKZ5oi4rb9+VcUzPiWtVsDLGhWoGa52O6rViJeX+YCiGQgFuDc
-	 +Ge4fiZEixDDiveFafaE3Nt8MwODn/1EPI4adX3V735wFm3yDrndUgsZFyC65HScMtEHQ
-	 M91/kzML54Ep6x7xuVFaARL77MV2dTVt+f27ysHCVybyfK1yCluVBQKutQb41Tg8sQLA6
-	 hLLpymuvCia25++xyycd4N6s5dj9a+LrpF88mW2teUtvvAROLT7WU0EIlvwsi7C6ctA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794026141;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=MvHfwqxnITLEmZ60YMsWy2FLliYhfwUeFt5wDcWcge0=;
+	b=mEiYV7SM33qUioLBmJpuMCYYDiQH/kIxM2fTbkChiCmlPMmBwUGouENeqdUA4fJpBL2p
+	 ckKkDeUzr72u92LS3rSWKV8lw91ih4JO/bPSlFcnvGCZZwCvEG0wkkc2bUMHSpCI6nxkm
+	 jsj3p+a52XxPSoJsTcc9BrDmLvW8ubtKq5v/cXPvFTAlp7ug/HXfFgmTm/QuuJXXNG/aB
+	 VcF0OcWSbuePIqofJC/DZLIWBgSN2Kz4uXX/CL0iB8pOYaKoswTCyEe0tietTm1yCtyQB
+	 +ClIbNnkSBqaDv15apB2LNE9CEnxr0QVPaKyN2wIiFnq0cE3menwwzDXqSC4fCY0HPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=kxQ7+oKU;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77849606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:33:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77849606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a45b3f0bdfso1928924b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:33:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794026020; x=1794630820;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7NFle5EcCexVV6wXsp0CMRBUK7BzcYXOnIxO69P4PHU=;
-        b=Cs1B7fjvpqX2gphk+fsGCj2rAqsc2RXMiX2/aIo8KAxPcuF8THMOxqft9FGHFF3j6e
-         1pZWB2xLVKNty89k07R2cVcIBCD97BelxwQEoPBRLwAo2O8N82QdZU0HF7QSB1eCa8M/
-         wc7fUC25/ap8K13+48vSffkbRjr7uqG35SgJB7JXJykSuiB4FB3KT2j3PPs7HCDLYN0b
-         lhqNraQI62c8zMmNJ0itm0KkVWVGrICtFfAXuiBU4oo2Brp6kW1RhmsA9aPa71CBYN1Y
-         Wf5lKdDoSsVZ10zZr3r7hBPko1eHvYtvD66og9TZ3AU4d+pbIltrrQzNdb49vhRGiK8P
-         hFiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzoYBdOShpWUgKs92QwBCbHYgiFo2zMypebykT4kMAdZoFtIsRU9qdgn1pkqAeu12i+h7XCCwygyq7niNk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7xBrM3p6yrb2Izhloymfcpsuqx7q+yZKryVwbFNYurNg1Lrm6
-	3epdh3K7vCqXlImelZIVkYcirP8GXSA5tnMj8vibrNB++7jQZRoxmbB21/v2FFMqgqFGcEhMUvP
-	XYdhnNcYxIRUX/rUAQh8ZiJn6SABFgcUqoDWGHwLDE0gUJc8dOgUzCyd/TdQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F53F606A326;
+	Sat,  7 Nov 2026 04:35:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F53F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=kxQ7+oKU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1794026137;
+	bh=xGrqAPM3/yGheJqqlcuYYHnksr4oG20RsPZFgl1bBFA=;
+	h=From:Date:Subject:To:Cc:From;
+	b=kxQ7+oKUB2lJmNxhxL2SoviSmJUWyUjxQLNq2XXyVdYAJPnamdBhHUiki7IY8OHnR
+	 xWNuGarXF2STBAdzSQEnhVn+X6cWQT9I0f0VKEAU62wElSqz522iwEJfFz06CIuvgB
+	 LT0o1AhAvusGgkhJYVq2LqxOl3FxOkXlAmGgVbow=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Sat, 07 Nov 2026 04:35:29 +0000
+Subject: [PATCH] PCI: Constify struct configfs_attribute pointers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,62 +52,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1b0a:b0:4ec:4c7e:37b5 with SMTP id
- 5614622812f47-567e154cc49mr3455968b6e.29.1794026020468; Fri, 06 Nov 2026
- 20:33:40 -0800 (PST)
-Date: Fri, 06 Nov 2026 20:33:40 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aeeaa24.1da6ca5c.10a313.0000.GAE@google.com>
-Subject: [syzbot] Monthly block report (Nov 2026)
-From: syzbot <syzbot+list1913a7ecb8f6c20c529b@syzkaller.appspotmail.com>
-To: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261107-configfs-const-pci-v1-1-8545f5886a01@weissschuh.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NywqDMBREf0Xu2kCSgn38SnGhcWJvF9HmRhHEf
+ 2987ObAzJmVBJEh9CpWiphZeAgZTFmQ+zShh+IuM1ltK2P0XbkheO697EGSGh2rzlYej+dNaxj
+ KwzHC83JI3/XJMrVfuLSbrkbEb8pv6apt2x+t31axiwAAAA==
+X-Change-ID: 20261107-configfs-const-pci-d26fe89300e1
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794026133; l=4715;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=xGrqAPM3/yGheJqqlcuYYHnksr4oG20RsPZFgl1bBFA=;
+ b=CnEILBanyVprfAhdyywENhFkctXXmmJIZezCMhgVADEPc/UkO7wl0pf5NV9HrHuCaMm3PhT5s
+ RVbXszA4HmAD0k5scdpngNXILSm5UiBba/BuFDCEZEDkbrkgR14+R1g
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-Hello block maintainers/developers,
+In preparation for the constification of configfs attributes, make the
+pointers to struct configfs_attribute in drivers/pci/ const
+and use the new ct_attrs_const field of struct config_item_type.
 
-This is a 31-day syzbot report for the block subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/block
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ drivers/pci/endpoint/functions/pci-epf-ntb.c  | 4 ++--
+ drivers/pci/endpoint/functions/pci-epf-test.c | 4 ++--
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 4 ++--
+ drivers/pci/endpoint/pci-ep-cfs.c             | 8 ++++----
+ 4 files changed, 10 insertions(+), 10 deletions(-)
 
-During the period, 1 new issues were detected and 2 were fixed.
-In total, 30 issues are still open and 124 have already been fixed.
-There are also 34 low-priority issues.
-
-Some of the still happening issues:
-
-Ref  Crashes Repro Title
-<1>  4342    No    general protection fault in lo_rw_aio
-                   https://syzkaller.appspot.com/bug?extid=cd8a9a308e879a4e2c28
-<2>  2419    Yes   possible deadlock in blkg_conf_prep
-                   https://syzkaller.appspot.com/bug?extid=144a1c0e22e53a08ef5a
-<3>  1749    Yes   INFO: task hung in blkdev_fallocate
-                   https://syzkaller.appspot.com/bug?extid=39b75c02b8be0a061bfc
-<4>  323     Yes   INFO: task hung in __rq_qos_throttle (2)
-                   https://syzkaller.appspot.com/bug?extid=53706c567afab5131044
-<5>  219     Yes   general protection fault in rtlock_slowlock_locked
-                   https://syzkaller.appspot.com/bug?extid=08df3e4c9b304b37cb04
-<6>  69      Yes   BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
-                   https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
-<7>  34      No    WARNING in blk_mq_dispatch_rq_list
-                   https://syzkaller.appspot.com/bug?extid=49b69d460fb5134ee1d7
-<8>  31      Yes   BUG: corrupted list in blk_mq_request_bypass_insert
-                   https://syzkaller.appspot.com/bug?extid=f4353e96f7004ae5a09e
-<9>  5       Yes   WARNING: lock held when returning to user space in blk_throtl_init
-                   https://syzkaller.appspot.com/bug?extid=1eb53c83ab8b0a0302a6
-<10> 3348    Yes   WARNING in blk_mq_free_tag_set
-                   https://syzkaller.appspot.com/bug?extid=02b37e31e64ea5cb6d29
+diff --git a/drivers/pci/endpoint/functions/pci-epf-ntb.c b/drivers/pci/endpoint/functions/pci-epf-ntb.c
+index 5314aca2188a..ae3efbe4ef41 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-ntb.c
++++ b/drivers/pci/endpoint/functions/pci-epf-ntb.c
+@@ -1984,7 +1984,7 @@ CONFIGFS_ATTR(epf_ntb_, mw2);
+ CONFIGFS_ATTR(epf_ntb_, mw3);
+ CONFIGFS_ATTR(epf_ntb_, mw4);
+ 
+-static struct configfs_attribute *epf_ntb_attrs[] = {
++static const struct configfs_attribute *const epf_ntb_attrs[] = {
+ 	&epf_ntb_attr_spad_count,
+ 	&epf_ntb_attr_db_count,
+ 	&epf_ntb_attr_num_mws,
+@@ -1996,7 +1996,7 @@ static struct configfs_attribute *epf_ntb_attrs[] = {
+ };
+ 
+ static const struct config_item_type ntb_group_type = {
+-	.ct_attrs	= epf_ntb_attrs,
++	.ct_attrs_const	= epf_ntb_attrs,
+ 	.ct_owner	= THIS_MODULE,
+ };
+ 
+diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
+index d4905aa8e4c0..a97a986ddf51 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-test.c
++++ b/drivers/pci/endpoint/functions/pci-epf-test.c
+@@ -1441,7 +1441,7 @@ CONFIGFS_ATTR(pci_epf_test_, bar3_size);
+ CONFIGFS_ATTR(pci_epf_test_, bar4_size);
+ CONFIGFS_ATTR(pci_epf_test_, bar5_size);
+ 
+-static struct configfs_attribute *pci_epf_test_attrs[] = {
++static const struct configfs_attribute *const pci_epf_test_attrs[] = {
+ 	&pci_epf_test_attr_bar0_size,
+ 	&pci_epf_test_attr_bar1_size,
+ 	&pci_epf_test_attr_bar2_size,
+@@ -1452,7 +1452,7 @@ static struct configfs_attribute *pci_epf_test_attrs[] = {
+ };
+ 
+ static const struct config_item_type pci_epf_test_group_type = {
+-	.ct_attrs	= pci_epf_test_attrs,
++	.ct_attrs_const	= pci_epf_test_attrs,
+ 	.ct_owner	= THIS_MODULE,
+ };
+ 
+diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+index f77e28f2fe96..31f527ae34c8 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
++++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+@@ -1314,7 +1314,7 @@ CONFIGFS_ATTR(epf_ntb_, mw2_bar);
+ CONFIGFS_ATTR(epf_ntb_, mw3_bar);
+ CONFIGFS_ATTR(epf_ntb_, mw4_bar);
+ 
+-static struct configfs_attribute *epf_ntb_attrs[] = {
++static const struct configfs_attribute *const epf_ntb_attrs[] = {
+ 	&epf_ntb_attr_spad_count,
+ 	&epf_ntb_attr_db_count,
+ 	&epf_ntb_attr_num_mws,
+@@ -1335,7 +1335,7 @@ static struct configfs_attribute *epf_ntb_attrs[] = {
+ };
+ 
+ static const struct config_item_type ntb_group_type = {
+-	.ct_attrs	= epf_ntb_attrs,
++	.ct_attrs_const	= epf_ntb_attrs,
+ 	.ct_owner	= THIS_MODULE,
+ };
+ 
+diff --git a/drivers/pci/endpoint/pci-ep-cfs.c b/drivers/pci/endpoint/pci-ep-cfs.c
+index 590e5bde57ef..44f68188f307 100644
+--- a/drivers/pci/endpoint/pci-ep-cfs.c
++++ b/drivers/pci/endpoint/pci-ep-cfs.c
+@@ -210,7 +210,7 @@ static ssize_t pci_epc_start_show(struct config_item *item, char *page)
+ 
+ CONFIGFS_ATTR(pci_epc_, start);
+ 
+-static struct configfs_attribute *pci_epc_attrs[] = {
++static const struct configfs_attribute *const pci_epc_attrs[] = {
+ 	&pci_epc_attr_start,
+ 	NULL,
+ };
+@@ -263,7 +263,7 @@ static const struct configfs_item_operations pci_epc_item_ops = {
+ 
+ static const struct config_item_type pci_epc_type = {
+ 	.ct_item_ops	= &pci_epc_item_ops,
+-	.ct_attrs	= pci_epc_attrs,
++	.ct_attrs_const	= pci_epc_attrs,
+ 	.ct_owner	= THIS_MODULE,
+ };
+ 
+@@ -458,7 +458,7 @@ CONFIGFS_ATTR(pci_epf_, interrupt_pin);
+ CONFIGFS_ATTR(pci_epf_, msi_interrupts);
+ CONFIGFS_ATTR(pci_epf_, msix_interrupts);
+ 
+-static struct configfs_attribute *pci_epf_attrs[] = {
++static const struct configfs_attribute *const pci_epf_attrs[] = {
+ 	&pci_epf_attr_vendorid,
+ 	&pci_epf_attr_deviceid,
+ 	&pci_epf_attr_revid,
+@@ -515,7 +515,7 @@ static const struct configfs_item_operations pci_epf_ops = {
+ 
+ static const struct config_item_type pci_epf_type = {
+ 	.ct_item_ops	= &pci_epf_ops,
+-	.ct_attrs	= pci_epf_attrs,
++	.ct_attrs_const	= pci_epf_attrs,
+ 	.ct_owner	= THIS_MODULE,
+ };
+ 
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261107-configfs-const-pci-d26fe89300e1
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+Best regards,
+--  
+Thomas Weißschuh <linux@weissschuh.net>
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
