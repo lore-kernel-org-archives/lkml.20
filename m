@@ -1,78 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794089708;
-	b=ClTqW6EG48Vm7xAYV11sgJrb6qPsUw3GW5LraqiFCKuoWWybDAhEiw6RsdiTZ33qqJ7p
-	 y81ykYJohZjxVGFFRTBGUT30jgq1/KrNygd6dVrBHN83E4vwfdBDAonI4BSNorTg9eWLF
-	 d1iGQqS+Wv9BWubmuT8eu/CSlIKWZu4tyjIhiIl0OrIYvcc7woq7MXihvJt60i6W+Meb9
-	 yikQ0jjfDJ+oKa9LydJ23W2peWtzob5FgCVFgSxF8kLRFMVwK/N7n9x61Ywl0AyAy4Rcs
-	 d7p52svR+jrkN9UJGywgE+eIl+blh7raAOmRITm5VWShj189cTzWMs1GzO7pVZZwJTA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794089708;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=R41m1RfyOsbYcj9ik/CD2n0LFKU1CRTt97iO/p2LpY0=;
-	b=aKiORv/ERsPsypiQvsRabsbucJObJaHy4fys1TdMFZxJEYU4ZdcrAEEFiowMp/QgSErI
-	 UDSGUgeHkhtr3Yi4hGPzNuwTnc7TE/mnLmbG6WUiba/0CZkYeSZ4h5j6BZTmEwc+w+nY2
-	 nKKB/LqZYIYBIIdzLMQ6tIRunTkWoAYB67zX2CX229hLDkB83J8t4aNkSqDzUsqeWF6g9
-	 54Z/dw41F4ZQidqAbwusjAnsRZlOEpdJc5wbWXitW29R1OTpfgDx/RC6pkzRuC7nhja+v
-	 4TEEWPpxEee16RWr1++m9y6FRRKuo9/Ftjs+3yq+DvD3X2gFsL9HI8sReN26cUCMhNw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hydPMooU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B931F606D801;
-	Sat,  7 Nov 2026 22:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hydPMooU
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794089707;
-	b=c4ztBDjh6vTaN6R/mGxo5L3wZzAxqzrfVAtOft6S6+GXE8zgkAR6vHoIK1EboIq4zsfe
-	 IalNURI6WddtitpVPWGsJbQtIB6kfvi+9PJR20Yopac8Tf0UvB5Aw83lwRNCdF4VPoiRD
-	 BaRpbW/pTAzQ4yAGIO/SpMp7SMgV0el/QsUz/g2sjVSKoQCOKWJ2kmzWa5LtNcXBGaEZb
-	 JLMgFhE5oeqUqznC832XJWMKqAhs+VARE6/7cAJ0kbCsYPZwa8itGVWnlGsbU82SfZzuO
-	 DI3CTSuEs4FsslrK0791kY+zjZuYz5yze8T02UECfbGOotd32tD7uZjoT+EJskbH5FQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794089707;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=R41m1RfyOsbYcj9ik/CD2n0LFKU1CRTt97iO/p2LpY0=;
-	b=EQf8DyKxAOPBToFDaTi/OBeP/IyHtk9Uq978aohpbKkwOpkpIWkMFrt5pjNWPhp/+NxF
-	 6fIUS4cY/LF7btCNf2LWYJGHorulWt4at3vr/lht7gXn47I0Q2N674Vh9Trh8QbrIvub8
-	 DIz+DcU62i3dnOaQKB1uN0L3awO8TezAKGjAdiJLXT/uyjqUKXMguhopOXIkSsEYYMT7a
-	 w5ZGNMgBJ9K4gq16F1cA3NcyLD3totsOdw/75S0IZMh9f+t0VFyqwcuSQbl1NBslZlohH
-	 MvwmypGB4hjITsEJTQIyMV5RI5ASX7cV48BUwtIiOxbdJO9XW3DMBdv4uwdgeWxYGfA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.2
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794089716;
+	b=pqKm/aTeD0lNvz1aN0ai59H13M1rrbJ5OTtQN+wKQiDjVIn91AXJ5kZ8cBdtAb8k84C0
+	 CunVd3xqbUVcl9u65QG/n71SSljz58FYSz3GX4RTVfwLSsB5f2irfZvEK0yyTSQxVb1zL
+	 fOMpLtNMKeaITp/cmfM8vRaDebS/bjVsWY6neYwgmRtlqDq8lindWbu7nEE5QaDr9d6AC
+	 wINltzXWwpptMBJLPfbE12M/DnhKS0HCMtUqC2Tfv5+JAi4cpeWQT4tKSorDb0qdjrJUT
+	 djfsI7DwpTQTormeeTZMDaa/QP/6NpBgRckZ62YoPuc/C3KB8zKh9jR17ciMP2UqbCA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794089716;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rtChpQ65eeoLVdZ/dFUA18szw3uQepSIX2YdKa6qr4g=;
+	b=X5OCPZRevD4zeNbT5fiaPyWSQxPkkSeZ5FkQZY1Nu3xSGySnrA+z/5PuucJo+E7H9qfI
+	 fLhXPFnsFNM3WzzRfqeHCkYkGCdKR26aLdZLfOc0TT9OEPA0NI0uM2nHsspi7X4djsuoo
+	 2dFSHqPitcDs8XREbWLnOQNASnB9CB17+fHPRlZV6WSnnEm+5yybzgJNnqwxPGA2CJdUb
+	 C7LezP7voUMT0isoSOQkp6NAsUWC4WzTpU6XCgcOXp7YC0QlVDDsbXLpiOk4IhsWSrtpV
+	 e1x01RQL2g943ZusPLGMYSLWVnqF2fqF6DG3lJ4goFrCjgU0eZhipPR24o3wqkcNHlw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kTpmOR66;
+	arc=none smtp.remote-ip=74.125.229.2
+Received: from mail-dy2-f2.google.com (mail-dy2-f2.google.com [74.125.229.2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5D5C81F008A3;
-	Sat,  7 Nov 2026 22:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794089706;
-	bh=R41m1RfyOsbYcj9ik/CD2n0LFKU1CRTt97iO/p2LpY0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hydPMooUzbHGRbVEC9TmTbFPXNlRJUThkbDi88sY11Ti3HDVX5TbLGu5CNIQ+GLXJ
-	 e+bDlHpyYzRvP75l+/supOekI/xmuZy86ZS1kaDsZRJDyAYHoPgJkR9SDu+wO3V9I4
-	 vZoy62NMn10IAGFaIeS7PeeyLl7wwgRd1i3rnui2UXKkRa2pJw/gMpIHDZSCaiE4Vp
-	 KGGwxFEflD51QByxTH/cVAu/QXADAyA9I0fG+JFhNzJV53f2IPIvOuK6OYouT5dg+e
-	 SwpDiMQUNLISTWem/K0D+kKKNLve0mwVWozm19rEZbXH1ZNrTDQO166x5TTzP9Mayi
-	 bmrmByhG3f4JQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DA5FB47D3C;
-	Sat,  7 Nov 2026 22:15:04 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Sun, 08 Nov 2026 00:15:05 +0200
-Subject: [PATCH 3/4] iio: light: stk3310: add vdd regulator support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B792D606D818
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 22:15:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B792D606D818
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kTpmOR66
+Received: by mail-dy2-f2.google.com with SMTP id 5a478bee46e88-370ebdde89eso100976eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 14:15:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794089710; x=1794694510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rtChpQ65eeoLVdZ/dFUA18szw3uQepSIX2YdKa6qr4g=;
+        b=kTpmOR66dBAIZkOKjeV1xswlTFvCGfcB1D5HxfKVUivRzVFMkk/UcARm7blrsZiYwZ
+         isqPtifc+JRwjb+eRX0uyk+d8xiaSsOfHL/MH1ezmplm0akBw+v6bDmQdO2DpfCGDH0m
+         2IDYRwjzTSqsgXTWTs5Ix5qBq4g83lDPefss02DtmhWSPRzZxxTP2oztUTWWW9D83m4d
+         5YXjrxqut0QXpRhkvz3YRAX9vmlqnkpKGdexKwYEvUJdkn67VaQWvHpjApQ884/2VK/J
+         ioGgxSWAMjcVBpKkgWCCT8y5dyAjyNQeIdpoz0bmLnfMorwgk1wEwb1Up013iZzd+8PY
+         2ZjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794089710; x=1794694510;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rtChpQ65eeoLVdZ/dFUA18szw3uQepSIX2YdKa6qr4g=;
+        b=DW7kX5/cwkVGp3hhdU729Cr8ueAOusrWmHMxYnTicVsCFFETaFxMDBt1iVCUKwbJiV
+         cUX9gRZvvgS388aIwv8iM1FwJV1sS/A0DnCtYusRd60f4J8gSgmmLPoIa9UNZD0Zb212
+         PHhCicCTC9IzkjxNrFavCsh565Be2XZe2/F1jdc2SJBZy8Ksl9MZn15f7sYXg0PPfdy8
+         2Xw3KDcbTOxUYMVhjjQfMQoNG8erEigCQRyHWXJGe6iX/P5vtzQTFiTYXyH8qUKhu9qb
+         NmE0dmGpVPw7X0uRl83YBUJFZolsPD1Mn+cLC4aQOUflKgDepYK+Lb1pf2sSRUC75XRh
+         +s2A==
+X-Forwarded-Encrypted: i=1; AKwUvBz5636t/ltmCOQc64uQbVqMUa/uptCPvkznj9yoSlX6c/MbzGkbsrb+aG7ObKI0GnV6g7CMiFBIsHtsnpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Mzuo6S8Tj3mRjnlLX4LrseB54tsALPe/IClNQomyrW3DdT5OV
+	4zIgkho7CF7/gRqSRWCZgHfAd1ZOQ9d/ZQpgnmUhSDZZ9bty6QZ8Uxtg
+X-Gm-Gg: AYBFou1wpzvFhMIQ05lFbGvWJPAYvFw2i7Ngln0zIk//Rbj3QogSPh8DWgYcLWsngIZ
+	MwoetYzrYdce+wMVKimJOsBHXH/PgdnEn/dfL8W5qM3KjdxuBuQJxDntj505neKalBjzu0q1ZID
+	CIRVPRBqlQ3vClIUPHS8MDlpfsIRHYkaIzjqAf1C+BajuFg3mL5zSXZ5zVnLTQbxHiD+FzbaU8L
+	06Tx+hMc8cgMd5n13aPrga1oDjh4RClUVFYnH8z5AHSIB4NrurUcQoCv47lTy9LfvkZz46W/eKV
+	vv/iJsN5JF3cwV8AX9zicRp4mlJwDqUfRSCGBajUkiuWoJFWe8PGx/D62nkPQA1Ue11HeyxnlSY
+	NSS7rNRtjmxk1cO9IyC4kkV+Omm/1Uj1rkVkfYUVEWaNMRxWSwBHmkEiLfJeQASMjngJIgB6HQI
+	6f7zSHQ/pdqzIt740kjbVkKVHpFrr/inb3HBIGO56uaFzvOhEZHuVTQX43OA7cxWRqIBTUcvyw8
+	YNUVgL+MmHoeObAVy8yEE04WGVNuNxwt3xjkIX0Na+BzGEtphthSLAvcTaJCXzj8Ld46IugqNFD
+	uS7/uRbqiQCG0W5M6GVfPQQDc6Fh8rpxlPLdCoOjXuk/g/W0fXGVmoWpOECjC0PH/7bjUiHZ3Fi
+	2JGw1ti8o1N9LJb14WyqdV2YKHjz662McVLne8w==
+X-Received: by 2002:a05:701b:4348:b0:163:bee9:b250 with SMTP id a92af1059eb24-1b25d321963mr8857586c88.22.1794089709615;
+        Sat, 07 Nov 2026 14:15:09 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755eb6efsm1465914c88.4.2026.11.07.14.15.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 14:15:09 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: okaya@kernel.org,
+	vkoul@kernel.org
+Cc: Frank.Li@kernel.org,
+	andy.shevchenko@gmail.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH] dmaengine: qcom: hidma: avoid world-writable channel sysfs files
+Date: Sat,  7 Nov 2026 22:15:00 +0000
+Message-ID: <20261107221500.96825-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,70 +101,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-6768-stk3337-v1-3-0340c99b0e33@protonmail.com>
-References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com>
-In-Reply-To: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794089703; l=1105;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=w804U03umdc3nXZE7jsNqEsJ+dWAgFZ1E0X2zGBKj/w=;
- b=XRZgatFrMMs1SZDMdHyCxHz8zpsOzMo/oFHRSR8U7x2jdaU7GBjuhFgfyuZqJEo1f0PnjZH8D
- 00KWvfvaEQEB9yg71p999FmADDpQHKYUOza8RMXXB15FMzmHv4huq1Y
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Roman Vivchar <rva333@protonmail.com>
+hidma_mgmt_init_sys() creates the per-channel priority and weight
+attributes with S_IRUGO | S_IWUGO, so any local user can write them.
+A write stores the new value and calls hidma_mgmt_setup(), which
+programs it into the channel's QoS register.
 
-On some boards, the sensor is powered by shared power rail. If the rail
-is powered down, the chip can't function.
+Attributes declared with __ATTR() are checked at build time by
+VERIFY_OCTAL_PERMISSIONS(), which rejects world-writable modes. These
+two are created at runtime with a mode passed to
+create_sysfs_entry_channel(), so the check does not reach them.
 
-Add optional regulator support to ensure the power supply is enabled for
-the chip.
+Make them writable by the owner only, the 0644 that __ATTR_RW() uses.
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+Fixes: 7f8f209fd6e0 ("dmaengine: add Qualcomm Technologies HIDMA management driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/iio/light/stk3310.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/dma/qcom/hidma_mgmt_sys.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
-index e751e7c97bc1..2f4747c06f43 100644
---- a/drivers/iio/light/stk3310.c
-+++ b/drivers/iio/light/stk3310.c
-@@ -18,6 +18,7 @@
- #include <linux/pm.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/sysfs.h>
- #include <linux/types.h>
+diff --git a/drivers/dma/qcom/hidma_mgmt_sys.c b/drivers/dma/qcom/hidma_mgmt_sys.c
+index 9672ef9ee8fc..53b991752e80 100644
+--- a/drivers/dma/qcom/hidma_mgmt_sys.c
++++ b/drivers/dma/qcom/hidma_mgmt_sys.c
+@@ -265,13 +265,13 @@ int hidma_mgmt_init_sys(struct hidma_mgmt_dev *mdev)
+ 	/* populate parameters that are per channel */
+ 	for (i = 0; i < mdev->dma_channels; i++) {
+ 		rc = create_sysfs_entry_channel(mdev, "priority",
+-						(S_IRUGO | S_IWUGO), i,
++						0644, i,
+ 						mdev->chroots[i]);
+ 		if (rc)
+ 			return rc;
  
-@@ -745,6 +746,10 @@ static int stk3310_probe(struct i2c_client *client)
- 	device_property_read_u32(&client->dev, "proximity-near-level",
- 				 &data->ps_near_level);
- 
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get vdd supply\n");
-+
- 	mutex_init(&data->lock);
- 
- 	ret = stk3310_regmap_init(data);
-
+ 		rc = create_sysfs_entry_channel(mdev, "weight",
+-						(S_IRUGO | S_IWUGO), i,
++						0644, i,
+ 						mdev->chroots[i]);
+ 		if (rc)
+ 			return rc;
 -- 
-2.56.0
-
-
+2.43.0
