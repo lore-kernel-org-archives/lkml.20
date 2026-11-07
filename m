@@ -1,55 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=98.137.65.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068391;
-	b=cFhVfRZUL0D9e23sbbY90obcimH38plUJ75JVFPi1FCdgvW+Xc5DOS2WWOcoBRog5/q1
-	 IcxI/KrgwuUdtHdJVGri3hUeNVtsqJgQ2POv8tEK9BS79ihV387U040VYwcyru8mp1sQ5
-	 jylAGW6V8BjyJ/BHmL8lR+pKHqPjRcERsyhTicRXDxyz3KGQDtqI6gs4l7Ah6T0iUYiiO
-	 ykK7TT2wgFkpRLXPZfYa3d103/kpGS49wpMuPhVh3v8/+6bmVG7Zzj5sxnoS3igf3uam5
-	 jMbZGmiW2KBEe+mEIDa2BPhPoAtnZ8wSVjeMdL8bOXiil4AzU7wctw9x6jJ6f+Cb6yg==
+	t=1794068544;
+	b=4h/CzXuSQB98co72XYfEjipBK9rubAPsiHZwBMTnEtgJ8rHuNyhBC9HpZMbwE2sG9/nR
+	 VCueC+nVJfJ1Qj7K5XXDkn3lE5epcXy6NAcltY66kEQvu1xRS7jAmBCUSAzObY0/GsKw2
+	 j1lHlteAjW0XGCRJspY9lgQqyxgHOv7SAou1XDZ0/kFOyqxBme0QQolSeOzb/85x9XwVH
+	 vS1JAAQOn1KUYtnL+G0NQ5FleHyv49JN8OBMJ4PHM0tW43xva2fpCweskPaqBCvpsCplb
+	 E1GNYq8hT92jt4ICtwy4NPFi86hej7DhhKSpmGMnhTT4hHxh0K0N3D2c6y2AhEowP8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068391;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=/72SgcPEMM3F/N2neV1OG/ke5AY/5EhppmI694uJEck=;
-	b=46u2MfmAEnnJTILqmtpetWeO0czE9nNFMR7MK+cTcnZdZo6SW7y1QeInKPValQF6ayx6
-	 1dd6fUG0oDEdSM48rNFvu1IKfqSn7MQXbiCGQvTvL8YQpVdjAQKxfEKp1d3nxLnfJSAo3
-	 NWpmtD2RW5rsRit6yMeAt4mkY+IsfXc0xyD+ig5jP/64fV0n4ZT5NPiMTsqcEZQZEOl5x
-	 0vMhqCOLY2BLM8+EEKG8qfvlEcIYi86PZjNnAxWjlXqTtyCq2tQYkbpDo4yLfGGSHt6cn
-	 12jDVgKHYy0e0J0FJvVbU30ZSxzsUNcJbYCKKRh0D4DC/lGJkFsPOxpsBMnm23lRDYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068544;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=oROIpyW/wuPrKD3YfrN56npu9YJ+fEEUp5oFz9jJmCI=;
+	b=421p4kPavVyp7gnApKfXZYjA+hOVLfa+zb+DCeX77HKqtRzD+ep94suxzHGVwO+h6HQX
+	 +LyG+pCWQFojXsd3UEf8JPxF2gHV2axZpL8ifbu+NM/AgysZMi/uzf4QeBciVLDvOQp2q
+	 Y4/A48jIwuvg9631CARQCZ2FpAmvazR3qplJmrB8CM7uW0TRMH8Vc9Sjb0HiW/Zkg2AAi
+	 MLkWSBXWbLAFuEGJitNOCHQELGddslqKmze2XwujoLjhYPN0zLdBnRkYKIHvVRMq9LYYg
+	 NuJBwNAq7DlUNp2vrJEj3xE86uiiMrcoDdv0/+cD+dgl0sXUg7vA+0/yk4mT6Pd0XwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=aol.com;
+	spf=pass smtp.mailfrom=aol.com;
+	dkim=pass header.d=aol.com header.i=@aol.com header.a=rsa-sha256 header.s=a2048 header.b=dx+287pB;
+	arc=none smtp.remote-ip=98.137.65.205
+Received: from sonic311-24.consmr.mail.gq1.yahoo.com (sonic311-24.consmr.mail.gq1.yahoo.com [98.137.65.205])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3823606A326;
-	Sat,  7 Nov 2026 16:19:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3823606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAB3hJWfT+9qFauBAA--.25840S2;
-	Sun, 08 Nov 2026 00:19:43 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Mark Brown <broonie@kernel.org>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
- Haibo Chen <haibo.chen@nxp.com>,
- Han Xu <han.xu@nxp.com>,
- imx@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org,
- yogeshgaur.83@gmail.com,
- vulab@iscas.ac.cn
-Subject: Re: [PATCH] spi: nxp-fspi: Fix runtime PM leak in nxp_fspi_probe()
-In-Reply-To: <a06cbf19-7b6f-449e-afc6-b9cd71c35d42@sirena.org.uk>
-References: <20260917153713.2160743-1-vulab@iscas.ac.cn>
- <aqwzyjKASxfxtxTT@SMW015318>
- <a06cbf19-7b6f-449e-afc6-b9cd71c35d42@sirena.org.uk>
-Date: Sat, 07 Nov 2026 16:18:54 +0000
-Message-ID: <1794068334887.2923426.58377675424543950314@iscas.ac.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D08606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:22:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99D08606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aol.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=aol.com header.i=@aol.com header.a=rsa-sha256 header.s=a2048 header.b=dx+287pB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1794068542; bh=oROIpyW/wuPrKD3YfrN56npu9YJ+fEEUp5oFz9jJmCI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=dx+287pBUIiY8QrAu+DHO65EE0aYIb0SufmS/0usjDPVMHeUh+LnUnIk5mF+SGn34vGE7ZJjPYFpZ3xpu9c6B8w5uKDQ5jBjkES8OdWr+d2qPBorLGw+yNhTGG2QETHfbMls7Ne76C46ErKlNSxvSaNklwCVfw3XXzp3sNjl02HAl5JBLOA90hxlwgRQTAO6ZnlpkPsbIAK8pXewlOdYcXzZTkYo+N0jTZyCUjTxwAZMquHAyK9/GZIBpwKj3DbWU4qJI3aBqFcRd9MqjTihR9vbJ7o5GpodNhi3Zl9hc4gLxMGsvR8z2pi8au8csVaL6YI+9tCQE0ZsNgE/THBo/g==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794068542; bh=DTakXC9HQrj+cDqU5Gf5d+U/VzEDlPewUhDLHVGL9h/=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=HMlC5sK+m3xDn0CkCPOujSoSU37PURMFD7dZGT8efqe17KTs//XfyMw6zwoI4DMqEF3gyG+F4VH2Rn2FVogVANT3hf4noSC5lTk4XaQ2kbJD2kkihUrq1KTRlQXuFU3XB4AUzH4Vn2/4kDqnkYkwxyNYX9xcClBA2uH+6vLW/rYjqCsQkj8JuaixaVjfYwl7e4t8nEomHQD8e0/yRQZPs6jMSAzuWZODbgL6fcwCwKMpzqVOiNnx/LHll0WqrMwbaPQBuux6GFJktoAByT1eySRRAZ77FH4FPlgVbYLCU/EhlReRlBzoRW/6OjAGMTYSyFG1Hdmf6l1N7gCFjpo45Q==
+X-YMail-OSG: meWDOFYVM1mcADasHih23up9BSDhkpf.0ph9MJFLu3qXyWQ7AZMnlcMjHJwEj_O
+ tvxnSRZm74vW3m7dzVc8JylXU.M4wNoRUg_wo6e5RUl_hEnWfhDLpHhQJNE9uUvLcDww5zjU3vsD
+ awHFdcWGe1p3U9u6rOO.2hZGuPXxDAAYhBlfpYz2ZN3SC.aTPzvztn1.QhxVHfBjCdqYDwS.j8cA
+ 3X4GQnFVn2Zu40V.tTTDeYcUvI0Am3W7.aJLOSOxcs8hrE67G_vmqT.iaYK9PYB.BjQYEksV1Qh2
+ .GKu4f8TFdq5KCCU4wVYenFEo8J7gUPZiHyEC9lNqNcVKiRu3pLEhhckQAYvFazGNwgVOSg1OZee
+ RQDtjb5o7bieyAP.VEFq3KQ6GlNUKrwc5p57hWDRhoDeXkoXYNynmsIrp9jQgT6Ap.4Kj7k9XNPb
+ l4ryIIXts8fGk_KLopLic5Q5PqPIDnvuuVKUDvFft370XUXr2vZT0Dvy6EN8q1EICtIXOmYqaswl
+ sIQYJ0INxnqF.r565eTqUPwN9If49knHa53mdBFN5.PeRj2RrtwAhkfQd95npuZDt15iTfLvKbAr
+ HXyypByatwFKzv8DULjNyYFPuwYDDT2qQMFaUSGMnp_alVBILEP3Zrcg6.PJhmWJTOLCYhVkQL5j
+ .dEiJqUFt_E0InIGh03qB6UkNUWK9uoN63GX71JqmNU.GWZSjGTcOoUX5X6N5Rorfa0hfoNoAEiH
+ wi_vx.htIem_2dWk6uYGQ4_1MOEy_IBytr7oNnvBmDrqBSt2yAyE2_MFoA1fj2EvduaxYcLSQPxI
+ st3qjkgzWMB4mE2OoLCUizuq6X1yUQAnxbldKhREX_kuiIPC21hbwgAme2vjwlQYEX4lLi1cRU_C
+ rqofWkrIXeUWSz4x6vViLMRm_q2m.UNlkEDeA_rzLT3G7ejGdPOGT0xvbN_JdxPqjf3mfLE7Bflq
+ wCxOTvGOiRKF5pVIzkUVPrgQ6a418rTjiE08RjK_N59NObvM1nhPacZNWCo50fvMw79BRWed2lpc
+ wP7_iz5npoHiSRdDjenLH5bCYj17RYM2cUJNNrkCBrExxLn87lWkYPP6HECWXV95OvGh3uyKDqrQ
+ 5uA2HsR22QgKzN9t6t5PhGoWl0A3f_Jl1B6ppL19A1RfxX.1kQia7ZQzGAX2Z3kRt1J6tVzYcF8U
+ sMC2Vhs2nHyOjUYZy.qKpLZPjNr_mAhdZlDjDE8MMKYC2BScWmk2yM4Qw9K.Lt3XZXPIDy4FZJoc
+ yXhI5uA1frH_GzYgVgAEQI4l4LVbiOH0n73ulfKXKrZClkfEnXHFP56yS0HciW79i3qTBsPOoXYB
+ RD0Ue03Nnixvx0J_7_GRd2F6XERbAfkLQc26fp9ezTz.0oraxG7Vg85G4v13QexwtNcLjpomDr0G
+ TpYOXwQdj3xfwAL__U0pGhIwnFvzV2Ho5mMZWJEIuBwlt3sn8ZpnD_JwSKBlnHGo8ZrEk0omWp9F
+ JrME1f3WiUCTxlEZexoUX.4nNbTHW0U73AOiRg_v_4fOkRhdbOcLwIaFwhIDdWydpC_NohTFD_B8
+ 6nyn1cq_M6RALMrJRbqglcaIyTf6eA_RAS1oRrqN4UgsjDFsMXuO3RuyAJjZeGd2j9g1Xp49WeOm
+ haq2DVPIqeqhEWsj7ZrsCAp9Ulw0rbwuC.lMGqOc4VdBDlAB47s_VH5kQxWSvpwMyjFhN9jx51tp
+ A9GQ7cTYMiGSeMB2WccliqmHBMiX1A_MGd0CHNdsv7lMUIorHgPT_HoTuH4yNshdBYJ2GFqzkj2k
+ hsfrH5ZkpgrB0zreBPjsvnT8yW.CkgaNdu9OVD3yPv0JwcG5mUEFfaqy9QbliKqfNAIQJDSeU4xw
+ 5nEBONpoXVt48VxXxwlQxqYW0RChkyARA7nx2VNgklfiztUVNKKng1f3LPpRX3XpZogwFNPcFV90
+ dpnz32ZLmgickjeF2RhvkzHjgtiTutwNenuaksTJHgQUC.WFah9VGE1EwyQxPuOz6hDwtyWQ31N7
+ KfNarZgvHkml8y5Xe99dZZF0BEqX602T3iCmOVxOravE8RxRKwYp1Oe86dRC9GGjNZO.wDLEZX5p
+ 7DijlsdXodS4lYLI17u4lwGghXJk.bGdAr.LIxrLWuIAoFG3QcA5lyxa4J4WRNXfpcVunQkGQ0tN
+ rRlnubvjUPp0yKhHCxMn6x6dDU7Gj8rxiTtXCK1Hy2RQrplHk.oPlTM5y8..XdpserxhDpD9wFFN
+ Dzc_KE9VxNEV8yFMQ1VdsXlfI4PEWBH8ye5gRlKiTcl_qIn38joZgQqc6oG4HSw--
+X-Sonic-MF: <rubenru09@aol.com>
+X-Sonic-ID: 3c0b4d3a-4b79-4873-ae8f-f54142884bd5
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.gq1.yahoo.com with HTTP; Sat, 7 Nov 2026 16:22:22 +0000
+Received: by hermes--production-ir2-5dd9bf4598-cdfcp (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 994c5c73ac4f7d9f986d84c8d5b6b884;
+          Sat, 07 Nov 2026 16:22:17 +0000 (UTC)
+From: Ruben Wauters <rubenru09@aol.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: Ruben Wauters <rubenru09@aol.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] drm/gud: move format init from gud_probe()
+Date: Sat,  7 Nov 2026 16:21:10 +0000
+Message-ID: <20261107162207.26336-1-rubenru09@aol.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,71 +93,261 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAB3hJWfT+9qFauBAA--.25840S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur45tryxtryxtry8ZFyftFb_yoW8WF47pF
-	ZaqF1rtryDXry0vwsFyw40qa4Sk398GFZrAF98GFyqvw15Jrs7tF4rG3Wjqa17urZxXa17
-	tay8tayfGa1Dta7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUva1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcV
-	Aq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
-	6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAK
-	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
-	uYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQEA2rvPcsZfwABsO
+References: <20261107162207.26336-1-rubenru09.ref@aol.com>
 
-Hi Mark, Frank,
+As part of the cleanup of gud_probe(), this patch splits off format init
+code from gud_probe into it's own function. This makes the code more
+compartmentalised and easier to follow, and makes gud_probe() smaller
+and also easier to read.
 
-I am sorry for the very late reply, and for the review time this patch
-cost you. It does not apply because it was generated against a tree that
-was already a couple of months out of date, and the change it makes had
-been merged in the meantime.
+Signed-off-by: Ruben Wauters <rubenru09@aol.com>
+---
+V1 -> V2:
+- Removed output parameters for gud_get_formats()
+- Added gud_get_max_buffer_size() helper function
 
-Frank, you were right that pm_runtime_resume_and_get() is the correct
-call here; that is what the merged code uses.
+Apologies this v2 took so long
 
-I rebased on current mainline (v7.4-rc1) and the fix is already there:
+V2 -> V3:
+- Fix potential num_formats underflow
+- Skip XRGB8888 in size calculations if emulated
+- Remove redundant r1 and XRGB1111 size calculations
 
-  5d14285d60ba ("spi: nxp-fspi: disable runtime PM on probe failures")
-  Jiawen Liu, applied 2026-06-30, first released in v7.3
+V3 -> V4
+- Take XRGB8888 emulated format into account when calculating
+  max_buffer_size
+---
+ drivers/gpu/drm/gud/gud_drv.c | 185 ++++++++++++++++++++--------------
+ 1 file changed, 111 insertions(+), 74 deletions(-)
 
-It converts the initial clock enable to pm_runtime_resume_and_get() and
-routes the probe failure paths through err_disable_pm, so the unbalanced
-reference this patch was about is gone, together with three other failure
-paths that returned with runtime PM still enabled:
-
-        ret = pm_runtime_resume_and_get(f->dev);
-        if (ret < 0) {
-                ret = dev_err_probe(dev, ret, "Failed to enable clock");
-                goto err_disable_pm;
-        }
-        ...
-err_disable_pm:
-        pm_runtime_dont_use_autosuspend(dev);
-        pm_runtime_disable(dev);
-        return ret;
-
-So there is nothing left to resend: please drop the patch, I am not
-posting a v2. Checking against the current tree before sending is
-exactly the step I skipped, and it is now part of what I do before
-posting anything.
-
-The quoting point is taken as well; this reply quotes only what it
-answers.
-
-This is an important lesson for me. From now on I will go through the
-remaining review comments one by one myself and answer them, and I will
-not send patches in bulk again: the rate will be what I can personally
-review, test and answer.
-
-Thanks,
-Wentao
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 680447f426f3..1ffb2a4fc901 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -435,11 +435,115 @@ static void gud_free_buffers_and_mutex(void *data)
+ 	mutex_destroy(&gdrm->ctrl_lock);
+ }
+ 
+-static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
++static size_t gud_get_max_buffer_size(struct gud_device *gdrm, u32 *formats, u32 num_formats)
++{
++	struct drm_device *drm = &gdrm->drm;
++	size_t max_buffer_size = 0;
++	size_t fmt_buf_size;
++	int i;
++
++	for (i = 0; i < num_formats; i++) {
++		const struct drm_format_info *info = drm_format_info(formats[i]);
++
++		/* Substitute emulated XRGB8888 for proper format */
++		if (formats[i] == DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulation_format)
++			info = gdrm->xrgb8888_emulation_format;
++
++		fmt_buf_size = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width) *
++							 drm->mode_config.max_height;
++		max_buffer_size = max(max_buffer_size, fmt_buf_size);
++	}
++
++	return max_buffer_size;
++}
++
++static int gud_get_formats(struct gud_device *gdrm, u32 *formats)
+ {
+ 	const struct drm_format_info *xrgb8888_emulation_format = NULL;
+ 	bool rgb565_supported = false, xrgb8888_supported = false;
+ 	unsigned int num_formats_dev, num_formats = 0;
++	u8 *formats_dev;
++	struct drm_device *drm = &gdrm->drm;
++	struct device *usb_device = gdrm->drm.dev;
++	int ret, i;
++
++	formats_dev = devm_kmalloc(usb_device, GUD_FORMATS_MAX_NUM, GFP_KERNEL);
++	if (!formats_dev)
++		return -ENOMEM;
++
++	ret = gud_usb_get(gdrm, GUD_REQ_GET_FORMATS, 0, formats_dev, GUD_FORMATS_MAX_NUM);
++	if (ret < 0)
++		return ret;
++
++	num_formats_dev = ret;
++	for (i = 0; i < num_formats_dev; i++) {
++		const struct drm_format_info *info;
++		u32 format;
++
++		format = gud_to_fourcc(formats_dev[i]);
++		if (!format) {
++			drm_dbg(drm, "Unsupported format: 0x%02x\n", formats_dev[i]);
++			continue;
++		}
++
++		if (format == GUD_DRM_FORMAT_R1)
++			info = &gud_drm_format_r1;
++		else if (format == GUD_DRM_FORMAT_XRGB1111)
++			info = &gud_drm_format_xrgb1111;
++		else
++			info = drm_format_info(format);
++
++		switch (format) {
++		case GUD_DRM_FORMAT_R1:
++			fallthrough;
++		case DRM_FORMAT_R8:
++			fallthrough;
++		case GUD_DRM_FORMAT_XRGB1111:
++			fallthrough;
++		case DRM_FORMAT_RGB332:
++			fallthrough;
++		case DRM_FORMAT_RGB888:
++			if (!xrgb8888_emulation_format)
++				xrgb8888_emulation_format = info;
++			break;
++		case DRM_FORMAT_RGB565:
++			rgb565_supported = true;
++			if (!xrgb8888_emulation_format)
++				xrgb8888_emulation_format = info;
++			break;
++		case DRM_FORMAT_XRGB8888:
++			xrgb8888_supported = true;
++			break;
++		}
++
++		if (format == GUD_DRM_FORMAT_R1 || format == GUD_DRM_FORMAT_XRGB1111)
++			continue; /* Internal not for userspace */
++
++		formats[num_formats++] = format;
++	}
++
++	if (!num_formats && !xrgb8888_emulation_format) {
++		dev_err(usb_device, "No supported pixel formats found\n");
++		return -EINVAL;
++	}
++
++	/* Prefer speed over color depth */
++	if (rgb565_supported)
++		drm->mode_config.preferred_depth = 16;
++
++	if (!xrgb8888_supported && xrgb8888_emulation_format) {
++		gdrm->xrgb8888_emulation_format = xrgb8888_emulation_format;
++		formats[num_formats++] = DRM_FORMAT_XRGB8888;
++	}
++
++	devm_kfree(usb_device, formats_dev);
++
++	return num_formats;
++}
++
++static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
++{
++	int num_formats = 0;
+ 	struct usb_endpoint_descriptor *bulk_out;
+ 	struct gud_display_descriptor_req desc;
+ 	struct device *dev = &intf->dev;
+@@ -447,9 +551,8 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	struct gud_device *gdrm;
+ 	struct drm_device *drm;
+ 	struct device *dma_dev;
+-	u8 *formats_dev;
+ 	u32 *formats;
+-	int ret, i;
++	int ret;
+ 
+ 	ret = usb_find_bulk_out_endpoint(intf->cur_altsetting, &bulk_out);
+ 	if (ret)
+@@ -510,81 +613,16 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	drm->mode_config.helper_private = &gud_mode_config_helpers;
+ 
+ 	/* Format init */
+-	formats_dev = devm_kmalloc(dev, GUD_FORMATS_MAX_NUM, GFP_KERNEL);
+ 	/* Add room for emulated XRGB8888 */
+ 	formats = devm_kmalloc_array(dev, GUD_FORMATS_MAX_NUM + 1, sizeof(*formats), GFP_KERNEL);
+-	if (!formats_dev || !formats)
++	if (!formats)
+ 		return -ENOMEM;
+ 
+-	ret = gud_usb_get(gdrm, GUD_REQ_GET_FORMATS, 0, formats_dev, GUD_FORMATS_MAX_NUM);
+-	if (ret < 0)
+-		return ret;
+-
+-	num_formats_dev = ret;
+-	for (i = 0; i < num_formats_dev; i++) {
+-		const struct drm_format_info *info;
+-		size_t fmt_buf_size;
+-		u32 format;
+-
+-		format = gud_to_fourcc(formats_dev[i]);
+-		if (!format) {
+-			drm_dbg(drm, "Unsupported format: 0x%02x\n", formats_dev[i]);
+-			continue;
+-		}
+-
+-		if (format == GUD_DRM_FORMAT_R1)
+-			info = &gud_drm_format_r1;
+-		else if (format == GUD_DRM_FORMAT_XRGB1111)
+-			info = &gud_drm_format_xrgb1111;
+-		else
+-			info = drm_format_info(format);
+-
+-		switch (format) {
+-		case GUD_DRM_FORMAT_R1:
+-			fallthrough;
+-		case DRM_FORMAT_R8:
+-			fallthrough;
+-		case GUD_DRM_FORMAT_XRGB1111:
+-			fallthrough;
+-		case DRM_FORMAT_RGB332:
+-			fallthrough;
+-		case DRM_FORMAT_RGB888:
+-			if (!xrgb8888_emulation_format)
+-				xrgb8888_emulation_format = info;
+-			break;
+-		case DRM_FORMAT_RGB565:
+-			rgb565_supported = true;
+-			if (!xrgb8888_emulation_format)
+-				xrgb8888_emulation_format = info;
+-			break;
+-		case DRM_FORMAT_XRGB8888:
+-			xrgb8888_supported = true;
+-			break;
+-		}
+-
+-		fmt_buf_size = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width) *
+-			       drm->mode_config.max_height;
+-		max_buffer_size = max(max_buffer_size, fmt_buf_size);
+-
+-		if (format == GUD_DRM_FORMAT_R1 || format == GUD_DRM_FORMAT_XRGB1111)
+-			continue; /* Internal not for userspace */
+-
+-		formats[num_formats++] = format;
+-	}
++	num_formats = gud_get_formats(gdrm, formats);
++	if (num_formats <= 0)
++		return num_formats;
+ 
+-	if (!num_formats && !xrgb8888_emulation_format) {
+-		dev_err(dev, "No supported pixel formats found\n");
+-		return -EINVAL;
+-	}
+-
+-	/* Prefer speed over color depth */
+-	if (rgb565_supported)
+-		drm->mode_config.preferred_depth = 16;
+-
+-	if (!xrgb8888_supported && xrgb8888_emulation_format) {
+-		gdrm->xrgb8888_emulation_format = xrgb8888_emulation_format;
+-		formats[num_formats++] = DRM_FORMAT_XRGB8888;
+-	}
++	max_buffer_size = gud_get_max_buffer_size(gdrm, formats, num_formats);
+ 
+ 	if (desc.max_buffer_size)
+ 		max_buffer_size = le32_to_cpu(desc.max_buffer_size);
+@@ -650,7 +688,6 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 		return ret;
+ 
+ 	devm_kfree(dev, formats);
+-	devm_kfree(dev, formats_dev);
+ 
+ 	drm_client_setup(drm, NULL);
+ 
+-- 
+2.56.0
 
