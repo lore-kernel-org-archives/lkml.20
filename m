@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011830;
-	b=Rv6OX2pBkfcblVZgG59+rAc7RKYWYT5bv6CCHC7i9xnMOts/7lbO1iLBjC9SEgK+h7it
-	 PDkGvO4MJd6Ncw5DMA/dHgx4o3D8CdCx9owdBt5VqTee+cskmxklbHjXdK7q9O0I6By57
-	 OyFQQSrRQHEYPVhy2qd5wUX0AvbQnFQx3splRzjCFCRLDREzQnytYSgcyPUFbPmaZijp7
-	 0SsxrrN0Oj/6C7KCYuKwihghe8QCLlS/9peLBJLsdmdXy2dFGWXER+SDxrQSAqZU5mSCC
-	 ikwGDHELU/iLNELOiA5HbyqH7vTpQWidNGMSiRR4uszknDFKKg7+6WICYHGgmtTTgmg==
+	t=1794011827;
+	b=eYQk5NSWeMi2aRQMWys0K38+SSLmtPrfy9uuJeyKa6rAFdcrCoG0uWH8KIXDX0QIzuJT
+	 aUEHwiV0pcd2w5Fnq1C5G53AfboYcLERF73/u9LEBRvFFbqCOOIDvwAHPcTJRHxg5Y8+A
+	 dwTaeT1QkmxHhY36c7/BV4T7cln5yyWIoxvtlxdEHunQa0axt1n7rb4Oi0kUoFWUPg3wj
+	 Gqi+So3VVIF0aLFpJOgAFMun19VA1H88KKcKGi1hdqjsEKesmFFs+SHZDMDi6yNzjbJQW
+	 yYmC1sKw/A9ACuCwK8Q9zc1pcyO6DHT4/n2Al9AKEJy6bC4ZjG3ajLdLbiK/GJoPP7Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011827;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XnHUrxh1SR1r8PJyXaJlDOb3GL3FiynLANr7SpLGnpw=;
-	b=YYnc2Cr1jHacs1ekgBWmZSHaMea3jv6JnDtT9UPFP4ycuUxCXjOVdSU4FltJ6l9v9/fo
-	 8PH89+x3j9LEX9PUwYBydj0V7uhYpzhhpv5uKoKElIAspgbAdnS92YZptiFfOoVxgsE0N
-	 RwuKflNfhxVCjmU4cb5qavxNbOgHBOaQXXV7skdz/W5rHKhPswnglpwvSTE8OKnC94pPK
-	 Uyp1zXvkkloiaeuZKTgzl3tLJEZZ/rEv7MMwMwSrLYBHsHWI5FUiqujAOUUN1oG/5dQKu
-	 yHqqQPaMM0jKSh1UjJuZ3GPNJHIITqdhlLx/7mqKADlxWGxXFiYMCsuK+jgrhDxPIpw==
+	bh=Gk2cfa76K7no8CMo3L+lgNXbKBncI0WegUISZ77kabk=;
+	b=RCQxcVfMvgl4l+bKdJ7mieR6owf7MmbfaOLqmacfTqMEC4ZuV3GVtlyA0wv7JH4+CHo4
+	 /HIbZ5aJrZr3Yi5/N/EKJrhhnnXT0vy1+8AvJpJDFc1bVhWRvCp1H7K2LRsp+1sxm3/C7
+	 MlY9eYV02pM8puqF16pDnq93/khWAkxIoEgGw/xA9+DWuXrXTkRtKY2dmMew6AFUu6p50
+	 QjtDi0MWnRapQJpwqPFa2SPcz/dZ4SZ0XrZDCdevWJh0HPCv4Bu7F11xcZpXt4RSUKrJ9
+	 VDb2zYRQVkSf0dDlCddcvyh01qXf7w2RjwrMm4rGnShfXqkSMep4/+8mvjVk/32SJIA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PcdzordF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DH3WWfas;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8798460A383B;
-	Sat,  7 Nov 2026 00:37:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79445606A330;
+	Sat,  7 Nov 2026 00:37:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PcdzordF
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DH3WWfas
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011830;
-	b=RQlRhEi2ur5W94Dy/+OM0XOA8ujFcnIKwAEeQp5ksQJTjumBxAg1INIQdwyjX2XC2S/6
-	 F84GxY/2rTeP3OSRJOFY8vARcOOe9u8BQ972DIOMj8myn9LCdCA+Yw//2FscphGkMryXX
-	 JHR4KNp+qsSMwQwr1fsTO7iBmVaMIEL4a9MdnPYpnEyJTdz7PyttyujjwHKMnyhDKcXjA
-	 7cRvFj2Z+UMV5JZ7UcOAt6vGRZbo5LScJqhJJ4bnqBDpeslXlpl26hMpdWtCETqWYekSA
-	 IsDcPkwusxIad1wjh2TWZ+Utidae4kDnd4E1BEXC/tY1FtlvuoblYKoEK2JVZUmpcoQ==
+	t=1794011827;
+	b=mcEZurotoTGb64iRyoCWiMi4CMxhAn5e10H4rLOnEn4TicyDhmvmzAkEufymJgPxxJZm
+	 xM32x+4V3wD+DxrLNcchy95aLgtHEPDN7+w0KRqdtWe6V3YvAt0E5gNOr4GosGJE9w2GW
+	 4K2LMEQpQxdWJzrHnzwxJIeCkNRQfqI9OHBYKLWHLEhGM5XHtRcFdVLQYnTja6gPTk5qd
+	 4E0HQO6d8Pfmy8wMHcMmY58b8LKkGpMJDb9Q8l7D985B4Uj5V1lX5FfHtf1RBGnM+QS5a
+	 d7V6UIoc9FVxpLK+EQPeH1oie2XoG7GzGLwjk8XIKK7DxDCFfofDaMc9x1NZhnDFvew==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011830;
+	c=relaxed/relaxed; t=1794011827;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XnHUrxh1SR1r8PJyXaJlDOb3GL3FiynLANr7SpLGnpw=;
-	b=aREpAKWjquP7TlxYZ5zV9JZhtXvPXJKrlbzRG7hQ77JuWL6LXU6n9YhDXdzSRkowrtkV
-	 udhfgsHkmY8JlLnpdFK13IB4PXlNH5cx/d8NBsf8mVbMzZXSkyCzqStf7ffaej6GzI/J8
-	 kmYrg0UCYOakx4sRQiNKmAK4UimXctPpo8RwlFtVpnfJ8oRA6LOgSLQ6LkSBPnQT4nec5
-	 06eK02XlX4SurbTvcmnV3Y8wBYjPXkVKEpeun+1ElVuiVRzdYjR/bpfJDN1KiV2nuTwf7
-	 L93uI74kfUyE5HwbN6Syb95VAIIIc1cz2nGu045EISMM1nn46ES0rH+87/ECyXe4pBQ==
+	bh=Gk2cfa76K7no8CMo3L+lgNXbKBncI0WegUISZ77kabk=;
+	b=2ACsTiQ/ldUoSvf48j02V48Gv/bGaBUy6OwZF8Qj3WRNbUBTMnFUAnmVmYgdnTa4QRFI
+	 jTZsr5vXDB+PoyDB9ct1QCYLaBTU9y7DFl5owd+fcrToJATt0ae9t6g6Vjtt5CmltsbVf
+	 JJUS4V39w1H3JDNSyC5p2kgbEFYE4DBgWKIbCuzMNp3TdAbxtMIkGLDC55nk3K9b4wWfX
+	 M3PI9+PiIm4wHX9lpPdvurXZf4hHw+VfJ9CgAhm47H8w1RQSu/ckvOhP7lVPA9g0lDUha
+	 Zi2FHsNbdYfFFS716qYpvc1sL8uxgC9+RClBwf/1F61lmomHxpItyal+WfgO74UMaUg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0FFCD1F00A0E;
-	Sat,  7 Nov 2026 00:37:06 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 23DB31F008BE;
+	Sat,  7 Nov 2026 00:37:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011830;
-	bh=XnHUrxh1SR1r8PJyXaJlDOb3GL3FiynLANr7SpLGnpw=;
+	s=k20260515; t=1794011827;
+	bh=Gk2cfa76K7no8CMo3L+lgNXbKBncI0WegUISZ77kabk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=PcdzordFOmF6/ZXlfFJZVEzZZCZWKG5+Gr4hxUcbtY53hfK2dWNlKLNlAH7KxYI8l
-	 F9muZfoMitC9c/4EUz9EpJQRTkVIq9qigpugZrjIfAQSSwEzawkub5jBmqqKRtkgVE
-	 Dyi+tdvbQ7CNxsRTR/LzWPhxLx+iT2ncph8/RO3EmpGc/q9RBlDrLLAfXJiNwsyoTK
-	 7oNpsGmYNM+x8hlZLEzMSyT7Bjgjxd17LdD6l4NhMCZ5hOkb/T0hPRg2Fxa2yZY4jm
-	 c+76tDuOrerhsaJ1aQvXqWvxi4lFKK4RQSj6ulzOEWNjdW6sOyh3jrac7/+6CmAz7h
-	 wdas3pb0lyjDQ==
+	b=DH3WWfasNX9pU6d7+5nZbKIKlHITxk4F1lol8+uHbsv3C4SeAQTKuwC4NSxr1hkwC
+	 WOPzLbe8hS9k3ohbvrSJKemeUSrj6WGBMZtkeg3dpbOiClVc7LIhhnm+M/3qkQwqLf
+	 ucGG8JcSCBpmEG85PCxbw+bh0J9iJgon90Lfbemsa2/2zYhyrNHAEIKVJEe/gZhQrI
+	 FDltKnrLOBDnc15SXXwssyEB4hQBKM+ZMW27G0iFs70QcZag980Sv3fUD6ur2OvUmC
+	 5BSp0svcy57z6USNpl9t+7UGDnRR+xFnFdeQqzHbjjfMEyG4nKC0h9BIi/ZQ0z+hTv
+	 jKNNjUaHCN0NA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CB360479B8;
+	by lkml.kernel.org (Postfix) with ESMTP id 774AB479A5;
 	Sat,  7 Nov 2026 00:36:55 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:37:16 -0800
-Subject: [PATCH RFC v3 42/88] KVM: guest_memfd: Export kvm_gmem_revoke for
- provider-driven revocation
+Date: Fri, 06 Nov 2026 16:37:11 -0800
+Subject: [PATCH RFC v3 37/88] KVM: guest_memfd: Support reclaim during hole
+ punch in PFN mode
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-42-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-37-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -105,11 +105,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=9183;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011809; l=2960;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=KGi0b4edDBIuTocBQekssX77k5i2otDcPksXtOPmhvI=;
- b=Te9++pLFJFnW4N3FxCx+9OU7l2p3qOhL8KAm2XxPNG+NWA488ixSARUq8p61w3XvYZUqQL9Hq
- +22sSMjPqkqCYF7whbd+ceNyTK0LG1TKeJMLvwoXrP5278iHSI2dzwu
+ bh=A+lPi/p3Z1v064hQ39rLQoc0mJDvEqRw5dAJ/Tf0TGA=;
+ b=6VCGlYPnFECRKbsAYmAxaDdiQTXZkKjRUn6KFTvTXc0TY/u+JgD3lmHTmh8qRzAJPogSJ8NYY
+ STV4EajIPm+BAO+vnnyua9N/mlAtLGXUkAoZ9GqrdKnUInexv9GyoVd
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -120,202 +120,87 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Providers may dynamically revoke physical memory ranges (e.g., dynamic
-page removal or device teardown) and need a mechanism to sever guest and
-host mappings and reclaim confidential architecture state.
+In PFN mode, guest_memfd does not allocate or insert folios into the page
+cache (inode->i_mapping). Calling truncate_inode_pages_range() is therefore
+unnecessary.
 
-Introduce __kvm_gmem_revoke() to share the core invalidation and
-reclamation path between kvm_gmem_punch_hole() and kvm_gmem_revoke().
+Instead, call unmap_mapping_range() when in PFN mode to unmap any host
+userspace PTEs over the punched range, while retaining
+kvm_gmem_invalidate_start() and kvm_gmem_invalidate_end() to zap stage-2
+KVM SPTEs.
 
-Introduce boolean to control whether to call .put_pfn_range().
-.put_pfn_range() must not be called when revoke is used by a provider,
-because the provider already initiated the revocation and calling back into
-the provider could lead to self-deadlock or re-entrancy on provider locks.
-
-Export kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-const unsigned long *pfn) via EXPORT_SYMBOL_GPL. Providers must pass
-both start and pfn.
+Reclaim any confidential architecture state (e.g. SEV-SNP RMP) on provider
+PFNs across the punched range via kvm_gmem_pfn_reclaim(), querying
+.lookup_pfn_range() to skip unallocated holes without allocating memory.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- arch/x86/kvm/Makefile       |  3 +-
- include/linux/guest_memfd.h | 31 ++++++++++++++++----
- virt/kvm/guest_memfd.c      | 70 +++++++++++++++++++++++++++++++++++++++------
- 3 files changed, 88 insertions(+), 16 deletions(-)
+ virt/kvm/guest_memfd.c | 38 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 36 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/Makefile b/arch/x86/kvm/Makefile
-index c6bf463f50327..5fd01bd19d1c4 100644
---- a/arch/x86/kvm/Makefile
-+++ b/arch/x86/kvm/Makefile
-@@ -61,7 +61,8 @@ exports_grep_trailer := --include='*.[ch]' -nrw $(srctree)/virt/kvm $(srctree)/a
- 				-e kvm_page_track_unregister_notifier \
- 				-e kvm_write_track_add_gfn \
- 				-e kvm_write_track_remove_gfn \
--				-e kvm_file_to_kvm_fn
-+				-e kvm_file_to_kvm_fn \
-+				-e kvm_gmem_revoke
- 
- # Force grep to emit a goofy group separator that can in turn be replaced with
- # the above newline macro (newlines in Make are a nightmare).  Note, grep only
-diff --git a/include/linux/guest_memfd.h b/include/linux/guest_memfd.h
-index 697f8f8c9b0ae..fb2279a001ebf 100644
---- a/include/linux/guest_memfd.h
-+++ b/include/linux/guest_memfd.h
-@@ -28,8 +28,13 @@ struct mempolicy;
-  *           @pfn with uniform @pfn_attrs in @max_order. Once @get_pfn succeeds,
-  *           the provider must keep the @index-to-@pfn mapping and @pfn_attrs
-  *           constant, and the memory accessible, until guest_memfd stops using
-- *           this page. Returns a negative error code on failure. The provider
-- *           must define @lookup_pfn_range when @get_pfn is defined.
-+ *           this page. Do not take locks held across kvm_gmem_revoke().
-+ *           Returns a negative error code on failure. The provider must define
-+ *           @lookup_pfn_range when @get_pfn is defined.
-+ * @mmap: Optional callback to set up user mappings. Called when userspace calls
-+ *        mmap() on guest_memfd. The provider can customize VMA flags,
-+ *        cacheability/protections, or reject the mapping. If not defined,
-+ *        guest_memfd falls back to default mapping behavior.
-  * @lookup_pfn_range: Look up the PFN for a given index. This only checks for
-  *                    the existence of backing pages and should not allocate
-  *                    memory. Returns 0 on success with the physical frame
-@@ -41,15 +46,18 @@ struct mempolicy;
-  *                    constant until guest_memfd stops using the range. If
-  *                    backing memory is not available at @index, return -ENOENT
-  *                    with @nr_pages set to the number of consecutive indices
-- *                    starting from @index that have no entry. Return a negative
-- *                    error code on other failure. The provider must define
-- *                    @get_pfn when @lookup_pfn_range is defined.
-+ *                    starting from @index that have no entry. Do not take locks
-+ *                    held across kvm_gmem_revoke(). Return a negative error
-+ *                    code on other failure. The provider must define @get_pfn
-+ *                    when @lookup_pfn_range is defined.
-  * @put_pfn_range: Release a range of PFNs previously obtained for a given
-  *                 index. Called with the exclusive filemap invalidate lock held.
-  *                 This indicates to the provider that guest_memfd is no longer
-  *                 using the memory range. The provider does not need to ensure
-  *                 that backing memory is present; if backing memory is not
-- *                 available, the provider should skip the unbacked range.
-+ *                 available, the provider should skip the unbacked range. Not
-+ *                 called on kvm_gmem_revoke(). Do not take locks held across
-+ *                 kvm_gmem_revoke().
-  *
-  * Used by filesystems and device drivers that provide memory for guest_memfd.
-  */
-@@ -66,4 +74,15 @@ struct guest_memfd_provider_operations {
- 	void (*put_pfn_range)(void *provider, pgoff_t index, size_t nr_pages);
- };
- 
-+#ifdef CONFIG_KVM_GUEST_MEMFD
-+int kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-+		    const unsigned long *pfn);
-+#else
-+static inline int kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-+				  const unsigned long *pfn)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif
-+
- #endif /* _LINUX_GUEST_MEMFD_H */
 diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 1b6fc44ba00bb..023bf095340be 100644
+index 9e8204f5c2588..567735a564c7a 100644
 --- a/virt/kvm/guest_memfd.c
 +++ b/virt/kvm/guest_memfd.c
-@@ -433,18 +433,25 @@ static void kvm_gmem_pfn_reclaim(struct gmem_inode *gi, pgoff_t start, pgoff_t e
- static void kvm_gmem_pfn_reclaim(struct gmem_inode *gi, pgoff_t start, pgoff_t end) {}
- #endif
- 
--static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
-+static int __kvm_gmem_revoke(struct inode *inode, pgoff_t start,
-+			      size_t nr_pages, const unsigned long *pfn,
-+			      bool put_pfn_range)
- {
- 	enum kvm_gfn_range_filter filter = kvm_gmem_get_all_gfns_filter(inode);
--	loff_t size = i_size_read(inode);
--	pgoff_t start, end;
-+	pgoff_t max_pages = i_size_read(inode) >> PAGE_SHIFT;
-+	loff_t offset, len;
-+	pgoff_t end;
- 
--	if (offset >= size)
-+	if (start >= max_pages)
- 		return 0;
- 
--	len = min(len, size - offset);
--	start = offset >> PAGE_SHIFT;
--	end = (offset + len) >> PAGE_SHIFT;
-+	nr_pages = min_t(size_t, nr_pages, max_pages - start);
-+	if (!nr_pages)
-+		return 0;
-+
-+	offset = (loff_t)start << PAGE_SHIFT;
-+	len = (loff_t)nr_pages << PAGE_SHIFT;
-+	end = start + nr_pages;
- 
- 	/*
- 	 * Bindings must be stable across invalidation to ensure the start+end
-@@ -456,8 +463,14 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
- 
- 	if (kvm_gmem_is_pfn_mode(GMEM_I(inode))) {
- 		unmap_mapping_range(inode->i_mapping, offset, len, 0);
--		kvm_gmem_pfn_reclaim(GMEM_I(inode), start, end);
--		gmem_provider_put_pfn_range(GMEM_I(inode), start, end - start);
-+#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_RECLAIM
-+		if (pfn)
-+			kvm_arch_gmem_reclaim(*pfn, nr_pages);
-+		else
-+			kvm_gmem_pfn_reclaim(GMEM_I(inode), start, end);
-+#endif
-+		if (put_pfn_range)
-+			gmem_provider_put_pfn_range(GMEM_I(inode), start, nr_pages);
- 	} else {
- 		truncate_inode_pages_range(inode->i_mapping, offset, offset + len - 1);
- 	}
-@@ -469,6 +482,45 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+@@ -149,7 +149,7 @@ static int gmem_provider_get_pfn(struct gmem_inode *gi, pgoff_t index,
  	return 0;
  }
  
-+static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
-+{
-+	return __kvm_gmem_revoke(inode, offset >> PAGE_SHIFT, len >> PAGE_SHIFT,
-+				 NULL, true);
-+}
-+
-+/**
-+ * kvm_gmem_revoke - Revoke and reclaim a range of memory in guest_memfd.
-+ * @inode:    The guest_memfd inode.
-+ * @start:    Starting page index within the file.
-+ * @nr_pages: Number of pages to revoke.
-+ * @pfn:      The physical address / frame number being revoked. Directly
-+ *            reclaims this physical range without querying the provider's
-+ *            .lookup_pfn_range().
-+ *
-+ * guest_memfd will do everything to make sure the range revoked is no longer in
-+ * use across guest and host mappings, as well as reclaim any confidential
-+ * architecture state.
-+ *
-+ * Before calling kvm_gmem_revoke(), the caller must ensure that future
-+ * .get_pfn() calls for the revoked range will fail so new mappings cannot be
-+ * faulted back in after kvm_gmem_revoke() releases the inode's invalidate_lock.
-+ * Must be called before accessing, freeing, resetting, or powering down the
-+ * backing resource, and the caller must keep the @start-to-PFN mapping valid
-+ * and accessible until kvm_gmem_revoke() returns. .put_pfn_range() will not be
-+ * called.
-+ *
-+ * Acquires @inode->i_mapping->invalidate_lock exclusively; callers must not
-+ * hold any lock that is also acquired inside provider callbacks.
-+ *
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+int kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-+		    const unsigned long *pfn)
-+{
-+	return __kvm_gmem_revoke(inode, start, nr_pages, pfn, false);
-+}
-+EXPORT_SYMBOL_GPL(kvm_gmem_revoke);
-+
- static long kvm_gmem_allocate(struct inode *inode, loff_t offset, loff_t len)
+-#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
++#if defined(CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT) || defined(CONFIG_HAVE_KVM_ARCH_GMEM_RECLAIM)
+ static int gmem_provider_lookup_pfn_range(struct gmem_inode *gi, pgoff_t index,
+ 					  kvm_pfn_t *pfn, size_t *nr_pages)
  {
- 	struct address_space *mapping = inode->i_mapping;
+@@ -385,6 +385,35 @@ static void kvm_gmem_invalidate_end(struct inode *inode, pgoff_t start,
+ 		__kvm_gmem_invalidate_end(f, start, end);
+ }
+ 
++#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_RECLAIM
++static void kvm_gmem_pfn_reclaim(struct gmem_inode *gi, pgoff_t start, pgoff_t end)
++{
++	pgoff_t index;
++
++	for (index = start; index < end; ) {
++		size_t step = 1;
++		size_t nr_pages;
++		kvm_pfn_t pfn;
++		int r;
++
++		r = gmem_provider_lookup_pfn_range(gi, index, &pfn, &nr_pages);
++		if (!r || r == -ENOENT) {
++			step = min_t(size_t, nr_pages, end - index);
++			if (!r)
++				kvm_arch_gmem_reclaim(pfn, step);
++		} else {
++			WARN_ONCE(1, "unexpected lookup_pfn_range error %d at index 0x%lx\n",
++				  r, index);
++		}
++
++		index += step;
++		cond_resched();
++	}
++}
++#else
++static void kvm_gmem_pfn_reclaim(struct gmem_inode *gi, pgoff_t start, pgoff_t end) {}
++#endif
++
+ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+ {
+ 	enum kvm_gfn_range_filter filter = kvm_gmem_get_all_gfns_filter(inode);
+@@ -406,7 +435,12 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+ 
+ 	kvm_gmem_invalidate_start(inode, start, end, filter);
+ 
+-	truncate_inode_pages_range(inode->i_mapping, offset, offset + len - 1);
++	if (kvm_gmem_is_pfn_mode(GMEM_I(inode))) {
++		unmap_mapping_range(inode->i_mapping, offset, len, 0);
++		kvm_gmem_pfn_reclaim(GMEM_I(inode), start, end);
++	} else {
++		truncate_inode_pages_range(inode->i_mapping, offset, offset + len - 1);
++	}
+ 
+ 	kvm_gmem_invalidate_end(inode, start, end);
+ 
 
 -- 
 2.56.0.455.g6c5a503b38-goog
