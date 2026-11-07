@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069525;
-	b=fqXnJrEZQGgXBTAa4TZXOagjL2J136Rmkpu4mKKiKBx5G4lGV0JIq3dxjsTwgA4Z9ST6
-	 /NzbF7iuI+BXDlZ2pfCRZXgl/NrHG0fD28mRyx9JHiNTT4veViM1QhIVOObLT20WS4I8b
-	 SyVpu0wIqJ31hLRqgU8g3U5Cbj/8j7HA0rv6fKC6RBKRfkz2pBc6fcqjlLDaXwadqhstn
-	 DaabsPQdIMBYwS9ABfrCSOvdR2aQC/7Go0LnLq7x2Pn+T+YuHWUEJJznmm2tod4+2RqTd
-	 0MgNCJtlh1LHoG7YyiST5qIBUjNz/WWscKa/ljHbwwX7iYZgXHmg0TCGsBu6XpkdAfQ==
+	t=1794069526;
+	b=qUViVZ5aYDi1T53GkqLyhlV1YDWB3p0Z0ivRLDB4r0iNWci6xJPAGocoaIF0uIpLkjjo
+	 5x8nkoE/vFjVKKaTB2QNjjTgDfw+hO7C2lovlgNp/NjPdvYBekmCBueQLN0Ldug0tLxYy
+	 9o/IDIYsP0f3QxzLlBp4SGGPDOgAs4XZTGadSrXAwX49YsvIEujbG6i6N4XVbTDnXP8iA
+	 /ujvZ6MB17FIIH2mslRNQe5hCJOaTYBEX0eNuJf1WB8PF2WmTnFQmuF2PJO7C0IDr+24i
+	 138TmhvuWzPFIGGOtDBtWo1nuzaPE2ngqbqKMiM11h5mHCa4AjtYoPJGFjm7u4hBtPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794069526;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=TW6QFkGd7neo8fg6RUV9wkGb9LD/OTXb46vxR11jHYs=;
-	b=Qohos8rSA1ba2E+oNBZdQgC01iDzDSpcGEf6b2A5icKlHJW+j+V8a0K7obx3N2Q8WdHb
-	 z7oDgeQn0/PyqpRs9fO6TKtqbp6qlmDAhhRdaujg91YN5Gqvf0EM4q/5JrnvZI9gXV+2F
-	 KJqULW6hogCYMGla31Ojxc5iLbLiTJrUv0J6j5D2GyJt8PZoec6cfBBq5IYy5bUJ1frWG
-	 956URiuF1jZ4RUyHQYpH7B8GV/rgrcdLbdxduW8gd1AvqwD3z+o38JI65q1Ud+GSqdZbj
-	 1iOyMUZCYJmlBRvFri5M/LmBfehjvWGCJilTcAwMU1aA0plsAB+cad1nTvcRmV2NkJg==
+	bh=nzwI3rZnsJFnqXSjxmAO1NnPnVH/mx7ySNL6UPkWKZw=;
+	b=MsXEkVjVk4LuoH9acIrG0LH5B4BnB0vO+y7qqjC6GCa5dlPEnabsy42CsrmM6AntojKF
+	 7umdn1/iOOEnLQoHmlu2GRxOQ4ZshmrHdwrUB+xCmsfTv9s2UkkAMW1zYAopd4fGbUmr4
+	 Kvm3EYYeNg/I+U8BVSWKfvkuhvqafOr6EB6QNtP86rxp+0kRgIqPctZDoj9LWjpqTZELy
+	 p/S2f6u4cMIdzV1XwhKVIv2hlc+9mer9gENULBzdeTkJJW3SdBmvj9BZRtpb6BluB4oVM
+	 Febygs8r+m9+SXvadH0sLY5Agoih/SA2BFDIg37Nez09HPe5kHOxJy3SKZSnUr132bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rALiL9se;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GEAP47jD;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3926C606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D5E606A336
 	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3926C606A32D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D5E606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rALiL9se
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so13819105e9.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GEAP47jD
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so4630395e9.0
         for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:38:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1794069524; x=1794674324; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TW6QFkGd7neo8fg6RUV9wkGb9LD/OTXb46vxR11jHYs=;
-        b=rALiL9seAq7PRcv76gNE/1nVD213K7HTe4D5Iy7O4BZ3mCV6pwLjnCe4VML4Q8i3/L
-         UQW1TJxTbFUfV10TpkczpOfP4Fa8sb6NdAbLc+m3NFJ6+8tyEecYTK0a7/cnwaXjDqce
-         amclpqjniV4doFWJGE0NIOM9EMNnI+imBPpml3P5q2ylmJ9C5FjmMhLEp1wJWcpY6v+Q
-         417gYYU0wPCd0z++P10VPlNhVieEH4++dq92ejpy9hLXMBxuPSEMK/TAKxIeADRVsNxw
-         2enFx+dApHkgtb6rtkEeGl5nmUg8bXeMVipBxoh2M5be/VkHADc224tdwmHNq5G65Ljz
-         tOeA==
+        bh=nzwI3rZnsJFnqXSjxmAO1NnPnVH/mx7ySNL6UPkWKZw=;
+        b=GEAP47jD5XGySx5b6XgvhxRV9mT0rc12612iGPe8EAYt4d0giV4xbjAg9ILhUuRVUH
+         OKMLMWAq1ixgw6LhuI/Xb6WujttdjIikOk3d4OfNglYkMcuis3HNb/CuyorA6+aykAhA
+         0YhU5i1yM+uzAxpLCx9es/zerqeEVz5CvhMvow7R9+fJEohU/EMS6AQujjayYh9s07s8
+         E/cm9AeHdlp6nytybfwvmrR1C8/WFkzqqkmRcsZMJR6gzw3yAV7JwLvdYNoImKyOHaPB
+         nBsIw8m8kdTCNnhcUw9CPKHUuEEJnEQIgMsy4gMC/S2HB8swM61NgERHOXWqnxTWk+eR
+         FQyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794069524; x=1794674324;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TW6QFkGd7neo8fg6RUV9wkGb9LD/OTXb46vxR11jHYs=;
-        b=V4iO3Sh4QIciHDyXIdKRz/dxrha9JGTAVYjq91T9FfnmMRjhtCCFR939dBLir/l8qA
-         eJ1I4qDMu1XHlrPwV1yyBP4TVUKm22eLlqDsUYyS24FUw/bdwJiulKQm1TPdTngu/8Kr
-         ALegM+r6n1c8MBCZeRzUs421h1MMnKskJTpxbYnqLDP0B6hFf19gI6S+U2cv/wgdIg+r
-         HpIHpvA/iS6XrOvHgXb+eXIfZnFRkHTcQ8Dexwjc//69wR5XIH+RvkAM/0PoI49upLkW
-         elPNo8ljB9BPZgpOyVCOZ7wAdo35s2XLU/Q2Vr2O13cDSeKH06wK7bwpHGap1z7VEnQh
-         AOnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwcSimeowvIRl0ZWEhy4siKFOEBrXYMKtgPpcT2l8GxdNiRJV/L4RpNvD3ueZjxA+rn8RnpwecS4YvVXKA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KyXJ/QLL6cM4ZQjA8RGfypiGRWXViWBgefQM3+1kPOrXprudH
-	QVA7yBI6EBkemVqoLIm+XCiVxUZVIRLv3zcpcyeYl88w/uIuYH92IT17
-X-Gm-Gg: AYBFou2LUPGNZHR+viwzDBiw9H4GJTvCu3hPfoZ3VXz2ZiYZlk9u3n8DfSbKa7Lmu2j
-	O3PmCU25uoj8l3pkamrxBb/lwyVo7FmwM6zvUL4UepFJaLTUe/sYykMc6PwZGxVH1GwgIQ7jP5N
-	hys63S9BMVph/jwqr7TyzvfLzhBJj9Hv9RESoB7khqfoCtg7FNAJqlKnLiiUQybDLOoYPAdwJmz
-	lDhh1RPdQtN7P4aqW4xoNPCmI592yczIbvBvzsaXO9+vgmXXkh/51axIfCLqagcLsBP/PkWwtM/
-	9HZydoZOHebkD7D2VqTpCTAKlyn4kYITGrdXAAv+guE6jiuDLhG672qV86vX6e5Fiui8wrc1/dr
-	9ThqmBTjcPxEXHN55iGihby6vK/PltxTnnkcR4Ywq/8kW50iNCQjW1+Pgxf7H4fdZcXNyCLzeY7
-	MQdJVtuIhOS392xpiS/MKEJq+r6JsvJZeKu6M68bHnPH42b1+6n24/TD+MmcraANAkiLJ130foc
-	E8h2cVBTAE3x7LZngOY7QpzvDZWgZj0D9Qyu2WUpDNdd9eMYla+pujVQNyKTDXpGIV+N4v0B3PI
-	Ox9dsSfxtkVadvdDkXB2PYUB0hzFqeX4Yy2ph4TOyjJcfYtIGma4N+8/Yv4x0lnN5HvO2aLB/oH
-	tBovcmfZ59OYrB/I=
-X-Received: by 2002:a05:600c:3b02:b0:4b6:267a:dd6e with SMTP id 5b1f17b1804b1-4b6ded49a38mr111142035e9.28.1794069523638;
-        Sat, 07 Nov 2026 08:38:43 -0800 (PST)
+        bh=nzwI3rZnsJFnqXSjxmAO1NnPnVH/mx7ySNL6UPkWKZw=;
+        b=jibcIhwAiA71JjKqlA9Il33JCMeqJKzt8oySiNC1ZwiT3HqmIM1eY8qI9RaKcfm8AE
+         SFOtFNrMGXaPycu3uLuwlAnZiEWJXORb1OS7G5cu3EuUo1Id3dVcS5M2k1PL8LjqmpLS
+         1BiUvUCGrG0iVg830JCjF1Y/Ym0RLLAXD+MovrBFMjfJaMzUd5OaPzHExRv3WqrTzmfc
+         vLg80GlxDEZklfPvN4ACJv3pMGDUlmEtmob5q1VD+s/cUSl7XEEIkNIbnwa0jjcRJJVu
+         mGM4ej5BcAz/WLEzIOBg8U6mNFR1395QHuRzCXA9Dr9b10prb9+yRccposv1i8NZGluR
+         CWqg==
+X-Forwarded-Encrypted: i=1; AKwUvBx8eFXcilrzfOaaJulgB9n+ECTS71F3SfCEVRFRAtwLOflg4fjCwnFrfSQBkLTrBPteDEMTyF1mQBUPT74=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/O42c6noyJKCAb0zK2kjmHYlITlW+SAi+zR+PmSBx5vMoSAs2V
+	ikn65kVJZo2tH4kIKS/ibooiwewp9IfxxOo3/KKgBQtjjyI0WZ7L45ir
+X-Gm-Gg: AYBFou10UQhLC6kfnEhOZ9DONbUweixSvlgbbxBDvQ/KO6J+c0DL8RWAoT8vzc3Apa2
+	dSgnDcmts2TFyTXT2TYguqdnNbuejykAjxPqtrqBINb6AeESYdodH9n545PHSnIV4534QWDjyIJ
+	v/7m/8s38vtCkuxFvBUggaPv4Exs4PwJZue6bwKV3VbPhf2taai6rdOjMiPIj0885GW0xb2OFRX
+	FE5X7yz6d5H+Cuqszib+sCtrAY2FMyplTvaxlsIJ4DMhnKlb/MltVl4eR0ufylu1hOUUK6/wvgB
+	I7VKkLLLIn+j6Td565yDNxFK8WHYM8Y+G1rKuD6HAlJ7UJhb6TM6jm+Im3quGsRyHxrmhCRGDLT
+	usIsVxce3aFXWRyEw8rQQnwquA6W7iDcL2vPUTe3PmQuTgYBUXeVDBHWclVsqoM3IpWmkxj35nI
+	nC7NWynfi2o2rjiR7RhfGXGUnzqTuelCrlNcsqUg6vHjQDcvkju0uZeZt1RhnwjQf3wB3fWpuF5
+	D6QZRqfxA/eIbeLQ2N/2QUMnsRtY3spvfCuowJI7JK+Eft0Ypzs2aJpD9qLdl4hxxmWO4KrHrLi
+	vifKcksIMKURAAO9NVWs85ZiUIm2mcLeNgjSxO3nxYED1KkNeFb/lFLQgyqU+7Uh6jCF9Gd1UV2
+	oE3BKy1p+yJ5f+ok=
+X-Received: by 2002:a05:600c:3e8c:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4b8190ec934mr45669385e9.3.1794069524438;
+        Sat, 07 Nov 2026 08:38:44 -0800 (PST)
 Received: from zeus.unificl3slsbnxe8mz.com (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm36117925e9.0.2026.11.07.08.38.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm36117925e9.0.2026.11.07.08.38.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 07 Nov 2026 08:38:43 -0800 (PST)
 From: Sander Speetjens <sander.speetjens@gmail.com>
-Date: Sat, 07 Nov 2026 17:38:05 +0100
-Subject: [PATCH 1/6] firmware: raspberrypi: Add blank line after
- declaration in response_callback
+Date: Sat, 07 Nov 2026 17:38:06 +0100
+Subject: [PATCH 2/6] firmware: raspberrypi: Fix indentation of return
+ statement
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-fix-raspberrypi-firmware-v1-1-707362c710cd@gmail.com>
+Message-Id: <20261107-fix-raspberrypi-firmware-v1-2-707362c710cd@gmail.com>
 References: <20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com>
 In-Reply-To: <20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
@@ -107,43 +107,44 @@ Cc: linux-rpi-kernel@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  sander.speetjens@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=641;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=724;
  i=sander.speetjens@gmail.com; h=from:subject:message-id;
- bh=oT/JQjeja8ZJ/ptNbh5as5O7phAoJf3oIOYYqQOmlq0=;
- b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq71QRSwl3dPT7z3GewKlQZwX836+udoUYb1MYG
- 2lOV+cpxsyJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9UEQAKCRB4zXhFDAXI
- ZyizD/4tgdMiaKw7eo815OU4Bg94SHIg6on//lvweQFfXg/MAaDe8Q4h7IKQSUuKIlIWK8xeQZj
- RjAd/lvLrxfNNP6eDPbYjfmX9UNmxlApdkpM8aqog/QYAOyCCQedgj04EJTvTCX1XL/Nb4vC7NU
- cRxhZVTqqKogGrre5jJNCe1xmeqeZnpNcNNsvXhik4RasxxaYzXPGCzAK06Bdwod+QkyIIbOOhh
- fxlBCScPNPu/X+S3bHgBZ0qKXeNTvhvWjcK3vmdLBjNF4De8zAdDuztRFt0jWGXFnpb/HMStAC0
- CvO5bQxqsrP+qLBHKCa4ZgB7n3Rou9QM+njTsB8Wqi0iArxW9ZXZwRnL210r7M2FEorUvWutKHe
- aklv2Ix0+jNKSiY3A0tx3liZzvhzv0cH6zHtrAjC2MzEM4VAT+v6z/5X+Cf66Ut0VS+ccq4HDr6
- n/P0dH4utW4m7uWd0iTQDuEBzz9Ove4XBSh2DP2nNb+wNE5kOyLQBqPit7BK6Wck5RJzBDNPWr1
- nxXTOnqbWXgEwvDpHKYMn8sHKUDILwUsxbqn1pp7qUwg6+gBLsQQBYm5UON49xEG431NrWJtLAs
- AU9y9KBPrVEwcQ9ywSH3lEslFs5JTXzhM3yx1sxK3a1eRGWeCujJ76tQ/DW8vRstH22Ak/W4obH
- vjwNne2SbDgMDoA==
+ bh=acy165BVhCPBqoiZ1D61v2aa3PiKHUPL5mFy64dozN8=;
+ b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq71QRJ+hcoxMm9BhTxucZQP53Xv5VytmSL0vNR
+ hM/yQen/7qJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9UEQAKCRB4zXhFDAXI
+ Z+skD/0evTjnpLdC96W71Q/PNrO339gm0MFuRgF02GlQBQ1sfxxU+ep9Q1Wmq1TFJJC8VtiieS6
+ PvExpy4gG3PFk91VME6RUSbKwUoGrvUKZXI+1BjorOI35X2XsDNkwlPFKYMiMDA9gUzSTNq3l3f
+ pTLfAEvv9LvMZSSYrAhD3SLi3TngfDa0jRrfESyvG8m4OaojrPzin0e69eMO2ZA4bJGCrV/uxjj
+ 5C6Dihi7vGGulA1kWpE/m4yLS/UmWzVgsWQJoNQ6UmMUaWUMJ8oRF8A/4jRcMsR4tgHjU3Q5e/y
+ yKe/IdWH7NHJleZdGz5mW5aBZ19n1LsuiA4POPq4lzQuu438OW4xqI4Y8TIK1aspA4Dq0HnupCD
+ Q2o6Hpre2DhGx7mK8jFtCmQeFuAJeQcLFYYvVkFyzSAKfmY9B/Z3aePINqrl3XsfG0g1cURdw0P
+ iHXGWQYWVR72pFeCWbn0FbkKUyh375LSIhzvR+/hXWxSMvKQ807tNii3PsNMGdjbgAQDp+MG+5m
+ 1XuHibsEncJulXJftasJyW2q3gHcJFuX2DmOotrPXHdAV2j+4F6v9okIxFBZW/eOVRzI0s1Lxhh
+ 9gi6cqqI53+mLSmKuIFiUNdYbKQEL/sbng3PzfgK50JJ+7LX1EOlK10wRVaX/PzmJZjN7WsTk/Z
+ ilmmgAkdR8c4qhQ==
 X-Developer-Key: i=sander.speetjens@gmail.com; a=openpgp;
  fpr=56524A8B001A11C3EEC9510178CD78450C05C867
 
-Add a blank line after the local variable declaration.
+The return was over-indented; statements should start on a tab stop.
 
 Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
 ---
- drivers/firmware/raspberrypi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/firmware/raspberrypi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
-index 443459c8c90f..8f3653c4a669 100644
+index 8f3653c4a669..e0c91719b4d0 100644
 --- a/drivers/firmware/raspberrypi.c
 +++ b/drivers/firmware/raspberrypi.c
-@@ -40,6 +40,7 @@ static DEFINE_MUTEX(transaction_lock);
- static void response_callback(struct mbox_client *cl, void *msg)
- {
- 	struct rpi_firmware *fw = container_of(cl, struct rpi_firmware, cl);
-+
- 	complete(&fw->c);
- }
+@@ -267,7 +267,7 @@ unsigned int rpi_firmware_clk_get_max_rate(struct rpi_firmware *fw, unsigned int
+ 		 * assume the maximum clock rate is absolute maximum we can
+ 		 * store over our type.
+ 		 */
+-		 return UINT_MAX;
++		return UINT_MAX;
  
+ 	return le32_to_cpu(msg.rate);
+ }
 
 -- 
 2.56.0
