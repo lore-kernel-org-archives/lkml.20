@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794070488;
-	b=V8zabH2z8iRdVpAOCMFTmEJYkya4sg9txJ1hUyOHd0I6bVWal6NgzXHV3e3bof707q9I
-	 cPn937O7uqqEpC1wGPN/LxoB8T/E0Xih6TOSmwLty3XGjb/N5V6xfyjIwTeoOCYIasWaj
-	 jN48qdFEhZfCmhYeX6wol6P0zlpfRkSMZrrL8zfZK1Ow6nJy3n+Uj5iYvYFodw7vs/0hf
-	 BuCcrQR5Iwh71TwJ+WZPP1jnscu/j66O27U/1EYoX1RRq2Ch3RDh7BBWCKwBsPX2QCvn1
-	 e697TuetWb80LUrggwk0HqKWtB7b3U76CSmE8hAFsf/ul1jB7l4tGuPXTY+YI088ZOg==
+	t=1794070545;
+	b=mYxi1P0HffeMXfn7jmeduv7H2QrtGoQShs/l/+msdpNM4r7vq7FcrOqN4+Hj7/PoPAmO
+	 rpAzWw2zjDGJpk2zDgP19KHbDVRkoPB8uAIPQlTDBGTJDwTO14SWfOSa7TCLCU5xSKuC/
+	 p+PocJ5ckNyCZRTHiE1qslV1pZQE1lkIXmN5OTtp2x+yTswtK5tIhQObHGuXXOKrSTAnf
+	 ehTdwRJVi6Y5PkpIZvtrbdLl+MqfCCurqp5Ic+hgRAbYNzDEaKftSWuIBfTjHjZVNY6TJ
+	 OzSI5/rb4v33KhLyYHeB1l3n0GLKihyB2HGomXV9ooA3gaT+7JGnYdT1FhBAFCCIslw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070488;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070545;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=9crvf8Iw5xDhgykteC/ydKrbY+Caq7Bxsz2VEq620k8=;
-	b=37dXe5XgH5/QsF1Ld1KBtX19xEuH8QZi/ZxEwutaeXU7wDcd433LP+wWVGtL0SHB076h
-	 r5oF6DNHBwhQvnH8pyBmxoZR24B2m1z5bbSabjuwO5K2hBSRZaMdZULq8hf5Box8X43Aq
-	 +xvaTHcAonAkt9XH/DnKSSE5N0Q0uPOFiafajY0w6Nt3Qa6bx1QZa2X8UqEdQl/BRJ4cF
-	 lcLF1EOziibmal8EXn1GrF+1F0BPvZBrbRUmDjM4KOSucCRQapqtbq5VuAhh73xWpFSPk
-	 OCuPmhxmEoa4QRiwEjhXWvARd5du6XVrRGtBbghXG1eIQx+SEJQ922O6A/5/UMb/aEQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yB3F3iURSo2op220m5n6KYAkOCelQKBFVJEduVBmqr4=;
+	b=xF8CFwJtGjitiBH8Cp5KFLAyLdSJPGOIYV6Eb51v2gG4rayqRHuIU5VmwyhnEKVG6Fs6
+	 7cz9WsiIwpZkvzvEAdgR1cQPIL/3NGof2uBbA6Q8oV2UO5RylocQv5a7MH46nR9GIgv6y
+	 Zzph4y1O9r1xjXTHmEk9BFbR3uOYffXkrhNXl6L3myrO3GK0Tq+MQF4WNLHwtpExeBpEY
+	 iXM8rxRTwzfxRncbTo+bUuULJB/rLATL8oKVNDzMVqZdQLkT31Rx+As9zkj0JWF5R9Zhr
+	 TMAkCl/y4acMAbf3HTfrysqaHAZLYtB0/cbRQpq0dZKQLFasZxiCJnHyiLKq+sfqUpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EJ9xwmCX;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wg29UCVh;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFCD606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:54:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EFCD606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DC3606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:55:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72DC3606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EJ9xwmCX
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e9d7791b00so13322425ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:54:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wg29UCVh
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so1304038f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:55:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794070488; x=1794675288; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9crvf8Iw5xDhgykteC/ydKrbY+Caq7Bxsz2VEq620k8=;
-        b=EJ9xwmCXuRLVDRzge33hcKr2+q/R5m/0hsPPquNGhCKVcmsug8bFHuIiz3T1CovAX9
-         VZukWJM+7/ZGGa+72Pujv/cE2agl6ecl2tcwmK+t6+zjfQrSLoUEXmKjCVIW4WkoRoPB
-         n8TqckVGUqrmobnfTWeOETlbfobjxZesd+MaQh2f7uVmdVqXtyuCHHPGIRXEjhdGSRLO
-         MI6SCmFLLYOwf47nWgJ+Jsl547qKwvFSsfR6TVCF7jdCbZdG3mdWreqMiryOJZFxXzWV
-         muRrCXsv/Y+XK4jFLG+U+L785zpCws/1fCPfo41Y0g13tCmbNSuS+KdZ5BoPK1AhYcQ6
-         i1cA==
+        d=gmail.com; s=20260707; t=1794070544; x=1794675344; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yB3F3iURSo2op220m5n6KYAkOCelQKBFVJEduVBmqr4=;
+        b=Wg29UCVh+UBlf3B5/iQ4dQDcH6B0YEWDgtuaVlQuCBJ+4KK6QIHgNINCiJ1pZQQOWT
+         xzysJws0wvE3VF7JMYPT/8s5H1CA/0KwabEitUEZD1Y+gUFxMSjdqOelo5xnpOILrNSF
+         /dGWc7U3Jc5aT+HelgqJSTYUBS3Z+kjkokECCgEpS/fVADdzUqtZ9qNmmkEZ7pOM2f/X
+         HS0eMIcqeyQEoxzJAQMTtMTnqqGEzmmxkHvfr1IXdfJ/74f8XCTwqWrd1ejq7frglgMt
+         jE1ZT6qIFJJgW3lBfOjRLOj+SBQGkylFPp/Lg0fotF84rAktvOpauIMCLLaYif0yZMcm
+         gIgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794070488; x=1794675288;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9crvf8Iw5xDhgykteC/ydKrbY+Caq7Bxsz2VEq620k8=;
-        b=Ahxz/QTZAHjxYHZ1Z2HoyHqc8krn4fIY29yY23c67ib1GcFezSlYZ3lkhbIe/ilrYy
-         WPhJEJX68V8FBqgB/mJxDGZ9uzHsIjZ+VtO4zcz70M0KiWMd9KqmEQ45uxkuT5/5av5P
-         BXO8OmXfc1dCT7yXlMoicTHYesy/pP1TbgYB9fT8iDcWvyH1Nuti7l3TqpoIwy9t/nUx
-         0SXoHCtDd5B8wVLliUvdGIFetD7m9BaaEU6RGOVityZZEjSWCfgIBa2AYkDOzIvowFxE
-         jJuZcsrybyhUq7GbXvDEEijDPodMDHtQfTAN15wzfZZhi5xP9HSp1A+rWCNj7PbHB1S6
-         wtsw==
-X-Forwarded-Encrypted: i=1; AL+hErGPKS5dvRkkDY8qOfhZIaU/W+UvRoU7eQI7ekEKjLfI9EGxcCSOlWaH+05iHitjkLzOGwPEByIxig144Yg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cegdhL+aLjkHRPYR9DfE0tKai6E5cc2HnlRs+QnNGjiWtd44j
-	10HcFHNaAHzhLKMe7/b8OgeNV28p6qZgg0u3hT/iEQjxGAWzFjLQSmptaEA+VQ==
-X-Gm-Gg: AYBFou0z0/xxxIj+aTeKoD+mz5s1Q61W3mBV0KfQaxWpR5gZQ3/ZCpI/K4h1YZ8dR1d
-	u6yYtHaZAw/b7DMJ4C9M1eBHpxYmdj/e3gK2eVayNQnwVBmqdX7m42ml9QobfxzgHItVYQWMoLh
-	W59Xajk2MKSsCrx0ctyYb51z9LmUUm234qTz16qND9fQtdVmrJFg7ZsK5DKcllPUA8wUsYvtEE0
-	2adEplgW9KfOJdk+b4Ez/7Nkfk5+Pc/vsZmNeeEq4Hg1tJKvfe4MYX+GLas4q+yR8lZylPLdE8X
-	ELeNM8TXxR76nozynVBkYRYayNDt1YZpDGxo0tFb4yZHAFqzv3Hcy3jNRVsnvob/VZpjJ5hR2ZS
-	yo+KjsusfBU1kF7VYnWC/RsoIAFJuE3DhAwD3Q0pou5yZi0fIx9yan01ciMEBYjyHuyw54evFlt
-	lRl6ulMvFsKfuCZeCWMa2Ryg7iDNHsabDooL5eKF7UHcJbx7LmOZSSHADn56MjJTiS+xa19Wvyt
-	TwISJz27sV28u1eqvuD923+F+5mipFjTTdRv+7qj+Pwz3nf6F3ArV/wKGUUU5Qs0FU4fU24mCeM
-	Q9+kS5oNsOE7M0t31OjcoqhCavT1p/xraX4Y8VsTJaonze+GIml2MAOkkACLP1a/GM88K6fShMJ
-	5YapTTSdbhZvw3RbjYxTe0+SyZ5ZDI/tcVXBVSjaRPPr0Qux3cLotZkc=
-X-Received: by 2002:a17:90a:d60c:b0:3ac:6e91:3f22 with SMTP id 98e67ed59e1d1-3b0db72c4d0mr5096080a91.52.1794070487771;
-        Sat, 07 Nov 2026 08:54:47 -0800 (PST)
-Received: from localhost ([153.61.198.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b11b04458csm828387a91.13.2026.11.07.08.54.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Nov 2026 08:54:47 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 16:54:46 +0000
-Message-Id: <DMP4WRIOGMBX.3VW2KNLBGDZ0K@gmail.com>
-To: "Yingjie Wang" <1075151112@qq.com>, <netdev@vger.kernel.org>
-Cc: "David Ahern" <dsahern@kernel.org>, "Ido Schimmel" <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
- <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni"
- <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Thomas Graf"
- <tgraf@suug.ch>, "Daniel Borkmann" <daniel@iogearbox.net>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: ipv6: reject collect_md tunnel route without
- inet6_dev
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-In-Reply-To: <tencent_CB9E1044AC97882719FF3A9F5B410A562408@qq.com>
-References: <tencent_CB9E1044AC97882719FF3A9F5B410A562408@qq.com>
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1794070544; x=1794675344;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yB3F3iURSo2op220m5n6KYAkOCelQKBFVJEduVBmqr4=;
+        b=Bcuy24Vig0o9pGqof9cmtbdRX7gVbOpVSx6drIrLjsjG7z5fg0shr4H5eE4ZQqi9HS
+         Gdv1LaZlYsuJU4Z65xaC1zl2TMXeTmPbK//JJGuHaLhn4O1PTjxQ4ks10hE+lxwgXe/R
+         TLMVRMf9XI8e6BYRwcnU7KOolx7+VIVQTqYKpnenVHqBGuoDROXQvtMtcHToxJWOLeJL
+         yc7jKHblT4JuX+RTdlwwcs4fnfy0IbPTx/PJpO8BW+Cf+/E6AAvvK/+vSSnALCIUOdZr
+         SFkWGvEcLw32mwsxrudaCf30xNIdtJTzsvRTqHMQ1eBfry607zPWJphLYtt7URRLLwlt
+         u/hw==
+X-Forwarded-Encrypted: i=1; AL+hErFdorRMeLD8pr1epV6z0EkJo7UrysvMtjmDtqcq88NiOD5hJOomxeG3U2ZC/9/QDQ9iPze490YEHFsBp/g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CarT/cOuvvs5pBh01R6yyv/+6FoLxBgOXZhsxEpNg2DBXnMdf
+	Z8DSgusTgYgMhgRf2mopPY5ZvveCmpYE2rsDKyI7CgEJPxRROyYG2n9u
+X-Gm-Gg: AYBFou3ZfNkq/ZTRPeibGsVb0WxjIf42rTKR89ymVvO88q/8y+CEZXajYGrCmaUqH2b
+	9Llfi28yxi7KXKbGmzJadEq2phk0elDDabXxILiOOjY362DXdFXtkOsLv8CIXYx7DruI1nH2KYZ
+	rtBSm9f7+Wtdx/PxPBEyLRJh0l6tv8d80aZmRwi5kw9bCyW61ZFWi67gGCDy6tr4WearqrcxIZh
+	T+sIyCC7QRmTwplg94ck++DcFWibrpvAm/BPAZfg/2ccoQ7nTBgHCF+HZx6IqG4ht8/4k9XZJyq
+	Hxn9PeViNxvc0fhaR4z3+/GrAy8aJiBBGaWScuvfqRRRP+tNk9cQ1r0TbQTFmCgwBuBPZXMxU2v
+	VKej3wNoYnPIqDMd834fr8XySL3BzCWYfzMMijGRv2aXrHcMePJHcAsA5uVrMdpRnbOxCvEcwP7
+	JQ5j427AnFmPRw55hLl89Tpa6b6dGFdGahCdy71j0yf1kLqT7NlHyS7OLXLfzOulviUSWXSDgHh
+	0G80Tb98zSxGwTrsQc3yTXM17HacGB/f3aLijr7R6h83n/wVbRB0xYCL3us1Mf3ZZPTo72n3+8I
+	VXYCdm25hR0WZ8Mf4x8/5zzNMW3GB6sS3Q==
+X-Received: by 2002:a5d:5d82:0:b0:48e:6092:dea1 with SMTP id ffacd0b85a97d-49277bb30fcmr10474276f8f.47.1794070543659;
+        Sat, 07 Nov 2026 08:55:43 -0800 (PST)
+Received: from kreach.multipass ([77.37.5.67])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723222fsm10544837f8f.21.2026.11.07.08.55.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 08:55:43 -0800 (PST)
+From: Jude Gyimah <jude.gyimah87@gmail.com>
+To: jbrunet@baylibre.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: neil.armstrong@linaro.org,
+	khilman@baylibre.com,
+	martin.blumenstingl@googlemail.com,
+	linux-sound@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jude Gyimah <jude.gyimah87@gmail.com>
+Subject: [PATCH 0/4] ASoC: meson: fix missing REGMAP_MMIO dependencies
+Date: Sat,  7 Nov 2026 17:55:23 +0100
+Message-ID: <20261107165527.576383-1-jude.gyimah87@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,54 +104,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 07, 2026 at 07:29 AM Yingjie Wang <1075151112@qq.com> wrote:
-> A route using a nexthop object can remain after its output device loses
-> its inet6_dev when its MTU is lowered below IPV6_MIN_MTU. The route still
-> has no error, so ip6_route_output() returns it with rt6i_idev == NULL.
+Each of these drivers can be built into vmlinux while the code
+providing a symbol it calls is a module, which fails to link.  The
+same shape in 4 drivers, so they are here as one series.
 
-since so, should it be fixed in there?
+Affected: aiu, axg-pdm, axg-spdifin, axg-spdifout.
 
-This is the fifth check of the same pointer:
+The fix is a select rather than a depends on: the providers have no
+prompt of their own and are only ever enabled by a select, so a
+depends on would leave these drivers unselectable.
 
-  commit        function
-  ------------  --------------------------
-  d101291b2681  __fib6_rule_action()
-  4db783d68b9b  ip6_output()
-  d46401052c2d  xfrm6_get_saddr()
-  1b9b5323725e  rpfilter_lookup_reverse6()
-  this patch    ip6_tnl_xmit()
+Each was reproduced on v7.3, arm64 by a vmlinux link that failed on the
+named symbol, and each links once the select is added.
 
-Three more callers still dereference it without a check:
-__ip_vs_route_output_v6(), validate_ipv6_net_dev(), cxgb_find_route6().
-When the same mistake is made in N places the interface is the problem.
+Found with kreach, a static check that compares what Kconfig allows
+against the symbols the compiled objects actually reference.
 
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 616b86f..e4834e1 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -1151,6 +1151,12 @@ static void ip6_rt_init_dst(struct rt6_info *rt, const struct fib6_result *res)
- 		return;
- 	}
+The checker is at https://github.com/JGyimah/kreach, and the
+reproducer configuration for each finding is published with it
+under results/.
 
-+	/* addrconf_ifdown() removed inet6_dev. The device can't do IPv6. */
-+	if (!rt->rt6i_idev) {
-+		ip6_rt_init_dst_reject(rt, RTN_UNREACHABLE);
-+		return;
-+	}
-+
- 	rt->dst.error = 0;
- 	rt->dst.output = ip6_output;
+Jude Gyimah (4):
+  ASoC: meson: aiu: select REGMAP_MMIO
+  ASoC: meson: axg-pdm: select REGMAP_MMIO
+  ASoC: meson: axg-spdifin: select REGMAP_MMIO
+  ASoC: meson: axg-spdifout: select REGMAP_MMIO
 
-@@ -1186,10 +1192,10 @@ static void ip6_rt_copy_init(struct rt6_info *rt, const struct fib6_result *res)
- 	const struct net_device *dev = nh->fib_nh_dev;
- 	struct fib6_info *f6i = res->f6i;
+ sound/soc/meson/Kconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-+	rt->rt6i_idev = dev ? in6_dev_get(dev) : NULL;
- 	ip6_rt_init_dst(rt, res);
+-- 
+2.43.0
 
- 	rt->rt6i_dst = f6i->fib6_dst;
--	rt->rt6i_idev = dev ? in6_dev_get(dev) : NULL;
- 	rt->rt6i_flags = res->fib6_flags;
- 	if (nh->fib_nh_gw_family) {
- 		rt->rt6i_gateway = nh->fib_nh_gw6;
