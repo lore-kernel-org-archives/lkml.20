@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794016222;
-	b=TkovJNkSsfqzITI5urKElVtTjUmztHToh2vlkhVn2UhBuGWM/ZiSBH3PJT8IX/mR1IG4
-	 gt5cXyEDvOQmIGpRXZhnnWMwxLRqWMvcND+jdYv6oZM4Sw4FJsjWECepbOm+juwrOcSJG
-	 YPcTsVchLKSAVuV4/LH0p+PghGuNxgz0lvtXUbNuJhqm+O3mypD05ID/NrkoIig4bFa9Y
-	 P4vBWWzXAyyDipoWLFkIaKX5eFGM2s8/283umxJrnf38a+e2uom0ffzXeEj4O5DuxIXx8
-	 fga4+eNm5drcLymNAnVXWVtSip+itTZbw5KRmWPX9rJna0uFmmGZeFl/qy3ViIuzyVA==
+	b=H+hHLic6ntl1d17jekdM6JzK4Dz6f1cVtqnmxMz+lHe5+HSc6WHZj9Mz7RHJFRKQjtyJ
+	 O5S3wN+PUIWoGFitUwM3gCWEmjPkS1OeOZuN1+xd22IKlkvZRz6T3Y4aoMpEq6BX5XSVd
+	 nw3iPGT869hYRcZoEBwsnyp3RASz/Avty678f8kFCUopf4g3ePwIIaWIlDydTkRVz0Z0n
+	 6YqUztu4As/FjcH7UjDaE/VCo2EQRDtA6vuiltjogt57bFepVPAHe5x4NHcDgaMafPkho
+	 jGe4jHMeQo/RsDnLsmA2wv8tMZb38c7XBQhnFPvvJkLFmxbjyqthM7XnOVhKnl1o5Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794016222;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=dcLyrBuZhPnypYjX2zooljbJ+Sv7Ffgc1rzLJCrzKcA=;
-	b=WCOO2sj5BvXpsAQWihCeHxss0FTMtIb/KsVMRU37M+o0Rr1Ap4f6gc5hDTIo93tBWmXv
-	 o4T5C1SBGLRgG1pbY/8jVaJkKsU5+cTDjyq2Vr2BE/Ztd7X3rOtWy6OFeTxIrzipNNnT3
-	 VDGDvz6PswK3Lx7+SWsh9db2w40hlWQXLTJUCfQhmFJ+zT5g/GOz34Me5JbJEzzXF8Kgp
-	 yXm6kxAP8LjNyrLZyd/WWhpQriPDEGQJGzhQPETwNq2eutaFCo9aHzaSwemKPvDRxaR2Y
-	 X9I1itUYgLynQgvCbicHhpBn2Ax2NNrG/f79j6/XnvePgdev2QBr0Pzz4moFArsbO/g==
+	bh=i8NZ3eK9vnkA7bDd4ZMgWFJPK7A5LqJVOCB5UrZARFE=;
+	b=pnKNIIGp61XGIbNsZAnsLokSrm5ACmDXEONu3ier3DU7VOJEgfEKrhScz9MwtQP/9rJD
+	 YeF8hhuVj5GQYPKVwb4ndlVzQbDlWIBpghyBnF/mn2Mu7+ePmxlVLgZvX7z6hyWYZv0Hw
+	 EZt++lYsELScxyUM+y+FUuj4Jgs6LbXatxL6MoBChaybLEBEho356+l6xaqlCycfrcLCq
+	 mVePhTJCN8mDU/OsbloQGLCuSMsosXb99Rk82cwCcJGxZWGuJ5mrjGFO79T7FEP5Jwzpn
+	 v9UJ2tIsgjKc1YkzyT5foZ9ybTfo7kyux2BsYy/t0lAfOntmPwPg7YfnBSf0WiJWtpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=CwA8OWmi;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="sRO/wa6v";
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCB1F606A335;
-	Sat,  7 Nov 2026 01:50:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCB1F606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EF11606A333;
+	Sat,  7 Nov 2026 01:50:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF11606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=CwA8OWmi
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=sRO/wa6v
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=dcLyrBuZhPnypYjX2zooljbJ+Sv7Ffgc1r
-	zLJCrzKcA=; b=CwA8OWmiRGno2ixFzIN8g4xhGiFnShYYudpLsZ610TavbD/B8Y
-	ZqYVd+Rza1lZ1Fh9Bszd/+viuDopXoy45KhdKb//1ULxBcBODueDPQO8U+9BGDOm
-	aTIzoz4uJUgSXX3oSZlFefg2ObcuFSj4W4U1LZ3cg506PbRmN07b+M+2A=
+	Content-Transfer-Encoding; bh=i8NZ3eK9vnkA7bDd4ZMgWFJPK7A5LqJVOC
+	B5UrZARFE=; b=sRO/wa6vHPijcv3p6zelJmFvS87oOtb8M7DL/niMzAthFBBkw8
+	pSE2ge7eFwq435AoSVQDeWU2++Uorwx9mu4V/Zm7JM8eC5reI/V+49hcqKIrUTQ3
+	86LbO6YC4eoLY9FigWo4vrfHAvyy5Qx9t8e5Ms+f4EhrI7yQn1OJ3937M=
 Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.185.197])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnlyvWg+5quEKSAA--.1389S3;
-	Sat, 07 Nov 2026 09:50:15 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnlyvWg+5quEKSAA--.1389S2;
+	Sat, 07 Nov 2026 09:50:14 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -50,13 +50,12 @@ To: lgirdwood@gmail.com,
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v9 1/2] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-Date: Sat,  7 Nov 2026 09:50:13 +0800
-Message-ID: <20261107015014.22374-2-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v9 0/2] regulator: add the Will Semiconductor WL2868C camera PMIC
+Date: Sat,  7 Nov 2026 09:50:12 +0800
+Message-ID: <20261107015014.22374-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107015014.22374-1-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261107015014.22374-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,168 +66,90 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAnlyvWg+5quEKSAA--.1389S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrCr45pa
-	98GrsFkFs5Cr1xGw4xK3Wru3W3KFyrArn5Cr1UC34rGan0qFnav3sIkw15Aa4Fyr48GFW2
-	yFyDZF47JF1rurJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280
-	aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
-	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
-	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42
-	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
-	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI4
-	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgEApDUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2ruKtgCVAA0sA
+X-CM-TRANSID:3pYKCgAnlyvWg+5quEKSAA--.1389S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF4DKw1DWw1kWw1rAF1kZrb_yoW5CF18pF
+	Z8AF93Jw48Gry7Xr4fJw48tr15Wr18Jry5Jr1xAr15Zw15GF1fXr1ayr15AF15Gr1kCr17
+	tF98ur1xGF1UZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_
+	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
+	42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jeE_NUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2ruKtgCVAAzsH
 
-The WL2868C is an I2C-controlled camera power management IC from Will
-Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
-from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 share
-VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
-3.544 V. All outputs are programmable in 8 mV steps and are gated by
-per-output enable bits with a chip-wide SYS_EN master. The chip also
-exposes an optional active-low RST_N input.
+*** AI-assistance disclosure ***
+This cover letter and the two patches below were prepared with the help of
+an LLM coding assistant.  The author reviewed every line, ran every gate
+quoted in this letter himself, and takes full responsibility for the
+content.
 
-VIN7 and VSYS are both inputs of the internal control logic, which is
-powered from the higher of the two voltages, so a device tree has to
-describe at least one of them. The remaining inputs only feed LDOs, so
-they stay optional: an input can be left unconnected when the outputs it
-feeds are unused on a given board.
+This is v9 of the WL2868C binding+driver series.  It supersedes v8
+(<20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>).
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../bindings/regulator/willsemi,wl2868c.yaml  | 98 +++++++++++++++++++
- MAINTAINERS                                   |  7 ++
- 2 files changed, 105 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+What changed in v9
+==================
 
-diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-new file mode 100644
-index 0000000000..1e74f2a21f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Will Semiconductor WL2868C camera power management IC
-+
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+
-+description: >
-+  The WL2868C is a camera power management IC with seven programmable LDOs.
-+  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
-+  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
-+  3.544 V. All outputs are programmable in 8 mV steps.
-+
-+  VIN7 and VSYS feed the internal control logic, which is powered from the
-+  higher of the two, so at least one of them has to be connected. The other
-+  inputs only feed LDOs, so an input may be left unconnected on a board that
-+  does not use the outputs it feeds, which is why they are not mandatory.
-+
-+properties:
-+  compatible:
-+    const: willsemi,wl2868c
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low RST_N input.
-+
-+  vin12-supply:
-+    description: Input supply for LDO1 and LDO2.
-+
-+  vin34-supply:
-+    description: Input supply for LDO3 and LDO4.
-+
-+  vin5-supply:
-+    description: Input supply for LDO5.
-+
-+  vin6-supply:
-+    description: Input supply for LDO6.
-+
-+  vin7-supply:
-+    description: >
-+      Input supply for LDO7 and one of the two supplies of the internal
-+      control logic.
-+
-+  vsys-supply:
-+    description: >
-+      System supply, the other supply of the internal control logic. The
-+      control logic is powered from the higher of VIN7 and VSYS.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^ldo[1-7]$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - regulators
-+
-+anyOf:
-+  - required:
-+      - vin7-supply
-+  - required:
-+      - vsys-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@2f {
-+            compatible = "willsemi,wl2868c";
-+            reg = <0x2f>;
-+            vsys-supply = <&vreg_vsys>;
-+
-+            regulators {
-+                ldo1 {
-+                    regulator-max-microvolt = <1128000>;
-+                    regulator-min-microvolt = <1128000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d..a334308798 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29413,6 +29413,13 @@ L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	drivers/hid/hid-wiimote*
- 
-+WILLSEMI WL2868C CAMERA PMIC
-+M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-+F:	drivers/regulator/wl2868c-regulator.c
-+
- WILOCITY WIL6210 WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
- S:	Orphan
--- 
-2.53.0
+v9 is v8 plus the two binding points Rob Herring raised on v6 1/5
+(<20261106141036.GA2921668-robh@kernel.org>).  Only 1/2 changes; 2/2 (the
+driver) is byte-identical to v8.
+
+1. Multi-paragraph descriptions now use the folded block scalar:
+
+   -  description:
+   +  description: >
+   ...same for vin7-supply and vsys-supply, the other two properties whose
+   description spans more than one paragraph.
+
+2. The example no longer defines a supply provider.  The
+   "vsys_reg: regulator-vsys" node (compatible = "regulator-fixed") is
+   gone; the consumer keeps "vsys-supply = <&vreg_vsys>", which is the
+   same shape other regulator bindings in the tree use
+   (e.g. docs: microchip,mcp16502.yaml, ti,tps65132.yaml).
+
+About the pw-bot "changes-requested" on v8 1/2
+==============================================
+
+Conor Dooley's bot marked v8 1/2 changes-requested
+(<20261106-lucrative-sadden-741ffe6c43e9@spud>) with the note that Rob's
+v6 feedback was ignored.  It was not ignored, it was overtaken: v8 was
+sent at 11:42Z on 2026-11-06, Rob's reply arrived at 14:10Z, i.e. 28
+minutes later.  v9 fixes exactly those two points.  No other v8 content
+was touched, so every review tag already given to v8 2/2 still applies.
+
+Krzysztof's two v6 points stay addressed the way v8 did it
+==========================================================
+
+- "One logical action, one commit" (5/5): the board enablement is not part
+  of this series at all; it is held back (patches/held-back in the author's
+  tree).
+- 3/5 compatible/commit-message wording: moot, that patch is not here.
+
+Gates run on v9 (on top of v7.4-rc2 line, master d48723711b)
+====================================
+
+  make DT_SCHEMA_FILES=Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml dt_binding_check
+    -> rc=0, no output (schema and example both validate)
+  scripts/checkpatch.pl --strict --no-tree v9-0001*.patch  -> 0 errors, 0 warnings, 0 checks
+  scripts/checkpatch.pl --strict --no-tree v9-0002*.patch  -> 0 errors, 1 warning
+       (the warning is "does MAINTAINERS need updating?", which 1/2 does)
+
+Qianhui Xu (2):
+  regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
+  regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
+
+ .../devicetree/bindings/regulator/willsemi,wl2868c.yaml   | 98 ++++++++++++++++++++
+ MAINTAINERS                                                |  7 ++
+ drivers/regulator/Kconfig                                  | 10 ++
+ drivers/regulator/Makefile                                 |  1 +
+ drivers/regulator/wl2868c-regulator.c                      | 262 ++++++++++++++++++++++++++++++++++++
+ 5 files changed, ...
+
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
 
