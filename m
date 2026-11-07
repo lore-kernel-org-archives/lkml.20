@@ -1,57 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794088431;
-	b=su75sv2s/r6vFcT4pbwF2eB7gQhm1ptJ+1F/kcBuCWIjaqqm4TwOhQxmYSxE/9/BdQRo
-	 XfjIQluh79b9K6L6JCSSxpk8hK3JRQ3dEng3jN0PDkqDTYbTlrdpxeh8kcjawOgNU4dvB
-	 fteU1owv67UOi2F49nWqEzE10AkpVaczzDEI6rM6GuRR4hwdSDSv6fbVSIrkNCYWWcZFj
-	 3/mn4KCrCyJqwlD4Ej9NPeQMbQ/YiJG0Lg/EpylkeDFDK5XAvqn2ypEQBM/QoWOQVdlO/
-	 V6CoD2s0OfGYXOsarzVLtYX94CZfVVOUzXJVBnh62+2EiR/WxeQD5aY0iMUyg0VBnPQ==
+	t=1794088630;
+	b=sMykbg3zz15gmexSwuW3VxtNrrRNxHI8+tqctcnrSGMHceHAn4DXJZoRLRlCWTlVhl0S
+	 ohS5SJlxHCkba6KEz41aHulPFEKuUFRCNu3x+s8FezVOPt8I1ZSQuItQlXDj/9JLd6l+p
+	 T03Pr/asobaoeINpBdMEHX3ALO8kNyfLK4F4zdJvDGdnj2nbW6p4tqbeSJUIAu1A5e+Od
+	 c4K8kce1QogqMMsKSppuDzSC/AIdPQrE7L1C6O8QgSbVtlO9zl+EgAqKXXrq/lbVjkray
+	 8j71LNYOHEIXT8qJ672CYCIQCr04Y8RfkW2mN8NiOthyyHGza8m9OkjhJhR68fzI3XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794088431;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=EWlYFnlFkKqc+rHHPIN+VOy/+q1zUN/a2wsNKFALdxk=;
-	b=WzUiHyafCClbrnVgaJgNQ8i+hVav0tRLri08wxG9DDrkzTERJ3uR+rAaRCE1N547Dm63
-	 PR9JmErboDLhnNVv1twhz4m+jFN07eLdTxEwwtW7DWNEsO8Zp8aGHANNr8w5UlsfSds7E
-	 MxId7q5RZciqRiZ47+kafxWvRkMCKTo0X7hyzUwFU7OFkUKfuW2NBxtAE9y0M+qMbFdGX
-	 PBqbR3UP90U1NBcCLsq5qDKS6c1Otit5htsulqQGtiimvuUibmFBNuHhj/Uu20FKaWuqt
-	 x7zwOaaRzuKJvu0J6hp3rKAGm5i1YTHnD3lw0+TON9PsHuU63WPzu0FE1HGdBtCrAUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794088630;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=hdEhg7CYhTTbiuvyFW5nMDp664FFDITQvXjDF3ZAncc=;
+	b=xOgcehy+FMEau/ngs55PRQDnkhm6kOMM31c76zWZ/s77IeVNYkRSyEc2utvyybPSjdIs
+	 SXopAEdEfEIoR+7xIdPp/dIqhVHM1XwlQMqeXHox6/jl/eHqvfWhvqgvx+HlKKZ1VQAI4
+	 oPkrCihcye7VYWFImYYmWpGLBH2dfykmqH0HpgukMytiZC2aJuOfUGxy7RuwXokE2kV1Z
+	 Iayzw6zWTCqnhHtcQMGZ5ZZxKj9a9KeEKVKtCgVQ8fZJTQO5Gf4a0HYUfX57CGBGvJXJs
+	 +31coMX0rcyeCS3ZHKsi3er+3POf1vfR3Ahbc73qATGVTzsB1BXh/Jj01Ofd/C6WohQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSw5Xwu5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34870606A326;
-	Sat,  7 Nov 2026 21:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSw5Xwu5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044241F0089F;
-	Sat,  7 Nov 2026 21:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794088430;
-	bh=EWlYFnlFkKqc+rHHPIN+VOy/+q1zUN/a2wsNKFALdxk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=hSw5Xwu59lAOUUswo1gzzESTvlg/XUg4O/ufTVW63SK9b0/IbYVkoohTPCOM8Y4sD
-	 rmINjpCIFox5xazFAzn0qv3Nsk33ab3ItOc8mOSt90HM188VDGtBq9oEuKT5iglTKY
-	 o9p3KE+cC1o48cnW9LcQ1007YCOHr2CAWJlRB3J2i3qvP2YkDVyFYKbJKGG3i39e+P
-	 pwD31J9NW/pA/jOZhlGSZBegOeFHXJeJ88qXfzZc7bEfnJndayxMmXD/YiDIv9PTbT
-	 JjnlcJ0mcH0E+O1asgjhPgzso+AE7BvLjadhaoAoncKenDEinIfsCp91WRkhYarIOw
-	 7aZsF/87/nt6w==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Keith Busch <kbusch@meta.com>, bhelgaas@google.com, maz@kernel.org,
- lrizzo@google.com, hch@lst.de, changfengnan@bytedance.com,
- namjain@linux.microsoft.com, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org
-Subject: Re: [PATCH v3 2/2] PCI/MSI: Implement irq_mask_noflush() for MSI-X
-In-Reply-To: <au-DcqwAz2wmmOne@kbusch-mbp>
-References: <20261106173448.34794-1-kbusch@meta.com>
- <20261106173448.34794-3-kbusch@meta.com> <87wlqpwukt.ffs@fw13>
- <au-DcqwAz2wmmOne@kbusch-mbp>
-Date: Sat, 07 Nov 2026 22:53:47 +0100
-Message-ID: <87o6c0wbo4.ffs@fw13>
+	dmarc=none header.from=alpha.franken.de;
+	spf=pass smtp.mailfrom=alpha.franken.de;
+	arc=none smtp.remote-ip=193.175.24.41
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71B5E606A326;
+	Sat,  7 Nov 2026 21:57:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B5E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xPoPE-0004r7-00; Sat, 07 Nov 2026 22:57:00 +0100
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id 92B82C01A0; Sat,  7 Nov 2026 22:56:44 +0100 (CET)
+Date: Sat, 7 Nov 2026 22:56:44 +0100
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: torvalds@linux-foundation.org
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] MIPS fixes for v7.4
+Message-ID: <au-enPQhQVCrdXWw@alpha.franken.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,42 +45,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, Nov 07 2026 at 13:00, Keith Busch wrote:
-> On Fri, Nov 06, 2026 at 09:53:06PM +0100, Thomas Gleixner wrote:
->> On Fri, Nov 06 2026 at 09:34, Keith Busch wrote:
->> > -static inline void pci_msix_mask(struct msi_desc *desc)
->> > +/* Posted write only: the device may still send an interrupt after return */
->> > +static inline void pci_msix_mask_noflush(struct msi_desc *desc)
->> >  {
->> >  	desc->pci.msix_ctrl |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
->> > +	pci_msix_write_vector_ctrl(desc, desc->pci.msix_ctrl);
->> > +}
->> > +
->> > +static inline void pci_msix_mask(struct msi_desc *desc)
->> > +{
->> > +	pci_msix_mask_noflush(desc);
->> 
->> That's before the offline check now, which looks more than wrong.
->
-> This is done on purpose: pci_msix_write_vector_ctrl() already has the
-> same offline check, so nothing actually gets written, same as before.
->
-> And regardless of whether it's offline or not, we have to set the
-> PCI_MSIX_ENTRY_CTRL_MASKBIT in the cached msxi_ctrl. That's common to
-> both paths, so it lives in the noflush helper to avoid duplicating it.
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
-Indeed, but that's an unreadable mess TBH.
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
-Can we please change that to have two functions here?
+are available in the Git repository at:
 
-    pci_msix_write_vector_ctrl()
-plus    
-    pci_msix_write_vector_ctrl_and_flush()
+  git://git.kernel.org/pub/scm/linux/kernel/git/mips/linux.git/ tags/mips-fixes_7.4_1
 
-and fixup the related call sites?
+for you to fetch changes up to 456c965ca46c59a4a241c755e6565fd883a522f4:
 
-Thanks,
+  MIPS: SB1250: Validate and update IRQ affinity (2026-11-05 15:36:25 +0100)
 
-        tglx
+----------------------------------------------------------------
+Alchemy:
+  Fix /proc/interrups
+  Preserve ethernet address from PROM
+
+SGI:
+  IP27: Fix NMI dump
+  IP30: make defconfig more useful
+  IP32: added workarounds for crime revision 1.1
+
+Others:
+  Fix compressed kernel linked with ld.lld
+  Fix IDE ports on Cobalt devices
+  Reject wrong affinity settings on SB1250 platforms
+
+----------------------------------------------------------------
+Florian Fainelli (4):
+      MIPS: Alchemy: Register interrupt chips with the IRQ core
+      MIPS: Alchemy: Save the Ethernet address before reusing PROM memory
+      MIPS: Cobalt: Include legacy IDE ports in the PCI I/O window
+      MIPS: SB1250: Validate and update IRQ affinity
+
+Imre Kaloz (6):
+      MIPS: SGI-IP27: print the NMI dump on an nbcon console
+      MIPS: SGI-IP30: fix the defconfig defaults for the Bridge PROM and RTC
+      MIPS: mm: Fix the cache error vector jump for XKPHYS kernels
+      MIPS: sgi-ip32: Mask MACE PCI interrupts in CRIME only
+      MIPS: sgi-ip32: Leave MACE PCI control alone in config accesses
+      MIPS: sgi-ip32: Report the real CRIME revision
+
+Rosen Penev (3):
+      MIPS: Avoid dead code/data elimination when using recordmcount
+      MIPS: boot: compressed: place .rodata.* and discard .MIPS.abiflags
+      MIPS: boot: compressed: fix the vmlinuz link with ld.lld
+
+ arch/mips/Kconfig                          |  2 +-
+ arch/mips/alchemy/common/irq.c             | 11 ++++++--
+ arch/mips/alchemy/common/prom.c            | 23 +++++++++++++--
+ arch/mips/boot/compressed/Makefile         | 10 ++++++-
+ arch/mips/boot/compressed/ld.script        |  4 ++-
+ arch/mips/cobalt/pci.c                     | 11 ++++----
+ arch/mips/cobalt/setup.c                   |  4 ++-
+ arch/mips/configs/ip30_defconfig           |  9 +++---
+ arch/mips/include/asm/ip32/crime.h         |  2 +-
+ arch/mips/include/asm/mach-cobalt/cobalt.h |  1 +
+ arch/mips/mm/cex-gen.S                     | 16 +++++++++++
+ arch/mips/pci/ops-mace.c                   | 26 ++++++++++++-----
+ arch/mips/pci/pci-ip32.c                   |  9 ++++--
+ arch/mips/sgi-ip27/ip27-nmi.c              |  8 ++++++
+ arch/mips/sgi-ip32/crime.c                 | 26 +++++++++++++----
+ arch/mips/sgi-ip32/ip32-irq.c              | 45 ++----------------------------
+ arch/mips/sibyte/sb1250/irq.c              |  3 ++
+ 17 files changed, 133 insertions(+), 77 deletions(-)
+
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
