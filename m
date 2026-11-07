@@ -1,79 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794039234;
-	b=m35HUqryXF5fPh5Gs5HJIjYQKw4NwfTHmKNJyfnzDm6Y3AOwvCZ+AskobMyzqksDRvHX
-	 SwUirSq+wzO0YtWoVfo1iL23hpZToHiejnfMzT5X5RYOEXuXCqMpEbJ3q0wOtAc4CJcNZ
-	 lauqg+84H4XQVwz78kwB0X1+rHTnANtdsLQyWSfT77eE33r7zSMXY/ETCQvpjH+MXfI65
-	 XI/QCudP9P/uPr+UBTb5iFFBBp0wBJyS19amNcU/hGrbk/QwkZ8MQDAezUxhtX1HdVjqe
-	 2A4VALCWFIz/L0jm0jZQkVsxK6C7G04ZGHxAgn6Hr2S7fG0qK2jEv+vqpwTDokPcErg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794039234;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3UgaVUMTazCqkUjPb+NK9SOhfNMM9f3Jk8NTZVck/G0=;
-	b=U+iAsDBupoArJUD8hwXuPK8qVDS/pmYW1zRkFdGG/w1isRSIfqArZJWLm1m2Pj179nw5
-	 j5C4ak3U6n852Tq8xqDaa6ZcTR3h1m1f2ECLb8wUtBZpQhX3Xgh+3SSPAuM76bWNa4/uB
-	 mQlXEpG6zada+4N4CufeFbLZoG5rGSSp7nJ83xdDEj4oTYX12pgLNO0oRnJyximuoXJM3
-	 x3Y+9P08Uk/gpYYiAXcYiXRL+TFZoXIbpJQbpSDqk6YbNev8xm2x7viPK3Msxflac2WH9
-	 bi5VVy23uK8PYUGV8mEPG/k46BpY7Pzya1kJClTvX/5yt0jMEk6Vuqj6CwBI5qyxKSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohnOnvtI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEB3606A32C;
-	Sat,  7 Nov 2026 08:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohnOnvtI
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794039233;
-	b=xwGqpTv5V/8h8rMLKtgzBCLJPVr+9sDRSJ2PcVnT0cafFlhbfFn+snvQQp7mD19Qd6VK
-	 /JiloyljY08FfTTq85lapOtQSO64KWtZXOpFhFIrQ6MmGKzflBntyaUQtWxR+IOah0Hyc
-	 PjwhU+a4VKiZ7zNF91KighAbf2xGJjBsa1/uHl70mF1fQaJKI2BLATq34Q4fBIdXFk71R
-	 RfpaU2zSjb+OfbVXQPFNSiZkn+u6c6X47hKB4hWvzzpivYb5U/FnxyOSqbd8hppAQkahr
-	 Dn/jnGtfw0XNsy/s5TdXb2Goc611G7Oo0VhkWPXN9+b+UfEGC1XXBpNapkztsvroxBg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794039233;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3UgaVUMTazCqkUjPb+NK9SOhfNMM9f3Jk8NTZVck/G0=;
-	b=QflwAfGWBzteyNsqPdkFXem9EhWYppVoRn2w52Mx02yf2p5xyfPg0zX0zL7I7hnzY+ET
-	 PYyxnsd7AQaENKY79SHTx8OQY8qylLo8Bgb9cPnGNI41jpT7EokojPqQaPP6g/Z8mv3n8
-	 U36F5zK7bYU6uhBHtM4TB1CM4n4U56kLbgiQID+tFvR7i0ITczOs9m8dtlJ3yJxdLBUpW
-	 Zq+2fM8PiMIliFTwQHP8dsk8HHv6dPjcNGoVfBBQaHuF0To6lkNHYucj6rezoqW7G5lEO
-	 3fTKTXpd/rXqhh/T9yOX3GRv9B83e8PeLjRhiXilQQwCjsGn4XeQLT1ycI0775Kw7kA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794039387;
+	b=47odl/ipFFhXhDjCINR5qW36q1knEhleHKTaVtHd7DcnYCRnbJh/t9BKvqTQmXF0X8kJ
+	 WpIKUsSQsELz1iL3h8xtLHxyd3yf4eCtu2Il75KuWeRnA2/Sd9W4ypbl3Kyc8Mmtd2zLS
+	 v+IVIvB1JBKNxUM0nJfKysbQenwZvCWxFRuEaGmYOPOBOwETp9kJM3TOvfVaNvYg0bkbd
+	 nElqIEGSiHWnhQNW5VvU+pSFvlGK2NppqcytTpuTu8WlnXMVxoDUV9LlyFjub5JEUMwXS
+	 jheaZMjmmdnpGfBS4R/crrPb/MPRav0h5bVnub9phGWUUCsffsIlELXwSaoKd3mm1wA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794039387;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
+	b=3lxJDOBaJCgZkZhBcQhJAqjVCdcF6VaFEOLBxZGnRJkq1p9hiK2ZHmMhtnYBiQSz17Cw
+	 xsNAXFH9CLhtYC7aMVCUxckFD2IKeYoN7V6z7PhZDWJPSCHbX2Y9fzlgdgGGelj2GXjgp
+	 1U8cqVsH1D3HuriuXDNkWpRdX05doWyobzR7gcFimdjrUBF9UiqXMi7dDB/MgWkUvaRNO
+	 eVJ8StFJiYjTHg+QFblEbmb7/i6t4BHL65qzYNTYzaMSt/nnoT48/Kg8BpaIS6014SC/B
+	 sZYLN4nZ2HJZQGm3KShOwBgVlpIMNy+yhkMeqvQ6mnQALjz64a0ReoOe9ArRXGOCkUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ew4KQ2CX;
+	arc=none smtp.remote-ip=209.85.221.69
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 874CB1F008A1;
-	Sat,  7 Nov 2026 08:13:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794039233;
-	bh=3UgaVUMTazCqkUjPb+NK9SOhfNMM9f3Jk8NTZVck/G0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ohnOnvtIyqu1EECH6RffzhERRTXUbfq0qOHlWBDg9KFJMInWm7E/13IcNCLJwP/u7
-	 5prVbwakRKd75PoBZZ5QhBb8e5OG4uXIaXqz8nSiZCjBmDxKwtsG2JsIfL6Ydj27Aa
-	 mTwiYMU71chrm8kGPo/TnB4hDIqDISUE7qfY+JSCFGeEI1hJu1j7OZ3qg0ot8bYrVg
-	 FyjUG6buR1eAaAptjMClwc3RttJ2dcebsJhKtXKL0AhgTWWJTP2NhuGOPfLaYjUTri
-	 BbjbN909kagluvyW9pVu20yCtPRhngK+CL12xkaHjmTZsIdE07Aj2QbK2wckwkF1WK
-	 aiug4KODadrJQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DAF9247B14;
-	Sat,  7 Nov 2026 08:13:51 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 02:13:51 -0600
-Subject: [PATCH] staging: octeon: convert from ndo_get_stats to
- ndo_get_stats64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7980606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 08:16:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7980606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ew4KQ2CX
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4902ce85f72so1458700f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 00:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794039385; x=1794644185; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
+        b=Ew4KQ2CXWb+U8Tbqm3xs8FATOML5PvhAbx9CqsClnU4Kd+987qUpy+nrGndsrP4uxz
+         EKsx3fKYQqyCGBbXQ6Z/+yHxUnj4dkY6oxAwhHOpxggPsv5ry5ObKvDUwD91/HHt12cq
+         mACJRCQVv21Sm9RuoBkcjCwXx+t1oDu72DtDxFydNyXZuBfScuVrqU0TTk+WMATxP2rD
+         KQRn+U3aOTddYdU7bktFx9SYHspMfsBuQbaJqjBfta2ztMh5i3jU2Qv8Skrv3ZhwdnMl
+         Aep0DLA7nI5iu43q8F2QQByiuQK/wy9YTR2qjgVGKTAE94ZG2HatMc967KG2MwGXr77m
+         ly2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794039385; x=1794644185;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
+        b=VgrlauKML8V8++fYLKfxIHc98GEAJZjXcxjx/649RJad5/6keNdu/L0U1qtrpY7s/J
+         D+iKT1egqgwEQbUSfFkwU5fe0hHopgVb341MCjz4gik6bwV+3xYn1+q4iVWkJ3iYGBOV
+         A3dRic7ZUBCe3EK2WjqmDDOeGbvYpFCqWAzFmtHz/WfQXo65JE8huBW5XjRkbtUnf8Lq
+         MPTmW7i2UdF0883U0JfWFbGIcNW/MqSID+pwMvXPZF+PCPf5yZ0mSAkaLAQHddscpF+p
+         HYoGrtw4PplAYuWqV4VIN1fUC5XkBYiCPyc93j48Rq6AytkPu2WYVqxBxBRRSpHA3EZ4
+         8RSw==
+X-Forwarded-Encrypted: i=1; AL+hErHxv0rgftqXFgzCNZ0lsWDRk8S7GwbAuK6fS3KwPQLJmPrPLiXGbIR4yAcICBmnBODVt32GIULp1oo5wms=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UIW7hnw2HkPGMDyu91WiWQo8nBg/9elshqpnD9yC/ED5qVLSo
+	YMFuVW2PiH76KQUsAVbk7A66ubloSz3N3V9X7RYo3x7OQlbET/2c22XanwZJEr+uKYaT72u/j/F
+	kIkNQgmv9x7RO9jHpMQ==
+X-Received: from wrtp5.prod.google.com ([2002:a5d:4e05:0:b0:48c:44a2:fe52])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:25eb:b0:490:421f:1555 with SMTP id ffacd0b85a97d-49275b1bc23mr8281265f8f.22.1794039384637;
+ Sat, 07 Nov 2026 00:16:24 -0800 (PST)
+Date: Sat, 7 Nov 2026 08:16:23 +0000
+In-Reply-To: <20261107021427.2105374-8-dakr@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,170 +77,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261107021427.2105374-1-dakr@kernel.org> <20261107021427.2105374-8-dakr@kernel.org>
+Message-ID: <au7eV0D_44ipe3mw@google.com>
+Subject: Re: [PATCH v2 7/7] rust: drm: make Driver::File lifetime-parameterized
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: acourbot@nvidia.com, daniel.almeida@collabora.com, ojeda@kernel.org, 
+	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
+	tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org, lyude@redhat.com, 
+	j@jananu.net, alvin.sun@linux.dev, deborah.brouwer@collabora.com, 
+	laura.nao@collabora.com, beata.michalska@arm.com, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-octeon-get-stats64-v1-1-94cdedd8e9f6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBvI7Ie6SrSwHGs2Go5EIN09a
- fkt3ssgFJkE5ipDpJuFgy9QdQX7afxByLYY2qYdlGpGDHui4PGghJJMkqFDPVltOjdtTvVQwiu
- S4+efLuv7fnJlqaZkAAAA
-X-Change-ID: 20261107-octeon-get-stats64-39d3a4f9bf15
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794039231; l=5749;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=930QtnvR+WyHyNhL3+z3ix4Trio4JE/UI2vQH0/G6+I=;
- b=Qq8eUm8nI7O48uCTmo+hq1hLVmpOTKwmflK/g5TrenJCfHgJB3m08+eJwnKjmgpyN5O9tovDd
- fZyPcYqn6FaAzpVbN22AezCFHwElo2/5CU5/isHyW6G4ohRZW41kPgY
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
-Content-Transfer-Encoding: 8bit
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+On Sat, Nov 07, 2026 at 03:03:25AM +0100, Danilo Krummrich wrote:
+> +        // Run driver destructors without `filelist_mutex`. Take each link before dropping its
+> +        // allocation to avoid recursively dropping the entire chain.
+> +        while let Some(mut data) = files {
+> +            files = data.as_mut().project().next.take();
+> +            drop(data);
+> +            drm.open_count.fetch_sub(1, Release);
+> +        }
 
-Migrate the network device operations from the legacy ndo_get_stats
-callback to ndo_get_stats64, populating the caller-provided
-rtnl_link_stats64 structure via netdev_stats_to_stats64().
+Instead of transferring all the files to another linked list, how about
+taking them off the file list one-by-one? If you release the mutex in
+between dropping each file, then we still avoid deadlocks if the file
+private data destructor takes the lock.
 
-Update cvm_oct_periodic_worker() and cvm_oct_common_init() to avoid
-calling the removed ndo_get_stats pointer directly.
-
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
----
- drivers/staging/octeon/ethernet.c | 33 +++++++++++++++++----------------
- 1 file changed, 17 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
-index 42ec4b8324a8..c61b1ad3f9b3 100644
---- a/drivers/staging/octeon/ethernet.c
-+++ b/drivers/staging/octeon/ethernet.c
-@@ -141,12 +141,12 @@ static void cvm_oct_periodic_worker(struct work_struct *work)
- 	struct octeon_ethernet *priv = container_of(work,
- 						    struct octeon_ethernet,
- 						    port_periodic_work.work);
-+	struct rtnl_link_stats64 stats;
- 
- 	if (priv->poll)
- 		priv->poll(cvm_oct_device[priv->port]);
- 
--	cvm_oct_device[priv->port]->netdev_ops->ndo_get_stats
--						(cvm_oct_device[priv->port]);
-+	dev_get_stats(cvm_oct_device[priv->port], &stats);
- 
- 	if (!atomic_read(&cvm_oct_poll_queue_stopping))
- 		schedule_delayed_work(&priv->port_periodic_work, HZ);
-@@ -208,12 +208,12 @@ int cvm_oct_free_work(void *work_queue_entry)
- EXPORT_SYMBOL(cvm_oct_free_work);
- 
- /**
-- * cvm_oct_common_get_stats - get the low level ethernet statistics
-- * @dev:    Device to get the statistics from
-- *
-- * Returns Pointer to the statistics
-+ * cvm_oct_common_get_stats64 - get the low level ethernet statistics
-+ * @dev:     Device to get the statistics from
-+ * @storage: Pointer to stats64 structure to populate
-  */
--static struct net_device_stats *cvm_oct_common_get_stats(struct net_device *dev)
-+static void cvm_oct_common_get_stats64(struct net_device *dev,
-+				       struct rtnl_link_stats64 *storage)
- {
- 	struct cvmx_pip_port_status rx_status;
- 	struct cvmx_pko_port_status tx_status;
-@@ -239,7 +239,7 @@ static struct net_device_stats *cvm_oct_common_get_stats(struct net_device *dev)
- 		dev->stats.rx_dropped += rx_status.dropped_packets;
- 	}
- 
--	return &dev->stats;
-+	netdev_stats_to_stats64(storage, &dev->stats);
- }
- 
- /**
-@@ -421,6 +421,7 @@ static int cvm_oct_common_set_mac_address(struct net_device *dev, void *addr)
- int cvm_oct_common_init(struct net_device *dev)
- {
- 	struct octeon_ethernet *priv = netdev_priv(dev);
-+	struct rtnl_link_stats64 stats;
- 	int ret;
- 
- 	ret = of_get_ethdev_address(priv->of_node, dev);
-@@ -449,8 +450,8 @@ int cvm_oct_common_init(struct net_device *dev)
- 	 * Zero out stats for port so we won't mistakenly show
- 	 * counters from the bootloader.
- 	 */
--	memset(dev->netdev_ops->ndo_get_stats(dev), 0,
--	       sizeof(struct net_device_stats));
-+	cvm_oct_common_get_stats64(dev, &stats);
-+	memset(&dev->stats, 0, sizeof(dev->stats));
- 
- 	if (dev->netdev_ops->ndo_stop)
- 		dev->netdev_ops->ndo_stop(dev);
-@@ -540,7 +541,7 @@ static const struct net_device_ops cvm_oct_npi_netdev_ops = {
- 	.ndo_set_mac_address	= cvm_oct_common_set_mac_address,
- 	.ndo_eth_ioctl		= cvm_oct_ioctl,
- 	.ndo_change_mtu		= cvm_oct_common_change_mtu,
--	.ndo_get_stats		= cvm_oct_common_get_stats,
-+	.ndo_get_stats64	= cvm_oct_common_get_stats64,
- #ifdef CONFIG_NET_POLL_CONTROLLER
- 	.ndo_poll_controller	= cvm_oct_poll_controller,
- #endif
-@@ -556,7 +557,7 @@ static const struct net_device_ops cvm_oct_xaui_netdev_ops = {
- 	.ndo_set_mac_address	= cvm_oct_common_set_mac_address,
- 	.ndo_eth_ioctl		= cvm_oct_ioctl,
- 	.ndo_change_mtu		= cvm_oct_common_change_mtu,
--	.ndo_get_stats		= cvm_oct_common_get_stats,
-+	.ndo_get_stats64	= cvm_oct_common_get_stats64,
- #ifdef CONFIG_NET_POLL_CONTROLLER
- 	.ndo_poll_controller	= cvm_oct_poll_controller,
- #endif
-@@ -572,7 +573,7 @@ static const struct net_device_ops cvm_oct_sgmii_netdev_ops = {
- 	.ndo_set_mac_address	= cvm_oct_common_set_mac_address,
- 	.ndo_eth_ioctl		= cvm_oct_ioctl,
- 	.ndo_change_mtu		= cvm_oct_common_change_mtu,
--	.ndo_get_stats		= cvm_oct_common_get_stats,
-+	.ndo_get_stats64	= cvm_oct_common_get_stats64,
- #ifdef CONFIG_NET_POLL_CONTROLLER
- 	.ndo_poll_controller	= cvm_oct_poll_controller,
- #endif
-@@ -586,7 +587,7 @@ static const struct net_device_ops cvm_oct_spi_netdev_ops = {
- 	.ndo_set_mac_address	= cvm_oct_common_set_mac_address,
- 	.ndo_eth_ioctl		= cvm_oct_ioctl,
- 	.ndo_change_mtu		= cvm_oct_common_change_mtu,
--	.ndo_get_stats		= cvm_oct_common_get_stats,
-+	.ndo_get_stats64	= cvm_oct_common_get_stats64,
- #ifdef CONFIG_NET_POLL_CONTROLLER
- 	.ndo_poll_controller	= cvm_oct_poll_controller,
- #endif
-@@ -602,7 +603,7 @@ static const struct net_device_ops cvm_oct_rgmii_netdev_ops = {
- 	.ndo_set_mac_address	= cvm_oct_common_set_mac_address,
- 	.ndo_eth_ioctl		= cvm_oct_ioctl,
- 	.ndo_change_mtu		= cvm_oct_common_change_mtu,
--	.ndo_get_stats		= cvm_oct_common_get_stats,
-+	.ndo_get_stats64	= cvm_oct_common_get_stats64,
- #ifdef CONFIG_NET_POLL_CONTROLLER
- 	.ndo_poll_controller	= cvm_oct_poll_controller,
- #endif
-@@ -615,7 +616,7 @@ static const struct net_device_ops cvm_oct_pow_netdev_ops = {
- 	.ndo_set_mac_address	= cvm_oct_common_set_mac_address,
- 	.ndo_eth_ioctl		= cvm_oct_ioctl,
- 	.ndo_change_mtu		= cvm_oct_common_change_mtu,
--	.ndo_get_stats		= cvm_oct_common_get_stats,
-+	.ndo_get_stats64	= cvm_oct_common_get_stats64,
- #ifdef CONFIG_NET_POLL_CONTROLLER
- 	.ndo_poll_controller	= cvm_oct_poll_controller,
- #endif
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261107-octeon-get-stats64-39d3a4f9bf15
-
-Best regards,
--- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
-
+Alice
