@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011828;
-	b=fBxJU+0IumfrekeLeMtLHF46hEhmLFOp6ogZ8IjNaN05aQRIChugql8PY4p2Q5Y1IJyh
-	 dKuIX/NWm2SN5N5M6AFsDmIgUxihfwmHRb9E7qqdqhwToEPIHdk284nWNDaOaeaHRDD0e
-	 W12ZyRP3Yj5ReYXMeNC6irePz/or6g9adHJiJxSu6Jg9luT1JIAhwZV61G7zbESUFhj9R
-	 9tAUiNWi4oQ1FDGDAxjkvIN2JT3UYDqryM3GRtbfmSPR3ERgPDGK0n2hktC4QGum9GT7v
-	 O9z0QMQ2a/GHcTv+thqIZZGQ/SahfSnc3ZjFYnqUAtVDy2RSdPWm5n03cTaXRmZ8h3A==
+	t=1794011839;
+	b=pG85LD+qyAAIoAC0Nvb3AFUBnAoV9VPhDkOXBcSlOEiTeFrcGNJcgLcS6GQ0Jl6b9RXG
+	 hZXcAroSAI/B32eq66/naemIEF5Kv7Q/CRbYIR+D0rnJiE1kfYtlr44R1L1JUYfd5fU63
+	 e/PtyPIkvZVLsfbXidHEvSeKwcai5InU36lHGWXCqLBXTbOrrRrmOSM4EUd0HrFy/CzrZ
+	 QRpv0V3RrQnS48MZWI1/mtH3qa70gkZGB3UrN9g0mbdcfYaj+ge/N99JVaxngYr3SZ2F+
+	 SorZMK6jif2rBJ3DFCdSTqkQpiqsAshGm4yid2qeLqypWP1hB4N6zJZfPK4IVZt49ig==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011828;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011839;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XbgD4ImI2n1rI6Htjo1pftOxgnHtLV+P5ZlvPe7/FPM=;
-	b=NCsKwP9O5UKUD+jsZxrdgT5IAMACrlAH0GHk/JYmePxZRLhG44wGJL6I/ChmGqVDX4Wl
-	 +GVn6WHtcbyd1CD+WGk35OwrAm32SBdcsOvQF0/5nX5V+h0mowtLQwDewBcppuq2mDRJ0
-	 VUvShb1hTGJ/Tv91l8RcnatAuBPRhKX3aQaupz6w/xyvRAZxEDbVEP2E3dKjYXebXb3mv
-	 /eO+s9J6yDdKHtAnVkmxupcvdA9bcAQV1IRyajyYDRam70vNJEx1ncjyrPOWWT+LgZtEk
-	 JjyYqOWB6c+kKYKt0U2n79lXMn6kpHXtzFhJzEZSRvhTQTIa/elQT6oMqVCcRloUJOg==
+	bh=8FI7dlGgiyTT6PAbX8ijOtddOd63Y42N45h2JTeZ+J0=;
+	b=Ttd2bTrruZXwVpid5Yzua5L1rJdXMuCnvcAOPpTtnxlR70mvKfDBQECQeq32rhYD4CaK
+	 sXRFtGaxUCWNKDQeMt+Eh0dRwSXrbSXy+yOGBXcEMETEXkIjVEa1TWIEJn0Wi/MyubTAt
+	 IpiLDsz6yC+zkv4YgurcENoBTeCWqzWq3LrvGTWnXNzhqlVYgtVI//mhR2PH/DjUHlQ7T
+	 6HxNsjTHJSe++J/d6EqFVqa22/GAo4z0cUtqOYtwowLrF+5DhQbUV5e5/dk9EwHch283f
+	 zHNRWGmJsd/66uPDSHGYUg9QKWwnq47KpwNiJWsvOvkcDEkeuUfmiuk6BStOExekloQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hx+Lrfin;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2RCVqpY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B440606A338;
-	Sat,  7 Nov 2026 00:37:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7AD606A828;
+	Sat,  7 Nov 2026 00:37:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hx+Lrfin
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2RCVqpY
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011828;
-	b=DhCW07Nn03Q+sJ7vioJGBqHKxhj94Gspz/XxJ+f966pMWIYuMynLGUhWqEsvnZ+D6NNr
-	 JxwvHA/mYnrUARMRO0gkHr97CJAdp1dBC6buSy3h4hf1fZImOh9Kyxg8BPghYW4E5uQrz
-	 j11uX6RvMmC0dJvrMa6KYGintB1WfxlXvtWlMcXFaBLLl9FtfQSHCVi74TUoIZ8Pz3zdZ
-	 hSMCohuugs7u8RdU/X9vadKIxgFIV86L99nuV7BIKL2hzuyQGkPcPESdlxba1ZGQBASWX
-	 hSS+mRYsX6NjwQDwgwWRD/uX0PRSO90K3BTPVkdID1ZFSOny6X1qE0SelZpcCu6zDyA==
+	t=1794011838;
+	b=NgV4L467X+daB4ct6bhwQhynSBLGCdybURTDGDEcnNvhEnyVN6blzC1oMg7HN66/6jaZ
+	 cFX1XV1wOpy7ZuBsql6xJj2wDmJPElCqXLE79juyVRqbKSJbJAqO2t1LnzxGxit0y5Vfd
+	 7jCK5+EdQmHESQnmwK393ARJay8cpUhW720Jfm+4YCmcHAkQCNqlVZwIpTJWNy6c38r1A
+	 JyJ4bXq3KCq1hvyvQEpjv9DRjGfdcSqtMsKo1z+Y77udoJYz0DsGNfTuYqr958s1DS3+m
+	 0wA8q9LsP3o5yxQemuPptAZP904nRXyQ7ZV7RoHQEv/pSYsVYFeEqn6JDyGC/XFsSBA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011828;
+	c=relaxed/relaxed; t=1794011838;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XbgD4ImI2n1rI6Htjo1pftOxgnHtLV+P5ZlvPe7/FPM=;
-	b=iBtBJ3JTtUyU6GAUDnZXdEx+XF+KPjBz9VlpnWGhxjFhBBQCfJ+qQ19NmqdgX4tIpNCL
-	 pamOqcyTGQH4Yb/XOvVqcucwTZIhObsvusBeI77Itb7gNORPI4DAzhgORj2HJec44ygAf
-	 W1gn5KGw2DVFMM2+f3cwoXQlfW/HlSXzrOAFCSflB7VaZTcBUrZeewTyRSpo+3DfjGond
-	 f6/qjw3n4KecsS+9zsJOVUXfr4cCTaQI9yr1EEHTEMCam8G0rkGtq+BW0Z0hOQ7cgdXTz
-	 dF8iJqtmikC7AnDthCzSgtqkz/J8ekC8PqzkpKu+QArFy1Upe4VWMhWebV2pAkFQvTQ==
+	bh=8FI7dlGgiyTT6PAbX8ijOtddOd63Y42N45h2JTeZ+J0=;
+	b=y4usqB47yGylU39HH2wG50ZsHv/Jagk9iVndBi9xK5Bc1QZ/NOrlBRywNFGkZ3cuSdk3
+	 xPrjtOFl/s9gQsPv6KDe38ROgvZ7UkPN5zy5vyuc4nB+ABRGo56Cocv++VQJ3XSe1dYAq
+	 zEYtjJvLlF4Ef2eH+bf0Y1eand2AbfYeuvPoBK7ui8RVyA751FiVwImFtzitYgAfqCjQN
+	 qDVSZA/C1fG0E2H+q6+F89oPjslda251DG8CcK3OUs0Y2+/ui2PtegVLV0A7H3hZloaaj
+	 sgc+KdJmDWUC2HQt15rRkxo/hGhpnSftpkIK3YvaJYbX1dnldjOQ+Uiezv/M14FWgCg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E22B41F008A2;
-	Sat,  7 Nov 2026 00:36:58 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2908B1F00900;
+	Sat,  7 Nov 2026 00:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011828;
-	bh=XbgD4ImI2n1rI6Htjo1pftOxgnHtLV+P5ZlvPe7/FPM=;
+	s=k20260515; t=1794011838;
+	bh=8FI7dlGgiyTT6PAbX8ijOtddOd63Y42N45h2JTeZ+J0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Hx+LrfinJ+cKXfOoDEnRa6iap2I/5fgh1ug2S6gqUAVQgh4Ru/LwyE73BnFN6NQrh
-	 gjbWihRk5WcBvYsVG/AnPSbAEUV6liOXdlVKFi4/ulUPLEMytc7GZ8nsqzwLHzx4SK
-	 Pw5D8lXtNGYpGC3/QIYSOtEgqqzQTyakl6FT5lAohHexuw9GzVg1AKiMzpQV2Forrf
-	 w+Av/aNks8R9+hayu8/OToEhj/0ictjzU3NChnqXOA7LuF4cYW/zdR/9Rpup205S+V
-	 xodva+pE5WpqpLnVNVxT+XD0yu1HBM6LgdMF+3mfWRO1ofeLMFLzS10+DiZUGbXDFR
-	 CU3cV8yAVBq6A==
+	b=C2RCVqpYvdw5UTGpPtxYrUi6sBxO+V3ux76tMhUupJRLrZC2QHcJnS5dsC/jRh+JI
+	 RAe2ZeRW4mmxl4uD8RfUExLlrnhg4j8grvVj3ZgeghENaO2eOjq6kkscgm2v/p7+F1
+	 55Zbwnlh6u+8btpD14dEXjjb+MbMuNA9L7w2gtwuKyt8tZNBxgXm2i6iFKYYEM2PvO
+	 lz2m7xTMK8VCsVuPaq6XmnRk7E1XPhcqgrWoXBPdATPy5wEq9I9W8Jg6QKpl1qz+ga
+	 19e1ioBt7y8TIDVrgg/JnAka7NVpwpMjimErG04oMVScdyfbwBjRnF/geYsPwztawZ
+	 +7o4NDULrTe8Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A416247977;
-	Sat,  7 Nov 2026 00:36:54 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0A89647A3B;
+	Sat,  7 Nov 2026 00:36:58 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:36:59 -0800
-Subject: [PATCH RFC v3 25/88] KVM: selftests: Add basic test for sample
- memory provider
+Date: Fri, 06 Nov 2026 16:37:50 -0800
+Subject: [PATCH RFC v3 76/88] KVM: selftests: Verify VFIO MMIO mmap access
+ for igb device
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-25-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-76-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -105,11 +105,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011809; l=3413;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=2223;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=egSCIn/Z8yZyelQp7cvP3qLOE5NIjYa4+lOtgqtkCcA=;
- b=eS+nI7PxlE1maO7QU8JcyjZXzc2ref6sfu7l8coYHFOVhGHBKNsZtFBYoz3WLd43hTPKAb1qs
- PP5daxaQ65oBQ7t7obsP+mJagOwOWNCEhUA/gMKhIeq0BPfUyn6q5uy
+ bh=jzqW1Jjl/TdHDq92R8GBSwh+0N7VE+Z3IfJio0K3a6M=;
+ b=f9okZk6tF+33EEc7SQLegmp34Vb1lvk+kZzlENivyzjPi6JteKmB26YWjXUyVF37IjJG8C0Tk
+ 2GEFDMEETf7AmUmyoLD2UCbk907cEfoHL0cwp4KYGbpDQEbydtcIKgA
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -120,122 +120,67 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Add a selftest for the sample memory provider to verify lifecycle
-management and file creation.
+Add a subtest verifying memory-mapped I/O (mmap) access to BAR0.
 
-Verify creating provider files across multiple sizes and ensure that
-initial statistics accurately reflect file capacity, zero absent pages,
-and zero read-only pages.
+Map BAR0 into userspace address space, read the device status register
+using a pointer dereference to confirm device responsiveness, and write
+and read back a scratch test pattern on RAL0.
+
+This validates that direct CPU page table mappings to device MMIO via
+VFIO function properly, establishing an access baseline before wrapping
+the BAR inside guest_memfd.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm           |  1 +
- .../selftests/kvm/mem_provider_sample_test.c       | 85 ++++++++++++++++++++++
- 2 files changed, 86 insertions(+)
+ .../selftests/kvm/x86/guest_memfd_vfio_test.c      | 37 ++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 17a4256e90819..5f7118bddfc36 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -72,6 +72,7 @@ TEST_GEN_PROGS_COMMON += set_memory_region_test
- TEST_GEN_PROGS_COMMON += memslot_modification_stress_test
- TEST_GEN_PROGS_COMMON += memslot_perf_test
- TEST_GEN_PROGS_COMMON += vm_types_test
-+TEST_GEN_PROGS_COMMON += mem_provider_sample_test
+diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
+index fa05b7cfb3185..4d5211b6acf79 100644
+--- a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
++++ b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
+@@ -294,4 +294,41 @@ TEST_F(guest_memfd_vfio, bar_rw)
+ 	ASSERT_EQ(0xdeadbeef, val);
+ }
  
- # Compiled test targets
- TEST_GEN_PROGS_x86 = $(TEST_GEN_PROGS_COMMON)
-diff --git a/tools/testing/selftests/kvm/mem_provider_sample_test.c b/tools/testing/selftests/kvm/mem_provider_sample_test.c
-new file mode 100644
-index 0000000000000..b39161f4933d3
---- /dev/null
-+++ b/tools/testing/selftests/kvm/mem_provider_sample_test.c
-@@ -0,0 +1,85 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Tests for the sample memory provider (/dev/memory_provider).
-+ */
-+#include <fcntl.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <sys/ioctl.h>
-+#include <sys/stat.h>
-+#include <unistd.h>
-+
-+#include "test_util.h"
-+#include "../../../../samples/kvm/memory_provider.h"
-+
-+#define DEV_PATH "/dev/memory_provider"
-+
-+static int open_provider_dev(void)
++TEST_F(guest_memfd_vfio, bar_mmap)
 +{
-+	int fd = open(DEV_PATH, O_RDWR);
++	struct vfio_region_info bar0_info = {};
++	uint32_t val;
++	void *bar0;
++	int ret;
 +
-+	if (fd < 0) {
-+		TEST_REQUIRE(errno != ENOENT && errno != ENODEV);
-+		TEST_FAIL("Failed to open %s: %d (%s)", DEV_PATH, errno,
-+			  strerror(errno));
-+	}
-+	return fd;
++	vfio_pci_enable_memory_and_bus_master(_metadata, self->vfio_fd);
++
++	bar0_info.argsz = sizeof(bar0_info);
++	bar0_info.index = VFIO_PCI_BAR0_REGION_INDEX;
++	ret = ioctl(self->vfio_fd, VFIO_DEVICE_GET_REGION_INFO, &bar0_info);
++	ASSERT_EQ(0, ret);
++	ASSERT_TRUE(bar0_info.flags & VFIO_REGION_INFO_FLAG_MMAP);
++
++	bar0 = mmap(NULL, bar0_info.size, PROT_READ | PROT_WRITE, MAP_SHARED,
++		    self->vfio_fd, bar0_info.offset);
++	ASSERT_NE(MAP_FAILED, bar0);
++
++	/*
++	 * Read Device Status (E1000_STATUS) via mapped pointer. Confirm device
++	 * is readable and does not return 0xFFFFFFFF.
++	 */
++	val = READ_ONCE(*(uint32_t *)((char *)bar0 + E1000_STATUS));
++	ASSERT_NE(0xFFFFFFFF, val);
++
++	/*
++	 * Write a distinct scratch test pattern to RAL0 via mapped pointer and
++	 * read it back.
++	 */
++	WRITE_ONCE(*(uint32_t *)((char *)bar0 + E1000_RAL0), 0xdeadbeef);
++	val = READ_ONCE(*(uint32_t *)((char *)bar0 + E1000_RAL0));
++	ASSERT_EQ(0xdeadbeef, val);
++
++	ASSERT_EQ(0, munmap(bar0, bar0_info.size));
 +}
 +
-+static int create_provider_file(int dev_fd, uint64_t size)
-+{
-+	struct mp_new_file nf = {
-+		.size = size,
-+	};
-+	int fd;
-+
-+	fd = ioctl(dev_fd, MP_NEW_FILE, &nf);
-+	TEST_ASSERT(fd >= 0, "MP_NEW_FILE failed for size 0x%lx: %d (%s)",
-+		    size, errno, strerror(errno));
-+	return fd;
-+}
-+
-+static void test_lifecycle_and_creation(int dev_fd)
-+{
-+	size_t page_size = getpagesize();
-+	uint64_t sizes[] = {
-+		page_size,
-+		2 * page_size,
-+		2 * 1024 * 1024,
-+	};
-+	struct mp_stats st;
-+	int i, fd;
-+
-+	for (i = 0; i < ARRAY_SIZE(sizes); i++) {
-+		fd = create_provider_file(dev_fd, sizes[i]);
-+
-+		memset(&st, 0, sizeof(st));
-+		TEST_ASSERT(!ioctl(fd, MP_GET_STATS, &st),
-+			    "MP_GET_STATS failed: %d (%s)",
-+			    errno, strerror(errno));
-+		TEST_ASSERT(st.size == sizes[i],
-+			    "size mismatch: expected 0x%lx, got 0x%llx",
-+			    sizes[i], st.size);
-+		TEST_ASSERT(st.absent_pages == 0,
-+			    "absent_pages mismatch: expected 0, got %llu",
-+			    st.absent_pages);
-+		TEST_ASSERT(st.readonly_pages == 0,
-+			    "readonly_pages mismatch: expected 0, got %llu",
-+			    st.readonly_pages);
-+
-+		close(fd);
-+	}
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	int dev_fd;
-+
-+	dev_fd = open_provider_dev();
-+
-+	test_lifecycle_and_creation(dev_fd);
-+
-+	close(dev_fd);
-+	return 0;
-+}
+ TEST_HARNESS_MAIN
 
 -- 
 2.56.0.455.g6c5a503b38-goog
