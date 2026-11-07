@@ -1,76 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794084200;
-	b=dxz4HxUPLlpxfjAfe+BfwViCFKgmFQiY4rUsn+YDqyZXs60w5LtS+3Mr8CAq8uWTR1Ch
-	 KKZUh3BLQCXze8TCkyrkI7Pjqca2ZWwu6NX62SDjdZsbt8YmPXy+e3S2L2LjRb8e4CP4e
-	 cX7Qde3AtGR/1vKHXJjkauWEDFycO3YB7BEc0X+pdo3WwYRUya9eT0sG7UnMIbRJKcVky
-	 84Ie2o+KqH+d/PC1YYmhUCS79UhKzXr7smpdr5NGhQeElCFpRcaY8wZbI9SUiSJceZzyd
-	 ATcwcRGavLqghJuBjaka1ydetSZrfyJdVgLTdW239PgbHE6fmSRX7HyFMqf2HAMFRDw==
+	t=1794084227;
+	b=vjDqYhbHHr7eBpVBDEuQmOXTPhm0sz6qsOIeegVqF0S5wUGSlL1pev6LMxQ/XFbRxbUx
+	 L7ftj+4dttDX8fwXuxrhb5YXidzXd3oxw+h5U4dXb2H7YhRKXD85MX1TrW0/Bf2umazEA
+	 4H6dkXCiV50YhUlbQSo7LJw0EUDPnerjrHCSKa/qu4Ljne2OQFl6Rw+kDWeaZ+yBZ281K
+	 hEhi2Sop6Zr5Piz3hSG6M6W0n+9JMMaIKYGOjAIpOCd3c7Vva2xqbv/WWvo8gmuZ3OJqJ
+	 jONPSX29gTq4Gwh0VBRR2RkXYPoN/p+0X6k8zKqO3ogW26r6pAsVMMg0RCUlS6riuHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794084200;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=68bp6QK8kEx9w15xHAI7181CGoSCj6CC94TncfB0GEs=;
-	b=fG7n6mwvHinviE3TYpbp6pQqzKEnerWchXFMat6kyGAP7tO1a6bXuUObPzFbRg6JHHQ9
-	 F3IYhQLALUmXka6MbRip4Q0pOA1b4blMtB2gsnIzkKSOqBlPyh+GU8MlsZg/ToLzgHHaI
-	 reIwx9b0Bei9EkKLoTFyvQXPUnvCi5lugYnZgWPe+tbI8u6Q1TvoSJpXB6aPYx3qWnUym
-	 BhKh9fNANhaWtVgAbt82/VMq5MuR64+0fE0fajq8vsxnVx51szxWsyoPx+X2egDVkVhgD
-	 lHAZfta3p9cSC9Zw4dr+TSUsM9LKtR5woQYUb09mT/5KQZWZ8fEMyE8KOTIDdDKhx+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794084227;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xIJP/ux0u2zudpHSHBN3zgctS50zYkGAb3SzJpj0v60=;
+	b=DOUU1II1nOjfg9iri/q+0JwIT+v/8t0+eZXUJF5MgfTEoj9opIA6qMLAR+Q96cCb5XqP
+	 cRfSg49HF9iyBtFM3k4/q62LO5d6Kj1Tua1Izsk7oeOej1UTqU9GuzALAJo3alvlOk8wo
+	 Q56hhk5f2BmfmAL1FyKtOPQ4ry955Ukt/FFKFMEdux3IZrJcoFYlcdqzpmkKzYnTvQOCc
+	 vDXWGVj4T8HT9Yl0o56u41kcArp9Wzj5kRDuzPnnOkaV3dXNDO1Sr3JzV+cDN1iMYO7cb
+	 fHjSvBqC2sNJRO7PS1uxGH3MNPlhSvMvVF27qIyB4pOA0Sj4TpnKMWMUGX7oCu1TxsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=C6ixnZmr;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+X1Qp2M;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8D1606A326;
-	Sat,  7 Nov 2026 20:43:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB8D1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DED9606A326;
+	Sat,  7 Nov 2026 20:43:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=C6ixnZmr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=68bp6QK8kEx9w15xHAI7181CGoSCj6CC94TncfB0GEs=; b=C6ixnZmrVhi5lYWRYgBi8GXTnE
-	kwEAECAjtMqRKld7xoX4PkzCkX16Xk2SyDpurj8jVbd6uswsvUnuYpQj9yBQ/tIBHUhCWTzwLROqb
-	kDEvAh95rSHADslkp3Cy5gofmbolBHo76XF7pRjxhKl3FximtDWDAwGVZk7aJEqclyaA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xPnFd-00F0HZ-8k; Sat, 07 Nov 2026 21:43:01 +0100
-Date: Sat, 7 Nov 2026 21:43:01 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Po-Yu Chuang <ratbert@faraday-tech.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: =?utf-8?B?5Zue6KaGOiDlm57opoY6IFtQQVRD?=
- =?utf-8?Q?H_net-next_v5_1=2F7=5D_dt-bindings?= =?utf-8?Q?=3A?= net:
- ftgmac100: Make Aspeed compatibles standalone
-Message-ID: <f44dead2-c5cb-4684-ac7d-2f4409af1ab3@lunn.ch>
-References: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
- <20261104-support_ast2700-v5-1-44057f4dde75@aspeedtech.com>
- <20261104-helpful-courageous-hedgehog-f05bbf@quoll>
- <SEYPR06MB513412E04F4F0AE8ADE0375E9D682@SEYPR06MB5134.apcprd06.prod.outlook.com>
- <20261105-ambrosial-natural-ibis-7cecb6@quoll>
- <SI2PR06MB51406DA90F387ED0C64073869D772@SI2PR06MB5140.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+X1Qp2M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3DD71F0089F;
+	Sat,  7 Nov 2026 20:43:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794084227;
+	bh=xIJP/ux0u2zudpHSHBN3zgctS50zYkGAb3SzJpj0v60=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=M+X1Qp2MqP3zYUYD6309po4giUA4YS0ZDStqsnfzwZcAmmQCrqcKt6s94A2e5FQqk
+	 3vygZ2+LcYgFDNYRd55jBzgAQQUuXC7EbCLqW58ObeCfkrwHiiMDOacRqLPdQNw2m2
+	 jYPt46CupXaDMm3RrfIIjVKeoq0LX/8+u4ebkGPVOzdaklcrVgI5AZyRniVaGzAqYN
+	 XdO8wXEFUCkudScu1VDf7OxnHqV3ZexLikZrtLUBB3DBzKSMJkXaYi8o0wjvgsJasb
+	 HOTqkART3+P+yH6uImF3aJEX4+ftFHMkLvi9Q3Fr08affb8aAprixKWh4T1NADjlqJ
+	 L+h4Il2mIsEnQ==
+Date: Sat, 7 Nov 2026 20:43:42 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, Conall O'Griofa
+ <conall.ogriofa@amd.com>, Salih Erim <salih.erim@amd.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Michal Simek <michal.simek@amd.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, stable@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] iio: adc: xilinx-ams: fix out-of-bounds accesses
+ when parsing channels
+Message-ID: <20261107204342.4ff7487e@jic23-hlaptop>
+In-Reply-To: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,45 +67,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SI2PR06MB51406DA90F387ED0C64073869D772@SI2PR06MB5140.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 12:49:28PM +0000, Jacky Chou wrote:
-> > > > > The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
-> > > > > compatibles are currently only valid when paired with the generic
-> > > > > "faraday,ftgmac100" fallback: if a node ever bound through the
-> > > > > generic entry alone, ftgmac100_probe() would set
-> > > > > rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the
-> > > > > Aspeed BIT(30), skip Aspeed clock setup, and leave the DMA mask too
-> > narrow.
-> > > >
-> > > > And device would work or not? If device still works after all these
-> > > > steps above, then why isn't fallback applicable?
-> > > >
-> > > > Be explicit, because I have no clue whether Aspeed clock setup is
-> > > > necessary for device to operate.
-> > > >
-> > >
-> > > It is necessary: ftgmac100_setup_clk() enables the MAC's clock, and
-> > > only runs when priv->is_aspeed is true - skipped if a node ever bound
-> > > through the generic entry. Without ftgmac100_setup_clk(), the MAC on
-> > 
-> > This part is obvious.
-> > 
-> > > Aspeed platform would be left without a working clock, so it wouldn't
-> > > be able to configure register and TX/RX at all.
-> > 
-> > So you are saying device will not work? Then make it obvious that clock is
-> > necessary for basic register access.
-> > 
+On Wed,  4 Nov 2026 22:14:59 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+
+> The driver sizes its channel array for 10 fixed and 21 external PL
+> channels, but accepts external channel nodes numbered 20 to 50, and it
+> never checks the remaining room while filling the array. Channels 20 to
+> 29 are the fixed ones, so listing them adds duplicates and overflows
+> the array.
 > 
-> Yes, the MAC on Aspeed platform does not work at all. Without the clock, even basic register
-> access to the MAC is not possible.
+> Patch 1 limits the external channels in the binding to 30-50, as Sai
+> pointed out. Patch 2 does the same in the driver and adds the bounds
+> checks from v2.
 
-Then for this new compatible you can mark it required.
+Applied with the fixes tag for dt binding dropped.  
+Note I'll take this the slow way so this will only merge next
+cycle.
 
-Maybe test what happens if you mark it required for all aspeed
-compatibles. Do an .dts files fail the test tools?
+Thanks,
 
-	     Andrew
+Jonathan
+
+> 
+> Changes in v3:
+> - New patch 1: limit the binding to channels 30-50 (Sai)
+> - Patch 2: only accept channels 30-50, so a channel node can no longer
+>   duplicate a fixed channel (Sai), and add a static_assert() that
+>   ams_pl_channels[] holds the fixed plus the external channels
+> - Patch 2: rework the commit message around the duplicate channels
+> - Rebase on fixes-togreg (now on 7.4-rc1)
+> 
+> v2: https://lore.kernel.org/all/20261023185652.195025-1-kapoorarnav43@gmail.com/
+> v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
+> 
+> Compile-tested only (W=1); I don't have ZynqMP hardware. dt_binding_check
+> passes, and rejects a channel@25 node in the example.
+> 
+> Arnav Kapoor (2):
+>   dt-bindings: iio: adc: xlnx,zynqmp-ams: limit external channels to
+>     30-50
+>   iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
+> 
+>  .../bindings/iio/adc/xlnx,zynqmp-ams.yaml     |  7 ++-
+>  drivers/iio/adc/xilinx-ams.c                  | 57 +++++++++++++++----
+>  2 files changed, 50 insertions(+), 14 deletions(-)
+> 
+> 
+> base-commit: c293f0db308fe76a0a9b0f6674cd2dea149b03aa
+
