@@ -1,59 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050147;
-	b=UCQFDz4PzeuULrddYIhhrD+bZe7jEW4V1vCGL3kOk0CKkRuTfZLJoZrHDVwf9MZ9XUN/
-	 UqvISYq3VhNB+hderj5JBf+Tg8/fuFt8/WfqNsCWkuKq4vG9ilFP3ap14ilMZe6xrU/CH
-	 S91tOQD6yMMOk39eGW5brlA2T8qv6gS7DgA7ithGO9WwwQaE2OsseF5CPGDHZwXoBQWQj
-	 5eNPAMRsnTMdEvXdpABOkz/6KKcK8qnMmor8Rzp8LGwnspM+jdBN611zBb0YnupMDoKnB
-	 5H5noNGax6p7G5sZc5hz2gjrExISDGoJYqQWaIb84TnHsSJmmjj0fCfi4gyJtNIylyA==
+	t=1794050180;
+	b=U6FMpwxN1Sk+Rt5g3s1G7QC4dtf3ry8CfFQpNTLcmZQKv9eByfpm6oHv0hS6JyrUAfn/
+	 xAPeeOqIc51zhoglfroV6vFk+wEOiR9YEP553ACWk4RN3q7RWaRRLm1ZEnaAWYSnvs7RB
+	 x0tvvqNHeb5vbxYSl+DqQB59D4wwPAbI/9Q2bgZ5nh9wkybNmn7SSsewAbuuTyH1yWTnE
+	 ys25DBdN2ZYx/Il987dziOs+htxS0oneYxyEw+hAo5VO6eVppN2CKBTlygW80/C63WMgw
+	 6gv6bOEoGaLaXAEh4JceYutnjeZkv3VdbIJB/5qoXqLCpjhdjy0LYE4LPw3iSF5h8iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050147;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=HlLkPFRA47iYpBWPfJSKGrVGd9XNqqaIsaN822UA81k=;
-	b=GDhWm2ysEpWiLUSj1sclQflcIQjeN4LYq4+bqceN1C1hmZIPwmTmaQ6s02SoJBrj8PW/
-	 wDi5bl0mUmRH/BUo/JL5KzmwJT/BZO0dyYUxx70ZqFLG2E7UHTMXclIqvJsZjMhCOyYew
-	 ywgw1DpEWdlysiMsAjb016UNd/MFIg8w9fpmEpd+XK0DVtO7GPtmptFQsr2lkEaloq4iS
-	 egpq0dex86j28gE4b2owYQpCJowNw655/6m7ucoes9Pa8gJ4GTgw3RF8At8ngec6U0Fqo
-	 Iqq9He7YZx/iSagZyHEyXeg5CcLxamHuw47vU7okFV/Horr3jNaf5nLHeE2xY+N6Uaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050180;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=LMrhucrgVnpi30JNRYdhLtOMnaS1ZSP99n5Yy7pCXzY=;
+	b=xHlpmX7EGtcoQI6SRHQdMDGWHOVwiqSz/RBjtNNqHCnVJpSq5yCfUtYjXqD20EzJnC6J
+	 B9wtKuOnil7RaHpW5HjVwOwExLH1Khj42DTzztH6i6agRYlaV3UsV5Cyj6nmlpKLYWXsx
+	 Ea/mw+ZjHYuTTZSoSGlk6y7rVUbgmqrnkS7Rn8AY+oh7LIePN2gpbq5586xLgy0elSe4M
+	 pxVgMnp2TTZHiqjeMk/06fueDwKALNEx1o2zeqQ6s4ct6Jc7rAV/8W3W8Gsoi1vdnR8O2
+	 erg/45pC3uBfo4ipW9CDzlxLZ8eww6jtKeGo6pXPfe01WoOIsjp8GfWhJce/sZL2N5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8yvilQ6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F0sF3ae0;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DCD606D802;
-	Sat,  7 Nov 2026 11:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5597B606A326;
+	Sat,  7 Nov 2026 11:16:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5597B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8yvilQ6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04FAF1F0089F;
-	Sat,  7 Nov 2026 11:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050146;
-	bh=HlLkPFRA47iYpBWPfJSKGrVGd9XNqqaIsaN822UA81k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=E8yvilQ6bM1/ZFCRN2Aupy3mdGtXi1d07S7K3DERfQLlQTetUnJxAsoMfuMGva9Hl
-	 /yNdTK8FcqGwgtPsgIqT/j4OV1sSE/x/EADkVCS40ef4G/qpkCYRKa4/Uaa84EgnQb
-	 gVC6t6dvVQnIqBcHvl/bOQ4Mt8Ax7M2duIE8iepjKZQnapKpm1d+m3Zq0fMU0Zubvi
-	 FLWppSRyV+URd9AtlXGKBDedzLWfRLk4oAKWLTTrmbMmq8DIju889NrGuFj56uc9aW
-	 yMeHS6w7DP0bMzez+Q3sWtM7/iBGPHPDGHgBm0sJUvs16+kS0OnlQ9pTZ5hAjMIjmU
-	 1GKxqKehFqeyA==
-Subject: Re: [PATCH] net: ixgbe: drop the SA reference if secpath_set() fails
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 07 Nov 2026 11:15:45 +0000
-Message-ID: <179405014554.994134.10719290719575125531@kernel.org>
-In-Reply-To: <20261103100534.1310039-1-vulab@iscas.ac.cn>
-References: <20261103100534.1310039-1-vulab@iscas.ac.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F0sF3ae0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794050179; x=1825586179;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Q26nfU7yQ+KUNyjkuLFzEx3HfNtlSM236u/gCkJt7r4=;
+  b=F0sF3ae0xKLAPur4OGGoQTt/ZTu1KfAn2VfkcQL3o5zdOWFjXRe1HR4s
+   96bLYmZcE2ha8H7wvHb4HQU3kMIS91eOsFMZsoAwixIgIdX9bWPo3IavC
+   jJaC1p19LZqyBco0mRUTXppOuIM4lMlHbudDbUf2VEE3f5gY9Y7JPZYCQ
+   os9QhTRenN138jEPZ77bpGgULgSyWmh3ZbS/VDApkh4H/0jtOMrbzzXOp
+   OOC5ljYlzukKkmCoMdVVL/Olsu7MJS8wwVQz9Ukb56wBhk0fEM97AOT0W
+   f8mmsFwEYMrNQNfi1rwQ5zn5qdoCYY/+EqkXmwoh11eihCoe5TYxII1k0
+   w==;
+X-CSE-ConnectionGUID: qDKmNkd+RSGECM/5kGPr2A==
+X-CSE-MsgGUID: eXk8mG9yT6y/DcKNQ+8t8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2875256"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2875256"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 03:16:19 -0800
+X-CSE-ConnectionGUID: 0P7ccIUJT7e7JAokhp0Bwg==
+X-CSE-MsgGUID: grkfd/kQQriipPZi5ViG9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7810786"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa008.fm.intel.com with ESMTP; 07 Nov 2026 03:16:17 -0800
+Date: Sat, 7 Nov 2026 19:08:52 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Abdifatah Suruur <suruurism@gmail.com>
+Cc: linux-fpga@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
+	Xu Yilun <yilun.xu@intel.com>, Tom Rix <trix@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] fpga: dfl: afu: prevent read-only port mappings from
+ becoming writable
+Message-ID: <au8GxITpviOO/H0O@yilunxu-OptiPlex-7050>
+References: <6adb4881.dcf90272.1a940.5568@mx.google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,161 +80,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6adb4881.dcf90272.1a940.5568@mx.google.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Fri, Oct 23, 2026 at 04:44:01AM -0700, Abdifatah Suruur wrote:
+> afu_mmap() rejects writable mappings of port regions without the WRITE
+> flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+> read-only and then upgrade the mapping to writable with mprotect(),
+> writing to FPGA port control/status registers the host owns.  A guest
+> assigned an AFU can use this to reconfigure or reset the port and
+> interfere with other tenants on the same FPGA.
+> 
+> Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
+> its read-only objects and as fixed in drm/vc4 (CVE-2026-68445) and
+> drm/panthor (CVE-2024-53071) and ptp: vmclock (commit
+> a5edadbae57e2298a56cf7a4e774a027905a331f).
+> 
+> Fixes: 1a1527cf5dda ("fpga: dfl: add FPGA Accelerated Function Unit driver basic framework")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+> 
+> ---
+> v2: use a 12-character commit id in the Fixes tag, as requested.
+> 
+> --- a/drivers/fpga/dfl-afu-main.c
+> +++ b/drivers/fpga/dfl-afu-main.c
+> @@ -836,7 +836,11 @@
+>  	if ((vma->vm_flags & VM_WRITE) &&
+>  	    !(region.flags & DFL_PORT_REGION_WRITE))
+>  		return -EPERM;
+> 
+> +	/* Prevent read-only port mappings from being upgraded with mprotect() */
+> +	if (!(region.flags & DFL_PORT_REGION_WRITE))
+> +		vm_flags_clear(vma, VM_MAYWRITE);
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+The reason seems sound, but as a fix, is there a real problem to solve?
+AFAICS, every region allows everything.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+If a cleanup is really wanted, I'd rather delete all these flag
+assigning and checking, until any real use case comes.
 
-- [Medium] This patch fixes the SA reference leak in only one of the two
-  copies of this Rx code.
-
-Pre-existing issues:
-- [High] ixgbe_ipsec_del_sa() unlinks the rx_sa from the RCU hash table
-  with hash_del_rcu(&rsa->hlist) (line 783) and then zeroes the same…
-- [High] ixgbe_ipsec_find_rx_state() finds rsa->xs only under
-  rcu_read_lock() and takes its reference with xfrm_state_hold(), which…
-
---
-
-net: ixgbe: drop the SA reference if secpath_set() fails
-
-ixgbe_ipsec_find_rx_state() takes a reference on an xfrm_state. With this
-patch, ixgbe_ipsec_rx() releases that reference when secpath_set() fails
-to allocate the skb extension. Before this patch the reference was leaked
-on that error path.
-
-> diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-> index bd397b3d7deab..e44d5eed9ab59 100644
-> --- a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-> +++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-> @@ -1197,8 +1197,10 @@ void ixgbe_ipsec_rx(struct ixgbe_ring *rx_ring,
->  		return;
->  
->  	sp = secpath_set(skb);
-> -	if (unlikely(!sp))
-> +	if (unlikely(!sp)) {
-> +		xfrm_state_put(xs);
->  		return;
-> +	}
-
-[Severity: Medium]
-Does ixgbevf need the same fix? The VF driver has a copy of this Rx code
-in drivers/net/ethernet/intel/ixgbevf/ipsec.c. After this patch,
-ixgbevf_ipsec_rx() still returns without dropping the reference:
-
-drivers/net/ethernet/intel/ixgbevf/ipsec.c:ixgbevf_ipsec_rx() {
-    ...
-	sp = secpath_set(skb);
-	if (unlikely(!sp))
-		return;
-    ...
-}
-
-ixgbevf_ipsec_find_rx_state() takes the reference the same way the PF
-helper does:
-
-			ret = rsa->xs;
-			xfrm_state_hold(ret);
-			break;
-
-secpath_set()->skb_ext_add() is a GFP_ATOMIC allocation. Suppose a VF gets
-inline-offloaded ESP/AH traffic while memory is tight. Would one
-xfrm_state reference leak each time the allocation fails? If so, the state
-would never be freed after the SA is deleted.
-
-Could ixgbevf get a matching fix with its own Fixes: tag?
-
->  
->  	sp->xvec[sp->len++] = xs;
->  	sp->olen++;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the rx_sa entry walked
-by ixgbe_ipsec_find_rx_state() safe against ixgbe_ipsec_del_sa()?
-
-ixgbe_ipsec_del_sa() unlinks the entry and zeroes it straight away. There
-is no grace period in between:
-
-drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c:ixgbe_ipsec_del_sa() {
-    ...
-		hash_del_rcu(&rsa->hlist);
-    ...
-		memset(rsa, 0, sizeof(struct rx_sa));
-		ipsec->num_rx_sa--;
-    ...
-}
-
-The NAPI reader runs under rcu_read_lock() and loads rsa->mode and
-rsa->xs with plain loads:
-
-ixgbe_ipsec_find_rx_state() {
-    ...
-		if (rsa->mode & IXGBE_RXTXMOD_VF)
-			continue;
-		if (spi == rsa->xs->id.spi &&
-		    ((ip4 && *daddr == rsa->xs->id.daddr.a4) ||
-    ...
-}
-
-Suppose a reader picked up rsa from the bucket before hash_del_rcu(). Can
-it then see rsa->mode == 0, pass the VF check, and dereference
-rsa->xs == NULL in softirq? If ixgbe_ipsec_add_sa() reuses the slot, the
-reader could also see a mix of old and new SA fields.
-
-The trigger would be an SA deletion (XFRM_MSG_DELSA, IKE rekey or
-lifetime expiry) racing with Rx traffic whose SPI hashes to the same
-bucket.
-
-ixgbevf_ipsec_del_sa() has the same pattern:
-
-		hash_del_rcu(&ipsec->rx_tbl[sa_idx].hlist);
-		memset(&ipsec->rx_tbl[sa_idx], 0, sizeof(struct rx_sa));
-
-[Severity: High]
-This is a pre-existing issue, but is xfrm_state_hold() safe on an
-xfrm_state that was found only under rcu_read_lock()?
-
-ixgbe_ipsec_find_rx_state() does this:
-
-			ret = rsa->xs;
-			xfrm_state_hold(ret);
-
-xfrm_state_hold() is an unconditional refcount_inc(). The rx_sa entry
-holds no reference of its own on xs. __xfrm_state_delete() calls
-xfrm_dev_state_delete() and then drops the reference right away:
-
-net/xfrm/xfrm_state.c:__xfrm_state_delete() {
-    ...
-		xfrm_dev_state_delete(x);
-
-		xfrm_state_delete_tunnel(x);
-		...
-		xfrm_state_put(x);
-    ...
-}
-
-Can the refcount reach zero while a NAPI reader that has already loaded
-rsa->xs is still in its RCU section? If so, refcount_inc() would run on 0.
-That warns and saturates, but the pointer still ends up in sp->xvec[]
-above.
-
-xfrm_state_gc_task() frees the state after synchronize_rcu(). That waits
-for RCU readers, but not for skbs that hold the secpath.
-
-Suppose the skb outlives the grace period, for example when RPS queues it
-to another CPU's backlog. Would xfrm_input() and
-secpath_put()->xfrm_state_put() then touch freed memory?
-
-The xfrm core handles this case with xfrm_state_hold_rcu(), which uses
-refcount_inc_not_zero(). Should the driver take its reference with an
-inc-not-zero as well? ixgbevf_ipsec_find_rx_state() has the same pattern.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103100534.1310039-1-vulab%40iscas.ac.cn
+> +
+>  	/* Support debug access to the mapping */
+>  	vma->vm_ops = &afu_vma_ops;
+> 
+>  	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+> 
