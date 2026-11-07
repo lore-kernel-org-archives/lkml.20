@@ -1,142 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.130
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794021807;
-	b=IeLqYFexg74pHzD1sXV3rnoWVQCsYJZPLfqwhJjTqxw1pzU3pJWXCmjikDP4QR+Lr04U
-	 UXD1l7yWrMwOmBUojlujAN7EeyK7AZ4GCLr2yveX5ktvY6+bhCIEqI9i0oPfP39lJAXNn
-	 kIUuEHx3KWghTzCUWgnm/cy+kI7BHkN0v5ear0KJrf06QDEk2u7gQWImrHYREXFFrd5t6
-	 tmfKv0zEVixgYOyqwS0rz4g/lJ7TZWFawq2DLXlUDW3/K0EtB9+Wuo6kjmh4YSu1jSSOe
-	 ODRgUh/kVBdtRMkt1y790QEDcDWQNY2pDFLykXbM9ZxTbI5wmWHpgpGlOeeIhKV9Bww==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794021807;
-	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dnqz1cHie14+s4kyIfjZWJPcD2V22c6JdUl+C5oo55Q=;
-	b=MX1T2+Ur7Z/DUYJYphYUk0YPBgfFVq9LhEXUkGOpaC/B6coQCA2GxpIfyUKeD65AtJLa
-	 WSHz/Rx87KKJyFWfA+yG7ptKT4Oq5+IqWQtahSQ+A91YFHuv9IUGJcWzKUqkYIUkPkaqn
-	 fZgAEY/LYNse5uQSZpBrjO2Xd3YkzjMyd9I/YiS3IP6zOsjvNfvdJoTLgO3wZSrgqMV0g
-	 gG6B6bhvm5p4OloVU4z8epwm3MeGEgff0WiIGVxLgDyz1V2Qv1vD5RwL9n8GyuIgQgh/N
-	 /DbBC0/dtdiRYULPBN2QMkQdW8vA46nGaUy1c+HJIEkfrqLwc2ZgrYaciP161/+BTmQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.130
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2130.outbound.protection.partner.outlook.cn [139.219.17.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794021954;
+	b=Szaw+CvR0NhGLftBcaJqa0DSrLZywNPOrvvws5TS84WLoHKnBDU+JaUMk51T02k+1sdU
+	 JGUYpOgRg0mHOaWeN3WWSU8VDHe+TZlouNW2astW/7S2GtfsWEqIZeopnLslFXNUv3awY
+	 rUYesTQaorfBbrGua5SG/1ybjnU6qDny46rSafla52mE/brCAtu2s975LH+ibqG1Zhg7T
+	 2xhed/VJi4os1xjR2ZfKwoSlbvA7QtX9TAqsnzgGvtHX3z9jDRHP5/ieyJ7RwDdbhvdT6
+	 jzOO0qYX0n1GQ68kdrC2ZcuZXkQnR3rlh0VervsfnND6QI3prLITTIiMOd1xmHVv7Hw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794021954;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mxiid2hy6pGN9sHLzXHLOnDequd95SafDDGiZTsr7dg=;
+	b=C0JEKT4X6BLJQ6Doi84hmzpbXcH3OzfOu6dp+ZhIe6LMh+LF9mvpVIVAkpa3iA3/a1uS
+	 xOAhRZLL2ptouO2TliVTqK4Ei6zCTnzRLuwFunMUIvh8UL1eSVYV3W2NuNj8wYmhs9CJh
+	 QnZtsEDrgwM04tQbu58lld90B8B9ZIECCqSc6n+NkSHyOieCh8R5Cl+v3/49XQwWyRIl7
+	 v9F/vjAEFcfMdqho/k95AnfkGFS37JGbpRj4flxUUVjGMy+4/370CHbjs7VqkoA8Nlveg
+	 KGnUIP7WF8hBuyxtXTZt6llAagde5y8ZOEbvSFLvMkfYwIaTXmwxLwgBY+Lmh+9ggKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTV0w40J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1801D606A326;
-	Sat,  7 Nov 2026 03:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1801D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BZdy24yRnC+YSbAXKLtByYnoAdVqCBTfC+cbYuxMzO+r2BRWWxZnu/4OhCmlw8o77BuF7TiSyZqmu5etPDVBp0bMjcKdyCrbkDse6P95tw3Q8FZyyafOCKJxZbjP0SwAD8hDBX1SfkHBFSJN5F9ZiVxSwDrV5XHSTNr2E5eAFiFU/JOefgzynikvKcSfKolxCTYviL+nswprr1IfLFNjZtP4cpDxXy9j5buDahyu8wu9S2gbXcPVPUhyCJ5HWswA78CZ5QgBzdxBxOFs8tsZk9LqNgfnmomtUMETlbYt+9AAM1Kwo2NTy8bU+PPgaePtbWjtWlZ7DdcZXLLVtLzPtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dnqz1cHie14+s4kyIfjZWJPcD2V22c6JdUl+C5oo55Q=;
- b=nNXWbn3qcHPnBoJnBW2clg4xu9wMhFF639iCGrqqEpbUzxR1tCMnZyWb4mrX2bNjsMjjr8s1StLp1NvkGZl17K5Uh4t5JkKku3oEkjhtFOc56ZpEgttOurhtNXC7fL+CUtHUl0Yr/fW0hoHT3fvtRaTCJkEEtyZMPbk9LcKNl/dCQxoFTsBUVPmrY9xD2Jbq+PHD/eRgEU6ynDzFYNKuI3HVwRL3CRlVgAyGfU6BAD2le+UP6AbYZ+nTC3rbtWBaeBZiW1WEA+9BfSOmv3FBXwrCHtvnobDDwrN9Y+loLEghOYjpPe8NxLzS0I3mW+buPZcof6ni2muFT1IT6KfblQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:7::10) by NT0PR01MB0957.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:6::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 03:23:12 +0000
-Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
- ([fe80::be4a:d29e:5188:b37e]) by
- NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
- with mapi id 15.21.0592.010; Sat, 7 Nov 2026 03:23:12 +0000
-From: Hal Feng <hal.feng@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>, "ukleinek@kernel.org"
-	<ukleinek@kernel.org>
-CC: "patchwork-bot+linux-riscv@kernel.org"
-	<patchwork-bot+linux-riscv@kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, "p.zabel@pengutronix.de"
-	<p.zabel@pengutronix.de>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"emil.renner.berthing@canonical.com" <emil.renner.berthing@canonical.com>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>, "pjw@kernel.org" <pjw@kernel.org>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>, "linux-pwm@vger.kernel.org"
-	<linux-pwm@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [RESEND v22 0/3] Add OpenCores PTC PWM support
-Thread-Topic: [RESEND v22 0/3] Add OpenCores PTC PWM support
-Thread-Index: AQHdKHVcUHYiMwEYKEiLBGQTFfpjtLcaTHiAgAA6KyCAAIl/AIAAo5kAgAbIThA=
-Date: Sat, 7 Nov 2026 03:23:12 +0000
-Message-ID:
- <NT0PR01MB110240F13DA3D2EEBC9528A6E6752@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
-References: <20260810030714.48100-1-hal.feng@starfivetech.com>
- <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
- <NT0PR01MB11026FD52BC4266EFFEACBD5E66A2@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
- <auheO4sRs4P36jgw@monoceros> <20261102-tidal-quintet-3867b525d891@spud>
-In-Reply-To: <20261102-tidal-quintet-3867b525d891@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: NT0PR01MB1102:EE_|NT0PR01MB0957:EE_
-x-ms-office365-filtering-correlation-id: 54838b51-c652-4abc-0a6d-08df3c7e7472
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|38070700021|261102123227099003|4143699003|261021121427099003|56012099006|261022075727099003|261009223027099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- uJhWbQT/ldU6ue7Yh+YCUfvJ+Jr55IJROuycZ9MPt07dyzWeGfstl8QylYm5Ce3yqEuTaCHWwX2tgPBOGbiBc5w59wy/xEIoJRnVd2YQUvHVmNXbfwXrCNaa5kGqRKabWHlBy8xh2ql/K/3I9FpoetnZAR2ifFulot5ABZkMH4NoDS2qm6Y0JobFxZFzO0fY/IqS8nNH9WAlYPFsqZ4A9tzFrZW/ZnXxOTKBVQHxSIJXvORQEKP1esLIsE0OOH3RS6WeO2F+CQC3OXhkPFps5zuFDlXYrtgUe84pAH0dFksod0UUl8g+2nNJZ1ZH64NYb5GzlmpaemfkPA1+Ae4knGn4yYZMUxkNt17rvydXZdf52hp1aiAuBYI7qxma8DGqjA579bZcOI/RlbGrGIvpAlexm5MGgleiW7AY9lnQ1/oqd3pRfw/u7fuLTX3Oel9jN7AiH2iLMmSIr2T5bG9SZUFyAwh7zhq+mMl56rKkB+p1009o4mJsRxRALR+NOTjUqeMrT/KQfNfkKZH6NpUAf6Ayw9NPmhcA4RHqLeuHIz8vQKLGH94VVNuByDSDTmon
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(38070700021)(261102123227099003)(4143699003)(261021121427099003)(56012099006)(261022075727099003)(261009223027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?JzNDKsHa9eH78OLM3KZK4q1hzCbUhl+DircNcSPhQXRicC/TIQqnJv10HvL0?=
- =?us-ascii?Q?ZcJLLFXJSLs3c8TmeVT3LiooQt/a2etnYvp2Vc0MdiGxEutcNYZzpS7wk9GZ?=
- =?us-ascii?Q?rRmWxia5lkk7R66wtXpWgphkpQ79ml1Q0RxDPRWgJhck8tq+iMF+DfR0NHvt?=
- =?us-ascii?Q?cQyVQNPzQdSu40FHWLETX2gXEbQEYP5toxAzgjGAn4IAOPEiQ3TPwzGTS/LU?=
- =?us-ascii?Q?gu++PXchqIjSq0R1ZN+fDAcefzbJmSgV7MRiW+tpSkqflThc9eYbcDthmGYM?=
- =?us-ascii?Q?nPcp9F+tcYCabCgKPDpTgWaYBPhZmEfhh5yB1Z3p4OWlh88w6fBQ7rbl1Wzd?=
- =?us-ascii?Q?C5V+iDSo+eRccmxx93U5HLJ13xwwiRBDVwm/dHc047/yydo8V4ESTXIrydYy?=
- =?us-ascii?Q?BhW0F+dT4b/I2ZyCxbSK7xFOwMBvQa3zcY8xEIe1aXl831qBP4mKg/pHe9Kh?=
- =?us-ascii?Q?X0DWnTzTCv3MYBc3YCUYQkZdASl7veWRDHGMA+DHhLO9bMZSwZZ06UMq1mh6?=
- =?us-ascii?Q?fKa6oY4gxD3SZmx+367vDrRVQeWIEZ4Bf8gOlUw/9p0yV0EgjXwI9UuzIemN?=
- =?us-ascii?Q?O5OJmSO//VkxztN+uMzsO3aabyubQB6/u/DAoO5Q4ODTKesyy+9wEU3rtX4d?=
- =?us-ascii?Q?mRyuWc8tD3cFXOMtISSMzJGRZu+qi/9qkB7HPvpHImgVKNnJThSZAp2SoQP+?=
- =?us-ascii?Q?lIX38aChYeyDgcvPbs/LjQp3g50Sr94k+bkOwHAhGtWTN+IInojES5JEq5g3?=
- =?us-ascii?Q?17gVaTDQI1THFQD3tEofv6gMPZvfqQBsIRevBowD2Tz2pWa4UpQq7kKVma8d?=
- =?us-ascii?Q?3WpIeYQqT2NlykConBsMXbM+gokMIn1VG72xo4ItE3lfmsW82P2QE+5UyDsD?=
- =?us-ascii?Q?bQQe0Y/v5AdaTZ1/bx0Iw6scSrttd7adKQYVKHl6WQP2tfCMcgHRHOY08AER?=
- =?us-ascii?Q?yH2Pw4IKtJz4GByD4xkIzHLWeVZkfBrt8zSqwkVLRsYiymRtRXFRbI+nnymz?=
- =?us-ascii?Q?VIshUIVAd8IM5ucP9uX/j2QanXEpeXEfvRrFCTEoSSR6/wsIZta+8Ib+3KLZ?=
- =?us-ascii?Q?ODeX8xN7YbCg4CAb6kNfHTgLSrLkpevHS8l1xmk3r5M5kbibxHm4ai2gW/Gt?=
- =?us-ascii?Q?O8uTQvJAE22NXy5mCq0IayhBMzUJVB0Ugu16aVya3CMb6fgR81vztzg+MeWb?=
- =?us-ascii?Q?6f/CB83dhGkwUOAMOsq82EU6c9rgtFBzB/+/094t0y0Ijc0xl7uwVaKl5kBm?=
- =?us-ascii?Q?+6HHEsNkrhjYMIRM2nvDpMFuuA/1Q7nPIOSx123HU207pcr7y7YJyQUjom8R?=
- =?us-ascii?Q?ZKkjmdy3vf9srAfAQjscAXqyrYSWvkLUsDZqXYm+kl09kT2qegNdJiT5QAaY?=
- =?us-ascii?Q?Qi9u9Ecm1NoHkOBVl5v9HjPn0MsqFMnu5/8dEvSHkiYrTcCTNZDkFYJ1Ej7c?=
- =?us-ascii?Q?8dIx78ckqK603gtTEOVhdxg9VGV+2W14pCMoFSpFY5Nj20AGoj7sLQl7zQjy?=
- =?us-ascii?Q?yeiw1Bs/gB/qmdalAHSLHkMmpfZHe4AQ0iLmEmeuV6SsX3ULGKgNtikTcEV5?=
- =?us-ascii?Q?ZCN+yhFxNB4IqYygvh5vUWaEuAxBax0kWH0wI70eGZ1oUqA8cbqAxb3740/x?=
- =?us-ascii?Q?AKLzAjCDbq1TtbEDvCIgPE3cMPDImh7lMKIaaV39wPefHfIM+sIY/l6Fgq1s?=
- =?us-ascii?Q?SV7G6PcgvHI/aMRxeRpz7vXsk2Psf1BzV0uf4pwxwOQWnLnONYmugn4ljlLb?=
- =?us-ascii?Q?OfXtLdWenA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C39606A326;
+	Sat,  7 Nov 2026 03:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTV0w40J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026E51F008A1;
+	Sat,  7 Nov 2026 03:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794021954;
+	bh=mxiid2hy6pGN9sHLzXHLOnDequd95SafDDGiZTsr7dg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WTV0w40JxOBYdPzpa4f7DZkdspPxJBrVgTAa2OuCLgZcV/4Is1JOIsvWQHgSMTG3N
+	 yAx7GXtZEyPCSzTK3upClUnUturM7qpNFJ0wGrZc/lRaHpvWCEu89O8ezuyM8AOQyz
+	 tQkDJJ/XXrUhR304CiG20Oa/KQYRie9eRYY1+BNJqxpfsCqEkMR46yB/iGnIyjZSo0
+	 oiZxSpMuEdK5nA3WicHMzdCsjuULm9JDM2uH/D5M0B01EP2oqVB0jFWwpPGCBBcVBn
+	 f0+UWuYKYGVnHACBvulPRgJuLqPquUHyDT925XPpJRdwbxPFGS9VKMqtf0yKfKUZum
+	 cMIhensA1gW7Q==
+Date: Fri, 6 Nov 2026 19:25:51 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, bpf@vger.kernel.org,
+	dm-devel@lists.linux.dev, fsverity@lists.linux.dev,
+	keyrings@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
+Message-ID: <20261107032551.GA1990@sol>
+References: <20261105031401.956609-1-jarkko@kernel.org>
+ <20261105031401.956609-3-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -146,80 +84,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54838b51-c652-4abc-0a6d-08df3c7e7472
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2026 03:23:12.6864
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IJ4RyN20dp5KJERDy5aEa1P8hwfFG/Zf76mA7A0TiAdlyXB5lUSEQWF4fjZ0el7MFRI0xtcFEDB5A4Tll2tqPonxZA4gLsyD2iUOeURA7pk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB0957
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105031401.956609-3-jarkko@kernel.org>
 
-> On 26.11.3 03:43, Conor Dooley wrote:
-> On Mon, Nov 02, 2026 at 10:57:10AM +0100, ukleinek@kernel.org wrote:
-> > Hello,
-> >
-> > On Mon, Nov 02, 2026 at 02:11:46AM +0000, Hal Feng wrote:
-> > > > On 26.11.2 06:17, patchwork-bot+linux-riscv wrote:
-> > > > This series was applied to riscv/linux.git (fixes) by Conor Dooley
-> > > > <conor.dooley@microchip.com>:
-> > > >
-> > > > On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
-> > > > > Add OpenCores PTC PWM driver which is used in StarFive
-> > > > > JH7100/JH7110/JHB100 SoC.
-> > > > >
-> > > > > I will maintain this pwm module in place of William.
-> > > > >
-> > > > > Changes since v21:
-> > > > > - Allow non-zero duty cycles shorter than one clock tick to round=
- down
-> to
-> > > > >   zero.
-> > > > > - Drop the .free() callback to preserve the PWM hardware state af=
-ter
-> > > > >   pwm_put().
-> > > > > - Update the comment.
-> > > > >
-> > > > > [...]
-> > > >
-> > > > Here is the summary with links:
-> > > >   - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update
-> > > > compatibles, examples and maintainers
-> > > >     (no matching commit)
-> > > >   - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
-> > > >     https://git.kernel.org/riscv/c/2186ec5f59c2
-> > > >   - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
-> > > >     (no matching commit)
-> > > >
-> > > > You are awesome, thank you!
-> > > > --
-> > > > Deet-doot-dot, I am a bot.
-> > > > https://korg.docs.kernel.org/patchwork/pwbot.html
-> > >
-> > > Has this patch series been applied? I've sent out the updated v23
-> > > patch series, but Krzysztof pointed out the Tested-by tag should not =
-be
-> added in the dt-bindings patch.
-> > > Should I send a v24 to drop the Tested-by tag tag, or should I make
-> > > the changes on top of v22 if it has already been applied?
-> >
-> > The way I read it, only patch 2/3 "riscv: dts: starfive: Correct pwm
-> > nodes" was applied.
->=20
-> Yeah. And the mail is a quirk of me not removing the thread from the
-> linux-riscv patchwork and pw-bot autoresponding when the series was
-> "applied" by me to that tree when Paul fast-forwarded it.
-> There should have been a b4-ty email from me a while ago saying that I ha=
-d
-> applied the dts patch.
+On Thu, Nov 05, 2026 at 05:14:00AM +0200, Jarkko Sakkinen wrote:
+> The keyrings subsystem is the sole user of assoc_array. It has over 1700
+> lines of code, no test suite, and a long history of bugs, with LLMs now
+> finding more.
+> 
+> This unfortunate outcome has evolved over time by large from the shortage
+> of in-kernel callers, time bandwidth and 3rd party contributors.
+> 
+> What the keyrings needs is just a generic key-value store, which performs
+> well with sparse key sets.
+> 
+> Replace struct assoc_array in struct key with struct keyring_index:
+> 
+> - keyring_index: holds an rhashtable for direct lookups, an RCU-protected
+>   list of keyring_link entries for stable walks, the active link count, and
+>   an rcu_work item for deferred teardown.
+> - keyring_link: links a key into a keyring's hash table and list, caching
+>   its 32-bit SipHash digest rehashed with jhash by rhashtable.
+> 
+> Correspondingly, struct assoc_array_edit is replaced by struct keyring_edit
+> for delivering transient state across link operations.
+> 
+> Other behavioral changes:
+> 
+> - KEYCTL_READ and sibling-keyring searches follow list order instead of
+>   hash order: keyrings are prepended, other keys are appended, and
+>   replacing a matching key retains its position.
+> - key_unlink(), keyring_clear(), keyring_revoke(), and keyring_gc() no
+>   longer allocate memory.
+> - keyring_index_free() uses queue_rcu_work() instead of call_rcu() because
+>   rhashtable_destroy() may sleep.
+> 
+> Suggested-by: Eric Biggers <ebiggers@kernel.org>
+> Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-I've sent out the v24, please check it.
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
 
-https://lore.kernel.org/all/20261107031251.98972-1-hal.feng@starfivetech.co=
-m/
+But one comment below.
 
-Best regards,
-Hal
+> +		do {
+> +			ret = rhashtable_insert_fast(&links->ht, &link->node,
+> +						     keyring_link_params);
+> +			if (ret == -EBUSY)
+> +				fsleep(100);
+> +		} while (ret == -EBUSY);
+> +		if (ret < 0) {
+> +			key_payload_reserve(keyring,
+> +					    keyring->datalen - KEYQUOTA_LINK_BYTES);
+> +			goto error;
+> +		}
+
+I don't think the retry loop is actually sufficient or desirable here
+(though it would be very rare for it to be reached).  It gets reached
+when there are too many elements in one rhashtable chain.  However,
+we're already pre-hashing with SipHash, and the rhashtable level hash is
+passed only the 32-bit SipHash.  Suppose we reach this case because the
+SipHash values collided: then rhashtable's rehashing would never reduce
+the chain length, and the -EBUSY would last forever.
+
+I think the right solution is to just set '.insecure_elasticity = true'
+in the rhashtable_params, to disable the chain length checks.  Those
+checks make no sense when we're using SipHash anyway.
+
+Then the retry loop would not be needed.
+
+(And even for rhashtable users who aren't using SipHash, like
+fs/verity/, hard-failing insertions if the hash chains gets too long
+seems wrong.  I mean, imagine if the kernel started refusing to do file
+operations if one of the hash chains in the VFS hash tables happened to
+get too long...  But I guess rhashtable was designed for towards
+networking users who are able to just drop the data without much issue.
+Plus it predates SipHash existing.)
+
+- Eric
