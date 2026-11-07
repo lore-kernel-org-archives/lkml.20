@@ -1,74 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.227.220.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080050;
-	b=Z+pq9MSDb698meNdODk4esHvsQ4nMDedwYYmOD1xGq0+esjcONf5JrTdaxP+gVt/nk9n
-	 wEGHaPW8tLcZah9SHe1vuNPBLEHb7hTx0CdQv3sXnaaPu2/DveF2U4iZCQc2BlGZHwtFX
-	 7XDoazHhDnMO7YFHNk5eMypM+lPeccT/UZcTbjZFSUNI4sIPl1b6Rvtl9QaAmXawZq8o5
-	 8+R9OO482vm6UJ7AE6ZxbphlXP/TuqcSj9iXEhtjtK338+uVRtIgeapx6uOeeyX0VX4Hw
-	 wNBWZVdfgRL4jxAwnqNvkhpyujpTxVkAaWgme1J6w1XNY43yMhAmLvZ5R4rGcphxYPw==
+	t=1794080048;
+	b=uycvIYlSWh8jqdVsiptoKWI32eeyfUN+gwxmtOBoH8t+k52JNA2r637Vp0ZxibHrnDKV
+	 57GKWJd5lVoxeA4C0KOJK4ydNwtWVJHvel65HDWE6vuRUP89qYBNiqK4mSqcHM7+HAq4T
+	 815UYIkqv7kA53bXIiVtpA4REqr/rhLYBQiZdiO6YY1WZy5+n91s48AavjnHcq8YPh6wM
+	 62+SO2LdqYf9x+adFXE4Gx/W1rgmaCbkykArAMGCcZaT1Hbs8V6AMwmAy5FGG5+rRLYIZ
+	 n4CubkEsh8GEZ32PUl1wjbRPU2n4P8sg1d8f0ZTw004W45+hHJVSnf8pist4B8YzoQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080050;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=tTMbY5wDu0Q9kyyP5WALVTT8c1BJMdKWv4LGJnBFjhc=;
-	b=Amv8+MiHIR2Rm1hKlfF+5kLRiijFHwJPqMApnqUHOTaBBVYGFTzCyIIE9JxX9GL63fC4
-	 Id1TXz3wW7P/4DvFsz1z5LkWluuiJzXq7SpUivX9kka1VPrEv2y6fCfIzCnp5a4mjuvm0
-	 6aY8hrkU0T4Xxlle5/fI+bsqtldM2rypHBDU19W8LSNAoeLYypp27myoY2hJKTgwU61kQ
-	 ZS/mwOxYEHTZAFml/91p02CLCxfXqTcKu4jmx4g0jaxIvjD3Jw3OqKC/lJXcH20/d7cMj
-	 6F/BAE6uEWv63iw+gckB/lvO5UJAwTCGr4dqk5LKMhYqB9Bs1Ng4PBDg2gmWj9e8Syw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080048;
+	h=DMARC-Filter:Date:DKIM-Signature:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=iSm02S9UFPqyxcXJfE/yMCdmauGWZNHUIjvGtZ/NnKU=;
+	b=ZHVkqoUjfAls0jVm0OIph5zBzDxQs3WnASvo/+Hh1ZLWzkKSZFCcw48lXOh4bwDk6YAN
+	 WEHtd+YIKya8CTHJToHHaoWpvJdCYqEMKsHUKwAtEKbXfyMhCeDl/8daD+70VLxAEB/K4
+	 U4TTNr3d5efVcHBXraY1cSHYYx1As5hhdSL/PGdO1EQNlbGln1ESmpsaVDukskSqdyI+l
+	 0nu2qLBGaKUB0DGV5FFunxfH4BoWkH8zxreFWGukQ6C1qwzt/VO9iDiSpvN3E/9Bd/sdO
+	 0JUof9KFvH4BTLdsQdH0v4ab7mycUcaBBzSVI/pMLqL6g1+ZbNGlkkYitge1ioKYNaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KLxrqfM7;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mareichelt.com;
+	spf=pass smtp.mailfrom=mareichelt.com;
+	dkim=pass header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=33XC+mGy;
+	arc=none smtp.remote-ip=91.227.220.155
+Received: from mail.antaris-organics.com (mail.antaris-organics.com [91.227.220.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D933606A338
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D933606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB3B606A32C;
+	Sat,  7 Nov 2026 19:34:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB3B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mareichelt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KLxrqfM7
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed00709df0so15869275ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:34:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794080049; x=1794684849; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tTMbY5wDu0Q9kyyP5WALVTT8c1BJMdKWv4LGJnBFjhc=;
-        b=KLxrqfM7u7uxgIMHAjsKmhtRJzAp+RwNzVoYEu9m3l2q/VEQBRvxR1azMIMowRWtPU
-         Ybh3pdXyLOYMy1vxHG0BXAtbMhHhuIxUO3+VoL+GnSeEH3Esy/WeYhTkcPWiy3EpVsh7
-         gehZbvSgUJi/5SNvluEmcUyx5I6iEdvs+cbgyuh+WtIoSqrUhQS0kzQ7cr7SHEXbBIV1
-         a7Z26cEUJQTt2eiUv3xLTJu6Z8Ya+TUVV4okI/1exFuGUWd+dHdXCxnUg2YIz8ELkThA
-         B9ymKTEVZOYuApXh1SHPhckbNuw5P68jP0PYlcLW4PAzcMSss6BUnIm3JSDZmbAWLZVT
-         V5/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794080049; x=1794684849;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tTMbY5wDu0Q9kyyP5WALVTT8c1BJMdKWv4LGJnBFjhc=;
-        b=0DdB32tAO7ZkJJZIFV4pSQi8kZagwP0Z50JNC0bnI/0XtNGif0p+y5x2q2iBN8DqWZ
-         h51p4hj9zuF4aVipCdefS8i238Gc7wDoOlxye5JrtwMvlnJEBF6qQ2ZoMoTu7s5BO7hW
-         UhI8E4bBBOutNobWv1EXN3bLpBamc/wpuoy7rkUIMKTa39qHT0G0f/3Ls9gKHlfj1tun
-         zbtpKxRdaoSAAlgCRf2UBpeo7HI++DyvwuT019XGDa3ybD5TzAOrnMWEiIgoDcEdOAvB
-         uKInJusIw1lZe+u3rDcqgpTvuf70SYRewgeDn9Yq3wwL3r6VD+zOEr1yvX7nrNSGl6w4
-         iP3Q==
-X-Forwarded-Encrypted: i=1; AL+hErE2mOGfasrOOdSDkRkkp/Dx0PTbi/l029uBkJqkJj99b0lvLOY7Bda0a3eau84wZ4Ak4MdHpuntNar7pPc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aHoBjxlx45HZOmSc7MX3CFKSPZWFeaXEtobT4UttbP3k5TjYO
-	k3ljevPY5jPJOo8Ehgpze7AZg5B3Gpdi4YDa3Ym1me8POC4Y1DXavm5G8tePjvKjYEAfccrNhjx
-	GQDdJgQ==
-X-Received: from plon11.prod.google.com ([2002:a17:903:1a8b:b0:2ea:ce88:ff88])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e88e:b0:2e9:9a19:c4f
- with SMTP id d9443c01a7336-2ed40e89b01mr67905115ad.61.1794080048300; Sat, 07
- Nov 2026 11:34:08 -0800 (PST)
-Date: Sat, 7 Nov 2026 19:34:07 +0000
-In-Reply-To: <a951af6957fe4890d3eaaf5a661754fc259a4b79@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=33XC+mGy
+Date: Sat, 7 Nov 2026 20:33:58 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mareichelt.com;
+	s=202107; t=1794080039;
+	bh=iSm02S9UFPqyxcXJfE/yMCdmauGWZNHUIjvGtZ/NnKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:date:
+	 author:from:to:subject:message-id:in-reply-to:references:
+	 mail-followup-to:openpgp:mime-version:content-type:
+	 content-transfer-encoding:author:from:subject:date:to:cc:
+	 resent-author:resent-date:resent-from:resent-sender:resent-to:
+	 resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
+	 mime-version:content-type:content-transfer-encoding:
+	 content-disposition:content-id:content-description:message-id:
+	 mail-followup-to:openpgp;
+	b=33XC+mGykPVMszVlywKf/jjOHp5XTiedLZF4e1fTb8HbS5AtU2UN3RO0ez+c1EjRK
+	 DC9OnYYVTawu0zRm0NYsNQB/k4G3+A15KpSLBWaAYQw7moDVG8XAKm1zAirljB1MQi
+	 eUrXHuKxKlGlyBgquCKMXEVpfPszguhHQMKCwc/rkbYMnHmchPJ7v1l01FNy35Z39A
+	 9sQZ+jM4C/Afxv9pzo+puukdbjo9Px6gr3h9RjjIm72hU3Tx86GhCbs2anlG0UZG8N
+	 d4kklCVB+uLztThKADVQUZVbrSSEWurJ2p3zaQVj5jXndMFuZejKhhS9M6IBbyYpSv
+	 kUc6Rz5hSR21A==
+From: Markus Reichelt <lkt+2023@mareichelt.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
+Message-ID: <20261107193358.GA6808@pc21.mareichelt.com>
+Mail-Followup-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+References: <20261107134939.434104957@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,110 +83,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261009091941.5837-1-qiang.zhang@linux.dev> <CAAVpQUAeHP7M07uMweRePtuzPPUo-99dL6jOYUiVf7CSVUxNDQ@mail.gmail.com>
- <a951af6957fe4890d3eaaf5a661754fc259a4b79@linux.dev>
-Message-ID: <au99DNHQEsaaDqpJ@google.com>
-Subject: Re: [PATCH] neighbour: Move the netdev_put() out of RCU callback
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Zqiang <qiang.zhang@linux.dev>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 
-On Sat, 07 Nov 2026 11:47:45 +0000, Zqiang wrote:
-> > 
-> > On Fri, Oct 9, 2026 at 2:19 AM Zqiang <qiang.zhang@linux.dev> wrote:
-> > 
-> > > 
-> > > For builts with CONFIG_NET_DEV_REFCNT_TRACKER=y kernels, netdev_put()
-> > >  records the caller's stack trace via ref_tracker_free() for debugging
-> > >  reference leaks. however, the netdev_put() is within pneigh_destroy()
-> > >  RCU callback, this recorded stack is uninformative, it does not reveal
-> > >  which code path initiated the deletion.
-> > > 
-> > Have you seen pneigh double-free ? What motivates this change ?
-> 
-> Firstly, Apologies for delayed reply.
-> 
-> 
-> 
-> Actually, I didn't see any double-free happening,  just wanted it to
-> record a meaningful callstack which on release path.  After all, if double-free
-> really occurs, the callstack of the RCU callback execution path will not be helpful.
-> 
-> 
-> > 
-> > > 
-> > > This commit therefore move netdev_put() from the RCU callback into the
-> > >  caller's process context, and replace call_rcu() with kfree_rcu().
-> > > 
-> > >  Fixes: d539d8fbd8fc ("neighbour: Free pneigh_entry after RCU grace period.")
-> > > 
-> > Please elaborate why your change is safe in the commit message
-> > and remove the tag.
-> 
-> Does it refer to using kfree_rcu instead of call_rcu ensures safely ?
+* Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-I mean why dropping netdev refcnt waiting RCU gp is safe.
-
-
+> This is the start of the stable review cycle for the 7.3.4 release.
+> There are 1257 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Thanks
-> Zqiang
-> 
-> > 
-> > > 
-> > > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
-> > > 
-> > nit: full name
-> > 
-> > > 
-> > > ---
-> > >  net/core/neighbour.c | 14 ++++----------
-> > >  1 file changed, 4 insertions(+), 10 deletions(-)
-> > > 
-> > >  diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-> > >  index 6ed8eb075146..4263689fc415 100644
-> > >  --- a/net/core/neighbour.c
-> > >  +++ b/net/core/neighbour.c
-> > >  @@ -818,14 +818,6 @@ int pneigh_create(struct neigh_table *tbl,
-> > >  return err;
-> > >  }
-> > > 
-> > >  -static void pneigh_destroy(struct rcu_head *rcu)
-> > >  -{
-> > >  - struct pneigh_entry *n = container_of(rcu, struct pneigh_entry, rcu);
-> > >  -
-> > >  - netdev_put(n->dev, &n->dev_tracker);
-> > >  - kfree(n);
-> > >  -}
-> > >  -
-> > >  int pneigh_delete(struct neigh_table *tbl, const void *pkey,
-> > >  struct net_device *dev)
-> > >  {
-> > >  @@ -849,7 +841,8 @@ int pneigh_delete(struct neigh_table *tbl, const void *pkey,
-> > >  if (tbl->pdestructor)
-> > >  tbl->pdestructor(n);
-> > > 
-> > >  - call_rcu(&n->rcu, pneigh_destroy);
-> > >  + netdev_put(n->dev, &n->dev_tracker);
-> > >  + kfree_rcu(n, rcu);
-> > >  return 0;
-> > >  }
-> > >  }
-> > >  @@ -891,7 +884,8 @@ static void pneigh_ifdown(struct neigh_table *tbl, struct net_device *dev,
-> > >  if (tbl->pdestructor)
-> > >  tbl->pdestructor(n);
-> > > 
-> > >  - call_rcu(&n->rcu, pneigh_destroy);
-> > >  + netdev_put(n->dev, &n->dev_tracker);
-> > >  + kfree_rcu(n, rcu);
-> > >  }
-> > >  }
-> > > 
-> > >  --
-> > >  2.17.1
-> > >
-> >
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
+
+7.3.4-rc1 compiles on x86_64 (Xeon E5-1620 v2, Slackware64-15.0),
+and boots & runs on x86_64 (AMD Ryzen 5 7520U, Slackware64-current).
+No regressions observed during boot & my custom tests.
+
+I did not observe the build error already reported in this thread.
+
+Tested-by: Markus Reichelt <lkt+2023@mareichelt.com>
