@@ -1,78 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794080849;
-	b=UeWUOPknWowhDc0fzKpWSwkfrwKw7sfVSwP8Z7NZRoJVbplYkDHTKtWJttGv4TqFFzu7
-	 bzKCFX0LAIBRZfX11qm43AR6CNsMmpQla8taOhsjgEV2TlWBhSqHJq00R5ZwV+SBUNISl
-	 v/K5Q67EhS7arQjbOJa/J+EvrcqxE5pzWK9GpH+8K5NFtBo5cgW1DBrpde2VixX0REHfk
-	 kXlaqVgeLfH1kh+4v9n+yKKa+n8cfLb0QHvOPxIOM5fvJWMRjIoqn7Org6wN7VN8FRtdn
-	 +296CD0i/6eNNT22lpxcmTG8jtt7WdOdDZIrpV3WiBb2JexABiacW6A2XhfHm/h+HFQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080849;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dXGgmzx0aOYkoX0/ZRF0GSroXTzUKCRg5sYhTbGb8Js=;
-	b=do7U83lQg+rLwZvkURqAaXpCI3+F5Oz/AoEz3AECoiqm7QhbeRaTWWRlHoDz1l7Rct+n
-	 ADde3Dm4LpnBvycDtF2YYkJegdcWn5+YJ2K2ug8ig5zKJhK3vTIIgAfPVqH1QN6Puyn9S
-	 /4DPIWEXeQjJ3XwtnFfEJSmFnxt5yQ8XNYy9xHAsP/3hasklvmSP9UDwTnkHtKxMrD302
-	 +5VU6GW56Zmfu7sZrF0rtWuqcMf7GNtNlWt3Axlrx+heCu5bfMui0GIE/cfMa2UKLLKaX
-	 drR6KMH37mRz44cHsuMpxLyvJHgVY8Y6c4okdSW0qV7DMQjm8a65j2XcsSlGFKiKcHQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EGhpR5r/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCE4606A32D;
-	Sat,  7 Nov 2026 19:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGhpR5r/
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794080849;
-	b=DFKs8JRq2qfwdNwBSTa2pfX4e3tddKWplYTYQOavC78t1rp7TVgHRSnVDOuBIwgKW7/c
-	 CJeLsk/8YEsT7E3EMtY9VkZ9WbYOP63/MqQUN+OtpSQU8hnJrRHRTYRupYfrBB/lHG+S3
-	 J+EOltMsk/IsU4x99OFyTpPpr04/gal20wX8biDloEbc7zRhZCpYrOuTBCZHFjYvlcl7Y
-	 mDZODXmx09e8ZomLQJUxm4lEXQ6bD7DdRv++icumIsLEgnpb9xNOGnSBZxrN8iR5R3cKp
-	 O0+kO8pttIOGWL72jk2JWmrPuFsSYQG+cCETN/083lNZebdjR8t5lp7f06T9dBIJkLQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794080849;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dXGgmzx0aOYkoX0/ZRF0GSroXTzUKCRg5sYhTbGb8Js=;
-	b=G5Fb1G5HohIB5WoHmvEjCAZITEJwY16gLB3qB7XSCaujkEIaJLGArBUNsEQT7BsCNtRE
-	 0HjTdINyUSA7ToFeD4sOrv7rcMtxM+Ew7RCBVpifdctBez+6ZmzNI8MoSBNB7eAjP1Xa5
-	 VdiDM0+R53vAJKHYGagpS/hpqrsLQk5tUOf+lYxGYP98vLhSUWXRecWgGPgTatpsHsb4x
-	 j67Dcy2qTTgd2T5EIVki+Tlrk5KOyHi6fmp1NxaKDednhCpew2CEu6nWLKuhG/H2ygdtq
-	 +Mo+zgc/TaYPY+PAyXHHAIlDGPhxejslWkvxgPUAI4UJm4wkI00o4H+v+db63Q86qGw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794080859;
+	b=UZLXJkLjoarW3NOnpuSjgHMi2afYeSUzX8SRsUJnKceD4v+UwAxC9Hh57KVV84f57u46
+	 mhqHAZN6wJ8h6FDfa66UQSYhX+d8iuq2H2oIVTRRNS1VgnRZp30BTLKBj5C2te45d/SJb
+	 gYrCvwtuNCfmQwOdw0ArUpkMkaRgIxP8HfKqk6n8iseN0IeS4MwaGCPfVeke1E1eY/Kxe
+	 /qdha6UhyBwHQpEfgGwBXzqz5OzaGvil+29TKLWnNsx1j2IS8LwwPkJHRd9Wm3vF5onEF
+	 BJE8u3CZH8P+vSskJ7jh8fyA49plhnn0vFWnQexPjexwM2zlSZcJzYFe97c1sP7SBiA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080859;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=SYcjJygf+sJY+ufopYfdJKIVnGnyP9gSuN2/MpdkeWI=;
+	b=xz8UZmLuXe1gK2AfIAmcLFxCaRCHMeL+6CdWsJRDYHE4lQ3jDpkyHpv3CazGc5gkPI6I
+	 nY8xRB9yqQmoCHeCJMndiCxvgEnwjFxOGElL6GKa94Tpgf6ZxORQ53GCns4dvIa53vLhe
+	 Bkic/VnbibBJwj6qnVqlIcu0wEP5edmK8PyrsgsjXTDzLpErYMR0M/XeMjfrr1gBx2/mW
+	 S328AASWcAEQzRDK3L7/syynW7xA434E2F5gnxzldINEpktZbbhyCqYFK3gLk3Gt6g/E2
+	 k1Qr0KGcjvL/hmxvD9rvY92FkoCk3FGTSKUjw7zjFdQxRhrvE7R+UOuTvGVLN6dQZwg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HS8K8tB4;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6FF4E1F008A1;
-	Sat,  7 Nov 2026 19:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794080849;
-	bh=dXGgmzx0aOYkoX0/ZRF0GSroXTzUKCRg5sYhTbGb8Js=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=EGhpR5r/zGFogExIOgDyenPQ806Oinz4gasOKA4IH0ssz8npd5BV2YHw0WdobPgXt
-	 5MihIf51G9TESvMtUhA4vkxCyHHBF9prGrQUWzQm06/XMsTBwdzll0nStcTzJ06DlD
-	 AaJtdSLPP6p0nsG89jciZJD0+BfCC1DWjepUxG5J9iJkmGjuvBXiRs8aSwUj9S7bJl
-	 A61v5rWhxIhlqEtP0ezoMlUhSsgclfPAb0Y/5GtKWKe23L775zk4lOkF1Xjy8kiPZ6
-	 VB02WvZMkR0FNQSf9JjQTUp/a1KvFswZSK4qQRIsus1FwP5tOv5SRDgyt+Sbs+ShAI
-	 KBqGK9BOmrn4Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D90FF47CB5;
-	Sat,  7 Nov 2026 19:47:27 +0000 (UTC)
-From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Sat, 07 Nov 2026 20:47:24 +0100
-Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: Add Anapass
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B7C606D810
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B7C606D810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HS8K8tB4
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdb9036421aso233084a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:47:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794080859; x=1794685659; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SYcjJygf+sJY+ufopYfdJKIVnGnyP9gSuN2/MpdkeWI=;
+        b=HS8K8tB46rVV3XK02DYLXjAdcKip8k6Hm5Q9t+XfPBuc9VvckozIH+lZvslrE8FuVj
+         Dep1/mj0pYrlWDP/10n3ed8sNOjBNC7wPjjbIM+PCfkDBqiUmQPL2uX/lAlXr1StbIKY
+         9N3VooBCrOLen7FIS9I+f6Ip7RRSAQhD/hrOFm0G4DE00qRHeQhxbax8DDnQnx9SGqV0
+         pSf0qoT/Sk4JP0c2gGn9GTgEfh6+WvNWj0+vI/KyK96fnndT5wjZV42zK0tDw5pMS7yN
+         ZBFo7eFZpInQH9veHNrzGX5jBZlO1+eny9aupqZB3KF+PPWT7eSsKCCCQ+xS80GdiecZ
+         JlqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794080859; x=1794685659;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SYcjJygf+sJY+ufopYfdJKIVnGnyP9gSuN2/MpdkeWI=;
+        b=MnDvxogdkgggYnoYu0GN0bwovkJSDTxxY+3VGPCO0oxkCtYfU+5iWLukaWEjl5urFe
+         eSHF3keyq9zXIz18SIeH1sBTTNf1RLXgjHfkzCKldCaYkeMsynC2Kww5lOFPwXqGa+GE
+         u3tpXQYi9sXe+l8BuNEPqGw4MrhWjSisdoo9wdtWWmMUZ2Fxhhx8jCmFaV/jJSKelC5Q
+         3hiyw+tSv7ZPks2gV7jNyYxwPVNoDX/JGQbYeUdInXwoteCFmpSgYqgJX8CYqAUnUjO4
+         UvyrP3Cqp/4fhldDUWqeszo1xbtFa8jdpLfmMRldtpx6aA9FwHQy9FpCkwCDxp6XFPd5
+         AM2g==
+X-Forwarded-Encrypted: i=1; AKwUvBz/wI+M1k52MHQw4ZzTeXltN0CVh3a1NN3HEp5yslO/jIZufXeOrVq7be3laCcsKlIOkNUsg2lptdD45vo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kB06d+8CmeegL0kxxjUP1gWQVwR7Y9bOqx1wMlja2tOKQa6n6
+	yOOJpes9tcF3wLLbsZWx8DjMZWJTxM4Kj7ZqmjQtPWXGxCfGf0O9envYf68nveqO8HKZww3hwPV
+	D2KsFZQ==
+X-Received: from pgaa23-n2.prod.google.com ([2002:a05:6a02:6497:20b0:cdb:1c92:d2df])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:c206:b0:3ed:bdfd:23a8
+ with SMTP id adf61e73a8af0-3edbdfd2488mr2314948637.61.1794080858543; Sat, 07
+ Nov 2026 11:47:38 -0800 (PST)
+Date: Sat, 7 Nov 2026 19:47:38 +0000
+In-Reply-To: <au99DNHQEsaaDqpJ@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,58 +77,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-b4-ana38407-v1-1-c8b33147110a@dxdmail.cc>
-References: <20261107-b4-ana38407-v1-0-c8b33147110a@dxdmail.cc>
-In-Reply-To: <20261107-b4-ana38407-v1-0-c8b33147110a@dxdmail.cc>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Nizat Mikayilli <nacht@dxdmail.cc>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794080847; l=794;
- i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=2HvAMxJc/diBPtN/JLnus3Kqq4WWx1yv+UIkhTrhRk4=;
- b=5+MmzenMYLvm3RxC/YRhDPN6/0nfSIFq1Wd+rDv57fQhjKMbdyWQxfBWm6n/I6If+DYI8YNyq
- pwekuVGrR4UCuOA59Ctg8dVAbWKK5S77jzXiiqn0HSyRi5AT7hnYgUO
-X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
- pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
-X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
- auth_id=1111
-X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
-Reply-To: nacht@dxdmail.cc
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261009091941.5837-1-qiang.zhang@linux.dev> <CAAVpQUAeHP7M07uMweRePtuzPPUo-99dL6jOYUiVf7CSVUxNDQ@mail.gmail.com>
+ <a951af6957fe4890d3eaaf5a661754fc259a4b79@linux.dev> <au99DNHQEsaaDqpJ@google.com>
+Message-ID: <au-AQ7OPf6QPyc3Q@google.com>
+Subject: Re: [PATCH] neighbour: Move the netdev_put() out of RCU callback
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Zqiang <qiang.zhang@linux.dev>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-From: Nizat Mikayilli <nacht@dxdmail.cc>
+On Sat, 07 Nov 2026 19:34:07 +0000, Kuniyuki Iwashima wrote:
+> On Sat, 07 Nov 2026 11:47:45 +0000, Zqiang wrote:
+> > > 
+> > > On Fri, Oct 9, 2026 at 2:19 AM Zqiang <qiang.zhang@linux.dev> wrote:
+> > > 
+> > > > 
+> > > > For builts with CONFIG_NET_DEV_REFCNT_TRACKER=y kernels, netdev_put()
+> > > >  records the caller's stack trace via ref_tracker_free() for debugging
+> > > >  reference leaks. however, the netdev_put() is within pneigh_destroy()
+> > > >  RCU callback, this recorded stack is uninformative, it does not reveal
+> > > >  which code path initiated the deletion.
+> > > > 
+> > > Have you seen pneigh double-free ? What motivates this change ?
+> > 
+> > Firstly, Apologies for delayed reply.
+> > 
+> > 
+> > 
+> > Actually, I didn't see any double-free happening,  just wanted it to
+> > record a meaningful callstack which on release path.  After all, if double-free
+> > really occurs, the callstack of the RCU callback execution path will not be helpful.
+> > 
+> > 
+> > > 
+> > > > 
+> > > > This commit therefore move netdev_put() from the RCU callback into the
+> > > >  caller's process context, and replace call_rcu() with kfree_rcu().
+> > > > 
+> > > >  Fixes: d539d8fbd8fc ("neighbour: Free pneigh_entry after RCU grace period.")
+> > > > 
+> > > Please elaborate why your change is safe in the commit message
+> > > and remove the tag.
+> > 
+> > Does it refer to using kfree_rcu instead of call_rcu ensures safely ?
+> 
+> I mean why dropping netdev refcnt waiting RCU gp is safe.
 
-Add a vendor prefix for Anapass, Inc., a display driver IC vendor.
-
-Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..b117fce91102 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -136,6 +136,8 @@ patternProperties:
-     description: AMS-Taos Inc.
-   "^analogix,.*":
-     description: Analogix Semiconductor, Inc.
-+  "^anapass,.*":
-+    description: Anapass, Inc.
-   "^anbernic,.*":
-     description: Anbernic
-   "^andestech,.*":
-
--- 
-2.56.0
+*without waiting
 
 
+> 
+> 
+> > 
+> > Thanks
+> > Zqiang
+> > 
+> > > 
+> > > > 
+> > > > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> > > > 
+> > > nit: full name
+> > > 
+> > > > 
+> > > > ---
+> > > >  net/core/neighbour.c | 14 ++++----------
+> > > >  1 file changed, 4 insertions(+), 10 deletions(-)
+> > > > 
+> > > >  diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> > > >  index 6ed8eb075146..4263689fc415 100644
+> > > >  --- a/net/core/neighbour.c
+> > > >  +++ b/net/core/neighbour.c
+> > > >  @@ -818,14 +818,6 @@ int pneigh_create(struct neigh_table *tbl,
+> > > >  return err;
+> > > >  }
+> > > > 
+> > > >  -static void pneigh_destroy(struct rcu_head *rcu)
+> > > >  -{
+> > > >  - struct pneigh_entry *n = container_of(rcu, struct pneigh_entry, rcu);
+> > > >  -
+> > > >  - netdev_put(n->dev, &n->dev_tracker);
+> > > >  - kfree(n);
+> > > >  -}
+> > > >  -
+> > > >  int pneigh_delete(struct neigh_table *tbl, const void *pkey,
+> > > >  struct net_device *dev)
+> > > >  {
+> > > >  @@ -849,7 +841,8 @@ int pneigh_delete(struct neigh_table *tbl, const void *pkey,
+> > > >  if (tbl->pdestructor)
+> > > >  tbl->pdestructor(n);
+> > > > 
+> > > >  - call_rcu(&n->rcu, pneigh_destroy);
+> > > >  + netdev_put(n->dev, &n->dev_tracker);
+> > > >  + kfree_rcu(n, rcu);
+> > > >  return 0;
+> > > >  }
+> > > >  }
+> > > >  @@ -891,7 +884,8 @@ static void pneigh_ifdown(struct neigh_table *tbl, struct net_device *dev,
+> > > >  if (tbl->pdestructor)
+> > > >  tbl->pdestructor(n);
+> > > > 
+> > > >  - call_rcu(&n->rcu, pneigh_destroy);
+> > > >  + netdev_put(n->dev, &n->dev_tracker);
+> > > >  + kfree_rcu(n, rcu);
+> > > >  }
+> > > >  }
+> > > > 
+> > > >  --
+> > > >  2.17.1
+> > > >
+> > >
