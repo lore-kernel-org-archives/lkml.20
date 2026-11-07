@@ -1,73 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794083593;
-	b=M/lKANa6Cb9fhwX9yfuVX9UDr7uc6AQmUALOBzy2kIkMd5Bpdx6Kja1wE1W3V/mqp4kK
-	 xkgAJ8+oil36KdQ/1yywCpXKfv3QweQFy2QwxTMmfr3CYtDBwfTxAvAY+TM3UuDJRhKqh
-	 0ngEvYVCGY0Z1ASam/W953MUmA/qsodq9zWQKwYTTbGDRQZUe3nEB5lmCauD9Q/6Bta+h
-	 sALQYpUvDUr1zKf8nsW0V5SchIlud5lziRGmqyvBzBG1JJBsI1SsreBZAZC3tbuJfXxJz
-	 LOZyBD7y3hqVATKQI+6yzbUnOOEqGWmE4X1wz/ol2oI7ZaOvyckaW+t2NxwAWUogcug==
+	t=1794083715;
+	b=3Xpo9nExBUfSszmX7p8nziH/f7y9GWJOWRNmzrJq82MRE00sNp7/EY5h9hkevKjGqdT6
+	 g67g9XD2CLT0HYk5BPPMN3cSIkft5wuPBLCQ0+ifljH4rppfXGps4LYSk+9eu01wh3amn
+	 +FwbdXZesC5qCXuoCpMcXe9B5M0jO1ypvAr6Fp07OnLQtVU67jRzIWzup5x9hWoVB7B2i
+	 vOAMbSkqqWmmpUaRXJJaVuGcsFERfzxBWWsNqUK7yCGhBpJ4Lr7KwqsMqG1QiEn49GqFI
+	 eXHP6+lt6udS2Fm3NE2r2AAZoi4upbhcDk+Dlfhq0awUxaRbb275FYV7S2VYnH77OYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794083593;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=dq2J374riM26SV5joazzzkZmilePIOzlYnlPT9M22lY=;
-	b=slEtspykCJ0F+bt4vo3NsdMMiZpL1TB/PC6z8UjQYlxhd7oq+N9YT9gmT3wVjnnVeroe
-	 uXim3p0Q32XSHi+VIxPgOzlwFTtKfZ4D/VkHKkLjzUgW1Jb+OKJ94mpYrizWVuRYHDZ7E
-	 XsLvED78d8Tc2kK2xSdzbJHSoS5Pr5cwnxg3y8oz9DdszqFBEg+hEKcAvFMfSUIGYJ1h4
-	 UIyy9xS0VdnomRxjD85A42ZZR6bDwFBCchyZ3FMT0YLydcSu5SB/eJdCReK1QJOSFUHxi
-	 SqwCW6HBvwJFej4W3An3x+3VyJGEqezZXQq2MuPeyXcCFG5/3pCdoZSx3Ogk+B2X99Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794083715;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=V3vJ3uaWbWIy6syguh59DzpN87g8/aV6pxxV7a2FucQ=;
+	b=eTlsvlbmldXg/dez9NBp8IH2i0oq4AbdsjpLLU2vj/WaIbnqE5IhXS9xrLNQzjZBo3jz
+	 ZWWuORSfZpR6hpbFsWMuZPvb2jzFhg9PV0Ye7m158zHQSP1XjHkXwYiyA5xZMPWKJqLfE
+	 YFTswOW0xV0QwpbcO2w7NXQk6OQltX4uUgoLKka/TS+nX1dFqqw+MFf0wZIRQyAowFizx
+	 BmbUZ9miyh6f8rVbuzpmVYe+jnTg6ru6mJDCN23V0yTKi4GpLcYy86LmEcAxIBzYkeMx4
+	 bs3PfEBv/iO5yVDGvq106egKuM4HFx2+MgBmtiUcVRdSSPXStHUk3/T8qujBNX6x3Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bojanowski.me;
-	spf=pass smtp.mailfrom=bojanowski.me;
-	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=FVVtbENR;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfGlXISU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C204C606A326;
-	Sat,  7 Nov 2026 20:33:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C204C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C249606A326;
+	Sat,  7 Nov 2026 20:35:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=FVVtbENR
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jMSRL4SxRzKp61;
-	Sat, 07 Nov 2026 21:33:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
-	s=MBO0001; t=1794083582;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dq2J374riM26SV5joazzzkZmilePIOzlYnlPT9M22lY=;
-	b=FVVtbENRg0UROP/9wz2AIAJ/Ynm/3/oBAOSDXKBE9U8cr1BlIzM/NkjTtjpNMN/JSLuGgc
-	j+cCtdoWe973tLQZ2GHN5tBHlDxhf+HWrsHPPRG5etQXJRkTkhPOQ2Vj0tcdXvGsV4oxhW
-	a3AHxzDXMg8vCJ+vDNZ6dOMM4puN191+KgMMbMs9cpD1dpo3IN4/FG3TddasbsfMOj2MM+
-	dNX3qlBVilqIUbAcnDCr0mPvpSyVwEqAfFuXfn/Ik3bBrhxlb35UPXj7sI0Z4482e3uWtf
-	Gm5hdJFR/EviKASOql7PgjyjbexByq6Wp4dnjuJe1rujZlIu4h7nfowaW+Q9bQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
-From: Tomasz Bojanowski <tomasz@bojanowski.me>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller voltage sensors
-Date: Sat,  7 Nov 2026 21:33:00 +0100
-Message-ID: <20261107203300.427273-1-tomasz@bojanowski.me>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net>
-References: <20261107082821.8257-1-tomasz@bojanowski.me> <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net> <20261107161249.336512-1-tomasz@bojanowski.me> <5e99fd86-d934-49c1-a867-02cc61ab1ecf@roeck-us.net> <20261107181518.385136-1-tomasz@bojanowski.me> <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfGlXISU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4211F0089F;
+	Sat,  7 Nov 2026 20:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794083715;
+	bh=V3vJ3uaWbWIy6syguh59DzpN87g8/aV6pxxV7a2FucQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FfGlXISUpolnFb+UOCuJm3J+pkmbuwQBoEV91cdNO08QRbcZovt0TljBJWCGXjzid
+	 y/8V9e0jGIH7lw4je3kC1VOTk3nOVO92YZJocNLkrEgWZPxz7YxGy4a5yK2xOhtLvV
+	 dHEZQ/+woXlO9eikD2riiaDv4GXYUxQe0ldommuJx9WDTC05EugMGIWT6iXJ4nI3sP
+	 //tFPASO+R6QBpDMhL+NEZrXS0jethFg4lJ6SS+GzdC6uRr/+BENd2uPnTmx/vnt9g
+	 r8Ky/gN7tC8Le5v1Q5lMJ9zAQDrj009423i4Tz2d+FS2LzQLGLil/0yks3F4WJlpBI
+	 7Z/EnkIMGGd0g==
+Date: Sat, 7 Nov 2026 20:35:08 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <crofts@kernel.org>
+Cc: Arnav Kapoor <kapoorarnav43@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: sx9324: reject reserved gain values on
+ read
+Message-ID: <20261107203508.30be5cf2@jic23-hlaptop>
+In-Reply-To: <20261105141504.000009b8@kernel.org>
+References: <20261104175920.207384-1-kapoorarnav43@gmail.com>
+	<20261105141504.000009b8@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,26 +65,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jMSRL4SxRzKp61
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Guenter,
+On Thu, 5 Nov 2026 14:15:04 +0100
+Joshua Crofts <crofts@kernel.org> wrote:
 
-On 11/7/26 11:40, Guenter Roeck wrote:
-> Please let me know if the code still works for you.
-
-It does. With commit 64e4888, the MS-7E61 reads the same as with v2
-(CPU 1P8 1.79 V, CHIP Core 1.04 V, VDD MISC 1.10 V).
-
-> Offset 11 does not seem to show a valid voltage. On the other side,
-> offset 15 would reflect a value that at least makes sense.
-
-The vendor software reads CPU VDDP from offset 11 on the MS-7C94 and
-does not use offset 15. It would show the same 0.002 V, so I cannot
-tell what offset 15 is.
-
-One small thing: if the read fails, msi_ml_read_report() returns
-without hid_hw_power(..., PM_HINT_NORMAL).
+> On Wed,  4 Nov 2026 23:29:18 +0530
+> Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+> 
+> > sx9324_read_gain() is meant to return -EINVAL for the reserved
+> > PROX_CTRL0 gain codes, 0 and 5 to 7. But the range check sits in the
+> > else branch of "if (regval)", where regval is always 0, so codes 5 to 7
+> > are never caught and are reported as gains of 16, 32 and 64, which the
+> > sensor doesn't support and which write_raw() rejects.
+> > 
+> > Check both reserved ranges before converting the code to a gain.
+> > 
+> > Fixes: 108e4d4de2b5 ("iio:proximity:sx9324: Fix hardware gain read/write")
+> > Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> > ---  
+> 
+> Makes sense. A stable tag is probably needed.
+> 
+> Reviewed-by: Joshua Crofts <crofts@kernel.org>
+> 
+Seems correct and I can add the stable tag.  I'll leave this on list
+for now so that perhaps Stephen has time to take a look.
 
 Thanks,
-Tomasz
+
+Jonathan
+
