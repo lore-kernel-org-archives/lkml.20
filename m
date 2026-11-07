@@ -1,75 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049297;
-	b=L9FK1XSbqwmRlgF3e3Or1CcP9+GD1JJ/Z+k8kzhAGfn1bAhZuTr/fslYLyCaBhZQsxzg
-	 5V9bI4A6OHP2sArPzVTz8cNvVS6qTF5NsyPyFOsVL5Fs8ws5+FA4USEHFuaTUzaDfotAs
-	 fiQ81Jdi1wpRR2ZsVrAbQNn70XhBTC2nucuqiDmzzgoUye1t0RxEYWeIgXp/9IMSVo95D
-	 mXICCJijNuag1FlzUiQmzXD2btrNerorRLCKCVocut3q+eCHw1DKpnvpRIMgtyOMYOU7m
-	 E6KQat68plBxO0dKTbpRxjBFvY+ItD1YFiMrNp4Li2nimI32InygRRZ8PETMv5WvYDA==
+	t=1794049403;
+	b=dR3r+2frKdPsd4ROR2iN80tGXGfLTsC3tQw0VqHD4FPMaKLdiCi12qezBzgkFAZOG2In
+	 VC31RB0y2KNrSlxX7ThK9pH18NctWA/72hN8UnlHdals1K0ThUxS11WZ3oGBVBn1CAKex
+	 hzMCXqruZSzVJT6K4O/5H3PDtTWTleS3wxYrM9qhGeBUix5aw9Kt+Pbtx5UytxPcOe2d6
+	 WskvG648xs6qis1LAcTvu8814j3K84WUUOUFEcZI3AkXIt9QJPnqd3lPdpC1+45Q90sYc
+	 eN7hXiId6+QZqznkHqg22jz63D4smiYGfh6wr2u4XPDPB7twEpcy6JkOaUuBlZ3H0bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049297;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7aJqfSR8WVMJ7AcA727X2IDwYjfW2MXFOBQqXw5IW0o=;
-	b=rhd2usxi1zT529WLEWHGnEGMgxp2lktce5C+GM56ii1/eHTP7FJWysJc/QvqxaEzAxWw
-	 XmDLYXzRs6TXvl3gKx3x3GVrTyO4Ghnk3L1FJXs3JA2IIIs4mechBlB8AaEMZ5MRjOlpi
-	 ON+pJSud/MDBJUaM5XfKxN4eOiOlHRGZ5nhRXAyoJoqpH8Cl/SL8M8c6jdhHvw+o5KWgA
-	 tjo+ogw56LLLXG5e83KexMD/G+4MYRe9q99lkyU2PgdmCU01n8NtdWE1i1qMUZkRWjOIA
-	 N/C0c/vmlBxadkpdJVtkFuqTVSg7o6khbJCwz146uyIe8vSQM9tcAd86yIJ75mypOTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049403;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=/wX9SkEQ6GTlYhulXYx5S+rXELMWgypRE+xtTTGp6Js=;
+	b=RfcOQoVbIy62UtTgUTm910te/LVvakThv2SySrNVqe/dMPAZODNE/7Ta0jYWxcLwZ4vO
+	 O/oDIPkEtVLHGVIWnyAdoKeWbs7gNBVresnXz7vfc0dxhoP78+40JFKRLOyaDn+cgysaD
+	 KKzdh75JgNs/uACdf1vLmvxUsnIU0PV7ftNWIOLQdut5cMWk34wpNO2CvA1vuHaMvBUzt
+	 +q5ZpSLt5J2ZJboO1ikPAtNIg/Mt9dxBucSnDkoGeOTKikUhskN3MaGOQC4L3H5Ljb8Yg
+	 tInTlzXy3aqwBcEiI0EBGzAoPltZw2RXlL9N8/7DFZSum/tuVERgNBhzWiAd8Sw5e4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="K6/LDNLX";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7828606A33B;
-	Sat,  7 Nov 2026 11:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7828606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ps2vc9Su;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1796F606A32E;
+	Sat,  7 Nov 2026 11:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K6/LDNLX
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68DB81595;
-	Sat,  7 Nov 2026 03:01:25 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B55753F673;
-	Sat,  7 Nov 2026 03:01:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794049288; bh=W4WIuUrlizpg0BPIjPNKk2X3Stnp/vxrxo35uFREBkk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K6/LDNLXbmOQ5Aw4qbKjSDfx3+fg38fH0Q/pBceznGmkByRJNq7f2Mb5xSS1Ap9kO
-	 0IX5qyUiQPHZGXnmLBIPYaQxR0f8FLZ713eZ5Cqz9ws9UQ8GTICu9TvMAl9W0EzmCJ
-	 v9ONr3tLLx1VxLV8t51bH9PzXGdV14gJgw+AFnCM=
-Date: Sat, 7 Nov 2026 11:01:22 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, drdeeglaze@gmail.com,
-	James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
-	aneesh.kumar@kernel.org
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <au8FAlt2wIgeEO4I@e129823.arm.com>
-References: <auuDcABX27EeTApl@e129823.arm.com>
- <20261104194622.GC3889730@ziepe.ca>
- <aux01NUd85PabtZu@FV6GYCPJ69>
- <auyKE2sGqtfjk4v5@e129823.arm.com>
- <auy7IM0_S2tv7EZX@FV6GYCPJ69>
- <au2WdWFOYbPEv0Uj@e129823.arm.com>
- <au3i-0eDzJZaWukx@FV6GYCPJ69>
- <au3mAsQrh0GniXJo@e129823.arm.com>
- <au34wXtIqii-hfFI@FV6GYCPJ69>
- <au3-LyBiCZtUMpEx@e129823.arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ps2vc9Su
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714AC1F008A5;
+	Sat,  7 Nov 2026 11:03:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794049402;
+	bh=/wX9SkEQ6GTlYhulXYx5S+rXELMWgypRE+xtTTGp6Js=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ps2vc9SuDCF12+y7TxOsF7TFVyNHBqgqzYpiLLB5ICAz1Pj5vIdTizDFJN0ycPCx2
+	 R+t6/i0CT4QBLOjUlOYrr6crUEJchGMAVsUi0tCPYYbhcmDbViCsZ+Dre68Sz7ZmNL
+	 NOYQp2wOAzfB7yf+k+b9jfpbs7Cn5Zo2aoRYw+R+0v95ef5VGGt+O2Q4H6+IPmDPmZ
+	 Vh+4JmUIlNsRtthe/BoqLlASiCKEDNRskHO/1ST227/gzwaE5txYt4SFZgnbjc/R0a
+	 WNmg3l6BdL2i/wG0NZzHN2l+7Kc90cM6ckJh5WEvl1ZN7vNrD+fsuIdBQ3pi/IgbTh
+	 QkA2hDRf2LGDg==
+Subject:
+ Re: [PATCH] net: cxgb4: do not leak a PTP skb when the Tx queue is busy
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: bharat@chelsio.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 07 Nov 2026 11:03:21 +0000
+Message-ID: <179404940199.994134.17549120390579622204@kernel.org>
+In-Reply-To: <20261103100530.1309928-1-vulab@iscas.ac.cn>
+References: <20261103100530.1309928-1-vulab@iscas.ac.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,184 +63,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au3-LyBiCZtUMpEx@e129823.arm.com>
 
-On Fri, Nov 06, 2026 at 04:19:59PM +0000, Yeoreum Yun wrote:
-> On Fri, Nov 06, 2026 at 05:03:32PM +0100, Jiri Pirko wrote:
-> > Fri, Nov 06, 2026 at 03:36:50PM +0100, yeoreum.yun@arm.com wrote:
-> > >> Fri, Nov 06, 2026 at 09:57:25AM +0100, yeoreum.yun@arm.com wrote:
-> > >> >On Fri, Nov 06, 2026 at 09:27:42AM +0100, Jiri Pirko wrote:
-> > >> >> Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
-> > >> >> >On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
-> > >> >> >> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
-> > >> >> >> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
-> > >> >> >> >> [..snip..]
-> > >> >> >> >> 
-> > >> >> >> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
-> > >> >> >> >> > +					       const struct ctlv_cursor *request,
-> > >> >> >> >> > +					       struct attestation_evidence_request *decoded,
-> > >> >> >> >> > +					       struct attestation_evidence_object_request **objects)
-> > >> >> >> >> > +{
-> > >> >> >> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
-> > >> >> >> >> > +	u32 challenge_length;
-> > >> >> >> >> > +
-> > >> >> >> >> > +	decoded->challenge =
-> > >> >> >> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
-> > >> >> >> >> > +	decoded->challenge_length = challenge_length;
-> > >> >> >> >> > +	if (challenge_length < caps->min_challenge_length ||
-> > >> >> >> >> > +	    challenge_length > caps->max_challenge_length)
-> > >> >> >> >> 
-> > >> >> >> >> Hmm, I'm not sure whether this check is required for
-> > >> >> >> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
-> > >> >> >> >> 
-> > >> >> >> >> for example, if the provider provides two evidence:
-> > >> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
-> > >> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
-> > >> >> >> >> 
-> > >> >> >> >> might challenge is reuiqred for generating the token
-> > >> >> >> >> and this would be marked at min/max_challenge_size in evidence_cap.
-> > >> >> >> >> 
-> > >> >> >> >> However, in case of eventlog, it wouldn't require challenge.
-> > >> >> >> >> for example, TPM event log or CCEL event log.
-> > >> >> >> >
-> > >> >> >> >Right
-> > >> >> >> >
-> > >> >> >> >> Do we need some field on attestation_evidence_supported_object whether
-> > >> >> >> >> it requires challenge or not and applies this sanity check per the object?
-> > >> >> >> >> 
-> > >> >> >> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
-> > >> >> >> >> always.
-> > >> >> >> >
-> > >> >> >> >I wonder if we should have two interfaces here for signed and unsigned
-> > >> >> >> >evidence? It would be clearer for userspace then when it needs to
-> > >> >> >> >provide a challenge or not.
-> > >> >> >> 
-> > >> >> >> Isn't the challenge field provided/not-provided enough?
-> > >> >> >> 
-> > >> >> >> Currently on the introspection side, device-get op would provide
-> > >> >> >> challenge-lengths array:
-> > >> >> >> 
-> > >> >> >>         evidence?:
-> > >> >> >>           challenge-lengths[8]:
-> > >> >> >>             length?: uint(..4096)
-> > >> >> >>             min-length?: uint(..4096)
-> > >> >> >>             max-length?: uint(..4096)
-> > >> >> >>  	  objects[16]:
-> > >> >> >>             blob-class: evidence-blob-class
-> > >> >> >>             max-length: uint
-> > >> >> >>             blob-instance?: uint(..u32-max)
-> > >> >> >> 
-> > >> >> >> I think it would make sense to have challenge-lengths array per object:
-> > >> >> >> 
-> > >> >> >>  	  objects[16]:
-> > >> >> >>             blob-class: evidence-blob-class
-> > >> >> >>             max-length: uint
-> > >> >> >>             blob-instance?: uint(..u32-max)
-> > >> >> >>             challenge-lengths[8]:
-> > >> >> >>               length?: uint(..4096)
-> > >> >> >>               min-length?: uint(..4096)
-> > >> >> >>               max-length?: uint(..4096)
-> > >> >> >> 
-> > >> >> >> Then the unsigned object would just simply have challenge-lengths empty?
-> > >> >> >
-> > >> >> >This looks good to me. :)
-> > >> >> 
-> > >> >> The challenge is one of several open points that all depend on what an
-> > >> >> evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
-> > >> >> "primary", "raw" and the format strings. Here is my proposal to settle
-> > >> >> these together:
-> > >> >> 
-> > >> >> The model:
-> > >> >> 
-> > >> >> 1. device-get lists each object with an id, a class (signed, event-log,
-> > >> >>    cert-chain or auxiliary), the formats it may come in, its max-length
-> > >> >>    and, for signed objects only, challenge-lengths.
-> > >> >> 2. evidence-get names objects by id, as MR ops name MRs, each with its
-> > >> >>    output blob. It carries a challenge exactly when it names a signed
-> > >> >>    object, and the challenge has to fit each of them.
-> > >> >> 3. The reply gives each object's format, length and, where the TCB
-> > >> >>    vouches for it, the TCB's digest. The output is always {label, data}.
-> > >> >> 4. A signed object is made by the call, over the challenge, and never
-> > >> >>    reused. The rest are read as they stand.
-> > >> >> 
-> > >> >> This settles following issues discussed during this patchset review:
-> > >> >> 
-> > >> >> 1. One op, not two. Per-object challenge-lengths tell userspace when to
-> > >> >>    pass a challenge, and one call returns the signed object with the log
-> > >> >>    and certificates needed to check it.
-> > >> >> 2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
-> > >> >>    /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
-> > >> >> 3. TDX's Quote object lists the legacy and the DICE format. The provider
-> > >> >>    labels what the host returned and fails on a Quote it cannot label.
-> > >> >> 4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
-> > >> >>    spdm-measurements and tdisp-report become formats, and signature
-> > >> >>    goes, as a signed object carries its own.
-> > >> >> 5. "raw" goes with the representation attr. The TCB digest is a reply
-> > >> >>    field, so a blob always holds the object's own bytes.
-> > >> >> 
-> > >> >> Formats become an enum each provider family defines, instead of free
-> > >> >> strings. I'm still unsure if format should be entirely provider-specific
-> > >> >> and defined as "extension", or it should be somehow mixture of common
-> > >> >> and provider-specific. Looks there is not really much common
-> > >> >> anyway, so I lean towards provider-specific only. So far I have:
-> > >> >
-> > >> >Overall, This is plausible for me with some small question.
-> > >> >
-> > >> >> 
-> > >> >> ======  ============  ==========  =========  ===========================
-> > >> >> Family  Format        Class       Challenge  Bytes
-> > >> >> ======  ============  ==========  =========  ===========================
-> > >> >[...]
-> > >> >> tpm     ek-cert       cert-chain  none       EK certificate from NV
-> > >> >
-> > >> >Just a thought, but how are we planning to retrieve
-> > >> >the NV index for EK certificate?
-> > >> >
-> > >> >As far as I know, TPM NV storage doesn't support labeling.
-> > >> >
-> > >> >Should I assume that the NV index would be specified as part of the
-> > >> >challenge to retrieve the certificate from TPM NV storage?
-> > >> 
-> > >> evidence-get allows to accept mr-selection as part of the request
-> > >> alongside the challenge.
-> > >
-> > >Sorry. Could you explain a little bit detail for this?.
-> > >AFAIU, this is to get the EK certificate from TPM non-volatile storage.
-> > >But, I don't know why *EK* certificate get would be relevant for
-> > >*mr selection*.  AFAIK, the TPM_Quote will be used AK not a EK.
-> > 
-> > You are right, my mistake. I misunderstood the question.
-> > 
-> > mr-selection selects PCRs for Quote, or an extend-NV measurement
-> > register for NV Certify.
-> > 
-> > An NV-resident EK certificate is retrieved using NV_Read. I think
-> > blob-instance is a good fit. For TPM certificate objects, it could
-> > identify the certificate's NV index.
-> 
-> Ah. I missed the TCG_EK_Credential_Profile specification which defines
-> the NV index value for EK certificate:
-> 
-> 2.2.1.4 Low Range
->   The Low Range is at NV Indices 0x01c00002 - 0x01c0000c.
->     0x01c00002 RSA 2048 EK Certificate
->     0x01c00003 RSA 2048 EK Nonce
->     0x01c00004 RSA 2048 EK Template
->     0x01c0000a ECC NIST P256 EK Certificate
->     0x01c0000b ECC NIST P256 EK Nonce
->     0x01c0000c ECC NIST P256 EK Template
-> 
-> But, do we need some argument to get which EK certificate to get?
-> (RSA or ECC NIST P256)?
-> 
-> Otherwise, Is this interface going to print all EK certificate
-> regardless of alg?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Might be with a format, it seems to be provided with my humble
-thought...
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1 (1)
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch splits the claim on adap->ptp_tx_skb into a NULL
+  check at the top of cxgb4_eth_xmit() (sge.c:1526) and a store about…
+- [Low] The commit message lists "an unsupported FCoE offload" as one of
+  the out_free paths that leaks the PTP reference.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the consumer
+  side of adapter->ptp_tx_skb has no synchronization.
+- [Low] This problem wasn't introduced by this patch, but
+  cxgb4_eth_xmit() still sets SKBTX_IN_PROGRESS (sge.c:1528) before the…
+
+--
+
+net: cxgb4: do not leak a PTP skb when the Tx queue is busy
+
+This patch moves the skb_get() that stores the PTP skb in
+adap->ptp_tx_skb. It used to sit at the top of cxgb4_eth_xmit() and now
+runs just before the packet is handed to the hardware, so the
+NETDEV_TX_BUSY and out_free paths no longer leak the extra reference.
+The early check for an outstanding PTP skb is kept, and the patch relies
+on adap->ptp_lock for serialization.
+
+> cxgb4_eth_xmit() stores the PTP skb in adap->ptp_tx_skb with an extra
+> reference before the descriptor credits are checked.  When the PTP
+> queue is full the function returns NETDEV_TX_BUSY, and later failures
+> such as an unsupported FCoE offload or a failed DMA mapping jump to
+> out_free.
+
+[Severity: Low]
+Can a PTP skb actually reach the FCoE path?
+
+is_ptp_enabled() requires cxgb4_ptp_is_ptp_tx(), which only matches
+skb->protocol == htons(ETH_P_IP). For anything else,
+cxgb_fcoe_offload() returns 0 right away:
+
+	if (skb->protocol != htons(ETH_P_FCOE))
+		return 0;
+
+Even for real FCoE frames, cxgb_fcoe_offload() returns -ENOTSUPP, but
+cxgb4_eth_xmit() compares against a different errno:
+
+	ret = cxgb_fcoe_offload(skb, adap, pi, &cntrl);
+	if (unlikely(ret == -EOPNOTSUPP))
+		goto out_free;
+
+So that goto out_free never runs. Should the FCoE example be removed
+from the commit message? That would leave only the NETDEV_TX_BUSY and
+DMA mapping failure paths.
+
+> diff --git a/drivers/net/ethernet/chelsio/cxgb4/sge.c b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> index 9fccb8ea9bcd1..7e83f60bd14ec 100644
+> --- a/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> +++ b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> @@ -1523,12 +1523,9 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+>  
+>  	qidx = skb_get_queue_mapping(skb);
+>  	if (ptp_enabled) {
+> -		if (!(adap->ptp_tx_skb)) {
+> -			skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+> -			adap->ptp_tx_skb = skb_get(skb);
+> -		} else {
+> +		if (adap->ptp_tx_skb)
+>  			goto out_free;
+
+[Severity: High]
+This is a pre-existing issue, but ptp_lock does not protect the consumer
+side of adap->ptp_tx_skb. Can two RX contexts free the same skb?
+
+t4_tx_hststamp() checks the pointer without taking the lock:
+
+	if (!is_t4(adapter->params.chip) && adapter->ptp_tx_skb) {
+		cxgb4_ptp_read_hwstamp(adapter, pi);
+
+cxgb4_ptp_read_hwstamp() then timestamps and frees the skb before it
+clears the pointer under the lock:
+
+	skb_tstamp_tx(adapter->ptp_tx_skb, skb_ts);
+	dev_kfree_skb_any(adapter->ptp_tx_skb);
+	spin_lock(&adapter->ptp_lock);
+	adapter->ptp_tx_skb = NULL;
+	spin_unlock(&adapter->ptp_lock);
+
+t4_ethrx_handler() takes this path for any non-MPS RX frame on a
+ptp_enable port that has RXF_UDP_F set and UDP source and destination
+port 319. Nothing checks that the frame really is the hardware Tx
+loopback.
+
+ptp_tx_skb is shared by the whole adapter, but each port's RX queue runs
+in its own NAPI context. Suppose such a frame arrives on one port while
+the real loopback is handled on another port. Both CPUs can then see the
+same non-NULL pointer, and both call dev_kfree_skb_any() on it.
+
+In the immediate path, the second CPU writes hwtstamps into freed memory
+and then frees the skb again. In the SGL path, the second free drops the
+reference that still belongs to sgl_sdesc->skb, so the later TX reclaim
+frees memory that is already freed.
+
+I could not confirm whether the hardware delivers non-loopback UDP
+319->319 frames as plain CPL_RX_PKT. Two cases where it might are the
+rx_filter modes in which cxgb_hwtstamp_set() does not call
+cxgb4_ptprx_timestamping(), and frames that the hardware PTP classifier
+does not timestamp.
+
+There is also a smaller effect on the transmit side. The check above
+holds ptp_lock, but it can still see the freed, not yet NULL pointer and
+drop a new PTP packet.
+
+Could ptp_tx_skb be read and set to NULL in one step under ptp_lock,
+with the timestamp and free done outside the lock?
+
+> -		}
+> +		skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but SKBTX_IN_PROGRESS is
+still set before the credit check that can return NETDEV_TX_BUSY. The
+flag is never cleared on that path. Can the requeued packet end up with
+no TX timestamp at all?
+
+Suppose cxgb_hwtstamp_set() clears pi->ptp_enable before the qdisc
+retries the skb. The retry then goes through the normal ethtxq path
+without TXPKT_TSTAMP_F, so the hardware produces no timestamp.
+
+Because SKBTX_IN_PROGRESS is still set, __skb_tstamp_tx() also skips the
+software timestamp, unless SOF_TIMESTAMPING_OPT_TX_SWHW is set.
+
+>  		q = &adap->sge.ptptxq;
+>  	} else {
+>  		q = &adap->sge.ethtxq[qidx + pi->first_qset];
+
+[ ... ]
+
+> @@ -1707,6 +1704,9 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+>  
+>  	skb_tx_timestamp(skb);
+>  
+> +	if (ptp_enabled)
+> +		adap->ptp_tx_skb = skb_get(skb);
+> +
+
+[Severity: Medium]
+The commit message says "PTP transmits are serialized by
+adap->ptp_lock". Is that guaranteed when this store runs?
+
+t4_start_xmit() decides whether to take ptp_lock from its own call to
+is_ptp_enabled():
+
+	if (is_ptp_enabled(skb, dev)) {
+		...
+		spin_lock(&adap->ptp_lock);
+		ret = cxgb4_eth_xmit(skb, dev);
+		spin_unlock(&adap->ptp_lock);
+		return ret;
+	}
+
+	return cxgb4_eth_xmit(skb, dev);
+
+cxgb4_eth_xmit() then calls it a second time and uses that result:
+
+	bool ptp_enabled = is_ptp_enabled(skb, dev);
+
+is_ptp_enabled() reads pi->ptp_enable without any synchronization.
+cxgb_hwtstamp_set() can set it while holding only RTNL:
+
+	if (config->rx_filter != HWTSTAMP_FILTER_NONE) {
+		if (cxgb4_ptp_redirect_rx_packet(adapter, pi) >= 0)
+			pi->ptp_enable = true;
+	}
+
+If the flag goes from false to true between the two calls,
+cxgb4_eth_xmit() runs the PTP path without ptp_lock. Two CPUs on
+different TX queues could then both see adap->ptp_tx_skb == NULL at the
+top of the function. The same applies to one unlocked CPU and another
+port that does hold ptp_lock.
+
+Both CPUs would then build descriptors and reach this store. The second
+skb_get() overwrites the first, so the first skb's extra reference
+leaks. That is the leak this patch is meant to fix.
+
+Before the patch, the check and the store were next to each other. Now
+the whole descriptor build sits between them, which makes the window
+much wider.
+
+The concurrent writes to the ptptxq descriptors and pidx were already
+possible before this patch.
+
+Would it be more robust to evaluate is_ptp_enabled() once and pass the
+result into cxgb4_eth_xmit()? Another option would be to take ptp_lock
+inside cxgb4_eth_xmit() based on its own ptp_enabled value.
 
 -- 
-Sincerely,
-Yeoreum Yun
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103100530.1309928-1-vulab%40iscas.ac.cn
