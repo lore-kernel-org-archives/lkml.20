@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794058087;
-	b=jm89wW/xvzjK0AGDFT+RzCDq4VYm7h3zlWIIQi1tG3xtJ6XrZw3JZOLhFSXfeYi9MIlW
-	 prko20sPoBY3Rf/xlKctf2jdGEkJda8RSV6ZkRYakULlgqllb++OvYDStnqzGn0C7cY2s
-	 EkWGVmLU6eehEjA7Twx3XylsBGpDOjxA45+rjM3Deah4V2tVg6gJGSF4fXuYN0F8TbFVN
-	 3yIt0p0CUUgh74RUyXUxMEyemvdfDuF7Wohi427JY8CQT3l5Sr8PJ1Qk5X8z7SLa0jQ/e
-	 P3akWffd7UlANKawUgw++9YF6/GW/lelUsIvVAnd8/IrGHggcZEEYs1Usc89GGa0ibg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058087;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=RzNHZRxTloFNeuox4l1fnn7n2ZRYuRd2oE0NrztdOuA=;
-	b=Tf+BMsCp1bICu/9X0aGwCOAYgOxqWarSK/ohrQye1ejvoNWhfflf2QaKRInmQ0oJbrOI
-	 QVJVczSoxwPeryq8jl+7LCrpAXxLvE59i42ZNHPHNtCxA8znJPLh9gbBBRouvUszakqzy
-	 0a/2Y1fSM8ffdNnzSswR5LnqJnT9YC1Zjd/tltAXzvgOFHa0fgnWlR4Jm3I12cmCrMXer
-	 ydtJ6p2arxKvA/K4dActe1mBOn4I/CPcixbrNHO1vqKiUdomEEwY3gi1Dhzq7cNa1u2WZ
-	 RUKof14HPfCyqq2Fk+IWsxFC6XIW1mh41eu4uqnc2fgKHZirkcd11rbkaWFG6mYr0GA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iiNR4L3o;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.135
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794058235;
+	b=duTkhgkRP+G9UQP0dCQnB54NtsGhw+nd0ukmwZLKE59mZog8qsJ+BMUaE//4UHtq/hzs
+	 lzHzImjWRq44rFW6NSh3pQm3lo1ZePkP7NH4tSoWYaJr/AiET/mT0VzoLDwr+oxE6/F/F
+	 PYk+6Xj/LrqOEUMkDTDgAHy9aNAAMQ954OpzRWaDlTs2dF5fS6aPoLcS11pHBj5yTDC52
+	 tHZL0YtqQUfPfg52tzcO0DRhZYkfvwblowkgG7SvGuGPGl5zf5C/fAIdbQ3S35iKa7waY
+	 2iHFKqAJzD73NL1qxAXfnBcHKRQ8uCmGZsEHl0rK9KBbCzq0WfeuaP/HafhWTw4ktgg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794058235;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/P/+DmCTrLU5Pw+nTaV4w+qH9EATz3dsofkyNM8H32c=;
+	b=zxvaAXzzbvnUJkxAbBKyEMgVosSy+rLhHuMy5RwntZqYVv488Cnn48XSF3bhcNsGlJDN
+	 3FO8bqVMbpi3sFvSTLv6oi3Mp9xdAPF9NE77xgFymmLDWxXOsDLtnwZF1XCoV0pYcLcH4
+	 GlE0q6L9KUK4PUqddQzAOvP8lTDPjRFdBA2+McvPYTzKLoB9Sk+RJ7pEDBsLn0DP4LRuX
+	 ly6XUS7m+tsON99RicmU+yTN9ZC5NWWqLY7fb/Vx/Nc59t32qu5W638ghHRgLexygsouM
+	 Ol/jeDEjuQkrfzVEChu9IV8yXfX+OOP+JRrKw104NhNCTJzh8WN7aYZ3eC0R6VHVXFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=GMul4P1V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.135
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021135.outbound.protection.outlook.com [40.107.74.135])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB977606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:28:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB977606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81900606A32D;
+	Sat,  7 Nov 2026 13:30:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81900606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iiNR4L3o
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4af520023fdso3788035e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:28:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794058085; x=1794662885; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RzNHZRxTloFNeuox4l1fnn7n2ZRYuRd2oE0NrztdOuA=;
-        b=iiNR4L3oHF12kag37UHJAFxlxwEnxvtj5yEs0TUkJm7DAz3CKqbOLS0Nxdox+Y9k9h
-         xd2qMXE4f3h5Ix2Z6RXGaUjkjCUTw3RvJ4D2lyAypJRJ4sPamBnIR4v4BhXARo1/qkX/
-         WilSAwU/NAYERvm0DK6sd9CZQCXKALoRgJ+2tBa44vUZUIemaVsMYlcNH5FfL9BWlSkN
-         45SNDcWigfmsqFRuyX1DOPmBvjnJCGHF7G2OSi8GfBQIC7IKvIGPL1F1UuTZYXxotVDI
-         euMLXrnoTDyHNDLogOY+gWFdG+/JtSeNkEB/aSI3c9zTk4QpGuvI/kIWZZhvIsZ6gGQr
-         ipBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794058085; x=1794662885;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RzNHZRxTloFNeuox4l1fnn7n2ZRYuRd2oE0NrztdOuA=;
-        b=aB+l/1CMkvN9h1MtFE2+FayXPOfRbk0BK48UJm2U12NFrTL7bwwOuNRJkcSA6HVnOg
-         HJOUxvbNHsejhkvGGIap7pyPwDs2dwEMfRgukcxAek8S7HaP4+yRw5l+a6aeV/CEqXTM
-         HFKNg7NbbA8Qc9u2z1+M5yZ1pyNlJQpP19DXq6NK+bx5JBk00tmF2ugTA0BNuV+gYOaM
-         Nkt45L7vOvUVtzCBXDTmU7A2YgVXR4Szatr9FUhQEfwKZ1AT9MvdyiSp9NCx+qYLyGJM
-         XA0rJ0ndX1pQpBHBzFCF8hwFpNmApHMvseRtKOZBGlcLPM+alKvlKmUDEZw/JFOUQgyU
-         WhfA==
-X-Forwarded-Encrypted: i=1; AKwUvByCIoU+22Hi0l9YyxyJtd0THaQtVc/fWFCFWtS7/gFEP0eoTTO+l43GG/sCAH/GeRJvlAxAlJ48eC3t1s0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/o1g2WYtaKU8lc74khQXvulYm2rze983aZD3L0gU9avvmd8RzD
-	1vzPTUBXNEVmpfFTRulN+oRNaujAZ9QFScQZx24zpBzBsAjbGQsEi00a
-X-Gm-Gg: AYBFou1qJd/0m6J2Za/4fIQqpvkUsJmpmYat8PEk6VjziaP3MWOud6NcDnxYRRpJnE6
-	xtFFMmVrXpfAVViIR6lJ6o0gQbPfMvWvjW0le2C0csIo7Zqt0J19vowJWL86Ed17asKzOPtE/sN
-	u5c+y6ksHsRRHVO5xMcMmdkNtzzx6A2uzK0Glcq1+sHMQWrOc4UvAJODGrsv9z/8uX4IHvMEESO
-	QvYXX6G9IK2T8iJMvX1kSXcfZVrSws1/QnibW21GUrGhV1yZ0J8WwZZdPlJ7b9dNkJRbyrFFwqv
-	RBYG+QndaGwVlRkHDarz+yiaYCd4vrXdlod77t8xhXkpPcMlRvYLmjrPLlKLSZSLwh/qlvUb/Hf
-	zFl2L19YqyeDNdUCMgR+6VC7G58yMG3EI89ZkTLyWTjo03kGXBwXjHbhgjwts1p/u9GkEr3rSuo
-	pE7FZGPpTBu6laJ+4xA9nSDvn822KihQRySx4FnoleEOZmQFy4Hf966KXVkftgjcfpz5f5VQQSw
-	z/zypnCxKWX+whoYXSlwBFOlnhmvqf2PxYhPD84MV6eDV+R1TiWO7aQBo1L/db7p+fZyEvRJ28E
-	Qnzl6AAsdJaJ4gcVdMTUf1iwZpoUF/EoJrhZFMCLLLqJeEfJvGEFpnI=
-X-Received: by 2002:a05:600c:6d8f:b0:4b6:2242:d0be with SMTP id 5b1f17b1804b1-4b6d82b2c85mr77347165e9.0.1794058084910;
-        Sat, 07 Nov 2026 05:28:04 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e326b7afsm66823065e9.2.2026.11.07.05.28.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 05:28:04 -0800 (PST)
-Date: Sat, 7 Nov 2026 16:28:01 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	joshdon@google.com, tj@kernel.org, jakub@okonski.org
-Subject: Re: [RFC][PATCH 3/3] sched/eevdf: Fix sched idle task group
- preemption
-Message-ID: <au8kpcCsy0ibRwe3@scheduler.schedules>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.765325702@infradead.org>
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=GMul4P1V
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sa6fWJYtepRorVYTKB8BM6PT3Xwnj2mFvJRcdZTsgWglbufiS1MF+55/YwY+SPg7otqOm1XcB4AuUsOuHvQlsqH4C+SDcwNMdkWoQPa08SRg3aYi8Wr8yYwKZzh9dzWKtarQIedFFBeAEn9cMBo6tkvKNTcL9o9OOTBZ8ikgAYJzghZnZJ3inn9Y4fk5g4ayja7DzLNK4O/xG+mToJnXcBFjRFkOkgR53VhFzNeCaukq0FOF3wLkB+1+FXCadmvdUhga5kXK77XWZGdNPCpYB4OQ++xBL17Wzl1dbRQVXkrcwt5hYDRBGqZ63qZIJxcgsO28L2WZ+IChWSjvCLGg3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/P/+DmCTrLU5Pw+nTaV4w+qH9EATz3dsofkyNM8H32c=;
+ b=vtt8B7BJY1Vzt4Vr0GpMVsEG/C8BoloATsmHipnsV9Wg9M4Azfhsg1ymmYggjrv6WfXuaEvOpN5PVcC8+Z78ppv3UsRpCfWMq7+IU0Ebj8+vL4h95G0rux+xcthmNCdxvEjoTq0nxf0Dtg0NAf70YXSpGHGMXfCodIeBCjnvM3MRkmJCL5HmAs+eMEpDq2P7GCKItOaWyXDNSJ1jcIwn6iTHvHHaQ5LQUexc/vTdvwcHMhp9SbPgP82SacImG6tua8/ZzDia/TdIgZixSyAfchSbTaM6owK9DJrFgZiSh1EOwyLngLwsjlIYwkFJzv8TNGy4+Ejz7aY6uDgGkakjHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/P/+DmCTrLU5Pw+nTaV4w+qH9EATz3dsofkyNM8H32c=;
+ b=GMul4P1VmUy9gF6wCPnnjSHGIxqwC5HbyLyxtLp53onM4NhMQjnpQ52YbVdNHvFWF2x73I2bbR+lnrpLyx4c+h+KZ4OJSioOBxyCWtrMAUNlbrC/1Ic/nwhjsGln/GcFkBI4QDBb9oEK5/BpMclqAo1Kri+jvO4/A3HCuAfg8qQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TY4P286MB5504.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:25c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 13:30:31 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0592.010; Sat, 7 Nov 2026
+ 13:30:31 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Cai Huoqing <cai.huoqing@linux.dev>,
+	Niklas Cassel <cassel@kernel.org>,
+	Devendra K Verma <devverma@amd.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v8 2/7] dmaengine: dw-edma: Avoid resetting an LL on stale stopped status
+Date: Sat,  7 Nov 2026 22:30:22 +0900
+Message-ID: <20261107133027.364237-3-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261107133027.364237-1-den@valinux.co.jp>
+References: <20261107133027.364237-1-den@valinux.co.jp>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY6P301CA0030.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3ba::17) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,30 +104,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105170157.765325702@infradead.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY4P286MB5504:EE_
+X-MS-Office365-Filtering-Correlation-Id: aacf0368-493d-4022-633e-08df3cd34bba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|18002099003|22082099003|10067099003|261026140227099003|56012099006|261102123227099003|261028144727099003|261022105027099003|261021121427099003|261009223027099003|261021123027099003|261026121527099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	jAs+xLytDx4cV2raHSlNa+IitTF0z6z7Y1IVqvUAwn8/xRGKFaWYeYwwC4lW/bPKTTwIYHm1lQhTSheeldIH6P9WS8hnS5/sWeOGvt6rH17reaLnSTV37CSllBzLHo3Um1Dzf/9xVd1bZwtVFBmDictURR9r/tZz1LhF4Nn1WDzDU5Fc0jolkiBMtxE9qkTqFcfyQFfZM4HH8z6rPd5cZ4VAdqd/H2Cn5ieTr/DLXuNK0+pMsomjHxCPwQEAaHLbp6E7G3dM5h5XSLVbqo26FXtZ5abAawDXDgQQbK5QoXN04HlaJ4yIar5fZotgD9pEKpx4Cezs5Vt/3LYup0hbkPTVWbxkaOVquZzpaMTerInioMFr9N0YLc/356ZWDJ7rvhKCP4UAnTsnO6L9x8WHtZ43kWkVvSxicXjJbsQrtLnBCv1hUzg21kpgrzm5zn5mz8fHMCJjv7qFuxkjynW1pdRp+XD569Ojug7faRLKIYvEqU3M56WUzTkeCAWv1JfgjKHkNbW+GHc85Kx4pEoSJj5eCOYft5/mioITwiIvYsWgc/SREm4qww3nfAuzqA5jy7d0/bstbF0Ab9pL22VIorRNv+TtQy/qFN0bZd0R7odCjsw+JPReNseDHO0jf3GswMSBRCtrpRyK5IabXnPmUClEJYMEOESSRABeMY6TUMI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(261026140227099003)(56012099006)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261021123027099003)(261026121527099003)(261022075727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OiGuF0kWAoCOii8m6S2xvvwc3zBVWq3+aK/xac10RjLYe9hjGzCYH6STe/yw?=
+ =?us-ascii?Q?U2k8a8YWoFXDMB5BkbWLSPRMo2gxFHHARY5bgxIMgvUMPG90WjuQWbyzCEfU?=
+ =?us-ascii?Q?QRFPa/j7PhcmNY2+L7Vy5d6CuVtHkWPDIHJ20iDtwe41x7X1/uHYuBAxUom5?=
+ =?us-ascii?Q?Ioxvz6rWQQInW3JegAAEDWTjEOHo3V34uP7T5N9vGfQkJZtH0XomFjN0hRVC?=
+ =?us-ascii?Q?d/WmsvKuiaH2RsIHIdtS8ps3zcbHijk1dTrhnmOBZNFRqb9Rz1SqGflTDHAL?=
+ =?us-ascii?Q?3kmsa71MmeSYAoZojBYET7TtjuIvGKxkZ/GCWDAtgGLOFeOZ4uaQjFFjeiqc?=
+ =?us-ascii?Q?elotgE2d1yxc/Q7hl3fC5i6VTjN4ND5SqA1LmShRc8EglPGzJx/QqS1v3Fc9?=
+ =?us-ascii?Q?2e9ZisXNVDsZwrHhtgcCcvIWP+/RVv6syTzLpIj9YsTTFE4PJE9edH1jsAE7?=
+ =?us-ascii?Q?uqwI8H2zKmnwQbpWVC77Ppmsqc2vLuu410aaqT+MnVIpVOCOAWL1UOYjRS6u?=
+ =?us-ascii?Q?IebjNKKMGfRgrRsLgtrQx+/VtHv/nBoCHZbf5u/XELR/KDlcwPKXonVlW3Ul?=
+ =?us-ascii?Q?EP5MR49pYgjVwTL+sR4kQFtKXNlMcGfl7PzWf28Dza+HDRbyngo+H6sMl18k?=
+ =?us-ascii?Q?ZJtIyFCIfpSpK8C1gkZrzdu4OIo1QabnTBanOSgWyWj1iAbz34iw8kYaZRqU?=
+ =?us-ascii?Q?YG8RLqPEAg+mVB2/hFR2IasTjMK/OUA6GVrbWHMX9wrptB49U2wWVUycu3Ru?=
+ =?us-ascii?Q?U6x/r0gJQZDekQg86IRINmunqb6qsl3SpazdeliOcPL3UJY1DtOQ8CRETbmD?=
+ =?us-ascii?Q?0/x0S+z03cICOXyoIKGqSEIUm6car3zxEYYEPGbQ5P52wp4dzT91fLl33c93?=
+ =?us-ascii?Q?EAsIifjeWTON4FpREzHFiX9D8rl+vOI/ozOJGYSvR2/pAngsYSS6/47rtMnp?=
+ =?us-ascii?Q?rq0QvGzsh40XT1s70oZ78uPx6R97JKaU32HxPYaLnLhouMJBKrBEvoO1TPHw?=
+ =?us-ascii?Q?hQwulJODYJs7dIetp6TqXKfVKZ/8TZoHYls1CZ/jPodn1pZYsd72k/VTf4vJ?=
+ =?us-ascii?Q?KOf1d5YGTNqJ8RRB8jLpQI1tZMac9XfE/Ny5y4B+mMqKYOfVDCenw5XePnuX?=
+ =?us-ascii?Q?Pvjw2/yFnxQyBAQsGv8xgWQeKNNtRiwwalCJODMHpxLXI7jFMWrMQHOmCtp0?=
+ =?us-ascii?Q?eajC8tHHMKbLYs337gRYS2nmu4jfGCdALsppLDPmFfxZiPUnJL9p3kkp1k6C?=
+ =?us-ascii?Q?LVculwVeLl/JqS13iMC+BkLKTYxKvbrUaA3K3pCNVck8GgAMhkJ9sH8rhueB?=
+ =?us-ascii?Q?42t8/Y07HTNWEOMUnMPqdXfpvHtonne6EcO+/12KxxZaKBY0TVGwNrJmSAxD?=
+ =?us-ascii?Q?0MZfZ/4aXx/EJTnc/jzjDCCslVvdQy0PhzoYLVG+JwWR61zI3mm530zzg0gf?=
+ =?us-ascii?Q?dug8eBHG6lNnh8NZiDgY0fEWA1/YDNkZDZMlr/O1kZlL3RW0QFqyqiYuNsfH?=
+ =?us-ascii?Q?lTvaAjj0O32q/dXUm0lsCdaEHOBpulOrSpr8EQT77ZwPI+rQj1MlEQkwvowu?=
+ =?us-ascii?Q?v6UQ3SczOFC+oN1gnSXTlKAGQArYHLGJkgJQXcge6sZoud5t8V5trTYZba78?=
+ =?us-ascii?Q?WHxykicAEXlNNv0bJNF/LiNm/6YZJ0EziVLSVPCe8sNRk87ZI2WH9uS50X6L?=
+ =?us-ascii?Q?vEc+nQ9pwWu0i9ZzaJh+KWF88QhsycRs0kH6YzR2Zm6MtcfyR/FQslO2q31l?=
+ =?us-ascii?Q?Go7pe9gvHYK3GP8ZIvsQxrsJqCSbUd/zdZVj/bX2tE5nNg47oU7M?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: aacf0368-493d-4022-633e-08df3cd34bba
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 13:30:31.6813
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5XhZ9KYFzbJJlkk50IeWNQilUlTEsnq+IqEvB4/Vud6+67QFCMV/vaO1MMLUOw4SDbVJJgQLtec9xg3IAD91vQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P286MB5504
 
-On Thu, Nov 05, 2026 at 05:55:28PM +0100, Peter Zijlstra wrote:
-> From: Vincent Guittot <vincent.guittot@linaro.org>
-> 
-> Even with flat hierarchy which puts all runnable tasks in the same cfs rq,
-> we need to parse the hierarchy to check for sched_idle task group.
-> 
-> Fixes: 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
-> Reported-by: Jakub Okoński <jakub@okonski.org>
-> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> Link: https://lore.kernel.org/all/58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org/
-> Link: https://patch.msgid.link/20261019182622.1584454-1-vincent.guittot@linaro.org
+CS can still report STOPPED briefly after a doorbell write, before the
+DMA engine starts consuming the published LL entries. Finishing
+termination relying solely on that value can reset the ring while a
+transfer is about to start, leaving hardware and software ring positions
+out of sync and stalling subsequent transfers.
 
-My first old concern is solved. So..
+Require LLP to reach the published tail, on top of the standard criteria
+(ie. CS=STOPPED and zero transfer size) before
+dw_edma_finish_termination(). Non-LL mode behavior is unchanged.
 
-(Dramatic Wait With A Really Serious Song)
+Cc: stable@vger.kernel.org
+Fixes: db79c4e264ef ("dmaengine: dw-edma: Make DMA link list work as a circular buffer")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+---
+Changes from v7:
+  - Resample LLP and stop status if stopped to catch progress made after
+    the first LLP read (follow-up to Sashiko's review).
 
-...
+@Frank: Dropped your R-b due to the change; would appreciate another
+look.
 
-...
+ drivers/dma/dw-edma/dw-edma-core.c | 45 ++++++++++++++++++++++++++++--
+ 1 file changed, 43 insertions(+), 2 deletions(-)
 
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
+index b08bb31657c9..0c8b9545a5ba 100644
+--- a/drivers/dma/dw-edma/dw-edma-core.c
++++ b/drivers/dma/dw-edma/dw-edma-core.c
+@@ -146,6 +146,44 @@ static bool dw_edma_ll_pending(struct dw_edma_chan *chan)
+ 	return chan->ll_head != chan->ll_done;
+ }
+ 
++static bool dw_edma_ll_stopped(struct dw_edma_chan *chan)
++{
++	return dw_edma_core_ch_status(chan) == DMA_COMPLETE &&
++	       !dw_edma_core_ch_transfer_size(chan);
++}
++
++static int dw_edma_ll_read_idx(struct dw_edma_chan *chan, bool *stopped)
++{
++	int idx;
++
++	/* Sample LLP first in case the engine starts between the reads. */
++	idx = dw_edma_core_ll_cur_idx(chan);
++	*stopped = dw_edma_ll_stopped(chan);
++	if (*stopped) {
++		/*
++		 * Re-read once to catch the final LLP if the channel remains
++		 * stopped. If it restarts, later interrupts will report
++		 * further progress.
++		 */
++		idx = dw_edma_core_ll_cur_idx(chan);
++		*stopped = dw_edma_ll_stopped(chan);
++	}
++
++	return idx;
++}
++
++static bool dw_edma_ll_drained(struct dw_edma_chan *chan)
++{
++	bool stopped;
++	int idx;
++
++	idx = dw_edma_ll_read_idx(chan, &stopped);
++	if (idx == chan->ll_max)
++		idx = 0;
++
++	return stopped && idx >= 0 && (u32)idx == chan->ll_head;
++}
++
+ static void dw_edma_core_ll_start(struct dw_edma_desc *desc)
+ {
+ 	struct dw_edma_chan *chan = desc->chan;
+@@ -455,7 +493,9 @@ static int dw_edma_device_terminate_all(struct dma_chan *dchan)
+ 		dw_edma_finish_termination(chan);
+ 	} else if (chan->status == EDMA_ST_IDLE) {
+ 		dw_edma_finish_termination(chan);
+-	} else if (dw_edma_core_ch_status(chan) == DMA_COMPLETE) {
++	} else if (chan->non_ll ?
++		   dw_edma_core_ch_status(chan) == DMA_COMPLETE :
++		   dw_edma_ll_drained(chan)) {
+ 		/*
+ 		 * The channel is in a false BUSY state, probably didn't
+ 		 * receive or lost an interrupt
+@@ -790,7 +830,8 @@ static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
+ 		if (!vd)
+ 			break;
+ 
+-		dw_edma_finish_termination(chan);
++		if (chan->non_ll || dw_edma_ll_drained(chan))
++			dw_edma_finish_termination(chan);
+ 		break;
+ 
+ 	default:
+-- 
+2.54.0
+
