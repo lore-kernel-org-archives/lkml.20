@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052974;
-	b=ULCIoKfs4qctFMFore18S0OxJjHgwIDZlQYM5GYWs2ky3+cMDFTHNlvRzEJPwWxoTc7l
-	 caJG/CHbw+nwzw58PYi+fWWp2XNdWb0TGZjzLILGq2wRM52wJQlRA10t4Ji08JTZyPvy7
-	 zn7WTdPeDHGynFevr/e2E5EU/1ZIbyDjzmAi+KjgfxHy9WqWZF6VKPsHKTS5kqtKNamtp
-	 cjvrwCMt3JRPqUIMiOatbXxtQSWVKChqbEq2ATQuXOHl6GVl9QPdNe6XXvIfD/Pjefqp+
-	 MoJK6drTzxkFZ0ffjqW2TKk8qzmC0A6Oa0FpcBIkxNnNZsA5oIqOiF7VPUUWoVmbgtA==
+	t=1794052975;
+	b=EYNRreTgMBJQwbfaYRRkbEu36nwoF6QeVpAArmjQIImW5GNX7VQ3MokPA23feat00lSf
+	 MFSxmy4FEDbQhv27nSkNZYp5zCSmGuC/bbyRYvZ39cW/7aUnmRjutfnzO61P80BZPW+gV
+	 N8N717Xwzoi30AIYbTBuOOHUNSxkHfFGJ7Nj/ab3J727OX08Mnn3E0ivAiGta0WnEJPxB
+	 L6ppI82qXGzTjZP/9xTNDwh+C1RmfBtz39N4QERq8h++ulJDwwszkoNfVtHizz76ZVDYi
+	 AMFZImjZ0Q195ss71CQW/j3WYJ7AryMkq6IysfQ5ObazDh54LXIpwEd3rz1u1nPsI8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052975;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
 	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
-	bh=ioFgQ7N49IOeu5G6JitL28+VWWaLMEydcZMY6/RaQSw=;
-	b=uwHwqzpNGqM3knRcSQ6gVAXfYR5D/h9Z/azcQtSN19dnBSmPh2pU09cRwkMBmI9u29sL
-	 5E5SOBYRNJxzjEZ6506gAnjDU+SxLaiGCgiUaUkoR8aVkASrDit8TSbno3eUGpllzePCQ
-	 jzpM+gR/V180pDlzJjWQ81euXvzIVwvRitzcOsY7cZj9McuxHQnzZ1wBoETgXopr6VV6e
-	 5OZ8BtEU8gOcKUdeECQr9nTZXvzT2dOz86JXGwEKnr6G/LRBBtewdu/FXYNXgkWNFB5pA
-	 uUmZRm/AkE5lv1DPdROQf2Hvig6IBLUJMb2AeuYQugt+QfP26cAoWlCKjtcLzXGKJ6Q==
+	bh=f7LSXLloQkd9WHHu+aKsH8pQHoRK1w7Pu2YnZg9CtSs=;
+	b=euz8DZ1RN5x/sZDD7FQdHcKkdrYiMgha9tgvhgrbHSBqmj+g85QLZXrLN4mloNq1/YfK
+	 KwHLKKVdGRioRHF0T+BStUh3ckMLxgD5+dETZZTjBYMmC1b2aVuYSdYrqUF0SwOhioNGf
+	 8+ES3sLT4U9LUnGSDqpLS/6b6OD1cZq4pV4GR9TJtenQl7vuSUMKQX3JNyg19iwY3zDCD
+	 TMZH3AQgaUFyYU06u1MOM+OeJXeDMZewEgSe8J0jv2MtumecBg7BRJNgmxgy+WTz1d18t
+	 7dAb2YuoFxAzXUlozLpmP3ugvQrhF+s3JAdKxBktkFriAoies1ZIss5PJdMXrQMgMTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bzjaD7p1;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="IiN9m/P7";
 	arc=none smtp.remote-ip=90.155.50.34
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F184606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8729D606A330
 	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F184606A32D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8729D606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bzjaD7p1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=IiN9m/P7
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
 	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:In-Reply-To;
-	bh=ioFgQ7N49IOeu5G6JitL28+VWWaLMEydcZMY6/RaQSw=; b=bzjaD7p1lUVzGFtu7gqHruovYI
-	T/ntbzYtIofCFytGu+1PbePXN3Lyo9f3KLM6H5YLGwiou1UVsRKiyX5O8VSpgSiibxaEoIZZ31/MM
-	3y5q1cg9MX/8VkF4+0NgWn5hAe49iI9fHfM7p1exd9Dg6h3T5F0K71aCIRsLtihIGoaXbpYBX1yai
-	eJMz4zA+FOv7S+2bpn0dQlaj/TPngQkECk5cZYL1/6P6eL5/TyYyPmT9HSxkgoVRFGH+AMLPXF31x
-	WKh2bjMbDKOcnr+Rp08mQOtblNqRhpxZA3VKdfz09KilLDU4WVftyIY5X0TUUnILvJZQpu44esxa1
-	UnyJvJvg==;
+	bh=f7LSXLloQkd9WHHu+aKsH8pQHoRK1w7Pu2YnZg9CtSs=; b=IiN9m/P7bCCcSJktjqXFwuXtr4
+	xUOmUEXkTl+RxtIS0ddeON2N//N/ULY5DnfZCG3lNqgJC096G9WIx9r7Pdie2ho3PsWEZuizlPRYT
+	IrYIoASmzVA9pq8geYidoL+uw8letkwSdHsXOxV3+hUQ6zrxiRCNoYJUjWAoWErcFjHD0zMO10zwX
+	bhZGUIldwkhLZ5ulC41f1J8QqGNv1lGdnh6+Tmhhrvq1NtqbBt4fsEjb5E8PtQG1r9rlIwckCtc0A
+	Yt6PJ3IBtpUOQ+PKjCV3Re+AzLz5TJvH5LQtFIHswErjpQCLPllCCXZAoWl4MqUR6Hh6ZmGE4PGOZ
+	uFkHE1sQ==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
 	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPf8B-000000008zA-0Smg;
+	id 1xPf89-000000008xG-2Eto;
 	Sat, 07 Nov 2026 12:02:47 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
-	id 4058A303310; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
-Message-ID: <20261107120208.040877914@infradead.org>
+	id 12D6630057E; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
+Message-ID: <20261107120206.744550421@infradead.org>
 User-Agent: quilt/0.68
-Date: Sat, 07 Nov 2026 12:59:24 +0100
+Date: Sat, 07 Nov 2026 12:59:14 +0100
 From: Peter Zijlstra <peterz@infradead.org>
 To: mingo@kernel.org
 Cc: peterz@infradead.org,
@@ -65,7 +65,7 @@ Cc: peterz@infradead.org,
  linux-kernel@vger.kernel.org,
  tj@kernel.org,
  ziqianlu@bytedance.com
-Subject: [PATCH v2 11/12] sched/fair: Push sched_balance_newidle() unlock down
+Subject: [PATCH v2 01/12] sched/core: Fix pick_next_task() self recursion
 References: <20261107115913.261163891@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,82 +78,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-By pushing down the this_rq unlock, there are more cases where the lock isn't
-dropped.
+It is possible for another sibling to end up in pick_next_task() when:
 
-XXX needs numbers
+  pick_next_task()
+    pick_task()
+      sched_class::pick_task()
+
+drops the core wide rq->lock. In this case they end up trampling the core wide
+task selection state, possibly leading to NULL derefs. Detect this case by
+keeping a local copy of core_task_seq, a value that is incremented on
+{en,de}queue and schedule.
+
+Since RETRY_TASK is only possible when a higher priority task gets enqueued
+during the lock break, this must mean core_task_seq will also be incremented
+and is thus completely covered by the seq number mismatch.
+
+If there are forward progress issues; those might possibly be solved by using
+core_pick_in_flight.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- kernel/sched/fair.c |   23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ kernel/sched/core.c |   22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -13706,6 +13706,7 @@ static int sched_balance_rq(int this_cpu
- 			struct sched_domain *sd, enum cpu_idle_type idle,
- 			int *continue_balancing)
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6296,14 +6296,14 @@ static struct task_struct *
+ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	__must_hold(__rq_lockp(rq))
  {
-+	bool lock_rq = false, unlock_rq = idle == CPU_NEWLY_IDLE;
- 	int ld_moved, cur_ld_moved, active_balance = 0;
- 	struct sched_domain *sd_parent = sd->parent;
- 	struct sched_group *group;
-@@ -13774,6 +13775,13 @@ static int sched_balance_rq(int this_cpu
- 		 */
- 		env.loop_max  = min(sysctl_sched_nr_migrate, busiest->nr_running);
++	bool core_clock_updated = (rq == rq->core);
+ 	struct task_struct *next, *p, *max;
+ 	const struct cpumask *smt_mask;
++	int i, cpu, seq, occ = 0;
+ 	bool fi_before = false;
+-	bool core_clock_updated = (rq == rq->core);
++	bool need_sync = false;
+ 	unsigned long cookie;
+-	int i, cpu, occ = 0;
+ 	struct rq *rq_i;
+-	bool need_sync = false;
  
-+		if (unlock_rq) {
-+			lockdep_assert_rq_held(this_rq);
-+			raw_spin_rq_unlock(this_rq);
-+			unlock_rq = false;
-+			lock_rq = true;
-+		}
+ 	if (!sched_core_enabled(rq))
+ 		return __pick_next_task(rq, rf);
+@@ -6377,7 +6377,7 @@ pick_next_task(struct rq *rq, struct rq_
+ 	 * However, preemptions can cause multiple picks on the same task set.
+ 	 * 'Fix' this by also increasing @task_seq for every pick.
+ 	 */
+-	rq->core->core_task_seq++;
++	seq = ++rq->core->core_task_seq;
+ 
+ 	/*
+ 	 * Optimize for common case where this CPU has no cookies
+@@ -6394,6 +6394,15 @@ pick_next_task(struct rq *rq, struct rq_
+ 		}
+ 
+ 		if (!next->core_cookie) {
++			/*
++			 * pick_task() can drop the core rq lock through
++			 * newidle balance. If a sibling established a
++			 * core-wide cookie while the lock was dropped, the
++			 * uncookied no-sync fast path is no longer valid.
++			 */
++			if (unlikely(rq->core->core_cookie))
++				goto restart;
 +
- more_balance:
- 		rq_lock_irqsave(busiest, &rf);
- 		update_rq_clock(busiest);
-@@ -13902,6 +13910,13 @@ static int sched_balance_rq(int this_cpu
- 	if (!need_active_balance(&env))
- 		goto out_unbalanced;
+ 			rq->core_pick = NULL;
+ 			rq->core_dl_server = NULL;
+ 			/*
+@@ -6425,7 +6434,8 @@ pick_next_task(struct rq *rq, struct rq_
+ 			update_rq_clock(rq_i);
  
-+	if (unlock_rq) {
-+		lockdep_assert_rq_held(this_rq);
-+		raw_spin_rq_unlock(this_rq);
-+		unlock_rq = false;
-+		lock_rq = true;
-+	}
-+
- 	scoped_guard (raw_spin_rq_lock_irqsave, busiest) {
- 		/*
- 		 * Don't kick the active_load_balance_cpu_stop,
-@@ -13995,6 +14010,10 @@ static int sched_balance_rq(int this_cpu
- out:
- 	if (need_unlock)
- 		atomic_set_release(&sched_balance_running, 0);
-+	if (lock_rq) {
-+		raw_spin_rq_lock(this_rq);
-+		__release_ctx_lock(__rq_lockp(this_rq));
-+	}
+ 		p = pick_task(rq_i, rf);
+-		if (unlikely(p == RETRY_TASK)) {
++		if (unlikely(seq != rq->core->core_task_seq ||
++			     WARN_ON_ONCE(p == RETRY_TASK))) {
+ 			/* rq lock may have been dropped, clocks invalidated */
+ 			core_clock_updated = false;
+ 			if (!(rq->clock_update_flags & RQCF_UPDATED))
+@@ -6455,7 +6465,7 @@ pick_next_task(struct rq *rq, struct rq_
+ 			if (cookie)
+ 				p = sched_core_find(rq_i, cookie);
+ 			if (!p)
+-				p = idle_sched_class.pick_task(rq_i, rf);
++				p = idle_sched_class.pick_task(rq_i, NULL);
+ 		}
  
- 	return ld_moved;
- }
-@@ -14878,8 +14897,6 @@ static void sched_balance_newidle(struct
- 	t0 = sched_clock_cpu(this_cpu);
- 	__sched_balance_update_blocked_averages(this_rq);
- 
--	raw_spin_rq_unlock(this_rq);
--
- 	for_each_domain(this_cpu, sd) {
- 		u64 domain_cost;
- 
-@@ -14930,8 +14947,6 @@ static void sched_balance_newidle(struct
- 			break;
- 	}
- 
--	raw_spin_rq_lock(this_rq);
--
- 	if (curr_cost > this_rq->max_idle_balance_cost)
- 		this_rq->max_idle_balance_cost = curr_cost;
- 
+ 		rq_i->core_pick = p;
 
 
