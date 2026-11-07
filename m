@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064650;
-	b=zFtfA8C4K7zu2euBTVy+wN2ltiIa8qTxuRPr8AI1bs6+obsPrMHZUUFNex55WfpD5iPW
-	 hnz/be65ivJ1A10X3I2k9Q0hDQdvF5weurZaM8bHjWfZ/nzIBxBCF7HKCDCmk/05yjPHs
-	 m7SxPn+kSs7/vDnCnqZLqwCjENfwnwza0patNh6ANZyRri1ERZhjDYouqS71GCuqLjXLQ
-	 T8gSAw7BJhoydLbtOXyvkb/38S1LfFCFFDvQ4r/f/4uIkk/hdhkfBd68POx4r9PWQhLVc
-	 yz0iasUHM2GPzLhQ105CiTMFftME9dfGArxr0ckWnHJPyzXsosMpf6EVqABjRBqGdgg==
+	t=1794064652;
+	b=ziAm+Q3vysk8sXzdlDr4wc9vmq5CAm9TNA63oNYYHnn3TjcNgp0aDNadANMr43oddiUC
+	 KPg8Pexco8X8E2n3pbrz3/oF5g4Hmn/Vv0EHxaTcGBtQrEoNkJqN4U1VLCv7xb0KCuL1S
+	 5yTFgH9jJdCGgxppAs37QywwjcjibZq2//Zt4DEU7g1ZM5UT4qwqgmAcqy1QFOkPfPbjt
+	 t+KxfYWlvVBXGF2XexItVHl1YXFC+CsNEc2aj4IVqxJ7QitOqowSNjROx4Yi4f0Rz4PBb
+	 4/LpKDoeEvCdWRopiT7lBkgNYOBv8IE5EO4R4xhXSlmNworYVyS0Plg7Pwxafk20zbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064652;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=F6q/MsZ5jDBuuA4szE84/+BxFmPAPx64/M8+UUIYUAE=;
-	b=lGEr0TQNxbF/Aqi1HFlOOoauNdOwx9lZ8kKEgMxccgQQYle266jO6gG2QjPJi4NmMAP6
-	 hEOEgllQDKQi747edy4t5DxRo59Rxmkj5/b0upz3t9torLJ015NGtGvQpioWyL8e6yMa0
-	 zmcWcT0eQcl7vQ3wOsyQK2D4aCdidtifSocIpA+6pvVZTM3iMVkvKXPRQfiLWHzdjXYNs
-	 rD1LdiPaRAvFvF5MaaIjKTTSYKmXtb0fdPjQrzZUwXhCOW+S/tCKO77A9YFyW0Ykrykmq
-	 /HCzAHdFZDXghTxOWQzYevm1a8XcdguFyYw9Gz6Umw8NoC9dpvu2bFi1WXa2fuk0ZBg==
+	bh=IHcP2zA/1WKtjATy35bTJOAx/MK9QFjmushPyiooQKM=;
+	b=VxdzuX2WePS7qgutPfCzHM95CYmgzYNGIDRRnyMEw9Qi9G4CILcjz3FwuVEjUdWnWBxp
+	 T4hT0K8k9MxFJZNQPVYrNby1YIV9djVNTgyO2snUMKQlRSKb0/lVOePKKaf+xz9ePjwIe
+	 ippBNwNOmS/Cye6RTYh/ue4ZSmXqdH2HWSvTYTZd+xwlTtxiqFcgcTMNz7KZBOYDy8LVO
+	 NZ7Tkq/xAC7Urv3nawQqCNLtO1rqV+ejpCC625N24httdoTgSFvPHvHZyXRd3iGlV/1d2
+	 bd9BUL+0dpq55Ud7K9l+mfKsDTjyxbE2g/aKEc5X/h50NUhS7YT9MnWIEHg51Exq4VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CS8qps0P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIiTFQEM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436AF606C020;
-	Sat,  7 Nov 2026 15:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41E9606C027;
+	Sat,  7 Nov 2026 15:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CS8qps0P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E7F1F0089F;
-	Sat,  7 Nov 2026 15:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIiTFQEM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7F21F0089F;
+	Sat,  7 Nov 2026 15:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794064650;
-	bh=F6q/MsZ5jDBuuA4szE84/+BxFmPAPx64/M8+UUIYUAE=;
+	s=k20260515; t=1794064651;
+	bh=IHcP2zA/1WKtjATy35bTJOAx/MK9QFjmushPyiooQKM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=CS8qps0PV2S7q/9M8Krw90/z0ppwy2RL1OvwvJjd1L9+yqaH9FGDn1WdfckLto179
-	 Qh3VXPpFjXTHMlbGAB61rgnG6wmXT45Ll4HY+m9jqtpYbR4zevkH/h85VHdDkVYYNv
-	 oZVeWeDpwWyT8X56lxzQC37LBZIWsrd6KKxuDSJhs0CbgrcpiDB9SLp3K2qZHRgZQb
-	 otCww9tDSKbtQd7N3AZ/nie8UgaCKPN9MUqAKzkrHqeDiKaGh68bLOJrlr+YAEBQJL
-	 O8okJoKJGTtehRru/KCGNgu9k1YzdM+3Lygm7Dtj1NWG6vHhY3TeC+RZEmlxTme0dN
-	 ljieQ3SFC3i2g==
+	b=mIiTFQEM0v2NRdhCRHkdy2hg+w14DBRtu9RGSoZdJFgvoiFnypImuv0u6kCy2IDuT
+	 nWuQopx6voUlVtiPDy6YE4v3sDwE9SzZHJkyQjq825KWaNmZHGm2vQsVPCi4iMPzdn
+	 4dH6my6lChCyKIcGthyThV9RfYltZ/3NkB/HPK+Y77lNA8kaAAlvGzovSypxZR+fhC
+	 3JxhLVIgGTkaBcZ7Xn5gV3xMtHWqd1DS9G7gzCaGyKg5fjN69XJH9m1GX01lqMWUNc
+	 Pa4yvCyC2LuKiMNuyQyZx0oAqpS6m9HqpPrE9WxfVG/p4RRI/URwKpYKQgxmTRH9Z5
+	 17gvaWxb2SVeQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 1DC9B2AB3127;
-	Sat, 07 Nov 2026 15:17:28 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id C3D4D2AB3133;
+	Sat, 07 Nov 2026 15:17:29 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Chen-Yu Tsai <wens@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- phucduc.bui@gmail.com
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, linux-sound@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Birk Skyum <birk.skyum@pm.me>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260602114437.50324-1-phucduc.bui@gmail.com>
-References: <20260602114437.50324-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH v3 0/3] ASoC: sunxi: sun4i-spdif: Cleanup and runtime
- PM improvements
-Message-Id: <179405444330.3424803.15883456865264287709.b4-ty@b4>
-Date: Sat, 07 Nov 2026 12:27:23 +0000
+In-Reply-To: <20261018220857.16819-1-birk.skyum@pm.me>
+References: <20261018220857.16819-1-birk.skyum@pm.me>
+Subject: Re: [PATCH] ASoC: qcom: q6apm-lpass-dais: Reset the codec DMA
+ channel map in hw_params
+Message-Id: <179405428196.3424803.12425958325069301579.b4-ty@b4>
+Date: Sat, 07 Nov 2026 12:24:41 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,27 +69,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1670; i=broonie@kernel.org;
- h=from:subject:message-id; bh=YZvUmFfdUmWuzhzoqlmjzL9oD0KOHNnuLRk/oEZ0bfg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeO7JneE4oF2d6P/nKVPYdOmemv9/fYPnm5TdPo7/fn
- /feOiYf0lHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJuK1lZPhhP/PMhbO9dcuO
- xHyePb/48dTnqpsUkq5sz7161OvLAdcHjAzvuB6cZ2ieNbvTzOWm2lHbLyu/yDxTX/qKN/u0+RX
- z/TP4AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1164; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=W3qZq+vVv5QaoEW0JZmNEswhu/a3a46gXDbVs0bV6ZM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeO3IG5+5fKxXxMF+9Pb+4ccu9a1Fbz/0XvOwW1/VuU
+ Zt3eOfzjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEwk9REjw5bsrysevFuZEjbj
+ e7pNCvOsK/zC7x6FPtwkc61I3Io/ooiR4fxV+W28+3zeFTyPC+l4/2XrBREHsa65z6y2LmXUD1o
+ 6iQMA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 02 Jun 2026 18:44:34 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: sunxi: sun4i-spdif: Cleanup and runtime PM improvements
-> 
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Hi,
-> 
-> This series contains a few improvements for the sun4i-spdif driver,
-> including guard() conversions and ensuring the device is resumed
-> via runtime PM before kcontrol register accesses.
-> 
-> [...]
+On Sun, 18 Oct 2026 22:10:41 +0000, Birk Skyum wrote:
+> ASoC: qcom: q6apm-lpass-dais: Reset the codec DMA channel map in hw_params
 
 Applied to
 
@@ -98,12 +87,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: sunxi: sun4i-spdif: Use guard() for spin locks
-      https://git.kernel.org/broonie/sound/c/c5f9ddc7d2ec
-[2/3] ASoC: sunxi: sun4i-spdif: Resume device before kcontrol register access
-      https://git.kernel.org/broonie/sound/c/f003dfe0842a
-[3/3] ASoC: sunxi: sun4i-spdif: Reorder clock enable sequence
-      https://git.kernel.org/broonie/sound/c/a4a9384fdf2c
+[1/1] ASoC: qcom: q6apm-lpass-dais: Reset the codec DMA channel map in hw_params
+      https://git.kernel.org/broonie/sound/c/347e02073b08
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
