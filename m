@@ -1,62 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794014179;
-	b=4TVGQmevfkg/bYh6JzTwl2WM36Ej5oR0lK4f2jupWDKXRu5zSRqfyF4MmF6JVXkOP9WJ
-	 SIPFAuCIJ6B9c+zc1qJW0bN09wolF9xFY1ZSeOlTi2aa1hzSp5rKWlLo6V9OWNx2GLMCX
-	 rzD8QhN7jy6UDiizUq5dQbXkevWsR9+2yxF7tHh3wh3Hn1hYUrFEA5I6NjOMURwxyvH7p
-	 mdGZ8J1pQDao8839YMuJ9xsEGakxJ/CX+2F+ATmAim2nabXEpbXEV2DFyskIA2CfZqm6r
-	 ctSq/0KvF/6z0EYrmwJtbcOr4oeVeCf6RgZ3ifsFAM8odtVcVpM0wFu0Y0ksjBsqfZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794014179;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 CC:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=09pdPTC0H3pX4QDaAkEJkvwP2Z2O6sdNBhQWaHjJtTk=;
-	b=q8eE7hdEl+Hu2wHEgCXCJ/7e1WlSxXl/964kzX0Lsrebw00XuEv0bq0rm7cT0x1iW+E+
-	 IcCp4yg3qXUtonsmUPPCwgQSmemdgQXY1zJiK8fCipF54rqv1sj48QTbAHQMLCwDPBd2J
-	 xW3Wgkrn/p9aATA/rGF5DlfTsAk3xOcPn4LTwv5k/aZGfO67RcHPaUXcNxyrIbdHp59e1
-	 egQw3modONagfu1LwxEUunafpxu2sq7lR9pTLHL9on4MNkEDpn7t9nPAP7yfbCJ5D5wB4
-	 pzBGhuwiK1j5U0OzvP3GxXnZlPXmkRF21/O/x0RTLETDJGzrDFHu0AVFmtaswv1rKHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=J2F7P3Q8;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794014604;
+	b=AXyQA3EFAiHLCXWNHha0ymhycZLToYBV9K3LmpyqwaTenuYXNcDkpW98bPkzyl2YIvDL
+	 JhUHioc0SpJXTloctgcUDCyMe1TdH16wufcmuc7UzU9HWt4pAHz3HR6B3EBUkY9ouKCAg
+	 t3fvyuKivBDGSR3YkDoQFbpfzW3TvG8je+dfNqyUj0Vhf3hcWEo0xoepoCNeOyNWEvPJz
+	 KVUAAGwdeu+NjCQvSeMQvaVesPzs2tapef5pP9yBLXeKq/Z7UMS/oc7OoXJChTa7cOicz
+	 0F5hnWdO3cik8u9+spIcOWEmeTg3sMSqSPKwCmST+dJ0iwIORPMNnWXvy3xX+zWgjXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794014604;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:Date:
+	 Message-Id:From:To:Cc:Subject:Content-Transfer-Encoding:References:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lnY+O9xW9zlOshW5YiJKq9C5IDTy/pjJAUlooH8yiv4=;
+	b=tqGpFf7OjRkvTwpes95WKdO3sVNHXhfN2yT4eTQsSWA8j7gDOV4PgQi1sVjW+mcz/sy2
+	 YS5C/ypcU2kH9fCdBQL7+RNdqEmBp6CSiw2xkdkCyMyUr6u5uJNYA59NR4YmB69npwwB3
+	 hrQ8BsrYBYHrqZZd3iRn/wRDyD2J9Dgb5jeYcWBF0L2wlDQFTUV1tjmw3M+W21+B+AHgQ
+	 6pquuIK3f075bseDyrB11q2YIvwT+plO0AeNlC3t6BszstAtrIfgr2uZHfjLDPDql0Onl
+	 29G1VpPXSl3ACp9EfMkExz2ZTsR6IVmfSjvQq1j9BgoMzmqSybP2HaB5vLc7+bc438A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YX42AQ5a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.5
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010005.outbound.protection.outlook.com [40.93.198.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B917F606A326;
-	Sat,  7 Nov 2026 01:16:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B917F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92A3606A326;
+	Sat,  7 Nov 2026 01:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C92A3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=J2F7P3Q8
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=09pdPTC0H3pX4QDaAkEJkvwP2Z2O6sdNBhQWaHjJtTk=;
-	b=J2F7P3Q89MQRdCeGRgcWFeHu+EDvE216q7TDqn+24l8ihjJSIV1ZXv3ES9EjfdJ7DBiWLz0Cl
-	WeLT/X3NubEtOCu9XYMZoNKS5G4EdgtFI229U9/NxApTWoJWaSEpgRy3N5sks5sJNWPN+dDJiUk
-	Am0epWmj1C2LFbnx3HtxzZU=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jLylv6xSCzcZxr;
-	Sat,  7 Nov 2026 09:15:39 +0800 (CST)
-Received: from dggpemr500002.china.huawei.com (unknown [7.185.36.170])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9A5ED40561;
-	Sat,  7 Nov 2026 09:16:11 +0800 (CST)
-Received: from whupemq100006.china.huawei.com (7.152.184.206) by
- dggpemr500002.china.huawei.com (7.185.36.170) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sat, 7 Nov 2026 09:16:11 +0800
-Received: from [10.67.110.154] (10.67.110.154) by
- whupemq100006.china.huawei.com (7.152.184.206) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Sat, 7 Nov 2026 09:16:09 +0800
-Message-ID: <d0647583-f51c-4a74-b71c-6088abffe502@huawei.com>
-Date: Sat, 7 Nov 2026 09:16:08 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YX42AQ5a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pXLVD9Iu1X8JjGv75TLjqX0r9Q6cNmNe9FM56tMzPNQXY1bR8FHUaKwBbRB+037oIVancYxhoK99DhdY9Sx6SnFToiLHHDLHP8Qya8VvOzTs5lEb8EKJ6Zzy6P8tVPQNpgVFjDI6oopLfwCoR2ECGoISlzZz2BtAzMLEwKpIQd1RkR5kaHf29xLVAeipAsx2HIWcDHycdZkc9CGaFedwj34vVeaIjQFm79j7K7QqAuBSCjRz9+Ida25NrZprN9DNkVOUX32e4Tdg7k2EddiEFVu+qYpDYfcns/HrmfGvAzvbFjyc+Yx2NNcbjP7WPOxQ7Osx0p+NIsqbO4lWsECP+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lnY+O9xW9zlOshW5YiJKq9C5IDTy/pjJAUlooH8yiv4=;
+ b=jfqLkj2AOgtEmyqBUimT1OrukG+uKaUIha5Inx0WYc7ZDZjLu4VMDZ89q3ENaOKM8GFZpOMHE2MLVlsp16cc/jFPq+huWfhPnH0QUO+6yJL0Pfmo8PINdFo/ltyKras8IeHSNnq4jA3o6lgn0HisBQj603cIvy1e2gvOEqkk1OU7qCD5X3XJDFCfy1zVQJemaNgy23ivA/N/mGVU4o/9uar7hKQgrL41yX9mr+yHW8wB8hGpahZzQ0+3xi67DnqUxR18COVPvLLOhC9B5TeZKi2+AgeCpnthG0k9/Sa1TRyLLPyhZCodc7GJkQI2ZkHUJCSq3yWGtyvy9Up+lxEKPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lnY+O9xW9zlOshW5YiJKq9C5IDTy/pjJAUlooH8yiv4=;
+ b=YX42AQ5aMUgVjPOAm7DzwBsNxsMnA1yJhbaUCM/gQ9gYGOpwIj0L6TA6q59QNq+VOEUcifPIB0g2OkiX4K/tj+Ryyd7RkXa9N3B1AVpybD2IXS4sfBCxuew166WXkt0WuL2N6vJGWyrzRIYlbm1Hh72dqrbiF9NT90mdeocoUgJKOUpgsqaXyPJ6lhqs8BLZFlOe0A51NQGcs8J3A1NdWbS7fsT/KtS6I0SGOSWBpSw3W/3xKVwLiZNxhy1YMYS+iSd8MFulF0RTKgGJHu45u+EwNrMeC8TizOZgme752QPl8YtIkQbpjhfxVxrh5PXB0Wwa7mmIHudiioIFn1NROA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DSVPR12MB999309.namprd12.prod.outlook.com (2603:10b6:8:41f::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 01:23:20 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
+ 01:23:20 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 07 Nov 2026 10:23:16 +0900
+Message-Id: <DMOL3JXGL7PD.15ODH571S1OFY@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>
+Cc: <dakr@kernel.org>, <jhubbard@nvidia.com>, <aliceryhl@google.com>,
+ <ttabi@nvidia.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
+ module data
+Content-Transfer-Encoding: quoted-printable
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+ <20261014154554.231015-2-vladazaharova2018@gmail.com>
+In-Reply-To: <20261014154554.231015-2-vladazaharova2018@gmail.com>
+X-ClientProxiedBy: TY4PR01CA0018.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bf::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,108 +100,306 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 bpf-next 3/3] selftests/bpf: Test a private stack
- together with stack arguments
-Content-Language: en-US
-To: Chen Pei <cp0613@linux.alibaba.com>, <ast@kernel.org>,
-	<daniel@iogearbox.net>, <andrii@kernel.org>, <memxor@gmail.com>,
-	<bjorn@kernel.org>, <puranjay@kernel.org>, <alexei.starovoitov@gmail.com>
-CC: <eddyz87@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
-	<yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
-	<ihor.solodrai@linux.dev>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <luke.r.nels@gmail.com>,
-	<xi.wang@gmail.com>, <shuah@kernel.org>, <rgbi3307@gmail.com>,
-	<guoren@kernel.org>, <bpf@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>, <linux-kselftest@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261106181558.1564-1-cp0613@linux.alibaba.com>
- <20261106181558.1564-4-cp0613@linux.alibaba.com>
-From: Pu Lehui <pulehui@huawei.com>
-In-Reply-To: <20261106181558.1564-4-cp0613@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemq100006.china.huawei.com (7.152.184.206)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DSVPR12MB999309:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ee7d230-0d28-4015-7506-08df3c6db513
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|10070799003|366016|5023799004|11063799006|4143699003|56012099006|261021135927099003|261021123027099003|261022105027099003|261009223027099003|261022075727099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003|261028144727099003|10067099003|18002099003|11062099010|22082099003|6133799003|7136999003;
+X-Microsoft-Antispam-Message-Info:
+	m007/b4tZR/10ovslYXdnR0DLeZyqAB0F4DShMREVvkvzhSsbDCJtbK9SgyOAuHCLhyFyhLa6ZBredMIvmAwpwSynm8U5pwlTbI6xmREqBzyi6BRLAMYN4eDmaSudEAfFoCAXK7+S6ORwNk7isKObIqKq8F7nSGUd5H5hlB9JfaPiMyXOZWo3UrJyOnN25FmUdxQ9t6Cz88GO2zHF2B2iOjS1NKerAdxlsjbjUGAHcJt20CbcRULMD+JFzmMGEj/l6ipxGNjEDux9vKMwdgLgC+FG6hca5vw0KW76FsovmFPMkiQyn2xyd0SmdUVdyDp4mHrrt3RrtKbsJFcJsUYqYzrSUUlNc3yoZoBxy4XBY29+q+qbX6jcvJG1WEkC1esxYYi4UrtCottIKkVp/OAKKflM2xyPsMYFiG5uUoYzM3heFYbApk4wm+mJ+FJFCaKES8wDcAtmtem3R/hCMDprzysRlkVhQwyshwcKlY2V3uBqcEKPaGcj41LTJ7N2CJtzPOiR/ryOmuW30HVrNyJxuh14t0CpusGTVTMiv29B5syJINvayWXpATrK5tZ7P6aEN98JAUsuvM9MMcZoismMWQPc7jQC5udHrAclh3i+TBWSNoW9JXESmAx5L1sEQ3gweR1B0q57DC3XKnH7q7bZTm1QpbVm99Xszjh9xUziAE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(10070799003)(366016)(5023799004)(11063799006)(4143699003)(56012099006)(261021135927099003)(261021123027099003)(261022105027099003)(261009223027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(11062099010)(22082099003)(6133799003)(7136999003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RjVTSUkwMGtONS80M3g3QWtqY21uNld5ZE5lVzVjLzBQdVVFSXJ3NG01TVVh?=
+ =?utf-8?B?VUF2d2dVRjRzRERRcVo3MDdBZzB1dU5GTnE1eTBBQjhDUTZaeldoemhkcUJR?=
+ =?utf-8?B?eCtQMlh3OHZNMzdJd3I2NENLM205Z01VUXkwTFJMTmJaMVVEUHlYNllYS3pt?=
+ =?utf-8?B?OHE5R1RlbjFBcUxWN002cE5iVG5aL0VRc29hd0xJZVhJbm1IV2lINVhoOGxE?=
+ =?utf-8?B?U0V5TmpWb2hRdCthek9vMTQxbm9YY3FSVVN6YmVXN1Q0eHpzQzVKV1JUaXFu?=
+ =?utf-8?B?eXRRaVdlVk1MWlkvRzNVdWhaU1BpOU1hdVBIUzBpOU9HcFgrVGl6S3JWQXlE?=
+ =?utf-8?B?cVFFeDFHRUFML2pmb3JyN09nNjIvVU5wcjBoK05tckRMbTlWMmRCemVsdi9q?=
+ =?utf-8?B?OEplVFVUZVR0ZGkrUjhaTlF3MlZBQ21GUGJpc1c3VGpYek5iTkVLcjIyWER3?=
+ =?utf-8?B?TUZpQUx2blE4QzRHLyswQ04yaFVTWkZWQXJ0QmU4bGxKZjZQQUI2a2ozVW51?=
+ =?utf-8?B?dnRWV3ZjUWJqT0I3ME9iVjFtNUprb2k4TmEra2xiSnIycjE0b2xmRTdkK3RS?=
+ =?utf-8?B?TTE1RVhNTXF1MlZ4M3ExdWVRaVlURUFaTktIU0hDa1RNZVBtYjA3MlczVXlP?=
+ =?utf-8?B?SHRSenRSTDJQTGZVMGhhNEs1YVk5WE9HZmM3RXczV2RubEp0Yi8yRXZVUjBL?=
+ =?utf-8?B?ZEJVNTlYRXdqTXhIamo5UHluQnlCekgwYUFBR0VlOWtpSDBQdEZCNnZQMy84?=
+ =?utf-8?B?ekJ5RUZYT3dOSGV5VGlWWFdPYWFvMjdQSTNBdkNaZDB4WWc2WDFoNFEvOEd6?=
+ =?utf-8?B?cVFlRTZuQ1MxVjdOdDR0WjFVSW5RYkkxRDZYMkpxeTBKSzBoSVNIREJKNCtF?=
+ =?utf-8?B?MVArT3dGSzF3Rmo5b1dobU84MnlaT2FhZ2FlZGxRU0VVSVloRmVWTmhHcGRC?=
+ =?utf-8?B?NG1odHRuRHBJeEd2cmZvNWJTVTFxSksxUmUrcXFzRjdDVlUyVjdnaHc0aVlk?=
+ =?utf-8?B?TDVoeGtxeXpXTld1VVQya1NMU2hGOVRwK0UwM3I1QXQwK1hkVjBwa1FYZFht?=
+ =?utf-8?B?bGdvVURDQ20xUGltdVZkdy9qU29ObVZnRjRlVmpPZTJrMWdDRk0ycmRsTCtu?=
+ =?utf-8?B?OWVGZHQ1ZkFNdjhDdkc5MjJici8xYU5PR05PT0FkL0lNNG9venk5VitMNmx1?=
+ =?utf-8?B?cjNDVzdHOWtkQm1lKzhualpxRUdaNHQ5a0kzSDZGbXlpeDJ6djQ4N2hzK2NQ?=
+ =?utf-8?B?ZkJxWTdoTVh2UEh3azQ2Rm9ZVElpQ2NubG9jSG5GNGdJdXJmYURnQjhVUjUw?=
+ =?utf-8?B?ZG1lNlhtbDJGeWN0VHk2ZG5xQlIyS3FOQWVFZUtmL2dYSjF4L3R0VFNiU0xr?=
+ =?utf-8?B?RHRIVGZLMzV5Ym05UlN1UFI2bFhSUnFvMllVRXZJT3UralhJMkJ0UnE4amNk?=
+ =?utf-8?B?aFVTMEtCQWRrdEpyOWtaMzJidzFaVStxeTdOMlc3Y2wyQXNtZHJoNWMrdTRu?=
+ =?utf-8?B?bDg5a3J5NCtNRnVTNWZFcEhlWjJWbk1OSThKWmQwelpBL2RpU3ArWHJMYVQ5?=
+ =?utf-8?B?SXdDWnFkeDl2T2IweEpDMnZXWEF3VzZRSjBETUtmdTJKVDhtMm4zdjdpaFRE?=
+ =?utf-8?B?VmhlMnVSbzJMR0EvdHV0VDRIbmJLNGlqMGxqallaNG8yNFVaT1gzNS9DdTY5?=
+ =?utf-8?B?ZDlremNJZ2ErdEsvUnR5bWt5alNpU3R1MjRpa1hIZUtOSVBpSTJlY1MwODZW?=
+ =?utf-8?B?UVdVV29DNmttb0NVYk0wTVBWSU9JczVXT2I4VXFWYzFaWkpzYmt3TWNoZk1O?=
+ =?utf-8?B?K1BYK1d2bWpmeUNSQmY4dTNBV1FTUTZ4VkphU2lIK2Fpa3E0dEY3M25JNXpw?=
+ =?utf-8?B?KzNBWlIxQWlkeTRnS05qcHIwVjhxajJad0Z5eHBpZ252VW1RQ0dmSHlCVVhX?=
+ =?utf-8?B?VmFwSlg5ejQzb2UvSE5lRFBOdS80UTgxd3hVakRMam1qMnJXM0hBenNJRGlN?=
+ =?utf-8?B?Z2xFMWpVM24wT2NrUXJrSnBBZWJiaVdXWmxudFBWS0N5dTd5Q01LRituZ3ZM?=
+ =?utf-8?B?Uit1RmdiTXI3cm1IQy9IM2thNERSdCthZEJPYzdraDBsR2FSem45ZERyOFAz?=
+ =?utf-8?B?R2VEMTgwRXpmQ1pMTDlxT09WWVVUS3lHUDNTVm5uYysyUFFyKzZxWTZTK3lV?=
+ =?utf-8?B?elU3dWxhM05RNVJwRjIzd2tFeWYxVWFCWDQ0UStoVFl2VFQyYWVKUEc5amR3?=
+ =?utf-8?B?U21HdjR3OTJGZjJ4Y3NQUVgzbkE5ZmVqNUdSbjN0a1JKaTR0dncwd2R6MjI0?=
+ =?utf-8?B?bURQODdWSSt4QjB0eFpFbkpWSmdVcVNDQzBGWjR4NnZVU09BQjZFNmYzSU02?=
+ =?utf-8?Q?52o64ZDL0cxZ7SwwmrJuPbtuzD8tii822ZGQczOrHS+XN?=
+X-MS-Exchange-AntiSpam-MessageData-1: DXHNAoMzzXpjDg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ee7d230-0d28-4015-7506-08df3c6db513
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 01:23:19.9877
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IV7iLfAGUzLwXsMNECJhRa+ZaAx3kyJcFefKl6omK+x/aMcju7abeoy1w11QbtErvUZCmlRQFE4+0cYLf61r/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999309
 
+On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
+> The debugfs root lives in a static that init() fills in and a guard
+> field of the module data clears again. That costs a `static mut`, an
+> unsafe write on each side and a guard type whose only job is to undo
+> the write.
+>
+> It also leaks. try_pin_init! drops only the fields it has already
+> built, and the guard is written after the Registration, so a
+> registration that fails leaves the guard unbuilt and the static set.
+> Statics are never dropped, and the module is unloaded right away, so
+> the directory outlives everything that could remove it. The next load
+> then finds the name taken: debugfs_create_dir() returns -EEXIST, which
+> Entry keeps as it would any other pointer, and the driver comes up with
+> no debugfs at all until the machine is rebooted.
+>
+> Have the module data own a DebugfsData instead, built before the
+> registration and dropped after it, and keep only a pointer to it in the
+> static, for devices that have no other way to reach the data of their
+> module. What is left is one unsafe read for the users and a single write
+> when the data is built, with no guard type. A registration that fails
+> now drops the data that was built before it, and the directory goes with
+> it.
+>
+> Assisted-by: LLM
+> Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
 
+Fixes: 09691f5d8070 ("gpu: nova-core: create debugfs root in module init")
 
-On 2026/11/7 2:15, Chen Pei wrote:
-> Add two asm programs to verifier_stack_arg.c, inside the block that is
-> already gated on x86, arm64 and riscv64. A raw_tp program with a 64 byte
-> frame calls a ten-argument subprog with a 64 byte frame of its own, and
-> BPF_PROG_TEST_RUN runs the pair without attaching it. Args 9 and 10 stay
-> in the kernel frame and arg 10 points into the caller's frame, so the two
-> have to agree on where the outgoing area is. The callee returns what the
-> caller stored plus arg 9, so a wrong area shows up as a wrong retval
-> rather than as a crash.
-> 
-> Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
 > ---
->   .../selftests/bpf/progs/verifier_stack_arg.c  | 49 +++++++++++++++++++
->   1 file changed, 49 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/bpf/progs/verifier_stack_arg.c b/tools/testing/selftests/bpf/progs/verifier_stack_arg.c
-> index 146cdf81bbc4..e8108e768b89 100644
-> --- a/tools/testing/selftests/bpf/progs/verifier_stack_arg.c
-> +++ b/tools/testing/selftests/bpf/progs/verifier_stack_arg.c
-> @@ -975,6 +975,55 @@ __naked void stack_arg_precision_fallback(void)
->   	);
->   }
->   
-> +/* Writes both ends of its frame, then reads args 9, 10 and the frame of the caller. */
-> +static __naked __noinline __used
-> +long priv_stack_10args(long a, long b, long c, long d, long e, long f, long g, long h,
-> +		       long i, long *j)
-> +{
-> +	asm volatile (
-> +		"r1 = 0;"
-> +		"*(u64 *)(r10 - 8) = r1;"
-> +		"*(u64 *)(r10 - 64) = r1;"
-> +		"r0 = *(u64 *)(r11 + 32);"
-> +		"r1 = *(u64 *)(r11 + 40);"
-> +		"r1 = *(u64 *)(r1 + 0);"
-> +		"r0 += r1;"
-> +		"exit;"
-> +		::: __clobber_all
-> +	);
+>  drivers/gpu/nova-core/gsp.rs       | 10 +---
+>  drivers/gpu/nova-core/nova_core.rs | 74 ++++++++++++++++++++++--------
+>  2 files changed, 56 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+> index dda58095f40b..01ed4adffe93 100644
+> --- a/drivers/gpu/nova-core/gsp.rs
+> +++ b/drivers/gpu/nova-core/gsp.rs
+> @@ -199,15 +199,7 @@ pub(crate) fn new(
+>                          logrm,
+>                      };
+> =20
+> -                    #[allow(static_mut_refs)]
+> -                    // SAFETY: `DEBUGFS_ROOT` is created before driver r=
+egistration and cleared
+> -                    // after driver unregistration, so no probe() can ra=
+ce with its modification.
+> -                    //
+> -                    // PANIC: `DEBUGFS_ROOT` cannot be `None` here.  It =
+is set before driver
+> -                    // registration and cleared after driver unregistrat=
+ion, so it is always
+> -                    // `Some` for the entire lifetime that probe() can b=
+e called.
+> -                    let log_parent: &debugfs::Dir =3D unsafe { crate::DE=
+BUGFS_ROOT.as_ref() }
+> -                        .expect("DEBUGFS_ROOT not initialized");
+> +                    let log_parent: &debugfs::Dir =3D crate::debugfs_dat=
+a(dev).root();
+> =20
+>                      log_parent.scope(log_buffers, dev.name(), |logs, dir=
+| {
+>                          dir.read_binary_file(c"loginit", &logs.loginit.0=
+);
+> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/n=
+ova_core.rs
+> index a8f6dc22057b..ee3a6600f320 100644
+> --- a/drivers/gpu/nova-core/nova_core.rs
+> +++ b/drivers/gpu/nova-core/nova_core.rs
+> @@ -4,6 +4,7 @@
+> =20
+>  use kernel::{
+>      debugfs,
+> +    device,
+>      driver::Registration,
+>      pci,
+>      prelude::*,
+> @@ -32,40 +33,75 @@
+> =20
+>  pub(crate) const MODULE_NAME: &core::ffi::CStr =3D <LocalModule as kerne=
+l::ModuleMetadata>::NAME;
+> =20
+> -// TODO: Move this into per-module data once that exists.
+> -static mut DEBUGFS_ROOT: Option<debugfs::Dir> =3D None;
+> +/// Pointer to the [`DebugfsData`] the module owns.
+> +///
+> +/// A device has no way to reach the data of its module, so code running=
+ on behalf of a bound
+
+nit: "A device currently has no way", this is a temporary limitation
+(hopefully).
+
+> +/// device goes through here instead.
+> +///
+> +/// Written once, while the module data is built, and never again: what =
+it points at is dropped
+> +/// only after the driver is unregistered, so it is good for as long as =
+any device is bound, and
+> +/// is not read outside of that.
+
+This is some top-class Claudespeak. Let's rephrase it into invariants
+that we can refer to later:
+
+/// # Invariants
+///
+/// - Only written once before the driver is registered.
+/// - Points to a valid [`DebugfsData`] for as long as the driver is regist=
+ered.
+
+> +// TODO: Drop this once devices can reach the data of their module.
+> +static mut DEBUGFS_DATA: *const DebugfsData =3D core::ptr::null();
+> =20
+> -/// Guard that clears `DEBUGFS_ROOT` when dropped.
+> -struct DebugfsRootGuard;
+> +/// Data the module shares with every GPU it drives.
+> +///
+> +/// Reached from a device through [`debugfs_data()`].
+> +#[pin_data]
+> +pub(crate) struct DebugfsData {
+> +    /// Root directory of the driver in debugfs.
+> +    root: debugfs::Dir,
 > +}
 > +
-> +/*
-> + * A frame of 64 bytes in a raw_tp prog goes to the private stack.
-> + * arm64 and riscv64 pass args 9 and 10 on the kernel stack. On x86-64
-> + * both frames stay there as well.
-> + */
-> +SEC("raw_tp")
-> +__description("stack_arg: private stack in the caller and in the callee")
-> +__success __retval(890)
-> +__naked void stack_arg_priv_stack(void)
-> +{
-> +	asm volatile (
-> +		"r1 = 800;"
-> +		"*(u64 *)(r10 - 64) = r1;"
-> +		"r1 = r10;"
-> +		"r1 += -64;"
-> +		"*(u64 *)(r11 - 40) = r1;"
-> +		"*(u64 *)(r11 - 32) = 90;"
-> +		"*(u64 *)(r11 - 24) = 8;"
-> +		"*(u64 *)(r11 - 16) = 7;"
-> +		"*(u64 *)(r11 - 8) = 6;"
-> +		"r1 = 1;"
-> +		"r2 = 2;"
-> +		"r3 = 3;"
-> +		"r4 = 4;"
-> +		"r5 = 5;"
-> +		"call priv_stack_10args;"
-> +		"exit;"
-> +		::: __clobber_all
-> +	);
+> +impl DebugfsData {
+> +    /// Creates the shared data.
+> +    fn new() -> impl PinInit<Self> {
+> +        pin_init!(Self {
+> +            root: debugfs::Dir::new(c"nova-core"),
+> +        })
+> +    }
+> =20
+> -impl Drop for DebugfsRootGuard {
+> -    fn drop(&mut self) {
+> -        // SAFETY: This guard is dropped after `_driver` (due to field o=
+rder),
+> -        // so the driver is unregistered and no probe() can be running.
+> -        unsafe { DEBUGFS_ROOT =3D None };
+> +    /// Returns the root directory of the driver in debugfs.
+> +    pub(crate) fn root(&self) -> &debugfs::Dir {
+> +        &self.root
+>      }
+>  }
+> =20
+> +/// Returns the data the module shares with its devices.
+> +///
+> +/// The bound device is what makes this sound: the data is built before =
+the driver is registered
+> +/// and dropped after it is unregistered, so it outlives every device th=
+at is bound, and the
+> +/// returned reference cannot be held past the one it is taken for.
+
+You don't need to explain why this method is sound, the method is not
+marked "unsafe", thus it is safe and that's all callers care about.
+Anything more is unneeded cognitive burden and readers will wonder why
+they need to know that.
+
+The SAFETY comment below, which gives the same justification, is the
+correct place to explain that and already does it.
+
+> +pub(crate) fn debugfs_data<'a>(_dev: &'a device::Device<device::Bound>) =
+-> &'a DebugfsData {
+> +    // SAFETY: A device can only be bound once the driver is registered,=
+ which happens after
+> +    // `DEBUGFS_DATA` is written, so it points at the data of this modul=
+e, which lives at least
+> +    // as long as the caller's device is bound.
+
+... then here you can just invoke the invariant we defined above:
+
+// SAFETY: `_dev` is bound, so the driver is registered. Per the
+// invariants of `DEBUGFS_DATA`, the pointer is thus valid and not being
+// written to. The `'a` lifetime ensures that the returned reference
+// cannot outlive the bound device.
+
+(technically one could pass another `Device` that is not bound to this
+driver, but I guess we can overlook that for this private, temporary
+interface).
+
+> +    unsafe { &*DEBUGFS_DATA }
 > +}
 > +
->   #else
->   
->   /* No BTF tells about this store. The insn is what JIT has to deal with. */
+>  #[pin_data]
+>  struct NovaCoreModule {
+> -    // Fields are dropped in declaration order, so `_driver` is dropped =
+first,
+> -    // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
+> +    // Fields are dropped in declaration order, so the registration goes=
+ first and no probe() can
+> +    // still be running once the shared data is torn down. `init()` buil=
+ds them the other way
+> +    // round, as the data has to be there before the first probe() reach=
+es for it.
 
+Here again we are not concerned with what `init` does, we only use this
+comment to prevent someone from breaking the drop order we rely on:
 
-Reviewed-by: Pu Lehui <pulehui@huawei.com>
+// Fields are dropped in declaration order. `_driver` must be dropped
+// before `_debugfs` to uphold the invariant of `DEBUGFS_DATA` that it
+// remains valid for as long as the driver is registered.
+
+>      #[pin]
+>      _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
+> -    _debugfs_guard: DebugfsRootGuard,
+> +    #[pin]
+> +    _debugfs: DebugfsData,
+>  }
+> =20
+>  impl InPlaceModule for NovaCoreModule {
+>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, E=
+rror> {
+> -        let dir =3D debugfs::Dir::new(c"nova-core");
+> -
+> -        // SAFETY: We are the only driver code running during init, so t=
+here
+> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
+> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
+> -
+>          try_pin_init!(Self {
+> +            _debugfs <- DebugfsData::new(),
+> +            _: {
+> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a device =
+is bound, which cannot
+> +                // happen until the driver is registered below. What it =
+points at is dropped only
+> +                // once the driver is unregistered, so it is valid for a=
+s long as any device is
+> +                // bound, and nothing reads it outside of that.
+
+This can just be:
+
+// SAFETY: The driver is not registered yet, meaning that no device can
+// be probed and thus nothing can access `DEBUGFS_DATA` concurrently.
+
+And since this is also where we enforce our invariant:
+
+// INVARIANT: `DEBUGFS_DATA` is written before the driver is registered
+// below and points to `_debugfs`, which is pinned and dropped after
+// `_driver`.
