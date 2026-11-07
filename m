@@ -1,80 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794021954;
-	b=Szaw+CvR0NhGLftBcaJqa0DSrLZywNPOrvvws5TS84WLoHKnBDU+JaUMk51T02k+1sdU
-	 JGUYpOgRg0mHOaWeN3WWSU8VDHe+TZlouNW2astW/7S2GtfsWEqIZeopnLslFXNUv3awY
-	 rUYesTQaorfBbrGua5SG/1ybjnU6qDny46rSafla52mE/brCAtu2s975LH+ibqG1Zhg7T
-	 2xhed/VJi4os1xjR2ZfKwoSlbvA7QtX9TAqsnzgGvtHX3z9jDRHP5/ieyJ7RwDdbhvdT6
-	 jzOO0qYX0n1GQ68kdrC2ZcuZXkQnR3rlh0VervsfnND6QI3prLITTIiMOd1xmHVv7Hw==
+	t=1794022018;
+	b=HWePobAUtsHlzHySjNyy4Cusedl4RSTv6+g7XaAE000HJUYtinEKkbu4Y11CJZBEst0o
+	 /7m8alXowmqDTaWPUwOGrichImprnEtXRZGdADzGBO+JMr7dkDbzc8q/zhH2seyKr5ho5
+	 trVeTkGX5wfemnTnrwzDQq67/jyUKknHxozYFatbbHxDdBQRxKwlzCKDTAYptzHajL8R9
+	 9vIEwQKR4zq5JVGwKTJkqC3c7VtPRDnlLEQYhUF5Ky4abHTM6pgPR+f6LLP5BfWt+0Bo0
+	 teOi8qfoqb6Sot/Hkc+BEh3UKj6X28/4hk/yke2riLtISOTPaHgg3Z13nuieFSnwXtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794021954;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mxiid2hy6pGN9sHLzXHLOnDequd95SafDDGiZTsr7dg=;
-	b=C0JEKT4X6BLJQ6Doi84hmzpbXcH3OzfOu6dp+ZhIe6LMh+LF9mvpVIVAkpa3iA3/a1uS
-	 xOAhRZLL2ptouO2TliVTqK4Ei6zCTnzRLuwFunMUIvh8UL1eSVYV3W2NuNj8wYmhs9CJh
-	 QnZtsEDrgwM04tQbu58lld90B8B9ZIECCqSc6n+NkSHyOieCh8R5Cl+v3/49XQwWyRIl7
-	 v9F/vjAEFcfMdqho/k95AnfkGFS37JGbpRj4flxUUVjGMy+4/370CHbjs7VqkoA8Nlveg
-	 KGnUIP7WF8hBuyxtXTZt6llAagde5y8ZOEbvSFLvMkfYwIaTXmwxLwgBY+Lmh+9ggKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794022018;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:X-Mailer:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=evRcGhEYiQnu+7s7f4X6oEhlfeS8eaZWbC+2vs7X5p8=;
+	b=F653goiV2V8IQ8l48JQt9vAIYth6D2nqqIMldez5LQVIVfspjxIjf3hYNPk9Se4G6e/U
+	 mIWS3GJFv8HzfTcFQPiHhHIGjEbqx3NHUA0ShohbouaLJ9M5SLz9Gi4tgF64/wz1e6Hhw
+	 hJ30s1BWLyaWZaForLkwLpadHO4E43M+DNWIObZ6W9crbbi8CcyYcTlqTIUOhK9IFFmTv
+	 Uvg/7MAnG2NYArs7mgWqWkcWqli3fGkkNNmX+QQVsFhRnZoy0edyUHT/M0v9t4rIS1/wK
+	 DrlORRvhd3+00gskEOPG+ujL00wOw6DuArI0EoXaeKPejzNVNY2o26/8/jkjIbYdfqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTV0w40J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C39606A326;
-	Sat,  7 Nov 2026 03:25:54 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=SJVVrF9P;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E094606A326;
+	Sat,  7 Nov 2026 03:26:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E094606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTV0w40J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026E51F008A1;
-	Sat,  7 Nov 2026 03:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794021954;
-	bh=mxiid2hy6pGN9sHLzXHLOnDequd95SafDDGiZTsr7dg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WTV0w40JxOBYdPzpa4f7DZkdspPxJBrVgTAa2OuCLgZcV/4Is1JOIsvWQHgSMTG3N
-	 yAx7GXtZEyPCSzTK3upClUnUturM7qpNFJ0wGrZc/lRaHpvWCEu89O8ezuyM8AOQyz
-	 tQkDJJ/XXrUhR304CiG20Oa/KQYRie9eRYY1+BNJqxpfsCqEkMR46yB/iGnIyjZSo0
-	 oiZxSpMuEdK5nA3WicHMzdCsjuULm9JDM2uH/D5M0B01EP2oqVB0jFWwpPGCBBcVBn
-	 f0+UWuYKYGVnHACBvulPRgJuLqPquUHyDT925XPpJRdwbxPFGS9VKMqtf0yKfKUZum
-	 cMIhensA1gW7Q==
-Date: Fri, 6 Nov 2026 19:25:51 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, bpf@vger.kernel.org,
-	dm-devel@lists.linux.dev, fsverity@lists.linux.dev,
-	keyrings@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <20261107032551.GA1990@sol>
-References: <20261105031401.956609-1-jarkko@kernel.org>
- <20261105031401.956609-3-jarkko@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=SJVVrF9P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=evRcGhEYiQ
+	nu+7s7f4X6oEhlfeS8eaZWbC+2vs7X5p8=; b=SJVVrF9PSfV+wNcuB7G3asCcme
+	jrLH0Lu0OnqdiRF8ymbCb8ATbQnBweR313vTKGu0tBY6gcbA0bGw58Swkl21OlPA
+	fYFLAbWot05eNc6KYuFicJZjpV7HzLSe7H3IjUlkb5ltweMMvar7nd+46WLQVVI7
+	13DezoxHaPtSqqY3U=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.185.236])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHrSF2mu5qAI6SAA--.1778S2;
+	Sat, 07 Nov 2026 11:26:46 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: sm8750: mark the ADSP fastrpc node as non-secure domain
+Date: Sat,  7 Nov 2026 11:26:46 +0800
+Message-ID: <20261107032646.32363-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,83 +62,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105031401.956609-3-jarkko@kernel.org>
+X-Mailer: git-send-email
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgBHrSF2mu5qAI6SAA--.1778S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cry3Ww15Jry5Ww4DGFWktFb_yoW8ury8pF
+	4rCws7WF4kKF1rX3yjqFy0gw4Yvan8JFWUGrn8J34ay3Z09F9xJr1ftrs3KrWUJFZ5ua1S
+	vw4aqrWxZF1UZa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWU
+	twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
+	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
+	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr
+	0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jeT5dUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2ruKtgCVABfsr
 
-On Thu, Nov 05, 2026 at 05:14:00AM +0200, Jarkko Sakkinen wrote:
-> The keyrings subsystem is the sole user of assoc_array. It has over 1700
-> lines of code, no test suite, and a long history of bugs, with LLMs now
-> finding more.
-> 
-> This unfortunate outcome has evolved over time by large from the shortage
-> of in-kernel callers, time bandwidth and 3rd party contributors.
-> 
-> What the keyrings needs is just a generic key-value store, which performs
-> well with sparse key sets.
-> 
-> Replace struct assoc_array in struct key with struct keyring_index:
-> 
-> - keyring_index: holds an rhashtable for direct lookups, an RCU-protected
->   list of keyring_link entries for stable walks, the active link count, and
->   an rcu_work item for deferred teardown.
-> - keyring_link: links a key into a keyring's hash table and list, caching
->   its 32-bit SipHash digest rehashed with jhash by rhashtable.
-> 
-> Correspondingly, struct assoc_array_edit is replaced by struct keyring_edit
-> for delivering transient state across link operations.
-> 
-> Other behavioral changes:
-> 
-> - KEYCTL_READ and sibling-keyring searches follow list order instead of
->   hash order: keyrings are prepended, other keys are appended, and
->   replacing a matching key retains its position.
-> - key_unlink(), keyring_clear(), keyring_revoke(), and keyring_gc() no
->   longer allocate memory.
-> - keyring_index_free() uses queue_rcu_work() instead of call_rcu() because
->   rhashtable_destroy() may sleep.
-> 
-> Suggested-by: Eric Biggers <ebiggers@kernel.org>
-> Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+On SM8750 the ADSP fastrpc instance used by the sensor core (and by the
+other non-secure ADSP users) is the one the firmware exposes as
+non-secure; the CDSP fastrpc node already carries
+"qcom,non-secure-domain", the ADSP one does not.  With the fastrpc driver
+keying the secure/non-secure split off that property, the ADSP only
+instantiates /dev/fastrpc-adsp-secure and userspace never gets
+/dev/fastrpc-adsp, so libssc/hexagonrpcd cannot attach to the sensor PD
+(qrtr service 400) and iio-sensor-proxy reports no sensors at all.
 
-Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+Observed on the Lenovo Legion Tab Y700 Gen4 (TB322FC), which is SM8750
+based: without this property /dev/fastrpc-adsp never appears and
+iio-sensor-proxy exposes neither accelerometer, ambient light nor
+proximity; with it, qrtr shows the "Snapdragon Sensor Core service"
+(id 400) and all three sensor types report as available.  The change is
+one property on one node, matching what the CDSP node already does.
 
-But one comment below.
+Tested with `make CHECK_DTBS=y qcom/sm8750-mtp.dtb` (no new warnings; the
+single avoid_unnecessary_addr_size warning on dsi@ae96000 is present
+before and after).
 
-> +		do {
-> +			ret = rhashtable_insert_fast(&links->ht, &link->node,
-> +						     keyring_link_params);
-> +			if (ret == -EBUSY)
-> +				fsleep(100);
-> +		} while (ret == -EBUSY);
-> +		if (ret < 0) {
-> +			key_payload_reserve(keyring,
-> +					    keyring->datalen - KEYQUOTA_LINK_BYTES);
-> +			goto error;
-> +		}
+*** AI-assistance disclosure ***
+This patch and its commit message were prepared with the help of an LLM
+coding assistant.  The author reviewed the change line by line, ran the
+checks quoted above on his own hardware and takes full responsibility
+for the content.
 
-I don't think the retry loop is actually sufficient or desirable here
-(though it would be very rare for it to be reached).  It gets reached
-when there are too many elements in one rhashtable chain.  However,
-we're already pre-hashing with SipHash, and the rhashtable level hash is
-passed only the 32-bit SipHash.  Suppose we reach this case because the
-SipHash values collided: then rhashtable's rehashing would never reduce
-the chain length, and the -EBUSY would last forever.
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-I think the right solution is to just set '.insecure_elasticity = true'
-in the rhashtable_params, to disable the chain length checks.  Those
-checks make no sense when we're using SipHash anyway.
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index cf947acc57..9302481b11 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -2571,6 +2571,7 @@ fastrpc {
+ 					compatible = "qcom,fastrpc";
+ 					qcom,glink-channels = "fastrpcglink-apps-dsp";
+ 					label = "adsp";
++					qcom,non-secure-domain;
+ 					memory-region = <&adsp_rpc_remote_heap_mem>;
+ 					qcom,vmids = <QCOM_SCM_VMID_LPASS
+ 						      QCOM_SCM_VMID_ADSP_HEAP>;
+-- 
+2.53.0
 
-Then the retry loop would not be needed.
-
-(And even for rhashtable users who aren't using SipHash, like
-fs/verity/, hard-failing insertions if the hash chains gets too long
-seems wrong.  I mean, imagine if the kernel started refusing to do file
-operations if one of the hash chains in the VFS hash tables happened to
-get too long...  But I guess rhashtable was designed for towards
-networking users who are able to just drop the data without much issue.
-Plus it predates SipHash existing.)
-
-- Eric
