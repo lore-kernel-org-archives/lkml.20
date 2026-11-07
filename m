@@ -1,59 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794084038;
-	b=B0jdewPAZy4HNwwviQIpM3NJbaX+S7BnFAAimH5OACN+dAX2zidGy+shXSWZRp2dvmOe
-	 BUInvZ/1DLGdQCpP6+QAF3cD9iTc69kVw9DMVcRz2FsosM5ijfAFIlSDwVs5o+Waad0mn
-	 5tduMpNhcYyl2IBdYUPKm6gzj7U14zMhL4DFFIgmGkDfjjwF5sKC5BQJHdFxCnf5Cgg/1
-	 UMLodtoJQSI8JjP+BOzzaoY7YDG8fDtsdGGCIZ+Qzptj1B7Q4cpOkLcL4hjb2BXgqXQps
-	 T7wT1GOTV7yNpqTYoWzUVM8NQ8JumR5Ai3ZBxXCrCq8aZhi06DjdB+FSf+KYVuHjYuw==
+	t=1794084133;
+	b=QhvuhvshrTL+oJqEwDjvFYoy5N5D1us+K6SlqIwUc3B8DA1f5JKM3gkVWCEn/Xlt7rcD
+	 cLDdgmblvgFZNBbeMpdvu/hIJlElBxVz9kpxtZ7qlupzmASiBbG9bNU0wnCTpM/cVplSZ
+	 ql4YCAEKVbgxVqQe4HJdRbySqRCzdBcHrVNlL2gRWq+Gt+nCt17NFdn7eL+P8yRTAFqk9
+	 xaseRpi6wvcWzyDwwipxRvhwU0f8Cc0skFwaPStHXxeDCAyPR0xKIUu+uOyk485vsOO/I
+	 ZIwTc+Qn52LaeyxC/ITTsfnVuKyqQoYYazJemTvRK/hpHhPlUTMFOTxNkyV0VjbGqHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794084038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794084133;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Li2bfveIePoVmgO+L+lVSSps1XIwzNsXlobYk20vC9Q=;
-	b=n8VuxsUMYPh+lNGNyQt0vVAXrz0BXoWbNWm8Dvpxbi5EhlctVP773sYXc5PUnSiqvt/5
-	 OaqQ6ZnB31jUcxBWaBflSGg8fpqInfL7lJFuAqUaZRWYGyKCRQKtSp4OVC0ezadhmQqCw
-	 rqoSnE2LWatBXTmy+8qs6tTM1jsUp+VBCxt8HB2a1YFlD53II2cZFY6ceQXdMm0wuDph2
-	 /Tu/dFWMaV2WeErTiXbOxddZ3m5ovFQWMWSHRgQNST+vyTGMC5AdTrDx2DgJH5IsAXUAS
-	 JQhMptODYNTIoABFOZlmZHB3p2boBMGmVQSKA/5DIFodZpGVqBg4TtvTcD3DIR6xvTA==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vt9E+5gU7NQ+Wi6z2HfmB+6KsnzMwitmxcnzRralzow=;
+	b=K8Up2qhvAWN6iqi+8zLohCs0N7EStequwm2WhLeqCvRHIH3JFYOYXGLLlnwZehQc1ZnR
+	 d/qAU2cOjltseNaiTE87mxguZdqoG1UMuM29rKYBFCoa70+MHTngX78+bCsGJdjqQtL4b
+	 lWyeQRPyXF8BbrxjQ9CSYefsS+1YoiBKC3WkVW4EvkuqEBFobSP8W3WI2rW/xsQ+3N78q
+	 JlELn9ECrvZqpMBw0RIgU9hU1u0SoFe8CKo2IJZQa9w3BgKkXHbehdlVwYrkgsoGb3HOA
+	 zneznpffKSwauq4VivCLz941Tj/CQD5Gz7QGSBEE5xSHxfM3SYB0/PAmsv9Es8Gl9lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1eBz3ZY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QdgeqcGm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F374606A32C;
-	Sat,  7 Nov 2026 20:40:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A167606A32E;
+	Sat,  7 Nov 2026 20:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1eBz3ZY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6BA1F0089F;
-	Sat,  7 Nov 2026 20:40:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QdgeqcGm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10651F0089F;
+	Sat,  7 Nov 2026 20:42:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794084038;
-	bh=Li2bfveIePoVmgO+L+lVSSps1XIwzNsXlobYk20vC9Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l1eBz3ZYvg95OTzcFr4ofM7CXQzymWtAVOw9pKweFwbkhOjUJvJx1CMrHQalCV8Fq
-	 zUpSCFg241zXkJKaR17j+LrVrMaghlQ7CAyQzwOyTQ00BANNbq6RYyD+MS2bQmTd0c
-	 XYRwN6YNbQJPFGIOkrJLJWZFQKIJ8kKumUoEMXXG3AuyC7+0RTV7iOx7vmM1hXkWrl
-	 u49Gefmn5rmCXQ4Cn/ThZEnijhITa9nD4dZN0O6e6IoNSb2OTe64ojTq5kkgu9GWiZ
-	 24YKFbShJGIxrImUTSIK2JfS+Diw8EIiwYxDpRJsQVGQYPG4/EJ4NJUwihf30GQK0b
-	 hDqNgC4XgWFWw==
-Date: Sat, 7 Nov 2026 20:40:31 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Arnav Kapoor <kapoorarnav43@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Gwendal Grignou <gwendal@chromium.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: sx9360: use an int array for the
- sampling frequency range
-Message-ID: <20261107204031.4ea3e36b@jic23-hlaptop>
-In-Reply-To: <auuqD75_H4OVHqva@ashevche-desk.local>
-References: <20261104175608.205872-1-kapoorarnav43@gmail.com>
-	<auuqD75_H4OVHqva@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794084133;
+	bh=vt9E+5gU7NQ+Wi6z2HfmB+6KsnzMwitmxcnzRralzow=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QdgeqcGm7aLjvMwhDXbnVrXyrjxTJoRQkqRIsDjcoduMOTEL8GCNOFQSiDbwYCCXA
+	 bdiOlqUv4nmV7s8TUKhpFnqxqC6DSKCS1JUo3diwp71Rk0vlgv1Nh8kEE+kDsic1tz
+	 A+Jb5V3672/95emWmClD9muYAGY/rWdyjIttmwrc+GYxS6MurZyD0azH7QdvjXiOYE
+	 GXdd+qElL0kyHa09o4qK64HoO7MAQfsV8IpmBzQ6+Res9Ewlsf0DCXIDsQqqLpTLm2
+	 O/+ktjWajqgRw+TV+MG2JVz5d1/6q6chhmKGj+4z5BEqZwVpkAS+1MglhWGlk1QczL
+	 LwZyEhkdgqX/A==
+Date: Sat, 7 Nov 2026 12:42:10 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, bpf@vger.kernel.org,
+	dm-devel@lists.linux.dev, fsverity@lists.linux.dev,
+	keyrings@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ignat Korchagin <ignat@linux.win>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>
+Subject: Re: [PATCH v6 0/3] KEYS: Replace assoc_array with rhashtable
+Message-ID: <20261107204210.GG6049@quark>
+References: <20261107195605.3929659-1-jarkko@kernel.org>
+ <au-FkAtC4Gcw7Bkb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +84,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au-FkAtC4Gcw7Bkb@kernel.org>
 
-On Wed, 4 Nov 2026 23:56:31 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-
-> On Wed, Nov 04, 2026 at 11:26:04PM +0530, Arnav Kapoor wrote:
-> > sx9360_samp_freq_interval[] is an array of struct { int val; int val2; }
-> > that read_avail() hands to the IIO core by casting it to int *. That
-> > relies on the struct having no padding. Declare it as an array of
-> > int[2], like other IIO drivers do for their available ranges, so the
-> > layout is plain and the cast no longer drops const.
+On Sat, Nov 07, 2026 at 10:09:52PM +0200, Jarkko Sakkinen wrote:
+> On Sat, Nov 07, 2026 at 09:56:01PM +0200, Jarkko Sakkinen wrote:
+> > The keyrings subsystem is the sole user of assoc_array. It has over 1700
+> > lines of code, no test suite, and a long history of bugs, with LLMs now
+> > finding more.
 > > 
-> > No functional change.  
+> > This unfortunate outcome has evolved over time by large from the shortage
+> > of in-kernel callers, time bandwidth and 3rd party contributors.
+> > 
+> > What the keyrings subsystem needs is just a generic key-value store, which
+> > performs well with sparse key sets. Replace assoc_array with an
+> > rhashtable-backed keyring index and remove assoc_array from the kernel.
 > 
-> LGTM,
+> Sashiko: https://sashiko.dev/#/patchset/20261107195605.3929659-1-jarkko%40kernel.org
 > 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Not addressing this as only one patch changed and the change was
+> exactly:
 > 
+> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+> index 772fa0e35f9d..6761c6801edc 100644
+> --- a/security/keys/keyring.c
+> +++ b/security/keys/keyring.c
+> @@ -12,7 +12,6 @@
+>  #include <linux/security.h>
+>  #include <linux/seq_file.h>
+>  #include <linux/err.h>
+> -#include <linux/delay.h>
+>  #include <linux/jhash.h>
+>  #include <linux/user_namespace.h>
+>  #include <linux/nsproxy.h>
+> @@ -101,6 +100,7 @@ static const struct rhashtable_params keyring_link_params = {
+>         .min_size               = 4,
+>         .nelem_hint             = 3,
+>         .automatic_shrinking    = true,
+> +       .insecure_elasticity    = true,
+>  };
+> 
+>  static struct keyring_index *keyring_index_locked(const struct key *keyring)
+> @@ -1225,12 +1225,8 @@ int __key_link_begin(struct key *keyring,
+>                 if (ret < 0)
+>                         goto error;
+> 
+> -               do {
+> -                       ret = rhashtable_insert_fast(&links->ht, &link->node,
+> -                                                    keyring_link_params);
+> -                       if (ret == -EBUSY)
+> -                               fsleep(100);
+> -               } while (ret == -EBUSY);
+> +               ret = rhashtable_insert_fast(&links->ht, &link->node,
+> +                                            keyring_link_params);
+>                 if (ret < 0) {
+>                         key_payload_reserve(keyring,
+>                                             keyring->datalen - KEYQUOTA_LINK_BYTES);
+> 
+> So I don't think there are any real issue with the patch set, except I
+> will need to rebase the commits to the latest mainline.
 
-Looks fine but will have to wait for the fix that touched this
-code to make it to upstream for non fixes.
+It looks good to me now too, but it would be good to get a Sashiko run
+on the latest version.  Sashiko hasn't run since v3, as it failed to
+apply the series.  You should base the series on a commit in either
+mainline or linux-next, and pass the '--base' option to 'git
+format-patch' so it adds a 'base-commit' line.
+
+(The only reason I've been able to apply it myself for review is that I
+went out of my way to find your keys-rhashtable branch in git.)
+
+- Eric
