@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794030749;
-	b=gqwujE+MJxug0c6nl1JwUrqgOk90tajJZqFZco8LMT8haJ7H/WO9Lwugqa7ItrYMFb11
-	 8Tb6V+AJ5/eDWxUwlWhc/fg8uO7eDeNK9KKeB5a/ro3fEELUNig9mt5GEBr2l8z7lrVFW
-	 1HkMrIKUD8AqKDp16ibqUzkjmPJvJD2jub3wrbhnqzbWIJ9yuljt+8wjP/p78DqwqK9Ne
-	 1T7UdPa47ZujjoT6Izk/+LDmr4OPNRGDkOf++oYS1BsFdje74cvE1IjHokcAkKXSrt824
-	 QeHcpXJGK+QGW0W+J/oItBO78jPZypMJoENpo8K0A3w6ZNlcN7YIO5sk0VMfC91Vfhg==
+	t=1794030760;
+	b=hqrcrYtuP5+3jtDClAAdTYcf2cYtEFogeupZOJF8qPIH2FJAg9/gDnNGy+eTjte0BGpA
+	 Lqb6aVEKSxKgTj6/WFprJMs7frpY+rvzMTVukFZSBrCJnyJrcbutn9WQs8p/hWc/ZX+V1
+	 0HpO/b4r4FeAo40rQrd5gYvO8fDVWwRsWrztabSFPJDpjxZRr/6Xf3OyWWi9ov3wByiMU
+	 efBtnZDsFTD+l8Vcnkgeze0tp8pyGUBFb71a482HLFeYgC2DRcV3flIC1HXUuNUORTkZq
+	 xh7C35jJUUxVZC36FZYUN+eTYPO2f5SqmE9aw0mzEk9BNw56yGgtIG9uJSq8UXV4/cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794030749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794030760;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cOkMQ7/E4scC+Fe1w2CQgNpHvbECQcUaydXqIgQCyRQ=;
-	b=ujZ4sWnQdY0vGCe7GQ6/EYdMLCPaY0sPkql+bl0CpFdPNZ+OG6UXJuyymlwHCOD8f22n
-	 xtOEfO4/TzhPGGW0I6R7LAbxDcULKbG30fWO8rAzJ2UHeTHOSDEoTEH11F6OiR5Kf4EUF
-	 jSDJbFiBj9Sjckw+A0rQGTiI0xvfYvw94SRH+Ac05z1EoIIaufXSYKA5k5lNafIClabuS
-	 04HroxV4UZmrOAYbC8Dj/83RGzhVwOfLjGjsx6JrkmU/mLvfjmO0kB3FRPZ9dWR2MuZs3
-	 zkU/T5Xx8y8D/hp3W+pDnyd5WVS2hIDA51vWIhR9oZoX1InkBHmI66c1JWhABn0ySSw==
+	bh=u4nTXiGvoLBPJ6m6vBAshKxDWZY7SBPxeVPpU162HBU=;
+	b=x9rWIDLSvSKa9uVjnNQzPRwFcVMPJEu+iimTTP7jGcZTWrvtyitPr815WSviuGGOPGSN
+	 MgobwnSYh4NeF5Llqu1GI075FL3aduUUvq/HjyKWQhIlliQbc9SCKzbWDJxrcx54BQgvm
+	 z57lXdErC/EGJ1lxJAdwTMUl9q4aXMDOkI0gTkTc+rISTdlG4AYQBCevaTNOt2kTOrn6G
+	 ZzRKQDJo3B5P6HdTt5KraNoB6cBXwbnerm+VwYX/z4sBzK/WPnYeqh/QX0mKKWqL7/bWX
+	 ZwzWlSc9di2SmVBf1NQmkVuo6uTIErxI7PbQMZbfA9plerWvchX5IjQarV/z9/raFfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2Q+04sD;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sTqb2z+O;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31C1606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:52:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A31C1606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D619606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D619606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2Q+04sD
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e985106c0cso10070325ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:52:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sTqb2z+O
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so5575675ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:52:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794030748; x=1794635548; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794030759; x=1794635559; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cOkMQ7/E4scC+Fe1w2CQgNpHvbECQcUaydXqIgQCyRQ=;
-        b=d2Q+04sDghPVR1F3UVhddiZz7pesKLOBBSigk7Ra4fZEGOZtTB6EpIpYJ/LRXuSwoJ
-         uhW/m7cISvvBspB+lR4UaBoza+8MtPrPIwYjsrUDG8GjTHXBEy9DRGQOOae4TP9hhPII
-         9lgd8c8dJi7cNkPnbHRTCniZYbSY4KyhNZ7x+YEOS1qWTVeIiSshUnjcw3HvOkyZlsw1
-         E4jLliOm567HpQnt8CaP51mIbc9d6X6T5HeErDsB34kW5dSQzSTTY7wklLOyqdKxXCwr
-         LaSK3sAsHnFeYzN1Ew6HrqKlLZsF7hgzIf0eVRM4e2y0jYdD5p3U7g4sy/rm0xlm1exv
-         EHMg==
+        bh=u4nTXiGvoLBPJ6m6vBAshKxDWZY7SBPxeVPpU162HBU=;
+        b=sTqb2z+Ot/B3iVi+LnWhL32Lbw/KBWJT8Nl/gLMpAslqtMx1sopqaITkjS/bC9tz2a
+         oMmWG2xiahslalTLRYjLCx7AHb/oUXDC/7gnoI79oOqpVZF3sjaeRgvGdkERzNMWcrGg
+         MZHWbGpaOJyeqiMP471einPsifL6/nuAzOdE7gBMFvq/oeQybdZ0BkjUiXk3joRvqGiT
+         WGsROdgKOIoNFsdscRwWsP/CF1LJVluuJjTx2W2iIb62Cm5hQ5ZBOEp0T0Sa3dcUjlb7
+         uv8eu6CoaXeF+rjFA5TEqXyzKN2I550LLOcG9BMHrss6JdP5FADjqvtZ1W0TE0YGvCbw
+         XPGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794030748; x=1794635548;
+        d=1e100.net; s=20260707; t=1794030759; x=1794635559;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cOkMQ7/E4scC+Fe1w2CQgNpHvbECQcUaydXqIgQCyRQ=;
-        b=0o07lt5qgb/pIqbKoNoWqzv7EAfsfVx+H7yS3SPA5ATGUMtqE5Ut6AZ2y5htp8rolU
-         6JCZpjzSxYJEJjSf5gDaSrScb/fEg/xxdsgdIONv5ITzCUngkNdXyuQ2dVDx4FxI+Dj+
-         iEhrgaN52GWIiIoyhS32STumhtKqEEIEBlS/6BTyAt9AMsMAHHn93CoULvDcSfR30qeI
-         szGPZHJ2avCXVI0gBuyUgPF6htSSIeiTs6CmWNVVXmgCRSxTZChodrbP6UTG0378dbRR
-         RZidE96sDh5qsnTBMZUekqNCqeZGKySPdGrrlMTKEGQJLcvZPePdssv7FE3hW/HfD3Et
-         uKqg==
-X-Forwarded-Encrypted: i=1; AL+hErHzumrKdQ2///8qop7hvgALrwLSAy6iZccSzpkyBC5w9D3Os9Mcrl3FVuuFYrFLaeal0b2HKzyROYHGByY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wYMbnYrP7/l2i2NtfQZgoBjrEpmRFUH4OFpSARhR8PM4N4PT0
-	PVGgeVVS++q8ZRc0UZK3Wog19Pjqr9UM/B3sddhT2b3ZWaThuZ9uw9F0
-X-Gm-Gg: AYBFou0BktRvdKTEZdDxJOfXda+H5bukDU8kpur43fL5CtXauRQvMILHZ67+0LRId0K
-	lA5r1FoLrDFg2nZNwjUBmFoKCEmE3XobW2DQ6GOttkyhh4JaHwjBs0sJfEtP5gK8aSc7kbA70ww
-	mdj0OEOBP8f7DFsslZctpDGpnAXMUtCCfTGNOGYQT4w4FVnbIRklKAg92qf7wnlJ1ptmaRG8YVH
-	rI+tEkJM8htCLUTRDHQ00KAtkAOpdiJGpJvrbt5TkBGWYhieMY0nrPWDRUVSbCCstk5L5v4A3GB
-	M0NgvdYFWyoiald4gwfIrBYV9+EJQNK7Ay0G0Q/t37aPIswLwQNHlZh7FBynr5I0CmKThLxyXOt
-	eB24/vOMpQS0sX2L6vUPJIwxXYeUk+YL7AZnQj8b9EM3/cVrDta0wdUbr15jqk52VAZy43upcvz
-	W0kY2S6/BStrIy6MKTsc/HwdCfi9c8wg/MvZplcyASx8UK4PF1H3YMZ8WZad5aPtwxNCt2uiKMp
-	385MBVs3KDslQ0UUUqwwWE5MjjUxpTEVB+Nb2nxcxxdYvEhTKXfbswvtdoo0vf4lvEt7/FZYRyt
-	MOGbjiDwgWaEzs1YAK2vFyId1+eK7+13HkVlipUXEYbai8CoMRkltSP89IFdWTi8tkSIzg==
-X-Received: by 2002:a17:902:d584:b0:2e9:776c:d52e with SMTP id d9443c01a7336-2ed41c0ab5dmr51284825ad.52.1794030747981;
-        Fri, 06 Nov 2026 21:52:27 -0800 (PST)
+        bh=u4nTXiGvoLBPJ6m6vBAshKxDWZY7SBPxeVPpU162HBU=;
+        b=sV4ko37hnBDZCYY9PEg28cCmxtgVm38R20jphhZ6b5bUodmsoYRph93TWw5IEricXX
+         Xk3dmQZmEWoui+DVUC4wzbT2/5YAsjQQf1I9AFgA4SEuhRBweBG+j0dMznxaGgGC7RAx
+         gfmelSo21QBfsnodQcSj/jVAJr4g4yvANJMyvXqiVw6OZvMcZ9AmCvMA5XlImdnpEtBZ
+         tqhua048C6zZ3RDChlnEO5ZgX0hVOK5GYfPJ6DUgl3vomK5KtvCmkcQrn3cvkxhVip3r
+         Nd2d4NVMhZpLm4DmttsO+4tBBQ0AFolMFqjZd+uZYY7atx9cQfcs1jSjHe/wbRGY6n5M
+         rIQQ==
+X-Forwarded-Encrypted: i=1; AL+hErH4dJfcr+CyHLlk34jbIcqX3i5SGYFumefBSTFKoSel6kRgpda6X+pPvvN0gJgHYKtq5QuUF44nQGO8bdk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JUiu0oJWJNgNKF1qnuWb+1UC5poo26HdY9N+6ECi0xOFptcNe
+	tyaMwpFdUhpFT0dwvxjsijrrpTjISf22NP8S4i5h1GrGSv6TxVVwtOnu
+X-Gm-Gg: AYBFou3QpLk0RGWHbChAROzGas9ODATaEuCWTfhiJGynRJfUFBmIn+1Pn0VYItjiniQ
+	qkI/eLc1YyVNiTq5a7neNY9CmYPyVCTI2+r0/3QPLrA41FqqQo84BBu6+BW4QtoiI23MWMB6c6u
+	RoSRPgDwdEnE8AZMtq8jRCeDEivyFxjsf+IhC9EOJIzr2hEBtnJGSybZiKD8K+bnW0CRQFP3oo/
+	xE/sKtBEMy2+6pechoEsawPAcA5/HDfh3BXldEoxgrUbUoIl1mi9silixcK3vAl1cB37Y1FZBYC
+	yRqf3hSx4Rmh3W7jSJqeG2WpElMW7NCYsOt8Z5pgAv6HZv+U0wG/fFpfEMUBJ8HlZMQ4waqqps/
+	3x6UiT9UI5dDU27QNEVKLAkN+6fDtibKrQxm2s98nI4GBroERnt3e0C56BNINsU+0oZBS1UzSA0
+	UPCBP/ubFVpSxsjKpTMvB70RChtkLt/cdfvIFaWOk/D5aQyozwc2DXHJg+mB7Lt8nUPHdxOnmiA
+	CKQ1nVWNh/SIdV/TOFgKtj1di86YUVuEEKHrQXrgZNlLPVKM+PA1ij55K+Ff8ye48JO+qUuGzI1
+	Doa8+D6YFyGLDLoM2ImHXwSTgJymnIon62EUegwYTpJ6p8WjOzd8kXBnok2ohYYFiPBK6A==
+X-Received: by 2002:a17:903:1a30:b0:2ed:18cc:d3b3 with SMTP id d9443c01a7336-2ed405ee120mr57893445ad.6.1794030758978;
+        Fri, 06 Nov 2026 21:52:38 -0800 (PST)
 Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:a1a:7bc2:20ba:a479])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d8949fsm11189465ad.62.2026.11.06.21.52.18
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d8949fsm11189465ad.62.2026.11.06.21.52.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:52:26 -0800 (PST)
+        Fri, 06 Nov 2026 21:52:37 -0800 (PST)
 From: Li Pengfei <ljdlns1987@gmail.com>
 X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
 To: rostedt@goodmis.org,
@@ -93,9 +93,9 @@ Cc: mathieu.desnoyers@efficios.com,
 	zhangbo56@xiaomi.com,
 	lipengfei28@xiaomi.com,
 	lkp@intel.com
-Subject: [PATCH v8 3/5] tracing: Add stackmap statistics interface
-Date: Sat,  7 Nov 2026 13:51:37 +0800
-Message-Id: <20261107055139.3138633-4-lipengfei28@xiaomi.com>
+Subject: [PATCH v8 4/5] Documentation: tracing: Document the ftrace stackmap
+Date: Sat,  7 Nov 2026 13:51:38 +0800
+Message-Id: <20261107055139.3138633-5-lipengfei28@xiaomi.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261107055139.3138633-1-lipengfei28@xiaomi.com>
 References: <20261107055139.3138633-1-lipengfei28@xiaomi.com>
@@ -112,189 +112,245 @@ Content-Transfer-Encoding: 8bit
 
 From: Pengfei Li <lipengfei28@xiaomi.com>
 
-Add stack_map_stat to report the map generation, the elements used, the
-stacks recorded as a cookie, and the stacks the map could not store
-because the element pool or the probe limit was exhausted, so that users
-can tell when the map is too small.
+Describe how to use the stackmap, how reset and free behave, and how to
+resolve a trace that spans resets. List the option in ftrace.rst.
 
 Assisted-by: LLM
 Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
 ---
- kernel/trace/trace.c          |  4 ++
- kernel/trace/trace_stackmap.c | 78 +++++++++++++++++++++++++++++++++++
- kernel/trace/trace_stackmap.h |  1 +
- 3 files changed, 83 insertions(+)
+ Documentation/trace/ftrace-stackmap.rst | 192 ++++++++++++++++++++++++
+ Documentation/trace/ftrace.rst          |   6 +
+ Documentation/trace/index.rst           |   1 +
+ 3 files changed, 199 insertions(+)
+ create mode 100644 Documentation/trace/ftrace-stackmap.rst
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index cdae2976d224..e58e7936c867 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -2197,6 +2197,9 @@ static __init void stackmap_init_tracefs(void)
- 		return;
- 	}
+diff --git a/Documentation/trace/ftrace-stackmap.rst b/Documentation/trace/ftrace-stackmap.rst
+new file mode 100644
+index 000000000000..58af7c564b10
+--- /dev/null
++++ b/Documentation/trace/ftrace-stackmap.rst
+@@ -0,0 +1,192 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++======================
++Ftrace Stack Map
++======================
++
++:Author: Pengfei Li <lipengfei28@xiaomi.com>
++
++Overview
++========
++
++The ftrace stack map provides stack trace deduplication for the ftrace
++ring buffer. When enabled, instead of a full kernel stack trace event
++(typically 80-160 bytes) for each stack the map can store, ftrace writes a
++fixed-size event of 20-24 bytes, depending on the architecture, that holds
++a 64-bit cookie: the map generation in the high 32 bits and the slot index
++in the low 32. The full stacks are kept once in a separate hash table and
++exported via tracefs for userspace to resolve.
++
++It is similar to eBPF's ``BPF_MAP_TYPE_STACK_TRACE``.
++
++Configuration
++=============
++
++Enable ``CONFIG_FTRACE_STACKMAP=y`` in the kernel config.
++
++The map holds up to 16384 distinct stacks. It is allocated when the
++``stackmap`` option is first enabled; if the allocation fails, enabling
++the option fails with ``-ENOMEM``. The map stays allocated while the
++option is turned off, so a trace can still be resolved, until ``free``
++is written to ``stack_map``. On a 64-bit kernel the map takes about
++8.6 MiB.
++
++Usage
++=====
++
++Enable stack deduplication for event stacks::
++
++    echo 1 > /sys/kernel/tracing/options/stackmap
++    echo 1 > /sys/kernel/tracing/options/stacktrace
++    echo 1 > /sys/kernel/tracing/events/sched/sched_switch/enable
++
++The function tracer records stacks through its own option instead of
++``stacktrace``::
++
++    echo vfs_read > /sys/kernel/tracing/set_ftrace_filter
++    echo function > /sys/kernel/tracing/current_tracer
++    echo 1 > /sys/kernel/tracing/options/func_stack_trace
++
++The trace output will show ``<stack_id N gen G>`` instead of full stack
++traces, where N is the slot and G the map generation::
++
++    sh-1234 [006] d.h.. 123.456789: <stack_id 42 gen 1>
++
++Stacks are not always replaced. A stack deeper than 64 frames, a stack
++recorded before the map is allocated or during a reset, a stack that
++another context is inserting at the same moment, and a stack the map
++cannot store (element pool exhausted, probe limit, or ring buffer
++reservation failure) are recorded in full. A trace can therefore contain
++both ``<stack_id N gen G>`` records and full ``<stack trace>`` records.
++With the option enabled, a stack recorded where RCU is not watching is
++discarded.
++
++To view the actual stacks::
++
++    cat /sys/kernel/tracing/stack_map
++
++Output format::
++
++    stack_id 42 gen 1 ref 1337 depth 8
++     => schedule+0x48/0xc0
++     => schedule_timeout+0x1c/0x30
++     ...
++
++``ref`` is the number of times the stack was recorded as a cookie since
++the last reset. It is not decremented when events leave the ring buffer,
++and it saturates at ``INT_MAX``.
++
++To view statistics::
++
++    cat /sys/kernel/tracing/stack_map_stat
++
++Output::
++
++    generation: 1
++    entries: 2500
++    capacity: 16384
++    successes: 148923
++    fallbacks: 0
++
++``entries`` is the number of map elements reserved since the last reset;
++an insertion in progress can make it briefly exceed the number of records
++in ``stack_map``. ``successes`` is the number of stacks recorded as a
++cookie. ``fallbacks`` is the number of stacks the map could not store
++because the element pool was exhausted or the probe limit was reached;
++those are recorded in full instead. The other cases above are not
++counted. A growing
++``fallbacks`` count means the map is too small or too crowded; a reset
++makes room again. The file is empty while no map is allocated.
++
++To reset the stack map::
++
++    echo 0 > /sys/kernel/tracing/stack_map
++
++To release the map once the option is off::
++
++    echo 0 > /sys/kernel/tracing/options/stackmap
++    echo free > /sys/kernel/tracing/stack_map
++
++``free`` fails with ``-EBUSY`` while the option is enabled. A ``stack_map``
++file opened for reading before ``free`` keeps the old map. ``free`` blocks
++until all such files are closed, then releases the memory, so a process
++that has one open must close it first. If ``free`` is written through a
++file that is also open for reading, that file is not waited for: ``free``
++returns and the memory is released when that file is closed. If the writer
++is killed while it waits, the map has already been removed, and its memory
++is released when the last such file is closed.
++
++Reset clears the map without touching the trace buffer, and tracing does
++not have to be stopped. Reset and ``free`` both leave cookies in the trace
++buffer; the generation changes, so those cookies no longer match the map.
++A cookie only resolves against ``stack_map`` records of the same
++generation. The generation in a cookie is 32 bits. It only has to tell
++resets apart, and wraps after 2^32 resets and frees.
++
++To resolve a trace that spans resets, save ``stack_map`` before each
++reset. ``stack_map`` is not a snapshot of concurrent insertions: a read
++can include stacks inserted while it is in progress and can miss stacks
++inserted into slots it has already passed. A reader that spans a reset
++can get records of two generations across separate ``read()`` calls; the
++``gen`` field shows this. Stop tracing across the copy and the reset if
++every record must resolve.
++
++Boot-time activation
++====================
++
++The stackmap option can be enabled from the kernel command line::
++
++    trace_options=stackmap,stacktrace
++
++The map is then allocated when tracefs initializes. Stacks recorded before
++that are recorded in full. If the allocation fails, the option is turned
++off and a warning is printed.
++
++The stack_map files
++===================
++
++``stack_map`` (mode 0640) and ``stack_map_stat`` (mode 0440) exist when
++``CONFIG_FTRACE_STACKMAP`` is enabled, also before the map is allocated.
++While no map is allocated, both are empty. Writing ``0`` to ``stack_map``
++resets the map; writing ``free`` releases it.
++
++Design
++======
++
++The stack map is modeled after ``tracing_map.c`` (used by hist triggers):
++
++- **Lookup/Insert**: Lock-free via ``cmpxchg``, safe in NMI and IRQ context
++  where RCU is watching
++- **Memory**: Pre-allocated element pool, no allocation on the hot path
++- **Collision**: Linear probing with a 2x over-provisioned table; probe
++  length is bounded so worst-case insert/lookup is O(1)
++- **Scope**: Top level trace array only
++- **Hash**: 32-bit jhash with a per-map random seed; full ``memcmp``
++  confirms matches
++
++The map holds at most one copy of a stack per generation. When a lookup
++reaches a slot with the same hash whose element is not yet published,
++another context is inserting that stack, or another stack with the same
++hash. The lookup does not wait, because in NMI context it may have
++interrupted that insert, and it does not add a second copy; that one stack
++is recorded in full instead. A context that loses the ``cmpxchg`` for a
++free slot re-reads the slot for the same reason.
++
++Differences from ``tracing_map``
++--------------------------------
++
++The table, the element pool and the probing follow ``tracing_map``. The
++stack map differs where its callers differ:
++
++- ``tracing_map_clear()`` requires its caller to keep inserts out. The
++  stack map does this itself: new callers are kept out and admitted ones
++  are drained with RCU before the map is cleared, so a reset can be
++  written to ``stack_map`` while tracing is active.
++- An insert that meets an unpublished element of the same hash records
++  the stack in full, which loses nothing. ``tracing_map`` spins instead,
++  since a lost insert there is a lost histogram update.
++- Probing stops after 64 slots, so a slot claimed without an element can
++  stay claimed. ``tracing_map`` has no probe limit and releases such a
++  slot, so that its loop always reaches a free slot.
++- The cookie is the slot index, so it stays valid while the map is not
++  reset; ``tracing_map`` hands out element pointers.
+diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
+index 84f06bf0da9b..f90cf7575458 100644
+--- a/Documentation/trace/ftrace.rst
++++ b/Documentation/trace/ftrace.rst
+@@ -1396,6 +1396,12 @@ Here are the available options:
+ 	When set, a stack trace is recorded after any trace event
+ 	is recorded.
  
-+	trace_create_file("stack_map_stat", TRACE_MODE_READ, NULL,
-+			  &global_trace, &ftrace_stackmap_stat_fops);
++  stackmap
++	When set, a recorded stack trace is replaced by a cookie that
++	refers to a single copy of the stack in the stack_map file.
++	Only for the top level trace array. See
++	Documentation/trace/ftrace-stackmap.rst.
 +
- 	guard(mutex)(&trace_types_lock);
- 	stackmap_state = STACKMAP_INIT_READY;
- 	/* trace_options=stackmap on the command line */
-@@ -4399,6 +4402,7 @@ static const char readme_msg[] =
- #ifdef CONFIG_FTRACE_STACKMAP
- 	"  stack_map\t\t- Stacks recorded as cookies with options/stackmap\n"
- 	"\t\t\t  Write '0' to reset it, 'free' to release it\n"
-+	"  stack_map_stat\t- Usage of the stack map\n"
- #endif
- #ifdef CONFIG_DYNAMIC_EVENTS
- 	"  dynamic_events\t\t- Create/append/remove/show the generic dynamic events\n"
-diff --git a/kernel/trace/trace_stackmap.c b/kernel/trace/trace_stackmap.c
-index b02eb22c76a9..5d2a406f39b9 100644
---- a/kernel/trace/trace_stackmap.c
-+++ b/kernel/trace/trace_stackmap.c
-@@ -42,6 +42,8 @@ struct ftrace_stackmap {
- 	atomic_t		resetting;
- 	u32			generation;
- 	refcount_t		ref;
-+	atomic_long_t __percpu	*successes;
-+	atomic_long_t __percpu	*fallbacks;
- };
- 
- /* Serializes tracefs readers against reset. */
-@@ -73,6 +75,8 @@ static struct stackmap_elt *stackmap_get_elt(struct ftrace_stackmap *smap)
- 
- static void ftrace_stackmap_destroy(struct ftrace_stackmap *smap)
- {
-+	free_percpu(smap->fallbacks);
-+	free_percpu(smap->successes);
- 	vfree(smap->elts);
- 	vfree(smap->entries);
- 	kfree(smap);
-@@ -100,6 +104,14 @@ static struct ftrace_stackmap *ftrace_stackmap_create(void)
- 	if (!smap->elts)
- 		goto fail;
- 
-+	smap->successes = alloc_percpu(atomic_long_t);
-+	if (!smap->successes)
-+		goto fail;
-+
-+	smap->fallbacks = alloc_percpu(atomic_long_t);
-+	if (!smap->fallbacks)
-+		goto fail;
-+
- 	smap->hash_seed = get_random_u32();
- 	smap->generation = stackmap_next_gen;
- 	refcount_set(&smap->ref, 1);
-@@ -149,6 +161,7 @@ static void stackmap_put(struct ftrace_stackmap *smap)
- static void stackmap_reset(struct trace_array *tr)
- {
- 	struct ftrace_stackmap *smap = stackmap_locked(tr);
-+	int cpu;
- 
- 	if (!smap)
- 		return;
-@@ -161,6 +174,10 @@ static void stackmap_reset(struct trace_array *tr)
- 		memset(smap->entries, 0, sizeof(*smap->entries) * smap->map_size);
- 		memset(smap->elts, 0, sizeof(*smap->elts) * smap->max_elts);
- 		atomic_set(&smap->next_elt, 0);
-+		for_each_possible_cpu(cpu) {
-+			atomic_long_set(per_cpu_ptr(smap->successes, cpu), 0);
-+			atomic_long_set(per_cpu_ptr(smap->fallbacks, cpu), 0);
-+		}
- 		smap->generation++;
- 	}
- 
-@@ -194,6 +211,11 @@ static int stackmap_free(struct trace_array *tr, struct ftrace_stackmap *self)
- 	return ret;
- }
- 
-+static void stackmap_count(atomic_long_t __percpu *counter)
-+{
-+	atomic_long_add_unless(this_cpu_ptr(counter), 1, LONG_MAX);
-+}
-+
- bool ftrace_stackmap_get_cookie(struct ftrace_stackmap *smap,
- 				unsigned long *ips, unsigned int nr_entries,
- 				u64 *cookie)
-@@ -254,8 +276,10 @@ bool ftrace_stackmap_get_cookie(struct ftrace_stackmap *smap,
- 		probes++;
- 	}
- 
-+	stackmap_count(smap->fallbacks);
- 	return false;
- found:
-+	stackmap_count(smap->successes);
- 	*cookie = ((u64)smap->generation << FTRACE_STACKMAP_COOKIE_GEN_SHIFT) | idx;
- 	return true;
- }
-@@ -415,3 +439,57 @@ const struct file_operations ftrace_stackmap_fops = {
- 	.llseek		= seq_lseek,
- 	.release	= stackmap_release,
- };
-+
-+static int stackmap_stat_show(struct seq_file *m, void *v)
-+{
-+	struct trace_array *tr = m->private;
-+	struct ftrace_stackmap *smap;
-+	u64 successes = 0, fallbacks = 0;
-+	int cpu;
-+
-+	/* Reset and free also take trace_types_lock. */
-+	guard(mutex)(&trace_types_lock);
-+	smap = stackmap_locked(tr);
-+	if (!smap)
-+		return 0;
-+
-+	for_each_possible_cpu(cpu) {
-+		successes += atomic_long_read(per_cpu_ptr(smap->successes, cpu));
-+		fallbacks += atomic_long_read(per_cpu_ptr(smap->fallbacks, cpu));
-+	}
-+
-+	seq_printf(m, "generation: %u\n", smap->generation);
-+	seq_printf(m, "entries: %d\n", atomic_read(&smap->next_elt));
-+	seq_printf(m, "capacity: %u\n", smap->max_elts);
-+	seq_printf(m, "successes: %llu\n", successes);
-+	seq_printf(m, "fallbacks: %llu\n", fallbacks);
-+	return 0;
-+}
-+
-+static int stackmap_stat_open(struct inode *inode, struct file *file)
-+{
-+	struct trace_array *tr = inode->i_private;
-+	int ret;
-+
-+	ret = tracing_check_open_get_tr(tr);
-+	if (ret)
-+		return ret;
-+
-+	ret = single_open(file, stackmap_stat_show, tr);
-+	if (ret)
-+		trace_array_put(tr);
-+	return ret;
-+}
-+
-+static int stackmap_stat_release(struct inode *inode, struct file *file)
-+{
-+	trace_array_put(inode->i_private);
-+	return single_release(inode, file);
-+}
-+
-+const struct file_operations ftrace_stackmap_stat_fops = {
-+	.open		= stackmap_stat_open,
-+	.read		= seq_read,
-+	.llseek		= seq_lseek,
-+	.release	= stackmap_stat_release,
-+};
-diff --git a/kernel/trace/trace_stackmap.h b/kernel/trace/trace_stackmap.h
-index 6699988da390..a18e41c08494 100644
---- a/kernel/trace/trace_stackmap.h
-+++ b/kernel/trace/trace_stackmap.h
-@@ -18,5 +18,6 @@ bool ftrace_stackmap_get_cookie(struct ftrace_stackmap *smap,
- 				u64 *cookie);
- 
- extern const struct file_operations ftrace_stackmap_fops;
-+extern const struct file_operations ftrace_stackmap_stat_fops;
- 
- #endif /* _TRACE_STACKMAP_H */
+   branch
+ 	Enable branch tracing with the tracer. This enables branch
+ 	tracer along with the currently set tracer. Enabling this
+diff --git a/Documentation/trace/index.rst b/Documentation/trace/index.rst
+index 5d9bf4694d5d..ac8b1141c23a 100644
+--- a/Documentation/trace/index.rst
++++ b/Documentation/trace/index.rst
+@@ -33,6 +33,7 @@ the Linux kernel.
+    ftrace
+    ftrace-design
+    ftrace-uses
++   ftrace-stackmap
+    kprobes
+    kprobetrace
+    fprobetrace
 -- 
 2.34.1
 
