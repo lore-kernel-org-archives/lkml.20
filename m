@@ -1,97 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794071905;
-	b=4AJIjg/RULMsNhY5wGgNs/6VpF4lfrD2qhgUDZPjtaxNuuYftkV3LrmyS1G5s2vyGBD0
-	 cfVv7MsnC9YJu57zTlVvIF/tjJvoj6lai/eHmcGw1ScqC1+QorUnndoZdbe57GbyGXEkf
-	 Mo1sf0ksemDdTbxgF6t36RZMxHg1sp5Fk0U/yOPwrr2z2LzT79pYIjTZ6x2p0gOPPC+1K
-	 nv85fgOb6pW44iRxc/ciCKWJX7BoVLp4LZVyzym2Y7Xyyr37euV7KnPAGeniqIG2P+AMi
-	 YR4RtcaqjyZoJBPnFAVY+dn9t80m5/AquWGdTUBP/jwEJPc/5Yne+JdhEmYFn8/A+EQ==
+	t=1794071939;
+	b=hTVy8bb2GB1FnnsOgw7wLdjvpGZhT63BiHb1oUhq2BAvZC2wc6wWOd6nFesfN6Ugs+Nt
+	 de1OvJlzTzeK+xZpKOgKw7NgJk+ei/pa+NIJ9KnXfRnr3DoXM5rakBNO7BvVEgViftvrh
+	 Wh4Vui4EqykMgFt08Jn+AAnXnpqfE1vTPVpvXux8CAVwWmJDk+S3G2jOgHc+VLQv01EN5
+	 xz+PZJ+3LLzOWqwuST42ufE7c+IWDJgkY+2Kbt3e2FspDfQ6rGhnz1XbBFI8U/Y7w/hSn
+	 EX14Hw/DkpJuu8GshrxbVaHlDKdrTbx1AXLCztMw6KG8g5NNHJ+beV6iv316Ty3w2eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794071905;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GzJZLxK0N1nyYDcTPn6m0/DSL3brMWaSJHk89v88tFE=;
-	b=KqW2O7aNAKp35/ML3FAQgiQhaHbc3jBPTtYyClhnPIx9kHLW91GULkLffNosLk8y/C33
-	 inze1fNmwh3eBNDDEKhfartR4/5pxZvdI+7qpRMUEYkzcxjdtRohZNRuCUs9gHY9auGk+
-	 uxvVjCLP5MEpO6SkHSr6uPBjdNZZ7kLNFOXkIvYjv4QBJCAkfIrTOQT6BPqwpMFHllL56
-	 33cKSvEKl9L2CpK8noumn6Df+ZBAXB+/+oSeDrhanw+hTRdduicbHmWgzBImzeESEJRUQ
-	 CucjOfWREDjfbCtuS85/2+0j4uJhEkLJt8fw+eoSyaxqJ7o8ruOxt3x/PKMTE4oK4Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794071939;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=i0EgZ8Yfz6pkJgZyBs7peXGWo7SB2ASDmUP9uK36Nkc=;
+	b=DSSm0WtjL46nXUgUigOGIvS8VOhMXUDUYwddmBs7jZwL13V2mMP8wKo2u75KXrB8TbEh
+	 ute6mUnX2KTigLV/dL1pDcN9PRR9hrjFwDcLWdIeekZmN1gGJlZnvk8Vsw/ovqsJAq1cp
+	 U0YZx2hBYYjPS1RoTnNai+GF8I5c2IfTFTnjtIzx3smeNW256JX+Xq3BkNPk0iPjoerHq
+	 RGPWD83kyJBjVYAghH9QwqtBBaE6TrUO+MheXGyFtQg+uM4Jrg18AwcZ9ic4G3OvgRLh4
+	 StUZA05Omhkn7PxIZIonWhRsJ09OooOVWHCIbRNIyDdoIsITnn9eFYmXAodldnup5Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meeIzSY7;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Gq1btOFo;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FCC606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5FCC606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8AA606A326;
+	Sat,  7 Nov 2026 17:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D8AA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meeIzSY7
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e4831c028so1675833f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:18:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794071903; x=1794676703; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GzJZLxK0N1nyYDcTPn6m0/DSL3brMWaSJHk89v88tFE=;
-        b=meeIzSY7RiL12Tn3Dqy72t250PR3HKMAjCIPHV4Omp6Mw3jPK4J3zRT8GCOtu5xHcc
-         7pbvxi83nXPIbAcHu2iQaTzNHsPBAsGfbvnuVzokTJjkn4ohQsqtVt4bZ/lweyutZ91Y
-         32vE9QA/inLVmrEbueeW5OPZUoq/vGZtQzZmgl9OIwrw4V4KFl2Q3JniZ/qg9w6kbGxC
-         SSUyIfn+ifg2OPg4AiA/jGXOU8gj3nmMsCmKI+gKnXUZ2wN3eEXMwWhxPWOT/UN1JdCT
-         Z9Pr6Tse8nRiazmtN3PjIw+NqOPcIgOdncSpQ1KARz47z80F/45HJux7AAhZf5AHVO9J
-         yDzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794071903; x=1794676703;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GzJZLxK0N1nyYDcTPn6m0/DSL3brMWaSJHk89v88tFE=;
-        b=tOCM6HpY3VmTIPs53Ty4r8nkEy6DQIrZ238ShK626mPNdgv3oiI8hkH+Kf8ncqPqBq
-         z9+iVgCzOLpDvKFY3l1L8BczGFNHJ+jr6/8jbxPdhwTced44W2SoXTRifc96La1TmZ9C
-         gLebwucptUpZnqlsPlGc/DahreGFcRthz/Fn9+bcaPdmwmrMF+2TR6eF9kMM9bm3et8q
-         4n7v9CCtihhEp0n5KauDVgBaqt4jtjmo59aP74J+d+BQyz7HrTHmVy/2VXp3/1TITTHn
-         3jHHiLOmUl4Oc51YC+8zUZxEOoq8MoTYKJVH4/uWiWiJcaOaUEMuLt4EHFb/X03fZTsS
-         esQw==
-X-Forwarded-Encrypted: i=1; AL+hErEUWODQ2LNX3iZ+bxnxypswC2fgQUVVwholwfz0zZmILT76XwhqqUkd1biW7Nu61tjdtCpn5H3vINv5FZY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vvTo3HgXRpcJCV5+UKPdS/k6Reqtb8a2IxMd6+aSN/6ZhNWuR
-	01jvAm5TjqQko3PxqocjqrD+r5aLvXqu0W4Lro/5YOBFtHh7pIwS8Jw=
-X-Gm-Gg: AYBFou0hjm3nRTdl/Oh4uPUWdnYfFPobUEDIvgHoQ1W1l7s5LbOzj7wtzoVNiEZ1Amb
-	aUA79SDsJD5mM2cbHmPalYEI+tRGDQLSg7tZkw0cNpLTF6tMPMA3FyiJpKqgE7WPHzTReYtDpzL
-	zC24xlY8oGlqi384SEzscEYm3YTx5mrVaLFx5UtfS/KS6i6qxAqAweHD3wB8v5/m0p9XVqQVxwh
-	z6L9imEMrTsnW1RcV8ixWK9s/GOagV94yqB9tfU+MUnioTP/uSs4S/YctkiV0eWaVO6ZUuYcpYA
-	LB5ixP8K4ss4OTDWWHbS4AHcYQtblii+5J0k5P0iYJqy3jcJwuk9Cb5paPY39ZvpqYIY4UBP16b
-	hZ19OaIXqEJ0L3vYP1jezxMH1D0hLyjNwdzaH4ZvxJM4xuuXZmzn8lmRIFyPprcifxUCsHb2NPC
-	Y3f+5JDxAYRyrYc3nL2AHGVYcmU2omiUxAOBSlpZc82D921hQU37+I23CmBi9SvAn2VrDnXpBJd
-	bDuFs5fs94XNoEi68EdaTy5Dk3sYjiJvEVTPJMCGxdHJ48jE6Y4AANwQ0CR/GumIUpKg7ne/eWT
-	GUZ4D/118Fd9TOw=
-X-Received: by 2002:a5d:64ce:0:b0:48f:e879:5890 with SMTP id ffacd0b85a97d-492760da597mr10879426f8f.32.1794071902970;
-        Sat, 07 Nov 2026 09:18:22 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc628dsm10434892f8f.48.2026.11.07.09.18.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:18:22 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Bard Liao <bardliao@realtek.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2] ASoC: rt5659: fix teardown order and stale state across card rebind
-Date: Sat,  7 Nov 2026 17:18:13 +0000
-Message-ID: <20261107171813.2561973-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Gq1btOFo
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=i0EgZ8Yfz6pkJgZyBs7peXGWo7SB2ASDmUP9uK36Nkc=; b=Gq1btOFogxZ3JAy+dQDbg26wlB
+	P4bQGUgB2a+jtc4PnytTFq0/eazN5150TCQziTlD3fvBGA5TjUe1Sj+Yh2FPbzDZrlL/ajSaE6crr
+	6U35BgNWDPEoBvzTVHBLtAgb5TqhRrynQJc+Gzb066o1jFkdEZebnJshQauvHk6VpdJs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xPk3x-00Ez6p-Gm; Sat, 07 Nov 2026 18:18:45 +0100
+Date: Sat, 7 Nov 2026 18:18:45 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: me@marleb.org
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/3] net: phy: realtek: return MDIO read
+ errors from hwmon
+Message-ID: <2bb14f43-2c96-4d6c-9dca-fd8d7b2a37f0@lunn.ch>
+References: <20261107-realtek-hwmon-tz-v2-0-6b9a69d44470@marleb.org>
+ <20261107-realtek-hwmon-tz-v2-2-6b9a69d44470@marleb.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,163 +71,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107-realtek-hwmon-tz-v2-2-6b9a69d44470@marleb.org>
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Sat, Nov 07, 2026 at 06:00:46PM +0100, Hleb Shauchenka via B4 Relay wrote:
+> From: Hleb Shauchenka <me@marleb.org>
+> 
+> rtl822x_hwmon_read() masks or shifts the value returned by
+> phy_read_mmd() without checking it and returns success, so a failed
+> MDIO read is reported as a temperature: -EIO reads as -2.5 C and
+> -ETIMEDOUT as -55 C.
+> 
+> Return the error instead. Once the sensor feeds a thermal zone, the
+> thermal core then keeps its previous state rather than acting on a
+> bogus reading.
+> 
+> The problem was found by an AI review of the previous posting, and
+> this patch was prepared with AI assistance (Claude Opus 5.5). It is
+> build-tested only: I could not provoke a failed MDIO read on hardware.
+> 
+> Fixes: 33700ca45b7d ("net: phy: realtek: add hwmon support for temp sensor on RTL822x")
 
-The cleanup in rt5659_remove() does not reset hs_jack, jack_type, or
-the component pointer, and does not mark the regmap cache dirty after
-the codec reset.  On card rebind this leaves a dangling hs_jack pointer
-and causes regmap_update_bits() to skip re-programming jack-detection
-registers because the cache still holds the pre-reset values.
+Fixes are not wanted when targeting net-next.
 
-Only clear headset detection state via rt5659_headset_detect() for
-JD3-mode jacks.  In HDA header mode the SAR, 4BTN_IL, and IL_IRQ
-registers are set up once during I2C probe by
-rt5659_intel_hd_header_probe_setup() and are not re-enabled on card
-rebind, so clearing them in remove would leave mic detection disabled
-after the next bind.
+You need to decide, is this a bug which bothers people, so should be
+for net, have a Fixes, tag and Cc: stable. Or it is a problem which
+nobody cares about, so can be in net-next as just normal development
+work.
 
-Reset the HDA IRQ polarity bits in RT5659_IRQ_CTRL_1 and
-RT5659_IRQ_CTRL_2 to their unplugged defaults before marking the
-regmap cache dirty.  Without this, regcache_sync() on rebind restores
-plugged-in polarity while hda_hp_plugged and hda_mic_plugged are
-false, so the polarity-flip logic in
-rt5659_jack_detect_intel_hd_header() never fires and subsequent
-plug/unplug events do not generate an interrupt.
 
-If the I2C device unbinds without a card bound, rt5659_remove() is
-never called and the IRQ keeps queuing jack_detect_work until devres
-frees the private data.  Register a devm action to disable the IRQ
-and cancel the delayed work on any I2C teardown path.  Guard
-disable_irq() in rt5659_i2c_shutdown() with the irq_disabled flag
-to avoid an unbalanced disable when rt5659_remove() already ran.
+    Andrew
 
-Store the I2C client pointer in rt5659_priv so all paths can
-reference it directly.
-
-Fixes: d3cb2de2479b ("ASoC: rt5659: add rt5659 codec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
-Changes in v2:
-  - Only call rt5659_headset_detect() for JD3-mode jacks; HDA header
-    mode registers are set during I2C probe and not re-enabled on rebind
-  - Reset HDA IRQ polarity bits to unplugged defaults before
-    regcache_mark_dirty() to prevent stale polarity on rebind
-
- sound/soc/codecs/rt5659.c | 47 ++++++++++++++++++++++++++++++++++++---
- sound/soc/codecs/rt5659.h |  1 +
- 2 files changed, 45 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
-index 68f7d5673e190..b28804fa15806 100644
---- a/sound/soc/codecs/rt5659.c
-+++ b/sound/soc/codecs/rt5659.c
-@@ -3660,6 +3660,16 @@ static int rt5659_set_bias_level(struct snd_soc_component *component,
- 	return 0;
- }
- 
-+static void rt5659_i2c_disable_irq_and_cancel_work(void *data)
-+{
-+	struct rt5659_priv *rt5659 = data;
-+
-+	if (rt5659->irq_acquired && !rt5659->irq_disabled)
-+		disable_irq(rt5659->i2c->irq);
-+	if (rt5659->jack_detect_work_inited)
-+		cancel_delayed_work_sync(&rt5659->jack_detect_work);
-+}
-+
- static int rt5659_probe(struct snd_soc_component *component)
- {
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-@@ -3667,8 +3677,10 @@ static int rt5659_probe(struct snd_soc_component *component)
- 
- 	rt5659->component = component;
- 
-+	regcache_sync(rt5659->regmap);
-+
- 	if (rt5659->irq_disabled) {
--		enable_irq(to_i2c_client(component->dev)->irq);
-+		enable_irq(rt5659->i2c->irq);
- 		rt5659->irq_disabled = false;
- 	}
- 
-@@ -3689,17 +3701,34 @@ static int rt5659_probe(struct snd_soc_component *component)
- static void rt5659_remove(struct snd_soc_component *component)
- {
- 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
--	struct i2c_client *i2c = to_i2c_client(component->dev);
- 
- 	if (rt5659->irq_acquired) {
--		disable_irq(i2c->irq);
-+		disable_irq(rt5659->i2c->irq);
- 		rt5659->irq_disabled = true;
- 	}
- 
- 	if (rt5659->jack_detect_work_inited)
- 		cancel_delayed_work_sync(&rt5659->jack_detect_work);
- 
-+	if (rt5659->jack_type && rt5659->pdata.jd_src == RT5659_JD3)
-+		rt5659_headset_detect(component, 0);
-+
-+	rt5659->hs_jack = NULL;
-+	rt5659->jack_type = 0;
-+	rt5659->hda_hp_plugged = false;
-+	rt5659->hda_mic_plugged = false;
-+
-+	if (rt5659->pdata.jd_src == RT5659_JD_HDA_HEADER) {
-+		regmap_update_bits(rt5659->regmap, RT5659_IRQ_CTRL_1,
-+				   0x10, 0x10);
-+		regmap_update_bits(rt5659->regmap, RT5659_IRQ_CTRL_2,
-+				   0x2, 0x0);
-+	}
-+
-+	rt5659->component = NULL;
-+
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
-+	regcache_mark_dirty(rt5659->regmap);
- }
- 
- #ifdef CONFIG_PM
-@@ -4328,6 +4357,13 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 				   RT5659_GP1_PIN_MASK, RT5659_GP1_PIN_IRQ);
- 	}
- 
-+	rt5659->i2c = i2c;
-+	ret = devm_add_action_or_reset(&i2c->dev,
-+				      rt5659_i2c_disable_irq_and_cancel_work,
-+				      rt5659);
-+	if (ret)
-+		return ret;
-+
- 	return devm_snd_soc_register_component(&i2c->dev,
- 			&soc_component_dev_rt5659,
- 			rt5659_dai, ARRAY_SIZE(rt5659_dai));
-@@ -4337,6 +4373,11 @@ static void rt5659_i2c_shutdown(struct i2c_client *client)
- {
- 	struct rt5659_priv *rt5659 = i2c_get_clientdata(client);
- 
-+	if (rt5659->irq_acquired && !rt5659->irq_disabled)
-+		disable_irq(client->irq);
-+	if (rt5659->jack_detect_work_inited)
-+		cancel_delayed_work_sync(&rt5659->jack_detect_work);
-+
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
- }
- 
-diff --git a/sound/soc/codecs/rt5659.h b/sound/soc/codecs/rt5659.h
-index e10b3844501b9..1118e6ab1887d 100644
---- a/sound/soc/codecs/rt5659.h
-+++ b/sound/soc/codecs/rt5659.h
-@@ -1793,6 +1793,7 @@ struct rt5659_priv {
- 	struct snd_soc_component *component;
- 	struct rt5659_platform_data pdata;
- 	struct regmap *regmap;
-+	struct i2c_client *i2c;
- 	struct gpio_desc *gpiod_ldo1_en;
- 	struct gpio_desc *gpiod_reset;
- 	struct snd_soc_jack *hs_jack;
--- 
-2.47.3
-
+pw-bot: cr
