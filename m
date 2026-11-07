@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794072363;
-	b=r1YyiWle/Y29CHndLFoLXR/+nFHsefXVcqrb8lOculmOLEoFmZz8ClJtF53aaIJA96wJ
-	 stgyUkFkXtWCtONsKAgecCSOmB6uILRGblqfN1L2ORZQ2UteVOao63V6kNOmWjyXkULrF
-	 7LllP8qLXecTJikIuL/NR72ODzDjsRhBk9T51pyJgMYktabLfkh1Ah1/P7w2ADdnmQajD
-	 aow1V+U8NYKHV/w235XYN3+rWhxatbp5TvPpEgl2kfZLWu5aDXPAlPqlgFvQtjmS8npDN
-	 seCfJmDIBNREE2hW43oDmX44VN8y8+FfoE3bLps1EMHpsDCunSpK/YHDhWTx/sKRuKg==
+	t=1794072408;
+	b=kgpTv7FrYP2n/YPSadndiaYKVqCwxfEdgDjyAN8r92Qmyf4LGUcMAQGwQeKvh8LydL3X
+	 RL4swpUu6RwQHWruwT0nKQT/YoSHxGqD7IsMzWdQboLPycnuZjc4lllbninyNaLWH5+pJ
+	 VbDZ3uuHUJEUMPztvP5foLqfbDPA2U8rSMwQSOvFJv+i8hORhXSCjs/IoyFZu9IW+IScC
+	 Llz3FQLTUgDrv9VXEjxvgqghy+FZa87oLStyJcYsBut9nczHpdHJVyhRYK4hDQv7ga3JN
+	 lzVYx4H4Z4RJiSxzp5YyvGRktW5E8tSoy9hZ6A38WIMVWRqR3d6EtYPmtSk6TMtPeIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794072363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794072408;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Jlkb43CuhYK9URTlTKbtpRdBwEHEC6l0yC9HgESgF6k=;
-	b=ugL3RnunhgVMZZPE9MOBoBnmCYIa3dtIHIyrpOY8PrUwSs/tQ20jduNnMbgwnUeJz0jA
-	 d31Yyna4dfbwURYgim30hWSZtAgfN5Ti8uQvOcihwbb50houTLyuGzZzrnMYzT1O6JauV
-	 d2mU9TMgrhhRktKNMepKYfRMY/YLwUwIwhmUU4mBsvSRMIfW+aUCJwSveqi4wgeGXEClo
-	 ec0P7OhfyJXC/PuNBm8/xqpiSIP2ErIwBsnA4ie7gAScef7sUUty5KYtFLf28sJhQz4n6
-	 Tj2nvB7vbjmFBgobasM2gbvtGxkBMqR8xmlQaAQvnKlIAr6JoZJ9x2c9sNH7l/0D0lw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XV6wxG2nZJByfpNN3e1VBlwYw+pc47/AaJqMCpAEg68=;
+	b=dzt2LRTkLIhm4ank7qzRtRHfOsgvduf28PQr6fFa/UH8FZ6TYIyA/pLciadVIf33iLLi
+	 IFiyPqXF/rpqRzvVcvdmjL+uwe3ykpqaBX/7pl5rU8NJ8eRM5rPg/35onkbnBGG0fuqsa
+	 Gn1N1jrjqsB0d6h51Nv1kA0A4kE7s4VbJGBVWn4oGefid+Nu4ciQs7oT9bWUFBcQXdmLR
+	 FXmj5ojQ//tfYV92rFiUFa6xUGzGv7ovdfAGAodeIee7osy5fFYtMRYw1kCNtmbAlr6W0
+	 Wc+XqDfHBmHrv977+bl1MWlyGt0k5Is2GSmDvwBce0eiosoKe1XXLb52aDV57YlJwHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=VZ8shri8;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nt4jcXCR;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2808606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2808606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE1F606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:26:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE1F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=VZ8shri8
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4697404c2bso202804666b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:26:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nt4jcXCR
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a210470b49so11133265e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:26:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1794072360; x=1794677160; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Jlkb43CuhYK9URTlTKbtpRdBwEHEC6l0yC9HgESgF6k=;
-        b=VZ8shri8znJS14HH0x05XHoVHDK+ik353JHCMpU28CZ8eUX1wRDaLoDISREGUlHEBW
-         ciaFFQZ9T9Ujk3b69KcsusFM7OVo0I6sV7nA8pbXCMLZgJl2nDze6xWGoRkVDK8Dl7Jk
-         ASFQcY2I0vzQRuQ8p1xc5VoNg/b2fYUBWQivefNptf7+PC17IDAp8j3hCjy3emj1+fkr
-         E8HZs0PZI+HNPn1Y0gIffGHgMmPWiSll9GuP2d8OfbgFd0nvn0Gfj1HjU5mEOf5GukQL
-         74U5bV4URvMpwrYM6LTkz2TVmTpK+rUIEW8aymhWAWtiHVQadYlDG2h06CSjUSADHyVB
-         OK7g==
+        d=gmail.com; s=20260707; t=1794072407; x=1794677207; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XV6wxG2nZJByfpNN3e1VBlwYw+pc47/AaJqMCpAEg68=;
+        b=Nt4jcXCR2I5OQQRcrsTp1xOTUSgtpm9qChh0o8i0Z7Z1IcUMe62Pm0pozzy61U7GKf
+         ycXgJlSOOZG5y6y2XcMXLMMfzJPw5moNZA/UYfKoMusMeDT9fnI4+Aq2RnNEhtk71nzw
+         VdjUTV3pyKOhah/b4fa8Wg+eazW1hJNWju9LI5mz/iOrEjhJYVTbTEiUcO0hvR/JCqtw
+         K/Lv+4mhCrdWOqR98i6CguXtkyhOfEyZQaipQwg5ZzQxZo58WGDT83k5jdMHEMLveNWm
+         woIZhU47y6W4rOFx+y89Z6oF0ZPWwa//3+Gvu22lFhtabzU1t3EgfdKSrgFjoEs/XGeb
+         QvjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794072360; x=1794677160;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jlkb43CuhYK9URTlTKbtpRdBwEHEC6l0yC9HgESgF6k=;
-        b=fnFgA5umpkM/wgHgrcsE7e23Veov157wbG1xVRg8Ox8p+AFq63jXIbpXV4fnLYW5Ns
-         aDY2FpOTWKTuallbQLkQ0hNhamJjvINf2Z5afDYPIAoqLiXhHY4UX3FPGZWxh9zQez2D
-         Ibnf7q7w+OA1roBDfFD4RBDhbZZWxfqkqF6hdCfWM/z/WYN9SS7MYuwlQJlyTO6BPncQ
-         /cnvCVLgTWI0nLhatE0Zf1b8TcVm6htfZEn1JpGeckHwRPcpb6dttC6XYDP0YkvHaE+p
-         8IJ0yXE63hF4/cjfLVGpeBeybXYw7/1xOdVcMizFccwcw48GQBwbf8G38PAHtrA1fmZz
-         3hjA==
-X-Forwarded-Encrypted: i=1; AL+hErGeMlbqluoUpWccAeiZi+5zFPzb93rUT2TcikMitUuEHqNu6Gwt0lifRWvKdToE2ixqh1wl5ajMvoXMDtw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rU1SYJTQ0I+ZaxtjM10YZdJJE8JpAY2XAC2aPdy4kIT8zgwhu
-	eA07x3pK+TmE4rVLgtm9jE3tKVfcPkr2/9k/eCbQEKJ8VjDrPvj2k4eD2acq2KR9mGE=
-X-Gm-Gg: AYBFou27qZdHdij21vf9TSOgWsCeFc/0cWS6wvDK9XsJGfSLLVoq6MkmrmT/J3sGhw3
-	Z20x8B6rPNmmrQQGCr1jPNyoZjRpDi7dsWQLcd8UFmTYo1dWD8fznlCV4dQUF4Dizdq5Rbr0+0p
-	wEn6gTy5vkFizzoFxYf+MeCmbb55X0jsNGAk7JnOpnSNuz0zFIZUmjyFpyzO+6h0ZClsoCz5us/
-	Py/xx17k4ly3Dn9rHvJfGyCK3932Om38YTdX2q9GSkCLwyy2gQGofc5GCZHWAwoCV+EO7Hvwjhp
-	Y4e+fkqXCg/GO3AiwZLz4mqb636mcIPVPAxbxi09ik4y3Gfo0j2dxNULTr0yfnMRhGkrCzsoMmT
-	wjEDICKFkrQPGl4DsTLkCHVtlKUZinwJeYdNM0PSWFy9K/AU1ynKVKamT5k+C5+wazapayhbBtF
-	VkQGqLH9qO6aVajhyLj2l+AeTpUMm6nYO9ol+9HX5W7Ilbu1/s2ixNqDFQSYqIRTVCfPTcJ1tLQ
-	dLYurSoylhWqEQo5bond0AWZEHHDB7/1AdMB3H2jntNW3P+vysNCFBOdXMnwQ52HCZqv5nTFq9A
-	SM0VLzl732B/6S0UFExWrjOHRyw3wYSFJ09AMf0=
-X-Received: by 2002:a17:907:d03:b0:c46:7fa4:9224 with SMTP id a640c23a62f3a-c4d34a649eamr425140966b.8.1794072359468;
-        Sat, 07 Nov 2026 09:25:59 -0800 (PST)
-Received: from localhost ([140.209.217.211])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3569edc9sm165153366b.50.2026.11.07.09.25.58
+        d=1e100.net; s=20260707; t=1794072407; x=1794677207;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XV6wxG2nZJByfpNN3e1VBlwYw+pc47/AaJqMCpAEg68=;
+        b=Ot9h5qy8ovX3wjaN8C0WSA7qrzd6W9nQ/Ki/Bz+NzKQGBtjYJEbCnabSX5cqJAvodc
+         z3X29rt2/qToe/GBCDCVnIi4gmSC9eOLD0nWxXChAZB1Sf76k7iGg0q7+NrZ8IbBSS5y
+         QH/97oNW07XErjlktn9jDn40OQjSsfctQEnlLkAr4XWV0sdcdWXNr3OiCTVohzkxFk6C
+         G1vvOvbmckZs8xv+d61IQLVLX1704N+6o4FXLAiYyUXKigSlUrCrQ24jIh8gGGLrcPPU
+         nwBjQ0UezJxBlalB6Hc0LSDOwc3H+E91yIY9+wCpADVYbFZClmIumfKiU5rmOsLpq56a
+         Dlsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxho3J8at+e3J69NvBh4Qbl6bkqeaRyYi9yXVb2DQ5HpaCP4RB7584AbIHRoTSBKszA2Gnk/qS+Kd3Mk10=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/z+J9BDa5kxTFq/306Czs0xm1g+AXJ7XUw4y7BGSKSKeP9AwZW
+	v+qOBcnrrGTFml4Obr7mptuFRkLjxns80o3D9uUcEJ9thlcQX7m/OWw=
+X-Gm-Gg: AYBFou0tw+HhNQf/U2y44f3n2PF+fVnDBuBT1JCyc5/GqaKrm/xZeanjKRmGwu3DD3Y
+	0Jsl7XOAP4kH2BIhpEHjfJo9pic6HdRkCB05WzfGk1+4xxvJjPQNMn/pi0Q2eggleRbDYlobj6S
+	Ohn3ZiNGoPKjFgUkky3W5yqG8LnGSuYmp8TW7ZAb1ghnuWfdPHu9X5RxubLiBC9JPXaBoMN4HPE
+	cFDpEflVfOY0T9LPO7Y74dp7skfNl+P1Gi/X1APfhXoyeIT2NEaZJzJnX5BJkhXvX94+dp6+bH2
+	1Pn3uXMmroYQNK8HED+s03MwTzQRf/A3jinrhdFn+3Ew9+kf0cPnCkRh6TFLPP8PgB5nxws5R5f
+	jfep2XSqnu+4fip6PNytsoYz264OAuL6k/k5DrlrItDupz1w6f0pQiaHkSCKILuESgZqmj6IiDS
+	ejgrccT5g8w3R1dTJ2ZejFzJAAJBVKBa0zsjASjarsmbBkvxAXCioWanVBgLdBfnPpjan1mKN3k
+	SRy0NVnTNVpVg0xlY21PtWzYCmp/89GAw2gOKRtzzdyTyo8kzzbHe5OzNqk8lgJfLAyJ82mNQ+O
+	5I0vaF0PGKF5rAo=
+X-Received: by 2002:a05:600c:6384:b0:4a1:d537:1c8d with SMTP id 5b1f17b1804b1-4b6dea6a00cmr108689285e9.19.1794072406654;
+        Sat, 07 Nov 2026 09:26:46 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d3d60e78sm10471054f8f.1.2026.11.07.09.26.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:25:58 -0800 (PST)
-Date: Sat, 7 Nov 2026 18:25:54 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, aneesh.kumar@kernel.org
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <au9eskF5P17h3cql@FV6GYCPJ69>
-References: <auuDcABX27EeTApl@e129823.arm.com>
- <20261104194622.GC3889730@ziepe.ca>
- <aux01NUd85PabtZu@FV6GYCPJ69>
- <auyKE2sGqtfjk4v5@e129823.arm.com>
- <auy7IM0_S2tv7EZX@FV6GYCPJ69>
- <au2WdWFOYbPEv0Uj@e129823.arm.com>
- <au3i-0eDzJZaWukx@FV6GYCPJ69>
- <au3mAsQrh0GniXJo@e129823.arm.com>
- <au34wXtIqii-hfFI@FV6GYCPJ69>
- <au3-LyBiCZtUMpEx@e129823.arm.com>
+        Sat, 07 Nov 2026 09:26:46 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Oder Chiou <oder_chiou@realtek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Bard Liao <bardliao@realtek.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	tristan@talencesecurity.com
+Subject: [PATCH v3] ASoC: rt5668: fix teardown order and stale state across card rebind
+Date: Sat,  7 Nov 2026 17:26:37 +0000
+Message-ID: <20261107172637.2729867-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107130651.2059891-1-tristan@talencesecurity.com>
+References: <20261107130651.2059891-1-tristan@talencesecurity.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,194 +104,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au3-LyBiCZtUMpEx@e129823.arm.com>
+Content-Transfer-Encoding: 8bit
 
-Fri, Nov 06, 2026 at 05:19:59PM +0100, yeoreum.yun@arm.com wrote:
->On Fri, Nov 06, 2026 at 05:03:32PM +0100, Jiri Pirko wrote:
->> Fri, Nov 06, 2026 at 03:36:50PM +0100, yeoreum.yun@arm.com wrote:
->> >> Fri, Nov 06, 2026 at 09:57:25AM +0100, yeoreum.yun@arm.com wrote:
->> >> >On Fri, Nov 06, 2026 at 09:27:42AM +0100, Jiri Pirko wrote:
->> >> >> Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
->> >> >> >On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
->> >> >> >> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
->> >> >> >> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
->> >> >> >> >> [..snip..]
->> >> >> >> >> 
->> >> >> >> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
->> >> >> >> >> > +					       const struct ctlv_cursor *request,
->> >> >> >> >> > +					       struct attestation_evidence_request *decoded,
->> >> >> >> >> > +					       struct attestation_evidence_object_request **objects)
->> >> >> >> >> > +{
->> >> >> >> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
->> >> >> >> >> > +	u32 challenge_length;
->> >> >> >> >> > +
->> >> >> >> >> > +	decoded->challenge =
->> >> >> >> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
->> >> >> >> >> > +	decoded->challenge_length = challenge_length;
->> >> >> >> >> > +	if (challenge_length < caps->min_challenge_length ||
->> >> >> >> >> > +	    challenge_length > caps->max_challenge_length)
->> >> >> >> >> 
->> >> >> >> >> Hmm, I'm not sure whether this check is required for
->> >> >> >> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
->> >> >> >> >> 
->> >> >> >> >> for example, if the provider provides two evidence:
->> >> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
->> >> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
->> >> >> >> >> 
->> >> >> >> >> might challenge is reuiqred for generating the token
->> >> >> >> >> and this would be marked at min/max_challenge_size in evidence_cap.
->> >> >> >> >> 
->> >> >> >> >> However, in case of eventlog, it wouldn't require challenge.
->> >> >> >> >> for example, TPM event log or CCEL event log.
->> >> >> >> >
->> >> >> >> >Right
->> >> >> >> >
->> >> >> >> >> Do we need some field on attestation_evidence_supported_object whether
->> >> >> >> >> it requires challenge or not and applies this sanity check per the object?
->> >> >> >> >> 
->> >> >> >> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
->> >> >> >> >> always.
->> >> >> >> >
->> >> >> >> >I wonder if we should have two interfaces here for signed and unsigned
->> >> >> >> >evidence? It would be clearer for userspace then when it needs to
->> >> >> >> >provide a challenge or not.
->> >> >> >> 
->> >> >> >> Isn't the challenge field provided/not-provided enough?
->> >> >> >> 
->> >> >> >> Currently on the introspection side, device-get op would provide
->> >> >> >> challenge-lengths array:
->> >> >> >> 
->> >> >> >>         evidence?:
->> >> >> >>           challenge-lengths[8]:
->> >> >> >>             length?: uint(..4096)
->> >> >> >>             min-length?: uint(..4096)
->> >> >> >>             max-length?: uint(..4096)
->> >> >> >>  	  objects[16]:
->> >> >> >>             blob-class: evidence-blob-class
->> >> >> >>             max-length: uint
->> >> >> >>             blob-instance?: uint(..u32-max)
->> >> >> >> 
->> >> >> >> I think it would make sense to have challenge-lengths array per object:
->> >> >> >> 
->> >> >> >>  	  objects[16]:
->> >> >> >>             blob-class: evidence-blob-class
->> >> >> >>             max-length: uint
->> >> >> >>             blob-instance?: uint(..u32-max)
->> >> >> >>             challenge-lengths[8]:
->> >> >> >>               length?: uint(..4096)
->> >> >> >>               min-length?: uint(..4096)
->> >> >> >>               max-length?: uint(..4096)
->> >> >> >> 
->> >> >> >> Then the unsigned object would just simply have challenge-lengths empty?
->> >> >> >
->> >> >> >This looks good to me. :)
->> >> >> 
->> >> >> The challenge is one of several open points that all depend on what an
->> >> >> evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
->> >> >> "primary", "raw" and the format strings. Here is my proposal to settle
->> >> >> these together:
->> >> >> 
->> >> >> The model:
->> >> >> 
->> >> >> 1. device-get lists each object with an id, a class (signed, event-log,
->> >> >>    cert-chain or auxiliary), the formats it may come in, its max-length
->> >> >>    and, for signed objects only, challenge-lengths.
->> >> >> 2. evidence-get names objects by id, as MR ops name MRs, each with its
->> >> >>    output blob. It carries a challenge exactly when it names a signed
->> >> >>    object, and the challenge has to fit each of them.
->> >> >> 3. The reply gives each object's format, length and, where the TCB
->> >> >>    vouches for it, the TCB's digest. The output is always {label, data}.
->> >> >> 4. A signed object is made by the call, over the challenge, and never
->> >> >>    reused. The rest are read as they stand.
->> >> >> 
->> >> >> This settles following issues discussed during this patchset review:
->> >> >> 
->> >> >> 1. One op, not two. Per-object challenge-lengths tell userspace when to
->> >> >>    pass a challenge, and one call returns the signed object with the log
->> >> >>    and certificates needed to check it.
->> >> >> 2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
->> >> >>    /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
->> >> >> 3. TDX's Quote object lists the legacy and the DICE format. The provider
->> >> >>    labels what the host returned and fails on a Quote it cannot label.
->> >> >> 4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
->> >> >>    spdm-measurements and tdisp-report become formats, and signature
->> >> >>    goes, as a signed object carries its own.
->> >> >> 5. "raw" goes with the representation attr. The TCB digest is a reply
->> >> >>    field, so a blob always holds the object's own bytes.
->> >> >> 
->> >> >> Formats become an enum each provider family defines, instead of free
->> >> >> strings. I'm still unsure if format should be entirely provider-specific
->> >> >> and defined as "extension", or it should be somehow mixture of common
->> >> >> and provider-specific. Looks there is not really much common
->> >> >> anyway, so I lean towards provider-specific only. So far I have:
->> >> >
->> >> >Overall, This is plausible for me with some small question.
->> >> >
->> >> >> 
->> >> >> ======  ============  ==========  =========  ===========================
->> >> >> Family  Format        Class       Challenge  Bytes
->> >> >> ======  ============  ==========  =========  ===========================
->> >> >[...]
->> >> >> tpm     ek-cert       cert-chain  none       EK certificate from NV
->> >> >
->> >> >Just a thought, but how are we planning to retrieve
->> >> >the NV index for EK certificate?
->> >> >
->> >> >As far as I know, TPM NV storage doesn't support labeling.
->> >> >
->> >> >Should I assume that the NV index would be specified as part of the
->> >> >challenge to retrieve the certificate from TPM NV storage?
->> >> 
->> >> evidence-get allows to accept mr-selection as part of the request
->> >> alongside the challenge.
->> >
->> >Sorry. Could you explain a little bit detail for this?.
->> >AFAIU, this is to get the EK certificate from TPM non-volatile storage.
->> >But, I don't know why *EK* certificate get would be relevant for
->> >*mr selection*.  AFAIK, the TPM_Quote will be used AK not a EK.
->> 
->> You are right, my mistake. I misunderstood the question.
->> 
->> mr-selection selects PCRs for Quote, or an extend-NV measurement
->> register for NV Certify.
->> 
->> An NV-resident EK certificate is retrieved using NV_Read. I think
->> blob-instance is a good fit. For TPM certificate objects, it could
->> identify the certificate's NV index.
->
->Ah. I missed the TCG_EK_Credential_Profile specification which defines
->the NV index value for EK certificate:
->
->2.2.1.4 Low Range
->  The Low Range is at NV Indices 0x01c00002 - 0x01c0000c.
->    0x01c00002 RSA 2048 EK Certificate
->    0x01c00003 RSA 2048 EK Nonce
->    0x01c00004 RSA 2048 EK Template
->    0x01c0000a ECC NIST P256 EK Certificate
->    0x01c0000b ECC NIST P256 EK Nonce
->    0x01c0000c ECC NIST P256 EK Template
->
->But, do we need some argument to get which EK certificate to get?
->(RSA or ECC NIST P256)?
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Why blob-instance 0-10 is not good enough here?
+The cleanup in rt5668_remove() does not reset hs_jack, jack_type, or
+the component pointer, and does not mark the regmap cache dirty after
+the codec reset.  On card rebind this leaves a dangling hs_jack pointer
+and causes regmap_update_bits() to skip re-programming jack-detection
+registers because the cache still holds the pre-reset values.
 
+Additionally, headset detection registers from a previous session
+remain cached after the hardware reset.  regcache_sync() on rebind
+restores this stale state, which can leave the SAR source on button
+mode.  Clear the headset state by calling rt5668_headset_detect(0)
+before the codec reset.
 
->
->Otherwise, Is this interface going to print all EK certificate
->regardless of alg?
->
->> >Also, AFAIK, mr_selection is meaningful when the evidence_accept is
->> >supported.
->> 
->> These are independent. mr-selection chooses the measurements included
->> in evidence. EVIDENCE_ACCEPT authorizes a subsequent native transition.
->> The TPM provider can quote selected PCRs without supporting acceptance.
->
->Acked.
->
->-- 
->Sincerely,
->Yeoreum Yun
+If the I2C device unbinds without a card bound, rt5668_remove() is
+never called and the IRQ keeps queuing jack_detect_work and
+jd_check_work until devres frees the private data.  Register a devm
+action to disable the IRQ, set irq_disabled, and cancel both delayed
+works on any I2C teardown path.
+
+Consolidate the IRQ disable and work cancellation into the devm
+helper and call it from rt5668_remove() and rt5668_i2c_shutdown()
+as well, so every path goes through the same sequence and
+irq_disabled stays consistent.  This prevents an unbalanced
+disable_irq() when multiple teardown paths run in succession.
+
+Store the I2C client pointer in rt5668_priv so all paths can
+reference it directly.
+
+Fixes: d59fb2856223 ("ASoC: rt5668: add rt5668B codec driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes in v3:
+  - Set irq_disabled in the devm teardown helper and call it from
+    rt5668_remove() and rt5668_i2c_shutdown() to prevent double
+    disable_irq() when multiple teardown paths run
+Changes in v2:
+  - Clear headset detection state via rt5668_headset_detect(0) before
+    codec reset to prevent stale SAR/button state on rebind
+  - Guard disable_irq() in rt5668_i2c_shutdown() with irq_disabled
+    flag to avoid unbalanced disable
+
+ sound/soc/codecs/rt5668.c | 41 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 33 insertions(+), 8 deletions(-)
+
+diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
+index 29d70802a046a..5bfe5d9546925 100644
+--- a/sound/soc/codecs/rt5668.c
++++ b/sound/soc/codecs/rt5668.c
+@@ -45,6 +45,7 @@ struct rt5668_priv {
+ 	struct rt5668_platform_data pdata;
+ 	struct gpio_desc *ldo1_en;
+ 	struct regmap *regmap;
++	struct i2c_client *i2c;
+ 	struct snd_soc_jack *hs_jack;
+ 	struct regulator_bulk_data supplies[RT5668_NUM_SUPPLIES];
+ 	struct delayed_work jack_detect_work;
+@@ -2213,14 +2214,28 @@ static int rt5668_set_bias_level(struct snd_soc_component *component,
+ 	return 0;
+ }
+ 
++static void rt5668_i2c_disable_irq_and_cancel_work(void *data)
++{
++	struct rt5668_priv *rt5668 = data;
++
++	if (rt5668->irq_acquired && !rt5668->irq_disabled) {
++		disable_irq(rt5668->i2c->irq);
++		rt5668->irq_disabled = true;
++	}
++	cancel_delayed_work_sync(&rt5668->jack_detect_work);
++	cancel_delayed_work_sync(&rt5668->jd_check_work);
++}
++
+ static int rt5668_probe(struct snd_soc_component *component)
+ {
+ 	struct rt5668_priv *rt5668 = snd_soc_component_get_drvdata(component);
+ 
+ 	rt5668->component = component;
+ 
++	regcache_sync(rt5668->regmap);
++
+ 	if (rt5668->irq_disabled) {
+-		enable_irq(to_i2c_client(component->dev)->irq);
++		enable_irq(rt5668->i2c->irq);
+ 		rt5668->irq_disabled = false;
+ 	}
+ 
+@@ -2230,17 +2245,18 @@ static int rt5668_probe(struct snd_soc_component *component)
+ static void rt5668_remove(struct snd_soc_component *component)
+ {
+ 	struct rt5668_priv *rt5668 = snd_soc_component_get_drvdata(component);
+-	struct i2c_client *i2c = to_i2c_client(component->dev);
+ 
+-	if (rt5668->irq_acquired) {
+-		disable_irq(i2c->irq);
+-		rt5668->irq_disabled = true;
+-	}
++	rt5668_i2c_disable_irq_and_cancel_work(rt5668);
+ 
+-	cancel_delayed_work_sync(&rt5668->jack_detect_work);
+-	cancel_delayed_work_sync(&rt5668->jd_check_work);
++	if (rt5668->jack_type)
++		rt5668_headset_detect(component, 0);
++
++	rt5668->hs_jack = NULL;
++	rt5668->jack_type = 0;
++	rt5668->component = NULL;
+ 
+ 	rt5668_reset(rt5668->regmap);
++	regcache_mark_dirty(rt5668->regmap);
+ }
+ 
+ #ifdef CONFIG_PM
+@@ -2576,6 +2592,13 @@ static int rt5668_i2c_probe(struct i2c_client *i2c)
+ 			rt5668->irq_acquired = true;
+ 	}
+ 
++	rt5668->i2c = i2c;
++	ret = devm_add_action_or_reset(&i2c->dev,
++				      rt5668_i2c_disable_irq_and_cancel_work,
++				      rt5668);
++	if (ret)
++		return ret;
++
+ 	return devm_snd_soc_register_component(&i2c->dev, &soc_component_dev_rt5668,
+ 			rt5668_dai, ARRAY_SIZE(rt5668_dai));
+ }
+@@ -2584,6 +2607,8 @@ static void rt5668_i2c_shutdown(struct i2c_client *client)
+ {
+ 	struct rt5668_priv *rt5668 = i2c_get_clientdata(client);
+ 
++	rt5668_i2c_disable_irq_and_cancel_work(rt5668);
++
+ 	rt5668_reset(rt5668->regmap);
+ }
+ 
+-- 
+2.47.3
+
