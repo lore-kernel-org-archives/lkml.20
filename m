@@ -1,80 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794045372;
-	b=1JyK/J1BtFWBFU9Elgk52z6Sl681c4+mKS36mbtrQK+iUczOuVoOwlGyo5ob7e8HuWv3
-	 Zih2PQSmn0rDitkgORJcDkkQN97S+14t0ENi0B/d4Ek7asKy3Dnkp5ELEdHVq+DDQyGzT
-	 eHRCKcEhJPkFNV6jO/9uf7D5J1afBDyv+Rcz78Etq2JQvrKCDqAPoifT+9fxhRWklyNKP
-	 i01qa/zkXZzs8zMcuNtWARhHdIrSJwEJ43EZdb83wJw+QY617bSsJD5MzN2NcDaMhrrJn
-	 7acHmDBV4Chz7ZDc50HSkEIeaJ7IpzswhLz3Zq91W8yQCIfBbYqat1qoq3Fg+Jvv9Hw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045372;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=krp+w0NhnIhU6G1S3RDYS3X6sctkl/kWyiY9YHcQw50=;
-	b=E2UMBEX2ejGEyHwh0vk6dEpdBMvDU3xaimrKl5CNdJQkFbSfM9yksenauQeGmBpZG4ne
-	 8mkOpFqs8f5IA1MwndsdiXbCRqMQZ61ifhPT+8Kl/RLPnJ6WmPzjoW4GTulhffcBtr14e
-	 IKQSI8VPQ0LF0Y1AhvCMRFQ/W4KB3udobwc1qiyZhJ/HZgrPoHydROwwK4RWCThMjpVYi
-	 gB+SpUVseMFGUly7cL8u4y35Z1f1NsxARe+bU57glVQ09iWUTh5QisKuGFaxZNW2ikqZ1
-	 O2Y3exDl3Wy9JrpJ+LLw7smxRVlgTs2SEOYXgK0tDcy9ZQmHE4YDK0nJb++6OA0B61w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZvbwX6Md;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794045520;
+	b=jvJqh01Xd+Uz8C7SK/Cg8uSLSCXXt4+Ibs2sRRVqphT79sJJAvEp4267TNWWwJDhbG2A
+	 +9bFKzV6bYZ8WoNEnWX5V2fGcdamCLxGGnJcbzG3adfGYewx5fcsSKRc07RP8DTXVguRi
+	 aXQTxzQxgPUDMrbDMP1geEy9N1ZRza/Dcf75M+WSY7JAggjlz29G8Mibf/SL2HF4HWBC+
+	 LlQBsDqR37WkdraMYC3WQ08g8BaUA2UGnmGbuiEeV6DYwn1SUSF3Slxy50WP/yIlNU7iX
+	 aC9uqA1L4ncj1gvgR/eUSyoBrB6sN3oYchOqN1iDCahP5G5gwxiFxunNHg/aF/S/OSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045520;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=IgMSlsD7DyAJC88dH9PzbWGMxD8cM5My6CHNDmAT3YQ=;
+	b=bVezuG0+9PGWYoklbsW292tR5Vt8pVLQx3ZHsMFc6K+/DvzEMiuXUk+7Satr3CXuCQMT
+	 f/hid50jNnvKHxnqbx8INN9hPqTEbfDx1q4uJvNpaeEbZFMIt0oezMuXcDm6G9n4FWe8e
+	 8XJQ3/4TUuDkq+sMSO87vHJDxYMWrRRy+6O8Q4T5MBcC0OQBcMHInNgrVbSWxM1+1ZwPg
+	 gCeYn6EyXsImpFWaWqDywsP9X/eTuU0XF6VUb8Em26pWtad+s6rhHTGGuh36mEOQISnLo
+	 QyCg7OP1iRZ+Uj/3VBoY24k2cZS96mcssrC2htPseJxjskSQcwU/HpDs2yvm2IJuBpg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AdEiO3B7;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB33606A333;
-	Sat,  7 Nov 2026 09:56:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AE7606A32C;
+	Sat,  7 Nov 2026 09:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZvbwX6Md
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794045371;
-	b=zw2o5BhNzadqctqSpLOSF3RQUpTb8JCDcUi+QKbQduqcEIbqc8dBllvzG7boKTqPpdA8
-	 1dlxf/aRgesxQHgDC4zXRMk8vq1fiTQc2R859LfaC/ae3bx/nAuLL5vIGhCFqQjBpJO8X
-	 40WLryobTDD8NtGOgVWRWEKUZiyLgA3dEMl4G+P1FiMU51xr0LkIl5aBD+W9naoMNr4ju
-	 DIxoYd5M88GLR11iZBrowck3cJJKS9+kOSm8saYmxR3YTc7H+R9ytSPgrKGvHIs+6eN0s
-	 vVSIySSqVq5evW4vkXK6k8qF57Rs3ynGIOrqZ7VT4JWA4sqciqHmzIt8W2+FnHCfb1Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794045371;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=krp+w0NhnIhU6G1S3RDYS3X6sctkl/kWyiY9YHcQw50=;
-	b=Kj6tu/2+AxjA9PIheKYC1lMZ6Q4LfOM38UptwLDN3swfA1l70uoNrWXvt+rCM3ZIF0tj
-	 0uS1yacmmZlcE91sIZHr+1OQefM7+KUMCY7/SaJkWJFjrzKFS/MwLZ1u8Oa6EBvE03pfS
-	 L1TlFudTKAGKbclGbXvLb13V7X7qfi6xdbDDAazSweLPr9cj5Fe89EJoxa3YFz8IQbV1y
-	 fI1MAFdq/SqRoNTWpD256OSzA0A0B6PMtUK/p/59MZILEpLWK70OQId+0jxuztln8LdtD
-	 rpDTBTqPxgfwiMtsuznbxC7R7za8pYjty8fpJfHofFBSrKZJO+4Xfaa8NxIcxMqOy6Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1A32A1F008A2;
-	Sat,  7 Nov 2026 09:56:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AdEiO3B7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD771F0089F;
+	Sat,  7 Nov 2026 09:58:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045371;
-	bh=krp+w0NhnIhU6G1S3RDYS3X6sctkl/kWyiY9YHcQw50=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ZvbwX6MduvXUUCZb6g3blwb5Lw1YkQRmUlA0irZuL9Z9bqYymP3sRJipiEnV6d1+/
-	 XlF1bt6htXygkjoQ5+lPuakp96GBGY3Xnp98FeF2Udd/9N8SygX0cmnEdJvqQwT0Zm
-	 KHtEyS9XTrdk8+eIWZVV/q7NCeH/TPY2y3G0t91Qe42wrSEFiAwDXP0zpHvfar0cAJ
-	 9q+KIG3RcdGpPiCaZz4tCt606FPbRPawqK8HDVW01d1PnTPOqMSQs/Rg+PGjplbsNz
-	 AHrkHp/fENxvTasJ9dLCtf1AZwV0UdDqciA17LEfmh8Cs0R9unaon0k7t5be9HG/jK
-	 WXMk3Jv+HIHFA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9E96147B4A;
-	Sat,  7 Nov 2026 09:56:10 +0000 (UTC)
-From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Subject: [PATCH v3 0/2] usb: gadget: gadgetfs: fix ep0 request lifetime and
- event counter
-Date: Sat, 07 Nov 2026 17:56:08 +0800
-Message-Id: <20261107-b4-gadgetfs-ep0-v3-0-62089dc0ec07@gmail.com>
+	s=k20260515; t=1794045519;
+	bh=IgMSlsD7DyAJC88dH9PzbWGMxD8cM5My6CHNDmAT3YQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AdEiO3B7L7OaprmRE07LXwWw7Gbx0ctG+hUaJhP2lkGsMq6V82O6bo4LaamLJU6Lh
+	 /gnawExoGY8wTgjnvglrly/DJ/+bra4KJSniM00on4UWx/poIDTiS+g3nhyU9PwFV2
+	 DJcuAImOmfFelmoVCkxAwljLJNaaxs4nhbTzNrx9oWXVtuxLZsbqSh9ad7raF8Kad6
+	 gstdEfEWFW6Cqgq3TQPITWkpiLT2wvSorU2VL3uuL71EEotIx8LmO4mw5y+Xr3mW2y
+	 gPsCmEEsHnzlKMH+2IBMQZpfXiR++gbBNf3Uo+VSOmS9JpAueBh+hDg8/EN/6OkQG5
+	 q6vjOMo6AD+hQ==
+Message-ID: <b1e6aa27-4a2b-43d2-91c1-2addb528dcab@kernel.org>
+Date: Sat, 7 Nov 2026 10:58:35 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,72 +51,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/2XMyw6CMBCF4Vchs3ZMB7EFVr6HcVHaaamRS1okJ
- oR3F3Rj4vJPzvkWSBwDJ6izBSLPIYWh3+J0yMC0uveMwW4NucglkZDYFOi19Ty5hDwKdCUVhgp
- FSlewvcbILrw+4vX27fRs7mymndkXLg4dTm1k/SurP3nOkdCWZSWZtD2TuvhOh8fRDB2s6xuxe
- VP0ugAAAA==
-X-Change-ID: 20261106-b4-gadgetfs-ep0-f814c14717a9
-To: Neill Kapron <nkapron@google.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jing Lin <kayano050408@gmail.com>, 
- syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: microchip: mpfs: Fix flash leak in
+ mpfs_sys_controller_probe()
+To: Wentao Liang <vulab@iscas.ac.cn>, Conor Dooley <conor@kernel.org>
+Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794045369; l=2005;
- i=kayano050408@gmail.com; s=default; h=from:subject:message-id;
- bh=uuCOM4XxxKSay1DeLkiMJMLE9TgnzXP9EieCXzNPA98=;
- b=q3gwY2s2RvIl6xOyiZM0y9SxSfJKYitmPLTvrFGMJv3Fj/YS4mJ7qmhRRZQLU8eGl9YpWB2CA
- 0wSWaZbBV0eCvqFOrY3vSoiMi/vBK/lV3vXvxg0wjNQ8gsl5xqdL/iA
-X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
- pk=pr6i8RN1WEON1jbXPdghSglxaBSzfuJjXNGFknX//+A=
-X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/default with
- auth_id=1441
-X-Original-From: Jing Lin <kayano050408@gmail.com>
-Reply-To: kayano050408@gmail.com
+References: <20260917153550.2160672-1-vulab@iscas.ac.cn>
+ <20261002-garnish-president-6e8abfdacf4c@spud>
+ <20261008-47741881fb032091ea3d7f0c@squawk>
+ <179393668487.2060453.14381920142402581273@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <179393668487.2060453.14381920142402581273@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
-the gadget, assuming that no I/O remains active. With dummy_hcd, a
-delayed userspace response can leave the request queued when it is freed,
-which triggers the warning in dummy_free_request() and a use-after-free
-when dummy_udc_stop() drains the endpoint queue.
+On 06/11/2026 04:44, Wentao Liang wrote:
+> Hi Krzysztof, Conor,
+> 
+> Thank you both for the detailed review.
+> 
+> Sorry for the late reply, and for the mess it caused.
+> 
+> This is a v2 of the earlier patch, but I sent it without the v2 prefix,
+> without a changelog, and without referring back to Conor's review from
+> 8 October:
+> 
+>   https://lore.kernel.org/all/20261008-47741881fb032091ea3d7f0c@squawk/
+> 
+> You are also right that the patches were sent in bulk across unrelated
+> subsystems, without being grouped into patchsets, without running checkpatch
+> on them, and without documenting what was and was not tested. I am sorry for
+> the extra work this has caused you.
+> 
+> In particular, thank you for pointing me to the kernel documentation on
+> subsystem identification, patchset organization and testing, and for the
+> guidance on how this work should be submitted. This is an important lesson
+> for me, and from now on I will go through all the remaining feedback
+> manually, one by one, and reply in a timely manner.
+> 
+> Going forward, I will also not send patches in large batches, so that I do
+> not exceed my own capacity to respond.
 
-gadgetfs_setup() also reuses dev->req for a new control request while a
-completed delegated OUT transfer still has setup_out_ready set waiting
-for ep0_read() to copy the payload to userspace. This overwrites req->buf
-with a descriptor pointer, so the later clean_req() frees the descriptor
-buffer instead of the request buffer.
+If it sends patches like a bot, if it ignored feeedback like a bot 100
+times and then finally if it responds like a bot, it is probably a bot.
 
-Keep the pending OUT payload in a separate buffer, track whether the
-request is queued, dequeue it before freeing, and do not leave ep0 busy
-after a zero-length status stage. The second patch prevents the ep0 event
-counter from underflowing when a concurrent disconnect or connect purges
-the queue while ep0_read() copies events to userspace.
-
-Changes in v3:
-- Replace the v2 -EBUSY rejection with a separate buffer for pending OUT
-  data, so a new SETUP can reuse dev->req without overwriting unread data
-  or leaving ep0 permanently busy after a zero-length status stage.
-- Dequeue a pending ep0 request before freeing it in gadgetfs_unbind().
-- Add a separate patch preventing the ep0 event counter underflow.
-- Link to v2: https://patch.msgid.link/20261107-b4-gadgetfs-ep0-v2-1-d8896e1ad517@gmail.com
-
-Signed-off-by: Jing Lin <kayano050408@gmail.com>
----
-Jing Lin (2):
-      usb: gadget: gadgetfs: fix ep0 request lifetime on disconnect
-      usb: gadget: gadgetfs: prevent ep0 event counter underflow
-
- drivers/usb/gadget/legacy/inode.c | 102 ++++++++++++++++++++++++++++----------
- 1 file changed, 77 insertions(+), 25 deletions(-)
----
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
-change-id: 20261106-b4-gadgetfs-ep0-f814c14717a9
+https://en.wikipedia.org/wiki/Duck_test
 
 Best regards,
---  
-Jing Lin <kayano050408@gmail.com>
-
-
+Krzysztof
