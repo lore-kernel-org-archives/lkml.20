@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050625;
-	b=kaiDnzSTZbZua5HR9MaJBbmDwrSWQZ4uHXdY4puvvEd8QidiCBZrJYTNkOrZMrhYAfDr
-	 bqkdqevxbS79VnHt4+lGVYm3/HkoXPEKNsE70LfyzuPsstx+zPXwoevOMd8BL+z+SkoQl
-	 5+jpF1rtyjsBCWQFpphk1BWPk3BHbHeZoyyxIYf5Skt2xqfgSFkws6BbeE2P6wCPLt6ZS
-	 VmqUw2sHWje6KCyh3L1vGE5ZYant5MeIRqfv7SmJRXBElHPDAl3bed3M5zR7GrD0iOi3a
-	 n3uurOwwOvrrcBUsGdGGmU4dWuq5TDHX4f/5fdGL95XblLiy3dRTl0rVPYNEwPi/Kbw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050625;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/0W/4lKj/J2zPqNBQg91EquUaRPlk97qFci9V9oBx8w=;
-	b=04681tdJpqJRbStMmRjWelzLh/q6AUCoTvvus1fG/zS4DC+zOOGXYIivilwekXqDTKid
-	 It1Wvwy4naB4iXHUycKyH9HBCq9661B0qOknCer4BwRq7VxcbFHlhFlNXxGBn+PK8O+pb
-	 /fjpwW7JUBYVZb21Fcs5ct75WjGXwsV9Wqif3rPAgC2xAFYsrnRkNBF4nSNTHRagiLTlh
-	 it7VTwp3dI1C0L8Igs0UQyUz6tmiu/HU3Iv+2x/HtEahcCI8kz863hnSN8fgrNuRW9t0Y
-	 UqJipyR3Pk43hges4kcsmrrmvFQLPIm7M+FJMvF3uGdx0NnkA2VZ1qp+qvsa8lT67Hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0227+Lls;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794050922;
+	b=nN3CmWVeSXtS53zIsas65LNBhk6QfNwiaBAikK8pFv7i7T/RlMtg56dY+wfeOWIwM/Re
+	 Biou2RueOQooXUFnKI/2RS33G8py13nAtuBD7NiljgaOOYFuTO1ycBa+ErqFxj38g1SqX
+	 b0ngmq3sJ5LStHstCY+Gxm2tefabXwvxLTHda2bPynbC0gpVcNvrpYK821bYqjGqswChI
+	 y/qhAV+6vwktiTR0eUt/DkYfkombhFFRBXyqFUxkYlWY+J4sxAezuGAnoZHLgL6eO+Vgr
+	 t3PrwSXKkFftT/EFl1rzb0q1t76nDgUbQEJyWn+p9ApiUdsjzTBRWNnxiiCHg0mxtUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050922;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cv66KK32Ayr6RQFReAmYKAI8E1Tl9jHQrKRRdKZDR7s=;
+	b=tdSBIXzBw3ocmoOF+otFtN7Yj4t/WwtYGXlVYVGyPmgsVLBgkT9sZ+m+LQb8zzqJjFh/
+	 euA3/sAkHZzbO4S4nLZXt0srmDo6zTiASBGo8SzzBWG0WwmbYMv9LvksrxQ96CvL6T1bp
+	 k9pPwiwxohUIKlABKq2p2sBNJEf+DcQ2KBCAzF60uhjCTN6UIAOlVgk2Wn0LkqOutPEBr
+	 PlKC5WhOoMYJoOb4WtD4+bQ9ZXG1n70PsEmCZQh2I2/Rt4PkU3TsLJp1JYekJnC+z1NmD
+	 bEbqSPfcjv6zwEttHrthd//1lGMU9wWJS6haHrQJUWm2JnJ8XNqtoitPw7LBRiGwy6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hW6nN1tC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769D2606A32E;
+	Sat,  7 Nov 2026 11:28:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hW6nN1tC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794050922;
+	b=hsyQgcd9g1JqZoRkyZ39lGTtcfhivuMmOlq1Smqrk8yc7halyLAqtOxFsO5dkQcHlHhm
+	 Owgposdl7iQxkjJUMxr83ihIk1mVSSk98P9sYx95ObTYO/BWtlwMbNDIXehewtAaQ1sDw
+	 z3I9Wq6uY80P8ya9QW4iZoYmzsa/TzGy+V8Drt1bRE1z0FUHr7uak+Z9vZ/UYFwZLCnwm
+	 U13rBRB9SQ2WG1G5V2kuwXn8ylrqQmaicBHQuQ9nPixpquxhwGI+SRNqlU9KdVViHN9VQ
+	 gRi2hzn8wFO5mxAeQd/bCQ9syNyGFFqEzBLUaa2Scu+9mlyqUUoaZnIdTQ/CCL49ehg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794050922;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cv66KK32Ayr6RQFReAmYKAI8E1Tl9jHQrKRRdKZDR7s=;
+	b=QoOVeAJklzH5z7WdQmFOmURnuNWw0T/VteA/9TsDoGxPQUO3sfNbcZMJCVxokokMzlvK
+	 vkOJ9QPjbjkCbGcvru8ukyACjhuMEBaO3ec0Y2iUyI8Ew+vVyPmfonMXUBBVmHLtsM5Xx
+	 XNBaxpl4nAheXbKDD8ydwC69jJfkp4tWk2kOIXmcoQWG+jOS6a1LiTgCLlmOeCn/7/bam
+	 JnWFnvvttAY9pwNNPjl9nDp7wAJtWr/xA1GMBTwH9OkbpXd++Oqjfe8j4J46JBDHFdJxz
+	 E7SCCUgTUZvUoqfVLE+eUc3NI4U0uUzdPtScuWGPUKcOsBKINSfy4GLXnXgqH5d1fwA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5A4606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:23:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A5A4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0227+Lls
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2426142eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:23:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794050624; x=1794655424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/0W/4lKj/J2zPqNBQg91EquUaRPlk97qFci9V9oBx8w=;
-        b=0227+LlsxOvzIpnh/Gcj+C4MzzH5637G9DBK0EEXHrRCto+SHrej+3Z+yiD2BmZo67
-         kfUFDXZJr940wHsohlF0FvmvEJzw5OkAGxx68hTOQMbNtd7x/ieumm079A9aF8KZaP6X
-         Qd4ZoH3PWfFzOE+9XTo7hPFEiNVesXhzVFlSVnNpI4+XLbD1hgn9J6uyBQbtpkTanUL3
-         HqiGKyPpYvYhWQ0xhsB3nRknJTSq1Kd+M1vzlpkNB5f6A2lICFK0txGLbCd2p2rQciRD
-         Ut+7hTEf1NOWMEra/a5V7UJSiNXNUV9RvZN9klbHSG47IR9TIO8Q8YDDyMm+FkqFpR/9
-         1j/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794050624; x=1794655424;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/0W/4lKj/J2zPqNBQg91EquUaRPlk97qFci9V9oBx8w=;
-        b=KIu9+TS+1sJP+WQPNQEpT4F8wtyofn8Zk7C+vz7JyDeGFkUB+34U6RDBJN5bnxVePR
-         9oMIBqPFNUUbeoWahJ0j4lV8280TKCV+BMMac5ldRRi6ZT2gviuV/WXqHUUfQkYW/UYI
-         GqHofJG4JdGAb8J/j1PCTS37n2UnQEnqXuRfkPZEsovMJPOgLLvyeh8vXnbjB47jgV1o
-         zghsEKzf7V2+gFlvF5ts81XlTFnMxIyAlX0sMEme1KlRqRfx4nPGHbtduQMlGtD6sSb0
-         U2F7mDzwC+CiEv02AOpwPRlKNVGXZRKia+uOigjXcAzuVqX8qWpjOCi0PejTvD71bqBy
-         khBQ==
-X-Forwarded-Encrypted: i=1; AL+hErFBJN78ngGuRu3HBME0MxvvEBBxJaeufbxfbQKcmKUKragfcmuFy028gB7VkfcR4RBGv1Y8vTfa20XDIuE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZkfEpsbbUS6GBxnr2Vf5fVeYTun6kStdM1u8ekc9bGmZJcsR/
-	5snZ2L4qb1Raxnpu4Zre7Ov6ZEJRjE36zT6GWFAh9b4HZFW7FgpJCSNq
-X-Gm-Gg: AYBFou17evN/j+eg71vAcHz8h+LAxK1qrAdzNpS7+apK1fOO6JaEuNOfqp3yTZqITmi
-	jw01FuxGIHmXXgKBEFt7k+yRM8qzIkjIadPkohnQRKzMXDhYE6o+ZLHdPlvzCbCzjCcc7+p8eEy
-	64YGmBoFj1X6I3eWGyJjeQHQlK5fHUhU9e9hwmwWI5AYoRFSTnnaM2Nh+ggAFwYi6cYc4q4ZDTH
-	wnEIQqhE+Ajpe5kSdLXpQpcKmozlzc8KU0JO9ndtoBiSViO/RKg8Jn2RNP2FHklvVuxsTKBxYuT
-	2zR+mdwefk7o+elkmg7e8xyQomP59K3jB+eZ4bzMawc32pGTsUVA6xnL7WQRM/m3TnIuD+XUlO/
-	LpHWCXtTuBPvMXJxhJCDfQE1gJ4Q9oFx/qvQt+oCEGM4DugRjC7NpSJ6OgPrMXmeE3PIfaBJNcG
-	I3/gJDKiqDhuJzsqHuVgoEdSBn0iuJ/ua0+tcNS3Zof4HuXQ9BguBVqTFhDyY3DzsvQOxz9/Tik
-	ER4q2AEY2ypRa3ckBiph82YAehT16JF70x8+YGwR0hQqa6WE4+vL+DPCuttfPxL6dyHE3JRO1Dt
-	K2hGfoqCTiz9MS4Tv1DWPoZUdDbmCbennGb0b04AJJo13JbdZaxgI8zA84rGW2AcyUbK3AC5WBG
-	Km50VOX7FFi+rR86W42PoppXha5fiPggClHUEEWcQJA0dJazMDWIKzF0qzoP8fLOjQ1c9/H9UkU
-	FXKr47o4icjgz/qcShWl5Xzh0UjTC+NjX8YydKog7Tig==
-X-Received: by 2002:a05:7301:dc2:b0:35d:eafd:5737 with SMTP id 5a478bee46e88-36f76023a6amr7778507eec.22.1794050624010;
-        Sat, 07 Nov 2026 03:23:44 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa651e6b1sm31210345eec.3.2026.11.07.03.23.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 03:23:43 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Stephen Boyd <swboyd@chromium.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [RFC PATCH] iio: proximity: sx9360: fix hardware gain encoding
-Date: Sat,  7 Nov 2026 16:53:34 +0530
-Message-ID: <20261107112335.444813-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 8A32F1F008A3;
+	Sat,  7 Nov 2026 11:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794050922;
+	bh=cv66KK32Ayr6RQFReAmYKAI8E1Tl9jHQrKRRdKZDR7s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hW6nN1tCztcQJUuSXOFfWmOzEEizT2aqQ70LiAO5jKzDpDX/ECsGVpOztTOVEN64A
+	 GkmKm4KBDlK0Dx1vzCqVFSDrTQlP0kW2DnTiRQVF3kfKXdBswbge1qGHq57J8uoN0b
+	 f7Wi6KLGZ3truCqVTAtjVSmVvIcrKBcsvVjdRoQ+dzstk+bzYQARChNsABQs1ftxbq
+	 rqf4n+ClXimVw0TbCU4D2/Tsg5JLuJXL4cw2S7x2RKGV+iBIixjla1tCP0MjHoZFbf
+	 sXAiQWgYN4JCeFHqGkH1IiaujXqryCleqZNDeKnkZfZfT6qyPD7Y1BupM6ANxmsxwo
+	 rD6AIAAjor6sA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1808047BBD;
+	Sat,  7 Nov 2026 11:28:41 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Sat, 07 Nov 2026 05:28:41 -0600
+Subject: [PATCH 2/2] staging: octeon: prevent buffer overflow in
+ cvm_oct_xmit_pow()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,105 +83,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-octeon-tx-fixes-v1-2-db03f73a6e6f@gmail.com>
+References: <20261107-octeon-tx-fixes-v1-0-db03f73a6e6f@gmail.com>
+In-Reply-To: <20261107-octeon-tx-fixes-v1-0-db03f73a6e6f@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794050920; l=3088;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=A73cNrYJxl0LgvL86wV5fevUF4EgHv5VLNNXVCqJff4=;
+ b=8Ohcw2vIma8Mg7JGcXtgSkTTw2bGrzFslZyZUPh1Dc32Izwc+uKQjFsCQN1LmFjihMSUd16kl
+ wujqUh13KwFCFCp66N2MIoiHiPKMfemd5eYFM3ldJnuLKrYeMR53jXc
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
 Content-Transfer-Encoding: 8bit
 
-The sx9360 PROX_CTRL0 gain handling was copied from the original sx9324
-driver and has the same bugs that commit 108e4d4de2b5
-("iio:proximity:sx9324: Fix hardware gain read/write") fixed there:
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-  - The gain field holds ilog2(<gain>) + 1, with 0 reserved, so a gain
-    of 1 is 0x1 and a gain of 8 is 0x4. read_gain() and write_gain()
-    use ilog2(<gain>) instead, so every gain is off by one: writing 1
-    programs the reserved code 0 and writing 8 programs a gain of 4.
-  - SX9360_REG_PROX_CTRL0_GAIN_1 is 0x80, which sets the reserved bit 7
-    and leaves the gain field at the reserved code 0, instead of
-    0x1 << 3.
+cvm_oct_xmit_pow() copies packet data into an allocated FPA packet pool
+buffer without checking if skb->len plus the header offset fits within
+CVMX_FPA_PACKET_POOL_SIZE, which can cause a buffer overflow. Drop
+oversized packets before allocating hardware buffers.
 
-Use the same encoding as sx9324: add one when writing, subtract one when
-reading, return -EINVAL for the reserved and out-of-range codes, and
-build the default with FIELD_PREP_CONST(). Use BIT() for the read value,
-as Andy suggested for the same code in 2022.
+Additionally, fixed-size memcpys into work->packet_data read directly
+from skb->data without checking skb->len, risking out-of-bounds reads
+on short packets. Bound these copies using min_t().
 
-Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
-RFC because I don't have the SX9360 datasheet. The only public copy I
-found (the one linked at the top of sx9360.c) is a short excerpt of the
-SX9324 datasheet without the register map, so this follows the sx9324
-fix by analogy: the sx9360 gain code is a copy of the pre-fix sx9324
-code, with the same mask, the same 0x80 default and the same missing +1.
-Gwendal, Stephen: could you confirm that SX9360 PROX_CTRL0 uses the same
-gain encoding as SX9324 (bits 5:3, ilog2(gain) + 1, 0 reserved, bit 7
-reserved)?
+ drivers/staging/octeon/ethernet-tx.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-Xiaohui Zhang posted the same change in June 2022 ("iio:proximity:sx9360:
-Fix hardware gain read/write"); it had build errors and a dead-code
-read path and was not respun. The read path here uses the corrected
-check from the sx9324 read_gain() fix I sent on 2026-11-04.
-
-Applies on top of my series "iio: proximity: sx9310/sx9360: reject
-unsupported hardware gain values":
-https://lore.kernel.org/all/20261107111710.442318-1-kapoorarnav43@gmail.com/
-
-Compile-tested only (W=1); I don't have SX9360 hardware.
-
- drivers/iio/proximity/sx9360.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
-index c6e5b3e557bb..01a4a94219ec 100644
---- a/drivers/iio/proximity/sx9360.c
-+++ b/drivers/iio/proximity/sx9360.c
-@@ -67,7 +67,9 @@
- #define SX9360_REG_PROX_CTRL0_PHR	0x40
- #define SX9360_REG_PROX_CTRL0_PHM	0x41
- #define SX9360_REG_PROX_CTRL0_GAIN_MASK	GENMASK(5, 3)
--#define SX9360_REG_PROX_CTRL0_GAIN_1		0x80
-+#define SX9360_REG_PROX_CTRL0_GAIN_RSVD		0x0
-+#define SX9360_REG_PROX_CTRL0_GAIN_1		0x1
-+#define SX9360_REG_PROX_CTRL0_GAIN_8		0x4
- #define SX9360_REG_PROX_CTRL0_RAWFILT_MASK	GENMASK(2, 0)
- #define SX9360_REG_PROX_CTRL0_RAWFILT_1P50	0x01
- #define SX9360_REG_PROX_CTRL1		0x42
-@@ -291,7 +293,12 @@ static int sx9360_read_gain(struct sx_common_data *data,
- 	if (ret)
- 		return ret;
+diff --git a/drivers/staging/octeon/ethernet-tx.c b/drivers/staging/octeon/ethernet-tx.c
+index 13a205648f8b..0a350faec591 100644
+--- a/drivers/staging/octeon/ethernet-tx.c
++++ b/drivers/staging/octeon/ethernet-tx.c
+@@ -507,10 +507,18 @@ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
+ 	struct octeon_ethernet *priv = netdev_priv(dev);
+ 	u8 *packet_buffer;
+ 	u8 *copy_location;
++	size_t header_skip = sizeof(u64) +
++			     ((CVMX_HELPER_FIRST_MBUFF_SKIP + 7) & 0xfff8) + 6;
++	struct cvmx_wqe *work;
  
--	*val = 1 << FIELD_GET(SX9360_REG_PROX_CTRL0_GAIN_MASK, regval);
-+	regval = FIELD_GET(SX9360_REG_PROX_CTRL0_GAIN_MASK, regval);
-+	if (regval == SX9360_REG_PROX_CTRL0_GAIN_RSVD ||
-+	    regval > SX9360_REG_PROX_CTRL0_GAIN_8)
-+		return -EINVAL;
-+
-+	*val = BIT(regval - 1);
+-	/* Get a work queue entry */
+-	struct cvmx_wqe *work = cvmx_fpa_alloc(CVMX_FPA_WQE_POOL);
++	if (unlikely(header_skip + skb->len > CVMX_FPA_PACKET_POOL_SIZE)) {
++		dev->stats.tx_dropped++;
++		dev_kfree_skb_any(skb);
++		return NETDEV_TX_OK;
++	}
  
- 	return IIO_VAL_INT;
- }
-@@ -628,7 +635,7 @@ static int sx9360_write_gain(struct sx_common_data *data,
- 	if (val <= 0 || val > 8 || !is_power_of_2(val))
- 		return -EINVAL;
++	/* Get a work queue entry */
++	work = cvmx_fpa_alloc(CVMX_FPA_WQE_POOL);
+ 	if (unlikely(!work)) {
+ 		printk_ratelimited("%s: Failed to allocate a work queue entry\n",
+ 				   dev->name);
+@@ -538,8 +546,7 @@ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
+ 	 * calculation may add a little extra, but that doesn't
+ 	 * hurt.
+ 	 */
+-	copy_location = packet_buffer + sizeof(u64);
+-	copy_location += ((CVMX_HELPER_FIRST_MBUFF_SKIP + 7) & 0xfff8) + 6;
++	copy_location = packet_buffer + header_skip;
  
--	gain = ilog2(val);
-+	gain = ilog2(val) + 1;
- 	reg = SX9360_REG_PROX_CTRL0_PHR + chan->channel;
- 	gain = FIELD_PREP(SX9360_REG_PROX_CTRL0_GAIN_MASK, gain);
+ 	/*
+ 	 * We have to copy the packet since whoever processes this
+@@ -586,8 +593,10 @@ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
+ 		 * ethernet header to align the same way hardware
+ 		 * does.
+ 		 */
+-		memcpy(work->packet_data, skb->data + 10,
+-		       sizeof(work->packet_data));
++		if (skb->len > 10)
++			memcpy(work->packet_data, skb->data + 10,
++			       min_t(size_t, sizeof(work->packet_data),
++				     skb->len - 10));
+ 	} else {
+ 		work->word2.snoip.is_rarp = skb->protocol == htons(ETH_P_RARP);
+ 		work->word2.snoip.is_arp = skb->protocol == htons(ETH_P_ARP);
+@@ -596,7 +605,8 @@ netdev_tx_t cvm_oct_xmit_pow(struct sk_buff *skb, struct net_device *dev)
+ 		work->word2.snoip.is_mcast =
+ 		    (skb->pkt_type == PACKET_MULTICAST);
+ 		work->word2.snoip.not_IP = 1;	/* IP was done up above */
+-		memcpy(work->packet_data, skb->data, sizeof(work->packet_data));
++		memcpy(work->packet_data, skb->data,
++		       min_t(size_t, sizeof(work->packet_data), skb->len));
+ 	}
  
-@@ -676,9 +683,11 @@ static const struct sx_common_reg_default sx9360_default_regs[] = {
- 	{ SX9360_REG_AFE_PARAM1_PHM, SX9360_REG_AFE_PARAM1_AGAIN_PHM_6PF |
- 		SX9360_REG_AFE_PARAM1_FREQ_83_33HZ, "afe_param1_phm" },
- 
--	{ SX9360_REG_PROX_CTRL0_PHR, SX9360_REG_PROX_CTRL0_GAIN_1 |
-+	{ SX9360_REG_PROX_CTRL0_PHR,
-+		FIELD_PREP_CONST(SX9360_REG_PROX_CTRL0_GAIN_MASK, SX9360_REG_PROX_CTRL0_GAIN_1) |
- 		SX9360_REG_PROX_CTRL0_RAWFILT_1P50, "prox_ctrl0_phr" },
--	{ SX9360_REG_PROX_CTRL0_PHM, SX9360_REG_PROX_CTRL0_GAIN_1 |
-+	{ SX9360_REG_PROX_CTRL0_PHM,
-+		FIELD_PREP_CONST(SX9360_REG_PROX_CTRL0_GAIN_MASK, SX9360_REG_PROX_CTRL0_GAIN_1) |
- 		SX9360_REG_PROX_CTRL0_RAWFILT_1P50, "prox_ctrl0_phm" },
- 	{ SX9360_REG_PROX_CTRL1, SX9360_REG_PROX_CTRL1_AVGNEG_THRESH_16K, "prox_ctrl1" },
- 	{ SX9360_REG_PROX_CTRL2, SX9360_REG_PROX_CTRL2_AVGDEB_2SAMPLES |
+ 	/* Submit the packet to the POW */
 
-base-commit: 509224d37ff169a02f388ab6e525d5517fb570dc
 -- 
-2.53.0
+2.56.0
+
 
