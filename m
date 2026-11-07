@@ -1,83 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794017651;
-	b=QxMnvmaqoEehlIr09CpmLw85QtdAkLDYeqnIPIGb+er81loCHmcwcr6aV89EWwegKBrg
-	 Wy30Q5BAdTHCxbNSCQAx0wvJ4DZ/Bdqnmo8FdTwhYMLqUuaVWlCYngsVa2Cafnncx+boA
-	 RHo9ScM5FUUAWZ8eGC7pxEowZvkqw4NKG2bezmdJVGUEY3oKLS2AF6AXgHNBbrPLu5s6S
-	 MMqzdiVfV7K306MShRiAyVFlR64ndcoI26AI426mwzXJVB3WQdOnNF5iHYwpu584r+Yr1
-	 1xh1YkzbFvG9DLRslikd6AzT0DajsyG64hqqxYfoOJxmt6R6tYrMi13yEFCzq5MovTg==
+	t=1794017715;
+	b=3+79yi9vj9TZVG/K/St8U82IAjczP6taC9/LcgLVbW3yiROrpM79EvXm1ED8w+fw80Wr
+	 VCD8lRXlMBxQPvm+f6KL8qgeRNwxJ0437bRJq1Eg6mGCfwYeOISjegfRcWq1HuHeh7tFw
+	 f4bWCvT2qZybcY47cKaE8VM7hNJNO4fzjjr3rYWZgRcad4VO3wJspc3Jp5sg4BM0vJETw
+	 ZCkIgEYDft/p3gy+zL/TCldsk5OOhgGmr4oLu8XI0RLz7gAj5/GM5nP58AmGdm0IQL5b1
+	 t5aBwoBvKt3BkEta6NoM/HlDl0OIidSaLfCsKkaO9DstMYbT0rIsAR1K9JCuFnw6dNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794017651;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=BX7THsmosjCKccT+25A6DC5CxzkdJXQF4Pn0GPYFDes=;
-	b=GtfwOSrTQZ2AhBqC/0IA8YxO5NF1k2jIungPg8nldKATDmjKuzdRg0HIZi1kZXFQZ4kN
-	 /JnJPQi5XBMdWPD576gr0pdZVz9vgHTz48gn2igpcHY46gp5KwfY9VjlEuPYeN7eJZmxl
-	 Fkw/7jzGYrQG/lS/s+dzhTEpw/MorxoEEwCthPLJ8xpHJc34jKCuSdabCyxulTpbS5M4k
-	 UuMqGK77DbFXqJpF3yqCHloTj2gDw2zApXi4hKCk4RXj1eWQfs5wKMYSG035Mh25slTTR
-	 t8BQYZJmShPNrDUfFHlRj4/9826qIEZ7nAcZQAV7QBCrlLF288qDzaWr4MTg/McI3kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794017715;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dc9ewNRLy/KDUCgVc1zw7V1amTwtToITL8ldPoKTuCM=;
+	b=LLYhZgP70MS3w+Y6bH8uoIPgmQFAOpKUPVJHzX7ze5cu4X9Dm1mcJzgTsLO/s81eMB3Q
+	 YnGueqoGy3u2noiJDPNc2AwODftYt55+igr6exf2lKnX71s6uKIv+5GrxvGozN+6Sq5nM
+	 qcs9wl+ybYgNrLhv/HH6hnOKCNqNQyjds0LEod4YNZVPSARFPksoEu0eIPKQjg/2maDgq
+	 ftgWTVRDXtkI5FQhnq893KCajfuJ6RCc60GqN5hEPT9IVL0/dYtA6crrcB16mTYJdWstT
+	 20RXdQohWbUok6rYNAyz2wTWgWhL9S05wRRumGWKD/O5Rs4p2UvqvgDNsyKaKAM8TgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RJPWXvf9;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rIaRJUt1;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEA1606A32D;
-	Sat,  7 Nov 2026 02:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FEA1606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80307606A335
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 02:15:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80307606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RJPWXvf9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794017650; x=1825553650;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=k+Jp0wNiYpjW9kANomoHZViOrgIyHRcD6+ATfOSXlMA=;
-  b=RJPWXvf9mu8Xp6GBy8Ec/MDPm6KkREuHBtUV4sXx9TbMHF53Edqg1kE1
-   EL2YwziAxKQ59k1HhQ7Iq8RgAfyydWKcyXE66+FRRfSnOlK9/n0HeCnJw
-   tY11ghfJbAlAeAScG0FpEVANkbsreBvEb2KDBvjtvmTUwSNs9zhzNJs9m
-   SliBVMrWV9QGY6SNfC1nz+CvqLWOvBc8RV67eLhXOyQIJij+29t1QEZY/
-   4+6DRhMFR6DI96TgSdKGvDvOz9tQh4u3JNNNAj6Wxau//5cyHNZbxGrDW
-   Vcy03Gd8ZMmr4pX0/r3PBovRwcYP5ydK8Mv66OUeQoT0doR5mqr1bUpAx
-   g==;
-X-CSE-ConnectionGUID: V6mPkg82QMyk06RaMzCbJA==
-X-CSE-MsgGUID: JXsWBeTgQL+CFDsiMAvIxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2936279"
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="2936279"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 18:14:09 -0800
-X-CSE-ConnectionGUID: dtk/InDfQyyPzBIT86xgiA==
-X-CSE-MsgGUID: Jf4NbIBNQVKBFdjaqR2nNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="7468960"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 06 Nov 2026 18:14:07 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPVwS-00000000qEJ-1oEy;
-	Sat, 07 Nov 2026 02:14:04 +0000
-Date: Sat, 7 Nov 2026 10:13:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rIaRJUt1
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-49134c8509fso1032881f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 18:15:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794017714; x=1794622514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dc9ewNRLy/KDUCgVc1zw7V1amTwtToITL8ldPoKTuCM=;
+        b=rIaRJUt1BdlbukYtOlgR3hm025ZNxYq1nfZwPggR6pcX4cUfW1bglCbWsHSd+L52tV
+         HfldkHEXIy5xOOmVeJNMVbBwBw/0j4C6+rZLgGNL8So6zZuq8zzQtJ/0cXKKtAFvpDBU
+         2myzL2JNjUfhwPRdmFOizDPdbiphF2ebjRezj6BBWKc5zDn11Y5oQAnVNvto5HDh8hNc
+         9kiZFkhTNmnO1W4Dcf6YFvC11fLhCvlKM0AWrovMXtIeWKuEpJdEkTHpR4tAs8bD+X8G
+         Msz2L5oR6NOlBGlsoHP4dK42na52GbDAMsKSIW3MX/S4RmPwd02Akx3FVcKEZVYTPj59
+         A8MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794017714; x=1794622514;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dc9ewNRLy/KDUCgVc1zw7V1amTwtToITL8ldPoKTuCM=;
+        b=OiJnQntVqVioALvOcuyPPc32YvizOvIkDBbTnwwJUN8PYVj0oZpE241ANmtYom+57L
+         z7qXjtQ8yFwVbKJurt1fSigP83IQ7boKZNTBaMeLI+tBoNimZSZdTE/j55kfILgOmu9O
+         7ssn2FweWRLWufa84ap2z+DkW2ZVqAZn/zaWrPpVNNDU90cUCIK92kk+W6aGokkanMeb
+         9GeeNypQMgqOYFWltC34JasTUenuvHsTgvtplIO9xvBlF7WSn9VJiFXcoC1DrkKLLMYI
+         DlVNqMosuIW3fnzylYOGm7x3J5zUGcfXAP/Dt6LVlpA/NT0HHA7YlNVDPWZiLB/vt418
+         SBfw==
+X-Forwarded-Encrypted: i=1; AL+hErEIFthz8K5Ateg+Pgsy2nWBA8aR5XIEgGZiCXqZOcKh4IZ1DD1wOvRF+9fJIh3A7ts4K+8Nv9ZXikTFQgw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/byd7NOTPy/s8BVsFBauvMDEUpo7io+z1OPmnpRHL7OsP0v3yU
+	RMu2LTQcYXIe0Okwn5rYCPS2ZNX0kwp3PmOvVX+cM85cEcVT0xzoU1On
+X-Gm-Gg: AYBFou196eLm2OIIBQ7kMggym8DkfKZZ2gOcMtYgQy8lT/B53PipXYY5XG/ktrilUpK
+	tqmWa3AoXNqkiSEJMLMO4MszWZhngz1UHwr16gugkhlZtuxapFXDJ+GTYWgDLVwarNjoz+HQjx8
+	H9w5jQq59sQAepAuGga2G+VVaoE/ICVZ1/iU/d3RaDTws72mHcLcdo988XFccSYrIl4GY6DUW9S
+	Y79ji5DmDHzJtarnSRYNtfzNF6gU70VQp0za1GT8LpA/CG62BoJeQE88vFFUcDtI72sZ+F/ZjaX
+	AsH0gsWzriX2A/bSixY+iGa55JwYzrJjaLy+6w4xQErN1wXxtsYuXLBprCIGFq6MXjV4aqwEApL
+	nkJznnD89CyoHnI4VTZawQwgFzcmW7nV4BpZHolHGm1ofiM7Nr0n2qv+hJ1b56a90jDkcz6Moa6
+	uElta6zbmjWebS68p+LyOmtfWg3IjKYVB8W+tKfLjVal9mympkspOK9f6Fzv0u2SU98jA6WFalM
+	Y+GtqBAm4A6uOp0TaYXKDpW+0t114HlRWeaBPYmc+4Bg+U/D5A5ODf3m04W8IL4qcEvpbhaTbyE
+	QtU2m0Sj4rvlOgAjmWVUDUJr1P7SH1ZfakHenlXE3SFVSEXCnXyNhBOGOXPqz08ndWx0fxiqg7f
+	pYTP6d6LxEC/oJlfSVJQMjLs=
+X-Received: by 2002:a05:6000:41c3:b0:48b:108:48cf with SMTP id ffacd0b85a97d-49275b1bcfamr7936541f8f.25.1794017713547;
+        Fri, 06 Nov 2026 18:15:13 -0800 (PST)
+Received: from localhost.localdomain ([86.124.84.219])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5f11sm6367449f8f.49.2026.11.06.18.15.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 18:15:13 -0800 (PST)
+From: Radu Toader <radu.m.toader@gmail.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: peterz@infradead.org,
+	mingo@redhat.com,
+	tglx@kernel.org,
+	void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
 	linux-kernel@vger.kernel.org,
-	Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Subject: Re: [PATCH v5 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <202611071039.px4NasIH-lkp@intel.com>
-References: <SN1PR12MB2528BA7C696815089DCAD02FA5762@SN1PR12MB2528.namprd12.prod.outlook.com>
+	sched-ext@lists.linux.dev,
+	bpf@vger.kernel.org
+Subject: Re: [PATCH 1/2] sched_ext: Add scx_tickbug, a scheduler that holds a task on an idle CPU
+Date: Sat,  7 Nov 2026 02:15:06 +0000
+Message-ID: <20261107021509.968928-1-radu.m.toader@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <au4HhnJoKvJ6GPJT@slm.duckdns.org>
+References: <20261106094343.174905-1-radu.m.toader@gmail.com> <20261106094343.174905-2-radu.m.toader@gmail.com> <au4HhnJoKvJ6GPJT@slm.duckdns.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,60 +105,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528BA7C696815089DCAD02FA5762@SN1PR12MB2528.namprd12.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Victor,
+On Fri, Nov 06, 2026 at 06:59:50AM -1000, Tejun Heo wrote:
+> Thanks for catching the bug. However, this scheduler is more of an one-off
+> debug code and I'm not sure we want to carry this in tree. Maybe put it in a
+> github gist or sth and point to it from the fix patch?
 
-kernel test robot noticed the following build warnings:
+Fair enough. v2 is the one-line fix on its own.
 
-[auto build test WARNING on jic23-iio/togreg]
-[also build test WARNING on linus/master v7.4-rc1 next-20261105]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Rather than a gist, the fix points at the v1 posting of this patch in
+the archive, so the link cannot rot and needs no account:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Victor-Chernyakin/iio-prepare-iio_format_value-to-handle-higher-precision-IIO_VAL_DECIMAL64_-formats/20261106-094026
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git togreg
-patch link:    https://lore.kernel.org/r/SN1PR12MB2528BA7C696815089DCAD02FA5762%40SN1PR12MB2528.namprd12.prod.outlook.com
-patch subject: [PATCH v5 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261107/202611071039.px4NasIH-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 812626a41399a1d464a0d69627ab45c83b8ebfb9)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611071039.px4NasIH-lkp@intel.com/reproduce)
+  https://lore.kernel.org/lkml/20261106094343.174905-2-radu.m.toader@gmail.com/
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611071039.px4NasIH-lkp@intel.com/
+One offer before I drop it entirely. tools/testing/selftests/sched_ext
+already carries nohz_tick, which asserts that a finite-slice EXT task
+restarts the scheduler tick after an idle interval on a NOHZ_FULL CPU.
+The condition this scheduler holds could be asserted there as a selftest
+instead of carried as an example scheduler in tools/sched_ext. If a
+regression guard for this is worth having I will post it separately; if
+not, the archive link is enough and I will leave it alone.
 
-All warnings (new ones prefixed by >>):
+Either way, the reproducer turned out to have a bug of its own, which
+the CI review found on the same posting: an untagged task pinned to the
+target CPU starved in the shared DSQ, because the target CPU stops
+consuming that DSQ while it is holding something and no other CPU may
+take a task pinned there. With two tagged tasks handing off it could sit
+until the watchdog unloaded the scheduler, which contradicts the "the
+machine stays usable" claim in the commit message. Dispatching anything
+with nr_cpus_allowed == 1 to its local DSQ fixes it. Noting it here in
+case someone takes the thing out of the archive.
 
->> drivers/iio/cdc/fdc1004.c:69:10: warning: overflow in expression; result is 758'541'150 with type 'long' [-Winteger-overflow]
-      69 |         +0x7FFF * 488281250L, /* max */
-         |         ~~~~~~~~^~~~~~~~~~~~
-   drivers/iio/cdc/fdc1004.c:67:10: warning: overflow in expression; result is -1'246'822'400 with type 'long' [-Winteger-overflow]
-      67 |         -0x8000 * 488281250L, /* min */
-         |         ~~~~~~~~^~~~~~~~~~~~
-   2 warnings generated.
+Thanks for the quick look.
 
-
-vim +69 drivers/iio/cdc/fdc1004.c
-
-    59	
-    60	/*
-    61	 * OFFSET_CAL_CINn: 16 bits, signed. Format: IIO_VAL_DECIMAL64_FEMTO.
-    62	 * 1 step = 1/(2^11) pF = 1/(1000 * 2^11) nF = 0.000000488281250 nF.
-    63	 * Negative values are used to cancel out any parasitic capacitance
-    64	 * of the sensor's external circuitry.
-    65	 */
-    66	static const s64 fdc1004_calibbias[] = {
-    67		-0x8000 * 488281250L, /* min */
-    68		+0x0001 * 488281250L, /* step */
-  > 69		+0x7FFF * 488281250L, /* max */
-    70	};
-    71	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Disclosure: this reply was written by Claude Opus 5 (Claude Code) and
+sent on my behalf, in the same session as the patch; the patch changelog
+carries the same note.
