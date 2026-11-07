@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794049780;
-	b=GfKvRrIHUh0S79TWBMZzOw5P3BcP8vI9nJQ5Z8oqnTb7wK/LDcRe22GA09BOg1I9FP/U
-	 SG2J82OoGLY06jlICP/xUsPP+9PO+bqTbepSc82IzWXNJymwkyFSCV/11rLlEmod62h1B
-	 gS07kqU5+kzIzt4bg/QMYFrU0+9pyrGe6EgZV8anosK38KDujyDTaMbkVIVkYjrTrmeu8
-	 d51wt4IZpaqh97EETnEphhPMMKkC2VLTUFdNMHAy2ccnMVaiz+k5SjcRNIkBXoNlzSpOX
-	 kPpdSMh5+MB46z3r0MqKmdwtQ8mkj5qkH4cZN4qvObCHZ7FgMHocqcMuFD5O9dQUDcw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049780;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
-	b=lwYDTldMf+B3x/Qz/y0dSRy/r71l43LY8rQdbRbvxDq9PtmD+2/FNrxndZ8lygEnfhso
-	 CJ1Fu3HVfZMaoFbm4pQ7FFqkZxVAd/oVfG5gJFXbUIBq4QgGda+IrBGENVefXGzzpXfSS
-	 vqJWg4yYGphXyXxzbPNqj38/TIfTiMCepPHDWnwtWOKTrLUSNiji+YNxjAxjvs+Td7jLy
-	 nLR9naVTJu2TgYLzRlRGNPlZ+QTNXcTHubGZynmkbqkWhPw1xmII420NT7RfaM33c1Bfa
-	 KiLxp9rSA8E1in6VfeVUlvdqEI+BlE/AzyAD5ju7s5tEzkp57usBaSqUL8P9Wn9yfvg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxbTz3v3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDFE606A32C;
-	Sat,  7 Nov 2026 11:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxbTz3v3
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794049780;
-	b=kugV2qi2xsc6CnK0AU/UeUI9O4Hz8HMA7z2NGhj2r2p6i5JWUMCdoXWK2wbnRvVU1C5+
-	 aePhWv5aov+rO78U6AyrGKDKnJzRZmLINIcvUpcqbfc5wz0vRhR+S2w8g7ZGrZULYDBOq
-	 8oZCptOF/rsk8onOdwduApDVxrjU4SJhId1USouXjQv3Mv3dMT7eTpK2/74a+JfEazcOs
-	 vw0/SFkgB0RbfUc/YG3Idp30cTdMBZjqmkyc6luMAWphJ62ewhaxrwS3jk9taSbQXTVpG
-	 n1yHfYYVEnUCQAvga4Tmh2al5AzI9U2Wsfd/soUFmqJhUkIFz+okkhU/M49DKLRo+fw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794049780;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
-	b=VONUzrJaVpnRVJhddr8f+lDG/NPgXXMXZBkU8mgs4vTYGO9j+6+6SvZn/jmoeutOFtzu
-	 ZFGMrbB2tj0Xd+BpIqvAhq4n8/kXIbKhf/NVgLR+WHmYNV59GcX1RSR27q/dKAY4qmlzZ
-	 fsqqmlKR3sJMMjCeQ5rTthqc58s+mnXVfehFTL6Y1pFUnD3wO6ydTgw9AUMERsV+iSVgv
-	 bhLmvJIPysZTjQ7BAE7R+anEL1AOGCv0cBh0xteMQALPYHOQpo70NO89RMYezXdicPGHM
-	 yu+zD1iQSN3URlQjIF7ckx/X6C98Lb5oDRRJf3gp1EP9QXqRBdkFGnuW/cWyuKah0mA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794049887;
+	b=CjHor1GKGtBPYwkvZDwfihyd5Swvp0751RIP7AbgHjs5ey/l6Exw+F5tvtxTgXhdDZB6
+	 9Q1NGWuz9/IiDP4sUQu/SOeCvaxFAFbayWk/19IOu0NVnW4rWd5nL9eX28ngjVJ+EQuj4
+	 SRa9uGo4Ho5ERfw9E2hVtOO6B2PurrQWNtYNfzs4LcRN2gs9dxSS7BXbvZJEoUmT0fEGx
+	 i12+7QqgHdvHEHwCKxnLnBJqjYQfyYcGwx1dtIku/Squq7XWMF38vI7QfujUHPLf0YpOh
+	 JWaukNT1riu+9Tb44WciR9m7fqmUlu2+XSL4vbaVdNf8N0oZWbtkBtR068lLIh6fOTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049887;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BwkbHjJ4mKegV1VLg0LQSGx/Az9TTLJATUcODgEo9yI=;
+	b=v53qmLMZIJ1QP1b8CD9ZFnDQu0UrDvKfXhkG9ZxBBBygE1sMFcDrVUrTDoFOwzHpgp0H
+	 4856WQMcYgTppbPZ2nH6NLbtpWAv3adbFuhROtPdoJuuaQw+MTzX2lNjldIttAm7Kyma7
+	 Fl2lOwWwfWIKi/XeMxlXBNfLu1MfKJhjsVtmwY3k0PjQhLmdAYbDvsz2AW2fHSFep0Iaj
+	 qCD1OKxPAGmrdZ7CDVxHWCgE+xKmvQ5EcBoAfqHCiGQR594+6mcWUWbE+q1Tehyy3Linr
+	 phE8QKlv13Ifo3bxHfps/3AYstMGvMeuhamzB9H1VUwaxukqGFAHSfnHPtEDwVkERRQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ublbcDVg;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 13BC81F008A2;
-	Sat,  7 Nov 2026 11:09:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049780;
-	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PxbTz3v3uuTuqIy3eZo+R27eJTf3bMidYfy3Itf05XNarG/XyYhqF+rUTMYVCMgjH
-	 2+KyEi8xHvCRXNul+MEVph0TOUd/4NZex8Sieykq7At4+4iYQz/x58e1mFJHBLTMvc
-	 nocl3CPpTpBGaX5J7g9McWQbhcPaCrVHJ5UVqw+zusIlH129HAxHQ/j5YE1BHmKWbE
-	 vdnEzbWfHrkPuZP933DfBlDhZXLL5t7w9CBKnVDyMPCoLbOm0TZ0uAbk4G7KPQuCRf
-	 n2nyJC2heDMZ9ntKAcBIjkaTCxqYdP18EeTvcTuHbGIMtJAohZNXeEvPFch7lVzSgO
-	 GUsxH5varN7aA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 867E747B6F;
-	Sat,  7 Nov 2026 11:09:39 +0000 (UTC)
-From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
-Date: Sat, 07 Nov 2026 19:09:36 +0800
-Subject: [PATCH] power: supply: mt6360_charger: Set the input voltage limit
- in CHG_CTRL6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672AA606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:11:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 672AA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ublbcDVg
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36fe5944e9aso323055eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:11:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794049886; x=1794654686; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BwkbHjJ4mKegV1VLg0LQSGx/Az9TTLJATUcODgEo9yI=;
+        b=ublbcDVg2tEYPKewsQpukaBaBzxDJovRTOC2RkH9BuQJxOrpDI/XXMCm8+ctvS2Cp7
+         Of3irGlYInwGu2Cs9tT1/Q8iwhv6fxQwNWKOj8NGKFv5BjA58iKT1r+XMG3Z8OdOdD+B
+         jCiTEyc3lTVpMwROBDgG2Z91EbodPmy//A5vdE3G6pjwZW0dWy4qf1ChVZglKJk+hX/P
+         vWkFhQowxAjbWR4vnUedm3QtiCu+t6sYrmX814ke/5r1034MUw7/0amZz36MiOo4bDy/
+         90k1Ee1gytzEIQxVzj70rZZD0SA9sdLU82QYoNpFBYTMS8CAWxrsaoNTLmSQugdVu664
+         OB4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794049886; x=1794654686;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BwkbHjJ4mKegV1VLg0LQSGx/Az9TTLJATUcODgEo9yI=;
+        b=dCKHe+DaiejfRVMl7gSzH5Oo13naql09iviAzxN3r32Iw9GXUSEwYZSLSsp2+TgWcw
+         37vI07oaCpPbrt5h9sdimvGAeRMkB5XYFDvAMcVrnJm0FNkMQF+Egb7Y3O100R/jTWbA
+         5VN6pMhAsr/w8R6Sz1xhPU/15ahCRIKSZUPW2j0KLqRjwanUubbl4KkVNllwoFnFCRKW
+         CTKAHXtBlX9AyGnKZ1feH5BA5i15Cf4Mhm4r2Qb0EHklpM0R3towC81SgKXe0NigCqaO
+         KRO1Babdr30RxmMFygnjRxyji/2bx5SDljbS6FGXvchFpUIGFSPKBG7kWhQI3mKzOvmV
+         bTig==
+X-Forwarded-Encrypted: i=1; AL+hErHtDRDj4dl/NUJRhDw9aDPoXD08zu9+BSpEsYAgawGiKDVqiZRTbIIKm5w6foq2wB5DLVWYR+rkiTrK+Vs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+tunS7Yte1WNj8KI2BSrZLld1F7iKUmbJbNeL/xlQGWkVQ9fZ6
+	o3MXP+UmkXOEv9jtEKICNY5beW74kAItDokPqCo9B0/QiXIjF47m16Ca
+X-Gm-Gg: AYBFou3B+hk0Rdjzaq/pmb5BJlYHGqzEGVa1/XEw+zL3MKkQOD2hQOtB4F7vDpydyjo
+	nTf32gILhtlxoykJqaSjxlIVhzNEabFgR7EjyC/xNyJyZGqEcg31oVmu5gAk36A345mJiHEmaCF
+	Yknf4adYO3EWEH7dkhUF4xNol8zTUtLUO7m9K4Bt3o1YHWS3MjMpMdjGoAOZPLt1ux+F9671jFr
+	LZFd14eUGhOb+R5BBmX30s08WxaGtuNPFnkLLxJn1VkcFvpP1kMsontjTFFXmMUs/RTbYfSierg
+	813VsZMmrW0/6IOYqvsF//DMtod2//I4+A/KEofq9c+Vl3J2Yr0A5S7vReQfsj51nBsZ4M5NHkA
+	VmE8Cx4VIXW07WZajxC5DD8VF3vFHIUb4w0XafqTKboxe0v6Z5MEyRaoPh2ehrV53h05KLb+LJM
+	SYyEpsE0BXPAE9DAJKfS+N92GPHCAxpqIrVyaUWHR3czbq85z8rSEM1m299JheF7apaddMps3bf
+	8EbQWoPsH7ct21/2x6tPsV8TKvuGcA1GkajHzUwr7kf3STEwVawfEnxsDxTp2vunrftAMjGtEHZ
+	ij6v/psiAC+tyZI5jOZicpo+ziU+zhC9J+XRJG8TJED4K0emi3lj+Fa+L2i2MQ8BhBrJgijum4M
+	V
+X-Received: by 2002:a05:693c:26cc:b0:36a:3005:aa65 with SMTP id 5a478bee46e88-36f7611ec47mr6077505eec.15.1794049886246;
+        Sat, 07 Nov 2026 03:11:26 -0800 (PST)
+Received: from WIN-GDFRURIH76O ([45.198.20.201])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faac86a96sm15105878eec.29.2026.11.07.03.11.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 03:11:25 -0800 (PST)
+From: Alyandra Zahran Nadhir <alyandra5b@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: Alyandra Zahran Nadhir <alyandra5b@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] ALSA: ump: clear stale RPN selector on NRPN change
+Date: Sat,  7 Nov 2026 18:10:54 +0700
+Message-ID: <20261107111056.667-1-alyandra5b@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,76 +97,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-mt6360-charger-mivr-v1-1-ae6fcfb21bb9@udp0.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMUQqDMBCE4avIPnchibBir1L6UJNRt6AtGxVBv
- HvT9vFjmP+gDFNkulYHGTbN+poL/KWiOD7mAaypmIIL4r1reFqkFsdltAHGk27GdWrRRIj0KVB
- 5vg297r/q7f53Xrsn4vJN0Xl+AKY5/ox3AAAA
-X-Change-ID: 20261107-mt6360-charger-mivr-3d9e7ce66fd2
-To: Sebastian Reichel <sre@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- stable@vger.kernel.org, Rui Cao <i@udp0.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794049778; l=1708;
- i=i@udp0.com; s=20261107; h=from:subject:message-id;
- bh=NPOAHTLtaaexfTH0i/P9IAyN1qGjNjezFTQY55cDejE=;
- b=24QLSek8cMBjCn+fV0DFLLs5uhUl1By3RsW5vERTdOt7I/qC5khu7TXxFtXcFiRARw5suDHJZ
- uTrousjJyxYDHY0mD2B+7hQyb0GD+LofX2iDGcNVkNZDpK3LfSVyc2B
-X-Developer-Key: i=i@udp0.com; a=ed25519;
- pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
-X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
-X-Original-From: Rui Cao <i@udp0.com>
-Reply-To: i@udp0.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Rui Cao <i@udp0.com>
+The legacy-to-UMP converter keeps separate RPN and NRPN selector
+flags. When a stream changes selector type without sending data first,
+both flags remain set and fill_rpn() gives RPN priority, so subsequent
+NRPN data is emitted as RPN.
 
-mt6360_charger_set_mivr() updates the MIVR field (bits 7:1) of
-CHG_CTRL3, but MIVR lives in CHG_CTRL6, where mt6360_charger_get_mivr()
-reads it and MediaTek's own MT6360 charger driver writes it. CHG_CTRL3
-holds the input current limit (AICR, bits 7:2) instead.
+Clear the previous selector flag after flushing any pending parameter
+data and before recording the newly selected parameter type.
 
-Writing input_voltage_limit therefore never changed the voltage limit
-and replaced the input current limit with the MIVR selector: 4.5 V, for
-example, set AICR to 250 mA.
-
-Write the MIVR field of CHG_CTRL6.
-
-Tested on a Redmi Note 13 5G (MT6833 with an MT6360): with this change,
-writing 4.6 V to input_voltage_limit only moves CHG_CTRL6 from 0x0d to
-0x0f and reads back as 4.6 V, while CHG_CTRL3 stays at 0x72 and
-input_current_limit at 1.5 A.
-
-Fixes: 0402e8ebb8b8 ("power: supply: mt6360_charger: add MT6360 charger support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rui Cao <i@udp0.com>
+Signed-off-by: Alyandra Zahran Nadhir <alyandra5b@gmail.com>
 ---
- drivers/power/supply/mt6360_charger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/core/ump_convert.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/power/supply/mt6360_charger.c b/drivers/power/supply/mt6360_charger.c
-index b4d46234315..ccd5c200629 100644
---- a/drivers/power/supply/mt6360_charger.c
-+++ b/drivers/power/supply/mt6360_charger.c
-@@ -414,7 +414,7 @@ static int mt6360_charger_set_mivr(struct mt6360_chg_info *mci,
- 
- 	linear_range_get_selector_within(&mt6360_chg_range[MT6360_RANGE_VMIVR], val->intval, &sel);
- 	return regmap_update_bits(mci->regmap,
--				  MT6360_PMU_CHG_CTRL3,
-+				  MT6360_PMU_CHG_CTRL6,
- 				  MT6360_VMIVR_MASK,
- 				  sel << MT6360_VMIVR_SHFT);
- }
-
----
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-change-id: 20261107-mt6360-charger-mivr-3d9e7ce66fd2
-
-Best regards,
---  
-Rui Cao <i@udp0.com>
-
-
+diff --git a/sound/core/ump_convert.c b/sound/core/ump_convert.c
+index 0a7972d91..b112064cb 100644
+--- a/sound/core/ump_convert.c
++++ b/sound/core/ump_convert.c
+@@ -378,6 +378,7 @@ static int cvt_legacy_cmd_to_ump(struct ump_cvt_to_ump *cvt,
+ 		switch (buf[1]) {
+ 		case UMP_CC_RPN_MSB:
+ 			ret = fill_rpn(cc, midi2, true);
++			cc->nrpn_set = 0;
+ 			cc->rpn_set = 1;
+ 			cc->cc_rpn_msb = buf[2];
+ 			if (cc->cc_rpn_msb == 0x7f && cc->cc_rpn_lsb == 0x7f)
+@@ -385,6 +386,7 @@ static int cvt_legacy_cmd_to_ump(struct ump_cvt_to_ump *cvt,
+ 			return ret;
+ 		case UMP_CC_RPN_LSB:
+ 			ret = fill_rpn(cc, midi2, true);
++			cc->nrpn_set = 0;
+ 			cc->rpn_set = 1;
+ 			cc->cc_rpn_lsb = buf[2];
+ 			if (cc->cc_rpn_msb == 0x7f && cc->cc_rpn_lsb == 0x7f)
+@@ -392,11 +394,13 @@ static int cvt_legacy_cmd_to_ump(struct ump_cvt_to_ump *cvt,
+ 			return ret;
+ 		case UMP_CC_NRPN_MSB:
+ 			ret = fill_rpn(cc, midi2, true);
++			cc->rpn_set = 0;
+ 			cc->nrpn_set = 1;
+ 			cc->cc_nrpn_msb = buf[2];
+ 			return ret;
+ 		case UMP_CC_NRPN_LSB:
+ 			ret = fill_rpn(cc, midi2, true);
++			cc->rpn_set = 0;
+ 			cc->nrpn_set = 1;
+ 			cc->cc_nrpn_lsb = buf[2];
+ 			return ret;
