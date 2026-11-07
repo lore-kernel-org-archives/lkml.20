@@ -1,64 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080105;
-	b=gC8t4yfwKLutxH4T8oNEPzJrASdDZ27AwRg6Fpu1WmjZSYeh7JRAY6/hzVTcr71gGDax
-	 Os5PHiVsw/P60TpApJO0koLPTkQC+6n63rIVbVNKXsK4KwRorl6x//uiN66CS4C+Gxlah
-	 sbWXvOFu+5YAFCcSZRmCkael/eB4YAvjP0pw9j0OUgANC5mPc395BrJ6GmELNiMUGYAe5
-	 vDxzhUZw+2OaOtqHh8/rXoH0t32a7jNO3WzEKf9as8/hFruXC+gA1ARlkNDwxge5xrIDJ
-	 qnHAKRdDi2xF3SvYgHT0K5vJBBfTJ+wcvie1E9kP1/bxZqvSb2Vn/k9iyFMNfHlvjEA==
+	t=1794080137;
+	b=u4+b7pBKkMpfvu9jpCqDfq5+gnx9wlptjZTzROlJIr5i0KiRPf1vZ/vNeznU2e2yKJz3
+	 cKmss0HQSITDIy4eRKHzk1sybIvzWV+ciIjhStSPCQC5LJi/p/QuLq+ZSU/3eFp3L6Le3
+	 vIWKrPpIdjSFnV+WMsuvk1uSCrDrlepQeR6wsnewkWugIybFGrFg4h8B7xt8eW6vwGEte
+	 UlmV4KKZYpsM7hHKT3nSd2p+e9QgSIMkqdxhWQyQ426bwpdY7Y9zRvUF+vLJfnlNslwNA
+	 6VukyxTHiHlZ3u6jJgaIMYlm9GPeHs58y2eKq4s537n+zvMfzRjmxWNBrd582S1W6bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080105;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=t6pr0Kq+Qg9kc8G/gGpDKk34Ekvxb6QZU84qcYwWb5k=;
-	b=hVsp+KqCpJjDYAateaY+I4Yd8itsGgf6EViKYt438OX+NkJCP/sVhucjOKkytxrq5WC6
-	 2gcSlpzHIsp7YjxvTplvLFi+Qc4NwlcA1hunDwpPGqWcaqlfK114A+/+1mwiTb1jTYOd7
-	 6pvm8qmUdFf16DN3KUtcxoCJztDjcbVFx2JZUTDuLGfizXR5s95Sgg0nwMzWMLat1iDGx
-	 8/LjtMuQqC0N8P9qEPXCzDyJ2Qfp1FAIJXKcIp8/kvZunD3OhAohvVoaVgtSP1DF2CaZU
-	 yHsiWSACUtCYnD+/a2RKn+CAfGeiKFbheM/gi+hbJhdw/dY4sKWRHQCkO34t1tR8wXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080137;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=y91yUk3QMpxcP22L5RRZVkCw7buIe7KPREWLseYyt3w=;
+	b=i756A2u9KNn5jdm+RFgpOQ45EQhMDAoEeFswqYYVDCL2EuVERAY0AX50eIkxP1hk33HV
+	 1wKu6UB+A0fW5o6Wk4pFcOTfNseNtda2lFh5gFtHzAEX+1mDY9bxpiv0UARUQXRhWA+Vd
+	 8oYO4dmV36mUQaWinTNVKz9q80y5QyXlsuMtrqNmjkqmRrJ+MciXvvc8uPle+J6thZvmN
+	 dO16+oVJ5NS4pZdxpME2VIHW+N0mAqs8xqVFdLMW25eUCGxKRmTyAKwpBfOlK9HSGGWr/
+	 q0hP8E9uo/DNbZmlXiUo5zd1lTmMPnd8OYgFlnPWvBGqdj8M8pVCscTUjNNZhdSKouA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzOq5IVa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U1DElYiB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160BB606A326;
-	Sat,  7 Nov 2026 19:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBED5606A326;
+	Sat,  7 Nov 2026 19:35:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzOq5IVa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E378A1F0089F;
-	Sat,  7 Nov 2026 19:35:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U1DElYiB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3303E1F0089F;
+	Sat,  7 Nov 2026 19:35:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794080104;
-	bh=t6pr0Kq+Qg9kc8G/gGpDKk34Ekvxb6QZU84qcYwWb5k=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=hzOq5IVapPSMFXdOadQUSEdQ3L5nfvfOz6EQQCPf4J2mUQcAbpFikRZFjHARD420E
-	 N2IDh6qUPLIPLZXGM0lav/lmLESw8jQ/vkr1lqGku55l+U/WH+xqF3Pc5Jzvcl+UNo
-	 leMlOX3yljrR6fVvMjzv/r+2Fnjq2q8mAHtuzlZYN0lX9aVdNnlShc4IsjoPDkhGnO
-	 AQOi7sW9NKCF1/wMVLK8+6LdHL6eBVBiJNmUGOyDnGFwg2FVhvj4dVdZg7md+5b09M
-	 RQ3aXJiYSRRf3eUf3TdczV6hBb7O15fSNTNOXP7lbGRh9wVdh4aBGbr4sr/s+7Lx+B
-	 A+khKPb/NUaig==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D82A8380821F;
-	Sat,  7 Nov 2026 19:35:04 +0000 (UTC)
-Subject: Re: [GIT PULL] Devicetree fixes for v7.4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261106213740.GA1851347-robh@kernel.org>
-References: <20261106213740.GA1851347-robh@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261106213740.GA1851347-robh@kernel.org>
-X-PR-Tracked-Remote: ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.4-1
-X-PR-Tracked-Commit-Id: 9c1075791172d936935ca20d7f0c1da601c4f408
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: d164c7d754f0e1f020298366ea92430e62476089
-Message-Id: <179408010357.1301131.3089617069335281848.pr-tracker-bot@kernel.org>
-Date: Sat, 07 Nov 2026 19:35:03 +0000
-To: Rob Herring <robh@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+	s=k20260515; t=1794080136;
+	bh=y91yUk3QMpxcP22L5RRZVkCw7buIe7KPREWLseYyt3w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U1DElYiBCAwYNb5lvnlydTAg+Zx/qbjkhjIeGQqYkRaeyYdOGOECsJgFK+4t8mPgz
+	 kSt884AE/XerPp+N8+qYwVKaiR7Y+UBvrDNbEktuXsk/Xw1sG+J6lpGyEsAfVnGSl0
+	 YEfZXo/fqEJ38p5kWs935lTGr8wM3oN13+H8uwh1njL/1jfNF5zSefgdLLvi4WYT2x
+	 HwD0lTfeJm+z49lcXZYMhkBUBK/8Ev5WTvODQmBd19QxRtrUS8v2iYYQLwqSjXt4bV
+	 3sppTarAIZbmHOlEiwLj4IpYtSP50gzqmLVtOG8R8ZVHl2xY+4Gg7taTVaFJfeyt6K
+	 FxAStSYhTeUjw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Rheinsberg <david@readahead.eu>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH 1/2] mm/memfd: handle GUP pins more reliably when write-sealing
+Date: Sat,  7 Nov 2026 20:35:23 +0100
+Message-ID: <179408004350.4783.10820829282179060083.b4-ty@b4>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
+References: <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +74,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-The pull request you sent on Fri, 6 Nov 2026 15:37:40 -0600:
+On Tue, 03 Nov 2026 19:31:44 +0100, David Hildenbrand (Arm) wrote:
+> memfd_wait_for_pins() detects GUP references by comparing a folio's
+> actual refcount with its expected refcount. As spelled out by
+> folio_expected_ref_count(), obtaining the expected refcount when there
+> can be concurrent folio (un)mapping is racy.
+> 
+> So it is possible that a changing folio mapcount can race with our
+> check for GUP references, and F_SEAL_WRITE might succeed even if there
+> are some, allowing file contents to be modified after sealing.
+> 
+> [...]
 
-> ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.4-1
+I'm applying the first patch for now, as that is an obvious improvement
+for many GUP users (esp. iouring fixed buffers etc).
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/d164c7d754f0e1f020298366ea92430e62476089
+tree: mm/core.git
+branch: for-next-fixes
 
-Thank you!
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/2] mm/memfd: handle GUP pins more reliably when write-sealing
+      https://git.kernel.org/mm/core/c/42990cfe
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Cheers,
+
+David
