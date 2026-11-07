@@ -1,69 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794054186;
-	b=A1iegJETKiHB6tzNs/RC0OSzJY2HYNHRinI++yld5bAUjqDUt5DdwnO3YJni1SYPV3gE
-	 tMkdBJ0UcFd2uDmc5L3BhlsnyMrdAM8d1M6bUk6i/jL0r7whY1IYxzURZwNAv+3YdTQqw
-	 zVZQ0TZbViDTilqBCMwbHbS3fVc3u++lJZbmR7H3OOW7n4pSMLfLZzLFffB4NPhw1KStQ
-	 p7z7MiveqtFfT8ooFAGepL0g3c6iXsdzeFpVIhy4yqp3b+WHquXSY8v4xaImllSR/6sKF
-	 ZGenpoA6IVTwe4f77/a/oVPGiJFjA+dtURVc+ZTmBuajIOpSsxDuYss4wZvlHKIhBnA==
+	t=1794054354;
+	b=HzmutkIsFkwmWYMrrznVkJbnap5BvfLonFymGFMBwERBWCqHQgwWjFGXw50NArQMxSMR
+	 VsAl6ZY/QtSMgj+trB9+37DiQQgdGbu1OZ7xEt/C0IYGCJ68dBnnoeK4YL34eqNBwvDsM
+	 PPhGl6TR/+q/BGXIpQAB3fRBhffGPFEERCNo5Zds1FvAQOmpOXu7tKfmRyD5o4O5tpyLT
+	 noRxLW7e1rxzUthh33eAJ3U8b1BumlnnUg0njVAyCjhovB2pKz1VN85qSYbyvps6DmxRi
+	 phqy3p2jcb2ALUVeyyn9MDPva1kCSbIHn+AsPRUL9gx0eWfOuWtM6NdRImpgoqEkMYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794054186;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
-	 MIME-Version:Content-Type;
-	bh=TBEFW26Kc/QyTcxgmba5XzRa43zG6gzVhqlbzSDo17M=;
-	b=xrUGF573oFE1mn+pivFB/kGwoYy9aTzaFHhnzNPq0oZtVRqgMdZJAz2l5zLsRpg18qyA
-	 0D1HvlNCeamp9FZC9p1kUSj2TD+LQliPudj7e4Pg5+9wawAyQ9Vo8Fc8sRD4ui6lIzzCZ
-	 bwNmOnnymrrIHgRnjwYiVYRkZU/8SmUKHdII57wInZCTnNq14jWj4os0xc6DxcmvXv77p
-	 0wbo9e2FPRywzFw9x749NjLHmmetILf2GEprYbZKo6Mlz6eyEGWQ8NURh36Z+dIw5xcWP
-	 9ys+5HKwrNdOrYXNecg8qqgdfPOxsOZ1iPq4557gmg7nEPEiTDkzIjYF6wnISGC62pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794054354;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nMZivJOM2oM45m9Nztv0AW9BCNHvPrOKaR0tdk/NVrk=;
+	b=PmOpcmjeZYZjBrbiFzVN4oEWNPo1/3X0F8Xa5RJQ9JbuMMN3TWTEDw9Nb/oDCLlRXRMm
+	 hNumr9WvohqNJrtpzjumBuI6KQBDIBPnodjwvXtp/NO7zzDqpXo1l3mmqqTIt3OUwros9
+	 7DsE3LZE7Xu2bbXX+/dLWOrVxGTROz+w1UlKG3w3TpciNeSeo2txyq/mqOKY7dodZsRap
+	 cV/4YgMPA4Nh+ZgwfNsWOLmj5L2IvXmVVczk6t9L27Fb2YQ0vTBuV/fvMd/3m4NGFYSfY
+	 Uj3pY4AwNJe6Picc00pVbyO8RRHlUGXnwtsxYGuqsW22ykFqH/qakSffD/d+17Hy7KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CixpGjrE;
-	arc=none smtp.remote-ip=115.124.30.119
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WumXMJ5q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF591606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:23:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF591606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0FA606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:25:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CixpGjrE
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794054174; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=TBEFW26Kc/QyTcxgmba5XzRa43zG6gzVhqlbzSDo17M=;
-	b=CixpGjrEj/7iaCzDjfkoklDY+Cul9M6ytkOvWcEKf/Y3RKpd7nDkuKXwBrnc/fiWSnUWL69EXQNp1jb2WTeVSSv/JVVGapPBuNbTPWq1W/IPs5JRAceMHoZBXhEAfC/NXMLKZH2tfH0EzplL7gC6KEKfdKYek8+kZ/zNW9qivTI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XEEWiqy_1794054171;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XEEWiqy_1794054171 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 07 Nov 2026 20:22:52 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Zhiteng Qiu <qiuzhiteng@hygon.cn>
-Cc: Andrew Morton <akpm@linux-foundation.org>,  David Hildenbrand
- <david@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Matthew Brost
- <matthew.brost@intel.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>,
-  Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
-  Alistair Popple <apopple@nvidia.com>,  Xin Hao <xhao@linux.alibaba.com>,
-  Dave Hansen <dave.hansen@linux.intel.com>,  <linux-mm@kvack.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mm/migrate: don't batch the TLB flush when there is
- nothing to batch
-In-Reply-To: <20261107190737.1538200-1-qiuzhiteng@hygon.cn> (Zhiteng Qiu's
-	message of "Sat, 7 Nov 2026 19:07:37 +0800")
-References: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
-	<87zevmwbaj.fsf@DESKTOP-5N7EMDA>
-	<179395975709.1235605.1971486611419119070@hygon.cn>
-	<20261107015057.1328227-1-qiuzhiteng@hygon.cn>
-	<87qzgxw2qx.fsf@DESKTOP-5N7EMDA>
-	<20261107190737.1538200-1-qiuzhiteng@hygon.cn>
-Date: Sat, 07 Nov 2026 20:22:50 +0800
-Message-ID: <87ld74x23p.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WumXMJ5q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A1E1F008A6
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794054354;
+	bh=nMZivJOM2oM45m9Nztv0AW9BCNHvPrOKaR0tdk/NVrk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WumXMJ5qltMqk65sOnjxbsv6rOOuGJ9zPL2Io2hJ6robyxoxR7182pZGf7Wm4mxfl
+	 PPGVtexG0IIu9PXo7i4UjqqxYrp8FeekNF2rnPHKxH1t07e/+Ufb+UU0W6Yg22BiNm
+	 6Z4qABRqb7Lv9OInLANGS15JsluikM5tpvBDPy1ixkAhHO/fdy2zvWVHc4MG3VonDQ
+	 Usk/YOSnaO4TgK2cKFoONRt+AVFUVRCmP9YDJPtMHHCLEn7O7hTt456AoJBnTQpMfa
+	 SR9cBOmp+w4W/ha8mI41vM+/m3g0n0PqpMwHdwSSshtbPmdcJRpe90rntVsp+y9jm4
+	 EVGQ9GrCPCUfg==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so135501a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 04:25:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEZ6eveRzSL8sm1xWtMPMzHUMKU6vKqrou3BAg3ItAr9mLM5q8Fmfqwq1D61IkqPvkAHsa07+TuVPUGslM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z803bZOU0shX89wTtQirkFzqKR3BC5tMH/62/LAXyViDTUw7JXv
+	uR7B0v0FKLwrp4DPgaq/z1o60AhfIEQkio0agOoyQKFpKbTcruKxvhOYzJHoBQ6s4JaDi4eCqBv
+	ZKHyB9gcPKbaBK/fE2/afougkGd2ykek=
+X-Received: by 2002:a05:6402:2804:b0:6b6:eefc:ae7a with SMTP id
+ 4fb4d7f45d1cf-6b6eefcb1e3mr2504856a12.4.1794054352574; Sat, 07 Nov 2026
+ 04:25:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,74 +59,368 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
+ <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
+ <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn> <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
+ <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn> <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
+ <843a9418-2017-c2c6-45c5-38628e7e0bdb@loongson.cn> <CAAhV-H4O07hKyPJ8rTMo=vD=t+qFM7UAJOPDGZDVJ0Ti-gOdEQ@mail.gmail.com>
+ <e04352c2-f4ce-d415-72d4-21e03b828843@loongson.cn>
+In-Reply-To: <e04352c2-f4ce-d415-72d4-21e03b828843@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 7 Nov 2026 20:25:43 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7phy=T1MMNpSnZdjjiQXH41S7jnFcgfZd_4b5aqffB6g@mail.gmail.com>
+X-Gm-Features: AclHuK_Qu3xOXcYgx1roXJhondQU01JPqY5k6JB0ia-i-ADZ4-jS10PfrK6FB8w
+Message-ID: <CAAhV-H7phy=T1MMNpSnZdjjiQXH41S7jnFcgfZd_4b5aqffB6g@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
+ field in the IOVT IOMMU structure
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
+	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
+	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Zhiteng Qiu <qiuzhiteng@hygon.cn> writes:
+On Sat, Nov 7, 2026 at 9:43=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrote=
+:
+>
+>
+>
+> On 2026/11/6 =E4=B8=8B=E5=8D=8810:58, Huacai Chen wrote:
+> > On Thu, Nov 5, 2026 at 7:22=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> w=
+rote:
+> >>
+> >>
+> >>
+> >> On 2026/11/5 =E4=B8=8B=E5=8D=886:31, Huacai Chen wrote:
+> >>> On Thu, Nov 5, 2026 at 5:49=E2=80=AFPM Bibo Mao <maobibo@loongson.cn>=
+ wrote:
+> >>>>
+> >>>>
+> >>>>
+> >>>> On 2026/11/5 =E4=B8=8B=E5=8D=885:31, Huacai Chen wrote:
+> >>>>> On Thu, Nov 5, 2026 at 5:14=E2=80=AFPM Bibo Mao <maobibo@loongson.c=
+n> wrote:
+> >>>>>>
+> >>>>>>
+> >>>>>>
+> >>>>>> On 2026/10/23 =E4=B8=8B=E5=8D=883:59, Huacai Chen wrote:
+> >>>>>>> Bibo,
+> >>>>>>>
+> >>>>>>> Now I have applied this series but with some modifications, pleas=
+e
+> >>>>>>> double check and test the code.
+> >>>>>>>
+> >>>>>>> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-=
+loongson.git/log/?h=3Dloongarch-next
+> >>>>>> In my v4 submit, it is:
+> >>>>>> +               case ACPI_IOVT_DEVICE_ENTRY_START:
+> >>>>>> +                       is_start =3D true;
+> >>>>>> +                       start_devid =3D ep->device_id;
+> >>>>>> +                       break;
+> >>>>>> however in rc1, it is modified as:
+> >>>>>>                     case ACPI_IOVT_DEVICE_ENTRY_START:
+> >>>>>>                             is_start =3D true;
+> >>>>>>                             entry->start_devid =3D ep->device_id;
+> >>>>>>                             break;
+> >>>>>> Here entry is not allocated and NULL pointer, it is allocated in
+> >>>>>> ACPI_IOVT_DEVICE_ENTRY_END switch case.
+> >>>>>>
+> >>>>>> I really do not know what is aid to modify it and let others to te=
+st.
+> >>>>> Sorry, it's my fault.
+> >>>>>
+> >>>>> In theory I should point out the modification (eliminating the loca=
+l
+> >>>>> variable start_devid) and refresh a new version. But we have no tim=
+e
+> >>>>> to do this because when the first patch is merged into the ACPI rep=
+o
+> >>>>> it is near the merge window.
+> >>>> Maybe our work style is different, I do not care much for the coding=
+ style.
+> >>>>>
+> >>>>> If you agree, I will submit such modifications to fix it.
+> >>>> fix is welcome.
+> >>>>>
+> >>>>> diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch=
+/iovt.c
+> >>>>> index 87cee4f0fc80..4cdac28a1fd0 100644
+> >>>>> --- a/drivers/acpi/loongarch/iovt.c
+> >>>>> +++ b/drivers/acpi/loongarch/iovt.c
+> >>>>> @@ -115,6 +115,10 @@ static int __init iovt_add_iommu(struct
+> >>>>> acpi_iovt_iommu *iommu)
+> >>>>>            for (i =3D 0; i < iommu->device_entry_num; i++) {
+> >>>>>                    switch (ep->type) {
+> >>>>>                    case ACPI_IOVT_DEVICE_ENTRY_START:
+> >>>>> +                       entry =3D kzalloc_obj(struct iovt_device_en=
+try,
+> >>>>> GFP_ATOMIC);
+> >>>> There will be memory leak problem if there are START/START/END in th=
+e table.
+> >>> That means a broken table? I think we don't need to consider broken
+> >>> tables, because there may be kinds of broken pattern rather than just
+> >>> a START/START/END.
+> >> yes, START/END/START, START/START/END, START/SINGLE/END. what is the
+> >> relationship between "don't need to consider" and kinds of broken patt=
+ern?
+> >>
+> >> what is the policy from your side with such BIOS table? let memory lea=
+k
+> >> and continue?
+> > The driver can only work with a good table or no table, but not with a
+> > broken table.
+> With a broken table, software can discard the whole table, or discard
+> the single table entry.
+Discard a single entry is dangerous because the pairing may be wrong,
+so if we should handle a broken table, we should discard the whole
+table.
 
-> Hi Ying,
->
->> Have you adjusted the NUMA scanning parameters?
->
-> No.  All NUMA balancing tunables are at their defaults
-> (scan_delay_ms=1000, scan_period_min_ms=1000,
-> scan_period_max_ms=60000, scan_size_mb=256).
->
-> The scan is indeed slow: 58 passes of 256 MB in 55 s, 89 ms each,
-> about 9% of wall time.  But the hint faults are not spread evenly
-> between passes: those 9% carry 33% of all migrations.
->
-> The faults come from the scan, just not from the pass that happens
-> to be running at that instant.  Of the migrations that happen
-> during a pass, 60% are for pages in the 256 MB chunk being scanned
-> right now; nearly all the rest are for pages scanned one or two
-> chunks earlier (lower addresses, within 512 MB).  None are from
-> addresses the scanner has not reached yet.  So the scan makes the
-> pages PROT_NONE and the workload touches them again within a second
-> or two, while this or the next pass is running.  The collision is
-> not a coincidence between two independent events.
->
-> Here is the sequence, one pass on the unpatched kernel:
->
->   CPU A (task_numa_work)          CPU B..N (workload threads)
->   ----------------------          ---------------------------
->   tlb_gather_mmu()
->     tlb_flush_pending++
->   change_pte_range(table 1)
->     PTEs -> PROT_NONE
->                                   access page in table 1
->                                   do_numa_page()
->                                    migrate_misplaced_folio()
->                                     try_to_migrate_one()
->                                      PROT_NONE, but pending set:
->                                      pte_accessible() == true
->                                      tlb_flush_batched++
->                                     try_to_unmap_flush()
->                                      full flush, IPI to ~380 CPUs
->   change_pte_range(table 2)
->     flush_tlb_batched_pending()
->       pending != flushed:
->       flush_tlb_mm(), IPI to ~380 CPUs
->     PTEs -> PROT_NONE
->                                   (same for pages in table 2)
->   ... 128 PTE tables, ~0.7 ms each ...
->   tlb_finish_mmu()                    pass took ~89 ms, not ~7 ms
->     tlb_flush_pending--
+Discarding the whole table need a rework, the is_start variable is not
+enough. You can consider the below solution:
 
-This looks much more clear!  Thanks!
+diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
+index 87cee4f0fc80..8381de278e3a 100644
+--- a/drivers/acpi/loongarch/iovt.c
++++ b/drivers/acpi/loongarch/iovt.c
+@@ -73,10 +73,44 @@ static int __init iovt_get_pci_iommu_fwnode(struct
+iovt_fwnode *np, u16 segment,
+        return 0;
+ }
 
-> Each table flush makes the pass longer, and a longer pass lets more
-> faults happen while tlb_flush_pending is set.  With the patch the
-> migration takes the direct path: it may still flush while the pass
-> is running, but it does not bump tlb_flush_batched, so the scan does
-> not pay per table and the pass stays at ~7 ms.
++static int __init iovt_validate_entries(struct acpi_iovt_iommu *iommu)
++{
++       int i, done =3D 1;
++       struct acpi_iovt_device_entry *ep;
++
++       ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, iommu,
+iommu->device_entry_offset);
++       for (i =3D 0; i < iommu->device_entry_num; i++) {
++               switch (ep->type) {
++               case ACPI_IOVT_DEVICE_ENTRY_START:
++                       if (!done)
++                               return -EINVAL;
++
++                       done =3D 0;
++                       break;
++               case ACPI_IOVT_DEVICE_ENTRY_END:
++                       if (done)
++                               return -EINVAL;
++
++                       done =3D 1;
++                       break;
++               case ACPI_IOVT_DEVICE_ENTRY_SINGLE:
++                       if (!done)
++                               return -EINVAL;
++
++                       done =3D 1;
++                       break;
++               default:
++                       return -EINVAL;
++               }
++               ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, ep,
+ep->length);
++       }
++
++       return done ? 0 : -EINVAL;
++}
++
+ static int __init iovt_add_iommu(struct acpi_iovt_iommu *iommu)
+ {
+        int i, ret;
+-       bool is_start =3D false;
+        struct iovt_fwnode *np;
+        struct iovt_device_entry *entry;
+        struct acpi_iovt_device_entry *ep;
+@@ -110,23 +144,22 @@ static int __init iovt_add_iommu(struct
+acpi_iovt_iommu *iommu)
+        if (np->flag & ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT)
+                goto skip;
+
++       if (iovt_validate_entries(iommu) < 0)
++               return -EINVAL;
++
+        INIT_LIST_HEAD(&np->ep_list);
+        ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, iommu,
+iommu->device_entry_offset);
+        for (i =3D 0; i < iommu->device_entry_num; i++) {
+                switch (ep->type) {
+                case ACPI_IOVT_DEVICE_ENTRY_START:
+-                       is_start =3D true;
+-                       entry->start_devid =3D ep->device_id;
+-                       break;
+-               case ACPI_IOVT_DEVICE_ENTRY_END:
+-                       if (!is_start)
+-                               break;
+-
+                        entry =3D kzalloc_obj(struct iovt_device_entry,
+GFP_ATOMIC);
+                        if (!entry)
+                                return -ENOMEM;
+
+-                       is_start =3D false;
++                       entry->start_devid =3D ep->device_id;
++                       break;
++               case ACPI_IOVT_DEVICE_ENTRY_END:
++                       /* START & END are paired */
+                        entry->end_devid =3D ep->device_id;
+                        list_add_tail(&entry->list, &np->ep_list);
+                        break;
+@@ -135,13 +168,12 @@ static int __init iovt_add_iommu(struct
+acpi_iovt_iommu *iommu)
+                        if (!entry)
+                                return -ENOMEM;
+
+-                       is_start =3D false;
+                        entry->start_devid =3D ep->device_id;
+                        entry->end_devid =3D ep->device_id;
+                        list_add_tail(&entry->list, &np->ep_list);
+                        break;
+                default:
+-                       break;
++                       return -EINVAL;
+                }
+                ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, ep,
+ep->length);
+        }
+
+> >
+> > Take START1/START2/END as an example of broken table: in your original
+> > code, the END entry will be pairing with START2. But for a broken
+> > table who can ensure they are the correct pair? If the real correct
+> > pair is START1 and END, then (entry->start_devid, entry->end_devid)
+> there is only one policy, software does not know START1/END is right or
+> START2/END is right.
+> > will be a wrong device range. Such mistakes are much worse than a
+> > memery leak.
+> >
+> > If you want to say "I don't care about correct pairing, memory leak is
+> > bad in any case.", OK, we can do it like this:
+> >
+> > diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iov=
+t.c
+> > index 87cee4f0fc80..ebd11e22c9be 100644
+> > --- a/drivers/acpi/loongarch/iovt.c
+> > +++ b/drivers/acpi/loongarch/iovt.c
+> > @@ -115,6 +115,13 @@ static int __init iovt_add_iommu(struct
+> > acpi_iovt_iommu *iommu)
+> >          for (i =3D 0; i < iommu->device_entry_num; i++) {
+> >                  switch (ep->type) {
+> >                  case ACPI_IOVT_DEVICE_ENTRY_START:
+> > +                       if (is_start)
+> > +                               break;
+> there is still memory leak with START/SINGLE/END pairs, is_start set
+> with false with ACPI_IOVT_DEVICE_ENTRY_SINGLE case.
 >
->> That appear too complex.
+> Regards
+> Bibo Mao
+> > +
+> > +                       entry =3D kzalloc_obj(struct iovt_device_entry,
+> > GFP_ATOMIC);
+> > +                       if (!entry)
+> > +                               return -ENOMEM;
+> > +
+> >                          is_start =3D true;
+> >                          entry->start_devid =3D ep->device_id;
+> >                          break;
+> > @@ -122,10 +129,6 @@ static int __init iovt_add_iommu(struct
+> > acpi_iovt_iommu *iommu)
+> >                          if (!is_start)
+> >                                  break;
+> >
+> > -                       entry =3D kzalloc_obj(struct iovt_device_entry,
+> > GFP_ATOMIC);
+> > -                       if (!entry)
+> > -                               return -ENOMEM;
+> > -
+> >                          is_start =3D false;
+> >                          entry->end_devid =3D ep->device_id;
+> >                          list_add_tail(&entry->list, &np->ep_list);
+> >
+> > Huacai
+> >
+> >>
+> >>>
+> >>> Huacai
+> >>>
+> >>>>
+> >>>> Regards
+> >>>> Bibo Mao
+> >>>>> +                       if (!entry)
+> >>>>> +                               return -ENOMEM;
+> >>>>> +
+> >>>>>                            is_start =3D true;
+> >>>>>                            entry->start_devid =3D ep->device_id;
+> >>>>>                            break;
+> >>>>> @@ -122,10 +126,6 @@ static int __init iovt_add_iommu(struct
+> >>>>> acpi_iovt_iommu *iommu)
+> >>>>>                            if (!is_start)
+> >>>>>                                    break;
+> >>>>>
+> >>>>> -                       entry =3D kzalloc_obj(struct iovt_device_en=
+try,
+> >>>>> GFP_ATOMIC);
+> >>>>> -                       if (!entry)
+> >>>>> -                               return -ENOMEM;
+> >>>>> -
+> >>>>>                            is_start =3D false;
+> >>>>>                            entry->end_devid =3D ep->device_id;
+> >>>>>                            list_add_tail(&entry->list, &np->ep_list=
+);
+> >>>>>
+> >>>>> Huacai
+> >>>>>
+> >>>>>>
+> >>>>>>>
+> >>>>>>> Huacai
+> >>>>>>>
+> >>>>>>> On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongso=
+n.cn> wrote:
+> >>>>>>>>
+> >>>>>>>> This change is already merged in acpica tree.
+> >>>>>>>>
+> >>>>>>>> slightly ping.
+> >>>>>>>>
+> >>>>>>>> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
+> >>>>>>>>      > According to the IOVT specification, define macros for ea=
+ch bit of the
+> >>>>>>>>      > Flags field in the IOVT IOMMU structure.
+> >>>>>>>>      >
+> >>>>>>>>      > Link: https://github.com/open-acpica/acpica/commit/352f75=
+0e4cc0
+> >>>>>>>>      > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+> >>>>>>>>      > ---
+> >>>>>>>>      >  include/acpi/actbl2.h | 7 +++++++
+> >>>>>>>>      >  1 file changed, 7 insertions(+)
+> >>>>>>>>      >
+> >>>>>>>>      > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.=
+h
+> >>>>>>>>      > index baef525367b5..76e4a5bc79b4 100644
+> >>>>>>>>      > --- a/include/acpi/actbl2.h
+> >>>>>>>>      > +++ b/include/acpi/actbl2.h
+> >>>>>>>>      > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
+> >>>>>>>>      >       u32 device_entry_offset;
+> >>>>>>>>      >  };
+> >>>>>>>>      >
+> >>>>>>>>      > +/* Masks for Flags field above */
+> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
+> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
+> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
+> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<=
+<3)
+> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<=
+<4)
+> >>>>>>>>      > +
+> >>>>>>>>      >  struct acpi_iovt_device_entry {
+> >>>>>>>>      >       u8 type;
+> >>>>>>>>      >       u8 length;
+> >>>>>>>>      > --
+> >>>>>>>>      > 2.39.3
+> >>>>>>>>      >
+> >>>>>>>>
+> >>>>>>
+> >>>>>>
+> >>>>
+> >>
+> >>
 >
-> Agreed.  I'll keep the change in migrate_folio_unmap() and put the
-> sequence above into the v2 changelog.
-
-Sounds good to me.
-
----
-Best Regards,
-Huang, Ying
