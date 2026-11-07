@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794011828;
-	b=SlHyinMgdJLOt2xxjjrLC4i8J1BQS4g4IEkV/YkpDWPOIlqIDpL7qZHOQ7FwYUxSRdFL
-	 vxA0pi2AtDWbbo+qgx9NAnkoNFolPwsmRe6PHe9Nr8kQKGXpoytriDxrMY+tEIr3itIKV
-	 yIGc9PuMapiCQ0Ju2qxniwTHdPo8MKb2CyR5xnFpKWLZlo1VX4ZBIoc1EB3Qo2DLYeQY4
-	 9zjA3T6r+Zyy1Wn7PeVCt9aZtokABo44mk3arSRXANaVOz303A0PYHGbC+LaxSZ1CY3CM
-	 lj4MY8w8WUCSROEznHRQfreXLUYedm8et5z5lNVrRLbNJzMlJN085Z8nhuLpqmEt8Dg==
+	b=fBxJU+0IumfrekeLeMtLHF46hEhmLFOp6ogZ8IjNaN05aQRIChugql8PY4p2Q5Y1IJyh
+	 dKuIX/NWm2SN5N5M6AFsDmIgUxihfwmHRb9E7qqdqhwToEPIHdk284nWNDaOaeaHRDD0e
+	 W12ZyRP3Yj5ReYXMeNC6irePz/or6g9adHJiJxSu6Jg9luT1JIAhwZV61G7zbESUFhj9R
+	 9tAUiNWi4oQ1FDGDAxjkvIN2JT3UYDqryM3GRtbfmSPR3ERgPDGK0n2hktC4QGum9GT7v
+	 O9z0QMQ2a/GHcTv+thqIZZGQ/SahfSnc3ZjFYnqUAtVDy2RSdPWm5n03cTaXRmZ8h3A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794011828;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b+jliTZNk7EWQSiCdak8u3SiAd9Jj0Xqxa/r2n/xqpM=;
-	b=c2Zo1BgyeT74y2KMfpdeRUCzuLLtdJ55mi3Xy19v5FBR813aZo3eD5SM6xCWCRNJkFIg
-	 ZXqS4ynVUutu2st6AZy6Mjtlu+vmXcfh6qvocHKGjDcrMcTMAc3lRIm7asVjfezx9m2el
-	 gBRaow4dCf8nXJWk66TJhAQVAAt0Pi7wWWlCR1FIOAQZveBmRowIZem1rEsN3bJjrEFbE
-	 /EMeIzFzG123sNeJYTe+MlvJpKwUrjF7Ea2eB/fMGimDm8J3YFPSmHpEGs5n6oRMqJSvN
-	 iOWSiG2MQfuJyg6xw5dMllrx3/xDuFub2CAGI7qcNW+cfhB42rp8TAog72AFHln6kNw==
+	bh=XbgD4ImI2n1rI6Htjo1pftOxgnHtLV+P5ZlvPe7/FPM=;
+	b=NCsKwP9O5UKUD+jsZxrdgT5IAMACrlAH0GHk/JYmePxZRLhG44wGJL6I/ChmGqVDX4Wl
+	 +GVn6WHtcbyd1CD+WGk35OwrAm32SBdcsOvQF0/5nX5V+h0mowtLQwDewBcppuq2mDRJ0
+	 VUvShb1hTGJ/Tv91l8RcnatAuBPRhKX3aQaupz6w/xyvRAZxEDbVEP2E3dKjYXebXb3mv
+	 /eO+s9J6yDdKHtAnVkmxupcvdA9bcAQV1IRyajyYDRam70vNJEx1ncjyrPOWWT+LgZtEk
+	 JjyYqOWB6c+kKYKt0U2n79lXMn6kpHXtzFhJzEZSRvhTQTIa/elQT6oMqVCcRloUJOg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i80B1oKu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hx+Lrfin;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CED5606D819;
-	Sat,  7 Nov 2026 00:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B440606A338;
+	Sat,  7 Nov 2026 00:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i80B1oKu
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hx+Lrfin
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011826;
-	b=nNh2p2qPJ89sASLpv/yX9PhDo5lteAV+a1eNmnJA/431bGjBw6hP5v9QR1WCdDUFswWT
-	 nmPkGQZSjiOdwtkadbmic09swx7moAYX9PgjvzKSh9TQDBCfgipr0gNsuud/wrK5ozsrL
-	 cR8CD14FYRyi1nQprhgbwRDeUC2aeGw/DLMxGOmVV5VxLg23YI53w5ZjxYXgtPviR+l+F
-	 7pCUC8PSaO6NRKIDPfr89eEeYdlZX+dGArwAnpdx6wpjEIi4le0uUrYxPGfTx4T0xPUUj
-	 TyMdREFDZQXUa3hAAE7H7ArqaEpUnz9q7j6o+mdIxIho0JjJC01Y0OFfnW/4YwQBVYw==
+	t=1794011828;
+	b=DhCW07Nn03Q+sJ7vioJGBqHKxhj94Gspz/XxJ+f966pMWIYuMynLGUhWqEsvnZ+D6NNr
+	 JxwvHA/mYnrUARMRO0gkHr97CJAdp1dBC6buSy3h4hf1fZImOh9Kyxg8BPghYW4E5uQrz
+	 j11uX6RvMmC0dJvrMa6KYGintB1WfxlXvtWlMcXFaBLLl9FtfQSHCVi74TUoIZ8Pz3zdZ
+	 hSMCohuugs7u8RdU/X9vadKIxgFIV86L99nuV7BIKL2hzuyQGkPcPESdlxba1ZGQBASWX
+	 hSS+mRYsX6NjwQDwgwWRD/uX0PRSO90K3BTPVkdID1ZFSOny6X1qE0SelZpcCu6zDyA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011826;
+	c=relaxed/relaxed; t=1794011828;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b+jliTZNk7EWQSiCdak8u3SiAd9Jj0Xqxa/r2n/xqpM=;
-	b=xnpwHd/MZPx1FeeeLTe+qFriLmdSYyPXxucG5nnEnZ5ed1fQhqFMP78RfZDCH1m+eLnq
-	 yBbdG+C+8j2AB0dhveJTsZ34H+3hvV1Wt8cjGaUbmcTh8bEZc8IBIDfdTYRm2+u4JEfCq
-	 Oge8GoFXYzf2dbEwa5GqAFzgJQf62E8Iv4feJH+KBYx5x+FeY0BfT3Btr6ojkT3UqkCAd
-	 gGec1Yjv9EeefgtNgzxWSTK54M5YngKHe/r+Y0V2oHuk+t2au6bGxT+jN8W93y8722mG1
-	 4chyFD2lQpethi3sH9KRCFUQQToEwJ4AeKqYM06O63y/EZAtx+sqAiNZ/JUpe1JWRhw==
+	bh=XbgD4ImI2n1rI6Htjo1pftOxgnHtLV+P5ZlvPe7/FPM=;
+	b=iBtBJ3JTtUyU6GAUDnZXdEx+XF+KPjBz9VlpnWGhxjFhBBQCfJ+qQ19NmqdgX4tIpNCL
+	 pamOqcyTGQH4Yb/XOvVqcucwTZIhObsvusBeI77Itb7gNORPI4DAzhgORj2HJec44ygAf
+	 W1gn5KGw2DVFMM2+f3cwoXQlfW/HlSXzrOAFCSflB7VaZTcBUrZeewTyRSpo+3DfjGond
+	 f6/qjw3n4KecsS+9zsJOVUXfr4cCTaQI9yr1EEHTEMCam8G0rkGtq+BW0Z0hOQ7cgdXTz
+	 dF8iJqtmikC7AnDthCzSgtqkz/J8ekC8PqzkpKu+QArFy1Upe4VWMhWebV2pAkFQvTQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4A6631F008A5;
+	by smtp.kernel.org (Postfix) with ESMTPS id E22B41F008A2;
 	Sat,  7 Nov 2026 00:36:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011826;
-	bh=b+jliTZNk7EWQSiCdak8u3SiAd9Jj0Xqxa/r2n/xqpM=;
+	s=k20260515; t=1794011828;
+	bh=XbgD4ImI2n1rI6Htjo1pftOxgnHtLV+P5ZlvPe7/FPM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=i80B1oKu4K52Wlsn0OHvbdOvk1WheZttKNp13wd/ufzCuAVu0o7tpRYGuOK9/Mxlm
-	 vkXV57lE1IIga1IZyBf9M8YiZWSb2FZpA9R6/yna43/Ber9h4J7odv003A/fQ++O/E
-	 mIQ/k12NzKMpB2HsgmDm19zbmxePhUs5estGeWXSxRUE4w5ZMXTKcJlIhH5FJGTSYe
-	 vDz6O1GU34kfo01nnOlxh2RcI71NTVXWS2bDwjTcC6pGKLBXLNmFX+80kDpTkye8Bj
-	 yoTHciDo+yKBk0Q5OKOCV8nraoDMzw+cW0lu66cSgPI4cW6xRzwGW3xDWUDEC531a6
-	 +tLew0Fk8YkKg==
+	b=Hx+LrfinJ+cKXfOoDEnRa6iap2I/5fgh1ug2S6gqUAVQgh4Ru/LwyE73BnFN6NQrh
+	 gjbWihRk5WcBvYsVG/AnPSbAEUV6liOXdlVKFi4/ulUPLEMytc7GZ8nsqzwLHzx4SK
+	 Pw5D8lXtNGYpGC3/QIYSOtEgqqzQTyakl6FT5lAohHexuw9GzVg1AKiMzpQV2Forrf
+	 w+Av/aNks8R9+hayu8/OToEhj/0ictjzU3NChnqXOA7LuF4cYW/zdR/9Rpup205S+V
+	 xodva+pE5WpqpLnVNVxT+XD0yu1HBM6LgdMF+3mfWRO1ofeLMFLzS10+DiZUGbXDFR
+	 CU3cV8yAVBq6A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 475E74795F;
+	by lkml.kernel.org (Postfix) with ESMTP id A416247977;
 	Sat,  7 Nov 2026 00:36:54 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:36:53 -0800
-Subject: [PATCH RFC v3 19/88] KVM: selftests: Test guest_memfd conversions
- with tmpfs backing
+Date: Fri, 06 Nov 2026 16:36:59 -0800
+Subject: [PATCH RFC v3 25/88] KVM: selftests: Add basic test for sample
+ memory provider
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-19-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-25-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -105,11 +105,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011809; l=9639;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011809; l=3413;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=Ywv4Awh60QVQXfJ42x/j6i2G3l1UGcU6b4v8gcyWpig=;
- b=EDb+BOFfQuAMKC477YknSboSYEtvDUgYLwNAzDBtxOPsFifr+qxx1Kgb2Sjumi6KnTOEoFdoN
- NlP5Q12K2NNCUhaXa9Jue3uo1cBdclLvjJJyIG6fbL7MBuPn4X5T/9n
+ bh=egSCIn/Z8yZyelQp7cvP3qLOE5NIjYa4+lOtgqtkCcA=;
+ b=eS+nI7PxlE1maO7QU8JcyjZXzc2ref6sfu7l8coYHFOVhGHBKNsZtFBYoz3WLd43hTPKAb1qs
+ PP5daxaQ65oBQ7t7obsP+mJagOwOWNCEhUA/gMKhIeq0BPfUyn6q5uy
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -120,276 +120,122 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Move create_tmpfs_pool_fd() into lib/test_util.c and declare it in
-include/test_util.h so it can be reused across selftests.
+Add a selftest for the sample memory provider to verify lifecycle
+management and file creation.
 
-Extend guest_memfd_conversions_test using fixture variants to run all
-conversion test cases against both native guest_memfd and tmpfs-backed
-guest_memfd instances.
+Verify creating provider files across multiple sizes and ensure that
+initial statistics accurately reflect file capacity, zero absent pages,
+and zero read-only pages.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- tools/testing/selftests/kvm/guest_memfd_test.c     | 52 --------------------
- tools/testing/selftests/kvm/include/test_util.h    |  2 +
- tools/testing/selftests/kvm/lib/test_util.c        | 56 ++++++++++++++++++++++
- .../kvm/x86/guest_memfd_conversions_test.c         | 49 +++++++++++++++++--
- 4 files changed, 102 insertions(+), 57 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm           |  1 +
+ .../selftests/kvm/mem_provider_sample_test.c       | 85 ++++++++++++++++++++++
+ 2 files changed, 86 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/guest_memfd_test.c b/tools/testing/selftests/kvm/guest_memfd_test.c
-index fd249445ce3cc..cbc2f309664b2 100644
---- a/tools/testing/selftests/kvm/guest_memfd_test.c
-+++ b/tools/testing/selftests/kvm/guest_memfd_test.c
-@@ -481,58 +481,6 @@ static void test_resource_fd_memfd(struct kvm_vm *vm)
- 	close(file_fd);
- }
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 17a4256e90819..5f7118bddfc36 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -72,6 +72,7 @@ TEST_GEN_PROGS_COMMON += set_memory_region_test
+ TEST_GEN_PROGS_COMMON += memslot_modification_stress_test
+ TEST_GEN_PROGS_COMMON += memslot_perf_test
+ TEST_GEN_PROGS_COMMON += vm_types_test
++TEST_GEN_PROGS_COMMON += mem_provider_sample_test
  
--static int create_tmpfs_pool_fd(const char *huge, bool noswap, size_t size)
--{
--	char size_str[32];
--	char template[] = "/tmp/gmem_test_dir_XXXXXX";
--	char *mount_dir;
--	int fs_fd, mnt_fd, dir_fd;
--
--	TEST_ASSERT(size && IS_ALIGNED(size, page_size),
--		    "Pool size '0x%zx' must be positive and page-aligned", size);
--
--	fs_fd = syscall(__NR_fsopen, "tmpfs", FSOPEN_CLOEXEC);
--	TEST_ASSERT(fs_fd >= 0, "fsopen failed");
--
--	if (noswap)
--		TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_FLAG,
--				     "noswap", NULL, 0), "fsconfig noswap failed");
--
--	if (huge)
--		TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_STRING,
--				     "huge", huge, 0), "fsconfig huge failed");
--
--	snprintf(size_str, sizeof(size_str), "%zu", size);
--	TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_STRING,
--			     "size", size_str, 0), "fsconfig size failed");
--
--	TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_CMD_CREATE,
--			     NULL, NULL, 0), "fsconfig create failed");
--
--	mnt_fd = syscall(__NR_fsmount, fs_fd, FSMOUNT_CLOEXEC, 0);
--	TEST_ASSERT(mnt_fd > 0, "fsmount failed");
--	close(fs_fd);
--
--	mount_dir = mkdtemp(template);
--	TEST_ASSERT(mount_dir, "mkdtemp failed");
--
--	TEST_ASSERT(!syscall(__NR_move_mount, mnt_fd, "", AT_FDCWD, mount_dir,
--			     MOVE_MOUNT_F_EMPTY_PATH), "move_mount failed");
--	close(mnt_fd);
--
--	dir_fd = open(mount_dir, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
--	TEST_ASSERT(dir_fd >= 0, "open tmpfs mount directory failed");
--
--	/*
--	 * Detach mount from namespace so removing mount_dir upon exit or
--	 * unmount doesn't conflict, while dir_fd retains the active mount.
--	 */
--	TEST_ASSERT(!umount2(mount_dir, MNT_DETACH), "umount2 failed");
--	TEST_ASSERT(!rmdir(mount_dir), "rmdir failed");
--
--	return dir_fd;
--}
--
- static void test_resource_fd_tmpfs_swap(struct kvm_vm *vm)
- {
- 	int pool_fd, fd;
-diff --git a/tools/testing/selftests/kvm/include/test_util.h b/tools/testing/selftests/kvm/include/test_util.h
-index c80019e24b2d0..e6707534f1951 100644
---- a/tools/testing/selftests/kvm/include/test_util.h
-+++ b/tools/testing/selftests/kvm/include/test_util.h
-@@ -244,4 +244,6 @@ char *strdup_printf(const char *fmt, ...) __attribute__((format(printf, 1, 2), n
- 
- char *sys_get_cur_clocksource(void);
- 
-+int create_tmpfs_pool_fd(const char *huge, bool noswap, size_t size);
-+
- #endif /* SELFTEST_KVM_TEST_UTIL_H */
-diff --git a/tools/testing/selftests/kvm/lib/test_util.c b/tools/testing/selftests/kvm/lib/test_util.c
-index f5f7189f96a84..c5b264f533ad0 100644
---- a/tools/testing/selftests/kvm/lib/test_util.c
-+++ b/tools/testing/selftests/kvm/lib/test_util.c
-@@ -10,10 +10,14 @@
- #include <ctype.h>
- #include <limits.h>
- #include <stdlib.h>
+ # Compiled test targets
+ TEST_GEN_PROGS_x86 = $(TEST_GEN_PROGS_COMMON)
+diff --git a/tools/testing/selftests/kvm/mem_provider_sample_test.c b/tools/testing/selftests/kvm/mem_provider_sample_test.c
+new file mode 100644
+index 0000000000000..b39161f4933d3
+--- /dev/null
++++ b/tools/testing/selftests/kvm/mem_provider_sample_test.c
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Tests for the sample memory provider (/dev/memory_provider).
++ */
 +#include <fcntl.h>
- #include <time.h>
-+#include <sys/mount.h>
- #include <sys/stat.h>
- #include <sys/syscall.h>
-+#include <linux/align.h>
- #include <linux/mman.h>
-+#include <linux/mount.h>
- #include "linux/kernel.h"
- 
- #include "test_util.h"
-@@ -483,3 +487,55 @@ char *sys_get_cur_clocksource(void)
- 
- 	return clk_name;
- }
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <sys/ioctl.h>
++#include <sys/stat.h>
++#include <unistd.h>
 +
-+int create_tmpfs_pool_fd(const char *huge, bool noswap, size_t size)
++#include "test_util.h"
++#include "../../../../samples/kvm/memory_provider.h"
++
++#define DEV_PATH "/dev/memory_provider"
++
++static int open_provider_dev(void)
 +{
-+	char size_str[32];
-+	char template[] = "/tmp/gmem_test_dir_XXXXXX";
-+	char *mount_dir;
-+	int fs_fd, mnt_fd, dir_fd;
++	int fd = open(DEV_PATH, O_RDWR);
 +
-+	TEST_ASSERT(size && IS_ALIGNED(size, getpagesize()),
-+		    "Pool size '0x%zx' must be positive and page-aligned", size);
-+
-+	fs_fd = syscall(__NR_fsopen, "tmpfs", FSOPEN_CLOEXEC);
-+	TEST_ASSERT(fs_fd >= 0, "fsopen failed");
-+
-+	if (noswap)
-+		TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_FLAG,
-+				     "noswap", NULL, 0), "fsconfig noswap failed");
-+
-+	if (huge)
-+		TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_STRING,
-+				     "huge", huge, 0), "fsconfig huge failed");
-+
-+	snprintf(size_str, sizeof(size_str), "%zu", size);
-+	TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_STRING,
-+			     "size", size_str, 0), "fsconfig size failed");
-+
-+	TEST_ASSERT(!syscall(__NR_fsconfig, fs_fd, FSCONFIG_CMD_CREATE,
-+			     NULL, NULL, 0), "fsconfig create failed");
-+
-+	mnt_fd = syscall(__NR_fsmount, fs_fd, FSMOUNT_CLOEXEC, 0);
-+	TEST_ASSERT(mnt_fd > 0, "fsmount failed");
-+	close(fs_fd);
-+
-+	mount_dir = mkdtemp(template);
-+	TEST_ASSERT(mount_dir, "mkdtemp failed");
-+
-+	TEST_ASSERT(!syscall(__NR_move_mount, mnt_fd, "", AT_FDCWD, mount_dir,
-+			     MOVE_MOUNT_F_EMPTY_PATH), "move_mount failed");
-+	close(mnt_fd);
-+
-+	dir_fd = open(mount_dir, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-+	TEST_ASSERT(dir_fd >= 0, "open tmpfs mount directory failed");
-+
-+	/*
-+	 * Detach mount from namespace so removing mount_dir upon exit or
-+	 * unmount doesn't conflict, while dir_fd retains the active mount.
-+	 */
-+	TEST_ASSERT(!umount2(mount_dir, MNT_DETACH), "umount2 failed");
-+	TEST_ASSERT(!rmdir(mount_dir), "rmdir failed");
-+
-+	return dir_fd;
-+}
-diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c
-index e1c84df0f0596..023df9cb9d4a6 100644
---- a/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c
-+++ b/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c
-@@ -20,12 +20,30 @@
- FIXTURE(gmem_conversions) {
- 	struct kvm_vcpu *vcpu;
- 	int gmem_fd;
-+	int resource_fd;
- 	/* HVA of the first byte of the memory mmap()-ed from gmem_fd. */
- 	char *mem;
- };
- 
- typedef FIXTURE_DATA(gmem_conversions) test_data_t;
- 
-+FIXTURE_VARIANT(gmem_conversions) {
-+	int (*create_resource)(size_t size);
-+};
-+
-+FIXTURE_VARIANT_ADD(gmem_conversions, native) {
-+	.create_resource = NULL,
-+};
-+
-+static int create_tmpfs_resource(size_t size)
-+{
-+	return create_tmpfs_pool_fd("never", true, size);
++	if (fd < 0) {
++		TEST_REQUIRE(errno != ENOENT && errno != ENODEV);
++		TEST_FAIL("Failed to open %s: %d (%s)", DEV_PATH, errno,
++			  strerror(errno));
++	}
++	return fd;
 +}
 +
-+FIXTURE_VARIANT_ADD(gmem_conversions, tmpfs) {
-+	.create_resource = create_tmpfs_resource,
-+};
++static int create_provider_file(int dev_fd, uint64_t size)
++{
++	struct mp_new_file nf = {
++		.size = size,
++	};
++	int fd;
 +
- FIXTURE_SETUP(gmem_conversions) { }
- 
- static size_t page_size;
-@@ -37,8 +55,9 @@ static void guest_do_rmw(void);
-  * Defer setup until the individual test is invoked so that tests can specify
-  * the number of pages and flags for the guest_memfd instance.
-  */
--static void gmem_conversions_do_setup(test_data_t *t, int nr_pages,
--				      int gmem_flags)
-+static void gmem_conversions_do_setup(test_data_t *t,
-+				      const FIXTURE_VARIANT(gmem_conversions) * variant,
-+				      int nr_pages, int gmem_flags)
- {
- 	const struct vm_shape shape = {
- 		.mode = VM_MODE_DEFAULT,
-@@ -50,12 +69,27 @@ static void gmem_conversions_do_setup(test_data_t *t, int nr_pages,
- 	 */
- 	const gpa_t gpa = SZ_4G;
- 	const u32 slot = 1;
-+	size_t size = nr_pages * page_size;
- 	struct kvm_vm *vm;
-+	int gmem_fd = -1;
- 
- 	vm = __vm_create_shape_with_one_vcpu(shape, &t->vcpu, nr_pages, guest_do_rmw);
- 
-+	t->resource_fd = -1;
++	fd = ioctl(dev_fd, MP_NEW_FILE, &nf);
++	TEST_ASSERT(fd >= 0, "MP_NEW_FILE failed for size 0x%lx: %d (%s)",
++		    size, errno, strerror(errno));
++	return fd;
++}
 +
-+	if (variant->create_resource) {
-+		uint64_t flags = gmem_flags | GUEST_MEMFD_FLAG_USE_RESOURCE;
++static void test_lifecycle_and_creation(int dev_fd)
++{
++	size_t page_size = getpagesize();
++	uint64_t sizes[] = {
++		page_size,
++		2 * page_size,
++		2 * 1024 * 1024,
++	};
++	struct mp_stats st;
++	int i, fd;
 +
-+		t->resource_fd = variant->create_resource(size);
-+		TEST_ASSERT(t->resource_fd >= 0, "Failed to create backing resource");
++	for (i = 0; i < ARRAY_SIZE(sizes); i++) {
++		fd = create_provider_file(dev_fd, sizes[i]);
 +
-+		gmem_fd = __vm_create_guest_memfd_resource(vm, size, flags,
-+							   t->resource_fd);
-+		TEST_ASSERT(gmem_fd >= 0, "Failed to create guest_memfd with resource");
++		memset(&st, 0, sizeof(st));
++		TEST_ASSERT(!ioctl(fd, MP_GET_STATS, &st),
++			    "MP_GET_STATS failed: %d (%s)",
++			    errno, strerror(errno));
++		TEST_ASSERT(st.size == sizes[i],
++			    "size mismatch: expected 0x%lx, got 0x%llx",
++			    sizes[i], st.size);
++		TEST_ASSERT(st.absent_pages == 0,
++			    "absent_pages mismatch: expected 0, got %llu",
++			    st.absent_pages);
++		TEST_ASSERT(st.readonly_pages == 0,
++			    "readonly_pages mismatch: expected 0, got %llu",
++			    st.readonly_pages);
++
++		close(fd);
 +	}
++}
 +
- 	vm_mem_add(vm, VM_MEM_SRC_SHMEM, gpa, slot, nr_pages,
--		   KVM_MEM_GUEST_MEMFD, -1, 0, gmem_flags);
-+		   KVM_MEM_GUEST_MEMFD, gmem_fd, 0, gmem_flags);
- 
- 	t->gmem_fd = kvm_slot_to_fd(vm, slot);
- 	t->mem = addr_gpa2hva(vm, gpa);
-@@ -68,6 +102,11 @@ static void gmem_conversions_do_teardown(test_data_t *t)
- 	if (!t->vcpu)
- 		return;
- 
-+	if (t->resource_fd >= 0) {
-+		close(t->resource_fd);
-+		t->resource_fd = -1;
-+	}
++int main(int argc, char *argv[])
++{
++	int dev_fd;
 +
- 	/* No need to close gmem_fd, it's owned by the VM structure. */
- 	kvm_vm_free(t->vcpu->vm);
- 	t->vcpu = NULL;
-@@ -91,7 +130,7 @@ TEST_F(gmem_conversions, test)							\
- {										\
- 	const int nr = (__nr_pages);						\
- 										\
--	gmem_conversions_do_setup(self, nr, flags);				\
-+	gmem_conversions_do_setup(self, variant, nr, flags);			\
- 	__gmem_conversions_##test(self, nr);					\
- }										\
- static void __gmem_conversions_##test(test_data_t *t, int nr_pages)		\
-@@ -127,7 +166,7 @@ TEST_F(gmem_conversions, test)							\
- 	int i;									\
- 										\
- 	for (i = 0; i < nr; ++i) {						\
--		gmem_conversions_do_setup(self, nr, flags);			\
-+		gmem_conversions_do_setup(self, variant, nr, flags);		\
- 		__gmem_conversions_multipage_##test(self, nr, i);		\
- 		gmem_conversions_do_teardown(self);				\
- 	}									\
++	dev_fd = open_provider_dev();
++
++	test_lifecycle_and_creation(dev_fd);
++
++	close(dev_fd);
++	return 0;
++}
 
 -- 
 2.56.0.455.g6c5a503b38-goog
