@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794074383;
-	b=oGZV0SlBvy1BGsTWVB6y/aJmbq3z07Af/WFF0R/Gf4hlhSTdIYQraULYjisWqKRWEncq
-	 IxBKZgoQNzrh8y5xt8b+DsQkIFgUXpXNLVHgEm5NfFEOVRH1pBEfL+E6xMo2F8BC+ZZGa
-	 ce+xhJ/TocEWwKYNJ0avJ2eTTWrZasI+bkPJwblgEHgCEJAxtK3bQqWpORihmaj3Fz5mm
-	 igXrwpAkNIqcM2zwUh1XrbFmup9vB8BKw7g46jrNQ+o+qgk9tmcAp1NvUBbBRhGPS6otG
-	 EK2Qr1kEvR7b02dCRDCxt0EUn4xu+XLIBVb/NK1Vp/zby7QvPzAFzmF4mhMZCGxZLYg==
+	t=1794074389;
+	b=Rvu/Tit7UNQuVqx6Zs5ZdSGThDfxZ2KUXIxMh8xKZQkuFCpr5vgZZgvggCKN1T7P+/nL
+	 gTDX16vkhox2z/NCYV2IYnZ8gTe8/4LVCAmZ67ezFjE0uuiEvYYxiAxAkGOHjGgJrPoh8
+	 6mgPBHEGFVAWFiuLUWiO6WtGE2Vt4LqSyP0d6I+Gb2baIvbSNSzAshfB5333Ssd8Cq3Pc
+	 MV/D2Mpfem3bx5N2fWxz89VrH0Y3d5iYpVXmBo3anErN5gAXhFsR9GRrYpHFdHUNbTnr1
+	 UREs6lumrNiYFjWAwXO4J62gYbgMNIwwth4RoLjvJ0PzWxktA91T3Cwlr3Rb3nnHzKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794074383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794074389;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=hAVvC8vR2vBGPxoDQZWFQGt78GnzQvCqPY56LF4FZtY=;
-	b=P1bP5MrkmV1PJPYV0q6eK/aFNEsTvhWGDNIfRc53Mx+iKaaxOIw6Zh9xeNvjEa0XCh3e
-	 0mUpvYh3DX4xAldeRRGztUhcgwn6Mctr3Y4sgFlNZoV/fz/SCicrOGiDey/hlUcemQCJI
-	 o9s6ExFSA+Y5QPUXb5Dz0DNsIzBpj2qvdFRQ3Jq7HtqnkBjlskr0cSrlm9v1esI0lUe0j
-	 c1E3A1MjTfVVNpZXMihhlo/hXhiJ6yP55dpWhtnCpLI+aqUfsJQMQoW1B3R78ONJWVMgy
-	 /BU0GzrBuJSud9ZK3obwHf+I1xOIfRlZ73jWlkTwORD75bYYMdAUDFozHjhGaB16iLQ==
+	bh=HGNBZg04KAZeZlrv62ywxVBlGQjVP9azSckK49EmwII=;
+	b=wZU6PO/6cDufhUvNYJ4Ni8JWeKC/oBZqPp5K10clIaNbjjM1lpNA5yjQ7DxboEr8o3FG
+	 9tkI6C1fmY4HAKOwSo8Jq6XbiMlvftA4EZW12TjLKPnNjhFCtQytdHR2Ex/qZiUf2RI/A
+	 HyYx+62be0onf+K9fTi1TuMNgyerbZj3wUQp4NKsR7PX0o4r6bDvN/swyNjcX8y5QtFSY
+	 I7dDcywZWB51nzwJQF19Lk3O0hxBTttFKrjK0jQCmJsKm6d7FfRFcVOP6j97YcaoGRhqW
+	 Q6KyP1VMdR1Il5QQx4qZeSOOWKBbFM3Yy7ogWCXrbZ9+reZ9oavB8OHGdPxAmAC8XpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rbox.co;
 	spf=pass smtp.mailfrom=rbox.co;
-	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=TwF4N8si;
-	arc=none smtp.remote-ip=185.226.149.37
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=j8v7OvK0;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27E7606A331;
-	Sat,  7 Nov 2026 17:59:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A27E7606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC019606A33A
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:59:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC019606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=TwF4N8si
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=j8v7OvK0
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <mhal@rbox.co>)
-	id 1xPkhN-007j5h-7E; Sat, 07 Nov 2026 18:59:29 +0100
+	id 1xPkhN-007oUD-Je; Sat, 07 Nov 2026 18:59:29 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
 	s=selector1; h=Cc:To:In-Reply-To:References:Message-Id:
 	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From;
-	bh=hAVvC8vR2vBGPxoDQZWFQGt78GnzQvCqPY56LF4FZtY=; b=TwF4N8sivqjwKkX5iFCFEdaGQY
-	DCKlitYFllpArna8Ly5GqytdumjLupii/oA5s/x86OCMoYRDFvGvp/XqOglyn7PyIoHKrZPA8SRqb
-	OeiCkorrf8uxE0+A9tMZXGabIz+lG5UO4g4sSQO1U0S7X5SmALkGh5vfJ3xTnmZiQa6Hp9qmn4RVL
-	cGdRS6DTOvheqwrBVezNibDwtirfUngw50vB+eHhXY18BhUrKqdKdTT1KusXVXH60ArkH8kTPmFem
-	HMOi1M8ksa7WBcminsv1VRnCQo4mwiyknK3ndlYYfBHpLkn4bQzP0B0I8qCdrWMiiffQm2XG2LGpI
-	MCLHfSaQ==;
+	bh=HGNBZg04KAZeZlrv62ywxVBlGQjVP9azSckK49EmwII=; b=j8v7OvK0njXYWBtd/wFwp+SE7n
+	/3R1aIgEO0qFBEqD0gdCWDWcKEv+0AcIzVwSgQeM3JeOgdUUW49mBlCMbZ50u/RKhDxQ/swi9HSvr
+	W3B7YKHMCWbjNvjsRtmsh6+Kianj9O2Sjofjsw1fIpGV627oBa2xwgmam+s15szb2nC8eUpgJE8vS
+	o2hqBy2me5iEOfgkztAJkIaE5JP66wPDTE2xoErpX5edR2ZhPYAE/zRbRFfAgpfoC9yHvtAGojbDg
+	LD46T/hfy2q74rAVDrtE9p42jPY8D5QwAiC5uEnbEQxDWrX7rRQtReFLBFg/kZh5S1zhNiaZJl+iD
+	u3BDMDgQ==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <mhal@rbox.co>)
-	id 1xPkhB-0006ae-1h; Sat, 07 Nov 2026 18:59:17 +0100
+	id 1xPkhD-0006IH-9I; Sat, 07 Nov 2026 18:59:19 +0100
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xPkh8-007LnK-14;
-	Sat, 07 Nov 2026 18:59:14 +0100
+	id 1xPkh1-007LnK-VQ;
+	Sat, 07 Nov 2026 18:59:08 +0100
 From: Michal Luczaj <mhal@rbox.co>
-Date: Sat, 07 Nov 2026 18:58:28 +0100
-Subject: [PATCH bpf-next v3 6/8] bpf: Mark bpf_iter__sockmap::sk as
- PTR_TRUSTED
+Date: Sat, 07 Nov 2026 18:58:24 +0100
+Subject: [PATCH bpf-next v3 2/8] bpf, sockmap: Restrict iter-context
+ sockmap updates to iter/sockmap
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,7 +70,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-sockmap-update-limit-iter-v3-6-7c0bad1ad036@rbox.co>
+Message-Id: <20261107-sockmap-update-limit-iter-v3-2-7c0bad1ad036@rbox.co>
 References: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
 In-Reply-To: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
 To: Alexei Starovoitov <ast@kernel.org>, 
@@ -92,32 +92,55 @@ To: Alexei Starovoitov <ast@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>, Stanislav Fomichev <sdf@fomichev.me>
 Cc: Michal Luczaj <mhal@rbox.co>, bpf@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, linux-doc@vger.kernel.org
+ netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 
-In preparation for plain-PTR_TO_BTF_ID removal: allow calling bpf helpers
-with sk provided by iter/sockmap.
+Among tracing progs, allow only iter/sockmap to update sockmaps and
+sockhashes. Previously, any BPF_TRACE_ITER program could perform these
+updates, which caused locking issues in specific scenarios [1][2][3]. This
+tightening is part of the broader effort to lock down the BPF API [4].
 
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://msgid.link/DM92JCFA4X4U.30MTDH0KCPTJ@gmail.com
+[1]: commit 4d328dd69538 ("bpf, sockmap: Fix af_unix iter deadlock")
+[2]: commit 64c2f93fc325 ("bpf, sockmap: Take state lock for af_unix iter")
+[3]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
+[4]: https://msgid.link/akRZ_e7DJh2aP-2i@john-p8
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
+Suggested-by: Jakub Sitnicki <jakub@cloudflare.com>
 Signed-off-by: Michal Luczaj <mhal@rbox.co>
 ---
- net/core/sock_map.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I was tempted to define BTF_ID_LIST_SINGLE(bpf_iter_sockmap_id, func,
+bpf_iter_sockmap) and just compare against env->prog->aux->attach_btf_id,
+but a single line BTF_ID_LIST_SINGLE quickly turned into a 6-line
+ifdef-CONFIG_NET-fery, so I've sticked with strcmp().
+---
+ kernel/bpf/verifier.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/core/sock_map.c b/net/core/sock_map.c
-index efe49551caba..1a8478b03c24 100644
---- a/net/core/sock_map.c
-+++ b/net/core/sock_map.c
-@@ -1993,7 +1993,7 @@ static struct bpf_iter_reg sock_map_iter_reg = {
- 		{ offsetof(struct bpf_iter__sockmap, key),
- 		  PTR_TO_BUF | PTR_MAYBE_NULL | MEM_RDONLY },
- 		{ offsetof(struct bpf_iter__sockmap, sk),
--		  PTR_TO_BTF_ID_OR_NULL },
-+		  PTR_TO_BTF_ID_OR_NULL | PTR_TRUSTED },
- 	},
- };
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 09a44723bb2e..e784e4a1e5f2 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -10543,6 +10543,7 @@ static bool may_update_sockmap(struct bpf_verifier_env *env, int func_id)
+ {
+ 	enum bpf_attach_type eatype = env->prog->expected_attach_type;
+ 	enum bpf_prog_type type = resolve_prog_type(env->prog);
++	const char *afname = env->prog->aux->attach_func_name;
  
+ 	if (func_id != BPF_FUNC_map_update_elem &&
+ 	    func_id != BPF_FUNC_map_delete_elem)
+@@ -10553,7 +10554,8 @@ static bool may_update_sockmap(struct bpf_verifier_env *env, int func_id)
+ 	 */
+ 	switch (type) {
+ 	case BPF_PROG_TYPE_TRACING:
+-		if (eatype == BPF_TRACE_ITER)
++		if (eatype == BPF_TRACE_ITER &&
++		    !strcmp(afname + strlen(BPF_ITER_FUNC_PREFIX), "sockmap"))
+ 			return true;
+ 		break;
+ 	case BPF_PROG_TYPE_SOCK_OPS:
 
 -- 
 2.56.0
