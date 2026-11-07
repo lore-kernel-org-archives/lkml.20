@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794058287;
-	b=dV3I1b2Q7HaUIgyRgGUPiGRKGhMu8uONwq+B7nYlLIP2JrK4IQzPejPqbtEj9aLX/yvY
-	 u3Dk8RKxcLAZIfqrQdqpgI+5CKv/dl4sBpzuRIxw9MGt9NzZeaiRDPLU8g9b1UirQ1CSK
-	 V+6Fo8esaFJkqSQBUwEpEJ0rvzAum5DR9CHVCbbvw81ZsDjqzgwy5Q8kav4IbdYKORJc6
-	 jnzOGPs6THKQ3ifwsnhdLEWzHbVIIF/3B2fGJ6lTbO1ToUcedIi/Et7/ADBEs2p+O8++x
-	 l9/+p7Z2JG9qArKdSrZa9Rcb3UOe0XDyURYwRFZERDNiQYQ9ejsvS4AlKsjrJFA77nQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058287;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=uioOfdaChpgNKoCkMvX7C1NIWfaIypCIHiX26RAAF2Y=;
-	b=HcQo0+X+Wdj/WUd5IfXhtLRf9VU4pybLLzfallVRU1usiiTk38Ips3BNI6QFToKq4gye
-	 m9QDKcpsb0Ig0S1qvWxXT+AyxWtjFe0AqySHGewChRt+mE7hWrK8PXf4rHUcR4L6n1RLP
-	 z6ab3sTuSfu8N28dxmnHPH6sizqOpi9rlx3rhrkWHH6JNm9JT14XZozRPHcAt2OAA2HCU
-	 Qxoc4nfrucSymA7trUZj5vBQMdFtzwqkXPWp6Rk0TkuaHKbvzOn1zsHoOk9YoZ1/kbup2
-	 SZ6DHHHmUfh934ZXM19aUr5XNboSGWqM+ltAYC62Oyg7DXbtn0dyxyyTJj3GrsvLTYQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHnhbvla;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794058339;
+	b=q9DOOFTnwOCIfjAKIr+sG4hb9fkJri8sPq2XqpE7cs9LTjz1Eo2oiSsSpssb3qJuyjK9
+	 jvHPpnVJzVrw8Ms97B9FOaa0tnfRPEa6F62dqlk4u7Oo8Dgtr+g8Eg2hbC399fwtaKdgL
+	 DZJcnk59Y5PzcnYdd1FFTvfS9D0MMu5nQox4pf823Du1cFXZv97xbuJKyIJjpPTDpFMLH
+	 qw8gP2FQowi0QVtUITuHlV9uwrRE5yqRcwXgbnUKCLbuc1SOi8c9oG8TR/kFQuVb9KeNH
+	 dxJBToj+z97gbdWMNIgJcP4/MgqQdf2Kwa8wWXo8szSPtQE2CPpenJ4Z+wC2tT46EhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794058339;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=gHpq2iH5h9fZVMTcklv9B970diZbbqkXUi/Y80XyCvU=;
+	b=a8umsR6kRtu0XPiXEcMbXL6vf48LVpT23TI1kpTfjaoBkWzsc+ttoSJSYmDFqxNzAJzT
+	 Ee/jWHEA5AwbWdlP88WEjQNhO9wETz0lxjR/ntaNGQn3I8YLGmzcIgGr12tXy7NpBVIuY
+	 pieX7DeNq1Mt2J8MJ2QW5jOFmQoPMqzdPnSi2V4AHViySf54L7zUW8fI1tfjAIqDchBmE
+	 d5FU+2g6kH/5hGq5e1HvzfZ21LIkquJS+m1mM7UpjcnJolgJrmHWfPsxCvWbaCY754wjW
+	 EVMix3AinVXFbmZwRwNTUcsCX/HcVInzOueplQckubIL65zrEQCzwxVMtF+EbOymA1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Q/g+TLO1";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.64
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011064.outbound.protection.outlook.com [52.101.52.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8709606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:31:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE5B606A326;
+	Sat,  7 Nov 2026 13:32:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DE5B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHnhbvla
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690EB1F0089F;
-	Sat,  7 Nov 2026 13:31:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794058286;
-	bh=uioOfdaChpgNKoCkMvX7C1NIWfaIypCIHiX26RAAF2Y=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IHnhbvlaftjfCAg+fhxLI5iDMkVEu2Bfyq9nvte1kfrTAiiHRpqbZOlUfQ5RGOC6q
-	 bT9hUDiHgY5t/tPPWQ9r7LnWH0VD1po7OnuURf8Ki4MQ31cu1S1GRCw6NkYodMMJmp
-	 JPQQwN1c0hJx/d9Uyf2+3+zIDp7FSGUrSGdEf3yxTY/8YFYB9W4avO6XexUQhth422
-	 BP3Y3ml9Y01VqI6nmEG7QFqe7izxy7/aQKw4AjsjoMqlsW00DbzOIvR78kQg6EhE3n
-	 jJbSsvF108HRdmmoiiFEI8b2bdI6YCatQz1Xm9nPn81MimnTZPLty3pzxnZBu0Lx/D
-	 5yuo47ZDS/ZWg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E0FD380821F;
-	Sat,  7 Nov 2026 13:31:26 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Q/g+TLO1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uh+Xd5+dkQvR9uDuvcFzcLAB7WOw2hy5MyVh9/pnfQPve6r0Ip+5/YZOnsHpl7pxS3XEtFUX8Om7cFobuMIBpWqipV6Gy3444IMCMwqBVNUEWjC56EZPul1J3dNil1R5HuB9Z3aE/v9iBAssHPPJEAjYMyxaB2sOFj6TTEjOTZUYjzDdtwxbQpVep1geYuK4JW2CCXP48Bts7mYFJlFnU16TaS2Ng8IagrGQ1rx4A+WQMDkBKS7dKyAbfYRxi/wBCyVGZPzi8qmOgP6gwKKyrDEObciGn9aRkL6NenmnIqs2mdU8+gYMecwjZMNTEfbTmmqq+bBzJMeohy6n3HNbnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gHpq2iH5h9fZVMTcklv9B970diZbbqkXUi/Y80XyCvU=;
+ b=SH2Qp/BQlJFYAP/RpsJi1PM4Btm0ii4h6IFL9oQjRKUacHLpI6VPLksfmqMF1FxL2WZwgJ+QmfveMOuwPvPy20mMJV29LXg9FiTSYTi9YCeMYyMglkRS3cxxrpJJRllMKWTgNyBZ/2XlVJm7m04CCwsKUyAXrdLeSMXZB+y361R8ujyewdDtHZJjWPKAi7aRyW84nrIZsuCP2d/pIupha65luHK/OHLJnUHjyoPnUnxzlh+oPrDX3rK/qaFgc0e1HErSn7ikedlkO7h7C7vNyDqAyyq6F6muVMowrcB/YFGKtXMCgpgZEgQJqFVlNTrSPaXRrIuUif0jakZAZeKUaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gHpq2iH5h9fZVMTcklv9B970diZbbqkXUi/Y80XyCvU=;
+ b=Q/g+TLO1EQMiQtzrZE2tbGOob11ouopVW90Q/XvOQ0EVBc8M+5SS6jGDEyxsT69TkVaeZf2GdqyN6vV1K2HykhUOFVZn5hpM2aTy0ya5Ws/ubgRsE7tRAqGD1IpMHh2yKYy4cjuUFvPM4PC55EL8NQPztubi3QQsaDvve35ceUG2l76HssCse1LAXFUQKN7gAL6hCLIh0iJeBraS4oOleR0tay7RXZuTvfuofWUt1KNQ4Hrd1dO7hYAAd8W7HMr9zELa7sIEiLZh/NBaLBqr3MBHoKIwyYm/PwCG7pLbSoGPxoTYZf1isGOJpsv+E4Ohevs0eQb9iJCtcKZBtYXhRA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CH2PR12MB4135.namprd12.prod.outlook.com (2603:10b6:610:7c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 7 Nov
+ 2026 13:32:15 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
+ 13:32:14 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 07 Nov 2026 22:32:12 +0900
+Message-Id: <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
+Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
+ <jhubbard@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
+ <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
+ module data
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+ <20261014154554.231015-2-vladazaharova2018@gmail.com>
+ <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
+ <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
+In-Reply-To: <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
+X-ClientProxiedBy: TY6P286CA0026.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b9::18) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +103,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v1] riscv: mm: Define PAGE_KERNEL_RO
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179405828510.1177315.1002226727110636993.git-patchwork-notify@kernel.org>
-Date: Sat, 07 Nov 2026 13:31:25 +0000
-References: <20261018023649.798595-1-nickolai@csail.mit.edu>
-In-Reply-To: <20261018023649.798595-1-nickolai@csail.mit.edu>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, muchun.song@linux.dev,
- linux-kernel@vger.kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH2PR12MB4135:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8be42ea3-916d-4c62-1070-08df3cd38929
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|10070799003|1800799024|376014|261028144727099003|261022075727099003|261026140227099003|261021121427099003|261026121527099003|261022105027099003|11063799006|10067099003|6133799003|5023799004|4143699003|261102123227099003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	pbbmTBhkqCgTUz3BYS7LddE+8zrObZov7nfUNe1oUrxsZ6xLBz8/0cnIk5LbL78HbKzv3L7JsvfVRzYmF7/F8LflJhN3Pjyj7LujxamKqCOfbVbEB9kBtsIvxmUVnwEY+i5U31GZdIrqMmFwEAybhhNZI2B2ZGQb7ZLCFjg3kjh1LQpq93ifaZPQ4HgNPxQXxOBieLlhLTqwagdjNG2AYP0TC62XTV6zpQXp9J9odJZbAg9WqEbWJy3BkWeVlP/vEYRZEuW7B10LdVtZvaH3jxq4m+g5YLUAtBpbNLr7vW5Gv7RJagb5+5nDpGgDxrss9+tcFlie4mQIUVjf8IpXxjb5f4+tFBd6sgFUvYl08Rte9gs4Qn5HbrYu52gH44aViQpkQxaYT9QxCAl7BvqWicg8V95Y/jzvxnqL9H7SnWBVjrvHHQ8G6ZrH1eA+u+PgPqnTowr/6sAB2pg3g+oxE9OqOFtcjbLS4QVIbbUgADthfJjc8ugrPwmtKoJ2TdBtglDX97Oq3eMoTtd7uLT4VGeLw7GAGKS71TABb9cpE8MLnpIV5pLQ5OnrobbGjaAwlqzxuJQ1Ojbn22jqPu8pJCaKRx5bjvujkUP3On3FGr/XGW3jwdZnK7gN3tiX/oFXMpvh5k+t3uuM1gRKJWQHE6RK/e4MhaIAD5HLKT70elg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(1800799024)(376014)(261028144727099003)(261022075727099003)(261026140227099003)(261021121427099003)(261026121527099003)(261022105027099003)(11063799006)(10067099003)(6133799003)(5023799004)(4143699003)(261102123227099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a1ZmVXJzTmNUVlRObHF3NFR5N0h6MG0vZFFWTHNFTUlYcHdRSlZJVnZrb1dk?=
+ =?utf-8?B?OVdLRkhwMmZQajhFdHdiRmhiV2kzTVlocVpkdG9vR3hhQXNUbW5ibWdFbUY4?=
+ =?utf-8?B?UVJ0WWdKYnF0ZUlTQWxYYkdzQXFRUktIMklSQklKUzVUSmRkK0VuemxhcXl3?=
+ =?utf-8?B?VUFadlE2QXVRbHNPNXVDL01qalBTaksxL3lFSHh1cWlndHcvS1o3cG9paTlP?=
+ =?utf-8?B?UTBBSFp6NzVsU3o4Y2JCZFo3UnpuOUVFRmp3V0xsdzJLZ01SdDBPMHRLY2dp?=
+ =?utf-8?B?ZmV0Ykg5RXA1R1kwVitYMXE3MHQ2ZHdqUTMzckpyc3lwcG5mUHF4Ungzb0FS?=
+ =?utf-8?B?Y1kxM3ZOckVJSERJTXk3amhYekVhekV1c0lTWXpmTEpxc0YveFpVMnFYYzhT?=
+ =?utf-8?B?TmVBQU1CaDI0ZU5PV0wrUjRNcjB1bHFrVVJDN1VSZjRQRDZ3WkNCdkUrMU1o?=
+ =?utf-8?B?OERwM0p3VEpYc3BFRkR4dFVyZEpFcEtOL0FGbDRTdVJtcjJFQmh0Vm5WWDJT?=
+ =?utf-8?B?b2F5Q2JYeHZjV0pHU3BueWRrTU50Slh1V1A0YTFVZFBBL29IMEhXSHpJSTE0?=
+ =?utf-8?B?OUZYN3c3aGVwRFlFMUNCb3FndmdrZkUzS1lVbDBmV3dCcFU1amVlUXlJWDAy?=
+ =?utf-8?B?Nk94UVV4ZzJBR283dDJieWJLZ1FkVENvRGV0eVBqWURiUVFaR0cwa2VtQ3RL?=
+ =?utf-8?B?TzNBOUdvdUU1VW5zTVFraHdPVHRPK0ZBMkt1QWNuditxUUtleThDa1BwNXU0?=
+ =?utf-8?B?NUdsdU9qYUFrMTRRdUJLOTZKaHdjbzgxd2VlbWFzWUUrMEZDMFl1RVVsclhi?=
+ =?utf-8?B?OWFkVTZuQk9ZR0hHVUNWQVlzaWZlVUZwK2JIOC9pSis5WlJIK1YveXVnblRz?=
+ =?utf-8?B?N2dqbHJWT0pmbi9TeGw3S3AxRk9FczJndEJmWXIyNHd3c0F2aS9LWDBYOVho?=
+ =?utf-8?B?eE0wYThOelZ2bkplOVpPdWllaTVIeFJmdFpCWHVZZDc5TFhWUk84QnRzN2dv?=
+ =?utf-8?B?OXd1ZTM5M1ZVRi9GSE9IYThlQUxUWnBkY0w5dTZ0bmdGV1QvLzFNTExZbkxG?=
+ =?utf-8?B?WHZXU2VRM0hudDVxaVgzN1hid2Y4SW14MUxnQzJVN1hVcys0dThvbWJIYnRZ?=
+ =?utf-8?B?Y0hSQTJGZEs5cjBZOUUwVWRPc2RSUnJSbFNFalJuZDZGZVNpV3RJdnYzdUsz?=
+ =?utf-8?B?TXNYS0pkOVB6d0pQT3NBaUJsZFoyczJwczNLV3lSc0NmRGt6d2RXTk5YVEpW?=
+ =?utf-8?B?TW02ZUJQODJ2V2N0ZjBBcktTK3BnMGVHdXVIdUdnZm12WEdSUkxZcmJDYXBk?=
+ =?utf-8?B?VTl6NjEwTngvRlhOQ2d6RDFrRzZ6b3dVbkthazJHa0Z4ZnBaUGgzVm9MRTVr?=
+ =?utf-8?B?clFmRXJJRnMxZmxoRzIzTUxUMTVUdEp6ZGZiSlE1VCtTVDJJdzhnWEhja2VU?=
+ =?utf-8?B?aEw3RjcvaXVlSlJrdUppK1cyWHlaeUtsVWk5b1FzVjI4M2ZVYzU2VmM1Nzha?=
+ =?utf-8?B?SzljcFhUVGhkZnlQUXRWQ21ldzVGTFlRUzhhbzhyTXEwK1RwSTJBWnNXOTE1?=
+ =?utf-8?B?M280aFFGcHFhMy8yM21tREVJV0Y0d1Axck9RL0VGbkRPTWdCMVBvajFyQm50?=
+ =?utf-8?B?WmpDV2N5elBXUWVyK3hXdVVJa0d3WnJGd2RnWUZ5emZqYTBzZU9NZ09iYldU?=
+ =?utf-8?B?aFByYTUzQWQ5UkZiVGkzVjdrZjFQTjVBYkx2ZE04YnZLU3BaVnc1WEtBVUdh?=
+ =?utf-8?B?RmlOaFRaeDFmOGtFV1l2MFEzcUpBcGQ0QjRrWjF6NmhhazJTY1RGOUZkZjRl?=
+ =?utf-8?B?M1JJUk1OVjlXSjllWVlUcS95Mm5xaGJ5bTJaa3JnTTg5dVR1S3ZrMFhOazZO?=
+ =?utf-8?B?bXVnMjVTZTRvTFRvek9yMFRvbjJYempoMzAvTnJzaU9LVWRIeDJMSzhjUnVl?=
+ =?utf-8?B?YjNnN0EwZkN2TVRiZHdXS2psVmZOMitLWEQxUWlyZmIwZHdtUG9yQVhHdUVw?=
+ =?utf-8?B?VCtSZmVVc3IzR3NxKzlPTmtNSjcyU0tIeUZPSjRZcGVwLzEzQ0pIQmFtTEtq?=
+ =?utf-8?B?VVhmR3NseFhLVHVlTCtsbUxnbUZyRmwrbFZ6TXJVL0hnM3RmVmtQVGtCNENP?=
+ =?utf-8?B?VGNyYktwbFdoYStRSkRPOEV5MEk2RWEvR21yVTlFbi9UV3QxeW9Sak1tWk5R?=
+ =?utf-8?B?dWt3RGFzc0dZVTJwK0FQM2FpK3luU2VGcE9lWWN5UWsyQTM0Y2hrUWkrajBw?=
+ =?utf-8?B?c0EyZEFVRC93VUlKQlBUUWl4ZkJTTVZ0dGFyOE82bUdROHFQbjc1S2plRzB3?=
+ =?utf-8?B?b1M5VlU1MWpHcGRkRjZwRnBISzEyL1lLRUJHYVQvd0R4Yk9rM2pJbld2R3Ey?=
+ =?utf-8?Q?GAvKWXDxkzOSPTVPfxcQK/fN70MOt09He9xYjMPi/BPpd?=
+X-MS-Exchange-AntiSpam-MessageData-1: s8z+7m6R0Sc+6Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8be42ea3-916d-4c62-1070-08df3cd38929
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 13:32:14.8649
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ax1q7HhNq7UjRouRNmppLaCuM9xIictldmPn0YbWbU+rQetQgrQcfBobCImHJNQKLkv7Q5aBuZZoxioBwbKCvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4135
 
-Hello:
+On Sat Nov 7, 2026 at 10:14 PM JST, Danilo Krummrich wrote:
+> On Sat Nov 7, 2026 at 7:47 AM CET, Alexandre Courbot wrote:
+>> On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
+>> Another thing: since this is declaring now a proper interface, can you
+>> move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module,
+>> say `debugfs.rs`?
+>
+> I think that makes sense.
+>
+>>>  impl InPlaceModule for NovaCoreModule {
+>>>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self,=
+ Error> {
+>>> -        let dir =3D debugfs::Dir::new(c"nova-core");
+>>> -
+>>> -        // SAFETY: We are the only driver code running during init, so=
+ there
+>>> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
+>>> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
+>>> -
+>>>          try_pin_init!(Self {
+>>> +            _debugfs <- DebugfsData::new(),
+>>> +            _: {
+>>> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a devic=
+e is bound, which cannot
+>>> +                // happen until the driver is registered below. What i=
+t points at is dropped only
+>>> +                // once the driver is unregistered, so it is valid for=
+ as long as any device is
+>>> +                // bound, and nothing reads it outside of that.
+>>> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
+>>> +            },
+>>
+>> Let's move this initialization into `DebugfsData::new`, using
+>> `pin_chain`:
+>>
+>>     /// Returns an initializer that creates the shared debugfs data.
+>>     ///
+>>     /// # Safety
+>>     ///
+>>     /// The returned initializer must be run exactly once before the dri=
+ver is registered. The
+>>     /// initialized [`DebugfsData`] must outlive the driver registration=
+.
+>>     pub(super) unsafe fn new() -> impl PinInit<Self> {
+>>         pin_init!(Self {
+>>             root: debugfs::Dir::new(c"nova-core"),
+>>         })
+>>         .pin_chain(|debugfs| {
+>>             // SAFETY: Per the method's safety block, the driver is not =
+registered yet, meaning that
+>>             // no device can be probed and thus nothing can access `DEBU=
+GFS_DATA` concurrently.
+>>             //
+>>             // INVARIANT: Per the method's safety block, `DEBUGFS_DATA` =
+is written before the driver
+>>             // is registered and points to a valid instance of `DebugfsD=
+ata`, which is pinned
+>>             // and dropped after the driver is unregistered.
+>>             unsafe { DEBUGFS_DATA =3D &*debugfs };
+>>             Ok(())
+>>         })
+>>     }
+>>
+>> That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
+>> relies exclusively on `new` (and we made it unsafe to force the caller
+>> to do that).
+>
+> Actually, I would leave that part as is.
+>
+> Eventually we'll have registration data for driver registrations to share=
+ module
+> data. Once we have that, we'd need to change DebugfsData::new() again and=
+ move
+> that part bnack into NovaCoreModule::init().
+>
+> Besides that, DebugfsData has nothing to do with the current limitation o=
+f
+> publishing module data to driver registrations; the module code seems lik=
+e the
+> correct place to deal with this.
 
-This patch was applied to riscv/linux.git (fixes)
-by Paul Walmsley <pjw@kernel.org>:
-
-On Sat, 17 Oct 2026 22:36:49 -0400 you wrote:
-> Kernel mappings that generic code creates read-only are writable on
-> riscv. With HugeTLB vmemmap optimization (selected by riscv and on by
-> default with CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON), the tail
-> vmemmap pages of every optimized huge page are remapped to one shared
-> page with PAGE_KERNEL_RO so that a stray write to a tail struct page
-> faults. On riscv that remap keeps _PAGE_WRITE, so such a write silently
-> changes the struct pages of every optimized huge page instead.
-> early_memremap_ro() (EFI system and configuration tables), the
-> firmware loader's vmap() of the loaded image, and acpi_os_ioremap() for
-> EFI runtime code and NOMAP regions, which asks for a read-only mapping
-> precisely to avoid a writable mapping of executable code, are affected
-> the same way.
-> 
-> [...]
-
-Here is the summary with links:
-  - [v1] riscv: mm: Define PAGE_KERNEL_RO
-    https://git.kernel.org/riscv/c/551bdd6fcaba
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Makes sense, let's reduce the churn indeed. In this case I guess
+`DEBUGFS_DATA` will need to be made `pub(super)` so this module can
+initialize it.
