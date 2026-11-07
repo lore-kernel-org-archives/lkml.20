@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794033258;
-	b=Aq40Epojv8MFcR3f+yD6PyhWEvSUYoVN7Hj5oSoXNEZJmLii/ROw6tP12tEFlU+JDIXl
-	 dM2mD7w87xwt0OuMBEAvPks7jrv5fka2jJ/iUuW0YEEuA2HoKps6SXGL20nZnqwTzTNno
-	 WQB7qmMTckOOQ6WNXJ3p80bn7UPhHRppSmSJBmIkTZAiIabr5aDc9FiJ5ElyZ3P2oeOr7
-	 6kCUnPtxrQiVbe9ZA4U4hQt+5w2tcv51D9UfGWnUmUA3QfH2DXaz0jzBSNv/C/HEr8YYY
-	 9i9pum+M31qoD2Pr+sOsT81Gh9ZXNY178jjIgfsvpkY8WgaxHMzIoGmZEprmGNvOyYg==
+	t=1794033424;
+	b=qVhfpK98XtWaIOk8uqfIA8EcltLIJZ/VLujB0jVijFkwLCTebremgWUo63DZ712/k66d
+	 EjCrft3T3QLTG1j5MABQKCH0oYpb3oPUFf1oCHFRPnyV6NM6QEAxgp1uFajFo1mSt1X5Y
+	 8/m0GJFTf+4z1yYS9OJPDzedh5Tzp53Y45eDmlQTYiTZ8KSIEllJzXpYJvvbAOww2i905
+	 WDQDE9kM5kdCo54hpBVM+ikgyFrb4KRsqRWc0kAz9YQUcGkgHRqTSbvNFCKerECMG97YD
+	 mnm1mhcpe4dDc+msv0hBcZVS8Vgf+sJPnr2g7gRtR4ZMFuyDMba5ZALllyXyKGR1NVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794033258;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To;
-	bh=rCSoVSPy0ubo1scrbTANm6C4v1LOJKhrmcmQgcyDlL0=;
-	b=SGRRqhQqkyWmqF3YjxkiIK05sBMLLnXpvqmB9ivaR9vbRtI/WrVHkMjG9MRCyUa+1Pzc
-	 bTrUVhwNni59DLjgJYxbos1ihVac4wawosOq7/pj49tQrfQDREbXuRDmEdieMaW6/kT4E
-	 BniApaSE/J0MFB9w6X+ln39BfgZUmcczsl0xDtnxa3Bi4bgotwsMYCqBgpUix9K5SKbn8
-	 zYaH+HCjHfoavjvxLOgvUJy73c05E/KJQNmtTM3dneNU3EPbBWQP8fKA7etrF3SoIhoUu
-	 XWjNM/lecyEovfHC5Dpyz9l4hRFhFWeINqHL1HR1kJp6Ew/UkYZugG6fW6onGBITxmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794033424;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=xE7DnkGC0wLRL3dPvVdwFsZD7wae4SMEaNrFMqYv/Qs=;
+	b=fHLH8klyLJZ/V24k3+CpVm5W+xC6c1eBDma/BsLj3WLVWSDMUIgTVTYY+p2EqYmQLCjv
+	 Td9vz6e5KsNpC3pwJwr5zU2+RvD6k4iPQuI8RkgYL+jGqu1ki+hVuvefkJ7H9ijf947Rm
+	 EHIGK5NIf81/1cqbULJsqtjYj+5uP4dWZgg9bmO4sHyeOboLgnO2JIS0VhisinOIYV4Wi
+	 nMD8fa2FT9LzcVBpjtwNf2QmB+Lm3bvvtDjC7tur9QSteRwnAmjfVIskrLY/WsDeJ87Dp
+	 5ZRpT3TZZjiiIaFH0hqyn7rU64JiosO09NQvVemucmgwBs5RUXWlfPc3a7Wq4Q2+BTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjV0PxxO;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36303606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 06:34:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36303606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjV0PxxO
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so559221b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 22:34:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794033257; x=1794638057; darn=vger.kernel.org;
-        h=in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rCSoVSPy0ubo1scrbTANm6C4v1LOJKhrmcmQgcyDlL0=;
-        b=HjV0PxxOIbBvldJAgzzLKy0ZCL17XnRGDQdZmTIs7KrpTSrEpqoMxSI2W6p+EpUGXB
-         p0IhsQN61V3Rz1XqMucdyPMehfZjlp7Lespn/ooyK4RuLZAI+xziKZISNyqPJ4I1nPUk
-         n9xbEibhPlVVdnYhupRu5LrLhqT1B6tm7o0QbnAFdNu4wLdfh+SfApc/A2rkZt770uaD
-         s7g6XOvZ4GivjK7cYBMF/4gdvGuWk5UYAWiQmMNjGAOHluw1Pc0QTE6YKSwLa52Fs4X1
-         vwMLTB6jJXkgjxUMbuxTYuxTVwQlSj47oInU8tSffOVOY13vbERRzXkTb37DxsrCMgMV
-         tm8w==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BBC606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 06:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7BBC606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4fb73e868aaso2086108b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 22:37:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794033257; x=1794638057;
-        h=in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rCSoVSPy0ubo1scrbTANm6C4v1LOJKhrmcmQgcyDlL0=;
-        b=y/K3G/8dPnRZynC2JyWQ3M7tiS40wo9hbcJ0VQo4Hj/z/njpPcEQYhcqG9tvdXYlCY
-         dIh/y4ZM1inPnMKZ9VL87LDlcBcpwLwEp6BmQ0JGjq348OWwXkRdN7UVtr0jFHMazBZt
-         +IE8VPIAmhKYv3vBSc2A6yF3AIy3x6tCSrWJDXcsfmZtvgH2KX2PLdcRiSuT0dVk4tmO
-         mS+aNrh9qrH8wuURJYDFW4j4SnfEy4XO0BQT4emu8X2YDu5SAKZ2dCMSKbFbo2bb+kb2
-         TLSgVRNJuorwMWwBqTB6mYojxBja8sjPx+M6I31PkeQOJNi2fdLswf+ffERlFRO8j7oB
-         UKdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8Mk0w0fxkt23VBiijDXYCXDRbjtYM8bZ6NUVXuSkFa0SAkn6D3TzF7hyOOJQsiG7H+1zq79zqOhxMIAc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9b8ZbPLr94ZrQkpP6ibpNjtK4iK0beBToLQOlfEDFNAbbDEW10
-	Dyh5s72quxJlSMldUXHe1voP7tSZpXhEnhU36OBD7nsKXne7KTP2aoom
-X-Gm-Gg: AYBFou0a6+PcSk84MHRsQ9VinrEJzHqyU/K+PHc3pGS2KWn88j25cakeCaL08Z7LCIt
-	rquRZRCRUDCBNNuH/VKpqgGQiIYwzv+Nocb5b+1AoZKAa3vofMDjhRAF/zOXHXf/+hrHtsupr+0
-	UyIEVDoXev0TR1VLG0zACuoj6NBDf/Tlm0aSJWrkFgL677R4LEpmCuuH8Gk5mEpLXoRFQbUi6vz
-	Vl1aryMQGqWapFT6D21anc3OB2UVfUaD+ooJHlo5q2wqo5W4QFz0NJgz+EllthC6QAbiZ7PFKvc
-	iMcVO2H+BeNTbjAFvwidM51OJXcr1TB8gNfcLSS0d1kLeQJN7Oia+s/ffVFpv5j5XW3GLiU9J4J
-	8p5nhwGTUtzPI1zK4TSwadAyoqyMt2hxepjX3KPgtaV1fJSvVFBzD8TBWyswZI5W1uOzTh/wxl0
-	Udqy5D24APjVJXKQmz0VrVKIepDOUj9jpqyO1ZtSYMEbWR4pm522WEuuTzHhhDz9hwZ25nBzZY4
-	8ihfzc1ymM2BrnthO/HyJActfnZdlG7oIEcq1FmyvM0a9pZ7pYIaeWNaLRSkKICBded1SdTR1DC
-	ErFoIio8HesSLxesT5MuxepTSZhvHXCrLlvpTw==
-X-Received: by 2002:a05:6a00:188b:b0:881:8b53:f64 with SMTP id d2e1a72fcca58-8b37cdf8de2mr4176428b3a.59.1794033257505;
-        Fri, 06 Nov 2026 22:34:17 -0800 (PST)
-Received: from [127.0.0.1] ([152.136.45.109])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b359dc7805sm1149089b3a.40.2026.11.06.22.34.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 22:34:16 -0800 (PST)
-From: Qing Zhang <diasyzhangqing@gmail.com>
-To: iommu@lists.linux.dev
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>,
- Krystian Kaniewski <krystianmkaniewski@gmail.com>,
- Tal Zussman <tz2294@columbia.edu>, linux-kernel@vger.kernel.org,
- syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com
-Subject: [PATCH] iommu: Fix dev_iommu leak on mock fwspec initialization
- failure
-Date: Fri, 7 Nov 2026 22:00:00 +0800
-Message-ID: <20261107140000.1-1-diasyzhangqing@gmail.com>
-In-Reply-To: <6ae402bb.0c1d3ab6.e3d48.006d.GAE@google.com>
+        d=1e100.net; s=20260707; t=1794033422; x=1794638222;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xE7DnkGC0wLRL3dPvVdwFsZD7wae4SMEaNrFMqYv/Qs=;
+        b=ynKzR8OGDTrzUDscsu8YCM6shsx5p1aYzY7cMc3IZujpKQRBc40iwkw+2IcPB06cIz
+         9YciRBCuOJbgbsSRTuL4ux28wWrTemW4B95AaQT7b95A6wi/G0g7sbn5p1kqSwDivyOO
+         zJp9WpoLzs1haLj0UCmiFOTW7IaPm2qdDlUQASXYfiERxEhSQ1lPvlL5btwjYC/7yQ9S
+         USxI9ilG8T6rchPGa+eVjVd1OcZxGe+P5j3eM93srQq0H9VSvkATiQJZnkorH+OTa0tL
+         cBfudPEe4H79Y2jBxHaihP44Jl7Em/h23l5pEYaHq0G1LA0B6ABBjtmbHMbaieXZRL3s
+         efsw==
+X-Forwarded-Encrypted: i=1; AKwUvBx9k8RERChAEHDg9D2ZJ+AP2yqN6twVPXkpDoIu2UKxxdoBm4aA1IaVPYyZ8PTYjNZ+bbNPKGafZ5C3smo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+l/qb35B6vkOrFHouHg5RsGjGsw5FJqvHCqpo7S2o4pqH7cquI
+	Ykk+T7PHVSZQ6Mce4wSuHc1Ha/06OO6sC5VIsIE5sCBzhW90FtBkBg/vou0CGEBrtXQAjnkNbFf
+	h3t+f8atHICko6TtzWVtPon+qipoqxfGbxq9ITTaZD57suZkfQBGa90QHfkU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,48 +57,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:10d3:b0:4f5:d873:aaaf with SMTP id
+ 5614622812f47-567e1440dfbmr4198447b6e.14.1794033422668; Fri, 06 Nov 2026
+ 22:37:02 -0800 (PST)
+Date: Fri, 06 Nov 2026 22:37:02 -0800
+In-Reply-To: <20261107062125.452010-1-diasyzhangqing@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aeec70e.5a668245.1aceb6.0002.GAE@google.com>
+Subject: Re: [syzbot] [iommu?] memory leak in iommu_fwspec_init
+From: syzbot <syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com>
+To: diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
+	linux-kernel@vger.kernel.org, robin.murphy@arm.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-If iommu_fwspec_init() fails to allocate the fwspec after allocating
-dev->iommu, iommu_mock_device_add() returns without freeing dev->iommu.
-The mock device was never registered, so the normal IOMMU cleanup path
-does not run, and releasing the mock device leaves dev_iommu leaked.
+Hello,
 
-Clean up in iommu_mock_device_add() while holding iommu_probe_device_lock.
-Only free dev->iommu if this call allocated it, preserving any pre-existing
-object. Check for NULL since initialization can fail before allocation.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Fixes: 2a918911ed3d ("iommufd: Register iommufd mock devices with fwspec")
 Reported-by: syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fe84fc6a684e0beb86e2
-Suggested-by: Robin Murphy <robin.murphy@arm.com>
-Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
----
-This was previously sent on Nov 3 through syzbot's forwarding to this
-thread, after the direct submission to the list bounced. Resending.
+Tested-by: syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+Tested on:
 
- drivers/iommu/iommu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+commit:         d4872371 Merge tag 'arm64-fixes' of git://git.kernel.o..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15cb87a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4361b1bb937ae1c4
+dashboard link: https://syzkaller.appspot.com/bug?extid=fe84fc6a684e0beb86e2
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=167be369580000
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fc..207241a553b9 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -379,10 +379,14 @@ EXPORT_SYMBOL_GPL(iommu_device_register_bus);
-
- int iommu_mock_device_add(struct device *dev, struct iommu_device *iommu)
- {
-+	bool dev_iommu_present;
- 	int rc;
-
- 	mutex_lock(&iommu_probe_device_lock);
-+	dev_iommu_present = dev->iommu;
- 	rc = iommu_fwspec_init(dev, iommu->fwnode);
-+	if (rc && !dev_iommu_present && dev->iommu)
-+		dev_iommu_free(dev);
- 	mutex_unlock(&iommu_probe_device_lock);
-
- 	if (rc)
---
-2.43.7
+Note: testing is done by a robot and is best-effort only.
