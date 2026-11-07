@@ -1,98 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794028724;
-	b=Ix50UuakOkz8+RS1LWP7ZVgPbAKhdNpxrBUYERQU1RmJNWMfn39xj8blvKFb/Kmyxnn6
-	 Nq/E4KgPTrDnB/9++CeeiDvWT5EKyLmRWcVa/OXjaHbktVX92tKA+3rhlw78erqTXrrQz
-	 TBv/miUwYSkiLH0DiLOs/8A/Y1K+4yCvwIbu/Vf2XLggHNdwJYgRc/yL+89ktC4iPChuX
-	 y7pk5Au/Jm5M3vSP5jtCEOcOkVERJLdzDkd0kyTxAW/cXTYRolOMoEIh+IQxP/6jT+Ivv
-	 GDAoGwy8KWfKxV2EpsrbLWk8L2uI+eRzmGDJS7Q9PsxAS3ATOZUj1+CSW53BL2/WY1w==
+	t=1794028845;
+	b=qEfwSb8hCN2vKnCwDx/qH8Kzo6K511vv0WZUsAPPtDVE67vg+HlMfEs4YDoKkaT+kscy
+	 lY3dmwERHU1ESXJhS+nRkDPDfpUmzuHXiIuhoAzxwIxtvifT4VB+Po6GZ7Cdp+MbnwQro
+	 1zd7Td3FvamcKYjDE4l8ykebxqisXdFeI3POHxnPGFJ0tTvNuBaRRi+nS9RLAzvUI8qSc
+	 WZV8gjLlF8WBO6iYSPBh6BxFYAyP9dVfm6OZw8P4cvTI8PBITUZhLV/4JCU91qSnYkQkO
+	 alfeRw2U9uiVk9BuXpb2+xDsGZLl3/fGgktr2oEmwqELGGp1kP4ZomlBqSXVZTfYQAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794028724;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794028845;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
-	b=e8WmszxlWH8nX4w79iaoBsRPm7VZoPjJleopWyKWJfktOim+fE98zMTZEqYNJgJfRbFG
-	 GbniZ7db8Y+7/NPMulLh4ZfJcwIDADIKyk+Nd6vnMcuUgUEaCDuRw1NREs2tqidq4W2jr
-	 1LDjRC86uVZT5XUBgcGtz+99Cg1qpcMyws0XWyPeGCj33iyitZkjWQ1hy7bFLKcCapn2B
-	 tLF0fIHQ7CzvccLjBddgszVWCK4sBqlEzozlwXkv901G72UodWRcIx27wJCOPBcQmNM9q
-	 h9PrFAMit4N85YvaE+zGX98FxP66xMXn47YoCp4a7p2Fo1UF985sFa6edLrdivR8aoQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=3LwMhLl+xu0B7C01c0BCieuyM+EtzW58W4xVt/k6oVs=;
+	b=An4rpKf+5U5nPhiFu1n3tgm2xE5HW4qbC27ZlF9bIerltMmFVLlMgHRPOZt1n0Z/E08K
+	 4epoJaVFvR6EfqVtB/zWYkNtqNXhagQNH2JmOkMUsGClpqO8KX5kdwz6IAw9oJCpmJC2q
+	 gMgsDRLcYryFr7ZX1+kn/sHcHdCNjAJQFrY01fEUVUyDpF0tm6+rm8H1V+kp/J05JrQRM
+	 ETIUz7TaMJYAdMioTZptcWomGtWSlOVq+1Rs2mtKFqxRYIUMMF123AdqgDgEhjMxTvnUW
+	 8lQwqn0wrpdyxlmLsP+60Li4nW3SB5ldcFWm4Z8GnWCr7UYynyBOCdOf30UCTlUyTpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5v5llPK;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kK3T+VZK;
+	arc=none smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15A2606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:18:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F15A2606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C749F606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C749F606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5v5llPK
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so730776a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:18:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kK3T+VZK
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b19e291cc6so1266214eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:20:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794028723; x=1794633523; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
-        b=h5v5llPKaFu3fMlhcSWhfngsLZGQd1TsUbhsX3QVDmc9B0roRkq/BB1xhC+cbZGT71
-         gsoeU7oTfZsWAi4FaTjTShYUrrfBzMX2KNC8ZJG07iUr4Fc2Q7R8TiPEUchyrNx19LrB
-         sqwcarkOC6aKMXpV/Cp0Cw1B2HWHmiFYt4rtur/gJiliNQXYcZSfKXqT4G8HJvCRHVwy
-         ZFFKVW3bcubzPMKQD1u3aaLOPHRNoiN8P/lUJC5+aikahIHxco7AzjfW8tPNWgXcsfvq
-         MOFVqI4ZGCxigpeA26DC4+gyp1BBT5m4egxv23UMlbSeskvfXVY06IrKv6VgBQ+vd8UA
-         +lZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794028723; x=1794633523;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794028843; x=1794633643; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
-        b=crvaqQt9lMbr7afTas1TlXWVBV206kAGQr1ivWPDk11DJ/fjsqifORaH2v1WLqwDpB
-         s2A7E7q0p4V2Ms635tILOzf3SOtfln2KLwCn1PwPNNtd3bVaR/x64U/+gC3s3DfuyRJ7
-         JK/GWHM/R3N6HAvoTxMYmlCsJA7XyR2n1R1Yiw0y2HBkonQuahVWCyDAxSatusK2O8tS
-         85gAjtShP+2kji9XLgfmfegmT3cEEK3V0vo3ToEQgIXCzWole4jWxEXiF0c2kCJCrHAS
-         XkDZpSoVgS3gu4oIgz11HpHePa1jnStm4lAzlPp46GKA69xTNOQVuIZ82mrpm3Rwp+qi
-         Hkhw==
-X-Forwarded-Encrypted: i=1; AL+hErF02mk7pHc9voltB5ih16ljzykSSTdNhSbA7PGhDFTLNy2lpNt3owyVkcUyhCO6bkeKtQPDHeCUppJobpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Isw8OEjc6RzbErvmlIz6DJfPL4X9Ryh7R9+bf7BnFgts5raUz
-	14TY/8JpdxpSdzLvo414ZmBi3mxgqBB29DZ+HIxob3yhNgT3VuEm8e5W
-X-Gm-Gg: AYBFou3oWpGZsgIGy+CSvk56u5YvTSO0Qm25RLZCY1qBo/kRv3cV0at0Rjgl3NqST8q
-	iCvN+sXFyQLliGau7AEm/6zWLc5MhjzCTMRS9YQQJvjXE7EAkXjBkUsdGK5GBflKjSfgKc+6ZAw
-	roExRfDEDhGW3I+wedOtDfl4BBcCdsPr458mD6SLD5p3BUmAMgCdDfQN7BdFB6RQpsuVDHGTXAZ
-	FV8BiGCPTynxlclbUfWxovvs94/9Q0BU1I55YoGZQxl+MFXnwjU2Iih009kkGGZFlyVY/TgpBLI
-	p8S1oxle7hj3ynceDSVORIWcrcBdmhby8Sre4nLZ669yGbjbcXYlqKheGtTpPTT7tuMd6XTgbrH
-	LsTspUYYNt5EnWhVTdLfoKQKIqVDAAqzJ+DX5vPXIsEp6C/GAtB8sleLZek9082No+EbRSTlJPH
-	st5LmIpmCu1VdLP0Ylxt13MN2jwohMRE28zV0nG52fiXu8Sr6kFOoZcSqkYcO4LsjfftPpsLDG4
-	vzyTi6EOmfJH+Hi4uj+f7mb5cvFCwXVpgM+BM9CAeRw6dWOdZGCjH+2Fvq1NwE/VRKFf3hr9uQ9
-	7iknCBFLoOYlBRzlji1LRokP8RX6jYa2nxBSGbzaCAwd0RE/
-X-Received: by 2002:a17:90b:4d85:b0:3ab:884b:659e with SMTP id 98e67ed59e1d1-3b0db6d7bb6mr4232399a91.9.1794028723184;
-        Fri, 06 Nov 2026 21:18:43 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c1c2csm1785860a91.2.2026.11.06.21.18.39
+        bh=3LwMhLl+xu0B7C01c0BCieuyM+EtzW58W4xVt/k6oVs=;
+        b=kK3T+VZK4hhwfoywzNbt1iPxDngXNQf6oFjWoUS8SjFW/YhOkz6g6Ku/q2uW4jFq0M
+         BX+TZrVSgaQl6InwkdvzSA8O+AGNl3HuLBkD6H1vyqM6hkM0hP4Ci+8MAbeSybuYfYm0
+         VAXzu5CGAFlm6XaIeXKpuNKpyepqPRkUt4vLlmJuSwAMsG4JvvNFYz+WMZOppzSSyyOv
+         dU6hScQGQsCv10Lrj0KIOjjARhcF2sFhD83diy1QdsgLCh2Yz5Cghfo8AbBPtfjSQBqG
+         SvxIRKlgRJwaqi939fyOQUvENqqAjoDBzXtU7N0u31Euq6hVJA2M6cnVr65Jojs0s3qL
+         XuAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794028843; x=1794633643;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3LwMhLl+xu0B7C01c0BCieuyM+EtzW58W4xVt/k6oVs=;
+        b=IV9lmqMSa/1Y2J6A09J89+TY1ehCfUUmXcloSZXQJmb65zYqwbo1LHdxNV2M/iXThQ
+         V4WBZBlYAeAnLRLnAOZO3u8kXhBkkGIfpEEVIEGywgu60CMBkviQ4pNCpkLETWXYa06i
+         9ldNTauP0m9j6SYxlKKmqmLtgsjyXMLORqGV1HAS26caLNad3C2GdxLIzq9fKdtKDHtf
+         eHQoR2YCbh8yDDv9BcnHYGFaerqbCnDVMsDli5OSYWYbzMNXqHtPtlm1gCCrv2wNYh39
+         hpDmrFly6XKMvkfCM3m/3tmBPdXLk6z5tdCKKqT//DOuxggm7KhfFYqTVfxrkBs5R9fd
+         wWlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwSRclHsHRPVp0/YbEUgt1s/APgxy2Jqper7Zb9Fi6FhWpdTTDu8oo5CGnM0sHXfZq5q+y6Uf0ghFZrJMg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MdCF1DbL4v3ATjZ3UzVUYkJpqbnKTN2Z+wg3Y1iUxUFpGcv2P
+	pVRMbSR7dFf6kJxD6hJX3Q0r6BsuJMgfQeB1xx/hk7TUHr64z4ofuCpZ
+X-Gm-Gg: AYBFou26RQ+g5M+yJTjUWLxf3KR7VQxUIoqM1NiqqkVtGC8wraKfXqsJKbAXgq9d20E
+	ahiSSKlVxGuGEBH6J9tF0va+esmTp5DHM6Wt/cFO/BQ6Me5u0w2Jn5ts1wx/nCHM85gwB3oEwWh
+	huxzOvQv2KHV8Zd/jnAwyX4bS9X9E459f8W+QmlIoYK6KXT5HgMz622WAEd6PfyyvJ0/SQE6y/v
+	L8BT4YeuunlTcS6w3nYlgZJLgLNN939Dp4EzQzDAzHBwacdpqRSjKafwM7jiyQ2M+ucaB5F1AVz
+	q6LhntLQRAPNkZWN/GZIxFgaWpW8CQ8XAl+U9MYM6D1qZNzU0vnQ3zL/d1X0/G0U/XS36EiBMsy
+	uVc2saw3wzwUtwgfl0uPfeGFfIKtZrOCwi2Qt2i+y27o+SEWwNSkGDLhXyJSPt05lS3QphbtviR
+	p66IIfvE2Vc9FUfloPjIuRI1NN0E/YjiRV2P22Z1EIu3c0L8YR4U2bTVzC6bPEqR1kSB2Tk1i6B
+	YiwWspjo3CWDFTlKsbGlPHYXsq3qToPeN5RPEw86tMYM2KXLTONxBiaM3BrtPlYT8PTiFeNU+x4
+	hoy/VGwRRBiASQVA119/MJCu6W+Z6InpU7VZ65YcFObU60JWcX3y4J9NirDB0BimQvWhGI3UoSh
+	pXpjG/kWQLxIFpnJP6VY8PJeQ7FASupT7ZBbU84j0woYEShpH5ZbUBDeKGUGGk9OqxxJjSNFU/y
+	Gtg6Wa41yMAoWYVOy4CwRsXMeTW17zC8fOFYsLMYhKnsEsZWiozM7ZwJ0BEYj0PI49ub7yOGc4j
+	A==
+X-Received: by 2002:a05:6808:4497:b0:50a:6fcf:d287 with SMTP id 5614622812f47-567e152f7d4mr3697226b6e.37.1794028843358;
+        Fri, 06 Nov 2026 21:20:43 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7ebf4edsm3059846b6e.13.2026.11.06.21.20.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:18:42 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-	Paul Fertser <fercerpav@gmail.com>,
-	netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net/ncsi: disable the ncsi work before freeing channels and packages
-Date: Sat,  7 Nov 2026 14:18:25 +0900
-Message-ID: <20261107051825.3313019-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 06 Nov 2026 21:20:43 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 06 Nov 2026 22:20:39 -0700
+Subject: [PATCH 1/3] mtdchar: calculate OOB capacity from the starting
+ column
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,79 +95,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-submit-mtdchar-page-chunking-v1-v1-1-2973a03531bc@gmail.com>
+References: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
+In-Reply-To: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ =?utf-8?q?Micha=C5=82_K=C4=99pie=C5=84?= <kernel@kempniu.pl>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Hyunjung Ko <hj351016@gmail.com>
+adjust_oob_length() needs the number of pages covered by an operation,
+not their absolute indices. Calculate that count from the initial page
+column and the data length instead of subtracting absolute page numbers.
 
-ncsi_unregister_dev() frees all channels and packages via
-ncsi_remove_package() and only afterwards calls
-disable_work_sync(&ndp->work):
+Use a u64 product for the resulting OOB capacity before limiting the
+requested OOB length. This keeps the calculation independent of the
+absolute flash offset and avoids narrowing the capacity before the
+comparison.
 
-	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
-		ncsi_remove_package(np);	/* kfree(nc), kfree(np) */
-	...
-	disable_work_sync(&ndp->work);
-	kfree(ndp);
-
-The state-machine work, ncsi_dev_work(), dereferences channels and
-packages (it walks ndp->channel_queue with list_for_each_entry_rcu()
-and operates on the per-package channel lists).  ncsi_remove_channel()
-and ncsi_remove_package() free those objects with a bare kfree() right
-after list_del_rcu(), without waiting for a grace period or for the
-work to stop.  If ncsi_dev_work() is pending or running when
-ncsi_unregister_dev() executes, it can therefore dereference a channel
-or package that has already been freed -> use-after-free.
-
-Commit a0ffa68c70b3 ("net/ncsi: Disable the ncsi work before freeing
-the associated structure") added disable_work_sync() to fix the
-use-after-free of the ncsi_dev_priv itself, but placed it immediately
-before kfree(ndp) -- that is, after the channels and packages have
-already been freed -- so the channel/package use-after-free window
-remains.
-
-Move disable_work_sync() ahead of the ncsi_remove_package() loop, so
-the work is quiesced before any channel or package it may still be
-touching is freed.
-
-Found by code review; not runtime-reproduced (requires NC-SI capable
-hardware and the state-machine work racing device unregister).
-
-Fixes: a0ffa68c70b3 ("net/ncsi: Disable the ncsi work before freeing the associated structure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- net/ncsi/ncsi-manage.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/mtd/mtdchar.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 1d63958..1c2dadf 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -1960,6 +1960,15 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+diff --git a/drivers/mtd/mtdchar.c b/drivers/mtd/mtdchar.c
+index bf01e6ac7293..19d33dacb62d 100644
+--- a/drivers/mtd/mtdchar.c
++++ b/drivers/mtd/mtdchar.c
+@@ -576,18 +576,17 @@ static int mtdchar_blkpg_ioctl(struct mtd_info *mtd,
+ static void adjust_oob_length(struct mtd_info *mtd, uint64_t start,
+ 			      struct mtd_oob_ops *ops)
+ {
+-	uint32_t start_page, end_page;
++	u64 pages;
+ 	u32 oob_per_page;
  
- 	dev_remove_pack(&ndp->ptype);
+ 	if (ops->len == 0 || ops->ooblen == 0)
+ 		return;
  
-+	/*
-+	 * Quiesce the state-machine work before freeing any channel or
-+	 * package it may still be dereferencing (via the channel_queue /
-+	 * package lists).  Commit a0ffa68c70b3 added this disable only
-+	 * ahead of kfree(ndp), i.e. after the channels and packages had
-+	 * already been freed below, leaving that use-after-free window.
-+	 */
-+	disable_work_sync(&ndp->work);
-+
- 	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
- 		ncsi_remove_package(np);
+-	start_page = mtd_div_by_ws(start, mtd);
+-	end_page = mtd_div_by_ws(start + ops->len - 1, mtd);
++	pages = mtd_div_by_ws(mtd_mod_by_ws(start, mtd) + (u64)ops->len - 1,
++			      mtd) + 1;
+ 	oob_per_page = mtd_oobavail(mtd, ops);
  
-@@ -1967,8 +1976,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- 	list_del_rcu(&ndp->node);
- 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
- 
--	disable_work_sync(&ndp->work);
--
- 	kfree(ndp);
+-	ops->ooblen = min_t(size_t, ops->ooblen,
+-			    (end_page - start_page + 1) * oob_per_page);
++	ops->ooblen = min_t(u64, ops->ooblen, pages * oob_per_page);
  }
- EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
+ 
+ static noinline_for_stack int
+
 -- 
-2.43.0
+2.53.0
 
