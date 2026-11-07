@@ -1,112 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794038836;
-	b=MSzFswK/iHqRvjAXFgwzCNAeJ8hI6/pe3xyj1LrJnaOz7h9Sl00cIZuC2ywGjls4+mgy
-	 7Kpizuv7iXdeIy+HQ3w6bbUVRZx7yqkvcU+r6a+UUugVbrRE5hDpESM4o+TiYWVGfrWDZ
-	 qY7JVozmseSdfZEds7uQj6Fd3ZcUJqlV/2wurDazMrpZKgoYoTNrddxldzCwxVXRC4Gd7
-	 iSNjZMcQPpbp6wT4kj6XF1fy3u0zdAhhoZtPAIkOBTU/i9CzgAKliNfgeIS0BmoNuitKQ
-	 jA14fIX0G48JKurwtnMXIOoZvUHgBBp7ClZp4+9FNfIZ+O3ZTeyvx4MrdDkrL3guG3Q==
+	t=1794038845;
+	b=f3WwojplIL21EqERdJxOfkkrEBs3/bZ6bRFQd7qKe6e1zcrWOYtRkyoLIK2/770ERZaL
+	 FX6R8JZJTkTFazxwEaEhuUItQ3rKAIk6hcqKWx8ZdGqT1swsJB0Z0XcBFGeV9XEm1v8hS
+	 ZhPgUbAjUr+FiBLzmXRmhY8dXE2WLg10/DCNlnK3CIdrlEazaJnNEV3UD+dueNPi+LUFO
+	 uPgtloPItwX0+0x15rN7uYV3V/BGa98aTEM7ampVGZSZWK1tbWLFNeOOecgmDj1c3Sp3j
+	 vqPZH82EMQ3xby/D8TcFJ92mmNhkBeKeQ9iLSoahY6SMr4kPCyV9XpeSbXnuYQVw1Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794038836;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=x6OX6qz/WRgS6n3RRGF+EeBHclWuHgdA/NrgibX9lXI=;
-	b=4IuJ70p7X7IXXFdBTCAr+eBgab8Wzcgarhs4IYCA/964Fg/wapMV7U8MRoBHcLmo32x0
-	 D85m7UKsEm+fguMBLidqFX86J5PoArPoHJLk5Mk9p0JlfQrCV+wp1crvHbuqkg8YMbc3y
-	 E+iIcfb14wGo9ib6KQgzM7rx74CUX8nJRP/2XErZN1rzu8mVxjesfOwEu2t1lNxLrm3RM
-	 ETE3jx/yrW+l2voIGNLZHd0OvGQ2/Agfe4379Xub72dEYVqk0Fi+DYQPmLm36R0gSWdCT
-	 9wEmtZVwMEOwLHpjIZyXbkgCIzQPvZ1L5UMxsQaFwHkgYm5HJQJAJhnLcywiraalbHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794038845;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=ZP9NtSrlooK9VhB0rSMTcWQqhg5ZFlrIy3RevyzKXN8=;
+	b=XSHSOEG17wq/ffMNuvnmKGQIv0Kxnhm1S5QeV4bFtCF44OACvrwTuPg4um5U8DFkymjn
+	 k3664EIpUPfVDg70mQPuLjJGgKKo7erYCZJwoCZ0YzNV9VDpeVG+pRurrmryQ3aAPe8wT
+	 Wu+PfA5TE65363V8NsEqZKo7yqgP2CtbJ/l17FqrRFSVK7SSaI8GqB2GCL0KVt0JYJBaP
+	 w3ny0Y7W/PpQE1UFHg82y7MLXfN5JnbmXQllaiSMyGN/RIklEGI0QK3UfeUfUBu5BZyef
+	 fYGS762GkyRbToM8XeOLrKSaNjZDRy6Y5rP1k+9vlkvF3JmV6xAuR6gP16ya1sHYFFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=osyx.tech;
-	spf=none smtp.mailfrom=osyx.tech;
-	dkim=pass header.d=osyx-tech.20260707.gappssmtp.com header.i=@osyx-tech.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=b5BMzb4C;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEEDB606A33A
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 08:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEEDB606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=osyx.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=osyx.tech
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=osyx-tech.20260707.gappssmtp.com header.i=@osyx-tech.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=b5BMzb4C
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e4831c028so1395188f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 00:07:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=osyx-tech.20260707.gappssmtp.com; s=20260707; t=1794038834; x=1794643634; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x6OX6qz/WRgS6n3RRGF+EeBHclWuHgdA/NrgibX9lXI=;
-        b=b5BMzb4CKP+DlmGkkuc3flNcQ3ZI7xbcs3yZvaluaBeG83K9/VtBHGJzJ6ijYZmcxN
-         HVCI2wvvYO1gQU21f2r8u8rTc9YEbfkufMyXByhACRgUnV60nUiPBiFtnl6laFHuJpLV
-         EGpmxmksCLNhEyrvzLAwPG7X5eNrgYnBnONymlkPnn/Z5CF3cQ/WTytoBbIQBUwYXtel
-         oeeMD4+/bwSJQ1SWLVwtAO1KJFnx8OzWQbEbjViTUrThGxoui7P0yZDZv9Dvq3Z9yXPu
-         IQM5WRUY5V7Y0MJuVl+GrYIWO/Rc8cj2dwHZAGyS0GKOyeOnAcKYFfRVhrT6HCPasrig
-         L+lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794038834; x=1794643634;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x6OX6qz/WRgS6n3RRGF+EeBHclWuHgdA/NrgibX9lXI=;
-        b=Tmq0aap1COCBL5PvnCWk4sU5BpBZNPOJkMXcr2MQDISszaM/6C/xN2ySgHFDdgh8cS
-         AO3R28fDTA6d2zadHfxP+11g5yxcvP6uXeYMJDG4UmdRAueCUtwBS3Pj4NtQKNU+fsTC
-         RdXstoHk/cu7Ap7tAqum9Rd8eb6WXV5tcZrXsCu9DOqvB8i9gvv6xHVHurj8LaR8lYg2
-         WVfsKq0/hYVe1ps1pbO8R20kmC115OiQUo+Ra0p5yuAySPfrJApQM8vJIFa8e1jW4kKT
-         3ihstmcuNIq5FuYQcYDbwgL84sUj9cc/KrRA8cb2UgPMJCjTqeBmzFEUHtE1VDfckpwk
-         6Buw==
-X-Forwarded-Encrypted: i=1; AKwUvBzZkpIg/iXiqNZWqOdZQ5FAYkZqQUG3N1cc61AR0IiKKFoCHIFKuoM3Rxoa4XVAXsVGw9BZSQTat0ea6/Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Ch0mWs8lMmBsJJP3QpHHfy5ylGYcTBOgPo17Iw0gfgrbhYpYO
-	oZbGoac6xAno0RpnHvzR93PgozGm1702BVQvimWlInnQZv5A8izIo3huaMgNW41SZtly
-X-Gm-Gg: AYBFou2JM8QRhSiePrQX8z1d/JF2FEhKlXpB35DFMtifJgq9p0qRbtgCRx+bNKTSpSr
-	SPoODA3yRZvtL9PLp3P/3mUbUePuOzxb0/0mP2k2wmO1GHcZ/IgQFoPMMRw5NXU8v7gqkjS1jUz
-	XDcBbY9Czgz8k4p+XeLHn6+ciQEj9OBhykicRRsQKRmaV0mY0xT8T6iENsLX4OWUld/JY3o4zig
-	pr1eOpg1RRqKBxVHpeekRKQSxmAk9cXYp1KbW6cVce+hDJR4SgelWTIraidMubdidyh3FbEVejI
-	SNS0F7Kfg2hoeEM6+sYskdAO6OK3JwcINP0y0jWhrvsQj/mWkefcuR5HD9sCYF9yVGRbatZ4oOL
-	VJ5iEVp/5HIcLiAGFbXI082iHOmlUpnmvuC0rej/wwmBj0bOXYPkvon8BV2BaP4oMJABujePzYI
-	QU118vOZ9TmXiCRAgA6v07FDi0c8ED6ASv3yuBtQPvqJW7We8KLU9xsXSkGcHa2AOo8uWS4DiDX
-	DELEJERdIshESplXFAz2hwhvt1tyjEjOZUmGUpbOoGvuRCZahfS9a3LRboyLN030EWGvaWop+vv
-	cJqE6JgZX3XoFmvuARRQFn5RoQ4sBSatvokYSYKKkZfpmXVHF2EB
-X-Received: by 2002:a05:600c:3f0e:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4b6db0d060fmr83181085e9.2.1794038834255;
-        Sat, 07 Nov 2026 00:07:14 -0800 (PST)
-Received: from jp-linux.tailbfef0e.ts.net ([2001:8a0:f59c:a900:ea06:fa16:f0a0:9d64])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e327a652sm43927455e9.7.2026.11.07.00.07.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 00:07:13 -0800 (PST)
-From: =?UTF-8?q?Jo=C3=A3o=20Peixoto?= <jpeixoto@osyx.tech>
-To: gregkh@linuxfoundation.org,
-	will@kernel.org
-Cc: catalin.marinas@arm.com,
-	andrew.jones@oss.qualcomm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	jose@osyx.tech,
-	davidmcerdeira@osyx.tech,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v5 3/3] MAINTAINERS: add Bao hypervisor entry
-Date: Sat,  7 Nov 2026 08:06:52 +0000
-Message-ID: <418eb111fc016706fb64ec91cbfb077ce31e4577.1794038390.git.jpeixoto@osyx.tech>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794038390.git.jpeixoto@osyx.tech>
-References: <cover.1794038390.git.jpeixoto@osyx.tech>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB2B606A330;
+	Sat,  7 Nov 2026 08:07:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB2B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowABXhP443O5qzr5xAA--.13418S2;
+	Sat, 07 Nov 2026 16:07:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2 0/2] platform/surface: aggregator: Fix packet list handling
+ in ssh_ptl_shutdown()
+Date: Sat, 07 Nov 2026 08:07:30 +0000
+Message-ID: <20261107080730.0-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,42 +52,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowABXhP443O5qzr5xAA--.13418S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr4rZF1rAr1rAry7Ar4fXwb_yoW8XFy8p3
+	yrG3yvy3yDJr17tF17W3Wa9FWfZF45Xay5KrZ8u34jvrn8JFW0vr109w1j9FyDuasxW3W7
+	Kr4vqrn09F4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
+	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
+	uYvjxUgUKsDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIEA2rub5HADAAAs1
 
-Add a MAINTAINERS entry covering the Bao hypervisor drivers and their
-UAPI header.
+Hi Maximilian, Ilpo,
 
-Signed-off-by: João Peixoto <jpeixoto@osyx.tech>
----
-v5:
-- No change.
-v4:
-- Drop the arch/*/include/asm/bao.h and include/linux/bao.h entries (the
-  files are gone); use the directory form for drivers/virt/bao/.
+this is a split of the single patch I sent in September, following the
+review comments from Ilpo and Maximilian. The two problems in
+ssh_ptl_shutdown() are independent, so patch 1 corrects the list that
+pending packets are moved to, and patch 2 makes both drain loops safe
+against the packet being released while iterating.
 
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Changes in v2:
+ - Sorry for the delay in getting back to this review.
+ - Split into two patches as requested, instead of one patch that mixes
+   two independent problems.
+ - The pending/complete list mismatch has its own changelog describing
+   the effect of the wrong list node, as Maximilian asked for.
+ - Both patches carry Maximilian's Acked-by.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..dbea081447e2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4712,6 +4712,14 @@ F:	drivers/video/backlight/
- F:	include/linux/backlight.h
- F:	include/linux/pwm_backlight.h
- 
-+BAO HYPERVISOR
-+M:	José Martins <jose@osyx.tech>
-+M:	David Cerdeira <davidmcerdeira@osyx.tech>
-+M:	João Peixoto <jpeixoto@osyx.tech>
-+S:	Maintained
-+F:	drivers/virt/bao/
-+F:	include/uapi/linux/bao.h
-+
- BARCO P50 GPIO DRIVER
- M:	Santosh Kumar Yadav <santoshkumar.yadav@barco.com>
- M:	Peter Korsgaard <peter.korsgaard@barco.com>
+Link: https://lore.kernel.org/all/20260917135607.2154130-1-vulab@iscas.ac.cn/
+
+The candidate was found with our static analysis tooling; the audit and
+the fix were then assisted by DeepSeek and GPT-6.1 Sol. The patches are
+based on mainline as of d4872371bae (v7.4-rc1) and were built for x86_64
+with CONFIG_SURFACE_AGGREGATOR=m, without new warnings; checkpatch.pl
+reports no issues. I could not test them at runtime, as that needs a
+Surface device shutting down with packets still queued or pending.
+
+Wentao Liang (2):
+  platform/surface: aggregator: Fix wrong completion list for pending
+    packets
+  platform/surface: aggregator: Fix use-after-free in ssh_ptl_shutdown()
+
+ drivers/platform/surface/aggregator/ssh_packet_layer.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
 -- 
-2.53.0
+2.34.1
 
