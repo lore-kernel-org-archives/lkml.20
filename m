@@ -1,79 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794063286;
-	b=L/4eA2pxDKSNmOOjVlPLEzIXfoy4fDAtuJ44EivIhhmHdTJjmlrnhMmNNtEVKFMIS/Er
-	 DwdalgASE4aSilOh6IkybFsfVnPaOnssc9B/fHxfFPz/kz7Nm9eLG02bNXfkyirRsFNLr
-	 pBa/0uYDHfjeLhK43nm7eqv/9eioRNNGMeDUJivId92Q12OXQB3t2aScbaj8WkICPw7WC
-	 5iVAEkdqBkF2VXmHbWbVRRbRXZ1OT70FzXmY3XNs6LorFU2+th90sOublq7x2Q5HrMDfq
-	 ldmTzy5rlF5M8j93ZyV6GjEzXY1CI7oTqUzoY9iVoE1NLMXMa72xXJuGH36gC/ZWjwQ==
+	t=1794063300;
+	b=bgq30HdRnsqldBw2Lk1rlqgXlzRuMl4JkgqJC1Xc4aZ5YTzs4QOAFCcfhH1STmBiVpyZ
+	 ho6aMqqRSbBfQELiRibsjgxS5xMqqEqoD7XeevOdn/jroKNRiS4XWijQf3BLks3iTEOrw
+	 87KK0p4XZUid3/rCjIAfpVHtPEN3KqCBKiG3PE2X3QtmpMhsemN9H0Car5cVcvSJXWIua
+	 0+58Wedkg2MwtBvuYBSVbllcmt4RsfWA18A2+K6QGoTGWKZbbaZnotSRj8GxHBWs1EbyJ
+	 ZkRSOlRq0uc4wEDQdUQJzci37XLvWnQEVk8UTyWBzqKSOd+dKTdIOMZC0xXM6/FpXIg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063286;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NJC/Y/6ygBaJvU2GPJgj3ACgIGfTCfMexIHbp6F6K/A=;
-	b=JQflYWwVmOc8wHSVWQxY4U7AT10iOWeMDy5TKdYIZtOYMkfA4X0xQEMhNzu/4RHdM0DL
-	 u0R5XUP9zmjkU4kQexsTP3N1wMwjIDOzQDCeWPh69ousCjxgxmBFhTvyon4Ot8u0efebx
-	 Cda0umWlGIyr/n8JSoBZTijSypuGT/4yceublp//Oy6YeMGvtWp7LpS+N4JBIf+YC+2Av
-	 rhBdZ/6GlTRr3KJ5367HqP+l5pBAvHHBR/Mqrug1gRDPOaSV33HbK2iHQsuxhMI+d/iAb
-	 a7/6/juy2du0ntqylCL5M+3NJOFhG4JxWqZjwTRM1GOYM5ch4M9/aE7pKP44fwqLA9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063300;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=hcx4rkb5UDfldirdxNkVVRGffFaCO3Uk9EZz6oAx954=;
+	b=SLed4xK81Gu5KTlGYl02mwXBqmYMQXdagrWQU/b/7GDZVQRGyzsAl6ZXF884mk7AD+6C
+	 +EJSlso+MmJ9RvILQp/8jnBWC67p5AKYMHcstDE5y7VMtEnTcsF3lXSj3GOlArzZdrjfw
+	 nvLxTlnBrgq28H3OF+u2YvPSg/7pOQmdh5gE7bhQudvQZ3WkvlqgHCE8fjF7UtRjWukaV
+	 geKI1WlJ6xcfXuqCUeCIEQiovVPQcKer/s3McTAIFh736KWk9qTMkSMKbMp+aj5PQNSl3
+	 s1KXJxgSA5lUhUxS/Pz3IUhDWSQo0jlXCwk4SKkp6NaYIhAViSdIE/eAGi6wVrQG3CA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LGQuHeNE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69E4606D808;
-	Sat,  7 Nov 2026 14:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LGQuHeNE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794063285;
-	b=kX/e47il/TOys54NmtCOHe7NMQ9SyMvr30wngI2UU1OvWy/upsqfbch4e8tNLxh/FomI
-	 QX56oCLlKFtPeaqCHXUVyBMlOvc0//BOZIgzzHtWsDMD6m2l3SXj1wrG8Xuv5b/8AJCNy
-	 HkrShtrwZPF5oK4g1Q+otAEUK5XmlgFVwEG/0oV987fdoO63OzDtnU03dKeJJtUm/9O6f
-	 2mnyMLgSe5kLM/WIwr7Y45/rkDiptWLO1UUSVmlkGWIJBmmgs4TrkBLTmMGbRWjjbO1Ax
-	 S5+4Gq08pJUlutQaltcC4oxeAPDXrU6yj163WmAqwRTOzVu3rm9LrwMzMy+7xnMv+Iw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794063285;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NJC/Y/6ygBaJvU2GPJgj3ACgIGfTCfMexIHbp6F6K/A=;
-	b=yQm0KgcXU70IWLHFyaVaxKCp1Wtb7T5wy1mIcQXQTOtHqfjamCvFdLp9ZmFJa8ccA8rF
-	 eshn4zSmEjjLK+v3ic/Cv/MruLi5DCScsRJ8J7nqSP6LkTwcP53qjvSFPhlIQ7TY2i77a
-	 ti6vm3Sm3d3YK3vGi9elbMiC1Vf3maKVs5G92OZC/Iu/9KuS6CfxoaU6At0NBf073U/nf
-	 09zOGdSx63rJihIaiAv35hgv6LjBe2BjzU46fwzj0AoLb+x6lMmR7Wrse7AWdRcETE9S6
-	 /RQyoEq2QKWehFqIT2eGav8xPI7X9oTVGxinp1dDpzAvaJ4Samngt/aqdes/Ho6Wq0A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZNJlFPJj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7F0A41F008A4;
-	Sat,  7 Nov 2026 14:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794063285;
-	bh=NJC/Y/6ygBaJvU2GPJgj3ACgIGfTCfMexIHbp6F6K/A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LGQuHeNEmQoThmOb3WgRXRhN2+296MrsYP38yGjecymrPlTa8KH8BItZ0/9+ATAWd
-	 zyqk724OD4Spfkr/dg0eZLB1MS8Ahr3yA6li1Vxm9plILfMBIDF3f0+dLMvmpy8/9K
-	 EoYCAurDKlp0/GO5Oxr+b/1aKKTgJqtWGWxz1EWbX6k7o1aBrfNGSYUmbVRek2TJts
-	 u36MnqInsGtTLKoYw7PTVlboBQgjPLsaXoX+Hiba0G/7Wv5FqSFmcj56Vdt3OOopeh
-	 jdajH3mJwleUKMoxJVUDNTPCDIVr4xlbjDeqkJc5Zn+hsHXAAClCqqZHyFzHPhsIAw
-	 JSQaFH3cl9A0w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1017547C47;
-	Sat,  7 Nov 2026 14:54:44 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 16:54:43 +0200
-Subject: [PATCH v3 2/3] usb: mtu3: add SoC platform data for FIFO quirk
- handling
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069F5606D824;
+	Sat,  7 Nov 2026 14:54:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069F5606D824
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZNJlFPJj
+ARC-Seal: i=1; a=rsa-sha256; t=1794063284; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=WMkp4XAWn755Wn6dHuYIcibPDiZqPoIvE2QWQlh0DUlV2O20SHjSh/OqMWeQUTjQptUOM6TNIlqJnPn6l32qYZ/Fi+A7gcWerTo78Rder7gCZ9GR9nbXqpZllU97Lm2PUD1hY66fRWmrIMQGMwu3rL1gS5P3vEPiingrlJ7vaWs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794063284; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=hcx4rkb5UDfldirdxNkVVRGffFaCO3Uk9EZz6oAx954=; 
+	b=eicQaKCBBV+DQmLj4BSXQFpLWy9jSrOXITZ7xP8LQUOo7T1metGSl0WITrt3wgBIbXpqeDdWJMk/zF7138mEr3kQFDKpfKhG9kYNZznvRVFGTTu9UKkkpBc0DRaEcZg7OH0RlnOOzSgWJzwK20FbcN4kxFPc43v95IBySrmKHxY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=ZNJlFPJjmvipuacrXmH/7hRCRy6ehMz5zsy/tO2uVoxEvXpZa4ITI0D0b/SpD3WKer1LVKiB48FUH75hi5SqNsXKDHTmW3yoFjKEYRxJowaQ24/oQLozAghKVrf2HP7EhJqN+zHx0XbyLcrwexFyaDfMjeGoFpx2wW8E0F8YG0nw1+7zRx6lPIjT0MSpSuGzwt3MmvQqUhmNwhq4/v4w24zbTGqY4x4Ii35cE6h04jomRpSPL64LxhMv+Ov0HSseLqi0eZwgzueidp66Dqn7Wvt60FM5TD8/Goy3OjPKVNAQBqn8lbRkNJYI1fA5W3JhPbFSSrPsLDRbfYqIFgWcww==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=hcx4rkb5UDfldirdxNkVVRGffFaCO3Uk9EZz6oAx954=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794063282508348.20409846462576;
+	Sat, 7 Nov 2026 06:54:42 -0800 (PST)
+Message-ID: <2083b714f5f20e86d76629a9ec334c0ce0e05774.camel@rong.moe>
+Subject: Re: [PATCH] platform/x86: ideapad-laptop: Do not warn if KBLC
+ reports no backlight
+From: Rong Zhang <i@rong.moe>
+To: Punnay Sharma <punnaysharma805@gmail.com>, Hans de Goede
+ <hansg@kernel.org>,  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, Ike Panhc <ikepanhc@gmail.com>
+Cc: Artem <temmi556@mail.ru>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, Stuart Hayhurst
+ <stuart.a.hayhurst@gmail.com>, 	platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261107140700.16036-1-punnaysharma805@gmail.com>
+References: <20261107140700.16036-1-punnaysharma805@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 22:49:29 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,143 +72,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-6595-mtu3-v3-2-f36bc569cb47@protonmail.com>
-References: <20261107-6595-mtu3-v3-0-f36bc569cb47@protonmail.com>
-In-Reply-To: <20261107-6595-mtu3-v3-0-f36bc569cb47@protonmail.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794063282; l=3866;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=auQPHvab1ZzrFsEkD3kyiLiuuk6+++iHHfze1wbJCXA=;
- b=rZXp5qlTOcGBFK+aoKrYTcpaBANl+TuT7yMeU+HgrjWzoDkqG5Rbv45x4nraCZ3FuBud98D8L
- URz7wWccYg0Dq52F9VtuVvauGz1DLZPiYJ5puQxwmtLab2xT0Lcfulu
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-From: Roman Vivchar <rva333@protonmail.com>
+Hi Punnay,
 
-Some SoCs, such as mt6595, require specific quirks for the MTU3 to
-function properly.
+On Sat, 2026-11-07 at 19:35 +0530, Punnay Sharma wrote:
+> On probe, the driver asks KBLC for the keyboard backlight type and
+> warns about any result other than 0x5 or 0x7.
+>=20
+> The LOQ 15IRX10 with an RGB keyboard returns 0x1. Its KBLC sets bit 0
+> in every result, and sets bit 2 for the type query only if the EC field
+> GZ35 is 0. On this model GZ35 is not 0, and a separate USB controller
+> (048d:c693) drives the keyboard lights. So 0x1 means that KBLC controls
+> no keyboard backlight, but the driver logs on every boot:
+>=20
+>   ideapad_acpi VPC2004:00: Unknown keyboard type: 1
+>=20
+> Add KBD_BL_NONE_TYPE for 0x1 and do not warn about it.
+>=20
+> Tested on a Lenovo LOQ 15IRX10 (BIOS R3CN44WW).
 
-The mt6595 IP block doesn't support multiple slots for the FIFO,
-resulting FIFO wrap.
++CC Artem.
 
-Fix this by adding platform data with a field to handle FIFO limitation.
-No functional changes for existing SoCs.
+It seems that some devices provides functional KBLC despite
+KBD_BL_QUERY_TYPE returns 0x1. See
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221198
 
-Assisted-by: LLM (debugging)
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- drivers/usb/mtu3/mtu3.h        | 9 +++++++++
- drivers/usb/mtu3/mtu3_core.c   | 3 +++
- drivers/usb/mtu3/mtu3_gadget.c | 8 ++++++--
- drivers/usb/mtu3/mtu3_plat.c   | 8 ++++++--
- 4 files changed, 24 insertions(+), 4 deletions(-)
+Mark, Derek, could you check the documentation about keyboard backlight
+type?
 
-diff --git a/drivers/usb/mtu3/mtu3.h b/drivers/usb/mtu3/mtu3.h
-index ba5a63669e5f..349e5b20f285 100644
---- a/drivers/usb/mtu3/mtu3.h
-+++ b/drivers/usb/mtu3/mtu3.h
-@@ -315,6 +315,14 @@ static inline struct ssusb_mtk *dev_to_ssusb(struct device *dev)
- 	return dev_get_drvdata(dev);
- }
- 
-+/**
-+ * struct mtu3_platform_data - platform data for the driver.
-+ * @fifo_single_slot: the IP can handle only one buffer for bulk transfers
-+ */
-+struct mtu3_platform_data {
-+	bool fifo_single_slot;
-+};
-+
- /**
-  * struct mtu3 - device driver instance data.
-  * @slot: MTU3_U2_IP_SLOT_DEFAULT for U2 IP only,
-@@ -369,6 +377,7 @@ struct mtu3 {
- 	unsigned connected:1;
- 	unsigned async_callbacks:1;
- 	unsigned separate_fifo:1;
-+	unsigned fifo_single_slot:1;
- 
- 	u8 address;
- 	u8 test_mode_nr;
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index 66dbfe1705d5..15f1b80fd0e2 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -922,6 +922,7 @@ static int mtu3_set_dma_mask(struct mtu3 *mtu)
- int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- {
- 	struct device *dev = ssusb->dev;
-+	const struct mtu3_platform_data *pdata = device_get_match_data(dev);
- 	struct platform_device *pdev = to_platform_device(dev);
- 	struct mtu3 *mtu = NULL;
- 	int ret = -ENOMEM;
-@@ -930,6 +931,8 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- 	if (mtu == NULL)
- 		return -ENOMEM;
- 
-+	mtu->fifo_single_slot = pdata->fifo_single_slot;
-+
- 	mtu->irq = platform_get_irq_byname_optional(pdev, "device");
- 	if (mtu->irq < 0) {
- 		if (mtu->irq == -EPROBE_DEFER)
-diff --git a/drivers/usb/mtu3/mtu3_gadget.c b/drivers/usb/mtu3/mtu3_gadget.c
-index f224f2ee379a..8ac244d40afd 100644
---- a/drivers/usb/mtu3/mtu3_gadget.c
-+++ b/drivers/usb/mtu3/mtu3_gadget.c
-@@ -112,8 +112,12 @@ static int mtu3_ep_enable(struct mtu3_ep *mep)
- 	mep->ep.desc = desc;
- 	mep->ep.comp_desc = comp_desc;
- 
--	/* slot mainly affects bulk/isoc transfer, so ignore int */
--	mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
-+	if (mtu->fifo_single_slot)
-+		/* older IPs can handle only one slot reliably */
-+		mep->slot = 0;
-+	else
-+		/* slot mainly affects bulk/isoc transfer, so ignore int */
-+		mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
- 
- 	ret = mtu3_config_ep(mtu, mep, interval, burst, mult);
- 	if (ret < 0)
-diff --git a/drivers/usb/mtu3/mtu3_plat.c b/drivers/usb/mtu3/mtu3_plat.c
-index cc8a864dbd63..bb67da4704b2 100644
---- a/drivers/usb/mtu3/mtu3_plat.c
-+++ b/drivers/usb/mtu3/mtu3_plat.c
-@@ -611,9 +611,13 @@ static const struct dev_pm_ops mtu3_pm_ops = {
- 
- #define DEV_PM_OPS (IS_ENABLED(CONFIG_PM) ? &mtu3_pm_ops : NULL)
- 
-+static const struct mtu3_platform_data mt8173_platform_data = {
-+	.fifo_single_slot = false,
-+};
-+
- static const struct of_device_id mtu3_of_match[] = {
--	{.compatible = "mediatek,mt8173-mtu3",},
--	{.compatible = "mediatek,mtu3",},
-+	{ .compatible = "mediatek,mt8173-mtu3", .data = &mt8173_platform_data },
-+	{ .compatible = "mediatek,mtu3", .data = &mt8173_platform_data },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtu3_of_match);
+Thanks,
+Rong
 
--- 
-2.56.0
-
-
+>=20
+> Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
+> ---
+> KBD_BL_NONE_TYPE is placed last to avoid a conflict with Rong Zhang's
+> pending keyboard backlight series.
+>=20
+> The same warning appears on other models, e.g. LOQ 15AHP10 [1] and
+> Legion 5 Pro 16ACH6H [2].
+>=20
+> [1] https://lore.kernel.org/all/3f03931e7eafcb1781ca3cf922e588ab57caadcf@=
+lavx.hu/
+> [2] https://github.com/johnfanv2/LenovoLegionLinux/issues/336
+>=20
+>  drivers/platform/x86/lenovo/ideapad-laptop.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platf=
+orm/x86/lenovo/ideapad-laptop.c
+> index fcb5ed7035f5..eb4158bed264 100644
+> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
+> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> @@ -148,6 +148,7 @@ enum {
+>  #define KBD_BL_QUERY_TYPE=09=090x1
+>  #define KBD_BL_TRISTATE_TYPE=09=090x5
+>  #define KBD_BL_TRISTATE_AUTO_TYPE=090x7
+> +#define KBD_BL_NONE_TYPE=09=090x1=09/* No backlight through KBLC */
+> =20
+>  #define KBD_BL_COMMAND_GET=09=090x2
+>  #define KBD_BL_COMMAND_SET=09=090x3
+> @@ -2246,7 +2247,7 @@ static int ideapad_check_features(struct ideapad_pr=
+ivate *priv)
+>  =09=09=09} else if (val =3D=3D KBD_BL_TRISTATE_AUTO_TYPE) {
+>  =09=09=09=09priv->features.kbd_bl =3D true;
+>  =09=09=09=09priv->kbd_bl.type =3D KBD_BL_TRISTATE_AUTO;
+> -=09=09=09} else {
+> +=09=09=09} else if (val !=3D KBD_BL_NONE_TYPE) {
+>  =09=09=09=09dev_warn(&priv->platform_device->dev,
+>  =09=09=09=09=09 "Unknown keyboard type: %lu",
+>  =09=09=09=09=09 val);
+>=20
+> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
