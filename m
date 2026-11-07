@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063697;
-	b=yV39pq1X57G5B4ym5r/8gxe0cJCC5tkC2dVu2E2h0/ukyEykyzf5NofJ0kBSkDDwx5kj
-	 mBWFTJxGdSAaoSRONqNtghjPyNw+6F2gBMgRpLMi78PBa5q4yNK0860A4Cn7s9k8tmvJ+
-	 dkkVyUXY5f2thD6I0jX/vYrqlz+0qPcYSzWTAiJU6Qg9blOlPaxFKPoAqGW5k1ocTUFfp
-	 LmgwrN9rWZq33OlVMbn2xGxJWB/N8aS4X0FdrKK1rq5CDekJNEDiwymE9KPcbvGhWYKkb
-	 IRBZZixy4bUXmiqvR3ELEjA3bjYie9OslY15yihboblyyC/DE/hUdIWCGqtSZ+Fkmmw==
+	t=1794063726;
+	b=i9O0AJkGBERIrgIe/nBGqXm1u6s8rMNl00+zl3h24GCoyhcFa7mivhfsYQbmQqeQkOnZ
+	 y6XEKNuGc/kRQToPV7oHnT8RjYsuVKy3uFD5hkur00acpzScdc/ShwKIF04BlD+Z0ong1
+	 UlJybZsH1F6SvrYwbbxsVVeM4XQF7KjJh2heWS1Zwye1at9Ora6bW+B8hPMvzl/MqLu+m
+	 tVUJk7ONAJDkKHEvWC/FRNwn+2T+80fXCLgNNlNQyGshj1fA+w9xdaVHo/ncpE5dDx6cH
+	 laO0u/JmN+0o7iJYfxyrXGdpy9PdocY2lch1LkCeFjm/VyQInRmLZnqjA7yk2fRFuig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063697;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063726;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=UJIT6szgZ3iHxWbb4OfUYZIiW48z49jGazGBAmmxbcw=;
-	b=OqFNV7az2g4Ix3xz20g+k8ljXfavHPgT+HYZsLv1+FwJSuHyVlF6tWM+tOEJPn4ARLaK
-	 uf3TsEUSMDmDmbyTyW1J5XlOD2isFAjtDrzeFyOQ9groXFLgG07Ez3AqyvixcIdMGHjNT
-	 43lUDxIb0gOHq3VfIJVnziY52Eq2WmVObGBpliprwRJyzyVP+H028IUeRxlVA8drI8A1n
-	 MyQW4yoU118H9ZvyHTlhIQQgUbxIgBHqmEYnuhnlG+aAyW1iPCCowjsHmSOzSTWEdx9/s
-	 MDV427DtbklUoN0SNcupCRayj2fzJyuBqlHtI+BJOO3xSC9R0jVkKFPwfoh2JkxeJGw==
+	bh=a50E+Fvt5ASjF0FfSCQEj9LG/9E42rR75fXOcgNtSxw=;
+	b=l4fNXc+BpcZhh6v682saeb8QIzG5ejspmHC+aqrPcG0GG62wzTVxaq7jQZMV53fC9m4K
+	 +WsHaMIrrWBDqT43DILYSCPbWgofAzrGMHlummcMAoE9pzmh8Vl6b3pVvzRaCjpOz0kqj
+	 YTd0Kc8OiowwoOkOkSEiNcoADf+s/Kt+k9E16b6zgSSwrY71SKItVHoBAKw8ReGoTauX/
+	 X36btajY9mzI9WZtBW7BvSxsXHioPJMTGFBXwa2ejaAJfLgiPhFtoPIy4AkadP8HA056f
+	 T+DgWlGrS1Kp8tC6ml3TUhQm7p9ufYdyMOcm4QH6D3KmyAfyzA4HaoW2eXGSB5S4IEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NnhxDt6n;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=llmhYPjJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D20B606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:01:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D20B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960F2606EEB8;
+	Sat,  7 Nov 2026 15:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NnhxDt6n
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-37000e7234bso2720894eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:01:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794063696; x=1794668496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UJIT6szgZ3iHxWbb4OfUYZIiW48z49jGazGBAmmxbcw=;
-        b=NnhxDt6nUg3fxAndo05h5lnjvuR/6rtM5p+/SfcuOgwVxcCrC+wm5zJdVvcfL0/WZT
-         B0zR7/sCZtx/JD+hHlOui2QWYb6hX7YDfXCcjpeliTRtaeTHSiKRZ9x9KQF5fdbqEpdv
-         b8sL3vpsTStBLPu+Uslv7eqpq0OTDzqs8NVHuH15c74W0vYefAGEC946TSCj3DC7yE0p
-         uB5j85ikVNScUBOnUeS1SyeY8Eu7VO8I1pFXb76n3Fnj4+J78X8OR3cI1J2Lv4YRizrG
-         BNEle0obr2VpgpKwOW9LTOTsJ/+APx4eElvu5dwSOXdHVlhuMqvR8WWm5Xf20WzX/a9Z
-         3A4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794063696; x=1794668496;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UJIT6szgZ3iHxWbb4OfUYZIiW48z49jGazGBAmmxbcw=;
-        b=MZis+WN6R4Lel/M30yDG171FRBkb8sMbPpZvMXOU5vxd1LKD1bBcJgxjS1MjDicNdV
-         ilbLe0DC14eNQMYTnM/NhJTqD7oQwzl1F68Jv7gdMUggTnsoNPG1SJwJ8dnn2ZeEiJ+v
-         TsLZaHgsY0SGNB3UVPUcwCjA+XNmwoTkZxz3+iiFuPt2UXE3pLN/P6qpkojB9+ozkTVI
-         AhXLfpcW220YhWMU1/nkTQGhH7leCGFfncH6XWAely6A9JSCuiDAg5aBSG+cUeShyu1Q
-         fa2HxIiqmEKtKynXvIOeJ+w7IPWoB+2+pNhYTwslsI0WRc5vD2ArjaItU5jXz/IGdFQR
-         k/1g==
-X-Forwarded-Encrypted: i=1; AL+hErFuSvOreJazB66GTTchA2SHsokp22B506e39wclhwNoO+/N/CxanbrinbLrTn/yvW92XSGJwhWTx4YvYzI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3g69OyqTFNNoymKoVbMI/R9T5fPcVvEUHBSDb9FbH2s352LEZ
-	wC40X7CCkD+ppQWBI70f7jiC6zKphua7bSFueOnVz8flb++Owl3Bc2BD
-X-Gm-Gg: AYBFou2KE4X2njKXAdcRtDcEorZL2uimjTnBuzX37Cj0dtVflveUGk1d3NXPi2yeV7z
-	6rcqoP7ApebsCY8kpD1kjrupB2sH7k2h5Zx4dg+eCs4ThAORnHT05xPsyuGn3hSyr5dD/+sjQoG
-	Ugk6ASE4MygtCGlaVYVLxyrouz6K0Y16UAgnzgGPpR10N9YsS2Boez8gUjBDUZWQDNbNCU8HgiM
-	ycYK1hxxZGEiEA88UfDqeCZ8pkGkuG37kg/WyjpFMp7qgbbZDrFSCwog361agHOg3GFRxyLDrnE
-	qAD6xnKrnY5Xhm8cPWykPQbepENyNWPaQIiH7BCIae8nZehZ/qondKl48QMRnk2jfoooCHpdIgm
-	LpEMSwgTVa+mbEI0D6zpnsukvL5BNdXjJUDrQ12zvfWhq6eW36a+tPAESYs9MUvt7BjcCkLAg9L
-	y3vC22P8L5ZabPge28zzWJtQW9OVENXs6nL2mRJ89A/HlEUzc6nparyv7JLqtEV52tHjr9WSavX
-	ri5bbyMt2N7bkm46o3Q2rbQOWdbUpF+549F3Tlxy7RHRGYhKdMDbQKdNE7FUD501OwvkJxn1gch
-	NDHeVFTmPCfdaoNJ1Wy+vAjcRwGn81vvgO5MSM3xAr7eCPpb9wE=
-X-Received: by 2002:a05:7300:c7c3:b0:36c:bf78:967e with SMTP id 5a478bee46e88-36f75a2b06bmr8006122eec.10.1794063695913;
-        Sat, 07 Nov 2026 07:01:35 -0800 (PST)
-Received: from KRHW1CJW23 ([139.177.225.255])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8d44a5fsm15540799eec.7.2026.11.07.07.01.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 07:01:35 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Jason Huang <jason.huang2@infineon.com>,
-	Shelley Yang <shelley.yang@infineon.com>,
-	Avraham Stern <avraham.stern@intel.com>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	Girish Rudrappa <girishbukkasagara.rudrappa@infineon.com>,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	kurt.lee@cypress.com,
-	Carella Chen <carella.chen@infineon.com>,
-	Chi-hsien Lin <chi-hsien.lin@cypress.com>,
-	Darren Li <hsin-hung.li@cypress.com>,
-	Ryohei Hashimoto <laurel.medalist12@gmail.com>
-Subject: [PATCH wireless] wifi: brcmfmac: skip beacon fixed fields when parsing SAE PWE rates
-Date: Sat,  7 Nov 2026 23:01:11 +0800
-Message-ID: <20261107150111.12424-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=llmhYPjJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757AD1F0089F;
+	Sat,  7 Nov 2026 15:02:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794063726;
+	bh=a50E+Fvt5ASjF0FfSCQEj9LG/9E42rR75fXOcgNtSxw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=llmhYPjJ+GzdXZ1bL7Nl745ZrzsRXxPb0DE5cyaSLnBRGP79EDsK0AL/r7Z8sodX2
+	 nTkqUXU8vDQpwhquOsINibjO7/fTbn6heypOnhr6IPcVmZhHw0dgfMzpQKbZEpbFta
+	 VyoliSHukwm3DuRMQSIoaxIGxh4WH4aA4WU/FaoyJ4he/BEmaOAnJQuqCec1THqF7z
+	 PIsRiGfyzP0MTJhlvr/wqJudoZe76EnctUNTTe9poffsfeO4R36DJSLtSH72rfttFs
+	 Z318ZbvKa2YToR25bRzdvSQRxLcuCI8pbRvwgpHuZoCog7+jzcGlYnLPqggY5raCn2
+	 EN62C1k4X+VVA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: David Carlier <devnexen@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] tracing/eprobe: Install the trigger for every instance that enables the eprobe
+Date: Sun, 08 Nov 2026 00:02:04 +0900
+Message-ID: <undine-1794063724002256344-706ebdac8e2df825@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261107101233.151434-1-devnexen@gmail.com>
+References: <20261107101233.151434-1-devnexen@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,53 +58,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-brcmf_parse_configure_sae_pwe() passes settings->beacon.head directly to
-brcmf_parse_tlvs() when searching for WLAN_EID_SUPP_RATES, so the 802.11
-management header and fixed beacon fields are parsed as elements and
-Supported Rates is missed. When BSS_MEMBERSHIP_SELECTOR_SAE_H2E is in
-Supported Rates rather than Extended Supported Rates, an H2E-only AP is
-configured to accept Hunting-and-Pecking as well.
+On Sat,  7 Nov 2026 10:12:32 +0000, David Carlier <devnexen@gmail.com> wrote:
+> The eprobe trigger lives in the instance of the enabling file, but it is
+> only added when the eprobe is first enabled and only removed when the
+> last file goes away. A second instance then records nothing, and the
+> first instance's trigger is left behind once the eprobe is disabled
+> there, so the eprobe can be deleted while that trigger still uses it.
+>
+> Add and remove the trigger for each file. The file is never NULL here,
+> so warn if it is and drop the dead perf paths.
+>
+> Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-Skip DOT11_MGMT_HDR_LEN + DOT11_BCN_PRB_FIXED_LEN first, as the SSID
-lookup in brcmf_cfg80211_start_ap() already does.
+This looks good to me. let me pick it.
 
-AI assistance was used.
+Thanks,
 
-Fixes: f3d9c56e6eb2 ("wifi: brcmfmac: Set extsae_pwe parameter to Infineon firmware in SAP mode")
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Compile-tested only; no new W=1 GCC/Clang, sparse or smatch warnings.
+> ---
+> Changes in v2:
+> - WARN and return -EINVAL on a NULL file, drop the dead !file paths (Masami)
+> - v1: https://lore.kernel.org/linux-trace-kernel/20261031203915.491866-1-devnexen@gmail.com/
+>
+>  kernel/trace/trace_eprobe.c | 56 ++++++++++++-------------------------
+>  1 file changed, 18 insertions(+), 38 deletions(-)
+>
+> diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+> index 998e6390937a..474be2f5ccd9 100644
+> --- a/kernel/trace/trace_eprobe.c
+> +++ b/kernel/trace/trace_eprobe.c
+> @@ -644,37 +644,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
+>  {
+>  	struct trace_probe *tp;
+>  	struct trace_eprobe *ep;
+> -	bool enabled;
+>  	int ret = 0;
+>  	int cnt = 0;
+>  
+> +	if (WARN_ON_ONCE(!file))
+> +		return -EINVAL;
+> +
+>  	tp = trace_probe_primary_from_call(call);
+>  	if (WARN_ON_ONCE(!tp))
+>  		return -ENODEV;
+> -	enabled = trace_probe_is_enabled(tp);
+>  
+>  	/* This also changes "enabled" state */
+> -	if (file) {
+> -		ret = trace_probe_add_file(tp, file);
+> -		if (ret)
+> -			return ret;
+> -	} else
+> -		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
+> -
+> -	if (enabled)
+> -		return 0;
+> +	ret = trace_probe_add_file(tp, file);
+> +	if (ret)
+> +		return ret;
+>  
+> +	/* The trigger lives in the instance of the file, add it for each file */
+>  	for_each_trace_eprobe_tp(ep, tp) {
+>  		ret = enable_eprobe(ep, file);
+>  		if (ret)
+>  			break;
+> -		enabled = true;
+>  		cnt++;
+>  	}
+>  
+>  	if (ret) {
+>  		/* Failed to enable one of them. Roll back all */
+> -		if (enabled) {
+> +		if (cnt) {
+>  			/*
+>  			 * It's a bug if one failed for something other than memory
+>  			 * not being available but another eprobe succeeded.
+> @@ -687,10 +682,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
+>  					break;
+>  			}
+>  		}
+> -		if (file)
+> -			trace_probe_remove_file(tp, file);
+> -		else
+> -			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
+> +		trace_probe_remove_file(tp, file);
+>  	}
+>  
+>  	return ret;
+> @@ -702,33 +694,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
+>  	struct trace_probe *tp;
+>  	struct trace_eprobe *ep;
+>  
+> +	if (WARN_ON_ONCE(!file))
+> +		return -EINVAL;
+> +
+>  	tp = trace_probe_primary_from_call(call);
+>  	if (WARN_ON_ONCE(!tp))
+>  		return -ENODEV;
+>  
+> -	if (file) {
+> -		if (!trace_probe_get_file_link(tp, file))
+> -			return -ENOENT;
+> -		if (!trace_probe_has_single_file(tp))
+> -			goto out;
+> -		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
+> -	} else
+> -		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
+> +	if (!trace_probe_get_file_link(tp, file))
+> +		return -ENOENT;
+>  
+> -	if (!trace_probe_is_enabled(tp)) {
+> -		for_each_trace_eprobe_tp(ep, tp)
+> -			disable_eprobe(ep, file->tr);
+> -	}
+> +	for_each_trace_eprobe_tp(ep, tp)
+> +		disable_eprobe(ep, file->tr);
+>  
+> - out:
+> -	if (file)
+> -		/*
+> -		 * Synchronization is done in below function. For perf event,
+> -		 * file == NULL and perf_trace_event_unreg() calls
+> -		 * tracepoint_synchronize_unregister() to ensure synchronize
+> -		 * event. We don't need to care about it.
+> -		 */
+> -		trace_probe_remove_file(tp, file);
+> +	/* Synchronization is done in below function. */
+> +	trace_probe_remove_file(tp, file);
+>  
+>  	return 0;
+>  }
+>
 
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 46714d871260..0c91fdc406bd 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -5144,6 +5144,7 @@ brcmf_parse_configure_sae_pwe(struct brcmf_if *ifp,
- 	u8 ie_len, i;
- 	u32 wpa_auth = 0;
- 	u32 sae_pwe = 0; /* 0 = Hunting-and-Pecking only, 1 = H2E only, 2 = both */
-+	u32 ie_offset = DOT11_MGMT_HDR_LEN + DOT11_BCN_PRB_FIXED_LEN;
- 	s32 err = 0;
- 
- 	if (!brcmf_feat_is_enabled(ifp, BRCMF_FEAT_SAE_EXT))
-@@ -5167,8 +5168,8 @@ brcmf_parse_configure_sae_pwe(struct brcmf_if *ifp,
- 	 */
- 
- 	if (sae_pwe == 2) {
--		supp_rate_ie = brcmf_parse_tlvs((u8 *)settings->beacon.head,
--						settings->beacon.head_len,
-+		supp_rate_ie = brcmf_parse_tlvs(settings->beacon.head + ie_offset,
-+						settings->beacon.head_len - ie_offset,
- 						WLAN_EID_SUPP_RATES);
- 		ext_rate_ie = brcmf_parse_tlvs((u8 *)settings->beacon.tail,
- 					       settings->beacon.tail_len,
-
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
 -- 
-2.56.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
