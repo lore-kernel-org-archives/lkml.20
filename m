@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.204.81.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029387;
-	b=hNRpL+Gz36Jcff+vk7BKAGkbGxSkWnigLI2ZgJcNkH5HH7OMaGzBRgyq6KVZ2OIJIlOx
-	 1xePYx49utDwrOwYx2r6mhjkrk0ZX/e3eabRPe7+E49rkFRN0EWqt4otftaRrIEmhN3Lq
-	 Y1XP0yZKTsOR+f0fxFPGEdLE19AcZsFuSvo+MvV8GlZxoLk54dHzOBsj7AmK2dISdu3ib
-	 2ymATlJPPKS15zliAmN9gNYl8Vj/bpCecl6TNHGCL5Q2XPN8rWQexWiDoQ8VEThYHLnH4
-	 XYXQygkko2cCUV0QhLw089jupdMvJFR4RKUC0e9rl9ZWOCjUdRnpitaiEzRcfu/VWXg==
+	t=1794029378;
+	b=efavguJ0oFnazy9QBst2A6xbjIgIn5WaexjWNQjmJjTxy7Tt5vTEoMUjG0dKEkNviYZQ
+	 yhRgZTPSAJm4XglzJg4Esb7aiGiE3+m9U0bXVg98/Jou7sD2vB3juROPp/DqrAKKwo0sR
+	 ee4zSoobfnPfWDRTZx2Hz6VSEkdywO+TMFCAecL685r8S3dPs4yoKrHXQAR9UyJttrQuo
+	 dYUvrWXgOeAakkNt1NSwvX3VhYyvUne/+5u2KihB1gfedKdgw+ArQatwLTtVK+TS64Vw2
+	 0cL+yw6oiyE1S+Gp5npmaN3un5hpRKdz5CWQR/o+WZ4Ok1H1LjaPQyBvXfZA0W0zFqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029387;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=mld7kjkRbHaOrbf5kuHU3Y7anGgqjs03ezIpptqfNZ8=;
-	b=4ihvd5raynej2gfUqrNerxywVKm5Vv2d+0Utktq2Rbf7gppltZnksQQc9a7u4AQeKRc2
-	 8n6m2o/9VIE7sb9LpHfJWoUS5toR8LCyCGkm0KTCFVa4MoDOX28wdw1V4lasGx/4aqcA8
-	 skZKBwp+pqDzAaobLyhbyx3PCwTGi2Aw0eILM0ZkI/uo8/7WA9pdZNobKz7ZCJSo+1aBR
-	 NUzN8AYhGBUrPVf/26sPys/yFsZbIT17+CXG4EXIuWU1P8hieCrHKbp1SpJcr3rCiE4k1
-	 lm4UYwlBFJrFvivjGPquPqsPVwL6DIwntoiLYM98cteFvkqNrAka35HwT9JGNxzcoHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029378;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
+	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=iWtGlCsXyDg+0XDDQp42mfm/iFWlVjXTouLGzx7/hcs=;
+	b=B+2+6i8Gw+e5WUzSDTTzi5f7bo+dEETMHbhtChckXZ9VS7dvTrXw4TWsjmIlIT8B+cZS
+	 dghOXZHaRrYpb4OkbyeA35+LUwn2evehLw5tsW4eu/182icFyfvmCyA0BSEvRgNfVyNUq
+	 g47f4q8+iN4JKc74W2+KukWxDRJW8QIRqu8Wjof71a7FZW+vljcnD2EnpZZMfGT+KCmc0
+	 B23LfpZ6yXKe1LvBBkNFPhmtuWdAohcUb/6oOO8CsLyDHirJ4jYbUB+JxLZDElYL6SHxk
+	 tthrnZ3zXrm3rbO4xKdUo8YCey+Js3Xfbz/SSYzUg2zpBZRb0zW7/QxT4l/4NEMrlTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Qn9Sm9By;
-	arc=none smtp.remote-ip=216.40.44.11
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	dmarc=pass header.from=squashfs.org.uk;
+	spf=pass smtp.mailfrom=squashfs.org.uk;
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=wd2vtWfH;
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b="edi85yK/";
+	arc=none smtp.remote-ip=92.204.81.222
+Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [92.204.81.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE225606D81E;
-	Sat,  7 Nov 2026 05:29:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE225606D81E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E174606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E174606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Qn9Sm9By
-Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id 92ECA160297;
-	Sat,  7 Nov 2026 05:29:35 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf09.hostedemail.com (Postfix) with ESMTPA id D5BB820028;
-	Sat,  7 Nov 2026 05:29:29 +0000 (UTC)
-Date: Sat, 7 Nov 2026 00:29:27 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
- linux-kernel@vger.kernel.org, will@kernel.org, boqun@kernel.org,
- longman@redhat.com, bigeasy@linutronix.de, clrkwllms@kernel.org,
- dvhart@infradead.org, dave@stgolabs.net, andrealmeid@igalia.com,
- shuah@kernel.org, juri.lelli@redhat.com, linux-rt-devel@lists.linux.dev,
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/5] locking/rtmutex: Stop spinning on the owner when
- the waiter is woken
-Message-ID: <20261107002927.3cbad7ff@fedora>
-In-Reply-To: <20261106235931.1478800-2-mathieu.desnoyers@efficios.com>
-References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
-	<20261106235931.1478800-2-mathieu.desnoyers@efficios.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=wd2vtWfH;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=edi85yK/
+Received: from avalon.fritz.box ([82.69.79.175])
+	by :SMTPAUTH: with ESMTPA
+	id PYyzxFofBjLMrPYzNx4crb; Sat, 07 Nov 2026 05:29:18 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
+	s=secureserver2; t=1794029359;
+	bh=iWtGlCsXyDg+0XDDQp42mfm/iFWlVjXTouLGzx7/hcs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=wd2vtWfHQCMLwknGi+pNw/KauzM9fStzordvi2WoHNGpw8AyV8xVbKZN0LP3wZ8WE
+	 9/vcl8qWtSCDw1gufNAxxNMBkK3m/DNYVcdvvywP7OppJa5mNRE7B1HJfdero7pKJu
+	 DS4GLDSsugZJVB99yixicaXFcpTKtMqetQya231Jt7fhFp96IRkLYLIogdgw1lhEOa
+	 6DRVpV6PcJBNaZz7C+AcVuYSR1dhPHP6RYHUPg3tbWWNgGrcW5Haca9gubcSL3dpMX
+	 EDv5FwT664v0PKDGjR8NsZv9yF/iNmOaIsgJRey2TU7VRrBgbOrANhNkqK02/mx+01
+	 fTuJhAWW0EvAw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
+	s=secureserver1; t=1794029359;
+	bh=iWtGlCsXyDg+0XDDQp42mfm/iFWlVjXTouLGzx7/hcs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=edi85yK/YhCm6YosrBbqGtSPYYXstlXNaHRySYxlNVSWPg+Jinjyzrpytn/UwinBG
+	 tCIIOvCo4NdCfO3OxYWepYZKM+h88LLdf5sHq9IwERE9K8Nwee7npslDS8f9Za+pfN
+	 9wQZEcTAI4dxOGh6RljrBiqZVdBV7eifvUFsbP2FwU/Z0x6Er1yThpNgwlYrgH5qZ7
+	 2FhDgxspidUi+1ZNuYu47ptcQss7EXoK2Vi0Ht142Tw417oBF8EZFycF4q6niXk/uk
+	 BudRE/2icFA0hM4YVebFFGERHA6nD63b7qrzkIEywcAgpKE462Lx05YEz6Ac7Bg9dp
+	 dMLEekFyuS3EA==
+X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb72e
+ a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
+ a=yKgdCBhA7QK4Y9OD5tEA:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: 48d75bb9d4b0034978209d62233e4f39:squashfs.org.uk:ssnet
+X-SECURESERVER-ACCT: phillip@squashfs.org.uk
+From: Phillip Lougher <phillip@squashfs.org.uk>
+To: akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Cc: Phillip Lougher <phillip@squashfs.org.uk>
+Subject: [PATCH 07/18] Squashfs: fix fragment bytes overflow on 32-bit architectures
+Date: Sat,  7 Nov 2026 05:28:32 +0000
+Message-ID: <20261107052843.725239-8-phillip@squashfs.org.uk>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107052843.725239-1-phillip@squashfs.org.uk>
+References: <20261107052843.725239-1-phillip@squashfs.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,88 +83,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: D5BB820028
-X-Stat-Signature: gfqbz1cxxp9kkah8phjo3oydi9owe8xk
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18lmIEtPfC8g+PJJzjbhI1/k4URfSupTxc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=mld7kjkRbHaOrbf5kuHU3Y7anGgqjs03ezIpptqfNZ8=; b=Qn9Sm9By+8LQ1gl5vPbqzh1am/KGiw4g9XC4J8hRGZhtBhrgi8a6uAlAKWEHY2GTuz+ecmsb8uFLijexcA4tZ6XoHLX1Vf1yzQuRDeTWvRh5f5Od68/TQxlkcHTzYe0kqvudI8+oFgRozN19sP+ne+bOl55N2xB2jCS4btTW1RA=
-X-HE-Tag: 1794029369-923082
-X-HE-Meta: U2FsdGVkX19jmckBHz2NQ7nIP+uMgyu/7nZb8Opx/+1rtGvWri2KbF8ZAyg6tQe9tq1pvpMN+gEJvU4gM9Uw0hl5zkfVnFXwnuLgXQ1dcEcInCOfY5J48Jhc2JdWWPTk5RPjV6szp0+TTQRGxKpacCSd7vQqSuRyCiZvxybkIlYB7I1NJQqpBpWbRjpn6xnAVDQ0QjbxZrmEm0BhUHs0HlGPGZKIfbzLQL1t+dmFxfQ30QjJYKo3xydd5su4jEqNLBu+UO8hL2dfbcg3SnXzaou92Pl6tnvkFVm3J1Zg0z4TdBH5eKxJyPFC31xrlH9RsgMCNwrogfk5+ye7fsQFLWy2RUEcJk+lg6H3UsTEHurfFJmiZmdjGO6tohwRjHJAVu9MyxsXKtyQxVcGL/tsmTigDbXzkUUs7IgHJXrt/lxhlk/eVntnoRJQvXLLuoEaZIK+F7e3O5ZjymGy76InyQ==
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfDu/yLk2/aHObaQTc6RbFrmcIl61u2alngyDbXFz7JNDSVMFEmfiSmRQerJcqysekTVGNt8OAXeBpmUj8BWrdgrgrtU8Z5rTnYceZj20Y/JTFS1ABRkq
+ BBdrs7Yw57o2lJWm/2n4qsmW3g+r+GC399c7SyNYTuqwfYyBxEMlzZi/e0lEyDikDSpYa6EfiHB4xhY57YQMQLToa+7LAXwN7q8cMzgxk31q4giKV2/QA6pD
+ aUbG+Qf1AHjEnuLhmbMP/T+uu4r8M++rjWS0teQ5CNItW0T+aYHTRdBCF+T9cZd0
 
-On Fri,  6 Nov 2026 18:59:27 -0500
-Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
+In helper function squashfs_fragment_bytes() the u32 fragments
+variable is multiplied by sizeof(struct squashfs_fragment_enty).
 
-> The top waiter of an rt_mutex spins while the owner runs,
-> rtmutex_spin_on_owner(), and does not stop when it is woken: its timeout
-> and a signal find it running, set it TASK_RUNNING, and the spin goes on
-> until the owner leaves its CPU or the waiter's own CPU has to
-> reschedule. A PI futex owner is a user task that may run as long as it
-> likes. On v7.4-rc1, in 8-CPU VMs, behind an owner spinning in userspace,
-> a 1ms pthread_mutex_timedlock() returns ETIMEDOUT 126ms to 631ms late on
-> average, 1.4s at most, a SIGUSR1 is handled up to 1.9s late, and a
-> waiter killed with SIGKILL is reaped 0.5s late on average. With
-> PREEMPT_RT the wound of a ww_mutex is missed the same way: two contexts
-> in an ABBA on two CPUs at SCHED_FIFO spin on each other, and the older
-> one gets its second lock after 96ms on average, 0.95s at most.
-> 
+On a 32-bit architecture the type of sizeof() is a 32-bit unsigned
+integer, which means the computation will overflow for fragments
+values above 268435455.
 
-The above is very verbose. Are you starting to use AI? ;-)
+The knock-on effect is the size of the in memory fragment index
+table will be incorrectly computed, and a much smaller than expected
+index table will be allocated and read into memory.
 
-> Stop spinning once the waiter is woken, where the sleep the spin stands
-> in for would end: rt_mutex_slowlock_block() then sees the timeout, the
-> signal or the wound, as after schedule(). An rtlock waiter is woken out
-> of TASK_RTLOCK_WAIT by the lock handover alone, and spins as before.
+Later when a fragment index beyond this is looked up in this table,
+this will produce an out of bounds access.
 
-OK, because its state is set to TASK_RUNNING the schedule_rtlock() will
-simply return.
+The fix is to explicitly widen the fragments variable to a long long
+in the squashfs_fragment_bytes() helper function.
 
-> 
-> With this patch the 1ms waits end after 1.01ms on average, a signal is
-> handled within 0.3ms (1.4ms with PREEMPT_RT), and the ww_mutex ABBA
-> resolves in 12us to 33us; a contended PI mutex keeps its throughput.
-> The futex_lock_pi_inherit and test-ww_mutex cases added later in this
-> series catch both.
-> 
-> Fixes: 992caf7f1724 ("locking/rtmutex: Add adaptive spinwait mechanism")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
->  kernel/locking/rtmutex.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-> index 5a9534c715b8..323973be2074 100644
-> --- a/kernel/locking/rtmutex.c
-> +++ b/kernel/locking/rtmutex.c
-> @@ -1516,9 +1516,13 @@ static bool rtmutex_spin_on_owner(struct rt_mutex_base *lock,
->  		 *  - current is not longer the top waiter
->  		 *  - current is requested to reschedule (redundant
->  		 *    for CONFIG_PREEMPT_RCU=y)
-> +		 *  - current is woken, by its timeout, a signal or
-> +		 *    whatever else would end the sleep the spin
-> +		 *    stands in for
->  		 *  - the VCPU on which owner runs is preempted
->  		 */
->  		if (!owner_on_cpu(owner) || need_resched() ||
-> +		    task_is_running(current) ||
+Reproducer
+=========
 
-So the task enters here with its state non-running, even for
-rt_spin_locks, and you break out of the spin if something woke it up.
-Breaking out of the spin with the state as TASK_RUNNING just makes it
-reanalyze the situation and for rt_spin_locks it will put itself back
-to RTLOCK_WAIT and spin again, if the owner hasn't left the CPU.
+The following script when run on a 32-bit x86 kernel (which lacks
+KASAN support) will produce an I/O error.  On a 32-bit ARM kernel
+with KASAN enabled, the out of bounds access will also produce a
+KASAN report.
 
-Makes sense.
+[  193.817260] ==================================================================
+[  193.818057] BUG: KASAN: slab-out-of-bounds in squashfs_frag_lookup+0x23c/0x264
+[  193.820408] Read of size 8 at addr cc126708 by task stat/357
+[  193.820720]
+[  193.821675] CPU: 3 UID: 0 PID: 357 Comm: stat Not tainted 7.2.0-13187-g66498c75b4f8 #113 VOLUNTARY
 
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+=================================================================
+#!/bin/bash
 
--- Steve
+ARGS="-no-duplicates -no-sparse -no-hardlinks -quiet -no-progress"
 
+finish() {
+	popd 2>&1 > /dev/null
+	rm -rf $DIR
+	exit 1
+}
 
->  		    !data_race(rt_mutex_waiter_is_top_waiter(lock, waiter))) {
->  			res = false;
->  			break;
+# Create a Squashfs filesystem with 1026 files and 513 fragments.
+# This will create a two entry Squashfs fragment index table.
+#
+DIR=$(mktemp -d)
+
+pushd $DIR 2>&1 > /dev/null
+
+# Create a Squashfs pseudo file which is fed to Mksquashfs
+echo Create a Squashfs pseudo file which is fed to Mksquashfs
+
+dd if=/dev/urandom of=urandom bs=1024 count=50 status=none
+for i in $(seq 1 1026); do
+	echo "$i l urandom" >> pseudo
+done
+
+# Create the Squashfs filesystem
+echo Create the Squashfs filesystem
+
+if ! mksquashfs - img.sqsh -pf pseudo -p "/ d 0777 0 0" $ARGS; then
+	echo Failed to create Squashfs filesystem
+	finish
+
+fi
+
+# The fragments field (fragment count) in the superblock is at offset
+# 16 bytes.
+#
+# Over-write the fragments count with 268,435,457 little-endian.  On a
+# 32-bit architecture, this when multiplied by 16 will overflow, giving
+# the value 16.
+#
+# Ultimately this will cause the kernel code to create and read a single
+# entry index table (where in fact the table has two entries).
+#
+# Then stating file 999 which has a fragment id in the second index,
+# will cause an out of bounds access.
+
+# Write 268,435,457 in little-endian format to file
+/usr/bin/echo -en "\x01\x00\x00\x10" > file
+
+# Over-write the fragments count in the superblock
+echo Over-write the fragments count in the superblock
+
+dd bs=1 seek=16 if=file of=img.sqsh count=4 conv=notrunc status=none
+
+# Mount the filesystem to /mnt
+echo Mount the filesystem to /mnt
+
+if ! mount -t squashfs img.sqsh /mnt; then
+	echo Mount of Squashfs filesystem failed
+	finish
+fi
+
+# Stat file 999
+echo Stat file 999
+
+stat /mnt/999
+
+popd 2>&1 > /dev/null
+
+rm -rf $DIR
+=================================================================
+
+Fixes: ffae2cd73a9e ("Squashfs: header files")
+Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
+---
+ fs/squashfs/squashfs_helpers.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
+index 4088e598400f..524d4a77686d 100644
+--- a/fs/squashfs/squashfs_helpers.h
++++ b/fs/squashfs/squashfs_helpers.h
+@@ -55,7 +55,7 @@ static inline s64 squashfs_mkinode(u32 start, u16 offset)
+ /* fragment and fragment table defines */
+ static inline s64 squashfs_fragment_bytes(u32 fragments)
+ {
+-	return fragments * sizeof(struct squashfs_fragment_entry);
++	return (s64) fragments * sizeof(struct squashfs_fragment_entry);
+ }
+ 
+ static inline s32 squashfs_fragment_index(u32 fragments)
+-- 
+2.47.3
 
