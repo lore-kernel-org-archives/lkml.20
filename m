@@ -1,49 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049601;
-	b=fhMXQLGTFgN5qCI7mSP6eUrg1Rn+D13jMiw49QXJ32oJ2em9O38orsiczTW05ZWQeX2I
-	 Lh+uTtt1hgp9VhGdLbnGYsPJndH6gv5/dQDJF+5YXQO55kTftyIQXnSKa8u29MRyvirGi
-	 tAnqpRT+aZtWee8n2QMNccFlNebW9izTIY8hsYdgHYhKfOkTqy8WmaFBaKzbXTGqqm1F0
-	 6kOkZbQxnwt3TuI00flgzb7Rn4o5EMfnQFUvVR+M91OMeWxDZNvect6vxEVP1sd4VCvj/
-	 7p6vUNLeQSAZNk4iec4UjrLLNMw+5f2BpwJIunwfDfjcHRmUyRd3UhrY3c/eR2rtr2w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049601;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FjuJWkrZH0f/93HtgSWbOiGLuc0TDPxk1c11VoJaz0M=;
-	b=TvlRs80HLYdFZjXr9A1xD+HTFVP5wHNXCb1D92F4r3m/AyK6BRZ6cJQPdpJAdhLRTDYa
-	 J+bUlQSoyg2m8GKoJTUc1eQWWU0rzcYZVS44HD6XIgb0rz7WygcCYIvbFWzYBoaKeGcgM
-	 8e129ZD16WViQDtqMu23dgPARS0uctxFJz+Fq6S9M9xAItqtqaxtsnflrfU+wTzZxflTv
-	 F+5PvK4+IwsdHBoyVr9yWNIEAucNxrpZrD2udEyHQ3APxP7NP+kUZkI4JGLTaiaD8AVVf
-	 4Sun0SRml0rVsKZXSN21MVVsblkONlaOdDgqOsLNfjipvyOBPDuMAgKyZgQbwASgk8A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjIAgFWl;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794049607;
+	b=mW1X8Q6U78i9fbpSv1RsYD4No5lNNH58VyrnBYqu/0vnJwVSHZqD/xfbkDfAnwAdig6m
+	 xinNsSVx00rsUqCim8lVBd6BdPAhtfRRLQ93ZMcWYS88TDr0n4/ZQV7QPfkVe25S5z/Qy
+	 HbJkJNOaFDZ36UnMVpVaRtcqgLwwlH5oRWMZvzUq9s4Lu7lMQJiIAwF8H/5eiBvDd+py5
+	 6HAaP+05BomSoE/THfu8Ye52zaLoZQuyJo618TenVVVIGS7T3hmsL2gu+8w6bKcyFNPZp
+	 /QOEp0iJEMQpjTcIp1l0zB+8gMyVe0Jqz8CYQEaxQ8rpUjJrHCxdAGrT8Xz5TI1HSGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049607;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=iMP2YyuMe7UktcyF/sciQvPwaIqucF+auYLHeoLrpR0=;
+	b=CGfNc7Yvb1wxw2Tq2FGkD+LdCTOMYwurczvKmsWl80xKKlLqWMWU3va7NDzmgM1Gi3vc
+	 Wog6iMvrrpZ+OqaKQdhkw9rr0gzAlLbdZ8ExmJvTzuPnrRHvE0vgL3+Lgj1OabUbGAvzg
+	 B122OUsSsdDe96Zb4cHOCUR5Vrxh32Yc8KERF8dM1Lcsus8FKgPesWMVrHmeB/6EEquvk
+	 qifz1MxblldSRbJuY+zb6VNvqzOrowgILp3/Ufbw3fF2jz6VBI+FbUqS+xps3NCDtHZox
+	 dHlMIeZeTrJMmT7QBIqVjahqMaPcsojK1hlBV0XD9MeEmSfPdPfALjn5ukf/Dlcx8AA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sbggn1q/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6222F606A33D;
-	Sat,  7 Nov 2026 11:06:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E979606A338;
+	Sat,  7 Nov 2026 11:06:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjIAgFWl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65B61F008A2;
-	Sat,  7 Nov 2026 11:06:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sbggn1q/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794049606;
+	b=rKEuQp+SKUqUZvMjA4u/TdxumSr3PKf3IlJ7XjiKV+8J5FDbp30EGnMWm5c3xkpwFeW1
+	 DsMEgHvXtsrigpioigBuWt1rLaVqC7hwmW7gpuBsGoHxSejTnSkWCxhPhv/7XGAY3xyfs
+	 6JPr8UP/w+F9keG0d4+0movxC/TP0N7G4A4+rS8FXAxqzUmtN7/olmJhycT54hx13YOIY
+	 EIBYW6M9MSUa9BSl6ejgq7NPcI+3+NzkE0J0vTiIarohhkR1UVibZk4EEjsCAV+M5dQ0R
+	 ehD5zjd1lYupuYvpgm2GQ/I3zf+UU/NfxjjefoSuVbSFonSm8qef3/sLe4SaIsPzpNg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794049606;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=iMP2YyuMe7UktcyF/sciQvPwaIqucF+auYLHeoLrpR0=;
+	b=gl1jqd3XlWumGZGUN4AZyaa0CctsWLqvobkroieurh44IfpS75hhhHBJjFzooocurMZK
+	 AGsK6T4vZp56EP4a5A96n0O2VI+WSFIVN6rCA8TPZ8fEgr4UJXs2OA7wzF/BasK9VS4UK
+	 mLbYQuuYmrjKdgcaKYXzxgpI64dPCq9SCHtRyLVAWkDqX0d1g9DkeTCRJOyi+ojhE4kp4
+	 2kHKBvb87FJasw0IYiXqUukBnZdKI2CnW9bAdNQalzZK6sa/mj3uTIQhMjySvO2BtKeMo
+	 bww7YAcxM/EYe7bIuQw6/6p977bp4y+gKDrdhh7lprhIvz64grqXAphVQ+kJuv6K7Zg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 681801F0089F;
+	Sat,  7 Nov 2026 11:06:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049601;
-	bh=FjuJWkrZH0f/93HtgSWbOiGLuc0TDPxk1c11VoJaz0M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GjIAgFWlWLnzHy+ut+FAq7JUrjxdUNHEGHcNRb2duzcenpU9WuXz3kxzErhlxR/Xe
-	 QXlAREly0RY7ON7zd4X71/FFtwvweecWd9FeYuW2jw1ZEvOw+YtzhP2zdc9NmRFenb
-	 zkqXGEEih0ImoWQ86wtD4u4j0dg4wdCqbBroyLu/RWRS8rLWTkj8cf53N/B5FoM0fJ
-	 vyJAtjXB1GmAUCidzbsHwYmzmz6foGD5qHNTXESRIGjeYDZe8uAx6wmDT2cW0ugYnn
-	 jYArv0p8joPwuvMTinL/q5ZdtM5DCXlBpIVttCZX0M3OiaHPtY4XUWiPSub7A7Pn9r
-	 cbLIF5jSMMoug==
-From: Joshua Crofts <crofts@kernel.org>
-Date: Sat, 07 Nov 2026 12:06:23 +0100
-Subject: [PATCH 1/2] i3c: dw: remove redundant
- pm_runtime_dont_use_autosuspend() calls
+	s=k20260515; t=1794049606;
+	bh=iMP2YyuMe7UktcyF/sciQvPwaIqucF+auYLHeoLrpR0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Sbggn1q/MgrB2v2fLzgmFbL3eJi4aECGtiIomwmFg1MjEmqUVhMLUHozGdmQPp01H
+	 bil28XEZ7I67Kjy3nxQSiw6C1+FKBLkX9+zXJ+KjzdU9U1W+lXhwPhRvt+aNsvyTNX
+	 QZ8XqJjT8etpURsr3qbVgDYT42F/CbXyjk/xC3uRxJHEEKPk1UtDRJ2163PzMYP08P
+	 u4V38qCbuam+gAeqVnhCwLc/ShyqdfMHEUN3UM3fzHVyQ9Q15Pdm0Y41iO822UMZ27
+	 BOJU2pi/enT79hRNf2CWoG7TBJiercAVJXflNCZo6CZoqaola81e8K/WaCKk6UEHP6
+	 EtnaJgkyvXXAQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D8EC147B6F;
+	Sat,  7 Nov 2026 11:06:45 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Subject: [PATCH 0/2] staging: octeon: cleanups and error handling fixes in
+ ethernet-rx.c
+Date: Sat, 07 Nov 2026 05:06:43 -0600
+Message-Id: <20261107-octeon-rx-fixes-v1-0-f5a21907c8af@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,55 +85,50 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-dont-use-autosuspend-i3c-v1-1-80a1546354ce@kernel.org>
-References: <20261107-dont-use-autosuspend-i3c-v1-0-80a1546354ce@kernel.org>
-In-Reply-To: <20261107-dont-use-autosuspend-i3c-v1-0-80a1546354ce@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Frank Li <Frank.Li@nxp.com>, Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, Joshua Crofts <crofts@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LSwqAMAwA0atI1gasaP1cRVxIGzWbVlKRQvHuB
+ pfDYwokEqYEc1VA6OHEMWiYugJ3buEgZK8NbdNaY5oBo7spBpSMO2dK6Ds/WNV+dBPodQn9oNO
+ yvu8H51ZF42EAAAA=
+X-Change-ID: 20261107-octeon-rx-fixes-d4d7620258c9
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794049597; l=1119;
- i=crofts@kernel.org; s=20261015; h=from:subject:message-id;
- bh=kJPnhzJo19aE0ih6RL6Z8/mQUEqLRIZ6NZeqzs1n7RY=;
- b=fg+YjkKNfzCzJp8Fi5fsdodD2ZNnI9z+W2/hrUGY05dpY1+XPTBCKsFfgoWJxUnnKkwJ5Yr8r
- kz7Q4YQgr3BBT8T+7gjaHMhDnWrVRxFMPeZBBaNTI93zMQ6g17GZo4B
-X-Developer-Key: i=crofts@kernel.org; a=ed25519;
- pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794049605; l=1019;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=D5d2ygIHv0epXdIMouTlsArAE5BONbBw3JoOcji/dCg=;
+ b=hV4x2eerX2c4xC+Zhauxt2hWbBfMDcy8r0HLBMkbIZai01KEPQthaiicNiXHOaUuxw/8125R4
+ opd8RYziaRMDLl1RSP1Ctssj5mGtZBVCYZYt/EYeWnit03xSkVA7691
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
 
-Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-driver core is now responsible for undoing any
-pm_runtime_use_autosuspend() calls on driver exit.
+This series fixes a couple of issues found during code review and static
+analysis of drivers/staging/octeon/ethernet-rx.c:
 
-Remove the redundant function calls.
+1. Avoid non-standard GCC pointer arithmetic on void * in cvm_oct_poll()
+   by casting to u8 * first.
+2. Add a proper error rollback path in cvm_oct_rx_initialize() so that
+   NAPI instances, interrupts, and POW/SSO registers from previous loop
+   iterations are properly cleaned up if request_irq() fails.
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
- drivers/i3c/master/dw-i3c-master.c | 2 --
- 1 file changed, 2 deletions(-)
+Oscar Alejandro Sánchez Lucero (2):
+      staging: octeon: avoid void pointer arithmetic in ethernet-rx.c
+      staging: octeon: fix error handling rollback in cvm_oct_rx_initialize()
 
-diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-index d1119f203d1b..f8fed797e0e4 100644
---- a/drivers/i3c/master/dw-i3c-master.c
-+++ b/drivers/i3c/master/dw-i3c-master.c
-@@ -1776,7 +1776,6 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
- 		pm_runtime_put_noidle(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_set_suspended(&pdev->dev);
--	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 
- 	return ret;
- }
-@@ -1792,7 +1791,6 @@ void dw_i3c_common_remove(struct dw_i3c_master *master)
- 
- 	pm_runtime_disable(master->dev);
- 	pm_runtime_set_suspended(master->dev);
--	pm_runtime_dont_use_autosuspend(master->dev);
- }
- EXPORT_SYMBOL_GPL(dw_i3c_common_remove);
- 
+ drivers/staging/octeon/ethernet-rx.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261107-octeon-rx-fixes-d4d7620258c9
 
+Best regards,
 -- 
-2.56.0
+Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+
 
