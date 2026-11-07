@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794030760;
-	b=hqrcrYtuP5+3jtDClAAdTYcf2cYtEFogeupZOJF8qPIH2FJAg9/gDnNGy+eTjte0BGpA
-	 Lqb6aVEKSxKgTj6/WFprJMs7frpY+rvzMTVukFZSBrCJnyJrcbutn9WQs8p/hWc/ZX+V1
-	 0HpO/b4r4FeAo40rQrd5gYvO8fDVWwRsWrztabSFPJDpjxZRr/6Xf3OyWWi9ov3wByiMU
-	 efBtnZDsFTD+l8Vcnkgeze0tp8pyGUBFb71a482HLFeYgC2DRcV3flIC1HXUuNUORTkZq
-	 xh7C35jJUUxVZC36FZYUN+eTYPO2f5SqmE9aw0mzEk9BNw56yGgtIG9uJSq8UXV4/cA==
+	t=1794030771;
+	b=erIuwyT00ntL9JJrsN6XWR09CUo+1mKHthNjilbhb1izXGXiK2Dtu9r2a4AtvVPFmJc3
+	 1CWPxPJ9XfwA+OY+lUqrVr5eltA2oy8TuHrG7iGfLaXhJncOMto030P1+Ab68GU8TsF+6
+	 Z4Kd/kR2lD1OrjVGxwNqOwTYfIgMcKUiJSHeNurPGR44ojImL855cfZG0JuO3GK8a+Ru8
+	 AWz5wr1Mms8zZQqjis1VblauhN28AehldsGisq8BW2AZE18Te/427k8EmaYQdn8Ur0P0s
+	 jO6wvmUkEOLNXtD+xZexWfcbtA49HfS8oAY4skFkJ4gEwfN1XLq42WoxUFvDjjn89gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794030760;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794030771;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=u4nTXiGvoLBPJ6m6vBAshKxDWZY7SBPxeVPpU162HBU=;
-	b=x9rWIDLSvSKa9uVjnNQzPRwFcVMPJEu+iimTTP7jGcZTWrvtyitPr815WSviuGGOPGSN
-	 MgobwnSYh4NeF5Llqu1GI075FL3aduUUvq/HjyKWQhIlliQbc9SCKzbWDJxrcx54BQgvm
-	 z57lXdErC/EGJ1lxJAdwTMUl9q4aXMDOkI0gTkTc+rISTdlG4AYQBCevaTNOt2kTOrn6G
-	 ZzRKQDJo3B5P6HdTt5KraNoB6cBXwbnerm+VwYX/z4sBzK/WPnYeqh/QX0mKKWqL7/bWX
-	 ZwzWlSc9di2SmVBf1NQmkVuo6uTIErxI7PbQMZbfA9plerWvchX5IjQarV/z9/raFfA==
+	bh=EQX2zW/SJRxcCHgqz3pH4mbePZY/P8DRvidJCaOkct4=;
+	b=N1ScJCHelHaEFSGME7QLnQyfiiKgCwqmpVgzKNMfhkH/mb14e3zLwm5ZOSHO3nHe+fWV
+	 R4gVCbu46W2zx8S4P5vXUCjYtIcX+PsUT+n4EMeu1d0alHMcMdKo8TU/zHjmyTckhOJED
+	 8B//aS3ObPYzLdZtzZdEGHYfIImvdUy6a3khnbYO2nEcfLL6ofRZQ56gXX2hqb3mzlDKP
+	 oNMuyZIX9x3zE6eDE5jCeVOeuykDJLGwOj7+BqbVTsuY/kdrsLmb5gSHpB724X/tLX5c4
+	 91aa6p9kmjGt+m9Mowdzo7T2sOeeKcNFNDakqJfKy8LrT0AG8Lo7tGRrDTViVhrtwHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sTqb2z+O;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y13YGM3T;
+	arc=none smtp.remote-ip=209.85.214.180
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D619606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:52:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D619606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C502606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:52:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C502606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sTqb2z+O
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so5575675ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:52:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y13YGM3T
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ed2bfe3252so4688885ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:52:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794030759; x=1794635559; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794030770; x=1794635570; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u4nTXiGvoLBPJ6m6vBAshKxDWZY7SBPxeVPpU162HBU=;
-        b=sTqb2z+Ot/B3iVi+LnWhL32Lbw/KBWJT8Nl/gLMpAslqtMx1sopqaITkjS/bC9tz2a
-         oMmWG2xiahslalTLRYjLCx7AHb/oUXDC/7gnoI79oOqpVZF3sjaeRgvGdkERzNMWcrGg
-         MZHWbGpaOJyeqiMP471einPsifL6/nuAzOdE7gBMFvq/oeQybdZ0BkjUiXk3joRvqGiT
-         WGsROdgKOIoNFsdscRwWsP/CF1LJVluuJjTx2W2iIb62Cm5hQ5ZBOEp0T0Sa3dcUjlb7
-         uv8eu6CoaXeF+rjFA5TEqXyzKN2I550LLOcG9BMHrss6JdP5FADjqvtZ1W0TE0YGvCbw
-         XPGw==
+        bh=EQX2zW/SJRxcCHgqz3pH4mbePZY/P8DRvidJCaOkct4=;
+        b=y13YGM3TjnQSoT5N9eVPyGygJSa5jYGjpORjqRVHk6AXP0qdLDY652+1N7y8PusINL
+         tXE/HOPcD/iYM8S9ni+g7g8hKGnKEzhUberC3SBnCLrRxb2Fz4CH8z7MRz9aYQeqM0D6
+         ggJAqtf9yOHvuByJc+8NUa8xswtUipuU4ydY30W2+eQDkjioAuAogFR/hcPjnOpNxRE5
+         AOpq4QpM6mlf3T+y3b8s3EN10p2tX+vXSn9LGCMqiU4qzmGP+wxXOXDysunKXF3WuB7v
+         DKqdb7Wr2LspnKIGvxuRNIoeXN9JI5z71iAvXkB9ewTnKvnk+VfELbZagf0WS1QWGI5L
+         sN/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794030759; x=1794635559;
+        d=1e100.net; s=20260707; t=1794030770; x=1794635570;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u4nTXiGvoLBPJ6m6vBAshKxDWZY7SBPxeVPpU162HBU=;
-        b=sV4ko37hnBDZCYY9PEg28cCmxtgVm38R20jphhZ6b5bUodmsoYRph93TWw5IEricXX
-         Xk3dmQZmEWoui+DVUC4wzbT2/5YAsjQQf1I9AFgA4SEuhRBweBG+j0dMznxaGgGC7RAx
-         gfmelSo21QBfsnodQcSj/jVAJr4g4yvANJMyvXqiVw6OZvMcZ9AmCvMA5XlImdnpEtBZ
-         tqhua048C6zZ3RDChlnEO5ZgX0hVOK5GYfPJ6DUgl3vomK5KtvCmkcQrn3cvkxhVip3r
-         Nd2d4NVMhZpLm4DmttsO+4tBBQ0AFolMFqjZd+uZYY7atx9cQfcs1jSjHe/wbRGY6n5M
-         rIQQ==
-X-Forwarded-Encrypted: i=1; AL+hErH4dJfcr+CyHLlk34jbIcqX3i5SGYFumefBSTFKoSel6kRgpda6X+pPvvN0gJgHYKtq5QuUF44nQGO8bdk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JUiu0oJWJNgNKF1qnuWb+1UC5poo26HdY9N+6ECi0xOFptcNe
-	tyaMwpFdUhpFT0dwvxjsijrrpTjISf22NP8S4i5h1GrGSv6TxVVwtOnu
-X-Gm-Gg: AYBFou3QpLk0RGWHbChAROzGas9ODATaEuCWTfhiJGynRJfUFBmIn+1Pn0VYItjiniQ
-	qkI/eLc1YyVNiTq5a7neNY9CmYPyVCTI2+r0/3QPLrA41FqqQo84BBu6+BW4QtoiI23MWMB6c6u
-	RoSRPgDwdEnE8AZMtq8jRCeDEivyFxjsf+IhC9EOJIzr2hEBtnJGSybZiKD8K+bnW0CRQFP3oo/
-	xE/sKtBEMy2+6pechoEsawPAcA5/HDfh3BXldEoxgrUbUoIl1mi9silixcK3vAl1cB37Y1FZBYC
-	yRqf3hSx4Rmh3W7jSJqeG2WpElMW7NCYsOt8Z5pgAv6HZv+U0wG/fFpfEMUBJ8HlZMQ4waqqps/
-	3x6UiT9UI5dDU27QNEVKLAkN+6fDtibKrQxm2s98nI4GBroERnt3e0C56BNINsU+0oZBS1UzSA0
-	UPCBP/ubFVpSxsjKpTMvB70RChtkLt/cdfvIFaWOk/D5aQyozwc2DXHJg+mB7Lt8nUPHdxOnmiA
-	CKQ1nVWNh/SIdV/TOFgKtj1di86YUVuEEKHrQXrgZNlLPVKM+PA1ij55K+Ff8ye48JO+qUuGzI1
-	Doa8+D6YFyGLDLoM2ImHXwSTgJymnIon62EUegwYTpJ6p8WjOzd8kXBnok2ohYYFiPBK6A==
-X-Received: by 2002:a17:903:1a30:b0:2ed:18cc:d3b3 with SMTP id d9443c01a7336-2ed405ee120mr57893445ad.6.1794030758978;
-        Fri, 06 Nov 2026 21:52:38 -0800 (PST)
+        bh=EQX2zW/SJRxcCHgqz3pH4mbePZY/P8DRvidJCaOkct4=;
+        b=SQRU0/MBRKXEjGOFdCgWOju+xgCashWbePv32yZljCVWwuT2uvIDRg7RK3NaguYPBr
+         4OLe+Mw8VYzrA7m/zhdLW4FzAMWHVAcYruDD/mHGlUMZkUX6FWAujHRo3suIPJnZE8UU
+         8SbV8nktvlDKqDl6m0cn6avz6OyFDwQ5X+u/14UJow7PSM5F+NKXm6Hy4I0MjGp5w8ik
+         gHxMm49Gy79zqBaathqmcIb3uyLK/If6lLtOwY/sf9yLYn5gmPc3dc/VHxv9jEDnCSKc
+         E9rS9uWiJEtQS3vcJbD6fe5nfQG2iUeg1u17x3EfedxoGSWv+RN96DPICGDc6d919uwD
+         oVKw==
+X-Forwarded-Encrypted: i=1; AL+hErEX2PFAnyomyNdbxjveDoLIRMYFSYOv9s00hXHvD78Q6viwEvCfDoeKdVK8DiKAFz7UpwnMtPTNnZuzvbQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FVfu1QjhVBFBTJaHXB0r7L9z71nNAwVEM6+bJTUvRgfh/KGHW
+	phLZ5pZS7jNcfHMWYzEBXrT6SJ6nF1JnvM9Egc6npioo1Q2xXllk1vsv
+X-Gm-Gg: AYBFou2BXr85gngN7ASV/+VoVqRnODT11AzuENdehZW8hHx9LG279/dSZnb27g/VEXy
+	RQF+UucKJxGcCy7vMM5uIJ8cGZSV6KJ6EiZBZLJtqj0ta9ZfMBdW2uDQofaNqA/VOQ4bEonyHU2
+	3ug+h08L1gqN4QtRnLQon16mvfCWlBotvs8QKe0k8jNTnKfXJm/1jrSSrAEZU10Bk3RVJPz/iMZ
+	flxmefk6nGBv8OxQe8JxF4D6ny+MsPseB7A1PCcCHW/Pb7jvW153RYZ5T+1Vvvo570jLitCrB0+
+	zczx6cz++UDsdrSIyZXzvyrMsWPSFaeAOTM9I5ny3CovJamq7Tb4KjW47zya94Fc7We3HTQd92Q
+	FFnr8cJ5tXp+8tHeY+6Bv8sQhaQf1PZn8o6IfsAVGyK9ja8ratHJgYpld4KuLsyjQ+QrsUaiuvG
+	kMUeeR9BcejLOvgBqOAIfOHHBjbEtJ/CVm0oP1kDDlhzFhdv44zwTM04ptl9hrT+Ud2aFgfY18d
+	RaZbVFFfKZFQ+1Xua2SwFI6jqOjyNulJnMJarnuVYKUMtuZiu+gpVyuYUqiwP9T4NclvBr7Ah0s
+	TJcDRjCJFeChU3HdB2pkED8IjXYOBxNWlwjFRb1xW+s3JFBpQYRoWe7VW9SMY/Z3Z0AVrA==
+X-Received: by 2002:a17:902:830c:b0:2ed:21fb:e75f with SMTP id d9443c01a7336-2ed41c62132mr36730435ad.48.1794030769567;
+        Fri, 06 Nov 2026 21:52:49 -0800 (PST)
 Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:a1a:7bc2:20ba:a479])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d8949fsm11189465ad.62.2026.11.06.21.52.29
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d8949fsm11189465ad.62.2026.11.06.21.52.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:52:37 -0800 (PST)
+        Fri, 06 Nov 2026 21:52:47 -0800 (PST)
 From: Li Pengfei <ljdlns1987@gmail.com>
 X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
 To: rostedt@goodmis.org,
@@ -93,9 +93,9 @@ Cc: mathieu.desnoyers@efficios.com,
 	zhangbo56@xiaomi.com,
 	lipengfei28@xiaomi.com,
 	lkp@intel.com
-Subject: [PATCH v8 4/5] Documentation: tracing: Document the ftrace stackmap
-Date: Sat,  7 Nov 2026 13:51:38 +0800
-Message-Id: <20261107055139.3138633-5-lipengfei28@xiaomi.com>
+Subject: [PATCH v8 5/5] selftests/ftrace: Add a stackmap basic functionality test
+Date: Sat,  7 Nov 2026 13:51:39 +0800
+Message-Id: <20261107055139.3138633-6-lipengfei28@xiaomi.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261107055139.3138633-1-lipengfei28@xiaomi.com>
 References: <20261107055139.3138633-1-lipengfei28@xiaomi.com>
@@ -112,245 +112,246 @@ Content-Transfer-Encoding: 8bit
 
 From: Pengfei Li <lipengfei28@xiaomi.com>
 
-Describe how to use the stackmap, how reset and free behave, and how to
-resolve a trace that spans resets. List the option in ftrace.rst.
+Check that stacks are deduplicated, that a reset succeeds while tracing
+runs and clears the map but not the ring buffer, that the statistics
+match the map, and that free waits for open readers and the next map
+continues the generation.
 
 Assisted-by: LLM
 Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
 ---
- Documentation/trace/ftrace-stackmap.rst | 192 ++++++++++++++++++++++++
- Documentation/trace/ftrace.rst          |   6 +
- Documentation/trace/index.rst           |   1 +
- 3 files changed, 199 insertions(+)
- create mode 100644 Documentation/trace/ftrace-stackmap.rst
+ .../ftrace/test.d/ftrace/stackmap-basic.tc    | 222 ++++++++++++++++++
+ 1 file changed, 222 insertions(+)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc
 
-diff --git a/Documentation/trace/ftrace-stackmap.rst b/Documentation/trace/ftrace-stackmap.rst
+diff --git a/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc b/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc
 new file mode 100644
-index 000000000000..58af7c564b10
+index 000000000000..f5d1ebd8728e
 --- /dev/null
-+++ b/Documentation/trace/ftrace-stackmap.rst
-@@ -0,0 +1,192 @@
-+.. SPDX-License-Identifier: GPL-2.0
++++ b/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc
+@@ -0,0 +1,222 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++# description: ftrace - stackmap basic functionality
++# requires: stack_map stack_map_stat options/stackmap options/stacktrace events/sched/sched_switch/enable
 +
-+======================
-+Ftrace Stack Map
-+======================
++# Check deduplication, that reset clears the map but not the ring buffer,
++# that the statistics match the map, and the free and generation rules.
 +
-+:Author: Pengfei Li <lipengfei28@xiaomi.com>
++fail() {
++    echo "FAIL: $1"
++    exit_fail
++}
 +
-+Overview
-+========
++records() { awk '/^stack_id / { n++ } END { print n + 0 }' stack_map; }
++hits() { awk '/^stack_id / { s += $6 } END { print s + 0 }' stack_map; }
++max_ref() { awk '/^stack_id / { if ($6 > m) m = $6 } END { print m + 0 }' stack_map; }
++first_gen() { awk '/^stack_id / { print $4; exit }' stack_map; }
++stat_val() { awk -v k="$1:" '$1 == k { print $2 }' stack_map_stat; }
 +
-+The ftrace stack map provides stack trace deduplication for the ftrace
-+ring buffer. When enabled, instead of a full kernel stack trace event
-+(typically 80-160 bytes) for each stack the map can store, ftrace writes a
-+fixed-size event of 20-24 bytes, depending on the architecture, that holds
-+a 64-bit cookie: the map generation in the high 32 bits and the slot index
-+in the low 32. The full stacks are kept once in a separate hash table and
-+exported via tracefs for userspace to resolve.
++wait_for_worker_stopped() {
++    tries=0
++    while [ "$tries" -lt 100 ]; do
++        state=
++        if state=$(awk '/^State:/ { print $2 }' "/proc/$worker/status" \
++                2>/dev/null); then
++            case "$state" in
++            T|t)
++                return 0
++                ;;
++            esac
++        else
++            return 1
++        fi
++        sleep 0.01
++        tries=$((tries + 1))
++    done
++    return 1
++}
 +
-+It is similar to eBPF's ``BPF_MAP_TYPE_STACK_TRACE``.
++worker=
++free_pid=
 +
-+Configuration
-+=============
++cleanup() {
++    exec 3<&- 2>/dev/null || :
++    [ -z "$free_pid" ] || wait "$free_pid" 2>/dev/null || :
++    disable_tracing 2>/dev/null || :
++    if [ -n "$worker" ]; then
++        kill -CONT "$worker" 2>/dev/null || :
++        kill "$worker" 2>/dev/null || :
++        wait "$worker" 2>/dev/null || :
++    fi
++    echo 0 > events/sched/sched_switch/filter 2>/dev/null || :
++    echo 0 > events/sched/sched_switch/enable 2>/dev/null || :
++    echo 0 > options/stackmap 2>/dev/null || :
++    echo 0 > options/stacktrace 2>/dev/null || :
++    echo free > stack_map 2>/dev/null || :
++}
++trap cleanup EXIT
 +
-+Enable ``CONFIG_FTRACE_STACKMAP=y`` in the kernel config.
++disable_tracing
++clear_trace
++echo 0 > stack_map || fail "initial stackmap reset failed"
 +
-+The map holds up to 16384 distinct stacks. It is allocated when the
-+``stackmap`` option is first enabled; if the allocation fails, enabling
-+the option fails with ``-ENOMEM``. The map stays allocated while the
-+option is turned off, so a trace can still be resolved, until ``free``
-+is written to ``stack_map``. On a 64-bit kernel the map takes about
-+8.6 MiB.
++echo 1 > options/stackmap
++echo 1 > options/stacktrace
++echo 1 > events/sched/sched_switch/enable
 +
-+Usage
-+=====
++# A sleeping loop: a busy loop on an idle CPU is rarely switched out.
++(while :; do sleep 0.01; done) &
++worker=$!
++echo "prev_pid == $worker || next_pid == $worker" > \
++    events/sched/sched_switch/filter || fail "could not filter sched_switch workload"
 +
-+Enable stack deduplication for event stacks::
++enable_tracing
++sleep 1
 +
-+    echo 1 > /sys/kernel/tracing/options/stackmap
-+    echo 1 > /sys/kernel/tracing/options/stacktrace
-+    echo 1 > /sys/kernel/tracing/events/sched/sched_switch/enable
++# While the writer runs, reset only has to succeed. With it stopped and
++# tracing off, reset must leave the map empty.
++i=0
++while [ "$i" -lt 5 ]; do
++    tries=0
++    pre_hits=0
++    while [ "$tries" -lt 1000 ]; do
++        pre_hits=$(hits)
++        [ "$pre_hits" -ge 8 ] && break
++        sleep 0.01
++        tries=$((tries + 1))
++    done
++    [ "$pre_hits" -ge 8 ] ||
++        fail "active writer did not reach 8 hits before reset (got $pre_hits)"
 +
-+The function tracer records stacks through its own option instead of
-+``stacktrace``::
++    echo 0 > stack_map || fail "stackmap reset failed with active writer"
 +
-+    echo vfs_read > /sys/kernel/tracing/set_ftrace_filter
-+    echo function > /sys/kernel/tracing/current_tracer
-+    echo 1 > /sys/kernel/tracing/options/func_stack_trace
++    kill -STOP "$worker" || fail "could not stop reset workload"
++    wait_for_worker_stopped ||
++        fail "reset workload did not enter the stopped state"
++    disable_tracing
 +
-+The trace output will show ``<stack_id N gen G>`` instead of full stack
-+traces, where N is the slot and G the map generation::
++    echo 0 > stack_map || fail "stopped-writer verification reset failed"
++    n=$(records)
++    [ "$n" -eq 0 ] || fail "stopped-writer reset left $n records"
++    n=$(stat_val entries)
++    [ "$n" -eq 0 ] || fail "stopped-writer reset left stat entries $n"
 +
-+    sh-1234 [006] d.h.. 123.456789: <stack_id 42 gen 1>
++    kill -CONT "$worker" || fail "could not resume reset workload"
++    enable_tracing
++    i=$((i + 1))
++done
 +
-+Stacks are not always replaced. A stack deeper than 64 frames, a stack
-+recorded before the map is allocated or during a reset, a stack that
-+another context is inserting at the same moment, and a stack the map
-+cannot store (element pool exhausted, probe limit, or ring buffer
-+reservation failure) are recorded in full. A trace can therefore contain
-+both ``<stack_id N gen G>`` records and full ``<stack trace>`` records.
-+With the option enabled, a stack recorded where RCU is not watching is
-+discarded.
++# Reset leaves old cookies in the buffer; drop them.
++clear_trace
 +
-+To view the actual stacks::
++# Wait until some record is hit twice, i.e. reused.
++i=0
++while [ "$i" -lt 100 ]; do
++    [ "$(max_ref)" -ge 2 ] && break
++    sleep 0.1
++    i=$((i + 1))
++done
 +
-+    cat /sys/kernel/tracing/stack_map
++kill -STOP "$worker" || fail "could not stop final reset workload"
++wait_for_worker_stopped ||
++    fail "final reset workload did not enter the stopped state"
++disable_tracing
 +
-+Output format::
++entries=$(records)
++[ "$entries" -gt 0 ] || fail "stackmap did not refill after active-writer reset"
++ref=$(max_ref)
++[ "$ref" -ge 2 ] || fail "no record reused after reset ($entries records, max ref $ref)"
 +
-+    stack_id 42 gen 1 ref 1337 depth 8
-+     => schedule+0x48/0xc0
-+     => schedule_timeout+0x1c/0x30
-+     ...
++# Nothing records now, so every stored stack and every hit is counted.
++n=$(stat_val entries)
++[ "$n" -eq "$entries" ] || fail "stat entries $n, stack_map has $entries records"
++n=$(stat_val successes)
++[ "$n" -eq "$(hits)" ] || fail "stat successes $n, stack_map has $(hits) hits"
++n=$(stat_val generation)
++[ "$n" -eq "$(first_gen)" ] || fail "stat generation $n, stack_map has $(first_gen)"
 +
-+``ref`` is the number of times the stack was recorded as a cookie since
-+the last reset. It is not decremented when events leave the ring buffer,
-+and it saturates at ``INT_MAX``.
++kill -CONT "$worker" 2>/dev/null || :
++kill "$worker" 2>/dev/null || :
++wait "$worker" 2>/dev/null || :
++worker=
++# Without the filter, this shell's own sleeps produce the switches below.
++echo 0 > events/sched/sched_switch/filter
 +
-+To view statistics::
++# Stop the event before inspecting the fixed buffer and map contents.
++echo 0 > events/sched/sched_switch/enable
++trace_pairs=$(sed -n \
++    's/.*<stack_id \([0-9][0-9]*\) gen \([0-9][0-9]*\)>.*/\1:\2/p' \
++    trace | sort -u)
++[ -n "$trace_pairs" ] ||
++    fail "trace has no <stack_id N gen G> events after active-writer reset"
 +
-+    cat /sys/kernel/tracing/stack_map_stat
++# Every cookie left in the trace must match a current stack_map record.
++for pair in $trace_pairs; do
++    id=${pair%%:*}
++    gen=${pair##*:}
++    grep -q "^stack_id $id gen $gen " stack_map ||
++        fail "trace cookie id $id gen $gen has no current stack_map record"
++done
 +
-+Output::
++# Reset clears the map only; the cookies in the ring buffer stay.
++gen=$(first_gen)
++before_records=$(grep "<stack_id" trace || true)
++echo 0 > stack_map || fail "stopped reset failed"
++[ "$(records)" -eq 0 ] || fail "reset did not clear the map"
++after_records=$(grep "<stack_id" trace || true)
++[ "$after_records" = "$before_records" ] || fail "reset changed the trace buffer records"
++gen=$((gen + 1))
 +
-+    generation: 1
-+    entries: 2500
-+    capacity: 16384
-+    successes: 148923
-+    fallbacks: 0
++# Trace until the map holds a record, for up to 10 s.
++refill() {
++    echo 1 > events/sched/sched_switch/enable
++    enable_tracing
++    i=0
++    while [ "$(records)" -eq 0 ] && [ "$i" -lt 100 ]; do
++        sleep 0.1
++        i=$((i + 1))
++    done
++    disable_tracing
++    echo 0 > events/sched/sched_switch/enable
++}
 +
-+``entries`` is the number of map elements reserved since the last reset;
-+an insertion in progress can make it briefly exceed the number of records
-+in ``stack_map``. ``successes`` is the number of stacks recorded as a
-+cookie. ``fallbacks`` is the number of stacks the map could not store
-+because the element pool was exhausted or the probe limit was reached;
-+those are recorded in full instead. The other cases above are not
-+counted. A growing
-+``fallbacks`` count means the map is too small or too crowded; a reset
-+makes room again. The file is empty while no map is allocated.
++# free is refused while the option is enabled.
++if echo free > stack_map 2>/dev/null; then
++    fail "free accepted while options/stackmap is enabled"
++fi
 +
-+To reset the stack map::
++# Disabling keeps the map, so the trace can still be resolved.
++refill
++echo 0 > options/stackmap
++[ "$(records)" -gt 0 ] || fail "map released by disabling the option"
++[ "$(first_gen)" -eq "$gen" ] || fail "generation is $(first_gen) after reset (expected $gen)"
 +
-+    echo 0 > /sys/kernel/tracing/stack_map
++# free waits for a reader that opened the map, which still reads it.
++exec 3< stack_map
++(exec 3<&-; echo free > stack_map) &
++free_pid=$!
++# The waiting writer sleeps killable (D); an exited one is a zombie (Z).
++i=0
++st=
++while [ "$i" -lt 100 ]; do
++    st=$(awk '/^State:/ { print $2 }' "/proc/$free_pid/status" 2>/dev/null)
++    [ "$st" = D ] && break
++    sleep 0.1
++    i=$((i + 1))
++done
++[ "$st" = D ] || fail "free is not blocked on the open reader (state '$st')"
++[ "$(records)" -eq 0 ] || fail "a new reader still sees the map during free"
++grep -q '^stack_id ' <&3 || fail "the open reader lost the map"
++exec 3<&-
++wait "$free_pid" || fail "free failed after the reader closed"
++free_pid=
++[ "$(records)" -eq 0 ] || fail "stack_map still has records after free"
++[ -z "$(cat stack_map_stat)" ] || fail "stack_map_stat not empty after free"
 +
-+To release the map once the option is off::
-+
-+    echo 0 > /sys/kernel/tracing/options/stackmap
-+    echo free > /sys/kernel/tracing/stack_map
-+
-+``free`` fails with ``-EBUSY`` while the option is enabled. A ``stack_map``
-+file opened for reading before ``free`` keeps the old map. ``free`` blocks
-+until all such files are closed, then releases the memory, so a process
-+that has one open must close it first. If ``free`` is written through a
-+file that is also open for reading, that file is not waited for: ``free``
-+returns and the memory is released when that file is closed. If the writer
-+is killed while it waits, the map has already been removed, and its memory
-+is released when the last such file is closed.
-+
-+Reset clears the map without touching the trace buffer, and tracing does
-+not have to be stopped. Reset and ``free`` both leave cookies in the trace
-+buffer; the generation changes, so those cookies no longer match the map.
-+A cookie only resolves against ``stack_map`` records of the same
-+generation. The generation in a cookie is 32 bits. It only has to tell
-+resets apart, and wraps after 2^32 resets and frees.
-+
-+To resolve a trace that spans resets, save ``stack_map`` before each
-+reset. ``stack_map`` is not a snapshot of concurrent insertions: a read
-+can include stacks inserted while it is in progress and can miss stacks
-+inserted into slots it has already passed. A reader that spans a reset
-+can get records of two generations across separate ``read()`` calls; the
-+``gen`` field shows this. Stop tracing across the copy and the reset if
-+every record must resolve.
-+
-+Boot-time activation
-+====================
-+
-+The stackmap option can be enabled from the kernel command line::
-+
-+    trace_options=stackmap,stacktrace
-+
-+The map is then allocated when tracefs initializes. Stacks recorded before
-+that are recorded in full. If the allocation fails, the option is turned
-+off and a warning is printed.
-+
-+The stack_map files
-+===================
-+
-+``stack_map`` (mode 0640) and ``stack_map_stat`` (mode 0440) exist when
-+``CONFIG_FTRACE_STACKMAP`` is enabled, also before the map is allocated.
-+While no map is allocated, both are empty. Writing ``0`` to ``stack_map``
-+resets the map; writing ``free`` releases it.
-+
-+Design
-+======
-+
-+The stack map is modeled after ``tracing_map.c`` (used by hist triggers):
-+
-+- **Lookup/Insert**: Lock-free via ``cmpxchg``, safe in NMI and IRQ context
-+  where RCU is watching
-+- **Memory**: Pre-allocated element pool, no allocation on the hot path
-+- **Collision**: Linear probing with a 2x over-provisioned table; probe
-+  length is bounded so worst-case insert/lookup is O(1)
-+- **Scope**: Top level trace array only
-+- **Hash**: 32-bit jhash with a per-map random seed; full ``memcmp``
-+  confirms matches
-+
-+The map holds at most one copy of a stack per generation. When a lookup
-+reaches a slot with the same hash whose element is not yet published,
-+another context is inserting that stack, or another stack with the same
-+hash. The lookup does not wait, because in NMI context it may have
-+interrupted that insert, and it does not add a second copy; that one stack
-+is recorded in full instead. A context that loses the ``cmpxchg`` for a
-+free slot re-reads the slot for the same reason.
-+
-+Differences from ``tracing_map``
-+--------------------------------
-+
-+The table, the element pool and the probing follow ``tracing_map``. The
-+stack map differs where its callers differ:
-+
-+- ``tracing_map_clear()`` requires its caller to keep inserts out. The
-+  stack map does this itself: new callers are kept out and admitted ones
-+  are drained with RCU before the map is cleared, so a reset can be
-+  written to ``stack_map`` while tracing is active.
-+- An insert that meets an unpublished element of the same hash records
-+  the stack in full, which loses nothing. ``tracing_map`` spins instead,
-+  since a lost insert there is a lost histogram update.
-+- Probing stops after 64 slots, so a slot claimed without an element can
-+  stay claimed. ``tracing_map`` has no probe limit and releases such a
-+  slot, so that its loop always reaches a free slot.
-+- The cookie is the slot index, so it stays valid while the map is not
-+  reset; ``tracing_map`` hands out element pointers.
-diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 84f06bf0da9b..f90cf7575458 100644
---- a/Documentation/trace/ftrace.rst
-+++ b/Documentation/trace/ftrace.rst
-@@ -1396,6 +1396,12 @@ Here are the available options:
- 	When set, a stack trace is recorded after any trace event
- 	is recorded.
- 
-+  stackmap
-+	When set, a recorded stack trace is replaced by a cookie that
-+	refers to a single copy of the stack in the stack_map file.
-+	Only for the top level trace array. See
-+	Documentation/trace/ftrace-stackmap.rst.
-+
-   branch
- 	Enable branch tracing with the tracer. This enables branch
- 	tracer along with the currently set tracer. Enabling this
-diff --git a/Documentation/trace/index.rst b/Documentation/trace/index.rst
-index 5d9bf4694d5d..ac8b1141c23a 100644
---- a/Documentation/trace/index.rst
-+++ b/Documentation/trace/index.rst
-@@ -33,6 +33,7 @@ the Linux kernel.
-    ftrace
-    ftrace-design
-    ftrace-uses
-+   ftrace-stackmap
-    kprobes
-    kprobetrace
-    fprobetrace
++# Re-enabling allocates a map that continues the generation.
++echo 1 > options/stackmap
++refill
++[ "$(records)" -gt 0 ] || fail "new map has no records"
++[ "$(first_gen)" -eq $((gen + 1)) ] ||
++    fail "generation after free is $(first_gen) (expected $((gen + 1)))"
 -- 
 2.34.1
 
