@@ -1,78 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794030931;
-	b=RjWN2g60K9SJmTDcyLVfxz3B4xSquwd/alcV4NayZ6qpie5qbD7styGhLQ5UypBRbaDh
-	 51RDiZlP0B6C8B6aO92g3f2Iq0GatvvA2/b7KP3r7uUsCQOSl63b32KvXoqp54Nvp6FAP
-	 x46+bGf2x5YOI+sN840kE5mfKTv+6cejj/nKg5UDfUKnFdU4wtYgq+k7grWZa8nfnBldH
-	 CNZITSaIT4dybPP/7zR0D1TSJof+5uRXGCFeQ/koSjuwqls9RcZ7BGTqa0ft91YNuL3xr
-	 COhceYbcgu/fZWfuyS887rjQ8K+1cNMGSy31+arUvQvvZdmP6uO2OxrhJmrJUmLrUUA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794030931;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6inbkaSVStlkbrtp0ML2TG9vm/SO/5sfB9kFxriceeQ=;
-	b=CEja+mPrXEzDKf4k4aXNmO6pbf9WBOE5yDXuTtSBQ6X4hdLWM3V1zOS1NcnxGPJCLIyW
-	 TMcGYjUA1EhnNZa44zvssme59G/WV/hzj5AtHgd1WjQl+8QTEwQhOngjzqwpa4R6cbVUP
-	 rU/04qkeUeNiN+dMuJTO2u1RbvvGLNrcHa+toqNb4LucuWb1ERmQ0BiGOWX4UbfumGVgF
-	 Uj2nxCElnNRaWi1CO2MC5NxY+7HHDXRaqukHlWS8KsCKlnANELP8rQKAQ+p7MUKXM9cy6
-	 P3Nt3c5dKlZi87c+7mxuk1uSrwcIFNfp7aX9RaLfwcgJrF7hiB2SRambAbvXB6e8LuA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CAQTAbG6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B353F606A326;
-	Sat,  7 Nov 2026 05:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CAQTAbG6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794030930;
-	b=ewSNqLOX6JPR9nnuGT5Fdt3JYX2tZHjj6WV+MGwKnHpXkd+HHt1gPHjgOB4yBeEaqMlU
-	 T2c8qQQBYjwkJToVq8j2ddiyK0V8AnMob0NPMFuKkq3F237P2Okx0gH+FVMsWhHHDiNIT
-	 os8m1KNbMcUePskJb9CDHt6WtwmYIvJQE17ObtnmkQ3RpZmhzdQ8lCMQ1Mtp00P9M/Jih
-	 j/BS3z1zkv4EsZHDWEMJBJB3vrz+iNoDV1JffZ7wM0Rlf3VV+AOfNwLwtI1g37GdNgR94
-	 gpz+gV0xPwYv9UArqaPn47CaewYfDL7FW5ei3rFCM9rbrrjMYnG+EGvi5DL2tREgP1g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794030930;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6inbkaSVStlkbrtp0ML2TG9vm/SO/5sfB9kFxriceeQ=;
-	b=satTcyVgB5AGGWK5URvYGR7QRuMM0HR+a/atSU2EUl2dhTMPcwmfbfwSi+ITE8Bffb76
-	 +bHpKXvVJjtKkULcOqxZ4livm9DdVogO2+hCy3GzHl0CHd7E8OTNyx7fSzaBCcduV5Fqp
-	 gMT2/0Ct2yxIlg+uuTThDdQQjIX1B2sI9ZvcdLw7zBzPXU2nBR71psdfzJ4E50mV0YUsn
-	 CaUFzAAI/q1BOfW0b16LEQXFZPpYuWxux0ilhEExy1KCA/o8FSLAX9+QuJ+D4yEnckDPE
-	 QOQRg46DJ/ZboTrDlYeEKI+hm0U7sHmbP+ydf5haAHrF1GM/4AAvhtclaTlWM6uWueA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CD3FD1F0089F;
-	Sat,  7 Nov 2026 05:55:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794030930;
-	bh=6inbkaSVStlkbrtp0ML2TG9vm/SO/5sfB9kFxriceeQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=CAQTAbG6WniUUKGIc08bE3cSmeFh813Jrv+IySDdaUiATmkHKXGfZ5+9kTCzVf7JA
-	 Obrit5jsWk8HrrKT85Udq9dsPxHhW9OlIQlAlkGwepjezixRUtOLDTPo5bXCcHmsRR
-	 iVSB0bUoyHymTL7TaVFSWkRqmy2aHQ/pYpMagwS55/n+R4NC3NHKXzYii81UAarYxs
-	 Y2UlKOGl4DL8tHl9K/V4YRJk9LV92Lzbx0ULmqXNPj10bPRmPJGz8bcZoGszkr1Zjs
-	 gSBL8xEYGCbliJMmzWCH+VsKJ1ByWqAj7JKhTS62mleW9wB6pTYr1ZfjZ7rwWFuAGn
-	 mmg4O0TQVr+cQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5EC4047AC7;
-	Sat,  7 Nov 2026 05:55:29 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Fri, 06 Nov 2026 23:55:27 -0600
-Subject: [PATCH] staging: octeon: fix parameter alignment in octeon-stubs.h
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794031277;
+	b=BskajzNzYHAq44gBNVZ9cLzQNXmzdfIOZp2pBpIiVNbHrLVyITcjhI/BXeY4jLQMG9NR
+	 t0iPqdV2j7cjAEXK8B4MZw2TFG4cRhpn57Lpqy2QwhjfaX1NqV2U1/4hUIakhst+Z5NiT
+	 INm704oiWpY2yvMmXpQMo1slGRWGMsi5rFJOHUASip86FwEVEivW6phIm8iT1QRgOHiFn
+	 oCy/8W0XtGaYP7jRRUd7XRslag8o5qgOQLvHZZmmOjIyzSJ8njbfB0M3B0D6TGFU8LWNV
+	 aA5mjIMLoy1DMP+w9fmHelVI9bl9XNnL2TXuHT8iUFJit3G92Ys8gJOXNZFSu55BD5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794031277;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=VApiiAu4y4jzk0oNRwNpWoUyNlZ1jI1NbfuSJXJZy6I=;
+	b=aOEx7H5iareX/3tzSS41sqYQS+QrvjpI9u3bdgesdxHyCcoWLlSEwLBXmCTCJ+Y8XMHh
+	 zbMmPVA09VYN3ptL7SGCEt3LcWFm21uIa7LlRyWayzp07oVUw7uM7vexLayb1LrUt17bi
+	 dWeGpTbiOq7U4UuZm82fnItRyXibC4kTEe9cP5jsZ2gZM8Fa7i1FkEwOC3oHIRHjxdiFy
+	 JedZLTD8JQSgqAIjHdnPoLClNdSSaKbk3Ow4SjqvVjcRVFuEQRdc0BCheSKBrSboVlJS+
+	 GQueh1JbHwH9N8W6Anz69nECLytUv6gTqUrHCkyib5BOVkKraXOqXGI/QSonqdNmyqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F1B6606A32C;
+	Sat,  7 Nov 2026 06:01:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F1B6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8DxD9Okvu5qf1QdAA--.19351S3;
+	Sat, 07 Nov 2026 14:01:08 +0800 (CST)
+Received: from [127.0.0.1] (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJCxNs2fvu5q3uQyAA--.24809S2;
+	Sat, 07 Nov 2026 14:01:04 +0800 (CST)
+Message-ID: <8ffdb96e-c082-42b6-b895-2badc12285ca@loongson.cn>
+Date: Sat, 7 Nov 2026 14:01:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,65 +45,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-octeon-stubs-align-v1-1-1257ff90bcbc@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBtQA/u5SrQwm2ogNJyKILp70
- vJbvPeAUGIS6IoHEl0sHEOGLgvwqwsLIU/ZYJSxWiuL0R8UA8pxjoJu4yWgatvaW91MdWUgh3u
- ime9/2g/v+wHvEWZgZAAAAA==
-X-Change-ID: 20261106-octeon-stubs-align-0997c618d732
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794030928; l=1315;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=h+4iwZR2O9qgdWzGe2/8EkE8ODQ/38WUsFjZx8jrl/M=;
- b=ggyo2EnwigUGHf6hrrVHiW6MGKlSCH9E3lqoIg/8HfaWKoH8WPi/l5WYH4hJEqMDdB3zycNNF
- ikplnFgPhzNDH5V7cZp1eAdCLAITt+kw5/nkKcW5hkI1Ux8FkX3ESvw
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd: ls2kbmc: cancel the reset work before the driver
+ data is freed
+To: hyunjungg <hj351016@gmail.com>, Chong Qiao <qiaochong@loongson.cn>,
+ Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261107053218.3326443-1-hj351016@gmail.com>
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+In-Reply-To: <20261107053218.3326443-1-hj351016@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:qMiowJCxNs2fvu5q3uQyAA--.24809S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEECGrulv0ArQAAsN
+X-Coremail-Antispam: 1Uk129KBj93XoW7ZrWfWryUWw17CFWkXry8CrX_yoW8Kw45pF
+	Z8KFWYyrWDJr1Uta4DWr1I9FyYgr4rCr1xK348tw17W34aqr1qvr40vF90qF98CrWkGFWY
+	grWSq34v9a45ZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+Hi:
 
-Wrap cvmx_pko_send_packet_finish() declaration to align parameters
-with the opening parenthesis while keeping line lengths within limits.
+On 2026/11/7 13:32, hyunjungg wrote:
+> From: Hyunjung Ko <hj351016@gmail.com>
+> 
+> ls2k_bmc_init() INIT_WORK()s ddata->bmc_reset_work (ls2k_bmc_events_fn)
+> and requests two device-managed interrupts (ls2k_bmc_interrupt) that
+> schedule_work(&ddata->bmc_reset_work).  The work handler dereferences
+> ddata via container_of().
+> 
+> ddata is devm_kzalloc()'d, so devres frees it when the device is
+> unbound.  Nothing cancels bmc_reset_work: free_irq() (run by devres)
+> only waits for the interrupt handler to finish, not for a work item it
+> has already queued.  If a BMC reset interrupt fires shortly before
+> unbind, the queued ls2k_bmc_events_fn() can run after ddata has been
+> freed -> use-after-free.
+> 
+> Register the work for device-managed cancellation with
+> devm_work_autocancel(), before the devm_request_irq() calls that arm
+> it, so devres (LIFO) frees the interrupts first, then cancels the work,
+> and only then frees ddata.
+> 
+> Found by code review; not reproduced (needs Loongson-2K BMC hardware and
+> a reset interrupt racing driver unbind).
+> 
+> Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> ---
+>   drivers/mfd/ls2k-bmc-core.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
+> index 408056b..c44291e 100644
+> --- a/drivers/mfd/ls2k-bmc-core.c
+> +++ b/drivers/mfd/ls2k-bmc-core.c
+> @@ -12,6 +12,7 @@
+>   #include <linux/aperture.h>
+>   #include <linux/bitfield.h>
+>   #include <linux/delay.h>
+> +#include <linux/devm-helpers.h>
+>   #include <linux/errno.h>
+>   #include <linux/init.h>
+>   #include <linux/iopoll.h>
+> @@ -371,7 +372,10 @@ static int ls2k_bmc_init(struct ls2k_bmc_ddata *ddata)
+>   
+>   	ls2k_bmc_save_pci_data(pdev, ddata);
+>   
+> -	INIT_WORK(&ddata->bmc_reset_work, ls2k_bmc_events_fn);
+> +	ret = devm_work_autocancel(ddata->dev, &ddata->bmc_reset_work,
+> +				   ls2k_bmc_events_fn);
+> +	if (ret)
+> +		return ret;
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
----
- drivers/staging/octeon/octeon-stubs.h | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/staging/octeon/octeon-stubs.h b/drivers/staging/octeon/octeon-stubs.h
-index 9c1968b7e2d1..7fcafabdc78b 100644
---- a/drivers/staging/octeon/octeon-stubs.h
-+++ b/drivers/staging/octeon/octeon-stubs.h
-@@ -1386,9 +1386,11 @@ static inline void cvmx_pko_send_packet_prepare(u64 port, u64 queue,
- 						enum cvmx_pko_lock use_locking)
- { }
- 
--static inline enum cvmx_pko_status cvmx_pko_send_packet_finish(u64 port,
--		u64 queue, union cvmx_pko_command_word0 pko_command,
--		union cvmx_buf_ptr packet, enum cvmx_pko_lock use_locking)
-+static inline enum cvmx_pko_status
-+cvmx_pko_send_packet_finish(u64 port, u64 queue,
-+			    union cvmx_pko_command_word0 pko_command,
-+			    union cvmx_buf_ptr packet,
-+			    enum cvmx_pko_lock use_locking)
- {
- 	return 0;
- }
+Lee had already fixed this issue:
 
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261106-octeon-stubs-align-0997c618d732
+https://lore.kernel.org/all/20261027093306.2812695-4-lee@kernel.org/
+>   
+>   	ret = devm_request_irq(&pdev->dev, pdev->irq, ls2k_bmc_interrupt,
+>   			       IRQF_SHARED | IRQF_TRIGGER_FALLING, "ls2kbmc pcie", ddata);
 
-Best regards,
 -- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
+Thanks.
+Binbin
 
