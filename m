@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794089958;
-	b=vzXejZ0+5MiJIwUfpiKecr7/SsiZ16j8/B96L3acEc/K4Q4c4EegLXKRJ240oLwp/lhs
-	 0UzevG2XmGxMimtpGcbefXS77cVFBysEQR8ZOa5Yu8jhX56JDKL0wP6660smc4PBjVapU
-	 ubX2Gba+weMcEfme3sfiWVztTrbyD4FFETpegON0CvC8zEJOj8D+FY/VGnxMntcgIbf1J
-	 QdAizDU6l2buEJolMV6Pk+3JPd7uVXswWLIZr6B4Y8gL++Dea+097fqvkQHKNtcqeSUvC
-	 isjhhMyQW2jjmCUJCuyMAx9+G3U33lAcmgrjKWcz0W2ZtjiwQRPQZaRcHUgV2PaszDQ==
+	t=1794089960;
+	b=dqudJ+jtol9rfh3GLhoL8UFmlU9cn4f0IzGySmmeuvIqjExoZaPFYd2cNei3UP9Z/rAu
+	 BmK44A7kA1fIwlC55LaQ4T0nSxEsEnZiGQ0YM+3x7Z7peBsLnY/OADWvmLnjY/YgS3Wtd
+	 hRH8cv/vnaJgwH4eXJCNiT9w5ChdhhiyD6qvFKIwCgH7RX2qgw8dfLaxiFfH7MLXsigVA
+	 p9y8CPH187Z5iWlLUtNg2dsDwyMXd5u9rIykibuiF8/XnaIEMZjpk8qS3dad2m6Hmi6Ss
+	 OoNrdHdng4UoYaRPdl8DWNJjsrOK6yQWJFgLOXmZc+f2NpQoNjAmhlBEn04wbY9LEzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794089958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794089960;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=T5ifILwxqBW41ZTJj3g7LF1tT8j/uMMKaI1dqm1hN9I=;
-	b=Qwbs23xy3mbmfNvvTsG1PAP5yOHDTFIIVgID5lJWbjlhrQI83LEn0RPSKUD7YIbyzGZM
-	 rgSx4DwXMGaZcNUfz0DvqgvX4uE8x3lml1K6O5xss610uRxSP67eHky2xE2SMCRfwOzt2
-	 qqLFq3f+IRUO1/AQP2acnZ3M9jjLGp8rpP0WzLR8znFZ0bCaTFJD8/9T0yrj+3GnWE3WL
-	 dNbKmfdqYHrsFYP8DhAye/lkL3Q57TSEG4tFXf0KwWYLOFFLWWKTiZCkAEAF6Z5FYBG8A
-	 Dg/AdUztJHfrjqyw9aP2Zxu1TY98ck2SdhIr4CDHGEBbzuS5/gr7jLYMWcQn4URgLkQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
+	b=kecW1RcRaEgc30IgF7PQmkvziVGX6oVZ8WlB8/Ig7FhtWfeWdDyZf1v5D1WnuD5s182m
+	 sunc7NNCMHDCualErIJAPqjPsRKsrdkKraxD3KgXZHZFZfQocx/9WV4gLcP7mfasV/q9Y
+	 aOIa3rrtMwLMTm7aKKohismybBPcFhXevLo8B4QtwWfvJmcXCzzAainM91pOZ9I59N362
+	 mKaPJtRQuLxtM8wWF07a5cPObmd3FFiGrtiwHhD037seOp+5KW6erK7XpcOCIFD9JPB1A
+	 CtZHNa1c0nnYuce92G3VnCzPIwFE9LxUET8SdhgWUn+GlTkgs5UoLNHU3HoDYc1Yllw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bgrEUxjH;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qw/4HWuw";
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C48606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 22:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C48606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D5C606D80B
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 22:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D5C606D80B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bgrEUxjH
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c411e139259so2315666b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 14:19:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qw/4HWuw
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d28f75d62so5968366b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 14:19:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794089956; x=1794694756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T5ifILwxqBW41ZTJj3g7LF1tT8j/uMMKaI1dqm1hN9I=;
-        b=bgrEUxjHPyo76/jXJ7FJmIMSUT+CYLz0nYMJi3pmYqKIJtn2t+flz0qvDvjcCSKZxV
-         /Jv45O3jNVCUeW1CtRPN9hLlyCLPsq7Qc9p74dSoCbpnAc06VokqOu4vOcvRL+XjhUWe
-         R01ay9RTEe0A02oghkRUBSD4gR1BX+uV24Eq+WKN5D2viJRsrBvT0akh1KhRvTksGAnM
-         JsjKfGCqD9sqfbFQvLH2tCV9JvLtwKF+G//tdl0UwN+zXWswGKpiOW4pRS4he60nfbNv
-         5VqfThWHeOv5ywbK78kvpoOnL4RcJOiQ6vd1SFjYclYTgyOILOEhtXGcOMTo2KyA1G4I
-         GEVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794089956; x=1794694756;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794089959; x=1794694759; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=T5ifILwxqBW41ZTJj3g7LF1tT8j/uMMKaI1dqm1hN9I=;
-        b=1FYtJLO913uVIIMc+NCKW4MS5xSdG4C3t/Fq4QH+EjZ0WVpxSbqhagRx9U44cRI2Qu
-         33fjK9xzoqEP0N+vtyMDg9hD9Hg5n4FhR+IgrbPIm58QIYpXHQWVSc+Dj0bTSG7+4x01
-         N8f2BcSd1yuq2Yj2tacYTCtSMGT1TNCbtTeqg+3TusxDNwGV5OnTCBulKrQQene4R/yh
-         EViA0PhSjfnqB+wsjCyN4XbIQcxCHZsNvBCWxnqL3VkSr5wpg2vRxQIM9Lkus6gTV/qr
-         E6T4EgAESNOqebUi3MBXLtr8yodkSXVv/OEAQ+qetZWDHltUBijdYY6NrPo7oCvy/vCC
-         XzCQ==
-X-Forwarded-Encrypted: i=1; AL+hErGlLMfNMdMctbH1ZMNeTFpusMraBq1ZEruCpqY50QtaFwnkB/SI4SBCfyDAnHI9s076djeHyDKz2sm6Pwk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eJtsFCZOITBwNUpQdRNWA8ooO959B0BpdFKl9oD62W+sd2qRH
-	sZMT6HcmOX0YCvl7sjINVSSLfd73oac6wa19DcJHIzvu3yMrRPLMB1k3
-X-Gm-Gg: AYBFou1DEd+hFNyYzlOqW4+XLgyrx3qPukzrPPG2lJvl+IE3mejoeLgOuIy9SoHtad6
-	GFH1BRNXde0WKbEahj26+P2rkmCkdVZAnL2D1ms4mv7Oa6caY1Pqaz1UWMJXxx1Rxp+1XWSL3FY
-	yLeyPak6f80m7YlT2P1sTiMyJYJKsbD7gNlZYsfZlN9cJF6R4R1+hzikPkoE2OJa9a6x+RHqct/
-	Oh9Zctahk0UlLtDEBmyWrI7XTwvyUzUxRcyDBfQqqSyrEiSmVbFKe5d/seyObQduRw5ne3E26Hm
-	oeFkWSK2nKL70B/oJjtLACb8TQbT2mHmQv8vSuSmMX3ZjGqRf+G5V+PZv50zxvXuHZHVF2/h5kG
-	mSU6MAJcIwo/ubGmwYd28S6oMAFolok9BuHqcFg8O1kRjWlKZEa6cxWzwlQFk1/InwlVeWyCZ3Y
-	HpPQBOGERLa9nt83oyX6bpgsGo10KxSMRGTgWF+B0Zjf88e7q6HCM4cdnz5OGG2S5IucXt2dI/4
-	pc61GBtNGnDmAmyYF1cmgxne3rXlvk4jbqwTHCa/KimUoIkXCzHU31db5Wz2sE5e5xVKf8PMZv5
-	Pxzn8Lh6iTM9jEdaiNogwE83nyoqcUQraWjf3YVBZtZwKMA7vhHLLu2XU24=
-X-Received: by 2002:a17:907:97c7:b0:c40:38b5:d784 with SMTP id a640c23a62f3a-c4d6d4ec638mr14873266b.22.1794089955748;
-        Sat, 07 Nov 2026 14:19:15 -0800 (PST)
+        bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
+        b=qw/4HWuwg2WHlPYs4w4+6HZZGNYix40p5q1PClBBb75bpM/OFOGzBZoBtqOshx/ehX
+         NrvU9SYGaIvI9rDZYrSndfWENYgxQVImvywQSbs9U+0qdXMJAagtY3+1ogqB1SYUnwK1
+         q68O6zAT3N7nP758LpE1my+WAz3CH4wYPxljvZH1GIj3qK2C8xDIXj6wuVP/eU2HqUUZ
+         n/iwOj1uv1HjTnqqITN+QTmhNS8SKD4HN08/jh3cAS5t9dDminiegVYf87rO5UNOGtJr
+         MQqBQtbVffwIxYC9clD4QZxZFBNZKafkal9iyTneJA614yiQItovEVvPh48ldZ7HavMS
+         5Jfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794089959; x=1794694759;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
+        b=MDbW861JVMdUizMP+5IKRaOB2CYMZHh3dYvV85rQKZ5hsE88LPQo4kLisT5wV+PB4m
+         +5KkvYgildp36bfw8bdv1vgwcuI53J2+K1jIlwgXRPc2TLU3Po7g3MiJ2ofVbbhkQdmh
+         Sb23Hcf+ccwv6W04+g5wE3ymXqa+9vgM8cLIiHglmg4NIOZaw4xkCX5Jx93r+u3IqAim
+         NowcskC9TO1uualFQwqGrqb+27mSCggi661T05YTKeDBpIdOxNgSDSbp4uAig/r0r4ao
+         T1NJhPkBKAt2Hjsz9+wZdj9jVS6FbOCq7V3MQVtBxqbx1iyxhCJIGmarW/loaWp30rF7
+         hvPA==
+X-Forwarded-Encrypted: i=1; AL+hErHWL4De7ZtHUYIVvUx3jG2Ay/oOJTZuSJsPzuXWF5axlca+vIjLDnwgJcOsuuZZM0Lrk20rvQxxbU6BXOg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kwoe6EbbAURb5FN9PB5ufp3C1Y2pEEIKZFhgVrCZecCX7dY1P
+	RO+JzJ/OkwUXyZubYC7NfRES9P6QEk5L5kGYMli+USCb8f2hpUs8T5s1
+X-Gm-Gg: AYBFou2DLlVo6uu5SPpID9lEtLheXE6ery77NzyiH6XjMYxbD1FZUmgqZDR0iYDe7q0
+	RCTXHDxNnfBHm13QX0BN7iA8vyHX7BAlcHjW9nX/9Ly/T9UFHuZuPSKIWujVhV0B0fRyLSE8SWP
+	knGKXLvIfbLFYffcvuQSvsL/XC+b6cJMdFnd35wiuHjLipEsUX49gRYkaPnR9JAh5//FQMmB8s2
+	HevqTANvg0eoxq9KoqyK+QkGAfkzf0eC3oAQQdENpGBVXdoveBxBR2ZviID9Nzb1GWkcUwEJpfM
+	09kn4HkMPmjkK+Q2vFswlnvy4BerQ2BNZ6C2bA9pQlxRiRfPyUWUVaUS/BBzH75bIT88XZW5E+S
+	R6E0BRMUNH6+Brv/ZmqYf46XGrX5Pi5w2ldFXY6i17og9O4t7q43yw84PNsW2ec7gImaimwJBpt
+	SN3DPDMbK7IV07kDyqbfpINZxdPUZotrFx8pFkdk8+0h5d1fYh+K31rnOWxz0xoQvh/Hcawjcop
+	L7YZorRAVQJZclp8ltmAsGfbWyIT5qSgQEufo+9XDpiLCEmYaX1a+gqJpIej8Hx9srwcsvlQVTd
+	iLihWg6uAlGVMFi9VoG4k+lSAWUk6sV/KIED/lr9X3xy6QdoEde9R6eJKGw=
+X-Received: by 2002:a17:907:6d16:b0:c49:a4b1:9cb1 with SMTP id a640c23a62f3a-c4d6d160ecdmr19605866b.3.1794089958683;
+        Sat, 07 Nov 2026 14:19:18 -0800 (PST)
 Received: from frame (h-155-4-132-44.NA.cust.bahnhof.se. [155.4.132.44])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a474e3dsm14108866b.42.2026.11.07.14.19.12
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a474e3dsm14108866b.42.2026.11.07.14.19.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 14:19:14 -0800 (PST)
+        Sat, 07 Nov 2026 14:19:17 -0800 (PST)
 From: Elvira Khabirova <lineprinter0@gmail.com>
 To: Bin Liu <b-liu@ti.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -84,10 +85,12 @@ Cc: =?UTF-8?q?Hubert=20Wi=C5=9Bniewski?= <hubert.wisniewski.25632@gmail.com>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Elvira Khabirova <lineprinter0@gmail.com>
-Subject: [PATCH v4 0/2] usb: musb: gadget: don't flush a waiting RX packet
-Date: Sat,  7 Nov 2026 23:19:02 +0100
-Message-ID: <20261107221904.82487-1-lineprinter0@gmail.com>
+Subject: [PATCH v4 1/2] usb: musb: gadget: count givebacks in busy
+Date: Sat,  7 Nov 2026 23:19:03 +0100
+Message-ID: <20261107221904.82487-2-lineprinter0@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261107221904.82487-1-lineprinter0@gmail.com>
+References: <20261107221904.82487-1-lineprinter0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,72 +102,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx
-endpoint request"), musb_ep_restart() flushes the RX FIFO instead of
-calling rxstate().
+The ep->busy flag is used by musb_g_giveback() to signal that
+req->complete() is running on an endpoint, the ep is busy and
+starting a new request is not appropriate right now.
 
-When using some functions with musb, for example, f_mass_storage
-or f_acm, this code path will be used mid-communication, and it will
-cause data loss.
+It is only a flag and not a counter currently;
+musb_g_giveback() saves the old ep->busy value, sets busy to 1,
+releases musb->lock, runs req->complete(), restores the old ep->busy.
+This works when there is no possibility of two musb_g_giveback()s
+running in parallel.
 
-Patch 2 fixes this in musb_ep_restart() and schedules a bh work item
-instead of flushing and losing the data in the RX FIFO.
+This does not work when musb_gadget_dequeue()->...->musb_g_giveback()
+happens at the same time as musb_interrupt()->...->musb_g_giveback().
+The above save-then-restore can get the busy flag stuck at 1.
 
-Patch 1 modifies the semantics of musb_ep.busy from a flag to a counter.
-If usb_ep_dequeue() runs at the same time as another musb_g_giveback(),
-`busy` could end up with a false 1; this would stall an endpoint.
-I added this patch in the series as prep for patch 2, because patch 2
-would otherwise add one more case where such a race is possible --
-a musb_g_giveback() of a work item with a musb_g_giveback() of nuke().
+  CPU0 (interrupt)                CPU1 (usb_ep_dequeue())
+  giveback: saved 0, busy = 1
+  unlock, ->complete()
+                                  giveback: saved 1, busy = 1
+                                  unlock, ->complete()
+  lock, busy = 0
+                                  lock, busy = 1
 
-v3 -> v4:
-- Move musb_gadget_enable_rx_kicks() in musb_resume() to be
-  after musb_enable_interrupts() and under musb->lock (addresses
-  sashiko's "premature and unlocked rx_kick queueing in musb_resume()")
+...and this gets the entire endpoint stuck.
 
-v2 -> v3:
-- Added patch 1: `busy` is a counter now (addresses sashiko's
-  "overlapping musb_g_giveback() calls wedge ep->busy" and
-  the nuke() part of "race and ordering bug in musb_gadget_disable()
-  for rx_kick")
-- Schedule a kick on every OUT ep when resuming to avoid stalls when
-  the USB session is preserved across suspend/resume
-  (addresses sashiko's "lost rx_kick across system suspend and resume")
+This was reproduced and the patch was tested on a Pine A64+
+(Allwinner A64, four cores, no DMA) with PREEMPT_DYNAMIC and lockdep,
+using a specially constructed f_fs function that keeps two AIO requests
+queued on a bulk endpoint and cancels the newer one with io_cancel(),
+in a loop. Tested with both a bulk IN and a bulk OUT endpoint.
 
-v1 -> v2:
-- musb_g_rx_kick() does not re-queue itself when `busy` is set.
-  Instead, musb_g_giveback() re-queues it when `rx_kick_deferred`.
-  This new flag is set in three cases:
-  1) `busy` is set inside musb_g_rx_kick()
-  2) musb_gadget_queue() adds an RX request to an empty request queue
-     and `busy` is set
-  3) `busy` is set in the beginning of musb_g_rx() (addresses sashiko's
-     "RX endpoint lockup after giveback in musb_g_rx_kick()",
-     "softirq busy-loop and livelock in musb_g_rx_kick()", and
-     "race and ordering bug in musb_gadget_disable() for rx_kick")
-- musb_g_rx_kick checks musb->is_runtime_suspended now and exits early
-  if the controller is suspended, and the work items are disabled
-  during system suspend (addresses sashiko's
-  "unushed rx_kick work in musb_suspend() accesses disabled MMIO")
-- This time tested also on a Pine A64+ (Allwinner A64),
-  which has both MUSB and 4 cores.
+If musb_g_giveback() were to be started from some other context,
+the same issue would come up.
 
-v3: https://lore.kernel.org/linux-usb/20261107173601.63095-1-lineprinter0@gmail.com/
-v2: https://lore.kernel.org/linux-usb/20261107105505.6554-1-lineprinter0@gmail.com/
-v1: https://lore.kernel.org/linux-usb/20261027202744.79556-1-lineprinter0@gmail.com/
+"Promote" ep->busy from a flag to a counter.
 
-Elvira Khabirova (2):
-  usb: musb: gadget: count givebacks in busy
-  usb: musb: gadget: don't flush a waiting RX packet when queueing a
-    request
+musb_gadget_enable() should not reset `busy` to 0 anymore because
+musb_g_giveback() decrements busy, and if these two run in parallel,
+it would be problematic (cause an underflow).
 
- drivers/usb/musb/musb_core.c   |   3 +
- drivers/usb/musb/musb_gadget.c | 128 ++++++++++++++++++++++++++++++---
- drivers/usb/musb/musb_gadget.h |  11 ++-
- 3 files changed, 133 insertions(+), 9 deletions(-)
+Signed-off-by: Elvira Khabirova <lineprinter0@gmail.com>
+---
+ drivers/usb/musb/musb_gadget.c | 10 +++++-----
+ drivers/usb/musb/musb_gadget.h |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+diff --git a/drivers/usb/musb/musb_gadget.c b/drivers/usb/musb/musb_gadget.c
+index 016d3f3fc..b500e0d8b 100644
+--- a/drivers/usb/musb/musb_gadget.c
++++ b/drivers/usb/musb/musb_gadget.c
+@@ -129,7 +129,6 @@ __acquires(ep->musb->lock)
+ {
+ 	struct musb_request	*req;
+ 	struct musb		*musb;
+-	int			busy = ep->busy;
+ 
+ 	req = to_musb_request(request);
+ 
+@@ -138,7 +137,7 @@ __acquires(ep->musb->lock)
+ 		req->request.status = status;
+ 	musb = req->musb;
+ 
+-	ep->busy = 1;
++	ep->busy++;
+ 	spin_unlock(&musb->lock);
+ 
+ 	if (!dma_mapping_error(&musb->g.dev, request->dma))
+@@ -147,7 +146,7 @@ __acquires(ep->musb->lock)
+ 	trace_musb_req_gb(req);
+ 	usb_gadget_giveback_request(&req->ep->end_point, &req->request);
+ 	spin_lock(&musb->lock);
+-	ep->busy = busy;
++	ep->busy--;
+ }
+ 
+ /* ----------------------------------------------------------------------- */
+@@ -162,7 +161,7 @@ static void nuke(struct musb_ep *ep, const int status)
+ 	struct musb_request	*req = NULL;
+ 	void __iomem *epio = ep->musb->endpoints[ep->current_epnum].regs;
+ 
+-	ep->busy = 1;
++	ep->busy++;
+ 
+ 	if (is_dma_capable() && ep->dma) {
+ 		struct dma_controller	*c = ep->musb->dma_controller;
+@@ -195,6 +194,8 @@ static void nuke(struct musb_ep *ep, const int status)
+ 		req = list_first_entry(&ep->req_list, struct musb_request, list);
+ 		musb_g_giveback(ep, &req->request, status);
+ 	}
++
++	ep->busy--;
+ }
+ 
+ /* ----------------------------------------------------------------------- */
+@@ -1061,7 +1062,6 @@ static int musb_gadget_enable(struct usb_ep *ep,
+ 		musb_ep->dma = NULL;
+ 
+ 	musb_ep->desc = desc;
+-	musb_ep->busy = 0;
+ 	musb_ep->wedged = 0;
+ 	status = 0;
+ 
+diff --git a/drivers/usb/musb/musb_gadget.h b/drivers/usb/musb/musb_gadget.h
+index f49f25b3b..95bc746f7 100644
+--- a/drivers/usb/musb/musb_gadget.h
++++ b/drivers/usb/musb/musb_gadget.h
+@@ -90,7 +90,7 @@ struct musb_ep {
+ 
+ 	u8				wedged;
+ 
+-	/* true if lock must be dropped but req_list may not be advanced */
++	/* number of givebacks in progress; req_list may not be advanced */
+ 	u8				busy;
+ 
+ 	u8				hb_mult;
 -- 
 2.53.0
 
