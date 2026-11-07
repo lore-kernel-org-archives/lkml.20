@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794053323;
-	b=n/6GPPOKk9dYJkglMHI36j7KYMG1PyFijnx1jyjhTDxtZNEquJVnLkQ/21ZjdMqUiBYA
-	 iTjMOUAzVlmX8XDUMk3L1F8cx/NfiJuJBsaLxDIuTPeaWawSCFqXojJQzakPH/ktj+ARh
-	 rL3PNucY8Nr11e4uN+Js+I+43oM8nDa6pkMJwa10uclL+elRo3ukK5A/cl4UvIFoM/d/c
-	 h/7xVjcP68p6zIqxdam2mVoC6QCITVAjeMAD6bisezrcecZclviwhlP2iE9TU14N51mtK
-	 MoboAeZV9S4f9I39Medv3qWuWA7NDiyDBwW9vdddjm2XAKBkMunROQAsuiUpJhrJJRQ==
+	b=CTWlHHvIl0vC4Bv3G2Wm3sy1UK2Fdjov9aDs2K88TNBOVQK3UOK8zQ3bBK0a1HEdPeaK
+	 5HX5xSKTElRC/B6aQrAdUXeLFvSR0CXun9f6y/TvUtM0vP2Zl50L3SWvHUKNPtI5ewb8C
+	 3e1tHg2lp8CBx+k7n5kpECFo4okPbE6ulh5yy5iIekVOnXlGOUYdXNZcqjjUvrx5C7ixR
+	 7NUwjF92zxmFyETeT8TA++07cL83vh4LNg+XZZsesCaNaJAmc+2m3iGRICu9DWfjCCaFK
+	 fqvBlkQPbGT7aRug85uzDu0+np560bQ1cwtNQ0UiSOs7oYbWyVJSS7AGa+rtHH44mhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794053323;
 	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5nSQkXmXfxxM7Nm4tDDJOggvKcwjPg2ZURcHL5eMDZU=;
-	b=XrYkWwvMQ562urcYcxrlTBQIuSXWy9nP4XWfWq0s90+5DBUKnPL9VnPv1ew+pSN98K3R
-	 Pwe5I0gGvSiwDtnapu12D/07eOT4BfoS5F4UQyDfK98iK+wmgIdAVLNrCYGygWhip+u2s
-	 yYruYBHUs53FSAKLqs73qBV5PYGYrpVgaFecELW1GZjJoZ+FBgJYzMjm99DElWYyjuban
-	 2jIo3HyxBgDnorurgDvVDN9RWhWpbbFV38YgCgdg2VaoWkLlH/2uqcGbfMduSz3L39iov
-	 gBI2cQC17IzA4BZJSC5WsFqnlyah+3rqL0x6mq/sRcao/0CHUUndQJIZYcFVeAqtFkA==
+	bh=QA1kOfxjG/MnyYsOh4wQOQBuCe/Lea0Y2f5e2X4Rzmk=;
+	b=b+DRkECZQcqIMsPBOCfmJH9NkB4/oJgSVbpnwrBGcMo1YBivtbQdLZQuHkDePiI7r8jO
+	 NPS/wYzrXl6DxN6yCzUItWuE5rCAXPxFTLDNtp+lD4tl+TKYcMrbmff3UscsumZ+nG2PU
+	 bJ3+sEgVQS60iJasNNl/WQRpF5RE66YcPdreuGA+Yqvf2M7cNDsYP3NbqL08vrOAs0hLw
+	 ojNq5zN2ITvj8IPvBEmF3TReKytLNNoOVlHw2uWfYdc+gi+tlAWMMh/yB70Hzi1+hVK9C
+	 UyC7n0iIzLv53O0kHXjb1NMItVGdcdJ+H1xE0lVW6lvOgKu9yrd73e4FA7G5aLCBtVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kco8H4wW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMXQW+hc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D323606A32E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D311606A32D;
 	Sat,  7 Nov 2026 12:08:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kco8H4wW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A9D1F008A2;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMXQW+hc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28541F008A1;
 	Sat,  7 Nov 2026 12:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794053323;
-	bh=5nSQkXmXfxxM7Nm4tDDJOggvKcwjPg2ZURcHL5eMDZU=;
+	bh=QA1kOfxjG/MnyYsOh4wQOQBuCe/Lea0Y2f5e2X4Rzmk=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=kco8H4wWuC5UfcMStDEe8y/qd36m13ItEovZCsCy8DPmg4eyzim2MWefgVAVCtsYF
-	 fC9qMVtsoHc0/LV9JccFeGX+1QEbLnC33tPHih3whiHLeR41/fbACtGFlW9JUOAYoX
-	 mFDy3qTFTjmFjvC9Jcj1f0FIdXDk76kI8ZZYZet2RAFG9FD5u3mWbIsmP15oWu2ClE
-	 iHk4iBF3wKdc2WMUa6f5e1wgBSganvWTjSiEjPpxdNXNIaf+C6Ya5Q8Ni1heBU1ShR
-	 JyTgk+aaPG4t8zXO7YDIFlRdM0nW43aA3DiPKVChV/7q39Jjlyb4X12YHfCZqSqNKW
-	 vbnSg+rkPptSw==
+	b=KMXQW+hcC4cYbWwVQGF1T2EFV8oYAxfo3hWOIqL23S9khWxhi3gjT1Q9PuFqi5Rg9
+	 q3d2D0qJPHUM2+fUunDUV6oUWYrO6CwdhFZVyzGn8xNiEec6KLqJ2FNF38Hyy7uNzC
+	 f7shtyi+wWhYfdg+tYJu77SeLpyM2NVlMSQJkMVWwTcd3vNuv7nUrljJQ1c+jRdm75
+	 lLZA9vyxPe3t/cBsnd8nyeEwaTJVcwX7LTiDn5YTxCRQp6mKqsop8N884QsU2qwsmi
+	 ZByfkDsfs8Lz7a9bhy959vY4FH5RXmwStILwqdWnj03OS7pOetZ0KeTjveeA/xZLoh
+	 e6I0RstXqUoFg==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 62ACB28F342D;
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 608DD28F342C;
 	Sat, 07 Nov 2026 12:08:39 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,8 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/5] spi: cadence-xspi: Add workaround for old Marvell
- firmwares
+Subject: Re: [PATCH 4/5] spi: cadence-xspi: Rework resource discovery
 From: Mark Brown <broonie@kernel.org>
 To: Paul Cercueil <paul.cercueil@bootlin.com>
 Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
@@ -64,38 +63,45 @@ Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
  Bharat Bhushan <bbhushan2@marvell.com>, 
  Sunil Kovvuri Goutham <sgoutham@marvell.com>, 
  Tanmay Jagdale <tanmay@marvell.com>
-In-Reply-To: <20261104100643.162694-6-paul.cercueil@bootlin.com>
+In-Reply-To: <20261104100643.162694-5-paul.cercueil@bootlin.com>
 References: <20261104100643.162694-1-paul.cercueil@bootlin.com>
- <20261104100643.162694-6-paul.cercueil@bootlin.com>
+ <20261104100643.162694-5-paul.cercueil@bootlin.com>
 Date: Sat, 07 Nov 2026 12:08:34 +0000
-Message-Id: <179405331443.3424803.17548465864948492414.b4-review@b4>
+Message-Id: <179405331442.3424803.15355811538378604772.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=814; i=broonie@kernel.org;
- h=from:subject:message-id; bh=4/sNqT1IMJMYOgXLlLBZ9E5WqJ86XdK7cwNGyKM8T2c=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeixyX26l799z0jLjVv5Im14mui18571vU7wNuCVN/y
- u9SspeZ3VHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJRL9j+CtdxlCgYWfZ4zKv
- zKqRVfz2l0oPd9ZU/m9CDxTt1LIXZDMyHPhYckr+4Uzm80r7Hju8esQWHpi03Mzr7cv1kcrKrl+
- TOAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1033; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=CtOjthHpOtpZJLqkF4Yo0UfEBke3ZgrZVUxyUESOAl8=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeixy77iVwh8+SO2OCG8NijwzX3XZe8iU+Am3JJ/fcm
+ tucL7K+o5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABNZvpuRYco0ha0tLDPYdObc
+ P7JirtnMtf9mCuQ6a27fuXRJ64unO2QYGbbNfC91/vOvpit1cap9vWdeXw11fblE1Tf0ypuwS2m
+ PH7EAAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> Older firmwares from Marvell used the cdns,xspi-nor compatible string
-> for the Marvell-specific xSPI IP, which is incompatible.
+> The previous code worked, but calling
+> devm_platform_ioremap_resource_byname() on ACPI where resources aren't
+> named causes warnings to be printed, one per call:
 > 
-> Add a workaround to support this by assuming that if the "xfer" resource
-> is found, it means that a Marvell IP is used.
 
-> +	if (res && !cdns_xspi->driver_data->mrvl_hw_overlay) {
-> +		/*
-> +		 * Handle old Marvell firmwares using the cdns,xspi-nor string
-> +		 * instead of the marvell,cn10-xspi-nor string.
-> +		 */
-> +		dev_warn(dev, "Marvell-specific xfer resource passed, but using the cdns,xspi-nor compatible string. Please fix firmware!\n");
->  
-> +		cdns_xspi->driver_data = &marvell_driver_data;
+>  	cdns_xspi->sdmabase = devm_ioremap_resource(dev, res);
+>  	if (IS_ERR(cdns_xspi->sdmabase)) {
+> -		res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
+> -		cdns_xspi->sdmabase = devm_ioremap_resource(dev, res);
+> -		if (IS_ERR(cdns_xspi->sdmabase))
+> -			return PTR_ERR(cdns_xspi->sdmabase);
+> +		dev_err(dev, "Failed to remap sdma address\n");
 
-A bunch of ops were already selected further up in the function, that
-probably needs to be moved after here too.
+devm_ioremap_reource() already logs.
+
+>  	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
+> -		cdns_xspi->xferbase = devm_platform_ioremap_resource_byname(pdev, "xfer");
+> +		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "xfer");
+> +		if (!res)
+> +			res = platform_get_resource(pdev, IORESOURCE_MEM, 3);
+> +
+> +		cdns_xspi->xferbase = devm_ioremap_resource(dev, res);
+
+This will still do the warning log if the lookups fail on Marvell.
 
 -- 
 Mark Brown <broonie@kernel.org>
