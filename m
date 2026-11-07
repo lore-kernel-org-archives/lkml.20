@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060603;
-	b=bGditM3OvfS92oNysw3/s8BXsrgrW/Df1K1aGdEIW1wqyhNPLF/aprSSTekN8QnkIX1q
-	 4Tali3lyf++wlSx8K/2TE+kvFqjFKMB233cF4obL9ic9kVvdNCiouk67venmwru+P6D14
-	 L1zJhtYUbwaSLHtElYpXKHL4nCMVtwxhRA4P38ZKgpTwcY7n3ifTrM0fbCQJ4KlTji7bL
-	 /KGFip22FTCW8SSZ5IY8c5lSp4kYfaZ7hv6sK6U2nkOJeGyWZe7a9KeGAlejqWZLTQN6u
-	 b3M8NGL2y8S0FrCZQP3Sezn+6x576osVgvO32b9Vgp9wzf2NgVEpxkxxRvj4VoeKsRA==
+	t=1794060752;
+	b=uj6BEQWhxJdqAjc3nQ3azcL62BChvtD2BkWQXIghLOgdgJ2G4DsD9mJso3We4AMiHUA8
+	 Vy8Ui4RPPmzwGpUOvbbqvXq3A42VYvFRidzoYz4afuTGRE5opOlgKharygdYV9tp/GdVC
+	 xDUxT6p6/UPRBK5KNjQPB7SYEAfgKbo220xgj4cTL3lc0SzzLlMi7ur/THP0yqY/E4GJx
+	 t3RVRVMCgCPmdjKOHAUm0SgbMLuH8+Oc+SjdQftsX4FsZGo3q9+mIGpRRwXyvQQtPnCk7
+	 twfeuoxinOxrNyLBC77gG/ZOyxPhktMaIKhwm0g7Q2fRYdH74Me1tm1z/3RP+U1/zDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060752;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5Ry17mQiFCxfToY1zGA6QNTErIMgHFsdYh7nrM2aQsw=;
-	b=ftSI1ZSGVic/HQWWlIDvfKJDdvC7u9BcSTqgLZQew5470Lneed2n1227LQNpVPdDQaJ2
-	 f8YB8hgX5sqQZeWUp18W5vPW5/M88UvDhc6cmBw2bYaCRVQL/DupBGTZmKUwW5Zrrc1HW
-	 NF1wQzCWTHBoN00jX4QSx/ovQQu9HpU2IrYmgVP9KfXYjO9S0jc5wj79CFKnKmQSST19B
-	 /fKBY2JVFX+OORWH1X3uB3Jo4zgyKSoIThfaBjNSNJ8Btu0nFstAAdHg/tL6j59ZDklwL
-	 2oautm+fn4Of8sB3jRsw/jiiLFiJf3hCFXvwJJ5aXqJJDWNpwFSb0Csq/PZFAA8jO/w==
+	bh=IyxiWgY/OresKPmRcZQ5FzYMHN44S+1AZllFk55N12c=;
+	b=OZIJC3O6gT++ENuttB+8JKo7tvKScuv/aXytb6p8sAPUnDvw2t1WMVTbrQgPny4pKr2D
+	 Of4jbgOq587ZtSDB1lP0mhzxdcf1k6/6iErMU8/1YFBr8BYQdnGOdibpzvQI4UIqPnUBF
+	 ICE2L4wJxEdDvR0N5PX78UGn2BFkPbivKf4XAEWxJ7vslUuOljP51ZNR2N/kQDT5Co9hZ
+	 eB8rv6hDsnmcoP+K94geFaTo/UmS5yMLo3W99rN7tjBqPy6M+zCLkM2cfLvlzhdzKa/Kj
+	 Drjl6eApsJDMGibQhA0tFY6XAKFaweB4B3mwOZ/ilTjvU3zXhFm2wR6KEeN41LnsBrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyiJEHB7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eBQUs/9s";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD7606A32F
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB43606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:12:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyiJEHB7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48881F008A1;
-	Sat,  7 Nov 2026 14:10:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eBQUs/9s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9282E1F008A1;
+	Sat,  7 Nov 2026 14:12:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794060603;
-	bh=5Ry17mQiFCxfToY1zGA6QNTErIMgHFsdYh7nrM2aQsw=;
+	s=k20260515; t=1794060751;
+	bh=IyxiWgY/OresKPmRcZQ5FzYMHN44S+1AZllFk55N12c=;
 	h=From:To:Cc:Subject:Date;
-	b=RyiJEHB7lS0LiNtkVjtDoPXFxdwk6maa2hAlrDqeoL5j8lCY9sPJVX1AEUaRnGTr4
-	 Sz4jFreYzYNLAvcL7XNynl+JUWMXHS6rxFpWbaEhv90lqGJCqe1k0yt00JOXsh82gm
-	 UkL7epm4Jbd2FnzZulDgIezcaemh12jukhfjloD83xw+TgL3FGJ6gMSc1M8cu2I1rf
-	 l7GndeIStOtzmzSTeHlnW/EwHHq7l2ThTsc2nM92Kkak7GXoE6dFMqNNNgo1rUE642
-	 LTvVnbTWRuYgug5VA/WOs4+tIEesNuf0MM2pbRxtRp6/Z2jsWST2IdFWNb9meAD/XU
-	 sTOUAUIwfu86A==
+	b=eBQUs/9ssxB8volhnNWXcZzALvhPxvdslLhJjU5/UbRe05DZ2jGyoeY2p33unU7yV
+	 7uf25YzrTOL7e2slPIV2Uy9rOdk/fTVqq6txBYq0CxPm9ZZ7k+KOh9pW/k8lpnG8Pm
+	 phV+LvG1+aO3qc55Oe/X/aerRPPOquPPXI0Pvsw0f2suh+Z1rPMxAbqfViIZpb7A8B
+	 qGGD3qf0nVqlg7YDJDmEACu4b3Ukuu8WXyVVJ7FxKgeGjsUFo5NYzDDajhA4DzAMn7
+	 6O8iUno0y1cG0Ux1AVGzlO6gVpcNcNf83tMvwsPdok9XOGU884ZZS5jzVZFJyOvsJM
+	 uZzz0gbnKfUgQ==
 From: Jisheng Zhang <jszhang@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
+To: Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
 	Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: [PATCH RESEND] clocksource/timer-riscv: use riscv_has_extension_likely
-Date: Sat,  7 Nov 2026 21:49:52 +0800
-Message-ID: <20261107134952.17873-1-jszhang@kernel.org>
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] riscv: make thread_info smaller for RV64
+Date: Sat,  7 Nov 2026 21:52:21 +0800
+Message-ID: <20261107135221.17904-1-jszhang@kernel.org>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,67 +61,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of static branch, use riscv_has_extension_likely() to check
-whether SSTC is supported or not. For one thing, this is straight
-forward, no need to add and enable/disable a static branch during
-probe; For another, riscv_has_extension_likely() is based on
-alternative mechanism, it avoid some downsides of static branch, for
-example static branch's metadata in the __jump_table section, which is
-not discarded after ISA extensions are finalized, wastes some space.
+On RV64 platforms, the thread_info structure is non-necessary bigger
+due to padding. Move the "cpu" member to "preempt_count" to remove
+the padding.
+
+when !SHADOW_CALL_STACK and !RISCV_USER_CFI
+Before the patch, sizeof(struct thread_info) == 72
+After the patch, sizeof(struct thread_info) == 64
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
- drivers/clocksource/timer-riscv.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ arch/riscv/include/asm/thread_info.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/clocksource/timer-riscv.c b/drivers/clocksource/timer-riscv.c
-index b310e6721fac..151f4f0cfd6c 100644
---- a/drivers/clocksource/timer-riscv.c
-+++ b/drivers/clocksource/timer-riscv.c
-@@ -29,12 +29,11 @@
- #include <asm/sbi.h>
- #include <asm/timex.h>
- 
--static DEFINE_STATIC_KEY_FALSE(riscv_sstc_available);
- static bool riscv_timer_cannot_wake_cpu;
- 
- static void riscv_clock_event_stop(void)
- {
--	if (static_branch_likely(&riscv_sstc_available)) {
-+	if (riscv_has_extension_likely(RISCV_ISA_EXT_SSTC)) {
- 		csr_write(CSR_STIMECMP, ULONG_MAX);
- 		if (IS_ENABLED(CONFIG_32BIT))
- 			csr_write(CSR_STIMECMPH, ULONG_MAX);
-@@ -48,7 +47,7 @@ static int riscv_clock_next_event(unsigned long delta,
- {
- 	u64 next_tval = get_cycles64() + delta;
- 
--	if (static_branch_likely(&riscv_sstc_available)) {
-+	if (riscv_has_extension_likely(RISCV_ISA_EXT_SSTC)) {
- #if defined(CONFIG_32BIT)
- 		csr_write(CSR_STIMECMP, ULONG_MAX);
- 		csr_write(CSR_STIMECMPH, next_tval >> 32);
-@@ -112,7 +111,7 @@ static int riscv_timer_starting_cpu(unsigned int cpu)
- 	ce->irq = riscv_clock_event_irq;
- 	if (riscv_timer_cannot_wake_cpu)
- 		ce->features |= CLOCK_EVT_FEAT_C3STOP;
--	if (static_branch_likely(&riscv_sstc_available))
-+	if (riscv_has_extension_likely(RISCV_ISA_EXT_SSTC))
- 		ce->rating = 450;
- 	clockevents_config_and_register(ce, riscv_timebase, 100, ULONG_MAX);
- 
-@@ -186,10 +185,8 @@ static int __init riscv_timer_init_common(void)
- 		return error;
- 	}
- 
--	if (riscv_isa_extension_available(NULL, SSTC)) {
-+	if (riscv_isa_extension_available(NULL, SSTC))
- 		pr_info("Timer interrupt in S-mode is available via sstc extension\n");
--		static_branch_enable(&riscv_sstc_available);
--	}
- 
- 	error = cpuhp_setup_state(CPUHP_AP_RISCV_TIMER_STARTING,
- 			 "clockevents/riscv/timer:starting",
+diff --git a/arch/riscv/include/asm/thread_info.h b/arch/riscv/include/asm/thread_info.h
+index 55019fdfa9ec..9f358c3ddeb0 100644
+--- a/arch/riscv/include/asm/thread_info.h
++++ b/arch/riscv/include/asm/thread_info.h
+@@ -53,6 +53,7 @@
+ struct thread_info {
+ 	unsigned long		flags;		/* low level flags */
+ 	int                     preempt_count;  /* 0=>preemptible, <0=>BUG */
++	int			cpu;
+ 	/*
+ 	 * These stack pointers are overwritten on every system call or
+ 	 * exception.  SP is also saved to the stack it can be recovered when
+@@ -60,7 +61,6 @@ struct thread_info {
+ 	 */
+ 	long			kernel_sp;	/* Kernel stack pointer */
+ 	long			user_sp;	/* User stack pointer */
+-	int			cpu;
+ 	unsigned long		syscall_work;	/* SYSCALL_WORK_ flags */
+ #ifdef CONFIG_SHADOW_CALL_STACK
+ 	void			*scs_base;
 -- 
-2.53.0
+2.51.0
 
