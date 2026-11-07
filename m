@@ -1,73 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794088065;
-	b=WS8HAkkFnNccEqWT1mOAe1utu1lsWTF9fbNoaV3JAX8obGHmtWjIHmWGwDZ9/DVBM5gJ
-	 FxywAwWDXLOjw1+8U0a2js5IeZoTP0srRJmifdRScva6kBeOsQpQChG+2X0rNmBUoqR3n
-	 wjeuIy/XKqWgPr9FipWhTByV2BjX41sw2EokvF2eyMK+yCZzORxde0QpIbchYfLG3lJz/
-	 8yIczKx4XqIjOb3Ytw8gZ0c3ICQcuDijAeewPJA/zGnIb8Lv03xkUSdHh5Ji2W/lB2kzf
-	 tdnymLaxeOtQSCuBf5/CpwzOCG1wvaAAP0XOE1gWBMPrSdV7IwgHNSZUxnmW0/DBIzw==
+	t=1794088253;
+	b=UXXRCsHhBxvL6Ky3t/lOOZknQfEwlklbt+yvJfqnieDG00JRKgve8t0pd4ZohSqexxS8
+	 bv5oF+ozUKUKhOIhwJyCoC/bPTZF3lsKqEMxR05cEWFxrm+Ac9tYNOiIlBA+rGdi3yBxU
+	 0TyLtRWLoA6U23a5t/X9AWmWWoi7y/wLGWnIDVubFhqrKdI9OApfc7et24syUWmpP2Gdv
+	 vTezpTnzCHYHNpzc+LSMgVVNrGMYbsfd+TXi/dsJ7v3Mhht3/r9jTBCpOJ/kyG7hQN7Hv
+	 fs1v/p7ms1J7/LmZewlCchOTBFP8mmoT5aArOhfWOj2aLpbbxz1+gW9IJriKYejop6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794088065;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=i5FK2w6G5F6gNXO/C12RD0Y/02t5FF/ZVmylJqCrDnk=;
-	b=emrq7n1MMaL+QxpHAgujPl9k6aQwpsyb6hT/UXgG1GYjQirKlAIXicIw5zpfvI0Q8HM8
-	 hfZcYjJdH5DmuXKxpwykffw/C35OHDcOJUSfPFUGHzBEQOHxV2ODLpu75/FCY+J9iNwpi
-	 YR66sLlS448LoW1fboos5OgnA5nE2Hy/OclKpn4A6CSvRy1cNbk9DuxGUVpvWTD4h9bxU
-	 seMnuQcOnE4CJKuLDM9QmlCpfoJ4YPiqBE93ovf6RtU8aTEl+HwCVFe8lg9efEta4Iaf8
-	 ecEmDTxe8Hdw+3FO2MduVWH5CIs95TgkzQwyd4KsFZ8XLyxS4UJFRbtcYpuljMD8blQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794088253;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=5zaMIdL/oTvgce3uIdLspYmw2AFfPjykQ6u5nR70LZg=;
+	b=F75JloroP3qvtppnDV9msFaJRNSLfHIi7X+S4fP8nuRZk2QF5c+plJVlOuiR0Rd+CnFv
+	 lpfaJtIDOy0dJGB/jJEj76gYlep4WK1y8y2NKWiouQmNk6/7HBKuEBOeEI6BYwCEMoFon
+	 tWx17xBYS97cVTeQ9L+e4cNoNSpsXL3NZyUP3UbFH55ERUdrtOjGTva4IE62U5ZtCVToG
+	 g4HLOUVPDnTg9o/Eq5mxoEOTZ256ZZ6wytbczFP1hcuVCwRrRJStobcgjcw6fz3pyPsee
+	 3UhhKFUFh549H0Q89o4TXVyfqPp5WjoWlxb1nwqjVmzpSq/fbUsjPgFLDbhh/lPPA0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bojanowski.me;
-	spf=pass smtp.mailfrom=bojanowski.me;
-	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=U1pPkP0J;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02320606A326;
-	Sat,  7 Nov 2026 21:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02320606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=U1pPkP0J
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jMV5S4952zKnDk;
-	Sat, 07 Nov 2026 22:47:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
-	s=MBO0001; t=1794088060;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i5FK2w6G5F6gNXO/C12RD0Y/02t5FF/ZVmylJqCrDnk=;
-	b=U1pPkP0JmE23VwaSgOoiAazLuSd2gImCbJsgPJ4LG79w43mdYhEfJrpKRyGxVO/XGKE6Hw
-	xBi5fjLBF7X1VcEgfNKXuFVao0606C/fo8lccqHZ5PzQR32lDk3vsyupFOWXICTckxlDre
-	BeiZKU+XuKFhuUrRBMX2iQap7iqw3TniGcE7kItCeRJV+NY7hpMqNl2bw6YwgcBCs4vnHa
-	uJnGKOhGrw3S3S5O9v5++y88+juyd1+Yl+5yDg7tDJ61VA6rKyjCwEv8L7s7/HVHAQfHyi
-	luIxYzHwMCfbuf8kjgzDmjO5Z72SO+TzMb0yPV4vauCL23sVCmJs39jn6/6JEA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
-From: Tomasz Bojanowski <tomasz@bojanowski.me>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller voltage sensors
-Date: Sat,  7 Nov 2026 22:47:38 +0100
-Message-ID: <20261107214738.439967-1-tomasz@bojanowski.me>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <81c1e042-b06c-4a13-9251-a967532e21cd@roeck-us.net>
-References: <20261107082821.8257-1-tomasz@bojanowski.me> <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net> <20261107161249.336512-1-tomasz@bojanowski.me> <5e99fd86-d934-49c1-a867-02cc61ab1ecf@roeck-us.net> <20261107181518.385136-1-tomasz@bojanowski.me> <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net> <20261107203300.427273-1-tomasz@bojanowski.me> <81c1e042-b06c-4a13-9251-a967532e21cd@roeck-us.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F22606A326;
+	Sat,  7 Nov 2026 21:50:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACCB41F0089F;
+	Sat,  7 Nov 2026 21:50:44 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,28 +36,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jMV5S4952zKnDk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] PCI: dwc: tegra194: Clear event counter masks before
+ programming
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Hans Zhang <18255117159@163.com>
+Cc: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
+ mani@kernel.org, jonathanh@nvidia.com, thierry.reding@kernel.org, 
+ robh@kernel.org, linux-tegra@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261102063835.3831940-1-18255117159@163.com>
+References: <20261102063835.3831940-1-18255117159@163.com>
+Date: Sun, 08 Nov 2026 03:20:31 +0530
+Message-Id: <179408823130.65886.4565928376292834631.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=795;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=dakCt24LNGbCorjDl0SmM+0y+x3kI7kpyH6lmNNGVcE=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq7500UgByzF3S479FykilCzs9qrlMrpZyj/IP4
+ 43wW2/PW+SJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCau+dNAAKCRBVnxHm/pHO
+ 9bBLCACd//rdiTPNGlhqD+1qZd/vmvclbugxqXHq5R8PMLfZBbUSSj/4KUe7m7eqIOcgB6bAlby
+ Bp1/XUfjEw54bY5sW/4cyVC4l4g0pT5WyMoa6PkoTBpEcMf9j7SPRK3WWHbDxbReLIxCK/UKMvb
+ cYp7gMJsGpMQrc4hDetC4n1MFAxC1IyHuUKHLDc+MPxkPCP3ju2atPCYSK/cXeXQX6Ik6mKfyiz
+ 2PkCcT/ddtc+VdgOXE3Jy26uIuWOesen33pGIKbt1mej+pbWW7CjZJFHNUF2kL3rc7wTzZ6N5JZ
+ rHRhOoM0wEbMHXear9DhqS7bZfouNaWmw0y5/e1qujYn1Tkp
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Hi Guenter,
+On 2026-11-02 14:38 +0800, Hans Zhang wrote:
+> When programming the RAS-DES event counter control register, the code only
+> cleared the event-selection field before OR-ing in the new group, event,
+> and enable values. This leaves stale bits in the group-select and enable
+> fields from prior writes.
+> 
+> Clear all three field masks before programming the register so that stale
+> bits are not preserved across updates.
+> 
+> No functional change intended beyond ensuring the register is rewritten
+> without carrying over previous field values.
+> 
+> Signed-off-by: Hans Zhang <18255117159@163.com>
 
-On 11/7/26 13:06, Guenter Roeck wrote:
-> Either case, do you have evidence that this is even needed in the
-> first place ?
+This patch got superseded by this commit:
+https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?h=controller/dwc&id=fe84c0b370889bbf65f75bb75a1810227c7ce150
 
-No. On the MS-7E61 it is not needed: the controller does not support
-remote wakeup, and while hid_hw_open() holds the device open, it does
-not autosuspend (runtime_status stayed active with power/control set
-to auto). I added it in v2 only as a precaution, in case the device
-autosuspends while the feature report is requested, without evidence
-that this can happen. I think it can be dropped.
+- Mani
 
-> That makes me wonder if the vendor software is buggy. I have
-> two of those boards, and they both show similar values.
 
-My follow-up crossed with your mail: the vendor software only lists
-CPU VDDP on the MS-7C94 with an APU. Do your boards have CPUs without
-integrated graphics?
-
-Thanks,
-Tomasz
