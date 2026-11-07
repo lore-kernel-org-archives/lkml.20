@@ -1,86 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794038893;
-	b=zC3FRBgccvt3odGcP1R2DcSOm1qijoRjxxaJE0MERXLhhRK5SSoVYLYbXScIt/GX6FtP
-	 11DhcQxNar+ZvpXfCyhLEUuYsp7U1j7zfjYOaxMT4OAp8unPkyh9bEPPXwa3cltNEG1O8
-	 zHfyJ9tahyBYWIsIqse7U2Y8MI3+HwULPCY/7AHjMekYmsfV9vlFgP8yAkTj5j86wjaTg
-	 tXrVqMtphdNvfEXxsL9P7/93S702SDSJTcUm3Nr1ycjgQ3QI7cl2t5cjuqYvkINEg9Uri
-	 owQTbRY0WdIaNWRLa/yWsv8SmDiLd+TaOwvRQyyTXijUc4OjTrKJ6xfh3+DsgoLF1sQ==
+	t=1794038906;
+	b=Z8lwXlHIEir5pSTnQJRtNFN69wPZ6Jw11uf6PrY6ES/0/PMeMLb1FTBJK/03G6Qewiwe
+	 SYFJURTZEszzz312h7x12m5IufS/PNY7pCt0GkawdW64oFrhfRVusE9cksNSmoIB3qg7r
+	 3WEqKuYPGGSSQIUwLuHtOfwB7F4oD6wr9RFqAqX8nGdXo+eTwMcEXuttBCJECoLYV7p7P
+	 rkoLJ0CJxmnpi+KoeE8hvCB8wwmbeJs+z+Mq1SkPqlale/UH6INR72Ebosf6BmtNaYTGA
+	 7JnuyB1ZIigwMY7/fibIsRBailPycW2R1lS/po4zPGnTf/xeUmNvPFItpgSsrkvke4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794038893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794038906;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Fu3COQCAPmOwpJB4SS2FVTvXTR/NXj3quXMf5G+9+Gc=;
-	b=n4j62veBOCkEZw3eAZ4F9b6BEv8itrvKLw7m6O9fbNcEio/JxP0QgnfsOzAm3tuVyEjZ
-	 bk3332GrV4fpBx6FXsHApsdjqCvQqx7mzPGAGgG356n5AXoUzdwBLHZ0wp5L8nHVJ8sZB
-	 /am9xi6RUfnp5u0qPHKj5GgLcP/6FuAZ43KAAbxgXUP5Emvqt5XrHWeFSsReXbvtEbftP
-	 yPGJpj1mZ5jwAcs4VJpbKGbm8JtJ7Y7COpLOXg8cJuvVbgtcPuXtOALhSku43npFsHqOY
-	 aTrwLto/4PsHF6CvNSvyRSIb6mhuHX/N0li3fgiUCjS1DQeN1TCCB6Z9PLSHTYnq7Rw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ezL4r4ua1RBFqrJXqddrPEFW/yvPOGvhTPdO31bBmUg=;
+	b=tCIL7AnT6bSBNrx5peA3ZKxfAF4bPzk4VcKYmizI17N2UxDK2oMH1n3i2L/5Ttm16CwH
+	 L7XCDSC4pfS/UnceLBYKA/CKptYiBXJb3E9bIydF+JATvHgCe2a+T6fnwoof5tVGPa/B8
+	 3Xv0NzVeFJJGKtiMrwCnpMtar+ZN9Rv0F9dtSad5/iqwCTi3j7ie8modT1BRPyeGnqc85
+	 Vh3JiIB0MTLoeEeCdy8jpaWBtGkJtCrIFXWilAXQthG/oBOs80CLEpn0kR1VwhGkF6Mwh
+	 nSCubTj6IMdj5zYuBvWiksJKU0vEAhYdwtzL+F30yuIMCKwMjIeVzVwgX4iYLo2AHUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gjR3O+Ln;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="VE/wXq0Z";
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBFE606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 08:08:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CBFE606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0529606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 08:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0529606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gjR3O+Ln
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ea7987517aso8167035ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 00:08:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VE/wXq0Z
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a01e2962a1so1001599b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 00:08:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794038892; x=1794643692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Fu3COQCAPmOwpJB4SS2FVTvXTR/NXj3quXMf5G+9+Gc=;
-        b=gjR3O+LnbqWxSywMeqbqw+2tekOwfmC3a5BDhu60zh3iUcZ0Y3Mzu7GPeI9zhL+aHG
-         eZWl1skwP1Q/ll1e+lKt8scG8ma7mqFE2WWCEWpcHSYAqqqLl3NSj92XPwBjFcUwPDIS
-         l2MVQZyp8nPW6H4lH7sAHbUnWKOctaRelZL2/8faw9SdV7hAOI1FIueSB6ylCXggbLe7
-         JfxANvcupt3AxNkyuaiwncgHCpq1yxBDSLkCP49P6ePE8BAobSbK4noUzkekAp73VY9e
-         SDcZvO8bll/JwGA4InjCk6mETFBPB52IlyvUXmM1kkKc2+Y7KooJs5ZauCtp6HNd8+p3
-         IxyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794038892; x=1794643692;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794038905; x=1794643705; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Fu3COQCAPmOwpJB4SS2FVTvXTR/NXj3quXMf5G+9+Gc=;
-        b=IukLJt/ZEI4Djnku5CS9pF+xk0LJ6zd8HU3GSlvQArawFLl9hWXk1H2Q46TWZmUlHi
-         g14YLLzVy7B7UFZvSW/+ZASZteAtK9tP25fqnNcsqdxbUqnJHKqTVJHewwW9/ITGixhK
-         e1pMkVjW7H0dUjDhkoZqvofF3tGV9wxThnE5BPzVuDEJUYZAhqfV7iNgavqMT4jxrP4K
-         qGbgQhCa5PGXnrSWn4CGJ619HnzcNqEPHKOhnaNSJfkCI7HL9ygkmqxUPSzn4wAvn450
-         54l+G3u4hXUdP3AFGZL7zpGT7N6AXmXdQO/hqrkBseHuVl8VqidXnwYIW7Q0uW2Mr3V5
-         fVwQ==
-X-Forwarded-Encrypted: i=1; AL+hErGPB5ZUPRssFB6LPrsuYvOYpsoyG+pBR08WmgQBsPWmOPKZlLZno3WtdQ3es0GGww7NxaX2hDDEWWX5kiI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+nZeC7WasLV6MuE5ss7ByvK75tQazI+TE7Xcpy3chjPtnzAt8K
-	DRQObl4uHuZ1y5scz2jJzHN9ohTp5zniJ/p5/yXqTXctg18LpyRwUccz7R6yZt1KDXM=
-X-Gm-Gg: AYBFou1O7XfTlV7D0goBjbCdREs1hM2uOLE+LfAmry+3+pKgTV28uPi8MuDhi3xK2rM
-	OJnZJbfG9I7g3cleiAiKtBizigSEukixa1e3ekd5t6kJYCguEhEAWvObH0v2b2S/4qHPq+PX/EM
-	jIWBZ020aNt8qBn+IY4gBrcHgQLwFlfH/Upp27sQLsUqCHoHbrdWxAS4mBPHsnja2AK9PnpbIaW
-	HDc/HixO/FdNRYFXQ2nj/JjJ95G2xBd7YryHVKRJho/cXta4m3wKwAeLvihVpgbnOe9mzvDZkVE
-	oD3Hq6SBR9Glz/CSAkZ3ClopuAqB+IoCIkhQEKXdYIAM/1IEkpcDS7YRwPX89/6yMnNybVLERiU
-	UMW7hxDuzRy47A57a1r3H6MAyGTYJff5TPdimAFka5dDFLNerVjwLwtWvTZ2n/77nhOUj3q3IeS
-	QSyAjpylUdSy6A7H6Nq20oOeRzDj8nsgjCYfYNpWgh/i1ZbVVpHKOvEVdLEfpnt82Cu6RlIfCxw
-	06T+2Ehz/KIDdpTskwX6wqiLGgS92f0FLXDGYg91QNQkwODVroFmbWcAILQuYQnKS3bJTiiIRff
-	vnF1ak8TIN08nZEiqMgF2S1zHRY7u31LR4t2adUtScNJsyXODBhNwGex
-X-Received: by 2002:a17:90b:568e:b0:3ad:870b:b6d4 with SMTP id 98e67ed59e1d1-3b0db609836mr4788668a91.1.1794038891748;
-        Sat, 07 Nov 2026 00:08:11 -0800 (PST)
-Received: from [192.168.255.10] ([223.104.68.152])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc27e829sm1764509a91.0.2026.11.07.00.08.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Nov 2026 00:08:10 -0800 (PST)
-Message-ID: <05e77224-7d3a-42d5-9e08-82c7257cba34@gmail.com>
-Date: Sat, 7 Nov 2026 16:08:03 +0800
+        bh=ezL4r4ua1RBFqrJXqddrPEFW/yvPOGvhTPdO31bBmUg=;
+        b=VE/wXq0ZVwPv54UL4lC9s8hULEmpup18q2VZe/7rDzgYDYPXuz0kATpJ2ES3yvotp4
+         mHFlY3HkRHEKHh7KPu7AtAvhxZko5Z7ZSnts7+Njo3jaKwvhxLuOaUVOmKhReZeCVh6h
+         m8ZLyDoPzSziLhxtspbC74w6yWxMcFxv/QUp9i0HUtTX5urp18aUPKwLZkerhTlBV9Ur
+         XVHTKWyU/yUWGR3fVjDYRetqz2By6TKyWyt0cNFhKP2Q0fbkLdD1Cp4/DsBsHb441GK+
+         t48PHH/QDxthjUJQSD+aqaYFv6qg26VWAORqjkbBxCJSu0QWf/BYSPuocdON7ALFdiqE
+         uulA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794038905; x=1794643705;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ezL4r4ua1RBFqrJXqddrPEFW/yvPOGvhTPdO31bBmUg=;
+        b=2Dbr2Je2Islj3nqymIcFAZx/KbjwnFu3zynB4Lya7TPANjJlUXmPdMApqK/ntWJnvE
+         fZmeRtIvk1LV7AbBrFynx9inzHN8el6rSTHwjgfPjOPhURLxyPQe3C1E0TCUEnSoQrnc
+         KonzSz3I7irL/25zwQg9UiB63gqWJcl+ynr3P+//nqb6dGnfMzKnekqkm8hWAOdiJnOX
+         H9aPfaRT5alzxeiQZ00YeZ9nmQPaVFl38MPU3kJsZlfiKMZQPQ8GZvvSf81FTjXM0Xnl
+         IsTqmEYQzr/7EgdYMb4R1UHEVUO9CXanlHlVf6ctvvGL1LXxf98PHwZs/vuztb82AkcE
+         GnMw==
+X-Forwarded-Encrypted: i=1; AL+hErHXJyvDrRnhdt4fQHY19jBGT/8ZkNX0DaEWbLlbhnDrWGJU88N5CYOWnb6SRz4EehGrP00nNhX2tZWC7XI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+e/AkSKnqzNHVzU7UCvd0J5IUAAdWpMjKCJnDf/ezbND7Bdwp+
+	xyLme9w7XzvmCRmbhFpzWcK+3oPzrPnivJ3mLBYC0qdidm2lMnqv3c2/51x6BN9GJtAhbcwfwXK
+	W//9XFw==
+X-Received: from pffh14-n2.prod.google.com ([2002:a05:6a00:c24e:20b0:891:240a:3bb3])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:180a:b0:882:2b16:c314
+ with SMTP id d2e1a72fcca58-8b37c52ff35mr4860050b3a.52.1794038904784; Sat, 07
+ Nov 2026 00:08:24 -0800 (PST)
+Date: Sat, 7 Nov 2026 08:08:24 +0000
+In-Reply-To: <20261106201822.1734-1-lirongqing@baidu.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,113 +77,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: reuseport: avoid duplicate closed socket
- insertion
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, Eric Dumazet
- <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org,
- Lin Jiapeng <jiapenglin@tencent.com>
-References: <20261106135841.418-1-ljp1205831794@gmail.com>
- <6cb5fe89-c6f0-4e84-b753-4425b1aebe1e@linux.dev>
-From: Lin Jiapeng <ljp1205831794@gmail.com>
-In-Reply-To: <6cb5fe89-c6f0-4e84-b753-4425b1aebe1e@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261106201822.1734-1-lirongqing@baidu.com>
+Message-ID: <au7bGHqwhXXttXH_@google.com>
+Subject: Re: [PATCH] af_unix: Fix wrong socket tested in the symmetric half of unix_state_lock_cmp_fn().
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: lirongqing <lirongqing@baidu.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+
+> [PATCH] af_unix: Fix wrong socket tested in the symmetric half
+
+This is net-next material, so it should be
+
+  [PATCH net-next vX] af_unix: ...
+
+see Documentation/process/maintainer-netdev.rst.
 
 
-On 2026-11-07 1:02 p.m., Jiayuan Chen wrote:
+On Sat, 07 Nov 2026 04:18:22 +0800, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
 > 
-> On 11/6/26 9:58 PM, Lin Jiapeng wrote:
->> Clearing SO_REUSEPORT on a TCP listener clears sk_reuseport but leaves
->> sk_reuseport_cb attached to its reuseport group. 
->> ...
->> Repeated connect(AF_UNSPEC)/listen() cycles therefore insert the same
->> socket until num_closed_socks exceeds max_socks. The next insertion
->> writes before socks[], overlapping prog on x86-64 and leading to type
->> confusion when a reuseport program is attached or detached.
+> The second half of unix_state_lock_cmp_fn() is meant to mirror the
+> first one with the roles of a and b swapped, but it switches on b's
+> state again:
 > 
+> 	if (b->sk.sk_state == TCP_LISTEN) {
+> 		switch (b->sk.sk_state) {
+> 		case TCP_CLOSE:
+> 		case TCP_ESTABLISHED:
+> 			return 1;
 > 
-> Is the issue same as Eric's patch ?
+> The enclosing if already established that b is TCP_LISTEN, so the
+> switch can only reach the default label and the branch always returns
+> 0, "no order known", instead of the intended 1.
 > 
-> https://lore.kernel.org/netdev/20261106084300.2029567-1-edumazet@kernel.org/
+> Test a's state, as the first half does.  The code is only compiled with
+> CONFIG_PROVE_LOCKING, so there is no runtime memory-safety impact; the
+> effect is that lockdep cannot validate this nesting order of
+> unix_state_lock().
+> 
+> Fixes: 98f706de445b ("af_unix: Define locking order for U_LOCK_SECOND in unix_stream_connect().")
 
-These reports may be related, but analysis suggests that they seem
-to have different root causes.
+Please drop the tag.
 
-Eric's patch seems to prevent attaching a program to the same unhashed,
-shutdown listener from resurrecting it into the listening section. My
-patch addresses duplicate closed-section insertion after SO_REUSEPORT
-is cleared, which may eventually make socks[-1] overwrite reuse->prog.
+As commented, the branch never hits and no real issue exists,
+not worth backporting.
 
-Eric's patch does not change reuseport_stop_listen_sock(). Also, my PoC
-attaches the program on a separate, still-hashed anchor socket, so his
-new check may not apply to this path.
 
-I tested Eric's v2 patch with my unmodified PoC. His positive control
-returned EINVAL, so the patch seems to be active. However, my PoC still
-triggered the same UBSAN/KASAN failure. Since his patch did not stop my
-reproducer, and the root causes appear to be different, I think these
-may not be the same issue. The two fixes may therefore be complementary.
-
-The following is the UBSAN/KASAN output with Eric's v2 patch applied:
-
-[trigger] cycle 129/129 (vulnerable: socks[-1] overwrites prog)
-[trigger] attaching CBPF after closed-region pump
-------------[ cut here ]------------
-UBSAN: array-index-out-of-bounds in 
-/Users/m00nb1rd/WorkSpace/vul-findings/reuseport-closed-region-negative-index-bpfprog-as-sock/repro-upstream/linux-eric-v2/net/core/sock_reuseport.c:153:9
-index -1 is out of range for type 'struct sock *[] 
-__counted_by(max_socks)' (aka 'struct sock *[]')
-CPU: 0 UID: 65534 PID: 22 Comm: poc Not tainted 7.4.0-rc1+ #1 PREEMPTLAZY
-Call Trace:
-  <TASK>
-  dump_stack_lvl+0x23/0x30
-  ubsan_epilogue+0x5/0x30
-  __ubsan_handle_out_of_bounds+0x91/0xa0
-  reuseport_stop_listen_sock+0x290/0x310
-  ? reuseport_stop_listen_sock+0x43/0x310
-  inet_unhash+0xd5/0x400
-  tcp_set_state+0x125/0x260
-  tcp_disconnect+0x47/0x1950
-  __inet_stream_connect+0x2d0/0xab0
-  ? do_iter_readv_writev+0x25b/0x350
-  ? vfs_writev+0x2e0/0x3c0
-  inet_stream_connect+0x57/0x90
-  __sys_connect+0x14b/0x1a0
-  __x64_sys_connect+0x71/0x80
-  do_syscall_64+0x6c/0x1d0
-  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-RIP: 0033:0x205560
-...
-...
-  </TASK>
----[ end trace ]---
-Oops: general protection fault, probably for non-canonical address 
-0xdffffc000000008e: 0000 [#1] KASAN
-KASAN: null-ptr-deref in range [0x0000000000000470-0x0000000000000477]
-CPU: 0 UID: 65534 PID: 22 Comm: poc Not tainted 7.4.0-rc1+ #1 PREEMPTLAZY
-RIP: 0010:call_rcu+0x10d/0x260
-...
-Call Trace:
-  <TASK>
-  ? reuseport_attach_prog+0x6c/0x250
-  reuseport_attach_prog+0xdd/0x250
-  sk_reuseport_attach_filter+0x97/0xf0
-  sk_setsockopt+0x973/0x1cc0
-  do_sock_setsockopt+0xa9/0x120
-  __sys_setsockopt+0xaa/0xe0
-  __x64_sys_setsockopt+0xac/0xc0
-  do_syscall_64+0x6c/0x1d0
-  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-RIP: 0033:0x202f22
-...
-  </TASK>
----[ end trace 0000000000000000 ]---
-
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
+> ---
+>  net/unix/af_unix.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+> index e7a0582..501e693 100644
+> --- a/net/unix/af_unix.c
+> +++ b/net/unix/af_unix.c
+> @@ -163,7 +163,7 @@ static int unix_state_lock_cmp_fn(const struct lockdep_map *_a,
+>  
+>  	/* Should never happen.  Just to be symmetric. */
+>  	if (b->sk.sk_state == TCP_LISTEN) {
+> -		switch (b->sk.sk_state) {
+> +		switch (a->sk.sk_state) {
+>  		case TCP_CLOSE:
+>  		case TCP_ESTABLISHED:
+>  			return 1;
+> -- 
+> 2.9.4
+> 
