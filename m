@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060606;
-	b=DaChJ5VJ2PZvutrvh1lqkCsz6j4vJ/bD2ofP82yihCHrHyyxOQFn/lZOwjhoQDy1y1wF
-	 6GuIh3U13a6qZ2mMbA45nIi1X7iV+5F37JhCe8TRnqqN8x2YnSo8XIl+vR/FljaWGUnV3
-	 /aiFFmO78YqFyUi40n/ywEdNiVWcMHhdUTD6JP5Me4Rgo40Jh60M2LgbOfn71GwLI9Ln7
-	 +XWHs3x6dnQ+UD5f6Pm8NWftzS6ammuFQ0fM3INPrMSb6m+TmvQEk2KweF45WJsWfkU89
-	 enG0JAwqo4awIv+DpCBF7xuJ0UFzN90uBiBssfDGlJKwOcz6BOaRbm2/zamXN8WtDOw==
+	t=1794060603;
+	b=bGditM3OvfS92oNysw3/s8BXsrgrW/Df1K1aGdEIW1wqyhNPLF/aprSSTekN8QnkIX1q
+	 4Tali3lyf++wlSx8K/2TE+kvFqjFKMB233cF4obL9ic9kVvdNCiouk67venmwru+P6D14
+	 L1zJhtYUbwaSLHtElYpXKHL4nCMVtwxhRA4P38ZKgpTwcY7n3ifTrM0fbCQJ4KlTji7bL
+	 /KGFip22FTCW8SSZ5IY8c5lSp4kYfaZ7hv6sK6U2nkOJeGyWZe7a9KeGAlejqWZLTQN6u
+	 b3M8NGL2y8S0FrCZQP3Sezn+6x576osVgvO32b9Vgp9wzf2NgVEpxkxxRvj4VoeKsRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060606;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060603;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=C8bC2NsVqIFwWmt8X0WfCRstENmmaEaTk0k2lcazj6E=;
-	b=HC2XMWvK0EDqw9Xjde8/s8jJNWoI0iqTvQ0USq3wrieLKlRlqejTqtcgOaothjcQAUMm
-	 baUKXEIFQW81hIAGBoP86vVVqQIUo2Au2WrN6co2UnyEJoYCxaP4b2WYoUyrcltvgACBp
-	 ahN1aDpZVtyjIl8YdiDK7kbsmykMzvMGE58hUmOKdw/t2UOZ1MhbF6/jessziJtWaBZjs
-	 JlJZMTlQPw1oy1+hTIv7fjNLsiXEO9wMj/BN/WZn6HJN5VKBCtXbY7yzLqtVsSGHCRA4E
-	 gLF8gxoOCdPF+fy8253IgYgI9S1uFlWcactO4zBWIcKgKtXkhBn8iugG0P79JBmohsw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5Ry17mQiFCxfToY1zGA6QNTErIMgHFsdYh7nrM2aQsw=;
+	b=ftSI1ZSGVic/HQWWlIDvfKJDdvC7u9BcSTqgLZQew5470Lneed2n1227LQNpVPdDQaJ2
+	 f8YB8hgX5sqQZeWUp18W5vPW5/M88UvDhc6cmBw2bYaCRVQL/DupBGTZmKUwW5Zrrc1HW
+	 NF1wQzCWTHBoN00jX4QSx/ovQQu9HpU2IrYmgVP9KfXYjO9S0jc5wj79CFKnKmQSST19B
+	 /fKBY2JVFX+OORWH1X3uB3Jo4zgyKSoIThfaBjNSNJ8Btu0nFstAAdHg/tL6j59ZDklwL
+	 2oautm+fn4Of8sB3jRsw/jiiLFiJf3hCFXvwJJ5aXqJJDWNpwFSb0Csq/PZFAA8jO/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kzg0xtA5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyiJEHB7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE186606A337;
-	Sat,  7 Nov 2026 14:10:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD7606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:10:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kzg0xtA5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B711F008A3;
-	Sat,  7 Nov 2026 14:10:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyiJEHB7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48881F008A1;
+	Sat,  7 Nov 2026 14:10:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794060605;
-	bh=C8bC2NsVqIFwWmt8X0WfCRstENmmaEaTk0k2lcazj6E=;
+	s=k20260515; t=1794060603;
+	bh=5Ry17mQiFCxfToY1zGA6QNTErIMgHFsdYh7nrM2aQsw=;
 	h=From:To:Cc:Subject:Date;
-	b=Kzg0xtA5gccVDznLtPnQdQGd1KXPPQ69cZRIQ2ylggTySqq1CWGTOVf/CUzmY5uUy
-	 7tvA/yRdksJDbys4TML0UNXlJD9P8xfZ2KCv52PluZFArUarfcGQASGzDMa02/VOM4
-	 IzNEd/uVLWmI+1mShVZfXT6G82SDHlNja/PW1fzArx0r3xIymXNzHp7B3aFBtBScEV
-	 /Ep17ebQKQ2C3aAUyeUuGYYXeKDXxwq3y5iwcPxcWv0bfhHoXrEYhx5HM+jOCVlXpZ
-	 r4oEPL6XfB1uef83lqK6N81PDM4NEzrTPIRDhX1wOw94cfYUqdMnhUfToHGi5fHu1h
-	 011ABihxPACSA==
-From: Thorsten Blum <blum@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	bui duc phuc <phucduc.bui@gmail.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ALSA: info: Use scnprintf() in snd_info_card_create()
-Date: Sat,  7 Nov 2026 15:09:48 +0100
-Message-ID: <20261107140949.350482-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	b=RyiJEHB7lS0LiNtkVjtDoPXFxdwk6maa2hAlrDqeoL5j8lCY9sPJVX1AEUaRnGTr4
+	 Sz4jFreYzYNLAvcL7XNynl+JUWMXHS6rxFpWbaEhv90lqGJCqe1k0yt00JOXsh82gm
+	 UkL7epm4Jbd2FnzZulDgIezcaemh12jukhfjloD83xw+TgL3FGJ6gMSc1M8cu2I1rf
+	 l7GndeIStOtzmzSTeHlnW/EwHHq7l2ThTsc2nM92Kkak7GXoE6dFMqNNNgo1rUE642
+	 LTvVnbTWRuYgug5VA/WOs4+tIEesNuf0MM2pbRxtRp6/Z2jsWST2IdFWNb9meAD/XU
+	 sTOUAUIwfu86A==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: [PATCH RESEND] clocksource/timer-riscv: use riscv_has_extension_likely
+Date: Sat,  7 Nov 2026 21:49:52 +0800
+Message-ID: <20261107134952.17873-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,32 +61,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=850; i=blum@kernel.org; h=from:subject; bh=5luqy0+Wcd64e5SmWxt/h/qdAaxawGACjSa6NGWz5LQ=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnvDfW6T0/cmdYrJh8hYdpiEdq0sX7W5Xrejus3E+VKL z+WfdraUcrCIMbFICumyPJg1o8ZvqU1lZtMInbCzGFlAhnCwMUpABOJrmZkeHs1w0D6y4V1ufM1 dxnutfXrX3ReX3O14ept9rKhFc8WnGH4H7+n8c5WF7kMPeYZ+5rn/TKVS6iXnbva8YiQTNBFnkX 7WAA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-While the current code works correctly, replace the unbounded sprintf()
-with scnprintf() to bound the formatted string to the str buffer.
+Instead of static branch, use riscv_has_extension_likely() to check
+whether SSTC is supported or not. For one thing, this is straight
+forward, no need to add and enable/disable a static branch during
+probe; For another, riscv_has_extension_likely() is based on
+alternative mechanism, it avoid some downsides of static branch, for
+example static branch's metadata in the __jump_table section, which is
+not discarded after ISA extensions are finalized, wastes some space.
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
-Changes in v2:
-- Switch to scnprintf() as suggested by Takashi
-- v1: https://lore.kernel.org/r/20261107004338.323417-2-blum@kernel.org/
+ drivers/clocksource/timer-riscv.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
- sound/core/info.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/core/info.c b/sound/core/info.c
-index 023b4736aa6d..2c2a80a7d0d2 100644
---- a/sound/core/info.c
-+++ b/sound/core/info.c
-@@ -484,7 +484,7 @@ int snd_info_card_create(struct snd_card *card)
- 	if (snd_BUG_ON(!card))
- 		return -ENXIO;
+diff --git a/drivers/clocksource/timer-riscv.c b/drivers/clocksource/timer-riscv.c
+index b310e6721fac..151f4f0cfd6c 100644
+--- a/drivers/clocksource/timer-riscv.c
++++ b/drivers/clocksource/timer-riscv.c
+@@ -29,12 +29,11 @@
+ #include <asm/sbi.h>
+ #include <asm/timex.h>
  
--	sprintf(str, "card%i", card->number);
-+	scnprintf(str, sizeof(str), "card%i", card->number);
- 	entry = create_subdir(card->module, str);
- 	if (!entry)
- 		return -ENOMEM;
+-static DEFINE_STATIC_KEY_FALSE(riscv_sstc_available);
+ static bool riscv_timer_cannot_wake_cpu;
+ 
+ static void riscv_clock_event_stop(void)
+ {
+-	if (static_branch_likely(&riscv_sstc_available)) {
++	if (riscv_has_extension_likely(RISCV_ISA_EXT_SSTC)) {
+ 		csr_write(CSR_STIMECMP, ULONG_MAX);
+ 		if (IS_ENABLED(CONFIG_32BIT))
+ 			csr_write(CSR_STIMECMPH, ULONG_MAX);
+@@ -48,7 +47,7 @@ static int riscv_clock_next_event(unsigned long delta,
+ {
+ 	u64 next_tval = get_cycles64() + delta;
+ 
+-	if (static_branch_likely(&riscv_sstc_available)) {
++	if (riscv_has_extension_likely(RISCV_ISA_EXT_SSTC)) {
+ #if defined(CONFIG_32BIT)
+ 		csr_write(CSR_STIMECMP, ULONG_MAX);
+ 		csr_write(CSR_STIMECMPH, next_tval >> 32);
+@@ -112,7 +111,7 @@ static int riscv_timer_starting_cpu(unsigned int cpu)
+ 	ce->irq = riscv_clock_event_irq;
+ 	if (riscv_timer_cannot_wake_cpu)
+ 		ce->features |= CLOCK_EVT_FEAT_C3STOP;
+-	if (static_branch_likely(&riscv_sstc_available))
++	if (riscv_has_extension_likely(RISCV_ISA_EXT_SSTC))
+ 		ce->rating = 450;
+ 	clockevents_config_and_register(ce, riscv_timebase, 100, ULONG_MAX);
+ 
+@@ -186,10 +185,8 @@ static int __init riscv_timer_init_common(void)
+ 		return error;
+ 	}
+ 
+-	if (riscv_isa_extension_available(NULL, SSTC)) {
++	if (riscv_isa_extension_available(NULL, SSTC))
+ 		pr_info("Timer interrupt in S-mode is available via sstc extension\n");
+-		static_branch_enable(&riscv_sstc_available);
+-	}
+ 
+ 	error = cpuhp_setup_state(CPUHP_AP_RISCV_TIMER_STARTING,
+ 			 "clockevents/riscv/timer:starting",
+-- 
+2.53.0
+
