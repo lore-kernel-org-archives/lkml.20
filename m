@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794045980;
-	b=q3TxZwdRsw6B0Zza/G+ckEmSVbrA5Sv36xh/kpuaWllmIvtJQ5+6LWKLfz5IPQN2uwqA
-	 4V/GsGNZ4gM+ZQWjbkv7e4Dq4z8z/gpw5ACD2m07D1a7nVOXfueFQKbtOB/dRz46AK1w/
-	 zxsh0Mu3SI781/J+Rj/20zPBtdZ7PkJvYCrbtwXQlLzkGV34YCEk1Nwd/kd9bSzNKLVdC
-	 ZtCleExGIKRfFZeLNbTrZkkKM1ed1WfVyUpXhh5nUAg7acHe2lYgXjpYyVP2uGFFNSjSy
-	 XdxfZUxx0kyM6XVFSlgWzDs9X/gRRgfgpXdp6Ms0V+DN2nFw15K+YJhIyqqyAhLd/dg==
+	t=1794046108;
+	b=g3+bHVFnmoYVipwl13ZbUcsHRtKMod5qhqnSBG8HhJgtxqO71jl3KofQaPx9SF/1TrfG
+	 gGiB/TuxRSWLE6ghnkGDohgINc3nsV8vGDWjiN5A7d9gxNqhJ6k9Pt2yFM05C6tuMnLbD
+	 VxNz8Ib8Nrw0UqwuGuskjLHdZcJjbPRCZpxLv2TZliIKS/3a4N175SbB8fMFLG6+NU4t7
+	 F2hWS8qQgZ6kwbSUwynqmSl8LSVngOn3xTreWfx5k0+aMRnEO826zcpYoTIiJq3GWfj4F
+	 N4U88v+5ZL2uNTEfNecSly1kxeZbNoTmlEc5b0B8RD8sDIJOxQwgphyKtS95dZ7uh8w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045980;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bCerr+Z00LP4frO9T0gK5dDmzJIA0ndilU27xwPav5Y=;
-	b=2nD2ni0NjMptF7K3jgucWj9CqrXmoG99D6aMwBWgZP0rRXG1l1P9qjLXHc9CSwGbhWtK
-	 Su2GSuigtSKZjhFC+JhUuMZoUmDBG6J9h30KbgtQfcrWggCDu//u0vCVvJDwE/dRkUeDq
-	 yWcxxjlO+V8338xhOQE6Dgn4fUGRfp0mNAZ9kAWrox3pTGMpcp/k5mxXX8rWdL1O7xbS2
-	 NAQo+xreaRZSFaK+0u1XzlJKH7fcWESOIhLQsbhEvAa4p1ZskkQUSSkyrUqYcpa3uHdJH
-	 WAOnbGorKLPIWKYsPbpaVgggvHKsxAGCW8mbiGhlWNb9G0HQAegAfakJpJK05HkT/iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046108;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=jExJ96PMaFTbUZdk2gtHqLJIWFN42YYYs3WEkMaD2dc=;
+	b=mOmvPGPgwgtlMvKjU0PUcUdC3FUtbqgjaTZWDxdDLfJvEC/D7DsAX17ENrabh2tTX1ut
+	 01HTOVHpAChgn+NXcEyt/SHSdKNhiQGuK8TKCTAnMwKzAYCDp2xOCqh1HlrvyXRSfS1cP
+	 +ueUEYVf2tdez67xJoSvskXfLQiSopxkSfWaVu8THwGiLyynJJixDo+bGdNTxUyUhSWEg
+	 CUqd+RDE7q4kUyWGcxdbiQYtC7pbcfz2K7Twhq1fdNcAM38456YwXdftbYct+SDF48GKP
+	 CdhVuN4PPeh1NQ9xSLHjn9Ve432EGFU7Za3AHa6tkDETLUYLhGZimvYuIGKnIhnXYvw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi9Nw6ci;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BAB606A32C;
-	Sat,  7 Nov 2026 10:06:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi9Nw6ci
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794045979;
-	b=Qr9KRYOpo0BnzOAUh/keG8FF9wQuSVBVUlCtABCrb/d15MD+d02IHX5nutP/FLeM0AbR
-	 XwSjnmo/V7BPEOUR/LHfKdOd0G5/S5fRcBcDobisRNsLgupNqDsw8unhPL3EuTyjw5saY
-	 7kdwnQyTwjUchv8WvPFb1X1y4lMxRy2YT4XePRNXPMKQv6mwsqlI2dF7j0HZZLu2F+zCu
-	 nlBb6QJobn1DE78qF8Mm+GW1Btxllr0i3gBUAaLcNXky2MUxPC08Fkb9cIxOedZWC8COM
-	 09oIo53YAIcLO01zRxPe6VvyfNiDY+8AwnnY8RLqO4IV3tMbtiZ8rINHkYZs7apr5NA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794045979;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=bCerr+Z00LP4frO9T0gK5dDmzJIA0ndilU27xwPav5Y=;
-	b=yUO0utFlINnHOWOnIBYDClULjL5/f1H+iu6rK8YRETRow97UxzG0WRluMiWghz6HSG2f
-	 S979jQPS1Xf3mZdSSaJ6Yi5ks6J2DCFgyU6XEItjOXpC05XfYSy1N9FmAQtoCi+GvOK9t
-	 oKxaw/nihncVyCij7rh80TuFlf87ydZKN48X4r/WhMCLFAO3nR3Uhk2YKIw37NB2kd9j9
-	 H+fcrSIs0SVgDOWgHzoOUsmHZ2/lJQn1099t3a6AzmZqEg09HM2Y/hu4jb/GWMp1mzHZC
-	 gouezQa4NmFl/DrsQqMGSU3M3B8EaVVKq2Cy6K/YZnt3isx6YnUGMXBh8CngacVoOrA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dN+dPhvd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5434B1F008A1;
-	Sat,  7 Nov 2026 10:06:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045979;
-	bh=bCerr+Z00LP4frO9T0gK5dDmzJIA0ndilU27xwPav5Y=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Pi9Nw6ci7z1e9bSSeYUey6YoSDHF7Rf4K/ZrIm1QDTBBH0wmqN54C9nCsU4+9hj+O
-	 RrOWdJ7WbDeO3PDZz5NUA1Jq0xfco4czc2laBPmYBgxEHwoApBIM66iUSmmILGwju1
-	 K/v+MRU/PN/KT970FtY03vMb8BwcIk33gfgLYB3Cxc8MSSNtjH8DAiw8h5Zh5E1v9R
-	 shyCfLyKzNCa3yJPyDgLos4G8ikthh6m/h5BkmVD7KCZDuntJveqSSbkg3jGcNG3uj
-	 uBnJqkXyo1ilN8KsCGY91X7WC+b5qd/OxSOChCvPiFxwre70tt7D8ifnjLeP7EmdV6
-	 yna43pvLPmNJQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D1E9347B2F;
-	Sat,  7 Nov 2026 10:06:18 +0000 (UTC)
-From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 10:06:17 +0000
-Subject: [PATCH] usb: typec: tipd: assign partner identity to persistent
- memory
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8E5606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:08:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D8E5606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dN+dPhvd
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c00ba845e7so239859e87.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:08:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794046106; cv=none;
+        d=google.com; s=arc-20260327;
+        b=U4f+z5jM66KGQkecUFK1H9Hu6WKlWoepckbRV6Ujx6DXbu6sOIoI2llyM6ftH8qpYQ
+         50wWE6pkTa08PZ2U3G3sNa1m7KRtvT1knfVieF8Zu3FAejMV0TR5WMhDOlb+NVnrtnJf
+         wkt6jtBDEiGAYT3MN0Sq37d//BSGTVkBcE0NDEG/jztOpWMcx88PlHU8PV+AtaT3Za5r
+         ACwJC5luQiipJu8uoWSjpFRVQ/O1nqFvV3xyBD3kG5jCkKJqeWHciW5FjiG/DWmbs8mg
+         FjApNp6YMVaLZFbpPSuhV8qcl7JmrEPk0CfR971qpJLYyV2nNpFBlrZdN4HopaP0byYC
+         FuPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=jExJ96PMaFTbUZdk2gtHqLJIWFN42YYYs3WEkMaD2dc=;
+        fh=dfgxR97dYuJG9q7Ki8k5M7kPCpc7fZn4Z3/FUhCXix4=;
+        b=Zp9dbkmHmW7vXGFyTLuxwxfKMJoam68rsgAKQljMhQSHld7ccEsS4D9dukqRjjR7oL
+         /lzTUZX6RAwM7aCx55HKcK8EmPu0rCI3PHc/KMIUJXkuKFLd/xchkTN4T1W+BMdC6nWE
+         XtdsS93Xf8iKnlBuKfyqIP+cNQUCCDpEAj6bAj9Q14SIum6oD89ovcWL6U6JVF5ipAnA
+         Att8DhNQsMZD7N8gDf6qLY2HDKpk/F7VTHCn9g0swTrez7ePRJSvvVtz/RxtfKqDCYHs
+         zxjBCmWHCeX03eY8upEpd8bm87Ts9YKnT2OVK961CPiYbG9i/io5BR+dHtFhzlwZPth7
+         +ZqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794046106; x=1794650906; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jExJ96PMaFTbUZdk2gtHqLJIWFN42YYYs3WEkMaD2dc=;
+        b=dN+dPhvdmc3hxOpLSltkJ3I0neMoCY2UTOHFkaQXiEvy3suG9U4AvMj5ZeRmpspmLq
+         j7CcLNXppwPPFaCJZVvX29ax2sLdg9WOvZAr9ehhkSEuYq27a4pGgGqJ+qkAm3rwiRKj
+         xivYQx5qFIXFlXRXQmzyLSxpQcH1F9aPZrHoFkYmZWihwZW0O0a3NYlowKSTuf/9DT7o
+         5S8tAdOrzzgOz9dQsDflbbtxh0S9+OGI/EQ8MBdq8/CoPd5cKYb0Z8pxu7gReEsD6PdE
+         11uRjZ5oPaX5ZZGK1BqEFfcCBZa/XgYATFu3IDPNy9PRvzwNBXXsZTaaXhKog0wgwCSy
+         VQvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794046106; x=1794650906;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jExJ96PMaFTbUZdk2gtHqLJIWFN42YYYs3WEkMaD2dc=;
+        b=kVS3BYMeX5J0SM1eLp+MPjru3VWAE48kSjMs5qyh69j5axoGDY8dxwtAte/AmTOSJ6
+         8+Wsql2wiHtWHB7cJFvO+cAN6YEd+Wac07796gupr5Jl649yItxj82/0YmrL5eG1EPph
+         aX/TgFVnAy+DCEoADAr2QN8/LLlVZKpgsrTTtOdob42ANFnCnCqOBUmVxGbYw/2DiRAi
+         mz9lMXTiG9+N/H/nPb0Cr684vF46ZpFf5Q/pa89Wm9ov70+mrUGmOGjST1yX5d8ETXdn
+         cXwqbTlKEOZ5JgzqBaCxbFqbk0cvS95eI24NoT1zIzj95O/IYwKrKq66yhLmxYATTO4m
+         if1A==
+X-Forwarded-Encrypted: i=1; AL+hErH1bcSO4/WmbpSFV4ZVag22xik95x2UnnPAJ29QWfsS47EqouZ0bfBevNILJbkZm3AYpoAxowe0OCqmA34=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/j7E9XJ0IWpZoaMEZ2J8cC/dbcwRtIsSNzcfcTmGZy0/MY8rI/
+	IvgdviyRXbV4ZtLUGG+CqZxctVp3GbKnJCgAIWZlpiKYiJ2pZ3HHOtWKWjd9a8q+qjrcICFOuqP
+	wOqwARfl2b2WjAjM3/qvMX9XWclZxx7EDqBM1Ka7OkQ==
+X-Gm-Gg: AYBFou2lULj+3xyN+w8/H3wsXwphINYsbYE0HOxJ+AZvurcmrxNf932au2MK6K6odqg
+	fRoUk8B3GJrkUK5WmW6H/8uW4/XHjfcVL8TLUdDSn0MBO0tXJ2+8WRIU+Cc0U8QR3K7zhMQnwfM
+	wtyb+PXGnu3GR9iLfMT8a1Tgqt7JyspIa30WRlz6AfgJwAac4cT1M8i1r87TuwDinZUTEPNQRZl
+	f77GwxGDRdjhmlWbQr+S/EonbIbj4Z0JQnzsfXlzlpkhqw3BvL5o9Fnths6GynKI4TpXyL4xJmn
+	QftIbqzMI31r+5zjPxHrYAAXGn2FNS8GQdEMKDISvgLOfsrv8tnLoIiTv1pHYVYvvrmsBY/bnoE
+	frC3r56YaBSxwXp+COTqnYkwiPOFruXcvP2wegZduS7IMFEDgF1JhWB0Pn1hiBTJes4SSxJ8=
+X-Received: by 2002:a05:6512:3409:b0:5bc:d39d:9b38 with SMTP id
+ 2adb3069b0e04-5c003a9d0d8mr1491121e87.32.1794046105997; Sat, 07 Nov 2026
+ 02:08:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,92 +103,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-tipd-stack-uaf-fix-v1-1-efcb517924ec@gmail.com>
-X-B4-Tracking: v=1; b=H4sIABj47moC/x2MSQqAMAwAvyI5G2jc9SviobSpBkGlVRGKf7d4n
- IGZCIG9cIAhi+D5liD7loDyDMyit5lRbGIoVNEQqRZPOSyGU5sVL+3QyYO2pKpTdW8UtZDCw3P
- S/3Sc3vcDewcuVmQAAAA=
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Janne Grunau <j@jannau.net>, Sven Peter <sven@kernel.org>, 
- Hector Martin <marcan@marcan.st>
-Cc: Neal Gompa <neal@gompa.dev>, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nicole Mazzuca <nicole@streganil.no>, 
- stable@vger.kernel.org, Michael Reeves <michael.reeves077@gmail.com>, 
- asahi@lists.linux.dev
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794045978; l=2080;
- i=michael.reeves077@gmail.com; s=20261107; h=from:subject:message-id;
- bh=11jWNoNyYcLtaaM1fNLvBsJPDBw5EU5pTtOvCfnWMwo=;
- b=G8zeiNyKG6OsjYAWHxwP2e7A8a0o4EJnDAxqrHOhnh3417IfBii0p81xO2n0aHm5VtGC5oEU+
- uFXHj/X3vdEB84NUrq78FxoXHyWuPOrJIdBMg3CrPlL7H6qxZF9Q4MH
-X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
- pk=ykwkLcuByJYb/cdLc2UuoYP03pIzwrscEZg30+4tJL8=
-X-Endpoint-Received: by B4 Relay for michael.reeves077@gmail.com/20261107
- with auth_id=1442
-X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
-Reply-To: michael.reeves077@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261101153000.20839-1-ravin.chokshi@gmail.com> <DML5U1TLCIEV.1XRE244JV8BBF@nvidia.com>
+In-Reply-To: <DML5U1TLCIEV.1XRE244JV8BBF@nvidia.com>
+From: Ravin Chokshi <ravin.chokshi@gmail.com>
+Date: Sat, 7 Nov 2026 15:38:13 +0530
+X-Gm-Features: AclHuK9wPLzSVwo1lCdFSDzmbWfi_aLkHtcPoTRq-44L11cNLY7egC1NBa4mk8k
+Message-ID: <CAJxH2C5XUfTJY7RQ4aRAEu77FThiGvatLa6cUSbuwUbGFFfE5w@mail.gmail.com>
+Subject: Re: [PATCH] drm/shmem_helper: Fix kernel-doc name of __drm_gem_shmem_free_sgt_locked
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+	lyude@redhat.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Michael Reeves <michael.reeves077@gmail.com>
+On Tue, 3 Nov 2026 at 06:17, Alexandre Courbot <acourbot@nvidia.com> wrote:
+>
+> This is a duplicate of a patch I sent a while back [1].
+>
+> [1] https://lore.kernel.org/all/20260622-b4-gem_shmem_free_doc-v1-1-85496c597b18@nvidia.com/
 
-cd321x_update_work() passes a pointer to a local stack variable
-(&st.partner_identity) to typec_register_partner(). The Type-C core
-caches this pointer, leading to a stack-use-after-free and a kernel
-Oops when accessed later (e.g., via get_pd_product_type()).
+Thanks for letting me know, and sorry for the duplicate. I missed your
+patch when I searched the archive. I'll drop mine.
 
-Fix this by copying the identity to the heap-allocated cd321x struct
-and passing a pointer to that persistent memory instead. Move up
-the assignment to cd321x->cur_partner_identity, so this works.
-
-Reported-by: Nicole Mazzuca <nicole@streganil.no>
-Closes: https://github.com/AsahiLinux/linux/issues/668
-Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
----
-Cc: Nicole Mazzuca <nicole@streganil.no>
-Cc: asahi@lists.linux.dev
----
- drivers/usb/typec/tipd/core.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-index 02539378ffed..dce0aa8be5e0 100644
---- a/drivers/usb/typec/tipd/core.c
-+++ b/drivers/usb/typec/tipd/core.c
-@@ -855,8 +855,10 @@ static void cd321x_update_work(struct work_struct *work)
- 		desc.usb_pd = is_pd;
- 		desc.accessory = TYPEC_ACCESSORY_NONE; /* XXX: handle accessories */
- 
--		if (desc.usb_pd)
--			desc.identity = &st.partner_identity;
-+		if (desc.usb_pd) {
-+			cd321x->cur_partner_identity = st.partner_identity;
-+			desc.identity = &cd321x->cur_partner_identity;
-+		}
- 
- 		tps->partner = typec_register_partner(tps->port, &desc);
- 		if (IS_ERR(tps->partner)) {
-@@ -864,10 +866,8 @@ static void cd321x_update_work(struct work_struct *work)
- 			return;
- 		}
- 
--		if (desc.identity) {
-+		if (desc.identity)
- 			typec_partner_set_identity(tps->partner);
--			cd321x->cur_partner_identity = st.partner_identity;
--		}
- 	}
- 
- 	/* Update the TypeC MUX/PHY state */
-
----
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-change-id: 20261107-tipd-stack-uaf-fix-d3148059c017
-
-Best regards,
--- 
-Michael Reeves <michael.reeves077@gmail.com>
-
-
+Best Regards,
+Ravin
