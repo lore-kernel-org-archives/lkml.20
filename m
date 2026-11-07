@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794070889;
-	b=YvFWOeLY6BU76ACPQnBjim7V/yJQBQGnlz9VoStN8/hDg95KHp0ibP+JrPz/m5gJgTG5
-	 1CwbFkP6Og00pgAM0HSFtK3UHOH/EGLA8BHaNF1iAJwZGPPRF5WR7TS7gTdC/TP+ayutS
-	 9oxBb2Vyw54MO+kM0hf1wD+/YlT65Va0kVoh4fFE8vxKTTFfCsPXEqN2vqhDiI/nD+BY0
-	 FSYLgzLrzH54D1ELMzqG89azn8p0tlc2IvILH+fT3/EzWYh31hHxSFZDex/b7JDL1o4Lb
-	 fiYctqnW6M6wSEmZq3vCXEt9r0LisKrdmSr6ZmghQ9wy1uR774x+OZ6+sPeUbWjXniA==
+	t=1794070888;
+	b=zsfla3JtwvKAdMd8h5HfVamP5zH5X9SLNuSLs/bAxjHW1onay5UbtGOOG6ZimjqjcJSn
+	 6qfxTwISKFRk1i+/16ioDPwc9wx4cYXmWSd/Dv6O3kTD2kZtOaur+92DZKFepKcrOgCy3
+	 FaKAM77T4dqWfzW/Diq3IBpBdYE160rwCUWG/Lnn/VEf+GQBu5iArPqu4Fp8UnXjyJxBN
+	 vxG956fxNOwIDtiGMUVP94D3cFiZQuZHCxPN4+3/9xBO38IEHFRg/mAQN5g6G/W0Gxp34
+	 5zoC66LCrl1CYBaXL0GA2/9NjysaBwAjzC/tfbumGjYmy2QBgMMVOIPqnkyK+g9vOxw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070889;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=obYO6TFy1Ty23KbAzYDL7ZaQNHsENqMf56bYIzds5Mc=;
-	b=1xeq2Z0QSh81M61SaEpg9JBgttHF/n0oBZaBr+suYTUwX5zHu1jTMEb/GTo/JBDU1NK6
-	 TfNAG59T55+oxudGNbkBoGQrMZB1BSC0Q6ON75GBDVlGJr6o4TpNeK5wYjofdk6PIKzPA
-	 uOcvBYnfJ2ilEpGNsgpdOD84s41XhbmwfsvWf8TeC9clW6GI7U6o98ha9ZVXKCr5r34wz
-	 X34Oj5dM/yGcfw+tYA4jcEwpB2EiDFrIBNlGfDiKQ9s3zO+iIPjZdb4/bMXe7mgkAECHJ
-	 BdjxndGj4fLF6Ym4HcihDHa3jY6LzSG/kHoHIc4XCSsRCnXN+ZSN1wLPyI/tE7vyClg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070888;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=lt4Dg/h02QMbLaK+eVEgXLfNXEwHpnTkDXewtKz3yQA=;
+	b=GFMaBCxdGBrNxzK/Ch6W3Kzy7iF6hBsN1pTvvAYOKsz+zdqHR4KWHrBuh/xPMgdmTIKl
+	 TFi1C0JHuU6JtydM01eh10DI+IK+5qKlaV0hkR6Z0Xjb8hlUg+TjsBtRTGyzOh0BivPNi
+	 fRcNAKe9qJkZ4+/VA7GgxKnuYSgBpe9odunziF8YdbUtNyqv4isUgvhkoMu7OTef1A3Mn
+	 fTWXSNC6aAJDQcWSZ2n8o4LH1f4Gna06UsyH0ugzToC/yHkmhuOV3JEd9OStKY/+hV2Ce
+	 4KkfZbmKxBq9RDu7y3clVTJodg6KegJWD8BDpPNMHF5HFbH1NwBLYSnl+AKmQGacEPw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bgzshof9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2l7CDF8;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CF5606A33C;
-	Sat,  7 Nov 2026 17:01:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA19D606A32C;
+	Sat,  7 Nov 2026 17:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bgzshof9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2l7CDF8
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794070888;
-	b=wHnpAyrHMvVvg//kvPUUjIJp6YVurK2qKXOcL6TXCnbdF+bhG7J2pyADyEg78Y8Kt3oW
-	 tCmpB+i1ZCkihrM+yU/RQo9XcGNwR3YA7IKMgtHbHTtojO3cVBFzgE9fFXffpT3ozWBve
-	 mJjqdtsq5H4hcLP8KC3OFUY4URoj7NaJHxbRMQ1hEZKLfksIs54wShQy3YyZYR4BWGwWI
-	 FSUZ73KgyH6EsbvgLIs0gb9DfBzPi08ReSrPwbweeJUjD0uRunQP1Tgce4cZJz2xMR6rS
-	 TjTgkso249zGjCxZwmDZXb/yCHpIFDzrKD9BpA885rGiP1VXoE/Dnhu7lVTbIxernaA==
+	t=1794070887;
+	b=EjMXZ0LfU5rUq3UZkwI68toAwavZuY5sRMYfagR8Fylc7Gzt6q4pJEWbWMtEFzYpMaxV
+	 rgroHwiRF5eXMHBCKed0Xe8Jf9YsqEEQJL88gnvIFRjriy2sfMuYWNC3bo+ZjTTMNbY5Y
+	 37Tr75dt38Eugi9hubmxDnuuPecsZraHlZl2fPlbmSPAZrtwVSqgC94RRcudeuNibxVhz
+	 LfWzorANUWGIc/Us5nnIYdDMRA/fMoosRFLisokkBeClFkepqgeLvQg/nut0MJIfIL4fh
+	 waCHB4380tBW7RTigrRhdLdago1mxF3n5/oJWFU+G9woVkv308lx7/yFaK+ESYpxDMg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794070888;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=obYO6TFy1Ty23KbAzYDL7ZaQNHsENqMf56bYIzds5Mc=;
-	b=j1IDth/60nvKb9mgOn7nQ2qf5+jSFSEM0bLbY0LuW/kQZ/pYtJePvK/tbu7/cfPFzFZF
-	 YqttWgDxaaEh1V1rwbvrgB8WFiUB9sgN51W80igBh6VjuZB8kXWM3/3vLcunQDjinMRJ/
-	 W416Bmr8N3xOwdqECzuMGe5xXKTLA3Z5B1tnp95bKNxj9Gk8c6KA+O/K2BqrgT60qF3Cn
-	 VS7u9VWLRq8VSJDxSWZMcNpSl4P1t0b43HeK5esemjSEuMICdMCNiKWDcQO2vrFRFS5Up
-	 /b/DY7Cw2f1mHX2RGGRsfJZ7sy9oiicQ0Ns5F/CGm3tMICivtOKbic2cR+YA+n0/zBg==
+	c=relaxed/relaxed; t=1794070887;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=lt4Dg/h02QMbLaK+eVEgXLfNXEwHpnTkDXewtKz3yQA=;
+	b=b9xzuLJ6aWiuNhlZYJkKkhNB0SrtxscyqbvazdXx4lDswMRxI06bgt4hA5Wu9d6eWgHv
+	 jdFk/npCDvne17YDJz2uMoQAvr/WF36MqXnFC+YkMEpuM6Igj/uptFoI8KZHieUl2oTMN
+	 q9YgaaZ+KSFam89Icp1v6tMSdDlWmtpD15iEqcHegqZmAmX2g2+0sJ/fdQKhooDcbpo5x
+	 GgYqGf39yf+fD/PbSNRbQO5HMoQCdrb3u2xwWrJukpM1ARwXIZ2N+lPLgOrOCqxrYVWPd
+	 CAKTp4+BK6O7mI/+K43ynn2yT+LNLgyFUu1oaD9LgzYfdUkgp+XJt9DkEcOYbzfQvqQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1EF0D1F008A3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1ECD31F008A2;
 	Sat,  7 Nov 2026 17:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794070888;
-	bh=obYO6TFy1Ty23KbAzYDL7ZaQNHsENqMf56bYIzds5Mc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Bgzshof9+nBRozgIlpJYY3cINh1JkrLUyMQUpPK16bIRIzAqbqvZMHe4uaJJHMRU9
-	 4TL09h1nQDtiud7JfqkHq5fjwJmaPNwn2/4LwhXJ8Dl0VwQwbfhK7fNETcomE0P5LB
-	 0C9F4U6QHtHWWRLJWVzLlwDV+uUBBrNmKl9edpvTOXyM+MVnP4pqJuuU8+D4+Mo7Jd
-	 sZQmjwqkQWam6LbUXwBgqaRe32UAiBkaLRV0b6F+zCmUGN7sLPqRTkNIe+02QFP0TU
-	 QEBX7lksfsHdd/itwjM0jYuw9HzGs1Ab9vEZArsiLQRW8nns7EuOxO/h5ssuaRVpSh
-	 4T4hB8GPAGxEA==
+	s=k20260515; t=1794070887;
+	bh=lt4Dg/h02QMbLaK+eVEgXLfNXEwHpnTkDXewtKz3yQA=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Y2l7CDF8sqvjZqJbkW8fFFY2MaBZik0TEOYcFkkohU2QkQXgWvfCP/Srz1qW4ETbC
+	 vwSTGLFUMOxXRdu5eRBy93n3nFYeyHN2BgbP04PTgjLqW1nwgMBIatu0c/dDkghka4
+	 Mdko8mTVkcq/xwEJHspNGGuxgBeGUkFA5qbDG1dRUIfhn31ROjAnIj8fJ38agOPAle
+	 1Y8j2ZeRVZDyjb+P0cIlHQqcKdImKtUy+48dqFZgOo7YNcUDWYcM+h8ckFfe1vqbgL
+	 yxyB37cYPsVszAA20YAy3bU2QepqTTtgnqNvwCvuugSVPn5487P2na0N6uSKPnH9DI
+	 S2tLhiuAdeJOg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 93C4347C8D;
+	by lkml.kernel.org (Postfix) with ESMTP id 6FAD447C89;
 	Sat,  7 Nov 2026 17:01:26 +0000 (UTC)
 From: Hleb Shauchenka via B4 Relay <devnull+me.marleb.org@kernel.org>
-Date: Sat, 07 Nov 2026 18:00:46 +0100
-Subject: [PATCH net-next v2 2/3] net: phy: realtek: return MDIO read errors
- from hwmon
+Subject: [PATCH net-next v2 0/3] net: phy: realtek: register hwmon thermal
+ zones
+Date: Sat, 07 Nov 2026 18:00:44 +0100
+Message-Id: <20261107-realtek-hwmon-tz-v2-0-6b9a69d44470@marleb.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,12 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-realtek-hwmon-tz-v2-2-6b9a69d44470@marleb.org>
-References: <20261107-realtek-hwmon-tz-v2-0-6b9a69d44470@marleb.org>
-In-Reply-To: <20261107-realtek-hwmon-tz-v2-0-6b9a69d44470@marleb.org>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOTQ6CMBCFr2Jm7agtUcSV9zAs2jrCqLRmWhEl3
+ F3Atcv39+X1EEmYIhwWPQi1HDn4UejlAlxtfEXI51GD3uidUpsMhcw90Q3rVxM8pg8WW53lptD
+ KXgoYZw+hC3cz8gSeEnrqEpS/JD7tlVyaiFPXmkhoxXhXT1YQrtivG8N+SmuOKch7/taqmff/R
+ qtQIe1ynevMbffOHhsjd7KrIBWUwzB8AWPgrAnrAAAA
+X-Change-ID: 20261103-realtek-hwmon-tz-95237a921bf9
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
  Russell King <linux@armlinux.org.uk>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
@@ -96,70 +100,51 @@ To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
 Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hleb Shauchenka <me@marleb.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1888; i=me@marleb.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=me@marleb.org;
  h=from:subject:message-id;
- bh=6gM5E4J0rm2zZGPKen73mZQlszekR/xfc4TyxcghaYg=;
- b=owJ4nJvAy8zAJTZJnM368y8lXsbTakkMWe8jUxXnvfZNqxCsenZs1ZQEq0JH59TA2bLLrKfvj
- lP9mbgo6lVHKQuDGBeDrJgiy6bmItGnK6PfulbvyYKZw8oEMoSBi1MAJtK+mJFh1UTJyj1FoSKu
- u56KRQaof1vyPzbxVr7cLuUHK6qOzLz8g+F/bEjTtIcF3yuVZ1m0HxFlnPGp8wDbkWbNNTu4265
- OdvvDDgBC6UmZ
+ bh=jAz7L+bhgd/IVWN5dn7Smhib0FoZG3Ky40jagdvleSc=;
+ b=owJ4nJvAy8zAJTZJnM368y8lXsbTakkMWe8jU3kmRdpLp007m2Ck1bXiqMS8m4L/ThcZqO2pn
+ qXpdG3NVcuOUhYGMS4GWTFFlk3NRaJPV0a/da3ekwUzh5UJZAgDF6cATORrC8M/zeSla5JvOp/d
+ ovrp5t0Psl9uTAi5u/Xj6/Ld/Mln/+k5fmdkmOM5heWJuyPjJY6V39Xmy6UtC3Oek3fqYJPO7Ow
+ 7K3mtuQCvbEpo
 X-Developer-Key: i=me@marleb.org; a=openpgp;
  fpr=B2837215E5A95BED457BBC6A9217063BF3FA220D
 X-Endpoint-Received: by B4 Relay for me@marleb.org/default with
  auth_id=1394
 X-Original-From: Hleb Shauchenka <me@marleb.org>
 Reply-To: me@marleb.org
-Content-Transfer-Encoding: 7bit
 
-From: Hleb Shauchenka <me@marleb.org>
+Let device-tree thermal zones use the temperature sensor of Realtek
+PHYs. Patch 1 allows #thermal-sensor-cells in PHY nodes, patch 2 stops
+failed MDIO reads from being reported as temperatures, and patch 3
+registers the sensor with the thermal framework.
 
-rtl822x_hwmon_read() masks or shifts the value returned by
-phy_read_mmd() without checking it and returns success, so a failed
-MDIO read is reported as a temperature: -EIO reads as -2.5 C and
--ETIMEDOUT as -55 C.
+This series was prepared with AI assistance; each patch says how.
 
-Return the error instead. Once the sensor feeds a thermal zone, the
-thermal core then keeps its previous state rather than acting on a
-bogus reading.
-
-The problem was found by an AI review of the previous posting, and
-this patch was prepared with AI assistance (Claude Opus 5.5). It is
-build-tested only: I could not provoke a failed MDIO read on hardware.
-
-Fixes: 33700ca45b7d ("net: phy: realtek: add hwmon support for temp sensor on RTL822x")
-Signed-off-by: Hleb Shauchenka <me@marleb.org>
 ---
- drivers/net/phy/realtek/realtek_hwmon.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Changes in v2:
+- Add #thermal-sensor-cells to the ethernet-phy binding (patch 1).
+- Return MDIO read errors from the hwmon read (patch 2).
+- Patch 3: name the mainline PHYs it affects and say that the RTL8261N
+  test relied on OpenWrt's out-of-tree support. Code unchanged, so I
+  kept Andrew's Reviewed-by.
+- Link to v1: https://patch.msgid.link/20261103-realtek-hwmon-tz-v1-1-e672723c58cb@marleb.org
 
-diff --git a/drivers/net/phy/realtek/realtek_hwmon.c b/drivers/net/phy/realtek/realtek_hwmon.c
-index ac96e2d1e..b6b2806e2 100644
---- a/drivers/net/phy/realtek/realtek_hwmon.c
-+++ b/drivers/net/phy/realtek/realtek_hwmon.c
-@@ -30,13 +30,17 @@ static int rtl822x_hwmon_read(struct device *dev, enum hwmon_sensor_types type,
- 
- 	switch (attr) {
- 	case hwmon_temp_input:
--		raw = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_TSRR) & 0x3ff;
--		*val = rtl822x_hwmon_get_temp(raw);
-+		raw = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_TSRR);
-+		if (raw < 0)
-+			return raw;
-+		*val = rtl822x_hwmon_get_temp(raw & 0x3ff);
- 		break;
- 	case hwmon_temp_max:
- 		/* Chip reduces speed to 1G if threshold is exceeded */
--		raw = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_TSSR) >> 6;
--		*val = rtl822x_hwmon_get_temp(raw);
-+		raw = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL822X_VND2_TSSR);
-+		if (raw < 0)
-+			return raw;
-+		*val = rtl822x_hwmon_get_temp(raw >> 6);
- 		break;
- 	default:
- 		return -EINVAL;
+---
+Hleb Shauchenka (3):
+      dt-bindings: net: ethernet-phy: add property #thermal-sensor-cells
+      net: phy: realtek: return MDIO read errors from hwmon
+      net: phy: realtek: register hwmon thermal zones
 
--- 
-2.56.0
+ Documentation/devicetree/bindings/net/ethernet-phy.yaml |  6 ++++++
+ drivers/net/phy/realtek/realtek_hwmon.c                 | 13 +++++++++----
+ 2 files changed, 15 insertions(+), 4 deletions(-)
+---
+base-commit: fa5196392691051963726787944db872420dfa75
+change-id: 20261103-realtek-hwmon-tz-95237a921bf9
+
+Best regards,
+--  
+Hleb Shauchenka <me@marleb.org>
 
 
