@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794028655;
-	b=M9M+qvNkWSloHblhnms9Xdq5dLRdtDHun1oZ1i2rnvbP96zR6P2ge+Z48umfQcqqjHAU
-	 0T40OoV1n4ozcCuz7cVHbqHy9NHxni9tGKI+hYhEU6M5ibqT1KhpIYzoIGovdmkRLU9kb
-	 UUpQZdjULCYEo87FOs7U47s4OfG7Quw45JcmW/WyOxCJZ1CPaN0uXNfw/EDnOYw03MxgC
-	 AmiAUdF+fskMfC66uzF2+vu99L8kBdDd0fDxiO4o/3NoZvEl1a2nKzIC1Hh/h5jUHxBuy
-	 YspPuvobydw4vN16IBfAU/4Y4nCBhLzbKgiV/OoXmW1seY3k7Nsv1C9SE6AyFLHBB3Q==
+	t=1794028724;
+	b=Ix50UuakOkz8+RS1LWP7ZVgPbAKhdNpxrBUYERQU1RmJNWMfn39xj8blvKFb/Kmyxnn6
+	 Nq/E4KgPTrDnB/9++CeeiDvWT5EKyLmRWcVa/OXjaHbktVX92tKA+3rhlw78erqTXrrQz
+	 TBv/miUwYSkiLH0DiLOs/8A/Y1K+4yCvwIbu/Vf2XLggHNdwJYgRc/yL+89ktC4iPChuX
+	 y7pk5Au/Jm5M3vSP5jtCEOcOkVERJLdzDkd0kyTxAW/cXTYRolOMoEIh+IQxP/6jT+Ivv
+	 GDAoGwy8KWfKxV2EpsrbLWk8L2uI+eRzmGDJS7Q9PsxAS3ATOZUj1+CSW53BL2/WY1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794028655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794028724;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=vCTgyycIflOX8DIFUkseDn+OY9DjAvHPkZI6oEwJhxA=;
-	b=3/wA2hgXAH2eJyMtqIT3VHoWDrIOjyA6wXsI9LAasvjhD8YaM0h/Dg4lTO4IzFMpiTNo
-	 wH6tTHeOORgoA4pxAqeLmXlsk5nhFwfbBdLqfAa3GS3pb5p24ywrmeOGK+ZuS4z1XMNzx
-	 XVKsI/VQ23HoW/zWpLaW0kUf/fiI1cSOF+rHPGL2ZB6aGEKdv6iQrm6aOk6hQtJBP88GA
-	 Xi5xiyh6iKGzHYv4PbmKs+1XXpzJfGoLpepmzwsGmpEFEA9/LO6gTAt3mDxLx3SDwdFn8
-	 mqy66RzJTf5ZEoX+Ev28IfMGCw31ifUcZMuiMbOlxJmzKOgbO8nJckcFZ6QLb1spoqQ==
+	bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
+	b=e8WmszxlWH8nX4w79iaoBsRPm7VZoPjJleopWyKWJfktOim+fE98zMTZEqYNJgJfRbFG
+	 GbniZ7db8Y+7/NPMulLh4ZfJcwIDADIKyk+Nd6vnMcuUgUEaCDuRw1NREs2tqidq4W2jr
+	 1LDjRC86uVZT5XUBgcGtz+99Cg1qpcMyws0XWyPeGCj33iyitZkjWQ1hy7bFLKcCapn2B
+	 tLF0fIHQ7CzvccLjBddgszVWCK4sBqlEzozlwXkv901G72UodWRcIx27wJCOPBcQmNM9q
+	 h9PrFAMit4N85YvaE+zGX98FxP66xMXn47YoCp4a7p2Fo1UF985sFa6edLrdivR8aoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqY4XhIY;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5v5llPK;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D22606A332
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:17:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D22606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15A2606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:18:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F15A2606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqY4XhIY
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e9d7791b00so9627615ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:17:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5v5llPK
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so730776a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:18:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794028654; x=1794633454; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794028723; x=1794633523; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vCTgyycIflOX8DIFUkseDn+OY9DjAvHPkZI6oEwJhxA=;
-        b=eqY4XhIYPBdLTeXVUr3lAIezwHA3rSnC5XoR/WMDyE7lVYc28tjb2e5k9SFBD+8nwY
-         mPs42hvwm8pAqkcPYvr8P5Pgei6sf0XcB9HGchj8qwdmfLsuUlIiLwbalO19r8G01F64
-         9ic5E0jNVCGMWlzo4ezbYsoOn6mJ8usyqR/3HTrxnA6Wg0w7PqULkcq9u5Zh3D0KEU6Q
-         /7eAZcsXC42CHYTM3bVvZbb4qHJHlwMFEmRvuj5xQ6wF+62VgBnj1mdBoEx3RsenN8Ku
-         zo47ziPsSAqGkj9GqQbsB8HB7zTFd4uLKFlCHoTI27WldHNyahN8RGVdYksXUCrEbQoZ
-         19wQ==
+        bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
+        b=h5v5llPKaFu3fMlhcSWhfngsLZGQd1TsUbhsX3QVDmc9B0roRkq/BB1xhC+cbZGT71
+         gsoeU7oTfZsWAi4FaTjTShYUrrfBzMX2KNC8ZJG07iUr4Fc2Q7R8TiPEUchyrNx19LrB
+         sqwcarkOC6aKMXpV/Cp0Cw1B2HWHmiFYt4rtur/gJiliNQXYcZSfKXqT4G8HJvCRHVwy
+         ZFFKVW3bcubzPMKQD1u3aaLOPHRNoiN8P/lUJC5+aikahIHxco7AzjfW8tPNWgXcsfvq
+         MOFVqI4ZGCxigpeA26DC4+gyp1BBT5m4egxv23UMlbSeskvfXVY06IrKv6VgBQ+vd8UA
+         +lZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794028654; x=1794633454;
+        d=1e100.net; s=20260707; t=1794028723; x=1794633523;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vCTgyycIflOX8DIFUkseDn+OY9DjAvHPkZI6oEwJhxA=;
-        b=uZ1uv0tmJJze9BGBJS+ZgAfMGzJbOd0EJCO8YGLGrXvVwq3r0VY77u6XS2WVjKTDGs
-         3v/KD/ViLDtQDl1C7krjfreUu757hJr5nLY1Yy3AdnR2FLw6snK60NSrriRs8bkD3iY0
-         xLUsKTLYq0nKya/ZOwLxrttxyy8QiA6cVRaw29JJY7es0SKKJiTwrYNbIWTPzU+ytE9e
-         J8yL1IqBJh6ti+7xj9e7PwfLY3P/jbkbvJwc7+vhqLc4XSbdVZs00z6iTuNOInyl9Lgg
-         YRp/TRFBdCbOd8tQ2MGqHZ0lMAULp6cqvTGB2L/oiqEBstf+rwbigUo5bTmww/ruMWkY
-         34TQ==
-X-Forwarded-Encrypted: i=1; AL+hErEarClp7tPmqJ5llh9jSdxmxUtNWZ9sV+lsHJLwp3im/2ls9Qe1uwEgiC2vzgvGYDuKqsH68Cd0mdveYKg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FZDewXA2rCQozdOQV6i1sUt59JeXVNnCC4dn/uAju1qZxbqhD
-	N6UNm5rjOQxlrqixiQWvHYeTqcv4vco0au2nL6TG5/UefbfA/OuuagTp
-X-Gm-Gg: AYBFou0K3LATXuR1kzuaSdHKpTTb2zxa1UfZHWmPNzz4xoo1uO9RUj9G2jdxErJ5uR9
-	x6XixtdEwtwrM3vsJBEqaZ8gCj4wkZMoRz6BnHQQNK7hb3rRZTGrnHqygn4LOE1WDzYvaIK6Mom
-	kvQtYwHLHQ6Bywhg0zGQ2ZLi3IMogwRYb1LcElIa/Oe9IHqWZTk+Od4HviGd5uyLhMULs+cTtck
-	ezFLHJrHFORyUbEJwhLB1qlrs+LXNCxOFwggA//odkssyJWR6F8ORXxDPIsWV9b6Dj37zWYiR6p
-	Ye5IYiNWVFSzpXaXsviy952VJFIeCixum/z0iyDtyvCYVp3MxLeFrQ3TrfrJdzNrjCu72I/9skA
-	HppGT0RDiFjnETxjKTUMhfCBa5wndocUMBNcQ3biSp2xFK8M4LEZWsEMub4eMgMBTkQL2kEr6Xa
-	tg9z3ooNlcgBhBKx+P8OQGU3B9saqExBB64MAR8g7nBZXCWkUcuTPV5C8m3QwvZAjJoFAOR2tl0
-	1QsM/T9zdqznRoRX3SEyKXCYckBUNweZHwo+t0fBa0Fivv9/8EvFineg4V+gvu7tSMaiadZq/CA
-	ZiIKLyW/jTz9L06QE/QVJQ==
-X-Received: by 2002:a17:90b:3c86:b0:3ab:413:49bc with SMTP id 98e67ed59e1d1-3b0db7074c1mr4345247a91.37.1794028654209;
-        Fri, 06 Nov 2026 21:17:34 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b103435561sm1133772a91.3.2026.11.06.21.17.31
+        bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
+        b=crvaqQt9lMbr7afTas1TlXWVBV206kAGQr1ivWPDk11DJ/fjsqifORaH2v1WLqwDpB
+         s2A7E7q0p4V2Ms635tILOzf3SOtfln2KLwCn1PwPNNtd3bVaR/x64U/+gC3s3DfuyRJ7
+         JK/GWHM/R3N6HAvoTxMYmlCsJA7XyR2n1R1Yiw0y2HBkonQuahVWCyDAxSatusK2O8tS
+         85gAjtShP+2kji9XLgfmfegmT3cEEK3V0vo3ToEQgIXCzWole4jWxEXiF0c2kCJCrHAS
+         XkDZpSoVgS3gu4oIgz11HpHePa1jnStm4lAzlPp46GKA69xTNOQVuIZ82mrpm3Rwp+qi
+         Hkhw==
+X-Forwarded-Encrypted: i=1; AL+hErF02mk7pHc9voltB5ih16ljzykSSTdNhSbA7PGhDFTLNy2lpNt3owyVkcUyhCO6bkeKtQPDHeCUppJobpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Isw8OEjc6RzbErvmlIz6DJfPL4X9Ryh7R9+bf7BnFgts5raUz
+	14TY/8JpdxpSdzLvo414ZmBi3mxgqBB29DZ+HIxob3yhNgT3VuEm8e5W
+X-Gm-Gg: AYBFou3oWpGZsgIGy+CSvk56u5YvTSO0Qm25RLZCY1qBo/kRv3cV0at0Rjgl3NqST8q
+	iCvN+sXFyQLliGau7AEm/6zWLc5MhjzCTMRS9YQQJvjXE7EAkXjBkUsdGK5GBflKjSfgKc+6ZAw
+	roExRfDEDhGW3I+wedOtDfl4BBcCdsPr458mD6SLD5p3BUmAMgCdDfQN7BdFB6RQpsuVDHGTXAZ
+	FV8BiGCPTynxlclbUfWxovvs94/9Q0BU1I55YoGZQxl+MFXnwjU2Iih009kkGGZFlyVY/TgpBLI
+	p8S1oxle7hj3ynceDSVORIWcrcBdmhby8Sre4nLZ669yGbjbcXYlqKheGtTpPTT7tuMd6XTgbrH
+	LsTspUYYNt5EnWhVTdLfoKQKIqVDAAqzJ+DX5vPXIsEp6C/GAtB8sleLZek9082No+EbRSTlJPH
+	st5LmIpmCu1VdLP0Ylxt13MN2jwohMRE28zV0nG52fiXu8Sr6kFOoZcSqkYcO4LsjfftPpsLDG4
+	vzyTi6EOmfJH+Hi4uj+f7mb5cvFCwXVpgM+BM9CAeRw6dWOdZGCjH+2Fvq1NwE/VRKFf3hr9uQ9
+	7iknCBFLoOYlBRzlji1LRokP8RX6jYa2nxBSGbzaCAwd0RE/
+X-Received: by 2002:a17:90b:4d85:b0:3ab:884b:659e with SMTP id 98e67ed59e1d1-3b0db6d7bb6mr4232399a91.9.1794028723184;
+        Fri, 06 Nov 2026 21:18:43 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c1c2csm1785860a91.2.2026.11.06.21.18.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:17:33 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	John Garry <john.garry@linux.dev>,
-	James Clark <james.clark@linaro.org>,
+        Fri, 06 Nov 2026 21:18:42 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+	Paul Fertser <fercerpav@gmail.com>,
+	netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
-	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH] perf vendor events arm64: AmpereOne/AmpereOneX: Fix typos
-Date: Sat,  7 Nov 2026 05:17:30 +0000
-Message-ID: <20261107051730.1880691-1-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net/ncsi: disable the ncsi work before freeing channels and packages
+Date: Sat,  7 Nov 2026 14:18:25 +0900
+Message-ID: <20261107051825.3313019-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,106 +104,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Three distinct words are misspelled in eight description fields in the
-AmpereOne and AmpereOneX PMU tables: "Preditable" in BPU_BTB_UPDATE
-(AmpereOneX only), "satisified" in LD_FROM_ST_FWD, and "misprediciton"
-in the branch_mispredict metric.  jevents.py copies the strings into the
-generated tables, so perf list prints them and a grep for the correct
-spelling misses the entries.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Fix both fields where an entry has them; the metrics entries carry only a
-brief description.  No event code, metric expression or reported value
-changes, and the generated tables are not tracked, so the diff is JSON
-only.  ISTALL - the other codespell hit here - is the ETM stall-control
-bit name, left alone.
+ncsi_unregister_dev() frees all channels and packages via
+ncsi_remove_package() and only afterwards calls
+disable_work_sync(&ndp->work):
 
-Written with Hermes Agent, an LLM assistant.  Running jevents.py on this
-change produces none of the three words; perf was not rebuilt, so the
-perf list output was not checked.
+	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
+		ncsi_remove_package(np);	/* kfree(nc), kfree(np) */
+	...
+	disable_work_sync(&ndp->work);
+	kfree(ndp);
 
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+The state-machine work, ncsi_dev_work(), dereferences channels and
+packages (it walks ndp->channel_queue with list_for_each_entry_rcu()
+and operates on the per-package channel lists).  ncsi_remove_channel()
+and ncsi_remove_package() free those objects with a bare kfree() right
+after list_del_rcu(), without waiting for a grace period or for the
+work to stop.  If ncsi_dev_work() is pending or running when
+ncsi_unregister_dev() executes, it can therefore dereference a channel
+or package that has already been freed -> use-after-free.
+
+Commit a0ffa68c70b3 ("net/ncsi: Disable the ncsi work before freeing
+the associated structure") added disable_work_sync() to fix the
+use-after-free of the ncsi_dev_priv itself, but placed it immediately
+before kfree(ndp) -- that is, after the channels and packages have
+already been freed -- so the channel/package use-after-free window
+remains.
+
+Move disable_work_sync() ahead of the ncsi_remove_package() loop, so
+the work is quiesced before any channel or package it may still be
+touching is freed.
+
+Found by code review; not runtime-reproduced (requires NC-SI capable
+hardware and the state-machine work racing device unregister).
+
+Fixes: a0ffa68c70b3 ("net/ncsi: Disable the ncsi work before freeing the associated structure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- .../arch/arm64/ampere/ampereone/core-imp-def.json         | 4 ++--
- .../pmu-events/arch/arm64/ampere/ampereone/metrics.json   | 2 +-
- .../arch/arm64/ampere/ampereonex/core-imp-def.json        | 8 ++++----
- .../pmu-events/arch/arm64/ampere/ampereonex/metrics.json  | 2 +-
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ net/ncsi/ncsi-manage.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json
-index 879ff21e0b17..5a82a7717060 100644
---- a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json
-+++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json
-@@ -450,10 +450,10 @@
-         "BriefDescription": "OFB full cycles"
-     },
-     {
--        "PublicDescription": "Load satisified from store forwarded data",
-+        "PublicDescription": "Load satisfied from store forwarded data",
-         "EventCode": "0xD605",
-         "EventName": "LD_FROM_ST_FWD",
--        "BriefDescription": "Load satisified from store forwarded data"
-+        "BriefDescription": "Load satisfied from store forwarded data"
-     },
-     {
-         "PublicDescription": "L1 prefetcher, load prefetch requests generated",
-diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json
-index 324104438e78..76cdf38b1e58 100644
---- a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json
-+++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json
-@@ -260,7 +260,7 @@
-     {
-         "MetricName": "branch_mispredict",
-         "MetricExpr": "(BR_MIS_PRED_RETIRED / GPC_FLUSH) * slots_lost_misspeculation_fraction",
--        "BriefDescription": "Fraction of slots lost due to branch misprediciton",
-+        "BriefDescription": "Fraction of slots lost due to branch misprediction",
-         "MetricGroup": "TopdownL2",
-         "ScaleUnit": "1percent of slots"
-     },
-diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json
-index eb5a2208d260..558b13fd7d0d 100644
---- a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json
-+++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json
-@@ -84,10 +84,10 @@
-         "BriefDescription": "Predictable branch speculatively executed, unpredicted, that mispredict"
-     },
-     {
--        "PublicDescription": "Preditable branch update the BTB region buffer entry",
-+        "PublicDescription": "Predictable branch update the BTB region buffer entry",
-         "EventCode": "0x11c",
-         "EventName": "BPU_BTB_UPDATE",
--        "BriefDescription": "Preditable branch update the BTB region buffer entry"
-+        "BriefDescription": "Predictable branch update the BTB region buffer entry"
-     },
-     {
-         "PublicDescription": "Count predict pipe stalls due to speculative return address predictor full",
-@@ -438,10 +438,10 @@
-         "BriefDescription": "Fill buffer full"
-     },
-     {
--        "PublicDescription": "Load satisified from store forwarded data",
-+        "PublicDescription": "Load satisfied from store forwarded data",
-         "EventCode": "0xD605",
-         "EventName": "LD_FROM_ST_FWD",
--        "BriefDescription": "Load satisified from store forwarded data"
-+        "BriefDescription": "Load satisfied from store forwarded data"
-     },
-     {
-         "PublicDescription": "Store retirement pipe stall",
-diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json
-index a29aadc9b2e3..a0dc917b9462 100644
---- a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json
-+++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json
-@@ -260,7 +260,7 @@
-     {
-         "MetricName": "branch_mispredict",
-         "MetricExpr": "(BR_MIS_PRED_RETIRED / GPC_FLUSH) * slots_lost_misspeculation_fraction",
--        "BriefDescription": "Fraction of slots lost due to branch misprediciton",
-+        "BriefDescription": "Fraction of slots lost due to branch misprediction",
-         "MetricGroup": "TopdownL2",
-         "ScaleUnit": "1percent of slots"
-     },
-
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 1d63958..1c2dadf 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -1960,6 +1960,15 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+ 
+ 	dev_remove_pack(&ndp->ptype);
+ 
++	/*
++	 * Quiesce the state-machine work before freeing any channel or
++	 * package it may still be dereferencing (via the channel_queue /
++	 * package lists).  Commit a0ffa68c70b3 added this disable only
++	 * ahead of kfree(ndp), i.e. after the channels and packages had
++	 * already been freed below, leaving that use-after-free window.
++	 */
++	disable_work_sync(&ndp->work);
++
+ 	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
+ 		ncsi_remove_package(np);
+ 
+@@ -1967,8 +1976,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+ 	list_del_rcu(&ndp->node);
+ 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
+ 
+-	disable_work_sync(&ndp->work);
+-
+ 	kfree(ndp);
+ }
+ EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
 -- 
-2.53.0
+2.43.0
 
