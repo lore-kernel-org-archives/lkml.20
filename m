@@ -1,59 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052860;
-	b=sgYSApAuwWgjXibfiJZRFp2Xh8Cgj4mz96buWxG8B4M77Inj4ygI1Hv+qOlM4CT1AKI3
-	 QBCLGBpTM0DXVa5G0uqhw5AFfNXdXScsB+mnTh3TygxChDqblPVn9MFYkwGigWYjfsT/l
-	 UzYvSYPwg3SYmkIFw52OoQ8UxS/Y8QuDCCxYLAIG9XIeDhCYdLaXeqJw3L8PXz6dmVOeQ
-	 b8Uzybu+lp3nZZWgR8WLFHkGApT7eUWH0sE+rEQC1nWJHqBRaG5VTn/+7VfGxTYq67Kj6
-	 ZzY9lXK3O2s/W+quycRrqIcjsCD/eaMMUeo5GPqYr+YGOOqOYnqQYty83Q8GOfRREXA==
+	t=1794052889;
+	b=K+UacoXWuqjBtiKTiIab6RMasEK42bLyB5dI/yr3rmyvcc9l390K3HIFBNegQrlEv1sA
+	 h5R+Rj/HT188cFgI53/8AvCi+lc4GpzQuwtGzBAcYkz5I7okHCK0monNSvzW5YG0u2JEq
+	 PVe+huyzlrtEDD5EmTwlu+67ZqTh9DU/NzY9YIlR+wnkP+h7QOSYn0kj31gRtIrxSSkP2
+	 emnkNF0qd0dfBdnXEvMLySXM1UVxGRQNg7W2lWsTUL0G5a4ROoF/uY3cSqqSKq/7uSQuw
+	 8MiWG3t9OY7xA/e+X8EUWPUBcBJp1Pa7Av23/EwE9wTN5MnswIxR223X+03qUt30X1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052860;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=wmkOVTO6/HcciH7e0IPrV6/8aI7VC/wYHlVJ4GKyU2E=;
-	b=cp/BItP4+eWauimog9EUDqXi8GY2JY33SgCPlvyhaP57Ukza65vd/6Uj5/VR4RjP47sh
-	 YD+NxNokYce8IQET3zikUZxbb6LRKOvesrvbOYcitWXc5LCZVLwjiIGfxn6TxQyesVN8A
-	 KHy9yxc5QLvkCKldNU6dAA4924p16ecagYEraXSrdiypyLxEpMmkCB3p9TtDe0BciLWeJ
-	 D+LM3zxtOTu0PVHKcIWms2lLLTdDqtq74C0oZcJFdw+Vfvz87FToF6DtfufO8oYEZRcqw
-	 YO/SVZpJUG7lXNIq9ao58V5xbj60GjbhrppXzz5DhoS8IahoeI/ypLhjtJa6pxphymw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052889;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=y4hYcD24TnRXmzjQKmC+5yTKguTgdZWCau+P7/LmQYk=;
+	b=I+Te+2GUjfJsWxeJvpmw2R4AXsdraHrEnjRvr0En33BfrRatYKmaYd/8aJM5PMWSyaNS
+	 dPDDtU+4ndvnFT77YjFgEl9OuMWGm3qK6xC0A261uiPtYS/D5AQqci+NQX7mFF8eXlF9y
+	 jh8nA50BctYvpeZ4S7dO4A7Ookv1jEleJZm9EASE6j31wdakPQnySqZo5NIgoF4nsC0ha
+	 Vk55NOLALc0Rwsf/fz4jZU8vXBzHb9xPp/ArVDw/X4MQNH9R5o7cYpkwNWSG9PP8j/oQU
+	 z3hRpmxbfaLpWSrjMsetjg6hnnOS/AEn4aTwnl/P5bCcM3PLQeCOHuoaBFfDrYZqxzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtwMqNKz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=syD7HRyT;
+	arc=none smtp.remote-ip=91.218.175.113
+Received: from mta0.migadu.com (out-113.mta0.migadu.com [91.218.175.113])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441CC606A326;
-	Sat,  7 Nov 2026 12:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8889A606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:01:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8889A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtwMqNKz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E7A1F008A1;
-	Sat,  7 Nov 2026 12:00:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794052859;
-	bh=wmkOVTO6/HcciH7e0IPrV6/8aI7VC/wYHlVJ4GKyU2E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WtwMqNKz0FGtXDFPhkQFgSodpjMHv0P3NcjzE5y3oFhAZ8GJDEE9KuvBRft/ejWK0
-	 b4p4rRPqrvbvZSBr4hwm43JCJctHeEqGEdYEqxdeU2LNqBuVQJBqLNNJ+UMaG2RVLi
-	 R1F5Yu3cMKPfpTN9TBYH8UkVSZucQdtGHH5uU8lr4XLSBXVT7BKkyBtfoO/8joR2ia
-	 VDM7dOoeCW433BS8xj/1o0eBNozNLARHATtQK0qrKqzCZkZiK3UqHUd4c5NEFP4JWn
-	 15d81Rhgf6ESMxErI1d8GCujs26WscPth6T8wnZacc+yJX1DItwvz0vp8DNE30R9GK
-	 BTJD+4J12ITnQ==
-Subject: Re: [PATCH] net: mvpp2: free pending TX timestamp skbs when the port
- is stopped
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: marcin.s.wojtas@gmail.com, linux@armlinux.org.uk, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 07 Nov 2026 12:00:58 +0000
-Message-ID: <179405285872.994134.2557194195988942800@kernel.org>
-In-Reply-To: <20261103100535.1310088-1-vulab@iscas.ac.cn>
-References: <20261103100535.1310088-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=syD7HRyT
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zclU9p9dBEPX33jl9CMc8N7kYEn3RnMiGjyJbdesSo8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794052886; v=1; x=1794657686;
+ b=syD7HRyT9eEkq2dYoB02MP3r2OqXLQf6tFAZkH3Xp0nlBHTNhDtiUZaayk3unY9M9xYVwNf1
+ H+/KIgCaNncuOey3Cw8J7Fi7IrIFCJzjbviatHuXhrLajH4FaQUaEZrlhJKzaQ7jEWhAL+2K/Iv
+ IPixIR7Ab6ftK0SzqmhYj7QM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ce609d01ec0d49a1;
+	Sat, 07 Nov 2026 12:01:26 +0000
+X-Mizu-Trace-ID: ce609d01ec0d49a1
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Ridong Chen <ridong.chen@linux.dev>,
+	Chen Ridong <chenridong@huawei.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH v3 1/4] cgroup/cpuset: Reset partition data when an invalid partition stays invalid
+Date: Sat,  7 Nov 2026 20:00:57 +0800
+Message-Id: <20261107120100.3587595-2-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261107120100.3587595-1-ridong.chen@linux.dev>
+References: <20261107120100.3587595-1-ridong.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,176 +76,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: Ridong Chen <chenridong@xiaomi.com>
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0 (1)
+When cpuset.cpus or cpuset.cpus.exclusive of a partition root is
+changed, update_cpumask() and update_exclusive_cpumask() copy the new
+effective_xcpus computed for the trial cpuset into the cpuset, and call
+reset_partition_data() only if the partition was valid before and is
+invalid now:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+	if ((old_prs > 0) && !is_partition_valid(cs))
+		reset_partition_data(cs);
 
-- [High] The new mvpp2_tx_hwtstamp_flush()
-  (drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c:3422-3436) checks,…
+An invalid partition root (old_prs < 0) that stays invalid is not
+covered. Its effective_xcpus is then left with the trial value, which
+is computed from user_xcpus() and so falls back to cpuset.cpus when
+cpuset.cpus.exclusive is cleared. As an invalid partition root does not
+own any exclusive CPUs, and rm_siblings_excl_cpus() treats a non-empty
+effective_xcpus of a sibling without cpuset.cpus.exclusive as owned,
+those CPUs can then no longer be claimed by a sibling:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it is a
-  serious race on the same data.
-- [Low] Baseline decision: not a valid finding against this patch.
+  # A1: cpuset.cpus=2-3, cpuset.cpus.exclusive=2-3, root, with tasks
+  # offline CPUs 2-3 -> A1 becomes invalid
+  echo > A1/cpuset.cpus.exclusive
+  cat A1/cpuset.cpus.exclusive.effective    # 2-3, expected empty
+  echo 3 > B1/cpuset.cpus.exclusive         # -EINVAL
 
---
+Reset the partition data whenever the cpuset is a partition root, valid
+or not, and ends up invalid. As effective_xcpus may be cleared by that,
+also force update_cpumasks_hier() to update the subtree, so that the
+effective_xcpus of the descendants doesn't keep the released CPUs. Add
+test cases for it.
 
-net: mvpp2: free pending TX timestamp skbs when the port is stopped
+Fixes: de9f15e21c55 ("cpuset: use parse_cpulist for setting cpus.exclusive")
+Fixes: c5866c9a007d ("cpuset: refactor CPU mask buffer parsing logic")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261101114206.2434398-1-ridong.chen%40linux.dev?part=15
+Reviewed-by: Waiman Long <longman@redhat.com>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ kernel/cgroup/cpuset.c                            | 10 ++++++++--
+ tools/testing/selftests/cgroup/test_cpuset_prs.sh |  6 ++++++
+ 2 files changed, 14 insertions(+), 2 deletions(-)
 
-This commit adds mvpp2_tx_hwtstamp_flush(). It frees any skbs still held
-in port->tx_hwtstamp_queue[] that are waiting for a hardware TX timestamp.
-It is called from mvpp2_stop() after the port interrupts have been
-released, so the extra references taken by mvpp2_tx_hw_tstamp() are not
-leaked.
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 3052413e41e7..cf38e8708ddd 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2607,8 +2607,11 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+ 	spin_lock_irq(&callback_lock);
+ 	cpumask_copy(cs->cpus_allowed, trialcs->cpus_allowed);
+ 	cpumask_copy(cs->effective_xcpus, trialcs->effective_xcpus);
+-	if ((old_prs > 0) && !is_partition_valid(cs))
++	if (old_prs && !is_partition_valid(cs)) {
+ 		reset_partition_data(cs);
++		/* effective_xcpus may be cleared, update the subtree too */
++		force = true;
++	}
+ 	spin_unlock_irq(&callback_lock);
+ 
+ 	/* effective_cpus/effective_xcpus will be updated here */
+@@ -2672,8 +2675,11 @@ static int update_exclusive_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+ 	spin_lock_irq(&callback_lock);
+ 	cpumask_copy(cs->exclusive_cpus, trialcs->exclusive_cpus);
+ 	cpumask_copy(cs->effective_xcpus, trialcs->effective_xcpus);
+-	if ((old_prs > 0) && !is_partition_valid(cs))
++	if (old_prs && !is_partition_valid(cs)) {
+ 		reset_partition_data(cs);
++		/* effective_xcpus may be cleared, update the subtree too */
++		force = true;
++	}
+ 	spin_unlock_irq(&callback_lock);
+ 
+ 	/*
+diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+index bdca6c471f87..32e1e44fa0b1 100755
+--- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
++++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+@@ -434,6 +434,12 @@ TEST_MATRIX=(
+ 	# cpuset.cpus is allowed, but those extra CPUs are ignored.
+ 	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
+ 
++	# Clearing cpuset.cpus.exclusive of an invalid partition releases its
++	# exclusive CPUs, including those of its descendants, so a sibling
++	# can claim them.
++	" CX2-3:P1    .     .     C3  T:O2=0:O3=0:X  .     .      X3   0 XA1:|XB1:3 A1:P-1"
++	" CX2-3:P1   X3     .     C3  T:O2=0:O3=0:X  .     .      X3   0 XA1:|XA2:|XB1:3 A1:P-1"
++
+ 	# A child cannot recover until its exclusive CPUs are available again.
+ 	" CX1-4:P1 CX3-4:P1 .     .     X1-2     .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
+ 	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4   .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
 
-> diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-> index 317af54369cfe..fc020b8c88301 100644
-> --- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-> +++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-> @@ -3419,6 +3419,22 @@ static void mvpp2_isr_handle_ptp(struct mvpp2_port *port)
->  		mvpp2_isr_handle_ptp_queue(port, 1);
->  }
->  
-> +static void mvpp2_tx_hwtstamp_flush(struct mvpp2_port *port)
-> +{
-> +	struct mvpp2_hwtstamp_queue *queue;
-> +	int nq, i;
-> +
-> +	for (nq = 0; nq < ARRAY_SIZE(port->tx_hwtstamp_queue); nq++) {
-> +		queue = &port->tx_hwtstamp_queue[nq];
-> +		for (i = 0; i < ARRAY_SIZE(queue->skb); i++) {
-> +			if (!queue->skb[i])
-> +				continue;
-> +			dev_kfree_skb_any(queue->skb[i]);
-> +			queue->skb[i] = NULL;
-
-[Severity: High]
-Can this race with mvpp2_tx_hw_tstamp() on another CPU and free the same
-skb twice?
-
-mvpp2_stop() is not only reached through ndo_stop, where
-__dev_close_many() has already quiesced TX. It is also called directly
-on running devices:
-
-mvpp2_xdp_setup():
-	if (running && reset)
-		mvpp2_stop(port->dev);
-
-mvpp2_change_mtu()->mvpp2_bm_switch_buffers():
-	for (i = 0; i < priv->port_count; i++) {
-		port = priv->port_list[i];
-		status[i] = netif_running(port->dev);
-		if (status[i])
-			mvpp2_stop(port->dev);
-	}
-
-The second path stops every running port on the controller, including
-ports whose MTU did not change.
-
-mvpp2_stop_dev() does set_bit(0, &port->state), which mvpp2_tx() never
-checks. It also disables interrupts and NAPI and calls phylink_stop().
-
-The only TX gating is netif_tx_stop_all_queues() in mvpp2_mac_link_down().
-It does not wait for an mvpp2_tx() that is already running on another
-CPU. On ports without phylink, the TX queues are not stopped at all.
-
-Meanwhile the xmit path works on the same array:
-
-mvpp2_tx_hw_tstamp():
-	i = queue->next;
-	queue->next = (i + 1) & 31;
-	if (queue->skb[i])
-		dev_kfree_skb_any(queue->skb[i]);
-	queue->skb[i] = skb_get(skb);
-
-Suppose the flush and an in-flight xmit both see the same skb in skb[i].
-Both would then call dev_kfree_skb_any() on it. TX completion has already
-dropped the stack's reference, so that skb only holds the skb_get()
-reference.
-
-On phylink ports the window is limited to an xmit that started before
-netif_tx_stop_all_queues(). That window is not bounded on PREEMPT_RT.
-mvpp2_cleanup_txqs() already has the same missing TX quiescence on these
-paths, but the flush adds a new unsynchronized writer.
-
-Should TX be quiesced before mvpp2_tx_hwtstamp_flush() runs on these
-paths?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but concurrent transmits also
-do not appear to protect this per-port array.
-
-port->tx_hwtstamp_queue[] and its next index are per-port. mvpp2 is not
-LLTX, so the core holds only the per-txq lock. XPS maps each CPU to its
-own txq, so mvpp2_tx() can run on several CPUs at once.
-
-The only driver lock in mvpp2_tx() is conditional and per-thread:
-
-	if (test_bit(thread, &port->priv->lock_map))
-		spin_lock_irqsave(&port->tx_lock[thread], flags);
-
-That lock does not serialize two threads in mvpp2_tx_hw_tstamp().
-
-If two CPUs read the same queue->next value while skb[i] holds a pending
-skb, could both call dev_kfree_skb_any() on it? If skb[i] is NULL, one
-skb_get() reference would be overwritten, and that skb and its socket
-write memory would be leaked.
-
-The slot-reuse free in mvpp2_tx_hw_tstamp() also looks like it can race
-with the consumer in mvpp2_isr_handle_ptp_queue():
-
-	skb = queue->skb[id];
-	queue->skb[id] = NULL;
-	if (skb) {
-
-Once TX HW timestamping is enabled on the port, a process without any
-capability can set SO_TIMESTAMPING with SOF_TIMESTAMPING_TX_HARDWARE and
-send PTP frames from several CPUs.
-
-The new flush adds another unlocked accessor to this array.
-
-> +		}
-> +	}
-> +}
-> +
-
-[ ... ]
-
-> @@ -4914,6 +4930,7 @@ static int mvpp2_stop(struct net_device *dev)
->  		free_irq(port->port_irq, port);
->  
->  	mvpp2_irqs_deinit(port);
-> +	mvpp2_tx_hwtstamp_flush(port);
-
-[Severity: Low]
-This is a pre-existing issue, but the stop path does not touch the
-hardware PTP TX result FIFOs (MVPP22_PTP_TX_Q0_R0..R2 and the Q1
-equivalents). It also does not reset queue->next.
-
-A stale record for a reused slot could be matched to a new skb after
-reopen. That happens the same way with or without this patch. In
-practice, mvpp2_open() normally drains latched PTP causes before TX
-restarts.
-
-The effect specific to this patch is smaller. Some timestamps have
-already been captured by the hardware but not yet read when the port
-stops. Those records now find a NULL slot in mvpp2_isr_handle_ptp_queue()
-and are dropped, instead of being delivered to the original skb.
-
-Would it make sense to drain both hardware queues with
-mvpp2_isr_handle_ptp_queue() before freeing the remaining skbs here?
-
->  	if (!port->has_tx_irqs) {
->  		for (thread = 0; thread < port->priv->nthreads; thread++) {
->  			port_pcpu = per_cpu_ptr(port->pcpu, thread);
-
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103100535.1310088-1-vulab%40iscas.ac.cn
+2.34.1
+
