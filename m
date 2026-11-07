@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046357;
-	b=kCwmjaYaTVY9vLYjNMa+MIz7Q5FZK6g1eq1YFMm4x66hbu/WIV8RY1JvRau90uDgOcAi
-	 O7Um2COS62NR9t9jzzbZjoqGncIJzNmTz025CINZYHWXE/VbIa/h7c3+6hywBgmanZxal
-	 ZBdvPIfrgXHRFqv4Kx5zBghZqVR20HrafkEdDJwLFJtSNuuKl4HO6XmYYFtZ6ENiWfCMv
-	 UYzCav/BAJzO+RzzGMctCR+eUjmBhce92xxxcccTwcreKfqmKRSIosKZjZmA4QA/zcyCS
-	 jMskC2VB5j0hB18a9gSriKBPwKox6dvciRCcn4Cz6fEgufL/3T/SSy+4X6mgXqXv4VA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046357;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
-	b=kCZvJ3W379lSUDYCkte/SGQFcp6hBppih4pmS3OBbW9f+aQC/ihXIUhvjt1CrqQRReF5
-	 M5h4kifbY9XRXu/Fg9EnJFvEltcB0nzrbboURDLMvDfEbmOnM3RyiREr3abMPBWjkD/TN
-	 /WqcGQaGE30PtqGuJoJ28kYw2ZT1dlNs6/uaV4KDttu2bEeu5CaI/jP8SzNMN/YhyzYNo
-	 XN3mJ48jc9Te+xBuyI6TxF2sEYs3SaaCk8ePt6gTg663tRwlVLbZwTMpOniSZ+HnbTDjj
-	 2hnEtJOHoKCt3xG+wOlz1tEgEP+S71ZmPvXiKmVqYzEKJDKkIyBohRzvyRNiTRb1ABQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ucYlb/Gi";
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794046430;
+	b=hFOelxRHZTwPfmK1eiVyOX6C2N9/JEQCEleeTJdpjK1nlO0Vu1BuPu8AEPR/c1Py6qke
+	 ZwENFBVLKfkzsmeih4IU6SjXxr39mnM1tIVJBbvJM1crG2vdnKLakql2p8L+rvdL4r0Ln
+	 gsQbnb5FPUEl0LCpaNHqVCnsW6ze10pE3yXsksHo5TLLGlYxAq3m+UmJe0spvRRbO3bi7
+	 +PCIRHzLBMp41LgvfJz00uxr75SzgkUUuF69o6uVSKA7+eZyS6mV57/9mjVhjGnkQROZq
+	 sh58tRbPYyrAkhyTHpqiZww9xo5sTGXaRAq0N9pn+9Tf0rhU8dQz3wvDJZTJqsa3yug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046430;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
+	b=hvEjC2siMUQG/YGRfoEWswKqbJYP9JXuOsXrkSF+wERZMPsNKMY/pUlcfIDl3+XLJZ46
+	 9pL5auC0WMphveSP8GwclxE2pVCOn5LChTp7a30pwSL53jtfjq678TRl73JxR5U0uSGps
+	 SuYoAOjQXqfDPtsM5oDiJZucpEEfgi/gWKDtTX0fT8I+Az7p0qaIYetj6/TTeDrZdz/x8
+	 Ky9HQsLkFwJoLkVOPPN2NHUEhYqenu5VN+ZwHIn33Um6n1tILdslaCZQJH3CxZ0x9VLT9
+	 ZsILQnwmr0s+UroL33tldwO7q6HH3/VFcW8x0FjxqA91ElG9b34YpzonleEw2dawBxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJodq1ml;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7AA606A32D;
+	Sat,  7 Nov 2026 10:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJodq1ml
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794046429;
+	b=BFFzFEyLQlad4lN8VqQPiQP9oB9Z2XmmXQsUhIsTUSdXPmKl6yJAKjCgM6cynk4VQhNs
+	 A7wdrZtbV2nCCQNhiPzwp8wRl8kG7JUKgLfqDMZzq9UnLMGkw7+EgYg92lQDsYcZxsaKp
+	 HWbzJqX6KCngXz6zl7x44T+P1PJzjMCBF9xK5opvBpaTdaPcYzub4zXanxOZKo7MvwboA
+	 jLZmfVdnBOG06whPTNnw6e1fhxfVZmM1CzOe9yaffkuTPBfoFgoRk6uP1qGkGsuHYXVIh
+	 m7QmG335LpduEVbmdMH3b8hUqdjOW3EYikgK+Y1iUl1DUeL23RqSwQqu9+HBD0vFNRw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794046429;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
+	b=xr2nd3/g0n7ooPr5PiV1VYx6Ry5aK2D1CQqXEjrh02qcSgN0t2pWfUYYz7ETV7jQ/34o
+	 uqfJnzU6R7TpIGjMc4AHz35qx2mI02X2ONvuBy3Z/Coe+VIh78NATsrRb79sN2rZD1drZ
+	 r+ks9c4Z7+v6jg/UiTGxhYKem6crjbAoItEPjODEegOQyC050YqexT64oOmcRUeUMTDhx
+	 OM3fIHfnM5cDWoXyLPxqMVEtr3YqFKFkwTLDt/GmNPpRQU0NLCM0V+ByUE/y7jAiHqgEA
+	 +yRRz0VxNXUzgnzbhHz2d/RvoLkMNMc+E4wD4NaWSpJ8otyoeWZdeTeLlmoMPW4w1lg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1AD606A33B
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:12:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE1AD606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ucYlb/Gi
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so10346715e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:12:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794046355; x=1794651155; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
-        b=ucYlb/GiDfxsWgg9M/Iz4Q+U/thZllsvDF7Z2ByNB3WxUi+ecuFDfrXCf9XpYZRCIO
-         gbBRiBGqxjSlT+fGQJZlOnszjgl229YjhCllryN5bm19UqZhLKqY1EmyogvbzhGA6xPI
-         85tT+rMqC2jPdYXMZJC/cs0PsrdyFHyQyCtVLpnDAtn1BmKGCUNrq+H9D4j4MF02M4ko
-         4tgh40wFRA9D4AdMQudpkuJF8e8QlEElefGu+Dg+Ov/Ar6df0JBcMvotWUN21ZxfJSAz
-         dYsCsOewknBbupnSrxrUD/nQAwgDDor9t29imyxnLqvil1kfUBNxFQVRDwIyHaRw+oXC
-         uoHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794046355; x=1794651155;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
-        b=mUpLMMskrcGaSywo5jS1mVJm/HT9BcP+33IbICzD9uaxmbcaqKGifVFiLczRGwKIJk
-         u1YQyEX28oSFEC93m4DRY9sktr+A5+PerB7p9P3gv3BTYeVGMaCiQBEc3b1y2dmXsLV5
-         SljNz5iy3A2Vqan55id7FUw8jcdhttYEz85VsDfpxmV/kaq9MQkRLjFxiScSFDLOuLK1
-         qvEBGc87ixPnDR57rnUPh5jsxLdLj5S6DaqxGecpqgDZdGwodZJOLHhL2Z4Yf5HXyZdP
-         WQxxgi/dss9lVY5q2calgK0X0lK9DReNPzAAHgMxz+/QUSJLoX+DwDsAJGzzs8xHwpeL
-         mB5g==
-X-Forwarded-Encrypted: i=1; AKwUvBytB2fCLA6qNzWjY5r2A39FRShwYItztn/n6mpj69EBL9BbnIqe2YBuYjSMc/PCx7s118EIPn9vyA6IGNE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QH6RX80NSI9GMGO/5hPkWPrvAF740+QVyXJKFGo/aJSlRpYlr
-	zuNGE1OSPG98OUxUX0wSgXKYomFDZdTZWT0D2Zjf/4qAwZIKWk8zCIu1
-X-Gm-Gg: AYBFou2rxlGtL5k1mKhczWP9axxiBQidMmAvHkYuXyQkC3nbZ2JzQfUT8yvVjUNPwFI
-	oQzcMjHX+7QdyguEx5MURez0/V/E1LsbXzD/24LwPJ8Or7iufccIWYLNAkrX6Na6LkGB4mu0vfh
-	rhDRoRB0i7/3wUI4Qo3XRdujxVbnnW46uYpWgTNY7HgIfG+sAmNXwO7F+ONNJ6+oKQ+CpEWxnIh
-	ifGCLwQyyyqT0zZa6VE2FTtDqYy5Je3YPlUY/5dXrKJ7U/S7amvxnud7cKp+m8ovsQmtJdklfoA
-	xIYzSJHWA0TY3Uwk6Y30Rgf7KT/cRtPW6Lun25v//ScfR8Md3MahJRHAg4jNVXIyE2hRVNCtooV
-	vYzKwJyCVyl5kNhkFr5U1uF4QtA4xpe9ojqhDrGW9kDPojBy1L8Y6vz4MrOY239qHnly8I/sWw/
-	CRxEvf9IlGsmpj7xl0BXT4cNDOvIhQcWNj/eQIqtyNgmPF/1jQwmUASGHlIvPDrD6fBbp6CG5eI
-	6GX8W/KdGPvp7s56f/eWq5z2HuXdd51DsdVQCkLrCNxSdk6RjFQJfeIGD+DZ0Q3emBE0QeWFZUz
-	mA1mt0RxLmmQho0uTuAFP5VtRdSueH8bgu+jCfKUR0645uq8Q6fdGrvHM6lhIFV8Ib7ARmcmrG+
-	jiMqJsgoFIaqazQ==
-X-Received: by 2002:a05:600c:4fc9:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4b6e007beefmr92278545e9.30.1794046354653;
-        Sat, 07 Nov 2026 02:12:34 -0800 (PST)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3283ec3sm51270025e9.12.2026.11.07.02.12.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:12:34 -0800 (PST)
-From: David Carlier <devnexen@gmail.com>
-To: Masami Hiramatsu <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] tracing/eprobe: Install the trigger for every instance that enables the eprobe
-Date: Sat,  7 Nov 2026 10:12:32 +0000
-Message-ID: <20261107101233.151434-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 5BF8E1F008A1;
+	Sat,  7 Nov 2026 10:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794046429;
+	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=iJodq1mlSBtu854QVQ9ONyTD8j5Q95lYmdwTqfxnAsksfn20dPcESK1HxVB7tUFK5
+	 8QaQrGLUe1AapT8b4xshPMS29njcmVSln4HZzphVip6JHGzMXsh1jrv8hGBhUisJ8h
+	 hmDVZczDUcf8FmRlM3CKW3/ivKDGOjmAlBJodUEqsh3PgMdvZOSifiQm/qvt/fQ5jj
+	 W1uPPB0wrLYe2rEvBTxPfO6l5/a1GlCknPpDAwv3lKc6fbb2snBCmf00ifLCiIW5Yb
+	 3b8Jg+Gghcmo5pYCo5po3Ex7lwIjfWjuqakh0tujF9H1VCz1el5GTupr8F6AKd+z6o
+	 eqplaZPvdQacQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E1B2C47B59;
+	Sat,  7 Nov 2026 10:13:48 +0000 (UTC)
+From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
+Date: Sat, 07 Nov 2026 18:13:43 +0800
+Subject: [PATCH] spi: mt65xx: Remove the CPU latency QoS request when probe
+ fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,134 +83,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-mt65xx-qos-fix-v1-1-9d9c16a584e4@udp0.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNz3dwSM9OKCt3C/GLdtMwKXWOjZBPDtBRjC9OURCWgpoKiVKAw2MD
+ oWAi/uDQpKzW5BGSKUm0tANz3mEtyAAAA
+X-Change-ID: 20261107-mt65xx-qos-fix-32c41fd385da
+To: Mark Brown <broonie@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Leilk Liu <leilk.liu@mediatek.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org, Rui Cao <i@udp0.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794046428; l=2424;
+ i=i@udp0.com; s=20261107; h=from:subject:message-id;
+ bh=J9ck0Rmxdd1nbYdPYBN9FG+4oXVrAofA+j7Izp5hqPk=;
+ b=REkzO9qjpDLtQwUJ2L7TcXugkI2yWMutN5NdD7o8ySpatBLXAbAjyDeG80TTMDedIQn2d/x9A
+ T87E08PacYsCghHh8+DjFlPTrQv5tXsVOQTQ3KN19p0+P+wXDg8ZjGo
+X-Developer-Key: i=i@udp0.com; a=ed25519;
+ pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
+X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
+X-Original-From: Rui Cao <i@udp0.com>
+Reply-To: i@udp0.com
+Content-Transfer-Encoding: 7bit
 
-The eprobe trigger lives in the instance of the enabling file, but it is
-only added when the eprobe is first enabled and only removed when the
-last file goes away. A second instance then records nothing, and the
-first instance's trigger is left behind once the eprobe is disabled
-there, so the eprobe can be deleted while that trigger still uses it.
+From: Rui Cao <i@udp0.com>
 
-Add and remove the trigger for each file. The file is never NULL here,
-so warn if it is and drop the dead perf paths.
+mtk_spi_probe() adds its CPU latency QoS request before the chip select
+checks, the interrupt request and spi_register_controller(), and none of
+their error paths removes it again. The request is embedded in the
+driver's private data, which devres frees once the probe has failed, so
+the global CPU latency constraint list keeps a node in freed memory. The
+next cpu_latency_qos_add_request() from any driver walks into it.
 
-Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+On a Redmi Note 13 5G (MT6833), an SPI controller whose probe failed the
+pad_num/num_chipselect check left such a node behind, and the UFS host
+adding its own request a moment later oopsed in plist_add():
+
+Unable to handle kernel paging request at virtual address fffffffffffffff8
+
+The same happens whenever spi_register_controller() fails, which
+includes -EPROBE_DEFER while the chip select GPIOs are looked up.
+
+Nothing needs the request before the controller is registered: only the
+prepare_message() and unprepare_message() callbacks update it. Add it
+just before the registration and remove it if the registration fails.
+
+Fixes: 632556d5799a ("spi: mt65xx: add PM QoS support")
 Cc: stable@vger.kernel.org
-
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Rui Cao <i@udp0.com>
 ---
-Changes in v2:
-- WARN and return -EINVAL on a NULL file, drop the dead !file paths (Masami)
-- v1: https://lore.kernel.org/linux-trace-kernel/20261031203915.491866-1-devnexen@gmail.com/
+ drivers/spi/spi-mt65xx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- kernel/trace/trace_eprobe.c | 56 ++++++++++++-------------------------
- 1 file changed, 18 insertions(+), 38 deletions(-)
-
-diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
-index 998e6390937a..474be2f5ccd9 100644
---- a/kernel/trace/trace_eprobe.c
-+++ b/kernel/trace/trace_eprobe.c
-@@ -644,37 +644,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- {
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
--	bool enabled;
- 	int ret = 0;
- 	int cnt = 0;
+diff --git a/drivers/spi/spi-mt65xx.c b/drivers/spi/spi-mt65xx.c
+index b845a599f7c..49c31d4bd71 100644
+--- a/drivers/spi/spi-mt65xx.c
++++ b/drivers/spi/spi-mt65xx.c
+@@ -1295,8 +1295,6 @@ static int mtk_spi_probe(struct platform_device *pdev)
+ 		clk_disable_unprepare(mdata->spi_hclk);
+ 	}
  
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
--	enabled = trace_probe_is_enabled(tp);
- 
- 	/* This also changes "enabled" state */
--	if (file) {
--		ret = trace_probe_add_file(tp, file);
--		if (ret)
--			return ret;
--	} else
--		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
+-	cpu_latency_qos_add_request(&mdata->qos_request, PM_QOS_DEFAULT_VALUE);
 -
--	if (enabled)
--		return 0;
-+	ret = trace_probe_add_file(tp, file);
-+	if (ret)
-+		return ret;
+ 	if (mdata->dev_comp->need_pad_sel) {
+ 		if (mdata->pad_num != host->num_chipselect)
+ 			return dev_err_probe(dev, -EINVAL,
+@@ -1323,11 +1321,13 @@ static int mtk_spi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to register irq\n");
  
-+	/* The trigger lives in the instance of the file, add it for each file */
- 	for_each_trace_eprobe_tp(ep, tp) {
- 		ret = enable_eprobe(ep, file);
- 		if (ret)
- 			break;
--		enabled = true;
- 		cnt++;
- 	}
++	cpu_latency_qos_add_request(&mdata->qos_request, PM_QOS_DEFAULT_VALUE);
+ 	pm_runtime_enable(dev);
  
+ 	ret = spi_register_controller(host);
  	if (ret) {
- 		/* Failed to enable one of them. Roll back all */
--		if (enabled) {
-+		if (cnt) {
- 			/*
- 			 * It's a bug if one failed for something other than memory
- 			 * not being available but another eprobe succeeded.
-@@ -687,10 +682,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- 					break;
- 			}
- 		}
--		if (file)
--			trace_probe_remove_file(tp, file);
--		else
--			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+		trace_probe_remove_file(tp, file);
+ 		pm_runtime_disable(dev);
++		cpu_latency_qos_remove_request(&mdata->qos_request);
+ 		return dev_err_probe(dev, ret, "failed to register host\n");
  	}
  
- 	return ret;
-@@ -702,33 +694,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
- 
--	if (file) {
--		if (!trace_probe_get_file_link(tp, file))
--			return -ENOENT;
--		if (!trace_probe_has_single_file(tp))
--			goto out;
--		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
--	} else
--		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+	if (!trace_probe_get_file_link(tp, file))
-+		return -ENOENT;
- 
--	if (!trace_probe_is_enabled(tp)) {
--		for_each_trace_eprobe_tp(ep, tp)
--			disable_eprobe(ep, file->tr);
--	}
-+	for_each_trace_eprobe_tp(ep, tp)
-+		disable_eprobe(ep, file->tr);
- 
-- out:
--	if (file)
--		/*
--		 * Synchronization is done in below function. For perf event,
--		 * file == NULL and perf_trace_event_unreg() calls
--		 * tracepoint_synchronize_unregister() to ensure synchronize
--		 * event. We don't need to care about it.
--		 */
--		trace_probe_remove_file(tp, file);
-+	/* Synchronization is done in below function. */
-+	trace_probe_remove_file(tp, file);
- 
- 	return 0;
- }
--- 
-2.55.0
+
+---
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+change-id: 20261107-mt65xx-qos-fix-32c41fd385da
+
+Best regards,
+--  
+Rui Cao <i@udp0.com>
+
 
