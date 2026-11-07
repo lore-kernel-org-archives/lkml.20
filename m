@@ -1,80 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794067015;
-	b=Z0DuVNgZMJCrxO8qsa+f60Gd9UWq5RdPO6nF7FKdmiwovVIhmUoaJVzIKN8y71qPS+WU
-	 Tcb/3pX9+mZ+XPWu9t8VRuIRILcx1fZGjHGek8wXcelB/2LhrJ0Vv1NXgcHtFNSDR7bWO
-	 YE+6jfmi1Gd/NG2Nguwse38MQP3tHb8lht+XMYtuxHm7zXO9fLGEd3pbk3eZAcw1WFyQD
-	 XLyThn+k6zW5rj0l7A4wb4sPwlqhtH/8iE/1+rejnkhS9GxTopDxGHxr3BfbgDEnJr60a
-	 mgnf8FQkNNpRywFfGbebCHbBUr13vTfJca9YP6jdhSAYjaHrDKKTnrTfKaamYDAJ83Q==
+	t=1794067128;
+	b=VW/gLDML187rlzIIZL4peJsTvSUzO8Og7sLMcSYupqU+tNDKmii/kfRKFGO5WQv/MvhI
+	 iMZTY+Zmnlzp8mHornRh4yDaVub8mvk8Q3u6jzTpdkcpvmmEpmaq/MS8H20f6WEO/1psu
+	 OsaN+yP3D7pujn2FoKZ7akFzgcTA2EkQiBjVdQ15CNitHBSrYj+euWn2Xwm9FmEZ5EMN1
+	 RJutSMSsBQD1Q5i2lACgYMjjSmFgscY+g2uBhXhsEgy5ZrqQAi6IL3hIpNjaV7z8qSvk+
+	 RG8PHKjwfAEVWwHUPLAmnGEYw9C2X6sCObgoxJoWtQW68/KQmlTaft7RTlPEzjgwEAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794067015;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=jkGPn1wQc7Ebuqw4SWuRJT0DLUb/33269ZxdcTJ1u1M=;
-	b=y21455YInklVoNgKa48WtYZlxLr6fHJ/V3g8LEzJ9ziT3u52IbYLtoolR5CPvUcUxtdG
-	 fy4ztIkmdfGDaJ8Mp1HdHh2h7w+Knf7l4AvRT4F9vJrSLT3v8wC7Kaab2KmqBndzwbP3P
-	 whij5qu6pEQkHSRRvsrlsZp72+1iX59ScgDkclRnAvVSt67kngx+q3oiqk1p87wnISWaG
-	 Sw6s64mJpzJyCF/AWKyOSQ5+kUwmFMaaeWsr/jPZc3aoq2tzytuswHfpqFuMHVZwrIfQf
-	 EA3lfX9NBt8es8tNdrjNkT8V/Ezf4BuqHKbxcRrDHEsQl9Q38A8fd6PtTSFQzeIsyhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794067128;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8bVkydg8cUTlVFBihjSzL0/TYhvgRpZwbeYZE1sq6Y8=;
+	b=ytxZcRcuT8kCT0b3cwFw1MSeHybeBkuDO/7O0N2zHz8JLC8peoAUi0ROp0SdUpsPkyz0
+	 As/wetEAGubmwwhjdt94DjuRfkv9zgCS9PLrF00pNH/cfdRtB3jBXvdC3gwiEHRiISMqC
+	 dvRxq5zGbccL24iznGui56wxu3QTfFyyT08yx7yUM0CtBJpvXrZ0FUhD7jlJOT3FgWEDZ
+	 q44o+6ipCEeMCCtjdAnZ50SLbPPdlN8mVw9Vd4Y88KsUDb3/gDkYBOgrr9/zHUnU3CVQ0
+	 kTHgIvmVdtUP0yhy4+WlN6l2kqhAGjp00DTY3Ml32Z5fVnBrJif7bA4dE9vpzdEtJxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=GGYJodqy;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=lvVzSBc8;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF54606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FF54606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EA0606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:58:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56EA0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=GGYJodqy
-Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
-	by cmsmtp with ESMTPS
-	id PNyMxMwk6JFmFPimkxsTVd; Sat, 07 Nov 2026 15:56:54 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Pimjxp7Im0288PimjxeZBg; Sat, 07 Nov 2026 15:56:53 +0000
-X-Authority-Analysis: v=2.4 cv=a5Iw9VSF c=1 sm=1 tr=0 ts=6aef4a45
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=hLRJDZDFrmx7wTgVqVsA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=jkGPn1wQc7Ebuqw4SWuRJT0DLUb/33269ZxdcTJ1u1M=; b=GGYJodqy+mofxo+qSFQBoVOes7
-	69z//7Ph/O6MBP0V3xgNfLZZiVkjmCC520ASEvF2wWTSkU1y1upa0K57P1EI0mQ7IXOdx52/HVVfd
-	6W3J2hFY113hJZbivjr4By5TA5DLjBk3NNoi6VA9YQIZ4Pmd/wpxQhvTL1h/rUJAPx30TYsEswPpb
-	hral/Gk480eibaCtHsO0N6piU9X8Foio9Y3s6K4an5cdZmkyCWm0AbVaPwE+K/JGIADPBwvkiK2kO
-	wCcWsIUsj1xSnVT5ZnsKnaZ5XbyIgzLD09rVDyZhmdJq3Mrb45uElip8QO3RYKYEjdINSBrTxpAhF
-	JJqWxTnA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37414 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xPimi-00000004B4x-3pIP;
-	Sat, 07 Nov 2026 21:26:52 +0530
-Date: Sat, 7 Nov 2026 07:56:52 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tomasz Bojanowski <tomasz@bojanowski.me>
-Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller
- voltage sensors
-Message-ID: <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net>
-References: <20261107082821.8257-1-tomasz@bojanowski.me>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=lvVzSBc8
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so11702485e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:58:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794067127; x=1794671927; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8bVkydg8cUTlVFBihjSzL0/TYhvgRpZwbeYZE1sq6Y8=;
+        b=lvVzSBc8ejzHofWNmcbJejSxVTcWzIas2Cnj8c7L4gy7jbbWzohP28cKV2FuowkgUe
+         RRgZqwo/MYl7HUdBhly9eCbzAIMpdlNA3Q+Y7ddosHxQ4co3EYXbEIVTbpKAjHdy3YZA
+         +MXf1YUJTDXvJGvNBh6VxYmZjER7fDIjPPpGPlBhmDZBvocKT0dgQbNk8us7Wn1tx0P5
+         ZkG9pON7+RvIXG4JSR5498vSpN3FcSB0EguYAciu4vNE87rUoE+lGwVNDGQ7tt+sy8kW
+         kz0gOBaLOr52pHzkTiK0BtWq7rXCmN2iU/u6tOnzWaZOWCYQ5bEspASuPktAKfO6hk/Y
+         dPUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794067127; x=1794671927;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8bVkydg8cUTlVFBihjSzL0/TYhvgRpZwbeYZE1sq6Y8=;
+        b=FP7nsYFojcoXDi4CToErfcyg5CjX1DrLaCVpoJnt3KOK/AhkuZM6/L+SotGL8d9+SD
+         RQpY7i/DovOlBVIrfbJTOdcZg7kDg4UT4OEqxUPkksI9DWgMhVab8qmlYvnlsss/BTkz
+         yzuaHjz0/5ZDcJNVoVHnpLMQY28cGh/9n/dmL2EPV7C5PfRIrqvh3cfDRml50QmIP9KE
+         x4U2VqJZzI5iqF/+RQUs+Ywx7OSG3M38bCUqVKpdY41FwldY0nFPG+N4QESuZfPEfXMq
+         zorEiQCP8W5SHb+AQ6X7NBwOViaPNzD1XTyZ90sP6a7rAwgAJG/XiwwkSPn61Ezqhh9x
+         kahg==
+X-Forwarded-Encrypted: i=1; AKwUvByyLQm3z8KWgpE2PHWvWPSnWOx7K2tTrjtkxe6c1O3oHJiG53VgGYiXRIG+l+ROw6pSCDIZsJpnHb0N2dg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WW+m77AVLSlwWeCOp+WIGk4PpnHILs5cI8GPSCa4bT4FppiEO
+	bH80ejq5bncFBBTrUNGnun3zST39x274uUdZKqesLf8q14jrhNX9be8=
+X-Gm-Gg: AYBFou1Rj23gpbcSG9jL8Q0q46PRW1LIFn8rrACVwyRgE+9P6GFKNjg/9hlvL2FL6Ml
+	vsiphmRGA3Ia3uN3YqyzWUzO0eQJr46unWT+fu2R4w0vjcCGYfx6erd22MCRN2KfQhveOQcq7Vm
+	DAwCXoMu8xZbns6rlK/5Q/uQQ5asipcy0p6eaX/jTiBDq5jloCyWoOHn1j84KBXf8R4lBC3cWf3
+	DqbmOtlevVHuwBMs5lYLO7/6Hbpq5HdM3NWvXuBycP1HXeTv6+XdB99QzDNKKBl291k9GLGr8Bt
+	IGGCjAgX80/ddVbVSU7HO6Z+dJpJhwrUv+m7HdRBtJiodvIT7/jPcaj+E8DmJlbfdlv9DqLDy1S
+	lwbknGdECBw9eso6AUGeZbtNmk9RvTOBcTmAOxBbL+09SdJQpMdHivOFL8C5u4qgTe2j+YDe04B
+	J2t/kN3HR7Q0fpnQ8EYxvIOCC55umB/gUEQyIwkKRqkVgjk1UYt4+drpqlBVWCew5Uu1+lCSWlZ
+	gEjsu5KLLryMeohXb8L0ZMJdgm+bS5mMisQ97BkRn8KpTVt+g9y8mjWpFzrG4qxKZu/4+1qJjM0
+	LMcQbuoZGZmiBQTTgcJhtOqtxqq3vGWxuRaT6Nw8jw7KgthMa2xGukz85qLPkUk6E9GTuhmPFtm
+	vJP4=
+X-Received: by 2002:a05:600c:528f:b0:4a1:de8a:603a with SMTP id 5b1f17b1804b1-4b6de4a7684mr101920815e9.6.1794067126529;
+        Sat, 07 Nov 2026 07:58:46 -0800 (PST)
+Received: from [192.168.1.3] (p5b2acf48.dip0.t-ipconnect.de. [91.42.207.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3291531sm80634195e9.15.2026.11.07.07.58.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 07 Nov 2026 07:58:46 -0800 (PST)
+Message-ID: <bbf68dc0-8c55-4dcf-b5e9-70d3c31593f5@googlemail.com>
+Date: Sat, 7 Nov 2026 16:58:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,68 +92,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107082821.8257-1-tomasz@bojanowski.me>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xPimi-00000004B4x-3pIP
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:37414
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 6
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMpIbVPk/9S8cPD8PaVEFzRLGqUT7CSPRI2a2efe96RpOXtJ3a/xEAKGWr6B6owwoqMRxqVZawDhzKnBZyrYxy2u/i9oCr9azh4v7rLwCluTl+w7SlHQ
- a1L1KRSNM5lIiPUb32u+wCh0YpGWKJumnwYeBvwoEGxBjgWrNnZB2bZQWFpsuJxGnV40LYtx9qQOo7xZF1/eWr62QzdVecR4PqzuAjOc735ePNew2knpcNTR
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261107134957.653319350@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 07, 2026 at 09:28:21AM +0100, Tomasz Bojanowski wrote:
-> MSI 800-series motherboards have a USB microcontroller (0db0:0076) that
-> drives the RGB LED headers. Besides the LEDs, it measures a few voltage
-> rails that are not monitored by the Super I/O chip, and reports them in
-> HID feature report 0xf0.
-> 
-> Add a driver that reads this report and exposes the rails as standard
-> hwmon voltage attributes with labels. The values are cached for one
-> second. The driver never writes to the device and keeps the hidraw
-> interface, so user space tools that control the LEDs through hidraw keep
-> working.
-> 
-> The controller has the same USB ID on different boards, while the rails
-> and their position in the report depend on the board. The driver is
-> therefore only registered on supported boards, which are matched by DMI.
-> On other boards the device stays with hid-generic. Probe reads the
-> report once, fails if it cannot be read or has an unexpected format, and
-> only exposes the rails that return a reading. For now only the MAG B850M
-> MORTAR WIFI (MS-7E61) is supported.
-> 
-> The report layout was determined by analysing the vendor's Windows
-> software and confirmed on hardware.
-> 
-> Tested on an MSI MAG B850M MORTAR WIFI (MS-7E61, BIOS 1.A68), with the
-> driver built out of tree against kernel 7.2.15. The readings (CPU 1P8
-> 1.79 V, CHIP Core 1.04 V, VDD MISC 1.10 V) are stable and plausible for
-> the respective rails, repeated reads within one second are served from
-> the cache, and hidraw access works while the driver is bound. Loading
-> and unloading the module repeatedly hands the device back to hid-generic
-> without errors.
-> 
-> Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
+Am 07.11.2026 um 14:33 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.117 release.
+> There are 1536 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Applied.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-Again, I'll be happy to test with older boards. Alternatively, I might give
-adding support to older boards a try if you can provide information how
-to access the sensors on those boards.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Thanks,
-Guenter
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
