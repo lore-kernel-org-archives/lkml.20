@@ -1,83 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794090923;
-	b=FqhdJN/HrKNGB0AmulyYoAl9gPh6DO9BNfUhH2+8aKYZOBks01RbCGRtDOuPI9kAkpgc
-	 8eIxknrmQxf9Wda8vgRUDIiFkjHfIy3EvFr7ZyPtNys7JXIx/eAK1HGIxphliOXqq2EEo
-	 7Gyd1gytDflRBGm1yGg0/IMLS4G8tiVjskX4pTGJmxR/fi5EF0yxtUj8BZ6nSeGTc3VJz
-	 KZp12U9WmPX780roB4DStF3tSuWKHcv6++jofj3JvsWmqJRK79SxLx1l9WrshNd+aiQdK
-	 JKGZQ+YAabgIEBzmQc9E348H0fK9gJ5d4KPFCkPEO2WTBTSAxHjEU3F6lAWqi/h8LSg==
+	t=1794090969;
+	b=0uJP01Kg1DfB8b1Gi1fBRLgdqopqEV8w9sQWRM1hsRa0LQ8NcivMEKANy2bRiOIpfJlr
+	 AHv15I8JeOKHXAIL7TfHYp1NsXzkwBxUWwowXklkQISJFKQh6Pm5nl4fcLB0s5v/mXwdf
+	 0C2riRkWQYJqvw3qPoSD6/IeUoJOjxlo62zAkIWfkSX+Y6NrTseb4z7ndTk9djbcOerIW
+	 QOgBPVMtfBbe1B3pscyByM7EBycYaA9He2azSXevsL6gP8D9FKquX8HtpvxjUf8qytcy/
+	 rpGuK+wC0cxlkjNEQy1cYBAi3tQU029D7ErvTZPjKlyNfnJ86sFSlCq/god3DLiWtlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794090923;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=fCU+AnXPgEumMAh4YcQYLrSJUtCBY0mNsJe/Mw2nKg4=;
-	b=Wg2xmhA0MSCxSXusvzUKPSNvjflJpxJL9k4scMa2SYVG1exECJSwhDO25y/wkyntfnLJ
-	 arb7IHBbx1otQ064dypFZzPE5P+aaFOnFdr5lOJlxLX4mWupCHxqGwnVTMSqZI2r5YN7K
-	 WUuqChcHJqEdmPJZ+TU8q19MmHRXHfFUnmbwD/fAdP6DfklQ0ftSMo91Yqsuo8u0cxgJA
-	 0W3qT2lYQkTqpaHJy05LXkik+QPU+UxyzMLX/2S15f3q8u/4MnULslcsfPNZtopAY3hJg
-	 7/tTdcwVUDI2AZs1dwOvUtvquE2PXvl5iBqcm4bWnAo8vOVTbIP7DzZaow3kIIfhicg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794090969;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DhangAGvmVCIS+hDPEPisbOILnqFpCMxX21ELicINj0=;
+	b=W0keAe1XAhREkKbzsd1VWATGCoHBR4SRZ8qcjiAtqvCLyvSEsJaWZV3+a2s/dshik70D
+	 AhdxNyMFo7vnMRtSCh9a5ld0cxWz8EHMdC3ewdI3Iw7Zpj8Iuu5bOGcop3AKmit9bVuft
+	 vDpJnUmG2nYbqtG74LK/pTQQNtUFh57hif/yFhJ5omoaqoP9Qaogh6K4NlVjKi0tPFheY
+	 cdJgnnXtOqG/Mkwq+muH6uUm4wjAQoWtFEBzGKP2ooiKiJdEeUE77E6G7w/g9Z96RgCEn
+	 Ubh/ZFFXlqsKX3LvAg+Mi4bAWYGkvvtP/hVPAYPqAmw1DaVQ2uuyS5HRf1An7/PePsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="e3MJ/f0L";
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=la+2gmFA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EBA606A32D;
-	Sat,  7 Nov 2026 22:35:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0EBA606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5F5606A326;
+	Sat,  7 Nov 2026 22:36:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e3MJ/f0L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794090923; x=1825626923;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XKPddSDGRmFTP15jF36GhiF3Ao2V9Pc70VbIn1MNsig=;
-  b=e3MJ/f0LA5EWkswm9yUNDq8odrbeZqadOcfnd8Bufu6kL/kHEty9Vax8
-   wITBl2ezE1fnzOB3dwWjR8ZHEuGp7nMzLzocVBEFBbk0PMYFchlrQOoey
-   NjawVPFM4aoUctna3TVnwNy30QHsHuH/wpfH8VQHkNr7BkgFXVx/BJHJ/
-   BA8hodK+xTOHoxAM92OIgOjEaYfckqSkiiWA062WuveJoPDbE/tk0qloD
-   WzXAmH38X3EqEHdAYEQMnR8iDoO4TQHFM6nrIvnurTHnAYS9MlydJELim
-   Gqxg2us1p4BwqjkVhaBqUZc2onIld0eHLvOPEsTA4Bee8UGUdDlts9ZJO
-   Q==;
-X-CSE-ConnectionGUID: S1Tits+5SjaCKzX3FDfaWQ==
-X-CSE-MsgGUID: jVzLMK++Rvun3p7grwLypQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2753746"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2753746"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 14:35:22 -0800
-X-CSE-ConnectionGUID: DnPjUlIZRoGuk9BZS7accg==
-X-CSE-MsgGUID: D/3AICiJQqaSxkwaUn/bUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7425429"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa007.jf.intel.com with ESMTP; 07 Nov 2026 14:35:19 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPp0F-00000000rfT-2sqR;
-	Sat, 07 Nov 2026 22:35:15 +0000
-Date: Sun, 8 Nov 2026 06:35:01 +0800
-From: kernel test robot <lkp@intel.com>
-To: Li Pengfei <ljdlns1987@gmail.com>, rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, mathieu.desnoyers@efficios.com,
-	mark.rutland@arm.com, corbet@lwn.net, skhan@linuxfoundation.org,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	zhangbo56@xiaomi.com, lipengfei28@xiaomi.com, lkp@intel.com
-Subject: Re: [PATCH v8 2/5] tracing: Use the stackmap from the ftrace stack
- recording path
-Message-ID: <202611080654.sqFxIlwl-lkp@intel.com>
-References: <20261107055139.3138633-3-lipengfei28@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=la+2gmFA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BC051F0089F;
+	Sat,  7 Nov 2026 22:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794090969;
+	bh=DhangAGvmVCIS+hDPEPisbOILnqFpCMxX21ELicINj0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=la+2gmFA4t9FBB/TFLKuyvQnZsilPiL1b50mQTyaCcPN0S/DWmMfIOCs/Io4iBpFt
+	 FeivtUJ12eJU9vbmY8VIXaOerwvONSXxq1L8FDkHQLL7rfQjD7MpTnzZ4kio1oN3Hq
+	 ScQ29Xpdb0YJtSznyDg0/Nw4ZlkjUNOP8h9EPNXCbgrMbKv3DMXLBd7tVdpVeMh0QC
+	 QwL4NaoB2yhx+hgbITUs4+f/oo8hOS5eqb7dmnr2/dLUedURIQubJf+hfQW10YesUE
+	 Gyh0Lxxsv//DkUMCpBAeV53rMPtkW1M5Kl9J4Sx2RL42EAthZ1CofuvIkyUbzZwbkX
+	 oNqQgnE0bRUBQ==
+Date: Sat, 7 Nov 2026 22:36:01 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Cc: rva333@protonmail.com, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: iio: light: stk33xx: add power supply
+ support
+Message-ID: <20261107223601.0ba9ffc6@jic23-hlaptop>
+In-Reply-To: <20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com>
+References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com>
+	<20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,85 +64,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107055139.3138633-3-lipengfei28@xiaomi.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Li,
+On Sun, 08 Nov 2026 00:15:03 +0200
+Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:
 
-kernel test robot noticed the following build errors:
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> On some boards, the chip shares a power rail with other components. If
+> that rail is turned off, the chip can't function.
+Not sure how the sharing is relevant.  Even if shared with nothing
+else we need to turn it on.  So just mention that on some boards it
+isn't always on.
 
-[auto build test ERROR on 4539944e515183668109bdf4d0c3d7d228383d88]
+The only reason this would be optional in the binding is if there
+was internal routing in some packaging or similar that meant there
+was no pin to connect.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Li-Pengfei/tracing-Add-lock-free-stackmap-for-stack-trace-deduplication/20261107-135135
-base:   4539944e515183668109bdf4d0c3d7d228383d88
-patch link:    https://lore.kernel.org/r/20261107055139.3138633-3-lipengfei28%40xiaomi.com
-patch subject: [PATCH v8 2/5] tracing: Use the stackmap from the ftrace stack recording path
-config: powerpc-randconfig-1001-20261108 (https://download.01.org/0day-ci/archive/20261108/202611080654.sqFxIlwl-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611080654.sqFxIlwl-lkp@intel.com/reproduce)
+Upshot, make this required in the binding. Note that doesn't mean
+the driver must require it - we are simply documenting that the
+device needs power. 
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611080654.sqFxIlwl-lkp@intel.com/
+Thanks,
 
-All errors (new ones prefixed by >>):
+Jonathan
 
-   In file included from include/linux/rbtree.h:24,
-                    from include/linux/mm_types.h:11,
-                    from include/linux/mmzone.h:22,
-                    from include/linux/gfp.h:7,
-                    from include/linux/mm.h:8,
-                    from include/linux/ring_buffer.h:5,
-                    from kernel/trace/trace.c:15:
-   kernel/trace/trace.c: In function 'record_stackmap':
->> include/linux/rcupdate.h:502:9: error: dereferencing pointer to incomplete type 'struct ftrace_stackmap'
-     typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
-            ^
-   include/linux/rcupdate.h:684:2: note: in expansion of macro '__rcu_dereference_check'
-     __rcu_dereference_check((p), __UNIQUE_ID(rcu), \
-     ^~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/rcupdate.h:758:34: note: in expansion of macro 'rcu_dereference_sched_check'
-    #define rcu_dereference_sched(p) rcu_dereference_sched_check(p, 0)
-                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   kernel/trace/trace.c:2154:9: note: in expansion of macro 'rcu_dereference_sched'
-     smap = rcu_dereference_sched(tr->stackmap);
-            ^~~~~~~~~~~~~~~~~~~~~
+> 
+> Add vdd-supply property to document the chip power supply.
+> 
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+>  Documentation/devicetree/bindings/iio/light/stk33xx.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/light/stk33xx.yaml b/Documentation/devicetree/bindings/iio/light/stk33xx.yaml
+> index f655a570aac7..114cf87eb54d 100644
+> --- a/Documentation/devicetree/bindings/iio/light/stk33xx.yaml
+> +++ b/Documentation/devicetree/bindings/iio/light/stk33xx.yaml
+> @@ -37,6 +37,8 @@ properties:
+>  
+>    proximity-near-level: true
+>  
+> +  vdd-supply: true
+> +
+>  required:
+>    - compatible
+>    - reg
+> 
 
-
-vim +502 include/linux/rcupdate.h
-
-76c8eaafe4f061f Paul E. McKenney        2021-04-21  492  
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  493  #define __rcu_access_pointer(p, local, space) \
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  494  ({ \
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  495  	typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
-423a86a610cad12 Joel Fernandes (Google  2018-12-12  496) 	rcu_check_sparse(p, space); \
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  497  	((typeof(*p) __force __kernel *)(local)); \
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  498  })
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  499  #define __rcu_dereference_check(p, local, c, space) \
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  500  ({ \
-ac59853c06993a4 Pranith Kumar           2014-11-13  501  	/* Dependency order vs. p above. */ \
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15 @502  	typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
-f78f5b90c4ffa55 Paul E. McKenney        2015-06-18  503  	RCU_LOCKDEP_WARN(!(c), "suspicious rcu_dereference_check() usage"); \
-423a86a610cad12 Joel Fernandes (Google  2018-12-12  504) 	rcu_check_sparse(p, space); \
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  505  	((typeof(*p) __force __kernel *)(local)); \
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  506  })
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  507  #define __rcu_dereference_protected(p, local, c, space) \
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  508  ({ \
-f78f5b90c4ffa55 Paul E. McKenney        2015-06-18  509  	RCU_LOCKDEP_WARN(!(c), "suspicious rcu_dereference_protected() usage"); \
-423a86a610cad12 Joel Fernandes (Google  2018-12-12  510) 	rcu_check_sparse(p, space); \
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  511  	((typeof(*p) __force __kernel *)(p)); \
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  512  })
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  513  #define __rcu_dereference_raw(p, local) \
-995f1405610bd84 Paul E. McKenney        2016-07-01  514  ({ \
-995f1405610bd84 Paul E. McKenney        2016-07-01  515  	/* Dependency order vs. p above. */ \
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  516  	typeof(p) local = READ_ONCE(p); \
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  517  	((typeof(*p) __force __kernel *)(local)); \
-995f1405610bd84 Paul E. McKenney        2016-07-01  518  })
-24ba53017e188e0 Chun-Hung Tseng         2021-09-15  519  #define rcu_dereference_raw(p) __rcu_dereference_raw(p, __UNIQUE_ID(rcu))
-ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  520  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
