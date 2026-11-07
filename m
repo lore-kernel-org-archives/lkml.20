@@ -1,61 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794026624;
-	b=B+XfjpHjcPcYjQyyfQViIodr+MCSpeKUtcxMibXoqFbv+9v8xVTMaVvcBwxyAr30EGUN
-	 Kr2IbTVkfh02hZJa25p1XICDQAfAaeAWOQsFJD94aUbvMl/ZOxUlXXz12imf2n+0YosO9
-	 3cE1qxP0KPehSGbbpa019uFfIsEuH6uU+4BXh7k3+S49u0COnDjoCYwF1zzrfZIFyFBsS
-	 DQ+xkT41xtGDiuZbi6782G9MuLiiXbeyt6T25nSX8Du74ctw6MvPQztRh9hy3Q3t/apbu
-	 RW/cJStfOWFXqzFSSUCnAA0pLzmaCifPFb7qzVDL15vVKmFuKWMt7APBhTlTwMhwU6A==
+	t=1794026781;
+	b=pJVnVFYxuSP7zZDreflQRfmkG1KsM+yVkeyx74RknGjOdXYacBFzozrbE2VEMHKZfXcm
+	 xBu/yOOPS5vUJzzingiQET9f0TsUdN4V4nrXT3e7KMbhwnvkuM2lHIb56FZC2/n8Ow5Li
+	 pTE+WcSdqkJCT6+6G0yIyC8jmw8eNn5zhMcdk0k/edHhYnRMVNE0NELYEXr56DUHImtlF
+	 O2yTQYZ0ARE7Nvdx+lsNBj7D2dFyEbgOJrDlPf3iPjazQxh8oCBp+nI78pv5xK+yh0KIx
+	 0khd2LHBXbJKE6PzceO8+GDHsHASxD3rVL9nxdILpEpy7T7ZuZy20QnhOGjOxai0ocA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794026624;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wMCTQh3vxO8DM9xp0LP48MaAOtkxhln0BWet1mMOBMc=;
-	b=jij59KQb1LPTcj2SkJKX+usABSFI/skr/S44EO6yyFMzn3mxnLhg/Oq2aDewebZIISNu
-	 rcxO1xHqIw0wtHYcshlFPGQRJiro2EGUsjfTwLa4xCNPXCrNJBQzkNBvkAmVSZs0LaWVb
-	 ynukGngHPE2s4mhhXfoUnaGwz23OeVkKXJLla3PqWSdPLmKZdzXOZnwYXzwL1yqVuj+bD
-	 i/X8kk5kUH/2GHtVFLr4NWBymTKTD3vWsiPon9cQrJTeFMDlbX64/cv+rfGavytTPs6fP
-	 13QShdt05pPjkjqIrXq1FFXILLHoNVi4uU2wUguFITrhaYF8VMHHNiIF4Ftquphg5wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794026781;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aLvj4AyjflPrk0vS+Qra6hFw0arDYtIpmQhUaLCIEIc=;
+	b=UNN11eCOAvTbxSW3bUFUcT+QQXyMbRtLdTJyzw9dE6iD4Ajmo82ufgMaVN1yvPYtb6q/
+	 8YTIxZVSSwWNVJAv5t/WHPjP09KnyIeRRr/11VYYeoZXjZ1hWW3D+HA9uRMKuKh2IRqGG
+	 Lin8V8Qr7jYZPixM//BpBfFkVD+7pQWn1b1n1GCsl7350MDkCaWtk5mpRCIYAql+NTCOt
+	 YjywNLYbbu63Rpsf3N5o2c6qaXFJp2SYiiDV1XNWwg97tYORDlaeuZYVTJIIZ9niWUmnP
+	 JYmAnarQNjphncumofMsGa7j5+I/hphj7+dqdGRCjEcwOy/hnbB/RkUmiK+JaEMuZLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="k0Pf91/h";
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C321D606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:43:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C321D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=famPqNHU;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDD9606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EDD9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=k0Pf91/h
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=famPqNHU
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2089895eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:46:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=k0Pf91/hnIO9uHZtbSRZVbinNa9nFxjexvvpAGHIQ1qZIOxSJeEyQFIwE5EFNKaS0sV6e/ZaBZybU
-	 gqz0ZoQl0ZZBoLO0ba6/6dUEVycaQElzUfNhvvVbqbmFDjUT/H957ZLYxkFdWocf7bHjzAdN6o4DgH
-	 bGZ303u/2V2B9ZPY=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76aeeac74c60-b6345;
-	Sat, 07 Nov 2026 12:43:32 +0800 (CST)
-X-RM-TRANSID:2ee76aeeac74c60-b6345
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from cmss.chinamobile.com (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aeeac70c55-3a0a7;
-	Sat, 07 Nov 2026 12:43:32 +0800 (CST)
-X-RM-TRANSID:2ee86aeeac70c55-3a0a7
-From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-To: linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>, Breno Leitao <leitao@debian.org>, David Gow <david@davidgow.net>, Tejun Heo <tj@kernel.org>, Ryota Sakamoto <sakamo.ryota@gmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, Marco Elver <elver@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Kir Chou <note351@hotmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Borislav Petkov <bp@alien8.de>, Kuan-Wei Chiu <visitorckw@gmail.com>, Petr Mladek <pmladek@suse.com>, Eric Biggers <ebiggers@kernel.org>, Guan-Chun Wu <409411716@gms.tku.edu.tw>, Andy Shevchenko <andriy.shevchenko@intel.com>, Geert Uytterhoeven <geert@linux-m68k.org>, Dmitry Antipov <dmantipov@yandex.ru>, Thomas Maarseveen <maarseveent@gmail.com>, Nickolai Zeldovich <nickolai@csail.mit.edu>, Thomas Gleixner <tglx@kernel.org>, Adam Harshbarger <handyhandyman.adam@gmail.com>
-Subject: [PATCH v3] lib/tests: add KUnit tests for the priority sorted list (plist)
-Date: Sat, 07 Nov 2026 12:45:00 +0800
-Message-ID: <20261107-plist-kunit-v3-1-yuehongwu@cmss.chinamobile.com>
+        d=gmail.com; s=20260707; t=1794026779; x=1794631579; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aLvj4AyjflPrk0vS+Qra6hFw0arDYtIpmQhUaLCIEIc=;
+        b=famPqNHUY7nzzF3ajK7xPXxhLNKc2AUQcbA8hPFA1BSi9yHOO4SxJXamB9A6QaTYnL
+         aM6PLF9MhXJ3sdSK5OnEWkpOQk5gciCy3UVyYrtJyq9+pwnWCohMIph9QA4rzwV5SsuT
+         OYGqmN7s22lFr6UAANbb2+2sknWulnI+AlbimCl6ZfGg8ZmrMw+wHtLT9fMQSDcemZpV
+         X+hOL5mtH9Dd8X4LJ4ukeUcLmLY3PNmuilb/mPnn9ZeWBrLTOvm2FTXZeYAdN71ba1ay
+         eidT4MrmS1KxWG2b6c4DaTHUsKWDviPtbzCFphknupUL/zf3Fbsho5LbIVXrWR2QoAPZ
+         +QfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794026779; x=1794631579;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aLvj4AyjflPrk0vS+Qra6hFw0arDYtIpmQhUaLCIEIc=;
+        b=cW/s0Yv/tVujYY+XNDq0srIeR/sKyzR0U/0VDSOtiDqwVjqeGgbvd/VI847fPVPr3E
+         qwfkjkKHCUedWcanrQnhBe+ZGfTtJN9ge7EB7HXOC7d2NB+P7PxkEam9B6j/kQXxdtOC
+         R/8t5/2HNDig3C1fWD1zqihNQRVwe3k2C0mZQ1fxvyfQfRms61SO6qnbR70YVb2SGw2z
+         OpdMe+Y36/tuXN6iwGz2575R3qZzmiHhCVw7KODZw9D7aTIuGKWhIVgCQjj6AKk3MhNq
+         I0mOBBW10ivDqmce1qzqPUY6TjxIfg04AfU3EKkiDX/1RxjeyGzDP07b9ihOwbrz6bhe
+         LzxA==
+X-Forwarded-Encrypted: i=1; AL+hErHY1pR717FAQEdRb73/j4OtlhnvAU44KzvTna6iDOv8z0rGe8LlrfZVc2fhbWk6t48/0lHmWbmiXTu3/9g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+w20OXtNfpfjSY7jTeHTIUb6x0MI1hk51DMqFNnLoCx91Ea5Z
+	OL8IqeEYekTEHp0dJv0im2X/CW8Z93cL8cpPFujeC9HMN8Lf7DAxv/dG
+X-Gm-Gg: AYBFou12SfIPj19LNK1HGwONkWDE9wNyGt0VFlIcZvddYo+DSV7z2VsravP7HZTeU+C
+	S7y/bTTkjCQ2NP7or7FD2w/G/V+06PhLOCHEDYTCVyJNSmGOFuIVcELInGOZzVlwyGc7YzSXIFN
+	0bQFvA6kJkgfKkmgedyUuIzQgLc5yN2cxtIUQ9ScoX0/CEdkWEsmGStu9VACJD2LqszRFiIJfmA
+	CSXkq1lvfzoV1jrb2yt/0XMfFkmaStGLHY6KRaPhZWjfJoHqsaiYei2N/lTe/DtxWJINtH/F9Oo
+	USxgztjGRY6P3P3q4EIZPc0m7jFVA1M9ZYBmSh3ca0QCaGndd3VEVRqKLcK6J/3DtQGvVDzHL+M
+	lUE1Waxzp8SNH1aBaUSguabNv4vgPrtsVarcFr5JZdqB6hm+TQDDk/LjYZOi/XUY9F6egjs6fjF
+	bsHQ5O49uM9DmNQ+PlEJJEwzz46LQ2Nzb0E+h7m4YtASu8Utyvhm2pP0mFuSLLUh31FVGpfUb4W
+	dGrxydB7C/g/LHODxi0mN1J4UGLBe4WQsyWQwOExidsztXRbOX1jO6wAt6DeOtRDXp3KFY7jX49
+	2BeyiJpF8NStS8A+WW4fDOadZTt8mKVz0BWWll7TbaT39PFdaIPT+scWd7Y3Al8fi7hPOEfGZSc
+	LEElxdi9xE3k4IzQ1Gc90FI1lSULA
+X-Received: by 2002:a05:7301:d196:b0:36f:be1f:1191 with SMTP id 5a478bee46e88-36fbe1f11efmr6110099eec.29.1794026779025;
+        Fri, 06 Nov 2026 20:46:19 -0800 (PST)
+Received: from localhost.localdomain (c-73-158-21-37.hsd1.ca.comcast.net. [73.158.21.37])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa651c57asm12093136eec.2.2026.11.06.20.46.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 20:46:18 -0800 (PST)
+From: Saad Varshani <varshanisaad@gmail.com>
+To: nkapron@google.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Saad Varshani <varshanisaad@gmail.com>,
+	syzbot+300213c2b5b55c0244f4@syzkaller.appspotmail.com
+Subject: [PATCH v5] usb: gadget: uvc: Fix deadlocks in uvcg_configfs attribute callbacks
+Date: Fri,  6 Nov 2026 20:45:53 -0800
+Message-ID: <20261107044553.24277-1-varshanisaad@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261106020727.6055-1-varshanisaad@gmail.com>
+References: <20261106020727.6055-1-varshanisaad@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,905 +101,1268 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
 
-lib/plist.c has no KUnit coverage; its only test is the in-module
-plist_test() under CONFIG_DEBUG_PLIST, which BUG_ON()s on the first
-violation and does not report results in KTAP format.  The
-ordering-sensitive code paths have been changed three times since
-mid-2024:
+Removed su_mutex locking in the function uvcg_extension_bm_controls_store.
+Done this due to the deadlock caused by the mutex conflict in
+fs/configfs_write_iter. Validated commit with the C repro provided by
+syzbot. No other conficts observed.
 
-  commit c8dab79f9eef ("lib/plist.c: avoid worst case scenario in
-  plist_add")
-  commit 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
-  commit 43c91b152243 ("lib/plist: fix plist_requeue() corrupting order
-  in the last bucket")
+Also removed the su_mutex in the other attribute extension functions.
+Such as uvcg_extension_b_control_size_store. This applies to all
+uvcg_configfs attribute store/show functions.
 
-The first two are performance optimizations; the third one fixes a real
-ordering bug.  A deterministic case for that wrap-around now lives in the
-CONFIG_DEBUG_PLIST self-test, which only runs when that debug option is
-enabled by hand and stops at the first BUG_ON().
-plist_kunit_requeue_last_bucket() covers the same shape here, and the
-other cases pin down the ordering invariants the two optimizations rely
-on.  KUnit coverage makes such regressions visible wherever KUnit is
-enabled, which CONFIG_DEBUG_PLIST is not.
+The deadlock was happening due to a circular mutex dependency between
+configfs (frag_sem) and uvcg_extension su_mutex. The reason it is safe
+to traverse item->ci_parent without su_mutex is because
+configfs_write_iter() calls flush_write_buffer() which calls the
+attribute function, holding frag_sem. Which prevents configfs_rmdir()
+from unlinking the item or its ci_parent hierarchy
 
-Add lib/tests/plist_kunit.c, a KUnit suite that exercises plist_add(),
-plist_del() and plist_requeue() and validates the invariants documented
-in include/linux/plist.h after every operation:
+Also reordered fmt->linked in uvcg_frame_b_frame_index_show() to be
+under the &opts->lock. As well as reorder refcnt in uvcg_color_matching
+store to be under &opts->lock.
 
-  - node_list stays sorted by ascending numeric priority (descending
-    priority order), and its prev links agree with its next links;
+Applied opts->lock mutex, to functions uvcg_format_allow_link(),
+uvcg_format_drop_link(), uvcg_uncompressed_make(), uvcg_mjpeg_make(),
+and uvcg_framebased_make() due to them also modifying
+color_match->refcnt, to avoid concurrency issues.
 
-  - exactly the first node of each bucket is linked on prio_list, the
-    ring's prev links agree with its next links, and the headless ring
-    visits the bucket heads in node_list order before wrapping back to
-    the first bucket (a single bucket degenerates to a self loop on the
-    first node).
-
-The fixed cases cover bucket head handover on delete (first, middle and
-last bucket), the plist_requeue() shortcut with and without a following
-bucket, requeueing the head of the first and of the last bucket where
-the ring wraps around, requeueing inside a single bucket, the
-INT_MIN/INT_MAX extremes, and plist_first_entry()/plist_last_entry().
-
-A deterministic pseudo-random add/del/requeue churn test mirrors the
-in-module test, but draws priorities from a small range, so that
-multi-node buckets actually occur with the 24 nodes it uses, and every
-requeue in the loop moves a node (a requeue without a same-priority
-successor is a no-op).  The in-module test stays: it also carries the
-plist_add() worst-case timing benchmark, and CONFIG_DEBUG_PLIST keeps
-plist_check_head() in the fast path.
-
-The suite is wired up as CONFIG_PLIST_KUNIT_TEST next to the other
-library KUnit tests and is enabled by default with KUNIT_ALL_TESTS.
-lib/plist.c is built into the kernel, so export plist_add(), plist_del()
-and plist_requeue() for KUnit with EXPORT_SYMBOL_IF_KUNIT() and let the
-test import EXPORTED_FOR_KUNIT_TESTING; that keeps the test tristate
-like the other library KUnit tests.
-
-The tests build both as a module and into the kernel.  Built into the
-kernel, with kunit.enable=1 kunit.filter_glob=plist*, all 18 tests pass
-under QEMU/KVM.  Reverting the last fix above makes three of them fail
-(plist_kunit_requeue_basic, plist_kunit_requeue_last_bucket and
-plist_kunit_random), all with the list coming out unsorted, so the
-suite does catch the bug it was written for.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202611052109.GqbzRkv1-lkp@intel.com/
-Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
 ---
-v3:
-- Export plist_add(), plist_del() and plist_requeue() with
-  EXPORT_SYMBOL_IF_KUNIT() and keep CONFIG_PLIST_KUNIT_TEST tristate, as
-  suggested by Geert Uytterhoeven.
-- Use KUNIT_ASSERT_*() in the invariant checker, so that a corrupted
-  list aborts the test instead of being walked further.
-- Check both halves of the prio_list self loop in the single-bucket case.
-- Note the deterministic regression case that the CONFIG_DEBUG_PLIST
-  self-test now carries, and that KUnit is what makes it run in CI.
-v2:
-- Make the test built-in only (bool + depends on KUNIT=y): lib/plist.c is
-  built into the kernel and does not export plist_add()/plist_del()/
-  plist_requeue(), so a modular build fails in modpost.  Reported by the
-  kernel test robot.
-v1: https://lore.kernel.org/all/20261103-plist-kunit-1-yuehongwu@cmss.chinamobile.com/
+v5 changes:
+	- Synchronised color_match->refcnt changes with the opts->lock
+	  mutex in the functions uvcg_format_allow_link(),
+	  uvcg_format_drop_link(), uvcg_uncompressed_make(),
+	  uvcg_mjpeg_make(), and uvcg_framebased_make()
 
- lib/Kconfig.debug       |  19 ++
- lib/plist.c             |   4 +
- lib/tests/Makefile      |   1 +
- lib/tests/plist_kunit.c | 719 ++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 743 insertions(+)
- create mode 100644 lib/tests/plist_kunit.c
+Reported-by: syzbot+300213c2b5b55c0244f4@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=300213c2b5b55c0244f4
+Signed-off-by: Saad Varshani <varshanisaad@gmail.com>
+---
+ drivers/usb/gadget/function/uvc_configfs.c | 283 +++------------------
+ 1 file changed, 41 insertions(+), 242 deletions(-)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 2d22638..cbf7ab2 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -3065,6 +3065,25 @@ config MIN_HEAP_KUNIT_TEST
+diff --git a/drivers/usb/gadget/function/uvc_configfs.c b/drivers/usb/gadget/function/uvc_configfs.c
+index 70a1415ea401..4f775efe24b6 100644
+--- a/drivers/usb/gadget/function/uvc_configfs.c
++++ b/drivers/usb/gadget/function/uvc_configfs.c
+@@ -191,11 +191,8 @@ static ssize_t uvcg_control_header_##cname##_show(			\
+ 	struct uvcg_control_header *ch = to_uvcg_control_header(item);	\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &ch->item.ci_group->cg_subsys->su_mutex;\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = ch->item.ci_parent->ci_parent->ci_parent;		\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -203,7 +200,6 @@ static ssize_t uvcg_control_header_##cname##_show(			\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(ch->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -214,12 +210,9 @@ uvcg_control_header_##cname##_store(struct config_item *item,		\
+ 	struct uvcg_control_header *ch = to_uvcg_control_header(item);	\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &ch->item.ci_group->cg_subsys->su_mutex;\
+ 	int ret;							\
+ 	u##bits num;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = ch->item.ci_parent->ci_parent->ci_parent;		\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -241,7 +234,6 @@ uvcg_control_header_##cname##_store(struct config_item *item,		\
+ 	ret = len;							\
+ end:									\
+ 	mutex_unlock(&opts->lock);					\
+-	mutex_unlock(su_mutex);						\
+ 	return ret;							\
+ }									\
+ 									\
+@@ -309,12 +301,9 @@ static ssize_t uvcg_default_processing_##cname##_show(			\
+ 	struct config_group *group = to_config_group(item);		\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
+ 	struct uvc_processing_unit_descriptor *pd;			\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;	\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 	pd = &opts->uvc_processing;					\
+@@ -323,7 +312,6 @@ static ssize_t uvcg_default_processing_##cname##_show(			\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(pd->aname));	\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -340,7 +328,6 @@ static ssize_t uvcg_default_processing_bm_controls_store(
+ 	struct config_item *item, const char *page, size_t len)
+ {
+ 	struct config_group *group = to_config_group(item);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvc_processing_unit_descriptor *pd;
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+@@ -348,8 +335,6 @@ static ssize_t uvcg_default_processing_bm_controls_store(
+ 	unsigned int i;
+ 	int ret, n = 0;
  
- 	  If unsure, say N
- 
-+config PLIST_KUNIT_TEST
-+	tristate "KUnit test for priority sorted list (plist)" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds the priority sorted list (plist) KUnit test suite.
-+	  It checks that plist_add(), plist_del() and plist_requeue()
-+	  maintain the ordering invariants of the two-level list, including
-+	  the priority bucket boundary cases.
-+
-+	  KUnit tests run during boot and print their results in KTAP format.
-+	  Only useful for kernel developers running the KUnit test harness,
-+	  not for production builds.
-+
-+	  For more information on KUnit and unit tests in general please refer
-+	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-+
- config IS_SIGNED_TYPE_KUNIT_TEST
- 	tristate "Test is_signed_type() macro" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-diff --git a/lib/plist.c b/lib/plist.c
-index b027353..5d7f3b0 100644
---- a/lib/plist.c
-+++ b/lib/plist.c
-@@ -22,6 +22,7 @@
-  * information.
-  */
- 
-+#include <kunit/visibility.h>
- #include <linux/bug.h>
- #include <linux/plist.h>
- 
-@@ -112,6 +113,7 @@ ins_node:
- 
- 	plist_check_head(head);
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 	pd = &opts->uvc_processing;
+@@ -390,7 +375,6 @@ static ssize_t uvcg_default_processing_bm_controls_store(
+ 	kfree(bm_controls);
+ unlock:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
  }
-+EXPORT_SYMBOL_IF_KUNIT(plist_add);
  
- /**
-  * plist_del - Remove a @node from plist.
-@@ -141,6 +143,7 @@ void plist_del(struct plist_node *node, struct plist_head *head)
+@@ -400,13 +384,10 @@ static ssize_t uvcg_default_processing_bm_controls_show(
+ 	struct config_group *group = to_config_group(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvc_processing_unit_descriptor *pd;
+ 	int result, i;
+ 	char *pg = page;
  
- 	plist_check_head(head);
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 	pd = &opts->uvc_processing;
+@@ -418,8 +399,6 @@ static ssize_t uvcg_default_processing_bm_controls_show(
+ 	}
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return result;
  }
-+EXPORT_SYMBOL_IF_KUNIT(plist_del);
  
- /**
-  * plist_requeue - Requeue @node at end of same-prio entries.
-@@ -200,6 +203,7 @@ queue:
+@@ -470,12 +449,9 @@ static ssize_t uvcg_default_camera_##cname##_show(			\
+ 	struct config_group *group = to_config_group(item);		\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
+ 	struct uvc_camera_terminal_descriptor *cd;			\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent->	\
+ 			ci_parent;					\
+ 	opts = to_f_uvc_opts(opts_item);				\
+@@ -485,8 +461,6 @@ static ssize_t uvcg_default_camera_##cname##_show(			\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(cd->aname));	\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+-									\
+ 	return result;							\
+ }									\
+ 									\
+@@ -509,7 +483,6 @@ static ssize_t uvcg_default_camera_bm_controls_store(
+ 	struct config_item *item, const char *page, size_t len)
+ {
+ 	struct config_group *group = to_config_group(item);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvc_camera_terminal_descriptor *cd;
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+@@ -517,8 +490,6 @@ static ssize_t uvcg_default_camera_bm_controls_store(
+ 	unsigned int i;
+ 	int ret, n = 0;
  
- 	plist_check_head(head);
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent->
+ 			ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+@@ -560,7 +531,6 @@ static ssize_t uvcg_default_camera_bm_controls_store(
+ 	kfree(bm_controls);
+ unlock:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
  }
-+EXPORT_SYMBOL_IF_KUNIT(plist_requeue);
  
- #ifdef CONFIG_DEBUG_PLIST
- #include <linux/sched.h>
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index df0537e..84569a1 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -43,6 +43,7 @@ obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
- obj-$(CONFIG_MIN_HEAP_KUNIT_TEST) += min_heap_kunit.o
- CFLAGS_overflow_kunit.o = $(call cc-disable-warning, tautological-constant-out-of-range-compare)
- obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
-+obj-$(CONFIG_PLIST_KUNIT_TEST) += plist_kunit.o
- obj-$(CONFIG_PRANDOM_KUNIT_TEST) += random32_kunit.o
- obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
- obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
-diff --git a/lib/tests/plist_kunit.c b/lib/tests/plist_kunit.c
-new file mode 100644
-index 0000000..22a614d
---- /dev/null
-+++ b/lib/tests/plist_kunit.c
-@@ -0,0 +1,719 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * KUnit tests for the priority sorted list (plist) structures.
-+ *
-+ * Checks that plist_add(), plist_del() and plist_requeue() maintain the
-+ * ordering invariants documented in include/linux/plist.h, with extra
-+ * attention to the priority bucket boundary cases of the prio_list ring.
-+ */
-+
-+#include <kunit/test.h>
-+
-+#include <linux/limits.h>
-+#include <linux/list.h>
-+#include <linux/module.h>
-+#include <linux/plist.h>
-+
-+/*
-+ * Upper bound for the node_list walk, so a corrupted list fails instead
-+ * of hanging the boot.
-+ */
-+#define PLIST_KUNIT_MAX_NODES	4096
-+
-+struct plist_kunit_item {
-+	int			id;
-+	struct plist_node	node;
-+};
-+
-+/*
-+ * Walk both the node_list and the prio_list ring and check the invariants
-+ * of a plist:
-+ *
-+ *  - node_list is sorted by ascending numeric priority (i.e. descending
-+ *    priority order), and its prev links agree with its next links;
-+ *  - exactly the first node of every priority bucket is linked on the
-+ *    prio_list ring, the ring's prev links agree with its next links, and
-+ *    the headless ring visits the bucket heads in node_list order before
-+ *    wrapping back to the first bucket;
-+ *  - when the list holds a single bucket the ring degenerates to a self
-+ *    loop on the first node, which list_empty() reports as empty.
-+ *
-+ * Same-priority FIFO order is not checked here, as it needs the expected
-+ * sequence; the individual test cases assert it explicitly.
-+ *
-+ * Returns the number of nodes on the list.
-+ */
-+static int plist_kunit_verify(struct kunit *test, struct plist_head *head)
-+{
-+	struct plist_node *pos, *prev = NULL, *first, *ring, *next;
-+	int nr_nodes = 0, nr_heads = 0, nr_ring = 0;
-+
-+	if (plist_head_empty(head)) {
-+		/* Same predicate on the other half of the head node. */
-+		KUNIT_ASSERT_PTR_EQ(test, head->node_list.prev,
-+				    &head->node_list);
-+		return 0;
-+	}
-+
-+	first = plist_first(head);
-+
-+	plist_for_each(pos, head) {
-+		if (++nr_nodes > PLIST_KUNIT_MAX_NODES) {
-+			KUNIT_FAIL(test, "node_list does not terminate");
-+			return nr_nodes;
-+		}
-+
-+		if (prev)
-+			KUNIT_ASSERT_PTR_EQ(test, pos->node_list.prev,
-+					    &prev->node_list);
-+		else
-+			KUNIT_ASSERT_PTR_EQ(test, pos->node_list.prev,
-+					    &head->node_list);
-+
-+		if (prev) {
-+			KUNIT_ASSERT_LE(test, prev->prio, pos->prio);
-+			/*
-+			 * A node sharing its predecessor's priority is a
-+			 * bucket follower and must not be linked on the
-+			 * prio_list ring; a node starting a new bucket must.
-+			 */
-+			if (prev->prio == pos->prio) {
-+				KUNIT_ASSERT_TRUE(test,
-+						  list_empty(&pos->prio_list));
-+			} else {
-+				KUNIT_ASSERT_FALSE(test,
-+						   list_empty(&pos->prio_list));
-+				nr_heads++;
-+			}
-+		} else {
-+			nr_heads++;
-+		}
-+		prev = pos;
-+	}
-+
-+	KUNIT_ASSERT_PTR_EQ(test, prev, plist_last(head));
-+
-+	if (nr_heads == 1) {
-+		/* Single bucket: the ring is a self loop on the first node. */
-+		KUNIT_ASSERT_TRUE(test, list_empty(&first->prio_list));
-+		KUNIT_ASSERT_PTR_EQ(test, first->prio_list.prev,
-+				    &first->prio_list);
-+		return nr_nodes;
-+	}
-+
-+	KUNIT_ASSERT_FALSE(test, list_empty(&first->prio_list));
-+
-+	ring = first;
-+	do {
-+		if (++nr_ring > nr_heads) {
-+			KUNIT_FAIL(test, "prio_list ring does not close");
-+			return nr_nodes;
-+		}
-+		KUNIT_ASSERT_FALSE(test, list_empty(&ring->prio_list));
-+		next = list_entry(ring->prio_list.next, struct plist_node,
-+				  prio_list);
-+		KUNIT_ASSERT_PTR_EQ(test, next->prio_list.prev,
-+				    &ring->prio_list);
-+		if (next != first)
-+			KUNIT_ASSERT_LT(test, ring->prio, next->prio);
-+		ring = next;
-+	} while (ring != first);
-+
-+	KUNIT_ASSERT_EQ(test, nr_ring, nr_heads);
-+
-+	return nr_nodes;
-+}
-+
-+static void plist_kunit_add_empty(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a;
-+
-+	plist_node_init(&a, 10);
-+
-+	KUNIT_EXPECT_TRUE(test, plist_head_empty(&head));
-+	KUNIT_EXPECT_TRUE(test, plist_node_empty(&a));
-+
-+	plist_add(&a, &head);
-+
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 1);
-+	KUNIT_EXPECT_FALSE(test, plist_head_empty(&head));
-+	KUNIT_EXPECT_FALSE(test, plist_node_empty(&a));
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &a);
-+}
-+
-+static void plist_kunit_add_order(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node n[4];
-+	int i;
-+
-+	plist_node_init(&n[0], 30);
-+	plist_node_init(&n[1], 10);
-+	plist_node_init(&n[2], 40);
-+	plist_node_init(&n[3], 20);
-+
-+	/* Insert the nodes out of order. */
-+	for (i = 0; i < ARRAY_SIZE(n); i++)
-+		plist_add(&n[i], &head);
-+
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 4);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &n[1]);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&n[1]), &n[3]);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&n[3]), &n[0]);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&n[0]), &n[2]);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &n[2]);
-+}
-+
-+static void plist_kunit_add_duplicates(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c, d, e;
-+
-+	plist_node_init(&a, 5);
-+	plist_node_init(&b, 5);
-+	plist_node_init(&c, 9);
-+	plist_node_init(&d, 5);
-+	plist_node_init(&e, 7);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+	plist_add(&d, &head);
-+	plist_add(&e, &head);
-+
-+	/* node_list: a(5), b(5), d(5), e(7), c(9) -- FIFO in a bucket. */
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 5);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &b);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &d);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&d), &e);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &c);
-+
-+	/* Only the first node of each bucket leads the prio_list ring. */
-+	KUNIT_EXPECT_FALSE(test, list_empty(&a.prio_list));
-+	KUNIT_EXPECT_TRUE(test, list_empty(&b.prio_list));
-+	KUNIT_EXPECT_TRUE(test, list_empty(&d.prio_list));
-+	KUNIT_EXPECT_FALSE(test, list_empty(&e.prio_list));
-+	KUNIT_EXPECT_FALSE(test, list_empty(&c.prio_list));
-+
-+	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &e.prio_list);
-+	KUNIT_EXPECT_PTR_EQ(test, e.prio_list.next, &c.prio_list);
-+	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
-+}
-+
-+/*
-+ * Adding ascending priorities makes every node the new last bucket, the
-+ * case the reverse walk in plist_add() is meant to short-circuit.
-+ */
-+static void plist_kunit_add_ascending(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node n[16];
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(n); i++) {
-+		plist_node_init(&n[i], i);
-+		plist_add(&n[i], &head);
-+		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head), i + 1);
-+	}
-+
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &n[0]);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &n[15]);
-+}
-+
-+/* Adding descending priorities makes every node the new first bucket. */
-+static void plist_kunit_add_descending(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node n[16];
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(n); i++) {
-+		plist_node_init(&n[i], ARRAY_SIZE(n) - i);
-+		plist_add(&n[i], &head);
-+		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head), i + 1);
-+	}
-+
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &n[15]);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &n[0]);
-+}
-+
-+static void plist_kunit_add_extremes(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 0);
-+	plist_node_init(&b, INT_MAX);
-+	plist_node_init(&c, INT_MIN);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	/* INT_MIN is the highest priority, INT_MAX the lowest. */
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &a);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
-+}
-+
-+static void plist_kunit_del_bucket_head(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 1);
-+	plist_node_init(&c, 2);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	/* Removing the bucket head hands prio_list over to the successor. */
-+	plist_del(&a, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
-+	KUNIT_EXPECT_TRUE(test, plist_node_empty(&a));
-+	KUNIT_EXPECT_FALSE(test, list_empty(&b.prio_list));
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &b);
-+
-+	/* Removing the last node of the last bucket empties the list. */
-+	plist_del(&c, &head);
-+	plist_del(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 0);
-+	KUNIT_EXPECT_TRUE(test, plist_head_empty(&head));
-+
-+	/* A removed node can be added back. */
-+	plist_add(&a, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 1);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
-+}
-+
-+static void plist_kunit_del_bucket_follower(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 1);
-+	plist_node_init(&c, 2);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	/* Removing a bucket follower must not disturb the prio_list ring. */
-+	plist_del(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
-+	KUNIT_EXPECT_FALSE(test, list_empty(&a.prio_list));
-+	KUNIT_EXPECT_FALSE(test, list_empty(&c.prio_list));
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &c.prio_list);
-+	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
-+}
-+
-+static void plist_kunit_del_middle_bucket(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 2);
-+	plist_node_init(&c, 3);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	/* Removing the only node of a middle bucket splices the ring. */
-+	plist_del(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
-+	KUNIT_EXPECT_TRUE(test, plist_node_empty(&b));
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &c.prio_list);
-+	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
-+}
-+
-+/*
-+ * Deleting the head of the last priority bucket: its follower takes over
-+ * the prio_list entry, and the ring of bucket heads has to wrap round to
-+ * the first bucket.
-+ */
-+static void plist_kunit_del_last_bucket_head(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 2);
-+	plist_node_init(&c, 2);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	plist_del(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
-+	KUNIT_EXPECT_TRUE(test, plist_node_empty(&b));
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
-+	KUNIT_EXPECT_FALSE(test, list_empty(&c.prio_list));
-+	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &c.prio_list);
-+	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
-+}
-+
-+static void plist_kunit_requeue_basic(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 2);
-+	plist_node_init(&c, 2);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	/* A node whose successor has a different priority is left alone. */
-+	plist_requeue(&a, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
-+
-+	/* Requeueing moves a node after its same-priority peers. */
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &b);
-+
-+	/* Requeueing the last node of the list is a no-op. */
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
-+
-+	/* ...and the peers rotate back. */
-+	plist_requeue(&c, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &b);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &c);
-+}
-+
-+/*
-+ * The plist_requeue() shortcut: after plist_del() the node's same-priority
-+ * successor took over the prio_list entry, so the node can be inserted
-+ * directly before the next bucket instead of walking the node_list.
-+ */
-+static void plist_kunit_requeue_shortcut(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c, d;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 2);
-+	plist_node_init(&c, 2);
-+	plist_node_init(&d, 3);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+	plist_add(&d, &head);
-+
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 4);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &b);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &d);
-+
-+	/* The tail of its bucket has a different priority: no-op. */
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 4);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &b);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &d);
-+}
-+
-+/*
-+ * Regression test for commit 43c91b152243 ("lib/plist: fix
-+ * plist_requeue() corrupting order in the last bucket"): when the
-+ * requeued node heads the last priority bucket, the prio_list ring of the
-+ * bucket heads wraps round to the first bucket, and the node must end up
-+ * at the very end of the list instead of jumping to its front.
-+ */
-+static void plist_kunit_requeue_last_bucket(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c, d, e;
-+
-+	plist_node_init(&a, 0);
-+	plist_node_init(&b, 1);
-+	plist_node_init(&c, 1);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
-+
-+	/* The same wrap with an intermediate bucket before the last one. */
-+	plist_node_init(&d, 2);
-+	plist_node_init(&e, 2);
-+	plist_add(&d, &head);
-+	plist_add(&e, &head);
-+
-+	plist_requeue(&d, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 5);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &e);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &d);
-+}
-+
-+/*
-+ * Requeueing the head of the first priority bucket: its follower takes
-+ * over the bucket, so the node moves behind it and the new first bucket
-+ * has to be linked in the prio_list ring instead.
-+ */
-+static void plist_kunit_requeue_first_bucket_head(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 1);
-+	plist_node_init(&c, 2);
-+
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	plist_requeue(&a, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &b);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &a);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&a.prio_list));
-+	KUNIT_EXPECT_FALSE(test, list_empty(&b.prio_list));
-+	KUNIT_EXPECT_PTR_EQ(test, b.prio_list.next, &c.prio_list);
-+	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &b.prio_list);
-+}
-+
-+static void plist_kunit_first_last_entry(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_kunit_item items[3];
-+	struct plist_kunit_item *first, *last;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(items); i++) {
-+		items[i].id = i;
-+		plist_node_init(&items[i].node, i + 1);
-+		plist_add(&items[i].node, &head);
-+	}
-+
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+
-+	first = plist_first_entry(&head, struct plist_kunit_item, node);
-+	last = plist_last_entry(&head, struct plist_kunit_item, node);
-+	KUNIT_EXPECT_EQ(test, first->id, 0);
-+	KUNIT_EXPECT_EQ(test, last->id, 2);
-+
-+	KUNIT_EXPECT_EQ(test, plist_next(&items[0].node)->prio, 2);
-+	KUNIT_EXPECT_EQ(test, plist_prev(&items[2].node)->prio, 2);
-+}
-+
-+/*
-+ * Deleting and requeueing the priority extremes, including handing the
-+ * prio_list ring over when the INT_MIN bucket head goes away.
-+ */
-+static void plist_kunit_extremes_ops(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c;
-+
-+	plist_node_init(&a, 0);
-+	plist_node_init(&b, INT_MAX);
-+	plist_node_init(&c, INT_MIN);
-+
-+	plist_add(&c, &head);
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+
-+	/* Deleting the INT_MIN head hands the ring over to the next bucket. */
-+	plist_del(&c, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
-+	KUNIT_EXPECT_TRUE(test, plist_node_empty(&c));
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
-+
-+	/* Requeueing the INT_MAX tail node is a no-op. */
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
-+
-+	/* Deleting the last bucket leaves a single-bucket list. */
-+	plist_del(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 1);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&a.prio_list));
-+}
-+
-+/*
-+ * Deterministic pseudo-random add/del/requeue churn, mirroring the
-+ * in-module test under CONFIG_DEBUG_PLIST but checking the invariants
-+ * after every operation with KUnit assertions instead of BUG_ON().
-+ *
-+ * Priorities are drawn from a small range so that the list actually
-+ * contains multi-node priority buckets, and the requeue step picks a node
-+ * that has a same-priority successor -- only such a node moves, so every
-+ * requeue in the loop is a real move and its result is checked.
-+ */
-+static void plist_kunit_random(struct kunit *test)
-+{
-+	struct plist_node nodes[24];
-+	PLIST_HEAD(head);
-+	unsigned int r = 12345;
-+	int i, loop, nr_expect = 0, nr_requeued = 0;
-+
-+	for (i = 0; i < ARRAY_SIZE(nodes); i++)
-+		plist_node_init(&nodes[i], 0);
-+
-+	for (loop = 0; loop < 1000; loop++) {
-+		r = r * 193939u % 47629u;
-+		i = r % ARRAY_SIZE(nodes);
-+		if (plist_node_empty(&nodes[i])) {
-+			r = r * 193939u % 47629u;
-+			plist_node_init(&nodes[i], r % 8);
-+			plist_add(&nodes[i], &head);
-+			nr_expect++;
-+		} else {
-+			plist_del(&nodes[i], &head);
-+			nr_expect--;
-+		}
-+
-+		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head),
-+				nr_expect);
-+
-+		for (i = 0; i < ARRAY_SIZE(nodes); i++) {
-+			struct plist_node *next;
-+
-+			if (plist_node_empty(&nodes[i]) ||
-+			    &nodes[i] == plist_last(&head))
-+				continue;
-+			next = plist_next(&nodes[i]);
-+			if (next->prio != nodes[i].prio)
-+				continue;
-+
-+			plist_requeue(&nodes[i], &head);
-+			nr_requeued++;
-+
-+			KUNIT_ASSERT_EQ(test,
-+					plist_kunit_verify(test, &head),
-+					nr_expect);
-+			/* A requeued node is now the tail of its bucket. */
-+			if (&nodes[i] != plist_last(&head))
-+				KUNIT_EXPECT_NE(test, nodes[i].prio,
-+						plist_next(&nodes[i])->prio);
-+			break;
-+		}
-+	}
-+
-+	/* The requeue part of the churn must actually have run. */
-+	KUNIT_EXPECT_GT(test, nr_requeued, 0);
-+
-+	for (i = 0; i < ARRAY_SIZE(nodes); i++) {
-+		if (plist_node_empty(&nodes[i]))
-+			continue;
-+		plist_del(&nodes[i], &head);
-+		nr_expect--;
-+		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head),
-+				nr_expect);
-+	}
-+
-+	KUNIT_EXPECT_TRUE(test, plist_head_empty(&head));
-+}
-+
-+/*
-+ * Requeueing inside a single priority bucket exercises the degenerate
-+ * prio_list ring (a self loop on the first node), and requeueing a bucket
-+ * follower walks to the end of its bucket but not past the next one.
-+ */
-+static void plist_kunit_requeue_bucket_edges(struct kunit *test)
-+{
-+	PLIST_HEAD(head);
-+	struct plist_node a, b, c, d, e;
-+
-+	plist_node_init(&a, 1);
-+	plist_node_init(&b, 1);
-+	plist_node_init(&c, 1);
-+	plist_add(&a, &head);
-+	plist_add(&b, &head);
-+	plist_add(&c, &head);
-+
-+	/* Single bucket: the ring is a self loop on the first node. */
-+	plist_requeue(&a, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &b);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &a);
-+	/*
-+	 * b heads the bucket now, but a single bucket never links onto
-+	 * the ring: after the handover in plist_del() the entry is a self
-+	 * loop, which list_empty() reports as empty.
-+	 */
-+	KUNIT_EXPECT_TRUE(test, list_empty(&b.prio_list));
-+
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &c);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
-+
-+	/* A follower requeue walks to the end of its bucket, not past it. */
-+	plist_node_init(&d, 1);
-+	plist_node_init(&e, 2);
-+	plist_add(&d, &head);
-+	plist_add(&e, &head);
-+
-+	plist_requeue(&b, &head);
-+	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 5);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &a);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &d);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&d), &b);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &e);
-+	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &e);
-+}
-+
-+static struct kunit_case plist_kunit_test_cases[] = {
-+	KUNIT_CASE(plist_kunit_add_empty),
-+	KUNIT_CASE(plist_kunit_add_order),
-+	KUNIT_CASE(plist_kunit_add_duplicates),
-+	KUNIT_CASE(plist_kunit_add_ascending),
-+	KUNIT_CASE(plist_kunit_add_descending),
-+	KUNIT_CASE(plist_kunit_add_extremes),
-+	KUNIT_CASE(plist_kunit_del_bucket_head),
-+	KUNIT_CASE(plist_kunit_del_bucket_follower),
-+	KUNIT_CASE(plist_kunit_del_middle_bucket),
-+	KUNIT_CASE(plist_kunit_del_last_bucket_head),
-+	KUNIT_CASE(plist_kunit_requeue_basic),
-+	KUNIT_CASE(plist_kunit_requeue_shortcut),
-+	KUNIT_CASE(plist_kunit_requeue_last_bucket),
-+	KUNIT_CASE(plist_kunit_requeue_first_bucket_head),
-+	KUNIT_CASE(plist_kunit_requeue_bucket_edges),
-+	KUNIT_CASE(plist_kunit_first_last_entry),
-+	KUNIT_CASE(plist_kunit_extremes_ops),
-+	KUNIT_CASE(plist_kunit_random),
-+	{}
-+};
-+
-+static struct kunit_suite plist_kunit_test_suite = {
-+	.name = "plist",
-+	.test_cases = plist_kunit_test_cases,
-+};
-+
-+kunit_test_suite(plist_kunit_test_suite);
-+
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-+
-+MODULE_DESCRIPTION("KUnit tests for the priority sorted list (plist)");
-+MODULE_LICENSE("GPL");
+@@ -570,13 +540,10 @@ static ssize_t uvcg_default_camera_bm_controls_show(
+ 	struct config_group *group = to_config_group(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvc_camera_terminal_descriptor *cd;
+ 	int result, i;
+ 	char *pg = page;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent->
+ 			ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+@@ -588,8 +555,6 @@ static ssize_t uvcg_default_camera_bm_controls_show(
+ 		pg = page + result;
+ 	}
+ 	mutex_unlock(&opts->lock);
+-
+-	mutex_unlock(su_mutex);
+ 	return result;
+ }
+ 
+@@ -643,12 +608,9 @@ static ssize_t uvcg_default_output_##cname##_show(			\
+ 	struct config_group *group = to_config_group(item);		\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
+ 	struct uvc_output_terminal_descriptor *cd;			\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = group->cg_item.ci_parent->ci_parent->		\
+ 			ci_parent->ci_parent;				\
+ 	opts = to_f_uvc_opts(opts_item);				\
+@@ -658,8 +620,6 @@ static ssize_t uvcg_default_output_##cname##_show(			\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(cd->aname));	\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+-									\
+ 	return result;							\
+ }									\
+ 									\
+@@ -678,12 +638,9 @@ static ssize_t uvcg_default_output_b_source_id_show(struct config_item *item,
+ 	struct config_group *group = to_config_group(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvc_output_terminal_descriptor *cd;
+ 	int result;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = group->cg_item.ci_parent->ci_parent->
+ 			ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+@@ -693,8 +650,6 @@ static ssize_t uvcg_default_output_b_source_id_show(struct config_item *item,
+ 	result = sprintf(page, "%u\n", le8_to_cpu(cd->bSourceID));
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return result;
+ }
+ 
+@@ -704,7 +659,6 @@ static ssize_t uvcg_default_output_b_source_id_store(struct config_item *item,
+ 	struct config_group *group = to_config_group(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvc_output_terminal_descriptor *cd;
+ 	int result;
+ 	u8 num;
+@@ -713,8 +667,6 @@ static ssize_t uvcg_default_output_b_source_id_store(struct config_item *item,
+ 	if (result)
+ 		return result;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = group->cg_item.ci_parent->ci_parent->
+ 			ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+@@ -724,8 +676,6 @@ static ssize_t uvcg_default_output_b_source_id_store(struct config_item *item,
+ 	cd->bSourceID = num;
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return len;
+ }
+ UVC_ATTR(uvcg_default_output_, b_source_id, bSourceID);
+@@ -789,15 +739,11 @@ static const struct uvcg_config_group_type uvcg_terminal_grp_type = {
+ static ssize_t uvcg_extension_##cname##_show(struct config_item *item,	\
+ 					     char *page)		\
+ {									\
+-	struct config_group *group = to_config_group(item->ci_parent);	\
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);		\
+ 	struct config_item *opts_item;					\
+ 	struct f_uvc_opts *opts;					\
+ 	int ret;							\
+ 									\
+-	mutex_lock(su_mutex);						\
+-									\
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;		\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -805,8 +751,6 @@ static ssize_t uvcg_extension_##cname##_show(struct config_item *item,	\
+ 	ret = sprintf(page, "%u\n", xu->desc.aname);			\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+-									\
+ 	return ret;							\
+ }									\
+ UVC_ATTR##ro(uvcg_extension_, cname, aname)
+@@ -818,8 +762,6 @@ UVCG_EXTENSION_ATTR(i_extension, iExtension, _RO);
+ static ssize_t uvcg_extension_b_num_controls_store(struct config_item *item,
+ 						   const char *page, size_t len)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+@@ -830,8 +772,6 @@ static ssize_t uvcg_extension_b_num_controls_store(struct config_item *item,
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -839,8 +779,6 @@ static ssize_t uvcg_extension_b_num_controls_store(struct config_item *item,
+ 	xu->desc.bNumControls = num;
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return len;
+ }
+ UVCG_EXTENSION_ATTR(b_num_controls, bNumControls);
+@@ -852,8 +790,6 @@ UVCG_EXTENSION_ATTR(b_num_controls, bNumControls);
+ static ssize_t uvcg_extension_b_nr_in_pins_store(struct config_item *item,
+ 						 const char *page, size_t len)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+@@ -865,8 +801,6 @@ static ssize_t uvcg_extension_b_nr_in_pins_store(struct config_item *item,
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -893,7 +827,6 @@ static ssize_t uvcg_extension_b_nr_in_pins_store(struct config_item *item,
+ 
+ unlock:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ UVCG_EXTENSION_ATTR(b_nr_in_pins, bNrInPins);
+@@ -905,8 +838,6 @@ UVCG_EXTENSION_ATTR(b_nr_in_pins, bNrInPins);
+ static ssize_t uvcg_extension_b_control_size_store(struct config_item *item,
+ 						   const char *page, size_t len)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+@@ -918,8 +849,6 @@ static ssize_t uvcg_extension_b_control_size_store(struct config_item *item,
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -946,7 +875,6 @@ static ssize_t uvcg_extension_b_control_size_store(struct config_item *item,
+ 
+ unlock:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ 
+@@ -955,14 +883,10 @@ UVCG_EXTENSION_ATTR(b_control_size, bControlSize);
+ static ssize_t uvcg_extension_guid_extension_code_show(struct config_item *item,
+ 						       char *page)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -970,23 +894,17 @@ static ssize_t uvcg_extension_guid_extension_code_show(struct config_item *item,
+ 	memcpy(page, xu->desc.guidExtensionCode, sizeof(xu->desc.guidExtensionCode));
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return sizeof(xu->desc.guidExtensionCode);
+ }
+ 
+ static ssize_t uvcg_extension_guid_extension_code_store(struct config_item *item,
+ 							const char *page, size_t len)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	int ret;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -995,8 +913,6 @@ static ssize_t uvcg_extension_guid_extension_code_store(struct config_item *item
+ 	       min(sizeof(xu->desc.guidExtensionCode), len));
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	ret = sizeof(xu->desc.guidExtensionCode);
+ 
+ 	return ret;
+@@ -1007,16 +923,12 @@ UVC_ATTR(uvcg_extension_, guid_extension_code, guidExtensionCode);
+ static ssize_t uvcg_extension_ba_source_id_show(struct config_item *item,
+ 						char *page)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	char *pg = page;
+ 	int ret, i;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1027,24 +939,18 @@ static ssize_t uvcg_extension_ba_source_id_show(struct config_item *item,
+ 	}
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return ret;
+ }
+ 
+ static ssize_t uvcg_extension_ba_source_id_store(struct config_item *item,
+ 						 const char *page, size_t len)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	u8 *source_ids, *iter;
+ 	int ret, n = 0;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1078,7 +984,6 @@ static ssize_t uvcg_extension_ba_source_id_store(struct config_item *item,
+ 
+ unlock:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ UVC_ATTR(uvcg_extension_, ba_source_id, baSourceID);
+@@ -1086,16 +991,12 @@ UVC_ATTR(uvcg_extension_, ba_source_id, baSourceID);
+ static ssize_t uvcg_extension_bm_controls_show(struct config_item *item,
+ 					       char *page)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	char *pg = page;
+ 	int ret, i;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1106,24 +1007,18 @@ static ssize_t uvcg_extension_bm_controls_show(struct config_item *item,
+ 	}
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return ret;
+ }
+ 
+ static ssize_t uvcg_extension_bm_controls_store(struct config_item *item,
+ 						const char *page, size_t len)
+ {
+-	struct config_group *group = to_config_group(item->ci_parent);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct uvcg_extension *xu = to_uvcg_extension(item);
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	u8 *bm_controls, *iter;
+ 	int ret, n = 0;
+ 
+-	mutex_lock(su_mutex);
+-
+ 	opts_item = item->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1157,7 +1052,6 @@ static ssize_t uvcg_extension_bm_controls_store(struct config_item *item,
+ 
+ unlock:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ 
+@@ -1467,14 +1361,10 @@ static const struct uvcg_config_group_type uvcg_control_class_grp_type = {
+ static ssize_t uvcg_default_control_b_interface_number_show(
+ 	struct config_item *item, char *page)
+ {
+-	struct config_group *group = to_config_group(item);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	int result = 0;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = item->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1482,8 +1372,6 @@ static ssize_t uvcg_default_control_b_interface_number_show(
+ 	result += sprintf(page, "%u\n", opts->control_interface);
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return result;
+ }
+ 
+@@ -1492,14 +1380,10 @@ UVC_ATTR_RO(uvcg_default_control_, b_interface_number, bInterfaceNumber);
+ static ssize_t uvcg_default_control_enable_interrupt_ep_show(
+ 	struct config_item *item, char *page)
+ {
+-	struct config_group *group = to_config_group(item);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	int result = 0;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = item->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1507,16 +1391,12 @@ static ssize_t uvcg_default_control_enable_interrupt_ep_show(
+ 	result += sprintf(page, "%u\n", opts->enable_interrupt_ep);
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return result;
+ }
+ 
+ static ssize_t uvcg_default_control_enable_interrupt_ep_store(
+ 	struct config_item *item, const char *page, size_t len)
+ {
+-	struct config_group *group = to_config_group(item);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	ssize_t ret;
+@@ -1526,8 +1406,6 @@ static ssize_t uvcg_default_control_enable_interrupt_ep_store(
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = item->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1535,8 +1413,6 @@ static ssize_t uvcg_default_control_enable_interrupt_ep_store(
+ 	opts->enable_interrupt_ep = num;
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return len;
+ }
+ UVC_ATTR(uvcg_default_control_, enable_interrupt_ep, enable_interrupt_ep);
+@@ -1609,6 +1485,11 @@ static int uvcg_format_allow_link(struct config_item *src, struct config_item *t
+ 
+ 	mutex_lock(su_mutex);
+ 
++	opts_item = f->group.cg_item.ci_parent->ci_parent->ci_parent;
++	opts = to_f_uvc_opts(opts_item);
++
++	mutex_lock(&opts->lock);
++
+ 	streaming = src->ci_parent->ci_parent;
+ 	color_matching = config_group_find_item(to_config_group(streaming), "color_matching");
+ 	if (!color_matching || color_matching != tgt->ci_parent) {
+@@ -1637,6 +1518,7 @@ static int uvcg_format_allow_link(struct config_item *src, struct config_item *t
+ 
+ out_put_cm:
+ 	config_item_put(color_matching);
++	mutex_unlock(&opts->lock);
+ 	mutex_unlock(su_mutex);
+ 
+ 	return ret;
+@@ -1651,6 +1533,11 @@ static void uvcg_format_drop_link(struct config_item *src, struct config_item *t
+ 
+ 	mutex_lock(su_mutex);
+ 
++	opts_item = f->group.cg_item.ci_parent->ci_parent->ci_parent;
++	opts = to_f_uvc_opts(opts_item);
++
++	mutex_lock(&opts->lock);
++
+ 	color_matching_desc = to_uvcg_color_matching(to_config_group(tgt));
+ 	color_matching_desc->refcnt--;
+ 
+@@ -1661,6 +1548,7 @@ static void uvcg_format_drop_link(struct config_item *src, struct config_item *t
+ 	fmt->color_matching = color_matching_desc;
+ 	color_matching_desc->refcnt++;
+ 
++	mutex_unlock(&opts->lock);
+ 	mutex_unlock(su_mutex);
+ }
+ 
+@@ -1674,12 +1562,9 @@ static ssize_t uvcg_format_bma_controls_show(struct uvcg_format *f, char *page)
+ {
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &f->group.cg_subsys->su_mutex;
+ 	int result, i;
+ 	char *pg = page;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = f->group.cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1691,8 +1576,6 @@ static ssize_t uvcg_format_bma_controls_show(struct uvcg_format *f, char *page)
+ 		pg = page + result;
+ 	}
+ 	mutex_unlock(&opts->lock);
+-
+-	mutex_unlock(su_mutex);
+ 	return result;
+ }
+ 
+@@ -1701,11 +1584,8 @@ static ssize_t uvcg_format_bma_controls_store(struct uvcg_format *ch,
+ {
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &ch->group.cg_subsys->su_mutex;
+ 	int ret = -EINVAL;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = ch->group.cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -1724,7 +1604,6 @@ static ssize_t uvcg_format_bma_controls_store(struct uvcg_format *ch,
+ 	ret = len;
+ end:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ 
+@@ -1853,19 +1732,14 @@ static ssize_t uvcg_streaming_header_##cname##_show(			\
+ 	struct uvcg_streaming_header *sh = to_uvcg_streaming_header(item); \
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &sh->item.ci_group->cg_subsys->su_mutex;\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = sh->item.ci_parent->ci_parent->ci_parent;		\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+ 	mutex_lock(&opts->lock);					\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(sh->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+-									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -1937,11 +1811,8 @@ static ssize_t uvcg_frame_##cname##_show(struct config_item *item, char *page)\
+ 	struct uvcg_frame *f = to_uvcg_frame(item);			\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &f->item.ci_group->cg_subsys->su_mutex;\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = f->item.ci_parent->ci_parent->ci_parent->ci_parent;	\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -1949,7 +1820,6 @@ static ssize_t uvcg_frame_##cname##_show(struct config_item *item, char *page)\
+ 	result = sprintf(page, "%u\n", f->frame.cname);			\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -1960,7 +1830,6 @@ static ssize_t  uvcg_frame_##cname##_store(struct config_item *item,	\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+ 	struct uvcg_format *fmt;					\
+-	struct mutex *su_mutex = &f->item.ci_group->cg_subsys->su_mutex;\
+ 	typeof(f->frame.cname) num;					\
+ 	int ret;							\
+ 									\
+@@ -1968,8 +1837,6 @@ static ssize_t  uvcg_frame_##cname##_store(struct config_item *item,	\
+ 	if (ret)							\
+ 		return ret;						\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = f->item.ci_parent->ci_parent->ci_parent->ci_parent;	\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 	fmt = to_uvcg_format(f->item.ci_parent);			\
+@@ -1984,7 +1851,6 @@ static ssize_t  uvcg_frame_##cname##_store(struct config_item *item,	\
+ 	ret = len;							\
+ end:									\
+ 	mutex_unlock(&opts->lock);					\
+-	mutex_unlock(su_mutex);						\
+ 	return ret;							\
+ }									\
+ 									\
+@@ -1998,28 +1864,25 @@ static ssize_t uvcg_frame_b_frame_index_show(struct config_item *item,
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+ 	struct config_item *fmt_item;
+-	struct mutex *su_mutex = &f->item.ci_group->cg_subsys->su_mutex;
+ 	int result;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	fmt_item = f->item.ci_parent;
+ 	fmt = to_uvcg_format(fmt_item);
+ 
++	opts_item = fmt_item->ci_parent->ci_parent->ci_parent;
++	opts = to_f_uvc_opts(opts_item);
++
++	mutex_lock(&opts->lock);
++
+ 	if (!fmt->linked) {
+ 		result = -EBUSY;
+ 		goto out;
+ 	}
+ 
+-	opts_item = fmt_item->ci_parent->ci_parent->ci_parent;
+-	opts = to_f_uvc_opts(opts_item);
+-
+-	mutex_lock(&opts->lock);
+ 	result = sprintf(page, "%u\n", f->frame.b_frame_index);
+-	mutex_unlock(&opts->lock);
+ 
+ out:
+-	mutex_unlock(su_mutex);
++	mutex_unlock(&opts->lock);
+ 	return result;
+ }
+ 
+@@ -2042,12 +1905,9 @@ static ssize_t uvcg_frame_dw_frame_interval_show(struct config_item *item,
+ 	struct uvcg_frame *frm = to_uvcg_frame(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &frm->item.ci_group->cg_subsys->su_mutex;
+ 	int result, i;
+ 	char *pg = page;
+ 
+-	mutex_lock(su_mutex);	/* for navigating configfs hierarchy */
+-
+ 	opts_item = frm->item.ci_parent->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -2057,8 +1917,6 @@ static ssize_t uvcg_frame_dw_frame_interval_show(struct config_item *item,
+ 		pg = page + result;
+ 	}
+ 	mutex_unlock(&opts->lock);
+-
+-	mutex_unlock(su_mutex);
+ 	return result;
+ }
+ 
+@@ -2069,12 +1927,9 @@ static ssize_t uvcg_frame_dw_frame_interval_store(struct config_item *item,
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+ 	struct uvcg_format *fmt;
+-	struct mutex *su_mutex = &ch->item.ci_group->cg_subsys->su_mutex;
+ 	int ret = 0, n = 0;
+ 	u32 *frm_intrv, *tmp;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = ch->item.ci_parent->ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 	fmt = to_uvcg_format(ch->item.ci_parent);
+@@ -2110,7 +1965,6 @@ static ssize_t uvcg_frame_dw_frame_interval_store(struct config_item *item,
+ 
+ end:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ 
+@@ -2272,9 +2126,6 @@ static ssize_t uvcg_uncompressed_guid_format_show(struct config_item *item,
+ 	struct uvcg_uncompressed *ch = to_uvcg_uncompressed(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
+-
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+ 
+ 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+@@ -2283,8 +2134,6 @@ static ssize_t uvcg_uncompressed_guid_format_show(struct config_item *item,
+ 	memcpy(page, ch->desc.guidFormat, sizeof(ch->desc.guidFormat));
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return sizeof(ch->desc.guidFormat);
+ }
+ 
+@@ -2294,13 +2143,10 @@ static ssize_t uvcg_uncompressed_guid_format_store(struct config_item *item,
+ 	struct uvcg_uncompressed *ch = to_uvcg_uncompressed(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
+ 	const struct uvc_format_desc *format;
+ 	u8 tmpguidFormat[sizeof(ch->desc.guidFormat)];
+ 	int ret;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -2325,7 +2171,6 @@ static ssize_t uvcg_uncompressed_guid_format_store(struct config_item *item,
+ 
+ end:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ 
+@@ -2338,11 +2183,8 @@ static ssize_t uvcg_uncompressed_##cname##_show(			\
+ 	struct uvcg_uncompressed *u = to_uvcg_uncompressed(item);	\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2350,7 +2192,6 @@ static ssize_t uvcg_uncompressed_##cname##_show(			\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -2363,19 +2204,14 @@ static ssize_t uvcg_uncompressed_##cname##_show(			\
+ 	struct uvcg_uncompressed *u = to_uvcg_uncompressed(item);	\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+ 	mutex_lock(&opts->lock);					\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+-									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -2386,12 +2222,9 @@ uvcg_uncompressed_##cname##_store(struct config_item *item,		\
+ 	struct uvcg_uncompressed *u = to_uvcg_uncompressed(item);	\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int ret;							\
+ 	u8 num;								\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2415,7 +2248,6 @@ uvcg_uncompressed_##cname##_store(struct config_item *item,		\
+ 	ret = len;							\
+ end:									\
+ 	mutex_unlock(&opts->lock);					\
+-	mutex_unlock(su_mutex);						\
+ 	return ret;							\
+ }									\
+ 									\
+@@ -2498,12 +2330,17 @@ static struct config_group *uvcg_uncompressed_make(struct config_group *group,
+ 	h->desc.bmInterlaceFlags	= 0;
+ 	h->desc.bCopyProtect		= 0;
+ 
++	opts_item = f->group.cg_item.ci_parent->ci_parent->ci_parent;
++	opts = to_f_uvc_opts(opts_item);
++
++	mutex_lock(&opts->lock);
+ 	INIT_LIST_HEAD(&h->fmt.frames);
+ 	h->fmt.type = UVCG_UNCOMPRESSED;
+ 	h->fmt.color_matching = color_match;
+ 	color_match->refcnt++;
+ 	config_group_init_type_name(&h->fmt.group, name,
+ 				    &uvcg_uncompressed_type);
++	mutex_unlock(&opts->lock);
+ 
+ 	return &h->fmt.group;
+ }
+@@ -2536,19 +2373,14 @@ static ssize_t uvcg_mjpeg_##cname##_show(struct config_item *item, char *page)\
+ 	struct uvcg_mjpeg *u = to_uvcg_mjpeg(item);			\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+ 	mutex_lock(&opts->lock);					\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+-									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -2560,11 +2392,8 @@ static ssize_t uvcg_mjpeg_##cname##_show(struct config_item *item, char *page)\
+ 	struct uvcg_mjpeg *u = to_uvcg_mjpeg(item);			\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2572,7 +2401,6 @@ static ssize_t uvcg_mjpeg_##cname##_show(struct config_item *item, char *page)\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -2583,12 +2411,9 @@ uvcg_mjpeg_##cname##_store(struct config_item *item,			\
+ 	struct uvcg_mjpeg *u = to_uvcg_mjpeg(item);			\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int ret;							\
+ 	u8 num;								\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2612,7 +2437,6 @@ uvcg_mjpeg_##cname##_store(struct config_item *item,			\
+ 	ret = len;							\
+ end:									\
+ 	mutex_unlock(&opts->lock);					\
+-	mutex_unlock(su_mutex);						\
+ 	return ret;							\
+ }									\
+ 									\
+@@ -2688,12 +2512,17 @@ static struct config_group *uvcg_mjpeg_make(struct config_group *group,
+ 	h->desc.bmInterlaceFlags	= 0;
+ 	h->desc.bCopyProtect		= 0;
+ 
++	opts_item = f->group.cg_item.ci_parent->ci_parent->ci_parent;
++	opts = to_f_uvc_opts(opts_item);
++
++	mutex_lock(&opts->lock);
+ 	INIT_LIST_HEAD(&h->fmt.frames);
+ 	h->fmt.type = UVCG_MJPEG;
+ 	h->fmt.color_matching = color_match;
+ 	color_match->refcnt++;
+ 	config_group_init_type_name(&h->fmt.group, name,
+ 				    &uvcg_mjpeg_type);
++	mutex_unlock(&opts->lock);
+ 
+ 	return &h->fmt.group;
+ }
+@@ -2727,11 +2556,8 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
+ 	struct uvcg_framebased *u = to_uvcg_framebased(item);		\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2739,7 +2565,6 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -2752,11 +2577,8 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
+ 	struct uvcg_framebased *u = to_uvcg_framebased(item);		\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2764,7 +2586,6 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
+ 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -2775,12 +2596,9 @@ uvcg_framebased_##cname##_store(struct config_item *item,		\
+ 	struct uvcg_framebased *u = to_uvcg_framebased(item);		\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
+ 	int ret;							\
+ 	u8 num;								\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2802,7 +2620,6 @@ uvcg_framebased_##cname##_store(struct config_item *item,		\
+ 	ret = len;							\
+ end:									\
+ 	mutex_unlock(&opts->lock);					\
+-	mutex_unlock(su_mutex);						\
+ 	return ret;							\
+ }									\
+ 									\
+@@ -2824,9 +2641,6 @@ static ssize_t uvcg_framebased_guid_format_show(struct config_item *item,
+ 	struct uvcg_framebased *ch = to_uvcg_framebased(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
+-
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+ 
+ 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+@@ -2835,8 +2649,6 @@ static ssize_t uvcg_framebased_guid_format_show(struct config_item *item,
+ 	memcpy(page, ch->desc.guidFormat, sizeof(ch->desc.guidFormat));
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return sizeof(ch->desc.guidFormat);
+ }
+ 
+@@ -2846,11 +2658,8 @@ static ssize_t uvcg_framebased_guid_format_store(struct config_item *item,
+ 	struct uvcg_framebased *ch = to_uvcg_framebased(item);
+ 	struct f_uvc_opts *opts;
+ 	struct config_item *opts_item;
+-	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
+ 	int ret;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -2866,7 +2675,6 @@ static ssize_t uvcg_framebased_guid_format_store(struct config_item *item,
+ 
+ end:
+ 	mutex_unlock(&opts->lock);
+-	mutex_unlock(su_mutex);
+ 	return ret;
+ }
+ 
+@@ -2945,10 +2753,15 @@ static struct config_group *uvcg_framebased_make(struct config_group *group,
+ 	INIT_LIST_HEAD(&h->fmt.frames);
+ 	h->fmt.type = UVCG_FRAMEBASED;
+ 
++	opts_item = f->group.cg_item.ci_parent->ci_parent->ci_parent;
++	opts = to_f_uvc_opts(opts_item);
++
++	mutex_lock(&opts->lock);
+ 	h->fmt.color_matching = color_match;
+ 	color_match->refcnt++;
+ 	config_group_init_type_name(&h->fmt.group, name,
+ 				    &uvcg_framebased_type);
++	mutex_unlock(&opts->lock);
+ 
+ 	return &h->fmt.group;
+ }
+@@ -2979,11 +2792,8 @@ static ssize_t uvcg_color_matching_##cname##_show(			\
+ 		to_uvcg_color_matching(group);				\
+ 	struct f_uvc_opts *opts;					\
+ 	struct config_item *opts_item;					\
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
+ 	int result;							\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;	\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+@@ -2992,7 +2802,6 @@ static ssize_t uvcg_color_matching_##cname##_show(			\
+ 			 le##bits##_to_cpu(color_match->desc.aname));	\
+ 	mutex_unlock(&opts->lock);					\
+ 									\
+-	mutex_unlock(su_mutex);						\
+ 	return result;							\
+ }									\
+ 									\
+@@ -3000,7 +2809,6 @@ static ssize_t uvcg_color_matching_##cname##_store(			\
+ 	struct config_item *item, const char *page, size_t len)		\
+ {									\
+ 	struct config_group *group = to_config_group(item);		\
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
+ 	struct uvcg_color_matching *color_match =			\
+ 		to_uvcg_color_matching(group);				\
+ 	struct f_uvc_opts *opts;					\
+@@ -3012,25 +2820,21 @@ static ssize_t uvcg_color_matching_##cname##_store(			\
+ 	if (ret)							\
+ 		return ret;						\
+ 									\
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
+-									\
+-	if (color_match->refcnt) {					\
+-		ret = -EBUSY;						\
+-		goto unlock_su;						\
+-	}								\
+-									\
+ 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;	\
+ 	opts = to_f_uvc_opts(opts_item);				\
+ 									\
+ 	mutex_lock(&opts->lock);					\
+ 									\
++	if (color_match->refcnt) {					\
++		ret = -EBUSY;						\
++		goto unlock_opts_lock;					\
++	}								\
++									\
+ 	color_match->desc.aname = num;					\
+ 	ret = len;							\
+ 									\
++unlock_opts_lock:							\
+ 	mutex_unlock(&opts->lock);					\
+-unlock_su:								\
+-	mutex_unlock(su_mutex);						\
+-									\
+ 	return ret;							\
+ }									\
+ UVC_ATTR(uvcg_color_matching_, cname, aname)
+@@ -3583,14 +3387,10 @@ static const struct uvcg_config_group_type uvcg_streaming_class_grp_type = {
+ static ssize_t uvcg_default_streaming_b_interface_number_show(
+ 	struct config_item *item, char *page)
+ {
+-	struct config_group *group = to_config_group(item);
+-	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
+ 	struct config_item *opts_item;
+ 	struct f_uvc_opts *opts;
+ 	int result = 0;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
+-
+ 	opts_item = item->ci_parent;
+ 	opts = to_f_uvc_opts(opts_item);
+ 
+@@ -3598,8 +3398,6 @@ static ssize_t uvcg_default_streaming_b_interface_number_show(
+ 	result += sprintf(page, "%u\n", opts->streaming_interface);
+ 	mutex_unlock(&opts->lock);
+ 
+-	mutex_unlock(su_mutex);
+-
+ 	return result;
+ }
+ 
+@@ -3648,7 +3446,7 @@ static int uvc_func_allow_link(struct config_item *src, struct config_item *tgt)
+ 	struct f_uvc_opts *opts;
+ 	int ret = 0;
+ 
+-	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
++	mutex_lock(su_mutex);
+ 
+ 	/* Validate that the target is an entry in strings/<langid> */
+ 	strings = config_group_find_item(to_config_group(src->ci_parent->ci_parent),
+@@ -3676,6 +3474,7 @@ static int uvc_func_allow_link(struct config_item *src, struct config_item *tgt)
+ 
+ put_strings:
+ 	config_item_put(strings);
++
+ 	mutex_unlock(su_mutex);
+ 
+ 	return ret;
 -- 
-2.43.0
-
-
-
+2.55.0
 
