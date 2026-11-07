@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065860;
-	b=RedNCSywSHt1Kv209pZd+kKU+573zNzgsWGz5GLU2lf0A2EvPvxnzGNej3MeTTtGrXwX
-	 7iuoifxJZoCe+F9fZK48+lv+Gf4sjP3dIEtNHzKuQjvrTiFpEQHzldAIuXZfaiV3XqWo1
-	 JbXbeOvNmAI1HY770bqFQgcM1fc4Y/VGLscLFNcQ5Hl9tUkgNZkW/4AxsKEbg9kTXEdgh
-	 lJ5G8374gnUydmBjwX1mNbC1zYDXjcheVKWNUfNPsfV2ILB30AOnO38zU0dfFBTJ90yGs
-	 TSUJaPOB235/Gye2Unqpl9nW6Rrlw3g+3Y4x5nc0cpxNMiU+LmecjqsfkOgLJ52ptoA==
+	t=1794065850;
+	b=zGdjbHN6ZYk6jqCvf0WPqymbWdpndLC11mFB7Xl5OOWgKrU2RHKjVi1Omuc0/t+M7HVB
+	 zf8vLL5lDqYu0y+gZiRH/YiK0FcCgPjU3cVMGC2PwAWf0njcN7GG2dSa7NEHfxa6wMh18
+	 DBQQj98Fz0LlkdbG4xWrP7j0oa60FR/vSOPmAlHetEYU2/RvdPkfBa0garAD+KjWDJkhd
+	 K8BTkSSQzkqxmg9VnYnmz72O8Ym9RDSXO/a5PP3uqEIP0F5TLnygGxopJDHNNwsaDfVUb
+	 9kS0fYINmxOgrl0B4LYzDmLNoKfLpHsSNBn16MGDIK06QVU6jIXP4iKH3yAjy8zOaug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065850;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=4dleiwH3H/7HQB6pZm+q+ilfI0YEmGllWKxu9A8R+YI=;
-	b=m4ZvGEHRIDjEXSwnS/JOa7hPiv5GXVAspyIVgGM/wi2LSnrNK2CMljMKEpcFfQeRPw+N
-	 xN2i/gkVvXajAXgKSFhIo+co5dwkSMaKN73/n34dCD45oQdSGHUV7k7Fq+Dv2XpU8p95/
-	 So/hJc0/xl1AirHUykxo0yzerDYhnwOgdJlL1yPbFUkT2i5AQY+OCWjVMOM0EaWClztnA
-	 6Ba26312t+HYDVBIVNYSVNwFqdIphKagNtwuugzUnOSwMNLrb7GTY8cOA4N7g7aqqu7ol
-	 LqREOlkbQEXuD0YnjIPCu7hPVwW6RqUhobEzar6zOR9X+BVvhhcOmKqB3pYmpJVoVEA==
+	bh=tnh9BJDrW2Tas6QMn66ShAIs0W72jtzo/i49twtSyEs=;
+	b=WJVVDaxNmT5HHZLN22d21DWUZLskMo6MNu2bXhU2GvnhKAei/ZJf0DPwr7dXnBqIOSjj
+	 vFtv+0FoZ4XcjkB85gIXLsR3YTp7WD5qtQcibb0YO1IDJ+Tuhn6vfZHVA04E1SX6vVn+U
+	 XgJy6ejDIsUImPMUJ1fmvLZea0RXqLGa2HUwhoCRtKtHIiVQi3vN3QIAKrPE5qdY5yVuq
+	 njd/wwsaOmhURNm3oWMEcBDAdRJc5/RzeL0VYIIbrLe/Q5xKKjfhl+2MQppZM0cf5mqQ9
+	 7dJ9KUHUZYCAst77fm/QFxjX3Jmx6TGa3cm+UoFd28pMwwIa8DGNxcPaoXAHSI6Nr0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="j/oz8U68";
-	arc=none smtp.remote-ip=209.85.208.69
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EMBmOJfE;
+	arc=none smtp.remote-ip=209.85.218.71
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A9060A3816
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A9060A3816
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE0E6082BFF
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:37:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CE0E6082BFF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j/oz8U68
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b4f1fcf171so1879102a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:37:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EMBmOJfE
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c49b95262a5so117784566b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:37:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794065859; x=1794670659; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794065849; x=1794670649; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=4dleiwH3H/7HQB6pZm+q+ilfI0YEmGllWKxu9A8R+YI=;
-        b=j/oz8U68ro3eib2QOtP1zfbLknsNkhBiHv4CAk3sTSmoQ4WaJvT+9E28Jq/rVnQjG5
-         woh2RBcOKYlkpOrLK7uL+/G7sY/jfwrSITxYkKW4Qrx1WuJK/5upa6ihmqhNC5MBmNBT
-         CY5vYX6TRHwnCuQvNEt22EzTubs5y3DtqgzUS6p/B30zUdz47cE7g/cNfPLvdCpXvTgz
-         11Z3jm1zkY/88qo6WiFKZFR4RKjpdErHApIrJA1nO9mXr3E+eCKu77mdP6JQ6OVhW+Fv
-         eGTM4Etziule/zXJoswfytKfe1Ry0gh2Gq4AhhHMPjP5ZwMAozEsZ+ls7bhTdiIFgmNu
-         lISw==
+        bh=tnh9BJDrW2Tas6QMn66ShAIs0W72jtzo/i49twtSyEs=;
+        b=EMBmOJfEL52sOfkmFOzjWk8ekCEsD2YGznR/8SXhmSzg72HPgruh+stjzt8uWKtRaE
+         2KUVpRfWOZnGB8B0R6u6BP5SzQhd8OhHcyhtDuSdMBpwV4V2YatxKJ7BecNFRAl80egw
+         SFAiviwN1MTO8tCjyDk7JXQREkl+DIsL1BIAHtHMorCBO1WtSsOYYTFNo5GgxAlbMEEe
+         vTOaxejvcKmOCPmPr3VpGaTeJUgRFCClND8rcDFaTMsAsvN2rxYJCLCYXFwiGys+xkU3
+         nezontSH0dlAQ5xLXrxVRWFWGW+gCaIRd6yOhSi8PPHHGF8QJxvEQVVCUCI2L9wA2v70
+         wVLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794065859; x=1794670659;
+        d=1e100.net; s=20260707; t=1794065849; x=1794670649;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4dleiwH3H/7HQB6pZm+q+ilfI0YEmGllWKxu9A8R+YI=;
-        b=h1PVlcYfe9pEODiIOrVVhJGO+D2K0JtFeOHxQwMb273/SDXuXkr/Xyl7YitsQi7BeT
-         Wlr6hntlpl26/OFVk8m/PrOzlB80f6f1Xzr/mACYVTEdIGJWIO7FrSo5Ovm71O3Z1PtS
-         t9er7yFHWaSPOxKimZONYdPQ3bNipLaXiBNN4XTMJJNsofG7WAf/CxLBD9hiICco8jwH
-         6yHa3edhxurfCRf477xn/MRR0ubfcsHIkzKYPMHEwG3C2T86uy7DZ1Y6f0k558scTJi7
-         XyjzLP2wyVjVZJDihjyAW9UI0YOot0Hgfph3a6sSVIYMG8+okh8NGPQ93Rz8S78nEuwq
-         1hUA==
-X-Forwarded-Encrypted: i=1; AL+hErEk8BeZG3URUiFa/YFFJlLOm0bdhKQxeyTblKJCY6GWCIjkK/Ev7ua+6B2F2kKT8l2urmQoooHKu07mWd0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Kj0iO6PRgwlIRcaEpc3y8n2iIS/Bwq1uY0FYD7sUaxFKHSzW1
-	XjVwSX1QJp3xYNtxE3L44q+VHlE7CfzD11GpD4OVhXe3/XC4mEMuqcWzQfwuIt4icpyt/n8KoDn
-	sdA==
-X-Received: from eddq13.prod.google.com ([2002:a05:6402:518d:b0:6b6:fcaf:dc3a])
- (user=ptosi job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:27cf:b0:6b1:da03:d010
- with SMTP id 4fb4d7f45d1cf-6b5977f54c0mr4472802a12.23.1794065858398; Sat, 07
- Nov 2026 07:37:38 -0800 (PST)
-Date: Sat, 07 Nov 2026 16:36:28 +0100
+        bh=tnh9BJDrW2Tas6QMn66ShAIs0W72jtzo/i49twtSyEs=;
+        b=2hxma601wpNUuSHby5Y2cEwI6zxt8KEbKTmVDkNtV+uRPlSMMBb+6iBZiR4qaef/Yt
+         cYnyNT+5WZneBOI8A1sp7HXve3s0A6J8u9TGjVEoXGfaK9mRfZ/+jYAsi/2Fy/7LKzgG
+         N9lo9US9B2ZkD70XkP57+klyhZ6zGWOj54LiTs2Vv2ar3FhmCpxK/QquYSa/wYiAZ+3+
+         ydM0lmN64j3t067QBJx3nCLJuHKrgJzg2+cz0C1ixQS9Lsc571t+CpLUvLAYwkLHX3ts
+         MWxaJ7tG1viio8rV/32uYyoT1DRtpY9FSD2qaYnkhC63c9GaZ/7E6aw828rDoxNdxvz7
+         EXZg==
+X-Forwarded-Encrypted: i=1; AL+hErFtxNuM/PzsnxUYmoBdajuHf8TYJ5qg9ihR/cXN65muOMhvTN6kVVimhm+ZpIWgg/cljFHowFx0/FwQtdQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HLibbopXy+Gjt5sTZdDF5h1fORX54vkTqQ1bwiIa5a9pZmLac
+	hiLNa4KqgxqMbWB0nVTS1k/Gf5qPqXyg4nQwErO4uXy7XraMkjDbMqf4azsT6NXyuoiC7tWZ/eH
+	JiQ==
+X-Received: from ejbbg10.prod.google.com ([2002:a17:906:a04a:b0:c3f:85b7:3a4b])
+ (user=ptosi job=prod-delivery.src-stubby-dispatcher) by 2002:a17:906:f5a3:b0:c42:fc8b:6c7a
+ with SMTP id a640c23a62f3a-c4d34cb93dbmr425465766b.41.1794065848659; Sat, 07
+ Nov 2026 07:37:28 -0800 (PST)
+Date: Sat, 07 Nov 2026 16:36:21 +0100
 In-Reply-To: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,240 +82,180 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20261107-mte-kasan-split-v1-22-d84ea5f30f94@google.com>
-Subject: [PATCH 22/24] arm64: Consolidate MTE-based KASAN in mte-kasan.h
+Message-ID: <20261107-mte-kasan-split-v1-15-d84ea5f30f94@google.com>
+Subject: [PATCH 15/24] arm64: Refactor and remove mte_disable_tco_entry()
 From: "=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
 To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
 Cc: Mark Rutland <mark.rutland@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Alexander Potapenko <glider@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com, 
-	"=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
+	Peter Collingbourne <peter@pcc.me.uk>, "=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-As the KASAN-agnostic logic has been carved out of these functions into
-standalone MTE functions and since all their non-KASAN callers have been
-migrated to those KASAN-agnostic functions and/or arch-agnostic KASAN
-functions, the only remaining callers are in KASAN core code and access
-them through their arch_*() aliases, which are now an unnecessary level
-of indirection.
+Break the function up into the fundamental steps of checking the state
+and clearing PSTATE.TCO. As a result, call sites can now be optimized
+to only check the conditions that matter in their context, further
+clarifying the intent in the code. This results in self-documenting code
+and higher maintainability, addressing the need for lengthy comments.
 
-Therefore, fold the aliases into __always_inline functions.
-
-First, note that this now exposes arch_*() as proper C symbols. Although
-the aliasing macros were necessary when first introduced by commit
-ccbe2aaba1ed ("arm64: kasan: add arch layer for memory tagging helpers")
-because of mm/kasan/kasan.h's reliance on #ifndef to provide fallbacks,
-they have since been made redundant by commit e34f1e2ee098 ("kasan: drop
-empty tagging-related defines").
-
-Second, it moves the KASAN arch definitions out of <asm/memory.h>. It
-isn't clear to me why they were originally placed there but since they
-are only for arch-agnostic KASAN code and are guarded by KASAN_HW_TAGS,
-it seems more appropriate to have them in a KASAN arch header.
-
-Drop the !ARM64_MTE fallbacks for mte_*() instead of renaming them since
-they were deadcode, being only called through arch_*(), which were only
-defined when KASAN_HW_TAGS and given that KASAN_HW_TAGS means ARM64_MTE.
-
-Move the declarations of mte_enable_kernel_*() to <asm/mte.h> and
-provide no alternatives when !ARM64_MTE since their signatures imply
-that they never fail (return void) so a currently non-existent caller
-could get confused. A future patch might rework that and add fallbacks.
-
-Cc: Alexander Potapenko <glider@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: kasan-dev@googlegroups.com
+Cc: Peter Collingbourne <peter@pcc.me.uk>
 Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
 ---
- arch/arm64/include/asm/memory.h    | 14 -------
- arch/arm64/include/asm/mte-kasan.h | 86 ++++++++++++++--------------------=
-----
- arch/arm64/include/asm/mte.h       |  5 +++
- 3 files changed, 36 insertions(+), 69 deletions(-)
+ arch/arm64/include/asm/mte.h     | 30 ++++++++++--------------------
+ arch/arm64/include/asm/uaccess.h |  6 ++++++
+ arch/arm64/kernel/entry-common.c | 13 +++++++++++--
+ arch/arm64/kernel/mte.c          |  8 ++++----
+ 4 files changed, 31 insertions(+), 26 deletions(-)
 
-diff --git a/arch/arm64/include/asm/memory.h b/arch/arm64/include/asm/memor=
-y.h
-index 29e7537f5e58..2aa14788c050 100644
---- a/arch/arm64/include/asm/memory.h
-+++ b/arch/arm64/include/asm/memory.h
-@@ -309,20 +309,6 @@ static inline const void *__tag_set(const void *addr, =
-u8 tag)
- 	return (const void *)(__addr | __tag_shifted(tag));
- }
-=20
--#ifdef CONFIG_KASAN_HW_TAGS
--#define arch_enable_tag_checks_sync()		mte_enable_kernel_sync()
--#define arch_enable_tag_checks_async()		mte_enable_kernel_async()
--#define arch_enable_tag_checks_asymm()		mte_enable_kernel_asymm()
--#define arch_enable_tag_checks_write_only()	mte_enable_kernel_store_only()
--#define arch_suppress_tag_checks_start()	mte_enable_tco()
--#define arch_suppress_tag_checks_stop()		mte_disable_tco()
--#define arch_flush_async_tag_fault()		mte_get_reset_tfsr()
--#define arch_set_random_tag(addr)		mte_set_random_tag(addr)
--#define arch_get_mem_tag(addr)			mte_get_mem_tag(addr)
--#define arch_set_mem_tag_range(addr, size, tag, init)	\
--			mte_set_mem_tag_range((addr), (size), (tag), (init))
--#endif /* CONFIG_KASAN_HW_TAGS */
--
- /*
-  * Physical vs virtual RAM address space conversion.  These are
-  * private definitions which should NOT be used outside memory.h
-diff --git a/arch/arm64/include/asm/mte-kasan.h b/arch/arm64/include/asm/mt=
-e-kasan.h
-index 81a8cf3b9a95..c0224a2bb515 100644
---- a/arch/arm64/include/asm/mte-kasan.h
-+++ b/arch/arm64/include/asm/mte-kasan.h
-@@ -46,98 +46,74 @@ static __always_inline u8 kasan_tag_from_mte(u8 tag)
- 	return u8_replace_bits(KASAN_TAG_MIN, tag, KASAN_TAG_MTE_MASK);
- }
-=20
--#ifdef CONFIG_ARM64_MTE
-+#ifdef CONFIG_KASAN_HW_TAGS
-=20
- /*
-- * These functions are meant to be only used from KASAN runtime through
-- * the arch_*() interface defined in asm/memory.h.
-  * These functions don't include system_supports_mte() checks,
-  * as KASAN only calls them when MTE is supported and enabled.
-  */
-=20
--static inline void mte_disable_tco(void)
-+static __always_inline void arch_enable_tag_checks_sync(void)
- {
--	set_pstate_tco(0);
-+	mte_enable_kernel_sync();
- }
-=20
--static inline void mte_enable_tco(void)
-+static __always_inline void arch_enable_tag_checks_async(void)
- {
--	set_pstate_tco(1);
-+	mte_enable_kernel_async();
- }
-=20
--/* Get allocation tag for the address. */
--static inline u8 mte_get_mem_tag(void *addr)
-+static __always_inline void arch_enable_tag_checks_asymm(void)
- {
--	return kasan_tag_from_mte(__mte_tag_of(__ldg((u64)addr)));
-+	mte_enable_kernel_asymm();
- }
-=20
--/* Generate a random tag. */
--static inline void *mte_set_random_tag(const void *addr)
-+static __always_inline int arch_enable_tag_checks_write_only(void)
- {
--	/* Writes the random MTE tag in bits [59:56]. */
--	addr =3D (const void *)__irg((u64)addr);
--
--	/* Sets bits [63:60] as KASAN expects. */
--	return (void *)__tag_set(addr, kasan_tag_from_mte(mte_tag_of(addr)));
-+	return mte_enable_kernel_store_only();
- }
-=20
--static inline void mte_set_mem_tag_range(void *addr, size_t size, u8 tag,
--					 bool zero)
-+static __always_inline void arch_suppress_tag_checks_stop(void)
- {
--	if (zero)
--		mte_tag_and_zero_range(addr, size, kasan_tag_to_mte(tag));
--	else
--		mte_tag_range(addr, size, kasan_tag_to_mte(tag));
--}
--
--void mte_enable_kernel_sync(void);
--void mte_enable_kernel_async(void);
--void mte_enable_kernel_asymm(void);
--int mte_enable_kernel_store_only(void);
--
--#else /* CONFIG_ARM64_MTE */
--
--static inline void mte_disable_tco(void)
--{
--}
--
--static inline void mte_enable_tco(void)
--{
--}
--
--static inline u8 mte_get_mem_tag(void *addr)
--{
--	return 0xFF;
-+	set_pstate_tco(0);
- }
-=20
--static inline void *mte_set_random_tag(const void *addr)
-+static __always_inline void arch_suppress_tag_checks_start(void)
- {
--	return (void *)__tag_set(addr, 0xFF);
-+	set_pstate_tco(1);
- }
-=20
--static inline void mte_set_mem_tag_range(void *addr, size_t size,
--						u8 tag, bool init)
-+static __always_inline bool arch_flush_async_tag_fault(void)
- {
-+	return mte_get_reset_tfsr();
- }
-=20
--static inline void mte_enable_kernel_sync(void)
-+/* Get allocation tag for the address. */
-+static __always_inline u8 arch_get_mem_tag(void *addr)
- {
-+	return kasan_tag_from_mte(__mte_tag_of(__ldg((u64)addr)));
- }
-=20
--static inline void mte_enable_kernel_async(void)
-+/* Generate a random tag. */
-+static __always_inline void *arch_set_random_tag(const void *addr)
- {
--}
-+	/* Writes the random MTE tag in bits [59:56]. */
-+	addr =3D (const void *)__irg((u64)addr);
-=20
--static inline void mte_enable_kernel_asymm(void)
--{
-+	/* Sets bits [63:60] as KASAN expects. */
-+	return (void *)__tag_set(addr, kasan_tag_from_mte(mte_tag_of(addr)));
- }
-=20
--static inline int mte_enable_kernel_store_only(void)
-+static __always_inline void arch_set_mem_tag_range(void *addr, size_t size=
-,
-+						   u8 tag, bool zero)
- {
--	return -EINVAL;
-+	if (zero)
-+		mte_tag_and_zero_range(addr, size, kasan_tag_to_mte(tag));
-+	else
-+		mte_tag_range(addr, size, kasan_tag_to_mte(tag));
- }
-=20
--#endif /* CONFIG_ARM64_MTE */
-+#endif /* CONFIG_KASAN_HW_TAGS */
-=20
- #endif /* __ASSEMBLER__ */
-=20
 diff --git a/arch/arm64/include/asm/mte.h b/arch/arm64/include/asm/mte.h
-index 9ba215b2b0fd..34d1438019ed 100644
+index 815843079eb9..1308e37c43c6 100644
 --- a/arch/arm64/include/asm/mte.h
 +++ b/arch/arm64/include/asm/mte.h
-@@ -47,6 +47,11 @@ static inline bool system_uses_async_mte_faults(void)
- {
- 	return static_branch_unlikely(&mte_async_or_asymm_mode);
+@@ -18,6 +18,7 @@
+ #include <linux/types.h>
+=20
+ #include <asm/barrier.h>
++#include <asm/cpufeature.h>
+ #include <asm/pgtable-types.h>
+ #include <asm/sysreg.h>
+=20
+@@ -62,6 +63,15 @@ static __always_inline bool mte_get_reset_tfsr(void)
+ 	return __mte_get_reset_tfsr();
  }
+=20
++static inline bool task_uses_sync_mte_faults(struct task_struct *task)
++{
++	if (!system_supports_mte())
++		return false;
 +
-+void mte_enable_kernel_sync(void);
-+void mte_enable_kernel_async(void);
-+void mte_enable_kernel_asymm(void);
-+int mte_enable_kernel_store_only(void);
- #else
- static inline bool system_uses_sync_mte_faults(void)
++	/* TCF0[0] is set for both synchronous (0b01) and asymmetric (0b11). */
++	return task->thread.sctlr_user & (1UL << SCTLR_EL1_TCF0_SHIFT);
++}
++
+ #ifdef CONFIG_ARM64_MTE
+=20
+ /* track which pages have valid allocation tags */
+@@ -254,26 +264,6 @@ static inline bool folio_try_hugetlb_mte_tagging(struc=
+t folio *folio)
+ }
+ #endif
+=20
+-static inline void mte_disable_tco_entry(struct task_struct *task)
+-{
+-	if (!system_supports_mte())
+-		return;
+-
+-	/*
+-	 * Re-enable tag checking (TCO set on exception entry). This is only
+-	 * necessary if MTE is enabled in either the kernel or the userspace
+-	 * task in synchronous or asymmetric mode (SCTLR_EL1.TCF0 bit 0 is set
+-	 * for both). With MTE disabled in the kernel and disabled or
+-	 * asynchronous in userspace, tag check faults (including in uaccesses)
+-	 * are not reported, therefore there is no need to re-enable checking.
+-	 * This is beneficial on microarchitectures where re-enabling TCO is
+-	 * expensive.
+-	 */
+-	if (kasan_hw_tags_enabled() ||
+-	    (task->thread.sctlr_user & (1UL << SCTLR_EL1_TCF0_SHIFT)))
+-		set_pstate_tco(0);
+-}
+-
+ #ifdef CONFIG_KASAN_HW_TAGS
+ void mte_check_tfsr_el1(void);
+=20
+diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uacc=
+ess.h
+index aac7676da531..e99faabd5dfc 100644
+--- a/arch/arm64/include/asm/uaccess.h
++++ b/arch/arm64/include/asm/uaccess.h
+@@ -123,6 +123,12 @@ static inline bool uaccess_ttbr0_enable(void)
+ }
+ #endif
+=20
++static inline bool uaccess_requires_mte(struct task_struct *task)
++{
++	/* Asynchronous faults don't get reported to userspace. */
++	return task_uses_sync_mte_faults(task);
++}
++
+ static inline void __uaccess_disable_hw_pan(void)
  {
+ 	asm(ALTERNATIVE("nop", SET_PSTATE_PAN(0), ARM64_HAS_PAN));
+diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-com=
+mon.c
+index fbf9bafc6962..ea385f579269 100644
+--- a/arch/arm64/kernel/entry-common.c
++++ b/arch/arm64/kernel/entry-common.c
+@@ -7,6 +7,7 @@
+=20
+ #include <linux/context_tracking.h>
+ #include <linux/irq-entry-common.h>
++#include <linux/kasan-enabled.h>
+ #include <linux/kasan.h>
+ #include <linux/linkage.h>
+ #include <linux/livepatch.h>
+@@ -16,6 +17,7 @@
+ #include <linux/sched.h>
+ #include <linux/sched/debug.h>
+ #include <linux/thread_info.h>
++#include <linux/uaccess.h>
+=20
+ #include <asm/cpufeature.h>
+ #include <asm/daifflags.h>
+@@ -72,7 +74,13 @@ static __always_inline void irqentry_exit_pcpu_adjust(st=
+ruct pt_regs *regs)
+ static __always_inline void mte_enter_from_kernel_mode(void)
+ {
+ 	mte_check_tfsr_entry();
+-	mte_disable_tco_entry(current);
++
++	/*
++	 * Taking an exception sets TCO but clearing it can be expensive on
++	 * some architectures so first check that MTE is actually required.
++	 */
++	if (kasan_hw_tags_enabled() || uaccess_requires_mte(current))
++		set_pstate_tco(0);
+ }
+=20
+ static __always_inline void mte_exit_to_kernel_mode(void)
+@@ -82,7 +90,8 @@ static __always_inline void mte_exit_to_kernel_mode(void)
+=20
+ static __always_inline void mte_enter_from_user_mode(void)
+ {
+-	mte_disable_tco_entry(current);
++	if (kasan_hw_tags_enabled() || uaccess_requires_mte(current))
++		set_pstate_tco(0);
+ }
+=20
+ static __always_inline void mte_exit_to_user_mode(void)
+diff --git a/arch/arm64/kernel/mte.c b/arch/arm64/kernel/mte.c
+index 47432c9c4de0..0d998289edcb 100644
+--- a/arch/arm64/kernel/mte.c
++++ b/arch/arm64/kernel/mte.c
+@@ -281,8 +281,8 @@ void mte_thread_switch(struct task_struct *next)
+ 	mte_update_gcr_excl(next);
+=20
+ 	/* TCO may not have been disabled on exception entry for the current task=
+. */
+-	if (!kasan_hw_tags_enabled())
+-		mte_disable_tco_entry(next);
++	if (!kasan_hw_tags_enabled() && uaccess_requires_mte(next))
++		set_pstate_tco(0);
+=20
+ 	if (!system_uses_mte_async_or_asymm_mode())
+ 		return;
+@@ -401,8 +401,8 @@ long set_mte_ctrl(struct task_struct *task, unsigned lo=
+ng arg)
+ 		mte_update_sctlr_user(task);
+ 		mte_update_gcr_excl(task);
+ 		update_sctlr_el1(task->thread.sctlr_user);
+-		if (!kasan_hw_tags_enabled())
+-			mte_disable_tco_entry(task);
++		if (!kasan_hw_tags_enabled() && uaccess_requires_mte(task))
++			set_pstate_tco(0);
+ 		preempt_enable();
+ 	}
+=20
 
 --=20
 2.56.0.455.g6c5a503b38-goog
