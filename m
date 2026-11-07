@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011840;
-	b=j/VPq4qxnpYEjFyUg+49MGn30NCMzR9nOPbeTJmGnoOzrkZn4AJw7xuhSLYe53COlviJ
-	 d74HCa3lv/EaDKltIUlp/Hn+xn+DqB+kLih0raDLZeGm24QmTixM31Vcgi1apajW/X6Wr
-	 ebcEu3qpyCO4zBU04moBQDW1AuCU84NdU5KtGGWv7HUFY+OguNQmm/SvhWfxl1aDEGgUd
-	 naPInm7YVohsXUeZuRUCmHIZfpfXD3dZR8Qr9WxpRy2zXAdD9SaR150QUuTrdQKlaVzHI
-	 VEhF7HNA6T/0Hp5NzlbzXwzhMbsVAVnCS3GlrhUfkdtv9tb3yHq4ahGAHR2KxBRiV5A==
+	t=1794011847;
+	b=ul25MY9Q+Tum4kXRZFnyX7ZsT0WdhbkzhzwU3DwPFt5R9qo7nulfsd15vyctbBnYQ8uz
+	 PRfBASmE5L8RJBlvfUOJFgq/RSQPC4L+51P25UHdMYTP/SRUQV3MI1QAV8//cigG0xPYB
+	 QiYbWU8x71Pz/LA54tC+JiyZRQ62yV/RmMwPS9reZBS2hqoQbDNFawCtaqKEdw8CJB7k6
+	 IaxxNDNX2T4btdiRffHQrTQk6ceBUVOVFSVQPjnf9XfiKo/2a6b0A0XIVgBwSF1NBEwJ6
+	 OV5/qsAvDcPtp+8Twf5oOri7U3csPC+do5XA1qcYojQAXPjhMhN5liYwiXzGPWNJXPA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011847;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9gaFBZx0TRAzN46wa1GnNfQ/jyTlgbskICgy7A9zF2c=;
-	b=1OpxBQdWhEL4rJaLSCFv0ighN/ZC1nhy2UtMD4eW22GpofXYGk2A5fq+RqOYPspfL52n
-	 0R8ZtxxPkFUEq2Cl/OMwUMpQ4OtV5zkFFGPJCb16p92SbuORfC8hTitk2Y6wsXW130tku
-	 qBJDhOm6GgHfIgJA5bcJ/ojMKdJmZ/qSRqr/o5xJuTMPBUqgiRoBIHR09jn8wpHtp1ynW
-	 hzapIpozJ4ByLZ/uUDi4TqSTUyvjaz6Mo+yztjO5vR0GvOhKgBp+r95gxFmFKRKQenZ4a
-	 6M848LMhw+N0d7/Jj4f81SVhgxNaz5O0OKzY1weLDX6kp//YkCKhFfhWQw3WJcqJrYw==
+	bh=KBhGX9yahIbsDDFoJ77ldQTuDbT5tg0ODdJhu+0F5YI=;
+	b=QkRMyEaGz+pfjFLaXAospl8PkpiLuc3It/d8MqVfseQ60S3oxYd2mG4VL03ZzxH4BwWT
+	 +Rnp0QGiMelatT6ByjPf/+tYB4sydxQ5Gnb5TV14VK4izvRl6X6cS37DLJM3qc2K5cztS
+	 cmNN5gDY2X/y1IJG94XTcyf11x7PKssJDu2MqW4Fq+hjVsWWB6Gp8q6ZggxKJsKLe1OEy
+	 3xXOulhcCV60fxX/57RYWjZ8OLSl/0LNnOs+fFNWHd7wriCwwS3Reyz5Qcq82U07Zh51L
+	 rdgGX8odWz/jpFkDplpG/pH5Ys43OzYCjBgU7lY11ZTbf5ET7QW4C5DhWJnsJPgIPjw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvZGsurg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJfRbRBs;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899D4606AFBF;
-	Sat,  7 Nov 2026 00:37:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4349C606B761;
+	Sat,  7 Nov 2026 00:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvZGsurg
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJfRbRBs
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011840;
-	b=p2wDhW+bmNDGClGsZDW2GhvWR5YcQpJlAbxJbMTv0KWGcB7V8DPi6PVWROx9EQoe4roQ
-	 /7MZongU4i+Pm6R7VEm0J8BmdsrrEzkD3KpL1KIsynx3YrvCvKH4kCSlLSNPw7v6+Ufp6
-	 oWSlQJS0qnWxY0vIL+C3laq232xsAIfUbJ1Cy7yiVBzBOR3y9uGJmHYjZpr96PSwGHgZZ
-	 3/uBdxM1bSP10uGIC1gPitwTYaDIpCCTrIl+ojYkpxreR4XgoAQNapY0ny7BASi2HdM76
-	 uvo7rZbKoKV2D0g6fZuaFxRGlm3q210Uirv2iwzAR8IRlWLeLRCLgcCoFM/gPc2Ih5A==
+	t=1794011841;
+	b=IC5lsvDwnO2pljiQ8KRSVTp+eYwcw0v648FfwXl3Cz9Q2ibruvVi9ivr8QOqCsPaMjM6
+	 hrb8EFaGVv0h8oanUHMbbvs3ojPRoGqSYFF+9qqo1qZmJiaZghj3jZhRfGGVy6wAt7P52
+	 ftOTMfNBqS3rMhZtvCmLPHgBCHE5jNyedeoqePB+DrwJmVRS8f75/kJUaAK2tsCJlOODy
+	 HO74dA8K4Jsh54juIFKgszuG+4hD+73kXvG+DH1b8tNlM9HfFS1ZMdUoq6Lt8pwRTZ1PJ
+	 59t1yPpTeanny8x5cGOGkXDID5aeAME1jTVFKn5lALF52KbdoGyNuqgpRx4WaaYF1Hw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011840;
+	c=relaxed/relaxed; t=1794011841;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9gaFBZx0TRAzN46wa1GnNfQ/jyTlgbskICgy7A9zF2c=;
-	b=X/OJym9ILauqtd3yBSy7ZAcGZWbSGGVkEEoShDdD55lIgK9eSvRrus9pNy936GPhTXrT
-	 TbTcd53hDoGQKQQZ8lHDyo9Xo4DE4GWaCrqx7n+j3wGiUXdr17V6WQPRGErDXhioiiQQ4
-	 DvZaScM68cy8O11j+7k5opphSxuo3GuMx+jIO1a1mp0IdDcz2JeghAKnr4fW3nXIuStje
-	 NI/GzR/gkw05GJdBNDyu8XM3iioFs1L1Awv1PZz4CzBN0wuqNlisCpuzdg6HpAFeOi4zK
-	 uVGV8VyHZBniHwnfRNRWHIUaoH0e1d88kDa/soEuRjo7FJhA/8ltkcZZvSBvjVKfVeg==
+	bh=KBhGX9yahIbsDDFoJ77ldQTuDbT5tg0ODdJhu+0F5YI=;
+	b=g7e/2ed0nT/KRKyjNgSB4IgD69SQO87AmMBpcMFwZSC77+RyS0PVDkf3gHUwt43MtAv9
+	 rkzRszeTiYVG9HV8DLWlv8xXZVVqtIsrjCt6+i24cQwIjcp/rofUsyXzCa5g7lSLjViR2
+	 FRGvMZT1nz2ZVwQf3txqvJgPoV6h/D9+WF8gJt3dpGwkN4PT4XSB3xP+VLoT6hWqDys+w
+	 Hn1tJIuv9AQZHTaVIUEAekBpOs5Ce28SoIRnT7TBUjJpOtlF0UPyZLsCzcvCKRX3jr63q
+	 QG1iTt1qtL5FCWIfWlrU+F42hiWhWlf7xUUGxguuRX8pQg1CmLtqQdo4g4l5I+3MZVg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E97821F008A6;
-	Sat,  7 Nov 2026 00:37:07 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id B46E31F008A5;
+	Sat,  7 Nov 2026 00:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011840;
-	bh=9gaFBZx0TRAzN46wa1GnNfQ/jyTlgbskICgy7A9zF2c=;
+	s=k20260515; t=1794011841;
+	bh=KBhGX9yahIbsDDFoJ77ldQTuDbT5tg0ODdJhu+0F5YI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=CvZGsurgjb3n6a6OGrJb14Ocsm7Jwx1JIZU5OAwGlRK9NtEegSH4tdQoVjqej+70d
-	 zUk8kFfCAzEDs3xyMbqLRB8pyAqjcwlQ8t6HKQmSlTNke5QGEdins3TK9Z+p5P18Wt
-	 6egNslCflKKtqUPo1OCLHnypKIWouoDUTVHzhYLFjouM8+mbvC09w49QFIg/m8oBMQ
-	 XyIs9lPMnbICF31RTEU0wZ95u8P7jFrFHFDAkvAsCHKMJC8lVTli/yl46cKKlwGExK
-	 Onwj+IUxPD7hB+hsz/NXtUl4sXDPfOeLdizaXxbWLo3H8UCyuaGgu9702GXPhRBQW4
-	 +wfodTqoyGOeg==
+	b=PJfRbRBsq/zArvX5SSV+AJJfmzGv9LuvVropQ9uVhaGW2UaZraSUeBXfQXme3+Vbi
+	 QkUVozbzOKTFF+eAMYVXS6RufAEJjovCp22DfqPvN0nu+2L0CVG7Fv9gDXHN2lRoJg
+	 gQ/AUjNegaeg053dDeR5AfM4WDhqVLrYDdNL3ldZILB0L16zLo7+PU+nrT0g71QIiZ
+	 8CiEhzow2gzKcPG2jJ3+XSnFwMG79BrvP0XpK8+a/G9VJqOrDhzXsMxv1qsSq8gr0C
+	 lfCKfa55VYwYhjPVFr0P7aPAKC1+JXKvEcHPLzy556276iptGc3iO62jeh1a4aKx6y
+	 3blMeeEHP0KHw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 66C60479DA;
-	Sat,  7 Nov 2026 00:36:56 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 7D8DF47A1C;
+	Sat,  7 Nov 2026 00:36:57 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:37:25 -0800
-Subject: [PATCH RFC v3 51/88] KVM: guest_memfd: Support reporting PFN
- cacheability
+Date: Fri, 06 Nov 2026 16:37:42 -0800
+Subject: [PATCH RFC v3 68/88] vfio/pci: Use iov_iter for MMIO read and
+ write
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-51-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-68-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -105,11 +105,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=9171;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=6301;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=GZTQxVn0HjxORiNdxoBtqdA/HiYkhk8lDD2n3VKRLow=;
- b=y38OKIzJH7eiYyPKqj5uQCGyOxtwZlKxg8Qd3cuZA8cWdUQ0l3YXTkA3HzQD+e1zqhN4SOCvP
- 0UXrPpAV/oeBBpAYUMPjuenU/9KmhLKmarn9kYJPf1fXNZN0arx3gYl
+ bh=c4VDLuT5yqC8DJ1fpMzzzVy4zLcf9cySQYtbQA4hk74=;
+ b=L5BjRew5q1svkShxrjXUHUJtKZ/8fmvjKLgv7L6S7iOvEcrS/PClvlilzhXkLk+16KWEMf/Ny
+ 1dJMQc+3f77BIvFJT8Dpz/JuqAKav6jhjhEryI/df80j9npQPqOyeF+
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -120,249 +120,196 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-When memory slots are backed exclusively by guest_memfd without a host
-userspace VMA, KVM cannot inspect VMA flags or page protections to
-determine the caching requirements of the backing physical frames. Even
-when a VMA exists, external PFN providers such as device drivers may
-expose multiple regions with distinct caching properties within a single
-provider instance.
+Refactor the internal MMIO read and write helpers in vfio_pci_rdwr to
+operate on struct iov_iter rather than directly calling copy_to_user
+and copy_from_user with user pointers.
 
-Extend PFN attributes with a cacheability field whose zero value
-represents normal write-back cacheable memory so existing RAM providers
-require no changes. Distinguish three non-cacheable modes alongside
-normal cacheable memory: strict uncached MMIO where guest
-write-combining could trigger uncontained host faults, uncached MMIO on
-buses such as PCIe where stage-2 can safely permit guest write-combining
-while host mappings remain uncached, and write-combining memory.
+Keep the existing vfio_pci_core_do_io_rw interface unchanged by
+importing user buffers into an iov_iter via import_ubuf before calling
+the internal implementation. The overhead of initializing the iov_iter
+on userspace accesses is negligible compared to PCIe bus cycle latency.
 
-Handle the reported cacheability in stage-2 fault paths:
+This decouples low-level PCI MMIO access from userspace copy semantics,
+allowing in-kernel callers to service I/O using kernel buffers (such
+as ITER_KVEC) without user copy overhead or page fault recursion.
 
-- On arm64, select Device or Normal Non-Cacheable stage-2 attributes for
-  non-cacheable frames, forbid instruction fetches on non-cacheable
-  mappings, verify hardware cacheability support for non-linear-mapped
-  cacheable frames, and reject non-cacheable frames for nested VNCR
-  mappings which require cacheable host kernel mappings.
-- On x86, stage-2 PTE construction already derives MMIO status from host
-  PAT and E820 tables (and couples that status with host memory
-  encryption bits), so warn once with a TODO if the provider-reported
-  cacheability disagrees with x86's host MMIO detection.
+For delegation of read/write() to guest_memfd, this helps avoid AB-BA
+deadlocks between mapping.invalidate_lock and mm->mmap_lock when MMIO read
+and write operations are invoked under filemap invalidation locks.
 
-Preserve confidential RAM invariants by rejecting non-cacheable frames
-during initial payload population, and during SEV-SNP VMSA reloading or
-RMP fault handling.
+No functional change intended.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- arch/arm64/kvm/mmu.c        | 30 ++++++++++++++++++++++++++++--
- arch/arm64/kvm/nested.c     |  5 +++++
- arch/x86/kvm/mmu/mmu.c      |  8 ++++++++
- arch/x86/kvm/mmu/spte.c     |  2 +-
- arch/x86/kvm/mmu/spte.h     |  1 +
- arch/x86/kvm/svm/sev.c      |  9 ++++++++-
- include/linux/guest_memfd.h | 29 ++++++++++++++++++++++++++++-
- virt/kvm/guest_memfd.c      |  8 ++++++--
- 8 files changed, 85 insertions(+), 7 deletions(-)
+ drivers/vfio/pci/vfio_pci_rdwr.c | 107 ++++++++++++++++++++++++---------------
+ 1 file changed, 65 insertions(+), 42 deletions(-)
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 8f0217185973c..71fc823ed2076 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1789,14 +1789,40 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd,
- 		return ret ?: -EFAULT;
- 	}
+diff --git a/drivers/vfio/pci/vfio_pci_rdwr.c b/drivers/vfio/pci/vfio_pci_rdwr.c
+index e5f1f60513709..cc64722d1ab9a 100644
+--- a/drivers/vfio/pci/vfio_pci_rdwr.c
++++ b/drivers/vfio/pci/vfio_pci_rdwr.c
+@@ -91,34 +91,34 @@ VFIO_IOREAD(32)
+ VFIO_IOREAD(64)
  
-+	if (!kvm_gmem_pfn_is_cacheable(pfn_attrs) && exec_fault) {
-+		kfree(mapping);
-+		return -ENOEXEC;
-+	}
-+
- 	if (writable)
- 		prot |= KVM_PGTABLE_PROT_W;
+ #define VFIO_IORDWR(size)						\
+-static int vfio_pci_iordwr##size(struct vfio_pci_core_device *vdev,\
+-				bool iswrite, bool test_mem,		\
+-				void __iomem *io, char __user *buf,	\
+-				loff_t off, size_t *filled)		\
+-{									\
+-	u##size val;							\
+-	int ret;							\
+-									\
+-	if (iswrite) {							\
+-		if (copy_from_user(&val, buf, sizeof(val)))		\
+-			return -EFAULT;					\
+-									\
+-		ret = vfio_pci_core_iowrite##size(vdev, test_mem,	\
+-						  val, io + off);	\
+-		if (ret)						\
+-			return ret;					\
+-	} else {							\
+-		ret = vfio_pci_core_ioread##size(vdev, test_mem,	\
+-						 &val, io + off);	\
+-		if (ret)						\
+-			return ret;					\
+-									\
+-		if (copy_to_user(buf, &val, sizeof(val)))		\
+-			return -EFAULT;					\
+-	}								\
+-									\
+-	*filled = sizeof(val);						\
+-	return 0;							\
++static int vfio_pci_iordwr##size(struct vfio_pci_core_device *vdev,		\
++				bool iswrite, bool test_mem,			\
++				void __iomem *io, struct iov_iter *iter,	\
++				loff_t off, size_t *filled)			\
++{										\
++	u##size val;								\
++	int ret;								\
++										\
++	if (iswrite) {								\
++		if (!copy_from_iter_full(&val, sizeof(val), iter))		\
++			return -EFAULT;						\
++										\
++		ret = vfio_pci_core_iowrite##size(vdev, test_mem,		\
++						  val, io + off);		\
++		if (ret)							\
++			return ret;						\
++	} else {								\
++		ret = vfio_pci_core_ioread##size(vdev, test_mem,		\
++						 &val, io + off);		\
++		if (ret)							\
++			return ret;						\
++										\
++		if (!copy_to_iter_full(&val, sizeof(val), iter))		\
++			return -EFAULT;						\
++	}									\
++										\
++	*filled = sizeof(val);							\
++	return 0;								\
+ }									\
  
- 	if (s2fd->nested)
- 		prot = adjust_nested_fault_perms(s2fd->nested, prot);
- 
--	if (exec_fault || cpus_have_final_cap(ARM64_HAS_CACHE_DIC))
--		prot |= KVM_PGTABLE_PROT_X;
-+	switch (pfn_attrs & GUEST_MEMFD_PFN_ATTRS_CACHE_MASK) {
-+	case GUEST_MEMFD_PFN_ATTRS_CACHE_WB:
-+		if (!pfn_is_map_memory(s2vi.pfn) &&
-+		    !kvm_supports_cacheable_pfnmap()) {
-+			if (!result)
-+				kvm_prepare_memory_fault_exit(
-+					s2fd->vcpu, gfn_to_gpa(canonical_gfn),
-+					s2vi.vma_pagesize, write_fault,
-+					exec_fault, false);
-+			kfree(mapping);
-+			return -EFAULT;
-+		}
-+		if (exec_fault || cpus_have_final_cap(ARM64_HAS_CACHE_DIC))
-+			prot |= KVM_PGTABLE_PROT_X;
-+		break;
-+	case GUEST_MEMFD_PFN_ATTRS_CACHE_UC:
-+		prot |= KVM_PGTABLE_PROT_DEVICE;
-+		break;
-+	case GUEST_MEMFD_PFN_ATTRS_CACHE_UC_ALLOW_WC:
-+	case GUEST_MEMFD_PFN_ATTRS_CACHE_WC:
-+		prot |= KVM_PGTABLE_PROT_NORMAL_NC;
-+		break;
-+	}
- 
- 	if (s2fd->nested)
- 		prot = adjust_nested_exec_perms(kvm, s2fd->nested, prot);
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 4519e92d89d66..a3818ece5c753 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -1633,6 +1633,11 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
- 						      true, false, false);
- 			return -EFAULT;
- 		}
-+
-+		if (!kvm_gmem_pfn_is_cacheable(pfn_attrs)) {
-+			fail_s1_walk(&vt->wr, ESR_ELx_FSC_EXTABT, false);
-+			return -EINVAL;
-+		}
- 	}
- 
- 	/*
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 87deeeffd9919..23feb737c755b 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4695,6 +4695,14 @@ static int kvm_mmu_faultin_pfn_gmem(struct kvm_vcpu *vcpu,
- 		kvm_mmu_prepare_memory_fault_exit(vcpu, fault);
- 		return -EFAULT;
- 	}
-+
-+	/*
-+	 * TODO: Perhaps resolve stage-2 cacheability from pfn_attrs instead of
-+	 * relying on host MMIO PFN heuristics when constructing SPTEs?
-+	 */
-+	WARN_ON_ONCE(__kvm_is_mmio_pfn(fault->pfn) !=
-+		     !kvm_gmem_pfn_is_cacheable(pfn_attrs));
-+
- 	fault->max_level = kvm_max_level_for_order(max_order);
- 
- 	return RET_PF_CONTINUE;
-diff --git a/arch/x86/kvm/mmu/spte.c b/arch/x86/kvm/mmu/spte.c
-index 5fc27e9733b38..fd119ac2fad94 100644
---- a/arch/x86/kvm/mmu/spte.c
-+++ b/arch/x86/kvm/mmu/spte.c
-@@ -106,7 +106,7 @@ u64 make_mmio_spte(struct kvm_vcpu *vcpu, u64 gfn, unsigned int access)
- 	return spte;
- }
- 
--static bool __kvm_is_mmio_pfn(kvm_pfn_t pfn)
-+bool __kvm_is_mmio_pfn(kvm_pfn_t pfn)
+ VFIO_IORDWR(8)
+@@ -132,11 +132,12 @@ VFIO_IORDWR(64)
+  * reads with -1.  This is intended for handling MSI-X vector tables and
+  * leftover space for ROM BARs.
+  */
+-ssize_t vfio_pci_core_do_io_rw(struct vfio_pci_core_device *vdev, bool test_mem,
+-			       void __iomem *io, char __user *buf,
+-			       loff_t off, size_t count, size_t x_start,
+-			       size_t x_end, bool iswrite,
+-			       enum vfio_pci_io_width max_width)
++static ssize_t __vfio_pci_core_do_io_rw(struct vfio_pci_core_device *vdev,
++					bool test_mem, void __iomem *io,
++					struct iov_iter *iter, loff_t off,
++					size_t count, size_t x_start,
++					size_t x_end, bool iswrite,
++					enum vfio_pci_io_width max_width)
  {
- 	if (pfn_valid(pfn))
- 		return !is_zero_pfn(pfn) && PageReserved(pfn_to_page(pfn)) &&
-diff --git a/arch/x86/kvm/mmu/spte.h b/arch/x86/kvm/mmu/spte.h
-index e730717824b38..05c7bffa5d2ed 100644
---- a/arch/x86/kvm/mmu/spte.h
-+++ b/arch/x86/kvm/mmu/spte.h
-@@ -557,6 +557,7 @@ static inline u64 get_mmio_spte_generation(u64 spte)
- 	return gen;
+ 	ssize_t done = 0;
+ 	int ret;
+@@ -153,25 +154,25 @@ ssize_t vfio_pci_core_do_io_rw(struct vfio_pci_core_device *vdev, bool test_mem,
+ 
+ 		if (fillable >= 8 && !(off % 8) && max_width >= 8) {
+ 			ret = vfio_pci_iordwr64(vdev, iswrite, test_mem,
+-						io, buf, off, &filled);
++						io, iter, off, &filled);
+ 			if (ret)
+ 				return ret;
+ 
+ 		} else if (fillable >= 4 && !(off % 4) && max_width >= 4) {
+ 			ret = vfio_pci_iordwr32(vdev, iswrite, test_mem,
+-						io, buf, off, &filled);
++						io, iter, off, &filled);
+ 			if (ret)
+ 				return ret;
+ 
+ 		} else if (fillable >= 2 && !(off % 2) && max_width >= 2) {
+ 			ret = vfio_pci_iordwr16(vdev, iswrite, test_mem,
+-						io, buf, off, &filled);
++						io, iter, off, &filled);
+ 			if (ret)
+ 				return ret;
+ 
+ 		} else if (fillable) {
+ 			ret = vfio_pci_iordwr8(vdev, iswrite, test_mem,
+-					       io, buf, off, &filled);
++					       io, iter, off, &filled);
+ 			if (ret)
+ 				return ret;
+ 
+@@ -179,23 +180,45 @@ ssize_t vfio_pci_core_do_io_rw(struct vfio_pci_core_device *vdev, bool test_mem,
+ 			/* Fill reads with -1, drop writes */
+ 			filled = min(count, (size_t)(x_end - off));
+ 			if (!iswrite) {
+-				u8 val = 0xFF;
+-				size_t i;
++				static const u8 ff_buf[64] = { [0 ... 63] = 0xFF };
++				size_t cur = filled;
++
++				while (cur) {
++					size_t step = min(cur, sizeof(ff_buf));
+ 
+-				for (i = 0; i < filled; i++)
+-					if (copy_to_user(buf + i, &val, 1))
++					if (!copy_to_iter_full(ff_buf, step, iter))
+ 						return -EFAULT;
++					cur -= step;
++				}
++			} else {
++				iov_iter_advance(iter, filled);
+ 			}
+ 		}
+ 
+ 		count -= filled;
+ 		done += filled;
+ 		off += filled;
+-		buf += filled;
+ 	}
+ 
+ 	return done;
  }
- 
-+bool __kvm_is_mmio_pfn(kvm_pfn_t pfn);
- bool spte_needs_atomic_update(u64 spte);
- 
- bool make_spte(struct kvm_vcpu *vcpu, struct kvm_mmu_page *sp,
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 5e37ea4bc7937..526f2a457cfe0 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -4100,7 +4100,8 @@ static void __sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
- 	if (kvm_gmem_get_pfn(vcpu->kvm, slot, gfn, &pfn, NULL, &pfn_attrs))
- 		return;
- 
--	if (pfn_attrs & GUEST_MEMFD_PFN_ATTRS_READONLY)
-+	if ((pfn_attrs & GUEST_MEMFD_PFN_ATTRS_READONLY) ||
-+	    !kvm_gmem_pfn_is_cacheable(pfn_attrs))
- 		return;
- 
- 	read_lock(&kvm->mmu_lock);
-@@ -5110,6 +5111,12 @@ void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code)
- 		return;
- 	}
- 
-+	if (!kvm_gmem_pfn_is_cacheable(pfn_attrs)) {
-+		pr_warn_ratelimited("SEV: Unexpected RMP fault, non-cacheable backing page for GPA 0x%llx\n",
-+				    gpa);
-+		return;
-+	}
 +
- 	ret = snp_lookup_rmpentry(pfn, &assigned, &rmp_level);
- 	if (ret || !assigned) {
- 		guard(read_lock)(&kvm->mmu_lock);
-diff --git a/include/linux/guest_memfd.h b/include/linux/guest_memfd.h
-index fb2279a001ebf..8cdc334d1c9aa 100644
---- a/include/linux/guest_memfd.h
-+++ b/include/linux/guest_memfd.h
-@@ -2,6 +2,7 @@
- #ifndef _LINUX_GUEST_MEMFD_H
- #define _LINUX_GUEST_MEMFD_H
- 
-+#include <linux/bits.h>
- #include <linux/types.h>
- 
- struct file;
-@@ -9,7 +10,33 @@ struct folio;
- struct inode;
- struct mempolicy;
- 
--#define GUEST_MEMFD_PFN_ATTRS_READONLY	(1ULL << 0)
-+#define GUEST_MEMFD_PFN_ATTRS_READONLY		(1ULL << 0)
-+
-+/*
-+ * Cacheability attributes for physical frames returned by providers
-+ * (columns show x86 / arm64 memory types):
-+ *
-+ * Attribute                               | Host PTE       | Stage-2 PTE
-+ * ----------------------------------------+----------------+---------------
-+ * GUEST_MEMFD_PFN_ATTRS_CACHE_WB          | WB / Normal    | WB / Normal
-+ * GUEST_MEMFD_PFN_ATTRS_CACHE_UC          | UC / Device    | UC / Device
-+ * GUEST_MEMFD_PFN_ATTRS_CACHE_UC_ALLOW_WC | UC / Device    | UC / Normal-NC
-+ * GUEST_MEMFD_PFN_ATTRS_CACHE_WC          | WC / Normal-NC | UC / Normal-NC
-+ *
-+ * GUEST_MEMFD_PFN_ATTRS_CACHE_WB is 0 so normal cacheable memory is the
-+ * default when no cacheability bits are set.
-+ */
-+#define GUEST_MEMFD_PFN_ATTRS_CACHE_MASK	GENMASK_ULL(2, 1)
-+#define GUEST_MEMFD_PFN_ATTRS_CACHE_WB		(0ULL << 1)
-+#define GUEST_MEMFD_PFN_ATTRS_CACHE_UC		(1ULL << 1)
-+#define GUEST_MEMFD_PFN_ATTRS_CACHE_UC_ALLOW_WC	(2ULL << 1)
-+#define GUEST_MEMFD_PFN_ATTRS_CACHE_WC		(3ULL << 1)
-+
-+static inline bool kvm_gmem_pfn_is_cacheable(u64 pfn_attrs)
++ssize_t vfio_pci_core_do_io_rw(struct vfio_pci_core_device *vdev, bool test_mem,
++			       void __iomem *io, char __user *buf,
++			       loff_t off, size_t count, size_t x_start,
++			       size_t x_end, bool iswrite,
++			       enum vfio_pci_io_width max_width)
 +{
-+	return (pfn_attrs & GUEST_MEMFD_PFN_ATTRS_CACHE_MASK) ==
-+	       GUEST_MEMFD_PFN_ATTRS_CACHE_WB;
++	struct iov_iter iter;
++	int ret;
++
++	ret = import_ubuf(iswrite ? ITER_SOURCE : ITER_DEST, buf, count, &iter);
++	if (ret)
++		return ret;
++
++	return __vfio_pci_core_do_io_rw(vdev, test_mem, io, &iter, off, count,
++					x_start, x_end, iswrite, max_width);
 +}
+ EXPORT_SYMBOL_GPL(vfio_pci_core_do_io_rw);
  
- /**
-  * struct guest_memfd_provider_operations - Operations for external memory providers
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 023bf095340be..1fbb719f0e31f 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -1678,8 +1678,12 @@ static long __kvm_gmem_populate(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	if (folio)
- 		folio_unlock(folio);
- 
--	/* Populating pages initializes private memory, which cannot be read-only. */
--	if (pfn_attrs & GUEST_MEMFD_PFN_ATTRS_READONLY) {
-+	/*
-+	 * Populating pages initializes private memory, which cannot be
-+	 * read-only or non-cacheable.
-+	 */
-+	if ((pfn_attrs & GUEST_MEMFD_PFN_ATTRS_READONLY) ||
-+	    !kvm_gmem_pfn_is_cacheable(pfn_attrs)) {
- 		ret = -EPERM;
- 		goto out_put_folio;
- 	}
+ ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
 
 -- 
 2.56.0.455.g6c5a503b38-goog
