@@ -1,52 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794086831;
-	b=SF9n0VSPu/6R+wp1RAGMLI2AxDJL2DsrdyNejuV6YdrERbBGyuLYHsNUY+zNdc6piERs
-	 6ntUN4Z3oLGtTeGHyyHSIZtZe3mftwMDZbUDq2/mEFaTLt/9BNogfwvnuy3PAaXxS1aIj
-	 jGJxMh1EuiyYl7I79sHUcZxdtJaj0ZEvr4eblxQm9r0xrKC4JbhK0weF/RLFclnQe5XOr
-	 dYXLJY7W9MO2AOK49WaqaBnMBE0T0P5ZjAU+LmKXIGWoRg8Pd/p9WDWJFgsnKx6xUHjKN
-	 WdY1mdaypAPLRVxfKgC7Zvr2OXY8zRrB0K4t3oav/83VyzOvCklC5Z84TnSU/sZ3rSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794086831;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sX3gH2xgoEuu4dUy6fGw+evos/FKeYQArXF37SyCnV0=;
-	b=sv3JqWHJ8BQ/LHDF8deSiE1J1Ol7wKSBBSa3MYsIuqrRrmg7cZq5kmRj5nmc9kX1vbcy
-	 MTFDIUM8n0iRSMVJDaWrJCKwpNRo/bad/LoXgcNUfDMoCcj0g+TobRSbNAsOvRcXFY/0e
-	 y780/LLiHuixk7KLqoxJ0y3sutUbQyJONRJaYHWtI0HsbqNB/bnpMR/la31PlPQSsidtl
-	 Jtq3VMzm+QJG+NCXCQaVU0+k1PP4Wim9yk0TzP7O1jmXMyYN0c8Z0v0WWeB4LcJ8IytE/
-	 B96qK4fSWp6UqDpBvl9pQJyIek5Ms91N7Cerof9R/9jdgXO+KH69a6kzcgY5rcSabjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TA4oHfqP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794087143;
+	b=3L6J2HJUjI3/rYIt3eAdn4PN2HgGNLaJX8J1RXBIgDXVOIUDlJA81scsLXrm6UCqJLQe
+	 Ab2GZKCkiVifFB4Z2VTxT5MaqLgU3ZOIuPounAdH1Rbsh+zH66aLuDDv+rlmdCyyJwLXU
+	 0K/es4ZFUxFG/nfvLoSqbVWxc+VxW/ORVu54r7FUeW+7gGTPb2I/3JVB9uFRyHki168Ll
+	 3CxHNipopy3gyYyAvGI0F26OXCphe4xGD3D7S522VSKja5GTqUn/3qxDtGjv/hilh/ky3
+	 Dd6LvaeZfHgzZpsvyVOqF7SoLRncZnkVHe+qA1hQTkOxLelpwnH+M7OaAR8uKhM7wHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794087143;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=fAClDdVa5D4N7PoudPRt5yaNj6K+a1j7ORktYRxzeHM=;
+	b=Mx7eYQqTpXWpTM3mPtwCsX6QXTAhGT2+dbE8VyK/TR1NbjnnGR7Mr4z/efAwpVY6GQIO
+	 LJrzhJMsQNxVHgFjoyYnKMSJlEA82wq8mUiB2ik7A6WD9bhs7SJxBP3VXg6TRzh+Y9Nrj
+	 YcGchudXHCzqNPypftZGwfonN2lIMA3+EY5wXX+84+A4slsgO5TLdrHXkakoVb8S9DNtG
+	 ipxbIhIxdui32op1UsxlBbP5vEBA5c6T3r523/ArCKqn47pZqNguz0zThst1f9sy2NLco
+	 mVwcHH6ylqkeqRZeS8KD3c5cm8lYyD6bGYBoGZT1P+06cWDKiBGL+em/Tchhlu88Pnw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sentinelone.com;
+	spf=pass smtp.mailfrom=sentinelone.com;
+	dkim=pass header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=FE4M6Z2d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358EF606A326;
-	Sat,  7 Nov 2026 21:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5D1606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 21:32:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F5D1606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sentinelone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sentinelone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TA4oHfqP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114791F0089F;
-	Sat,  7 Nov 2026 21:27:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794086830;
-	bh=sX3gH2xgoEuu4dUy6fGw+evos/FKeYQArXF37SyCnV0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TA4oHfqPZyHIJb/lhZU4a549bA7my/gHwYFL/t3jtBt724GkZ5tjx4SGSXdLSfAZK
-	 wLcB+VpwgP4eDeOM7cN6nEeMBJm/SLF3zIL6MvFK/RHXJlb3gpaoh9/+5+T7iLn5VI
-	 EKYN06W8pVMYFuVN3NcRyFaPeVatc8NSk5t2DnT/+wKJeY6kyFybM3Z5dfhRTfNgFx
-	 BbZMyPblcjfhY0dJOBF9EGQ6n7xWF+x09SAxkZfcKXJ3dUryop0T8+6o58q+VATGdK
-	 ntG5UNUWjHVkojXMFlL5jlpZCVpGobWYRY+/nJs8UQ7pQLGnNBdOpoiOfOAoUAKr0i
-	 co5WPHNuPJYBg==
-Date: Sat, 7 Nov 2026 22:26:56 +0100
-From: Joel Granados <joel.granados@kernel.org>
-To: wen.yang@linux.dev
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
- typed bounds and context
-Message-ID: <au-OY8br_l6vZ30X@hobbes>
-References: <cover.1793204511.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=FE4M6Z2d
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b0b133f64fso7757a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 13:32:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794087142; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Rk4bZmP2wRO6a4OleO8LHsMmGBmqBqQBmspUMngnBfgcFHZSuYr9du61Tz2UePCIY2
+         AJphkr8sU9uKl9IRAyQKoJBJz1q//c3yIWnBoQ0HTPmrGyILbjlgTafiuO22Qh0Dub4x
+         Jz4YwxAHHKuqT7pG59d4Lozx2Q4rSXpDDelkR2A2szOAD8AZXs8dJdqC4ZQIDG6NX9nq
+         Trhxl/TdhpSZOAulLGIc/igX2fuIEl/gsBJgDeiTv8vSxDKTfDxopTMEmuc2NyNS16OD
+         ijbUsJLi4sVYz8pVPC7F88eyqezflOAihb5NqTKs4Nj5Ns5rimok6t4Ng4VvGzfawBsp
+         OvOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fAClDdVa5D4N7PoudPRt5yaNj6K+a1j7ORktYRxzeHM=;
+        fh=yXNIhGfufMXQrpixF7txL8E7agpBaXW3HS7VDHbdC50=;
+        b=D+ssXrCSkNjwBjs6vR/PzAZeHmX43ZiyIp24rEmv/Y64AADeDGuR3lhwNqYwCBgfHK
+         xPCc3YZlubnKPXdkQnm2IP12BtHKlhxaahO/JeSlk6V6iBmAOweyRJG4hQ6q5dctkbuf
+         ARK4c9Ce6su2xR4r28UbkujqlF9Jfc/iDll2q6OMT0jwOPOGIyLcQ50dToomc7NF3hXP
+         TYcRmDDQMU/pvQaVkcDJJi302rkh9rXJpsAxGJHp+Oyfpn6B/n3RAQzI3v//BuO2hqr9
+         jX/rJaOxSEPV/T9+OE4zxuroRFgeaa0nJBJ62fXOlyW7ZHS+BrALmUbvSfFY6frJor++
+         e96w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sentinelone.com; s=google; t=1794087142; x=1794691942; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fAClDdVa5D4N7PoudPRt5yaNj6K+a1j7ORktYRxzeHM=;
+        b=FE4M6Z2dKnhEWsud6rEQ6kWuD+HailDfVd/JSa0GXgCdcPn/l2WszEIk9XGPSqeT0q
+         GbQ8fn0qxiCAjHSNLQ8UEr47fIuqLuWD9yVjm1xLIt14/XsoVbxZC0+NWjeXjUu9SxyH
+         6eQKrG1KNgkAACTm8Bcor7Ml+W5azJissuwxAA/4bqBbsvRDWR8viHkGdrYgmiJ1kzwg
+         xl84zqI8urOELJQ9lWk/bskTrvjGrog+67v8Y2Mtp+BRPny0bsTNNQSG7QSZeVkfxRbI
+         9oDRmImLfydYBBDo4Ndiptq+f+JzZzTM9nGBU1/WVhium6lA7JGNpiDMmPpzKWwDIurI
+         iGzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794087142; x=1794691942;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fAClDdVa5D4N7PoudPRt5yaNj6K+a1j7ORktYRxzeHM=;
+        b=QniU0aIt9XajG4l3AyhQcqUWL+cBF+txr5AQ0ix9VSipTm7CFgMm72g5IPITeAt8vv
+         W0QmDQEtajkHpf5LSdnqDzs6my9zvZvt6xqslBpNH9SyZcmjie0CVz4aLK1O8zP2heI+
+         2Ewf9YcNo6Lb/LyqAGtAwBf65Da7cz9ZbJYV/znQnSvc/22IBIUC/4b7NexwMEA48ccb
+         pyW07ufzS+s3Nf7E8vqJJpRxA6+7iYiBP6lxQVR7pFmlWOQ7LX33YV3C9wQoMkaBVrYb
+         xhW0ak1Tc09pCcpKmW8f/E4GK6zcVXtBHUdCl6DIdC4Cw2tOc/pqfY6Q14ATK8Hr64M/
+         8Fag==
+X-Forwarded-Encrypted: i=1; AL+hErHFbWTG0acRmfOVk3mCOBP/m4DQdnex6oU7umb3kwM3+N2SEgW/q+WTBWmW+7S1Te9U3f4ytbUojjAP9/o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8L+DmuJ8bCL4U5nj0DZvVyU8uGA8oweZA8M3GgVaVlcKgp+v53
+	LA2/gABOUOGlFwLl6U7Lhp4Mf4cgXGe5jEDxNggEFe81rbUs9JYNgaOLFRTfTIFtkAH7HatNqay
+	cJjUwS7EAvE8Ei4S4cidtmP9Qj0woMraKg1ZCzd2PHg==
+X-Gm-Gg: AYBFou1YHD4NylrzbmQ66vuRLJzKOjGjWODPoV8HcsqFaNpZOdOJZitGULPxBhTgc34
+	JPrfQboxcv5uA74+StZ5Yxl/ToT5yjrCWdozrvhjHItD4BTbpjCYTAOvLC0H+6YEzkV74iP19h8
+	u6iB8VhWNCtqe9xTOnsJq0TA1+TgKLvVWUVYvH5mzIq+3JHtmlMTq6EBNOAjvE1G6HL233Lo2nE
+	BJbhZkhfXclALhEpO50K3aqlLHwbtee5N8HdYoZTEAbcCERhQOO0M64JnkBYLlyX6LpqDBkthqO
+	9CRrPm5cNzJjO2HsRqziTqlpPNNSJHToJts0Ap9RlDjeb+dZEUdr7VVJC0979sN18qaUrhU794L
+	C0OVm2e6sdIMBz6L4q5jNot7wJipJJ4kXPg==
+X-Received: by 2002:a17:90b:388d:b0:3a8:9db2:a59 with SMTP id
+ 98e67ed59e1d1-3b0db013fbamr10127781a91.0.1794087141883; Sat, 07 Nov 2026
+ 13:32:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,255 +103,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ap2rq4zenvkdp2kv"
-Content-Disposition: inline
-In-Reply-To: <cover.1793204511.git.wen.yang@linux.dev>
+References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
+ <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com> <e3f63654-0f7c-462b-b58d-05f3164fe340@linux.dev>
+ <DMM2G9OX9ACV.231CHJEPK0OHU@gmail.com> <CAPnbwjpQBR-KHwOMG2bo1uhdp22ZW_O5sUj3=vjazVu=Rdnb7A@mail.gmail.com>
+ <DMN0RC27TJRM.3KUSPS9QTBV4G@gmail.com> <CAPnbwjrX-ywbcgNQSZKE2jiggEOSVCRVw9OLfaksihiVSCoqvw@mail.gmail.com>
+ <CAEf4Bza0XDMTxxZeukwRXjvoOOruY49q66xBXnYnuncbeo_Oiw@mail.gmail.com>
+In-Reply-To: <CAEf4Bza0XDMTxxZeukwRXjvoOOruY49q66xBXnYnuncbeo_Oiw@mail.gmail.com>
+From: Mike Bazov <mikeba@sentinelone.com>
+Date: Sat, 7 Nov 2026 23:32:27 +0200
+X-Gm-Features: AclHuK8VaELpN_xVEw5v6aYLhDqxLEvH5z7CzGWzlbUdtSKDEKr2aOOzYpF-uoo
+Message-ID: <CAPnbwjpZRmzJFXDa=thc188ZNru2xCBrCsc1WO5mNDzRRQZJBg@mail.gmail.com>
+Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption
+ cause false recursion drops in trampoline progs
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, JP Kobryn <jp.kobryn@linux.dev>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Fri, Nov 6, 2026 at 2:08 PM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
+> hm, funny how AI figured out run_ctx, but didn't figure out that we
+> already chain them and we do have that pointer in current->bpf_ctx...
 
---ap2rq4zenvkdp2kv
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
- typed bounds and context
-MIME-Version: 1.0
+right, good point, v2 would walk the existing current->bpf_ctx chain instead of
+adding a new task_struct pointer
 
-On Thu, Oct 29, 2026 at 12:34:39AM +0800, wen.yang@linux.dev wrote:
-> From: Wen Yang <wen.yang@linux.dev>
->=20
-> struct ctl_table describes an entry with data, maxlen and, until this
-> series, two untyped misc pointers in extra1 and extra2. Those two pointers
-> have accumulated at least seven unrelated jobs: a fixed bound, a bound re=
-ad
-> through a pointer on every call, an object or namespace pointer, a small
-> integer cookie encoded into the pointer, a lock signal, NULL standing for
-> "no bound", and a value the core itself casts to unsigned int while
-> validating a u8 range. Nothing in the entry says which job applies, so
-> readers infer it from the handler, and the core gets it wrong where it
-> treats extra1 as an unsigned int.
->=20
-<... snip ...>
->   sysctl: convert core table bounds to numeric values
->   sysctl: store architecture sysctl bounds by value
->   sysctl: store crypto sysctl bounds by value
->   sysctl: store device sysctl bounds by value
->   sysctl: store filesystem sysctl bounds by value
->   sysctl: store message-queue sysctl bounds by value
->   sysctl: store kernel sysctl bounds by value
->   sysctl: store memory-management sysctl bounds by value
->   sysctl: store IPv6 scalar sysctl bounds by value
->   sysctl: store netfilter scalar sysctl bounds by value
->   sysctl: store RPC sysctl bounds by value
->   sysctl: store remaining network sysctl bounds by value
->   sysctl: store security sysctl bounds by value
->   io_uring: store its sysctl bounds by value
->   sysctl: refresh dynamic scheduler and PID bounds per call
->   sysctl: refresh device-dependent bounds per call
->   sysctl: refresh namespace IPC bounds per call
->   yama: preserve scope locking with numeric sysctl bounds
->   net: refresh core sysctl limits without bound pointers
->   sctp: resolve numeric ranges from the current namespace
->   rds: preserve live reconnect limits with numeric bounds
->   ipv4: preserve live and vector bounds with numeric sysctls
->   net: refresh fragment and remaining dynamic sysctl bounds
->   neighbour: derive sysctl ownership independently of bounds
->   net: resolve sysctl owners from their backing data
->   ipvs: derive sysctl ownership from numeric storage
->   sysctl: remove obsolete nr_open bound variables
->   ipv6: move address sysctl context to priv
->   ipv4: move device sysctl context to priv
->   netfilter: move logger sysctl context to priv
->   parport: move device sysctl context to priv
->   net: move namespace sysctl context to priv
->   arm64: move vector-length sysctl context to priv
->   sysctl: remove the extra pointers and the compatibility bounds read
->=20
->  arch/arm64/kernel/armv8_deprecated.c          |    4 +-
->  arch/arm64/kernel/fpsimd.c                    |   13 +-
->  arch/arm64/kernel/process.c                   |    4 +-
->  arch/powerpc/platforms/pseries/mobility.c     |    3 +
->  arch/riscv/kernel/process.c                   |    4 +-
->  arch/s390/appldata/appldata_base.c            |   12 +-
->  arch/s390/kernel/hiperdispatch.c              |    4 +-
->  arch/s390/kernel/topology.c                   |    8 +-
->  arch/sh/kernel/vsyscall/vsyscall.c            |    4 +-
->  arch/x86/entry/vdso/vdso32-setup.c            |    4 +-
->  arch/x86/kernel/cpu/bus_lock.c                |    4 +-
->  arch/x86/kernel/setup.c                       |    3 +
->  crypto/af_alg.c                               |    4 +-
->  drivers/base/firmware_loader/fallback_table.c |    8 +-
->  drivers/base/power/main.c                     |   21 +-
->  drivers/gpu/drm/i915/i915_perf.c              |   19 +-
->  drivers/gpu/drm/xe/xe_observation.c           |    4 +-
->  drivers/hv/hv_common.c                        |    4 +-
->  drivers/infiniband/core/iwcm.c                |    5 +-
->  drivers/infiniband/core/ucma.c                |    5 +-
->  drivers/net/vrf.c                             |   20 +-
->  drivers/parport/procfs.c                      |   51 +-
->  drivers/perf/arm_pmuv3.c                      |    4 +-
->  drivers/perf/riscv_pmu_sbi.c                  |    4 +-
->  drivers/scsi/scsi_sysctl.c                    |    5 +-
->  drivers/tty/tty_io.c                          |    4 +-
->  drivers/xen/balloon.c                         |    4 +-
->  fs/aio.c                                      |    5 +
->  fs/coredump.c                                 |   15 +-
->  fs/dcache.c                                   |   13 +-
->  fs/devpts/inode.c                             |   10 +-
->  fs/drop_caches.c                              |    4 +-
->  fs/eventpoll.c                                |    7 +-
->  fs/exec.c                                     |   10 +-
->  fs/file.c                                     |    5 -
->  fs/file_table.c                               |   12 +-
->  fs/fs-writeback.c                             |    4 +-
->  fs/fuse/sysctl.c                              |   24 +-
->  fs/lockd/svc.c                                |   18 +-
->  fs/namei.c                                    |   16 +-
->  fs/namespace.c                                |    3 +-
->  fs/nfs/nfs4sysctl.c                           |    6 +-
->  fs/notify/fanotify/fanotify_user.c            |   17 +-
->  fs/notify/inotify/inotify_user.c              |   14 +-
->  fs/pipe.c                                     |   11 +-
->  fs/proc/proc_sysctl.c                         |   62 +-
->  fs/sysctls.c                                  |    8 +-
->  fs/verity/init.c                              |    4 +-
->  fs/xfs/xfs_sysctl.c                           |   59 +-
->  include/linux/file.h                          |    2 -
->  include/linux/sysctl.h                        |   72 +-
->  include/net/neighbour.h                       |    3 +
->  io_uring/io_uring.c                           |    4 +-
->  ipc/ipc_sysctl.c                              |   53 +-
->  ipc/mq_sysctl.c                               |   22 +-
->  kernel/bpf/syscall.c                          |    8 +-
->  kernel/delayacct.c                            |    4 +-
->  kernel/events/callchain.c                     |    9 +-
->  kernel/events/core.c                          |    7 +-
->  kernel/fork.c                                 |    8 +-
->  kernel/hung_task.c                            |   30 +-
->  kernel/kexec_core.c                           |    4 +-
->  kernel/kprobes.c                              |    4 +-
->  kernel/kstack_erase.c                         |    4 +-
->  kernel/module/main.c                          |    4 +-
->  kernel/panic.c                                |   13 +-
->  kernel/pid.c                                  |   16 +-
->  kernel/pid_namespace.c                        |    6 +-
->  kernel/pid_sysctl.h                           |    6 +-
->  kernel/printk/sysctl.c                        |   22 +-
->  kernel/rcu/tree_stall.h                       |    9 +-
->  kernel/sched/autogroup.c                      |    4 +-
->  kernel/sched/core.c                           |    8 +-
->  kernel/sched/deadline.c                       |   29 +-
->  kernel/sched/fair.c                           |    6 +-
->  kernel/sched/rt.c                             |   13 +-
->  kernel/sched/topology.c                       |    4 +-
->  kernel/sys.c                                  |    8 +-
->  kernel/sysctl-test.c                          | 1357 +++++++++++++++--
->  kernel/sysctl.c                               |   43 +-
->  kernel/time/jiffies.c                         |    3 +-
->  kernel/time/timer.c                           |    4 +-
->  kernel/ucount.c                               |    7 +-
->  kernel/watchdog.c                             |   35 +-
->  lib/test_sysctl.c                             |  135 +-
->  mm/compaction.c                               |   19 +-
->  mm/filemap.c                                  |    4 +-
->  mm/memory-failure.c                           |   16 +-
->  mm/mmap.c                                     |   28 +-
->  mm/nommu.c                                    |    4 +-
->  mm/oom_kill.c                                 |    4 +-
->  mm/page-writeback.c                           |   25 +-
->  mm/page_alloc.c                               |   28 +-
->  mm/swap_state.c                               |    5 +-
->  mm/userfaultfd.c                              |    4 +-
->  mm/util.c                                     |   10 +-
->  mm/vmscan.c                                   |    8 +-
->  mm/vmstat.c                                   |    4 +-
->  net/core/neighbour.c                          |  101 +-
->  net/core/sysctl_net_core.c                    |  129 +-
->  net/ieee802154/6lowpan/reassembly.c           |   30 +-
->  net/ipv4/devinet.c                            |   53 +-
->  net/ipv4/ip_fragment.c                        |   34 +-
->  net/ipv4/route.c                              |    8 +-
->  net/ipv4/sysctl_net_ipv4.c                    |  408 +++--
->  net/ipv6/addrconf.c                           |  163 +-
->  net/ipv6/icmp.c                               |   17 +-
->  net/ipv6/ndisc.c                              |    3 +-
->  net/ipv6/netfilter/nf_conntrack_reasm.c       |   30 +-
->  net/ipv6/reassembly.c                         |   30 +-
->  net/ipv6/route.c                              |   11 +-
->  net/ipv6/sysctl_net_ipv6.c                    |   53 +-
->  net/mpls/af_mpls.c                            |   58 +-
->  net/mptcp/ctrl.c                              |   29 +-
->  net/netfilter/ipvs/ip_vs_ctl.c                |  157 +-
->  net/netfilter/nf_conntrack_standalone.c       |   45 +-
->  net/netfilter/nf_hooks_lwtunnel.c             |    4 +-
->  net/netfilter/nf_log.c                        |   67 +-
->  net/phonet/sysctl.c                           |    6 +-
->  net/rds/ib_sysctl.c                           |   23 +-
->  net/rds/sysctl.c                              |   32 +-
->  net/rds/tcp.c                                 |   11 +-
->  net/rxrpc/sysctl.c                            |   51 +-
->  net/sctp/sysctl.c                             |  148 +-
->  net/smc/smc_sysctl.c                          |   42 +-
->  net/sunrpc/xprtrdma/svc_rdma.c                |   39 +-
->  net/sunrpc/xprtrdma/transport.c               |   27 +-
->  net/sunrpc/xprtsock.c                         |   26 +-
->  net/tipc/sysctl.c                             |   18 +-
->  net/vmw_vsock/af_vsock.c                      |    4 +-
->  net/x25/sysctl_net_x25.c                      |   23 +-
->  security/keys/sysctl.c                        |   25 +-
->  security/loadpin/loadpin.c                    |    4 +-
->  security/yama/yama_lsm.c                      |   10 +-
->  134 files changed, 3075 insertions(+), 1525 deletions(-)
->=20
-> --=20
-> 2.25.1
->=20
+> That's all to say that I don't think there is a need to keep
+> guarantees. If per-cpu map is used naively today it works ok most of
+> the time, but not all of the time.
 
-Do you need to broaden the To: and CC?
+Alexei was concerned about existing progs relying on it.
 
-  For starters, I noticed that you missed Kees. Additionally, there are
-  the maintainers for the files and subsystems involved that are not
-  included in the communication.
-  I understand that it is difficult to know who to include in the To and
-  CC, but I would at least add the mailing lists of the various
-  subsystems (and at least one of its maintainers).
+> Perhaps we should just get rid of that whole per-program recursion
+> protection and just make sure that a) BPF program can protect itself,
+> if necessary
 
+If we drop the recursion check and go with a), protection is up to
+each bpf program author, so wouldn't a careless one be able to panic the
+kernel? A prog as simple as this one triggers itself:
 
-Is there a specific plan regarding upstreaming all this?
+struct {
+      __uint(type, BPF_MAP_TYPE_HASH);
+      __uint(max_entries, 1);
+      __type(key, int);
+      __type(value, long);
+} m SEC(".maps");
 
-  I'm assuming that you made extra{1,2} coexist with min,max to make the
-  review easier. Right? You expect the whole series to go upstream in one
-  go. right?
+SEC("fentry/htab_map_delete_elem")
+int on_delete(__u64 *ctx)
+{
+      int k = 0;
 
+      if ((void *)ctx[0] == (void *)&m)
+              bpf_map_delete_elem(&m, &k);
+      return 0;
+}
 
-There are some ctl_tables that you missed.
+Without the check it would keep going until the stack overflows
 
-  I see that the kernel test robot has found a few cases where you
-  missed removing the extra{1,2} variables. Are these false positives?
-  It is helpful to have a script that makes sure that every case is
-  addressed in the series. Could you use sed and/or coccinelle to
-  "prove" that all the call sites are handled?
-
-Best
-
-Joel
-
---ap2rq4zenvkdp2kv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrvl5cACgkQupfNUreW
-QU/vYQv/WZrS2rKj8SmBKwD/cma7VfyTIGiOv0QoFvnSIQicen7nWmtAK0MF1hfm
-aLQp+fQSjFuQCVCoVLpc4kipZxMVMIF1Hs4JKrlc5hVKYHMGJVeBa+9wmSR3ehvb
-44t1BUa26EhCwsMDQAf/lp36ULb30wLxoEp6AmbexdYIz3f8oqwWk/SWkVlO2EF2
-Xbwydsfskfh5Phdm8lU1P9s5bt6zuMrVTmDOlvCuElzEf+CYGHmU2/NMeKCUGMTv
-CLU+iT63IWn8vfwke2sPQu6XrVnih7Ov7qbnhiQ8cVY5P6cuitvJx8ywBBGjswVy
-6StHJ/r2Idf6FNZgB/Xx1xH5S3+b1T4XrqBFC+j6esBeD37L7DTCgitAn3rbj5Ha
-5WxKnGYccTWdYWSGVs28IAYYxtxZn5Tsvoa1KZcu7T9VE15xnux2Yz4aBdHFttdV
-jqWyw9dFR6IQdMoksEtEJBivD9/FlIkrUIKiKOEdwUSzsabie234vSdXR/Qe4NZ+
-mAurunx6
-=fIp4
------END PGP SIGNATURE-----
-
---ap2rq4zenvkdp2kv--
+Mike
