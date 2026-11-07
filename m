@@ -1,77 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.233
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069387;
-	b=EMllDEzBKNaBuy0HG7t27b7N9drUEEK9mPOtgYxRRvDG4EzB2kEqPaQx7hsIsg18bXmq
-	 reR4ELJDVav25slti+XxFqbJ96BwQNUiUZ6uTtGyemTmDpLuuvDGQZHnB5iqSEuwIYGN2
-	 Jcq/SwKOjG8Jr2OryT7QtZRYeKIpbExhrvmsJioAn3F4OfiMPoXlzaaVv0j8yxPkoBIxB
-	 mIsOUEbXaQhEeGl0DOrLrv1Eov4X7cAK68V6IHnnA7YwNOmpM9TnHE1BoobktyzK8IAdQ
-	 JkiVOS51/mCzhDSCFna0AQnk8zu0bQY2WFp/23lAwQpE4pWfpRG88l+SR63D23AbhWQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069387;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:In-Reply-To:
-	 References:Date:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=lbX+sGdGYj2HVf7Yc5m9ZTpvypzt1imqSUa6cW9vpz4=;
-	b=goLWzyJ6dikf20sTmmvx0U9yWSg5keKVter3H9I6mST6J4BMRy/ykHbgQTLxbC6wk07N
-	 PPK9l7T8owVgthjv7/ZWU1VeYS2T4KhUs1d30HXFRK9PYEAMB7mJLIf/mN1HIgqfU0lCv
-	 EIVQRyISM5whR3J/u+FGrLKVX5kEuSuCNKQX4VKqY5dvC+devnU8i5aaTIkWC5AFTIF53
-	 NnGL1CemA2tx7+CCnXL1tYBwd/04phcBfDHlWZdacSOWWPEPg0Jhf6Q8WJW5El/rwbJQi
-	 VC9FP31j/25DcFLFc6rxnDdwFKrK0iC9aqHwzwVy9xaOpBXI6/VlcsfmP7D8lQFZfIg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=T+jno8qd;
-	arc=none smtp.remote-ip=203.205.221.233
-Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794069400;
+	b=LVMkvFu7wJwWUGfTR1irnxLVBk4/tSwEpYhQH9pV+T6vz1tdi0TOnky03qvE2g8cPUp8
+	 BIntVNlOQCeHd5z9wAuhDcWvHgRrtfChyu1CHL65RKAC0i3XqYNkHu1Hezhzs6/J/uQoq
+	 V0/uKCy7LnvodWXRMMoLeH+Q8S3hfX1grgRg/sfFoA6OyGQiUkRy8px0kYeoUEkoRhHOw
+	 DmZhfD2/o2L52k2Qh14+vQSG0afQ4IQ6ulVsFAkRtMxW5hRUDlccEriDvJASr6hnLYq1n
+	 HwTAcvWE6ufKjV0dA5PFD5BN1h5ee0rVXzc5TnEFlexfUyCVVgCYymArjhDjiQ1BMJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794069400;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OY93VwbfzjBg0BXxTjqx+bommJCWEgMu4VHNBvyfHIg=;
+	b=iWsEa8f/BrYBPo9KWnAq9acIFwl5v+wkEtK95Du0JcuL9a+AgoEX37t9IID/hQSmaOpG
+	 LSmqKiRXaNhoOXQMvuPAIFXPapKlr+mh99DAHf9fHA8WhY7ivgi5Hiqg3qmekTZkwx9T+
+	 jVddTG9HC/R0iTOdjd9U5CkyemYBR+95JX74l6jNW0JVRoE5C2+PDpH6XpbWP1K5WUQJo
+	 0cDuCqxq6GROxox7Sn9AypmRL0CXQCDS173PL8FLjnBUQfp9utkfUuY7zwkT9JlXFw7fv
+	 3cA3OYtmbOEGzMpTSgW2F+nZSscYLfnId87XwrlA9BPvsXfjSkGMNBj3ylIaP9s9mUA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9ADBUtX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A20D606A326;
-	Sat,  7 Nov 2026 16:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A20D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E260606A32D;
+	Sat,  7 Nov 2026 16:36:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=T+jno8qd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794069382; bh=lbX+sGdGYj2HVf7Yc5m9ZTpvypzt1imqSUa6cW9vpz4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=T+jno8qdaZ7FEzEVXvcm+IPRdhDePnJHRQzb6XpHEuVMTXH8RLOtIXveklLzAk5w/
-	 M5Y9CfK7IuCjeZKspzyOphcnEGbuZ8un1VKBU7TuGktdg+bVp4clohyaUQtvTddQFv
-	 TDgSzLpGONQHDdkjWNJYfS2Oepog6LChN6P5LbEE=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 9138B44A; Sun, 08 Nov 2026 00:36:19 +0800
-X-QQ-mid: xmsmtpt1794069379travwr84g
-Message-ID: <tencent_427FA63F51443E005106A901DF6223E04E08@qq.com>
-X-QQ-XMAILINFO: OKZmdVNIw/gXnTM/i9jIuptosvaaslD27BAzXpUS3KVy2RKUZeJ9ErzG00x2QD
-	 AuI9GXR/qW0fR7U0P8zrtj4S7cUV2SEusCpEmYbC1OtPv53+8UVgDR2OaQiEFltmer0ZiVJA0cJv
-	 ndTITuVzykMQvNpTSF0zxXO0wQ5Z+KOUBIyERA5JVSUOxEEuMzXL7do1/gBIGCQqPxlBvMvi2SFa
-	 jYBqh14+brIM5pvWTj323gJF5EaULWh/Nv9EY5zAdeRduazhTUgst4rFMNn2BgG3aYkGx815RDHM
-	 ARxL2YFKhv5ruP4fFBgZ4VLiRCMvIOENPMuTnAe2F76NVCOp1ayMsS3zMm4yqSGxB6J739aF58fr
-	 IgEYFbls7LHUNhZ/5ZZRlF2C6vCI9nIKVL5P75elNcUMhhwJv7K51zYdvmb+HWyXS1k0RcqYX+yo
-	 qfBwm4NAhz5n+4MsVi17ppidfDSu/suS9SICGR0WgyQiEWk3gTC3r/r8G3IHMYSV/kiI6wyZpxeT
-	 XCnHtx/H73tyLC7C6rMbZSc+wYTcvFeWh99pHBkTbTAvgtftU4B1+qjzSPBN54WxzzevUt4coO16
-	 ZaQENIzXJ6xTjLv3KjKvOuDW0tPmRiJkKmnA5p3cUjiI+x6Ypn/1jbAEHB+uj3amXtBtfWIndDeA
-	 xDYwp4/DhCKxISTpfhLVy1ga8pM292VdWkzQ2Y6xqoE+KBq647BGqDG5vPLZ6nQiG4s3dCQORsSH
-	 nxWx18KjRPIfLZ/jUrxX19Br0tawegWYFYOolY0wcIxpnqwNmEvma843JPrcst8A28KNSX74mIzf
-	 /jFq6uM4DrLrSWkQhR96zJ1eRN2psaYxFyjPD/n6FMSgUjq7JFxtIsVYpT+XQOAZ7lpJMtP0WRCl
-	 ZVnMdFmShuYKFeXQ3T9AnH34nepgipOw21aQuIdNhrW8qyspnyxwJD9oQW5qXMTnASyVHoMqsjnW
-	 s+48nK+pLK9hTdp7o0uDwYY8JdjSaN7JD4h/5HtdtV5KVynMEST91wc5hwXf6zd+Lwx/QjUqXjGw
-	 MFxnEPEicqwMKtfmE7aIDOKtSuqd/T7W2dwbFF3A==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: ntfs3: two out-of-bounds reads in $LogFile replay (restart page
- resize, restart table offset)
-X-OQ-MSGID: <c32-ntfs3-undo-unallocated-20261107@qq.com>
-In-Reply-To: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
-References: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
- <c26c27-ntfs3-logfile-more-20261106@qq.com>
-Date: Sat, 07 Nov 2026 22:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9ADBUtX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794069399;
+	b=WdmlKnzb3BWi4DnC+z46E2mVs9iUJ1WK/QsNSh6kr+tiAkqFXM6OwvlLQKq+PEcPHG4Q
+	 USzyhpYB4ewtwamB83DRn3uT4zak5u79Ym4LgGzRiIfKsb0ERHmQHmeITyUp7mKaZNDX9
+	 rlKWtkkuUU5mTW0bxYcpU57NVCrO1r+tpfuu+szWC9at52kaJTAtbvGrtMZKwgpDY+rTc
+	 hzICCybiXN7QFGstfup/2e/+juh0S9JIHSiKWef9SXclzxFmUO94H35QpjSZaRiQJsaJ1
+	 rcvVrYHl7v0jBunSXw/Rmk/zcVFQ2SW6Cgq1C9dkZdQQ0qraFZ4FU/6aG2U/oOuKWGQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794069399;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OY93VwbfzjBg0BXxTjqx+bommJCWEgMu4VHNBvyfHIg=;
+	b=cGZ8cwBIvhNc0dN5K6Fh8K9w+rbaVkhnSBQ0bYJNT1dkVm1yvfUdh4aj+2/lBcIcQm4T
+	 tvalXDz/ZdJUSKTIP8Vs+W3vkWsN71Dwlu7jjQ93S/Rl+C3fy6fWGncrxXF0lksTN8ED8
+	 LJPIuWzGapAeqIq475eXepA2VbMpDsB3Jz4ThexXkron9jUXrLgqYnc+ILpVu5Q4yTun2
+	 5da4fFrNIeyHJ1PPrZ7k8CzumGnay571oLBymXucbGXYvew/oSXZrs2OM1O01SyfCJZZI
+	 pSnkkA9hFX1/aIGauQP2f3dcDD+RHAiTQhwBUhC7i+xejwf3eL7UTxQjsEoD4SVjMSw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BCFFD1F008A2;
+	Sat,  7 Nov 2026 16:36:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794069399;
+	bh=OY93VwbfzjBg0BXxTjqx+bommJCWEgMu4VHNBvyfHIg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Z9ADBUtXmDSKikuov8I44jgdSrgaKtu8oKsHJel97Zuh4mxGOzXQqk/Hj1TKwdVi3
+	 MzyMbZ3XB3LagK/QJ0Jrjj6Tk+MAPvt5zTcbrPY6LUd4npbzmbVZsWr/+QfIQYAzX7
+	 TXaPEb2BAnMCWXNFrriBgGz761E+f5yt5zBR20E1aOwG+u9ZCu9RzqzoHune838FuL
+	 7KtQnjQpt5Jktfco5h8lBgEMjyTZId3VbJ0PJSlEhI4Eunn7U0Nkjp5t6RW4zurz2g
+	 PjH1OHnyPvZt8D83Oi+eSYVYSia16iFOOXEA+5WhnvMu6rvjdj8WL5xJDBbIdatJsz
+	 6IZdTvB8UDArw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1800547C6F;
+	Sat,  7 Nov 2026 16:36:38 +0000 (UTC)
+From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
+Date: Sat, 07 Nov 2026 17:36:24 +0100
+Subject: [PATCH v2] rust: doctest: fix line numbers after crate-level
+ attributes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,62 +83,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-rust-doctest-line-fix-v2-1-a66528f0a7c3@younes.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBCFr2Jm7Zi2hIquvIdhAWWQMaY1nUIkh
+ Ltb8ACuXr6X97OAUGQSuB4WiDSxcPAZzPEAbmj8g5C7zGCUsVqZM8ZREnbBJcr6Yk/Y8wddq3p
+ rC2suPUHuviNle9+91z+WsX2SS9vYlhhYUojzfjzpLffvY9KoUTld6Kpsyqq1tzmMnuTEAep1X
+ b+sd//FzAAAAA==
+X-Change-ID: 20261027-rust-doctest-line-fix-cb0f663629fe
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Younes Akhouayri <git@younes.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794069397; l=4560;
+ i=git@younes.io; s=20261027; h=from:subject:message-id;
+ bh=yODJlg7TFm3NgQtApP8hmB9DSotdMjoacbgECuGShSc=;
+ b=GimVZfWmQy4O6IvvPp1BMLOsh1yM/b+aIA2FtrbbAIuG9go4rlPd59FrXAspFvU34qwCphMrj
+ UA9Jr3BPOz6CrGcURhEnX7EGZNZVaUbc7MDm0l/uNojhOSX39dS2X7W
+X-Developer-Key: i=git@younes.io; a=ed25519;
+ pk=TavwxGPDBjl4XGNQyFLKEW7PKSY4qOWusc7yf6hjV0c=
+X-Endpoint-Received: by B4 Relay for git@younes.io/20261027 with
+ auth_id=1332
+X-Original-From: Younes Akhouayri <git@younes.io>
+Reply-To: git@younes.io
+Content-Transfer-Encoding: 7bit
 
-Hi,
+From: Younes Akhouayri <git@younes.io>
 
-One more landing of the undo-pass lookup gap reported as item 3 - same
-missing check, different field. The redo pass validates the
-open-attribute table lookup three ways before using it; the undo pass
-validates none of them.
+When a doctest starts with a crate-level attribute such as
+`#![expect(...)]`, KUnit reports failures one line too early, and
+`line!()` returns a line number that is one too low.
 
-Redo pass (fs/ntfs3/fslog.c:5105-5124):
+This happens because `rustdoc` moves those attribute lines out of the
+test body and puts them above the `main` function it generates. The
+generator works out where the body starts by counting the lines above
+`main`, but it does not know that some of those lines were moved there
+from the body. So every line after a moved attribute is mapped one line
+too early (or more, if there are several such attributes).
 
-  t16 =3D le16_to_cpu(lrh->target_attr);
-  if (t16 >=3D bytes_per_rt(oatbl))              /* 1. bounds     */
-          ... goto out;
-  oe =3D Add2Ptr(oatbl, t16);
-  if (oe->next !=3D RESTART_ENTRY_ALLOCATED_LE)  /* 2. allocated  */
-          ... goto out;
-  oa =3D oe->ptr;
-  if (!oa) {                                   /* 3. non-NULL   */
-          ... goto out;
-  }
+For example, adding `assert_eq!(36, 0);` as line 36 of
+`rust/kernel/init.rs` (inside the doctest that starts with
+`# #![expect(clippy::undocumented_unsafe_blocks)]`) gives:
 
-Undo pass (fslog.c:5251):
+    # rust_doctest_kernel_init_rs_2: ASSERTION FAILED at rust/kernel/init.rs:35
 
-  oe =3D Add2Ptr(oatbl, le16_to_cpu(lrh->target_attr));
-  oa =3D oe->ptr;
-  t16 =3D le16_to_cpu(lrh->lcns_follow);
-  if (!t16)
-          goto add_allocated_vcns;
-  is_mapped =3D run_lookup_entry(oa->run1, ...);
+Twelve in-tree doctests start like this, e.g. in `bits.rs`, `devres.rs`,
+`init.rs` and `std_vendor.rs`.
 
-Item 3 in my previous mail was the missing bounds check (an index past
-the table reads outside the allocation). The same PoC with one field
-changed - lcns_follow from 0 to 1 - selects an in-bounds but unused
-entry (target_attr 0x18 points at entry 0 of a table with used=3Dtotal=3D0,
-so oe->ptr is NULL) and reaches run_lookup_entry(oa->run1, ...) with
-oa =3D=3D NULL:
+Fix it by counting the attribute lines that `rustdoc` moved (every
+`#![...]` line above `main`, except the `#![allow(unused)]` that
+`rustdoc` adds itself) and taking them into account when computing
+where the body starts.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc=
-0000000001
-  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-  RIP: 0010:log_replay+0xabe6/0xf580 [ntfs3]
-   ntfs_loadlog_and_replay -> ntfs_fill_super
+`rustdoc` always starts its output with that `#![allow(unused)]`, so
+check for it before relying on the layout. If a future `rustdoc` (or a
+crate-level `#![doc(test(attr(...)))]`) changes it, print a warning once
+and keep the previous behaviour rather than failing the build: the tests
+still run, only the reported line numbers would be off.
 
-So one fix - mirroring all three redo-pass checks at the undo-pass
-lookup, ideally in one helper shared by both - covers both landings and
-the third one (in-bounds, allocated, but oe->ptr NULL) that I have not
-built separately.
+Only single-line attributes are handled, which covers every doctest in
+the tree today.
 
-Both PoCs are the same four-record forged log as before, differing by
-one field each; 3/3 with panic_on_warn=3D1, mount(2) alone, clean image
-mounts fine. Unchanged in mainline as of 2026-11-07.
+With this change, the example above reports `rust/kernel/init.rs:36`,
+and doctests without such attributes keep reporting the same lines as
+before.
 
-The reproducer bundle for items 3-5 plus this one is available on
-request as a single archive - same base image, per-finding one-field
-patches.
+Fixes: a66d733da801 ("rust: support running Rust documentation tests as KUnit ones")
+Signed-off-by: Younes Akhouayri <git@younes.io>
+---
+Changes in v2:
+- Check that the generated test starts with `#![allow(unused)]` before
+  subtracting the moved lines; otherwise warn once and keep the old
+  behaviour, instead of clamping with `saturating_sub` (Miguel).
+- Note in the comment and commit message that only single-line
+  attributes are handled.
+- Link to v1: https://patch.msgid.link/20261027-rust-doctest-line-fix-v1-1-0c13185a58b6@younes.io
+---
+ scripts/rustdoc_test_gen.rs | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-Thanks,
-Guikun Yang
+diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
+index 754c5aafcce4..01128d8c62f9 100644
+--- a/scripts/rustdoc_test_gen.rs
++++ b/scripts/rustdoc_test_gen.rs
+@@ -127,6 +127,7 @@ fn main() {
+ 
+     let mut tests = String::new();
+     let mut body = String::new();
++    let mut warned = false;
+     let mut last_file = String::new();
+     let mut number = 0;
+     let mut valid_paths: Vec<PathBuf> = Vec::new();
+@@ -168,6 +169,33 @@ fn main() {
+             .count()
+             + 1;
+ 
++        // `rustdoc` moves the crate-level attributes (`#![...]`) of the test out of its body and
++        // places them before `main`, after its own `#![allow(unused)]`. Subtract the moved lines,
++        // since the rest of the body is shifted by that amount with respect to the original source.
++        //
++        // Only single-line attributes are handled. If `rustdoc` stops starting its output with
++        // `#![allow(unused)]`, this computation needs to be revisited, so warn (once) rather than
++        // silently reporting wrong line numbers, but keep going since the tests themselves still
++        // work.
++        let hoisted_lines = if body.starts_with("#![allow(unused)]\n") {
++            body.lines()
++                .take(body_offset - 1)
++                .filter(|line| line.starts_with("#!["))
++                .count()
++                - 1
++        } else {
++            if !warned {
++                eprintln!(
++                    "warning: `{name}` does not start with `#![allow(unused)]`: line numbers \
++                    reported by doctests may be wrong, please update \
++                    `scripts/rustdoc_test_gen.rs`."
++                );
++                warned = true;
++            }
++            0
++        };
++        let body_offset = body_offset - hoisted_lines;
++
+         use std::fmt::Write;
+         write!(
+             tests,
+
+---
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+change-id: 20261027-rust-doctest-line-fix-cb0f663629fe
+
+Best regards,
+--  
+Younes Akhouayri <git@younes.io>
+
 
