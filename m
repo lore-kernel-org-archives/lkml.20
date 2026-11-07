@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.136
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794057817;
-	b=ktd71B1OGc5PD0J4JSLJYwfD9TLwuqJhMnIdItpO2kPww8PxO+nFQO3onTCjU60jb5Un
-	 95g3yWeeWFyrlBac5ibC08eNSffEjA72Ih0Wrp627AdNFxyx5Ky8XIHYGmO5NLtreJlzM
-	 QM44WTKMHBdKkVwfDVePOFPeaYD/8nyXJaZZKMi60yyRfMj4rX5n8FGuiw3n9cnQSuDAa
-	 fDOI3UwNLSmuPDAQcXQ+wM4RuKn+l7Nq6Lkstb6p472K+XzeRuSUqK/esZzy0PI+JzfZf
-	 FlwfsFGg34PcExCsw0h2azEmd5qNGmIR9u37evjqL6UxwMSiQC1z7gpRaH0wHe39xuA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794057817;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 mail-alias-created-date:Received:Content-Type:Mime-Version:Subject:
-	 From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
-	 References:To:X-Mailer:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-JNJ;
-	bh=XkH+vWqZucV2P2/xeZrqT3HKbZQaLRyiqkAW1d5j9jQ=;
-	b=Olnwzy20ljwiBvm2DA+JXQo2VoVsgUDX49fmQ0OJFFRLSzqtvNzXGwktJ8kRqg1RzjHW
-	 d52sN08WnY3XB4WfcAKBgLp6rPmKHhof1bjWyvki2Z6Q71f5Z1xQAFazQfxOwYDWYXsdF
-	 xdsl2WHKJnWRnrqb6NY9x9YFZirTslweG/uROgtD9+Ue5pcp8w3zT1ybK6LIfJieuE+4s
-	 zq21FCjbCw+l5Mj/EGK1s+ZQv1vqIL5Qx1qEedTD0Pp+d0rGcy6/8Gq/VdDYLelZpWk0d
-	 twdHIO8buIcjXluWfQhSAv3MtCl5XAluazljGhqnNCdDENVor7wWoy4q2YkzyAl/IHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=udp0.com;
-	spf=pass smtp.mailfrom=udp0.com;
-	arc=none smtp.remote-ip=57.103.74.136
-Received: from outbound.ms.icloud.com (ms-2004g-snip4-5.eps.apple.com [57.103.74.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794057861;
+	b=n/POlHQF/Mz6kBNOV79ew4SlDeZT4JHu4wsqB0xAc9CZU0I5jNS7JQ3Y3WO5BsU+2AHX
+	 52Ue+gp8sbP+mK29FJuH29s4o8+KIPFFa/Z/nK47oLNFCVwEZnnXsGPtEuhG56LNWFmqw
+	 AfqJfSpTm02MWWbjJ7G4N4PxqSOVTul4QEKAyBqKr2GNkYKhhDUoXn1Hj89gYUQfecte1
+	 ielwluq+Szy8RDxybLZ9q0CbkWEmAY+/nLxUDG36LhpG8HRCR1QsEYcwCa6ruMQMdH9C3
+	 q9YsK3WDehCjzfVWSeoYkWnB6enMotFWIv5mx8RzcYcu0kNZ+9luMEyzXdjCJTVBegw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794057861;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=z6cvIR8/w2KV+BnWSxqQJYCnMJX2uxJLLmGs+7Gm898=;
+	b=j6ktLmVHJ0nNR5t3F3PyCAZ5gnISS+xSqn9qMi9CpKqJvNfwasIUZduQ/3uufV89TbzF
+	 ZyM9tXGJ9QbGJGY1j5J/RwxG0Tu5Cf9YModVPMotUXD4+RJnBkw2XMmQkZg7ViGYXyjtM
+	 IbIZ7AXW7Yf1egbkWGW8zydW1RS8wbx4i8kW9KO5G4ES27hslXv/18HYrX0h7YBbigFD1
+	 /iw0rhf4elyxIA/fq9eTSxMzeWa+0ijS8aDydBUrXJAs3y0FY55q/ivNG3a4/+KO+MsCp
+	 9+H9R41MxHMeIDwV6B8hlCE9yiDeckaoNlooOifB0CP0uYJ9yf+G1PBGKoDouudyyMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="egt/9Ydq";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3796606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:23:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3796606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=udp0.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=udp0.com
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPS id F1DB81800F73;
-	Sat, 07 Nov 2026 13:23:26 +0000 (UTC)
-X-ICL-RepId: 01a1b62d-a406-7ee0-92a7-aa3fdd673dcc
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQtKAEMGWwZeCEEHQwVaC1BcHA4Edx5WAAlWUAJaS1QUBA1XHQdFUR9UWEEOCloFUFEdXwIKBEcEWxdGA1NFXwMXEVABWB5WXloXXk1HH0BNYkkBWhlbHEAXSm5NUw8PBV0IA0NUBF9QVBFXUAtbAEYBQAZVckYHRAhPHlkHWQtdAEp2XBopCzEOTgopBFgEM384RglHWxwTVhUNTUMSQhUEG0YeQwRfL10XXgxeBQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=udp0.com; s=sig1; t=1794057809; x=1825593809; bh=XkH+vWqZucV2P2/xeZrqT3HKbZQaLRyiqkAW1d5j9jQ=; h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To:x-icloud-hme; b=Q67QI6z699y4Il3JSoGzy9/3agUy+eFvfdcNU5kmsd1agU3tKJcYqejCOrZXhRcp6NaTqBTzalpa2ACczGTyVlgZ4ysmoPZqJzBaTx2kJrZ6SDXvObPUKL582NMxy3Yf4q5ufLiDAvZK7kePK2vUa0V0RsCvmkStN/0rONdpABDRafF5oYunofXzKNMyUqWobOFs7zn59AyEodaG2Y+7lt4vV0au/FGxeIKTp/Y77DmjBTcvMVNBt6XYuQPz9AMuBj7EEzWkWLTdxQA9pBZw0vwvj0jL6C5IKB+8jF2TUaBDjPf/L4d4C/UkInea1cHzlJ1zr01jiVxOQ4XXQ+HqAQ==
-mail-alias-created-date: 1755760572767
-Received: from smtpclient.apple (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPSA id 5273618000BE;
-	Sat, 07 Nov 2026 13:23:19 +0000 (UTC)
-Content-Type: text/plain;
-	charset=us-ascii
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A18F606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:24:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A18F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=egt/9Ydq
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-89f28c3ac7bso574363b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:24:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794057860; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UIlFz+1f+zLxj0S1OEUs36ivxLOCZgLH5quRBLMmmMpB+5fRDWEqMOK6BDv36cPQOI
+         WwnzaLbIPhOzEdWs+piqXx2jej9QZIdGXBpGaZA7dJHEV8BmTaRl+OPiVtj+UATrk5dB
+         ILhSL84A+9nI5Rf+uPT3UvfQROgoHXr5LhglDvfBG8T/LDNLMQjFIqM4hYZHVOGkFnxr
+         vQGZk5oDCixedJja8ndVLUrbEvN0YiUxt9E+ymwWZK3lG/p9RXRVPGyezvWUZlceHyo0
+         pptIypeg9Deqoi7Pb5hIFhC6uA5c7aqPKnIfFH/I1xTTq8dydvbbqZFc8YDRd+0FwAIi
+         ZeXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=z6cvIR8/w2KV+BnWSxqQJYCnMJX2uxJLLmGs+7Gm898=;
+        fh=FFh7AJ0h8YoAjAPgcTmfkZgZmcQiRA2kMYauY/r7R9I=;
+        b=A/8TXH10ykszaL1xkL0BYhCpcPLEzYkcYc8NjGFZ5MMqvrFlxs6t+IpA7iDoY0nli9
+         RBbnSR8yqseSl3R4dfnuZAKbo9aDwVzroPVYXS4cQCDU+BLxKfsjO6A4R5m5Jtni/H1K
+         zYumu1G5597ktpgYxEKwkLyqNK3lrU5I9s1AeyW3kbyYvC6/YDv0Oy1HBC6HXrbX0Ie8
+         wb+ZZwv5kszXtSsb5otd6hTJvfPz7bbMAEAGssYsUPWrCk9T9OwYKR8pN1JX2HKAcnSj
+         3Cr+oJ/PR6HhSkz9xFBsoZPjKeczomlIyvvPLuFadgp5ZwuqqxZJ3L8TMMRM58nbivon
+         pB/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794057860; x=1794662660; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z6cvIR8/w2KV+BnWSxqQJYCnMJX2uxJLLmGs+7Gm898=;
+        b=egt/9YdquNPXu8FvBII2kA5NnP+1Is4C2I3wbE/15bbbcqw0QV21/Jb6Xy3qHTVI37
+         WI09SrRKEfq8EZXttEBAFckJTz5wIQqdier6ICFf0EvMnOStSBZY9p4GD+iqWkSgYanl
+         6h0SUEu7N3EyG2ow6t08i+BSWLy+6AGLAdOahKL9yTRg0YkK9xlItZlHLzeFTmwzhXjQ
+         IKM3TWi1qBJUYMxJw0ltFs/q7av/xMOQ/mTK3ODWtpquJFFEt/knZ317IrLdu25zw3ZE
+         zdhnH2CZdF9lHs8cSxR4n/TEm8cBtaJ8S0jNuTd8v17CmRfmFSn5WqWDCtZurN5ai13N
+         cZzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794057860; x=1794662660;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=z6cvIR8/w2KV+BnWSxqQJYCnMJX2uxJLLmGs+7Gm898=;
+        b=DEEF+BE+MwOVwV+wYQzmN8q2mM3GwZpSvzuQggI8YVxxhhuMNuAYuar8VUkL7eQv7H
+         gbQrC2aiOIcL5uOsKsqwEq45u4fPneNEekd4HUnOiiUouSaEnefH7xt/h5Xa6OGt2+B0
+         o4+kjhdMtfnOo4Y+qcZO0dQoFF/4R2gy58JsdB4hilPOrMgUfKgiA76vB/jmZ9NUcbL9
+         soNY+Ypm1r9Cede43NKTw+WqayvTD27hYh1fuP4OrPIi7q1NY47LepxT8XVzsrKgZn0U
+         ok5cf2BM+7cLOqPVTddOMv8zZebxVUpyzUz8VEjIxVGrMe9QEBY8vOt21iZVPPHK+2Wg
+         FLTA==
+X-Forwarded-Encrypted: i=1; AL+hErHSeX9dpBDVDSUBziepNsc6TkYZKiAcI+ATJS63fiaUy+Oqs+F+1g5piPIXFbpaY/9UOV25xJuZwble1jQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cInNMtLMyV9o5u6ZZQXzX6Wh9lDa4xcUN1Qz2m8fl/npHiab1
+	k30ep+jiE5+6ZmmvZ4N4gZVLkZfq+Nt+f6pKukKKS8lZ85RBELnSm2kTuRoaUTkeGupM9dX6jfO
+	PckWiyaisZVKpOv3fjfAiYG9UkRD3ZoM=
+X-Gm-Gg: AYBFou3fvMyczcoFEbbe78M0xndrY8SgrjhSFzog+JiVL0xVjsL0zmcyJ3QVgf8CCEZ
+	BfPJC6ikrjp4BodT1vkDJBgEiv62pM1xZqjmbOnZwcf0MXSO2qECj2wcYZvEq+3nYi1Vorkx4ah
+	hqNDDDMSwU/n4fE7qSYphNe5EsjAzM3EyKWrlr5q5kzi3gZY1YMlC7YA83L2WHbCpiUECUXHveg
+	9gE8hC8A02dNIJJ3/aTgQ33j6cWtuf/WC4Cub9f3FteU9PIVnEbtWNZFh5SAlAZKWbBwzW3CAkf
+	zpEsRO2Zv9LsFp2wvpdmYbHTD0l4BORo13Adnw7vlHVaNcNhvSjskMhJY47RCYx/LJOjnse8bqP
+	cWebLUdiSEl1/pLRf5IMNxnSu0awCK7cNT53Bb271gUsw8lRzn3Kz9tgr4IvbVchNyYVi
+X-Received: by 2002:a05:6a00:8c05:b0:89a:19ae:10e7 with SMTP id
+ d2e1a72fcca58-8b37be50e42mr5386306b3a.42.1794057859877; Sat, 07 Nov 2026
+ 05:24:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,86 +100,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 2/4] dt-bindings: watchdog: mediatek,mtk-wdt: Add MT6833
-From: i@udp0.com
-In-Reply-To: <NHTtBa55FlZroePPfTapZ39Pvy1b4wyqCCdSD04TWCQXFLmLQy2sA6FNcAybpbZP5XAT42Ze_JPK1F8mA3c49Wk7dm8_Uir4anxYntb_CNI=@protonmail.com>
-Date: Sat, 7 Nov 2026 21:23:06 +0800
-Cc: Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Sean Wang <sean.wang@mediatek.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- linux-watchdog@vger.kernel.org,
- linux-serial@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <0268858E-5417-4029-92E1-B9A769D336CF@udp0.com>
-References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com>
- <20261107-mt6833-base-v1-2-bda21083e9f3@udp0.com>
- <NHTtBa55FlZroePPfTapZ39Pvy1b4wyqCCdSD04TWCQXFLmLQy2sA6FNcAybpbZP5XAT42Ze_JPK1F8mA3c49Wk7dm8_Uir4anxYntb_CNI=@protonmail.com>
-To: Roman Vivchar <rva333@protonmail.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
-X-Proofpoint-ORIG-GUID: 95eXpZTJhLMQL2DA2HK0aiuKYkqwkhMZ
-X-Authority-Info-Out: v=2.4 cv=JcWxbEKV c=1 sm=1 tr=0 ts=6aef2650
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VihV-RlftAohqbJ1NDcA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA3MDA1MyBTYWx0ZWRfX4q5Zr7QYhpp/
- PijRaXHDjgtCoIUFHOzLSWz0IjqKqdGrXY0156XKKKtYnM79/iKqlLd3Cww7UF1AlrgAIogNSoc
- RxkaG6f7QJVHnVyFp2zikNGFXP+/NqEm3adM4X0q+7Rerq2nhlmUjkbNB2TMqyILMXAVs2byt0C
- re+evaIkMmo+AOOCjL54QGyXAlS2kfoQCYGMi77omjCXA4QgTbPRCSpEZo0n0QxAQM+vYGU5546
- LH7DYXSQUbhsl4QOMarBwR8aynppmn2R1c3cBIk9WgKVOWu5uQ792Df1FM/w3Dsv7sbvADcNkjF
- pZ+Uii6U8P1TkRe9RBB6SabMi0h+wILpD+ShLSOKl9DDuuy0vtb6A/ISpSB5G0=
-X-Proofpoint-GUID: 95eXpZTJhLMQL2DA2HK0aiuKYkqwkhMZ
-X-JNJ: AAAAAAABhz3Oh/EPhCGAyIy6KvmkLp7t7H18Lp9MeSUEuUYuOLaDxL0B7oLDYsDhsmWO2q
- 6F42SgfSUyu6PBKz0FwBsZVi+kbcmRcqsbSn3lhSM6m9MoI8RRSnyNQXfDSZ11Wd4rZ+eI
- qppeNSauUXS4WyrvDGBoOaH0dwBHc/FUrzxIFuaXkfO66j/B563ndOGebhqOkaM9+WAj3v
- WAnuqTLWJVnN71jpS/ThuXybbmyMTqGx7OGgGk48m67gS6TfPe66vSCIK+0VCkDf32L0Yx
- CzO+MG+KhK5WzYjslbn4W/tOXjdYNfafplXcgsJBP3FVHs1WbI5tKbiS0v879uJfd1aSYA
- P6zFjyvE+1aPlUzUr/6FINWvT8FPbtzU7DAkjf0cVYMQzAW2UXbE2gK6+MtRv1tWWhWa6M
- 6uXXz3s3dosVJ/zbkxayIXOHevMrdSzmsUjDh1hIcoAu+JUxZgq0yrKUu0vYP9bfg2SgKM
- AVQxD7HhlCz7hChGkxs1RH76DkhBb8bna96/TxRDCubco1/o8hNUy6ApXCpdB5T9noFSzk
- DqKJm6b4u+uGsn7fpJpwnXkoz4l8v699dn4EGl078BYz0dIwu9xAgmgY8/+G9PzjTdSTKQ
- c2JwlNpQouvzsiYyGoTPlJOC2b5KGqmZhzVKaMJyLIukkonng/vDAM5PBuUyzFFNycemiG
- IDr5adFI9+J/4FyidrTw0n5M+ysPjPkoO4UCXMwjAf2YHYMlx0Pgq/9r61jTC0oVQX5UgU
- vFpvfueAHn4q41PrkiMhwGCWBTmLXYdJ8pfrjVYpYCPRwMdY5R25Ch5fPwm5DuVfE/4mOe
- tja1itNC5QdG29/7+IUtuECogI+u16wodX3UsJBogdWYEY4C6LPa6/RTTeZ+b5j5o7MQfi
- xXCrrkcgHiqLwG2SBqNBejAJs8r+d6Uxv3qjZFKh3/usjJICtUt2qYoNY87G6+yaqTTTXX
- pR7HgWFHns+gA9ScipZqvEdaXFZFTGvmyFzByLonJGp4dZvsFi86U8etrTyYOx47hoVw7T
- teQZADgQd18gEcefXK8/DVErtlzIrIhKBvqdTaIiyDnlCKkxMxrJxvLjQfx0tySIvpHmRj
- 6TYErlvnMwoZ+OG2UiDXAqk4GeJ09Ct8ho4b0WbFRPYKlQN4c0ZyRAo2OJ7aUXzuvFFE+5
- i4RS+pm/oJ4lL1D8ZjHKrjxkaioFHES/smdb0B7Wc6imhcFFHis19EuhYiSAeT4rGYYVeT
- D+lR0pRJM6boTjhDp9K/q4tKRWHrwP5oV1VOl/yCJm5+BcaC9ZtpVnFfGf6X/U9gS2DAYh
- 86l3zkl50nRXMPG3E7NGB3LQ1rgDnjMM6WYYgQ8Xp4L0UopdA687X5nLeVI6TQKe2pgrjY
- 71xnwBNt8xGFbZdAgS4zzNAVYobgbenR80bdnRmcjPhpV/1ziwTNMQYse4bt09ZbfLC668
- GgoBI=
+MIME-Version: 1.0
+From: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>
+Date: Sat, 7 Nov 2026 14:23:43 +0100
+X-Gm-Features: AclHuK8W3wLee-SC_bINep9sAVMsLbYP6ki1_B-6wv6M2M-O8zCmkC4I3YCdlbc
+Message-ID: <CAENjc+w0Rqy=kDSew7XtNJCSvyPiXPJ5faWdmCr5RGYFhpunCA@mail.gmail.com>
+Subject: Re: [ibm-acpi-devel] [PATCH] thinkpad_acpi: Add Auto mode support
+ with dynamic max_brightness
+To: mpearson-lenovo@squebb.ca
+Cc: Derek John Clark <derekjohn.clark@gmail.com>, hansg@kernel.org, hmh@hmh.eng.br, i@rong.moe, 
+	ibm-acpi-devel@lists.sourceforge.net, ilpo.jarvinen@linux.intel.com, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	vishnuocv@gmail.com, vsankar@lenovo.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Roman,
+On Mon, Feb 23, 2026, at 6:19 PM, Mark Pearson wrote:
+> Hi Hans - do you have an opinion on the path forwards?
 
-On Saturday, November 7th, 2026, Roman Vivchar wrote:
-> Does mt6833 watchdog have the same resets as mt6589? Please take a look
-> at mt6895 series [1].
+Hi all,
 
-Thanks, I had missed that the mt6589 entry now registers a TOPRGU reset
-controller. MT6833's resets don't match it: MediaTek's kernel for this
-phone resets the connectivity CPU through bit 12 of WDT_SWSYSRST, past
-MT6589's twelve lines. That kernel has no full reset table for MT6833,
-though, and nothing in this series uses the resets.
+a data point from a user, since this thread seems to have stalled.
 
-So, as in the MT6895 thread, I'll make mediatek,mt6833-wdt a standalone
-compatible in v2, with a match entry in mtk_wdt.c that has no reset
-data; the resets can follow once their layout is known. I'll wait for
-comments on the rest of the series before sending it.
+On a ThinkPad X9-14 Gen 1 (21QA, BIOS 1.25) running 7.2.15, the
+firmware already enters Auto mode on its own: Fn+Space cycles
 
-Best regards,
-Rui
+  0 -> 3 (Auto) -> 1 -> 2 -> 0 -> ...
 
+so with the current driver tpacpi::kbd_backlight reports brightness 3
+while max_brightness is 2, and brightness_hw_changed emits 3 as well.
+
+This is not only cosmetic. UPower 1.91.x treats 3 as out of range and
+stops watching brightness_hw_changed altogether, so the desktop no
+longer follows the hotkey at all after the first time Auto is reached:
+https://gitlab.freedesktop.org/upower/upower/-/work_items/367
+
+Whatever interface is chosen for exposing Auto mode (separate attribute
+or hw-control trigger), would a minimal fix in the meantime be
+acceptable? Following Hans' suggestion earlier in the thread, the driver
+would report max_brightness (2) in brightness and brightness_hw_changed
+while MLCG says Auto, and leave the ABI otherwise unchanged. That keeps
+the 0-2 contract userspace relies on and is easy to backport to stable.
+
+I am happy to write and test such a patch on this machine, or to test
+a v2 of this series, whichever you prefer.
+
+Thanks,
+Andrea Rabbaglietti
