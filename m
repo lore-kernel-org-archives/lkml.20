@@ -1,129 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794084604;
-	b=gJJCsuHjljYiZdujmR7u2co3Ce+qI1eLTqRnYRC7eghsy5lO82eJIM8LXXTvrk82B8hB
-	 cQhiCQr7Eej/ApFNhQFVPp0vtOZbdjC++71YmzMfIFD0azP0lyFk5zDijtVn+JhRuKAUd
-	 jsaN4lAEWV5XNYr2ZhTvVsSKfTmY38rvlqQLmh8kTlUFpw/QOKU7QmEBidYPZnkN8R46Z
-	 F/ULt2FxiFCexDtPSXDIVwF526udrK6agWM9YUGDsn1af6MIluSLxE+wNTFb5jxIgZQuM
-	 ofj4AnJpGObGRfaYK8qxFY2Q6bHfW4JympQs95ncxcbwfjTlfwqc6Nuc5ZmXqKswcrw==
+	t=1794084608;
+	b=i8cNDdWdM/UGNdj4hnt/0AG1PhQcbvoXi39J67gkT4AQTBYtmZXBKkvYe1vXeRm0ggzG
+	 z1kyNSvspG4iJS1z7vXizv3MSy+syLLWji8GquSutxurBoJL3orVG6dwGlj30+Hohq75N
+	 1RGfJgy8c8xqdR4MIMAUQBLOqMC5aoFArdKGiLhUZicpdUJIJevsu6hfg/E8a42YbUH6p
+	 N7x1bnguryO2fsdzlVpbVCe8ZLiKlE083LtWoRNN+/6Uo/mUnSiV95Vf3kJlr4V3jEeFX
+	 dkaSZrsC/9XOfH8nm6NAR0pdITCG0nBWZIZco73h+xd4Esj/3XPhjMGeJh06bpGVPdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794084604;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=aOesGKy7Bt1YCMx1QwBRu3MlgUbtfj3W3WMjPklWMRI=;
-	b=NJhlcicx9B0N3xVMS6Xnda+az9BO5iM649RnjAx27f4PQntvjm4biOp42VDrA5G82Hyz
-	 35kjrSmHuAIms9qVM7WfDMOJGGCV1+gET2S/nlcw2EdOiSJjX7FCufpni543asTFMMnpr
-	 IJ/b+IQTER7akzomGWk0u3aPoVU49r9ixVFUV4Sa6fTy7CQACASTS3FHac1VdSbJmwF2B
-	 VZ6UQ84X/v+4Ym+S/tLu0pk24pbFoICH+9YkSQorjYdyoVRCGZt9/NENFuJ01b02XDWAC
-	 SVb5np4OwNIn015vdyzvnsfUT0vRBTNBMiiyBvnSUctnr9Dy5Yqwtzhj3cUAx6RdadA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794084608;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ogu3WYl26VzYnLKTpBw3sq7j0lnDtjUsntu6D8wGtpY=;
+	b=o6WnFQa0buedaN3b3l8zWhN9nCZPBAXP2lFzI26q5VKQgxWhtpE+ae9Qysxo0omVciVb
+	 7nxH3xEAoQEpOn4fAJ1abDPKg04vKSHq5lv1G0d35+GlX4T/dr1D27svrip0HiTQH5eD/
+	 xkne9e2pZVK5kXd6ScNYbqhWXLU9udFmbI+6C7d/X/8+oKYMEo2kQIThYkwoV9gkezGGR
+	 nFKo5XBbfhqmdQl8FZLn3owg07k1P6NUxaK+x4KpZCx78apKJlJHw/kpP/VJgoIAFcbOC
+	 pX63dzP+VVRq4bP/GD6RrWJDsz1PkF1AT106iy3QSbALt9bfZ6LF72gR3YaHc9C50tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=joshtriplett.org;
-	spf=pass smtp.mailfrom=joshtriplett.org;
-	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b="z6u+N/G2";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=dthcuLss;
-	arc=none smtp.remote-ip=202.12.124.159
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=I6Rca7cq;
+	arc=none smtp.remote-ip=109.224.244.22
+Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF09E606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 20:50:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF09E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDD1606A339
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 20:50:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EDD1606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=z6u+N/G2;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=dthcuLss
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 2D61A7A00F2
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:50:03 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Sat, 07 Nov 2026 15:50:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	joshtriplett.org; h=cc:cc:content-transfer-encoding:content-type
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm3; t=1794084601; x=1794171001; bh=aOesGKy7Bt1YCMx1QwBRu
-	3MlgUbtfj3W3WMjPklWMRI=; b=z6u+N/G2KU95qqFq0G5Z9YVJiKgWnQa5G3yvr
-	rYko1LUo1fh8ZyPT4RdiMBwABrTuZaIxpwDdoj0rSsmrWMLvVrug+N/jEfoTiU8W
-	vC5MGEfn8d+GpBZIPw6ZQWjp2T/cUptWMs/FaaqGSZ3nR3g18Zudm19kM2f8JiAn
-	fe7ijTtrDukQMkORYJ+a1P1BeBTkNr/+sx1JBZdavRymrM1EG+1foFsaDYu9MxWt
-	x/dbi3m7A9EoLJDsSRSX+sUrH5cxt9BM82ZB1f8VIlxPDBDCnoOmvLE5bcZR8Ofp
-	pZuep6G/RzDuvxZre+AnDp/Rt+FPI4SDvHtFQIqZ0GtocwujA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794084601; x=
-	1794171001; bh=aOesGKy7Bt1YCMx1QwBRu3MlgUbtfj3W3WMjPklWMRI=; b=d
-	thcuLssM+anEFXWbCJArOEynkrI5v1Jg7Fg/dpmuI9sOL/RLzDPI0PpVK5FR0bjN
-	iqKZVEDpyiOlAACLkOzTkhEZI0/5cm80ofdvI0rQ/7IULCv667AN02oEqdidzLdV
-	YweqhfXi9Zzj7kxdW+TNXtoKoHg2mVRQyMNq2P1Uwv2B5FLQm7vuIIcdjWnpsfNM
-	0EX75KDEjwLhttcVPuDNupZVP5RSeAOTegDHBJfeJC0FAIQG2d5Wq0j8b3SLoJbo
-	PhaFb6NBo0gO4zYs30VnMAQKpNWbdYlnxRBtCxzrBgfLthczNWzISKHRXmVLfaOL
-	epp/7e41dTtvZ4h02DJQw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=joshtriplett.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794084601; d=joshtriplett.org;
-	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Hg/4/o6HA+jPdg3H0vzWdTWG1dD3ASjV9VmiJDyhTVOMfbM
-	WSTSbx5BInrSTp6WKyYvnAjP957CHbVBAUM/Fyqw9wcXU/3HlN+eQJQy2yUUhPzH
-	Jpboo8hFi7pZn/OZhR4s92q1hbDo75IRuP3i8IJQJYvv8lnJcwRXDs0RFqvNo1LT
-	nuZelSmGoLJGKyjsfiTCpR6FeCb8wGfGAUeDMyjtJk0O4DENsxK+zU6zrn+GW8UP
-	zsARiSiI/YfBTOAkufXiu+h/8TC+FV5txexktkAaASsfCFyw0tFAqGapDvolM11p
-	u9S4BHlL6HtqgnL3/9pepo1kbcX/JV5bBImbw/g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:A19Renz0cxkEDfbt/2pLjrnJSUaI6TuPqDwDKxer6XA=:wyge+1tOzwAIZGqBD066PALFzHGlxq9/uxHhTr4zyrA=;
-X-ME-Sender: <xms:-I7vagZaEKGabKaUK2n6AmJXbY---mbLcGIPDmeQf0eIOCBVFHQu7Q>
-    <xme:-I7vaue51KYR_CdyAU9JVtZziXab25DTRCJ2LSZPPgB-zxAv0VJ3VueVHOhQPChXM
-    pJd6Ff8En29aV22QcCLyuu7r5MjkTvP3zVqkFUmNvw2_Wchmt_rwIRo>
-X-ME-Received: <xmr:-I7valmJqjbR82WX4MfEtBx4kgTPAccoL9fD3sM63Fr4okXBEFf2nhYQNQ>
-X-ME-Proxy-Cause: dmFkZTG1ZfC8HBbsKhJNIVCAtBIJYEcqG93Uh6xOwtCMmcb+hKolNtXgix5VRY7hVx0P8B
-    aYZ1u5MQjSiy0VXR2QRQLjMfSZMQs2XO1jXfVvLxh7OHNABgdwZpfX4CAiUwXmim6Ha2X6
-    qESHRKysaogslaAs00WB70ATq9CZzYDD2iGoK1R1YqhYAxANrJjL0h3zVAKqPYe/Sh4gBR
-    XzSZ41dqu5S/3HUnGosu8gvQmNE+ZRKEA7klcbk2KCUA055Y5/hwj8heGdpSLR7BWc0iDR
-    rdakdB0fTjSJhj47sYBvPpEp1KSXZ50H3A54OXwlecHRwFRUQc7WLRfCWkpv9DLN30UJY5
-    J5mqDOj/Qun4Zmx2MvapvFHmGV/iS+qpmWmDZMXraV6rsbFVDuF8jfSX+jei1rAUM0rM1E
-    AjU0fZVGaolYPMwzs806pNedfrALDiobYYQW69xnQmdfuYhP23Vq0wQfbzgSGpHczO+btB
-    x6b79xPE6tN8OkKKerIZ15w1LwiiEkNZG2/7zhTOknvmLMnhxnycxjGwyR8iuhUloF+UOG
-    dfaMb72Q9gjTUw6sXo/6dZdDCF3VBY1SZpVpBxCn/evX8h0/iiOG+xe3/c1ovlgz9Vsjo4
-    iIjGu/SydrpeS37sanYmyf29Ue7d9CkW5gK9EfjZ172E7+5v1dKYa8K2+mWw
-X-ME-Proxy: <xmx:-I7vam3oECNoJpIk_oWKN6zB9KevAY_pFNovB-w_cmYmygslEkMX9Q>
-    <xmx:-I7vamdNQX1CBZWACEd1rUZ_T2PukM2QWo7dD2aaC_gWYnvweU1P6w>
-    <xmx:-I7vaoaPvm8bINod_zcw9qt492Rse3XStQFf54aMVTkHST8DvdBxvw>
-    <xmx:-I7vajFCGNZdr7Oog2JnTNFu9oeJY9YuLYw-BxS3FRlZ2TSjngbr9A>
-    <xmx:-Y7vam24Yt0VSrPKEyka2JwxMCyDIfa0_tk6a5MpH3r4BP66IcNhhqzc>
-Feedback-ID: i83e94755:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 7 Nov 2026 15:49:59 -0500 (EST)
-Date: Sat, 7 Nov 2026 12:49:58 -0800
-From: Josh Triplett <josh@joshtriplett.org>
-To: Rong Zhang <i@rong.moe>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
-Message-ID: <au-O9sHQNnHxla_e@localhost>
-References: <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
- <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
- <au5nUp4extfupCpS@localhost>
- <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=I6Rca7cq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1794084603; x=1794343803;
+	bh=ogu3WYl26VzYnLKTpBw3sq7j0lnDtjUsntu6D8wGtpY=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=I6Rca7cqtH06AZZhUiywwWgrBwZ6IGtSDHaudMuvC6036TChEUJ91VBVrxuTO5qC6
+	 /qlJ/66HqFuNVWDKsEKB/zaF51qLgUlbibcHeCneQEdKBOvAl0Zu1m6He4Z2J+DlEv
+	 fXDzBmRcdrS8RDINE/zcgi3ruelPTruwxGEfwO4n0d+QmVZs4pz5gw+tkFxoSTDZco
+	 yLJMwb679wNwkPCWmxlyjPCCjAfeBYQ6UhFqEz4kpggb9V8alQcj3ZvSrkfp2L2Gy2
+	 eZPfSDc6Txinnv/RuQnNC6+K9C1mdJ5wTWpEXYDVBWmO3ISlpW9p1ci45OPf18Blhh
+	 WX3wZcwLSorAw==
+Date: Sat, 07 Nov 2026 20:49:58 +0000
+To: =?utf-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: platform-driver-x86@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: dell-smo8800: keep the state until the last file is closed
+Message-ID: <20261107204950.88952-2-ca@modelmiser.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: 0531ab98a8600ea4e4b0ace56693e6f3eec95f87
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,46 +61,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 07, 2026 at 07:45:12PM +0800, Rong Zhang wrote:
-> Hi Josh,
-> 
-> On Fri, 2026-11-06 at 15:48 -0800, Josh Triplett wrote:
-> > On Sat, Nov 07, 2026 at 04:48:44AM +0800, Rong Zhang wrote:
-> > > The term "unsafe LED" exists because LEDs are write-only for software and
-> > > fire-and-forget for the EC. By taking the control of an unsafe LED, e.g.,
-> > > attaching an LED trigger, any warning signal from the EC can no longer be
-> > > displayed by the LED.
-> > > 
-> > > When it comes to battery LEDs, they are definitely unsafe to override.
-> > > After all, batteries are dangerous things when they malfuction. Thus, I
-> > > don't think it's suitable to enable it for all users.
-> > 
-> > Choosing to not report "charging" vs "full" vs "not charging" via LEDs
-> > (as opposed to on-screen indicators) is not in itself dangerous. If the
-> > EC has something like "battery is damaged/overheating/exploding" to
-> > report, it had better do that by some more effective means than blinking
-> > an LED, or the message is going to be lost.
-> 
-> This is not in contradiction to the fact that blinking an LED is crucial.
+struct smo8800_device is allocated with devm_kzalloc(), so it is freed
+when the driver is unbound, but a /dev/freefall file opened before the
+unbind still reaches it through file->private_data. release() then
+clears misc_opened in freed memory, and a read() blocked in
+wait_event_interruptible() is not woken by remove(). It sleeps on a wait
+queue inside the freed structure until a signal arrives, and then uses
+it. Unbinding the driver needs root. With KASAN, closing the file after
+an unbind gives a slab-use-after-free in smo8800_misc_release(), and a
+blocked reader interrupted after the unbind gives further reports in
+smo8800_misc_read() and prepare_to_wait_event().
 
-Something can simultaneously be crucial and completely ineffective. As
-mentioned elsewhere in the thread, "immediate shutdown" would be an
-improvement. Bonus if a message appears on the screen for a few seconds
-so the user has some idea what's going on, but whether the OS handles
-that or not, the shutdown would be an improvement.
+Allocate the structure with kzalloc() and give it a kref. open() takes a
+reference and release() drops it. The device's own reference is dropped
+by a devm action, which runs after smo8800_remove() on unbind and when
+probe fails. misc_open() calls ->open with misc_mtx held and
+misc_deregister() takes misc_mtx, so the device reference is held
+whenever ->open runs. Once the misc device is deregistered, by remove()
+or by the probe error path, a removed flag is set and the wait queue
+woken. A read() blocked at that point returns -ENODEV unless an event
+arrived first, and a later read() returns -ENODEV.
 
-> > I can't comment on what *every* ThinkPad EC would do, but at least on
-> > this X1 Carbon Gen 11, 
->
-> That's the whole issue. The patch unlocks charging LEDs on all models,
-> while your ThinkPad can't speak on behalf of other models.
+The problem was found with a Coccinelle script that reports device nodes
+in devm memory [1]. The fix, the reproducer and this message were
+written with an AI assistant (Claude) and checked by hand. The fix was
+tested in QEMU, with KASAN enabled, using a test-only module that
+registers an "smo8800" platform device with a simulated interrupt, not
+on Dell hardware.
 
-If that is the primary concern, would you accept a DMI-identity-based
-allowlist?
+Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com =
+[1]
+Fixes: 4738d8aabe89 ("platform: x86: dell-smo8800: Dell Latitude freefall d=
+river (ACPI SMO8800/SMO8810)")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+---
+The Coccinelle script reports a devm_k*() allocation when it, or an
+address inside it, is passed to misc_register(), cdev_add(),
+cdev_device_add(), video_register_device() or v4l2_device_register()
+in the same function, or when the allocated struct embeds one of those
+objects. It reports dell-smo8800 for the misc_register() of
+&smo8800->miscdev.
 
-- Josh
+Reproduced in QEMU 10.2.4 (q35, KASAN, booted with kasan_multi_shot). A
+test-only module registers a platform device named "smo8800" with an
+interrupt from an irq_sim domain, so the driver binds without the ACPI
+device, and a module parameter raises the interrupt. A process opens
+/dev/freefall and the driver is unbound through sysfs. Without this
+patch:
+
+  close after the unbind:                  1 KASAN report (release)
+  read() blocked across the unbind:        not woken; after a signal,
+                                           7 reports (read, wait queue,
+                                           release)
+  unbind, bind, then close the old file:   1 report
+  close before the unbind (control):       0
+
+With it there are none: the blocked read() returns -ENODEV when the
+driver is unbound, a bind after the unbind works, and an interrupt
+still wakes a reader with a count. Not tested on Dell hardware.
+
+An interrupt that arrives while remove() runs, between the reader's
+count check and its removed check, is dropped and the read returns
+-ENODEV. remove() frees the IRQ before setting removed, so no event can
+be lost after that.
+
+kzalloc() rather than kzalloc_obj(), which first appears in v7.0: the
+patch then applies as is from v6.14. On v6.6 to v6.13 only the include
+hunk needs adjusting (those trees have no dell-smo8800-ids.h); v5.15 and
+v6.1 need a manual backport (remove() returns int there), and before
+v5.15 the driver was an ACPI driver.
+
+ drivers/platform/x86/dell/dell-smo8800.c | 35 ++++++++++++++++++++++--
+ 1 file changed, 33 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/platform/x86/dell/dell-smo8800.c b/drivers/platform/x8=
+6/dell/dell-smo8800.c
+index 8872f9b57fce..8880bf39f895 100644
+--- a/drivers/platform/x86/dell/dell-smo8800.c
++++ b/drivers/platform/x86/dell/dell-smo8800.c
+@@ -13,9 +13,11 @@
+ #include <linux/fs.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
++#include <linux/kref.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
++#include <linux/slab.h>
+ #include <linux/uaccess.h>
+ #include "dell-smo8800-ids.h"
+=20
+@@ -26,8 +28,22 @@ struct smo8800_device {
+ =09unsigned long misc_opened;   /* whether the device is open */
+ =09wait_queue_head_t misc_wait; /* Wait queue for the misc dev */
+ =09struct device *dev;          /* acpi device */
++=09struct kref kref;            /* device + open file */
++=09bool removed;                /* the device has been removed */
+ };
+=20
++static void smo8800_free(struct kref *kref)
++{
++=09kfree(container_of(kref, struct smo8800_device, kref));
++}
++
++static void smo8800_put(void *data)
++{
++=09struct smo8800_device *smo8800 =3D data;
++
++=09kref_put(&smo8800->kref, smo8800_free);
++}
++
+ static irqreturn_t smo8800_interrupt_quick(int irq, void *data)
+ {
+ =09struct smo8800_device *smo8800 =3D data;
+@@ -60,11 +76,15 @@ static ssize_t smo8800_misc_read(struct file *file, cha=
+r __user *buf,
+=20
+ =09atomic_set(&smo8800->counter, 0);
+ =09retval =3D wait_event_interruptible(smo8800->misc_wait,
+-=09=09=09=09(data =3D atomic_xchg(&smo8800->counter, 0)));
++=09=09=09=09(data =3D atomic_xchg(&smo8800->counter, 0)) ||
++=09=09=09=09READ_ONCE(smo8800->removed));
+=20
+ =09if (retval)
+ =09=09return retval;
+=20
++=09if (!data)
++=09=09return -ENODEV;
++
+ =09retval =3D 1;
+=20
+ =09byte_data =3D min_t(u32, data, 255);
+@@ -84,6 +104,7 @@ static int smo8800_misc_open(struct inode *inode, struct=
+ file *file)
+ =09=09return -EBUSY; /* already open */
+=20
+ =09atomic_set(&smo8800->counter, 0);
++=09kref_get(&smo8800->kref);
+ =09return 0;
+ }
+=20
+@@ -93,6 +114,7 @@ static int smo8800_misc_release(struct inode *inode, str=
+uct file *file)
+ =09=09=09=09=09 struct smo8800_device, miscdev);
+=20
+ =09clear_bit(0, &smo8800->misc_opened); /* release the device */
++=09smo8800_put(smo8800);
+ =09return 0;
+ }
+=20
+@@ -108,11 +130,16 @@ static int smo8800_probe(struct platform_device *devi=
+ce)
+ =09int err;
+ =09struct smo8800_device *smo8800;
+=20
+-=09smo8800 =3D devm_kzalloc(&device->dev, sizeof(*smo8800), GFP_KERNEL);
++=09/* An open file can outlive the device, so it holds a reference. */
++=09smo8800 =3D kzalloc(sizeof(*smo8800), GFP_KERNEL);
+ =09if (!smo8800) {
+ =09=09dev_err(&device->dev, "failed to allocate device data\n");
+ =09=09return -ENOMEM;
+ =09}
++=09kref_init(&smo8800->kref);
++=09err =3D devm_add_action_or_reset(&device->dev, smo8800_put, smo8800);
++=09if (err)
++=09=09return err;
+=20
+ =09smo8800->dev =3D &device->dev;
+ =09smo8800->miscdev.minor =3D MISC_DYNAMIC_MINOR;
+@@ -151,6 +178,8 @@ static int smo8800_probe(struct platform_device *device=
+)
+=20
+ error:
+ =09misc_deregister(&smo8800->miscdev);
++=09WRITE_ONCE(smo8800->removed, true);
++=09wake_up_interruptible(&smo8800->misc_wait);
+ =09return err;
+ }
+=20
+@@ -160,6 +189,8 @@ static void smo8800_remove(struct platform_device *devi=
+ce)
+=20
+ =09free_irq(smo8800->irq, smo8800);
+ =09misc_deregister(&smo8800->miscdev);
++=09WRITE_ONCE(smo8800->removed, true);
++=09wake_up_interruptible(&smo8800->misc_wait);
+ =09dev_dbg(&device->dev, "device /dev/freefall unregistered\n");
+ }
+=20
+--=20
+2.43.0
+
+
