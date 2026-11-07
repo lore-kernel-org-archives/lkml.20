@@ -1,63 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093977;
-	b=rQRadCE5dTXV8ACun+j15w6qH0P0sCgJCQnayE8pPZ2tjulBvUM+9VtmRekMtxk68bF3
-	 3Mxgj69DgjziVmcXaTWuhF/t3Zzwh4dPW8sYMIkC9QgxFLGgDaal/O8GctMC4q65UEfPT
-	 XALPo2P5CgU3miriEcyuFERgK9fUWKggLjATdfq3JSd6axNjUQmTFWed2xIg+5YS6tiXn
-	 8BhwgsyVOJ7uOGLN8oN/eT6DJlbJTspNocMr3QItewDon4f5n/SgUXPiTmBSGjKIkPLfK
-	 LFI+bsC7c4vrY7oSk1PYZPm+OaUUmDKgGO77lbkdDe3POlqTy2si/PIGfRlo5vugdAw==
+	t=1794094086;
+	b=fH0ZNgA2/rzNXjpzwl1PeOOs0Pji/uFlaRxIbw2OME4J9OKw4g1Lr/CRn+FxMh5Ol3cg
+	 eXNO3KuZX1qkaRHJq1TrOOhyqgptT5bOR8og21iR75OAT2xM6i/iVEbQozFClIepgnbzJ
+	 1Q5DOaxVTuYVnrVTvEs6idRyNbkNFuqzGPA0IqCdIBq27Ae5NwKX5IUx3qS8876cYBejr
+	 vkM7ikhLYqGxVm3nl4R3vlUIpgOSmSoGjuIFzSZWjlmUd05W1NnrwH2CTV1uC3ivj7RqE
+	 mogzC39Gf4NjyoAzByF4JCWedq8w3Cp0FvL2zU/eXLlrtIU1z2ZiyUHU1VQ6RJIq82g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093977;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794094086;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/q9SNtsLpOQFFz2oKvKluMnW2OJakwogm3d9thiIdhU=;
-	b=f8Y6VEFmWBDfO/dJytKfSjt2Pu/H6JRcsGNrQ+hQbZsZ9qhyqsteQ5ux9XLPeIk5v+N7
-	 4yNuu63R1LBUybsQaeeCSSH+enlcorphlymYwMsBWV4YkwlJHIk9KQ2w4XOL17EvdceAv
-	 rgGVXpt1AiG+qPxHxnfLrmdYZAgPY+IMCH7vmf9xUGRnxXRSJzqX5mq7DooyUySuXl19x
-	 3Id1Vy9Lgh2+tGqnMknQIr7qc/n6dLE9kNAVVhAxZQcDKX8CD/rPwUVZlW4RHmRUFdsa5
-	 YFQqhJ8Mr6PIoAKqWw2+FeKK++q8KFNpSWmD8l0bJC/Qxe3SPR8nmyYj4gfxB/R6N0w==
+	bh=uyCJO08GrvmJEYSfRuoyU9muRQ/ofXlsPrd3wHpfc1M=;
+	b=1kWpHZDZD2ssV2Kqxp6NQXX/HdLb3YkPN0REk2MygcX9psxhT9WRXsp8rvueJlPK+hUo
+	 wlnevUoFeOp4m+gCPPggbm6JlE89nLBY7l77XQk3oHJEmsf8fNIf9uBCvcLtlRYUqBtqB
+	 V6KDoR66PfmYGfI2LgtEC+3Wj7zHoFei1MkJUGa8A3gI+x2WKYUUpNdT02U/tXMjLs826
+	 W8mJlLC4GsQz8sp30m7PHhQP7RafSQB4IbTniaNC087RjKDna6HrclfVoT04joRCf6pDa
+	 np8OWaUKjrteBJDYOjAIXYb4Hvt2c4V7ZJoBZDeGg2nVAZ2KsOZb4inICbwsB/yRLhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=AOeIJYOR;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=YQYnhD9X;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsGc42KK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76068606A326;
-	Sat,  7 Nov 2026 23:26:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76068606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F4C606A326;
+	Sat,  7 Nov 2026 23:28:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=AOeIJYOR;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=YQYnhD9X
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1794093932; bh=/q9SNtsLpOQFFz2oKvKluMn
-	W2OJakwogm3d9thiIdhU=; b=AOeIJYORBXfowH3BYcw0naI77CLWquvoZFQy+B97Xs9BTdcmeB
-	kn0HDLjlC+x9fySko8qeENCGroixRrX6+DvQFHyoMfzqM0xzWtM648jPvF0W3EhB+FTxlS5Zeqt
-	xIaupZRM5JBgv/zifM3qgo7ims4/fSemqUVpGzXf1P8EzzCpPqu1202NrfEzPtNaHD/OyluDSxA
-	Ie9Kp39HOm03d1pFdGnRT0k0wHXAb8HnMazH4RiRCGFheADlR/0G7jo9n9plEb+J+8hxj4IPA/V
-	pg6wcFVAZ+k65F2OadUZxBZSTwN+nYBUSPbaDkA4M3xCpId/Ky/+0KLw8iY0RLZPilQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1794093932; bh=/q9SNtsLpOQFFz2oKvKluMn
-	W2OJakwogm3d9thiIdhU=; b=YQYnhD9XSRkPIZs20QDd0PSg961IAgz5OcIKM7q3xRFJ8kmgkM
-	SzFk2tvwwr2XJKOxvk0eA/XtL4AqMAYq8rBQ==;
-Date: Sat, 07 Nov 2026 23:25:32 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: christophe.jaillet@wanadoo.fr
-CC: boqun@kernel.org, dave@stgolabs.net, frederic@kernel.org,
- jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, neeraj.upadhyay@kernel.org,
- paulmck@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
- rostedt@goodmis.org, urezki@gmail.com
-Subject: Re: [PATCH] rcuscale: Constify struct rcu_scale_ops
-In-Reply-To: <3f546f8e102ef271e7d5ac6d8b6a1f44d0fb20cb.1794085327.git.christophe.jaillet@wanadoo.fr>
-Message-ID: <B33D74A6-E196-45F4-AA77-32B4FDCD0817@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsGc42KK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B311F0089F;
+	Sat,  7 Nov 2026 23:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794094086;
+	bh=uyCJO08GrvmJEYSfRuoyU9muRQ/ofXlsPrd3wHpfc1M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lsGc42KKmWne2Pth9BWg+MFGMg9hyq6mfzEBscLB5/87kXsJseKPjIFndsutmPjsK
+	 BUy4r3vtsx4fTICk0+XoNvK1jxUC/WvmFDvUEZIg6Aucg77sCeB5gCEmjElDRvWdMb
+	 1KpDn6vkAMsjBbVLUuKVdH8Lty1MT11aKR22ll3rmJH+XIuOoQWFiBCsZmgqQpWcG2
+	 Q8PSdC09BlbneLZ97q+A9tYjAmo/oQa6Q42luKuDGeWAv2l3pOHw00wk0ckvW4LHm/
+	 yfQxcVgq5eChRBK0pBKVV5Lp2ehXmeR9jdgjFJIgOiyX2I+PEyiBcYEfOn+8sP+sIu
+	 7Plaocgy1HIgQ==
+Date: Sat, 7 Nov 2026 23:27:57 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: Michal Simek <michal.simek@amd.com>, Sai Krishna Potthuri
+ <sai.krishna.potthuri@amd.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <amitrkcian2002@gmail.com>
+Subject: Re: [PATCH 1/6] iio: adc: versal-sysmon: fix race in interrupt
+ teardown
+Message-ID: <20261107232757.1ddf1120@jic23-hlaptop>
+In-Reply-To: <20261102122112.1723130-2-amit.kumar-mahapatra@amd.com>
+References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+	<20261102122112.1723130-2-amit.kumar-mahapatra@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,134 +66,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 7 November 2026 21:02:25 GMT, Christophe JAILLET
-<christophe.jaillet@wanadoo.fr> wrote:
->'struct rcu_scale_ops' is not modified in this driver.
->
->Constifying these structures moves some data to a read-only section, so
->increases overall security, especially when the structure holds some
->function pointers.
->
->On a x86_64, with allmodconfig:
->Before:
->======
->   text	   data	    bss	    dec	    hex	filename
->  45585	  24946	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
->
->After:
->=====
->   text	   data	    bss	    dec	    hex	filename
->  46545	  23986	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
->
+On Mon, 2 Nov 2026 17:51:07 +0530
+Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com> wrote:
 
-Well, thanks. so you just consted rcu_scale_ops()? Uhh, well, this makes
-enough sense to be feasible
+> sysmon_disable_interrupts() masks all interrupts, clears masked_temp and
+> cancels the unmask worker, but leaves the interrupt handler live. A
+> worker that is already running can re-enable an alarm through IER after
+> the mask write. If that alarm fires, the handler queues the worker again
+> after cancel_delayed_work_sync() has returned. On unbind this action runs
+> before devm releases the IRQ, so the queued work can run after the
+> devm-allocated iio_dev that embeds it has been freed.
+> 
+> Disable the IRQ first so that no handler is running or can start, then
+> clear masked_temp and cancel the worker, and mask all interrupts last,
+> once nothing is left that can unmask them. Record the IRQ number for
+> this.
 
-Reviewed-by: Bradley Morgan
-<brads@mainlining.org>
+I always look closely at disable_irq() calls as they normally indicate
+a state machine issue - or at least a less than ideal state machine.
+Interrupts that hit them in disabled state will start the counting
+for spurious interrupt detection etc.  So whilst they sometimes can
+be used to cover up for really nasty to handle race conditions they
+get extra scrutiny...  So generally I'd expect to let the handler
+run, but ensure it doesn't do us any harm.
 
-But how is this worth it? Why doesn't this work now? how will this make it
-better? Those are my questions. 
+Given sysmon_disable_interrupts clears masked_temp under the
+irq_lock can we not use that to decide not reenable anything
+in the unmask_worker.  
 
-Well, I'm shrugging, but my tag would stand here, because it won't break
-anything in particular.
+So in conclusion it's almost what you have here, but drop the disable_irq
+and instead check if there are any masked interrupts that might
+be unmasked in the unmask_worker. I think that can either be done before
+calling sysmon_unmask_temp() or at the start of that function before
+we do anything that might set IER.
 
->Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
->---
->Compile tested only.
->---
-> kernel/rcu/rcuscale.c | 18 +++++++++---------
-> 1 file changed, 9 insertions(+), 9 deletions(-)
->
->diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
->index 1097ec15879c..522f7bc2e693 100644
->--- a/kernel/rcu/rcuscale.c
->+++ b/kernel/rcu/rcuscale.c
->@@ -159,7 +159,7 @@ struct rcu_scale_ops {
-> 	const char *name;
-> };
-> 
->-static struct rcu_scale_ops *cur_ops;
->+static const struct rcu_scale_ops *cur_ops;
-> 
-> /*
->  * Definitions for rcu scalability testing.
->@@ -185,7 +185,7 @@ static void rcu_sync_scale_init(void)
-> {
-> }
-> 
->-static struct rcu_scale_ops rcu_ops = {
->+static const struct rcu_scale_ops rcu_ops = {
-> 	.ptype		= RCU_FLAVOR,
-> 	.init		= rcu_sync_scale_init,
-> 	.readlock	= rcu_scale_read_lock,
->@@ -247,7 +247,7 @@ static void srcu_scale_synchronize_expedited(void)
-> 	synchronize_srcu_expedited(srcu_ctlp);
-> }
-> 
->-static struct rcu_scale_ops srcu_ops = {
->+static const struct rcu_scale_ops srcu_ops = {
-> 	.ptype		= SRCU_FLAVOR,
-> 	.init		= rcu_sync_scale_init,
-> 	.readlock	= srcu_scale_read_lock,
->@@ -276,7 +276,7 @@ static void srcu_sync_scale_cleanup(void)
-> 	cleanup_srcu_struct(srcu_ctlp);
-> }
-> 
->-static struct rcu_scale_ops srcud_ops = {
->+static const struct rcu_scale_ops srcud_ops = {
-> 	.ptype		= SRCU_FLAVOR,
-> 	.init		= srcu_sync_scale_init,
-> 	.cleanup	= srcu_sync_scale_cleanup,
->@@ -313,7 +313,7 @@ static void rcu_tasks_scale_stats(void)
-> 	rcu_tasks_torture_stats_print(scale_type, SCALE_FLAG);
-> }
-> 
->-static struct rcu_scale_ops tasks_ops = {
->+static const struct rcu_scale_ops tasks_ops = {
-> 	.ptype		= RCU_TASKS_FLAVOR,
-> 	.init		= rcu_sync_scale_init,
-> 	.readlock	= tasks_scale_read_lock,
->@@ -357,7 +357,7 @@ static void rcu_tasks_rude_scale_stats(void)
-> 	rcu_tasks_rude_torture_stats_print(scale_type, SCALE_FLAG);
-> }
-> 
->-static struct rcu_scale_ops tasks_rude_ops = {
->+static const struct rcu_scale_ops tasks_rude_ops = {
-> 	.ptype		= RCU_TASKS_RUDE_FLAVOR,
-> 	.init		= rcu_sync_scale_init,
-> 	.readlock	= tasks_rude_scale_read_lock,
->@@ -396,7 +396,7 @@ static void tasks_trace_scale_read_unlock(int idx)
-> 	rcu_read_unlock_trace();
-> }
-> 
->-static struct rcu_scale_ops tasks_tracing_ops = {
->+static const struct rcu_scale_ops tasks_tracing_ops = {
-> 	.ptype		= RCU_TASKS_FLAVOR,
-> 	.init		= rcu_sync_scale_init,
-> 	.readlock	= tasks_trace_scale_read_lock,
->@@ -693,7 +693,7 @@ rcu_scale_writer(void *arg)
-> }
-> 
-> static void
->-rcu_scale_print_module_parms(struct rcu_scale_ops *cur_ops, const char *tag)
->+rcu_scale_print_module_parms(const struct rcu_scale_ops *cur_ops, const char *tag)
-> {
-> 	pr_alert("%s" SCALE_FLAG
-> 		 "--- %s: gp_async=%d gp_async_max=%d gp_exp=%d holdoff=%d minruntime=%d nreaders=%d nwriters=%d nexp=%d exp_interval=%d writer_holdoff=%d writer_holdoff_jiffies=%d verbose=%d shutdown_secs=%d\n",
->@@ -1109,7 +1109,7 @@ rcu_scale_init(void)
-> 	int firsterr = 0;
-> 	long i;
-> 	long j;
->-	static struct rcu_scale_ops *scale_ops[] = {
->+	static const struct rcu_scale_ops *scale_ops[] = {
-> 		&rcu_ops, &srcu_ops, &srcud_ops, TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
-> 	};
-> 
->
 
---- Thanks!
+> 
+> Fixes: c7f7eb10638f ("iio: adc: versal-sysmon: add threshold event support")
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
+>  drivers/iio/adc/versal-sysmon-core.c | 5 ++++-
+>  drivers/iio/adc/versal-sysmon.h      | 2 ++
+>  2 files changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
+> index 1b55d343982e..6b9a58e19831 100644
+> --- a/drivers/iio/adc/versal-sysmon-core.c
+> +++ b/drivers/iio/adc/versal-sysmon-core.c
+> @@ -781,12 +781,14 @@ static void sysmon_disable_interrupts(void *data)
+>  {
+>  	struct sysmon *sysmon = data;
+>  
+> -	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
+> +	disable_irq(sysmon->irq);
+>  
+>  	scoped_guard(spinlock_irq, &sysmon->irq_lock)
+>  		sysmon->masked_temp = 0;
+>  
+>  	cancel_delayed_work_sync(&sysmon->sysmon_unmask_work);
+> +
+> +	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
+>  }
+>  
+>  static int sysmon_init_interrupt(struct sysmon *sysmon,
+> @@ -807,6 +809,7 @@ static int sysmon_init_interrupt(struct sysmon *sysmon,
+>  	if (ret)
+>  		return ret;
+>  	sysmon->temp_mask = imr & SYSMON_TEMP_INTR_MASK;
+> +	sysmon->irq = irq;
+>  
+>  	ret = devm_request_irq(dev, irq, sysmon_iio_irq, 0, "sysmon-irq", indio_dev);
+>  	if (ret)
+> diff --git a/drivers/iio/adc/versal-sysmon.h b/drivers/iio/adc/versal-sysmon.h
+> index bb9a75bf71c0..701ef9b56263 100644
+> --- a/drivers/iio/adc/versal-sysmon.h
+> +++ b/drivers/iio/adc/versal-sysmon.h
+> @@ -85,6 +85,7 @@ struct regmap;
+>   * @regmap: register map for hardware access
+>   * @lock: protects read-modify-write sequences on threshold registers
+>   *        and cached state that spans multiple regmap calls
+> + * @irq: interrupt number, 0 when events are not supported
+>   * @irq_lock: protects interrupt mask register updates (MMIO path only)
+>   * @masked_temp: currently masked temperature alarm bits
+>   * @temp_mask: temperature interrupt configuration mask
+> @@ -101,6 +102,7 @@ struct sysmon {
+>  	 * that spans multiple regmap calls.
+>  	 */
+>  	struct mutex lock;
+> +	int irq;
+>  	/*
+>  	 * Protects interrupt mask register updates.  Only used on the
+>  	 * MMIO path (fast_io regmap); I2C has no IRQ and never reaches
+
