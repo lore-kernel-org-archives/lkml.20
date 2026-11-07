@@ -1,108 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794011253;
-	b=F0oKA1R+/eG+4IU/GKilztjP4tANNyF+Q0l7wVQtWCsXTQYbkdqZ3VW6lirMiL8/IGYv
-	 uFxR5lb3IhcUrZyCA5ZYEGTm7ZoW4Cuo270jjM6DyeP7vJCF/hKvV5Yugq0LJS3EjX58S
-	 zfGZPE0PlUFmNTQKh/J0oYch/HSoeYtHQ03W8X93ZxJ1ya1s57mpP5PAvpunnmMsS7lVY
-	 mcIn3idr7ye/ztxBdVKCkAdbRwiB5O7g2REkDqSJqS56X8L9cdD4BOJuPoy6tty+7e226
-	 QTvbhOiuqkRcUqCXCrtesOSyjGRoefb3jLTd23l4fDTHjDLdQlRVuwvzMGTGFLRpX2g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011253;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0jlL+SHvvTR0ZQdsQVmEfpaIkY9fB2XCMI2EZ7p6juM=;
-	b=41PhYNZuD02rhXlEhXPxb/j7fubr0VdaoIHralGXNrMb48IC0bHDOY9xVFZdas1JrPCn
-	 s1mQvXckDm/aV81TKNIOtsc4zVHAskilXay2a1GILdzPMPA98WG0rB6AsgXjVbxYG98GK
-	 7yxC+n2vc7dbnAnMj90cqIcsPLSAT3NshIx4D7EH6bF4H1fuKtY5iP+mFnLv78VxkOnnq
-	 fJKbJ+gzA5bVegCeWikRi61ppukUOn2s5oyCrLHN2q4d7Hx21dsm5//xbasM+fl0/hgSy
-	 gVN6mWElN1C3v8g6te+CnszRLSWkA2knNsXNbt5gTsv9STy5KMr/zFXH1rFItN0J59w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EKvhCTRE;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NJwEoHvo;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.130
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794011262;
+	b=XFG5x9DC+MxW1mz5plAefeHBFOGGvJq/rxbyDieXGBdJZOproDdKArj7ueRaZQrdBKxZ
+	 h1GBnOTkIK8GRHHrbRbxCZvXIAyiS5MYmcpDWfMjFO/MEaxy9vQ7EQBw+wyoTjkdXmedW
+	 705Y7OFwOXtlbti2bIl+1L2NlOdIve8qDcIsWHwB2qXRcl+WwPvhi1Bxmdl6s+mR0c6RT
+	 1ZZ0FuqQJm5PY0FyAwiFrZsKTQVXEU9pUBOcOOTcm1JwH3wlf8Ip38vPl40YKL5wEmfw/
+	 bn9zeXdV/81mzNDgvHzDbb6/+5NKjaltv8TcQF8A76Y98iypPoXMBfXhYGq5aP2sr2A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011262;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/+vVRIyW32vOghLXxbONLDwv3gTRZh4JswP73O2nzg0=;
+	b=y3OQknIhGHRvaATc9aAISkNovT9cjp8HwdyVZ5+2qdDHf4vS5Fxagyt+L+0FpStjQUkh
+	 F79/xRYc57Z3n2Et64YliLKHofoRpVwb2BjwKO7xz3ry7rXNzgJnMs2fv5hxAEZiaNFG3
+	 oMv80BB9WkFCpRklEz668lfrmbMW39m1LjR70FMq/2/yIYjfkE9ajlwoUN9Z/OQaTVHXJ
+	 t8bjxF5wa/t83YbHg684K+jX+e5be5NYTWfLAl9qmVTlHWlfqMTZ7tb9b1R+tdHewBoET
+	 L21dORGPtN2mvWt6YTVkYuLldNj5DiZ9dzIflBPhTSIQZDpTuEU2nu8AZ9yEeXkRtAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=fPvDqzbl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.130
+Received: from YT5PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11021130.outbound.protection.outlook.com [40.107.192.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F7A606A33C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:27:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6F7A606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B6B606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61B6B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EKvhCTRE;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NJwEoHvo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794011251;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0jlL+SHvvTR0ZQdsQVmEfpaIkY9fB2XCMI2EZ7p6juM=;
-	b=EKvhCTREG4fD3uRFFQmJCMXDOCblWEeZ0NZTOnBB/ISLRmNLiw46TZ8XVNHy/naU5l1pvH
-	tE6+eIqX8GuefB69Wp7kjxu1fOq1HzJpJIswD0LbLZc0p43PYd5KHp8dLmdULonx+m7oOH
-	IJLnHm1Cn6MpGo6DHSCW94ZH35pDY/A=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-132-ELjpEBlBPSK6ClX_U3pFmA-1; Fri, 06 Nov 2026 19:27:29 -0500
-X-MC-Unique: ELjpEBlBPSK6ClX_U3pFmA-1
-X-Mimecast-MFC-AGG-ID: ELjpEBlBPSK6ClX_U3pFmA_1794011249
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9308eafb465so319487785a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:27:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794011249; x=1794616049; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0jlL+SHvvTR0ZQdsQVmEfpaIkY9fB2XCMI2EZ7p6juM=;
-        b=NJwEoHvo2etzU8ANX/62m4Z+uAij13YvCDq1858HFQS7jaXbtE7/bk0Cei6jJzg1ce
-         b3TZLlJoFeC9/3xRfF1nLhP5P5+2+osqYpbSGEdyUVJJmak3sfdo/WDBlhpBFN5shyil
-         jouKf1u5D8jO42wOoCknNYOi2ov7pzETEyj/vIq8ZEe1UCBMcherKGujmzL6IwMDkXpK
-         ESF0YNLfwtoJ+FbhFN2p+hMb6jkulWHNLw14nqWfVedwZtGGw/kFYZVzP3Mqj4rR9DGE
-         xiHfzPH/gHhjodyzQGXLC9mcVLbfKTd4hBh4OkrkJLGp2YLxxI6Gq6/+jQnbGbmsfqvZ
-         EJnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794011249; x=1794616049;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0jlL+SHvvTR0ZQdsQVmEfpaIkY9fB2XCMI2EZ7p6juM=;
-        b=1ZTEYj5bTEg0m4pm9glnf3BK24XpIzeEEj5oY1OME3GEb99JCdC9Q32oHA8M1C0XPM
-         X41/mRKcD3vxRUQzMT8NUgrxxWKzZktuXhIObwhLxQhMJJvev5dFZV4JJImJHArGLDh1
-         0OGdtfLnW6MxMm9wK1TfcJb29GyqDJGft1yfbT6U+9BF2jR2xulQA8aThZ5pC7Cm/ota
-         71AIVWx8mGFgWZ8IgKgj4R3HozIIDJbPqSSuIUIaO6iOcTIFwVenlZogMYHm+daAgeZW
-         vUhiT1J3wSx7/YgjAKEbltF0kjY0r8je3n9FZ228JQPVYN5XkiW1hdQNTeboYKBHIZUu
-         zmiw==
-X-Forwarded-Encrypted: i=1; AKwUvBzrNNCoEZnZyCgzmyKe+ejj9hGL1V4bXJ5FtDJUZdxx+ln0Gdwv99XhPtQKZvKlrKH5u6DfK3ecMO3gaMg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88UHjMaFdi0kcEZHfb5+9VlAvHxk1FB0BYU0PAvQTtMeams6Sz
-	L3Do1Ttr1LtCPcwDJ9JbzcpPHFRF9NVlep6dM/vBgjhyYdSrrDFzdOQoxV2j3JhDI2SSz5iRhPg
-	1JlXgYm0x4vIEPlcEurIBNVz6QMcWBrbTxCOwvfpxp0AlsQMKuTnAl0W4EO4q7XWLFw==
-X-Gm-Gg: AYBFou2XUMRKjrBUaCmaqv8Rg0S1zaXhmCDWvTPW83q28ToheqiaNQKWrlH3fSvKKCf
-	OYeS+IjXOsKO4/aBGm8/cYyAudd0nY+lBluoET5RzzVmT7Y3W95DvDK8QDZQbQePLOk20hJwmk1
-	j591ZYoNXvzWIhzk9mLIHFYxfD4Py4HhShaQD/RgsPP6YLGepifma77bBcIv6CXqIlJnAUmwhYO
-	1we5R7kh0hSBIEQbpz6AeQtx3KQ77lCWTeEIrDkhHcd9fzUdNA9QOC9ZCTVwQUVSp3UjK50oFWz
-	XRy6qZ/LyJgdpnfDgZQ/t6WyH0yjv8VUjt2I1jKV3mmeUz8LTSMeYky5pydTAQ0SM5SFwm9crFN
-	MHzRTMcFSxVIWt3UXhI3XeBbxycOzo4IhiY6o93KqJexJLutE2TdBJwPOIgWYUaE9tMwTQFzWoT
-	q0UZ8r5y7NfOwyTj3+
-X-Received: by 2002:a05:620a:4405:b0:93e:7dfa:2f3f with SMTP id af79cd13be357-945f35bc739mr674554685a.62.1794011248902;
-        Fri, 06 Nov 2026 16:27:28 -0800 (PST)
-X-Received: by 2002:a05:620a:4405:b0:93e:7dfa:2f3f with SMTP id af79cd13be357-945f35bc739mr674551485a.62.1794011248389;
-        Fri, 06 Nov 2026 16:27:28 -0800 (PST)
-Received: from bmasney-x1.rmtuswv.csb ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945f5a97aa1sm254122985a.8.2026.11.06.16.27.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 16:27:27 -0800 (PST)
-From: Brian Masney <bmasney@redhat.com>
-Date: Fri, 06 Nov 2026 19:27:13 -0500
-Subject: [PATCH 2/2] pinctrl: intel: convert to subsys_platform_driver()
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=fPvDqzbl
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GEXHE3GCwOxIVfGzNcS1U86Hcl0ssOtgSCtKblqKfnmR2k5vkkTMcjH6q6ay3l9p7/frXS0V23/yTmP/sp+HmyCn6N2o4Myoz4xkA4Se994fAqx+ImyvhTxMnJ10H9s/Z6TSnDrUsQxTMbbpzUbRos/KjvGHLFxHLMRF5D8eRVhHrvK1S4dQNfm9JFYMfJZfke27s4PrZtkkfbqo8H1dD6EJgWDR+4LgGJXYZTtbsSxLipdvma95QQzdO8u7Sy3DBOS2NCiN13lXnaRLOE5DC2YFn8/LLLuPqkPkGhwLrjRbTdRy06dIfJDldgIo9rUZDh143sqDJKTGrEtZarP0TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/+vVRIyW32vOghLXxbONLDwv3gTRZh4JswP73O2nzg0=;
+ b=CAwh+K6J+rJOP2cxiX8bVvyNL3RjVWVxXGDtcuKYwyhexR8owjI4fLdbEBhtCPKaEvXIosKFu5A70MKjHTEv4JMIqh+m8J+tJwYdjprr2hZNPWq67NoQ6k4K+okeoS/GptQN0TdGjq89aTKVvN/nlFZv0GlSO1MDufrbCR3ONDtNhGKSg1K/V8inNXk1DS8gz3OVEUSQEFKrToK1UnYRqbX05y4KDD41ey7Huoa8Qd8x7+A92AminagSeegN2xX7oI1zVnqqtKYN25JRUjS6PHye7O87W55Z3wUJ4OX6azkL72NdMvcI/mVfu+MFfvZ6E3DE+3FIiktXlj7GbQxnsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/+vVRIyW32vOghLXxbONLDwv3gTRZh4JswP73O2nzg0=;
+ b=fPvDqzblYbm74eCNFBxqKoBgaHO3Yu0YjxCsGqvOJlG8cFkHCveO8Ni7IPl6pt7e2OhGf7lgBq0GFnT11SzfvmLZCSzQvJoLpCDyUSgns7Pq/uyQMju4K7XlgER2pz1lG1hZRxjKVuE+QR6wzmrpROrElDdOPD0b9HSgLT5/aolCmJSWGtP402t1qEoTWYbRvFvRshZfSmM33b8ipELt4RYEoRSps+UXKSkLAHJrgi5eyzA4cnDx8hQwDQoA62a7+3EGRBIGgxhoZ1/KRr9hJi/CHBcVO504DaY9XTBj7eLPNrcn1nMz29u74KI5Gw2Cy/SnbVuHURtblNAkGJq5Gg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YQBPR0101MB6245.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:38::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 00:27:37 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Sat, 7 Nov 2026
+ 00:27:37 +0000
+Message-ID: <81e4b915-0c18-49fc-b015-b543b26d1a8e@efficios.com>
+Date: Fri, 6 Nov 2026 19:27:35 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] locking/ww_mutex/test: Time an ABBA with both owners
+ running
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
+ <20261106235931.1478800-6-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-202413@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-202413@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0179.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8b::8) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,251 +99,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-pinctrl-subsys-v1-2-f17582f32aaf@redhat.com>
-References: <20261106-pinctrl-subsys-v1-0-f17582f32aaf@redhat.com>
-In-Reply-To: <20261106-pinctrl-subsys-v1-0-f17582f32aaf@redhat.com>
-To: Paul Cercueil <paul@crapouillou.net>, Linus Walleij <linusw@kernel.org>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>
-X-Mailer: b4 0.17-dev-d96cb
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8036; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=UIZLTu2Z4bcde3pyez7vWV2eIO/OoXqje6HHBI1vuCc=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLeFWRbz3ttKm6kelnH0oGvefF+6Y8MLbY7vicFr1t24
- Eq8vsjRjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACYS95HhD8ezmJ1sVvKVfEcS
- nAIDVV+eCrmTy8q9kHODX9u1O0I6rIwMPVeqTq/L8pX7dPKp6ix1xYabH3YVR36YeUv9uFE265N
- zvAA=
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQBPR0101MB6245:EE_
+X-MS-Office365-Filtering-Correlation-Id: c778b9e3-5475-4955-9c65-08df3c65eca1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|10067099003|56012099006|5023799004|4143699003|261026121527099003|261026140227099003|261102123227099003|261028144727099003|261022105027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	rJU6ivq/JPQEVeL45WYGq3n1oQ341k9FTSv5gqdGdNfb90d9ktAr7QWKGmej/3URSc5hb/qfuoBTUZo8McGwtDvaaUB+JIi+k9xe5PMwAsHYIgqkU0xxZd16uSMKwoJ0Xfze9ReFatc4h3vF1xSLwhYzdHH0df7crWZq50r/dzNGSMYvx76JUbTlAy/GH7UpSmZRIZ8JsbdlKIZwe0eq9mDiPTY7TxY9VUQdOy69nfgBNPCwLZ1U2Qm5uqkTDXdTBUWYPP1IVz1zpAGAKbnHTX6UyeoLVH/+GG7wfl8hInyhAW8kYpcg7w9LsnbyifP//hCXZ+jwGImO87tCywyOyz9v2sQdaVgsMRMeu9E+ztkYDJOigsfx6VOVlDU0nIt/YUUAciHaqH5Q3fi8dsVDY/W9t5/LAN+gXOc7mKfH1Jm6g3PFBiSwq4PiIiftbJJXtx7d3CGBTuKEK8ajsqKpH56jzadg4LWyk21TbejYAEyxecIX3AQ/8je3flRWEhUJzIIp1wdY2KJk+w28oTO5v7e/UCTgOPnCh/e47xzuKe+a9/Gy26DXxkQjuP7nAG65rQ10tcH0RYtFAlS8uKc6wkgsgvMq/KV9KdxT9KlvBLA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(10067099003)(56012099006)(5023799004)(4143699003)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UFhRMEZCQ1hEOU50cUsvWDFkTWY4NjdTdnhveXZYb1FtZXFWV1F2MWo0M3pk?=
+ =?utf-8?B?L0lQTHdLa0pzU3IxMkVRem1xSUFNU2RNUlBxWVY1QWVyMGt1TG5iZEdqbUQz?=
+ =?utf-8?B?WG1BWjRJYkMycGl1MU5vMW1NcUx1R00zcmU3OVhiNmk0WllSdHpZZUlqWEsv?=
+ =?utf-8?B?dXdIRFFydGh4MzRKbFZ2SjlXaDRvYldzUHJ6T1pncjZPQURnSVhpNXVoMkZS?=
+ =?utf-8?B?UWU3OTFuSWVWOHJxcjB2RitzNFJNUURBNUpHdzFCSStPQ0FCK3RRQStQaXpR?=
+ =?utf-8?B?TkE2bFU3ZjdXSnRyQUlTdEg4enpHaUlCQlRTZ3hOSUd3RTVMSkRmR0FDZklG?=
+ =?utf-8?B?UU5ISjZjMUNuUEIxVExVWWFheng4ZHgxL0xCU2JFVXB4NmdyUGM5Z21ZQXd5?=
+ =?utf-8?B?TlNqSXNsY0lRV29jVWxXOGFmQWlQK0dRRVFmZ0lHUENWZnR4RXF0WHFZMHJw?=
+ =?utf-8?B?djZ1K3UvdHI1U0NyT1krcitHQ1g1N2hiL0VqWThVUmJkK055QnJDVjVxQVRs?=
+ =?utf-8?B?dFByNjg3VHZFMFFSR05MQzJyYURVWWpCMjgzUGdRbkNtemtRQ0VheWoxYmoy?=
+ =?utf-8?B?bmp5Mjk0VWhaSFBrTTdzTXBPWDVMOVZDUUNHWDJYbDNHRjFPaDJjc1dQYm5y?=
+ =?utf-8?B?ZmVXWGlmSXhhWG5wUFAvd3VqQ0lJdFYybWVwcGpDVzdpdlpiMFVveHF3ZmFJ?=
+ =?utf-8?B?V0Z6RE0xYnBjWUpuT2lMUkJHdEJ2ZVV2SEFGdGFldGswaHhkN3p3R1JUNzNl?=
+ =?utf-8?B?RjhFbHpVekFwTHVjV3RCcWdsR2hhTnRUMVVmRlptVXNRUmYxOXNGVWgvNTE2?=
+ =?utf-8?B?L2RXajdUZHpVMTZRb1NHbEVrM2JxYm9rWHVINWYvVzBCM1VLWEFoanpqWmN5?=
+ =?utf-8?B?aTRWUGZkQXp1ZXJkMFUxeFRUeGNCVVA5dkFqclVla29CNGhNQ2xUY2lpSHkr?=
+ =?utf-8?B?bnZvM01XQm5NWmJUTUJmVFhYSG5MUVJWbkZpRXB4OVFYQVBlZGduS2N4WnF0?=
+ =?utf-8?B?M2lkK0RHWHZSU3JZRmh3cG1PaWtLQWdjbnI5QjA4WXpMUStlTlV1NzkzNXd2?=
+ =?utf-8?B?aHlidndmVkgvOXpwdVRsUEJXMFhqVUZFUnAwWFNpZVBwUjN5YS9Id2hZdStK?=
+ =?utf-8?B?Y3lGMVBIZk5xdmwySmY5Y3dwQ0JPb0FpM1VPSStrbTBUeTVrZStsN1duT3pC?=
+ =?utf-8?B?VXl5N0Q1VzhsQktQU2llWGJlblVpcHhGSW1Lb20rc24wbmRiOHM2UVJhUFhM?=
+ =?utf-8?B?ZWRXME5uUmJ1TlBPaWZvSUZYR1BUUEwwK0Q4VXdkaWU5bzBzMFBaRnlJZWJB?=
+ =?utf-8?B?ekRFQWgwa1puamlLamxHamlYK2RkdEExNlhxQ01oZ0RnUkhjZ1ZXVHNibENH?=
+ =?utf-8?B?eVNuQkJHVWxFaXd4aUFTUTRwQlE3c2NZeFN0bUlaOFU4RXB2ZHF6N295ZG1j?=
+ =?utf-8?B?UFhYeHVJUzcxM2dzMTVDT2RnSXZ0aktWdHBtVW9WczN2K1E5TUJWVzg2SEgr?=
+ =?utf-8?B?SW9La1lRdGxlOTJUTXlpMkR3d3d3QmV4TTErV3NPQ0o2S0lpckpIby9mRW5h?=
+ =?utf-8?B?ekViWmJUZ2dkRzJQcTEvL0YvZG04dE9qb0IxZ0tzNFQ1Qkx5djcwTWxTU3ov?=
+ =?utf-8?B?ZjZyVnFzTWtiUjhtTXhSVlo0RXlPZUdBSnZtOXY5K05nYzBkeDRLQzNiUUpG?=
+ =?utf-8?B?K21DcmUvZWlUK3BJWC9UTFc2Nkt6MFdKekFNa2pYWXRPN0piVEczaHBMN0xB?=
+ =?utf-8?B?aDVGNGpUQ25iaGhuR29QaXcyMlFQZlZsaFFpTytrZ2ZPcjdmVEtnMDVWZDRC?=
+ =?utf-8?B?SXRLYjBvL2F0OUkwQkxNdlZMVzJuY09QcXYxbmdZMVVXemZ3cExwdHFwYUoz?=
+ =?utf-8?B?Uk9pL21Kb0ZEak1pQU03SUFLa0J2Q21Kd2tXRnZFa2U4cEtkaHIrbGhQWDVU?=
+ =?utf-8?B?c0RYMURyUU0vZlVSMEh0K05WSXJVTGh6bDBna3lvaTkxMnNxd01nSEswSmlt?=
+ =?utf-8?B?SHZhcU5ocUcrUmg2MFBvZ0hLTHpxS3NHUTd4MUloTm1DLzNKNTN4WlJ6Skla?=
+ =?utf-8?B?M0N1T1JGUjJyZFg0MmJPQ3A4RXZrUndyRkt5NGdJY2FIbjhCdzJ5UURySHlv?=
+ =?utf-8?B?L21jRGMxRENXWHhOMGtvRFRON01obDExNUVSVW9OS1JRNSs0YmNWL1NFaXVy?=
+ =?utf-8?B?dThxcS84NUFYRDBxNERpbFZxNjFNVFEycG5QaitHTHRVTHBoVzF5TkhjaitC?=
+ =?utf-8?B?S2ZKRzljM3N6K1V5RmhPcU42UXYxZ3pWTzJvTXd2cTQ0aTBhczNvV3hmNXVu?=
+ =?utf-8?B?YTNpZ2V1dGp6Szg1M21WLzloYXo2MGwrV3FMd2ZpUzUvK0ZLdWVkUTNTb2FN?=
+ =?utf-8?Q?RJhBWYCwopaafH/s=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c778b9e3-5475-4955-9c65-08df3c65eca1
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 00:27:37.0243
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8sV/F2y7e9Rzxg0D1XnDJzapiFXy/BxQZusxdnW6Q1Wez8cT+cNvXm/6QF1iGuDD7NKSvgicBqnOR5DpeZH6ZAu7VsMXWq7iLlNGorNL/Ks=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQBPR0101MB6245
 
-Reduce boilerplate code in these drivers and convert them over to use
-the macro subsys_platform_driver().
+On 2026-11-06 19:11, sashiko-bot@kernel.org wrote:
+> Can abba_spin_young() obtain a smaller ctx.stamp than abba_spin_old() on
+> weakly-ordered architectures?
+[...]
+> Using atomic_set_release() and atomic_read_acquire() on s->stage would
+> order the stamp allocations.
 
-Signed-off-by: Brian Masney <bmasney@redhat.com>
----
- drivers/pinctrl/intel/pinctrl-broxton.c      | 12 +-----------
- drivers/pinctrl/intel/pinctrl-cedarfork.c    | 12 +-----------
- drivers/pinctrl/intel/pinctrl-cherryview.c   | 12 +-----------
- drivers/pinctrl/intel/pinctrl-denverton.c    | 12 +-----------
- drivers/pinctrl/intel/pinctrl-geminilake.c   | 12 +-----------
- drivers/pinctrl/intel/pinctrl-lynxpoint.c    | 12 +-----------
- drivers/pinctrl/intel/pinctrl-merrifield.c   | 12 +-----------
- drivers/pinctrl/intel/pinctrl-moorefield.c   | 12 +-----------
- drivers/pinctrl/intel/pinctrl-sunrisepoint.c | 12 +-----------
- 9 files changed, 9 insertions(+), 99 deletions(-)
+Right. ww_acquire_init() takes the stamp with a relaxed increment, and
+nothing orders it before the relaxed store of stage 1: on a
+weakly-ordered CPU the younger thread can take the older stamp, wound
+the other one, and the test fails with -EDEADLK where nothing is wrong.
+x86 does not reorder them. v2 makes each stage store a release and the
+poll an acquire.
 
-diff --git a/drivers/pinctrl/intel/pinctrl-broxton.c b/drivers/pinctrl/intel/pinctrl-broxton.c
-index 269b8e25db84..e79e3d6d954f 100644
---- a/drivers/pinctrl/intel/pinctrl-broxton.c
-+++ b/drivers/pinctrl/intel/pinctrl-broxton.c
-@@ -1010,17 +1010,7 @@ static struct platform_driver bxt_pinctrl_driver = {
- 	.id_table = bxt_pinctrl_platform_ids,
- };
- 
--static int __init bxt_pinctrl_init(void)
--{
--	return platform_driver_register(&bxt_pinctrl_driver);
--}
--subsys_initcall(bxt_pinctrl_init);
--
--static void __exit bxt_pinctrl_exit(void)
--{
--	platform_driver_unregister(&bxt_pinctrl_driver);
--}
--module_exit(bxt_pinctrl_exit);
-+subsys_platform_driver(bxt_pinctrl_driver);
- 
- MODULE_AUTHOR("Mika Westerberg <mika.westerberg@linux.intel.com>");
- MODULE_DESCRIPTION("Intel Broxton SoC pinctrl/GPIO driver");
-diff --git a/drivers/pinctrl/intel/pinctrl-cedarfork.c b/drivers/pinctrl/intel/pinctrl-cedarfork.c
-index 02fd1cc4fd1b..9f0c3b7f746d 100644
---- a/drivers/pinctrl/intel/pinctrl-cedarfork.c
-+++ b/drivers/pinctrl/intel/pinctrl-cedarfork.c
-@@ -327,17 +327,7 @@ static struct platform_driver cdf_pinctrl_driver = {
- 	},
- };
- 
--static int __init cdf_pinctrl_init(void)
--{
--	return platform_driver_register(&cdf_pinctrl_driver);
--}
--subsys_initcall(cdf_pinctrl_init);
--
--static void __exit cdf_pinctrl_exit(void)
--{
--	platform_driver_unregister(&cdf_pinctrl_driver);
--}
--module_exit(cdf_pinctrl_exit);
-+subsys_platform_driver(cdf_pinctrl_driver);
- 
- MODULE_AUTHOR("Mika Westerberg <mika.westerberg@linux.intel.com>");
- MODULE_DESCRIPTION("Intel Cedar Fork PCH pinctrl/GPIO driver");
-diff --git a/drivers/pinctrl/intel/pinctrl-cherryview.c b/drivers/pinctrl/intel/pinctrl-cherryview.c
-index a33eca5eafc4..800d3e360ba4 100644
---- a/drivers/pinctrl/intel/pinctrl-cherryview.c
-+++ b/drivers/pinctrl/intel/pinctrl-cherryview.c
-@@ -1769,17 +1769,7 @@ static struct platform_driver chv_pinctrl_driver = {
- 	},
- };
- 
--static int __init chv_pinctrl_init(void)
--{
--	return platform_driver_register(&chv_pinctrl_driver);
--}
--subsys_initcall(chv_pinctrl_init);
--
--static void __exit chv_pinctrl_exit(void)
--{
--	platform_driver_unregister(&chv_pinctrl_driver);
--}
--module_exit(chv_pinctrl_exit);
-+subsys_platform_driver(chv_pinctrl_driver);
- 
- MODULE_AUTHOR("Mika Westerberg <mika.westerberg@linux.intel.com>");
- MODULE_DESCRIPTION("Intel Cherryview/Braswell pinctrl driver");
-diff --git a/drivers/pinctrl/intel/pinctrl-denverton.c b/drivers/pinctrl/intel/pinctrl-denverton.c
-index 47636a9719ed..015d0c405c22 100644
---- a/drivers/pinctrl/intel/pinctrl-denverton.c
-+++ b/drivers/pinctrl/intel/pinctrl-denverton.c
-@@ -264,17 +264,7 @@ static struct platform_driver dnv_pinctrl_driver = {
- 	.id_table = dnv_pinctrl_platform_ids,
- };
- 
--static int __init dnv_pinctrl_init(void)
--{
--	return platform_driver_register(&dnv_pinctrl_driver);
--}
--subsys_initcall(dnv_pinctrl_init);
--
--static void __exit dnv_pinctrl_exit(void)
--{
--	platform_driver_unregister(&dnv_pinctrl_driver);
--}
--module_exit(dnv_pinctrl_exit);
-+subsys_platform_driver(dnv_pinctrl_driver);
- 
- MODULE_AUTHOR("Mika Westerberg <mika.westerberg@linux.intel.com>");
- MODULE_DESCRIPTION("Intel Denverton SoC pinctrl/GPIO driver");
-diff --git a/drivers/pinctrl/intel/pinctrl-geminilake.c b/drivers/pinctrl/intel/pinctrl-geminilake.c
-index 21d0d5051b04..256b39308a93 100644
---- a/drivers/pinctrl/intel/pinctrl-geminilake.c
-+++ b/drivers/pinctrl/intel/pinctrl-geminilake.c
-@@ -456,17 +456,7 @@ static struct platform_driver glk_pinctrl_driver = {
- 	},
- };
- 
--static int __init glk_pinctrl_init(void)
--{
--	return platform_driver_register(&glk_pinctrl_driver);
--}
--subsys_initcall(glk_pinctrl_init);
--
--static void __exit glk_pinctrl_exit(void)
--{
--	platform_driver_unregister(&glk_pinctrl_driver);
--}
--module_exit(glk_pinctrl_exit);
-+subsys_platform_driver(glk_pinctrl_driver);
- 
- MODULE_AUTHOR("Mika Westerberg <mika.westerberg@linux.intel.com>");
- MODULE_DESCRIPTION("Intel Gemini Lake SoC pinctrl/GPIO driver");
-diff --git a/drivers/pinctrl/intel/pinctrl-lynxpoint.c b/drivers/pinctrl/intel/pinctrl-lynxpoint.c
-index 299ee4f22bdc..c6a1d36a0536 100644
---- a/drivers/pinctrl/intel/pinctrl-lynxpoint.c
-+++ b/drivers/pinctrl/intel/pinctrl-lynxpoint.c
-@@ -834,17 +834,7 @@ static struct platform_driver lp_gpio_driver = {
- 	},
- };
- 
--static int __init lp_gpio_init(void)
--{
--	return platform_driver_register(&lp_gpio_driver);
--}
--subsys_initcall(lp_gpio_init);
--
--static void __exit lp_gpio_exit(void)
--{
--	platform_driver_unregister(&lp_gpio_driver);
--}
--module_exit(lp_gpio_exit);
-+subsys_platform_driver(lp_gpio_driver);
- 
- MODULE_AUTHOR("Mathias Nyman (Intel)");
- MODULE_AUTHOR("Andy Shevchenko (Intel)");
-diff --git a/drivers/pinctrl/intel/pinctrl-merrifield.c b/drivers/pinctrl/intel/pinctrl-merrifield.c
-index 5cf54bc18f86..2227e8e78a9f 100644
---- a/drivers/pinctrl/intel/pinctrl-merrifield.c
-+++ b/drivers/pinctrl/intel/pinctrl-merrifield.c
-@@ -363,17 +363,7 @@ static struct platform_driver mrfld_pinctrl_driver = {
- 	},
- };
- 
--static int __init mrfld_pinctrl_init(void)
--{
--	return platform_driver_register(&mrfld_pinctrl_driver);
--}
--subsys_initcall(mrfld_pinctrl_init);
--
--static void __exit mrfld_pinctrl_exit(void)
--{
--	platform_driver_unregister(&mrfld_pinctrl_driver);
--}
--module_exit(mrfld_pinctrl_exit);
-+subsys_platform_driver(mrfld_pinctrl_driver);
- 
- MODULE_AUTHOR("Andy Shevchenko <andriy.shevchenko@linux.intel.com>");
- MODULE_DESCRIPTION("Intel Merrifield SoC pinctrl driver");
-diff --git a/drivers/pinctrl/intel/pinctrl-moorefield.c b/drivers/pinctrl/intel/pinctrl-moorefield.c
-index 59f46b0e2156..5fe034dd7a9e 100644
---- a/drivers/pinctrl/intel/pinctrl-moorefield.c
-+++ b/drivers/pinctrl/intel/pinctrl-moorefield.c
-@@ -324,17 +324,7 @@ static struct platform_driver mofld_pinctrl_driver = {
- 	},
- };
- 
--static int __init mofld_pinctrl_init(void)
--{
--	return platform_driver_register(&mofld_pinctrl_driver);
--}
--subsys_initcall(mofld_pinctrl_init);
--
--static void __exit mofld_pinctrl_exit(void)
--{
--	platform_driver_unregister(&mofld_pinctrl_driver);
--}
--module_exit(mofld_pinctrl_exit);
-+subsys_platform_driver(mofld_pinctrl_driver);
- 
- MODULE_AUTHOR("Andy Shevchenko <andriy.shevchenko@linux.intel.com>");
- MODULE_DESCRIPTION("Intel Moorefield SoC pinctrl driver");
-diff --git a/drivers/pinctrl/intel/pinctrl-sunrisepoint.c b/drivers/pinctrl/intel/pinctrl-sunrisepoint.c
-index 77ac32ab9577..ae3f1ad627a9 100644
---- a/drivers/pinctrl/intel/pinctrl-sunrisepoint.c
-+++ b/drivers/pinctrl/intel/pinctrl-sunrisepoint.c
-@@ -580,17 +580,7 @@ static struct platform_driver spt_pinctrl_driver = {
- 	},
- };
- 
--static int __init spt_pinctrl_init(void)
--{
--	return platform_driver_register(&spt_pinctrl_driver);
--}
--subsys_initcall(spt_pinctrl_init);
--
--static void __exit spt_pinctrl_exit(void)
--{
--	platform_driver_unregister(&spt_pinctrl_driver);
--}
--module_exit(spt_pinctrl_exit);
-+subsys_platform_driver(spt_pinctrl_driver);
- 
- MODULE_AUTHOR("Mathias Nyman <mathias.nyman@linux.intel.com>");
- MODULE_AUTHOR("Mika Westerberg <mika.westerberg@linux.intel.com>");
+Thanks,
+
+Mathieu
+
+
 
 -- 
-2.56.0
-
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
