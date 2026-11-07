@@ -1,60 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794057975;
-	b=Q8ZoGezhwXOb3DTv8xilkWuqMYlfKTIXEyRSSdyTgjmEZV/BVMAhGD7FNJQAcV+pwYmv
-	 1/8H/iRZYAso5uZIbYSJHVKQ1OJFD8SKYJO6lLEw2FDTU81NtHrE8L9vq+YyGmMayixIU
-	 ncD4Ru7ptA6xajw2mrGCYUskbFZSWANaJHc+LdYf5ejkeyTtE+zOMHZDFA1YA+lSbNU31
-	 ru27cuRSLNP3p2AFAwymlkD6jx/+wekai61u6YowPPP+kSiRBEo9doU6WGvqCbQrzTSU0
-	 mlB9wanJiFZ1r8KMiAuxb5t0gVkRm+LXqAswfTSVRnfiyy0bBC7mYdYSMQtQcGPvz1Q==
+	t=1794058009;
+	b=0n7XQpgm/ToKrq4iVFTn3ygbtPNCqnbQpcpHk6bgiWmmv9SO38niQT8Qaj3wcWc0EHUn
+	 NEoiSbcD4s/ZcF/d2BeXpKAP091apc0HX2I8g2+YHO3ZsuMF8apsPkOQixJCMT9olgZly
+	 DLonIOOJtypU8A298Ko4Fe8WsFHDZg9Lmuwzn1mb5qnhl8R2My7HCHKAZLdp+RgyFY4qM
+	 NbCBc/TF8PmyZbxBTfcOj4OWc5aoif0qd43JDJEcVDTu34+3tULovPvpg6Zu4ik2FEgQG
+	 4SpxR4EJRWml/XHaI3QPFuT7OmUjTgG4qLJptO7mkogEv7E+eoT7My6BSLTWfMWqYOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794057975;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=w/RdA1rSr8ljWy2SisaHpv0mqfzAzdPn/dHrxjJoI+Y=;
-	b=Y1iTAjINRT1jKwvJpOijjY4xDgA+e4aEYDHY1iQFfe1OAUdH/O+sbk4vNNhscyhv6Pyq
-	 xYVdEVoNKcZfKRsZaGsyZ9Qg6H+sQgFSXnmT4ClLVVcFk0Lfgnj1sKrb8BqQcE4OuUI0Q
-	 P9RgbxOOE+8Y3Ov14x500ORirt5RYAoxa5t0qr0ZVnWtCQw1KkEV5YTjeB14rgMWKPcwT
-	 Tx/waK0J2n3j+oBYT5VOyTJzkECxqlaUPmkk8EgejWD7nW7TgVqlu1QcKZRfJXy7llDDJ
-	 MHxbJM6+v+9lajK0FoXt7R+WKXdDlUNktlO2fAWxnqYgFBCey7wzPAzxEQq+G3HVozg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794058009;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
+	 In-Reply-To;
+	bh=3wI4dPV7vPZzei5+Z1Xw/Btg7c79MJDYSpJrFjLcrW4=;
+	b=d7X2TwrVpvEHjIeA6VAkSrpPgWPi1OHUmQZg/lxrM2TE0FDiSQg3EVmFQ7qyT036RTrc
+	 dGNL93VE7pnEmJPkKci8WutqTZwrAVheGXjMYPe7Z91IEQSsXZqRoU1xYbQxIs54GXBP2
+	 Us4FVB/lh9S7yr5okXMZGlWUS/kO31UO/XyisTrB5MDvFR8gpaPVWhkE+Fb57E7sf5d4G
+	 3sUQMJpY4OjNzJ8LnYjWPbEx9nCN6MrD/BPS3Z+Dr+HNBi9+UCjsqK+b271QN2Z/oMnlv
+	 EG7pFj/PTxk4E79fardmk8iv5LVCNe8m2JY+OO9un9W5OgZ9eq2nvioTarKubKzKQCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Y8DWwUWc;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVkJsnuT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D495606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:26:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D495606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC61606A326;
+	Sat,  7 Nov 2026 13:26:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Y8DWwUWc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794057971; x=1794317171;
-	bh=w/RdA1rSr8ljWy2SisaHpv0mqfzAzdPn/dHrxjJoI+Y=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Y8DWwUWcLzDJA8th58OdrPyldokIroba+TMQbsU+lBbtDrJUW6ma7TwLMuowqApf/
-	 VbZzOCMUlrXMUfPj6J0GSFsvL1FdGqCb4Fk10PqRCwiD7fFg/nDIsrm8GyVFuo4J8Z
-	 UoHIPEXQmDVs8nGfBJb2n199QvySGdjtVyltJsdh2OZ7kMwT/GZkI9Au87pWTpNNw3
-	 q6VACuNR/ZsfrmTjVcu7MzibDwOHry3dU6y6jhz/I7vC+froYTfiS/plvLNFG8ws27
-	 z+vPlsFLARkI8I5yVjlQchb9rA4H2VrubN2iNseU/2i4PH3icxiixHdnuobq9sjzDV
-	 eyB6OLdNjo+nQ==
-Date: Sat, 07 Nov 2026 13:26:04 +0000
-To: i@udp0.com
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 4/4] arm64: dts: mediatek: Add MT6833 and the Xiaomi Redmi Note 13 5G
-Message-ID: <FmgvoyT_AgANJAPnjEgEdlKRY0s2nXWF2Wm88KAM2KNKgiWpC0VzBcAukgMmYb_8H67s9wIRvgqcDgWO79Yc-PjdNoBiUS1KejZMWptvLhM=@protonmail.com>
-In-Reply-To: <20261107-mt6833-base-v1-4-bda21083e9f3@udp0.com>
-References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com> <20261107-mt6833-base-v1-4-bda21083e9f3@udp0.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 6c6b17e26323889f84a277a4c51ad887a1e9c5d0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVkJsnuT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C706D1F0089F;
+	Sat,  7 Nov 2026 13:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794058008;
+	bh=3wI4dPV7vPZzei5+Z1Xw/Btg7c79MJDYSpJrFjLcrW4=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=iVkJsnuTbj9D0h5tUL2AUlGhtNba5B0o8VmSwmMIPC4rAR4oqYL0lK7VcFF/Cve+s
+	 PNtApozniAR7eKqZH/w5AaC1XGtPAiF55QQxeYBf2Viub8dZkBHh8TqBi91CsjIFsm
+	 GjhVqnkHwoOtDDZyJGdlwV3xEsPv4dOzt6+IFWCNf+x+CpLKVqd21wG80pTCsPu5ZF
+	 17/+liaZUypikekJSXe+l4uKKch0aAIxwp/WvM4cOgTNNdNxnmfWl/z6B7n2muEtBI
+	 XWFbp2fTxFvksM9rdQCCPLBbry6boAtfAxqnMKCOsRhzfbiYmStAxxXriuv4nxV+uj
+	 cxMsQoCBNY/ZA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,134 +48,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 07 Nov 2026 14:26:42 +0100
+Message-Id: <DMP0HGBVA3Q9.T8UP93DA34UK@kernel.org>
+To: "Alice Ryhl" <aliceryhl@google.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v2 7/7] rust: drm: make Driver::File
+ lifetime-parameterized
+Cc: <acourbot@nvidia.com>, <daniel.almeida@collabora.com>,
+ <ojeda@kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
+ <brauner@kernel.org>, <lyude@redhat.com>, <j@jananu.net>,
+ <alvin.sun@linux.dev>, <deborah.brouwer@collabora.com>,
+ <laura.nao@collabora.com>, <beata.michalska@arm.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261107021427.2105374-1-dakr@kernel.org>
+ <20261107021427.2105374-8-dakr@kernel.org> <au7eV0D_44ipe3mw@google.com>
+In-Reply-To: <au7eV0D_44ipe3mw@google.com>
 
-On Saturday, November 7th, 2026 at 2:22 PM, Rui Cao via B4 Relay <devnull+i=
-.udp0.com@kernel.org> wrote:
+On Sat Nov 7, 2026 at 9:16 AM CET, Alice Ryhl wrote:
+> On Sat, Nov 07, 2026 at 03:03:25AM +0100, Danilo Krummrich wrote:
+>> +        // Run driver destructors without `filelist_mutex`. Take each l=
+ink before dropping its
+>> +        // allocation to avoid recursively dropping the entire chain.
+>> +        while let Some(mut data) =3D files {
+>> +            files =3D data.as_mut().project().next.take();
+>> +            drop(data);
+>> +            drm.open_count.fetch_sub(1, Release);
+>> +        }
+>
+> Instead of transferring all the files to another linked list, how about
+> taking them off the file list one-by-one? If you release the mutex in
+> between dropping each file, then we still avoid deadlocks if the file
+> private data destructor takes the lock.
 
-> From: Rui Cao <i@udp0.com>
->=20
-> Add a device tree for MediaTek's MT6833 (Dimensity 700): its eight
-> cores, six Cortex-A55 and two Cortex-A76 in one DynamIQ cluster, with
-> their caches and PMUs, PSCI, the architected timer, the GICv3, the
-> watchdog and the first UART.
->=20
-> Add the Xiaomi Redmi Note 13 5G (gold) on it, with its memory, the
-> regions its bootloader reserves for the firmware it starts, and the
-> framebuffer the bootloader leaves the panel scanning out.
->=20
-> The cache sizes are the ones the cores report in CCSIDR_EL1. The
-> bootloader programs CNTFRQ_EL0 (13 MHz), so the timer has no
-> clock-frequency.
->=20
-> Signed-off-by: Rui Cao <i@udp0.com>
-> ---
->  arch/arm64/boot/dts/mediatek/Makefile              |   1 +
->  .../arm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts | 205 +++++++++++++
->  arch/arm64/boot/dts/mediatek/mt6833.dtsi           | 341 +++++++++++++++=
-++++++
->  3 files changed, 547 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/mediatek/Makefile b/arch/arm64/boot/dts/=
-mediatek/Makefile
-> index a86fb313b1a..b8466d4a3d6 100644
-> --- a/arch/arm64/boot/dts/mediatek/Makefile
-> +++ b/arch/arm64/boot/dts/mediatek/Makefile
-> @@ -6,6 +6,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt6795-evb.dtb
->  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt6795-sony-xperia-m5.dtb
->  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt6797-evb.dtb
->  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt6797-x20-dev.dtb
-> +dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt6833-xiaomi-gold.dtb
->  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt7622-rfb1.dtb
->  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt7622-bananapi-bpi-r64.dtb
->  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt7981b-cudy-wr3000-v1.dtb
-> diff --git a/arch/arm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts b/arch/a=
-rm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts
-> new file mode 100644
-> index 00000000000..6bdcf407fb6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/mediatek/mt6833-xiaomi-gold.dts
-> @@ -0,0 +1,205 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-> +/*
-> + * Xiaomi Redmi Note 13 5G (gold)
-> + *
-> + * Copyright (C) 2026 Rui Cao <i@udp0.com>
-> + */
-> +
-> +/dts-v1/;
-> +#include "mt6833.dtsi"
-> +
-> +/ {
-> +=09model =3D "Xiaomi Redmi Note 13 5G";
-> +=09compatible =3D "xiaomi,gold", "mediatek,mt6833";
-> +=09chassis-type =3D "handset";
-> +
-> +=09chosen {
-> +=09=09#address-cells =3D <2>;
-> +=09=09#size-cells =3D <2>;
-> +=09=09ranges;
-> +
-> +=09=09/* The bootloader leaves the panel lit, scanning out this buffer *=
-/
-> +=09=09framebuffer@73c10000 {
-> +=09=09=09compatible =3D "simple-framebuffer";
-> +=09=09=09reg =3D <0 0x73c10000 0 (4352 * 2400)>;
-> +=09=09=09width =3D <1080>;
-> +=09=09=09height =3D <2400>;
-> +=09=09=09stride =3D <4352>;
-> +=09=09=09format =3D "a8r8g8b8";
-> +=09=09};
-> +=09};
-> +
-> +=09memory@40000000 {
-> +=09=09device_type =3D "memory";
-> +=09=09reg =3D <0 0x40000000 1 0x80000000>;
-> +=09};
-> +
-> +=09/*
-> +=09 * The regions the bootloader reserves for the firmware it starts (AT=
-F,
-> +=09 * TEE, GenieZone, the SSPM, MCUPM and SCP coprocessors, the modem) a=
-nd
-> +=09 * for itself, as it reports them.
-> +=09 */
+I did consider this, and technically it would (currently) work with
+list_del_init(), but I did not like it because it would be a very subtle ch=
+ange
+in semantics from the perspective of the C code. (I.e. for C drivers the li=
+st
+entry would remain intact after this callback, whereas for Rust drivers it =
+would
+be removed.)
 
-Shouldn't the boot shim populate /memory and the dynamic /reserved-memory
-nodes from the vendor FDT instead of hardcoding them here? There are
-multiple phone variants, which may have different reserved memory addresses=
-.
+Actually, I did hesitate to move drop() out of the filelist_mutex protected=
+ path
+at all because I don't think there's a way this could actually ever produce=
+ a
+lock inversion, but the "move to a separate list" approach was pretty simpl=
+e and
+very few code so I thought it's worth ruling it out anyway.
 
-> +=09reserved-memory {
-> +=09=09#address-cells =3D <2>;
-> +=09=09#size-cells =3D <2>;
-> +=09=09ranges;
-> +
-> +=09=09aee-debug-kinfo@48080000 {
-> +=09=09=09reg =3D <0 0x48080000 0 0x10000>;
-> +=09=09=09no-map;
-> +=09=09};
-
-...
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt6833.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt6833.dtsi
-> new file mode 100644
-> index 00000000000..4c5f1381ca6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/mediatek/mt6833.dtsi
-
-...
-
-> +=09=09watchdog: watchdog@10007000 {
-> +=09=09=09compatible =3D "mediatek,mt6833-wdt", "mediatek,mt6589-wdt";
-> +=09=09=09reg =3D <0 0x10007000 0 0x100>;
-> +=09=09};
-> +
-
-No interrupts?
-
-Best regards,
-Roman
+(In any case, I'll soon start working on the C code to implement a common
+lifecycle scheme.  Once we have that, the Rust code becomes even more strai=
+ght
+foward.)
