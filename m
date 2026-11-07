@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794075383;
-	b=g4spoul0B0yWVeA/d4Wg95hwYBiOM29s3RIby1jCJ5DK5mNNYbDX44UHOUtH+Lt5JwBd
-	 8jsSu+fqlJB+29JBQeoe0mdo5aba+KqBtLWtt4n5dAkEKim+ZR5VGO07UFDctAl3FIrtY
-	 Seeea+2PRFpWDEa98DHq960j9eyoNjgnmwALNLBthEBcp6eJF2lpj5vI17f9wxqQ3CMXV
-	 /VnZXjluPXN2qRRDuNFUe2FmwvMYI794NC06TVM2JHpTprLPKeC4pmu+z7WUFs5W09OP7
-	 J0vS+5cBdHm1j2nB+aUD3aWQiUpoCRrV6OxzuHTC1sqK1bgQgp328JgF4PPOemgnblg==
+	t=1794075613;
+	b=Z254vagHYxMsGdBYzIMiod7eP0qhY/965+DhgD8j0cUvfAKp72SnTE9BD6JO8o0lbvnn
+	 HdlmATQu7l+z9Yc+7EUi8UAxaFwBUJrC5rMoe1etMS4V9XH4gxy4kUnE9oeWQFxZm8cx/
+	 R9lpB7DKavlDYjVU7ywG7iIJvvX2m8D/iJsGvdkO7y5agHSES0YCgthrlEg3eAEH2TezF
+	 9dJyW6rV+FeLaEUcoMKQFyg9nFoL4K5/v6FPaYnhDWGfpLktnzxQfxfhCTfLIVhipdee7
+	 pkbFw8JMymL9rKSQ6uWg3eRvczgp1fFe9hiaeKfOkJsw37k2TiXlCOhzVKs8qJsclyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794075383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794075613;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=fcbqNqcpzKvUfzgtHCXNH24af2lOq+kn030ftGV9OnM=;
-	b=MQWePQtNniSQa309aRRFhyBg6aSG6zdtdJPbjxZ7qU/dNUVxN3fhiYAzsRPlh70Loooa
-	 0KSEpwwsVpwDNunLzqjuDjX/Mcp10fltc8mSQ1eRc66UfFaGrTPKVQMh9hX7r0gVENZpT
-	 /GPul7V/yJtf2bCRRjyztirP12Tnmse6281ym/JPCJoIglG2NjHCJ2RjQZydPi3wUHE2W
-	 fsm/jdMOdX4Ilh2mWMGKKqYOVP8PNoNlnxuGCGXW10xIl85YyKvpFgRaDXXsPPSafRPxe
-	 h9BZewb8VYkCUNfRSWFJf4aUIBQ1RCMY7hRJHiOjzKfUz9ndnPcIgPDPw1Vst6pDo1A==
+	bh=1pjnHje6Qb1kHlz8WaN4eNa2MT/clIj+haAeBAgYG+k=;
+	b=MtCgYEs3KG18zItevMV0i479iEKg+BPjMn4VnhG/QjKDoHfu/kuv/LqyzGSb7NU55bVt
+	 7xbNgrhA5kikjzZMKe6pGhlvuNcJwK93whaJp1QEGV+RSuzuO/LkmA2FVjWU30Nw65LR1
+	 ZGsAcsDUsESZzVBQTyElj6IkRgtfE95YE8N+SM8wm3RtNhdrsYB/dA8xOOZpf7ErYGsxQ
+	 WIIVFqg8R/L9Vac5QYv7QOTItT80a3Uf6tOqHLRjSpuYjPr4rbhwxvC23DvbeI9upKPsB
+	 4ebZ3IzYQNjaTPR8SpzfUzUnip2j3tY0jPcLs88bKgU8jl9xofcEUfuRN3MbkfYv5zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+OJHXap;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1sYa023;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0BF606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080F7606A326;
+	Sat,  7 Nov 2026 18:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+OJHXap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472851F0089F;
-	Sat,  7 Nov 2026 18:16:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1sYa023
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0C21F0089F;
+	Sat,  7 Nov 2026 18:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794075383;
-	bh=fcbqNqcpzKvUfzgtHCXNH24af2lOq+kn030ftGV9OnM=;
+	s=k20260515; t=1794075612;
+	bh=1pjnHje6Qb1kHlz8WaN4eNa2MT/clIj+haAeBAgYG+k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=U+OJHXap11UuKLzVJkpfDYMFmCFzGDsj8L0KjObdN00RCCvLKYG7gerxG8aJ6wXIt
-	 uV2K8X5IBMvcO7r0dglmzL9BAMh0DNe5KXy18EHEQh7F93oUdsMLNpyL1LXQQjNOud
-	 vS0whWN6v0rUDd0fehPKXz3oRZWnFr8muUc07iODmAyKQkIztI93RX/dqtRCTBk7yd
-	 2rDW/sm7aMdJ5R/WEGiXgJQ4sX8VsvorAn7AKgPz/zbtMHgI7zc2vJdS9AxobNz5XZ
-	 HIDST2+SL1raR0o8mFqRbnu0VlMNKPLNcTS3BzU916LiwnjqjtMjuTPYQrWpaw93Mb
-	 LSiJDibk+l22g==
-Message-ID: <c15e171b-d0c2-4808-8d42-e5a650b03150@kernel.org>
-Date: Sat, 7 Nov 2026 19:16:15 +0100
+	b=C1sYa023IOebqDzktccEL/GnqdyMhlnIn18DNUC1Sgtp9yv+XhSCgYpBawdgnNPGJ
+	 1jmy08jxGm7xQR2DKYEEO9QPKbm2XQU3r1B6N5nBPd4HMWoU+CLSk9mGC3982NUaYj
+	 0WEc5R8QPvn/ArI2m14ey2IbiN5/k/GUKWBYoD7IV96S6YDdd3ctTYzroOtVACDTPn
+	 kCLsaKsYERXgamn3Tv2at/jQX1x0iPX4Pp8A4dLYVt25eXkKVSqioBAPcwYkpQgKy4
+	 PHJHTdaktocbt0gsWvH+P9L7jyt0OWP9th65AJD+QgiWizezgsGd0MHJDlQm91ilHr
+	 mScwirajJmJQQ==
+Message-ID: <af5ad990-bae9-4bdf-9109-1ac3e6c15e94@kernel.org>
+Date: Sat, 7 Nov 2026 19:20:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,19 +52,14 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: mm/mremap: F_SEAL_FUTURE_WRITE can be bypassed via mremap() VMA
- expansion/duplication
-To: Junyoung Jang <graypanda.inzag@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R . Howlett" <liam@infradead.org>, Hugh Dickins <hughd@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261107030708.1031977-1-graypanda.inzag@gmail.com>
- <c243e6ab-3eb9-471c-9b6e-91064528ce82@kernel.org>
- <CAO7ntTQGLNtHiu3SY+6HaRZi5gimqjbmw_FoeTSRYpqi1EbnbQ@mail.gmail.com>
+Subject: Re: [PATCH] mm/migrate: fix softlockup in do_pages_move() with huge
+ page arrays
+To: shao.mingyin@zte.com.cn, akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, ziy@nvidia.com, matthew.brost@intel.com,
+ joshua.hahnjy@gmail.com, byungchul@sk.com, gourry@gourry.net,
+ ying.huang@linux.alibaba.com, apopple@nvidia.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261107213856462Jx8pIdgdtLvPLfOFTwV4X@zte.com.cn>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -111,140 +106,33 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <CAO7ntTQGLNtHiu3SY+6HaRZi5gimqjbmw_FoeTSRYpqi1EbnbQ@mail.gmail.com>
+In-Reply-To: <20261107213856462Jx8pIdgdtLvPLfOFTwV4X@zte.com.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/7/26 16:19, Junyoung Jang wrote:
-> On 11/7/26 04:07, ... wrote:
->> On 11/7/26 04:07, Junyoung Jang wrote:
->>> Hello,
->>
->> Hi,
->>
->>>
->>> I found a reproducible F_SEAL_FUTURE_WRITE seal-policy bypass. A process
->>> holding a one-page shared writable memfd mapping created before the seal can
->>> use mremap() after the seal to gain writable access to additional file pages.
->>
->> F_SEAL_FUTURE_WRITE is not really range-aware. What makes you believe that it
->> would be?
->>
->> I'd say it's expected that if someone has write access to the memfd, it has
->> write access to the whole thing, not just some subset that was obtained through
->> the initial mmap.
->>
->> Any documentation that made you believe that it works that way?
+On 11/7/26 14:38, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
 > 
-> Hi,
-
-Hi :)
-
+> mm/migrate: fix softlockup in do_pages_move() with huge page arrays
 > 
-> Thank you for the quick feedback.
+> do_pages_move() walks the user page array one page at a time.  For each
+> entry it performs two get_user() calls, an mmap_read_lock()/unlock()
+> around a folio walk, and an optional store_status(); none of them has to
+> sleep when the arrays stay resident and the rwsem is uncontended.
+> move_pages_and_store_status() returns early while the page list is
+> empty, so an array whose entries all resolve to the same node can run
+> the whole loop without any scheduling point.  nr_pages comes straight
+> from move_pages(), so a huge array can hold a CPU past the watchdog
+> threshold on a non-preemptible kernel; with KASAN and function tracing
+> enabled, ten million entries can exceed it.
 > 
-> My understanding came from the following documentation and commit history:
-> 
-> 1. Linux man-pages: F_ADD_SEALS(2const) / fcntl(2) (under "File Sealing" ->
->    "F_SEAL_FUTURE_WRITE"):
-> 
->    "The effect of this seal is similar to F_SEAL_WRITE, but the contents
->     of the file can still be modified via shared writable mappings that
->     were created prior to the seal being set. Any attempt to create a new
->     writable mapping on the file via mmap(2) will fail with EPERM.
->     Similarly, an attempt to write to the file via write(2) will fail
->     with EPERM."
+> Add cond_resched() so that long calls yield periodically.
+> do_pages_stat() has the same problem and is being fixed separately.  In
+> current mainline only alpha, hexagon and classic m68k can still select
+> PREEMPT_NONE, and they cannot enable CONFIG_NUMA, so this mainly
+> targets pre-v7.0 stable kernels.
 
-Note that "mapping" here means "file mapping" not "folio/page mapping".
-
-> 
->    (Reference: https://man7.org/linux/man-pages/man2/F_ADD_SEALS.2const.html)
-> 
-> 2. The original commit introducing F_SEAL_FUTURE_WRITE, commit ab3948f58ff8
->    ("mm/memfd: add an F_SEAL_FUTURE_WRITE seal to memfd"), which states
->    that the seal:
-> 
->    "...prevents any future mmap and write syscalls from succeeding while
->     keeping the existing mmap active."
-
-Right. The thing is that somebody that didn't have write access to the file
-before (through an existing mmap()) won't be able to gain write access (through
-a new mmap/write) later.
-
-Expanding mmap() or mremap() modify an *existing* mapping, they don't create a
-new one. I think we don't guarantee that expanding mmap works, but mremap() must
-work.
-
-> 
->    (Reference: https://git.kernel.org/linus/ab3948f58ff8)
-> 
-> 3. Linux man-pages: mremap(2) (man2/mremap.2, regarding old_size == 0)
->    and the comment in mm/mremap.c:check_prep_vma():
-> 
->    mremap(2) documents that when old_size is 0 on a shareable mapping,
->    it behaves by "creating a new mapping". Similarly, check_prep_vma()
->    notes that "!old_len is a special case where an attempt is made to
->    'duplicate' the existing mapping".
-
-Right, the relevant part here is:
-
-	old = mmap(NULL, page, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-
-and later (after sealing):
-
-	expanded = mremap(old, 0, 2 * page, MREMAP_MAYMOVE);
-
-With your reproducer:
-
-$ sudo ./memfd_future_write_mremap_poc
-writer uid=10001; mmap=EPERM; pwrite=EPERM; mremap write=Z; result=63
-owner uid=10002; file page 2=Z; size=8192; result=255
-
-Assuming I specify instead
-
-	expanded = mremap(old, page, 2 * page, MREMAP_MAYMOVE);$
-
-$ sudo ./memfd_future_write_mremap_poc
-writer uid=10001; mmap=EPERM; pwrite=EPERM; mremap write=Z; result=63
-owner uid=10002; file page 2=Z; size=8192; result=255
-
-So same result. What am I missing?
-
-> 
->    (Reference: https://man7.org/linux/man-pages/man2/mremap.2.html)
-> > Combining these references, I interpreted the intended invariant to be that
-> post-seal writes are restricted to the pre-existing mapping itself, rather
-> than granting the process blanket write access to the entire memfd.
-
-Again, mapping talks about "file mapping", not "page/folio page-table mapping".
-
-> 
-> In particular, two behaviors seemed inconsistent with the idea that the
-> process simply has whole-file write access:
-> 
-> - Even when holding a pre-seal writable mapping on page 1, the same process
->   cannot call pwrite(2) or a fresh mmap(2) with PROT_WRITE on page 2 (both
->   fail with -EPERM).
-
-Right, but the main challenge here is rather figuring out whether the process
-already had access. We'd have to scan existing VMAs which is just unwarranted
-complexity for something nobody really needs ;)
-
-> - Calling mremap(2) with old_len=0 creates a brand new VMA covering page 2,
->   which appears to bypass the restriction against creating a new writable
->   mapping after the seal.
-> 
-> However, if the intended design in mm is strictly an mmap()-time check—where
-> any pre-existing VM_MAYWRITE VMA implicitly retains the right to be
-> duplicated or expanded over unmapped file ranges via mremap(2)—then I
-> understand why this is considered expected behavior. If that is the case,
-> perhaps clarifying this in the F_ADD_SEALS(2const) man page would be helpful.
-
-Correct me if I'm wrong, the only confusion is about the mremap() doc saying
-"old_len=0 creates a brand new VMA covering page 2".
-
-And you seem to assume that "new VMA" implies "must be rejected", whereby we
-already have a writable VMA there and there is not really a reason to reject it.
+Please share a real kernel splat from a real system.
 
 -- 
 Cheers,
