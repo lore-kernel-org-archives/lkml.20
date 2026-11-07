@@ -1,62 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064652;
-	b=ziAm+Q3vysk8sXzdlDr4wc9vmq5CAm9TNA63oNYYHnn3TjcNgp0aDNadANMr43oddiUC
-	 KPg8Pexco8X8E2n3pbrz3/oF5g4Hmn/Vv0EHxaTcGBtQrEoNkJqN4U1VLCv7xb0KCuL1S
-	 5yTFgH9jJdCGgxppAs37QywwjcjibZq2//Zt4DEU7g1ZM5UT4qwqgmAcqy1QFOkPfPbjt
-	 t+KxfYWlvVBXGF2XexItVHl1YXFC+CsNEc2aj4IVqxJ7QitOqowSNjROx4Yi4f0Rz4PBb
-	 4/LpKDoeEvCdWRopiT7lBkgNYOBv8IE5EO4R4xhXSlmNworYVyS0Plg7Pwxafk20zbA==
+	t=1794064656;
+	b=tvkW+eKolgEA7ctzUGoQYsCGIFWsp/1zvBOVsG+FEXGR4bpLzJMMerXPewM6JHlQixDS
+	 nqYwyI4falIc1ftklu4+6+rCt6CrV+BlBT4QRcN3GXb+xPi4Trt0vUB1U1EncZeKGWz2t
+	 ZvdPbBYquF0vbelL6e6gEUuZWV6ZgMCObkq/ahFLzGOJFMqUUITFfCqA+kwTrrpEJMuOY
+	 +1Due8PB51B++XUcmnOafHftgeGreVW1rQ5fkgWVn+MRNtu/CS1/zIUR7kjWfh/JhTuI/
+	 Qk/yhHWn9FpxQDNmGrVK7OT3yI0QVAADT8OTqg7Sx/2cVwqCKJUN0zjgnVkQa1TQ+Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064652;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064656;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=IHcP2zA/1WKtjATy35bTJOAx/MK9QFjmushPyiooQKM=;
-	b=VxdzuX2WePS7qgutPfCzHM95CYmgzYNGIDRRnyMEw9Qi9G4CILcjz3FwuVEjUdWnWBxp
-	 T4hT0K8k9MxFJZNQPVYrNby1YIV9djVNTgyO2snUMKQlRSKb0/lVOePKKaf+xz9ePjwIe
-	 ippBNwNOmS/Cye6RTYh/ue4ZSmXqdH2HWSvTYTZd+xwlTtxiqFcgcTMNz7KZBOYDy8LVO
-	 NZ7Tkq/xAC7Urv3nawQqCNLtO1rqV+ejpCC625N24httdoTgSFvPHvHZyXRd3iGlV/1d2
-	 bd9BUL+0dpq55Ud7K9l+mfKsDTjyxbE2g/aKEc5X/h50NUhS7YT9MnWIEHg51Exq4VA==
+	bh=B1bW9CMw+Dzr1ZLzwD9wcsTuwAnVAPoXAK65EcaP0mc=;
+	b=FL4+KWzmFowl3+i1UUB4P5zAYwcKa7ueWu98erpg2aN+NWSsec583qLVoumHNQz/V3ut
+	 2cMnf5v37opQBUKN8DYmVvGBFZAYLbHR1FQv8PD8NjL30kiRbRpzcAIQvXq50QJdsGHzl
+	 yNG5IYgSqwtLpG/69qovxhhwz8ruWvMgpZme5nfX8iIEe2lllnDGvZP55NCX0mX4AAvP6
+	 lVROWqbQqP6N7NShvS9X/VXQAlSDJ6IBakmVGE2cpmvEya/nj+wu7IQ2vWFKi7RGaDxzf
+	 L4vW83cTMMxHXHVdGBrUNyc1sJeVQ/lw9zP0uSkWV+VrF+Y/IMQCRwEuwJW6otnn+Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIiTFQEM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYi2WVoQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41E9606C027;
-	Sat,  7 Nov 2026 15:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C1E606B88A;
+	Sat,  7 Nov 2026 15:17:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIiTFQEM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7F21F0089F;
-	Sat,  7 Nov 2026 15:17:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYi2WVoQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495A91F0089F;
+	Sat,  7 Nov 2026 15:17:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794064651;
-	bh=IHcP2zA/1WKtjATy35bTJOAx/MK9QFjmushPyiooQKM=;
+	s=k20260515; t=1794064655;
+	bh=B1bW9CMw+Dzr1ZLzwD9wcsTuwAnVAPoXAK65EcaP0mc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mIiTFQEM0v2NRdhCRHkdy2hg+w14DBRtu9RGSoZdJFgvoiFnypImuv0u6kCy2IDuT
-	 nWuQopx6voUlVtiPDy6YE4v3sDwE9SzZHJkyQjq825KWaNmZHGm2vQsVPCi4iMPzdn
-	 4dH6my6lChCyKIcGthyThV9RfYltZ/3NkB/HPK+Y77lNA8kaAAlvGzovSypxZR+fhC
-	 3JxhLVIgGTkaBcZ7Xn5gV3xMtHWqd1DS9G7gzCaGyKg5fjN69XJH9m1GX01lqMWUNc
-	 Pa4yvCyC2LuKiMNuyQyZx0oAqpS6m9HqpPrE9WxfVG/p4RRI/URwKpYKQgxmTRH9Z5
-	 17gvaWxb2SVeQ==
+	b=VYi2WVoQlAinQO6kz5qb2UPxeAPJw+27WutJ4M2Ujli/KKPEmaR0TaZ59fbHo7IGs
+	 Gsd1NWGH+xt/9noZCbrVgEau7YySYbGIWrq7S02jzv8X+fZd52gMarHSlZdiRSRR+v
+	 wIuNGzMu5RWduHCeXY0IfuHJEbVTYkbYykQP+rcwBiWsCyhNhGWbD9eXtEMk4UW7Sn
+	 VVwqjMtAg8p1U9hPArwc22kYq+lU0og1mQQ5GY4xBdrdnzWi7vtCiHQMYHCTpvRIbn
+	 l8WupsGFGDLIPbxa8uPVw6pbncUrQyNO0b69M+kr25xgvEs+zZxmOAUUxMqW3aL4DW
+	 rIV3icmol4nUA==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id C3D4D2AB3133;
-	Sat, 07 Nov 2026 15:17:29 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 558F72AB3141;
+	Sat, 07 Nov 2026 15:17:33 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Birk Skyum <birk.skyum@pm.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261018220857.16819-1-birk.skyum@pm.me>
-References: <20261018220857.16819-1-birk.skyum@pm.me>
-Subject: Re: [PATCH] ASoC: qcom: q6apm-lpass-dais: Reset the codec DMA
- channel map in hw_params
-Message-Id: <179405428196.3424803.12425958325069301579.b4-ty@b4>
-Date: Sat, 07 Nov 2026 12:24:41 +0000
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Support Opensource <support.opensource@diasemi.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20261104113352.1634237-1-peng.fan@oss.nxp.com>
+References: <20261104113352.1634237-1-peng.fan@oss.nxp.com>
+Subject: Re: [PATCH] regulator: Convert to subsys_platform_driver()
+Message-Id: <179406111958.3424803.12810208024336912202.b4-ty@b4>
+Date: Sat, 07 Nov 2026 14:18:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,26 +71,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1164; i=broonie@kernel.org;
- h=from:subject:message-id; bh=W3qZq+vVv5QaoEW0JZmNEswhu/a3a46gXDbVs0bV6ZM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeO3IG5+5fKxXxMF+9Pb+4ccu9a1Fbz/0XvOwW1/VuU
- Zt3eOfzjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEwk9REjw5bsrysevFuZEjbj
- e7pNCvOsK/zC7x6FPtwkc61I3Io/ooiR4fxV+W28+3zeFTyPC+l4/2XrBREHsa65z6y2LmXUD1o
- 6iQMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1120; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Q6cAsV4W7X68n/oGP4buAMIcus1GeKzbibFsF46mRZE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeO/LKOWT38bFvynedUrjR49GjkG9fEv/lOyQlvjrq+
+ 9Ojp9W1o5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOJFWf478K5aeX7rCVR1df3
+ iv3I0DaQcZkzjeHF3iv601wO+LqWZTP8Zt9eF6MoGn+qrLDyEs+sH1vVb3QoezNd5nGpkn1gdZe
+ NCwA=
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, 18 Oct 2026 22:10:41 +0000, Birk Skyum wrote:
-> ASoC: qcom: q6apm-lpass-dais: Reset the codec DMA channel map in hw_params
+On Wed, 04 Nov 2026 19:33:52 +0800, Peng Fan (OSS) wrote:
+> regulator: Convert to subsys_platform_driver()
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.5
 
 Thanks!
 
-[1/1] ASoC: qcom: q6apm-lpass-dais: Reset the codec DMA channel map in hw_params
-      https://git.kernel.org/broonie/sound/c/347e02073b08
+[1/1] regulator: Convert to subsys_platform_driver()
+      https://git.kernel.org/broonie/regulator/c/2a1984b30e9c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
