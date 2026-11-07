@@ -1,70 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794062094;
-	b=xWlvvQ2WxHin2k0oMQWan0B9rosoIwPyaIkhLwao07zyypWw4wfTTWHW8SiB4okYdCkf
-	 aTvv2qqP99AKK2uDwawmS3lJ/iQr6Qk+Zu4wX2WOSYAA5W/XdaqmYedfVVRYlIRthblzV
-	 ViecDcB8jU5zI294hNdgFg6h3dw3SsndpV2qJNMHO8rU6L16ChAhmme41a6rj4uu+wO40
-	 javSebD2luzPXXsYTROoSAMcDuwTddNyYfRH+jHDXbiABnqkd+WkZT3Arx6SF/ql1u2Eo
-	 JS07jcFvYoljWRu97onqqlJ9FJ3cPVNckOWE9dZ6aZ42lSuALB9NNPmO5INqeLTMcBg==
+	t=1794062099;
+	b=gNmJeALx7ozsYqOpMHHtpX1i1zWTg6jkVvL56jptPVjHvgJ7jqunIw3zcrA+LzmJq1ex
+	 XdNdj1H6+1TpC/UjS54swS5qAqeMh/niNSwYyTO2mt3bmxh1Q3fxihv/uzYfKHnUZJZvc
+	 b21jf80hnfod2Z5k8ew3wKorXTYRuj13lHSOPM6ixp9+ir3dHr4cAO14QCeHYQRKb7tRp
+	 UKYekmpxet4uKsSPaaIkKPJn6ePX20fbujU2sujUsUJyFoo6TyzY2zU6c/nBB51T/TaPN
+	 jknjvvn+vo371eTbW2xtLhGT36lL4Grmq0qlIxCzuVMa3eP4ytXw4fJ6YLXiZl+sKkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794062094;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=T975+iticyQ43pbdCFWCmxpz2zgp1+Kz8Vd5SSvSzjs=;
-	b=QqPaFBFcxckEsNkEXi0InekUN5484rimGJiWYzYWUuVXuZg/WVFYPVEUSEV9Q7hwHVEP
-	 +OsLz8w2/+jhqgpkS8LfPMXdvo2qPhgYacOC5ZMKHVfFWqRzFVXZ15Us8uI+2A8RxY33v
-	 Wtuou2R6mDG1jI8HYP/Q5luT1xO/5GLMxj3JyWdg8Cg5yHLgZRzQDCuegEjD0GNMwyTC4
-	 wqnfcuLzC1dUaV/wmq8rykprA7mqyzTbW/sIxNZ1lIvIqZ8i8oMqCNmvSl3ZkiuETRL57
-	 +jjJaFcAxMRhy5Ze8EX5fyl+n/53Wa+mF99t2K/dDOHVdXaPzgdX8y4MiyMYzUY6b3A==
+	bh=XF2VmCDJnpXIgiFaGUBtPdUTCN/KhchAk0nVPRL7Ydc=;
+	b=NKUpoUqQFcnesZEoBW+ARq7LVV2FDog5Ceu7LE0P80u2bbl0v9+FGPxSjkPBSBcy00kE
+	 gQndwqTp4UimeUzBKtky2VCu67FLoHT1BYEpMt3To7AY4GlVAqVeNLtgMAZeRFUmZGq8T
+	 IXUYRYfGl+cKffA3eatWOpOSGK69blQP3RUXNOOJzPOkGatPUJ5jGS5sbtyeC18ZGKA0k
+	 rFh1NQPfVSHPXNYvKNHycxAey/yXV78DY4ZbdkoCvWERTD8Ut+FG8jWlB2yvBPgy2l6u9
+	 9IKRu5da8UuxthDafUViwJ2pM2x6jwtTWBN3a7n47/cUKS+nIeosYERUi3CBSfTe4gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LhDIGgoj;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C9B5606D827;
-	Sat,  7 Nov 2026 14:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C9B5606D827
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0ChFYZb/";
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8389F60A2612
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:34:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8389F60A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LhDIGgoj
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ChFYZb/
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-37071c0f42aso2156332eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 06:34:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=LhDIGgojouV4gbEwJ491L7jcmNwqhYo6M38d2xZ8EwfbHptSEOOVHGw/nPa5GM0dJdj7UFYwFWOyT
-	 ppZDaah8Rga/soIAD3BkWh0mMYe0+eio29WwsxQfefPYS54zSOi5vg/ocU+wHoqwTQpxBn/KXSSceh
-	 UQZphbf5rkST1lLE=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86aef36fe377-572ea;
-	Sat, 07 Nov 2026 22:34:48 +0800 (CST)
-X-RM-TRANSID:2ee86aef36fe377-572ea
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[112.0.144.25])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36aef37054ea-47ae0;
-	Sat, 07 Nov 2026 22:34:48 +0800 (CST)
-X-RM-TRANSID:2ee36aef37054ea-47ae0
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1794062099; x=1794666899; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XF2VmCDJnpXIgiFaGUBtPdUTCN/KhchAk0nVPRL7Ydc=;
+        b=0ChFYZb/ar2yjXHgRksBmagp3HbaVabr2QfVW9adIQnbO39hQg1kWHUAefGnan6qsh
+         F0Qt/9pNqleGjL0mNL43iM+/IQ1IBAO73gDVyCsF+awUX+yRrtM4QH4ktzRyUAdtm+Ki
+         wI3jZV4J0W2Fe5udlO5T+KC6heSjlaI9c3TBa4351BhrRk6Jo2x7sGqyw+4qNY01NtII
+         vXQvJ/djxAjYHISKMqthnAtg569lEscKC1DpMlsPP0EIcvAV2BfB9lQZpUKDVSwDX0W6
+         mNJXRUv6Pm3ltnkL00YPGjN6F8X5NX9BhjQmLCTB1pqhKqJrIgEBaPowbwvoTJ0Fh9nS
+         oAwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794062099; x=1794666899;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XF2VmCDJnpXIgiFaGUBtPdUTCN/KhchAk0nVPRL7Ydc=;
+        b=NxWEci/6/qdp1dwyydlqxs7fADH9Mc5fmtWZkIha0hQqTrhaJsyxXZ3T2HKlzh7fqf
+         Bj13IJWTXwDvuN1O7oHmpvKgvcZrsHWvg/Ti3qnK/k6B/fq8Jbu2f49Wdwm5xgNK0YqT
+         ChEjLxSYpfkPsrakIlLlBeSG2t6hXC9n1dPuVjtW+qCrjyXd/FUgjvCTYd5GL/El9fRe
+         SUlenjppPD7v6mdzdWomS9WpUdoNltWeWAL7klFvFfIw09fZn1YP3rO8Uf33mkS1qBSj
+         a+H7Mg1uIt/uGcyi1JIbtEAh6CyTHd1HFhoyTjjk49dy2AevQsNnVoo8qPXbWWMJiy8D
+         jtqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxlkazrZqURyy8tJisnmjx9jJPl/m/+trNdF76yevkICiZKMT4kz5VtbrSbMELSOOneChtUBM9RKy/hxpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9hXNElci7g7Bt6FY+aIBU1et30k/rEeUB75pDi0rIXQX/mvrz
+	3LvRgZS+i9JF9VwcUEJGvGCRC5h0iHUNQLvumHM/zU0S6PnIqmDmsb6O
+X-Gm-Gg: AYBFou3Q8q5dQhfunz9rzHLNb9Znc8QGm8T0qyP3QFxuCbAzQlSMRMP6p2z9bCLDE5J
+	1vwgUKu0J/B6R/wDz8AabM7/nNTunGtt2X4unrnfPMxOrJLfvmcCnTmCam5U6X+Xw3l2/IaGAtm
+	X66AaN7nXyh1kdOQ3Ps6I9wGivliPeuwWpitX1Rabq8EosUY4NEpK0V2WBAX/rJ/65uzLcE7vJR
+	GFws4iCieXn9GI4gEv6DjNKDKvQhXfnunVGJuTKlxiAv+Oarkjarh0Xnu5QUgkKF+FDYOL3h+X2
+	IyDC7ytXCDvOhHMTveA8VdjrzN1mr6qc75jFkrRtW1aACLDP8ABUIfuDQX7S5r3bgi4HCZ/Khq6
+	bz1TXuIi9H2jVBYr+QIkeOKlBS0sZfDHI45N/EW30DBw4G0c3p2Df/rM8Ma0wW43qTGfnnZpaxq
+	MAsKuTcFtwawv6fpL+TOQ7nHDPlWsAC8WUdeW0+KT2Ib+HlUg0rgNcuw6ovkYYwipLw16jWsmPx
+	uYBH+64B8IbhtIYc6db0wrQ/54h33AR7wK+3I4J86AM1C/TXoDZbxyKpBzHdk0LEJcXiVEbpxYQ
+	IHtTQBOsk3IMhtFmUGNqxozZMvlXXwHRkMMyHzwtCLshdqTtVPDzT7xgnes3wtsIXKeRPwU6/Vk
+	03M9/Wbpns1v284j0wntLuSILbEYSXc8FKGtparUyXKntKA==
+X-Received: by 2002:a05:7301:d808:b0:36c:9af3:2309 with SMTP id 5a478bee46e88-36f6f2a4632mr7502669eec.0.1794062098568;
+        Sat, 07 Nov 2026 06:34:58 -0800 (PST)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9aea75fsm27881873eec.15.2026.11.07.06.34.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 06:34:57 -0800 (PST)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: Re: [PATCH] ASoC: samsung: i2s: Fix runtime PM usage count leak on failed trigger
-Date: Sat,  7 Nov 2026 22:34:45 +0800
-Message-ID: <20261107222508.1067-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <179397691069.3231166.15159234758356297627.b4-review@b4>
-References: <179397691069.3231166.15159234758356297627.b4-review@b4>
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v20 09/12] ALSA: virtio: wait through signals for PCM teardown
+Date: Sat,  7 Nov 2026 23:34:19 +0900
+Message-ID: <20261107143422.29319-10-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261107143422.29319-1-mynameisjune111@gmail.com>
+References: <20261107143422.29319-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,65 +109,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Mark,
+A signal can end the interruptible wait while a STOP or RELEASE request
+is still pending. A later teardown may then submit another RELEASE
+before the first request completes.
 
-Thanks for the review.
+Keep both waits non-interruptible and use the existing message timeout.
+Other control requests remain interruptible. Device reset still cancels
+the pending request and wakes the waiter.
 
-> This mixes scoped_guard and goto, that is prone to breakage.
+Keep timeout and wait results in the types returned by the kernel wait APIs.
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 
-Understood.  I reached for the goto because pm_runtime_put() may sleep
-and therefore cannot run inside the spinlock guard, but jumping out of
-the scoped_guard() body is not the way to get there.  If anything from
-this patch survives review, the locked section needs to be factored
-out into a helper so that the error handling lives outside the guard
-scope.
+---
+sound/virtio/virtio_ctl_msg.c |   19 ++++++++++++++++---
+ sound/virtio/virtio_ctl_msg.h |    3 +++
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
-> If the subsream is not linked then the core will unwind th start which
-> does actually do the trigger() the commit message said won't happen...
-
-You are right, and this is the bigger problem with the patch.  I went
-back through the trigger paths and the commit message claim that
-neither core issues a compensating TRIGGER_STOP is wrong for the
-non-linked case, which is the normal case:
-
-  - snd_pcm_action_single() calls ops->undo_action() when do_action()
-    fails, and snd_pcm_undo_start() then sends TRIGGER_STOP to the
-    substream whose trigger failed, since runtime->trigger_master is
-    set by snd_pcm_pre_start().
-
-  - The ASoC level rollback does skip the failed DAI:
-    snd_soc_pcm_dai_trigger() with rollback == 1 only stops DAIs that
-    carry a trigger mark, and the failed one never got marked.  But
-    the PCM core undo then calls soc_pcm_trigger() with rollback == 0,
-    which runs the DAI trigger unconditionally.
-
-So on current mainline a failed START on a non-linked substream is
-followed by TRIGGER_STOP, and the pm_runtime_put() in the STOP path
-already balances the get_sync().  This has been the behavior at least
-since v4.19.  With the patch applied the driver would put as well, so
-a failed start on the common paths would call pm_runtime_put() twice
-against a single get_sync() and push the usage count below where it
-started.  In other words, the patch trades a non-existent leak for a
-real underflow.
-
-The compensating TRIGGER_STOP is only missing when the substream is
-part of a linked group: snd_pcm_action_group() only undoes the group
-members that were started before the failing one, and the failing
-substream itself never sees the STOP.  That is the only case where the
-usage count really does leak.
-
-Since the two action paths disagree on whether the failed stream gets
-undone, this looks like something to sort out in the PCM core rather
-than in individual DAI drivers.  Making the group undo cover the
-failed substream as well would fix the linked case for every driver at
-once and would spare drivers from having to guess whether the core
-will unwind for them.
-
-Unless you disagree I will drop this patch.  If you think the linked
-case is worth chasing I can prepare an RFC for sound/core/pcm_native.c
-(Cc Takashi) instead, so let me know which way you prefer.
-
-Thanks,
-Xiangwu Lai
-
-
+diff --git a/sound/virtio/virtio_ctl_msg.c b/sound/virtio/virtio_ctl_msg.c
+--- a/sound/virtio/virtio_ctl_msg.c
++++ b/sound/virtio/virtio_ctl_msg.c
+@@ -265,7 +265,7 @@
+ {
+ 	struct virtio_device *vdev = snd->vdev;
+ 	struct virtio_snd_queue *queue = virtsnd_control_queue(snd);
+-	unsigned int js = msecs_to_jiffies(virtsnd_msg_timeout_ms);
++	unsigned long js = msecs_to_jiffies(virtsnd_msg_timeout_ms);
+ 	struct virtio_snd_hdr *request = virtsnd_ctl_msg_request(msg);
+ 	struct virtio_snd_hdr *response = virtsnd_ctl_msg_response(msg);
+ 	unsigned int nouts = 0;
+@@ -273,7 +273,7 @@
+ 	struct scatterlist *psgs[4];
+ 	bool notify = false;
+ 	unsigned long flags;
+-	int rc;
++	long rc;
+ 
+ 	virtsnd_ctl_msg_ref(msg);
+ 	/* This reference stays with the queue until completion or teardown. */
+@@ -314,7 +314,20 @@
+ 		 */
+ 		virtsnd_ctl_msg_unref(msg);
+ 	} else if (!nowait) {
+-		rc = wait_for_completion_interruptible_timeout(&msg->notify, js);
++		/*
++		 * Teardown must observe completion even with a pending signal.
++		 * Otherwise a subsequent open can retry RELEASE while the device
++		 * is still processing the previous teardown request.
++		 */
++		switch (le32_to_cpu(request->code)) {
++		case VIRTIO_SND_R_PCM_STOP:
++		case VIRTIO_SND_R_PCM_RELEASE:
++			rc = wait_for_completion_timeout(&msg->notify, js);
++			break;
++		default:
++			rc = wait_for_completion_interruptible_timeout(&msg->notify, js);
++			break;
++		}
+ 		if (!rc) {
+ 			dev_err(&vdev->dev,
+ 				"control message (0x%08x) timeout\n",
+diff --git a/sound/virtio/virtio_ctl_msg.h b/sound/virtio/virtio_ctl_msg.h
+--- a/sound/virtio/virtio_ctl_msg.h
++++ b/sound/virtio/virtio_ctl_msg.h
+@@ -47,6 +47,9 @@
+  * The msg_timeout_ms module parameter defines the message completion timeout.
+  * If the message is not completed within this time, the function will return an
+  * error.
++ * PCM STOP and RELEASE wait through pending signals within this timeout.
++ * Other requests remain interruptible. Device reset cancels and wakes either
++ * kind of waiter.
+  *
+  * Context: Any context that permits to sleep.
+  * Return: 0 on success, -errno on failure.
