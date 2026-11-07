@@ -1,76 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.109
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029361;
-	b=Z/yH45eFVpGlaqGUCLjFT6+TTh7msDhSWg21ALVUjpqmiW6vaDsPBkhusudJ2QFXHC2n
-	 QYn1uii4RIY4aGGYVh0nACHfH3pW0Fri26Zp9gPbxAq+MiYBH490EZ2Q5iPKrZIHgsz3w
-	 T9ZlCt2i4a9cvTUHkuJdp22dDOQcxdoGmRF6U9vKQyo+9TtGk6pCbOUIUqMVcaK7Zzf+K
-	 kmJGXP6Yhtdc7Z9K84w6OlZAqSNcxru5LzEXeymvJGlqiwd88xJpPniyW93Ohom/1XBhj
-	 GNA6wTDD+yF4SBiW+WvN3C6OVEto3Pq1FET1x6sYMKUnAmY41qiM6ijGj2yWoeMyFww==
+	t=1794029363;
+	b=iA/ftDhWIBer6QiHtunZYQYruNgDgmhsoUmzyf62KkUb5ijmFdDXc3qkPelVlVIT/S/U
+	 yOiPzk7ta3kj0/04N2dLS8cXs4TTKNQOV5HkkDG4BZccIklFd5R5FlYXvjGNtJyPZO/fL
+	 rv3M5VMEdvMfyWdE005xGAUckjBq54c/46quYC3rvrdMi+UggYF92VK6igs6VxE20qMAo
+	 YTpYoZ93AfE+czC6BLCSWeKuQUUwSoZdzjXTQxsIwbqtw9QJDsEaN4B6P/8ypaUAIyHpz
+	 pogEtcktmrbYQWVISv2PX/wmkZzAoI5CUGLBOZlq4DADym/UtNh5ryID8CfRzmfpIzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029363;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
 	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=KZzYo1mFWqceQp5IL8TZLSTF9E5/7fwB31Ah4Dj4Xt8=;
-	b=jqOSZL7JcNs23qHpKoC+mNtTlTF5ryfhR8TP1NDdZap3a0CrGwDzJ16TCiYztKgWH0ZP
-	 bvWIO/cHGMrCetx1xxAyelscAVDJ7vLdWPcYFSm/tGlCzD0EqZob0sq356VoUiSOP4gjL
-	 mXuz8AnODyCOdiT5ztpTkF+jeZriBhAknvw29iCcmb9xeRulQyVupW6eeIuP9vtCadQJw
-	 7r3KVOynZX1MBgGh9/cuirwNAR8mJiJ/wW3l2pbeFdFM61L3aaCAUHNTQ+4m5OcqPq3Zq
-	 RstAMkM0U4k7obKRVZaeJkm+e0jB1ollNbJLWcGCNjBt2E/aGXpF8/BUZM9K+VgXqag==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=kfZKb+a68PKJvsiWI18aCV6I4EXilYNnOuTBJByb1Mw=;
+	b=q7Ek9Nd45L+VaExrmFlw5eCivD4lMsHsDAlDMA15mqQzJhTfn9rgKIflOg2PNtsMJnsF
+	 20dWfQV7vlmdDZFO25jdqy4viXFOVO5wadq+CD/aJ41OkB9sEVtpd3+qKyiIL0E9LuoGx
+	 iXNpVgFDV3+1n9XqgrTF9lVnHUv9MAzwZ/n4vEqJ5HhFhd5g54xRbn72JlWP653KrQewN
+	 CLj8nas7ZqTRAtrjYLut5Ggbb8JKLMAu8Nbb/tr1ukmMmFij27hj7GkS3mQCD3g/gbmQM
+	 VOqfoNYASv7LNEYrsjMQKNptcJhpzOds72uBrPE73wBTmBXLwZfShSDO8ybj58a0Cqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=squashfs.org.uk;
 	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=H5JLT0tp;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=aO1U1iJ0;
-	arc=none smtp.remote-ip=188.121.53.109
-Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [188.121.53.109])
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b="D/1d1Jau";
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=Rdw2Z1Lw;
+	arc=none smtp.remote-ip=188.121.53.108
+Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [188.121.53.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922BD606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 922BD606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59071606A331
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59071606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=H5JLT0tp;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=aO1U1iJ0
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=D/1d1Jau;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=Rdw2Z1Lw
 Received: from avalon.fritz.box ([82.69.79.175])
 	by :SMTPAUTH: with ESMTPA
-	id PYyzxFofBjLMrPYzBx4cqP; Sat, 07 Nov 2026 05:29:06 +0000
+	id PYyzxFofBjLMrPYzDx4cqY; Sat, 07 Nov 2026 05:29:07 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794029347;
-	bh=KZzYo1mFWqceQp5IL8TZLSTF9E5/7fwB31Ah4Dj4Xt8=;
-	h=From:To:Cc:Subject:Date;
-	b=H5JLT0tp/cxxngpgWAatStXznUSl8TUzR/DtrTtsU9IN8G70lF9XRrErwE7cXo0YL
-	 oo9M0CotTbtgKsPXOsOdTSqM4nnDboLCnabG6rwS6Rm501vjEhfcSlg79zvWAuW7bd
-	 eeUJ1w7NanftWT3EomByueeuGjbpJpYydERuXsSwwNOLMhwb1/3GF8KYOX6y6AJr+g
-	 6tFASmZTOWtXxbx6lu9FkHAS7jhJ3ez52yGAExitYiHpZ7VjJkynZBm7cIs4RSij/L
-	 pkMlaI9dDnT9UecyfBRErU3SyRisXHF2G9r1ZIsfqjaiyWrl8VQCJ0v0e3R0cgnNzA
-	 JDJy2e1lUw4ng==
+	s=secureserver2; t=1794029348;
+	bh=kfZKb+a68PKJvsiWI18aCV6I4EXilYNnOuTBJByb1Mw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D/1d1JauWHK+R/MgC2ITvu79Uwi/FksiaIBCZToJkF2xN3l2T8IpT8c5ZCeTaBgPH
+	 aM5WpV/RFBX/+mPBrLvjs6n//GRNiEJasOLSQEGn5olaDY+G9wwO2+xgigIAVBB9N+
+	 lNmfkt1kiZpmDsK3KJOsgDa235sLMqJ4GGPX0vX1p+7hUhFMi4oLv97bfK/FrQgs+k
+	 3mdLMnk0/E38SackZediUDcfYFfR8ihXqgVKyTLtCj48iusgCsLLtlh+8F9QpJdJtH
+	 G/7/Zs6wHe4dqlD4HLw+cQVDB7ToyI71ADCnKdkb3zcEkFlo/vS/UXHRCJOWG+kJqf
+	 7GOLjFLQLYHbw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794029347;
-	bh=KZzYo1mFWqceQp5IL8TZLSTF9E5/7fwB31Ah4Dj4Xt8=;
-	h=From:To:Cc:Subject:Date;
-	b=aO1U1iJ0oXBrvV47GM1a+VRxvQIqmBbsLz2yd5IhM9lQ2UJ9KeS0z90/otk048rZU
-	 qh7ku7n+ZYLNhf/EbQwvmfuicsxAtChM3fm/Cnf8PwxqJI/ZpWGSG9IJUjjOhqsiUc
-	 8Faozi6erNDpqQRELRbNokD/Mz2obc6D8NRaAY77rdfyR43Mvxasn2PGU1OqarJURZ
-	 8ja4ycDvSb+vU0q1stCpP8t6iH3O6rQN2pSPhAPOdxYV34ER0vlnCz1LG1e3DFjaFS
-	 DF5EHAHsLYGcM0/gcbj2cdCCscF8+LF90C8rpqrHen7GPGKeXk/9SPQSys6EAPQMa3
-	 xnUppU20j3Zjg==
-X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb722
- a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17
- a=1KwyjEPoHUs1rspk:21 a=fvG9mbSpok4_JbtLopsA:9
-Feedback-ID: 4ccade618684f99169cc894b62e8e5f3:squashfs.org.uk:ssnet
+	s=secureserver1; t=1794029348;
+	bh=kfZKb+a68PKJvsiWI18aCV6I4EXilYNnOuTBJByb1Mw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Rdw2Z1Lwi3jcOJ4SYaflKeJKYl2KJC8w0udkFjwMb9xfUVq2HvwjBxiY8CmcG1Gmx
+	 QkmSTXVGT4z2E8zklmPrqEsrMUgKLAMXW44/aOr9hXiuCnoIn24l/XXYlth5rwJKKA
+	 catncFkb5f+h4HlIHJ6/UJEX8yOSXNcPO2BxaaJzJOzUDoYVrPJhFnECteLBWZvjjr
+	 PgRfDL2qi+qseOTAqKGAlUffK2m79//kOvDRIz9uMB8yl/13/nUzxlSCVduHc09nii
+	 vCTDzfUIfgOU46wedyCkVGYbI/TiojD7Hyn3r9d6i2oeE3mZIXGneXCtoR2r4BOc+w
+	 Q0cj1MIHfWf3Q==
+X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb724
+ a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
+ a=sSupuuxbErciYv1SbbcA:9 a=UObqyxdv-6Yh2QiB9mM_:22
+Feedback-ID: 240eb4588fce212aef2b6989fa9a0701:squashfs.org.uk:ssnet
 X-SECURESERVER-ACCT: phillip@squashfs.org.uk
 From: Phillip Lougher <phillip@squashfs.org.uk>
 To: akpm@linux-foundation.org,
 	linux-kernel@vger.kernel.org
 Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH 00/18] Squashfs: fix a lot of AI issues and AI style issues
-Date: Sat,  7 Nov 2026 05:28:25 +0000
-Message-ID: <20261107052843.725239-1-phillip@squashfs.org.uk>
+Subject: [PATCH 01/18] Squashfs: convert SQUASHFS_COMPRESSED_* to inline functions
+Date: Sat,  7 Nov 2026 05:28:26 +0000
+Message-ID: <20261107052843.725239-2-phillip@squashfs.org.uk>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107052843.725239-1-phillip@squashfs.org.uk>
+References: <20261107052843.725239-1-phillip@squashfs.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,67 +84,182 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfIEOnCnnloP4b7MRiFnZ5KCLNqNWb6bEDvHwEfQOugQAzCzqzUgpokKyQOTvfH1lr6WqRhE5+yQuW8Xgs1H+QLKaaoTn2VFL2728L/Oi82ULrYs4zP+8
- 1EnWRahuwPf0dqbrq4KZkJsTZeB7f28ZNfO9+kCBb/tWjGLzOaLcZ+Z5IYdWSehNWlsGw8aI8vaV9rkQKqymx7TLJHpBo5uQ8iICxfZ8SuxU0USRf86CWRsI
- uB9geusZHMHMkC5u6wAK03gAh3ACo39/w0mb8mv5Uz0PqF8qrsP15rmCJtMcYllP
+X-CMAE-Envelope: MS4xfB0PLjnAG06UDY2Fln6fJBoDLBiIX4I37uoN36j1lk31e/P3RBGLQt6eBcdXWu0yhyF84yq6mvu8z/kIBuhMRfnm3RrY2ea2IkI1eR/810Q22KdlZYL1
+ +amVGoWdwlxgVUmkyFCMLYR40BAEu9k926C1PGUYt/A483hrIy3StceardQTU9AzMfYjK9oHxjho4AXimZJvBLUCEikoqAhYd3iDrBgY73IwgWNQVlaes0La
+ h/QulZdSWb15RCkSm396+AbMxK+QF4T3L2WingHyP9ovH0Ghut4XZQqP8pWpdYio
 
-This large patch-set is inspired by the recent spate of AI generated
-code reports.  Two of the patches directly fix AI reported issues, and
-the rest have been found manually by a read-through and testing of the
-code.
+Convert old fashioned #define macros into inline functions.  This has
+the following improvements:
 
-In all cases (except the last three) the patches deal with over-sights
-relating to variable overflow, arithmetic overflow or just lack of
-sanity checking of data read from disk.  These can cause the code to
-fail, and which could be used as a potential exploit.  
+1. Inline functions are typed, which makes the width and sigedness of
+   input and outputs explicit, which reduces errors.
 
-The last three patches fix potential excessive memory use exploits.  The
-code in question was written in the early days when Squashfs filesystems
-were small, but with very large filesystems it could try to allocate
-memory in excess of 4 MiB, and up to 64 MiB.   
+2. The inline functions enable more sanity checking to be added in
+   later commits.
 
-The patches can be broken down as follows:
+3. Inline functions are easier to read than #define macros, which
+   improves code comprehension.
 
-Patches 1 - 6 are preparatory patches.  They convert old fashioned
-#define macros into inline functions.  These being typed make widths and
-signedness explicit, and allow additional checking to be added in later
-patches.
+Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
+---
+ fs/squashfs/block.c            | 11 ++++++-----
+ fs/squashfs/cache.c            |  1 +
+ fs/squashfs/file.c             |  3 ++-
+ fs/squashfs/squashfs_fs.h      | 17 -----------------
+ fs/squashfs/squashfs_helpers.h | 35 ++++++++++++++++++++++++++++++++++
+ 5 files changed, 44 insertions(+), 23 deletions(-)
+ create mode 100644 fs/squashfs/squashfs_helpers.h
 
-Patches 7 - 15 fix various issues relating to variable overflow,
-arithmetic overflow and add additional sanity checking to prevent these
-issues from occurring.
+diff --git a/fs/squashfs/block.c b/fs/squashfs/block.c
+index 2d5850168026..20c3030b4f96 100644
+--- a/fs/squashfs/block.c
++++ b/fs/squashfs/block.c
+@@ -23,6 +23,7 @@
+ 
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
++#include "squashfs_helpers.h"
+ #include "squashfs.h"
+ #include "decompressor.h"
+ #include "page_actor.h"
+@@ -292,7 +293,7 @@ int squashfs_read_data(struct super_block *sb, u64 index, int length,
+ {
+ 	struct squashfs_sb_info *msblk = sb->s_fs_info;
+ 	struct bio *bio = NULL;
+-	int compressed;
++	bool compressed;
+ 	int res;
+ 	int offset;
+ 
+@@ -300,8 +301,8 @@ int squashfs_read_data(struct super_block *sb, u64 index, int length,
+ 		/*
+ 		 * Datablock.
+ 		 */
+-		compressed = SQUASHFS_COMPRESSED_BLOCK(length);
+-		length = SQUASHFS_COMPRESSED_SIZE_BLOCK(length);
++		compressed = squashfs_compressed_block(length);
++		length = squashfs_compressed_size_block(length);
+ 		TRACE("Block @ 0x%llx, %scompressed size %d, src size %d\n",
+ 			index, compressed ? "" : "un", length, output->length);
+ 	} else {
+@@ -341,8 +342,8 @@ int squashfs_read_data(struct super_block *sb, u64 index, int length,
+ 		bio_uninit(bio);
+ 		kfree(bio);
+ 
+-		compressed = SQUASHFS_COMPRESSED(length);
+-		length = SQUASHFS_COMPRESSED_SIZE(length);
++		compressed = squashfs_compressed(length);
++		length = squashfs_compressed_size(length);
+ 		index += 2;
+ 
+ 		TRACE("Block @ 0x%llx, %scompressed size %d\n", index - 2,
+diff --git a/fs/squashfs/cache.c b/fs/squashfs/cache.c
+index c1a83bb0e519..7cb16414cd23 100644
+--- a/fs/squashfs/cache.c
++++ b/fs/squashfs/cache.c
+@@ -42,6 +42,7 @@
+ 
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
++#include "squashfs_helpers.h"
+ #include "squashfs.h"
+ #include "page_actor.h"
+ 
+diff --git a/fs/squashfs/file.c b/fs/squashfs/file.c
+index d83594ce91d2..ad6382cd22d3 100644
+--- a/fs/squashfs/file.c
++++ b/fs/squashfs/file.c
+@@ -39,6 +39,7 @@
+ #include "squashfs_fs.h"
+ #include "squashfs_fs_sb.h"
+ #include "squashfs_fs_i.h"
++#include "squashfs_helpers.h"
+ #include "squashfs.h"
+ #include "page_actor.h"
+ 
+@@ -188,7 +189,7 @@ static long long read_indexes(struct super_block *sb, int n,
+ 				err = size;
+ 				goto failure;
+ 			}
+-			block += SQUASHFS_COMPRESSED_SIZE_BLOCK(size);
++			block += squashfs_compressed_size_block(size);
+ 		}
+ 		n -= blocks;
+ 	}
+diff --git a/fs/squashfs/squashfs_fs.h b/fs/squashfs/squashfs_fs.h
+index a955d9369749..b406e52a83c2 100644
+--- a/fs/squashfs/squashfs_fs.h
++++ b/fs/squashfs/squashfs_fs.h
+@@ -101,22 +101,6 @@
+ #define SQUASHFS_XATTR_VALUE_OOL        256
+ #define SQUASHFS_XATTR_PREFIX_MASK      0xff
+ 
+-/* Flag whether block is compressed or uncompressed, bit is set if block is
+- * uncompressed */
+-#define SQUASHFS_COMPRESSED_BIT		(1 << 15)
+-
+-#define SQUASHFS_COMPRESSED_SIZE(B)	(((B) & ~SQUASHFS_COMPRESSED_BIT) ? \
+-		(B) & ~SQUASHFS_COMPRESSED_BIT :  SQUASHFS_COMPRESSED_BIT)
+-
+-#define SQUASHFS_COMPRESSED(B)		(!((B) & SQUASHFS_COMPRESSED_BIT))
+-
+-#define SQUASHFS_COMPRESSED_BIT_BLOCK	(1 << 24)
+-
+-#define SQUASHFS_COMPRESSED_SIZE_BLOCK(B)	((B) & \
+-						~SQUASHFS_COMPRESSED_BIT_BLOCK)
+-
+-#define SQUASHFS_COMPRESSED_BLOCK(B)	(!((B) & SQUASHFS_COMPRESSED_BIT_BLOCK))
+-
+ static inline int squashfs_block_size(__le32 raw)
+ {
+ 	u32 size = le32_to_cpu(raw);
+@@ -449,5 +433,4 @@ struct squashfs_xattr_id_table {
+ 	__le32			xattr_ids;
+ 	__le32			unused;
+ };
+-
+ #endif
+diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
+new file mode 100644
+index 000000000000..94edc7f46ae4
+--- /dev/null
++++ b/fs/squashfs/squashfs_helpers.h
+@@ -0,0 +1,35 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef SQUASHFS_HELPERS_H
++#define SQUASHFS_HELPERS_H
++/*
++ * Copyright (c) 2026
++ * Phillip Lougher <phillip@squashfs.org.uk>
++ */
++
++/* Flag whether block is compressed or uncompressed, bit is set if block is
++ * uncompressed
++ */
++#define SQUASHFS_COMPRESSED_BIT		(1 << 15)
++
++static inline s16 squashfs_compressed_size(s16 size)
++{
++	return size & ~SQUASHFS_COMPRESSED_BIT;
++}
++
++static inline bool squashfs_compressed(s16 size)
++{
++	return (size & SQUASHFS_COMPRESSED_BIT) == 0;
++}
++
++#define SQUASHFS_COMPRESSED_BIT_BLOCK		(1 << 24)
++
++static inline s32 squashfs_compressed_size_block(s32 size)
++{
++	return size & ~SQUASHFS_COMPRESSED_BIT_BLOCK;
++}
++
++static inline bool squashfs_compressed_block(s32 size)
++{
++	return (size & SQUASHFS_COMPRESSED_BIT_BLOCK) == 0;
++}
++#endif
+-- 
+2.47.3
 
-Patches 16 - 18 remove the excessive allocation of memory by introducing
-caches, which limit the maximum usage to 4 pages.
-
-All the patches (apart from the preparatory patches) have reproducers
-which show how the existing code faults can be exploited, in some cases
-which can allow a Squashfs filesystem to be tampered with to make
-files readable by unprivileged users.
-
-BTW checkpatch.pl complains about the '#' lines in the BASH script
-reproducers. Let me know if that will cause problems.
-
- fs/squashfs/block.c            |  11 +-
- fs/squashfs/cache.c            |   8 +-
- fs/squashfs/dir.c              |  20 ++-
- fs/squashfs/export.c           | 143 +++++++++++------
- fs/squashfs/file.c             |  73 ++++++---
- fs/squashfs/fragment.c         | 109 ++++++++++---
- fs/squashfs/id.c               |   9 +-
- fs/squashfs/inode.c            |  43 ++---
- fs/squashfs/namei.c            |  21 ++-
- fs/squashfs/squashfs.h         |   6 +-
- fs/squashfs/squashfs_fs.h      | 101 ------------
- fs/squashfs/squashfs_fs_i.h    |   2 +-
- fs/squashfs/squashfs_fs_sb.h   |  25 ++-
- fs/squashfs/squashfs_helpers.h | 350 +++++++++++++++++++++++++++++++++++++++++
- fs/squashfs/super.c            |  96 +++++++----
- fs/squashfs/xattr.c            |  49 ++++--
- fs/squashfs/xattr.h            |  21 ++-
- fs/squashfs/xattr_id.c         | 173 ++++++++++++++------
- 18 files changed, 913 insertions(+), 347 deletions(-)
-
- Phillip
- ---
- Squashfs maintainer and author
