@@ -1,95 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794073390;
-	b=dPjuMkGt/HLJFiexm7RkD5r/BTDaxaDr5U1A/KJ+O+c0f8FncWN+I5EHE6rUcrrSVt3+
-	 cWsXDNO6c2zglifkpSZAHj+QCSqhmBXiFC3I/RXqGCg5XgCuV9eG/u8phUSF8HkReNDO9
-	 uJP+EAFhYIGyrJNIskwfyTmYdk+aIvgMcxzAsiqGI6a/WYlX6/VRpfnlnINv5muOUgCIL
-	 ydVYSgWguJhasOpl/k3AohUKFGlXSkrx8VeI+NhOt1aeo9KjHZahBrvlDIDCItu0qBAnD
-	 yXuN1et4bShN07Hs7Fo8sYghSyU9X4HZYRV0LYpfbBTxy74W1SQlt+ilrAITJZNN6+Q==
+	t=1794073429;
+	b=sslKxY6ZodhpOvv7v0fZnf6DJHgw0Lxxx4e/2/FTTOLN8DR7CEclte33mWeTUTHhtHfD
+	 ishjRoEJgno792C75cNOjDXW+Jq+fqfpQS+y2y72BxXI3zzQS+H2NNhoxltIIhuQ0qVgl
+	 YTteM9/ug7p1JBMlZFj2fjO9wemmbWGFbLtLG5shzii7tSMHagSsfcAlNPqvDaaXfx+RT
+	 zfWLaCDmnaezkoolJmdcl8G/hSpM9t+tXHisO846kQXQBDqvk6SGXRgMOhe2dupXjF/7N
+	 SfbYYGn8pujK2bPaJTFNfuzDgVuIhesJHhaGmKoiFufuJAnciiKE4UHTxHSeOj87sJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794073390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794073429;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=r9DC+v4ThjyXVkuemQANfxNZK1eNGzIbXEHQZPaQePg=;
-	b=kl7KZHM7Vmcscmh1BeNb0JfQkMa8EPlAcRMdqlw9NleSxKHvoielCyadyiUnq8LnCMPs
-	 VpnIehTXDZxh1OvnX3VXIxZTqGuf75X1RkdZ+x73D5vbfEuB4RStSd98W7x31GvxsTPph
-	 lw0qjRM9CNnt8LrTEcWDMTQPu7I0N0PaDtpIzqoLb7DxlA7oq++57FFAkm9uKgrUhjNxi
-	 6gmu6GwXkTx7Is07cYi3nbJh1xXSxiy/zcstbb++ddIY4JLjuYD0qH7/SacvlGoGhVYx9
-	 JHPxfZenw5g1N+1T+AAJrsV7q9+LJc3Gc5VT7etJOZb2Ds/ltcv4vPRtQqG3xtFLj5g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=peWVPhRlZ7hn/ezXyD6N2KX4kKjmXKdM8KfCK+LMazg=;
+	b=y9mzzuvBZnYPaeCEzdJrExOWbV7vpG9TCIDGjiqrAV7zPNYvYaz1wrwtL0kukPrvHR5O
+	 yLmwaQJZEHeiMRq67ImVBgsMXzX6RDJ60l7jQ0ZRqZYYXugLlLGR16FcTi3e84HyhgVGu
+	 akDBf0Ouyb1e3imDyxWcx6ops5N75QA1Xh8yEi/pCT1IsuX8EhhXTRovq2GoYeySnu/up
+	 Tb0p0e+JczkijOpRDFl2YZzQNrpvV6CJ1tgabVnC8SV6t3ZeVb24/6aIPq06XVv84fM6x
+	 UO5twNctAcimnFz8Mh4ppNaO7HENnu3JIO9mJZQ8+wOt0RtZDMdf407VPzAhzmq8azw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rxb9lujx;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ex9UcnXj;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173F0606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:43:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 173F0606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8BA606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:43:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8BA606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rxb9lujx
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a3c08d6928so2932611c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:43:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ex9UcnXj
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so14331785e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:43:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794073389; x=1794678189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r9DC+v4ThjyXVkuemQANfxNZK1eNGzIbXEHQZPaQePg=;
-        b=Rxb9lujxGPUME3b1i/eC4aXp9DX2xCrUprkmuSxBCKq8S3r3qgoyam9vcaqWuCtbq8
-         zuhiZ5ZFmR61Cq/o88kRlaa02cx8kyos4tzqFjRYA02912Py0uKBR1wPHQ7lE9hflhXT
-         hdVQ2RVVomqER7QS9q60QGv0U0HwrBo+DzHvOBzM3tcHDMZopN7mqMVMMHw5SBntH6Xl
-         aVYUxGZ0ctI8GXB+wkmpib13aiiTeHTU70vekeKhcJnmYjSDIZovppXiNos/NzhKfUIy
-         BElPrLk0M8XrCCXu335UsKubNbugf0QLBnzXcepAWFEl4ePeX6SUM9NRgevIqfYQBzrN
-         Je/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794073389; x=1794678189;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794073427; x=1794678227; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r9DC+v4ThjyXVkuemQANfxNZK1eNGzIbXEHQZPaQePg=;
-        b=u+gVFuQBJpd+widuclg1L7TzLVEcTRGJuXj/yT4h8rW4rlz4/L4WZQG4fah/bgIOcm
-         ktq3kZ4X0G0/KAiXbIs/nPXFghkZZ9XY8MFrCN8YzZ+Aj+l+FYONCpUvj0oaQVn9VmDF
-         89dSgT/XnOLLybIyYgQhE9unLuaO3cwzk6MWRw4SocUueEIAjqEb5QBwXvHlP7btvDDl
-         FElbMhZHmo2fVjYEX0ZJSqxfYsccZ0rPpeS8CJsLTvJ+AyMv1GzpB8EUyBxac4EOcOY5
-         5tjn+sIKGv/j5Lc7cbsQwkTqfihO6v0GULac+0UCVQwA7F7spDIIEFQliNaa+qnAFdf7
-         D4xg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0wq+jFseU4GXGlzXo+2emPPlmJ6PIe6PaRqi1cM8dZQbEycMbwrLvfp5pkn3hhqHqZtsIEPO8/Id6zv4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pIQjnqbquGOm/7+61FSrSq2vCnT8jJQT5skD9opktHlM+dTm1
-	gkEqfGIicvC2aRMbWiq4P7lvRKORYsOgXgQy0hMeh1kGV7DoH2Nw+IPK
-X-Gm-Gg: AYBFou04Esnton2TUbyUxqxZgo3Zfzf/XPs3qivJu0rNnjUT/sZ8BLRyFWjQ0YygWKx
-	4sox2dfPJscvcK8DhLqD3oC5OpG08knvOClKrSr2NVHGlmKqoq3Ub9qjrFxXDA3/AWvO8JPOank
-	OaP3zJeWnF3VqYE1TxQEkSILJ0S3FY9WS8jsW2ctFNoKqdoOpwhQEeN8vW7FwWwMaM37Uvu+7+J
-	WQWB6Jj8dBjdC9GvIR+2aPt3oEkYYyEtpV0I9rizE2nrUakXSeYn9iBXLKtP1FdpxHLfCxwg790
-	P8YoVEslUmQGXHVI3yNxP7l316NUp2d8EZyIvAG4VDAZnldwmtGKIm06jfy7Yf3vdOXCgqRSH76
-	nOlNgb7IfWQ4N0UtflONIEU0pua5pth+E7R88kvIhRftjhA1FC1i4LZHwwNJU5FzHuDmGD5fgKV
-	dOnDn3LODKL/ux8YLYQJxJnyhu14Wnuaf27Fnm7pAdKPenBfqHtJ3ZR+2r99kvglK1HTYPhlcy+
-	QxtogwRkLCRbWR7PEKGG2ZNLMg99UWRwrW8azGBxY3QbLaA9r1QzFSWPNdy3/I/8Q1+vogXyR0G
-	DVvtucTwc/S2wx52xOZtd156mO4pi1qlRpbZl3cW73al6luVEZI=
-X-Received: by 2002:a05:7022:3f0e:b0:168:fe32:35a with SMTP id a92af1059eb24-1b25d334fc8mr7817275c88.20.1794073388791;
-        Sat, 07 Nov 2026 09:43:08 -0800 (PST)
-Received: from IdeaPad ([2401:4900:1c54:f394:91ce:f63f:7155:e3c6])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4d36efsm15306719c88.17.2026.11.07.09.43.05
+        bh=peWVPhRlZ7hn/ezXyD6N2KX4kKjmXKdM8KfCK+LMazg=;
+        b=Ex9UcnXjVjvGoF9hVF+uo8B30EGHQnW7NrgerLelKNR2YGt4MfMvI8QLWg0NZQajyh
+         izSgtygmlsdccSva4ME/iDutWUBZdw5SO7YaCbcbx6vOMezbbQi9vwoIi8JtyC9IOJyL
+         BnxCGmMyW9OBQPiVf20i3I3D6H+ylWjJ7ZzRyyPAuhsH/XrrxhJOcRFUUdI9AHymJA4o
+         6NUISlCNJ3TFA/aAz9OTCzfsRxumuUi4TEe9EIzP+UGqMnbHl3f2oLCNigSHbs0qhiUI
+         5o8w7oMeNJWDG4P5kgBlZe1Jwgc983ZIdodcYQMPBKaIUCYU9vvtczoX2cEHzKRhdU1+
+         1I5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794073427; x=1794678227;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=peWVPhRlZ7hn/ezXyD6N2KX4kKjmXKdM8KfCK+LMazg=;
+        b=U98aU1dwcAz5RkyHXfGLIa7YLupi254ba+SdAWouXmtWTUskxBn2MLuStI+6i9Ju2A
+         XjdKk/gdbv/iixAqkfV7QLoTvq963eSxLaSqDLeTYs+LVQMUiJdTj/xBFF5kZMKCAaPw
+         rxwa60ANTsHJm7Hj9W74/FtkTk97z1xpPhVwNkvZ1c8HdR8zDRS3Hex/IzKJuPiF3iyo
+         HK1nYv7VACWqY53X3JF6C8yfIPUSAN+7W5BnqagHxh/B8+UnbLswRgzJRORhBqKKMtWU
+         kjuNBsjDUT7wu57iEMzX1u4lzg06VvXcehEiE2irj75d3wfkszCRihdbLotdO5XrBWpz
+         8RKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8kcYe8BYDadT7RWbg8O3c6WZLMTyTG/m3thzgCzgdya2l+ksJrxIRVzpazsYJNOiDwK0jrXV+EXAtS6c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8XV/+/ztfn6fB9NKuHbw5XkFYNINSWnOsuA9yQNz2tOtUinDs
+	w5uAZ3AqRlntfs8FHkSBjtpi1jRmqaqFl5CGlDdb9jnzCyaccbIgwK3p
+X-Gm-Gg: AYBFou2ub/NTkwX7WT3k1gFEE+gP3rWHUZZ4UWn/JnmhOMlxpf5lThUt/65SENlnGFh
+	aLxH8qvnmtHscuJ+Ye0yGhQXbAsNM4KQRl9XzDh+EHcc8B/lO9rstQD5KJA5W3WtbP3tQTY3dXo
+	ekltKBP8QOCVAAHClXv3N8JQNBzCkfQKEETg3goVZtika5E8NFaOmixgaKAaDxHPG+eVgtbYhlT
+	KFYNBKKr+9yN7YCo3/97HXOKF2wl3UFbSj1A9+lRasU51RWQRM6av94p5rp/JIPoiiyU8YwSTBQ
+	7tSC8Rg9HReTcrPBUjKt40FW8Rgx3CntDqe7YE5qNm3EVR0LC9htBTL1L7TtV7E3kQudxPFXRJV
+	nSRWw0nzVh2hQS/iKM766pAD9VpGVyaDGQghIXQE748/u8EFjJkuoNNNXpKEPWI9pp7cF+6Q2Sq
+	AGhPo98uKCI0f6roc6G7rWJarCCFGDFD6p9bR1RIA/cVIptfeKOMBGtwh2QVzES3V/5zoiUOiy0
+	Q44SpN1bt7raB+AbnRa7nTktRdeF9FqWHt4WoriEBHvcxHPhqPBPmRBJxGg2V6zBdUIRzByTc+6
+	TkxF/86Zk4g6cYF5px+brST8SCgKAw6hQQ==
+X-Received: by 2002:a05:600c:6814:b0:4a1:da58:1ee with SMTP id 5b1f17b1804b1-4b6df4f2554mr125464935e9.31.1794073427028;
+        Sat, 07 Nov 2026 09:43:47 -0800 (PST)
+Received: from kreach.multipass ([77.37.5.67])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3291526sm91814315e9.13.2026.11.07.09.43.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:43:08 -0800 (PST)
-From: Daksh Sahni <swizzguy76@gmail.com>
-To: karol.wachowski@linux.intel.com,
-	andrzej.kacprowski@linux.intel.com,
-	ogabbay@kernel.org
-Cc: jacek.lawrynowicz@linux.intel.com,
-	jeff.hugo@oss.qualcomm.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Daksh Sahni <swizzguy76@gmail.com>
-Subject: [PATCH] accel/ivpu: Disable recovery work on probe failure
-Date: Sat,  7 Nov 2026 23:12:15 +0530
-Message-ID: <20261107174215.15818-1-swizzguy76@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sat, 07 Nov 2026 09:43:46 -0800 (PST)
+From: Jude Gyimah <jude.gyimah87@gmail.com>
+To: sashiko-bot@kernel.org,
+	jbrunet@baylibre.com,
+	neil.armstrong@linaro.org
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	khilman@baylibre.com,
+	martin.blumenstingl@googlemail.com,
+	linux-sound@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] ASoC: meson: axg-pdm: select REGMAP_MMIO
+Date: Sat,  7 Nov 2026 18:43:23 +0100
+Message-ID: <20261107174323.577410-1-jude.gyimah87@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-203084@kernel.org>
+References: <sashiko-outbox-203084@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,85 +109,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the NPU raises an error interrupt while ivpu_dev_init() boots the
-firmware, the Buttress, MMU or WDT IRQ handler calls
-ivpu_pm_trigger_recovery(), which queues recovery_work. When ivpu_boot()
-then fails, the err_ipc_fini path tears the device down without
-disabling recovery_work and probe returns an error. devres unmaps the
-register BARs while the work is still queued or running, and the work
-faults on the first register access:
+> What does "These three" refer to here?  Nothing earlier in the commit
+> message names three stanzas, and this patch only updates
+> SND_MESON_AXG_PDM while the other stanzas are updated in separate
+> commits.
 
-  BUG: unable to handle page fault for address: ffffcfc6680200f4
-  Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
-  RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
-  Call Trace:
-   ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
-   ivpu_boot+0x9e/0x270 [intel_vpu]
-   ivpu_resume+0xa4/0xd0 [intel_vpu]
-   ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
-   ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
-   process_one_work+0x1da/0x3c0
-   worker_thread+0x1af/0x340
-   kthread+0xfa/0x130
-   ret_from_fork+0x2b9/0x380
-   ret_from_fork_asm+0x1a/0x30
+Correct, thanks.
 
-The work dies between pm_runtime_disable() in ivpu_pm_reset_begin() and
-pm_runtime_enable() in ivpu_pm_reset_complete(), so the PCI device is
-also left with runtime PM disabled and never autosuspends after a later
-rebind.
+The sentence is left over from an earlier three-patch version of this
+series, where "these three" meant axg-pdm, axg-spdifin and axg-spdifout.
+Its referent only ever lived in the cover letter, which git am drops, so
+the commit message never stood on its own -- and the count is wrong now
+as well, since the series became four patches when aiu was added.
 
-Commit 5eaa49741119 ("accel/ivpu: Prevent recovery invocation during
-probe and resume") stopped IPC failures during probe from triggering
-recovery, but the IRQ handlers still can.
+It should read:
 
-Call ivpu_pm_disable_recovery() at the start of the err_ipc_fini path,
-as ivpu_dev_fini() already does, so the work is flushed and cannot be
-queued again before the device is torn down.
+  Several stanzas in the same file already select REGMAP_MMIO,
+  SND_MESON_G12A_TOACODEC among them.  SND_MESON_AXG_PDM does not.
 
-Reproduced on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware
-20260219) by kexec'ing with the NPU runtime-suspended: probe in the new
-kernel gets an ATS_ERR Buttress IRQ during firmware boot. With this
-change probe still fails with -ECANCELED, there is no oops, and an FLR
-followed by a rebind brings the NPU back.
+That is accurate at v7.3: SND_MESON_AXG_FIFO,
+SND_MESON_AXG_TDM_FORMATTER, SND_MESON_G12A_TOACODEC,
+SND_MESON_G12A_TOHDMITX and SND_SOC_MESON_T9015 all select REGMAP_MMIO
+already.
 
-Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daksh Sahni <swizzguy76@gmail.com>
----
+Only the commit message is affected; the one-line Kconfig change and the
+other three patches are unchanged.  I would rather not respin for this
+alone, so I will fix it in v2 -- please let me know if there is anything
+else to roll in.
 
-Notes:
-    Tested on v7.4-rc1 (d48723711bae).
-    
-    Two things this patch does not address:
-    
-    The trigger is kexec with the NPU runtime-suspended in the old kernel.
-    The driver has no .shutdown hook, so the new kernel's probe sees stale
-    NPU state and gets ATS_ERR. A cold boot doesn't hit it. Whether that
-    wants a shutdown hook or a reset at probe seems like your call.
-    
-    In one of four runs that hit ATS_ERR, probe succeeded while
-    recovery_work was running concurrently. Probe returned 0, but the
-    autosuspend request from ivpu_pm_enable() landed while recovery had
-    runtime PM disabled, so the NPU stayed active until first use. Not
-    allowing IRQ-triggered recovery until ivpu_pm_enable() would cover both
-    cases; I can send a v2 that does that if you prefer.
-
- drivers/accel/ivpu/ivpu_drv.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 247ed6b2ff62..4fcccf78ec5d 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -852,6 +852,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
- 	return 0;
- 
- err_ipc_fini:
-+	ivpu_pm_disable_recovery(vdev);
- 	ivpu_ipc_fini(vdev);
- err_fw_fini:
- 	ivpu_fw_fini(vdev);
--- 
-2.53.0
-
+Thanks,
+Jude
