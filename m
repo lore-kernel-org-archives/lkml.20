@@ -1,54 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794033855;
-	b=YnKfxx/C4bXHcWp8BxDDgUloWV/Vc0UIAgQbe1loP8fMPVK7OfH/M8qKRWaTn2JPx6TM
-	 TL01lHKUmyEzJrmtGi9wpsw6Rzmkcac8sefuwQg92xHmpne4RmtlveSUrLoQ3Omcso60L
-	 +MEAPh8ia8W5nPpWjuGOaSWQFbZeNe3I/m2qR8Vl7XlES4CbX8OHn0UwgJgrY/ShTlMd/
-	 58TTdXBXTQvDKB5oWW3L+8rbrID2m/koMMMKQkffMcxaVROJSGZtRI/ozKvsk1HCnXnxc
-	 /IpihdMe2cGhEHJxOpSrjl1d11+OYd0DIiHNzDdqefhh32RSVKFElDOXyYRYO/pp01Q==
+	t=1794033909;
+	b=gpcyWLeh4I2mKBkFfRoxzKO8EeqWc4xN/U6NhBla6Y66yRoyKvaMbYsnMrZeKtWLKLEd
+	 LZNcDqNRvIFmyWnm5QZJDhp2HzqI9zLrY01+1WitD8q8EregPLM5TSPi3wk/1nMsPEw0d
+	 6su7vgpAbzNDP0K43Ap2pfKdy5TVCjwOyjWHrUptVUxDybetW9QRpwleEIG0Ht8ZiObpF
+	 zT5UNpwkkCx+RO+uPs/s1spFCbtDOdhXB/h2qGYkP4x9iISRZlsymNBHwd/ryo4uauQVV
+	 X9UT9dWDiG31AX9IuP/g+o9XbhwomBfzJOMDvHRTqYmUCNtQZeGeTKTGmfb0L3qvxLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794033855;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=xliLypkGqol0qEpEVa+hTfnI8y9iuSR0fJnpOdphoZo=;
-	b=kPyOGqlkvfu6VlLWyNzbNnLNPuWrHs9alLqgG7dkq674xfOy/+RPUYGtFFmaSlg4dltI
-	 RBCmrQs5GitcBbRRf6eTgj3PHgLPCkgF0jd4fg516EIcy8Jq2Cv3nyjzA7ZOucKyjWVIW
-	 JDADYlZFgae3f/d3eUzliBqN0GUc9S8Cj+TgB9xEiGVA8N1pVASLxQLd6KO/uG+Kg+u4o
-	 jKwgP1pf0QOTscrnTnehJMZLcjaEtH/0Mw6Rn2ocEncagXniC+gClQNT/GCKULX7UgZei
-	 9UidLxyvnNhJx/lnRYZb+6WT7IQQnJXaDetoyfXz2K+/cx6k8YekCWxYfY2lOmJk2Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794033909;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=cqqyCthw7hnNA2GM5wIPdFu2kROxCR9BdN9ixgyq1o4=;
+	b=TBPMoxfp0pfBCqGGAl6UQTei4dqnqXkigHX2yrSVev7tOdiEinulTOufbJs+cMePyTGW
+	 S6yV/qMOLrmmcKVR9bghRd5i2BgpO6aSuf4iU6xnFkAbXj0O3+H1/P0rg2MdYP6td4nOA
+	 7QnF80tlhZP4Y2prNyu46NHt3QF5NJ1TzNSouZ4tgqCZiWr40DUhlqwirQRwZJ5U6WG5r
+	 H0PK/aU4hwwx0rzTHLT+JOzpCEAeYKIsIkmrQ6vq+w+gJour5tKN4Oaz32kSSXD0FzJY4
+	 HYc3JBuYNGu2agi2JPQLDCLpS9ewsLzWw/slPaVfX1BA/QtBkTLlUw0L8NwAoxW2m1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pQ0SCBKK;
-	arc=none smtp.remote-ip=91.218.175.71
-Received: from mta0.migadu.com (out-71.mta0.migadu.com [91.218.175.71])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=stoXERb1;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FF5606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 06:44:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47FF5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD42606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 06:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD42606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pQ0SCBKK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kGVxC57LJnQRDgXx8D0xd95zTBOZXo4vhbKbkir4GP4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794033851; v=1; x=1794638651;
- b=pQ0SCBKKF7yDkPQypqSgjzhBa3VCul4hGS28NKFaCvJ7kGf+XlBoRRMmfzDnIhJDevuOCQ2d
- V/NWfIQMo4t+1jZ4VpyCbdpo3NhceM+djnPUO90G/DCzOGyrM1kpKy+850qChY2uucOR26e60Ho
- oaasVK1+mOQNviKkfI+YTKnY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id d37edd97d7e39205;
-	Sat, 07 Nov 2026 06:44:10 +0000
-X-Mizu-Trace-ID: d37edd97d7e39205
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=stoXERb1
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so10865355e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 22:45:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794033907; x=1794638707; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cqqyCthw7hnNA2GM5wIPdFu2kROxCR9BdN9ixgyq1o4=;
+        b=stoXERb1Ipzneh3Zt82lYuEC3zww6a80LG6sWCvedRJ5zkjeCFNo+Coq+eu+3lXuY7
+         RRHKnHT1b5zLx70sfvwbZV3Zh1D5uQA/EV2Bfc15nvbojQ9iGL8QQS4Ob9MF19tevS/o
+         DJEZa3RUXNjR/AiwhjiLe2CTtyWgCdtL0JyGdegfBJL45Kw3FW22Mwrs2X0u+Mfm8lvQ
+         +ik11qxsn0qxu+dUYZyeOVKaJslYQKSGfckmEhzqa2NXEHIx7rJYsC1Qe3XOPj2jRi/R
+         L/4wc6fmIo2WGbLyHj2vvW56TsLCwb6GfhGBhJ23uYpaYaDkCmygc/7shF9d43l0R307
+         HgJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794033907; x=1794638707;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cqqyCthw7hnNA2GM5wIPdFu2kROxCR9BdN9ixgyq1o4=;
+        b=vgQEv7kzlO/az456es8zpVoT0fMfBWBoKO728/1tBgwq/rLWdP9ohtns6qrsAhyAOq
+         SLzTwarzrct+a8MJjfpw66/URDGd+IU6fpy4s9pRrqOt8B/vPkXks3kwq5621unJ/ULP
+         yoiArceLz+14INX2gL/GHOL1dru58u4J2pTpIwzT3mqY8hYXeA2fuaGBsPl0VkHb48O6
+         pi9+KZX9AxpcOacWX9SU9HEWsC3IgCi3ltRKPuRRI4SzF9NP3x1GsGFZ4WL+uBPY+DDt
+         3YimVad/WvxTezlY8j12jlQ6HyAK1hzX7J4bog0OYtWyeHjbnfmuTw1PaSAiPkHSIFkT
+         W68w==
+X-Forwarded-Encrypted: i=1; AKwUvBwI/p8LNtvefTLj00biRSjToKoxN3KBgQ5vi8NAWhXfkKzHN0gck4JTK5KI2cKyoYJdSMLQzPuXxYT2GLY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Wj9WyjHyirMWYi4v7CGE9tZ1yxgcnKfUa0l0xzWsMQOQgWqad
+	e5MI20t+UMb7f1Tu1TEUtL9y1CJoYEOtzVhf6F+cNPiAk2RF5SgnY1mAiHG+77/I
+X-Gm-Gg: AYBFou0+lk9haGUlPRGG43MFLuZz1l9yD3ZHla8+Na1MZ2/D29yF0VA6RJb8xicMnOO
+	8XERE4y7eWHN/Fms/GUfFUpe/IJH4bN0r48PqHUUCaOJg/jaQdXGI2NHI3n6FO7+OAC2zwtnzV9
+	3rccQbO4kO/daAxYWUG5CdeJO/13WS/tLLXUkkDAlL9k7I3ld+iT7GLpK+k35XdovsyppHwZK34
+	NqWdvjKhyO1N550YD0wcY2h5glL4z9DD38jesyVbUK/vgavFOu/5DnXwpydnIr8AgRwkRnG/shq
+	hkUVbp3ojBV14e5r94yhdmFHhq+q+l9yA36oLf98ljoWUPZlKcKDmXAj4gA9C6wpl0YeMQciqUe
+	HNllWMbLyfMqZ2MeJrURGmzoNAjpaJpGtnvRr4Q/Lw6ezaFSB2yFervxS1KbYTrnWxtx0eoMHoV
+	KLjy4Ska8KVT252YbExphnKkd0inGxFrEzwG4rmLw7Mcj457RmVXJ7J7kKNBgss88O51Sg8cvsZ
+	Lg/1c/mjR/OmAlJTdosYJr3GsLTjTFSYb3lt57VdjBfwzGT6ZmYb02U0CEvKnEPr6TfdADOtUhi
+	ADIz2LY3pYk6adNer2U8h3vjfHOf0VODPVmP3pPFljqCBMYqWwapUfgmAezi4uX/l/9ZIeaNmJJ
+	rrfnKdg==
+X-Received: by 2002:a05:600c:4f13:b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4b6de1c645dmr86817705e9.20.1794033906551;
+        Fri, 06 Nov 2026 22:45:06 -0800 (PST)
+Received: from localhost (brnt-04-b2-v4wan-170138-cust2432.vm7.cable.virginm.net. [94.175.9.129])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d3d6085asm11009570f8f.3.2026.11.06.22.45.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 22:45:05 -0800 (PST)
+Date: Sat, 7 Nov 2026 06:45:04 +0000
+From: Stafford Horne <shorne@gmail.com>
+To: Sahil Siddiq <sahilcdq0@gmail.com>
+Cc: jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
+	naveen@kernel.org, davem@davemloft.net, mhiramat@kernel.org,
+	pjw@kernel.org, wangruikang@iscas.ac.cn, namcao@linutronix.de,
+	kees@kernel.org, linux-openrisc@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] openrisc: Add utilities and clean up simulation
+ of instructions
+Message-ID: <au7I8FNoMcsoh54X@antec>
+References: <20260930202744.50489-1-sahilcdq0@gmail.com>
+ <20261026201240.107462-2-sahilcdq0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,138 +101,410 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 06/20] hugetlb_vmemmap: Allow architectures to
- dynamically disallow HVO
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261003002123.505555-7-jthoughton@google.com>
-Date: Sat, 7 Nov 2026 14:43:48 +0800
-Cc: Will Deacon <will@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nikos Nikoleris <nikos.nikoleris@arm.com>,
- Linu Cherian <linu.cherian@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- David Hildenbrand <david@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Nanyong Sun <sunnanyong@huawei.com>,
- Yu Zhao <yuzhao@google.com>,
- Frank van der Linden <fvdl@google.com>,
- David Rientjes <rientjes@google.com>,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <8814E4B3-5A5A-4874-863A-71FC6E4F3B34@linux.dev>
-References: <20261003002123.505555-1-jthoughton@google.com>
- <20261003002123.505555-7-jthoughton@google.com>
-To: James Houghton <jthoughton@google.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026201240.107462-2-sahilcdq0@gmail.com>
 
+Hi Sahil,
 
+Thanks for your patches, sorry its taken me time to get around to them, my year
+since summer has been quite hectic.
 
-> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> =
-wrote:
->=20
-> For arm64, only some platforms support HVO. Add an arch hook to =
-prevent
-> HVO from taking affect if the architecture lacks support.
->=20
-> It may be the case that arch_supports_hugetlb_vmemmap_optimization()
-> returns false at first but eventually returns true. This is the case =
-on
-> arm64. When this happens, bootmem hugepages won't be immediately =
-HVOed,
-> but they will be optimized in prep_and_add_bootmem_folios().
->=20
-> Signed-off-by: James Houghton <jthoughton@google.com>
+I will do the review in chunks so give me some time.
+
+On Tue, Oct 27, 2026 at 01:42:37AM +0530, Sahil Siddiq wrote:
+> Introduce new instruction-related utilities and macros for OpenRISC.
+> This is in preparation for patches that add tracing support such as
+> KProbes and Kretprobes.
+> 
+> Currently, PC is first updated and then saved in the link register
+> (r9) when simulating l.jal and l.jalr. This can result in a corrupted
+> page table (bad page map in process). Fix this by saving PC in r9
+> before updating it.
+> 
+> Move branch simulation to its own function, simulate_branch(), so it
+> can be reused. It's already being used by do_illegal_instruction().
+> It'll also be used by KProbes in the following commit.
+> 
+> Introduce simulate_pc() to simulate l.adrp. KProbes will require this
+> instruction to be simulated as well. simulate_branch() and simulate_pc()
+> need to be handled differently since branch instructions change the
+> value of PC while l.adrp depends on PC but doesn't change its value.
+> 
+> Use a static key to check if delay slots are disabled. Delay slots are
+> a part of the CPU's configuration and won't change at runtime. Since
+> they are often enabled in an OpenRISC CPU, using a static key will
+> reduce the overhead of checking this flag in the default case while
+> processing KProbes inserted at branch instructions and simulating them.
+> 
+> Link: https://raw.githubusercontent.com/openrisc/doc/master/openrisc-arch-1.4-rev0.pdf
+> Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
 > ---
-> include/asm-generic/hugetlb.h |  7 +++++++
-> mm/hugetlb_vmemmap.c          | 12 ++++++++++++
-> 2 files changed, 19 insertions(+)
->=20
-> diff --git a/include/asm-generic/hugetlb.h =
-b/include/asm-generic/hugetlb.h
-> index 635c41cc3479..8d24075d53d4 100644
-> --- a/include/asm-generic/hugetlb.h
-> +++ b/include/asm-generic/hugetlb.h
-> @@ -128,4 +128,11 @@ static inline bool =
-gigantic_page_runtime_supported(void)
-> }
-> #endif /* __HAVE_ARCH_GIGANTIC_PAGE_RUNTIME_SUPPORTED */
->=20
-> +#ifndef __HAVE_ARCH_HVO_SUPPORTED
-> +static inline bool arch_hugetlb_vmemmap_optimization_supported(void)
+> Changes v2 -> v3:
+> - arch/openrisc/kernel/insn.c:
+>   - (simulate_pc):
+>     Handle case when rd=0
+>     Add function to KProbe blacklist
+>   - (simulate_branch): Likewise
+> - arch/openrisc/kernel/setup.c:
+>   - (setup_arch): Set static key before calling paging_init()
+> - arch/openrisc/kernel/traps.c:
+>   - (do_trap): Move handling of Kprobes in commit #2
+> 
+> Changes v1 -> v2:
+> - arch/openrisc/include/asm/cpuinfo.h: Introduce "delay_slot" static key
+> - arch/openrisc/include/asm/insn-def.h:
+>    - Use macros instead of union
+>    - Use better names for macros
+>    - Use genmask() for masks
+> - arch/openrisc/kernel/insn.c:
+>    - Use macros instead of magic values
+>    - (simulate_pc): Update PC
+>    - (simulate_branch): Handle rb=r9 in l.jalr simulation
+> - arch/openrisc/kernel/setup.c: Use "delay slot" static key
+> - arch/openrisc/kernel/traps.c: Use macros instead of magic values
+> 
+>  arch/openrisc/include/asm/cpuinfo.h  |  3 +
+>  arch/openrisc/include/asm/insn-def.h | 58 ++++++++++++++++--
+>  arch/openrisc/include/asm/spr_defs.h |  1 +
+>  arch/openrisc/kernel/Makefile        |  2 +-
+>  arch/openrisc/kernel/insn.c          | 88 ++++++++++++++++++++++++++++
+>  arch/openrisc/kernel/setup.c         |  4 ++
+>  arch/openrisc/kernel/traps.c         | 53 +++--------------
+>  7 files changed, 159 insertions(+), 50 deletions(-)
+>  create mode 100644 arch/openrisc/kernel/insn.c
+> 
+> diff --git a/arch/openrisc/include/asm/cpuinfo.h b/arch/openrisc/include/asm/cpuinfo.h
+> index 3cfc4cf0b019..d6bb8744eba0 100644
+> --- a/arch/openrisc/include/asm/cpuinfo.h
+> +++ b/arch/openrisc/include/asm/cpuinfo.h
+> @@ -15,6 +15,7 @@
+>  #ifndef __ASM_OPENRISC_CPUINFO_H
+>  #define __ASM_OPENRISC_CPUINFO_H
+>  
+> +#include <linux/jump_label.h>
+>  #include <asm/spr.h>
+>  #include <asm/spr_defs.h>
+>  
+> @@ -34,6 +35,8 @@ struct cpuinfo_or1k {
+>  	u16 coreid;
+>  };
+>  
+> +DECLARE_STATIC_KEY_TRUE(delay_slot);
+> +
+>  extern struct cpuinfo_or1k cpuinfo_or1k[NR_CPUS];
+>  extern void setup_cpuinfo(void);
+>  
+> diff --git a/arch/openrisc/include/asm/insn-def.h b/arch/openrisc/include/asm/insn-def.h
+> index 1e0c028a5b95..ccbda049171f 100644
+> --- a/arch/openrisc/include/asm/insn-def.h
+> +++ b/arch/openrisc/include/asm/insn-def.h
+> @@ -3,13 +3,63 @@
+>   * Copyright (C) 2025 Chen Miao
+>   */
+>  
+> +#include <asm/spr.h>
+> +#include <asm/spr_defs.h>
+> +#include <linux/bits.h>
+> +
+>  #ifndef __ASM_OPENRISC_INSN_DEF_H
+>  #define __ASM_OPENRISC_INSN_DEF_H
+>  
+> -/* or1k instructions are always 32 bits. */
+> -#define	OPENRISC_INSN_SIZE		4
+> -
+>  /* or1k nop instruction code */
+> -#define OPENRISC_INSN_NOP     0x15000000U
+> +#define OPENRISC_INSN_CSYNC	0x23000000U
+> +#define OPENRISC_INSN_MACRC	0x18010000U
+> +#define OPENRISC_MASK_MACRC	0xfc01ffffU
+> +#define OPENRISC_INSN_MSYNC	0x22000000U
+> +#define OPENRISC_INSN_NOP	0x15000000U
+> +#define OPENRISC_INSN_PSYNC	0x22800000U
+> +#define OPENRISC_INSN_SYS	0x20000000U
+> +#define OPENRISC_INSN_TRAP	0x21000000U
+> +
+> +#define OPENRISC_OPCODE_ADRP	0x02
+> +#define OPENRISC_OPCODE_BF		0x04
+> +#define OPENRISC_OPCODE_BNF		0x03
+> +#define OPENRISC_OPCODE_J		0x00
+> +#define OPENRISC_OPCODE_JAL		0x01
+> +#define OPENRISC_OPCODE_JALR	0x12
+> +#define OPENRISC_OPCODE_JR		0x11
+> +#define OPENRISC_OPCODE_LWA		0x1b
+> +#define OPENRISC_OPCODE_MFSPR	0x2d
+> +#define OPENRISC_OPCODE_MTSPR	0x30
+> +#define OPENRISC_OPCODE_RFE		0x09
+> +#define OPENRISC_OPCODE_SWA		0x33
+> +
+> +#define OPENRISC_ADRP_IMM_MASK		GENMASK(18, 0)
+> +#define OPENRISC_ADRP_OFFSET_MASK	GENMASK(31, 13)
+> +#define OPENRISC_ADRP_IMM_SHIFT		13
+> +#define OPENRISC_ADRP_REG_MASK		GENMASK(25, 0)
+> +#define OPENRISC_ADRP_REG_SHIFT		21
+> +#define OPENRISC_JUMP_IMM_MASK		GENMASK(25, 0)
+> +#define OPENRISC_JUMP_IMM_SHIFT		2
+> +#define OPENRISC_JUMP_REG_MASK		GENMASK(15, 11)
+> +#define OPENRISC_JUMP_REG_SHIFT		11
+> +
+> +#define OPENRISC_MASK_SYS	GENMASK(31, 16)
+> +#define OPENRISC_MASK_TRAP	GENMASK(31, 16)
+> +#define OPENRISC_MASK_BCODE	GENMASK(15, 0)
+> +
+> +#define OPENRISC_OPCODE_MASK	0x3f
+> +#define OPENRISC_OPCODE_SHIFT	0x1a
+> +
+> +struct pt_regs;
+> +
+> +#define OPENRISC_INSN_SIZE	4
+> +
+> +static __always_inline unsigned char get_6_bit_opcode(unsigned long insn)
+> +{
+> +	return (insn >> OPENRISC_OPCODE_SHIFT) & OPENRISC_OPCODE_MASK;
+> +}
+> +
+> +void simulate_pc(struct pt_regs *regs, unsigned long jmp);
+> +void simulate_branch(struct pt_regs *regs, unsigned long jmp);
+>  
+>  #endif /* __ASM_OPENRISC_INSN_DEF_H */
+> diff --git a/arch/openrisc/include/asm/spr_defs.h b/arch/openrisc/include/asm/spr_defs.h
+> index f0b6b492e9f4..5d13a9b96263 100644
+> --- a/arch/openrisc/include/asm/spr_defs.h
+> +++ b/arch/openrisc/include/asm/spr_defs.h
+> @@ -179,6 +179,7 @@
+>  #define SPR_CPUCFGR_OF32S  0x00000080  /* ORFPX32 supported */
+>  #define SPR_CPUCFGR_OF64S  0x00000100  /* ORFPX64 supported */
+>  #define SPR_CPUCFGR_OV64S  0x00000200  /* ORVDX64 supported */
+> +#define SPR_CPUCFGR_ND     0x00000400  /* No delay slot */
+>  #define SPR_CPUCFGR_RES	   0xfffffc00  /* Reserved */
+>  
+>  /*
+> diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
+> index 19e0eb94f2eb..150779fbf010 100644
+> --- a/arch/openrisc/kernel/Makefile
+> +++ b/arch/openrisc/kernel/Makefile
+> @@ -5,7 +5,7 @@
+>  
+>  always-$(KBUILD_BUILTIN)	:= vmlinux.lds
+>  
+> -obj-y	:= head.o setup.o or32_ksyms.o process.o dma.o \
+> +obj-y	:= head.o insn.o setup.o or32_ksyms.o process.o dma.o \
+>  	   traps.o time.o irq.o entry.o ptrace.o signal.o \
+>  	   sys_call_table.o unwinder.o cacheinfo.o
+>  
+> diff --git a/arch/openrisc/kernel/insn.c b/arch/openrisc/kernel/insn.c
+> new file mode 100644
+> index 000000000000..619d8080d822
+> --- /dev/null
+> +++ b/arch/openrisc/kernel/insn.c
+> @@ -0,0 +1,88 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * OpenRISC instruction utils
+> + *
+> + * Linux architectural port borrowing liberally from similar works of
+> + * others.  All original copyrights apply as per the original source
+> + * declaration.
+> + *
+> + * OpenRISC implementation:
+> + * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
+> + */
+> +
+> +#include <linux/kprobes.h>
+> +#include <linux/ptrace.h>
+> +#include <asm/insn-def.h>
+> +#include <asm/cpuinfo.h>
+> +
+> +DEFINE_STATIC_KEY_TRUE(delay_slot);
+> +
+> +void simulate_pc(struct pt_regs *regs, unsigned long pc_insn)
 
-I suggest using arch_support_vmemmap_remap (see [1]), which can also be
-applied to FS-DAX.
-
-[1] =
-https://lore.kernel.org/all/20260903122128.12264-2-songmuchun@bytedance.co=
-m/
+Since this simulates l.adrp, maybe the name makes more sense to be called
+simulate_adrp?
 
 > +{
-> + 	return IS_ENABLED(CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP);
-> +}
-> +#endif /* __HAVE_ARCH_HVO_SUPPORTED */
+> +	int page_offset;
+> +	unsigned int rd, op;
 > +
-> #endif /* _ASM_GENERIC_HUGETLB_H */
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index 3fdb1e4ce1a1..8596a462fee6 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -16,6 +16,7 @@
-> #include <linux/pagewalk.h>
-> #include <linux/pgalloc.h>
-> #include <linux/vmemmap-optimization.h>
-> +#include <linux/hugetlb.h>
->=20
-> #include <asm/tlbflush.h>
-> #include "hugetlb_vmemmap.h"
-> @@ -529,6 +530,9 @@ static bool vmemmap_should_optimize_folio(const =
-struct hstate *h, struct folio *
-> 	if (!READ_ONCE(vmemmap_optimize_enabled))
-> 		return false;
->=20
-> +	if (!arch_hugetlb_vmemmap_optimization_supported())
-> +		return false;
+> +	page_offset = sign_extend32(
+> +		(pc_insn & OPENRISC_ADRP_IMM_MASK) << OPENRISC_ADRP_IMM_SHIFT, 31);
+> +	rd = (pc_insn & OPENRISC_ADRP_REG_MASK) >> OPENRISC_ADRP_REG_SHIFT;
+> +	op = get_6_bit_opcode(pc_insn);
 > +
-> 	if (!hugetlb_vmemmap_optimizable(h))
-> 		return false;
->=20
-> @@ -731,6 +735,14 @@ void __init =
-hugetlb_vmemmap_optimize_bootmem_page(unsigned long pfn, unsigned in
-> 	if (!READ_ONCE(vmemmap_optimize_enabled))
-> 		return;
->=20
-> + 	/*
-> +	 * Architectures may return false here but true by the time
-> +	 * hugetlb_init() is called. In this case, although the folios =
-will
-> +	 * not be pre-HVOed, they will be optimized in hugetlb_init().
-> +	 */
-> +	if (!arch_hugetlb_vmemmap_optimization_supported())
+> +	switch (op) {
+> +	case OPENRISC_OPCODE_ADRP:
+> +		if (rd != 0)
+> +			regs->gpr[rd] = page_offset + (regs->pc & OPENRISC_ADRP_OFFSET_MASK);
+> +		regs->pc += OPENRISC_INSN_SIZE;
 > +		return;
-
-I plan to add a new helper, section_vmemmap_optimization_disable() [2],
-intended to disable vmemmap optimization in the architectural vmemmap
-population path. Since arm64 does not support section-based vmemmap
-optimization, section_vmemmap_optimization_disable() should be used =
-there.
-
-[2] =
-https://lore.kernel.org/all/20261107043122.25650-3-songmuchun@bytedance.co=
-m/
-
-Thanks,
-Muchun
-
+> +	default:
+> +		break;
+> +	}
+> +}
+> +NOKPROBE_SYMBOL(simulate_pc)
 > +
-> 	section_set_compound_order_range(pfn, 1UL << order, order);
-> }
->=20
-> --=20
-> 2.56.0.rc1.315.gc6ed9934b7-goog
->=20
+> +void simulate_branch(struct pt_regs *regs, unsigned long jmp_insn)
+> +{
+> +	int displacement;
+> +	unsigned int rb, op, link_offset, temp;
+> +
+> +	displacement = sign_extend32(
+> +		((jmp_insn) & OPENRISC_JUMP_IMM_MASK) << OPENRISC_JUMP_IMM_SHIFT, 27);
+> +	rb = (jmp_insn & OPENRISC_JUMP_REG_MASK) >> OPENRISC_JUMP_REG_SHIFT;
+> +	op = get_6_bit_opcode(jmp_insn);
+> +	link_offset = OPENRISC_INSN_SIZE;
+> +
+> +	if (static_branch_likely(&delay_slot))
+> +		link_offset <<= 1;
 
+Why do shift left here instead of += OPENRISC_INSN_SIZE? Since logically we are
+adding one more insn for the delay slot, not doubling.
+
+However, It may be more efficient to avoid using the alu and write as:
+
+       if (static_branch_likely(&delay_slot))
+               link_offset = 2 * OPENRISC_INSN_SIZE;
+       else
+               link_offset = OPENRISC_INSN_SIZE;
+
+what do you think?
+
+> +	switch (op) {
+> +	case OPENRISC_OPCODE_J: /* l.j */
+
+I think these comments (/* l.j */) are no longer needed sinc you have
+the named macros.
+
+> +		regs->pc += displacement;
+> +		return;
+> +	case OPENRISC_OPCODE_JAL: /* l.jal */
+> +		regs->gpr[9] = regs->pc + link_offset;
+> +		regs->pc += displacement;
+> +		return;
+> +	case OPENRISC_OPCODE_BNF: /* l.bnf */
+> +		if (regs->sr & SPR_SR_F)
+> +			regs->pc += link_offset;
+> +		else
+> +			regs->pc += displacement;
+> +		return;
+> +	case OPENRISC_OPCODE_BF: /* l.bf */
+> +		if (regs->sr & SPR_SR_F)
+> +			regs->pc += displacement;
+> +		else
+> +			regs->pc += link_offset;
+> +		return;
+> +	case OPENRISC_OPCODE_JR: /* l.jr */
+> +		regs->pc = rb == 0 ? 0 : regs->gpr[rb];
+> +		return;
+> +	case OPENRISC_OPCODE_JALR: /* l.jalr */
+> +		temp = regs->pc + link_offset;
+> +		regs->pc = rb == 0 ? 0 : regs->gpr[rb];
+> +		regs->gpr[9] = temp;
+> +		return;
+> +	default:
+> +		break;
+> +	}
+> +}
+> +NOKPROBE_SYMBOL(simulate_branch)
+> diff --git a/arch/openrisc/kernel/setup.c b/arch/openrisc/kernel/setup.c
+> index 000a9cc10e6f..9c231b320d45 100644
+> --- a/arch/openrisc/kernel/setup.c
+> +++ b/arch/openrisc/kernel/setup.c
+> @@ -252,6 +252,10 @@ void __init setup_arch(char **cmdline_p)
+>  	/* perform jump_table sorting before paging_init locks down read only memory */
+>  	jump_label_init();
+>  
+> +	/* determine if the processor supports delay slots */
+> +	if (mfspr(SPR_CPUCFGR) & SPR_CPUCFGR_ND)
+> +		static_branch_disable(&delay_slot);
+> +
+>  	/* paging_init() sets up the MMU and marks all pages as reserved */
+>  	paging_init();
+>  
+> diff --git a/arch/openrisc/kernel/traps.c b/arch/openrisc/kernel/traps.c
+> index c195be9cc9fc..a59abbca3555 100644
+> --- a/arch/openrisc/kernel/traps.c
+> +++ b/arch/openrisc/kernel/traps.c
+> @@ -32,6 +32,7 @@
+>  
+>  #include <asm/bug.h>
+>  #include <asm/fpu.h>
+> +#include <asm/insn-def.h>
+>  #include <asm/io.h>
+>  #include <asm/processor.h>
+>  #include <asm/unwinder.h>
+> @@ -252,12 +253,12 @@ static inline int in_delay_slot(struct pt_regs *regs)
+>  	insn = *((unsigned int *)regs->pc);
+>  	op = insn >> 26;
+>  	switch (op) {
+> -	case 0x00: /* l.j */
+> -	case 0x01: /* l.jal */
+> -	case 0x03: /* l.bnf */
+> -	case 0x04: /* l.bf */
+> -	case 0x11: /* l.jr */
+> -	case 0x12: /* l.jalr */
+> +	case OPENRISC_OPCODE_J: /* l.j */
+> +	case OPENRISC_OPCODE_JAL: /* l.jal */
+> +	case OPENRISC_OPCODE_BNF: /* l.bnf */
+> +	case OPENRISC_OPCODE_BF: /* l.bf */
+> +	case OPENRISC_OPCODE_JR: /* l.jr */
+> +	case OPENRISC_OPCODE_JALR: /* l.jalr */
+
+Nice cleanup, again I think comments can be removed now.
+
+>  		return 1;
+>  	default:
+>  		return 0;
+> @@ -269,47 +270,9 @@ static inline int in_delay_slot(struct pt_regs *regs)
+>  
+>  static inline void adjust_pc(struct pt_regs *regs, unsigned long address)
+>  {
+> -	int displacement;
+> -	unsigned int rb, op, jmp;
+> -
+>  	if (unlikely(in_delay_slot(regs))) {
+>  		/* In delay slot, instruction at pc is a branch, simulate it */
+> -		jmp = *((unsigned int *)regs->pc);
+> -
+> -		displacement = sign_extend32(((jmp) & 0x3ffffff) << 2, 27);
+> -		rb = (jmp & 0x0000ffff) >> 11;
+> -		op = jmp >> 26;
+> -
+> -		switch (op) {
+> -		case 0x00: /* l.j */
+> -			regs->pc += displacement;
+> -			return;
+> -		case 0x01: /* l.jal */
+> -			regs->pc += displacement;
+> -			regs->gpr[9] = regs->pc + 8;
+> -			return;
+> -		case 0x03: /* l.bnf */
+> -			if (regs->sr & SPR_SR_F)
+> -				regs->pc += 8;
+> -			else
+> -				regs->pc += displacement;
+> -			return;
+> -		case 0x04: /* l.bf */
+> -			if (regs->sr & SPR_SR_F)
+> -				regs->pc += displacement;
+> -			else
+> -				regs->pc += 8;
+> -			return;
+> -		case 0x11: /* l.jr */
+> -			regs->pc = regs->gpr[rb];
+> -			return;
+> -		case 0x12: /* l.jalr */
+> -			regs->pc = regs->gpr[rb];
+> -			regs->gpr[9] = regs->pc + 8;
+> -			return;
+> -		default:
+> -			break;
+> -		}
+> +		simulate_branch(regs, *((unsigned int *)regs->pc));
+>  	} else {
+>  		regs->pc += 4;
+>  	}
+> -- 
+> 2.55.0
+> 
