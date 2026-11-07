@@ -1,77 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047416;
-	b=kkzuqGf13kZypLjGJHRnHnbJvGz+VuOOjzBAcbRdY76+avfrljwOsG4Nzp0RLmlC/zTo
-	 WZQsciUswuKn1W7k5kkDqBEGiM2N5B8C9v7wPnKKSuxY4tru9haT9vRj91LzvwRQ0QJSf
-	 h5ZEPlWqGvf/Tr1Naa92MyQyKg+aRPuDKmN08ADrAGjuyaszdW6ttaGrQH/DvOZXilB4O
-	 xFbIF12FVkNcDXE6UPRcknfrOuAIQhVhW1EflVPiOmWKKFH3lHub1QyTODXIxThNlaWu6
-	 +ILoYwV2m0VZ0vAnsiaDgzqyuU0pCPCwqZA4ncL1u8BVs/ZvjwKo02OP3E116zWzLeQ==
+	t=1794047463;
+	b=4aL//gs6NkrduBgYBDwZWLFHH1jq2b9ta9FdIt6s4MQ07RmAZVDPO2M2mbfnEwTamLJH
+	 5I8wK5H/2U3M9QCR8PVioRNjnwXVrMOlLUYACjNh0IyrZyGMMaOY7jm973ZeynxJmyMvB
+	 Cm4qKgmpg8nFEbcTRLzQAGQTa4T/Fl/HxciVLRlXhNvGYUjXMalhwaCrk14K7XvydA2ua
+	 XgUDHRmW0ScXgQPA3ON1LKbGk6ZdEgrJFoqobjkaYrisC0l98EJMcRckxmHKOaUAyv2pe
+	 v+P3W18MjX/jJNmjwDjsND/PLXHmC86XxWUuJXgxC3hYXoOD4DJdLcJrrDkba+W/BgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047416;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:In-Reply-To:
-	 References:Date:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=TcuxYv+XuCgbw4KiXs1IpnIHCIqcFcgGjUNbAL5BTJo=;
-	b=JjmMBTMs40BhTFgz7IDPrgNVtVFA9/+DjnW2z/GZ+n+W3G0Rrm27eXXW44aX7/eeGSXz
-	 XWhViUXUOt5GeSfOCQmoSg8j01XWk3fNoiphuzYY8ns2a2czXTqPVNsZzqwGww7LSDc30
-	 jKCm/N7DO8SDqqNEb8IvMmS+OmMdUsjFZYdrR77ZsBpYb4QJ4MQQUFyUasgB4zHbPaXKk
-	 zI6CFyQcX9Fw0N9g2Yv9gBSIb0VSlEIWA61r6sbwWRZ4CZln3FfJ/sbZI0WRofBiahUL3
-	 59//B+sdpA5qKKT4JybmRQTuBx9IY81GPiJD7Bo9E+ySWt36cfFvOVfv5xp587th+Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047463;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=qnfaXKSjzVJK7X+JqrAUXuAfLa2GhSU1USswboGhOL0=;
+	b=kG5ajYpHqet8ZXFOLuCcQYVcFuPKzLqK+2bZW73nLynh9arq9bpyaLCiKI81QXLrreAM
+	 XvlD2cL2u+Ghf0HJjzNIChZhjzdD4g6tYMcQI67AejBSwF31f9IR5tov5jPdDWUkUmwkU
+	 SFYi7NSa1qO2P/eFNHaYUue2P8dDa5MKhwvSrXY1bO1S7uR05BeJsyCzG1SwP5UI97jQK
+	 zm3x7I9lMRvlU6G55oPbz4M168qKWykkUbUoFwvhMuWKKIwgYUJ2JUXLjeFKxsXAiEAf3
+	 dUzyY3RtZEkYaRONTy+dbXCRodFSiKa6hFi7xygrNioVWmCkW/2SzsnaBHfUZM6T2gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jw8BDy9E;
-	arc=none smtp.remote-ip=203.205.221.221
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Wc8PkROU;
+	arc=none smtp.remote-ip=91.218.175.245
+Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A0E606A326;
-	Sat,  7 Nov 2026 10:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A0E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73988606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73988606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jw8BDy9E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794047405; bh=TcuxYv+XuCgbw4KiXs1IpnIHCIqcFcgGjUNbAL5BTJo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=jw8BDy9EuXav4ibaaFhY7jM0JBPqT5cW5NYS8bq5JLGlvS2EkVlyklc1gROwkwTCD
-	 KSrHmSOUcjVYXz5ivZQ87+5omaSKM18W/uptqs1E9e9kobDroa6yKxs5r81kSlN0jU
-	 G8M4AdVoZoMysbjXgc55F7bce4Tv1UJlUw1mWEIs=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 78380259; Sat, 07 Nov 2026 18:30:03 +0800
-X-QQ-mid: xmsmtpt1794047403t2pocn9j4
-Message-ID: <tencent_2485A31E7D66A27A52E9BF4747109D384C09@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+FC2NnpBTyNS2RInVc2qmDhS5yWgd4eXpIZDAJgOmE7RsMLEETC
-	 jv9Ma3hitk/uCQSO/LT08tN5JGlrCeqzzZzfEjN4UxIhndbDn3OeqKgWdORXCbizTYLoWCGCP+tW
-	 5RUtct0PQvy2czlm77KAxVTB7r6/e3aqgs2QMOvuB7OKa6pto5B4pDeQzKhmqtLQX6zvmBGVtKti
-	 3cBRk5UcIKntwJ7lgUnTuGhFw0+GY5KAJvI9wBOYSlk6BmwNsnD+pyqbDdaU0XV0dRpJ9Er4Rp4w
-	 w2WW5da+czlU74QfObT0mAXwWiYm5gURLt1LTde+22s+hEhjCnPryXQ6YPdcDiFVtL3OG8iPilN7
-	 qhtDbDWqAiZvwS3G5srTLWubnc8AXeZYw0wPtrBUfcfZ5JUsLHlY8QQnpICS21ruEXByzfbuX9Dh
-	 IvJ0Lex5ZlOlzw2f5nmebZ/tNc5Uf5CZSZiRe16+dCjf9KIMhIIK6/R5jH6dBXy1j5vpzsEx9vKx
-	 ET7EvdlTFvjgDITF8oiFuv71thpX5OjBrbko6MT5gujk6Ty09NIaKJ6B7hV6OUutnfkbPQDRYwF6
-	 Sy9OncDW1etsSTtRxUhQR1wkhMAOjIjeYLtCZ8x/Gb91wZ7Pb14g9cePwlvk+LTyVeK1AqxeafEK
-	 b6vJaumzgEtWoc0VHnlVbkpkP57J8kesSaVGStbZwlgwcgnil2QspiH9xT9a66hCE9OdaCdB0BXR
-	 /jHpDikNP33OLH/gt6g8x3tGZricD2/JqpyJ/qbLPIz8W+2n4VG/nSjF25uGxakofaLimNfvDrg1
-	 bBR6dGwxGVkzPeJRqwoXA3I59BKgTHZUENFaCImSpqiNyPLa2SRZ87yFUi5285k9uZisoPMIx5zz
-	 7DwfDLuHUDzs8hxXZ9YYQyzTuRTfZE+LZInIjxBMMJUZR7zbXnLhRaw0ghi4baZWrFUyTc8CykU9
-	 /8tMjlDD8iAkvh7k2FEmxpOXV8GoXikoPI2ssK+aci+Lr75VyVrmzw0e2gt0BmO4dqoBrsw05JVd
-	 9CrdqYG86EjacBoeKFpRZxcm0owz6QOA99DrxpZeAFa1Jk7yLlx/68iSH1to36FHXGmaBcmU2MJK
-	 aFViir
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: xfs: XLOG_WAS_CONT_TRANS on a transaction with no buffered
- regions reads ri_buf[-1] - null deref Oops during mount log recovery
-X-OQ-MSGID: <c31-xfs-logged-sb-geometry-20261107@qq.com>
-In-Reply-To: <c30-xfs-wascont-rideref-20261107@qq.com>
-References: <c30-xfs-wascont-rideref-20261107@qq.com>
-Date: Sat, 07 Nov 2026 20:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Wc8PkROU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RsCoCmOPMyHJd+R/ztk5rMnp9buDWmn47/QOCHLh9IA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794047459; v=1; x=1794652259;
+ b=Wc8PkROUmnrUppOP/U+Uvpe3LJkTskW4WEVIWTvNN2+/MB5KAGCiimASsH9xdK1ghbb7zQ7G
+ SuEFF2OWaADsJdilE51qbcrNA6tbY2g/Pp/tLv3fOaKgXv6VwZUZdgYB/uB7MX0Pxtwgu18I6eV
+ 8MXR1+pjoU6RWhhulg8RnHiE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5feb844c2993f120;
+	Sat, 07 Nov 2026 10:30:59 +0000
+X-Mizu-Trace-ID: 5feb844c2993f120
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com,
+	lance.yang@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>
+Subject: [PATCH v3 0/3] mm: hugetlb: fix CMA-related issues
+Date: Sat,  7 Nov 2026 18:30:44 +0800
+Message-ID: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,78 +69,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-While continuing on the same recovery path I found a second issue in
-the log-replay handling of the primary superblock buffer - this one is
-an unvalidated install of logged geometry, and it is a different
-mechanism from the flag-sequence gap reported above.
+Hi all,
 
-## 5. Recovery installs the logged superblock without validating its
-   geometry fields
+This series fixes three CMA-related issues in HugeTLB reservation,
+long-term pinning and allocation:
 
-xlog_recover_do_primary_sb_buffer() (fs/xfs/xfs_buf_item_recover.c)
-recovers the buffer, then installs the on-disk superblock into the
-in-core one with no validation:
+ - Avoid ineffective CMA reservations on 32-bit x86 kernels running on
+   CPUs that advertise 1 GiB page support.
+ - Allow long-term pins of explicitly CMA-allocated HugeTLB folios,
+   which already own the CMA memory.
+ - Preserve the caller's GFP mask when allocating from CMA.
 
-  error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-  ...
-  xfs_sb_from_disk(&mp->m_sb, dsb);
+Changes in v3:
+ - Drop the cpuset fix. A more comprehensive fix across the HugeTLB
+   allocation paths will follow in a separate patchset.
+ - Check for __GFP_COMP instead of adding it in
+   cma_alloc_frozen_compound(), and leave __GFP_NOWARN to callers.
+   (suggested by Oscar Salvador)
+ - Clarify the CMA ownership comment in folio_is_longterm_pinnable().
+   (suggested by Muchun Song)
+ - Collect Reviewed-by and Acked-by tags.
 
-The only checks afterwards are that the AG count and rtgroup count did
-not shrink. Everything else in the freshly installed superblock is
-used as-is. The immediately following consumers trust the geometry:
-
-  error = xfs_update_last_ag_size(mp, orig_agcount);
-
-which reaches __xfs_agino_range() (fs/xfs/libxfs/xfs_ag.c:172) and
-shifts by the freshly installed sb_inopblog:
-
-  UBSAN: shift-out-of-bounds in fs/xfs/libxfs/xfs_ag.c:172:11
-  shift exponent 40 is too large for 32-bit type 'unsigned int'
-   __xfs_agino_range.cold
-   xfs_update_last_ag_size
-   xlog_recover_buf_commit_pass2
-  Kernel panic - not syncing: UBSAN: panic_on_warn set ...
-
-The same mount-time read path validates these fields through
-xfs_sb_read_verify()/xfs_validate_sb(); the recovery path bypasses
-that entirely - the same on-disk structure gets two different levels
-of trust depending on which path reads it.
-
-## Reproducer
-
-The base image carries a real dirty log from a normal crash. The
-logged primary-superblock buffer item (XFS_LI_BUF, blf_blkno == 0,
-XFS_BLFT_SB_BUF) is located, one byte in its data region is changed -
-sb_inopblog, data offset 123, from 3 to 40 - and the v2 log record CRC
-is recomputed. The unmodified image recovers and mounts cleanly.
-
-Reproduced 3/3 with panic_on_warn=1. The code in mainline as of
-2026-11-07 is identical.
-
-Other geometry fields are installed through the same unvalidated
-xfs_sb_from_disk() call and feed the same consumers: sb_agblocks,
-sb_dblocks and sb_agcount go into __xfs_ag_block_count(),
-sb_inopblock into the inode geometry, sb_blocklog into every shift and
-mask derived from it. I did not chase each variant; the mechanism is
-the single unvalidated install.
-
-## Suggested fix
-
-Validate the recovered superblock before installing it - the existing
-xfs_validate_sb() (or at least its geometry subset) covers exactly the
-fields these consumers use:
-
-  xfs_sb_from_disk(&mp->m_sb, dsb);
-+ error = xfs_validate_sb(mp, &mp->m_sb, true);
-+ if (error) { ... return -EFSCORRUPTED; }
-
-The reproducer (log scanner that finds the SB buffer item, flips
-sb_inopblog and recomputes the CRC, ready-made image, serial log) is
-available on request.
+Changes in v2:
+ - Replace the PF_MEMALLOC_PIN allocation restriction with a GUP exception
+   for HugeTLB folios marked HPG_cma. (suggested by Muchun Song)
+ - Pass the caller's GFP mask through cma_alloc_frozen_compound() instead
+   of skipping CMA when direct reclaim is disallowed.
+   (suggested by sashiko)
+ - Remove unnecessary revalidation of successfully allocated folios after
+   cpuset changes. Retry only failed allocations.
+   (pointed by Jose A. Perez de Azpillaga)
+ - collect Reviewed-by and Acked-by.
+ - Rebase onto next-20261104.
 
 Thanks,
-Guikun Yang
+Qi
+
+Qi Zheng (3):
+  x86: hugetlb: disable default CMA reservations on 32-bit kernel
+  mm: gup: allow long-term pins of CMA-allocated HugeTLB folios
+  mm: hugetlb: fix GFP mask propagation to CMA
+
+ arch/x86/mm/hugetlbpage.c |  2 +-
+ include/linux/cma.h       |  2 +-
+ include/linux/mm.h        | 29 +----------------------------
+ mm/cma.c                  |  5 +++--
+ mm/gup.c                  | 31 +++++++++++++++++++++++++++++++
+ mm/hugetlb_cma.c          |  4 ++--
+ 6 files changed, 39 insertions(+), 34 deletions(-)
+
+
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+-- 
+2.54.0
 
