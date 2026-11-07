@@ -1,106 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048464;
-	b=3qNbP8byTiUI716cETfYzm0zgTVIqBXQ/Hlv0akUYBAFvdDmRAw6AGTsW3XHdQl/bGhr
-	 h2gmUqxoo25Xh8iOspLlzN0ayhUEQajKvy8q7Xxj0LuFUs1tXItA7mtPvVlRathXfsiWY
-	 K3o6hdmfjHfgfjHIIJc7CtKvjakC89msR1+rFYh2rkA/y2Bibu08lm10tA2IPfQp50eFy
-	 5X6dJzhLzPnbCS8jH3NzG1HvrFf8ZQgIqMueR2hAHLZ00kMlJu4+AJ5tZ4o+mKr52F/Uw
-	 ufMf+FRnrDrbv9MvWP7mA0J2+ShMFxRuLm/gVZWsmu6fDoG+Zpfv/njYq/Df2x1wg6g==
+	t=1794048509;
+	b=Kjdv9aaz+mVu0Uuvd6R2nImMJ8jN9HK3bAkdGbRxvHT0MpktPkaQdP+OBiglX2PDs3w7
+	 bJxeWic1w7LZC32uJ841PUJtoKLsue6+LYbyOFoydWfridTSrSqSN8c1lK1s9dGmgomaj
+	 ZctYi2c6OzQEZBdAYNCeDjFwE1SE6x7KcMkXOCN6o9G8pa70Tegd2wTTsj2jLja8w1K0W
+	 /r7enj0+2+Ai8QdYsvXh2dMPR+Qj0cMLTZ5xRENEa6oPLvtbMK2V+CLryjJ6D2ddIKAmS
+	 CF6ZyaBGZGb806OuNjQNRuwrV8+TissIz3/3AEyo9VerSFD77DW6csu3xAD+JPln8ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048509;
+	h=DMARC-Filter:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
-	b=hguZCK9MI1cm3hGRMg5hyLAV0K7YqQlpeSgmcTzRKdRot8M3M6uhP1931OW63nL/4Kdu
-	 nWg8lBORBXkJxN1vyslH559330S0Z9kM14dqMFQ6OrEdFrPnGQMLbl8kGnFit9A0LEh+p
-	 NSQWvq5Cn37sCnjWcORjKEmVhIRiPTlCutbh2e83Yp1HAvjci4Puzmzid0RmfB9lKzIhv
-	 9wX+sXdIXuKngjIGYKywqPg1emHqLVweLUnNRMKOvz/xd+IN0+pKDArI6cb9e6EaAVQU6
-	 iSQ/N7yAhN6Cty9s7R2XX5HztXYImVW9mYpI+SVhp+ig9aVHr59jT9CUCrGbS0qhytA==
+	bh=8y3qUwF5AW7hRyJC8vTVeAE1YxJuk8veAqbgzvjkaCE=;
+	b=ghEzHWzxjxLEt9FBIkfRTz1Pzp/Qg0bsCkAnAvPt/zfURmXwjwfa7Rl1WNjhIAMHwljc
+	 mDidob58BPaYIjh++l0EmKHxlPdYHcPFSRP57e+sXG8XqR4+6CVdc7ZykVPRh864dDWeW
+	 ZB6rQAEAf1ajywzxsHbrL2WEgcFFK5pzNQry6wMl//4cAaQCrCK+lRyLlalTNSvz3pP3K
+	 6C3IboOYHMBwCSKRuIU8fbGjs6ORlNjx7wFfJ6DEKI68RLYudnvaWyNRkoXMfs7kVV95L
+	 orUHRtbZAamr9nb1pcyv3NZr97onhzF2nuiGP2TYYAFCo4JamANZkrvUctyub2KwmAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7Wlg3DU;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=cVrQLdja;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EA0606D825
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3EA0606D825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C058E606A32C;
+	Sat,  7 Nov 2026 10:48:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C058E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7Wlg3DU
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so13015305e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:47:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794048462; x=1794653262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
-        b=X7Wlg3DUIcRHTVrYGzxJ2BEaIfyXqmm3nJPYTC+NuLtMcYPhGC0ng+vGEYGOBhMRiA
-         snJtFNDG/G5soobH+RFH5AwHv9/y1znuzh1F6vvdyV3gGK4jyVEdZnX7ArfWiEBhVKHA
-         D8UjlPO7XiNX86BFtfrdOSlHuMm6J5jWEP3Is8AdtTIEgMdZq/MiDXETWyxKI007X7LL
-         9Abus2RajP/Hw2HUfdo8gsNLTWJ0ZObARhvH4TJEShkgN5K2JdZAzPOqXBD+hB5g1c9l
-         RPm1ZRn99JiW4UAb9afvDAu847ki3SWcfP/UvsBgwoqQM+gEklTZy+6Oxw8KgL9cl98c
-         HYbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794048462; x=1794653262;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
-        b=2vWI47sgqp45fDiEj/dgbCXRHLIKVRfhC1FNvbl32PYZIFf9jvgW8LO9fPYUGxBXvd
-         LN83Y7rn/HY5IzIbJv4EMqKVmOSCyW85jAGkykN1r1Onwi3snROXfz+fPm+manfVZt8i
-         mC/g0BsHQdgyXKZYW/bXAP88LFNHz3c0fXy96c4/GsOsR0rA6U0xTPSW42TQtMDnYPGo
-         sSQ3hMfAs4TENil+Xuz2q9oq5UyCtbqSyWHgU9mFFUr9n2SORjH95GVVNiqbXPPzuTUx
-         s+AfQmMDUyaVMAA0Qoo9L/mu+Oul3VDjkUNZYzKu/7FvE8S/ay3kIIoIuUfvWFF8ngnJ
-         UHtg==
-X-Forwarded-Encrypted: i=1; AKwUvByXj2dputSsLzQoDD+8UC/myU5Rli4yt5IeLtZDCjwnGcqK+APERYTPbRJXIPK8fWyNb7j4EnPDom8Jy3s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HflEj7M7f9ZuPScq1GecYCuLpm4Yww5NxI/a3CacBd6WziGRL
-	U8Y0GAzTKOXdi+dYebS3JbPHitqeWT8C+38FyJCl03jC+/ORsSIDu6hn
-X-Gm-Gg: AYBFou2QAc0fwk0DPSeaBp6OEl2B2N9tuXPo96KCfxJ2yp8LbPlgN5zLMA7IDkSGCaU
-	T2cOVO6PWuEZjEgn/rP5RtNAFBteIkdvaUNNHU0IR5UqEMOUTGlUfkinQMHCt3E9HuGpKHdpIqF
-	JJN9XHhkHMN07J6iiWyRJ2S+Hl8+zL0nG57EvDA1ma+88ZwkUu77p9LxF32eqNHwbP2ldcJj5Wk
-	FOyo1INdBQw0NfLBP+KEfFNBNSGIBMuzcFTEd0m/8KCL5oR54EYZ0oN9nSLXodI+1OFIixPY5LZ
-	gOMn+MjNxUA7V9+CS5/ueAD2IcqGnCINKN2kmr73e4xzVH1sa6BoLgKSyCipTZ2JnVWVtpIk8hE
-	1cmeP9+zthEofV0prQJrhCYs0NmEuZIaQxy0UJEB32JmGQrZ1y50q0Dz8M882ObtEdjLznhFrxH
-	cBvCsJ4DmXjVjllA2QL7gSJLCIrRh4Cbt+3zToVq12rpgWNY2PCn6c2arvtUckv4auH9OO3uzTL
-	f3RlyOSQ/Sr/mekrdiW5HwWaxODQPWbV23GjFIVmLzNIZxoN0657ATUaF4f2Ut/MgGzQvzp5K75
-	vMxZ0KZFF0OlQavnk357ROlbi/uRg2rLD0U0t5R2UCSxMhyi/cW7a8DeC9F6oZYFeB+bZEQhD1B
-	ol5omhrNfZ/5uB5AvfVGob05VA8UM5PPB0YU3LB+k2qix5l2rn5i00wJaKga46b3V9ZyFk0ZYYc
-	3lOWZ7BbjGg1CUnFtDKuWgjICmysnCZ7NrZR0T
-X-Received: by 2002:a05:600c:3f12:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4b6d82b2c91mr92859825e9.0.1794048462222;
-        Sat, 07 Nov 2026 02:47:42 -0800 (PST)
-Received: from localhost.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795024730sm47935635e9.4.2026.11.07.02.47.41
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 02:47:41 -0800 (PST)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Tomasz Figa <tfiga@chromium.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Nicolas Dufresne <nicolas@ndufresne.ca>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] media: vivid: synchronize imported DMA-BUFs for CPU access
-Date: Sat,  7 Nov 2026 11:47:03 +0100
-Message-Id: <20261107104703.44111-4-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261107104703.44111-1-kmehltretter@gmail.com>
-References: <20261107104703.44111-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=cVrQLdja
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=Subject:To:From:Reply-To:Cc:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=8y3qUwF5AW7hRyJC8vTVeAE1YxJuk8veAqbgzvjkaCE=; t=1794048508; x=1795258108; 
+	b=cVrQLdjagm5ExuhSyBg4bqyHy1FERkvyL2TmjSa4FfBIA5Oj+Vt+ZZh7m2E/bvjONvIHPqRx31h
+	p9b+zckJA9WmhPVyopBHH46TcWCUcZAO5MRyoYD6iOnFcOwX8Ru3vCREyaY2HJhYUWs7S9SOaOlp3
+	iUnZBJ1VqtHSoyglwPBu4MkWuHRP0yTRTnl6o41Tzpix0gX1auit8fQYiHOf++IprB7fdIjxA54Sr
+	BjH3jMOhdOVtsd4HJm35coVCCMepTXAG+NfBf4meY04MPsKVRuPm4AglFSAPnpDnkWhL5rg2mLLiN
+	6PuzeY/mf8hvvMqLLByIPYpBYJNPCcoYVLsw==;
+From: Andreas Kemnade <andreas@kemnade.info>
+To: dmitry.torokhov@gmail.com,
+	andreas@kemnade.info,
+	bartosz.golaszewski@oss.qualcomm.com,
+	arnd@arndb.de,
+	marco.crivellari@suse.com,
+	tony@atomide.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	brgl@kernel.org
+Subject: [PATCH v2] Input: gpio-keys - do not BUG() on requested wakeirqs
+Date: Sat,  7 Nov 2026 11:48:07 +0100
+Message-ID: <20261107104807.54410-1-andreas@kemnade.info>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,39 +66,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When configured to use vb2-vmalloc, vivid accesses imported DMA-BUFs with
-the CPU without cache synchronization, leaving physical RAM stale after
-capture.
+Having the IRQ handler called when enabled IRQs arrive should be considered
+as a feature not as a bug. So do not BUG() there when this happens.
+Also BUG() is too harsh here.
 
-Set uses_cpu_access on vb2-vmalloc queues to bracket the driver's CPU
-access.
-
-Fixes: c88a96b023d8 ("[media] vivid: add core driver code")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Fixes: 3717194f24922 ("Input: gpio-keys - add system suspend support for dedicated wakeirqs")
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
-v2:
-- Set uses_cpu_access only when vivid uses vb2_vmalloc_memops
-  (allocators[dev->inst] != 1) instead of unconditionally (Tomasz Figa).
+Changes in v2:
+do not BUG() at all here and remove the other similar instance of this
+BUG().
 
- drivers/media/test-drivers/vivid/vivid-core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/input/keyboard/gpio_keys.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
-index c042d92db175..f6c7460cdba7 100644
---- a/drivers/media/test-drivers/vivid/vivid-core.c
-+++ b/drivers/media/test-drivers/vivid/vivid-core.c
-@@ -919,8 +919,10 @@ static int vivid_create_queue(struct vivid_dev *dev,
- 	if (buf_type == V4L2_BUF_TYPE_VBI_CAPTURE)
- 		q->max_num_buffers = 32768;
+diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
+index fbc31c5db3db4..41a9210b40176 100644
+--- a/drivers/input/keyboard/gpio_keys.c
++++ b/drivers/input/keyboard/gpio_keys.c
+@@ -412,8 +412,6 @@ static irqreturn_t gpio_keys_gpio_isr(int irq, void *dev_id)
+ {
+ 	struct gpio_button_data *bdata = dev_id;
  
--	if (allocators[dev->inst] != 1)
-+	if (allocators[dev->inst] != 1) {
- 		q->io_modes |= VB2_USERPTR;
-+		q->uses_cpu_access = true;
-+	}
- 	q->drv_priv = dev;
- 	q->buf_struct_size = sizeof(struct vivid_buffer);
- 	q->ops = ops;
+-	BUG_ON(irq != bdata->irq);
+-
+ 	if (bdata->button->wakeup) {
+ 		const struct gpio_keys_button *button = bdata->button;
+ 
+@@ -465,8 +463,6 @@ static irqreturn_t gpio_keys_irq_isr(int irq, void *dev_id)
+ 	struct gpio_button_data *bdata = dev_id;
+ 	struct input_dev *input = bdata->input;
+ 
+-	BUG_ON(irq != bdata->irq);
+-
+ 	guard(spinlock_irqsave)(&bdata->lock);
+ 
+ 	if (!bdata->key_pressed) {
 -- 
-2.39.5 (Apple Git-154)
+2.47.3
 
