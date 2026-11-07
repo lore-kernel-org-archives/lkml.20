@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052980;
-	b=vgkA9UPQeKvwpMJAZLfiOijYLqJhUuyYc5accLTS8mSEeZnRbd8guVwIU1PzsVD1zGuz
-	 qlrDqmJp1uj/TVBBVNBofAS5Q1ntCg05NOiZ57SRjKcclEtQoveRcDryfhpvtaUfX79wa
-	 fL/0Y2JluT1NrW7yU4nLlg4kOmz64eZOVDSy5V1nZNhks8Mo91Jh4/crkrN+0fDWpJzBg
-	 5JItfz+/rVVf+JnEsgaegt8bHu2ii+Mgjio4UdWweFDmgKGdhhTf7IaWiy7vG33OvrkzO
-	 uwfLlLQTsDt+rojsCVXZ9+iP2gtq9di9j0n7N1/ptHg93wcW+6U/ILsdcwHQChki8EA==
+	t=1794052975;
+	b=Dkntxxpw+rr87ibCHYSHcM1gi+DCfWIwU+sfGXXOrAw8jicAAMRo20yE2bTS1T3hfLUW
+	 m0ks2rITB71vzUZFBcUa1jesnfhnND4nGioypTC6opF5pzGLkiZ4xW+zerh7Fvq2GuxCi
+	 LbLBUlxGoZV6BLXqWmakYMxzCQkKwoJYwyeNfIwc5RlEjp8KqAv/I2UF1k4ZVUJBQxE2+
+	 GWGa25IZVZmfRWZNIMR78p9YL1AGZ6kt27TBuNoZOBaRc9rclRoXj+jijzc0Uyw9mgCtz
+	 dXA7h20HdVNQUX8g94XI9B9dpSS0ZsOpgNdK6jJiHGBM/pFUJXJdLxt8eu+Y1ea4n7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052975;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
 	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
-	bh=dzmn5OvuL6HWddApDFOpicmssA7vwWfg++lvft7UzdE=;
-	b=tYhmC3TX2eW1rLS2bZ5R7dXe1FfhSB4q2ze64Pj+11S2oH9lW2+rDtrUBuojmR7JBH5D
-	 kYwpFWx+x9KNIu6/GFumxOx0SQ9Y144x6dirJd65/x5DPaLe9/zZdpSo7wZDeogm8m2xR
-	 W44+lBMaG7Bu+s7ajsuXqiCGIVuO0vTaqxAreQBiI8sLxrsrClUWC/pqWE0xIl/eFsbaS
-	 x5l2O2WPiKTMei7A6cFobznHpRnmqn44rGI8yo+yjPbIi7oN9tMtSALor22zRhQsgIqT8
-	 jT+i9oeEIIwwnCx6mFXNcuCXEP6IYd64a9BLLEDPfXd20YDbV7gaFvvrD9D+AHBlIhQ==
+	bh=36gH6Y4wdKFNcSJld6N4fwgOrUat/acOxs4ICx2dvzg=;
+	b=2L0a3XceldU0tRjhgOyUZbs0wM687oYLQzGUtCaMz3NlDkeQwKHoTJ1mnKDohvhWOdeM
+	 x1IwUX4yJqiuGtlMtRupH/tpyREmYRXJwPT7Btp6qQmRXEZcfZ2rCyCmIkAMNIkodmoDk
+	 ykFqee6Rq/Ywcdrs49xLtc+G7DjzBBXIapzzracbJCm7xeir2IMksooT7eMk8TpKmxGlh
+	 hMjV33gmq5fUt4k5CUxt3bg2SXx+RNn9Gd1WAcwj0iXUOsi+Ycw79EEVl1Sw6VuVxkCc7
+	 8GIO9+qGS8Zi6HIErCg3HN1/T4AQpzt38/9etCoIaZS7+mvveF2Xt9MQ8/JQAgKasaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=i0HWzt7v;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=PJ4suObX;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEA5606A338
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BEA5606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF58606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF58606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=i0HWzt7v
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=PJ4suObX
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
+	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
 	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:In-Reply-To;
-	bh=dzmn5OvuL6HWddApDFOpicmssA7vwWfg++lvft7UzdE=; b=i0HWzt7vUpyKm9YiG6cRoROZCV
-	I/cT62+40Jv/VOLZ3cvVrcH5TxIHbhGQAqJOALyFdDDvXKf5LhKjU2hB7yDXmzcCOt1rFMvyTVEB1
-	gOPUP7lxmXblwiuwMdxl7hV5L3lJ9BFZB8KKBD9AfkNiWSA8x6cfXk4GRaolLF5oxNyySplquvPgJ
-	jz01VjAu92KIUjQcuyEukOlH9NzQuW6B8ubia8PhX0h0OxC/hnSJITVS6IC0J4EagcYGZSUnPtfws
-	70FZrPkEqHmqR1dOsfiWxJcuMw4wLr0r6/mGyXTd9YW/nSzC4C14IU/BgeWaNIQYZiAnYZYWYq0Vm
-	pX23FfGQ==;
+	bh=36gH6Y4wdKFNcSJld6N4fwgOrUat/acOxs4ICx2dvzg=; b=PJ4suObX8LdSVYQtr6+BauMRAM
+	dljgKpjXwc4iMHI1dELAQrepqHOqmL6776KytESxZC9SCH8ZQvlLOI96qL7dJlbbfTyC1hqeo6BHe
+	KLpq5fg/QmkWwleiCXXBR2KME3E3ry14XFe/gSqJWm19PU1nzqiNSOr7ElsJey50kJnOtHE6VKIa6
+	1YvOujRjRiWtB8wxeSz/+Kuf/9Fehzms+rVIGyUkUXbYfUidZ3WhrMwLeBKN+Slj/71rytg4j6Yff
+	NkR7QeRDWnuxMhqN+PhHN0zPrBbyS5jI1dkgAImWNlPdNRHKgXja6UY/tH6KRz9+vFmDH2+tC5Le7
+	5iQVOBXQ==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPf8B-00000005BYi-1t1g;
-	Sat, 07 Nov 2026 12:02:47 +0000
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xPf89-000000008xJ-2GQb;
+	Sat, 07 Nov 2026 12:02:46 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
-	id 319F730312D; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
-Message-ID: <20261107120207.655754098@infradead.org>
+	id 1CB66300FB6; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
+Message-ID: <20261107120206.980785656@infradead.org>
 User-Agent: quilt/0.68
-Date: Sat, 07 Nov 2026 12:59:21 +0100
+Date: Sat, 07 Nov 2026 12:59:16 +0100
 From: Peter Zijlstra <peterz@infradead.org>
 To: mingo@kernel.org
 Cc: peterz@infradead.org,
@@ -65,7 +65,7 @@ Cc: peterz@infradead.org,
  linux-kernel@vger.kernel.org,
  tj@kernel.org,
  ziqianlu@bytedance.com
-Subject: [PATCH v2 08/12] sched/core: Allow newidle for core-sched
+Subject: [PATCH v2 03/12] sched/core: Decompose update_rq_clock()
 References: <20261107115913.261163891@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,86 +78,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-As reported [1], it is possible for newidle, as called from pick_task_fair(),
-to migrate a task that was already selected for the SMT sibling.
-
-That is, in case of core scheduling (pick_next_task()'s restart_multi label),
-pick_task() is called for each SMT sibling. Suppose SMT0 picks task A, and SMT1
-has no tasks and does newidle, it must not be possible (but currently is) to
-migrate A to SMT1 and also select A.
-
-Avoids the 'stealing', but doesn't yet enable newidle just yet.
-
-[1] https://patch.msgid.link/20260603095108.GA1684319@bytedance.com
+Adds __update_rq_clock() which lacks the double update warning. Additionally it
+will now always set UPDATED, even though it might skip the actual update.
+Because when we skip the update, we must be up-to-date by definition.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- kernel/sched/core.c  |    3 ++-
- kernel/sched/fair.c  |    3 ++-
- kernel/sched/sched.h |   15 ++++++++++++++-
- 3 files changed, 18 insertions(+), 3 deletions(-)
+ kernel/sched/core.c |   35 +++++++++++++++++++----------------
+ 1 file changed, 19 insertions(+), 16 deletions(-)
 
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -3065,7 +3065,8 @@ static int affine_move_task(struct rq *r
- 		return -EINVAL;
- 	}
- 
--	if (task_on_cpu(rq, p) || READ_ONCE(p->__state) == TASK_WAKING) {
-+	if (task_on_cpu(rq, p) || task_on_core(rq, p) ||
-+	    READ_ONCE(p->__state) == TASK_WAKING) {
- 		/*
- 		 * MIGRATE_ENABLE gets here because 'p == current', but for
- 		 * anything else we cannot do is_migration_disabled(), punt
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -11184,7 +11184,8 @@ int can_migrate_task(struct task_struct
- 	env->flags &= ~LBF_ALL_PINNED;
- 
- 	if (task_on_cpu(env->src_rq, p) ||
--	    task_current_donor(env->src_rq, p)) {
-+	    task_current_donor(env->src_rq, p) ||
-+	    task_on_core(env->src_rq, p)) {
- 		schedstat_inc(p->stats.nr_failed_migrations_running);
- 		return 0;
- 	}
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1594,6 +1594,14 @@ static inline bool task_has_sched_core(s
- 	return !!p->core_cookie;
+@@ -867,29 +867,32 @@ static void update_rq_clock_task(struct
+ 	update_rq_clock_pelt(rq, delta);
  }
  
-+static inline bool task_on_core(struct rq *rq, struct task_struct *p)
-+{
-+	if (sched_core_disabled())
-+		return false;
-+
-+	return rq->core_pick == p;
-+}
-+
- #else /* !CONFIG_SCHED_CORE: */
- 
- static inline bool sched_core_enabled(struct rq *rq)
-@@ -1639,6 +1647,11 @@ static inline bool task_has_sched_core(s
- 	return false;
- }
- 
-+static inline bool task_on_core(struct rq *rq, struct task_struct *p)
-+{
-+	return false;
-+}
-+
- #endif /* !CONFIG_SCHED_CORE */
- 
- #ifdef CONFIG_RT_GROUP_SCHED
-@@ -4269,7 +4282,7 @@ void move_queued_task_locked(struct rq *
- static inline
- bool task_is_pushable(struct rq *rq, struct task_struct *p, int cpu)
+-void update_rq_clock(struct rq *rq)
++static void __update_rq_clock(struct rq *rq)
  {
--	if (!task_on_cpu(rq, p) &&
-+	if (!task_on_cpu(rq, p) && !task_on_core(rq, p) &&
- 	    cpumask_test_cpu(cpu, &p->cpus_mask))
- 		return true;
+-	s64 delta;
+-	u64 clock;
+-
+ 	lockdep_assert_rq_held(rq);
  
+-	if (rq->clock_update_flags & RQCF_ACT_SKIP)
+-		return;
+-
+-	if (sched_feat(WARN_DOUBLE_CLOCK))
+-		WARN_ON_ONCE(rq->clock_update_flags & RQCF_UPDATED);
+ 	rq->clock_update_flags |= RQCF_UPDATED;
+ 
+-	clock = sched_clock_cpu(cpu_of(rq));
+-	scx_rq_clock_update(rq, clock);
++	if (!(rq->clock_update_flags & RQCF_ACT_SKIP)) {
++		u64 clock = sched_clock_cpu(cpu_of(rq));
++		s64 delta;
++
++		scx_rq_clock_update(rq, clock);
++
++		delta = clock - rq->clock;
++		if (delta > 0) {
++			rq->clock += delta;
++			update_rq_clock_task(rq, delta);
++		}
++	}
++}
+ 
+-	delta = clock - rq->clock;
+-	if (delta < 0)
+-		return;
+-	rq->clock += delta;
++void update_rq_clock(struct rq *rq)
++{
++	if (sched_feat(WARN_DOUBLE_CLOCK))
++		WARN_ON_ONCE(rq->clock_update_flags & RQCF_UPDATED);
+ 
+-	update_rq_clock_task(rq, delta);
++	__update_rq_clock(rq);
+ }
+ 
+ #ifdef CONFIG_SCHED_HRTICK
 
 
