@@ -1,60 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794083488;
-	b=RDUE86+S5IhgA9iFW+X/qjO84fFQshVhUPR1QexMZjm7ToWPEKdArfnuIIkOH6m0FVFg
-	 lgG4GOI4HgC+9ihTQvhY0zdAJPk5GPHTAa2mRai79UesVBTATu8yBE/26hO8Nwy3tJbFc
-	 QwbDqeTePnICPl+/VmcsoLSNz734XZKj0ODLftTDgsV2CFhAXWnj3lz8UElaLF04Ltlzr
-	 WBahS03VIU6CZhIWxheK49izIdygFE1f4/72WJHipytYQcFBFfrkumPcaHEAD38vrZu44
-	 ubi8bkBEc3hntju08GrkqyLkLHAvqErxG48NBBl8S5EROL7QqgP0FS0DDYIsINd8NiA==
+	t=1794083593;
+	b=M/lKANa6Cb9fhwX9yfuVX9UDr7uc6AQmUALOBzy2kIkMd5Bpdx6Kja1wE1W3V/mqp4kK
+	 xkgAJ8+oil36KdQ/1yywCpXKfv3QweQFy2QwxTMmfr3CYtDBwfTxAvAY+TM3UuDJRhKqh
+	 0ngEvYVCGY0Z1ASam/W953MUmA/qsodq9zWQKwYTTbGDRQZUe3nEB5lmCauD9Q/6Bta+h
+	 sALQYpUvDUr1zKf8nsW0V5SchIlud5lziRGmqyvBzBG1JJBsI1SsreBZAZC3tbuJfXxJz
+	 LOZyBD7y3hqVATKQI+6yzbUnOOEqGWmE4X1wz/ol2oI7ZaOvyckaW+t2NxwAWUogcug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794083488;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6R7bD2lGbyz5elKAgspeW/S1EvIUDAsU8iwuty7BhyI=;
-	b=G4wtYIDdhxu7Z1L6uL56r6XjK+qBobA3FpgzrYcbJgL2HEDNbAPEKzVG6k5ngrJJe9+2
-	 /5TJBUJibOuKWrsoJrkjOrNeoU0dXy/ztcENcXnVjalpPrY7Nto6ElTPUxKrp3NAfyv8G
-	 Pvd5yo1r/WFXhcHxmzvrxpuUuUHQlFGd75NWwB6e/rn2JySQNkbLt8qxaa7GpTPQiFg2X
-	 QLXF0y9ZiDhV19Us92GYoFi72cxWMgUUmOpynfrCAwcLdkqa76FRXrM/FGSeUnqeXzhWj
-	 yD4riXgwKbvpFEYnUNEhl5CbuM2kosWII8zpfyADYIcEF+umaWdM3txnVZuPdudHdPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794083593;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=dq2J374riM26SV5joazzzkZmilePIOzlYnlPT9M22lY=;
+	b=slEtspykCJ0F+bt4vo3NsdMMiZpL1TB/PC6z8UjQYlxhd7oq+N9YT9gmT3wVjnnVeroe
+	 uXim3p0Q32XSHi+VIxPgOzlwFTtKfZ4D/VkHKkLjzUgW1Jb+OKJ94mpYrizWVuRYHDZ7E
+	 XsLvED78d8Tc2kK2xSdzbJHSoS5Pr5cwnxg3y8oz9DdszqFBEg+hEKcAvFMfSUIGYJ1h4
+	 UIyy9xS0VdnomRxjD85A42ZZR6bDwFBCchyZ3FMT0YLydcSu5SB/eJdCReK1QJOSFUHxi
+	 SqwCW6HBvwJFej4W3An3x+3VyJGEqezZXQq2MuPeyXcCFG5/3pCdoZSx3Ogk+B2X99Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1cVQTNl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bojanowski.me;
+	spf=pass smtp.mailfrom=bojanowski.me;
+	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=FVVtbENR;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66780606A326;
-	Sat,  7 Nov 2026 20:31:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C204C606A326;
+	Sat,  7 Nov 2026 20:33:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C204C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1cVQTNl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E591F0089F;
-	Sat,  7 Nov 2026 20:31:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794083488;
-	bh=6R7bD2lGbyz5elKAgspeW/S1EvIUDAsU8iwuty7BhyI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G1cVQTNldgtph5Vl7FzQw6lgD987FMmUKcceFYmLXkcpHm/CymQloz/mqjqimF5kt
-	 /lb7DSrusTCKhmCMDI2ijXbpg41v8udtocU4o1bKt/qWtPVa2FWSyGAL8Z95yX//bZ
-	 Fm+Md35LnwH5XdSW6thEWIleORqaz4GLb53DU75LsmzEtCkuoypOeVF99StMNdB5jG
-	 J+SaFrwpygUe1uRS+LxKSPLXiDTfh4usayIqpHAYTZxjEW2D4gcWyFS787DKMG27WH
-	 zKDNvrkzaPWoeVdkAgo0np9eP0pcBtsJH0o1nghx+VwfWVE5d93HvWBNfN+qR+Aosf
-	 Ri1fDB40peycQ==
-Date: Sat, 7 Nov 2026 20:31:21 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Joshua Crofts <crofts@kernel.org>, linux@analog.com,
- linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] staging: iio: addac: adt7316: clean up header
- inclusions
-Message-ID: <20261107203121.4cc15592@jic23-hlaptop>
-In-Reply-To: <20261104183429.20125-1-abdelnasserhussein11@gmail.com>
-References: <20261104183429.20125-1-abdelnasserhussein11@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=FVVtbENR
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jMSRL4SxRzKp61;
+	Sat, 07 Nov 2026 21:33:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
+	s=MBO0001; t=1794083582;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dq2J374riM26SV5joazzzkZmilePIOzlYnlPT9M22lY=;
+	b=FVVtbENRg0UROP/9wz2AIAJ/Ynm/3/oBAOSDXKBE9U8cr1BlIzM/NkjTtjpNMN/JSLuGgc
+	j+cCtdoWe973tLQZ2GHN5tBHlDxhf+HWrsHPPRG5etQXJRkTkhPOQ2Vj0tcdXvGsV4oxhW
+	a3AHxzDXMg8vCJ+vDNZ6dOMM4puN191+KgMMbMs9cpD1dpo3IN4/FG3TddasbsfMOj2MM+
+	dNX3qlBVilqIUbAcnDCr0mPvpSyVwEqAfFuXfn/Ik3bBrhxlb35UPXj7sI0Z4482e3uWtf
+	Gm5hdJFR/EviKASOql7PgjyjbexByq6Wp4dnjuJe1rujZlIu4h7nfowaW+Q9bQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
+From: Tomasz Bojanowski <tomasz@bojanowski.me>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller voltage sensors
+Date: Sat,  7 Nov 2026 21:33:00 +0100
+Message-ID: <20261107203300.427273-1-tomasz@bojanowski.me>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net>
+References: <20261107082821.8257-1-tomasz@bojanowski.me> <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net> <20261107161249.336512-1-tomasz@bojanowski.me> <5e99fd86-d934-49c1-a867-02cc61ab1ecf@roeck-us.net> <20261107181518.385136-1-tomasz@bojanowski.me> <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,35 +77,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jMSRL4SxRzKp61
 
-On Wed,  4 Nov 2026 20:34:27 +0200
-Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
+Hi Guenter,
 
-> This series cleans up header inclusions in adt7316.c. Patch 1 sorts
-> the includes alphabetically. Patch 2 drops <linux/kernel.h> and
-> includes the headers the driver actually uses (IWYU), removing the
-> unused ones.
-Applied.
-> 
-> Changes in v4:
->  - Moved the list of added/dropped headers out of the patch 2 commit
->    message, as requested by Andy Shevchenko.
->  - Added Reviewed-by from Joshua Crofts.
-> 
-> Changes in v3:
->  - Split the series as suggested by Joshua Crofts: patch 1 only sorts
->    the headers, patch 2 replaces kernel.h and adds/drops headers.
-> 
-> Changes in v2:
->  - Split the original patch into a 2-patch series.
-> 
-> Abdelnasser Hussein (2):
->   staging: iio: addac: adt7316: sort headers alphabetically
->   staging: iio: addac: adt7316: replace kernel.h with explicit headers
-> 
->  drivers/staging/iio/addac/adt7316.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
-> 
+On 11/7/26 11:40, Guenter Roeck wrote:
+> Please let me know if the code still works for you.
 
+It does. With commit 64e4888, the MS-7E61 reads the same as with v2
+(CPU 1P8 1.79 V, CHIP Core 1.04 V, VDD MISC 1.10 V).
+
+> Offset 11 does not seem to show a valid voltage. On the other side,
+> offset 15 would reflect a value that at least makes sense.
+
+The vendor software reads CPU VDDP from offset 11 on the MS-7C94 and
+does not use offset 15. It would show the same 0.002 V, so I cannot
+tell what offset 15 is.
+
+One small thing: if the read fails, msi_ml_read_report() returns
+without hid_hw_power(..., PM_HINT_NORMAL).
+
+Thanks,
+Tomasz
