@@ -1,63 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794092247;
-	b=gE/XRRX+lzHVYkkrK9leEKaTXZ0TuCXmfbMahisbLN4QiOF67yDB+KaH2XOKRu9giNVS
-	 MmJzlmZAf3BGUkcWjMhuy8+EfuaHeAoyJbOie9nbY/hkrB2Ztfk3a1cMo3pYtYLtkiT2Z
-	 hSa5ChYv6btGYH7NFUxO+pw98si290HXxg18AHeCR70D+jxk7N8z8y20EEMoztobl2/NQ
-	 HaQ08OsK8pl2Vqo6c+PP0VauEVug377021ClEMllm50K0iTuIlhDMLVJGkdLzZB/gbcKd
-	 Oi8FvDcqAej8pN0ibpmer2mR1MmvI/rRsSB1OkVRI5KnloztVvtr/5h0uJK7n7x8XPg==
+	t=1794092540;
+	b=2+s+Vw8sEK9NAu24Wz/T8dlhYoBv51SLGzAj0w/uGHqaOqd0q/WgAsFzfelRI0aO9zLx
+	 VmUTCdHSYgcAi26GrX3OLyzhW4HFYwQw0erDYtnLoYm+7U8OOpbr0MF6h6/ElCkW3/sfw
+	 vip9cqnuD8WYcVJlZ8Jepnl+F96YMTt0h78mLHeRFbEcFKKDgn7F8TD2PRwEqwAcTUvVi
+	 n3wcpoJQlIpoxVmbUlW6P1M8XarFuS+k8LYXE25JjM9wTRf7wSG2Q0iuRh3X+/3CmBYlc
+	 0a+Izo3h3xwgt460clwVR2LAj36LOCqIpy6bZzLtGd3phRXvzY2RXHrYfWooReYVEYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794092247;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794092540;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=4vBP5iKbuEoP6It5IVi0YurYzg152ZqlRsIj9Prr+98=;
-	b=MOQJxILgbNGtZix8/3YvVVAfRxgDpwUcWKNBGrEJpWHiP6AP1bGwSc3tbe2Gzb9Pa0Cc
-	 thuoml3ng6b16/oTGtIlCEjGpMF51i4PJHEz3UF+dSBqiumC6zed9zbHsgGdVgoJFtVNw
-	 1mzPo1pDv0mD/oWVkyTcAZ5T9saHNeUqXEm67JgXVaq1afj8iSE2Av+G6ZiM7SolpDFBn
-	 s4IzlKLhScQHlOMGGczyIioa40p/eO6kZ7rCRIiuCIHI6ZAvOeqYgDYh3JClZov06BXxM
-	 cUifbNc/ZhdkIu8k6bcatGlODWUbtcbsJJ7+vngLw55pm6iTluvUsKmQmFFwRiQjcHg==
+	bh=0hFouMqOeYyeKhZ85sDPfJfrYfZA6d+gJ4WrPszogio=;
+	b=Kdxt/9SexyRtFHQc6rjTgWqlxdDEz4BHFQqg91Afe8Witm67E6VFIBDURdqgZhMJTjSl
+	 cqO2AuuNJmHioYn0T91NmKJ1x7rfcR+lUs73mYlP1zzs+w7SLM19aynnlg0XlbNZkm3DC
+	 ZmvoevtiBOlb0U9w4F7dDBqfV8THLePNiR2D1rxBDj42cCj8pVSjqm8vgZ0l12LdEpG6F
+	 /SsmYweMor2aP7Mq80qmGbuGgekplBT3nxeNN6Cotuo/5uD9fWoNkAqYiIKxWCVDe4fYP
+	 zu6nAbRfSEa/uaDyf7bQUI4lTVGZ0kfKxkPnVlA3cyIEjW8qhStbYA+ofZGwFC0kX/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWLXzqn2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=rLfkYRN8;
+	arc=none smtp.remote-ip=185.70.43.101
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AA1606A326;
-	Sat,  7 Nov 2026 22:57:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8F6606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 23:02:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E8F6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWLXzqn2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C715B1F0089F;
-	Sat,  7 Nov 2026 22:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794092246;
-	bh=4vBP5iKbuEoP6It5IVi0YurYzg152ZqlRsIj9Prr+98=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oWLXzqn2CsgZSrF9XXH6l/TjYiX9KlgjzE8G/znkcpwk3DPrXcZ7pD1Nl4uJnkDmt
-	 isREPOhN40hXVC85xZrDwM4aSPVFkQeUvHFdmQSmUrIznGUoP+pOt19EmGddEnGanF
-	 77aNq9zK4unZ95zxk14WJrKafVl/MsaCTdFdpz4y0VWEPL6rdbrze+Y0NtdQMmmnY6
-	 NaGsMHEkz/2Lvi3EKDWuStVChtjuYqx/gxSz0sLwmGxrLeh7ZkX2gg61ENIUh+ov5G
-	 PR5JKfGr1ck6Z3r+TsAho2byMSG3iC1OWBVvCNhN8nHotekyoSJmRmUP3JxuX/6omp
-	 4R4RWViilpf0A==
-Date: Sat, 7 Nov 2026 22:57:21 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v5 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20261107225721.1d4d6d63@jic23-hlaptop>
-In-Reply-To: <676555ed-aa24-4654-a8bd-0606f1436396@linaro.org>
-References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
-	<20261102-topic-sm8x50-iio-max34417-adc-v5-3-0ffa5e5f2d5c@linaro.org>
-	<20261104023032.0a21da0d@jic23-hlaptop>
-	<676555ed-aa24-4654-a8bd-0606f1436396@linaro.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=rLfkYRN8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794092538; x=1794351738;
+	bh=0hFouMqOeYyeKhZ85sDPfJfrYfZA6d+gJ4WrPszogio=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=rLfkYRN8PyktjxiGFlQTpKqHwO5BSUsrQZwNrMsFry+BGKSNNZq8FUToNoPLEjqMh
+	 EswXEKS5BWT9MtZ8Bb79XWC46EkLGsnUlQ4no6H8aaEI7YnYDUplZkrJWhY0nSi8dD
+	 Q9XWEgioUkRSX2r+doOYdOGJowkDUekYjchabW8Upevz4M5zb9pyOUlgXNfgqOxDHp
+	 sVZhSwZJ8uS011IT3Rww6XdEpBaa/XBJDqgr0Y33gKSwsMSsD51fDqSqyODwssdemV
+	 76Dh/22qm7ICEItfLz1urR6JlBwBlE6tjoZo/iXqrZbAd8wkkYNrp7G0JsdNH2LQCP
+	 wk/ADzt5tB3RQ==
+Date: Sat, 07 Nov 2026 23:02:14 +0000
+To: dwaipayanray1@gmail.com, lukas.bulwahn@gmail.com
+From: Mauro Codella <mauro.codella@pm.me>
+Cc: joe@perches.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, workflows@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: checkpatch: Fix DEVICE_ATTR_WO macro name
+Message-ID: <20261107230208.326769-1-mauro.codella@pm.me>
+Feedback-ID: 135342123:user:proton
+X-Pm-Message-ID: b9297a89896b6ad5ddd8eb990ad47380ae37be5e
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,89 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 4 Nov 2026 09:33:15 +0100
-Neil Armstrong <neil.armstrong@linaro.org> wrote:
+The DEVICE_ATTR_WO section refers to DEVICE_AATR_WO, which does not
+exist. Correct the spelling to match the macro in include/linux/device.h.
 
-> On 11/4/26 03:30, Jonathan Cameron wrote:
-> > On Mon, 02 Nov 2026 15:49:06 +0100
-> > Neil Armstrong <neil.armstrong@linaro.org> wrote:
-> >   
-> >> The MAX34417 is a specialized current and voltage monitor used to
-> >> determine power consumption of portable systems. The driver support
-> >> getting the channels voltage, average power, accumulated average
-> >> power and energy over an I2C/SMBUS serial interface.
-> >>
-> >> The MAX34417 datasheet only specified on how to calculate the
-> >> accumulated average power, but with the Sample Per Second rate
-> >> we can easily get accumulated Energy in mJ.
-> >>
-> >> By default the IIO driver only supports single-shot Voltage
-> >> and Power sensing, but the accumulation can be enabled by
-> >> enabling the Energy IIO channel which then enables the
-> >> Continuous Accumulation Mode.
-> >>
-> >> The counter is common to all channels, so when reading a single
-> >> channel we will copy all accumulators to registers, so in order
-> >> to permit reading individual channels we must accumulate the
-> >> other channels in the driver when Continuous Accumulation Mode
-> >> is enabled.
-> >>
-> >> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>  
-> > 
-> > The use of the regmap_noinc stuff to deal with the variable
-> > size 'registers' is novel.  Might be worth just adding a little
-> > commentary on that to somewhere. Perhaps the regmap_config as a comment.
-> > 
-> > Other than that, just a question about why we need the postfixes
-> > for the labels. That seems superfluous.
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> > 
-> >   
-> >> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
-> >> new file mode 100644
-> >> index 000000000000..e679cf142141
-> >> --- /dev/null
-> >> +++ b/drivers/iio/adc/max34417.c  
-> >   
-> >> +
-> >> +static const struct regmap_config max34417_regmap_config = {
-> >> +	.reg_bits	= 8,
-> >> +	.val_bits	= 8,  
-> > As noted above. This isn't really true.  You are just use noinc
-> > reads to pretend it is.  Those are normally only used for
-> > fifo registers so I think we should have a comment here talking
-> > about that choice.  
-> 
-> Well, reg_bits is 8, but val_bits is 8 for the control & status registers,
-> for the data registers the value bits is variable, so it's kind of true.
-> 
-> But I should add the readable_noinc_reg callback, yes it's not FIFOs,
-> but both 3 data registers have different data width which should be
-> read using the noinc to use i2c_smbus_read_i2c_block_data().
-> 
-> I can provide my custom register read/write copied from regmap-i2c if
-> you find it better to avoid abusing regmap...
+Signed-off-by: Mauro Codella <mauro.codella@pm.me>
+---
+AI assistance: Codex identified the typo and drafted the fix and commit
+message. I reviewed the change and ran checkpatch.
 
-I'm fine with what you have here. Just after a comment to remind
-me of how this works if I'm looking at it in a few years time!
+ Documentation/dev-tools/checkpatch.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> > 
-> > It is pretty neat so I'm not against it but it might rather
-> > surprise anyone looking at the datasheet!
-> > 
-> > 
-> >   
-> >> +	.max_register	= MAX34417_BULK_VOLTAGE_READOUT_REG,
-> >> +	.writeable_reg	= max34417_writeable_reg,
-> >> +	.readable_reg	= max34417_readable_reg,
-> >> +	.volatile_reg	= max34417_volatile_reg,
-> >> +	/* No cache since the only non-volatile register is read-only */
-> >> +};  
-> > 
+diff --git a/Documentation/dev-tools/checkpatch.rst b/Documentation/dev-too=
+ls/checkpatch.rst
+index 6139a08c3..f8ab22c18 100644
+--- a/Documentation/dev-tools/checkpatch.rst
++++ b/Documentation/dev-tools/checkpatch.rst
+@@ -389,7 +389,7 @@ API usage
+     See: https://www.kernel.org/doc/html/latest/driver-api/driver-model/de=
+vice.html#attributes
+=20
+   **DEVICE_ATTR_WO**
+-    The DEVICE_AATR_WO(name) helper macro can be used instead of
++    The DEVICE_ATTR_WO(name) helper macro can be used instead of
+     DEVICE_ATTR(name, 0200, NULL, name_store);
+=20
+     Note that the macro automatically appends _store to the
+--=20
+2.56.0
+
+
