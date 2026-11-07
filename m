@@ -1,93 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069333;
-	b=LujfQWLivHc8PcQ+T8h2ytHUUHwdPIUQ0YPbI92vut/S4qcwFDxAag/aJ3AEWZJhJwds
-	 GP09QCg3U30GNtxg8ZJDr33GKCCnUGxS6G5xYdPxhJU4zVz9DWad0FR7QJcIkdRScPu/z
-	 gO/YSkysGTc4x70B7iseHMYC+cDEUtb9rfTYmdh2sL0PEKsM0OgQfeGWASaAzWnlDH8kF
-	 zFwQT4TG0L9VZ5QJMzw0kxAJGOegfbsCNbPYahUfkdWDVKS1zyiBc4ALsr6z++IPvuijd
-	 Ht5l6r2AKuPC7qsHvmL4BK4ZG9AGeaCOZNV69fpVPUA96NYR26PhMZekuABMrJmzFvA==
+	t=1794069387;
+	b=EMllDEzBKNaBuy0HG7t27b7N9drUEEK9mPOtgYxRRvDG4EzB2kEqPaQx7hsIsg18bXmq
+	 reR4ELJDVav25slti+XxFqbJ96BwQNUiUZ6uTtGyemTmDpLuuvDGQZHnB5iqSEuwIYGN2
+	 Jcq/SwKOjG8Jr2OryT7QtZRYeKIpbExhrvmsJioAn3F4OfiMPoXlzaaVv0j8yxPkoBIxB
+	 mIsOUEbXaQhEeGl0DOrLrv1Eov4X7cAK68V6IHnnA7YwNOmpM9TnHE1BoobktyzK8IAdQ
+	 JkiVOS51/mCzhDSCFna0AQnk8zu0bQY2WFp/23lAwQpE4pWfpRG88l+SR63D23AbhWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069333;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=vpx8jpvZit1mrMnK53mn6lvyf/Hr8HxBYVCEMXEzzdI=;
-	b=ZAXtuXlcacZR1hh56N6LOJbNZLSq6pcQFjo/BqfmG218OYgOgxqWT1Yp/8zbNFrF7wmy
-	 Lka52BXkQTaCrdOFYGmeO2tTz5WaTBV/5Q40UhdUSxlStkc1vOx69OQSOiO9IaXE1byEn
-	 cZ6GB+oRN/qklk/CmZSrj3BCK1kWsRxF7cMWYg8dOQa+ehzWzzytp3J1/IVz9FEqqUSP2
-	 XRSn8ju2gQwl0U29jqr6hHSah5nFz04zzffGDcUfbMuWLbbELTjrT5b/CX2QjBwrXnCLW
-	 9GMRRQqID9qWS8pnHFs/Gosf3n2oGfO8SHaKiRA1TgoxFMtUuBuo3rIfGJu1MN8yI3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794069387;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:In-Reply-To:
+	 References:Date:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=lbX+sGdGYj2HVf7Yc5m9ZTpvypzt1imqSUa6cW9vpz4=;
+	b=goLWzyJ6dikf20sTmmvx0U9yWSg5keKVter3H9I6mST6J4BMRy/ykHbgQTLxbC6wk07N
+	 PPK9l7T8owVgthjv7/ZWU1VeYS2T4KhUs1d30HXFRK9PYEAMB7mJLIf/mN1HIgqfU0lCv
+	 EIVQRyISM5whR3J/u+FGrLKVX5kEuSuCNKQX4VKqY5dvC+devnU8i5aaTIkWC5AFTIF53
+	 NnGL1CemA2tx7+CCnXL1tYBwd/04phcBfDHlWZdacSOWWPEPg0Jhf6Q8WJW5El/rwbJQi
+	 VC9FP31j/25DcFLFc6rxnDdwFKrK0iC9aqHwzwVy9xaOpBXI6/VlcsfmP7D8lQFZfIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=TbrZZA1B;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=T+jno8qd;
+	arc=none smtp.remote-ip=203.205.221.233
+Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D061F606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D061F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A20D606A326;
+	Sat,  7 Nov 2026 16:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A20D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=TbrZZA1B
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso600295a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:35:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794069332; x=1794674132; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vpx8jpvZit1mrMnK53mn6lvyf/Hr8HxBYVCEMXEzzdI=;
-        b=TbrZZA1BRm+Sy0qn7deY4UysaYGNgo1OVyYeTt9YSwGUJ/2DYx7c1Gr/1QE7k9t5Nz
-         PXOuh2OiqSfIzKcXXK3vUPjfWm6tqfhuQ3TONFWqVyhrIPTGA9XeXsbi+8yGvUBOkNkP
-         CquXDLXGxoUU0NvXIh3t7f9fqE10jnZCV3sWc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794069332; x=1794674132;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vpx8jpvZit1mrMnK53mn6lvyf/Hr8HxBYVCEMXEzzdI=;
-        b=2MVrUQ9rlug3wD4WzbBdFT6wj7gsxEHfQslYEDBk5zOdync6/qT+i0RociEXNVVATy
-         0M8NgezuMOzHDlMnYooUOr+NlVxCN7hftp2m8G/tzX9UqTn9+7sBt2G5iTO0PRgRpLwm
-         QpjNDhlTN4dVK2PsAhFgnx9kImW4TYiNS62TT+Qbjsd1wcmMki2BgsX9xgQpUnS2y/FU
-         0TaTQ+Ms9feIJ2TLHrQJWP7tzm8i9VzaO4/0qzKgURpnShrOoXlRwiDJlxlftbjYhobo
-         FI7zGcEG1yqgFSJnt5Yu6UZ4DRDLaT+QhYSnTpbl35S5lpN+C+YsI7kQW7HeGy7STYwc
-         GV+Q==
-X-Forwarded-Encrypted: i=1; AL+hErHGTiFZ2oLtbWDjFrKPScZh7HrJbKWgeM+AitynOOS3Vb9JenRgsmMHov4Ei2nayIO40GWuLVzfYglx9RI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pBUn6L71dGDmwGczncnaLXVgkqP1V2s27x2uVJGaYrhmLvO+7
-	f/zqRsRvmxPK0B/44oRCyXmwv2m/8FqazBOBP5j+A8zW5+z/1uCYxK6PRYApnfgPAydHiqYjdId
-	uSsfYb0mBcg==
-X-Gm-Gg: AYBFou1K49/7BpflbhS6ig9Zdc8kbXWJ5PIHBog6GHb2e6Jd2hRaHuduBaa/rcYTkb8
-	a4fMZkBrw9GVnqgT769SJvmmpMsA4YPEiAf/F1/FICqpvKz8zk/2v/+bynL9s92yyTh9NVmvg4T
-	CUxZc1pqQwQboxk+K+diLmgVC/ygdpSvX95rGt2o8PkFkgzSO2uLS+BaFZ4Wz2tz9BQnTHYqyjc
-	gyOWZVrpTTGireQ15g+6BmbF98j1thgHC7SW+qHeZZ4rgItjXNpXs94oVeOCKmGVmuqV3K+VDf9
-	qK5GhQcR9pU+BPxR3khpQEby9NHRBVb3bEieuxK1g2+kDeWf557T4tET5m/hq8CCnFZNBlBWLY3
-	TFMTzcKE4cBXLnjEgiJqIb0HpaR43Z4+bjB2RqzoU/g5aNuUa22GAxzQVdbiDt0EGY7l9Ta5T9T
-	pXsl5yFfMb2XJpXxB0T1Q7DsMdtu36C1A//0jPuZTfOlH2Ojz6jSG/MlzzsU5K0KomDc4aomyng
-	4BA6jiz5K4JidMlwMBAzEs0/awizu6iD5H6GsLuhdS3ArnvD0drQ9rMU85PUw6scCa0kQw/fHie
-	AfI4DctkDWZpDj0wIelKjyFKCb1S6djaH1/MJdL5tM/13rYPDfYiSKwGP+akmGIVpptiuljfjeU
-	lEuvo+AyVCJK85g4y8aF9ZL2uyQLkbbITy38Udrq9SLQ/tHYICAvkwxrvZZyrmVg/9SyzZufods
-	Ialt9wrubKMyaYdh5vHWIubgj4XSYTtkZSJjiCuMaOfRj7c2D2wPtl
-X-Received: by 2002:a17:90b:4b0f:b0:39e:4c81:6c5f with SMTP id 98e67ed59e1d1-3b0db6e5c68mr6010349a91.26.1794069331989;
-        Sat, 07 Nov 2026 08:35:31 -0800 (PST)
-Received: from localhost ([50.175.87.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10588225asm3741301a91.8.2026.11.07.08.35.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:35:30 -0800 (PST)
-Date: Sat, 7 Nov 2026 08:35:29 -0800
-From: Chris Down <chris@chrisdown.name>
-To: "Martin K. Petersen" <mkp@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>
-Cc: Christoph Hellwig <hch@lst.de>, linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: [PATCH 2/2] scsi: sd: Fix data corruption in WRITE SAME(10) discards
-Message-ID: <c58578f870580f92d1acd6cb73b59b7a7867d80b.1794069087.git.chris@chrisdown.name>
-References: <cover.1794069087.git.chris@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=T+jno8qd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794069382; bh=lbX+sGdGYj2HVf7Yc5m9ZTpvypzt1imqSUa6cW9vpz4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=T+jno8qdaZ7FEzEVXvcm+IPRdhDePnJHRQzb6XpHEuVMTXH8RLOtIXveklLzAk5w/
+	 M5Y9CfK7IuCjeZKspzyOphcnEGbuZ8un1VKBU7TuGktdg+bVp4clohyaUQtvTddQFv
+	 TDgSzLpGONQHDdkjWNJYfS2Oepog6LChN6P5LbEE=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 9138B44A; Sun, 08 Nov 2026 00:36:19 +0800
+X-QQ-mid: xmsmtpt1794069379travwr84g
+Message-ID: <tencent_427FA63F51443E005106A901DF6223E04E08@qq.com>
+X-QQ-XMAILINFO: OKZmdVNIw/gXnTM/i9jIuptosvaaslD27BAzXpUS3KVy2RKUZeJ9ErzG00x2QD
+	 AuI9GXR/qW0fR7U0P8zrtj4S7cUV2SEusCpEmYbC1OtPv53+8UVgDR2OaQiEFltmer0ZiVJA0cJv
+	 ndTITuVzykMQvNpTSF0zxXO0wQ5Z+KOUBIyERA5JVSUOxEEuMzXL7do1/gBIGCQqPxlBvMvi2SFa
+	 jYBqh14+brIM5pvWTj323gJF5EaULWh/Nv9EY5zAdeRduazhTUgst4rFMNn2BgG3aYkGx815RDHM
+	 ARxL2YFKhv5ruP4fFBgZ4VLiRCMvIOENPMuTnAe2F76NVCOp1ayMsS3zMm4yqSGxB6J739aF58fr
+	 IgEYFbls7LHUNhZ/5ZZRlF2C6vCI9nIKVL5P75elNcUMhhwJv7K51zYdvmb+HWyXS1k0RcqYX+yo
+	 qfBwm4NAhz5n+4MsVi17ppidfDSu/suS9SICGR0WgyQiEWk3gTC3r/r8G3IHMYSV/kiI6wyZpxeT
+	 XCnHtx/H73tyLC7C6rMbZSc+wYTcvFeWh99pHBkTbTAvgtftU4B1+qjzSPBN54WxzzevUt4coO16
+	 ZaQENIzXJ6xTjLv3KjKvOuDW0tPmRiJkKmnA5p3cUjiI+x6Ypn/1jbAEHB+uj3amXtBtfWIndDeA
+	 xDYwp4/DhCKxISTpfhLVy1ga8pM292VdWkzQ2Y6xqoE+KBq647BGqDG5vPLZ6nQiG4s3dCQORsSH
+	 nxWx18KjRPIfLZ/jUrxX19Br0tawegWYFYOolY0wcIxpnqwNmEvma843JPrcst8A28KNSX74mIzf
+	 /jFq6uM4DrLrSWkQhR96zJ1eRN2psaYxFyjPD/n6FMSgUjq7JFxtIsVYpT+XQOAZ7lpJMtP0WRCl
+	 ZVnMdFmShuYKFeXQ3T9AnH34nepgipOw21aQuIdNhrW8qyspnyxwJD9oQW5qXMTnASyVHoMqsjnW
+	 s+48nK+pLK9hTdp7o0uDwYY8JdjSaN7JD4h/5HtdtV5KVynMEST91wc5hwXf6zd+Lwx/QjUqXjGw
+	 MFxnEPEicqwMKtfmE7aIDOKtSuqd/T7W2dwbFF3A==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: ntfs3: two out-of-bounds reads in $LogFile replay (restart page
+ resize, restart table offset)
+X-OQ-MSGID: <c32-ntfs3-undo-unallocated-20261107@qq.com>
+In-Reply-To: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
+References: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
+ <c26c27-ntfs3-logfile-more-20261106@qq.com>
+Date: Sat, 07 Nov 2026 22:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,40 +81,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1794069087.git.chris@chrisdown.name>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-We already cap the discard length in writesame_10 and writesame_zero
-mode, but we still truncate the starting LBA to 32 bits. A discard at
-or above block 2^32 can corrupt live data near the start of the disk
-and still report success.
+Hi,
 
-Discard is advisory, so return BLK_STS_NOTSUPP if the request won't
-fit in WRITE SAME(10). Discards that fit can still go through.
+One more landing of the undo-pass lookup gap reported as item 3 - same
+missing check, different field. The redo pass validates the
+open-attribute table lookup three ways before using it; the undo pass
+validates none of them.
 
-Fixes: c98a0eb0e90d ("[SCSI] sd: Logical Block Provisioning update")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
- drivers/scsi/sd.c | 3 +++
- 1 file changed, 3 insertions(+)
+Redo pass (fs/ntfs3/fslog.c:5105-5124):
 
-diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-index a28d11886aca..9b8530267b4a 100644
---- a/drivers/scsi/sd.c
-+++ b/drivers/scsi/sd.c
-@@ -1131,6 +1131,9 @@ static blk_status_t sd_setup_write_same10_cmnd(struct scsi_cmnd *cmd,
- 	u32 data_len = sdp->sector_size;
- 	blk_status_t ret;
- 
-+	if (lba > 0xffffffff || nr_blocks > 0xffff)
-+		return BLK_STS_NOTSUPP;
-+
- 	if (!sd_set_special_bvec(cmd, data_len))
- 		return BLK_STS_RESOURCE;
- 
--- 
-2.54.0
+  t16 =3D le16_to_cpu(lrh->target_attr);
+  if (t16 >=3D bytes_per_rt(oatbl))              /* 1. bounds     */
+          ... goto out;
+  oe =3D Add2Ptr(oatbl, t16);
+  if (oe->next !=3D RESTART_ENTRY_ALLOCATED_LE)  /* 2. allocated  */
+          ... goto out;
+  oa =3D oe->ptr;
+  if (!oa) {                                   /* 3. non-NULL   */
+          ... goto out;
+  }
+
+Undo pass (fslog.c:5251):
+
+  oe =3D Add2Ptr(oatbl, le16_to_cpu(lrh->target_attr));
+  oa =3D oe->ptr;
+  t16 =3D le16_to_cpu(lrh->lcns_follow);
+  if (!t16)
+          goto add_allocated_vcns;
+  is_mapped =3D run_lookup_entry(oa->run1, ...);
+
+Item 3 in my previous mail was the missing bounds check (an index past
+the table reads outside the allocation). The same PoC with one field
+changed - lcns_follow from 0 to 1 - selects an in-bounds but unused
+entry (target_attr 0x18 points at entry 0 of a table with used=3Dtotal=3D0,
+so oe->ptr is NULL) and reaches run_lookup_entry(oa->run1, ...) with
+oa =3D=3D NULL:
+
+  Oops: general protection fault, probably for non-canonical address 0xdffffc=
+0000000001
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:log_replay+0xabe6/0xf580 [ntfs3]
+   ntfs_loadlog_and_replay -> ntfs_fill_super
+
+So one fix - mirroring all three redo-pass checks at the undo-pass
+lookup, ideally in one helper shared by both - covers both landings and
+the third one (in-bounds, allocated, but oe->ptr NULL) that I have not
+built separately.
+
+Both PoCs are the same four-record forged log as before, differing by
+one field each; 3/3 with panic_on_warn=3D1, mount(2) alone, clean image
+mounts fine. Unchanged in mainline as of 2026-11-07.
+
+The reproducer bundle for items 3-5 plus this one is available on
+request as a single archive - same base image, per-finding one-field
+patches.
+
+Thanks,
+Guikun Yang
 
