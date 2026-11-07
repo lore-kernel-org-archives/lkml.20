@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794011551;
-	b=rNgvayqOkNV/y7zK5Yhu7yuIvjbZGCQGDu8gXisuUU1DO2Vcvq7YQmKKGpBVfSxi/YXo
-	 i8xUUUDrMN13ECaf3ilJx7lEl9HneXPhDCNoWDxAXLNTFugLGp4rTH9p/uK3ReTKsPm4A
-	 vFcbEAV7NdituXlE8zcBLrM+4l1cBe8eeK73Y3AN1mH01tB21dbUP+oWBUBXrpNPKs7DC
-	 J/NeJAplWLADb4E0nhdyawPB/kkU0/P8bb48p2qgRNFQfAYAwTBRBUWd6m4JWw64HSFxA
-	 RdvN7MdsJMdhXhNN35yg7MveSqaGI3bDNTvhK2BJw3pAvK2xZJQ+Ub6MlN3Ina/5w9g==
+	t=1794011594;
+	b=TXRBNYgItnIowWN9J5f8yu9P/B6uGlQEMn6BjEZgFmavj90kL7I2NjjwYw74bZEMb9qb
+	 zYnM5Mt36Ltmkh5HfuB+VwpQ/2UCl5NYgxZL2ZcW+g3K3ZHrOQ0oiFKB85sPEmXyxP5Dp
+	 841WfT2nP3YZJZB4eFhCNj7v3mrXKpyXK9Ntv2uWBbrfrejAIQSNyNjdbNKX6d0T+kVAW
+	 97F4F4RjzKhdYqpj2sQ1PiC+3Dq/wUVC1KkH7swVXyZYXkdd0JO3aYCfFMfVKrSlol/Y5
+	 PhHiqblH0C2q+h5P/HnR1GvQRuwClVCgYY5hjcRinXX8P4khGctbvrmar9Dsa/ueiUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011551;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=pkTlAxtLLfyZwA9aguqr+9HUOssKJfczq1T7Ue2K5u0=;
-	b=Ff6qeUxuUNRsLHt6q8WK1+BeZ2jXHsezMXaEY9MLyCZrWDeQj0M6LhGlDgbL5WXudyIb
-	 /Si+BoOsrHi7VGfFaIHuyZ481lZFv+Jbp2MaJ3vvCEI+IPt9egDGF4575tlDPIwDmog7A
-	 KqsYJXQ1iUrHsIIVM0z/s2TevUOzsJu0MiOivhE1cQwgur8oGsyB2eVOQ7QVbxYPFmFjm
-	 QD8xy/DtjaKUlUM7KjLC2vI6jWgaMOlFK+FxY/qOaxTPk4hd2GGhKrgZ2hPWRpMI8ozZD
-	 Oa6I6DhOlYmgoomJQgNnvShHKHfEliF1BAbUl6CfpekAHOQRjffyhq7ZE9l8rW+021A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011594;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=4AIzCiT9zAqiM5GA6FV2ih9/wZbuPRRZ3Er6s+GSRAA=;
+	b=hNYJ7NIKfF9t2kwyqh7VQBOn7Bcbl9VnKWE29LW0JiIlH85uNbO/6DzJocSasBeSq2dK
+	 ToSz/Jtupx7Z948zITEwylfJUIiA4bcQLPkbHl7uCtkLTzyNyNjAkjdFayBfNaP0xtRXZ
+	 3nJ6Ltkc7GAKdKWYIt0vblH5rKgy70jqyqd81MnGsELBdvCZvOsrrJsqNragJCS4VF5af
+	 QVPX2MmJcuCIpr3L5qTBKSDzoJSbTGWU4b3dSeGRcsWCsT7UpYuW3FqVpMbLQ768NYVcX
+	 imQyA5twheHAzsP589iw12oeg0ReRyw4H7J44TSsKewH3EREdot6/Edf3TxJqqA7v2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JHhzOp9u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A2A606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:32:31 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="W2kf/BGR";
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0FDC606A326;
+	Sat,  7 Nov 2026 00:33:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0FDC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JHhzOp9u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59D21F0089F
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011550;
-	bh=pkTlAxtLLfyZwA9aguqr+9HUOssKJfczq1T7Ue2K5u0=;
-	h=From:Date:Subject:To:Cc;
-	b=JHhzOp9u/2kHc+69zZEWOiwrJb9bVWslGdt96MBTrxaAhV1os28igsKBz5isZ6tCG
-	 /NlJ4l3pGY89fuPzLtf9GfJdbI0fH5BSRE9LHM7SO6aDInTPDkK9nAN7FAdAQuTHBg
-	 C2n30cmNYUun2Z3hC11y3hiFfV5Z3X+ddh0OspWunJTStw3WybUzcm2+RsIqEWxWff
-	 0w5KVHMhPqpdXSE83wrABAF64b9kjwubYAzxFynGO/e/P7w0vGfSKpfVApoRZ2cFa3
-	 SDR1Jczph0oLzrHkdc2iKJ/9rDe415zxlH5zVk4AqUU7HYcM95gk+WuJ6PMteHILNI
-	 8mt0wp9P48haw==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so1311635a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:32:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFKME5KPG9/dtOBlXf8whSbqseSRPgH+t4ORznIV4b17XrDIUIGDdz9KP/9qfhD1sJ3na1PPETDevw0lF8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+U6MdPvGsigRI/CVc/ChcKfJc+t6EeGkUaO6N3GFVOIwn3kWgA
-	CX70RZwNlwso6DG8XZXnGkIjUSTHCGVhTGQz7OxGn3MwNq2GRSdbH5URkdTUPYwCwSEyHESlY7K
-	2n+HBMJaDix0bImLcb9lkcY1xlBuenSc=
-X-Received: by 2002:a05:6402:1493:b0:6b5:7140:e2f9 with SMTP id
- 4fb4d7f45d1cf-6b59781b3demr2164432a12.33.1794011549496; Fri, 06 Nov 2026
- 16:32:29 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=W2kf/BGR
+Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 751D520B7167;
+	Fri,  6 Nov 2026 16:33:12 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 751D520B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794011592;
+	bh=4AIzCiT9zAqiM5GA6FV2ih9/wZbuPRRZ3Er6s+GSRAA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=W2kf/BGROQlVkPNDhxVqdvuhzsdAaTigHkEXAsHvT1mi/n9vfuv38OKTLHitQVza4
+	 LTrE7E9aJGMT+Nvfh/B6ANh98pIGk6I+buWC0xAK1/yJ9DMIMQ/o6cPqhKRPELgMM2
+	 lq1iGzkAeA26uB9Ohk8+3tBt/hp1+Hiz++Qy9a30=
+From: Mukesh R <mrathor@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	mhkelley58@gmail.com
+Subject: [PATCH] mshv: Change parameter passing to hv_call_create_partition()
+Date: Fri,  6 Nov 2026 16:33:03 -0800
+Message-ID: <20261107003303.3897039-1-mrathor@linux.microsoft.com>
+X-Mailer: git-send-email 2.51.2.vfs.0.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,92 +61,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 7 Nov 2026 09:32:17 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8+9m-FZuNU5Ahcco1reEac8u7b5KJ295ezA37rtcGjUQ@mail.gmail.com>
-X-Gm-Features: AclHuK-V2WSrAkXb-coK7inCzTNsqTJGz-F9vMC0MQQRjsxZT4my5Vlm815RDb4
-Message-ID: <CAKYAXd8+9m-FZuNU5Ahcco1reEac8u7b5KJ295ezA37rtcGjUQ@mail.gmail.com>
-Subject: [GIT PULL] ntfs fixes for 7.4-rc2
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	"open list:NTFS FILESYSTEM" <ntfs@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+At present, mshv_ioctl_create_partition() for unknown reasons passes two
+aggregate parameters by value to hv_call_create_partition(). Change that
+to pass them by reference.
 
-This is ntfs fixes pull request for v7.4-rc2. I add the description of
-this pull request below. Please pull the following ntfs fixes.
+Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+---
+ drivers/hv/mshv_root.h         |  4 ++--
+ drivers/hv/mshv_root_hv_call.c | 12 ++++++------
+ drivers/hv/mshv_root_main.c    |  5 ++---
+ 3 files changed, 10 insertions(+), 11 deletions(-)
 
-Thanks!
+diff --git a/drivers/hv/mshv_root.h b/drivers/hv/mshv_root.h
+index 1f086dcb7aa1..c61b52db7f00 100644
+--- a/drivers/hv/mshv_root.h
++++ b/drivers/hv/mshv_root.h
+@@ -275,8 +275,8 @@ void mshv_vp_stats_unmap(u64 partition_id, u32 vp_index,
+ 
+ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id);
+ int hv_call_create_partition(u64 flags,
+-			     struct hv_partition_creation_properties creation_properties,
+-			     union hv_partition_isolation_properties isolation_properties,
++			     struct hv_partition_creation_properties *cr_prop,
++			     union hv_partition_isolation_properties *isol_prop,
+ 			     u64 *partition_id);
+ int hv_call_initialize_partition(u64 partition_id);
+ int hv_call_finalize_partition(u64 partition_id);
+diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+index e761addda50e..bf0f90515dad 100644
+--- a/drivers/hv/mshv_root_hv_call.c
++++ b/drivers/hv/mshv_root_hv_call.c
+@@ -86,8 +86,8 @@ int hv_call_withdraw_memory(u64 count, int node, u64 partition_id)
+ }
+ 
+ int hv_call_create_partition(u64 flags,
+-			     struct hv_partition_creation_properties creation_properties,
+-			     union hv_partition_isolation_properties isolation_properties,
++			     struct hv_partition_creation_properties *cr_prop,
++			     union hv_partition_isolation_properties *isol_prop,
+ 			     u64 *partition_id)
+ {
+ 	struct hv_input_create_partition *input;
+@@ -105,11 +105,11 @@ int hv_call_create_partition(u64 flags,
+ 		input->flags = flags;
+ 		input->compatibility_version = HV_COMPATIBILITY_21_H2;
+ 
+-		memcpy(&input->partition_creation_properties, &creation_properties,
+-		       sizeof(creation_properties));
++		memcpy(&input->partition_creation_properties, cr_prop,
++		       sizeof(*cr_prop));
+ 
+-		memcpy(&input->isolation_properties, &isolation_properties,
+-		       sizeof(isolation_properties));
++		memcpy(&input->isolation_properties, isol_prop,
++		       sizeof(*isol_prop));
+ 
+ 		status = hv_do_hypercall(HVCALL_CREATE_PARTITION,
+ 					 input, output);
+diff --git a/drivers/hv/mshv_root_main.c b/drivers/hv/mshv_root_main.c
+index cc2cfce2aefd..89fe6fb9244a 100644
+--- a/drivers/hv/mshv_root_main.c
++++ b/drivers/hv/mshv_root_main.c
+@@ -2088,9 +2088,8 @@ mshv_ioctl_create_partition(void __user *user_arg, struct device *module_dev)
+ 	if (ret)
+ 		goto free_partition;
+ 
+-	ret = hv_call_create_partition(creation_flags,
+-				       creation_properties,
+-				       isolation_properties,
++	ret = hv_call_create_partition(creation_flags, &creation_properties,
++				       &isolation_properties,
+ 				       &pt_id);
+ 	if (ret)
+ 		goto cleanup_irq_srcu;
+-- 
+2.51.2.vfs.0.1
 
-The following changes since commit 6b4b543fa18757297ac756a6fe6e64f506b7844a:
-
-  Merge tag 'parisc-for-7.4-rc1' of
-git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux
-(2026-10-25 18:04:17 -1000)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git
-tags/ntfs-for-7.4-rc2
-
-for you to fetch changes up to c77ab4eeeb3ed471bcc99a94673f0e0142c4b84a:
-
-  ntfs: don't allow compression on volumes with clusters larger than
-4K (2026-11-02 22:53:56 +0900)
-
-----------------------------------------------------------------
-- Don't allow compression to be enabled through system.ntfs_attrib on
-  volumes with clusters larger than 4 KiB, preventing out-of-bounds
-  accesses in the compressed read path.
-
-- Don't allow resident attribute values to overlap the attribute header,
-  preventing malformed records from causing writes outside the MFT
-  record buffer.
-
-- Fix recursive acquisition of the mapping invalidate lock when writing
-  to non-resident named streams through NTFS_IOC_STREAM_WRITE.
-
-- Keep the file size unchanged when extending the initialized size fails,
-  avoiding unintended truncation and page-cache removal.
-
-- Avoid integer overflow when limiting attribute reads to the attribute
-  size.
-
-- Initialize the promoted index entry's child VCN before inserting it
-  into the parent during an index split.
-
-- Validate index entry VCNs and return an error for negative attribute
-  read positions before they reach pointer arithmetic.
-
-- Fix cleanup after ACL initialization fails in __ntfs_create(), avoiding
-  an erroneous free of $MFT, unmapping an unmapped record, and unlocking
-  mutexes that were never held.
-
-----------------------------------------------------------------
-Bart Van Assche (1):
-      ntfs: Fix error handling in __ntfs_create()
-
-Hongling Zeng (2):
-      ntfs: keep the file size on a failed initialized-size extension
-      ntfs: fix a self-deadlock on writes to non-resident named streams
-
-Hyunchul Lee (3):
-      ntfs: reject negative attribute read positions
-      ntfs: initialize VCN when inserting index entries
-      ntfs: avoid overflow when limiting attribute read length
-
-Namjae Jeon (1):
-      ntfs: don't allow resident values to overlap the attribute header
-
-Zhan Xusheng (1):
-      ntfs: don't allow compression on volumes with clusters larger than 4K
-
- fs/ntfs/attrib.c |  9 ++++++---
- fs/ntfs/ea.c     |  5 +++++
- fs/ntfs/index.c  | 41 +++++++++++++++++++++++++++++++++++++++--
- fs/ntfs/index.h  |  1 +
- fs/ntfs/inode.c  | 38 +++++++++++++++++++++++++++++---------
- fs/ntfs/namei.c  |  6 ++++--
- 6 files changed, 84 insertions(+), 16 deletions(-)
