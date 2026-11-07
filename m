@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011836;
-	b=QznCDzZb+lbyoSgJZp3rkJFzq8whJ2NhCuqQGZ2CRyzc5vAYM6OJ5xfpKnqOehQna4wz
-	 Lq5ZQynIpYp6vbC9NGPzMpme+mwJbsW7swuRBEbB2b90Nk5l6+1bc87+LgSSLYLp4lYWd
-	 ghdxEy2Vs/1mq3AmcKPJ0AeOY6WB8twr+XLY9iqIHSMFGLl3HVhVRuxBP/Q+3/UaZhS8m
-	 QBnkLh3wg3PwYlWqlWy2vsQRkhBF7A2xc7YVpfeupkYQI0OqXb1wWU91UKSP2Ow23iK1Z
-	 3i9JzLPFI622PSyc6SjeDeAw3CgPngtL5pDP7vcRtUGfXLrlvGkQyyhbaM86Kyraepg==
+	t=1794011837;
+	b=BQDyQhzaJNWF7OSypznLmzh8rrYRTWJLa0rpWojbA1spdtCjoiSPpNwO/11PjsATOPDI
+	 LnUFDCPjedoj9KkWDAzfkOJJ4NOT0iuh7wshQSE8cv/hy9VyhlbZQ+opFbNq9VHbG2YnS
+	 1VF4hwIqAGtl1Da24toQkJ+CjaStgf+AuA/dnTMpjU8zMSg2a6U/DkvO6TCqW9YlxBDUd
+	 8dbwJLxt4wIeJX4NMoAzpKjn9bm2F0nvljzb8QmFL/UzPAdTzbfX/YBf6+hJ4DxAeFY6Z
+	 VxybM16mQZk1aeWqaregEhA15wYognVLjUZz5jFUNphtn1JelWk80NyV4eV7nuoc4vQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011837;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mCFMpOTu0j+6Ae8InLL7w0WPXWrYNgO/akoMq6zJJ7g=;
-	b=eSLcxlR/HusvxGoZBKDhgipSjK+gjfJNWVZGivePWIP5fPvkdmTCGINhVnHTF0T6oIRN
-	 oa/Qjt8FGKVnl7OVxUH8vXFKakgKaFGUQNUqRQ8jh7v0G47TJnYNgZXYhwqDUfdhqfW1L
-	 J8snZ/7RP4AYK3zGUHy2EY/6gPc5y26yp/KVr0usc0kIxcHHGWX07v1ANHKAzrucZo3CM
-	 c263iQihEQMKP0H5WUffma7WPhYXZmFGcqyJP+KVMBoU349w91R3Ek9Cl7M2fvroc3DHP
-	 a1VlDsXu8XR0nfnrfp2E4FuY/1R6lMZHfaeJ/Pb7Qw5tKwHLuMgLndJS59HqN5bU2wg==
+	bh=VQR0WakuaszDqO5R17sC1zMOvvVcE9BE0ownvxB0jTs=;
+	b=0+V+ao/IMCvd5Dob/K9TQwd2MnPjcxN3Notn+uYqSx/kK0w0dxGEakzDKjdt/knGM/4u
+	 Ms4r+VNiUPfyJt6O4wGiEvdCQ1PSnUjObvW1hx0hldOH9JDphVVHNyBZWha33PnhPaNLf
+	 4Wfbrv41cgNRjt8scZK1Fn2kuAmGQYJ4pTf1OgmaycPveEFtl9fry0GxUr7GIg6viQEup
+	 J9no5jrmDRpbWeux/V2c0znls/n0KuNeIehubZEJdR39lyhwEBHlQyZPcX5HKoBJesVqS
+	 SdgYYFXCFwkoBoHlNqwCcWSHl0rQ8Uj3WtRrY0tmHotCBoLzvmYWGUbfMpE8RZFVHUA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWQR3ePD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xw3BV2VI;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1579A606BFDF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63F0606BFF7;
 	Sat,  7 Nov 2026 00:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWQR3ePD
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xw3BV2VI
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794011836;
-	b=GI59OHI4jXTmxklcXJneelhHScY5T2jMzG0UpeHlq+0y7Hiqrd5oZFGLRmHwJVkb5j4i
-	 cxyQuz7vBbLeVkAqas78eLHd/RK/c6J6uoH2x8fAkktG5Ri3MkuYHuhEXgvQjK7fJhoM5
-	 83gWycD6ZnZKLKb2bWR28nvqvQh5b1pMoj1cF00o8imNXvtFRqYquScPlbC8la/60WVET
-	 vEvvRvlGeCnYqnUQsWgkOEJOSaGWl6QgAuC8l3geuiBbka1TZ6hn/bSlVwoNVQ1D1PBoO
-	 q7d9OKCZAj4DgXIjS7SuP+Hob757N9u0CMwF15Mjvjx0tHqX0tKD0+vfH8rXXPF9Tdw==
+	b=o0Ii1271i+krwEjn4Tn4bXdjUS4XGg0znAw7PfOsZ0A/sGt2dX+julXBLqNwvxUCE5oy
+	 79ntMgrDKKSYJxC5OoBAlLQ6MqXpklQSqmUS3XzTBRLYU8TuFYLL2Hf14XykCN3BLn/kj
+	 MyprcHN1DB/TpUVzWHN0d1RvveEvsHd/S41bVbX3G7w+lzeGY7kixjHI+1Z6ozYm6Q/dj
+	 LGOF/oNyS9NkiztWJ7U4iaNp5xUPShCOXUbIs31wwgRnOQobRbwAkFnFRlNgBZcx8oBiN
+	 /7z6OSbPSMtHN6PY+y/9Ni832G3WosbKnHOLCtEy+97XMwlTD92dlAKJIPLrXM6M9kQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794011836;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mCFMpOTu0j+6Ae8InLL7w0WPXWrYNgO/akoMq6zJJ7g=;
-	b=Tq+6xslCS6y47JNvGGxfcu2urz4qqHFFvS2DECl3XSfGeNk8hSWRdtpMJn8Vr9n6RBA1
-	 hdk8wroJfgBY1otigi8DhQKJBhjucax4rqJX2GkMGC2uAbTUQ1JI+VPF27ro/7ixDjcJz
-	 K8uEkGjUTTtNZWBXhL8K/DX4vCzvoWKrhKfMh67QFrnpJlwGn6BiwO09H6H6JQIqqdIVg
-	 tutQQskM8+z1+YkXP/Ds2zpKWNx++v8pOLmt/wilpVXPdsId8y/V7QTTonEqKvL51VDW5
-	 wCgwQuE8ZUYwkHCHfG2lLFzSMhrIGmWtA60ensvS6mCdYI0ALuFP/+wKejg+9EO7V9Q==
+	bh=VQR0WakuaszDqO5R17sC1zMOvvVcE9BE0ownvxB0jTs=;
+	b=Lsxsx4TrJzn41FFwDbMfhGFbpsrXGjFAqmgNwqsBLbqS5Suh8iFzIoga7gbo8Ph7UuEe
+	 PFydi+3fAsBW04gfjKShVuDIztfZx4oxFpFVLxxYbOk4BqL92aPzxhAfbszngC6jwKzef
+	 PDjE07s7I/PClPTZmf32GrqdWGWsY8z9mDZOCw0o/9CiEqo+7iJn5aSmiPo5vMiFruRdX
+	 49xxLY2UdF0O5cmge9JOpIye37T3l9pzIXDHewcCfCWtb9ijdBAX9gGy/RAin8TOCwO7Q
+	 E21+5X6wr+7Shvb6/GPyIGIORYscrdjve9bGotM5Z9yQZ5FjnyRiSNiql8uGSEvX6oA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D9D761F00A14;
-	Sat,  7 Nov 2026 00:37:14 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id CD55F1F00A05;
+	Sat,  7 Nov 2026 00:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011835;
-	bh=mCFMpOTu0j+6Ae8InLL7w0WPXWrYNgO/akoMq6zJJ7g=;
+	s=k20260515; t=1794011836;
+	bh=VQR0WakuaszDqO5R17sC1zMOvvVcE9BE0ownvxB0jTs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OWQR3ePDlqin4tx7NS6UiyORjBYsjzluakJzEl1OelZPwFAFJwgQ3vWQ05PI0TyfQ
-	 Gnh5754Ha/+SP0OfqmM86dz1WBc5n/4donc22oxfxBv7LUTfbAJth9YLwm4vD2lSEC
-	 lxCJAW9bkbyn/08xoKM1SkJcykBU9Se0T9LDt4H3vV7JhccZiXc2BRlhjpWKofI1G+
-	 aV2zt4p1RsgKFJrqz1qpONtiJY0l/E3tk731tEHhiE+4tnCJQPh+DGFoR6nuMKdvUU
-	 958C6vYrqMgRzz0KVXz+WN6po3nqVjWTMoJ2zR3VjfyP8f63gQyW5/uG4oDqkKl2O6
-	 7/XhInxAr3C/A==
+	b=Xw3BV2VIh7HubueaXrhbvOpox2U/SiJK47yyhmnx8lVA2rF1B8o7CFMOy7ECNGyxL
+	 GSc/rF/UJeAVt75wNnm1HaKkQbx/waACwiUhvW3oigPkXt/nunoaho/LObiwMmfIRs
+	 YW3IlGwud+TZJ0JUZimPMa+QsQVtxRd0+RUgCX0ca2+zhZJFkPrIjlqQFpSFfUqw5T
+	 mC0/iHrGPmVsy88+ZXkOM5xn0bp7QIAuIM0rqf6qWzmoev5x46OgchecT/funBNBOq
+	 Xx6jKz5BjQ4v3uQVs9ckx3/wgpZzGnmPX0H/FAtv3UXRQY7yPuy93fH8BLCtlnRPvj
+	 jh4d1bJsWybyg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DF6AD47A34;
-	Sat,  7 Nov 2026 00:36:57 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E5480479F8;
+	Sat,  7 Nov 2026 00:36:56 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:37:48 -0800
-Subject: [PATCH RFC v3 74/88] KVM: selftests: Verify VFIO IRQ info for igb
- device
+Date: Fri, 06 Nov 2026 16:37:33 -0800
+Subject: [PATCH RFC v3 59/88] vfio: Dispatch guest_memfd get_pfn provider
+ op via vfio_device_ops
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-74-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-59-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -102,13 +102,14 @@ To: Alexey Kardashevskiy <aik@amd.com>,
  Xu Yilun <yilun.xu@linux.intel.com>, Fuad Tabba <fuad.tabba@linux.dev>
 Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+ Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=2686;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=2331;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=AQWLCgcApEEg/jyplbDhTDq5B3XgkxkLe0iSGXinQCc=;
- b=lzA7mjrnsoNNt6rCSt1o1c7XKjGh/b3RZ9f/ThL79ZgoHIg/TBQHg/cOHoFTJNTQBhv4Maxy/
- eIA9j9nVdKwBg73IhGl+U9b+AJRUyfp6pwsh2i/u1ti2HRsFODVqhyR
+ bh=xvhk/B5cJ5UV/xewATDcSIWa/TiLlY+J1HVubbWHrTs=;
+ b=o7/Mg1zgNXsxxe9h93PAmVT9+adieaG+XGvsvYOAGMQVbFhjEeQODEIVNBVomRcjlxVrpS+fC
+ vD5PwxCvv4YA1qhXrdJYU5KtKYsUBP51tja93wBeyuXND0y2TJGrwT/
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -119,78 +120,67 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Add a subtest to verify interrupt capability queries on the bound
-Intel 82576 device.
+When servicing guest stage-2 page faults or host userspace page faults
+on guest_memfd memory backed by a VFIO resource descriptor, guest_memfd
+invokes the .get_pfn provider operation under the shared filemap
+invalidation lock.
 
-Check that MSI-X reports a positive vector count with eventfd signaling
-support, that MSI reports eventfd capability, and that INTx reports
-eventfd support along with maskable and auto-masked flags when present.
+Implement .get_pfn on vfio_device_gmem_provider_ops to dispatch to the
+bus driver's .gmem_get_pfn callback on struct vfio_device_ops. Return
+-EOPNOTSUPP if the bus driver does not implement the callback. The core
+dispatch path avoids acquiring dev_set->lock to satisfy the requirement
+that provider callbacks do not acquire locks held during revocation.
 
-Testing multiple interrupt types establishes baseline checks on the
-underlying device descriptor so that when VFIO resources are later
-delegated to or wrapped by guest_memfd, native capability querying on
-the device descriptor remains unaffected.
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- .../selftests/kvm/x86/guest_memfd_vfio_test.c      | 48 ++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ drivers/vfio/vfio_main.c | 16 ++++++++++++++++
+ include/linux/vfio.h     |  3 +++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-index c76abe6d45140..6525f392b3930 100644
---- a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-+++ b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-@@ -188,4 +188,52 @@ TEST_F(guest_memfd_vfio, get_region_info)
- 				    VFIO_REGION_INFO_FLAG_WRITE));
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index 618daf8bdaf80..93bd0a200ad22 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -1589,9 +1589,25 @@ static void vfio_device_gmem_release(void *provider)
+ 	fput(file);
  }
  
-+TEST_F(guest_memfd_vfio, get_irq_info)
++static int vfio_device_gmem_get_pfn(void *provider, pgoff_t index,
++				    unsigned long *pfn, int *max_order,
++				    u64 *pfn_attrs)
 +{
-+	struct vfio_irq_info irq_info = {};
-+	int ret;
++	struct file *file = provider;
++	struct vfio_device_file *df = file->private_data;
++	struct vfio_device *device = df->device;
 +
-+	/*
-+	 * Test MSI-X interrupts (VFIO_PCI_MSIX_IRQ_INDEX):
-+	 * Intel 82576 supports up to 10 MSI-X vectors.
-+	 */
-+	irq_info.argsz = sizeof(irq_info);
-+	irq_info.index = VFIO_PCI_MSIX_IRQ_INDEX;
-+	ret = ioctl(self->vfio_fd, VFIO_DEVICE_GET_IRQ_INFO, &irq_info);
-+	ASSERT_EQ(0, ret);
-+	ASSERT_GT(irq_info.count, 0);
-+	ASSERT_TRUE(irq_info.flags & VFIO_IRQ_INFO_EVENTFD);
++	if (!device->ops->gmem_get_pfn)
++		return -EOPNOTSUPP;
 +
-+	/*
-+	 * Test MSI interrupts (VFIO_PCI_MSI_IRQ_INDEX):
-+	 * Should report eventfd capability.
-+	 */
-+	memset(&irq_info, 0, sizeof(irq_info));
-+	irq_info.argsz = sizeof(irq_info);
-+	irq_info.index = VFIO_PCI_MSI_IRQ_INDEX;
-+	ret = ioctl(self->vfio_fd, VFIO_DEVICE_GET_IRQ_INFO, &irq_info);
-+	ASSERT_EQ(0, ret);
-+	ASSERT_GT(irq_info.count, 0);
-+	ASSERT_TRUE(irq_info.flags & VFIO_IRQ_INFO_EVENTFD);
-+
-+	/*
-+	 * Test legacy INTx interrupts (VFIO_PCI_INTX_IRQ_INDEX):
-+	 * Must support eventfd and masking when present.
-+	 */
-+	memset(&irq_info, 0, sizeof(irq_info));
-+	irq_info.argsz = sizeof(irq_info);
-+	irq_info.index = VFIO_PCI_INTX_IRQ_INDEX;
-+	ret = ioctl(self->vfio_fd, VFIO_DEVICE_GET_IRQ_INFO, &irq_info);
-+	ASSERT_EQ(0, ret);
-+	ASSERT_LE(irq_info.count, 1);
-+	if (irq_info.count == 1) {
-+		ASSERT_EQ(VFIO_IRQ_INFO_EVENTFD |
-+			  VFIO_IRQ_INFO_MASKABLE |
-+			  VFIO_IRQ_INFO_AUTOMASKED,
-+			  irq_info.flags & (VFIO_IRQ_INFO_EVENTFD |
-+					    VFIO_IRQ_INFO_MASKABLE |
-+					    VFIO_IRQ_INFO_AUTOMASKED));
-+	}
++	return device->ops->gmem_get_pfn(device, index, pfn, max_order,
++					 pfn_attrs);
 +}
 +
- TEST_HARNESS_MAIN
+ static const struct guest_memfd_provider_operations vfio_device_gmem_provider_ops = {
+ 	.attach  = vfio_device_gmem_attach,
+ 	.release = vfio_device_gmem_release,
++	.get_pfn = vfio_device_gmem_get_pfn,
+ };
+ #endif
+ 
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 65dc2cb523351..51e04b980a381 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -122,6 +122,9 @@ struct guest_memfd_provider_operations;
+ struct vfio_device_ops {
+ 	int (*gmem_attach)(struct vfio_device *device);
+ 	void (*gmem_release)(struct vfio_device *device);
++	int (*gmem_get_pfn)(struct vfio_device *device, pgoff_t index,
++			    unsigned long *pfn, int *max_order,
++			    u64 *pfn_attrs);
+ 	char	*name;
+ 	int	(*init)(struct vfio_device *vdev);
+ 	void	(*release)(struct vfio_device *vdev);
 
 -- 
 2.56.0.455.g6c5a503b38-goog
