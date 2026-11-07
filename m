@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011838;
-	b=cHhAp8obfysegoT/qTaks/rAw1Z4EUOPCdUiIMgHmJXam5f23EExB/ycdYoB7UwUDCBw
-	 mjJv405y6IyceF5FXoNE/xPwoTXwJAEP9a/sKnou3q4Cc2MOS/D5k0nUoenyWcuj6Ez3K
-	 pjqYGh1W6oIM7UeRNrcYL5XswnNSRTNqI+QUpuHsP8l4IfT2dl8QcrrJUhfoFomIR83yI
-	 nEHrM6EZ8IM3RdT+0v92+xRvBVcLGq9nQTLuZSTFC+edWOW0iMb22nrsiexFkXF+U3wa0
-	 C3+rFDOfcdrPKr7U3O1SwuV/3/gxvA/LT1XS4gLnk0qDD3AVZgdPZ1kwsogivl2R0LA==
+	t=1794011834;
+	b=IexF1zJAVyje30kD1t6XqOJADTU/CbXRz0V1RHu7EWhusKrgUKB8zortnWRfius/1RJ4
+	 egdScwi1mCMSB0cws4KHz+VdUuwtgtg0pKXuyWlksiJc9z1PfmckNnYm15N9BTj+z0vR6
+	 c4hAtIIUmfOWZNz8Njwt0tLXHCWvOoquwE9kmJrFt5ro4pnl5D8EMuYTs5IJCdFsPOQrf
+	 LoAWmKg4QZCR5+xHv2BLr90O6p57EnrOAD6PVZnAiPO3FpxZcPV2CqRp5APz0LYzXIf/+
+	 mwyb3ngsbaqyFF+7Jn/BsAem3O0zjrzcw0OlM10cRbzYs9uKWi0pctcQLv2LjiHlgtQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011834;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ANWT/yfx2UhN0rafXVKWKPXBTCBXsWp+E5MMs+sD+/M=;
-	b=Naq2wf3go6X6M7rAReTdNUrUopsalbSRnbBY36bdzshg0AAX8hh0wOhjGFPiei/lv4eT
-	 nqP0LmWoVcP9xhvNRHO65M4BgEMR+xAtnswKVspswL4P0BbMfzoIbMwXBgrAHQ3ClZFoc
-	 RK+cgfwVQ+UMj6YAZCyokoZxM6EPbHKVsDK/Nbe6PzTq47hg+R39XQ51Xhf4dqperHUn6
-	 me304grzYv8wiaSg+udX1Vsw2Vcm2xsBfOAQ8bxn8rAQGhL0ryjp02HobjIfIMh+23tKy
-	 XPlMkZCcfl7yKf4Z2s/TCn2+s07lnNkdI2RpXBq+a+zdxc01oX935f0qebLbQIGgcqw==
+	bh=ttx/3hBeE8lksy2FGsNe5d3QOJT7B6jPkU8kfvGYtR0=;
+	b=gID4rUGrOjYOKZF8UeBS0VTPUqCT/PO4A57tS2GEbfTjAEjqKXx4F/ffeFt4CpXmFj3C
+	 VvSablX8PDTc6/BAzDp7f6SzIyVjxIlDG60Un6X2QcRYgjFfVFyQaGkZBeVdpPvIAQWcW
+	 iE9yZ8CmiemlO/5RoWur+0dM7g7Rc8bpIPcpZIGZDB4StjfABdnI6LNbufqnGEnw3uR+5
+	 dri5aUX85egag4v/eENnyWTlAMT6iFlRs40hltCvAPwkn5ZXrOJzsg8pOEtc0PJq9wr56
+	 ZfUoRP0aVCfJxv0CMMWP7CI1rlSHXuOS8dxJULrsIVjkuLFVeGBSyDZrNpXGQrpv2yQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kMhXHIRI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHW04eun;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EFC606A81D;
-	Sat,  7 Nov 2026 00:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8A460A5BE7;
+	Sat,  7 Nov 2026 00:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kMhXHIRI
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHW04eun
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011837;
-	b=ykgojiHXCIygWkG0/JPqjnYV/HZ4gGttqOalTu1Zlg1zQTWtCvwGLSg85Z9ruRUFnGax
-	 g08MCHqCn3p4eA+LB0LdK7Vm4BO/sAUOq6rK58E59FS7NjeOp/kzrwm4JwtWio+aDvq4p
-	 qO2YmXVhwMthtt8Gcs1RgABpjGET3uiUvTAbUG5u3RNCtiYnneW6XOT2v3cHszhy8dgIt
-	 HfhN4vyKYx5uBIB3boG38paduYpqqAf1CZ6Nbf3TFcrAS0nDt4BaTdtTAsYqJuqx29nor
-	 ZZFBqQhRWxMf4A5WczPp2smCYqjjj01gLf+ChWUVfCjK4CwjxV4L/zhXOXOayUwRRZA==
+	t=1794011833;
+	b=iXhcGqspd84qIcGG4hgIzBzwygszoI5mxwNS1oOQUoXjwnM4P8kiK2AVaYyE6rF06umQ
+	 i4S2f4A0Vapa4+6XfANaiOVjUBLkUD4eE3CNf8zovYu9zWsbw4x/WGJfvgivYIez8MqSp
+	 6orFbrK4VZkeV8LEVOu2o04S9bnN/locc2K/fZUxLj0zh5jr49ZvolefYBgZE69oTOa+U
+	 H3CGe7gP9ozwpj2Z94A3ShbJ8r5YA0SkZwctW5kPvAQY0c8Jc2Sa5IOSUX6XeSaGxueaC
+	 Q9x+IgYeYRe8G2LE19gM+e8ww411n3NriiSzCyko0I3TISFjFEQTIWoOwOjL7hKvIhA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011837;
+	c=relaxed/relaxed; t=1794011833;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ANWT/yfx2UhN0rafXVKWKPXBTCBXsWp+E5MMs+sD+/M=;
-	b=PO70nIr1HAS5b1IKxYR+Lrxa/Y9Y1pKyel/9R5zQg+7XsOREMFZDLZJAnCTDJKCGR8cV
-	 M7epETpLYNLg/5IzpGOFKxKPI5MKcWw4QGjgMnaqfIpnByuZL8a92nRbKnTRYqhKtdpKu
-	 l40NEIApykGW/uc13HEXr6axb+tmlrHgbBl6bCgC+vPWjCijWVOgYh7PzjtxW56i/urNJ
-	 TlnwbbzhfahvpHkHpL6DsXCJQ0AFtE8RIT+RJjLSYr32R9VW6MBhpL8GYumHLDwrBWr80
-	 hC49xdCwHtCZq+nBVRA++eLW2F9/ydZHlzft8HlKCHig1c+OEwjMbP+mS3sOrccfTJA==
+	bh=ttx/3hBeE8lksy2FGsNe5d3QOJT7B6jPkU8kfvGYtR0=;
+	b=YwiOYJovE4HtCnqYs1KPCtjrvIC3xuAE8Z2jqSRtAP8VNlfZq5JaZ6HJbAMWvi4qdC4r
+	 FG97H9QTU4ieLSZFrf5+emrWtzZMzMiSKJ9SfNvK+V3kYfr+sUL1p6702CqfS4OqJgWUM
+	 fnAvBYeMwpSYqQbTPlAHXNDi8JPpYQd7iNI5cLl+qPEoJvjHyTRK8pV2zpbQbyxnlNOEk
+	 S/qIL0sHbGGPIVM8055XYN3AZeV76yo7Qq8ndTO2AZsbA3lU8sXQz+QCXGVG4/8D8bR+9
+	 v6t/5ZN9DSsViY32mHO/w0zBvMw/Pgtk3GRp+VX/88b12iVQlgvzptDRj9yPaOvnr1Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 58D301F008AB;
-	Sat,  7 Nov 2026 00:37:14 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id A36551F00AD6;
+	Sat,  7 Nov 2026 00:37:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011837;
-	bh=ANWT/yfx2UhN0rafXVKWKPXBTCBXsWp+E5MMs+sD+/M=;
+	s=k20260515; t=1794011833;
+	bh=ttx/3hBeE8lksy2FGsNe5d3QOJT7B6jPkU8kfvGYtR0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=kMhXHIRI8gNSATPETteSO2ApCNxqYfTFx7ivg+GysltwNGs0bAGLGsrjEx3d8B3WM
-	 FPatWjXzPLc4jxkF+0UWhtuXtPlljLxr1Sot6JH1ET2agAu7QaVtQWsPkSQLe38sQC
-	 x+3oIRxvm1uxHjy3PO9A/YuKsoPiCmKi2BT7P2hFfQaD+jPfcNQutfZp4lR6/fryil
-	 dHFKXChyT7XGafuE0Dkz7JdHSNNiZ0lEWBVU9xJbtHhu+Huo5hGTu8mtEtKiOWmewj
-	 dpSX99cuOIBLEJd/5hHVA3jVZCbXyBRi0BaEDsTQK8B+liFVk/JHOHGGdSr2w2aWl3
-	 Y54D8wh2+FsgA==
+	b=HHW04eunuqjPqIEBmg4cgYT2MQ3D4nbkYA3KPz/7EfS3w3mRbMwseGnvbghUSl5b2
+	 9AR+rDgTqI6lJpJ4YZJ0o24wMvvM+qEzJhYoMCwdGBGa7SI295+sBYu4fgmplG/YKg
+	 s0EFKc3J8OsBUAi8HfDQUlXFQDPIKcQpGJiV7gD9Vnf5GX2G8U0QEajQVP20z3Aq/s
+	 CK8OhTsMz5h4KQ9NjWzIiMXVhn/iOrC7iv2ZZ+aQzQg6krCGMY3jSvi01efeyqm+Ha
+	 Er1gj/KySXQrhGTAJR3u7n67MxEx7oTgN6yQIVPofV7I6HPlnwmVOcl5rGSdYpc5c2
+	 kBYaL65tIpehw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BFD4C47A2C;
-	Sat,  7 Nov 2026 00:36:57 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 069AA479C4;
+	Sat,  7 Nov 2026 00:36:56 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:37:46 -0800
-Subject: [PATCH RFC v3 72/88] KVM: selftests: Add initial VFIO test
- verifying device info
+Date: Fri, 06 Nov 2026 16:37:19 -0800
+Subject: [PATCH RFC v3 45/88] samples/kvm: Disallow MP_SET_READONLY after
+ attach
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-72-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-45-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -102,13 +102,14 @@ To: Alexey Kardashevskiy <aik@amd.com>,
  Xu Yilun <yilun.xu@linux.intel.com>, Fuad Tabba <fuad.tabba@linux.dev>
 Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+ Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=5637;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=1622;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=qwwY1wogTiFJkGLjVl6X2EfDY2DAV1c/GKKv838ghMk=;
- b=NtT2E6e6NOXKRJJI6K8IGA2kAqoRSKGa8TTX9X40Mk2ZO0d+8X6Uf5VI8mskLD0aG5AXW51ZN
- DL61hLwxxv5D5p+w9bG47JvOxpnd9e/seVW7PI53w29SMhPOwZq8Bfy
+ bh=W6hpgZ/SuWeulozFQ+D1CrfcagL7NIynEtQGb/opNZw=;
+ b=ILyPeR8Z4qzwmTsH228I3CTu1pFhQQ5MWMIByYFJpNmOGFiP/sRffFefkPZJvJJmQLFRCWCMe
+ r5kLMeQnZa7CLlcRG/TOCMgsnzmWL3Yhl8aE192+9z9TDbTji6SwO+6
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -119,190 +120,55 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Add a standalone selftest to verify that an emulated or physical
-Intel 82576 network card bound to the vfio cdev interface can be opened,
-bound to iommufd, and queried for device information without requiring
-an attached IOMMU page table or a running virtual machine.
+Once a provider file is attached to guest_memfd, its physical attributes
+must remain constant throughout its lifetime.
 
-Structure test setup and teardown into a kselftest harness fixture,
-skipping cleanly if the device or /dev/iommu is unavailable, and
-verifying that queried device flags reflect PCI and reset capabilities.
+Disallow changing page read-only state via MP_SET_READONLY if the provider
+file is currently attached to a guest_memfd inode, returning -EBUSY.
+
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm           |   1 +
- .../selftests/kvm/x86/guest_memfd_vfio_test.c      | 153 +++++++++++++++++++++
- 2 files changed, 154 insertions(+)
+ samples/kvm/memory_provider.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 5f7118bddfc36..05f87764b71e7 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -162,6 +162,7 @@ TEST_GEN_PROGS_x86 += x86/triple_fault_event_test
- TEST_GEN_PROGS_x86 += x86/recalc_apic_map_test
- TEST_GEN_PROGS_x86 += x86/aperfmperf_test
- TEST_GEN_PROGS_x86 += x86/guest_memfd_conversions_test
-+TEST_GEN_PROGS_x86 += x86/guest_memfd_vfio_test
- TEST_GEN_PROGS_x86 += access_tracking_perf_test
- TEST_GEN_PROGS_x86 += coalesced_io_test
- TEST_GEN_PROGS_x86 += dirty_log_perf_test
-diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-new file mode 100644
-index 0000000000000..669acc6058b5b
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-@@ -0,0 +1,153 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Minimal standalone test to verify an emulated or physical Intel 82576 (igb)
-+ * NIC bound to vfio-pci via IOMMUFD cdev, without creating a KVM guest.
-+ */
-+#include <dirent.h>
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <sys/types.h>
-+
-+#include <linux/iommufd.h>
-+#include <linux/pci_regs.h>
-+#include <linux/types.h>
-+#include <linux/compiler.h>
-+#include <linux/vfio.h>
-+
-+#include "kselftest_harness.h"
-+
-+#define PCI_VENDOR_ID_INTEL 0x8086
-+#define PCI_DEVICE_ID_INTEL_82576 0x10C9
-+
-+/* Intel 82576 BAR0 register offsets */
-+#define E1000_CTRL	0x00000 /* Device Control - RW */
-+#define E1000_STATUS	0x00008 /* Device Status - RO */
-+#define E1000_RAL0	0x05400 /* Receive Address Low (0) - RW */
-+#define E1000_RAH0	0x05404 /* Receive Address High (0) - RW */
-+
-+static char *find_igb_cdev_path(void)
-+{
-+	const char *sys_pci = "/sys/bus/pci/devices";
-+	struct dirent *dev_entry;
-+	DIR *dir = opendir(sys_pci);
-+	char cdev_path[PATH_MAX];
-+	char path[PATH_MAX];
-+
-+	if (!dir)
-+		return NULL;
-+
-+	while ((dev_entry = readdir(dir)) != NULL) {
-+		FILE *f;
-+		uint32_t vendor = 0, device = 0;
-+		DIR *vfio_dir;
-+		struct dirent *vfio_entry;
-+
-+		if (dev_entry->d_name[0] == '.')
-+			continue;
-+
-+		snprintf(path, sizeof(path), "%s/%s/vendor", sys_pci, dev_entry->d_name);
-+		f = fopen(path, "r");
-+		if (!f)
-+			continue;
-+		if (fscanf(f, "0x%x", &vendor) != 1) {
-+			fclose(f);
-+			continue;
-+		}
-+		fclose(f);
-+
-+		snprintf(path, sizeof(path), "%s/%s/device", sys_pci, dev_entry->d_name);
-+		f = fopen(path, "r");
-+		if (!f)
-+			continue;
-+		if (fscanf(f, "0x%x", &device) != 1) {
-+			fclose(f);
-+			continue;
-+		}
-+		fclose(f);
-+
-+		if (vendor != PCI_VENDOR_ID_INTEL || device != PCI_DEVICE_ID_INTEL_82576)
-+			continue;
-+
-+		/* Found an Intel 82576 device. Check if bound to vfio-pci cdev. */
-+		snprintf(path, sizeof(path), "%s/%s/vfio-dev", sys_pci, dev_entry->d_name);
-+		vfio_dir = opendir(path);
-+		if (!vfio_dir)
-+			continue;
-+
-+		while ((vfio_entry = readdir(vfio_dir)) != NULL) {
-+			if (strncmp(vfio_entry->d_name, "vfio", 4) == 0) {
-+				snprintf(cdev_path, sizeof(cdev_path), "/dev/vfio/devices/%s",
-+					 vfio_entry->d_name);
-+				closedir(vfio_dir);
-+				closedir(dir);
-+				return strdup(cdev_path);
-+			}
-+		}
-+		closedir(vfio_dir);
+diff --git a/samples/kvm/memory_provider.c b/samples/kvm/memory_provider.c
+index 6f86e3e3262e3..168c1d90edacd 100644
+--- a/samples/kvm/memory_provider.c
++++ b/samples/kvm/memory_provider.c
+@@ -58,17 +58,23 @@ static int mp_range(struct mp_info *info, u64 offset, u64 len,
+ 	return 0;
+ }
+ 
+-static void mp_set_readonly(struct mp_info *info, unsigned long start,
++static int mp_set_readonly(struct mp_info *info, unsigned long start,
+ 			    unsigned long end, bool readonly)
+ {
+ 	mutex_lock(&info->lock);
+ 
++	if (info->gmem_inode) {
++		mutex_unlock(&info->lock);
++		return -EBUSY;
 +	}
 +
-+	closedir(dir);
-+	return NULL;
-+}
-+
-+FIXTURE(guest_memfd_vfio) {
-+	char *cdev_path;
-+	int iommufd;
-+	int vfio_fd;
-+};
-+
-+FIXTURE_SETUP(guest_memfd_vfio)
-+{
-+	struct vfio_device_bind_iommufd bind_args = {};
-+	int ret;
-+
-+	self->cdev_path = find_igb_cdev_path();
-+	if (!self->cdev_path)
-+		SKIP(return, "Intel 82576 device bound to vfio not found\n");
-+
-+	self->iommufd = open("/dev/iommu", O_RDWR);
-+	if (self->iommufd < 0) {
-+		free(self->cdev_path);
-+		self->cdev_path = NULL;
-+		SKIP(return, "Failed to open /dev/iommu\n");
-+	}
-+
-+	self->vfio_fd = open(self->cdev_path, O_RDWR);
-+	ASSERT_GE(self->vfio_fd, 0);
-+
-+	bind_args.argsz = sizeof(bind_args);
-+	bind_args.iommufd = self->iommufd;
-+	ret = ioctl(self->vfio_fd, VFIO_DEVICE_BIND_IOMMUFD, &bind_args);
-+	ASSERT_EQ(0, ret);
-+}
-+
-+FIXTURE_TEARDOWN(guest_memfd_vfio)
-+{
-+	if (self->vfio_fd >= 0)
-+		close(self->vfio_fd);
-+	if (self->iommufd >= 0)
-+		close(self->iommufd);
-+	free(self->cdev_path);
-+}
-+
-+TEST_F(guest_memfd_vfio, get_device_info)
-+{
-+	struct vfio_device_info dev_info = {};
-+	int ret;
-+
-+	dev_info.argsz = sizeof(dev_info);
-+	ret = ioctl(self->vfio_fd, VFIO_DEVICE_GET_INFO, &dev_info);
-+	ASSERT_EQ(0, ret);
-+	ASSERT_TRUE(dev_info.flags & VFIO_DEVICE_FLAGS_PCI);
-+	ASSERT_TRUE(dev_info.flags & VFIO_DEVICE_FLAGS_RESET);
-+	ASSERT_GE(dev_info.num_regions, VFIO_PCI_NUM_REGIONS);
-+	ASSERT_GT(dev_info.num_irqs, 0);
-+}
-+
-+TEST_HARNESS_MAIN
+ 	if (readonly)
+ 		bitmap_set(info->readonly, start, end - start);
+ 	else
+ 		bitmap_clear(info->readonly, start, end - start);
+ 
+ 	mutex_unlock(&info->lock);
++	return 0;
+ }
+ 
+ static void mp_set_present(struct mp_info *info, unsigned long start,
+@@ -123,7 +129,7 @@ static long mp_file_set_readonly(struct mp_info *info, void __user *uarg)
+ 
+ 	ret = mp_range(info, sr.offset, sr.len, &start, &end);
+ 	if (!ret)
+-		mp_set_readonly(info, start, end, sr.value);
++		ret = mp_set_readonly(info, start, end, sr.value);
+ 
+ 	return ret;
+ }
 
 -- 
 2.56.0.455.g6c5a503b38-goog
