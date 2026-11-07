@@ -1,124 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794026603;
-	b=RiWqfmuCXc8/OrYtsZRxmtSBEbjrqtzA4EO79sLFvUnZ9GBogaRVnwkETThvotYKAZmT
-	 vI3FmU8kkHRrZrfbkHHz8jqIgUp3E2YZRyiEPq6W/TQexKLm0WuOaWNzV8es67z4CEbb1
-	 uQxnOIjl4Hw6BazfwH8So8JKVjDcbz3TZU6PPH1sbzTlbEsef6/6STcvr1kZwDmAGPH66
-	 pu9gmykAq1CJPt5MG6mpDnxkO9TbzjwQEazssc88jGcqyVNuB+YYzblJ2TLhSt+LkFZc3
-	 oI5SSpF6+F1M90dir67o0zZsuNWa5o+EJ3tJO8NkTDL9TbVw8/x5Y1QV9+V9P7DHOYQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794026603;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=b+VmH62ABNPAXkSzeLXOUWJyAUNp6hJ01xdXPzH/7e4=;
-	b=AX2d03Oa43WPbyx8tmk9va1miZzDK6EPWORKN5V93O156enqoRUXxibFgsScbKhpd1lO
-	 Bo04wcj3H2QlqmWI9HGABLR7xAtHwPy0sogdX53iVQNAhgTVRP9SY3z2W+h2s6pcx+pxJ
-	 vXjoFcDA2A42cydiz+4SlElBPSXZmtHeaD/oeTB7Gw+BMemA/QqVu64QKrMAZuXaJTHE4
-	 Iy9Ciov9zL8wCdPhug7VjiXLP8ohAmSywXOY+yzrTSnRIXmOR25d5GylM4mamxIca6gUp
-	 FCSKTyFmJxvXTG9cEhLC799svu6P7f836k6/cx7xI93lZYxIkEm/S3cOf88rmnAxKrQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="VXQw/dZe";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ji7lJmHa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2B8606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:43:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2B8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794026624;
+	b=B+XfjpHjcPcYjQyyfQViIodr+MCSpeKUtcxMibXoqFbv+9v8xVTMaVvcBwxyAr30EGUN
+	 Kr2IbTVkfh02hZJa25p1XICDQAfAaeAWOQsFJD94aUbvMl/ZOxUlXXz12imf2n+0YosO9
+	 3cE1qxP0KPehSGbbpa019uFfIsEuH6uU+4BXh7k3+S49u0COnDjoCYwF1zzrfZIFyFBsS
+	 DQ+xkT41xtGDiuZbi6782G9MuLiiXbeyt6T25nSX8Du74ctw6MvPQztRh9hy3Q3t/apbu
+	 RW/cJStfOWFXqzFSSUCnAA0pLzmaCifPFb7qzVDL15vVKmFuKWMt7APBhTlTwMhwU6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794026624;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wMCTQh3vxO8DM9xp0LP48MaAOtkxhln0BWet1mMOBMc=;
+	b=jij59KQb1LPTcj2SkJKX+usABSFI/skr/S44EO6yyFMzn3mxnLhg/Oq2aDewebZIISNu
+	 rcxO1xHqIw0wtHYcshlFPGQRJiro2EGUsjfTwLa4xCNPXCrNJBQzkNBvkAmVSZs0LaWVb
+	 ynukGngHPE2s4mhhXfoUnaGwz23OeVkKXJLla3PqWSdPLmKZdzXOZnwYXzwL1yqVuj+bD
+	 i/X8kk5kUH/2GHtVFLr4NWBymTKTD3vWsiPon9cQrJTeFMDlbX64/cv+rfGavytTPs6fP
+	 13QShdt05pPjkjqIrXq1FFXILLHoNVi4uU2wUguFITrhaYF8VMHHNiIF4Ftquphg5wA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="k0Pf91/h";
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C321D606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:43:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C321D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VXQw/dZe;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ji7lJmHa
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A73ZCiM1661565
-	for <linux-kernel@vger.kernel.org>; Sat, 7 Nov 2026 04:43:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=
-	qcppdkim1; bh=b+VmH62ABNPAXkSzeLXOUWJyAUNp6hJ01xdXPzH/7e4=; b=VX
-	Qw/dZeFsTGMBxP819rfn+TGMbCQaHroanEkDnJrtwq6CfkiV6FjfWeLmsKrmHcLi
-	9EQ4FcXRhDxyVl/L7KhCzef1tFwtsGuHP/4M9et8BTkVbnC7MhKAMlepDWxRgmUh
-	rWHj3Z+y9KXVgrg3vTF3Wf0XJUCmZy/wp9Rj5tPiOCiLhXHlJ/NhuKD43zmDZmrh
-	++0I83DmOqDTUV1VKTNosuDfsZEffxp1aI3B9JfHZ5VqXxPpSqa3uTAp6pOVt7rY
-	PMJ760gZQ08Mkz1GJaTpjY4Mopq3WNTWROdjxanR8u6hr4K3lPuY7piVrayeWLrl
-	zq4Qt6g5oYRV7hmyB9EA==
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsv7303s2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 04:43:21 +0000 (GMT)
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8488f31d754so984389a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:43:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794026601; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gGt+uhx1t/IQTGOxGBQ/SfhOcy1UW05pSeOkN4d9w22LYcN5QFnZ9FbYmxIjH0/b1X
-         irhDiYdKzJUCSjefK//vppFbOTP5iPGoI4TfN+aelIT5tlHOPHkkXLD5RTOqks+VlC4G
-         UlzHvtu0vGZh0l8qnycIoGKhHOz0GvOePfudgVCtZyu4BfOxdCbFYFSoFmTQzFHuclbg
-         64vTEwgMaN5DLT9gAxLzboWWBOTeF6mWhdMdiySQLRm8ieEzsgfy2zgKkYflhnPYdjKn
-         EhCYf5qmDc3Prx0AJHrlLxAhXdFOlEAajKBE2sKJa/Bh+pL4GuUwcytmqmoorwrB0xWV
-         MYvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=b+VmH62ABNPAXkSzeLXOUWJyAUNp6hJ01xdXPzH/7e4=;
-        fh=ze+M0ppwHbsyomZPH7Vnfkn6oNfuTjcwmHiDyZ7Lzuo=;
-        b=ULxnkDvOvUOrre5FYE2Dco4pBrWve55/dGx21zEI4fqKEjWyQuQtVXLe5t7XE3QD+K
-         yXQ6Z7Ws5AlaknmKJkEn5NOoJ25EL67ooTaExT0bH8xo7s1rqYqieLLOuXR1icQgelDI
-         hbZF3ZUBJ+CGpmsjIPq3KSdPaPt3/oM/DVZwFR29ngrBtINeE4L2BMc9wDFwkokwkYLZ
-         W1Izn0kwtIoOune2pp+S604f3Ja7Mk0HyJOy8BIndC/ozLSrGE83t80wbgNEpy/DhcP6
-         QsdmeIUNoJuuXbWBNCuOgcPN5+pG4IUeqXXqkIizmbwdkav75FWKXagdyFh1RkUYQTDq
-         j0VQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=k0Pf91/h
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794026601; x=1794631401; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=b+VmH62ABNPAXkSzeLXOUWJyAUNp6hJ01xdXPzH/7e4=;
-        b=Ji7lJmHa6aGI/jNe1y/Yjnif1tV32+hHaHXV2ZjyBqqRoF3YhYUHqp3TfyXjHPmMUK
-         tQ8f+BJDl6l/dTreh148gF09wezOZfCUrAZTAi+xXF36pG8vw1ea9YmDU040KCCEGTSd
-         tN38KY4eQ7Tk0KAR2MkqHvWG7GnYXuZjeDfkEqoHaRFePbZAjmNzC8qoFEKEGUwyD+AT
-         qZZxf4F6kV3U7Wt82rCTDuDMD11riqdHeUGiXxrg5FlfDHh+l7j+U+HSzgoVfZlWd9ao
-         Kb7cnLzCP31t+IIZc7fIm6sbjrXNZAKNOuB+ntpgZnKFY/DFs3wR6Xa7NpUR8LKgPJvf
-         or/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794026601; x=1794631401;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b+VmH62ABNPAXkSzeLXOUWJyAUNp6hJ01xdXPzH/7e4=;
-        b=cCzdKtPO3HwIwusaRy/hajBc3C5ztEGkPPNHKpUZK/PblrNs2rNW/sTWQWgT4pSloU
-         faXQi6+eCpLP1pNT6SiFgQI/Vj+larlTlDeCeKcbKakMU0Z0w/ZbU3EeTBE0Z6foPZCN
-         HwYNMQQs2h1/ZYgvWJPYMLY1HbsNN1pN7M/pKy7rfs0lVCLD55d6kWoD+UAsDO2mDokF
-         dEC6EQ2S5EYmJSMSS8081wv5phvC2RlY/lXmYC34I9lhYlVDgHlmjBcBlS0A2LyjqoHg
-         Ap6/n7057iKuTgPzLrG1bnQa2IpE3SHXitUVIfhaSV7/hm1kWR6tQIIXXT6ua3n/yGv8
-         U2xA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXL37bRxCbdE6Sh40go0/nmFUYkxPjWa9QZxrtgvPMgcBJRurU5wlTbE0qM5u7bkJCcpwydR11+zt7n7Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OIOJ7KPTHNXTeNtVt65SzR68yP9i3MFXSH7/V4AkJpHIn/ipt
-	xo+fJwa1fc4679a8hBh3KN7GOF00tkvcF84hBwkobKg7xgE8rImH2FYr1u9/VUxUAlgKfbX4+04
-	U3UlucTDp+62i7+CiIzjnwiPYyf33fd1P/mBpFGu+FBmsc6zeIyHqtWGEEUsvxBs+f5ANNJrE97
-	emEZhIMrW10SA/EiedHf9dyR8fXtFgEy7aV0H2VQNToQ==
-X-Gm-Gg: AYBFou0r6KqJ0ju5QJ4OsHJ3ea7orymY4kzsajSe9BMj1JRrPxfgFjHBZexo82YSzTP
-	ExCXqge3lMZiiUpEq/Nx5xgndVGCJQd0A2re9OMgp6y4XQDcGZcWRynZopZKf+S02vHKkHObgE/
-	Zltq5diNnqWcmuUPYLuFq6bEXoT99QuHAUcD+ERVpnrr/ur9r+uWdXYhelU6ckH0ZDYdsI6d/c9
-	KCYZwytLF99WE+H9k6/Fw==
-X-Received: by 2002:a05:6820:340b:20b0:6fa:f881:7bef with SMTP id 006d021491bc7-716e7938ab7mr1898639eaf.46.1794026600912;
-        Fri, 06 Nov 2026 20:43:20 -0800 (PST)
-X-Received: by 2002:a05:6820:340b:20b0:6fa:f881:7bef with SMTP id
- 006d021491bc7-716e7938ab7mr1898634eaf.46.1794026600505; Fri, 06 Nov 2026
- 20:43:20 -0800 (PST)
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=k0Pf91/hnIO9uHZtbSRZVbinNa9nFxjexvvpAGHIQ1qZIOxSJeEyQFIwE5EFNKaS0sV6e/ZaBZybU
+	 gqz0ZoQl0ZZBoLO0ba6/6dUEVycaQElzUfNhvvVbqbmFDjUT/H957ZLYxkFdWocf7bHjzAdN6o4DgH
+	 bGZ303u/2V2B9ZPY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76aeeac74c60-b6345;
+	Sat, 07 Nov 2026 12:43:32 +0800 (CST)
+X-RM-TRANSID:2ee76aeeac74c60-b6345
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from cmss.chinamobile.com (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aeeac70c55-3a0a7;
+	Sat, 07 Nov 2026 12:43:32 +0800 (CST)
+X-RM-TRANSID:2ee86aeeac70c55-3a0a7
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>, Breno Leitao <leitao@debian.org>, David Gow <david@davidgow.net>, Tejun Heo <tj@kernel.org>, Ryota Sakamoto <sakamo.ryota@gmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, Marco Elver <elver@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Kir Chou <note351@hotmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Borislav Petkov <bp@alien8.de>, Kuan-Wei Chiu <visitorckw@gmail.com>, Petr Mladek <pmladek@suse.com>, Eric Biggers <ebiggers@kernel.org>, Guan-Chun Wu <409411716@gms.tku.edu.tw>, Andy Shevchenko <andriy.shevchenko@intel.com>, Geert Uytterhoeven <geert@linux-m68k.org>, Dmitry Antipov <dmantipov@yandex.ru>, Thomas Maarseveen <maarseveent@gmail.com>, Nickolai Zeldovich <nickolai@csail.mit.edu>, Thomas Gleixner <tglx@kernel.org>, Adam Harshbarger <handyhandyman.adam@gmail.com>
+Subject: [PATCH v3] lib/tests: add KUnit tests for the priority sorted list (plist)
+Date: Sat, 07 Nov 2026 12:45:00 +0800
+Message-ID: <20261107-plist-kunit-v3-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,95 +65,905 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103011358.65398-1-val@packett.cool> <20261103011358.65398-5-val@packett.cool>
- <07d29a8c-1caf-4041-8c01-845a51d11a68@packett.cool>
-In-Reply-To: <07d29a8c-1caf-4041-8c01-845a51d11a68@packett.cool>
-Reply-To: rob.clark@oss.qualcomm.com
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Fri, 6 Nov 2026 20:43:09 -0800
-X-Gm-Features: AclHuK8ZvCB0v91X3y3MGuHIzYr_FPdHK9w1jmFQ7gzccPmsaAhQMvCJpL68CKA
-Message-ID: <CACSVV01eJ4sxzZWC-RxKW4OLvXPmC-auru9-wTFSY-CPQpRVnw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/msm/a6xx: Import a680 hwcg sequence from kgsl
-To: Val Packett <val@packett.cool>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maximilian Luz <luzmaximilian@gmail.com>,
-        Jordan Crouse <jordan@cosmicpenguin.net>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA3MDAxOCBTYWx0ZWRfX09XE8jQwA8/b
- uGc48v0O4feswG6NrDeM9n1NViU7U8TbOnFUXswlRIX7vg5RYYWxDFgUAZjt+PrB/24keYhZwIT
- wVAEXDcx6J8vG9prPOx5fRO73WsNB/0IlsO7gviIg47M40/wTGSxq16JToYv4D/esOu2uFoqQcU
- Cs0D476MmXxr1juq5mIqjhus7hUV71Y2lwD14LJ/TbYJLnsa4Y4f+utKw461TztHZTsXh1HKyNE
- vl9uUONsd2XC+mmO/zkpWHMcCqXC86VhIas14vB9kUA8c2uXmCsLOOY8aiE5RODnAYLcst7ou2d
- MoaLK4IKfiM2298AnyO/QX5+goBOAPYw3pmvOaHkiG7L/LhCaRpQ9z4WX2oiMp24kWqpeJqD0TO
- aWdkfBqwCxeMT30o/RGJmL9Y0xAk1g2Kg2mvX24St6vhfZb55vC9g50bxC3ck3tuO97uSt0/ecA
- qmP1+ltR85fOsxKsC/w==
-X-Proofpoint-ORIG-GUID: WnT8L0MVXL9p-EZVrkd6ddkInnDyDnvx
-X-Authority-Analysis: v=2.4 cv=bcb+w+PB c=1 sm=1 tr=0 ts=6aeeac69 cx=c_pps
- a=z9lCQkyTxNhZyzAvolXo/A==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=e5mUnYsNAAAA:8 a=17JunTclo9ORA5DUsrgA:9
- a=QEXdDO2ut3YA:10 a=EyFUmsFV_t8cxB2kMr4A:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA3MDAxOCBTYWx0ZWRfX0FeoU3FNYU4S
- qDLxLulFWByTchlHVRxZloTs6L9firVFMBb6lGjMVXQcE1ovKrYVVjwr6CLC6ZrMPotjPvwjmAw
- p+CUzWV0PFnBTveWEW9gdgRisQlW1O0=
-X-Proofpoint-GUID: WnT8L0MVXL9p-EZVrkd6ddkInnDyDnvx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-07_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 suspectscore=0 spamscore=0 clxscore=1015
- phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611070018
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 2, 2026 at 5:39=E2=80=AFPM Val Packett <val@packett.cool> wrote=
-:
->
-> On 11/2/26 10:13 PM, Val Packett wrote:
->
-> > The initialization sequence for a680 differs from a640 in a few places.
-> > Match downstream by using this a680 specific one.
-> >
-> > Signed-off-by: Val Packett <val@packett.cool>
-> > ---
-> >   drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 56 ++++++++++++++++++++++=
--
-> >   1 file changed, 55 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/dr=
-m/msm/adreno/a6xx_catalog.c
-> > index 6c154792cb07..48197a54984c 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> > @@ -9,6 +9,7 @@
-> >   #include "adreno_gpu.h"
-> >   #include "a6xx_gpu.h"
-> >   #include "a6xx.xml.h"
-> > +#include "a6xx_gmu.xml.h"
-> >   [..]
->
-> (As sashiko confirms it's not a good idea to try to write the gmu regs
-> from here, shouldn't've gotten lazy and assumed it would work anyway..)
->
-> I can make the gmu driver write these on init, but would like to know if
-> they even do anything interesting, and whether the entire hwcg sequence
-> is worth it=E2=80=A6
+lib/plist.c has no KUnit coverage; its only test is the in-module
+plist_test() under CONFIG_DEBUG_PLIST, which BUG_ON()s on the first
+violation and does not report results in KTAP format.  The
+ordering-sensitive code paths have been changed three times since
+mid-2024:
 
-vaguely related to [1].. I guess I'd suggest to do something like that
-for now.  Longer term still tbd but dt gmu vs gpu split makes tables
-generated from hw view of the world run into these quirks.  Longer
-term we'll do something to clean this up, but not sure which route yet
+  commit c8dab79f9eef ("lib/plist.c: avoid worst case scenario in
+  plist_add")
+  commit 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
+  commit 43c91b152243 ("lib/plist: fix plist_requeue() corrupting order
+  in the last bucket")
 
-BR,
--R
+The first two are performance optimizations; the third one fixes a real
+ordering bug.  A deterministic case for that wrap-around now lives in the
+CONFIG_DEBUG_PLIST self-test, which only runs when that debug option is
+enabled by hand and stops at the first BUG_ON().
+plist_kunit_requeue_last_bucket() covers the same shape here, and the
+other cases pin down the ordering invariants the two optimizations rely
+on.  KUnit coverage makes such regressions visible wherever KUnit is
+enabled, which CONFIG_DEBUG_PLIST is not.
 
-[1] https://patchwork.freedesktop.org/patch/767327/?series=3D176505&rev=3D7
+Add lib/tests/plist_kunit.c, a KUnit suite that exercises plist_add(),
+plist_del() and plist_requeue() and validates the invariants documented
+in include/linux/plist.h after every operation:
+
+  - node_list stays sorted by ascending numeric priority (descending
+    priority order), and its prev links agree with its next links;
+
+  - exactly the first node of each bucket is linked on prio_list, the
+    ring's prev links agree with its next links, and the headless ring
+    visits the bucket heads in node_list order before wrapping back to
+    the first bucket (a single bucket degenerates to a self loop on the
+    first node).
+
+The fixed cases cover bucket head handover on delete (first, middle and
+last bucket), the plist_requeue() shortcut with and without a following
+bucket, requeueing the head of the first and of the last bucket where
+the ring wraps around, requeueing inside a single bucket, the
+INT_MIN/INT_MAX extremes, and plist_first_entry()/plist_last_entry().
+
+A deterministic pseudo-random add/del/requeue churn test mirrors the
+in-module test, but draws priorities from a small range, so that
+multi-node buckets actually occur with the 24 nodes it uses, and every
+requeue in the loop moves a node (a requeue without a same-priority
+successor is a no-op).  The in-module test stays: it also carries the
+plist_add() worst-case timing benchmark, and CONFIG_DEBUG_PLIST keeps
+plist_check_head() in the fast path.
+
+The suite is wired up as CONFIG_PLIST_KUNIT_TEST next to the other
+library KUnit tests and is enabled by default with KUNIT_ALL_TESTS.
+lib/plist.c is built into the kernel, so export plist_add(), plist_del()
+and plist_requeue() for KUnit with EXPORT_SYMBOL_IF_KUNIT() and let the
+test import EXPORTED_FOR_KUNIT_TESTING; that keeps the test tristate
+like the other library KUnit tests.
+
+The tests build both as a module and into the kernel.  Built into the
+kernel, with kunit.enable=1 kunit.filter_glob=plist*, all 18 tests pass
+under QEMU/KVM.  Reverting the last fix above makes three of them fail
+(plist_kunit_requeue_basic, plist_kunit_requeue_last_bucket and
+plist_kunit_random), all with the list coming out unsorted, so the
+suite does catch the bug it was written for.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202611052109.GqbzRkv1-lkp@intel.com/
+Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+---
+v3:
+- Export plist_add(), plist_del() and plist_requeue() with
+  EXPORT_SYMBOL_IF_KUNIT() and keep CONFIG_PLIST_KUNIT_TEST tristate, as
+  suggested by Geert Uytterhoeven.
+- Use KUNIT_ASSERT_*() in the invariant checker, so that a corrupted
+  list aborts the test instead of being walked further.
+- Check both halves of the prio_list self loop in the single-bucket case.
+- Note the deterministic regression case that the CONFIG_DEBUG_PLIST
+  self-test now carries, and that KUnit is what makes it run in CI.
+v2:
+- Make the test built-in only (bool + depends on KUNIT=y): lib/plist.c is
+  built into the kernel and does not export plist_add()/plist_del()/
+  plist_requeue(), so a modular build fails in modpost.  Reported by the
+  kernel test robot.
+v1: https://lore.kernel.org/all/20261103-plist-kunit-1-yuehongwu@cmss.chinamobile.com/
+
+ lib/Kconfig.debug       |  19 ++
+ lib/plist.c             |   4 +
+ lib/tests/Makefile      |   1 +
+ lib/tests/plist_kunit.c | 719 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 743 insertions(+)
+ create mode 100644 lib/tests/plist_kunit.c
+
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 2d22638..cbf7ab2 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -3065,6 +3065,25 @@ config MIN_HEAP_KUNIT_TEST
+ 
+ 	  If unsure, say N
+ 
++config PLIST_KUNIT_TEST
++	tristate "KUnit test for priority sorted list (plist)" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  This builds the priority sorted list (plist) KUnit test suite.
++	  It checks that plist_add(), plist_del() and plist_requeue()
++	  maintain the ordering invariants of the two-level list, including
++	  the priority bucket boundary cases.
++
++	  KUnit tests run during boot and print their results in KTAP format.
++	  Only useful for kernel developers running the KUnit test harness,
++	  not for production builds.
++
++	  For more information on KUnit and unit tests in general please refer
++	  to the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ config IS_SIGNED_TYPE_KUNIT_TEST
+ 	tristate "Test is_signed_type() macro" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+diff --git a/lib/plist.c b/lib/plist.c
+index b027353..5d7f3b0 100644
+--- a/lib/plist.c
++++ b/lib/plist.c
+@@ -22,6 +22,7 @@
+  * information.
+  */
+ 
++#include <kunit/visibility.h>
+ #include <linux/bug.h>
+ #include <linux/plist.h>
+ 
+@@ -112,6 +113,7 @@ ins_node:
+ 
+ 	plist_check_head(head);
+ }
++EXPORT_SYMBOL_IF_KUNIT(plist_add);
+ 
+ /**
+  * plist_del - Remove a @node from plist.
+@@ -141,6 +143,7 @@ void plist_del(struct plist_node *node, struct plist_head *head)
+ 
+ 	plist_check_head(head);
+ }
++EXPORT_SYMBOL_IF_KUNIT(plist_del);
+ 
+ /**
+  * plist_requeue - Requeue @node at end of same-prio entries.
+@@ -200,6 +203,7 @@ queue:
+ 
+ 	plist_check_head(head);
+ }
++EXPORT_SYMBOL_IF_KUNIT(plist_requeue);
+ 
+ #ifdef CONFIG_DEBUG_PLIST
+ #include <linux/sched.h>
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index df0537e..84569a1 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -43,6 +43,7 @@ obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
+ obj-$(CONFIG_MIN_HEAP_KUNIT_TEST) += min_heap_kunit.o
+ CFLAGS_overflow_kunit.o = $(call cc-disable-warning, tautological-constant-out-of-range-compare)
+ obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
++obj-$(CONFIG_PLIST_KUNIT_TEST) += plist_kunit.o
+ obj-$(CONFIG_PRANDOM_KUNIT_TEST) += random32_kunit.o
+ obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
+ obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
+diff --git a/lib/tests/plist_kunit.c b/lib/tests/plist_kunit.c
+new file mode 100644
+index 0000000..22a614d
+--- /dev/null
++++ b/lib/tests/plist_kunit.c
+@@ -0,0 +1,719 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * KUnit tests for the priority sorted list (plist) structures.
++ *
++ * Checks that plist_add(), plist_del() and plist_requeue() maintain the
++ * ordering invariants documented in include/linux/plist.h, with extra
++ * attention to the priority bucket boundary cases of the prio_list ring.
++ */
++
++#include <kunit/test.h>
++
++#include <linux/limits.h>
++#include <linux/list.h>
++#include <linux/module.h>
++#include <linux/plist.h>
++
++/*
++ * Upper bound for the node_list walk, so a corrupted list fails instead
++ * of hanging the boot.
++ */
++#define PLIST_KUNIT_MAX_NODES	4096
++
++struct plist_kunit_item {
++	int			id;
++	struct plist_node	node;
++};
++
++/*
++ * Walk both the node_list and the prio_list ring and check the invariants
++ * of a plist:
++ *
++ *  - node_list is sorted by ascending numeric priority (i.e. descending
++ *    priority order), and its prev links agree with its next links;
++ *  - exactly the first node of every priority bucket is linked on the
++ *    prio_list ring, the ring's prev links agree with its next links, and
++ *    the headless ring visits the bucket heads in node_list order before
++ *    wrapping back to the first bucket;
++ *  - when the list holds a single bucket the ring degenerates to a self
++ *    loop on the first node, which list_empty() reports as empty.
++ *
++ * Same-priority FIFO order is not checked here, as it needs the expected
++ * sequence; the individual test cases assert it explicitly.
++ *
++ * Returns the number of nodes on the list.
++ */
++static int plist_kunit_verify(struct kunit *test, struct plist_head *head)
++{
++	struct plist_node *pos, *prev = NULL, *first, *ring, *next;
++	int nr_nodes = 0, nr_heads = 0, nr_ring = 0;
++
++	if (plist_head_empty(head)) {
++		/* Same predicate on the other half of the head node. */
++		KUNIT_ASSERT_PTR_EQ(test, head->node_list.prev,
++				    &head->node_list);
++		return 0;
++	}
++
++	first = plist_first(head);
++
++	plist_for_each(pos, head) {
++		if (++nr_nodes > PLIST_KUNIT_MAX_NODES) {
++			KUNIT_FAIL(test, "node_list does not terminate");
++			return nr_nodes;
++		}
++
++		if (prev)
++			KUNIT_ASSERT_PTR_EQ(test, pos->node_list.prev,
++					    &prev->node_list);
++		else
++			KUNIT_ASSERT_PTR_EQ(test, pos->node_list.prev,
++					    &head->node_list);
++
++		if (prev) {
++			KUNIT_ASSERT_LE(test, prev->prio, pos->prio);
++			/*
++			 * A node sharing its predecessor's priority is a
++			 * bucket follower and must not be linked on the
++			 * prio_list ring; a node starting a new bucket must.
++			 */
++			if (prev->prio == pos->prio) {
++				KUNIT_ASSERT_TRUE(test,
++						  list_empty(&pos->prio_list));
++			} else {
++				KUNIT_ASSERT_FALSE(test,
++						   list_empty(&pos->prio_list));
++				nr_heads++;
++			}
++		} else {
++			nr_heads++;
++		}
++		prev = pos;
++	}
++
++	KUNIT_ASSERT_PTR_EQ(test, prev, plist_last(head));
++
++	if (nr_heads == 1) {
++		/* Single bucket: the ring is a self loop on the first node. */
++		KUNIT_ASSERT_TRUE(test, list_empty(&first->prio_list));
++		KUNIT_ASSERT_PTR_EQ(test, first->prio_list.prev,
++				    &first->prio_list);
++		return nr_nodes;
++	}
++
++	KUNIT_ASSERT_FALSE(test, list_empty(&first->prio_list));
++
++	ring = first;
++	do {
++		if (++nr_ring > nr_heads) {
++			KUNIT_FAIL(test, "prio_list ring does not close");
++			return nr_nodes;
++		}
++		KUNIT_ASSERT_FALSE(test, list_empty(&ring->prio_list));
++		next = list_entry(ring->prio_list.next, struct plist_node,
++				  prio_list);
++		KUNIT_ASSERT_PTR_EQ(test, next->prio_list.prev,
++				    &ring->prio_list);
++		if (next != first)
++			KUNIT_ASSERT_LT(test, ring->prio, next->prio);
++		ring = next;
++	} while (ring != first);
++
++	KUNIT_ASSERT_EQ(test, nr_ring, nr_heads);
++
++	return nr_nodes;
++}
++
++static void plist_kunit_add_empty(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a;
++
++	plist_node_init(&a, 10);
++
++	KUNIT_EXPECT_TRUE(test, plist_head_empty(&head));
++	KUNIT_EXPECT_TRUE(test, plist_node_empty(&a));
++
++	plist_add(&a, &head);
++
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 1);
++	KUNIT_EXPECT_FALSE(test, plist_head_empty(&head));
++	KUNIT_EXPECT_FALSE(test, plist_node_empty(&a));
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &a);
++}
++
++static void plist_kunit_add_order(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node n[4];
++	int i;
++
++	plist_node_init(&n[0], 30);
++	plist_node_init(&n[1], 10);
++	plist_node_init(&n[2], 40);
++	plist_node_init(&n[3], 20);
++
++	/* Insert the nodes out of order. */
++	for (i = 0; i < ARRAY_SIZE(n); i++)
++		plist_add(&n[i], &head);
++
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 4);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &n[1]);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&n[1]), &n[3]);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&n[3]), &n[0]);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&n[0]), &n[2]);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &n[2]);
++}
++
++static void plist_kunit_add_duplicates(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c, d, e;
++
++	plist_node_init(&a, 5);
++	plist_node_init(&b, 5);
++	plist_node_init(&c, 9);
++	plist_node_init(&d, 5);
++	plist_node_init(&e, 7);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++	plist_add(&d, &head);
++	plist_add(&e, &head);
++
++	/* node_list: a(5), b(5), d(5), e(7), c(9) -- FIFO in a bucket. */
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 5);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &b);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &d);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&d), &e);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &c);
++
++	/* Only the first node of each bucket leads the prio_list ring. */
++	KUNIT_EXPECT_FALSE(test, list_empty(&a.prio_list));
++	KUNIT_EXPECT_TRUE(test, list_empty(&b.prio_list));
++	KUNIT_EXPECT_TRUE(test, list_empty(&d.prio_list));
++	KUNIT_EXPECT_FALSE(test, list_empty(&e.prio_list));
++	KUNIT_EXPECT_FALSE(test, list_empty(&c.prio_list));
++
++	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &e.prio_list);
++	KUNIT_EXPECT_PTR_EQ(test, e.prio_list.next, &c.prio_list);
++	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
++}
++
++/*
++ * Adding ascending priorities makes every node the new last bucket, the
++ * case the reverse walk in plist_add() is meant to short-circuit.
++ */
++static void plist_kunit_add_ascending(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node n[16];
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(n); i++) {
++		plist_node_init(&n[i], i);
++		plist_add(&n[i], &head);
++		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head), i + 1);
++	}
++
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &n[0]);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &n[15]);
++}
++
++/* Adding descending priorities makes every node the new first bucket. */
++static void plist_kunit_add_descending(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node n[16];
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(n); i++) {
++		plist_node_init(&n[i], ARRAY_SIZE(n) - i);
++		plist_add(&n[i], &head);
++		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head), i + 1);
++	}
++
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &n[15]);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &n[0]);
++}
++
++static void plist_kunit_add_extremes(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 0);
++	plist_node_init(&b, INT_MAX);
++	plist_node_init(&c, INT_MIN);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	/* INT_MIN is the highest priority, INT_MAX the lowest. */
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &c);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &a);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
++}
++
++static void plist_kunit_del_bucket_head(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 1);
++	plist_node_init(&c, 2);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	/* Removing the bucket head hands prio_list over to the successor. */
++	plist_del(&a, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
++	KUNIT_EXPECT_TRUE(test, plist_node_empty(&a));
++	KUNIT_EXPECT_FALSE(test, list_empty(&b.prio_list));
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &b);
++
++	/* Removing the last node of the last bucket empties the list. */
++	plist_del(&c, &head);
++	plist_del(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 0);
++	KUNIT_EXPECT_TRUE(test, plist_head_empty(&head));
++
++	/* A removed node can be added back. */
++	plist_add(&a, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 1);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
++}
++
++static void plist_kunit_del_bucket_follower(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 1);
++	plist_node_init(&c, 2);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	/* Removing a bucket follower must not disturb the prio_list ring. */
++	plist_del(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
++	KUNIT_EXPECT_FALSE(test, list_empty(&a.prio_list));
++	KUNIT_EXPECT_FALSE(test, list_empty(&c.prio_list));
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
++	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &c.prio_list);
++	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
++}
++
++static void plist_kunit_del_middle_bucket(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 2);
++	plist_node_init(&c, 3);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	/* Removing the only node of a middle bucket splices the ring. */
++	plist_del(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
++	KUNIT_EXPECT_TRUE(test, plist_node_empty(&b));
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
++	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &c.prio_list);
++	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
++}
++
++/*
++ * Deleting the head of the last priority bucket: its follower takes over
++ * the prio_list entry, and the ring of bucket heads has to wrap round to
++ * the first bucket.
++ */
++static void plist_kunit_del_last_bucket_head(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 2);
++	plist_node_init(&c, 2);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	plist_del(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
++	KUNIT_EXPECT_TRUE(test, plist_node_empty(&b));
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
++	KUNIT_EXPECT_FALSE(test, list_empty(&c.prio_list));
++	KUNIT_EXPECT_PTR_EQ(test, a.prio_list.next, &c.prio_list);
++	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &a.prio_list);
++}
++
++static void plist_kunit_requeue_basic(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 2);
++	plist_node_init(&c, 2);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	/* A node whose successor has a different priority is left alone. */
++	plist_requeue(&a, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
++
++	/* Requeueing moves a node after its same-priority peers. */
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &b);
++
++	/* Requeueing the last node of the list is a no-op. */
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
++
++	/* ...and the peers rotate back. */
++	plist_requeue(&c, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &b);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &c);
++}
++
++/*
++ * The plist_requeue() shortcut: after plist_del() the node's same-priority
++ * successor took over the prio_list entry, so the node can be inserted
++ * directly before the next bucket instead of walking the node_list.
++ */
++static void plist_kunit_requeue_shortcut(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c, d;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 2);
++	plist_node_init(&c, 2);
++	plist_node_init(&d, 3);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++	plist_add(&d, &head);
++
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 4);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &b);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &d);
++
++	/* The tail of its bucket has a different priority: no-op. */
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 4);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &b);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &d);
++}
++
++/*
++ * Regression test for commit 43c91b152243 ("lib/plist: fix
++ * plist_requeue() corrupting order in the last bucket"): when the
++ * requeued node heads the last priority bucket, the prio_list ring of the
++ * bucket heads wraps round to the first bucket, and the node must end up
++ * at the very end of the list instead of jumping to its front.
++ */
++static void plist_kunit_requeue_last_bucket(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c, d, e;
++
++	plist_node_init(&a, 0);
++	plist_node_init(&b, 1);
++	plist_node_init(&c, 1);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
++
++	/* The same wrap with an intermediate bucket before the last one. */
++	plist_node_init(&d, 2);
++	plist_node_init(&e, 2);
++	plist_add(&d, &head);
++	plist_add(&e, &head);
++
++	plist_requeue(&d, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 5);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &e);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &d);
++}
++
++/*
++ * Requeueing the head of the first priority bucket: its follower takes
++ * over the bucket, so the node moves behind it and the new first bucket
++ * has to be linked in the prio_list ring instead.
++ */
++static void plist_kunit_requeue_first_bucket_head(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 1);
++	plist_node_init(&c, 2);
++
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	plist_requeue(&a, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &b);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &a);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &c);
++	KUNIT_EXPECT_TRUE(test, list_empty(&a.prio_list));
++	KUNIT_EXPECT_FALSE(test, list_empty(&b.prio_list));
++	KUNIT_EXPECT_PTR_EQ(test, b.prio_list.next, &c.prio_list);
++	KUNIT_EXPECT_PTR_EQ(test, c.prio_list.next, &b.prio_list);
++}
++
++static void plist_kunit_first_last_entry(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_kunit_item items[3];
++	struct plist_kunit_item *first, *last;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(items); i++) {
++		items[i].id = i;
++		plist_node_init(&items[i].node, i + 1);
++		plist_add(&items[i].node, &head);
++	}
++
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++
++	first = plist_first_entry(&head, struct plist_kunit_item, node);
++	last = plist_last_entry(&head, struct plist_kunit_item, node);
++	KUNIT_EXPECT_EQ(test, first->id, 0);
++	KUNIT_EXPECT_EQ(test, last->id, 2);
++
++	KUNIT_EXPECT_EQ(test, plist_next(&items[0].node)->prio, 2);
++	KUNIT_EXPECT_EQ(test, plist_prev(&items[2].node)->prio, 2);
++}
++
++/*
++ * Deleting and requeueing the priority extremes, including handing the
++ * prio_list ring over when the INT_MIN bucket head goes away.
++ */
++static void plist_kunit_extremes_ops(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c;
++
++	plist_node_init(&a, 0);
++	plist_node_init(&b, INT_MAX);
++	plist_node_init(&c, INT_MIN);
++
++	plist_add(&c, &head);
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++
++	/* Deleting the INT_MIN head hands the ring over to the next bucket. */
++	plist_del(&c, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
++	KUNIT_EXPECT_TRUE(test, plist_node_empty(&c));
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
++
++	/* Requeueing the INT_MAX tail node is a no-op. */
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 2);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
++
++	/* Deleting the last bucket leaves a single-bucket list. */
++	plist_del(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 1);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &a);
++	KUNIT_EXPECT_TRUE(test, list_empty(&a.prio_list));
++}
++
++/*
++ * Deterministic pseudo-random add/del/requeue churn, mirroring the
++ * in-module test under CONFIG_DEBUG_PLIST but checking the invariants
++ * after every operation with KUnit assertions instead of BUG_ON().
++ *
++ * Priorities are drawn from a small range so that the list actually
++ * contains multi-node priority buckets, and the requeue step picks a node
++ * that has a same-priority successor -- only such a node moves, so every
++ * requeue in the loop is a real move and its result is checked.
++ */
++static void plist_kunit_random(struct kunit *test)
++{
++	struct plist_node nodes[24];
++	PLIST_HEAD(head);
++	unsigned int r = 12345;
++	int i, loop, nr_expect = 0, nr_requeued = 0;
++
++	for (i = 0; i < ARRAY_SIZE(nodes); i++)
++		plist_node_init(&nodes[i], 0);
++
++	for (loop = 0; loop < 1000; loop++) {
++		r = r * 193939u % 47629u;
++		i = r % ARRAY_SIZE(nodes);
++		if (plist_node_empty(&nodes[i])) {
++			r = r * 193939u % 47629u;
++			plist_node_init(&nodes[i], r % 8);
++			plist_add(&nodes[i], &head);
++			nr_expect++;
++		} else {
++			plist_del(&nodes[i], &head);
++			nr_expect--;
++		}
++
++		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head),
++				nr_expect);
++
++		for (i = 0; i < ARRAY_SIZE(nodes); i++) {
++			struct plist_node *next;
++
++			if (plist_node_empty(&nodes[i]) ||
++			    &nodes[i] == plist_last(&head))
++				continue;
++			next = plist_next(&nodes[i]);
++			if (next->prio != nodes[i].prio)
++				continue;
++
++			plist_requeue(&nodes[i], &head);
++			nr_requeued++;
++
++			KUNIT_ASSERT_EQ(test,
++					plist_kunit_verify(test, &head),
++					nr_expect);
++			/* A requeued node is now the tail of its bucket. */
++			if (&nodes[i] != plist_last(&head))
++				KUNIT_EXPECT_NE(test, nodes[i].prio,
++						plist_next(&nodes[i])->prio);
++			break;
++		}
++	}
++
++	/* The requeue part of the churn must actually have run. */
++	KUNIT_EXPECT_GT(test, nr_requeued, 0);
++
++	for (i = 0; i < ARRAY_SIZE(nodes); i++) {
++		if (plist_node_empty(&nodes[i]))
++			continue;
++		plist_del(&nodes[i], &head);
++		nr_expect--;
++		KUNIT_ASSERT_EQ(test, plist_kunit_verify(test, &head),
++				nr_expect);
++	}
++
++	KUNIT_EXPECT_TRUE(test, plist_head_empty(&head));
++}
++
++/*
++ * Requeueing inside a single priority bucket exercises the degenerate
++ * prio_list ring (a self loop on the first node), and requeueing a bucket
++ * follower walks to the end of its bucket but not past the next one.
++ */
++static void plist_kunit_requeue_bucket_edges(struct kunit *test)
++{
++	PLIST_HEAD(head);
++	struct plist_node a, b, c, d, e;
++
++	plist_node_init(&a, 1);
++	plist_node_init(&b, 1);
++	plist_node_init(&c, 1);
++	plist_add(&a, &head);
++	plist_add(&b, &head);
++	plist_add(&c, &head);
++
++	/* Single bucket: the ring is a self loop on the first node. */
++	plist_requeue(&a, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &b);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &c);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &a);
++	/*
++	 * b heads the bucket now, but a single bucket never links onto
++	 * the ring: after the handover in plist_del() the entry is a self
++	 * loop, which list_empty() reports as empty.
++	 */
++	KUNIT_EXPECT_TRUE(test, list_empty(&b.prio_list));
++
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 3);
++	KUNIT_EXPECT_PTR_EQ(test, plist_first(&head), &c);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &b);
++
++	/* A follower requeue walks to the end of its bucket, not past it. */
++	plist_node_init(&d, 1);
++	plist_node_init(&e, 2);
++	plist_add(&d, &head);
++	plist_add(&e, &head);
++
++	plist_requeue(&b, &head);
++	KUNIT_EXPECT_EQ(test, plist_kunit_verify(test, &head), 5);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&c), &a);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&a), &d);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&d), &b);
++	KUNIT_EXPECT_PTR_EQ(test, plist_next(&b), &e);
++	KUNIT_EXPECT_PTR_EQ(test, plist_last(&head), &e);
++}
++
++static struct kunit_case plist_kunit_test_cases[] = {
++	KUNIT_CASE(plist_kunit_add_empty),
++	KUNIT_CASE(plist_kunit_add_order),
++	KUNIT_CASE(plist_kunit_add_duplicates),
++	KUNIT_CASE(plist_kunit_add_ascending),
++	KUNIT_CASE(plist_kunit_add_descending),
++	KUNIT_CASE(plist_kunit_add_extremes),
++	KUNIT_CASE(plist_kunit_del_bucket_head),
++	KUNIT_CASE(plist_kunit_del_bucket_follower),
++	KUNIT_CASE(plist_kunit_del_middle_bucket),
++	KUNIT_CASE(plist_kunit_del_last_bucket_head),
++	KUNIT_CASE(plist_kunit_requeue_basic),
++	KUNIT_CASE(plist_kunit_requeue_shortcut),
++	KUNIT_CASE(plist_kunit_requeue_last_bucket),
++	KUNIT_CASE(plist_kunit_requeue_first_bucket_head),
++	KUNIT_CASE(plist_kunit_requeue_bucket_edges),
++	KUNIT_CASE(plist_kunit_first_last_entry),
++	KUNIT_CASE(plist_kunit_extremes_ops),
++	KUNIT_CASE(plist_kunit_random),
++	{}
++};
++
++static struct kunit_suite plist_kunit_test_suite = {
++	.name = "plist",
++	.test_cases = plist_kunit_test_cases,
++};
++
++kunit_test_suite(plist_kunit_test_suite);
++
++MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
++
++MODULE_DESCRIPTION("KUnit tests for the priority sorted list (plist)");
++MODULE_LICENSE("GPL");
+-- 
+2.43.0
+
+
+
+
