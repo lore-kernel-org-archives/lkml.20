@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794019466;
-	b=AKRbBcjpSo9V9wGlv/Ab5mZOXAznWkbEUB7d6tClaZCHg9ZZ0/TnodwD88DfSzH3R0Yv
-	 IpLHTbbwYl8Y1OaNhLiWpKerD+Jt71xPLps9tHH5oPp7afFBYk9xeMoynzCXrgjCijHwa
-	 1IlEWdisgxMW0UUDocHA9BkiCN2slz+LKsJlETJ6WlypG0SWg/9yZX1cCMTvE2dE8AfdC
-	 Z6J1eiQzKEyB5/yXZXAyZKB002HFH71pT3OvaI+uVO834bDt1yUhIj0/ssurcj6PJdd5t
-	 VRK5CVHQJfR9a8kx+4h/ppbl2n4ImOJr9R9HrgVNdMVT/M85+FBa8jfQrzqJU6RxelA==
+	t=1794019584;
+	b=l/a9744daKMocEhUlyqrBuBmx1jL52mv3pdMjIqSdnPxOtSbk5kqyQ26xgImGF+EuPFi
+	 fYpKPpkxMSlHO3+VtJ7DjZ++5iiSABZ/xsYbheJI6M6FLp9Tp1Y5DNiZLc7Kl66rc31B+
+	 J4aYYgqoTdIrIgU2ISv61Po5ZMe8eNw5lsz8AVGp+rT6pstILpWs89Ny1s9DNYgakmRS4
+	 C5kMjMpKWrTt2ZxEG+F+ACmj8ZIBJOctw33FVPWrTm6devzkjA2b5BLFyaXMXbNrFffpd
+	 BqFjDzXpDVvnh3ReSkYA9c25VwhJcLqDacb3O8TiAfTj+4K++4Orvpsys896otxQ5Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794019466;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=wR1psqJPE2a2cMppvr2jpBghF56e6NepOoJgqMkmigs=;
-	b=TWaafZAtJzTPqILYWGichiczVu4rZ1QmLeYCgyCAlvRbXgML4DU/pWfIQUNt6kKRRyz6
-	 KaqvV+/R2NcFSpyrmUuuXdsiCmKYBtO9FIxaQem9yEgVyz/IfxEPvhkCJPW73esm3GpYv
-	 uOov1ONhJOBQ8MTuGFnJbiCb4pB9ltnkaMynXzCqZd76i4Azjba+rlFpGWJdDb6oOWEsA
-	 2OF4o74IfRUu+RyUftmGECFJFT8JVY3pu6bKb1ErTLBC4WX75ZWQdKzuSkOZM+cc3Ml6u
-	 hmSWhO9LTEAgedx8ZmxGCHSp2diHIpBhwVlwnJdKGR2urJHfddrarlYgxYZJVqEdS4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794019584;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=w59mjSqZhCIbLNOEV8odit4PhlHv2lbLkIQIzr13ow4=;
+	b=vs7z87ubdnwzbCIwQ7SNsBKhxdQlKwCCRSiWZlF7SbTTDKTMSXzUNBLgAuKAvRA5wOUF
+	 XpIf3y07jRWlLlYnB0Te4TBvym+ZGhnV/lAlym4e2QuYcddycB/7WnfTkxHTHhcuzzNy4
+	 YefrU4His8OaSe/L3Zrw4GbK9rfaitu5tIrerpwjOCdrXa9Ug/nSRaydxFx8IvOe9R2cP
+	 w2B3ER4CW/TT7cMbK4B09CyfBLHKmGaXpZwiqJx5ipeLT89rbHNOc+dphLwKp3p7PMKKQ
+	 4e2ymm/e/IBZPZxHN5QWiVeewWkgXOfx1P77AaSXKzmD5YF1bHzC8ED5QvDLdqjeGwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFCE0606A326;
-	Sat,  7 Nov 2026 02:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFCE0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id A293C92009E; Sat,  7 Nov 2026 03:44:23 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 9B86792009B;
-	Sat,  7 Nov 2026 02:44:23 +0000 (GMT)
-Date: Sat, 7 Nov 2026 02:44:23 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-cc: Geert Uytterhoeven <geert@linux-m68k.org>, alx@kernel.org, andy@kernel.org, 
-    bartosz.golaszewski@oss.qualcomm.com, brgl@kernel.org, dakr@kernel.org, 
-    devicetree@vger.kernel.org, djrscally@gmail.com, 
-    driver-core@lists.linux.dev, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, 
-    johan@kernel.org, kees@kernel.org, laurent.pinchart@ideasonboard.com, 
-    lenb@kernel.org, linusw@kernel.org, linux-acpi@vger.kernel.org, 
-    linux-gpio@vger.kernel.org, linux-hardening@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, namhyung@kernel.org, rafael@kernel.org, 
-    robh@kernel.org, rostedt@goodmis.org, sakari.ailus@linux.intel.com, 
-    saravanak@kernel.org, schwab@linux-m68k.org, 
-    Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
-Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-In-Reply-To: <aux8LYQkGSNjCGHv@devuan>
-Message-ID: <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
-References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org> <20261105125154.83478-1-geert@linux-m68k.org> <aux8LYQkGSNjCGHv@devuan>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=OduZUIbo;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3E8606A330;
+	Sat,  7 Nov 2026 02:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F3E8606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=OduZUIbo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1794019574;
+	bh=+5mznvrQrsmlH6EKJOlra9AFwNtxXEN6hLVCz+ODpnY=;
+	h=From:Date:Subject:To:Cc:From;
+	b=OduZUIbo0rTqm6BKslHdbpRODFvfLodPH74XO10wjy/hxCjsXZrPNZoVIA6IrGYv7
+	 75/h+hbr+ci4t7u5fhZmnX7G/eOT2xirVQ/fFs7iTavreHIBbutWbGalCupL1SFvuW
+	 n4QtQODMm3wDeg9h9VuMjPF0V+9AqPRTLJjDU9VI=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Sat, 07 Nov 2026 02:46:02 +0000
+Subject: [PATCH v2] compiler_types: drop the Rust bindgen workaround for
+ BTF_TYPE_TAG()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,14 +53,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261107-rust-bindgen-workaround-v2-1-a97b7a956eca@weissschuh.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0K6dkxLUFJX3sO4aDsDrcZipi2YE
+ O4u6MKVy5f8/94sEnGgJE7VLJjGkMIQV6h3lXDexJ4g4MqilvVRKdkCl5TBhog9RZgGvhseSkR
+ AdC2SchaNFuv7ydSF18d8uX45FXsjlzfdtuh4eED2TOZXkOp/YVSgoLOo9UE2trH6PFFIKTlf/
+ D5SFsvyBt9rz4rPAAAA
+X-Change-ID: 20261107-rust-bindgen-workaround-ddc7de1cbda9
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794019570; l=1435;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=+5mznvrQrsmlH6EKJOlra9AFwNtxXEN6hLVCz+ODpnY=;
+ b=9dwmm2OUNbIhpq0AE8uo/Ms/NxRCD85SOjE9aXCJb99NsC+L0lotMM83gVGlbhGfSt0RquqFL
+ m5SMLbGI/igBNQEEhI8n817ERs/7Bo1+Zz70FtUZ/mgRwN/4Ay7RrzZ
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-On Thu, 5 Nov 2026, Alejandro Colomar wrote:
+The referenced bug was fixed back in bindgen v0.61.0.
+As the current minimal supported version of bindgen in the kernel is
+v0.71.1 the workaround is not necessary anymore.
 
-> Do you think strafterprefix() would be better?  Do you have any other
-> suggestions?
+Drop the workaround.
 
- FWIW strsuffix() seems an obvious choice to me.  After all what the API 
-does is request the string's suffix beyond the specified leading part.
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+Changes in v2:
+- Mention bindgen v0.61.0 as first fixed version.
+- Rebase on current rust-next.
+- Link to v1: https://patch.msgid.link/20261017-rust-bindgen-workaround-v1-1-fbd99504b4b9@weissschuh.net
+---
+ include/linux/compiler_types.h | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-  Maciej
+diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+index c5921f139007..cdae5823c915 100644
+--- a/include/linux/compiler_types.h
++++ b/include/linux/compiler_types.h
+@@ -30,12 +30,8 @@
+ # define auto __auto_type
+ #endif
+ 
+-/*
+- * Skipped when running bindgen due to a libclang issue;
+- * see https://github.com/rust-lang/rust-bindgen/issues/2244.
+- */
+ #if defined(CONFIG_DEBUG_INFO_BTF) && defined(CONFIG_PAHOLE_HAS_BTF_TAG) && \
+-	__has_attribute(btf_type_tag) && !defined(__BINDGEN__)
++	__has_attribute(btf_type_tag)
+ # define BTF_TYPE_TAG(value) __attribute__((btf_type_tag(#value)))
+ #else
+ # define BTF_TYPE_TAG(value) /* nothing */
+
+---
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+change-id: 20261107-rust-bindgen-workaround-ddc7de1cbda9
+
+Best regards,
+--  
+Thomas Weißschuh <linux@weissschuh.net>
+
