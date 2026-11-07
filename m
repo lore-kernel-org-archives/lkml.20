@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046626;
-	b=YFh9L2hNr1YFp/HzEg+UFetWsEsgd3lY66kEmpaNBvjWeTEYHI/lWjQb5ejdEFDhfu3p
-	 OqS4OrvE+Jva9ekgOenOuFgHrF7MxaNrLE2Wtpe1MtarIsP22Nwm4VMvWK+ZI34gTGr17
-	 rB3VKNuuaYE9YFdpXOmAd1olPddoANNEIz2o2Px/tXlK4quluTOwYDGHLNVe3f3bkV4x7
-	 BLmsLuKEelLbsY/HUzcByP66VNpWF1Izx57+I7rBXyHhFuczUp68DrAqNlg+JZHkMa75N
-	 tGZ+aSL8zj2eHnfQ0uXLoLiVFm7KyjZHpzh58P2zzoec495e65zzPV6EBzJTHbz9tvw==
+	t=1794046629;
+	b=Da8wbArsM+IHND3MNcG/Vxt3VHZc/E/ruUwivBp9ND7PhSkjr5mU9/mrydr/xVNQ6W1L
+	 AKE6kzGIYOIDwXauil/OSry1Ua12LIquo5WNlbdi4/j/1xNUJpQPVGMRyyt2vumVJbpNE
+	 7p3xKPpFeC5yGJlYSydlLGH4tbLMlLT+tVZeWousDnPt8CaEpyUf9KTuaMNy+DHT0ujg3
+	 /DCSlx9HCVvcM4tRbvIHuQlYz/B3oF1WvLMuV0ObDct3OX4sNmu+rbg40phjewh3K01VV
+	 hSQZQiS7XdIJOnZv8jAi/6x1gT5ZNL9NhjGrl+XCTrjI06AxRm7xS6l5lNuTOr1y1gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046629;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=xSLRQn3nJAr2hF1oaNjj9xTWKwIvsqTVkRqHh/k0qb8=;
-	b=pBFoEB1lvYdYsem2GUYbyK1N39hjK9AiveYnffCxxw0ZLLFqfx9VSQCZix/w7aH1fIo4
-	 X5hn8ZmpmrktpF2uAvpnyoZt9FBCOLbd/G7i3Kha4q3aZE8PYg40nVPtop3JR7O47WY4D
-	 PN3nd858Z4gFJ+P+7wE2GigBbVXUQSyPUvxXdjYkjCs5iSghEbxrtqxV3nf01IXgMEo/3
-	 juOq/p5AwnPkOVa68NLsEVEFbQwLCiivu/ECeEqiZwWYL6qo74te0FVyXGDzphwjqM876
-	 Pf/lNNoTOx2iBWpv5etAKcyxqC6xeGa2pob2HUDsJX9r97MHW03VawVrdQQM5u/DsTw==
+	bh=qfP62W4d274H4KIf4XZuVTstlQD2a+OvnHofuZlNZwo=;
+	b=nqu+i4YNclCD/JDg07XSXP2v6/1VZKzGYgrveqCGRWBhn7Gge13idi4nlFNZ8AZ2xUCY
+	 7sCqmxXjUmGGT4vdN/F8GmeTel0N/3Ym+hj8ygNMlwTEkQuicn3f/DRqlmx/xF6I59EA2
+	 xEjWvpr/TdTkL+HZc+qldo9rPb7uj8gskoAfN/Q6hwrWeCaHMLrCsUvtIFltzbgH0J+dk
+	 sNLQpC6KoPgnMm1q6ceN6VqGzzeiMfgv4NWwkq5S8SAFqUMb45oZrLZg7S6zVNI2ZUHKw
+	 zeic2aMQcLCegva1ARmr73DLOnF1baA/hdU/wKRKIxsLHLOL1JrfXwZemBKWcdXzJqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V1iBT70m;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M0ZOO6XL;
+	arc=none smtp.remote-ip=209.85.210.54
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1784C60A3813
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:17:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1784C60A3813
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E360160A3821
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:17:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E360160A3821
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V1iBT70m
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843cf077f10so2137948a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:17:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M0ZOO6XL
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-84a248254f4so881853a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:17:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794046625; x=1794651425; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794046628; x=1794651428; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xSLRQn3nJAr2hF1oaNjj9xTWKwIvsqTVkRqHh/k0qb8=;
-        b=V1iBT70mVG9wwLbrqhjeZf7YBnAvB7h28aXBX5rG91Ifz0uWckD7JUISKRdc1cNesu
-         UDTdDTGugMPkmC/jcPLmuPZjqoMb5v4p4PyPsyQ51ryIx10Jc75oxTDtrxscn/ZSlbYg
-         NFVDsDym462lUl8e4dU56lkLbTROl2C6+p9GerUvV2UHlDKdWcwFZsdxBCByR+zA7oiQ
-         KoO+uh7ixyp4UlhFT5wpcys3w3RWL2bSLEkX9Awsk7MiWSxeo7H581L5ravwDoHt38um
-         S8Ra2RDmtd+S2f+JWuybnOIsdrwVU6XSJpHuceMcHDplR4otS1joyymV81TADZVTzYOR
-         2pHA==
+        bh=qfP62W4d274H4KIf4XZuVTstlQD2a+OvnHofuZlNZwo=;
+        b=M0ZOO6XLRhTxTCxQ8ejdFZDnDu4xEffxeM69iD4dlIYKXcIWLKG/zjenlizr4O3VCz
+         7vx2OPD/iKo2EDYmLkpx4+U+v+oc7Iso3k1qJLntk5HRyBIgaWQ55HyAiF96DjIPWaAE
+         7awGjB32jsVBAT6n3Ln+xz+flfAKw0tcjydr9MfGAoxe0eaxwMb++If0JknQpStjGb+W
+         c5xcfI5Xyi1131tX5oFYJSS/9vQlgRhESipR0cCXIx2eu7fZepXcOdeldyw/XBi8HUSx
+         LC48umPapEEkftVKvLtgKtUnpBjwTDRv2DzmxqjZmRSdrWaDaQFyPpDOLb9/BZ2234Q6
+         /Q2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794046625; x=1794651425;
+        d=1e100.net; s=20260707; t=1794046628; x=1794651428;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xSLRQn3nJAr2hF1oaNjj9xTWKwIvsqTVkRqHh/k0qb8=;
-        b=ypGjhjui7NS1KL9yjswaRcdGeJ8Rpw5NTS7To/MvUfR7Asd79RSfZzVVoTL0w4TF6O
-         6Yj/NoSYDK6H1b7ihRxgZv1Xn+3RYDyTJgQly0QIyLU63WUS9tbU1BcH/setMMiBrDDc
-         RXWNMZX6lLvqoCVJi5CR8RpqIXPmmce6Dvk39pf6Pjhh/FVHlO2N7B6pTIlkQo4cwWJE
-         MoSPRswkf2t0dYR5/5eBmZbYTkRWXYaYND75mF+e29XHvyT0/X98t3xiO18hXIOBdfd7
-         i7WA90eE3rfZ6vTXzFRtkPGs8s1XF/xyFCdjqOfFNm5jB0x3qM+N+fwCV9pHt2BS27a0
-         Du+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzvS0MteGeDLZi8Ahqb6UVwwwdibpQ9omEyR0x9cZV2VgaabCaPETbILfyncCIiuYVLQaV9hAaToRZ/TmY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+O9onpSTuoa2hrihiBbBdkoXICZgssR3nI1faXthapK0Vxt2Ru
-	Azg21rNRPSQUDeUwHV5o7N9F7icLcHCTerdvgdsGYi6FbR0300hLn6hd
-X-Gm-Gg: AYBFou2Nku9oVQ3bVX+Nx/MnCsch/yRVSO9i+BitJOGacXBNZhX8Wm+VYwsJSSF3xJl
-	Ee9gHzbRORwUtE2NyRZjMpWdjPXXcA8Ku8j84Qk/nEYdoRc3wrKRME21GTSalXiWVwZvYofXB5Q
-	MkWqt9BDc9iZZjegtMN5csEJl0lBF0/O0YsEOHhA1DwCEZ8gJE2AFT8egk89dBXSTeN5d/p6Gy0
-	lFHeIsPJxad5+dJdDS44yFZ3akYch+XTmKMNlCB7+5mCk8wbSivGLQk/6oWeGJVAOp9eMJuWMkQ
-	f5SNZZqozDL/mypU4J6oYNwAZ0uauJIy3b4TReAC2P5EJsITxXj0GD6A4/4/6tpn7yMtYqssWLP
-	ySkYldfmL9SpeLw/ojpEKdJI0FLAiIf0Z0CPw9GltuGgz9Iq3kO8LD547LQDVA6drGS3ISkyCdB
-	/rylLZpqh1nAKNyv39Jqg5bG4L28ud5zs9eqY/exW2PlxMw+C1UkuBTGhDZTs/wSqHytvt77Po/
-	DXu/phia1uEJ9BGTHlNF0uN/YKx6CVu26ikVagPv+9kgSN92rOZElrsnnbycdUngxx5La7ZMZ2H
-	raGgyX5JmpfP2lU7Tn4wJ9itFFXMuCk1zXTT/zkHjqT8lmoe/XpZ/aIowXuXAXLcd07vZFS7pNm
-	jK/7MRafHVPYYaAAn4NLpbXNoLGdgiQx0cr8oKfJXym4UcK0HebXDGJAEEWqC6wphMLcLoKGU52
-	ds0VYUPjCRVAFd6MyflIWJpOLXTA69vSKGUu3ZQZIDZsQc6DV98w/2
-X-Received: by 2002:a05:6830:4ac6:b0:81c:a6c8:8a65 with SMTP id 46e09a7af769-85f1d0d0beamr4517941a34.25.1794046624830;
-        Sat, 07 Nov 2026 02:17:04 -0800 (PST)
+        bh=qfP62W4d274H4KIf4XZuVTstlQD2a+OvnHofuZlNZwo=;
+        b=iEBihdPaYceFMeqaAtN4wlaSg54G4+ECgQniuT8V1xZjrkc3s7fjOTTSGIyyeuJiik
+         zBU1mpfWjfr27VvOdNN+tiEiXll2+4hX+I4HjuXfk+QJ8vF3cvLzLpSHWelzgwpcg5bU
+         4P3nRMqpWplyR/8vNcQ2t2fzOg5Tl6ulf468COo4prDIHzBXb/kSsxp3fJ4+9j5O8Iiz
+         neIaCFT9WQICnbj/Jevk/MJ8tGhXFc0v4JfRCI3dzzkWaOdhmkBPBcmsyvmy6+zJFoQE
+         RdfAX+zbiqAqMCAoSH0J5XvMoIcYSDEcDc5mmU1oYRwMr5OiMndTFTbb1PvbPSnUiDqD
+         DJqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzkPhGRDuACF2mIwOM/g/dLE4I/Gp6qZbFfkkS+kfIWThkXCuZDyPqULKrqti+EzRcMH7wdLsIzIBYzJZQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UaO8Cq7ml6P2OW8CGyGIbzr6UGi9zKamPpPjXs0TdfO2UAx2B
+	y7QHB57+zmuUmViTPPG024mqQZPWWOukL1HtCEJkC9EfPpaOP7dL95Yx
+X-Gm-Gg: AYBFou3PVdn8U2khDj0m6rCO4BtNOy34UjyBA1kD1BCG/Ys8MRUoQfKm4Od/DtriF0G
+	fNsnTBlmd+ejpjgGwqf24q2Zm+OGknMIdW5PiguMpSxpFWUfLqTDTkqnYZcNJ1eUsMb3moz4HdE
+	eoHbYwC/wMtBTpFu1nE0ymdNnucdwO2/7mp+ne+nt9IG+29ZTtMv2rcoqTR30VnxGBHpsV35kbv
+	thXVwn60w6V65lFGi6oih5oZE8kfs1CQt6K+Knv4nqdC9ijt/0hAl4WSNjoUqDlmicYeuSQwbvR
+	05I0d5G9xKPyTHqgGn0m/GL879DQOq2DkiqeAmpsToJ9z1+LRK5+Xzb0kcHJKRp5qlTR7iCR1Kl
+	LwQ+zqhfztCNDjdIhvE9Accgj8A5FAWlIX3jYR0tA+8+UvJDlKaN/s4+ueBE7QPbbgV+m585AAt
+	5RtRC63ToySQDpSXtjQJERmsS14wSmCaW7bAaZiyOPXhQAS++QJOByKoLSY1cD/RfA93oMTZFQw
+	Vrxf8lC/4XneAMFVlLJynjQnYR/6J05WZ85981NxSRVHBvs2sYAYHMmISvFsv8DaI+hIjcsUnq+
+	Svg+WE/LKDNdGhd8o+QRITt6GLhWWlAclqkZ2G7p0OeRb0OukMjumXVk5FxGjrPZdOFVO0Ry5U/
+	fdxPQ3uYDHYeZv9TJY2dnHs2JAYo2yTrzGZhAPDjB/WvUGR9i/z4S/g8zUP2nB+Aa5UjRRXx/am
+	ChdTSW7eU3Zj923UeKlmT+f83yTi2S7LW7RYCUzmsVp15FzkcMrWwz
+X-Received: by 2002:a05:6830:410e:b0:844:ec25:c7f2 with SMTP id 46e09a7af769-85f1cfdc445mr4024752a34.13.1794046627839;
+        Sat, 07 Nov 2026 02:17:07 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1dbef224sm3990269a34.12.2026.11.07.02.17.02
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1dbef224sm3990269a34.12.2026.11.07.02.17.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:17:04 -0800 (PST)
+        Sat, 07 Nov 2026 02:17:07 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sat, 07 Nov 2026 03:16:11 -0700
-Subject: [PATCH 14/58] mtd: rawnand: intel: retain open-handle state on
+Date: Sat, 07 Nov 2026 03:16:12 -0700
+Subject: [PATCH 15/58] mtd: rawnand: tegra: retain open-handle state on
  removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-14-0181ef0cc4c8@gmail.com>
+Message-Id: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-15-0181ef0cc4c8@gmail.com>
 References: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
 In-Reply-To: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -155,80 +155,121 @@ Cc: Tze Yee Ng <tze.yee.ng@altera.com>, linux-mtd@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Disconnect NAND operations after unregistering MTD and before disabling
-the controller or releasing DMA channels. Retain the embedded chip,
-controller lock and NAND metadata until the last MTD reference is
-released, including references obtained during a partially successful
-probe.
+Retain the chip and controller allocations until their final MTD
+references are released. Disconnect the chip before suspending the
+controller so retained handles cannot reach powered-down hardware. Leave
+metadata cleanup to the final put, including registration-failure
+unwinding.
 
-Fixes: 0b1039f016e8 ("mtd: rawnand: Add NAND controller support on Intel LGM SoC")
+Fixes: d7d9f8ec77fe ("mtd: rawnand: add NVIDIA Tegra NAND Flash controller driver")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/intel-nand-controller.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+ drivers/mtd/nand/raw/tegra_nand.c | 37 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/intel-nand-controller.c b/drivers/mtd/nand/raw/intel-nand-controller.c
-index 477a427dac1f..e4a24e69ebbc 100644
---- a/drivers/mtd/nand/raw/intel-nand-controller.c
-+++ b/drivers/mtd/nand/raw/intel-nand-controller.c
-@@ -573,6 +573,11 @@ static void ebu_dma_cleanup(struct ebu_nand_controller *ebu_host)
- 		dma_release_channel(ebu_host->dma_tx);
- }
+diff --git a/drivers/mtd/nand/raw/tegra_nand.c b/drivers/mtd/nand/raw/tegra_nand.c
+index 7f9eb5f042a7..da7791741b9d 100644
+--- a/drivers/mtd/nand/raw/tegra_nand.c
++++ b/drivers/mtd/nand/raw/tegra_nand.c
+@@ -1064,6 +1064,11 @@ static const struct nand_controller_ops tegra_nand_controller_ops = {
+ 	.setup_interface = tegra_nand_setup_interface,
+ };
  
-+static void ebu_nand_release(struct nand_controller *controller)
++static void tegra_nand_chip_release(struct nand_chip *chip)
 +{
-+	kfree(container_of(controller, struct ebu_nand_controller, controller));
++	kfree(container_of(chip, struct tegra_nand_chip, chip));
 +}
 +
- static int ebu_nand_probe(struct platform_device *pdev)
+ static int tegra_nand_chips_init(struct device *dev,
+ 				 struct tegra_nand_controller *ctrl)
  {
- 	struct device *dev = &pdev->dev;
-@@ -585,12 +590,14 @@ static int ebu_nand_probe(struct platform_device *pdev)
- 	int ret;
- 	u32 cs;
+@@ -1096,7 +1101,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 		return ret;
+ 	}
  
--	ebu_host = devm_kzalloc(dev, sizeof(*ebu_host), GFP_KERNEL);
-+	ebu_host = kzalloc_obj(*ebu_host);
- 	if (!ebu_host)
+-	nand = devm_kzalloc(dev, sizeof(*nand), GFP_KERNEL);
++	nand = kzalloc_obj(*nand);
+ 	if (!nand)
  		return -ENOMEM;
-+	ret = devm_nand_controller_init(dev, &ebu_host->controller, ebu_nand_release);
-+	if (ret)
-+		return ret;
  
- 	ebu_host->dev = dev;
--	nand_controller_init(&ebu_host->controller);
+@@ -1107,7 +1112,7 @@ static int tegra_nand_chips_init(struct device *dev,
+ 	if (IS_ERR(nand->wp_gpio)) {
+ 		ret = PTR_ERR(nand->wp_gpio);
+ 		dev_err(dev, "Failed to request WP GPIO: %d\n", ret);
+-		return ret;
++		goto free_chip;
+ 	}
  
- 	ebu_host->ebu = devm_platform_ioremap_resource_byname(pdev, "ebunand");
- 	if (IS_ERR(ebu_host->ebu))
-@@ -692,9 +699,15 @@ static int ebu_nand_probe(struct platform_device *pdev)
+ 	chip = &nand->chip;
+@@ -1127,20 +1132,35 @@ static int tegra_nand_chips_init(struct device *dev,
+ 
+ 	ret = nand_scan(chip, 1);
  	if (ret)
- 		goto err_cleanup_dma;
+-		return ret;
++		goto free_chip;
  
--	ret = mtd_device_register(mtd, NULL, 0);
-+	ret = nand_set_release(nand, NULL);
- 	if (ret)
- 		goto err_clean_nand;
-+	ret = mtd_device_register(mtd, NULL, 0);
+ 	mtd_ooblayout_ecc(mtd, 0, &nand->ecc);
++	ret = nand_set_release(chip, tegra_nand_chip_release);
 +	if (ret) {
-+		nand_disconnect(nand);
-+		mtd_put_master(mtd);
-+		goto err_cleanup_dma;
++		nand_cleanup(chip);
++		goto free_chip;
 +	}
  
+ 	ret = mtd_device_register(mtd, NULL, 0);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to register mtd device: %d\n", ret);
+-		nand_cleanup(chip);
++		nand_disconnect(chip);
++		mtd_put_master(mtd);
+ 		return ret;
+ 	}
+ 
+ 	ctrl->chip = chip;
+ 
  	return 0;
- 
-@@ -715,9 +728,10 @@ static void ebu_nand_remove(struct platform_device *pdev)
- 
- 	ret = mtd_device_unregister(nand_to_mtd(&ebu_host->chip));
- 	WARN_ON(ret);
--	nand_cleanup(&ebu_host->chip);
-+	nand_disconnect(&ebu_host->chip);
- 	ebu_nand_disable(&ebu_host->chip);
- 	ebu_dma_cleanup(ebu_host);
-+	mtd_put_master(nand_to_mtd(&ebu_host->chip));
++
++free_chip:
++	kfree(nand);
++	return ret;
++}
++
++static void tegra_nand_release(struct nand_controller *controller)
++{
++	kfree(container_of(controller, struct tegra_nand_controller, controller));
  }
  
- static const struct of_device_id ebu_nand_match[] = {
+ static int tegra_nand_probe(struct platform_device *pdev)
+@@ -1149,13 +1169,15 @@ static int tegra_nand_probe(struct platform_device *pdev)
+ 	struct tegra_nand_controller *ctrl;
+ 	int err = 0;
+ 
+-	ctrl = devm_kzalloc(&pdev->dev, sizeof(*ctrl), GFP_KERNEL);
++	ctrl = kzalloc_obj(*ctrl);
+ 	if (!ctrl)
+ 		return -ENOMEM;
++	err = devm_nand_controller_init(&pdev->dev, &ctrl->controller, tegra_nand_release);
++	if (err)
++		return err;
+ 
+ 	ctrl->dev = &pdev->dev;
+ 	platform_set_drvdata(pdev, ctrl);
+-	nand_controller_init(&ctrl->controller);
+ 	ctrl->controller.ops = &tegra_nand_controller_ops;
+ 
+ 	ctrl->regs = devm_platform_ioremap_resource(pdev, 0);
+@@ -1232,10 +1254,11 @@ static void tegra_nand_remove(struct platform_device *pdev)
+ 
+ 	WARN_ON(mtd_device_unregister(mtd));
+ 
+-	nand_cleanup(chip);
++	nand_disconnect(chip);
+ 
+ 	pm_runtime_put_sync_suspend(ctrl->dev);
+ 	pm_runtime_force_suspend(ctrl->dev);
++	mtd_put_master(mtd);
+ }
+ 
+ static int __maybe_unused tegra_nand_runtime_resume(struct device *dev)
 
 -- 
 2.53.0
