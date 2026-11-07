@@ -1,94 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048922;
-	b=EMW4AxWiMT+I5vMTNcmRKxpx6brTYDfyWBckhAOggrdJnJtZE3Xm1V15Tm7CrGWZe+1c
-	 FcO2poRVaslYMXtVyJIlyOj4h58aHcV4TdZ68gQtj6CKdExCX7HnwHFgIfAHWxE5EAMBe
-	 Ig/CTvI1HRquA5LMwEM8ckj+m0H/tKnyi5j8t0XD56SjJY+wAl7zTwUkmZMEbhOaituIC
-	 jDbOMAK2Mz7ynm2sT8tZDCyETE9qSDW0sRdUpSLnghMG6fGsezOuuCZyGwiLpS1QS3DUc
-	 6Wq5XJRtObdysl9YSs8j9qH4vfMji1xyxom9NFhW+MRrC4J8gEhPfdQ1839aly1jNNg==
+	t=1794048942;
+	b=EQSZqM7WPKtfy9sQwCJBeWcv7F0dHZ6jIDan7s4xo8kMmUN+DEAnZ62V+ONCGYKs8QWz
+	 v17Pk5KIWaSZGI7lE+YKhV9YpjjvHSW+3tX3ks01OyajMWtUPPJprLl9ftoIdQQmtbjyM
+	 +DqntxhKBFBV31d+MgON4xDAiHGtyAsRTGzrIfRRTUCuJw2j9Stx9FfqE660CIt6TeaC1
+	 uxSpvh9KW38V4Nk73kKLSPS1qdyCEPOUUXCkdpQlkDOAEuombpYopUf6NQ1mxDwec/BHF
+	 fyT5LiGDT8j12qRNrEPpWzRIPWErH/YbBWsFsulwqz7BIOq+8nKMTob/k2DdO/mxNjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048922;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rKMtEOg6aq+AXKza/t+uvDMmGhrI38ouyDBdGVNk5SA=;
-	b=bQKaACIfhmSuoCbI+lLqX4B7npJehnAqJLMZjRLwOuweIIKd+jUQgHx5m0sV2vlqI5h3
-	 rLtR1MP2pLJXNKVt56g61iPmIZEmGtMyeTawgXbBuVBf3ougANcKUscDBiNi9+9zKQH/a
-	 m0c4L/UT3AlH7qSRDWxBnLnG/pgTTlBjpk9kYY4dnJogT4U44UDJsWQBVLlMAjWyF7H+U
-	 wCzIejKvOFcNwcf+r4j/qPjPXGXTasF2+oTakLlXuOf+JH3dkdl9KZfw4arbqFVskFQJP
-	 Uy15m1u5iDt/XfWocsBnbSa+8sfByTpWptmHva2R/FqAfzsITb0j1A5VeNsRulAuT9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048942;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=6QzkgOsI6hSYSvZ2Rxelwg+aI/i/gSPdT9ful7PeE/s=;
+	b=HEtEYt6jVckuumKZnkmDloE9RzgCtenAFHwUGSL8IWB7/jr7YN7Ggt0sRf0LBlWoqWW1
+	 49XfSpVBiwrAHSn+2zBcJeXzZfhuMsSMj8Z4uBOzoT+/E5JDXYctjju1gk0NpVxdjM8L2
+	 5kCyGCAs3PI8SeB4sGWKoaxUrl9kE/M1T1xKV3mDNLdW+T2g70f0W85vsXUse162k4ppS
+	 d2amuxF6GAjGDC+N3S996GxBnMHI9J3YWFD/6Udnag2FhJ8N7hcMU7eqZ6XDbPLf0k5L/
+	 d15fu8kSM6P4namkzHcX5qhfoqKw2aeZvpmthXYWbV34ymDdPSo0FIO7QKNoG0TDDnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E8U0S2xQ;
-	arc=none smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=EYgMz6gG;
+	arc=none smtp.remote-ip=212.227.15.14
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67156606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:55:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67156606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4719606A32E;
+	Sat,  7 Nov 2026 10:55:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4719606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E8U0S2xQ
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b561b60b78so647366a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:55:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794048921; x=1794653721; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rKMtEOg6aq+AXKza/t+uvDMmGhrI38ouyDBdGVNk5SA=;
-        b=E8U0S2xQOTdQ29TTL+BdEObtN+B3LU/cyseQanqBKuZ2g7EEY0grtZbY+p/oDrX2vE
-         bHobLm2Ob9K++IITAqSHr7pwiDWYo8P8xYHeWEIzKvJBOEJMTKITZlieKXeQqSv1eeTE
-         Ui9L/aI4rXZ9+QEUgsFZvaFKyTL6n7MRmdArIDcd2WcJEfdamkzFyU6Qw0R5KR4K7Nn2
-         kzDr5or+Bo0RSDdNn51Z2VLdJxfsGTJOR8rkQ3OQ4MMnITt6Oq7iIrPB0fBKbFpYVG+p
-         Ch7y+cxsddcUEYUVx0wCVVB41WVoF5bsGXgJn/DFeToM4CpzCBPFq3mVmj3JEQ3zQLEM
-         G3qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794048921; x=1794653721;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rKMtEOg6aq+AXKza/t+uvDMmGhrI38ouyDBdGVNk5SA=;
-        b=e9H7NRcm8Kp2Wgw/b4tPzvIRE8LA7z7/jdfVA8UTfNJ89rPZmBiO9OjYh2GJKcakSD
-         ry+tbBswA3K6ZRoHOk3uVZqZdr+AnJDi5VEnrgafIyGRyi8KXgOSfeTaSHFC7wIBLMIy
-         XxwvSOEE0Z6Hzo7XCNCsE79XQSIiTGY6QO5rVKxesNSg5BX71zc8LDT9ZqkJBwXnN6P6
-         gicFqGIqz/oCbNHLlaMPQucL7AkGnV7pQ3cJCCthrgDE/HivwOvv9nREzaV05N5VlmQ9
-         C2yj6gOBN3P88EqQBa5vCkWCmTsY95e8rVL2a0YAbbiZx8GdyViaW6yvTpK+mpwdDdvH
-         MtwA==
-X-Forwarded-Encrypted: i=1; AL+hErFblHyd354y+r+PBJmFj7ufv/NcRwjzDQdWG1p93evNXl49s0KocKgFZc7mKGDHb/7iCJ/2pdYdUf9IM1Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9J2/Eqr1s2jt6MN/YodddxxjbVhhkvXjSFqULMpiV1Kt2RaJz3
-	oT5u22oC0mUGapGGikwSgc1eE2bDkhM9s43SM3aCEz4Zvr3FENe3X7nq
-X-Gm-Gg: AYBFou1B5ibnwATM1Oe39rtmFtkOhh98e3L7BfaFkvqoykQaDOZy8TSaIT4vlD/zFWL
-	z0/ahbyUlETDkHCXrSRA0Ficyccz+N1wu+q6U8wP/f+c29EOUPPblyAiDKya6IFzG7uDydaYfat
-	IlV1YhjXiMknNDSWsqLIlRPpW6EwwT9CsTmJ90AQ1urcf1JooeFZze7XWm+DNCyzbubsEtEf2Ky
-	qQHWDcDe0jjC8/V5sMf65bPswrWmVIzyD7hTVP09986yf54dQyiCJ9Y3+Xcmwu3WYtwIQcXld2c
-	0Nf5wSd58ijtSKWLOCIwMZ19eQx579zAAyCugVHLmrrNx9zZZuFxYSKRddRBp2KGEbnJH7J53P8
-	oHkyrSdrmUD4JQ5rtsK/cRP5CyPc/TqtW1cxcDmlm4V2i8AUsALDbcU9FJu9/4ruc4QJsdxOGxn
-	lZzWjXbIytBjmohhfCLLalec8WBhP4ULza6cuKMKj6yAlVJqQnTBFxtIOLNRLOy9l91/M/3QSGS
-	MKlgMPp9u4OBcNSOL9h4UWy86Br6X5rBRA08VTbpavEBRwEINmv28Eqc7VaCeOC1GSPu41llEd4
-	hgjKapkWKydXmHmoiBATyEd3zg8q1HkfuHSGy5KoU66908jAsmGo8LW56lc1BmBmisHWeZiQ4jw
-	FTyKB
-X-Received: by 2002:a05:6402:518c:b0:6b3:d0a0:39c9 with SMTP id 4fb4d7f45d1cf-6b6fad4ade0mr1134533a12.6.1794048920506;
-        Sat, 07 Nov 2026 02:55:20 -0800 (PST)
-Received: from frame (h-155-4-132-44.NA.cust.bahnhof.se. [155.4.132.44])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b669c4dcd0sm1668740a12.35.2026.11.07.02.55.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:55:19 -0800 (PST)
-From: Elvira Khabirova <lineprinter0@gmail.com>
-To: Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?q?Hubert=20Wi=C5=9Bniewski?= <hubert.wisniewski.25632@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Elvira Khabirova <lineprinter0@gmail.com>
-Subject: [PATCH v2] usb: musb: gadget: don't flush a waiting RX packet when queueing a request
-Date: Sat,  7 Nov 2026 11:55:05 +0100
-Message-ID: <20261107105505.6554-1-lineprinter0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=EYgMz6gG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1794048927; x=1794653727; i=markus.elfring@web.de;
+	bh=6QzkgOsI6hSYSvZ2Rxelwg+aI/i/gSPdT9ful7PeE/s=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=EYgMz6gGR1TUpEOitiBFSHg/SI28H8c67ST1B9ULYPeZQZL3NE/7XEWrIF+tJQ4q
+	 NWyS2raV+LvQU/5pkeqnI2X3m9dFUufrmcqy3r6CVjIejZ2v/lW/C2i4JUQwQ8+SP
+	 +vOIE9riw3IShHXDeVLtkm3Ez3kwpdSs8EXeuMqXpuHNaESov/FnuSfjJe7cjDCn6
+	 GX9NyPDPx27OAYP8wJlBh+O1gXFohl5r+LLQ6uVW72ZrraPUKPc6ywTkbTKPYDUR/
+	 JcNqNXCK54q5ABKTrw3qWTAWvjmXdoF5w4GFhb1/qDSBEhL82oM4lIcjb7LCOSSq2
+	 qrVvt/HecQj0qXKLGQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MgRMB-1wqt162x39-00gwwy; Sat, 07
+ Nov 2026 11:55:27 +0100
+Message-ID: <2148bc74-0558-4eeb-a66a-e903995df05f@web.de>
+Date: Sat, 7 Nov 2026 11:55:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,370 +62,217 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Chad Aldreda <ca@modelmiser.com>, cocci@inria.fr, tools@kernel.org
+Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Julia Lawall <julia.lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>
+References: <20261106193517.3267013-2-ca@modelmiser.com>
+Subject: Re: [PATCH] coccinelle: api: add a checker for device nodes in devm_
+ memory
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261106193517.3267013-2-ca@modelmiser.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:kRPE/nykOWUNZXnOxGzbdSoEEQAEk9jEnqsSMiasonToWFzWmtq
+ bMtsCVIjIHZ9Syc6kpQ/kTiZKi6PC6rHBBjkmIKzDXMdiJbpwYeRPQQH/mw5n/QGj8N1FbZ
+ pRvsbOVrUeWrLhqzhHH16o2lRNvTe4RjENOFV0gkzNVXNnbnAyJNxq7QHd0pyZswZd6PsSw
+ XTDzZp3US2NfG9yf6k/jw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:a1MtagUpoPg=;IF74glW9fFClojY4UQ/IXS+L6hL
+ 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
+ td3w/8
 
-Since commit 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx
-endpoint request"), musb_ep_restart() flushes the RX FIFO instead of
-calling rxstate(), with the premise that in case of Ethernet, dropping
-a couple of packets during gadget initialization is not an issue,
-because it will only happen when the software is not yet ready.
+Thanks for your contribution.
 
-But when using other functions with musb, for example, f_mass_storage
-or f_acm, this code path will be used not only when the software is not
-yet ready, but also mid-communication, and it will cause data loss.
-Data loss happens on gadgets that don't always have requests queued
-for an ep.
+How do you think about further collateral evolution according to the prese=
+nted
+source code analysis approach?
 
-The timeline of a data loss:
 
-1. A function that does not have a lot of requests pre-queued
-   completes an OUT request. The queue is empty.
-2. The next packet comes. MUSB auto-acks it, places it into the FIFO,
-   sets RXPKTRDY, raises an interrupt.
-3. musb_g_rx() is called, sees the request queue is empty,
-   early returns.
-4. The function queues the next request (f_mass_storage does it from
-   the main fsg thread), musb_ep_restart does FLUSHFIFO, packet is lost.
-5. The packet was auto-acked by MUSB, so it is not resent by the host.
+I suggest to use the word =E2=80=9Cdevm=E2=80=9D (without a trailing under=
+score) in the summary phrase
+(and subsequent messages).
 
-Next data chunk arrives with an IRQ like so:
+You propose something for device nodes.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/driver-api/driver-model/devres.rst?h=3Dv7.4-rc1#n9
 
-musb_g_rx returns, queue empty
-        (drivers/usb/musb/musb_gadget.c:810)
-musb_g_rx from musb_interrupt
-        (drivers/usb/musb/musb_core.c:1786)
-musb_interrupt from dsps_interrupt
-        (drivers/usb/musb/musb_dsps.c:389)
 
-and then it is dropped from the FIFO when usb_ep_queue() is called:
+> A struct cdev, struct miscdevice, struct video_device or struct
+> v4l2_device embedded in memory from devm_kzalloc() and friends is freed
+> when the driver unbinds, but a file that user space holds open on the
+> node outlives the unbind. Its later file operations are a use-after-free
+> when they use that memory, and for a cdev or video_device so is its
+> close(), where the core touches the object and the v4l2_device the
+> video_device points to.
+=E2=80=A6
 
-MUSB_RXCSR_FLUSHFIFO from musb_ep_restart
-        (drivers/usb/musb/musb_gadget.c:1174)
-musb_ep_restart from musb_ep_restart_resume_work
-        (drivers/usb/musb/musb_gadget.c:1184)
-musb_ep_restart_resume_work from musb_queue_resume_work
-        (drivers/usb/musb/musb_core.c:2277)
-musb_queue_resume_work from musb_gadget_queue
-        (drivers/usb/musb/musb_gadget.c:1249)
-musb_gadget_queue from usb_ep_queue
-        (drivers/usb/gadget/udc/core.c:306)
+How many data structures should be touched after a close() call?
 
-In case of f_mass_storage, it keeps waiting for the lost data;
-the host then times out and resets the device. Since this is a race
-condition, this can be seen as data transfers taking too long,
-or as drives getting mounted but disappearing when data
-is read/written, and so on.
+Are there more system dependencies to reconsider?
 
-  usb 1-8.4: reset high-speed USB device number 31 using xhci_hcd
-  I/O error, dev sdb, sector 240 op 0x1:(WRITE) flags 0x804800 phys_seg 30 prio class 2
-  Buffer I/O error on dev sdb, logical block 30, lost async page write
 
-When testing f_acm, this is seen as byte loss on the tty. f_hid,
-f_printer and f_fs lose data similarly.
+> +@initialize:python@
+> +@@
+> +seen =3D set()
 
-Testing with commit 3fc137386c46 ("usb: musb: Fix hardware lockup on
-first Rx endpoint request") reverted fixed these symptoms.
+Such a programming interface can look appealing.
+https://gitlab.inria.fr/coccinelle/coccinelle/-/blob/ea58efe355dea21842179=
+54248a01f5dc5995d24/docs/manual/cocci_syntax.tex#L697-700
+https://docs.python.org/3/builtins/stdtypes.html#set
 
-Move the data processing to system_bh_wq. Purpose of doing so is to
-honor the usb_ep_queue docstring and to run in an interrupt context,
-avoiding the lockup Hubert described in his commit message.
-Alternative way of looking at this is it "re-triggers" the interrupt,
-running the musb_g_rx that had to be skipped.
+But further constraints should occasionally be taken better into account.
+I guess you would like to benefit from parallel data processing with multi=
+ple
+processor cores.
 
-Such a change makes a different race condition more visible.
-On SMP or PREEMPT_RT, the RX interrupt can come while musb_g_giveback()
-is running on the same endpoint and has already dropped musb->lock;
-before this patch, that would be possible only when usb_ep_dequeue()
-runs in parallel with an interrupt, but after this patch,
-it could be the workqueue item running when an interrupt comes.
-Handling it at that moment could lead to packets getting stuck
-never matched with their requests (locking up the device essentially)
-or requests completing but out of order.
 
-So in musb_g_rx() and musb_gadget_queue(), also defer the RX'd data
-to a work item if ep->busy is set. The deferred work items are scheduled
-when the last musb_g_giveback() finishes and busy drops to 0.
+> +@alloc depends on org || report exists@
+> +expression x, e, e2;
+> +identifier fn =3D~ "^devm_k[mzcr]";
+> +position p, q;
+> +@@
+> +
+> +x =3D fn@p(...);
+> +... when !=3D x =3D e
+> +(
+> +misc_register@q(\(x\|&<+... x ...+>\))
 
-Do not do any deferral of DMA completion. When musb_g_rx() is called
-with DMAENAB set, it means it's called from musb_dma_completion().
-A DMA completion could not be happening at the same time as
-a workqueue non-DMA giveback (because this DMA needed to be programmed
-first, and programming of a DMA is only possible when all non-DMA
-requests ahead in the request queue already got their givebacks).
-And work items of DMA requests don't do givebacks.
-Deferring DMA completion is more work, so just don't change
-the behavior there.
+Would such an SmPL disjunction be redundant for the passed argument expres=
+sion?
 
-DMA completion can still race with usb_ep_dequeue(), that's the same
-as without this patch. So DMA situation should not become any worse.
 
-The issue was reproduced and the patch was tested on a BeagleBone Black
-(AM335x, one core, no RX DMA) with f_mass_storage, f_acm, f_hid, f_printer
-and f_fs. It was also verified OK before and after this patch
-with f_ecm and f_ncm.
+> +|
+> +cdev_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +__video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
+> +)
 
-This issue was also reproduced and the patch was tested on a Pine A64+
-(Allwinner A64, four cores, no DMA) with both PREEMPT_DYNAMIC
-and PREEMPT_RT, with lockdep enabled, with f_mass_storage, f_acm,
-f_hid, f_printer and f_fs.
+Were these function names ordered by their usage probability?
 
-This patch was also tested with suspend to RAM on the Pine A64+,
-both idle and during a transfer.
 
-Fixes: 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx endpoint request")
-Signed-off-by: Elvira Khabirova <lineprinter0@gmail.com>
----
+=E2=80=A6
+> +@script:python depends on report@
+> +p << alloc.p;
+> +q << alloc.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+=E2=80=A6
 
-v1 -> v2:
-- musb_g_rx_kick() does not re-queue itself when `busy` is set.
-  Instead, musb_g_giveback() re-queues it when `rx_kick_deferred`.
-  This new flag is set in three cases:
-  1) `busy` is set inside musb_g_rx_kick()
-  2) musb_gadget_queue() adds an RX request to an empty request queue
-     and `busy` is set
-  3) `busy` is set in the beginning of musb_g_rx() (addresses sashiko's
-     "RX endpoint lockup after giveback in musb_g_rx_kick()",
-     "softirq busy-loop and livelock in musb_g_rx_kick()", and
-     "race and ordering bug in musb_gadget_disable() for rx_kick")
-- musb_g_rx_kick checks musb->is_runtime_suspended now and exits early
-  if the controller is suspended, and the work items are disabled
-  during system suspend (addresses sashiko's
-  "unushed rx_kick work in musb_suspend() accesses disabled MMIO")
-- This time tested also on a Pine A64+ (Allwinner A64),
-  which has both MUSB and 4 cores.
+Can such a control flow pattern still be refined?
+Would a temporary variable become helpful here?
 
-v1: https://lore.kernel.org/linux-usb/20261027202744.79556-1-lineprinter0@gmail.com/
-
- drivers/usb/musb/musb_core.c   |   3 +
- drivers/usb/musb/musb_gadget.c | 107 ++++++++++++++++++++++++++++++++-
- drivers/usb/musb/musb_gadget.h |   9 +++
- 3 files changed, 116 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
-index 73ac25f53..38469727a 100644
---- a/drivers/usb/musb/musb_core.c
-+++ b/drivers/usb/musb/musb_core.c
-@@ -2818,6 +2818,8 @@ static int musb_suspend(struct device *dev)
- 		;
- 	musb->flush_irq_work = false;
- 
-+	musb_gadget_disable_rx_kicks(musb);
-+
- 	if (!(musb->ops->quirks & MUSB_PRESERVE_SESSION))
- 		musb_writeb(musb->mregs, MUSB_DEVCTL, 0);
- 
-@@ -2866,6 +2868,7 @@ static int musb_resume(struct device *dev)
- 	if ((devctl & mask) != (musb->context.devctl & mask))
- 		musb->port1_status = 0;
- 
-+	musb_gadget_enable_rx_kicks(musb);
- 	musb_enable_interrupts(musb);
- 	musb_platform_enable(musb);
- 
-diff --git a/drivers/usb/musb/musb_gadget.c b/drivers/usb/musb/musb_gadget.c
-index 016d3f3fc..c71c60efe 100644
---- a/drivers/usb/musb/musb_gadget.c
-+++ b/drivers/usb/musb/musb_gadget.c
-@@ -148,6 +148,21 @@ __acquires(ep->musb->lock)
- 	usb_gadget_giveback_request(&req->ep->end_point, &req->request);
- 	spin_lock(&musb->lock);
- 	ep->busy = busy;
-+
-+	if (!ep->busy && ep->rx_kick_deferred) {
-+		ep->rx_kick_deferred = false;
-+		if (!queue_work(system_bh_wq, &ep->rx_kick))
-+			pm_runtime_put_noidle(musb->controller);
-+	}
-+}
-+
-+static void musb_g_defer_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (musb_ep->rx_kick_deferred)
-+		return;
-+
-+	pm_runtime_get_noresume(musb->controller);
-+	musb_ep->rx_kick_deferred = true;
- }
- 
- /* ----------------------------------------------------------------------- */
-@@ -816,6 +831,17 @@ void musb_g_rx(struct musb *musb, u8 epnum)
- 	csr = musb_readw(epio, MUSB_RXCSR);
- 	dma = is_dma_capable() ? musb_ep->dma : NULL;
- 
-+	/*
-+	 * A giveback is in progress on this endpoint, so the packet can't be
-+	 * handled now: the function could get its data out of order. Check for
-+	 * the packet once the giveback is done.
-+	 * Do not defer DMA completions: only usb_ep_dequeue() can overlap them.
-+	 */
-+	if (musb_ep->busy && !(csr & MUSB_RXCSR_DMAENAB)) {
-+		musb_g_defer_rx_kick(musb, musb_ep);
-+		return;
-+	}
-+
- 	musb_dbg(musb, "<== %s, rxcsr %04x%s %p", musb_ep->end_point.name,
- 			csr, dma ? " (dma)" : "", request);
- 
-@@ -1111,6 +1137,12 @@ static int musb_gadget_disable(struct usb_ep *ep)
- 
- 	/* abort all pending DMA and requests */
- 	nuke(musb_ep, -ESHUTDOWN);
-+	if (cancel_work(&musb_ep->rx_kick))
-+		pm_runtime_put_autosuspend(musb->controller);
-+	if (musb_ep->rx_kick_deferred) {
-+		musb_ep->rx_kick_deferred = false;
-+		pm_runtime_put_autosuspend(musb->controller);
-+	}
- 
- 	musb_ep->desc = NULL;
- 	musb_ep->end_point.desc = NULL;
-@@ -1171,10 +1203,39 @@ void musb_ep_restart(struct musb *musb, struct musb_request *req)
- 		txstate(musb, req);
- 	} else {
- 		csr = musb_readw(epio, MUSB_RXCSR);
--		csr |= MUSB_RXCSR_FLUSHFIFO | MUSB_RXCSR_P_WZC_BITS;
--		musb_writew(epio, MUSB_RXCSR, csr);
--		musb_writew(epio, MUSB_RXCSR, csr);
-+		if (csr & MUSB_RXCSR_RXPKTRDY) {
-+			pm_runtime_get_noresume(musb->controller);
-+			if (!queue_work(system_bh_wq, &req->ep->rx_kick))
-+				pm_runtime_put_noidle(musb->controller);
-+		}
-+	}
-+}
-+
-+static void musb_g_rx_kick(struct work_struct *work)
-+{
-+	struct musb_ep *musb_ep = container_of(work, struct musb_ep, rx_kick);
-+	struct musb *musb = musb_ep->musb;
-+	unsigned long flags;
-+	u8 epnum = musb_ep->current_epnum;
-+	u16 csr;
-+
-+	spin_lock_irqsave(&musb->lock, flags);
-+
-+	if (!musb_ep->desc || musb->is_runtime_suspended)
-+		goto out;
-+
-+	if (musb_ep->busy) {
-+		musb_g_defer_rx_kick(musb, musb_ep);
-+		goto out;
- 	}
-+
-+	musb_ep_select(musb->mregs, epnum);
-+	csr = musb_readw(musb->endpoints[epnum].regs, MUSB_RXCSR);
-+	if (csr & MUSB_RXCSR_RXPKTRDY)
-+		musb_g_rx(musb, epnum);
-+out:
-+	spin_unlock_irqrestore(&musb->lock, flags);
-+	pm_runtime_put_autosuspend(musb->controller);
- }
- 
- static int musb_ep_restart_resume_work(struct musb *musb, void *data)
-@@ -1254,6 +1315,15 @@ static int musb_gadget_queue(struct usb_ep *ep, struct usb_request *req,
- 				__func__, status);
- 			list_del(&request->list);
- 		}
-+	} else if (musb_ep->busy && !request->tx &&
-+		   &request->list == musb_ep->req_list.next) {
-+		/*
-+		 * A giveback is in progress on this endpoint, so the request
-+		 * can't be started now. A packet may already be waiting, its
-+		 * interrupt having found no request. Check for the packet once
-+		 * the giveback is done.
-+		 */
-+		musb_g_defer_rx_kick(musb, musb_ep);
- 	}
- 
- unlock:
-@@ -1701,6 +1771,7 @@ init_peripheral_ep(struct musb *musb, struct musb_ep *ep, u8 epnum, int is_in)
- 	ep->is_in = is_in;
- 
- 	INIT_LIST_HEAD(&ep->req_list);
-+	INIT_WORK(&ep->rx_kick, musb_g_rx_kick);
- 
- 	sprintf(ep->name, "ep%d%s", epnum,
- 			(!epnum || hw_ep->is_shared_fifo) ? "" : (
-@@ -1810,6 +1881,36 @@ void musb_gadget_cleanup(struct musb *musb)
- 
- 	cancel_delayed_work_sync(&musb->gadget_work);
- 	usb_del_gadget_udc(&musb->g);
-+
-+	musb_gadget_disable_rx_kicks(musb);
-+}
-+
-+static void musb_g_disable_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (musb_ep->rx_kick.func && disable_work_sync(&musb_ep->rx_kick))
-+		pm_runtime_put_noidle(musb->controller);
-+}
-+
-+void musb_gadget_disable_rx_kicks(struct musb *musb)
-+{
-+	int i;
-+
-+	for (i = 0; i < musb->nr_endpoints; i++) {
-+		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_in);
-+		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_out);
-+	}
-+}
-+
-+void musb_gadget_enable_rx_kicks(struct musb *musb)
-+{
-+	int i;
-+
-+	for (i = 0; i < musb->nr_endpoints; i++) {
-+		if (musb->endpoints[i].ep_in.rx_kick.func)
-+			enable_work(&musb->endpoints[i].ep_in.rx_kick);
-+		if (musb->endpoints[i].ep_out.rx_kick.func)
-+			enable_work(&musb->endpoints[i].ep_out.rx_kick);
-+	}
- }
- 
- /*
-diff --git a/drivers/usb/musb/musb_gadget.h b/drivers/usb/musb/musb_gadget.h
-index f49f25b3b..886cfc26d 100644
---- a/drivers/usb/musb/musb_gadget.h
-+++ b/drivers/usb/musb/musb_gadget.h
-@@ -11,6 +11,7 @@
- #define __MUSB_GADGET_H
- 
- #include <linux/list.h>
-+#include <linux/workqueue.h>
- 
- #if IS_ENABLED(CONFIG_USB_MUSB_GADGET) || IS_ENABLED(CONFIG_USB_MUSB_DUAL_ROLE)
- extern irqreturn_t musb_g_ep0_irq(struct musb *);
-@@ -23,6 +24,8 @@ extern void musb_g_wakeup(struct musb *);
- extern void musb_g_disconnect(struct musb *);
- extern void musb_gadget_cleanup(struct musb *);
- extern int musb_gadget_setup(struct musb *);
-+void musb_gadget_disable_rx_kicks(struct musb *musb);
-+void musb_gadget_enable_rx_kicks(struct musb *musb);
- 
- #else
- static inline irqreturn_t musb_g_ep0_irq(struct musb *musb)
-@@ -42,6 +45,9 @@ static inline int musb_gadget_setup(struct musb *musb)
- {
- 	return 0;
- }
-+
-+static inline void musb_gadget_disable_rx_kicks(struct musb *musb)	{}
-+static inline void musb_gadget_enable_rx_kicks(struct musb *musb)	{}
- #endif
- 
- enum buffer_map_state {
-@@ -93,6 +99,9 @@ struct musb_ep {
- 	/* true if lock must be dropped but req_list may not be advanced */
- 	u8				busy;
- 
-+	struct work_struct		rx_kick;
-+	bool				rx_kick_deferred;
-+
- 	u8				hb_mult;
- };
- 
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
--- 
-2.53.0
-
+Regards,
+Markus
