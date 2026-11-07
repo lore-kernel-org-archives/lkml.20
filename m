@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065839;
-	b=JqYx+hvoQI7ijdtUEDuZSZe5/wn3n0PCFu/jC0KNvRWWxSNbVTcz0t0jD5fIQNSuOc7S
-	 6CBj0fJlUQ2A0bFGJECShzibWYTKh11o981+YdnOi3c0xXOu9+Ab/3nCmobNYV2kPH++k
-	 nZuAFmAwlzurvETBXuZvW3VN54wRBE7VPdpG8TTq6egS5ZORKJ5be+Z81HaP1Soxp0nec
-	 bEkfZ1Dl2q6UWRoNdjEM4a4gOfVcayAqWixYYbMJGm7raA3DT4aOYFaWHsGv3eh9i4xpN
-	 UkqHYPZi/37Rli/HYNjSEaW/t0HTOEOLA1EGDtScvrRc2hMpGDN1rPB/TjcK0f+MwTw==
+	t=1794065838;
+	b=DE5VnPv/I7sfFVoq2ZvwUnR/xhB36NbhULMNzg8qoF5ntslh+27Dtg1kFvg408bm6XYX
+	 eKPZq3Tk19oTy4U54YwBtwTd8PcNY2pOvO69ygrKxdztG9PjQIDpiUMlAee0ymDpAnfH6
+	 nRzkLREv4TRm8y82qfnAK6AW4Q8liOSaYed/CSbcMU9t3m+UG9d2RTIh8Bm3ti7KE+owJ
+	 jUmyOMEixI/KBj8bNt8mDaXgNum4rVZdmxCYhLOGD9Ftr7+wCjvvPGZSMnstTWdZnXiPI
+	 Q0AKLFODpCtJWrjCcrmNN1412BOIhf1lxp4AvuWjfOkgn1C1mbJoGC43yVVxyw8SPEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=M19XchmpvjLlLoNr8MoVn8Z+VpoH2MJVmxwn0RCJick=;
-	b=cgT6dZ/0DEDoZiAyWPWivynI8P6O58tUR4wo0C9o3+SlZWim4esEMEBHp8N5vVousr4w
-	 lTLyQFwzkw6Vr6iLlciPfjFbjRhWz3ZGmgRDMjWcjWCvuXkWXyXPVHmrSgGWR9humtM7r
-	 jehvcJybuMDh1aJHqOK7i4oeI0KWk5UXHvDMcIaUHpmnL650U8DEq+k/HUvz/mDMEZNkP
-	 xNLeil4KzwoI1+0RcTL42lFOSAdAK/ghge8HqQa72PW369fzjvZGegdhLlvQcJ7poikIR
-	 OBpMr3jvpwY9Wj9TgTW5ciZTtNsJ+hheVgmB/IRFTOOz+moJQSr96G9uIxqKyl+VWNA==
+	bh=pV+IB1n1BXqWgEv9HmlY7fFAWYiCGwOeQUGrvdEtK2I=;
+	b=BKM62L8vGxEcvqyXRvJCeGqzTvXLEFJIWnsO5XHWZ4PcJw93eLDFuGYj1vs4tjNEio5M
+	 kOTvYWbU42zJ7BrGa6SART46xw31FbvC8Dpa2OI/eEd6z57ntOLb0BoalAo5q8LyydkCs
+	 f/sRxg1k+nzeMO/XoNPNY3rMqnxJTxfvsg1IIaJRQICdJsv4jHfQxICJKEZGqNkPjaa4X
+	 AQKZXusLVwnXmBv7BQkcseJrYuhR6EjaKp1pGbP1cQPSus/JQxZCW+ITwgX7/wE9ZKSKP
+	 z0FoFEvIS4RBrMsA8sbzP+811eevBsMDzx12X7FmJCeQV4EnQSJdhYmsc2D1DoKxw3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="p7TLM7g/";
-	arc=none smtp.remote-ip=209.85.208.70
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jj6PyKfq;
+	arc=none smtp.remote-ip=209.85.208.69
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D79D606D836
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:37:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D79D606D836
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC8B606A33E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CC8B606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p7TLM7g/
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6b570b713cbso2224025a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:37:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jj6PyKfq
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b706aec65bso460201a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:37:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794065837; x=1794670637; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794065836; x=1794670636; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=M19XchmpvjLlLoNr8MoVn8Z+VpoH2MJVmxwn0RCJick=;
-        b=p7TLM7g/nvW0MDJeJdMFOoeRcPjiqA9iWHdxA5QezBBsy1QFglEvv117RjA5VaAFPm
-         j07wFcmhc4qdObJjdYC9NjR82AoIbDS80G57JHJJ2o+IJauZi+C+nFmR0xpNEcQZkJ/j
-         ++WCAPzPKSE6TydewFhErMDLn06MTWaEASMlzlAypweMzDGOuqFu7pSPK6i48GDM1Qp/
-         vhsdr7W6qNV9qPRM18Ul1/7vYDgSk0oKYFrMQ760O92kzAMYqXVaX0IxvJNcd6xGk9YI
-         zjUaZUeQeIcb6mytDYd6wZesVs1jlj8yROCjwo31VWU1GqrpOW9AkbrDUy+gmwWuAkT9
-         wrJA==
+        bh=pV+IB1n1BXqWgEv9HmlY7fFAWYiCGwOeQUGrvdEtK2I=;
+        b=jj6PyKfq2kNUfnjM6ju8ll0Dfyaf0OfY6/KOnGvcGW88SY5UxPbjdik1xPDnSC6LGe
+         fBuumWMVFt79TVduENQZ45QXrjeCgx/XQ7f62uxRrQINHHN5V/hMrhGdb1in1wXsLED7
+         3xFLL7Ka6gSDfdWYkg8iLyLLKU+CX3R++AIzVwbTWP3J5Kecs8Wpg91Db1jypMCL0nu7
+         GIQpIHfcJo5uGJQ7OKgh8e+6TcRvC51Inrx/bF2ltiogS16RVFDPIrZ0tEhRd7b5y280
+         JvdgWXOJ7Af8nPK8bMonlG0COE6rOqNH7w+/6yH/RrxK6gbqn95XstYCBaOZAY50Kzke
+         9b1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794065837; x=1794670637;
+        d=1e100.net; s=20260707; t=1794065836; x=1794670636;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M19XchmpvjLlLoNr8MoVn8Z+VpoH2MJVmxwn0RCJick=;
-        b=rHJh4Oj+oinK0+35fFR0dgNwug08/qnpoZgl4jG+rhjLhD/pSaBPdODh9UiaaHoxIW
-         8AjOOuFc3UTevA7mMSLu36nNa1fPtxnLR/p+6TaWqLP+cDypwMXmUp0OlGORxD8NL1Az
-         cTQ0IIv47iTZM9sInQLp/FC9J49UUfsQBiEA81ENtP6DsHNLVBisWloa/vVv52ch+ZLT
-         FWaRNtCZw9sjOfnjeKAisIV/+fdTmr5w8Jjfcg4cSNt1APg+3RgCtvzGwfFH1YZei+BG
-         y+6ig2AD53qCEG+Rduhv1Svrg0RTBRi/eZ3f90qt61aGCmj0ygOprYXIJpAvW/IiU4Gi
-         CKwQ==
-X-Forwarded-Encrypted: i=1; AL+hErEea3myfS9pQKD9ByI4b+qo/27wQbCpTZfmCx2Oqer2yreUZQZg+Ost/pKFs6zRsMoQs5yzDHYdjb7wc34=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VnrFKC+yESVWzzLS8HbeGmon1PrbahZdxOFXdauimcVKWPFzK
-	mc5nAytFXwyiZRnyUNjVhbUG0sJjjRWms/RgSfNwcWR/cuF7ryBYiMVJhVzVmqHvhHM+hNSLY+9
-	12A==
-X-Received: from edcnu31-n2.prod.google.com ([2002:a05:6402:c51f:20b0:6af:acb1:c04d])
- (user=ptosi job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:1947:b0:6b4:9c38:a990
- with SMTP id 4fb4d7f45d1cf-6b5977f393bmr4155606a12.31.1794065837376; Sat, 07
- Nov 2026 07:37:17 -0800 (PST)
-Date: Sat, 07 Nov 2026 16:36:13 +0100
+        bh=pV+IB1n1BXqWgEv9HmlY7fFAWYiCGwOeQUGrvdEtK2I=;
+        b=W3rPhYdDs9WOuTwQgtz4Vr3J6jJPWv+bMcdKWYosJzZVabboI1AmAhCig85xvlRRwV
+         UFkr4WHaT4fb+TwvSJTabRjhluyRE6OD6BbfMLfAMmURn1u9nKCygw6ucDQanBd1T1UE
+         UDPynyT3TaPKcnjUDVCFAo0/DxkT2VAXQ2vRKTS2cOKK86rTlTgPiwc93TpUBZeUA1tn
+         0CsBshcEOWjhAuyJ00JsC6fO7zkc8S9m7Txp1OKbj/thBXg+ptpgXDJUCLjUNw8TptkV
+         beHmsr/2AhUV2pNzML5MXYezR271N2SzDg5nVUGDUk+pXPOCsScGPr8GrQh0S8A8wkO3
+         hBEw==
+X-Forwarded-Encrypted: i=1; AL+hErEfo6DCGfn41/fphCN6ouiftu282BBsbEQoGzJIpj41f1JPhFQD2+9sitONegilO39QIrUqk/2jwMUxf2g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bhEpfssJsldELUN4KgC5NWK6jZjv3NfoZJyErJDf6X9m1R/Lr
+	45hCSCOKK4TD95wYzM0B9L6oV2Cn9QxlOGThdOXHKjwkZ0jdbUuL/+xjw8XhrpGmQ9qEqHekpOh
+	acw==
+X-Received: from edev7-n2.prod.google.com ([2002:a05:6402:a2c7:20b0:6b7:d74:97ee])
+ (user=ptosi job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:916:b0:6ac:a862:d8ce
+ with SMTP id 4fb4d7f45d1cf-6b5977d8c92mr3702096a12.7.1794065835799; Sat, 07
+ Nov 2026 07:37:15 -0800 (PST)
+Date: Sat, 07 Nov 2026 16:36:12 +0100
 In-Reply-To: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,67 +82,72 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20261107-mte-kasan-split-v1-7-d84ea5f30f94@google.com>
-Subject: [PATCH 07/24] arm64: Skip redundant TCO clear post-kernel entry
+Message-ID: <20261107-mte-kasan-split-v1-6-d84ea5f30f94@google.com>
+Subject: [PATCH 06/24] arm64: Harden is_ttbr1_addr() on tagged addresses
 From: "=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
 To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
 Cc: Mark Rutland <mark.rutland@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Peter Collingbourne <peter@pcc.me.uk>, "=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
+	"=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-For performance reasons, kernel entry might skip clearing TCO. Still,
-tasks expecting synchronous uaccess tag faults to be reported (and
-therefore raised) require it to be clear; this is why thread switching
-and MTE enabling functions were calling into mte_disable_tco_entry().
-However, when the kernel itself uses MTE (for KASAN), it must have
-cleared TCO on kernel entry.
+When neither CONFIG_KASAN_{SW,HW}_TAGS is enabled, the KASAN function is
+a no-op, leading to the check "addr >=3D PAGE_OFFSET". This is inaccurate
+as CONFIG_ARM64_MTE=3Dy sets TCR_EL1.TBI1, meaning that addresses with a
+non-canonical top byte would get translated through TTBR1 while failing
+the check above (PAGE_OFFSET's MSB is 0xff), making is_ttbr0_addr()
+wrong on those corner cases.
 
-Use that invariant to skip redundantly clearing TCO and/or checking the
-task's SCTLR. As kasan_hw_tags_enabled() uses a static branch, TCO
-maintenance is completely optimized out the moment HW KASAN is enabled.
+Remove the KASAN dependency from <asm/processor.h>, as is_ttbr1_addr()
+was its sole user and include <asm/mte-kasan.h> from <asm/mte.h> to
+satisfy #includes which relied on the transitive include.
 
-Cc: Peter Collingbourne <peter@pcc.me.uk>
 Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
 ---
- arch/arm64/kernel/mte.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ arch/arm64/include/asm/mte.h       | 1 +
+ arch/arm64/include/asm/processor.h | 6 +++---
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kernel/mte.c b/arch/arm64/kernel/mte.c
-index d1dd9b80173a..8025ee1f7fdb 100644
---- a/arch/arm64/kernel/mte.c
-+++ b/arch/arm64/kernel/mte.c
-@@ -5,6 +5,7 @@
+diff --git a/arch/arm64/include/asm/mte.h b/arch/arm64/include/asm/mte.h
+index 83f3b05fc784..1d6113ae786f 100644
+--- a/arch/arm64/include/asm/mte.h
++++ b/arch/arm64/include/asm/mte.h
+@@ -7,6 +7,7 @@
 =20
- #include <linux/bitops.h>
- #include <linux/cpu.h>
-+#include <linux/kasan-enabled.h>
- #include <linux/kernel.h>
- #include <linux/mm.h>
- #include <linux/prctl.h>
-@@ -290,7 +291,8 @@ void mte_thread_switch(struct task_struct *next)
- 	mte_update_gcr_excl(next);
+ #include <asm/compiler.h>
+ #include <asm/mte-def.h>
++#include <asm/mte-kasan.h>
 =20
- 	/* TCO may not have been disabled on exception entry for the current task=
-. */
--	mte_disable_tco_entry(next);
-+	if (!kasan_hw_tags_enabled())
-+		mte_disable_tco_entry(next);
+ #ifndef __ASSEMBLER__
 =20
- 	if (!system_uses_mte_async_or_asymm_mode())
- 		return;
-@@ -409,7 +411,8 @@ long set_mte_ctrl(struct task_struct *task, unsigned lo=
-ng arg)
- 		mte_update_sctlr_user(task);
- 		mte_update_gcr_excl(task);
- 		update_sctlr_el1(task->thread.sctlr_user);
--		mte_disable_tco_entry(task);
-+		if (!kasan_hw_tags_enabled())
-+			mte_disable_tco_entry(task);
- 		preempt_enable();
- 	}
+diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/pr=
+ocessor.h
+index 481f1999f7c1..510e3a3046bf 100644
+--- a/arch/arm64/include/asm/processor.h
++++ b/arch/arm64/include/asm/processor.h
+@@ -39,8 +39,8 @@
+ #include <asm/alternative.h>
+ #include <asm/cpufeature.h>
+ #include <asm/hw_breakpoint.h>
+-#include <asm/kasan.h>
+ #include <asm/lse.h>
++#include <asm/memory.h>
+ #include <asm/pgtable-hwdef.h>
+ #include <asm/pointer_auth.h>
+ #include <asm/ptrace.h>
+@@ -366,8 +366,8 @@ static __always_inline bool is_ttbr0_addr(unsigned long=
+ addr)
 =20
+ static __always_inline bool is_ttbr1_addr(unsigned long addr)
+ {
+-	/* TTBR1 addresses may have a tag if KASAN_SW_TAGS is in use */
+-	return arch_kasan_reset_tag(addr) >=3D PAGE_OFFSET;
++	/* TTBR1 addresses may have a tag */
++	return __untagged_addr(addr) >=3D PAGE_OFFSET;
+ }
+=20
+ /* Forward declaration, a strange C thing */
 
 --=20
 2.56.0.455.g6c5a503b38-goog
