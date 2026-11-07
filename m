@@ -1,66 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794036848;
-	b=CunuORSKqiDblvXQHlpk/K6CVcoA/wNA06HK6j8Ivzx0g/hVpub/udv/3XSd+EmxZgkn
-	 3XSGqUE9+9BYegQ+l78DX6eNe1oBeYe9qt+19BxbDX1rSX1SFoWj/I6yZlIL7F0fSHnUy
-	 No3WKnMQWRlksEl71mfk9kDLc2S76V/Q+mFFITNI/C06H1k0i7n7BrdtYCSnUqScRfJof
-	 fVix8Bj0JsOoaT9N1STICCXdNVzdLGiMAF6dDi01mG3Rz24h1UQQcQYMN6hhWB/u3O4l8
-	 cn6BJ6NvwFTKXNbFI8BNNqpq3RmwgI1VaZQkMbTr0kjQdWsg50xWwquIjYunCL8BcBg==
+	t=1794036957;
+	b=aGM1uoBfayt/h/ZT6UOdQMTeDaoDxQauzFlpXBPnsHZpC3d1sNHd8puHaveE2G+5GPQD
+	 CtMK2g8gYYf+gzfsx+EnFeXNw2G+x58WpkqnocUI67F/eFkTdVjAFsfDwaWCpR6yVfCco
+	 4vwm69ud8Q9r6xsFKMCHJOJCsxw42NvZTxt5Gt13E0/mC7s2qeqzkRlPsODW800BuebSp
+	 1g0rTlBrw9NxR8kOHnYvOE5ojNcCnSO1OyI1ElPkzvGf/6d7foiLCFSV2picFwlzhBUml
+	 qZZPXJ+UMB80GruNlE2uwv4vOeStAp6nyGucOeGSuu/tdnUm3DTrhuoxImPNhhfrU+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036848;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mb6zscB9xA65zKWgADOGhrqsQ/nGHmGTb9eOGjPV3Qo=;
-	b=vJUo+WNXW7wd4quKQjHIxR6VKpKgkb8tfdFbkAy53ikT69sTx8+TVhVJ1uMxqvfhUt0f
-	 vFGjHUHDt5+H8FJenm0v7/+8TmqM6IAy78Jy8TA1WO6fC1bZengJU8grR0s1ifgPsFuHh
-	 aLXKK55exbVqSTK0qqH03mCahrleqe6urQqmzyGRYRW0q7OTt8rwd+I+DDQgEOA15IR65
-	 oXW3T05cqhfhFN8cAIXWe6cjMQxUYgweTKl7yWTA/wTfCQW8uhNWrXB2lRXEuH08+5bFU
-	 kpCJr07QXHn/sSKqimkurjAEJ0QyKEvqoyJ1K9ur68fxpO9X+ZpeqiVpMc6NYhHny+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036957;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WAzCgNZKBTWjPlBeFKE/F3eQLjhrgzmmL+LfzvVX5n4=;
+	b=4ftWHnEvthyhY780iTCzer3l4SE0GfFJiBdXfE6kWRMqH5s2/wSVjBkmjvh8BqxjBBpl
+	 OVyN/2Xg4fKDPE+98qvBDriIms+p8/UaLOjTvM6CtcirNZd3nmQbu3as5XFt0xs52WCgO
+	 c2953hOKa5Qu/0FKL1szTTmQ6xTGZkMdMk3guPgC0IcQ09Vlo5S+TsXmymxyxpSsKiwo1
+	 /E+3S0ChV+pH+l6HCQt6B7LyJ9ow7YwN4YYgVS3OrcKexUzhWj6JutrGOyMCrro3DlZAc
+	 K7VtWw4h7Hnw8FUruNbyAslOYCII2+nuTFEouwT+1ztPqLZ1QpvXxpP91uW/4DQGTvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7XZKBhe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfUK0ujl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5713606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA794606A326;
+	Sat,  7 Nov 2026 07:35:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7XZKBhe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6821F0089F;
-	Sat,  7 Nov 2026 07:34:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfUK0ujl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1BB41F0089F;
+	Sat,  7 Nov 2026 07:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794036847;
-	bh=mb6zscB9xA65zKWgADOGhrqsQ/nGHmGTb9eOGjPV3Qo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e7XZKBheSrKbie5VnFexSeQbIOTBncXvr7lTKpAFdHOkLHTyzufBqIEvQc9/QUiZ8
-	 bL0NQ6orZouqNfUCKfpZ93GbXCDENZP3lgZx7PEYSf5lLFHd5Bq9UYCUbBfFHXQg+x
-	 OsAnvXdsQb7OPApbsT+etftmAEHezMs1DTCkZNlGpuF8bwSR7PFW/NFSpZ03yzXh6y
-	 1KHmLi06/f4BWOxmc2z1ozGzpCSYF1c5a6f309R7NTf0wba/KhbLzfqP7cnjE828pi
-	 RKrj7UhzORA2cvJwgMKPTkt0PKzzUB37T0ehen5rlXy5L2w/Gr8ikx2vFSsL8eQTMh
-	 QyeG/kAuci3Ag==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Tejun Heo <tj@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org
-Subject: [PATCH 4/4] arm64: alternatives: Make branch and ADRP offset helpers noinst
-Date: Sat,  7 Nov 2026 15:13:39 +0800
-Message-ID: <20261107071339.17467-5-jszhang@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261107071339.17467-1-jszhang@kernel.org>
-References: <20261107071339.17467-1-jszhang@kernel.org>
+	s=k20260515; t=1794036956;
+	bh=WAzCgNZKBTWjPlBeFKE/F3eQLjhrgzmmL+LfzvVX5n4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IfUK0ujlPNI/LqH9ULhlz+oBPZoEKtQBpgxephwN/EM63gbK6PviJNqaRnYr0sBER
+	 CqsXUT1EPlt9PmUOTk2tNKOv+tep9a9L9vbZ1GyuJ3anFscgrUyW9U1xq3zoLRE7lb
+	 P/TkIHyyvRFXPfE6+75e1tDYdq9fCn0QMa9dIIlzcf+cSgxT25SIgPpmi4lag6zFwR
+	 lIAyQOM8vlbPQJXyikqSH++qSfjw9fHzNXg2BgQcwRWyZtTeSPegNV3s19yD/dCwbq
+	 wSlPG+r8CtiPkZyovmKeQGFppzMxpigBJZ2R5bVHNo5imeHYDIZTQgSgk4Sh2nDWVB
+	 2HLeS68tNtC2A==
+Date: Sat, 7 Nov 2026 08:35:46 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, kees@kernel.org, 
+	justinstitt@google.com, morbo@google.com, alx@kernel.org, shlomojune6@gmail.com
+Subject: Re: [PATCH v4] media: siano: Replace strlcat() with scnprintf() in
+ sms_ir_init()
+Message-ID: <au7Uqao19mXJ3Sxy@debian>
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+ <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,179 +59,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sde7f3liglqt55jr"
+Content-Disposition: inline
+In-Reply-To: <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
 
-patch_alternative() must avoid instrumented code while alternatives
-are being modified, before cache maintenance completes. However, its
-branch and ADRP offset helpers are instrumentable. A GCC build with
-function tracing enabled emitted ftrace patchable entries for these
-helpers.
 
-Mark the four offset helpers noinstr. Introduce private
-__always_inline immediate encoding and decoding implementations for
-their use, and force inline the immediate mask helper.
+--sde7f3liglqt55jr
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, kees@kernel.org, 
+	justinstitt@google.com, morbo@google.com, alx@kernel.org, shlomojune6@gmail.com
+Subject: Re: [PATCH v4] media: siano: Replace strlcat() with scnprintf() in
+ sms_ir_init()
+Message-ID: <au7Uqao19mXJ3Sxy@debian>
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+ <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
 
-The offset helpers pass constant encoding types, allowing the compiler
-to eliminate invalid-type diagnostic paths. Keep the public immediate
-helpers as wrappers to preserve diagnostics for other callers.
+> Date: 2026-11-06 19:39:28-0800
+> From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+>
+> In preparation for removing the deprecated strlcat() API[1], replace
+> the strscpy() and strlcat() calls with a single bounded scnprintf()
+> call to construct the IR device path.
+>=20
+> This preserves the original NUL-terminated output, including partial
+> or omitted "/ir0" suffixes when the 32-byte buffer is too small.
+>=20
+> Link: https://github.com/KSPP/linux/issues/370 [1]
+> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Assisted-by: LLM
----
- arch/arm64/lib/insn.c | 57 ++++++++++++++++++++++++++++---------------
- 1 file changed, 37 insertions(+), 20 deletions(-)
+Reviewed-by: Alejandro Colomar <alx@kernel.org>
 
-diff --git a/arch/arm64/lib/insn.c b/arch/arm64/lib/insn.c
-index e70ac0238515..b98610fcab32 100644
---- a/arch/arm64/lib/insn.c
-+++ b/arch/arm64/lib/insn.c
-@@ -21,7 +21,7 @@
- #define AARCH64_INSN_N_BIT	BIT(22)
- #define AARCH64_INSN_LSL_12	BIT(22)
- 
--static int __kprobes aarch64_get_imm_shift_mask(enum aarch64_insn_imm_type type,
-+static __always_inline int aarch64_get_imm_shift_mask(enum aarch64_insn_imm_type type,
- 						u32 *maskp, int *shiftp)
- {
- 	u32 mask;
-@@ -86,7 +86,12 @@ static int __kprobes aarch64_get_imm_shift_mask(enum aarch64_insn_imm_type type,
- #define ADR_IMM_LOSHIFT		29
- #define ADR_IMM_HISHIFT		5
- 
--u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
-+/*
-+ * Keep the immediate helpers inline so noinstr callers using constant encoding
-+ * types do not call instrumentable code, including the invalid-type diagnostics.
-+ */
-+static __always_inline u64
-+__aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
- {
- 	u32 immlo, immhi, mask;
- 	int shift;
-@@ -101,8 +106,8 @@ u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
- 		break;
- 	default:
- 		if (aarch64_get_imm_shift_mask(type, &mask, &shift) < 0) {
--			pr_err("%s: unknown immediate encoding %d\n", __func__,
--			       type);
-+			pr_err("%s: unknown immediate encoding %d\n",
-+			       "aarch64_insn_decode_immediate", type);
- 			return 0;
- 		}
- 	}
-@@ -110,8 +115,14 @@ u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
- 	return (insn >> shift) & mask;
- }
- 
--u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
--				  u32 insn, u64 imm)
-+u64 aarch64_insn_decode_immediate(enum aarch64_insn_imm_type type, u32 insn)
-+{
-+	return __aarch64_insn_decode_immediate(type, insn);
-+}
-+
-+static __always_inline u32
-+__aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
-+			      u32 insn, u64 imm)
- {
- 	u32 immlo, immhi, mask;
- 	int shift;
-@@ -131,8 +142,8 @@ u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
- 		break;
- 	default:
- 		if (aarch64_get_imm_shift_mask(type, &mask, &shift) < 0) {
--			pr_err("%s: unknown immediate encoding %d\n", __func__,
--			       type);
-+			pr_err("%s: unknown immediate encoding %d\n",
-+			       "aarch64_insn_encode_immediate", type);
- 			return AARCH64_BREAK_FAULT;
- 		}
- 	}
-@@ -144,6 +155,12 @@ u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
- 	return insn;
- }
- 
-+u32 __kprobes aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
-+					  u32 insn, u64 imm)
-+{
-+	return __aarch64_insn_encode_immediate(type, insn, imm);
-+}
-+
- u32 aarch64_insn_decode_register(enum aarch64_insn_register_type type,
- 					u32 insn)
- {
-@@ -1299,23 +1316,23 @@ u32 aarch64_insn_gen_adr(unsigned long pc, unsigned long addr,
-  * signed value (so it can be used when computing a new branch
-  * target).
-  */
--s32 aarch64_get_branch_offset(u32 insn)
-+s32 noinstr aarch64_get_branch_offset(u32 insn)
- {
- 	s32 imm;
- 
- 	if (aarch64_insn_is_b(insn) || aarch64_insn_is_bl(insn)) {
--		imm = aarch64_insn_decode_immediate(AARCH64_INSN_IMM_26, insn);
-+		imm = __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_26, insn);
- 		return (imm << 6) >> 4;
- 	}
- 
- 	if (aarch64_insn_is_cbz(insn) || aarch64_insn_is_cbnz(insn) ||
- 	    aarch64_insn_is_bcond(insn)) {
--		imm = aarch64_insn_decode_immediate(AARCH64_INSN_IMM_19, insn);
-+		imm = __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_19, insn);
- 		return (imm << 13) >> 11;
- 	}
- 
- 	if (aarch64_insn_is_tbz(insn) || aarch64_insn_is_tbnz(insn)) {
--		imm = aarch64_insn_decode_immediate(AARCH64_INSN_IMM_14, insn);
-+		imm = __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_14, insn);
- 		return (imm << 18) >> 16;
- 	}
- 
-@@ -1327,35 +1344,35 @@ s32 aarch64_get_branch_offset(u32 insn)
-  * Encode the displacement of a branch in the imm field and return the
-  * updated instruction.
-  */
--u32 aarch64_set_branch_offset(u32 insn, s32 offset)
-+u32 noinstr aarch64_set_branch_offset(u32 insn, s32 offset)
- {
- 	if (aarch64_insn_is_b(insn) || aarch64_insn_is_bl(insn))
--		return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_26, insn,
-+		return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_26, insn,
- 						     offset >> 2);
- 
- 	if (aarch64_insn_is_cbz(insn) || aarch64_insn_is_cbnz(insn) ||
- 	    aarch64_insn_is_bcond(insn))
--		return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_19, insn,
-+		return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_19, insn,
- 						     offset >> 2);
- 
- 	if (aarch64_insn_is_tbz(insn) || aarch64_insn_is_tbnz(insn))
--		return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_14, insn,
-+		return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_14, insn,
- 						     offset >> 2);
- 
- 	/* Unhandled instruction */
- 	BUG();
- }
- 
--s32 aarch64_insn_adrp_get_offset(u32 insn)
-+s32 noinstr aarch64_insn_adrp_get_offset(u32 insn)
- {
- 	BUG_ON(!aarch64_insn_is_adrp(insn));
--	return aarch64_insn_decode_immediate(AARCH64_INSN_IMM_ADR, insn) << 12;
-+	return __aarch64_insn_decode_immediate(AARCH64_INSN_IMM_ADR, insn) << 12;
- }
- 
--u32 aarch64_insn_adrp_set_offset(u32 insn, s32 offset)
-+u32 noinstr aarch64_insn_adrp_set_offset(u32 insn, s32 offset)
- {
- 	BUG_ON(!aarch64_insn_is_adrp(insn));
--	return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_ADR, insn,
-+	return __aarch64_insn_encode_immediate(AARCH64_INSN_IMM_ADR, insn,
- 						offset >> 12);
- }
- 
--- 
-2.55.0
 
+Cheers,
+Alex
+
+> ---
+> Changes in v4:
+> - Replace seq_buf with scnprintf(), as suggested by David Laight
+>   and Kees Cook.
+> - Remove the unused seq_buf include and local variable.
+>=20
+> Changes in v3:
+> - Replace snprintf() with seq_buf operations after reproducing
+>   the GCC -Wformat-truncation warning noted by David Laight.
+> - Drop the previous Reviewed-by tags due to the implementation change.
+>=20
+> Changes in v2:
+> - No code changes.
+> - Remove the statement about buffer capacities from the commit message.
+> - Add Reviewed-by tags from Alejandro Colomar and Shihuang Liu.
+>=20
+>  drivers/media/common/siano/smsir.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/si=
+ano/smsir.c
+> index 283770d583d5..6952871c5816 100644
+> --- a/drivers/media/common/siano/smsir.c
+> +++ b/drivers/media/common/siano/smsir.c
+> @@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
+>  	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+>  		 "SMS IR (%s)", sms_get_board(board_id)->name);
+> =20
+> -	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
+> -	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
+> +	scnprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
+> +		  "%s/ir0", coredev->devpath);
+> =20
+>  	dev->device_name =3D coredev->ir.name;
+>  	dev->input_phys =3D coredev->ir.phys;
+> --=20
+> 2.43.0
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--sde7f3liglqt55jr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmru1NIACgkQ64mZXMKQ
+wqmUew//VDubK78KSO3056TAIVtZgO00YEvcPiZHSZUhV18WTYdPDy2BRBEusEQ4
+5NqgshxLjZbMKcdUCrTH3lUaKFud5SBFZJjHafjO4o0TNtCMX+C9liNDvFSXlbrC
+CMiaQe3la6AexhGQ53ZZB0Pq19VLW+p9pR3j6XVZLhLQT1EMsuvGKfExrvzEV617
+Q3lt+2hbxyF3oy6gqxyBBGIz9AHg105/yGXBMQPXEdUjtlRaQWCCAvZZPIWx/ebU
+OEbWxfMs1dVYVXuufgRTtewcGDp5OmVjmj9TtCyh/cLPd+26Wwo6etZx+mLtcCFM
+xDzCNzvt4woFsjY+YS2ibNYXOt3zAsRhIEqMju9wshF4de6X0xeiqQauKnBT852U
+SkWWorP2086/LzqpRMESWhL0uKOoSxo/NnmpNQeEqXv1/vdaGrB2A0BWCFstMtLG
+cpuOQB+ViSw24MrN8Sv+7Mip3FChVeoynBGcXONbvfvSN0dZ3lMXpf//W7wZzlAM
+f4Iueva+Gk2L8+kZbnqj8FnFo/+wkK6nYUeGzgda6Z4Nu53nmasJst82+CDqqY9p
+jmuTx93aM87YVJNpsDY0c/i5NjVOcLYYNlto6n0s/1hS9PNIRcOjdfVO/wztdqP4
+BR7yGlumx+h5LfSoADQLrtNIeAu8pwPMPvWl0xP7QduTloZTsLw=
+=jQzV
+-----END PGP SIGNATURE-----
+
+--sde7f3liglqt55jr--
