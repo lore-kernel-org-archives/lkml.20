@@ -1,95 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052299;
-	b=v83KEnF0S5WrsIZCTHun6d8+D5r93q4R95CokdCuqxiR2ga5poZ81Wj2kRcJmC7y7SNm
-	 n8gGs1J16hgKegv4B9eCdQs4BqGf5kwaqSmDSCF8g0majMX1mej30kfGs9xpStIG1D7Ps
-	 i8mWySmNqa3LlG2/h2eMeXDPP4Krq/ObmzWkPTayBWJ2wbj5kqdXFppxo/Z9E46IwywPa
-	 n49f9k/zcrmz1q2R1aRk4n1B7JVxwZQqpu8FF6seLgHX55Xr70VFgNRQxf9RFnDHLOniV
-	 nzG+4iXOQzqJWZxotf6QJgyeoh4EJ1PlrMMmAgN/qB8Ojcb/2pZ4tMkaY7qPp2y5u7g==
+	t=1794052389;
+	b=O5FdAQdcI/hupMnaYsAWu7S4B9VIKapW+GiOpqPibUD2110YzmS4RiChVeraBLteuqaM
+	 NHNrDBuHhzPTXEkYdREH+hdj3wvZXOq9yFa69g5HzxObyRLo+qL/HTqxrWhNkQ27IHbiZ
+	 yHSK3oHO6Fh66bpxn/12WjnfzQlqNScvU3MbION1Yd2JAoUFUhrMrMuBNc1tpwrETImlh
+	 p+6+BeEc5EzTqrchmJYJwexGQoYvtBvtPBGCkU9HKN44KtS9MvzZ8/4tB3jTfLdwv4axe
+	 5P3YKtapzQQDv0cabnB0er6lRMDcLiwtvo5Z1X8Uj67nP2PXYr/dJ6o6AuRZcwVkOlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052299;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-	b=vscODVKj34IeVCNhPoKwkhTf+mChKcSqgYLrWqreGBog+ACl3hRggDvo94YjeDpeJ+OB
-	 nvkIqynYkL9HRIuAjOMqzV6AQ+hUkNXRp2PNdTjoICfFZtY9nrqGuFYFC3Jl4OFGftipS
-	 hkj3pi+JvnaZeT5OXF0AbPyEN8kQekwZv0nYSCTG4YQcHhLBMTQK7JnNhigdbj20LSZbV
-	 vtkAhpfPd0IBsNebwZPebUER50g+IZ4SDHTzVKnB8Y2LSj+P3Q7uC7HAPmk+t1XjckxrQ
-	 xcCaJ+lbK6Ri8ha/WSnAOKI5HyDL8Nzm1UyZZbdHLQc4fod8DvDvRgA6Ak7DDsQjxyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052389;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=tve596h8zkYZfLnnzqz1wxSl0S3pzuQnyT+uXalhoXg=;
+	b=OFSBUNxT3KER0G/Lu+EKFUgTYkBAiDtx010V9IN/UEWnw+ofTsMywsUYZBFL/ffiH38K
+	 ErY4B530ltqpfh6S2vfESzwInsvAh1wBjJcRN5ogdyqkcx4VI2QkoJr4AFavApaE1FbxB
+	 HFr6Y5oADVXk9wyfvcDWZwEaOt9z0MEPZdy9JGxgv9teCXpZaRlRzNT1jwzT0W78KKtBX
+	 gKou1Ywmv/Qc0+EgfPLJQgaPmpJ1WWprR0bLXBwTuOVty1Rooe0rX+PnwyekF2bswPPx/
+	 i7SYEvZJpaDisF31jzellAr76hnQf0UM+A7l8X39ko9C0C+oOOyVvx24lzOF8ziIk0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XPPdzCdg;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ZU9qi2ej;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B5C606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:51:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87B5C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE439606A326;
+	Sat,  7 Nov 2026 11:53:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE439606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XPPdzCdg
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3704d30b84fso1159623eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:51:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794052299; x=1794657099; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=XPPdzCdg4rd+Hd+hTQAnGhkbLeNkK7JIBtOq3oqxwvLzzdOM56U+i4rS08P6yTDqg8
-         lX2XJes7S5ddqe2pC2gUZMNJLOfQzCJr9uaLHuuX1H0yge5EoC8Y1kZ0GB9Aq6rukyuv
-         7DYM0y1NDojOJJytdsZMQMfzvWP/UavWnCt4UpIwgw4u2SlGyuThYGpCpCPHThkbdmqa
-         LdTWIYY6qU4XO1S5NiQQr6JbckIDS7vS+C2D3nZUr+LfZWPZgmhLPFT8zJokLZU2tW74
-         pNNVZWhgdQN+kSHfyraZCKlVF8z99K4miFLx8S/H2773mWjddKcVi7rw8xLwfJtpOEWI
-         ChKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794052299; x=1794657099;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=POv6dcM+0FPFSAPmVVnMo0+pxeslgvAc/usLIF/pdDk1gB9FYmW+kPp5ah8IirWDfy
-         2LHqpkJAH+kZq0/6yAGhMYbiG0cHb6OyIsqsm0b7WVf21VeSr/A0gT2X75srRJvpR8sZ
-         XOVnGoe20TUzD1i0ac8qXElvb2JPikbgqgnPojGKA87+VmNAoGnFC7TlrUXIhY8Me4mT
-         Z3LVW7aY8WKX5/DnLGUN2w+66ug1ClvhUhS+kIfn3S9BaF0OfvN6Mz8ZlMW+jV3AuG6P
-         MPMx1OKnSeqyfJ5D6REP8tLqJtZ82sb+eySaMJq4+daTErn3xfkVodcgMNkv0OQQqhDj
-         +RMQ==
-X-Gm-Message-State: APuU4Z/RC1lj2EgbQPMDIfGlpkRnuwe/4XDgQPaZIISEGFeXfUxtPotw
-	UYgbSPDEYTFS46Z1di7FHn79IuWdbhGJHhnvyt485EpTMW16i3elWJoV
-X-Gm-Gg: AYBFou1bCSVmUfwjH4jDocL5/RHj6BSExZhKw0OefBVKZfudsIn71Fl9hQaaBCLNnVv
-	kREBZ4oZK1tDmJ4CQ7chsGJ8MNPDAv+SgIqQvXJ/4lk9onGVJdrO7K99tul2sUwhmgh/07Qr7Pv
-	Gx6TpXMSajQuoZacjsRcsOBXZ26ldVefQpAOzVxq5bxxWF/ZTCWC/lojhn7tS0WA2nLOw4eHbG7
-	/MNHFZYV0oN2mD5hm6rvJJqfLkSySPpaOjwFpqsGlIjBuuwZfgqg4QnjBtV89hIWheNap3bypcq
-	0eElKYZP+vFceUaK0MB34SzazMQjFx2XKpzJIbtZyBFPfayXxg0bzk4xBN4TIQRW15Gfg+85Vgd
-	nixy1hralvDIcQv8uaRvGyk/kKS/jUCOM1c32drdulIjfaeKXvdYgajJ1vIBT0jWWLl8PF++P4C
-	d2V17U3LwN2ucdzsXpnVnpM1NModv8pSMNhG5+gDkaF82+5anxp9YWsd6PCvmRR+7GaUUVTaVEn
-	7HBlDEZImNh63po3GA76eVgqFwKOhF2yFyfFxZ0BYk9koov4lw7VEW0CSwWlJhpHFBFinD560DJ
-	SxmCzc2CuHTUT8np+DNkQJ2mGSVZvodzG+Go9qt3EeY3r9aXG/af
-X-Received: by 2002:a05:7301:fd06:b0:36e:16d6:f45 with SMTP id 5a478bee46e88-36f758318dcmr7145822eec.23.1794052298596;
-        Sat, 07 Nov 2026 03:51:38 -0800 (PST)
-Received: from localhost.localdomain ([103.177.253.113])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9aea75fsm25945225eec.15.2026.11.07.03.51.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 03:51:38 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com,
-	tiwai@suse.com
-Subject: Re: [PATCH v2] ALSA: control: Trim whitespace from sysfs input
-Date: Sat,  7 Nov 2026 11:51:14 +0000
-Message-ID: <20261107115114.2638-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87h5htypvw.wl-tiwai@suse.de>
-References: <87h5htypvw.wl-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ZU9qi2ej
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C61EAA0034;
+	Sat, 07 Nov 2026 12:53:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794052386; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=tve596h8zkYZfLnnzqz1wxSl0S3pzuQnyT+uXalhoXg=;
+	b=ZU9qi2ej3MRvknrlmOJX1qCqg+H9HV4Tz8CnPAUi+ywathWMeA2VW4JtBUu/vvP+1Pn8NL
+	/KfiKF1LjlW72wXB4OUZqohf/PmvXitctdT+Q81OlpHT9Fbh0R1W5VGnK16CyT9c5XNsOO
+	p3y1BB5SvFKaDWJu1TPQbdYUHhZbEP9E63PDqqyEj8H42oEMVMiYqGpcH+rn3aJvuCNvnz
+	nDvx+p9jDoBTZSlxwsGRPjxO5/WMgfJVNDA2/nsBJSjlhlArzcNyLGcCr2TXnXBdZYXU+B
+	O7RzNk2UwAto5RoHEk/sUrGY1zilztWmIFRB/t3YujkGxsNuCSHgw8o9wCUXxA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,11 +53,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Sat, 07 Nov 2026 12:53:04 +0100
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Doug Berger <opendmb@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Justin
+ Chen <justin.chen@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Nikolay Aleksandrov
+ <razor@blackwall.org>, Jason Xing <kerneljasonxing@gmail.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bcmgenet: cap the Tx queue threshold at the ring
+ size
+In-Reply-To: <1b33c10e-fa25-427a-92a6-d26669712f09@broadcom.com>
+References: <20261106-nb-genet-txq-thld-net-v1-1-53bbac647b71@tipi-net.de>
+ <1b33c10e-fa25-427a-92a6-d26669712f09@broadcom.com>
+Message-ID: <6c0446dbe8e63a7c6a6120d4a1d6ad0a@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Hi Florian
 
-Thanks for applying the patch!
+On 7.11.2026 01:14, Florian Fainelli wrote:
 
-Best regards,
-Sreeraj
+> [...]
+
+> Eventually we will have to decide what to do with those other queues :D
+
+Probably sooner than later. Sashiko claims that this patch does not 
+fully
+fix hte CONFIG_MAX_SKB_FRAGS=31 case. The check in bcmgenet_xmit()
+
+         if (ring->free_bds <= (nr_frags + 1))
+
+wants 33 free descriptors for a 31 frag skb and those rings hold 32. 
+Arguably
+the bug is way older than this patch and you need a non-default config 
+to hit.
+
+So IMHO the options are:
+Either linearize in bcmgenet_xmit() when the frame does not fit, or we 
+drop
+the queues as I proposed in June [1]?
+
+With XDP in mind the second one seems more attractive, as it needs its 
+own 64
+descriptor ring. With the current split the main queue would end up with 
+64
+descriptors, against 192 if the queues are collapsed.
+
+[1] 
+https://lore.kernel.org/netdev/20260612205915.3156127-1-nb@tipi-net.de/
+
+Regards
+Nicolai
