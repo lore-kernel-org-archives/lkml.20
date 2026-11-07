@@ -1,51 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051240;
-	b=2xDmmt02S5PCclTEVgCv4rfAp0W1YAgrCWE/S2uzCKnVG48uyR7J+OPMs1j6xRwajrSj
-	 xmsHnISn9Ji3fVXL3mEXcQy0MaQj/01WB719L7PuV4iPPbQdRgILc0cA5JIVSZ0DRr+Wz
-	 JevnUHnurEjpfFmAiCfyLBX1GWi5ssAHAAM8QhSts3K/cODiMEUmvFRbaMt4VpusZ+wlU
-	 8IhMo9sY3mmePihZ4sWhPBlwwADP+zA8ysNHp+cHE3jQtJXMNinhL2H2zDJF3CdytC7mx
-	 7KY53MUY0EQGVjeo3M8MNzCta17Igujad36WczvR7WuA2n+My09BgC8DRUh7Ze6fppQ==
+	t=1794051305;
+	b=z6PV79fSKkAmmaqrU+p0YIG40EvgqL2AoU70ZXHd3r2B+/FBFucDG9/gjhHYyjsBR4qz
+	 WNUKpgkeUfGBBXId4VwKzKaQ8+49/UoAdBRUoHyjjjqfTub40CnkxaKCmHW1S6GmnDkv+
+	 IgCYzzJ/6uuaSuAKM9nx0CrGywipcMBi+ob+bPdlRT3I2mBMFXALR3Zg2GhLJ/CNzs1eb
+	 8eTWPLtkPZ5L2mrI0opRAGf+8MMnFwXo7PFwWT6dB0xQb/Fuzbi2934kSIjxXh5u81PDr
+	 wY3zrvCfsQ9UVkKiRIqIIPuHo9wpUPm95Tq9/1Hw63KB6hA2nOw2NHDL/WkugJF3ttw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051240;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id;
-	bh=h/zw5ns+k65npU9PUVLHDycr15odEsRHc1ruYXyJeOg=;
-	b=NR8mE8RH6cUJR/oC2RUMJQvkrUqUP86pnfXUgXSOYEhQ1DpQ3o8/DW/zsKQGipGe7ign
-	 U3pciYuxY1bFg3A9Ba0CHp/czt9FOKQMQ4t4HbaQwQhovYdax90Y7LwRfgbDj7inGU2Ve
-	 7kqhvaxt+PmMpy8jJKsazp3ODnLW+MwIJN3vF5tmc8IYKz5ObtYotjjRCz5IQAh56IJD5
-	 22OFNzfeixLCTcuxqdvZ/TSfTGSzFLBnC6b30T0Pw2YZFm/W89h/RHl/dio1MFI4I5pPA
-	 qXbGzAQZyYuq9VNBi4mAqU8+BMyen4Fdd8gdQ3olfSACXPF2YD/7S1fQ0BbG8rrIMTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051305;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=XLbaGDM2COjEF6QXUMnFci+Kn7F6xKRJ6DxPfKIJM/4=;
+	b=WWCHcJdC+sAK524+XqK3JyiXIulY8QApAHAO7PEn6ABgAnstqh117HYkcb5GPZhVBqEM
+	 4k2jtkBzItGo0EG9EN8YK783DPtMVaS2kJQnytCcSnEHjM0wQNuhiwO876A4kDoMYbqah
+	 6NiQJwTiSUln7UJpAzJakyfiSv06c8RCK7K2Efhp7qV9yoU1z70MaMdAjFNVSuNEXxaOY
+	 1sa765hdVhk1EahSrpmvBO6r7DCydaxZMd+jfRSDln6wnnfYqIWvPfM1nLO2dt3TnIf4I
+	 ogx3jKLcKl4EogHmZQEyfsfjmTKlbvN3LcgDcbqIWSCGJMtwn4XWoH9sna9ilhILqjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuHqhX8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VPaBFo97;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAB7606A326;
-	Sat,  7 Nov 2026 11:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845B1606A326;
+	Sat,  7 Nov 2026 11:35:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 845B1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDuHqhX8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4C71F0089F;
-	Sat,  7 Nov 2026 11:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794051239;
-	bh=h/zw5ns+k65npU9PUVLHDycr15odEsRHc1ruYXyJeOg=;
-	h=From:To:Cc:Subject:Date;
-	b=LDuHqhX8lji0Hd9PlO+Ismr9tKqM4ipYv5VHnax34EHSRoKZ9FF2ICrNantDc1Gf/
-	 EQe+Ngpb79sd0LLyNXGCPBR/KpRma//tDXKRxr5HQ/ENxYLy+35v1xtFd7h1ACADXq
-	 3ZebpM5F5qf16gEvinEn7wAcf6W9HxseELg3hO8OQ9eB02SC8nFrj0fwZyW3rw2e6P
-	 A0W6jifmdvz0bCG3rt7n6/VRJj5ojVBtZL+WRbI3IafHiP65kqmmi1SzzNRPpSnp2S
-	 VdHS6oPHxyvFloETTdaU0BgPQote4DdK6AWL3f17eMgvlK7NG1U3xo/6iXTV44GE7b
-	 c+R+gb0uQNktg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 5BCDD28F332C; Sat, 07 Nov 2026 11:33:57 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] SPI fixes for v7.4-rc1
-Date: Sat, 07 Nov 2026 11:33:18 +0000
-Message-Id: <20261107113357.5BCDD28F332C@traversing.sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VPaBFo97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794051305; x=1825587305;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=j8kUwPlcPLqU+l5i7Le/kW+vmc3UiikYsnY+VavUoQ0=;
+  b=VPaBFo97Eu6A0NTrLT24zxjlScE3z48H93z9rLQg1ompVdYLYkiXCgy/
+   BYVYGSQloKm1zN3URpLmHW7k9pyfTYX8/N1Q/ievfo39Wjs4wgVKA+GK7
+   i4tDMehD0N6My73nexIPSS0siq4PF3PAI2bgLWRNmMAFM+O7bJ3ec+4eV
+   jDYZfEUA9zumOUc0+2muU9mOcxMwfGA980V92c911O70LbNt6G9QLT8Xd
+   inDmg0pcYDQrm5cVjNeK2YbrPC5BL1pLSzlUHLwX1i+L6jQQlEkda2tii
+   L910pkXu4yVNEuCRnSLRjV316K4eXJhPf2NMeqMAjglSrYLrzauQTvT8e
+   w==;
+X-CSE-ConnectionGUID: Ku+iEE8sRS+gvrpAtZJNig==
+X-CSE-MsgGUID: syVgZe9BSpi2iGfIceIBdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2894470"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2894470"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 03:35:04 -0800
+X-CSE-ConnectionGUID: qfFdZ08vSxykMQX+zdr5Bw==
+X-CSE-MsgGUID: mu0QJXHDTYGtt4wv0pL6rw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7340876"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa004.jf.intel.com with ESMTP; 07 Nov 2026 03:35:03 -0800
+Date: Sat, 7 Nov 2026 19:27:37 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: bo cao <treebacker@foxmail.com>
+Cc: linux-fpga@vger.kernel.org, yilun.xu@intel.com, trix@redhat.com,
+	mdf@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fpga: dfl: afu: prevent read-only region mappings from
+ becoming writable
+Message-ID: <au8LKUyKQpGCy58F@yilunxu-OptiPlex-7050>
+References: <tencent_C59525D78A2FBCC2425A3CA9EF4C53D56F08@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,55 +78,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_C59525D78A2FBCC2425A3CA9EF4C53D56F08@qq.com>
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+On Thu, Oct 29, 2026 at 11:53:17AM +0800, bo cao wrote:
+> afu_mmap() rejects writable mappings of regions without the WRITE
+> flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+> read-only and then upgrade the mapping to writable with mprotect().
+> 
+> Clear VM_MAYWRITE for regions without the WRITE flag, as fixed in
+> vfio/platform (commit 420bed9131db), drm/vc4 (CVE-2026-68445),
+> drm/panthor (CVE-2024-53071) and ptp/vmclock (commit a5edadbae57e).
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+Interesting, people write exact same changelog. I'm not sure if it is a
+sign that AI generated it and just sent. I don't reject AI entirely, but
+please write the changelog and comments by hand, to give me the
+confidence that you really know the change.
 
-are available in the Git repository at:
+Or maybe I'm wrong, you saw other's patch and copied it. Please don't.
+If you really want to improve something, comment on that patch.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-fix-v7.4-rc1
+Even if you are sure the thread is dead and you revive it, reference the
+original thread and the author.
 
-for you to fetch changes up to 059518f775baecc9803fc97787bd0b17558f8047:
-
-  spi: cadence-quadspi: Fix race between DMA completion and transfer start (2026-11-04 23:00:32 +0000)
-
-----------------------------------------------------------------
-spi: Fixes for v7.4-rc1
-
-As well as a few driver specific fixes we have a couple of core fixes
-here.  One avoids requesting interrupts until we have validated that we
-have a SPI device, avoiding triggering warnings on boot.  The other
-avoids a request for a zero length scatterlist triggering a BUG_ON() in
-swiotlb on 64k page systems, this was due to using both DIV_ROUND_UP()
-and min() to compute lengths.
-
-----------------------------------------------------------------
-Arpith Alexander (1):
-      spi: ljca: Don't require data in write replies
-
-Chunfa Zhang (1):
-      spi: fix zero-length scatterlist entries for vmalloc buffers
-
-David Carlier (1):
-      spi: rtk-nor: Limit exec_op writes to one byte per operation
-
-Frederic Konrad (1):
-      spi: cadence-quadspi: Fix race between DMA completion and transfer start
-
-Hongjian Dai (1):
-      spi: pic32-sqi: fail transfer when the BD ring is exhausted
-
-Rosen Penev (1):
-      spi: acpi: only look up the IRQ of confirmed SPI devices
-
-Weibin Liu (1):
-      spi: amd: validate FIFO usage before executing message
-
- drivers/spi/spi-amd.c             | 24 +++++++----------
- drivers/spi/spi-cadence-quadspi.c |  4 +--
- drivers/spi/spi-ljca.c            |  5 ++--
- drivers/spi/spi-pic32-sqi.c       |  3 ++-
- drivers/spi/spi-rtk-nor.c         | 13 +++++++++
- drivers/spi/spi.c                 | 56 ++++++++++++++++++++++++++++++++-------
- 6 files changed, 76 insertions(+), 29 deletions(-)
+> 
+> Note this is defensive hardening: the in-tree callers of
+> afu_mmio_region_add() (port_afu_init() and port_stp_init()) all
+> register their regions with DFL_PORT_REGION_WRITE.  The guard costs
+> nothing and keeps the mmap() interface honest if a read-only region
+> ever appears.
+> 
+> Fixes: 857a26222ff7 ("fpga: dfl: afu: add afu sub feature support")
+> Signed-off-by: bo cao <treebacker@foxmail.com>
+> ---
+>  drivers/fpga/dfl-afu-main.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/fpga/dfl-afu-main.c b/drivers/fpga/dfl-afu-main.c
+> index 097a97eeea66..a802309e0473 100644
+> --- a/drivers/fpga/dfl-afu-main.c
+> +++ b/drivers/fpga/dfl-afu-main.c
+> @@ -833,9 +833,13 @@ static int afu_mmap(struct file *filp, struct vm_area_struct *vma)
+>  	if ((vma->vm_flags & VM_READ) && !(region.flags & DFL_PORT_REGION_READ))
+>  		return -EPERM;
+>  
+> -	if ((vma->vm_flags & VM_WRITE) &&
+> -	    !(region.flags & DFL_PORT_REGION_WRITE))
+> -		return -EPERM;
+> +	/* Prevent read-only region mappings from being upgraded with mprotect() */
+> +	if (!(region.flags & DFL_PORT_REGION_WRITE)) {
+> +		if (vma->vm_flags & VM_WRITE)
+> +			return -EPERM;
+> +
+> +		vm_flags_clear(vma, VM_MAYWRITE);
+> +	}
+>  
+>  	/* Support debug access to the mapping */
+>  	vma->vm_ops = &afu_vma_ops;
+> -- 
+> 2.39.5 (Apple Git-154)
+> 
+> 
