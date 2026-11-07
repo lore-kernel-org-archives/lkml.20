@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794023583;
-	b=H4kneYv6JLzX/fIO4iz9xPGyJN5o3CVvd7lodLE/qlNZk30nc03Ul9UsZei+KwTY+3Xs
-	 BLLCrGfdg8SRd8P9XxEnZDRBYvZULU68+GhbLRUslKAYWqQg0lsMIxLEkKS/rwZ1nNnus
-	 RBKoX8enbL/NPIPeoEqMh1YLG08wb8Phkp/90vh4X84UQ8PK4JhTlp/UtmlQuDuXuW4yi
-	 hjMfNlqbNLUF3vHvZI2Lv3e+qzmmWmgMT1uv1JJ4ev+pqissyHaJ1eVGOAsw9JbZJlPDw
-	 674v57iLmm3aIGlnVnsU7gGKpJnPwilLwLsi1xcnbOmR5wXVSSEinF+kRrmvFx/ws0g==
+	t=1794023620;
+	b=RP1vnCpjxjNWIxnkj3KR0EnQrb9WX175lF9DgsA0U1q0MeK1X28eruze8zsHc6pLRjcH
+	 GkgiCsT81tiq6wtyPMDE96lutjwDcZXtxKZgtwovMvMT3olrNaMLimSNodJ11ILJj7WbT
+	 OTXgP8NCQuh42+kIbW8DKQhkfgPumSb6MMfH3uajeRoHTsPdvxUXBUKLPGfjsxap35JYL
+	 UtgbAH993fFIIKqvRtfSjkjv+oW4aW7v1fiMCz+3d45fBSDOtl7lkMaYhH0IeKgeUk3PV
+	 f28Dwtko+Tj2aqaFGS7Tl2c94hVIP4pXhCRwMfeP3F1k3OncwaKNziJjE+kikRoxsEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794023583;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794023620;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Ner3iiszqjA2gB2L+tmjkpwZjCeaE3ezc3JeQhoS9bY=;
-	b=KJzic4GvAnKQ1cPIGsT+o9W8F9KbBY8RRudwtMkAyl1vAHCDnSM9lv8aJwBtekYM1Ht4
-	 d2Wi5MdOCLKxDFzyziQ7itEHqXa2PllRMb7EezXu2D2xJGV0Oa9V4VaT+OurLtp3E1UeC
-	 sU/0zOhyLt3JHpU+E797ylgoEjpjBE91kP5rMekNDWdbFIMZnn41lrtSqG19yn3f0C2tv
-	 soRvLxzI5UWBonCzWkUMBhT6AyKXQRrgCYIXNyviNBfNjYEg67C7Qlh5rM9VcTRfyUSAQ
-	 WU38B5Vt2A6+rU1hfp+ZqJzdKGYWhn51EtSuH9JVkHeDDO+Pgc6m5m3P0gL+1f3Jodw==
+	bh=jq9t4i4p9xF2mSol4zZx3RitgWvrWh8XynSKXKryK9o=;
+	b=2ny4gXcm3GY/uEFkbwGrkjUav5ToBedzxwmEqVXjM3ur1fd+yqiTdKLIK8EjFfImxEZB
+	 OOughmh5X7pztOQ2Pn+0I1UysgAe3Vf93wUk1JVaCNQDfd0Ch++kI8z/2ZZVuJiBxqtem
+	 aClK/C9dIeexKm19DyxpTnBEZXxazz2yYtJvXDuwYjqhlurg/Mw+z54O/UtTwSiZBvd7g
+	 T0bzU1kal7664SgPadVKt4yhP1IpHBHc5srP6wxzXexSnYa9e6jGQTwJdizvkQ98vd/JI
+	 LUGJG31NTyzgH4HgrpH3HSH+xLi/vQkWP+sxfIJoypZ4dTpPhNR+m6K51htvPm1MDNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XIC548ok;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=a4YKOuVJ;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1449D606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 03:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E71E606A326;
+	Sat,  7 Nov 2026 03:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E71E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XIC548ok
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943F21F0089F;
-	Sat,  7 Nov 2026 03:53:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794023582;
-	bh=Ner3iiszqjA2gB2L+tmjkpwZjCeaE3ezc3JeQhoS9bY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XIC548okmbhMJGvvJaj3PaAegr2ndah8JUK4KO5IAVjSzGWzPFM9FdcTRi5DBqQ4E
-	 gj8CNldOz4UC3PkKiPZGegeHkbjEPm1RjSZVBrJien13m7V7ascsvacFjWcv6mApfB
-	 5MaWva4dEgWUDpIVZdDk8OBmYxZm7Q3aPtnLexRI=
-Date: Fri, 6 Nov 2026 19:53:02 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>, Qi
- Zheng <qi.zheng@linux.dev>, Lance Yang <lance.yang@linux.dev>, James
- Houghton <jthoughton@google.com>, David Hildenbrand <david@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Yili Zhang <zhangyili01@baidu.com>,
- Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 00/13] mm: Decouple folio-based vmemmap optimization
- from HugeTLB
-Message-Id: <20261106195302.fd572ac49e52af9e305cbcef@linux-foundation.org>
-In-Reply-To: <20261107022756.77731-1-songmuchun@bytedance.com>
-References: <20261107022756.77731-1-songmuchun@bytedance.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=a4YKOuVJ
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 2424D401FC;
+	Sat,  7 Nov 2026 14:53:30 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1794023610;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jq9t4i4p9xF2mSol4zZx3RitgWvrWh8XynSKXKryK9o=;
+	b=a4YKOuVJK6k/Ai4OrSX0bLMIuSFFr0hVgUKJAAixhinb6a5/o2vKxTrgmrYqfU0/e+iNW3
+	PiCES9j/zvrhjn305UXR7eVJb9C+f+j9Fz1k5m4d2XBT9Hvd05aLoVOadl5mTiqFSTX6m5
+	xeYAkooiZw1Ftddn6uhmrXNjLKQ3gOE2aM9lBxlbCsSmARBAdNG9eAOWuO95Aq9uXHkKtx
+	kk7INJVU+RvOl+6nCXTZUXxvXMc4Ua2pC9Ok6aHEEsglwbtOw59r4GIQaS3Dca5DGxGFal
+	xr/DcTblyfXaUoU5wZmroagsiaXlawuiboVA14EuzLcMVAW+5jys48306gf+Wg==
+X-GPT-Reason: This email is classified as legitimate. The content
+	is a technical software patch description for a Linux kernel driver,
+	which is highly consistent with the personal/professional identity
+	of the sender (alastair@d-silva.org) and the recipient
+	(alastair@d-silva.org). There are no phishing indicators, urgency
+	tactics, or external links; the email contains standard developer
+	metadata such as "Fixes," "Cc," and "Signed-off-by," and the From
+	domain matches the local mailbox perfectly.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next v9 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+Date: Sat,  7 Nov 2026 14:53:18 +1100
+Message-ID: <20261107035321.1210303-2-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107035321.1210303-1-alastair@d-silva.org>
+References: <20261107035321.1210303-1-alastair@d-silva.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,139 +81,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat,  7 Nov 2026 10:27:43 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
+When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
+returns without reading data. Because it returned void, the caller still
+counted rx_len against the loop budget while leaving data stranded in the
+FIFO.
 
-> Hi,
-> 
-> Section-based vmemmap optimization is implemented in sparse-vmemmap.c,
-> while folio-based optimization currently lives in hugetlb_vmemmap.c.
-> The latter is tightly coupled to HugeTLB-specific state even though the
-> underlying page-table remapping operates on one folio at a time.
-> 
-> To make these interfaces easier to maintain, the folio-based remapping
-> mechanics first need a boundary that is independent of HugeTLB-specific
-> state and raw address ranges. This will allow the mechanics to be moved
-> into a common vmemmap optimization layer alongside the section-based
-> interface.
-> 
-> This series establishes that boundary through three folio-oriented
-> operations, each with a distinct role:
-> 
->   - vmemmap_optimize_folio() optimizes the vmemmap backing of a folio;
->   - vmemmap_restore_folio() restores the vmemmap backing of a folio; and
->   - vmemmap_pteify_folio() converts the vmemmap backing of a folio to
->     PTE mappings.
-> 
-> Together, these operations encapsulate the address-range calculation and
-> remapping mechanics for a folio. HugeTLB wrappers retain policy decisions
-> such as eligibility, optimized state, batching and TLB flush handling.
+Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
+of the receive loop in the caller immediately.
 
-Thanks, I've update mm.git's mm-unstable branch to this version.
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-> v4:
-> - Rebase onto mm/mm-new at f735a2c21aa9
-> - Split the HVO head-page allocation fix into a standalone prerequisite
->   and retain Yili Zhang as its author
-> - Add __GFP_NOWARN and pass caller-selected GFP masks through the
->   generalized allocator and folio-oriented helpers
-> - Propagate alloc_vmemmap_page_list() errors directly (suggested by Oscar
->   Salvador)
-> - Remove the redundant order check from vmemmap_pteify_folio() (suggested
->   by Oscar Salvador)
-> - Collect Reviewed-by tags from Oscar Salvador and Mike Rapoport
-> - Collect Tested-by from Andrew Morton
-
-Here's how v4 altered mm.git:
-
-
- mm/hugetlb_vmemmap.c |   32 +++++++++++++++++---------------
- 1 file changed, 17 insertions(+), 15 deletions(-)
-
---- a/mm/hugetlb_vmemmap.c~b
-+++ a/mm/hugetlb_vmemmap.c
-@@ -198,13 +198,13 @@ static void free_vmemmap_page_list(struc
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index ecd4d751c05a5..172aa7ad4732a 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1348,7 +1348,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
  }
  
- static int alloc_vmemmap_page_list(struct list_head *head,
--		unsigned int nr_pages, int nid)
-+		unsigned int nr_pages, int nid, gfp_t gfp_mask)
+-static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
++static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
  {
--	LIST_HEAD(new_pages);
- 	struct page *page, *next;
-+	LIST_HEAD(new_pages);
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	const struct rtw_chip_info *chip = rtwdev->chip;
+@@ -1365,12 +1365,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
  
- 	for (unsigned int i = 0; i < nr_pages; i++) {
--		page = alloc_pages_node(nid, GFP_KERNEL | __GFP_RETRY_MAYFAIL, 0);
-+		page = alloc_pages_node(nid, gfp_mask | __GFP_RETRY_MAYFAIL, 0);
- 		if (!page)
- 			goto free_pages;
- 		list_add(&page->lru, &new_pages);
-@@ -312,14 +312,11 @@ static inline int vmemmap_restore_range(
-  */
- static int vmemmap_pteify_folio(const struct folio *folio, unsigned long flags)
- {
-+	unsigned long start = (unsigned long)folio_page(folio, 0);
-+	unsigned long end = start + folio_vmemmap_size(folio);
- 	struct vmemmap_remap_walk walk = {
- 		.flags		= flags,
- 	};
--	unsigned long start = (unsigned long)folio_page(folio, 0);
--	unsigned long end = start + folio_vmemmap_size(folio);
--
--	if (!vmemmap_optimizable_order(folio_order(folio)))
--		return -EOPNOTSUPP;
+ 	skb = dev_alloc_skb(bufsz);
+ 	if (!skb)
+-		return;
++		return -ENOMEM;
  
- 	return vmemmap_remap_range(start, end, &walk);
- }
-@@ -341,9 +338,10 @@ static int vmemmap_pteify_folio(const st
- static int vmemmap_optimize_folio(const struct folio *folio,
- 		struct list_head *vmemmap_pages, unsigned long flags)
- {
--	int ret, nid = folio_nid(folio);
- 	unsigned long start = (unsigned long)folio_page(folio, 0);
- 	unsigned long end = start + folio_vmemmap_size(folio);
-+	gfp_t gfp_mask = GFP_KERNEL | __GFP_NOWARN;
-+	int ret, nid = folio_nid(folio);
- 	struct vmemmap_remap_walk walk = {
- 		.remap_pte	= vmemmap_optimize_pte,
- 		.vmemmap_pages	= vmemmap_pages,
-@@ -355,8 +353,10 @@ static int vmemmap_optimize_folio(const
- 	if (!vmemmap_optimizable_order(folio_order(folio)))
- 		return -EOPNOTSUPP;
- 
--	if (alloc_vmemmap_page_list(vmemmap_pages, VMEMMAP_OPTIMIZATION_PAGES, nid))
--		return -ENOMEM;
-+	ret = alloc_vmemmap_page_list(vmemmap_pages, VMEMMAP_OPTIMIZATION_PAGES,
-+				      nid, gfp_mask);
-+	if (ret)
+ 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
+ 	if (ret) {
+ 		dev_kfree_skb_any(skb);
+-		return;
 +		return ret;
+ 	}
  
- 	ret = vmemmap_remap_range(start, end, &walk);
- 	if (!ret || !walk.nr_walked)
-@@ -381,14 +381,16 @@ static int vmemmap_optimize_folio(const
-  */
- static int vmemmap_restore_folio(const struct folio *folio, unsigned long flags)
- {
--	LIST_HEAD(vmemmap_pages);
--	int nid = folio_nid(folio);
- 	unsigned long start = (unsigned long)folio_page(folio, 0);
- 	unsigned long end = start + folio_vmemmap_size(folio);
-+	int ret, nid = folio_nid(folio);
-+	LIST_HEAD(vmemmap_pages);
+ 	while (true) {
+@@ -1379,7 +1379,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 					   &pkt_stat, &rx_status);
+ 		if (ret) {
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return ret;
+ 		}
  
- 	start += VMEMMAP_OPTIMIZATION_SIZE;
--	if (alloc_vmemmap_page_list(&vmemmap_pages, (end - start) / PAGE_SIZE, nid))
--		return -ENOMEM;
-+	ret = alloc_vmemmap_page_list(&vmemmap_pages, (end - start) / PAGE_SIZE,
-+				      nid, GFP_KERNEL);
-+	if (ret)
-+		return ret;
+ 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
+@@ -1393,7 +1393,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 				"oversized RX packet: %u, %u bytes left\n",
+ 				pkt_offset + pkt_stat.pkt_len, rx_len);
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return -EINVAL;
+ 		}
  
- 	return vmemmap_restore_range(start, end, &vmemmap_pages, flags);
+ 		if ((curr_pkt_len + pkt_desc_sz) >= rx_len) {
+@@ -1423,11 +1423,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 		skb_reserve(skb, curr_pkt_len);
+ 		rx_len -= curr_pkt_len;
+ 	}
++
++	return 0;
  }
-_
+ 
+ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
++	int ret;
+ 
+ 	do {
+ 		if (rtw_chip_wcpu_8051(rtwdev))
+@@ -1438,7 +1441,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 		if (!rx_len)
+ 			break;
+ 
+-		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
+ 
+ 		total_rx_bytes += rx_len;
+ 
+-- 
+2.53.0
 
