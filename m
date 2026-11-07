@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047815;
-	b=VMgmKxKwDXgOska3DW8hrXf03Xl4ZAaaQyRC1DYB1VlbDuAVSo9PQw2vnRFbvJyuuQGI
-	 aCukBa5BEumm4u1coVRwyLk8d4Vg08NKOPw80yu4iMvdPujHSebyJbghl5o7lf5nHTpru
-	 8Y0hFtZDsOIC+h7amykp+zlhjK/IIUciIwGgrFwNV9mYQEAiDfIrswMxC29R1vgyn1PCY
-	 zVX4lM3JZMFhNbI2usGgQb/jXU3FWr3gMg87QnABZWG+KUzHUJ5ncFD96Omuq84d+Hu7u
-	 Kx4u4jqRs4uK+dOIXbKPrNCRj6Shj1DDpeAbA6R2lLbGvtSc3J7xhnbKy59mY9Xw8+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047815;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794047910;
+	b=gOzCuK+DK7SSdIGDT+I+r+OBNf551CwS43wJZFzUBPZTKZ3je2w5REYAOIXA7u9l3e30
+	 1CdMX3RkpKtXsOY/QXuASvuxA0crJAl7klAeSc0xSA4EnN5e1MbwU0ZwzSTnCnI+t6qof
+	 LFOJ2fZm5i6pu29gRiOrsWENWT8cM+E4mm+1rhepHxkINyMBtYRi0eep+Z3CVAwmUNJsC
+	 22RO2+IMlPbwvoDxvA4WM3ky7bFuTFIRiw6BcY+272NI4AAlw3QwNyFmjrJ8f8vhkAXJC
+	 hk9PJvrhl1pR5tojlvbUC6l9VFhSNQTt+IzHwjQJwGcKYLWLAV9gka55miw02Ra+sIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047910;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1oiBZxzIQ5ApPwvupFbx80Jl2NVPJdhtgfzXDJp+rts=;
-	b=R76o6uElZ+VmbNMX9+oogDciuVDl3bq6f9psh5b7bhv9RPt875ojO8siiWOF8lsJr+/x
-	 wZip6h8JkPN4Z2oYs8424FaCtirUZbtX8RsejlI7K+kEtij9DxP6OijlWl58bNqK71bKG
-	 75r1png0ZDSCeeqP3psUi4C+nSArTzGOb10uFc0GySRlvlNCvQdRjjH0X1S1PmKH5JLBQ
-	 e/KUy2UdvLVEQiFSgiyKJT/z+of2nTlZ0qaEX7sstiJepSCZcalfiV0VkRHneaGwkYesE
-	 9MIblsh/RZkCQ5n7AAJmUHYw1aFITxII5ttU1aO+coXU6oKIcKezgU7HVNT/VsZ4Ylw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YJBC4ok9H49MwJnS/u10ilI8HXDWAq7hcG4/f6Td/m8=;
+	b=RvQH6fugil/jm+P/sIyBJk2IF8p2RLeZTiYLDZSgXqRFkbvUCFVt2PfjYmGN0xeZbIBG
+	 vp5LYAQX8v+yArYsD4fRuwYfkR3a4ukVmIOQ/BTZZFTbGIhzOkfH5106cf+Sv4yWyNPz4
+	 Tsl0YwFSHgse7ek+wVnHUTaiKmyn3kAD81uH4Ma+MXf9TmDtoIKxSqXsOttfqdVZiziE3
+	 utnWczNa7JkOAsWGCXdLG8GTQNTD4Qb0sE9CmHOWzyKHCGMbHNGSCfwnvNTNsb0hlYW8h
+	 LArajPeWcOyDY8mBs0ZtxbnrP4aMGipIpsMRVS3emfFb3k8LLXro3aRv6svGlanhP9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zx2o+D7E;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meb6cqmZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537E7606A32F
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:36:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 537E7606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B9C606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B9C606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zx2o+D7E
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so13464345e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:36:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meb6cqmZ
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4d58c50743so20821266b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:38:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794047909; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gzC4M3uFjxPUtz5rpHy3+ukbU3LmfMtwFzbUOlZCuSREfIHHPNpnpH+4fkINK93FLw
+         n/YxwWFzLHbluUsHYTvMde+/TqxdxE5dx89T5qqQxLdFG8vpu5T9WHbTN1NXn/J8LX7Y
+         YB/u0QDUhLJohjTRPfOprH2cZdbftl3aSbMD1ounXiRZ1KcICtsJvxD3gTzhPPFUkVtH
+         vltZGg3sTnGzlgXDazj58SYENpdQRs4BxnM7biXQFMNxM6u1kO1AEgNVjlzXKxjKDyBc
+         5uS1ASF8QIcT51wlA8r0ywWuu2gLX8oXGX3gfleUoE48tCspoTy6sh0/surUHsZBC5IJ
+         aZHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YJBC4ok9H49MwJnS/u10ilI8HXDWAq7hcG4/f6Td/m8=;
+        fh=jMMcW1XlN792bndza+H6Fu2YGB3gwXipLROF2bG4Umw=;
+        b=bOIL+iEFTIk7VFEV90TiOCNVe/kGxR3cWH2j/2G7i1c0H6TTBEO44WtRMNONk4hFZb
+         EPoRwha/cWFn6C9owMR3c2JEmsxjoRkReQvUz7VYDDLu10qQVk7BHpvcviXme65vRIUz
+         9YXqJksI5BcZIjzcrWHWBZukoTeU7ThfE79chcXk5HtmL+UCcNKiuinSNqJjBFlnayGu
+         IQ3Vkstt6YFYC2jJw6ReVqx8j7eGJ4xNguK7SxB3LMygk4jSVSsjZ23rrtqKFtbsXVhR
+         oxo7jhjXh222IRREnZgdXZADXm0uRFZy4HkFkF65Nqi9Bgqp/2745k9jGxBa2JeMj5gT
+         5/1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794047814; x=1794652614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794047909; x=1794652709; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1oiBZxzIQ5ApPwvupFbx80Jl2NVPJdhtgfzXDJp+rts=;
-        b=zx2o+D7E096nEk1R0oFi5S9dE5tnH+trdZ/fJERPVfmF2gjz82jMM7SgxkyhvBh3+9
-         6B74ahGQmhPfTUn4KJXMGAlli0S9ld6+u2i3tLTK7yz7neDSJ1GMOCprM+k/iY2u7qIW
-         /GN5rRG3r4+vS4gAclriM8hzY4i3wPSjO9mxTxUfm9tfr4Diju2WJ4axyU8R9T96k8Vr
-         /4WLYnresYQMK+Z3PLncnxrWoKDdYTr4PuPF4etRU8tDhGJQziVD+En/FOM0Ycw1LwgQ
-         JkFG5yJumd3IfA254qVBJR4inUcyyyJsT6H+YeTbbereMJGMPjpjlxzzfap/OBXD5EGn
-         ccGw==
+        bh=YJBC4ok9H49MwJnS/u10ilI8HXDWAq7hcG4/f6Td/m8=;
+        b=meb6cqmZiaesiYajT2w8WcWyGb1naD7KZJQrwhsWCTQb3sfUWn+BGVpnuK33mnXR3i
+         t34fJwDb5HMw51HzMrTZUJxr1/S+bOND6pvfTq4K2tt74dxqQ6bNELYwWL80L/2rlaJq
+         gEsVbljpFTOmp836iFIne4Uhsbpeewnx2PCohb7YRntXLqBxlPHNsZdZU9uqsibQPYW1
+         hp9iLiA5I3WrGEk0sXZ+aalui4iW4zTVV+qP3sQhpA4+Xi9QcEFrTtOd2MA5g5IFDxNM
+         gadvPrKEGOlRFaycKIBi4Z3dZIVnrM+DezDQKtV8WZvWIG913zIOeAoVFr09fEI2XIl2
+         Rh8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794047814; x=1794652614;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794047909; x=1794652709;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1oiBZxzIQ5ApPwvupFbx80Jl2NVPJdhtgfzXDJp+rts=;
-        b=W2HnMoweRlmopbc6lxvCPfQPc/iCozzwsox41hJhqcWr/g37QxCH1YsEKvyiFwihcM
-         9uPfaBKRqVJaU2E455316v5pivR+wpE6sO7fsBSPAbkECY4Yt7x0RUzvxmQZQsFv+201
-         0X96aDuTzlUL1FPzgenSDlW/XTfVwxnqingQ4ZbjlaqhWk+T2q4OF5CqRfOJ+EGObpBR
-         eyLkbUJziIWudrxOFBbZDdqg4yYt9JK8bl3LgsN69AIb0tXX6XW0L8QWGKQQiqUEjUE7
-         TjpVsQgGqrjHcWICGbUWLumPhIWg/V7vS1d4/t191wAobKDR1w5O4Pt4CrC8mUSlOim1
-         0f9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwEkFPPViHDF+ff2NlIuji6qiDkAnMwHJJNjYIkFk7pa83eWCcqC67K8EScabbTk1nk7wxnPhkumpCSfSc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DpGvwLoeq3BrTfFmO4HZeLvW7LzXXUOcDlV6pCk0vFK+D05Fl
-	0Uev+TmzQ6nXyBUomSG/KIIvMzYMSRRD/Qgaz36IS/+j2vKVh1CwoktE
-X-Gm-Gg: AYBFou3S9+eMASdvJPA76Kn8/qb+WISkpAsIt3abkveeIiGSBBhx5zniJnKn/cVtFRg
-	k64+cYinigE+yvL91svmDsYK6rSH8rtNSCCe3wNY/yPdfFRzDd8cvqj1/EdxG43ZYbRmw4vFNmQ
-	o8f6Jm4Y7Mjhap9fXOz4E4XLFsLY4VbErZJOZAVIMHm1DMTBq2Cb/v37ieH8uxLWpwhmyGGoA3M
-	ItArr698N2b2MmYPsKdAyKStjTY3qt7eC0trlXF3sVCgjru+lLtiPonG+qBY0yhJoAFVmWPZGGA
-	5Ckr4wOd+im4TPr39hR2wbiOyg8hRxrlsWnJCjt+RNxmaHU7HSCotyNdbrakmOVwy7nAc9feRGE
-	ujRdGciDojbf4J0Sh1zIWiCF7iaFlk+BE6xZibAbA87sbBe/2BcFnMmmx4CoB4nfn5GWwsnIUqn
-	SfVut+9Q6FIjOKhbLVTfX2kFWwxYbeLTaoYnfh6BD4m4Yw9nuGOEHXGgAGQJLGZJjTIsFofaJxa
-	yZXv1MRQG4onpQqwtoccdNTFL7GVurKhuNpWIGth3b5szQF4ksvdj7N7Z7OaAYxD5NUAfM7VBGF
-	kuCv8ALFg1RewvS3DYU6w8l0k/FEppZA4y/vLUsRggXfHM81QtuWk2oRqJ8XvSe9y2Ef07jmsOy
-	RP6bpOgbBfyRV4V87yHM7
-X-Received: by 2002:a05:600c:a013:b0:4a1:c6fd:4db0 with SMTP id 5b1f17b1804b1-4b6df5eabebmr88206095e9.19.1794047813611;
-        Sat, 07 Nov 2026 02:36:53 -0800 (PST)
-Received: from meven-thinkpad.home (2a01cb088745e00090de407b41070a01.ipv6.abo.wanadoo.fr. [2a01:cb08:8745:e000:90de:407b:4107:a01])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795038782sm42289845e9.3.2026.11.07.02.36.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:36:53 -0800 (PST)
-From: "=?UTF-8?q?M=C3=A9ven=20Car?=" <meven29@gmail.com>
-X-Google-Original-From: =?UTF-8?q?M=C3=A9ven=20Car?= <meven@kde.org>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] HID: logitech-headset: add a battery driver for the PRO X 2
-Date: Sat,  7 Nov 2026 11:36:35 +0100
-Message-ID: <20261107103647.1196629-1-meven@kde.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <V4-MESSAGE-ID>
-References: <V4-MESSAGE-ID>
+        bh=YJBC4ok9H49MwJnS/u10ilI8HXDWAq7hcG4/f6Td/m8=;
+        b=GDIxBITCkzzGzf/esjHuEQc/UfINpgO1CnTYavnDAuFDZpv7uXlrN1c1wNRXc0AbMF
+         bOFFEKxwv3wNzYsmON0kLgFhghPYXjkhpkAOutFhRdb86cwGfLj+OTOBAw/o22TKVwPP
+         ZzSDzVp5FtFf9LdE5011nBvwdxqUdzdLwgnXNppGfklRk9Il/V7n+//Fkhel0iaXJH6H
+         eaDQKdsWDa1q3mp7k3c84Emk7q+bCA2RUAWYSNXFzdfdPJX2g8I+lTxBSP4gvCfzCIbU
+         qyyE3fb0mZy47ShgJoBchEjARB9PlLHAK3yaNqEBO864YwkzacKUjaB0Z8wRmnZnmYXj
+         Oa8w==
+X-Forwarded-Encrypted: i=1; AKwUvBywNc5nwUdecCx/IvZgEDX5plfqrcRvEW/30SoLWF25UCea2+KXUHWxI2WJVpIZ+Hv5bImOBZuoPZHxj34=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JI3oMKKO4gMYIjBPVmB2szrZqIUNUjgZ7rm5x6qaFLMLSt273
+	oN3SgRddRyflzGUv/3/kPe88BY0ejOfzBbewiL5m+YM9EM3K5raDKSw/KB7txebGAQ1jTFeagnS
+	UlApTtJYESrmW7wBY1A8Fj0y35veHBbs=
+X-Gm-Gg: AYBFou1XCMdALkwsTDeVXGva4rCHhhl+cBHLzNx0v0YOBse8qRkHte6j4aPzzxTs6em
+	wHwHsaQpgwXxSmovp7xjXcDuxQcSTPpnh3xOHIjOKkAJ2rPlFSrM5gKn971vUpCA6cJ1ZvT14ks
+	VwFsf9BevKE83ZE2qnRsx7JkQPQ7B8PNnp0J34y5gNDMoL5aKy5D+XXyXkICfu6EG/QF8hlQM5f
+	82QZTpVfrOdSJBHEUZV53UW0FSraXoQ7oJzVg5/jVOqMA0m5VdTeHkagWLlq/b5DJ2N4BPd9oE3
+	lLSgfri9UJtBYP3FFgENFzxk4aKHu8QV246bZ3EAMyS1b5w8EVyewLnz0DcRmBFSNm14nt8Yqeh
+	ezNy/KUJ3z+GXdya39Db8arI9A/l35iBKdeRiH1M+sKlMgC7SxRX2o17V7wA/GBkUsMYw
+X-Received: by 2002:a17:907:c491:b0:c40:aa04:18d0 with SMTP id
+ a640c23a62f3a-c4d34b8cef5mr420685066b.17.1794047908553; Sat, 07 Nov 2026
+ 02:38:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,34 +104,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261026084035.535989-1-hui.zhu@linux.dev> <CAMgjq7AJSU9jUBTHGcm05mtGBH4EMQ_ua9YNwuLOGVzhkdLKkA@mail.gmail.com>
+ <CAGsJ_4zPZg6pCuhDtTpSkueS2EDSfWeYa23h7kC9hEU0iGB-+w@mail.gmail.com>
+ <CAMgjq7DvmrwTu0vz7oHx7y7w1B9uA0AbS3YJ5CcrDVg9VwKqpw@mail.gmail.com>
+ <CAMgjq7A6jJQ_Ncp0BCqjQJ8pJXrjr1PoOu0rdj0NJOivKp6e+A@mail.gmail.com>
+ <CAGsJ_4zO5S5XFc6dd70wKEs_mzqu_QW2bGOPyhKo4w2cjZrWUQ@mail.gmail.com> <8e5956d5-ae03-40c0-b5a0-bd550f4c14b3@linux.dev>
+In-Reply-To: <8e5956d5-ae03-40c0-b5a0-bd550f4c14b3@linux.dev>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sat, 7 Nov 2026 18:37:51 +0800
+X-Gm-Features: AclHuK9fmKDpAUrLOEJxid5m6a5W2E_OzsxHmICY5QYFvtDrW8vifxe4XbQxg70
+Message-ID: <CAMgjq7BNe+EcyAGY_hz5DQg6oRs6x_rAM6MVoAM0LNEP4Jt8qg@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Barry Song <baohua@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Nov 6, 2026 at 4:38=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
+> 2026/11/6 05:13, Barry Song:
+> > On Sat, Oct 31, 2026 at 3:27=E2=80=AFPM Kairui Song <ryncsn@gmail.com> =
+wrote:
+> > [...]
+> >>>>>>   mm/folio.c | 6 ++----
+> >>>>>>   1 file changed, 2 insertions(+), 4 deletions(-)
+> >>>>>>
+> >>>>>> diff --git a/mm/folio.c b/mm/folio.c
+> >>>>>> index 35e242b48870..ea3adb6a89d7 100644
+> >>>>>> --- a/mm/folio.c
+> >>>>>> +++ b/mm/folio.c
+> >>>>>> @@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruv=
+ec, struct folio *folio)
+> >>>>>>              folio_test_swapcache(folio) || folio_test_unevictable=
+(folio))
+> >>>>>>                  return;
+> >>>>>>
+> >>>>>> +       lru_gen_clear_refs(folio);
+> >>>>>>          lruvec_del_folio(lruvec, folio);
+> >>>>>>          folio_clear_active(folio);
+> >>>>>> -       if (lru_gen_enabled())
+> >>>>>> -               lru_gen_clear_refs(folio);
+> >>>>>> -       else
+> >>>>>> -               folio_clear_referenced(folio);
+> >>>>>> +       folio_clear_referenced(folio);
+> >>>>> Why can't we just call folio_set_lru_refs(.., 0), and should we cle=
+ar
+> >>>>> PG_workingset? Keeping it helps PSI on refualt / redirty tracking (=
+not
+> >>>>> sure if meaningful but CLRU does this), clearing it makes eviction
+> >>>>> better, but the eviction issue is MGLRU-only, CLRU keeps it.
+> >>>> I recall that in v1 [1], Hui mentioned:
+> >>>>
+> >>>> "Use folio_clear_referenced() rather than
+> >>>> folio_set_lru_refs(), which is not defined without
+> >>>> CONFIG_LRU_GEN."
+> >>>>
+> >>> Or prehaps we can have a folio_clear_lru_refs() do in a unified way
+> >>> for For both CLRU / MGLRU? (Just like folio_migrate_lru_refs).
+> >> And it will be better if we can keep this operation off-list just like
+> >> right now :), some later works could benefit from it.
+> > lru_gen_clear_refs() is currently multifunctional. It clears
+> > refs/workingset, but also returns true to skip
+> > folio_batch_add_and_move() in both deactivate_file_folio()
+> > and folio_deactivate().
+> >
+> > This actually looks a bit weird. However, following the current
+> > logic, I've drafted a version that we can use as a starting point
+> > for discussion:
+> >
+> > diff --git a/mm/folio.c b/mm/folio.c
+> > index dc2c796a4ea7..bc17cd3b6b6c 100644
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -444,12 +444,12 @@ static bool lru_gen_clear_refs(struct folio *foli=
+o)
+> >          int type =3D folio_is_file_lru(folio);
+> >          unsigned long seq;
+> >
+> > -       if (gen < 0)
+> > -               return true;
+> > -
+> >          folio_set_lru_refs(folio, 0);
+> >          folio_clear_workingset(folio);
+> >
+> > +       if (gen < 0)
+> > +               return true;
+> > +
+> >          rcu_read_lock();
+> >          seq =3D READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
+> >          rcu_read_unlock();
+> > @@ -465,6 +465,8 @@ static void lru_gen_inc_refs(struct folio *folio)
+> >
+> >   static bool lru_gen_clear_refs(struct folio *folio)
+> >   {
+> > +       folio_clear_referenced(folio);
+> > +       folio_clear_workingset(folio);
+> >          return false;
+> >   }
+> >
+> > The another option is:
+> >
+> > diff --git a/mm/folio.c b/mm/folio.c
+> > index dc2c796a4ea7..8d1fd788188c 100644
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -438,6 +438,12 @@ static void lru_gen_inc_refs(struct folio *folio)
+> >          } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_f=
+lags));
+> >   }
+> >
+> > +static inline void __lru_gen_clear_refs(struct folio *folio)
+> > +{
+> > +       folio_set_lru_refs(folio, 0);
+> > +       folio_clear_workingset(folio);
+> > +}
+> > +
+> >   static bool lru_gen_clear_refs(struct folio *folio)
+> >   {
+> >          int gen =3D folio_lru_gen(folio);
+> > @@ -447,8 +453,7 @@ static bool lru_gen_clear_refs(struct folio *folio)
+> >          if (gen < 0)
+> >                  return true;
+> >
+> > -       folio_set_lru_refs(folio, 0);
+> > -       folio_clear_workingset(folio);
+> > +       __lru_gen_clear_refs(folio);
+> >
+> >          rcu_read_lock();
+> >          seq =3D READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
+> > @@ -463,9 +468,10 @@ static void lru_gen_inc_refs(struct folio *folio)
+> >   {
+> >   }
+> >
+> > -static bool lru_gen_clear_refs(struct folio *folio)
+> > +static inline void __lru_gen_clear_refs(struct folio *folio)
+> >   {
+> > -       return false;
+> > +       folio_clear_referenced(folio);
+> > +       folio_clear_workingset(folio);
+> >   }
+> >
+> >   #endif /* CONFIG_LRU_GEN */
+> > @@ -659,10 +665,7 @@ static void lru_lazyfree(struct lruvec *lruvec,
+> > struct folio *folio)
+> >
+> >          lruvec_del_folio(lruvec, folio);
+> >          folio_clear_active(folio);
+> > -       if (lru_gen_enabled())
+> > -               lru_gen_clear_refs(folio);
+> > -       else
+> > -               folio_clear_referenced(folio);
+> > +       __lru_gen_clear_refs(folio);
+> >          /*
+> >           * Lazyfree folios are clean anonymous folios.  They have
+> >           * the swapbacked flag cleared, to distinguish them from norma=
+l
+>
+>
+> Hi Barry, Kairui,
+>
+> >
+> > I would personally prefer the latter. What do you think, Hui and Kairui=
+?
+>
+> I prefer option B too: it keeps the flag clearing independent of the
+> list state and leaves the two deactivate callers untouched.
+>
+> But I'd suggest splitting this in two:
+>
+> 1. Take v2 as the fix now. If that is acceptable, I will respin it
+>     with Cc: stable added.
 
-For anyone who owns this headset and wants to test v4 before it is merged,
-the same driver is available as a DKMS module:
-
-  https://github.com/meven/hid-logitech-headset
-
-The source is the v4 patch, with the two USB ids defined in the file
-because hid-ids.h is not available out of tree. On Arch Linux it is also
-in the AUR as hid-logitech-headset.
-
-The repository also carries the udev hwdb entry that makes UPower see
-the device as a headset, which is proposed to systemd separately:
-
-  https://github.com/systemd/systemd/pull/43737
-
-Test reports are welcome, here or as GitHub issues. A Tested-by on this
-thread would help the patch.
-
-The G522 LIGHTSPEED (046d:0b18) answers on the same vendor page with a
-different frame layout, so it could be a second table entry in a
-follow-up patch. Nobody has run that on real hardware yet, so the README
-asks G522 owners for the report descriptor and a few replies:
-
-  https://github.com/meven/hid-logitech-headset#g522-lightspeed-owners-wanted
-
-Regards,
-Méven
+OK, that makes sense, agree that we can patch that regression first as
+a clear backport indeed. Thanks!
