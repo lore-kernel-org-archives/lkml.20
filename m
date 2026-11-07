@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047239;
-	b=DBYj46576e9/vR1SKtJpfBDu2QC0qONPIU+BYWGynugEb65ltlt1s+Om/rGgVWiVmsxv
-	 FjdAdJ1Tsp3W+cR3OzVRfan72JROogmAXSMJf2IymyZf+myndOPaYmWaLvdgK3I28uHAu
-	 nW07nwENvW6Ww6QE7pJaTpdpJyAochOfGxq2VF9qxu+iTGqlFKdXmzlLPNk3wpB6X39Qi
-	 gQGxW/YsZqxXoaSqsuLImS9KKhNz/9sFKFU3VndYORbu9IXZMHUoVKQboZiF2n4Z2lpAR
-	 Z1Nr8ZVOD6kniaFoJIE+73GVJz5a9b2xU6gwYRCzp8hnj+0sj0cileSHFdHRTjvACIw==
+	t=1794047307;
+	b=wfz1H2AjHqQ4i1Ppr/ipJ/X8pCnP6fxjj3z0+CaEjY9Q4IJva1Itg+BkGE9rmbqiSCop
+	 u2bYU/bnTvM0OBJV+D4HV1qNKW2OO5eEW69UdpHmulncRbvo4IzuRu66EZP/PeXYS51GE
+	 YVR/iW6w73y/gzW3+WVoM1Tf5QGSi/1jeOuwv93im+vuas6u6fla2kcYjs5j4R3m2C/5I
+	 npJXbG1rOVqOTSJZ93FS0ixT8hSAumPMLtYZDZM0BtmKL73Et0HQlrEIED0rY9YbYy8aH
+	 Q+16HCy61ZUeIPiZBjDJz604ib+pQuuB/W8xnzlEfNxe+UR4u0rOYqAPqDi4g+vHa2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047239;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7VGSMLdQgTrW+tnUtv9yvI4plQbPDLeABiASMlS9xag=;
-	b=ZNXibog2KuZrYP8VKIr1WaILKiqEvmApZrfSaofK97buxh4Paef7IaNYqVn5vrujJsOg
-	 Krx7hxAhnHOTSUYE0nY+lGJ4mQkOfwqwcGFLC1tbc//hOzk5zfFQJ9xex+GVGrkj16xda
-	 4vLRGR8QhgzJ8+VYKcVhMqCLZmAytZWthrL1kZPlLo/h5SfUArxodTxIm68i27kY+SHpw
-	 LwU4uYa16ymfGo5OTksJVDglUWLO0gdU5/QmB2savsB9CUg8DCzN3TviqTirjX7fTTOm/
-	 dB+bynoqfoXxMZGo9qKFqK3K4UHAqNK71cXgWGpkDDvrd6Tpgy0Ymt/IysHH19scE1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047307;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Y0gp1aD0CLCs2S1Cy0PQr8PHHU9s8brn1tv6Ae6Fqds=;
+	b=YHLvqSFtyxzIsVPf9sujhMpfdETRbcO0qaP40ERvmZFJ1JfNy+3lvqrBYphsNHyD1J/x
+	 KrNTlV42f9tFAYHs97XxrOFBCQ7cziONLftTSzW6nv2m7cx/dTzJKFDm1cOjqw0NauzWV
+	 oXmD1nHzGwlpdw0ISpqItSpT/3/ngjfttjmeXAXN5WhcmFqtAwlIloYWxnkUHYiBFbP5X
+	 IcpF23Xym+tnN8eieBOpOIaTf3v1kT/v9lSHVSCO5ieVcRhG7bt3uCz+UoWNilztrEGXU
+	 Shz3uAf3XDLRFX1/tBorvCGJP03IEjaeGfLEHvKzwpY/CC2TXG4Q2e79Y1LPLFNlgyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oi1j+v2O;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=a2kwHv0t;
+	arc=none smtp.remote-ip=185.70.43.166
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9231A606A32C;
-	Sat,  7 Nov 2026 10:27:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9231A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A88606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:28:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A88606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oi1j+v2O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794047238; x=1825583238;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eU3ThRrgV18yu75FgVMOclwssTznezQvXd3lRR3192I=;
-  b=Oi1j+v2OI7f6u3a9vSzDiNPdxPo9yApOLt2PQ1rcbJdlivbZH9uj48Kk
-   ANWhlgzyH+PMV8q+LLwOM2jQM2sODH2qUoI3bNnuiJTbFWO3bh/xkDJ5v
-   pctQMElHGTYA23L+48bTNjI69I6699EbdZ6RrjFkoa82DWkXOs9bEP6m2
-   5KCl3lDG9CzrYuiWVumc7MrL9yyXlYlQx1Jcx5sXj0Tf3rLNrlMO7lfCr
-   /u+HGvQ/FIijvUUtIsYqe1H/YvCzgg/pY/7ILh11Nz3qF+nUHswg3GLFz
-   9rrE2swfrnpcN0esUR5qjQt729x9Zze78tOp8FxrZfuWGz/5Hz+60/neB
-   g==;
-X-CSE-ConnectionGUID: 8tlAxWKzSjCWQiGVICRX0Q==
-X-CSE-MsgGUID: +ZZqll+uQQGJ7y/wweJwSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2740622"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2740622"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 02:27:18 -0800
-X-CSE-ConnectionGUID: 8nZamolPR/W+iDYnnyAt8g==
-X-CSE-MsgGUID: +HAJSUcmQmqVqGXRLRNdaQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7521411"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa006.jf.intel.com with ESMTP; 07 Nov 2026 02:27:14 -0800
-Date: Sat, 7 Nov 2026 18:19:49 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: tze.yee.ng@altera.com
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>, Alan Tull <atull@opensource.altera.com>,
-	Matthew Gerlach <mgerlach@opensource.altera.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] fpga: altera-freeze-bridge: clear all illegal request
- bits
-Message-ID: <au77RfUe85UzN1ns@yilunxu-OptiPlex-7050>
-References: <13856736bdb808b64826aab337d9919abeb3ea5c.1791253862.git.tze.yee.ng@altera.com>
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=a2kwHv0t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1794047302; x=1794306502;
+	bh=Y0gp1aD0CLCs2S1Cy0PQr8PHHU9s8brn1tv6Ae6Fqds=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=a2kwHv0tdovAVhtetkd+PbD+mhJN8m0DSLDoiHnnKxNR7CHlxMSWVVw3nuEgCffoN
+	 PzlnHNO4G1bVsQkPjnB5VhsW6cxxmcm9NaZHJozW5XWX6bKKY/rm/BeSLqMQ7s0YBw
+	 xG/c8I3EGMMg8u5SWPFrYTUTIxvA9K1LD639MLpsNaOj0BLAAeuwKI272N4D0QyB0a
+	 jYcn+HfxgHG/2Mjl9jr3OFRNtfZR9qJj4Vd7YIRJJXHH7O4CFZCYQFjuGKPNArHljC
+	 tRk+k19JISblFWF//yoqwlZPNRM9oCU6TcrgRZwtm0B7Iq9a5uCylY8Oe2oqkwRfJ9
+	 8JQgbnVum35Sw==
+Date: Sat, 07 Nov 2026 10:28:19 +0000
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: Turritopsis Dohrnii Teo En Ming <teo.en.ming@protonmail.com>
+Cc: "ceo@teo-en-ming-corp.com" <ceo@teo-en-ming-corp.com>
+Subject: OpenAI Finds 948 Local Privilege Escalation Bugs In The Linux Kernel
+Message-ID: <dU4rJjF0Pw3wup68khDH2Yua1NZFP-CuxLoRM79VqZ_MTOap65TYk0a9ipL2RhD6dynQ5i0gme_MMa-DMy9lOlu0n2CuXRFwlx66pqhBml4=@protonmail.com>
+Feedback-ID: 39510961:user:proton
+X-Pm-Message-ID: b0f6444338376e328813ce8e591a31048903819d
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,72 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <13856736bdb808b64826aab337d9919abeb3ea5c.1791253862.git.tze.yee.ng@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 06, 2026 at 10:34:35AM +0800, tze.yee.ng@altera.com wrote:
-> From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-> 
-> The freeze_illegal_request register is write-1-to-clear with one bit per
-> Freeze Bridge connected to the Partial Reconfiguration Region Controller;
+Subject: OpenAI Finds 948 Local Privilege Escalation Bugs In The Linux Kern=
+el
 
-I still prefer the opening sentences in v2. Don't write like dense
-Hardware spec.
+Good day from Singapore,
 
-> bit i is the bridge on freeze interface i. Unlike the status and control
-> registers, which act on all bridges collectively, this register reports
-> each bridge individually.
+Here is an article which I would like to share.
 
-This clearly tells the hardware behavior, good.
+Article: OpenAI Finds 948 Local Privilege Escalation Bugs In The Linux Kern=
+el
+Link: https://www.phoronix.com/news/OpenAI-948-Linux-LPE-Bugs
+Date of article: 5 Nov 2026
 
-But my real question is, why would the Partial Reconfiguration Region
-Controller connect to multiple bridges? To control multiple PR regions,
-or because a single PR region requires multiple bridges so we need to
-gate them all on its PR?
+Thank you.
 
-> 
-> Writing a literal 1 clears only bit 0 and leaves the illegal request
-> latched for every other bridge. Write back the value just read instead, so
-> the set-to-clear applies to whichever Freeze Bridge reported the request.
-> 
-> Fixes: ca24a648f535 ("fpga: add altera freeze bridge support")
-> Cc: stable@vger.kernel.org # v4.10+
-> 
-> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
-> ---
-> Changes in v3:
-> - Reword the commit message in imperative mood (Xu Yilun).
-> - Describe the freeze_illegal_request register layout: one write-1-to-clear
->   bit per Freeze Bridge via the Conduit Merger, versus the collective
->   status/ctrl registers (Xu Yilun).
-> 
-> Changes in v2:
-> - Add "Cc: stable@vger.kernel.org # v4.10+" into the signoff area so the
->   stable-kernel rule is satisfied (reported by kernel test robot).
-> - Remove Chiau Ee's signoff as he is no longer working on this patch.
-> 
-> Link v2: 
-> https://lore.kernel.org/all/2fe34c2dec61150a39d21e067521b0acc031247c.1789956938.git.tze.yee.ng@altera.com/
-> ---
->  drivers/fpga/altera-freeze-bridge.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/fpga/altera-freeze-bridge.c b/drivers/fpga/altera-freeze-bridge.c
-> index c24c976117c8..2591dcc53d83 100644
-> --- a/drivers/fpga/altera-freeze-bridge.c
-> +++ b/drivers/fpga/altera-freeze-bridge.c
-> @@ -51,7 +51,7 @@ static int altera_freeze_br_req_ack(struct altera_freeze_br_data *priv,
->  		if (illegal) {
->  			dev_err(dev, "illegal request detected 0x%x", illegal);
->  
-> -			writel(1, csr_illegal_req_addr);
-> +			writel(illegal, csr_illegal_req_addr);
->  
->  			illegal = readl(csr_illegal_req_addr);
->  			if (illegal)
-> -- 
-> 2.43.7
-> 
-> 
+Regards,
+
+Mr. Turritopsis Dohrnii Teo En Ming
+Targeted Individuals Singapore
+Government-Induced Schizophrenia, Government-Induced Health and Medical Pro=
+blems, and Government-Induced Extreme Poverty for the Past 20 Years (Govern=
+ment Persecution)
+Why is the Government SOOO ADAMANT, INSISTENT AND PERSISTENT about maintain=
+ing Absolute and Total CONTROL over all of my Android (Linux) phones for th=
+e past 20 years???
+7 Nov 2026 Saturday 6.25 pm Singapore Time
+
+
+
+
+
