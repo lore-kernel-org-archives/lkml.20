@@ -1,59 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794085830;
-	b=kp4rp8EZ3YBhA7Cc4ynL19Vl74ophGd54zofRJWETS8r6lhvYv/notWrgF/KYJvWZaJS
-	 REiv/TdRbP2YTqbBE9GQr227kVoQb/CvJ4eSxiC4EOWVmgyEv9NAvTko25JkYLYvpdTbG
-	 EzlreAzrOTZLJKaZMN7DBhr2zfSLQD6b7Dq9Bm/MjWekYyYrbNGK7use9ytHKcOYpBuxK
-	 uf1M0DWYLCaSQvh2Sljzfr62u/2kRHNJyhBU8Y69bopwYlu9TvSJbScTJ3o+vDh+DOwzo
-	 ZCEoD1Ezl0BX0KQ8CZwxwxaZFXyCsTdHbG/LlUpOCkxZCuNRiH+zDdR0VkT9TyFUj/g==
+	t=1794086045;
+	b=Bb3tDB4diAZgRqU+ih3u5L/hzxiX28uag+uA92eJmx6jpAmb6W7Hfcqcic9zgfkcWCIV
+	 ndBP9a+vJxbQClKxA3j4rXGaMjfWANGRT2ib1nJHWtbqHb+Vkv9uM5tF18NnAbzFsv/WE
+	 +l+B3DMf9f+NJTTDIZktW6XsUMybJvGSn4PoimTDfo3I864ekLQtWdZgX9gRJAwsZDWL+
+	 clPh/Ih388WYyAdACOXG8CRJi9pYJ3ZlF7Wat5pw/JYLcRzreZ8zKTkyEBJYKysHl1vpV
+	 skV/GIsVZfEap2ZYpEE+oxc+uuftm33nG2R4T61ndIKss7IDeKH36KWuylObjle6dwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794085830;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ytl/23dencL1Kjh9JLygxJpOYoOZT3gKsICQUgciBFk=;
-	b=zCak/7yXs40tRC0S8JzYZ6Yqog5SqhIi13dUYrZXQHEet2POeeadq7lN05M2Y/n/z1wF
-	 n1UziNatu5w9ktwPFubVE4OamCmt6qeUn2Qv5I0lfsp1FRYfZ9SdIHO5pJeOWGVBEk2Jd
-	 ABFSQ6CnYJmxsgJLgXJKblT+48TevuoSZsBeMuNH+hrLzGbxNvcM104R3aIF4t/Ovbbun
-	 CvaqwjkU4QGxSBfelFR1BfK4ZTpfjNOzJZL8lHQGE0sG4p4WfkLMmrILKExT6qZakGocI
-	 mNXKePQRQy0t2hZZr8N3EMoo0xGiBFmyCm6vpr5AHNz7MxOU6Nsj/XdSQGy6MtmR5tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794086045;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
+	 X-Originating-IP:X-ZEDAT-Hint;
+	bh=aqbNZDFl3W7nMuL0eYped16qZaf0LUkCZcoL0Ki7p6U=;
+	b=bYc3LVMUfNQI0JlFLkcaNEMKVISOYuIWGdsIysXW52ENwsXj+WEbKA2rPDHwG61Uyq6f
+	 l5PxjPK9bmnR1pGgHtvtekhN63s/nlRk3OS0o23wPd5Q9TggMQ91J9AGfYZdEqR0xcOe4
+	 v7y8nygUyl+D2Zw5klZjSIdmpEywfxQ+9k5wGkJeouePlDnHXTZX76eCr1rCrMPFNSY9n
+	 T/umOPlnyOwq1knInLQGAtQqO7rQf1NPHGNyKT6zbHZ8waJE4++JcWoh0HIJaSFUlprBd
+	 m/heBCuiFOFCEOR+vFjZJHXumP0sEH7pnvBX9AfDyFzrlac2NeocVyIv9Q73Xr7iVkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Me/gCXvJ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=iG8QVk3F;
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918D8606A326;
-	Sat,  7 Nov 2026 21:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7596606A326;
+	Sat,  7 Nov 2026 21:14:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7596606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Me/gCXvJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEAC1F0089F;
-	Sat,  7 Nov 2026 21:10:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794085830;
-	bh=ytl/23dencL1Kjh9JLygxJpOYoOZT3gKsICQUgciBFk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Me/gCXvJupNPxDpMoeUd9lZVfdbXNEpLuQCr+IrxQ8JIZ6WeVdowPbwjTTlz4yooH
-	 VRbOllPF5DawZM93iZvi2oq2CzBhVcrXwb/OcUU0j4H7VQYjj78DuEVrqA+pDrPuTI
-	 B9KXYI6jr/KNBYA5PoUSsNC86H1LlYoAWhAM/inqhQVHPZ1fpmqg1Z5c2xHw6qF2Ux
-	 cyYdtdEbc0hwno/6eeTuZEY1eKRHeNgfKQTg7Zz1omEuTGPOqoE4DG1E3mGfE/J9Iw
-	 B7wPbNciEXtcnaOu8eD+W5HGEKCdRSDQAeo0QTsZwtueR25q2dCKLgIt9SMzSgyZU3
-	 E+j0pIPZ+Q5fw==
-Date: Sat, 7 Nov 2026 21:10:21 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- cwweng@nuvoton.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
-Message-ID: <20261107211021.418a931c@jic23-hlaptop>
-In-Reply-To: <20261104091136.151269-2-cwweng.linux@gmail.com>
-References: <20261104091136.151269-1-cwweng.linux@gmail.com>
-	<20261104091136.151269-2-cwweng.linux@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=iG8QVk3F
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=aqbNZDFl3W7nMuL0eYped16qZaf0LUkCZcoL0Ki7p6U=; t=1794086043;
+	x=1794690843; b=iG8QVk3FgThLaDy1/JWn38nzMtk7uhTkxIm1Cj0Ht2YPfYnyFSod0+eoD5TEb
+	Ex8r/UVawq/O/jk15WcaCwbh6ZcWo9H/hIjiuwRHkduaf4WrCIvSJLmASjHUMz/zYjdVc+Str7eEl
+	eWAyQKZTCm7MnK8LN4hla8joZzbXXxQIvKkUqUsKo708I3khtFw//oUk3iRzhkEDm+sgETNgeUwYX
+	eisdYLKjc/DKRXhfLaqBBZwmEuJ069rv42VX5bGSg8QXfzaCRaUmLrRquFMTHpWcm4n4ms8KRGfbR
+	hzENrG/q9nJt42WZt5PTa3Z5kFfGwdFkm3wCOwLjQ5KIx1dPhQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xPnjU-00000003pWH-25CG; Sat, 07 Nov 2026 22:13:52 +0100
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xPnjU-000000010QH-0aj4; Sat, 07 Nov 2026 22:13:52 +0100
+Message-ID: <155ec5c6c5f6d4287a420191cb3927eba1d97526.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sparc/iommu: Use raw_cpu_read() for iommu_hash_common
+ in iommu_tbl_range_alloc()
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>, "David S. Miller"
+	 <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>
+Cc: sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 07 Nov 2026 22:13:51 +0100
+In-Reply-To: <20261107195147.70084-1-kmehltretter@gmail.com>
+References: <20261107195147.70084-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,87 +79,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Wed,  4 Nov 2026 17:11:35 +0800
-Chi-Wen Weng <cwweng.linux@gmail.com> wrote:
+Hi Karl,
 
-> From: Chi-Wen Weng <cwweng@nuvoton.com>
-> 
-> Add a binding for the Enhanced Analog-to-Digital Converter found on
-> Nuvoton MA35D1 SoCs.
-> 
-> The controller has eight external analog inputs. They can be used as
-> single-ended inputs or as the four fixed differential pairs 0-4, 1-5,
-> 2-6 and 3-7.
-> 
-> Use the common ADC channel properties to describe the physical input
-> independently of the logical channel index.
-> 
-> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
-A couple of really trivial things inline.
-
-Thanks,
-
-Jonathan
-
+On Sat, 2026-11-07 at 20:51 +0100, Karl Mehltretter wrote:
+> Fixes: ff7d37a50202 ("Break up monolithic iommu table/lock into finer gra=
+ularity pools and lock")
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
->  .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 163 ++++++++++++++++++
->  1 file changed, 163 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> new file mode 100644
-> index 000000000000..85b0feac0236
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> @@ -0,0 +1,163 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/nuvoton,ma35d1-eadc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton MA35D1 Enhanced Analog-to-Digital Converter
-> +
-> +maintainers:
-> +  - Chi-Wen Weng <cwweng@nuvoton.com>
-> +
-> +description: |
+> Assisted by an LLM.
+>=20
+> Tested on v7.4-rc1 (d48723711bae) under QEMU sparc64 (sun4u, -smp 2)
+> with PREEMPT and DEBUG_PREEMPT. Without this patch, two consecutive
+> boots emit three "BUG: using __this_cpu_read() in preemptible
+> [00000000] code: swapper/0/1" diagnostics in iommu_tbl_range_alloc().
+> With this patch, two consecutive boots complete without the
+> __this_cpu_read() preemption diagnostic.
 
-Similar to below. I think this is overconstraining the formatting.
+According to your Fixes tag, this bug was introduced in 2015. However,
+I have to admit I have never seen this message, neither on sun4u nor
+on sun4v machines.
 
-> +  The Nuvoton MA35D1 Enhanced Analog-to-Digital Converter (EADC) is a
-> +  12-bit successive approximation converter with eight external analog
-> +  inputs and one internally connected VBAT input.
-> +
-> +  The external inputs can be used as eight single-ended channels or as
-> +  four fixed differential pairs: 0-4, 1-5, 2-6 and 3-7. The internally
-> +  connected VBAT input is not described by a channel child node.
-> +
-> +  The controller provides four interrupt outputs, ADINT0 through ADINT3.
+Is there a reliable way to reproduce this bug?
 
-> +patternProperties:
-> +  '^channel@[0-7]$':
-> +    type: object
-> +    $ref: /schemas/iio/adc/adc.yaml#
-> +    description: |
+Adrian
 
-IIRC > instead of | is appropriate here. You want to maintain paragraphs but
-otherwise allow rewraapping.
-
-> +      External EADC channel description. The reg property identifies the
-> +      logical IIO channel index.
-> +
-> +      A single-ended channel may use single-channel to select an external
-> +      analog input independently of reg. If single-channel and diff-channels
-> +      are both absent, the external analog input is selected by reg.
-> +
-> +      A differential channel uses diff-channels to select one of the fixed
-> +      hardware input pairs: 0-4, 1-5, 2-6 or 3-7. Each single-ended input
-> +      and each differential input pair may be described at most once.
-> +
->
-> +...
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
