@@ -1,89 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=98.137.65.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068544;
-	b=4h/CzXuSQB98co72XYfEjipBK9rubAPsiHZwBMTnEtgJ8rHuNyhBC9HpZMbwE2sG9/nR
-	 VCueC+nVJfJ1Qj7K5XXDkn3lE5epcXy6NAcltY66kEQvu1xRS7jAmBCUSAzObY0/GsKw2
-	 j1lHlteAjW0XGCRJspY9lgQqyxgHOv7SAou1XDZ0/kFOyqxBme0QQolSeOzb/85x9XwVH
-	 vS1JAAQOn1KUYtnL+G0NQ5FleHyv49JN8OBMJ4PHM0tW43xva2fpCweskPaqBCvpsCplb
-	 E1GNYq8hT92jt4ICtwy4NPFi86hej7DhhKSpmGMnhTT4hHxh0K0N3D2c6y2AhEowP8A==
+	t=1794068559;
+	b=gZflqk5s1ReU/s4mrB92qNAZdDUc55kD42xZw9SM+mWx0PE1PdW1CWLAl/849Gtgd4Wn
+	 3U1R1ksxrAr5A4r1204nUxGR3OIbCVcsVFVD5dghLtU3UBI83LDyKKRBtqZBkqoXPZvGg
+	 /emWPQGUL1EjxKGe5fMulYMMX4Uj6ElUFKZC0JkCYwZ20YV5WQeDCFO9I+LcpiveW/7lS
+	 GADO+65MwBlghsCpD6bXoTGVstvkAbnJhxV3Ol3wlBoMW1ZtMW73sLiHaoIkLu8LdixVv
+	 JlIBHI27Mxhiy5h1ZboRK97fUkatscI9kmZW0KfnZMHT9HFK4yNRk6AhBjHlV7Qk/NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068544;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
-	bh=oROIpyW/wuPrKD3YfrN56npu9YJ+fEEUp5oFz9jJmCI=;
-	b=421p4kPavVyp7gnApKfXZYjA+hOVLfa+zb+DCeX77HKqtRzD+ep94suxzHGVwO+h6HQX
-	 +LyG+pCWQFojXsd3UEf8JPxF2gHV2axZpL8ifbu+NM/AgysZMi/uzf4QeBciVLDvOQp2q
-	 Y4/A48jIwuvg9631CARQCZ2FpAmvazR3qplJmrB8CM7uW0TRMH8Vc9Sjb0HiW/Zkg2AAi
-	 MLkWSBXWbLAFuEGJitNOCHQELGddslqKmze2XwujoLjhYPN0zLdBnRkYKIHvVRMq9LYYg
-	 NuJBwNAq7DlUNp2vrJEj3xE86uiiMrcoDdv0/+cD+dgl0sXUg7vA+0/yk4mT6Pd0XwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068559;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 Feedback-ID:X-Infomaniak-Routing;
+	bh=+pZEKhJ4S1DIwNXL8RYuy+6X+cpdAugo+6kxHr+BwgY=;
+	b=CQFTl4icm3Km7UbJAbERar/FXjBpeePSdJABMMqgpp7EYzF5e+iwcxEWplJapIV7TyL9
+	 g/Af2grskvwq0E50Tdb6PsYYEoOWDyLLe23IF2z42Ff0Khkwm1mcbqERxXfhWcvUPdzPs
+	 hNbIf+CVlDcfpkB5UwEFCobYZg61HTpAC7TzAFB4WoW3pj8+W6ivoz48Bl4vc6cCwloyh
+	 bBQhgIGhPS8+g94k9zmweAZvKeZ9vWMt3c1UtzkXQ4ZQWQRX8dSsKZdwZy08ejinkvXLi
+	 qwzfh5zAhhKeF/MK1dZPWVCtRP5ooghrNs3K26t0jpovGUBu+FMBXKlIm/Dbhxe5+Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aol.com;
-	spf=pass smtp.mailfrom=aol.com;
-	dkim=pass header.d=aol.com header.i=@aol.com header.a=rsa-sha256 header.s=a2048 header.b=dx+287pB;
-	arc=none smtp.remote-ip=98.137.65.205
-Received: from sonic311-24.consmr.mail.gq1.yahoo.com (sonic311-24.consmr.mail.gq1.yahoo.com [98.137.65.205])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=etik.com;
+	spf=pass smtp.mailfrom=etik.com;
+	dkim=pass header.d=etik.com header.i=@etik.com header.a=rsa-sha256 header.s=20210927 header.b=vITsI77r;
+	arc=none smtp.remote-ip=45.157.188.14
+Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D08606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:22:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99D08606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aol.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA212606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:22:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA212606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aol.com header.i=@aol.com header.a=rsa-sha256 header.s=a2048 header.b=dx+287pB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1794068542; bh=oROIpyW/wuPrKD3YfrN56npu9YJ+fEEUp5oFz9jJmCI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=dx+287pBUIiY8QrAu+DHO65EE0aYIb0SufmS/0usjDPVMHeUh+LnUnIk5mF+SGn34vGE7ZJjPYFpZ3xpu9c6B8w5uKDQ5jBjkES8OdWr+d2qPBorLGw+yNhTGG2QETHfbMls7Ne76C46ErKlNSxvSaNklwCVfw3XXzp3sNjl02HAl5JBLOA90hxlwgRQTAO6ZnlpkPsbIAK8pXewlOdYcXzZTkYo+N0jTZyCUjTxwAZMquHAyK9/GZIBpwKj3DbWU4qJI3aBqFcRd9MqjTihR9vbJ7o5GpodNhi3Zl9hc4gLxMGsvR8z2pi8au8csVaL6YI+9tCQE0ZsNgE/THBo/g==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794068542; bh=DTakXC9HQrj+cDqU5Gf5d+U/VzEDlPewUhDLHVGL9h/=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=HMlC5sK+m3xDn0CkCPOujSoSU37PURMFD7dZGT8efqe17KTs//XfyMw6zwoI4DMqEF3gyG+F4VH2Rn2FVogVANT3hf4noSC5lTk4XaQ2kbJD2kkihUrq1KTRlQXuFU3XB4AUzH4Vn2/4kDqnkYkwxyNYX9xcClBA2uH+6vLW/rYjqCsQkj8JuaixaVjfYwl7e4t8nEomHQD8e0/yRQZPs6jMSAzuWZODbgL6fcwCwKMpzqVOiNnx/LHll0WqrMwbaPQBuux6GFJktoAByT1eySRRAZ77FH4FPlgVbYLCU/EhlReRlBzoRW/6OjAGMTYSyFG1Hdmf6l1N7gCFjpo45Q==
-X-YMail-OSG: meWDOFYVM1mcADasHih23up9BSDhkpf.0ph9MJFLu3qXyWQ7AZMnlcMjHJwEj_O
- tvxnSRZm74vW3m7dzVc8JylXU.M4wNoRUg_wo6e5RUl_hEnWfhDLpHhQJNE9uUvLcDww5zjU3vsD
- awHFdcWGe1p3U9u6rOO.2hZGuPXxDAAYhBlfpYz2ZN3SC.aTPzvztn1.QhxVHfBjCdqYDwS.j8cA
- 3X4GQnFVn2Zu40V.tTTDeYcUvI0Am3W7.aJLOSOxcs8hrE67G_vmqT.iaYK9PYB.BjQYEksV1Qh2
- .GKu4f8TFdq5KCCU4wVYenFEo8J7gUPZiHyEC9lNqNcVKiRu3pLEhhckQAYvFazGNwgVOSg1OZee
- RQDtjb5o7bieyAP.VEFq3KQ6GlNUKrwc5p57hWDRhoDeXkoXYNynmsIrp9jQgT6Ap.4Kj7k9XNPb
- l4ryIIXts8fGk_KLopLic5Q5PqPIDnvuuVKUDvFft370XUXr2vZT0Dvy6EN8q1EICtIXOmYqaswl
- sIQYJ0INxnqF.r565eTqUPwN9If49knHa53mdBFN5.PeRj2RrtwAhkfQd95npuZDt15iTfLvKbAr
- HXyypByatwFKzv8DULjNyYFPuwYDDT2qQMFaUSGMnp_alVBILEP3Zrcg6.PJhmWJTOLCYhVkQL5j
- .dEiJqUFt_E0InIGh03qB6UkNUWK9uoN63GX71JqmNU.GWZSjGTcOoUX5X6N5Rorfa0hfoNoAEiH
- wi_vx.htIem_2dWk6uYGQ4_1MOEy_IBytr7oNnvBmDrqBSt2yAyE2_MFoA1fj2EvduaxYcLSQPxI
- st3qjkgzWMB4mE2OoLCUizuq6X1yUQAnxbldKhREX_kuiIPC21hbwgAme2vjwlQYEX4lLi1cRU_C
- rqofWkrIXeUWSz4x6vViLMRm_q2m.UNlkEDeA_rzLT3G7ejGdPOGT0xvbN_JdxPqjf3mfLE7Bflq
- wCxOTvGOiRKF5pVIzkUVPrgQ6a418rTjiE08RjK_N59NObvM1nhPacZNWCo50fvMw79BRWed2lpc
- wP7_iz5npoHiSRdDjenLH5bCYj17RYM2cUJNNrkCBrExxLn87lWkYPP6HECWXV95OvGh3uyKDqrQ
- 5uA2HsR22QgKzN9t6t5PhGoWl0A3f_Jl1B6ppL19A1RfxX.1kQia7ZQzGAX2Z3kRt1J6tVzYcF8U
- sMC2Vhs2nHyOjUYZy.qKpLZPjNr_mAhdZlDjDE8MMKYC2BScWmk2yM4Qw9K.Lt3XZXPIDy4FZJoc
- yXhI5uA1frH_GzYgVgAEQI4l4LVbiOH0n73ulfKXKrZClkfEnXHFP56yS0HciW79i3qTBsPOoXYB
- RD0Ue03Nnixvx0J_7_GRd2F6XERbAfkLQc26fp9ezTz.0oraxG7Vg85G4v13QexwtNcLjpomDr0G
- TpYOXwQdj3xfwAL__U0pGhIwnFvzV2Ho5mMZWJEIuBwlt3sn8ZpnD_JwSKBlnHGo8ZrEk0omWp9F
- JrME1f3WiUCTxlEZexoUX.4nNbTHW0U73AOiRg_v_4fOkRhdbOcLwIaFwhIDdWydpC_NohTFD_B8
- 6nyn1cq_M6RALMrJRbqglcaIyTf6eA_RAS1oRrqN4UgsjDFsMXuO3RuyAJjZeGd2j9g1Xp49WeOm
- haq2DVPIqeqhEWsj7ZrsCAp9Ulw0rbwuC.lMGqOc4VdBDlAB47s_VH5kQxWSvpwMyjFhN9jx51tp
- A9GQ7cTYMiGSeMB2WccliqmHBMiX1A_MGd0CHNdsv7lMUIorHgPT_HoTuH4yNshdBYJ2GFqzkj2k
- hsfrH5ZkpgrB0zreBPjsvnT8yW.CkgaNdu9OVD3yPv0JwcG5mUEFfaqy9QbliKqfNAIQJDSeU4xw
- 5nEBONpoXVt48VxXxwlQxqYW0RChkyARA7nx2VNgklfiztUVNKKng1f3LPpRX3XpZogwFNPcFV90
- dpnz32ZLmgickjeF2RhvkzHjgtiTutwNenuaksTJHgQUC.WFah9VGE1EwyQxPuOz6hDwtyWQ31N7
- KfNarZgvHkml8y5Xe99dZZF0BEqX602T3iCmOVxOravE8RxRKwYp1Oe86dRC9GGjNZO.wDLEZX5p
- 7DijlsdXodS4lYLI17u4lwGghXJk.bGdAr.LIxrLWuIAoFG3QcA5lyxa4J4WRNXfpcVunQkGQ0tN
- rRlnubvjUPp0yKhHCxMn6x6dDU7Gj8rxiTtXCK1Hy2RQrplHk.oPlTM5y8..XdpserxhDpD9wFFN
- Dzc_KE9VxNEV8yFMQ1VdsXlfI4PEWBH8ye5gRlKiTcl_qIn38joZgQqc6oG4HSw--
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 3c0b4d3a-4b79-4873-ae8f-f54142884bd5
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.gq1.yahoo.com with HTTP; Sat, 7 Nov 2026 16:22:22 +0000
-Received: by hermes--production-ir2-5dd9bf4598-cdfcp (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 994c5c73ac4f7d9f986d84c8d5b6b884;
-          Sat, 07 Nov 2026 16:22:17 +0000 (UTC)
-From: Ruben Wauters <rubenru09@aol.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: Ruben Wauters <rubenru09@aol.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] drm/gud: move format init from gud_probe()
-Date: Sat,  7 Nov 2026 16:21:10 +0000
-Message-ID: <20261107162207.26336-1-rubenru09@aol.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=etik.com header.i=@etik.com header.a=rsa-sha256 header.s=20210927 header.b=vITsI77r
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jMLtD5dTYzGrY;
+	Sat,  7 Nov 2026 17:22:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
+	s=20210927; t=1794068548;
+	bh=+pZEKhJ4S1DIwNXL8RYuy+6X+cpdAugo+6kxHr+BwgY=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=vITsI77rxiY7b6mTrSWS3Z2lj1kOpGxI6MI9N8f/G9iPv80bLAY+HgZksppd4BpBU
+	 hAZvXq5UL8ODnsKpbWJefpE4meeXv7vnFMJXNx8S3HP6Aw9GZ9NKh5UOOaNtMjepPm
+	 orC6vgEEYC/7YjtZuIG5b+FJIVKnOA28gf2jLuws=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jMLtB4S97zT1t;
+	Sat,  7 Nov 2026 17:22:26 +0100 (CET)
+Message-ID: <1435d106-d4b0-487e-85d3-4032a9fe9332@etik.com>
+Date: Sat, 7 Nov 2026 17:22:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,261 +57,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261107162207.26336-1-rubenru09.ref@aol.com>
+User-Agent: Mozilla Thunderbird
+From: DV <dv@etik.com>
+Subject: Re: [PATCH] kvm: hyper-v: Delay firing of expired stimers
+To: Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: Alexander Graf <graf@amazon.com>, Sean Christopherson
+ <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ hpa@zytor.com, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ nh-open-source@amazon.com, gurugubs@amazon.com, jalliste@amazon.co.uk,
+ Michael Kelley <mhklinux@outlook.com>, John Starks <jostarks@microsoft.com>,
+ David Woodhouse <dwmw2@infradead.org>, Marcelo Tosatti
+ <mtosatti@redhat.com>, qemu-devel@nongnu.org
+References: <20260115141520.24176-1-graf@amazon.com>
+ <aXO8I6xuZyZB7CxV@google.com>
+ <769f538d-dd42-4d36-a4c5-7e6e48b209f6@amazon.com> <87bjigaeyx.fsf@redhat.com>
+Content-Language: en-US
+In-Reply-To: <87bjigaeyx.fsf@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Feedback-ID: :74c292bbbde641d:ham:123049f310c9d1d
+X-Infomaniak-Routing: alpha
 
-As part of the cleanup of gud_probe(), this patch splits off format init
-code from gud_probe into it's own function. This makes the code more
-compartmentalised and easier to follow, and makes gud_probe() smaller
-and also easier to read.
+Hi Vitaly, Alex, all,
 
-Signed-off-by: Ruben Wauters <rubenru09@aol.com>
----
-V1 -> V2:
-- Removed output parameters for gud_get_formats()
-- Added gud_get_max_buffer_size() helper function
+On Mon, 26 Jan 2026, Vitaly Kuznetsov wrote:
+> My bet goes to the clocksource switch, e.g. the guest disables (or
+> just stops using, good luck detecting that :-) ) TSC page and uses
+> raw TSC for some period or something.
 
-Apologies this v2 took so long
+I think I've hit a close relative of this, with a reproducer that
+works on every boot. A Windows guest running its own Hyper-V computes
+direct-mode stimer deadlines from the raw TSC, while KVM's reference
+counter lags the TSC because of how QEMU restores kvmclock. Here the
+lag is positive, so the guest's timers fire late instead of storming.
 
-V2 -> V3:
-- Fix potential num_formats underflow
-- Skip XRGB8888 in size calculations if emulated
-- Remove redundant r1 and XRGB1111 size calculations
+Setup
+-----
 
-V3 -> V4
-- Take XRGB8888 emulated format into account when calculating
-  max_buffer_size
----
- drivers/gpu/drm/gud/gud_drv.c | 185 ++++++++++++++++++++--------------
- 1 file changed, 111 insertions(+), 74 deletions(-)
+Host: Intel Core Ultra 9 285K (invariant TSC, 3686.4 MHz), Linux
+7.3.0, QEMU 10.2.4 (pc-q35-10.2), libvirt 12.2.0.
 
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index 680447f426f3..1ffb2a4fc901 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -435,11 +435,115 @@ static void gud_free_buffers_and_mutex(void *data)
- 	mutex_destroy(&gdrm->ctrl_lock);
- }
- 
--static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
-+static size_t gud_get_max_buffer_size(struct gud_device *gdrm, u32 *formats, u32 num_formats)
-+{
-+	struct drm_device *drm = &gdrm->drm;
-+	size_t max_buffer_size = 0;
-+	size_t fmt_buf_size;
-+	int i;
-+
-+	for (i = 0; i < num_formats; i++) {
-+		const struct drm_format_info *info = drm_format_info(formats[i]);
-+
-+		/* Substitute emulated XRGB8888 for proper format */
-+		if (formats[i] == DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulation_format)
-+			info = gdrm->xrgb8888_emulation_format;
-+
-+		fmt_buf_size = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width) *
-+							 drm->mode_config.max_height;
-+		max_buffer_size = max(max_buffer_size, fmt_buf_size);
-+	}
-+
-+	return max_buffer_size;
-+}
-+
-+static int gud_get_formats(struct gud_device *gdrm, u32 *formats)
- {
- 	const struct drm_format_info *xrgb8888_emulation_format = NULL;
- 	bool rgb565_supported = false, xrgb8888_supported = false;
- 	unsigned int num_formats_dev, num_formats = 0;
-+	u8 *formats_dev;
-+	struct drm_device *drm = &gdrm->drm;
-+	struct device *usb_device = gdrm->drm.dev;
-+	int ret, i;
-+
-+	formats_dev = devm_kmalloc(usb_device, GUD_FORMATS_MAX_NUM, GFP_KERNEL);
-+	if (!formats_dev)
-+		return -ENOMEM;
-+
-+	ret = gud_usb_get(gdrm, GUD_REQ_GET_FORMATS, 0, formats_dev, GUD_FORMATS_MAX_NUM);
-+	if (ret < 0)
-+		return ret;
-+
-+	num_formats_dev = ret;
-+	for (i = 0; i < num_formats_dev; i++) {
-+		const struct drm_format_info *info;
-+		u32 format;
-+
-+		format = gud_to_fourcc(formats_dev[i]);
-+		if (!format) {
-+			drm_dbg(drm, "Unsupported format: 0x%02x\n", formats_dev[i]);
-+			continue;
-+		}
-+
-+		if (format == GUD_DRM_FORMAT_R1)
-+			info = &gud_drm_format_r1;
-+		else if (format == GUD_DRM_FORMAT_XRGB1111)
-+			info = &gud_drm_format_xrgb1111;
-+		else
-+			info = drm_format_info(format);
-+
-+		switch (format) {
-+		case GUD_DRM_FORMAT_R1:
-+			fallthrough;
-+		case DRM_FORMAT_R8:
-+			fallthrough;
-+		case GUD_DRM_FORMAT_XRGB1111:
-+			fallthrough;
-+		case DRM_FORMAT_RGB332:
-+			fallthrough;
-+		case DRM_FORMAT_RGB888:
-+			if (!xrgb8888_emulation_format)
-+				xrgb8888_emulation_format = info;
-+			break;
-+		case DRM_FORMAT_RGB565:
-+			rgb565_supported = true;
-+			if (!xrgb8888_emulation_format)
-+				xrgb8888_emulation_format = info;
-+			break;
-+		case DRM_FORMAT_XRGB8888:
-+			xrgb8888_supported = true;
-+			break;
-+		}
-+
-+		if (format == GUD_DRM_FORMAT_R1 || format == GUD_DRM_FORMAT_XRGB1111)
-+			continue; /* Internal not for userspace */
-+
-+		formats[num_formats++] = format;
-+	}
-+
-+	if (!num_formats && !xrgb8888_emulation_format) {
-+		dev_err(usb_device, "No supported pixel formats found\n");
-+		return -EINVAL;
-+	}
-+
-+	/* Prefer speed over color depth */
-+	if (rgb565_supported)
-+		drm->mode_config.preferred_depth = 16;
-+
-+	if (!xrgb8888_supported && xrgb8888_emulation_format) {
-+		gdrm->xrgb8888_emulation_format = xrgb8888_emulation_format;
-+		formats[num_formats++] = DRM_FORMAT_XRGB8888;
-+	}
-+
-+	devm_kfree(usb_device, formats_dev);
-+
-+	return num_formats;
-+}
-+
-+static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
-+{
-+	int num_formats = 0;
- 	struct usb_endpoint_descriptor *bulk_out;
- 	struct gud_display_descriptor_req desc;
- 	struct device *dev = &intf->dev;
-@@ -447,9 +551,8 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	struct gud_device *gdrm;
- 	struct drm_device *drm;
- 	struct device *dma_dev;
--	u8 *formats_dev;
- 	u32 *formats;
--	int ret, i;
-+	int ret;
- 
- 	ret = usb_find_bulk_out_endpoint(intf->cur_altsetting, &bulk_out);
- 	if (ret)
-@@ -510,81 +613,16 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	drm->mode_config.helper_private = &gud_mode_config_helpers;
- 
- 	/* Format init */
--	formats_dev = devm_kmalloc(dev, GUD_FORMATS_MAX_NUM, GFP_KERNEL);
- 	/* Add room for emulated XRGB8888 */
- 	formats = devm_kmalloc_array(dev, GUD_FORMATS_MAX_NUM + 1, sizeof(*formats), GFP_KERNEL);
--	if (!formats_dev || !formats)
-+	if (!formats)
- 		return -ENOMEM;
- 
--	ret = gud_usb_get(gdrm, GUD_REQ_GET_FORMATS, 0, formats_dev, GUD_FORMATS_MAX_NUM);
--	if (ret < 0)
--		return ret;
--
--	num_formats_dev = ret;
--	for (i = 0; i < num_formats_dev; i++) {
--		const struct drm_format_info *info;
--		size_t fmt_buf_size;
--		u32 format;
--
--		format = gud_to_fourcc(formats_dev[i]);
--		if (!format) {
--			drm_dbg(drm, "Unsupported format: 0x%02x\n", formats_dev[i]);
--			continue;
--		}
--
--		if (format == GUD_DRM_FORMAT_R1)
--			info = &gud_drm_format_r1;
--		else if (format == GUD_DRM_FORMAT_XRGB1111)
--			info = &gud_drm_format_xrgb1111;
--		else
--			info = drm_format_info(format);
--
--		switch (format) {
--		case GUD_DRM_FORMAT_R1:
--			fallthrough;
--		case DRM_FORMAT_R8:
--			fallthrough;
--		case GUD_DRM_FORMAT_XRGB1111:
--			fallthrough;
--		case DRM_FORMAT_RGB332:
--			fallthrough;
--		case DRM_FORMAT_RGB888:
--			if (!xrgb8888_emulation_format)
--				xrgb8888_emulation_format = info;
--			break;
--		case DRM_FORMAT_RGB565:
--			rgb565_supported = true;
--			if (!xrgb8888_emulation_format)
--				xrgb8888_emulation_format = info;
--			break;
--		case DRM_FORMAT_XRGB8888:
--			xrgb8888_supported = true;
--			break;
--		}
--
--		fmt_buf_size = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width) *
--			       drm->mode_config.max_height;
--		max_buffer_size = max(max_buffer_size, fmt_buf_size);
--
--		if (format == GUD_DRM_FORMAT_R1 || format == GUD_DRM_FORMAT_XRGB1111)
--			continue; /* Internal not for userspace */
--
--		formats[num_formats++] = format;
--	}
-+	num_formats = gud_get_formats(gdrm, formats);
-+	if (num_formats <= 0)
-+		return num_formats;
- 
--	if (!num_formats && !xrgb8888_emulation_format) {
--		dev_err(dev, "No supported pixel formats found\n");
--		return -EINVAL;
--	}
--
--	/* Prefer speed over color depth */
--	if (rgb565_supported)
--		drm->mode_config.preferred_depth = 16;
--
--	if (!xrgb8888_supported && xrgb8888_emulation_format) {
--		gdrm->xrgb8888_emulation_format = xrgb8888_emulation_format;
--		formats[num_formats++] = DRM_FORMAT_XRGB8888;
--	}
-+	max_buffer_size = gud_get_max_buffer_size(gdrm, formats, num_formats);
- 
- 	if (desc.max_buffer_size)
- 		max_buffer_size = le32_to_cpu(desc.max_buffer_size);
-@@ -650,7 +688,6 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 		return ret;
- 
- 	devm_kfree(dev, formats);
--	devm_kfree(dev, formats_dev);
- 
- 	drm_client_setup(drm, NULL);
- 
--- 
-2.56.0
+Guest: Windows 11 Pro 26H2 (build 26300.9711), 8 vCPUs, with
+virtualization-based security on. So Windows runs as the root
+partition on its own Hyper-V (L1), nested on KVM.
 
+   -cpu host,migratable=off,hv-time=on,hv-relaxed=on,hv-vapic=on,
+        hv-spinlocks=0xfff,hv-vpindex=on,hv-runtime=on,hv-synic=on,
+        hv-stimer=on,hv-stimer-direct=on,hv-frequencies=on,
+        hv-tlbflush=on,hv-tlbflush-direct=on,hv-tlbflush-ext=on,
+        hv-evmcs=on,hv-avic=on,hv-emsr-bitmap=on,hv-xmm-input=on,...
+
+Symptom
+-------
+
+Every timer inside Windows fired 0.3-0.7 s late. A 1 ms wait on a
+high-resolution waitable timer took up to 466 ms, and an indirect
+display driver paced only by a timer refreshed at 6-8 Hz instead of
+120. Things only moved when some other interrupt woke a vCPU.
+
+What L1 does
+------------
+
+With both hv-stimer-direct and hv-frequencies, L1 arms stimer0 in
+direct mode (config 0x1ef8: vector 0xef, direct, auto-enable) and
+writes absolute counts. Call X the amount by which the reference
+counter lags guest TSC / HV_X64_MSR_TSC_FREQUENCY. L1's counts are
+X too far out. A timer that should fire right away looks like this:
+
+   kvm_hv_stimer_start_one_shot: vcpu_id 6 timer 0
+       time_now 40095770231 count 40100417164
+
+That count is 464.69 ms ahead of time_now, and X on that boot was
+464.7 ms. L1 writes the count again on every L2 timer exit, so such a
+timer keeps moving to now + X and only fires once the vCPU is quiet
+for that long.
+
+Without hv-stimer-direct, without hv-frequencies, or without
+hv-stimer, L1 uses the local APIC timer instead (TMICT/TDCR writes,
+a relative countdown), and all timers are on time. I've turned direct
+mode off as a workaround: a 1 ms wait is now late by at most 1.24 ms.
+
+Why the reference counter lags
+------------------------------
+
+get_time_ref_counter() follows kvmclock on both paths. The fallback
+divides get_kvmclock_ns() by 100, and compute_tsc_page_parameters()
+takes the TSC page's tsc_offset from the pvclock system_time.
+
+QEMU's kvmclock_realize() calls KVM_GET_CLOCK when the VM is created.
+kvmclock_vm_state_change() writes the saved value back with
+KVM_SET_CLOCK when the VM starts running, and saves a new value
+whenever it stops. So kvmclock, and with it the reference counter,
+stands still from creation to first run and during every pause. The
+guest TSC keeps counting through both. On six boots X was 297, 465,
+570, 495, 669 and 512 ms.
+
+Two measurements tie X to this:
+
+- In a trace from QEMU startup, extrapolated back to zero, the guest
+   TSC started at host monotonic 265208.1505 s and the reference
+   counter at 265208.8205 s, 0.670 s later. X on that boot was
+   669.2 ms.
+
+- virsh suspend for 1.045 s, then resume: X grew from 669.2 to
+   1689.3 ms (+1020.1 ms), and L1's far stimer deadline moved out by
+   the same amount.
+
+hv-evmcs off (X = 570.1 ms) and hv-reenlightenment on (X = 494.7 ms)
+didn't change the behaviour. Host load and power management were
+ruled out too.
+
+Connection to your thread
+-------------------------
+
+If the reference counter were ahead of TSC time instead, L1's
+deadlines would land in the past. stimer_start() expires a one-shot
+whose count is in the past at once, L1 arms it again on its next
+exit, and that would look like the expired-stimer storm Alex's patch
+delays.
+
+I haven't been able to try that here, because libvirt is set up to
+start a fresh QEMU whenever the guest reboots. But a reset inside the
+same QEMU process sets the guest TSC back to 0 while kvmclock keeps
+counting, so I'd expect it to flip the sign, possibly by the whole
+previous uptime. A resume path that restores the two clocks
+differently could do the same.
+
+Questions
+---------
+
+1. Should KVM keep the Hyper-V reference counter equal to guest TSC /
+    TSC frequency when hv-frequencies is exposed? L1 seems to assume
+    it is.
+
+2. If so, where does the fix belong: in QEMU's kvmclock save/restore,
+    or in KVM deriving the reference counter (and TSC page) from the
+    guest TSC?
+
+3. If not, should hv-stimer-direct be documented as unsafe for guests
+    that run their own Hyper-V?
+
+I can share the full traces and the Windows-side timer and frame
+probes if they'd help.
+
+Claude Code, an AI coding assistant, did the tracing and analysis
+while I was looking into why the VM's virtual display ran at a few
+frames per second.
+
+Thanks,
+David
