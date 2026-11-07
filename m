@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794054354;
-	b=HzmutkIsFkwmWYMrrznVkJbnap5BvfLonFymGFMBwERBWCqHQgwWjFGXw50NArQMxSMR
-	 VsAl6ZY/QtSMgj+trB9+37DiQQgdGbu1OZ7xEt/C0IYGCJ68dBnnoeK4YL34eqNBwvDsM
-	 PPhGl6TR/+q/BGXIpQAB3fRBhffGPFEERCNo5Zds1FvAQOmpOXu7tKfmRyD5o4O5tpyLT
-	 noRxLW7e1rxzUthh33eAJ3U8b1BumlnnUg0njVAyCjhovB2pKz1VN85qSYbyvps6DmxRi
-	 phqy3p2jcb2ALUVeyyn9MDPva1kCSbIHn+AsPRUL9gx0eWfOuWtM6NdRImpgoqEkMYw==
+	t=1794054359;
+	b=FstY0rO5hoibq4DlbMS/lMpsj5/wQybLEtzzdkUr6aikeqJ1pI925SWagC6p7lYIzacN
+	 yaseRixP6TNfGhC7BdxOGFdc74yYwGjV4amK5cDpGYeJ43eqQZOBLlqszp8vFW6R49YD2
+	 EIVNM6HHv3dC2RWpN68kARp6KRxNNAGRfKQAR66dgRTJORfbvo1qVPM+G7PjMXCE0h1MX
+	 trIZREvekc82b8xOwpEXhuKOL3ZVL3jWAh910OQP1PQ/nJi0RzukMhQ90qvnvy9rADvLi
+	 6owX2QfhYWwVyM69/mheZBonTIOosZPshm80YT7mdYRqTMXGboBo/wS+HjyRegfIGTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794054354;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=nMZivJOM2oM45m9Nztv0AW9BCNHvPrOKaR0tdk/NVrk=;
-	b=PmOpcmjeZYZjBrbiFzVN4oEWNPo1/3X0F8Xa5RJQ9JbuMMN3TWTEDw9Nb/oDCLlRXRMm
-	 hNumr9WvohqNJrtpzjumBuI6KQBDIBPnodjwvXtp/NO7zzDqpXo1l3mmqqTIt3OUwros9
-	 7DsE3LZE7Xu2bbXX+/dLWOrVxGTROz+w1UlKG3w3TpciNeSeo2txyq/mqOKY7dodZsRap
-	 cV/4YgMPA4Nh+ZgwfNsWOLmj5L2IvXmVVczk6t9L27Fb2YQ0vTBuV/fvMd/3m4NGFYSfY
-	 Uj3pY4AwNJe6Picc00pVbyO8RRHlUGXnwtsxYGuqsW22ykFqH/qakSffD/d+17Hy7KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794054359;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=Dt97tSAU5JqwOqvguf28g6mvV8+rSnr19Ds/LT0DNgU=;
+	b=38jOX8t8Q+pe3RT8uObhp8FKX4g5TEo/pPqGut8iXjAO/L8GwW1mMrtB/y78jecgNEWZ
+	 KOSyH+qEt4THz3mwpSHFmyK0y2AprTsrL12tQLEyL7pGqXvjTXO+M5909FWy49LRybywE
+	 xtaz7GDOS7LIfMcHuHs9ZnCx17btLoCwelZomkZSbIo6yUkulz/1djHUys4KBoHFCz2cp
+	 vnJhDIHl1+d7vq3WeOZjLWpqyoz2O6PW7hcA0UGKmABO4O8jtM8JdSP1FNrH6qjucapQQ
+	 iSS2oB9bNdvcLxHPQxbnb14cBk9AtHLRMMI0Yj7iigujSZBQ6bdpVtqdlLi+fZJKymQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WumXMJ5q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9AUk9JO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0FA606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4869B606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:25:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WumXMJ5q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A1E1F008A6
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:25:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9AUk9JO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E6C1F0089F;
+	Sat,  7 Nov 2026 12:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794054354;
-	bh=nMZivJOM2oM45m9Nztv0AW9BCNHvPrOKaR0tdk/NVrk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WumXMJ5qltMqk65sOnjxbsv6rOOuGJ9zPL2Io2hJ6robyxoxR7182pZGf7Wm4mxfl
-	 PPGVtexG0IIu9PXo7i4UjqqxYrp8FeekNF2rnPHKxH1t07e/+Ufb+UU0W6Yg22BiNm
-	 6Z4qABRqb7Lv9OInLANGS15JsluikM5tpvBDPy1ixkAhHO/fdy2zvWVHc4MG3VonDQ
-	 Usk/YOSnaO4TgK2cKFoONRt+AVFUVRCmP9YDJPtMHHCLEn7O7hTt456AoJBnTQpMfa
-	 SR9cBOmp+w4W/ha8mI41vM+/m3g0n0PqpMwHdwSSshtbPmdcJRpe90rntVsp+y9jm4
-	 EVGQ9GrCPCUfg==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so135501a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 04:25:54 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEZ6eveRzSL8sm1xWtMPMzHUMKU6vKqrou3BAg3ItAr9mLM5q8Fmfqwq1D61IkqPvkAHsa07+TuVPUGslM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z803bZOU0shX89wTtQirkFzqKR3BC5tMH/62/LAXyViDTUw7JXv
-	uR7B0v0FKLwrp4DPgaq/z1o60AhfIEQkio0agOoyQKFpKbTcruKxvhOYzJHoBQ6s4JaDi4eCqBv
-	ZKHyB9gcPKbaBK/fE2/afougkGd2ykek=
-X-Received: by 2002:a05:6402:2804:b0:6b6:eefc:ae7a with SMTP id
- 4fb4d7f45d1cf-6b6eefcb1e3mr2504856a12.4.1794054352574; Sat, 07 Nov 2026
- 04:25:52 -0800 (PST)
+	s=k20260515; t=1794054359;
+	bh=Dt97tSAU5JqwOqvguf28g6mvV8+rSnr19Ds/LT0DNgU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O9AUk9JOBeG8BI8QJ1bfZJCRm0vNwK4EtcCTTzuoMPYSZDcFBYaxRyqr8d0rFPiDY
+	 7tr2EEiv3nR7iFTjh6scSIPKuVP69H36JTV0JrpCK/4cbqIboLhiGcNTXKuAfB6PU4
+	 VYyf9b29WqPbPDznzm/2iqzRmUSZk7JuX0Z5nyjPtkImKVRNpV/EunGWcp7h9hdiuo
+	 Hy9Xl71ITrj1sIgPAgypL+5lqdQpbRArBk1JtBIkAQuJDcFQedOybUGPTpN69aCPie
+	 MJwXJPc5Mmbdfgo7N9GrMIc9JjEcE91iYMzFZ6/0t1My04rkqMu5ShHfSxooIv33wp
+	 6mjydXB3Nn+Fg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id B817F29349E2; Sat, 07 Nov 2026 12:25:56 +0000 (GMT)
+Date: Sat, 7 Nov 2026 12:25:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Mike Looijmans <mike.looijmans@topic.nl>, linux-kernel@vger.kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH 2/2] regulator: pwm-regulator: Revert "Add validity
+ checks in continuous .get_voltage"
+Message-ID: <0264fb70-4c57-4e6d-a02e-677e1f9077ed@sirena.org.uk>
+References: <20261106130010.340950-1-mike.looijmans@topic.nl>
+ <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.6954786b-65e0-4206-a0c4-60cd251dbec9@emailsignatures365.codetwo.com>
+ <20261106130010.340950-2-mike.looijmans@topic.nl>
+ <27e5c94a-acf2-4e32-92df-e3de124e0bc6@sirena.org.uk>
+ <CAFBinCCN+P0YRvOP9pwmxVXGv-MGyuZn_45nCZ-7ko8Ko3v+-A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,368 +64,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
- <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
- <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn> <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
- <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn> <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
- <843a9418-2017-c2c6-45c5-38628e7e0bdb@loongson.cn> <CAAhV-H4O07hKyPJ8rTMo=vD=t+qFM7UAJOPDGZDVJ0Ti-gOdEQ@mail.gmail.com>
- <e04352c2-f4ce-d415-72d4-21e03b828843@loongson.cn>
-In-Reply-To: <e04352c2-f4ce-d415-72d4-21e03b828843@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 7 Nov 2026 20:25:43 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7phy=T1MMNpSnZdjjiQXH41S7jnFcgfZd_4b5aqffB6g@mail.gmail.com>
-X-Gm-Features: AclHuK_Qu3xOXcYgx1roXJhondQU01JPqY5k6JB0ia-i-ADZ4-jS10PfrK6FB8w
-Message-ID: <CAAhV-H7phy=T1MMNpSnZdjjiQXH41S7jnFcgfZd_4b5aqffB6g@mail.gmail.com>
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
-	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
-	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bmPzdOvgs+GINPt4"
+Content-Disposition: inline
+In-Reply-To: <CAFBinCCN+P0YRvOP9pwmxVXGv-MGyuZn_45nCZ-7ko8Ko3v+-A@mail.gmail.com>
+X-Cookie: Whoever dies with the most toys wins.
+
+
+--bmPzdOvgs+GINPt4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 7, 2026 at 9:43=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrote=
-:
->
->
->
-> On 2026/11/6 =E4=B8=8B=E5=8D=8810:58, Huacai Chen wrote:
-> > On Thu, Nov 5, 2026 at 7:22=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> w=
-rote:
-> >>
-> >>
-> >>
-> >> On 2026/11/5 =E4=B8=8B=E5=8D=886:31, Huacai Chen wrote:
-> >>> On Thu, Nov 5, 2026 at 5:49=E2=80=AFPM Bibo Mao <maobibo@loongson.cn>=
- wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 2026/11/5 =E4=B8=8B=E5=8D=885:31, Huacai Chen wrote:
-> >>>>> On Thu, Nov 5, 2026 at 5:14=E2=80=AFPM Bibo Mao <maobibo@loongson.c=
-n> wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>> On 2026/10/23 =E4=B8=8B=E5=8D=883:59, Huacai Chen wrote:
-> >>>>>>> Bibo,
-> >>>>>>>
-> >>>>>>> Now I have applied this series but with some modifications, pleas=
-e
-> >>>>>>> double check and test the code.
-> >>>>>>>
-> >>>>>>> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-=
-loongson.git/log/?h=3Dloongarch-next
-> >>>>>> In my v4 submit, it is:
-> >>>>>> +               case ACPI_IOVT_DEVICE_ENTRY_START:
-> >>>>>> +                       is_start =3D true;
-> >>>>>> +                       start_devid =3D ep->device_id;
-> >>>>>> +                       break;
-> >>>>>> however in rc1, it is modified as:
-> >>>>>>                     case ACPI_IOVT_DEVICE_ENTRY_START:
-> >>>>>>                             is_start =3D true;
-> >>>>>>                             entry->start_devid =3D ep->device_id;
-> >>>>>>                             break;
-> >>>>>> Here entry is not allocated and NULL pointer, it is allocated in
-> >>>>>> ACPI_IOVT_DEVICE_ENTRY_END switch case.
-> >>>>>>
-> >>>>>> I really do not know what is aid to modify it and let others to te=
-st.
-> >>>>> Sorry, it's my fault.
-> >>>>>
-> >>>>> In theory I should point out the modification (eliminating the loca=
-l
-> >>>>> variable start_devid) and refresh a new version. But we have no tim=
-e
-> >>>>> to do this because when the first patch is merged into the ACPI rep=
-o
-> >>>>> it is near the merge window.
-> >>>> Maybe our work style is different, I do not care much for the coding=
- style.
-> >>>>>
-> >>>>> If you agree, I will submit such modifications to fix it.
-> >>>> fix is welcome.
-> >>>>>
-> >>>>> diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch=
-/iovt.c
-> >>>>> index 87cee4f0fc80..4cdac28a1fd0 100644
-> >>>>> --- a/drivers/acpi/loongarch/iovt.c
-> >>>>> +++ b/drivers/acpi/loongarch/iovt.c
-> >>>>> @@ -115,6 +115,10 @@ static int __init iovt_add_iommu(struct
-> >>>>> acpi_iovt_iommu *iommu)
-> >>>>>            for (i =3D 0; i < iommu->device_entry_num; i++) {
-> >>>>>                    switch (ep->type) {
-> >>>>>                    case ACPI_IOVT_DEVICE_ENTRY_START:
-> >>>>> +                       entry =3D kzalloc_obj(struct iovt_device_en=
-try,
-> >>>>> GFP_ATOMIC);
-> >>>> There will be memory leak problem if there are START/START/END in th=
-e table.
-> >>> That means a broken table? I think we don't need to consider broken
-> >>> tables, because there may be kinds of broken pattern rather than just
-> >>> a START/START/END.
-> >> yes, START/END/START, START/START/END, START/SINGLE/END. what is the
-> >> relationship between "don't need to consider" and kinds of broken patt=
-ern?
-> >>
-> >> what is the policy from your side with such BIOS table? let memory lea=
-k
-> >> and continue?
-> > The driver can only work with a good table or no table, but not with a
-> > broken table.
-> With a broken table, software can discard the whole table, or discard
-> the single table entry.
-Discard a single entry is dangerous because the pairing may be wrong,
-so if we should handle a broken table, we should discard the whole
-table.
+On Fri, Nov 06, 2026 at 10:45:31PM +0100, Martin Blumenstingl wrote:
+> On Fri, Nov 6, 2026 at 2:46=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
+ote:
+> > On Fri, Nov 06, 2026 at 01:59:56PM +0100, Mike Looijmans wrote:
 
-Discarding the whole table need a rework, the is_start variable is not
-enough. You can consider the below solution:
+> > > The core, and in particular the machine_constraints_voltage() method,
+> > > expects the regulator to report what the current setting is, even if =
+that
+> > > is outside the allowed range. The core will then bring the voltage in=
+to
+> > > that range. It cannot do that if the regulator refuses to return its
+> > > setting, and causes probe() to fail for a pwm-regulator when it has
+> > > restrictions to the PWM range with messages like:
 
-diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
-index 87cee4f0fc80..8381de278e3a 100644
---- a/drivers/acpi/loongarch/iovt.c
-+++ b/drivers/acpi/loongarch/iovt.c
-@@ -73,10 +73,44 @@ static int __init iovt_get_pci_iommu_fwnode(struct
-iovt_fwnode *np, u16 segment,
-        return 0;
- }
+=2E..
 
-+static int __init iovt_validate_entries(struct acpi_iovt_iommu *iommu)
-+{
-+       int i, done =3D 1;
-+       struct acpi_iovt_device_entry *ep;
-+
-+       ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, iommu,
-iommu->device_entry_offset);
-+       for (i =3D 0; i < iommu->device_entry_num; i++) {
-+               switch (ep->type) {
-+               case ACPI_IOVT_DEVICE_ENTRY_START:
-+                       if (!done)
-+                               return -EINVAL;
-+
-+                       done =3D 0;
-+                       break;
-+               case ACPI_IOVT_DEVICE_ENTRY_END:
-+                       if (done)
-+                               return -EINVAL;
-+
-+                       done =3D 1;
-+                       break;
-+               case ACPI_IOVT_DEVICE_ENTRY_SINGLE:
-+                       if (!done)
-+                               return -EINVAL;
-+
-+                       done =3D 1;
-+                       break;
-+               default:
-+                       return -EINVAL;
-+               }
-+               ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, ep,
-ep->length);
-+       }
-+
-+       return done ? 0 : -EINVAL;
-+}
-+
- static int __init iovt_add_iommu(struct acpi_iovt_iommu *iommu)
- {
-        int i, ret;
--       bool is_start =3D false;
-        struct iovt_fwnode *np;
-        struct iovt_device_entry *entry;
-        struct acpi_iovt_device_entry *ep;
-@@ -110,23 +144,22 @@ static int __init iovt_add_iommu(struct
-acpi_iovt_iommu *iommu)
-        if (np->flag & ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT)
-                goto skip;
+> > > Besides that, regulator_get_voltage() is not supposed to return any
+> > > state information, as is mentioned in the API documentation.
+> according to include/linux/regulator/driver.h:
 
-+       if (iovt_validate_entries(iommu) < 0)
-+               return -EINVAL;
-+
-        INIT_LIST_HEAD(&np->ep_list);
-        ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, iommu,
-iommu->device_entry_offset);
-        for (i =3D 0; i < iommu->device_entry_num; i++) {
-                switch (ep->type) {
-                case ACPI_IOVT_DEVICE_ENTRY_START:
--                       is_start =3D true;
--                       entry->start_devid =3D ep->device_id;
--                       break;
--               case ACPI_IOVT_DEVICE_ENTRY_END:
--                       if (!is_start)
--                               break;
--
-                        entry =3D kzalloc_obj(struct iovt_device_entry,
-GFP_ATOMIC);
-                        if (!entry)
-                                return -ENOMEM;
+>  * @get_voltage: Return the currently configured voltage for the regulato=
+r;
+>  *                   return -ENOTRECOVERABLE if regulator can't be read at
+>  *                   bootup and hasn't been set yet.
 
--                       is_start =3D false;
-+                       entry->start_devid =3D ep->device_id;
-+                       break;
-+               case ACPI_IOVT_DEVICE_ENTRY_END:
-+                       /* START & END are paired */
-                        entry->end_devid =3D ep->device_id;
-                        list_add_tail(&entry->list, &np->ep_list);
-                        break;
-@@ -135,13 +168,12 @@ static int __init iovt_add_iommu(struct
-acpi_iovt_iommu *iommu)
-                        if (!entry)
-                                return -ENOMEM;
+> Can you please specify which API documentation you are referring to?
 
--                       is_start =3D false;
-                        entry->start_devid =3D ep->device_id;
-                        entry->end_devid =3D ep->device_id;
-                        list_add_tail(&entry->list, &np->ep_list);
-                        break;
-                default:
--                       break;
-+                       return -EINVAL;
-                }
-                ep =3D ACPI_ADD_PTR(struct acpi_iovt_device_entry, ep,
-ep->length);
-        }
+> I believe back when this change was authored it didn't make a
+> difference on my board (but made sense based on review feedback).
+> So I'm not against reverting as long as we have a proper explanation
+> why the original patch is incorrect.
 
-> >
-> > Take START1/START2/END as an example of broken table: in your original
-> > code, the END entry will be pairing with START2. But for a broken
-> > table who can ensure they are the correct pair? If the real correct
-> > pair is START1 and END, then (entry->start_devid, entry->end_devid)
-> there is only one policy, software does not know START1/END is right or
-> START2/END is right.
-> > will be a wrong device range. Such mistakes are much worse than a
-> > memery leak.
-> >
-> > If you want to say "I don't care about correct pairing, memory leak is
-> > bad in any case.", OK, we can do it like this:
-> >
-> > diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iov=
-t.c
-> > index 87cee4f0fc80..ebd11e22c9be 100644
-> > --- a/drivers/acpi/loongarch/iovt.c
-> > +++ b/drivers/acpi/loongarch/iovt.c
-> > @@ -115,6 +115,13 @@ static int __init iovt_add_iommu(struct
-> > acpi_iovt_iommu *iommu)
-> >          for (i =3D 0; i < iommu->device_entry_num; i++) {
-> >                  switch (ep->type) {
-> >                  case ACPI_IOVT_DEVICE_ENTRY_START:
-> > +                       if (is_start)
-> > +                               break;
-> there is still memory leak with START/SINGLE/END pairs, is_start set
-> with false with ACPI_IOVT_DEVICE_ENTRY_SINGLE case.
->
-> Regards
-> Bibo Mao
-> > +
-> > +                       entry =3D kzalloc_obj(struct iovt_device_entry,
-> > GFP_ATOMIC);
-> > +                       if (!entry)
-> > +                               return -ENOMEM;
-> > +
-> >                          is_start =3D true;
-> >                          entry->start_devid =3D ep->device_id;
-> >                          break;
-> > @@ -122,10 +129,6 @@ static int __init iovt_add_iommu(struct
-> > acpi_iovt_iommu *iommu)
-> >                          if (!is_start)
-> >                                  break;
-> >
-> > -                       entry =3D kzalloc_obj(struct iovt_device_entry,
-> > GFP_ATOMIC);
-> > -                       if (!entry)
-> > -                               return -ENOMEM;
-> > -
-> >                          is_start =3D false;
-> >                          entry->end_devid =3D ep->device_id;
-> >                          list_add_tail(&entry->list, &np->ep_list);
-> >
-> > Huacai
-> >
-> >>
-> >>>
-> >>> Huacai
-> >>>
-> >>>>
-> >>>> Regards
-> >>>> Bibo Mao
-> >>>>> +                       if (!entry)
-> >>>>> +                               return -ENOMEM;
-> >>>>> +
-> >>>>>                            is_start =3D true;
-> >>>>>                            entry->start_devid =3D ep->device_id;
-> >>>>>                            break;
-> >>>>> @@ -122,10 +126,6 @@ static int __init iovt_add_iommu(struct
-> >>>>> acpi_iovt_iommu *iommu)
-> >>>>>                            if (!is_start)
-> >>>>>                                    break;
-> >>>>>
-> >>>>> -                       entry =3D kzalloc_obj(struct iovt_device_en=
-try,
-> >>>>> GFP_ATOMIC);
-> >>>>> -                       if (!entry)
-> >>>>> -                               return -ENOMEM;
-> >>>>> -
-> >>>>>                            is_start =3D false;
-> >>>>>                            entry->end_devid =3D ep->device_id;
-> >>>>>                            list_add_tail(&entry->list, &np->ep_list=
-);
-> >>>>>
-> >>>>> Huacai
-> >>>>>
-> >>>>>>
-> >>>>>>>
-> >>>>>>> Huacai
-> >>>>>>>
-> >>>>>>> On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongso=
-n.cn> wrote:
-> >>>>>>>>
-> >>>>>>>> This change is already merged in acpica tree.
-> >>>>>>>>
-> >>>>>>>> slightly ping.
-> >>>>>>>>
-> >>>>>>>> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
-> >>>>>>>>      > According to the IOVT specification, define macros for ea=
-ch bit of the
-> >>>>>>>>      > Flags field in the IOVT IOMMU structure.
-> >>>>>>>>      >
-> >>>>>>>>      > Link: https://github.com/open-acpica/acpica/commit/352f75=
-0e4cc0
-> >>>>>>>>      > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-> >>>>>>>>      > ---
-> >>>>>>>>      >  include/acpi/actbl2.h | 7 +++++++
-> >>>>>>>>      >  1 file changed, 7 insertions(+)
-> >>>>>>>>      >
-> >>>>>>>>      > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.=
-h
-> >>>>>>>>      > index baef525367b5..76e4a5bc79b4 100644
-> >>>>>>>>      > --- a/include/acpi/actbl2.h
-> >>>>>>>>      > +++ b/include/acpi/actbl2.h
-> >>>>>>>>      > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
-> >>>>>>>>      >       u32 device_entry_offset;
-> >>>>>>>>      >  };
-> >>>>>>>>      >
-> >>>>>>>>      > +/* Masks for Flags field above */
-> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
-> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
-> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
-> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<=
-<3)
-> >>>>>>>>      > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<=
-<4)
-> >>>>>>>>      > +
-> >>>>>>>>      >  struct acpi_iovt_device_entry {
-> >>>>>>>>      >       u8 type;
-> >>>>>>>>      >       u8 length;
-> >>>>>>>>      > --
-> >>>>>>>>      > 2.39.3
-> >>>>>>>>      >
-> >>>>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>
-> >>
-> >>
->
+The PWM driver is a bit weird here since everything is very software
+defined.  If the regulator is disabled and the state that the software
+will apply on enable is known then it should return a value, if we have
+no idea what the hardware will do on enable then we can't safely say
+what the value that will be provided is.
+
+--bmPzdOvgs+GINPt4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHQEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau8Y1AAKCRAv73Ows9A4
+iaGVAQCqCbekTrc3CTl8JdXZx1RfMrHafYDQxAMFAVKyE9F5gQD4pSbTOrb34vnP
+obJKUcsOq3E4MFHQtCPxr54bM7QCBg==
+=vNu1
+-----END PGP SIGNATURE-----
+
+--bmPzdOvgs+GINPt4--
