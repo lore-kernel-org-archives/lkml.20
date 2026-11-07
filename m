@@ -1,62 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794085170;
-	b=Vp8IWnUbcBir7iOr6hpqNJhNUgUAs8fbt5z/+i5dGN9f7gqZjWRQLhFcljy+dbncTgsX
-	 KFiyszBfk2LZRJQyre8p7gVTqxJgUA2u/IEfv0m1EkE7Mcb1ri42Fvkc0EL25p+C+lVIc
-	 jgRbqF588M/xkL0c+MEPJkrH8x7bGAADn5139ZI0YiKWwAgBzoSGVCI0GZAeE2oIgjHVu
-	 p4Hg9wVgsyTAZfSRXKX84+zrJCEhGxxVn4j/YGBOOz10L6Yyq+M7/EUpqmLrz1Qahh6Xj
-	 +Lm1P81B8C082E2z2JahzhBLbF4B2PvikqXyZApICrjiEyVERxLk0NP1tMpqlIoyIow==
+	t=1794085179;
+	b=xn1CQfPCxzh7/TbIYAPRxfFx54Dfp6zkoqPStixKLgI34GL7o4m8kZjCJEQYPlQXEbjP
+	 MWGSfA5qV3axCKvjs84ZxEuZEafmOKxYWWWjoXZ4KZgAeEm/3H2617SpUWJLx3YnjFMfb
+	 ocASNyuBtiY7TTwWcF55FQt/2cRdK4IoZIaEEab0rXMdgBZ2dDstkdpRYE4ePR2hrGIvl
+	 1CBFwfCnAlQ1a3qX6Sg0C/9gVc8s3XW3A+XJ2GWc1LIgS8PN3WRqQkCV8M6371Ria7fCA
+	 k954s+QwAaaiuEj3seRde/ymZW6ecdpcaAUG6/9tHKBprnwiJUxoGCIa/DjoxpM7w5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794085170;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=FVriCB8SqEw+1xBYoFV/PA9lO1dkif1FstYPaRAdYvk=;
-	b=atIGhLkMPX4MVHTsgf6lPylV6nrJBQ4Nz63a0Kl59tWpCXWwG6HGfS6Uqscah7Y1VbFa
-	 Eyjsp6SW4rRoH/Wz/R9u/+HhZBrLP5WlO+iWMNmtNCAfeBsGCrY0XaNf2ISR01SyFAPds
-	 XzvP0ZqZ5+3tKPpJWwNxkoqXCh+71005tM4u0OlnxvrL3nKFhO3nokv/9FgE9oZez3U8L
-	 rC+1njio/r+1pXWIrezXN7iPcyZnR8FN5wjQTEpRrdiuDlQQcmAnizOQghSjaFwnqN6cT
-	 qpKgmBIxOHEi+YCWGqZjpc21GCJghm9QfT9PgkpSzGJuTjRi6maW7uCccKJpe3ckZvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794085179;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=QlC1oB+nHcJs9biss2U5Td+JhsQeCba93tiXoAemIAM=;
+	b=D/5XW7B22KA7huxeq2hQePpX+66fk4A9LVs7jihkXvX6ZfAlufiuTIpMaDbK5ijqT3Bd
+	 r1bZyPN4fr47vAGVKRP5hVwKckHY5RhrgFgmE1WbrNj45pVoLgP272t0wvjQjnSCXwZ3P
+	 fK/N/UNVL5J+SufvzUElCioe+zchfsZ6lZQ3uZH22NRX8WJ7af6QXF5plhcyUp1vStvg1
+	 ZSbdRzQJk1oAUUvBJSEwjPWhcnw9D1FW6CrEYRtKctb4RJh9s8afY4Gcc/CmXLsqW0RoZ
+	 Q2FR0ACNcoTmkydTZMXItb8r/yNhMuLYKCoqUDpFy6/vlILrRwqFstN4S7zfhlRkyEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOSHuApg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b="vCBQXxg/";
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E058606A33D;
-	Sat,  7 Nov 2026 20:59:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5596606A326;
+	Sat,  7 Nov 2026 20:59:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5596606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOSHuApg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8A81F0089F;
-	Sat,  7 Nov 2026 20:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794085169;
-	bh=FVriCB8SqEw+1xBYoFV/PA9lO1dkif1FstYPaRAdYvk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NOSHuApg/ruQ/bnmK42QQy5OkN7Z8oDpc+4I3aIf1LYgMPHEE56HIRESVuHwWMlwc
-	 LOVyvRl/xLj/TM/P74t6VLFPa7JOG/V7ZmNGcmXL/A2m5IrnzAaFomFEinS21MR4XL
-	 XCmXyuwqVl+ew1pkO9949ghwJ+LJJIZs96fqmjUOtbLC0IdwiMlL3UoG5skfAY7szq
-	 X2WfQmZYXLkCLLWkLTaJFlzXPgSHXtDvaHeJuHwxc7CTXeGrWB4V1FWQMB+dhMnz9O
-	 9BC6zW77MgwiW72rdSTn1KYfl7vr0zmraG0L2Xs5OlV1D3PsjFFNIuiIhn0yOqgyxu
-	 IQtuUxGxoMizw==
-Subject: Re: [PATCH net-next v3 4/5] selftests: drv-net: psp: factor out psp
- connection setup
-From: netdev-bot+sashiko@kernel.org
-To: daniel.zahka@gmail.com
-Cc: kuba@kernel.org, willemdebruijn.kernel@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, donald.hunter@gmail.com,
- andrew+netdev@lunn.ch, shuah@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Date: Sat, 07 Nov 2026 20:59:28 +0000
-Message-ID: <179408516862.994134.13048510473902240219@kernel.org>
-In-Reply-To: <20261106-psp-v3-4-a8dd38f5a727@gmail.com>
-References: <20261106-psp-v3-4-a8dd38f5a727@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=vCBQXxg/
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35EE7A1631;
+	Sat, 07 Nov 2026 21:59:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794085175; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=QlC1oB+nHcJs9biss2U5Td+JhsQeCba93tiXoAemIAM=;
+	b=vCBQXxg//6xusQyfEQOMQXtiH/0GGiDZB34f8r2weOSDAqbde3VbyxJo5bjlSWufMTvFLu
+	QIUKdayvVFfSNdZtkPJ2zdJfkR3LQfTLAXrb0i7K9urIZgPhK0PpdU01tSTc+d6cwQu//M
+	GnIjde/F3I3PJuehOCO9OP1x4gvpTm4gMhKLJo0sy9cCSE/zJiizhythZ1rWMJD6tXcah8
+	HpE2uHzpM1Sj8BmmauZlCt/CfrtbHsFXUnQPC6boKjXI53LgMRmUm7ZetkzGfCMroqOa+5
+	kVkSD9ICe6lC6i86vsZhkzEqAQIjzKqwzwQOdvjil/v9dohe+sS2h/QWaKYObA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Subject: [PATCH net 0/2] net: macb: two fixes for macb_tx_error_task()
+Date: Sat, 07 Nov 2026 21:58:46 +0100
+Message-Id: <20261107-nb-macb-tx-error-task-net-v1-0-a2aac5d64d52@tipi-net.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,57 +56,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMBAEf4Xcs5dQECX+ivGhLauexmLuqiEh/
+ DtFH2ezMzMZVGB0qmZSfMVkTAXcrqJ49+kGlqEwNXVzcK4+cgr88jFwnhiqo3L29uSEzOh917V
+ hP7i2p+K/FVeZfu0zlQNd/qN9wgMxb1ValhWJWI+mggAAAA==
+X-Change-ID: 20261107-nb-macb-tx-error-task-net-e8a553b4d138
+To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Sean Anderson <sean.anderson@linux.dev>, 
+ Robert Hancock <robert.hancock@calian.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Both pre-existing bugs were flagged during the clashiko review of my
+software FCS patch [1]. These are the promised follow-up patches.
 
-Low priority / nit picks for your consideration:
+Patch 1 credits the frames dropped on a TX error to BQL. Patch 2 takes
+tx_ptr_lock in the task, as macb_start_xmit() moves the same pointers
+under it.
 
-- [Low] The commit message says "Here we are adding some more error
-  paths, so we just handle errors by closing the data sock".
+Tested on a Raspberry Pi CM5 (RP1 GEM). The bugs are hard to reproduce
+and the error path never fired there, but they are worth fixing anyway.
 
---
+[1] https://lore.kernel.org/netdev/d1f02ab923c0464fa73cafa75a21943d@tipi-net.de/
 
-selftests: drv-net: psp: factor out psp connection setup
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Nicolai Buchwitz (2):
+      net: macb: credit unsent frames to BQL in macb_tx_error_task()
+      net: macb: take tx_ptr_lock in macb_tx_error_task()
 
-This commit moves the PSP connection setup and the assoc uapi calls in
-psp.py and psp_responder.c into helpers. Other tests that start with a key
-exchange can then reuse that sequence. It also makes run_session() close
-the data socket when conn_setup_psp() fails.
+ drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+---
+base-commit: 30c71476d842b094651bd7712f6c8ee8716147d0
+change-id: 20261107-nb-macb-tx-error-task-net-e8a553b4d138
 
-> The caller of conn_setup_psp() not handling errors was preexisting. Here
-> we are adding some more error paths, so we just handle errors by closing
-> the data sock to make the code a bit more robust.
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
 
-[Severity: Low]
-This isn't a bug, but is the "adding some more error paths" part still
-accurate for v3?
-
-Before this patch, conn_setup_psp() returned -1 in three cases:
-psp_rx_assoc() returning NULL, recv() returning < 0, and psp_tx_assoc()
-returning NULL.
-
-After the patch, it fails in the same three cases:
-
-    rx_assoc() returns -1 when rsp is NULL
-    conn_setup_psp() returns -1 when recv() returns < 0
-    tx_assoc() returns -1 when tsp is NULL
-
-The v3 changelog says the per-version key length table was replaced with
-the key length from the kernel's rx-assoc reply. That table lookup looks
-like the only new way this function could fail, so the sentence may be
-left over from v1/v2.
-
-The only behaviour change is in run_session():
-
-    if (conn_setup_psp(ys, opts, data_sock)) {
-        close(data_sock);
-        data_sock = -1;
-    }
-
-Could the commit message give the actual reason for that change? For
-example, the existing failures can leave a half set up data socket open.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106-psp-v3-0-a8dd38f5a727%40gmail.com
