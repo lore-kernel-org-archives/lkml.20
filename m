@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794036447;
-	b=qWKzOiiOIU9EvMir59MmtBThyMNkHQzFGaZtReEIUxOzQ1j/fkuWJJj9ZU+NIyrkERcL
-	 3FuVjESJjc7oC89fjcl7iwE3h0XVHof3ew+Qbq9WzFwEyW4KM7T5o6jwO0ozRbZsotK3C
-	 yNUDQ+HsIP3PMebY0rahc1V9eNAN+QG4DREZ9+vU3zswbgRSD9233sq48ZOeWtWk5LZ6J
-	 IUFSHMl180V4CSy3g0tQrVG4b/WwTcEgqAjMQhWzz+91o9nl9gJaHe+8DdpZmCxBQEVa7
-	 KagubGepfL48UNSfJBmfoidfn7MpVsZpgvEuDTv+P2Eb+ZcKcNvl8Bh0Tsboz1fDrOA==
+	t=1794036518;
+	b=YxdKnfU+RB6YyeHeA3FvjuIe1iXqtqypbxs/h32z06WixtbTyz3NFLZtFEwNWhu7BQFZ
+	 VP3haA1+/0sbmcdTpME/jegqDVfATpnLKQyHdte+wbTISKQojZMG7zer6Fjw2S8CL8tmr
+	 W9AQEoOtet8PtF23He4S3qeex36IjgPywHb8pfLS/FzsXObqWKGiHbZM/tT7YIowJ0zx6
+	 Z6DehuRpdcEmco3QbFJLRH9dDbdxjMKK9EusR+3D/RCnqACldfMganAdiMs8Ap/uhdsDT
+	 oE+cjo//jZdoN9JhWv/GLdFY+5hs5pfKHDKytSbNRemFA+WfBNhSHfXpF2hhh5YJ5dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036447;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036518;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VpkuHhPwzWbf6tDZsWXKj1gNOGLkMgtoPlDaCXACNQ8=;
-	b=Nan+gLv3Zxb6Fxk7/eBeMHMIcjJ038CDPbvCA132kh2QE+VMDQ3kBvq5cYqZZklPrYIj
-	 DsSjIwF2R9aCku0XjdXOx5myKoDWGuwg2uXphEBEGNH0x/n7LeBYZGDv8Cz8TvMumlUMl
-	 UbHMrezNsi3I5LJOUT2cobWBDQP3RZNlELb8WO1zX5NfEE+7wgospfb9776y/7eWQ2l+f
-	 9x5aMCTgsQsP9OA1MKwbAguIoqPGYP7OX91Tup3mnNS4IRlJOGoaUP8Rw7X5YqvBPKbRS
-	 yV5NDCm/HoUaee7tpllk5KW81txwAHKdIHM9/EDYnsMue6220PGbxsS8KVrRj5GZd7A==
+	bh=4meGpp5bM9W2KlfdPIeQIZ6PeWQUimuoG86VDalLWzY=;
+	b=45QWlsZ24MvtnPx8XUIWT3ZoYRl0offN3LvtYwpYJqfIKVcuh4CyfVJY5scIB4yC/hA4
+	 DIXtgpPBu9B552BJdF5xUK62o3y71AB2zPrFJU2Hb4BOVNF3E4wzLzNoVzfp92gtVuOKG
+	 uuuba2Eeg1HgeChTE3D/CgNyAUimQU9CGGAaHGKB/yJ1ILyoxUv4u7Su/rTqsfc/D+gVW
+	 BpBskWhadJ+7cJlLr5WHQ9u7zWwvrqK92fgT4WExHBFjEla7OPMS1AjgYyBO4o/utn99b
+	 y6HigOZ6DYUA1l4/nKX9CRmQ3Ags0g6b7dyOl89xjaOm+O7G91ofxcoMwmDCoatmRVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIqiDFLQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADHGPBzq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB086606A326;
-	Sat,  7 Nov 2026 07:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95FA606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:28:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIqiDFLQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4821F0089F;
-	Sat,  7 Nov 2026 07:27:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADHGPBzq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CAFB1F0089F;
+	Sat,  7 Nov 2026 07:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794036446;
-	bh=VpkuHhPwzWbf6tDZsWXKj1gNOGLkMgtoPlDaCXACNQ8=;
+	s=k20260515; t=1794036517;
+	bh=4meGpp5bM9W2KlfdPIeQIZ6PeWQUimuoG86VDalLWzY=;
 	h=From:To:Cc:Subject:Date;
-	b=dIqiDFLQCUnwW5qjLQ7JXyfU/EUcf7RkwYjqfL+uRAaS3YySu9pRwdD3KjB9s597A
-	 Z979d35StLZZEyZlbYNqW/4hzWp7EplV0I90z8mzD+UB4Eputa9uTEsWMGHqnp7BOE
-	 3Vqr0fehOVPuRHBsW8/Jilm9y7f0JRwaD+s8+jmyXG0NvMTREGP4UY9DhG5WgKV29H
-	 17a7OFQcbFkJpu+AIHmQ2xQsDaqQWHVyPkdx0Q0F4xb8QGvgkCIpdlmjSX9a/cfIRm
-	 c5WcPe/mpskEL+fTo5rEUd7lVJXrTgdoDDrntNcQgY0dDDypL6ibGxoAAW7M48SyQ/
-	 8W6VLDRFQzXEA==
+	b=ADHGPBzq1Bu7EA2ZwzWl7vo2h1riz92TljyGwx5IFXTpJfCbgr8i3PTPQehfFmKef
+	 jSb3ZXxqFtYBKSc1Z1zjk+vEb/aMjGGDVkLilVERL8wKye2Z8RXABU9I3qFLOdy1wY
+	 W236BK7EEkKPghJc+pIn49hSlieU1Ue+SARymHmbwEfVQ6uMC1mdPZuwbfLRUw5eLj
+	 pxpZgsSUZKK1t3TqbdopwXCvCRVO5oYkikX7GZ73E3fUdSDmr99exl/XIuk+CNcC5j
+	 LUel3poqS38OR+Li9c6dK1tq8LPVK265IdIdm9KEQE/k3HzV2OPiWoExkCR3CEtJbP
+	 9dpv58p6ns13g==
 From: Jisheng Zhang <jszhang@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Drobot <michael.drobot@garmin.com>
-Subject: [PATCH] spi: dw: configure CPOL/CPHA for each message before sending
-Date: Sat,  7 Nov 2026 15:07:18 +0800
-Message-ID: <20261107070718.17395-1-jszhang@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] riscv: Establish entry state for kernel software-check exceptions
+Date: Sat,  7 Nov 2026 15:08:27 +0800
+Message-ID: <20261107070827.17414-1-jszhang@kernel.org>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,67 +61,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Drobot <michael.drobot@garmin.com>
+The kernel-mode software-check exception path calls die() without
+performing the entry bookkeeping used by other kernel trap handlers.
+die() invokes diagnostics and notifiers which need the corresponding
+RCU and tracing state established.
 
-Configure CPOL and CPHA in CTRLR0 before starting the message sending
-procedure. Without this preconfiguration step CPOL and CPHA will be set
-in dw_spi_update_config(), which runs after CS is asserted when using
-GPIO-controlled CS. This causes framing errors on any SPI mode other
-than 0.
+Wrap the kernel fault handling with irqentry_nmi_enter() and
+irqentry_nmi_exit(), following the existing kernel trap paths.
 
-Signed-off-by: Michael Drobot <michael.drobot@garmin.com>
-Co-authored-by: Jisheng Zhang <jszhang@kernel.org>
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Assisted-by: LLM
 ---
- drivers/spi/spi-dw-core.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ arch/riscv/kernel/traps.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-index 90af2cc9e17d..2bd4ad0f13ad 100644
---- a/drivers/spi/spi-dw-core.c
-+++ b/drivers/spi/spi-dw-core.c
-@@ -507,6 +507,33 @@ static int dw_spi_poll_transfer(struct dw_spi *dws,
- 	return 0;
+diff --git a/arch/riscv/kernel/traps.c b/arch/riscv/kernel/traps.c
+index f8292adda099..f28e03f98af0 100644
+--- a/arch/riscv/kernel/traps.c
++++ b/arch/riscv/kernel/traps.c
+@@ -402,8 +402,11 @@ asmlinkage __visible __trap_section void do_trap_software_check(struct pt_regs *
+ 
+ 		irqentry_exit_to_user_mode(regs);
+ 	} else {
++		irqentry_state_t state = irqentry_nmi_enter(regs);
++
+ 		/* sw check exception coming from kernel is a bug in kernel */
+ 		die(regs, "Kernel BUG");
++		irqentry_nmi_exit(regs, state);
+ 	}
  }
  
-+static int dw_spi_prepare_message(struct spi_controller *ctlr,
-+				  struct spi_message *msg)
-+{
-+	struct dw_spi *dws = spi_controller_get_devdata(ctlr);
-+	struct spi_device *spi = msg->spi;
-+	struct dw_spi_cfg cfg = {
-+		.tmode = DW_SPI_CTRLR0_TMOD_TR,
-+		.dfs = spi->bits_per_word,
-+		.freq = spi->max_speed_hz,
-+		.spi_frf = DW_SPI_CTRLR0_SPI_FRF_STD_SPI,
-+	};
-+
-+	/*
-+	 * For GPIO CS case, set CPOL/CPHA before the SPI core asserts GPIO CS.
-+	 * transfer_one() will configure any per-transfer word size or speed
-+	 * overrides.
-+	 */
-+	if (spi_is_csgpiod(spi)) {
-+		dw_spi_enable_chip(dws, 0);
-+		dw_spi_update_config(dws, spi, &cfg, NULL);
-+		dw_spi_mask_intr(dws, 0xff);
-+		dw_spi_enable_chip(dws, 1);
-+	}
-+
-+	return 0;
-+}
-+
- static int dw_spi_transfer_one(struct spi_controller *ctlr,
- 			       struct spi_device *spi,
- 			       struct spi_transfer *transfer)
-@@ -1382,6 +1409,7 @@ int dw_spi_add_controller(struct device *dev, struct dw_spi *dws)
- 
- 	if (!target) {
- 		ctlr->use_gpio_descriptors = true;
-+		ctlr->prepare_message = dw_spi_prepare_message;
- 		ctlr->mode_bits |= SPI_LOOP;
- 		if (dws->set_cs)
- 			ctlr->set_cs = dws->set_cs;
 -- 
-2.53.0
+2.55.0
 
