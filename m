@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052975;
-	b=gBw0/4UeClckQrlVXT4P2bfj8IdeHlQ4GCo+lvARlV/fP6mhQuWK1S7SD1J9jWs5W/u2
-	 UkCzp0PN9Xyx4u0CDZLo6HDik62o9WJed9gUMPnG2fcoBcXktFMCD+rahv2/6V9VfEqMH
-	 0y98nskGggdG8mc7Ge6b8F8+y8mg/DlwkJHQJs+7tWWKTARDx2vbcVbaj3ltlvISZgogl
-	 eU9lFiJdhyMz0jOUoIU9NFEuhsjjZG+61669fQiNcz60hEG7nkejJwC0FxnTKb73hVCLC
-	 3lMyst82lkgqJENX6RcPOXmY5Du8Z4VBbWiak9pJreVh4FzfETu2afeC2KSS67VpDAA==
+	t=1794052974;
+	b=ULCIoKfs4qctFMFore18S0OxJjHgwIDZlQYM5GYWs2ky3+cMDFTHNlvRzEJPwWxoTc7l
+	 caJG/CHbw+nwzw58PYi+fWWp2XNdWb0TGZjzLILGq2wRM52wJQlRA10t4Ji08JTZyPvy7
+	 zn7WTdPeDHGynFevr/e2E5EU/1ZIbyDjzmAi+KjgfxHy9WqWZF6VKPsHKTS5kqtKNamtp
+	 cjvrwCMt3JRPqUIMiOatbXxtQSWVKChqbEq2ATQuXOHl6GVl9QPdNe6XXvIfD/Pjefqp+
+	 MoJK6drTzxkFZ0ffjqW2TKk8qzmC0A6Oa0FpcBIkxNnNZsA5oIqOiF7VPUUWoVmbgtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052974;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
 	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
-	bh=18Gqpg6a8mYPKsqaIFV8FR07ll7ZqbzcL3bZ/3yheIA=;
-	b=UamU5Y9RGIuSO6MkNKMKvzwcxiM8wvzcFimJPrbeUmaoGbbqtwXIHDgEqROYfOXWuIid
-	 MgL8qDO3547HluKJagwBZyjPebCQERqstVr28SbPwTHEIAJroH3gjNLwzBnDcnZ2dQKuL
-	 U5hTgoL9QW/f6dHI/Q3Yz18cxXPRsmGTFNWQ3qjQmt+GByVuvUbwkfSLI8wzJNdzw7R68
-	 g2bTjxk20yfvoDka6RShlH7IuPU3UQp4TNe8SJLye6HULtXEP6uqznrAqPSFsMPuPvwZL
-	 FptOk7bie7xozoUIzE/tDZWRNYMhk/Eg6Py0IVOGqy/wWM8G66yn2tOx0nZp78VjxPQ==
+	bh=ioFgQ7N49IOeu5G6JitL28+VWWaLMEydcZMY6/RaQSw=;
+	b=uwHwqzpNGqM3knRcSQ6gVAXfYR5D/h9Z/azcQtSN19dnBSmPh2pU09cRwkMBmI9u29sL
+	 5E5SOBYRNJxzjEZ6506gAnjDU+SxLaiGCgiUaUkoR8aVkASrDit8TSbno3eUGpllzePCQ
+	 jzpM+gR/V180pDlzJjWQ81euXvzIVwvRitzcOsY7cZj9McuxHQnzZ1wBoETgXopr6VV6e
+	 5OZ8BtEU8gOcKUdeECQr9nTZXvzT2dOz86JXGwEKnr6G/LRBBtewdu/FXYNXgkWNFB5pA
+	 uUmZRm/AkE5lv1DPdROQf2Hvig6IBLUJMb2AeuYQugt+QfP26cAoWlCKjtcLzXGKJ6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=N8sIin2H;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bzjaD7p1;
 	arc=none smtp.remote-ip=90.155.50.34
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD76606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD76606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F184606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F184606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=N8sIin2H
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bzjaD7p1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
 	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:In-Reply-To;
-	bh=18Gqpg6a8mYPKsqaIFV8FR07ll7ZqbzcL3bZ/3yheIA=; b=N8sIin2HnadvnEhQV5RQ+2V+QW
-	7yNHR9ndk/FjvhT7tRElCriR8i77ue6Pmce6HUvQaKksOakkdT/kEJk6cnXr+Bx2g5/Ru2ydLeMHo
-	jHeFW9mZ0KgSLZ41NaCE/hitL6QB8eFJMql/EyHr/K7yBvDYSZ6VccekGvZaC03jq6io/m7OL7xmA
-	jmMQZyfsx7Wl2CfGFwTSswMee+eRe4vJqk05yuVdt/x2xgfEz1jHexJbXDJM50WFkpnCdhzAif2tw
-	cId3jidg4PtRZlRpqF7sPt1yfTQOn4mDm3KYWNIsWTnNC0Y4og3nUHBNLMzvLJTsESKpEFHGHJYRb
-	MVIhtztw==;
+	bh=ioFgQ7N49IOeu5G6JitL28+VWWaLMEydcZMY6/RaQSw=; b=bzjaD7p1lUVzGFtu7gqHruovYI
+	T/ntbzYtIofCFytGu+1PbePXN3Lyo9f3KLM6H5YLGwiou1UVsRKiyX5O8VSpgSiibxaEoIZZ31/MM
+	3y5q1cg9MX/8VkF4+0NgWn5hAe49iI9fHfM7p1exd9Dg6h3T5F0K71aCIRsLtihIGoaXbpYBX1yai
+	eJMz4zA+FOv7S+2bpn0dQlaj/TPngQkECk5cZYL1/6P6eL5/TyYyPmT9HSxkgoVRFGH+AMLPXF31x
+	WKh2bjMbDKOcnr+Rp08mQOtblNqRhpxZA3VKdfz09KilLDU4WVftyIY5X0TUUnILvJZQpu44esxa1
+	UnyJvJvg==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
 	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPf8A-000000008y2-1ZK4;
-	Sat, 07 Nov 2026 12:02:46 +0000
+	id 1xPf8B-000000008zA-0Smg;
+	Sat, 07 Nov 2026 12:02:47 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
-	id 2D7AA302FFB; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
-Message-ID: <20261107120207.538879470@infradead.org>
+	id 4058A303310; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
+Message-ID: <20261107120208.040877914@infradead.org>
 User-Agent: quilt/0.68
-Date: Sat, 07 Nov 2026 12:59:20 +0100
+Date: Sat, 07 Nov 2026 12:59:24 +0100
 From: Peter Zijlstra <peterz@infradead.org>
 To: mingo@kernel.org
 Cc: peterz@infradead.org,
@@ -65,7 +65,7 @@ Cc: peterz@infradead.org,
  linux-kernel@vger.kernel.org,
  tj@kernel.org,
  ziqianlu@bytedance.com
-Subject: [PATCH v2 07/12] sched/core: Simplify/fix time updates
+Subject: [PATCH v2 11/12] sched/fair: Push sched_balance_newidle() unlock down
 References: <20261107115913.261163891@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,74 +78,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-Use __update_rq_clock() and the new update semantics instead of using
-convoluted logic to try and divinate if a clock needs updating.
+By pushing down the this_rq unlock, there are more cases where the lock isn't
+dropped.
+
+XXX needs numbers
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- kernel/sched/core.c |   25 ++++++-------------------
- 1 file changed, 6 insertions(+), 19 deletions(-)
+ kernel/sched/fair.c |   23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6302,7 +6302,6 @@ static struct task_struct *
- pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	__must_hold(__rq_lockp(rq))
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -13706,6 +13706,7 @@ static int sched_balance_rq(int this_cpu
+ 			struct sched_domain *sd, enum cpu_idle_type idle,
+ 			int *continue_balancing)
  {
--	bool core_clock_updated = (rq == rq->core);
- 	struct task_struct *next, *p, *max;
- 	const struct cpumask *smt_mask;
- 	int i, cpu, seq, occ = 0;
-@@ -6358,10 +6357,7 @@ pick_next_task(struct rq *rq, struct rq_
- 	/* reset state */
- 	rq->core->core_cookie = 0UL;
- 	if (rq->core->core_forceidle_count) {
--		if (!core_clock_updated) {
--			update_rq_clock(rq->core);
--			core_clock_updated = true;
--		}
-+		__update_rq_clock(rq->core);
- 		sched_core_account_forceidle(rq);
- 		/* reset after accounting force idle */
- 		rq->core->core_forceidle_start = 0;
-@@ -6390,14 +6386,11 @@ pick_next_task(struct rq *rq, struct rq_
- 	 * and there are no cookied tasks running on siblings.
- 	 */
- 	if (!need_sync) {
-+		__update_rq_clock(rq);
-+
- 		next = pick_task(rq, rf);
--		if (unlikely(next == RETRY_TASK)) {
--			/* rq lock may have been dropped, clocks invalidated */
--			core_clock_updated = false;
--			if (!(rq->clock_update_flags & RQCF_UPDATED))
--				update_rq_clock(rq);
-+		if (unlikely(next == RETRY_TASK))
- 			goto restart;
--		}
- 
- 		if (!next->core_cookie) {
- 			/*
-@@ -6436,18 +6429,12 @@ pick_next_task(struct rq *rq, struct rq_
- 		 * pick_next_task(). If the current cpu is not the core,
- 		 * the core may also have been updated above.
++	bool lock_rq = false, unlock_rq = idle == CPU_NEWLY_IDLE;
+ 	int ld_moved, cur_ld_moved, active_balance = 0;
+ 	struct sched_domain *sd_parent = sd->parent;
+ 	struct sched_group *group;
+@@ -13774,6 +13775,13 @@ static int sched_balance_rq(int this_cpu
  		 */
--		if (i != cpu && (rq_i != rq->core || !core_clock_updated))
--			update_rq_clock(rq_i);
-+		__update_rq_clock(rq_i);
+ 		env.loop_max  = min(sysctl_sched_nr_migrate, busiest->nr_running);
  
- 		p = pick_task(rq_i, rf);
- 		if (unlikely(seq != rq->core->core_task_seq ||
--			     WARN_ON_ONCE(p == RETRY_TASK))) {
--			/* rq lock may have been dropped, clocks invalidated */
--			core_clock_updated = false;
--			if (!(rq->clock_update_flags & RQCF_UPDATED))
--				update_rq_clock(rq);
-+			     WARN_ON_ONCE(p == RETRY_TASK)))
- 			goto restart;
--		}
++		if (unlock_rq) {
++			lockdep_assert_rq_held(this_rq);
++			raw_spin_rq_unlock(this_rq);
++			unlock_rq = false;
++			lock_rq = true;
++		}
++
+ more_balance:
+ 		rq_lock_irqsave(busiest, &rf);
+ 		update_rq_clock(busiest);
+@@ -13902,6 +13910,13 @@ static int sched_balance_rq(int this_cpu
+ 	if (!need_active_balance(&env))
+ 		goto out_unbalanced;
  
- 		rq_i->core_pick = p;
- 		rq_i->core_dl_server = rq_i->dl_server;
++	if (unlock_rq) {
++		lockdep_assert_rq_held(this_rq);
++		raw_spin_rq_unlock(this_rq);
++		unlock_rq = false;
++		lock_rq = true;
++	}
++
+ 	scoped_guard (raw_spin_rq_lock_irqsave, busiest) {
+ 		/*
+ 		 * Don't kick the active_load_balance_cpu_stop,
+@@ -13995,6 +14010,10 @@ static int sched_balance_rq(int this_cpu
+ out:
+ 	if (need_unlock)
+ 		atomic_set_release(&sched_balance_running, 0);
++	if (lock_rq) {
++		raw_spin_rq_lock(this_rq);
++		__release_ctx_lock(__rq_lockp(this_rq));
++	}
+ 
+ 	return ld_moved;
+ }
+@@ -14878,8 +14897,6 @@ static void sched_balance_newidle(struct
+ 	t0 = sched_clock_cpu(this_cpu);
+ 	__sched_balance_update_blocked_averages(this_rq);
+ 
+-	raw_spin_rq_unlock(this_rq);
+-
+ 	for_each_domain(this_cpu, sd) {
+ 		u64 domain_cost;
+ 
+@@ -14930,8 +14947,6 @@ static void sched_balance_newidle(struct
+ 			break;
+ 	}
+ 
+-	raw_spin_rq_lock(this_rq);
+-
+ 	if (curr_cost > this_rq->max_idle_balance_cost)
+ 		this_rq->max_idle_balance_cost = curr_cost;
+ 
 
 
