@@ -1,73 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063765;
-	b=swgTuf45OoFQ2NVA33k6unsBw7PVeoj3P+Yoa/l0XtuYQ4ciON0MYtpSy4vsigbEfFs/
-	 m1S5nFiUTPt8OUp4Eia8ZtMS7VibW06YyftpRLUY9q4LO0cP8yR2Tsy+5640kwW300y+V
-	 xF7bC3gPwWZfdvdULEezbN4kPx3i4DCnns+3I03jyelgTjOFGxlAJt8IlCm5g3uInT6KJ
-	 r2YaBNgWAfFkw+/C/9zKL6AqGk7uF/3FCdzRmOa/jVLkxOOs1KF+efF2CkLu0Fbb450Q3
-	 YgilV2bPJO/e+f0v2EY2h1XoiSo/IIvYeOmQ5wTGpF6yoJOY9uPY2uyNRnknUX0ZGvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063765;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-B4-Tracking:
-	 X-Change-Id:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2zB8oT3vAlhmw/RfQ7UUbXIgxoE0OWjR6BJ2E2Tm6xY=;
-	b=nPDWiPJCNDCNxiaowsnVCsuCwi3/553NiBj7PrdA1fdkruUhYPTzRmb0eF+4NnWWf7Bp
-	 ZC58CNq8yC9by1X/0TxZlwrFlQTWD0Z+pn0mxdhgbGeDARECbKfUJrLc4SVx6Xo4+C6iw
-	 s9qZ++fRmgl7+1UAsGljhIAxenno8YGVc3hEkeNAiXBDbukNC32O26mSnNrfYl4JLURyB
-	 pTEPYtVx2bnfW2d95raTIIvxdx2p0CL7yZ1qdnR2dnC7Q9eF0++6WsVSNWL5Bj/fKmuD0
-	 m1G1gyV2FAk+JcY5evXWbQzQqbYSYoTpKEJkP5XoNCHs36KjvHvtVrSWzIivHTAwn8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iW6Itpo1;
-	arc=none smtp.remote-ip=209.85.218.71
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794063835;
+	b=C++cHSXfJPH/ClvCfDo7Q+fKriq9kVSkOI4m/I5OptvDW9Csn5aPvrNPNNYh3HgJqKyK
+	 48H3PaXaLjwJ0b1y2eNNEe72ZacbvEtT2C5k4nK8FoOXBFFpH0NnqlJIyqLSwxjem0sUn
+	 64KvMlDuNGwTg55kp/K6fS3RjCWneZNb/5LHSQiCFnonr0dJzr4TkErLaqMxT2f6DSc1N
+	 I72PTIcYg19yd7H/XVB92masfndWbc/6adrbwnquzbBcSpkgq3OMUxcXECZ18d2iuClGS
+	 TcnHS1YjZqOxfr4IGIPxC9Uf9MyEhWjv+v/YqplKItm4pKSUPvD1PJNCZyJZuIsAo2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063835;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=x1kh08r2uui2Ftlhw63uWg19gjv8kG3d1EDC3HTcyJ8=;
+	b=JiFK00Cexz8yccFRXw++ApKZlkGrTqeK7kKUxrW8pCfYpIeR3XZEeGWyjbcaWMLyl4Ci
+	 lLI7sodY7RZ624c65ewUlDNSI7VIAiHNnkCRHCDXsweo5hAwFCc1k+8UBvKIj/vKQUXHB
+	 SFXUMGrVBjWMaA7AgF9gV7tAm+FFBD3lgCt9nC0zq66YzU+UZ4GqgB9OcA0jyUEigTQvU
+	 7x/2NQJ9UFiFshetiEbCcwkm36jt7950ZVF5WGSfvk03QKEO+f7g//EVKEGdjbdQfHrJS
+	 TLkEaxGb+0llKqR9hQosrkWh3JkcTg3rnhdZeiwjUWeXVIHpSbYpCIaudurbMYVHn+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="pdx0s/7V";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.45
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010045.outbound.protection.outlook.com [52.101.46.45])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564A86083638
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 564A86083638
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683B860A5BCC;
+	Sat,  7 Nov 2026 15:03:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 683B860A5BCC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iW6Itpo1
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c3f04e0e481so29503066b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:02:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794063764; x=1794668564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2zB8oT3vAlhmw/RfQ7UUbXIgxoE0OWjR6BJ2E2Tm6xY=;
-        b=iW6Itpo1jD69+l8iuDQrgKFwiSVgqol4rixw0igP9QasxeJH9+/BSEg9VkrvxQau0Z
-         ahUVqG5MHWWMXC/ysuH8Pz1gFZ6YpBKbrCLAfu5Ylc/QiavEkKuDPDsk2i3sVcAqzX1k
-         braGnhjYRXYit0gDwKzDxcXMuap383InSTdgF5W7Jc9qRS7Mz4rcIWEFgYJBXUYBdcA6
-         uXMkNioD4PCxntSxKPdumlY05J8diLoEy2rR4StZ+FKbVF26Feltkrgt0y1agNiM67UR
-         tIxkfPJ+M5BHXZ5mFX2E7tc6tGTBjy0aorCFaXdchIonIyUuqpwtA7hbfglXMoHCtD0g
-         uR2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794063764; x=1794668564;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2zB8oT3vAlhmw/RfQ7UUbXIgxoE0OWjR6BJ2E2Tm6xY=;
-        b=T/wCeW8N2Hydn+mIFxgiVR1PMFyCdHE/XZMObdv043TwNgyVQ5nXcpoqBcFOJZpNdY
-         KjJYWkj6g1rtzzTlnCD+w0DURL8cAI5bZKrSvZ76fqN8CfC3tQgYtRdlzbdlDjJkpI+O
-         2prJaTMFYFsawrgd2iBEjdoHbkungZsrVgAjcRpCmRU/nfPqzr1vv4jroM7BAn4ULcRW
-         XPkvYVafyBGfOO2Bc+UC8m4euWL6XZNEehLqLjGAiYINtZGiXLnbFVnWvvqqMy5ca/1V
-         7k+K1j7SDRtUgQ3JP240lRRBPfT8RbE6Jh9cqIYSHTSXB8gBzzhgSw/FlWUkBezycDvp
-         oshA==
-X-Gm-Message-State: APuU4Z8P1oMmSCmTO1+v7jTkU/IZba3wEJ9R3i3Syx+ZBjgXemiUHtod
-	c8D1UQfln1ia98ZGChBQTeSEL4MU7u7KL3tfS78a5K13q1Po5/ouATVbEsLZfvAQmFSMeOK7X8u
-	49A==
-X-Received: from ejdbc12.prod.google.com ([2002:a17:906:8f8c:b0:c3f:efc4:a116])
- (user=ptosi job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:c0a:b0:c33:dbe8:291c
- with SMTP id a640c23a62f3a-c4d35448ab9mr510217366b.20.1794063763383; Sat, 07
- Nov 2026 07:02:43 -0800 (PST)
-Date: Sat, 07 Nov 2026 16:02:36 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pdx0s/7V
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f/I5uYNSTWebE1cPEVoBFCGU1F2Anv5mZ5quI1MU75/m88+Qsxf3wscW2/4pjTdtJAslmWuQX6WLinNnpMmKXsAY3A2Y3vjjy6x9dQgU8q16IqGSFAsk3W+MpfQae+/+RGwBpHVaDrL4ZFmQqmjaLW4bFcRQJ7Tnnn5v1I4uU4VasVF0bIgSaitl4103JQJoiAwYoGqlMt1BxXD6k5XbZyGfkLsg8/t/YCnYPB9yqatNCsSDS9SRPt+iApeKmLjAcCFzqONGNo3f0XTKhGdHE6cXicNVAkqoRvOnivga31ZL7/jeiyupElBn8bpjKHV/oe5zYr5/z2qWYC/p2p6eRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x1kh08r2uui2Ftlhw63uWg19gjv8kG3d1EDC3HTcyJ8=;
+ b=Hk8af4NcGNIJM9wRFcyPi1ueqXKDGOH1nvHrKnayKlmLQSPmaRsNHC+jDnsO2jz2XfCj9gkRFRA+A1gJow4aIA14FAI3LlkFNA2fgN0CqhqMOUbHxfAzIw84FTe3FHE6BFvrJDEh0Ap86LsNXs6qskNr+dqokqE6igU2UqR8ZZ7Mmj7XChj7t78D8ugsWsdJp9RuTVabL1xM5pzoRylPTpD27knqqJ//gfVDSuxzBq3a71q5Mid1bR36Hc7DLpRIJSY8ICnvH0L4xQ7OuHthEDZ92s+XxxyK8P8DMrwrsqyEcIbF2ghNzjaLhNLNBtiWMSkvrsFObMrILsFaR2d24Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x1kh08r2uui2Ftlhw63uWg19gjv8kG3d1EDC3HTcyJ8=;
+ b=pdx0s/7VaXBOQX22vO9XsL5L2aHywcgrNWvk8j9DGjQE5+F9uLxOCbu5KBX+9eDjDZqUJdJel/TXCAQZliJB1uEeak2nK5auGfqXx/o4JW2+XaFqItJCMCK0LgoL/whqGUybk9EetQOBzQKRBJB1XU97wCP8PJC+VfO5HeWAqaw=
+Received: from CY8PR12CA0034.namprd12.prod.outlook.com (2603:10b6:930:49::22)
+ by LV3PR12MB9440.namprd12.prod.outlook.com (2603:10b6:408:215::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 15:03:50 +0000
+Received: from CY5PEPF00000E81.namprd05.prod.outlook.com
+ (2603:10b6:930:49:cafe::6d) by CY8PR12CA0034.outlook.office365.com
+ (2603:10b6:930:49::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Sat, 7
+ Nov 2026 15:03:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY5PEPF00000E81.mail.protection.outlook.com (10.167.247.180) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 15:03:49 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 7 Nov
+ 2026 09:03:49 -0600
+Received: from xhdipdslab46.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Sat, 7 Nov 2026 09:03:45 -0600
+From: Abhijit Gangurde <abhijit.gangurde@amd.com>
+To: <jgg@ziepe.ca>, <leon@kernel.org>, <brett.creeley@amd.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>
+CC: <allen.hubbe@amd.com>, <eric.joyner@amd.com>, <nikhil.agarwal@amd.com>,
+	<linux-rdma@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Abhijit Gangurde <abhijit.gangurde@amd.com>
+Subject: [for-next 0/4] RDMA/ionic: add DMA MR and v2 atomic WQE
+Date: Sat, 7 Nov 2026 20:32:45 +0530
+Message-ID: <20261107150249.1576835-1-abhijit.gangurde@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,64 +108,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAIs972oC/yWMWwqAIBAArxL7naBCz6tEhG1rLkWFRgTS3ZP6m
- 4FhIgTyTAHaLIKniwPvWxKVZ4DObDMJnpKDlrpUSlYCHeFymBOdsLzSkNANfxqEwUZLrIsRK4K 0ODxZvr991z/PC6k5+81uAAAA
-X-Change-Id: 20261107-checkpatch-file_path_changes-ac920c85bc7e
-X-Mailer: b4 0.14.3
-Message-ID: <20261107-checkpatch-file_path_changes-v1-1-8b11814560d8@google.com>
-Subject: [PATCH] checkpatch: Fix bad FILE_PATH_CHANGES on headers
-From: "=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
-To: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, 
-	"=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PEPF00000E81:EE_|LV3PR12MB9440:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e6cb494-6dd9-48ca-301e-08df3ce0549b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|18002099003|10067099003|261026140227099003|11063799006|261026121527099003|261028144727099003|261021121427099003|56012099006|261021135927099003|261022105027099003|261021123027099003|261009223027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	dWkgs9lbGlJG4Nl7whxeQXNIrLi3xV6ShHe71zEgMaOOkGH/GalYoSxG0oa1wTEKrdt0MZk8Lje5HFXh91OZDMrCyR1JyUxxOVEr6uKHddLUg+134Eg+hZPT4bW9aRfTPME896QNNxVJJvk1IuBBDVT+aSb4PJcKKSNtmQQXsHg58Nu3To+hk99EUvL0SoFvTb5YPJ5g2GgOziDMC3ZKKvOlKTGxV2qfTAnEZQtaaF6SefCxccbTHP4N0C5hAetJ08Bsb7JEXVMTaQBFNE7oosZSMvVA9ehQ4C7h31lYoXiL83zsCf9jAND3INTJLp46WawYpcLfF48lGBoZNj92HXjdFTACfbxjdolUKi4C7cCryFg4I9oHBK+xmDy1ZlipSlcWUx8YQa/JA9f0vVh11cJgnaFGxizSb1WGsBpwctHawFlo0DZ/WNOcflpc4hdburmaT7/4NFT1XLENzg0DISxDmzsA+BWA5CmWp3oblHnTbnLDcfC30REBDQLhOzlzCse7xg8XCrmCXWGuTelKSw4rPxEbTHGJttQNxA4XY37DAy/vuQa63e+GsqAVxobc/I9KgS+du/vkQJ+T+6G5kjCNmEebjmSEAh3+lT/7SCnw2V8lH+wjzwqj76/De62I4QbjZGLhIYVfsHJ2T/6nK+rL0CKzutjKjl3lX74aloWz798aXA6Lmc4067w9nA2m3vVq8HdJ+psaqUM8yjyKNQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(261026140227099003)(11063799006)(261026121527099003)(261028144727099003)(261021121427099003)(56012099006)(261021135927099003)(261022105027099003)(261021123027099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	f7CMrJ/odn6+ofrgDLA66mXyryUGz14v4YTbr9ZXaieGNmGJiBR14KT9FgD/8HBArbTwdr8lz6tAwJzPqpg5bvwB7UuwUaG0qY2JDOVc2dwZwaVAlgel2gPDjTeIYB4peKbrnpgqfYWGT2yFt4nNW40+ZqV52g76t9I5Dlxc/qjYfKp7/GoNpoBzLx4eu91ISKb/a1HSwcqewE9tyoI8R2G0JCSGozY1iOoIOs1ok2k6mPj6WwHrGtAh6lFychpVX257Hb2ag3sFEAZ+1fj6Ujvr563mIRE2EjczWPWMI3e/Yi2FVhWXzU0BSXT0RDrN3Tpl28BbAT12liqojoPneFqAJa2z3jlnxFyd+yRGl/PvIk16p/UbsNhM/Lnn3imLgO2pTpGGoST27OBycNvn6ILbER77KV48k4P3UjbOtGsPbqH/mwQ859bZMHyFr2dq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 15:03:49.8807
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e6cb494-6dd9-48ca-301e-08df3ce0549b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY5PEPF00000E81.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9440
 
-The FILE_PATH_CHANGES warning ("added, moved or deleted file(s), does
-MAINTAINERS need updating?") added by commit 13f1937ef339 ("checkpatch:
-emit a warning on file add/move/delete") was guarded by !$in_commit_log
-so that commit message lines would not be mistaken for diffstat or diff
-header lines.
+Add a generic RDMA capability word to the LIF identity and use it
+to allocate a PD-scoped DMA memory region. Use the v2 atomic send
+WQE on RDMA version 2. Also fix the v1 atomic WQE so the operands
+are not overwritten by the common payload.
 
-However, it was still evaluated on the initial email header lines
-($in_header_lines =3D=3D 1) such that a title using the rename notation e.g=
-.
+Net changes pull request:
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
-    Subject: [PATCH] foo: rework bar_{get=3D>set}_baz()
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
-triggers a false-positive warning. Furthermore, that same (wrong) code
-path sets $is_patch prematurely.
+are available in the Git repository at:
 
-Instead, only test for FILE_PATH_CHANGES when !$in_header_lines.
+  https://github.com/abhijitG-xlnx/linux.git ionic-shared
 
-Fixes: 13f1937ef339 ("checkpatch: emit a warning on file add/move/delete")
-Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
----
- scripts/checkpatch.pl | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+for you to fetch changes up to e64b2ae81599ce9e17fab5e635b8fe22df09739b:
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index b8b64f720191..03e3e4b72cdd 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -3481,7 +3481,7 @@ sub process {
- 		}
-=20
- # Check for added, moved or deleted files
--		if (!$reported_maintainer_file && !$in_commit_log &&
-+		if (!$reported_maintainer_file && !$in_commit_log && !$in_header_lines &=
-&
- 		    ($line =3D~ /^(?:new|deleted) file mode\s*\d+\s*$/ ||
- 		     $line =3D~ /^rename (?:from|to) [\w\/\.\-]+\s*$/ ||
- 		     ($line =3D~ /\{\s*([\w\/\.\-]*)\s*\=3D\>\s*([\w\/\.\-]*)\s*\}/ &&
+  net: ionic: add an RDMA capability word to the LIF identity (2026-11-05 09:18:39 +0530)
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261107-checkpatch-file_path_changes-ac920c85bc7e
+Abhijit Gangurde (2):
+  net: ionic: add an RDMA capability word to the LIF identity
+  RDMA/ionic: preserve atomic operands in the send WQE
 
-Best regards,
---=20
-Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
+Gregor Dick (2):
+  RDMA/ionic: allocate a PD-scoped DMA MR
+  RDMA/ionic: use the v2 atomic send WQE layout
+
+ .../infiniband/hw/ionic/ionic_controlpath.c   | 38 +++++++++++++++++--
+ drivers/infiniband/hw/ionic/ionic_datapath.c  | 17 +++++++--
+ drivers/infiniband/hw/ionic/ionic_fw.h        | 31 +++++++++++++++
+ drivers/infiniband/hw/ionic/ionic_ibdev.h     |  1 -
+ drivers/infiniband/hw/ionic/ionic_lif_cfg.c   |  1 +
+ drivers/infiniband/hw/ionic/ionic_lif_cfg.h   |  1 +
+ .../net/ethernet/pensando/ionic/ionic_if.h    |  4 +-
+ 7 files changed, 83 insertions(+), 10 deletions(-)
+
+-- 
+2.43.0
 
