@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794044924;
-	b=dsvsnqV15Vho6x3EyxCg/EmHn+k9XCKuJCehGYbFzkSL/HnEGm49Kfn+XOacHeCq5964
-	 ivjQ/kd320ryCo27pw+Tn6MDwMCHOlFjPSBNrPbUzyD+OwhBJ0KIPvJmX2RI6M2JP0oCs
-	 mzcCgS9Okcx1yePNd4Jxlavrx4uR0onKLmzXF3LcITWtk7gdbnRA9obJ1lHsgTY/JX9In
-	 dBKBYrgT+Q9HwJZcnXcwnK/tni3+AIrbxxuyRpea9/qLys/Y70QypCze/Mgpvwa0w48AX
-	 HJmqacNXXCIRyO5xcdCJhOH77L+KGqU4QERUJkO91cr3d1j4b9txGSmaxi6RY+C45iw==
+	t=1794044944;
+	b=UquhFBfnxh4x3fhr2LmZ7TiT0unKNZ7iWV57rorlGpLcLgWoph2ZbjPv5oqdqYernbbL
+	 uPRz+k9ltrc5IBU2T0c4dlAsuwBJbS/MPwBkLAdm+FUcfU8PB0EMCSs6+ZZ/t1gdRv+3v
+	 MQFLSVkH1w1v9EHVtPXtz3sVEK8Z+CUhvR/Tq0sBD6wBlHnP5AG4g90nKt8RgoIxZ32r7
+	 gOce1+o6g/flV/ThoFXLgXoa8di2gc+yDQ5vFEcwmaxccuj7m7MUmivoTsvuT1jm+7r4W
+	 e8mO7M13wb+YhwjxHToYI60FZb+oi5zx5ts3vy4f7hwbJfM+Wamhu3TwqL9N8x3QsSA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794044924;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794044944;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
@@ -25,61 +25,61 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UEbG1O0NaslduNXaV0vzRaRXCJ31dlCff/6NhoZJlVo=;
-	b=vcpY1M/kflxEZ1SUvjRPI/lpU1J8BM+pOG+5PIYP38YNZxGZqjddfcFG4yDNsLm0Jp55
-	 yiYTPupmKIigjdDuyxSkFfPRx1vRmo0tohybINxeJrjWeFMC7eWWg4kzoMVT239a5g04E
-	 2LKdVZd/bDkO3Im22NeAHMSU8xsl0C25k+ZZT7yhd0ifP4NcZKD3UTPdIXfSUCX9zdRX0
-	 J7kKW7CVfefGjqw/dmzUcDAtzn9+w4Ac/NsnU0Iya3wpAVUV8DG39yAxQBaROoCciJ0w/
-	 ZHkbhR1ZgdbmT5eNdWmRtw0n1N/J0bJSdRGiRCWuobK2syZUIfE5d/PQCK/p4j7kztw==
+	bh=5xhP0P+76YUzuDOn7AUPOhUFfUaKG1gcTUhbT7wXpQA=;
+	b=P1eX2Qiwctf3vZplX7ov3zw8qXTVtMuieDuFsLbrkAEVGpG0Jb1UuNYh+vtS34R7IrYQ
+	 HBZ4bJFTWICNR6UVtBBWHGopIyiKv+SxL3tqAYXaYield46fJ80OmoINMSUorMrVNla07
+	 /DcESGbiUkXRNd9dhwmYp98vde2fNt5bcVc80ZBTfBPaKjOqrF+qeAQ1vZOmNtWXCl40/
+	 I53u5KwuVr4fanQEsjax5MmPMb2q7Su6zmdf7RsYe7uEDis1TqO+MoLGy5uMFB9j4i1kx
+	 nvBUpDIftwFUZDweqVARLKL5tqYJrL3h/7jo3eQpbLNAHjakcmyeNWhxuRGYZ2pY51Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FZ+U4GCv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.3
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011003.outbound.protection.outlook.com [40.93.194.3])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QvijMZSa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.20
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010020.outbound.protection.outlook.com [52.101.46.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCC0606A335;
-	Sat,  7 Nov 2026 09:48:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFCC0606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2B8606A326;
+	Sat,  7 Nov 2026 09:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B2B8606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FZ+U4GCv
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QvijMZSa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LGTV0b9oKizu+e2Egqpsf1X+IPNZBXa3I1OB/2y220hr0h9OzhT/dA6rzb7JlFgI80okkAS5nCeyiF2NrGC2h78ZSJ2Ii3pmZMCyPH1517cFDBOJJh8KgL7p0hapi3bYeAJIfCPQKb59u97tPeXnjvLlPbkPY0kFjOZHVd1dOpuPBnxRIMtgCI2NNboNvl36pVecHrDVdRg7nU8EWvdmScpvxQmft3IH/eQeGE/9EBFhiII1rydBq/U2MZakA5omrXeMz/DSclZoCLDoL1Hw5tEt0byEEUah3mjJzzxuh3HDRYOzUavGHeLEFWbEUorwyoxg4whWJ2MpU/tY4hGWpQ==
+ b=xXtKH0P5JrtEbb0ZC3zh6i1ngBA3oVZ2XymZmYsSNv86tvvxF9X5TxPHl/m6VpgHnQDYMOxq5UgzFPuGWR1y00F/ZB4sCrIlXoN88XqxgVKEJhRDCU22ZVU7wOhMgzEQrdceKP3tVhKg6MZgKS8HR283rRHUa6/AUWTYMSWnFpgDpARJTjJf/14HQO9vhWN6asPUhBcPjpAW8WzQbn7YYRA8zCQI8yEYTgdmsPcvbwH0IoDNKV2t7SmOgytcwtlsjf0ISUuYzIbXassxNluKmT+NHwJQZjCCHn2O2g+RKTX3rqywuFlJ8i86G/ANo5ORbdH694lGkwowWGLUNKzvtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UEbG1O0NaslduNXaV0vzRaRXCJ31dlCff/6NhoZJlVo=;
- b=UMFmmb89JzVQtofZwu9HaJ23hoJIZX1BjFTdb9BDY+UnjT695jYKM5KENgfNEOR5e4UVYr4jHE0n//6ab7Ka9w0fQXb+49geCMP1sHIL/7gHG6e7Yho2LVui9B303gUjUEHCRCzwAkQ60I+2WRtWEIkLV4vJd7AyMdMDFxXRBqOVeVvpBTFemm62W/mW1DVY+dUJjIJRjv/hfxEXvFrRMgxI7SOf4kOcLCHNB2hQiKZbrKfF6XvEA5brrgeS0ltrVaFqKmuHfAn2Px+oYgerXuh1+wayDcNDqppQNvo6jdGOe9ghSLi8gfVLq7N2pZkutNu/Y/diZIpDujkvv5ERZA==
+ bh=5xhP0P+76YUzuDOn7AUPOhUFfUaKG1gcTUhbT7wXpQA=;
+ b=jWIFQUT1VtBHZWiQwAc5zsKwNzwcV3kkYl3zCt6Ij/G8NJ0ckjpKUnLe9vCKgGEA7dhabikuhXVMxz5FgSaHdrd+dX358jFewe71JJ8iOCRCN7+42jWuVpEs3wtf25utim76Tszdg6jgDLhilb3smzi8GIleBn/gzFiOSkM1qb1nIUIVQmQDjoxtQyUcuYCoCajudX8IvaPj/SuEvxtHirDfCk1rzh+TIGJAz3y7rikDPcvoBw75DU+SiESDD2ucnjLtqBI+mDq7QQ7kL2JHBMz6XrN0tJ7s03QNz2kTHraNtfkKBH+we8pXtDPCEfdziaxdiXASIIp8416w0juj2w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UEbG1O0NaslduNXaV0vzRaRXCJ31dlCff/6NhoZJlVo=;
- b=FZ+U4GCvRYsm9U8s69MHr2+guFVUrXLd9wOSNQK11GOt93y4KsJuC7/0DAcBaRzNElqIoOaMqxe7qDz/lil07otES9Eitu6ymV+yc6Rg/ByLP0L6U/ECHOOjHPJXn+1c8F1RWJYlkKVKe9dzZ7zyxdTlBOF4ACDgKiSV6o2pPjWYO50MTKoxzXoLpgp3tvT1BDfJeAlDwUBqZyw77GnZNIV3u/XvPHWIU2q559bcWhDotDmFOffwMvZ04oZZgC7cD6ySA3l0O02lNpOR3cdt2tcwwQEt/hpwLZCkmlSNSqBQm/CpPuvQS5q+NzhYSTXChArgWor0j7q9i9nImkkuNw==
+ bh=5xhP0P+76YUzuDOn7AUPOhUFfUaKG1gcTUhbT7wXpQA=;
+ b=QvijMZSaoS/SUcP6l2MkDLAdyLYIobok3VZ02sbSjcNYa04cdO9B9z03GH0iGWls0BvF9c968vqhHFGGVLl/4Bwt4ivsvzx3wt+yh46UBLAW9JrxUJFgaoAdQpqh252Q5rfzyyiJg5//mAZOjJDKBNdEU+FfXnweKr/WCOKVIAW2JgzbbpUrOXkadxq0TNr8ukK3zZeb4RqRT8qmJDob8lh5KYIKo0nbffW6ex8UOUooTrRphp78wcu7V2MhujgQkOicQQ1aYNAhHgusP8dlVRbpz3IOq091LQEVsWccK0c53ZNI4mQnbiXbLIl80uQJ9Z1qASbRGNafU6z+YLSqJg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
  by DS0PR12MB8269.namprd12.prod.outlook.com (2603:10b6:8:fd::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 09:48:38 +0000
+ 2026 09:49:01 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
- 09:48:38 +0000
+ 09:49:01 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Sat, 07 Nov 2026 18:48:02 +0900
-Subject: [PATCH v2 06/12] rust: io: register: implement Copy and Clone for
- RegisterArrayLoc
+Date: Sat, 07 Nov 2026 18:48:08 +0900
+Subject: [PATCH v2 12/12] gpu: nova-core: falcon: program the FBIF_TRANSCFG
+ register in dma_wr
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-r000-fw-v2-6-fb37cc5b20cd@nvidia.com>
+Message-Id: <20261107-r000-fw-v2-12-fb37cc5b20cd@nvidia.com>
 References: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
 In-Reply-To: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -88,11 +88,10 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
  Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
  nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, Gary Guo <gary@garyguo.net>
+ linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0221.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c5::7) To MW4PR12MB6873.namprd12.prod.outlook.com
+X-ClientProxiedBy: OS0P286CA0084.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:b0::17) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -105,102 +104,134 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS0PR12MB8269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 179cc065-95ab-4146-3042-08df3cb44c6c
+X-MS-Office365-Filtering-Correlation-Id: 93145413-9726-4034-fadc-08df3cb459d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|23010399003|18002099003|22082099003|10067099003|261022105027099003|11063799006|261026140227099003|261028144727099003|261102123227099003|56012099006|261021121427099003|261009223027099003;
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|23010399003|18002099003|22082099003|10067099003|11063799006|261026121527099003|261102123227099003|261021123027099003|56012099006|261021121427099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	i3iFcCrrKxmoMKrsvS22RBEoD+SRtCR5x3M8q7C/WS4nqNsRaoitkTssZLUdU5+xIZ9ffSCquz4HD8+UYmue5ZGAWEuqt7AribUs/caTCgMsCWCu237Asa299etuYlFjmoVhiUDXaWaXG7WyWcgNtvCbQaErryrQlEMJH6K/fBQ3MEkpUl5dueCrXPIOMSeFLTf1HMBagEqeMA6vAOaCwmzV7Poq/IYKXk/BxWkNQKubAI+zLt+sKT0aU/UyUxPzBWhpCP7UUO39aqVL9jrN+1NRAiPGakpav/HRzEic/4/s6al2PfpDFTPYJCA6W3WTXRcstbd7pTtSt4vqJ41a1n+B1KfParUaJtOBfr6MN1GtAhBTbnAkSF61g+6wlz1EWUtJoDnkaRsoJg7xn5U+BH4NI1HFssTMUmpJavsMaNadvfb1Ya5u/MPnfEJabtY4nW0+Qrj2wZVikszBUo8MizDgQ5zBR5nZs5erjdzSx9JqpVbgHkFQEurUHDjc+O0buR4zA6fO6RfynDV2XvGg2M3AnV3Dih16Z2wytOPVsvdmwLHJd6UjDfZYhEo0pdpJ17A+uO5GSfnfs9WkwTdSC38aF2XKzqVwBXbpP2TKhyhaQ+yN0zYzNbYHYEwb6bMox/BrWBuBDyvj71LkBZ7wLjy7Ug6UrrsLrxWyizsQP1g=
+	hIIN267aFRuQSG6hLqFDxLQySgmyJrqv1nUoxi1Xry4YIpbGMxa2w1cD2yC21HfadCIbP45HZCc27I37AA79EkvHkd5EGTYe7mAlsu4buj21K4Gp68BB5M6eLN5qOe9zn8k/HCHDwB6FM5C64UXZo3+elgdPr3SV95tr6vHy3NWQ1xEUcHrdZ1vkNmyLR4rD1dwcjwEgeLQgDo03QpSb0IiGwNBKf6PqyC/mXkRni+Q61NzGsHBdCcZr/KYiZ02QZDp4jI5y6UWffXjyEfosce4WDvaHPlpzm3IHKJ7Ln+7hFbAhrHxHCKbAFo0/pEQFCvxcblXjDEvCWMqf+f82wt47DulMk/Md8vw157ndIlh8Tly5E9Y93U1lf4J0UshcrmG2BHQiikGE0cL6N+bKPE4imRxSpIKlOyrXLRg4jC/QJ9gfNExaqVBY7jTvNXEoKq/QdxgITWZSYcK2egQnD6f83KgbX0n2yzFgtIQRF1xHIanKA6zsjcVUIQtg6P4jfJruTn+7E3CJ1miHqyzLsb+cZFz3YmOef+8b+fPOxUcxDIPT3WeLS0YgGHT5Awdkz9ECpPjvo0dNvv4ve3mjqrgw1ICkff12YAHtZ+FaWcUB2w4Ck1StUV0GJYUBe6AOKAqrBF7tI+Ov/pRbUg6Gn7Jb8kcZxS3W2j29aPvzMp0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(261022105027099003)(11063799006)(261026140227099003)(261028144727099003)(261102123227099003)(56012099006)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(11063799006)(261026121527099003)(261102123227099003)(261021123027099003)(56012099006)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NWptYTJzMTFZdGpzb0N6QlpRSUJnbkw1dHZIYk1BOHBMMDU5b3NmR1lFdnA5?=
- =?utf-8?B?NkFXK2JYc3VSUGl2S3paQm5raXVqR2wxaHFxNjRuemd1WCtFQlNteEFUQ2Mv?=
- =?utf-8?B?cHdlQ3ZYMmpGWTFvUUxvcWNXVzVaN0o1TmVGWUJibGNQdVlmRWc5SjNzMWps?=
- =?utf-8?B?cGI5cmlOL1B0NXlwQzkrOE1KVHVzQk80ZmJZUGZzRk15dzF1T3ZrbHF4dFo0?=
- =?utf-8?B?VEs3R2IySDZSVWVHcEticGlrZGp6eHQ3aDkrbHlnU3hteTlQdHFSMkpFS3pN?=
- =?utf-8?B?UjVJVHhDamczaUdoeEpETWh2QnE4NnJqekNXUW5TUGRrVVhLdzFRY2R1RUdY?=
- =?utf-8?B?THMzNmV6cGRsckdqSkRhVXhnLzlJbmlqeHk0U2hMdXpydmFzcUlLc3A1NWRW?=
- =?utf-8?B?UHMraDhvdG1GK1dycWRxZjJZU0pqWHliYVEvUXJ0ZTFiWVhBb0FoK1FoRXBv?=
- =?utf-8?B?YTJzejREZW5QdVhOcmQvREhQSnVaeXIvYm1RV0dZd3NncFJKY0xaREJxVzln?=
- =?utf-8?B?SnZxMHdjWjVvbmMzL3p3aC9WaXE2bGRMTVJMSzRJU0owQlh3OXVINlo5T0tp?=
- =?utf-8?B?bkllUHRNMW51QWtpOUhZTE8wOTBzTTl0a3FVZWp2V1B5ejVBQlpWK29QT3Jn?=
- =?utf-8?B?bDYrTytiRk5SZU9yOTVBWkRwYytFSWtZbnh2bmJlb3RicE1yRlBJQW82Z0hl?=
- =?utf-8?B?NE81RFVOR3A0QmkyaXhwUTlnd1RBZU02S0VKdHVobzhUQTZrZ1BOVFMyTVo3?=
- =?utf-8?B?cW1zeEJINUFoNlRYb3JEUXNzYUFJMFZTMkVuN1oxa3FFVm1MNUZsK1ptZVZX?=
- =?utf-8?B?MzZsZFNrZzM3NU96dWJEVjdpUGVCdy9qcndSc2RzVjVQSDRPcy9ZNlFvVUxF?=
- =?utf-8?B?bysvbXp6cjhJT1VINkljY0tjZXI2QUxyM21KazN0eVVVWTRMcXlsOGZRL3FH?=
- =?utf-8?B?RGlWV0tkZDh0NUJOMjVXN3NBU1ZjRzI1RnNkU0tobmg0TVJVQWZ5UThqbkhl?=
- =?utf-8?B?TGs1MjdibDdCM25wRElkNEQ5ODJTa2FSVFQxL043NU9ZL1NPSnhHZkF1YVJw?=
- =?utf-8?B?M0xRb2hsbmkraG1MZ1VFTW55K056NlZpcDBscS9mbjFyZUY0dDRhSkxqM3Iw?=
- =?utf-8?B?dEEzSnlYbVVzcG9WUmpqZkZkTXE5eG5GS01qZFhmSDhMeUc4ZW8rUW9JNnpH?=
- =?utf-8?B?NkU0cFh3UTYvNUJpa1R3REtISGJlbkFSZS8vdTJGaU1qdlpwN0diNWhXd2x0?=
- =?utf-8?B?TVVqR0EyVkZ5VzdDSGplN2M0NEZ0VVBxOXJTTjJMV1VFcDdVdFZGR003VDJq?=
- =?utf-8?B?akwydjVCZVBEdHJhOEJpd1dISVo5MkNCczFETGJkdmVJNFZ2SjFKKzZ4N1Fv?=
- =?utf-8?B?azZiVDI1U3Y2d2M5d2FReU5tSDVYVnF4OXBiRzFVQzlBaDhvTmZPNWV3NkZx?=
- =?utf-8?B?alp5UlhHK1dZRXd3RFVDOFk0aWhEQkowdkJKaTg5ZDBqQXp4RzArTXpnRTNG?=
- =?utf-8?B?VHBlUFAzRExvUHR5bVlSeE16WDBYNEUvaURtM3dQazZKbVEwMG1adWxGd1E5?=
- =?utf-8?B?anF5dUV3NGlpZ3E3MVRUdkpyWDYwN0d2YnBHV1ZmQ1VuQUw4ZDVoaWRzeS9q?=
- =?utf-8?B?anl6dis2R1hFWTN2YWtoUmRsOWVZTlZwVS9JVitIODVQQkFEbjMybGdPcC9F?=
- =?utf-8?B?S0xqYjhncWJSQkdsL04vbWRTcmNNVE9reDZ1eHFrRzZxMEIzL3ZGMGVnRHcy?=
- =?utf-8?B?OGs0VWhVanplRHIrbmRiclppWDRCTlp5a0dFR3NsMkVDSnRDR3N4TjhrSXhC?=
- =?utf-8?B?UU5EOHdSbnU1YWRHMEMweUZOUFRlTFpXQlMxaVkzcW1ZODlmWDdjRlpBdzRt?=
- =?utf-8?B?NXhQNU5JZnIyY1gvRUNNeWlWMDI5d0hhMXcvRDhMcEtEYkZubExGZnNIOWVF?=
- =?utf-8?B?WlVWMnhRMkxhbzBzVk9KQ1A3R253T0ROTWdPWFVtVUloMzNCUHVDOEFVS1ox?=
- =?utf-8?B?dWdjUXUxcGFNdVNyZFhjVTIrRXRCbmd3OWhBRjZ0ZTZBTy9wSHRrN3FOeHRn?=
- =?utf-8?B?a1VSMERCM2NDV2prbWV3ZzR5empiYjVhUXBYZm1kMHB4dGpyNmxKdnVadnBD?=
- =?utf-8?B?OUZxM1dWMkwycktmK241aUFUQ1VoaUpSblV6TGE1dWR4REFwbHdVWTdnMWJW?=
- =?utf-8?B?ckxNY211U3NyYVVXSUcyRFdJQ1cxZzhoSmNQRlRudkRSUWNhZ3c1aDhKWmRT?=
- =?utf-8?B?ai9ueXMxSlZ5cnE1Nk1BSFNkZUlKc3pMaWVrdm5HWllvYUdzeGk4V3FqR2tw?=
- =?utf-8?B?RHBVdlFHMjE4d3cxQ3FlZlQ2NUYvY3IvUGo2ZlNYK3RlbkF2djJVRXBWRDR3?=
- =?utf-8?Q?r4emjtQ4mYRjU+ScC5nZ0MyCIvZQ1BanrzbxTDudO9nLS?=
-X-MS-Exchange-AntiSpam-MessageData-1: dw7WK9mxijoVWg==
+	=?utf-8?B?MXZIZXJ0UjhZcGRhSHEyWW9TV2IySDR3WnlBUzFwcFBRTHJwYVpuMGZ6NWNV?=
+ =?utf-8?B?emsvUWkwSEtRTVJ3Qkk2dWloanlQV09icUh4VlBMUVU4NFBZbWtEK1QxTGI4?=
+ =?utf-8?B?SjRjMEcvR0tnWi9yMEI1RlhPdDRrUVl2NjVTRndZZy9kSW56RTVqNGJJQVJr?=
+ =?utf-8?B?ZGFkVWd1RS9lQU1jUGhyeTZNSkI3RUNZMnRqTVhVdW9DditDblNzS2hsY2Vr?=
+ =?utf-8?B?VjVXdU1FMzBhd2UvaHBqM0hwWTZpYW0vSWRFQzdlRmNNWjRoWS9oR0p5c1g4?=
+ =?utf-8?B?RVU4b1FObWNab1VXQTN4WU1wcld1OFBRYTQ5eTRYMXRLdG90N2dhd3AyRWFh?=
+ =?utf-8?B?VHo0cENSODdBTVlOeUNFQkQyaDVzQks3dDlKR3JkRFVWVDlLekpqbEZPSkUx?=
+ =?utf-8?B?Uy9KVVVJeWRQY1VoK0YwYnMyUTI1Ry91QmtnLzJVYjRQK2tpWUp0N1ZxVWxl?=
+ =?utf-8?B?Y2NzWDZqRnpzdVVaRy9ZVEpVUXFTR0dvTGV5Uy8zL0JLMGdKMWZQZy81SzYy?=
+ =?utf-8?B?QzE2VUNYVm1rZE5iNWRjM2EzME1VY3ZGN2hrRW1ST3FMbEVQV3BZTkNhQmxq?=
+ =?utf-8?B?TlpwQlE5eFplTUpKNlorS1lTYUhkbkY2V2QwTlJRTnY2OXlXbU1FL29PZENu?=
+ =?utf-8?B?dnhseFV4L2E1QXVPYTNNKzEyZllNRkpOQ2FHSFNTRnJwY2VCMzR1UTVERElD?=
+ =?utf-8?B?ZGJPaFkwbnJaTy9CT2VqOEZqTVF1eHdKdUlqUHB5R3RoN3VtK0w3TUdUdEMw?=
+ =?utf-8?B?VENMQ05pN09ib2tJamI2OVNMUW9HclR1cFRXTEw1ME1PbUtIRkFFQUlnSXhE?=
+ =?utf-8?B?U1dqdzJGYURxUU1QVTBIVm5pTzRseDkzRjkzWjV5cFY4Q0toK3lkbTQ1Wm5k?=
+ =?utf-8?B?eHFRQm82UERqdVV0TkNTNlJXWU16ZTFGdGw5L1VZajQ4QXFBMWpMd2RJZ1V1?=
+ =?utf-8?B?N2IrZFNrSlpPMHlJRVBucjdJUTZtR1pIdmQ2cS9TQVllb01VUW9qZXNIRXJ1?=
+ =?utf-8?B?VGIxREo0ckdheFJqcDZIQ1FTTk1hWk80eTRlenBsR2hZRk5ZZnIrY3N5WHNr?=
+ =?utf-8?B?QkFPc0JHYXI4YVNxYmNJL2tyOEFYSlRRMVpKckZ2MUU2Qk5GTTRqUlpFb2pZ?=
+ =?utf-8?B?N1oxRmx4T0FRc01PcnRaMk44OGFtb2swcWc5cU5VMHA0QkhVdFhjdmJ3dGtD?=
+ =?utf-8?B?dlo5TUJZNEpkMWtDdmIzdk4wdkZqVWswWWU3Vkx6VXg4Q0lCeUNabUE3UUtm?=
+ =?utf-8?B?U2ltS1lycStXbFRwY1hDK1c1eGJGVVlUUFB4TkxkWmh2b0NjbDlUalB5cWUx?=
+ =?utf-8?B?a2ZWVnVPU3hmT1ZoNzdiR2REVzhBSnVsdzEzWDBzb1FCL3RBQWlIeC9kdjk4?=
+ =?utf-8?B?c0Zwa2ZlYnk1U1RmNzh6dStnUmdXMjBSM01NalUrSUsyalJOZkRvbXdJQUEr?=
+ =?utf-8?B?bnUzZ3RJeVZoMnRrYzlaZVRYL1VoTHBQc25lOUJySkVUSVZjUnJsYW5NeEpK?=
+ =?utf-8?B?c0RiQi9mOC83aDRZWE1zeWhlVUV6dk9JejRKMlZEWkVpS0kyaitzMitYYmN4?=
+ =?utf-8?B?QnN5aG5oc3lzRFdWYUtXMFZtcFNieW5GaHdYNG9kVDdia0ZVWDJLUzNBVUZ1?=
+ =?utf-8?B?T0hpM21YV2ZFNGJ1Q3BwbHZ1S3lLOHVUYk5GOVZuT1N3VkMwOGRGVWJDQitw?=
+ =?utf-8?B?anFzTXhuMlBOak81MDdmK1ZpNDZmTGh1TkdRQTVqNmEyNTlkZU5xWVVUZE1p?=
+ =?utf-8?B?bnNTSFNDU0lSTnZEeTYzM29Oakx1bmRWN3BPZGdjTlhGalYrNEI2Z3JFcUJK?=
+ =?utf-8?B?UmRodWd5dEd1elpjdzE4cG45SSt0cGFwaktVYTlKUTgzM0Y0ZlM4V0F0L21M?=
+ =?utf-8?B?OWdYeUhDdzUxVjFhMHhoazBPRHJqS3ByMFBlRWZEOGlieEdiOG80MzJqOFR2?=
+ =?utf-8?B?aXYwYm9WSmdBUXZNZzY4MXIwMUNrb1EyMjF3Y3N6ZnpTUFFkRnRRT3cxbEh4?=
+ =?utf-8?B?aWNUZFN5Q1NnMEJ0QUh3NTlTNG9GLzZwL29zWDdYRXJNWGxOSTFSY212cVds?=
+ =?utf-8?B?UE9LaVFiWHFhVU1kS3E2eW5pZlJQczE3ZFZlZkpqZkwzMTN0V1Q2cTFxbWhY?=
+ =?utf-8?B?RzdMbnNrNlRQcEZXVUQrcWlVKzJ5QkJtRzdwTW9xc1J1eWFuM2lDbUVjeGp3?=
+ =?utf-8?B?ZTkvbjZYUTd5elFaK3FaU0hSRjNNeFUyK2VaRDRFUE9rSW9icU8wZG9UR1VI?=
+ =?utf-8?B?NFZSWUIxcWVOYTNXRWlycHpWY2hOTEZWcVc5MVVpZVA5TGh5cm13SXl0allv?=
+ =?utf-8?B?dFlQSVJ4QVdHejRRaTE3b2U5V3l4LzNnY2xTejBkOXRQeVJhcGtDOUFEUTh2?=
+ =?utf-8?Q?Y4hfQhqm4/EsMU84blCa8vsRc8L4J0hGne6st/dd++iFx?=
+X-MS-Exchange-AntiSpam-MessageData-1: S8gZNWoNjCGbHw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 179cc065-95ab-4146-3042-08df3cb44c6c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93145413-9726-4034-fadc-08df3cb459d0
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 09:48:38.4749
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 09:49:01.0529
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v1Pp/ja7JEj25VcgvptsiJmk7WIFrpWAWoLLBnD/cz09gStEJHBQGNaCNxW/ej+EtqJy4tOekgQ4fiNb80es+g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ssB6sG788uPekX/HiUKDk/urgSF5MO69wwjB+6BQLPz3yVOut63/VH2ef3E0acDsLB8Xm3dlk52m1GIUqMTl+A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8269
 
-Register array locations are small values that are cheap to copy, but
-obtaining one can fail. Making them implement `Copy` lets the same
-location be checked once and used for several accesses.
+`dma_wr` takes the source of the transfer as a parameter and can derive
+the value of the `FBIF_TRANSCFG` register from it. Do it so the caller
+does not need to program this register beforehand, which could leave the
+door open to bogus setups.
 
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Gary Guo <gary@garyguo.net>
+Suggested-by: Eliot Courtney <ecourtney@nvidia.com>
+Link: https://lore.kernel.org/all/DMNWO08EFJD8.D2G9X082FUKN@nvidia.com/
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- rust/kernel/io/register.rs | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/nova-core/falcon.rs | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index b6513fa0f412..9e31e68d02cd 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -194,6 +194,14 @@ pub fn try_new(idx: usize) -> Option<Self> {
-     }
- }
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index da860caac20b..76f49970cade 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -571,7 +571,7 @@ fn dma_wr(
+         //
+         // For untagged DMEM in a DMA object, the start offset is folded into the DMA base. For a
+         // framebuffer address, the DMA engine adds the start offset to the address.
+-        let (fb_offset, dma_base) = match src {
++        let (fb_offset, dma_base, fbif_target) = match src {
+             FalconDmaSource::Sysmem(dma_obj) => {
+                 let (fb_offset, base_offset) = match target_mem {
+                     FalconMem::ImemSecure
+@@ -592,9 +592,12 @@ fn dma_wr(
+                 (
+                     fb_offset,
+                     io_project!(dma_obj, [try: base_offset..dma_end]).dma_address(),
++                    FalconFbifTarget::CoherentSysmem,
+                 )
+             }
+-            FalconDmaSource::Framebuffer { base } => (load_offsets.src_start, base),
++            FalconDmaSource::Framebuffer { base } => {
++                (load_offsets.src_start, base, FalconFbifTarget::LocalFb)
++            }
+         };
  
-+impl<T: RegisterArray> Clone for RegisterArrayLoc<T> {
-+    fn clone(&self) -> Self {
-+        *self
-+    }
-+}
+         if dma_base % DmaAddress::from(DMA_LEN) > 0 {
+@@ -622,6 +625,12 @@ fn dma_wr(
+             .with_size(DmaTrfCmdSize::Size256B)
+             .with_falcon_mem(target_mem);
+ 
++        self.pfalcon
++            .update(regs::NV_PFALCON_FBIF_TRANSCFG::at(0), |v| {
++                v.with_target(fbif_target)
++                    .with_mem_type(FalconFbifMemType::Physical)
++            });
 +
-+impl<T: RegisterArray> Copy for RegisterArrayLoc<T> {}
-+
- impl<Base: ?Sized, T> IoLoc<Base, T> for RegisterArrayLoc<T>
- where
-     T: RegisterArray<Base = Base>,
+         for pos in (0..num_transfers).map(|i| i * DMA_LEN) {
+             // Perform a transfer of size `DMA_LEN`.
+             self.pfalcon.write_reg(
+@@ -671,11 +680,6 @@ fn dma_load<F: FalconFirmware<Target = E> + FalconDmaLoadable>(&self, fw: &F) ->
+         };
+ 
+         self.dma_reset();
+-        self.pfalcon
+-            .update(regs::NV_PFALCON_FBIF_TRANSCFG::at(0), |v| {
+-                v.with_target(FalconFbifTarget::CoherentSysmem)
+-                    .with_mem_type(FalconFbifMemType::Physical)
+-            });
+ 
+         self.dma_wr(
+             FalconDmaSource::Sysmem(&dma_obj),
 
 -- 
 2.56.0
