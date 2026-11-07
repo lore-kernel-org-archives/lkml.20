@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794058647;
-	b=G8tb3nfS78oOeca7rpNYCewwgT4XkikUnolK8mPEbuycG4/vpwcIGkmWotg5JZvugmFv
-	 W4E2fx746e6F8hrsmazduqHj5QWT0zdtkZpcCQruAsxgNdZbI41XMqLcssDLMgPRnz6Dn
-	 zYWVG7z4K1XqgUxXPerh4dKIGE6LcV3h43KjThWj1MHLdZlorA/dCeTSGBxIMe2bU1bCm
-	 jFp63bPSDxkAi4xTNTUJB44jl8Bco/V7culnJLmHgZ3v1BtAIMloDbnXdPAFD5OiijvQk
-	 lFv6TVIkay5GsMgyBiyUvKqdzlnrF+yarOSFZYWZQGyIWqZJL3zbrD6nIJaKlZeDjdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058647;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=T7ke22l8FEpPHn7frSDMvLxq7KE2Gbyw9fFh18HxQOQ=;
-	b=V+foAKmsijLgXwZ8SnLGoMrv/3/EQFVz3iPL0t9vUgKd2gvYxlQiX+v0q1JPT46oiSqt
-	 8RnxPFwz64S0HLVnTgm6RP300WhGB2ezjQgwRZiewwRqCrPVfXIf7VwZbiPVbBUrg07/6
-	 KiGFGz09yayT/Peo6yqhJUJmfLJuobhP/MddiR3hMAumOvD9jiTD1QNaRSqbapq68kite
-	 NOMxBo935UQFgplDgoNNREIt6IiF9MKK3UgyCxMQ2MUUmNFDOS9xT8iiYRx2ms3QsHwzT
-	 AC7uV9r5Tl06DyFu9DeGx7ku7QpT3rRTGlRnUSQvuYRiJk2RG0FUuiiRHHrPmdxOX7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FoqQSnbB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794058660;
+	b=X57PV9CWhcgxjb6yS9ItFYmyti6Wh9Vap98a58FhFfGreWh7DLcZljpTR89WWmS6pwDn
+	 M481c/gRqLfOkZ9kA9zIk+i9r2c6nqBR3BQzNQ14oGecPl7AqQqPR21zQhzRf4abZVy2P
+	 6nLEJc5nMTPBigyIiGV0e09Sf73Yba5LD9CYqMFOMrxs5z41pdmI9KBomdqVfXv5YSjZx
+	 fN56MjwInDhJZgtzmckw5sLZh6ooEvsbQr7w374jISGxZPlC2uz58N/vrlevpHZeknnVZ
+	 5cOfxL6NIxQsep3wDuaYFW0JgD38fQ4pfBc/aQlbP4co+C+g0vukIVj8H5rXGzCZezg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794058660;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=WGOZFTO/ozWAphYW481JfnwoSF60JjdF3oRN5BXBpkg=;
+	b=MoA2m5s6krtgsGZI1QF1wKMA7scCtfEgKxbA8jn22DfVl6zAFzZtxgT9Y8vCkmU9glTM
+	 2G0W6SwQrlpktn66e6xcuUfn2EpaVYQ7Fd4EEvrzAa90jfw+R79SpxXnqUT83EyIGdDIu
+	 4CZrhNQSAygw2Mc2H+JGdk6xVgE8xJO40q3hO+twPprVHktBqzEgwNwnhN6nQVWDZIzMc
+	 Ni34woJre6GThB1gGUH72dDoSCTcu+56lvZxxL5+5uB6wfCsC5mgnmiOKSr8H6RMQSf6d
+	 yPjUAxOqu3rW0+DfQNjeKeJvzmx+9m9W+lIojWHkD8MBMgpk06/NvIsDSrq9gT4sxgA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtWBKspQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9C7606A339
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:37:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E9C7606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C103606A326;
+	Sat,  7 Nov 2026 13:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FoqQSnbB
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53653e30353so22474711cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:37:26 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794058645; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I/OaGNmTRNmkrLTv6Ovi1I1s50Ozjw77fHdWKEEguzU8Z9m7hJAh4Sw/8p/6A7uS30
-         tPy0q9WlxYSbl8PYZUT814f7XzbjvST+NVKvl+qy7uS/s/HIIxkyao+WX10FW3/eOumR
-         YahM6BDLV44qkhUCnX9DF+bECivetqRk2/9Q79O6pY5UbiB1qJogrYBLR4sk7JZ3X2L7
-         Y695v2acLP+RzoBKz06JI6tsYqkEX9Et29RS4O6YO4NcRoe7P3yf5Gr+6icGXRgp4lIf
-         zeB6S/9/jsbE085D/RUSmej7u4r+BuKV186V1ENhQNK76ZXn1BIRspLfOQx0f0FMNV1s
-         a2jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T7ke22l8FEpPHn7frSDMvLxq7KE2Gbyw9fFh18HxQOQ=;
-        fh=PTxZKN43P82vZOJGgcP6BEUM08vHrCEg3lm8ZDNtMKU=;
-        b=KWqL599drbD7h0HZAUNwFZWpFVTfcnbbmlr8GaHS1XkPYXsGLX32K3c+jxkiSqGp8p
-         VUYM82kxqLnwqaf2MeLsoD4qAx+KHetbInbA4vQNukOmSmU/ABtqiC2CT4r6ga82lr/u
-         JxnTI0YPDI/mKE05iqqco9qxda1xOVFUjtBJYESHO7Er2MtYjnF7masqSVw79lojx71o
-         Zdw1IkcYIagcMzCJ6uSxzXl9IstVHzAooMmfFAuR+CQekkxjir8HeBQbt8RZtVEpmqHG
-         XS1xhftWegPHcTV3dSn2/ZSc5PUZpw34Nm0mPNWoo6KPYfbc/Nc0gfvmFARXTzd7NeoH
-         AIZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794058645; x=1794663445; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T7ke22l8FEpPHn7frSDMvLxq7KE2Gbyw9fFh18HxQOQ=;
-        b=FoqQSnbBa8VthoIWHOtQ41EiYx/xwNGfRMh+BBxTLn4lmSK6/xrXvQfzq7kCy2mYo/
-         wGZLvwqGuIUn46D6QOQ4y9+HXLBK/P5ilwjw7ewNHFHJuSt0pGngpw4hyCO4WoslgL0C
-         zxNY6UROzxzGpJXzG4NiMwVEIElsVUNcEtzrS2Aop8VesTe7OqF6WA4kxuNFsWE3neqW
-         7VkMbdIaMJ2KObBUvC2IW/y8cuMyXEl4M+qq0PQSQjqC5oRr1BwhZwIih7g581Hrv+xr
-         ndyMlEDzkdYqpAyit9trdsWyS+T0HAMKWRCOML41M0/qFY7Y2hndR0Q/50sZmkntfX4W
-         gp2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794058645; x=1794663445;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T7ke22l8FEpPHn7frSDMvLxq7KE2Gbyw9fFh18HxQOQ=;
-        b=Uo1ug8qvG8KnF1mIKuV9P5iZa4PoWfiaHF7V461s3ZxKe5iH+0rrDOWeqfJvZTQ3p+
-         NyKqXU7q+Nxg1b6YJ1dxngzwVDosyjx8wqnaC2udrAIP7rzs0hxOi1tLx36RJKOMTB9E
-         lkT3JiBXv2NDGl4SCDQ926hF3dqmEUyDoua5SHyRanCW6tLpQl6ZS7nuB8tS2juAP4Um
-         zxT6cAsm+QP2FR1R/i5lS7sA51FqeRuZJzFVpktLQDjpqI0Q8DebvJlF0+S76vOcQEM/
-         6sTcEDroxjnsF/CvIaezQtACLOU5ISWkdtB6d1QWRiCXTjG/9PLs4fkg8V5iwUYZSWTA
-         xwLg==
-X-Forwarded-Encrypted: i=1; AL+hErGqlYAqI2xkLutrR/5QCpje3ZDw5Z5xBjpb1v1r9slGK9lcyqzjB1afUmaxAf2nUdulXWoV7b1qvh4tb5Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9azPjQj71KxXSwY0qZ4/0Uy1bwdgFtxYkVkSfF5w8Fhz6zszRL
-	KrgaVgr6ITg6ONw0BzPRTxNfnmlhftkEvAYy9j8B3o1FljfsC2dXaHzUK2zr4W5sA+gHc5+gGHV
-	gQf0/AShvN8fQjtsrn/jIPD4gyTq/8hw=
-X-Gm-Gg: AYBFou3nSzVEDl38o+9liakId+fDFzwOtEet1fAF5jvrJ0/5Fsi0WklGxJaFNnpBCdi
-	oGNyk4cF0ahlvhZ5LLcF+xZ27p9LP/yc6ZCmIDl10ZdHOEE+6osngj5FNdIyELflMsncjOxYtEO
-	iz4HZPgX/X/wzVu0m5uU0rNf1doZn7unmkjUbEQUFUEUeRO7abK/vKrREQ4pgU7otWlO8vCA29E
-	FEeDORNbWD11VRx8B7kGyqGLqwNDMOqLkMYEC+w8eYNFCLFG2ues2mYnGVvSwz3AiA9IdJdtm9K
-	ZG3XuJWMaROHbxB0XWeW6/FKmO3L3XQEDQBc7d2f5PM2jhM9WwOZfn/7PWR8qBd+Cp1P/zIWAzN
-	l2axA96Fl4w9TFPXqzZsxcvK6NORARqrKnewaVlLLxXd7kchlDry63qvQnGUO
-X-Received: by 2002:a05:622a:34c:b0:536:76ef:589b with SMTP id
- d75a77b69052e-54e1496c3a7mr83174021cf.39.1794058645485; Sat, 07 Nov 2026
- 05:37:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtWBKspQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D201F0089F;
+	Sat,  7 Nov 2026 13:37:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794058659;
+	bh=WGOZFTO/ozWAphYW481JfnwoSF60JjdF3oRN5BXBpkg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RtWBKspQQ7drbCGcC+uY9AWdatWOlAWYHXFTTXlekpyEV+rq2yarUxXkw5Y540S6R
+	 0hPgrcgLZdN9CHk8F5JSDMy9k1nUQ0oSGPz/qKbK0ZyikIntK2BiuOt5LVYQnksh2G
+	 cwgfS8hcgzYz4glgjOPxAhWtg+JRymykUdyNu3SNF1LeIo/JEzxAUWfCwC3TQShMfJ
+	 7rfYdvZ/PcKsPM9Jg0SDrrvU6jGF3bSC1c6gjMIrLQouHIdC5Mk23lZsSbejrDRjez
+	 PsEKrStiDvSa7h2uRy+zAw+wqwSiCXMLeoYwaxk7Wypadv302qXqHsFZHcy+8ktazp
+	 /ruOG4EFNecRw==
+From: Niklas Cassel <cassel@kernel.org>
+To: dlemoal@kernel.org,
+	Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: Niklas Cassel <cassel@kernel.org>,
+	linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] ata: libata-scsi: reject data-in commands with a data-out buffer
+Date: Sat,  7 Nov 2026 14:37:31 +0100
+Message-ID: <179405862389.952030.5756129776149980701.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104130638.37882-1-zhaogongyi@bytedance.com>
+References: <20261104130638.37882-1-zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,93 +61,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1778477179.git.caoruide123@gmail.com> <849fb1fdecd1cc241fd5b032602dbffa90f9dd93.1778477179.git.caoruide123@gmail.com>
- <20261031203726.2dca9645bd13ac9c18248380@linux-foundation.org> <20261106141755.5epzadks4mq4ea6e@offworld>
-In-Reply-To: <20261106141755.5epzadks4mq4ea6e@offworld>
-From: Yuan Tan <yuantan098@gmail.com>
-Date: Sat, 7 Nov 2026 21:37:14 +0800
-X-Gm-Features: AclHuK8J7thdYSmIIOj778kIq9z3MMRFRq-ZiNtet6mfjXHt4uphXWYqRQwWDgo
-Message-ID: <CAPuPA7JhD6RFPb4Xhd=q8PcdWM61RO3wgdpYxP2d_D3PDfhjAg@mail.gmail.com>
-Subject: Re: [PATCH 1/1] ipc: sem: fix used_sems overflow in newary()
-To: Davidlohr Bueso <dave@stgolabs.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Ren Wei <n05ec@lzu.edu.cn>, 
-	linux-kernel@vger.kernel.org, david@kernel.org, arnd@arndb.de, ljs@kernel.org, 
-	kees@kernel.org, schuster.simon@siemens-energy.com, yifanwucs@gmail.com, 
-	tomapufckgml@gmail.com, bird@lzu.edu.cn, caoruide123@gmail.com, 
-	enjou1224z@gmail.com, Manfred Spraul <manfred@colorfullife.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=890; i=cassel@kernel.org; h=from:subject:message-id; bh=q3UGElKh5EeyiFwK4d5MIyz5UoMlKAjPU+bBPGFgwv8=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLLea87eofExre9CxpE1opM+Jnzt8dFtaVXk2v+Jmf12Z fDNoD07O0pZGMS4GGTFFFl8f7jsL+52n3Jc8Y4NzBxWJpAhDFycAjCRsGcM//R6OEwuC6zxdX88 6aVJ9i5eKeF3bUe/ZKkwVGjmXRIKKGf4X/Vfo9pY7WaWSODOCMe7bnu81gYkHrPWSKhYY1q+nqm WEQA=
+X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 6, 2026 at 10:18=E2=80=AFPM Davidlohr Bueso <dave@stgolabs.net>=
- wrote:
->
-> On Sat, 31 Oct 2026, Andrew Morton wrote:
->
-> >> On Mon, 11 May 2026 18:42:53 +0800 Ren Wei <n05ec@lzu.edu.cn> wrote:
-> >
-> >Slight delay, sorry!
-> >
-> >> From: Ruide Cao <caoruide123@gmail.com>
-> >>
-> >> newary() checks namespace-wide semaphore usage before creating a new
-> >> array, but the current accounting uses a plain signed addition.
-> >>
-> >> If the accumulated semaphore count overflows, the limit check can fail
-> >> open and allow allocations past sc_semmns, breaking namespace semaphor=
-e
-> >> resource enforcement and potentially leading to resource exhaustion.
-> >>
-> >> Fix this by using check_add_overflow() before comparing the new total
-> >> against sc_semmns, and reject overflow the same way as a true limit
-> >> exceed.
-> >
-> >LLM review tells me
-> >
-> >: The fix looks correct. The existing writer lock covers the check and
-> >: the later used_sems increment, so that increment needs no further
-> >: change.
-> >
-> >and
-> >
-> >: Please qualify the changelog. Default SEMMNS and SEMMSL cannot trigger
-> >: this overflow. It requires raised limits and substantial existing
-> >: allocations: sem_alloc() separately bounds each array's size, so one
-> >: enormous request isn't sufficient to demonstrate a successful bypass.
-> >:
-> >: With sufficient memory, semget() can then succeed instead of returning
-> >: ENOSPC, exceed the namespace quota and wrap the semaphore usage report=
-ed
-> >: by SEM_INFO negative. Additional allocations can increase memory
-> >: pressure.
-> >
-> >So I propose this changelog.  Please check:
+On Wed, 04 Nov 2026 21:06:38 +0800, Zhao Gongyi wrote:
+> SG_IO can submit a data-in SCSI command with DMA_TO_DEVICE. The
+> scatterlist can then contain pages pinned without write access.
+> ata_scsi_rbuf_fill() writes simulated replies to that scatterlist;
+> in the reported case, the copy tried to write the shared zero page
+> and faulted in the kernel.
+> 
+> The same mismatch can affect SG_IO commands translated by libata.
+> ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers can modify
+> the receive buffer even if the drive aborts the command. For ATAPI,
+> the successful INQUIRY completion also rewrites the buffer in
+> atapi_fixup_inquiry().
+> 
+> [...]
 
-This patch is from quite a while ago. Sorry, we forgot to follow up on it.
+Applied to libata/linux.git (for-7.4-fixes), thanks!
 
-Should we send a v2 with the updated commit message? Or could you
-update the commit message when applying the patch?
+[1/1] ata: libata-scsi: reject data-in commands with a data-out buffer
+      https://git.kernel.org/libata/linux/c/a4845f07
 
-> >
-> >: newary() checks the namespace-wide semaphore limit using a signed
-> >: addition of used_sems and nsems. If that addition overflows, the
-> >: comparison can fail to reject a request which exceeds sc_semmns.
-> >:
-> >: The default semaphore limits cannot trigger this overflow. It requires
-> >: raised limits and substantial existing allocations. sem_alloc()
-> >: separately bounds each array's allocation size, so a single enormous
-> >: request is insufficient to demonstrate a successful quota bypass.
-> >:
-> >: With enough memory, semget() can succeed instead of returning ENOSPC,
-> >: allowing allocations beyond the namespace semaphore quota and increasi=
-ng
-> >: memory pressure. The wrapped used_sems count can also cause SEM_INFO t=
-o
-> >: report a negative semaphore usage count.
-> >:
-> >: Use check_add_overflow() before comparing the new total against
-> >: sc_semmns, rejecting overflow with ENOSPC. The existing writer lock
-> >: covers both the check and the later accounting update.
->
-> lgtm
->
-> Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+Kind regards,
+Niklas
