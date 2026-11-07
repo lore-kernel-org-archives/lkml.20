@@ -1,59 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080369;
-	b=ben2WDQRSloEh64Ezm//3mAdigreMJPm1PMYGJZ8HL/2OpuizG8bdAmy+w2P93rqwQHs
-	 WteVk0FXzBm6yuR3hiPBAQ4KILWjSi9aIxG5FodvuUv7dMVCEgZ5POS8EwO7QzWq5Lav3
-	 gIqbGzfhrVpjja9v3OZtRrbe7Xq854UMSccTC6af13tIk6qxIfQvPJDJeURaeARExqpHE
-	 duF9rulWjInN7ALmaQVhIcGwpQzRiqSoQLKc4n+Iicz5sdKcy9v5Ds5s54n+FPAn81+sO
-	 IJijfWqVk4js3RI8AaX/yqicz8lL6Hbfd1tkwpL3SqznU5ASVUg9oe5W2oFjUtNn3tg==
+	t=1794080461;
+	b=Rxaa98LNeHJubIa9LpXPHbty5s9AvM2TUB8MO/KwO2dwwvtmGTDFJW+NTGFhBpd3sQvB
+	 DWMsbiWRYmb85hUY0XbrWUz/zY6HfShUB2gb4bhvGstHjL8ELdI3PCjZVKg2WosW6ZxJN
+	 75ULXmQfK25HlrvkEOUQFES2reMdrhiQTRcy2YO8qyOczqs3gUsKiaXHtRFTsEooShrGi
+	 SgBaY55Mtad3MWmtPtqAWf+kK4HC+qwhEwypJx6hFL+GiLQP82UbZWPVnCpKgMjjbC664
+	 gAKEHDQDzzioGovppbJVXpcq2jvEwYlmj0rUA8pgfvDbo3D2X+RXumFaTPxW5ulrD3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080369;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=zGJS4a0bANFqpdBUr2HSdaiGkg8BLv8Y+Kfjy87REWE=;
-	b=J9TbnTxGWQ2oNO4zotKdDW10faH1AUKiQrdux7DeO7KJhGzqjVvg286KXKv80WMSnwZC
-	 25AstipD5FDY9/Jh6n5Agh/pFmA8fvp8DmQLsaIF8JMdBeOKk0AbW9JaoLtXsdLBRg0Kv
-	 /mxmTfGz+BtQSyx3UFs4XjJOJhrrnWeOjOsDJHbsQ6L42VRTsIH4bdjIoZ9X1J9uBnPfX
-	 ZaL1PPXX5YzNgmC9+ic+IjEEz9cnkTjp3zI4H0k6Hy2bK+GIFonaRY4UMhVBBEyczVVHu
-	 EREJ7Z2/a3wdoqiSXR3RhPx+VL4+6o3iiKOMd/08uh9owvn8pZZj2SrT0eeBZtB8NzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080461;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=bXzTwWLn0IE/6Sl+Ryk14mZHKGFkRdt/OR15MwQe5UE=;
+	b=bw/VyngiNGKuBXDKPTgFeMAsBF8xFmCB7sZaymJY2C7cPS9OvFb16mkIoezSz5k1CyXT
+	 nfxy/gmt+KEe/TE2ronmRES6qHVG+dYTdW5MkgKyNT9EtN5wC7fF9vqgqsYhsDYJKVIuR
+	 6oih+l6NBHPPNX9sX+ur4dcF1NgNuoFTCBgg+U6oUl4T29KR+LoGWAznq3r/qNMAvGfUz
+	 e9Q+V8ZpPMYvL7coloupC+iqcPeE3CEtVRAbhfHJXku5q5hFSLDP9RL5zYQDoPsnKJxng
+	 m1msG9kQIH/Qslm111qqPD5bs+hDK4x6fULyYvbIXYkvZeyHAibB7d5ZFTMh8NUOCAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWU1Z2E4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SYseYT+4;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C57606A333;
-	Sat,  7 Nov 2026 19:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDCB606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EDCB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWU1Z2E4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C67F1F0089F;
-	Sat,  7 Nov 2026 19:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794080369;
-	bh=zGJS4a0bANFqpdBUr2HSdaiGkg8BLv8Y+Kfjy87REWE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FWU1Z2E4EgVEuaiVIz9pIjEkAhL6Fd+Gel/ejfjDYlqcgZ0c3ERfmLg9/rnQTqNYd
-	 F1eea5ESuIDypJkD0CYymXNfvy7F+sbScsdU2MU4FvZK8U4muxeIroGHZJu6xUPVQ0
-	 YQXmlgUCaubczDXWLbvcqE/D5ZqO09G4sMbapCcJV4XsZj2z92Z4bkgiF48D+FOlUf
-	 RiBEbWq59VkaXyg2bAsZcHEIDUTjgMad5VyEB5MxW5fAL7VV3+iRFueiCGXfmT05fS
-	 5WBkNbPatB+tDfLxdeOhqPNTbeYHF9OU+U6LOTigovY3nClXJVdpKnhzJ0nhsVN0K8
-	 cnaw2RxSq/H6A==
-Subject:
- Re: [PATCH net-next 2/2] net: dsa: motorcomm: Add devlink info and resources
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Sat, 07 Nov 2026 19:39:28 +0000
-Message-ID: <179408036808.994134.2387568593420048929@kernel.org>
-In-Reply-To: <20261106184811.350700-3-mmyangfl@gmail.com>
-References: <20261106184811.350700-3-mmyangfl@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SYseYT+4
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id Pipnxi3Q3RiNxPmHbx9Zc2; Sat, 07 Nov 2026 19:41:00 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id PmHbxb8qMuJrPPmHbxqPXG; Sat, 07 Nov 2026 19:40:59 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6aef7ecb
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=NEAV23lmAAAA:8
+ a=H5YNcs6kZIdi0saECM8A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=bXzTwWLn0IE/6Sl+Ryk14mZHKGFkRdt/OR15MwQe5UE=; b=SYseYT+4mqbd
+	Chm+/r18/Nnd1vvmw3Oov2XbSh2vS4bLP/Rsa3X1yRS5axDmeUlV9X9uiu7KG0PVYr04SHW6LGWFJ
+	5P4HMmLpzjkoo7ubqnRfx1WAhyBuu5lDuIdJEe51TgPo0y+HDyKXy3qv0skkI8dx4wCTTbW5Q0Cc5
+	o/rd95BRegEETc7OZ4sZvWKWRVQWVQB1RX0BRHjaAYMNtZ+a14GXDUqF0Dm9HFg4gHAO7/y3UWAz1
+	M2WCDcr3Tcp/e5vClR7ePHjAqKK45/AMAsryX7kihH4eZkn9/cVPHeLRCK9NNrWpyQqE/Ez/W1mSC
+	fbAIepCEtpwhRl9YcVk8CA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:35394)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xPmHa-00000001qz0-3eAU;
+	Sun, 08 Nov 2026 01:10:58 +0530
+Message-ID: <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net>
+Date: Sat, 7 Nov 2026 11:40:57 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,395 +75,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller
+ voltage sensors
+To: Tomasz Bojanowski <tomasz@bojanowski.me>
+Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261107082821.8257-1-tomasz@bojanowski.me>
+ <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net>
+ <20261107161249.336512-1-tomasz@bojanowski.me>
+ <5e99fd86-d934-49c1-a867-02cc61ab1ecf@roeck-us.net>
+ <20261107181518.385136-1-tomasz@bojanowski.me>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261107181518.385136-1-tomasz@bojanowski.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xPmHa-00000001qz0-3eAU
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:35394
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfEwGe1Gbj0Gz4bVE37Nk9UROt8cp0weXQ0kpCDOD2snefNYGeNaNNXOj7TzoXxeGBNQQDpCoAkFMM+V4D7pEoOviZ6OluabSNsRhZ4mA+1xjHWYWQ1SM
+ a50vd8oQR86lyxTogg+TXXJSLxslRF76OfirrTJ11oz2bXB5yUjvrHcAY5dRIGVNguQAh0oxLWkNg5VewxtmVe160ghOj7pScFKIR2Y6E3JBTY+GLVll0uXR
+
+Hi Tomasz,
+
+On 11/7/26 10:15, Tomasz Bojanowski wrote:
+> Hi Guenter,
+> 
+> On 11/7/26 10:02, Guenter Roeck wrote:
+>> What am I missing ?
+> 
+> Sorry, my earlier description was not clear about how the request is
+> sent. From the vendor software, it looks like this:
+> 
+> - The request goes out as an output report with report ID 0xfa, not
+>    as a feature report. If I read usbhid_set_raw_report() correctly,
+>    it puts reportnum into buf[0], so with MSI_ML_SENSOR_REPORT_ID the
+>    controller would have received a feature report 0xf0 instead.
+> - The reply seems to come back as an input report on the interrupt
+>    endpoint, not through GET_REPORT. As long as the driver calls
+>    hid_hw_open(), it should show up in .raw_event().
+> 
+> Roughly like this (untested, I have none of these boards):
+> 
+>          buf[0] = 0xfa;
+>          buf[1] = 0xa0;
+>          buf[9] = 0x01;
+>          buf[10] = 0xfc;
+>          reinit_completion(&priv->done);
+>          ret = hid_hw_output_report(hdev, buf, 64);
+>          if (ret == -ENOSYS)
+>                  ret = hid_hw_raw_request(hdev, 0xfa, buf, 64,
+>                                           HID_OUTPUT_REPORT,
+>                                           HID_REQ_SET_REPORT);
+>          ...
+>          wait_for_completion_timeout(&priv->done, msecs_to_jiffies(500));
+> 
+> In .raw_event(), the reply could be accepted when data[0] == 0xfa,
+> data[2] == 0x01 and size == 64, followed by complete().
+> 
+> The report ID should stay a constant 0xfa: with 0x01, the same buffer
+> would be the bootloader command.
+> 
+Great, that works. I published a repository at
+https://github.com/groeck/mystic_light.git
+to make working on the code easier. The first two patches on top
+of yours rearrange the code to simplify adding support for new boards,
+and the last one adds support for the boards I own.
+
+Here is what I get:
+
+MAG B550M MORTAR MAX WIFI (MS-7C94):
+
+     msi_mystic_light-hid-3-4
+     Adapter: HID adapter
+     CPU VDDP:    1000.00 uV         <-- looks wrong
+     PROM Core:     1.04 V
+
+MAG B650 TOMAHAWK WIFI (MS-7D75):
+
+     msi_mystic_light-hid-3-5
+     Adapter: HID adapter
+     CPU 1P8:       1.81 V
+     CHIP Core:     1.06 V
+     VDD MISC:      1.10 V
+
+MAG B650M MORTAR WIFI (MS-7D76):
+
+     msi_mystic_light-hid-3-5
+     Adapter: HID adapter
+     CPU 1P8:       1.80 V
+     CHIP Core:     1.04 V
+     VDD MISC:      1.10 V
+
+7D75 and 7D76 seem ok, but 7C94 looks wrong. A raw dump of 7C94 report data shows:
+
+fa a0 01 00 00 00 00 00 00 01 fc 02 00 0e 04 f3 04 00 00 7d 7d 7d 00 00 00 00 00 00 00 00 00 00
+                                  ^^^^^ ^^^^^
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+Offset 11 does not seem to show a valid voltage. On the other side, offset 15
+would reflect a value that at least makes sense.
+
+Please let me know if the code still works for you.
+
+Thanks,
+Guenter
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 4 · Low: 4
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The devlink FDB resource tree breaks devlink's rule for parent
-  and child sizes.
-- [Medium] yt921x_devlink_occ_get_fdb() computes FDB occupancy as
-  LEARN_UCAST_CNT + LEARN_MCAST_CNT + priv->fdb_static_cnt.
-- [Medium] priv->fdb_static_cnt is changed only after the whole FDB
-  sequence reports success, so it can drift from the hardware when the…
-- [Medium] yt921x_dsa_setup() calls yt921x_chip_reset(), which writes
-  YT921X_RST_HW (chip.c:2258), described in a comment as 'almost same as…
-- [Low] The uAPI resource names "ucast" and "mcast" under /FDBs do not
-  describe what they report.
-- [Low] devlink.h declares `int yt921x_devlink_setup(struct yt921x_priv
-  *priv);` but includes only <net/dsa.h>.
-- [Low] devlink.c defines its own macro `#define to_yt921x_priv(_ds)
-  container_of_const(_ds, struct yt921x_priv, ds)` at line 11.
-- [Low] priv->fdb_static_cnt is accessed in two inconsistent ways.
-
---
-
-net: dsa: motorcomm: Add devlink info and resources
-
-This commit reports the ASIC model through devlink info. It also registers
-devlink resources for ACLs, FDB entries (with ucast, mcast and static
-children) and meters. FDB occupancy adds the hardware learn counters to a
-software count of static entries, which is updated in the FDB add, join
-and leave paths.
-
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index a7a9a74393045..c3c555cb8941c 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-
-[ ... ]
-
-> @@ -731,6 +732,7 @@ yt921x_fdb_add(struct yt921x_priv *priv, const unsigned char *addr, u16 vid,
->  	if (val & YT921X_FDB_RESULT_NOTFOUND)
->  		return -ENOSPC;
->  
-> +	priv->fdb_static_cnt++;
->  	return 0;
->  }
->  
-> @@ -761,18 +763,27 @@ yt921x_fdb_leave(struct yt921x_priv *priv, const unsigned char *addr,
->  	ctrl2 = val2 & ~YT921X_FDB_IO2_EGR_PORTS(ports_mask);
->  	if (ctrl2 == val2)
->  		return 0;
-> +
-> +	res = yt921x_reg_read(priv, YT921X_FDB_OUT1, &ctrl1);
-> +	if (res)
-> +		return res;
-> +
->  	if (!(ctrl2 & YT921X_FDB_IO2_EGR_PORTS_M)) {
->  		ctrl = YT921X_FDB_OP_OP_DEL | YT921X_FDB_OP_START;
->  		res = yt921x_reg_write(priv, YT921X_FDB_OP, ctrl);
->  		if (res)
->  			return res;
->  
-> -		return yt921x_fdb_wait(priv, &val);
-> -	}
-> +		res = yt921x_fdb_wait(priv, &val);
-> +		if (res)
-> +			return res;
->  
-> -	res = yt921x_reg_read(priv, YT921X_FDB_OUT1, &ctrl1);
-> -	if (res)
-> -		return res;
-> +		if ((ctrl1 & YT921X_FDB_IO1_STATUS_M) ==
-> +		    YT921X_FDB_IO1_STATUS_STATIC &&
-> +		    !WARN_ON(!priv->fdb_static_cnt))
-> +			priv->fdb_static_cnt--;
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Can fdb_static_cnt drift from the hardware table when an FDB command
-takes effect but a later step reports an error?
-
-In yt921x_fdb_add(), OP_ADD|START is written to YT921X_FDB_OP before
-yt921x_fdb_wait() runs. Two failures can happen after that write:
-
-  - the wait times out ("FDB probably stuck")
-  - the MDIO write was applied but still returned an error
-
-In either case the function returns before fdb_static_cnt++, but the
-entry may already be static in hardware. yt921x_fdb_join() has the same
-problem through yt921x_fdb_add_index_in12().
-
-If the same {addr, vid, port} is added again later, yt921x_fdb_join()
-sees STATUS_STATIC with identical ctrl1/ctrl2 and returns 0 without
-counting it. When the entry is finally removed, yt921x_fdb_leave()
-reaches this check:
-
-    if ((ctrl1 & YT921X_FDB_IO1_STATUS_M) ==
-        YT921X_FDB_IO1_STATUS_STATIC &&
-        !WARN_ON(!priv->fdb_static_cnt))
-
-If there are no other static entries, the WARN_ON fires.
-
-The opposite can happen here as well. If yt921x_fdb_wait() fails after the
-DEL has completed, the decrement is skipped. The count then stays too high
-for as long as the device exists, because nothing re-syncs the counter
-with the hardware table.
-
->  
->  	return yt921x_fdb_add_index_in12(priv, index, ctrl1, ctrl2);
->  }
-
-[ ... ]
-
-> @@ -2154,6 +2172,8 @@ static void yt921x_dsa_teardown(struct dsa_switch *ds)
->  
->  	yt921x_leds_remove(priv);
->  #endif
-> +
-> +	dsa_devlink_resources_unregister(ds);
->  }
-
-[Severity: Medium]
-Should fdb_static_cnt be reset somewhere in the setup or teardown path?
-
-yt921x_dsa_setup() calls yt921x_chip_reset(), which does:
-
-    /* Reset */
-    res = yt921x_reg_write(priv, YT921X_RST, YT921X_RST_HW);
-    ...
-    /* RST_HW is almost same as GPIO hard reset, so we need this delay. */
-
-That reset clears the hardware FDB, static entries included. However,
-fdb_static_cnt is only zeroed once, when priv is allocated with
-devm_kzalloc() at probe time.
-
-Setup can run again on the same priv if the DSA tree is torn down and set
-up again while this switch stays probed. Examples are another member of a
-multi-switch tree unbinding and rebinding, or a failed tree setup being
-retried. If the counter was non-zero at teardown, the re-registered
-"static" and "FDBs" resources would then count entries that no longer
-exist.
-
-Entries can still be present at teardown in two cases:
-
-  - entries installed through ndo_dflt_fdb_add() that upper layers never
-    remove; dsa_switch_release_ports() cleans these up, but it only runs
-    at switch removal
-  - entries left behind by the error-path drift described above
-
-When those addresses are deleted later, yt921x_fdb_leave() finds no
-hardware entry and returns early:
-
-    if (index >= YT921X_FDB_NUM)
-        return 0;
-
-So the inflated count is never corrected.
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/motorcomm/devlink.c b/drivers/net/dsa/motorcomm/devlink.c
-> new file mode 100644
-> index 0000000000000..cddc77a6fd111
-> --- /dev/null
-> +++ b/drivers/net/dsa/motorcomm/devlink.c
-> @@ -0,0 +1,208 @@
-
-[ ... ]
-
-> +#include "chip.h"
-> +#include "devlink.h"
-> +#include "smi.h"
-> +#include "tc.h"
-> +
-> +#define to_yt921x_priv(_ds) container_of_const(_ds, struct yt921x_priv, ds)
-
-[Severity: Low]
-This isn't a bug, but this macro duplicates dsa_to_yt921x_priv() in
-chip.h, which is already included here:
-
-    #define dsa_to_yt921x_priv(_ds) container_of_const(_ds, struct yt921x_priv, ds)
-
-Could yt921x_dsa_devlink_info_get() use the existing helper instead?
-
-[ ... ]
-
-> +static u64 yt921x_devlink_occ_get_fdb_static(void *ctx)
-> +{
-> +	struct yt921x_priv *priv = ctx;
-> +
-> +	return READ_ONCE(priv->fdb_static_cnt);
-> +}
-
-[Severity: Low]
-Is this read meant to be lockless? It is the only occ_get callback in
-this file that does not take priv->reg_lock.
-
-The writers in yt921x_fdb_add(), yt921x_fdb_leave() and yt921x_fdb_join()
-use plain ++/-- under reg_lock, without WRITE_ONCE(). Also,
-yt921x_devlink_occ_get_fdb() reads the same field plainly under reg_lock.
-
-This callback runs under devl_lock only, which does not exclude the FDB
-writers, so the READ_ONCE() here is paired with unmarked writes.
-
-Would it be simpler to take reg_lock like the other callbacks do, or else
-to use WRITE_ONCE() in every writer?
-
-> +
-> +static u64 yt921x_devlink_occ_get_fdb(void *ctx)
-> +{
-> +	struct yt921x_priv *priv = ctx;
-> +	u64 count = 0;
-> +	u32 val;
-> +	int res;
-> +
-> +	mutex_lock(&priv->reg_lock);
-> +
-> +	res = yt921x_reg_read(priv, YT921X_LEARN_UCAST_CNT, &val);
-> +	if (res)
-> +		goto end;
-> +	count += val;
-> +
-> +	res = yt921x_reg_read(priv, YT921X_LEARN_MCAST_CNT, &val);
-> +	if (res)
-> +		goto end;
-> +	count += val;
-> +
-> +	count += priv->fdb_static_cnt;
-
-[Severity: Medium]
-Can this sum count the same FDB entry twice?
-
-The total is LEARN_UCAST_CNT + LEARN_MCAST_CNT + fdb_static_cnt. That is
-only correct if neither hardware counter includes static entries that the
-CPU installed or converted.
-
-For multicast: SA learning cannot create multicast entries, and the
-driver does not configure hardware IGMP/MLD snooping. So every multicast
-entry comes from this path:
-
-  yt921x_dsa_port_mdb_add()->yt921x_fdb_join()->yt921x_fdb_add()
-
-That path writes STATUS_STATIC and does fdb_static_cnt++. If
-YT921X_LEARN_MCAST_CNT counts these entries, every MDB entry is counted
-twice in "FDBs". If it does not, the "mcast" resource always reads 0.
-
-For unicast: yt921x_fdb_join() rewrites an existing hardware-learned
-entry as static through an index-mode ADD, and then does:
-
-    if ((val1 & YT921X_FDB_IO1_STATUS_M) !=
-        YT921X_FDB_IO1_STATUS_STATIC)
-        priv->fdb_static_cnt++;
-
-Does YT921X_LEARN_UCAST_CNT drop by one when the CPU rewrites the entry,
-or only on age-out or flush? If only on age-out or flush, then a
-"bridge fdb add ... static" for a MAC that was already learned is counted
-under both ucast and static.
-
-The commit message describes these as hardware counters for "learned FDB
-entries". Nothing in the code shows how they treat entries the CPU wrote.
-The answer depends on hardware behaviour that can't be confirmed from the
-code.
-
-> +
-> +end:
-> +	mutex_unlock(&priv->reg_lock);
-
-[ ... ]
-
-> +static const struct yt921x_devlink_resource yt921x_devlink_resources[] = {
-
-[ ... ]
-
-> +	{
-> +		"FDBs", yt921x_devlink_occ_get_fdb,
-> +		YT921X_FDB_NUM,
-> +		YT921X_DEVLINK_RESOURCE_ID_FDB,
-> +		DEVLINK_RESOURCE_ID_PARENT_TOP,
-> +	},
-> +	{
-> +		"ucast", yt921x_devlink_occ_get_fdb_ucast,
-> +		YT921X_FDB_NUM,
-> +		YT921X_DEVLINK_RESOURCE_ID_FDB_UCAST,
-> +		YT921X_DEVLINK_RESOURCE_ID_FDB,
-> +	},
-
-[Severity: Low]
-Do the names "ucast" and "mcast" match what these resources report?
-
-yt921x_devlink_occ_get_fdb_ucast() and yt921x_devlink_occ_get_fdb_mcast()
-return only the hardware learn counters (YT921X_LEARN_UCAST_CNT and
-YT921X_LEARN_MCAST_CNT). Static entries from yt921x_dsa_port_fdb_add()
-and yt921x_dsa_port_mdb_add() only increment fdb_static_cnt. So a
-"bridge fdb add ... static" or an MDB entry never shows up under "ucast"
-or "mcast".
-
-These names become uAPI once they are released. Would names like
-"learned-ucast" and "learned-mcast" be clearer?
-
-> +	{
-> +		"mcast", yt921x_devlink_occ_get_fdb_mcast,
-> +		YT921X_FDB_NUM,
-> +		YT921X_DEVLINK_RESOURCE_ID_FDB_MCAST,
-> +		YT921X_DEVLINK_RESOURCE_ID_FDB,
-> +	},
-> +	{
-> +		"static", yt921x_devlink_occ_get_fdb_static,
-> +		YT921X_FDB_NUM,
-> +		YT921X_DEVLINK_RESOURCE_ID_FDB_STATIC,
-> +		YT921X_DEVLINK_RESOURCE_ID_FDB,
-> +	},
-
-[Severity: Medium]
-Does this hierarchy follow devlink's rule for parent and child sizes?
-
-"FDBs" is registered with YT921X_FDB_NUM entries. Each of its three
-children, "ucast", "mcast" and "static", is also registered with
-YT921X_FDB_NUM. devlink treats children as parts of the parent:
-
-net/devlink/resource.c:devlink_resource_validate_children() {
-    ...
-	list_for_each_entry(child_resource, &resource->resource_list, list)
-		parts_size += child_resource->size_new;
-
-	if (parts_size > resource->size_new)
-		size_valid = false;
-    ...
-}
-
-Registration does not catch this, because devl_resource_register() sets
-size_valid = true. However, devlink_nl_resource_set_doit() re-validates
-the parent:
-
-	resource->size_new = size;
-	devlink_resource_validate_children(resource);
-	if (resource->parent)
-		devlink_resource_validate_children(resource->parent);
-
-Since size_min == size_max, the only value a set can use is 4096. Even
-that no-op, "devlink resource set ... path /FDBs/ucast size 4096", leaves
-"FDBs" permanently reported with size_valid false, because
-3 * 4096 > 4096.
-
-The children also overlap. ucast and mcast split entries by address type,
-while static splits them by entry type, so a static unicast entry
-belongs to two siblings.
-
-Would it work better to register these counters as top-level resources?
-mv88e6xxx does this: its ATU_bin_* resources are registered with
-DEVLINK_RESOURCE_ID_PARENT_TOP, as siblings of "ATU". Another option is to
-give the children non-overlapping sizes that add up to the parent.
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/motorcomm/devlink.h b/drivers/net/dsa/motorcomm/devlink.h
-> new file mode 100644
-> index 0000000000000..e13fbe320bcaa
-> --- /dev/null
-> +++ b/drivers/net/dsa/motorcomm/devlink.h
-> @@ -0,0 +1,16 @@
-
-[ ... ]
-
-> +#include <net/dsa.h>
-> +
-> +int
-> +yt921x_dsa_devlink_info_get(struct dsa_switch *ds, struct devlink_info_req *req,
-> +			    struct netlink_ext_ack *extack);
-> +int yt921x_devlink_setup(struct yt921x_priv *priv);
-
-[Severity: Low]
-This isn't a bug, but devlink.h uses struct yt921x_priv without including
-chip.h or forward-declaring the struct. leds.h, mdio_bus.h and smi.h all
-have:
-
-    struct yt921x_priv;
-
-devlink.h only compiles because chip.c and devlink.c include chip.h
-first. Could a forward declaration be added so the header is
-self-contained?
-
-> +
-> +#endif
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106184811.350700-1-mmyangfl%40gmail.com
