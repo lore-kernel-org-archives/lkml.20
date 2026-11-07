@@ -1,53 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794059458;
-	b=knqy7OKXzflTWHwzSXT9KTkwydTVQ2xkzJ48/b/pmIy9xiOsWx+TKSCIU9YXnZAn2X+V
-	 U6Nn77YTWE7DogskB4f3wcUgc/U3aRZgxhneNL4HH3YHZTNdJHHb/2z2hBtf31xtt3N6I
-	 8o0eJN3FQLX7WOBqyo4jcbF5UKSwZT34dT2Vo0h10XjxGczu4a1qkivGZwGDtAPwiKXOJ
-	 j/B9UllRVeV/Bo/MPu8dowmezmR2gW/KWfbFU8u3zm5HPZ0kOi7BnPmg4yMRNPjoZgK5J
-	 +uJ0YwicnB5vSVYwHKoobuc/v46gfF2D4hfPQCWYZSO2I/ASzilHYh4eSWD+mo13oEw==
+	t=1794059467;
+	b=pmJRqMXY7RDjjgsAB0JkDy9OioLWA/mNERyiOUehvZ1kdAP0KB6JnQYkmyfPJjmGkgnz
+	 peoXnZl0v4mxHigeWiNefWzLeE3E2NZgr0wum6bRkxw48n+n/6ODL/nLWReQQsBj9oIaV
+	 O5/zetOluqVLvC3WobxNEYFhRJlQhU2OCLXT7BNpi+XEBXH0j4qpE5/EKov7KvafglCb6
+	 3nL3dCr5XCf73D6OWb6ZkLcKGUbcy9a1+4b5/6xB/L8RjFqVDLvzvLvBJW0CdubQBefmd
+	 XL9f3ieA3DdIc4eXvbkv32WCLN/4PR5CLBqL5CgCBVrW8JDtI0VV+KtjzIEXkfFHR4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794059458;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=yv1aNjLkbAl4fTpgBXhNWf1+G8wEj5mdyEs/bUbPwEI=;
-	b=1nvsIlBhKV2oMCWmMc4nqYbaCun0V5XnCE2py2z8a61FBlTGGHZt3jVpNhAps/Jzcxjv
-	 e+fmfE1hSU0QFx4nxHdNZrHaLnOciGSEc715hvSaZf8a5vIhnTorG+MWUdfRHmU2VBWUi
-	 0DZqzMCmmkVRzSyugD/h169nZdSwX29oIbSql2/Sip8hIWOpMpMPqoK++xSRVXM8g5Pn+
-	 b+GRdQtkj1dAcnjQ5nknoX8vZVd7uTSf5g9mdfGanAnhGa7/sQET9PrD7F1JZ1j1QM4NR
-	 TfaaRdf8W5LJ7Wdnz3D/WLTeYRr3/fjG80z7jSRVwhmvqFnuj4V5N7GpuKhooWtLSMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794059467;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=baZEbrhbhDEpq9QKIXgzBR/d0LlM+jrSsgwjy5hT7Ro=;
+	b=4uFkfKmXeUKdi62zLfAMHMubWbWT2uuo05DGlov2I4XCyb4Szz+aOSVCBMqZO0USy+B2
+	 Q6ndl2/UNd3brAu8cTbZBgxj711yCgGgoIfJS9ejlzKjtQKUnHRdUtOt5Zfcl9Y9cOg74
+	 CDOGgXr2rLGACUi2hGLyC5rzQsx2QAvLeXe/g4Zrhy9WyeXA9geIoppvsoLONKmVIKHn2
+	 TkKMlDasedwcvuAxlaglfG64yjlmm90baVEPh6CoLGv0qHkbbUHazojpdj4ObFahkVW6O
+	 xukgZahsBBbVMvCM6y3aSdUAfu476/8kfr6MEFBJk5xEDc3+NgpmZG93TjofOnraIcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wJLH6oS6;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D512A606A330;
-	Sat,  7 Nov 2026 13:50:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D512A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jMHWL4KG0z8XrrJ;
-	Sat, 07 Nov 2026 21:50:54 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6A7DonWa001651;
-	Sat, 7 Nov 2026 21:50:49 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 7 Nov 2026 21:50:51 +0800 (CST)
-X-Zmail-TransId: 2afb6aef2cbb3ac-e1dfc
-X-Mailer: Zmail v1.0
-Message-ID: <20261107215051120CrLjo_cGXWfdJxXk4ae8s@zte.com.cn>
-Date: Sat, 7 Nov 2026 21:50:51 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226DA606A330
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 226DA606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wJLH6oS6
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36dbde64409so2132835eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:51:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794059466; x=1794664266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=baZEbrhbhDEpq9QKIXgzBR/d0LlM+jrSsgwjy5hT7Ro=;
+        b=wJLH6oS68fDwntJFSRpU1QftFYs3cs0jiYpr9hgNApk09onHnln4zaaFwFGL2CyUWW
+         CtTdvdGvXG9DckgE9lEjz+/SzERZrEyy8H6Jmaj2djoPylcUtJteoUu1EScYV49dUYhq
+         vdR2es24+Pq9i7soVShUaeTYbLNSAqYDvtPrpf4DxH61wmsykcrvKQTsAU4Wteeq9cok
+         9AQBm8Y4GhErPnKQaJuAOHRhmhC4sUKavpLBhD71s3NOxdhidE4hp5u2P0n8brYtGvT6
+         o6Sgunw8o+3I1b8rq1mxAxiPNRhJVkkKPvOpVElR2l0q6UKdu+cy6fStLQ82X2XuZ5da
+         F8IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794059466; x=1794664266;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=baZEbrhbhDEpq9QKIXgzBR/d0LlM+jrSsgwjy5hT7Ro=;
+        b=Nbl8rP47fRtsOScIn9eGoEaGQSTWq8a0EK5wt/5fa36Mmfr/kMpe9zlQzD66Y5tVPy
+         tt2t0OhZ6vtVIeXLIJQ4T+sgjdmwd/5woHKNkz540nbEmupZ0b1Dui1xi5buXHQwnwaK
+         nsHedo74LJKbCIMJaRaAPwePEgoZSaCI+hxf53P6wWeZrdn0kX6lWTqUmcshwQczI7r9
+         j47a9mhHem9guxJvEYZqxLrAkHlvMtSl92XnapAMhh/TbcJ/RnuYudZqhyKH5YJf9+L8
+         u2/KGD1FzTrYMS/msNNsos97/sS/JsP+gIjFaCBdP1WXmjFv5CyNR3e/JyDSmLkh1ntg
+         5cAA==
+X-Forwarded-Encrypted: i=1; AL+hErFvGkQKMeJHjzkTFwOQdsfPYcyViVrArSUf6/Os1MFlYlt9RBw9RxW4NrS+QIaJZkLwYZ3DL21Uu3b7YPs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Z96BAtK/iriasnDL2jxwt6dsu/Z6t9rEf/VWSVq7aUWz7x+yR
+	j0dEukFTqolcSnG/V0TzeLiONEps/+gV0ttV9ECvfZUrX77xgmZxmNGL
+X-Gm-Gg: AYBFou3oWaPQ6f+NkxtgQuGW+53oD14W1KkPoE5JJFqx2SqY0A2hijVs3woCUKOccxA
+	y8Q4wrpyKz0G1jcLcXiw7ZQLRvlWm/fHRpzDLMsmPULo+AwuqKqcy9w25kS5eINGu1kXyR8FWH9
+	QQ0wA1Ax2G/o/o3zFAC4y/OAaL0Yz6QrcSKOcdRNTkAl7mLtV39wXrEzwdlepPWEWTUJocbPF0C
+	BxiHvohqXpiT5DOuiJke7RVyIF5fI1AOJN5xZQbIPp0fH44MkTCTFRB1Dxe5IbXkdOdi52vSL8G
+	Gw0e5i9ppkCpk15+lrBVREnK4HW1jmNjU9klyN3tkNGogNzHhMR+ky7qVF8+c4r/5OxgPEAzKgR
+	05Bp25yOv4b0F3PApMqLNYhnqkOl5aE3TpXpsah1MuQcgS+RvBVZ/O+1ljgfo08b3JdJeAr8sKu
+	BX940i866mRP0JrxSP6GqjkpuD9NvYaRxfxcXSoQGOif+Wu2wZid5d9ZV6SmBzDfX+fpPeUON4r
+	JaQH5JA1Wuvu9h0u3oBeRHmngDGNl8E4v0Wz47ifRUGcpNFQ3oILVk4Ti6IZPmn8namUp8yMNvK
+	63gEd8Y5oetlYuNV3Uv0hHlfDisiohkXQXtvhfp9SAKOlCGZZD6pAPJ6Qw==
+X-Received: by 2002:a05:7301:6486:b0:36e:97b4:1071 with SMTP id 5a478bee46e88-36f75b1f828mr7447409eec.14.1794059466185;
+        Sat, 07 Nov 2026 05:51:06 -0800 (PST)
+Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922c6c7sm21280820eec.10.2026.11.07.05.51.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 05:51:05 -0800 (PST)
+From: Wen Jiang <jiangwenxiaomi@gmail.com>
+To: akpm@linux-foundation.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	urezki@gmail.com,
+	linux-mm@kvack.org
+Cc: baohua@kernel.org,
+	dev.jain@arm.com,
+	ryan.roberts@arm.com,
+	anshuman.khandual@arm.com,
+	david@kernel.org,
+	rppt@kernel.org,
+	leo.yan@arm.com,
+	xueyuan.chen21@gmail.com,
+	chleroy@kernel.org,
+	maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	ajd@linux.ibm.com,
+	jiangwen6@xiaomi.com,
+	jiangwenxiaomi@gmail.com,
+	linux-arm-kernel@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v12 10/10] mm/vmalloc: align vm_area so vmap() can batch mappings
+Date: Sat,  7 Nov 2026 21:49:53 +0800
+Message-Id: <20261107134953.748622-11-jiangwenxiaomi@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261107134953.748622-1-jiangwenxiaomi@gmail.com>
+References: <20261107134953.748622-1-jiangwenxiaomi@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,95 +116,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
-        <pabeni@redhat.com>, <netdev@vger.kernel.org>
-Cc: <horms@kernel.org>, <josef@toxicpanda.com>, <willemb@google.com>,
-        <almasrymina@google.com>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBuZXQ6IHNrYnVmZjogZG9uJ3QgQlVHKCkgd2hlbiBza2JfY29weV9iaXRzKCkgZmFpbHMgaW4gX19wc2tiX3B1bGxfdGFpbA==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A7DonWa001651
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 07 Nov 2026 21:50:54 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEF2CBE.000/4jMHWL4KG0z8XrrJ
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 
-__pskb_pull_tail() BUG()s if skb_copy_bits() returns an error.
-skb_copy_bits() fails when the lengths do not add up, or when a
-frag_list child carries unreadable frags (devmem net_iov, commit
-65249feb6b3d ("net: add support for skbs with unreadable frags")).  The
-top-level check above does not cover frag_list children, and
-skb_gro_receive() links them without propagating skb->unreadable, so a
-mixed skb trips the BUG().
+Try to align the vmap virtual address to PMD_SHIFT or a
+larger PTE mapping size hinted by the architecture, so
+contiguous pages can be batch-mapped when setting PMD or
+PTE entries. We do not expect any significant overhead for
+this.
 
-Nothing has been committed at that point, so return NULL the way the
-rest of the function already handles failures, with a
-DEBUG_NET_WARN_ON_ONCE() for debug kernels.  skb_condense(), the one
-net/core caller that ignores the return, now checks it and keeps the
-original truesize when the pull fails, as the frags are still there.
+Add __get_vm_area_node_aligned_caller() as a wrapper over
+__get_vm_area_node() to simplify repeated calls with fixed
+arguments.
 
-The other direct callers that ignore the return do not build a
-frag_list child: xen-netfront drops the skb when the failed pull leaves
-nr_frags at MAX_SKB_FRAGS, and niu, mlx5 and ftmac100 pull at most what
-their own skb holds.  A length mismatch there is a driver bug, which
-the debug warning reports.
-
-This is the separate change that commit 279877d86c82 ("net: skbuff:
-don't BUG() when skb_copy_bits() fails in copy helpers") left for the
-callers; the audit is above.  No Fixes: tag and no stable marking: the
-mixed skb is an invariant violation, not a regression, and this is a
-net-next hardening in the BUG_ON() removal series.
-
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Tested-by: Leo Yan <leo.yan@arm.com>
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 ---
- net/core/skbuff.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ mm/vmalloc.c | 36 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
 
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest).  QEMU has no devmem
-(net_iov) backend, so a TEST-ONLY hook (applied to both kernels, not
-part of this patch) fabricates an skb whose frag_list child carries an
-unreadable frag, then calls the real __pskb_pull_tail() on it at
-late_initcall time: skb_copy_bits() recurses into the child, sees the
-unreadable frag and fails.  The hook then calls skb_condense() on the
-same skb, so the failed pull must not shrink truesize.
-
-  unpatched                             patched
-  kernel BUG at                         __pskb_pull_tail() returns NULL,
-  net/core/skbuff.c:2903                skb_condense() keeps truesize 960,
-                                        boot continues, no BUG
-
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 48f676411724..8a200252ef93 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -2900,8 +2900,11 @@ void *__pskb_pull_tail(struct sk_buff *skb, int delta)
- 			return NULL;
- 	}
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 5b898da0826ad..6a150b11261a3 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3365,6 +3365,14 @@ struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
+ 				  NUMA_NO_NODE, GFP_KERNEL, caller);
+ }
  
--	BUG_ON(skb_copy_bits(skb, skb_headlen(skb),
--			     skb_tail_pointer(skb), delta));
-+	if (unlikely(skb_copy_bits(skb, skb_headlen(skb),
-+				   skb_tail_pointer(skb), delta))) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
-+		return NULL;
++static struct vm_struct *__get_vm_area_node_aligned_caller(unsigned long size,
++		unsigned long align, unsigned long flags, const void *caller)
++{
++	return __get_vm_area_node(size, align, PAGE_SHIFT, flags,
++				  VMALLOC_START, VMALLOC_END,
++				  NUMA_NO_NODE, GFP_KERNEL, caller);
++}
++
+ /**
+  * find_vm_area - find a continuous kernel virtual area
+  * @addr:	  base address
+@@ -3696,6 +3704,30 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
+ 	return err;
+ }
+ 
++static struct vm_struct *vmap_get_aligned_vm_area(unsigned long size,
++		unsigned long flags, pgprot_t prot, const void *caller)
++{
++	struct vm_struct *vm_area;
++	unsigned int shift;
++
++	if (arch_vmap_pmd_supported(prot) && size >= PMD_SIZE) {
++		vm_area = __get_vm_area_node_aligned_caller(size, PMD_SIZE,
++				flags, caller);
++		if (vm_area)
++			return vm_area;
 +	}
++
++	shift = arch_vmap_pte_supported_shift(size);
++	if (shift > PAGE_SHIFT) {
++		vm_area = __get_vm_area_node_aligned_caller(size, 1UL << shift,
++				flags, caller);
++		if (vm_area)
++			return vm_area;
++	}
++
++	return __get_vm_area_node_aligned_caller(size, PAGE_SIZE, flags, caller);
++}
++
+ /**
+  * vmap - map an array of pages into virtually contiguous space
+  * @pages: array of page pointers
+@@ -3734,8 +3766,8 @@ void *vmap(struct page **pages, unsigned int count,
+ 		return NULL;
  
- 	/* Optimization: no fragments, no reasons to preestimate
- 	 * size of pulled pages. Superb.
-@@ -7218,7 +7221,8 @@ void skb_condense(struct sk_buff *skb)
- 			return;
+ 	size = (unsigned long)count << PAGE_SHIFT;
+-	area = get_vm_area_caller(size, flags | VM_UNINITIALIZED,
+-				  __builtin_return_address(0));
++	area = vmap_get_aligned_vm_area(size, flags | VM_UNINITIALIZED, prot,
++					__builtin_return_address(0));
+ 	if (!area)
+ 		return NULL;
  
- 		/* Nice, we can free page frag(s) right now */
--		__pskb_pull_tail(skb, skb->data_len);
-+		if (!__pskb_pull_tail(skb, skb->data_len))
-+			return;	/* frags are still there, keep truesize */
- 	}
- 	/* At this point, skb->truesize might be over estimated,
- 	 * because skb had a fragment, and fragments do not tell
---
+-- 
+2.34.1
+
