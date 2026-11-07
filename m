@@ -1,50 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093377;
-	b=WuA3p7pba/cr7F+VpFEMU4il1FI3RdrFNN1kV3hkIcSFJbreS+VkXiPcI40FP77VNrWW
-	 QPGHSwH0LnLvf0FGGIuR7y4NBmVwGoNOMKz0FfwhMzKE4KA5QzJ4W3r5XTy4/YstoYexn
-	 Vmu0mcEdYzR4K3ZxFeaOw7syiECaEjM9ozwiVa31ckWq6z109GABLBII+AaA3FNMNZfw4
-	 Rm740/K8nI0TV6O24rLTc77G25u7AqGVNT5NL4zXB4KvAceRR9rxUEG5AmDtTjg43P7LR
-	 +now5Szaov79CjT3qh0REQV/dwluRRcI1Gk/niYKVDax9LfoZbRD8K4OlJynSh8PVbQ==
+	t=1794093497;
+	b=s6vMkY+eW2Xzifr8cjKMdyvGABajcEHD+Evi1SKKN51TQPCCkiN2jipeZscsukOt9+5T
+	 QCtcawLkcWVspqllIspJXW2YBUSWO0x8hEQSDBdMLMtqHG5UIp0fXuFLsfFSV1yaR76VM
+	 wyvcODjYGw/0GfspnZlv8BVUI0pzWjx72f3cbT+olJb+PRn0IbDjwv2It6znSF6QIhfEJ
+	 DC8aMJ/qErfSIYjH/Yoky7o5CNr+s3/RxgH8QAzQ1WNbHOhel+Pnn7K+E+uygFArgwjFa
+	 846qwhBJ18gv/sEw0Y/QrVYMc977xpt6eJM+lo/q+w9/fQmI31i11wvwJapBHeXw33Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093377;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=uJ+jbNesl0zyJWmm5AGbhu8aLECR9IUEzl02fqLtuyI=;
-	b=Q4eZyhYqJjqTNi2DraAquIwT47YmSyaWfbRrp2D+LN7AyXhORNKSLkYi8mnZOwUYsXB1
-	 FI9eMEMgiJWIlICakpRW/9ckO8fYLLGt57OjRBnganGREaiouWhzZmrk+oCtiRWDgbpVV
-	 oy/PEOLLK5g07lpC2RLL1xfQRQUwZQrpmbwfTM7bCdUBAGkuZGaV/IiDleK5gprrxqjU4
-	 GqPXYQeMtQcUniMgDULRdfgeL/a9kH4jt4qiFR6Zx6SszdejNxp+dnH724ci/MatboU65
-	 Sn4Zm3tGz8bbATvctXofmyogxkCNkW337cPB6mZdvn42Te+BfGp3wNSPCbbkvpJ+IxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794093497;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
+	 In-Reply-To;
+	bh=B+YhXZl+/eWRBv4RgozyREqWo5C8cExmqjC652z4jDc=;
+	b=k+TtibECMBnpWn2iPGdwhgP4MwfTiL2HMtRlSxCLwDKHcN2adchccXsOA2sZhC0j9rDX
+	 Zleu9pD4UKo7x5yPjy3hyWfaAfDHXf9ofIy5tQbxJDkJTer6Mj2iwbIgCq1jVHyLGUNOm
+	 QIQI7VL97zSCs3e1+XZnWgJOK/lgkoeobPeKKqnExrIApAtjc3DnTNjsHsolsr5gG3q1C
+	 W8cs6/TrmVP7RnZ9OruTsiEQ4CkqsIAzU3rd7ZqgdD7/H2oyYDNoImUIsP0lMyjBAvZQk
+	 e855pGHEJqXeTBmrZe6pbAILdRTIOao+6dnrSZ1/gsUoyHCsQpHcAN6puq8hsG5aUhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bEqrdyfZ;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMw1HOP4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCA8606A326;
-	Sat,  7 Nov 2026 23:16:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BCA8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D3E606A326;
+	Sat,  7 Nov 2026 23:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bEqrdyfZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=uJ+jbNesl0zyJWmm5AGbhu8aLECR9IUEzl02fqLtuyI=;
-	b=bEqrdyfZr/jKPDPTUt9DU2uVF8QYM35EZyevfCiy6eA81kROV7PEfrA9/vsMqC
-	IxniGcqQx5G518/IYpBQg5W+GVc9zhGoTeusXW39OoqvM23pNnMcM+mm0/wK40hl
-	fQuIQulZzvP41Dyw6kOyUeZ2ROiv7JlsW7MgAgOiWoQhw=
-Received: from [IPV6:240e:b8f:91b3:d000:16e4:53b3:9726:5b67] (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD33zcase9qq8xCGQ--.49673S2;
-	Sun, 08 Nov 2026 07:15:38 +0800 (CST)
-Message-ID: <92679da5-7203-4dbb-b00a-ea8ad51be8cb@163.com>
-Date: Sun, 8 Nov 2026 07:15:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMw1HOP4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8C11F0089F;
+	Sat,  7 Nov 2026 23:18:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794093496;
+	bh=B+YhXZl+/eWRBv4RgozyREqWo5C8cExmqjC652z4jDc=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=lMw1HOP4tnW3JvJhlRS8xA+R2LNpa3onQ1CAogENBEfkTxzwNmmROKB0asKESEdHa
+	 LPIFeYVb3lS1Dz/iFj/qicZ3WDrRan1q0WmYQMKdOmySZWwKAyYqj5h3Ue0MzFgZ/+
+	 9TEKM6luuvc7jGFr4RZoSECPhQJjVn1VcGYbIDdVIK36Rj6y6VKjavPgCBtGMT87ml
+	 +f896MxhHF4w08uLf3NpmqjGiitdaHUvjreWODi0J4zt1FQxJkBFnQIyeV2izKbLu7
+	 nGH2dRZ0aaKmytkZrSSMcmRvqg9Fzc9PBJjsNk4a8qe7s06vm5RyJTirG0+5Tf+6aF
+	 UE3hcIKF20jDw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,61 +48,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: dwc: tegra194: Clear event counter masks before
- programming
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
- mani@kernel.org, jonathanh@nvidia.com, thierry.reding@kernel.org,
- robh@kernel.org, linux-tegra@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261102063835.3831940-1-18255117159@163.com>
- <179408823130.65886.4565928376292834631.b4-reply@b4>
-Content-Language: en-US
-From: Hans Zhang <18255117159@163.com>
-In-Reply-To: <179408823130.65886.4565928376292834631.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD33zcase9qq8xCGQ--.49673S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFyfKr48GF1xtw43Zr1kXwb_yoWkArc_Zr
-	Z2krWkCrn5GFW0kFs8Cr4rZr1aga1qgF13Jw48try3uFyfZa1DWFZ5Zr1F93W5Xrs7GrnI
-	kr90qan5Gr129jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUULID3UUUUU==
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6xwKrWrvsRxeYAAA3G
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 08 Nov 2026 00:18:12 +0100
+Message-Id: <DMPD2CDIAW74.2Q60A9JGEPTR2@kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
+ module data
+Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
+ <jhubbard@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
+ <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+ <20261014154554.231015-2-vladazaharova2018@gmail.com>
+ <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
+ <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
+ <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
+In-Reply-To: <DMP0LNXEI7YF.1G8UBZKO2W3U9@nvidia.com>
 
-
-
-On 11/8/26 05:50, Manivannan Sadhasivam wrote:
-> On 2026-11-02 14:38 +0800, Hans Zhang wrote:
->> When programming the RAS-DES event counter control register, the code only
->> cleared the event-selection field before OR-ing in the new group, event,
->> and enable values. This leaves stale bits in the group-select and enable
->> fields from prior writes.
+On Sat Nov 7, 2026 at 2:32 PM CET, Alexandre Courbot wrote:
+> On Sat Nov 7, 2026 at 10:14 PM JST, Danilo Krummrich wrote:
+>> On Sat Nov 7, 2026 at 7:47 AM CET, Alexandre Courbot wrote:
+>>> On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
+>>> Another thing: since this is declaring now a proper interface, can you
+>>> move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module=
+,
+>>> say `debugfs.rs`?
 >>
->> Clear all three field masks before programming the register so that stale
->> bits are not preserved across updates.
+>> I think that makes sense.
 >>
->> No functional change intended beyond ensuring the register is rewritten
->> without carrying over previous field values.
+>>>>  impl InPlaceModule for NovaCoreModule {
+>>>>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self=
+, Error> {
+>>>> -        let dir =3D debugfs::Dir::new(c"nova-core");
+>>>> -
+>>>> -        // SAFETY: We are the only driver code running during init, s=
+o there
+>>>> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
+>>>> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
+>>>> -
+>>>>          try_pin_init!(Self {
+>>>> +            _debugfs <- DebugfsData::new(),
+>>>> +            _: {
+>>>> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a devi=
+ce is bound, which cannot
+>>>> +                // happen until the driver is registered below. What =
+it points at is dropped only
+>>>> +                // once the driver is unregistered, so it is valid fo=
+r as long as any device is
+>>>> +                // bound, and nothing reads it outside of that.
+>>>> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
+>>>> +            },
+>>>
+>>> Let's move this initialization into `DebugfsData::new`, using
+>>> `pin_chain`:
+>>>
+>>>     /// Returns an initializer that creates the shared debugfs data.
+>>>     ///
+>>>     /// # Safety
+>>>     ///
+>>>     /// The returned initializer must be run exactly once before the dr=
+iver is registered. The
+>>>     /// initialized [`DebugfsData`] must outlive the driver registratio=
+n.
+>>>     pub(super) unsafe fn new() -> impl PinInit<Self> {
+>>>         pin_init!(Self {
+>>>             root: debugfs::Dir::new(c"nova-core"),
+>>>         })
+>>>         .pin_chain(|debugfs| {
+>>>             // SAFETY: Per the method's safety block, the driver is not=
+ registered yet, meaning that
+>>>             // no device can be probed and thus nothing can access `DEB=
+UGFS_DATA` concurrently.
+>>>             //
+>>>             // INVARIANT: Per the method's safety block, `DEBUGFS_DATA`=
+ is written before the driver
+>>>             // is registered and points to a valid instance of `Debugfs=
+Data`, which is pinned
+>>>             // and dropped after the driver is unregistered.
+>>>             unsafe { DEBUGFS_DATA =3D &*debugfs };
+>>>             Ok(())
+>>>         })
+>>>     }
+>>>
+>>> That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
+>>> relies exclusively on `new` (and we made it unsafe to force the caller
+>>> to do that).
 >>
->> Signed-off-by: Hans Zhang <18255117159@163.com>
-> 
-> This patch got superseded by this commit:
-> https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?h=controller/dwc&id=fe84c0b370889bbf65f75bb75a1810227c7ce150
-> 
-> - Mani
-> 
+>> Actually, I would leave that part as is.
+>>
+>> Eventually we'll have registration data for driver registrations to shar=
+e module
+>> data. Once we have that, we'd need to change DebugfsData::new() again an=
+d move
+>> that part bnack into NovaCoreModule::init().
+>>
+>> Besides that, DebugfsData has nothing to do with the current limitation =
+of
+>> publishing module data to driver registrations; the module code seems li=
+ke the
+>> correct place to deal with this.
+>
+> Makes sense, let's reduce the churn indeed. In this case I guess
+> `DEBUGFS_DATA` will need to be made `pub(super)` so this module can
+> initialize it.
 
-Hello Mani,
+I think DEBUGFS_DATA still belongs into nova_core.rs (including the
+debugfs_data() accessor) since it is a workaround to make module data
+accessible.
 
-This is an evaluation comment from Bjorn regarding me. I didn't notice 
-that Manikanta Maddireddy had made the changes. Please drop this patch.
+I'd also like the accessor to be an associated function:
+NovaCoreModule::debugfs_data().
 
-
-https://lore.kernel.org/linux-pci/20261019171244.GA2200874@bhelgaas/
-
-
-Best regards,
-Hans
-
+Thanks,
+Danilo
