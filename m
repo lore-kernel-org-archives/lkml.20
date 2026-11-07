@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794079747;
-	b=LUPW4Nsdxw0CMWQm4s9tOgfIwUPhBREcIBPJIZVrGlelr1sILP2ftgTgDCEYQqH/QvgR
-	 yJA0tUTpTM3PglLWZJ4ZgnLlwMR/oBTGwkDRvor7SiSLK/jXAqrFkqtZhePj66HeihgBl
-	 fVyJF4x1sB29bKIyxrU58jOCEcgHttuvjGzqJu6dSsp6dDLkmK9fo60njseXt/VZ8CQWS
-	 UoRVtuiT/ECUBEQP1iWLfRaT0ZF1vloa5vxnsUbmejnL3Rumeul/G2DvlvHhDRe5aSJD8
-	 uNJsSnMjT06n9wUG3fvmuk0Ye5kBBJJKVR8XZlHxvNt6DcKRslIQn78bNHm1wCz3K4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794079747;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7Ov7GeLhcYhxCP17ziUm+7IIU7rjkhp7m+eZjNGqqtY=;
-	b=32bnvH7TknpFFBFXUl7eQ8ye5T4EoXcuI2WlMVQKGOUPDkywnD/P2nKBCZO10AcsH7r+
-	 A6RcU18ruPrU+aiRuy6jZS+89Sl5YBR8RjoEKTV0DfTCanpt/7pEp6SRRVR8ksrlQSS3g
-	 C2DXsUOK2vmpbU0LF3GP6tH9dTErVRe60HXIRKdoa5OQ835AxyN4kasdKCXZqvmap8xIY
-	 Fv4xFDe34/PGdws8OvczPPFFwm6npdL5gKS0JmCXqdiTO9100Cu2YPX3w/OfgnLx/hqc8
-	 Q8NO/hdifStw4ZZAd9QKI8IX1pRNpkh/PNoF1G5001wmatBQSf8ZwAURplgKHeGKPCw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="btak/NjA";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794079749;
+	b=RMWeSWuwG9w13JLZhd0W4wIs/q9LNXM44Pf92IJ+a6hl4F96pvru41HdS9eUR0EWmVWQ
+	 6hVUOFEwexNl9HZqxM6cHJxMWxpYGN1GRJ5dJygcGlllQtVuT9xRxC8MUE3hLCWJt97bj
+	 o/7UjhAa3molsnL9aLX+HEfJwmINWgWd4XcM+bHK3op65HZFrEDTHU9SJPd87ar8Za9P2
+	 AzUMd+OHWXCGFhu7wmjjrUY5SXBTOOMJU013IhsJrNrXbhfnV1pBErbJwwhsP086sW4/2
+	 QPfSQH1p3HdOxI8uZM6NnsTJedZ3EaRfP/ptuPxGhYyVLYqw9NoP1Qncac6ckF1i2yA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079749;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=afAeJjADpbPocD7zmdky0dQtM9sRI5L0drEjWGSiRaI=;
+	b=HMyAf5Hj32u5Vake/nhGfj0VMp7n71G/EupLqZ/2a3J189a9q/J75VGcvgSfrakRQrIb
+	 l+6ICiIm1WRnuIbgOg9+znSJwOANKeCb3J6yNTv+TQ/Kw1iCB6YF7mpLH6Dkc0NSzUbBa
+	 T5LsrzvJhg5+7WtBG7yzIlElUCiq1qS8ufvBBm6h8tJJwq/NDQDlphOgaPhlMAaNIDV5w
+	 jd+/y1j1+9sUssqLUgea3bXjgjGdziuJM+qb19lvNdI3TE5m9M9+gqIXfD+/YF07UqrFb
+	 mvoUL7AnOYJUkSvYH3C7lvl+FqkMx6aZXCF6oGuXot2yPBozXo44vcHpCfz0SE2t78w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Vmg7ISXS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.69
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011069.outbound.protection.outlook.com [40.107.208.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB6E606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:29:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E669606A330;
+	Sat,  7 Nov 2026 19:29:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E669606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btak/NjA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507901F008A2;
-	Sat,  7 Nov 2026 19:29:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794079746;
-	bh=7Ov7GeLhcYhxCP17ziUm+7IIU7rjkhp7m+eZjNGqqtY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=btak/NjA5HXiNm9eB53iO2P0kVP6gcust1hNujA8Xhe6SIGL7ZPNyeyKDTGunctTR
-	 +wKgGgu/BEey5ixlamyuuMx7Bcdih5YAlVE86Ut8vPi14t2nTSknpdYOCBbtRyD31Z
-	 43q3G1u4wi8qbH6BgQk89ak9+8YtQ47eqIDkb9DJFZ5WcgDxml8QILGXk4mJORmmio
-	 TMvcFjn52TIiV5wVNRNgUOElBw5Qrl22KgPhv0ObjtodP+I++g087oaMQpVvp+sica
-	 4lColLpj+W/eH7yV/gc5tMuHVdVLNehJWSNNGUbPy1VCMfCagDWMrq8ZN3ehE7BBlz
-	 vbreZ447FvvKA==
-Message-ID: <bf5c4e81-2c9c-4f4a-ae7c-9edf6a524d1a@kernel.org>
-Date: Sat, 7 Nov 2026 20:28:56 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Vmg7ISXS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LgFso5MsVBUuuFdQJg/HhhobmbSVP7wteZp1wkceCXwWUvPwxOC9hooAmZtrrQ9C3VhFJGRiH31bAN8YRYx2/eU5T7DYKJfM2vRcvR2Wamu5HLm7pnpcHwF9RKwa8TU99/0NIcCCTg4NAbqe7WKSPh8BFTg3yPhsRt6LPn8a5UHF0SjxC47CPuNT3GU7ARJy9Y5EzUtzvaoZM69uatLvJhuxnv3D/FYYt5h+LMRdDM35+uxI+uUNML7uvtLlExlE8S7RTMedG/JLqHWm87ZkZOS1rhEjqu5QCfY4ZnJbzyWGYJpcMV8jnF1Rt99gOS/+o5MNyeVUBOK3F8WsHT0tGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=afAeJjADpbPocD7zmdky0dQtM9sRI5L0drEjWGSiRaI=;
+ b=T1d0eQJfTSaU8kF1wV/MHCNd3TcE35UD24o0Ry7yFnUkvvpqmaRnEUUSmj/fNWkM2gPVkqqrCEUXEI+X+1o5hzNzZoU/J8/AmyjWkWHm6SMd600RFRcIItuUrEjqK91FpZ0b1ste+4L043QsHy5Phb81I9toA2KJTidIB7JzCRF7SA9HUgtY+d1C8IE+2htpBUFpNBvYjvPu6FtgvZ+rL6OEbLZwfZ8C2WHvfF5C/gZnyIypPxNXCsa9mJvkVFi3lrDNcHmZ2FzjWanY7qSVMSd62nhcZbGO6kxR2+fScWV3N8JMpoL0CRBc/oPV3d/JevJWrhUVN5UUWWDrMTepQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=afAeJjADpbPocD7zmdky0dQtM9sRI5L0drEjWGSiRaI=;
+ b=Vmg7ISXS2oXIglKHN4N7Lk2SnPb4WDUemGHDTv7AWTpHRvF/jF3S7y8SstoofO66pcPl4mg5VQz0N5FYyU8RmPTX4LsldqUi1tqqyVYd9QnwY0duCUikVfWX5LaBqqtKl/UowOkk8BpzSsTh3V1Dz8P2AvYpPN5InY4dCDPI0iU=
+Received: from PH7P221CA0027.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::24)
+ by SJ5PPF183341E5B.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::98c) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sat, 7 Nov
+ 2026 19:29:04 +0000
+Received: from PH7PEPF00000008.namprd04.prod.outlook.com
+ (2603:10b6:510:32a:cafe::6d) by PH7P221CA0027.outlook.office365.com
+ (2603:10b6:510:32a::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Sat, 7
+ Nov 2026 19:29:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ PH7PEPF00000008.mail.protection.outlook.com (10.167.243.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 19:29:04 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 7 Nov
+ 2026 13:29:03 -0600
+Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Sat, 7 Nov 2026 13:28:55 -0600
+From: Syed Saba Kareem <syed.sabakareem@amd.com>
+To: <broonie@kernel.org>
+CC: <Sunil-kumar.Dommati@amd.com>, <vijendar.mukunda@amd.com>,
+	<Mario.Limonciello@amd.com>, <venkataprasad.potturu@amd.com>, "Syed Saba
+ Kareem" <Syed.SabaKareem@amd.com>, Siva Subramanian Ravi Saravanan
+	<sravisar@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, "Liam
+ Girdwood" <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, "open list:AMD ASoC DRIVERS"
+	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 6/6] ASoC: amd: acp: enable function topologies for ACP7.F SoundWire
+Date: Sun, 8 Nov 2026 00:57:02 +0530
+Message-ID: <20261107192744.2027264-7-syed.sabakareem@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261107192744.2027264-1-syed.sabakareem@amd.com>
+References: <20261107192744.2027264-1-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,151 +115,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: clear pmd in pmdp_invalidate()
-To: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
- mhocko@suse.com, rppt@kernel.org, surenb@google.com, vbabka@kernel.org
-References: <f1b2ec5a-f7a7-442c-97fd-f67fe6ecb197@kernel.org>
- <20261104111254.320059-1-trintaeoitogc@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261104111254.320059-1-trintaeoitogc@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PEPF00000008:EE_|SJ5PPF183341E5B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01ced5d4-153f-481b-60a6-08df3d056292
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|11063799006|56012099006|261021121427099003|261009223027099003|261102123227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	vwnjMTLZnb9atLqQJEgLLtUWsGgfRE+QHQAXXMLuOBZuk6IsLKQAwl3qGXMNR20cAtC2XkWN/aKCwGbanw1vLzchEe15YWVqx7hq0cWRCFA+1Bqy4oxt+U1GuBIBynBY0QrSZCtnRpoo79rcgVcuoKqyJyldQFBxLYRPIzMpOwOKrBOVVEAbwLbUY8m1eHAV9W/ADIw0wFyVHZ5MGDJtYEcDZDw/8V6ojEF3nG7wKcQFyWe/ev6bVX/IjbAPoLWA83wix4t6Icv7Gl1T1uVBivP43kV/050b9qiS+coB1hHYvYJFuCyM+9cWwEGYONrsiGR2MTZ17PKkw7sJRiHHHuzomZwJ3vbi8UqP7tgfdR9hLl64B5POGQnX2bLaeWfozVXl41w4IdfXbd8kbTRHkeQAOuEWFtwslWS23g4GPBH05m0jon+n8gNCf6KFywheVgnMa//TIHk6KBUa+WxUDN5g1a8VGGcR8W3CpOhJ/HmcBfL3bSSn+4OaPApJDDn5W3ZjmMaggajYCBTbNmAVgX8Hd3C+ofIr7yPlHatZoMY2JeJEd9MuKMyBstibVc47O4ZvGndADZvfm9uHNLrPCyxikewq+xo6Ttxw1CGMvfs7byoFLjw2PVMBRObYAcIyvAhfg7pylnmBIZ//ls2y5LTJX4/X5PkGvOdDpL07tjB+YVx18yHP0lt/52Q9oJHxfxl50PntcsJQ5QEfqIN+HA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yyZpkY+WhULq90/838PENNGOtlECPnLtYWsfMhGMhSg8aqJKjMYr3SqXP6zpI0v1OEXX95FTWQqa/zPv53HUn3vrDEO4HGGXH0KNiIo/AWxP4hMCB8Z+wcX5Do2uRwds7tv6KjoU6I6iXFd2aGAFWiCaF+R078+H5ZZmTFxWuam8B2LfNZhlHHuWep9SKIEaCtBEKuHxoIq5HdODlkMl43eMQ4Xhrb/BOgaDdflmGFH+GJVNQnJHI/c6Lq2Y2e2dqQ7XpcW84/ZDKU6Xw7JyQI6wcOwfokkf/wvJ7o+aPFbEp2bP3tzbPLdwUQhW34x5fqARxRRNBFRWMXaLhhv4X9Y5FUvUb9KJbZGHX4cYJBJgMPb2Oy5hDfQAJGE0DezRi95fuLn6nr8jylnYiKBRy8ELVcxdnU+F857PizWtdWr1BAXjOZmEf/q5YfouvTpc
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 19:29:04.6667
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01ced5d4-153f-481b-60a6-08df3d056292
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH7PEPF00000008.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF183341E5B
 
-On 11/4/26 12:12, Guilherme Giacomo Simoes wrote:
-> David, I haved immersed inside this problem on last days, and how sashiko-bot
-> very well apointed, I'm haved doing a wrong duplicated clear on pmd's. I not
-> notice that the pmd_establish() already called the page_table_check_pmd_set()
-> wich in turn call __page_table_check_pmd_clear(), my bad.
-> 
-> At first time, I thinked the problem is a duplicated
-> page_table_check_pmd_set(), but with a LLM helpful I ruled out this hypothesis,
-> because I not found any obvious call to page_table_check_pmd_set() before
-> remove_migration_pte(). At second time, I suspicious that maybe we are haved a
-> race condition, that make no sense...
-> 
-> After a lot of debug and tests, I found a thing.. And I attempt to test this.
-> If you see inside arch/riscv/include/asm/pgtable.h, the pmd_mkinvalid() do:
-> ```
-> static inline pmd_t pmd_mkinvalid(pmd_t pmd)
-> {
-> 	return __pmd(pmd_val(pmd) & ~(_PAGE_PRESENT|_PAGE_PROT_NONE));
-> }
-> ```
-> 
-> but , the pmd_user_accessible_page() check `pmd_leaf(pmd) && pmd_user(pmd);`
-> and pmd_leaf():
-> ```
-> static inline bool pmd_leaf(pmd_t pmd)
-> {
-> 	return pmd_present(pmd) && (pmd_val(pmd) & _PAGE_LEAF);
-> }
-> ```
-> 
-> and the pmd_present():
-> ```
-> #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> static inline int pmd_present(pmd_t pmd)
-> {
-> 	/*
-> 	 * Checking for _PAGE_LEAF is needed too because:
-> 	 * When splitting a THP, split_huge_page() will temporarily clear
-> 	 * the present bit, in this situation, pmd_present() and
-> 	 * pmd_trans_huge() still needs to return true.
-> 	 */
-> 	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE | _PAGE_LEAF));
-> }
-> #else
-> static inline int pmd_present(pmd_t pmd)
-> {
-> 	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE));
-> }
-> #endif
-> ```
-> 
-> And the TRANSPARENT HUGE PAGE , is exactly a page that I was allocated with
-> mmap() (see my previous emails with my repro.c).
-> 
-> So, I change the pmd_mkinvalid() adding PAGE_LEAF flag:
-> ```
-> static inline pmd_t pmd_mkinvalid(pmd_t pmd)
-> {
-> 	return __pmd(pmd_val(pmd) & ~(_PAGE_PRESENT|_PAGE_PROT_NONE|_PAGE_LEAF));
-> }
-> ```
-> 
-> And this work for my repro.c.
-> The problem here is what the documentation of pmd_present() say:
-> ```
-> 	/*
-> 	 * Checking for _PAGE_LEAF is needed too because:
-> 	 * When splitting a THP, split_huge_page() will temporarily clear
-> 	 * the present bit, in this situation, pmd_present() and
-> 	 * pmd_trans_huge() still needs to return true.
-> 	 */
-> ```
-> 
-> So the documentation say that if a THP is splitting, this should return true
-> event though PAGE_PRESENT and PAGE_PROT_NONE is cleared.
-> If you think about this, maybe make sense.
-> 
-> And after some searchs I saw that was already fixed by Yunhui Cui
-> <cuiyunhui@bytedance.com>
-> https://lore.kernel.org/all/20260523042052.35476-1-cuiyunhui@bytedance.com/
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-I remember that Zi is currently also fixing some pmd_mkinvalid() implementations.
+From: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
 
-Is there anything to fix from your side, or does the above fix already resolve
-your problem?
+Set get_function_tplg_files for all the ACP7.B and ACP7.F SoundWire
+machine entries. The SOF core tries the function topologies first and
+falls back to the monolithic topology if any of them is missing, so
+existing setups keep working. The monolithic topology is still required
+as its presence is checked when the SOF firmware file profile is set up.
 
+Signed-off-by: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
+Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+---
+ sound/soc/amd/acp/amd-acp7x-acpi-match.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/sound/soc/amd/acp/amd-acp7x-acpi-match.c b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
+index 217b11f9dfc3..068b11400a41 100644
+--- a/sound/soc/amd/acp/amd-acp7x-acpi-match.c
++++ b/sound/soc/amd/acp/amd-acp7x-acpi-match.c
+@@ -8,6 +8,7 @@
+ 
+ #include <sound/soc-acpi.h>
+ #include "../mach-config.h"
++#include "amd-sof-function-topology-lib.h"
+ 
+ static const struct snd_soc_acpi_endpoint single_endpoint = {
+ 	.num = 0,
+@@ -513,6 +514,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7b_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7b-rt721-l0-rt1320-l3.tplg",
+ 		.fw_filename = "sof-acp7b.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{},
+ };
+@@ -525,6 +527,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-rt721-l0-rt1320-l3.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0) | BIT(1),
+@@ -532,6 +535,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-rt721-l0-rt1320-l1.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0),
+@@ -539,6 +543,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-rt721-l0.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0),
+@@ -546,12 +551,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-rt722-l0.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	}, {
+ 		.link_mask = BIT(0) | BIT(1),
+ 		.links = acp7x_cs42l43_l0u0_cs35l56x4_l1u3210,
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l43-l0u0-cs35l56x4-l1u3210.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0) | BIT(1),
+@@ -559,6 +566,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0-cs35l63x4-l0u0246.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0) | BIT(1),
+@@ -566,6 +574,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0-cs35l63x2-l1u01.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0) | BIT(1),
+@@ -573,6 +582,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0-cs35l63x2-l1u13.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0) | BIT(1),
+@@ -580,6 +590,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0-cs35l63x2-l0u01.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(1),
+@@ -587,6 +598,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l43-l1u0-cs35l56x4-l1u0123.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(1),
+@@ -594,6 +606,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs35l56x4-l1u3210.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0),
+@@ -601,6 +614,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l43-l0u1.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0),
+@@ -608,6 +622,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l43b-l0u1.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(0),
+@@ -615,6 +630,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l45-l0u0.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{
+ 		.link_mask = BIT(1),
+@@ -622,6 +638,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp7f_sof_sdw_machines[] = {
+ 		.drv_name = "amd_sof_sdw",
+ 		.sof_tplg_filename = "sof-acp7f-cs42l45-l1u0.tplg",
+ 		.fw_filename = "sof-acp7f.ri",
++		.get_function_tplg_files = amd_sof_sdw_get_tplg_files,
+ 	},
+ 	{},
+ };
 -- 
-Cheers,
+2.43.0
 
-David
