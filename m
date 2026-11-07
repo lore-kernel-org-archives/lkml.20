@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052913;
-	b=fHYyHNmvoAx5Q1UgXwl0bLJc/Qp23h7INi4GRDtBl6FIZcnTTLk/AmuaYvfDUAUufuZY
-	 ZgDPCGTryWdhMmQRj3Zosx9ACjPr/V6iqOBzJuRD//0JTmZujmBfXbcrNpxozyeEZhhZE
-	 lgH1Q1UkwsTmVxqpnsnjPkDeXYEvZKqircpd+a1a6dlv8B3uome+ic+dhW5/eeLEtmcGd
-	 edx9thriXhO0f2AKSlpIZ60aCI0HwRHUkvZfaRcTZj+ckMjk7/jjO9wKcKWnEQX4fBr1K
-	 ERcvciD5r9vApwfNdHSYv3k+uH163KLDIS8mqKit2kHZV4rQk2PJ21r/U43cnABarcg==
+	t=1794052923;
+	b=3Tc2mnwi31so/nBIYOMVrhqYy7sKHmJvXZWAZfTU4soC7NKgydyuzaVVgA2ZC44FZeQz
+	 RfK0lX5Zeb+dVcFkucvnnZB9IYhwz+GOuFVYc3WPLfzInuaF033oYCHGk3WElw22XyBji
+	 lUSeWe6A6JujG3bsQpB6frAPTPL5MnN9vsGgGAdYaDyp5rMixZQUJ8Oj5o3ZO2byZpPGu
+	 vNO/A2yvdpojjee/opI2n6QCfE/u7okx3siCRnF7OsK4EBOBxoM9oaBIUKA/gsr2yDlMZ
+	 SYJV8Sjeti7tpPsB7xpi4EgZhvRUYzlU1eZcnQY/vQJsXppypVOToaDGmMpHLRcECDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052913;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4zXJHQrOof0QrjWFfp5nGXwh4AGVmyErckIk52+Cn9s=;
-	b=CNgA3TtUBFS4hmUeoNxEO+8TGEvU87rmcvTXUYkCzDYM3zq3zaB9bqpy3PMC3diYhm3z
-	 MlZL9pSaLSFuNyW5Pyhzq3y/c2df8V3Z4jPfDiDJELFsY9ybbwvs4IdB6v98r18vCPX1B
-	 H1jFy3KpKKHW0WzKOalyNiwnW73cH/xmNHnpq+RmlRtdXcViKm4065hDw6KvMom+WwrP7
-	 31ujj7nePBLHvUKIzYvWi7+l7s5ENh8TtAhwp6VenEsS4BcSX/SeY5lW4k4sD6swnxxHV
-	 Dv8xD6VEm2uWKbByRCLeZlcGxc7tcvaW0JZ0FclEmw8jnzPN3abwsDiOuqgkJkVIelw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052923;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=6l29ITgxWRP/RPIDL1S17WPdPIKKgSBKzLqNTQ1cETo=;
+	b=WJmHzg4xIjNwZMKV/PjuoUkS1u/yv5BrCPzsjTOh8lqh1N8PhEK5ZOIN7uSpkuZiL6ai
+	 5mM/830RbtRgX10faElABftkL7GYBnVWB/1sHshm28nhsBUVRJ7bQNlQITGglhGnQIuBj
+	 fXpLgY0GOURqIQJv+CbuJonUGuHZmezKnFwIedXCZySSUMtdaLVkRazZ9RFAHU/1oWyej
+	 gFRpzEq7PxTS/eMfFLTaDIrPMMPF2m4YDP/q6dn7co38cF2KRTLSFRKTGoetNQ5xe/Yu6
+	 dcYD97K9fE+0PLYHPtvJT70xNnaJU64ZWO4NJruR9riUheJOtJpC1C1mfygZPDiUy2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZZrQkawp;
-	arc=none smtp.remote-ip=91.218.175.134
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UAxvM2vU;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E88606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E88606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B995A606A32C;
+	Sat,  7 Nov 2026 12:02:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B995A606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZZrQkawp
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vAZ9OUTa+eKHvjwIo0KlOg3LlEN03u/TWfSnTIragIo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794052911; v=1; x=1794657711;
- b=ZZrQkawpuXCB8RrYIYXcpvSAj2uFXqXn5NjG+6WG2ix6xOnRNhWrDEzZrhjmpBahWc/1QK+H
- hTApi6WcjkgGiZywYM0BAnWEyNKTko3tEoWhL9Jdhz70ufdOPQQG8ZJdUXKbEblOdvkkzMjjGYX
- s0u2N1h+p5O/3eouyctP9ExY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a904f9a92c43d5ef;
-	Sat, 07 Nov 2026 12:01:51 +0000
-X-Mizu-Trace-ID: a904f9a92c43d5ef
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Ridong Chen <ridong.chen@linux.dev>,
-	Chen Ridong <chenridong@huawei.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v3 4/4] cpuset: generalize the validate_partition() interface
-Date: Sat,  7 Nov 2026 20:01:00 +0800
-Message-Id: <20261107120100.3587595-5-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261107120100.3587595-1-ridong.chen@linux.dev>
-References: <20261107120100.3587595-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UAxvM2vU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794052923; x=1825588923;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=A0vDV6UDV2S8kIMrzEXy7j7XiMNIdXowu/T8xtzthiw=;
+  b=UAxvM2vUlO8mnFwvFQHSjNm8i+qMbjhOpawv9NrsHNFhqeTi/WkX1lwO
+   6mpdEB+F6kcyZwZXLopH5SdWvuHVIL/1roYkjUlXmsyQZwdKoiC00f63U
+   FMXSXEKux1MA6L4p4x4JuYQYTxCaIGRQf9pIZ1mDYY56JhAn99meLYLj6
+   QgM/BJlsIGs2CkEGaR3yHrabDkX+djjpE7OjRJyhppxRjtH1roRBKJRl2
+   ReZdiG2q6rOh4jSB2kQRyh+u6wiq1kw56dIb9mLQ/+56unqi49l7fpoZS
+   DlMtvyrAth6K56pI7QtQloujFFXK8W1LNw/NEvxAkC7/QkClXov07OXkQ
+   A==;
+X-CSE-ConnectionGUID: UfEs/KqVRuq8/uUVUXPX7w==
+X-CSE-MsgGUID: i3uXcEIOQlOIMMHkxvkq1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2752855"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2752855"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 04:02:02 -0800
+X-CSE-ConnectionGUID: 4HZYybmyQ5aDdyX7j7LcEQ==
+X-CSE-MsgGUID: zsA6wVQ+T9yrH/E5QiJ5rA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7377976"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa005.jf.intel.com with ESMTP; 07 Nov 2026 04:02:00 -0800
+Date: Sat, 7 Nov 2026 19:54:35 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
+	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fpga: altera-hps2fpga: Fix reset control leak
+Message-ID: <au8Re5V0ZRhSQCMy@yilunxu-OptiPlex-7050>
+References: <20261103014240.1194-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,194 +79,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103014240.1194-1-laixiangwu@cmss.chinamobile.com>
 
-From: Chen Ridong <chenridong@huawei.com>
+On Tue, Nov 03, 2026 at 09:42:40AM +0800, Xiangwu Lai wrote:
+> alt_fpga_bridge_probe() acquires the bridge reset control with
+> of_reset_control_get_exclusive_by_index(), which is not
+> device-managed.  None of the probe error paths (l3regs lookup
+> failure, missing clock, clock enable failure, bridge registration
+> failure)
 
-Refactor validate_partition() to take the parent partition, the new
-partition root state, the new effective exclusive CPUs and the CPUs to
-be deleted, instead of a trial cpuset. A NULL parent stands for a
-remote partition, whose CPUs come from top_cpuset. This makes the
-interface flexible enough to handle both local and remote partition
-validation.
+Remove these examples, they are just noise that hurts reading.
 
-The no CPU left for tasks check now uses the given parent instead of
-parent_cs(cs), and top_cpuset for a remote partition, as that is where
-its CPUs are taken from. The cgroup parent of a remote partition does
-not give it any CPU.
+> release it, and alt_fpga_bridge_remove() does not call
+> reset_control_put() either, so the reset control reference leaks both
+> on a failed probe and on every bind/unbind cycle.
+> 
+> Use devm_reset_control_get_exclusive_by_index() so the reset control
+> is released automatically when the driver is unbound or the probe
+> fails.
+> 
+> Fixes: e5f8efa5c8bf ("ARM: socfpga: fpga bridge driver support")
 
-The housekeeping conflict check is folded into validate_partition(). It
-is skipped when the parent is not a valid partition root, as @cs can't
-be a valid local partition in that case.
+Cc stable please
 
-Use the new interface for local partition enablement in
-update_parent_effective_cpumask() and in partition_cpus_change(),
-replacing the open-coded checks there. The order of the checks is now
-the same for both paths: empty CPUs, housekeeping conflict, then no CPU
-left for tasks.
+> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 
-Signed-off-by: Chen Ridong <chenridong@huawei.com>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- kernel/cgroup/cpuset.c | 119 ++++++++++++++++++++---------------------
- 1 file changed, 59 insertions(+), 60 deletions(-)
+Otherwise it's a good fix. Looking forward a v2.
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index fc9de6e16ff5..0ec20412b3ce 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1414,6 +1414,48 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
- 	return res;
- }
- 
-+/**
-+ * validate_partition - Validate a cpuset partition configuration
-+ * @cs: The cpuset to validate
-+ * @parent: Parent partition of @cs, NULL for remote partition
-+ * @new_prs: The proposed new partition root state
-+ * @new_excpus: The new effective exclusive CPUs mask to validate
-+ * @del: exclusive CPUs to be deleted from @cs, can be NULL
-+ *
-+ * A remote partition gets its CPUs from top_cpuset, so top_cpuset is used
-+ * as the parent when @parent is NULL.
-+ *
-+ * The housekeeping check is skipped if @parent is not a valid partition
-+ * root as @cs can't be a valid local partition in that case.
-+ *
-+ * Return: PRS error code (0 if valid, non-zero error code if invalid)
-+ */
-+static enum prs_errcode validate_partition(struct cpuset *cs,
-+					   struct cpuset *parent, int new_prs,
-+					   struct cpumask *new_excpus,
-+					   struct cpumask *del)
-+{
-+	int parent_prs;
-+
-+	if (new_prs == PRS_MEMBER)
-+		return PERR_NONE;
-+
-+	if (cpumask_empty(new_excpus))
-+		return PERR_INVCPUS;
-+
-+	if (!parent)
-+		parent = &top_cpuset;
-+	parent_prs = parent->partition_root_state;
-+	if (parent_prs > 0 &&
-+	    prstate_housekeeping_conflict(new_prs, parent_prs, new_excpus, del))
-+		return PERR_HKEEPING;
-+
-+	if (tasks_nocpu_error(parent, cs, new_excpus))
-+		return PERR_NOCPUS;
-+
-+	return PERR_NONE;
-+}
-+
- /*
-  * cpuset_update_sd_hk_unlock - Rebuild sched domains, update HK & unlock
-  *
-@@ -1934,18 +1976,10 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
- 		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
- 
--		/*
--		 * Enabling partition root is not allowed if its
--		 * effective_xcpus is empty.
--		 */
--		if (cpumask_empty(tmp->delmask))
--			return PERR_INVCPUS;
--
--		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
--			return PERR_HKEEPING;
--
--		if (nocpu)
--			return PERR_NOCPUS;
-+		part_error = validate_partition(cs, parent, new_prs,
-+						tmp->delmask, NULL);
-+		if (part_error)
-+			return part_error;
- 
- 		/*
- 		 * This function will only be called when all the preliminary
-@@ -2424,32 +2458,6 @@ static int parse_cpuset_cpulist(const char *buf, struct cpumask *out_mask)
- 	return 0;
- }
- 
--/**
-- * validate_partition - Validate a cpuset partition configuration
-- * @cs: The cpuset to validate
-- * @trialcs: The trial cpuset containing proposed configuration changes
-- *
-- * If any validation check fails, the appropriate error code is set in the
-- * cpuset's prs_err field.
-- *
-- * Return: PRS error code (0 if valid, non-zero error code if invalid)
-- */
--static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs)
--{
--	struct cpuset *parent = parent_cs(cs);
--
--	if (cs_is_member(trialcs))
--		return PERR_NONE;
--
--	if (cpumask_empty(trialcs->effective_xcpus))
--		return PERR_INVCPUS;
--
--	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
--		return PERR_NOCPUS;
--
--	return PERR_NONE;
--}
--
- /**
-  * partition_cpus_change - Handle partition state changes due to CPU mask updates
-  * @cs: The target cpuset being modified
-@@ -2463,33 +2471,24 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
- 				  struct tmpmasks *tmp)
- {
- 	enum prs_errcode prs_err;
--	int parent_prs = is_remote_partition(cs)
--		       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
-+	struct cpuset *parent = is_remote_partition(cs) ? NULL : parent_cs(cs);
- 
- 	if (cs_is_member(cs))
- 		return;
- 
--	prs_err = validate_partition(cs, trialcs);
--	if (!prs_err && (parent_prs > 0) &&
--	    !cpumask_empty(trialcs->effective_xcpus)) {
--		int prs = cs->partition_root_state;
--
--		/*
--		 * Check for housekeeping conflict by passing the whole
--		 * effective_xcpus as well as those CPUs that are to be
--		 * removed from cs as delmask.
--		 */
--		if (prs > 0)
--			cpumask_andnot(tmp->delmask, cs->effective_xcpus,
--				       trialcs->effective_xcpus);
--		else
--			cpumask_clear(tmp->delmask);
--
--		if (prstate_housekeeping_conflict(prs, parent_prs,
--						  trialcs->effective_xcpus, tmp->delmask))
--			prs_err = PERR_HKEEPING;
--	}
-+	/*
-+	 * Check for housekeeping conflict by passing the whole
-+	 * effective_xcpus as well as those CPUs that are to be
-+	 * removed from cs as delmask.
-+	 */
-+	if (is_partition_valid(cs))
-+		cpumask_andnot(tmp->delmask, cs->effective_xcpus,
-+			       trialcs->effective_xcpus);
-+	else
-+		cpumask_clear(tmp->delmask);
- 
-+	prs_err = validate_partition(cs, parent, trialcs->partition_root_state,
-+				     trialcs->effective_xcpus, tmp->delmask);
- 	if (prs_err) {
- 		WRITE_ONCE(cs->prs_err, prs_err);
- 		trialcs->prs_err = prs_err;
--- 
-2.34.1
-
+> ---
+>  drivers/fpga/altera-hps2fpga.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
+> index f2f125068..6d9798bb9 100644
+> --- a/drivers/fpga/altera-hps2fpga.c
+> +++ b/drivers/fpga/altera-hps2fpga.c
+> @@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
+>  
+>  	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
+>  
+> -	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
+> -								     0);
+> +	priv->bridge_reset = devm_reset_control_get_exclusive_by_index(dev, 0);
+>  	if (IS_ERR(priv->bridge_reset)) {
+>  		dev_err(dev, "Could not get %s reset control\n", priv->name);
+>  		return PTR_ERR(priv->bridge_reset);
+> 
+> 
+> 
