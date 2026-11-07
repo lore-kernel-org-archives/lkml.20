@@ -1,57 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794017591;
-	b=KEN5Xq+GKzywflN1vMvxyONa8CJylg8C4H7SWiSzLV4zcdADtgeFCOQE9985pBzp3Ybt
-	 QJ11zN9zEGTEe6mbDaK+1yKsypd6lZm+Qdg6TjPJHfn2NjP5Lduttyt3395LOCUUPHZyH
-	 2VRttCAbobqf8A4y82jf5puorB1sE2Wkln9NWdHrsXF5sv54BHSoGryRJDf1MLsJnQs1Q
-	 e/dSuV/tuQ3Pb9xxi2raPsYAqjxmbNBLftNRjzZBaW9fc8AllENHUvpspcdhrLpaPIwtO
-	 BavTU+Juv3/FhGIznPjj2lwMIMxCA6MgaVQBLqkU25UkLbl539g+pwAkYJvhYqgHajA==
+	t=1794017651;
+	b=QxMnvmaqoEehlIr09CpmLw85QtdAkLDYeqnIPIGb+er81loCHmcwcr6aV89EWwegKBrg
+	 Wy30Q5BAdTHCxbNSCQAx0wvJ4DZ/Bdqnmo8FdTwhYMLqUuaVWlCYngsVa2Cafnncx+boA
+	 RHo9ScM5FUUAWZ8eGC7pxEowZvkqw4NKG2bezmdJVGUEY3oKLS2AF6AXgHNBbrPLu5s6S
+	 MMqzdiVfV7K306MShRiAyVFlR64ndcoI26AI426mwzXJVB3WQdOnNF5iHYwpu584r+Yr1
+	 1xh1YkzbFvG9DLRslikd6AzT0DajsyG64hqqxYfoOJxmt6R6tYrMi13yEFCzq5MovTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794017591;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=CVDpM5shQz8r0U/jeQqprBlzv2snsLy+sq8LFE1yYfo=;
-	b=MZnqr8sG7oMn7XRe0i1MFUelnmwcuqpHR5VJ3io0ZVfifsEsC26a5CpTvZM+F+CCPSXT
-	 V19uOwGp1DhwWhOO3EbPTXa3Bo7okXRvZZXrgbMKBkEXvdUYoLX0qHKh1AZeNVst0TsnC
-	 36myKunCKOuY0t3heDGw2JrVdXidz++DLno21X2SPMNxI4L4Vh3MWddxF6eLd75iRsiBA
-	 lp/G9BxIt4QWmf/bGk7N4LHvu6M0fU3P1kx8yI3SnSM2T+DGKeVs13/6eGiPxc6tPWcs4
-	 uOI3jLRzj3k4rmxxjxZSZptub7RhaRyPSdAt+hrKIBKqalepYCwmNWHFcIijfZIWnyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794017651;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=BX7THsmosjCKccT+25A6DC5CxzkdJXQF4Pn0GPYFDes=;
+	b=GtfwOSrTQZ2AhBqC/0IA8YxO5NF1k2jIungPg8nldKATDmjKuzdRg0HIZi1kZXFQZ4kN
+	 /JnJPQi5XBMdWPD576gr0pdZVz9vgHTz48gn2igpcHY46gp5KwfY9VjlEuPYeN7eJZmxl
+	 Fkw/7jzGYrQG/lS/s+dzhTEpw/MorxoEEwCthPLJ8xpHJc34jKCuSdabCyxulTpbS5M4k
+	 UuMqGK77DbFXqJpF3yqCHloTj2gDw2zApXi4hKCk4RXj1eWQfs5wKMYSG035Mh25slTTR
+	 t8BQYZJmShPNrDUfFHlRj4/9826qIEZ7nAcZQAV7QBCrlLF288qDzaWr4MTg/McI3kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYt9YWte;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RJPWXvf9;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B489B606A32C;
-	Sat,  7 Nov 2026 02:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEA1606A32D;
+	Sat,  7 Nov 2026 02:14:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FEA1606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYt9YWte
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503531F008A1;
-	Sat,  7 Nov 2026 02:13:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794017590;
-	bh=CVDpM5shQz8r0U/jeQqprBlzv2snsLy+sq8LFE1yYfo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AYt9YWte463rpr3P5w0PWvWcgVQ/oWx0W3bBYMN86XwoTUvDEgk6KW2vMCFfcB7A+
-	 +8a8pw2uxhZuoQdSpZdL7ZDIs0vRD9f5QZNvsskv0Yufpe5xl6hZL5UO39KHFCqJ2W
-	 rMoc3aCkJL/lseWvJireLc7vZX7dgJwqopw8Sdh+X545zVgnNX+0Bsminriy5MCPa3
-	 SMtWP23ftp1nThKHPal8yFRvrNO1CWS19L6/c3NEBhhLLw8KQvunb3gTQZRS2jmc0D
-	 byc0pJBr2bxzER4qqqIecVoaoxtyjX3lMmK4AIY+Hwoxh2qM/bGBPFBPYbfsUbq66q
-	 4bPCKhVi/HVuA==
-Message-ID: <sashiko-outbox-202487@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/26] sched: Let a task boosted by a deadline waiter
- change its policy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261107014451.1487825-5-mathieu.desnoyers@efficios.com>
-References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
- <20261107014451.1487825-5-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 07 Nov 2026 02:13:09 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RJPWXvf9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794017650; x=1825553650;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k+Jp0wNiYpjW9kANomoHZViOrgIyHRcD6+ATfOSXlMA=;
+  b=RJPWXvf9mu8Xp6GBy8Ec/MDPm6KkREuHBtUV4sXx9TbMHF53Edqg1kE1
+   EL2YwziAxKQ59k1HhQ7Iq8RgAfyydWKcyXE66+FRRfSnOlK9/n0HeCnJw
+   tY11ghfJbAlAeAScG0FpEVANkbsreBvEb2KDBvjtvmTUwSNs9zhzNJs9m
+   SliBVMrWV9QGY6SNfC1nz+CvqLWOvBc8RV67eLhXOyQIJij+29t1QEZY/
+   4+6DRhMFR6DI96TgSdKGvDvOz9tQh4u3JNNNAj6Wxau//5cyHNZbxGrDW
+   Vcy03Gd8ZMmr4pX0/r3PBovRwcYP5ydK8Mv66OUeQoT0doR5mqr1bUpAx
+   g==;
+X-CSE-ConnectionGUID: V6mPkg82QMyk06RaMzCbJA==
+X-CSE-MsgGUID: JXsWBeTgQL+CFDsiMAvIxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2936279"
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="2936279"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 18:14:09 -0800
+X-CSE-ConnectionGUID: dtk/InDfQyyPzBIT86xgiA==
+X-CSE-MsgGUID: Jf4NbIBNQVKBFdjaqR2nNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="7468960"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 06 Nov 2026 18:14:07 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPVwS-00000000qEJ-1oEy;
+	Sat, 07 Nov 2026 02:14:04 +0000
+Date: Sat, 7 Nov 2026 10:13:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Subject: Re: [PATCH v5 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <202611071039.px4NasIH-lkp@intel.com>
+References: <SN1PR12MB2528BA7C696815089DCAD02FA5762@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,113 +86,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528BA7C696815089DCAD02FA5762@SN1PR12MB2528.namprd12.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] sched: dangling pi_se in __sched_setscheduler() when pi is
-  false
-- [Medium] sched: unconditional ENQUEUE_REPLENISH in
-  __setscheduler_dl_pi()
+Hi Victor,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on jic23-iio/togreg]
+[also build test WARNING on linus/master v7.4-rc1 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Victor-Chernyakin/iio-prepare-iio_format_value-to-handle-higher-precision-IIO_VAL_DECIMAL64_-formats/20261106-094026
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git togreg
+patch link:    https://lore.kernel.org/r/SN1PR12MB2528BA7C696815089DCAD02FA5762%40SN1PR12MB2528.namprd12.prod.outlook.com
+patch subject: [PATCH v5 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261107/202611071039.px4NasIH-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 812626a41399a1d464a0d69627ab45c83b8ebfb9)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611071039.px4NasIH-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611071039.px4NasIH-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/iio/cdc/fdc1004.c:69:10: warning: overflow in expression; result is 758'541'150 with type 'long' [-Winteger-overflow]
+      69 |         +0x7FFF * 488281250L, /* max */
+         |         ~~~~~~~~^~~~~~~~~~~~
+   drivers/iio/cdc/fdc1004.c:67:10: warning: overflow in expression; result is -1'246'822'400 with type 'long' [-Winteger-overflow]
+      67 |         -0x8000 * 488281250L, /* min */
+         |         ~~~~~~~~^~~~~~~~~~~~
+   2 warnings generated.
+
+
+vim +69 drivers/iio/cdc/fdc1004.c
+
+    59	
+    60	/*
+    61	 * OFFSET_CAL_CINn: 16 bits, signed. Format: IIO_VAL_DECIMAL64_FEMTO.
+    62	 * 1 step = 1/(2^11) pF = 1/(1000 * 2^11) nF = 0.000000488281250 nF.
+    63	 * Negative values are used to cancel out any parasitic capacitance
+    64	 * of the sensor's external circuitry.
+    65	 */
+    66	static const s64 fdc1004_calibbias[] = {
+    67		-0x8000 * 488281250L, /* min */
+    68		+0x0001 * 488281250L, /* step */
+  > 69		+0x7FFF * 488281250L, /* max */
+    70	};
+    71	
+
 --
-
-commit 8fd411e98dd72e517f278200f2a112aeff758f77
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-
-sched: Let a task boosted by a deadline waiter change its policy
-
-This commit changes __sched_setscheduler() to test task_has_dl_policy(p)
-rather than dl_task(p) when deciding whether to run sched_dl_overflow(),
-allowing a task boosted by a deadline waiter to change its policy.
-
-> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-> index b8c036d03d6f5..bdffe5452dc8c 100644
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-> @@ -689,7 +689,9 @@ int __sched_setscheduler(struct task_struct *p,
->  	 * If setscheduling to SCHED_DEADLINE (or changing the parameters
->  	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
->  	 * is available. Last of the checks: nothing gives back the
-> -	 * bandwidth it reserves.
-> +	 * bandwidth it reserves. A task boosted into the class by priority
-> +	 * inheritance has nothing to admit nor to leave: the policy
-> +	 * decides, not the priority.
->  	 *
->  	 * Nothing to admit for parameters that are kept
->  	 * (SCHED_FLAG_KEEP_PARAMS): they are the ones the task has, and
-> @@ -697,7 +699,8 @@ int __sched_setscheduler(struct task_struct *p,
->  	 * change of its own that landed in between would leave them stale.
->  	 */
->  	if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
-> -	    (dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, a=
-ttr)) {
-> +	    (dl_policy(policy) || task_has_dl_policy(p)) &&
-> +	    sched_dl_overflow(p, policy, attr)) {
->  		retval =3D -EBUSY;
->  		goto unlock;
->  	}
-
-[Severity: Medium]
-Does this leave a dangling p->dl.pi_se pointer when normalize_rt_tasks()
-(sysrq-n) calls __sched_setscheduler() with pi set to false on a non-deadli=
-ne
-task boosted by a deadline rt_mutex waiter?
-
-With pi set to false, __sched_setscheduler() skips rt_effective_prio(), so
-newprio is normal priority (120) and the task moves to fair_sched_class.
-However, __setscheduler_dl_pi() only updates p->dl.pi_se when dl_prio(newpr=
-io)
-is true:
-
-kernel/sched/syscalls.c:__setscheduler_dl_pi() {
-	if (dl_prio(newprio) && !dl_policy(policy)) {
-		struct task_struct *pi_task =3D rt_mutex_get_top_task(p);
-
-		if (pi_task) {
-			p->dl.pi_se =3D pi_task->dl.pi_se;
-			scope->flags |=3D ENQUEUE_REPLENISH;
-		}
-	}
-}
-
-switched_from_dl() does not reset p->dl.pi_se either because p->dl.dl_runti=
-me
-is 0, and when p later releases the rt_mutex, rt_mutex_setprio() sees
-prio =3D=3D p->prio && !dl_prio(prio) and returns early without resetting
-p->dl.pi_se =3D &p->dl.  If the waiter later exits (or has its deadline
-parameters cleared) and p subsequently enters the deadline policy,
-is_dl_boosted(&p->dl) remains true and replenish_dl_entity() dereferences t=
-he
-stale p->dl.pi_se pointer, causing a use-after-free or an infinite loop und=
-er
-rq->__lock.
-
-[Severity: Medium]
-Can a non-deadline task boosted by a deadline waiter also bypass deadline
-bandwidth enforcement by repeatedly calling sched_setscheduler() or
-sched_setattr()?
-
-With this change, a boosted non-deadline task calling __sched_setscheduler()
-with pi set to true (for example, toggling between normal and batch policie=
-s)
-keeps dl_prio(newprio) and reaches __setscheduler_dl_pi(), which
-unconditionally sets ENQUEUE_REPLENISH on scope->flags.  When
-sched_change_end() re-enqueues the task, enqueue_task_dl() clears
-dl_se->dl_throttled and replenish_dl_entity() sees dl_se->dl_deadline =3D=
-=3D 0:
-
-kernel/sched/deadline.c:replenish_dl_entity() {
-	if (dl_se->dl_deadline =3D=3D 0 ||
-	    (dl_se->dl_defer_armed && dl_entity_overflow(dl_se, rq_clock(rq)))) {
-		dl_se->deadline =3D rq_clock(rq) + pi_of(dl_se)->dl_deadline;
-		dl_se->runtime =3D pi_of(dl_se)->dl_runtime;
-	}
-}
-
-This refills dl_se->runtime to the donor's full runtime and unthrottles the
-task on every call, allowing the mutex owner to replenish its inherited bud=
-get
-indefinitely and starve lower-priority tasks on that CPU.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107014451.1487=
-825-1-mathieu.desnoyers@efficios.com?part=3D4
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
