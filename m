@@ -1,78 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794082815;
-	b=fstGkyZjjVjzYf0Mep+TG1G6indyveE+3PCSdAX7BGyEXzJMVCh8GCTdEQizCpxFQOJY
-	 2D8lth6oKAqumYoG60GR6cj5pLL4bctmA13vpNAF0AJ3I7Bldt5qSqbqZ12j8DtUcm27d
-	 uexme+sldgOGfZKjK2j9jbXHy6+nCyFNfrIvoInBJo+UCnlnbB6/G6RCV4zZqojwOU01i
-	 XjWYNiRWAmS53STZDlz7/JvDhF06jReWXAcrwQWZPgapqUlQa7LE6ZalLNLSO5SqnLeUV
-	 9zT85bam73nTK+vfnOA+hWbrJ5kFNH/SXf2YxuOCktFmMV2n6ieSR6FZYkWRKfBIdJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082815;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BsMmnTW5zQtmXUAz5wpSIXVWC8xQsapEEGYi9jYUJm8=;
-	b=Z1wxva4zYnpPfrKIOFglbI87J05ATFsLm2kikcd0ytB7pXXzUsqMV4boaTHah4DAWGil
-	 Y3JegyjDXA07QMVj588xqFiQtRhxeRVjFp2UVblaww658qsjAbz8DXjuFJgLOmlM4oQJr
-	 OVOuyN9l+XyqH6nqaSYPnQpMKdIFcO3/O19rJSAUrpo/itzRcRWZgcWy98nhn5DGBXQ4j
-	 kBnsL+3MC50tl91gphTNd8O6c3sPRv8pAq97UfMrNOr6gwWkLlGh+AYaizNIJtG5l0gYn
-	 jZCsFGMxcv5+6v8+xWdCy3RzXw2jZMdIboatX8Dl/VCyNCfXqY/qNL5t2xK8fSw3I5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLmnUrdp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794082914;
+	b=5QXpFoi5aAC5eCMzXpWqHtsTxH4srYguO+A/k/Lq43eloDYiIf8SfuLfB6SIJQ9LJVW3
+	 2e1p2tCMbQYQG9RLg7KRSbuPidk/5pixmEwbzt02Tt868WhBSFsT6uElKsJxcYkGfcOBb
+	 3Z/tfVtOhGIq+8xk9d9vmy1mdG4gOjZP24f9awtKZ9G5qczB07YNxpd8teGnZYi32Tll+
+	 J1Q6xdqs5p9aFfTvivW16CdITKowgYLI9e/kJ8e4jr/gaPhGUu/IxFx8DNGrOtt8nuZ3Y
+	 eUn28KkmqkCNC7peY1E5SAMEXaVXQeH5ta6CD0xpPJUEASLz06JeHZ/GAafv7eWxjrQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082914;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iOwit2Ku4CCe/YVLF5K+4NP4fyPujtIn150tHCKWHxk=;
+	b=ODYPRZP1jx76Xrn1mbgrdhAURpZefgBwWL2YAMpBMLqZQ9fwtbQn43ovr1PlFW7JdfSx
+	 BFTUp8K3+nwfbPxC3nSCRhKx380S8PAzVRhPeiHIwkdWSiWsjPL2sRGx1nPFvpE899z+E
+	 CAqUfzWq//nUMq2dH2nX0F5K4FLH6FkdrxiU/qYGSl1uyiIovdbjprcpt4qV2bE7zHJEI
+	 ONqaKKnTubyl/vUABKCB32h3dRrCKGPS3KDi6cl+cGEtioPETdOjC35M8TAWC1cIxp67s
+	 nozXJ/SB8TN7pq2AI6I5l0X0kyq9L6Eq/G4cA5tBny6MWub3V4XVdpsDxYXT1WnggcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kmhoz4B/";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0687E606A33B;
-	Sat,  7 Nov 2026 20:20:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22721606A32C;
+	Sat,  7 Nov 2026 20:21:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLmnUrdp
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794082814;
-	b=ASlZvMk5KrgAojeHeXUqC70potmqOsTsjqHcKWnlY2EAfedl+hGvJBTl9n7rnfISUcmY
-	 3GLifYJLMMq9qyzabrzUbZ9u4FhiEGv8g9J2MHOG0GpOmMOwVnKSsp3Vg2sry1sHsf4D4
-	 NzCapmgqVhZr96dvL8FbjNqDRannAj8XEPkbeg+P4VRTDUX9Sw/A0se2KuB+MPq12EyUg
-	 /JiC5pBeyYbYGrrPS3PY31Gd5vg0G05JfGbsa4Pf5Tupp1YfpTUFepk3iVeF3kKjyN/0Z
-	 kAxPQRk1DP+Z/978Xhtersz2ByLwUT4OeU8sz+sAHwzQMQvo8+hPvkj68dJVpyt+o/Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794082814;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BsMmnTW5zQtmXUAz5wpSIXVWC8xQsapEEGYi9jYUJm8=;
-	b=Saff5V63edGXjD9Ieo2TXbUP3Q1aTfJ3Way8n1mf3NMXEbrvbZr0rwZ+7L4CIe0YBx0N
-	 6uRuyaXz5YQqCJWJ65bHZooaevUoLhTAgbQ1Xvd7P6FQOXXuPdRgi4RW134n8nz6JONtP
-	 SiFEJC16agCOd1fLfiJOt9pXnSAVPrZ0SM24AOGx9vZwyfB02SjBjCgmOYRQJlJX24FF1
-	 owr2GAjCd8NlRjGfV+V02DkV1zTwYZClmlNOicJPr5meUPQt3RXL4npsiQt8WuYy0zKdP
-	 37L1yJ+3G7zST1Jc4mEuYNeVI158FN7NAVpAE7f4ofWZ9iU01TQTPEftHiWwJG5H80Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 193341F0089F;
-	Sat,  7 Nov 2026 20:20:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kmhoz4B/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DAF1F0089F;
+	Sat,  7 Nov 2026 20:21:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082814;
-	bh=BsMmnTW5zQtmXUAz5wpSIXVWC8xQsapEEGYi9jYUJm8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=QLmnUrdpFbqgABqoa4skKegumMkQzVfOe/UzRb/JD5FPmi5Eqvixw7L1p66Kw4tT6
-	 9cDkN4dVpE3ZYiElA55i1NleMvr34GHir4liZ/WjLiEeuss/h6QnjSS7O0TlQAgd4x
-	 3pJ0Z2W7E1SfY+dKd0Zhim8fb9Z/Kzi7LWzrUgHinkCXcaj6yJaKLul2tsnZg0bZa6
-	 Dj/mqKpMPX/taAFAFhtZFP7eHr5Fmov7kuxAePE2RvRN9T0EjwPcT97DyO6uRK8yGq
-	 jrGahdABJhSyIIQKzy+sseob1xJaCb6l7PQx5eGJrG5J7GIS3wN2MBIkCbP7+YFIRo
-	 axj0YwwLBrabw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7836F47CEC;
-	Sat,  7 Nov 2026 20:20:13 +0000 (UTC)
-From: =?utf-8?q?Bekir_=C3=9Cn_via_B4_Relay?= <devnull+bekiirun.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 23:20:02 +0300
-Subject: [PATCH] platform/x86: acer-wmi: Add support for Acer Nitro AN16-51
+	s=k20260515; t=1794082913;
+	bh=iOwit2Ku4CCe/YVLF5K+4NP4fyPujtIn150tHCKWHxk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kmhoz4B/0b2Xv7nnG6Swq1Pzb0a/Bud/bYmZr826wW3aB83Yi7EVOd9c/4DKQYRMm
+	 RXC6v0mnJsPbn38aoM3wUDwPko+FNPzaldyAoAlXif4EOnxGayt2JjcO1XfWysIlYi
+	 c9wXovv6QqksWbsTvVX17pMNrMlw4c+D+gaCMbTd1mmKtzEZ+nJO1ORywKh/O4tVxH
+	 RVbEEQhvY68libjvp1g9WMSZZQerDzaBQDu3ohC/+jOR1t7D7o71BM/TOhq56h6uuR
+	 pWqBsZkd2CqexTHFYaSnGXhEFFygZc0pfFXrt3GYgELKeA/+yJl71i+8CXyekmvTdg
+	 JvRSvTdpXKudw==
+Date: Sat, 7 Nov 2026 20:21:45 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ simeon@maryasin.name, lixu.zhang@intel.com, crofts@kernel.org
+Subject: Re: [PATCH v2 4/7] HID: sensor: custom: Fix state lifetime during
+ removal
+Message-ID: <20261107202145.0348a033@jic23-hlaptop>
+In-Reply-To: <20261104201403.2039921-5-srinivas.pandruvada@linux.intel.com>
+References: <20261104201403.2039921-1-srinivas.pandruvada@linux.intel.com>
+	<20261104201403.2039921-5-srinivas.pandruvada@linux.intel.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,96 +62,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-acer-nitro-an16-51-v1-1-456278eb4cd0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1jCFBLBVRBDSA2YISAHqkqIu
- zfQ8Q3/nxBZhSO02QnKH4myhgTKM/CzCxOjvJOhLEpDVFh0nhWD7LqiC2SwJmxMxdYM46uxFaR
- wUx7l+0y7/u94DAv7/T7Bdf0Aj1HNdXYAAAA=
-X-Change-ID: 20261107-acer-nitro-an16-51-964e76bf3974
-To: "Lee, Chun-Yi" <jlee@suse.com>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Bekir_=C3=9Cn?= <bekiirun@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794082812; l=2537;
- i=bekiirun@gmail.com; s=20261107; h=from:subject:message-id;
- bh=XbyK8OmmCdT09eWFW+p/K32iqIhSXoUAvUuuLGPFTsE=;
- b=gojpaeKoCAYDNWCaQNE0OspSdpAVSitkVKYPwY8SGeCEXT0VQYHUxMRQ7pdT46SYwViId1PtR
- rhEnvaqLsf/CKcDbVewLxh9/tbLl0Kd38rauB21QaCDbOBeBt2038xV
-X-Developer-Key: i=bekiirun@gmail.com; a=ed25519;
- pk=ThEeR1k91IQjKK+VVDMEgjG0h0zzy2D+IV65oEuWzxI=
-X-Endpoint-Received: by B4 Relay for bekiirun@gmail.com/20261107 with
- auth_id=1446
-X-Original-From: =?utf-8?q?Bekir_=C3=9Cn?= <bekiirun@gmail.com>
-Reply-To: bekiirun@gmail.com
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Bekir Ün <bekiirun@gmail.com>
+On Wed,  4 Nov 2026 12:14:00 -0800
+Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
 
-The Acer Nitro AN16-51 supports the same gaming WMI interface as the
-Nitro AN515-58 and AN16-41. Its ACPI tables (WMBH method on GUID
-7A4DDFE7-5B5D-40B4-8595-4408E0CC7F56) handle the thermal profile misc
-setting 0x0B with the values quiet (0x00), balanced (0x01), performance
-(0x04), turbo (0x05) and eco (0x06), and report the supported sensors
-as 0x0227 (CPU/GPU temperature, CPU/GPU fan speed, external
-temperature 2).
+> Open misc device files can outlive platform-device removal. Since the
+> devm-allocated state can be freed while a reader is queued on its wait
+> queue, subsequent file operations may access freed memory.
+>=20
+> Allocate the state independently of devres and give every open
+> file a reference to keep the FIFO and state alive after removal.
+>=20
+> On removal, mark the device as disconnected and wake readers; make reads
+> return -ENODEV and polls report hangup and error. Free the FIFO and state
+> when the final reference is released. Unregister the sensor hub callback
+> before tearing down the interface so in-flight raw-event processing
+> finishes before the sensor state can be freed.
+>=20
+> Fixes: 4a7de0519df5 ("HID: sensor: Custom and Generic sensor support")
+> Reported-by: =D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=
+=8F=D1=81=D0=B8=D0=BD <simeon@maryasin.name>
+> Closes: https://lore.kernel.org/all/CAM2dg7ewfVJSP4rFyhkCB1Rmd1+X56sAg=3D=
+eUdbPthG2xrLqwQQ@mail.gmail.com/
+> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-Add a DMI entry so that platform profile, hwmon and fan control are
-enabled without the predator_v4 module parameter.
+Looks like fairly standard fix for this style of lifetime issue.
 
-Tested on an Acer Nitro AN16-51 (BIOS V1.12):
- - All five platform profiles can be selected through sysfs and
-   power-profiles-daemon; the mode key cycles through them and the
-   key LED changes accordingly.
- - fan1/fan2 and temp1/temp3 report plausible values; under full CPU
-   load in the turbo profile both fans ramp up to ~5850 RPM. temp2
-   (external temperature 2) always reads 0, the firmware advertises it
-   but the EC field it reads is not populated.
- - pwm1/pwm2: pwm_enable 0 (max) gives ~6600 RPM, pwm_enable 1 with
-   pwm 128 gives ~4000 RPM, pwm_enable 2 returns to automatic control.
+One trivial comment inline.
 
-Profiles and sensors were tested with predator_v4=1 on 7.2.14, fan
-control with this DMI entry applied to the 7.2.11 acer-wmi driver.
 
-The ACPI analysis, the change and this message were prepared with the
-help of an AI coding assistant (Claude, Anthropic) and tested by me on
-the hardware.
+> =20
+>  /*
+> @@ -978,8 +1004,7 @@ static int hid_sensor_custom_probe(struct platform_d=
+evice *pdev)
+>  	int ret;
+>  	const struct hid_sensor_custom_match *match;
+> =20
+> -	sensor_inst =3D devm_kzalloc(&pdev->dev, sizeof(*sensor_inst),
+> -				   GFP_KERNEL);
+> +	sensor_inst =3D kzalloc_obj(*sensor_inst);
+>  	if (!sensor_inst)
+>  		return -ENOMEM;
+> =20
+> @@ -989,6 +1014,7 @@ static int hid_sensor_custom_probe(struct platform_d=
+evice *pdev)
+>  	sensor_inst->hsdev =3D hsdev;
+>  	sensor_inst->pdev =3D pdev;
+>  	mutex_init(&sensor_inst->mutex);
+> +	kref_init(&sensor_inst->ref);
+>  	platform_set_drvdata(pdev, sensor_inst);
+> =20
+>  	ret =3D hid_sensor_custom_get_known(hsdev, &match);
+> @@ -1000,7 +1026,7 @@ static int hid_sensor_custom_probe(struct platform_=
+device *pdev)
+>  		if (ret) {
+>  			dev_err(&pdev->dev,
+>  				"register_platform_device failed\n");
+> -			return ret;
+> +			goto err_free;
+>  		}
+> =20
+>  		return 0;
+> @@ -1010,7 +1036,7 @@ static int hid_sensor_custom_probe(struct platform_=
+device *pdev)
+>  					   &sensor_inst->callbacks);
+>  	if (ret < 0) {
+>  		dev_err(&pdev->dev, "callback reg failed\n");
+> -		return ret;
+> +		goto err_free;
 
-Signed-off-by: Bekir Ün <bekiirun@gmail.com>
----
-Single DMI entry for the Acer Nitro AN16-51, reusing the AN515-58
-quirk. Test details are in the commit message.
----
- drivers/platform/x86/acer-wmi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Trivial but given it might free I'd all that label err_put
 
-diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
-index 3a018fdf5..08f663fc6 100644
---- a/drivers/platform/x86/acer-wmi.c
-+++ b/drivers/platform/x86/acer-wmi.c
-@@ -690,6 +690,15 @@ static const struct dmi_system_id acer_quirks[] __initconst = {
- 		},
- 		.driver_data = &quirk_acer_nitro_an515_58,
- 	},
-+	{
-+		.callback = dmi_matched,
-+		.ident = "Acer Nitro AN16-51",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro AN16-51"),
-+		},
-+		.driver_data = &quirk_acer_nitro_an515_58,
-+	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "Acer Nitro AN515-58",
-
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261107-acer-nitro-an16-51-964e76bf3974
-
-Best regards,
---  
-Bekir Ün <bekiirun@gmail.com>
-
+>  	}
+> =20
+>  	ret =3D hid_sensor_custom_add_attributes(sensor_inst);
+> @@ -1035,6 +1061,8 @@ static int hid_sensor_custom_probe(struct platform_=
+device *pdev)
+>  	hid_sensor_custom_remove_attributes(sensor_inst);
+>  err_remove_callback:
+>  	sensor_hub_remove_callback(hsdev, hsdev->usage);
+> +err_free:
+> +	kref_put(&sensor_inst->ref, hid_sensor_custom_free);
+> =20
+>  	return ret;
+>  }
+> @@ -1046,9 +1074,10 @@ static void hid_sensor_custom_remove(struct platfo=
+rm_device *pdev)
+> =20
+>  	if (sensor_inst->custom_pdev) {
+>  		platform_device_unregister(sensor_inst->custom_pdev);
+> -		return;
+> +		goto out;
+>  	}
+> =20
+> +	sensor_hub_remove_callback(hsdev, hsdev->usage);
+>  	hid_sensor_custom_dev_if_remove(sensor_inst);
+>  	/* Remove enable_sensor first as it uses fields via power_state/report_=
+state. */
+>  	sysfs_remove_group(&sensor_inst->pdev->dev.kobj,
+> @@ -1061,7 +1090,8 @@ static void hid_sensor_custom_remove(struct platfor=
+m_device *pdev)
+>  	}
+>  	mutex_unlock(&sensor_inst->mutex);
+>  	hid_sensor_custom_remove_attributes(sensor_inst);
+> -	sensor_hub_remove_callback(hsdev, hsdev->usage);
+> +out:
+> +	kref_put(&sensor_inst->ref, hid_sensor_custom_free);
+>  }
+> =20
+>  static const struct platform_device_id hid_sensor_custom_ids[] =3D {
 
