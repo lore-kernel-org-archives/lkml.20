@@ -1,66 +1,142 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794021650;
-	b=Bm5bkr8g6Ohh724UfzhvVBogWUWuTpPEIcQfZrpQUKHRRDx95a7WgH34GKWmRgOMXsJ+
-	 HLb7V5Po+cb614EWuIJ+hcxQG2e+uO8ERc3stzeDsYbFQ9WHco9RtHMYPIz9DAf7YYjHH
-	 BkfbCsGF8ed8s/Ar/+qXSE/60/sDPiyVC3PaICJRb7MfF+x0i9FdDin6Y5RRr+1CH7IfS
-	 +fxYJPmvc+1gWWAEr4LORK7r3muaMLy+k1GcSWkYVedxpmtWcprD21BT+uevK7/88pFay
-	 nHAFdz72Gs0z2w2h0Or6gwGpcMIa3L415OzWEBcf2cgVo5OAM8wzqsLFz1gCLf7eoPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794021650;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=82d5k5q10xlQuPzF6hB++osn7kDtgfy9QN6IoYLOy/k=;
-	b=oQbkbVLA9TfAZ0LCWaSQe7ougpcC1wMvhsJi5Ir3XoWt2zFbpmBsKL/l5e+xuW02FRln
-	 J0+kXu76jlCc4ZSRfLsPfCbi1FNk8E8dtX+cHjGkk0+Jb9MsOm8gbbJoo8TB580I0OmTg
-	 WMEUiFobbs4QakG/5FU+Qz0PJ94frrp7Pzpjg6TBLMBnAXcCSokaSYucYaTf1xxUC6L8G
-	 YvdAWHOglEyYdWraSUvB0mQQjqCpgnmnG7x9xoG9U2TyBye3GRCYPd9lktFvFM4vDl5HY
-	 s0tClP11Lvqpwgf3rJP5M3O/HDPNi5FfroCTAS3170bSiIFfeBF6CHbYZtGj4m6iQhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMngf8F4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.130
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794021807;
+	b=IeLqYFexg74pHzD1sXV3rnoWVQCsYJZPLfqwhJjTqxw1pzU3pJWXCmjikDP4QR+Lr04U
+	 UXD1l7yWrMwOmBUojlujAN7EeyK7AZ4GCLr2yveX5ktvY6+bhCIEqI9i0oPfP39lJAXNn
+	 kIUuEHx3KWghTzCUWgnm/cy+kI7BHkN0v5ear0KJrf06QDEk2u7gQWImrHYREXFFrd5t6
+	 tmfKv0zEVixgYOyqwS0rz4g/lJ7TZWFawq2DLXlUDW3/K0EtB9+Wuo6kjmh4YSu1jSSOe
+	 ODRgUh/kVBdtRMkt1y790QEDcDWQNY2pDFLykXbM9ZxTbI5wmWHpgpGlOeeIhKV9Bww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794021807;
+	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=dnqz1cHie14+s4kyIfjZWJPcD2V22c6JdUl+C5oo55Q=;
+	b=MX1T2+Ur7Z/DUYJYphYUk0YPBgfFVq9LhEXUkGOpaC/B6coQCA2GxpIfyUKeD65AtJLa
+	 WSHz/Rx87KKJyFWfA+yG7ptKT4Oq5+IqWQtahSQ+A91YFHuv9IUGJcWzKUqkYIUkPkaqn
+	 fZgAEY/LYNse5uQSZpBrjO2Xd3YkzjMyd9I/YiS3IP6zOsjvNfvdJoTLgO3wZSrgqMV0g
+	 gG6B6bhvm5p4OloVU4z8epwm3MeGEgff0WiIGVxLgDyz1V2Qv1vD5RwL9n8GyuIgQgh/N
+	 /DbBC0/dtdiRYULPBN2QMkQdW8vA46nGaUy1c+HJIEkfrqLwc2ZgrYaciP161/+BTmQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.130
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2130.outbound.protection.partner.outlook.cn [139.219.17.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01D4606A326;
-	Sat,  7 Nov 2026 03:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMngf8F4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DADD1F0089F;
-	Sat,  7 Nov 2026 03:20:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794021649;
-	bh=82d5k5q10xlQuPzF6hB++osn7kDtgfy9QN6IoYLOy/k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jMngf8F4QXzoCD778s1/OIeDwFBEm/hSSoTicSjz0dX5QsncRAXSyzTYKcDlVvYH5
-	 xz3fI5urPgrnPiPfwcQtyXtCr9HpxyZ0H13lCfAmGts579emuq0gNaUX/KYpzYc/7J
-	 gL1ww/yhDqV01NiQ9y6qd2fy/C/WGoTHe2WAmYIKXZlawPYWtxfZmmRQcb4A13JHJO
-	 s5LADZGFCeku1X4HgAfHVlTkIQOqaZMmXpNIJll5mZaLTSg6Gm9WZdVjBRAnnQzlOu
-	 N27BnaKgUZ8r+UF9bU002ZJmj7U0RPTAPQfEI31L5c0BYsS7I1VimLSfwKKgBfSC3x
-	 PH8z+FYdabPDA==
-Date: Sat, 7 Nov 2026 03:20:42 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
- Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
- Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] iio: light: ltr501: Switch to read_avail() op
- from manual attribute registration
-Message-ID: <20261107032042.0dd311fe@jic23-hlaptop>
-In-Reply-To: <20261106091943.35783-2-clamor95@gmail.com>
-References: <20261106091943.35783-1-clamor95@gmail.com>
-	<20261106091943.35783-2-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1801D606A326;
+	Sat,  7 Nov 2026 03:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1801D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BZdy24yRnC+YSbAXKLtByYnoAdVqCBTfC+cbYuxMzO+r2BRWWxZnu/4OhCmlw8o77BuF7TiSyZqmu5etPDVBp0bMjcKdyCrbkDse6P95tw3Q8FZyyafOCKJxZbjP0SwAD8hDBX1SfkHBFSJN5F9ZiVxSwDrV5XHSTNr2E5eAFiFU/JOefgzynikvKcSfKolxCTYviL+nswprr1IfLFNjZtP4cpDxXy9j5buDahyu8wu9S2gbXcPVPUhyCJ5HWswA78CZ5QgBzdxBxOFs8tsZk9LqNgfnmomtUMETlbYt+9AAM1Kwo2NTy8bU+PPgaePtbWjtWlZ7DdcZXLLVtLzPtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dnqz1cHie14+s4kyIfjZWJPcD2V22c6JdUl+C5oo55Q=;
+ b=nNXWbn3qcHPnBoJnBW2clg4xu9wMhFF639iCGrqqEpbUzxR1tCMnZyWb4mrX2bNjsMjjr8s1StLp1NvkGZl17K5Uh4t5JkKku3oEkjhtFOc56ZpEgttOurhtNXC7fL+CUtHUl0Yr/fW0hoHT3fvtRaTCJkEEtyZMPbk9LcKNl/dCQxoFTsBUVPmrY9xD2Jbq+PHD/eRgEU6ynDzFYNKuI3HVwRL3CRlVgAyGfU6BAD2le+UP6AbYZ+nTC3rbtWBaeBZiW1WEA+9BfSOmv3FBXwrCHtvnobDDwrN9Y+loLEghOYjpPe8NxLzS0I3mW+buPZcof6ni2muFT1IT6KfblQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:7::10) by NT0PR01MB0957.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:6::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 03:23:12 +0000
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ ([fe80::be4a:d29e:5188:b37e]) by
+ NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
+ with mapi id 15.21.0592.010; Sat, 7 Nov 2026 03:23:12 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>, "ukleinek@kernel.org"
+	<ukleinek@kernel.org>
+CC: "patchwork-bot+linux-riscv@kernel.org"
+	<patchwork-bot+linux-riscv@kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, "p.zabel@pengutronix.de"
+	<p.zabel@pengutronix.de>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"emil.renner.berthing@canonical.com" <emil.renner.berthing@canonical.com>,
+	"palmer@dabbelt.com" <palmer@dabbelt.com>, "pjw@kernel.org" <pjw@kernel.org>,
+	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>, "linux-pwm@vger.kernel.org"
+	<linux-pwm@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [RESEND v22 0/3] Add OpenCores PTC PWM support
+Thread-Topic: [RESEND v22 0/3] Add OpenCores PTC PWM support
+Thread-Index: AQHdKHVcUHYiMwEYKEiLBGQTFfpjtLcaTHiAgAA6KyCAAIl/AIAAo5kAgAbIThA=
+Date: Sat, 7 Nov 2026 03:23:12 +0000
+Message-ID:
+ <NT0PR01MB110240F13DA3D2EEBC9528A6E6752@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
+References: <20260810030714.48100-1-hal.feng@starfivetech.com>
+ <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
+ <NT0PR01MB11026FD52BC4266EFFEACBD5E66A2@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
+ <auheO4sRs4P36jgw@monoceros> <20261102-tidal-quintet-3867b525d891@spud>
+In-Reply-To: <20261102-tidal-quintet-3867b525d891@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NT0PR01MB1102:EE_|NT0PR01MB0957:EE_
+x-ms-office365-filtering-correlation-id: 54838b51-c652-4abc-0a6d-08df3c7e7472
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|38070700021|261102123227099003|4143699003|261021121427099003|56012099006|261022075727099003|261009223027099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ uJhWbQT/ldU6ue7Yh+YCUfvJ+Jr55IJROuycZ9MPt07dyzWeGfstl8QylYm5Ce3yqEuTaCHWwX2tgPBOGbiBc5w59wy/xEIoJRnVd2YQUvHVmNXbfwXrCNaa5kGqRKabWHlBy8xh2ql/K/3I9FpoetnZAR2ifFulot5ABZkMH4NoDS2qm6Y0JobFxZFzO0fY/IqS8nNH9WAlYPFsqZ4A9tzFrZW/ZnXxOTKBVQHxSIJXvORQEKP1esLIsE0OOH3RS6WeO2F+CQC3OXhkPFps5zuFDlXYrtgUe84pAH0dFksod0UUl8g+2nNJZ1ZH64NYb5GzlmpaemfkPA1+Ae4knGn4yYZMUxkNt17rvydXZdf52hp1aiAuBYI7qxma8DGqjA579bZcOI/RlbGrGIvpAlexm5MGgleiW7AY9lnQ1/oqd3pRfw/u7fuLTX3Oel9jN7AiH2iLMmSIr2T5bG9SZUFyAwh7zhq+mMl56rKkB+p1009o4mJsRxRALR+NOTjUqeMrT/KQfNfkKZH6NpUAf6Ayw9NPmhcA4RHqLeuHIz8vQKLGH94VVNuByDSDTmon
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(38070700021)(261102123227099003)(4143699003)(261021121427099003)(56012099006)(261022075727099003)(261009223027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?JzNDKsHa9eH78OLM3KZK4q1hzCbUhl+DircNcSPhQXRicC/TIQqnJv10HvL0?=
+ =?us-ascii?Q?ZcJLLFXJSLs3c8TmeVT3LiooQt/a2etnYvp2Vc0MdiGxEutcNYZzpS7wk9GZ?=
+ =?us-ascii?Q?rRmWxia5lkk7R66wtXpWgphkpQ79ml1Q0RxDPRWgJhck8tq+iMF+DfR0NHvt?=
+ =?us-ascii?Q?cQyVQNPzQdSu40FHWLETX2gXEbQEYP5toxAzgjGAn4IAOPEiQ3TPwzGTS/LU?=
+ =?us-ascii?Q?gu++PXchqIjSq0R1ZN+fDAcefzbJmSgV7MRiW+tpSkqflThc9eYbcDthmGYM?=
+ =?us-ascii?Q?nPcp9F+tcYCabCgKPDpTgWaYBPhZmEfhh5yB1Z3p4OWlh88w6fBQ7rbl1Wzd?=
+ =?us-ascii?Q?C5V+iDSo+eRccmxx93U5HLJ13xwwiRBDVwm/dHc047/yydo8V4ESTXIrydYy?=
+ =?us-ascii?Q?BhW0F+dT4b/I2ZyCxbSK7xFOwMBvQa3zcY8xEIe1aXl831qBP4mKg/pHe9Kh?=
+ =?us-ascii?Q?X0DWnTzTCv3MYBc3YCUYQkZdASl7veWRDHGMA+DHhLO9bMZSwZZ06UMq1mh6?=
+ =?us-ascii?Q?fKa6oY4gxD3SZmx+367vDrRVQeWIEZ4Bf8gOlUw/9p0yV0EgjXwI9UuzIemN?=
+ =?us-ascii?Q?O5OJmSO//VkxztN+uMzsO3aabyubQB6/u/DAoO5Q4ODTKesyy+9wEU3rtX4d?=
+ =?us-ascii?Q?mRyuWc8tD3cFXOMtISSMzJGRZu+qi/9qkB7HPvpHImgVKNnJThSZAp2SoQP+?=
+ =?us-ascii?Q?lIX38aChYeyDgcvPbs/LjQp3g50Sr94k+bkOwHAhGtWTN+IInojES5JEq5g3?=
+ =?us-ascii?Q?17gVaTDQI1THFQD3tEofv6gMPZvfqQBsIRevBowD2Tz2pWa4UpQq7kKVma8d?=
+ =?us-ascii?Q?3WpIeYQqT2NlykConBsMXbM+gokMIn1VG72xo4ItE3lfmsW82P2QE+5UyDsD?=
+ =?us-ascii?Q?bQQe0Y/v5AdaTZ1/bx0Iw6scSrttd7adKQYVKHl6WQP2tfCMcgHRHOY08AER?=
+ =?us-ascii?Q?yH2Pw4IKtJz4GByD4xkIzHLWeVZkfBrt8zSqwkVLRsYiymRtRXFRbI+nnymz?=
+ =?us-ascii?Q?VIshUIVAd8IM5ucP9uX/j2QanXEpeXEfvRrFCTEoSSR6/wsIZta+8Ib+3KLZ?=
+ =?us-ascii?Q?ODeX8xN7YbCg4CAb6kNfHTgLSrLkpevHS8l1xmk3r5M5kbibxHm4ai2gW/Gt?=
+ =?us-ascii?Q?O8uTQvJAE22NXy5mCq0IayhBMzUJVB0Ugu16aVya3CMb6fgR81vztzg+MeWb?=
+ =?us-ascii?Q?6f/CB83dhGkwUOAMOsq82EU6c9rgtFBzB/+/094t0y0Ijc0xl7uwVaKl5kBm?=
+ =?us-ascii?Q?+6HHEsNkrhjYMIRM2nvDpMFuuA/1Q7nPIOSx123HU207pcr7y7YJyQUjom8R?=
+ =?us-ascii?Q?ZKkjmdy3vf9srAfAQjscAXqyrYSWvkLUsDZqXYm+kl09kT2qegNdJiT5QAaY?=
+ =?us-ascii?Q?Qi9u9Ecm1NoHkOBVl5v9HjPn0MsqFMnu5/8dEvSHkiYrTcCTNZDkFYJ1Ej7c?=
+ =?us-ascii?Q?8dIx78ckqK603gtTEOVhdxg9VGV+2W14pCMoFSpFY5Nj20AGoj7sLQl7zQjy?=
+ =?us-ascii?Q?yeiw1Bs/gB/qmdalAHSLHkMmpfZHe4AQ0iLmEmeuV6SsX3ULGKgNtikTcEV5?=
+ =?us-ascii?Q?ZCN+yhFxNB4IqYygvh5vUWaEuAxBax0kWH0wI70eGZ1oUqA8cbqAxb3740/x?=
+ =?us-ascii?Q?AKLzAjCDbq1TtbEDvCIgPE3cMPDImh7lMKIaaV39wPefHfIM+sIY/l6Fgq1s?=
+ =?us-ascii?Q?SV7G6PcgvHI/aMRxeRpz7vXsk2Psf1BzV0uf4pwxwOQWnLnONYmugn4ljlLb?=
+ =?us-ascii?Q?OfXtLdWenA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,77 +146,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54838b51-c652-4abc-0a6d-08df3c7e7472
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2026 03:23:12.6864
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IJ4RyN20dp5KJERDy5aEa1P8hwfFG/Zf76mA7A0TiAdlyXB5lUSEQWF4fjZ0el7MFRI0xtcFEDB5A4Tll2tqPonxZA4gLsyD2iUOeURA7pk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB0957
 
-On Fri,  6 Nov 2026 11:19:40 +0200
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+> On 26.11.3 03:43, Conor Dooley wrote:
+> On Mon, Nov 02, 2026 at 10:57:10AM +0100, ukleinek@kernel.org wrote:
+> > Hello,
+> >
+> > On Mon, Nov 02, 2026 at 02:11:46AM +0000, Hal Feng wrote:
+> > > > On 26.11.2 06:17, patchwork-bot+linux-riscv wrote:
+> > > > This series was applied to riscv/linux.git (fixes) by Conor Dooley
+> > > > <conor.dooley@microchip.com>:
+> > > >
+> > > > On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
+> > > > > Add OpenCores PTC PWM driver which is used in StarFive
+> > > > > JH7100/JH7110/JHB100 SoC.
+> > > > >
+> > > > > I will maintain this pwm module in place of William.
+> > > > >
+> > > > > Changes since v21:
+> > > > > - Allow non-zero duty cycles shorter than one clock tick to round=
+ down
+> to
+> > > > >   zero.
+> > > > > - Drop the .free() callback to preserve the PWM hardware state af=
+ter
+> > > > >   pwm_put().
+> > > > > - Update the comment.
+> > > > >
+> > > > > [...]
+> > > >
+> > > > Here is the summary with links:
+> > > >   - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update
+> > > > compatibles, examples and maintainers
+> > > >     (no matching commit)
+> > > >   - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
+> > > >     https://git.kernel.org/riscv/c/2186ec5f59c2
+> > > >   - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
+> > > >     (no matching commit)
+> > > >
+> > > > You are awesome, thank you!
+> > > > --
+> > > > Deet-doot-dot, I am a bot.
+> > > > https://korg.docs.kernel.org/patchwork/pwbot.html
+> > >
+> > > Has this patch series been applied? I've sent out the updated v23
+> > > patch series, but Krzysztof pointed out the Tested-by tag should not =
+be
+> added in the dt-bindings patch.
+> > > Should I send a v24 to drop the Tested-by tag tag, or should I make
+> > > the changes on top of v22 if it has already been applied?
+> >
+> > The way I read it, only patch 2/3 "riscv: dts: starfive: Correct pwm
+> > nodes" was applied.
+>=20
+> Yeah. And the mail is a quirk of me not removing the thread from the
+> linux-riscv patchwork and pw-bot autoresponding when the series was
+> "applied" by me to that tree when Paul fast-forwarded it.
+> There should have been a b4-ty email from me a while ago saying that I ha=
+d
+> applied the dts patch.
 
-> Switch to the read_avail() operation from manual attribute group
-> registration. This eliminates the need for per-chip attribute_group
-> structures and related ltr501_chip_info iio_info entries.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Given you were quick off the mark on sashiko on v1, I guess
-you already saw:
-https://sashiko.dev/#/patchset/20261106091943.35783-1-clamor95%40gmail.com
+I've sent out the v24, please check it.
 
-It seems correct that you'll only get one attribute where there were two
-before.  I suspect it's as simple as the mask should be set of
-shared_by_type_available not shared_by_all for scale and shared_by_all
-for only sampling frequency and integration time.
+https://lore.kernel.org/all/20261107031251.98972-1-hal.feng@starfivetech.co=
+m/
 
-The current code is odd in having per type sampling_freq and integration
-time as both apply to the light channel as well I think.  Not vital
-to fix that though so I'd just split the mask to make it work for both
-as it does today.
-
-The current way the two Intensity channels is done is very odd.
-The .info_mask_shared_by_type should be the same for both of them
-(only one set of attrs will be created).
-Ideally fix that as a precursor patch (don't label it as a fix
-though as it's just a code consistency thing rather than actually
-resulting in a change.)
-
-
-> ---
->  drivers/iio/light/ltr501.c | 153 +++++++++++++------------------------
->  1 file changed, 52 insertions(+), 101 deletions(-)
-> 
-
->  static const struct iio_info ltr501_info = {
->  	.read_raw = ltr501_read_raw,
->  	.write_raw = ltr501_write_raw,
-> -	.attrs = &ltr501_attribute_group,
-> -	.read_event_value	= &ltr501_read_event,
-> -	.write_event_value	= &ltr501_write_event,
-> -	.read_event_config	= &ltr501_read_event_config,
-> -	.write_event_config	= &ltr501_write_event_config,
-> -};
-> -
-> -static const struct iio_info ltr301_info_no_irq = {
-> -	.read_raw = ltr501_read_raw,
-> -	.write_raw = ltr501_write_raw,
-> -	.attrs = &ltr301_attribute_group,
-> -};
-> -
-> -static const struct iio_info ltr301_info = {
-> -	.read_raw = ltr501_read_raw,
-> -	.write_raw = ltr501_write_raw,
-> -	.attrs = &ltr301_attribute_group,
-> -	.read_event_value	= &ltr501_read_event,
-> -	.write_event_value	= &ltr501_write_event,
-> -	.read_event_config	= &ltr501_read_event_config,
-> -	.write_event_config	= &ltr501_write_event_config,
-> +	.read_avail = ltr501_read_avail,
-> +	.read_event_value = &ltr501_read_event,
-> +	.write_event_value = &ltr501_write_event,
-> +	.read_event_config = &ltr501_read_event_config,
-> +	.write_event_config = &ltr501_write_event_config,
-
-I'd prefer a precursor patch tidying up the indent as that should make
-the diff on this patch easier to read.
-
-
->  };
-
+Best regards,
+Hal
