@@ -1,60 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794059936;
-	b=JnGu4Y0mHykL9FiLD+I0FsI6yzbJGBnZ6lVejpMZWn+IPOqE6VFtTD6sf+RjMyYjSKRo
-	 KiFSaDUkUqxx+BT8INjP+4Btm/Rv6y0+1gw8Zq1k8tmzix1MjDz7CR6GXiEjHElioGjR+
-	 3qMlDgInlCENxu10v1Pn/NZKh8Hh0UtKOgAJCOtiPumDmWtlk9csEUf1M8KfPstRFSRfm
-	 7xYcSk8ljwe1YDPIjt1MjspsTZ/DuaKux8KJHUb8VV4KiEjfTRCh//7YkJ5m5UPQtOEHc
-	 qVzHtpk0+EZRoy+84nTdvfMW3tUQy4u0t1pPP4xY6/B2RTiapxg+vsxkIiZoBW0tZJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794059936;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ggxRUmnt8EfrK5EcxblzoupqkjNgWhTE5turDSMEfKI=;
-	b=HpNJsVFeRvPXTYcZYW4BIblb+hWEy9wKsCu08wU5wNs0PQR/Iyq8O1NeTHgJuGCuKkth
-	 hRuWxWwxIn4hfFXT32cFlZQOat/XgJu9KLmlY7rsNqbPi/dyJ5MJjqec5MVGOso2LwNM0
-	 dUI2fLBXWpn21iXn1AQdIJn0LGStAmXv9TEYtrm9R+6KDX9Npz2M2u0dyetLW11fWaUUF
-	 el+oPMOF8leHTOXyWFupr8o95W3lcL0u3GXnC04ktUSZaY2GZ19xXbCS6kZFEi5BmSFvQ
-	 gaExFXqP+LbXhKcIav0E6qatKQWWbaAwaS3jziqN0i0AhY784r4WOxuAJiiC9wNfJBQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=bFrtAkQ6;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794059941;
+	b=zBDfUXE52HqBwp682LyiusNIMryOd0UPlQSXgiK7akDjkovxmblCj2MWFJYysJNLjkOC
+	 174uV5wwVaV47BPFWhJs4Odej2HsYEB6FEM38z+OyhwQ7CWvR39Tqsi3VnX6dUrBG6mpY
+	 c2S2vEmV2auULoWOYY6oEAdort+J/nLOQURTOtgpwWzoVHFqQbsC/YHdl8kMM5TqRADDn
+	 Ceg2xnmAVG6JrJjTvDhASLWJgATJSvCZZSNB2/defraa1A69MTViPbmO3xC4zXGdGhrH/
+	 g7sgeCzB1NIpiZfS9wi7bDSlGNGGbjLzsp63gXKxwbG5kxfBzo6vRCf4JkktkkA3S5Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794059941;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VVi/e87sJpab+voYaoq45WS0pEGrOtNiYKBZsW27Q+s=;
+	b=sV5LzoX0fbQ/5a0Lccir82utCMgknlu9Dj00Z24PpoF8wyGI4yCJoBfB/LaOsdnxr+2T
+	 2Z7EvLQW+pThlBLTNMVGTTzTSini7WAth9XavjNooQUWr0MA9yEJA6p78lDB/dXKgQJgA
+	 wR9RSI4REMukVHW+JyYaiE2QHlpnJqu+gEK2BbH0edwtAzciolUeJBWrlBq8Vc8eP0tTV
+	 lWkCWbVoP2L6B0AYPdYgjrd2c82rx90X1kadWFPJStZnqZptCcLKvaOldiSKaCi7KO4AV
+	 dn6uzTJypu8I4izEgQV+3F9z6IA7oCBjLeJlVW4DY8EvIhDHnvITmFMlKVAF1QCpZ8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EEyUDNy7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBCD606A326;
-	Sat,  7 Nov 2026 13:58:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BBCD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276C0606A332
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:59:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 276C0606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=bFrtAkQ6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794059933; x=1794319133;
-	bh=ggxRUmnt8EfrK5EcxblzoupqkjNgWhTE5turDSMEfKI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=bFrtAkQ6tOUYKqXxdmzhmLZTs+vVerVwCQS2wqUgfoqUBHCTqSAGYyW2sk7sa+ytU
-	 5bqqUyliFofSzrM4Lx+tbRQmezdKwc9CBTNXMVvo/gjzu+H92XgQGHHpZHhlIgowrg
-	 W5oxsYadM07IKkJ3+4KHWsfvsh/BJxcweK7aPfFrAk/+cY9dr5EMufjySKmWRb1r4+
-	 Vq/JGbxI7/5IQ/6Q5P3fohRgNtj3YshpOPRWgsKz2/eNyZSuoERSSl9puPZa7BU/9D
-	 Z8Lva58ocSKiVfQjOmYnOw1tZFrK5f5d6czowWDv1c1kRricbK0n3AGcSeB+CsUX4X
-	 UcAL4QekVkb8g==
-Date: Sat, 07 Nov 2026 13:58:45 +0000
-To: i@udp0.com
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: arm: mediatek: Add MT6833 and the Xiaomi Redmi Note 13 5G
-Message-ID: <ZZQvVFkEtu09SueBM4cpOyT8Lvc5AE5kjAhCYj_i90Yy_HGK05NgwpMXjnrG-yoPdoUOdMZU78ixaR67bHKg6oto5txtZci-CevsM21bJqA=@protonmail.com>
-In-Reply-To: <20261107-mt6833-base-v1-1-bda21083e9f3@udp0.com>
-References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com> <20261107-mt6833-base-v1-1-bda21083e9f3@udp0.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 91a443bb6ab5850971b9019c18190fcdd348bbc6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EEyUDNy7
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-679334baa1fso1912776d50.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:59:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794059940; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q9kXSsCKgq19veu8nQnUyA/6TKmoNVZL32qcdE1kbQTZwKO8nYlKIYLgKA1+l43ozi
+         FbiH7FwXtXpFfD0tkJ94d4Yq5pAjVMlCb7mTV6wCSy/q6w56nlnayX1QcZhP8X/he38O
+         UTzEU30JIVCju6gmByC/IIfUINW+ue08gK/SHziAfibfm2turij1al19qhzxuMxWEqEV
+         EuEYAIayoqZ75KQl7DeuPnb+McxCcUONMmsfZC5fCua1UwQbHe6eBmH8zeADIGCkECDC
+         6oKvioTSplPXE7GreI5YWjbtkzdQPVefYBiEMip6j13y9krCaCWfR6kKtwbSetVG/yhZ
+         DIZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VVi/e87sJpab+voYaoq45WS0pEGrOtNiYKBZsW27Q+s=;
+        fh=8QSH6JyUiwIzHX9AEhFlETQL71FOKEJH1/+IapCIFy8=;
+        b=DKZG1uc/gXB3TzzSza2h+G+to2p7bEl4XB+I+dNSBuRav05aCcxvIYqXomxhWJwtLM
+         Luo4uXici2boAjjX1C4UZqSOOyhihdMtq6/WMjcNuxfAnsfQvTTDqr70oPriG4lZKEP7
+         v1cb1InxXc4OPteQERrlnCeQYqxPeExqPV3oYn1NXZ1cLx4C/nnvxnr5JTRUcXJs/wOj
+         trpQWhzc4rWLHI//8jBr9/G9DPBUjYki3/WgAFkzOwUQCKL56pnVSFDTJY4KYUZLS+TN
+         OvQ2n0qu93NtV7mpsW9G90UAmuclQP3FpWJJnKa3z6nogD9jyxNRK9S8I2TffPoQLEPd
+         vSHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794059940; x=1794664740; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VVi/e87sJpab+voYaoq45WS0pEGrOtNiYKBZsW27Q+s=;
+        b=EEyUDNy7aTmKMbp07qiBDqoiEA0tfEvhxsvjvhJxPef/sSPkm6POk75XkrdCRdYrpM
+         tojYcXpOv7axIcxgqaHJuvhLmYkffGeggO4Go0AcUoUYgM/xZ8a+v7/l4G9W6ZijU8mf
+         Ew1yzpCgBieEoqnP2VqqaqvO64qkm3QLT/ltZNYatirrZW1+57A1t2gNo/WJZ7kmCO4K
+         KuiZpBCZMcuSjsn8q3TVoA+eXXjfx0JYU/dLdAYQYAssdmDBxEFzuOBpSmoJt5jrChNY
+         d+p28ksu6U1shxwFf4BaqGkkiPAIRuuEZCpq4hZE5hUsl9PvFK5lB4j/EzRCZMZYDt5e
+         VFoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794059940; x=1794664740;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VVi/e87sJpab+voYaoq45WS0pEGrOtNiYKBZsW27Q+s=;
+        b=U6wfrZ7S1wo65vlnqoSMXu6KHoWMOrJuhTCk+7Xe3dkPzY8lV2DIGlRa5py/Ojwg+W
+         L3utnRSuFYbePKDePMMnkxqnpGI6oqAtkpBIsA+ubSZPhPSiop3l4qJaRx4od9RlXSJN
+         o5IeOQ8iV3Tdh6ibAcb0PIOHtzxEW9LEOdfNpCn1DJSky1f7lpe4xHOo8ROvZTM7PEFN
+         pCJkspvcHYXuw/RMqZ3Ju4vDWpHjCisBhnTK/crr4wVNXUyRg0lQkZ2x23xAtH1WFmCQ
+         /4zVy+wRLkNBwxANlUy94diPy7rZGSORxH1X+ppAn8Tm9uzOjtd0tsTIj0hbjnSluY42
+         LfDw==
+X-Forwarded-Encrypted: i=1; AL+hErGosUuJrXYScmWrOBQ9oLX54Eg+85B7hzNpkh8pnOA1Mqq/R4d9w1EWbPn7iLLFBxeSSgtLScrKryRYK2s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8sG268fIOwDyh0cVPP5yTLKdjDYiqnMWJinwoF61mpeUzlmPg
+	cWi7lnZeVuFv7BPE3HzenFmtvI7VtB222lOwLbL6O5gICBvRWTsL6WCWEitSbyYi6u+UKMMPK7h
+	4s2tnkfQCPYRKWlnzPITpQPcID1K/r5k=
+X-Gm-Gg: AYBFou1YfceQW4biAjEOGpnLhWvLvDyhgnIG7PRaZivZU1hdD6D90N+FvXYaL6OK7xd
+	+o9fzP4FE8GATPqtJNsyHpecXsf9UvSdF7IYI4v31lyTzIff2fLg7qVZfe9cikBsypmbNVSohwA
+	8zfRFmGtXTTAshMLLi4edfbVjBLXyyU3qIztP+kbsfl6fTNEwv6tc2bJRlnO08YUpyD1g1oZSju
+	ZSCZVsy4QSSianI9jwl0Ya+yaStot8QGZGSoM9BAuwQVBHnhRuxpKTOYENrmTiXxEvJs/OY3lLa
+	guGQaCIIn8mIhmpJASh3B3KAKsm+1ZeDdRgP9wXFRU4yB+mTAQP52UnKJtg7NuDm+LdcTHCKTKt
+	EGQD6CCKDe9nb1SjuD0mu/RgHaTnjzym49k6JNtuLiDyK5C2KgiqkUBcpq/yuMkmAuymVsuoglx
+	qAdyMCFpZVADSES0HWO5fdFRBjmghw5UedYQVy13iu5n0nBiA+EBdAXWI5Q755WBvLj/LV9dwK/
+	8A1fyZVHoFU9ib+l7twKfa7DaQAWIsS1M5+eMsecHlRU+hR3UXhPvleuxoZ1w==
+X-Received: by 2002:a05:690e:14c6:b0:67c:2755:7133 with SMTP id
+ 956f58d0204a3-67c275584b0mr1164502d50.129.1794059940031; Sat, 07 Nov 2026
+ 05:59:00 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,48 +106,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261106-pinctrl-subsys-v1-0-f17582f32aaf@redhat.com> <20261106-pinctrl-subsys-v1-1-f17582f32aaf@redhat.com>
+In-Reply-To: <20261106-pinctrl-subsys-v1-1-f17582f32aaf@redhat.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 7 Nov 2026 15:58:23 +0200
+X-Gm-Features: AclHuK86k0sr_RRex5QWUFnx4k6XGaW6tT01IfPzghodPfwjLTwWTNGGOkqKBzk
+Message-ID: <CAHp75VfW-DV_HcorM_XWWkBnc6YVrj0fBReFf=WgziVCOoEjzg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] pinctrl: ingenic: convert to subsys_platform_driver_probe()
+To: Brian Masney <bmasney@redhat.com>
+Cc: Paul Cercueil <paul@crapouillou.net>, Linus Walleij <linusw@kernel.org>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Saturday, November 7th, 2026 at 2:22 PM, Rui Cao via B4 Relay <devnull+i=
-.udp0.com@kernel.org> wrote:
-
-> From: Rui Cao <i@udp0.com>
->=20
-> Add MediaTek's MT6833 (Dimensity 700) and the Xiaomi Redmi Note 13 5G,
-> codenamed gold, which is built on it.
->=20
-> Signed-off-by: Rui Cao <i@udp0.com>
-
-Reviewed-by: Roman Vivchar <rva333@protonmail.com>
-
-Best regards,
-Roman
-
-> ---
->  Documentation/devicetree/bindings/arm/mediatek.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Docume=
-ntation/devicetree/bindings/arm/mediatek.yaml
-> index 180e6e4948e..900f16b57dc 100644
-> --- a/Documentation/devicetree/bindings/arm/mediatek.yaml
-> +++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
-> @@ -72,6 +72,10 @@ properties:
->                - archermind,mt6797-x20-dev
->                - mediatek,mt6797-evb
->            - const: mediatek,mt6797
-> +      - items:
-> +          - enum:
-> +              - xiaomi,gold
-> +          - const: mediatek,mt6833
->        - items:
->            - enum:
->                - bananapi,bpi-r64
->=20
-> --
-> Git-157)
->=20
->=20
->=20
+On Sat, Nov 7, 2026 at 2:27=E2=80=AFAM Brian Masney <bmasney@redhat.com> wr=
+ote:
 >
+> Reduce boilerplate code in this driver and convert it over to use the
+> macro subsys_platform_driver_probe().
+
+Wasn't there already a set of patches from somebody for the same reason?
+
+...
+
+> +subsys_platform_driver_probe(ingenic_pinctrl_driver,
+> +                            ingenic_pinctrl_probe);
+
+Anyway, this should be a single line, it reads better that way.
+
+--=20
+With Best Regards,
+Andy Shevchenko
