@@ -1,74 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080859;
-	b=UZLXJkLjoarW3NOnpuSjgHMi2afYeSUzX8SRsUJnKceD4v+UwAxC9Hh57KVV84f57u46
-	 mhqHAZN6wJ8h6FDfa66UQSYhX+d8iuq2H2oIVTRRNS1VgnRZp30BTLKBj5C2te45d/SJb
-	 gYrCvwtuNCfmQwOdw0ArUpkMkaRgIxP8HfKqk6n8iseN0IeS4MwaGCPfVeke1E1eY/Kxe
-	 /qdha6UhyBwHQpEfgGwBXzqz5OzaGvil+29TKLWnNsx1j2IS8LwwPkJHRd9Wm3vF5onEF
-	 BJE8u3CZH8P+vSskJ7jh8fyA49plhnn0vFWnQexPjexwM2zlSZcJzYFe97c1sP7SBiA==
+	t=1794080896;
+	b=e+X8zRjHSZ4/YUiiy6toyq5/iY/lluENolgZEojaMG8LavQZqrgzIFYDJ7jITJNu6Fjo
+	 y3t+mcG7OJV/iUgjqCOqw8qabVuxGbxMPqgbxSQFLUMfFjoR67sRnRbqGrGmKfS/kCSnM
+	 J2xiP5wWDyXob+/5H/UbKQXPkyyX8EW4Ye6nUJShamLIu7NZDqB6tS72B2B3NVLNfXYl4
+	 Fql3WJhrZWMpmNAzAyVm5bLaEAnTp0fBsfJ9+ByRa3eey2kWIyS+GZm9lMtJoSBu8BmGJ
+	 DjCDIb8+Z7fbBEPn0J8gKnOzBlSfb3utiSmndIJ1DrQ835rmzGAROMwlG3Df05RCRhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080859;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=SYcjJygf+sJY+ufopYfdJKIVnGnyP9gSuN2/MpdkeWI=;
-	b=xz8UZmLuXe1gK2AfIAmcLFxCaRCHMeL+6CdWsJRDYHE4lQ3jDpkyHpv3CazGc5gkPI6I
-	 nY8xRB9yqQmoCHeCJMndiCxvgEnwjFxOGElL6GKa94Tpgf6ZxORQ53GCns4dvIa53vLhe
-	 Bkic/VnbibBJwj6qnVqlIcu0wEP5edmK8PyrsgsjXTDzLpErYMR0M/XeMjfrr1gBx2/mW
-	 S328AASWcAEQzRDK3L7/syynW7xA434E2F5gnxzldINEpktZbbhyCqYFK3gLk3Gt6g/E2
-	 k1Qr0KGcjvL/hmxvD9rvY92FkoCk3FGTSKUjw7zjFdQxRhrvE7R+UOuTvGVLN6dQZwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080896;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=PgfupnOI9y63nTPBwUuVBVA9ftyhpGgpL4SadbS98oM=;
+	b=vESpW8MByV/roQP+nP5rLIpnGFqhBkrWUdCj1rC3arNAk+LAuks4X1gkjNsz8rxtGzI/
+	 kgHu7yQRZmuyQ1EISHPILQJfdCaPrHGQLb5vIvckYXuKr5gsFVExH5AQZLlb+XMGswBC/
+	 kAGNSwENxCPeDNzyxHzywzruBlcCUT0u9RxLpAKii1ttTJL9WwUUra/MIBGRNLJ8ePflC
+	 6SLr2P6eqN5oVMEHbL8QIR2nKwOOn+pRpX8DI9dwF5kBtu5l+7Lbw6E7GB98HDf6JK2k0
+	 k+Rd245C276ZV2J49ngpaD/VdqKsN2vlYkl5/uu2TsofNBA3/OnmUpERrFc9qMdWskA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HS8K8tB4;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A97LRtV/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B7C606D810
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B7C606D810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DE9606A32D;
+	Sat,  7 Nov 2026 19:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HS8K8tB4
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdb9036421aso233084a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:47:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794080859; x=1794685659; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SYcjJygf+sJY+ufopYfdJKIVnGnyP9gSuN2/MpdkeWI=;
-        b=HS8K8tB46rVV3XK02DYLXjAdcKip8k6Hm5Q9t+XfPBuc9VvckozIH+lZvslrE8FuVj
-         Dep1/mj0pYrlWDP/10n3ed8sNOjBNC7wPjjbIM+PCfkDBqiUmQPL2uX/lAlXr1StbIKY
-         9N3VooBCrOLen7FIS9I+f6Ip7RRSAQhD/hrOFm0G4DE00qRHeQhxbax8DDnQnx9SGqV0
-         pSf0qoT/Sk4JP0c2gGn9GTgEfh6+WvNWj0+vI/KyK96fnndT5wjZV42zK0tDw5pMS7yN
-         ZBFo7eFZpInQH9veHNrzGX5jBZlO1+eny9aupqZB3KF+PPWT7eSsKCCCQ+xS80GdiecZ
-         JlqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794080859; x=1794685659;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SYcjJygf+sJY+ufopYfdJKIVnGnyP9gSuN2/MpdkeWI=;
-        b=MnDvxogdkgggYnoYu0GN0bwovkJSDTxxY+3VGPCO0oxkCtYfU+5iWLukaWEjl5urFe
-         eSHF3keyq9zXIz18SIeH1sBTTNf1RLXgjHfkzCKldCaYkeMsynC2Kww5lOFPwXqGa+GE
-         u3tpXQYi9sXe+l8BuNEPqGw4MrhWjSisdoo9wdtWWmMUZ2Fxhhx8jCmFaV/jJSKelC5Q
-         3hiyw+tSv7ZPks2gV7jNyYxwPVNoDX/JGQbYeUdInXwoteCFmpSgYqgJX8CYqAUnUjO4
-         UvyrP3Cqp/4fhldDUWqeszo1xbtFa8jdpLfmMRldtpx6aA9FwHQy9FpCkwCDxp6XFPd5
-         AM2g==
-X-Forwarded-Encrypted: i=1; AKwUvBz/wI+M1k52MHQw4ZzTeXltN0CVh3a1NN3HEp5yslO/jIZufXeOrVq7be3laCcsKlIOkNUsg2lptdD45vo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kB06d+8CmeegL0kxxjUP1gWQVwR7Y9bOqx1wMlja2tOKQa6n6
-	yOOJpes9tcF3wLLbsZWx8DjMZWJTxM4Kj7ZqmjQtPWXGxCfGf0O9envYf68nveqO8HKZww3hwPV
-	D2KsFZQ==
-X-Received: from pgaa23-n2.prod.google.com ([2002:a05:6a02:6497:20b0:cdb:1c92:d2df])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:c206:b0:3ed:bdfd:23a8
- with SMTP id adf61e73a8af0-3edbdfd2488mr2314948637.61.1794080858543; Sat, 07
- Nov 2026 11:47:38 -0800 (PST)
-Date: Sat, 7 Nov 2026 19:47:38 +0000
-In-Reply-To: <au99DNHQEsaaDqpJ@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A97LRtV/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5808D1F0089F;
+	Sat,  7 Nov 2026 19:48:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794080896;
+	bh=PgfupnOI9y63nTPBwUuVBVA9ftyhpGgpL4SadbS98oM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=A97LRtV/UUHCQnkUrvGqtIgzlx3uxP7kbRD8h5sUFLlcyZ7oYisz4YMCY6RSdd6Sm
+	 aGMqDDuK6P+5x9Seobd4qsGICa4HESW+Cz/F1qLcDQzVfMsYE6L5a7c8cXt5TqjdlB
+	 4dhzoAL1Y52RPCY0ERC7LzQSxATD+urOPRwyUDyWq3EdlK73K/izVvC8jaUQ3IJSpR
+	 +0HtFI4/RzJ8QAlpH5i5TJbibWEyZoUuLHW3ITklZGXyjWFSogroDc/g9fHJqQeoAZ
+	 ZVGRJlud74lr1UcNyWAVexAmqn9fxBB6cWjp08cpvKEPWyNrZ3ikNWMFnA5vG+z/3y
+	 PVLi6hgK3gFzw==
+Message-ID: <fd2faf21-ce9c-496a-9bd5-4d8334cf5f13@kernel.org>
+Date: Sat, 7 Nov 2026 20:48:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,115 +50,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261009091941.5837-1-qiang.zhang@linux.dev> <CAAVpQUAeHP7M07uMweRePtuzPPUo-99dL6jOYUiVf7CSVUxNDQ@mail.gmail.com>
- <a951af6957fe4890d3eaaf5a661754fc259a4b79@linux.dev> <au99DNHQEsaaDqpJ@google.com>
-Message-ID: <au-AQ7OPf6QPyc3Q@google.com>
-Subject: Re: [PATCH] neighbour: Move the netdev_put() out of RCU callback
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Zqiang <qiang.zhang@linux.dev>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] docs/mm: ksm: describe how smart scan picks the
+ scans to skip
+To: Qiliang Yuan <odys.yuan@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-0-16d5ce8b5fd6@gmail.com>
+ <20261107-bug-mm-ksm-smart-scan-align-skips-v3-2-16d5ce8b5fd6@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-2-16d5ce8b5fd6@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 07 Nov 2026 19:34:07 +0000, Kuniyuki Iwashima wrote:
-> On Sat, 07 Nov 2026 11:47:45 +0000, Zqiang wrote:
-> > > 
-> > > On Fri, Oct 9, 2026 at 2:19 AM Zqiang <qiang.zhang@linux.dev> wrote:
-> > > 
-> > > > 
-> > > > For builts with CONFIG_NET_DEV_REFCNT_TRACKER=y kernels, netdev_put()
-> > > >  records the caller's stack trace via ref_tracker_free() for debugging
-> > > >  reference leaks. however, the netdev_put() is within pneigh_destroy()
-> > > >  RCU callback, this recorded stack is uninformative, it does not reveal
-> > > >  which code path initiated the deletion.
-> > > > 
-> > > Have you seen pneigh double-free ? What motivates this change ?
-> > 
-> > Firstly, Apologies for delayed reply.
-> > 
-> > 
-> > 
-> > Actually, I didn't see any double-free happening,  just wanted it to
-> > record a meaningful callstack which on release path.  After all, if double-free
-> > really occurs, the callstack of the RCU callback execution path will not be helpful.
-> > 
-> > 
-> > > 
-> > > > 
-> > > > This commit therefore move netdev_put() from the RCU callback into the
-> > > >  caller's process context, and replace call_rcu() with kfree_rcu().
-> > > > 
-> > > >  Fixes: d539d8fbd8fc ("neighbour: Free pneigh_entry after RCU grace period.")
-> > > > 
-> > > Please elaborate why your change is safe in the commit message
-> > > and remove the tag.
-> > 
-> > Does it refer to using kfree_rcu instead of call_rcu ensures safely ?
+On 11/7/26 17:57, Qiliang Yuan wrote:
+> Documentation/mm/ksm.rst covers the stable tree and its reverse mapping,
+> and Documentation/admin-guide/mm/ksm.rst only says that smart scan skips
+> pages KSM has failed to merge before.
 > 
-> I mean why dropping netdev refcnt waiting RCU gp is safe.
-
-*without waiting
-
-
+> Neither says how often an unmerged page is looked at, or that the scans
+> are picked by the global scan number so that identical pages of
+> different ages still meet in some scan, which merging through the
+> unstable tree depends on.
 > 
+> Add a section on smart scan that describes both.
 > 
-> > 
-> > Thanks
-> > Zqiang
-> > 
-> > > 
-> > > > 
-> > > > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
-> > > > 
-> > > nit: full name
-> > > 
-> > > > 
-> > > > ---
-> > > >  net/core/neighbour.c | 14 ++++----------
-> > > >  1 file changed, 4 insertions(+), 10 deletions(-)
-> > > > 
-> > > >  diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-> > > >  index 6ed8eb075146..4263689fc415 100644
-> > > >  --- a/net/core/neighbour.c
-> > > >  +++ b/net/core/neighbour.c
-> > > >  @@ -818,14 +818,6 @@ int pneigh_create(struct neigh_table *tbl,
-> > > >  return err;
-> > > >  }
-> > > > 
-> > > >  -static void pneigh_destroy(struct rcu_head *rcu)
-> > > >  -{
-> > > >  - struct pneigh_entry *n = container_of(rcu, struct pneigh_entry, rcu);
-> > > >  -
-> > > >  - netdev_put(n->dev, &n->dev_tracker);
-> > > >  - kfree(n);
-> > > >  -}
-> > > >  -
-> > > >  int pneigh_delete(struct neigh_table *tbl, const void *pkey,
-> > > >  struct net_device *dev)
-> > > >  {
-> > > >  @@ -849,7 +841,8 @@ int pneigh_delete(struct neigh_table *tbl, const void *pkey,
-> > > >  if (tbl->pdestructor)
-> > > >  tbl->pdestructor(n);
-> > > > 
-> > > >  - call_rcu(&n->rcu, pneigh_destroy);
-> > > >  + netdev_put(n->dev, &n->dev_tracker);
-> > > >  + kfree_rcu(n, rcu);
-> > > >  return 0;
-> > > >  }
-> > > >  }
-> > > >  @@ -891,7 +884,8 @@ static void pneigh_ifdown(struct neigh_table *tbl, struct net_device *dev,
-> > > >  if (tbl->pdestructor)
-> > > >  tbl->pdestructor(n);
-> > > > 
-> > > >  - call_rcu(&n->rcu, pneigh_destroy);
-> > > >  + netdev_put(n->dev, &n->dev_tracker);
-> > > >  + kfree_rcu(n, rcu);
-> > > >  }
-> > > >  }
-> > > > 
-> > > >  --
-> > > >  2.17.1
-> > > >
-> > >
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+>  Documentation/mm/ksm.rst | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/Documentation/mm/ksm.rst b/Documentation/mm/ksm.rst
+> index 5a80573162def..f954d221e8017 100644
+> --- a/Documentation/mm/ksm.rst
+> +++ b/Documentation/mm/ksm.rst
+> @@ -75,6 +75,22 @@ The whole list of stable_node "dups" linked in the stable_node
+>  The frequency of such scans is defined by
+>  ``stable_node_chains_prune_millisecs`` sysfs tunable.
+>  
+> +Smart scan
+> +----------
+> +With ``smart_scan`` enabled, ksmd skips pages that it has already tried
+> +to merge without success. The ``age`` of a page's ksm_rmap_item counts
+> +the scans that went by while the page stayed unmerged. A page younger
+> +than three scans is looked at on every scan; after that it is looked at
+> +every second scan up to an age of five, every fourth scan up to an age
+> +of eight, and every eighth scan from then on.
+> +
+> +The scans that look at a page are picked by the global scan number
+> +``ksm_scan.seqnr``, not counted per page. The unstable tree is rebuilt
+> +on every scan, so two identical pages can only be merged in a scan that
+> +looks at both. As the periods are powers of two, every page is looked
+> +at on each scan whose number is a multiple of eight, so two identical
+> +pages meet at least every eighth scan whatever their ages.
+
+Yeah, much clearer, thanks
+
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
