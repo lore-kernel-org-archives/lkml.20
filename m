@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060269;
-	b=RQnnVl3pcuiKsGttWyUII232iH4R4cVZcdLhx0BFWqTzmdS6ETshENf/QKB5XO6+kjSq
-	 tbnVwlqzsDHXMTxigfFjf8wzln541V/fz4EDVps1mbZjuvFnzsO9kt25xdKPUrEcjyhmo
-	 Kg0HkKjpTxvAf08wbyezHXJ/GQ2Rmi/OwZz91XVMJVnERWwD/GiLsWZhltQyxwzge2bz+
-	 vzvOC7I+KSNyLz/u3BL6VNn0/f/YL0QXu5cfv8lkgtV2GwJHx4UgeCUHjMX9wcpYFbM9j
-	 Y22rMKsxywTRxdr9OrfuAZ0iuXrS6JU+qXisxE8s/r+G+m/tDmgwnFMVVw9+bOl+Otg==
+	t=1794060376;
+	b=Uty6q8QpFYBtifcxjPmVW99kwizCum4rMVojQI3EJlABOPshtv6l1x8xd8kqNosA7ri1
+	 2oj6RgQkHiKtW18T9o4aPDGYba6uTQzOV5SwDYrKLnvhAWIRjKqMk8usSbrMMsEnIfDin
+	 L+mP4ILRjKP8dyRnHcO2tztrAw4QW+l7IABdmCMbCk+QgSNVmvRwC5eCW9oCQ7gbsd1kD
+	 yG3I+By6OKdVRp680M9PXRaOga8Z6bbx3xTS37bnOTn4dH0bWq0vLv/jsrHbBgbl9JioW
+	 x8RyrcKkzcDBDvKEAM+il6y0XAUernW1ZwZlQyjuv45v3MU7fprParWWsFudMMCxEqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060269;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=iz4ILeaLK/9TEw5ONvASXLYJT0mntrU76Bzr9kVTezY=;
-	b=lWunQYvfwqFIaDFn3YwJ8noIvNfBD5fNRXanCBkN8xnv8kcL5/d1BLoGhNR4rc/PgBEJ
-	 UQKlIxnXfza+m3mAFYUGDI2SXda5Iiy6GQlHaE0b7Cc67xusp1kZnvKIiVsv078hqFY8F
-	 InFgexmXxJ42HIRwPKUAVKlHvf8C6ZcWgpdtDJLL1xl2zR+V840LfPGa4BYhM/0BRWrm/
-	 lKumQXOsfbcYwodDiZMuRpJsE1GxF0F1iry5M5lUyCvT0tzIYxtufs94AMfUUy2ZjlHcq
-	 0vyASDvnLIgVRksCkid/Sou2ds/y8Jt8T40SBCe2gq9AbbTQPBNejemRZqjz4ThI4Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060376;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=37JzzP5fNzIUh/YU3t2M86Gp4vaqjCgfVRMIoUNIwJI=;
+	b=BmGc/EDU4vmKLmXQCMy9nK8AJ+GMwATQKFkQJoA9r/6xYamahRO1UsFKjIaMMxsRxNGL
+	 pwuCLs0R9xw+oDiukgqMT1mSJjKQUiljxXzYk/khQcPHsCr1p+VEXOHmD0Zuxl2K71YuJ
+	 6Jrl2RLWyNIWqkXOSHAUTlyaGzEDG22BoaUqUC7Qn+Bj1cckiVnlnTx35Rm84NI0Ng/ID
+	 mcOabb83euy5CIJOkwlfEF4fctDXeRIczFcACdD5tc3WVserh58q/qBxEW8h3GigBdEoz
+	 4yOX0QMEVvOeophyVSzRo7iF5G4b1J98vJ9Ye3YUZ4jiMVbMEi1VNJGVLI97b7fmCyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Mpz5/dtc";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=eoFXYN0Y;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0336C606A32F;
-	Sat,  7 Nov 2026 14:04:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781FD606A326;
+	Sat,  7 Nov 2026 14:06:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 781FD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mpz5/dtc
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 526C71F0089F;
-	Sat,  7 Nov 2026 14:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794060268;
-	bh=iz4ILeaLK/9TEw5ONvASXLYJT0mntrU76Bzr9kVTezY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Mpz5/dtcs5Oc1x2Cl6ofTg+wKDhbgL4uDEzJQ4kKHPtFuDGr6xcb/VK7I/srTWr2B
-	 2H0PlikMuGuIeItRN9Qs6YZMfby6kcZwLGX5okXMaXOIAeQfdUWT09kbXOCl+dPWGy
-	 Rp1NnEQSxn2Gbm2MDLYdYodW3T0nXB4IDg8msm4ZzHZoTVvbqAeHVzqHgtovCjaxlD
-	 Rp08vYuYF+R/ppvq9XzGVm2AS2cxJCbeKRSztmkLAzhSkDINbkrP25AlPatVh9XvMQ
-	 MiyUvjkhIX1ft31NCtkZ2UFYpVpLpl4kCuH+XU2WEV7rPjJg/sSnBEnYPCqMaJ8Czu
-	 AwWn7EsD9/iLw==
-From: Nicolas Schier <nsc@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261107-kbuild-descend-spam-v2-0-3bb0a7c4781c@weissschuh.net>
-References: <20261107-kbuild-descend-spam-v2-0-3bb0a7c4781c@weissschuh.net>
-Subject: Re: [PATCH v2 0/3] kbuild: don't print DESCEND messages from
- tools/ build
-Message-Id: <179406011233.60865.11422599083662810895.b4-ty@b4>
-Date: Sat, 07 Nov 2026 15:01:52 +0100
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=eoFXYN0Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1794060344;
+	bh=37JzzP5fNzIUh/YU3t2M86Gp4vaqjCgfVRMIoUNIwJI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eoFXYN0Y++/qdFYJkfB53JqRJcdyYNIw4017Vx3FuuYGYC7geVZtZq/wPNdLRLPde
+	 RBcZVgGBgHoX/bDTEpCciovjbWadXCMQo1SusxvKDO4BM2FuRABIxBpxX6cs6UnZSb
+	 GDVLS7XbxBqssjB61mKay3bFcixK7YB8HM2XFMI6mWVw/rhqxEIMsxe0H2Gsb6KYsn
+	 zBhA6L8O8uvZ+wQ6Ijss/DqhqXObGwRjL5NMxYSR3w8LSKXY1vknfui0QdGVfS5d+0
+	 V0ukUev+0HTyy/I+9u7G7xQku0cmnkoeqTRHzeJphzrQS2dCVatKNWT3GO9rBDBWJV
+	 kiLHNge1jD5nw==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 922C3B2218C0;
+	Sat,  7 Nov 2026 15:05:41 +0100 (CET)
+Message-ID: <7f285558-2301-46aa-a4bc-c6ddb25cf20c@freeshell.de>
+Date: Sat, 7 Nov 2026 06:05:40 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,59 +58,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1254; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=1L9SHaZtINA5liODJBQps+4sD4pjccWDUemDimkDLc0=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq7y9WVg/jsvxvFP6Z+1ga3i37Mfba+nG3nRMm2
- 284vtqKJpiJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCau8vVgAKCRAHUgpwFiYS
- aVqcEADig7BFDmuzoYu+B7awlKcgqOquIqrwkW1FPgQOg2hE/l0FqIDUHQM1RfrAAkANOfnZ8oj
- z5rHwIsbSQQmVSz6si8D/r6tcMB2MWXjDVU23aTZhvyEL20hZdHbIX8PcxmU2CxFRLUuOio/TCn
- XD/S2tYpaLm4RDhhGSKAKSiQmwxLo2KVBPmwNCkcr3AOjJ+CJgeNP9EI2JHN3sNPjzo8sQc2D0g
- ZoR9H9ViqcdM6mBh5Zv+FrGQgSvCE1Fy+cZ9mi8cQw7TWzwIQSE1YUdFKu26CVWMTgTTiVn7IUt
- BTs0O2vJ4vzobSfAz0q+THjhD6b4b5TNw7RyoLpV3n8jgdTVzLtD51r7OcHv6l+Guz9sV+fXCoY
- XBtp54aTHWZW1SWnQqkGKKivGEspHkbmO9MWeIFQvb7r5z++PLVFYvBdrmtmktStl30AWKi4WPU
- l+jOohPMRysoBiuoN0n3cmsF22JYN5VDfxZHMBnk5n1loyzC1LzGA4T7e0nH5fr+r/LOBFM7Of1
- g5C87Xyk1qKHfzp2DDjdmKqxsvxRlh4YgNwRBFknrl3jrNUw8GP6Vqcu7N44UuoN0Drf1VB7wVV
- FaMomcrW2snqT1TH8zaMhHHID6IdQUp+/l4fmwq3XbYqmoeZ3tDHPhL4FCvHUh7C3S/7yFHL2VO
- TtDeLc2P07fBLcg==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
+ power LED on
+To: Conor Dooley <conor@kernel.org>
+Cc: Emil Renner Berthing <kernel@esmil.dk>, Owen O'Hehir
+ <oo.hehir@gmail.com>, Conor Dooley <conor.dooley@microchip.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261106184055.3891621-1-oo.hehir@gmail.com>
+ <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
+ <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de>
+ <20261106-tumble-hurt-d1a0be3fddae@spud>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20261106-tumble-hurt-d1a0be3fddae@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 07 Nov 2026 03:02:40 +0000, Thomas Weißschuh wrote:
-> kbuild: don't print DESCEND messages from tools/ build
+Hi Conor,
+
+On 11/6/26 13:15, Conor Dooley wrote:
+> On Fri, Nov 06, 2026 at 11:06:22AM -0800, E Shattow wrote:
+>> Hi Conor,
+>>
+>> On 11/6/26 10:54, Conor Dooley wrote:
+>>> From: Conor Dooley <conor.dooley@microchip.com>
+>>>
+>>> On Fri, 06 Nov 2026 18:40:55 +0000, Owen O'Hehir wrote:
+>>>> The firmware turns the status power LED on, but the node has no
+>>>> default-state, so the LED switches off when leds-gpio probes and the
+>>>> board looks powered down.
+>>>>
+>>>> Default the LED to on.
+>>>>
+>>>> Tested on a VisionFive 2 v1.3B.
+>>>>
+>>>> [...]
+>>>
+>>> Applied to riscv-dt-fixes, thanks!
+>>>
+>>> [1/1] riscv: dts: starfive: jh7110-common: keep the status power LED on
+>>>       https://git.kernel.org/conor/c/68dbe2550bd4
+>>>
+>>> Thanks,
+>>> Conor.
+>>
+>> I replied this a moment earlier:
+>> https://lore.kernel.org/lkml/179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de/
+>>
+>> This disagrees with VisionFive 2 Lite schematic; if when this node is
+>> consumed by a bootloader it will be evident we are not describing the
+>> hardware correctly, no?
 > 
-> kbuild itself does not print the directories it descends into, the
-> tools/ build however does so. When kbuild executes the tools/ build
-> these messages are out of place.
+> I am not sure if that's actually relevant though? If the visionfive2lite
+> needs this gpio then it shouldn't be listed in a leds node. Changing the
+> default status of it doesn't affect the fact that it is wrong to begin
+> with, wrong before the patch and wrong afterwards. If there are some
+> boards that include this common.dtsi but don't have these leds, they're
+> not common and should be moved to the relevant dts files. If you know
+> what those are, please send a patch doing the move.
+
+All JH-7110 boards with published schematics have this configurable LED.
+Some board(s) have this same RGPIO also connected to an input jumper for
+fastboot selection. Some board(s) have an additional power LED that is
+not configurable and so not represented in device tree.
+
 > 
-> Forward kbuild's behavior to the tools/ build:
-> Nothing is printed by default, the full command is printed with V=1.
+>> If you want the light on and it wasn't on at reset or due to boot ROM,
+>> then that is userland stuff and not hardware description... but that is
+>> your decision to make as maintainer.
 > 
-> [...]
+> It's a power status led, I think it's pretty reasonable for it to
+> actually represent power status without intervention in userspace, the
+> alternative I guess could be something like setting the function
+> property to "power" - but I'm not sure if that does anything for
+> gpio-leds.
 
-Applied to kbuild/linux.git (kbuild-next-unstable), thanks!
+Sure, if this is updated as a per-board user-LED function property by
+reference to published hardware description (silkscreen or published
+schematics) then that's at least verifiable; Vendor firmware that
+showcases as heartbeat or whatever less convincingly-so.
 
-[1/3] kbuild: drop the tools/ target
-      https://git.kernel.org/kbuild/c/6766b341
-[2/3] tools/build: Deduplicate the descend commands
-      https://git.kernel.org/kbuild/c/746dfc4c
-[3/3] tools/build: Don't print DESCEND messages when executed through kbuild
-      https://git.kernel.org/kbuild/c/c9946f66
+Debian users should be reminded that these LED functions are compiled as
+modules for Debian kernel config and so the setting of property to
+"power" or "heartbeat" e.g. is further dependent on whether the initrd
+was generated with including those modules. The LED function mode (or
+lack thereof) from passed fdt structure can be set with an override on
+the corresponding kernel command line argument.
 
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped,
-reverted or modified (e.g. trailers).
+> 
+> Cheers,
+> Conor.
 
-Patches applied to the kbuild-next-unstable branch are accepted pending
-wider testing in linux-next and any post-commit review; they will
-generally be moved to the kbuild-next branch in about a week if no
-issues are found.
-
-Best regards,
--- 
-Nicolas
-
-
+-E
