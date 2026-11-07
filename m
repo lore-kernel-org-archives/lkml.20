@@ -1,57 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794092540;
-	b=2+s+Vw8sEK9NAu24Wz/T8dlhYoBv51SLGzAj0w/uGHqaOqd0q/WgAsFzfelRI0aO9zLx
-	 VmUTCdHSYgcAi26GrX3OLyzhW4HFYwQw0erDYtnLoYm+7U8OOpbr0MF6h6/ElCkW3/sfw
-	 vip9cqnuD8WYcVJlZ8Jepnl+F96YMTt0h78mLHeRFbEcFKKDgn7F8TD2PRwEqwAcTUvVi
-	 n3wcpoJQlIpoxVmbUlW6P1M8XarFuS+k8LYXE25JjM9wTRf7wSG2Q0iuRh3X+/3CmBYlc
-	 0a+Izo3h3xwgt460clwVR2LAj36LOCqIpy6bZzLtGd3phRXvzY2RXHrYfWooReYVEYg==
+	t=1794092746;
+	b=l8wicbvoWizBVpDhAYM8gla+P9ih+Z5GoIuAzoXTB21CDhKDsIm47DQChzTDFSpbwqzI
+	 pDzjY/BqZErMN2Tb9Djwd7BJ67ePSUDLmISi2JkcxqTiDBLclMSAtFcVIZxXX9Jl/G9Nb
+	 nqcn3A07AeuHmFj4sK61BdFRlNtUvnxZK7vm4mLJQ5hHBVGYcl9nQ9lHyhojWz4Tjfvxq
+	 tS34RCXLRiIkxBwKCpCXa3eQCpbOsoBRj6uRotYqPLeLJPjs40JjegxSUKBfALr276bxe
+	 dxNSDbpdl/Cxq8UPyX9gB8yKoA7dZtCn0TrqoqKGhzey7g/JHUcNLM7+qlwY38RXZ3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794092540;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0hFouMqOeYyeKhZ85sDPfJfrYfZA6d+gJ4WrPszogio=;
-	b=Kdxt/9SexyRtFHQc6rjTgWqlxdDEz4BHFQqg91Afe8Witm67E6VFIBDURdqgZhMJTjSl
-	 cqO2AuuNJmHioYn0T91NmKJ1x7rfcR+lUs73mYlP1zzs+w7SLM19aynnlg0XlbNZkm3DC
-	 ZmvoevtiBOlb0U9w4F7dDBqfV8THLePNiR2D1rxBDj42cCj8pVSjqm8vgZ0l12LdEpG6F
-	 /SsmYweMor2aP7Mq80qmGbuGgekplBT3nxeNN6Cotuo/5uD9fWoNkAqYiIKxWCVDe4fYP
-	 zu6nAbRfSEa/uaDyf7bQUI4lTVGZ0kfKxkPnVlA3cyIEjW8qhStbYA+ofZGwFC0kX/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794092746;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=DIMiaePVV9GcXMmhefDHZYoBfudUKELmzbg1o7Nw6s0=;
+	b=qCXlXEPX5/8ZoiZdOieffH4bhmvsdScGPNtkS30qJCGd79FJTahD94FQEEvL5R7FLjwh
+	 xVYTO0HGYjqrku+IzmDvUKedInRDmt65D8+TBT0GP70wbnthX7BxzvJQMK5G+ntK1CQBu
+	 WW6XHaDEJj6lcbeJTBRqEbxLsJV6WHtr3936UO9gaE0m2sJyPV9nz4gIs+372R3rsrjma
+	 Wu2YY8a7GfXeewyhmLXmDNZP/KMu59eumIWfSPsROqmfEf8mqlyjY5iITokK7rhm4pq1S
+	 cjZgmwDYKWgYTcAG0DCvPPqy8ikvFI/dbcQmkXOT2iD26v3swjk2gEXQ8jKl2By5d/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=rLfkYRN8;
-	arc=none smtp.remote-ip=185.70.43.101
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=fKNReNxx;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8F6606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 23:02:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E8F6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DDF606A326;
+	Sat,  7 Nov 2026 23:05:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64DDF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=rLfkYRN8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794092538; x=1794351738;
-	bh=0hFouMqOeYyeKhZ85sDPfJfrYfZA6d+gJ4WrPszogio=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=rLfkYRN8PyktjxiGFlQTpKqHwO5BSUsrQZwNrMsFry+BGKSNNZq8FUToNoPLEjqMh
-	 EswXEKS5BWT9MtZ8Bb79XWC46EkLGsnUlQ4no6H8aaEI7YnYDUplZkrJWhY0nSi8dD
-	 Q9XWEgioUkRSX2r+doOYdOGJowkDUekYjchabW8Upevz4M5zb9pyOUlgXNfgqOxDHp
-	 sVZhSwZJ8uS011IT3Rww6XdEpBaa/XBJDqgr0Y33gKSwsMSsD51fDqSqyODwssdemV
-	 76Dh/22qm7ICEItfLz1urR6JlBwBlE6tjoZo/iXqrZbAd8wkkYNrp7G0JsdNH2LQCP
-	 wk/ADzt5tB3RQ==
-Date: Sat, 07 Nov 2026 23:02:14 +0000
-To: dwaipayanray1@gmail.com, lukas.bulwahn@gmail.com
-From: Mauro Codella <mauro.codella@pm.me>
-Cc: joe@perches.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, workflows@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: checkpatch: Fix DEVICE_ATTR_WO macro name
-Message-ID: <20261107230208.326769-1-mauro.codella@pm.me>
-Feedback-ID: 135342123:user:proton
-X-Pm-Message-ID: b9297a89896b6ad5ddd8eb990ad47380ae37be5e
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=fKNReNxx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=DIMiaePVV9GcXMmhefDHZYoBfudUKELmzbg1o7Nw6s0=; b=fKNReNxx7jbsQMz9QoJ0/b0oIv
+	VvdJ3cxvHCSoLjVUNoqk5U39eCuLOCXu16s4JonptlVR18DB/phUibsX9y2eXpbAxzXw7oPt8DqzR
+	KOqn8oXkJJMHPQ/mJi+1GkjQkgeKyu3/NIWG/t448lqNEGZy6qOKzDc8bbZ5Ymtth0D7TghRMmq0q
+	x4srJ9xBS/8fT40w/IBylFOyJKl9QCNJfd/DkeZ073ncWZLrIGmz/iZQx7ZpLLushDSYylClKg9fu
+	9fI2l64PPCtfnjB+U6pfPCOMc6K0MdoX+zxHuviMCw/iZzIsIgt8WiKu8l6LoAQ+iNhGU3wVavadd
+	Q7vijMFQ==;
+Received: from [151.115.150.205] (port=44646 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xPpTo-0000000EVj3-1hHr;
+	Sun, 08 Nov 2026 00:05:44 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
+Cc: Eric Snowberg <eric.snowberg@oracle.com>,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] evm: fix TOCTOU heap OOB in protected xattr reads
+Date: Sat,  7 Nov 2026 23:05:15 +0000
+Message-ID: <20261107230514.1108379-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,36 +75,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-The DEVICE_ATTR_WO section refers to DEVICE_AATR_WO, which does not
-exist. Correct the spelling to match the macro in include/linux/device.h.
+ima_eventinodexattrs_init_common() queries the total size of protected
+xattrs, allocates that amount, and calls evm_read_protected_xattrs()
+again to fill the buffer. This creates a TOCTOU window: if the
+protected xattr changes between the two calls to
+evm_read_protected_xattrs(), names and lengths are written without
+checking whether the data still fits in the target buffer. This can
+yield an OOB heap write that KASAN reports as:
 
-Signed-off-by: Mauro Codella <mauro.codella@pm.me>
+  BUG: KASAN: slab-out-of-bounds in evm_read_protected_xattrs+0x15e/0x280
+  Write of size 20 at addr ffff888002c59bcd by task init/62
+
+Reject fields that no longer fit in the target buffer. For xattr
+values, also check the length returned by the copy before accounting it.
+This also handles the case where a size of 0 is treated as a length
+query.
+
+Fixes: 8314b6732ae4e ("ima: Define new template fields xattrnames, xattrlengths and xattrvalues")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
-AI assistance: Codex identified the typo and drafted the fix and commit
-message. I reviewed the change and ran checkpatch.
+Changes since v1 (after review from Sashiko):
+- Handle the 0 case.
 
- Documentation/dev-tools/checkpatch.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v1: https://lore.kernel.org/all/20261107194909.1061154-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Sashiko: https://sashiko.dev/#/message/20261107194909.1061154-2-Jeremy.Jean%40oss.cyber.gouv.fr
 
-diff --git a/Documentation/dev-tools/checkpatch.rst b/Documentation/dev-too=
-ls/checkpatch.rst
-index 6139a08c3..f8ab22c18 100644
---- a/Documentation/dev-tools/checkpatch.rst
-+++ b/Documentation/dev-tools/checkpatch.rst
-@@ -389,7 +389,7 @@ API usage
-     See: https://www.kernel.org/doc/html/latest/driver-api/driver-model/de=
-vice.html#attributes
-=20
-   **DEVICE_ATTR_WO**
--    The DEVICE_AATR_WO(name) helper macro can be used instead of
-+    The DEVICE_ATTR_WO(name) helper macro can be used instead of
-     DEVICE_ATTR(name, 0200, NULL, name_store);
-=20
-     Note that the macro automatically appends _store to the
---=20
-2.56.0
+ security/integrity/evm/evm_main.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
+diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
+index ac8328812e6ef..2ed0b67b9109b 100644
+--- a/security/integrity/evm/evm_main.c
++++ b/security/integrity/evm/evm_main.c
+@@ -389,6 +389,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
+ 		case 'n':
+ 			size = strlen(xattr->name) + 1;
+ 			if (buffer) {
++				if (total_size > buffer_size ||
++				    size > buffer_size - total_size)
++					return -ERANGE;
++
+ 				if (total_size)
+ 					*(buffer + total_size - 1) = '|';
+ 
+@@ -398,6 +402,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
+ 		case 'l':
+ 			size = sizeof(u32);
+ 			if (buffer) {
++				if (total_size > buffer_size ||
++				    size > buffer_size - total_size)
++					return -ERANGE;
++
+ 				if (canonical_fmt)
+ 					rc = (__force int)cpu_to_le32(rc);
+ 
+@@ -407,12 +415,20 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
+ 		case 'v':
+ 			size = rc;
+ 			if (buffer) {
++				if (total_size > buffer_size ||
++				    size > buffer_size - total_size)
++					return -ERANGE;
++
+ 				rc = __vfs_getxattr(dentry,
+ 					d_backing_inode(dentry), xattr->name,
+ 					buffer + total_size,
+ 					buffer_size - total_size);
+ 				if (rc < 0)
+ 					return rc;
++				/* A size of 0 may be treated as a query. */
++				if (rc > buffer_size - total_size)
++					return -ERANGE;
++				size = rc;
+ 			}
+ 			break;
+ 		default:
+-- 
+2.47.3
 
