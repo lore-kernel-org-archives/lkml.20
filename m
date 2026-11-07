@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794012583;
-	b=xYZlcQIOo7RwaF7PT5ZJax/m09V+GxH3Pq4WkdPBn5YlYf4BwYUdb8pdzWv+EBOyZRsE
-	 bMiu41uxPBhXhcLeF/iN9m3by+5be7CH5f/H3TVF7k8N5FvF9nTDpDOGhOc0SxDhHKUfz
-	 1Xnnwa0yeoJaLAtsuhedRngMr32UDZ5J4BYzmk3k9DdE8tvNZ7cB5rP+VdPUuIrAItGUS
-	 bUHJpN5B0EJTBee7Ip7LM/BfXIfXEJh0gqIukPXdGd6Ym5n/z6r5RqL8JD3HihK5aIqhc
-	 t5STuRb0UnaFU1HYN/1f6nm4o7qXvIglGlYDJkKMXonLtHKf6zLD9c2PzO6qHNpqXEA==
+	t=1794012590;
+	b=EvpMclVAqSppyhnuq71oblObw3oUKi3O7rwoUkX9ACR4S51o5hLJozxeNdqrDLdG52J9
+	 C6XUjixVNe7JY85G1cWtquTlJRB50Fe9f5Y1htAX6kM/1mYigRD6mAExBM0Np+jh6XC5z
+	 ppC2mc9KLKo1p4IUwiEj2a90h8ii23ia/ZzRexCX2H0g2f6RUmUpKFVjCDf9WFEwtLM3o
+	 FZ9Qgn8VWn2x4hBdJH+6R4bh4CIgwdPMVSbKJknD2Cr+Ps/7SDWHaidIEcJG34qkX+944
+	 BM/ORtTJDdGDNRzIbFoqIgcUAbSWuoYjXW7uF20V4jHq92H50hd2tgbOMnXeXY24IqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794012583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794012590;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=cwiVzp+HuR0Tj8DJ627xMZTOLW6WDCr4Uk7SOXWOnzI=;
-	b=Oag0rFjPF+MBzY5xriEeKciq/r0LX/RdT0ux/yJUndjaOwozh0+JGthsJqeP/pPD+zvY
-	 zXWmDxtsvR6h9b3WBrKmRHdDzKqGyGafvigpSJXNJQ7eFA0E6rJNAh+noHyrbzt008ubP
-	 jOzuNhfcI7k60YUf2A5JWbDoZmMKCp9uDVKmIP8kPi2mgDAFL9swb9MuilVksjdAaLMlT
-	 aIlrvMrgfo8od7/Gu/fhQbA+7lWK4iydu4UH+f9RVXzaNcK9rd5ZwdDGC05nV8eEXmGbb
-	 Oc6e8eCKll3MkZR72LR35Lwn4UFUsaGwWula443sekRZ4C6MzDZkL4ZRwYkQ5kyzVNg==
+	bh=qU6qsrqQpVZ3NoUQuR/wRikyWPdKsBxhhM5wA6FCjv4=;
+	b=JeF9i+976/SDIetLF9HrKk9DZ6HEzijCduYb+gYihoIEHvX+EnRuW0KAtup9emsLxGku
+	 LnrfqkDfmut5mtg/q4XKYhiP/W0ML038sZ/1hOijwnnHyE+Epfx8JFOadHU3CbC8ZGc7r
+	 Zolaswa5EAoeQBAsE2eL2QiMurT8i9HGdS/GRoErhTCINQ1LuMuu9kYLVBiydN3O102L7
+	 zcrn2gfP+7A3IG0ibP2CUGS+wbhTywCi+wYDtdRk46sU8AaB1OsQ7prw7Vxr5cDlDGTYC
+	 ALs/YOfqfO+TyMnonivAlQRZOxrtpimD5wX0Xo/P0pEfnTEmM6O/8l5NQRP7vTnQlYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=blockcast.net;
 	spf=pass smtp.mailfrom=blockcast.net;
-	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=i6JvZvTQ;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=ft2hyPHH;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 659236070B87
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:49:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 659236070B87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A6E60733DD
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67A6E60733DD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=i6JvZvTQ
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-37071c0f42aso1483469eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:49:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=ft2hyPHH
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15ea896ddc8so2091660c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:49:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1794012582; x=1794617382; darn=vger.kernel.org;
+        d=blockcast.net; s=google; t=1794012588; x=1794617388; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cwiVzp+HuR0Tj8DJ627xMZTOLW6WDCr4Uk7SOXWOnzI=;
-        b=i6JvZvTQOLD4s52F8f4jmOLSYv4grvNochdnW7amqjWm56z/ZgRHvsQd82jPe+gRta
-         cJ6K9+oC4IR2dDWxht8rwhL8zcDfcIp6+YEHVMU7h7ArugvWpcXfyi/9NpQ/Y+Cgkz39
-         BJA9z9iH2cchrXFA04lSNsmbWGf1lelDqRzhOGgT7EDVmerCFrAn3ArS22MfakhZ52J+
-         dqBStd3JrYNmE9pSKvzDPTg+vsSYVsLgPFdwOU7Qclx4Ezyo4/yvg8qwbBTyJ48tdRuC
-         xopUlO38LcUOEKUo6PGm428NA32N5PHksuE+Lopqu1lvbpiyOoFbxwBN7CrLFEhpEWac
-         AQlA==
+        bh=qU6qsrqQpVZ3NoUQuR/wRikyWPdKsBxhhM5wA6FCjv4=;
+        b=ft2hyPHHTxyZ4WscPODofEoR0SyAXLHVElZKcudmyQDhHfk1GZL2BdtXzeyU9JdP/j
+         hlLuzBV1mLbGjfWYnN6QodBZZ5NzhNLMX3U8sIdNjmef3MGMWzW/lGcrmUBMWPtMnDyN
+         VwHv4PZSEpj/pkR97FUKVY/D4GYnMi7UuVptqwfI8qMECm0w1tLubQgrzNxW0S+Nt6q9
+         u2ziP4bhubYO2SeU5t7A0sxDgZPW+EN1xYM1lZMfTNCt7qg4+v1auyxL0Vk3gqY40BCv
+         YTFLAI09NdwbFtxQXOklQw4mvkvFJWqXUYAYCoDVmHfNtdGyNxeJW6y/gdS1MMsGRHFm
+         lWlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794012582; x=1794617382;
+        d=1e100.net; s=20260707; t=1794012588; x=1794617388;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cwiVzp+HuR0Tj8DJ627xMZTOLW6WDCr4Uk7SOXWOnzI=;
-        b=dIO8xtFCPTBd6jeQ/sd+hLB3bUbte0Hd0LvbyaI48MzRgjFJvLSiowEIreWlL1ls0L
-         3bmbFV6nbvBOjk8jMPn9RSUVPifa2qYAoyFxggZKFpaOlciIY9cNtfLu0l4m1zFEaWgG
-         HAI2IsVqQKNmDQ3lrvbGxtoivE115d6/ncs7nVl7aZpwtJ7gptR6ic8pJ6Coba0Awwce
-         XvzI++hNaGE271e6rr1MY0TFJdzMbBIHEi0YGsKv3Bbus1VRNbDa0ekOMrFWQWFPO723
-         NHWPuIQEQMqcB8Hoh0mIbvimukXrfgCGGiSEeGE2UH4xinLkwo464ajnEYAbbmz969OC
-         vnQg==
-X-Forwarded-Encrypted: i=1; AL+hErG3Lzhes4l/JRhoIQDEvbxtu9pA8iXCzw80GH93ZwaxCrIIWRrWNmklFWTJ9vr1ZicR0IbAHLi8k9JYPNY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sL5XXQGoTmJSI8eUJBPuo0MNvVh34iX3Sv797ZxQ9h/OvMh2L
-	Ws+lWTtgG6kMNTB5W7AO3n6NkNNCFQI5/eQ4J+SNmKNecI9MyUg+dzQvDrkpLagvRW8=
-X-Gm-Gg: AYBFou3nImy0KCWn3qvR8nmRSGt9wVuEuQtjmF+ptsbDv0MBTEiNPT1luzFaLN1s3Oj
-	48jCtANFQv7GGLn28PAq6HD/ZjXPKsvucxtKDJYZouOttDswkdxVZn7qb7DySD50p4XSbqG9Ykz
-	G2bSYJi2A8VWh0q7exl/EdGmqid51MAKafHVabjM5Pi2BP4BUjwgUUqQWkUPb9ukSNxdYDZCL/6
-	bUOzwpffeRPBDn/+76msbaoFKYOS7m92UnWLmucZUI8PpQFcV6IW4szj989kSvlYXQx7gENduR2
-	mXLZZTiZ8rum2GplljQlHvYcftotFmOnxzUwN4yehVFDKR8OyrgU0ZVJC3e4TtCuyt5nZIfrXUS
-	deuPyqJLbF0Y2t2UcDZv/zbjqBEtNrlBnHEASxjiN3sMnXYv94xvK5Rrm+9absuqnbjvMTP8UX/
-	BgR4VXfWLWztt/oTeSsDC5ZTihY7AVeE2iWb8wvISklBDGsB8sbaoQMxR2VCoGlS59U9HiHL8gc
-	QuYPw4N8pbhIFztXM363nd9bTbs9G5GqRxRynLw2xuaVDTxohNV5dASGp3a5gbLf74sXzNBs6MC
-	5WK6k2zU8zP8PDSVjtNilW42b8WQJPt0ccoGqDj/h6vueJXd9tUZAfg0KrCIhfxDlRX5oqU=
-X-Received: by 2002:a05:7300:d191:b0:36e:d060:8bad with SMTP id 5a478bee46e88-36f722e79ccmr5193728eec.5.1794012582316;
-        Fri, 06 Nov 2026 16:49:42 -0800 (PST)
+        bh=qU6qsrqQpVZ3NoUQuR/wRikyWPdKsBxhhM5wA6FCjv4=;
+        b=C5y2U8sUpjdlsm3uoJQ4/xsDUKZL+3j+bzOiS/a4l1YYRAt30QUf43RfjTcLa0CQRS
+         iy2xN5cSGuNUVZHuTTCS7QTlz6VNLSoNwjOC4WIWvK5Xn5Vib+fijkyAQU81BMuG7oDE
+         bczkSaiW45IhLI4QUwor/4gdE1skB8G5W0MJQhKU0SarWvZj7KNJMJACN7o2UhHGbhwR
+         45HyNS02FjnQZJ5bGwmxhumtwLRWxgY+f9o1IOmqbfGz9WnbacrkVkYND7YHw1YTY5D1
+         d3Ssq+pxa26TXshKiZF47mPb8UuwEEgOZVUsPiIf1opk56P6E1YKdHusb7iktbayIhO4
+         sWPg==
+X-Forwarded-Encrypted: i=1; AKwUvBzlJHuidxiQNVwD3MBhB51LrI1Fj6z06VlXMfrR5jAdZKtLtS4AuwoX4fPOIUFQNHeNBSSyodK8QHQu6Jk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FBwcTvJJdd5O/Dfd/ZJBng4wwju8NAy7bac3DcWX+tkEZWU1H
+	YmhfTQhdYlWrFetPanmIe6oSEI8O57wq7VrCFJDDxytwRlxBroqJsSjdyXbMV0MQpo8=
+X-Gm-Gg: AYBFou1OKrrw+3kdP9cq2flQlpEy96AxMknM9W76/+kGHFkagIuW1X1zw7tbEsTI0sD
+	xYdUWh6Y+fP1EGxdDDUhQsG1kMEV1nPsxfXWcNV061NjLZxByKh/868B8wPMYuDD1vTT08lQUyh
+	XwZsClsv4DQ5tO27h74UR1wrKmVkA1YnO9smv6fGfT6ulKyNCzy+5CPpPK+yfe6eMdb+OY/6CBm
+	L29xTq62SGwaeH0l4KQf0hxz2Ig2LMBEgQViLS3HmVejuuUFZbcjC580qrMkvygSGm+xTH5Qfcf
+	oFsxxmsd+AdbQHFpJvzAo77BUHkJbVN6XQ3UwcaZBoG4Yp/MZ38htYm6AgVhl5GfYAYaKcv10mr
+	F1wAen4bye1sRxOl9FOC1X6M1G90hq8fqwtZLdw7ItLK9ivVd9Pa1HwmmvHjkcgFZKVe9icHQQH
+	DkjIvBWNSEssmyMlaZtIKqV6jo5reDAgi1CNP+nPBgeqxeykVgwz8Uev/fM04Mt+JCeeeBLsiLo
+	uoMPH1J+sJfMkak4p/22iXHlj6HF8OxEYcOe1fSfnfprcp2+JPjwIi2mb80JgxhaNPds1Coyud/
+	LNLMeVqASRXH6Xe4ATVoJ8GliXJhjCrX8VEdRV50vWCajrebiRlMXbqnjecJf9Gbn6RQSo4=
+X-Received: by 2002:a05:693c:40d6:b0:368:4acb:f8a with SMTP id 5a478bee46e88-36f75b2c11fmr5999546eec.17.1794012588456;
+        Fri, 06 Nov 2026 16:49:48 -0800 (PST)
 Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8e3a718sm11021294eec.4.2026.11.06.16.49.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8e3a718sm11021294eec.4.2026.11.06.16.49.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 16:49:41 -0800 (PST)
+        Fri, 06 Nov 2026 16:49:47 -0800 (PST)
 From: Omar Ramadan <omar@blockcast.net>
 To: Taehee Yoo <ap420073@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -92,9 +92,9 @@ Cc: netdev@vger.kernel.org,
 	Clark Williams <clrkwllms@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	linux-rt-devel@lists.linux.dev
-Subject: [PATCH net v6 2/6] amt: fix use-after-free when a Membership Update re-arms a freed tunnel
-Date: Sat,  7 Nov 2026 00:49:31 +0000
-Message-ID: <20261107004935.2627329-3-omar@blockcast.net>
+Subject: [PATCH net v6 5/6] amt: make pre-query report drops visible
+Date: Sat,  7 Nov 2026 00:49:34 +0000
+Message-ID: <20261107004935.2627329-6-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261107004935.2627329-1-omar@blockcast.net>
 References: <20261107004935.2627329-1-omar@blockcast.net>
@@ -109,511 +109,197 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-amt_update_handler() refreshes a relay tunnel's garbage-collection timer
-with mod_delayed_work() on a tunnel found by an RCU walk. A concurrent
-amt_tunnel_expire() can unlink and free that tunnel while the Update path
-still has the cached pointer, leaving gc_wq armed in freed memory.
+A gateway cannot forward an IGMP or MLD report until it has received the
+relay's Membership Query for that family.  The Query supplies the
+response MAC the Update echoes, so dropping an early report is required,
+but doing so silently leaves operators with a dark multicast path and no
+indication why the join never happened.
 
-Make amt_tunnel_expire() the only timeout-path freer. The Update path
-records last_seen under tunnel->lock, and expire reads it under
-tunnel->lock and, in the same section, either re-arms gc_wq from it or
-marks the tunnel dead for freeing, so an Update either keeps the tunnel
-alive or finds it dead. Protect the dead state with tunnel->lock so
-report handling cannot add multicast state after teardown begins.
-Device stop marks tunnels dead, unlinks them with list_del_rcu(),
-synchronously cancels their work, and frees them after lockless readers
-have passed.
+Emit a family-specific debug message before taking the drop path.
 
-Apply the same lifetime rules to group and source timer work: mark nodes
-dead under tunnel->lock, keep RCU held while workers resolve their
-parents, defer node freeing, and synchronously cancel each node's timer
-before freeing that node. Run the deferred GC directly before freeing a
-tunnel so nodes are reclaimed promptly. Do not flush the GC work
-instead: flush_delayed_work() queues the work and waits for it to run,
-which needs a free amt_wq active slot, so amt_tunnel_expire() and the
-group GC, both amt_wq work, can deadlock once every slot is held by such
-a waiter. The cancel_delayed_work_sync() calls the GC makes need no
-slot: each takes a pending timer work off its timer or queue, or waits
-for a running one on a barrier that max_active does not count. Lifetime
-does not rest on that GC run, which misses nodes a concurrent run has
-already spliced off: it rests on kfree_rcu() and on the parent pointers
-being cleared, and the dead checks made, under tunnel->lock. Release the
-group timer's device reference on every exit.
+tx_dropped could not show these drops either: amt_dev_xmit() reaches the
+same tx_dropped increment after amt_send_membership_update() has handed
+the report to the tunnel, so in gateway mode every forwarded report was
+also counted as a drop. Return NETDEV_TX_OK directly once the report has
+been sent, so a report the tunnel accepted is no longer counted in
+tx_dropped.
 
-A Request-only tunnel retains the original GMI timeout. Its last_seen
-stays 0, a value an Update never stores, and only a valid, authenticated
-Membership Update refreshes last_seen and gives the tunnel the longer
-lifetime: an Update whose encapsulated message fails ip_mc_check_igmp()
-or ipv6_mc_check_mld() no longer extends the tunnel. amt_tunnel_expire()
-reads jiffies once, so the re-arm delay comes from the value it
-compared.
+The device is LLTX, so amt_dev_xmit() can run on several CPUs at once;
+use DEV_STATS_INC() for tx_dropped and tx_errors, there and in the
+control-message senders that update the same counters, so concurrent
+increments are not lost.
 
-The Sashiko AI review of an earlier posting of this series pointed out
-the gc_wq re-arm, and reading amt_update_handler() against
-amt_tunnel_expire() and amt_dev_stop() confirms it. It is theoretical:
-it needs a Membership Update that has already found the tunnel under RCU
-to arrive while amt_tunnel_expire() is freeing that tunnel. I have not
-triggered it, so there is no trace to include. Review of later postings
-raised the races in the group and source timer work.
+Found by code inspection while debugging an IPv6-in-IPv6 forwarding
+failure in a selftest for the AMT IPv6 outer transport. This drop can
+leave one address family dark, so it was a suspect, but that was not
+confirmed: the failure was later traced to the selftest, which sent a
+single datagram without waiting for the relay's multicast routes to
+converge. The drop has not been observed in production, and there is
+no oops or trace. The Sashiko AI review of an earlier posting found the
+tx_dropped miscount and the non-atomic counter updates.
 
 Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
 Assisted-by: LLM
 Signed-off-by: Omar Ramadan <omar@blockcast.net>
 ---
- drivers/net/amt.c | 212 ++++++++++++++++++++++++++++++++++++++++------
- include/net/amt.h |  17 ++++
- 2 files changed, 205 insertions(+), 24 deletions(-)
+ drivers/net/amt.c | 42 +++++++++++++++++++++++++-----------------
+ 1 file changed, 25 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index 3a703b79f..e4b8c02a0 100644
+index 6d5d43b48..e430f38c4 100644
 --- a/drivers/net/amt.c
 +++ b/drivers/net/amt.c
-@@ -38,6 +38,10 @@ static HLIST_HEAD(source_gc_list);
- /* Lock for source_gc_list */
- static spinlock_t source_gc_lock;
- static struct delayed_work source_gc_wq;
-+static HLIST_HEAD(group_gc_list);
-+/* Lock for group_gc_list */
-+static spinlock_t group_gc_lock;
-+static struct delayed_work group_gc_wq;
- static char *status_str[] = {
- 	"AMT_STATUS_INIT",
- 	"AMT_STATUS_SENT_DISCOVERY",
-@@ -90,8 +94,9 @@ static void __amt_source_gc_work(void)
- 	hlist_move_list(&source_gc_list, &gc_list);
- 	spin_unlock_bh(&source_gc_lock);
- 
--	hlist_for_each_entry_safe(snode, t, &gc_list, node) {
--		hlist_del_rcu(&snode->node);
-+	hlist_for_each_entry_safe(snode, t, &gc_list, gc_node) {
-+		cancel_delayed_work_sync(&snode->source_timer);
-+		hlist_del_init(&snode->gc_node);
- 		kfree_rcu(snode, rcu);
- 	}
- }
-@@ -106,6 +111,46 @@ static void amt_source_gc_work(struct work_struct *work)
- 	spin_unlock_bh(&source_gc_lock);
- }
- 
-+static void __amt_group_gc_work(void)
-+{
-+	struct amt_group_node *gnode;
-+	struct hlist_head gc_list;
-+	struct hlist_node *t;
-+
-+	spin_lock_bh(&group_gc_lock);
-+	hlist_move_list(&group_gc_list, &gc_list);
-+	spin_unlock_bh(&group_gc_lock);
-+
-+	/* Group deletion queues all of its sources first.  Reclaim them now
-+	 * rather than at the next periodic run; a source callback cannot
-+	 * reach a freed group because it resolves snode->gnode under RCU and
-+	 * the pointer is cleared before the source is queued.  Call the GC
-+	 * here rather than flush source_gc_wq: a flush queues the work and
-+	 * waits for it to run, which needs a free amt_wq active slot, and
-+	 * when this runs on amt_wq every slot can be held by such waiters.
-+	 * The cancel_delayed_work_sync() calls in the GC need no slot: each
-+	 * takes a pending timer work off its timer or queue, or waits for a
-+	 * running one on a barrier that max_active does not count.
-+	 */
-+	__amt_source_gc_work();
-+
-+	hlist_for_each_entry_safe(gnode, t, &gc_list, gc_node) {
-+		cancel_delayed_work_sync(&gnode->group_timer);
-+		hlist_del_init(&gnode->gc_node);
-+		kfree_rcu(gnode, rcu);
-+	}
-+}
-+
-+static void amt_group_gc_work(struct work_struct *work)
-+{
-+	__amt_group_gc_work();
-+
-+	spin_lock_bh(&group_gc_lock);
-+	mod_delayed_work(amt_wq, &group_gc_wq,
-+			 msecs_to_jiffies(AMT_GC_INTERVAL));
-+	spin_unlock_bh(&group_gc_lock);
-+}
-+
- static bool amt_addr_equal(union amt_addr *a, union amt_addr *b)
- {
- 	return !memcmp(a, b, sizeof(union amt_addr));
-@@ -215,8 +260,13 @@ static struct amt_group_node *amt_lookup_group(struct amt_tunnel_list *tunnel,
- 
- static void amt_destroy_source(struct amt_source_node *snode)
- {
--	struct amt_group_node *gnode = snode->gnode;
- 	struct amt_tunnel_list *tunnel;
-+	struct amt_group_node *gnode;
-+
-+	if (READ_ONCE(snode->dead))
-+		return;
-+	WRITE_ONCE(snode->dead, true);
-+	gnode = snode->gnode;
- 
- 	tunnel = gnode->tunnel_list;
- 
-@@ -238,8 +288,9 @@ static void amt_destroy_source(struct amt_source_node *snode)
- 	hlist_del_init_rcu(&snode->node);
- 	tunnel->nr_sources--;
- 	gnode->nr_sources--;
-+	WRITE_ONCE(snode->gnode, NULL);
- 	spin_lock_bh(&source_gc_lock);
--	hlist_add_head_rcu(&snode->node, &source_gc_list);
-+	hlist_add_head(&snode->gc_node, &source_gc_list);
- 	spin_unlock_bh(&source_gc_lock);
- }
- 
-@@ -249,6 +300,9 @@ static void amt_del_group(struct amt_dev *amt, struct amt_group_node *gnode)
- 	struct hlist_node *t;
- 	int i;
- 
-+	if (READ_ONCE(gnode->dead))
-+		return;
-+	WRITE_ONCE(gnode->dead, true);
- 	if (cancel_delayed_work(&gnode->group_timer))
- 		dev_put(amt->dev);
- 	hlist_del_rcu(&gnode->node);
-@@ -266,10 +320,10 @@ static void amt_del_group(struct amt_dev *amt, struct amt_group_node *gnode)
- 		hlist_for_each_entry_safe(snode, t, &gnode->sources[i], node)
- 			amt_destroy_source(snode);
- 
--	/* tunnel->lock was acquired outside of amt_del_group()
--	 * But rcu_read_lock() was acquired too so It's safe.
--	 */
--	kfree_rcu(gnode, rcu);
-+	WRITE_ONCE(gnode->tunnel_list, NULL);
-+	spin_lock_bh(&group_gc_lock);
-+	hlist_add_head(&gnode->gc_node, &group_gc_list);
-+	spin_unlock_bh(&group_gc_lock);
- }
- 
- /* If a source timer expires with a router filter-mode for the group of
-@@ -282,13 +336,28 @@ static void amt_source_work(struct work_struct *work)
- 	struct amt_source_node *snode = container_of(to_delayed_work(work),
- 						     struct amt_source_node,
- 						     source_timer);
--	struct amt_group_node *gnode = snode->gnode;
--	struct amt_dev *amt = gnode->amt;
- 	struct amt_tunnel_list *tunnel;
-+	struct amt_group_node *gnode;
-+	struct amt_dev *amt;
- 
--	tunnel = gnode->tunnel_list;
--	spin_lock_bh(&tunnel->lock);
- 	rcu_read_lock();
-+	gnode = READ_ONCE(snode->gnode);
-+	if (!gnode) {
-+		rcu_read_unlock();
-+		return;
-+	}
-+	amt = READ_ONCE(gnode->amt);
-+	tunnel = READ_ONCE(gnode->tunnel_list);
-+	if (!tunnel) {
-+		rcu_read_unlock();
-+		return;
-+	}
-+	spin_lock_bh(&tunnel->lock);
-+	if (READ_ONCE(snode->dead) || READ_ONCE(gnode->dead)) {
-+		spin_unlock_bh(&tunnel->lock);
-+		rcu_read_unlock();
-+		return;
-+	}
- 	if (gnode->filter_mode == MCAST_INCLUDE) {
- 		amt_destroy_source(snode);
- 		if (!gnode->nr_sources)
-@@ -299,8 +368,8 @@ static void amt_source_work(struct work_struct *work)
- 		 */
- 		snode->status = AMT_SOURCE_STATUS_D_FWD;
- 	}
--	rcu_read_unlock();
- 	spin_unlock_bh(&tunnel->lock);
-+	rcu_read_unlock();
- }
- 
- static void amt_act_src(struct amt_tunnel_list *tunnel,
-@@ -368,6 +437,7 @@ static struct amt_source_node *amt_alloc_snode(struct amt_group_node *gnode,
- 	snode->status = AMT_SOURCE_STATUS_NONE;
- 	snode->flags = AMT_SOURCE_NEW;
- 	INIT_HLIST_NODE(&snode->node);
-+	INIT_HLIST_NODE(&snode->gc_node);
- 	INIT_DELAYED_WORK(&snode->source_timer, amt_source_work);
- 
- 	return snode;
-@@ -403,23 +473,31 @@ static void amt_group_work(struct work_struct *work)
- 	struct amt_group_node *gnode = container_of(to_delayed_work(work),
- 						    struct amt_group_node,
- 						    group_timer);
--	struct amt_tunnel_list *tunnel = gnode->tunnel_list;
--	struct amt_dev *amt = gnode->amt;
-+	struct amt_tunnel_list *tunnel;
- 	struct amt_source_node *snode;
- 	bool delete_group = true;
- 	struct hlist_node *t;
-+	struct amt_dev *amt;
- 	int i, buckets;
- 
-+	rcu_read_lock();
-+	tunnel = READ_ONCE(gnode->tunnel_list);
-+	amt = READ_ONCE(gnode->amt);
-+	if (!tunnel)
-+		goto out;
- 	buckets = amt->hash_buckets;
- 
- 	spin_lock_bh(&tunnel->lock);
-+	if (READ_ONCE(gnode->dead)) {
-+		spin_unlock_bh(&tunnel->lock);
-+		goto out;
-+	}
- 	if (gnode->filter_mode == MCAST_INCLUDE) {
- 		/* Not Used */
- 		spin_unlock_bh(&tunnel->lock);
+@@ -707,7 +707,7 @@ static void amt_send_discovery(struct amt_dev *amt)
+ 				   IPPROTO_UDP, 0,
+ 				   amt->stream_dev->ifindex);
+ 	if (IS_ERR(rt)) {
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
  		goto out;
  	}
  
--	rcu_read_lock();
- 	for (i = 0; i < buckets; i++) {
- 		hlist_for_each_entry_safe(snode, t,
- 					  &gnode->sources[i], node) {
-@@ -436,9 +514,9 @@ static void amt_group_work(struct work_struct *work)
- 		amt_del_group(amt, gnode);
- 	else
- 		gnode->filter_mode = MCAST_INCLUDE;
--	rcu_read_unlock();
- 	spin_unlock_bh(&tunnel->lock);
+@@ -717,7 +717,7 @@ static void amt_send_discovery(struct amt_dev *amt)
+ 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
+ 	if (!skb) {
+ 		ip_rt_put(rt);
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
+ 
+@@ -762,7 +762,7 @@ static void amt_send_discovery(struct amt_dev *amt)
+ 	ip_send_check(iph);
+ 	err = ip_local_out(amt->net, sk, skb);
+ 	if (unlikely(net_xmit_eval(err)))
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 
+ 	amt_update_gw_status(amt, AMT_STATUS_SENT_DISCOVERY, true);
  out:
-+	rcu_read_unlock();
- 	dev_put(amt->dev);
- }
+@@ -798,7 +798,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
+ 				   IPPROTO_UDP, 0,
+ 				   amt->stream_dev->ifindex);
+ 	if (IS_ERR(rt)) {
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
  
-@@ -479,6 +557,7 @@ static struct amt_group_node *amt_add_group(struct amt_dev *amt,
- 	gnode->tunnel_list = tunnel;
- 	gnode->filter_mode = MCAST_INCLUDE;
- 	INIT_HLIST_NODE(&gnode->node);
-+	INIT_HLIST_NODE(&gnode->gc_node);
- 	INIT_DELAYED_WORK(&gnode->group_timer, amt_group_work);
- 	for (i = 0; i < amt->hash_buckets; i++)
- 		INIT_HLIST_HEAD(&gnode->sources[i]);
-@@ -1342,14 +1421,51 @@ static void amt_tunnel_expire(struct work_struct *work)
- 						      struct amt_tunnel_list,
- 						      gc_wq);
- 	struct amt_dev *amt = tunnel->amt;
-+	unsigned long deadline, now;
+@@ -808,7 +808,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
+ 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
+ 	if (!skb) {
+ 		ip_rt_put(rt);
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
  
- 	spin_lock_bh(&amt->lock);
-+	spin_lock_bh(&tunnel->lock);
-+	/* amt_dev_stop() has taken ownership of the teardown. */
-+	if (READ_ONCE(tunnel->dead)) {
-+		spin_unlock_bh(&tunnel->lock);
-+		spin_unlock_bh(&amt->lock);
-+		return;
-+	}
-+	/* A Membership Update may have refreshed the tunnel after this work
-+	 * was queued.  Re-arm from last_seen rather than letting
-+	 * amt_update_handler() re-arm gc_wq: this handler is then the only
-+	 * context that frees the tunnel on the timeout path; amt_dev_stop()
-+	 * still owns teardown during device shutdown.  last_seen is read and
-+	 * dead is set under tunnel->lock, which the Update path holds while
-+	 * it refreshes last_seen, so an Update either keeps the tunnel alive
-+	 * or finds it dead.
-+	 */
-+	now = jiffies;
-+	deadline = tunnel->last_seen;
-+	/* No Update yet: the Request armed gc_wq for one GMI. */
-+	if (!deadline)
-+		deadline = now;
-+	else
-+		deadline += msecs_to_jiffies(amt_gmi(amt)) * 3;
-+	if (time_before(now, deadline)) {
-+		mod_delayed_work(amt_wq, &tunnel->gc_wq, deadline - now);
-+		spin_unlock_bh(&tunnel->lock);
-+		spin_unlock_bh(&amt->lock);
-+		return;
-+	}
-+	WRITE_ONCE(tunnel->dead, true);
-+	spin_unlock_bh(&tunnel->lock);
- 	rcu_read_lock();
- 	list_del_rcu(&tunnel->list);
- 	amt->nr_tunnels--;
- 	amt_clear_groups(tunnel);
+@@ -855,7 +855,7 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
+ 	ip_send_check(iph);
+ 	err = ip_local_out(amt->net, sk, skb);
+ 	if (unlikely(net_xmit_eval(err)))
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 
+ out:
  	rcu_read_unlock();
- 	spin_unlock_bh(&amt->lock);
-+	/* Free now, rather than at the next periodic run, the nodes that
-+	 * amt_clear_groups() queued.  Call the GC rather than flush
-+	 * group_gc_wq, as explained in __amt_group_gc_work().
-+	 */
-+	__amt_group_gc_work();
- 	kfree_rcu(tunnel, rcu);
+@@ -877,7 +877,7 @@ static void amt_send_igmp_gq(struct amt_dev *amt,
+ 
+ 	skb_pull(skb, sizeof(struct ethhdr));
+ 	if (amt_send_membership_query(amt, skb, tunnel, false)) {
+-		amt->dev->stats.tx_dropped++;
++		DEV_STATS_INC(amt->dev, tx_dropped);
+ 		kfree_skb(skb);
+ 	}
  }
+@@ -921,7 +921,7 @@ static struct sk_buff *amt_build_mld_gq(struct amt_dev *amt)
  
-@@ -2508,9 +2624,6 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- 		if (tunnel->ip4 == saddr) {
- 			if ((nonce == tunnel->nonce &&
- 			     response_mac == tunnel->mac)) {
--				mod_delayed_work(amt_wq, &tunnel->gc_wq,
--						 msecs_to_jiffies(amt_gmi(amt))
--								  * 3);
- 				goto report;
- 			} else {
- 				netdev_dbg(amt->dev, "Invalid MAC\n");
-@@ -2536,6 +2649,18 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- 		}
+ 	if (ipv6_dev_get_saddr(amt->net, amt->dev, &ip6h->daddr, 0,
+ 			       &ip6h->saddr)) {
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		kfree_skb(skb);
+ 		return NULL;
+ 	}
+@@ -965,7 +965,7 @@ static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
  
- 		spin_lock_bh(&tunnel->lock);
-+		if (READ_ONCE(tunnel->dead)) {
-+			spin_unlock_bh(&tunnel->lock);
-+			return true;
-+		}
-+		/* Refresh liveness under tunnel->lock, where
-+		 * amt_tunnel_expire() reads it; 0 is kept for a tunnel no
-+		 * Update has refreshed.  gc_wq is re-armed by
-+		 * amt_tunnel_expire() itself from last_seen, never from
-+		 * here, so this cannot re-queue the work of a tunnel that is
-+		 * being freed.
+ 	skb_pull(skb, sizeof(struct ethhdr));
+ 	if (amt_send_membership_query(amt, skb, tunnel, true)) {
+-		amt->dev->stats.tx_dropped++;
++		DEV_STATS_INC(amt->dev, tx_dropped);
+ 		kfree_skb(skb);
+ 	}
+ }
+@@ -1325,7 +1325,7 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		group.ip6 = ipv6_hdr(skb)->daddr;
+ #endif
+ 	} else {
+-		dev->stats.tx_errors++;
++		DEV_STATS_INC(dev, tx_errors);
+ 		goto free;
+ 	}
+ 
+@@ -1338,12 +1338,21 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		/* Gateway only passes IGMP/MLD packets */
+ 		if (!report)
+ 			goto free;
++		/* A validated report can only be forwarded after the relay's
++		 * family-specific Membership Query supplies the state echoed
++		 * by the Membership Update. Log this readiness failure before
++		 * the shared drop path accounts it.
 +		 */
-+		tunnel->last_seen = jiffies ?: 1;
- 		amt_igmp_report_handler(amt, skb, tunnel);
- 		spin_unlock_bh(&tunnel->lock);
- 
-@@ -2556,6 +2681,11 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
- 		}
- 
- 		spin_lock_bh(&tunnel->lock);
-+		if (READ_ONCE(tunnel->dead)) {
-+			spin_unlock_bh(&tunnel->lock);
-+			return true;
+ 		if ((!v6 && !READ_ONCE(amt->ready4)) ||
+-		    (v6 && !READ_ONCE(amt->ready6)))
++		    (v6 && !READ_ONCE(amt->ready6))) {
++			netdev_dbg(dev, "drop %s report: waiting for Membership Query\n",
++				   v6 ? "MLD" : "IGMP");
+ 			goto free;
 +		}
-+		tunnel->last_seen = jiffies ?: 1;
- 		amt_mld_report_handler(amt, skb, tunnel);
- 		spin_unlock_bh(&tunnel->lock);
- 
-@@ -3064,7 +3194,7 @@ static int amt_dev_open(struct net_device *dev)
- static int amt_dev_stop(struct net_device *dev)
- {
- 	struct amt_dev *amt = netdev_priv(dev);
--	struct amt_tunnel_list *tunnel, *tmp;
-+	struct amt_tunnel_list *tunnel;
- 	struct sk_buff *skb;
- 	struct sock *sk;
- 	int i;
-@@ -3098,11 +3228,37 @@ static int amt_dev_stop(struct net_device *dev)
- 	amt->req_cnt = 0;
- 	WRITE_ONCE(amt->remote_ip, 0);
- 
--	list_for_each_entry_safe(tunnel, tmp, &amt->tunnel_list, list) {
--		list_del_rcu(&tunnel->list);
--		amt->nr_tunnels--;
-+	/* Mark every tunnel dead first, so a concurrent amt_tunnel_expire()
-+	 * sees ->dead and bails instead of freeing a tunnel in parallel; this
-+	 * path is then the sole freer.
-+	 */
-+	spin_lock_bh(&amt->lock);
-+	list_for_each_entry(tunnel, &amt->tunnel_list, list) {
-+		spin_lock_bh(&tunnel->lock);
-+		WRITE_ONCE(tunnel->dead, true);
-+		spin_unlock_bh(&tunnel->lock);
-+	}
-+	spin_unlock_bh(&amt->lock);
-+
-+	/* Unlink one tunnel at a time with list_del_rcu() rather than splicing
-+	 * the list onto a local head: a lockless reader walking tunnel_list
-+	 * must always terminate at &amt->tunnel_list, never at a stack head.
-+	 */
-+	for (;;) {
-+		spin_lock_bh(&amt->lock);
-+		tunnel = list_first_entry_or_null(&amt->tunnel_list,
-+						  struct amt_tunnel_list, list);
-+		if (tunnel) {
-+			list_del_rcu(&tunnel->list);
-+			amt->nr_tunnels--;
-+		}
-+		spin_unlock_bh(&amt->lock);
-+		if (!tunnel)
-+			break;
-+
- 		cancel_delayed_work_sync(&tunnel->gc_wq);
- 		amt_clear_groups(tunnel);
-+		__amt_group_gc_work();
- 		kfree_rcu(tunnel, rcu);
- 	}
- 
-@@ -3480,11 +3636,17 @@ static int __init amt_init(void)
- 	}
- 
- 	spin_lock_init(&source_gc_lock);
-+	spin_lock_init(&group_gc_lock);
- 	spin_lock_bh(&source_gc_lock);
- 	INIT_DELAYED_WORK(&source_gc_wq, amt_source_gc_work);
- 	mod_delayed_work(amt_wq, &source_gc_wq,
- 			 msecs_to_jiffies(AMT_GC_INTERVAL));
- 	spin_unlock_bh(&source_gc_lock);
-+	spin_lock_bh(&group_gc_lock);
-+	INIT_DELAYED_WORK(&group_gc_wq, amt_group_gc_work);
-+	mod_delayed_work(amt_wq, &group_gc_wq,
-+			 msecs_to_jiffies(AMT_GC_INTERVAL));
-+	spin_unlock_bh(&group_gc_lock);
- 
- 	return 0;
- 
-@@ -3504,6 +3666,8 @@ static void __exit amt_fini(void)
- 	unregister_netdevice_notifier(&amt_notifier_block);
- 	cancel_delayed_work_sync(&source_gc_wq);
- 	__amt_source_gc_work();
-+	cancel_delayed_work_sync(&group_gc_wq);
-+	__amt_group_gc_work();
- 	destroy_workqueue(amt_wq);
+ 		if (amt_send_membership_update(amt, skb,  v6))
+ 			goto free;
+-		goto unlock;
++		/* Sent: the tunnel consumed the skb.  Not a drop. */
++		return NETDEV_TX_OK;
+ 	} else if (amt->mode == AMT_MODE_RELAY) {
+ 		if (!data)
+ 			goto free;
+@@ -1372,8 +1381,7 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	return NETDEV_TX_OK;
+ free:
+ 	dev_kfree_skb(skb);
+-unlock:
+-	dev->stats.tx_dropped++;
++	DEV_STATS_INC(dev, tx_dropped);
+ 	return NETDEV_TX_OK;
  }
- module_exit(amt_fini);
-diff --git a/include/net/amt.h b/include/net/amt.h
-index 2846dde0c..568565793 100644
---- a/include/net/amt.h
-+++ b/include/net/amt.h
-@@ -240,6 +240,17 @@ struct amt_tunnel_list {
- 	u32			nr_sources;
- 	enum amt_status		status;
- 	struct delayed_work	gc_wq;
-+	/* Last time a Membership Update refreshed this tunnel, under ->lock.
-+	 * gc_wq re-arms itself from this rather than being re-armed by the
-+	 * Update path, so the Update path cannot re-queue the work of a
-+	 * tunnel that amt_tunnel_expire() is freeing.
-+	 */
-+	unsigned long		last_seen;
-+	/* Set under amt->lock and tunnel->lock by whichever freer reaches the
-+	 * tunnel first; the other then leaves it alone, so the tunnel is freed
-+	 * exactly once.
-+	 */
-+	bool			dead;
- 	__be16			source_port;
- 	__be32			ip4;
- 	__be32			nonce;
-@@ -275,6 +286,7 @@ enum amt_source_status {
- /* protected by gnode->lock */
- struct amt_source_node {
- 	struct hlist_node	node;
-+	struct hlist_node	gc_node;
- 	struct amt_group_node	*gnode;
- 	struct delayed_work     source_timer;
- 	union amt_addr		source_addr;
-@@ -282,6 +294,8 @@ struct amt_source_node {
- #define AMT_SOURCE_OLD	0
- #define AMT_SOURCE_NEW	1
- 	u8			flags;
-+	/* Protected by gnode->tunnel_list->lock. */
-+	bool			dead;
- 	struct rcu_head		rcu;
- };
  
-@@ -295,7 +309,10 @@ struct amt_group_node {
- 	u32			nr_sources;
- 	struct amt_tunnel_list	*tunnel_list;
- 	struct hlist_node	node;
-+	struct hlist_node	gc_node;
- 	struct delayed_work     group_timer;
-+	/* Protected by tunnel_list->lock. */
-+	bool			dead;
- 	struct rcu_head		rcu;
- 	struct hlist_head	sources[];
- };
+@@ -2749,7 +2757,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
+ 				   IPPROTO_UDP, 0,
+ 				   amt->stream_dev->ifindex);
+ 	if (IS_ERR(rt)) {
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
+ 
+@@ -2759,7 +2767,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
+ 	skb = netdev_alloc_skb_ip_align(amt->dev, len);
+ 	if (!skb) {
+ 		ip_rt_put(rt);
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 		goto out;
+ 	}
+ 
+@@ -2805,7 +2813,7 @@ static void amt_send_advertisement(struct amt_dev *amt, __be32 nonce,
+ 	ip_send_check(iph);
+ 	err = ip_local_out(amt->net, sk, skb);
+ 	if (unlikely(net_xmit_eval(err)))
+-		amt->dev->stats.tx_errors++;
++		DEV_STATS_INC(amt->dev, tx_errors);
+ 
+ out:
+ 	rcu_read_unlock();
 -- 
 2.43.0
 
