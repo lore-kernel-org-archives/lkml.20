@@ -1,79 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794033590;
-	b=u7I7REdXGX8adu8VbDTFR3sNGVwczF2KSNln66rrCJ9MkTCw/nEf4l0y32OZK4jle6Uy
-	 QlqmycZVvVcWsNGcZ7PqLOrTQNj7v5BGTtaZYUN1BXaDF5k3EqdAVRvh1VukB9vyFL3Iq
-	 pRmg7ZPcsPdvOgp1KLCdJeey3Hs1OVDTnlUy2xP2HaRroquyt/S6vstQZyHTC6jDQVJ+S
-	 jyhudgLwXGTRjRx6Sgj0eps/wTLGXvfcglAExuomEI6c8XcZ8pW4AtEQnwTeqS7Wa8gX1
-	 qJsEUZvdQOlJn8o5BkZXb83mAHePPuvBfW4ry7252F2PQDnX0ff31cYTk54krJN6+6w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794033590;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ShDXm4uGbxBrT17O19lJkSloCrUtaC0uPtaqAxYQhhM=;
-	b=NCyArcDufWmz+Dw+C6jQhQAZ+5oo/MFiqdlvirhFSIpe3cD5LczJnLatUFIOrfskHhju
-	 m41mFnd+mPJTU52XF7V9oXkRQhse0BwHfCcohddguytKmvDMHVMoCLDixS8trsItdBa6J
-	 npD7JNMwioPTEuO8wfpvB/sGJhyYV7Iiltz80P3bu+/XwCAHCi4PQTCjXB6MnIj3cL/kk
-	 qI39L2i6ahhuJUgmrzcO/A3eyseQeum0c2WlRh6yr41AoA42XgKGyAcZpw7TxP1VZ2aYT
-	 y90HTmIPYY1gWbUkP5yOLmNusuT4aWS9sp1Lyxt0NuA4SWPzbIQ1iPvmVB7WbXYZi3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GifCJ0ZY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3DA606A326;
-	Sat,  7 Nov 2026 06:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GifCJ0ZY
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794033589;
-	b=rxw/ivtSpTvVv//cua0kfKqoOwKj3HFVJDdfHT/YT24c9D4ETUycSkht+tswOzT3vBSS
-	 5dyEI7i7DAR9cqpHiHllJbNHOm6e/IR9ow6kXRE8N10OfZqk58bBXBTezEWcJfLgfSZWE
-	 WeHmX6ufzcg+hkVI9vZVi6eoUZutI7NxcNS+bo3p4jB/AX4Uu7BsVNPfxEwSU/v6fD67N
-	 oTOMbs3S/5lNsX83rqbQwKJsaRjOwxswSpraIMStFuJaWGprQxvuA/Mr9zRwV97hxo4Ws
-	 lWN8aMYEyJn13bQYSPcbxWOWUOdFVZAUsHsztZLilxeR1RG9WBiQ1+1My1ZM6HUgN5A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794033589;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ShDXm4uGbxBrT17O19lJkSloCrUtaC0uPtaqAxYQhhM=;
-	b=nOH1swnEKY41fbD3y8CxhoRhGNqhv3xchhHGfW8k0T4DPJusk4UhxRB9oCsXHizzuMuG
-	 NKzUJMaSl57JKMc9NiGBMqgcA6adL90ITrxtMH1q5lNH9YIG958tj9Ag+XC43K0vPetV1
-	 KMrTpnBKrUdmYjuXntaHwgMjTJFS2WXCADH6ywxM54trKn1bhrjRU1lTLYV6+1rzcv09D
-	 FnUVDPJz8FQLY+mS6teHLwOpzni/AlhHszkTZsFtq7DRPT3GwYGNhh0VcwJZ11joRGIGw
-	 lDa9byXXFF02IpwG5qXZT6KpsJ0HjvxtW0Y70/yryloqe1IWNifZAK4amvCmoWW1rqg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794033663;
+	b=X0HC4+lmJEu1CZ00DALbObep/QIN5De1/mSdS40X1ORsZBUz7UwMfROoBH6XABc7e+mX
+	 k+8MEihbiq9loBAsYVJWzHthiSyixGbOnar6mQUqhM7U2q2QCxDCUlWtvePnAp+TQEkwD
+	 aKecToo9L0/UEZaIA9cfi/qa98Z6kWm5biG7wWSdEePWFEanpyAcJ8mgtrlavS7BrrTOp
+	 gkgNQ6dHvE5kpu5CjncpIrQsCFnfn1mw4Xcp7uxILEEPk6yhZoy64w95CClXlfiy9R/Zq
+	 /receienV6YeLRfKVXoQODa0ZA7/HXAnFK4Z62oE/+jXLaM48vDtBhDm5/6Hs9ZNYHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794033663;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=XUSUNbMJ34FAOBuYZeh6t3d5EPTvLm+TMnooa8Q/6iI=;
+	b=l27ehLlhzv1VdpQoti4f9jOflvcjVmrniB/NqEvZ6fNJ+nPLxyWjNDFfPcCuAmZZrv5F
+	 Skk8PuSM6UlI+ip20CuO1tAjCNG/HJ6LVMjVLdV6yUXs4Gos+AohH7Gp55KqklbIdOj3h
+	 oX+UJubN1da1n1AcZzxPuPIFoXHH2BWo7E7ydY3O52WARDqIhnTXsPT89dQptVw03GnvU
+	 6sWem1AB4PTCQR3zxnkAR+f4Q9ZpYIiISLaB8QkLwGlYN7gqtwVmSg2k8AeXZ9KhhXmOy
+	 dUEZ3Lfl9LpppEO6kUYvtpdZNXcCsF7k0peJ4hiZdDOGduc+w1Oqgr+m1R4ILX4HNdA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D7F651F0089F;
-	Sat,  7 Nov 2026 06:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794033589;
-	bh=ShDXm4uGbxBrT17O19lJkSloCrUtaC0uPtaqAxYQhhM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=GifCJ0ZYivD01lugBvR9ouX9YKvhebsUAXNwYr5TqDqmML3Yalj1HgXKMOy/MiI5w
-	 /Mgq0eY96Trok+Nje0PBuxAb2y+2DSJmUEzEc/xWFePxXOyMO9xsru37I42IPfIWt6
-	 g0svS4mPHJy/oL3B0WcEHzQ7ygvEPsKBe+f9jONe+RItKsZxcT33dbJTB02k4mJI1j
-	 6Y/1NSLYiJ15kyRqsRvPlUt+UEp7+XlVBLzwUmTxl9D8HUxlZscNGX0ttIXmSl1G9P
-	 dpavfoykEgG57HHvwEk9bvjn0BBsxvJXBwn1NsFu7F8i44lrBbGAwt8sCrjJcyPO/P
-	 EUNueNoYAqWDQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 56B8F47AE5;
-	Sat,  7 Nov 2026 06:39:48 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 00:39:47 -0600
-Subject: [PATCH] staging: octeon: fix FPA output buffer pool leak on
- teardown
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2A4606A336;
+	Sat,  7 Nov 2026 06:41:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F2A4606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHV7vxx+5q4huAAA--.416S2;
+	Sat, 07 Nov 2026 14:40:49 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Simon Horman <horms@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: hns3: destroy the page pool if RX buffer allocation fails
+In-Reply-To: <20261106180307.GM865646@horms.kernel.org>
+References: <20261103100533.1310018-1-vulab@iscas.ac.cn>
+ <20261106180307.GM865646@horms.kernel.org>
+Date: Sat, 07 Nov 2026 06:40:59 -0000
+Message-Id: <179403365938.2343286.17861555527343646407@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,92 +58,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-octeon-fpa-pool-fix-v1-1-1c87ab050a2b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bkENUvpKdLBaayFc0Ygg+nvSc
- QZmHiiUmQoMzQOZLi4ssYJuG1h2HzdCXiuDUabXWlmU5SSJGJLHJHJg4BvXeXbWG9WFzkEtU6a
- q/+s4ve8HiJnCMGUAAAA=
-X-Change-ID: 20261107-octeon-fpa-pool-fix-dbb87a203f38
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794033587; l=2396;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=jfYK6mu4CymzOqkHn43J/TUYukLoXz0XWFvyyqJ4PXI=;
- b=iWqfh3jt+pJDZzI6sXfPmTV874QAs/4gWGseyD+GrXOhKpSR+UdB1tmWdNVE1N6FWGKq20DJm
- dN6pjIadwiwCVcOM9au+IG4NwOi1+kU2fVEgcEjAJVKqEaVfhiQqzoP
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHV7vxx+5q4huAAA--.416S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYL7k0a2IF6F4UM7kC6x804xWl1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr
+	1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+	xwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I
+	0En4kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
+	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
+	xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWx
+	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU81qcUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAEA2rucfyZAwAAsY
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+Hi Simon,
 
-cvm_oct_configure_common_hw() allocates 1024 buffers for
-CVMX_FPA_OUTPUT_BUFFER_POOL, but both the probe error path and
-cvm_oct_remove() only free 128 buffers when calling
-cvm_oct_mem_empty_fpa(), leaking 896 buffers on driver teardown.
+Thank you for the review.
 
-Define OCTEON_NUM_OUTPUT_BUFFERS as 1024 and use it consistently when
-filling and emptying CVMX_FPA_OUTPUT_BUFFER_POOL.
+You are right about the NULL check: page_pool_destroy() returns
+immediately for a NULL pool. But checking again before posting a v2, I
+found that Jijie already posted a fix for this same leak, four days before
+I sent my patch:
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
----
- drivers/staging/octeon/ethernet.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+  https://lore.kernel.org/all/20261030095633.377289-3-shaojijie@huawei.com/
 
-diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
-index 42ec4b8324a8..a74d122d9bb1 100644
---- a/drivers/staging/octeon/ethernet.c
-+++ b/drivers/staging/octeon/ethernet.c
-@@ -29,6 +29,7 @@
- #include "ethernet-util.h"
- 
- #define OCTEON_MAX_MTU 65392
-+#define OCTEON_NUM_OUTPUT_BUFFERS 1024
- 
- static int num_packet_buffers = 1024;
- module_param(num_packet_buffers, int, 0444);
-@@ -162,7 +163,8 @@ static void cvm_oct_configure_common_hw(struct platform_device *pdev)
- 			     num_packet_buffers);
- 	if (CVMX_FPA_OUTPUT_BUFFER_POOL != CVMX_FPA_PACKET_POOL)
- 		cvm_oct_mem_fill_fpa(pdev, CVMX_FPA_OUTPUT_BUFFER_POOL,
--				     CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE, 1024);
-+				     CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE,
-+				     OCTEON_NUM_OUTPUT_BUFFERS);
- 
- #ifdef __LITTLE_ENDIAN
- 	{
-@@ -974,7 +976,8 @@ static int cvm_oct_probe(struct platform_device *pdev)
- 			      num_packet_buffers);
- 	if (CVMX_FPA_OUTPUT_BUFFER_POOL != CVMX_FPA_PACKET_POOL)
- 		cvm_oct_mem_empty_fpa(pdev, CVMX_FPA_OUTPUT_BUFFER_POOL,
--				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE, 128);
-+				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE,
-+				      OCTEON_NUM_OUTPUT_BUFFERS);
- 
- 	return ret;
- }
-@@ -1009,7 +1012,8 @@ static void cvm_oct_remove(struct platform_device *pdev)
- 			      num_packet_buffers);
- 	if (CVMX_FPA_OUTPUT_BUFFER_POOL != CVMX_FPA_PACKET_POOL)
- 		cvm_oct_mem_empty_fpa(pdev, CVMX_FPA_OUTPUT_BUFFER_POOL,
--				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE, 128);
-+				      CVMX_FPA_OUTPUT_BUFFER_POOL_SIZE,
-+				      OCTEON_NUM_OUTPUT_BUFFERS);
- }
- 
- static const struct of_device_id cvm_oct_match[] = {
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261107-octeon-fpa-pool-fix-dbb87a203f38
+So I am withdrawing the patch instead of posting a v2 that duplicates his
+work.
 
 Best regards,
--- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
+Wentao Liang
 
