@@ -1,47 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048422;
-	b=AWSvC24TJZ4rBXLKs5f/Azq/g4ht4ZQQKvhQYigHXwrixiEUwUif55jDQNY1kzs27wO8
-	 1hmbxtwT0knwEAtzwGhrq+UwSrs2VbfBALBqtDOELCgmsZrSd7QHWisaTtJmL4dhi+qEI
-	 O1Lpa9QMULAWwg7uGhVqeNKEjLcM3si3p1MreCrhj+077EOYzQrzX78QNOv42DvOQUFFu
-	 Bg6EehOFsfqKJznWr8QNYL5oQsmhQ0cqOw1awMH+QGAd/CTYFyiaYacQ+WL244BkDbcy6
-	 Vx3kF6kpUfJYK1dle/CFsIbXVAixZmWaVAORvB+liQyAQUxTShIrK7NiP0yI8RqGx3w==
+	t=1794048441;
+	b=QveIBE/0VwMvuNKpR20bL/g811CR5G8wRCXVSiwsoX6njcIofYEwYO92EJXw1HNyttPG
+	 aaXkxjtSFUlIKJuwy0CSbNTcMk5H5jisxgQ96iTf4FchS1JCv26mdDiVhmRbKYkGGIGgD
+	 MItivMQflIqZc3FkFBz+gnAXN8GscwNMv9XIRhBdXFAFx8vXpq50VWfC5Kf/BtHqRnANx
+	 3T/IMpl2rb48jEHnnI1TasoHjB1quNL6YixF8CsyjsrZxCN7kN5mhneMdqJhCuX1kabL5
+	 Qu3Xz81IxQM6DOC/6cSuNfI8DwFMCDTkjKJzny5PqwYlUHEH/QbYNJaanlXujKBjXmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048422;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=j5nV0hNcfCPqw7ejNajVDjDG0qCCWAXLjE0YZdaIMWQ=;
-	b=GnrV+zE+8olKfXhl8c46Fp+1Wx5aBAgCpi2D/q454EhfKQAUa7yTQJPKrncNWNOq+FeJ
-	 pqSXB8n4WN2t+ZLKbv7Zhe7rXzC/MmUpffGKAgOeZRvkr4AeVpJ6JaBWaQtORD9L3XkJO
-	 PWRx1uufD/vq8Yl4A9F/KoDsB3G2SS1efUJE1cjmsaPXP1WUtu3qL6XpdMz+0m02nvBK6
-	 lj00hu9XwuqvzbVL3VRChoWlqTN3FNOASj/N3CcqosZNz1ymbn1o0vkiwSLrGhnfMdeS0
-	 6tm118UMxWSWeJriI93defyqH2cQ5ncT1UoVrlK7C+OW7hX/Z7iVtDIGJb4aR77GMEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048441;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+OU4gePN1TbrZEx6lkd5UF6PxGqdlcQqr6Ot6rmKywQ=;
+	b=gUJsswkQxeUQ7w3q95gpJD0VUWZyimA/XJRSuzdGSd0Kjr6if416qNOHmyL/sD7iwaT9
+	 5hcHFgzeWotR3Wy36i4p7Kxd6bGQjc/rB5q8t6Dsc+wkJif3u57Y9ykApZxEmQZ50pa/X
+	 bav2GaX3fex1PJz9fB85cGmUWOeKtR2tS5GSIdb+tGjLYQiYpqsHF4zlOu45dHHIT25VY
+	 OIcUvRTvw5ACcXTx9IrvDAZtAHfDgRF/TlHL2nx4cEuyfHgyfWPnXJo18O7NB2kby9CoX
+	 mbM/0YGVuIIx5rbDV+imw5R27fPbQxZi09gnSfE3UyVdvuZw8SLRvW8hwDTl3SBoydg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYPP7jGj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FPpZxkZh;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44D4606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:47:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A8C606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2A8C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYPP7jGj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D726A1F008A1;
-	Sat,  7 Nov 2026 10:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048421;
-	bh=j5nV0hNcfCPqw7ejNajVDjDG0qCCWAXLjE0YZdaIMWQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HYPP7jGj+iytrbWhImO7gLE9PKhMkW+TNjutaEeEdxOZIrlaDsNHDPSdfBhVz3QEl
-	 bEalnXJvDgr57ZmfbdH+ZIpuNA8ZdeIcgubCf9lVDBQOqw46alk5KMbwhKUwkp1Fqm
-	 IaentZvJxeU4yKqBxcvN/CsF1in+avenONhz5nMwTZdVEvugsEAG5biE5OqNZNLdsP
-	 nuq5I5ZD15xEEahx4nkfmWXO/7WLjACZxzhwajLfvhvJxKibahwi3NkPmCsyfQc/EN
-	 Ff+celB9ILJ9YMZdKGcwPne52Jj6hXp5d0lI0Y9fy2kY2nMagOJBxrlWOFV3K9Mh1l
-	 sOKQEMAH7NeOw==
-Message-ID: <10aacc3f-9ac9-413b-9216-ee166b1c6bef@kernel.org>
-Date: Sat, 7 Nov 2026 11:46:57 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FPpZxkZh
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-491971ac844so1262894f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:47:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794048439; x=1794653239; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+OU4gePN1TbrZEx6lkd5UF6PxGqdlcQqr6Ot6rmKywQ=;
+        b=FPpZxkZhP8DkXqTcCgU2KR9Y7JfY8TZj5ukgXKtcjF6rCyTzhPETGMqhaUHJcapsq5
+         dTpPSHlpct1nSBdWg1Hnz7mkTR8xBebdniUE1HFqtItzYMSlPgoLyEUKihI0KIFLD4ZL
+         9v4YjbQrfc+rIIaqimAX7pPaE0kU/2cHeBi0slLsQHUVRkFVNARboThr2IvKCuEz58PU
+         y59sMjikGMfHrmMBkQ/Loi5vF6FGfiBXQR4tdD2aRHyI6F5IbhHghmnXWO91g4cwfO10
+         ROB10FdYyMMpW6L3BCSxnWsrmJ7DoMwl0H5RMjk8CLzMeUpvA3VaZTLGKfx2b1VBAE6R
+         GLHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794048439; x=1794653239;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+OU4gePN1TbrZEx6lkd5UF6PxGqdlcQqr6Ot6rmKywQ=;
+        b=QndlgjbU7sVRLWZpWTf0XF0krujZpyAJ6UjbO2vV7QoNEB6bB8mtCo/ofcZq18+g2Q
+         eLxXejD0Hj+UyV0YFiJpzvD5lHMlVEm96evM1uGWykQNotfLk/wBlW+lsGBud8HLR2g3
+         3evGTUmlwJ5BfIcOHRdF0seVQRaJpd1DYUnphu/NuEZSyxXpTkoMpwVfm1rhzkoYo105
+         s4q5BueV6UY3gDqJTFepK1OCZgvmH1aM5QQLw8yc9RsaWplZBQqWspNJw0VzmxiehPZn
+         t4j2lsMy9c8Kgt/uviS9eAP6S0IQb5inWnrA7+3lMiqhJ5hEPyL1LNPuKH3kKVAy/zyf
+         MmoQ==
+X-Forwarded-Encrypted: i=1; AKwUvByeX/lA0RnaOpS/r8/Ty3DClb2sJnrC//Vb1cS4TE5jjgKUlWysOX3nRfs+L4osMUJSdg4e3Vi1iEyoxgU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8laisbX2ph0Ls7PDSsfJj1UvNDbsi8qPp4/2zHpAPxfbBB3ZUY
+	1HTMxFXDdbRsvozjyq7Ni/78pT/dz6hE4LsQembrZCm63HJEmJbx5GXY
+X-Gm-Gg: AYBFou2HO/7RGdC0IdMSjCiMutruLRlyunXgV4efyWgjb6NfMAlBtGI/feDuusNpxyP
+	j466ssmykuymLsK1001HtT91FlZiqK/bz3T7LdgNQyprAQbXULAdu+IEhQV0Ty4697Sq6jMWkPK
+	e3M1JxwDPYfgmXc+vKQ+vl5gZxK+uqRQCL1J0prySWloQiHU/94oBz6DETPxafMjhHGjjq4eO/e
+	3kQRvHZOLr8EiUAJVNyiXJep35SsrGdT9LU+I4FCmpzlCPjpeY7NAoL7i8zOJSgBvhAYLXvuHfe
+	6eWtpQ8EacVv0N0NtWCqcePrweChRNn5GCfEFVX0oZd3MgVOwqD/oKhZG1K/x/uUhw+9+Sse4a6
+	DOWK3sfmTCAmF+pfUTislI7ffwLEXaCeNY6AJG7Wk+/OklMooa44ZsMcRR0WbZQqeqKsMNpCy3p
+	fn9Ihtqh9+Ek6ckFZexHkSgDIJG2/I+lI+pVYQcrXJMjGE3vaDK2JqH3HFGCnKFFMrm5HxJboio
+	8vxrsdeq2x9qT+aN6HK9Ht+LUXByvm7lFbRoTXjINWG4AHEk91qfQB4Uv1oAQNElkuwPy2jjT2t
+	ePXEJu4mOyGndfgJ2YEDDoc++Dba0vsoS3Pofm35ypwqTw4pcY7Loz6Jjct/OM2Bvxj9ZRH9++o
+	B0+2GAp5DYoz03OBokDTc75MNgVAn6/Vb4Z68JdX5+XdaJ8ajlkw5b1ERL+2iYxhv4zpUVRUAj5
+	bS3gPmscU3QHVTgH8mWEtssd+k04ioj2jm9CwY
+X-Received: by 2002:a05:600c:3e0b:b0:4aa:2339:a375 with SMTP id 5b1f17b1804b1-4b6ded4ac6fmr78413885e9.13.1794048438783;
+        Sat, 07 Nov 2026 02:47:18 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795024730sm47935635e9.4.2026.11.07.02.47.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 02:47:18 -0800 (PST)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] media: synchronize CPU access to imported DMA-BUFs
+Date: Sat,  7 Nov 2026 11:47:00 +0100
+Message-Id: <20261107104703.44111-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,82 +107,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] extcon: max77843: convert to subsys_platform_driver()
-To: Brian Masney <bmasney@redhat.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>
-Cc: linux-kernel@vger.kernel.org
-References: <20261106-extcon-subsys-v1-1-6a781b323d6f@redhat.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-extcon-subsys-v1-1-6a781b323d6f@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07/11/2026 02:07, Brian Masney wrote:
-> Reduce boilerplate code in this driver and convert it over to use
-> the macro subsys_platform_driver().
-> 
-> Note that this driver is configured in the Kconfig to be a tristate,
-> the driver doesn't have suppress_bind_attrs set, and there is no __exit
-> function defined. This change will add an __exit function that
-> unregisters the platform driver.
-> 
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
-> ---
->  drivers/extcon/extcon-max77843.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
+uvcvideo and vivid (when using vb2-vmalloc) access imported DMA-BUFs
+through a kernel vmap without cache synchronization. When a non-coherent
+importer such as V3D maps the same DMA-BUF persistently, captured data
+remains in the CPU cache while physical RAM holds stale bytes.
 
-I am 99% sure that this driver can function as module platform driver,
-because it has necessary MODULE_DEVICE_TABLE() and device is not needed
-for early boot.
+Add an opt-in uses_cpu_access queue flag for vb2-vmalloc queues to
+bracket the interval from buf_prepare() through buf_finish() with
+dma_buf_begin_cpu_access() and dma_buf_end_cpu_access(). Keep this
+opt-in because some vb2-vmalloc drivers pass imported buffers to
+hardware, and end CPU access in process context because DMA-BUF
+callbacks may sleep.
 
-Nevertheless, this change itself is also correct.
+This follows the per-queue flag proposed here:
+https://lore.kernel.org/r/CAAFQd5Am5jBev5P1HmsdeHoJfROZat3bi1W=UsN7wpVqw-XUQQ@mail.gmail.com/
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Based on Linux 7.4-rc1 with prerequisite patch "media: videobuf2: finish
+prepared buffers in VIDIOC_REMOVE_BUFS":
+https://lore.kernel.org/r/20261026071735.37220-1-kmehltretter@gmail.com/
 
-Best regards,
-Krzysztof
+Changes in v2:
+- Split patch 1 of v1 into the standalone VIDIOC_REMOVE_BUFS patch above
+  and use its __vb2_buf_cancel() helper so queue cancellation and
+  VIDIOC_REMOVE_BUFS share the finish path (Tomasz).
+- Scope uses_cpu_access to vb2-vmalloc queues and drop the attach_dmabuf
+  dma_dir parameter from vb2_mem_ops, videobuf2-dma-contig,
+  videobuf2-dma-sg and videobuf2-vmalloc (Tomasz).
+- Enable uses_cpu_access in vivid only when vivid uses
+  vb2_vmalloc_memops (Tomasz).
+
+Link to v1:
+  https://lore.kernel.org/r/cover.1792392288.git.kmehltretter@gmail.com/
+
+Testing:
+
+- Raspberry Pi 500+ (6.18.34+rpt-rpi-2712, aarch64, 16 KiB pages,
+  Sunplus UVC camera 1bcf:2701 and Broadcom V3D 7.1 GPU), backport of
+  the prerequisite patch plus patches 1 and 2: eight 640x480 YUYV frames
+  (614,400 B) captured into DMA-BUFs pre-seeded with 0xA5 and imported
+  into persistent EGL_LINUX_DMA_BUF_EXT textures before VIDIOC_STREAMON,
+  then copied by V3D 7.1 immediately after VIDIOC_DQBUF:
+
+  Heap                        Baseline stale      Patched v2 stale
+  /dev/dma_heap/linux,cma     8/8 (329,890 B)        0/8 (0 B)
+  /dev/dma_heap/system        8/8 (509,818 B)        0/8 (0 B)
+
+- QEMU virt (arm64, Linux 7.4-rc1 with the prerequisite patch and
+  patches 1-3, VIDEO_ADV_DEBUG=y, DEBUG_ATOMIC_SLEEP=y): six vivid
+  lifecycle cases (stream, streamoff-queued, prepare-reqbufs0,
+  prepare-remove, close-streaming, replace-dmabuf) across single-planar
+  and multi-planar queues with kprobe counters on
+  dma_buf_begin_cpu_access() and dma_buf_end_cpu_access():
+
+  Queue                        begin/end calls   Unbalanced   Warnings
+  vivid vb2-vmalloc (SP)           34 / 34            0           0
+  vivid vb2-vmalloc (MP)           34 / 34            0           0
+  vivid vb2-dma-contig (SP)         0 / 0             0           0
+  vivid vb2-dma-contig (MP)         0 / 0             0           0
+  20x prepare-remove (vmalloc)     20 / 20            0           0
+
+Assisted by an LLM for code changes, test harnesses and commit message
+drafting.
+
+Karl Mehltretter (3):
+  media: videobuf2: add opt-in DMA-BUF CPU access
+  media: uvcvideo: synchronize imported DMA-BUFs for CPU access
+  media: vivid: synchronize imported DMA-BUFs for CPU access
+
+ .../media/common/videobuf2/videobuf2-core.c   | 76 +++++++++++++++++++
+ drivers/media/test-drivers/vivid/vivid-core.c |  4 +-
+ drivers/media/usb/uvc/uvc_queue.c             |  1 +
+ include/media/videobuf2-core.h                |  5 ++
+ 4 files changed, 85 insertions(+), 1 deletion(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+prerequisite-patch-id: aa99d5c3c27082cbe003ed94a195e3de415777c9
+-- 
+2.39.5 (Apple Git-154)
