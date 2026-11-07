@@ -1,86 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794025951;
-	b=ZgWzM832D7ZYnj1SJ/ouJbgox1FQDTpAQpyVCgyaqbesWTzFLlyiuUbb+WRPxJHnMwhA
-	 fYpKmswEvEwwfTxoIINvtrrO/WBlSTc0VViUD8TABfSlQxCqsx8TqsdX5Al3N9PaQ/5TT
-	 RBoyfK2o9rQ5uUNwFQS8Z5hR2CoFZHN0gUZKWcZ+m9jWj7UiM5Rf45zCW8Wpza9uYpHaV
-	 fW9PqME/AFYkzeftsxTXEpy8T436jRVsRhR+ND8hzqeSVC87RdTc15ExR44YWi4+/vrrf
-	 WqMkFfIgmoiMAlbVR+fa25Bu9yiqMQujOZX3Ju2QKi55ZSjKTD4+g9Qyo5iT5T4w6nQ==
+	t=1794025952;
+	b=qFAXfxchI3I2wLs3qMPkB6Grcgr2+R07nbtIyoUdsawenx5WqGLKAU4Ij4u7fnAbeNSO
+	 9gIl3EJAZL3j+/HSRBwe1dadgfQmK5Tqmr+LyKcE6dpsZ1/vDRpm6GJFQwJ3RfidsFQ8O
+	 3+yBIyTY2Axg3iBb5ZV9aB07DTvDXk+S+5EhDT76GUI7qxCvXSXVDB8cEOe5k8cktLXCp
+	 S8yJYIBh575V7gYS64DDK1XKrKlW+1ys9qMWqerpgzynPkH/4YhriTQeyBTmea3zaAcLP
+	 7bRPu2QYlhbyJDERAuOqVJVif6qu5qcuzUxM5U/XTj9YPR9/CkG5sQRVzD1EyMNPf6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025951;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gRSKV6mkRNXym/QuyJGkrsvxD/gyct8zVn3i0QXwaGo=;
-	b=nvhEXn9hGqGW5FeLAv+WM3HH16CqTEgd/THKGaTa7kRKJeug+TqOZ/YXwYh7g2tA0zVA
-	 su/BL57sKyslMsVoTqJX45yNuFvUXyfZ+gmuRT2WmSYtA8nbC+3bdy+pmORWztVzJInri
-	 O+5oAeoOxco4tltL/Ml5kMYHqzP+cXZ69WTKkehy4+xwRLWoDIxuPhCSF4GBYzsZ50XOX
-	 /9xzgqKdUeppSRWNOPuT56E4mPdYG4fImfcKZi8hFt6EAHPGr+8r6Q7+YYzKtzKLR9eaq
-	 PsVNhq4EUGJj2d6ZfPc8yfZ61mMenWNYlfXufkd5YpQAICzhrCFJUBmN1HIImCPQfDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025952;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=BY1PW5EQCsSwahWNQsNirKWCM+cX6Fs3QmmMD9rosww=;
+	b=Il5PzdY5+FTQU3+rx6RitdmWgWWFuj0dBJhQFlJdNZvxOjX7psaQMSOQc17B/R+tfNmO
+	 U7RZ2kNyog836Z3R6efn/Sn19tjRFHFQZkeSYZHAoDqGRcin9B04M3LRDnXJv403DTLQT
+	 U+61njl7Siyt9GROryFU6AMZCIqlsgbSCSZu6yg6yHIAYmh5TJu9SIs9sHSADONYbXFZM
+	 7f7zMkPQUtfvEsELkXGvZZYVP9SxMIO05Ie2Yr6pa2A2NK07R0+QU1v2KvFy/NgzWiCYe
+	 5I6SawQC96NL5d7xH8ErHT0R/7yYnlDLZkzoew47Y7ycNed/V/KXwadwMgkdOhLR8Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SQNaR3XX;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="Yw/xntLX";
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6133E606A32C;
-	Sat,  7 Nov 2026 04:32:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6133E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EE1606A331
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5EE1606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SQNaR3XX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794025950; x=1825561950;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1T53sIhZg9iKg5N1Tv8ETyEt+UFopFJW9SxlBsWHluY=;
-  b=SQNaR3XXF6O6hZ3nvlCsZzKrx29gzVe4Q6GeXwGd3o8w966E/KCvYKcu
-   jVpRreUhssLG35YgbT2kcyS6Z5aPioxbhV818pK0qKjOSMSTUDQOACwL8
-   l0zLfblPNRcI+6MoTGIiZ6DQG0DxZJ+exIZ+uptHsdW5GzCaOTTh9C0uU
-   53Gd515ETdLA5yL91GrTDZuSfVaOQh5y19OxNoTRwpBucLGHrbhCl41mD
-   hwQiELDQUXuaTW+UtPFaldSSsJ2NIMnBZrnrhEBPUB7G3Z029sXO54/JO
-   6Mc0zjveAq0WGsQX4XNc+KrcvkStQvEPxqEiE1DCBvzRZX+2CnlbCNGZe
-   A==;
-X-CSE-ConnectionGUID: ercGPOUsSGKc95JiUoiong==
-X-CSE-MsgGUID: Uc4c/JmgSFK/KFn/vkPj9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2834053"
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="2834053"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 20:32:29 -0800
-X-CSE-ConnectionGUID: lN9+vu0aS7mdh3U882ioMg==
-X-CSE-MsgGUID: uafI4vHpReeRikmetBX/xw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="9289081"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 06 Nov 2026 20:32:26 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPY6J-00000000qKV-0DH4;
-	Sat, 07 Nov 2026 04:32:23 +0000
-Date: Sat, 7 Nov 2026 12:31:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Sunil-kumar.Dommati@amd.com,
-	vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
-	venkataprasad.potturu@amd.com,
-	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for
- ACP7.F
-Message-ID: <202611071205.FSWUFvJs-lkp@intel.com>
-References: <20261106191627.1590542-2-syed.sabakareem@amd.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Yw/xntLX
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso7445405ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:32:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794025951; x=1794630751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BY1PW5EQCsSwahWNQsNirKWCM+cX6Fs3QmmMD9rosww=;
+        b=Yw/xntLX1Emc5Zji6LogGgC+qzrpcJwEieREH8IPXZncmX0OfpYUecfbwqxo+QkeHM
+         Rau0Gi2zXSKDuAELU3lh1PdrD8Zf8wVigmZh9ysbYvhOTbJx6mBjStuSAk05BrRJY7mG
+         mEJNzSNKl1vYAv2YyT7HZEd9ucNYGEAFHnqn6YHy9h9b4thDr1S9HkMAPqFwmwK0F2ZN
+         FsfBOl2Rh8Fi3+FUWkVQA6+gEfGhz/IcWMfgQeZsckT7q+R0wl3hPf6HaeJzT7QWFd2y
+         ZYtvJ+FGXP6Np2X4FOsrx87TX3Ks30H3y0vOH5OY/LS/0m2HFSkezhEtIV8y9H0/HyrR
+         BPPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794025951; x=1794630751;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BY1PW5EQCsSwahWNQsNirKWCM+cX6Fs3QmmMD9rosww=;
+        b=VXsAJd7WLLKsDGpmdn5UjUSgaNxLg7sBKtQuGjJKiroowlLyMz5NISmaXNTBjSYUcq
+         AjaxHWnObek3QfyyCakdLv3DWBzKtINUsXxWHkVCTdJGb/Yw3GpaqyqZHvETe4mF3R7Q
+         nf2QmwgeZsbV8WNbaCvFVfHS4Uo0/913kEEpEyfpDYCs2Qp6isfdfyfLTY8h32YWlVcA
+         HSvUGuHsGucdApuEo9QQQwD+GdV4Ke6TyJKwNPhD87WzMoD7EKQYbh6kpIjTKQPh9P5D
+         /B9Ef95gpXbWebnr7BJaVJkAdMZ/TJI4U972ytxpBqUyy3Fgx9sFHHlmZx5ymRoPyM+P
+         OBQA==
+X-Forwarded-Encrypted: i=1; AL+hErGm1M2ly07EmQMYQLmnMq9zF56rdG7K9lnFfstvAiGwRWUXv2vjLNQ8us/E1XhdX3BfVlZlLIbKAlrDTgc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ogK7JyZoYXCrPFKa65f6p4RaZYeeIs7RcY/Yl3AHkFhabv1NP
+	mz6K76cQnQAiHyOT/pFVRO7+V3ctNUuTJMf7FGuvDXuGyxsQiT3EIqrzi85noey3QYc=
+X-Gm-Gg: AYBFou0DC6Rk8XcKuiH9tOpmCYQMshDBgc20UDaS0vwRynbRTFnHBGO4KWgVu8IELYp
+	kF2CmHbv2gDDZ2ZqHLx55Cxf/Y7OJ+AYkBrv9kKBKGbgD6TLNLPRKrqMG+V7zq6/7MXeKJ6eo69
+	+Rm3BkrzmD/Px6BJ2A9mhBV9luxZRp5jkUTGWY+Vgx/KRs58pN4Gt5/R3aMFL9ET02d5e+14oG6
+	I1BruTTDlv0AImmCrGTvv1vYcZMnvrXrx8bTbntu44oQUjLCyMPJJBo9oh2hr4JAY4IItno6Mcq
+	6sOucYN3DRMbtA0Rml0Gzv3Lah+rVbOcEXUGwnjTvFCv7ECMKsn2jEUnHyRcVS0ZFrAIt3i1Tfl
+	1HKzEtxm1AqaRoKRhAnztJAUZI3cpBvax6xsRtm4uupczWjlUJiORylEfI6+x1BijBkvS8wlXWt
+	eNHJfm5CoOqV0Nx8LSezTKKElB3mmcgXEXKtPbiommBIUgLwDW0b+4anOHwqPsGjvvjm8femdXc
+	79LRGihRG6ae9u9O6bDIlqfhgrDzhaFv897RaJzoh6L7w5K0t70+TAvbKdAISDI4MP88rkgUukK
+	ZMvHJheH8IVNjbiWSSw/A4ZKtXuc/9j6+biVsMdcw59c4V4eYI3meHa3c7JlB8CQ2uAh/VtJgcN
+	NihUy2w==
+X-Received: by 2002:a17:90b:530c:b0:3a8:59d3:530f with SMTP id 98e67ed59e1d1-3b0db71d480mr4559125a91.57.1794025951057;
+        Fri, 06 Nov 2026 20:32:31 -0800 (PST)
+Received: from G6L4RL2QG9 ([2409:8a00:1832:6900:c8de:13da:804b:a0fa])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10584b66bsm1578451a91.14.2026.11.06.20.32.23
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 20:32:30 -0800 (PST)
+From: Muchun Song <songmuchun@bytedance.com>
+To: David Hildenbrand <david@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Lance Yang <lance.yang@linux.dev>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	linux-mm@kvack.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	x86@kernel.org,
+	loongarch@lists.linux.dev,
+	linux-s390@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH v3 4/5] mm/sparse-vmemmap: drop vmemmap_can_optimize()
+Date: Sat,  7 Nov 2026 12:31:21 +0800
+Message-ID: <20261107043122.25650-5-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261107043122.25650-1-songmuchun@bytedance.com>
+References: <20261107043122.25650-1-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,53 +119,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106191627.1590542-2-syed.sabakareem@amd.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Syed,
+section_vmemmap_optimizable() can already decide whether a section uses
+vmemmap optimization based on the section compound order. The DAX-specific
+vmemmap_can_optimize() helper duplicates that policy, so remove it to
+simplify the code.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+v2:
+- Ignore non-optimizable nonzero section orders while retaining zero
+  as the reset value (reported by Sashiko)
+- Use section_vmemmap_optimization_disable() for the altmap fallback
+- Move vmemmap_optimizable_order() before its first caller
+---
+ include/linux/mm.h                   | 37 ----------------------------
+ include/linux/vmemmap-optimization.h | 25 ++++++++++---------
+ mm/sparse-vmemmap.c                  |  6 +++--
+ 3 files changed, 18 insertions(+), 50 deletions(-)
 
-[auto build test WARNING on broonie-sound/for-next]
-[cannot apply to linus/master v7.4-rc1 next-20261105]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 2d0b8a4c9974..43eb19474d26 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -38,7 +38,6 @@
+ #include <linux/bitops.h>
+ #include <linux/iommu-debug-pagealloc.h>
+ #include <linux/kcsan-checks.h>
+-#include <linux/vmemmap-optimization.h>
+ 
+ struct mempolicy;
+ struct anon_vma;
+@@ -5385,42 +5384,6 @@ static inline void vmem_altmap_free(struct vmem_altmap *altmap,
+ }
+ #endif
+ 
+-#ifdef CONFIG_ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+-static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
+-					  struct dev_pagemap *pgmap)
+-{
+-	unsigned long nr_pages;
+-	unsigned long nr_vmemmap_pages;
+-
+-	if (!IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION))
+-		return false;
+-
+-	if (!pgmap || !is_power_of_2(sizeof(struct page)))
+-		return false;
+-
+-	nr_pages = pgmap_vmemmap_nr(pgmap);
+-	nr_vmemmap_pages = ((nr_pages * sizeof(struct page)) >> PAGE_SHIFT);
+-	/*
+-	 * For vmemmap optimization with DAX we need minimum 2 vmemmap
+-	 * pages. See layout diagram in Documentation/mm/vmemmap_dedup.rst
+-	 */
+-	return !altmap && (nr_vmemmap_pages > VMEMMAP_OPTIMIZATION_PAGES);
+-}
+-/*
+- * If we don't have an architecture override, use the generic rule
+- */
+-#ifndef vmemmap_can_optimize
+-#define vmemmap_can_optimize __vmemmap_can_optimize
+-#endif
+-
+-#else
+-static inline bool vmemmap_can_optimize(struct vmem_altmap *altmap,
+-					   struct dev_pagemap *pgmap)
+-{
+-	return false;
+-}
+-#endif
+-
+ enum mf_flags {
+ 	MF_COUNT_INCREASED = 1 << 0,
+ 	MF_ACTION_REQUIRED = 1 << 1,
+diff --git a/include/linux/vmemmap-optimization.h b/include/linux/vmemmap-optimization.h
+index 22e5a322be0b..985a37dfcab7 100644
+--- a/include/linux/vmemmap-optimization.h
++++ b/include/linux/vmemmap-optimization.h
+@@ -31,6 +31,17 @@
+ #define VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES	(VMEMMAP_OPTIMIZATION_SIZE / sizeof(struct page))
+ #define VMEMMAP_OPTIMIZATION_MIN_ORDER		(ilog2(VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) + 1)
+ 
++static inline bool vmemmap_optimizable_order(unsigned int order)
++{
++	if (!IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION))
++		return false;
++
++	if (!is_power_of_2(sizeof(struct page)))
++		return false;
++
++	return order >= VMEMMAP_OPTIMIZATION_MIN_ORDER;
++}
++
+ #ifdef CONFIG_VMEMMAP_OPTIMIZATION
+ static inline unsigned int section_compound_order(const struct mem_section *section)
+ {
+@@ -40,6 +51,9 @@ static inline unsigned int section_compound_order(const struct mem_section *sect
+ static inline void section_set_compound_order(struct mem_section *section,
+ 					      unsigned int order)
+ {
++	if (order && !vmemmap_optimizable_order(order))
++		return;
++
+ 	VM_WARN_ON(section_compound_order(section) && order &&
+ 		   section_compound_order(section) != order);
+ 	section->compound_page_order = order;
+@@ -109,15 +123,4 @@ static inline bool vmemmap_optimizable_pfn(unsigned long pfn, unsigned int order
+ 
+ 	return (pfn & (nr_pages - 1)) >= VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES;
+ }
+-
+-static inline bool vmemmap_optimizable_order(unsigned int order)
+-{
+-	if (!IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION))
+-		return false;
+-
+-	if (!is_power_of_2(sizeof(struct page)))
+-		return false;
+-
+-	return order >= VMEMMAP_OPTIMIZATION_MIN_ORDER;
+-}
+ #endif /* _LINUX_VMEMMAP_OPTIMIZATION_H */
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index 57aa5c2d8034..f6a8b8e51b6c 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -490,6 +490,9 @@ struct page * __meminit __populate_section_memmap(unsigned long pfn,
+ 		!IS_ALIGNED(nr_pages, PAGES_PER_SUBSECTION)))
+ 		return NULL;
+ 
++	/* Altmap-backed vmemmap pages cannot be optimized. */
++	if (altmap)
++		section_vmemmap_optimization_disable(start, end);
+ 	r = vmemmap_populate(start, end, nid, altmap);
+ 	if (r < 0)
+ 		return NULL;
+@@ -717,10 +720,9 @@ static struct page * __meminit section_activate(int nid, unsigned long pfn,
+ 	struct mem_section *ms = __pfn_to_section(pfn);
+ 	struct mem_section_usage *usage = NULL;
+ 	struct page *memmap;
+-	unsigned int order;
++	unsigned int order = pgmap ? pgmap->vmemmap_shift : 0;
+ 	int rc;
+ 
+-	order = vmemmap_can_optimize(altmap, pgmap) ? pgmap->vmemmap_shift : 0;
+ 	if (nr_pages < PAGES_PER_SECTION && section_compound_order(ms))
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 
+-- 
+2.54.0
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261107-004611
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20261106191627.1590542-2-syed.sabakareem%40amd.com
-patch subject: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for ACP7.F
-config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20261107/202611071205.FSWUFvJs-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611071205.FSWUFvJs-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611071205.FSWUFvJs-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> sound/soc/amd/acp/amd-acp7x-acpi-match.c:394:43: warning: 'acp7x_cs35l63x4_l0u0246' defined but not used [-Wunused-const-variable=]
-     394 | static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
-         |                                           ^~~~~~~~~~~~~~~~~~~~~~~
-
-
-vim +/acp7x_cs35l63x4_l0u0246 +394 sound/soc/amd/acp/amd-acp7x-acpi-match.c
-
-   393	
- > 394	static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
-   395		{
-   396			.mask = BIT(0),
-   397			.num_adr = ARRAY_SIZE(cs35l63x4_l0u0246_adr),
-   398			.adr_d = cs35l63x4_l0u0246_adr,
-   399		},
-   400		{}
-   401	};
-   402	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
