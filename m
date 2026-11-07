@@ -1,68 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794063300;
-	b=bgq30HdRnsqldBw2Lk1rlqgXlzRuMl4JkgqJC1Xc4aZ5YTzs4QOAFCcfhH1STmBiVpyZ
-	 ho6aMqqRSbBfQELiRibsjgxS5xMqqEqoD7XeevOdn/jroKNRiS4XWijQf3BLks3iTEOrw
-	 87KK0p4XZUid3/rCjIAfpVHtPEN3KqCBKiG3PE2X3QtmpMhsemN9H0Car5cVcvSJXWIua
-	 0+58Wedkg2MwtBvuYBSVbllcmt4RsfWA18A2+K6QGoTGWKZbbaZnotSRj8GxHBWs1EbyJ
-	 ZkRSOlRq0uc4wEDQdUQJzci37XLvWnQEVk8UTyWBzqKSOd+dKTdIOMZC0xXM6/FpXIg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063300;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=hcx4rkb5UDfldirdxNkVVRGffFaCO3Uk9EZz6oAx954=;
-	b=SLed4xK81Gu5KTlGYl02mwXBqmYMQXdagrWQU/b/7GDZVQRGyzsAl6ZXF884mk7AD+6C
-	 +EJSlso+MmJ9RvILQp/8jnBWC67p5AKYMHcstDE5y7VMtEnTcsF3lXSj3GOlArzZdrjfw
-	 nvLxTlnBrgq28H3OF+u2YvPSg/7pOQmdh5gE7bhQudvQZ3WkvlqgHCE8fjF7UtRjWukaV
-	 geKI1WlJ6xcfXuqCUeCIEQiovVPQcKer/s3McTAIFh736KWk9qTMkSMKbMp+aj5PQNSl3
-	 s1KXJxgSA5lUhUxS/Pz3IUhDWSQo0jlXCwk4SKkp6NaYIhAViSdIE/eAGi6wVrQG3CA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZNJlFPJj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794063322;
+	b=pJ5CouKoX9x3z+JQGhgCxha6Rtnv/KjvKTOQmhKGi01VQisqQNG3M2esLeN5OqplEVkV
+	 ppkf6xIPWefIFWVpxNz4pZpIU3c7EKY0hkHkuRMob/ijoDzsXD9QGcyUoz9nxO3DIaZWR
+	 UdAtEjL4f+YbAUAv3Xd74562ebjrI2u697nZ4SNDmDF/gky8Jd0G9xYZCmKt0bY8MhpCb
+	 +UkJebGb+Gm4gns9uTS7X5VDrI1a/Jces6bwKOJ3gO3eqvgGaJXu7UHdREyZx2aGEB9P7
+	 juITjXPA/ZBI2cawLVIJfLCDRpIkKIjiOhNFBYTk1LqQ3cyUz3Ny30DO3n+IW0wvgVA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063322;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=9fZSnTYT8MA9EbRBaUvLqKYLQu5iORlXOvx+G3Uf2Jc=;
+	b=LW9exvLR/ep8ccOpKo60rB9A5fSjwLQnXFAOOwGeLwViUYNNDwqB8INBRxGGR75Kq2DT
+	 z1238mP91j4xYPvaijw77hShk3ce7SnB13wzT+3mcqtehZi2MZsqK+4igIMTRPFjzWIOu
+	 3VKbKfh9/jKVmtHHFpDH3SbIsVUMIIerSkruAHLwCg3kmqh1Yb/RGGw8tHxSDHYGUAv1R
+	 SsImD26DPEQ20DWW9wy8Pz0Deev0sn56ROEtJKAAjIomtuZxGthTfqrvAIm+Ko8ggrgF5
+	 HbYlr4yhPxNJWiFgCPtI3JdthX+geMkffH7VqLQQlIyKzOWSriXIz5/fw8VHagBgVHw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Vx4J4G9N;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069F5606D824;
-	Sat,  7 Nov 2026 14:54:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069F5606D824
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DE3606A32C;
+	Sat,  7 Nov 2026 14:55:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39DE3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZNJlFPJj
-ARC-Seal: i=1; a=rsa-sha256; t=1794063284; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WMkp4XAWn755Wn6dHuYIcibPDiZqPoIvE2QWQlh0DUlV2O20SHjSh/OqMWeQUTjQptUOM6TNIlqJnPn6l32qYZ/Fi+A7gcWerTo78Rder7gCZ9GR9nbXqpZllU97Lm2PUD1hY66fRWmrIMQGMwu3rL1gS5P3vEPiingrlJ7vaWs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794063284; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=hcx4rkb5UDfldirdxNkVVRGffFaCO3Uk9EZz6oAx954=; 
-	b=eicQaKCBBV+DQmLj4BSXQFpLWy9jSrOXITZ7xP8LQUOo7T1metGSl0WITrt3wgBIbXpqeDdWJMk/zF7138mEr3kQFDKpfKhG9kYNZznvRVFGTTu9UKkkpBc0DRaEcZg7OH0RlnOOzSgWJzwK20FbcN4kxFPc43v95IBySrmKHxY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=ZNJlFPJjmvipuacrXmH/7hRCRy6ehMz5zsy/tO2uVoxEvXpZa4ITI0D0b/SpD3WKer1LVKiB48FUH75hi5SqNsXKDHTmW3yoFjKEYRxJowaQ24/oQLozAghKVrf2HP7EhJqN+zHx0XbyLcrwexFyaDfMjeGoFpx2wW8E0F8YG0nw1+7zRx6lPIjT0MSpSuGzwt3MmvQqUhmNwhq4/v4w24zbTGqY4x4Ii35cE6h04jomRpSPL64LxhMv+Ov0HSseLqi0eZwgzueidp66Dqn7Wvt60FM5TD8/Goy3OjPKVNAQBqn8lbRkNJYI1fA5W3JhPbFSSrPsLDRbfYqIFgWcww==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=hcx4rkb5UDfldirdxNkVVRGffFaCO3Uk9EZz6oAx954=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794063282508348.20409846462576;
-	Sat, 7 Nov 2026 06:54:42 -0800 (PST)
-Message-ID: <2083b714f5f20e86d76629a9ec334c0ce0e05774.camel@rong.moe>
-Subject: Re: [PATCH] platform/x86: ideapad-laptop: Do not warn if KBLC
- reports no backlight
-From: Rong Zhang <i@rong.moe>
-To: Punnay Sharma <punnaysharma805@gmail.com>, Hans de Goede
- <hansg@kernel.org>,  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, Ike Panhc <ikepanhc@gmail.com>
-Cc: Artem <temmi556@mail.ru>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, Stuart Hayhurst
- <stuart.a.hayhurst@gmail.com>, 	platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261107140700.16036-1-punnaysharma805@gmail.com>
-References: <20261107140700.16036-1-punnaysharma805@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 07 Nov 2026 22:49:29 +0800
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Vx4J4G9N
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=9fZSnTYT8MA9EbRBaUvLqKYLQu5iORlXOvx+G3Uf2Jc=; b=Vx4J4G9No9bGRJ4Vs0GPjrqjeT
+	ToMpI2Vl+Ww2kkw+zMNU1/iDDpUDu3YRotlBkpj9gKNB74bBHTypCnSy/xC6d1DK5LDIQooU3Vn91
+	o6AcmQvggAkz/uvzI1jyu03Km0tXEYX8qPdITP2+kuMINdoUeyob16qSdX45z4wObi5ieN66BW4ue
+	BlgYsfBOIb2JOxJ6hUKlbwpjiJbWc7qZq7ZNfsQWKZFAPa6g2PANLncMplYImLQAgsqbMNE5yxtfy
+	EccGTLdNgh9J4QLQXaN9VRoPbwqYorjGX0D+jkVxeA1ntzsyI4FcN8YGopY6zSra3Nd5Q2S7OUulz
+	BvedVQwA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: rafael@kernel.org, Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org
+Subject:
+ Re: [PATCH v5 4/6] powercap: dtpm: Use generic powercap hierarchy helpers
+Date: Sat, 07 Nov 2026 15:55:14 +0100
+Message-ID: <4204877.2iPT33SAM4@phil>
+In-Reply-To:
+ <bded992091c92baa7246b939f266297f99c8942b.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+References:
+ <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+ <bded992091c92baa7246b939f266297f99c8942b.1793666444.git.daniel.lezcano@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,77 +67,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Punnay,
-
-On Sat, 2026-11-07 at 19:35 +0530, Punnay Sharma wrote:
-> On probe, the driver asks KBLC for the keyboard backlight type and
-> warns about any result other than 0x5 or 0x7.
+Am Dienstag, 3. November 2026, 05:48:18 Mitteleurop=C3=A4ische Normalzeit s=
+chrieb Daniel Lezcano:
+> DTPM implements its own hierarchy creation and destruction logic while
+> the powercap core now provides generic helpers for this purpose.
 >=20
-> The LOQ 15IRX10 with an RGB keyboard returns 0x1. Its KBLC sets bit 0
-> in every result, and sets bit 2 for the type query only if the EC field
-> GZ35 is 0. On this model GZ35 is not 0, and a separate USB controller
-> (048d:c693) drives the keyboard lights. So 0x1 means that KBLC controls
-> no keyboard backlight, but the driver logs on every boot:
+> Convert DTPM to use the generic powercap hierarchy infrastructure.
+> Duplicate the platform hierarchy before creating it, and use
+> powercap_hierarchy_create() and powercap_hierarchy_destroy() to manage
+> the DTPM zones.
 >=20
->   ideapad_acpi VPC2004:00: Unknown keyboard type: 1
+> Add DTPM callbacks to create and destroy the zones associated with each
+> powercap hierarchy node. Adapt the CPU and devfreq backends to return
+> the created DTPM instance and use the node name provided by the
+> hierarchy.
 >=20
-> Add KBD_BL_NONE_TYPE for 0x1 and do not warn about it.
+> Convert the Rockchip RK3399 description to struct powercap_hierarchy
+> and keep the device tree path as DTPM-specific node data.
 >=20
-> Tested on a Lenovo LOQ 15IRX10 (BIOS R3CN44WW).
-
-+CC Artem.
-
-It seems that some devices provides functional KBLC despite
-KBD_BL_QUERY_TYPE returns 0x1. See
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221198
-
-Mark, Derek, could you check the documentation about keyboard backlight
-type?
-
-Thanks,
-Rong
-
+> This removes the DTPM-specific hierarchy traversal and destruction code
+> and leaves the hierarchy management to the powercap core.
 >=20
-> Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
+> Preserve best-effort creation: an unavailable backend returns NULL to
+> skip its branch, and setup failures are warned about and skipped rather
+> than rolling back independent zones. Invalid node descriptors remain
+> fatal. Reject a DT node with a NULL path before calling
+> of_find_node_by_path(), treating it as an invalid descriptor rather
+> than an unavailable backend.
+>=20
+> When the representative CPU is offline, find an active policy through an
+> online sibling whose related_cpus mask contains it. Hold the CPU hotplug
+> read lock during selection and setup, and initialize the zone through the
+> policy's active CPU while keeping the hierarchy-provided name. An entirely
+> offline policy still has no active CPU to initialize through.
+>=20
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 > ---
-> KBD_BL_NONE_TYPE is placed last to avoid a conflict with Rong Zhang's
-> pending keyboard backlight series.
+> Changes in v5 (since v4):
+> - Reject a NULL DT node path with -EINVAL before invoking
+>   dtpm_setup_dt(), as suggested by Lukasz Luba.
+> - Document that a missing path is an invalid hierarchy descriptor.
 >=20
-> The same warning appears on other models, e.g. LOQ 15AHP10 [1] and
-> Legion 5 Pro 16ACH6H [2].
+> Changes in v4 (since v3):
+> - Rebase on v7.3; no code or commit-description changes.
 >=20
-> [1] https://lore.kernel.org/all/3f03931e7eafcb1781ca3cf922e588ab57caadcf@=
-lavx.hu/
-> [2] https://github.com/johnfanv2/LenovoLegionLinux/issues/336
+> Changes in v3 (since v2):
+> - Rebase on v7.3-rc7.
+> - Preserve best-effort branch creation using the generic NULL result.
+> - Find an online policy sibling for offline CPU representatives and
+>   protect policy selection and setup against CPU hotplug.
+> - Keep generic API behavior and documentation in patch 1.
+> - Fix __initdata placement; match-table indentation is handled in patch 3.
+> - Name setup callback arguments and remove whitespace-only lines.
+> - Update the description.
 >=20
->  drivers/platform/x86/lenovo/ideapad-laptop.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platf=
-orm/x86/lenovo/ideapad-laptop.c
-> index fcb5ed7035f5..eb4158bed264 100644
-> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> @@ -148,6 +148,7 @@ enum {
->  #define KBD_BL_QUERY_TYPE=09=090x1
->  #define KBD_BL_TRISTATE_TYPE=09=090x5
->  #define KBD_BL_TRISTATE_AUTO_TYPE=090x7
-> +#define KBD_BL_NONE_TYPE=09=090x1=09/* No backlight through KBLC */
-> =20
->  #define KBD_BL_COMMAND_GET=09=090x2
->  #define KBD_BL_COMMAND_SET=09=090x3
-> @@ -2246,7 +2247,7 @@ static int ideapad_check_features(struct ideapad_pr=
-ivate *priv)
->  =09=09=09} else if (val =3D=3D KBD_BL_TRISTATE_AUTO_TYPE) {
->  =09=09=09=09priv->features.kbd_bl =3D true;
->  =09=09=09=09priv->kbd_bl.type =3D KBD_BL_TRISTATE_AUTO;
-> -=09=09=09} else {
-> +=09=09=09} else if (val !=3D KBD_BL_NONE_TYPE) {
->  =09=09=09=09dev_warn(&priv->platform_device->dev,
->  =09=09=09=09=09 "Unknown keyboard type: %lu",
->  =09=09=09=09=09 val);
->=20
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+>  drivers/powercap/dtpm.c         | 180 +++++++++++++++-----------------
+>  drivers/powercap/dtpm_cpu.c     |  62 ++++++++---
+>  drivers/powercap/dtpm_devfreq.c |  22 ++--
+>  drivers/soc/rockchip/dtpm.c     |  67 +++++++++---
+>  include/linux/dtpm.h            |   6 +-
+>  5 files changed, 198 insertions(+), 139 deletions(-)
+
+I tried to follow along and the changes look ok, but I don't know the
+more intricate details, so
+
+Acked-by: Heiko Stuebner <heiko@sntech.de>
+
+
