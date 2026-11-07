@@ -1,114 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794025944;
-	b=0Iyy70sVd43ZSlGXIV4c8ov+Q9L6ZwmQ7ebxEJ+DAYUdBG54G9EwTBQuLBimVb4gj7W3
-	 bkfwHxHD+N25bu9zILQ3oO46akJW8qrENzGI/4bL8/n0HU6xM61dprtlHd/5sgOz60Ou1
-	 UQZ/g5ZhK4dVV+eiVZVRjYS1nMmpZ7fizYAGuQuRnX6ElKBkveR30uV1ePcgEQW9U2H2C
-	 SedLd5s88KhuAWLpKEpEJKzghFKmrxjka3RQ6Ujc3MsUF+XMXKVdqd6rILojJKT2qFNGc
-	 +AM5PI0S2hFFb4lSJnuJv9FBUYI4b3Oj7dDTR0NqJ/jP9yG9gcC2wJyEYsR0/xm3KQQ==
+	t=1794025951;
+	b=ZgWzM832D7ZYnj1SJ/ouJbgox1FQDTpAQpyVCgyaqbesWTzFLlyiuUbb+WRPxJHnMwhA
+	 fYpKmswEvEwwfTxoIINvtrrO/WBlSTc0VViUD8TABfSlQxCqsx8TqsdX5Al3N9PaQ/5TT
+	 RBoyfK2o9rQ5uUNwFQS8Z5hR2CoFZHN0gUZKWcZ+m9jWj7UiM5Rf45zCW8Wpza9uYpHaV
+	 fW9PqME/AFYkzeftsxTXEpy8T436jRVsRhR+ND8hzqeSVC87RdTc15ExR44YWi4+/vrrf
+	 WqMkFfIgmoiMAlbVR+fa25Bu9yiqMQujOZX3Ju2QKi55ZSjKTD4+g9Qyo5iT5T4w6nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025944;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/SKim++0/v959SqW2Qj0ZN00Ia9M3Z26xYKJjxKUd6k=;
-	b=A7eBMvSgUspeV+Fn8K7jMFJZaAEtW8eiXMvSisLwe26ZuqacNkwnqQTi2qvLW5+8kAsR
-	 EcO2cAyGRQMjWDNYbzbc4KJIH7v3QL/DRwbhQxuFHVhAvutbH0IVPhg0HwxisqDofNMsZ
-	 b+QAbwlXUm5Tn3pwebEtlncnb53OLS76H3q889G71A14YPqLITdPNcm+vig1wrFg+AWP/
-	 dQcd8bI8WNvnRkimvajjXshxjsEeaEhT5gm2/PlG/gArMEVldy7egjnTCqQYGRXnqrc26
-	 IwMVf+0xdtc2ut+2oD4IbUe16UY3UHgDm5/VuMyQ/Sqiqlwf2WuuX9V1RRvy7kW+bQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025951;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=gRSKV6mkRNXym/QuyJGkrsvxD/gyct8zVn3i0QXwaGo=;
+	b=nvhEXn9hGqGW5FeLAv+WM3HH16CqTEgd/THKGaTa7kRKJeug+TqOZ/YXwYh7g2tA0zVA
+	 su/BL57sKyslMsVoTqJX45yNuFvUXyfZ+gmuRT2WmSYtA8nbC+3bdy+pmORWztVzJInri
+	 O+5oAeoOxco4tltL/Ml5kMYHqzP+cXZ69WTKkehy4+xwRLWoDIxuPhCSF4GBYzsZ50XOX
+	 /9xzgqKdUeppSRWNOPuT56E4mPdYG4fImfcKZi8hFt6EAHPGr+8r6Q7+YYzKtzKLR9eaq
+	 PsVNhq4EUGJj2d6ZfPc8yfZ61mMenWNYlfXufkd5YpQAICzhrCFJUBmN1HIImCPQfDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=loVf2gVI;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SQNaR3XX;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A597606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:32:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A597606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6133E606A32C;
+	Sat,  7 Nov 2026 04:32:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6133E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=loVf2gVI
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso851892a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:32:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794025943; x=1794630743; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/SKim++0/v959SqW2Qj0ZN00Ia9M3Z26xYKJjxKUd6k=;
-        b=loVf2gVIFOLlAe/RHEvexPPlHCmveUBZYdCWclU1V7yikOIfY0XBtPbgjJikM+EbnY
-         oKEQijHnEEdUhi6Iu6UNRc7mHSVd7iD3uu4O+huZf11+ONHFPo1ohF1fZib0/NXXT3Vx
-         roFf/pEH0bOwjyPJoAykXDs7KI3hTS6HXy6v87eoDmZBGpzqHACbZ1ZLvLHcayRA2usC
-         BqDI2G/OI00G9eDeQJlmY9kow6p6brs38TvGMu0AwiqAdzR8DsOIg227sYIhTX73WOwQ
-         cOCd2GWISVedBqx28YIoyNUgNWSJg4+A3YljMBf8g4hYMc3okwzCZTvvcK7wrNx01B6O
-         ZCow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794025943; x=1794630743;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/SKim++0/v959SqW2Qj0ZN00Ia9M3Z26xYKJjxKUd6k=;
-        b=CF3/vYAqhkcRPSvwV+eHQlkhGsaF88UuG5imvRypHIHpRkqzHCDZcvgPoXXkp9ReGo
-         ROtlrHZ1i5WWDvUejT07HrGSPJze4dSlzrDa8zs3nDLV80jItL+tLeeq+KAyDo4f2kPj
-         bYyawQe0+GuJcAHNiYrGpDvbx6rY+Xw4/daoFVf+gp4vKsnIr4TKASMqcFhbWFhV7sFg
-         zNq9VGtzE4TXbamYNzyiLnDTmMOKOoya//MO1mq3nxKj7uGi9JadrNJTKqVU83rBn0Gf
-         DbQLKwHLdgAHSIwkh2I3dbuAQU5NoXtPzg6kwTio3AG6z7mabAdMMUgpqpO69Xh/MkYh
-         mvOg==
-X-Forwarded-Encrypted: i=1; AL+hErG/m7Z2hwLMB2cbwuEHLK63HkxupDqRTNBGTOaSOQV4V1kgqKUpiNw2kiDFgK7dAx4IUARFdqV+93hkGc8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wPE51eYtRh5iHvWyL6g2Kt6y8XEvlYWp3xDD+s1ej7NbXm3+o
-	H0CEdi9eoVrV0W9+d88bkrvzekBpZqt8W7lrY0W4mqhNWNe+bfRtrJoqTlJ9UiGhy4w=
-X-Gm-Gg: AYBFou0nERgBtog/D+V+ynQJDuSpD+c+IaX2snwssqECDGCqzbASVxscp5puWkyThhm
-	Pxto/El1Ss4WBQmBxK24cgq6AhPk62AKxSTw2HQjKSt2QxczS+Ja8xk+0vKyp6rqQ51X53dNMGY
-	limhUw4HoMWpFR33MqTFqjVDpkO460s7hat4w8Oy3EMQj4R7GIRofUNF/TXMn+rbGZPzqQS8XmQ
-	pQoyT71PhRPAfyB6CbM4PtbGuzNeUQaS5CyzkIBqaBHfFTQeRzL/+gUrU6OTojXduNsj5SYHACj
-	4N1SMdhlAS75Gn4J55Rl7nlryzsac+x1k9AJTGZOzXbE2LzLw1/AR1T2U/NJtU8urWhbsDUhcUG
-	sES0BZOXeI2loWKHKW7f5SFaPxlBbIEDQqxlaFFCEmeveh2u5S5UqmZ/u7jKE0z5UjDhk3wK+k1
-	Vq49stRDbGN61C9ApM+2QAn/p65Krve/e2VO6wGBY1xhtw0HoNg5eJGPmUCR1ShqmYm7mBmh1Ns
-	wvtwZHO4XHHk+DrxvZ6GYXimKVrTtXweMLIn/QwjAGoFkHHSgkE90r9p/ut+N3sDeTPRhfb4eAx
-	2SZW1jx0eCUFUSGCnejTu0+vQvREiFTSHU+I5t1Pl3d29Z5brgv8+eER2Cqc
-X-Received: by 2002:a17:90b:5608:b0:3ac:c024:b275 with SMTP id 98e67ed59e1d1-3b0db605906mr4825186a91.9.1794025942667;
-        Fri, 06 Nov 2026 20:32:22 -0800 (PST)
-Received: from G6L4RL2QG9 ([2409:8a00:1832:6900:c8de:13da:804b:a0fa])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10584b66bsm1578451a91.14.2026.11.06.20.32.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 20:32:22 -0800 (PST)
-From: Muchun Song <songmuchun@bytedance.com>
-To: David Hildenbrand <david@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Lance Yang <lance.yang@linux.dev>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	linux-mm@kvack.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	x86@kernel.org,
-	loongarch@lists.linux.dev,
-	linux-s390@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v3 3/5] loongarch/mm: disable device DAX vmemmap optimization
-Date: Sat,  7 Nov 2026 12:31:20 +0800
-Message-ID: <20261107043122.25650-4-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261107043122.25650-1-songmuchun@bytedance.com>
-References: <20261107043122.25650-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SQNaR3XX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794025950; x=1825561950;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1T53sIhZg9iKg5N1Tv8ETyEt+UFopFJW9SxlBsWHluY=;
+  b=SQNaR3XXF6O6hZ3nvlCsZzKrx29gzVe4Q6GeXwGd3o8w966E/KCvYKcu
+   jVpRreUhssLG35YgbT2kcyS6Z5aPioxbhV818pK0qKjOSMSTUDQOACwL8
+   l0zLfblPNRcI+6MoTGIiZ6DQG0DxZJ+exIZ+uptHsdW5GzCaOTTh9C0uU
+   53Gd515ETdLA5yL91GrTDZuSfVaOQh5y19OxNoTRwpBucLGHrbhCl41mD
+   hwQiELDQUXuaTW+UtPFaldSSsJ2NIMnBZrnrhEBPUB7G3Z029sXO54/JO
+   6Mc0zjveAq0WGsQX4XNc+KrcvkStQvEPxqEiE1DCBvzRZX+2CnlbCNGZe
+   A==;
+X-CSE-ConnectionGUID: ercGPOUsSGKc95JiUoiong==
+X-CSE-MsgGUID: Uc4c/JmgSFK/KFn/vkPj9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2834053"
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="2834053"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 20:32:29 -0800
+X-CSE-ConnectionGUID: lN9+vu0aS7mdh3U882ioMg==
+X-CSE-MsgGUID: uafI4vHpReeRikmetBX/xw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="9289081"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 06 Nov 2026 20:32:26 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPY6J-00000000qKV-0DH4;
+	Sat, 07 Nov 2026 04:32:23 +0000
+Date: Sat, 7 Nov 2026 12:31:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Sunil-kumar.Dommati@amd.com,
+	vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
+	venkataprasad.potturu@amd.com,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for
+ ACP7.F
+Message-ID: <202611071205.FSWUFvJs-lkp@intel.com>
+References: <20261106191627.1590542-2-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,49 +90,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106191627.1590542-2-syed.sabakareem@amd.com>
 
-LoongArch selects ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP but not
-ARCH_WANT_OPTIMIZE_DAX_VMEMMAP. Its vmemmap_free() implementation is also
-empty, so it cannot tear down optimized Device DAX mappings.
+Hi Syed,
 
-A later change removes the generic Device DAX architecture gate and lets
-vmemmap_populate() decide whether a section can use optimization. Clear the
-section compound order in the LoongArch path so Device DAX keeps using
-unoptimized mappings.
+kernel test robot noticed the following build warnings:
 
-This does not affect HugeTLB HVO: LoongArch does not support gigantic
-pages, so HugeTLB does not use section-based vmemmap optimization there.
+[auto build test WARNING on broonie-sound/for-next]
+[cannot apply to linus/master v7.4-rc1 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
-v2:
-- New patch using section_vmemmap_optimization_disable() to keep Device
-  DAX vmemmap optimization disabled on LoongArch (reported by Sashiko)
----
- arch/loongarch/mm/init.c | 2 ++
- 1 file changed, 2 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261107-004611
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261106191627.1590542-2-syed.sabakareem%40amd.com
+patch subject: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for ACP7.F
+config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20261107/202611071205.FSWUFvJs-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611071205.FSWUFvJs-lkp@intel.com/reproduce)
 
-diff --git a/arch/loongarch/mm/init.c b/arch/loongarch/mm/init.c
-index f801f7097f03..ea769e479241 100644
---- a/arch/loongarch/mm/init.c
-+++ b/arch/loongarch/mm/init.c
-@@ -15,6 +15,7 @@
- #include <linux/memblock.h>
- #include <linux/memremap.h>
- #include <linux/mm.h>
-+#include <linux/vmemmap-optimization.h>
- #include <linux/mman.h>
- #include <linux/highmem.h>
- #include <linux/swap.h>
-@@ -143,6 +144,7 @@ void __meminit vmemmap_set_pmd(pmd_t *pmd, void *p, int node,
- int __meminit vmemmap_populate(unsigned long start, unsigned long end,
- 			       int node, struct vmem_altmap *altmap)
- {
-+	section_vmemmap_optimization_disable(start, end);
- #if CONFIG_PGTABLE_LEVELS == 2
- 	return vmemmap_populate_basepages(start, end, node, NULL);
- #else
--- 
-2.54.0
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611071205.FSWUFvJs-lkp@intel.com/
 
+All warnings (new ones prefixed by >>):
+
+>> sound/soc/amd/acp/amd-acp7x-acpi-match.c:394:43: warning: 'acp7x_cs35l63x4_l0u0246' defined but not used [-Wunused-const-variable=]
+     394 | static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
+         |                                           ^~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/acp7x_cs35l63x4_l0u0246 +394 sound/soc/amd/acp/amd-acp7x-acpi-match.c
+
+   393	
+ > 394	static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
+   395		{
+   396			.mask = BIT(0),
+   397			.num_adr = ARRAY_SIZE(cs35l63x4_l0u0246_adr),
+   398			.adr_d = cs35l63x4_l0u0246_adr,
+   399		},
+   400		{}
+   401	};
+   402	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
