@@ -1,56 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069545;
-	b=Fmbf4slnRjYIxtjOUHdHuUBgTE/ZP3SKd2Z2bwJbjQ/9IBusgo+QM639IHgfIGcrio2N
-	 m8QIvpZiFJ+I7jPAmqghkfhTi/ORw+FABux+asQV18+7Md5p8G5VwdA7nunS7STFDoHLb
-	 TYA0GFy4qrr5E13o/y8OlvGtIWHiEymVp/Eh/DEXP+HnjYEAPXjOlMBJtCBTmUdCz+uiP
-	 KcH9ubu6Mvm+5DvPnmQi83VqIJAGNIkvhv7DaIRKPlYax2305+BWzNDFX+yIfOqhKz5P+
-	 Dkr0z7OgG9tZSxFWIR6rmAnxpgHTFs5lqSyWIJ0M68vuZ66Nu6d+3gfcXqpAplLevPw==
+	t=1794069645;
+	b=UVl616pYKl0ajqRtF43TgtuI81tMgZSw5gRbYQE+5Uk/xk1ORaYMxaMN7i9rS+tRsmgC
+	 S/5OsRv8TOizxp5/NsVUr7h1bLC9BjtYEwP8EpzzfL0VrYKPNJPQBwepk849sjCnEVjYP
+	 upgEFLpn4JGEbDDY8Ggz04imNJ4bOoJIHqsCepbFnvRWKSXnHjeagDvS3XS16EE3GhHhl
+	 7bNS99u2d7vcReB/qcZj7K9DVUGTYXMImOmicByQL647KYWw7UGtsZauys8QYPRyor+Vi
+	 Su7XdAcA7dUtOAcSEVAysy7671rOI2ob+jCM+scqV6SOLBLkMbFgjMxxEn+oKjozbxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069545;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=40kuihcjhTlj1aLdgEnB45MZzzZ6zfuouT8zXvlNzdI=;
-	b=p5q4/rlDSel2PxztzLpidadCMnmeSYLY4pP9+/NLhuNK57QJe4BkGM9H4lkAg4AtYpis
-	 jm1ywbLs19e2U6zTML0tcMgWiV4Kk76UVBHg5nJf0QJ5mn2V1rEE3Ipt69ewzkk08VAxt
-	 l0GuUtJ+39PX3GkXzVaIaVZ2HQP2S2M/AHl4LmMsFMGNUHWAjjvipzvrm45qC4Q587fp8
-	 XjC8LIVHyGL1pLKl8dpnl5WS7JeH3rv1wiesi9lNN9F2FJEIuYROLRjpnnQwJXf3wxVWv
-	 UPXAwUOZOD9+n9zM0AoXk8jrW2Oxrr9KyMbDVI1AaAaKZQpsRQ2NYm90nXt5wnyfJOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794069645;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=oyZGN7VE4rzGGu6dwgYopEdGRTAy6qdzVMyyhZtR/qE=;
+	b=i0hxaMqlCvX1i5LiAaMfgKB/pbx/Yc8XHjlMplrJFDPKx8uZyLUV1v5DupxeFyqellbQ
+	 OsEAqUqnO1usj/U/Kg01aj2rG6qVeJCf87zPnK5vEQkxxIsfi+63KYLNl8wF11tUxJXRH
+	 06jZBlIOKNbr6eShDoq2CRt6AGWQpGWB4tMFAbXE/TADCCy80bxUnHUyOIRTvDK+KP0jA
+	 pvEJn2qc+6jP71W24Le4caB60RWhJEeLYa8D1Lml4yI32t6aAwuV7yhK9pDCPoR9ecor/
+	 +3R2An3LrZwjBRcZzDSmsnXnAtqGeKER+a1EFEoLvVHPdhYHPmqRXaG/D8ZlVKi+VGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEB3606D81F;
-	Sat,  7 Nov 2026 16:39:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EEB3606D81F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAXJpcfVO9qL_iBAA--.3844S2;
-	Sun, 08 Nov 2026 00:38:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Mark Brown <broonie@kernel.org>
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org,
- Nicolin Chen <nicoleotsuka@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Takashi Iwai <tiwai@suse.com>,
- vulab@iscas.ac.cn
-Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix codec device leak in
- fsl_asoc_card_probe()
-In-Reply-To: <1ff14ab8-fa35-45c3-abcc-1075a848be2d@sirena.org.uk>
-References: <20260917165654.2163461-1-vulab@iscas.ac.cn>
- <1ff14ab8-fa35-45c3-abcc-1075a848be2d@sirena.org.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC246606A32C;
+	Sat,  7 Nov 2026 16:40:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC8A1F0089F;
+	Sat,  7 Nov 2026 16:40:43 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,48 +36,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Date: Sat, 07 Nov 2026 16:38:38 +0000
-Message-ID: <20261107163838.271829-1-vulab@iscas.ac.cn>
-X-CM-TRANSID:rQCowAAXJpcfVO9qL_iBAA--.3844S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gw4kAw1fuF13Aw1kXF48tFb_yoW3uFg_ua
-	93Cryjqw1UZF4UWr43GF1SyF12gFWjqw1kGwnYgFWxXryrAF12g3ZYgwn7Aw1xX395ZrnF
-	kr1DZ3yY9wnF9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-AFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
-	aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
-	ACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
-	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDOz3UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIEA2rvPp4fAgABsw
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] PCI: qcom: Power on pwrctrl devices for
+ firmware-managed hosts
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, linux-pci@vger.kernel.org, 
+ lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, 
+ bhelgaas@google.com, krishna.chundru@oss.qualcomm.com, 
+ bartosz.golaszewski@oss.qualcomm.com, deepti.jaggi@oss.qualcomm.com, 
+ yadu.mg@oss.qualcomm.com, shengchao.guo@oss.qualcomm.com, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <CAFkd8hu2aLp_MGbT3Lt0wv96sUQ705fBsaa_sn3P1_XUuruKYw@mail.gmail.com>
+References: <20261105101521.434361-1-zhangfei.gao@oss.qualcomm.com>
+ <auyUXp1Fgk2yC7fZ@debian>
+ <CAFkd8hu2aLp_MGbT3Lt0wv96sUQ705fBsaa_sn3P1_XUuruKYw@mail.gmail.com>
+Date: Sat, 07 Nov 2026 22:10:42 +0530
+Message-Id: <179406964231.65886.10596417299119607614.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1969;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=jaCY8HUzhyhSMMPiHqi4Fxf0VtDkX8gvIrfoWBqCNzU=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq71SLApPfRmhrU5GP/ZAEfiQYaGa3Fzl55nRVL
+ /lyomfA7S+JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCau9UiwAKCRBVnxHm/pHO
+ 9Y/3CACKuMlSiJqG9S2SlOe7uSTm946oOt3cgsfeSZ3336Noajm0mDXI/InAHb342H+/7bEAKoz
+ cDudP+i6xayXz8KY8aQTT4p9DAT0Ov8L2WN4TV2C1cOzQnLbhisevPFy83LPwm+aITQEpfl4fbw
+ GvfytiQEsObXcvY/LUcAYb/UpU2rWZDgTu0m4TYb4wAE9Pjb5cUsS5/Slx7CtB3LSLww6TU4fWa
+ 9wMiiskUJxLqso10g7/8Pjg9zZHdRQpbJr5vHsNPtm2avhuAQtoyCEbV/kOQDws8AJf+FaycK2R
+ tTvDAKsyUVenFPh8WuYAZaJXsodvsgdGsLHu99FKBrR3sa4O
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Thu, Sep 17, 2026 at 11:29:53PM +0100, Mark Brown wrote:
-> This doesn't apply against current code, please check and resend.
+On 2026-11-06 10:24 +0800, Zhangfei Gao wrote:
+> On Thu, Nov 5, 2026 at 10:37 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> >
+> > On Thu, Nov 05, 2026 at 06:15:21PM +0800, Zhangfei Gao wrote:
+> > > commit b921aa3f8dec ("PCI/pwrctrl: Switch to pwrctrl create, power
+> > > on/off, destroy APIs") switched PCI pwrctrl users to explicit create and
+> > > power control APIs, but only added the calls to the regular DesignWare
+> > > host initialization path.
+> > >
+> > > Firmware-managed hosts bypass that path and probe the ECAM host bridge
+> > > directly. Endpoints already powered by firmware, such as NVMe devices,
+> > > remain discoverable. Endpoints that rely on Linux pwrctrl and pwrseq,
+> > > such as WCN7850, remain powered off and cannot be discovered.
+> > >
+> >
+> > NACK. For FW initialized platforms, FW should power on the Endpoints before
+> > booting Linux.
+> 
+> Thanks Mani for the clarification.
+> 
+>   To confirm, for a firmware-initialized PCIe host, is the platform
+>   firmware expected to perform the complete board-level Endpoint power
+>   sequence as well, rather than only initializing the PCIe controller?
+> 
 
-Sorry for the very late reply, and for the noise.
+Yes. By the time the Root Complex power domain gets turned on (which happens
+before the controller driver probe), both the controller and Endpoint should be
+ready.
 
-You are right, and after rebasing I found that the patch is not just
-stale: de27e0cadcce ("ASoC: fsl-asoc-card: Move bound-component setup
-to late_probe") removed the codec_dev[] lookups from probe().  Codec
-components are now resolved in late_probe() through the bound rtd, and
-no codec device reference is taken there, so the leak this patch
-addressed no longer exists in current code.
+>   On this platform, WCN7850 requires PMAU0102-E GPIOs 6/7/8 to enable its
+>   power rails and GPIO10 for WLAN_EN. Should firmware assert these GPIOs
+>   before Linux probes the ECAM host bridge and keep the Endpoint powered,
+>   including across suspend/resume as appropriate?
+> 
+>   If so, we will drop this driver change and coordinate the required
+>   platform firmware update.
+> 
 
-I am dropping this patch rather than resending a no-op change.
+Yes. All the initialization required to power on the Endpoint should be done
+by the firmware when the SCMI power domain for RC gets enabled. And when the
+controller driver probes and scans the bus, the device should be visibile.
 
-The ASRC half of the same series is still valid and was rebased and
-resent on Nov 4:
-
-  https://lore.kernel.org/all/20261104024047.1508601-1-vulab@iscas.ac.cn/
-
-Thanks,
-Wentao
+- Mani
 
