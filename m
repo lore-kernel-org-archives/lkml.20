@@ -1,76 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065863;
-	b=WhqdORhpee7YeFBauaKymODiZyF1OYnt4YkUUKOErYZExZae/eJ8pz7H6LC44AfiOf4R
-	 ec7ytQEOFDZCnw8PXNkQel3pACgASt2Pla14Yn8YmremNVtn+azAPmgzSMaVxOxilWQvd
-	 ZVYwHyb199SUtdoamB1Ylmunf5NoM4iV+0yflDhTd/rfV6r6e4PFpVIqlb5SNeQoeAMNw
-	 MtxDGD9CF2sYS4RCba1L7fdHi3z9SE8ckvb+LBiXIivLJTejAOZIWU/BfghjVip5cRMLv
-	 DY17Yu1+zuM9qha2rK3RBBX4CquB8vQJ9I7kpBY8fSjp5vQ8lE/uGtU9Akptv45BRbw==
+	t=1794065859;
+	b=n5H+YzS/amNBuJiEnLoY9T5ZpWpHqjNyDTzQ+D2UqmeXPN3qfota/O87ESG7MD6pov1B
+	 4BwFsYYEC4Hv7NpM23MKWrC0G6EAuhoMa/t2gCJoQCCSwdjYOrkdjErS8dFyUfMyGi5GB
+	 IG1KybWiUmQ/BTgFP9CtXmIFeCfBmBWzJkZV03ExjGnQ7SYk0il/FADLCj0lLosX5W6Ey
+	 aL4Mhs2FV8xix72vrSUh4YvQQJHBGlncTVhWvNsV4jVidOvAQn/ImyAowJuXQ7k7Fp37J
+	 2KDNEz57+13faKZ04W5wIDHK4TctgqMO26vvwP+ez3UVtEEQXOqrZFncxzBC6CM7/vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065863;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uQCqr85B7TpVTwUE8AIWjkQSCKDYHOd0Anwd+zR/j2g=;
-	b=hs7FTx/yEPU462phHHrC9Z3rk23gWxAfyJEHMEQJVp09tzIpxuEw+8MBuMTngIySSDoU
-	 7ix3eRlwR3bvMgE8AD2dVdhdBFrJq6WJulnQ+E5J51rBrOoQyLVKx3/kv9SOwLm99MOHz
-	 9kaVRi6M1hdx+8wHv+jJ6uJqU6YzLzX1F5mYdGADpPfB4lQ4/vAaWLqOkqKPULI4ZekTG
-	 edBpS3FbgzIkh5E8tX3TEBnW4ZpTy5C1oLuGb6qDbNV0OpUBzwjTGhNrQxqvwhU2I2nRc
-	 WVvP5LnrcIz1/66fw/AzQxq1HvB4bUn4Xz+Iw9nhzyFAfEzOUsy8TI4tSEnfxRd4C1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065859;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=kNaslowQoeUv0bfP4j0Xm9HOBoRuR1efd9BxtBHbpGQ=;
+	b=jrPfhZZbz2PyZONXQHTexw6qHx35Bw6y5kTNMn/WW8KT8tH31slzuduq37eYtMMgesXS
+	 kUwhykrTkHA5ktlzpeuvyHmUz9w6E0h/vQple8NJdr08QhLIb9BAL+86LNHl0Vg2OYAQR
+	 PetFB53u+HALaMV0a938RynG8wc++i+wsdB84faKiqXxcZqsk3pTyKOcIEf8AN287acKv
+	 suGq6w9Bfurkn22Lj6WdNHY88tZT+5Pi9CM3tpovXQ0bUofsY/z3oXyI5uoqI7THTBQSf
+	 51RcS+fYhLwy8iAVINFLcvdPkkqrHlaKRuicOhltygqCjMxB0/4krnMZZdvhrKGDyLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pfMeum76;
-	arc=none smtp.remote-ip=209.85.208.70
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AeaqMbG8;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE689606D833
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE689606D833
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ptosi.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D980B60A260C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:37:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D980B60A260C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pfMeum76
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6b70b9f6e0aso206075a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:37:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794065861; x=1794670661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uQCqr85B7TpVTwUE8AIWjkQSCKDYHOd0Anwd+zR/j2g=;
-        b=pfMeum76pgWjU5R5dNfhTYQtCdhuS5e37PuiazJDNYl2EnR692oCNWYikiirON8hFm
-         s0EIoaSRiJy6eURGTFeIPu3fPlnVPhmGaDLaeMsI0OftzA2L5enep/4nYlMq8br8fNaP
-         Ek7/9iV8gTkOZUmfWB3RkFO0Y4sQ5QargdwkOzZZbh5uspQada1RPZ8T72hEZYGljKC6
-         Q2cmKdVxAWneaaXzgIf8mq03OcQUpyeo2YWc9oSoECbouPbG9ZR6cOamAnji0TRL1jcX
-         KoDN9JpdKSHp0MEU2mLEKlmo/TII+SJDPmxwbhafj6Bd/OqpQrRW9/et3PMR/ptUYxeF
-         BUcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794065861; x=1794670661;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uQCqr85B7TpVTwUE8AIWjkQSCKDYHOd0Anwd+zR/j2g=;
-        b=yhpeyxI2aq42KNvNOCJfsaCoRs2/pTfNB/JhNnaFMSEOa2PkIxU4byzptYnIbjdfYA
-         8rmAxEbJiyPh8qZVCCpTx/QbPkUUgr7TVyeH7rLkE0w6l6u8Zr+eRhUCPIMOlWZmJwil
-         xN5Itlup7erQ2amLiKgctJWyoBvw+DVExpJfniVkIzKzcGlm3alwYB5ww5sZghDU3HG/
-         LAz0q4LiSmpYm4shpLiPLJZviSKZBSZ2AKW40lDn9F7ZIPwzFwRpdoNybVLODW3NI6RC
-         WRKvuqUJB5Ugj20Jm5p/lMV9Xafjr/V5DAb/HP/Djxw5IuAvsD91pTkveHM/hjo9JQon
-         bOlg==
-X-Forwarded-Encrypted: i=1; AL+hErEEZ+e42lxTKq7AUtMm3x80R7Ouk65m+uxYDNio1I4qM4mOP5B2bxgprOF3w3RmvJj/n7ttIL+VZki1bTI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9djGjpUpRzl5AYo3iUVdsxOPlZufPGXLsXb81aRmbujGBpx8oJ
-	u6+ygDuqiKdd0eYagcWbBeJhMsVCtJQxEm9s2QVHGTwWb99JzttJxkw1PDlDbvh9cwoKvYNZqja
-	B3Q==
-X-Received: from edl18-n1.prod.google.com ([2002:a05:6402:4252:10b0:6b1:b9fe:f2a2])
- (user=ptosi job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:90d:b0:6b6:f3dd:bb86
- with SMTP id 4fb4d7f45d1cf-6b6f3ddbe74mr2222078a12.35.1794065860804; Sat, 07
- Nov 2026 07:37:40 -0800 (PST)
-Date: Sat, 07 Nov 2026 16:36:30 +0100
-In-Reply-To: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AeaqMbG8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=kNas
+	lowQoeUv0bfP4j0Xm9HOBoRuR1efd9BxtBHbpGQ=; b=AeaqMbG8y/YS9tomKvny
+	XqNLEBDcn0nymD5CDoJ/H246icerH6id8jJ6b9N3gy8tEb8eLT8QZlGIC2FL49yD
+	Z6XvzB5gvZKAf/+3SvT+hMO/kjoPYZY2m24vg8L+RuViClFxGJqBQFZTySXG89gU
+	kNDjx2FCCM9BzcMrEmEr9Tuj+ySo2Qr/y17KCoyOvQZlu/+A4g1VYfqowLCVyTMs
+	3Rj+8hsT1bssxPFdI8f7jUdub39By8xq5ArEsE84f3FxAturutSNy+Ugcus/bm0u
+	DvILwGR/X9cTfcgnnyTQkiB9lEdwV8edjwNot568thRB4Of3DQWALax+XWHqqxa4
+	og==
+Received: (qmail 2547555 invoked from network); 7 Nov 2026 16:37:32 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 Nov 2026 16:37:32 +0100
+X-UD-Smtp-Session: l3s3148p1@kO/RgbFf/MQFFu4l
+Date: Sat, 7 Nov 2026 17:37:31 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Umesh Kumar <ukumar@marvell.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	bbhushan2@marvell.com, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6] i2c: designware: Enable SAR in slave mode for
+ Multiple SAR controllers
+Message-ID: <au9FtxBvemLIa7S_@shikoro>
+References: <20260804041842.3205356-1-ukumar@marvell.com>
+ <20260818144306.357243-1-ukumar@marvell.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,125 +67,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
-X-Mailer: b4 0.14.3
-Message-ID: <20261107-mte-kasan-split-v1-24-d84ea5f30f94@google.com>
-Subject: [PATCH 24/24] arm64: Introduce CONFIG_ARM64_MTE_KERNEL
-From: "=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
-To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	"=?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?=" <ptosi@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="otxvpO2v3blHEoyL"
+Content-Disposition: inline
+In-Reply-To: <20260818144306.357243-1-ukumar@marvell.com>
+
+--otxvpO2v3blHEoyL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Add a dedicated Kconfig symbol to top off the first round of patches
-decoupling MTE code from KASAN. Although the config isn't intended to be
-used by anything other than KASAN_HW_TAGS today, it already provides a
-clearer distinction between code that is architecturally required for
-supporting MTE at EL1 (e.g. TCO management) and code that is specific to
-KASAN (e.g. allocation alignment).
+On Tue, Aug 18, 2026 at 08:13:06PM +0530, Umesh Kumar wrote:
+> DesignWare controllers synthesised with the Multiple SAR feature (e.g.
+> Marvell CN20K) gate the primary slave address behind IC_ENABLE.SAR_EN
+> (bit 19). Per the Synopsys DW_apb_i2c DataBook v2.03a (Multiple SAR
+> feature), when this bit is set the core acknowledges the address matching
+> IC_SAR; otherwise the address is NACKed. The slave enable path writes only
+> IC_ENABLE.ENABLE (bit 0), so on such controllers the target never ACKs
+> its address and a remote master cannot reach it.
+>=20
+> Set SAR_EN together with ENABLE when entering slave mode. The bit is
+> reserved (and ignored) on single-SAR controllers, so existing users are
+> unaffected.
+>=20
+> Signed-off-by: Umesh Kumar <ukumar@marvell.com>
+> Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
----
- arch/arm64/Kconfig           | 8 ++++++++
- arch/arm64/include/asm/mte.h | 2 +-
- arch/arm64/kernel/mte.c      | 4 ++--
- arch/arm64/lib/strlen.S      | 4 ++--
- 4 files changed, 13 insertions(+), 5 deletions(-)
+Rebased to top-of-tree and applied to for-andi.
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 1075bc661833..af5a7f5a0d94 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -2255,6 +2255,7 @@ config ARM64_MTE
- 	select ARCH_USES_HIGH_VMA_FLAGS
- 	select ARCH_USES_PG_ARCH_2
- 	select ARCH_USES_PG_ARCH_3
-+	select ARM64_MTE_KERNEL if KASAN_HW_TAGS
- 	help
- 	  Memory Tagging (part of the ARMv8.5 Extensions) provides
- 	  architectural support for run-time, always-on detection of
-@@ -2275,6 +2276,13 @@ config ARM64_MTE
-=20
- 	  Documentation/arch/arm64/memory-tagging-extension.rst.
-=20
-+config ARM64_MTE_KERNEL
-+	bool
-+	depends on ARM64_MTE
-+	help
-+	  This option enables the support for the Memory Tagging
-+	  Extension at EL1 (i.e. for kernelspace).
-+
- endmenu # "ARMv8.5 architectural features"
-=20
- menu "ARMv8.7 architectural features"
-diff --git a/arch/arm64/include/asm/mte.h b/arch/arm64/include/asm/mte.h
-index 34d1438019ed..7a49729f6a48 100644
---- a/arch/arm64/include/asm/mte.h
-+++ b/arch/arm64/include/asm/mte.h
-@@ -34,7 +34,7 @@ void mte_invalidate_tags_area(int type);
- void *mte_allocate_tag_storage(void);
- void mte_free_tag_storage(char *storage);
-=20
--#ifdef CONFIG_KASAN_HW_TAGS
-+#ifdef CONFIG_ARM64_MTE_KERNEL
- DECLARE_STATIC_KEY_FALSE(mte_sync_or_asymm_mode);
- DECLARE_STATIC_KEY_FALSE(mte_async_or_asymm_mode);
-=20
-diff --git a/arch/arm64/kernel/mte.c b/arch/arm64/kernel/mte.c
-index d072cb76ad05..888519e14a76 100644
---- a/arch/arm64/kernel/mte.c
-+++ b/arch/arm64/kernel/mte.c
-@@ -31,7 +31,7 @@
-=20
- static DEFINE_PER_CPU_READ_MOSTLY(u64, mte_tcf_preferred);
-=20
--#ifdef CONFIG_KASAN_HW_TAGS
-+#ifdef CONFIG_ARM64_MTE_KERNEL
- /*
-  * The asynchronous and asymmetric MTE modes have the same behavior for
-  * store operations. This flag is set when either of these modes is enable=
-d.
-@@ -100,6 +100,7 @@ int memcmp_pages(struct page *page1, struct page *page2=
-)
- 	return ret;
- }
-=20
-+#ifdef CONFIG_ARM64_MTE_KERNEL
- static inline void __mte_enable_kernel(const char *mode, unsigned long tcf=
-)
- {
- 	/* Enable MTE Sync Mode for EL1. */
-@@ -110,7 +111,6 @@ static inline void __mte_enable_kernel(const char *mode=
-, unsigned long tcf)
- 	pr_info_once("MTE: enabled in %s mode at EL1\n", mode);
- }
-=20
--#ifdef CONFIG_KASAN_HW_TAGS
- void mte_enable_kernel_sync(void)
- {
- 	/*
-diff --git a/arch/arm64/lib/strlen.S b/arch/arm64/lib/strlen.S
-index a8c49a3886f6..80557af775de 100644
---- a/arch/arm64/lib/strlen.S
-+++ b/arch/arm64/lib/strlen.S
-@@ -44,11 +44,11 @@
- #define REP8_80 0x8080808080808080
-=20
- /*
-- * When KASAN_HW_TAGS is in use, memory is checked at MTE_GRANULE_SIZE
-+ * When ARM64_MTE_KERNEL is in use, memory is checked at MTE_GRANULE_SIZE
-  * (16-byte) granularity, and we must ensure that no access straddles this
-  * alignment boundary.
-  */
--#ifdef CONFIG_KASAN_HW_TAGS
-+#ifdef CONFIG_ARM64_MTE_KERNEL
- #define MIN_PAGE_SIZE MTE_GRANULE_SIZE
- #else
- #define MIN_PAGE_SIZE 4096
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
---=20
-2.56.0.455.g6c5a503b38-goog
 
+--otxvpO2v3blHEoyL
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrvRbcACgkQFA3kzBSg
+KbZ0kA/9HOpfN/5gR7JFrLk4jTuxgQt+7c1i1XxW67VAhV5ZKDSofwJDgnWSbfen
+OZWWLEob2CoM0NKUrzebP+rRFG5MoCGEZIgEqCvX7OrhBRRDyIzcqd/FrC/PKOSs
+kwlnQZlzkB4j2Jf4CIxaufvnFahkUQ2b/INcKSJuD7qnddNDw9GVhFMJfZSZ+Pmm
+NQ4qYcc53O5jflaFVcA9lSnW/mDpHZm1dVnvH0IH2kj3dlJC/loPczOnK1KGquNN
+h6/v50uTNdav4298nBbMo8igleloGUNS6QjlkVO6+UTG5KkKr5pu+/SVnV5iojSK
+16cWgx4LLC5ndiw7I7JCpkdPEahpKytY1cpJmt9rlYWuuepUe7/nLdk2HUlmor8V
+iLrY1HrqvBbrDtbsMAyRkSX+mHSpS+7v2tNwQkuPjPW7rJs1CrQ57jU3lYChzoau
+s/LfzBL+Sxb3UhdgSWnkvifrYLCVHr7XoL9yzhjr0afpsUEZx0MVaBS5bw546Aax
+G7ZKh/BLJQsy9sDzVbgSaJmZfD/liTfJ4nZJKVB7aNljAGyZfMvnFvGeJsRPFkbV
+GCXFkN+WL/H8PerQ8H4Wp2AA5+xJHNzDra9PmVWakLlHS19C4CbkOaQvK/qGaplz
+hFp+x2qdz8a5s/lr1gV/LJsgGamCd7b2UrCi84Ae3d5lN0teoGs=
+=DoK9
+-----END PGP SIGNATURE-----
+
+--otxvpO2v3blHEoyL--
