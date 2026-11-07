@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794046430;
-	b=hFOelxRHZTwPfmK1eiVyOX6C2N9/JEQCEleeTJdpjK1nlO0Vu1BuPu8AEPR/c1Py6qke
-	 ZwENFBVLKfkzsmeih4IU6SjXxr39mnM1tIVJBbvJM1crG2vdnKLakql2p8L+rvdL4r0Ln
-	 gsQbnb5FPUEl0LCpaNHqVCnsW6ze10pE3yXsksHo5TLLGlYxAq3m+UmJe0spvRRbO3bi7
-	 +PCIRHzLBMp41LgvfJz00uxr75SzgkUUuF69o6uVSKA7+eZyS6mV57/9mjVhjGnkQROZq
-	 sh58tRbPYyrAkhyTHpqiZww9xo5sTGXaRAq0N9pn+9Tf0rhU8dQz3wvDJZTJqsa3yug==
+	t=1794046437;
+	b=uNarbGQS46ZnwERMKVs9JdZpEuQl65Hx0eVqL4VZxDX8/GkTQILjKyOqrZAeEWkAT0fK
+	 jzO03nRopHXOvpl8NxSZ8cIms1oUBHviqr059QaFvhmoEF0CT+Tthw4TaQ+CPu70sN87B
+	 0//AlFIuKLnMXAtTXS3yxMYgb642/MnszlZW9ZhaS62FO9V1GNkDtHjGnfejIEMg2G1Lg
+	 IzykrhhS6CvPx3tUpcm9JloIHbFdWQB3OQ67QSKqJFGst+r7eboTANtdKDBFRkcPgK2Rm
+	 N0d9pj/yA5Q4MMa3mKf8SD4mniNKC/gk/3GLBQE0e4vOyYhMTo/BTx1/eHJUJF9yiqg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046430;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
-	b=hvEjC2siMUQG/YGRfoEWswKqbJYP9JXuOsXrkSF+wERZMPsNKMY/pUlcfIDl3+XLJZ46
-	 9pL5auC0WMphveSP8GwclxE2pVCOn5LChTp7a30pwSL53jtfjq678TRl73JxR5U0uSGps
-	 SuYoAOjQXqfDPtsM5oDiJZucpEEfgi/gWKDtTX0fT8I+Az7p0qaIYetj6/TTeDrZdz/x8
-	 Ky9HQsLkFwJoLkVOPPN2NHUEhYqenu5VN+ZwHIn33Um6n1tILdslaCZQJH3CxZ0x9VLT9
-	 ZsILQnwmr0s+UroL33tldwO7q6HH3/VFcW8x0FjxqA91ElG9b34YpzonleEw2dawBxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046437;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+	b=ShfDsc70nTcJcS450S/tUVsVQSc0q/mEAmOcZtyRsY5JIQHi2+MRmtfh/U1UWzmU/wiR
+	 M/3FgQFQQSItiw/XnGaHKuHBPdhyftePAoCQL9QTb+wdr1RQJG5Q8atCcjCv50AEpQxtn
+	 x781uXUKIQQmJCIrQJxH3VpBkZ/N5gvd3K2rZo2vegbE7narNYCgWDHw9yrOc9jjsQ82y
+	 imzEtsAoR7Cbf8YP2+pKrM/UJZVniH+pFoKHs34ubgq1266yTBi48G08nkSPY3IB9GIfD
+	 7g3xxm9nClV422PBYZ3k3wvLyq3csSCZINtjok0mGRwYIO14yeUAuFdpn8OzVoWze/g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJodq1ml;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7AA606A32D;
-	Sat,  7 Nov 2026 10:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJodq1ml
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794046429;
-	b=BFFzFEyLQlad4lN8VqQPiQP9oB9Z2XmmXQsUhIsTUSdXPmKl6yJAKjCgM6cynk4VQhNs
-	 A7wdrZtbV2nCCQNhiPzwp8wRl8kG7JUKgLfqDMZzq9UnLMGkw7+EgYg92lQDsYcZxsaKp
-	 HWbzJqX6KCngXz6zl7x44T+P1PJzjMCBF9xK5opvBpaTdaPcYzub4zXanxOZKo7MvwboA
-	 jLZmfVdnBOG06whPTNnw6e1fhxfVZmM1CzOe9yaffkuTPBfoFgoRk6uP1qGkGsuHYXVIh
-	 m7QmG335LpduEVbmdMH3b8hUqdjOW3EYikgK+Y1iUl1DUeL23RqSwQqu9+HBD0vFNRw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794046429;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
-	b=xr2nd3/g0n7ooPr5PiV1VYx6Ry5aK2D1CQqXEjrh02qcSgN0t2pWfUYYz7ETV7jQ/34o
-	 uqfJnzU6R7TpIGjMc4AHz35qx2mI02X2ONvuBy3Z/Coe+VIh78NATsrRb79sN2rZD1drZ
-	 r+ks9c4Z7+v6jg/UiTGxhYKem6crjbAoItEPjODEegOQyC050YqexT64oOmcRUeUMTDhx
-	 OM3fIHfnM5cDWoXyLPxqMVEtr3YqFKFkwTLDt/GmNPpRQU0NLCM0V+ByUE/y7jAiHqgEA
-	 +yRRz0VxNXUzgnzbhHz2d/RvoLkMNMc+E4wD4NaWSpJ8otyoeWZdeTeLlmoMPW4w1lg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=STv38oHW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5BF8E1F008A1;
-	Sat,  7 Nov 2026 10:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046429;
-	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=iJodq1mlSBtu854QVQ9ONyTD8j5Q95lYmdwTqfxnAsksfn20dPcESK1HxVB7tUFK5
-	 8QaQrGLUe1AapT8b4xshPMS29njcmVSln4HZzphVip6JHGzMXsh1jrv8hGBhUisJ8h
-	 hmDVZczDUcf8FmRlM3CKW3/ivKDGOjmAlBJodUEqsh3PgMdvZOSifiQm/qvt/fQ5jj
-	 W1uPPB0wrLYe2rEvBTxPfO6l5/a1GlCknPpDAwv3lKc6fbb2snBCmf00ifLCiIW5Yb
-	 3b8Jg+Gghcmo5pYCo5po3Ex7lwIjfWjuqakh0tujF9H1VCz1el5GTupr8F6AKd+z6o
-	 eqplaZPvdQacQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E1B2C47B59;
-	Sat,  7 Nov 2026 10:13:48 +0000 (UTC)
-From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
-Date: Sat, 07 Nov 2026 18:13:43 +0800
-Subject: [PATCH] spi: mt65xx: Remove the CPU latency QoS request when probe
- fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECDD606A337
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:13:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECDD606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=STv38oHW
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-37198ed3727so125481eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:13:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794046436; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BgURkqd1X4eyY+GZnAFYKZsskY4ok31gpfv87uw+7jSw/qG+tfHjZr4D3BmZQXZgyY
+         ixHbvvmBPj3HoOJeyVl9oNxGUpS3lwKHqePoLlCWkDozx8jouzLqKN3DV/2ZW0Gs5IrZ
+         c3FBmyilwV33yDM1PCZBbVZZnMAEpOdYlVCRvLoWYUZD84QX2fzuYWjWlGeST1fGUzw/
+         e54Dq2Hl7DWV3gfIR/3N8thDGq+97m/pmQmnn4ElE8BvwDGNDNHQcvTACTn3+sygYAcf
+         Te0uLm8XGzUFU5QUWRNM5ZnrBYRDvRn6r3Ef7FdroqnGud/HKj3oubvLN2H4OdFeyL++
+         D51w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+        fh=ty/pCrXjb1HJ+9+tpp1YyAJESYAahaxbTtYvdo717H0=;
+        b=UiAPtxI1nyEjvLxItaNiRcUfanfSIx2/mBZg99Oy1tvHKEckb0iKjZBO6tJJWDunue
+         96AP0DfWlLR9S9usTCgdaFlV90BP9AgyZiDjyFQcvSYYZUHwB5cYReGCcW3/2b+0bHLt
+         Rky0oGIncfEpzipig1iXr/Gjk+yInksIKZDChmj58i7Tk9FnG9eInVtI7vr5bxrr+01H
+         nGzLFPgui7pVb6z4cmjG1hsCGjQWDMLt3eH0bjtDBIkIjI3CxXKrLit39MG2d0gI/LsZ
+         oKnuxuGX3DEE6xS4P9RifTtAw+FApL2YozbV1MX8T8couk8hm923hkE2GBIizJZSIJul
+         d6Vw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794046436; x=1794651236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+        b=STv38oHWBm3TrNxUeMnYg5aD1OrKml1+khBJ8SmsZRR+6m3AurmhzGOXu2DAird0k6
+         HPwKCvLnRUFUHb3iLp84oDifqjWUfY/0SAnSzzt+0YoN8mI7FqBmgFMsKigLSoZXfOM9
+         mzNXbW6tcg+tShKsWPinsMJYrHppnfM5TT7yXjS/Qe0rhZu2YHFK6RTlkX6Jd/cUXiy4
+         GrZyIA+tRCF2Nd36U3mG2vNzAstnGIMlELXHcbRqi2NcbJhv6EqoB11eXhU8KsExbJ+V
+         5UQPiGoLs5OBS4CcVvhnn1bX2eZ/J45pKw+c/LPIavX+bND7vVM98QM88NsHCSezlQf0
+         lIXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794046436; x=1794651236;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k78g5WSNgz938dzM1WkRxWbXOTlco889sZR+tqZe4Xw=;
+        b=kOcxwtDV7DKvvggKCj3Y3NV8OWp5Mce2GbNX8eVADyVfJ/E8jp5kpz8uVFNSd3l3K8
+         FP8v+YueOYUElwZJUBxnCPFsiEdDf2zdh4e+4caOeRdUudLtuszpBAx2SKrdUkaBupVp
+         ofTU6wuyBVaJ3kGqY8vujlYhszjG1wgt6FIp9BOxMZkW7qPSoJiaO822beMiezUYQ8Rq
+         m+ST9Dew68IM4nEK710RLFs117P8Pl6gd2m0B2wf4+O0chW6Swz1F1dKcuQZC1J7rUkL
+         jYt1aeA8Vx/NoUeUdeF4bElkV3aT9lceRFxr/eSKZDHJEYdV6f3AU1DZdZU2qx2IlQMv
+         37uQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSHWEnGyefcCK6k/iJLsNZNVkNpx1Pn2QywIeJH3kOd0mIWaJLG0hw8DCgsPA//4uoqMP8MsXcM8DZt40=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8g2pYkOLtcje163JWn3/WSTWI4175UVLOLUVHim2GEUTyal5b4
+	fhdVs8Qwb8qKUN1XedymVVrLq3aTjjVJhihtSHAbj2AFTMSatqC86Z6Pf5VKB6PC8ZWwbYzwedQ
+	Z5PErJ9J96V0vG5y6arFE+UXYy0eyMK8=
+X-Gm-Gg: AYBFou37VD8QmLcSs9Wz2fnE7NkbCH3IiFadO/Ux86Y073HhvmZ/m29lCPMfvpuCfhF
+	l3JueSFLfpUDszyzQzrWhaZSwuYHa+Vw/a9Undt0fXRfIKwmt36ZFaCrwRH87PRqLzWNXyQ4mdG
+	yxZCPNKyM6xGDJW/lXnMadEMlxob5wd1OBC0603gEJr4v/+Wg604+Km00MdueSUyB+KL5OnBaVE
+	zQ5hbXibXff3W0Ef1vcssfOP9anTT6bAib93Sfe0N5CieFXVoPhtvw/E62RUNihYOZpaLNQwf06
+	ViGV4ZyhxxPX5DVPi7v5Fu3zP+AyX9rNp5jLpd4RvkmLARS3adhBSFmjJY/pN9Q2M7Wp1JcWIqn
+	HIKz05QWsA2LLQJvaA0gppFrYsUGZJuDEt6X0hyUwtEz83YUObJ5mGbBFbSRTq+DOHz2ugTNznp
+	+4maeYrSes58vv0lSXvrsYo82uyYy80w==
+X-Received: by 2002:a05:7301:d810:b0:36a:37:1404 with SMTP id
+ 5a478bee46e88-370f6018313mr2820026eec.13.1794046435857; Sat, 07 Nov 2026
+ 02:13:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,95 +105,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-mt65xx-qos-fix-v1-1-9d9c16a584e4@udp0.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwNz3dwSM9OKCt3C/GLdtMwKXWOjZBPDtBRjC9OURCWgpoKiVKAw2MD
- oWAi/uDQpKzW5BGSKUm0tANz3mEtyAAAA
-X-Change-ID: 20261107-mt65xx-qos-fix-32c41fd385da
-To: Mark Brown <broonie@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Leilk Liu <leilk.liu@mediatek.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- stable@vger.kernel.org, Rui Cao <i@udp0.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794046428; l=2424;
- i=i@udp0.com; s=20261107; h=from:subject:message-id;
- bh=J9ck0Rmxdd1nbYdPYBN9FG+4oXVrAofA+j7Izp5hqPk=;
- b=REkzO9qjpDLtQwUJ2L7TcXugkI2yWMutN5NdD7o8ySpatBLXAbAjyDeG80TTMDedIQn2d/x9A
- T87E08PacYsCghHh8+DjFlPTrQv5tXsVOQTQ3KN19p0+P+wXDg8ZjGo
-X-Developer-Key: i=i@udp0.com; a=ed25519;
- pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
-X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
-X-Original-From: Rui Cao <i@udp0.com>
-Reply-To: i@udp0.com
-Content-Transfer-Encoding: 7bit
+References: <20261106091943.35783-1-clamor95@gmail.com> <20261106091943.35783-3-clamor95@gmail.com>
+ <20261107033029.0b2d3ee1@jic23-hlaptop>
+In-Reply-To: <20261107033029.0b2d3ee1@jic23-hlaptop>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 7 Nov 2026 12:13:44 +0200
+X-Gm-Features: AclHuK-9FSK6jNcHRsjMbOe31zQJwCb0DbuTYhYwvEmeWJ2hyCpsHkhiOXfzBM4
+Message-ID: <CAPVz0n250nXs5A4BDY-sXW=eBLAzSn2x9CA-Zf692x6La3rFBg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] iio: light: ltr501: Switch to modern match mechanism
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Esben Haabendal <esben@geanix.com>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+	Pan Chuang <panchuang@vivo.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
+	Antoniu Miclaus <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Rui Cao <i@udp0.com>
+=D1=81=D0=B1, 7 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 05:30=
+ Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Fri,  6 Nov 2026 11:19:41 +0200
+> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+>
+> > Remove the chip enum, break the chip list structure into individual
+> > elements, and pass each element using i2c_get_match_data().
+>
+> Sashiko calls out that for ACPI this results in an ABI change.
+> The original code did the ABI wrong but that unfortunately doesn't
+> mean we can change this one as it is an artefact of a time when
+> we weren't so careful about those names.
+>
+> So you'll need to put special handling back in for the ACPI parts
+> and that name. Some other things in the existing code noted inline
+> that would be nice to clean up whilst you are here.
+>
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/iio/light/ltr501.c | 165 +++++++++++++++++--------------------
+> >  1 file changed, 74 insertions(+), 91 deletions(-)
+> >
+> > diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> > index cc5d7af44d77c..d5ce6468a229b 100644
+> > --- a/drivers/iio/light/ltr501.c
+> > +++ b/drivers/iio/light/ltr501.c
+>
+> > +static const struct ltr501_chip_info ltr301_chip_info_tbl =3D {
+> > +     .partid =3D 0x08,
+> > +     .als_gain =3D ltr501_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr501_als_gain_tbl),
+> > +     .als_mode_active =3D BIT(0) | BIT(1),
+> > +     .als_gain_mask =3D BIT(3),
+> > +     .als_gain_shift =3D 3,
+> > +     .channels =3D ltr301_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr301_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr303_chip_info_tbl =3D {
+> > +     .partid =3D 0x0A,
+> > +     .als_gain =3D ltr559_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
+> > +     .als_mode_active =3D BIT(0),
+> > +     .als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
+> > +     .als_gain_shift =3D 2,
+> > +     .channels =3D ltr301_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr301_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr329_chip_info_tbl =3D {
+> > +     .partid =3D 0x0A,
+> > +     .als_gain =3D ltr559_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
+> > +     .als_mode_active =3D BIT(0),
+> > +     .als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
+>
+> As below.  Same for all the others.  That would be a separate
+> cleanup patch though -> perhaps do it with getting rid of
+> the als_gain_shift.
+>
 
-mtk_spi_probe() adds its CPU latency QoS request before the chip select
-checks, the interrupt request and spi_register_controller(), and none of
-their error paths removes it again. The request is embedded in the
-driver's private data, which devres frees once the probe has failed, so
-the global CPU latency constraint list keeps a node in freed memory. The
-next cpu_latency_qos_add_request() from any driver walks into it.
+This is all out of scope of my series. I am not a code janitor!
 
-On a Redmi Note 13 5G (MT6833), an SPI controller whose probe failed the
-pad_num/num_chipselect check left such a node behind, and the UFS host
-adding its own request a moment later oopsed in plist_add():
+> > +     .als_gain_shift =3D 2,
+> > +     .no_irq_support =3D true,
+> > +     .channels =3D ltr301_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr301_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr501_chip_info_tbl =3D {
+> > +     .partid =3D 0x08,
+> > +     .als_gain =3D ltr501_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr501_als_gain_tbl),
+> > +     .ps_gain =3D ltr501_ps_gain_tbl,
+> > +     .ps_gain_tbl_size =3D ARRAY_SIZE(ltr501_ps_gain_tbl),
+> > +     .als_mode_active =3D BIT(0) | BIT(1),
+> As below
+> > +     .als_gain_mask =3D BIT(3),
+> > +     .als_gain_shift =3D 3,
+> > +     .channels =3D ltr501_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr501_channels),
+> > +};
+> > +
+> > +static const struct ltr501_chip_info ltr559_chip_info_tbl =3D {
+> > +     .partid =3D 0x09,
+> > +     .als_gain =3D ltr559_als_gain_tbl,
+> > +     .als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
+> > +     .ps_gain =3D ltr559_ps_gain_tbl,
+> > +     .ps_gain_tbl_size =3D ARRAY_SIZE(ltr559_ps_gain_tbl),
+> > +     .als_mode_active =3D BIT(0),
+> > +     .als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
+> Is it really 3 separate bits, or GENMASK(4, 2) to
+> represent a 3 bit shift?
+>
+> Whilst you are touching the driver can we get rid of the
+> separate shift by using field_prep() field_get() using
+> just the mask?
+>
+> > +     .als_gain_shift =3D 2,
+> > +     .channels =3D ltr501_channels,
+> > +     .no_channels =3D ARRAY_SIZE(ltr501_channels),
+> >  };
+> >
+> >  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8=
+ ps_val)
+> > @@ -1393,14 +1387,11 @@ static int ltr501_powerdown(struct ltr501_data =
+*data)
+> >
+> >  static int ltr501_probe(struct i2c_client *client)
+> >  {
+> > -     const struct i2c_device_id *id =3D i2c_client_get_device_id(clien=
+t);
+> >       static const char * const regulator_names[] =3D { "vdd", "vddio" =
+};
+> >       struct ltr501_data *data;
+> >       struct iio_dev *indio_dev;
+> >       struct regmap *regmap;
+> > -     const void *ddata =3D NULL;
+> > -     int partid, chip_idx;
+> > -     const char *name;
+> > +     int partid;
+> >       int ret;
+> >
+> >       indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*data));
+> > @@ -1480,18 +1471,10 @@ static int ltr501_probe(struct i2c_client *clie=
+nt)
+> >       if (ret < 0)
+> >               return ret;
+> >
+> > -     if (id) {
+> > -             name =3D id->name;
+> > -             chip_idx =3D id->driver_data;
+> > -     } else {
+> > -             name =3D iio_get_acpi_device_name_and_data(&client->dev, =
+&ddata);
+> > -             chip_idx =3D (intptr_t)ddata;
+> > -     }
+> > -     if (!name)
+> > +     data->chip_info =3D i2c_get_match_data(client);
+> > +     if (!data->chip_info)
+> >               return -ENODEV;
+>
+> As above. Unfortunately at this point we'll still need to
+> do some special handling to match the existing indio_dev->name.
+>
 
-Unable to handle kernel paging request at virtual address fffffffffffffff8
+const struct i2c_device_id *id =3D i2c_client_get_device_id(client);
 
-The same happens whenever spi_register_controller() fails, which
-includes -EPROBE_DEFER while the chip select GPIOs are looked up.
+...
 
-Nothing needs the request before the controller is registered: only the
-prepare_message() and unprepare_message() callbacks update it. Add it
-just before the registration and remove it if the registration fails.
+indio_dev->name =3D id ? id->name :
+iio_get_acpi_device_name_and_data(&client->dev, NULL);
 
-Fixes: 632556d5799a ("spi: mt65xx: add PM QoS support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rui Cao <i@udp0.com>
----
- drivers/spi/spi-mt65xx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Will this be acceptible?
 
-diff --git a/drivers/spi/spi-mt65xx.c b/drivers/spi/spi-mt65xx.c
-index b845a599f7c..49c31d4bd71 100644
---- a/drivers/spi/spi-mt65xx.c
-+++ b/drivers/spi/spi-mt65xx.c
-@@ -1295,8 +1295,6 @@ static int mtk_spi_probe(struct platform_device *pdev)
- 		clk_disable_unprepare(mdata->spi_hclk);
- 	}
- 
--	cpu_latency_qos_add_request(&mdata->qos_request, PM_QOS_DEFAULT_VALUE);
--
- 	if (mdata->dev_comp->need_pad_sel) {
- 		if (mdata->pad_num != host->num_chipselect)
- 			return dev_err_probe(dev, -EINVAL,
-@@ -1323,11 +1321,13 @@ static int mtk_spi_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to register irq\n");
- 
-+	cpu_latency_qos_add_request(&mdata->qos_request, PM_QOS_DEFAULT_VALUE);
- 	pm_runtime_enable(dev);
- 
- 	ret = spi_register_controller(host);
- 	if (ret) {
- 		pm_runtime_disable(dev);
-+		cpu_latency_qos_remove_request(&mdata->qos_request);
- 		return dev_err_probe(dev, ret, "failed to register host\n");
- 	}
- 
-
----
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-change-id: 20261107-mt65xx-qos-fix-32c41fd385da
-
-Best regards,
---  
-Rui Cao <i@udp0.com>
-
-
+> >
+> > -     data->chip_info =3D &ltr501_chip_info_tbl[chip_idx];
+> > -
+> >       if ((partid >> 4) !=3D data->chip_info->partid)
+> >               return -ENODEV;
+> >
+> > @@ -1502,7 +1485,7 @@ static int ltr501_probe(struct i2c_client *client=
+)
+> >       indio_dev->info =3D &ltr501_info;
+> >       indio_dev->channels =3D data->chip_info->channels;
+> >       indio_dev->num_channels =3D data->chip_info->no_channels;
+> > -     indio_dev->name =3D name;
+> > +     indio_dev->name =3D client->name;
+> >       indio_dev->modes =3D INDIO_DIRECT_MODE;
+> >
