@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060059;
-	b=zqG9LLf4xdo5CfX3TnivyQTy8yFH7X6mXrCffYc+IcaWnaiYFusg4/t08Jg1i64Aa4/i
-	 V0Ko0w/5j+NCalu+S2F7NpiMf8ruvclmwZLcHLfy1iQMFdvQP2DhttMMBBT8jiGA2rB/s
-	 q4Hut7J5lPUfiYpHeJ4QIOhw6NtMejdEWyCC9RFOrcw7HzgUu9KGuN8yJeRu7bTPyBGI6
-	 z2/oCIf0HMbAqJ0nVEHL7Rhs73gbp88iE2JAEUEjFDMQsOnJmL1mBAz/q16V9VxikEbU2
-	 tD+637sxd35tzr+ipkzuVXrHazrOfNqxSjX9rpWir7PsIhkbHzXXgYM1ePGpyydFCfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060059;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=P3/ZtZc9uaQGFY2ihIoiddTSKQLXeow2WIExumNjyWU=;
-	b=RiUncCkHi9Y7v4aVtiwO+fCnTeWV13WCqkf1YOk+v+kP3RQlLqt7fCjK1ksMJqyJPmez
-	 rDo/OhPRyCi2tfvrZxCUDC2C1n2fAKsXeZYQyG9M+pj4kiERv4m7kId/AU9LPRcGzbN/h
-	 norwN5PuQj+EcHRBIWFOee5fBFtTvLxXs8sJFGzOsZIbl47oOIr4Tn0JawezXCsk0g4si
-	 MelvhVjgibpu0nqdwjmPeby3siiMCUjXTk9WEtLKH7qHi3WMOVnhvWglPTfXe5bF4AVS9
-	 rxm5ZHpLN+fS45vc17ickqlzwRi6eKQv/VjmbnKf1C3+QSEZkUQQuyCDK6f2o02QvMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b="kFb/dtKx";
-	arc=none smtp.remote-ip=185.70.43.101
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794060108;
+	b=ThnoIuq8ADKp0BYttKJbp7UG9zc3SU2NKf/0tRGmNmUWO5PuYwQFYpM9y2/vRmgrSbyG
+	 27pqZ7CPeecwEgjn60SvIgpK7Qox0uEY17ncZN+K/0oZToSfC+c7M1jNTM1FLkScJ4O1p
+	 kHKebPpgGpP8bzoFW4I3ZshJJ47KIuQBgXzMwXWiSIJ3hxb/VNU99dJw60e26GGjfZsbr
+	 Pt7rWNWsdEW+Z7aIn9Cse0Xq0/53cJ4DK1MzjYsn6oqWnzSis+25qfCj5YjFKTEpy7qUa
+	 6JZgw3qg6pK2Qg6v3ChIWAKR5CYtHm0DLqnZRMcAdc5r/LTUDejoiS1orE4V6aC/qOw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060108;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=EiN0dCtFHNRqLePhITbvvtoVm344G+ZlLoUzYjxtZTg=;
+	b=l1yRewUNgxmMz/WqXW35/ad25bUhelddEhrIbXTg5PjRt5C29T9vp6l5ZxuM8fxE3Wx+
+	 qlykikTvQzPeqBoGxJbkBNYUu/tUlRgx2bRo9zRCTwqZ/1g5JQJutaSloCiHGV6ze9y4T
+	 jD/6KjQIpJhKctaGnyCRW3emjhsEvulebwEmmrTBOiz5KHBrezgX4DAPDJ35MamqtUv6D
+	 dVVwBJ5gC+i4zTlwzwk5U9KIbaMLcj2ChqxKO7T82ZBt38kOwCnkQciIoZQ10nusxyp9f
+	 R1SnsR86swFH5FYeG35SQ27vCyxSpb5UW1msTh1MHzprHe0bDU1SOHD/hfJ+CbcZUQA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=durY1a4w;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF71E606A32D;
+	Sat,  7 Nov 2026 14:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=durY1a4w
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794060107;
+	b=QtvThwue1SN+jFPjd7M0ZF8dOq8oOjH4ry5O9S/E47KutJlK9GUYx2Q4r+c2p49BcLKF
+	 T1a9vMzYHcdpapPUe3K2JnPend6QnoNiD6jcbosXRNdk/ojb1cSZTBF7bz2iLJIb0SJHK
+	 r1dOKjQ9RmTo/e4Ys+UOuxcrAsEzWOVqw2RfeVUKR/3gnv1WQHpOSxsAkDpVXb+P8R5eD
+	 wS/v0Ym+hiJLk+VkMxSZjK88npJTUbDLrWXg1jr3SU5Iphzo06hS0dxr5uLr9iSxCedqe
+	 w1dJ1LHcptFbCE2gUABS17yPbj77cNrHkpKS8oThSV5hEL+ZevhzqZ44rJcBuGV4Xtw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794060107;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=EiN0dCtFHNRqLePhITbvvtoVm344G+ZlLoUzYjxtZTg=;
+	b=Wq4M3BPmQYyjPbTG1TjoZ4ijv5dtlNj8r9l4miRY3SZ21zzVzsFuzznQQ9hqOLjLeBIH
+	 u8Hfs+sr9bGPomuHv2MIEaq3ba/Q2ohpswXBdOJK1CZsxJ6vBCYjffz3IRJU7BRO3pVcq
+	 8Ot2Qrqua6g5oUC6f/Wu/yEoq3eQPohHkBUYRwHcHey/dePuXcTMrm/s1RALADyrqPsY1
+	 fQasI+XSmDH+lIOxnDrcaMh0GT2M4WeNHYfIm/B13+p2umV/kiaQ6DL/d6Y0IHqVaevMT
+	 WARsfXE2287SwdXqyTBAqV0OL9k/QLhsGkVocELJTbOdUyMQJlXIfWPDBr2jj5vRR4w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082EC606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:00:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 082EC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=kFb/dtKx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794060055; x=1794319255;
-	bh=P3/ZtZc9uaQGFY2ihIoiddTSKQLXeow2WIExumNjyWU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=kFb/dtKx0W21Hwap+7+8lga1HqsD4gxpdPl50pcvQ9e3S9KwwoYRPhb+Qrjm/49s7
-	 7v9iGvxAW1p6TPLAUNDvDrRdgxAZHAoHpDMTfczNMAWo36XQCGKYb49v5VAkfu9y1c
-	 gWdcVMQK+fAd0PlZgH/c7L6TxTYZvl+M4FVDX/qLL+Gr19LCcIqcK7zEBFxxu6MRxC
-	 XATdPMFns2C+Oc9Fs+aTx5LUI0iDzaPlXsjviuVz1G+qfHrO8iIcPQigRxdD4d4d15
-	 1jGpyBtntJOIQx7cMcbGAV266k+totjlYOv+551esKm92NBCxSd7lN8+5I5HPaELud
-	 6sVHHm5qnQ/1Q==
-Date: Sat, 07 Nov 2026 14:00:47 +0000
-To: i@udp0.com
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: serial: mediatek,uart: Add MT6833
-Message-ID: <joJnuIX4efIyYGdLotFbhAL7aSeQCOCIdfbE2p1dI3CIEHZuJ6cLh_xF34joTacjhgeBgBC_5AQfceHf9sCsdCStHhTeJSujzY7UNuVADps=@protonmail.com>
-In-Reply-To: <20261107-mt6833-base-v1-3-bda21083e9f3@udp0.com>
-References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com> <20261107-mt6833-base-v1-3-bda21083e9f3@udp0.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 68a5641e2b162357b5d491fe81981b1fa2444ff5
+	by smtp.kernel.org (Postfix) with ESMTPS id 0F0571F0089F;
+	Sat,  7 Nov 2026 14:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794060107;
+	bh=EiN0dCtFHNRqLePhITbvvtoVm344G+ZlLoUzYjxtZTg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=durY1a4wJT//UsJrD8ArW7psxQrq3ro8n9qhkvACJxFxeifNXJc//Cva4cdZLjlxl
+	 O15oON4yiST562luN6iufTkz+k5AME2T9oOVtcyAlQFGo6KfCS9Zhz5Oh3hXSGsCRN
+	 qp0iNfJQufHvx97SsS7EreilWLhVKSzqhAkqdKjVt4jsPUuR+Rbx2Bgv6QB1JTd3a/
+	 dGQmgazzFPojmu8sFU7i+KL5DX/EBkWprfqrPCLICb72v5c1QciQwv5gYDtug5JN1m
+	 droRw2FtFPF+OVgxROuafxPQnn/QzHrKutqkfhBwy3IygGopbMniJdgCJU0m7DnaPr
+	 +A5v/IMt51J5A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 92FBB47C23;
+	Sat,  7 Nov 2026 14:01:46 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Sat, 07 Nov 2026 08:01:46 -0600
+Subject: [PATCH] staging: octeon: fix kernel-doc comment style in
+ ethernet-mem.c
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,45 +83,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-octeon-mem-doc-fix-v1-1-4d962b83a3d6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqAIBAAfyX23ILaQ+pXooPYVntQQyOC6N9bO
+ s7AzAOFMlOBsXog08WFUxTQdQV+d3Ej5EUYjDK91spi8ieliIECLsnjyje2rvGd6ZUeyIKERyb
+ R/3Sa3/cDY3XgKGQAAAA=
+X-Change-ID: 20261107-octeon-mem-doc-fix-4a3c526019e7
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794060106; l=1191;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=+9rVYI6biHPDGY8NGsdQc54rP2z64h+4I/8Uh5neCIY=;
+ b=GVo42hx1tShon+12HPtDazHwAFfkis25aWmt5zQY6AF8ZqViXkJkxHXwJmR5/wLtLiUpIYT4E
+ ilQJYmpwqu0ALJhEJcQnX60489I3IyHTe+ThHLWQH5FrPFC+/gncNgF
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
+Content-Transfer-Encoding: 8bit
 
-On Saturday, November 7th, 2026 at 2:22 PM, Rui Cao via B4 Relay <devnull+i=
-.udp0.com@kernel.org> wrote:
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-> From: Rui Cao <i@udp0.com>
->=20
-> Add MediaTek's MT6833 (Dimensity 700). Its UARTs are MT6577-compatible:
-> MediaTek's MT6833 device tree gives them "mediatek,mt6577-uart" alone.
->=20
-> Signed-off-by: Rui Cao <i@udp0.com>
+Fix a style mismatch in the kernel-doc documentation block for
+cvm_oct_free_hw_skbuff() by adding a missing space before the
+descriptive dash. This allows the documentation toolchain scripts to
+correctly parse the function identifier.
 
-Reviewed-by: Roman Vivchar <rva333@protonmail.com>
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+---
+ drivers/staging/octeon/ethernet-mem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/octeon/ethernet-mem.c b/drivers/staging/octeon/ethernet-mem.c
+index 68c3ef984e56..7bcd11245d06 100644
+--- a/drivers/staging/octeon/ethernet-mem.c
++++ b/drivers/staging/octeon/ethernet-mem.c
+@@ -40,7 +40,7 @@ static int cvm_oct_fill_hw_skbuff(int pool, int size, int elements)
+ }
+ 
+ /**
+- * cvm_oct_free_hw_skbuff- free hardware pool skbuffs
++ * cvm_oct_free_hw_skbuff - free hardware pool skbuffs
+  * @pdev:     Platform device for logging
+  * @pool:     Pool to allocate an skbuff for
+  * @size:     Size of the buffer needed for the pool
+
+---
+base-commit: cd894bbfd059e76e71ffc9b92f8a09d4d6012e9f
+change-id: 20261107-octeon-mem-doc-fix-4a3c526019e7
 
 Best regards,
-Roman
+-- 
+Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-> ---
->  Documentation/devicetree/bindings/serial/mediatek,uart.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml =
-b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-> index 5bd8a8853ae..8fb793c3408 100644
-> --- a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-> @@ -34,6 +34,7 @@ properties:
->                - mediatek,mt6779-uart
->                - mediatek,mt6795-uart
->                - mediatek,mt6797-uart
-> +              - mediatek,mt6833-uart
->                - mediatek,mt6893-uart
->                - mediatek,mt7622-uart
->                - mediatek,mt7623-uart
->=20
-> --
-> Git-157)
->=20
->=20
->=20
->
+
