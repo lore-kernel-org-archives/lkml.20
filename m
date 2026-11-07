@@ -1,96 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794089964;
-	b=pzugNMgfQTK79g6/mgEObw2tfnurYBL7ZFXJD9Fl1cY8YuLA3PGm1jvH33gE5IfU+YSt
-	 w8ZWp2ok+mjBsstO/WZXn+36O75/ZPnM8Lx3YyHRmirWiJEDWSJp8vcmwQxhizN4DN3s7
-	 1NapSo8G5CMQAiVW06iGOKcJV1cHDyguEtjsuHzGtQq8gTUbUkOxy95rLKwKN4TIe+LvG
-	 eX8Yu+OpvqV+jQCPS30CPatAEtaOSPs+qOVGfy+dXhe+NPSiIucZqkLueMRVVvVQ17KdN
-	 dU3rudP7HkcwJNHFXXpg945o5/SabHfYL6dVHQnY6oAzgekxjx0MHfbvrt2mtRhH9Pw==
+	t=1794090131;
+	b=1Kfc59bnc19+siOMtkqvRDoGqy6cR0GDMKR+q5b9H2PyXHOMpjW4L19cq6FNWrNj0aB0
+	 Ftba3PvkOQfPeLw1Ms9CYrW3XKEzbvkNwCmXDaS/f8tdg4xDK9vvvYnDoqrbVoT7sDwny
+	 lqc0A5aIVzC0DgZ6t+Pd9eAiCe4fyWofnkB2vWNOD53s450ozioIC4IWHcHD1n4jZzqoE
+	 Pi7o5aFGMvgSiFc6X8KiobjGy+kefOQnQSnq+hhYPaHPAds+Gr2zhbS1j+HyliaOceI6F
+	 IAvKHGDmfhoVrXpNWA47KRavzHse5B38GWxVvzOtOM1iyNRRycwkgoUyhTPZcESaRvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794089964;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=f3qeUhHiIJHjkkkuWM2Flpv4D6BKBH5zF5tY432fw/g=;
-	b=kTkfcNMzQq79V4RjymQzKsf8UngQMmGTLXTKTDlSRtgKEIaH3v3XturiwoECBnWj5+Wy
-	 o1q6J4HZjWe6WAnO20zp/eLbRM4+BoV7IDiBxheI9w2MVezsxoDbnXrdoTy9xW6ISYZ1n
-	 yNtmFotCvKTInpKPbJ/oy5fPUoWUfbm2Bk9NwkAMNWzuLKOJLJFfhqUg+IeUlvCkhgJfl
-	 eHst21uesYuIfmfJVo9ZqROTzII8Oly1I2kzr+aQHOwh4HE/P3UAZXuUGzHlRRv75cADZ
-	 nYHjTUdbGbobiYawfJeUk1YLoomJUPWVl7PxlCzdqDobl99SYDFD4+jQl2DxnbOQJ8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794090131;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=e8b2BxiNM2zDfbsfHX5lOdltBPseBRShaz9qPJkxXRw=;
+	b=waZRMhA4gWFQz+7Ri8kwiudqVfizIf/IVm3sQGXVgat3tq9dYPQXvInHo2GbYAHIeeIk
+	 wy6JBL4XNzPIi3O2XhbH7msA3r1J56lYyJ7NTVkIgrmwogqUt0G9VApNB+NENWcd5hA74
+	 XRXiLrx1hWHWxlfXsAYRJZbckIIZOv1eIpSSCNnbjod10mG3UnR4zaJM97a0nCn/hlbXj
+	 H+Z6lJmsUOUP+bSD8/zKnz1ESeeHcgLo0KziAv9+OSu1p7vrQQpU95Hqa+KhCVcetTS9y
+	 kZ9TPRutqaeOQMuG6Yrp3l4F/8yb8v9cmSH0xbd5nN3vnN1xX2I6mKfHR7Lx8PaSAnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nxi3SDl8;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqsDAE7f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7CE606D80E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 22:19:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB7CE606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9536C606A32E;
+	Sat,  7 Nov 2026 22:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nxi3SDl8
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso4747466b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 14:19:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794089962; x=1794694762; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f3qeUhHiIJHjkkkuWM2Flpv4D6BKBH5zF5tY432fw/g=;
-        b=Nxi3SDl8f8IKbAevixaj4Nt45fSjYtWdMciM5EIXffARSvP7jyuXzoGllRPMbLBpOu
-         1EtCfYB+x0yopqGLeJwHPchdTjUmFVpgCy+NmIpqgrnAXtDsT+YImXIuyFUHYbBpNdKQ
-         qTo0wTBrhDEsW2iCy/mvtPxuf96y6p6QwEqk8mDHgzTst4Z8RgEdXqkOz+z7fyzW7PKq
-         QrT6xeq/bc3UbdFzjSa8bp+zW+KNm5HMksPzGuorHcMq1cL4aYWlCX7QlJxvwRaVY6Jm
-         lM6IRV26HwNOs95u7aAaUpahnU/wG27d+Po45Z8PGHhmbX6Gj1bGDSbg7SJeaxAXrwkP
-         fb8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794089962; x=1794694762;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f3qeUhHiIJHjkkkuWM2Flpv4D6BKBH5zF5tY432fw/g=;
-        b=Vl3a0q9x8lU+6FwRnO6n2+NOQkq1YprDbM1RdhnJzkMSOmBKJUC23IBAutJIV2ewz6
-         CmaTv5WMAAxB++l2oSfyg54fYh5rr188sIWnOWdY9+jK0yQXRO7U/Jb5nitH7H1qXCb7
-         DwtNT6avITELXVGU+i6Mfensxwyr4M+2NKiKPkEMzMOgqdkbPzjo10A8K0z+pWlOGAQv
-         oN5P5U4d+l3t+KR3IDAG/sL3FH64gW33fyiHwE50zZ4b0SYVqoBobARdvFrWtCbWvBTo
-         UaTEAk8+2v5IwAfb0ZBzQVt9BKJxfOvExLuQwIr4xAR2efq7PD85zGpVDPPrzb6OxToE
-         Wxcg==
-X-Forwarded-Encrypted: i=1; AL+hErHGhpfefZHs9cuGJHeftYfk7qMOxmqyzlY03ENt5Yz9IHyfH8uCrr2Ux/+vJTT4oD1kUpuk7dZ9+IGzYqM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/J+RcE9ltU7pHzELNFuBR8mQ9uNunIDn4gVXT0Cvr27pRCy4jJ
-	gG47nc3tsOLqEF2cSIShhRhvviMJW7ncl6J3ZdYwBjeBVosTpV2bMl5q
-X-Gm-Gg: AYBFou0d+mURjV1m2OHMSDn+iyMh+OGpB+p1NQnDS0ikXSJjy7WqP6A3/aI4516sSiG
-	LAZUG8P1/ETwXqbJ9LF7d6YOI9RXVwUZpqLSZ+71/8sxf7XeL3+wSQydz6uuzhaed5f/AR5cenw
-	SaUi/mWQ1uffMK8XGHupLttpqVWisp9SG7GbU5yPhDX3DWYnw1sA2yTJBuIP6n5JvGNl7AWO3eU
-	/+xujODj4blwpru/C/Tcn1JWt5nAvcd+T6qzsboQwHvLbpbcUNQCuydGIAsmNADh1sae8PH0AH5
-	72fPJrtWqWbIiHjPR4WaIrYeAkkRM9GD3LnhWr66KsGe/NkmSzCM9Cf2z05u6cD/Ubi7txlTX4x
-	reJDxn0V9VqmfrZoo7fa8izTXKTOdEmKgc5sr65sL2gQaZD5GcSddwWxAFZuWdTFcc5iIq9RepE
-	3FeBSdNEgXZbCYQqM7KwmChI6wG3bKrhAYxdxGgaPXtj0K4/qepT+0PP4kJ3xGBA+pT7uyCWV3Z
-	pzbTfdR6VgyO4NLPAq4MwETVzyMPLqV82mmuZocd5hmtuo7O0HvOVnUJ2p3nmZ4oFgnnPFYv+be
-	QCO1fwSAP7ErKZDmk5sQyDyrlf13vE6gg1zOSz52g81MA0l+pdomQZSGxF4=
-X-Received: by 2002:a17:906:c105:b0:c29:4915:83cb with SMTP id a640c23a62f3a-c4d6dd83952mr18385466b.39.1794089961874;
-        Sat, 07 Nov 2026 14:19:21 -0800 (PST)
-Received: from frame (h-155-4-132-44.NA.cust.bahnhof.se. [155.4.132.44])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a474e3dsm14108866b.42.2026.11.07.14.19.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 14:19:20 -0800 (PST)
-From: Elvira Khabirova <lineprinter0@gmail.com>
-To: Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?q?Hubert=20Wi=C5=9Bniewski?= <hubert.wisniewski.25632@gmail.com>,
-	linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqsDAE7f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402281F008A3;
+	Sat,  7 Nov 2026 22:22:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794090131;
+	bh=e8b2BxiNM2zDfbsfHX5lOdltBPseBRShaz9qPJkxXRw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FqsDAE7f+a160tFFkgUqjUF6DTdHtN56zbOQZufBN6+E2VrZnKvqyakwl9OdCuNWf
+	 7Kn9rtFQ3Ti9t+yZXjqVADYgS6eBXqRgznjBHQvKHWo+8KfF0SVVgx2SYhPCODCW/v
+	 VzzW7/KzL8x/XBJ/ADaQXCrF94L7vHXFNArCz1KB01j6JW4NWbUcB2sQsKKRSXDmil
+	 8MvXTzdjgpD0LvMZq2kRz8YezFtGlUOVpZU/ISC7ZaYWTDEk5Qjri1mer7zQfxVeDH
+	 2y8B31pkpEt6hnDgwpYWZGdTa4tggab5HxuVd85yr7BJIfOLHC0g2NQ7LFp6HSRUj3
+	 zMyGK3GoED4dg==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Elvira Khabirova <lineprinter0@gmail.com>
-Subject: [PATCH v4 2/2] usb: musb: gadget: don't flush a waiting RX packet when queueing a request
-Date: Sat,  7 Nov 2026 23:19:04 +0100
-Message-ID: <20261107221904.82487-3-lineprinter0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261107221904.82487-1-lineprinter0@gmail.com>
-References: <20261107221904.82487-1-lineprinter0@gmail.com>
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.6.y 2/3] mm/damon/core: filter out damos address filter-split failed region
+Date: Sat,  7 Nov 2026 14:22:00 -0800
+Message-ID: <20261107222202.331476-3-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107222202.331476-1-sj@kernel.org>
+References: <20261107222202.331476-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,362 +64,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx
-endpoint request"), musb_ep_restart() flushes the RX FIFO instead of
-calling rxstate(), with the premise that in case of Ethernet, dropping
-a couple of packets during gadget initialization is not an issue,
-because it will only happen when the software is not yet ready.
+When an address type DAMOS filter is configured, DAMOS tries to split the
+region for the filter range, and apply DAMOS action to the filter-in
+region.  The split operation (damon_split_region_at()) could fail from
+allocation failure under extreme memory pressure.  In the case, DAMOS
+action could be applied more or less than expected, ignoring the address
+filter.
 
-But when using other functions with musb, for example, f_mass_storage
-or f_acm, this code path will be used not only when the software is not
-yet ready, but also mid-communication, and it will cause data loss.
-Data loss happens on gadgets that don't always have requests queued
-for an ep.
+The issue only rarely happens under extreme memory pressure.  No crash or
+leak happens.  Occasionally not applying the action to a few regions
+shouldn't be a real problem.  But applying the action to a region that the
+user has excluded via address filter could be a surprise depending on the
+use case.  It is only theoretical.  No such real case is found yet.
 
-The timeline of a data loss:
+Filter out the entire region if the split is failed.  Update
+damos_filter_match() signature to receive the error from split.  Also
+update kunit tests for the updated signature.
 
-1. A function that does not have a lot of requests pre-queued
-   completes an OUT request. The queue is empty.
-2. The next packet comes. MUSB auto-acks it, places it into the FIFO,
-   sets RXPKTRDY, raises an interrupt.
-3. musb_g_rx() is called, sees the request queue is empty,
-   early returns.
-4. The function queues the next request (f_mass_storage does it from
-   the main fsg thread), musb_ep_restart does FLUSHFIFO, packet is lost.
-5. The packet was auto-acked by MUSB, so it is not resent by the host.
+The issue was discovered [1] by sashiko.
 
-Next data chunk arrives with an IRQ like so:
-
-musb_g_rx returns, queue empty
-        (drivers/usb/musb/musb_gadget.c:810)
-musb_g_rx from musb_interrupt
-        (drivers/usb/musb/musb_core.c:1786)
-musb_interrupt from dsps_interrupt
-        (drivers/usb/musb/musb_dsps.c:389)
-
-and then it is dropped from the FIFO when usb_ep_queue() is called:
-
-MUSB_RXCSR_FLUSHFIFO from musb_ep_restart
-        (drivers/usb/musb/musb_gadget.c:1174)
-musb_ep_restart from musb_ep_restart_resume_work
-        (drivers/usb/musb/musb_gadget.c:1184)
-musb_ep_restart_resume_work from musb_queue_resume_work
-        (drivers/usb/musb/musb_core.c:2277)
-musb_queue_resume_work from musb_gadget_queue
-        (drivers/usb/musb/musb_gadget.c:1249)
-musb_gadget_queue from usb_ep_queue
-        (drivers/usb/gadget/udc/core.c:306)
-
-In case of f_mass_storage, it keeps waiting for the lost data;
-the host then times out and resets the device. Since this is a race
-condition, this can be seen as data transfers taking too long,
-or as drives getting mounted but disappearing when data
-is read/written, and so on.
-
-  usb 1-8.4: reset high-speed USB device number 31 using xhci_hcd
-  I/O error, dev sdb, sector 240 op 0x1:(WRITE) flags 0x804800 phys_seg 30 prio class 2
-  Buffer I/O error on dev sdb, logical block 30, lost async page write
-
-When testing f_acm, this is seen as byte loss on the tty. f_hid,
-f_printer and f_fs lose data similarly.
-
-Testing with commit 3fc137386c46 ("usb: musb: Fix hardware lockup on
-first Rx endpoint request") reverted fixed these symptoms.
-
-Move the data processing to system_bh_wq. Purpose of doing so is to
-honor the usb_ep_queue docstring and to run in an interrupt context,
-avoiding the lockup Hubert described in his commit message.
-Alternative way of looking at this is it "re-triggers" the interrupt,
-running the musb_g_rx that had to be skipped.
-
-Such a change makes a different race condition more visible.
-On SMP or PREEMPT_RT, the RX interrupt can come while musb_g_giveback()
-is running on the same endpoint and has already dropped musb->lock;
-before this patch, that would be possible only when usb_ep_dequeue()
-runs in parallel with an interrupt, but after this patch,
-it could be the workqueue item running when an interrupt comes.
-Handling it at that moment could lead to packets getting stuck
-never matched with their requests (locking up the device essentially)
-or requests completing but out of order.
-
-So in musb_g_rx() and musb_gadget_queue(), also defer the RX'd data
-to a work item if ep->busy is set. The deferred work items are scheduled
-when the last musb_g_giveback() finishes and busy drops to 0.
-
-On suspend, disable the work items; on resume, enable the work items
-and also schedule one work item on every enabled OUT endpoint,
-to be sure no work is pending from before the suspend.
-
-Do not do any deferral of DMA completion. When musb_g_rx() is called
-with DMAENAB set, it means it's called from musb_dma_completion().
-A DMA completion could not be happening at the same time as
-a workqueue non-DMA giveback (because this DMA needed to be programmed
-first, and programming of a DMA is only possible when all non-DMA
-requests ahead in the request queue already got their givebacks).
-And work items of DMA requests don't do givebacks.
-Deferring DMA completion is more work, so just don't change
-the behavior there.
-
-DMA completion can still race with usb_ep_dequeue(), that's the same
-as without this patch. So DMA situation should not become any worse.
-
-The issue was reproduced and the patch was tested on a BeagleBone Black
-(AM335x, one core, no RX DMA) with f_mass_storage, f_acm, f_hid, f_printer
-and f_fs. It was also verified OK before and after this patch
-with f_ecm and f_ncm.
-
-This issue was also reproduced and the patch was tested on a Pine A64+
-(Allwinner A64, four cores, no DMA) with both PREEMPT_DYNAMIC
-and PREEMPT_RT, with lockdep enabled, with f_mass_storage, f_acm,
-f_hid, f_printer and f_fs. PREEMPT_DYNAMIC was also tested with KASAN.
-
-This patch was also tested with suspend to RAM on the Pine A64+,
-both idle and during a transfer.
-
-Fixes: 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx endpoint request")
-Signed-off-by: Elvira Khabirova <lineprinter0@gmail.com>
+Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
+Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: <stable@vger.kernel.org> # 6.6.x
+(cherry picked from commit bbeec2d8324d7aac438bb12dd2d22b184e0a8d43)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/usb/musb/musb_core.c   |   3 +
- drivers/usb/musb/musb_gadget.c | 118 ++++++++++++++++++++++++++++++++-
- drivers/usb/musb/musb_gadget.h |   9 +++
- 3 files changed, 127 insertions(+), 3 deletions(-)
+ mm/damon/core-test.h | 11 ++++++-----
+ mm/damon/core.c      | 13 +++++++++----
+ 2 files changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
-index 73ac25f53..b187727ff 100644
---- a/drivers/usb/musb/musb_core.c
-+++ b/drivers/usb/musb/musb_core.c
-@@ -2818,6 +2818,8 @@ static int musb_suspend(struct device *dev)
- 		;
- 	musb->flush_irq_work = false;
+diff --git a/mm/damon/core-test.h b/mm/damon/core-test.h
+index dd91b0eea61ff..1988b7dd29e96 100644
+--- a/mm/damon/core-test.h
++++ b/mm/damon/core-test.h
+@@ -461,6 +461,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2;
+ 	struct damos_filter *f;
++	int err;
  
-+	musb_gadget_disable_rx_kicks(musb);
-+
- 	if (!(musb->ops->quirks & MUSB_PRESERVE_SESSION))
- 		musb_writeb(musb->mregs, MUSB_DEVCTL, 0);
+ 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true);
+ 	if (!f)
+@@ -482,25 +483,25 @@ static void damos_test_filter_out(struct kunit *test)
+ 	damon_add_region(r, t);
  
-@@ -2877,6 +2879,7 @@ static int musb_resume(struct device *dev)
- 	}
+ 	/* region in the range */
+-	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
  
- 	spin_lock_irqsave(&musb->lock, flags);
-+	musb_gadget_enable_rx_kicks(musb);
- 	error = musb_run_resume_work(musb);
- 	if (error)
- 		dev_err(musb->controller, "resume work failed with %i\n",
-diff --git a/drivers/usb/musb/musb_gadget.c b/drivers/usb/musb/musb_gadget.c
-index b500e0d8b..08bb605aa 100644
---- a/drivers/usb/musb/musb_gadget.c
-+++ b/drivers/usb/musb/musb_gadget.c
-@@ -147,6 +147,21 @@ __acquires(ep->musb->lock)
- 	usb_gadget_giveback_request(&req->ep->end_point, &req->request);
- 	spin_lock(&musb->lock);
- 	ep->busy--;
-+
-+	if (!ep->busy && ep->rx_kick_deferred) {
-+		ep->rx_kick_deferred = false;
-+		if (!queue_work(system_bh_wq, &ep->rx_kick))
-+			pm_runtime_put_noidle(musb->controller);
-+	}
-+}
-+
-+static void musb_g_defer_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (musb_ep->rx_kick_deferred)
-+		return;
-+
-+	pm_runtime_get_noresume(musb->controller);
-+	musb_ep->rx_kick_deferred = true;
+ 	/* region before the range */
+ 	r->ar.start = DAMON_MIN_REGION * 1;
+ 	r->ar.end = DAMON_MIN_REGION * 2;
+-	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region after the range */
+ 	r->ar.start = DAMON_MIN_REGION * 6;
+ 	r->ar.end = DAMON_MIN_REGION * 8;
+-	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region started before the range */
+ 	r->ar.start = DAMON_MIN_REGION * 1;
+ 	r->ar.end = DAMON_MIN_REGION * 4;
+-	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 1);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 2);
+@@ -515,7 +516,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	/* region started in the range */
+ 	r->ar.start = DAMON_MIN_REGION * 2;
+ 	r->ar.end = DAMON_MIN_REGION * 8;
+-	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 6);
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 9d4a78deaa06a..99e934a6d1ce9 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -930,13 +930,14 @@ static void damos_update_stat(struct damos *s,
  }
  
- /* ----------------------------------------------------------------------- */
-@@ -817,6 +832,17 @@ void musb_g_rx(struct musb *musb, u8 epnum)
- 	csr = musb_readw(epio, MUSB_RXCSR);
- 	dma = is_dma_capable() ? musb_ep->dma : NULL;
- 
-+	/*
-+	 * A giveback is in progress on this endpoint, so the packet can't be
-+	 * handled now: the function could get its data out of order. Check for
-+	 * the packet once the giveback is done.
-+	 * Do not defer DMA completions: only usb_ep_dequeue() can overlap them.
-+	 */
-+	if (musb_ep->busy && !(csr & MUSB_RXCSR_DMAENAB)) {
-+		musb_g_defer_rx_kick(musb, musb_ep);
-+		return;
-+	}
-+
- 	musb_dbg(musb, "<== %s, rxcsr %04x%s %p", musb_ep->end_point.name,
- 			csr, dma ? " (dma)" : "", request);
- 
-@@ -1111,6 +1137,12 @@ static int musb_gadget_disable(struct usb_ep *ep)
- 
- 	/* abort all pending DMA and requests */
- 	nuke(musb_ep, -ESHUTDOWN);
-+	if (cancel_work(&musb_ep->rx_kick))
-+		pm_runtime_put_autosuspend(musb->controller);
-+	if (musb_ep->rx_kick_deferred) {
-+		musb_ep->rx_kick_deferred = false;
-+		pm_runtime_put_autosuspend(musb->controller);
-+	}
- 
- 	musb_ep->desc = NULL;
- 	musb_ep->end_point.desc = NULL;
-@@ -1171,12 +1203,41 @@ void musb_ep_restart(struct musb *musb, struct musb_request *req)
- 		txstate(musb, req);
- 	} else {
- 		csr = musb_readw(epio, MUSB_RXCSR);
--		csr |= MUSB_RXCSR_FLUSHFIFO | MUSB_RXCSR_P_WZC_BITS;
--		musb_writew(epio, MUSB_RXCSR, csr);
--		musb_writew(epio, MUSB_RXCSR, csr);
-+		if (csr & MUSB_RXCSR_RXPKTRDY) {
-+			pm_runtime_get_noresume(musb->controller);
-+			if (!queue_work(system_bh_wq, &req->ep->rx_kick))
-+				pm_runtime_put_noidle(musb->controller);
-+		}
- 	}
- }
- 
-+static void musb_g_rx_kick(struct work_struct *work)
-+{
-+	struct musb_ep *musb_ep = container_of(work, struct musb_ep, rx_kick);
-+	struct musb *musb = musb_ep->musb;
-+	unsigned long flags;
-+	u8 epnum = musb_ep->current_epnum;
-+	u16 csr;
-+
-+	spin_lock_irqsave(&musb->lock, flags);
-+
-+	if (!musb_ep->desc || musb->is_runtime_suspended)
-+		goto out;
-+
-+	if (musb_ep->busy) {
-+		musb_g_defer_rx_kick(musb, musb_ep);
-+		goto out;
-+	}
-+
-+	musb_ep_select(musb->mregs, epnum);
-+	csr = musb_readw(musb->endpoints[epnum].regs, MUSB_RXCSR);
-+	if (csr & MUSB_RXCSR_RXPKTRDY)
-+		musb_g_rx(musb, epnum);
-+out:
-+	spin_unlock_irqrestore(&musb->lock, flags);
-+	pm_runtime_put_autosuspend(musb->controller);
-+}
-+
- static int musb_ep_restart_resume_work(struct musb *musb, void *data)
+ static bool __damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+-		struct damon_region *r, struct damos_filter *filter)
++		struct damon_region *r, struct damos_filter *filter, int *err)
  {
- 	struct musb_request *req = data;
-@@ -1254,6 +1315,15 @@ static int musb_gadget_queue(struct usb_ep *ep, struct usb_request *req,
- 				__func__, status);
- 			list_del(&request->list);
+ 	bool matched = false;
+ 	struct damon_target *ti;
+ 	int target_idx = 0;
+ 	unsigned long start, end;
+ 
++	*err = 0;
+ 	switch (filter->type) {
+ 	case DAMOS_FILTER_TYPE_TARGET:
+ 		damon_for_each_target(ti, ctx) {
+@@ -962,12 +963,13 @@ static bool __damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
  		}
-+	} else if (musb_ep->busy && !request->tx &&
-+		   &request->list == musb_ep->req_list.next) {
-+		/*
-+		 * A giveback is in progress on this endpoint, so the request
-+		 * can't be started now. A packet may already be waiting, its
-+		 * interrupt having found no request. Check for the packet once
-+		 * the giveback is done.
-+		 */
-+		musb_g_defer_rx_kick(musb, musb_ep);
- 	}
- 
- unlock:
-@@ -1701,6 +1771,7 @@ init_peripheral_ep(struct musb *musb, struct musb_ep *ep, u8 epnum, int is_in)
- 	ep->is_in = is_in;
- 
- 	INIT_LIST_HEAD(&ep->req_list);
-+	INIT_WORK(&ep->rx_kick, musb_g_rx_kick);
- 
- 	sprintf(ep->name, "ep%d%s", epnum,
- 			(!epnum || hw_ep->is_shared_fifo) ? "" : (
-@@ -1810,6 +1881,47 @@ void musb_gadget_cleanup(struct musb *musb)
- 
- 	cancel_delayed_work_sync(&musb->gadget_work);
- 	usb_del_gadget_udc(&musb->g);
-+
-+	musb_gadget_disable_rx_kicks(musb);
-+}
-+
-+static void musb_g_disable_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (musb_ep->rx_kick.func && disable_work_sync(&musb_ep->rx_kick))
-+		pm_runtime_put_noidle(musb->controller);
-+}
-+
-+void musb_gadget_disable_rx_kicks(struct musb *musb)
-+{
-+	int i;
-+
-+	for (i = 0; i < musb->nr_endpoints; i++) {
-+		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_in);
-+		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_out);
-+	}
-+}
-+
-+static void musb_g_enable_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (!musb_ep->rx_kick.func)
-+		return;
-+
-+	enable_work(&musb_ep->rx_kick);
-+	if (musb_ep->desc && !musb_ep->is_in) {
-+		pm_runtime_get_noresume(musb->controller);
-+		if (!queue_work(system_bh_wq, &musb_ep->rx_kick))
-+			pm_runtime_put_noidle(musb->controller);
-+	}
-+}
-+
-+void musb_gadget_enable_rx_kicks(struct musb *musb)
-+{
-+	int i;
-+
-+	for (i = 0; i < musb->nr_endpoints; i++) {
-+		musb_g_enable_rx_kick(musb, &musb->endpoints[i].ep_in);
-+		musb_g_enable_rx_kick(musb, &musb->endpoints[i].ep_out);
-+	}
- }
- 
- /*
-diff --git a/drivers/usb/musb/musb_gadget.h b/drivers/usb/musb/musb_gadget.h
-index 95bc746f7..25482d46a 100644
---- a/drivers/usb/musb/musb_gadget.h
-+++ b/drivers/usb/musb/musb_gadget.h
-@@ -11,6 +11,7 @@
- #define __MUSB_GADGET_H
- 
- #include <linux/list.h>
-+#include <linux/workqueue.h>
- 
- #if IS_ENABLED(CONFIG_USB_MUSB_GADGET) || IS_ENABLED(CONFIG_USB_MUSB_DUAL_ROLE)
- extern irqreturn_t musb_g_ep0_irq(struct musb *);
-@@ -23,6 +24,8 @@ extern void musb_g_wakeup(struct musb *);
- extern void musb_g_disconnect(struct musb *);
- extern void musb_gadget_cleanup(struct musb *);
- extern int musb_gadget_setup(struct musb *);
-+void musb_gadget_disable_rx_kicks(struct musb *musb);
-+void musb_gadget_enable_rx_kicks(struct musb *musb);
- 
- #else
- static inline irqreturn_t musb_g_ep0_irq(struct musb *musb)
-@@ -42,6 +45,9 @@ static inline int musb_gadget_setup(struct musb *musb)
+ 		/* start before the range and overlap */
+ 		if (r->ar.start < start) {
+-			damon_split_region_at(t, r, start - r->ar.start);
++			*err = damon_split_region_at(t, r,
++					start - r->ar.start);
+ 			matched = false;
+ 			break;
+ 		}
+ 		/* start inside the range */
+-		damon_split_region_at(t, r, end - r->ar.start);
++		*err = damon_split_region_at(t, r, end - r->ar.start);
+ 		matched = true;
+ 		break;
+ 	default:
+@@ -981,9 +983,12 @@ static bool damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos *s)
  {
- 	return 0;
- }
-+
-+static inline void musb_gadget_disable_rx_kicks(struct musb *musb)	{}
-+static inline void musb_gadget_enable_rx_kicks(struct musb *musb)	{}
- #endif
+ 	struct damos_filter *filter;
++	bool matching;
++	int err;
  
- enum buffer_map_state {
-@@ -93,6 +99,9 @@ struct musb_ep {
- 	/* number of givebacks in progress; req_list may not be advanced */
- 	u8				busy;
- 
-+	struct work_struct		rx_kick;
-+	bool				rx_kick_deferred;
-+
- 	u8				hb_mult;
- };
- 
+ 	damos_for_each_filter(filter, s) {
+-		if (__damos_filter_out(ctx, t, r, filter))
++		matching = __damos_filter_out(ctx, t, r, filter, &err);
++		if (matching || err)
+ 			return true;
+ 	}
+ 	return false;
 -- 
-2.53.0
-
+2.47.3
