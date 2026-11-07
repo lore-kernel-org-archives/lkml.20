@@ -1,114 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794066534;
-	b=Lw/HwLHKvWP3W7rHHIrtOf+vmDVmrj/zsYme/Szpkf0exY2jXz87Osx/+au7yp8K0m8l
-	 gLWJx87Hxl8uXBc0p/Hhm7x6BZbUkPPN9VcuHzqL/v3kCV0hq1nCCRaRR8Osc3asvW973
-	 C84Xw9PsPoLFSdwG0BQN5KRMuo/ezTHVS9BvQ6qyTE35GDfhiU7qRA0T6uD51Nik5mG+U
-	 WlSEwaYDto/OoK049hXXoOcGk0kiCPdViaiwKdLRtLjnU8GRIj/YJWZ/PDR2v/dnh+tVP
-	 3eMtg92F3jbOlW5JXIVslXDI8+SI5j9fjnNiN9Ph8nUVOZ0hUppqUo0YAizYl9+2DjQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794066534;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HmKBCmKk7hRUwNt1A1mdws81hJGlC1N2BVaPlnuItqU=;
-	b=BFZptgL6VhYT+mPXJ8ova45gQYKsH42EEeJ8v4lBFHp7tXjaGJYIJyAMPhZZhWBTJuth
-	 ue0PD2g+tjf3d/ZdewhFa1hIZCG7AyFQbD0LTuZn6hWZd0P5nPcNyd9yjyjX/ItGynw8J
-	 gXJBXTWsNR1+j4L/MSYAulTL7XW2hOJ6OGKjHi2C8g5smqi5dkIj7D9d+WsSbLTGVFk5z
-	 Jrt98OnIGOPpbwOe14ihYV5x0jY95zQSkN0rPCSmh7rqd8cYWRwE+x6YPOt46RrYD7YH2
-	 vBry9ATG3etK15WYOY+M3zf3hpu1tjYPVdL2K+F/F+Nh/ySJl/1MWznv5wjBGai79kA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Rl4hxD3N;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.50
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011050.outbound.protection.outlook.com [40.93.194.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794066543;
+	b=F/gK5ut3s1lLrhcHQwkbKAhq1oLXn3UcSCwPug95Tjqd5OlCViGGKgB+mzefJPQB71TG
+	 bXeL7aUVhSSZiHSDYRK7b2tadb8LDOesvahphbSykc6hZdQMP+mlIMdTE5LINui3bET45
+	 iINSHDFzjFd5wgCNRj2qCGH+xKcXQsISCBpZJP5Sv7Wa4q8NoWzkLmdkYsyiscVJM7iky
+	 co726IePDOj80f+WSPCoXfEfYx1js4XsBXlPWXPP4fMmLvWQVZIhaRts2ooMb6mdSWpXf
+	 Nepu5HVD7E6M3AAbQYomqZmb6bjSH/3cVezD9iGKPEkasYeFmU8WW/llm01b0/XNz+A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794066543;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=fahaI6OQq9x7YGfJC2HqAOOcI8dBCMqnxeW+48drme8=;
+	b=Jua6AjRA2LkRaIzbeA6/Wo0yDnqEY4rNDjDicyLovptn1Oe2ZDflUrtFIND3njkA7U4H
+	 qvXleqA1skaRkMDGzM0xokx+EYa6dulVE2pbWOoslLIzjRDVIL8VRUzd6DH3T03CngP1E
+	 CE66kMLyM442pVJqAgTafCLuP3gQH/4Kbx6BM1HCF8KsKDQiRITpS5WPXGllHb2Jv22Si
+	 8fNuv85am3MJwoRjS7sy6aqKwYvz8PczidscojNav0GyFPX0z2/FO6JP9hfxRon+xitks
+	 OVhtLUgLRqlyFx7mbZO8979jAzZUO49xYzeHr1aXFPp/xc4Gx6wrX/G2HjZQNFU4L2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4786D60A2631;
-	Sat,  7 Nov 2026 15:48:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4786D60A2631
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Rl4hxD3N
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Feqr+pwysfsux3TQSLHerww6Rmc2QNEoHiKloPECGVtEhQ0HJFN/EfyGLnn4orMfFsDwkqkMFhsTweLMTpWxis1veG1nfVqC1M4Z/u0670FWfh49uiFnXib+Z68Y1naTxX7+yqlWeT15ZBOJRDrM9oW+7Ioa+kwEIZ63YFPR1YuF8rqG/firn+KG8RgXqdQtJHmbkRec61kGCaKKvRuVZPlVIL3QXj2Tqi4mfZEQmY4/EC2iH2m8ilxy8uPVwTZI4UYU+8hm86mLx/w4myK8efArYts39Hr98YnpZMhDrW+/pBJp5VuUc6uy+yD6PXWCdlIUnI6G6f7IpucMAC1Bqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HmKBCmKk7hRUwNt1A1mdws81hJGlC1N2BVaPlnuItqU=;
- b=pKDLXe0QK4g0iDcIOpYEA6iD6P++U/J4Zo9qnLT9DAv9eATSXdcXNvV/qZKN4nIxyuRgTwKPVZC5qCKVc2b5dqvsfsKUNwTHwdNx2glQELaZkd/q6B0zz5J9rcBKE/rxSNq6y1uN1WTrlI6jW2b5pmwt9khqfYZ/QWGQ8pMWPTooMWhM3ELaigffggkYenk+cZje8a3qvIne0CCbG3Gm3KbKcwTmC+HQdDR/cUzXmei9xWHiW4tVferdX62fB6zdGeiJYArKtjXZjyedQvyayi4P8UwJz5JD7rtCXqYecXpzekHtuir4ORS4dyizFAMbkUpmaKNyf9nQbEoVNnQ4lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HmKBCmKk7hRUwNt1A1mdws81hJGlC1N2BVaPlnuItqU=;
- b=Rl4hxD3NVK3t9kHrk6SyyPR+M56734wySeoMgVdpfyzpbcF/bIgDyFgAknwyG5dRNMv9YLjiu8kD0iHcSQGTXspUko5A2kEFg4z91wq0X+edU+mSvzOcu+7KstOZJrx9F68wBNvMTt5obpEm7geNcIjZmWSHI8oWtd0AC9VAN9g=
-Received: from BN1PR12CA0015.namprd12.prod.outlook.com (2603:10b6:408:e1::20)
- by CH8PR12MB9766.namprd12.prod.outlook.com (2603:10b6:610:2b6::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 15:48:49 +0000
-Received: from BN6PEPF00000072.namprd03.prod.outlook.com
- (2603:10b6:408:e1:cafe::56) by BN1PR12CA0015.outlook.office365.com
- (2603:10b6:408:e1::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Sat, 7
- Nov 2026 15:48:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN6PEPF00000072.mail.protection.outlook.com (10.167.248.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 15:48:49 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 7 Nov
- 2026 09:48:47 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 7 Nov
- 2026 09:48:47 -0600
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Sat, 7 Nov 2026 09:48:43 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <yung-chuan.liao@linux.intel.com>,
-	<pierre-louis.bossart@linux.dev>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
-	<Syed.SabaKareem@amd.com>, <Mario.Limonciello@amd.com>,
-	<Richard.Gong@amd.com>, <lee@kernel.org>, <Poojitha.N@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH v5 10/25] soundwire: amd: return response on IMM status cleanup timeout
-Date: Sat, 7 Nov 2026 21:15:19 +0530
-Message-ID: <20261107154659.3358223-11-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107154659.3358223-1-Vijendar.Mukunda@amd.com>
-References: <20261107154659.3358223-1-Vijendar.Mukunda@amd.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED56606EE97;
+	Sat,  7 Nov 2026 15:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ED56606EE97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAnLI1oSO9qDTeBAA--.3305S2;
+	Sat, 07 Nov 2026 23:48:56 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] usb: host: Fix companion leak in usb_enable_intel_xhci_ports()
+Date: Sat, 07 Nov 2026 15:49:07 +0000
+Message-ID: <179406654707.2627727.1039519639342632226@iscas.ac.cn>
+In-Reply-To: <57369b29-27ce-432d-aac3-b86c71a08330@linux.intel.com>
+References: <20260916164840.2085101-1-vulab@iscas.ac.cn>
+ <57369b29-27ce-432d-aac3-b86c71a08330@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,77 +55,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000072:EE_|CH8PR12MB9766:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5e97306-c107-4bec-79e8-08df3ce69d94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|261026140227099003|11063799006|261022075727099003|261009223027099003|56012099006|261022105027099003|261021121427099003|261021123027099003|261102123227099003|261028144727099003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	8r8P96ybPxjI1UCMWfOaMtEfahSZAZ6zJZ31cNrYsoCC7tV4wjun3RVvHOvrl/thBuZyLr9D2WANTADWG335rtpZGSyWdd7FMlmdZ+7acNx6i9/I17AOpbmtXDqWSPv8G5rrs52xCAhDyO/Ax21pJZ4EA/Zi5f+bXS6fU6JchXGY5EK/wWJXY3h4hp8ZlnPpDBKN5z+NbHJDHFSvI29zmsC4Xq93RrprP7NNrzU5rfEoyF3AdKChgFTJ2xPnw4lHp2zxnT4NGN2adeanurpnGnnxaEqXVxgNHiWlSJKBdKyOWxkPN0DHYDkvXNx+coSxGbilDxkvtLhOMC+ov/+phnNMDLfZzc7aBP0zfNj3ZqG6YI9jplnfiW6CshAh/4k2mqTmCAAPN2NSlNt+AtpwwZBe4uRiLf5+BrIQfm3aBHcMQVv12+TQL4fifMRr9/Tv4RKO/WPZOiFSPpprbU7Y6mChHv2iMxjxXHkidEjIhZiP2Ly9nTlAV1R225hsR3LwjhH10xKz6XfIHnZA5I7mLAxJswkKzV+rlBN/+HKurLyJKsRrmyHQoMr0R351fQok5XePOZDbGWLYet7S1FCrhBgAZc6flN94Eay9ghKIZGhXiHAITaIlGYUO7wY74n93t63A7ssBdn9lBJnQ0sncbtcJcwTwDTRrC3MgXQ8f55sjfe8O2RgiPcl33x/XbwsKSDhVWajgXxg5ukNcYj1SHw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(261026140227099003)(11063799006)(261022075727099003)(261009223027099003)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261028144727099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	b77PUz8DSpekrE8l+p0knuM30JWrCKKPBKkqzVKTTh3A5a2sxQirpuLSzphh3QSQ6Px4DI+s6IGY/d9rD3E/RJ6SgJ39kBQ5BeZS4aKD77eQ6jBeaHoh1Mg/iQy/q7ac38KLLsmwCUgj9Ob8uDoZPFjoiqANy7FhouPliFmTvRXI1FrLJFCeAGGpNDOF1gwjM7CCEOyu1w7Cd8dODi94k6ySkgxpewnGsppy3XoR7nmDJ1Q7tn6PEY2t1ug/dfYA2JaNe/Ra0AKWyaXio3Ct64Spff0zNt1RGVugH9RIoajuVTfh8mcZIC0wFLJzWhgpTYtPkfg56+h+7Qq/1JcQtpfuE+H8rE4kRLnRGh1kcVYfNYP9rhf8snPG/x9nPWnc44GmbD873bgE11ZypOBSPBYfPKLCpI9g0/kn4eKvM0qLZBh1hfuDF1nVM0+hLQNs
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 15:48:49.3361
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5e97306-c107-4bec-79e8-08df3ce69d94
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000072.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9766
+X-CM-TRANSID:rQCowAAnLI1oSO9qDTeBAA--.3305S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKrWDZFW3JFyDGw18WFyxuFg_yoW3Jwc_Ga
+	yqkryqqa1vgFWkJF1Fkr1Yy39xGFnF9r9rJrW0v3s2krWFyr1jqas8K3s3Xw17W3yIgw15
+	tF1FkayagryjvjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxxYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK
+	82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUwt
+	xhDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEEA2rvPp4OcgAAsT
 
-amd_sdw_send_cmd_get_resp() reads the hardware response after
-IMM_RES_VALID is set, then writes IMM_RES_VALID to acknowledge and
-polls until the bit clears (status cleanup handshake).
+Hi Mathias,
 
-When the cleanup poll timed out, the code returned the error without
-writing *response, causing callers to report SDW_CMD_TIMEOUT and
-discard a valid response - upper_resp and lower_resp had already been
-read before the cleanup write.
+Sorry for the very late reply.
 
-The cleanup timeout indicates the hardware was slow to acknowledge
-the clear of IMM_RES_VALID, not that the command exchange failed.
-Log the anomaly at warn level, then write *response and return 0 so
-callers receive the valid data. The stuck IMM_RES_VALID bit will be
-cleared at the next invocation by the existing bad-state guard,
-provided IMM_CMD_BUSY is not also stuck at that point.
+You are right: pci_dev_put() should only be called when the loop is left
+with ehci_found set, so it belongs after the !ehci_found check or in the
+match branch before the break. My version released the reference
+unconditionally after the loop.
 
-Fixes: d8f48fbdfd9a ("soundwire: amd: Add support for AMD Manager driver")
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- drivers/soundwire/amd_manager.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+While checking mainline before preparing a v2, I found that the same fix
+is already merged:
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index f2ed0490aa82..579b12946c0c 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -384,9 +384,12 @@ static int amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lo
- 	ret = readl_poll_timeout(amd_manager->mmio + ACP_SW_IMM_CMD_STS, sts,
- 				 !(sts & AMD_SDW_IMM_RES_VALID), ACP_DELAY_US, AMD_SDW_TIMEOUT);
- 	if (ret) {
--		dev_err(amd_manager->dev, "SDW%x cmd status retry failed\n",
--			amd_manager->instance);
--		return ret;
-+		/* Response already latched above; timeout here is non-fatal.
-+		 * The residual IMM_RES_VALID bit will be cleared by the bad-state
-+		 * guard on the next invocation, provided IMM_CMD_BUSY is not also stuck.
-+		 */
-+		dev_warn(amd_manager->dev, "SDW%x cmd status retry failed\n",
-+			 amd_manager->instance);
- 	}
- 	*response = ((u64)upper_resp << 32) | lower_resp;
- 	return 0;
--- 
-2.53.0
+  e93731c29f74 ("USB: pci-quirks: Release EHCI device reference")
+
+It calls pci_dev_put(companion) in the match branch before the break,
+which is equivalent to your suggestion. The patch is therefore redundant,
+so please drop it. I will not send a v2, since adding the put again on
+top of the merged fix would release the reference twice.
+
+Thanks,
+Wentao
 
