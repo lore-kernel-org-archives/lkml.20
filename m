@@ -1,47 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048458;
-	b=ON7qm5WuzoklyNarq4UQBqHssN+/DBp5lOuchDXSj30fAUsh79ZZhwu4HYOq4yYIwwbC
-	 txQaHKPP06+FlQbz38USCLP64gG16pmL+wYxJdLrzidl5/5LlzrCnmCaY+O85cImDQvm/
-	 yMlzDcq7nSil3bO9uow+FIOJIsllyaa2FiRfhwKPbeu64Su9pYiMgTqka01QD75xp/+7v
-	 C/jPb42H52K2BoRyX678gJQiinavqvhROQ01TLZNPZd/yWuNpH6UqMb27IG8jC1bLF/oZ
-	 HsA0JYpdbbVEYKH0sjTzmOSpo2p72EH9+AY/tp2GbETpJI2aznavELaStoALj9D/B2g==
+	t=1794048464;
+	b=3qNbP8byTiUI716cETfYzm0zgTVIqBXQ/Hlv0akUYBAFvdDmRAw6AGTsW3XHdQl/bGhr
+	 h2gmUqxoo25Xh8iOspLlzN0ayhUEQajKvy8q7Xxj0LuFUs1tXItA7mtPvVlRathXfsiWY
+	 K3o6hdmfjHfgfjHIIJc7CtKvjakC89msR1+rFYh2rkA/y2Bibu08lm10tA2IPfQp50eFy
+	 5X6dJzhLzPnbCS8jH3NzG1HvrFf8ZQgIqMueR2hAHLZ00kMlJu4+AJ5tZ4o+mKr52F/Uw
+	 ufMf+FRnrDrbv9MvWP7mA0J2+ShMFxRuLm/gVZWsmu6fDoG+Zpfv/njYq/Df2x1wg6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048458;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MSrHjfY/WZkk/pETr/Q3Wr6iNXKs2+5J8fccaM2oDgE=;
-	b=Y8tddqslgWjevPzqkKr/BBBWVtNux2eh4xamdI+BLymwSEDv337+7rbgTCdfhcTp3oKI
-	 PKhA6uj2uF8U6hhlY4u0nTVrDZ5yeMvt8eR8mViQVNOTZFFX9uWJffMRChsy2QikjsWb8
-	 SrwQDx0TQRZjuuGntH2UyrLCVnWUPTn9R948luvlh2YOkdshPyTDQ8G3dHjDFk7erQACp
-	 MyMcRaakVt0XfVDYe9YxeTAggtPzoD6if1kC1R/Hqm5it4k2DU/nWH6gUIrOyR2KxqYu5
-	 yU90f2uSY4CrBG22vsvG380Z6xgwWMVEzlLiXycOuCbrRUJ+IAIFMdZBm8UcHr+hBMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048464;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
+	b=hguZCK9MI1cm3hGRMg5hyLAV0K7YqQlpeSgmcTzRKdRot8M3M6uhP1931OW63nL/4Kdu
+	 nWg8lBORBXkJxN1vyslH559330S0Z9kM14dqMFQ6OrEdFrPnGQMLbl8kGnFit9A0LEh+p
+	 NSQWvq5Cn37sCnjWcORjKEmVhIRiPTlCutbh2e83Yp1HAvjci4Puzmzid0RmfB9lKzIhv
+	 9wX+sXdIXuKngjIGYKywqPg1emHqLVweLUnNRMKOvz/xd+IN0+pKDArI6cb9e6EaAVQU6
+	 iSQ/N7yAhN6Cty9s7R2XX5HztXYImVW9mYpI+SVhp+ig9aVHr59jT9CUCrGbS0qhytA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9pHJyTm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7Wlg3DU;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0B4606A330;
-	Sat,  7 Nov 2026 10:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EA0606D825
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3EA0606D825
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9pHJyTm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF4D1F0089F;
-	Sat,  7 Nov 2026 10:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048458;
-	bh=MSrHjfY/WZkk/pETr/Q3Wr6iNXKs2+5J8fccaM2oDgE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=U9pHJyTmHor+lViwKsJPk33P7P14jbD1SrJ+rSupXs08aJ/dbq7zxrV6NUfayDjbS
-	 OzzQG6rUbr+ZSwLP1yPKdHmuR1cGU591MLZxuvu+AlEFCAM49cUNhO9nefJUE2846S
-	 Fh2hhBJzb8VH5QyTCzVf1g5lzrUrnqGD3NHHdzkQbYcOsOBfSiILwipnvg49KKAm4S
-	 BhJEw6OZydQRFIuOJXWhroFOgBVo+GBpOxtvvwc5abgG9l5BvBRoEJzrPRE2CTGIuW
-	 O0VtcUOMN0Y+SpgAPJlmHM+RK1J/+mGL+CY0qWFS9NF+lpvt3GWkMWtbV27DJmYSU5
-	 IDA36vkplXHrg==
-Message-ID: <09e64838-2b95-4c82-912c-34f95a0f3993@kernel.org>
-Date: Sat, 7 Nov 2026 11:47:31 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7Wlg3DU
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so13015305e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:47:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794048462; x=1794653262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
+        b=X7Wlg3DUIcRHTVrYGzxJ2BEaIfyXqmm3nJPYTC+NuLtMcYPhGC0ng+vGEYGOBhMRiA
+         snJtFNDG/G5soobH+RFH5AwHv9/y1znuzh1F6vvdyV3gGK4jyVEdZnX7ArfWiEBhVKHA
+         D8UjlPO7XiNX86BFtfrdOSlHuMm6J5jWEP3Is8AdtTIEgMdZq/MiDXETWyxKI007X7LL
+         9Abus2RajP/Hw2HUfdo8gsNLTWJ0ZObARhvH4TJEShkgN5K2JdZAzPOqXBD+hB5g1c9l
+         RPm1ZRn99JiW4UAb9afvDAu847ki3SWcfP/UvsBgwoqQM+gEklTZy+6Oxw8KgL9cl98c
+         HYbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794048462; x=1794653262;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
+        b=2vWI47sgqp45fDiEj/dgbCXRHLIKVRfhC1FNvbl32PYZIFf9jvgW8LO9fPYUGxBXvd
+         LN83Y7rn/HY5IzIbJv4EMqKVmOSCyW85jAGkykN1r1Onwi3snROXfz+fPm+manfVZt8i
+         mC/g0BsHQdgyXKZYW/bXAP88LFNHz3c0fXy96c4/GsOsR0rA6U0xTPSW42TQtMDnYPGo
+         sSQ3hMfAs4TENil+Xuz2q9oq5UyCtbqSyWHgU9mFFUr9n2SORjH95GVVNiqbXPPzuTUx
+         s+AfQmMDUyaVMAA0Qoo9L/mu+Oul3VDjkUNZYzKu/7FvE8S/ay3kIIoIuUfvWFF8ngnJ
+         UHtg==
+X-Forwarded-Encrypted: i=1; AKwUvByXj2dputSsLzQoDD+8UC/myU5Rli4yt5IeLtZDCjwnGcqK+APERYTPbRJXIPK8fWyNb7j4EnPDom8Jy3s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HflEj7M7f9ZuPScq1GecYCuLpm4Yww5NxI/a3CacBd6WziGRL
+	U8Y0GAzTKOXdi+dYebS3JbPHitqeWT8C+38FyJCl03jC+/ORsSIDu6hn
+X-Gm-Gg: AYBFou2QAc0fwk0DPSeaBp6OEl2B2N9tuXPo96KCfxJ2yp8LbPlgN5zLMA7IDkSGCaU
+	T2cOVO6PWuEZjEgn/rP5RtNAFBteIkdvaUNNHU0IR5UqEMOUTGlUfkinQMHCt3E9HuGpKHdpIqF
+	JJN9XHhkHMN07J6iiWyRJ2S+Hl8+zL0nG57EvDA1ma+88ZwkUu77p9LxF32eqNHwbP2ldcJj5Wk
+	FOyo1INdBQw0NfLBP+KEfFNBNSGIBMuzcFTEd0m/8KCL5oR54EYZ0oN9nSLXodI+1OFIixPY5LZ
+	gOMn+MjNxUA7V9+CS5/ueAD2IcqGnCINKN2kmr73e4xzVH1sa6BoLgKSyCipTZ2JnVWVtpIk8hE
+	1cmeP9+zthEofV0prQJrhCYs0NmEuZIaQxy0UJEB32JmGQrZ1y50q0Dz8M882ObtEdjLznhFrxH
+	cBvCsJ4DmXjVjllA2QL7gSJLCIrRh4Cbt+3zToVq12rpgWNY2PCn6c2arvtUckv4auH9OO3uzTL
+	f3RlyOSQ/Sr/mekrdiW5HwWaxODQPWbV23GjFIVmLzNIZxoN0657ATUaF4f2Ut/MgGzQvzp5K75
+	vMxZ0KZFF0OlQavnk357ROlbi/uRg2rLD0U0t5R2UCSxMhyi/cW7a8DeC9F6oZYFeB+bZEQhD1B
+	ol5omhrNfZ/5uB5AvfVGob05VA8UM5PPB0YU3LB+k2qix5l2rn5i00wJaKga46b3V9ZyFk0ZYYc
+	3lOWZ7BbjGg1CUnFtDKuWgjICmysnCZ7NrZR0T
+X-Received: by 2002:a05:600c:3f12:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4b6d82b2c91mr92859825e9.0.1794048462222;
+        Sat, 07 Nov 2026 02:47:42 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795024730sm47935635e9.4.2026.11.07.02.47.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 02:47:41 -0800 (PST)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/3] media: vivid: synchronize imported DMA-BUFs for CPU access
+Date: Sat,  7 Nov 2026 11:47:03 +0100
+Message-Id: <20261107104703.44111-4-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261107104703.44111-1-kmehltretter@gmail.com>
+References: <20261107104703.44111-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,74 +110,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] regulator: convert to subsys_platform_driver()
-To: Brian Masney <bmasney@redhat.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, patches@opensource.cirrus.com
-References: <20261106-regulator-subsys-v1-1-1f91f4204bf5@redhat.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-regulator-subsys-v1-1-1f91f4204bf5@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07/11/2026 01:28, Brian Masney wrote:
-> Reduce boilerplate code in these drivers and convert them over to use
-> the macro subsys_platform_driver().
-> 
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
+When configured to use vb2-vmalloc, vivid accesses imported DMA-BUFs with
+the CPU without cache synchronization, leaving physical RAM stale after
+capture.
 
+Set uses_cpu_access on vb2-vmalloc queues to bracket the driver's CPU
+access.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Fixes: c88a96b023d8 ("[media] vivid: add core driver code")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+v2:
+- Set uses_cpu_access only when vivid uses vb2_vmalloc_memops
+  (allocators[dev->inst] != 1) instead of unconditionally (Tomasz Figa).
 
-Best regards,
-Krzysztof
+ drivers/media/test-drivers/vivid/vivid-core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
+index c042d92db175..f6c7460cdba7 100644
+--- a/drivers/media/test-drivers/vivid/vivid-core.c
++++ b/drivers/media/test-drivers/vivid/vivid-core.c
+@@ -919,8 +919,10 @@ static int vivid_create_queue(struct vivid_dev *dev,
+ 	if (buf_type == V4L2_BUF_TYPE_VBI_CAPTURE)
+ 		q->max_num_buffers = 32768;
+ 
+-	if (allocators[dev->inst] != 1)
++	if (allocators[dev->inst] != 1) {
+ 		q->io_modes |= VB2_USERPTR;
++		q->uses_cpu_access = true;
++	}
+ 	q->drv_priv = dev;
+ 	q->buf_struct_size = sizeof(struct vivid_buffer);
+ 	q->ops = ops;
+-- 
+2.39.5 (Apple Git-154)
+
