@@ -1,58 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082914;
-	b=5QXpFoi5aAC5eCMzXpWqHtsTxH4srYguO+A/k/Lq43eloDYiIf8SfuLfB6SIJQ9LJVW3
-	 2e1p2tCMbQYQG9RLg7KRSbuPidk/5pixmEwbzt02Tt868WhBSFsT6uElKsJxcYkGfcOBb
-	 3Z/tfVtOhGIq+8xk9d9vmy1mdG4gOjZP24f9awtKZ9G5qczB07YNxpd8teGnZYi32Tll+
-	 J1Q6xdqs5p9aFfTvivW16CdITKowgYLI9e/kJ8e4jr/gaPhGUu/IxFx8DNGrOtt8nuZ3Y
-	 eUn28KkmqkCNC7peY1E5SAMEXaVXQeH5ta6CD0xpPJUEASLz06JeHZ/GAafv7eWxjrQ==
+	t=1794082934;
+	b=MXaVJvqUkt0ntYLJ7080AZvREcQOYLRdkFGyl9vBN8KgMRRlSs4+EyZ66KCGM6x94Tkx
+	 OmJm6E+hGEzHbUrlfbAzOClvOixD54SbCwQqpbNerSda5QROLc9Rl+8SgDAwN76lt4A1A
+	 C7QMJtAi2VZj+80mhlKNt8FLTLTxIkToh6RJUzEfOvf4bKji3VkuosSgH8cmRej46DwKF
+	 EugvPjTNBKCnVKcyQFi+xuOHDq99nMIDXh8EK45rGIVfdZthj2cFT6ZMo5WQox5/oMWih
+	 M7nVlt01U6B2t3zDN8f4rrQUa6e0oopmna2uT4wz80p+jqQBza8OUV4X8zjMbMZZBZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082914;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iOwit2Ku4CCe/YVLF5K+4NP4fyPujtIn150tHCKWHxk=;
-	b=ODYPRZP1jx76Xrn1mbgrdhAURpZefgBwWL2YAMpBMLqZQ9fwtbQn43ovr1PlFW7JdfSx
-	 BFTUp8K3+nwfbPxC3nSCRhKx380S8PAzVRhPeiHIwkdWSiWsjPL2sRGx1nPFvpE899z+E
-	 CAqUfzWq//nUMq2dH2nX0F5K4FLH6FkdrxiU/qYGSl1uyiIovdbjprcpt4qV2bE7zHJEI
-	 ONqaKKnTubyl/vUABKCB32h3dRrCKGPS3KDi6cl+cGEtioPETdOjC35M8TAWC1cIxp67s
-	 nozXJ/SB8TN7pq2AI6I5l0X0kyq9L6Eq/G4cA5tBny6MWub3V4XVdpsDxYXT1WnggcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082934;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=t3UtieEmmk/gVvAXyJNWWiM6U34t2QVAUEQ1LOXQpq8=;
+	b=F+6+XofByyqFEOEiGAk8lH2zhqWnl6sqJPuPgqOovIOJpTD2Pu8F5n0jzSR9o9vzL9Zo
+	 idiJZINwz6yG9IF5CtwpRZTcpC9xs7zL9FtI6qhhCwQQ+Ub36RtakcB6SDfCManVz2AhJ
+	 OK88UnwtSJtd2FNtgnvuU0YpklzLOyp6sAiRS8HZsLwBoFJ97sLOmSm54j23oIwbQvzcW
+	 scKBOO6zLD8OTFYOsB0qC4NmPir+13ZUEg7UfFVGARQzR231KIYxX5m2ZPdo+m1uNny9C
+	 S488tbLdfB0YOOUeOw6xqp9rYGUbrvpdv1vHoGxU1RLwOWp/pVt+z44gzXk5Hxq8i0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kmhoz4B/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oUTyCYaq;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22721606A32C;
-	Sat,  7 Nov 2026 20:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557C8606A335;
+	Sat,  7 Nov 2026 20:22:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 557C8606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kmhoz4B/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DAF1F0089F;
-	Sat,  7 Nov 2026 20:21:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082913;
-	bh=iOwit2Ku4CCe/YVLF5K+4NP4fyPujtIn150tHCKWHxk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kmhoz4B/0b2Xv7nnG6Swq1Pzb0a/Bud/bYmZr826wW3aB83Yi7EVOd9c/4DKQYRMm
-	 RXC6v0mnJsPbn38aoM3wUDwPko+FNPzaldyAoAlXif4EOnxGayt2JjcO1XfWysIlYi
-	 c9wXovv6QqksWbsTvVX17pMNrMlw4c+D+gaCMbTd1mmKtzEZ+nJO1ORywKh/O4tVxH
-	 RVbEEQhvY68libjvp1g9WMSZZQerDzaBQDu3ohC/+jOR1t7D7o71BM/TOhq56h6uuR
-	 pWqBsZkd2CqexTHFYaSnGXhEFFygZc0pfFXrt3GYgELKeA/+yJl71i+8CXyekmvTdg
-	 JvRSvTdpXKudw==
-Date: Sat, 7 Nov 2026 20:21:45 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- simeon@maryasin.name, lixu.zhang@intel.com, crofts@kernel.org
-Subject: Re: [PATCH v2 4/7] HID: sensor: custom: Fix state lifetime during
- removal
-Message-ID: <20261107202145.0348a033@jic23-hlaptop>
-In-Reply-To: <20261104201403.2039921-5-srinivas.pandruvada@linux.intel.com>
-References: <20261104201403.2039921-1-srinivas.pandruvada@linux.intel.com>
-	<20261104201403.2039921-5-srinivas.pandruvada@linux.intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oUTyCYaq
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0EDA42384D;
+	Sat,  7 Nov 2026 21:22:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794082923;
+	bh=t3UtieEmmk/gVvAXyJNWWiM6U34t2QVAUEQ1LOXQpq8=; h=From:To:Subject;
+	b=oUTyCYaq5yXX/qnBuuocYKg55FNP24yXMYZ2u9PjxfIIb3bxmF3rftwMQIayripE3
+	 uKXQP0+mETehN+7QpUooHRpENOlJVBHQ7vtVrAuJlpbcIlMFSUq9/KKDtCzfumWVla
+	 dMi8bHtlkoOE1sSPOvFNv67WafAIcCHZkfxcmTqvIUe4v2ToFJ8BJ4JO9T2WIPv620
+	 t/YwR15/CytMAzKXjrSX0WTt1dTUbACE0KtVcP2IioAIyCuWKH7RP5c6ShfcP8qnYU
+	 DsC+rJKW9DQGYWycRKIJl0MmlxrlJUs8Ba68BODJ8OH2Anwo5zKKxCP5fDPStRUnOI
+	 PYGs+gzEgdEtg==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: ti: k3-am62-verdin: Add RPi Touch Display 2 5-inch
+Date: Sat,  7 Nov 2026 21:21:56 +0100
+Message-ID: <20261107202157.163218-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,115 +68,284 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed,  4 Nov 2026 12:14:00 -0800
-Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-> Open misc device files can outlive platform-device removal. Since the
-> devm-allocated state can be freed while a reader is queued on its wait
-> queue, subsequent file operations may access freed memory.
->=20
-> Allocate the state independently of devres and give every open
-> file a reference to keep the FIFO and state alive after removal.
->=20
-> On removal, mark the device as disconnected and wake readers; make reads
-> return -ENODEV and polls report hangup and error. Free the FIFO and state
-> when the final reference is released. Unregister the sensor hub callback
-> before tearing down the interface so in-flight raw-event processing
-> finishes before the sensor state can be freed.
->=20
-> Fixes: 4a7de0519df5 ("HID: sensor: Custom and Generic sensor support")
-> Reported-by: =D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=
-=8F=D1=81=D0=B8=D0=BD <simeon@maryasin.name>
-> Closes: https://lore.kernel.org/all/CAM2dg7ewfVJSP4rFyhkCB1Rmd1+X56sAg=3D=
-eUdbPthG2xrLqwQQ@mail.gmail.com/
-> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Add a device tree overlay for the Raspberry Pi Touch Display 2 5" on
+the Verdin DSI_1 interface.
 
-Looks like fairly standard fix for this style of lifetime issue.
+The display is identical to the 7" one apart from the panel compatible.
+To avoid duplicating the 7" overlay, rework it moving the common part to
+a shared dtsi file.
 
-One trivial comment inline.
+Link: https://www.raspberrypi.com/products/touch-display-2/
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+---
+ arch/arm64/boot/dts/ti/Makefile               |  5 +
+ .../ti/k3-am625-verdin-rpi-display-2-5in.dtso | 17 ++++
+ .../ti/k3-am625-verdin-rpi-display-2-7in.dtso | 90 +----------------
+ .../dts/ti/k3-am625-verdin-rpi-display-2.dtsi | 97 +++++++++++++++++++
+ 4 files changed, 122 insertions(+), 87 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-5in.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2.dtsi
 
-
-> =20
->  /*
-> @@ -978,8 +1004,7 @@ static int hid_sensor_custom_probe(struct platform_d=
-evice *pdev)
->  	int ret;
->  	const struct hid_sensor_custom_match *match;
-> =20
-> -	sensor_inst =3D devm_kzalloc(&pdev->dev, sizeof(*sensor_inst),
-> -				   GFP_KERNEL);
-> +	sensor_inst =3D kzalloc_obj(*sensor_inst);
->  	if (!sensor_inst)
->  		return -ENOMEM;
-> =20
-> @@ -989,6 +1014,7 @@ static int hid_sensor_custom_probe(struct platform_d=
-evice *pdev)
->  	sensor_inst->hsdev =3D hsdev;
->  	sensor_inst->pdev =3D pdev;
->  	mutex_init(&sensor_inst->mutex);
-> +	kref_init(&sensor_inst->ref);
->  	platform_set_drvdata(pdev, sensor_inst);
-> =20
->  	ret =3D hid_sensor_custom_get_known(hsdev, &match);
-> @@ -1000,7 +1026,7 @@ static int hid_sensor_custom_probe(struct platform_=
-device *pdev)
->  		if (ret) {
->  			dev_err(&pdev->dev,
->  				"register_platform_device failed\n");
-> -			return ret;
-> +			goto err_free;
->  		}
-> =20
->  		return 0;
-> @@ -1010,7 +1036,7 @@ static int hid_sensor_custom_probe(struct platform_=
-device *pdev)
->  					   &sensor_inst->callbacks);
->  	if (ret < 0) {
->  		dev_err(&pdev->dev, "callback reg failed\n");
-> -		return ret;
-> +		goto err_free;
-
-Trivial but given it might free I'd all that label err_put
-
->  	}
-> =20
->  	ret =3D hid_sensor_custom_add_attributes(sensor_inst);
-> @@ -1035,6 +1061,8 @@ static int hid_sensor_custom_probe(struct platform_=
-device *pdev)
->  	hid_sensor_custom_remove_attributes(sensor_inst);
->  err_remove_callback:
->  	sensor_hub_remove_callback(hsdev, hsdev->usage);
-> +err_free:
-> +	kref_put(&sensor_inst->ref, hid_sensor_custom_free);
-> =20
->  	return ret;
->  }
-> @@ -1046,9 +1074,10 @@ static void hid_sensor_custom_remove(struct platfo=
-rm_device *pdev)
-> =20
->  	if (sensor_inst->custom_pdev) {
->  		platform_device_unregister(sensor_inst->custom_pdev);
-> -		return;
-> +		goto out;
->  	}
-> =20
-> +	sensor_hub_remove_callback(hsdev, hsdev->usage);
->  	hid_sensor_custom_dev_if_remove(sensor_inst);
->  	/* Remove enable_sensor first as it uses fields via power_state/report_=
-state. */
->  	sysfs_remove_group(&sensor_inst->pdev->dev.kobj,
-> @@ -1061,7 +1090,8 @@ static void hid_sensor_custom_remove(struct platfor=
-m_device *pdev)
->  	}
->  	mutex_unlock(&sensor_inst->mutex);
->  	hid_sensor_custom_remove_attributes(sensor_inst);
-> -	sensor_hub_remove_callback(hsdev, hsdev->usage);
-> +out:
-> +	kref_put(&sensor_inst->ref, hid_sensor_custom_free);
->  }
-> =20
->  static const struct platform_device_id hid_sensor_custom_ids[] =3D {
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index da654153a35b..5db6ca5b7f18 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -54,6 +54,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-rpi-display-2-5in.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-rpi-display-2-7in.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
+@@ -294,6 +295,9 @@ k3-am625-verdin-wifi-dev-ov5640-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
++k3-am625-verdin-wifi-dev-rpi-display-2-5in-dtbs := \
++	k3-am625-verdin-wifi-dev.dtb \
++	k3-am625-verdin-rpi-display-2-5in.dtbo
+ k3-am625-verdin-wifi-dev-rpi-display-2-7in-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-rpi-display-2-7in.dtbo
+@@ -454,6 +458,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am625-verdin-wifi-dev-ov5640-24mhz.dtb \
+ 	k3-am625-verdin-wifi-dev-ov5640.dtb \
+ 	k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb \
++	k3-am625-verdin-wifi-dev-rpi-display-2-5in.dtb \
+ 	k3-am625-verdin-wifi-dev-rpi-display-2-7in.dtb \
+ 	k3-am625-verdin-wifi-dev-uart4-mcu.dtb \
+ 	k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-5in.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-5in.dtso
+new file mode 100644
+index 000000000000..a6ee870aae0d
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-5in.dtso
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Raspberry Pi Touch Display 2 5" on Verdin DSI_1 and I2C_2_DSI
++ *
++ * https://www.raspberrypi.com/products/touch-display-2/
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include "k3-am625-verdin-rpi-display-2.dtsi"
++
++&panel_rpi {
++	compatible = "raspberrypi,dsi-5inch", "ilitek,ili9881c";
++};
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-7in.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-7in.dtso
+index 8366bebbd5d2..8cda872effc0 100644
+--- a/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-7in.dtso
++++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-7in.dtso
+@@ -10,92 +10,8 @@
+ /dts-v1/;
+ /plugin/;
+ 
+-#include <dt-bindings/gpio/gpio.h>
++#include "k3-am625-verdin-rpi-display-2.dtsi"
+ 
+-&{/} {
+-	backlight_rpi: backlight-rpi-display {
+-		compatible = "pwm-backlight";
+-		brightness-levels = <0 31>;
+-		default-brightness-level = <15>;
+-		num-interpolated-steps = <31>;
+-		pwms = <&mcu_display_rpi 0 200000 0>;
+-	};
+-
+-	reg_display_rpi: regulator-rpi-display {
+-		compatible = "regulator-fixed";
+-		regulator-max-microvolt = <5000000>;
+-		regulator-min-microvolt = <5000000>;
+-		regulator-name = "rpi-display";
+-	};
+-
+-	reg_display_rpi_touch: regulator-rpi-display-touch {
+-		compatible = "regulator-fixed";
+-		gpio = <&mcu_display_rpi 1 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		regulator-max-microvolt = <3300000>;
+-		regulator-min-microvolt = <3300000>;
+-		regulator-name = "rpi-display-touch";
+-		startup-delay-us = <50000>;
+-	};
+-
+-};
+-
+-/* Verdin I2C_2_DSI */
+-&main_i2c2 {
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-
+-	mcu_display_rpi: regulator@45 {
+-		compatible = "raspberrypi,touchscreen-panel-regulator-v2";
+-		reg = <0x45>;
+-		#gpio-cells = <2>;
+-		#pwm-cells = <3>;
+-		gpio-controller;
+-	};
+-
+-	touchscreen@5d {
+-		compatible = "goodix,gt911";
+-		reg = <0x5d>;
+-		AVDD28-supply = <&reg_display_rpi_touch>;
+-		touchscreen-size-x = <720>;
+-		touchscreen-size-y = <1280>;
+-	};
+-};
+-
+-&dsi_bridge {
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-
+-	status = "okay";
+-
+-	panel@0 {
+-		compatible = "raspberrypi,dsi-7inch", "ilitek,ili9881c";
+-		reg = <0>;
+-		backlight = <&backlight_rpi>;
+-		power-supply = <&reg_display_rpi>;
+-		reset-gpios = <&mcu_display_rpi 0 GPIO_ACTIVE_LOW>;
+-
+-		port {
+-			dsi_panel_in: endpoint {
+-				remote-endpoint = <&dsi_bridge_out>;
+-			};
+-		};
+-	};
+-};
+-
+-&dsi_bridge_ports {
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-
+-	port@1 {
+-		reg = <1>;
+-
+-		dsi_bridge_out: endpoint {
+-			remote-endpoint = <&dsi_panel_in>;
+-		};
+-	};
+-};
+-
+-&dss {
+-	status = "okay";
++&panel_rpi {
++	compatible = "raspberrypi,dsi-7inch", "ilitek,ili9881c";
+ };
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2.dtsi b/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2.dtsi
+new file mode 100644
+index 000000000000..cb63db881615
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2.dtsi
+@@ -0,0 +1,97 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Common device tree include for Raspberry Pi Touch Display 2 5" and 7"
++ * on Verdin DSI_1 and I2C_2_DSI
++ *
++ * https://www.raspberrypi.com/products/touch-display-2/
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	backlight_rpi: backlight-rpi-display {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 31>;
++		default-brightness-level = <15>;
++		num-interpolated-steps = <31>;
++		pwms = <&mcu_display_rpi 0 200000 0>;
++	};
++
++	reg_display_rpi: regulator-rpi-display {
++		compatible = "regulator-fixed";
++		regulator-max-microvolt = <5000000>;
++		regulator-min-microvolt = <5000000>;
++		regulator-name = "rpi-display";
++	};
++
++	reg_display_rpi_touch: regulator-rpi-display-touch {
++		compatible = "regulator-fixed";
++		gpio = <&mcu_display_rpi 1 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-max-microvolt = <3300000>;
++		regulator-min-microvolt = <3300000>;
++		regulator-name = "rpi-display-touch";
++		startup-delay-us = <50000>;
++	};
++};
++
++/* Verdin I2C_2_DSI */
++&main_i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	mcu_display_rpi: regulator@45 {
++		compatible = "raspberrypi,touchscreen-panel-regulator-v2";
++		reg = <0x45>;
++		#gpio-cells = <2>;
++		#pwm-cells = <3>;
++		gpio-controller;
++	};
++
++	touchscreen@5d {
++		compatible = "goodix,gt911";
++		reg = <0x5d>;
++		AVDD28-supply = <&reg_display_rpi_touch>;
++		touchscreen-size-x = <720>;
++		touchscreen-size-y = <1280>;
++	};
++};
++
++&dsi_bridge {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	status = "okay";
++
++	panel_rpi: panel@0 {
++		reg = <0>;
++		backlight = <&backlight_rpi>;
++		power-supply = <&reg_display_rpi>;
++		reset-gpios = <&mcu_display_rpi 0 GPIO_ACTIVE_LOW>;
++
++		port {
++			dsi_panel_in: endpoint {
++				remote-endpoint = <&dsi_bridge_out>;
++			};
++		};
++	};
++};
++
++&dsi_bridge_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	port@1 {
++		reg = <1>;
++
++		dsi_bridge_out: endpoint {
++			remote-endpoint = <&dsi_panel_in>;
++		};
++	};
++};
++
++&dss {
++	status = "okay";
++};
+-- 
+2.47.3
 
