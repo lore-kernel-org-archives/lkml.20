@@ -1,75 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051305;
-	b=z6PV79fSKkAmmaqrU+p0YIG40EvgqL2AoU70ZXHd3r2B+/FBFucDG9/gjhHYyjsBR4qz
-	 WNUKpgkeUfGBBXId4VwKzKaQ8+49/UoAdBRUoHyjjjqfTub40CnkxaKCmHW1S6GmnDkv+
-	 IgCYzzJ/6uuaSuAKM9nx0CrGywipcMBi+ob+bPdlRT3I2mBMFXALR3Zg2GhLJ/CNzs1eb
-	 8eTWPLtkPZ5L2mrI0opRAGf+8MMnFwXo7PFwWT6dB0xQb/Fuzbi2934kSIjxXh5u81PDr
-	 wY3zrvCfsQ9UVkKiRIqIIPuHo9wpUPm95Tq9/1Hw63KB6hA2nOw2NHDL/WkugJF3ttw==
+	t=1794051409;
+	b=mACPZCsr5bz1M4h2wzaE6hbLSJ2qJj+Im3P2zJxV7+CFX4SsfESSlxG3TQMJX0jpaXDt
+	 ld8ZI5E8UJl3FiLEnSLUiH/tXdeg3/f6Om4KsER5cNcJ2mDeo570on6lr/I37W/TyUhmh
+	 2g0avt0Tn+JuKfrdVwyOMuvI7ZKH8F7oK+ksexXR0ZZqb3+WRzddneySclZE4Tw+zZ2z5
+	 FqJyXJTVB4puZ4oc2nwj1EVjR+fRgVlyvqxp5w/udDKSDy6ujBP++qKoWkSKr1FVu8uP2
+	 OJuIyrC9+Qaoxb811alSTgEMaHGMVArxcAy1dgeYFGYUWudnKff5PJbDtkmAxqje9zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051305;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051409;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=XLbaGDM2COjEF6QXUMnFci+Kn7F6xKRJ6DxPfKIJM/4=;
-	b=WWCHcJdC+sAK524+XqK3JyiXIulY8QApAHAO7PEn6ABgAnstqh117HYkcb5GPZhVBqEM
-	 4k2jtkBzItGo0EG9EN8YK783DPtMVaS2kJQnytCcSnEHjM0wQNuhiwO876A4kDoMYbqah
-	 6NiQJwTiSUln7UJpAzJakyfiSv06c8RCK7K2Efhp7qV9yoU1z70MaMdAjFNVSuNEXxaOY
-	 1sa765hdVhk1EahSrpmvBO6r7DCydaxZMd+jfRSDln6wnnfYqIWvPfM1nLO2dt3TnIf4I
-	 ogx3jKLcKl4EogHmZQEyfsfjmTKlbvN3LcgDcbqIWSCGJMtwn4XWoH9sna9ilhILqjg==
+	bh=qR3Wm6eekTc+NqUi4oVe+7Xq25uRM/fM/h7o2eTGmI0=;
+	b=5C4+ZD7i00fXOqiiP5vlpm4UlVMCcC9PjuJkBIpHfNXJXhhWw6bKjP6iVGxPRCVk1MwO
+	 PXZA5nsgMwNC6LHI0IZ/elpYwEKY82A92gEalo8SP/ayyMHDYyHqJ2zLXMEqRiTlNDgAL
+	 CXmoA9zuf47rpM1yQmE6Yd+HUEWYEVLdm3AN7/IFda+HEgMKylCh8CNjeTp2IZVLtNp19
+	 5WPej2fmz8dwRL0kp0rFAIKELfhTr9hR4NcVaCor67dWE3e1MX9uZggAfbmWP2eZqUAzI
+	 L2GMLyQX9dt8ZmC/F3lxwRGd/4OoNMTs4Fg+E3TD98j9Cte0Aj8haPB2D7JEgTDR6rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VPaBFo97;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=sonkYySm;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845B1606A326;
-	Sat,  7 Nov 2026 11:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 845B1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB075606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:36:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB075606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VPaBFo97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794051305; x=1825587305;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=j8kUwPlcPLqU+l5i7Le/kW+vmc3UiikYsnY+VavUoQ0=;
-  b=VPaBFo97Eu6A0NTrLT24zxjlScE3z48H93z9rLQg1ompVdYLYkiXCgy/
-   BYVYGSQloKm1zN3URpLmHW7k9pyfTYX8/N1Q/ievfo39Wjs4wgVKA+GK7
-   i4tDMehD0N6My73nexIPSS0siq4PF3PAI2bgLWRNmMAFM+O7bJ3ec+4eV
-   jDYZfEUA9zumOUc0+2muU9mOcxMwfGA980V92c911O70LbNt6G9QLT8Xd
-   inDmg0pcYDQrm5cVjNeK2YbrPC5BL1pLSzlUHLwX1i+L6jQQlEkda2tii
-   L910pkXu4yVNEuCRnSLRjV316K4eXJhPf2NMeqMAjglSrYLrzauQTvT8e
-   w==;
-X-CSE-ConnectionGUID: Ku+iEE8sRS+gvrpAtZJNig==
-X-CSE-MsgGUID: syVgZe9BSpi2iGfIceIBdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2894470"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2894470"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 03:35:04 -0800
-X-CSE-ConnectionGUID: qfFdZ08vSxykMQX+zdr5Bw==
-X-CSE-MsgGUID: mu0QJXHDTYGtt4wv0pL6rw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7340876"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa004.jf.intel.com with ESMTP; 07 Nov 2026 03:35:03 -0800
-Date: Sat, 7 Nov 2026 19:27:37 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: bo cao <treebacker@foxmail.com>
-Cc: linux-fpga@vger.kernel.org, yilun.xu@intel.com, trix@redhat.com,
-	mdf@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fpga: dfl: afu: prevent read-only region mappings from
- becoming writable
-Message-ID: <au8LKUyKQpGCy58F@yilunxu-OptiPlex-7050>
-References: <tencent_C59525D78A2FBCC2425A3CA9EF4C53D56F08@qq.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=sonkYySm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=qR3Wm6eekTc+NqUi4oVe+7Xq25uRM/fM/h7o2eTGmI0=; b=sonkYySmvVUJQBlRJPxf2BjpNT
+	X6yXG7/pN9PBDd9CC3Efip/WK0KR+a3zTHb9pMA3y0DfUGMVgLU6BzPQdKPy/KsZ2SlgOmaarY1Uc
+	S4nHEnjhMwrPxWFsTfuIJQpnY1TXXgzMY8JlWQ5pgu9hTB+P0TASd9jn3o2ibvPsr4Wl2T4Ii0ChT
+	DHywGMtGCvpcF05bumVOxA8DOwaqYkHJSwqYlg6pldvobaxeEnhOXAFyTU9xQMoT69nYeOKCoJsMp
+	DjP76pJqkjMZrqA/kldkxlZa8gOMKPA8vFU6HEPvA8uaBHJbQCagPqGfbmry57Jto3kzTF0IYB/an
+	eTWXxXcg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xPeiu-0000000HSFS-3SV4;
+	Sat, 07 Nov 2026 11:36:40 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id D63AA300339; Sat, 07 Nov 2026 12:36:39 +0100 (CET)
+Date: Sat, 7 Nov 2026 12:36:39 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: mingo@kernel.org
+Cc: linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com, joshdon@google.com,
+	tj@kernel.org, jakub@okonski.org
+Subject: [PATCH v2 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
+ tg::idle
+Message-ID: <20261107113639.GK2668200@noisy.programming.kicks-ass.net>
+References: <20261105165525.011876858@infradead.org>
+ <20261105170157.616859418@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,63 +73,165 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_C59525D78A2FBCC2425A3CA9EF4C53D56F08@qq.com>
+In-Reply-To: <20261105170157.616859418@infradead.org>
 
-On Thu, Oct 29, 2026 at 11:53:17AM +0800, bo cao wrote:
-> afu_mmap() rejects writable mappings of regions without the WRITE
-> flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
-> read-only and then upgrade the mapping to writable with mprotect().
-> 
-> Clear VM_MAYWRITE for regions without the WRITE flag, as fixed in
-> vfio/platform (commit 420bed9131db), drm/vc4 (CVE-2026-68445),
-> drm/panthor (CVE-2024-53071) and ptp/vmclock (commit a5edadbae57e).
 
-Interesting, people write exact same changelog. I'm not sure if it is a
-sign that AI generated it and just sent. I don't reject AI entirely, but
-please write the changelog and comments by hand, to give me the
-confidence that you really know the change.
+Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
+all ancestor tg::idle. This makes it trivial to tell if the current cgroup
+is marked idle somewhere along its ancestral path.
 
-Or maybe I'm wrong, you saw other's patch and copied it. Please don't.
-If you really want to improve something, comment on that patch.
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+---
+ kernel/sched/debug.c |    1 
+ kernel/sched/fair.c  |   88 +++++++++++++++++++++++++++++++--------------------
+ kernel/sched/sched.h |    2 -
+ 3 files changed, 56 insertions(+), 35 deletions(-)
 
-Even if you are sure the thread is dead and you revive it, reference the
-original thread and the author.
-
-> 
-> Note this is defensive hardening: the in-tree callers of
-> afu_mmio_region_add() (port_afu_init() and port_stp_init()) all
-> register their regions with DFL_PORT_REGION_WRITE.  The guard costs
-> nothing and keeps the mmap() interface honest if a read-only region
-> ever appears.
-> 
-> Fixes: 857a26222ff7 ("fpga: dfl: afu: add afu sub feature support")
-> Signed-off-by: bo cao <treebacker@foxmail.com>
-> ---
->  drivers/fpga/dfl-afu-main.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/fpga/dfl-afu-main.c b/drivers/fpga/dfl-afu-main.c
-> index 097a97eeea66..a802309e0473 100644
-> --- a/drivers/fpga/dfl-afu-main.c
-> +++ b/drivers/fpga/dfl-afu-main.c
-> @@ -833,9 +833,13 @@ static int afu_mmap(struct file *filp, struct vm_area_struct *vma)
->  	if ((vma->vm_flags & VM_READ) && !(region.flags & DFL_PORT_REGION_READ))
->  		return -EPERM;
->  
-> -	if ((vma->vm_flags & VM_WRITE) &&
-> -	    !(region.flags & DFL_PORT_REGION_WRITE))
-> -		return -EPERM;
-> +	/* Prevent read-only region mappings from being upgraded with mprotect() */
-> +	if (!(region.flags & DFL_PORT_REGION_WRITE)) {
-> +		if (vma->vm_flags & VM_WRITE)
-> +			return -EPERM;
-> +
-> +		vm_flags_clear(vma, VM_MAYWRITE);
-> +	}
->  
->  	/* Support debug access to the mapping */
->  	vma->vm_ops = &afu_vma_ops;
-> -- 
-> 2.39.5 (Apple Git-154)
-> 
-> 
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -1090,6 +1090,7 @@ void print_cfs_rq(struct seq_file *m, in
+ 	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_runnable", cfs_rq->h_nr_runnable);
+ 	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_queued", cfs_rq->h_nr_queued);
+ 	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_idle", cfs_rq->h_nr_idle);
++	SEQ_printf(m, "  .%-30s: %d\n", "idle", cfs_rq->idle);
+ 	SEQ_printf(m, "  .%-30s: %ld\n", "load", cfs_rq->load.weight);
+ 	SEQ_printf(m, "  .%-30s: %lu\n", "load_avg",
+ 			cfs_rq->avg.load_avg);
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -445,8 +445,10 @@ static int cfs_rq_is_idle(struct cfs_rq
+ 
+ static int se_is_idle(struct sched_entity *se)
+ {
+-	if (entity_is_task(se))
+-		return task_has_idle_policy(task_of(se));
++	if (entity_is_task(se)) {
++		return task_has_idle_policy(task_of(se)) ||
++			cfs_rq_is_idle(cfs_rq_of(se));
++	}
+ 	return cfs_rq_is_idle(group_cfs_rq(se));
+ }
+ 
+@@ -15659,19 +15661,20 @@ int alloc_fair_sched_group(struct task_g
+ 
+ void online_fair_sched_group(struct task_group *tg)
+ {
+-	struct sched_entity *se;
+-	struct rq_flags rf;
+-	struct rq *rq;
+ 	int i;
+ 
+ 	for_each_possible_cpu(i) {
+-		rq = cpu_rq(i);
+-		se = tg_se(tg, i);
+-		rq_lock_irq(rq, &rf);
++		struct cfs_rq *cfs_rq = tg_cfs_rq(tg, i);
++		struct sched_entity *se = tg_se(tg, i);
++		struct rq *rq = cpu_rq(i);
++
++		guard(rq_lock_irq)(rq);
++
+ 		update_rq_clock(rq);
+ 		attach_entity_cfs_rq(se);
+ 		sync_throttle(tg, i);
+-		rq_unlock_irq(rq, &rf);
++
++		cfs_rq->idle = tg_cfs_rq(tg->parent, i)->idle;
+ 	}
+ }
+ 
+@@ -15780,6 +15783,43 @@ int sched_group_set_shares(struct task_g
+ 	return ret;
+ }
+ 
++struct tg_set_idle_struct {
++	long idle;
++	int cpu;
++};
++
++static int tg_set_idle_up(struct task_group *tg, void *data)
++{
++	struct tg_set_idle_struct *tsi = data;
++	struct cfs_rq *grp_cfs_rq = tg_cfs_rq(tg, tsi->cpu);
++	struct sched_entity *se = tg_se(tg, tsi->cpu);
++	int old_idle = grp_cfs_rq->idle;
++	int task_delta;
++
++	grp_cfs_rq->idle += tsi->idle;
++
++	if (!!old_idle == !!grp_cfs_rq->idle)
++		return 0;
++
++	task_delta = grp_cfs_rq->h_nr_queued - grp_cfs_rq->h_nr_idle;
++	if (!task_delta)
++		return 0;
++
++	task_delta *= tsi->idle;
++	for_each_sched_entity(se) {
++		struct cfs_rq *cfs_rq = cfs_rq_of(se);
++
++		if (!se->on_rq)
++			break;
++
++		cfs_rq->h_nr_idle += task_delta;
++
++		if (cfs_rq_is_idle(cfs_rq))
++			break;
++	}
++	return 0;
++}
++
+ int sched_group_set_idle(struct task_group *tg, long idle)
+ {
+ 	int i;
+@@ -15798,34 +15838,14 @@ int sched_group_set_idle(struct task_gro
+ 
+ 	for_each_possible_cpu(i) {
+ 		struct rq *rq = cpu_rq(i);
+-		struct sched_entity *se = tg_se(tg, i);
+-		struct cfs_rq *grp_cfs_rq = tg_cfs_rq(tg, i);
+-		bool was_idle = cfs_rq_is_idle(grp_cfs_rq);
+-		long idle_task_delta;
+ 
+ 		guard(rq_lock_irqsave)(rq);
+ 
+-		grp_cfs_rq->idle = idle;
+-		if (WARN_ON_ONCE(was_idle == cfs_rq_is_idle(grp_cfs_rq)))
+-			continue;
+-
+-		idle_task_delta = grp_cfs_rq->h_nr_queued -
+-				  grp_cfs_rq->h_nr_idle;
+-		if (!cfs_rq_is_idle(grp_cfs_rq))
+-			idle_task_delta *= -1;
+-
+-		for_each_sched_entity(se) {
+-			struct cfs_rq *cfs_rq = cfs_rq_of(se);
+-
+-			if (!se->on_rq)
+-				break;
+-
+-			cfs_rq->h_nr_idle += idle_task_delta;
+-
+-			/* Already accounted at parent level and above. */
+-			if (cfs_rq_is_idle(cfs_rq))
+-				break;
+-		}
++		struct tg_set_idle_struct tsi = {
++			.idle = idle ? 1 : -1,
++			.cpu = i,
++		};
++		walk_tg_tree_from(tg, tg_nop, tg_set_idle_up, &tsi);
+ 	}
+ 
+ 	/* Idle groups have minimum weight. */
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -751,7 +751,7 @@ struct cfs_rq {
+ 	struct list_head	leaf_cfs_rq_list;
+ 	struct task_group	*tg;	/* Group that "owns" this runqueue */
+ 
+-	/* Locally cached copy of our task_group's idle value */
++	/* Sum of all ancestor tg->idle. */
+ 	int			idle;
+ 
+ # ifdef CONFIG_CFS_BANDWIDTH
