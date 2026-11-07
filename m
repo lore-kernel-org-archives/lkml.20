@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794081222;
-	b=UmTFrgjWqbhE821TCczw7Pq3hKV+hill+rI33GWLnSI8MANfm/yIePMCZD9GOfX9biAD
-	 my3TmFWegq1hA2E28qOcjfd93OAildb+SKAH96NO9XWvINeazUIcTLLseu+bwIVGQnILL
-	 2YRSTiQrNfnV+Dl99sITsJWlqGG4KkV+xgXoQojmDwbzOKp5CzedkRf67oYYy1QsppS+v
-	 3EM23wFyS3JvuopkPACbPSCAlBxUEL/DUmyr8vXOjB4hkPfI6FJ63WZN71IgDQScM41xz
-	 GlsRzW0hH/MWd+v2slfETjetT3rIQKdxag7Y+XHE7R18G4emOBpGof1ydA0Z+lPypcg==
+	t=1794081247;
+	b=qA082D6xy7NqOmvQEArbcbuIQHmuqQbndJ+xZq7hq7SSRDvKbG0Lh4x2hgedKi6nT0YS
+	 TlGxQOYYocbcfU6cWBEZ3pWgU/BE80BBRKGjJNN5NuRsj82bmrZjSEhtWGWtELs+DoHlW
+	 3buF9vLmYIl0FZodIWuKNZOfrrr4/6rqVQ/ic7aKBFlhSjiKE60A8widFFAOKZjzLs7D1
+	 VRchs1LU/N+ZFi7Bf0ifqj7LG8wYmldcpde6p3yA/hChExo+AusmONoO5aJkvlH89Qlk3
+	 Eqz9Ta1SPCkVmQKbquylHqxe3Jva1T3Zu9tJCQTFecXI/rkDc1OIUSPACIKeWKt+kpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794081222;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=aDZ68c9QI8zugnRRjirZtU0A/GBNiwDPbLZHWfZlZRw=;
-	b=n2BbPsgY3QlIzww1DvhyKbCJVqyMy3DvctyKqZkUZi5Qfi7uy6jL9CGB+JXdYjKmtH2b
-	 EO484W4xDYFZkx5yWGoS55Bksxad2AD/CenLMsh+ko7EKgjTL67zZA1VnkNsiVFmxznv7
-	 LuEhTqSf9b182HfadMIJjLzWa81d7DNLuQ4lZsA+Iy0Es6AiWlXovFLx4n/eqQwyMPgA8
-	 xM1Q8Zc8ku3lGxespPzyKhs06BZ2YHG0hzdfSE5tNJb/n43VOW/V/KKBCOBV7znM/p9KY
-	 BH8ZpeamYDRTPDkwRNqD+yc8x+mLNZreEBh2pczMPtIqHUjvFJlxJkF1BUui8qcMUNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794081247;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Azk0M4+4kN+LKI92RpesCylB3qOSG44cG8TkMmyE5iQ=;
+	b=UGMzpL2Yi/YCn32uxU1T/n54tfJkiFYTPo/6iXZoVIIl87PyZYpDy7D1CFqzOo8Sz2H1
+	 0sX3Z0X/haJy3zBNRTb74EeH31hAYE2F3x4A8MbpHY37Nd+sUHu4aJ6xRWmwvFDFswbO8
+	 wXCa+y49EHvS1SXJ8aSHMsbviYX1v+cmneeXxcO+gB2RmOA7+Oa64qOPeddewntqOhD5Q
+	 2x35U6Z1+hxweyekFc0QnNyhPz27DI8wcTQgUbil57N90VDe9Hh2ceRSEDTRByVNx1FhF
+	 0p4uMPSBWjmpcgFxelVCAWrCapFre0jtSTc6ulJ7+lDLrfD7zZp+h9AQPvGhN/aEmkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wkvIjMIr;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35xwWRW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E19D606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E19D606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5E5606A326;
+	Sat,  7 Nov 2026 19:54:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wkvIjMIr
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so1802a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:53:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794081222; x=1794686022; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aDZ68c9QI8zugnRRjirZtU0A/GBNiwDPbLZHWfZlZRw=;
-        b=wkvIjMIrogDMoWYdXmOlA0m2ERQp6Apu2EDVk3l6utD+jFd+Lh/6heMm8d2Vl4P2GO
-         Fb//gs3EZ5+tKC6gqcGpI35P5tz4YxTxnlRxdHBinNVWuoy5CI1B70uiykPZpsjCPtdj
-         A9M+TK4D5Jk3st+YO1jRLF1wPe38KqD0a08HjrJusVX/HjbzlrjMmMyQeVm2D/cpwINs
-         NLE5t2eEqEn4bc5saN0SQs7Wt06rdRyyuq+RLg8XiAJT1kAZqg0EmyoHQ3asfczQK5Pq
-         KsOlFtUSGmvCJyF4Gw66Uz33KgWrdFDC+FYk60/BOnpWpp/CglWF8QSGVGDTNk0OeUkv
-         a4IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794081222; x=1794686022;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aDZ68c9QI8zugnRRjirZtU0A/GBNiwDPbLZHWfZlZRw=;
-        b=h6XwDK3MgSc/4U1zPWCDrrZBGCVz3cFb7+fgkg6Fc+JsOBD+P+WGSX5PxC2b48rGqO
-         J2YAOsunh/HbDwaiJQd840szf20Eq2LFyNfyf/gBqR3kjqfET2kZhGfF7xsFbESZsUbT
-         Er8Ar2PSzVSKeq8b7eHj3iPWXl8UyTAu1P8cW6KQSPWhj7Ri4Bw4yeMKYWRVEcAsU73r
-         Rc51FeVLL+cX15GTKB7i3zFUIeBMUHXQPfKobXAxHdp98zmRbJUQ3h1hQER6G+13J8nL
-         IvKBONoKFwnm6WGcjpdg/iEMvQxRnUXDVRTjW2ltt+F3ENBFtNeZxH02Pbjpxm6R5H81
-         X1Jg==
-X-Forwarded-Encrypted: i=1; AL+hErH++WmddHfH+rrhWC5nm9ZnfublLvjTQ+L4ePQ8FrxWxQRUCNWW4FsR+uDa0S5La0/xqscb8qDYqFxXbQE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sE+/a1eiIaocbjRJlSeflsAEPHcgrQhBdBRQgk1nCcofSq6Bk
-	p7u10gLVsesrf/R85QTyBOlN1SVUfZfKQnTZEoMz4fMr2iSJnJN3CiGO
-X-Gm-Gg: AYBFou1yQSZifvoZezM32q9ffQPp+QHnzl18iwaMvIn88GWjlH81IKeEl3Z6EMk4i5g
-	vZIueTu2xxuAg1BoI7DKd35U+0Cev2tNdygd0M9HGE8PQ0x5H+oadgIvaohLJ90OQCyPo9uFLR8
-	yl2SoOKX81vw2RM6GBbB56dTnHGHYfGQzvFjLTonV72IjdmbUQOY2729up4u5KTpOTy5LyNbqE+
-	5CkLSis/z5VeLpC7P84RbLTaJ9HMSW17mGo5nDdpZbjeMmTDfX/dbGH9TS4k/gFt07tP0gW1zjk
-	+e1WQNNQBLizhw3b/x1LnaMgQP4SVeaAz8J7frsT6fS+fEO/27br9F6muRBYFaDTkcvHtyr1MBb
-	TDkoNOF1kYhOChBYzegYzlzbAqxKZ02+DZpxZckdxiOAz9fW7xKd6zlif33/Kuj3PwcDOZCFbTo
-	uKq2g7YjOVkU9qaysVxX+WSZV0v7XE8nVX1C8YF+RhSo+dwchq1XI7oao2M4ES2l+Gj/jdCKRWa
-	gbp0+/8841JZXQ+Iz7EJW5U+ABlnsC7nx4BrBYsUCou+Qr/v3X0mx9JtO0O62XvS7c31JoX0Fii
-	u8hrlm5WN/gX6VdmWm+1sPgqdJZQFGLuBb7wYW5vIT4pDkI2ZdwPoC3yKs4I/z3fEbtEacjpcC6
-	ODUZn6LiYkLlI9zMKGJ53FaAA1w8R4cTMWA==
-X-Received: by 2002:a17:90b:554d:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3b0db5edb73mr6825490a91.7.1794081221674;
-        Sat, 07 Nov 2026 11:53:41 -0800 (PST)
-Received: from localhost ([153.61.198.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b126385c62sm226598a91.8.2026.11.07.11.53.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Nov 2026 11:53:41 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 19:53:40 +0000
-Message-Id: <DMP8PQQ4S8F9.15Q6N6B56KY39@gmail.com>
-Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: Reject writable map iterators on read-only and
- frozen maps
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "AdetsGithub" <adethyasrinivasan@outlook.com>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Daniel Borkmann" <daniel@iogearbox.net>,
- "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-In-Reply-To: <LO2P302MB0197FAF0305A94F7575CA700BC752@LO2P302MB0197.GBRP302.PROD.OUTLOOK.COM>
-References: <LO2P302MB0197FAF0305A94F7575CA700BC752@LO2P302MB0197.GBRP302.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35xwWRW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BE31F0089F;
+	Sat,  7 Nov 2026 19:54:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794081247;
+	bh=Azk0M4+4kN+LKI92RpesCylB3qOSG44cG8TkMmyE5iQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=X35xwWRWp1NJKDUjUGwu/dPhn1u2kLVBfKW5yRwfwaE8KVYkdjSh3+y4dkzuSMyrD
+	 UC6f82CYICCr6FtBDy3AGdO5/L3cxDqjOEP59rX44rd4pqW9ydC79cRLVXVLHnS/Hh
+	 VbGJ0mVhgah24nTHfkgrCnfUFnOeyyywupL6Eu73Kjj/SDlx/mnKMS4A1ftEDAqUNo
+	 xFOI9/8SXDYctP9TX3Ot/ZiCYNdwitNbu+6zVHhI31PwPpWK5srd16sfb11kfSSfPH
+	 eFznTuvk6MRc7KHP3RkQuTGYNcgEbDYSkl8hw/d6GgOebb3ilzVHB92t4ysP54Dtbz
+	 THwAOjxx1XRNQ==
+Message-ID: <e0a38b09-725f-4e60-8c53-e4605c36be78@kernel.org>
+Date: Sat, 7 Nov 2026 20:53:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,53 +51,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] selftests/mm: cover merging KSM pages aged by
+ smart scan
+To: Qiliang Yuan <odys.yuan@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-0-16d5ce8b5fd6@gmail.com>
+ <20261107-bug-mm-ksm-smart-scan-align-skips-v3-4-16d5ce8b5fd6@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-4-16d5ce8b5fd6@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 07, 2026 at 06:14 AM AdetsGithub <adethyasrinivasan@outlook.com> wrote:
-> The bpf_map_elem and bpf_sk_storage_map iterators pass the live element
-> value (ctx->value) to the iterator program as a writable buffer
-> (PTR_TO_BUF | PTR_MAYBE_NULL) for all non-percpu map types. Since
+On 11/7/26 17:57, Qiliang Yuan wrote:
+> ksm_functional_tests checks merging and unmerging with ksmd's default
+> settings, but nothing there exercises smart scan, which skips pages KSM
+> has failed to merge for a while.
+> 
+> Smart scan used to time those skips per page, so two identical pages
+> that became mergeable some scans apart could end up never being looked
+> at in the same scan, and were never merged. "mm/ksm: align smart scan
+> skips with the scan number" fixed that.
+> 
+> Add ksm_get_smart_scan() and ksm_set_smart_scan() to vm_util, and a
+> case that enables smart scan, lets sixteen unique pages age for a dozen
+> scans, then makes a duplicate of each mergeable one scan apart, and
+> expects every pair to be merged 32 scans later:
+> 
+>   kernel               failures, two boots
+>   before the fix       20/20, 20/20
+>   with the fix          0/20,  0/20
+> 
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
 
-Way too long.
-With CAP_BPF and CAP_PERFMON an iterator prog writes into a frozen
-BPF_F_RDONLY_PROG array.
-The verifier treats the content of such array as constants.
-That's all that needs to be said.
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-check_map_load() doesn't exist.
-bpftool map dump doesn't use iterators.
+-- 
+Cheers,
 
-> Fixes: 8d0358f6e8b3 ("bpf: Keep iterator programs off special map fields")
-> Fixes: d3cc2ab546ad ("bpf: Implement bpf iterator for array maps")
-> Fixes: d6c4503cc296 ("bpf: Implement bpf iterator for hash maps")
-> Fixes: 5ce6e77c7edf ("bpf: Implement bpf iterator for sock local storage map")
-
-Wrong tags.
-8d0358f6e8b3 only added a check.
-sk_storage maps cannot have BPF_F_RDONLY_PROG.
-Keep d3cc2ab546ad and d6c4503cc296. Drop the other two.
-Don't add a5cbe05a6673 that bpf-ci proposed. In that commit
-bpf_iter_check_map() returns -EINVAL for every map.
-
-
-> B) Patched 7.4.0-rc1 -- writable iterator rejected with -EACCES on all phases:
->   ./test_progs -v -t frozen_rdonly_iter_write
-
-Pls add a selftest as patch 2. Not this one. It fails on a fixed kernel.
-dump_bpf_array_map() in progs/bpf_iter_bpf_array_map.c writes into
-ctx->value. Attach it to an array with BPF_F_RDONLY_PROG, like
-"attach_oob_write_iter" in test_bpf_sk_storage_map().
-The attach succeeds today. With the fix it returns -EACCES.
-
-
-> +	if ((map->map_flags & BPF_F_RDONLY_PROG) || READ_ONCE(map->frozen))
-> +		return -EACCES;
-
-bpf-ci is right.
-BPF_MAP_FREEZE stops the writes from the syscall side only.
-Progs can write into a frozen map.
-See BPF_MAP_FREEZE in uapi/linux/bpf.h.
-bpf_map_is_rdonly() needs BPF_F_RDONLY_PROG, so the flag alone closes
-the hole. The flag never changes, so there is no race with map_freeze().
-Drop the map->frozen part here and in the comment.
-
-pw-bot: cr
+David
