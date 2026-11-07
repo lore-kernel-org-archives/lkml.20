@@ -1,67 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049730;
-	b=Pb7Y2OSY8y+q2ZnQW5dzFQGo3+n2132Jvd7xoqo/HH9Tv1iDsh/rb339/l70RpYHWSLA
-	 SvFafp9Z21UNpbBAQ1oxDEBow41CagAXhh2WSqH/cqZGnKpYJmkAc5uRjxO/lo3y4Lecu
-	 lVBxvLV7jY6lKPABSqLAL81bDostYhLEm6kfHFCa/0WqXK3xFgSbF1kttHKdZAzEelvHy
-	 R7JL0ju9v2nMRWAqCuD4/VZhGAESlKdt1TLpunYvmpf5p2q9P72l/sgbJGHsFeZcuLJ+/
-	 ufNb70Za+Ki4snYZVeBF+oFrLGoI4aSNcIZzdq8LQZqE0hjYiidnBMr0bnSNlVFrYfw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049730;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=i6dE4Qc2basO/b0AjLfl4KhmoQ0CUlCYVpAq8NuxGkU=;
-	b=Wv9zeCvxGB1OOAxYmfxKNeRajYVi06wWYINExXtFmX5z6sxeP5cLGQz3STJDUAA9YoZ7
-	 7slNqCKUVUFnBwSaky8Die+rXFwoHrjUZUYNZBtVK/S1OpD1WQ0nA0jm1OpedfPByu/Pf
-	 bJw5OXFsULgIIQig38yy18yUKNOM1jv2bSE9h8gRNNA2p+1Wsc5CCH7GWHdVM7qpvi5gO
-	 o8hCkGaAhZaGHkbs7tMh8wzcDrEmrY3eOMyJYy9K7Wku0AU876o6kVJViyF9tuTvP57Wi
-	 2SbNwvenDLnG6xW8SVSHrnwepDj4/N5kuKWHmvJQj1E6MV30AxjvSJ2MXYZkLvYbbLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CB7C606A330
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:08:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB7C606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jMCvs55zMz22Pn0;
-	Sat,  7 Nov 2026 19:08:25 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jMCvq3lVSz22Pn0;
-	Sat,  7 Nov 2026 19:08:23 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 7517030A6439;
-	Sat,  7 Nov 2026 19:07:43 +0800 (CST)
-Received: from ws.local (172.25.64.90) by cncheex04.Hygon.cn (172.23.18.114)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Sat, 7 Nov
- 2026 19:08:24 +0800
-From: Zhiteng Qiu <qiuzhiteng@hygon.cn>
-To: Ying Huang <ying.huang@linux.alibaba.com>
-CC: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost
-	<matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul
- Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Alistair Popple
-	<apopple@nvidia.com>, Xin Hao <xhao@linux.alibaba.com>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mm/migrate: don't batch the TLB flush when there is
- nothing to batch
-Date: Sat, 7 Nov 2026 19:07:37 +0800
-Message-ID: <20261107190737.1538200-1-qiuzhiteng@hygon.cn>
-In-Reply-To: <87qzgxw2qx.fsf@DESKTOP-5N7EMDA>
-References: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
- <87zevmwbaj.fsf@DESKTOP-5N7EMDA>
- <179395975709.1235605.1971486611419119070@hygon.cn>
- <20261107015057.1328227-1-qiuzhiteng@hygon.cn>
- <87qzgxw2qx.fsf@DESKTOP-5N7EMDA>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794049780;
+	b=GfKvRrIHUh0S79TWBMZzOw5P3BcP8vI9nJQ5Z8oqnTb7wK/LDcRe22GA09BOg1I9FP/U
+	 SG2J82OoGLY06jlICP/xUsPP+9PO+bqTbepSc82IzWXNJymwkyFSCV/11rLlEmod62h1B
+	 gS07kqU5+kzIzt4bg/QMYFrU0+9pyrGe6EgZV8anosK38KDujyDTaMbkVIVkYjrTrmeu8
+	 d51wt4IZpaqh97EETnEphhPMMKkC2VLTUFdNMHAy2ccnMVaiz+k5SjcRNIkBXoNlzSpOX
+	 kPpdSMh5+MB46z3r0MqKmdwtQ8mkj5qkH4cZN4qvObCHZ7FgMHocqcMuFD5O9dQUDcw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049780;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
+	b=lwYDTldMf+B3x/Qz/y0dSRy/r71l43LY8rQdbRbvxDq9PtmD+2/FNrxndZ8lygEnfhso
+	 CJ1Fu3HVfZMaoFbm4pQ7FFqkZxVAd/oVfG5gJFXbUIBq4QgGda+IrBGENVefXGzzpXfSS
+	 vqJWg4yYGphXyXxzbPNqj38/TIfTiMCepPHDWnwtWOKTrLUSNiji+YNxjAxjvs+Td7jLy
+	 nLR9naVTJu2TgYLzRlRGNPlZ+QTNXcTHubGZynmkbqkWhPw1xmII420NT7RfaM33c1Bfa
+	 KiLxp9rSA8E1in6VfeVUlvdqEI+BlE/AzyAD5ju7s5tEzkp57usBaSqUL8P9Wn9yfvg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxbTz3v3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDFE606A32C;
+	Sat,  7 Nov 2026 11:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxbTz3v3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794049780;
+	b=kugV2qi2xsc6CnK0AU/UeUI9O4Hz8HMA7z2NGhj2r2p6i5JWUMCdoXWK2wbnRvVU1C5+
+	 aePhWv5aov+rO78U6AyrGKDKnJzRZmLINIcvUpcqbfc5wz0vRhR+S2w8g7ZGrZULYDBOq
+	 8oZCptOF/rsk8onOdwduApDVxrjU4SJhId1USouXjQv3Mv3dMT7eTpK2/74a+JfEazcOs
+	 vw0/SFkgB0RbfUc/YG3Idp30cTdMBZjqmkyc6luMAWphJ62ewhaxrwS3jk9taSbQXTVpG
+	 n1yHfYYVEnUCQAvga4Tmh2al5AzI9U2Wsfd/soUFmqJhUkIFz+okkhU/M49DKLRo+fw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794049780;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
+	b=VONUzrJaVpnRVJhddr8f+lDG/NPgXXMXZBkU8mgs4vTYGO9j+6+6SvZn/jmoeutOFtzu
+	 ZFGMrbB2tj0Xd+BpIqvAhq4n8/kXIbKhf/NVgLR+WHmYNV59GcX1RSR27q/dKAY4qmlzZ
+	 fsqqmlKR3sJMMjCeQ5rTthqc58s+mnXVfehFTL6Y1pFUnD3wO6ydTgw9AUMERsV+iSVgv
+	 bhLmvJIPysZTjQ7BAE7R+anEL1AOGCv0cBh0xteMQALPYHOQpo70NO89RMYezXdicPGHM
+	 yu+zD1iQSN3URlQjIF7ckx/X6C98Lb5oDRRJf3gp1EP9QXqRBdkFGnuW/cWyuKah0mA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 13BC81F008A2;
+	Sat,  7 Nov 2026 11:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794049780;
+	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=PxbTz3v3uuTuqIy3eZo+R27eJTf3bMidYfy3Itf05XNarG/XyYhqF+rUTMYVCMgjH
+	 2+KyEi8xHvCRXNul+MEVph0TOUd/4NZex8Sieykq7At4+4iYQz/x58e1mFJHBLTMvc
+	 nocl3CPpTpBGaX5J7g9McWQbhcPaCrVHJ5UVqw+zusIlH129HAxHQ/j5YE1BHmKWbE
+	 vdnEzbWfHrkPuZP933DfBlDhZXLL5t7w9CBKnVDyMPCoLbOm0TZ0uAbk4G7KPQuCRf
+	 n2nyJC2heDMZ9ntKAcBIjkaTCxqYdP18EeTvcTuHbGIMtJAohZNXeEvPFch7lVzSgO
+	 GUsxH5varN7aA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 867E747B6F;
+	Sat,  7 Nov 2026 11:09:39 +0000 (UTC)
+From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
+Date: Sat, 07 Nov 2026 19:09:36 +0800
+Subject: [PATCH] power: supply: mt6360_charger: Set the input voltage limit
+ in CHG_CTRL6
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,69 +83,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-mt6360-charger-mivr-v1-1-ae6fcfb21bb9@udp0.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMUQqDMBCE4avIPnchibBir1L6UJNRt6AtGxVBv
+ HvT9vFjmP+gDFNkulYHGTbN+poL/KWiOD7mAaypmIIL4r1reFqkFsdltAHGk27GdWrRRIj0KVB
+ 5vg297r/q7f53Xrsn4vJN0Xl+AKY5/ox3AAAA
+X-Change-ID: 20261107-mt6360-charger-mivr-3d9e7ce66fd2
+To: Sebastian Reichel <sre@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org, Rui Cao <i@udp0.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794049778; l=1708;
+ i=i@udp0.com; s=20261107; h=from:subject:message-id;
+ bh=NPOAHTLtaaexfTH0i/P9IAyN1qGjNjezFTQY55cDejE=;
+ b=24QLSek8cMBjCn+fV0DFLLs5uhUl1By3RsW5vERTdOt7I/qC5khu7TXxFtXcFiRARw5suDHJZ
+ uTrousjJyxYDHY0mD2B+7hQyb0GD+LofX2iDGcNVkNZDpK3LfSVyc2B
+X-Developer-Key: i=i@udp0.com; a=ed25519;
+ pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
+X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
+X-Original-From: Rui Cao <i@udp0.com>
+Reply-To: i@udp0.com
+Content-Transfer-Encoding: 7bit
 
-Hi Ying,
+From: Rui Cao <i@udp0.com>
 
-> Have you adjusted the NUMA scanning parameters?
+mt6360_charger_set_mivr() updates the MIVR field (bits 7:1) of
+CHG_CTRL3, but MIVR lives in CHG_CTRL6, where mt6360_charger_get_mivr()
+reads it and MediaTek's own MT6360 charger driver writes it. CHG_CTRL3
+holds the input current limit (AICR, bits 7:2) instead.
 
-No.  All NUMA balancing tunables are at their defaults
-(scan_delay_ms=1000, scan_period_min_ms=1000,
-scan_period_max_ms=60000, scan_size_mb=256).
+Writing input_voltage_limit therefore never changed the voltage limit
+and replaced the input current limit with the MIVR selector: 4.5 V, for
+example, set AICR to 250 mA.
 
-The scan is indeed slow: 58 passes of 256 MB in 55 s, 89 ms each,
-about 9% of wall time.  But the hint faults are not spread evenly
-between passes: those 9% carry 33% of all migrations.
+Write the MIVR field of CHG_CTRL6.
 
-The faults come from the scan, just not from the pass that happens
-to be running at that instant.  Of the migrations that happen
-during a pass, 60% are for pages in the 256 MB chunk being scanned
-right now; nearly all the rest are for pages scanned one or two
-chunks earlier (lower addresses, within 512 MB).  None are from
-addresses the scanner has not reached yet.  So the scan makes the
-pages PROT_NONE and the workload touches them again within a second
-or two, while this or the next pass is running.  The collision is
-not a coincidence between two independent events.
+Tested on a Redmi Note 13 5G (MT6833 with an MT6360): with this change,
+writing 4.6 V to input_voltage_limit only moves CHG_CTRL6 from 0x0d to
+0x0f and reads back as 4.6 V, while CHG_CTRL3 stays at 0x72 and
+input_current_limit at 1.5 A.
 
-Here is the sequence, one pass on the unpatched kernel:
+Fixes: 0402e8ebb8b8 ("power: supply: mt6360_charger: add MT6360 charger support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rui Cao <i@udp0.com>
+---
+ drivers/power/supply/mt6360_charger.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  CPU A (task_numa_work)          CPU B..N (workload threads)
-  ----------------------          ---------------------------
-  tlb_gather_mmu()
-    tlb_flush_pending++
-  change_pte_range(table 1)
-    PTEs -> PROT_NONE
-                                  access page in table 1
-                                  do_numa_page()
-                                   migrate_misplaced_folio()
-                                    try_to_migrate_one()
-                                     PROT_NONE, but pending set:
-                                     pte_accessible() == true
-                                     tlb_flush_batched++
-                                    try_to_unmap_flush()
-                                     full flush, IPI to ~380 CPUs
-  change_pte_range(table 2)
-    flush_tlb_batched_pending()
-      pending != flushed:
-      flush_tlb_mm(), IPI to ~380 CPUs
-    PTEs -> PROT_NONE
-                                  (same for pages in table 2)
-  ... 128 PTE tables, ~0.7 ms each ...
-  tlb_finish_mmu()                    pass took ~89 ms, not ~7 ms
-    tlb_flush_pending--
+diff --git a/drivers/power/supply/mt6360_charger.c b/drivers/power/supply/mt6360_charger.c
+index b4d46234315..ccd5c200629 100644
+--- a/drivers/power/supply/mt6360_charger.c
++++ b/drivers/power/supply/mt6360_charger.c
+@@ -414,7 +414,7 @@ static int mt6360_charger_set_mivr(struct mt6360_chg_info *mci,
+ 
+ 	linear_range_get_selector_within(&mt6360_chg_range[MT6360_RANGE_VMIVR], val->intval, &sel);
+ 	return regmap_update_bits(mci->regmap,
+-				  MT6360_PMU_CHG_CTRL3,
++				  MT6360_PMU_CHG_CTRL6,
+ 				  MT6360_VMIVR_MASK,
+ 				  sel << MT6360_VMIVR_SHFT);
+ }
 
-Each table flush makes the pass longer, and a longer pass lets more
-faults happen while tlb_flush_pending is set.  With the patch the
-migration takes the direct path: it may still flush while the pass
-is running, but it does not bump tlb_flush_batched, so the scan does
-not pay per table and the pass stays at ~7 ms.
+---
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+change-id: 20261107-mt6360-charger-mivr-3d9e7ce66fd2
 
-> That appear too complex.
+Best regards,
+--  
+Rui Cao <i@udp0.com>
 
-Agreed.  I'll keep the change in migrate_folio_unmap() and put the
-sequence above into the v2 changelog.
-
-Thanks,
-Zhiteng
 
