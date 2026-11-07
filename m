@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050240;
-	b=N5AUG3x9+NwSA1K+ScNRHw+/XyaCg3fdHJKh5n/MKsWyea7s4vhjs4WElT3/ftiKi0Y8
-	 HFQ5KgFHx6uJLqAjRH3vDxrczMk1r9sGBkL+DtOWfvYLU47VC831TVuy1IL6dQaQpWngV
-	 XFAHFaJWrti6VMLZN2RuwiOhx1Og3V4bfwgA0muhcYEAKFHz28rHyqC6P8ATQLnNNV6Vx
-	 X1zIxjO1O3B/TngqoJwdSj8CW+hnccnxH0lOBajMD4sjrbpcEiKZF6v0I7KNiN9/YYVZZ
-	 oTESHRPI/q9Jxe/x3aUFkz0SZ+FFHI1X8t3bq4ZH2ra57sUJwYzXIf+kAbd4p4+Rc1w==
+	t=1794050246;
+	b=ps2/8ABkvWXzooTODxbjhBstxcE3RibgOLrzp9QWJ/OPJ1KaMym9U0ddHZolc/Gtjtut
+	 pfp5MOokzVq44HE97hmVkiKavvRuVFxJdFYm7QMYpWvS6GCjnXGm02le6m1REnh7r9Dt6
+	 JnvIzO3W3n3lDw/BGRJM15VZpL4ZJJrqgT/bD5Rsg3Xbl8bRSwrxPWNQ9BuwXf7ttBVJ3
+	 jjn4AR+Sct68tyucaR60qRxvo8MsVf9kzuTL9kS+61cUXvqAYjgd/kuoI1aAcgp5Xr9De
+	 FQF5drrykDEhhBW/SD9xmLzXCjOaFRRjNvgusWk4GR8M2uVgoFZf2YIcSOXbaGj2tTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050240;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050246;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F+/IfPhG4os6D6vXxpVvbJFaEOwonQLN/tF2+VzMsH4=;
-	b=FOeFs534D3oQCn6r389cfMkixRwL6QDScEB4X9O/Ld3MYTHhcxJkEQHXE0iFu1M50j2F
-	 g5R6RDBOPhOf3kgECvTeIoEkG2mqgqlVWyzelqvmTAoV14oW7xZlxldQQhAn/0fSU6tP7
-	 Z26eXI7IT6wNt1JSzNJyvVXuxnaYErOMlPt1JXkQImFvKwCozuQMVgd/UQxES6hMs8UFx
-	 CpLzMqq048ePEoG9hsK6z9rfnm0NL6xNwe1r8XlU+/sxX0I9+5HfeqqQ1bwzl0B786BZY
-	 GxsIdXQ2WAeyXdj49foBCt8MdJUN12F5j2l4XC2DNZ2ae0T8O3U0uDsA8DoEsSGtWXw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pkGF7dkpGYtBI88D5ga5Ip1hipJc0zynNLG1qkQ2iRk=;
+	b=Q0w/iLHw4wq1BvUiJcmZutKAfgYsSAsyFFqYvLfytssEYST9uBBYp3ttAPKdEFRvV11n
+	 lHX/2B72AV0Rg7PrfXa2vAU5PS3lan9nQfVk9THPKhPDSxvaL12LhTs71X/y+bzICzt1C
+	 KsjvsjpCPVPaoLTEheZAreGLzuTI0KakSpJLMsb6CHUshVwLQFo/rzG7Wo3PNFa0nxYKQ
+	 EdcdcemKgN0OHBu4ld4slzgud2fgFFTQs4qEU3kSCbdsZmmTplvS+AfkLx4tyRJ3zX4Ww
+	 XhGQkzSMwzxw4GkaHAp16L4ADoIGuHrCrJ7PuFLCkpBcfJiJnVMNX9ztp/62jjdB2uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="RUk/JZAd";
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E02Q3ZKo;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5094606A32F
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:17:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5094606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC59606A332
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:17:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDC59606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RUk/JZAd
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b2513decc3so900655c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:17:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E02Q3ZKo
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36e795af1d4so411230eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:17:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794050239; x=1794655039; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F+/IfPhG4os6D6vXxpVvbJFaEOwonQLN/tF2+VzMsH4=;
-        b=RUk/JZAdGMZQSXUFKekw43JQ1xkMUp76hSL9vKLpWnel1mRAXbbN4QGp/oHpU5AXZB
-         0MCfPvVeZAaZP9oIHK9JZ8oVywCCGkPVzR3sGtGJ8E5ZjxFauXqmYdiZc3rd8AclEvt8
-         QzVHwGXgapfIoYEWoM3mvACM1WIkuvS9jAjDBZp1EubGM78cGT8BKc8WbtThEIAOhei+
-         8Vjl+tzMHeZe14/XlvNjFzxUg8mJ4F5fNGG5lUOrI2GpMhOr/kmvbcpt/XUj7n6K/ayA
-         K9QaXjLhh9V7pzkp3xWn+Qf34TxLL+KpFCyWPqwPPlI1WZjcC2peHR1BiJhbzvvef5Su
-         KMTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794050239; x=1794655039;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794050245; x=1794655045; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=F+/IfPhG4os6D6vXxpVvbJFaEOwonQLN/tF2+VzMsH4=;
-        b=pPiC/T/xBBVpnY9Iq7nZZUi9m/1M2jFdfBtO41CHfRgUsmASqpAu7CcEFuFS2mLje4
-         R4ayUcZzPVHRct/QzAymM/RolRf0DM0ULbCSWZmTLoPp1r/UT1XiDhDrvgcEpQziupS0
-         KERlT7dUKUT5pT40O9TcBzyG4XOAtsD4yzjlpZVYOerCZphpnmf7cPFlhfV0c1aSUPM+
-         2YG561Khl5qHtaVY9PYFl7mb/nhAgUffS7oYNf6RE2VaZ9czoY0bxLFsLMnxkxeOvYC9
-         eeQmwR+8HV1/TIP2oRG+JtMYimT1jTxbulSUHxIaq4wFdQ/MenKe+j/1h6eLLX+RVU78
-         NXfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzyNXHlsI+egromZYmodnl8vXi6Hz/xzVXRDPwR19Pncid87auxfsOz5Ad/eS+pfIJgfRU0NgVb3zxgw5k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9++KIm/oXgJvwz734FNv4PkjqHxVjy2ZNVMTNjlmpaD/ABZNxf
-	ju95McpvRyP5tMOtQUsMLh2he88T2Wg80lj9hCWqHWQ4/CLEovyVBWOb
-X-Gm-Gg: AYBFou3iGyNccPkT3u+ZAwdmjntxsaKPIFnNZkuu080g5QtsY0PIVIubfdXchfHe8Mh
-	WCmwEyN7OsXga+g4rFjZ2j7DiQ778oKPiGd1G70l2suGCHCQXXAdRv0JxmddUpaZchYhU94uoTh
-	J1CNLoE2kJsp1ESFiGcNxw950dUWy3G6acDtacwizI5dlDG0J6GmGbT9OaDWqeG1ajbljZH1PSO
-	ZS/El4CQMX4ICjls44bzD+L2ZpttzAYjsSvv1l9HX0xMcGujwzzY9BNlfDi/Ie39Kt1RXr0GKvr
-	CEp5qXZNjVU+gRfiJHXiMUKn30rW5J+oYf+bUOA8GdT/HGmuSGSUXt8yuVhzsO65s1MyqIpO4sy
-	KVTzQN0K9P0jLeQEbD0QrJMe5ZjRmUxpJkS7Zq2LKXw/krS5sgfa602zr6HNAW7tYhB0vq2+B4l
-	1S7/Vd4L78dbe2mARWoPP4YmzXSGrZwDRIcSfkM5CQFk+MlHRBMI5QXdYeTxJPJ4Qy3XN5AZ+uZ
-	ZF212oKC3DQjs1Qh4jMvH2ve6IHU+t2OG6gh6CavKygKLJpez5raHG2d8PMMMqz9oz6yYiNJA+7
-	LrG+CEEerV1xlJEH0pGM+kqJDd0FKHJnsb9Icx5BuIHaKxbtY0YUGM2aOJs2Re95W1lYdGSUcqO
-	OMQkAlrla0XlJtsbs5FKgXK6RBe7rR0s6WAjIWD+Gc5ycwlJkxdKu+jUMWBia291th0AyoAo6yu
-	ZZGMg7katnz+w72HxD7qnBlp1BnVV99uVRrhCeAEyLlg==
-X-Received: by 2002:a05:7022:ea8c:b0:154:e9d2:d741 with SMTP id a92af1059eb24-1b25d3058c6mr6660822c88.8.1794050238640;
-        Sat, 07 Nov 2026 03:17:18 -0800 (PST)
+        bh=pkGF7dkpGYtBI88D5ga5Ip1hipJc0zynNLG1qkQ2iRk=;
+        b=E02Q3ZKoMrebt/8vjpyH5PF9yIbkv/JfHGW3cxCNbqcxdCf4hFIJ6MMYnV3dIeO/+U
+         PJUzpUpejBY+uK8gCaJFUBvaSWFu2dvr1jbutoFvY4NycwAcM3XKpoFsggGuy5FdwRgS
+         HP3v+SmZtafinZy4Eo5Kb1nfGNmtJqkRfJaJuXs3WSvc5ot+iOdtmvEJtW7ecKcB46nR
+         sj8DqeM1pahZk56NgtMHUxv5iOph5mJ/Pnry37fJdFqd4jbOlqvjGrIEqOXXCXT5RFzB
+         QBqjeDFIpMxEhwdxvpWTM05MZC6L4F+Bhu6GWQDi0w9ejeP5l9aEc81PAr4wq1Idt9Z9
+         TV7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794050245; x=1794655045;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pkGF7dkpGYtBI88D5ga5Ip1hipJc0zynNLG1qkQ2iRk=;
+        b=Npv/rMFJ6Nte7DUW3AGwnXFJjdEStJgzuaZ+3BYrUKaLGbmaZsjfHqV723ZgWlpwvq
+         YNeU0pSCXiKepu5QEugljaBrweW7lxnAKU7dTsg8SLC/dZOJTsg60J/Ob73UrgLKFd6i
+         wiWyGqcylGTFeWILbub4K+G0kpDEfG07V/MVh8qX8l8HG+9N1mVrRpn5QA83/hCjR+61
+         ZpvLdmMMqGcVVVeCw8cEtRyiAoCDoMKJzFIVZKL7vUG4q/wSo0uHR9K1ID8lmZtus9Mx
+         1xGujeKU31ZTBL+tJsTqtA2myx+dkytUUkigbAD2tg7LfOWTm04Gpdn/Td5sd3zo14AV
+         wYpg==
+X-Forwarded-Encrypted: i=1; AL+hErEI29IKNMn1oKBekvXQajcM2iIYPkUCVgksFuvA6WqxMjsdhQ/1TZFfcVlmjiL0mpRcARxTAdqFFrSCLCQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qBvyNo8A4oW5P9F5u1mh3t8c2sUSrGBcG7HwP5RHIGhazddbj
+	CghrL4V2WvKULUQB2UPxx8BFFTeNIW0Vt5I5+pVCKjEJ3+x6j0EaplEL
+X-Gm-Gg: AYBFou0I0G1L6XrTyw/dPdb5oGNYNjOsUUesDE9/ytegHIf7+3tuC+lq2yQFhtACZ9+
+	4HLEKxv10d/An9FEod94P43q02g1e1/a06ROIcjr2S9fsafRlVrn7SUbvpKE0gn1zDIHY5GdG+P
+	7WmUnGo7oybMPPZm+QLoyR7c8Y7jiELjZj139DPAHMb7bfuZkPu6WPRGsdhc3cVzi8TjmxBjOfe
+	EMqyLUnMJbdy+8Dq9N0sUUC10ktS/IdTsZkIdHUWbuqJkpZJnNuUWr9qI1wSx/1N/hEEgpeBnP1
+	9LA4oF8ai+6uDhUHVcNlRkLzVW/tLJe2FaS43CV2rNEie0EwOYlHDl/w4A6G8umLe3YGfqd2wug
+	L4+Z7N+UbgLuJZAPrj2sVWyNOCx9VeNH1m2eFUnUT5h/0sjxEDP/uDHEhZ7k0pz/Y/DlR8WU0ho
+	bdgHP66aypgT+SmrUCVyfq4CQVcpXiI6FyrYH/F2a9ePWZapuJ21vtd2OxpAlnVyv+lzDyYQxb7
+	0aD5G3AOwwvN/3a/5h07Xr4sJ549kRC2uSOWw7m0HIU49GyYksF6NSGV1jrgSs6eCTc/roQJp9h
+	q4K7apRQNYSylv/QzYbeDjKKRTk1SIRu4pSciuxhWMBh8P8FiF0iUgTqgrqzOibqkpnpA2u9+y4
+	ennyD/gmAtZJlfbtvYlAi0UG0xcudQpJKlyeVmpZPyh53hR61c0/I9OQD6ZLdZPaxjbgPFmObpw
+	T3grVw+yo2jQ/iz4ledEfEnBToLP7W93XEXUYwAWPMKQ==
+X-Received: by 2002:a05:7300:6da0:b0:361:a195:c46e with SMTP id 5a478bee46e88-370f427ff8amr3861783eec.1.1794050244748;
+        Sat, 07 Nov 2026 03:17:24 -0800 (PST)
 Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fd0000sm13284120eec.21.2026.11.07.03.17.14
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fd0000sm13284120eec.21.2026.11.07.03.17.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 03:17:18 -0800 (PST)
+        Sat, 07 Nov 2026 03:17:24 -0800 (PST)
 From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>,
@@ -90,10 +91,12 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH 0/2] iio: proximity: sx9310/sx9360: reject unsupported hardware gain values
-Date: Sat,  7 Nov 2026 16:47:02 +0530
-Message-ID: <20261107111710.442318-1-kapoorarnav43@gmail.com>
+Subject: [PATCH 1/2] iio: proximity: sx9310: reject unsupported hardware gain values
+Date: Sat,  7 Nov 2026 16:47:03 +0530
+Message-ID: <20261107111710.442318-2-kapoorarnav43@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107111710.442318-1-kapoorarnav43@gmail.com>
+References: <20261107111710.442318-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,25 +108,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sx9310_write_gain() and sx9360_write_gain() accept any integer and
-squeeze ilog2() of it into the register field. Values other than the
-advertised 1, 2, 4 and 8 are silently rounded, wrapped or (for 0 and
-negative values) turned into the maximum code, and the write reports
-success. sx9324 already rejects such values; this does the same for the
-other two. One patch per driver, as the Fixes tags differ.
+sx9310_write_gain() passes any value from userspace to ilog2() and then
+FIELD_PREP() into the 2-bit gain field without checking it. Only gains
+of 1, 2, 4 and 8 are supported (and listed in hardwaregain_available),
+but other values are not rejected; they are silently changed:
 
-Compile-tested only (W=1); I don't have SX9310 or SX9360 hardware.
+  - 3, 5, 6, 7 are rounded down to the next power of two;
+  - 16 and larger wrap around in the 2-bit field, e.g. 16 sets a gain
+    of 1 and 32 a gain of 2;
+  - 0 and negative values set the maximum gain of 8, because ilog2(0)
+    is -1 and a negative int becomes a large unsigned value.
 
-Arnav Kapoor (2):
-  iio: proximity: sx9310: reject unsupported hardware gain values
-  iio: proximity: sx9360: reject unsupported hardware gain values
+The write returns success in every case, so userspace cannot tell that
+the gain it asked for was not applied.
 
+Return -EINVAL for anything other than 1, 2, 4 or 8.
+
+Fixes: 227c83faa2f8 ("iio: sx9310: Support hardware gain factor")
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
  drivers/iio/proximity/sx9310.c | 3 +++
- drivers/iio/proximity/sx9360.c | 3 +++
- 2 files changed, 6 insertions(+)
+ 1 file changed, 3 insertions(+)
 
-
-base-commit: 340d44bdf9db0f095f99845b5ad8628781d79b6f
+diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx9310.c
+index 2585b9c6fb69..27b5d604a409 100644
+--- a/drivers/iio/proximity/sx9310.c
++++ b/drivers/iio/proximity/sx9310.c
+@@ -665,6 +665,9 @@ static int sx9310_write_gain(struct sx_common_data *data,
+ {
+ 	unsigned int gain, mask;
+ 
++	if (val <= 0 || val > 8 || !is_power_of_2(val))
++		return -EINVAL;
++
+ 	gain = ilog2(val);
+ 
+ 	switch (chan->channel) {
 -- 
 2.53.0
 
