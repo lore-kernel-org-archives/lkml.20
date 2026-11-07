@@ -1,22 +1,23 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794044754;
-	b=Ij5RsooSwEIs5A1Gukq54AO9Kb1xVxEO8vVWPponI0IZQfWlaBbDhEz8yNF3eGTwzg/v
-	 Ouy+gYeZTt25E8+jWxZ3psvvTevlfJ5Oxum21ksV9uEMklcofnr42YfaikJh8Am2jcQew
-	 J0xvNYdLCN0WYDSCU54HfrDD6VcTuSJ/wkWDziHFnsfj9gQtT74JyOAKfmITL4Wc3Z2ax
-	 ybXalcTQ9zb3POwdtq3Cwx4VV/BVlymYqibryDeZGkEwuSXd9TaMVOM9V8wHtVRra8bj7
-	 6YwwkZ9UliiLXyEvHZYj1y/JetEGzKOt3NB+0c7ujOqmA8S/0xorSMLQ6sBVctcaM3A==
+	t=1794044906;
+	b=JO8nilN4giPJIH6JiZ1HY4qCjVyXnf4zU1fiukj2Z21IAdaERU9m/vaTQ27M2YqpEuZ5
+	 qUaeiyDNcrSFXo7z3ZTJ0DC4EKZmvb19Oj6OCeovF7uPGW6VL5qi0d+fvAlzDEVDOS00J
+	 ZTFySAuv97WETrdkQ0FUc1V9huJUZ/+zBfZ2KkHQWKqcHga0ZjlxrQkz55QnIoy1rDlvC
+	 yS5ATOytzaFPAfxB0pkc0sqzm50oxghIU4ymOqV0aosJCrWSYrTKlI9br0SayYnXMJC6W
+	 MZ1Oift3UtwRNYPK7jPXjUi6jzC9LedVOZWh12hTADrGUQ6pFaOLyoYZG6z2ND5sKPA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794044754;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794044906;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -24,79 +25,78 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=DUrlmHNgqTLc1XqD9g8a3Qr0lSZz2Ig3GF17chSN/MM=;
-	b=BDrUVe7LJOG0fFyYR8ig9pzrILaFh6x2DjW0qAtg4ZgGV3nfwsdUFMluKzVgt4vUNoBF
-	 O7zlt06lnF8cwDr07vypnBeEKqTFH+m403xPN42PrxkEUgxQmkPegGDLJL5EzJx9ASoq0
-	 uFAiKdLtl94RyI5KEXE5LO1IAdMU6lor6RY1xGJo/SS9YjtWxmkN2GRnLW3eFgDeuxMjN
-	 5vopOjCFak7M8At6kwJHjAPXV90BD20jNog5BJmZR7iO85kxm8chij+emvjHVx8NluEps
-	 1qR1umjB+YERIITSMMSojS5weHp/EmGFbH2TtPeF0Vw5IOoEmgyjQ4AbCDproNDyRdg==
+	bh=bcfbvQ8gB9SF4XC3Hej+2/giBomibcyqnyLps+IyRxE=;
+	b=t+18DYKaU7l1OE6UuTuPugnP5mmYdAdad2eyZy088nUywa1/ukVvlKIw7ZSeUfi16REW
+	 XFoTfOgfClIvkCl+bLu4PyPcO21shn0lsJ5aK4NgZD3oTA5mKu3VWW3L9tCv1Q9ggXV1j
+	 ltpOvYYEld7BIYmW6l3yE/heV2taWQyLQ3qWpwPeB4yIc3khOJmgDhQeZOxpnlHpPh+Qk
+	 OjiZ9kfdnI2B0t6KlxBkoGwbUXv9E1ewQSvFJaifbdhkUAMR3PfqC/d4vT9GJq5lh9tWb
+	 boxkuCv8CjbpIJwGtetyzVcVXKTjtO0Uil+zO6HtU3RU8NW9qVCu6V6CL4dpuW1ySwA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sOKnL0X2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.41
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BCa8+cd3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.11
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011011.outbound.protection.outlook.com [40.107.208.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49785606A32C;
-	Sat,  7 Nov 2026 09:45:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49785606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBD8606A326;
+	Sat,  7 Nov 2026 09:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BBD8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sOKnL0X2
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BCa8+cd3
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rAJ2qKdHzYYE0NlhhYu41LB2jnP2erBsRWtcTV0SsvRPHLFCT0fHECVozyE96mLSVz9vrll3DWrhuyGQXGPONuO77XbyC06XfIbrQIRxNaAqlURORtGMrXBXsCNJoNY+tbvjH/mZLrvj8ST2dbuj940I+qSc63EQixL+cR57hUilyKBM3cZTFS3UCWLyZrQVIaR6xSIjzBNavytwT1PZZitkJdYV2VddFMS/zVl4uVoh1NuF/6P8qiC9OfYRmDRiv4cqMJI0q1rEkDYT/SqKEnDX6sP2gaZA16iVG5ZDCCBD+CVF8MlesJ45nbzXKJCPen8oGogMiHVvZ7qMPftUgQ==
+ b=oZEsb1NqIz1ykOquYhGghiGiEXzf+3UhrJNrNb1VDvTaJYA9Co/Rs1J1DejXqmKRAnJC8laxjEzXLL2wEPCHh8wD9QfbiuUOEAbtP3Y7X05yCeSTsHmcwgdJYYQPIUlSic1kgrFGxeYE9koTWPlmCkjqOXreHlYhgXyz2nNlwfR5qf+1t4wNSfgcM4HOf2r52yX0ht0rqNA1RDiEzN9oOjuVptkWt+QjQf3U5xyoOr1HzUWK9uCiQndDFbqUOc40/wLjw1LIYMTZQkt5qwUx4RLGE2yu4LhZOUO5jvX8n1FuC+yI2ORt2pQeX+UPL95nNIbA9os4X8Bd97Zr2g31tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DUrlmHNgqTLc1XqD9g8a3Qr0lSZz2Ig3GF17chSN/MM=;
- b=rOZQXUCi7q1/wGh+q1CsIIjTIXDAfZsdJZSNwNNV/M/7Ts0u1G6aqI+ri3xFnHVA2Grz/3WRBGBnsZe6/TcytmJYpaSdiBNOCK1Yxm21/cuaN996k160iNBVV7NJdS22xn1tgcuVlFEHmnW665rHcX8eb0fD88SWeXkdOs5/hWkTYckaKET3nlTrXeYwiJWCYxJZ5lzZlWrIg7xLYPs/xnMFv7Digcz+GR85CPOMV4zAvaaz5U1ApLuWQHE71sUNpojlGtmzfK5JdHhZGBoXvkaj1UmAaZrbv4+1JtgwWVmHbGZw+wmlXIloradOcPS63A5Nt5I+7lUfu84Ky5jLvA==
+ bh=bcfbvQ8gB9SF4XC3Hej+2/giBomibcyqnyLps+IyRxE=;
+ b=NXd0Sh8lHUDKPHrNNad7V4qdbPqdVcLYGCF5lVd+86VsfbuRJptiZRFfSds7Q339B8LaCIDuJ5LPRqzVG/BiyLHCNWaiAcFTB7yWgs6CQTsUjGsYN0cKgjM29wamS6ymSw7wP5f+upmEJ//zyAQWzEIDj8rS2bVfKumod06xwMnl/GL19Z4KRgygt6pEZ1vYfUNUjStSDXoQEOkY/3ab+jF+0sqyterQfTnAuUbupxb+om4ZB6b+PJsCZT7lmGgybUCZM2s2Bo2j4BtxFGoDfR1NtxaK/7AvitYwPUeOyE1lZLOEy+WQyvR3U21A/KFUn7TB5K5i+YNJdW4S75BXDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DUrlmHNgqTLc1XqD9g8a3Qr0lSZz2Ig3GF17chSN/MM=;
- b=sOKnL0X2QYMpsv8Ok16izC+Qg3mUClf6Q7Jczq1+fvGJ66/9MQumZwa1nEs/Oa/7njCyft9ZMzXR2hIkye/l0HfzAmSW2I5XEX67qShUJg+9pWJOxxflBUaj2nDo8UKkpCcyWopKyTf8iNcQUCZKm+LX7Uiaj1RMv+KKEdwFr08=
+ bh=bcfbvQ8gB9SF4XC3Hej+2/giBomibcyqnyLps+IyRxE=;
+ b=BCa8+cd3bUZuoEheLAAf1+UXtdMBzfD5qQmt/xEj0PQSBBZgYWMuiCBf4JKl97VOS6QXVksSbSrRyQmiv/Vb4QbtqVkEKTgUwJQV8DkcbDuuuP1ZQCTbcpB2gj2S5ihI5rzT+NZDByQ8Q+7jxauh95AlEzr9eqEZVZkcfbNVeoLTMFtSf8finifXBWJlU2uNsYYXDWaJLUuDw6HZ/OY9q9Vq1Q8T3FDbA26Wb+lDsgb81xTLDTrW4mEYP477QcG4oJTs3M13WlMbgYw1yMfDt9pUSKnmQBeSLROcU95C2DAy5mNyg7CuaxnebE0sEPBaoJbacSwa6r8Uwa6Mzycz6w==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
- by DS2PR12MB9710.namprd12.prod.outlook.com (2603:10b6:8:276::7) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS0PR12MB8269.namprd12.prod.outlook.com (2603:10b6:8:fd::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sat, 7 Nov
- 2026 09:45:50 +0000
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0592.009; Sat, 7 Nov 2026
- 09:45:50 +0000
-Message-ID: <5e8f4a57-1b88-4e05-9081-6c47bd3183e3@amd.com>
-Date: Sat, 7 Nov 2026 15:14:42 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 21/21] soundwire: amd: Disable interrupts if enabling
- manager fails
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-To: Lee Jones <lee@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Mastan Katragadda <Mastan.Katragadda@amd.com>, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mario Limonciello <Mario.Limonciello@amd.com>,
- "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
- "Prasad, Prasad" <venkataprasad.potturu@amd.com>,
- Syed Saba Kareem <syed.sabakareem@amd.com>, "N, Poojitha"
- <Poojitha.N@amd.com>
-Cc: stable@vger.kernel.org
-References: <20261030104840.3361217-1-lee@kernel.org>
- <20261030104840.3361217-22-lee@kernel.org>
- <48141b99-f1da-4582-b784-864148072d82@amd.com>
-Content-Language: en-US
-In-Reply-To: <48141b99-f1da-4582-b784-864148072d82@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN5P287CA0032.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:263::13) To CY5PR12MB6252.namprd12.prod.outlook.com
- (2603:10b6:930:20::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 09:48:20 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
+ 09:48:18 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Subject: [PATCH v2 00/12] gpu: nova-core: generic bootloader and falcon DMA
+ changes for r000
+Date: Sat, 07 Nov 2026 18:47:56 +0900
+Message-Id: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNQQ6CMBBFr0Jmbc2UMYiuvIdhUdpBxkQgLVYN4
+ e62uHT5kvffXyCwFw5wLhbwHCXIOCQodwXY3gw3VuISQ4llpTWS8oioupfCunZ0MtWB2iMke/L
+ cyXsrXZsfh2d7ZzvneTZ6CfPoP9tV1Nn7r0atUDE5qjurCZkuQxQnZm/HBzTrun4B8wW67LEAA
+ AA=
+X-Change-ID: 20261103-r000-fw-088d39a643b7
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: OS3P286CA0043.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:1f5::11) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,176 +107,152 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|DS2PR12MB9710:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97e7bdb5-0ea9-488a-2c16-08df3cb3e7c6
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS0PR12MB8269:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9dd34320-2731-42d2-0603-08df3cb440c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|261102123227099003|261009223027099003|261022105027099003|261028144727099003|4143699003|56012099006|261026140227099003|11063799006|261021121427099003|261021123027099003|921020;
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|23010399003|18002099003|10067099003|6133799003|3023799007|261022105027099003|11063799006|261026140227099003|261026121527099003|261028144727099003|261102130727099003|261102123227099003|261021123027099003|56012099006|261021121427099003|261022075727099003|261022115727099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	VG9QipuduHXpqm6DKCjhHuVeRIwcENCd5NXsqTHEl9b5Cbh3S+rw/BITx/eJzysNWsj9NThbVbxIiWeDTOA7KHASgJO0y+h67l2hoJ+Vkpm9Io7oZrkAFedPemhxfxOs9LsQKvE3tew0f3832DRJmq4OTbtoJK1E2OBUYFnnbztUHtRJQY7q294S2Wc4dj0Tt3wZFnmFDebEad2pSjbZFqj/PVb7iujpTvtW59k3q4Wr1C5DIksRcIUfosKkKWMgkK1bfKcSuoFDK/QXLB01eNzOhPZRLxJe7jg+BsyQcelHrMEdVQsTLPJ0MG6+szZCENwaWuPou7QUI1Le+fHu+r7jBIOLjNvr3fu0sew6Lli80sQry7cC/j49VKoE8eGz8FklWjJKwNWodeVhgd6Z4pfVx6YL1gkasvq/JT98GhQE/N5E/849AJQNM2uwvY5FdsgLb4IQABiDeC31NWmz1SWwHSD5ny/KtB28nm6qCFBzMZZA1VIzhJCOtNPjH9C7My0CCdo+ktckKQsWqCbVcVo4BGggDJlwPxTsHDYygUBelaoboDFYnl2wD+mE6zQpf1hDYgNDm7Xm5x0qI6JxErv0ruw7EM3lvameRqwmjgyC5SsyK+LSZTvV5ke5q+VGQH1pQtklw1a8ns913NIslQ==
+	i8kXJZtzUO56iD+2/Mi0LyeMq0bMa9nJ1AABsBgPX7anwa7tw0m0UV6LiihVLIZCO/2zUtniwgJwfrrMsD1rgTHCsOBc9/LffhBretNYmqaAqYr8ZQ4b4BTCE/vtJnjj/aNUEJ4Mzan5u47kY4c15Mt63ap7OKT0/KuxzCLFE/OzfkKtVu3E4Q1apmWPciYnT1oruv6g+FdZauftaMrZOf+fHNXWQC2JJ2eRkfzDoGX6mK9XaRuR6BHdnpLOS27dIeApQ305zAeueNsZg1ALUMJe7z3SemwREqUwtRMJvYK9Vrs+0M0KKbtj5RXgM+BiQG0lcPfWQZ9Tryvbg8XuqJz+G6/zk1KOaRXB7+9SziEeDnDXDGnmPDM8msdxYXVn9j+TmQyI+ko9GmkjL8idHCmR1NlY4Ew1c9tmUL0EmnZ58W9/aoZsDsO+IqshGgyULqYGgaaEJ4OMmoXuZx8Rp8IX0tnBq7l7ICKwZvwRo6b7v3D/nhiI2rfHo1aptxFVHX4Bre2thkTl1jpsFWUiGYY16hI8hx7Wrh/PSXb0q/vPNwlLxUtlXbQy5bvomzvZC0m4FsIJ5tZrHxhIj85LczGolz5Qzq/0gY11Rr3RQYJW984T40erLy5VDsBZYWhiwqPI/Wjv1iiR8XRqppRuOOGEDJiox2WZXbEkIK0A5PQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(261102123227099003)(261009223027099003)(261022105027099003)(261028144727099003)(4143699003)(56012099006)(261026140227099003)(11063799006)(261021121427099003)(261021123027099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(18002099003)(10067099003)(6133799003)(3023799007)(261022105027099003)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003)(261102130727099003)(261102123227099003)(261021123027099003)(56012099006)(261021121427099003)(261022075727099003)(261022115727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZnkzeU9JNDFyZmNxQ2RVa0xHNFNvbXNDdGhWby9Bc09ZNVlPV21KbUxkeC9E?=
- =?utf-8?B?MHJPMVNzcitBbVpzRytsV3J1T09FZjZYY09hV1QwaHIvREhKLzBsUUc5RkNp?=
- =?utf-8?B?MFZIeXJFVE9qMTdHeWVSUDh0L25INXY4dDdPUTJFSC84L29saUxJRityZ1dS?=
- =?utf-8?B?cStjQ1R6ai9TUWNEZVV1L1RWNlduTU9CZEhEWWx1RWhlVldHMFhrc1lnY2dQ?=
- =?utf-8?B?Z2FDcGl4Yys2ZXZ4VlVRVW50VmZzUUhRL1dDWFg1b0dnWnljOGpBempFNjhy?=
- =?utf-8?B?YmkwOW5hd0Q3L3draGVYOUJ5NzdaZmxZLzJuc2pVQTNDRFcyN05VV0dBNFpM?=
- =?utf-8?B?YTUvaVA4bnpwVDNOVDhwWW9Sa3pORTVIUTRvVU95SnJNd2p5Qnh6djkwNzFz?=
- =?utf-8?B?UmpnTzV5ZUg5Z2JPUUxENFNPRDBSSXo3ZnhtN0Exb2YycFdCTnk4by8xSWE1?=
- =?utf-8?B?SjRwS2MxZUhFaDZUOHFkUlgzL0cyUVdPemhoc1FLekNCTnBBaHN1VmpBYnFK?=
- =?utf-8?B?MnNrV3loSGJacnRQQjl5eFg0YytjS1lPMlJDbWlrV01EaVh3SldOdG9pQkVR?=
- =?utf-8?B?M1E4UC9jRzJXWUFGbHZaZGxVaklBZTA0YlRHaFZlNG9yTWh2SFZaNHdsekRa?=
- =?utf-8?B?K0ZBWkxJQ2hialRaWERFSnVpdDdwSmkrTU4yVFgvSXM2T1ZIVHpPd0w1S0hs?=
- =?utf-8?B?bGdMYXdHY3ZDN1d2cUQ5WVdqbjdvOTR6UE8zSEU0eGV6aVVMS0gvK3lYZmZT?=
- =?utf-8?B?bC8wK1pRTDF5M1lnQ2tsSEV6WG01aE1CRHFrUjNOMHV1eFFvMkM1V3JLTEFr?=
- =?utf-8?B?ZmlFMHp5bS9VUks0d1lwUzZwbEpURnloekdKL2ZJM3BrRUc0V2djZ0xvQ3Rj?=
- =?utf-8?B?RUFudVZueDRvMlpGSnd2NkFaQ0JpUzNrOGFKaHY1cDhSajg2OFFzdHJsNG55?=
- =?utf-8?B?cDZ4cGF4ZTRGdGpHb21xTzBITThGU0VLbmUwR3RvcCtLY0huYUdnelZCQ3Ur?=
- =?utf-8?B?S3lxQ1hSNUp5ekdaeWRYZGJTNFJHK2Y3WW9iVmhZb0ZUTVd5ZWgzSmFheTJz?=
- =?utf-8?B?TmxKcjQ1aFFSdzdXWGdSKzdxVFI3Ym9rc2xMMzF0MzBycWlueHRnRzNGbE5B?=
- =?utf-8?B?ZnY5aVlsSWFKMlM0Y0l5WGVDUkVsV05XYkFKbk1GNStGWFJlMlNVZWI2Q0pN?=
- =?utf-8?B?Y3ptSENLNjk2VFZBOXNiWjVsRTRDSHZsVlJhMzlCNllTS0lsWHQ4NHJpTGpz?=
- =?utf-8?B?VUtIOExadGtZZ0F6ZklwK3pMOHhEc2pDVnNJK3FxUUtSbXZ1SW1DeG1zR0h1?=
- =?utf-8?B?M0M4UjRwVWgrTitPTXQ3NU9BUWh0MmNEZzIrSmE0U2JDQVZjMEo1Mll0REMw?=
- =?utf-8?B?WnFRL1FyQnkxc3l1Q3p5ck1BaXlyNUd4RWZycGlLMXlzWlVwT0ZFSTdLd3Qy?=
- =?utf-8?B?SUNZK1AyQ0dwSlNZYWRrVzNtNWdIYUJCZ3BVYTdIa1U0d3VrVnFkS2lNallU?=
- =?utf-8?B?aDJoaWU5T01WYmNlcVlmQ1RYVHZlUDA0bjE3MWVZd3BDd0t6dEpCRHNJZ2V6?=
- =?utf-8?B?L0orK2tKcUppdkY0b3FCNXdvU1VYQ0loaThoUnp3NjNocVpHclRsbXBYMDZS?=
- =?utf-8?B?aDdwcHltZ3NaejJIWlRiTjAxcm9oblplZkFLVm1RUGVPNXkxaHN6eWREWkt0?=
- =?utf-8?B?c0JyQnA0T0Rjby93MlEvaFNzQUpRS1BzMng3OVRPRzAvRWNuY1VQSDNJSnB6?=
- =?utf-8?B?NUNnRmxWcmlqMkQ2djF2c0xOZ0VVa2ZVWCsxMjBQV1FnSEl1eGxkM0VHM1g5?=
- =?utf-8?B?NEN1TlFMamFFVFRhWDBxVWNkK05xOE84anFEREtySGhYOFpoNkJ5M2txOXZB?=
- =?utf-8?B?aXQyaUFUcWtXUWNhUVBIc2dpWmV3ZzhEYzZYcXZ3eDRUVFR3bENVaTZXUWxs?=
- =?utf-8?B?am84b2J2UzJ3dmxDN29SVzJ4OUlyV04zeXVFOElVb2pmSHhWajFZQXlidm5M?=
- =?utf-8?B?T0R0K24rVkNKTmFmL2lXRXBVRTd0UUlJeEp2M2RCaW1qek14U1A0UklTb2dB?=
- =?utf-8?B?UjlWdlZqZ3hmaXhjY3JEcHF0TnFkY0h5MFJ1M3JwejdjdGVwUk42cnZJVEtZ?=
- =?utf-8?B?T0VLQUZGVGNCVS9iWkdEWEFzRW1LWnhGQUlHeWYvTTFDL1YxM2wxMit4UlQr?=
- =?utf-8?B?M2gySFNSVVI0aTYyR2pXemw5Um80eWJ5MG44Wkh5bDNuTWhJR08va0pzUzBO?=
- =?utf-8?B?LzRHT3VYcG51N1V0NjhmSDdiRHE2enBaUG1aajU3cjZldjd0c3dYc1Y5VCtm?=
- =?utf-8?B?Y2FHVXp2TC9zb21HUEQ4TXBoc2FiNnBrQ1FzNWVBaHQwU3Z6K21BUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97e7bdb5-0ea9-488a-2c16-08df3cb3e7c6
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
+	=?utf-8?B?Qi84M2xDdWZ0aGR0d2s0L0RlMUIrbnMwbVhsclQ2OEFVZXpDVVVnakMwa2hl?=
+ =?utf-8?B?VVY5UHlKbGk3T3lWY3NWWU1SNWc2bzBDMDRRTmlvSmtWbS93NHJ5bXRqdlhs?=
+ =?utf-8?B?cjhwN1RwNmpVeDFlYWRXR1IwazNPQld2c3kzVCttWnpXN2F5V3R0aWQycWNk?=
+ =?utf-8?B?eXNIVkp1WTk4UHZTeWlZOEx1VFlMajdHaHhwZXdteDlGb0t2SVJNcUxrcUpS?=
+ =?utf-8?B?SHdnVnd5aHVSMVZDdzg5ZUloM2MzRXhkVVRsNGFHaUI4UElFM09senpYTDQ3?=
+ =?utf-8?B?ZDAvOERFRGIzbWM1VndpdFNrbUtOenNqY2FWNk8wdmxBdS85Ty8zUzFja0J1?=
+ =?utf-8?B?RllFSmp5bXRDbWJiTUM5TzBTb21aNTNXMXpGV2JOQ1VZRFRxVDRtcWhIUnk2?=
+ =?utf-8?B?Zy9hQXNMYkFGV25TZFZYaURjdmFVQXhPZG9DOWRicGNkajZwREZUTlRmSThQ?=
+ =?utf-8?B?dlV0cDRsWFByRjNCTWh0ZUpSR0pnb1F5ZlI1VTdyZWJtTXFmQjFjWVZJd0RL?=
+ =?utf-8?B?QU9JREdVWldhVDVIV1h6SlgrZDhUWS96ZUNVcGxZRVBiVDI4cDhGcnZDek1C?=
+ =?utf-8?B?bkNzMDlhT2JrdU1hV085MEJPaEMxS1ZvZHJBQ1FlQ1kwZUh4RWtjY2Uva3Y3?=
+ =?utf-8?B?MDlCTUozMmR6V3BYYlNZNnJwcXpsR2JKcDJhM3pTN3VDNk1YZXNqQm1Ga2th?=
+ =?utf-8?B?a09UTHRMTGdiYnF5UzNiak8vTzhsK3NJNGxweXlRN3ZuQmtVbG9UM3dwZENx?=
+ =?utf-8?B?Z0crdTljaDhYZG1zNVhjM2RTRFkrZEtsYUxPeWUyOFdYek5vT3JtMGxmVVVK?=
+ =?utf-8?B?VlhaN2Z3Y1Npa1NsVE83SlZwYm5GMlRoSnhrTmZybmtmRzhlUlU3THROZmN1?=
+ =?utf-8?B?elpKYTNrcm5WN1QxZGtNK1M1Y1RpSzJtR2ZKLzN5Sk9pc3FrYjdxdnFPWTMz?=
+ =?utf-8?B?MVRMQmc2elY3alhaR295am9ZbDBjUDVGbWRsalNITU15TFRDZVNnYzdtckt2?=
+ =?utf-8?B?T25hNW5jd0g4ZEc1TWgrb3lBMU5BL3JKOG1ob2tGbFdZRjZqcTZucFNFYldE?=
+ =?utf-8?B?VWVFR0J3bFoxQVUxNGdkK2R6dWJST0toeURQeklxTE5Ra3lSWFpZNzZxeGhn?=
+ =?utf-8?B?NnpGUmhUUFh3c1paT2RxRDNKeEY0cGs1SW9CTUxTQkNBZ2ZoTk1zUHVtUEtC?=
+ =?utf-8?B?ZXM0ODlEbnltNEhPZDJ1ZDRsMXc0a1d6aUJiWDJTaHdCWkVvMjVnRG53QklH?=
+ =?utf-8?B?QlJXbnVaS1JrdWYzQVNyaENOU2ZLeWpiZmNMb0NramZLUDFyNTN2aDBKOU51?=
+ =?utf-8?B?MDRTRHQ5RWZENDBrYUwxYWxWbjdkRk95eXUvbHVTcVZ4b1l1VVhiNXVFUlZJ?=
+ =?utf-8?B?UVBkcjdpS0hnazdOVnNPSnVxbkUyRGl3azB2STJuejNFbXdPVWowRjNxZ0RC?=
+ =?utf-8?B?bmFQcWhaRWRIU2hRcXVBaElXd3E1R0wxQlBvMWZnZExkaGV3b3pWSVNleDYx?=
+ =?utf-8?B?cTErRGovbjFaOWNNcDhCdnVBVEE4Ym16R1g2RGlmNFJFR2xnK0MxQ1dKZVdt?=
+ =?utf-8?B?WHF6T0ovY3MrQ0NRdEh4ZlNxdXU5eHRTcjBvbG40RVVNZ3NyMVN4ekdmQ0x6?=
+ =?utf-8?B?RVJ6MThnbzFRWmhCT01IZWVKOVg2d2s0THNDWE5lYmdrVnVwODE1b2YrTyt2?=
+ =?utf-8?B?MDhtazh6bUg3Ymo4dGdvTEhDUlhSb3BZWjZTb2l3U0p1blJWV0pSdHJESHJT?=
+ =?utf-8?B?YWpSVWZ1S1NVeHRZVmVtN3gxbGhCRXNqcUpCczcxUSt5N0wwNW03aVBHRHhk?=
+ =?utf-8?B?cnNKaXEwc0hMbm5PeE8zTjcveXB4TkJGTkVsZ0hjdEMrS292THpqZG42b1V2?=
+ =?utf-8?B?eWk3ZVByRFNLQjBWK1VJaU1GWThxMklwZERjbHQ4a3l4WU9sU21YNXA2T3Y1?=
+ =?utf-8?B?WDAraVhvbzk5S3o4bzA4ZER4STlRbFZ1WTdKZE9NWXdRMGc2K25MYUhvSkhy?=
+ =?utf-8?B?VmhwUDFmZHdYS241MW16aUpnYUdCdHdTMXROL1JXZEQ4N2hRbnhYTGlxWVpZ?=
+ =?utf-8?B?VGFhSG9pZU5odE9kWmxVelRUeG9JNklkNDhOU1NEdmFUaDkwK3hrdEVVNzZE?=
+ =?utf-8?B?V3VzNjhVT3pLUklyNXdoa0wzNGdBb1BnNy9LNHZiS0ZCcWthSHg4ZURrck02?=
+ =?utf-8?B?SHpjQ29FcXJsRHJ2ZVdBdFhtdEVVVnBRcEI5QzZqakZ5bHJGMmEyWVRsNitT?=
+ =?utf-8?B?dC9KaWRUbUd4YXh5S0IzdElIRE5rVTZaSmlzdXMrZm0xNzdSeVBWZitIRWJU?=
+ =?utf-8?B?Z3R2WFJtT3B4Wis1MUh0dE1sUzJUdnRHRmMrV2FQVEpaajR6RDcxRlZaVkZq?=
+ =?utf-8?Q?KsQuTzBzCeWnbWAZvPkl707g6wut5UT6i+3ZFHLfXW6yo?=
+X-MS-Exchange-AntiSpam-MessageData-1: u+vmTAI0oGug6g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dd34320-2731-42d2-0603-08df3cb440c4
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 09:45:49.9023
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 09:48:18.9466
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3tEt6+xzcy16wOt1w53G+zAzeVXmR//S3OQzyopBPoHUUZ4AY6ZKdPWnELP8zbSWdZKK8xdkmgXsPUtxhhB6Wg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9710
+X-MS-Exchange-CrossTenant-UserPrincipalName: waMMQZ6ncunyzYZyWGU5U9EAg12kbZLqmSdzYP7dHP2hV1ZDUq3W3gaozqb94J5Exs/W24Uow8sdIXOIzPYd2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8269
 
+This series contains patches 13, 14, 16 and 17 from John's r000 series
+v3 [1], that prepare the generic falcon bootloader and the falcon DMA
+code for the r000 boot protocol. They are submitted separately as they
+do not depend on the command queue work, and are valuable on their own.
+A few preparatory patches are also introduced to smoothen the
+transition.
 
+Patches 1 to 7 make the generic bootloader its own type, usable with any
+DMEM descriptor and not just FWSEC's, and place it at the top of IMEM as
+reported by the HWCFG register instead of assuming a 64 KiB IMEM. Patch
+6 is a bit of an outlier as it allows register array locations to be
+copied, in order to simplify patch 7 which makes sure the generic
+bootloader can be used with the r000 boot protocol.
 
-On 10/30/26 18:28, Mukunda,Vijendar wrote:
->
->
-> On 10/30/26 16:17, Lee Jones wrote:
->> In amd_sdw_manager_start() and amd_resume_runtime(),
->> amd_enable_sdw_interrupts() is called before amd_enable_sdw_manager().
->> If amd_enable_sdw_manager() fails, both functions return immediately
->> with SoundWire interrupts left unmasked.  In addition,
->> amd_resume_runtime() ignores the return value of
->> amd_init_sdw_manager().
->>
->> Check the return value of amd_init_sdw_manager() in
->> amd_resume_runtime(), and disable interrupts if amd_enable_sdw_manager()
->> fails in amd_sdw_manager_start() and amd_resume_runtime().
-> ++
-> The unchecked return value of amd_init_sdw_manager() in
-> amd_resume_runtime() is already addressed in our v3 patch series:
->
-> https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m7741edcedb1264764edc7f8559e39af8b23433fb 
->
->
-> The missing amd_disable_sdw_interrupts() on amd_enable_sdw_manager()
-> failure is a valid observation and will be addressed in our upcoming
-> v4 patch series. Please hold this patch until v4 is on-list to
-> avoid conflicts.
-Correction to the above. After a more detailed analysis of the ACP
-hardware interrupt routing, the fix is not required. Please drop
-this change and disregard our earlier statement.
+Patches 9 to 11 let falcon DMA transfers read from a framebuffer address
+and tag DMEM blocks, and check the per-block offsets for overflow. These
+three are extracted from a single commit into their own patches.
 
-The AMD ACP IP is the parent device that dispatches SoundWire
-interrupts per manager instance. It only forwards an SDW interrupt
-to the CPU when the corresponding SoundWire manager is active.
-If acp_enable_sdw_manager() times out the ACP treats that manager
-instance as inactive and will not assert any SDW interrupt on its
-behalf, regardless of the mask register state.
+Apart from the bootloader placement, no functional change is introduced
+by this series. The new DMA capabilities remain unused until the r000
+load-and-execute handlers land.
 
-Two independent hardware guarantees prevent any interrupt from
-firing after a manager-enable failure:
+Based on `drm-rust-next`, tested with TU106 and GA107 using both the
+570.144 and 615.71.09 firmware images.
 
-1. The masks written by acp_enable_sdw_interrupts() cover
-    packet-based SoundWire status events. These require the
-    SoundWire clock to be running, which in turn requires the
-    manager to be enabled. Without an active manager there is
-    no clock, no SoundWire packet can be received, and no
-    interrupt is generated.
+[1] https://lore.kernel.org/20260918010719.1176945-1-jhubbard@nvidia.com
 
-2. Wake interrupt masks are only functional once the SoundWire
-    manager is enabled in the D0 sequence. Additionally, wake
-    is explicitly disabled at the very start of the POWER_OFF_MODE
-    resume path, well before acp_enable_sdw_manager() is reached:
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+Changes in v2:
+- Remove `Assisted-by: LLM` tags.
+- Widen the `IMEMC::offs` field to 24 bits to be able to load the
+  bootloader even if IMEM is larger than 64KB. (Eliot)
+- Accept unbound `Device` to create the generic bootloader. (Eliot)
+- Fix documentation for GenericBootloader::new and FwsecFirmwareWithBl::new. (Eliot)
+- Program `FBIF_TRANSCFG` from `GenericBootloader::run`. (Eliot)
+- Bring `with_fbif_transcfg()` from the later r000 patches.
+- Use the source offset as tag for tagged DMEM transfers. (Eliot,
+  Sashiko)
+- Set the `DMTAG` attribute from `with_falcon_mem`. (Eliot)
+- Program the FBIF_TRANSCFG register in dma_wr. (Eliot)
+- Link to v1: https://patch.msgid.link/20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com
 
-      writel(0x00, acp_mmio + ACP_SW_WAKE_EN(instance));
-      amd_sdw_host_wake_enable_by_rev(amd_manager, false);
-      ...
-      acp_enable_sdw_interrupts(amd_manager);
-      ret = acp_enable_sdw_manager(amd_manager);  /* may fail here */
+Changes since John's v3:
+- Split the IMEM placement change out of the bootloader extraction.
+- Keep the DMEM descriptor fields private behind a constructor.
+- Replace the exported bootloader pairing type with a `run()` method.
+- Make `dma_wr()` able to work with different sources instead of adding
+  a second DMA method.
+- Split the DMEM tagging and overflow checks into their own patches.
 
-v5 will not include a fix for this case.
->>
->> Fixes: 81ff58ff71ad ("soundwire: amd: add runtime pm ops for AMD 
->> SoundWire manager driver")
->> Closes: 
->> https://sashiko.dev/#/bug/linux-309820e5-f754-4d3d-80aa-7f70d59f3e8e
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Lee Jones <lee@kernel.org>
->> ---
->>   drivers/soundwire/amd_manager.c | 12 +++++++++---
->>   1 file changed, 9 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/soundwire/amd_manager.c 
->> b/drivers/soundwire/amd_manager.c
->> index faff3e9eefad..f64e8fea7e16 100644
->> --- a/drivers/soundwire/amd_manager.c
->> +++ b/drivers/soundwire/amd_manager.c
->> @@ -1109,8 +1109,10 @@ int amd_sdw_manager_start(struct 
->> amd_sdw_manager *amd_manager)
->>               return ret;
->>           amd_enable_sdw_interrupts(amd_manager);
->>           ret = amd_enable_sdw_manager(amd_manager);
->> -        if (ret)
->> +        if (ret) {
->> +            amd_disable_sdw_interrupts(amd_manager);
->>               return ret;
->> +        }
->>           amd_sdw_set_frameshape(amd_manager);
->>       }
->>       /* Enable runtime PM */
->> @@ -1503,11 +1505,15 @@ static int __maybe_unused 
->> amd_resume_runtime(struct device *dev)
->>           ret = amd_sdw_clk_init_ctrl(amd_manager);
->>           if (ret)
->>               return ret;
->> -        amd_init_sdw_manager(amd_manager);
->> +        ret = amd_init_sdw_manager(amd_manager);
->> +        if (ret)
->> +            return ret;
->>           amd_enable_sdw_interrupts(amd_manager);
->>           ret = amd_enable_sdw_manager(amd_manager);
->> -        if (ret)
->> +        if (ret) {
->> +            amd_disable_sdw_interrupts(amd_manager);
->>               return ret;
->> +        }
->>           amd_sdw_set_frameshape(amd_manager);
->>       }
->>       if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
->
+---
+Alexandre Courbot (6):
+      gpu: nova-core: falcon: widen the IMEM PIO offset to 24 bits
+      rust: io: register: implement Copy and Clone for RegisterArrayLoc
+      gpu: nova-core: falcon: rename the local variables of dma_wr()
+      gpu: nova-core: falcon: allow DMEM DMA transfers to request tagging
+      gpu: nova-core: falcon: allow DMA transfers to read from a framebuffer address
+      gpu: nova-core: falcon: program the FBIF_TRANSCFG register in dma_wr
+
+John Hubbard (6):
+      gpu: nova-core: separate the generic falcon bootloader from FWSEC
+      gpu: nova-core: place the generic bootloader at the top of IMEM
+      gpu: nova-core: move the bootloader DMEM descriptor out of FWSEC
+      gpu: nova-core: run the generic bootloader from its own type
+      gpu: nova-core: falcon: introduce and use with_fbif_transcfg
+      gpu: nova-core: falcon: check the per-block DMA offsets for overflow
+
+ drivers/gpu/nova-core/falcon.rs                    | 148 ++++++++---
+ drivers/gpu/nova-core/firmware.rs                  |   1 +
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 220 +++-------------
+ drivers/gpu/nova-core/firmware/gen_bootloader.rs   | 286 +++++++++++++++++++++
+ drivers/gpu/nova-core/gsp/hal/tu102.rs             |   6 +-
+ drivers/gpu/nova-core/regs.rs                      |  13 +-
+ rust/kernel/io/register.rs                         |   8 +
+ 7 files changed, 449 insertions(+), 233 deletions(-)
+---
+base-commit: 7a6bc132f1b51437063c9203e7221067b40a791e
+change-id: 20261103-r000-fw-088d39a643b7
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
 
