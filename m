@@ -1,96 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794072990;
-	b=o4g41B5H9h0262Pa1aSQbkiaFeYJ/MWtKvlTVMwVi0FhfDcT4aWOQ9vYbAm3p5RNuJDo
-	 kppFe59pCo/tCoSD/khycOzPF2qDy/fypfV9yZmgm1l/3K7owS74WojWrFeLxo82yl3QJ
-	 T/ozT24DiYStc2CLgfSgJs2t6RPmDWZycRTlUmqXBIzPazE0mk5ssbSEdNdKRP2IoKiSp
-	 fpubVc1VCPrwhN360uwqI7G9JlWtJrjHQvJ1Hq887RqbpbD+cy+kvr3JaHliRYzPqnTWR
-	 H5nBeMJjRxM44HNZcqRbKTSMe2BG5ulMw2QrQim1/tPG/ZhF0vyLe3JMeptA14vk8tQ==
+	t=1794073049;
+	b=IhvdHYQpkBvjZXeql+PQFNZtTz1tyebjl1o0oFPNvio3dcG5Mfz0Zoc11jTE8YXv8Goj
+	 nan+5I6OhFRxd0R918ux+KGDHe84pHagrA4gQ106U0Tl8qy4ydtl3QyasGZsh4O7361oh
+	 7r2ul3/d37trCcUKGlYRVhykOb6M0C0Bh+Aai/FV5PSEPt4Lr8nVqiq/zHIy3/Rc19Gc3
+	 Pr6rvwTe63SKPucn9kFgZOZrp6MKi47Ri8AMQmGvTIt6gQo87USICxbe89cFO+h3vzA+k
+	 YHarfV9EGX9D0Mz945HE5UX78XfXZTZtRwVW5r7BDdi/SJFbsKaoUDk54+WCYipCdNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794072990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Zcb5445YiVrXkw3TVtZShbjqyVnT/6aqrHWFz/Ykqto=;
-	b=ECV8FRrU6vZRwtlc48ypL55TMulOOFqnW+9xpJT0ObMz0obaE6nW1/y75cQqfGaGiU6e
-	 CMocHtEyUj8ClNVfOFf9UTLjG3mEArSlhneby+dzJUsgdedhYzuWfAXc2wAmLipAdQHjD
-	 pUEDmSyc+6iRdTe7kCnL8BQgA/kVTjHJblPwkazsphyx3f4DAoVG6wzklbI9UjUaWN69g
-	 ZBymG4ww+FhJyzyMrhKPJkQQes47zia6LS+GhTTHdVK7gAyWq+ZB13JB4p9yIgSVXzwSf
-	 +lX1wrE248zEqw4IMxIdVkQFU0HIOPnCwIT9ZEKJaKXZLPZ5S27Q2VTLe4eK9D0NhFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794073049;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Rspamd-Server:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=jA1Z4duQiQzeKq317JC2yso+OfINr1SzmCCDBHpydj0=;
+	b=DdDtheX/GOGkyNgDkw+6f+tgq0/Pkzwfn1X6xOxuGuqp+SAAdHLDCt3EwFxU/X2/BQ3m
+	 T0HVEk5d+e+858+phptwuvpMQoKG0rGwtWagElaf4LdXL3pZmsb6+kRi+6W623eoVD4El
+	 FuwTmzLNdvMdbFGgcGkcJXMc6NZsXTjHZI3kB4Wk9oxVAkRf24biyGSydtr6lhwK5YE2L
+	 ziMwBZQmEgiYUv5XpQghOwZ/wFx6NQkNUwvXYZfnpWsPe2dgkzh648u8Mjic2tSd2958J
+	 G7wsd+45sw+0Hh/zPA/XeGtyssbagNG9uPOZB+iWtV3tSv3Pc8s8Kj7wMDwtnpsPD/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ql5gha3W;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QHJOEINu;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9001D606A334
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:36:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9001D606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2B2606A32E;
+	Sat,  7 Nov 2026 17:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B2B2606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ql5gha3W
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso1951497a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:36:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794072988; x=1794677788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zcb5445YiVrXkw3TVtZShbjqyVnT/6aqrHWFz/Ykqto=;
-        b=Ql5gha3WSkvZZGQcUTTPxxfTWFX4vNGBZ9KzjFRg3Q8XLAa4+pRXrFhZ02GlfGXqe1
-         zA86pREG7LZygl/5elO9OeeHtRQk3lVN8sEtVQrNPZfHHV0JTIsUj+2Oh9MLoaEhJe6p
-         LxgZUCb2bLjyrSiFHeQRg9Db+LYR2nYHhNbWWWfDB44UXYEm7fvZ1zs0fWjRuHwzwrwF
-         4d4ubqouPBAzMKSo9hUHQqTRfPnno9IdA3uS1OPkJdUodCqitXJYuy/TNpDqHOgv7TJW
-         SfMVQ1xYy2usz70n1TTzZMwuHsnxMcjg95euQs9jCis3uu0cDwYJlwVUnty1J8CSnXF/
-         KzfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794072988; x=1794677788;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zcb5445YiVrXkw3TVtZShbjqyVnT/6aqrHWFz/Ykqto=;
-        b=qAv6QCwAzjX3oYYeMnqZwG+R3De+cxxGXsg1JhHkY2iFfxXB3zOB2z7tGSDmdX6DGU
-         E1FIORLAFepLRHmgo7dQY4bSh8FgkCSNQbdPYjvxHwN5KmglKhsAqU/LuIyusjCsmq1q
-         zuNQmaSsBrREgDGqEAb4h4Q4oCNvIgWvPyLJVspZ7/gmtR3Rb5f7MFd4ASIxMHhXoT7D
-         3SyFGn218lx/9lARsp8qzZ05i8we8L7bhhs0za4j3JJN9tpsPrU1BH6WBMoQrN5CTyzD
-         51QuEn/nlDDI0jEeTo4cJqXpRrnm92y2iXYbDpH/iJ/SoOR3terh76+QLXIcuudEyHMw
-         spSA==
-X-Forwarded-Encrypted: i=1; AL+hErF975xNghh/Td/4vmlkQxdraXBxDjBC2oJrulaEvb+GnwIrCIaIU6EkgD2CwxikT6r0p6TT1b6yn8KgqfQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7FHvipO3XcvK7yaoYiqSYIS7QtqYICR5856lIVDhYkqKVPuVP
-	2v5wx/6PyCIVRGnuCWsQ+O4x2A0c2Gg2HU8eC77dCLqz2ts6nokdLFej
-X-Gm-Gg: AYBFou1GkyXmy9BV3SkYC8Of6H63k5Z40NVARC7C2c/itSD/CgmpGng1Bth90U5ti5x
-	AiLIPEmbqn+3mmxUUKs/qeEpStzoinXX1GGPiBGav6ENLeVPcRAgmG2VlMJtXKcuzgcEohx6ZUc
-	cjObIXkcM+mIWkKNFr3FtmCa3Ig1JSqJBQDCfBLSROsSs40rvwRYNTwjHBTP2Lbr+Aa5pG2Hxa3
-	ibMyrvTFtq3SW0OLy6kJJiwi/XcEsCPgDt9+TBp3mUoohe4LHkK9WDHzYxl6PEdAjDxgyDisexS
-	6Bgl5GzCdTbtLhVNYhyiDGkKa6Gx/VI0+QvDymvNtvlU4GcVxiLBUyq2JJaQ3MsIXftINogW9Cc
-	4hJ1ow7YTdbH1r68sNvEo94bDonoJN7EHyPykn8iDByhOtDKu+Semq79LUn8Po84Xen7jYbps5A
-	2xnDSbPhfnT4mWG1Ie480nhbAWwx0257ksuDUK9T5xmyeTIh4VyuXx7jyiBlaFn8DzlutzcxjTl
-	GnT2IGOklMgsQWs7lYen3wb/BblfPjKgOSxXIsAyZlFGPRjpfu2ojM5MF6zyD4NUW5sWrqqN4H9
-	lgVpmRZzB7+5YLI4j3ras2NP/UrKUhziWGipPTmS5gt9cGHlxrqCpWajb6k=
-X-Received: by 2002:a05:6402:3219:b0:6b6:e759:b5da with SMTP id 4fb4d7f45d1cf-6b6e759b78fmr3202045a12.19.1794072987863;
-        Sat, 07 Nov 2026 09:36:27 -0800 (PST)
-Received: from frame (h-155-4-132-44.NA.cust.bahnhof.se. [155.4.132.44])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664afbc12sm1890076a12.22.2026.11.07.09.36.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:36:26 -0800 (PST)
-From: Elvira Khabirova <lineprinter0@gmail.com>
-To: Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?q?Hubert=20Wi=C5=9Bniewski?= <hubert.wisniewski.25632@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Elvira Khabirova <lineprinter0@gmail.com>
-Subject: [PATCH v3 2/2] usb: musb: gadget: don't flush a waiting RX packet when queueing a request
-Date: Sat,  7 Nov 2026 18:36:01 +0100
-Message-ID: <20261107173601.63095-3-lineprinter0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261107173601.63095-1-lineprinter0@gmail.com>
-References: <20261107173601.63095-1-lineprinter0@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QHJOEINu
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 86C801C3AE5;
+	Sat,  7 Nov 2026 17:37:19 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 535692002C;
+	Sat,  7 Nov 2026 17:36:58 +0000 (UTC)
+Date: Sat, 7 Nov 2026 12:36:42 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, tglx@kernel.org,
+ mingo@redhat.com, linux-kernel@vger.kernel.org, will@kernel.org,
+ boqun@kernel.org, longman@redhat.com, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, dvhart@infradead.org, dave@stgolabs.net,
+ andrealmeid@igalia.com, shuah@kernel.org, juri.lelli@redhat.com,
+ linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] locking/rtmutex: Stop spinning on the owner when
+ the waiter is woken
+Message-ID: <20261107123642.149677cf@fedora>
+In-Reply-To: <c77635b1-9c24-459a-b75c-82cbfb67185f@efficios.com>
+References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
+	<20261106235931.1478800-2-mathieu.desnoyers@efficios.com>
+	<20261107002927.3cbad7ff@fedora>
+	<20261107104329.GA2668564@noisy.programming.kicks-ass.net>
+	<c77635b1-9c24-459a-b75c-82cbfb67185f@efficios.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,364 +69,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 535692002C
+X-Rspamd-Server: rspamout08
+X-Stat-Signature: m44kupjn78amr5iba158yzo71aerdhcm
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX195nEAbX1ye5HLf4TYsMhI2TyWK0f81IaE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=jA1Z4duQiQzeKq317JC2yso+OfINr1SzmCCDBHpydj0=; b=QHJOEINuZLikmXVnkZT2L1ruJL/sFiyj1a7fbmNisUYPM3FED5UQaDWWBORf0uFWwrdV+MSQvl3GNH3g8/YiS2DTRupvspu8y8ro5C+eGzlCZIyVNXhDeXc44nGtcTwk00tHGTLiRum5o/wuaeGIUUQHOStCmkvQsjjCbVzmWuA=
+X-HE-Tag: 1794073018-50227
+X-HE-Meta: U2FsdGVkX1/xkZuEMEbBCRfnErlHYkRLRDuQ4GKd9JI66MgGk/9EtQjOr/4EcRkcQOmN7p7qTwDBZxQqLm4BRwFmhmB9b4FT7qkkG/sM2/a/lPmoftsEN/kGVVCJbP+oMtphFphXzojKGJXDoLj7973AVD34omJ6wjmlwbP7MNKbExqBzs0oifpfMCDA5FVYn1bwahkR2vCtgteuYTycxiab2tDqi1C3jnBKVa3FWckqqUst1nKjCoFXLjeCFbuaIcALKm2/gOo7lB6qmJiGE5+o5wL3iio+Gr9V6QpxtRAQCR0nLXBc00qzgheVeJuVnuguVSM304hz/NPMKas+Vb2qsxx5UeuMKzPJ0tQ0jO7+eAxCRaeVpEa1zm7Nq6bRRB8MX3GIgUJ0MPL1PjHCTqzV34xxNRpvXpf+I1wuKcH8PTU1dokdby+pxg9PhWaszNLnhPaeC4uIiIqTG7UIUQ==
 
-Since commit 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx
-endpoint request"), musb_ep_restart() flushes the RX FIFO instead of
-calling rxstate(), with the premise that in case of Ethernet, dropping
-a couple of packets during gadget initialization is not an issue,
-because it will only happen when the software is not yet ready.
+On Sat, 7 Nov 2026 07:29:54 -0500
+Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
 
-But when using other functions with musb, for example, f_mass_storage
-or f_acm, this code path will be used not only when the software is not
-yet ready, but also mid-communication, and it will cause data loss.
-Data loss happens on gadgets that don't always have requests queued
-for an ep.
+> >>
+> >> The above is very verbose. Are you starting to use AI? ;-)  
+> 
+> I definitely am, as stated in the cover letter. :-)
 
-The timeline of a data loss:
+I skipped that part of the cover letter. The first patch touches my
+code (it has my commit as fixes) so I just jumped straight to that one.
 
-1. A function that does not have a lot of requests pre-queued
-   completes an OUT request. The queue is empty.
-2. The next packet comes. MUSB auto-acks it, places it into the FIFO,
-   sets RXPKTRDY, raises an interrupt.
-3. musb_g_rx() is called, sees the request queue is empty,
-   early returns.
-4. The function queues the next request (f_mass_storage does it from
-   the main fsg thread), musb_ep_restart does FLUSHFIFO, packet is lost.
-5. The packet was auto-acked by MUSB, so it is not resent by the host.
+> 
+> > 
+> > He definitely is. I can't read the above, its word soup. Part of using
+> > AI is making sure the Changelog is actually readable. This is not.  
+> 
+> Feedback on the commit message wording is welcome, I'll try to improve
+> things for next iterations. Is the following easier to parse ? I fed
+> Peter's and my own criticism to Claude and got it to rewrite the entire
+> thing (and keep those learnings for next time):
+> 
+> locking/rtmutex: Stop spinning on the owner when the waiter is woken
+> 
+> The top waiter of an rt_mutex sets its sleep state. Then it spins in
+> rtmutex_spin_on_owner() as long as the owner is running. A wakeup sets
+> the waiter back to TASK_RUNNING. The spin loop does not check for this.
+> So a timeout or a signal is only handled when the owner blocks, or when
+> the waiter has to reschedule:
+> 
+>    CPU 0 (waiter)                            CPU 1 (owner)
+> 
+>                                              pthread_mutex_lock()
+>                                                takes the PI futex
+>                                              spins in userspace
+>    pthread_mutex_timedlock(1ms)
+>      futex_lock_pi()
+>        rt_mutex_wait_proxy_lock()
+>          set_current_state(TASK_INTERRUPTIBLE)
+>          rt_mutex_slowlock_block()
+>            rtmutex_spin_on_owner()
+>              <timeout> hrtimer_wakeup()
+>                wake_up_process(waiter)
+>                  __state = TASK_RUNNING
+>              owner_on_cpu(owner): true
+>              need_resched(): false
+>              keeps spinning                  still spins in userspace
+> 
+> The owner of a PI futex is a user task. It can run for a long time.
+> With an owner spinning in userspace, a 1ms pthread_mutex_timedlock()
+> returns up to 1.4s late. A signal to the waiter is delayed in the same
+> way.
+> 
+> With PREEMPT_RT, a ww_mutex wound is missed too. Two contexts take two
+> ww_mutexes in opposite order, on two CPUs. They spin on each other for
+> up to a second.
+> 
+> Fix this by also stopping the spin when the waiter is TASK_RUNNING. The
+> slowpath then handles the timeout, the signal or the wound, as it does
+> after schedule().
+> 
+> rtlock waiters are not affected. Only the lock handoff wakes them from
+> TASK_RTLOCK_WAIT.
+> 
+> With this patch, the 1ms timed lock returns after about 1ms. The
+> ww_mutex ABBA resolves in microseconds. PI mutex throughput is
+> unchanged. The futex and ww_mutex selftests added later in this series
+> cover both cases.
 
-Next data chunk arrives with an IRQ like so:
+Still way too verbose for the fix. It makes it sound more complicated
+than it is.
 
-musb_g_rx returns, queue empty
-        (drivers/usb/musb/musb_gadget.c:810)
-musb_g_rx from musb_interrupt
-        (drivers/usb/musb/musb_core.c:1786)
-musb_interrupt from dsps_interrupt
-        (drivers/usb/musb/musb_dsps.c:389)
+  locking/rtmutex: Stop spinning on the owner when the waiter is woken  
 
-and then it is dropped from the FIFO when usb_ep_queue() is called:
+  The top waiter of an rt_mutex sets its sleep state. Then it spins in
+  rtmutex_spin_on_owner() as long as the owner is running. A wakeup sets
+  the waiter back to TASK_RUNNING. The spin loop does not check for this.
+  So a timeout or a signal is only handled when the owner blocks, or when
+  the waiter has to reschedule.
 
-MUSB_RXCSR_FLUSHFIFO from musb_ep_restart
-        (drivers/usb/musb/musb_gadget.c:1174)
-musb_ep_restart from musb_ep_restart_resume_work
-        (drivers/usb/musb/musb_gadget.c:1184)
-musb_ep_restart_resume_work from musb_queue_resume_work
-        (drivers/usb/musb/musb_core.c:2277)
-musb_queue_resume_work from musb_gadget_queue
-        (drivers/usb/musb/musb_gadget.c:1249)
-musb_gadget_queue from usb_ep_queue
-        (drivers/usb/gadget/udc/core.c:306)
+  The rtmutex_spin_on_owner() is just an optimization with the idea that
+  if the owner is still running on a CPU, it will likely release it soon.
+  If the owner gets preempted or schedules out on its own, the spinning
+  will stop and the waiter will sleep. This came from PREEMPT_RT adaptive
+  spinning for rt_spin_locks that allowed them to behave more like normal
+  spin locks and speed up PREEMPT_RT performance.
 
-In case of f_mass_storage, it keeps waiting for the lost data;
-the host then times out and resets the device. Since this is a race
-condition, this can be seen as data transfers taking too long,
-or as drives getting mounted but disappearing when data
-is read/written, and so on.
+  The problem is that when this was implemented for futex and normal
+  mutexes it did not account for timeouts or other mechanisms where
+  the owner releasing the lock wasn't the only way for the spinning
+  task to exit the mutex acquire. The spinning currently does not
+  account for anything else but the lock being released or the owner
+  sleeping.
 
-  usb 1-8.4: reset high-speed USB device number 31 using xhci_hcd
-  I/O error, dev sdb, sector 240 op 0x1:(WRITE) flags 0x804800 phys_seg 30 prio class 2
-  Buffer I/O error on dev sdb, logical block 30, lost async page write
+  Luckily, when the spinning task needs to exit the mutex lock code, it's
+  state is set to TASK_RUNNING. By having the spin check the spinning
+  task's state to see if it switches to running, it can exit the spin
+  appropriately.
 
-When testing f_acm, this is seen as byte loss on the tty. f_hid,
-f_printer and f_fs lose data similarly.
+How about something like the above?
 
-Testing with commit 3fc137386c46 ("usb: musb: Fix hardware lockup on
-first Rx endpoint request") reverted fixed these symptoms.
+-- Steve
 
-Move the data processing to system_bh_wq. Purpose of doing so is to
-honor the usb_ep_queue docstring and to run in an interrupt context,
-avoiding the lockup Hubert described in his commit message.
-Alternative way of looking at this is it "re-triggers" the interrupt,
-running the musb_g_rx that had to be skipped.
 
-Such a change makes a different race condition more visible.
-On SMP or PREEMPT_RT, the RX interrupt can come while musb_g_giveback()
-is running on the same endpoint and has already dropped musb->lock;
-before this patch, that would be possible only when usb_ep_dequeue()
-runs in parallel with an interrupt, but after this patch,
-it could be the workqueue item running when an interrupt comes.
-Handling it at that moment could lead to packets getting stuck
-never matched with their requests (locking up the device essentially)
-or requests completing but out of order.
-
-So in musb_g_rx() and musb_gadget_queue(), also defer the RX'd data
-to a work item if ep->busy is set. The deferred work items are scheduled
-when the last musb_g_giveback() finishes and busy drops to 0.
-
-On suspend, disable the work items; on resume, enable the work items
-and also schedule one work item on every enabled OUT endpoint,
-to be sure no work is pending from before the suspend.
-
-Do not do any deferral of DMA completion. When musb_g_rx() is called
-with DMAENAB set, it means it's called from musb_dma_completion().
-A DMA completion could not be happening at the same time as
-a workqueue non-DMA giveback (because this DMA needed to be programmed
-first, and programming of a DMA is only possible when all non-DMA
-requests ahead in the request queue already got their givebacks).
-And work items of DMA requests don't do givebacks.
-Deferring DMA completion is more work, so just don't change
-the behavior there.
-
-DMA completion can still race with usb_ep_dequeue(), that's the same
-as without this patch. So DMA situation should not become any worse.
-
-The issue was reproduced and the patch was tested on a BeagleBone Black
-(AM335x, one core, no RX DMA) with f_mass_storage, f_acm, f_hid, f_printer
-and f_fs. It was also verified OK before and after this patch
-with f_ecm and f_ncm.
-
-This issue was also reproduced and the patch was tested on a Pine A64+
-(Allwinner A64, four cores, no DMA) with both PREEMPT_DYNAMIC
-and PREEMPT_RT, with lockdep enabled, with f_mass_storage, f_acm,
-f_hid, f_printer and f_fs. PREEMPT_DYNAMIC was also tested with KASAN.
-
-This patch was also tested with suspend to RAM on the Pine A64+,
-both idle and during a transfer.
-
-Fixes: 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx endpoint request")
-Signed-off-by: Elvira Khabirova <lineprinter0@gmail.com>
----
- drivers/usb/musb/musb_core.c   |   3 +
- drivers/usb/musb/musb_gadget.c | 118 ++++++++++++++++++++++++++++++++-
- drivers/usb/musb/musb_gadget.h |   9 +++
- 3 files changed, 127 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
-index 73ac25f53..38469727a 100644
---- a/drivers/usb/musb/musb_core.c
-+++ b/drivers/usb/musb/musb_core.c
-@@ -2818,6 +2818,8 @@ static int musb_suspend(struct device *dev)
- 		;
- 	musb->flush_irq_work = false;
- 
-+	musb_gadget_disable_rx_kicks(musb);
-+
- 	if (!(musb->ops->quirks & MUSB_PRESERVE_SESSION))
- 		musb_writeb(musb->mregs, MUSB_DEVCTL, 0);
- 
-@@ -2866,6 +2868,7 @@ static int musb_resume(struct device *dev)
- 	if ((devctl & mask) != (musb->context.devctl & mask))
- 		musb->port1_status = 0;
- 
-+	musb_gadget_enable_rx_kicks(musb);
- 	musb_enable_interrupts(musb);
- 	musb_platform_enable(musb);
- 
-diff --git a/drivers/usb/musb/musb_gadget.c b/drivers/usb/musb/musb_gadget.c
-index b500e0d8b..08bb605aa 100644
---- a/drivers/usb/musb/musb_gadget.c
-+++ b/drivers/usb/musb/musb_gadget.c
-@@ -147,6 +147,21 @@ __acquires(ep->musb->lock)
- 	usb_gadget_giveback_request(&req->ep->end_point, &req->request);
- 	spin_lock(&musb->lock);
- 	ep->busy--;
-+
-+	if (!ep->busy && ep->rx_kick_deferred) {
-+		ep->rx_kick_deferred = false;
-+		if (!queue_work(system_bh_wq, &ep->rx_kick))
-+			pm_runtime_put_noidle(musb->controller);
-+	}
-+}
-+
-+static void musb_g_defer_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (musb_ep->rx_kick_deferred)
-+		return;
-+
-+	pm_runtime_get_noresume(musb->controller);
-+	musb_ep->rx_kick_deferred = true;
- }
- 
- /* ----------------------------------------------------------------------- */
-@@ -817,6 +832,17 @@ void musb_g_rx(struct musb *musb, u8 epnum)
- 	csr = musb_readw(epio, MUSB_RXCSR);
- 	dma = is_dma_capable() ? musb_ep->dma : NULL;
- 
-+	/*
-+	 * A giveback is in progress on this endpoint, so the packet can't be
-+	 * handled now: the function could get its data out of order. Check for
-+	 * the packet once the giveback is done.
-+	 * Do not defer DMA completions: only usb_ep_dequeue() can overlap them.
-+	 */
-+	if (musb_ep->busy && !(csr & MUSB_RXCSR_DMAENAB)) {
-+		musb_g_defer_rx_kick(musb, musb_ep);
-+		return;
-+	}
-+
- 	musb_dbg(musb, "<== %s, rxcsr %04x%s %p", musb_ep->end_point.name,
- 			csr, dma ? " (dma)" : "", request);
- 
-@@ -1111,6 +1137,12 @@ static int musb_gadget_disable(struct usb_ep *ep)
- 
- 	/* abort all pending DMA and requests */
- 	nuke(musb_ep, -ESHUTDOWN);
-+	if (cancel_work(&musb_ep->rx_kick))
-+		pm_runtime_put_autosuspend(musb->controller);
-+	if (musb_ep->rx_kick_deferred) {
-+		musb_ep->rx_kick_deferred = false;
-+		pm_runtime_put_autosuspend(musb->controller);
-+	}
- 
- 	musb_ep->desc = NULL;
- 	musb_ep->end_point.desc = NULL;
-@@ -1171,12 +1203,41 @@ void musb_ep_restart(struct musb *musb, struct musb_request *req)
- 		txstate(musb, req);
- 	} else {
- 		csr = musb_readw(epio, MUSB_RXCSR);
--		csr |= MUSB_RXCSR_FLUSHFIFO | MUSB_RXCSR_P_WZC_BITS;
--		musb_writew(epio, MUSB_RXCSR, csr);
--		musb_writew(epio, MUSB_RXCSR, csr);
-+		if (csr & MUSB_RXCSR_RXPKTRDY) {
-+			pm_runtime_get_noresume(musb->controller);
-+			if (!queue_work(system_bh_wq, &req->ep->rx_kick))
-+				pm_runtime_put_noidle(musb->controller);
-+		}
- 	}
- }
- 
-+static void musb_g_rx_kick(struct work_struct *work)
-+{
-+	struct musb_ep *musb_ep = container_of(work, struct musb_ep, rx_kick);
-+	struct musb *musb = musb_ep->musb;
-+	unsigned long flags;
-+	u8 epnum = musb_ep->current_epnum;
-+	u16 csr;
-+
-+	spin_lock_irqsave(&musb->lock, flags);
-+
-+	if (!musb_ep->desc || musb->is_runtime_suspended)
-+		goto out;
-+
-+	if (musb_ep->busy) {
-+		musb_g_defer_rx_kick(musb, musb_ep);
-+		goto out;
-+	}
-+
-+	musb_ep_select(musb->mregs, epnum);
-+	csr = musb_readw(musb->endpoints[epnum].regs, MUSB_RXCSR);
-+	if (csr & MUSB_RXCSR_RXPKTRDY)
-+		musb_g_rx(musb, epnum);
-+out:
-+	spin_unlock_irqrestore(&musb->lock, flags);
-+	pm_runtime_put_autosuspend(musb->controller);
-+}
-+
- static int musb_ep_restart_resume_work(struct musb *musb, void *data)
- {
- 	struct musb_request *req = data;
-@@ -1254,6 +1315,15 @@ static int musb_gadget_queue(struct usb_ep *ep, struct usb_request *req,
- 				__func__, status);
- 			list_del(&request->list);
- 		}
-+	} else if (musb_ep->busy && !request->tx &&
-+		   &request->list == musb_ep->req_list.next) {
-+		/*
-+		 * A giveback is in progress on this endpoint, so the request
-+		 * can't be started now. A packet may already be waiting, its
-+		 * interrupt having found no request. Check for the packet once
-+		 * the giveback is done.
-+		 */
-+		musb_g_defer_rx_kick(musb, musb_ep);
- 	}
- 
- unlock:
-@@ -1701,6 +1771,7 @@ init_peripheral_ep(struct musb *musb, struct musb_ep *ep, u8 epnum, int is_in)
- 	ep->is_in = is_in;
- 
- 	INIT_LIST_HEAD(&ep->req_list);
-+	INIT_WORK(&ep->rx_kick, musb_g_rx_kick);
- 
- 	sprintf(ep->name, "ep%d%s", epnum,
- 			(!epnum || hw_ep->is_shared_fifo) ? "" : (
-@@ -1810,6 +1881,47 @@ void musb_gadget_cleanup(struct musb *musb)
- 
- 	cancel_delayed_work_sync(&musb->gadget_work);
- 	usb_del_gadget_udc(&musb->g);
-+
-+	musb_gadget_disable_rx_kicks(musb);
-+}
-+
-+static void musb_g_disable_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (musb_ep->rx_kick.func && disable_work_sync(&musb_ep->rx_kick))
-+		pm_runtime_put_noidle(musb->controller);
-+}
-+
-+void musb_gadget_disable_rx_kicks(struct musb *musb)
-+{
-+	int i;
-+
-+	for (i = 0; i < musb->nr_endpoints; i++) {
-+		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_in);
-+		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_out);
-+	}
-+}
-+
-+static void musb_g_enable_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
-+{
-+	if (!musb_ep->rx_kick.func)
-+		return;
-+
-+	enable_work(&musb_ep->rx_kick);
-+	if (musb_ep->desc && !musb_ep->is_in) {
-+		pm_runtime_get_noresume(musb->controller);
-+		if (!queue_work(system_bh_wq, &musb_ep->rx_kick))
-+			pm_runtime_put_noidle(musb->controller);
-+	}
-+}
-+
-+void musb_gadget_enable_rx_kicks(struct musb *musb)
-+{
-+	int i;
-+
-+	for (i = 0; i < musb->nr_endpoints; i++) {
-+		musb_g_enable_rx_kick(musb, &musb->endpoints[i].ep_in);
-+		musb_g_enable_rx_kick(musb, &musb->endpoints[i].ep_out);
-+	}
- }
- 
- /*
-diff --git a/drivers/usb/musb/musb_gadget.h b/drivers/usb/musb/musb_gadget.h
-index 95bc746f7..25482d46a 100644
---- a/drivers/usb/musb/musb_gadget.h
-+++ b/drivers/usb/musb/musb_gadget.h
-@@ -11,6 +11,7 @@
- #define __MUSB_GADGET_H
- 
- #include <linux/list.h>
-+#include <linux/workqueue.h>
- 
- #if IS_ENABLED(CONFIG_USB_MUSB_GADGET) || IS_ENABLED(CONFIG_USB_MUSB_DUAL_ROLE)
- extern irqreturn_t musb_g_ep0_irq(struct musb *);
-@@ -23,6 +24,8 @@ extern void musb_g_wakeup(struct musb *);
- extern void musb_g_disconnect(struct musb *);
- extern void musb_gadget_cleanup(struct musb *);
- extern int musb_gadget_setup(struct musb *);
-+void musb_gadget_disable_rx_kicks(struct musb *musb);
-+void musb_gadget_enable_rx_kicks(struct musb *musb);
- 
- #else
- static inline irqreturn_t musb_g_ep0_irq(struct musb *musb)
-@@ -42,6 +45,9 @@ static inline int musb_gadget_setup(struct musb *musb)
- {
- 	return 0;
- }
-+
-+static inline void musb_gadget_disable_rx_kicks(struct musb *musb)	{}
-+static inline void musb_gadget_enable_rx_kicks(struct musb *musb)	{}
- #endif
- 
- enum buffer_map_state {
-@@ -93,6 +99,9 @@ struct musb_ep {
- 	/* number of givebacks in progress; req_list may not be advanced */
- 	u8				busy;
- 
-+	struct work_struct		rx_kick;
-+	bool				rx_kick_deferred;
-+
- 	u8				hb_mult;
- };
- 
--- 
-2.53.0
+> 
+> Fixes: 992caf7f1724 ("locking/rtmutex: Add adaptive spinwait mechanism")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> 
 
