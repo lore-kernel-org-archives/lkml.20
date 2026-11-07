@@ -1,62 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794072273;
-	b=YpuJ9LcOytUv+oxmSZg3eUlZIZOF0alC2NH3zJ6TQFTpQkre1UOqDRrzCPGj7lPDv6YJ
-	 AHPdTKJVnca0+qj5dQgipWUiyuF77aWhOZHI5968i0Tlh+uCwKpaqlvj8/M+/JXIp9EKp
-	 5dMXn4/cAz2SGV4UaY+9OeK050/nvXmqE44e6Y2TP1cgUcKsiLd7t7STD++XAQlp7bzO2
-	 ZMp+R4AoGvkBGkrprQWJRugw9YoRzYo9UgqMWcSTqtoKuUxKB7FXNHsusYRMSy6Yujnc8
-	 hdWQfh4k5xvFinQwi6Z7lyIhXUGIDZryTrI7kSKTypojh+v9M+UMTekLhwzRbunumXw==
+	t=1794072363;
+	b=r1YyiWle/Y29CHndLFoLXR/+nFHsefXVcqrb8lOculmOLEoFmZz8ClJtF53aaIJA96wJ
+	 stgyUkFkXtWCtONsKAgecCSOmB6uILRGblqfN1L2ORZQ2UteVOao63V6kNOmWjyXkULrF
+	 7LllP8qLXecTJikIuL/NR72ODzDjsRhBk9T51pyJgMYktabLfkh1Ah1/P7w2ADdnmQajD
+	 aow1V+U8NYKHV/w235XYN3+rWhxatbp5TvPpEgl2kfZLWu5aDXPAlPqlgFvQtjmS8npDN
+	 seCfJmDIBNREE2hW43oDmX44VN8y8+FfoE3bLps1EMHpsDCunSpK/YHDhWTx/sKRuKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794072273;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type;
-	bh=SPOL0FT7rZBQ4un4ld/pKpMxsIgQgOIWYBuwtPXOli8=;
-	b=QSqRwpI+keIWTcreqIlCH2uV27Ocm3bsRt2rJXT8oYtoxUHAXRUG0GDul3+vtAiBoWXG
-	 yTDzleCSoGRi/CY8Eq/MaC6Zz++lYXcho9vkGpAekwlFnnrbHtjY28c6Oali1oYoeCNp3
-	 1slwDwnFOAj3tPN68HqasGNJ9WgZ1dbC64Hh+oBNDafE88ShMwo0eeEmTQrQcRrLpXLUK
-	 TfYR5m0JTd9rIjcA5cYUYBRuDVDp2bRgk3pPLRGNX1CLFM7rurxVycMI/XtOc90TtS8my
-	 4j05gb5LyPb0SA7iKIw289FpUPxg5A1g+dC2VSM3ocx6XbB16T/eYXGv2nTBwNeCc1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794072363;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Jlkb43CuhYK9URTlTKbtpRdBwEHEC6l0yC9HgESgF6k=;
+	b=ugL3RnunhgVMZZPE9MOBoBnmCYIa3dtIHIyrpOY8PrUwSs/tQ20jduNnMbgwnUeJz0jA
+	 d31Yyna4dfbwURYgim30hWSZtAgfN5Ti8uQvOcihwbb50houTLyuGzZzrnMYzT1O6JauV
+	 d2mU9TMgrhhRktKNMepKYfRMY/YLwUwIwhmUU4mBsvSRMIfW+aUCJwSveqi4wgeGXEClo
+	 ec0P7OhfyJXC/PuNBm8/xqpiSIP2ErIwBsnA4ie7gAScef7sUUty5KYtFLf28sJhQz4n6
+	 Tj2nvB7vbjmFBgobasM2gbvtGxkBMqR8xmlQaAQvnKlIAr6JoZJ9x2c9sNH7l/0D0lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=UnOSovKh;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=VZ8shri8;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EC2606A326;
-	Sat,  7 Nov 2026 17:24:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30EC2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2808606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:26:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2808606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=UnOSovKh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=SPOL0FT7rZBQ4un4ld/pKpMxsIgQgOIWYBuwtPXOli8=; b=UnOSovKhYybiO0e6m70k7k/Kv2
-	e5OomIEHaD7V+8iHWX6k4VTVqsA2TQubTvqew4E4kcX9ctKVN003qVuJXoJqYFU572kAAkzmxuGUC
-	Gmn1UzwwV/xYao0tIBA12ofetjbJX3fMIvr/bvZ4/cOGllSwVVeMLmbbNtmwnST8OtXKONV3dKd7A
-	w1UOll+GcINl9lK2o0YMCEwON9XvD5wYmjj98+DYkyC3BjB2+knoEdH9kB/lY6ni6914OdIwSKS3T
-	aVYd/jOMDkpf2ohBcD3uSFbTCMiFmumJvXkUxTvQyr88QHX5mXevk1dTHWNJ9VCNhkMmPjarRwqzd
-	E5eRP1qQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xPk9R-000000017pW-2wNK;
-	Sat, 07 Nov 2026 14:24:26 -0300
-Message-ID: <3f65be10a84fca4ecada2db56213c80b@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Yifan Zhang <yfzhang23@stu.pku.edu.cn>, linux-cifs@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, Tom
- Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, Steve
- French <sfrench@us.ibm.com>, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] cifs: bound invalid NTLMSSP signature diagnostic
-In-Reply-To: <179367391951.8187.8527449085887136856@stu.pku.edu.cn>
-References: <179367391951.8187.8527449085887136856@stu.pku.edu.cn>
-Date: Sat, 07 Nov 2026 14:24:26 -0300
+	dkim=pass (2048-bit key) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=VZ8shri8
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4697404c2bso202804666b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:26:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1794072360; x=1794677160; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jlkb43CuhYK9URTlTKbtpRdBwEHEC6l0yC9HgESgF6k=;
+        b=VZ8shri8znJS14HH0x05XHoVHDK+ik353JHCMpU28CZ8eUX1wRDaLoDISREGUlHEBW
+         ciaFFQZ9T9Ujk3b69KcsusFM7OVo0I6sV7nA8pbXCMLZgJl2nDze6xWGoRkVDK8Dl7Jk
+         ASFQcY2I0vzQRuQ8p1xc5VoNg/b2fYUBWQivefNptf7+PC17IDAp8j3hCjy3emj1+fkr
+         E8HZs0PZI+HNPn1Y0gIffGHgMmPWiSll9GuP2d8OfbgFd0nvn0Gfj1HjU5mEOf5GukQL
+         74U5bV4URvMpwrYM6LTkz2TVmTpK+rUIEW8aymhWAWtiHVQadYlDG2h06CSjUSADHyVB
+         OK7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794072360; x=1794677160;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jlkb43CuhYK9URTlTKbtpRdBwEHEC6l0yC9HgESgF6k=;
+        b=fnFgA5umpkM/wgHgrcsE7e23Veov157wbG1xVRg8Ox8p+AFq63jXIbpXV4fnLYW5Ns
+         aDY2FpOTWKTuallbQLkQ0hNhamJjvINf2Z5afDYPIAoqLiXhHY4UX3FPGZWxh9zQez2D
+         Ibnf7q7w+OA1roBDfFD4RBDhbZZWxfqkqF6hdCfWM/z/WYN9SS7MYuwlQJlyTO6BPncQ
+         /cnvCVLgTWI0nLhatE0Zf1b8TcVm6htfZEn1JpGeckHwRPcpb6dttC6XYDP0YkvHaE+p
+         8IJ0yXE63hF4/cjfLVGpeBeybXYw7/1xOdVcMizFccwcw48GQBwbf8G38PAHtrA1fmZz
+         3hjA==
+X-Forwarded-Encrypted: i=1; AL+hErGeMlbqluoUpWccAeiZi+5zFPzb93rUT2TcikMitUuEHqNu6Gwt0lifRWvKdToE2ixqh1wl5ajMvoXMDtw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rU1SYJTQ0I+ZaxtjM10YZdJJE8JpAY2XAC2aPdy4kIT8zgwhu
+	eA07x3pK+TmE4rVLgtm9jE3tKVfcPkr2/9k/eCbQEKJ8VjDrPvj2k4eD2acq2KR9mGE=
+X-Gm-Gg: AYBFou27qZdHdij21vf9TSOgWsCeFc/0cWS6wvDK9XsJGfSLLVoq6MkmrmT/J3sGhw3
+	Z20x8B6rPNmmrQQGCr1jPNyoZjRpDi7dsWQLcd8UFmTYo1dWD8fznlCV4dQUF4Dizdq5Rbr0+0p
+	wEn6gTy5vkFizzoFxYf+MeCmbb55X0jsNGAk7JnOpnSNuz0zFIZUmjyFpyzO+6h0ZClsoCz5us/
+	Py/xx17k4ly3Dn9rHvJfGyCK3932Om38YTdX2q9GSkCLwyy2gQGofc5GCZHWAwoCV+EO7Hvwjhp
+	Y4e+fkqXCg/GO3AiwZLz4mqb636mcIPVPAxbxi09ik4y3Gfo0j2dxNULTr0yfnMRhGkrCzsoMmT
+	wjEDICKFkrQPGl4DsTLkCHVtlKUZinwJeYdNM0PSWFy9K/AU1ynKVKamT5k+C5+wazapayhbBtF
+	VkQGqLH9qO6aVajhyLj2l+AeTpUMm6nYO9ol+9HX5W7Ilbu1/s2ixNqDFQSYqIRTVCfPTcJ1tLQ
+	dLYurSoylhWqEQo5bond0AWZEHHDB7/1AdMB3H2jntNW3P+vysNCFBOdXMnwQ52HCZqv5nTFq9A
+	SM0VLzl732B/6S0UFExWrjOHRyw3wYSFJ09AMf0=
+X-Received: by 2002:a17:907:d03:b0:c46:7fa4:9224 with SMTP id a640c23a62f3a-c4d34a649eamr425140966b.8.1794072359468;
+        Sat, 07 Nov 2026 09:25:59 -0800 (PST)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3569edc9sm165153366b.50.2026.11.07.09.25.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 09:25:58 -0800 (PST)
+Date: Sat, 7 Nov 2026 18:25:54 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, aneesh.kumar@kernel.org
+Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
+Message-ID: <au9eskF5P17h3cql@FV6GYCPJ69>
+References: <auuDcABX27EeTApl@e129823.arm.com>
+ <20261104194622.GC3889730@ziepe.ca>
+ <aux01NUd85PabtZu@FV6GYCPJ69>
+ <auyKE2sGqtfjk4v5@e129823.arm.com>
+ <auy7IM0_S2tv7EZX@FV6GYCPJ69>
+ <au2WdWFOYbPEv0Uj@e129823.arm.com>
+ <au3i-0eDzJZaWukx@FV6GYCPJ69>
+ <au3mAsQrh0GniXJo@e129823.arm.com>
+ <au34wXtIqii-hfFI@FV6GYCPJ69>
+ <au3-LyBiCZtUMpEx@e129823.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,25 +112,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au3-LyBiCZtUMpEx@e129823.arm.com>
 
-Yifan Zhang <yfzhang23@stu.pku.edu.cn> writes:
+Fri, Nov 06, 2026 at 05:19:59PM +0100, yeoreum.yun@arm.com wrote:
+>On Fri, Nov 06, 2026 at 05:03:32PM +0100, Jiri Pirko wrote:
+>> Fri, Nov 06, 2026 at 03:36:50PM +0100, yeoreum.yun@arm.com wrote:
+>> >> Fri, Nov 06, 2026 at 09:57:25AM +0100, yeoreum.yun@arm.com wrote:
+>> >> >On Fri, Nov 06, 2026 at 09:27:42AM +0100, Jiri Pirko wrote:
+>> >> >> Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
+>> >> >> >On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
+>> >> >> >> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
+>> >> >> >> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
+>> >> >> >> >> [..snip..]
+>> >> >> >> >> 
+>> >> >> >> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
+>> >> >> >> >> > +					       const struct ctlv_cursor *request,
+>> >> >> >> >> > +					       struct attestation_evidence_request *decoded,
+>> >> >> >> >> > +					       struct attestation_evidence_object_request **objects)
+>> >> >> >> >> > +{
+>> >> >> >> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
+>> >> >> >> >> > +	u32 challenge_length;
+>> >> >> >> >> > +
+>> >> >> >> >> > +	decoded->challenge =
+>> >> >> >> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
+>> >> >> >> >> > +	decoded->challenge_length = challenge_length;
+>> >> >> >> >> > +	if (challenge_length < caps->min_challenge_length ||
+>> >> >> >> >> > +	    challenge_length > caps->max_challenge_length)
+>> >> >> >> >> 
+>> >> >> >> >> Hmm, I'm not sure whether this check is required for
+>> >> >> >> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
+>> >> >> >> >> 
+>> >> >> >> >> for example, if the provider provides two evidence:
+>> >> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
+>> >> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
+>> >> >> >> >> 
+>> >> >> >> >> might challenge is reuiqred for generating the token
+>> >> >> >> >> and this would be marked at min/max_challenge_size in evidence_cap.
+>> >> >> >> >> 
+>> >> >> >> >> However, in case of eventlog, it wouldn't require challenge.
+>> >> >> >> >> for example, TPM event log or CCEL event log.
+>> >> >> >> >
+>> >> >> >> >Right
+>> >> >> >> >
+>> >> >> >> >> Do we need some field on attestation_evidence_supported_object whether
+>> >> >> >> >> it requires challenge or not and applies this sanity check per the object?
+>> >> >> >> >> 
+>> >> >> >> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
+>> >> >> >> >> always.
+>> >> >> >> >
+>> >> >> >> >I wonder if we should have two interfaces here for signed and unsigned
+>> >> >> >> >evidence? It would be clearer for userspace then when it needs to
+>> >> >> >> >provide a challenge or not.
+>> >> >> >> 
+>> >> >> >> Isn't the challenge field provided/not-provided enough?
+>> >> >> >> 
+>> >> >> >> Currently on the introspection side, device-get op would provide
+>> >> >> >> challenge-lengths array:
+>> >> >> >> 
+>> >> >> >>         evidence?:
+>> >> >> >>           challenge-lengths[8]:
+>> >> >> >>             length?: uint(..4096)
+>> >> >> >>             min-length?: uint(..4096)
+>> >> >> >>             max-length?: uint(..4096)
+>> >> >> >>  	  objects[16]:
+>> >> >> >>             blob-class: evidence-blob-class
+>> >> >> >>             max-length: uint
+>> >> >> >>             blob-instance?: uint(..u32-max)
+>> >> >> >> 
+>> >> >> >> I think it would make sense to have challenge-lengths array per object:
+>> >> >> >> 
+>> >> >> >>  	  objects[16]:
+>> >> >> >>             blob-class: evidence-blob-class
+>> >> >> >>             max-length: uint
+>> >> >> >>             blob-instance?: uint(..u32-max)
+>> >> >> >>             challenge-lengths[8]:
+>> >> >> >>               length?: uint(..4096)
+>> >> >> >>               min-length?: uint(..4096)
+>> >> >> >>               max-length?: uint(..4096)
+>> >> >> >> 
+>> >> >> >> Then the unsigned object would just simply have challenge-lengths empty?
+>> >> >> >
+>> >> >> >This looks good to me. :)
+>> >> >> 
+>> >> >> The challenge is one of several open points that all depend on what an
+>> >> >> evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
+>> >> >> "primary", "raw" and the format strings. Here is my proposal to settle
+>> >> >> these together:
+>> >> >> 
+>> >> >> The model:
+>> >> >> 
+>> >> >> 1. device-get lists each object with an id, a class (signed, event-log,
+>> >> >>    cert-chain or auxiliary), the formats it may come in, its max-length
+>> >> >>    and, for signed objects only, challenge-lengths.
+>> >> >> 2. evidence-get names objects by id, as MR ops name MRs, each with its
+>> >> >>    output blob. It carries a challenge exactly when it names a signed
+>> >> >>    object, and the challenge has to fit each of them.
+>> >> >> 3. The reply gives each object's format, length and, where the TCB
+>> >> >>    vouches for it, the TCB's digest. The output is always {label, data}.
+>> >> >> 4. A signed object is made by the call, over the challenge, and never
+>> >> >>    reused. The rest are read as they stand.
+>> >> >> 
+>> >> >> This settles following issues discussed during this patchset review:
+>> >> >> 
+>> >> >> 1. One op, not two. Per-object challenge-lengths tell userspace when to
+>> >> >>    pass a challenge, and one call returns the signed object with the log
+>> >> >>    and certificates needed to check it.
+>> >> >> 2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
+>> >> >>    /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
+>> >> >> 3. TDX's Quote object lists the legacy and the DICE format. The provider
+>> >> >>    labels what the host returned and fails on a Quote it cannot label.
+>> >> >> 4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
+>> >> >>    spdm-measurements and tdisp-report become formats, and signature
+>> >> >>    goes, as a signed object carries its own.
+>> >> >> 5. "raw" goes with the representation attr. The TCB digest is a reply
+>> >> >>    field, so a blob always holds the object's own bytes.
+>> >> >> 
+>> >> >> Formats become an enum each provider family defines, instead of free
+>> >> >> strings. I'm still unsure if format should be entirely provider-specific
+>> >> >> and defined as "extension", or it should be somehow mixture of common
+>> >> >> and provider-specific. Looks there is not really much common
+>> >> >> anyway, so I lean towards provider-specific only. So far I have:
+>> >> >
+>> >> >Overall, This is plausible for me with some small question.
+>> >> >
+>> >> >> 
+>> >> >> ======  ============  ==========  =========  ===========================
+>> >> >> Family  Format        Class       Challenge  Bytes
+>> >> >> ======  ============  ==========  =========  ===========================
+>> >> >[...]
+>> >> >> tpm     ek-cert       cert-chain  none       EK certificate from NV
+>> >> >
+>> >> >Just a thought, but how are we planning to retrieve
+>> >> >the NV index for EK certificate?
+>> >> >
+>> >> >As far as I know, TPM NV storage doesn't support labeling.
+>> >> >
+>> >> >Should I assume that the NV index would be specified as part of the
+>> >> >challenge to retrieve the certificate from TPM NV storage?
+>> >> 
+>> >> evidence-get allows to accept mr-selection as part of the request
+>> >> alongside the challenge.
+>> >
+>> >Sorry. Could you explain a little bit detail for this?.
+>> >AFAIU, this is to get the EK certificate from TPM non-volatile storage.
+>> >But, I don't know why *EK* certificate get would be relevant for
+>> >*mr selection*.  AFAIK, the TPM_Quote will be used AK not a EK.
+>> 
+>> You are right, my mistake. I misunderstood the question.
+>> 
+>> mr-selection selects PCRs for Quote, or an extend-NV measurement
+>> register for NV Certify.
+>> 
+>> An NV-resident EK certificate is retrieved using NV_Read. I think
+>> blob-instance is a good fit. For TPM certificate objects, it could
+>> identify the certificate's NV index.
+>
+>Ah. I missed the TCG_EK_Credential_Profile specification which defines
+>the NV index value for EK certificate:
+>
+>2.2.1.4 Low Range
+>  The Low Range is at NV Indices 0x01c00002 - 0x01c0000c.
+>    0x01c00002 RSA 2048 EK Certificate
+>    0x01c00003 RSA 2048 EK Nonce
+>    0x01c00004 RSA 2048 EK Template
+>    0x01c0000a ECC NIST P256 EK Certificate
+>    0x01c0000b ECC NIST P256 EK Nonce
+>    0x01c0000c ECC NIST P256 EK Template
+>
+>But, do we need some argument to get which EK certificate to get?
+>(RSA or ECC NIST P256)?
 
-> The NTLMSSP Signature field is an eight-byte binary value and need not be
-> NUL-terminated. decode_ntlmssp_challenge() prints it with %s on the
-> signature-mismatch path, so the diagnostic can continue beyond the received
-> blob until it encounters a zero byte.
->
-> KASAN reports:
->
->   BUG: KASAN: slab-out-of-bounds in string
->   Read of size 1
->   string
->   vsnprintf
->   _printk
->   decode_ntlmssp_challenge
->
-> Print the fixed-width field with the bounded hexadecimal format.
-> ...
+Why blob-instance 0-10 is not good enough here?
 
-Applied.
+
+>
+>Otherwise, Is this interface going to print all EK certificate
+>regardless of alg?
+>
+>> >Also, AFAIK, mr_selection is meaningful when the evidence_accept is
+>> >supported.
+>> 
+>> These are independent. mr-selection chooses the measurements included
+>> in evidence. EVIDENCE_ACCEPT authorizes a subsequent native transition.
+>> The TPM provider can quote selected PCRs without supporting acceptance.
+>
+>Acked.
+>
+>-- 
+>Sincerely,
+>Yeoreum Yun
