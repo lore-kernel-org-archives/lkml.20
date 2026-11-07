@@ -1,119 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794079737;
-	b=YFjUEZUnUOIZvPu90HanwNfTaRcXoWFQET4jCK15F3L5H2nN0tS5fZPXO7w7PIX9P9qN
-	 sd9O0JnLDonhypj2L0ZO4Ax1NeBC2cVDyPZ5c26LdOx8E6434iYjw/+U6SCBD62n1ZrPq
-	 E5iw5hvlf6kP1VX6yu9S+nijvgt/eJKIToYrMWCxPk8HkK7jH8bPEY6VYTWaws1XVFAii
-	 tS7jbMVomKe1zTWiPm4VPu0DCqNBXIy7/S/1FupNFITVM/ftytvVkqC1JHYeltHMwKgNo
-	 TFckqyTlSM6P0FhP+lAduO0Jygkxjdmqdz6j+ZVpy7i0KLK5Y8tMus0/BjdVTNvVwqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794079737;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Gbzm/b2NQbQK1KNpH/KYjnF+Ceao9y0Kg9eKr5fLNPI=;
-	b=YxNHRdZfFuv/LxzPtADbcYse/ktksUBTVgU8nW8G7+uTtAr27p/5gC37vrqu1iMHXbgk
-	 u+WrgIR12fLq42PxG+85yCRY6YWPk+lHih5RLdG1TZAwaWhw7DnoFhk6zx6TXy/pXRAND
-	 pD67cF/yWejbhEuK4g6+sOtIqlElDxEkgB4sCBe9XieKmaWtdK+ANSfJ9O3t49rF75g8f
-	 Obt/gbzxKJxX0+ud814IQ8qaJW5RyfP6bkK+FhQKket8mhrKB0lw1Q5vWdROE832sAWcA
-	 Ss6xe9cyQWVxrfbYBF5fTIm8ZDfeXltzz6GUdm7pMfmvaaDskCC5kwh59ZQhMmBQ1Qw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QbeEoU5q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.41
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012041.outbound.protection.outlook.com [40.107.209.41])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794079747;
+	b=LUPW4Nsdxw0CMWQm4s9tOgfIwUPhBREcIBPJIZVrGlelr1sILP2ftgTgDCEYQqH/QvgR
+	 yJA0tUTpTM3PglLWZJ4ZgnLlwMR/oBTGwkDRvor7SiSLK/jXAqrFkqtZhePj66HeihgBl
+	 fVyJF4x1sB29bKIyxrU58jOCEcgHttuvjGzqJu6dSsp6dDLkmK9fo60njseXt/VZ8CQWS
+	 UoRVtuiT/ECUBEQP1iWLfRaT0ZF1vloa5vxnsUbmejnL3Rumeul/G2DvlvHhDRe5aSJD8
+	 uNJsSnMjT06n9wUG3fvmuk0Ye5kBBJJKVR8XZlHxvNt6DcKRslIQn78bNHm1wCz3K4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079747;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7Ov7GeLhcYhxCP17ziUm+7IIU7rjkhp7m+eZjNGqqtY=;
+	b=32bnvH7TknpFFBFXUl7eQ8ye5T4EoXcuI2WlMVQKGOUPDkywnD/P2nKBCZO10AcsH7r+
+	 A6RcU18ruPrU+aiRuy6jZS+89Sl5YBR8RjoEKTV0DfTCanpt/7pEp6SRRVR8ksrlQSS3g
+	 C2DXsUOK2vmpbU0LF3GP6tH9dTErVRe60HXIRKdoa5OQ835AxyN4kasdKCXZqvmap8xIY
+	 Fv4xFDe34/PGdws8OvczPPFFwm6npdL5gKS0JmCXqdiTO9100Cu2YPX3w/OfgnLx/hqc8
+	 Q8NO/hdifStw4ZZAd9QKI8IX1pRNpkh/PNoF1G5001wmatBQSf8ZwAURplgKHeGKPCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="btak/NjA";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBA8606A326;
-	Sat,  7 Nov 2026 19:28:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBA8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB6E606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:29:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QbeEoU5q
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=csl4BmdBRhmuE7tsuxv1cTWiItAzmUbMdDpHnd4GpjZR0KmJDfbV7qQNIcVcjWRpqiTzJc48f8NwB+9CGWXfi7uKwXgLNMfbOnEB2+aCFchXDB1RFg+39fmlI9U911WvHeqSOpn6BhcXcw2Ru7hm9OzknRiuevxvAlM/8zd469cgF76UeiAdn91O1q4XIbsicFhRv+W7NfuXgh/VXLt8lHrslPfVgLIHqnHpFgRg0fu+V3mai3YxIdEBHtZQrVDXeTHVsO61MEhSEqsCFmvtHIvlF8iBRvfaZuLuEJ6ATzuXciboWfO0fo+3NHes2z0Mx52/LWU3LDC0QyHmcNVm5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gbzm/b2NQbQK1KNpH/KYjnF+Ceao9y0Kg9eKr5fLNPI=;
- b=x274k0WrTvNHNYdpA+GjmPZiPQMo9+LPQCw4rpeeQXZUeKSbY1W4DY5zCEroHwT+6QIJkdhG5ToFtEq2g7bIP8HQUlTNSF78o6atsqjNwSIm9cuua96yWry8w1c4LxTtLFwHpdIIFi55lnvhqLDHkgrXvpArqC8LQjDs8Ao4nTRRNNPmv+SBnQPYcVux9tmiKPSKjDl4KgDs2um8eELbq7TMXfrwCwYxLzql3sDBXveQU4vvV4jpx7W44FYgDaD849icXB8igL5iwwKylrh/ByBVj6bm0iOWrYdoJn0dsAfaL/Y/Wktfx6MGHe6Y6fvmhD5Q8Y++5/ggfz0xpqv47Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gbzm/b2NQbQK1KNpH/KYjnF+Ceao9y0Kg9eKr5fLNPI=;
- b=QbeEoU5qypWUMa1EXD0LKTCKA5FSajyAA3dft1cW/JAf4Ovq7hNY/RHpvjzagPmuBY3CjrBzKttwulxWSoJtHCEZF+WRYmrHIm0IgFBL+8SU9qomJmQZ4yduwynsXPcfVtu+tDe7QAWhYw6jHmZ/hZ48MRaCYNI933DEGatCJz8=
-Received: from SJ0PR03CA0269.namprd03.prod.outlook.com (2603:10b6:a03:3a0::34)
- by SA0PR12MB4477.namprd12.prod.outlook.com (2603:10b6:806:92::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sat, 7 Nov
- 2026 19:28:53 +0000
-Received: from PH7PEPF00000007.namprd04.prod.outlook.com
- (2603:10b6:a03:3a0:cafe::90) by SJ0PR03CA0269.outlook.office365.com
- (2603:10b6:a03:3a0::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Sat, 7
- Nov 2026 19:28:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- PH7PEPF00000007.mail.protection.outlook.com (10.167.243.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 19:28:52 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 7 Nov
- 2026 13:28:51 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 7 Nov
- 2026 13:28:51 -0600
-Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sat, 7 Nov 2026 13:28:41 -0600
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-To: <broonie@kernel.org>
-CC: <Sunil-kumar.Dommati@amd.com>, <vijendar.mukunda@amd.com>,
-	<Mario.Limonciello@amd.com>, <venkataprasad.potturu@amd.com>, "Syed Saba
- Kareem" <Syed.SabaKareem@amd.com>, Siva Subramanian Ravi Saravanan
-	<sravisar@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, "Liam
- Girdwood" <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
- Iwai" <tiwai@suse.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, "Mario Limonciello (AMD)"
-	<superm1@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>, Aaron Ma <aaron.ma@canonical.com>,
-	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 5/6] ASoC: amd: acp: always append the DAI type to SoundWire DAI link names
-Date: Sun, 8 Nov 2026 00:57:01 +0530
-Message-ID: <20261107192744.2027264-6-syed.sabakareem@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261107192744.2027264-1-syed.sabakareem@amd.com>
-References: <20261107192744.2027264-1-syed.sabakareem@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btak/NjA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507901F008A2;
+	Sat,  7 Nov 2026 19:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794079746;
+	bh=7Ov7GeLhcYhxCP17ziUm+7IIU7rjkhp7m+eZjNGqqtY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=btak/NjA5HXiNm9eB53iO2P0kVP6gcust1hNujA8Xhe6SIGL7ZPNyeyKDTGunctTR
+	 +wKgGgu/BEey5ixlamyuuMx7Bcdih5YAlVE86Ut8vPi14t2nTSknpdYOCBbtRyD31Z
+	 43q3G1u4wi8qbH6BgQk89ak9+8YtQ47eqIDkb9DJFZ5WcgDxml8QILGXk4mJORmmio
+	 TMvcFjn52TIiV5wVNRNgUOElBw5Qrl22KgPhv0ObjtodP+I++g087oaMQpVvp+sica
+	 4lColLpj+W/eH7yV/gc5tMuHVdVLNehJWSNNGUbPy1VCMfCagDWMrq8ZN3ehE7BBlz
+	 vbreZ447FvvKA==
+Message-ID: <bf5c4e81-2c9c-4f4a-ae7c-9edf6a524d1a@kernel.org>
+Date: Sat, 7 Nov 2026 20:28:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,65 +51,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PEPF00000007:EE_|SA0PR12MB4477:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c229ae2-6b58-4a00-a4e8-08df3d055b58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|82310400026|36860700016|10067099003|56012099006|261026140227099003|261009223027099003|261028144727099003|261021121427099003|261022105027099003|11063799006|22082099003|261102123227099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IGFCZ1JCRR9R7E2c2ZX0Nftdp046IBZEzXWXMm1x++4vgmTO4YjBAZO4QRaA+O8wVdxF5J7pMkxixUa75sRCbubgi03zHT7m5gvi2TzyMqSAzz7jSgy5KGAeZgqQHkO89XsUNOb4Y0ySFOFeIOezkCfou2SJXmqVAyV201tny6pTq7YvuwVZwEDHbZg7Pq8TbVMhI1k/sV/rHbgyu2EDvWdSVme87viG8nt4yB8PpGO+/q3JIog/O8bz7IBAUrBlO+csQXdnC661VYS3eD+nLnP18K7U41wqmHlEZ37SRlJkIOGZDyJ7eX2ImeBxXSA/uefnq8eEWRr2USviFt5j4dLqMpXcYt9YsA3ft7Uykg6hDCM/QjyegwrZqnEIrph3ivwf0EcSSKKHH+8sczbI7AehWEqaH0dTmI1ytx3GAmymrCbrBqIZwpDMCpno///bhRUzikaloEi0C2f6KzutQOB8AjNINHfJDEIve0XWyJPV2wc5UF59xPingk6CEWgoxbCFic24DKvwiBLnawNIX7JaTaTIfv5GrOwgk7mXeKYwNuDmNmJC8+nlzuo8tC9izLlAYz0w3923NNxs+aZprY+xTbF/KDEQ2tsY8zspjhdGutw4FpuUt50RECk/E6N2p+oY0F+Dok1jIgwe6nc3P6eCXrF9JpNOU7zVE1toofOwn6DOey7H0uT6t/L5eWiiKrCRtDWvvMi+9i442VTBiw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(261026140227099003)(261009223027099003)(261028144727099003)(261021121427099003)(261022105027099003)(11063799006)(22082099003)(261102123227099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	YGLo5JUu14L0cN7wkbTfCxijedliW/t77BoHMlmwxjS35gj0Scpo5geglS1/g6CtsNE1WXbRSOzxJWzsUpEWzJvFBdryA1hLyQHHfpr8IpBrkx568mCe7lwbLAp5gx83BIgU5LuYwLxzghAPmw9hQu+r0qCF/MTWhkngYM89Y+zA5mIMQr5x+Cz87QKY7e1RkQShnDykRwq3HxD+gfqj91jsb6OtyUnDi7PjI+YvrOIP14Fh3HsrpM+vEtqo+bflxchxMj7stbHJDhn8wTjVKoXdMk1assXQzwrmFkao7IpfjD9nyviwoxV/kx/skoKH+WkajuD+iu5x09ea7qNYnu3g3l+AhfhLsqsw0szpDqLRN68K1wersHrv8KhtPcI//dAGYkcEQjzR8OXqh4ZI+DCA+zM4o9g3oZyxKlI+n2RH6u5trOYhwHeL/OIaHytF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 19:28:52.5445
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c229ae2-6b58-4a00-a4e8-08df3d055b58
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH7PEPF00000007.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4477
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: clear pmd in pmdp_invalidate()
+To: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ mhocko@suse.com, rppt@kernel.org, surenb@google.com, vbabka@kernel.org
+References: <f1b2ec5a-f7a7-442c-97fd-f67fe6ecb197@kernel.org>
+ <20261104111254.320059-1-trintaeoitogc@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261104111254.320059-1-trintaeoitogc@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+On 11/4/26 12:12, Guilherme Giacomo Simoes wrote:
+> David, I haved immersed inside this problem on last days, and how sashiko-bot
+> very well apointed, I'm haved doing a wrong duplicated clear on pmd's. I not
+> notice that the pmd_establish() already called the page_table_check_pmd_set()
+> wich in turn call __page_table_check_pmd_clear(), my bad.
+> 
+> At first time, I thinked the problem is a duplicated
+> page_table_check_pmd_set(), but with a LLM helpful I ruled out this hypothesis,
+> because I not found any obvious call to page_table_check_pmd_set() before
+> remove_migration_pte(). At second time, I suspicious that maybe we are haved a
+> race condition, that make no sense...
+> 
+> After a lot of debug and tests, I found a thing.. And I attempt to test this.
+> If you see inside arch/riscv/include/asm/pgtable.h, the pmd_mkinvalid() do:
+> ```
+> static inline pmd_t pmd_mkinvalid(pmd_t pmd)
+> {
+> 	return __pmd(pmd_val(pmd) & ~(_PAGE_PRESENT|_PAGE_PROT_NONE));
+> }
+> ```
+> 
+> but , the pmd_user_accessible_page() check `pmd_leaf(pmd) && pmd_user(pmd);`
+> and pmd_leaf():
+> ```
+> static inline bool pmd_leaf(pmd_t pmd)
+> {
+> 	return pmd_present(pmd) && (pmd_val(pmd) & _PAGE_LEAF);
+> }
+> ```
+> 
+> and the pmd_present():
+> ```
+> #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> static inline int pmd_present(pmd_t pmd)
+> {
+> 	/*
+> 	 * Checking for _PAGE_LEAF is needed too because:
+> 	 * When splitting a THP, split_huge_page() will temporarily clear
+> 	 * the present bit, in this situation, pmd_present() and
+> 	 * pmd_trans_huge() still needs to return true.
+> 	 */
+> 	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE | _PAGE_LEAF));
+> }
+> #else
+> static inline int pmd_present(pmd_t pmd)
+> {
+> 	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE));
+> }
+> #endif
+> ```
+> 
+> And the TRANSPARENT HUGE PAGE , is exactly a page that I was allocated with
+> mmap() (see my previous emails with my repro.c).
+> 
+> So, I change the pmd_mkinvalid() adding PAGE_LEAF flag:
+> ```
+> static inline pmd_t pmd_mkinvalid(pmd_t pmd)
+> {
+> 	return __pmd(pmd_val(pmd) & ~(_PAGE_PRESENT|_PAGE_PROT_NONE|_PAGE_LEAF));
+> }
+> ```
+> 
+> And this work for my repro.c.
+> The problem here is what the documentation of pmd_present() say:
+> ```
+> 	/*
+> 	 * Checking for _PAGE_LEAF is needed too because:
+> 	 * When splitting a THP, split_huge_page() will temporarily clear
+> 	 * the present bit, in this situation, pmd_present() and
+> 	 * pmd_trans_huge() still needs to return true.
+> 	 */
+> ```
+> 
+> So the documentation say that if a THP is splitting, this should return true
+> event though PAGE_PRESENT and PAGE_PROT_NONE is cleared.
+> If you think about this, maybe make sense.
+> 
+> And after some searchs I saw that was already fixed by Yunhui Cui
+> <cuiyunhui@bytedance.com>
+> https://lore.kernel.org/all/20260523042052.35476-1-cuiyunhui@bytedance.com/
 
-From: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
+I remember that Zi is currently also fixing some pmd_mkinvalid() implementations.
 
-Function topologies are selected from the DAI type (SimpleJack,
-SmartAmp, SmartMic) in the DAI link name, but the SoundWire SOF machine
-driver only appends it when a link has more than one DAI link. Always
-append it. Existing topologies are not affected as the topology stream
-names and DAI link names are matched partially.
+Is there anything to fix from your side, or does the above fix already resolve
+your problem?
 
-Signed-off-by: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/acp/acp-sdw-sof-mach.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-index 4e21d85d4724..842278d850c9 100644
---- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-@@ -398,6 +398,9 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 
- 	sdw_be_num = ret;
- 
-+	/* the dai_type in the DAI link name selects the function topologies */
-+	ctx->append_dai_type = true;
-+
- 	/* enable dmic */
- 	if (sof_sdw_quirk & ASOC_SDW_ACP_DMIC || mach_params->dmic_num ||
- 	    amd_ctx->pdm_sel) {
 -- 
-2.43.0
+Cheers,
 
+David
