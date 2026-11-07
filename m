@@ -1,157 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.2
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794064407;
-	b=SVZqAjgOzgher0gOwsIHbY7iLEQYyRAWoQ6J4CEA7C0reItdH/rOdliU7SYdIxGgvelQ
-	 CFqhgAgZ5kLHRumlEQ+hOqsYYzr3Bo2Ff5miXVGOkvYb/s7iXmAZ7BenJtnv3V45OxShI
-	 7hWfVSLTQYQ8VoWBFSgKI18Tn2bQXYz/O59g87R6azLnzBuCcW/MGconlcDwlJNhRDmlS
-	 ehf7ko4HFbHmdkUSzeD6eLNyQMP5PJdPDNdE17vVFHuUZPy71bbC0cE+7LvKIiHq7EMwp
-	 qmi6LNvbYkKj3/xn+E9hYrS1w26TAW/aziMcehGEX5FajrmGaH+WRwno3nuiTAGZZ/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064407;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cfImJqHL+dzKHx/Mltts3JcvtV8m8GeGHYFDzuh95ik=;
-	b=G5nkTdsatJQ24rEH0ai+tQpfD3bFGTZ6+lwQ8W39FshN3maeEsjgnVNLa9E2657Z6LrL
-	 pLEU3wt7hb0mN4ytCpnsicA2y5aGnbXvgshDNc5/N+jUJMxSYJy453ag3PrcNeVqc5lfW
-	 nhTBnGOYb8h0uXFczxDZj7XkswkW/O+4AxM7et8RFz5tvuRbfm06h36EMb2BXw+cSaYAD
-	 aZQ64Gm2eg97jd6gOGERZ8DPraADEn+gaHIpws9m65t2kmiP/I0HBXUZPrKO13tBG17vB
-	 /357Lo5WJeAYtqCTW/YAHZDfv7Tq/kdZeexRaWUK0XqXfaM0b4Qav7QMgc/qgC/Cczw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hydroquebec.com;
-	spf=pass smtp.mailfrom=hydroquebec.com;
-	dkim=pass header.d=hydroquebec.com header.i=@hydroquebec.com header.a=rsa-sha256 header.s=selector2 header.b=BzWMl3II;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.2
-Received: from YT5PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11011002.outbound.protection.outlook.com [40.107.192.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794064447;
+	b=AZTxj3A5rZTlWx99e1AJQ0Xr8/wnjF0WVs1qoOHMBsvski5KK7QCPd3HA3fO77nuKTV4
+	 7EeaHYFrgwYNSBAU9xnDFQf4akdnictYT3qPd2DZRRBNZSs0R7Xh9SmwY7yDAbsl3sQkv
+	 ApCwd9a6X5hz0so+eEWFXswALLR+vibdnoAVqnXaunlCL1clhwDX8i6dGugGd8DHGzfZh
+	 eVnOUutJKtwS1+3OL/p5yp2zRo18k0rNA5YAHDvs0u65ZDvVd9vkRFVqdGuNY2j5BVaC+
+	 rmn3DzMDsJmbbsAP2CUWvFIRhgelAlPFAeaygEX3igeBAvb8ESalz5U7zOjuIWUU3Sg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064447;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=cbWwAcQq4uRDikoBSCyhCaJCcw0pytPybYrMp+gi6BY=;
+	b=bJ0Ci7e+viwO7io5BFv32KCVOba9oOaRceOSj4pV0Aer/FcknbAz0Alrq7fxsCvN4RPE
+	 etkzM2pjreXHlqbjQN0ImU1WWMF3I/X7YVqGLDJe6StSmCtaDldMJ4BjA3H0th8tUrDpw
+	 CfknfasRlW11ITM+YPo0t6rWgzp4ZXZXnNYE0IwaT1sgAO2k4P2Oz6pPdIJ9WzH40fpR7
+	 7J7wxp3GkXT6KVW8gbyUnPjgNzMpY/lho42K0vaE89dgWwlWf2hXf+asj4l/pNWbuH3fk
+	 N2hKQXH8eyC7CqP4c5eZVho9v10WE9gpnhca9u6DVlaVtbwJYxOprISpWpak5oaQ9iw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="isoiA/1M";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BNGhKGvB;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C8B606E8DE;
-	Sat,  7 Nov 2026 15:13:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C8B606E8DE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hydroquebec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hydroquebec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77769606EEB5
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:14:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77769606EEB5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hydroquebec.com header.i=@hydroquebec.com header.a=rsa-sha256 header.s=selector2 header.b=BzWMl3II
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FZ4EWPPmT6Vo+JZnU9529iVnVyDHvLjRtN1pLfRPpwAlQCZ8ijT0Pvk9Ca6x7OZ8xSTxuMjKTghVVN4n1kuqmpnW0rnozJI03r7Vv/13/dbR3rrefpy0WYPFvszyMYn1JdQLzqUG5mntZ7WryH4mUYQoCNjaFISzg9NuCUdJlfaEqHlNhPobmoFKl1uB5bRRP2D5j/kBb99H1sGsQ2kTc6VAoWGWWS8gOBWHYq+f1ep6mU1cEYxP37c+MG8C1HKnln29Me/TKEay3lyP5Q2lNd7IV4cVxRcfnrb4e7yE6qwK+F4kP45YWKw+NckDMEWbremtWTeZW7ao55x5acd8dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cfImJqHL+dzKHx/Mltts3JcvtV8m8GeGHYFDzuh95ik=;
- b=ZkMR5Vkow966ouE+yA8bU15qLsGeB7RGkc+13sX8KoAY3EiPn8XacYSAy4diEZr8senu/xsG6S1hiO7xkd0erkM2ykaC63Qow3Yw+9tBXWlqq96timhUjvdAI7cIJ6KkKkeFq4AWFFydQtyQf+T1Rb3WypQ+LFb9Ea5BSZXrRMOFVFF+1PMy/voz1Ki4hBw8mZlQFkz88OKhwDpNRwHsK8KoTrZYLXMF3UYQMSF3WFLw9S8GHULizdldfmI6/b4tJAoH6C3NxRgYKBG1YcaVdQiPLxPiBKPczjFo8kuHubSjDSmiKEajx0GLnd+mLn9GQysnUtH4sZMEU/1MBGPLoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=hydroquebec.com; dmarc=pass action=none
- header.from=hydroquebec.com; dkim=pass header.d=hydroquebec.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hydroquebec.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cfImJqHL+dzKHx/Mltts3JcvtV8m8GeGHYFDzuh95ik=;
- b=BzWMl3IIpZeJ3TLCORKfFLfp/jx8dzzxRYFLmV6Akc3ycNy0NPfg/z0Hgu6khP5fb3+uNjFoEqKDWCy7HDOPHFbVZs4KZ/Zu/RvnobwJNgWV0s5z3aVpSrXA29JIQMjv5b5mJ/ZwOA/ZM/ZE1+WeljitX6zAI6VhnuKlwXXQQDeWcMOKRjCDFDs1ASwReik6zhojp6+puzgdr3EhUgZFDuas6FcDUOFxyVSx71ZuJ4EALsFQv4KmzDLShduvtZCBU8+9nSo/7V1bUZCVFnC2nzu1RwBLVIEeMpB3lYgQ0pEmSVwcQ7tWh2wPqwwJNcGR8C8QzD+2s8vWt4dvYt2vvA==
-Received: from YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:18d::8) by YT8PR01MB553497.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:10::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 15:13:20 +0000
-Received: from YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::aae3:5d66:3923:ae40]) by YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::aae3:5d66:3923:ae40%6]) with mapi id 15.21.0592.010; Sat, 7 Nov 2026
- 15:13:19 +0000
-From: =?iso-8859-1?Q?Choini=E8re=2C_Vincent?=
-	<choiniere.vincent@hydroquebec.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "anthony.l.nguyen@intel.com" <anthony.l.nguyen@intel.com>,
-	"przemyslaw.kitszel@intel.com" <przemyslaw.kitszel@intel.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"aleksandr.loktionov@intel.com" <aleksandr.loktionov@intel.com>,
-	"michal.kubiak@intel.com" <michal.kubiak@intel.com>,
-	"wojciech.drewek@intel.com" <wojciech.drewek@intel.com>,
-	"mateusz.polchlopek@intel.com" <mateusz.polchlopek@intel.com>,
-	"pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v2] ice: fix Tx hang dump using stale tx_buf[0].skb
-Thread-Topic: [PATCH net v2] ice: fix Tx hang dump using stale tx_buf[0].skb
-Thread-Index: AQHdZU4ihKdjzNAMJk2Vt0Tl0Q7xS7cT0jmAgA73rbw=
-Date: Sat, 7 Nov 2026 15:13:19 +0000
-Message-ID:
- <YT4PR01MB64729023ADDEA05B9BDF7F064BE3752@YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM>
-References: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
- <179324143967.3134.13716472134019576369@kernel.org>
-In-Reply-To: <179324143967.3134.13716472134019576369@kernel.org>
-Accept-Language: fr-CA, en-US
-Content-Language: fr-CA
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Enabled=True;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_SiteId=f40a10f0-50ee-4880-9a37-6e1dd4ac2ff3;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_SetDate=2026-11-07T15:12:53.896Z;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Name=Diffusion
- restreinte;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_ContentBits=1;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Method=Standard;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=hydroquebec.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: YT4PR01MB647290:EE_|YT8PR01MB553497:EE_
-x-ms-office365-filtering-correlation-id: a9ed6718-bd71-4db0-963c-08df3ce1a83b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|38070700021|261026140227099003|11063799006|4143699003|261022075727099003|261009223027099003|56012099006|261022105027099003|261021121427099003|261102123227099003|261026121527099003|261028144727099003|18002099003|22082099003|6133799003|10067099003|3023799007;
-x-microsoft-antispam-message-info:
- p+/iB3/5+iuaUSz4Q14Aqj3e8yPM1zadF/Y4J0/xDsDckKMKJ3yp+7g4OH6eS+5xeFGDgp8spn5/vQrcutcO7gNKLBGuR4E6f+/N9oplyIYHUlypV3H4kbGaug5wt/XmYEkowYa7itkRV0NkDBQzQSPFlHRW1oCxhQ/bQg9ZgvgAunEtf2w7nWmDZ2DxsX4AQD0Y2c2ah/I/EViy2UTuWEuIFG1gTiiaHvhycn1FJpzGb6NjpsQy2pJ7plyJfzwyIb6DwcG/9TP66NcVfzLo8xcDF5VKH8ksqyM20Bj8MGwh8M5Aqh+E3KuSBqZqXxGnQjHf26P957UVPA9bSPlFQa4congL/QMsN1vI6ct78kkmRI89l4Kl0PMeNrVbJPaArE2cdDYNGqGmlGTNaFHbz63PkPj/Tua2r+jtY+ziDAfOg820Bj/ohigv/lvRhT8NB9JqQtZ7wNMtUJHwbYoVIYuUbj6/ufmOnHgnfJQvaFRdQy6aGhA603LrXiGVUOlpUejGvRz6wpgLzw4RgciuTKZNnk15mdJTWfyGLmYC4SsDtkuTSLcBWegYPVnC8DorHWoaKZf9ZsjuxFVkcG6hVUIyxrKIbQ0i1bEfGpACv+hqV2/9OqipjCtY93RCi7NTqRqJmNghp2yaqogxIIQL8Wmf+2g/QKlRjzySSN9Gxfw=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(38070700021)(261026140227099003)(11063799006)(4143699003)(261022075727099003)(261009223027099003)(56012099006)(261022105027099003)(261021121427099003)(261102123227099003)(261026121527099003)(261028144727099003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?tYy6vgNdsv1TtQS4BHnn/SVfvmHEBB4M6igir/bSsQSGmjBuMhfTg/uVjE?=
- =?iso-8859-1?Q?aAYKcNANFIqMAB3+3PlFcXFquSLsw+6qj7u+vBJxkkeGs112cTMteNoOGQ?=
- =?iso-8859-1?Q?caZMhd/a4k7iBSpXaLffysa8hxOExhLBmTrWIhuuje1T2EFT2hd0Q80tWi?=
- =?iso-8859-1?Q?81VIank8WRMqExgwnzly3VveN05QI+xpwYBKHG7eT4oVBF9SXuPMTmIEX7?=
- =?iso-8859-1?Q?9/M4OJXS9CXdVSGuRD2hRaXbIXycFM19u/HgEci5n2NtVqkZz8iI4EO+zt?=
- =?iso-8859-1?Q?jthl1lM3ePmUnshwMJjYidbDtATAV2H40MlV4B70wmp/CiTHRLxDQENkdJ?=
- =?iso-8859-1?Q?mreZJsgh/gIvY2XBCBMyixIb68ljNuTNv1tWI2HPMC3Y0e+y+akSrr3L8N?=
- =?iso-8859-1?Q?aScsNMNLR0u3CEenGpDHqMxd5USiOYll0sjl9toD/NnyDvjXvPH6Q8fk/k?=
- =?iso-8859-1?Q?stdS+IWwgffiUqsWzbJlQcNOKtH1MyX1LUvoiHBaV1eU19/Zi9RL66FLLs?=
- =?iso-8859-1?Q?OJmQZHR8DzBlwGopytM5kKDOqnf2elmVpoQ7vH3YYjMQoF0bSGnYgaVNN0?=
- =?iso-8859-1?Q?7QAxEDF3clyJNFUEJtejyA0c05BcTjyPPX8TVYCx5EBkkHxb68jJPecYUs?=
- =?iso-8859-1?Q?QLBlaXLZl0S3aUZ3xDkzVNC3sB2HJmuvbhmUdj9gtUArpSLpg30XYy3qF8?=
- =?iso-8859-1?Q?3CHJYfxhHO6dDO5s7BC4uwXt3IIwELs32w28bZnbcP9EGV+ZCw5oW2200s?=
- =?iso-8859-1?Q?uH1I7JshBLZL96QgwgGQq3bWGLQq7PFMj0syn8MP+Z2vl0jrvpQsJKfB6m?=
- =?iso-8859-1?Q?JmXrXiAkRSTSN1THF93tHmDNM5zgIRadDX1KW8746U2hslluy1BQaz5viH?=
- =?iso-8859-1?Q?aIo8V/pJTpJsB2aZNhZOQw3XscfCnd4JB0WcE4qAbYe69Ppjb+8Y0OCB7x?=
- =?iso-8859-1?Q?nQf9y4DpE1w2ZiIpj8dGwSM4dYoU38CgIi5gTQkjWprMnGfDcWZe1Fmh5k?=
- =?iso-8859-1?Q?EnQc8XQXCQlMrdHWAz7BaZFHZxZvC0HG+74RRn38uTHx/3POY+fsTtnyZx?=
- =?iso-8859-1?Q?JnyMnFYWK6vpqnuy+tj4v8L/rYPEEhs3L9yM3/uvP7u2ewNZMoLeMOsE3l?=
- =?iso-8859-1?Q?L7l8vmn+rQ6EGxNdQ906KyRkbMskAye2Vp6ZIzOTfRGirgSdz+L1buhw5h?=
- =?iso-8859-1?Q?xPO3eIMDonfVZzCghaqC9LinAmPR7Zex/N6oQkYn65w8xNzt3PuCFecySu?=
- =?iso-8859-1?Q?wHIMP6aoNDNAfJ+Hb7GQfF4GBZoDaY/VYPI7RpkWtK/K1d2TltpDzc/gOf?=
- =?iso-8859-1?Q?wNuHv+IwlitkdB8drVYRXSfmtSzdiPM0h8PiMeJ/uQMF72B99J86CEH8cU?=
- =?iso-8859-1?Q?0C1gFEw3j/rtL3FUwVHoxeH22B0UFOU99S9cav05CzZtWuXt4D6kvfwRa4?=
- =?iso-8859-1?Q?Ma74GxNUH+VwO0SuJXEJWOztbF0qDSPdiZca0tDeX73ulI4v5IUd93Gq5S?=
- =?iso-8859-1?Q?Z56Wf+yRNZbUq36R4IXsckQlpzM1y/gKJsHRw+O5YNtD/KM6IFtIUR9a4B?=
- =?iso-8859-1?Q?fB8Ts6EYjFAFu1RkzbssIdn7PM7T0OQYe9L6j9aLSxJkTyOBXfUTLYejz+?=
- =?iso-8859-1?Q?O82QZ+veRvEK0UO7MCfh/8e0uyScDjpmYa0SOnlQm+oBHwnO8yK4fPQu5l?=
- =?iso-8859-1?Q?xTQFn88V3H/8TvWaQhlEzFKxysSPq4MFiE4VgjCoFtFkKVMFa4BWA6wOOh?=
- =?iso-8859-1?Q?vKu3a3cOquHkwA6pbh611EUR3kJyCQOLQgD4D/poi0KDlShi/tIJOt2tYq?=
- =?iso-8859-1?Q?CqI2dqPCeDXoA1HBUOSQrxeqj+y5hQY=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=isoiA/1M;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BNGhKGvB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794064445;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cbWwAcQq4uRDikoBSCyhCaJCcw0pytPybYrMp+gi6BY=;
+	b=isoiA/1MqNm7NIIxWctRGfrrIp2yFjOXgZ/eql11LDg7cvACtO0LYoo2kfq9hFgZ9HjsrB
+	wrfsF7L7UXJFXd3U8gpPNAQtFTXsTHOJDL/v1uDjM3tR8RckoTvT0LbMN2MHYWkBZGmAdi
+	zEd589+3+C9XKc7/8OYisBTtW/e2pgc=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-220-ocGzVKZEOrmAS_sKgp9cDA-1; Sat, 07 Nov 2026 10:14:04 -0500
+X-MC-Unique: ocGzVKZEOrmAS_sKgp9cDA-1
+X-Mimecast-MFC-AGG-ID: ocGzVKZEOrmAS_sKgp9cDA_1794064443
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5337f26ee19so39044871cf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:14:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794064443; x=1794669243; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cbWwAcQq4uRDikoBSCyhCaJCcw0pytPybYrMp+gi6BY=;
+        b=BNGhKGvBDH/eOwWGXi7JOM7zNagjpt537akmEhO87/lJZ72KDbFlCMkAhV0gSDbtAl
+         MF390plYheI3/LFt86NbYLD1Gi6di/f9Ph/WkZGyeVCNHe1LGQ9ON0tMrDxoPc8zV6XT
+         HIvf688FdFvydUO9ePGNSh09XzNrryrrz9Snb0saqBX9Wt5xFZ275qtRFxSfH1MuRP2r
+         bn/0RTXTA3HpizEcTN/H8XwuDg/zw0PhWK8qvnn6xFG5qxU58/fJZJQqPYRvXfb9l8/N
+         vM/OYjVOXKUq+E04GrQrfmNEDkaqNEC5FLbrUwQxrcE0HhtpkKZmq31luGUmeLz6bOIQ
+         9L9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794064443; x=1794669243;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cbWwAcQq4uRDikoBSCyhCaJCcw0pytPybYrMp+gi6BY=;
+        b=utvlj8J0qp7FcWODsFRkbinThULnaX9vZ5DdbueZfXiFYeLyhl9Rp+Tw7DwANeDCSN
+         HHUFSpA0J6kCWkNz/8aC8dlaHw3bCGcABUZObwRxvZcfJF2ZyuOzI/Oijjbl0VjAf+Xy
+         FChKHYbHLkFWC2mC8z/i1HUVvWikjbmkHYVx1yO0CBmaJ4iZtSgfsOcCv5G+eYRlMbnI
+         0M30Qu81RoLKLJolF1U2Ve4P0vnCgy/ywleflrt0MLhORml2s4sTXdFRlT1jjPWc1Tsr
+         TgEXPGBoWL9AZ4zCcAGqWeRqErdEXatetwu6Cktyys7rTR2NCvvgHZF11vQNRYKl9wie
+         5G7w==
+X-Forwarded-Encrypted: i=1; AKwUvByMR+ZREmkD9xK3didUZlYHAiFnEof+BW/6t0gmpllDIrHLXyJ62vkAfyCefoCaOxmyFoIildogNKwhdmo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OQkAvJZUIH9/+15BbQn5Bnv1s/zHKhKwyPP8QGJRyv8mvk1PT
+	DSwPP2b5YuciARNDAPHjENYeWbYAPAeIri/U1x8zeOdJYIJl5I/EmCpjLRKTeOxYRj/mmDfjjrq
+	WBtgeWB6E5K48oVOPiqo8vkvUGH0CNa0NrsWO1H10fq9cwQ/Y8eAxVnaiyKt3CPpkXQ==
+X-Gm-Gg: AYBFou04/LuOevt2DoOE6IURpQY8Dk49+GyyKzJ07nmxpuNvI8MDQiKoRR39wtOgBXH
+	wuZ8QzA7XQ/rug1TWwkCCGjE0VJkzWZw1dhCWGQnnkKd/2ftaUFoPvzaNYdeJ7FLKh2J+eEKsZ1
+	O9OkgC8ELEe8TfUJEIw33iztLKWZfb6025LyOtSkeB44vM5TXSQoMXpv3f7FoqQD5znqtjndKjV
+	2TYpyiFhpqFv/zC/CVoV4gceHEt/nofyYcdYnDlkZ5nDDIuntaTkmQqbkXNu2zFUUiMAxOJoZjj
+	uDaMVDBAKEwUR42fYMiT8mi6dW05o6KfA9HjBBu32FdlfxZGyEJjIrgMgdJF6YdCvuf54zmPQ+b
+	sIY15GOE6bj8i+A5jj/yn7Pp82AW2oPFuBZfM1gtztF6nCYk0La4EYsOoliefUW/Aq631aZUt64
+	g62C8k6NPGX8xBkM2BHTAX1trXxx8b8YOhSXMJiC682/ud6oKpO1+I3BOEzag+7aNrW2glwg==
+X-Received: by 2002:a05:622a:9017:b0:54f:863d:92c0 with SMTP id d75a77b69052e-54f863d9456mr34737101cf.65.1794064443252;
+        Sat, 07 Nov 2026 07:14:03 -0800 (PST)
+X-Received: by 2002:a05:622a:9017:b0:54f:863d:92c0 with SMTP id d75a77b69052e-54f863d9456mr34736571cf.65.1794064442628;
+        Sat, 07 Nov 2026 07:14:02 -0800 (PST)
+Received: from loberman-thinkpadp1gen5.rmtusma.csb ([2600:6c65:2440:d8c:929c:b769:6def:faa3])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e25d65a9csm48127661cf.11.2026.11.07.07.14.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 07:14:01 -0800 (PST)
+Message-ID: <080f3cc7097c9a8191e4fa2f03ff2d67d0640f40.camel@redhat.com>
+Subject: Re: [RFC PATCH] scsi: qla2xxx: Use the real INTx pin for the port
+ number on Hyper-V guests
+From: Laurence Oberman <loberman@redhat.com>
+To: Michael Kelley <mhklinux@outlook.com>, "njavali@marvell.com"	
+ <njavali@marvell.com>, "martin.petersen@oracle.com"
+ <martin.petersen@oracle.com>,  "wei.liu@kernel.org"	 <wei.liu@kernel.org>,
+ Mukesh R <mrathor@linux.microsoft.com>
+Cc: "GR-QLogic-Storage-Upstream@marvell.com"
+	 <GR-QLogic-Storage-Upstream@marvell.com>, 
+ "James.Bottomley@HansenPartnership.com"
+	 <James.Bottomley@HansenPartnership.com>, "haiyangz@microsoft.com"
+	 <haiyangz@microsoft.com>, "decui@microsoft.com" <decui@microsoft.com>, 
+ "sbhat@linux.ibm.com"
+	 <sbhat@linux.ibm.com>, "kmahlkuc@linux.ibm.com" <kmahlkuc@linux.ibm.com>, 
+ "linux-scsi@vger.kernel.org"
+	 <linux-scsi@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
+	 <linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>
+Date: Sat, 07 Nov 2026 10:14:00 -0500
+In-Reply-To: <MN2PR02MB68634FAAFE0BA7C4DB3153D9D4772@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261104222541.2675051-1-loberman@redhat.com>
+	 <MN2PR02MB68634FAAFE0BA7C4DB3153D9D4772@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -161,65 +135,214 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: hydroquebec.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9ed6718-bd71-4db0-963c-08df3ce1a83b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2026 15:13:19.7453
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f40a10f0-50ee-4880-9a37-6e1dd4ac2ff3
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: czT16vcoaVE9peCabd/uma6astxbbVyPy+eOOSunTxYSJMFaN2B4+zHDveC5HF3Ycx8C3jDS6miqNoff83TMmO2zlXCBMOx5VKMpxX8Hy4GstxtX8Av1SPJG+lWXedUS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT8PR01MB553497
 
-Thanks for the review. I posted v3 here:=0A=
-=0A=
-https://lore.kernel.org/netdev/20261107-ice-tx-hang-dump-v3-1-8f22109d1aad@=
-hydroquebec.com/=0A=
-=0A=
-I checked the sequences against current net.=0A=
-=0A=
-[High] VSI and ring lifetime in ice_remove():=0A=
-=0A=
-You are right that the kernel-doc claim was too strong. In ice_remove(),=0A=
-ice_unload() drops RTNL, ice_deinit() sets ICE_SERVICE_DIS and frees the=0A=
-VSIs, and the service task is only cancelled later in ice_deinit_dev().=0A=
-ice_service_task() also runs the Tx hang report before it looks at=0A=
-ICE_SERVICE_DIS, so the rings are not only replaced or freed under RTNL=0A=
-or from the service task.=0A=
-=0A=
-The underlying lifetime issue predates this patch: before it, the service=
-=0A=
-task dereferences the same saved ring with no protection at all. v3=0A=
-removes the incorrect claim about RTNL protection and documents the=0A=
-remaining limitations in the kernel-doc (ethtool -G/-L and the reset paths=
-=0A=
-are covered; driver removal and devlink reload are not).=0A=
-=0A=
-[High, pre-existing] reporter freed in ice_remove():=0A=
-=0A=
-Correct. ice_health_deinit() destroys the reporter without clearing=0A=
-pf->health_reporters.tx_hang, and the service task can still reach it.=0A=
-Same cause as above: the service task is stopped after the teardown.=0A=
-=0A=
-[High, pre-existing] DRIVER_REINIT reload vs. the service task:=0A=
-=0A=
-I read the same sequence: ice_devlink_reinit_down() reaches=0A=
-ice_deinit_dev() and cancel_work_sync() on the service task with the=0A=
-devlink instance lock held, while devlink_health_report() takes that lock=
-=0A=
-when auto_dump is set. That is a lock-ordering problem rather than a=0A=
-teardown-ordering one, so this patch does not address it. I have not=0A=
-reproduced it, and dropping RTNL before reporting does not change it.=0A=
-=0A=
-[Low] tx_hang_buf:=0A=
-=0A=
-Yes, listed under Limitations and left out of this patch.=0A=
-=0A=
-Przemek, Tony: I think these pre-existing teardown and lock-ordering=0A=
-issues would be better addressed separately from this fix. I am willing=0A=
-to investigate and test follow-up fixes (I can force Tx timeouts on an=0A=
-E810 with KASAN and lockdep), but I am not an ice expert. Please let me=0A=
-know whether you would like me to prepare a separate series, and I would=0A=
-appreciate guidance on the preferred approach.=0A=
+On Thu, 2026-11-05 at 00:46 +0000, Michael Kelley wrote:
+> From: Laurence Oberman <loberman@redhat.com> Sent: Wednesday,
+> November 4, 2026 2:26 PM
+> >=20
+> > qla2x00_set_isp_flags() derives the physical port number from
+> > PCI_INTERRUPT_PIN, and the port number selects the per-port VPD,
+> > NVRAM,
+> > NPIV and FCP priority flash regions.
+> >=20
+> > On Hyper-V guests, pci-hyperv returns 0 for byte and word reads of
+> > PCI_INTERRUPT_PIN since commit fea93a3e5d5e ("PCI: hv: Return zero,
+> > not
+> > garbage, when reading PCI_INTERRUPT_PIN"). Commit 7268e509b43a
+> > ("scsi:
+> > qla2xxx: Handle INTx not connected while passing through") then
+> > falls
+> > back to PCI_FUNC(). With Discrete Device Assignment (DDA), each
+> > function
+> > of a multi-port HBA is presented as function 0 in its own PCI
+> > domain, so
+> > every port gets port_no 0. All ports read port 0's NVRAM, pass the
+> > checksum and register the same WWPN, and nothing is logged.
+> >=20
+> > Without that commit, port_no underflows to 255, no flash region is
+> > selected and every port fails with "Inconsistent NVRAM checksum"
+> > and
+> > falls back to the default WWPN.
+> >=20
+> > pci-hyperv only zeroes byte and word accesses within 0x3c-0x3d. A
+> > dword
+> > read at PCI_INTERRUPT_LINE reaches the device's config space and
+> > returns
+> > the real pin in bits 15:8. On Hyper-V guests, use that when the
+> > byte
+> > read returns 0, and warn if the pin is still 0 so that duplicate
+> > WWPNs
+> > are not silent. Bare metal, KVM/vfio and other hypervisors are
+> > unchanged.
+>=20
+> There's a patch in flight [1] that kills the behavior that your patch
+> takes
+> advantage of. I don't have knowledge of the full details that
+> motivated [1],
+> so maybe Mukesh Rathor or Wei Liu can add some info, as well as
+> comment on the validity of what you are observing as a possible
+> work-around to the qla2xxx problem.
+>=20
+> Michael
+>=20
+> [1]
+> https://lore.kernel.org/linux-hyperv/20260913232255.2801797-1-wei.liu@ker=
+nel.org/
+>=20
+> >=20
+> > Tested with an equivalent change on a RHEL 9 (5.14-based) guest
+> > with a
+> > dual-port QLE2692 (ISP2261) assigned through DDA (Hyper-V host
+> > 10.0.17763):
+> >=20
+> > =C2=A0 before: both ports "Inconsistent NVRAM checksum=3D0xffffffc0
+> > id=3DNGKP",
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 both WWPN 0x2100=
+00e08b1c5586
+> > =C2=A0 after:=C2=A0 port_no 1 and 0, NVRAM valid, WWPN 0x210034800d7065=
+bd and
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x210034800d7065=
+bc, fabric login and FC-NVMe localport
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 registration on =
+both ports
+> >=20
+> > Also tested on bare metal (ISP2031): the new path is not taken and
+> > port
+> > numbers and WWPNs are unchanged.
+> >=20
+> > Signed-off-by: Laurence Oberman <loberman@redhat.com>
+> > ---
+> > RFC: this relies on pci-hyperv not virtualizing dword reads at
+> > 0x3c,
+> > which is an implementation detail rather than an interface. It is
+> > posted
+> > as the smallest working fix and to start the discussion. Feedback
+> > wanted
+> > on cleaner alternatives:
+> >=20
+> > =C2=A0- Hyper-V (linux-hyperv): could pci-hyperv expose the real
+> > =C2=A0=C2=A0 PCI_INTERRUPT_PIN, or provide the physical function number=
+, for
+> > DDA
+> > =C2=A0=C2=A0 devices? Some drivers use the pin for port identity, not o=
+nly
+> > for
+> > =C2=A0=C2=A0 interrupt routing.
+> >=20
+> > =C2=A0- Marvell: is there a firmware or register source for the physica=
+l
+> > =C2=A0=C2=A0 port that does not depend on PCI config space? CSRX_FUNCTI=
+ON in
+> > =C2=A0=C2=A0 ctrl_status is a single bit and would not cover quad-port
+> > =C2=A0=C2=A0 27xx/28xx/29xx.
+> >=20
+> > =C2=A0- The check is x86-only (hypervisor_is_type()). pci-hyperv also
+> > =C2=A0=C2=A0 supports arm64 guests; a better way to detect a pci-hyperv=
+ bus
+> > is
+> > =C2=A0=C2=A0 welcome.
+> >=20
+> > This has not yet been tested on a 7.3 kernel in the DDA guest;
+> > testing
+> > was on a RHEL 9.8 backport. The upstream behaviour without this
+> > patch
+> > (duplicate WWPNs with no warning) follows from the code and has not
+> > yet
+> > been reproduced on 7.3.
+> >=20
+> > =C2=A0drivers/scsi/qla2xxx/qla_os.c | 40
+> > ++++++++++++++++++++++++++++++++++-
+> > =C2=A01 file changed, 39 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/scsi/qla2xxx/qla_os.c
+> > b/drivers/scsi/qla2xxx/qla_os.c
+> > index 3c412c7fb6fe..4180d3f15231 100644
+> > --- a/drivers/scsi/qla2xxx/qla_os.c
+> > +++ b/drivers/scsi/qla2xxx/qla_os.c
+> > @@ -24,6 +24,10 @@
+> > =C2=A0#include <scsi/scsi_transport.h>
+> > =C2=A0#include <scsi/scsi_transport_fc.h>
+> >=20
+> > +#ifdef CONFIG_X86
+> > +#include <asm/hypervisor.h>
+> > +#endif
+> > +
+> > =C2=A0#include "qla_target.h"
+> >=20
+> > =C2=A0/*
+> > @@ -2704,6 +2708,40 @@ static struct isp_operations qla29xx_isp_ops
+> > =3D {
+> > =C2=A0	.initialize_adapter	=3D qla2x00_initialize_adapter,
+> > =C2=A0};
+> >=20
+> > +/*
+> > + * Read the INTx pin used to derive the physical port number.
+> > + *
+> > + * pci-hyperv hard-wires byte and word reads of PCI_INTERRUPT_PIN
+> > to zero.
+> > + * With Hyper-V Discrete Device Assignment every function is also
+> > presented
+> > + * as function 0 in its own PCI domain, so the PCI_FUNC() fallback
+> > gives
+> > + * port 0 for every port and they all report port 0's WWPN. A
+> > dword read at
+> > + * PCI_INTERRUPT_LINE is not virtualized by pci-hyperv and returns
+> > the
+> > + * device's pin in bits 15:8, so use that on Hyper-V guests.
+> > + */
+> > +static u8
+> > +qla2x00_get_intx_pin(struct qla_hw_data *ha)
+> > +{
+> > +	u8 pin;
+> > +
+> > +	pci_read_config_byte(ha->pdev, PCI_INTERRUPT_PIN, &pin);
+> > +#ifdef CONFIG_X86
+> > +	if (!pin && hypervisor_is_type(X86_HYPER_MS_HYPERV)) {
+> > +		u32 val =3D 0;
+> > +
+> > +		pci_read_config_dword(ha->pdev,
+> > PCI_INTERRUPT_LINE, &val);
+> > +		pin =3D (val >> 8) & 0xff;
+> > +		if (pin)
+> > +			ql_log_pci(ql_log_info, ha->pdev, 0xffff,
+> > +				=C2=A0=C2=A0 "Hyper-V: INTx pin reads 0,
+> > config dword 0x%08x
+> > gives pin %u.\n",
+> > +				=C2=A0=C2=A0 val, pin);
+> > +		else
+> > +			ql_log_pci(ql_log_warn, ha->pdev, 0xffff,
+> > +				=C2=A0=C2=A0 "Hyper-V: unable to determine
+> > physical port, ports
+> > may report duplicate WWPNs.\n");
+> > +	}
+> > +#endif
+> > +	return pin;
+> > +}
+> > +
+> > =C2=A0static inline void
+> > =C2=A0qla2x00_set_isp_flags(struct qla_hw_data *ha)
+> > =C2=A0{
+> > @@ -2887,7 +2925,7 @@ qla2x00_set_isp_flags(struct qla_hw_data *ha)
+> > =C2=A0		ha->port_no =3D ha->portnum & 1;
+> > =C2=A0	else {
+> > =C2=A0		/* Get adapter physical port no from interrupt pin
+> > register. */
+> > -		pci_read_config_byte(ha->pdev, PCI_INTERRUPT_PIN,
+> > &ha->port_no);
+> > +		ha->port_no =3D qla2x00_get_intx_pin(ha);
+> > =C2=A0		if (ha->port_no =3D=3D 0) {
+> > =C2=A0			/* None of INT[A|B|C|D] may be virtualized
+> > by vfio */
+> > =C2=A0			ha->port_no =3D PCI_FUNC(ha->pdev->devfn);
+> > --
+> > 2.56.0
+> >=20
+Hello Michael,
+
+Thanks very much for the information. I will follow the thread.=C2=A0
+Our main pressing issue is any guest on HYPER-V with DDA moving to
+RHEL9 from RHEL8 loses functionality for the pass-through qla2xxx ports
+
+Regards
+Laurence
+
