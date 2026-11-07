@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069525;
-	b=YJGTjkrt7gmoeCkGPCTYEv95MIYF1VQMgZHarvS4hKnrSf2sMFWWvfAq8fJGzrMZEJBE
-	 boenY1DinbL+S9R80IwveZBOt4eRKjkhjEtfGDtuEozh3JMQPkjIlNCV7ExW3s9ZdQkfP
-	 77iJ1os4I5B48yR5/RJqxHV1FwBfwAmQYjJa8LF1rIqNPjFMuIAglfFL1IAFDuPEyXVZk
-	 EhC5Djto9a6M/g2BbXcuR62TSIwyaHeCpgbCcu63Q9etpX4UagX79Id3DI8blfSOiV12e
-	 DZYGeLUOtzz/1jBYj+kQzeXidB94fLFGNfw+X4MmfPgxXG9QWg4KnoqowalzmE/h2UQ==
+	t=1794069528;
+	b=eIlPs1IOrYo1vEN92JwRcwpa24gwFjwzuoUBmcyBMf3yNzZ4KbWUfjdzm6pXfxX0Oou4
+	 gMWfSJAY1kkE3D9at4R73gMrwW2IUI6VAwbHb+QT+Hvhx9PLGJSUL9R7ytq2XvPZssJPQ
+	 gA9v/YFovErvcsva0xI2No5BFkXn6n8ydn1HMId/mYeiWU/dasCkZ7KPWsOtnsenUEfKY
+	 VSpCEJK8uhZC6ojRMJnAYwS1/sE0jDgfZP4CgRoibZktLrpgxtr2lacCwjuG9pdNn13Q6
+	 YHack8R0rmPFkXpRvKET65I4MMtS6mREifDMsJ0trHNFm10AiNyx0mcC+j4yVF8CDHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794069528;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=oK1UqNMw8ALfTMiacdC8RCw5rD9bSMFu0hEhUP7jD78=;
-	b=ESQA+WnK16aycDDW+YuMAqVRPUDtrUQzkUL6L0G1Dtv55+7AbD6iYw4MJxCIELHlkOPa
-	 736ZowoxBI+yg/FT+Lt6jCziZyZ1S5JyUfpCL+iBbHly++WSfm//Za17GWNLaM0j/e5tx
-	 PKMJfS0xfV8xfbjWMdbQPUAX9Bys0hfzKs8TOAV5c5bERUknfMFJxTJEr7nEnUboY5X/l
-	 ZgwE09+4X9g4/hEK+b3TRdPVQcBtQmokl4uSSLXghdLYo/F5yRA80phWJo39e21zwMtXK
-	 MAexifbRIboM5G/KA8VceBnDji6/KV0Xd5Yq/qTdfzy7qoYRlU4krWgJ40nWjzaPwcQ==
+	bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
+	b=QViH4V1PgXOERMKHkDK9leLiyEd1uqogPYqprldSu6NHY9BgfJA1K28Na+us/mIHYzbR
+	 uLq9lz8+OPzzLiZlIVNQOQ+PAWwGRad5jJss0j9VV13/h0U/RXBbQKpYUsmNMZspfrtcr
+	 Wgn+nBJupPgzISFO1bUWlZfD7U965R2MMPlqs+1dTt2aUhgYcV1mnE/5/dl/09+X0eQVx
+	 sBbiTG136DOBs+l9x9NyUw7+vZrFNmu0+JxuU9w2FydaYyJnfGsqQT/xlo0ox30Qrb+go
+	 bHbQnUWQ5XA+ciZnzNuPmvfq7xVXaHsoyKxz03kwKRgCRIgdbb//zEEGnxXBXuCQzBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lc/Wx/JL";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="FpkV/aAM";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB990606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB990606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12ECA606D820
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12ECA606D820
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lc/Wx/JL
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so10085775e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:38:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FpkV/aAM
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso5394095e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:38:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794069523; x=1794674323; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oK1UqNMw8ALfTMiacdC8RCw5rD9bSMFu0hEhUP7jD78=;
-        b=lc/Wx/JL2LjUO1Tp8JHTV6ReYsTS30Y8i3xitF6jhPT+8SGWqCaaCj184u9Qc6PAgg
-         hCghj3Bc82gNb/hvwk0s3uxQEkPsOP7CU8OLeEzeyu5wVsjckN4W15beouCD8npYMea1
-         quYB4cKXzUwFdnCC/rVY2Mu6OblGdKgyou7qL+tE9SASV1Nftw48Zj2jvprb5KOZofW1
-         QF89VpAAqaL8Av2uA0uVYKlKeYgcnkya09Xs3VxKbf8Ic0OHdRh36VAtMvKkY4d46MZu
-         1PqXE0QTHX3wzLybpzyI8IMOuvXy/xHwZsfHulHmTmKPbUWmF/oZknYZUwZK3TpoR/4n
-         m8IA==
+        d=gmail.com; s=20260707; t=1794069526; x=1794674326; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
+        b=FpkV/aAMr7B65s3dU4wZfwRG6ueE0oji0xczqtI8Sf+KiHYNVonp7F3oDQiLNkyHPr
+         D0dUdLK2U/q0iFgztX4zeOIXRCIF5tTT50QpFbyp2QVF3fLIVFQ83dgbdo03O8cViiMh
+         Zqop7tHgJhGuU3joc9KFFz4T/hBeX14GlJm7uiaN6ZHtEkSgt8ep2f8ERIGXCuXpAuSM
+         VKOnbUCp0N/g8xnnAmfbmlqtPa5ZF2FzN5xK9aJVMOvC3ZmIUQmAkQ0KhhnsHurErNk9
+         MV/cJX1YjBq0qJMErJYN3safbwGBqmZ4QlWwsq+0habamJPfyV9ubiUYd+E9VExqtJNp
+         bjrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794069523; x=1794674323;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oK1UqNMw8ALfTMiacdC8RCw5rD9bSMFu0hEhUP7jD78=;
-        b=s0Qbr16Bu1I3yy4IL2XVaV3+T4kr6LNlw7mKd8XVeTepuNWMZO0iEC5ESO1Q/YsNkx
-         glDCZZJ+JNbJxlwhXpgOiuo19Bc/P9w3o9zlIdhQXMkOUxKkabJGLiWzpnIPo+hAzpvP
-         +In7xsG61KdcPlHQ2wzkwKbvQw7iglZuW21gkc8dzRa2lkaQpxR/d2Xy1RwIHf/il12Y
-         78c2MyX38o/UKgJjKIuuPYfjS1iURTq87mMDzIynL/L3FqMNKYbdNzdILaVxWO/lJM9Q
-         tmhKnEaP1sd8zUxqZ1yk53TllvNd2mDJ0pXnM+u261a8m9rwRzbPESzawKJxsBtEALOx
-         qXew==
-X-Forwarded-Encrypted: i=1; AKwUvBwKo7xU6+uuFODUPvvZDcDbPdZ5WWcebhI844catxrtDxblZHgQy6yh+Hnmkwaoio2B06AW2sk43iIOiAc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eKn8mU7C5MsdNmZzH6oAoyvoJYsTUWvAFivPF1ZWQ3p7kysrY
-	5w8iSm6fWQe7PGh03ISXGi1OAGL0NhWmyL3zIj27VgSzeQUIMy1L5JHH
-X-Gm-Gg: AYBFou0Iv98KykwSGEGBd8sc2MLZua4CnHcwIHieG2IwV3vNcnOfCFyF9HwlHh9OYs3
-	iDWqXpF/4a+0etxf0KudfUjpeTPzdoOvi3M4N5/dCCzHf2wxVGANCCEkKdyYvMAOBjJzmSSPFmE
-	GYY45PeV/+tcRS7uhC8diMmg+wK74Orj4vJX28qw1kyLVYMei6LfFlhVQUGzjaxQFpwzgdNArAK
-	niqD0FGMMQMCtPvtIwcKPHt6q81b4vikrlz+zB7kmLnerfg2WdDPBMWlHu2KpLcXBmjBjleaePs
-	90UXhY0suhZqTv9oJ+fEwOeryJTVpHgTusGVUa9yT6II0hKN9othqq/nueW8gNT6IJZ+lKjozo8
-	HWz148lWNbMKL+ByQA4mLC3eOSBUAmO2SDIJ/CXMfCrWlTmDaKpHp3ek1m/NDpRHgycIUqctRZQ
-	DneiDFeTiSSApxSgtEji5PyT3mrwpfsrJkjeYbmFatUU/pcuNXoToLwZwQ9JtepLYsWerV4Ut7w
-	KkTlJVQt1NK3qXCapDwKrFsgJxj3A91NA9Okui/gBJUaMAqV/bsWZRlY+SOG8hcqtQhT0AOvyuG
-	QlU3gHSUvhsitB87/7opXBjkDkNfxafGRW1sbrYDr2hdx8bG+3xtHpydmS8wxvFpWPkSSMQEJl8
-	ND1CxNeQ6Bm7EKJ8=
-X-Received: by 2002:a05:600c:8b76:b0:4a0:1efa:c74a with SMTP id 5b1f17b1804b1-4b6df6df28emr105183555e9.20.1794069522860;
-        Sat, 07 Nov 2026 08:38:42 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794069526; x=1794674326;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
+        b=bvStmac8442uv/QRMjCIfbwJKeayrdDLM61dTdB1LfbrbxxQFlr8I6JLoctnJQKAuE
+         Lluo8QZc7U636WFVQ9d7JATMzbGPOAmaanZGJ77VJyorx/tKKmKsG/SVSnyY1Q2gP47A
+         IUTRUo/pAiJi1l4YfEBDgJPolhn5lucMWQ8Opmcg+0mmHrjeXKkojWUKl51RTt+v7EuQ
+         zG+R5blbaFLJEJMKBTOhFKRzWaQ4LMRWANXNUYboGinRAPX9RWHTgfVK7qxUc3Ua+5fK
+         cEInMg7jkN8rfQD86ckiT3mJ3ZhtVPGE5+IlPEt1SZH3Q/Rk6Kn0iyyev5B52WIkHXiM
+         vHUA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3nErjACao3WE0UvUk0BkXTDdxWABg9WeYek/z06H9Ag/qYhUgzaYg2blmr41WBYq5FrCr8JykY+RUcKQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xz9RgICQHkVCDmshP4CbRqJCp2LjnCJphoRxRiObqTjEaGzls
+	Gtb5u6SV7CAPmfTwDNvg192G4WBgrJ9eMizB7stKdsB4DIBvCCs+XQPL
+X-Gm-Gg: AYBFou0Lg9yiYxqw2RaiGLTI9Bv+lYHdjmHMbsMEbiQ9HZ5jxWrcrcruj+Wi/6XdNpH
+	/Yfbcn/dwZf0bJesJcYkKtOPHl7o3gjVGtZXCUGSyXhcszbR+lDRVEVAVdTGvqah7X4xVUzDmMz
+	wcJOmRR7+8lj4HAwsrhMI84EzEpJgoijYXhNkQmI6azltRb5MtaCWX9NytWcp3nGtsVzyCpaO0n
+	D6ai0OV4EU0YfXBI5WY6lMZNF6z4G9Fw03839+S3qRr8sGehqunVLRIR2d/4mHYExt5PKYlVhaS
+	fJGGojFMUonsNdeNczw4qj2+L/y1r8hR9b7k5Og+VToHHsDSO9mKGiNlEmREbKmuUu/fEqCbs7c
+	A7AuLKqKPzE0F7AwFs2hWOhSZIgKgDhZDr8UdEJXYTpzY4zpf9tdY5sIoY/ChrUfgEUkz6sBt8O
+	VGm+M9BywGhaWTCvc8MRCEfqHM9rAhJ6f1PojMZ0XjCebR2tIyMyrWLj7W+bAUdjCLuFxCf8ild
+	r6ZvTdSMYCz58SCIeEJcKEP7Tnmpr2G2Ba3LnuMmmfR+nt5ZUmjwwDvr/7/7AGniAWQhYcA6lc9
+	cJjbmJ/Lj/0zevDmgJXRXnmFee0MVXtsIAtWuKliYHaAHTb783aq0hv5T2Dqy0NQPXTyj7jFq/5
+	NRznQwEFstocNS67EYe3+E1eRA8PEmBBxGwausA==
+X-Received: by 2002:a05:600c:19cf:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4b6de789199mr109400575e9.11.1794069526433;
+        Sat, 07 Nov 2026 08:38:46 -0800 (PST)
 Received: from zeus.unificl3slsbnxe8mz.com (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm36117925e9.0.2026.11.07.08.38.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm36117925e9.0.2026.11.07.08.38.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:38:42 -0800 (PST)
+        Sat, 07 Nov 2026 08:38:46 -0800 (PST)
 From: Sander Speetjens <sander.speetjens@gmail.com>
-Subject: [PATCH 0/6] firmware: raspberrypi: Style cleanups and registration
- error handling
-Date: Sat, 07 Nov 2026 17:38:04 +0100
-Message-Id: <20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com>
+Date: Sat, 07 Nov 2026 17:38:09 +0100
+Subject: [PATCH 5/6] firmware: raspberrypi: Document memory barriers in
+ property list path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,10 +96,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+1AEjDSXEVcRJ20s1DDBFqLe
- PdC3wHehSam0pDogslbmx47EvmOsLzy/hTWFYkQXIjeu4GLnmy51VnMvlW5qG2fbMKzPJbowhq
- HvkdHqCZFz389Tvf9AxiWk7NqAAAA
-X-Change-ID: 20261107-fix-raspberrypi-firmware-be9c602d6755
+Message-Id: <20261107-fix-raspberrypi-firmware-v1-5-707362c710cd@gmail.com>
+References: <20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com>
+In-Reply-To: <20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
  Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
@@ -108,52 +107,50 @@ Cc: linux-rpi-kernel@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  sander.speetjens@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1295;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1034;
  i=sander.speetjens@gmail.com; h=from:subject:message-id;
- bh=DQ28gjc1y4PVvUnOLYS9GDNE2byLHmuFa3IBNYA0Ozo=;
- b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq71QRw3b/PSC6KrLEuMlv5lgLTraBLSCea0Iod
- +Q5z+ITI7+JAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9UEQAKCRB4zXhFDAXI
- Z/SaD/0cmIY65hp/lDLARQaP/py3EitXBfcrHXgsqO4XPYw5kvSdW0LSo4gIPjsfFgsabkLyA+w
- BgmSx/7rlkii1FmwWqn2kTDk3SRNl7edCGCQJEVQTZee6f+ViTQ9YedwTDA2AIyTx3ssZ5/C0+K
- HpXyyw6+BTDHMhRsoPmrdDLPkJ3eBfO/4zO+NJCDhpFZ20u709Zj582NUypAxBYnZ/owdY5gNvm
- vveypgCSoY89MOBTC/QVzTpu282iySXEag76ddow2PTF1KaGGnV3jfiv8dhvvXL7KBHRprUzWy2
- fAtGcXlGIGiRQeDjZDWRZUeyIHkh42jQ2gElXY8UaYtH2j69X3LIbgN/5flxcK8c5mEHTM4R8Ft
- FWkOmhlWZR3WH+rFQuRH4dvZ+wjP4VoqVdShXwgNrmgXW1OMFnGGZkqknYRSUNXjrrliVScFvWP
- G+hnzBAFIfskMV8m8BfavLhzLcP5haszsXDFj857pgFfCwYlAdgx1FA/ocOMIALDRobY6vtys5W
- 8/vWVhCeCBvxjwchFAtEPbkv7+3+/WxEL+Ll2Rs1OjgPBDa4QZ4+sr7NuhVHpzTfXuY7ChUPASF
- TdmVyuSfyMYgvS7qSDdsBI5QuJeGE9ow1/t7XyVp1orIUkPQL0qqY8IQXjhHfHAo2EgSFHp8OJ8
- aMTVIWTkAR77fpA==
+ bh=P9wmJ6Smi8MVD/GA5S6rtkoUUYTGbgyj85KQ4DXkfhY=;
+ b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq71QRFlLMnlbeWb11lO41qioslLYVWcI/ZHRz/
+ v4NLYvUx7CJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9UEQAKCRB4zXhFDAXI
+ ZwxOD/4og+dmsi4eHShCswi47DDv9ZHedikmZkzDjOGZyYC35LtAC/RuRjfTE6hdkqjCfTZAvLJ
+ 90kj3EoIKiiB2E3UlFRjsvM7qWyS06TYSpHU+6Y3i3gTfMZTAbGcodIQCCH5Gj2YayYn8tNPtg8
+ S17jhQpBQr+eAiHhd2NMtt/PhKCXwmBVfYrck/qZsfSC4xeNQdfi3aaaykGfgvNkWRhqfQi7fQa
+ Tfh2JYejd8qdF6TC+VZPgHziKKh/+wh/j0O+aQ1LTCH3aWUVtbF8D1xb9D8esp8Y55MFBgnxJHc
+ /QX3fw1yW1aho61RKhNSMQMaKd7+1BCrdCFaHtzbtivpaNTk5ZAPKUL50CEx50ug8Xc9m2lDPjX
+ AAw5cs3Jl2aJn+TKZyniqgpgNmtsk4vV0HLJdLFloqfO0YnJPezfK3GnHCvnLNjOyBEK/nvL6Wt
+ Xc2iSisov2RiNoQqqnWdZVWnw8l6RtWQWksJXTO3UPfed/BrKG4/cy9QtsMz1Mc+5kzqqUBAenr
+ BzTFuJN6wyEhDFpFMbx8dSwugn/gZcae3KcrjcrSZCLcN1t3oU8U1xhIWk4eplcGSP0fxkbbkug
+ Kdb3mnv9AQIS/iIGwq27hbJCSgiJ3zseWcEzY1c90pGTAwHlMMxSd9q32scL3qW9UiHRsUIOTd6
+ aTudNqUBZQTnN+Q==
 X-Developer-Key: i=sander.speetjens@gmail.com; a=openpgp;
  fpr=56524A8B001A11C3EEC9510178CD78450C05C867
 
-This series does minor style cleanups in the Raspberry Pi firmware
-driver and fixes error handling when registering the hwmon and clock
-platform devices.
+Add comments explaining the wmb() before the firmware transaction and
+the rmb() before reading the response, as required by coding style.
 
-The first five patches address checkpatch warnings (missing blank lines
-after declarations, incorrect indentation, unnecessary braces, and
-undocumented memory barriers).
-
-The final patch checks the return value of
-platform_device_register_data() so that an error pointer is no longer
-stored in the global rpi_hwmon / rpi_clk variables.
-
+Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
 ---
-Sander Speetjens (6):
-      firmware: raspberrypi: Add blank line after declaration in response_callback
-      firmware: raspberrypi: Fix indentation of return statement
-      firmware: raspberrypi: Add blank line after declaration in probe error path
-      firmware: raspberrypi: Remove unnecessary braces in transaction helper
-      firmware: raspberrypi: Document memory barriers in property list path
-      firmware: raspberrypi: Handle device registration errors
+ drivers/firmware/raspberrypi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- drivers/firmware/raspberrypi.c | 31 +++++++++++++++++++++++--------
- 1 file changed, 23 insertions(+), 8 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261107-fix-raspberrypi-firmware-be9c602d6755
+diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
+index d9a569a6dae7..57f21e4e65d6 100644
+--- a/drivers/firmware/raspberrypi.c
++++ b/drivers/firmware/raspberrypi.c
+@@ -110,10 +110,12 @@ int rpi_firmware_property_list(struct rpi_firmware *fw,
+ 	buf[1] = RPI_FIRMWARE_STATUS_REQUEST;
+ 	memcpy(&buf[2], data, tag_size);
+ 	buf[size / 4 - 1] = RPI_FIRMWARE_PROPERTY_END;
++	/* Make sure the writes to the buffer are visible to the firmware. */
+ 	wmb();
+ 
+ 	ret = rpi_firmware_transaction(fw, MBOX_CHAN_PROPERTY, bus_addr);
+ 
++	/* Make sure we see the firmware's response before reading it. */
+ 	rmb();
+ 	memcpy(data, &buf[2], tag_size);
+ 	if (ret == 0 && buf[1] != RPI_FIRMWARE_STATUS_SUCCESS) {
 
-Best regards,
 -- 
-Sander Speetjens <sander.speetjens@gmail.com>
+2.56.0
 
