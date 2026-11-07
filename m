@@ -1,74 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794039387;
-	b=47odl/ipFFhXhDjCINR5qW36q1knEhleHKTaVtHd7DcnYCRnbJh/t9BKvqTQmXF0X8kJ
-	 WpIKUsSQsELz1iL3h8xtLHxyd3yf4eCtu2Il75KuWeRnA2/Sd9W4ypbl3Kyc8Mmtd2zLS
-	 v+IVIvB1JBKNxUM0nJfKysbQenwZvCWxFRuEaGmYOPOBOwETp9kJM3TOvfVaNvYg0bkbd
-	 nElqIEGSiHWnhQNW5VvU+pSFvlGK2NppqcytTpuTu8WlnXMVxoDUV9LlyFjub5JEUMwXS
-	 jheaZMjmmdnpGfBS4R/crrPb/MPRav0h5bVnub9phGWUUCsffsIlELXwSaoKd3mm1wA==
+	t=1794039401;
+	b=gTpdvFbazXZFCLqThsLCleiDSf0lk9+Ab4Mh2T8h7+dEOt7mkdsNdz5um/CVKeSG26nv
+	 qhFo0tOoB2/h8NFcL6OFXWJQtsrNlKQgjbrikxdGGTVmtYMdZZHec1UXOGKhPgLlKV0Iw
+	 4e7VqiYgmT3wX6J2SNM4RRuzdpk7i0sYsUuWmENDqADTPXSogjcUVpRhfgJUr972nOv/5
+	 ZBULHhBpeCObkEqZcNyeOPHGngyXxLkMMT724Jp3CIQiPnyDpZy2k9YpbEwJATEhw8UhS
+	 ksSFL9Be7kDaQvDvNZ0xD2cGiVr3YPmuBReXkeBsf2BMsqV+wmSY0aKQw7WBZaYtoKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794039387;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794039401;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
-	b=3lxJDOBaJCgZkZhBcQhJAqjVCdcF6VaFEOLBxZGnRJkq1p9hiK2ZHmMhtnYBiQSz17Cw
-	 xsNAXFH9CLhtYC7aMVCUxckFD2IKeYoN7V6z7PhZDWJPSCHbX2Y9fzlgdgGGelj2GXjgp
-	 1U8cqVsH1D3HuriuXDNkWpRdX05doWyobzR7gcFimdjrUBF9UiqXMi7dDB/MgWkUvaRNO
-	 eVJ8StFJiYjTHg+QFblEbmb7/i6t4BHL65qzYNTYzaMSt/nnoT48/Kg8BpaIS6014SC/B
-	 sZYLN4nZ2HJZQGm3KShOwBgVlpIMNy+yhkMeqvQ6mnQALjz64a0ReoOe9ArRXGOCkUw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Vs9LuEmOJIRjKHitt6arG6kgt+6AcDLvJQuIwetBo3k=;
+	b=2F17mHna8UJBDMKDq1TzkXXAKZ1y9Cg5ju3HMq8bkycYrikR7u2Iew1eIj2vr1Zk7hpF
+	 0dUcWuG6SlgxAVLWXl4VgxZTjcwIYs02VidSkPOLWxE/y1t02IkyG9wpMAjVd2y5Y46Oe
+	 gzEByZB9wkL5j8xTpekQqrh43mxk6K7z3I81iW0sugb5CnKdglfpwLybjvEhOfjmEeZgZ
+	 hp26VyfibRSSoMMmvQs21XDYPLiZknwmn5mRCOnFqqOZTfVJ21K7d4l8EPnfkMxYBVtyL
+	 ACXSamzUhX/wVqGGlCbvNiv7XzhLhw0gcgRwY+yimAFoQS6wD2jD2n35GEsVw9mho8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ew4KQ2CX;
-	arc=none smtp.remote-ip=209.85.221.69
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HGajsjfa;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7980606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 08:16:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7980606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95BC606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 08:16:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A95BC606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ew4KQ2CX
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4902ce85f72so1458700f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 00:16:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HGajsjfa
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14394530ec6so1962942c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 00:16:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794039385; x=1794644185; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
-        b=Ew4KQ2CXWb+U8Tbqm3xs8FATOML5PvhAbx9CqsClnU4Kd+987qUpy+nrGndsrP4uxz
-         EKsx3fKYQqyCGBbXQ6Z/+yHxUnj4dkY6oxAwhHOpxggPsv5ry5ObKvDUwD91/HHt12cq
-         mACJRCQVv21Sm9RuoBkcjCwXx+t1oDu72DtDxFydNyXZuBfScuVrqU0TTk+WMATxP2rD
-         KQRn+U3aOTddYdU7bktFx9SYHspMfsBuQbaJqjBfta2ztMh5i3jU2Qv8Skrv3ZhwdnMl
-         Aep0DLA7nI5iu43q8F2QQByiuQK/wy9YTR2qjgVGKTAE94ZG2HatMc967KG2MwGXr77m
-         ly2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794039385; x=1794644185;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794039400; x=1794644200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GRZSNFEWbftVAvpLk7hELzG7uAWoQX3JdWqOw5mrmdc=;
-        b=VgrlauKML8V8++fYLKfxIHc98GEAJZjXcxjx/649RJad5/6keNdu/L0U1qtrpY7s/J
-         D+iKT1egqgwEQbUSfFkwU5fe0hHopgVb341MCjz4gik6bwV+3xYn1+q4iVWkJ3iYGBOV
-         A3dRic7ZUBCe3EK2WjqmDDOeGbvYpFCqWAzFmtHz/WfQXo65JE8huBW5XjRkbtUnf8Lq
-         MPTmW7i2UdF0883U0JfWFbGIcNW/MqSID+pwMvXPZF+PCPf5yZ0mSAkaLAQHddscpF+p
-         HYoGrtw4PplAYuWqV4VIN1fUC5XkBYiCPyc93j48Rq6AytkPu2WYVqxBxBRRSpHA3EZ4
-         8RSw==
-X-Forwarded-Encrypted: i=1; AL+hErHxv0rgftqXFgzCNZ0lsWDRk8S7GwbAuK6fS3KwPQLJmPrPLiXGbIR4yAcICBmnBODVt32GIULp1oo5wms=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UIW7hnw2HkPGMDyu91WiWQo8nBg/9elshqpnD9yC/ED5qVLSo
-	YMFuVW2PiH76KQUsAVbk7A66ubloSz3N3V9X7RYo3x7OQlbET/2c22XanwZJEr+uKYaT72u/j/F
-	kIkNQgmv9x7RO9jHpMQ==
-X-Received: from wrtp5.prod.google.com ([2002:a5d:4e05:0:b0:48c:44a2:fe52])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:25eb:b0:490:421f:1555 with SMTP id ffacd0b85a97d-49275b1bc23mr8281265f8f.22.1794039384637;
- Sat, 07 Nov 2026 00:16:24 -0800 (PST)
-Date: Sat, 7 Nov 2026 08:16:23 +0000
-In-Reply-To: <20261107021427.2105374-8-dakr@kernel.org>
+        bh=Vs9LuEmOJIRjKHitt6arG6kgt+6AcDLvJQuIwetBo3k=;
+        b=HGajsjfaqJRkMwIvubMUNZvD4uHOHCAs0ojUWigKK+bnf8QzaMFqytw03FAGF580h2
+         cQa9ZiieVKOqNBZgzo8oRTO9fxSoqHGeKBqTNrvNDJNdGcGakRUwDekiIBofzgCL2MCH
+         n7TfWcUmjb3stuNaIvGZ+HvNbvMSwtg9sAvo8XjYV9ofY5sfdrw0PG4RBzvac/8NwrSs
+         svqv9ZhcWtKSsR6LSeS/U0aAryEUOS/NDVgt5Gk1V5M4ohM/BbXquPcbL/PQWWEi+K6n
+         ArFvuOglbrjj1CLjvMVCIol/Lb3xgjkPpn3czM8zMOSzq5hvMcFAsPHw2hqDda9yipoR
+         /0KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794039400; x=1794644200;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vs9LuEmOJIRjKHitt6arG6kgt+6AcDLvJQuIwetBo3k=;
+        b=q4OL8wxpg8+Ti7ikw2o3JdH0lCO+HkVIqwwZHiv6ZEVqPn7zUghlTwZqJiB36/crJ/
+         x7c2JbmXMR5pf+Jv811vWiBnmwIAikeT7Z1m82o4Foh/Fz4cLerxsTUfXvqBjEie8rlT
+         yDB+hVER8+j3vF1BATg4TUIRIpR+GeCFnFZllFzmLaQxt9DnoJzNXIXUGXlr681HLrho
+         yfVDVp3+YEgo1St8FdgX8MdhSdeoS0Ru+T5wHtydedcqABVCRMcVbVm9+L79djhvChKt
+         u2oTMzBQ+gRX0m204qPtuVegcbfVf/8JXzv8AoMLD8vRgs4UNSwVTBKmsR/8onrtmicp
+         iJCw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwydtgTwARiS8QFY308UYBCvR1q+k2Z1dhB0KcHIwi3MhU4QJTvX0rQK/dbkQYsJO4lJVr7acFMCbXANw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VmauVITNpJdpHF2ajm3a69nDRSHtS6O3fzcTxc5ghEqn4kfzM
+	lheNcQpVGevifEAOgBuOaiUTHylyXWQWVwrw57CUxXfso9B+8NmuF56l
+X-Gm-Gg: AYBFou3i4NvwlGQfd/Qc6Mn8N0ntxVFp61iariNie/JfcCLCb7i4BHkqaR036vFiKme
+	uG3uI9x91DMSInybJTIO619oSrPCPO8K7fT5PlJi1AikxwFAfXozbNWIMC8I03yv7xLgag/ey12
+	3m86IANGDOmACLRVsjZyOKwNtehsI3XrY67dYJuYouCF2PMO6ybIupECFdzmGNgRgWJiz0SSxnD
+	wJy44b2q9SKEpp6HrHXCvI1JN3pk7Uc4j1renUXZwmduMymOnD6Y0yURRiFC4aI37GnlIzXagfy
+	z9ko4JeNIrL/ASfAgJZjTK2l/rcgwVIkSsim4vv8HOd1xWUmMX2ZDH2BCOjwr+TDgBKtMMihC7K
+	qoQeuZ5T4WGLEQiTht3oaj6nf7b/7AVa+9PiEh1zVnLqPqU9ZLirxxJaLp4PhwCYk19seNtOAoo
+	irmbTDX5cNNujwWLGTXBlsaoKpHGfcu3WfF/pJZdH6iiLxrEX2j7IGlS9NiIFVjm8La1PGreexQ
+	3nWVaJfAzuwdmjAX6YZ3Z066KJAC8jpHE5m4Vdq5eX/NuLT3/ljvnZ3xMQfyRHntQMtUxtjiFk4
+	g5co0WxFAJbuXHc5NRXNdvBVZAPprKmtfVtEjyg=
+X-Received: by 2002:a05:701b:4346:b0:18d:9eec:e0be with SMTP id a92af1059eb24-1b25d286bb0mr3789790c88.2.1794039399566;
+        Sat, 07 Nov 2026 00:16:39 -0800 (PST)
+Received: from xploitoverload ([2409:40c1:6412:e5b:5516:cd42:6c8f:c918])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4c1df6sm12425640c88.14.2026.11.07.00.16.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 00:16:38 -0800 (PST)
+From: Kalpesh Solanki <skalpesh942@gmail.com>
+To: luka.gejak@linux.dev
+Cc: pkshih@realtek.com,
+	kvalo@kernel.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kalpesh Solanki <skalpesh942@gmail.com>
+Subject: Re: [PATCH v2 2/2] wifi: rtw88: ps: Trigger firmware recovery when failing to leave LPS state
+Date: Sat,  7 Nov 2026 13:46:09 +0530
+Message-ID: <20261107081609.97212-1-skalpesh942@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <d7e20cc5e8a0489b9b22f13a9fe8a1b423d2f8f1@linux.dev>
+References: <d7e20cc5e8a0489b9b22f13a9fe8a1b423d2f8f1@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,34 +99,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261107021427.2105374-1-dakr@kernel.org> <20261107021427.2105374-8-dakr@kernel.org>
-Message-ID: <au7eV0D_44ipe3mw@google.com>
-Subject: Re: [PATCH v2 7/7] rust: drm: make Driver::File lifetime-parameterized
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: acourbot@nvidia.com, daniel.almeida@collabora.com, ojeda@kernel.org, 
-	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
-	lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
-	tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org, lyude@redhat.com, 
-	j@jananu.net, alvin.sun@linux.dev, deborah.brouwer@collabora.com, 
-	laura.nao@collabora.com, beata.michalska@arm.com, nova-gpu@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 07, 2026 at 03:03:25AM +0100, Danilo Krummrich wrote:
-> +        // Run driver destructors without `filelist_mutex`. Take each link before dropping its
-> +        // allocation to avoid recursively dropping the entire chain.
-> +        while let Some(mut data) = files {
-> +            files = data.as_mut().project().next.take();
-> +            drop(data);
-> +            drm.open_count.fetch_sub(1, Release);
-> +        }
+Hi Luka,
 
-Instead of transferring all the files to another linked list, how about
-taking them off the file list one-by-one? If you release the mutex in
-between dropping each file, then we still avoid deadlocks if the file
-private data destructor takes the lock.
+Thanks for the clarification and the tip regarding --in-reply-to!
 
-Alice
+> That is fine for the flag, but I think the counter should be reset in
+> rtw_core_start(), like rtw89 does. A normal recovery never calls
+> rtw_ops_stop(), so the counter would stay at the limit and the next
+> single timeout would recover again.
+
+Good point. Putting rtwdev->ps_hang_cnt = 0 in rtw_core_start() ensures it gets
+cleared after both normal starts and hw restarts. I'll place it there.
+
+> The RESTARTING gap predates your patch, since 5c831644e1f4 ("rtw88:
+> handle and recover when firmware crash"), so that one could go on its
+> own with a Fixes: tag.
+
+Makes sense. I'll send that as a standalone fix with the Fixes: tag.
+
+> For the counter, maybe it is cleaner to revert 2/2 (or rebase and drop
+> it since it is currently the HEAD commit of rtw-next) and send a new
+> patch, since it replaces that line anyway and keeps the current
+> behavior out of the next pull. 1/2 is fine as it is. Ping-Ke, would
+> that work for you, or do you prefer a follow up?
+
+Either way works for me. If Ping-Ke prefers to drop 2/2 from rtw-next, I can
+send the updated patch with the consecutive counter directly. Otherwise I can
+send it as a follow-up on top.
+
+Thanks,
+Kalpesh
