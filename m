@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794092112;
-	b=G18qWguf2ZYVRd3rA854DV73aJPsTOEOfMw8PhrcZUgaMuNoxh6+fFMK7eIJlNF/Ru6X
-	 ZIx7nQy1QQcH0/NrxlWj4g6R6jjI4HZzqFbOy0zH9o7POFadQ3EH4DRHbhx0VRjinQvAh
-	 kOKakknX1HDnHXlI2gKat0j+W6TUMP04lr7+85jsvfNQ63eYe2C4SycnU0S3cNzIRAmg5
-	 CbHcYObzoTArPNUL0XW1aJQYjPUqtvGF2r6agQH42eE7NMX9b0NFhzgXjFwAu7nBwEK16
-	 j1cNLtxgVYjj0VedDJN0z2Wjtbo4dsixrwgRsoNhyk5iJm6uBXsaK3UHt6lgNbkfsLQ==
+	t=1794092115;
+	b=EZKACD3jtsg8R8oec2yPDgOj3xXkmBkVHpm+bfqsNJlGCKNLj0zwNqcotSTLclaI/1c3
+	 x28vC8W42MTJitAPnIQQXzdbqsnJkRA4Mzj3QDdw2321ngjnw54Jxf4N7bj063VhvGcQu
+	 KHG8GgsX2KP5uQRZdoUe272EnA4Oi8vsdQzhgmUjN5OuAz07WNMLcFvO60xjIxH8Wfunp
+	 KbGmNtwBzSMIA4Y+7L5Q/GNjQ9NdbY0PIFYkqWrHE1Lw6Ys9soNSA/JUGEwzS8LGB9zPC
+	 WHyeMhee5U9vMAW4Hascejd1exBs+8G/jfr7AacI08xi1YTBPdZ9LXSWbGtmR4MptsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794092112;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794092115;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eGQMwyj4Cnzif3yTvdGIjkxyu6q8LZTjgfilMPMZYIQ=;
-	b=nlp97eOid+3EykbOkqDjYImqhbHb7GtqGX/V4+U/nl2ovklKXG1UtI13/wzgBnPLyZPe
-	 r914iXTvTkvJHWx+69Nthegai/LQ+Jd79BN6F72Kw7Trtk1OYaQ4Gbrhtg/Ppw/qlUjMC
-	 dXJV022xwpPff/5HWvrkUGc6HJd7GClmucHrFC6BXwaQDU9YZKsPZswo1QAYQVFES8ezB
-	 N2ij++QpOCcVgdGG1cT+0+dWE3u61GMBImf2QCtp7cs84ldMt9x8XjG02A+a90YlC6DU6
-	 YuTR/ZHW4huMwsOVHuCiX1Op2Oj6aVFBvrC6mQhf6JN1+YHlc1yBy+TSTfpZWaQVRUw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FVM6vTB/7eDdSwBHkkyGuCuKCEXrOdJ0onmA66YPA80=;
+	b=gRZaF5wixdhFu/xHOJ/G24IwB7mIr7ntb9oQX3XiZQrreZ2prR9aQYZxYyU3X7yz128f
+	 MrAaECrzmmi3mAY8XJ1MhfdAR5nOmRqSI7lpbOP4JezjV5mK6APn4BJ0XXJ1l6chDGktL
+	 OQ2L8mXmgijHLD7mY20gNSpaLEXoRF1o2siL5iNWmUPNycbyHg3kkJ0+06Ghrgc4b6/TJ
+	 fS96+ILwKYMTMHtlp+89dFebfEXaK7qlr+7wka5xIaambhGFRTgXusV1OmRcKYT1wcSYl
+	 RYOsEjjoNSkfMWddn+kpckN1xCIjvArAlZWcJJPNKC4pmosb9G0RWZxAdmR8qH6yVBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFRfNoYV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUbTT+3Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB347606A326;
-	Sat,  7 Nov 2026 22:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB825606A334;
+	Sat,  7 Nov 2026 22:55:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFRfNoYV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1FE1F0089F;
-	Sat,  7 Nov 2026 22:55:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUbTT+3Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C6E1F0089F;
+	Sat,  7 Nov 2026 22:55:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794092111;
-	bh=eGQMwyj4Cnzif3yTvdGIjkxyu6q8LZTjgfilMPMZYIQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hFRfNoYVnMZSHgwcYPJMZFrAP5fqUcbmV2TuL0nsEdZqHm9V8voIKBcrViLLgiAhe
-	 xaF4itrXsJiIxniiiYkO9l9Py4ImGG3EbYD4lWXjWqPfPA8eVWYWPA/MmNakfpj8Fz
-	 3Mu9U1IS94aAaT0w9Obb/gDVUqo4FknCbj5APOVtDgT0iOxsxAaz6/FchK5loM+q+p
-	 MBvF7ZaHUK66BFl1RKxCdwloG/nLD/pQ2IK0P9T86pp3l/4qniamwrBq+LDvPEvHim
-	 Y39lLgCsY59sM0VEApZOhytBUji3+PLhhKKyw7Z9xeZLJ12DtXxbJ84Jif8PawYbG5
-	 iIsOOEObwAK2A==
-Date: Sat, 7 Nov 2026 22:55:04 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Raffaele Tranfaglia via B4 Relay
- <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
-Cc: raffaele.tranfaglia@gmail.com, Rodrigo Alencar
- <rodrigo.alencar@analog.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v3 0/2] iio: test: iio-test-format: char format test and
- overrun checks
-Message-ID: <20261107225504.46217911@jic23-hlaptop>
-In-Reply-To: <20261103-iio-test-format-char-v3-0-d44074ecca70@gmail.com>
-References: <20261103-iio-test-format-char-v3-0-d44074ecca70@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794092114;
+	bh=FVM6vTB/7eDdSwBHkkyGuCuKCEXrOdJ0onmA66YPA80=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZUbTT+3Ywk0rFTlfiIED0M9qdScuZG/gleAeiG9j5JfiMNtJXXTR6nr+C7F3pOlWO
+	 BZr+71O2Jeg0hGeFIn6xRv1u+3zuqr7n/6bjH9viNKpcqVYvhiwObltNvz7mrIpv/8
+	 scLIdeamIWpD5NXv5bZIyfgSuXoKJGTuuM2cmylwXP6n/wrbPgZuAXJShOAetV19ZQ
+	 PwVU0dYt8zE0Kp+5CBIOUGW5DmPh9e6583jHTiETNf0etfHBUGP73eHwlWjqvMAr5m
+	 cAB25H4lLUpBrwEwx1886DLyfApkGvPxzGchFc9/TQUepg7weYa/i2QjwQykvHKIxJ
+	 AxC2ulv+zWbLQ==
+Date: Sat, 7 Nov 2026 16:55:09 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 1/5] soc: qcom: pd-mapper: Add support for Nord
+Message-ID: <au-r4tTc2DPirKL3@zenbook>
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com>
+ <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
+ <d4349c3b-f6c7-41c1-963c-ca0e21e2f436@oss.qualcomm.com>
+ <auMOSm_roh5S-DTY@QCOM-aGQu4IUr3Y>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,64 +63,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auMOSm_roh5S-DTY@QCOM-aGQu4IUr3Y>
 
-On Tue, 03 Nov 2026 21:17:06 +0000
-Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org> wrote:
+On Thu, Oct 29, 2026 at 05:13:46PM +0800, Shawn Guo wrote:
+> On Wed, Oct 21, 2026 at 11:56:55AM +0200, Konrad Dybcio wrote:
+> > On 10/21/26 9:36 AM, Shawn Guo wrote:
+> > > From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> > > 
+> > > Add support for the Qualcomm Nord SoC to the protection domain mapper.
+> > > 
+> > > Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> > > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > > ---
+> > 
+> > [...]
+> > 
+> > > +static const struct qcom_pdm_domain_data *nord_domains[] = {
+> > > +	&adsp_audio_pd,
+> > > +	&adsp_root_pd,
+> > > +	&adsp1_root_pd,
+> > > +	&cdsp_root_pd,
+> > 
+> > I see 3 more CDSPs:
+> > 
+> > https://lore.kernel.org/linux-arm-msm/20260929155152.1898666-3-shengchao.guo@oss.qualcomm.com/
+> 
+> Yes, we have 4 CDSPs on Nord, and they share the same instance ID and root
+> domain. I will add the info to commit message.
 
-> Add a KUnit test for IIO_VAL_CHAR formatting and, as suggested by
-> Andy, make IIO_TEST_FORMAT_EXPECT_EQ() check that iio_format_value()
-> does not write past the formatted string.
-> 
-> A NUL character is currently emitted as is, so the attribute reads
-> back as "\0\n". The test documents this behaviour; please let me
-> know if it should rather be rejected or handled differently.
-> 
-> These patches were written with the help of an LLM-based coding
-> assistant, which I used to draft the code and commit messages. I
-> reviewed and tested all changes myself.
-> 
-> Tested with KUnit on arm64 QEMU.
-> 
-> Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-LGTM.  I'll apply this to the testing branch of iio.git.
-Still time for more review and potentially tags though as I'll
-probably not push that out as togreg (which linux-next picks up
-and which is supposed to be more or less non rebasing) until mid
-week.
+Please make that the default way of writing commit messages.
 
-Thanks,
+Regards,
+Bjorn
 
-Jonathan
-
-> ---
-> Changes in v3:
-> - Reformat IIO_TEST_FORMAT_EXPECT_EQ() and use a local variable for
->   the size (Andy)
-> - Link to v2: https://patch.msgid.link/20261102-iio-test-format-char-v2-0-926100689e62@gmail.com
 > 
-> Changes in v2:
-> - Drop the Assisted-by tag and describe the tool use here (Andy)
-> - New patch 1: poison the buffer and check that nothing is written
->   past the string (Andy)
-> - Add special, non-printable, NUL and out-of-range cases (Andy)
-> - Link to v1: https://patch.msgid.link/20261025-iio-test-format-char-v1-1-e2c208f90e87@gmail.com
-> 
-> ---
-> Raffaele Tranfaglia (2):
->       iio: test: iio-test-format: check that nothing is written past the string
->       iio: test: iio-test-format: add test case for char format
-> 
->  drivers/iio/test/iio-test-format.c | 121 +++++++++++++++++++++++++++++++------
->  1 file changed, 103 insertions(+), 18 deletions(-)
-> ---
-> base-commit: d1425b382b9cc5bd19223fad8ba4a8af3dbe1305
-> change-id: 20261025-iio-test-format-char-8a17fbf9a201
-> 
-> Best regards,
-> --  
-> Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> 
-> 
-
+> Shawn
