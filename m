@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794019958;
-	b=FrX09NNFCta9k1eUh/EabNXDvcyPJ/qxCd+m7GMOZcnfCzT047xQSa2tAXgrzRMXInKY
-	 d5ye2jyNmf5E0AQyh3UOJ7CXzesemF0ld3QqJ52MdFyDfthNfHYwafNsuwCfan2Q2bLg9
-	 AXtkQzzX51510BCDSYJdybb+vlX9HsKT0yVgfFq6tXPLWyhdAY2NO2vHQtekNLKZGDyiv
-	 6wmpr/pIQwdXzoE01U92kSav47UZA6duNy1Q0v/jJfHerkiuu4p/BqahTuQupvXvo9LlB
-	 +0fSpoTtnd0jCQsoEk+NlZA+V/cXc4mQIOTqyJNpkfFGlUUnubaTvUfseJYMQwcs9zQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794019958;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fBpJrKlEAuVA87x0dP+f5k3Nd0VhDLyH4dPX6EOktrM=;
-	b=1EPpCoDJEe3N5UgNK8MkyFwrYfcDxZzMfUQ2EMzCzhx042SW+U9+XlYI9XqTY9tLfUR+
-	 7KZE+QLvUgTNfR58eieQi2HrvH3jKB93mGVcDAt1q/hnkS4EzuPXyZhaEHPK3KpvtfMTB
-	 E4ICuFEiytaV8SE8GUqMH2HlvvVir39YKoO4gokDFCyCMB3h5YU4KOkV4DiIbh9OMFoUc
-	 tzPBvec3WR8maoL0PzVK+9FXoGG+MTjlpEliauE4xxxbLbe5g804sWbHvaTri3Z8BxZu/
-	 dcFHq81eRPQVI2LeGluzohsdGQxr7h+CEn7iXMQa2VPic8qZG4cVOl5dre/0kG8aEhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i48X62Af;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794020256;
+	b=VcQz1AgGfv0NkvfMFNDo3vW7Vj79ADU5aomBUoKhm3uYBcnttZ8AueApczat7NVuQp8F
+	 4Q43Lj/S9sbIKzSbTTSL8e3dD/kpeI+rU/n4WMPupy4jDzJlWpPg535N761MZhrummW7Z
+	 3AI6HBsH6oxBfzKtlUKd2XCeEmGsDJ7TP4+PngouTXv+yW+zvmPIWZjPUmePRutbthvKs
+	 6x4SZn6qp5+lZv9y7c9ETIWmWXWdS8uOSiuQAQJjbL5PvfWF2f2g/znXNuwMIABnARsLW
+	 9zzJBV+UoMjJ1k7pmsoN5PML0APp01pWbIkuMkcEkBsHcSTJRi+0msXrwkA5xQ5863A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794020256;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=+NfG3aoVVDYg320wMNuDSmqyNFEaM7V/GRWW/LuOKlc=;
+	b=XOcIhmgXgkURmz3/l3lyyB4KNpmPJPnMYx9pz4z652kRuMcFgknqa9I4Yb5NFwVuWnd4
+	 Cq/eKc5caADTb+vfuB2KaVwWA3wOyv1AZy6ItT9Xm74uNnoTn1obQZRmpzSfIIf/LqlK8
+	 TApuOH4OdL4H1Bk8SWrloqy4fEB8GS99qpjLUDuu8OkF7AZbH15TZ9PNnteHrR8kYCt/R
+	 eB5hQynMFcRSv1TDyTl700YspIJus99rZVXWy98mJ3GC2fwqMgOw10fviqc0YI99gfW+p
+	 2sIXkBWdEmUY8+vjPnbhKH6ZV9afDM/tO0ezXGQyuQXXw+iISZk7YZ9TYPhvmcWFI4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=MDRyLQRw;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0AD2606A32E;
-	Sat,  7 Nov 2026 02:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79533606A32D;
+	Sat,  7 Nov 2026 02:57:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79533606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i48X62Af
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794019957;
-	b=Mn4Z9WJLoZTomwoJy5orGlxXujmoYNj+/VwbwPzASM7ux28CGfbWpuLFJGJU68aIRuoQ
-	 hhU29nPbg+YhDIfvAy/ZxcqAxdxI2jC7A4QkBRYnNSLdRuF3smTM4YO2ctU4Z7RsvmP0k
-	 DZB557WUShaNzrYWyOibQOjseOhcj81svPL3HKhngjY6hNL+I8ociHpkLjjpJF1DnaKe4
-	 L07UL1jM3LZTnIUvio2s8Tt9aKxxGP4lHPu/TC9UcfNyXZVrT66zJ5tqF16sneNwWofEu
-	 K1NAWwMlVCYpq22OJzozdC6Yqpw1AoXmOeAS39ENdiG80zWYeYc1augIJrLTcBUfilw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794019957;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fBpJrKlEAuVA87x0dP+f5k3Nd0VhDLyH4dPX6EOktrM=;
-	b=OuaCvzyD2U080YqXaieQuGHYt+eXyR5x4Be1XGlfBVUO6KNQaZayziJ/WbdT22tEgvW+
-	 QyOhHCokUmqMZmUTFAgm/mFuBxsjIoeRj5GMh14BsioDwBjsjSZJOqQufXfgejcjspC73
-	 ZjEjob//kFW971/ha2fTo26u3kxp/O9fFaYJcMhws8ZR+UKdn9n3NPn7+WO8bGkCyFnrp
-	 G3iBzWH5oXmssP8KHZ/gCNnCx3UQgQL1PNCE7Hitw462VRBtHahfU4qYziMyG+Pu6T1WQ
-	 V1UYgsnX5tpMuox0iclPqntl9TTXuuDOXXZH7KQlgJlYeHf6eVYTffraB4UJFj2MpuQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2AB611F008A1;
-	Sat,  7 Nov 2026 02:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794019957;
-	bh=fBpJrKlEAuVA87x0dP+f5k3Nd0VhDLyH4dPX6EOktrM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=i48X62AftLf1lAjvvHLEP8JkH+ykJ8iGgZuERsOSVxdQDkjIk97PPMo3zswVXVLnx
-	 e9Qf1j/HVQL2iR3/bFwwL28gDJZM2kxfKQhqc6zsEJ/8ikSJKZf7u7reWGZjzh0h94
-	 VvqL+sKPpoCDprOXuuirLPkOEzHAGpdTiInFUWMNq92qcOFaf4urIosXOP2NS5/qxK
-	 D+e7GsBwl1+bx9FM5USHCAcVZlS+U7IGixOufOTl4eDVggkop7OfaHnUSJhzsLIYoI
-	 kr3qNUU4c+rc1Au/tjuw20S3Ly+6wSEbbSByL4oTu3qibPGiag4G28HjiPSoW+b+8N
-	 excQYTkxT4h8A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AB6B54798A;
-	Sat,  7 Nov 2026 02:52:36 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Sat, 07 Nov 2026 03:52:27 +0100
-Subject: [PATCH] ceph: flush the caps ceph_write_inode() queues from the
- delayed work
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=MDRyLQRw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794020248; bh=+NfG3aoVVDYg320wMNuDSmqyNFEaM7V/GRWW/LuOKlc=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=MDRyLQRweWcf+xUdMyrRKSmQ4ym8LxPSKGEuTbq8sda/LnBrQsChWSTv29ATNeLl1
+	 5kWV0jo2YqJvU6DKgoUr+AJrGje3BPSoyvyrUwYRyCseF+TMcqFg43W8vPcKoVyG/T
+	 IgribdMGCx+0gdmxzvXarCy4BkxVGjuwgdB5/LrI=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: MdmyWVu0InhASiUkhb//VhxE+kD9CHxdhJTc2eGlkCfKL+hSZzxtKPiKVMWgqY
+	 Lv/UzTv+iDbo7dMZuvj8UN+79ox9/cI1AEMe33S2r7bt3E1M7gv8SGTY9I6pqBky60sk3/mm0O29D
+	 v0tNVj8tRScQbUZinQwt1KFWKmyu1mcSFjpMRKY99eqQ2XcKYoS2kJBZ4JXHIhrufiW9AK7duvXRg
+	 KsCUp8IMW+hWAen10Hz/NonxkHKmrw8902WefN6BT2pi5LZRVi6hT0uRjYwpmCFaBwOCVjazaFZkW
+	 wEvJ2oVheUjYu7K2SVD3dwVH3rg8F1Ym9357Bt5Beoc/RzPFu25LZVECBn5HSGTziBRNIiIuN0BYv
+	 dEY1lbfOgnkbsHmmhhBbM8zSlEo/FBbqBSFXTl0VIE558t1XIs5A0mDldpoYzntiRPQJhZW5ZJhQ+
+	 aXfkpv1h/TX3CVwZKdOX088TERlmDzC1alWuo2aXUMAqKmn5cyZEA2Wx1M+jtxE7XQ9k+lBvG+1l3
+	 Zq1Zh1i3lLMsxAXOGVv4s+FAEJn+M52EhPVreYm8frXOB6zR9f9VIq7AEjHL1lVVAPiG/jnSsdK8g
+	 gl2D5ZEXeGnzyuJvVRK3zNJas9038c4pPTfTWudT0QbHKHcaiCsMBWWtcjr37NAAuyBE3cDToy1Ye
+	 f/fPG5YwGmKcivHs3GSJKCOilYZAH/0NjqGLv3nOMYkIHgSrD4VBqR216mgFGUrYRlRoIglr8SnBX
+	 Vwd9JgaaP0nTboNq8nqGOxkpMXE3N/smmQPyKgVHltVRYPhEjlLCfRnQDg5ahGRRGyn5xfrQC8gxe
+	 1s2Xm/45nDEHVn54Il7wDgGZkucaaWxag1IMmsMYB5qNw+XLMaJV3txEO+bkf7nIXCmNSp5T74x47
+	 JWyeAwNoPjkPUyKjUhtMl566EFDTKOjES7UsQlzb9uxvGRMYCqArnqRcqrnsawcwhe1woh2u7iiVl
+	 juAaZyli3jPdvYY9zMs7UVjONkCX33DbPmQFGSBmrAvtZ92wlRp/O2VU0cnkVetSzWwX5d04zH20e
+	 1OGx3SKWYgTJfYdLdBm+X0RZ6S74lhVe/Wnze8B3OhuP+NB45fbHc/8kqfCjn4GsLlGU6WyVm2SDO
+	 tfRx5hWc/qYBDj4PUGmY2/bZ
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?SGVpa28gU3TDvGJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?V29sZmdhbmcgR3JhbmRlZ2dlcg==?=" <wg@grandegger.com>, "=?utf-8?B?T2xpdmVyIEhhcnRrb3Bw?=" <socketcan@hartkopp.net>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?RXJpYyBEdW1hemV0?=" <edumazet@kernel.org>, "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>, "=?utf-8?B?UGFvbG8gQWJlbmk=?=" <pabeni@redhat.com>, "=?utf-8?B?U2ltb24gSG9ybWFu?=" <horms@kernel.org>, "=?utf-8?B?Sm9uYXRoYW4gQ29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?U2h1YWggS2hhbg==?=" <skhan@linuxfoundation.org>, "=?utf-8?B?UmFuZHkgRHVubGFw?=" <rdunlap@infradead.org>
+Cc: "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v7 0/7] can: fix bus-off restart and device close races
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,124 +68,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-ceph-write-inode-flush-v1-1-6d414faf9ccd@clyso.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWXfABIylr1K6qJNJMyJRMt5Af
- HfTdvlxOP8ByllY4VEdkHkVlTEVmFsFFN/pwyi+GGxtnTF1i8RTxC3LXJY0esYwLBrRk2vdvaH
- QWAPlPGUOsv/Cz9ffunQ90/ytwXleIq3U5noAAAA=
-X-Change-ID: 20261107-ceph-write-inode-flush-dc67685cf521
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794019955; l=3761;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=eXGBJFcag2PmzZJslBHNOIJ2VYBfjzGWaTeJs83E7T8=;
- b=hmVP6bqC0CKaiq78vyVAC+LMrYfML6EcvTnpAfoOq8Ktsl0OVa6Ntgh6z/k1Ztlaa6esA5U+f
- DGnmqP/1QJ2DifG/Sqn0+4u4s+xohJNNkLCa3gdEePMu0oX4+WCYqr4
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Sat, 7 Nov 2026 10:57:26 +0800
+X-Priority: 3
+Message-ID: <tencent_B3369A1199D0849091BB8015C41BBFF0A607@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
+	<16255046.uLZWGnKmhe@diego>
+In-Reply-To: <16255046.uLZWGnKmhe@diego>
+X-QQ-mid: xmsezb41-0t1794020246tqmnr7ex0
 
-From: Xiubo Li <xiubo.li@clyso.com>
-
-ceph_write_inode() without WB_SYNC_ALL does not flush the dirty caps:
-it sets CEPH_I_FLUSH and moves the inode to the front of the delayed
-cap list, so that the caps go out once, after the data writeback.  But
-ceph_check_caps() turns CEPH_I_FLUSH into CHECK_CAPS_FLUSH for every
-caller, and a buffered write calls it whenever it puts its last Fw
-reference.  So the next write after a writeback pass flushes the caps
-at once.
-
-A file under steady writeback, with the dirty page limit reached, gets
-a writeback pass for nearly every write, and every write dirties Fw
-again (mtime).  The client then sends a cap flush per few writes, and
-the MDS journals each one.
-
-Honour CEPH_I_FLUSH only in the delayed cap work, which the inode was
-queued for.  Other callers still flush dirty caps when they send a cap
-message for another reason, and fsync() and sync writeback flush them
-as before.
-
-16 writers on 4 lazyio mounts, each writing 47008-byte records
-interleaved with the others' into one shared file (IOR, -t 47008
--b 47008), with the dirty page limit reached, mean of 2 runs each:
-
-+--------------------------+-------+---------+---------+---------+
-| metric                   | unit  |    base |   patch | speedup |
-+--------------------------+-------+---------+---------+---------+
-| write bandwidth          | GiB/s |   0.711 |   0.713 |   1.00x |
-| cap messages, the file   |       |   78360 |     368 |         |
-| MDS journal events       |       |   93470 |     600 |         |
-| MDS journal latency, avg | ms    |    4197 |     556 |         |
-+--------------------------+-------+---------+---------+---------+
-
-write() latency in ms, 2 runs each pooled:
-
-+-------+-----+-----+-----+-------+--------+----------+------+
-|       | p50 | p90 | p95 | p99   | p99.9  | p99.99   | max  |
-+-------+-----+-----+-----+-------+--------+----------+------+
-| base  | 0.2 | 0.2 | 0.2 | 16-33 | 66-131 | 524-1049 | 8854 |
-| patch | 0.2 | 0.2 | 0.3 | 16-33 | 66-131 | 66-131   | 2965 |
-+-------+-----+-----+-----+-------+--------+----------+------+
-
-The gain is in the cap and journal traffic, not in bandwidth: any file
-that is written while it is under writeback sends far fewer cap
-flushes to the MDS.
-
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
----
- fs/ceph/caps.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index aca09351a094..d95eb2f42f42 100644
---- a/fs/ceph/caps.c
-+++ b/fs/ceph/caps.c
-@@ -2211,8 +2211,6 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
- 		return;
- 	}
- 
--	if (ci->i_ceph_flags & CEPH_I_FLUSH)
--		flags |= CHECK_CAPS_FLUSH;
- 	/*
- 	 * A revoke whose response was deferred (see handle_cap_grant()) must
- 	 * still be acknowledged.  Replay the forced flush here so that even a
-@@ -5056,10 +5054,20 @@ static unsigned long check_delayed_caps_list(struct ceph_mds_client *mdsc,
- 
- 		inode = igrab(&ci->netfs.inode);
- 		if (inode) {
-+			/*
-+			 * Flush the dirty caps that ceph_write_inode()
-+			 * queued here.  Only this work does it: other cap
-+			 * checks leave them for it, so that a file under
-+			 * writeback does not flush them after every write.
-+			 */
-+			int flags = test_bit(CEPH_I_FLUSH_BIT,
-+					     &ci->i_ceph_flags) ?
-+				    CHECK_CAPS_FLUSH : 0;
-+
- 			spin_unlock(&mdsc->cap_delay_lock);
- 			doutc(cl, "on %p %llx.%llx\n", inode,
- 			      ceph_vinop(inode));
--			ceph_check_caps(ci, 0);
-+			ceph_check_caps(ci, flags);
- 			iput(inode);
- 			spin_lock(&mdsc->cap_delay_lock);
- 		}
-
----
-base-commit: 5dcec86cc31f8144857c0d9bf2a7fa13b6e6f531
-change-id: 20261107-ceph-write-inode-flush-dc67685cf521
-
-Best regards,
---  
-Xiubo Li <xiubo.li@clyso.com>
-
+SGksCgo+ID7CoFRoaXPCoHNlcmllc8KgZGVwZW5kc8Kgb27CoHRoZcKgdGhyZWXCoHBhdGNo
+ZXPCoGluwqAiY2FuOsKgc2tiOsKgbWFrZcKgQ0FOwqBza2IKPiA+wqBmcmVlaW5nwqBzYWZl
+wqBpbsKgYW55wqBJUlHCoGNvbnRleHQiwqBbMV3CoGFuZMKgdGhlwqB0aHJlZcKgcGF0Y2hl
+c8KgaW7CoCJjYW46Cj4gPsKgcm9ja2NoaXBfY2FuZmQ6wqBmaXjCoFRYwqBzdGFsbHPCoGFu
+ZMKgcmFjZXMiwqBbMl0uCj4gPsKgCj4gPsKgWzFdwqBodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9saW51eC1jYW4vdGVuY2VudF9DRDA1RjAyMEJBRkIyNTM3RjVEMUY0Q0JCNDI1NTg4RUE4
+MEFAcXEuY29tLwo+ID7CoFsyXcKgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtY2Fu
+L3RlbmNlbnRfRTI1QzlCRTY2ODkyNjRFNDEzOEE0NjQ4MDNCODEwRkRGRDA5QHFxLmNvbS8K
+PiAKPiBCb3RowqB0aGVzZcKgc2VyaWVzwqBhcmXCoGZyb23CoGp1bHnCoGFuZMKgc2VlbWlu
+Z2x5wqBmcm9twqBiZWZvcmXCoHlvdcKgc3RhcnRlZAo+IHVzaW5nwqB0aGXCoGI0LXJlbGF5
+LsKgU2/CoHRoZXnCoG1hecKgb3LCoG1hecKgbm90wqBoYXZlwqBzdXJ2aXZlZMKgdGhlwqBr
+ZXJuZWwKPiByZWxlYXNlc8KgYW5kwqB0aGVpcsKgdGhyZWFkaW5nwqBpc8KgYnJva2VuwqBi
+b3RowqBvbsKgbG9yZcKgYW5kwqBpbsKgYW55wqBtYWlib3gKPiB0aGV5wqBhcnJpdmVkwqBp
+bi4KPiAKPiBBbmTCoGlmwqB0aGVyZcKgaGF2ZW4ndMKgYmVlbsKgYW55wqByZXNwb25zZXPC
+oHRvwqB0aGVtwqBzaW5jZcKgdGhlbizCoEknZMKgdGhpbmsKPiB0aGV5wqBoYXZlwqBiZWVu
+wqBsb3N0wqBvcsKgc28uCj4gCj4gU2/CoEknZMKgc3VnZ2VzdMKgcm9sbGluZ8KgYm90aMKg
+eW91csKgZGVwZW5kZW5jaWVzwqBmb3J3YXJkwqBvbsKgdG9wwqBvZsKgdGhlwqBjYW4KPiB0
+cmVlwqBhbmTCoHNlbmRpbmfCoHRoZW3CoGFzwqBhwqBuZXfCoHZlcnNpb24swqBzb8KgdGhh
+dMKgcmV2aWV3ZXJzwqBjYW7CoGZpbmTCoHRoZW0/CgpUaGFuayB5b3UgdmVyeSBtdWNoIGZv
+ciB0aGUgZ3VpZGFuY2UhIDotUAoKSSBqdXN0IGNoZWNrZWQ6IHRoZSAiY2FuOiBza2I6IG1h
+a2UgQ0FOIHNrYiBmcmVlaW5nIHNhZmUgaW4gYW55IElSUQpjb250ZXh0IiBzZXJpZXMgd2Fz
+IG1lcmdlZCBpbnRvIG1haW5saW5lIHllc3RlcmRheSwgc28gSSB3b24ndCBzZW5kIGEKbmV3
+IHZlcnNpb24gb2YgaXQuIEknbGwgcmVtb3ZlIGl0cyBsaW5rIGZyb20gdGhlIGNvdmVyIGxl
+dHRlci4KClRoZSAiY2FuOiByb2NrY2hpcF9jYW5mZDogZml4IFRYIHN0YWxscyBhbmQgcmFj
+ZXMiIHNlcmllcyBzdGlsbCBoYXMgc29tZQppc3N1ZXMgcmVwb3J0ZWQgYnkgdGhlIGJvdHMg
+ZHVyaW5nIHN1Ym1pc3Npb24gdG8gdGhlIG5ldCB0cmVlIHRoYXQgSQpuZWVkIHRvIGFkZHJl
+c3MuIFNpbmNlIHRob3NlIHBhdGNoZXMgb3ZlcmxhcCB3aXRoIHRoaXMgc2VyaWVzLCBJIHBs
+YW4KdG8gZm9sZCB0aGVtIGludG8gdGhlIG5leHQgdmVyc2lvbiAodjgpIGFuZCBzZW5kIHRo
+ZW0gdG9nZXRoZXIuCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbyBMdQoKcHctYm90OiBjcgoKCgo=
 
