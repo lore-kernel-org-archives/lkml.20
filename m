@@ -1,92 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794059453;
-	b=HKQMhAa4RfGgKTEQfQzUxbEI4JYaWDC7hqwnyqD5cp/Z55c0liyIKxvY+FcytIsrmtGG
-	 QRFWenBM+xuYvCrV5xnobg5LKpLAvE4t9QPQWTnbo4EToVRRf19RW/4S9Ic6AwFxoBbFJ
-	 3VYjuzVqpjOAfz2ScjfBacIdFoTEoMgntGVAB0Fy5ltItmnOS4krjc1QCNweSo1EML5lK
-	 n/e2NIsDAMipW1Ghlnd7Q/5rD5FTEFbz05luTcyZKLuPBSzqcz+OEYfSiA4XKhND03m45
-	 h8Ah6o19Kx6guJpeoOoM8wzEmJGLT46GxTYI0dFmI/Z+Q6fOnSDAjLY88MMDFGJWw2A==
+	t=1794059454;
+	b=QcezQDt3EGoS896SS5LXIQEJubl0fdPjTvxyYnC3jl2PEds+XYeIKM7kBGgpZKmWMvN8
+	 uXXtVagUZoqVOzDKbQpe+ZFuALAJP/8X1fXuVNTgZWrEGmi5ZyWqXsSD/Owzbm72+svGe
+	 iLWUy2cKX2WIXiW8AhTyOR4t05f1Fqj6z9BuObamflrRc9tJQZSB60+0916zVJntm5/De
+	 0fcUrs7scs54XsBTKqSVPfgLofO5IiMrxKpisldNHo+mTJyx707V+/3p8jnPYxd9X7fIy
+	 jiZakzevihq9lkOg5BoevEeC3rHsayhJcn9ZTQSKfJiY+u56cZ4SVkiwhb9X/MC0d7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794059453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794059454;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=t+BvgmTQl1zTo5EqV52B0itc8Z0S0F4G1wzUEK6ITJU=;
-	b=UxkesSXiukAypcZbaVy+zx6X+vI5/eZdaTvTlzKnrJj8TBB7kFyHnVtwU/XXIv+xqnyR
-	 TEUqkU7Kkfry3nijMQfE8Ul2OyyyWBy7u6dxlMz4zJy/662SFJ+ygXqoDTFOhuvyX1Ajh
-	 Ukh2mLxHjbAxy6pjpK1kFw9pslhcO2gb1cuQTqp8eRpYDfw9lC4paymmS6ZDZp7lPoYXU
-	 a8SvjLjZqObJTczaFStc/ioFHN4jcbA33D/Ve0shtr2hfRkMJO5Ry/kA2XFehXfKVIxw5
-	 1MuF3Bx/ctrVSMQEZCJKXR1qiq7h7bArDwFrBFsyxVYA1I9VFOQmR18xYmlroV1w8mA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3gOi0SI6UE3i3Ok6KJpgZYZu7b8c3dBRXUCOezx+hkA=;
+	b=ZwoBZtrEmGQyaGSZFXBrfvcvG1/fmYKBU0jbMLyTNk0MOBf0poSCrWnRoNzdATi+CaI+
+	 IpJH8ZKmx/mRCFpCRN7li8NN5kxo40rPDCVQGKcxWL8NBUf7RugfIFEW+54xlCt/9lZq1
+	 /ryfmyMdtApt4Zwrxj7dbvFp0gjWkzv8c82uOG5ecmPIPGHqWTdzQJ/XQJhg+Tbe0A2ba
+	 f9e58U5BvgB7p2VU4WcaggDVVdJLbLGlOkwtlut1+rnAsmCq2pYwodbfQmS2sMH74nMTO
+	 8xbHxEto8ZcG6UYFwrQe+DisE/QPhwxQU66be0cg092yVdIu+g5aaS2fzHAAXrVCNvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJSUQs1a;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NoOOOR+U;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556CF606A332
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:50:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556CF606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610A5606A334
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 610A5606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJSUQs1a
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so331027eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:50:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NoOOOR+U
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2595980eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:50:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794059451; x=1794664251; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t+BvgmTQl1zTo5EqV52B0itc8Z0S0F4G1wzUEK6ITJU=;
-        b=zJSUQs1apFryTHeFGNPhbE8vS2fP6g4G5hrLi+BTx+FHU2cOiqinAvLVA+YcXDWSNs
-         oeGRfnIdM5/pleBD/qVlz9XveLJIvmoaTxSpwpoiJ5AtJOAqWdOOauBEPT8N3EMfglPf
-         uffAwvpJRIPKhp1a91qNDXqdu7928DOEVvpZBXDo0oZn9oh0tu57fybb+hCPoLIjj+oK
-         9ZhifP/Brh4hoGOOYXYkjA8V8lN6gCgscuYPmqyy5Xw3eNWQRJMktCknO1J22iiH7PSe
-         ZJfn7snBPKqKaflSycYz2U3d5WeUy52p8ReAdOZffUKgxMe8dcVZQS/1NgrMMcAIpnPt
-         6iGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794059451; x=1794664251;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794059454; x=1794664254; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t+BvgmTQl1zTo5EqV52B0itc8Z0S0F4G1wzUEK6ITJU=;
-        b=aW2/QP3dZbFkSqlGJ2lkBQbECR7NH/01pZCitzuqGvyRxEc+fbCuZ9xIbEG5xYo1MF
-         fbn+0SpIYIj3MW78Mu/5VSiiWu9a7saSQDMFRSVdnLK1fnXQKfar79S0O8LFXikNroLr
-         +pqbbViqHPLuz9kNSyOGxp1OmbELKRq589rbW1OUidrkIDvUupHdl38tAvKEmlvgaQTD
-         Zbwk2BI357NSsyTR6tfi+3Es5cv803zhD4omPhcrIbCIxOMZYLjdAC84GJiwDIqulZ2n
-         pgafv4YPjfWcNxMk5YuFhryiQ5F3zDG8yatUMhAE0zDofmdhGm9xA1CID3JcGGmo3tf1
-         fvlg==
-X-Forwarded-Encrypted: i=1; AL+hErHVZkIHt7UYFkwJOZSgpqpZql4cvdifhuvI8MntenV6wmbW0d6sFgNRCuaom2NfZKO3tXI/JigOWyNr8h0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/d7KoMrUCK8zcll4aX+E2nc23BSK9kWVMtoVSOT6nS0InW/VWO
-	LLLANrPySouEGfh4jig0EZQvyzI2UqqDyA6ZQXh2Ie5XtvdyimVxSLwm
-X-Gm-Gg: AYBFou3/AJW3fErjptd3ng4AF1GDC6rgkso8GsJeEkrCbDibjhLSD8pkaFCJHNltV5a
-	+skxWYhtybASHqvYuF/KoeOdf5euD6GKIzyUmClaAcwSc8UknscUW5swSew6qANTCAmBjaSWBpp
-	byjbqX4q/QxWjZRE6VnhfK74nh+p5cttDwg7DNvgYvlQ3wCIZZH9FvYbGNhP5ybkrPW9qznOMeJ
-	A2ZAwUQ8Ykf5U4Az8qZw8N9M0dpiyvBuR9HS5dcYEa71TUqHUckPX2Nw+JtqJAB8yu7Urdr0z6P
-	aahfYT0njjiMkXF95NWAuoXuljHwGCIklhY+pmw0KGhcgw2zCFziDHwl26+4dQ4JjXxcrrS3me+
-	Amqu7E5A1coi7WXkwtg+SD6wH78DTpYPRl/4mybE+AI60vyg0fhoyIS/ocTgDrS9IzryktHCrQS
-	bofIE4QZ7Iic9ztNd3bjkvkSgnb9LnahQQ1y4eLPG8uHnKI92Mr8RKRs26NSYptNmrNb7ZEPZra
-	FbKdSKjw+EDzI/C0Lt/3tD6n41SI6jesWOzITsriTc0JAEBQTa1GN0VDedsucVs6S7zf55SFM/Z
-	/+Iu0Tlv90X2HVhY/jJBt86IMyVjzpY8aJxHEBugzQ7FThQRfOlB28ujaA6brZ0msJ8d3M4=
-X-Received: by 2002:a05:693c:66cc:20b0:351:2958:1740 with SMTP id 5a478bee46e88-36f778f4a83mr7688087eec.37.1794059450625;
-        Sat, 07 Nov 2026 05:50:50 -0800 (PST)
-Received: from KRHW1CJW23 ([139.177.225.255])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa999654sm14878430eec.27.2026.11.07.05.50.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 05:50:50 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Benjamin Berg <benjamin.berg@intel.com>,
-	linux-kernel@vger.kernel.org,
-	Johannes Berg <johannes.berg@intel.com>,
-	Zhao Li <enderaoelyther@gmail.com>
-Subject: [PATCH wireless] wifi: wil6210: restore the GTK as a group key after recovery
-Date: Sat,  7 Nov 2026 21:50:30 +0800
-Message-ID: <20261107135030.10329-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=3gOi0SI6UE3i3Ok6KJpgZYZu7b8c3dBRXUCOezx+hkA=;
+        b=NoOOOR+Up8Tb/zJlSaG9NWezIRSHgzHur7zT9mtFr+tSTUx74zbQ/5whtgAjwoTWGN
+         X2pURFqnBYJHumh7GB0isO5YE5qoDEzqUnoRG2tWHkLrT+Bgvvy0I8zk2WbprMX3E/Oa
+         BWIFMfopR5ThdHaT8EqrQhPLGR9CJn+Sd7DVWJoDQlO0LzqHCc+7bAe5mkYwZvLoE+TZ
+         uZ1fitqJ+9PNP3PV/2eYA9YgJ8I8cT9AISnFV6qNZNmkokh+x48KCH4iVw9UViGM0gBi
+         pQaTti0nwiI8A2DxKDGlio26FSiZYUtfvxk+GtPZZqzDxhfhHIyt5YDpyZDWfpvom7y/
+         T0Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794059454; x=1794664254;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3gOi0SI6UE3i3Ok6KJpgZYZu7b8c3dBRXUCOezx+hkA=;
+        b=nJuy85nmOBSag7HaNcoyX0DuKhrflfmbXiMzCzhiN2EfPD0JATayBptPzIT1xk8vt/
+         79Q8ptr6JC4nsmniov75Qn1okc0luvhUulJ75eIAj32WNquPRm7hXwtbZHwIBzuRRomk
+         w7V/V7SwEFiJUcgSzDADYnJq7gwe7itQYiKOztfx1kEl6jIko/fsQmh5eLcLthFdXhmM
+         8VuiJk7mm/BZoL15cDuVcy8ybFyvvXvHEr2WFVVWXWwo2+PR26C8+YSx5D+l6tXjOGx7
+         /mo+oVi3jsh/xiiBeCJSC4VkErqY9B7aMKmYdgDIfFRkpRgdiO3vqxUGLxi+kf734hlH
+         n/Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVzDbM7xo2kSinknreMXrZ42feTVLta7WbI4lVZ7+fV/qmnigdxDfAoFFi3HoHwPndt/wVCbctWgCoNa8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HzH2bodUIFy2OQCVUuTGMDICN1cTurcd1EWqqxp6n895PhIGA
+	8RuqnD9pf1XIeEe9hd6liEpg1gIeU4hRr/8sH5IsqihFIfSUlwWca9G9
+X-Gm-Gg: AYBFou35ov66WxEzVRWrBfMPRZfw6XSaxP8nZCK4UrM6oq1LpDuMdw9Rvs+/7pL5arL
+	IdZaCD24VOo+YvgZ7oOwJMAjKHfSF7v3tlQ61P10ykvh0OreFUwQqfsyA5R9brFC3QlCzDAvdBR
+	gRsRwpS52xRHb5XWY8BU/nDIbABhMO1DiydRKHLwPi6U5j9r/LvMKNuWu1LAW5EqoxCpulRFcSY
+	tV/ZI4ZzsnKiBn8UdbxV4GRFJcwapkKRm8LjcEuhPB9QvDdhlBgLUHZN8h/mOwppPMziMrUAvnV
+	5QeAVjsjw3auXhd0V8in3OabVjg/DAjIhOfN66U/HiQw3XUOAcFeCiV+eF3/Mmx3rvOTKHPlhhV
+	rp6rqKuk63zIPUA7OEc1hs6er40cCFp7E4MAQ/PWQ9a7FnGzRRSOnmfOga2XKFX8iBZHklkiiVG
+	Qy/nB2Gg8wf2yhi4CU8Jb/Rtlg8oOT+1E4r/e+dClRfWaV6rHEzLEuyX5RFS81wngICQuO4yWn9
+	YT22EuPGAHwty8wRYPM2Slrh3n0d+L1pJv9yCD7r1ii1RG2LolNYYfmcGRt73ed10YA/CTrCiAS
+	h5+r/UCD+dSKQHrwrMVzV/n83kqRxLPUDdHcWta82Fp6H9JvaqneTXMcPw==
+X-Received: by 2002:a05:693c:8843:b0:351:207d:bff4 with SMTP id 5a478bee46e88-36f72cc18dcmr8373352eec.4.1794059453503;
+        Sat, 07 Nov 2026 05:50:53 -0800 (PST)
+Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922c6c7sm21280820eec.10.2026.11.07.05.50.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 05:50:53 -0800 (PST)
+From: Wen Jiang <jiangwenxiaomi@gmail.com>
+To: akpm@linux-foundation.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	urezki@gmail.com,
+	linux-mm@kvack.org
+Cc: baohua@kernel.org,
+	dev.jain@arm.com,
+	ryan.roberts@arm.com,
+	anshuman.khandual@arm.com,
+	david@kernel.org,
+	rppt@kernel.org,
+	leo.yan@arm.com,
+	xueyuan.chen21@gmail.com,
+	chleroy@kernel.org,
+	maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	ajd@linux.ibm.com,
+	jiangwen6@xiaomi.com,
+	jiangwenxiaomi@gmail.com,
+	linux-arm-kernel@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v12 08/10] mm/vmalloc: extract vm_shift() to consolidate mapping shift selection
+Date: Sat,  7 Nov 2026 21:49:51 +0800
+Message-Id: <20261107134953.748622-9-jiangwenxiaomi@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261107134953.748622-1-jiangwenxiaomi@gmail.com>
+References: <20261107134953.748622-1-jiangwenxiaomi@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,40 +119,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-AP recovery fails to reinstall the saved GTK because the key-type
-conversion changed the former false pairwise argument into
-NL80211_KEYTYPE_PAIRWISE. With no peer address, the pairwise path finds
-no station and returns -EINVAL, or, if the AP advertises FT, sends the
-GTK to the firmware as a pairwise key.
+From: Wen Jiang <jiangwen6@xiaomi.com>
 
-Pass NL80211_KEYTYPE_GROUP so AP recovery selects WMI_KEY_USE_TX_GROUP and
-reinstalls the saved group key through wmi_add_cipher_key().
+Extract the vmalloc mapping shift selection from
+__vmalloc_node_range_noprof() into vm_shift(), preparing for reuse by the
+vmap batching path.
 
-AI assistance was used.
+No functional change.
 
-Fixes: 3191dfbf0779 ("wifi: cfg80211: add Control Integrity Protocol (CIP) APIs")
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Suggested-by: Dev Jain <dev.jain@arm.com>
+Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Tested-by: Leo Yan <leo.yan@arm.com>
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 ---
-Compile-tested only; no new W=1 GCC/Clang, sparse or smatch warnings.
+ mm/vmalloc.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
- drivers/net/wireless/ath/wil6210/cfg80211.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/wil6210/cfg80211.c b/drivers/net/wireless/ath/wil6210/cfg80211.c
-index bf060281c9a2..2563073b4766 100644
---- a/drivers/net/wireless/ath/wil6210/cfg80211.c
-+++ b/drivers/net/wireless/ath/wil6210/cfg80211.c
-@@ -2075,7 +2075,7 @@ void wil_cfg80211_ap_recovery(struct wil6210_priv *wil)
- 		key_params.seq_len = IEEE80211_GCMP_PN_LEN;
- 		rc = wil_cfg80211_add_key(wiphy, vif_to_wdev(vif), -1,
- 					  vif->gtk_index,
--					  NL80211_KEYTYPE_PAIRWISE,
-+					  NL80211_KEYTYPE_GROUP,
- 					  NULL, &key_params);
- 		if (rc)
- 			wil_err(wil, "vif %d recovery add key failed (%d)\n",
-
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index f2dd9bef4de0f..884e178405171 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3609,6 +3609,14 @@ void vunmap(const void *addr)
+ }
+ EXPORT_SYMBOL(vunmap);
+ 
++static inline unsigned int vm_shift(pgprot_t prot, unsigned long size)
++{
++	if (arch_vmap_pmd_supported(prot) && size >= PMD_SIZE)
++		return PMD_SHIFT;
++
++	return arch_vmap_pte_supported_shift(size);
++}
++
+ /**
+  * vmap - map an array of pages into virtually contiguous space
+  * @pages: array of page pointers
+@@ -4128,11 +4136,7 @@ void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
+ 		 * supporting them.
+ 		 */
+ 
+-		if (arch_vmap_pmd_supported(prot) && size >= PMD_SIZE)
+-			shift = PMD_SHIFT;
+-		else
+-			shift = arch_vmap_pte_supported_shift(size);
+-
++		shift = vm_shift(prot, size);
+ 		align = max(original_align, 1UL << shift);
+ 	}
+ 
 -- 
-2.56.0
+2.34.1
 
