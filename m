@@ -1,45 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794015519;
-	b=d4/FC0Cn3H0b+i/4ZU9OHzNBTG/BkFXvzn8Ta+uIyzOUyLDHEuUwLYvlZNCqxJFylBJa
-	 jl77nZPZKorZVb0jv7JTeX+FnBkbz3bMKWzp6PNl0pbXZ4aOgXwxQZmNzLQj6bYxImWf9
-	 ED2Yr0LYxfR0z36Blzc5cVQ3XqFYM9GKI59xiXUCEy982qyl42CCYf7LEaRgi7nHkksey
-	 8m/4RMGQpc7SMux7KkukArDRwRI1xtcMdHY0fFz5DdyC/sxg8Nayt/QtFdMSlUV7quZsq
-	 vHhDye6Ldv+AxgVadQVvVB541cr4Dnzyf/q8GSl8zJUNfj1SdY2uSNjTv6AyUA9U3BQ==
+	t=1794015535;
+	b=g2ivipAdlUH3aOaVgM82stU+11JcNNIKx09nBq/ijN7FTEREmDogywRk4LGlFvr/QZ0U
+	 qEng/1GTa7AKaYI3ElQd4rYN8E5XEKPjPHvh0xyPETTpk0BarVdqIAWf3Me9YZ1dLGhp9
+	 uDGZIh+6Exny2zlzq+9hxUxm6tmaC/Tjs+GnsiBHWmzjE1upZxDcxaV4ltYyfsbJvnsw4
+	 u/8mzDkrnwUxnU9EMYo7p271T7hT/OCnczNMN5rJYVJGY/zJGvbYPGrzvHiPTeknDIjXH
+	 Iz/Bn6Bo4FolEbWXk+CaBuXrjGtXHSdgm+OZeqAgiaonouGyf24Iz1EmttOUsoeI9MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794015519;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=3DKMi402lRON4IQ5GMfyj9glYZKcgZcGdIr3Q4HZEFQ=;
-	b=za43QYQGSd7PembvMkeN23uisKN9cLXsoPuDeMo612OuU5QzQd3J9pqDap37pA71XK7L
-	 e5dUNe6tqkiVProPCLtZ3s80wcILsuwTp/I9MzjEssSyew0gjbJN/y4HauOgjaGT3KsJP
-	 FwgS8ZzT4vGeCK1oS0EktQZqPmnPcc7pzwtQf32G5a/MMrRDkaV6nZaeGJqM2a1jrRo4T
-	 GF2LeAW3nSErxH12KiHEr3IKWHwpyAQL9XaOibZP0FAaHKn3P9g97uWhD6NL8DwfpBYOy
-	 ncD49a1+pwOrsL8F7lMTXUu33VJSb2FRpDe8bgzozPVq7WAd2RZrV2DcXwxImYicy7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794015535;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=k7HQpG4ipLwzF4zu1Mb4Urr7qI0fUMoVV9IxTQEATQE=;
+	b=fSx2G13e+r3o/1ZzvsfQLUrIJOqifFH+p/oP8THInqLiDMJMsh9ZswAESsuNU7mQaeFx
+	 EoMe7KSErui4BNpAArqveMMOhtvK4trl4vsbuEX7UwBysvxtT/5I8w/VGbYeGCeDe/FmN
+	 WjVvS+V5uxV+973bv4Ig4e4lFpVppJfYRra+vMLP2mhJRhcqzoBNnZkKzat7QEICpfB48
+	 gZ7N4e4pRj4x6orUA+4YNGsjLEVPAdIiwTGRXEDW75my6uh1bIpkglMCjbGOSK7BtMTry
+	 wcVToMKSB5+d6uuxr9I7i6IQjDZbBUxuyt3AUIf0EtyMOoZPRLctNjbzCHSjRa2i0eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrABO07D;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gu06lvpv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9095E606A326;
-	Sat,  7 Nov 2026 01:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B453606A32D;
+	Sat,  7 Nov 2026 01:38:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrABO07D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C4551F0089F;
-	Sat,  7 Nov 2026 01:38:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gu06lvpv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D0C1F008A1;
+	Sat,  7 Nov 2026 01:38:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794015519;
-	bh=3DKMi402lRON4IQ5GMfyj9glYZKcgZcGdIr3Q4HZEFQ=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=QrABO07D0LJYx0EiYqliUdb+bqI5sTgUqIBG6/ohJuuivw3TljzNJLZDpcAsHulqa
-	 904MmwN/RdyNAmjqh1miY30nhJ8QWHQUZrEzCvrXvUQ4COLjoufHbRRVzHoFrVdrNf
-	 d+6CXe6KhQ6UeieWC15SDZW3tDRNys3tRC+x5IX0X9xpX48dW9Uqxdxe2k3uyS2P5y
-	 UG6bhcl0/JzUjIShGridEwNgK7nToCtzW1Ipn2J/qpxaTgOFeYbrz0fjZe18umgiRs
-	 c7Abkx7ZptiC8VTjxOd7LY8odOIiRLmsVD/Z+v+KeSDa7AG/RwFZ9/YRmbDFSCWN7+
-	 ETMd6b4nEg80w==
+	s=k20260515; t=1794015535;
+	bh=k7HQpG4ipLwzF4zu1Mb4Urr7qI0fUMoVV9IxTQEATQE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Gu06lvpvJZOdN8qUhq73xCDVnf88xx06oShtm2AgThdG1kSC09uODvo9f2evDuuVQ
+	 7dGo5bzscBffZSIu+vCWPFqSj2kJEBirwfsTz43GYWgd0Rfnyq39zWRg80TN7Irqsa
+	 nH77OmQduP3llkK69QasFIQW57rrFBydhZmeN5a7pOR5EOgoRhM8/Yvn6TlaIiw4+I
+	 0rN+44sHbDKJ5k6Fm0Qrtewx8387Pk6fApoG0I/FrjjXx2x3/cEv4knRSfaITqqkFC
+	 PKKWsB3v+qtc2599drRidRI84vI7uVfD5hjxZzfgXaGG4sV+s7aBo8OmmF9vdA43V4
+	 qT+Q77fwmnnDQ==
+Subject: Re: [PATCH net v2 1/5] net: mvneta: lift the per-queue TX rate limits
+From: netdev-bot+sashiko@kernel.org
+To: pepe.schlehofer@gmail.com
+Cc: netdev@vger.kernel.org, marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ maxime.chevallier@bootlin.com, w@1wt.eu, linux-kernel@vger.kernel.org
+Date: Sat, 07 Nov 2026 01:38:53 +0000
+Message-ID: <179401553399.994134.12541545181842770767@kernel.org>
+In-Reply-To: <20261103125021.70845-2-pepe.schlehofer@gmail.com>
+References: <20261103125021.70845-2-pepe.schlehofer@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,60 +61,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 02:38:35 +0100
-Message-Id: <DMOLFAB4UNSV.1A99UVEZAI527@kernel.org>
-Subject: Re: [PATCH v6 0/3] gpu: nova-core: retain the GSP-RM log buffers
-Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
- <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-To: "John Hubbard" <jhubbard@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
- <ce4c6b64-98ff-4b50-8454-9cdb5aa6970e@nvidia.com>
-In-Reply-To: <ce4c6b64-98ff-4b50-8454-9cdb5aa6970e@nvidia.com>
+MIME-Version: 1.0
 
-On Sat Nov 7, 2026 at 1:39 AM CET, John Hubbard wrote:
-> Specifically, (as you mention above), I had to add "retained/" to the
-> directory path in order to retrieve the logs. That is awkward, because
-> that means that if I ask for gsp_keep_logs=3D1, now I have to know/rememb=
-er
-> that they are in:
->
->     /sys/kernel/debug/nova-core/retained/<BDF>/
->
-> instead of:
->
->     /sys/kernel/debug/nova-core/<BDF>
->
-> We should try hard to avoid such complications, especially given that
-> debugging is often done when one has a thousand other complicated things
-> going on at the same time, late at night, too.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-It doesn't bother me too much, but I think the concern is fair.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-The retained directory keeps a clear separation between live buffers and
-retained buffers, but I don't think that's a strong reason to keep it.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-In nouveau we don't have that separation either, but nouveau also keeps the
-retained buffers until module unload. I.e. after the first retention nouvea=
-u
-never exposes new buffers (including the live ones) unless you reload the
-module. This works, but can be rather unexpected when e.g. doing multiple
-rebinds via sysfs.
+- [Medium] In drivers/net/ethernet/marvell/mvneta.c, the new code in
+  mvneta_disable_per_queue_rate_limit() writes refill period 1 and…
 
-Rebinding via sysfs can be especially useful in multi-GPU setups, where you
-don't want to unbind all GPUs by unloading the module.
+--
 
-So, getting rid of retained/ is fine, but let's not follow what nouveau doe=
-s.
-Instead, let's make the same files point to the live buffers when the devic=
-e is
-bound and otherwise let them point at the retained buffers.
+net: mvneta: lift the per-queue TX rate limits
 
-Thanks,
-Danilo
+After this patch, mvneta_disable_per_queue_rate_limit() also writes refill
+period 1 and the maximum refill value into the token bucket refill register
+of every TX queue. Before, it only changed the mode bits in
+MVNETA_TXQ_CMD1_REG. The goal is to stop the old mqprio per-queue limits
+from staying in effect once the shaper is turned off.
+
+> diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+> index ea755cf05b9ef..9b9efac2846ef 100644
+> --- a/drivers/net/ethernet/marvell/mvneta.c
+> +++ b/drivers/net/ethernet/marvell/mvneta.c
+> @@ -5204,9 +5204,16 @@ static int mvneta_enable_per_queue_rate_limit(struct mvneta_port *pp)
+>  static void mvneta_disable_per_queue_rate_limit(struct mvneta_port *pp)
+>  {
+>  	u32 val = mvreg_read(pp, MVNETA_TXQ_CMD1_REG);
+> +	int queue;
+>  
+>  	val |= (MVNETA_TXQ_CMD1_BW_LIM_SEL_V1 | MVNETA_TXQ_CMD1_BW_LIM_EN);
+>  	mvreg_write(pp, MVNETA_TXQ_CMD1_REG, val);
+> +
+> +	/* The token buckets still limit the queues, refill them at full rate */
+> +	val = (1 << MVNETA_TXQ_BUCKET_REFILL_PERIOD_SHIFT) |
+> +	      MVNETA_TXQ_BUCKET_REFILL_VALUE_MAX;
+> +	for (queue = 0; queue < txq_number; queue++)
+> +		mvreg_write(pp, MVNETA_TXQ_BUCKET_REFILL_REG(queue), val);
+
+[Severity: Medium]
+Is "full rate" guaranteed here when MVNETA_REFILL_NUM_CLK_REG has never
+been programmed?
+
+The period field is counted in units of the base period:
+
+/* Number of Base Period to wait between each bucket refill */
+#define MVNETA_TXQ_BUCKET_REFILL_PERIOD	1000
+
+The only place the driver writes that base period is
+mvneta_enable_per_queue_rate_limit():
+
+	/* Set the base refill rate */
+	mvreg_write(pp, MVNETA_REFILL_NUM_CLK_REG, refill_cycles);
+
+Neither mvneta_defaults_set() nor probe write it. Enable also returns
+before this write if clk_get_rate() gives 0 or refill_cycles is greater
+than MVNETA_REFILL_MAX_NUM_CLK.
+
+On a fresh boot, adding an offloaded mqprio without a shaper goes
+straight to the disable path, and no enable has run before it:
+
+mvneta_setup_tc()->mvneta_setup_mqprio():
+
+	if (mqprio->shaper != TC_MQPRIO_SHAPER_BW_RATE) {
+		mvneta_disable_per_queue_rate_limit(pp);
+		return 0;
+	}
+
+Before this patch, the hardware's reset-default bucket values were left
+alone on this path. Now they are overwritten. The resulting rate then
+depends on the unknown reset value of MVNETA_REFILL_NUM_CLK_REG and on
+MVNETA_TXQ_TOKEN_SIZE_REG(q). The driver only guarantees the token size
+is at least MTU * 8 bits, via mvneta_txq_max_tx_size_set().
+
+The units of the base period register are documented for V3 mode. This
+write happens right after the port is switched to V1 mode
+(SEL_V1 | BW_LIM_EN). Does the period field mean the same thing there?
+
+The test in the commit message covers the case where an earlier enable
+had already set the base period to about 100 ns. Could the base period
+also be programmed here? The comparable mvpp2 code writes
+MVPP2_TXP_SCHED_PERIOD_REG before it sets refill period 1 and the maximum
+tokens.
+
+Later patches in the series also reach this function from qdisc deletion
+and from the error unwind, and the base period is still not set there.
+
+>  }
+>  
+>  static int mvneta_setup_queue_rates(struct mvneta_port *pp, int queue,
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103125021.70845-1-pepe.schlehofer%40gmail.com
