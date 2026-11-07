@@ -1,55 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794057245;
-	b=3a8AkQZPwSRhPNthI1+vyLpkbfaWPz3fSuQDQiKJfb/kTtLvGfH9qmyTmibCNRnuKhDK
-	 V0KZBbcCe9wWjqPezNbFlNXCQUKb8SiqQEVxTc+q4LJpSa2VNPJnt0BZDHawFWYrnDJ2a
-	 BSQL3ZpIN8ZgEtmJaw2MiZpH6bJkJron/qDJCEN/DOC40kTlHhkAvaujuXPDAr7DIDcG4
-	 aAyYhsF4iV1FUIlv9JVeYsOtaOD2oh8QHcsy3v6ADg4qIeLtpkZu/vGGi+p2mlvofMUme
-	 XhcM0NKTVoFIU300xi8Vnl4byJTz2DaU9v11ZkwCS/rSrGasH6XjWMsagLONmr9/p7Q==
+	t=1794057282;
+	b=BOZFLAnqm3lf07j+q/vOKARrMQ65fK4y8/vMKQr2EjmVI+YITciInCQ2ohHS5QF8QhuF
+	 jb+nP3Pou5YslZ4cZqMcjTiEO895V1Qe/YhCvZQD3fpfCnZ/sC1ALv0+I5A/Vgz0MiPE9
+	 MkV9eGf8c7ShiwZudQ5okTguBW/r9hPbyQDJD5szhRbB48bX4itVrxVZRV875+QRp1aKF
+	 4GZTJBCGFCfzJKuE18JDZFwrGgolzjCNhL5eqabvhPmP4Bf2rZLg44ZVHcGhc2L1IIFxB
+	 sQSsueET7Uz+901iuqPaTa7XxBBZloW0aF3QzRiEzSpQP9izz/+qJV9RhO7IkcAWnQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794057245;
-	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:MIME-Version:Content-Type;
-	bh=GBkNZH//i6CeZMrvSzH07WqQhujzIjHxnO0azVdEsyM=;
-	b=vQJhafgCk9mel3WHPSuy60yrpS+hcQBHW3VtFgQTkUTfo6YF6YBcpCuBLwM/Y0In2X5N
-	 adMQRJCGzvoblqMpW6FS1B60AQLlDG2tTee5iDbTuPNqf5YT2ZV8Uq85Xzt3DZ8UA+DzE
-	 p9proHdC34AEasCK5QTnMOrKwSHK5ZJLWN4DENivqef9M1kMAPQ0FyHWPcIoDvCe4gNrg
-	 GuwrMfGZFIZ1BDwpwhegjV//6unMi9P0xtPF4d5ZPRTR6L0zTuqLQmBcvgLCMScPoeyj4
-	 BFJJ9banGIRsSegkyOCB6Lc0OFmOOu9kAcfxc7EfTh49kvRddfnoxb4/daCCGcpSKmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794057282;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=88MbdADXOG95yPaprGDH5zGpBHryNNftoLItksx3UfI=;
+	b=Tvd/OgV7y7XMvy2EPGiWslPp3xnrHlymtGiO1avgRxlVZqk1IzxsjBUfn4QkRU9u8Nde
+	 LjqKiDgpurWQm8yPJivskuY2R6cJtcRdbjRVXMJOcfFG/UvB9lTriJt0Fw2+5W+PYj/f6
+	 afZECWFwrs2/+pFYv6TEQFvLCuEwaCSXK8idYsX9p4PDloK6YWo2RQ+LePCcBjVLkPaax
+	 lGyjdFo6Y+qZ6PeRX13dpFWOr+6hF5MDUlAh00lPEJj+3wFpfmcwbiVzS37t56B0CBwkf
+	 CTLTkqWBIkobMQHrbiPjgMYFCIITjkqTsN/UuQqdAQwZXFq5Woa2hC8xP5Ghv3CzsOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=labc08BM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OXwNqbZa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F73606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:14:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BA0606A326;
+	Sat,  7 Nov 2026 13:14:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=labc08BM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0101F1F0089F;
-	Sat,  7 Nov 2026 13:14:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OXwNqbZa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF7F1F0089F;
+	Sat,  7 Nov 2026 13:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794057245;
-	bh=GBkNZH//i6CeZMrvSzH07WqQhujzIjHxnO0azVdEsyM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=labc08BM53tokoAGYlMVbW1U5bXWmGlLgJN87YN/JaYhxmKe9Nh3ubt94mUM+dghz
-	 plfCFZ0dx2+L727ju4sxgcJHcMHhU0mXRgxPe9wekoyG2tRzWI4I4+0sjDtNeNP/B5
-	 lZ8lwZkSxkN0lOPdUC+FiRXV2L+LS+Xq91xlJkXi5w8rPcoYUXzcUIApMSiXfCe+Uc
-	 NB/Q509tXUHNz4AXBaK+wOiosVcC/V1WLKGr+L82gq1D2t8ZB2ZJ/ngNSOa/Vza0lS
-	 VbBh2vsEeyI1HZTwa1QROtdRzrsWyhCNqMwcKT1MlJ8noeo8hvcGvBFBN1An2+dZyN
-	 VS92gtAQ7bEcA==
-Date: Sat, 7 Nov 2026 06:13:58 -0700 (MST)
-From: Paul Walmsley <pjw@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Muchun Song <muchun.song@linux.dev>, linux-riscv@lists.infradead.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] riscv: mm: Define PAGE_KERNEL_RO
-In-Reply-To: <20261018023649.798595-1-nickolai@csail.mit.edu>
-Message-ID: <0ee49e9a-4c42-6cd6-afca-838c20966248@kernel.org>
-References: <20261018023649.798595-1-nickolai@csail.mit.edu>
+	s=k20260515; t=1794057281;
+	bh=88MbdADXOG95yPaprGDH5zGpBHryNNftoLItksx3UfI=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=OXwNqbZaqposPaEv17apZCrV2blKgc6UovQ4cEFyZvgayV3ejh0wh2afMkoBIwbCB
+	 sGvZ5SQB/xsnM8LsBmq4CuI0975MGm9Rs8QE2iMkgei6G61y+kBmwS73Rj34QptL9l
+	 7QaMbc5m9EuffboWvwdC442AZgcVyN6gmjFxpfBshTxxWMA+inkeSzhBjEIzAravT/
+	 yQlcJWH77cHJmAX8yNlz9z3Y5+s9bji/LSBk95bgQvY3PhwLbAmkJcB52WxrEZwqan
+	 9M3vuiQ+4Jhspa8i32K9xYapk0b+9JGWHnnnXledkM6PPPlZqJ+z2Mh3V1M23LwnUL
+	 4m54kRac5Tg6w==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,38 +48,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 07 Nov 2026 14:14:37 +0100
+Message-Id: <DMP087IP6EDP.2QB7783SVNV2T@kernel.org>
+Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
+ module data
+Cc: "Vladislav Zaharov" <vladazaharova2018@gmail.com>,
+ <jhubbard@nvidia.com>, <aliceryhl@google.com>, <ttabi@nvidia.com>,
+ <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+ <20261014154554.231015-2-vladazaharova2018@gmail.com>
+ <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
+In-Reply-To: <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
 
-On Sat, 17 Oct 2026, Nickolai Zeldovich wrote:
+On Sat Nov 7, 2026 at 7:47 AM CET, Alexandre Courbot wrote:
+> On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
+> Another thing: since this is declaring now a proper interface, can you
+> move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module,
+> say `debugfs.rs`?
 
-> Kernel mappings that generic code creates read-only are writable on
-> riscv. With HugeTLB vmemmap optimization (selected by riscv and on by
-> default with CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON), the tail
-> vmemmap pages of every optimized huge page are remapped to one shared
-> page with PAGE_KERNEL_RO so that a stray write to a tail struct page
-> faults. On riscv that remap keeps _PAGE_WRITE, so such a write silently
-> changes the struct pages of every optimized huge page instead.
-> early_memremap_ro() (EFI system and configuration tables), the
-> firmware loader's vmap() of the loaded image, and acpi_os_ioremap() for
-> EFI runtime code and NOMAP regions, which asks for a read-only mapping
-> precisely to avoid a writable mapping of executable code, are affected
-> the same way.
-> 
-> riscv defines PAGE_KERNEL_READ but not PAGE_KERNEL_RO, so
-> include/linux/pgtable.h falls back to "#define PAGE_KERNEL_RO
-> PAGE_KERNEL". Define PAGE_KERNEL_RO as PAGE_KERNEL_READ. FIXMAP_PAGE_RO
-> then follows from asm-generic/fixmap.h: early_memremap_ro() now passes
-> 0xe3 instead of 0xe7 to __early_ioremap().
-> 
-> Tested on QEMU virt (riscv64, defconfig with
-> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON and CONFIG_PTDUMP_DEBUGFS,
-> booted with hugepages=8): before, every vmemmap entry in
-> /sys/kernel/debug/kernel_page_tables has W set; after, the 28K of tail
-> vmemmap of each huge page is mapped R without W.
+I think that makes sense.
 
-Thanks, queued for v7.4-rc.
+>>  impl InPlaceModule for NovaCoreModule {
+>>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, =
+Error> {
+>> -        let dir =3D debugfs::Dir::new(c"nova-core");
+>> -
+>> -        // SAFETY: We are the only driver code running during init, so =
+there
+>> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
+>> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
+>> -
+>>          try_pin_init!(Self {
+>> +            _debugfs <- DebugfsData::new(),
+>> +            _: {
+>> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a device=
+ is bound, which cannot
+>> +                // happen until the driver is registered below. What it=
+ points at is dropped only
+>> +                // once the driver is unregistered, so it is valid for =
+as long as any device is
+>> +                // bound, and nothing reads it outside of that.
+>> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
+>> +            },
+>
+> Let's move this initialization into `DebugfsData::new`, using
+> `pin_chain`:
+>
+>     /// Returns an initializer that creates the shared debugfs data.
+>     ///
+>     /// # Safety
+>     ///
+>     /// The returned initializer must be run exactly once before the driv=
+er is registered. The
+>     /// initialized [`DebugfsData`] must outlive the driver registration.
+>     pub(super) unsafe fn new() -> impl PinInit<Self> {
+>         pin_init!(Self {
+>             root: debugfs::Dir::new(c"nova-core"),
+>         })
+>         .pin_chain(|debugfs| {
+>             // SAFETY: Per the method's safety block, the driver is not r=
+egistered yet, meaning that
+>             // no device can be probed and thus nothing can access `DEBUG=
+FS_DATA` concurrently.
+>             //
+>             // INVARIANT: Per the method's safety block, `DEBUGFS_DATA` i=
+s written before the driver
+>             // is registered and points to a valid instance of `DebugfsDa=
+ta`, which is pinned
+>             // and dropped after the driver is unregistered.
+>             unsafe { DEBUGFS_DATA =3D &*debugfs };
+>             Ok(())
+>         })
+>     }
+>
+> That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
+> relies exclusively on `new` (and we made it unsafe to force the caller
+> to do that).
 
+Actually, I would leave that part as is.
 
-- Paul
+Eventually we'll have registration data for driver registrations to share m=
+odule
+data. Once we have that, we'd need to change DebugfsData::new() again and m=
+ove
+that part bnack into NovaCoreModule::init().
 
+Besides that, DebugfsData has nothing to do with the current limitation of
+publishing module data to driver registrations; the module code seems like =
+the
+correct place to deal with this.
