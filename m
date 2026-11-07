@@ -1,60 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794085573;
-	b=l2PfpjN5xt2ZiAVp+gdSb+W9Okc+iIkd/WgopYNMo+lxZoBsJLL66yQ86wvfx5ADWo0w
-	 li/AbYF52aeyOthWtUVvJI5OX/pWk6ROxxgJkKasf4vnGdt7u5X+L+3xWNBDHZDtt+xuu
-	 uU5cL/65YKruJMlQq3gfKNAoTUzYklzVppoxBX1FfmDD+AkCrjMdyBuxddPv7rLA90MTN
-	 sIOp/h0vLUjRNpp/Yp+PESKd3mOTBAQdNS5LiKUM7b7rjN+71BiIzcy5W8+sesVQ9igDD
-	 1KFKcFNs1MeW3K5zF5L6h1o+9yPynCVGhR4pAbmTMjUavGbEz5LLF1JMQY10y3P4KHg==
+	t=1794085619;
+	b=Q787yPz7PzIW++ZKn6EjrzJQ9vveiwkd0kX4gOaFi76OpmPEEQItewn/bkzD43ERVv5e
+	 0DiTzylEpPSqtdEGHXXC8I0xWtAM9uYibgWb3KuOfmVIK2JmO9mjQZkVKr4pJjU68O+IH
+	 BgpMVCzHQBUC+A3hUgLqkxYfyNpsnDgbAYTx6Z2KNrxtTULzQsBTmbi7VvtyBdFT8p6gM
+	 isIyMDbP2dqSaADzY/j7Tzy90OfSLXdwKQbwgR7QXNbCJg2UuRtobYbyxeWmg1zoAWcsa
+	 zYrS+bqiXtKYaoAqYDYC16w/nt49UZrDeNo1MOLsWKBkyWuI5QN/H0SafIAgAkP5XHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794085573;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=GXAkWtV0fCcGEA/twUd5fTTQKgnBfg+V+HOTAGhnJcw=;
-	b=GSOknX/lz/WBT2M1ifdt3srF+wy9DOjb82LlQpzjEDbuw9gJ9lpV/iMAHEdVIltouXI5
-	 TmuHLmSvOvZJhxbIIdunH/IiFt8ZvxI0VoBmRmZy7wLErQDBt3MurkzJjZ2FRCpzxRIDk
-	 9eZastSmSpmeVMWt6SHKcGsbO5Uz1yu/hgfbS7Gpq5Uodxq32uLdbd0Tllw+GOR0ube9K
-	 dv/0i7x0vr/7OfA3FHUy3L9OGCYCTymkotISFkkPcwKN6loV2RygLDNWGraX3UWBkp1cj
-	 NQv/N2NKzV9LkS8N6OECXfvmyiGx+51gCFmEUYXMffevOWqnP3h4+MrQ42ZrYgF7a+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794085619;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=8KSc09ODib0Z5Yx1q1G86S1Aevjg7RWxPeQP7OwRbqU=;
+	b=vHA+c0fyJsPses5uTticL56AMFQ0t9O1Si93GYLj9eiWfROccXVUhUQ2mGvCF/dzkkGX
+	 mwi7wdSyJjTNBTWmHby5IIuF8Am5WwJsYrUbSVrtmYQbh9t5eU9EDaZMPghFEJRhnjaB3
+	 1voRsypCu4EEvIpZ1VQPvHDF7rljatG9pZDbGWzpNwL2OzAlRtECwJ8fEoG85hStjlzed
+	 2AeEXQI7RshMLNx8Y6B9CtFmg6G0bB3cSKGbnTOq9OIB7lEnjD4vWP2bkvvfdJIjEcB5n
+	 HR0aSL207ToDNznpsOl7uU9nTLbLWeUP93NC18ixjM71vuh/Kbxjly5DFS4uYIIpcHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YeiL4vYX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=V7wzKorN;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF35606A326;
-	Sat,  7 Nov 2026 21:06:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A5B606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 21:06:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3A5B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YeiL4vYX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DAB51F0089F;
-	Sat,  7 Nov 2026 21:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794085572;
-	bh=GXAkWtV0fCcGEA/twUd5fTTQKgnBfg+V+HOTAGhnJcw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YeiL4vYXBQfRq9SSN60+Hvuvqp8PneRDdXdJ0a3jAp7CwaRoCpMIMYjQUXHHqBquU
-	 asnHVbI5D5T1hJcCshOJl8U66G67JkbD9ptyLzoefXHlCoU7Xq3w7HSQ7FjyPDl+/w
-	 iZz+jfFLje3lL6ZEC34Tjrl31AHQv/VZq6BQ1O4erd49zyMEh8fxpZtfxC75d8COvd
-	 pLkKb7CS7AsvwKzn7TgnXFQNgHmpOgAog03gUKzG5/AKvenHZqeKxrEQv/duJX1EDv
-	 Pwm2Odrx9D0i5k97/KEufQHicFa/GLET8z5nsHrCGDdnZPwsylNsMNwo4Ds8HZT7v2
-	 CQR6Zhoka3ERw==
-Subject:
- Re: [PATCH net v3 2/2] xfrm: fix selector matching for IPv6 atomic fragments
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, dsahern@kernel.org, idosch@nvidia.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Sat, 07 Nov 2026 21:06:11 +0000
-Message-ID: <179408557152.994134.2903061781051597708@kernel.org>
-In-Reply-To: <20261106202910.723098-6-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261106202910.723098-6-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=V7wzKorN
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id PlfDxQkGQJFmFPncnxtkrD; Sat, 07 Nov 2026 21:06:57 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id PncnxXKSxxmi7PncnxFIqq; Sat, 07 Nov 2026 21:06:57 +0000
+X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6aef92f1
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=Vqn8mfWAHm7spiFAKEwA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=8KSc09ODib0Z5Yx1q1G86S1Aevjg7RWxPeQP7OwRbqU=; b=V7wzKorNxc6D
+	/TZI41vPEAUa/mBIseR7+uma6jImlp1Jd09gHI35eubPCUHH/dIijAdADUMVE6Kq6E1scL5g/n8VN
+	y9cQO+WxcfwSgADorqh2cDJ/G0NjpTMGcyys1uS/QBcEuJie77mOBmZFrzYrXiHESz5P4bdJGsOL2
+	ZchJFNVuj4BUrjzRFeGw0FXJM9vSrHTpgPFZBUjEZs6pkskdfmT/MJci4t9WQT4PiGo4zZ2qTzP9e
+	P5AyCzvvZBVjG8jsVG485Ac4bKmBFMsJcrCj/dp4+m+Qs1H8nzwwGDtFKhjjwbyoTEgoco3ZjbI7Q
+	8TIacU5vr8LkohrTHlvmpg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51494)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xPncm-00000002fjo-3k56;
+	Sun, 08 Nov 2026 02:36:56 +0530
+Message-ID: <81c1e042-b06c-4a13-9251-a967532e21cd@roeck-us.net>
+Date: Sat, 7 Nov 2026 13:06:55 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,143 +75,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller
+ voltage sensors
+To: Tomasz Bojanowski <tomasz@bojanowski.me>
+Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261107082821.8257-1-tomasz@bojanowski.me>
+ <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net>
+ <20261107161249.336512-1-tomasz@bojanowski.me>
+ <5e99fd86-d934-49c1-a867-02cc61ab1ecf@roeck-us.net>
+ <20261107181518.385136-1-tomasz@bojanowski.me>
+ <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net>
+ <20261107203300.427273-1-tomasz@bojanowski.me>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261107203300.427273-1-tomasz@bojanowski.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xPncm-00000002fjo-3k56
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:51494
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNb2Lnd22xiCzitu7VP2CRO1TJOsdezzx9YKOWFn9KmzzSdZ8RGRL8ExIg8A/CwTObteXQ9HU7fW6PlsM5knlZaUidSHA2j/dzBGrQZ0FXYX/dYx/AIe
+ jOtxOgeViC38/a18NAcTxsboYYttyXrtM4UYdvwdfLZ7R+V1y98jlcxiVd0W42j7lxvA9ezne1l3uDGIq0RsmRKrgBNH2s1G8bOW4OBPioiWm0VL5DPn2Y62
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 11/7/26 12:33, Tomasz Bojanowski wrote:
+> Hi Guenter,
+> 
+> On 11/7/26 11:40, Guenter Roeck wrote:
+>> Please let me know if the code still works for you.
+> 
+> It does. With commit 64e4888, the MS-7E61 reads the same as with v2
+> (CPU 1P8 1.79 V, CHIP Core 1.04 V, VDD MISC 1.10 V).
+> 
+>> Offset 11 does not seem to show a valid voltage. On the other side,
+>> offset 15 would reflect a value that at least makes sense.
+> 
+> The vendor software reads CPU VDDP from offset 11 on the MS-7C94 and
+> does not use offset 15. It would show the same 0.002 V, so I cannot
+> tell what offset 15 is.
+> 
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+That makes me wonder if the vendor software is buggy. I have
+two of those boards, and they both show similar values. If we can't
+figure that out, I am inclined to drop support for that board:
+It is not worth the trouble with people complaining that it does
+not work.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> One small thing: if the read fails, msi_ml_read_report() returns
+> without hid_hw_power(..., PM_HINT_NORMAL).
+> 
 
-- [High] The fix does nothing on the local-input (XFRM_POLICY_IN) path,
-  which is the main bypass the commit message says it closes.
-- [Medium] The new pskb_network_may_pull() call turns
-  __xfrm_decode_session() from a read-only helper into one that can…
+Good point. I wonder what the best way to handle this might be:
+Push it back into the device specific read function, or always
+call it from the common read function. Or maybe only keep it for
+the 7e61 board and assume that it isn't needed for the older boards
+since they are expected to send raw events. Any thoughts ?
 
---
+Either case, do you have evidence that this is even needed in the
+first place ? The call is rarely used elsewhere in the kernel,
+and none of the other HID hwmon drivers uses it.
 
-xfrm: fix selector matching for IPv6 atomic fragments
+Thanks,
+Guenter
 
-This patch makes __xfrm_decode_session() recover the ports, the ICMPv6
-type and code, and the GRE key for IPv6 atomic fragments. Before this,
-those fields were left zero for any packet with a Fragment header. It
-adds an IP6_FH_F_NON_ATOMIC flag to ipv6_find_hdr() so the caller can
-tell whether every Fragment header in the chain is atomic, and it pulls
-the base IPv6 header before calling ipv6_find_hdr().
-
-> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-> index 4f6a5b81e3b5a..b7deeb03276e4 100644
-> --- a/net/xfrm/xfrm_policy.c
-> +++ b/net/xfrm/xfrm_policy.c
-> @@ -3530,9 +3530,24 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
->  		decode_session4(&flkeys, fl, reverse);
->  		break;
->  #if IS_ENABLED(CONFIG_IPV6)
-> -	case AF_INET6:
-> +	case AF_INET6: {
-> +		unsigned int offset = 0;
-> +		int fh_flags = 0;
-> +
-> +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
-> +		    pskb_network_may_pull(skb, sizeof(struct ipv6hdr)) &&
-
-[Severity: High]
-Can this check ever succeed on the local input path?
-
-When xfrm6_policy_check(XFRM_POLICY_IN) runs for a locally delivered
-packet, skb->data already points at the transport header.
-ip6_protocol_deliver_rcu() does:
-
-    if (!pskb_pull(skb, skb_transport_offset(skb)))
-        goto discard;
-    ...
-        if (!xfrm6_policy_check(NULL, XFRM_POLICY_IN, skb)) {
-
-tcp_v6_rcv() and the UDP and ICMPv6 receive paths run their own IN checks
-from the same position.
-
-ipv6_frag_rcv() does not reassemble an atomic fragment. It only moves the
-transport header forward:
-
-    if (!(fhdr->frag_off & htons(IP6_OFFSET | IP6_MF))) {
-        /* It is not a fragmented frame */
-        skb->transport_header += sizeof(struct frag_hdr);
-
-So skb_network_offset(skb) is negative here: -48 for a plain atomic
-fragment carrying TCP. pskb_network_may_pull_reason() then computes:
-
-    return pskb_may_pull_reason(skb, skb_network_offset(skb) + len);
-
-Because len is unsigned, -48 + 40 wraps to 0xFFFFFFF8.
-pskb_may_pull_reason() then returns SKB_DROP_REASON_PKT_TOO_SMALL from
-the len > skb->len check.
-
-The && chain stops at that point and FLOW_DIS_IS_FRAGMENT stays set.
-decode_session6() then still leaves the ports, the ICMPv6 type and code,
-and the GRE key at zero.
-
-Wouldn't a plaintext atomic fragment sent to a local TCP, UDP or ICMPv6
-endpoint still miss an IN policy that selects on those fields? If so,
-only the FWD and OUT directions actually get the fix.
-
-With CONFIG_DEBUG_NET, wouldn't each such packet also hit
-DEBUG_NET_WARN_ON_ONCE(len > INT_MAX) in pskb_may_pull_reason()? One
-remote packet would then be enough to cause a WARN, or a panic with
-panic_on_warn set.
-
-Instead of pskb_network_may_pull(), could the base header be read with
-skb_header_pointer() at skb_network_offset(skb)? Another option would be
-to pass an explicit offset to ipv6_find_hdr().
-
-[Severity: Medium]
-Could this pull leave stale header pointers in callers of
-xfrm6_policy_check()?
-
-Before this patch, __xfrm_decode_session() only read the skb through the
-flow dissector, and the dissector uses skb_header_pointer().
-
-pskb_may_pull_reason() calls skb_might_realloc() before any length check.
-Under CONFIG_FAIL_SKB_REALLOC that does
-pskb_expand_head(skb, 0, 0, GFP_ATOMIC). __pskb_pull_tail() can also call
-pskb_expand_head() when the base header is not linear.
-
-Several callers keep header pointers across the policy check. For
-example, tcp_v6_rcv() does:
-
-    th = (const struct tcphdr *)skb->data;
-    hdr = ipv6_hdr(skb);
-    ...
-    if (!xfrm6_policy_check(NULL, XFRM_POLICY_IN, skb))
-        goto discard_it;
-
-    tcp_v6_fill_cb(skb, hdr, th);
-
-The TIME_WAIT path in tcp_v6_rcv() follows the same pattern, and
-tcp_inbound_hash() is passed &hdr->saddr and &hdr->daddr. ip6_forward()
-saves hdr on entry and reads hdr->hop_limit after
-xfrm6_policy_check(XFRM_POLICY_FWD).
-
-If the head is reallocated here, wouldn't those reads touch the freed
-head?
-
-A concrete trigger was only found with CONFIG_FAIL_SKB_REALLOC.
-ip6_rcv_core() already makes the base header linear for forwarded
-packets. On local input, the wrapped length fails before
-__pskb_pull_tail() is reached.
-
-The pull seems to exist only to protect the ipv6_hdr(skb)->nexthdr read
-at the start of ipv6_find_hdr(). Would a skb_header_pointer() read that
-doesn't modify the skb, or an explicit start offset, cover that read?
-
-> +		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
-> +		    (fh_flags & IP6_FH_F_FRAG) &&
-> +		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106202910.723098-2-Jeremy.Jean%40oss.cyber.gouv.fr
