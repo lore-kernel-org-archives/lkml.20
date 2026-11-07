@@ -1,48 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056165;
-	b=aSnvV+PBHRL43QQCyQzd+rU0jBAmGtO6rDs1MiM7vmCA6ESDGKDits3vI3M5B7sbcDcP
-	 53VyHJjZyqwJvBsAbpksXEFzvhlF7KgSZujSzjMJv2LBYUjyNaybQCIcBvW+SzTYQvnRa
-	 jefBjLfNuchomOGy/QI7lfQ5ZL9BaC3Naq0gtU11Od5j7BzKdVlv40uTrp7KQEGmeHJmf
-	 ZLAVJgbqNl6pZL15BY7geNZvFmEDHBDX0WgNaUinTae2C9PAxauW066/QmvKPqX80QNxH
-	 EVKGIgC7IDzcCss7Z6sOEwrvlmoaBRe6XpRmb2Hzi04dF8MzRTc02nUFjFm0kTKM8sA==
+	t=1794056288;
+	b=IoqYKev3xsmJcd1PM1BlceKxg707wihCiJXl595LTEIYvP9WqVI3g54iA12iOD3i+wxl
+	 VYaTGkmNsvOdnr9dn+y5/R1QA+N11xU+HVwCoxwNpmEivESyjfF1DPD85XgagrGeKpFty
+	 Mb1XFht8xGY+4awr3TIqLwYy5eKKOhUGj3jiJknZeCB7gNvOrL6MBISCDZL6iGh+pQXM2
+	 V+DKSzK0Fwino48tvkGaldX+As34hLsDNDbeeCY3jO6ldzV1yOzr9d85oS9cV1wapOP8T
+	 hTaBABH0BNSOodUkLxythqGAUOXDvNd2bLcDrVI73W04nBJ5oENOZ+wyOZEI45AZ6Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056165;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=UCE3NbaID3E5C798LUsUaYaoCronIRnRlzf++jSypMo=;
-	b=nX0lbimlxzZXTOkBqHPb49jtwJpJ1oq5/ccqusVQlm/SgYFsEWK/gmRzzwWkHPbm/1YH
-	 HPVXqrGGC0rMxOcNhFFeIPkeSD+LzDUXwDVvcOTmUv/SP/FvCUYRoG9uVVr0spbOf0C83
-	 qjBJt3JbLFn5rxeHHzp2Ec1NISJErsZ7X+Py71GrUl2FDCyhK3Jw+aqAbbii4dNFrUGtz
-	 oCvVadXtq2j01bSxzRlv+qkqch3Qt9cDHSDoQ4m1eZV2NEqW/gksqAvQLeCRsTbZioHND
-	 viRD4Mns0WaFzjyO7ryFQZLkhhVxZbibGVkYrbq2KsFXDWJi8gK206EREbmt1DZnBzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794056288;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=azVrG+P6xL596olvAnT6FD+0b9UQ5x/qTtrlSUIzTZI=;
+	b=IL63p+ZPsJAyu6SFKZx4LjOSP8hE94B+apmsiY51rV7s75Cy4qU+ss1owBqI19X9tTGw
+	 grNZTPg7aHt1raC6iElSgx0NnXIpbf0+PdjDsejh4MY1xMXkL3+ul7z+L2nriVdEu28pJ
+	 Dianj2UyOU3vg+iJYjqUSDGtHCO2Ax+KVAFA34+I1+QSkD1vA2vLFU0mbEjjw4e9iUXo0
+	 q2gLrDU1chpkxmtundtB+1eExPH96amSJRybVrsrXmW7dwuoLH779yl6vRw6FeidK/G43
+	 NypaDkqYE7IiOAVrMGPfzkPg6FYdJiXHSOMaYZktrvvoaaK29OCcNGF7BIXEXm96hvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NC+OQUPE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DXgzOJsD;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9238F606A326;
-	Sat,  7 Nov 2026 12:56:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED72606A326;
+	Sat,  7 Nov 2026 12:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ED72606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NC+OQUPE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32021F0089F;
-	Sat,  7 Nov 2026 12:56:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794056165;
-	bh=UCE3NbaID3E5C798LUsUaYaoCronIRnRlzf++jSypMo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=NC+OQUPEUbDREDxaVQgMtnSYRSxbMOCOUEHTxIwXwojL+K4F60FAIKzlEfw9J0Vgp
-	 QK875kemnk6CgPCoIKmYK1sF/Ll1zZtVLNFSt3kc4TFfP5mtLlZw++mFqo8rIA1Qyg
-	 rMoVxGzhzs9ytKPPwhwmuKZAQkwOm3tQQodHRL8kbXIDcNXYt3VAMd3XRIBEzEKMhd
-	 MjyBl5fcwPWwRZVK/30kkOZjLN02DBuYkv70WdrZuJHi18WmbOQluBLdM0/DZ+4iM/
-	 /keY7LNOyJ48oCeROKbCe+QGo0AcblAtHQEQ21+VvpBaBzp3RpJT8clqKtDZGpFW2M
-	 Id1Ey2L/1zbfg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 70619299A85C;
-	Sat, 07 Nov 2026 12:56:02 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DXgzOJsD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794056288; x=1825592288;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RsywGWtVLQ6VWz4c//J88dDgnFMTE03mfX5b9nPPQvA=;
+  b=DXgzOJsDBgATPW4CBAquvz/lCxPHo+ZMnJph54eUkgSnQUo46q2ywx1b
+   3UNeeFwBW/hSgtS5hEpjg1rNw8riUx6D8LfSGPltkYWSU6BCy4BjJtdbc
+   igiUoGj+yY2z9KgViUp50glGTqqCnkRNbeSjrFpDTvIoqBy5Se4Q0p7e8
+   jEGjm2lHAuAbYsIgfLGzAggKnvwChxozugGUxJXSXphvBEij05Q4e74eP
+   te62Wf2yNFoYUb2no30rNzbPPNN/XzrCZpWmixaAHXX4C3xezb0jHrZyU
+   ZD97OG2W9YlaDtWigvglHgwWHta6IOmDLdXmdPy85vqlndEge98/S9MXN
+   Q==;
+X-CSE-ConnectionGUID: ivQkGfn8RNurGsxHTzSCgA==
+X-CSE-MsgGUID: I6EyNmJnTVKxpcqWw5Hhiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2754150"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2754150"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 04:58:07 -0800
+X-CSE-ConnectionGUID: yWMjxIY4RtulG66mvNwjbg==
+X-CSE-MsgGUID: 4yBJLPcVQ+SoPAQF7dbrDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7618705"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa009.jf.intel.com with ESMTP; 07 Nov 2026 04:58:05 -0800
+Date: Sat, 7 Nov 2026 20:50:39 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: tze.yee.ng@altera.com
+Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
+	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	muhammad.nazim.amirul.nazle.asmade@altera.com
+Subject: Re: [PATCH v2] fpga: altera-cvp: Add Agilex5 CVP credit register
+ support
+Message-ID: <au8en9qjdw7VfdAl@yilunxu-OptiPlex-7050>
+References: <20261028104019.21225-1-tze.yee.ng@altera.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,56 +81,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] spi: pic32-sqi: guard against empty BD list in
- pic32_sqi_one_message()
-From: Mark Brown <broonie@kernel.org>
-To: Li Ximo <lixicaicai@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Wang Haoran <haoranwangsec@gmail.com>
-In-Reply-To: <20261103084707.1582675-1-lixicaicai@gmail.com>
-References: <20261103084707.1582675-1-lixicaicai@gmail.com>
-Date: Sat, 07 Nov 2026 12:56:01 +0000
-Message-Id: <179405616110.3424803.15364430590351990795.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1394; i=broonie@kernel.org;
- h=from:subject:message-id; bh=v+xm3DXBEMWN0zz8hpvA0YXrjsZ9eSJnSciEEYdjm5Y=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeyz+SfND9uDt9p9+Kztg5R5sfGR7JkzsqbV7mwOqvs
- eeJr/7BjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEwk5ijDH66lM7L0VLK43LWS
- ar6tkHCbHGdx4shf1eWGZad/mkq9ymP4zXbS//5rP69cj3fV9j7el6SEC498jf+3aJLNFeXyF/V
- XWAA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028104019.21225-1-tze.yee.ng@altera.com>
 
-> list_first_entry()/list_last_entry() do not return NULL on an empty
-> list; they return the container_of() of the list head, i.e. a wild
-> pointer.
-> 
-> The SPI core rejects a message with no transfers, but it accepts a
-> transfer that has neither tx_buf nor rx_buf. For such transfers
-> pic32_sqi_one_transfer() iterates an empty scatterlist, queues no
-> buffer descriptor and still returns success, so a message made up only
-> of buffer-less transfers leaves sqi->bd_list_used empty. The subsequent
-> list_last_entry() then returns a wild pointer through which the driver
-> sets BD_LAST/BD_CS_DEASSERT, and list_first_entry() returns another one
-> whose bd_dma is programmed as the DMA base address, corrupting memory.
-> 
-> Bail out with -EINVAL when the BD list is empty, setting msg->status
-> the same way the timeout path below does. The xfer_out cleanup path
-> tolerates an empty list, and normal messages are unaffected.
-> 
-> This issue was found by static analysis.
-> 
-> Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-> Reported-by: Li Ximo <lixicaicai@gmail.com>
-> Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
-> ---
+> +static int altera_cvp_v2_read_credit(struct altera_cvp_conf *conf,
+> +				     u32 *credits)
+> +{
+> +	u8 val;
+> +	int ret;
+> +
+> +	ret = altera_read_config_byte(conf, VSE_CVP_TX_CREDITS, &val);
+> +	if (!ret)
+> +		*credits = val;
+> +
+> +	return ret;
+> +}
+> +
+> +static int altera_cvp_ag5_read_credit(struct altera_cvp_conf *conf,
+> +				      u32 *credits)
+> +{
+> +	return altera_read_config_dword(conf, VSE_CVP_AG5_TX_CREDITS, credits);
+> +}
+> +
+>  static int altera_cvp_v2_wait_for_credit(struct fpga_manager *mgr,
+>  					 u32 blocks)
+>  {
+>  	u32 timeout = V2_CREDIT_TIMEOUT_US / V2_CHECK_CREDIT_US;
+>  	struct altera_cvp_conf *conf = mgr->priv;
+> +	u32 mask = conf->priv->credit_mask;
+>  	int ret;
+> -	u8 val;
+> +	u32 val;
+>  
+>  	do {
+> -		ret = altera_read_config_byte(conf, VSE_CVP_TX_CREDITS, &val);
+> +		ret = conf->priv->read_credit(conf, &val);
+>  		if (ret) {
+>  			dev_err(&conf->pci_dev->dev,
+>  				"Error reading CVP Credit Register\n");
+>  			return ret;
+>  		}
+>  
+> +		val &= mask;
 
+How about including the masking inside .read_credit()?
 
-You've not provided a Signed-off-by for this so I can't do anything with
-it, please see Documentation/process/submitting-patches.rst for details
-on what this is and why it's important.
+> +
+>  		/* Return if there is space in FIFO */
+> -		if (val - (u8)conf->sent_packets)
+> +		if (val - (conf->sent_packets & mask))
 
--- 
-Mark Brown <broonie@kernel.org>
+Any reason to mask sent_packets here? The value would be bigger than the
+mask? If so, why is it safe to mask it?
+
+I'm wondering if we could remove the mask in this function, then we
+don't need a .credit_mask in cvp_priv.
+
+>  			return 0;
+>  
+>  		ret = altera_cvp_chk_error(mgr, blocks * ALTERA_CVP_V2_SIZE);
+> @@ -559,6 +587,18 @@ static const struct cvp_priv cvp_priv_v1 = {
+>  static const struct cvp_priv cvp_priv_v2 = {
+>  	.clear_state	= altera_cvp_v2_clear_state,
+>  	.wait_credit	= altera_cvp_v2_wait_for_credit,
+> +	.read_credit	= altera_cvp_v2_read_credit,
+> +	.credit_mask	= VSE_CVP_TX_CREDITS_MASK,
+> +	.block_size	= ALTERA_CVP_V2_SIZE,
+> +	.poll_time_us	= V2_POLL_TIMEOUT_US,
+> +	.user_time_us	= V2_USER_TIMEOUT_US,
+> +};
+> +
+> +static const struct cvp_priv cvp_priv_agilex5 = {
+> +	.clear_state	= altera_cvp_v2_clear_state,
+> +	.wait_credit	= altera_cvp_v2_wait_for_credit,
+> +	.read_credit	= altera_cvp_ag5_read_credit,
+
+We have same .wait_credit across, so the only point of it is to indicate
+whether the credit can be read. The .read_credit can do the same job,
+is it?
+
+I think we can remove .wait_credit
+
+> +	.credit_mask	= VSE_CVP_AG5_TX_CREDITS_MASK,
+>  	.block_size	= ALTERA_CVP_V2_SIZE,
+>  	.poll_time_us	= V2_POLL_TIMEOUT_US,
+>  	.user_time_us	= V2_USER_TIMEOUT_US,
+> @@ -658,10 +698,15 @@ static int altera_cvp_probe(struct pci_dev *pdev,
+>  	conf->pci_dev = pdev;
+>  	conf->write_data = altera_cvp_write_data_iomem;
+>  
+> -	if (conf->vsec_offset == V1_VSEC_OFFSET)
+> +	if (conf->vsec_offset == V1_VSEC_OFFSET) {
+>  		conf->priv = &cvp_priv_v1;
+> -	else
+> -		conf->priv = &cvp_priv_v2;
+> +	} else {
+> +		pci_read_config_dword(pdev, offset + PCI_VNDR_HEADER, &regval);
+> +		if (PCI_VNDR_HEADER_LEN(regval) == AGILEX5_VSEC_LENGTH)
+> +			conf->priv = &cvp_priv_agilex5;
+> +		else
+> +			conf->priv = &cvp_priv_v2;
+> +	}
+>  
+>  	conf->map = pci_iomap(pdev, CVP_BAR, 0);
+>  	if (!conf->map) {
+> -- 
+> 2.43.7
+> 
+> 
