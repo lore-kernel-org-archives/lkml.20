@@ -1,86 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046352;
-	b=i59WYP43JWSWqUmW5cT9N0EbN8h++jnI0sMpsYfpH4/QwBhnf/j1SINaWlM7NOdrfkB4
-	 NQyVsEZMucQFKCW3IFQu4DsUtVebVJ3Qko6jnFj0rSltWzZICdcCNUr5q/qS48PfrVfTp
-	 f44okIaD+c2pKWec/Xiue8vF+ubnTdmokw+CIcz78sVdnGKYWEXT0Ox3LKhOv36HwULWz
-	 K5tz698yWhldSZpoZlwAs1YbM4EPEGFNbk4C7XeJGDyLpyL87Q3wDg9NE21aB4fH/NIE8
-	 ezJavaXQ2sRmgs1axBF72pIDkyzkzDdz0omaboi39f6MQ3wZ4+GnjsZRuE0Vg+4y6Bw==
+	t=1794046357;
+	b=kCwmjaYaTVY9vLYjNMa+MIz7Q5FZK6g1eq1YFMm4x66hbu/WIV8RY1JvRau90uDgOcAi
+	 O7Um2COS62NR9t9jzzbZjoqGncIJzNmTz025CINZYHWXE/VbIa/h7c3+6hywBgmanZxal
+	 ZBdvPIfrgXHRFqv4Kx5zBghZqVR20HrafkEdDJwLFJtSNuuKl4HO6XmYYFtZ6ENiWfCMv
+	 UYzCav/BAJzO+RzzGMctCR+eUjmBhce92xxxcccTwcreKfqmKRSIosKZjZmA4QA/zcyCS
+	 jMskC2VB5j0hB18a9gSriKBPwKox6dvciRCcn4Cz6fEgufL/3T/SSy+4X6mgXqXv4VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046352;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Qw5FjnXXfzwpDGlNW2PfeJtFwV+3pUInVwDZZKmI6fY=;
-	b=frhizmAj8uEel3+tfY1QQoofeoeUWY1Z0qc/HB0FOwlIeOlwC8kDFD31T9ntL374GTEg
-	 BcuIz1ppUMCLGqvcmsFob0TW9rwUl6aKOiePOjjnV/o0SrbY8ZGxJWTuleP2zWhbHN5Ux
-	 KHbYdQCUQSkJPoGBrT69t1eWaMChtSzkCrGxu+8RVf+28k6Ki8AD2VxwtJQngz+JXFHcF
-	 aHtKiugaJoIxbI6V++0y9gtSMMteDrLqRuor8bnX1U15ddlasDchgh7Eh8xJv6rbLKsGY
-	 vpKOpvU1uWIsDIw8iMFCryEcB3oDW4LuaOm4ZXLBArFL84b2mwCrTaQ0oojcKFCCcFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046357;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
+	b=kCZvJ3W379lSUDYCkte/SGQFcp6hBppih4pmS3OBbW9f+aQC/ihXIUhvjt1CrqQRReF5
+	 M5h4kifbY9XRXu/Fg9EnJFvEltcB0nzrbboURDLMvDfEbmOnM3RyiREr3abMPBWjkD/TN
+	 /WqcGQaGE30PtqGuJoJ28kYw2ZT1dlNs6/uaV4KDttu2bEeu5CaI/jP8SzNMN/YhyzYNo
+	 XN3mJ48jc9Te+xBuyI6TxF2sEYs3SaaCk8ePt6gTg663tRwlVLbZwTMpOniSZ+HnbTDjj
+	 2hnEtJOHoKCt3xG+wOlz1tEgEP+S71ZmPvXiKmVqYzEKJDKkIyBohRzvyRNiTRb1ABQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=acnxV8t9;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ucYlb/Gi";
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D14606A331;
-	Sat,  7 Nov 2026 10:12:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67D14606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1AD606A33B
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:12:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE1AD606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=acnxV8t9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794046348; x=1825582348;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+0bzElMLRQVQdeuAy6k4sQcLdl/lR0vD4aQMswNIzmg=;
-  b=acnxV8t9A6pr2EtyClRwFU+9heG+e8P7ChrBIO1uM1CHMXlrq6IIrxbQ
-   A6OgOzYyq3H5Q6BDyli8xJgQs8mwMqaBr51ZkKZ08b29LvGFLOdN42wcA
-   O/MFwuqmxY17NLbssro5dJtEb9YtAPjMLEd1MW3IzvvH1KilRbnjvu6kg
-   cSLfIE+yj1RGlLJV6XGqGsgwpPEhU36WLWlZUzbYjEFdJJCPuq+cl7iTU
-   RHCskcGthL7RHWm3tlXQ10gZYnm2EYbmWlsZ093PMgLZuKBHJs51lOegA
-   zBxkF0NbpfnLvX1r8wOjbfHwLpG29zwMGP1mNHHYveuvfjnRCeNcwcjTZ
-   g==;
-X-CSE-ConnectionGUID: LJQmv9VERBWSG2fA6tlPlw==
-X-CSE-MsgGUID: HCQZpLSjQyiA1rrPFbr0TA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2892365"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2892365"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 02:12:27 -0800
-X-CSE-ConnectionGUID: 2rjWWHb6QYmHb4j4e90Wlw==
-X-CSE-MsgGUID: 5t5VTdhRQMuVE/6lieGArw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7498928"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 07 Nov 2026 02:12:24 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPdPK-00000000qhD-02IR;
-	Sat, 07 Nov 2026 10:12:22 +0000
-Date: Sat, 7 Nov 2026 18:11:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Sunil-kumar.Dommati@amd.com, vijendar.mukunda@amd.com,
-	Mario.Limonciello@amd.com, venkataprasad.potturu@amd.com,
-	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for
- ACP7.F
-Message-ID: <202611071819.8CnKog4h-lkp@intel.com>
-References: <20261106191627.1590542-2-syed.sabakareem@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ucYlb/Gi
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so10346715e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:12:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794046355; x=1794651155; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
+        b=ucYlb/GiDfxsWgg9M/Iz4Q+U/thZllsvDF7Z2ByNB3WxUi+ecuFDfrXCf9XpYZRCIO
+         gbBRiBGqxjSlT+fGQJZlOnszjgl229YjhCllryN5bm19UqZhLKqY1EmyogvbzhGA6xPI
+         85tT+rMqC2jPdYXMZJC/cs0PsrdyFHyQyCtVLpnDAtn1BmKGCUNrq+H9D4j4MF02M4ko
+         4tgh40wFRA9D4AdMQudpkuJF8e8QlEElefGu+Dg+Ov/Ar6df0JBcMvotWUN21ZxfJSAz
+         dYsCsOewknBbupnSrxrUD/nQAwgDDor9t29imyxnLqvil1kfUBNxFQVRDwIyHaRw+oXC
+         uoHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794046355; x=1794651155;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
+        b=mUpLMMskrcGaSywo5jS1mVJm/HT9BcP+33IbICzD9uaxmbcaqKGifVFiLczRGwKIJk
+         u1YQyEX28oSFEC93m4DRY9sktr+A5+PerB7p9P3gv3BTYeVGMaCiQBEc3b1y2dmXsLV5
+         SljNz5iy3A2Vqan55id7FUw8jcdhttYEz85VsDfpxmV/kaq9MQkRLjFxiScSFDLOuLK1
+         qvEBGc87ixPnDR57rnUPh5jsxLdLj5S6DaqxGecpqgDZdGwodZJOLHhL2Z4Yf5HXyZdP
+         WQxxgi/dss9lVY5q2calgK0X0lK9DReNPzAAHgMxz+/QUSJLoX+DwDsAJGzzs8xHwpeL
+         mB5g==
+X-Forwarded-Encrypted: i=1; AKwUvBytB2fCLA6qNzWjY5r2A39FRShwYItztn/n6mpj69EBL9BbnIqe2YBuYjSMc/PCx7s118EIPn9vyA6IGNE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QH6RX80NSI9GMGO/5hPkWPrvAF740+QVyXJKFGo/aJSlRpYlr
+	zuNGE1OSPG98OUxUX0wSgXKYomFDZdTZWT0D2Zjf/4qAwZIKWk8zCIu1
+X-Gm-Gg: AYBFou2rxlGtL5k1mKhczWP9axxiBQidMmAvHkYuXyQkC3nbZ2JzQfUT8yvVjUNPwFI
+	oQzcMjHX+7QdyguEx5MURez0/V/E1LsbXzD/24LwPJ8Or7iufccIWYLNAkrX6Na6LkGB4mu0vfh
+	rhDRoRB0i7/3wUI4Qo3XRdujxVbnnW46uYpWgTNY7HgIfG+sAmNXwO7F+ONNJ6+oKQ+CpEWxnIh
+	ifGCLwQyyyqT0zZa6VE2FTtDqYy5Je3YPlUY/5dXrKJ7U/S7amvxnud7cKp+m8ovsQmtJdklfoA
+	xIYzSJHWA0TY3Uwk6Y30Rgf7KT/cRtPW6Lun25v//ScfR8Md3MahJRHAg4jNVXIyE2hRVNCtooV
+	vYzKwJyCVyl5kNhkFr5U1uF4QtA4xpe9ojqhDrGW9kDPojBy1L8Y6vz4MrOY239qHnly8I/sWw/
+	CRxEvf9IlGsmpj7xl0BXT4cNDOvIhQcWNj/eQIqtyNgmPF/1jQwmUASGHlIvPDrD6fBbp6CG5eI
+	6GX8W/KdGPvp7s56f/eWq5z2HuXdd51DsdVQCkLrCNxSdk6RjFQJfeIGD+DZ0Q3emBE0QeWFZUz
+	mA1mt0RxLmmQho0uTuAFP5VtRdSueH8bgu+jCfKUR0645uq8Q6fdGrvHM6lhIFV8Ib7ARmcmrG+
+	jiMqJsgoFIaqazQ==
+X-Received: by 2002:a05:600c:4fc9:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4b6e007beefmr92278545e9.30.1794046354653;
+        Sat, 07 Nov 2026 02:12:34 -0800 (PST)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3283ec3sm51270025e9.12.2026.11.07.02.12.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 02:12:34 -0800 (PST)
+From: David Carlier <devnexen@gmail.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] tracing/eprobe: Install the trigger for every instance that enables the eprobe
+Date: Sat,  7 Nov 2026 10:12:32 +0000
+Message-ID: <20261107101233.151434-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,55 +98,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106191627.1590542-2-syed.sabakareem@amd.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Syed,
+The eprobe trigger lives in the instance of the enabling file, but it is
+only added when the eprobe is first enabled and only removed when the
+last file goes away. A second instance then records nothing, and the
+first instance's trigger is left behind once the eprobe is disabled
+there, so the eprobe can be deleted while that trigger still uses it.
 
-kernel test robot noticed the following build warnings:
+Add and remove the trigger for each file. The file is never NULL here,
+so warn if it is and drop the dead perf paths.
 
-[auto build test WARNING on broonie-sound/for-next]
-[cannot apply to linus/master v7.4-rc1 next-20261105]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+Cc: stable@vger.kernel.org
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261107-004611
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20261106191627.1590542-2-syed.sabakareem%40amd.com
-patch subject: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for ACP7.F
-config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20261107/202611071819.8CnKog4h-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611071819.8CnKog4h-lkp@intel.com/reproduce)
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+Changes in v2:
+- WARN and return -EINVAL on a NULL file, drop the dead !file paths (Masami)
+- v1: https://lore.kernel.org/linux-trace-kernel/20261031203915.491866-1-devnexen@gmail.com/
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611071819.8CnKog4h-lkp@intel.com/
+ kernel/trace/trace_eprobe.c | 56 ++++++++++++-------------------------
+ 1 file changed, 18 insertions(+), 38 deletions(-)
 
-All warnings (new ones prefixed by >>):
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index 998e6390937a..474be2f5ccd9 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -644,37 +644,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
+ {
+ 	struct trace_probe *tp;
+ 	struct trace_eprobe *ep;
+-	bool enabled;
+ 	int ret = 0;
+ 	int cnt = 0;
+ 
++	if (WARN_ON_ONCE(!file))
++		return -EINVAL;
++
+ 	tp = trace_probe_primary_from_call(call);
+ 	if (WARN_ON_ONCE(!tp))
+ 		return -ENODEV;
+-	enabled = trace_probe_is_enabled(tp);
+ 
+ 	/* This also changes "enabled" state */
+-	if (file) {
+-		ret = trace_probe_add_file(tp, file);
+-		if (ret)
+-			return ret;
+-	} else
+-		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
+-
+-	if (enabled)
+-		return 0;
++	ret = trace_probe_add_file(tp, file);
++	if (ret)
++		return ret;
+ 
++	/* The trigger lives in the instance of the file, add it for each file */
+ 	for_each_trace_eprobe_tp(ep, tp) {
+ 		ret = enable_eprobe(ep, file);
+ 		if (ret)
+ 			break;
+-		enabled = true;
+ 		cnt++;
+ 	}
+ 
+ 	if (ret) {
+ 		/* Failed to enable one of them. Roll back all */
+-		if (enabled) {
++		if (cnt) {
+ 			/*
+ 			 * It's a bug if one failed for something other than memory
+ 			 * not being available but another eprobe succeeded.
+@@ -687,10 +682,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
+ 					break;
+ 			}
+ 		}
+-		if (file)
+-			trace_probe_remove_file(tp, file);
+-		else
+-			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
++		trace_probe_remove_file(tp, file);
+ 	}
+ 
+ 	return ret;
+@@ -702,33 +694,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
+ 	struct trace_probe *tp;
+ 	struct trace_eprobe *ep;
+ 
++	if (WARN_ON_ONCE(!file))
++		return -EINVAL;
++
+ 	tp = trace_probe_primary_from_call(call);
+ 	if (WARN_ON_ONCE(!tp))
+ 		return -ENODEV;
+ 
+-	if (file) {
+-		if (!trace_probe_get_file_link(tp, file))
+-			return -ENOENT;
+-		if (!trace_probe_has_single_file(tp))
+-			goto out;
+-		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
+-	} else
+-		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
++	if (!trace_probe_get_file_link(tp, file))
++		return -ENOENT;
+ 
+-	if (!trace_probe_is_enabled(tp)) {
+-		for_each_trace_eprobe_tp(ep, tp)
+-			disable_eprobe(ep, file->tr);
+-	}
++	for_each_trace_eprobe_tp(ep, tp)
++		disable_eprobe(ep, file->tr);
+ 
+- out:
+-	if (file)
+-		/*
+-		 * Synchronization is done in below function. For perf event,
+-		 * file == NULL and perf_trace_event_unreg() calls
+-		 * tracepoint_synchronize_unregister() to ensure synchronize
+-		 * event. We don't need to care about it.
+-		 */
+-		trace_probe_remove_file(tp, file);
++	/* Synchronization is done in below function. */
++	trace_probe_remove_file(tp, file);
+ 
+ 	return 0;
+ }
+-- 
+2.55.0
 
->> sound/soc/amd/acp/amd-acp7x-acpi-match.c:394:43: warning: unused variable 'acp7x_cs35l63x4_l0u0246' [-Wunused-const-variable]
-     394 | static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
-         |                                           ^~~~~~~~~~~~~~~~~~~~~~~
-   1 warning generated.
-
-
-vim +/acp7x_cs35l63x4_l0u0246 +394 sound/soc/amd/acp/amd-acp7x-acpi-match.c
-
-   393	
- > 394	static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
-   395		{
-   396			.mask = BIT(0),
-   397			.num_adr = ARRAY_SIZE(cs35l63x4_l0u0246_adr),
-   398			.adr_d = cs35l63x4_l0u0246_adr,
-   399		},
-   400		{}
-   401	};
-   402	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
