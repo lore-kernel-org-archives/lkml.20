@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794019725;
-	b=rhLPbKSSCZfzmT6XUolw6YgBKpI1j9EnWGwlukIAc0WDtQhTx9VtrhUmCrl/qB4LOnYg
-	 YondDP5edGKsWHwmBbwvnXVxEZhRJ/937tg9K4JhD05BPYxS5guRH+ikTa85DoZxQ97Oa
-	 XvFf0jbbGO8W6vM/aGWngYtZRv8jyiBxOyBtkCQng1KBEnBerJN1vZH2fiia1xTE9wBtn
-	 j4EJ82ainqsnlUI7+ihah9UkCl6CKrmetn8WvbSr83eiEJzfCwhbj5TlNzdPKeIy1l26V
-	 0c2eV6tE0wYXgCQOXucjYVJsLSysO46TJDEaa4l8no6fokaLwwPESop2l+1Gw1aYdsA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794019725;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=fBwqy9R61SqvFjj6f4NiY/zITihotHz0FIoS201eK7I=;
-	b=EjV6y2YLJakpOgU9olb1yah4jsIwCrwKTQLnsWEGLW3HSM1UlDC+GTVhRE9ZGgF9Y5NU
-	 hRMvGr8LnOfg0cr1hpAHyV6nQmw0OL9Sd9ZKxdh3JSdAhf1wxigdxZRhtXmO0uWTVWVyR
-	 DJ11nfqDqIx4HevXxX2EsM8pBOT5ZWm45UxjZQQkCdn5YvjUsVGYjJy0hUodG2qrGfGdS
-	 FOEMofZ9FRSPl6S+Fc6hGNcY+PLYJRrqjfeKfqiKf1wvoI/w/yry2ruT7RZ3B6jXM+KB7
-	 7BwI9Ecf2lpbM0uTfi/o2b6UD+Fl4BkqVaq2u3AqdhtyYxhamzlqz8VXLz562wwSx+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hrTbHXNt;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B54C606A32E;
-	Sat,  7 Nov 2026 02:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B54C606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794019891;
+	b=otZHrWZN5JsmEP3Pt1itLc/kM3St8RNpfF+qS0fkd7ewp+371Zs04jpzzDzdyVnzM66E
+	 2RlAey1by4XJdjvOVR5GJrS/KcAWpbewCSdyfqXYS/pNL04x1Ihlhh7thhRV1o+hVEzG/
+	 fVSenoJA8GqI9esSx7ajKL4fOI5wMOP5DEL/GmB1+uDHT/i0r6tnn8fvBI00Df6FvWrf4
+	 smHLr8Kzu5xQ4DusaXjPJres6JL50/RWQslmOyCOumvU5BG86G6IQhGe9xafTJJ1sWmK0
+	 Uu7fD/8OKs0HWW685ekqCJsAA8XPXPGt2kWdw6vxj2MkWVa/aV5j7yU3gDOqURgIv9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794019891;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xV5tb8fmJXwJLXpv4sdYEGIbHi2LQtR9BW99TKy5YNE=;
+	b=Z85CG1cDz/eMNzXoCGsg/tLi+j3CXpoBwcXvSamOLsOlkGbmem3YFAndYNhHVTmGeOKs
+	 graVxsmAu0ZWU1BukKB7fKji75buy6i0FNMjgpOv2Rn+TG2JozC2yXKUfF0f2rP5vd7WS
+	 QbtvM7MO3DJINTttoAxnguPD4TR74K0qFcgXkZs3yL3tL3b5Hy9h4ZNZzXqc0ogpZXa7x
+	 SEre8dtAmCMxpZ11evt5ICy6qMWRj0wMzbUM4yL95wwKBNjqMlbjAgJZY+409kTvgnHt5
+	 v0W5813g6X69+HxbYzxum0ZOqvka4mwUBCAcJa8jU1euotbUGIy1n/DLX9IBsslCrqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2Ujtmx9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CA4606A32D;
+	Sat,  7 Nov 2026 02:51:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hrTbHXNt
-Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
-	by linux.microsoft.com (Postfix) with ESMTPSA id D322120B7168;
-	Fri,  6 Nov 2026 18:48:43 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D322120B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794019724;
-	bh=fBwqy9R61SqvFjj6f4NiY/zITihotHz0FIoS201eK7I=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hrTbHXNt9ndcF1CGr7damsN1KsIduTRZhj3fqmoi8zjdcLh678dPeENCZgnCjN/WX
-	 XmgOvhSKhnlPCHPetwiJ1bxgIj82cofwDfM5U8640LWsxTyDX6r231VZjiTXGwnsPW
-	 UPCE0RrEL0nl460CV8kOFmC0mX0LXIHhdiQrTfyo=
-From: Mukesh R <mrathor@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	mhkelley58@gmail.com
-Subject: [PATCH] mshv: Do pre-commit before mapping a guest VM GPA
-Date: Fri,  6 Nov 2026 18:48:42 -0800
-Message-ID: <20261107024842.3929415-1-mrathor@linux.microsoft.com>
-X-Mailer: git-send-email 2.51.2.vfs.0.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2Ujtmx9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794019890;
+	b=GpM2ufI602Y6YGLytBWGPqtGuGzBk1VpvAc4bZKgLYLEJ9DVOQXMHYPBEnkG67DoPNAG
+	 VGqzkEfdHS/S5rZhOhZtoBMWkqGurXaWUhpVwNjTeQy/PidQ1MesBVNF42NRuCkIkhxpw
+	 SfKxj+zMpUE3GNgWrMg78qDRq3+sPk6hZ8c11z2byZnhfisrNgs1tZ/6cmgWzKhopycmD
+	 ghJUJPoAqum1xrKsTQ49eUgPEuayDGwfoQPVPrEFPfx94LkcpxdC45GtS/1IXfOWkkjxB
+	 DzxTx63BljDG/ymdqgWoxWWPTUXJwadoNIx0c3JLKd1z3ioVmGVfNBo+hs4LoHW4/OA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794019890;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xV5tb8fmJXwJLXpv4sdYEGIbHi2LQtR9BW99TKy5YNE=;
+	b=ARtTHdnoAoof1XdTi6FsBturlhjZmeKtXLjx/64uYabPoQm7pnBCHa5uqoEpaUTpO+Bq
+	 kJvJKFQhkfQ8DSvLMxxhk05/RaDpyFn/IUqDvKhst+8OIn565LkxRNxAKCQK4y4XJF/gK
+	 1aQihjFZrkWU7Dk2qKZGuEfPmj1FFBO2Vqwq/WcWhZdhenhnsKhwK8NWTdUqQoTOpkubw
+	 6hKdBMgnhApm49TNTpjcmvo8ZYXssUnB6bv1EcSF9Xz76yG1JAsDmyupz+9GRdrh/9WSr
+	 plYkZxphj0I0oQRvt/Mw9rNK1BB24pwjVZRiynZNnkAMgP59/YGLyDgwctKu4ZuQTvA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 440171F008A3;
+	Sat,  7 Nov 2026 02:51:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794019890;
+	bh=xV5tb8fmJXwJLXpv4sdYEGIbHi2LQtR9BW99TKy5YNE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=E2Ujtmx9k2UbYKR4nf2EZw9VSXlJ6PUlb2nM4UpP71oXWmb8hT8HYked3s3yS3bBA
+	 cxk5Ia4v9WcsaIpOaWMzCYQa53ex6yyap3A2Q8b2QCe70AN00bMJR2+Ctny7H+ggaV
+	 Cq/mkqQ76umdpvG3K7GlB/zdWDLOmbnU4GHlIt9uFtEaS85cOvYs7tFDRcmfUavMnO
+	 XAeFKomYHXmwq02ENxfMas7m1Bo2KUXqhLdlSDoR8tfCWHdfh1V7uIeF8Ejhv0bZ9b
+	 c8tWX/xgX4Q4b3APjkzO4RsAujlFhPrrgYrb1TdSQVMNIingveELy1oKRtmAzc/UH7
+	 QcSCZ/I6BMeWQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AD07047A76;
+	Sat,  7 Nov 2026 02:51:29 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Sat, 07 Nov 2026 03:51:28 +0100
+Subject: [PATCH 2/2] ceph: do not hold a LAZYIO revoke for pages that CACHE
+ covers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,136 +83,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-ceph-lazyio-noread-v1-2-d04369c70ab7@clyso.com>
+References: <20261107-ceph-lazyio-noread-v1-0-d04369c70ab7@clyso.com>
+In-Reply-To: <20261107-ceph-lazyio-noread-v1-0-d04369c70ab7@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794019887; l=3142;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=Sl0LxPrKAtHetqfgc/TKI9v6Rg/tbvwlkGhYdSOWqMI=;
+ b=bw9rbPPEQieegybJkeMG7glGLYFOC+04SaXe7t3wbwxt9taaR+MY8dEqxARA5+e3xgsoHNoCr
+ XkOaBfSOTd+Dlrc3HslhIvrqneusNN5OM38S0kGQIG0didjCNYKc2YV
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
+Content-Transfer-Encoding: 7bit
 
-Pre commit reduces TLB flush overheads in the hypervisor. On systems
-with large number of CPUs, there is signficant advantage to doing
-this. Pre-commit allows the hypervisor to build all data structs needed
-in anticipation of the map gpa hypercall, thus reducing or eliminating
-deposit page returns from the map gpa hypercall, and as a result reducing
-TLB flushes. In some performance benchmarks, it made the maps of large
-ranges almost 30% faster.
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+ceph_adjust_caps_used_for_lazyio() reports LAZYIO as used in place of
+CACHE or BUFFER when that cap is not issued.  It does so even when the
+used set does not contain the cap at all: with BUFFER not issued, a
+file that only has clean pages cached (CACHE used and still issued)
+is reported as using LAZYIO too.
+
+When the MDS then revokes LAZYIO and leaves CACHE issued, e.g. from a
+writer that has closed the file, (revoking & used) stays non-zero.
+handle_cap_grant() checks the caps with CHECK_CAPS_NOINVAL and there
+are no dirty pages to write back, so nothing acks the revoke until the
+delayed cap check runs, up to caps_wanted_delay_max (60 s) later.  The
+MDS request that needed the revoke, such as a getattr from another
+client, waits that long.
+
+Only move a use to LAZYIO when it is in the used set and its cap is
+not issued.
+
+Reproducer, 5 lazyio mounts: 4 create ~174k files of 3901 bytes in
+one directory, a 5th lstats them all, then a 4th mount opens and
+writes 5000 files of the 1st one.  Mean of 4 runs (open+write: 2):
+
++--------------------------------+---------+---------+
+| metric                         |    base |   patch |
++--------------------------------+---------+---------+
+| unacked revokes after lstat    |    7355 |      10 |
+| lstat walk time (s)            |   27.69 |   25.19 |
+| open+write p50 (ms)            |    2.70 |    2.89 |
+| open+write p99 (ms)            |    3.26 |    3.53 |
+| open+write max (ms)            |  5325.8 |    51.9 |
+| open+write calls > 1 s         |       1 |       0 |
++--------------------------------+---------+---------+
+
+In a parallel walk that stats every file with 4 clients and 3 active
+MDS ranks, right after other lazy I/O clients wrote the files, the walk
+no longer stalls on such revokes: its worst time over the runs went
+from 90.2 s to 42.4 s, and its mean from 51.7 s to 41.5 s.
+
+Fixes: 488ffbdd99d8 ("ceph: add 'lazyio' mount option to kclient")
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
 ---
- drivers/hv/mshv_root_hv_call.c | 52 ++++++++++++++++++++++++++++++++++
- include/asm-generic/mshyperv.h |  3 ++
- include/hyperv/hvgdk_mini.h    |  1 +
- include/hyperv/hvhdk.h         |  7 +++++
- 4 files changed, 63 insertions(+)
+ fs/ceph/caps.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-index bf0f90515dad..5c44ba8f72b0 100644
---- a/drivers/hv/mshv_root_hv_call.c
-+++ b/drivers/hv/mshv_root_hv_call.c
-@@ -181,6 +181,54 @@ int hv_call_delete_partition(u64 partition_id)
- 	return hv_result_to_errno(status);
- }
- 
-+/*
-+ * Pre commit to reduce TLB flush overheads in the hypervisor. On systems with
-+ * large CPUs, there is signficant advantage to doing this. Pre-commit allows
-+ * the hypervisor to build all data structs needed in anticipation of the map
-+ * gpa hypercall, thus reducing or eliminating deposit page returns from the
-+ * map gpa hypercall, and as a result reducing TLB flushes.
-+ */
-+static int hv_pre_commit_gpa(u64 pt_id, u64 gfn, u64 num_pages)
-+{
-+	ulong irq_flags;
-+	struct hv_input_precommit_gpa_pages *input_page;
-+	int rc = 0;
-+	u64 status, done = 0;
-+
-+	while (done < num_pages) {
-+		u16 rep_count = min(num_pages - done, HV_REP_COUNT_MAX);
-+
-+		local_irq_save(irq_flags);
-+		input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
-+		memset(input_page, 0, sizeof(*input_page));
-+
-+		input_page->partition_id = pt_id;
-+		input_page->target_gpa_base = gfn;
-+
-+		status = hv_do_rep_hypercall(HVCALL_PRECOMMIT_GPA_PAGES,
-+					     rep_count, 0, input_page, NULL);
-+		local_irq_restore(irq_flags);
-+
-+		done += hv_repcomp(status);
-+		gfn += hv_repcomp(status);
-+
-+		if (hv_result_needs_memory(status)) {
-+			rc = hv_deposit_memory(pt_id, status);
-+			if (rc)
-+				break;
-+
-+		} else if (!hv_result_success(status)) {
-+			pr_err("%s: failed to pre commit for gfn %#llx done %llu/%llu, status=%#llx (%s)\n",
-+			       __func__, gfn, done, num_pages, status,
-+			       hv_result_to_string(hv_result(status)));
-+			rc = hv_result_to_errno(status);
-+			break;
-+		}
-+	}
-+
-+	return rc;
-+}
-+
- /* Ask the hypervisor to map guest ram pages or the guest mmio space */
- static int hv_do_map_gpa_hcall(u64 partition_id, u64 gfn, u64 page_struct_count,
- 			       u32 flags, struct page **pages, u64 mmio_spa)
-@@ -205,6 +253,10 @@ static int hv_do_map_gpa_hcall(u64 partition_id, u64 gfn, u64 page_struct_count,
- 		page_count >>= large_shift;
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index aca09351a094..5669e458f287 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -1112,11 +1112,18 @@ static inline int ceph_adjust_caps_used_for_lazyio(struct ceph_inode_info *ci,
+ 	 */
+ 	if ((issued & CEPH_CAP_FILE_LAZYIO) && !__ceph_all_opens_lazy(ci))
+ 		return used;
+-	if (!(issued & CEPH_CAP_FILE_CACHE)) {
++	/*
++	 * Only a use that the issued caps no longer cover moves to LAZYIO.
++	 * Clean pages under an issued CACHE are not using LAZYIO, so a
++	 * revoke of LAZYIO that leaves CACHE issued must not count them;
++	 * otherwise it is never acked from handle_cap_grant() and waits
++	 * for the delayed cap check.
++	 */
++	if ((used & CEPH_CAP_FILE_CACHE) && !(issued & CEPH_CAP_FILE_CACHE)) {
+ 		used &= ~CEPH_CAP_FILE_CACHE;
+ 		used |= CEPH_CAP_FILE_LAZYIO;
  	}
- 
-+	ret = hv_pre_commit_gpa(partition_id, gfn, page_struct_count);
-+	if (ret)
-+		return ret;
-+
- 	while (done < page_count) {
- 		ulong i, completed, remain = page_count - done;
- 		int rep_count = min(remain, HV_MAP_GPA_BATCH_SIZE);
-diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
-index 4c9f3353074a..a3d497d99b0b 100644
---- a/include/asm-generic/mshyperv.h
-+++ b/include/asm-generic/mshyperv.h
-@@ -28,6 +28,9 @@
- 
- #define VTPM_BASE_ADDRESS 0xfed40000
- 
-+#define HV_REP_COUNT_MAX        \
-+	(HV_HYPERCALL_REP_COMP_MASK >> HV_HYPERCALL_REP_COMP_OFFSET)
-+
- enum hv_partition_type {
- 	HV_PARTITION_TYPE_GUEST,
- 	HV_PARTITION_TYPE_ROOT,
-diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
-index 966945f0504f..16c41ee5079a 100644
---- a/include/hyperv/hvgdk_mini.h
-+++ b/include/hyperv/hvgdk_mini.h
-@@ -489,6 +489,7 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
- #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST	0x00b0
- #define HVCALL_CREATE_DEVICE_DOMAIN			0x00b1
- #define HVCALL_ATTACH_DEVICE_DOMAIN			0x00b2
-+#define HVCALL_PRECOMMIT_GPA_PAGES			0x00be
- #define HVCALL_SIGNAL_EVENT_DIRECT			0x00c0
- #define HVCALL_POST_MESSAGE_DIRECT			0x00c1
- #define HVCALL_DISPATCH_VP				0x00c2
-diff --git a/include/hyperv/hvhdk.h b/include/hyperv/hvhdk.h
-index 0c89c62c9706..3944e51d0a2d 100644
---- a/include/hyperv/hvhdk.h
-+++ b/include/hyperv/hvhdk.h
-@@ -953,4 +953,11 @@ struct hv_input_modify_sparse_spa_page_host_access {
- #define HV_MODIFY_SPA_PAGE_HOST_ACCESS_LARGE_PAGE      0x4
- #define HV_MODIFY_SPA_PAGE_HOST_ACCESS_HUGE_PAGE       0x8
- 
-+struct hv_input_precommit_gpa_pages {	/* HV_INPUT_PRECOMMIT_GPA_PAGES */
-+	u64 partition_id;
-+	u32 flags;
-+	u32 reserved;
-+	u64 target_gpa_base;
-+} __packed;
-+
- #endif /* _HV_HVHDK_H */
+-	if (!(issued & CEPH_CAP_FILE_BUFFER)) {
++	if ((used & CEPH_CAP_FILE_BUFFER) && !(issued & CEPH_CAP_FILE_BUFFER)) {
+ 		used &= ~CEPH_CAP_FILE_BUFFER;
+ 		used |= CEPH_CAP_FILE_LAZYIO;
+ 	}
+
 -- 
-2.51.2.vfs.0.1
+2.53.0
+
 
