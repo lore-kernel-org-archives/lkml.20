@@ -1,74 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082459;
-	b=qCLNd21uw3Uvmxz2iWBf6KL3EX9m6jAecLr0y705d8hDI3tvYqLXrxYAsWUcieqrfm7U
-	 y7PWkvRrJfhsPQurtdPEC9UYfxHBL8fk0DOCXFSPyfQvGdqN3KtL/0ANmb7M7hW/qaFen
-	 RaYn4iLLqKkXpMlvL9znJLxDHaNOihoKej9t7NWSFjmwEQC7qNTIQdKFwaUOk+OmsSOWP
-	 09ICHoF3wOkomVxEmIy9ze/RJlLOetpW9BrcIwGIbgci/bgh9w7uSnNpQm5lo6awH934M
-	 HTJEqMB9B1LPlcbbz3tO+SpJfOWduoPxL/vD117ptpc0NkuLmJWBnwyPNZOSXoIFclg==
+	t=1794082571;
+	b=f32/NUDhd92hkE1tSyrgGNTFaKay7irUW3GhxaaTMjQYwhnHedUIqlSKf9Zrgw7RDdRE
+	 nNZq/gGQaToKQhSymldNfttpK1TvbgnbBLj6+vTmd02AidWiNUwFy19qznNA6EggvNNSv
+	 XjtAsg9gY/cjfko3SRFLM7yd7uYsHwoMWrmCgdmNt6Gw6P5Nt0SbxvnMcjsLZ7auBrXLA
+	 zCcw+7dZffu56YSlLsR9SbSHSNxrUSfM7ViHjUu/LgaAG3vi+9PKBDB1uyT+t4vKJM5RH
+	 AwOnrkPc48oLzDSv0Z/nDEZKQxAN8/kFGHHdzftT88kCJJcEe7LIm3nRwyim7pwpC4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082459;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=LtFKBRAqbAaZtxAu1Nw6aaS7lLmmzcUOPw2XCvAi+f0=;
-	b=caKMdW3HShgrk6RXTmuWuomAmbrlYGUkua/JEdEOmr2nCXv0zsSzdLjHu1zjBQvfXYH5
-	 xwtqjMh/0DoV6pnlII6+unBakHCx0TVIbIQ7N+J0VnQm2SocvxHhRcNPjxENRkrSeK7rE
-	 pZpVOJkdoyEPQ7cmPqbrpVZpKwIK4v5xcudtf4TtgodUzolKVmRBpPTi+vTxBnpdGtfwJ
-	 8zDjAhA/Ud6U2EXozN3VpGGU90FHboxhMjjAxl70rIX+j8lRUskuatwiagfxoiYNuUaFs
-	 Pr/MEAJTHCiySU1AP74HDs+UmlJPikrMoHII32k79Lbs/HEACW2jEb7Yro266+P2JWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082571;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MRGtR/xM2hkitb9/TQ1LM0e/3K3eoc1ThDALVep6pH8=;
+	b=UQ5/gFo9A+yXThy9IH9nPmWTi/h3DswTfdWWLOXWy241q89CX4G6hq9e0uSfxMyG0xs1
+	 g034F/NLCakNNmHv10aJRk7n4cW1tAqDvs5kP0qwS7vL0jR/8tbgiug/L7R7DtmLhlklG
+	 DJcnYO6JRZlgyotoL/poKL4fx3yzdL1Mwg0309XneE9y9X5FyTuCsBTNRlD8oCzVwsGA0
+	 8mfQ8oSc39/i8k5TIUZmJ6ZR9k3Msj+DwA1WKrTe3vsStl8GlL2mmhyzjNbQ0bbDuKSR7
+	 QBqpunNHDxrHfc5nPrKA2Q4v3kW9rFcZ1XiNhet54kpy5zRh6xxCm3wuN3V0aj6X1eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=gmail.com;
-	spf=pass smtp.mailfrom=upstreamdata.ca;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MZVhQxWN;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B70560A262E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 20:14:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B70560A262E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=upstreamdata.ca
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-4ad5b52f0a7so7854fac.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 12:14:18 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B55B606A331
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 20:16:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B55B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MZVhQxWN
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so11105e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 12:16:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794082570; x=1794687370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MRGtR/xM2hkitb9/TQ1LM0e/3K3eoc1ThDALVep6pH8=;
+        b=MZVhQxWNfMYU5hB8FHNQ2thbUux2qMhFmANkktLXSu0oY+V4uh5CcMcXqT+dDlQ/ix
+         en5kHuRMLHLDnHmK1Y6M1Lc6Tli0+2hKtnNnmOEToXp8AWy3HbaUP8u3adql60MovtwK
+         oOIXtCDeYKxdnQ3au4PcWTtrV+FOpAm/pHTvSs4egqY+RqwRAxCiC09beKmeq4VpzBX+
+         zresHB3NeTfWKhhg4PSnRaq9E70uuY3l51ZjvqVJ5RGHaRPq9hrM29vznWVI4eRxpMPo
+         of9sq8+UBA4XsXdkY09BKnZn71uknKv9e7koMO8jbe2dc604VjdmtTce3h5aO3jEx+sW
+         g1bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794082457; x=1794687257;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LtFKBRAqbAaZtxAu1Nw6aaS7lLmmzcUOPw2XCvAi+f0=;
-        b=gVTowukfNrd6H0CUkwnztBDQanolgzwZbPFyEQJVEXJfWbJD9Wo2ig3bHoh9PCauJm
-         ojchZCJP95VrfJwaSawOpRdtRHzd8l4mRhjDUc7DMgdYI6v1Luc3A102EQGsy7zMDS25
-         7LuIo3vez9roi6Lp/N/IdquUxw89NkWN5Tgy8JfEBljgqkcAbxViA/RhjihapMLIYuFf
-         KKVkkTH52pzsZC6767HUnKoVjA28fNFEGZbdy3WhNdjENIlFvfun3sUimzuviwaI1GHV
-         Bj23tMZBBWxXgjPch/UlaQoBEjzMvWrvT2Fklz1jAHjME5XwRVYPh8gfQ/mSl/dNdP0y
-         tsKA==
-X-Forwarded-Encrypted: i=1; AL+hErFRx7kkv5UY2eYHMGDIFJnI/6H6QUGdFhWbWMuOh04+qs1HeDbVUFBcXHi3QXCaW9R1L5u79STETN/f5vI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mtIf64s4JNIQg9TyiI5h/MTKk36/cfvJiNb56uHFmEjc4TAkj
-	xur9CQp8FGKAjY4HVfBanbe4aBaw8/+AtQ8+07RqfPPQTv0QoUssG0MuJzMOsZcS9Oc=
-X-Gm-Gg: AYBFou17yPkFJAAoyNHAUIT4yiiODvyQZBOr9HzAc+5hUmL/2byoOlXJ4QXaPADRvBk
-	wIyIc/HtpaRAaHxlE7BfEH6ZNQayJyktFPAWnqhoVnQBlZVsFc9OOnxZ/8eZUurrzU/9DiY640/
-	VLULGvwuqp+gHlkpb3DHByz5qY0pgC/B4Yt57uCjOIh2jKvYBbrkAU3lFNi7pKSVWkdmucq1ip4
-	JBVQVtVaLx9xNpb7enujCvu4Eagnrg9qTc0xi5cV+dW7+5NDpPz0gjejGXbbnAVivA6XW7CM8cq
-	Uwz2/w9AEW4MaYSNz4Y+oHMIp+r6X4Sk9Ia8xeULTVj+zwkQTUz5+0ETKVjy93rjTiCP2TbFfXv
-	btrYk7mbj0aHcM0h//XiJpWNqXyYM91BCYfr9C62uHZRGpnJY2ukyq9yJOjK/+v/9QKtDABWYpj
-	osee4Btxcbp/pDxu26y/Eoe4WASik+O50f6SXJbJPb56aM/Yls9wQHs4qwl33+lLJNlKl+F7l8o
-	X13SKIEpSLbNv8VUgbeikHbeQwuG0OWxtNBjXRSiSqcZ6JGKMToMivELVIDFHW1Htb+KfOb5YmR
-	/mPozHORKDaU0izbr9dj4jaXzBtS7cwxeA7qQwZ3sO14tW0rAyRGKIWpVsXsMk0ZgxeY2DuUPiM
-	hULgMWg==
-X-Received: by 2002:a05:6871:438b:b0:4ad:73bd:91b3 with SMTP id 586e51a60fabf-4ad98aab859mr3931286fac.9.1794082457245;
-        Sat, 07 Nov 2026 12:14:17 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade68aa561sm226096fac.5.2026.11.07.12.14.14
+        d=1e100.net; s=20260707; t=1794082570; x=1794687370;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MRGtR/xM2hkitb9/TQ1LM0e/3K3eoc1ThDALVep6pH8=;
+        b=H6pSsWY+yu8UAbgvxm0z6T3YwcA8W+vTLItzz5V9SgHJdNNVFyevIgQME0bvA/zYmM
+         mbZ2kHKLs7WvOBfH0ZcW0uzZWNsBDot2RKOne94vHFo741fWO9RlsW4J1FYV5qjvN/i6
+         GV4ZsM8fjqvUrdNHcCp93xGiX6Na5Ua5Z8EAw9Yd9BknqDsPpa9rPLEuCWBXXgYyzU0E
+         1KD/GHcKdzFUXotueC5kzfS4lfYxtCM/Hq9B4fWTLb4uzNOfej+ArVwBzDupNct+QtH4
+         7ag55DFwjiaNuk4nOw3pE5rlnLP5v7h70pB9cnaa0W6EiLgDwHznYqcGCADk2ki6V6NT
+         sEaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqe69eNu2XRylX1P8srztEiVc8tFDNFHPGUMui/84XTiBxJ23OxA+ek+y0NKehzbeChLoN3vblB2qtlHI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Vay7A7inN4zCvi9VUvW/rLG6xprxYwqeKt01vccxEa8toFaEu
+	xqLimCaeYAAFkLKXeUm747waznKObznP5L4iMWet/EEc5fDRiGpVvGqY
+X-Gm-Gg: AYBFou3qMNBbU7M3jzg7KZse6JAVBVJKB+pwyfhBFZD7vqcNcC49b3AC2s9WQ5jfX43
+	LkewgZsOWHE2h67wjL2mvq+vLBZ8siq2/0XSxaznciGUgV27tCMqbyg+yh7SiMkt2MTyVv4Z6MU
+	iM45lK3MRmEOznTG62DGfiGpL/CN6R142maKk5bZztA2aSvB4kApiPNB6Yty0ZmiG1IeHW3h2SY
+	9NpDHqkdgvv4CtONLEjxJWf517k/F6mpocjXkowGRwSHCfRsk//pCQ7WvQYl+ilNf8eIhLvSAWj
+	nUsBQPFxO7SZmqcadiKkDeyWVryUNmWVeT7DT+RFwXlqPqs669wEpRd12ux7bIXmsA76J88ZbyC
+	85dPu2CfWEDVL5vIapKMpz7tmoPYcSeLvYt7vD78YmCUYwusBF8GgsUsnqRCyr16+3YT1HVCGjV
+	Sc5RYXjWsNb1w139Qq0XfNkNMwKfhcqIAT+FRtW/ZFnb6StXvU7MVldlB+WRT7M6JnoMcgNrhe9
+	uxhDci8pl5BqBfPLpQenTlYAvGouZdCRqkBWE/6MrFiKX2mfI5WHXFSOffxOuRbZkRv9sMT8775
+	kPPFfEJw4HmJEbqofTfdbad/t0PwFC6YlHuy90wVqD5kRpQ=
+X-Received: by 2002:a05:600c:138c:b0:4b6:5dac:b61e with SMTP id 5b1f17b1804b1-4b6df6df5d9mr103278195e9.32.1794082569692;
+        Sat, 07 Nov 2026 12:16:09 -0800 (PST)
+Received: from Amir-Yoga.tailec48ed.ts.net ([143.58.202.155])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad610sm230762005e9.3.2026.11.07.12.16.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 12:14:16 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sat, 07 Nov 2026 03:16:53 -0700
-Subject: [PATCH 56/58] mtd: rawnand: nandsim: retain chip state across
- removal
+        Sat, 07 Nov 2026 12:16:09 -0800 (PST)
+From: Amir Sabbaghi <asaba90@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Amir Sabbaghi <asaba90@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ACPI: EC: Add quirk for Lenovo Yoga S740-14IIL
+Date: Sat,  7 Nov 2026 20:15:53 +0000
+Message-ID: <20261107201553.9268-1-asaba90@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,161 +97,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-56-0181ef0cc4c8@gmail.com>
-References: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
-In-Reply-To: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
-  Brian Norris <computersforpeace@gmail.com>,
-  Boris Brezillon <bbrezillon@kernel.org>,
-  Arseniy Krasnov <AVKrasnov@sberdevices.ru>, Chen-Yu Tsai <wens@kernel.org>,
-  Jernej Skrabec <jernej.skrabec@gmail.com>,
-  Samuel Holland <samuel@sholland.org>, Thomas Gleixner <tglx@kernel.org>,
-  Vitaly Wool <vitalywool@gmail.com>, David Woodhouse <dwmw2@infradead.org>,
-  Russell King <rmk+kernel@arm.linux.org.uk>,
-  David Woodhouse <David.Woodhouse@intel.com>,
-  Mike Rapoport <rppt@kernel.org>,
-  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-  Alexandre Torgue <alexandre.torgue@foss.st.com>,
-  Christophe Kerello <christophe.kerello@st.com>,
-  Jason Roberts <jason.e.roberts@intel.com>,
-  Michal Simek <michal.simek@amd.com>,
-  Boris Brezillon <boris.brezillon@collabora.com>,
-  Mason Yang <masonccyang@mxic.com.tw>,
-  Ramuthevar Vadivel Murugan <vadivel.muruganx.ramuthevar@linux.intel.com>,
-  Stefan Agner <stefan@agner.ch>, Lucas Stach <dev@lynxeye.de>,
-  Thierry Reding <thierry.reding@kernel.org>,
-  Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>,
-  Matthias Brugger <matthias.bgg@gmail.com>,
-  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-  Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-  Heiko Stuebner <heiko@sntech.de>, Yifeng Zhao <yifeng.zhao@rock-chips.com>,
-  Nicolas Ferre <nicolas.ferre@microchip.com>,
-  Alexandre Belloni <alexandre.belloni@bootlin.com>,
-  Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-  Keguang Zhang <keguang.zhang@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
-  Shan-Chun Hung <schung@nuvoton.com>, Frank Li <Frank.Li@nxp.com>,
-  Sascha Hauer <s.hauer@pengutronix.de>,
-  Pengutronix Kernel Team <kernel@pengutronix.de>,
-  Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-  Liang Yang <liang.yang@amlogic.com>,
-  Neil Armstrong <neil.armstrong@linaro.org>,
-  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
-  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-  Manivannan Sadhasivam <mani@kernel.org>,
-  Kamal Dasu <kamal.dasu@broadcom.com>,  Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,  Vladimir Zapolskiy <vz@mleia.com>,
-  Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-  Paul Cercueil <paul@crapouillou.net>,
-  Harvey Hunt <harveyhuntnexus@gmail.com>,
-  Maxim Levitsky <maximlevitsky@gmail.com>, Michael Walle <michael@walle.cc>,
-  Srinivas Kandagatla <srini@kernel.org>
-Cc: Tze Yee Ng <tze.yee.ng@altera.com>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-mips@vger.kernel.org, imx@lists.linux.dev, 
- linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-MTD device references can outlive device unregistration even when no
-open file pins the simulator module. Disconnect before freeing the
-simulated media, and retain the chip metadata until the final MTD put.
-The lifetime core waits for remaining device references during module
-unload.
+On the Lenovo Yoga S740-14IIL (81RS, BIOS BYCN29WW), the ECDT
+advertises GPE 0x6E for the embedded controller, but the EC is
+actually wired to GPE 0x43, which is what the DSDT EC0 device's
+_GPE method returns. Since the ECDT and DSDT EC share the same
+command/data ports (0x66/0x62), acpi_ec_add() keeps the ECDT GPE,
+so no EC events are ever handled:
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+  ACPI: EC: GPE=0x6e
+
+  /sys/firmware/acpi/interrupts/gpe6E:  0  EN  enabled   unmasked
+  /sys/firmware/acpi/interrupts/gpe43:  0  EN STS invalid unmasked
+
+GPE 0x6E never fires, while GPE 0x43 is left enabled with its status
+bit set and no handler, so each SCI it raises is counted in sci_not
+(about 7/s, 1.4 million over 55 hours of uptime). As a result, EC
+query events are lost: the brightness hotkeys and several other Fn
+hotkeys produce no input events at all, and battery/AC notifications/
+laptop lid event are not delivered.
+
+Add the machine to ec_dmi_table so that the DSDT GPE is used.
+
+Tested by overriding the ECDT through the initrd with a copy whose
+GPE was changed from 0x6E to 0x43, and later by applying this patch
+and removing the override. With the fix the kernel reports
+"ACPI: EC: GPE=0x43", gpe43 receives events, sci_not stays at 0,
+and the brightness and other Fn hotkeys work.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Amir Sabbaghi <asaba90@gmail.com>
 ---
- drivers/mtd/nand/raw/nandsim.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+ drivers/acpi/ec.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/mtd/nand/raw/nandsim.c b/drivers/mtd/nand/raw/nandsim.c
-index fe968037f75a..39fefd83cd85 100644
---- a/drivers/mtd/nand/raw/nandsim.c
-+++ b/drivers/mtd/nand/raw/nandsim.c
-@@ -2253,6 +2253,11 @@ static const struct nand_controller_ops ns_controller_ops = {
- 	.exec_op = ns_exec_op,
- };
- 
-+static void ns_chip_release(struct nand_chip *chip)
-+{
-+	kfree(nand_get_controller_data(chip));
-+}
-+
- /*
-  * Module initialization function
-  */
-@@ -2262,6 +2267,7 @@ static int __init ns_init_module(void)
- 	struct nand_chip *chip;
- 	struct nandsim *ns;
- 	int ret;
-+	bool retained = false;
- 
- 	if (bus_width != 8 && bus_width != 16) {
- 		NS_ERR("wrong bus width (%d), use only 8 or 16\n", bus_width);
-@@ -2376,6 +2382,10 @@ static int __init ns_init_module(void)
- 	ret = ns_parse_badblocks(ns, nsmtd);
- 	if (ret)
- 		goto free_ns_object;
-+	ret = nand_set_release(chip, ns_chip_release);
-+	if (ret)
-+		goto free_ns_object;
-+	retained = true;
- 
- 	/* Register NAND partitions */
- 	ret = mtd_device_register(nsmtd, &ns->partitions[0], ns->nbparts);
-@@ -2391,11 +2401,16 @@ static int __init ns_init_module(void)
- unregister_mtd:
- 	WARN_ON(mtd_device_unregister(nsmtd));
- free_ns_object:
-+	if (retained)
-+		nand_disconnect(chip);
- 	ns_free(ns);
- free_ebw:
- 	kfree(erase_block_wear);
- cleanup_nand:
--	nand_cleanup(chip);
-+	if (retained)
-+		mtd_put_master(nsmtd);
-+	else
-+		nand_cleanup(chip);
- free_gp_list:
- 	list_for_each_safe(pos, n, &grave_pages) {
- 		list_del(pos);
-@@ -2412,7 +2427,8 @@ static int __init ns_init_module(void)
- 		kfree(list_entry(pos, struct weak_block, list));
- 	}
- free_ns_struct:
--	kfree(ns);
-+	if (!retained)
-+		kfree(ns);
- 
- 	return ret;
- }
-@@ -2430,9 +2446,9 @@ static void __exit ns_cleanup_module(void)
- 
- 	ns_debugfs_remove(ns);
- 	WARN_ON(mtd_device_unregister(nsmtd));
-+	nand_disconnect(chip);
- 	ns_free(ns);
- 	kfree(erase_block_wear);
--	nand_cleanup(chip);
- 
- 	list_for_each_safe(pos, n, &grave_pages) {
- 		list_del(pos);
-@@ -2449,7 +2465,7 @@ static void __exit ns_cleanup_module(void)
- 		kfree(list_entry(pos, struct weak_block, list));
- 	}
- 
--	kfree(ns);
-+	mtd_put_master(nsmtd);
- }
- 
- module_exit(ns_cleanup_module);
-
+diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
+index a89f10256..7c0643d5d 100644
+--- a/drivers/acpi/ec.c
++++ b/drivers/acpi/ec.c
+@@ -2007,6 +2007,16 @@ static const struct dmi_system_id ec_dmi_table[] __initconst = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "HP 250 G7 Notebook PC"),
+ 		},
+ 	},
++	{
++		/*
++		 * Lenovo Yoga S740-14IIL
++		 */
++		.callback = ec_honor_dsdt_gpe,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "Lenovo Yoga S740-14IIL"),
++		},
++	},
+ 	{
+ 		/*
+ 		 * Samsung hardware
 -- 
-2.53.0
+2.54.0
 
