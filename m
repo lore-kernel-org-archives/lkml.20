@@ -1,96 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794089960;
-	b=dqudJ+jtol9rfh3GLhoL8UFmlU9cn4f0IzGySmmeuvIqjExoZaPFYd2cNei3UP9Z/rAu
-	 BmK44A7kA1fIwlC55LaQ4T0nSxEsEnZiGQ0YM+3x7Z7peBsLnY/OADWvmLnjY/YgS3Wtd
-	 hRH8cv/vnaJgwH4eXJCNiT9w5ChdhhiyD6qvFKIwCgH7RX2qgw8dfLaxiFfH7MLXsigVA
-	 p9y8CPH187Z5iWlLUtNg2dsDwyMXd5u9rIykibuiF8/XnaIEMZjpk8qS3dad2m6Hmi6Ss
-	 OoNrdHdng4UoYaRPdl8DWNJjsrOK6yQWJFgLOXmZc+f2NpQoNjAmhlBEn04wbY9LEzA==
+	b=cbPOjiQ4nKNtRnaI3kvBNiAs2pQl6HXPS4K5Luf8zeIiDVaWYCumxF6AzlmFV6T9UjgM
+	 4ThT8IxBkbV67zsxFB3iBvhvkZJYjkgJKT3ZUPgSkSOOzRrBfXHlTCH/zKEGwaxzlWQH7
+	 DZcK97Z57SGLT5c9lsb3DJajJCVkPe0FMZAB/GIm7Ye9GwebAOgJVBTUVF3f577oCJ9sI
+	 SorkzXieRKiqT615JRz476SNNDWiSog4DDIXxd+AtMY9RVYw/Jlt1ZagARXJPcnztjccI
+	 xXXFnsk0d0gScXYgHTjwZUb2SOAMx7ofKShDu01bfZ7MGpuLwGup8DxsBYCWqK7peGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794089960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
-	b=kecW1RcRaEgc30IgF7PQmkvziVGX6oVZ8WlB8/Ig7FhtWfeWdDyZf1v5D1WnuD5s182m
-	 sunc7NNCMHDCualErIJAPqjPsRKsrdkKraxD3KgXZHZFZfQocx/9WV4gLcP7mfasV/q9Y
-	 aOIa3rrtMwLMTm7aKKohismybBPcFhXevLo8B4QtwWfvJmcXCzzAainM91pOZ9I59N362
-	 mKaPJtRQuLxtM8wWF07a5cPObmd3FFiGrtiwHhD037seOp+5KW6erK7XpcOCIFD9JPB1A
-	 CtZHNa1c0nnYuce92G3VnCzPIwFE9LxUET8SdhgWUn+GlTkgs5UoLNHU3HoDYc1Yllw==
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=IrWyd/NUIg/cuTdnip5OZoVktjwrysAxByBJrTRw/Vs=;
+	b=jMBXNYYa4Wtr/hlcA0QPapmxMei9C71xwDBh4IgsThT1SxUF1Y5NdM+CbqdLVEqgyki7
+	 ynw7N+sIc7Fy64oYp2Ug6LEJ9zi+eCmowMqO644arBxC9FJia/dClk/pfYnr0130scubE
+	 isAfcLiUGTGWUNJhn24/jL4831KxsTzRynDicPE31P23jQlZNAj2ks9vVtQBBtTOo1s4O
+	 hjuwZNzYUs7kvTumlPhmm2HYK4LzZLJyoZl0IsGscd0ChKWgqFE2bgJEANnv+WVc8Zgx8
+	 +voA3Yqk9wo5xH9r14paF8AHaKqmg4hdc3KCZQ7SHeSkS8FvJxD6sWYngoiYjBmTdVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qw/4HWuw";
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=a2RvPuSq;
+	arc=none smtp.remote-ip=216.40.44.13
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D5C606D80B
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 22:19:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D5C606D80B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E69606A333;
+	Sat,  7 Nov 2026 22:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0E69606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qw/4HWuw
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d28f75d62so5968366b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 14:19:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794089959; x=1794694759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
-        b=qw/4HWuwg2WHlPYs4w4+6HZZGNYix40p5q1PClBBb75bpM/OFOGzBZoBtqOshx/ehX
-         NrvU9SYGaIvI9rDZYrSndfWENYgxQVImvywQSbs9U+0qdXMJAagtY3+1ogqB1SYUnwK1
-         q68O6zAT3N7nP758LpE1my+WAz3CH4wYPxljvZH1GIj3qK2C8xDIXj6wuVP/eU2HqUUZ
-         n/iwOj1uv1HjTnqqITN+QTmhNS8SKD4HN08/jh3cAS5t9dDminiegVYf87rO5UNOGtJr
-         MQqBQtbVffwIxYC9clD4QZxZFBNZKafkal9iyTneJA614yiQItovEVvPh48ldZ7HavMS
-         5Jfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794089959; x=1794694759;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
-        b=MDbW861JVMdUizMP+5IKRaOB2CYMZHh3dYvV85rQKZ5hsE88LPQo4kLisT5wV+PB4m
-         +5KkvYgildp36bfw8bdv1vgwcuI53J2+K1jIlwgXRPc2TLU3Po7g3MiJ2ofVbbhkQdmh
-         Sb23Hcf+ccwv6W04+g5wE3ymXqa+9vgM8cLIiHglmg4NIOZaw4xkCX5Jx93r+u3IqAim
-         NowcskC9TO1uualFQwqGrqb+27mSCggi661T05YTKeDBpIdOxNgSDSbp4uAig/r0r4ao
-         T1NJhPkBKAt2Hjsz9+wZdj9jVS6FbOCq7V3MQVtBxqbx1iyxhCJIGmarW/loaWp30rF7
-         hvPA==
-X-Forwarded-Encrypted: i=1; AL+hErHWL4De7ZtHUYIVvUx3jG2Ay/oOJTZuSJsPzuXWF5axlca+vIjLDnwgJcOsuuZZM0Lrk20rvQxxbU6BXOg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kwoe6EbbAURb5FN9PB5ufp3C1Y2pEEIKZFhgVrCZecCX7dY1P
-	RO+JzJ/OkwUXyZubYC7NfRES9P6QEk5L5kGYMli+USCb8f2hpUs8T5s1
-X-Gm-Gg: AYBFou2DLlVo6uu5SPpID9lEtLheXE6ery77NzyiH6XjMYxbD1FZUmgqZDR0iYDe7q0
-	RCTXHDxNnfBHm13QX0BN7iA8vyHX7BAlcHjW9nX/9Ly/T9UFHuZuPSKIWujVhV0B0fRyLSE8SWP
-	knGKXLvIfbLFYffcvuQSvsL/XC+b6cJMdFnd35wiuHjLipEsUX49gRYkaPnR9JAh5//FQMmB8s2
-	HevqTANvg0eoxq9KoqyK+QkGAfkzf0eC3oAQQdENpGBVXdoveBxBR2ZviID9Nzb1GWkcUwEJpfM
-	09kn4HkMPmjkK+Q2vFswlnvy4BerQ2BNZ6C2bA9pQlxRiRfPyUWUVaUS/BBzH75bIT88XZW5E+S
-	R6E0BRMUNH6+Brv/ZmqYf46XGrX5Pi5w2ldFXY6i17og9O4t7q43yw84PNsW2ec7gImaimwJBpt
-	SN3DPDMbK7IV07kDyqbfpINZxdPUZotrFx8pFkdk8+0h5d1fYh+K31rnOWxz0xoQvh/Hcawjcop
-	L7YZorRAVQJZclp8ltmAsGfbWyIT5qSgQEufo+9XDpiLCEmYaX1a+gqJpIej8Hx9srwcsvlQVTd
-	iLihWg6uAlGVMFi9VoG4k+lSAWUk6sV/KIED/lr9X3xy6QdoEde9R6eJKGw=
-X-Received: by 2002:a17:907:6d16:b0:c49:a4b1:9cb1 with SMTP id a640c23a62f3a-c4d6d160ecdmr19605866b.3.1794089958683;
-        Sat, 07 Nov 2026 14:19:18 -0800 (PST)
-Received: from frame (h-155-4-132-44.NA.cust.bahnhof.se. [155.4.132.44])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a474e3dsm14108866b.42.2026.11.07.14.19.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 14:19:17 -0800 (PST)
-From: Elvira Khabirova <lineprinter0@gmail.com>
-To: Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?q?Hubert=20Wi=C5=9Bniewski?= <hubert.wisniewski.25632@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Elvira Khabirova <lineprinter0@gmail.com>
-Subject: [PATCH v4 1/2] usb: musb: gadget: count givebacks in busy
-Date: Sat,  7 Nov 2026 23:19:03 +0100
-Message-ID: <20261107221904.82487-2-lineprinter0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261107221904.82487-1-lineprinter0@gmail.com>
-References: <20261107221904.82487-1-lineprinter0@gmail.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=a2RvPuSq
+Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id A253040455;
+	Sat,  7 Nov 2026 22:19:15 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 11DB62000F;
+	Sat,  7 Nov 2026 22:18:55 +0000 (UTC)
+Date: Sat, 7 Nov 2026 17:18:41 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, tglx@kernel.org,
+ mingo@redhat.com, linux-kernel@vger.kernel.org, will@kernel.org,
+ boqun@kernel.org, longman@redhat.com, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, dvhart@infradead.org, dave@stgolabs.net,
+ andrealmeid@igalia.com, shuah@kernel.org, juri.lelli@redhat.com,
+ linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] locking/rtmutex: Stop spinning on the owner when
+ the waiter is woken
+Message-ID: <20261107171841.06d3ac92@fedora>
+In-Reply-To: <2a786b46-e935-4269-9bdc-edac43521a80@efficios.com>
+References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
+	<20261106235931.1478800-2-mathieu.desnoyers@efficios.com>
+	<20261107002927.3cbad7ff@fedora>
+	<20261107104329.GA2668564@noisy.programming.kicks-ass.net>
+	<c77635b1-9c24-459a-b75c-82cbfb67185f@efficios.com>
+	<20261107123642.149677cf@fedora>
+	<2a786b46-e935-4269-9bdc-edac43521a80@efficios.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,122 +71,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 11DB62000F
+X-Stat-Signature: f8dy9hjpsw4m8s5z1mbfync5f847dh4y
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18BEy50Y0R/CGiJv/72oFmfpd2bvmyyf0k=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=IrWyd/NUIg/cuTdnip5OZoVktjwrysAxByBJrTRw/Vs=; b=a2RvPuSqqUgHFxw/HeNHl/RXpo2HWnqn7eATNP1CpuCQEW5TvqcXQbBz5gtWuxZlSjQ2NAI9zuhc3zwxY6sUDHTXrxOpPLYduq83u+5Fr3SWRwJG5HexGVZgq26H/2jqB7z4r8uy+Y/wmtnRRwDJldogONAL/5jTnzAGjmBXmBg=
+X-HE-Tag: 1794089934-72919
+X-HE-Meta: U2FsdGVkX19zj3EcpEfWC0gfish/KiltpyP1399WG2W/6/JxmHM+cHe7dYWt2DCxNxJ0h1ksxTxANJxqJctYp5wxHzt8ftfMjwc7lcTMJY8xc2XOGR56D16ksSoxtoMbI04eB0ZGzKkPnHGfUoMdyx4a59DaM+YJ6+mSmVPQmP09KKdObZxxOQ69iCMovC1naJMFwPWQDIsHwA9hSuvXdGbbsbNZ4Xv5d/vSj9iErSlVHpUy4ez6Wbm1Uj8drO2cWq9YJ8zhUtCkKZGQ+eFALB89orzxDWzKBtyG2hLTldisQbGnytGWgDZoW1+GwCJ0Bjc0eIQ8+SGCw2536hTFFKAKj7jGZ1I8MlcoDMWfcXcL7iLWspj/aHoXW0KfMIrE
 
-The ep->busy flag is used by musb_g_giveback() to signal that
-req->complete() is running on an endpoint, the ep is busy and
-starting a new request is not appropriate right now.
+On Sat, 7 Nov 2026 14:34:12 -0500
+Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
 
-It is only a flag and not a counter currently;
-musb_g_giveback() saves the old ep->busy value, sets busy to 1,
-releases musb->lock, runs req->complete(), restores the old ep->busy.
-This works when there is no possibility of two musb_g_giveback()s
-running in parallel.
+> > 
+> > How about something like the above?  
+> It drops important information, such as the user visible impact of the
+> issue. How about this remix ?
+> 
+> locking/rtmutex: Stop spinning on the owner when the waiter is woken
+> 
+> The top waiter of an rt_mutex sets its sleep state. Then it spins in
+> rtmutex_spin_on_owner() as long as the owner is running. A wakeup sets
+> the waiter back to TASK_RUNNING. The spin loop does not check for this.
+> So a timeout or a signal is only handled when the owner blocks, or when
+> the waiter has to reschedule.
+> 
+> The spin is an optimization. A running owner will likely release the
+> lock soon, so the waiter spins instead of going to sleep. It comes
+> from the PREEMPT_RT adaptive spinning for rt_spin_locks. Only the
+> lock handoff wakes an rt_spin_lock waiter, so the spin did not need to
+> check for other wakeups there. The spin was then extended to all
+> rtmutex based locks. Their waiters can also be woken by a timeout, a
+> signal or a ww_mutex wound.
+> 
+> The owner of a PI futex is a user task. It can run for a long time.
+> With an owner spinning in userspace, a 1ms pthread_mutex_timedlock()
+> returned up to 1.4s late in testing. A signal to the waiter is delayed
+> too.
 
-This does not work when musb_gadget_dequeue()->...->musb_g_giveback()
-happens at the same time as musb_interrupt()->...->musb_g_giveback().
-The above save-then-restore can get the busy flag stuck at 1.
+The last sentence seems out of place. Perhaps be more specific?
 
-  CPU0 (interrupt)                CPU1 (usb_ep_dequeue())
-  giveback: saved 0, busy = 1
-  unlock, ->complete()
-                                  giveback: saved 1, busy = 1
-                                  unlock, ->complete()
-  lock, busy = 0
-                                  lock, busy = 1
+ The timeout signal or any signal to the waiter will not stop it
+ from spinning, and the signal will be delayed until it exits the spin.
 
-...and this gets the entire endpoint stuck.
+> 
+> With PREEMPT_RT, two contexts that take two ww_mutexes in opposite
+> order spin on each other. Only something else that needs one of the two
+> CPUs stops them. By default, the fair server does it after 950ms, to
+> run SCHED_OTHER tasks.
 
-This was reproduced and the patch was tested on a Pine A64+
-(Allwinner A64, four cores, no DMA) with PREEMPT_DYNAMIC and lockdep,
-using a specially constructed f_fs function that keeps two AIO requests
-queued on a bulk endpoint and cancels the newer one with io_cancel(),
-in a loop. Tested with both a bulk IN and a bulk OUT endpoint.
+Yeah, that is a big issue.
 
-If musb_g_giveback() were to be started from some other context,
-the same issue would come up.
+> 
+> Fix this by also stopping the spin when the waiter is TASK_RUNNING. The
+> slowpath then handles the wakeup, as it does after schedule().
 
-"Promote" ep->busy from a flag to a counter.
+The last sentence doesn't really make sense. I can figure it out
+because I know what the slowpath does, but as you see in my version, I
+go into a little more detail to why it's not an issue to break out of
+that spin on TASK_RUNNING.
 
-musb_gadget_enable() should not reset `busy` to 0 anymore because
-musb_g_giveback() decrements busy, and if these two run in parallel,
-it would be problematic (cause an underflow).
 
-Signed-off-by: Elvira Khabirova <lineprinter0@gmail.com>
----
- drivers/usb/musb/musb_gadget.c | 10 +++++-----
- drivers/usb/musb/musb_gadget.h |  2 +-
- 2 files changed, 6 insertions(+), 6 deletions(-)
+> PI mutex throughput is unchanged. The futex and ww_mutex selftests added
+> later in this series test both cases.
 
-diff --git a/drivers/usb/musb/musb_gadget.c b/drivers/usb/musb/musb_gadget.c
-index 016d3f3fc..b500e0d8b 100644
---- a/drivers/usb/musb/musb_gadget.c
-+++ b/drivers/usb/musb/musb_gadget.c
-@@ -129,7 +129,6 @@ __acquires(ep->musb->lock)
- {
- 	struct musb_request	*req;
- 	struct musb		*musb;
--	int			busy = ep->busy;
- 
- 	req = to_musb_request(request);
- 
-@@ -138,7 +137,7 @@ __acquires(ep->musb->lock)
- 		req->request.status = status;
- 	musb = req->musb;
- 
--	ep->busy = 1;
-+	ep->busy++;
- 	spin_unlock(&musb->lock);
- 
- 	if (!dma_mapping_error(&musb->g.dev, request->dma))
-@@ -147,7 +146,7 @@ __acquires(ep->musb->lock)
- 	trace_musb_req_gb(req);
- 	usb_gadget_giveback_request(&req->ep->end_point, &req->request);
- 	spin_lock(&musb->lock);
--	ep->busy = busy;
-+	ep->busy--;
- }
- 
- /* ----------------------------------------------------------------------- */
-@@ -162,7 +161,7 @@ static void nuke(struct musb_ep *ep, const int status)
- 	struct musb_request	*req = NULL;
- 	void __iomem *epio = ep->musb->endpoints[ep->current_epnum].regs;
- 
--	ep->busy = 1;
-+	ep->busy++;
- 
- 	if (is_dma_capable() && ep->dma) {
- 		struct dma_controller	*c = ep->musb->dma_controller;
-@@ -195,6 +194,8 @@ static void nuke(struct musb_ep *ep, const int status)
- 		req = list_first_entry(&ep->req_list, struct musb_request, list);
- 		musb_g_giveback(ep, &req->request, status);
- 	}
-+
-+	ep->busy--;
- }
- 
- /* ----------------------------------------------------------------------- */
-@@ -1061,7 +1062,6 @@ static int musb_gadget_enable(struct usb_ep *ep,
- 		musb_ep->dma = NULL;
- 
- 	musb_ep->desc = desc;
--	musb_ep->busy = 0;
- 	musb_ep->wedged = 0;
- 	status = 0;
- 
-diff --git a/drivers/usb/musb/musb_gadget.h b/drivers/usb/musb/musb_gadget.h
-index f49f25b3b..95bc746f7 100644
---- a/drivers/usb/musb/musb_gadget.h
-+++ b/drivers/usb/musb/musb_gadget.h
-@@ -90,7 +90,7 @@ struct musb_ep {
- 
- 	u8				wedged;
- 
--	/* true if lock must be dropped but req_list may not be advanced */
-+	/* number of givebacks in progress; req_list may not be advanced */
- 	u8				busy;
- 
- 	u8				hb_mult;
--- 
-2.53.0
+I think you can drop the above. I don't see it adding anything for the
+change log. That is more for cover letters.
 
+Thanks,
+
+-- Steve
