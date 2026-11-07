@@ -1,61 +1,157 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064402;
-	b=yhw2S/GsRlVv88YcTIh0lifQDjq8NIcvrpRsENnzVh6nj6h0CaZF0Od9z2/XYJznCtRo
-	 7U34pNhq4RH9EuqJ3r7l5hcvoBFiGU2dUCrFJoV9ylxGh+Mg5lJK7AOuEYJRfDSsigFmO
-	 LXsS3WgSda93t6dHDkBzx7AImTTlffpb9IxcX+P2A5S4/Yow+yM248ssq0Nga0F0GuDNc
-	 oxzyq7EDEJlevEiG4osVEZaLo/VyoHAMjXlL+rVPjCaf4TngeliV8JcmBLq8volFeH6Z3
-	 j5KXfSAvcPzPfK9lGIvzwmgf+311XSYq26Zu4PYteJO5JTPjpo6k7V4ARppOvCISw1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064402;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HZ1sMAQnsO4h3gBSc4cW8ZYQQAs8UR5LsG1+6TNnwlA=;
-	b=NygC/JXhCkt7QDfoNsC0fMI77TIR4ZnoU9kig5uNptW4zowO+/N2yx4E1ChvXBzDVvl9
-	 VJQnIM1yqr26TY4YLGl0QDWyu8PYuXJoMkHyrsfnuEZVN9BrNKTXwXjZGblrrOjBXLrVo
-	 uvt46+OqM3QvcQY+NSvY0cbdhp/W1wlXxgkiXfFLhWxiKeHi6MoW+iNRPMUEeVEfZMHKa
-	 v0uXCp81aepSuGZXS3LoJJKE1X3noBrV2fEaC2OdfikiTqIvLZarP9I76mNhP+ghoyPsp
-	 yJn9BgQX+w5/9FiZEoIICdLwcU+tZUYr2LrBsbTSpHgSzGlx5DtX5xRCBTk4dEPbgWA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=CCev84UW;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="3GwP0/b5";
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794064407;
+	b=SVZqAjgOzgher0gOwsIHbY7iLEQYyRAWoQ6J4CEA7C0reItdH/rOdliU7SYdIxGgvelQ
+	 CFqhgAgZ5kLHRumlEQ+hOqsYYzr3Bo2Ff5miXVGOkvYb/s7iXmAZ7BenJtnv3V45OxShI
+	 7hWfVSLTQYQ8VoWBFSgKI18Tn2bQXYz/O59g87R6azLnzBuCcW/MGconlcDwlJNhRDmlS
+	 ehf7ko4HFbHmdkUSzeD6eLNyQMP5PJdPDNdE17vVFHuUZPy71bbC0cE+7LvKIiHq7EMwp
+	 qmi6LNvbYkKj3/xn+E9hYrS1w26TAW/aziMcehGEX5FajrmGaH+WRwno3nuiTAGZZ/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064407;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cfImJqHL+dzKHx/Mltts3JcvtV8m8GeGHYFDzuh95ik=;
+	b=G5nkTdsatJQ24rEH0ai+tQpfD3bFGTZ6+lwQ8W39FshN3maeEsjgnVNLa9E2657Z6LrL
+	 pLEU3wt7hb0mN4ytCpnsicA2y5aGnbXvgshDNc5/N+jUJMxSYJy453ag3PrcNeVqc5lfW
+	 nhTBnGOYb8h0uXFczxDZj7XkswkW/O+4AxM7et8RFz5tvuRbfm06h36EMb2BXw+cSaYAD
+	 aZQ64Gm2eg97jd6gOGERZ8DPraADEn+gaHIpws9m65t2kmiP/I0HBXUZPrKO13tBG17vB
+	 /357Lo5WJeAYtqCTW/YAHZDfv7Tq/kdZeexRaWUK0XqXfaM0b4Qav7QMgc/qgC/Cczw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hydroquebec.com;
+	spf=pass smtp.mailfrom=hydroquebec.com;
+	dkim=pass header.d=hydroquebec.com header.i=@hydroquebec.com header.a=rsa-sha256 header.s=selector2 header.b=BzWMl3II;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.2
+Received: from YT5PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11011002.outbound.protection.outlook.com [40.107.192.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22626606A32E;
-	Sat,  7 Nov 2026 15:13:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22626606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C8B606E8DE;
+	Sat,  7 Nov 2026 15:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C8B606E8DE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hydroquebec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hydroquebec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=CCev84UW;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=3GwP0/b5
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1794064381; bh=HZ1sMAQnsO4h3gBSc4cW8ZY
-	QQAs8UR5LsG1+6TNnwlA=; b=CCev84UWEfGOmDguj3iDCzCmS4qau+ML2pxDkNbLrXO5yo0NgY
-	QP3jk26CeSpHhqCsxefay0n8TiEGbKcNQxLxFM49nlOwSObYMdP/C+Lj4kMz+M9sEYnFX+d9Xyr
-	QXnGz9o9M1aTYYOIK2lQ8EcQgtXH+YagrPZswxU8nPhBt7/H8tIMvthBdRNslNVa/a7mlhnGmTh
-	FJZkYXgsJYrs4oZh6gkEa5m0uvLPFCxOtPnvFI6BVeRdzVXBh6BCqwK6T5bKsDx3spr8Qp/EnqT
-	5GrCyYeuCJ2zeJjOXl4MruAkP8HXAmMyh3+QVsIlaua35Ks2UtIi0xa61SisasG/Naw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1794064381; bh=HZ1sMAQnsO4h3gBSc4cW8ZY
-	QQAs8UR5LsG1+6TNnwlA=; b=3GwP0/b5tEc2fd0NA9oftAwP+pXheq/gGlusunvcJRmZL7gipz
-	t8EgzqA03mqw+HA3QX5P4g9rb3H22w/tjLDA==;
-Date: Sat, 07 Nov 2026 15:13:01 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: zakbrightonknight@gmail.com
-CC: a.fatoum@pengutronix.de, akpm@linux-foundation.org, daniel.lezcano@kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, lukasz.luba@arm.com,
- mazziesaccount@gmail.com, rafael@kernel.org, rui.zhang@intel.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_reboot=3A_fail_run=5Fcmd=28=29_before_?=
- =?US-ASCII?Q?init_so_hw_protection_can_force_the_action?=
-In-Reply-To: <20261107143129.875202-1-zakbrightonknight@gmail.com>
-Message-ID: <C7A70189-8D7F-4E6D-BB97-FD9284C2E437@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=hydroquebec.com header.i=@hydroquebec.com header.a=rsa-sha256 header.s=selector2 header.b=BzWMl3II
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FZ4EWPPmT6Vo+JZnU9529iVnVyDHvLjRtN1pLfRPpwAlQCZ8ijT0Pvk9Ca6x7OZ8xSTxuMjKTghVVN4n1kuqmpnW0rnozJI03r7Vv/13/dbR3rrefpy0WYPFvszyMYn1JdQLzqUG5mntZ7WryH4mUYQoCNjaFISzg9NuCUdJlfaEqHlNhPobmoFKl1uB5bRRP2D5j/kBb99H1sGsQ2kTc6VAoWGWWS8gOBWHYq+f1ep6mU1cEYxP37c+MG8C1HKnln29Me/TKEay3lyP5Q2lNd7IV4cVxRcfnrb4e7yE6qwK+F4kP45YWKw+NckDMEWbremtWTeZW7ao55x5acd8dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cfImJqHL+dzKHx/Mltts3JcvtV8m8GeGHYFDzuh95ik=;
+ b=ZkMR5Vkow966ouE+yA8bU15qLsGeB7RGkc+13sX8KoAY3EiPn8XacYSAy4diEZr8senu/xsG6S1hiO7xkd0erkM2ykaC63Qow3Yw+9tBXWlqq96timhUjvdAI7cIJ6KkKkeFq4AWFFydQtyQf+T1Rb3WypQ+LFb9Ea5BSZXrRMOFVFF+1PMy/voz1Ki4hBw8mZlQFkz88OKhwDpNRwHsK8KoTrZYLXMF3UYQMSF3WFLw9S8GHULizdldfmI6/b4tJAoH6C3NxRgYKBG1YcaVdQiPLxPiBKPczjFo8kuHubSjDSmiKEajx0GLnd+mLn9GQysnUtH4sZMEU/1MBGPLoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=hydroquebec.com; dmarc=pass action=none
+ header.from=hydroquebec.com; dkim=pass header.d=hydroquebec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hydroquebec.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cfImJqHL+dzKHx/Mltts3JcvtV8m8GeGHYFDzuh95ik=;
+ b=BzWMl3IIpZeJ3TLCORKfFLfp/jx8dzzxRYFLmV6Akc3ycNy0NPfg/z0Hgu6khP5fb3+uNjFoEqKDWCy7HDOPHFbVZs4KZ/Zu/RvnobwJNgWV0s5z3aVpSrXA29JIQMjv5b5mJ/ZwOA/ZM/ZE1+WeljitX6zAI6VhnuKlwXXQQDeWcMOKRjCDFDs1ASwReik6zhojp6+puzgdr3EhUgZFDuas6FcDUOFxyVSx71ZuJ4EALsFQv4KmzDLShduvtZCBU8+9nSo/7V1bUZCVFnC2nzu1RwBLVIEeMpB3lYgQ0pEmSVwcQ7tWh2wPqwwJNcGR8C8QzD+2s8vWt4dvYt2vvA==
+Received: from YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:18d::8) by YT8PR01MB553497.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:10::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 15:13:20 +0000
+Received: from YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::aae3:5d66:3923:ae40]) by YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::aae3:5d66:3923:ae40%6]) with mapi id 15.21.0592.010; Sat, 7 Nov 2026
+ 15:13:19 +0000
+From: =?iso-8859-1?Q?Choini=E8re=2C_Vincent?=
+	<choiniere.vincent@hydroquebec.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "anthony.l.nguyen@intel.com" <anthony.l.nguyen@intel.com>,
+	"przemyslaw.kitszel@intel.com" <przemyslaw.kitszel@intel.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"aleksandr.loktionov@intel.com" <aleksandr.loktionov@intel.com>,
+	"michal.kubiak@intel.com" <michal.kubiak@intel.com>,
+	"wojciech.drewek@intel.com" <wojciech.drewek@intel.com>,
+	"mateusz.polchlopek@intel.com" <mateusz.polchlopek@intel.com>,
+	"pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v2] ice: fix Tx hang dump using stale tx_buf[0].skb
+Thread-Topic: [PATCH net v2] ice: fix Tx hang dump using stale tx_buf[0].skb
+Thread-Index: AQHdZU4ihKdjzNAMJk2Vt0Tl0Q7xS7cT0jmAgA73rbw=
+Date: Sat, 7 Nov 2026 15:13:19 +0000
+Message-ID:
+ <YT4PR01MB64729023ADDEA05B9BDF7F064BE3752@YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM>
+References: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
+ <179324143967.3134.13716472134019576369@kernel.org>
+In-Reply-To: <179324143967.3134.13716472134019576369@kernel.org>
+Accept-Language: fr-CA, en-US
+Content-Language: fr-CA
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Enabled=True;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_SiteId=f40a10f0-50ee-4880-9a37-6e1dd4ac2ff3;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_SetDate=2026-11-07T15:12:53.896Z;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Name=Diffusion
+ restreinte;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_ContentBits=1;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Method=Standard;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=hydroquebec.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: YT4PR01MB647290:EE_|YT8PR01MB553497:EE_
+x-ms-office365-filtering-correlation-id: a9ed6718-bd71-4db0-963c-08df3ce1a83b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|38070700021|261026140227099003|11063799006|4143699003|261022075727099003|261009223027099003|56012099006|261022105027099003|261021121427099003|261102123227099003|261026121527099003|261028144727099003|18002099003|22082099003|6133799003|10067099003|3023799007;
+x-microsoft-antispam-message-info:
+ p+/iB3/5+iuaUSz4Q14Aqj3e8yPM1zadF/Y4J0/xDsDckKMKJ3yp+7g4OH6eS+5xeFGDgp8spn5/vQrcutcO7gNKLBGuR4E6f+/N9oplyIYHUlypV3H4kbGaug5wt/XmYEkowYa7itkRV0NkDBQzQSPFlHRW1oCxhQ/bQg9ZgvgAunEtf2w7nWmDZ2DxsX4AQD0Y2c2ah/I/EViy2UTuWEuIFG1gTiiaHvhycn1FJpzGb6NjpsQy2pJ7plyJfzwyIb6DwcG/9TP66NcVfzLo8xcDF5VKH8ksqyM20Bj8MGwh8M5Aqh+E3KuSBqZqXxGnQjHf26P957UVPA9bSPlFQa4congL/QMsN1vI6ct78kkmRI89l4Kl0PMeNrVbJPaArE2cdDYNGqGmlGTNaFHbz63PkPj/Tua2r+jtY+ziDAfOg820Bj/ohigv/lvRhT8NB9JqQtZ7wNMtUJHwbYoVIYuUbj6/ufmOnHgnfJQvaFRdQy6aGhA603LrXiGVUOlpUejGvRz6wpgLzw4RgciuTKZNnk15mdJTWfyGLmYC4SsDtkuTSLcBWegYPVnC8DorHWoaKZf9ZsjuxFVkcG6hVUIyxrKIbQ0i1bEfGpACv+hqV2/9OqipjCtY93RCi7NTqRqJmNghp2yaqogxIIQL8Wmf+2g/QKlRjzySSN9Gxfw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(38070700021)(261026140227099003)(11063799006)(4143699003)(261022075727099003)(261009223027099003)(56012099006)(261022105027099003)(261021121427099003)(261102123227099003)(261026121527099003)(261028144727099003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?tYy6vgNdsv1TtQS4BHnn/SVfvmHEBB4M6igir/bSsQSGmjBuMhfTg/uVjE?=
+ =?iso-8859-1?Q?aAYKcNANFIqMAB3+3PlFcXFquSLsw+6qj7u+vBJxkkeGs112cTMteNoOGQ?=
+ =?iso-8859-1?Q?caZMhd/a4k7iBSpXaLffysa8hxOExhLBmTrWIhuuje1T2EFT2hd0Q80tWi?=
+ =?iso-8859-1?Q?81VIank8WRMqExgwnzly3VveN05QI+xpwYBKHG7eT4oVBF9SXuPMTmIEX7?=
+ =?iso-8859-1?Q?9/M4OJXS9CXdVSGuRD2hRaXbIXycFM19u/HgEci5n2NtVqkZz8iI4EO+zt?=
+ =?iso-8859-1?Q?jthl1lM3ePmUnshwMJjYidbDtATAV2H40MlV4B70wmp/CiTHRLxDQENkdJ?=
+ =?iso-8859-1?Q?mreZJsgh/gIvY2XBCBMyixIb68ljNuTNv1tWI2HPMC3Y0e+y+akSrr3L8N?=
+ =?iso-8859-1?Q?aScsNMNLR0u3CEenGpDHqMxd5USiOYll0sjl9toD/NnyDvjXvPH6Q8fk/k?=
+ =?iso-8859-1?Q?stdS+IWwgffiUqsWzbJlQcNOKtH1MyX1LUvoiHBaV1eU19/Zi9RL66FLLs?=
+ =?iso-8859-1?Q?OJmQZHR8DzBlwGopytM5kKDOqnf2elmVpoQ7vH3YYjMQoF0bSGnYgaVNN0?=
+ =?iso-8859-1?Q?7QAxEDF3clyJNFUEJtejyA0c05BcTjyPPX8TVYCx5EBkkHxb68jJPecYUs?=
+ =?iso-8859-1?Q?QLBlaXLZl0S3aUZ3xDkzVNC3sB2HJmuvbhmUdj9gtUArpSLpg30XYy3qF8?=
+ =?iso-8859-1?Q?3CHJYfxhHO6dDO5s7BC4uwXt3IIwELs32w28bZnbcP9EGV+ZCw5oW2200s?=
+ =?iso-8859-1?Q?uH1I7JshBLZL96QgwgGQq3bWGLQq7PFMj0syn8MP+Z2vl0jrvpQsJKfB6m?=
+ =?iso-8859-1?Q?JmXrXiAkRSTSN1THF93tHmDNM5zgIRadDX1KW8746U2hslluy1BQaz5viH?=
+ =?iso-8859-1?Q?aIo8V/pJTpJsB2aZNhZOQw3XscfCnd4JB0WcE4qAbYe69Ppjb+8Y0OCB7x?=
+ =?iso-8859-1?Q?nQf9y4DpE1w2ZiIpj8dGwSM4dYoU38CgIi5gTQkjWprMnGfDcWZe1Fmh5k?=
+ =?iso-8859-1?Q?EnQc8XQXCQlMrdHWAz7BaZFHZxZvC0HG+74RRn38uTHx/3POY+fsTtnyZx?=
+ =?iso-8859-1?Q?JnyMnFYWK6vpqnuy+tj4v8L/rYPEEhs3L9yM3/uvP7u2ewNZMoLeMOsE3l?=
+ =?iso-8859-1?Q?L7l8vmn+rQ6EGxNdQ906KyRkbMskAye2Vp6ZIzOTfRGirgSdz+L1buhw5h?=
+ =?iso-8859-1?Q?xPO3eIMDonfVZzCghaqC9LinAmPR7Zex/N6oQkYn65w8xNzt3PuCFecySu?=
+ =?iso-8859-1?Q?wHIMP6aoNDNAfJ+Hb7GQfF4GBZoDaY/VYPI7RpkWtK/K1d2TltpDzc/gOf?=
+ =?iso-8859-1?Q?wNuHv+IwlitkdB8drVYRXSfmtSzdiPM0h8PiMeJ/uQMF72B99J86CEH8cU?=
+ =?iso-8859-1?Q?0C1gFEw3j/rtL3FUwVHoxeH22B0UFOU99S9cav05CzZtWuXt4D6kvfwRa4?=
+ =?iso-8859-1?Q?Ma74GxNUH+VwO0SuJXEJWOztbF0qDSPdiZca0tDeX73ulI4v5IUd93Gq5S?=
+ =?iso-8859-1?Q?Z56Wf+yRNZbUq36R4IXsckQlpzM1y/gKJsHRw+O5YNtD/KM6IFtIUR9a4B?=
+ =?iso-8859-1?Q?fB8Ts6EYjFAFu1RkzbssIdn7PM7T0OQYe9L6j9aLSxJkTyOBXfUTLYejz+?=
+ =?iso-8859-1?Q?O82QZ+veRvEK0UO7MCfh/8e0uyScDjpmYa0SOnlQm+oBHwnO8yK4fPQu5l?=
+ =?iso-8859-1?Q?xTQFn88V3H/8TvWaQhlEzFKxysSPq4MFiE4VgjCoFtFkKVMFa4BWA6wOOh?=
+ =?iso-8859-1?Q?vKu3a3cOquHkwA6pbh611EUR3kJyCQOLQgD4D/poi0KDlShi/tIJOt2tYq?=
+ =?iso-8859-1?Q?CqI2dqPCeDXoA1HBUOSQrxeqj+y5hQY=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,117 +161,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: hydroquebec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9ed6718-bd71-4db0-963c-08df3ce1a83b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2026 15:13:19.7453
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f40a10f0-50ee-4880-9a37-6e1dd4ac2ff3
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: czT16vcoaVE9peCabd/uma6astxbbVyPy+eOOSunTxYSJMFaN2B4+zHDveC5HF3Ycx8C3jDS6miqNoff83TMmO2zlXCBMOx5VKMpxX8Hy4GstxtX8Av1SPJG+lWXedUS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT8PR01MB553497
 
-On 7 November 2026 14:31:29 GMT, Zak Brighton Knight
-<zakbrightonknight@gmail.com> wrote:
->__hw_protection_trigger() asks userspace to power off through
->orderly_poweroff(). It only forces the power-off when running
->poweroff_cmd fails. run_cmd() waits for the exec only (UMH_WAIT_EXEC)
->so a successful exec counts as a started shutdown.
->
->Before init has started that exec can succeed and do nothing. Usermode
->helpers are enabled at rootfs_initcall and wait for the initramfs to
->be unpacked. So a built-in driver that triggers during device
->initcalls runs the initramfs copy of /sbin/poweroff. On a
->dracut/systemd initramfs that is systemctl. It finds /proc not mounted
->and decides it is in a chroot. It logs "Running in chroot, ignoring
->request." and exits 0. Nobody sees the message because a usermode
->helper starts with no stdout or stderr. The default
->CONFIG_THERMAL_EMERGENCY_POWEROFF_DELAY_MS=0 arms no backup timer. The
->one-shot latch in __hw_protection_trigger() then makes the kernel
->ignore every later request. The machine runs without its critical
->temperature protection until the next boot.
->
->I hit this on a ThinkPad T520 running Fedora's 7.2.15 kernel, booted
->while still hot from a long memtest run. The ACPI zone read 101 C
->against a 100 C _CRT 0.29 s into boot. The kernel logged "HARDWARE
->PROTECTION shutdown (Temperature too high)" and the machine kept
->running for 90 minutes.
->
->It reproduces in QEMU with Fedora's 7.2.13 kernel and with current
->tip. The test uses an SSDT thermal zone whose _TMP is above its _CRT
->and an initramfs with Fedora's systemctl as /sbin/poweroff.
->hw_protection=reboot fails the same way. Setting
->sysctl.kernel.poweroff_cmd on the command line does not help either
->because do_sysctl_args() runs after the initcalls.
->
->Make run_cmd() fail with -EBUSY until system_state reaches
->SYSTEM_RUNNING. Both callers then take the fallback they already have.
->__orderly_poweroff(true) syncs and powers off. __orderly_reboot()
->syncs and restarts.
->
->Firmware that reports a bogus critical temperature only during early
->boot used to get away with it. Such a machine will now power off at
->boot, as it already does when the same reading comes after init has
->started.
->
->A short window remains between SYSTEM_RUNNING and init being ready to
->handle the request. A non-zero CONFIG_THERMAL_EMERGENCY_POWEROFF_DELAY_MS
->still covers that.
->
->An AI coding assistant (Claude by Anthropic) helped find the cause,
->build the reproducer and draft this patch.
->
->Fixes: 10a0a8d4e3f6 ("Add common orderly_poweroff()")
->Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
->---
->I haven't tested this on the T520 itself, only in QEMU (x86_64
->defconfig with ACPI_THERMAL=y). Without the patch the guest keeps
->running after the trip. With it the guest powers off within a
->millisecond and logs "Failed to start orderly shutdown: forcing the
->issue". With hw_protection=reboot it restarts instead. A trip after
->init still runs /sbin/poweroff as before.
->
->The reproducer is an SSDT thermal zone whose _TMP is above its _CRT,
->passed to QEMU with -acpitable, and an initramfs with Fedora's
->systemctl as /sbin/poweroff. I can send it if that helps.
->
->Commit ef1d87e06ab4 ("thermal: core: Add a back up thermal shutdown
->mechanism") noted in 2017 that /sbin/poweroff can return success during
->boot without doing anything. It added
->CONFIG_THERMAL_EMERGENCY_POWEROFF_DELAY_MS, which defaults to 0. This
->patch covers the early boot case whatever that option is set to.
->
-> kernel/reboot.c | 12 ++++++++++++
-> 1 file changed, 12 insertions(+)
->
->diff --git a/kernel/reboot.c b/kernel/reboot.c
->index 9a84401adde5..14c2bbbc5a3e 100644
->--- a/kernel/reboot.c
->+++ b/kernel/reboot.c
->@@ -858,6 +858,18 @@ static int run_cmd(const char *cmd)
-> 		NULL
-> 	};
-> 	int ret;
->+
->+	/*
->+	 * Until init has started, no userspace can carry out an orderly
->+	 * poweroff or reboot. Running the command can still succeed: an
->+	 * initramfs usually has /sbin/poweroff, and it does nothing when
->+	 * there is no init to talk to. As we only wait for the exec, that
->+	 * would look like success and the caller would never force the
->+	 * action. Fail instead.
->+	 */
-
-Way way too long! I'm sure we can simplify this.
-
->+	if (system_state < SYSTEM_RUNNING)
->+		return -EBUSY;
-
-This is as easy as it can get!
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
->+
-> 	argv = argv_split(GFP_KERNEL, cmd, NULL);
-> 	if (argv) {
-> 		ret = call_usermodehelper(argv[0], argv, envp, UMH_WAIT_EXEC);
->
->base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
->
-
---- Thanks!
+Thanks for the review. I posted v3 here:=0A=
+=0A=
+https://lore.kernel.org/netdev/20261107-ice-tx-hang-dump-v3-1-8f22109d1aad@=
+hydroquebec.com/=0A=
+=0A=
+I checked the sequences against current net.=0A=
+=0A=
+[High] VSI and ring lifetime in ice_remove():=0A=
+=0A=
+You are right that the kernel-doc claim was too strong. In ice_remove(),=0A=
+ice_unload() drops RTNL, ice_deinit() sets ICE_SERVICE_DIS and frees the=0A=
+VSIs, and the service task is only cancelled later in ice_deinit_dev().=0A=
+ice_service_task() also runs the Tx hang report before it looks at=0A=
+ICE_SERVICE_DIS, so the rings are not only replaced or freed under RTNL=0A=
+or from the service task.=0A=
+=0A=
+The underlying lifetime issue predates this patch: before it, the service=
+=0A=
+task dereferences the same saved ring with no protection at all. v3=0A=
+removes the incorrect claim about RTNL protection and documents the=0A=
+remaining limitations in the kernel-doc (ethtool -G/-L and the reset paths=
+=0A=
+are covered; driver removal and devlink reload are not).=0A=
+=0A=
+[High, pre-existing] reporter freed in ice_remove():=0A=
+=0A=
+Correct. ice_health_deinit() destroys the reporter without clearing=0A=
+pf->health_reporters.tx_hang, and the service task can still reach it.=0A=
+Same cause as above: the service task is stopped after the teardown.=0A=
+=0A=
+[High, pre-existing] DRIVER_REINIT reload vs. the service task:=0A=
+=0A=
+I read the same sequence: ice_devlink_reinit_down() reaches=0A=
+ice_deinit_dev() and cancel_work_sync() on the service task with the=0A=
+devlink instance lock held, while devlink_health_report() takes that lock=
+=0A=
+when auto_dump is set. That is a lock-ordering problem rather than a=0A=
+teardown-ordering one, so this patch does not address it. I have not=0A=
+reproduced it, and dropping RTNL before reporting does not change it.=0A=
+=0A=
+[Low] tx_hang_buf:=0A=
+=0A=
+Yes, listed under Limitations and left out of this patch.=0A=
+=0A=
+Przemek, Tony: I think these pre-existing teardown and lock-ordering=0A=
+issues would be better addressed separately from this fix. I am willing=0A=
+to investigate and test follow-up fixes (I can force Tx timeouts on an=0A=
+E810 with KASAN and lockdep), but I am not an ice expert. Please let me=0A=
+know whether you would like me to prepare a separate series, and I would=0A=
+appreciate guidance on the preferred approach.=0A=
