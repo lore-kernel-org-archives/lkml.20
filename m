@@ -1,54 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794087438;
-	b=fgSWPi5dGTrCJIKMa+s/RucHF9N4WjU+hD3rwf3hNwbOirb19OlsH6ndyBhNrE/bFp48
-	 YKV95oXw0JcIxKqqgvvFhN5AovHm/+51C2AL641uk8kWD5bL/7CU83LAAzprj6s3Zpjw1
-	 gC7/tEA+manDK3LS59O5GTA2Yp7PlagP3bviPvan2BmQ3pICrahdVWAttI375FjCupXjf
-	 GUYwkWlO9Zj0Stxcph8VU07iXW8ggkDaZJedMxaxztmLzwK0CQmp3dp4nXzQ0rBmfYIlR
-	 y/oSRrFxXX0Rq0QHhpt8WLbBiZyl00u8DnJr4wNHxKWVf5u6mfAHMtMZiPEGs8rlG1Q==
+	t=1794087785;
+	b=rb6+YoRUABptogp+HVrFoRQrHZMRd0Cp99svuyfeQSg21PoWM/iquq0SKrEknox/O1o2
+	 2kUL+vDGMFrJfeim166Zn1vfQELg74TMJf3DXjSRWFQn1uxLv/XP0haxA1DgXz0OpA9zM
+	 VW9C025f9aR65E20PSgeFbFkd/pT9ii5yNKdbEhggpxF9/Yhd01hfcz9W4+VzycgXeCPL
+	 rCDRuVPNltbVfDQLCRvfgrWC2ojutXOsUdnpxvuUMWMRtZE2jym/7ckyf/xpAcufyos6f
+	 VDgMKSxsb6XHN4WYFUupz12ACJM2owKuCoGEhCfINXKEVwmFSRuT2yuf3tB4oSRlesg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794087438;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RZICYlEwCNSQrTvDVmUOLS6u4KZIZYM8/Ot1Wf7WUvc=;
-	b=3767NWhavo4qY9TYBgKw22KomZSfn7EsJ3U2lwX6e1CobAJWJxPyll3AQFaszDzxqsyg
-	 VDmMDG9qg66tJ3hNoU04IS5wdDxWH8H2MzWBLJoocdyrfCNWa/zv4/yQ2UifkNJBZo9+Q
-	 7GKWyPNby8gbDCAxUHqHpCxUsWBviP+MbbBU4wCwa7TenrTYbeSSqRKULwGLiVCYI/18p
-	 8eSIodEcp1jY8TlyLlC5L64582QrcvBdgpDhWFuPqsOmt1eDVxhLxUNirV4YBk0M4QsGj
-	 aWJR9tG/zqEqCkcWU/mL7v4slLDBKXgOHtnSvIed8uCLHoIWCoFr7LTH7m7vBiqeXRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794087785;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=HqKs1SSZSd3+2hMpiQXFT+x5XP6mxJr0A3zNLl/PAts=;
+	b=CNDG/Gx33vAPfyocCVMJmKNpRFxZEAAtEOYslJ1EGhXblj+JypVNSB07eCfU+Q5+OXLv
+	 LxHdxYJjTuzAGMLAC7yzCT+7K+SUi3WT2HmJvoJFp7acxyHCGdr/zfB50FBDRcBiOR1Nl
+	 QwtgSJikh6oDE2WuYhph+OhZ+6B47yu30ALdIKKMTsqDzFI3P3oItUgqP1lWLsxYHom6V
+	 hxs1b6Fn+8ySJ4DD6Jj4HYmaeBeUl9tX/pfHzE766SQOLeW9MhNIYnJJuWfQcOxEOziO3
+	 524cChYMbBtLjWWtof/Cbe+tAtT2ZdfKnizYrPgvOokJABRHi+8KQlWOMJo3pSuG/tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzSZd4xq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=joshtriplett.org;
+	spf=pass smtp.mailfrom=joshtriplett.org;
+	dkim=pass header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=jDrjkT4u;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hJKDbvan;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BD8606A326;
-	Sat,  7 Nov 2026 21:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2139F606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 21:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2139F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzSZd4xq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62311F0089F;
-	Sat,  7 Nov 2026 21:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794087438;
-	bh=RZICYlEwCNSQrTvDVmUOLS6u4KZIZYM8/Ot1Wf7WUvc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gzSZd4xqZKO7PvkKljWyy95ermHBQf9W4ylW0o8zV4fyMnS3nr1/g46MmRYgIg7Gy
-	 7X1k//hkzfdGie5glazqrbad2VfQwRq5oE/B9FJphlYz2h7zP2bI4mbis6z6zuUQp/
-	 rZD3wvL/H5Uyr7o8mZhHj7e7UmnY1DcqI9DihdGasDtTp4pVPzp4IAFzhSZ7woNQrj
-	 r9OAWDOJKhoZcMlD1mHFAVKyh/+ktvgy2n6wjTL/WdbRzgNWRHzHa61R2TO28XVeby
-	 RK/ho6cJfitCUoYPiWetjNwaeqViA/UZT+irbosL1QgFnWGgZbgLfpAjKbUXZA5d1t
-	 edyD0+mDl9d7g==
-Date: Sat, 7 Nov 2026 13:37:16 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Emanuele Rocca <emanuele.rocca@arm.com>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] lib/crc: arm64: use .arch_extension to enable CRC and
- crypto
-Message-ID: <20261107213716.GC137269@quark>
-References: <20261105154145.557042-1-emanuele.rocca@arm.com>
- <68e24de8-0c94-473b-b2a1-47b9b79eb974@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=jDrjkT4u;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hJKDbvan
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4A72B1D000FA
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:42:59 -0500 (EST)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-07.internal (MEProxy); Sat, 07 Nov 2026 16:42:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	joshtriplett.org; h=cc:cc:content-transfer-encoding:content-type
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=fm3; t=1794087778; x=1794174178; bh=HqKs1SSZSd3+2hMpiQXFT
+	+x5XP6mxJr0A3zNLl/PAts=; b=jDrjkT4utQWYKntWt2KgIohwwxlcqR3BjhBs/
+	UKjlruSi9PeBRLJPYgcHjDNAe2a45JUCeUyWEexCexEyIjQ2puBAnToxYOFBDuo1
+	Dua9NLS3V44iMmak/zBzQX8g4LKREHttoVmxdqkKeXL1y1wH3EG7KRYoTg82peUg
+	kSRp6uSLV55mMaQmb7aM45Y4VzpwWncg6yrLpbQLQxzB2nclDQKOroXfD+TqddyK
+	VweZ/Qmud3po0FBfo1q1bck+TWxZkgpOx+JaHB0uxLUTi4Ax/ZW95aXWmpWi2EwI
+	+36t5ezBMi2kAxNcidCg6GICA5Lv3Rjh47oEtc32QElwV55LQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794087778; x=
+	1794174178; bh=HqKs1SSZSd3+2hMpiQXFT+x5XP6mxJr0A3zNLl/PAts=; b=h
+	JKDbvanWffKYGtyaQojSwTrV2z2XYA2Bh8VfF003/NN7ZToLPkIm7m+2KyP+dUlF
+	k3Jey/WhwjTbwfhnru5atq1tFrYqC9eD5CRJMXs2AcrZXWktrJx11AjqLj473biD
+	vZADWk8VIxcml/9D4NrtpKnkeaLb0OqBkkuGYOGa7YF/w7LM5KmuZfOtuBMcixAJ
+	qOA7t95UYtMqPq6cNmiKkVn1DXhdeaj0C5SJZsPZ6ZPl5WZvAh+fXDOXRa0qCp8M
+	Pc39Ace9+L2MLOm6tCGvSkzH9Z31zgUPw4wfB+nf2RKkb0yFmQ5KHF3DgB01Jp5i
+	XDmWABTbEGKorDEOJCq+A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=joshtriplett.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794087778; d=joshtriplett.org;
+	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:R+aenBXVPUNWas/5714SZs7PD0Ewk3CI9RICHjPCbUK53VQ
+	GTq3PYuLIe0su2lKzw2CuZ1slJOi+RO6BzZNHIu5tcR3KpgMfkXfeK5MrhOL6xNT
+	7X84jB+oAI+W6r4Flbgvd6X8lnLyQrue5fb/LyzZ3XF6hy4mbhFiwzqbgL4kIJIM
+	7yMRE6rTiA5nYHmXi1MJpsh8bqlVoCuTYzHSN8TEzvIQdRDKZinBB7F7jqB7W62a
+	R705437GMw0pq3wUhnuE/on0ALfpakB1uzbYXAEpefD2vOBWSVSmXNysoAvlvfIN
+	8vHhWnwWQcRWeaACMzz8yhbm9HlkGjWqmq3Cs7Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:DunYAvvsDGv/A97USTdOeFN41nxpFm2/+naGRwtLkU4=:HqKs1SSZSd3+2hMpiQXFT+x5XP6mxJr0A3zNLl/PAts=;
+X-ME-Sender: <xms:YZvvat8JVdw5qReldeyBV9K41_hPBg1nmjeaS0pK4lQkkWCMJXXjmA>
+    <xme:YZvvashhNo46PfP4Q_-7GnrMX5QUkO-MVczcmR9_HJI4AIs5yRxKWsRcbW3Krc1yA
+    7Oi_TucQ2_ghv_vxEk2eJNTw1JwuFFvAiVxrkHPLfLBVa3wLAUHJC2w>
+X-ME-Proxy-Cause: dmFkZTEUiwQnPAPK9l92X72Lrxlii9us9e09+lP7lKya6ebS5yq52+FIqTG2oANDNcbxuQ
+    f5CkI0fvWuUx+zXAgzXq+Gl4V6fSB9i2EuhY23bAkvkotD26qF750NvCCeDXVE/BgzZh9S
+    gpeh7e5idxtTWkvWVXn1gyIZU0ScWsy9RrELF6bCKG1Rn8I0ATDr+KQEX5akLJqKa6Gxpz
+    KP9Hf4SGnTEn3PyRMDXs8XEYNXt1+SObxvSTY3vDYTCUhqTYNrQhTto+pkkDSBf6gEH2/1
+    XFoiVnbFyzMycznWk4pmxa3LDlqstYr+gTDzKwN1xVkpjUECyzE8VMrroOKtqO5R2YR9F1
+    jYiSn5wZFGrlbqzzPIvA/rYi7FRVLWkVGbYoEbVBTxWBXVk7EGOoS8jGv912GqrNXy0ior
+    WASNXgY1CRrtLfzzwnFf801BW7NXqIGK9EUkQZLCVDVJnEc+d4d5f9jV4QCymLVIWfsorV
+    K4UgLdhOIbI2AG6k3YcL7DWl5PIyEYtYilsAgIdROQtYWJpL6eeaRKd9TqbS3Gym9jjGu9
+    622Eku/FIdURSjvGMZveWGAcpdvpzERfj/AzOBn5KyXH0D01sOwcviQKZ6dIZHXcJg4D7E
+    4L9VpeOTTmFaWnCgqyVnxhmfDxG9E1Vx17aUzG2yso+WedjHUC6NZBh5Cb5A
+X-ME-Proxy: <xmx:YZvvatLIswgWx9xeuHMWNGlsOVLjUFJHgQRQcyOCwRoPSr5fpbSu4A>
+    <xmx:YZvvavKkk1FmOWwQ4AvnniyW3o2SSBIcnpqfTeZNTcPjCFVJ8-9G4A>
+    <xmx:YZvvaggQ5-BEr1YS4WB-zhCGbYbEV_6DiIfYr7EoHU-e2a1BryOmbA>
+    <xmx:YZvvahMUm9S7QGHD-IlfNgMWDYltESpIfaR4n5FXAHheKfGM9ymx3A>
+    <xmx:Ypvvavzw7BmlIzLKpQ1fEAwgfO-h_oZfs1V3obuLR-_TcgY0MpX4bQAK>
+Feedback-ID: i83e94755:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 2E07118E006C; Sat,  7 Nov 2026 16:42:57 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,46 +115,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <68e24de8-0c94-473b-b2a1-47b9b79eb974@app.fastmail.com>
+Date: Sat, 07 Nov 2026 13:42:36 -0800
+From: "Josh Triplett" <josh@joshtriplett.org>
+To: "Rong Zhang" <i@rong.moe>
+Cc: "Mark Pearson" <mpearson-lenovo@squebb.ca>,
+ "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+Message-Id: <b2ca4d95-7b66-4a8a-8e47-84ab0e052bd1@app.fastmail.com>
+In-Reply-To: <5219f8fbd637a3b2603ffcca3e6cd624db982aba.camel@rong.moe>
+References: 
+ <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
+ <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
+ <au5nUp4extfupCpS@localhost>
+ <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
+ <au-O9sHQNnHxla_e@localhost>
+ <5219f8fbd637a3b2603ffcca3e6cd624db982aba.camel@rong.moe>
+Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 06, 2026 at 09:57:01AM +0100, Ard Biesheuvel wrote:
-> Hello Emanuele,
-> 
-> On Thu, 5 Nov 2026, at 16:41, Emanuele Rocca wrote:
-> > Instead of using ".cpu generic+crc+crypto", use ".arch_extension crc" and
-> > ".arch_extension crypto" to enable the required instructions.
-> >
-> > The ".cpu generic+crc+crypto" directive replaces the assembler's current
-> > feature set with generic+crc+crypto, dropping any other features that were
-> > previously enabled, for example by -march or by a toolchain configured with
-> > --with-arch=armv9-a. In contrast, ".arch_extension" enables the requested
-> > extensions while preserving the current feature set.
-> >
-> > This is not a functional change: crc32-core.S only uses base A64
-> > instructions plus CRC32 and PMULL, which remain available, and BTI landing
-> > pads are emitted as HINT instructions. However, using .arch_extension
-> > avoids the pitfall of silently disabling features. See commit 9142c2f8f84b
-> > ("octeontx2: use arch_extension to enable LSE").
-> >
-> 
-> I don't mind the patch, but I will point out that issues such as these can
-> never occur in .S sources. The emitted instructions are always the same, and
-> the only reason we need the .arch is so that the assembler permits the use
-> of the special ones.
-> 
-> Commit 9142c2f8f84b is different because it uses .arch in inline asm, where
-> it switches the assembler into a different mode behind the back of the
-> compiler, leading it to reject instructions generated by the compiler.
-> 
+Rong Zhang wrote:
+> On Sat, 2026-11-07 at 12:49 -0800, Josh Triplett wrote:
+>> If that is the primary concern, would you accept a DMI-identity-based
+>> allowlist?
+>
+> I don't think you need this if we take the module parameter approach.
+> Usually we don't want to introduce a infinitely-growing DMI quirk table
+> for some niche use cases.
 
-Thanks.  Emanuele, could you maybe note that in the commit message?
+The module parameter approach seems fine, as long as it doesn't taint the
+kernel to use.
 
-Also, this patch is not complete even for lib/crc/arm64/, since
-lib/crc/arm64/crc-t10dif-core.S still uses "armv8-a+crypto".  If we're
-bothering with this, I would suggest just taking care of both
-crc32-core.S and crc-t10dif-core.S in one patch.  (The crypto files I
-mentioned before should be a different patch.)
+> Meanwhile, I can't totally trust your LLM's conclusion.
 
-- Eric
+Extremely valid.
+
+> The ACPI part may
+> be correct as understanding decompiled ASL code is not hard for an LLM,
+> while reverse-engineering EC firmware is completely on another dimension.
+
+As it turns out, the EC firmware appeared to be unencrypted ARM Thumb code,
+and LLMs are pretty good at disassembling these days, too. But still, full
+support for "can't totally trust". The ideal solution would be if someone
+from Lenovo could confirm the conclusion.
