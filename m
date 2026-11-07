@@ -1,63 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794095632;
-	b=jLrl5ncFk4qng/SRXWqiGj2dACHXQdCkz47keR7SxOSclEBNxeeSJVz1oPBMytrcF5f1
-	 57F6ZwVS4UX5q2qLL2ksLWOqdRKKshis/dHseE5yLiAS/EfCgODZEeJvHMNZdcAbAdX63
-	 FlNIPRkRP7iTcirbNyx//qULRuAQ9fdUTOL9dz8jJwaGEI7gKLCnFkIsag5hHPNzr9g8R
-	 MZU4IUNFh6kzYiDxmzv/1ko8nVebumVukB4DoAGSO36f7vLCxzwjpIl1WMeipRPLzdAff
-	 6NYyIW5GFetiroSBODCPMsI97QbWQi4DS/2MUub5H9yUvFZVXhofWJfBliXVnXMEtag==
+	t=1794095957;
+	b=5WM26MtfzlRSYDu9g0W42ARNr1JPw3Y7Ckq32kfmAx+veypUsCssPi1AzINdXQeR/3sL
+	 tFtyFWlwuO+904qEI83Hil8fli5SarQoyeWq/nM2xVKyVIzN1GnKI9MxYhLX2TMYKCqW2
+	 nNMEfMFQ2H+JQf7Ex+2cEwKOMKIfAMSBhgx3f73HWC4pezSvI167pEBuFMHyCstNvwQMZ
+	 +tBHikorX9MkssfK4G+0OSW+oGWmsanyca3C7cOuUEhEp5BTBKW+ZXgnb99ALyEhshSL5
+	 x94GI9CWSSXm7y/e0qwvKW81ugCNg6Yk08C5uK8i5j9ALykZkOj6HRU0YB0DAKhXzNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794095632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794095957;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WFbhXnonUMB4MsMDpFD9tXyRvsBkUMaSQV0XLq68nDk=;
-	b=pDFA+IPdcXpkMFhVkB8an2NNOShicmFxu5I3+5QfbJYf2/VFfAFZ3BYSBN9W0AFp52N7
-	 qdDB9J3Hae1cINJFFtj7Jg0xZUw5M7pI9XIhw3C4qubaacJ7YjD9aPGqmH0WsygzNS41w
-	 BaA2fHZlxeZELv1kx0w4T9ZP9KCybDlksQd2nwLsDYK2fVxpwo1ZDuGhG5au9OMBzmjHW
-	 Sg1BuA0BISxkaO9+yJ77xgdjHq/6wG37Z5WccGbu7FiQfRBfV3VGg2gCkxjNdEaiokRMj
-	 VB1j29UeOXme90V1Cs4pqROkYvrCTskc23InRU95uqNsonFWssqMPOEoGt2HYOg4oqA==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kCOZc6iAcXWp2hiznIFFu5kx2ZnmhlZFlmxyVqS3+No=;
+	b=UNbwIcATJKcVHdqzmtrIlV2aVGaaOMtdEWtFMW9ZVwWbO7PAiwlM6TYib6YYJrdsSXvK
+	 my3SVp2mGJi+r11JteiKpR3T2pN8PVvFBWSVrxWqSwMF97nyfcClo/nrt90Jp/4junj8y
+	 kI/Ivo91T96WqscBrsgd6zZrXS+l4poAFfrERwqjblIvpqNT1/wLNSdFS9hbUzRruQ4vj
+	 AeKR5OilKLKoPVnNeSM1bIqkKw+m0cQmP4TlkBiR5F536pZEgLeax4ZG9ZGRu4pjbXNcW
+	 Pe3WvZ3TUb3n2IuqFYUMcVXWOOEWAr5mYseApAjVOCGNf4QzmkodIk4pq6PViSGL6/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BRyzq2S/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWZk7947;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F7C606A326;
-	Sat,  7 Nov 2026 23:53:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F77606A326;
+	Sat,  7 Nov 2026 23:59:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRyzq2S/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A9B1F0089F;
-	Sat,  7 Nov 2026 23:53:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWZk7947
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5BE1F0089F;
+	Sat,  7 Nov 2026 23:59:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794095631;
-	bh=WFbhXnonUMB4MsMDpFD9tXyRvsBkUMaSQV0XLq68nDk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BRyzq2S/hsWT2dkTqFE5719cT1bq8K33GBpU2V0HVWwvIxANuQbkqbP+YFjLQsqfP
-	 KoJedX7+NjHe4l4wKmb3OveSu1wZ1jbpZxUrPaEq9jLWNN7JVFRnlqP7YSvcvjkcZP
-	 372vgkoLo1yTYAsxL8L+ax4oH0iAea6n/yjzN90tMcDw06+OIKMZ769IPqIpzHsfy9
-	 gdMhTHRtmWbNGnOLM0q82nCh6xEJyUfEnvQRNPIRZcEE1tj9RypWd0KDwnY51UA9OY
-	 ozageyHUfHuwgb0GH5YYAGHgAyY3Q2bJrx0Rg6OzOJqaKGUCdRk8OzFlOaXoC5uSx7
-	 RFl9Fc4VkDgVw==
-Date: Sat, 7 Nov 2026 23:53:42 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: iio: light: stk33xx: add power supply
- support
-Message-ID: <20261107235342.40f2e45a@jic23-hlaptop>
-In-Reply-To: <geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
-References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com>
-	<20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com>
-	<20261107223601.0ba9ffc6@jic23-hlaptop>
-	<geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794095957;
+	bh=kCOZc6iAcXWp2hiznIFFu5kx2ZnmhlZFlmxyVqS3+No=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PWZk7947Eka/Od4m8tnPaUmdGGsPIyF9eff4iSNWZwpX3g5wkQOPWKhUt+O5574nZ
+	 7O+pdGgsNBGGMdK5/tWtxgh0bOK71muEcTyxQ1Hbb2P2bcWRYbv1fVw3RwHJL+IdtR
+	 SVCxKs38Uaqoju1nZNt8Wlb6glCSZoYQRM8FDm6WOQyO0OKk435w25OmIkBAvIsNey
+	 pBxudCOK+6Cg4aa2BE73arJsBeDiekSrWE7r/eqkMV8vQu9bdfBFeShxJrekpqocvz
+	 ljtxk1w4k9hagcFQwy3NHgTWb85WulDaY/Jg9eQ4ZlmEOkScoc5ghGzR1rJIu57/kJ
+	 H/3h1V4GT0/wg==
+Date: Sun, 8 Nov 2026 00:59:12 +0100
+From: Thorsten Blum <blum@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: amijoy - mark amijoy_phys as __initconst
+Message-ID: <au-7ULg8TnNUBSRM@kernel.org>
+References: <20261107174739.369375-2-blum@kernel.org>
+ <f7574ee1581d609d45e0ff35e6d908b0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,50 +56,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f7574ee1581d609d45e0ff35e6d908b0@gmail.com>
 
-On Sat, 07 Nov 2026 22:45:45 +0000
-Roman Vivchar <rva333@protonmail.com> wrote:
+Hi Dmitry,
 
-> Hi Jonathan,
+On Sat, Nov 07, 2026 at 03:19:38PM -0800, Dmitry Torokhov wrote:
+> Hi Thorsten,
 > 
-> On Sunday, November 8th, 2026 at 12:36 AM, Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > On Sun, 08 Nov 2026 00:15:03 +0200
-> > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:
-> >   
-> > > From: Roman Vivchar <rva333@protonmail.com>
-> > >
-> > > On some boards, the chip shares a power rail with other components. If
-> > > that rail is turned off, the chip can't function.  
-> > Not sure how the sharing is relevant.  Even if shared with nothing
-> > else we need to turn it on.  So just mention that on some boards it
-> > isn't always on.
-> > 
-> > The only reason this would be optional in the binding is if there
-> > was internal routing in some packaging or similar that meant there
-> > was no pin to connect.
+> On Sat, Nov 07, 2026 at 06:47:38PM +0100, Thorsten Blum wrote:
+> > amijoy_phys is only read by the __init function amijoy_init().
 > >
-> > Upshot, make this required in the binding. Note that doesn't mean
-> > the driver must require it - we are simply documenting that the
-> > device needs power.
-> >   
+> > Also declare amijoy_phys as const.
+> ...
+> > -static char *amijoy_phys[2] = { "amijoy/input0", "amijoy/input1" };
+> > +static const char * const amijoy_phys[2] __initconst = {
+> > +	"amijoy/input0",
+> > +	"amijoy/input1",
+> > +};
 > 
-> I agree this should be required, but that would break dt_binding_check
-> for existing boards. I don't have their schematic nor boards themselves
-> to verify the regulator for the power supply.
+> While this technically works because __initconst only places the pointer
+> array itself into .init.rodata and leaves the string literals in .rodata,
+> I find it too subtle and fragile. input_register_device() retains the
+> dev->phys pointer for the entire lifetime of the input device, so if
+> anyone later turns amijoy_phys into a 2D char array to avoid pointer
+> indirection, the strings themselves will move into .init.rodata and
+> dev->phys will become a dangling pointer after init (with no warning
+> from modpost since the reference is inside amijoy_init()).
 
-There aren't any upstream (from a quick grep) and so not your problem
-unless you have some in a downstream tree that need fixing.
-If you do then there is the option of a fixed regulator to close
-the gap.  I consider a missing supply a bug that we should fix but maybe
-others disagree.
+Thanks for the feedback.
 
-Jonathan
-
-
+> Could we either just mark amijoy_phys as const without __initconst (it
+> is only 8 bytes on m68k), or drop amijoy_phys altogether and do:
 > 
-> Best regards,
-> Roman
+> 	amijoy_dev[i]->phys = i ? "amijoy/input1" : "amijoy/input0";
+> 
+> in amijoy_init() (which stays in .init.text anyway)?
 
+I prefer to drop it then. v2 is here:
+https://lore.kernel.org/lkml/20261107234349.382944-3-blum@kernel.org/
+
+Thanks,
+Thorsten
