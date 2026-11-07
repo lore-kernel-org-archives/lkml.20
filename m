@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794028846;
-	b=TNXrQPnDJXO5sj32vKsKj4ZLJMI4JpxVNbacTcHM4sajRoNC7o0wxlLzsLIk0ZvoYuv9
-	 N2aPqjNXozMCZUbWuPGEwBTk2MJGs95OnohdegSmCD/S7CS2mKFlPx1JJf+KqpZt7ihHq
-	 +UR/Gr09y+1QBONb2zHGCdxiRvY8GCGOwBDXK0EPDgAcoJFHM3jNZvpY6kOf3vOLbqOcP
-	 AWJeY1R0QV5HjYVLRlKvevrzOUSGyYrkh6yozHcFypRywJmtsgeqQYoP7xlby1lXNDOpV
-	 d3PZX0Ofmjh5ML3kBIrbXpoKJXcCWqInnC5oab78qkNUXjJ0jmvuzfR/FcJn+YlPiIA==
+	t=1794028847;
+	b=itNttxjAgKIxYJ8i9GMScFQGPpEmEMxSs2nT0HDFJgLcPybR8ZIBGXrLRlXzVuA4ej9u
+	 Frhl3mRGuPIhc5fuWkNIyf+xaedtU7i9uqcJd/T0Om11nhpfGbRpncXxl28ZjfYTBL7Gh
+	 X76p9kjwbO/Dzs5EAaD8rudDywMbieGM9n2k/xD8vpawdNuECynw7t4StRnupd2pM3SdV
+	 2XWlbjAsRhB1A4mRCzaSAwcI9VP6jOekP+WhsG4uYhGPVsa6TRWNNNPcFR+EsqIxRHrMw
+	 03Sc/6HApzD1YA8Hx5d7PI96+ZZ5UnjXSwXkjZ68/X3x+I873nUy4Bxu60zKFM2O6Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794028846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794028847;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=1C7NKpuGv/wKA/5W5MbBMWRwcogQYVy0tjrhwg6RUVQ=;
-	b=IbRJuCssB54pZ4bIMTimxnnZ5rbq8g1/MzjqktwV2GVsOHkgtOoJAnlxSsHaqSfi5kzX
-	 YxCUmPFVU3oChQ5cCliWsOBGZKn7kwvO4jTZxuHcjOVj0Xn6z2B1TC9vZ/zRRuRj20jU2
-	 bdrdLScxqcrj/Rbzh645iDEqBZuurLVGts1i2tDHZOKJXzCN6QHNkhUFjK5li6Wa4OmpJ
-	 +BpFABSww2Uhi7NOlNfvx+zHGWAjeUWeSOVrAqLr50brusJluaJBLh1tcJult6C4ZwJPC
-	 GfFB5DOpPuzKtl2wSkfh+TUjYiHvdMLbXHXU5XGe3t3kOyx/CjRU8l+XQ1AxPknpShg==
+	bh=mapGuynXXw7KDW6DKyURQpWmkV/D5C6EmEzFKbFPSPE=;
+	b=kiWncPuUjmyA5uOqgUCJqb+b1TeDX0cYddzxPs3z/g30ycX8VJXRtk3/flkAtUX8t7rd
+	 fv4sDCqZrPfij35QMpr3F29PA7deEAJzhI1ZKPbJWciuks3Ia61WKxuBsje+wgo35w88I
+	 rt9j27fIb99E/+clcxVwvLNpPnrtJTo1YKKqOLQ13w3u5QfF+7JDTNVjW0O27SgdGO3We
+	 mzc7sjecVYv4hotZpmfTZWMMqPDWmQR/YuG3ABtSK8JqDCh0cI4D5z/2CD6UAWYufUHpn
+	 pRBSPa6zLnYt4tvS67XO5Qz7ISYwEAclG05TXzwlgZIokkH49yAJhr7oa+izp8QBIQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="s7SrH/my";
-	arc=none smtp.remote-ip=209.85.167.174
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NdBv65Yw;
+	arc=none smtp.remote-ip=209.85.167.180
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE129606A334
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:20:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE129606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26851606D807
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:20:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26851606D807
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s7SrH/my
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-563a0462094so643240b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:20:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NdBv65Yw
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-53dda625f63so1075416b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:20:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794028845; x=1794633645; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794028846; x=1794633646; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1C7NKpuGv/wKA/5W5MbBMWRwcogQYVy0tjrhwg6RUVQ=;
-        b=s7SrH/my3/aCBubYnKNX6Vr1kLtOLjg63USFilh/1DnLB0dMpLYbFb/EaAwMPcVnvZ
-         OXYnfkRuRx+8eGqEr7x+rujQ9NY30yWyA7PIccWIn/EP2Loa5IFWTLtBGT5N8DfXNdhS
-         UnnYEbRovoChfQZJAsvFszCQk+0v5qlTuH8Jtm6Sd082bSMRI6no30r5SmZidxvrF8Mg
-         +iwRu3HnY8naxMqezJKDnRnLUjAniN0J6THfyfMJoyrM22P3f5B7PmIFAJCcOFSHpfzR
-         CFsqy2nyKIKfaIm/QnJcmtCjlMxz5NRChb9vnzGvw8I20hRAJdWhntDy92pWD/3mGuHN
-         NRLw==
+        bh=mapGuynXXw7KDW6DKyURQpWmkV/D5C6EmEzFKbFPSPE=;
+        b=NdBv65YwE5bvpAEcYqLR7BYHh1iHUsAMeBQavJH2Xy/4T0H6ccBJVot9u4kyOjjjkf
+         8eEibxyA3cJHUlKRfltxED6UenL56HW+ArUDRhQjZ1lDOkCSu2la40iJT+A3SftHOMnH
+         3qbeo/3Zgj4IAVf90L+e9aPXRcwoHIZJ5bU7re2gAHr1U6waSjoo1py6gWyuezxmryKm
+         8OKFxCUW1HHqLV/ZtxwcS84jUmXwdHeRObkCDT1/lOFea++9SH4324u3PWYdoe4dmq0j
+         XNA6yAuUygUiKT8pSWr383A4ub6ui42Wa8CoDj8lV3rwfYRAKcDuvza/dVgCI0Zy8QPP
+         5ekA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794028845; x=1794633645;
+        d=1e100.net; s=20260707; t=1794028846; x=1794633646;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1C7NKpuGv/wKA/5W5MbBMWRwcogQYVy0tjrhwg6RUVQ=;
-        b=r7C/pUJCJkAZVMTLhoyHvybhPtVqbLgxZ3eD5ZFBo9AVrfOZsJejupK47Tv6RrzDGj
-         1nkGl2wKobik9QFV0wsaW+1RGE8dqBpVy7yhBiKtR/Jq0/UB8+AGghR8o52670gM+c0w
-         fZDpE5IBb+kdpEJagPzt0SS690u03+pXzFUGPXYCZFtRn5f0jvxVQPPqXMFu7BiXm2pJ
-         xHhMa7uos+vWLzP+VLbf8y5pe4KoU023uejEXXesbiZAzj3grd5LRieIgdTQBbaSx/xa
-         UaWEH1H9I6wtLXIGIsOeyaLceMWugNuxvpDMBiQZzwf9cThR3spP6pIOz1eLv4NLseAP
-         7cmA==
-X-Forwarded-Encrypted: i=1; AKwUvBxzClDqe5dbbgQpgWcWHVj9az2lXSK7KaHEhRBg+ZqrABzVAkz9IpkHmJ/JBF9Tq10/LPZPiPqMGcQ2Bj8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LrwpPlH0NntJHJhIjmimFp+z9ZUmFT86gbgj9wtEIrD6GcrqY
-	Kf24SpHz0G8rgZwM7iwP+RxlM6moQ0mXrTmQpJyYsaHQfNxhq0H2Pz4Z
-X-Gm-Gg: AYBFou3BRqj0juNb1sD4KF7pBhrGknpMMbF/HoX5q5K9jKR7moJWysey8tFDef7Tupr
-	4XuuJhYXanYqUn5F6GEKyQeyXENaieNSfKKC2hkCZfiNtvL0ovBMK71fGU+AQ2M4W7YNKb+YT2y
-	3bBkK0K6s3ENW7oioTo0V9wIEfRm5ksr9nkluqQuwmBl65GigxNuLDvcPWHNV18/T1rZ8hQubuy
-	VxClePu3LvHEKdE13PWbQzwgyPCdILc2zohKhpBEij+WcNe/DHONgKt9mFsAbzmf8WTj5xfS4/r
-	cY4GGsbIVgB/A9zHzaRiAK0JT1XFqOmPd6hB6LtGTwQ35SEmvzEmJEFkxdyBnNh7VviprYqlcWM
-	N3f96GujH4KCJYzLuuy99BOnoFJKOONhn1TyUuIALAAjOT56WrdEejf8BEareFz4xi39URqNPLY
-	8mKwKel8el8LTz61BH42LHrWPBB7Dy7kj1sjPGZh8XVJeaRCpRzI5nc3Ys03Q2/81L0Eh1AZfws
-	uMSDd1a/0bOzIJxmYLUmwc+lczjRNUQ58MHv2IUBy3ja92vbvB+7CSMrJRM5qU/tAgahtd5eTdZ
-	RB4nRYXUvbUHjiriedNGa9qvE3OwrSq60QPOqLPdOoL7GbvZhLHPmcV7pkaH7+GhUOg2v26BJlM
-	JPiv2API/ifikC454SdFVbx0PpCCVwskutG0JnrI8Fg4RsOOYq6rPyrkiEtn6f34aHyhyPzFCih
-	ftDvbXWBuxXMQJRcPv5UmGRbsEaPGptp2a1a/zZLyrXMC6J/hfW8n4Sw==
-X-Received: by 2002:a05:6808:1244:b0:539:4d53:1708 with SMTP id 5614622812f47-567e15e074cmr3293716b6e.49.1794028844621;
-        Fri, 06 Nov 2026 21:20:44 -0800 (PST)
+        bh=mapGuynXXw7KDW6DKyURQpWmkV/D5C6EmEzFKbFPSPE=;
+        b=1M38qsPInwyx+sXsTqdA4Yn0fkWw+/gae0QsQldKanejFyqfYvRwhxokjNO8KQNFgj
+         fmMQRzXVtlFsgOYvBClxHoXtYdiwz/T7wUa+ov6e4e4lxaWgEoMD/7my4eKyGeZrTwkR
+         uN7JUvfern52ZS7tDdzK29VSsHYBjoHVv4eGjrqdzvMpXeFuDoDlaG2d4WnDFePfhKS9
+         Tv/dabzKCBSYAQD02q8+RPvFCCaE+H+lmJbxgB/IrEtnncHT9D24MWwlqOgSXVItYviN
+         Okj9MQR3dd05XguNMasAgp2RwTZttHcW8tDf/CHljTHG8Xyj4P36LbEAzKh30srK9/yu
+         WHRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0tiTcDGyOAZvls4uF03Zc7u3OSjxhDq9aIzBjqpFiBKdwVtrpZ37LN9oU140NjDllOQb1O1Zkq0OBOtA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YKtknKT7r/laTPo1NkoPGqBF1UVoG96JImmegcFRXCnI8LLPH
+	j0ox848ZvmlHgwFZbrF8JJqNdjgnADqnF0Sa6e+c6J094pGLliwjQu63
+X-Gm-Gg: AYBFou2BnDqia/tvbjO7yKAlEUHoJTCPblboUV891m48ypggaqcqh7FsPyuUjRIBgN8
+	4tIyuA7/2i6ZGMb9nz82IsuE3yLv0QpIhQ3OgLi0bXx5z53SnTYxLwXpAo+3QeY/0s24Iml5fpe
+	Lb9etWLBzBPA0Y0JKv/ZMMtAv/fiqXCJVtpu2hF8vKi8N+JYQgN+MuTzxI6fgQ9mYHQAvZ3G90Q
+	0WcTUH1mvIPuLjTj3AtHpwDMIA4IkNA3I/8PzijElnop8qZ8GQ0c58wPD817ptgZuoCk5qzq6Lk
+	dqJYPqywOGNH64HYfzl+R5CPHwdbcVzG+aPhnWZeME0I9vLTVHEHvCoM32xf/J0jRIv40BgV6UI
+	sRuauMlc5+3NbMKk3m7+2XSSAXOuTKPvkfUJY7Zyalie7GJpSpnDxm5DU6CrUtQ3XjNmp46wUpZ
+	57jkQjYR4VpG1pYv97tbFa0GvBw7I5IFgwUpj49Q/Hwj00WIa7NSBLmn5rLkqu3UWLJVuQnRGii
+	H0UWutaYFQLXM0DfWzFwGrqR0OeZ3uXGdmnqkZs0zmCPzxD7YUg43EzK69YTLgPyG0cxh91K6zu
+	Crx3tCcP4kPGj81h4yKZ0MwywaxVRl4Sodgm0SuxvU2qKdpv/fPXdYceDxBKMw98loWplCKg574
+	cbliushE4N5ycpObhCLco7j17BVL5ILU7GrTWzBb++Rw5ty8mXHNTHIXqOuPjy5eCCt0HpoKf3F
+	fKcbmG+rgOSeorNX3rijaMYSgAwXfvXsTRq2iC/UC2SbCyM1Tz1fjE7A==
+X-Received: by 2002:a05:6808:f13:b0:4c3:4e34:c69e with SMTP id 5614622812f47-567e0fa6011mr3158855b6e.8.1794028846024;
+        Fri, 06 Nov 2026 21:20:46 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7ebf4edsm3059846b6e.13.2026.11.06.21.20.43
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7ebf4edsm3059846b6e.13.2026.11.06.21.20.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:20:43 -0800 (PST)
+        Fri, 06 Nov 2026 21:20:45 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 06 Nov 2026 22:20:40 -0700
-Subject: [PATCH 2/3] mtdchar: bound OOB reads to the data in intermediate
- chunks
+Date: Fri, 06 Nov 2026 22:20:41 -0700
+Subject: [PATCH 3/3] mtdchar: keep OOB chunks aligned with their data pages
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-submit-mtdchar-page-chunking-v1-v1-2-2973a03531bc@gmail.com>
+Message-Id: <20261106-submit-mtdchar-page-chunking-v1-v1-3-2973a03531bc@gmail.com>
 References: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
 In-Reply-To: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -106,40 +105,147 @@ Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-MEMREAD limits the data and OOB lengths independently for each call to
-mtd_read_oob(). A backend such as SPI-NAND continues reading until both
-streams are exhausted, so an intermediate call can read OOB from pages
-beyond the end of its data chunk.
+MEMREAD and MEMWRITE advance the flash address by the data bytes
+transferred. OOB-only operations transfer no data, so another buffer-sized
+chunk starts at the same address and repeats pages.
 
-The next call advances by the data bytes transferred, not by the pages
-visited for OOB. If OOB remains, it starts again at pages already read
-and returns their OOB a second time.
+Advance OOB-only requests by the number of pages transferred. Round
+non-final OOB chunks down to whole pages so the next call starts at the
+next page, rather than repeating a partially consumed page. Allow the
+buffer to hold at least one page of OOB and reject requests when the
+selected mode has no OOB capacity.
 
-Limit OOB in intermediate reads to the pages covered by their data,
-as MEMWRITE already does. Leave the final call unchanged so SPI-NAND
-can still return additional OOB pages when no data chunk follows.
+When OOB is the limiting buffer, also cap the data chunk to those same
+pages. Otherwise a combined request can exhaust its data before all OOB
+has been transferred.
 
+Fixes: 6420ac0af95d ("mtdchar: prevent unbounded allocation in MEMWRITE ioctl")
 Fixes: 095bb6e44eb1 ("mtdchar: add MEMREAD ioctl")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/mtdchar.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/mtd/mtdchar.c | 53 +++++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 47 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/mtd/mtdchar.c b/drivers/mtd/mtdchar.c
-index 19d33dacb62d..189e462a9df0 100644
+index 189e462a9df0..85e98905f732 100644
 --- a/drivers/mtd/mtdchar.c
 +++ b/drivers/mtd/mtdchar.c
-@@ -769,6 +769,9 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
+@@ -589,6 +589,30 @@ static void adjust_oob_length(struct mtd_info *mtd, uint64_t start,
+ 	ops->ooblen = min_t(u64, ops->ooblen, pages * oob_per_page);
+ }
+ 
++static int mtdchar_adjust_io_lengths(struct mtd_info *mtd, uint64_t start,
++				     struct mtd_oob_ops *ops, uint64_t remaining_oob)
++{
++	u32 oob_per_page = mtd_oobavail(mtd, ops);
++	u64 len;
++
++	if (!ops->ooblen)
++		return 0;
++	if (!oob_per_page)
++		return -EINVAL;
++
++	if (ops->ooblen < remaining_oob) {
++		/* Keep a page's OOB together when another chunk follows. */
++		ops->ooblen = rounddown(ops->ooblen, oob_per_page);
++		if (ops->len) {
++			len = (u64)(ops->ooblen / oob_per_page) * mtd->writesize;
++			len -= mtd_mod_by_ws(start, mtd);
++			ops->len = min_t(u64, ops->len, len);
++		}
++	}
++
++	return 0;
++}
++
+ static noinline_for_stack int
+ mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
+ {
+@@ -628,7 +652,8 @@ mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
+ 			return -ENOMEM;
+ 	}
+ 
+-	oobbuf_len = min_t(size_t, req.ooblen, mtd->erasesize);
++	oobbuf_len = min_t(size_t, req.ooblen,
++			   max(mtd->erasesize, mtd->oobsize));
+ 	if (oobbuf_len > 0) {
+ 		oobbuf = kvmalloc(oobbuf_len, GFP_KERNEL);
+ 		if (!oobbuf) {
+@@ -648,13 +673,17 @@ mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
+ 
+ 		/*
+ 		 * Shorten non-page-aligned, eraseblock-sized writes so that
+-		 * the write ends on an eraseblock boundary.  This is necessary
++		 * the write ends on a page boundary.  This is necessary
+ 		 * for adjust_oob_length() to properly handle non-page-aligned
+ 		 * writes.
+ 		 */
  		if (ops.len == mtd->erasesize)
  			ops.len -= mtd_mod_by_ws(req.start + ops.len, mtd);
  
-+		if (ops.len < req.len)
-+			adjust_oob_length(mtd, req.start, &ops);
++		ret = mtdchar_adjust_io_lengths(mtd, req.start, &ops, req.ooblen);
++		if (ret)
++			break;
 +
- 		ret = mtd_read_oob(mtd, (loff_t)req.start, &ops);
+ 		/*
+ 		 * For writes which are not OOB-only, adjust the amount of OOB
+ 		 * data written according to the number of data pages written.
+@@ -674,7 +703,11 @@ mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
+ 		if (ret)
+ 			break;
  
- 		req.ecc_stats.uncorrectable_errors +=
+-		req.start += ops.retlen;
++		if (usr_data)
++			req.start += ops.retlen;
++		else
++			req.start += (u64)(ops.oobretlen / mtd_oobavail(mtd, &ops)) *
++				     mtd->writesize;
+ 		req.len -= ops.retlen;
+ 		usr_data += ops.retlen;
+ 
+@@ -739,7 +772,8 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
+ 		}
+ 	}
+ 
+-	oobbuf_len = min_t(size_t, req.ooblen, mtd->erasesize);
++	oobbuf_len = min_t(size_t, req.ooblen,
++			   max(mtd->erasesize, mtd->oobsize));
+ 	if (oobbuf_len > 0) {
+ 		oobbuf = kvmalloc(oobbuf_len, GFP_KERNEL);
+ 		if (!oobbuf) {
+@@ -761,7 +795,7 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
+ 
+ 		/*
+ 		 * Shorten non-page-aligned, eraseblock-sized reads so that the
+-		 * read ends on an eraseblock boundary.  This is necessary in
++		 * read ends on a page boundary.  This is necessary in
+ 		 * order to prevent OOB data for some pages from being
+ 		 * duplicated in the output of non-page-aligned reads requiring
+ 		 * multiple mtd_read_oob() calls to be completed.
+@@ -769,6 +803,9 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
+ 		if (ops.len == mtd->erasesize)
+ 			ops.len -= mtd_mod_by_ws(req.start + ops.len, mtd);
+ 
++		ret = mtdchar_adjust_io_lengths(mtd, req.start, &ops, req.ooblen);
++		if (ret)
++			break;
+ 		if (ops.len < req.len)
+ 			adjust_oob_length(mtd, req.start, &ops);
+ 
+@@ -789,7 +826,11 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
+ 			break;
+ 		}
+ 
+-		req.start += ops.retlen;
++		if (usr_data)
++			req.start += ops.retlen;
++		else
++			req.start += (u64)(ops.oobretlen / mtd_oobavail(mtd, &ops)) *
++				     mtd->writesize;
+ 		req.len -= ops.retlen;
+ 		usr_data += ops.retlen;
+ 
 
 -- 
 2.53.0
