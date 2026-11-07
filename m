@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794055024;
-	b=0uD4ifmF5fe/BpsrOmb/SrwMmusbbecst0OYKFuu6SKAntHCnWLOHRUzQAnyRCcenwx5
-	 j4HWZc9BqTJ7ALoc24PnY2A6cO1mDRfy+9gHz1dsFN56F2s9C/MOaCuDI6V2HR/cVt4on
-	 asX0UDo3dcMuhAmKuTSXSqwnmjgAWZ5WQKCc2ckqol4J18a2Jenrg3ManKFxB/AV6bCLm
-	 r5ZLOknapyXsPH14MOe0+sMgoqoUS0Fb65U0lm+3jgOKYwt8cJOIijR0aykPbvd0un1R0
-	 x64SeadN5tOUyo3JdOm0nuBjp9lwCniRed2uglgxW3XFT7l1f369ruuyMgB884VPzMA==
+	t=1794055187;
+	b=u0IKsa8ifC+0z2uFnV3Qi32S34raRX7PgYLN3CELrt6Z4wpileDgGvg6m/MZZGIi395B
+	 hubTQZdx75a4cp+eAeQQFyVmv8dgE45rCCauDxX0NrxfWSfEypaWPk/6VuxxHI1fEM5op
+	 fBFq76mJO2iVT2ACZxu0Zpe7ozUdiZb/23XjR/paoRPvVi50FKSm1HBrgkxN5o9hcmASG
+	 bN+QDvTMEUPlUaeNrC4cTcrtFAgcNjvouvPOc8ANuDr6sYfgznAA5WFI/CnpMfJfWxUdH
+	 XGzFiBbWGb4wHODcjEmfAiOhUMslWt1601q8fuRercq2jNdroYIIIvdSIjEIJqb50fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794055024;
-	h=DMARC-Filter:DKIM-Signature:From:Content-Type:X-Original-From:
-	 User-Agent:X-Lms-Return-Path:Mime-Version:Content-Transfer-Encoding:
-	 Content-Language:To:Subject:Date:Received:References:Cc:Message-Id:
-	 In-Reply-To;
-	bh=sQy3bhcu2VAVvwJsFj+jecqFvhu2MsAOUpqilRVw/hI=;
-	b=2bTMpZ9zwnOOMAgDznrtGIPo0ltiGpJd2Gq9yCFobAG23IIWW8N7OargtVCHGQFHzqh+
-	 qj0sH7ejipDX2LsYZjUIP/b07Lw77OhG4tOh0s+rGHANIMAiGOLre24SIdgNHrPDlTLAT
-	 AiRhKDsevo5qq9XjjzZq5454QWPq14WEhsBc1cbHei4jPsw9OTYJOH13l/cp57281GNvo
-	 oSwyxBKgFGURQoH543/ewx0F65iQk2J7t5oonS3LUiz0WTgW6p1vr0sPa/BaR6h8mbqr5
-	 4oD6hwrax2PnRiGHDnW1TY+hJlT/IKcUt+ZYmzTw6kmiEjt4fZWE8pC8lSojoAPp8AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794055187;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=MtZkoKUjowTG2Upsi1vq8iBJI9ISeGB6pNGvPLOId3M=;
+	b=i+L9m9nNTdsGpi2RQktLs5saAjGCzN73q/rrCIsQmQFZ3wYAp9Q017WHY94UBIE05tDV
+	 +dsVMizPfhpe/QKG6Iz0iATxGc3KEIKUyPhNvf9EIZzDGdX2rVcktW3VVz7bMyCCg0lA1
+	 zUIdZT7eoliOWsUodQJJiUoycP9xy5Mloa5pfi2UQrG81CHLJmnTJTELO4dmDgR0y0cOv
+	 gzSHwnTZeetIlXVqS7xb1ppsW8LSZYZQQR4QdKm6olH6TlNykAFojulvSjolzZ2rTeh+/
+	 TH6DhZ0z1NntFjkoyCrbRf/ESUHQg3G9RZIxOPPit28kpmZKTPhCMisPaxl2ZRpIhQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=picoheart.com;
-	spf=pass smtp.mailfrom=picoheart.com;
-	dkim=pass header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=iuBkxLA9;
-	arc=none smtp.remote-ip=209.127.231.29
-Received: from va-2-29.ptr.blmpb.com (va-2-29.ptr.blmpb.com [209.127.231.29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjhW8Wmb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191BD606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:37:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 191BD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BD0606A32C;
+	Sat,  7 Nov 2026 12:39:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=iuBkxLA9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1794055018; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=sQy3bhcu2VAVvwJsFj+jecqFvhu2MsAOUpqilRVw/hI=;
- b=iuBkxLA937Blp6eHXcX7ebzh/dhzrmoacIr4msgRjrdPsHTEqbPk15+r2MQnNN4ytnNaCb
- JZCPQCJrCqenfTz4tMukD73KlBk1bJMCh1EMUSudIwLBTP7/V/Troo7Zs4hqTHynj46omE
- v1IrzupcB0foKvtyEA2+dMMN5xetNnIYcaHwk7d0wMyNtNcGYQOsBjaicduHOHAc8ZdOOC
- 3bGFWYeHq0LxSuf1TiGPY1NOkVJ7lIGO+5wyupEjw5YgTtFEs2aovzwoScHHjjjzTCHW/A
- dXBl4x+Svw52qJdaE+S1vzR0PMMToqOXvfI9/BLMiDpX4UllPLddJuc0luKzsA==
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
-User-Agent: Mozilla Thunderbird
-X-Lms-Return-Path: <lba+26aef1b68+353eaa+vger.kernel.org+yang.yicong@picoheart.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjhW8Wmb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC0D1F0089F;
+	Sat,  7 Nov 2026 12:39:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794055186;
+	bh=MtZkoKUjowTG2Upsi1vq8iBJI9ISeGB6pNGvPLOId3M=;
+	h=From:Date:Subject:To:Cc;
+	b=CjhW8Wmb0boCh1WJST1slzCVLToBYih13WYsAgLLCpeNLO+FUvuQBNYRAAggVPISu
+	 7sS/gM+JIsfasPuXGvBQcrRMgGFR//ayTrGbSrKUeL1s3AYTNV651QD40DECNpu3gU
+	 GJjSMd6R3QjlqBboryxcJS8p95wyM7Cd7jGH7wkhtrfc6g44nM/jUyE/AHoyJTnEn4
+	 2wDhJwORRWuSq6mxzsLHgxC9emWOoYewJ4G/KHFE5sQ+eLb1oq10dd45CCp14BqWiK
+	 S4HPeKRRYo0C+Jq7BoInQ2BnLdX9+r1vbCmDuwE8nMedPu6zvLUP3bH/637kc9tErK
+	 o1d+BffcdDHYQ==
+From: Joshua Crofts <crofts@kernel.org>
+Date: Sat, 07 Nov 2026 13:39:43 +0100
+Subject: [PATCH] crypto: omap-sham: remove redundant
+ pm_runtime_dont_use_autosuspend() calls
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,174 +52,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-To: "Zong Li" <zong.li@sifive.com>
-Subject: Re: [PATCH v16 0/2] RISC-V IOMMU HPM support
-Date: Sat, 7 Nov 2026 20:36:52 +0800
-Received: from [100.86.223.207] ([61.141.241.116]) by smtp.feishu.cn with ESMTPS; Sat, 07 Nov 2026 20:36:55 +0800
-References: <20261006090327.309550-1-zong.li@sifive.com> <CANXhq0qPxywpTmw=mAspYgfXivAyyoBN-r8iPpwYVXmJ3AmXyQ@mail.gmail.com>
-Cc: <tomasz.jeznach@linux.dev>, <joro@8bytes.org>, <will@kernel.org>, 
-	<robin.murphy@arm.com>, <pjw@kernel.org>, <palmer@dabbelt.com>, 
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <mark.rutland@arm.com>, 
-	<andrew.jones@oss.qualcomm.com>, <guoren@kernel.org>, 
-	<david.laight.linux@gmail.com>, <zhangzhanpeng.jasper@bytedance.com>, 
-	<nutty.liu@hotmail.com>, <iommu@lists.linux.dev>, 
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-perf-users@vger.kernel.org>, <yang.yicong@picoheart.com>
-Message-Id: <7f7a6f3a-de8b-4ca2-8fc7-ea7586cbb270@picoheart.com>
-In-Reply-To: <CANXhq0qPxywpTmw=mAspYgfXivAyyoBN-r8iPpwYVXmJ3AmXyQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261107-crypto-dont-use-autosuspend-removal-v1-1-62696ad3ff0e@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQ6CMBBA0auQWTsJLQrqVYiLQgdtop1mpiUSw
+ t1tXL7N/zsoSSCFe7OD0Bo0cKwwpwbml4tPwuCrwba2N6YdcJYtZUbPMWNRQlcya9FE0aPQh1f
+ 3xs4uV385d7dh6qGWktASvv/L+DiOHzCy6ht1AAAA
+X-Change-ID: 20261107-crypto-dont-use-autosuspend-removal-32f8d54397b6
+To: Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <crofts@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794055185; l=1297;
+ i=crofts@kernel.org; s=20261015; h=from:subject:message-id;
+ bh=DZSdqhiD5oCGCq66lcad98q7o8oDJxYQC9Z6fM9UOfw=;
+ b=CBN8az44Z0BR6sKeQ1S2sZLSTtJOwDrLIsN8gaWeor6BtJhNgmFcGtO7ZChG9fotcYUFchz2c
+ 7hb9tChgs6CA+iu1hEjt3tYOw/0tO8sHJ7ELkBle7Sgzkzx/bHHqlHu
+X-Developer-Key: i=crofts@kernel.org; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-On 10/7/26 3:30 PM, Zong Li wrote:
-> On Tue, Oct 6, 2026 at 5:03=E2=80=AFPM Zong Li <zong.li@sifive.com> wrote=
-:
->>
->> This series implements support for the RISC-V IOMMU hardware performance
->> monitor.
->>
->> The RISC-V IOMMU PMU driver is implemented as an auxiliary device driver
->> created by the parent RISC-V IOMMU driver. Therefore, the child driver
->> can obtain resources and information from the parent device, such as
->> the MMIO base address and IRQ number.
->>
->> It seems sashiko-bot is giving conflicting advice about whether to add
->> a lock to ->read(). No matter if we add it or not, the sashiko-bot alway=
-s
->> suggests the opposite. Looking at no lock case again, sashiko-bot
->> concerns about a BPF program calling bpf_perf_event_read() from NMI
->> context and self-deadlocking against the IRQ handler, but that scenario
->> cannot occur here:
->>
->>   - bpf_perf_event_read() goes through perf_event_read_local(), which
->>     refuses to call ->read() unless event_cpu =3D=3D smp_processor_id()
->>     (kernel/events/core.c). All events on this PMU are CPU-bound and
->>     non-task-bound (->event_init() forces event->cpu =3D pmu->on_cpu and
->>     rejects sampling events), so PERF_ATTACH_TASK is never set.
->>   - More fundamentally, perf overflow interrupts are not NMIs on RISC-V,
->>     and every pmu->lock critical section in this driver is held under
->>     raw_spin_lock_irqsave(). There is no context that can interrupt them
->>     and re-enter ->read().
->>
->> No other driver under drivers/perf/ uses a trylock or in_nmi() check in
->> its ->read() callback, so dropping it also brings this driver in line
->> with the rest.
->>
->> sashiko-bot also reported that migration calling trigger a NULL pointer
->> dereference. I don't think this can happen on current mainline.
->> perf_pmu_migrate_context() does not touch pmu->cpu_pmu_context unless it
->> actually finds events to migrate. This used to be a real hazard: before
->> commit bd2756811766 ("perf: Rewrite core context handling", v6.2-rc1)
->> the first two lines were per_cpu_ptr(pmu->pmu_cpu_context, ...), which
->> did dereference a pmu-owned pointer unconditionally. That is also why
->> several in-tree drivers pre-seed thier ->cpu field with a real CPU numbe=
-r
->> rather than a sentinel, and so do call perf_pmu_migrate_context() in
->> this window, without any reported oops.
->>
+Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
+driver core is now responsible for undoing any
+pm_runtime_use_autosuspend() calls on driver exit.
 
-[...]
+Remove the redundant function calls.
 
->=20
-> Hi all
->=20
-> In the v16, sashiko-bot suggested to add a pmu->lock in ->read()
-> again, let me address this, and explain why I would prefer to leave it
-> as a documented limitation in this series rather than respin.
->=20
-> What I would like to push back on is the suggested fix, because every
-> point fix in this area has already been reviewed and rejected in an
-> earlier round of this series:
->=20
->   - Taking pmu->lock in ->read() (which is literally the diff
-> suggested here) was in v7-resend. It was rejected: a BPF program
-> reading an IOMMU PMU event from NMI context via bpf_perf_event_read()
-> invokes pmu->read(), and if that NMI lands on a CPU already holding
-> pmu->lock in the IRQ handler or in ->add(), the read callback spins
-> forever.
->   - raw_spin_trylock_irqsave() in ->read() was the v13 answer to that.
-> It was rejected in v14: on cross-CPU contention the trylock fails,
-> ->read() returns without updating, and userspace silently gets a stale
-> count.
->   - The current lockless form is what v15 and v16 are objecting to.
->=20
-> So the three obvious shapes for ->read() have each been rejected, in
-> each case for a valid reason. That is a strong hint that ->read() is
-> the wrong place to fix this: the actual root cause is that the
-> overflow handler may run off the bound CPU at all.
->=20
-> Worth noting that no PMU driver under drivers/perf/ (including all the
-> hisilicon ones) or arch/x86/events/intel/uncore.c takes a spinlock in
-> its ->read() callback -- not even on x86, which does have NMI-context
-> perf events. They don't need to, because they pin the overflow
-> interrupt to on_cpu with irq_set_affinity(), so the handler and the
-> perf callbacks all run on the same CPU, and ->read() is already
-> invoked there with interrupts disabled (smp_call_function_single()
-> from perf_event_read(), or the event_cpu =3D=3D smp_processor_id() check
-> in perf_event_read_local()). Same-CPU plus interrupts-disabled is the
-> entire synchronisation mechanism, and it is why the
-> prev_count/hardware pair cannot be observed half-updated.
+Signed-off-by: Joshua Crofts <crofts@kernel.org>
+---
+ drivers/crypto/omap-sham.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-that's how the event core's synchronization is designed and expect the
-PMU drivers to follow. so the race is true if pmu::read() is not protected
-in the current implementation.
->=20
-> RISC-V IOMMU PMU driver does the same irq_set_affinity() call, but on
-> IMSIC the move can be deferred, so the guarantee is weaker. Hence the
-> race. On the scope of the impact, to explain why I think this can
-> wait:
->   - The consequence is confined to a reported count. prev_count and
-> event->count are local64_t and the cmpxchg cannot tear, so there is no
-> memory-safety issue, no oops, and no effect on IOMMU operation itself.
->   - The window requires an affinity change to be in flight.
-> riscv_iommu_pmu_bind_cpu() is only called from the CPU hotplug online
-> and offline callbacks, so a deferred move is only pending during CPU
-> hotplug. In steady state the interrupt is already on on_cpu, ->read()
-> runs on that same CPU with interrupts disabled, and the window does
-> not exist. This is a transient during hotplug, not the common case.
+diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
+index 5e739415a010..72182f190084 100644
+--- a/drivers/crypto/omap-sham.c
++++ b/drivers/crypto/omap-sham.c
+@@ -2109,7 +2109,6 @@ static int omap_sham_probe(struct platform_device *pdev)
+ 	list_del(&dd->list);
+ 	spin_unlock_bh(&sham.lock);
+ err_pm:
+-	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_disable(dev);
+ 	if (!dd->polling_mode)
+ 		dma_release_channel(dd->dma_lch);
+@@ -2131,7 +2130,6 @@ static void omap_sham_remove(struct platform_device *pdev)
+ 	omap_sham_unregister_algs(dd->pdata);
+ 	crypto_engine_exit(dd->engine);
+ 	cancel_work_sync(&dd->done_task);
+-	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 
+ 	if (!dd->polling_mode)
 
-so the problematic part is that the counter update from the overflow
-interrupt is not guaranteed to run on the event->cpu for the first
-even if the affinity is set to event->cpu, due to IMSIC's affinity
-move deferral. this should only affect IOMMU implemented as PCIe
-device, not platform device with either wired interrupt or MSI.
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-crypto-dont-use-autosuspend-removal-32f8d54397b6
 
-what was the problem of using irq work to queue the counter update
-on the event->cpu? I see it was removed in v10 due to IRQCHIP_MOVE_DEFERRED
-which confused me. with irq work we can ensure the counter update
-on event->cpu no matter which cpu take the interrupt. was there
-other issues with the irq work?
+Best regards,
+-- 
+Joshua Crofts
 
-thanks.
-
->=20
-> That is a structural change to the interrupt path with several
-> interacting constraints, each of which has already caused a regression
-> in this series once. I would rather not fold it into this series at
-> this point, both because it deserves review on its own and because
-> getting it wrong again in a hurry is worse than a documented
-> counter-accuracy limitation during hotplug. So my proposal is: leave
-> the code as-is for this series, add a comment on
-> riscv_iommu_pmu_read() recording the limitation and why the three
-> obvious fixes are not used, and address it in a follow-up patchset.
->=20
-> Please let me know if you want me to do more for this series.
-> Thanks!
->=20
->> Zong Li (2):
->>   drivers/perf: riscv-iommu: add risc-v iommu pmu driver
->>   iommu/riscv: create a auxiliary device for HPM
->>
->>  drivers/iommu/riscv/Kconfig      |    1 +
->>  drivers/iommu/riscv/iommu-bits.h |   61 --
->>  drivers/iommu/riscv/iommu.c      |   58 ++
->>  drivers/iommu/riscv/iommu.h      |    4 +
->>  drivers/perf/Kconfig             |   12 +
->>  drivers/perf/Makefile            |    1 +
->>  drivers/perf/riscv_iommu_pmu.c   | 1102 ++++++++++++++++++++++++++++++
->>  7 files changed, 1178 insertions(+), 61 deletions(-)
->>  create mode 100644 drivers/perf/riscv_iommu_pmu.c
->>
->> --
->> 2.43.7
->>
