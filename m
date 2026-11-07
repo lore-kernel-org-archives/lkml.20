@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794010306;
-	b=eGCHEm2ZWHmG6MPapZVRWMaCdKhx/gDAToLigap0fZ6nyYLvDFPS9ijxG8B3wcG8APHu
-	 DYm/61jtlcJ4/KTZHJdXHHzLJvViRTj0vH4K3OP8Euh+CuTPknVWYPz7ddqvDxjzWr4Pe
-	 iC3AN095KUu7ukrvtgzJWwMHx16Ol7MSnqVTsblHau/MGkYtu83f1XlRqtmIFZZkI2Ukq
-	 y3zreIvLuj+6+KQvMcQEipBk/2b8ourLzH85Zogj6rpGk7POPEfzkSVLBXB6CMdoAzXhV
-	 jo5YjXLt3OeMMtisUg+BwcWtCvNZCOt6mGeCcdIVuNmEPjy14Ekn/1NrQuSnX/VbgrA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794010306;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=O1YwaBYKL60DTpaRiHPM1BWsGMVsXcGSphhmfyChFiw=;
-	b=YqLmkquh473Xvtl8zJvwH4vOUAzVxcxuCS5LB/85kPhJe4FM6phbMcvkYud5YMxnZL1S
-	 e3Cfl5/7e0SJm/NRFU1S6JoTsWUU080LxZQUGeY+sNnTs7mwLHfIouDVco2GJx9WP8J9v
-	 2+ABrpB37cQ7635xO++yqtgGMiKADK3mi6FfpgukeLlpwLimri4L19Xddwpbyc0oDg7vv
-	 M8vCG4ANckVuyLA4WlQzkjpsVqyLd1w3qyrIgmYbRX8xALhhoiHWvQVfLlFkHBX4plU20
-	 g5e5CT1TE5/7K/vgNSnCMbpAaAobGfp8AjibO5/i0Aq7eSQJafpy/+bP9mU3aPfOmZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Clpvd24C;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794010405;
+	b=mzlDmGUS71/ItW4TPSMZ41zHrfosMMs6nb4W9l2p7wVHf3/kZBQR/b9ChNLclIEgFKkW
+	 W7g4MWvH/UNF1+Xih3vhQNaAjN2bEiPLE9q7zGJr3LdxRuDQHizvJYOX2YBbeqL09saLB
+	 f2xEAuKsa7xvn+gu8B8DbpKkKKMMKVdlh8PpRlNCAA9JpX25DgKUETZVqpk/PdvU1w2y2
+	 /sjaafuhZLXWerXTN/dqgbZ0SAyEzMMUPV7YmTdUq87suZ+9xeZN2V/1xZxKXfcNHZuFE
+	 9jVpPq14c7A5NReaX4SeohhHbBKuaHPWGkrrTCBWkEDvoPHj0Q3cZxIIbFw/TIFerWg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794010405;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YiuX6F1w9dG9JpDBdQ4K+utWXGwO/Bq4l4lsr4V9+Uw=;
+	b=Sbprvc3zbgwfdYBJhXJjfvFERWxCdtMOwaK6Yyb2ivAdfn4PMD6jT0H6q+OpsaNh3Uui
+	 ZvjO4GroYl9QoLIGQLuJ5Td3PudP0ccixtV7sCiwIXaGqlc0/WHtqRf0Up9MBr78v90J9
+	 SUAkT5BiIaI1sx94vulsMgZTsE1wZRu/Jtj0FY1jThirZRzutibTsTXIEQfceEuMt41Tt
+	 biAQyw7EpudRa5jhhydd+Kd9QsJBncskb0Hv7PdF7glw+dy3zlXSPF4xu+ToiK35ulqrE
+	 pznyeZAJiZEYtp4WieJFHRhdNStfFfgVBWRWbOHdpVERJq2vQ3sfbbIpmtYgEErHAEQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QT+ZFRu3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBF4606A326;
+	Sat,  7 Nov 2026 00:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QT+ZFRu3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794010405;
+	b=OSBp0mfzVNhjgOYxfy1kiGUNXILKMRvp4z4ugFq84lS+lRJyJJx0Qo+3eb0vc7CgUTQp
+	 H5hRT++7XokngvlOAYE4LRNmpo5+mPMoo/2BFnM3ZqzE7HnzxnGtAY+qvdP/B9TB2h0h1
+	 URoDEJc1/xkbZmewKmquxN0Cwl3N2n1jz6JBsTHaLENO+ULOHqBoO4ApYdJE2HluXU75I
+	 0UDIaj/aERw071hmlhqj4Dh72jxlRbhsXSzccpqBYz1Uewu56uiQ1SKKSHCBePoWp0mFM
+	 qzBcMPFAOWLIf+KjT5BOZqnZA6B+77fc9kGBk6YvVC135XfPLjawQSF6nw1fDtK8cig==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794010405;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YiuX6F1w9dG9JpDBdQ4K+utWXGwO/Bq4l4lsr4V9+Uw=;
+	b=AHxShdEjPpiV8IKl0L0137Q/Q0tuFNmvVWYhAaGSEf60vAm+X9wO5Sno0A9s9SR/ykq/
+	 nrw2CQqR7DvENMV6YYr3ItPR8elYDUG8Mef5IVjj+gXJkQ/BCYZEQWOoFrgG3UE7R+8Gb
+	 9trV9/aXyz1WQZBDDTlzoyOeoiTg/fxavYav90sMDrCkXBUsLso2WxoQkDThhLdtVPYs1
+	 e1cnA4COy1ZPrxM2EquXQraCPhSy+TyirFKGZ/+zewyZMYZp4uHcFEpK64NtQgDKROEHQ
+	 6A655vgDEV2DlqbY/qwNFmLgorxlOloFoI4AT6hIB94WN2RhFJi68hiAnHfOfyFaQ2Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79386606A326;
-	Sat,  7 Nov 2026 00:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Clpvd24C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDFF61F0089F;
-	Sat,  7 Nov 2026 00:11:45 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2FD671F0089F;
+	Sat,  7 Nov 2026 00:13:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794010306;
-	bh=O1YwaBYKL60DTpaRiHPM1BWsGMVsXcGSphhmfyChFiw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Clpvd24CJwr/f52xsfUXjUubKlUpHQFZqbAVRM4iNf04oRjsk4NBvcWAmEaZR81w7
-	 Usw3POAgFFk04Tkpl7LHqEI2eMR5ANQ8y6dHKUgjJP9qgkhVVW7OxBJ6p1JWO4BRNA
-	 NzulLkK9ETVPVQOQNoUEXg/30AyFVFGLRQtbb6M5LjbgSllZwSDrO0NitUcVSO+AHb
-	 K6F8yM03WCa2kS1uqw3xNlRLAH6/UOUKLQAZUO+b+pDUQCs4lfUCWys/495lLB1Rvi
-	 cixbLAuY+/u/a7vdwY6v34OutczaijoYahkBoaGh+xjdsWLBVtpHQFJNITWTcd7xPy
-	 DePtqQP5QVFgQ==
-Message-ID: <sashiko-outbox-202413@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] locking/ww_mutex/test: Time an ABBA with both
- owners running
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261106235931.1478800-6-mathieu.desnoyers@efficios.com>
-References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
- <20261106235931.1478800-6-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 07 Nov 2026 00:11:45 +0000
+	s=k20260515; t=1794010405;
+	bh=YiuX6F1w9dG9JpDBdQ4K+utWXGwO/Bq4l4lsr4V9+Uw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=QT+ZFRu3z6edSwfp9gLGHHUeKBBsdMTO1EWGFTcsCl6OsEeT9EInTD7iFFb/+Byxp
+	 adNpRBW8xFQN/Ss06WzCVgeZNEfL0/g1ZZQoz4wJW2ec0f4W55L/uRDOJC/m3lVJYu
+	 vPc2mPIX6qzrRZIylWCMRXPHPp42T2D9mLE3PSkIiYk1VdDdv//q/TkxlNoiwU3FyL
+	 v169ZeIjspT6jrM6XYdwhT8lr71z6y+vNmPIf7JAkg+9WjziskDAdwOsmEMEwRoQ6S
+	 38DH2PZuxGFMsU6bZL1iaLY37/EU5GvN6CN8V0R+fVATu3+nSDY4ZJZ91FUcVQe2ef
+	 n4ceeUD/XEqfA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 863CF47904;
+	Sat,  7 Nov 2026 00:13:23 +0000 (UTC)
+From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
+Date: Sat, 07 Nov 2026 09:13:23 +0900
+Subject: [PATCH v2] usb: gadget: gadgetfs: dequeue pending ep0 request
+ before freeing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,94 +82,291 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-b4-gadgetfs-ep0-v2-1-d8896e1ad517@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACJt7moC/1WOS27DMAxErxJoXbmiokphV71HkYWs0DKL+gNRD
+ RIEvnutdNXlmyEf5qGECpOo98NDFbqy8DLvYF8OKo1xzqT5srOyxnoA43XvdI6XTHUQTavRwwl
+ cAhcgRFT711po4NvT+Hn+Y/npvyjVpmkXfRTSfYlzGlu0FM48v05RKpXWjyx1KffnpCs0j4KAR
+ wwewaPrbAgeOnxzR4cOTQAb/AkATfdv2BprGnUlqR95ivzdpWVS523bfgHeg3wP9AAAAA==
+X-Change-ID: 20261106-b4-gadgetfs-ep0-f814c14717a9
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
+ syzkaller-bugs@googlegroups.com, stable@vger.kernel.org, 
+ Jing Lin <kayano050408@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794010402; l=8972;
+ i=kayano050408@gmail.com; s=20261106-gadgetfs-gmail;
+ h=from:subject:message-id;
+ bh=6vi0zhlir65l8tCHpG2Hbu6i0egiQtfmgMHdAHBVI60=;
+ b=2AhwBgkaw9+i6uOU3HJV3zxkKZah8m+Wmhc0ntbqqzE+VWyDszoSL82vWzkGUMmx1VTYRuJzr
+ /pzUx02mYBIAeYpyd65QYlnPV+azjPkz2xkneWNWlXOxcFt1f79VtFe
+X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
+ pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
+X-Endpoint-Received: by B4 Relay for
+ kayano050408@gmail.com/20261106-gadgetfs-gmail with auth_id=1433
+X-Original-From: Jing Lin <kayano050408@gmail.com>
+Reply-To: kayano050408@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] locking/ww_mutex/test: missing stage ordering in
-  test_abba_spin()
---
+From: Jing Lin <kayano050408@gmail.com>
 
-commit a75841edff4ce8ecc91baad12d6e7f770d7d72f7
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
+the gadget, assuming that no I/O remains active.
 
-locking/ww_mutex/test: Time an ABBA with both owners running
+With dummy_hcd, disconnecting does not necessarily drain ep0, so a delayed
+userspace response can leave dev->req queued when it is freed. This
+triggers the warning in dummy_free_request() and a use-after-free when
+dummy_udc_stop() subsequently drains the endpoint queue.
 
-This commit adds a wound-wait test case to test-ww_mutex where two
-SCHED_FIFO threads on separate CPUs create an ABBA contention while both
-owners remain running.
+In addition, gadgetfs_setup() can reuse dev->req while a completed
+delegated control OUT transfer still has dev->setup_out_ready set waiting
+for ep0_read() to copy the payload to userspace and call clean_req(),
+which can overwrite req->buf with descriptor pointers and trigger an
+invalid kfree() in clean_req().
 
-> diff --git a/kernel/locking/test-ww_mutex.c b/kernel/locking/test-ww_mute=
-x.c
-> index 838d631544ed2..1bf3a91adfec5 100644
-> --- a/kernel/locking/test-ww_mutex.c
-> +++ b/kernel/locking/test-ww_mutex.c
-[ ... ]
-> @@ -279,6 +281,213 @@ static int test_abba(struct ww_class *class, bool t=
-rylock, bool resolve)
->  	return ret;
->  }
-> =20
-[ ... ]
-> +static bool abba_spin_until(struct test_abba_spin *s, int stage)
-> +{
-> +	u64 end =3D ktime_get_ns() + 5ULL * NSEC_PER_SEC;
-> +
-> +	while (atomic_read(&s->stage) < stage) {
-> +		if (ktime_get_ns() > end)
-> +			return false;
-> +		cpu_relax();
-> +	}
-> +	return true;
-> +}
-[ ... ]
-> +static int abba_spin_old(void *arg)
-> +{
-> +	struct test_abba_spin *s =3D arg;
-> +	struct ww_acquire_ctx ctx;
-> +	u64 t, end;
-> +	int err =3D -ETIMEDOUT;
-> +
-> +	sched_set_fifo_low(current);
-> +	wait_for_completion(&s->start);
-> +	ww_acquire_init_noinject(&ctx, s->class);
-> +	atomic_set(&s->stage, 1);
-[ ... ]
-> +static int abba_spin_young(void *arg)
-> +{
-> +	struct test_abba_spin *s =3D arg;
-> +	struct ww_acquire_ctx ctx;
-> +	int err =3D -ETIMEDOUT;
-> +
-> +	sched_set_fifo_low(current);
-> +	wait_for_completion(&s->start);
-> +	if (!abba_spin_until(s, 1))
-> +		goto out;
-> +	ww_acquire_init_noinject(&ctx, s->class);
+Track dev->req from submission through completion under dev->lock and
+reject reuse in both setup_req() and gadgetfs_setup() while either
+dev->setup_out_ready or dev->ep0_req_queued is set. Reset req->buf to
+dev->rbuf in setup_req() when len fits in dev->rbuf. In gadgetfs_unbind(),
+after waiting for active UDC users to finish, dequeue a pending request
+with dev->lock dropped and clean up any unread control OUT buffer before
+freeing dev->req and clearing ep0->driver_data.
 
-[Severity: Low]
-Can abba_spin_young() obtain a smaller ctx.stamp than abba_spin_old() on
-weakly-ordered architectures?
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c73e1942197af9f54ca3
+Tested-by: syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Jing Lin <kayano050408@gmail.com>
+---
+Changes in v2:
+- Also check dev->setup_out_ready in gadgetfs_setup() so a new SETUP
+  request cannot reuse dev->req or overwrite req->buf while ep0_read()
+  still has unread or in-progress control OUT data.
+- Reset req->buf to dev->rbuf in setup_req() when len <= sizeof(dev->rbuf)
+  and clean up unread control OUT buffer in gadgetfs_unbind().
+- Remove RFC syzbot test commands from the commit description and add the
+  syzbot Tested-by tag.
+- Link to v1: https://patch.msgid.link/179397691694.27761.9543494907127681190.gadgetfs-ep0-patch-test@gmail.com
+---
+ drivers/usb/gadget/legacy/inode.c | 59 +++++++++++++++++++++++++++++++++------
+ 1 file changed, 50 insertions(+), 9 deletions(-)
 
-ww_acquire_init() allocates ctx->stamp with
-atomic_long_inc_return_relaxed(&ww_class->stamp), and s->stage is updated
-and polled with relaxed atomic_set() and atomic_read():
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index 7f6d84601..9b74476dd 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -140,6 +140,7 @@ struct dev_data {
+ 					setup_abort : 1,
+ 					gadget_registered : 1;
+ 	unsigned			setup_wLength;
++	bool				ep0_req_queued;
+ 
+ 	/* the rest is basically write-once */
+ 	struct usb_config_descriptor	*config, *hs_config;
+@@ -984,6 +985,16 @@ static inline void ep0_readable (struct dev_data *dev)
+ 	kill_fasync (&dev->fasync, SIGIO, POLL_IN);
+ }
+ 
++static void dev_req_complete(struct usb_ep *ep, struct usb_request *req)
++{
++	struct dev_data		*dev = ep->driver_data;
++	unsigned long		flags;
++
++	spin_lock_irqsave(&dev->lock, flags);
++	dev->ep0_req_queued = false;
++	spin_unlock_irqrestore(&dev->lock, flags);
++}
++
+ static void clean_req (struct usb_ep *ep, struct usb_request *req)
+ {
+ 	struct dev_data		*dev = ep->driver_data;
+@@ -992,7 +1003,7 @@ static void clean_req (struct usb_ep *ep, struct usb_request *req)
+ 		kfree(req->buf);
+ 		req->buf = dev->rbuf;
+ 	}
+-	req->complete = epio_complete;
++	req->complete = dev_req_complete;
+ 	dev->setup_out_ready = 0;
+ }
+ 
+@@ -1004,6 +1015,7 @@ static void ep0_complete (struct usb_ep *ep, struct usb_request *req)
+ 
+ 	/* for control OUT, data must still get to userspace */
+ 	spin_lock_irqsave(&dev->lock, flags);
++	dev->ep0_req_queued = false;
+ 	if (!dev->setup_in) {
+ 		dev->setup_out_error = (req->status != 0);
+ 		if (!dev->setup_out_error)
+@@ -1015,7 +1027,7 @@ static void ep0_complete (struct usb_ep *ep, struct usb_request *req)
+ 	/* clean up as appropriate */
+ 	if (free && req->buf != &dev->rbuf)
+ 		clean_req (ep, req);
+-	req->complete = epio_complete;
++	req->complete = dev_req_complete;
+ 	spin_unlock_irqrestore(&dev->lock, flags);
+ }
+ 
+@@ -1023,12 +1035,14 @@ static int setup_req (struct usb_ep *ep, struct usb_request *req, u16 len)
+ {
+ 	struct dev_data	*dev = ep->driver_data;
+ 
+-	if (dev->setup_out_ready) {
++	if (dev->setup_out_ready || dev->ep0_req_queued) {
+ 		DBG (dev, "ep0 request busy!\n");
+ 		return -EBUSY;
+ 	}
+ 	if (len > sizeof (dev->rbuf))
+ 		req->buf = kmalloc(len, GFP_ATOMIC);
++	else
++		req->buf = dev->rbuf;
+ 	if (req->buf == NULL) {
+ 		req->buf = dev->rbuf;
+ 		return -ENOMEM;
+@@ -1073,13 +1087,20 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+ 			struct usb_request	*req = dev->req;
+ 
+ 			if ((retval = setup_req (ep, req, 0)) == 0) {
++				dev->state = STATE_DEV_CONNECTED;
++				dev->ep0_req_queued = true;
+ 				++dev->udc_usage;
+ 				spin_unlock_irq (&dev->lock);
+ 				retval = usb_ep_queue (ep, req, GFP_KERNEL);
+ 				spin_lock_irq (&dev->lock);
+ 				--dev->udc_usage;
++				if (retval < 0) {
++					dev->ep0_req_queued = false;
++					clean_req(ep, req);
++				}
++			} else {
++				dev->state = STATE_DEV_CONNECTED;
+ 			}
+-			dev->state = STATE_DEV_CONNECTED;
+ 
+ 			/* assume that was SET_CONFIGURATION */
+ 			if (dev->current_config) {
+@@ -1270,6 +1291,7 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
+ 			retval = setup_req (dev->gadget->ep0, dev->req, len);
+ 			if (retval == 0) {
+ 				dev->state = STATE_DEV_CONNECTED;
++				dev->ep0_req_queued = true;
+ 				++dev->udc_usage;
+ 				spin_unlock_irq (&dev->lock);
+ 				if (copy_from_user (dev->req->buf, buf, len))
+@@ -1284,6 +1306,7 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
+ 				spin_lock_irq(&dev->lock);
+ 				--dev->udc_usage;
+ 				if (retval < 0) {
++					dev->ep0_req_queued = false;
+ 					clean_req (dev->gadget->ep0, dev->req);
+ 				} else
+ 					retval = len;
+@@ -1508,6 +1531,11 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 	} else if (dev->state == STATE_DEV_SETUP)
+ 		dev->setup_abort = 1;
+ 
++	if (dev->setup_out_ready || dev->ep0_req_queued) {
++		spin_unlock(&dev->lock);
++		return -EBUSY;
++	}
++
+ 	req->buf = dev->rbuf;
+ 	req->context = NULL;
+ 	switch (ctrl->bRequest) {
+@@ -1626,6 +1654,7 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 				if (value < 0)
+ 					break;
+ 
++				dev->ep0_req_queued = true;
+ 				++dev->udc_usage;
+ 				spin_unlock (&dev->lock);
+ 				value = usb_ep_queue (gadget->ep0, dev->req,
+@@ -1633,6 +1662,7 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 				spin_lock (&dev->lock);
+ 				--dev->udc_usage;
+ 				if (value < 0) {
++					dev->ep0_req_queued = false;
+ 					clean_req (gadget->ep0, dev->req);
+ 					break;
+ 				}
+@@ -1664,16 +1694,18 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 		req->length = value;
+ 		req->zero = value < w_length;
+ 
++		dev->ep0_req_queued = true;
+ 		++dev->udc_usage;
+ 		spin_unlock (&dev->lock);
+ 		value = usb_ep_queue (gadget->ep0, req, GFP_KERNEL);
+ 		spin_lock(&dev->lock);
+ 		--dev->udc_usage;
+-		spin_unlock(&dev->lock);
+ 		if (value < 0) {
++			dev->ep0_req_queued = false;
+ 			DBG (dev, "ep_queue --> %d\n", value);
+ 			req->status = 0;
+ 		}
++		spin_unlock(&dev->lock);
+ 		return value;
+ 	}
+ 
+@@ -1771,6 +1803,7 @@ static void
+ gadgetfs_unbind (struct usb_gadget *gadget)
+ {
+ 	struct dev_data		*dev = get_gadget_data (gadget);
++	bool			queued;
+ 
+ 	DBG (dev, "%s\n", __func__);
+ 
+@@ -1781,15 +1814,22 @@ gadgetfs_unbind (struct usb_gadget *gadget)
+ 		usleep_range(1000, 2000);
+ 		spin_lock_irq(&dev->lock);
+ 	}
++	queued = dev->ep0_req_queued;
+ 	spin_unlock_irq (&dev->lock);
+ 
++	if (dev->req) {
++		if (queued)
++			usb_ep_dequeue(gadget->ep0, dev->req);
++		if (dev->setup_out_ready)
++			clean_req(gadget->ep0, dev->req);
++		usb_ep_free_request(gadget->ep0, dev->req);
++		dev->req = NULL;
++	}
++
+ 	destroy_ep_files (dev);
+ 	gadget->ep0->driver_data = NULL;
+ 	set_gadget_data (gadget, NULL);
+ 
+-	/* we've already been disconnected ... no i/o is active */
+-	if (dev->req)
+-		usb_ep_free_request (gadget->ep0, dev->req);
+ 	DBG (dev, "%s done\n", __func__);
+ 	put_dev (dev);
+ }
+@@ -1816,11 +1856,12 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+ 	get_dev (dev);
+ 
+ 	/* preallocate control response and buffer */
++	dev->ep0_req_queued = false;
+ 	dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
+ 	if (!dev->req)
+ 		goto enomem;
+ 	dev->req->context = NULL;
+-	dev->req->complete = epio_complete;
++	dev->req->complete = dev_req_complete;
+ 
+ 	if (activate_ep_files (dev) < 0)
+ 		goto enomem;
 
-CPU0 (abba_spin_old)              CPU1 (abba_spin_young)
-ww_acquire_init_noinject()
-  atomic_long_inc_return_relaxed(&s->class->stamp) [reordered]
-atomic_set(&s->stage, 1)
-                                  abba_spin_until(s, 1)
-                                    atomic_read(&s->stage) =3D=3D 1
-                                  ww_acquire_init_noinject()
-                                    atomic_long_inc_return_relaxed(...)
-  [stamp increment executes here]  <-- young gets the older stamp
+---
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+change-id: 20261106-b4-gadgetfs-ep0-f814c14717a9
 
-If abba_spin_young() receives the smaller stamp, it wounds
-abba_spin_old() when blocking on s->a_mutex, causing abba_spin_old()'s
-ww_mutex_lock(&s->b_mutex, &ctx) to fail with -EDEADLK.  Using
-atomic_set_release() and atomic_read_acquire() on s->stage would order
-the stamp allocations.
+Best regards,
+--  
+Jing Lin <kayano050408@gmail.com>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106235931.1478=
-800-1-mathieu.desnoyers@efficios.com?part=3D5
+
