@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011836;
-	b=HpOsmPaWNxr72azNZsG/5uLFejzs69unrBHaLX0DjzV3IxfHiuqt+NQFMWI0OJilLjp1
-	 tMmPR7oskxsklhqF663rpP9PlFHlREMnA+m4Z10EUFbvzd3qQYaK9taHOTzkYdE/MmrM4
-	 CpTrU2U6ZufXp7fG0A0d/6hyNVUL/BhkAj+/NGdBf+kWXKf4AUFLkmq/yuAoxmUi7287Q
-	 3br0gJ44CsLtEflPtAiZFxlkJVWQA+M2zkGiypoxxjDibOpNpruhuVXcuefQIUzLU4hTZ
-	 uEt93i/7Y94zFH7qpOSSuSDWGMLhrQ2/StPzQrkODYuQzE8wHGqQgyncbiZmaMDWH6w==
+	t=1794011842;
+	b=nX7xgXOpJsKmkJlpniehIOwQGGfjcdGXutxby39SYWTwWTQ9mofROjR7AKu6s8KM+/Ly
+	 /z8Cssdaoy1lYMLdtWdNJTCIb1eM2saVbjq9wAEg6b1rmxFyl8aiEz6OfTacnaya76HgN
+	 d+qvCZO1R2N5BSTrnE6ZEwsZDArX7vBO56ZygGQSYDcxdwB1/vMMBiOwYZ8ZSMIaN7AfL
+	 oW0HFOkAj62BUh1wqJRPd7mXJECwGg3SY6FOvajRGHqMgcYnH3Vpcz6fJgM1wj4sRWszw
+	 6Byfv0Rnol9hHC3IDV4BL6IAitB3tJ4TjBrSotCDlPA1puvC9+ceh7UIzj3hr9Dzqeg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011842;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4UScqvpHbvwhPXhOC+pGujyyRV2Vm9+YOOe4hjQlTSs=;
-	b=XWtV27MErJ9OwiPel2HsjCkEziBMB/cfSgFYkCXbP9kA4ZpKUXjScqiDJPmusumTBtX8
-	 DL4G7H9aRSN3yTY+YErPpAZC1blQJqkzhzxk94v/h8UtE1D563X7NmHwJW9Mqs6AlAkU5
-	 QquTwH5lilDfvHr5vrlTOVHANk8MqePJ6hv5sHix48RbPO9M3lzmGu5MJGPB30H8dW3qX
-	 TMCByt4GzYKZQzzQaN+E8AHEn604TKoqIJEHJwnHYLRRlzk3WgbkWq0Y5NASLcIOjCE7W
-	 pwtWlVYSG2Bh+x8OWd5YKeSnMoTHvEFuJpNjTkTlVpw/eQr6SaPGHNRNrDn5LTU4Lzw==
+	bh=j6n9yIIcfnOcnGVEaQqxGzHzdc6SyqXvU+1WBCgMQDc=;
+	b=nKSXcMLhQkQu9OSxJVqHcDIGqj73LyNqCoSMYsbX0G03cQwIvoNF0MotYNOePRifWkxt
+	 J6FVMYhj72fjot1yvoAkTLzHgUl3GlVR8M4y9lxgZzIF5LhI4VajVlKTSTJxENkuSWSIx
+	 frAUP5D908MLkMHjDDsbJzm4KmdJyzdDAXvVaU5utvBHDaL/ppRLkYi86qomH0xGk80r/
+	 5l3zLIcT3euX+PMDn5YSjAbyNOVvSib/nHHDPeyZjL34aCQU22Qq7xGfVtanp4ysvf2jI
+	 A0M06ZdwOMl/NymehMFTdpp1qD/L/z815E36FVcjs10k+KVTpWbkCs5/12QfIPShYOw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEXgJipU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkGXBUKw;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F918606BFED;
-	Sat,  7 Nov 2026 00:37:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8F4606B768;
+	Sat,  7 Nov 2026 00:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEXgJipU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkGXBUKw
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011836;
-	b=jTC3oAAoY+yPgFxQmwwyYhKIPdch1/fiATv7pdrPs/9H/PbFt86C9LPdDPukPagJib5z
-	 ii8Um0uegDuIiAefBG2xK9tpjByYxqr/RdaYzpkjXJUTB2gfE0SjijitGVFQXdBpBS7iA
-	 abmbV2YC2WeC0eF8b/QpnNtnc4wmOPb+CV8iE40wa+nED73LI2YFC3CSGdFA1tSrp4/xI
-	 JYk2hJ90Vz/N1BTmDdAWmlZSQC6+0FI7O9w9xNLJGgOYTSTmJb6zBFE5OCOO9BT1vCwDL
-	 yyzPIVd/eWu3keIZab2ybeax+T489k1mj+6LtX+QT5Ryadc4Ly43lxdg7eo4w5GXLfw==
+	t=1794011841;
+	b=eb/vDVAKeECthiSwyI5qhxqUrowDLJpSM5ZwSeC41x/IhjM7aE+DtDB20ff4ODrWYYsC
+	 kmFbrM37IpmEZlg10dSiY3WVW3Iy4LGmcSMFsQ/yZgcg44wGhZQ2ibMuj6OJynR56Gdqn
+	 k7DVqRnIk/I9dUrSjrJzkFJOsPp9XmH1nMBJYXtsY+7HxLNgmnQqpz+SP4q2D1DaJ3s0a
+	 nH4Ws04Wg61Mjja8PWpbBe57QiAcbw0qg+GnEq4hEk68fvRrgweaZpTG6b6SOPs+AUlEJ
+	 eNhCJRY2iQoLsfapXSoeZrnlDi4dkA04j9BJpGHlTd9VyO30y88m9eo6PyH0kX+7SPA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011836;
+	c=relaxed/relaxed; t=1794011841;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4UScqvpHbvwhPXhOC+pGujyyRV2Vm9+YOOe4hjQlTSs=;
-	b=HDIUQDobIvemgf+BIWga74IK7QG2WH7iBE0Ws6kqCqoyzB5DbagErY6duQVqoDIXsNbY
-	 Fj0BelWnMFBXiBqRLhNbLNL9iuA5ScYXPeMhS4pl6ztdSV28mGo4ca5PvtiU9TjZf0TDu
-	 Z55q6RodEhwfmTLL23OyUAuiyJt9my5aDRBppgP3lzYdKRHueDmUCJlYmqC9XZNryMvLh
-	 VwuU+lTKtoDPywq13IpyzyG+5fiHlhSmztqfr+UwoOaIR+fBhpet3met/OcAhnXmQR7+a
-	 GWyWfj1topXtKTAHxw7viCm4bJWgkqeajO/s/RUFJEWtFaSc0Y301KIip09+6EZOA6g==
+	bh=j6n9yIIcfnOcnGVEaQqxGzHzdc6SyqXvU+1WBCgMQDc=;
+	b=ro78RZlwZHTVYCnzFJZgdtqsHg3U5WN+pLQL2pe2S9BB/te/oEL8gxa8WvJUR6HJK1S1
+	 sAtBKO4qQEzeYj5mkPsKteLS8XqLeKnGRluf5CP3Zv3TmjG032koPohnG7Q7/OjsSsXuU
+	 bMjIaXS+FkJglhH8HJTEMVNR1tlQ6upM5L7VlZtgL90Q3BKbgoRGx5Kup+6MOH9J48NbS
+	 NaLTnDe9iar/6ejMz3MOxY4kLm8x2k9lr46XjB31SdOI1xiYiMWXJgVup1NZpHUyt3a6/
+	 NHw0/kcsIdWV7kN33IFCxQquAkUCrB/8nJYg1CKCaEe3vppihGQflhlQYxfmHmSm5FA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 818021F00AD4;
-	Sat,  7 Nov 2026 00:37:06 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id D86FD1F008BC;
+	Sat,  7 Nov 2026 00:37:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011836;
-	bh=4UScqvpHbvwhPXhOC+pGujyyRV2Vm9+YOOe4hjQlTSs=;
+	s=k20260515; t=1794011841;
+	bh=j6n9yIIcfnOcnGVEaQqxGzHzdc6SyqXvU+1WBCgMQDc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YEXgJipUDsxc+shw4qFdKswehd6a1WuJk6fLk1NDYzhAmkqd2x+ZqeW3COYZQWd4k
-	 9waBXcxK+fGnrA+6aOPxKljfkIKzuoNY8hfLl3yVFgC7EEtLks8XFawYt8Ke+zSC6B
-	 X/nQb47vvsKge3FTQDKGt7cYufQQKxDMqk5QLgzIHxqFSGugg/ZsVEA5CoEPvZIE7h
-	 djZW68PoogF+2+/A2chdYeRcEWwywOwNsfBXGNhBr8PSLpYvdtLzNuJQXjn/zWkuuD
-	 ZXJGH5rIpVqKwUffxz/P/wvcwSVA3FNZegZ7IQlMHFrqWBKP2yK6cqZBRaKggjRFYC
-	 WELSa9krLggoA==
+	b=kkGXBUKwR12OgLfL4wVSOZxLefx+VZHXQSIzpBVvnHzH/Jum7n/D20WJf32yzuE7h
+	 bx8PQSe7qL0Bl9kgQZwNFgzRERPfOnvtfuCCmYAztkgyAFmZdFL7Q0OatKNYJ+a/Oj
+	 p3wkoK3WcA7gm9TUSZ1zdUVei/vbtS+fiN/F9+06Be9GIIdlUNsFajFHQZXM9K9C2T
+	 WuBHw6Vo6e5N3aRNyVVkWkMSeN7dVfaOCicIgaSUkUgIrRjijkp6QtgJtG2+YLNQTd
+	 4fU83rNOiV5k5koUOnopmBTljpoFrikgBfSZH5PxM24y4ENrkhLzNq4394OViPIFs5
+	 0FMmwKZVNlctw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EADFD47929;
-	Sat,  7 Nov 2026 00:36:55 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 9BA8E47A60;
+	Sat,  7 Nov 2026 00:36:58 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:37:18 -0800
-Subject: [PATCH RFC v3 44/88] samples/kvm: Implement attach and release
- provider ops in sample provider
+Date: Fri, 06 Nov 2026 16:38:00 -0800
+Subject: [PATCH RFC v3 86/88] KVM: selftests: Expect successful conversion
+ on MSI-X BARs in VFIO test
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-44-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-86-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -105,11 +105,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=2754;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=2135;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=wGkwYGWhWpUEbPcNoli9OVifhRpY95s9sJaKeYRfDoU=;
- b=2zBY4/UyvI/wD4fxk5n+1zA8wC8jypJ2hvfyGQousryL2X4dafvdKSl/QarQac9uuatqZ3yC7
- cRyw4A4lugaDN4Zps6HLSpdgi7cq6SIJHYldFyY/s718nvWW4wv8kWz
+ bh=VzsQCzajxaq4+sy1dgFu+2FHBF/aQtRmKeEX0OOIiWI=;
+ b=S4xYrV5byO8s3TboxsOXiZx6GDu3T8GX8FRcNDg51wlr8/L7ZZOzal2WSfJanjxA8BGU7KO+2
+ Iju/+vhbIDtBPvAbcjUo+0kvLnJoyMJvy/myX3jkaxwU9LK9VGetSTJ
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -120,93 +120,50 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Implement the guest_memfd provider operations in the sample memory
-provider module, providing .attach and .release callbacks.
+Disallowing private mappings of MSI-X vector tables is now enforced
+lazily by rejecting private fault resolution when backends report
+shared-only physical frames, rather than eagerly rejecting software
+attribute conversions.
 
-In .attach, take a reference to the provider file (get_file) to keep the
-provider context alive while attached. In .release, release the file
-reference via fput.
-
-Attach the provider operations to mps_file_fops.gmem_provider_ops so that
-provider file descriptors created by the sample module can be passed as
-resource_fd to guest_memfd.
+Update the conversions subtest to expect successful attribute conversion
+on BAR3 containing the MSI-X table, matching the lazy rejection model.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- samples/kvm/memory_provider.c | 39 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 38 insertions(+), 1 deletion(-)
+ tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/samples/kvm/memory_provider.c b/samples/kvm/memory_provider.c
-index 81ac94ae1a4e9..6f86e3e3262e3 100644
---- a/samples/kvm/memory_provider.c
-+++ b/samples/kvm/memory_provider.c
-@@ -17,6 +17,7 @@
- #include <linux/file.h>
- #include <linux/fs.h>
- #include <linux/gfp.h>
-+#include <linux/guest_memfd.h>
- #include <linux/miscdevice.h>
- #include <linux/mm.h>
- #include <linux/module.h>
-@@ -34,9 +35,11 @@ struct mp_info {
- 	unsigned long npages;
- 	struct page *cma_pages;		/* from alloc_contig_pages() */
+diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
+index a520cf45fccb8..325d5e0c66026 100644
+--- a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
++++ b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
+@@ -798,17 +798,19 @@ TEST_F(guest_memfd_vfio, conversions)
+ 	ASSERT_EQ(0, ret);
  
--	struct mutex lock;		/* the bitmaps */
-+	struct mutex lock;		/* the bitmaps and gmem_inode */
- 	unsigned long *absent;		/* taken away by MP_SET_PRESENT */
- 	unsigned long *readonly;	/* marked read-only by MP_SET_READONLY */
-+
-+	struct inode *gmem_inode;
- };
+ 	/*
+-	 * BAR3 contains the MSI-X vector table and PBA. Private conversion
+-	 * must be rejected by check_set_attributes to prevent host kernel
+-	 * writes to interrupt tables from triggering fatal protection faults.
++	 * BAR3 contains the MSI-X vector table and PBA. Disallowing private
++	 * mappings of the MSI-X table is enforced lazily via NO_PRIVATE PFN
++	 * attributes rather than eagerly rejecting software attribute conversion.
++	 * Converting BAR3 attributes to private in guest_memfd succeeds, but
++	 * attempting to fault the MSI-X page into the guest as private is
++	 * rejected with -EFAULT in kvm_gmem_get_pfn(), causing KVM to exit with
++	 * KVM_EXIT_MEMORY_FAULT.
+ 	 */
+ 	ret = __gmem_set_private(self->gmem_fd, bar3_info.offset,
+ 				 bar3_info.size, &err_offset);
+-	ASSERT_LT(ret, 0);
+-	ASSERT_EQ(EINVAL, errno);
+-	ASSERT_EQ(bar3_info.offset, err_offset);
++	ASSERT_EQ(0, ret);
  
- /* Byte range [offset, offset + len) of @info as page indices. */
-@@ -161,11 +164,45 @@ static long mp_file_ioctl(struct file *file, unsigned int cmd,
- 	}
- }
- 
-+static void *mp_gmem_attach(struct inode *gmem_inode,
-+			    struct file *resource_file)
-+{
-+	struct mp_info *info = resource_file->private_data;
-+
-+	mutex_lock(&info->lock);
-+	if (info->gmem_inode) {
-+		mutex_unlock(&info->lock);
-+		return ERR_PTR(-EBUSY);
-+	}
-+	info->gmem_inode = gmem_inode;
-+	mutex_unlock(&info->lock);
-+
-+	return get_file(resource_file);
-+}
-+
-+static void mp_gmem_release(void *provider)
-+{
-+	struct file *resource_file = provider;
-+	struct mp_info *info = resource_file->private_data;
-+
-+	mutex_lock(&info->lock);
-+	info->gmem_inode = NULL;
-+	mutex_unlock(&info->lock);
-+
-+	fput(resource_file);
-+}
-+
-+static const struct guest_memfd_provider_operations mp_gmem_provider_ops = {
-+	.attach		= mp_gmem_attach,
-+	.release	= mp_gmem_release,
-+};
-+
- static const struct file_operations mp_file_fops = {
- 	.owner		= THIS_MODULE,
- 	.release	= mp_file_release,
- 	.unlocked_ioctl	= mp_file_ioctl,
- 	.compat_ioctl	= compat_ptr_ioctl,
-+	.gmem_provider_ops = &mp_gmem_provider_ops,
- };
- 
- static long mp_ctl_new_file(void __user *uarg)
+-	/* Shared conversion on BAR3 should be permitted. */
++	/* Shared conversion on BAR3 should also succeed. */
+ 	ret = __gmem_set_shared(self->gmem_fd, bar3_info.offset,
+ 				bar3_info.size, &err_offset);
+ 	ASSERT_EQ(0, ret);
 
 -- 
 2.56.0.455.g6c5a503b38-goog
