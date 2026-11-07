@@ -1,94 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049677;
-	b=byJlFbexzQCSwG+W1/L4wwj+xKSdy+9wLPk2FqFpzUWfcPAWg7afDzPUsx2+q4Aq5N2g
-	 2t3Jv2wD+3TJPtB3MALl1r2ArPuSsIVwAAcSQgTWvA04T2qzJjeGhrJz0OPaNn3F7jA1f
-	 s5QPCmcNZnjNEuf8X1KI8TBRKsuNquItS3ZHPUExff/IwIdJk9gnVswA8/GClAZbHj6QP
-	 Xyn//tnFIZAQeBR+lbtDiV3FnSUwEHOhsf0pmKxoooqfZl9ot7OdG2PS3hnp1M4bFBG0i
-	 LuiSPose5EHH64Bk9YWCMkrS5MfUb2gkTW3gDb1toRjOaPyvaX+2Nh3h53FghS+zz2w==
+	t=1794049730;
+	b=Pb7Y2OSY8y+q2ZnQW5dzFQGo3+n2132Jvd7xoqo/HH9Tv1iDsh/rb339/l70RpYHWSLA
+	 SvFafp9Z21UNpbBAQ1oxDEBow41CagAXhh2WSqH/cqZGnKpYJmkAc5uRjxO/lo3y4Lecu
+	 lVBxvLV7jY6lKPABSqLAL81bDostYhLEm6kfHFCa/0WqXK3xFgSbF1kttHKdZAzEelvHy
+	 R7JL0ju9v2nMRWAqCuD4/VZhGAESlKdt1TLpunYvmpf5p2q9P72l/sgbJGHsFeZcuLJ+/
+	 ufNb70Za+Ki4snYZVeBF+oFrLGoI4aSNcIZzdq8LQZqE0hjYiidnBMr0bnSNlVFrYfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049677;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iazXt1ue45sdT0Gt6vlrMv52pc1Nk4AJvSoapTr3fo8=;
-	b=OHijxQl4Ah/33SRuHM1ZghZQR28Is/KHoetIBalqRLfIPOLlC9MBuoZjJ0g/YEWKm9bR
-	 u2Sh6zmmlwyq7j/Smwxd1GO/PXQFqm3l0Sezd00AmKWVByY3yjZm+fEv8gkKr2vNymNiZ
-	 CAbxMLVg8G8JloLZE6cU0dRVUmAVJU+EHqFPU2jDmLB2a5Guld8BnmtVhw7KhjjDAC9+p
-	 5hVQPmKBJWzChZ1pR0VvaLvPtjnytQqznfdWMteOD1WyhKJN6GLfyIokBr9fI/bfxa3nZ
-	 UvBNvyZF212McSa2y0iaHMiJE7ykzb9e7FiGUZP3l3zKglEz99GIgDRMElB8grb0gnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049730;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=i6dE4Qc2basO/b0AjLfl4KhmoQ0CUlCYVpAq8NuxGkU=;
+	b=Wv9zeCvxGB1OOAxYmfxKNeRajYVi06wWYINExXtFmX5z6sxeP5cLGQz3STJDUAA9YoZ7
+	 7slNqCKUVUFnBwSaky8Die+rXFwoHrjUZUYNZBtVK/S1OpD1WQ0nA0jm1OpedfPByu/Pf
+	 bJw5OXFsULgIIQig38yy18yUKNOM1jv2bSE9h8gRNNA2p+1Wsc5CCH7GWHdVM7qpvi5gO
+	 o8hCkGaAhZaGHkbs7tMh8wzcDrEmrY3eOMyJYy9K7Wku0AU876o6kVJViyF9tuTvP57Wi
+	 2SbNwvenDLnG6xW8SVSHrnwepDj4/N5kuKWHmvJQj1E6MV30AxjvSJ2MXYZkLvYbbLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qEZl/bdc";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDC2606A32F
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:07:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEDC2606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qEZl/bdc
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so821109a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:07:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794049676; x=1794654476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iazXt1ue45sdT0Gt6vlrMv52pc1Nk4AJvSoapTr3fo8=;
-        b=qEZl/bdcxE8GCw8c7ClrZpmQhVEMFSEfQSIy6aqxy4a16P21FtQRRFalHK4OVhH7Nd
-         zDFw99hGs3FIMKOHqMK2vYwdX1Nn+sZN9eOAki5cprOkzfHXy/Smnwuigh6dXnMX+bAV
-         mv7OAQFjr4yd1PypfnitcKpAx3YiUAcxeSBFG+EKjtfhE8JPIdL4B4NMm/8iaxa4L6C7
-         cm3/F3krW/Cxh7KJorkV7jUDeYM1c6oF7ESs1QDrehyQKemwMi2b8mI6YmESxqhGv8bd
-         4MpYlpZv0jIQbOcp0VdfHgodPQDdQ0m58kKD+C5KvyhL/+0rvlLmjJ/zUGCd3Fn9jLGm
-         fiJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794049676; x=1794654476;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iazXt1ue45sdT0Gt6vlrMv52pc1Nk4AJvSoapTr3fo8=;
-        b=YM12KpU7J1OnHksEBtF0gquT+qe0cT2iviv0oQTN6H3v0HY0y2gwR49Xs+iOwM3zGa
-         oRXy72/IQLGnA9/3wp1zZRoSjyTd0NJW0n9KYhelWIuEyZnHIl4jmoHSpBIW/SHGCoLN
-         qjH69WMlV4o41ZU1xNL1Z1Hluo89sO/s5q9TKv2eYrsRJuNKsFwpap2mfj/Rz7NmS2Kf
-         WLRSIdI9DIXifVTQepMkzysMAksQx3/Xa5BROasuPsULBjZNLsTf+/714/ewnkvgIRIj
-         FRLqaUv/cPvS70BqAQwPdFRTOMYoiNQyEeFy6vgMJroEIH/94tez9rC5pxARu3SAqUbM
-         Mlvw==
-X-Forwarded-Encrypted: i=1; AL+hErE6nsywrQYNnajf+SQcYoywa7Vxdfwz1ZiVVfAUslKNgeriGLHGa4EcDGJexhj34vbwEoZdJMNbGHzrPAc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JkQhfzkVQgjO6YmdT8OLimIptiZNYHtT8XMC5ZORpZUKv6nw6
-	MD8FmTHrEaGxMJYmyzRnXx3mmFK3MaP5YIfjV1pKWfKg87Wl66Cdf+WW
-X-Gm-Gg: AYBFou3cI+dcy18Pzt0oE8TCpXz7Wr3WVO1GE5sOQnKtGeBUUvHPEVncu+tyDViJPBa
-	zVDv4ueuabWbnu9L7xdTc2nacR6Q3dHzct7Nro6apRn9LzlQo8aBID45UGGXTyzcGnBPzXTFEBq
-	nWjojukXHmwAljtl1G7nkieEElHTAyp1uhA2M2OdF5oPL18L6pIrCSDoIVr0RRA+3YOaeOY60sJ
-	f38cIEsuSVUhqFfSqjyM4giY+ljaM4hgnoYWg2fLGFM4WnnkSFmx2tuf3G9w94gjxEPbjC4bqQt
-	GUk9288W5bEcEpspSWfhnk6kSKcMvXgn32Di5azbZUKp7m4kackrlkM8QFXDbIgzHeEmNmH/VNp
-	5dwcJ3xS+zCb7SLgXYQHdDN3fOHZSA1UCKY1JGAT1nkjE9hScN6hIwpQSSm3AGGskeUy+pWeotS
-	A4Cnbfdn8sjmzSqZ75q99lJMCzeYdJ2SYjIlKbIcYO98bxvl2c6Juh/lMBrdjkHFGm366Jgb7HE
-	C1rbjQFGHFXhbeZrn4s8xsIXxsmwcWgYply1JFAscVoknBtfuPAv9WybVUV8rqYhzA88d6Mr0A0
-	UQ1Smp/nZedup033mVygmX6bK7SNVKm1ktwZSR26BMIp5B3dSDwb/cc7MEj14ThyaN0WG14=
-X-Received: by 2002:a17:90b:2f4c:b0:3ab:2d17:51c5 with SMTP id 98e67ed59e1d1-3b0db5f176bmr5265142a91.6.1794049676200;
-        Sat, 07 Nov 2026 03:07:56 -0800 (PST)
-Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:6fb0:6db0:221b:f543])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057ef145sm2997336a91.6.2026.11.07.03.07.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 03:07:54 -0800 (PST)
-From: Pengfei Li <ljdlns1987@gmail.com>
-X-Google-Original-From: Pengfei Li <lipengfei28@xiaomi.com>
-To: rostedt@goodmis.org
-Cc: mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhangbo56@xiaomi.com
-Subject: [PATCH] tracing: Wait for marker writers when copy_trace_marker is cleared
-Date: Sat,  7 Nov 2026 19:07:22 +0800
-Message-Id: <20261107110722.1241413-1-lipengfei28@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CB7C606A330
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:08:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB7C606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jMCvs55zMz22Pn0;
+	Sat,  7 Nov 2026 19:08:25 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jMCvq3lVSz22Pn0;
+	Sat,  7 Nov 2026 19:08:23 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 7517030A6439;
+	Sat,  7 Nov 2026 19:07:43 +0800 (CST)
+Received: from ws.local (172.25.64.90) by cncheex04.Hygon.cn (172.23.18.114)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Sat, 7 Nov
+ 2026 19:08:24 +0800
+From: Zhiteng Qiu <qiuzhiteng@hygon.cn>
+To: Ying Huang <ying.huang@linux.alibaba.com>
+CC: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost
+	<matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul
+ Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Alistair Popple
+	<apopple@nvidia.com>, Xin Hao <xhao@linux.alibaba.com>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mm/migrate: don't batch the TLB flush when there is
+ nothing to batch
+Date: Sat, 7 Nov 2026 19:07:37 +0800
+Message-ID: <20261107190737.1538200-1-qiuzhiteng@hygon.cn>
+In-Reply-To: <87qzgxw2qx.fsf@DESKTOP-5N7EMDA>
+References: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
+ <87zevmwbaj.fsf@DESKTOP-5N7EMDA>
+ <179395975709.1235605.1971486611419119070@hygon.cn>
+ <20261107015057.1328227-1-qiuzhiteng@hygon.cn>
+ <87qzgxw2qx.fsf@DESKTOP-5N7EMDA>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,37 +71,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-Clearing copy_trace_marker removes the instance from marker_copies
-without waiting for trace_marker writers still walking the list. If the
-option is set again right away, a writer on that entry can revisit
-instances and write the same marker twice.
+Hi Ying,
 
-Fixes: 7b382efd5e8a ("tracing: Allow the top level trace_marker to write into another instances")
-Assisted-by: LLM
-Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
----
- kernel/trace/trace.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> Have you adjusted the NUMA scanning parameters?
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 18710c190c92..b0357f1b5a69 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -4016,7 +4016,9 @@ int set_tracer_flag(struct trace_array *tr, u64 mask, int enabled)
- 		break;
- 
- 	case TRACE_ITER(COPY_MARKER):
--		update_marker_trace(tr, enabled);
-+		/* Writers of the top level trace_marker may still be on this instance */
-+		if (update_marker_trace(tr, enabled) && !enabled)
-+			synchronize_rcu();
- 		/* update_marker_trace updates the tr->trace_flags */
- 		return 0;
- 	}
+No.  All NUMA balancing tunables are at their defaults
+(scan_delay_ms=1000, scan_period_min_ms=1000,
+scan_period_max_ms=60000, scan_size_mb=256).
 
-base-commit: 4539944e515183668109bdf4d0c3d7d228383d88
--- 
-2.34.1
+The scan is indeed slow: 58 passes of 256 MB in 55 s, 89 ms each,
+about 9% of wall time.  But the hint faults are not spread evenly
+between passes: those 9% carry 33% of all migrations.
+
+The faults come from the scan, just not from the pass that happens
+to be running at that instant.  Of the migrations that happen
+during a pass, 60% are for pages in the 256 MB chunk being scanned
+right now; nearly all the rest are for pages scanned one or two
+chunks earlier (lower addresses, within 512 MB).  None are from
+addresses the scanner has not reached yet.  So the scan makes the
+pages PROT_NONE and the workload touches them again within a second
+or two, while this or the next pass is running.  The collision is
+not a coincidence between two independent events.
+
+Here is the sequence, one pass on the unpatched kernel:
+
+  CPU A (task_numa_work)          CPU B..N (workload threads)
+  ----------------------          ---------------------------
+  tlb_gather_mmu()
+    tlb_flush_pending++
+  change_pte_range(table 1)
+    PTEs -> PROT_NONE
+                                  access page in table 1
+                                  do_numa_page()
+                                   migrate_misplaced_folio()
+                                    try_to_migrate_one()
+                                     PROT_NONE, but pending set:
+                                     pte_accessible() == true
+                                     tlb_flush_batched++
+                                    try_to_unmap_flush()
+                                     full flush, IPI to ~380 CPUs
+  change_pte_range(table 2)
+    flush_tlb_batched_pending()
+      pending != flushed:
+      flush_tlb_mm(), IPI to ~380 CPUs
+    PTEs -> PROT_NONE
+                                  (same for pages in table 2)
+  ... 128 PTE tables, ~0.7 ms each ...
+  tlb_finish_mmu()                    pass took ~89 ms, not ~7 ms
+    tlb_flush_pending--
+
+Each table flush makes the pass longer, and a longer pass lets more
+faults happen while tlb_flush_pending is set.  With the patch the
+migration takes the direct path: it may still flush while the pass
+is running, but it does not bump tlb_flush_batched, so the scan does
+not pay per table and the pass stays at ~7 ms.
+
+> That appear too complex.
+
+Agreed.  I'll keep the change in migrate_folio_unmap() and put the
+sequence above into the v2 changelog.
+
+Thanks,
+Zhiteng
 
