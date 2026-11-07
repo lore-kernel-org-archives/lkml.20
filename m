@@ -1,79 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794036202;
-	b=Qb+ELTFde7CRw1V4lyo2E04PeiI/EpQNGa33IY8RiSYXisc8YtYIYJpkU75AniLSBkSe
-	 RoHOUS2SzOlrlxUgPaZ4gYvq9oBGWR5iV2CaEJrXc6dypBcoOE3V+x7cu2u8/RBkU6cbt
-	 fjuJglP/xFSQmHsFEaX6b7/56MlBYFS/iAsduE/zZLr0I+b902+Yr80qr0YH3wyTJ2BiV
-	 Gt+x7vOP8bZxU2C7zF9NEQArsRmOZVtd2GS0lyvQ6aMD2ZwSb1ZotnTUvpkURjDfq5Tpg
-	 ABEm5Q7Rm2kv9Az+H/P9//ONk8hphvUkaAFwx9lvUgo0lBUqJOdu6T8v6KeOGr0PNlg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036202;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=UtiZOLQQFsDtRmUU+OGgmH5wZNmyzNdBMujXjQVZUzU=;
-	b=WJ5Bcv4loZLlQ+UgdW+FoXgoS4h+QljENTFIPmZ63PVfsgzGHn3KDqqwy4edK1rSNlbN
-	 FOfx2vgAt9D+SB9+8xOV/sfN8f4cJWpohLariIDU/SImIpDUM4n420QivTjpvZaRpWfM9
-	 dZK/5d36viEYyHmOhXEFbO0aHM6Gz+cayHlLsDk56KgJHeuXv/1MmwK08CZ4JZ7N5z/ZI
-	 /NTz/NjP0S2++15pZWUvlKd+e1J5WH69Yu+b2H0UV9m69pPCNL9GcNeJ9g6VgMGwfPGxG
-	 O18RMGr2XQmkyv5LHacEn8RefVBD92RNOgPl/C29wo76RONVgK82ArxNhWImf9AMzyA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XdVhIhgj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DEF606A338;
-	Sat,  7 Nov 2026 07:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XdVhIhgj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794036202;
-	b=Xo6Py1ISPqUgPifuTEzEvLsfvcMAeiIMjPpiqIHG0gHIEsU5McdWEY0iZ1b0pID5D4ok
-	 6uADnGTIbY7E94zvCnQh6waCZkUla60LAoI+Nnsw41EHzP3VjubxtMEZKMbwKbqJeeqLX
-	 9cIs1G6ogNMeYBqNV0w5Zi9RLHgDSZzfpoTPDXof9UMhdx8WW0vVrkP9Zp18AMI+6oORC
-	 ZPbV3AuQKuOqvPJIhi/+2IOd9VohFfoLEEUwjNSIlpv08aqAgxjVzb0mu46+rOzG7Afec
-	 cNxvwcSM5ABSHqPJnv7z4L0yTBi/9SNxYcyE+omkLzqxaiO/7nQG9O7vpQcqfWa3k1A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794036202;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=UtiZOLQQFsDtRmUU+OGgmH5wZNmyzNdBMujXjQVZUzU=;
-	b=lebFyU8DcCACcUz6P8HnC/nXXkAZRwB+H6uoL25YNCQfeSXTeakwXVatgEePGvXLBdrL
-	 x1/6betDxRrFvZtcvkOAuBNQc0J7CNkH+Zlx5PSjNp4l7q4GFa1UDnsbQP/gRT238Vvqi
-	 kXUhTeIU6lGMk7v6vAWWpek2oyLCFLPzx9+ykjgKc+vTX3+0TFZfDO0sug+NIM3QtGR7E
-	 bfLCQ1wv8s8Unl9CLhpHWMSmv0Qvz4rJ2dnBnF8joLVktfqJEgMVmwhUwIgpBU8prUfNm
-	 LG+DclayeaIVuVGg5yBoKeV28E3FsKmhAiUFTF0yXihsWH8MQpcQRVfYM28/uFNJiYQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794036312;
+	b=KjkTreLCWDCAz/6ySjifwERCG/y3/tD7lEFha+a8hCw9XFtG3MfDIN0gmAmj0/AquHoy
+	 V7hfZE6BrN2/5VF3qJzZUCvyv4eOa4a7emyd8hZo2ph+tjyYZ1TbWUz2VPpqgls2sXxOz
+	 4cDFsYz3lrBWeevtPYuA5LjMydAz6dDMPApCv72DfOcqjiVgUBdeKiiLnkQ/W92zaYGX3
+	 wCv5+rg1gezgA/xD/O2kg1vCqQ6TiWSIF+jMjMXOlEJWwrDGP/Lpk+P7GOEJOLBTyZj9N
+	 GIinlbJBiB/ys/0bIIdKovKT1MrnaqUSWJFXt/4924UW8WnzQLwu20W3Et/oqcPX6nQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036312;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=r2dd8jRP0W945/bWYQPeHiO11p85GGQbJrWF47zymFM=;
+	b=n4yrVmDbqFgjm/I7hrBZAlfaC3jCvOQoJsGHAkPuAkcCWArVmM5+B7WNkO/dJYQNRS8f
+	 qVwikX69g/JsZkP+RHFIrDaUJeKd844jv7OLYTrKPAEiZUu9d4TjAfobVfM/PbWLrzpA6
+	 9jQQbs4PcZM7qI6391db8s/gU4eXPLiwtemp6XmrZMN14LibcIWcq1Ql9d+9GxwS81rEo
+	 2/Anxk9wdkvKdjrLydy2PoP9F1JZ2n1HNWFhWgxDBH2OuibcZ/6J3pbB3sHoUjtNiTEz+
+	 RhBOYcJZtN4+uwbZ9ySKzJqD6uB6mCZymV0TORwIr7AjIFtH8QL3dJjObDJjiFR3J/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y1vSVoue;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BD9F01F0089F;
-	Sat,  7 Nov 2026 07:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794036202;
-	bh=UtiZOLQQFsDtRmUU+OGgmH5wZNmyzNdBMujXjQVZUzU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=XdVhIhgjiOn15nNTtFw054P5VeYyvzFdrV/rw60ri/Iq7WhnhADiBjuLDWjYqwSHx
-	 /7Ph5RuRbnmlkdUXiWXdF9cHxMjkcxPmN67h64gufIStah5CKI++CY8voC/LmPm3Xz
-	 efqxzO0p1tOdXjxLJvtLGlHAa4AMUe5QDauN1M3r8gP0TsNjqALKMWV9kSt86WEMC+
-	 DQKufaAA0hwcUj9ynuXJuiqIQ0TxOT4tI8ij4mWQ20/DprJej0uzA/mKLqrMmoClNi
-	 KWrVtiIzshS0b6elPX10J9KsJlTI9+XtMScMBvElyqfY4luh4v+g81eke87IQQaa7I
-	 xhkUtWCC80Sig==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5291047AFE;
-	Sat,  7 Nov 2026 07:23:21 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 01:23:20 -0600
-Subject: [PATCH] staging: octeon: disable PKO before device removal in
- probe error path
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C1F606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:25:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5C1F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y1vSVoue
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd3310348d2so117401a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 23:25:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794036311; x=1794641111; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r2dd8jRP0W945/bWYQPeHiO11p85GGQbJrWF47zymFM=;
+        b=Y1vSVoueTJqDLM8jA8agI6cbb4i3g5fC3JmW4R1XHEhndYMfZ6lRtD2CHTqFq5AKqQ
+         KXYEFgbEsYMfDGduQAhK69Y23OAxMa72MP7M20XQwkYD+Ox4k1JwFWjhGg1R1b79nu7Y
+         U5gMnr4yx+rx4JkXiWjMww5TLCmEZ8g1Wg8sw/59fMAcuMexJIfqpWt9pLhZIz4hTBX5
+         0KlyCCRCG1hpOIwRRohXWvKxfTrhbnuaNPca9r4EOR/qkJlmzikAZ8r1uvkSGj7UjLuY
+         hLFhxRchs1RRPUGJM3kxBKqlvkvuS3eAh6nacqNNIjyV10nsT/DQQYx7d5iInDdK635c
+         iI4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794036311; x=1794641111;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r2dd8jRP0W945/bWYQPeHiO11p85GGQbJrWF47zymFM=;
+        b=k2soJlKjy0FCWCp83PuEQUE+Q/nT60JPkhtwaBIiOpe9Aw/rOcbsnrg8JjvH4VqCGU
+         WVC/Y8CPX2uLkonrhnt4SZ7oj4SbVhitkSS60OtzNQXdE9zNVoa+rXBaVOQfgT9vsSQB
+         b3s9hTHeQS31Csvx5VMmFYDtV9TwpaHQ4cWmBes9FXm6YcNdHHr1kdY9ljbqM4wmIaT3
+         28EhWlpcZIwl3UqJUwa7cbmzQuZsLVPH7wDOVQb5TMbaJsqbNsmXI+WWi15kVBASgHey
+         JaU6B8wmA9ECMCZPR5gvCoOwR/lLX3kMgpnippWy6OZBkjtbKZk98oy3TDltWzw5l9Lr
+         JKjQ==
+X-Gm-Message-State: APuU4Z/GJOW98tjIH7mHQEzQX9K+elMVgdWrvzKQ3IW60wMaZXJwe/pf
+	w6/UCZoDZM4S2ixp/6n7qz7F2UrX5ASUFQwWn/Ifc0X8bDfuml4fAatd
+X-Gm-Gg: AYBFou2KeTxHjqEEcmtzH7Sfs6II5f8sufOVtBtks0DUe2F/MEOsMh60grcQA86i9nP
+	RxHoYPj6apdosR+hkeu7lQf2HFMnbFU6YBwHzFVrLP4NW2zgSGiKB4ZKXLrMk+exqO2k8VNFHbG
+	vKi6MIMVtJ7O3/N8uz1ZdPjiPJxkJdjR6WmNes4ZpsiGsApYBscipPMw+1nvD7cVlYDCiAoornM
+	/zsL80tyRaZ5E06zOnbok9vk1v+GFmO+pnlYDmYA5Pc8/lPufdj62YI0l+bVhFgkPLq70UI+/SZ
+	SDVjslx8HoqjZ9TqpltROwkuos22nkDbRu2LRo5MPzlzw9iRGbqhwNredRaMNJs3CyN4VkjRjkD
+	iDPYlm9Mshl9SJ71HcgM6h88XUBwvl5cYqJ/bfLep50GJNK4/o8SannAYHTZaQJ/LNYpu3OZ4Ae
+	jHgo1KUYnl4X69fYY7Dsu0X2xG2juHSF93SLVUOMXkqpqrnrGJv1EY/klIkdgasv8TVp2Zp+qkr
+	/xO7lVAzxrlYqOdwhCEeN+JKpRRMjTQprv8jSJ174XdIhqhk3wRLSGvribYEpjrqyAOluYPF6U6
+	XUdGqyYQ3hFsLaSsfvggiIyxvy6VLD4Mtw+0BQ1WW1R4nQqt
+X-Received: by 2002:a17:90b:4f42:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b1061d20b8mr905743a91.18.1794036310826;
+        Fri, 06 Nov 2026 23:25:10 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c2bc8sm2238847a91.3.2026.11.06.23.25.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 23:25:10 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] usb: gadget: pch_udc: drain vbus GPIO works before freeing the device
+Date: Sat,  7 Nov 2026 16:25:01 +0900
+Message-ID: <20261107072501.3434465-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,64 +95,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-b4-octeon-pko-disable-fix-v1-1-4e54658fe34c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7biE1ivpKdNDcailUNCKI/p50n
- IGZBzIlpgyDeCDRxZmDLyArAfNm/ErIrjCoWrVS1h3aBsN8UvAY94COs7EH4cI3ttbprl9IqV5
- D6WOiov/3OL3vB4BIYq9rAAAA
-X-Change-ID: 20261107-b4-octeon-pko-disable-fix-6bd379fe2293
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794036201; l=1196;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=b3Y2ZMJCrAoNlfMwA4dOrqbA/Tfy/ykkFc+b2losdKw=;
- b=/L3VOJAE8nIX9C52Qe5AJ9uDS6HP2vkFj/DStKXHsPW2ZKyaLUed1dslfz0Tb0DCYI6eBbGBu
- fU9/FZdydDiCPZzlM3Hln4Bh0hfS5yr5ADuf9I7iCQGNpLYWDHAQbag
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
 Content-Transfer-Encoding: 8bit
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+From: Hyunjung Ko <hj351016@gmail.com>
 
-cvm_oct_remove() calls cvmx_pko_disable() before removing devices and
-shutting down PKO, ensuring packet output is halted while transmit
-queues are torn down. However, the err_tx error path in cvm_oct_probe()
-omits cvmx_pko_disable().
+pch_vbus_gpio_irq() and pch_udc_dev_isr() schedule
+dev->vbus_gpio.irq_work_fall / irq_work_rise (pch_vbus_gpio_work_fall /
+pch_vbus_gpio_work_rise), whose handlers obtain the pch_udc_dev via
+container_of() and dereference it. Nothing cancels these works on
+teardown, and dev is allocated with devm_kzalloc(), so a work still
+pending or running when devres frees dev dereferences freed memory
+(use-after-free); pch_vbus_gpio_work_fall() polls for up to
+PCH_VBUS_PERIOD (3s), widening the window.
 
-Add cvmx_pko_disable() to the probe error path to match the teardown
-sequence in cvm_oct_remove().
+The two works are armed from different sources. irq_work_rise is only
+set up and scheduled once dev->vbus_gpio.intr is non-zero, from the GPIO
+interrupt handler. irq_work_fall is INIT_WORK()ed whenever a VBUS GPIO is
+present, and is scheduled either from the GPIO interrupt or, when
+dev->vbus_gpio.intr is 0, from the UDC device interrupt
+pch_udc_isr() -> pch_udc_dev_isr() on UDC_DEVINT_US.
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+pch_udc_remove() calls pch_vbus_gpio_free() before pch_udc_exit() masks
+the UDC device interrupts, and the PCI interrupt (pch_udc_isr()) is only
+released by devres after pch_udc_remove() returns. So draining the works
+in pch_vbus_gpio_free() alone races the UDC interrupt: pch_udc_dev_isr()
+can re-queue irq_work_fall after cancel_work_sync() has returned.
+
+Mask the UDC device interrupts and synchronize_irq() the PCI interrupt
+before draining, so neither source can schedule the works any more, then
+cancel them: irq_work_fall whenever a VBUS GPIO port exists, and
+irq_work_rise together with free_irq() under the intr guard. free_irq()
+runs before its cancel so the GPIO interrupt cannot re-queue either.
+
+Found by static analysis and code review; not runtime-reproduced (needs
+EG20T/ML7213 pch_udc hardware with a VBUS detection GPIO and an interrupt
+racing device removal).
+
+Fixes: 637b78eb31e0 ("usb: gadget: pch_udc: Detecting VBUS through GPIO with interrupt")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- drivers/staging/octeon/ethernet.c | 2 ++
- 1 file changed, 2 insertions(+)
+v3: the UDC device interrupt (pch_udc_dev_isr(), UDC_DEVINT_US) can re-queue
+    irq_work_fall after cancel_work_sync() when no VBUS GPIO IRQ is in use, so
+    v2's drain alone still raced it. Mask the UDC device interrupts and
+    synchronize_irq() the PCI interrupt in pch_udc_remove() before draining.
+    Also corrected the teardown call-chain in the commit log
+    (pch_vbus_gpio_free() runs before pch_udc_exit()). Both per Sashiko review.
+v2: drain irq_work_fall under the VBUS-GPIO-port guard rather than the IRQ
+    guard, since it is scheduled when vbus_gpio.intr == 0. Per Sashiko review.
 
-diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
-index 42ec4b8324a8..c77678cb351f 100644
---- a/drivers/staging/octeon/ethernet.c
-+++ b/drivers/staging/octeon/ethernet.c
-@@ -959,6 +959,8 @@ static int cvm_oct_probe(struct platform_device *pdev)
+ drivers/usb/gadget/udc/pch_udc.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/gadget/udc/pch_udc.c b/drivers/usb/gadget/udc/pch_udc.c
+index 99b3ce2..a22bf91 100644
+--- a/drivers/usb/gadget/udc/pch_udc.c
++++ b/drivers/usb/gadget/udc/pch_udc.c
+@@ -1406,8 +1406,12 @@ static int pch_vbus_gpio_init(struct pch_udc_dev *dev)
+  */
+ static void pch_vbus_gpio_free(struct pch_udc_dev *dev)
+ {
+-	if (dev->vbus_gpio.intr)
++	if (dev->vbus_gpio.intr) {
+ 		free_irq(dev->vbus_gpio.intr, dev);
++		cancel_work_sync(&dev->vbus_gpio.irq_work_rise);
++	}
++	if (dev->vbus_gpio.port)
++		cancel_work_sync(&dev->vbus_gpio.irq_work_fall);
+ }
  
- 	atomic_inc_return(&cvm_oct_poll_queue_stopping);
+ /**
+@@ -3010,9 +3014,17 @@ static void pch_udc_remove(struct pci_dev *pdev)
+ 		dma_unmap_single(&dev->pdev->dev, dev->dma_addr,
+ 				 UDC_EP0OUT_BUFF_SIZE * 4, DMA_FROM_DEVICE);
  
-+	cvmx_pko_disable();
+-	pch_vbus_gpio_free(dev);
+-
++	/*
++	 * irq_work_fall can be queued from pch_udc_dev_isr() (UDC_DEVINT_US)
++	 * when no VBUS GPIO interrupt is in use, and the PCI interrupt is only
++	 * released by devres after this function returns. Mask the UDC device
++	 * interrupts and wait for any in-flight handler before draining the
++	 * VBUS GPIO works, so the interrupt can no longer re-queue them.
++	 */
+ 	pch_udc_exit(dev);
++	synchronize_irq(dev->pdev->irq);
 +
- 	/* Free the ethernet devices */
- 	for (int port = 0; port < TOTAL_NUMBER_OF_PORTS; port++)
- 		cvm_oct_remove_device(port);
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261107-b4-octeon-pko-disable-fix-6bd379fe2293
-
-Best regards,
++	pch_vbus_gpio_free(dev);
+ }
+ 
+ static int __maybe_unused pch_udc_suspend(struct device *d)
 -- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
+2.43.0
 
