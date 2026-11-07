@@ -1,67 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051409;
-	b=mACPZCsr5bz1M4h2wzaE6hbLSJ2qJj+Im3P2zJxV7+CFX4SsfESSlxG3TQMJX0jpaXDt
-	 ld8ZI5E8UJl3FiLEnSLUiH/tXdeg3/f6Om4KsER5cNcJ2mDeo570on6lr/I37W/TyUhmh
-	 2g0avt0Tn+JuKfrdVwyOMuvI7ZKH8F7oK+ksexXR0ZZqb3+WRzddneySclZE4Tw+zZ2z5
-	 FqJyXJTVB4puZ4oc2nwj1EVjR+fRgVlyvqxp5w/udDKSDy6ujBP++qKoWkSKr1FVu8uP2
-	 OJuIyrC9+Qaoxb811alSTgEMaHGMVArxcAy1dgeYFGYUWudnKff5PJbDtkmAxqje9zw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051409;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=qR3Wm6eekTc+NqUi4oVe+7Xq25uRM/fM/h7o2eTGmI0=;
-	b=5C4+ZD7i00fXOqiiP5vlpm4UlVMCcC9PjuJkBIpHfNXJXhhWw6bKjP6iVGxPRCVk1MwO
-	 PXZA5nsgMwNC6LHI0IZ/elpYwEKY82A92gEalo8SP/ayyMHDYyHqJ2zLXMEqRiTlNDgAL
-	 CXmoA9zuf47rpM1yQmE6Yd+HUEWYEVLdm3AN7/IFda+HEgMKylCh8CNjeTp2IZVLtNp19
-	 5WPej2fmz8dwRL0kp0rFAIKELfhTr9hR4NcVaCor67dWE3e1MX9uZggAfbmWP2eZqUAzI
-	 L2GMLyQX9dt8ZmC/F3lxwRGd/4OoNMTs4Fg+E3TD98j9Cte0Aj8haPB2D7JEgTDR6rA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=sonkYySm;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794051665;
+	b=ICKzYyLwkshmwBWdxSLB7gSWNhKmM19rpY8qbGw3f+byOeagJY5duG/umZYqfcLcwkxt
+	 hJXKBa9abfyoaw0R+hkUX7nUGnB2VkVSAvJAelOpyw3S70EN+gUIgjk5gDAzpdRLPf9vO
+	 zJwq33pshMFoeR+NO2RkAOp7GiTS+8xgubpyu53YjCLlZ33SLofRMYISslRoNYSk4DxO3
+	 CeppNYUvEUOOO+5SOWbGZU0ZmGTyPbFsSQ1e6epMJfu0Aa5ctxGVXDTFqPwkjJxmyDn8j
+	 HE6K7gGtpEXF0+/gUBFeofLQCkD8S4L3F3CUgerxjeON45gIeYq5l+EDcwtA+PSqKgg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051665;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+	b=WLJNeP+Enb0aZUz9Neivp7qf7XRp6HBAQRlieC/91un5iXz03U69FxzuWdqBEcA1KrLZ
+	 fLrMNf77o93FQEK2uVvQX/vJu2+5R3BlxmKEgfaDwXn2KFR9orkYLt0eKhXhkGrAKcfwA
+	 vsMIDEfIYeCp4NdNuNSHvgnaCQYa3rIYCPf/LhoWCtenslJUo0rK93J1ekXyPRFjLfGr1
+	 lkx/6MwhQY3FZ3hxYYWAIJBOKOBan6VaqljjWSTC5gTXwkXg5I9dJP0n3cXunOHGzZl8l
+	 veh07QoQi5hDFtiIwgzQcvEhPZHX/D+rjFwalWe0UE10G9wwMnkX8oj9sf1x8mHq8Gw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Uv/MnhPY";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB075606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:36:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB075606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B3A606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:41:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54B3A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=sonkYySm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=qR3Wm6eekTc+NqUi4oVe+7Xq25uRM/fM/h7o2eTGmI0=; b=sonkYySmvVUJQBlRJPxf2BjpNT
-	X6yXG7/pN9PBDd9CC3Efip/WK0KR+a3zTHb9pMA3y0DfUGMVgLU6BzPQdKPy/KsZ2SlgOmaarY1Uc
-	S4nHEnjhMwrPxWFsTfuIJQpnY1TXXgzMY8JlWQ5pgu9hTB+P0TASd9jn3o2ibvPsr4Wl2T4Ii0ChT
-	DHywGMtGCvpcF05bumVOxA8DOwaqYkHJSwqYlg6pldvobaxeEnhOXAFyTU9xQMoT69nYeOKCoJsMp
-	DjP76pJqkjMZrqA/kldkxlZa8gOMKPA8vFU6HEPvA8uaBHJbQCagPqGfbmry57Jto3kzTF0IYB/an
-	eTWXxXcg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPeiu-0000000HSFS-3SV4;
-	Sat, 07 Nov 2026 11:36:40 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D63AA300339; Sat, 07 Nov 2026 12:36:39 +0100 (CET)
-Date: Sat, 7 Nov 2026 12:36:39 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: mingo@kernel.org
-Cc: linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, joshdon@google.com,
-	tj@kernel.org, jakub@okonski.org
-Subject: [PATCH v2 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
- tg::idle
-Message-ID: <20261107113639.GK2668200@noisy.programming.kicks-ass.net>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.616859418@infradead.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uv/MnhPY
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b30cbfa628so16019047b3.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:41:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794051664; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iwJ7Aobn5gzlYvjoZ41YWH5+CHwwWcN2V8tExGSmHE2c1Eol//5gkGUWc6R0weEE3F
+         hUAl/sMmVY80kcla8YiNGUcqbey5e5CXi4jRBHmmSoUOOv8Xhe1x6uTACMLy1i/6pDOw
+         kLX+ypbKVPSy+oWqplH65uPfk7QCJiCCziQ9FrORyiSaaEtrOyW9tUQ0HTtR77GSSexp
+         wlQhRkZkDb3NzRG88rMoCKZnXznjL296UXwo/Jav1vkyIx6OVoNk62pr7F974HmPOXId
+         6G/v5v1kwkzjaBUQvgh8QhFw9bdjIfBOiA8l27GTGWEddGXbJwiRtTYuc0mUfEMlnv8V
+         ChKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+        fh=SjCG+KQpZwLWe+L4fK6RDBu/3LO005kk9kqF0UaZsh8=;
+        b=dnz6jB4tF0R+miVF3k9P7/lnWhX8jdAu8inqnADz7DiUuC5bHha/Jr9RFwbGDXiEKF
+         QIlypTDmpTixWctrNmXewHXWVidOvNm1H83ukMJdNTQ5PsyHxuOK+Qhx/yy8Qt0tb7al
+         l3QWdWT5cnj0QcpfQTYJBOo2yEc308M3NfuQWil1gbVM3Wk5qlEdodhRz0j0yozOIti0
+         sgsSxftNLBcSG12gwIwsggCb/JG5kv2VlqQD40x33vB+/2j9aAwicy7siHKD/L7pl3Di
+         sqjgVHNJG09tiMCgos1jOCScAdDdNdxgceTeuMK9NPCuVNunTfYo5VT0Xi+BJVhwnPs5
+         Foig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794051664; x=1794656464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+        b=Uv/MnhPYUlJ/ZX3RqlHb/a6i0gp4cIGYXj+kYDIio6V/YvCxjxJA1aNGJgeNRUxdZK
+         B/NFrxW9NBs500iOBSmcRTVBEasxYtHEFcd1egHm20Ej7uyJJ0Rp80nGbvp1/+e7tMUh
+         wC4e8gHwYM8o8Vt+rPhlrdBEvOkGrJMCV7IXeSzzC3VlhId/fBBldvUud2QPRdiinNFg
+         3BXu0ujHM/Sv5SgFKJsM0tDit0cL0SbhnobaRGmwzHbAhwWAWD0tA+ZwfGoHuknR0K4D
+         CUIcEppiZGj832l0z4Crge1NX60zE+2QUS9g+zF6snRUzL0NiCH5VfG62J/ktBwChjUT
+         cD+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794051664; x=1794656464;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6fTH6XXWW1XsqnJehduXCj5gyuC0EEdV5T9p2wxK7S4=;
+        b=2FOvMyFRx++1FOI/gzKDVMoQFVHnFKnSP5TWOMSgcRQWw4LmGuH0CkMKvfrvsF9gUI
+         hmYa6RdbTEOUtq/S5slc8xIKKpArU4Tryb/noQjsJtTEPVf8p6pZ4UzSNaoUzntUtuWO
+         y529Fsv6Uo28lyXhr81yb0X7/8CPVlxHVXl3G9nOhCg4QlsiesFw92qCnbeXSBrCxikB
+         4j5pRvQG0nEtPwe2w+6hXL6EqHwhknuzn6XaWUbzgJV6TwGmLa+6SBDp70g+5IRGof38
+         hvSopnXpczfUeTm0lqFqSEceApWA5F+O1U+FV2lh4tShuf9TdMVjyrsdsN3MMp1XPwog
+         z5dg==
+X-Forwarded-Encrypted: i=1; AL+hErEXdzuqVE/O3b4p23qfY75AlqjW+euP1YJeP8y57Za53aIAUixGr02M13mhcoiZU/3zbsmKYQaSHjPO0eQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qPtMvUbThxRdfkmi/4zMDQK/1W0BtLVi7oI4Z+FHeEFMZ4UnQ
+	/cGCXE3tEcAJCp0+Ijc5ssMxgqmRAlfyiPaiWXbcaVmCfn5vvppgvNHVpy3M1AN/9vikVi0Z1eX
+	bZ0ad4AZ2OPLN0g1NanUyfUl6aTxBlfM=
+X-Gm-Gg: AYBFou3gYm5IJXS3Xub1Hm76qfWuoDa0rY+mLvvZDp+2AJavbBv2YToeI+6epxL9RuJ
+	9DfbcdpxMMl9J/ZU2uzudrfy0/AqIbMNw9QX3mCs6EQFf5WOyJV4hyDFpe8HQbK3L/yt733ip/D
+	vSsvYyfESqTMR/UUAQI+POFb6mAPBdCfmsNhfOTdlTVimCX+bq/+lU9UnYp+FI6bFLNlk1Mghcl
+	toq/klvr4mL2PMsPqp4ZL1Vr6gto/BTMdaoY3tk+JJE3fcke9DJSmPJhZ1pF8RA4ZjkwIILmX8s
+	c2EnpVig7K8gZcq/pSPBTWfxtmRYnYYvAHvXJm09IP7vsMrXq85DDVAgsAVCBnnUNkJSdi25Qg0
+	EIsNC584PnovkLpsGbXpWIW6VQigzkyGKXzC6UpmlcoYtN9zHOg7UdoOHIEa/5AfZ2hnvCtJz+7
+	iMxPPfVwjj3HIgof+AH/ZaKAHF+fpsPnrhIm8H/3SpzdCVvBAq0XrgCdTdWOStxTxM1O3SW7x6A
+	mM810IO7fiJT5GUuhKbeOpwWgG2StErTHkxwLXrOHodbVnkBzC6fE3eSKpjew==
+X-Received: by 2002:a53:c056:0:20b0:677:c18f:7257 with SMTP id
+ 956f58d0204a3-67c141e4301mr2310364d50.23.1794051664343; Sat, 07 Nov 2026
+ 03:41:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,167 +106,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105170157.616859418@infradead.org>
+References: <20261105201154.37294-2-matyasdaniel006@gmail.com>
+ <874idv2bol.fsf@yellow.woof> <au4J-0GOUuueHLZe@rabbit>
+In-Reply-To: <au4J-0GOUuueHLZe@rabbit>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 7 Nov 2026 13:40:28 +0200
+X-Gm-Features: AclHuK9O7PUmgPlP4zevfIOy9d0EnpN6X7geLvTsMFUAaD8AWKettmZPb3yRw48
+Message-ID: <CAHp75VedGBBd8qk5fO9-DkGwmuLQk77_igefAwTbrfcPCMW8Fg@mail.gmail.com>
+Subject: Re: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
+To: Daniel Matyas <matyasdaniel006@gmail.com>
+Cc: Nam Cao <namcao@linutronix.de>, dri-devel@lists.freedesktop.org, 
+	linux-staging@lists.linux.dev, Andy Shevchenko <andy@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Lanzano <lanzano.alex@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, linux-fbdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Nov 6, 2026 at 7:10=E2=80=AFPM Daniel Matyas <matyasdaniel006@gmail=
+.com> wrote:
+>
+> On Thu, Nov 05, 2026 at 10:47:06PM +0100, Nam Cao wrote:
+> > Daniel Matyas <matyasdaniel006@gmail.com> writes:
+> > > Questions:
+> > >  a) Is removing fb_ili9341 acceptable, pointing users of other ILI934=
+1
+> > >     modules to panel-mipi-dbi? The KD233 node would then have no driv=
+er.
+> > >  b) Or should KD233 panel support go into a DRM driver first? I don't=
+ have
+> > >     its init sequence or physical size, or the board...
+> > >  c) Is removal of all of fbtft already planned?
+> > >  d) Several other fbtft drivers have drm counterparts. Should I inspe=
+ct those
+> > >  to see if removal is needed?
+> >
+> > IIRC the main reason fbtft needs to stay is because it supports paralle=
+l
+> > interface which is missing in the DRM drivers.
+> >
+> > Nam
+>
+> Thank you for clarifying. However, the fb_ili9341 driver uses only the
+> SPI interface.
 
-Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
-all ancestor tg::idle. This makes it trivial to tell if the current cgroup
-is marked idle somewhere along its ancestral path.
+Only two drivers use that macro, indeed:
+drivers/staging/fbtft/fb_ili9341.c, line 136
+drivers/staging/fbtft/fb_sh1106.c, line 173
 
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
----
- kernel/sched/debug.c |    1 
- kernel/sched/fair.c  |   88 +++++++++++++++++++++++++++++++--------------------
- kernel/sched/sched.h |    2 -
- 3 files changed, 56 insertions(+), 35 deletions(-)
+> Is it alright then to move (or remove) those drivers that only use
+> SPI interface and have DRM counterparts?
 
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -1090,6 +1090,7 @@ void print_cfs_rq(struct seq_file *m, in
- 	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_runnable", cfs_rq->h_nr_runnable);
- 	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_queued", cfs_rq->h_nr_queued);
- 	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_idle", cfs_rq->h_nr_idle);
-+	SEQ_printf(m, "  .%-30s: %d\n", "idle", cfs_rq->idle);
- 	SEQ_printf(m, "  .%-30s: %ld\n", "load", cfs_rq->load.weight);
- 	SEQ_printf(m, "  .%-30s: %lu\n", "load_avg",
- 			cfs_rq->avg.load_avg);
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -445,8 +445,10 @@ static int cfs_rq_is_idle(struct cfs_rq
- 
- static int se_is_idle(struct sched_entity *se)
- {
--	if (entity_is_task(se))
--		return task_has_idle_policy(task_of(se));
-+	if (entity_is_task(se)) {
-+		return task_has_idle_policy(task_of(se)) ||
-+			cfs_rq_is_idle(cfs_rq_of(se));
-+	}
- 	return cfs_rq_is_idle(group_cfs_rq(se));
- }
- 
-@@ -15659,19 +15661,20 @@ int alloc_fair_sched_group(struct task_g
- 
- void online_fair_sched_group(struct task_group *tg)
- {
--	struct sched_entity *se;
--	struct rq_flags rf;
--	struct rq *rq;
- 	int i;
- 
- 	for_each_possible_cpu(i) {
--		rq = cpu_rq(i);
--		se = tg_se(tg, i);
--		rq_lock_irq(rq, &rf);
-+		struct cfs_rq *cfs_rq = tg_cfs_rq(tg, i);
-+		struct sched_entity *se = tg_se(tg, i);
-+		struct rq *rq = cpu_rq(i);
-+
-+		guard(rq_lock_irq)(rq);
-+
- 		update_rq_clock(rq);
- 		attach_entity_cfs_rq(se);
- 		sync_throttle(tg, i);
--		rq_unlock_irq(rq, &rf);
-+
-+		cfs_rq->idle = tg_cfs_rq(tg->parent, i)->idle;
- 	}
- }
- 
-@@ -15780,6 +15783,43 @@ int sched_group_set_shares(struct task_g
- 	return ret;
- }
- 
-+struct tg_set_idle_struct {
-+	long idle;
-+	int cpu;
-+};
-+
-+static int tg_set_idle_up(struct task_group *tg, void *data)
-+{
-+	struct tg_set_idle_struct *tsi = data;
-+	struct cfs_rq *grp_cfs_rq = tg_cfs_rq(tg, tsi->cpu);
-+	struct sched_entity *se = tg_se(tg, tsi->cpu);
-+	int old_idle = grp_cfs_rq->idle;
-+	int task_delta;
-+
-+	grp_cfs_rq->idle += tsi->idle;
-+
-+	if (!!old_idle == !!grp_cfs_rq->idle)
-+		return 0;
-+
-+	task_delta = grp_cfs_rq->h_nr_queued - grp_cfs_rq->h_nr_idle;
-+	if (!task_delta)
-+		return 0;
-+
-+	task_delta *= tsi->idle;
-+	for_each_sched_entity(se) {
-+		struct cfs_rq *cfs_rq = cfs_rq_of(se);
-+
-+		if (!se->on_rq)
-+			break;
-+
-+		cfs_rq->h_nr_idle += task_delta;
-+
-+		if (cfs_rq_is_idle(cfs_rq))
-+			break;
-+	}
-+	return 0;
-+}
-+
- int sched_group_set_idle(struct task_group *tg, long idle)
- {
- 	int i;
-@@ -15798,34 +15838,14 @@ int sched_group_set_idle(struct task_gro
- 
- 	for_each_possible_cpu(i) {
- 		struct rq *rq = cpu_rq(i);
--		struct sched_entity *se = tg_se(tg, i);
--		struct cfs_rq *grp_cfs_rq = tg_cfs_rq(tg, i);
--		bool was_idle = cfs_rq_is_idle(grp_cfs_rq);
--		long idle_task_delta;
- 
- 		guard(rq_lock_irqsave)(rq);
- 
--		grp_cfs_rq->idle = idle;
--		if (WARN_ON_ONCE(was_idle == cfs_rq_is_idle(grp_cfs_rq)))
--			continue;
--
--		idle_task_delta = grp_cfs_rq->h_nr_queued -
--				  grp_cfs_rq->h_nr_idle;
--		if (!cfs_rq_is_idle(grp_cfs_rq))
--			idle_task_delta *= -1;
--
--		for_each_sched_entity(se) {
--			struct cfs_rq *cfs_rq = cfs_rq_of(se);
--
--			if (!se->on_rq)
--				break;
--
--			cfs_rq->h_nr_idle += idle_task_delta;
--
--			/* Already accounted at parent level and above. */
--			if (cfs_rq_is_idle(cfs_rq))
--				break;
--		}
-+		struct tg_set_idle_struct tsi = {
-+			.idle = idle ? 1 : -1,
-+			.cpu = i,
-+		};
-+		walk_tg_tree_from(tg, tg_nop, tg_set_idle_up, &tsi);
- 	}
- 
- 	/* Idle groups have minimum weight. */
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -751,7 +751,7 @@ struct cfs_rq {
- 	struct list_head	leaf_cfs_rq_list;
- 	struct task_group	*tg;	/* Group that "owns" this runqueue */
- 
--	/* Locally cached copy of our task_group's idle value */
-+	/* Sum of all ancestor tg->idle. */
- 	int			idle;
- 
- # ifdef CONFIG_CFS_BANDWIDTH
+You can suggest removing it, but it might break some users (yes, I
+understand that FBTFT is a staging driver), but doing such only for
+two out of dozens drivers seems to me a bit inconsistent approach.
+
+> Furthermore, would there be a need to enable parallel interface support
+> in the DRM subsystem?
+
+If you can do it, I will agree on retiring the FBTFT drivers that will
+gain such a support. I can test 8347d (IIRC I have that panel at
+hand).
+
+--=20
+With Best Regards,
+Andy Shevchenko
