@@ -1,80 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794043237;
-	b=t1E8IKo/WjSiGQbQrpZtDGT5hmHtJwyU3xH3XTBEi20L6P70kKNNa2yQj1F1fMR6HWUz
-	 esmg+MWSSVQNHeDttxbXRDg6xaia0mcfukMVa0zuBSEqUPHvwYDiqG4lCphfypdvcKn1b
-	 Pnk/hy4NkF3veuu0LtQg7o//AC/zInll8gckanvFxmRt/RTpgXRg4MnHHYeucVZTpCu2K
-	 uiZIBUCgQcH/c+1YQe4iCEIpLmqF7bPSC3hezHMT2wVPDbFfgB/1XEWNmWUce5cSn3CSH
-	 0xQlWXdU+hsQtB18TPHg8l8Jcsj/ZzFI6HxRAkLQb28D11X0qvzCgpVWJjySac31JtA==
+	t=1794043232;
+	b=d7CN2YXwk5nMJN7Pu+5IjAfQWEy8rAc/n5fYohcGIAkFNFMD5QdaPmuXmHhxvmdi2rvF
+	 EJzeGi3nI5qc8+1nlsPj+P9DodIHR6wOPK7ZahAmYO8xj+A12wRj3hINpL9RU8fXhyZyC
+	 usO32RXxLAGQKMjd7kcl3+FebB8W845jsG0H9bBXnpgPl47zydegVDGzUeUJPwcRz4fFk
+	 jTHK+EzSwAjjy5LBkJZkqUdq1Ac8fn/DNJDbVAUtyPUs09CivjcE+JTk8bLUZX8Jd05JX
+	 SaOAduwo0n1vZzD8B6nCxyx+RvEph6YQFrV3Y2clZ2YtGlO4jjz9fGGCR7UfYy7rWNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794043237;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=A6UbKZCMgriPlaD6Kz7Kl460tfoMnXRX6Nyh8soMsMQ=;
-	b=RkbokKfap5gKhZ7GxQdLgD1bEoP2ASpPX8BdysHFZa1dFfZxkfrzfSDn5zXbh59LAO2q
-	 fvwbStwm9GlWNjFSAG3TLsLnOcr4AqF7yxMFi/08FbldxH/zT2EZms66AXz3tSf6eZ3cE
-	 avq2gHpJUNwXiH7rxSTZOAfrGZ2SuTI5xzh0vN5Ohq8KZFfzKIjsUqEKc/rzN5rnoiTFN
-	 dqfBx8MTutohmBqGANMHiQ4L9DEBvJwQzk+x6bF4Ho/1zmrdN+XRivuqJxKrxfnrMWfgm
-	 xNo9fchk1tiyazKDdl+agp1iR/ugzje824162lj4wOhfykfESuc/1TAUT9AVmsyXLaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794043232;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=gjCMCiFgwSvFosXqRzXpQPvyNTdQByDJKxuvHT1hhPE=;
+	b=NI47rmdpbZOKfN4xotuWFK3BaQ4I9miz5YxGiokpAoaetxTbRLUDuXdaRyMAdvuhpfdW
+	 lF+R0pwxF8GuMdF37AenIIlAAzWcXJpHhlz/HUxW2SqRpcm+JZkhFd0nhOt/uNB8+nllA
+	 u6NZy7MSlzer/0jdqiLSqkCNG8A7IjphMozpRL7oSXR7TcU/bB/ACxheInfUARntq6OgD
+	 Vd48AmTma2c8BePOG0KyszgBKH8tjJv6DY5sYaDeTVsKKy6/UQ5GHgzyHmOtKCNWXdvRQ
+	 395eCEfo/BFEBCd1gun9g+XJe+HJaw22yng3jce8OgjgvN4kOA6ZoG9/Fsbik+aFjWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=K91E7eTN;
-	arc=none smtp.remote-ip=203.205.221.210
-Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3G2D5lx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8EB606A326;
-	Sat,  7 Nov 2026 09:20:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C8EB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB84606D81D;
+	Sat,  7 Nov 2026 09:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=K91E7eTN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794043232; bh=A6UbKZCMgriPlaD6Kz7Kl460tfoMnXRX6Nyh8soMsMQ=;
-	h=From:To:Cc:Subject:Date;
-	b=K91E7eTN+jXj2VlgWiXK3ecGi0xQ+HcJ2Nv3mT+pIfd8l/4qUW7gkKEmSWhbs4KCI
-	 G2nJfaq5yxAIOz47pxoYsTvU1tIavef0HPIRgmeT8PHeIMGuCgo/nXOpZjnrbGODgR
-	 bmJSU7+j9HkeRp4jM+N6OnEOAS1IdaZN6ipgGcds=
-Received: from shuai-VMware-Virtual-Platform ([223.88.55.29])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 51D9B684; Sat, 07 Nov 2026 17:20:29 +0800
-X-QQ-mid: xmsmtpt1794043229tfvlwln6b
-Message-ID: <tencent_C7E2CBFD5E5A8E8541FEA08915F742EC6405@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499uQSbS2qJCSs0rmQFJxuiBoK7fOLlZYCNUA+Blxpz9HtEHmsRCoK
-	 NH+cghPuT6BROPA1Wo0i/y1yScnCmq7fJCh/5FVSeiUEP4gHeogVxFC+1Ue3N/QzuMnfl7VrmI/C
-	 JivkbzvwyaSxqyEa6C6HhqL4bUHKbie3aGZx4PtNeHCWBTdjFSbXwVFLchqjiz0o4VOnbky1t5+/
-	 Kp2vPWNAhwxvFpvbLYFOqUyTjDBfxWEi5BrKud+BUYFfDpHslaYpi2z0vzJ1dd2GTIoJPXcVKZcH
-	 5H2zI7yhc/bOg5dvQdqFmZ8oVHFLqhac0BOjfGkVuib7/jC/jm6QGNrHa7cqJEGe21/BjaBkZQ0C
-	 nWGTe9EeAAFPTCIu0IT14VXJa5gqbi1Y/zCKzmRIOKXFTnD2BkFS7GbNsNaVDrqe4NaersfIQBne
-	 Z3wgGVLf6qNPR4v1kIJlDEZptU/JxM5enkKc7xmLTkQ44SweaC5Ub206iXonPgZVV0iC9Wc67yen
-	 TgHIvgpS5zTdGn0z/kr1a6Kw7ppdZOptzCYCh5Nkp+MnblX9RyoFrIFaCnzA2AfjIRZ3wShi2eAD
-	 Mc2REI2YvPYb1z3UwR0B8sLdwjGLcFelg/IdSQo7pTjB+uwDhGESyYafCzTzXM/J2KSxl6/pMAL7
-	 gqIKZ9XtcTAL3t5ZtRqJYYSwB8B9TQ/eyJSR7XYjuvI53BkYpp00onnEohkG4zbjO8sFGtg8WU15
-	 C/cTc8Os4CsU2NzRg5NAfYiHADPXHx864ZTGML3oPknFuthFNaP7JvKzj0ZFRzQhlgJzhEanUVIi
-	 X8Iw/PnmBkDp2E/YFiYiUolGUGBUv6NzrCHwDHkw1s6y7k+uu2rX8w2ucFEIN1TmHCtr27NT9V1c
-	 HS2cRnRo3+F/KXqopVoUhnBM1U0UKSvi3mjr0M5Czg4WBqzKS8SReZS2+PmfjZdSATeJs34WR5uT
-	 p6318eJMddo6Yle4fPDvzBjXYxwfrB3N4UeeJa5z2k9RFk0CSZTNIobjVgPIg4FEJB1Xu+Vbearc
-	 glLoLg/urQIOjroZ/ILhPd1/tYAvVFSEK/7gcL8RsQ4GiOYf4f1BBtQleFpmWL0NYSSgEDLr9Skw
-	 YLnIobTdvQvrcE52s=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Shuai Liu <847807867@qq.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH] netdevsim: fix NULL deref in port attrs after unbind
-Date: Sat,  7 Nov 2026 17:20:09 +0800
-X-OQ-MSGID: <20261107092009.599797-1-847807867@qq.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3G2D5lx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F0C1F008A6;
+	Sat,  7 Nov 2026 09:20:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794043232;
+	bh=gjCMCiFgwSvFosXqRzXpQPvyNTdQByDJKxuvHT1hhPE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l3G2D5lxa62jCXnBSb+fiXcf50itev0KsrW2DDHWu9kMeETLEAYKrShEpbkcXW3uj
+	 mKkH0FP/6XePyZYrKgHRSinbboUBYREOMusssErO7L2pVsj/UQxea+qLExo+Bz3G11
+	 9cz35rTK/69PmTDQyjoLBcu2H9JVlYohRnQyaDXl0FO/IVwzcSKnO3sCWRPreUucy9
+	 yqFljRLMEt46sZo5zh9bCn+C79U8kGcfoqJOBHx4xa0kj7BLq3wd9MQyVYSJu7/nTg
+	 MHNTZlledHMRoVBWxRj+irNce2ZHDPbJ18NYoa06GXKZj80Kqud4MWdiIz/okNo/mI
+	 ykym9EGo+5vBA==
+Message-ID: <sashiko-outbox-202764@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 09/10] Documentation: Describe kconfig-checker
+ overlays
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ahmed S. Darwish" <darwi@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Ingo Molnar" <mingo@redhat.com>, "Nathan
+ Chancellor" <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>
+Cc: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Frederic
+ Weisbecker" <frederic@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jonathan
+ Corbet" <corbet@lwn.net>, "John Ogness" <john.ogness@linutronix.de>, "Derek
+ Barbosa" <debarbos@redhat.com>, =?utf-8?b?WmJpZ25pZXcgSsSZZHJ6ZWpld3Nr?=
+ =?utf-8?b?aS1Tem1law==?= <zbyszek@amutable.com>, "Daan De Meyer" <daan.j.demeyer@gmail.com>, "Luca
+ Boccassi" <luca.boccassi@gmail.com>, linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261106091922.7560-10-darwi@linutronix.de>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <20261106091922.7560-10-darwi@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 09:20:30 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,82 +67,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The new_port and del_port device attributes call nsim_drv_port_add() and
-nsim_drv_port_del(), which fetch the driver private data with
-dev_get_drvdata().  If the device has been unbound from the driver, that
-private data is NULL and priv_to_devlink() turns it into a bogus pointer,
-so a write to either attribute faults in devl_lock():
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] docs: kconfig_checker: missing schemas/ directory in schema file
+  paths
+- [Low] docs: kconfig_checker: empty commit message body
+--
 
-  BUG: unable to handle page fault for address: fffffffffffffeb0
-  RIP: 0010:__lock_acquire
-  Call Trace:
-   ...
-   nsim_drv_port_add
-   new_port_store
+commit a4e08eff4d708d44ce736f88aa1913f31f9a424d
+Author: Ahmed S. Darwish <darwi@linutronix.de>
 
-sriov_numvfs_store() already guards against this by taking device_lock()
-and checking dev_get_drvdata().  Do the same in new_port_store() and
-del_port_store().  Holding device_lock() also prevents the private data
-from going away between the check and its use.
+> Documentation: Describe kconfig-checker overlays
+>
+> Signed-off-by: Ahmed S. Darwish <darwi@linutronix.de>
 
-Fixes: 794b2c05ca1c ("netdevsim: extend device attrs to support port addition and deletion")
-Reported-by: syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b3fca27eb4005f0111f4
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
-Tested with the syzbot C reproducer on x86-64 QEMU using a KASAN +
-lockdep kernel: without this patch the kernel panics in
-nsim_drv_port_add() with a page fault at 0xffffffffffffef0; with it, the
-write to new_port returns -ENOENT, the concurrent create/unbind/delete
-race loop completes without a report, and adding/deleting a port on a
-bound device still works.
+[Severity: Low]
+Could a commit message body be added to describe the new overlay
+documentation and the schema file path updates?
 
-AI assistance disclosure: the root-cause analysis and the draft patch
-were produced with an AI coding assistant from the syzbot report; the
-change was compiled, checkpatch-tested and runtime-verified as described
-above.
----
- drivers/net/netdevsim/bus.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+> diff --git a/Documentation/tools/kconfig_checker.rst b/Documentation/tool=
+s/kconfig_checker.rst
+> index 73717ac56ea9d..152bc0c634eac 100644
+> --- a/Documentation/tools/kconfig_checker.rst
+> +++ b/Documentation/tools/kconfig_checker.rst
 
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index b792ee10b1c1..abcd0f38d85c 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -93,8 +93,13 @@ new_port_store(struct device *dev, struct device_attribute *attr,
- 		return -EINVAL;
- 	}
- 
--	ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index,
--				addr_set ? eth_addr : NULL);
-+	device_lock(dev);
-+	ret = -ENOENT;
-+	if (dev_get_drvdata(dev))
-+		ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-+					port_index, addr_set ? eth_addr : NULL);
-+	device_unlock(dev);
-+
- 	return ret ? ret : count;
- }
- 
-@@ -115,7 +120,13 @@ del_port_store(struct device *dev, struct device_attribute *attr,
- 	if (ret)
- 		return ret;
- 
--	ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index);
-+	device_lock(dev);
-+	ret = -ENOENT;
-+	if (dev_get_drvdata(dev))
-+		ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-+					port_index);
-+	device_unlock(dev);
-+
- 	return ret ? ret : count;
- }
- 
--- 
-2.53.0
+[ ... ]
 
+> @@ -47,4 +51,51 @@ The checker's rule files are written in YAML, and are =
+stored in::
+> =20
+>  The schema for these files is fully documented in::
+> =20
+> -   tools/kconfig-checker/schema.yml
+> +   tools/kconfig-checker/base.yml
+> +   tools/kconfig-checker/rules.yml
+
+[Severity: Low]
+Are the schema file paths here missing the schemas/ directory component?
+
+Commit "kconfig-checker: Split schema to support component reuse" and
+commit "kconfig-checker: Introduce overlays schema" placed these files
+under tools/kconfig-checker/schemas/ (base.yml, rules.yml, and
+overlay.yml).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106091922.7560=
+-1-darwi@linutronix.de?part=3D9
