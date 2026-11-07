@@ -1,107 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794055945;
-	b=LwZntWxNjI3prHpLsqZ62R9opALsfFS8pxTbW8DdKRgrrHkUWf7TpE9glh/EApmhGFOZ
-	 BBhbPr4toCoNF0QLpu7hU7Z0SmWwZs5h5NBsOA7lq+yO97TsWMcSR76hXZtv5uIg7w4yS
-	 RXRj6cMEtUxN6AYX0UKnfy3wq62DqOeSbuRjzAIMa9skq0o1Ka4EG2Dn4RPLIIwPpEtm3
-	 gOP+t76lv8TkLS/a2vc3gDXjvjlnqyh+GTc/xzEjhsvJSPW3l7nWbYO+5//3UJAIrHfem
-	 hCUJBA5oM0sh+0V1cAio/kPYuEPddxzkGZDko9O4kYxa+bR6g6j9Qq/ejTrdlVvT5DQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794055945;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NicoVr4yWKTmWneFZFypLAitLzeB3lOoMcHgnztgqJk=;
-	b=OQlR4C4ONjCPkfa4XQe7GdHwcKBJAHwKS8AwttxAHEokqcbCeRXCnEu2A/wWDohoKmbp
-	 12rF/oDRUVIOJsxS4Zs9E8XmftPpEyQ9kEghX1Gv/yxUpT2QfqrhFSXTYn07P91P5MGJ0
-	 LunQBTJcR14M/8tG6Duf1r/wW3LpFMQRVK5MZxvqLbkASQDJ/91qe2fzT4EFxcnmyRPmp
-	 dXNNGkKYcTz1OmmujDbVQK4JOvjJxECQxVcOizkTVtdB6JR0aoUZz4cs4ePb8S9oJWFj1
-	 7lwUvIBgeH5OkKCs5zUcNj9WSntT2+D6tleWKr8siADdpgLV9UskB0PU1c4B2PocteA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Wc7R/zgu";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.71
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011071.outbound.protection.outlook.com [52.101.57.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794055958;
+	b=UCzg3qYxUv2yGuH8lri2/GHLf/9kWuqYbTJOhGgCY/DQ8AGmXVPGS0CJ7HkeQXuXv88P
+	 E0VezMhuqexxVuYQ20gwn0hTA5dXKiEoIe64VfA9txEzEnCO61BlG9DjfMtxwNAiBS3fr
+	 fBlYZXXsJ/NYqAMR9JGoJ2UP1q/LVPHD9uFc1vGX7oYbDw5e3S19CdHxxYFe98h2BsXti
+	 lkItWK09CJV9UD3VRO4gAhZomWUpFg+I6DCArfq7AtOS7dN5TmoiT+KQgH6ytIk7gw8ZT
+	 v6TwSPedBMQqdomumC5otGsR2RNuqjxefkh6CEL87PLQkQlL19qZfohpPpYqL5dRFjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794055958;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Dz4nU+XktsAws1dehkwjm0qCQeZEQukoJ/eEOgzjJmw=;
+	b=4KRKS9wnHqVNB6Fn/HYfq3iTjQzm/ZS5Z6f8rUnv+xaW/oGP1tI9+ih705ovmXWUzgo0
+	 NOechnTSEPGHOesmZXD/NDkCLYslhib6WCuAh8gC7GUSxC76d1gq0tyngvjlT1UW9/p6w
+	 ooQih5WB+NouLIubf3TaBbUJOCQpSiELgiZqN9txOs+Wjbb9ifUrmCX1+6AIpWeC4PqG2
+	 mpL1z0sKlbmlZx+bZLpkYZDpRleBrzZNk67J7L2d2XS3Q0+UL1IQNwaARuuQu9HSG/4ia
+	 5J/1lw1gHgbyAj6kfxISgMrST+us/+J6zixFFAC/HEEJez5I67X8KhiRxvkBNzwmgwQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CW/Xjxlz";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C3B606A32C;
-	Sat,  7 Nov 2026 12:52:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56C3B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF41606A332;
+	Sat,  7 Nov 2026 12:52:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Wc7R/zgu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ahyiYlF/zlzkFlXkM6LCeIgZFjUpoM/YGOOTF3o0RUqI6v0ltuHNOZSOLtl+SimCXGOwWOHghIV1nEBfn2dpeMqLcZTW1BX2JgP18eNF103asKGN/vwOCwCc1Ifub6GVq/VKkHg0uxtTCjYNwd3SgWW9x7njFgK8MwOMcZoP1eWuXBT4Yn1MdOTWFIpjKyKrP/ZJDTplMqwyCykpAZdoLQUHm2EVXdQ2Ta7fKn13piNUkYnf8BSOwO6xZjlLXIgtpZOHcTSFDJCufkfS9gkiIoz2lpWBCMFTeOqUWecDTS0mC6Np3q7K0dmmg8TTUA6BULrwOWxldzVUwiozBRoBFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NicoVr4yWKTmWneFZFypLAitLzeB3lOoMcHgnztgqJk=;
- b=FRvBy5vVfG+ysJ5LjFV3X/Hgf3XOJwEONYyV1eJfZwitGYZXjq4+4ebU3GFGXw+Avz8kCgEAv9OwbUHcAGTnQ8vZjpbwGg3Cjo+v7Un6nPwqq2P+QjTEO7RqkYvIMKAcrFQoFFfRO/I/f2tNTe4EfK0INR2HxUU/ibPadszXPT8uJt1IBA3Q5FXjvdhHmzoKhG5IOLLKyaZE0A8GorCQ2UKyaUULyAbwkiC7IbfgHR2xoZvPmC5hI+t5eZUo9S1nexCAA3seqkKMmmJ7QySS9dq2W5GD2hE1p5uJSaOnNCwhA6P/OMzpgNntz0T4fR84XWFp4BhZfsC9Apu9NwiKCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NicoVr4yWKTmWneFZFypLAitLzeB3lOoMcHgnztgqJk=;
- b=Wc7R/zgukYLJLxLZhOpTaIn3DJmFQ+CEOCPYxb3XNXG8vkDL/soOG2bPet85fOLlqkGigtfiUqa20dYLPR5pMNhxAkEfkS4kCgneLqnSM+UTAu1x4JVWtAeqF3Bt9rzMzLhpSOntUAc32GdUh4Iuva9DEJKyB2Ijm1Vgdo7uUPRjCgi6HnxTluFfeVV/CeiJPzv6FbM7nj9Y+Whvee3jOm8hnXPPcZn8U2+VHagecZhyfGV3h0uzOsyT9Gm2WRXrm176F1nLZVW7pXHykqrEdKjzCL3PdSwnWxXQnGzKTbrwc8XhDZtKlgwB4Ts4qSiqacIH0jJ/JfCfErVXNAVdWw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH7PR12MB9066.namprd12.prod.outlook.com (2603:10b6:510:1f6::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Sat, 7 Nov
- 2026 12:52:16 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
- 12:52:16 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 21:52:13 +0900
-Message-Id: <DMOZR1THYXEZ.138HB6J6HIMFK@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v10 1/3] rust: use Alignment size constants
-References: <20261019-chid-v10-0-67de9180b4ed@nvidia.com>
- <20261019-chid-v10-1-67de9180b4ed@nvidia.com>
-In-Reply-To: <20261019-chid-v10-1-67de9180b4ed@nvidia.com>
-X-ClientProxiedBy: TY4P301CA0021.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2b1::8) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CW/Xjxlz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AB991F0089F;
+	Sat,  7 Nov 2026 12:52:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794055958;
+	bh=Dz4nU+XktsAws1dehkwjm0qCQeZEQukoJ/eEOgzjJmw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CW/XjxlzDTg1aVQdaW7JqzCU9aaRZxg62YnM+vgqwA4flyextgxB4VK1ac/IZ1+v8
+	 Cld5GUjoR/e3mRH/HCVPROmI+GqeAVSCy0MnXbulfqi3Wg3TcDyaUu8OJ0KPQ9C4i+
+	 l5t5U3OLiP7rQ9LyRNqBdmyAEfWssgWcaIleDJl3djI003zeCK49MptH2JveNn6Sj0
+	 IYM96xWfsnZsLVEpC461U6Y9DFgP8aRtUIMcm4BCbGuF+ws5liDWWlFWiQN/0ZkVSx
+	 3uMyOs5gUS7S2Iidi1R4Zoizlq2D/QeYDvO73S//iARvwmixC1nJu8Uktg24qnjpqD
+	 UhmvdKDI8T73A==
+Subject: Re: [PATCH] net: stmmac: free RX resources when TX allocation fails
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Sat, 07 Nov 2026 12:52:36 +0000
+Message-ID: <179405595688.994134.1843500788974971566@kernel.org>
+In-Reply-To: <20261103102857.1340748-1-vulab@iscas.ac.cn>
+References: <20261103102857.1340748-1-vulab@iscas.ac.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,93 +65,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB9066:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3077c33-4168-4a34-cab7-08df3ccdf3a2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|10070799003|1800799024|22082099003|18002099003|10067099003|11063799006|261102123227099003|261009223027099003|261021123027099003|56012099006|261021121427099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	0GmP5nx8WuBWypz5A6n7sles+PxhoXxn7DW5EU1yKl92Poo8rUeUloxNMKzYJx4ttrAvWkPQG6ccBLbAoZyt4mKEhify9Dq3ZIw7LSNpcoy4aew2L19+T7zN3jWuKtidXSYvz3sQT4rWn7/D0qz7Dkc02qHsgsFGOU4QypfyoGvgg3nQezxcMB3E/PxDD97qBFmPbLjhK23XHQBW7hd5g0ZLlWs4ajaB7I582U/fsC+pKeQvmbJwu+teK5ii9x7Aix1Jyi6zFuZ7yl6CwqRXSDojwTOt18ijrBgyMXzrem8J5o3kDRKImvJP7gPMsqGKrKvOv393xKVexaz4YVB29kd0EXdY2Gav3XlcWW5+iTwwkRvEiem3PKAjWowxt/llSozR+SsWhiVeN6ZyLsyXmQKQB0pUMwUlLtoU7OVuSUbxhJ+200bMeHIkC5ivAcegA4FiBU+0EZ3IzFmuCydbnXtl/K/SB8Z5qi1IQvby1Sk/AsWAqY1JXT/Th+Tx/mFC4FNA+9L+BSS4RtXQHvUOiHZ0VIvaaUisWat588SHV4J7OisyACA+k02/hifrz7Nsv/eWc/CppjNtiF6UUzB3DnqcZ6KLwuDofTy5ZFRxpSXMRV6MXdL1VPiodyL36flpmNMNo00irAz3WLoT2hYIOWlUTMfr7oUSoDb0RnxgG3Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(10070799003)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(261102123227099003)(261009223027099003)(261021123027099003)(56012099006)(261021121427099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cDBORlk5TElmNGtObTE5VkJMVkg0cjBSK0NyRzZFWDJ3bWoyZytja2g0czdr?=
- =?utf-8?B?ajBFT3diSzRnckxJYTBGbUdDMzRQNkZFc1NLamwvdGx5b0NqeStCWHVVdVBO?=
- =?utf-8?B?bitEcGhsenBvN01hdGdWOElUWkhIeXpNRklUa1VsOHU2K2hSOWtaQVNCTW9D?=
- =?utf-8?B?Q3ZPVy9oVU5yb3pocEFVWW1zTFpDajB6VFFuQThmWU5KNFpKdTI1dUo4VlZV?=
- =?utf-8?B?S0NvNFB1SnVJdVg0YmNzZjdZRlpUUjBMbWFKR0dVL0ZEZXhrWVp0Q08xWUVN?=
- =?utf-8?B?K0U3ektMdThqR3NBZ1pvVE5RWmhpRmhYQW9XbWtGY3EzOU03TDFpWXNwaGxM?=
- =?utf-8?B?UWJueTRCUWw2VWZ0K2ZML1N3MkNKWnBLNjFLUk16Wmt0UGFkVGhMTjNSSEtB?=
- =?utf-8?B?emRWRmt0TkVDVk9sWFJXZkNMU2hzVUlHNzBjb1pqU1V5cUVuNnJLd2ozMXJW?=
- =?utf-8?B?c3hyOXBwT214d29TLzRBZUdkS1hjekgrd0Q2VnVDZFNxQWlnTDRjSXN4Vkpa?=
- =?utf-8?B?dmhIeDlLQUttTTBsL0VqT2RtcWwwVldhM2NiR1Q0c1diamx5c3B6U0JMMTVh?=
- =?utf-8?B?NjV2RWpORnFva1R2RVZINEZxT1RRYmtzVUZ3anhWbkFUcjdlbVU3RkhYZWMw?=
- =?utf-8?B?cFdENURHWC9neThaSlAyMVVlTkxyenFmclFtNEZNWEdnd3VmWTNBSTVCU2U1?=
- =?utf-8?B?UHRWblZ6VjQ3bjZxOVFwTDJWckFFRmdPVHdCZE4yLzI1a05uUlMzc1lMOVo4?=
- =?utf-8?B?dWhvdFVDQ01GRzBjeFlTM0lvZDMvMDE3a1JHdm5TQ256QWM2R0Q3RkhTWFVU?=
- =?utf-8?B?cTVFTGdIUHNndWQ0dEpVV3lremRNZHhUcGJnRTFhYlhmZDdMdUMyYWpkREFs?=
- =?utf-8?B?VDhXMWNJeEZyZjFyZjBLYjhwZ1hBa1ZoOXNtMSt4cUdKV3FxVFZKajRVY2Y4?=
- =?utf-8?B?T0RwZGRXRG9ubVp4VkNjTTRoOGVObmkrU1VaYkNVMWZ0dGZ0MVl1SHdGeWNt?=
- =?utf-8?B?ZlhLYmNLN2FJTGMraXBEc1dSYldFRlpTS2RIa2dqNlZXRURRbjk2R1BNRzVL?=
- =?utf-8?B?a1hOWDFGcVNWaDU3SXY1dlB5aGE3UC8rY1hRcTlJdmM5a1VrVjZ5VUlhNVVL?=
- =?utf-8?B?ZGdYQ05mOWF3bmxwWVN5cHBOK0dnc3lkRWtjR1czeDVSUlJQMmNZU09RNFRr?=
- =?utf-8?B?T1RNSEt2ekNOQkpJYTlyTmduNzl3NjNIMlpES2RKMThVZUVIajNVSVRYbCsv?=
- =?utf-8?B?N1lSZTdXZEVjWWZZWTBNWlRaUHRpd3hVd1VDbnhvNi9Oc3FTeGZxT3hWb0Jx?=
- =?utf-8?B?ZTMvT3BiZUMxY0JLdDVSVkdLZWZ4ZE9WNlIvNmxkQkR1cVJOaFNFc1Z0RC9R?=
- =?utf-8?B?TG9hMmlXTE9TNW9RTlhQZnJkTUZmNFdRUk9JdEhrY0xWQTMzZnN3NVZQdDVa?=
- =?utf-8?B?Y0Q0cDR4eDNvNEJ4RnJ6Y2tabWRRTGtjMEViUUg0cy94Nk9lS1dWZVdVMVBH?=
- =?utf-8?B?Q3I0K2ZsRngyQXFybXdUZ1lYOHNKS0tGd2ZKM1NVUzFHTzBIckY0ZjV5Y2l4?=
- =?utf-8?B?YUROWHJBSVRBdzlxWVdNWWlFUmRQMVlTeFBScVJhYWQyQlc3cWpsazlZTUhN?=
- =?utf-8?B?ZHFCVUJCL2FobmpVcjMyOGljMXNnS1NOSEtsL2c1cGlTWjNyRzJrWkI5UTVr?=
- =?utf-8?B?a21FT1RFb1QydG5oWXorMHlSU2FUOHhKNFlEa2Jna1VLdG16SHNiMi81algv?=
- =?utf-8?B?bTZqbTVEdzNTNTlEcEVZWUpxTE9yZG04b3hEZTR2bklIVm5ka3I3OVRwRGRm?=
- =?utf-8?B?U2xNY2NtelNNSE1pN2p1OGl1QSs0YjdnM3NBSzNwRVNpZllBdmZLNGJtUkt0?=
- =?utf-8?B?RFZxaEZHMUFvZnYyQzJSMmR4NVhnY09GT2dHM2ROL1J3QnpadFIvV3VQbDdm?=
- =?utf-8?B?dUxodDJiZDRkRDZCT2JpMktrM3R2Uk82ZFJ2aGZ5dXlMaElmZjZQbzlQcEw4?=
- =?utf-8?B?a0JzOFpuN1lBdS9STkZPdmlRQmlKbmlNczBPTDNZMWFkVzRPYko2ZURjbEZl?=
- =?utf-8?B?d052QjBBSHQ2Y1p2QThyZXRhSTV5TlVTMyswc3FLWFF1bHJqRXFFelR4dWxv?=
- =?utf-8?B?eUZSM0YxaG11QjFLd3pWNHRXWmRYeHptcnQ5NGRDZWp6amdDVThxRWcvZWlm?=
- =?utf-8?B?ZjdqRE9lMjFUdE5nMWE4REF0VEIwdkJTWWc1ZzZ3Z2FGb1A1dEdxZkZFVzdk?=
- =?utf-8?B?K1VuNE9FY3lsL0lKWDA1QzhhclR3anF2SGdXcy93ZnY4aUc2N3ZGb1RQZ0FW?=
- =?utf-8?B?ZFpSanJuai9Sai9MMmMyK1h1bHdMVXdNZ20xV29ZTXF4UTZjRXNDQ0NpNXlL?=
- =?utf-8?Q?6nGvylEWYTMKmfeBsk8t7Yg2CHB7zACbZ9WXVdM9iLzZY?=
-X-MS-Exchange-AntiSpam-MessageData-1: 4IIlZWDfOr15PQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3077c33-4168-4a34-cab7-08df3ccdf3a2
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 12:52:16.6255
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8/O4dALFf7Y4OyhWOCJLify819wAocRGA0emAU3Yb/BxOv38+VSpuxg+ZjVZRcLYEt2zflEC7LiT8Jk0qMDOXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9066
 
-On Mon Oct 19, 2026 at 1:29 PM JST, Eliot Courtney wrote:
-> Use `SizeConstants` for Alignment that are implemented now.
->
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/fb.rs               | 10 +++++-----
->  drivers/gpu/nova-core/fb/hal/gb100.rs     |  2 +-
->  drivers/gpu/nova-core/fsp.rs              |  4 ++--
->  drivers/gpu/nova-core/gpu.rs              |  7 ++-----
->  drivers/gpu/nova-core/gsp/fw.rs           | 12 +++---------
->  drivers/gpu/nova-core/mm.rs               |  2 +-
->  drivers/gpu/nova-core/mm/bar_user.rs      |  7 ++++---
->  drivers/gpu/nova-core/mm/pagetable/map.rs |  7 +++++--
->  drivers/gpu/nova-core/mm/pramin.rs        |  6 +++---
->  drivers/gpu/nova-core/vbios.rs            |  7 +++++--
->  rust/kernel/gpu/buddy.rs                  | 26 +++++++++++++------------=
--
->  rust/kernel/io.rs                         |  5 +++--
->  12 files changed, 47 insertions(+), 48 deletions(-)
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Danilo, Alice: could we get an ack for the buddy and io parts, in order
-to push this series through drm-rust-next?
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1 (1)
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] net: stmmac: double free of RX resources after stmmac_xdp_open()
+  failure
+- [Low] The commit message does not accurately describe what leaks, and
+  it leaves out one of the two callers whose behaviour changes.
+
+Pre-existing issues:
+- [High] The NULL-pointer oops this concern describes exists in the code,
+  but it predates this patch.
+- [Low] This problem wasn't introduced by this patch, but the kernel-doc
+  of alloc_dma_desc_resources() (lines 2434-2442), repeated word for…
+
+--
+
+net: stmmac: free RX resources when TX allocation fails
+
+This patch makes alloc_dma_desc_resources() release the RX queues with
+free_dma_rx_desc_resources() when alloc_dma_tx_desc_resources() fails.
+The goal is to stop the RX side from leaking when stmmac_setup_dma_desc()
+drops the partially populated dma_conf.
+
+> stmmac_setup_dma_desc() only frees the
+> dma_conf on this path, so the RX DMA rings, page pools and socket
+> buffers are leaked.
+
+[Severity: Low]
+Is the list of leaked resources accurate? When the TX allocation fails,
+__alloc_dma_rx_desc_resources() has only done four things: created the
+page_pool, allocated the buf_pool array, allocated the descriptor ring with
+dma_alloc_coherent(), and registered xdp_rxq.
+
+The RX buffers are filled in later by init_dma_desc_rings(), so no socket
+buffers exist at this point.
+
+stmmac_setup_dma_desc() is also not the only caller. stmmac_xdp_open()
+calls alloc_dma_desc_resources() on the persistent priv->dma_conf:
+
+	ret = alloc_dma_desc_resources(priv, &priv->dma_conf);
+	if (ret < 0) {
+		netdev_err(dev, "%s: DMA descriptors allocation failed\n",
+			   __func__);
+		goto dma_desc_error;
+	}
+
+Before this patch, the RX resources on that path were not leaked, because a
+later release freed them. Now they are freed early inside
+alloc_dma_desc_resources(), and priv->dma_conf still holds the pointers.
+
+Could the commit message mention this caller and explain how the change
+affects it?
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 7ffed295eb14a..3f9f3b7878c20 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -2450,6 +2450,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
+>  		return ret;
+>  
+>  	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
+> +	if (ret)
+> +		free_dma_rx_desc_resources(priv, dma_conf);
+
+[Severity: High]
+Can this turn into a double free on the stmmac_xdp_open() path?
+
+stmmac_xdp_set_prog() calls stmmac_xdp_release() and then
+stmmac_xdp_open() when the interface is running.
+stmmac_xdp_release() frees everything with
+free_dma_desc_resources(priv, &priv->dma_conf), and stmmac_xdp_open()
+then calls alloc_dma_desc_resources() directly on the persistent
+priv->dma_conf. It does not use a temporary copy the way
+stmmac_setup_dma_desc() does.
+
+If the RX side succeeds and the TX side fails there, this new call
+frees the new RX descriptor rings, rx_q->buf_pool and rx_q->page_pool.
+__free_dma_rx_desc_resources() does not clear rx_q->dma_rx,
+rx_q->dma_erx, rx_q->buf_pool or rx_q->page_pool afterwards, so
+priv->dma_conf.rx_queue[] is left holding freed pointers.
+
+stmmac_xdp_set_prog() ignores the return value of stmmac_xdp_open(),
+so the device stays IFF_UP. The next __stmmac_release(), MTU change or
+XDP toggle calls free_dma_desc_resources(priv, &priv->dma_conf) again.
+That would read the freed buf_pool in dma_free_rx_skbufs(), and then
+kfree() buf_pool, page_pool_destroy() the page_pool and
+dma_free_coherent() the rings a second time.
+
+Before this patch the RX side of that path was only freed once, by the
+later release. The TX side already had the same problem, since
+__free_dma_tx_desc_resources() leaves tx_q->dma_tx, tx_q->dma_etx,
+tx_q->dma_entx, tx_q->tx_skbuff_dma and tx_q->tx_skbuff dangling, and
+a partial failure in either allocator can unwind stale pointers left
+over from stmmac_xdp_release().
+
+Should the free helpers reset these pointers to NULL? Or should
+stmmac_xdp_open() build a new dma_conf and only install it on success
+the way stmmac_setup_dma_desc() does? Either way, it seems like this
+needs to be handled before the early RX free is safe for every caller
+of alloc_dma_desc_resources().
+
+[Severity: High]
+This is a pre-existing issue, but can the TX unwind oops before this new
+free_dma_rx_desc_resources() call is reached?
+
+stmmac_setup_dma_desc() allocates dma_conf with kzalloc_obj(), so
+tx_skbuff_dma and tx_skbuff start out NULL for every TX queue.
+
+Say __alloc_dma_tx_desc_resources() fails for queue k. The err_dma label in
+alloc_dma_tx_desc_resources() then unwinds all tx_queues_to_use queues,
+including queue k and the queues after it that were never allocated:
+
+alloc_dma_tx_desc_resources()
+  free_dma_tx_desc_resources()
+    __free_dma_tx_desc_resources()
+      dma_free_tx_skbufs()
+        stmmac_free_tx_buffer()
+
+stmmac_free_tx_buffer() reads the arrays without checking them:
+
+	if (tx_q->tx_skbuff_dma[i].buf &&
+	    tx_q->tx_skbuff_dma[i].buf_type != STMMAC_TXBUF_T_XDP_TX) {
+	...
+	if (tx_q->xdpf[i] &&
+
+Wouldn't this dereference NULL when tx_skbuff_dma was never allocated? And
+when only the tx_skbuff allocation failed, wouldn't the read of xdpf[i] (a
+union alias of tx_skbuff) do the same?
+
+The only TX failure the unwind seems to survive is a dma_alloc_coherent()
+failure on the last TX queue, because dma_free_coherent() returns early for
+a NULL cpu_addr. That would mean the path this patch targets still oopses
+in most cases.
+
+alloc_dma_rx_desc_resources() looks like it has the same problem.
+stmmac_free_rx_buffer() does:
+
+	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
+
+	if (buf->page)
+
+buf_pool is still NULL at that point if page_pool_create() or the buf_pool
+allocation failed, or if the queue was never allocated.
+
+>  
+>  	return ret;
+>  }
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the kernel-doc above
+alloc_dma_desc_resources() says the following, and the same text appears on
+__alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources():
+
+ * this function allocates the resources for TX and RX paths. In case of
+ * reception, for example, it pre-allocated the RX socket buffer in order to
+ * allow zero-copy mechanism.
+
+None of these functions allocate RX buffers. That happens later, in
+init_dma_desc_rings().
+
+The comment also has no Return: section. Both callers now rely on
+everything being released already when the function fails, and that is not
+written down anywhere.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103102857.1340748-1-vulab%40iscas.ac.cn
