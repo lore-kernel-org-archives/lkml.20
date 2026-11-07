@@ -1,56 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794090780;
-	b=41tPzA5nw3InsTJ8MpeiCe/CAwp26xHcU+3uEjGGhs6226K6zKJmijBADvLRW2Zl+9Dm
-	 lCt2//VNjXra3G2TzbV5iRTfVVcOdn+F8yhdJ2MGSotpyPCRX4jrGMITXZm2jLSRcdEKB
-	 IPByAh3BlB3chiGe54ocuSkK2Bex5bKm5f/ce2Ay+dbx3wTCPMJpYQsMTPu/eNLuhzdm/
-	 hL9OXbo6Mqe2PyPZsACkiRBVLXjCzG9xCkS1XeLqOE47zphuyL2cKkATi6NPe/Idz068G
-	 eFWNy7HAihh+GCESaUiLtv11c3+i2I3BsY01QiSjtUwI1IJZMJ3RqYl5XDRy1PcNcyQ==
+	t=1794090923;
+	b=FqhdJN/HrKNGB0AmulyYoAl9gPh6DO9BNfUhH2+8aKYZOBks01RbCGRtDOuPI9kAkpgc
+	 8eIxknrmQxf9Wda8vgRUDIiFkjHfIy3EvFr7ZyPtNys7JXIx/eAK1HGIxphliOXqq2EEo
+	 7Gyd1gytDflRBGm1yGg0/IMLS4G8tiVjskX4pTGJmxR/fi5EF0yxtUj8BZ6nSeGTc3VJz
+	 KZp12U9WmPX780roB4DStF3tSuWKHcv6++jofj3JvsWmqJRK79SxLx1l9WrshNd+aiQdK
+	 JKGZQ+YAabgIEBzmQc9E348H0fK9gJ5d4KPFCkPEO2WTBTSAxHjEU3F6lAWqi/h8LSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794090780;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type;
-	bh=Fy1q9DDL6EW09W8M1xaP5lNpvYiNE8bBDgxpWOc4HI4=;
-	b=FnHOu4dM5ZMODCh0ehzrA8CbgqFWboRtD5CVVeFQmeQvim3vuKWzXbIWrswQx8wWFpEc
-	 6N7mknHa7cOUGe4jpUn1htxYx/9SsZ15xDrsjEMwgmyY1mero+jkWj7vuLqMI7KYlTjSu
-	 6KB7Ywc0sUQWEohc/f6x4X7wbaPsDjUWRdbTTZefPxEtnu8teYou2zAQmEEZylu3jdZ/5
-	 Ldrf9Z67414VV2V403iuPiN6E8lYimkGJY6JM9wzU5fEesLj1RTe52qaqdPxNmg+q3a2e
-	 BgZfiB6LCiMPYrFajDvzBou/gxaa+tZsx6ZM5pEVSd8i8P9doqFr8DzWeKoG84yPyuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794090923;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=fCU+AnXPgEumMAh4YcQYLrSJUtCBY0mNsJe/Mw2nKg4=;
+	b=Wg2xmhA0MSCxSXusvzUKPSNvjflJpxJL9k4scMa2SYVG1exECJSwhDO25y/wkyntfnLJ
+	 arb7IHBbx1otQ064dypFZzPE5P+aaFOnFdr5lOJlxLX4mWupCHxqGwnVTMSqZI2r5YN7K
+	 WUuqChcHJqEdmPJZ+TU8q19MmHRXHfFUnmbwD/fAdP6DfklQ0ftSMo91Yqsuo8u0cxgJA
+	 0W3qT2lYQkTqpaHJy05LXkik+QPU+UxyzMLX/2S15f3q8u/4MnULslcsfPNZtopAY3hJg
+	 7/tTdcwVUDI2AZs1dwOvUtvquE2PXvl5iBqcm4bWnAo8vOVTbIP7DzZaow3kIIfhicg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=uc7dTI9R;
-	arc=none smtp.remote-ip=79.135.106.29
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="e3MJ/f0L";
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8635606A32C;
-	Sat,  7 Nov 2026 22:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8635606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EBA606A32D;
+	Sat,  7 Nov 2026 22:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0EBA606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=uc7dTI9R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794090776; x=1794349976;
-	bh=Fy1q9DDL6EW09W8M1xaP5lNpvYiNE8bBDgxpWOc4HI4=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=uc7dTI9R3L2Hw2ANmfucfPYrfWCA65/PP3HhZK6jt8ou4SiNnux7Q8NMEbjA4vZbi
-	 NfuKLPry/mWuivbRoAk6p/rxpojGZFriwrrQS8C7FDPi55m6kiCbTm1ptlEYaU3WT+
-	 qX42CxpJNlq3Khe53upLIzbCQ/HHyaHgdppPJeXz1qBgSfvhKZID+TyYXV5uaZaSte
-	 GlgZO3h0E8xKNDQtyt7R2TkYcVqgDUVkIBE762xcMgbHVLObPKX9n6Uf8iWoOrWHZs
-	 /6P/YDbgwLa7ZdTQfr3l1D74Oy3/mZDUIBseCrBkFn7gS0VMyc5+/yisFPsfnv6cJF
-	 3cbW6WNS+sg+g==
-Date: Sat, 07 Nov 2026 22:32:51 +0000
-To: linux-wpan@vger.kernel.org, netdev@vger.kernel.org
-From: Ryan Prinz <rc4d5a@protonmail.com>
-Cc: Alexander Aring <alex.aring@gmail.com>, Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal <miquel.raynal@bootlin.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, Ryan Prinz <rc4d5a@protonmail.com>
-Subject: [PATCH] ieee802154: 6lowpan: validate fragment offset against datagram size
-Message-ID: <20261107223217.718177-1-rc4d5a@protonmail.com>
-Feedback-ID: 190731814:user:proton
-X-Pm-Message-ID: b722c76460f019a123dd4092d1ad458167b9bc77
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e3MJ/f0L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794090923; x=1825626923;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XKPddSDGRmFTP15jF36GhiF3Ao2V9Pc70VbIn1MNsig=;
+  b=e3MJ/f0LA5EWkswm9yUNDq8odrbeZqadOcfnd8Bufu6kL/kHEty9Vax8
+   wITBl2ezE1fnzOB3dwWjR8ZHEuGp7nMzLzocVBEFBbk0PMYFchlrQOoey
+   NjawVPFM4aoUctna3TVnwNy30QHsHuH/wpfH8VQHkNr7BkgFXVx/BJHJ/
+   BA8hodK+xTOHoxAM92OIgOjEaYfckqSkiiWA062WuveJoPDbE/tk0qloD
+   WzXAmH38X3EqEHdAYEQMnR8iDoO4TQHFM6nrIvnurTHnAYS9MlydJELim
+   Gqxg2us1p4BwqjkVhaBqUZc2onIld0eHLvOPEsTA4Bee8UGUdDlts9ZJO
+   Q==;
+X-CSE-ConnectionGUID: S1Tits+5SjaCKzX3FDfaWQ==
+X-CSE-MsgGUID: jVzLMK++Rvun3p7grwLypQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2753746"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2753746"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 14:35:22 -0800
+X-CSE-ConnectionGUID: DnPjUlIZRoGuk9BZS7accg==
+X-CSE-MsgGUID: D/3AICiJQqaSxkwaUn/bUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7425429"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 07 Nov 2026 14:35:19 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPp0F-00000000rfT-2sqR;
+	Sat, 07 Nov 2026 22:35:15 +0000
+Date: Sun, 8 Nov 2026 06:35:01 +0800
+From: kernel test robot <lkp@intel.com>
+To: Li Pengfei <ljdlns1987@gmail.com>, rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, mathieu.desnoyers@efficios.com,
+	mark.rutland@arm.com, corbet@lwn.net, skhan@linuxfoundation.org,
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	zhangbo56@xiaomi.com, lipengfei28@xiaomi.com, lkp@intel.com
+Subject: Re: [PATCH v8 2/5] tracing: Use the stackmap from the ftrace stack
+ recording path
+Message-ID: <202611080654.sqFxIlwl-lkp@intel.com>
+References: <20261107055139.3138633-3-lipengfei28@xiaomi.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,151 +87,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------42251045ef49eb2e1d58e9bb17ea4dbe21ddf3576aebf534060aa7cabb773e01"; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107055139.3138633-3-lipengfei28@xiaomi.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------42251045ef49eb2e1d58e9bb17ea4dbe21ddf3576aebf534060aa7cabb773e01
-Content-Type: multipart/mixed;
- boundary=4bd63114661f58558a324b8e38d0f5b50f21cf001d258bdae6b10dac11c0
-From: Ryan Prinz <rc4d5a@protonmail.com>
-To: linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Ryan Prinz <rc4d5a@protonmail.com>
-Subject: [PATCH] ieee802154: 6lowpan: validate fragment offset against datagram size
-Date: Sat,  7 Nov 2026 23:32:17 +0100
-Message-ID: <20261107223217.718177-1-rc4d5a@protonmail.com>
-X-Mailer: git-send-email 2.56.0
-MIME-Version: 1.0
+Hi Li,
 
---4bd63114661f58558a324b8e38d0f5b50f21cf001d258bdae6b10dac11c0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+kernel test robot noticed the following build errors:
 
-A 6LoWPAN fragment announces the total size of the datagram it belongs
-to (d_size) and its own offset within that datagram. The reassembly
-code never checks that the offset actually fits inside d_size, so a
-fragment claiming to start far past the end of the datagram is
-accepted the same as a legitimate one, allowing an attacker to forge
-data of another sender.
+[auto build test ERROR on 4539944e515183668109bdf4d0c3d7d228383d88]
 
-lowpan_frag_queue() considers a datagram complete by counting bytes
-received (fq->q.meat) against the declared size (fq->q.len), not by
-verifying the bytes form a contiguous range. A fragment with an
-out-of-range offset still has its length counted toward that total, so
-a legitimate fragment exchange plus an attacker fragment can sum to
-d_size, marking the datagram complete while a gap in the data was
-never filled, and appending the out-of-range fragment's bytes to the
-end of the reassembled buffer as if they were part of the message.
+url:    https://github.com/intel-lab-lkp/linux/commits/Li-Pengfei/tracing-Add-lock-free-stackmap-for-stack-trace-deduplication/20261107-135135
+base:   4539944e515183668109bdf4d0c3d7d228383d88
+patch link:    https://lore.kernel.org/r/20261107055139.3138633-3-lipengfei28%40xiaomi.com
+patch subject: [PATCH v8 2/5] tracing: Use the stackmap from the ftrace stack recording path
+config: powerpc-randconfig-1001-20261108 (https://download.01.org/0day-ci/archive/20261108/202611080654.sqFxIlwl-lkp@intel.com/config)
+compiler: powerpc-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611080654.sqFxIlwl-lkp@intel.com/reproduce)
 
-IPv6's reassembly (net/ipv6/reassembly.c, ip6_frag_queue()) computes
-end = of
-fset + payload length for every fragment and checks end
-against IPV6_MAXPLEN, which bounds offset by construction. 6LoWPAN's
-d_offset and d_size are independent wire fields with no such coupling,
-and no separate bounds check was added for it.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611080654.sqFxIlwl-lkp@intel.com/
 
-The same class of bug was assigned CVE-2019-8359 (CVSS 9.8) in
-Contiki-NG's 6LoWPAN stack before a 2019 fix; RIOT-OS's implementation
-(gnrc_sixlowpan_frag_rb_add) rejects a fragment once offset + size
-exceeds the reassembly buffer's datagram_size. Linux's 6LoWPAN
-reassembly is the only one of these implementations without an
-equivalent check.
+All errors (new ones prefixed by >>):
 
-Fix by rejecting any fragment whose offset, or offset plus length,
-falls outside [0, d_size).
+   In file included from include/linux/rbtree.h:24,
+                    from include/linux/mm_types.h:11,
+                    from include/linux/mmzone.h:22,
+                    from include/linux/gfp.h:7,
+                    from include/linux/mm.h:8,
+                    from include/linux/ring_buffer.h:5,
+                    from kernel/trace/trace.c:15:
+   kernel/trace/trace.c: In function 'record_stackmap':
+>> include/linux/rcupdate.h:502:9: error: dereferencing pointer to incomplete type 'struct ftrace_stackmap'
+     typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
+            ^
+   include/linux/rcupdate.h:684:2: note: in expansion of macro '__rcu_dereference_check'
+     __rcu_dereference_check((p), __UNIQUE_ID(rcu), \
+     ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/rcupdate.h:758:34: note: in expansion of macro 'rcu_dereference_sched_check'
+    #define rcu_dereference_sched(p) rcu_dereference_sched_check(p, 0)
+                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+   kernel/trace/trace.c:2154:9: note: in expansion of macro 'rcu_dereference_sched'
+     smap = rcu_dereference_sched(tr->stackmap);
+            ^~~~~~~~~~~~~~~~~~~~~
 
-Fixes: 7240cdec60b1 ("6lowpan: handling 6lowpan fragmentation via inet_frag api")
-Signed-off-by: Ryan Prinz <rc4d5a@protonmail.com>
----
-Reproduced two ways: with a local kernel module calling
-lowpan_frag_rcv() directly, and over mac802154_hwsim with three
-independent processes standing in for s
-ender, receiver and attacker.
-An attacker in radio range who observes one fragment of an
-in-progress transmission reads d_tag, d_size and the addressing in the
-clear, then sends a single out-of-range fragment of its own. The
-receiver's reassembly completes with the attacker's bytes appended to
-the legitimate data. Both reproducers were re-run against this fix to
-confirm the out-of-range fragment is now rejected and the datagram no
-longer completes with it included.
 
-AI Disclosure: An AI assistant (Claude) was used to assist with the
-analysis and testing. I have verified the vulnerability, the fix, and
-the test results myself and take responsibility for this contribution,
-per Documentation/process/coding-assistants.rst.
+vim +502 include/linux/rcupdate.h
 
- net/ieee802154/6lowpan/reassembly.c | 3 +++
- 1 file changed, 3 insertions(+)
+76c8eaafe4f061f Paul E. McKenney        2021-04-21  492  
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  493  #define __rcu_access_pointer(p, local, space) \
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  494  ({ \
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  495  	typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
+423a86a610cad12 Joel Fernandes (Google  2018-12-12  496) 	rcu_check_sparse(p, space); \
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  497  	((typeof(*p) __force __kernel *)(local)); \
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  498  })
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  499  #define __rcu_dereference_check(p, local, c, space) \
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  500  ({ \
+ac59853c06993a4 Pranith Kumar           2014-11-13  501  	/* Dependency order vs. p above. */ \
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15 @502  	typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
+f78f5b90c4ffa55 Paul E. McKenney        2015-06-18  503  	RCU_LOCKDEP_WARN(!(c), "suspicious rcu_dereference_check() usage"); \
+423a86a610cad12 Joel Fernandes (Google  2018-12-12  504) 	rcu_check_sparse(p, space); \
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  505  	((typeof(*p) __force __kernel *)(local)); \
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  506  })
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  507  #define __rcu_dereference_protected(p, local, c, space) \
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  508  ({ \
+f78f5b90c4ffa55 Paul E. McKenney        2015-06-18  509  	RCU_LOCKDEP_WARN(!(c), "suspicious rcu_dereference_protected() usage"); \
+423a86a610cad12 Joel Fernandes (Google  2018-12-12  510) 	rcu_check_sparse(p, space); \
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  511  	((typeof(*p) __force __kernel *)(p)); \
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  512  })
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  513  #define __rcu_dereference_raw(p, local) \
+995f1405610bd84 Paul E. McKenney        2016-07-01  514  ({ \
+995f1405610bd84 Paul E. McKenney        2016-07-01  515  	/* Dependency order vs. p above. */ \
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  516  	typeof(p) local = READ_ONCE(p); \
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  517  	((typeof(*p) __force __kernel *)(local)); \
+995f1405610bd84 Paul E. McKenney        2016-07-01  518  })
+24ba53017e188e0 Chun-Hung Tseng         2021-09-15  519  #define rcu_dereference_raw(p) __rcu_dereference_raw(p, __UNIQUE_ID(rcu))
+ca5ecddfa8fcbd9 Paul E. McKenney        2010-04-28  520  
 
-diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
-index ddb6a5817d09..905ba5f86844 100644
---- a/net/ieee802154/6lowpan/reassembly.c
-++
-+ b/net/ieee802154/6lowpan/reassembly.c
-@@ -103,6 +103,9 @@ static int lowpan_frag_queue(struct lowpan_frag_queue *fq,
- 	offset = lowpan_802154_cb(skb)->d_offset << 3;
- 	end = lowpan_802154_cb(skb)->d_size;
-
-+	if (offset > end || skb->len > end - offset)
-+		goto err;
-+
- 	/* Is this the final fragment? */
- 	if (offset + skb->len == end) {
- 		/* If we already have some bits beyond end
 --
-2.51.2
-
---4bd63114661f58558a324b8e38d0f5b50f21cf001d258bdae6b10dac11c0
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - rc4d5a@protonmail.com
- - 0xE775BF83.asc"; name="publickey - rc4d5a@protonmail.com -
- 0xE775BF83.asc"
-Content-Type: application/pgp-keys; filename="publickey -
- rc4d5a@protonmail.com - 0xE775BF83.asc"; name="publickey -
- rc4d5a@protonmail.com - 0xE775BF83.asc"
-
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
-ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRWFkRFpyUllKS3dZQkJBSGFS
-dzhCQVFkQTFpeGV6cng0ZTBFNWJGcjV6UU8xMitlb20vdWZnUVFTS05jQwpHU1ZjUzlqTkxYSmpO
-R1ExWVVCd2NtOTBiMjV0WVdsc0xtTnZiU0E4Y21NMFpEVmhRSEJ5YjNSdmJtMWhhV3d1ClkyOXRQ
-c0xBRVFRVEZnb0Fnd1dDYWREWnJRTUxDUWNKRUFVYktZOW5tekdRUlJRQUFBQUFBQndBSUhOaGJI
-UkEKYm05MFlYUnBiMjV6TG05d1pXNXdaM0JxY3k1dmNtY21EdVNNSm1tcTJWVDN2aFkzY0JzRDFS
-YUVsZGE2dDdpTwo1S21uZXZwYXhRTVZDZ2dFRmdBQ0FRSVpBUUtiQXdJZUFSWWhCT2QxdjRPUWRH
-ZGFobnFvR0FVYktZOW5tekdRCkFBQmFDUUVBdWxVaElDbmFPSU9DT1d4T3pldUNUZ0dUVGkxM1k4
-WjdVL3pYaER1bmFpa0EvaUJRRVBZOEx5NisKU2RZUnZzekQwcHBsS0M0elB2WkhqRDZaMEo4U2Ir
-RUh6amdFYWREWnJSSUtLd1lCQkFHWFZRRUZBUUVIUUNwbApBSFVLZXNpb25QaGlBVnBvL3dDUFdt
-MnR3SGtpL0tmaUpHQVdlckIxQXdFSUI4SytCQmdXQ2dCd0JZSnAwTm10CkNSQUZHeW1QWjVzeGtF
-VVVBQUFBQUFBY0FDQnpZV3gwUUc1dmRHRjBhVzl1Y3k1dmNHVnVjR2R3YW5NdWIzSm4KNlJuS0R5
-WjJlV1BjOSs3NEJIR3VPM1E1VGVuWFZ6bWRrRjQ3L1lYQUxFOENtd3dXSVFUbmRiK0RrSFJuV29a
-NgpxQmdGR3ltUFo1c3hrQUFBN1RzQS8zRy9hUE9NeGE2MDZxdlh2U3lUOURDNTJCa294ZmlNMk5N
-SFpHK0QwSnVGCkFQMFhXbGRlbEVvTFY1bWNRbXFIVThqMVp2ZzRtT1hWL2owYytPWmRheVhUQnc9
-PQo9VnZDNAotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0t
---4bd63114661f58558a324b8e38d0f5b50f21cf001d258bdae6b10dac11c0--
-
---------42251045ef49eb2e1d58e9bb17ea4dbe21ddf3576aebf534060aa7cabb773e01
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wqsEARYIAF0FgmrvpxMJEAUbKY9nmzGQNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmdxxi8Ehs2A2U1MdsnVee88FiEE53W/g5B0Z1qG
-eqgYBRspj2ebMZAAABU9AP0c8mwebEUm16RNwWgRDmlSc70LDNN5ZgURV+cs
-UXk4ggD/fidd7LgZyjBfLEnkrVYLrXqdX0eE4eBe2/fAPuwo0AQ=
-=g7G9
------END PGP SIGNATURE-----
-
-
---------42251045ef49eb2e1d58e9bb17ea4dbe21ddf3576aebf534060aa7cabb773e01--
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
