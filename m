@@ -1,71 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794089148;
-	b=mCKSo4bxT5AZRAyLIHxCqWJ/iNKuLYC8a6mAPQ5twHZ6ACS5nAVqXRaW3I41WrctgrTC
-	 wdUB1mmgsFnWKWSKH4WnjB4ubMhAmFQb3yMDYgfFMErcoQGlJu1qx1wWV0JPrLZM52KzM
-	 E9eYkhLB5/zLJVgYNPgmS+tPtDIDwpr0F8TH2aKJuhYWqDTAZMrLa5R0PHw5gNyRbZsxY
-	 +O9dXdZpa1eXHAI/Sgh2Zg5kuh4eUzRQUOWmht7wRuuUxjNCuTf1Owr2lynZ/V2b9a3oI
-	 ZtLllzgMWszeDCTclL1iDFWI+v/r8glsih9OEaPXN+iif14OxL8VtkYL9r1GpwKiNNA==
+	t=1794089150;
+	b=Am8ki96BixgA2+EWUCyqNrdEHZ63PRls422tbTUQUoFsE03bzuHiM2DN+WLwrB4Gp3FB
+	 HaW1JlUK41Js3Jg0CM/fsX9uvP4ZYJAMkCCH4sQBS1gBCbzewh3ogd0oW3SpUem4O2W1/
+	 ifFoJHyadHflBqIro2AB+kqXu31hZCkhJLluTngd0iXI07kgFTtTiRql+5hKIIAqHjVQP
+	 w24ybx8aPh44hd4o15oMtZxekSPNQzQmg+D6wNdrI2XLnveCwMe1Cj41KEfD3vAR0+oSk
+	 zbQvn7clTjJvuF5o0h2rhovosmJElZ7rBd59X25pkYHWNDp6LoL3BLkFR1kEqCffbsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794089148;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=EXa9GzF1lnuyQokmmjMJAbZM/6BNIyMMmJy0j34oCyg=;
-	b=mLrf1EPKQMefemQ4eUUqgghOaOg03ElDrxQCXNUrHVBjvPsdgKKZ2xmKgaSHRBOzxACn
-	 0iHTN5v43ZzBwVOHArSzQkLfWnPdemw2NE8PXXCKp5FwxqZFUgRsP3VueMzdZQiBq952r
-	 XSYoB9O6zRuYU9NOylwCF/xDkcYRP4NLcemxKaca3H7Fge/5Abe7exJhuLPu4sc3l+Pvt
-	 mVLWrAaXeSD4MgfvrIxLGhdDcoz438YRPjzyEAVWdTEylnT8V+pFpUifV6+YJA1fuQqeN
-	 Au/MgWmq8b7ZdinVUsCJ3QMC4cQ2j20+BDjhSrtJYlcAzWJhpgLpE/JgSTAk6v2mw4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794089150;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DkAVpPVqUaM5/OO3qyebRlx/+ki6XiRI4yS3tN5o7Iw=;
+	b=47mCzb7yryepvws2HHnGiYM9I+TbYsth/2aD6F0FpxOY2/lm+eIvMeCEb61+OgFlxqYc
+	 s+6j340exJUjInVUsSgl8wVrnQH6CwU3WX4ZOsFFwgNN4zk9CF6mECXZbvq+DZX2oEYyG
+	 T454XkMhnB9hGWTCyMoB3OBlTSUnBO+8uQmk0q4pFqfPatLiM5AiaNjZRlLcCDrroUIw2
+	 mI+Xm5PR5fpxWbVgT7eYICSwvRXFvk8R1YG5q4Z/8LdbaklkPg4IlODugH9B/dQM3syvF
+	 XanreEC+FkbqjM+zGhczXDatQK8IvCRvzsJQ+ak3AS/jJLWMqNS8rFf7yTADSqSSduQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=tkxoHaYV;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="cf/E5vZg";
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B738606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 22:05:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B738606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07FD606A332
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 22:05:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E07FD606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=tkxoHaYV
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id Pi2wxlV8RVK9UPoXkxheVy; Sat, 07 Nov 2026 22:05:48 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id PoXjx4nJHGh2BPoXjx15pI; Sat, 07 Nov 2026 22:05:47 +0000
-X-Authority-Analysis: v=2.4 cv=Aszu3P9P c=1 sm=1 tr=0 ts=6aefa0bb
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=SRozAb82v0VVYv1ySusA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=EXa9GzF1lnuyQokmmjMJAbZM/6BNIyMMmJy0j34oCyg=; b=tkxoHaYVQNzt
-	QRJhzmQqodJfAEbc4QwvawVcSYYIzTGopoqXyQSW5FbpRVITC2uaaTUHcjZZdnylVod7ELJTRS5Xj
-	6vxpkNtd93Qu8hmi2e8bpH03Kxm0TJwjz4N4j0SRlb1FDnNLO59AQnec13SfcRA8AbbZYkK7EtPXV
-	G/YUO2HhfLGE4nlWuN45ruOBWEan4yDkUpg1khw5CIHNfcsCJLSAgLLuhXUJCZq22A3DGoEDHPsjP
-	aCFCJ/ktkNmOEIj0rzSQePb2kd8gUa/HxFvzu58JEiByZXyahKZmYwD6fCksR7TjTeL/4BNlSBS9m
-	E7tPw2sf9sFDG+zidTf2YA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:41380)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xPoXj-00000003CwU-064a;
-	Sun, 08 Nov 2026 03:35:47 +0530
-Message-ID: <6870d51e-8d71-4cd7-bf43-3e3a1ea89ef3@roeck-us.net>
-Date: Sat, 7 Nov 2026 14:05:46 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cf/E5vZg
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a73fdd2966so23115e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 14:05:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794089148; x=1794693948; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DkAVpPVqUaM5/OO3qyebRlx/+ki6XiRI4yS3tN5o7Iw=;
+        b=cf/E5vZgfvjBwwCDczap2r/I/PH8rQhSxiTmwRRidMM58beSJpz4ghZrfQdCEMSJMe
+         zAzZn1erHUBe3bnncnBAbVjvIutmZhBnFec9lrbdefhq/uvMukhqlZa4CvGQ3x85+9IF
+         1I7Z5StSdDfqr98h1c5p0mqmRWtoFpjd65JzkPQgjr4JyobBktGm+YtpL6qGncV3F0n9
+         IecC6vXl4cAB7BCmDdxPptJU7mI5p7BIWSFzQfK1IPYZMpn7sCCA6aKMFuZdPy2DXfO4
+         NmZMICLIbmqv4/k85A7VsTcPAQBXoV/Mt6mZQeg87BCBfGD1ZsWzTO4BNce5XN46x45U
+         b/gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794089148; x=1794693948;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DkAVpPVqUaM5/OO3qyebRlx/+ki6XiRI4yS3tN5o7Iw=;
+        b=lY5RtmyaPvlZvd6saf9h8KVuqCla1Tb1hxQ6qHiff6+w9awPOI41OMqwIg1+spEaQo
+         VwN6sD3qAyQdkeysPZAz1k08M/0MwgIZL4MbObXHcQ02YSvTC2vQCNjN6xBABg5pboi6
+         atZZ8eykLmBHQ28EkUdCJBeMqw6OUN4Nc6/Ej8Xr0oruknxaWgjllfydudBjPWTv880Y
+         fiwpjz3g0UCmYbtfSUmbg4Xl0Xvh4dQv+M/gv81HyXBwPpbrnjIChdmr3w3wxTwelRuF
+         mboYNNiO3Lhbn9PAo+c8fR6+1KG7SamQoWcBJjTZKMEI46hVpfB6cG3uUCWwSVWnicLX
+         XsfA==
+X-Forwarded-Encrypted: i=1; AL+hErHPUOxTp9KogCAreyhH/0BMl2zvGdr/pz2F8nEzd3M1H/4VSPqvWKih4joXghlhof7351SdBbOGqTCBwyM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oZSXIOMzIkZeKF729KJHSAp/CwzMXQpl2Pvm2jbWb3Yga+N8x
+	n7WHXKpFVC97Ziu/57Q4CnspNyNLzmVl3x5IQzrBHTz9ls+JoPXWwdCL
+X-Gm-Gg: AYBFou3/XU6JOgL53P9eCYGPN6isVXilnVBE/lqV9A1MjGYVcjreAq6tzWLuzxO5tFP
+	rPEBqbIbQiMePM2GokKDzJcD1bdph/3V/c559X5O+GquuZj89UICT2y2mpmUUXd3fT3VcoHB7J8
+	rVrOKsPFJW8qSDTE31jaAnj4voLj7GLId/kG1hXXWq5a4ny+aAmrpjDSK8c116oOcCFugRzbN9O
+	kwm0D8GqvGSSMSHM0yoj97aprrCT1AZnc8ghHtYNB1W9lFEle7uZT3f34vWsLC3oh3K3lKd6aI9
+	rs0RZGkI8vlkf3wfjurWjBYBjFAkACTnkGlJ5gqOjFpZ7ZpBoRJgK2DpNryEuh9ULLJSPGRvxCQ
+	Art8HnRxKHcTI4acq+ILUvCfQNcj+kr2K6Crp2nMk/hRlYVTFNJpEegcBtIsaPMFcnM3KSgnDxY
+	nc+PARrDzagRPLaaJGywevrXjI2JJk5wj9XB7oqS/NvsUFUxMQjfx/XlnXBML033+wxL3ua8rp9
+	ILMfp+iJg5Fm7u/5G7DjDkrgTFDtKGyRq7dmdVwaBMxJe9ggGjumnXUpPgjvRVQiHwKYytEmuuK
+	dyUbKq3UY6Ealh3w4lq35RtgJX/ZeQeuvfJ/8nWQIkXgVVxls44itYIB0OoSFyFkmTdwuDVmyBM
+	Ey0rMxAUIeK9gmmvrFNjbiYUf8iiCtGJV3Nskg13dxYTnuhSyhzcP60tVhPockxBbNvcTdDd+I6
+	pjOl7LRHxU
+X-Received: by 2002:a05:6000:220d:b0:48e:eb:56a5 with SMTP id ffacd0b85a97d-49583dec0camr553117f8f.4.1794089147943;
+        Sat, 07 Nov 2026 14:05:47 -0800 (PST)
+Received: from L-022584.energy.envision.com (dynamic-077-189-161-157.77.189.pool.telefonica.de. [77.189.161.157])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597b1f969sm358958f8f.50.2026.11.07.14.05.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 14:05:46 -0800 (PST)
+From: Xin Xie <xiexinet@gmail.com>
+To: netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	shuah@kernel.org,
+	kees@kernel.org,
+	petr.wozniak@gmail.com,
+	qingfang.deng@linux.dev,
+	fmaurer@redhat.com,
+	luka.gejak@linux.dev,
+	bigeasy@linutronix.de,
+	xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com,
+	liuhangbin@gmail.com,
+	stable@vger.kernel.org,
+	sdf.kernel@gmail.com,
+	xiexinet@gmail.com,
+	lukma@denx.de,
+	fmancera@suse.de,
+	danishanwar@ti.com
+Subject: [PATCH net v8 0/4] net: hsr: fix super-packet forwarding
+Date: Sat,  7 Nov 2026 23:05:39 +0100
+Message-ID: <20261107220544.20-1-xiexinet@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,117 +118,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller
- voltage sensors
-To: Tomasz Bojanowski <tomasz@bojanowski.me>
-Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261107082821.8257-1-tomasz@bojanowski.me>
- <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net>
- <20261107161249.336512-1-tomasz@bojanowski.me>
- <5e99fd86-d934-49c1-a867-02cc61ab1ecf@roeck-us.net>
- <20261107181518.385136-1-tomasz@bojanowski.me>
- <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net>
- <20261107203300.427273-1-tomasz@bojanowski.me>
- <81c1e042-b06c-4a13-9251-a967532e21cd@roeck-us.net>
- <20261107214738.439967-1-tomasz@bojanowski.me>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261107214738.439967-1-tomasz@bojanowski.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xPoXj-00000003CwU-064a
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:41380
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPTY1rznytr4J7Tq/ov+d1e6btyoiRM4MlOH34tDP07lg+Y4EJQG66So5o8eXHoj6nJR2OevnOa6VSQPNHCe3IonJ9MwUaLjdsHBaLHK4KBPr2f1BqzM
- uwW1qHm/b3eki36mKYXzAPyMOZnlO+zihsR4BChygolcdA6wcSVvb9a8uoMSlnb6qHY4/RE3fdKTonFsOiZ/Q96Vp5Q2ndEuKlyprw+Izgggf84yTT7MWc/R
+Content-Transfer-Encoding: 8bit
 
-On 11/7/26 13:47, Tomasz Bojanowski wrote:
-> Hi Guenter,
-> 
-> On 11/7/26 13:06, Guenter Roeck wrote:
->> Either case, do you have evidence that this is even needed in the
->> first place ?
-> 
-> No. On the MS-7E61 it is not needed: the controller does not support
-> remote wakeup, and while hid_hw_open() holds the device open, it does
-> not autosuspend (runtime_status stayed active with power/control set
-> to auto). I added it in v2 only as a precaution, in case the device
-> autosuspends while the feature report is requested, without evidence
-> that this can happen. I think it can be dropped.
-> 
-Ok, I'll do that.
+HSR/PRP requires per-wire-frame tags/RCTs and sequence numbers, and
+duplicate discard is per frame. RX GRO and TX GSO can present multiple
+frames as one skb and violate that assumption: a super-skb is either
+rejected by a constrained lower device, or forwarded without valid
+per-frame trailers and sequence numbers. An oversized PRP aggregate
+can also truncate the RCT's 12-bit LSDU size field.
 
->> That makes me wonder if the vendor software is buggy. I have
->> two of those boards, and they both show similar values.
-> 
-> My follow-up crossed with your mail: the vendor software only lists
-> CPU VDDP on the MS-7C94 with an APU. Do your boards have CPUs without
-> integrated graphics?
-> 
-Interesting. Yes, the CPUs on those boards don't have integrated graphics.
+Patch 1 keeps software GRO off while devices are direct HSR/PRP
+members, in the requested as well as in the active features. Fixed-on
+or driver-required GRO_HW may remain enabled.
 
-Thanks,
-Guenter
+Patch 2 refuses bridge, bond, team, OVS, macvlan and MACsec devices,
+and devices without an RX handler such as ipvlan and VRF, as HSR/PRP
+ports. This closes the syzbot report of recursive seqnr_lock locking
+through a bridge whose port is a second HSR master. seqnr_lock stays as
+it is.
+
+Patch 3 segments valid GSO before per-frame processing, so each wire
+frame gets its own tag/RCT and sequence number; segmentation runs
+outside seqnr_lock. Patch 4 tests member GRO policy, port refusal, GSO
+forwarding and local submission order.
+
+A typical GSO source is a container connected to a PRP RedBox
+interlink through veth. An existing TCP/UDP GSO skb can reach the
+interlink with GRO disabled:
+
+  container/netns                  host PRP RedBox
+  prp0-peer ---- veth ---- prp0-int (interlink RX)
+                                  |
+                           split GSO into frames
+                                  |
+                           sequence number + RCT
+                              /          \
+                           LAN A        LAN B
+
+Compatibility with older PRP senders:
+
+Valid PRP frames from older senders remain supported. Some old Linux
+PRP senders incorrectly append one RCT to an entire GSO skb. This
+violates the per-frame PRP requirement. Patch 3 drops such intact
+aggregates when trailing bytes extend past a known, nonzero IP length;
+zero lengths and GSO_PARTIAL are not covered by that check.
+
+On virtio-net/TAP paths, disabling GRO_HW in patch 1 can make the host
+segment an old sender's malformed aggregate before it reaches the
+receiving VM. The RCT then becomes transport payload, which the
+receiver cannot reliably identify or remove. Upgrade the sender or
+disable GSO/TSO on its HSR/PRP master.
+
+Validation:
+
+On a lockdep kernel with the series, the GRO selftest passed 15/15
+and the ordered selftest 5/5. The syzbot reproducer reports recursive
+locking on the base kernel and nothing on the series in five minutes.
+It needed one adjusted ifindex, because the caif device it counts on
+no longer exists. Down/up of an attached veth and detach of a veth
+attached while down hang or hit BUG_ON with v7 and pass with this
+series.
+
+W=1 allmodconfig and allyesconfig builds show no new warnings against
+the base.
+
+Based on net fafbc4051123 (2026-11-05). The series applies without
+conflicts to net 30c71476d842 and net-next fa5196392691, where net/hsr
+is identical. The net-next conflicts reported for v7 came from the
+sequence-number changes in v7's patch 2, which this version drops.
+
+No stable backport is requested here. The remaining HSR dev->stats
+races are left to a separate series, as Paolo suggested [1].
+Pre-existing shared-skb mutations are also handled separately.
+
+[1] https://lore.kernel.org/netdev/4fc3b9f1-4bef-4b34-ae7a-e89037cce829@redhat.com/
+
+Changes since v7:
+
+- Patch 1: also clear GRO and configurable GRO_HW from wanted_features.
+  veth adds and deletes its NAPI instances according to the request, so
+  the v7 split between requested and active GRO could hang
+  "ip link set down" or hit the BUG_ON() in napi_enable() (the critical
+  NIPA finding on patch 1). GRO is no longer restored when a port leaves,
+  as for LRO; the comments only claim GRO off for direct members.
+- Patch 2: replace the ordered forwarding consumer with a check of the
+  port type, as Sebastian suggested [2]; seqnr_lock is unchanged. The
+  rule is by device type rather than "no lower devices" as I wrote in
+  the thread, because DSA user ports are uppers of their conduit.
+  Dropping the consumer also drops the review points on its admission
+  limit, supervision budget and PREEMPT_RT behavior. Narrowing
+  seqnr_lock is left to a separate net-next change, where Hangbin's
+  patch fits [3]. Ports whose RX handler is in use or not supported are
+  refused before any state change too, so a refused device keeps its
+  GRO request.
+- Patch 3: segment before taking seqnr_lock and number each segment
+  under it; the lock moves from the callers into the per-frame helper.
+  A still-shared GSO input is unshared before segmentation. New gate
+  drops are counted once on the entry device.
+- Patch 4: the GRO checks follow the new policy, including the
+  requested state. New cases cover down/up while attached, attach while
+  down then up and detach, a request while attached, and port refusal.
+  From the NIPA review: CONFIG_MACVLAN and CONFIG_BONDING in config,
+  captures scoped to their case, read-back instead of ethtool output
+  matching, PRP trailers decoded only on PRP LANs with the kernel's
+  fallback, capture sockets bound before they receive, producer errors
+  not hidden by the barrier, INT/TERM blocked while namespaces or
+  handlers switch, completion on the expected frames rather than a quiet
+  period, and only the common prefix compared where supervision runs
+  through the lane cutoff. Unused code is removed. The helper stays
+  standalone instead of using net/lib/py, which has no in-process,
+  namespace-bound AF_PACKET capture or stop-after-failure TAP handling.
+  The remaining low-severity remarks are addressed or went away with
+  the consumer.
+
+[2] https://lore.kernel.org/netdev/20261014151838.6RyMIRVM@linutronix.de/
+[3] https://lore.kernel.org/netdev/20260805-hsr_deadlock-v1-1-d8a6f06fc5a8@kylinos.cn/
+
+Previous postings (earlier design, newest first):
+v7: https://lore.kernel.org/netdev/20261009201324.17-1-xiexinet@gmail.com/
+v6: https://lore.kernel.org/netdev/20260809121455.1745-1-xiexinet@gmail.com/
+v5: https://lore.kernel.org/netdev/20260807140751.1351-1-xiexinet@gmail.com/
+v4: https://lore.kernel.org/netdev/20260803222211.877-1-xiexinet@gmail.com/
+v3: https://lore.kernel.org/netdev/20260731090224.18-1-xiexinet@gmail.com/
+v2: https://lore.kernel.org/netdev/20260724161253.79-1-xiexinet@gmail.com/
+v1: https://lore.kernel.org/netdev/20260722171836.196-1-xiexinet@gmail.com/
+
+Xin Xie (4):
+  net: hsr: keep GRO disabled on HSR/PRP ports
+  net: hsr: refuse forwarding devices as HSR/PRP ports
+  net: hsr: segment GSO before per-frame forwarding
+  selftests: net: hsr: verify GRO policy and ordered forwarding
+
+ .../networking/net_cachelines/net_device.rst  |    1 +
+ include/linux/netdevice.h                     |    7 +
+ net/core/dev.c                                |   15 +
+ net/hsr/hsr_device.c                          |    6 +-
+ net/hsr/hsr_forward.c                         |  154 ++
+ net/hsr/hsr_forward.h                         |    1 +
+ net/hsr/hsr_slave.c                           |   94 +-
+ tools/testing/selftests/net/hsr/Makefile      |    7 +-
+ tools/testing/selftests/net/hsr/config        |    4 +
+ .../selftests/net/hsr/hsr_gro_superpacket.py  | 1376 +++++++++++++++++
+ .../selftests/net/hsr/hsr_gro_superpacket.sh  |    9 +
+ .../net/hsr/hsr_ordered_forwarding.sh         |    9 +
+ 12 files changed, 1668 insertions(+), 15 deletions(-)
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_gro_superpacket.sh
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_ordered_forwarding.sh
+
+
+base-commit: fafbc4051123d5459ea6950899cec08ed946e278
+-- 
+2.53.0
 
