@@ -1,64 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064656;
-	b=tvkW+eKolgEA7ctzUGoQYsCGIFWsp/1zvBOVsG+FEXGR4bpLzJMMerXPewM6JHlQixDS
-	 nqYwyI4falIc1ftklu4+6+rCt6CrV+BlBT4QRcN3GXb+xPi4Trt0vUB1U1EncZeKGWz2t
-	 ZvdPbBYquF0vbelL6e6gEUuZWV6ZgMCObkq/ahFLzGOJFMqUUITFfCqA+kwTrrpEJMuOY
-	 +1Due8PB51B++XUcmnOafHftgeGreVW1rQ5fkgWVn+MRNtu/CS1/zIUR7kjWfh/JhTuI/
-	 Qk/yhHWn9FpxQDNmGrVK7OT3yI0QVAADT8OTqg7Sx/2cVwqCKJUN0zjgnVkQa1TQ+Lw==
+	t=1794064663;
+	b=mRtMAGjKGJgf0MbAApSf3arpHcluRAiHKa6A+Kf4hfSKNAIshXdeRsDmk8EvcJ8qNqU5
+	 z6hoxyKI2Z7x8qST4nn9rm4pCLsXzcCOIAPIpGAAeU4z0fmNIyByRWbs/52OpPuHRyC6n
+	 yw/kseZmUEbwTtWghcjizTc2hjry9gOGcJavkVBGcjpd0MGjeKhkMBD9jksjplIF+JsFl
+	 Hxt7Zgv3+L2jpFX7ubYuTfundyE4uJy5aOZIB/+PVC5jLL9im4LZ8FBjJGBdylRgHvtcL
+	 drRII3mCD2EznZ9xKqdWu/0s9ByE8I6dk25EIo78nMLj6DLT0RQLGLiYwdxKvU7itlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064656;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=B1bW9CMw+Dzr1ZLzwD9wcsTuwAnVAPoXAK65EcaP0mc=;
-	b=FL4+KWzmFowl3+i1UUB4P5zAYwcKa7ueWu98erpg2aN+NWSsec583qLVoumHNQz/V3ut
-	 2cMnf5v37opQBUKN8DYmVvGBFZAYLbHR1FQv8PD8NjL30kiRbRpzcAIQvXq50QJdsGHzl
-	 yNG5IYgSqwtLpG/69qovxhhwz8ruWvMgpZme5nfX8iIEe2lllnDGvZP55NCX0mX4AAvP6
-	 lVROWqbQqP6N7NShvS9X/VXQAlSDJ6IBakmVGE2cpmvEya/nj+wu7IQ2vWFKi7RGaDxzf
-	 L4vW83cTMMxHXHVdGBrUNyc1sJeVQ/lw9zP0uSkWV+VrF+Y/IMQCRwEuwJW6otnn+Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064663;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MeF/1bFkHYSuxzskpfZlny2NzE7wY2okieEwz4QfiGw=;
+	b=Yeh4nBanzJTJ1STw9pUI8ZUDrepcBQPYFwG2ng63h5gHQKertxLxsEtOEWw8XE+ECErD
+	 OI+V9YimJGXhyaX82oXdQWOQu0o5KIUjnpw39M443o5l8SqsbSdbz2bTDXsuqybYRTDsJ
+	 sC5cpe43f/msPWpcxTzUtmAX3fuC9whaFhkOJykOMsiLZzPZ9p2UWaGok8X+Wr+Pj78cL
+	 4PKSVNEyMU16RKgXvgiR/W6rcdA5DvVMXwfVmbrEHlhfxIkWnA2X4BK941I4SqcALB8fD
+	 Jy/LkXUajvxx/MFlR7BkebaR5S+NKHE+JBTpyW978FPmuhmaXj0Q1t/cNxrayWWYuiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYi2WVoQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mEx9JaoF;
+	arc=none smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C1E606B88A;
-	Sat,  7 Nov 2026 15:17:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7B56082BDC
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:17:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F7B56082BDC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYi2WVoQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495A91F0089F;
-	Sat,  7 Nov 2026 15:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794064655;
-	bh=B1bW9CMw+Dzr1ZLzwD9wcsTuwAnVAPoXAK65EcaP0mc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=VYi2WVoQlAinQO6kz5qb2UPxeAPJw+27WutJ4M2Ujli/KKPEmaR0TaZ59fbHo7IGs
-	 Gsd1NWGH+xt/9noZCbrVgEau7YySYbGIWrq7S02jzv8X+fZd52gMarHSlZdiRSRR+v
-	 wIuNGzMu5RWduHCeXY0IfuHJEbVTYkbYykQP+rcwBiWsCyhNhGWbD9eXtEMk4UW7Sn
-	 VVwqjMtAg8p1U9hPArwc22kYq+lU0og1mQQ5GY4xBdrdnzWi7vtCiHQMYHCTpvRIbn
-	 l8WupsGFGDLIPbxa8uPVw6pbncUrQyNO0b69M+kr25xgvEs+zZxmOAUUxMqW3aL4DW
-	 rIV3icmol4nUA==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 558F72AB3141;
-	Sat, 07 Nov 2026 15:17:33 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Support Opensource <support.opensource@diasemi.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
- patches@opensource.cirrus.com
-In-Reply-To: <20261104113352.1634237-1-peng.fan@oss.nxp.com>
-References: <20261104113352.1634237-1-peng.fan@oss.nxp.com>
-Subject: Re: [PATCH] regulator: Convert to subsys_platform_driver()
-Message-Id: <179406111958.3424803.12810208024336912202.b4-ty@b4>
-Date: Sat, 07 Nov 2026 14:18:39 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mEx9JaoF
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3acd304b5fbso10419501fa.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:17:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794064661; x=1794669461; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MeF/1bFkHYSuxzskpfZlny2NzE7wY2okieEwz4QfiGw=;
+        b=mEx9JaoFVWqn81xBnARZosOA2nexoirrYwD4tcRgXFTI4v7vXnV8xXRdGkhzNYK9Fn
+         BdI46ZJRyvh0BagG3hjda4IwH4W6CrhfIlmg52m/q9Is79OjTCAneo2dGtS/537dvkI4
+         xLJrZbGfBZ6oUR2eCZRxRnzUyNfnhx70JiVyxXo7tDb1Qcoir0tEvY5RETs/UGFVn00j
+         8l50nzCYoNt5jBeKeDeoqM2YiMxcsy/8EuDCf3f5Ewybi2OkpSxoLHAQ66RM+2Jz2XU5
+         sGajPlZRf9VswyfQkzPoMlkaJun1HnoA9UwDJgfcbmyIQEeQeDLukm0C8630NrppMLGO
+         3Lmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794064661; x=1794669461;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MeF/1bFkHYSuxzskpfZlny2NzE7wY2okieEwz4QfiGw=;
+        b=yOzVfaPuXOTiht8ixRBdUrWXS+vtMwpD1JN1NDwsx6VYDkXFSL/cOj8qXzf4jtEDI6
+         MJJ+ROhn+5vb7ySc9r5WivmDqFyixgMBOayrEnvbQsAtD61h3MpByoIQZVMsU+JbQ3jt
+         jp9dX3XMZFKGiP9y6fjhKZya4Snpk8AdWhvsnzGZ7JWoAucwbashsYmq0ETT03mDXgkf
+         YvpdFgOGloI5TPlUDmuYpljuBR36GvCszclD4YwVPaKKvbr86oiICXmf0vScwzxLyVU/
+         4EKBXfUCqkfwGS73uSele6R3pIEVMapvZoumhBv37dn3CYS5+jRwHI28izNdNZ5aKQTW
+         f9Ww==
+X-Forwarded-Encrypted: i=1; AL+hErG7VyZdtNW6UakaeJP9HsaldF1LG1WZPZotB23C0pzbZ0BRWkmIz1PHEdkeS1/aKyXWeVgGctgA2Q/HCbQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+knCDRFz2YjTjXjKJzg1U5GF/x3RWDMn72ErtPjq3CaXow3ZF2
+	lfbkl62cVxk310VlTtWGTPnMCp87d3gLyiN3l4sy0gPxRVVyr3dNOHRa
+X-Gm-Gg: AYBFou1SW4nglW0BHZsShoMpfQ8apdQ7HS5lPOhY+VzlIvaGDOi5TRWl9ZICt53cDXE
+	t6CNy1BJdpW/Qd6bfzyjrt9TJflHEAgZxzliUNxlPRp/K4vk35yIxz/Ll68/dWQlHrJIQrE4SCW
+	HgErB4aqJWApwUC++RgaWjvUi7DMmmGqy6bQaXUQ1mLla3CIYnT6C9spPR5VC2jBUFvdQcLrWIf
+	VugzRlhq/ihy94dQmXcCtDGvfFy1L0V3p+u+SwELWVS7X+4ctdSYZr8RApMyP0X1ToLYneQLqX3
+	ZpBPLWUU0stMhn6zHiu9BXVSkQfHa2MXzcjQIIIRYSZpn2bSJJDmxTsph9NWukshLT7l9xHockh
+	OLUyiD354pvGWATy5QyF+85DqA9OZXeCccyvOTvUdXJ3+yC/2ERDcaxj/v18fjZda82XBcKfbjp
+	SsEPxha1cXYItLSDU8m8mKkszvROiEpOjXqEy6NMsnEz2lc3Oh19I+gYMDryrrGP/UBShewtCJN
+	CakyBhua+4mzDF4fsfD9ip1r+SkySIz/82+1MqAGBXzEgZx2C6mMw6eBrCM8A/aGUJjy5gIKK9/
+	dPw5UNR7DgEpcCyV7bqunGaTWQm2NUltidvMTQnYvEE=
+X-Received: by 2002:a2e:a542:0:b0:3ac:41ca:1104 with SMTP id 38308e7fff4ca-3acf36e890bmr11461021fa.0.1794064660640;
+        Sat, 07 Nov 2026 07:17:40 -0800 (PST)
+Received: from thinkpad ([92.36.72.88])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ad976a9911sm1616151fa.38.2026.11.07.07.17.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 07:17:38 -0800 (PST)
+From: Andrey Zakharov <dedemorow@gmail.com>
+To: x86@kernel.org
+Cc: tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	luto@kernel.org,
+	kees@kernel.org,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC] x86/ioperm: boot-time switch to disable iopl()/ioperm()?
+Date: Sat,  7 Nov 2026 18:17:24 +0300
+Message-ID: <20261107151724.74703-1-dedemorow@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027220904.15896-1-dedemorow@gmail.com>
+References: <20261027220904.15896-1-dedemorow@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,46 +104,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1120; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Q6cAsV4W7X68n/oGP4buAMIcus1GeKzbibFsF46mRZE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeO/LKOWT38bFvynedUrjR49GjkG9fEv/lOyQlvjrq+
- 9Ojp9W1o5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOJFWf478K5aeX7rCVR1df3
- iv3I0DaQcZkzjeHF3iv601wO+LqWZTP8Zt9eF6MoGn+qrLDyEs+sH1vVb3QoezNd5nGpkn1gdZe
- NCwA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Wed, 04 Nov 2026 19:33:52 +0800, Peng Fan (OSS) wrote:
-> regulator: Convert to subsys_platform_driver()
+Hi,
 
-Applied to
+Sorry to bother you again. I was just wondering whether anyone has had
+a chance to look at the question above. No rush at all.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.5
-
-Thanks!
-
-[1/1] regulator: Convert to subsys_platform_driver()
-      https://git.kernel.org/broonie/regulator/c/2a1984b30e9c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+I would be glad to help if a boot parameter for iopl()/ioperm() is
+useful, and I am equally happy to leave it alone if it is not. Any
+hint is welcome, even a short "not needed".
 
 Thanks,
-Mark
-
+Andrey
