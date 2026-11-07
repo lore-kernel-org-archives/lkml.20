@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794055577;
-	b=Hv/uBgux4Avw0Q9Dt9kpVwulLJDZfC/agBAytDnl5MyY3AeK9vz3xCBXQiJMqPL4yvEG
-	 vmifUdjH7j7YAFG9MM0QHUOekJCNCTRbqrEGcaJMdjMd2vGXTiNodTqajSvVyJxRFyk8h
-	 NqzohNob4FREfYEpp+HsLjLgjHGLuAxiD2GCM8mZsos+GOvzCgpbqF6suBwjOdsBwWrJG
-	 N1jYzoNZX5mFgp+TCII+Ghlvnq+vmTIVijElzhLKX5Xd9gcik91QzIuoveNmSCiwH/0kT
-	 k420IUVNQaHdHac9UpMdSp3azErl/P1YTHKB2ntQsl0/UJKMAZLo+figJdC33/jqAng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794055577;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4mMo7011NcpInl6+4G96ilpKFOyPXZHMuVK7Jy2KF8s=;
-	b=yJXdD4VEmL1KoPa7wKTM2nSlgp6GImTZBljVQPY5pfsx/cOaspzsAlb7wTPF5XZz9K1/
-	 K7AVwPRgC/4utGpKwjA6g+ZxYGxkdTUClqyYKi9NdcodpcYkQ0ozYnXx4KZdsVG1/VqDL
-	 hMzEdSC8kZ94Hw9LMpN/zuB1y+pjeK94eRpyM3H9x7grxDqEVCVj3U32/CDcUiXdZ2I6z
-	 cvD9X748NqdVVFO7jRCQj2B5iI5EjyrO2mKHuFJBbc9xO/Jcw9sJeXe5OCzAVsKWi7B89
-	 HyqO6vcg3HRF0STsFFTo5301p8wekzl3wGv+G+b2oeUUTrom7GB9vbDOnaBm22qO1Cw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Be+F4JcX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794055744;
+	b=lxauD9aVOZ4BqKXh1f9TY/V51DWs9Z6ZoA0lRGoQ/6ykV5HiuVCWhTy84nQchiDULlqD
+	 43vlH0ihw4oT5l2cbZ7pxexe3kIjP1krxTaDsONQmZ0FpOCLwYh8HInG2g6nswzVTKIPS
+	 Mwq0Oe0sMLrdtc9B+fwHEHUIImBf488cHiVohsSE5PG0w8VLvbvq4TaXOnssHP6ZB446I
+	 reSxTYzHctlRFGILw8wvyzK82yMXebtKPtiqLouD1itXzmj4X7NjCRGUTnR67iIUlx6in
+	 2k80c6N2Eh6WHqYFm2liSZbqhlC4YndOOLE0vyjtQEYUKoR3R06LmDtoVExrmOWfCSQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794055744;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=CaW/VQHTPMCaOIjymW1vJwqHbfTh8Y4QG0yBDvfrK/U=;
+	b=RdmDTziHdOT0wQ0E9No2C6Y4cg4n6TZpD5zkJlJz51W5erT8zCli2rZ3sBT56h/gX3dc
+	 V1AdYEfLJ9ofG3l2Xvmi5TxANlAaqgGyzyaWbM+DQd3x83NeRwYGhujMO1ewzXU7dsaNB
+	 TxI1RrYlbQ1DKRjhwdJT6jVLGcHWgySSKj3oBoRBx9g8/Py3ie/eFXKMpSc7ofPw2X9/s
+	 lI/A3mJ0WFmVqBaS3u2gV5plJI5uqQ34fWiJ6kVCXVPlXW03LNqsuyS6nqs+o0MJmEiU5
+	 ZOjw4U/XbY/niB5iQC9o9ieo0tAoafk2ue1jehskJGs6bj2N+0K1PQL2xGS0WWgf/eg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="eC/Vn1Is";
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C880C606A33A;
-	Sat,  7 Nov 2026 12:46:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA21606A326;
+	Sat,  7 Nov 2026 12:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CA21606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Be+F4JcX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794055576;
-	b=A6Ptl5HMTeX2j+brATF0+6Bm41GBmDkkP+Su5hmVrrNBTUsVtaObnXvyy0RtV+6BC/PH
-	 5onpJJTOU7fkky1Vo5xZgoYJra+BOqOp3kOwbBvrdz+G+aHTZNMBxw6fiXI1qITe4JJIw
-	 TbqIZIGLF4ApU5tg2BT44ykuuTW6W0mry65JfDKrXM3TuKKnMmXHuhuBitaWhVyWHBrDp
-	 41MFaoDr+wxioSlmIau6KyDMmgrpKMctpY5e86kFLQsQLdOWxvWrOszQ9aaXdQlkDGxnf
-	 8l1A8M7qy+A5EMMycqlCDg3dKBT8AL+xhU4s1sAsB5PX3QBofwiB6mVIyVuSZqR0C6Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794055576;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4mMo7011NcpInl6+4G96ilpKFOyPXZHMuVK7Jy2KF8s=;
-	b=HEm6vpU0Q4KoN48AWS/ZwYh6Jcnn9FaozDDVnSTaMslXPQ3OFJZeS1495SgunbX0NI2m
-	 fdnsOM9U5KJlmuHLVxkgzxbyEztSHsNqNvsgugozTCqjLNqbL5GBomg83FWWe1VTnoJ+e
-	 kOgilkx8RE4+q/YUiITXZsyqOhstxzFv1sXMXQNixFSDWPINLYz5FUFc87tKMaMFZFjfY
-	 yDoAIkJxZs83KNbPfND+4O0U5/mf7PcgZGIOo8sWkYwFTHFy0Hrw6ln2QnnTt9VXey8Y4
-	 6KZNW/vKosEgz11cXG7Zybny5oy3j5PEpb3iVr92Yo2S7YYSLdlrPXkcWObgtYG/zJA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3B59D1F008BC;
-	Sat,  7 Nov 2026 12:46:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794055576;
-	bh=4mMo7011NcpInl6+4G96ilpKFOyPXZHMuVK7Jy2KF8s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Be+F4JcXjigKCFmYzSwEL+sJS3VyWl3SI2zthFwUf2iDyyTsjyL8bOQ9q59o3w0D4
-	 oYJVFkcRWg0cI6d0h09ExCzuKMEVDbz4pHJal8G29q/XL6e2pcB0NCd0L7l6mf/Tof
-	 pnt3kDK4w6Bl16H0QFIXJV8xZLu9d6p3SVkvlPF0VUDjZM5Ngaz3Ygj7nu77q2RY9Z
-	 1reYyyO20MpBvFxYcQL/VYk92eq5TH8InTwDKmAVRA/4T8StdBb34P2p8LUBFj6pPe
-	 v9LNk5AOys9VL8GrzCSc6Xj+gqnjj5UM/FLS4OvGeHI2dVnKbYFwAQgrzCXiRABlOf
-	 59TwWKqPKNUmw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A630447BF7;
-	Sat,  7 Nov 2026 12:46:14 +0000 (UTC)
-From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 21:46:13 +0900
-Subject: [PATCH v4 1/2] usb: gadget: gadgetfs: fix ep0 request lifetime on
- disconnect
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=eC/Vn1Is
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794055718;
+	bh=CaW/VQHTPMCaOIjymW1vJwqHbfTh8Y4QG0yBDvfrK/U=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=eC/Vn1IsbiohnHTB1tSgsdIYWwZcVVOXqLN8jRbOlccGiNqVAuYIQC9NqoyBB1gjS
+	 Q1mYRKc1o3dT/vJ2POHXmVhwloyPVlqK1luc8WfnMorWm4tMMc4H9YhsICG7s2bliT
+	 vKZemOswUccsL19cQpV3nKVwoUgvCA7ZvUHRyf/8=
+X-QQ-mid: zesmtpgz1t1794055717t9ee4a99b
+X-QQ-Originating-IP: adEHd0p0H88g7XXNw58gtXAVSCXWiNn/74yyaDVntEE=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 07 Nov 2026 20:48:35 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 18126235862293624817
+EX-QQ-RecipientCnt: 14
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,402 +58,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-b4-gadgetfs-ep0-v4-1-86bdfd684b54@gmail.com>
-References: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
-In-Reply-To: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
-To: Neill Kapron <nkapron@google.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Jing Lin <kayano050408@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794055573; l=11648;
- i=kayano050408@gmail.com; s=20261106-gadgetfs-gmail;
- h=from:subject:message-id;
- bh=zpQOHmlQwRjGrBepJrO84PIIdbA+Tl6x07uSNmmbWB8=;
- b=y/yXeU+hG/a855w85SqVRHROHpJWBAAx+RScz5tmAqh5ZQqe5z2QaObX7+98Idg+K2TTQI214
- Nd2ZB43AzX5BEuPXCcvZ8ZQlghvIOqwxPbdRMG1MW8NJqI8c523P/ZC
-X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
- pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
-X-Endpoint-Received: by B4 Relay for
- kayano050408@gmail.com/20261106-gadgetfs-gmail with auth_id=1433
-X-Original-From: Jing Lin <kayano050408@gmail.com>
-Reply-To: kayano050408@gmail.com
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=4fdca5886438fb7c941b336a5dfc31a05971bb73792b2c2cbe0940973e86;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Sat, 07 Nov 2026 12:48:33 +0000
+Message-Id: <DMOZO92UHE9L.2PC9QE72225NX@linux.spacemit.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/5] riscv: dts: spacemit: k3-com260: Add SPI NOR flash
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Sarah Emery" <sarah.emery@canonical.com>
+In-Reply-To: <79211469-cf77-414c-9a10-2b684833ad64@canonical.com>
+References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
+ <20261105-k3-com260-module-sd-nor-mac-v1-3-138b39d74602@linux.spacemit.com>
+ <79211469-cf77-414c-9a10-2b684833ad64@canonical.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NpebRJ4Rwrau3Sdz/kxEp7NwDGkGjgfaH4r/aOxK90RUB3jsolxKVyA2
+	uSKCajNHAV+eAGl8asM78jOcXziAhZANGLtPAMkRGT510XOAnBDlVaNgfIaR1eI6hQCrNLg
+	W5bjB5tnDbxwIFHGeRHy2j++bcf9fEqvYy8s9i+YgvDtR1OqbXurThMsN2jNstbtwb8rDa3
+	yJvFkNcJGlvAYdW8svLbe4BmZKpN452s/Yg8nOCyQBTgRdU+VmRYRiuVf+2y2vIZ1We3/YE
+	POLaKH4uqJvlfMXSGex990NTNaVMCQxzomFZJnHKtOdhw78k53CXK/Y9vcdiYef7NdnTjt1
+	nkJ+t5Jv/a1nBS/fpHgC76yuWaGTmjFwu/49GUoZ4jlW3fzRCb/+kPezIbz7fzztY2NAnNl
+	GNLVgtjAEwkIcGP7Xge+DAkRtEeoJ3i26B2BRCQzl3+f6X7s8WVOUvd7q8TTqbOnJDsr7DR
+	B3gahb/62LbpXKYQuqW/s9MV+EYs1JuwqafEFONKRBa3b5jPmNUruP99/pVtPazJ3ydlgzH
+	KsoRYsSMI4+JtlT00OyD4KL+cHPkuadgruzQyIy5m25rvF9U2qCUxIQQAXHqIcfJURMS0ND
+	7fIykpQkn7G3CgRm4xc1agHZqSa8PVSdlaAlkKS/ZR00iUBAHhXHrCVTUGtBeK6p4pI8dNZ
+	A76oXvP46uB/oCRjUj6AvmvKrK+wZ2LHH9nbZet/UJjBZTvArnRZRTknU+0yZ9EXczjf/Zf
+	Kk5Nq46yPNTS2gn4nomy88Bcc8LCwjEoVa3pJbZA/Hs7A9ZrVadKiG+wcfRw3e90E0aUtOv
+	rLM50U0WxYZ5PA9UMuaG1F0/zDJgQXveIg+NilI2EeY+XNLU5mw62zqiDeQn62L6NOH/Ma3
+	X5rlutHfgHh7R/TKH4fHo7Gu3LQMNvdjGemYHZedI8HHs2N/9NO9DL/5O1LjqkY9g7TTPns
+	6WscL9oBp5J206pXwBalW4BhjB+fZRLbiCA7xrg+3m+UNq55Mx6LJyh7WQbCZTQKOYPozwH
+	LYkqUYcei056gzd0W5j0i96fzK6oJl9merBEbYdCyKnfuvBkMZfBTZqEGIVUSyvLDUvfIrn
+	xrEBWI19IUDGLM0+kRb6xw=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-From: Jing Lin <kayano050408@gmail.com>
+--4fdca5886438fb7c941b336a5dfc31a05971bb73792b2c2cbe0940973e86
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
-the gadget, assuming that no I/O remains active.
+Hi Sarah,
 
-With dummy_hcd, disconnecting does not necessarily drain ep0, so a delayed
-userspace response can leave dev->req queued when it is freed. This
-triggers the warning in dummy_free_request() and a use-after-free when
-dummy_udc_stop() subsequently drains the endpoint queue.
+On Fri, 6 Nov 2026 17:25:48 +0100, Sarah Emery wrote:
+> > +			uboot@210000 {
+> > +				reg =3D <0x210000 0x5f0000>;
+> > +			};
+>
+> This partition ends at 0x800000. On the CoM260 with EDK2, 0x700000 to
+> 0x7c0000 holds the variable store (NVRAM and FTW), so reflashing this
+> partition from Linux would erase it.
+>
+> I think we could split it like this:
+>
+>     uboot@210000 {
+>        reg =3D <0x210000 0x4f0000>;
+>     };
+>
+>     var@700000 {
+>        reg =3D <0x700000 0xc0000>;
+>        read-only;
+>     };
+>
+> What do you think?
 
-gadgetfs_setup() and ep0_write() can also race on dev->req and req->buf
-while a control transfer is in flight or while a completed delegated OUT
-transfer is waiting for ep0_read() to copy the payload to userspace.
-Overwriting req->buf with a descriptor pointer causes clean_req() to free
-the descriptor buffer instead of the request buffer.
+The layout here is the one used by the SpacemiT boot firmware for K3,
+where U-Boot owns everything from 0x210000 to the end of the flash.
+The EDK2 that SpacemiT ships for K3 (including the CoM260
+configurations) keeps its variables in memory and does not use the
+flash for them, so it has nothing at 0x700000.
 
-Copy completed control OUT payloads into a separate setup_buf in
-ep0_complete(), copy control IN payloads from userspace into a stack
-buffer before preparing dev->req in ep0_write(), and reset req->buf when
-control transfers finish. Track whether dev->req is queued, reject reuse
-while it is queued, and dequeue it without dev->lock before freeing it in
-gadgetfs_unbind().
+Which EDK2 build places the variable store at 0x700000?
 
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c73e1942197af9f54ca3
-Cc: stable@vger.kernel.org
-Signed-off-by: Jing Lin <kayano050408@gmail.com>
----
- drivers/usb/gadget/legacy/inode.c | 145 ++++++++++++++++++++++++++++----------
- 1 file changed, 107 insertions(+), 38 deletions(-)
+> The Pico-ITX node also uses 0x5f0000, but I think it should be modified
+> to split out the var part too if it makes sense here.
 
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index 7f6d84601..31fc83427 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -140,6 +140,8 @@ struct dev_data {
- 					setup_abort : 1,
- 					gadget_registered : 1;
- 	unsigned			setup_wLength;
-+	unsigned int			setup_out_len;
-+	bool				ep0_req_queued;
- 
- 	/* the rest is basically write-once */
- 	struct usb_config_descriptor	*config, *hs_config;
-@@ -153,6 +155,7 @@ struct dev_data {
- 
- 	/* except this scratch i/o buffer for ep0 */
- 	u8				rbuf[RBUF_SIZE];
-+	u8				setup_buf[RBUF_SIZE];
- };
- 
- static inline void get_dev (struct dev_data *data)
-@@ -984,6 +987,17 @@ static inline void ep0_readable (struct dev_data *dev)
- 	kill_fasync (&dev->fasync, SIGIO, POLL_IN);
- }
- 
-+static void dev_req_complete(struct usb_ep *ep, struct usb_request *req)
-+{
-+	struct dev_data		*dev = ep->driver_data;
-+	unsigned long		flags;
-+
-+	spin_lock_irqsave(&dev->lock, flags);
-+	req->buf = dev->rbuf;
-+	dev->ep0_req_queued = false;
-+	spin_unlock_irqrestore(&dev->lock, flags);
-+}
-+
- static void clean_req (struct usb_ep *ep, struct usb_request *req)
- {
- 	struct dev_data		*dev = ep->driver_data;
-@@ -992,30 +1006,31 @@ static void clean_req (struct usb_ep *ep, struct usb_request *req)
- 		kfree(req->buf);
- 		req->buf = dev->rbuf;
- 	}
--	req->complete = epio_complete;
--	dev->setup_out_ready = 0;
-+	req->complete = dev_req_complete;
- }
- 
- static void ep0_complete (struct usb_ep *ep, struct usb_request *req)
- {
- 	struct dev_data		*dev = ep->driver_data;
- 	unsigned long		flags;
--	int			free = 1;
- 
- 	/* for control OUT, data must still get to userspace */
- 	spin_lock_irqsave(&dev->lock, flags);
--	if (!dev->setup_in) {
-+	dev->ep0_req_queued = false;
-+	if (!dev->setup_in && dev->setup_wLength) {
- 		dev->setup_out_error = (req->status != 0);
--		if (!dev->setup_out_error)
--			free = 0;
-+		if (dev->setup_out_error) {
-+			dev->setup_out_len = 0;
-+		} else {
-+			dev->setup_out_len = min_t(unsigned int, req->actual,
-+						   sizeof(dev->setup_buf));
-+			memcpy(dev->setup_buf, req->buf, dev->setup_out_len);
-+		}
- 		dev->setup_out_ready = 1;
--		ep0_readable (dev);
-+		ep0_readable(dev);
- 	}
- 
--	/* clean up as appropriate */
--	if (free && req->buf != &dev->rbuf)
--		clean_req (ep, req);
--	req->complete = epio_complete;
-+	clean_req(ep, req);
- 	spin_unlock_irqrestore(&dev->lock, flags);
- }
- 
-@@ -1023,12 +1038,14 @@ static int setup_req (struct usb_ep *ep, struct usb_request *req, u16 len)
- {
- 	struct dev_data	*dev = ep->driver_data;
- 
--	if (dev->setup_out_ready) {
-+	if (dev->ep0_req_queued) {
- 		DBG (dev, "ep0 request busy!\n");
- 		return -EBUSY;
- 	}
- 	if (len > sizeof (dev->rbuf))
- 		req->buf = kmalloc(len, GFP_ATOMIC);
-+	else
-+		req->buf = dev->rbuf;
- 	if (req->buf == NULL) {
- 		req->buf = dev->rbuf;
- 		return -ENOMEM;
-@@ -1045,6 +1062,7 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 	struct dev_data			*dev = fd->private_data;
- 	ssize_t				retval;
- 	enum ep0_state			state;
-+	u8				tmp[RBUF_SIZE];
- 
- 	spin_lock_irq (&dev->lock);
- 	if (dev->state <= STATE_DEV_OPENED) {
-@@ -1073,13 +1091,20 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 			struct usb_request	*req = dev->req;
- 
- 			if ((retval = setup_req (ep, req, 0)) == 0) {
-+				dev->state = STATE_DEV_CONNECTED;
- 				++dev->udc_usage;
-+				dev->ep0_req_queued = true;
- 				spin_unlock_irq (&dev->lock);
- 				retval = usb_ep_queue (ep, req, GFP_KERNEL);
- 				spin_lock_irq (&dev->lock);
- 				--dev->udc_usage;
-+				if (retval < 0) {
-+					dev->ep0_req_queued = false;
-+					clean_req(ep, req);
-+				}
-+			} else {
-+				dev->state = STATE_DEV_CONNECTED;
- 			}
--			dev->state = STATE_DEV_CONNECTED;
- 
- 			/* assume that was SET_CONFIGURATION */
- 			if (dev->current_config) {
-@@ -1109,25 +1134,36 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 			if (retval)
- 				goto done;
- 
--			if (dev->state != STATE_DEV_SETUP) {
-+			if (dev->setup_abort) {
-+				dev->setup_abort = 0;
-+				retval = -EIDRM;
-+				goto done;
-+			}
-+			if (dev->state != STATE_DEV_SETUP ||
-+			    dev->setup_in || !dev->setup_out_ready) {
- 				retval = -ECANCELED;
- 				goto done;
- 			}
- 			dev->state = STATE_DEV_CONNECTED;
- 
--			if (dev->setup_out_error)
-+			if (dev->setup_out_error) {
-+				dev->setup_out_ready = 0;
-+				dev->setup_out_error = 0;
-+				dev->setup_out_len = 0;
- 				retval = -EIO;
--			else {
--				len = min (len, (size_t)dev->req->actual);
-+			} else {
-+				len = min_t(size_t, len, dev->setup_out_len);
-+				memcpy(tmp, dev->setup_buf, len);
-+				dev->setup_out_ready = 0;
-+				dev->setup_out_len = 0;
- 				++dev->udc_usage;
- 				spin_unlock_irq(&dev->lock);
--				if (copy_to_user (buf, dev->req->buf, len))
-+				if (copy_to_user(buf, tmp, len))
- 					retval = -EFAULT;
- 				else
- 					retval = len;
- 				spin_lock_irq(&dev->lock);
- 				--dev->udc_usage;
--				clean_req (dev->gadget->ep0, dev->req);
- 				/* NOTE userspace can't yet choose to stall */
- 			}
- 		}
-@@ -1267,29 +1303,41 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
- 
- 		len = min_t(size_t, len, dev->setup_wLength);
- 		if (dev->setup_in) {
--			retval = setup_req (dev->gadget->ep0, dev->req, len);
-+			u8	tmp[RBUF_SIZE];
-+			bool	zero = len < dev->setup_wLength;
-+
-+			dev->state = STATE_DEV_CONNECTED;
-+			spin_unlock_irq(&dev->lock);
-+			if (copy_from_user(tmp, buf, len)) {
-+				spin_lock_irq(&dev->lock);
-+				return -EFAULT;
-+			}
-+			spin_lock_irq(&dev->lock);
-+			if (dev->setup_abort) {
-+				dev->setup_abort = 0;
-+				return -EIDRM;
-+			}
-+			if (dev->state != STATE_DEV_CONNECTED)
-+				return -ECANCELED;
-+			retval = setup_req(dev->gadget->ep0, dev->req, len);
- 			if (retval == 0) {
--				dev->state = STATE_DEV_CONNECTED;
-+				memcpy(dev->req->buf, tmp, len);
-+				dev->req->zero = zero;
- 				++dev->udc_usage;
--				spin_unlock_irq (&dev->lock);
--				if (copy_from_user (dev->req->buf, buf, len))
--					retval = -EFAULT;
--				else {
--					if (len < dev->setup_wLength)
--						dev->req->zero = 1;
--					retval = usb_ep_queue (
--						dev->gadget->ep0, dev->req,
--						GFP_KERNEL);
--				}
-+				dev->ep0_req_queued = true;
-+				spin_unlock_irq(&dev->lock);
-+				retval = usb_ep_queue(
-+					dev->gadget->ep0, dev->req,
-+					GFP_KERNEL);
- 				spin_lock_irq(&dev->lock);
- 				--dev->udc_usage;
- 				if (retval < 0) {
-+					dev->ep0_req_queued = false;
- 					clean_req (dev->gadget->ep0, dev->req);
- 				} else
- 					retval = len;
--
--				return retval;
- 			}
-+			return retval;
- 
- 		/* can stall some OUT transfers */
- 		} else if (dev->setup_can_stall) {
-@@ -1483,6 +1531,10 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 	}
- 
- 	spin_lock (&dev->lock);
-+	if (dev->ep0_req_queued) {
-+		spin_unlock(&dev->lock);
-+		return -EBUSY;
-+	}
- 	dev->setup_abort = 0;
- 	if (dev->state == STATE_DEV_UNCONNECTED) {
- 		if (gadget_is_dualspeed(gadget)
-@@ -1618,6 +1670,7 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 			dev->setup_wLength = w_length;
- 			dev->setup_out_ready = 0;
- 			dev->setup_out_error = 0;
-+			dev->setup_out_len = 0;
- 
- 			/* read DATA stage for OUT right away */
- 			if (unlikely (!dev->setup_in && w_length)) {
-@@ -1627,12 +1680,14 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 					break;
- 
- 				++dev->udc_usage;
-+				dev->ep0_req_queued = true;
- 				spin_unlock (&dev->lock);
- 				value = usb_ep_queue (gadget->ep0, dev->req,
- 							GFP_KERNEL);
- 				spin_lock (&dev->lock);
- 				--dev->udc_usage;
- 				if (value < 0) {
-+					dev->ep0_req_queued = false;
- 					clean_req (gadget->ep0, dev->req);
- 					break;
- 				}
-@@ -1663,21 +1718,26 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 	if (value >= 0 && dev->state != STATE_DEV_SETUP) {
- 		req->length = value;
- 		req->zero = value < w_length;
-+		req->complete = dev_req_complete;
- 
- 		++dev->udc_usage;
-+		dev->ep0_req_queued = true;
- 		spin_unlock (&dev->lock);
- 		value = usb_ep_queue (gadget->ep0, req, GFP_KERNEL);
- 		spin_lock(&dev->lock);
- 		--dev->udc_usage;
--		spin_unlock(&dev->lock);
- 		if (value < 0) {
-+			dev->ep0_req_queued = false;
-+			req->buf = dev->rbuf;
- 			DBG (dev, "ep_queue --> %d\n", value);
- 			req->status = 0;
- 		}
-+		spin_unlock(&dev->lock);
- 		return value;
- 	}
- 
- 	/* device stalls when value < 0 */
-+	req->buf = dev->rbuf;
- 	spin_unlock (&dev->lock);
- 	return value;
- }
-@@ -1771,6 +1831,7 @@ static void
- gadgetfs_unbind (struct usb_gadget *gadget)
- {
- 	struct dev_data		*dev = get_gadget_data (gadget);
-+	bool			queued;
- 
- 	DBG (dev, "%s\n", __func__);
- 
-@@ -1781,15 +1842,21 @@ gadgetfs_unbind (struct usb_gadget *gadget)
- 		usleep_range(1000, 2000);
- 		spin_lock_irq(&dev->lock);
- 	}
-+	queued = dev->ep0_req_queued;
- 	spin_unlock_irq (&dev->lock);
- 
-+	if (dev->req) {
-+		if (queued)
-+			usb_ep_dequeue(gadget->ep0, dev->req);
-+		clean_req(gadget->ep0, dev->req);
-+		usb_ep_free_request(gadget->ep0, dev->req);
-+		dev->req = NULL;
-+	}
-+
- 	destroy_ep_files (dev);
- 	gadget->ep0->driver_data = NULL;
- 	set_gadget_data (gadget, NULL);
- 
--	/* we've already been disconnected ... no i/o is active */
--	if (dev->req)
--		usb_ep_free_request (gadget->ep0, dev->req);
- 	DBG (dev, "%s done\n", __func__);
- 	put_dev (dev);
- }
-@@ -1816,11 +1883,13 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
- 	get_dev (dev);
- 
- 	/* preallocate control response and buffer */
-+	dev->ep0_req_queued = false;
- 	dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
- 	if (!dev->req)
- 		goto enomem;
- 	dev->req->context = NULL;
--	dev->req->complete = epio_complete;
-+	dev->req->complete = dev_req_complete;
-+	dev->req->buf = dev->rbuf;
- 
- 	if (activate_ep_files (dev) < 0)
- 		goto enomem;
+Same answer as above.
 
--- 
-Git-155)
+> The Pico-ITX flash node also has vcc-supply =3D <&aldo2>.
+> Shouldn't this be present here as well?
+Yes. On the CoM260 the flash is also powered from P1V8_QSPI, which
+comes from ALDO2. I'll add it in v2.
 
+Thanks for the review.
 
+--=20
+Troy Mitchell
+
+--4fdca5886438fb7c941b336a5dfc31a05971bb73792b2c2cbe0940973e86
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau8eISEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+uCgEAthE6bIYvOlzD
+wqobCMr4ha0WNJvGiNXT/BT3N7SAiJkBAN4u1t6ku3jmGXMK3UEnU6i/5sdIj3X7
+h8QseFaXeUUB
+=84Ci
+-----END PGP SIGNATURE-----
+
+--4fdca5886438fb7c941b336a5dfc31a05971bb73792b2c2cbe0940973e86--
