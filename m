@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794091380;
-	b=3b22lvtpDQid/2w1tLyCzPb/kL26IrhGO9J7t9vSngcbu/3x/RcM4ZsT4v6AlOnwi3+p
-	 kQkO+vk5e7DLjStA1jPvX18JZAOty/QlKCL1lIDTqwt9mEKHnCJgQeQtjnw3KWfE6Chyj
-	 8waBJkE3Hc32hme4BRUudvtgQNiPLSjLzpMKN8dhEsD5hrqi5F64pZQqckf22ws9ffKXL
-	 p0LVIIpdy9if8Zdgx4lUqpL8UMYLirxxK4jVzsdWvGCgFhstClWtIyOloayBjw7zEFe2G
-	 jLMvzqpKyGaEEwzXSNKf+HIEFm0/RN9kGx8fLoN8LKfxqxh2Fmm6FVdFLiq00ndTX2w==
+	t=1794091516;
+	b=a3nwMfthz2P3h4MzZPmpokwTOD2zd3ruwrSE+5ZdIqKVTO1ve8UUDDdpzCAx8Pd1ngTa
+	 luJUDAepG2NsuMmEIAvMnIxQKVNaTIluC2VaPf/xdw+whwfzmxOt8Px9hk76nrveOhs5H
+	 Ruswk8YGFouKJoN2iRuQFh1psnsNyvatJoo1Qi5Sop9FhBzCNEHxTpNWmJETkOzpPap3q
+	 jUFdVwWtsJg0iMQcnLMtHc9KVMcNITGQ83luqvAL+T0V1qsz3G65OSPxcUhStntQx91YS
+	 BO/GLBszy53stfjhftnF02lsQ/2aXyqU7jZXx/qlBkEWG7RWYm9Gx+afnhafC/f3mIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794091380;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tiQfKsFyOHw8u3O47YSkIKnn3TyNxLXR1SdumyCP9wU=;
-	b=XykZOCj0dmivjrlTg/JkcD1J7DkQmYss/xF8NDW0XXHLD86NJCxQzwxyqokTFVgzuctx
-	 +ruKwcoC/ZKyyinz6JkCE9g01ZOCLao6QDTDewQVT1ax3LZnZN2xC/67k2HhIwxeQaTeh
-	 eccV//oGTWHcPJ2gRe+Xe0RXXeeI65vBEoq3WBIVe36BH9aibbqebIG6stt5JEbORXS+E
-	 AaRQFTKVPmgPg4slBUzFsp724zXyeelrYb1npGNjwT8NxeOvTu30oUCzPO8pT76LocA2z
-	 xJ6uv+jCzuVwlrQiNuUjwXCwErXh6SqspECjoiU0yOahIh7ig28Tllp80mL/v1GMkmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794091516;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=5Sg/QYc64KGsYlE8LxgBfqmE1GMl4mLlfKRfIL2XKbk=;
+	b=TzMR85idSYNhM+wSMS7heG0h7qka7SxG38xRH6d6/UjOSzbSww1Nv4T7Bi9ypEfFgdQ1
+	 lzTF/JKlQam4Pg26dYvgceXva1QtvSbdDi9iyirpcg7giRoPZW6QSuhZ9YGhPKB9etHEU
+	 l7J84djR+n/C+92d4BJtfWNeOU9x+nu6ILYFLaLtkMpViKc5sQYz081iNQ3M4XWol42NB
+	 auvF/oAXPSHi0dHtkcywKC3F/3cX74UGZg/2YxmHqYx+VBE74btsWLZOMjqRYi1go9wk5
+	 pdYbbuqL8ILPTfIok+oxuRJMc7aZjUqujwhMR4FtMJ76O8k6BGX5OtrtzHHCBnCXyjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RtvRe9qE;
-	arc=none smtp.remote-ip=79.135.106.120
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WnnaW6MP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C2A606A32D;
-	Sat,  7 Nov 2026 22:42:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36C2A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E58606A32C;
+	Sat,  7 Nov 2026 22:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RtvRe9qE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794091376; x=1794350576;
-	bh=tiQfKsFyOHw8u3O47YSkIKnn3TyNxLXR1SdumyCP9wU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=RtvRe9qE5i/jPoic9u5cS8N3Ix+J2IvjMuQzd9FvgK2R3Uc5f4aDBPle/2tyEtbVg
-	 C9KW9NBX2yRs6jmNv37tgUVgzByy1mMZkVOiDQEvCiUUF1CBMP8SK088Bf/nuovbZ/
-	 rCTEgUVNNlKYwymDFoVQsMaxAWgB2eQaiUINJ/GXnqanhV6azcA0EGjGH7TnBCORCu
-	 ZDFoPuBh1RYY2XOn1oegXPOXa/ZQ7Euyle39ZjbynpaXvJt+ezAWxltMmhJFZryX2V
-	 YYM72C/lYyCz0wx0kXrAF9OQQ8iZCe7nJqSP2YbVfVmbiioij9k64FCWUVGf5sgv5D
-	 s1w7HOoni+2Ng==
-Date: Sat, 07 Nov 2026 22:42:49 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Maximilian Luz <luzmaximilian@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Johan Hovold <johan@kernel.org>, Steev Klimaszewski <steev@kali.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Tobias Heider <tobias.heider@canonical.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-efi@vger.kernel.org
-Subject: Re: [PATCH v4 0/8] firmware: qcom: enable UEFI variables on Lenovo Yoga C630
-Message-ID: <179409136720.63533.3499513835986215877@pm.me>
-In-Reply-To: <20250625-more-qseecom-v4-0-aacca9306cee@oss.qualcomm.com>
-References: <20250625-more-qseecom-v4-0-aacca9306cee@oss.qualcomm.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: a8236e0245e5166aee49a2ef1233446eed5ea918
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WnnaW6MP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4951F0089F;
+	Sat,  7 Nov 2026 22:45:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794091516;
+	bh=5Sg/QYc64KGsYlE8LxgBfqmE1GMl4mLlfKRfIL2XKbk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=WnnaW6MPIQMe5PP2NqlUxaetG2uBm1miygWQ2RwaFHPcW743Qpf4SaYmS2T1W61ye
+	 WtdLYYA4E71F2MSu+qlnK1gs3ILHqyGdT0fIPskWakrOfWSf75OrgTnIPXrPPbnDod
+	 RcpTsR04TFbydLjDDwd7MPCIYTKMNw0PRvfh2SaPORn7p1LhhCmIWA1+NUUJlmZax0
+	 E8mF6dwI4qrxmJn4dvjOc2AJqdOH8WXq9NMbU1SD6QAYbX5EaDHjYAttWMTX9DFOwC
+	 dipLk31/oxxl8oL8kBrRhFzBxfDn15PRVa46dzLqpqkiTQAsjbCkyMrtEWMXA1h5cP
+	 2SIHlV9PuGYRA==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
+ jingoohan1@gmail.com, Hans Zhang <18255117159@163.com>
+Cc: imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, sophgo@lists.linux.dev, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261028030652.2917756-1-18255117159@163.com>
+References: <20261028030652.2917756-1-18255117159@163.com>
+Subject: Re: [PATCH v5 00/16] PCI: dwc: Cache PCIe capability offset
+Message-Id: <179409150473.143243.11323239293809371653.b4-ty@b4>
+Date: Sun, 08 Nov 2026 04:15:04 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,32 +63,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
 
-Hi Dmitry,
 
-I've been carrying patches 1-7 of this series in Omarchy's arm64 kernel,
-rebased onto 7.3, for the reason Tobias gave. Every laptop we add needed
-a qcom_scm patch on top of its device tree. On top of the series, our
-table also lists qcom,glymur and qcom,mahua.
+On Wed, 28 Oct 2026 11:06:36 +0800, Hans Zhang wrote:
+> The DWC PCIe core and its platform drivers repeatedly call
+> dw_pcie_find_capability(pci, PCI_CAP_ID_EXP) to obtain the offset of the
+> PCI Express Capability structure, including in paths that run more than
+> once such as link polling, suspend/resume and interrupt handlers.
+> 
+> Add a cached pcie_cap field to struct dw_pcie and a
+> dw_pcie_get_pcie_cap() helper that performs the lookup on first use and
+> caches the result, then convert the core and the 14 platform drivers
+> that use PCI_CAP_ID_EXP.
+> 
+> [...]
 
-Tested on a Lenovo Yoga Slim 7x (X1E80100). The series takes
-lenovo,yoga-slim7x off the table, so QSEECOM comes up only through the
-qcom,x1e80100 entry:
+Applied, thanks!
 
-- By default, uefisecapp comes up with the same 118 variables as
-  before, efibootmgr reads the boot order, the RTC gets its offset, and
-  a test variable can be written, read back and deleted.
-- With qcom_scm.qseecom=3Doff, QSEECOM stays off and the laptop boots
-  without UEFI variables.
-- With qcom_scm.qseecom=3Droefivars, the variables are readable, efivarfs
-  is mounted read-only, writes are refused, and hwclock --systohc
-  returns without an oops.
+[01/16] PCI: dwc: Add pcie_cap field and caching helper
+        commit: d018ff4be8961981828e75afd36eef90cc524cd8
+[02/16] PCI: dwc: Use cached PCIe capability offset in core
+        commit: f83a7b55517012496bd9539fbbdeeecf0d1e9ff9
+[03/16] PCI: dwc: imx6: Use cached PCIe capability offset
+        commit: 8472374576d300d36de20ad592fd1f39181b85a8
+[04/16] PCI: dwc: layerscape-ep: Use cached PCIe capability offset
+        commit: 87427cc9d7115088e92e8c92c282e28481c9b26b
+[05/16] PCI: dwc: meson: Use cached PCIe capability offset
+        commit: 53f9ed3d6807c6aa79944ed42b3362aa89192956
+[06/16] PCI: dwc: rockchip: Use cached PCIe capability offset
+        commit: bf5c3f4975010750c535b127cb3ab81951c7ffd0
+[07/16] PCI: dwc: eswin: Use cached PCIe capability offset
+        commit: 386b9fa49e26afbd76d934f136f68bc355791ce8
+[08/16] PCI: dwc: fu740: Use cached PCIe capability offset
+        commit: 6fba557b82f4996786d12676f554ad12e67e46d9
+[09/16] PCI: dwc: intel-gw: Use cached PCIe capability offset
+        commit: 02305ad3ad2f918ac009e8ae4c2df8c2b11dc0bc
+[10/16] PCI: dwc: qcom-ep: Use cached PCIe capability offset
+        commit: c489e1008df8a7456686ab637593582be63f14c9
+[11/16] PCI: dwc: qcom: Use cached PCIe capability offset
+        commit: 38af9eda49198b0b2e3d90324af6c5b00123d4ec
+[12/16] PCI: dwc: sophgo: Use cached PCIe capability offset
+        commit: 328c6d507696eb3b075efa6236cdc1c12a2a800c
+[13/16] PCI: dwc: spacemit-k1: Use cached PCIe capability offset
+        commit: ef2bc56f097aafdeee7fceb68d2ca9e4c6956dbf
+[14/16] PCI: dwc: spear13xx: Use cached PCIe capability offset
+        commit: ebd968f20c61b3d86165d9e1bc387044dcf73707
+[15/16] PCI: dwc: tegra194: Use cached PCIe capability offset
+        commit: 8078927bf27866ecc5251919ec6b41478ae620ac
+[16/16] PCI: dwc: ultrarisc: Use cached PCIe capability offset
+        commit: 64e2e54238dc1a63d4c8bd827d140bdffef05403
 
-Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
 
-Is a v5 planned? I'd be glad to test it.
-
-Birk
 
