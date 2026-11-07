@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794067769;
-	b=rg8Eh0C4WtjQG6G9Fy6nQKtadP2URdY5Otq+g/7OzFO/EUoyngl0beXLuhfNRvag+EP3
-	 orya88UymKV/nk+BaWo0tHU0nELaSCu5m/i9t1fDhH15Z/4Gon5xWhy8/RZD4QqZIwgiY
-	 AWrxtrinuSIDyZSyVEJp7HMN69wU3r3hkkkgkuBM1qXF4OnZlBczEi72WqJ1/UqLKZq4A
-	 cLF/4qrOKh1pT2qEeTNitFGf8AB7sQvxoqp7atjqMbuEVqlhkoUlgRcZ2TIr5kgagTOJa
-	 zGKJnTKrwzhMuWEV1uHhrazwgMJGX5mP1HZAqNk4nPn78u1TR4cAKHV+DFyHVNYGU3g==
+	t=1794067779;
+	b=IGAE5wpwSAD4bHVDzgQbYsO0MLyytnmNQNMANmzRB7sSL//xh+6UwxPZNfTWiXeIJoCa
+	 WWlrGJ4hNPFBkCMn8Sa/KwO018s9qHw2dDV8EvZbUsaDXEhn1VXxI3nnoGm4Q3AKqNerm
+	 bWggjVd8QKMF4H6PiIw2BYDzfTkL/pEj36MhJ/xja2YYaVRuL+MQyXA3oP3Jx+PLm+FC3
+	 Hfu3XZS/7PeL94G0MlqWayhtT5tp4fEa/a3DWjyvZ/yrh9lIRV+jceJ9GfcpkabR5Man7
+	 2xVwQQmvqz6DV24ENJgJMacZHhxzVpHkHlHopR9LXGmcD/vZAMTu3MNOFcVsbBkAohg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794067769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794067779;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=49Iw5Dvv4MaQ0vqM8oeTsa68q9pYyzHgdr7pwjlKt5s=;
-	b=NYxEtwtLk6vJsweuSvx9EW4jgB5yFvW+Z7VMBvxvOa8cICL7o76BUq7jd3mmo5vG+4Rf
-	 mY1aYF3o1Ut1EIbmjR1F3jiCBtjgvm84/brXB1h4cdgv3YjIznV8M12JxORKWb09ykUrD
-	 jq0b2WnsBNCEBcP4fZ5eO2AY0eRoq9jKYW3ScTgbh0M/B++BGpg0lUySoApTvKzm3vrkY
-	 XqNPWzofkQ5zyyfVXWOK79WqpyXM4xqHJPYijEjbuGexPwTReioNudOZOe0L5qM32lRzP
-	 KOSFPZx+lC3LNGZNRrDw19H3rcFsGtP96jVDCacZ2QAPwcwhTzLgq44nJqCpAtQzDTw==
+	bh=B+LcU0iAB6zF1j5jKHzCoQfZKOaKDUALsypy6nIfsag=;
+	b=3Y3ncEibRLCl2GEjyWsSn5kwm1GlfCGau6oTbA9bGsn3euJWQF+TpD21K8ewCzazBRo5
+	 fg6JXJF7l312zIm/zrlB2ov7LOwR76TPZ/kaaUAUU7wHb29kBixQ+7ZIBOg9HQILrrFHw
+	 D5jEurr9XolY5hos9bB31uM9CCdF8IWXCeen4f/TCa868JjN3tIr4+PvUXdUwKMo8ymct
+	 U3oK7ag1eoLUbSBsla0+dJewVhqf8q6fD0CKEO/2xm4snsFtKAUPlgLL4pGObM7SgyJ8U
+	 5Hy+gxGC+qxGkKRq3aoAYp1vKOlZR5ZEVSXsO1DuC1JMurT0rbl0J0yXMD94lwHXm+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FmL9WBoj;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ez6fQk5j;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1165A60A5BC1
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:09:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1165A60A5BC1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D12560A6F65
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D12560A6F65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FmL9WBoj
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ez6fQk5j
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794067768;
+	s=mimecast20190719; t=1794067778;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=49Iw5Dvv4MaQ0vqM8oeTsa68q9pYyzHgdr7pwjlKt5s=;
-	b=FmL9WBojukK6cNrjaCX+IxA4WaZLJVVlV2NrjF0b3WI17Kp8cXSb3yugEbUnIvWHOkCkkV
-	xN7DW36mJ7fHkHuzFiCMsEAgnsW4Ju06IlaMLiY6R8lwwPl2fmNsVzrG7zdCGKapVfhyN9
-	utdpJ8yZMluWwHy5QfhG5maJ/cF4QO8=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=B+LcU0iAB6zF1j5jKHzCoQfZKOaKDUALsypy6nIfsag=;
+	b=Ez6fQk5jw0gbUQFXF/9aXB/f65ptBJn84Vgxz+IccT8KtbIcyK/qDg0ZLjlIzkS0TPkFVN
+	P1HJsAt4AEZJIbjSL5AJKnihRmNbcfvxh9rUJAE84Ert+ETAZpXhtEqEG0oaTY06rnerbd
+	u/8RyVUL/p0lR+cLuuq4cGHtDGFaaTs=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-685-8i4EczFZPTqC8PkV96iUJQ-1; Sat,
- 07 Nov 2026 11:09:20 -0500
-X-MC-Unique: 8i4EczFZPTqC8PkV96iUJQ-1
-X-Mimecast-MFC-AGG-ID: 8i4EczFZPTqC8PkV96iUJQ_1794067758
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-556-IVxLsQ3sPHS9fSngOuAmXA-1; Sat,
+ 07 Nov 2026 11:09:35 -0500
+X-MC-Unique: IVxLsQ3sPHS9fSngOuAmXA-1
+X-Mimecast-MFC-AGG-ID: IVxLsQ3sPHS9fSngOuAmXA_1794067772
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5C03519560A2;
-	Sat,  7 Nov 2026 16:09:17 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 848E218002AB;
+	Sat,  7 Nov 2026 16:09:32 +0000 (UTC)
 Received: from dhowells-thinkpadp1gen8.rmtgb.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 91820195608B;
-	Sat,  7 Nov 2026 16:09:13 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7E4A43001DA7;
+	Sat,  7 Nov 2026 16:09:28 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: Christian Brauner <christian@brauner.io>
 Cc: David Howells <dhowells@redhat.com>,
@@ -79,10 +79,12 @@ Cc: David Howells <dhowells@redhat.com>,
 	v9fs@lists.linux.dev,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
 	Christoph Hellwig <hch@infradead.org>
-Subject: [PATCH v16 08/15] netfs: Change netfs_writeback_single() to not look inside the iterator
-Date: Sat,  7 Nov 2026 16:08:11 +0000
-Message-ID: <20261107160823.1465553-9-dhowells@redhat.com>
+Subject: [PATCH v16 11/15] smbdirect: Support ITER_BVECQ in smbdirect_map_sges_from_iter()
+Date: Sat,  7 Nov 2026 16:08:14 +0000
+Message-ID: <20261107160823.1465553-12-dhowells@redhat.com>
 In-Reply-To: <20261107160823.1465553-1-dhowells@redhat.com>
 References: <20261107160823.1465553-1-dhowells@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -95,256 +97,115 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Change netfs_writeback_single() so that it doesn't look around inside the
-data buffer iterator it is given and doesn't try to submit the folios from
-the list individually.  Instead, it treats it as a DIO write and pushes the
-iterator directly, unsliced, to the cache (or the filesystem) to write
-from.
-
-There are also some changes of behaviour:
-
- (1) netfs_writeback_single() will make a single unbounded monolithic write
-     to the cache.
-
- (2) When writing, sreq_max_len/segs are ignored as the "single" type
-     mandates all the data be transferred in a single op.  Whilst this is
-     not strictly necessary for the cache as the contract is really with
-     the server, it simplifies things for now.
-
- (3) An explicit wait is added to the function to make sure that the write
-     is concluded before returning as there's currently no mechanism to
-     check if the write is completed as page flags aren't used.  This can
-     be fixed later, but may require AFS's dir and symlink handling to
-     check for write completion before allowing further changes be made.
+Add support for ITER_BVECQ to smbdirect_map_sges_from_iter().
 
 Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Paulo Alcantara <pc@manguebit.org>
+Acked-by: Stefan Metzmacher <metze@samba.org>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
 cc: Matthew Wilcox <willy@infradead.org>
-cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Namjae Jeon <linkinjeon@kernel.org>
+cc: Shyam Prasad N <sprasad@microsoft.com>
+cc: Tom Talpey <tom@talpey.com>
 cc: Christoph Hellwig <hch@infradead.org>
-cc: linux-afs@lists.infradead.org
+cc: linux-cifs@vger.kernel.org
 cc: netfs@lists.linux.dev
 cc: linux-fsdevel@vger.kernel.org
 ---
- fs/netfs/write_issue.c | 172 +++++++----------------------------------
- 1 file changed, 28 insertions(+), 144 deletions(-)
+ fs/smb/smbdirect/connection.c | 67 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
-diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
-index e041023811ed..f084a6796667 100644
---- a/fs/netfs/write_issue.c
-+++ b/fs/netfs/write_issue.c
-@@ -625,133 +625,15 @@ int netfs_writepages(struct address_space *mapping,
- }
- EXPORT_SYMBOL(netfs_writepages);
+diff --git a/fs/smb/smbdirect/connection.c b/fs/smb/smbdirect/connection.c
+index e6c7b343fe87..b13bd07ffb8c 100644
+--- a/fs/smb/smbdirect/connection.c
++++ b/fs/smb/smbdirect/connection.c
+@@ -5,6 +5,7 @@
+  */
  
--/*
-- * Write some of a pending folio data back to the server and/or the cache.
-- */
--static int netfs_write_folio_single(struct netfs_io_request *wreq,
--				    struct folio *folio)
--{
--	struct netfs_io_stream *upload = &wreq->io_streams[0];
--	struct netfs_io_stream *cache  = &wreq->io_streams[1];
--	struct netfs_io_stream *stream;
--	size_t iter_off = 0;
--	size_t fsize = folio_size(folio), flen;
--	uoff_t fpos = folio_pos(folio);
--	ssize_t ret;
--	bool to_eof = false;
--	bool no_debug = false;
--
--	_enter("");
--
--	flen = folio_size(folio);
--	if (flen > wreq->i_size - fpos) {
--		flen = wreq->i_size - fpos;
--		folio_zero_segment(folio, flen, fsize);
--		to_eof = true;
--	} else if (flen == wreq->i_size - fpos) {
--		to_eof = true;
--	}
--
--	_debug("folio %zx/%zx", flen, fsize);
--
--	if (!upload->avail && !cache->avail) {
--		trace_netfs_folio(folio, netfs_folio_trace_cancel_store);
--		return 0;
--	}
--
--	if (!upload->construct)
--		trace_netfs_folio(folio, netfs_folio_trace_store);
--	else
--		trace_netfs_folio(folio, netfs_folio_trace_store_plus);
--
--	/* Attach the folio to the rolling buffer. */
--	folio_get(folio);
--	ret = rolling_buffer_append(&wreq->buffer, folio, NETFS_ROLLBUF_PUT_MARK, wreq->gfp);
--	if (ret < 0) {
--		folio_put(folio);
--		return ret;
--	}
--
--	/* Move the submission point forward to allow for write-streaming data
--	 * not starting at the front of the page.  We don't do write-streaming
--	 * with the cache as the cache requires DIO alignment.
--	 *
--	 * Also skip uploading for data that's been read and just needs copying
--	 * to the cache.
--	 */
--	for (int s = 0; s < NR_IO_STREAMS; s++) {
--		stream = &wreq->io_streams[s];
--		stream->submit_off = 0;
--		stream->submit_len = flen;
--		if (!stream->avail) {
--			stream->submit_off = UINT_MAX;
--			stream->submit_len = 0;
--		}
--	}
--
--	/* Attach the folio to one or more subrequests.  For a big folio, we
--	 * could end up with thousands of subrequests if the wsize is small -
--	 * but we might need to wait during the creation of subrequests for
--	 * network resources (eg. SMB credits).
--	 */
--	for (;;) {
--		ssize_t part;
--		size_t lowest_off = ULONG_MAX;
--		int choose_s = -1;
--
--		/* Always add to the lowest-submitted stream first. */
--		for (int s = 0; s < NR_IO_STREAMS; s++) {
--			stream = &wreq->io_streams[s];
--			if (stream->submit_len > 0 &&
--			    stream->submit_off < lowest_off) {
--				lowest_off = stream->submit_off;
--				choose_s = s;
--			}
--		}
--
--		if (choose_s < 0)
--			break;
--		stream = &wreq->io_streams[choose_s];
--
--		/* Advance the iterator(s). */
--		if (stream->submit_off > iter_off) {
--			rolling_buffer_advance(&wreq->buffer, stream->submit_off - iter_off);
--			iter_off = stream->submit_off;
--		}
--
--		atomic64_set(&wreq->issued_to, fpos + stream->submit_off);
--		stream->submit_extendable_to = fsize - stream->submit_off;
--		part = netfs_advance_write(wreq, stream, fpos + stream->submit_off,
--					   stream->submit_len, to_eof);
--		stream->submit_off += part;
--		if (part > stream->submit_len)
--			stream->submit_len = 0;
--		else
--			stream->submit_len -= part;
--		if (part > 0)
--			no_debug = true;
--	}
--
--	wreq->buffer.iter.iov_offset = 0;
--	if (fsize > iter_off)
--		rolling_buffer_advance(&wreq->buffer, fsize - iter_off);
--	atomic64_set(&wreq->issued_to, fpos + fsize);
--
--	if (!no_debug)
--		kdebug("R=%x: No submit", wreq->debug_id);
--	_leave(" = 0");
--	return 0;
--}
--
- /**
-- * netfs_writeback_single - Write back a monolithic payload
-+ * netfs_writeback_single - Write back a monolithic payload to cache
-  * @mapping: The mapping to write from
-  * @wbc: Hints from the VM
-- * @iter: Data buffer to write from, must be ITER_FOLIOQ.
-+ * @iter: Data buffer to write from.
-  * @len: Amount of data to write.
-  *
-- * Write a monolithic, non-pagecache object back to the server and/or
-- * the cache.
-+ * Write a monolithic, non-pagecache object back to the cache only.  The data
-+ * is not written to the server.
-  *
-  * The data buffer may be bigger than @len (as set in @iter's count), and if
-  * so, this function will use the extra as needed to provide padding into the
-@@ -766,12 +648,8 @@ int netfs_writeback_single(struct address_space *mapping,
- {
- 	struct netfs_io_request *wreq;
- 	struct netfs_inode *ictx = netfs_inode(mapping->host);
--	struct folio_queue *fq;
--	size_t size = len;
- 	int ret;
+ #include "internal.h"
++#include <linux/bvecq.h>
+ #include <linux/folio_queue.h>
  
--	if (WARN_ON_ONCE(!iov_iter_is_folioq(iter)))
--		return -EIO;
- 	if (WARN_ON_ONCE(iov_iter_count(iter) < len))
- 		return -EIO;
- 
-@@ -787,36 +665,42 @@ int netfs_writeback_single(struct address_space *mapping,
- 		goto couldnt_start;
- 	}
- 
-+	wreq->buffer.iter = *iter;
-+	wreq->len = len;
-+	wreq->submitted = wreq->len;
-+
- 	__set_bit(NETFS_RREQ_OFFLOAD_COLLECTION, &wreq->flags);
- 	trace_netfs_write(wreq, netfs_write_trace_writeback_single);
- 	netfs_stat(&netfs_n_wh_writepages);
- 
--	if (__test_and_set_bit(NETFS_RREQ_UPLOAD_TO_SERVER, &wreq->flags))
--		wreq->netfs_ops->begin_writeback(wreq);
-+	for (int s = 0; s < NR_IO_STREAMS; s++) {
-+		struct netfs_io_subrequest *subreq;
-+		struct netfs_io_stream *stream = &wreq->io_streams[s];
-+
-+		if (!stream->avail)
-+			continue;
- 
--	for (fq = (struct folio_queue *)iter->folioq; fq; fq = fq->next) {
--		for (int slot = 0; slot < folioq_count(fq); slot++) {
--			struct folio *folio = folioq_folio(fq, slot);
--			size_t part = umin(folioq_folio_size(fq, slot), size);
-+		netfs_prepare_write(wreq, stream, 0);
-+		/* Allocation not allowed to fail in writeback. */
- 
--			_debug("wbiter %lx %llx", folio->index, atomic64_read(&wreq->issued_to));
-+		subreq = stream->construct;
-+		subreq->len = wreq->len;
-+		stream->submit_len = subreq->len;
-+		stream->submit_extendable_to = iov_iter_count(iter) - len;
- 
--			ret = netfs_write_folio_single(wreq, folio);
--			if (ret < 0)
--				goto stop;
--			size -= part;
--			if (size <= 0)
--				goto stop;
--		}
-+		netfs_issue_write(wreq, stream);
- 	}
- 
--stop:
--	for (int s = 0; s < NR_IO_STREAMS; s++)
--		netfs_issue_write(wreq, &wreq->io_streams[s]);
- 	netfs_all_subreqs_queued(wreq);
--
- 	netfs_wake_collector(wreq);
- 
-+	/* TODO: Might want to be async here if WB_SYNC_NONE, but then need to
-+	 * wait before modifying.
-+	 */
-+	ret = netfs_wait_for_write(wreq);
-+	if (ret > 0)
-+		ret = 0;
-+
- 	netfs_put_request(wreq, netfs_rreq_trace_put_return);
- 	_leave(" = %d", ret);
+ struct smbdirect_map_sges {
+@@ -2015,6 +2016,69 @@ static ssize_t smbdirect_map_sges_from_bvec(struct iov_iter *iter,
  	return ret;
+ }
+ 
++/*
++ * Extract memory fragments from a BVECQ-class iterator and add them to an RDMA
++ * list.  The fragments are not pinned.
++ */
++static ssize_t smbdirect_map_sges_from_bvecq(struct iov_iter *iter,
++					     struct smbdirect_map_sges *state,
++					     ssize_t maxsize)
++{
++	const struct bvecq *bq = iter->bvecq, *next;
++	unsigned int slot = iter->bvecq_slot;
++	ssize_t extracted = 0;
++	size_t offset = iter->iov_offset;
++
++	maxsize = umin(maxsize, iov_iter_count(iter));
++
++	do {
++		struct bio_vec *bv;
++		size_t bsize;
++
++		while (slot >= bq->nr_slots) {
++			next = bvecq_next(bq);
++			if (!next) {
++				if (WARN_ON_ONCE(maxsize > 0))
++					return -EIO;
++				goto out;
++			}
++			bq = next;
++			slot = 0;
++		}
++
++		bv = &bq->bv[slot];
++		bsize = bv->bv_len;
++
++		if (offset < bsize) {
++			size_t part = umin(maxsize, bsize - offset);
++			bool ok;
++
++			ok = smbdirect_map_sges_single_page(state,
++							    bv->bv_page,
++							    bv->bv_offset + offset,
++							    part);
++			if (!ok)
++				return -EIO;
++
++			offset += part;
++			extracted += part;
++			maxsize -= part;
++		}
++
++		if (offset >= bsize) {
++			offset = 0;
++			slot++;
++		}
++	} while (state->num_sge < state->max_sge && maxsize > 0);
++
++out:
++	iter->bvecq = bq;
++	iter->bvecq_slot = slot;
++	iter->iov_offset = offset;
++	iter->count -= extracted;
++	return extracted;
++}
++
+ /*
+  * Extract fragments from a KVEC-class iterator and add them to an ib_sge list.
+  * This can deal with vmalloc'd buffers as well as kmalloc'd or static buffers.
+@@ -2164,6 +2228,9 @@ static ssize_t smbdirect_map_sges_from_iter(struct iov_iter *iter, size_t len,
+ 	case ITER_BVEC:
+ 		ret = smbdirect_map_sges_from_bvec(iter, state, len);
+ 		break;
++	case ITER_BVECQ:
++		ret = smbdirect_map_sges_from_bvecq(iter, state, len);
++		break;
+ 	case ITER_KVEC:
+ 		ret = smbdirect_map_sges_from_kvec(iter, state, len);
+ 		break;
 
