@@ -1,136 +1,192 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794026967;
-	b=L+6Vq5nBM1GvRXs/aHUg498EYUKJ0aEP8GUvHAlHq/xnN7Q92Wb3dGW7WPRP2yi7Xbz9
-	 mKLEmqiYRWuVYGbLFMePev0alceUazYbyqmmUR6RtESs5einYofg0PNaA8ffb5VNl5vaf
-	 bJMTca+lYBPcFt0Q9A9k3PkDgKOrPd0er1FDuYduG0yYOP23Mx3xRGyEzZXRinB6ISGNI
-	 Y2awJIjEawToqFcXtnXVqllI7bRBaITYcHusadAdqtpRkAqU1ZAUJjs/daJMvQPYd0XG8
-	 ye/mi/lEdq3wu5WvU6hymRLs7fiVGMB6wvQt4dUh4+++FodaKCMqbnupxxXFdeToAFw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794027081;
+	b=5Tc+cvTXoNhPb0unkiGBicw/Lrrgwl+8OtZqdVteL4j9W8CXleoS/MbaPDTR0RAlnB96
+	 TgkxTRoZj5LabnL5aK59G6P3HoQKr+hQ1xIxP3CENwPxfCnPVm/BvX245Q8G73ubDYqsp
+	 zAz85qqb54fvsQnDoMd83Qt3tU7+NFSEh5+gwlaHx6E10A7zxWDCQBttKvfoCgHAUEiTk
+	 kUVMmGQD3QTFth1iI8gB7ciNa/sBJpN7m7J5gdgiMgaf/IfJeEqNbmQp8WDfpYOtO1Tag
+	 AqMVyR7qU36kdHrZ45OwnTK2ltMV8TQ2zyWcm3iSw53U6lDuzXM2j7MivHbOWPs3ykg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794026967;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794027081;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=HZ5b3fdkiZO52E0NpljPoU7GkBZVWLeXP/d6lBdmX7Y=;
-	b=xEUl2mOvGycAWPmL5uYrlgMA03otq4Fs9gPE/F/9EFN8JiygsPGPeIodvth1O6T9AUnM
-	 70QM8+OHEuVwZdSqfWLRWdSTzAB3epfPVsKch2yP32IhOt4M57SVlMsOXojgvIrzni2AE
-	 FEa3xF5eYTYdWx37SVYOjMVMARqASL6sGhZHzvHvPr2kvyxPHT70lsKYfcC2q3syiedBN
-	 PkgsF6WcDAy3abIPI6rT7S0sBSX9VuneRb1d19sClkpFdCKOiOZVHyk+yQGVuxi42ATC8
-	 nQxmE9GhJFwdwrMNqp2a10GU5qLLplLRR2PwK2cdVk70I/EOXwfZk7LbsYK+VpGAdPg==
+	bh=pf+XelJyTFEJdrnj1UDoOVn84P22KB/uIFHoLOK3Aew=;
+	b=I+UBY2m7aWbWUD2S4ck+XAS7IyUHTkcx6eu/nZwgPPkxMMWKTgNnOrMx9n/H7xpSS/m5
+	 fsCw4r6qWPxuI1+kiIsBGFIS3qDsRcJZIybdoBBugcxsnA5+wzP/Y/xcGObFqQ1JeLPQ4
+	 I507+kSp/bF5BxCFQyZN7RSX7ePslak/tc6pD6d43TmX56RAFlpXeeRnkeDSm32acWxJG
+	 HxWDV04VhkuGzVNnFxmCYT8YWizbTBsjX1DlzPvzUoEr/zBqqTMA29Xec4TD4TnoZH1/z
+	 GJvBb6mw3sksMkIzdEYKgp/WYVMdzboi4FexWQR/xkw1FtTupJLadIoiXe8aREvw/FA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FOzB82NU;
-	arc=fail smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ubmrnwm1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAC8606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BAC8606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66693606A326;
+	Sat,  7 Nov 2026 04:51:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66693606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FOzB82NU
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ubmrnwm1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794026966; x=1825562966;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=R6gVv2CfjpyJvk891KiaQ8HfpJzO4MA04QJmz6vdyZ8=;
-  b=FOzB82NU9+er00nwaRbhLUwlTMwcRVzqf7bhwfcVrscOVNNS64gxuKx0
-   9//WGUTknAj4v2gX98/FAiMIZLmHoVxZ3Wba3pSUgTc8xRhUgCHgHGOoA
-   j2wpX3+b+gu8vCH5ltDWKqQKlnYNK5ciFT+qx8BK2mCnkdeWo31AYoRPD
-   4Qe4kciKhK5yA/sXJUaGaHqqLrjspDBWCud527nGV2VEVO9WyTbtBMxcc
-   l6RxjNWP1f09O8SMy9ko1N9r72/2GTYE1XFKWHlAfqEBthGobjHnwzS5b
-   wjVLjK1rRHewPAqqKjnaZyI0vFOGh9VLFCJck+wWQHj2cUMYLnWmvfVwt
-   A==;
-X-CSE-ConnectionGUID: yG4CwkUIQvioLfoL0qXNOg==
-X-CSE-MsgGUID: jethxKQmR2yxwizlCPMQCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2739588"
+  t=1794027080; x=1825563080;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=PL8AbQjMj3PJXdsa5AUXO2tJFPhGC/bO96h4jiy3t+Q=;
+  b=Ubmrnwm1bl4ySbpjEsFSi9vejn6LJLD4WP0+Dh77wSzOu6f+1O+pIkig
+   HMNtqxbQxCuE6+Fa+FeqCVR9tW3rCzMU0L032I0KuxJrJVNGJ/BEeBmt7
+   7jxsACm7Q+ESBecjjD7gQlnYVJB5CLJpFBDO5nYpQZjdj3/oN0B9ioJUf
+   k/9NJgFasCO7DcvxnvRCyMYU4sHqHKBVrM1z0Emq2+n54AIRaiXpngjDi
+   7OrijPmgYkMzIzDBCp9/I2E8+trerO0H8fSMbXyfxb0RjZ7w4dvgEmrzA
+   5kdtl3fSUtoufRtpG9rUtpXFKlNDxwv47bxU1ZxwM1OFRyn1zDiKpKlH0
+   Q==;
+X-CSE-ConnectionGUID: Mzkd+gt6S/ur8jMZvLqCCg==
+X-CSE-MsgGUID: Aup0XR6sRxe3v9D3rMfsJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2740972"
 X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="2739588"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 20:49:25 -0800
-X-CSE-ConnectionGUID: hqD14jSmSbyZdtymmgYrPg==
-X-CSE-MsgGUID: 2ljgKIZLTjW4stsgjKg2UQ==
+   d="scan'208";a="2740972"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 20:51:19 -0800
+X-CSE-ConnectionGUID: R9JV48KrS1ORNGAhU01row==
+X-CSE-MsgGUID: ejLjn/JNQo22w8ORB+nz/g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="9184703"
+   d="scan'208";a="7761212"
 Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 20:49:25 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 20:51:18 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
  ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 6 Nov 2026 20:49:24 -0800
+ 15.2.2562.56; Fri, 6 Nov 2026 20:51:17 -0800
 Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 6 Nov 2026 20:49:24 -0800
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.50) by
+ 15.2.2562.56 via Frontend Transport; Fri, 6 Nov 2026 20:51:17 -0800
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.24) by
  edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 6 Nov 2026 20:49:23 -0800
+ 15.2.2562.56; Fri, 6 Nov 2026 20:51:17 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TcbjHsRqFDB6GQ/tk/I+HoE25g/QjMDZOuO9rihLm/r894vy3GBvfMvUZWynAL5RT1rTqgvqZuwuhMwrAoP/DiOIQYTkCk3ncX/ASnH0j9VxAiaKUYJ95sOZ5qsu3PwFVX5UbatqyoHBSMZUTELxNITOCTm8mDsOZNwAPSDBI+nJbDVx+5Zqdupl1K/7CQ4JGuWpl2H+ZhqVVSOwHvks/IyhAT+XweflesdvuTjKYzeHAerUs4+mOuSjfLr1dm89b1aqhC3F6iBntO4IId9PWOwZQySlPQ01QsJMZKoLZBA6mjjmKJ/thrdq03MQnBc5mb2gcQH9CZyq6SbWAhYJeg==
+ b=BEX4wFS8pp0JgaaBZ58tfWZV3TYgcyifJzSZQ5ri74FXuDOljm9DDnvdv+ir4718RWIT63wNIHR2nIZaQC7jbuKADSwYK4fUJrVjpAn7IT+nr/o6KobXOeupIDNGWiITXKi2W8QZYnq3vE0LhA5Lfch/v0xAIrX8b7Qa3mU1nBN6MW4pJ0Ta1fu2yaSh46+H8D0M7mWhqegJoNW2gc8TdAj9I8+iduq0rAObhnj2SgZqLGsMVogZEfYSm8ylS2Q8MNeAYpM7l3iT87+qc49tfaCC8cwac4L+J6LJiCMmBJwFHhxH56WWECsm/97xc4q6i/mVsR/wIhlf6Oitn1TZfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zCoEGNz8occjMrHdxyMHd7bP2tgVJZzqrbov5mCouHA=;
- b=SwPneZZ0vOWexXq9FHJVOhXh5IdxwWV71IB07C/cX8QrXhDQGowmezgxe8gwQAYc/7Zg/XlV+i6G5xGnBC31xo0POUeCBP1GvOFmoafXq8lHG0Nnz1oPpUtzjgJ2LS8OxGxw8yfJ4Wdpo7jlom0CUWDll6lCOdoUNVQuRDj0V7MK0Y7CMHpiNoowmaW2+MKKjuKwuLK9gaOsB1CO7/BL1WaImcqIgBUV8muPl9UKhTsH9DEtGIH4HdtR5Y0nWJ9Rc2lz/opXjMD/0+WJ0uAUR61AY9DhRPubS1hNJkgP9aFZGGunMVEnAtZ8KwLPyOOoSvyQw2fwDXUN/FwzN4QwUg==
+ bh=pf+XelJyTFEJdrnj1UDoOVn84P22KB/uIFHoLOK3Aew=;
+ b=VqQS4OQK3jrZBfR0N9+VeXwo+E6ANtGlCmUAWHctcqK7JpwCR7u9jGWrRMKlglR7sSmT9t8jvk0JQPnFC3zyewVaMXnfYAZ3TIA6uIQ7px6buRcwe9/OZdKguyViaew3R21qyfJchXU2yDSvsXeXXb8hmyPeVEsg9pStA0m4/BDAKqo0wtWUPfMxY7LWYJptJuhNBXC57qaukKvTs8VworiuIvlFb+gi2izE5XNMZ9aPSL1dj+u12QqKBUwcV2Xw+iJNG5AWxKMxIfQcrcw9LwTcva3gshGYGn9huB123haAsTmWGzv2SV1AVwLCEL8mnYJQKb8kDv0XeXJPgdoUnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by DS4PR11MB308671.namprd11.prod.outlook.com (2603:10b6:8:50c::12) with
+Received: from LV1PR11MB8790.namprd11.prod.outlook.com (2603:10b6:408:2b1::16)
+ by PH0PR11MB9727.namprd11.prod.outlook.com (2603:10b6:510:399::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 04:49:21 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0569.011; Sat, 7 Nov 2026
- 04:49:21 +0000
-Date: Fri, 6 Nov 2026 20:49:18 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
-	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 15/33] drm/xe: Track BOs backed at a sub-optimal page
- order
-Message-ID: <au6tzuytWiqiqRUM@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-16-matthew.brost@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-16-matthew.brost@intel.com>
-X-ClientProxiedBy: BY1P220CA0004.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:59d::15) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Sat, 7 Nov
+ 2026 04:51:13 +0000
+Received: from LV1PR11MB8790.namprd11.prod.outlook.com
+ ([fe80::27cb:7a60:19bb:584a]) by LV1PR11MB8790.namprd11.prod.outlook.com
+ ([fe80::27cb:7a60:19bb:584a%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
+ 04:51:13 +0000
+From: "Nowlin, Alexander" <alexander.nowlin@intel.com>
+To: "Oros, Petr" <poros@redhat.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>
+CC: "Oros, Petr" <poros@redhat.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Lobakin,
+ Aleksander" <aleksander.lobakin@intel.com>, Alexei Starovoitov
+	<ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, "Jesper Dangaard
+ Brouer" <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>, Henry Tieman
+	<henry.w.tieman@intel.com>, Anirudh Venkataramanan
+	<anirudh.venkataramanan@intel.com>, Michal Swiatkowski
+	<michal.swiatkowski@linux.intel.com>, Jesse Brandeburg <jbrandeb@kernel.org>,
+	Preethi Banala <preethi.banala@intel.com>, Kiran Patil
+	<kiran.patil@intel.com>, Dan Nowlin <dan.nowlin@intel.com>, Stephen Hemminger
+	<stephen@networkplumber.org>, "intel-wired-lan@lists.osuosl.org"
+	<intel-wired-lan@lists.osuosl.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>
+Subject: RE: [PATCH iwl-net 01/10] ice: replay UDP tunnel ports after a core
+ or global reset
+Thread-Topic: [PATCH iwl-net 01/10] ice: replay UDP tunnel ports after a core
+ or global reset
+Thread-Index: AQHdUnCR8NVgYb1VWkWR5w+JFJAcZ7ciQhDw
+Date: Sat, 7 Nov 2026 04:51:13 +0000
+Message-ID: <LV1PR11MB8790323F9B0D363161F9296F90752@LV1PR11MB8790.namprd11.prod.outlook.com>
+References: <20261002130752.2597259-1-poros@redhat.com>
+ <20261002130752.2597259-2-poros@redhat.com>
+In-Reply-To: <20261002130752.2597259-2-poros@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV1PR11MB8790:EE_|PH0PR11MB9727:EE_
+x-ms-office365-filtering-correlation-id: d15b6263-0be9-4add-2fc3-08df3c8ac002
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|38070700021|11063799006|4143699003|261021121427099003|261022075727099003|56012099006|261022105027099003|261021123027099003|261021135927099003|261009223027099003|261102123227099003|261026140227099003|261028144727099003|21046099003|18002099003|22082099003|10067099003;
+x-microsoft-antispam-message-info: dLBoBqQxdSKAbPdtVHjvUOhN2a8VmvW4oQwndZV4upi3bYgQs2pEil5h35bk886jkttE556N1YLZZ2CAgg5KltoS4/5PpWZeWpAYNEwyu65SslxwnsWLLJg6v5UO8JQi9EAQ6E/Y/LXHj7lJacZJ8GYl4qG7RUQqadkZ1ctObRFsqpWFbV1viVVLjX69f8bUxWvaOFBO0Dn2qZX2MgTFkIZqePsKTxNCUId6sGAM539gNU2RxpE5+Kq/Z2OXW94aBeDi8XX9Nmbr51H431RWzjMqiGYlG4dDZ1u/mhBGPQ7F0eTbZu/Ow6+BVIIANQe4RwHxkv8bzxg/I3H8CpV/pC7Z1sOHrrubLi64Bjw5/+yr1QB4AKG+0gIFX1d9o4EWHWcuXCQNtRUXBe2SP8UdOJ72cpMcOta60jS+5dbVxdidEs7MztMQMPB202ZjiDuNp5UQYIsn5DrcbX8Qj8zASvp3BsiFUs88lx5RjK9b9AOWEhTQ2CGbdMK58wtLqZmsSISdM5+I4Fq7jNRAeq9nVWAT7D88vLefZGhTG91QdLXnGJKiUxyGBcwshdklmx9LQTd3ZUBFDigrOhCTyhfFqbJZDuU02o9Lcj3n6H8BABQBiTgIJNxPhalirVKQ+M2S5fBjpWkaMFE27fMCX5dQYxR/G9/HocFaIHn5LJJYWt5G7eDZYRy101HnFYHTvkAkDlMFeFfowmyWpDj9j1wk7ptD7RaE/310kkC3sExIqU4=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV1PR11MB8790.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(38070700021)(11063799006)(4143699003)(261021121427099003)(261022075727099003)(56012099006)(261022105027099003)(261021123027099003)(261021135927099003)(261009223027099003)(261102123227099003)(261026140227099003)(261028144727099003)(21046099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gMt7/xzyUGJJfLbcYT9qHiVLoxMyE+oSE1MJzwTcCeqwtC3EXZCGLbSxuRAG?=
+ =?us-ascii?Q?18y2ht1LPVkw6pzvL91blwV954QTMgi2w9LG6ERjEAZQUXbN3CN6W4y1IX/g?=
+ =?us-ascii?Q?IwlTQjNhMniVxQA5S4DfCM0AIZ+k+v7GPO1V0qlZvL8LAa8da662kbM0jteU?=
+ =?us-ascii?Q?hFx1nzA153pIUuv4AiPCERyFHv42bOrqbOo8sAfwgQypnp70tX2oJT9eIdSM?=
+ =?us-ascii?Q?3mvzS+z/ovEbmDEafSaPrUTjzCjT56jG9Naz3tEBhmTlCtqDXKhn/LxwrKT0?=
+ =?us-ascii?Q?4tpY9+lBCisundCjCR6fxSFVXkCbjeEoenFpEhZQgKNfYnt59n1f7PvK1LaE?=
+ =?us-ascii?Q?mTSPjdhrug3gVDZTivoO4TptfRXls1zBNaBfEGDcAx8Cqfm9luCLYAIUlTKF?=
+ =?us-ascii?Q?jpg35TZzl10vvneI1m0obd0/6305E0RyUMLgXeM7zUpFCDPECi2Q/r06NaI0?=
+ =?us-ascii?Q?0quD0MPWnFw7IRqUiTQESlpL109eWBi8viMA55B5ciDt1A/uspprZrZf+sUg?=
+ =?us-ascii?Q?XWSX9lAUEMcQbiqfoeOeibP2W42GAfoUSfyVkhjNzoue98IVP7Sa3WlKn5WW?=
+ =?us-ascii?Q?j7WP6XOv43HKfxqAQnWycSMful+zvzaJUAQ47n7wpcETeoR/II/4vKXVFuJ7?=
+ =?us-ascii?Q?c+JoZbrxGqJIBvVk/IYi2Ap7ZljKjjnulTuqEWD6N+AgWTBss5DzDd4DJsdB?=
+ =?us-ascii?Q?XDF2MxtloDsFm9KJHbbkTX0YCTMUY2aY+JZ/pcv+8iNqpM8doE1TNh7eL71+?=
+ =?us-ascii?Q?zY1yRvhrx/e3qcwnBnKIwLiI0ww7R8nWl42eiGFKqLC3piaGaOZsBf1vQkXP?=
+ =?us-ascii?Q?V6rEPorAO4MOKC+3WP+Gz17SyzA6BiaFYsRaNvyJwcGqObiOPh2ySjJElD4F?=
+ =?us-ascii?Q?3NpXz3STxGodBcAVNtESHxd9u7L7CCl23ycBPmIP7XeuR2p/UDnif9ZNDwjj?=
+ =?us-ascii?Q?y2/70GjTikx1USC8T9JPdGwYZCV9eIHzDEUq5uHoKyimWe61yxsXQTdzdBLc?=
+ =?us-ascii?Q?xtjzJyvhHjwolxuhoLPaQiSxeiqI+u5YFl3xuaE5BVEl4CtptOhvJEWfPOFi?=
+ =?us-ascii?Q?t6PdfhTnSuTtNEGrXIrNx8cselcCunuU8bTvtcIw6Vy/uT3PettSrasSwTwX?=
+ =?us-ascii?Q?Y6yLCrUZ+8zlNQPQIfjNWSWGzwwlNRPMIRIT6lDHF7/cBVhjyfo1eiOnNzp7?=
+ =?us-ascii?Q?qZpjqUHXZvd6ok1aLUjskJYLBVwAqQMr57juWQ90Fh+OPMMY0d/DhNHMVhoD?=
+ =?us-ascii?Q?q+zPJ0fb0+QfmS457BTZ4OurwJOwkbRmC1NfcHcT8/oa39vvw4ngZjwftSjr?=
+ =?us-ascii?Q?ieZvnBiL6kgEvAtdde3eF2HoH9SNpBxHW4RZpLMmpWqwL+8t0ianQCaMygqk?=
+ =?us-ascii?Q?gUUQwwGK91dx9aKETHjBo/ZPdR8TEZ55i/80hB7J4jIBnYILKjrc1ymAqc/S?=
+ =?us-ascii?Q?Wgi6o6vkEFfrTK94C2EFN2ChPwMSMC8oR1xIo4UPaZVeZK61kNZXBgh2mUCP?=
+ =?us-ascii?Q?2riACaP1Az/uXpgxSpzZYQ55UCoER5+V/N6PtRiMxhZT0R5cvZa4aT3msCfz?=
+ =?us-ascii?Q?2/mK25GLvLCgc2ohE25LlNMo0x3g1cP3zncjlLI1hBxSzpAV/zXhcJ1ENj/x?=
+ =?us-ascii?Q?3NoGKssCpjJXM7R4S4nRJz0LOWKQhQ9K5pvd3fBtsXjs1UpWDyxV84mSjWwa?=
+ =?us-ascii?Q?XV7mJ332kh2lzk4xilCN/YYdGB301xT5o6NZpwbB6OAAFJeP6u6TLD9bEKPN?=
+ =?us-ascii?Q?ON55n72xWA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,393 +196,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|DS4PR11MB308671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 194b1b4c-cf22-4b1d-4e17-08df3c8a7d28
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|23010399003|376014|366016|6133799003|18002099003|22082099003|10067099003|11063799006|56012099006|4143699003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021123027099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: CwuWP7QnFmRwCAZa8Gf3jcc2GosGIcK/rXIVxAoj82HNfnYoVum7dOzuY6IEYfIYuyVeBQTbWk8YUb3kr7o5+2zIoZXXKLl2OhoD7a2Td6coy+MpEWZlEvCnQVo1xjHSY2FlFzFwgHrygFzL3jQa+S6L2gNrsoxN1RQMzAtvIYnmU5TPyVaO//YhJ4YtGV/Di9RNdAKW1favvD/AnYKMlm6AIrMv/IOM3Sjql1dQwlQiE/O7/kpYLxBhqUMHpTnFPqm8S/ZRPaERMorPQ2w0u6ITKD/yHx52xmEhg35YI+kac1JmEKmiQZ1AhwqGcJtnCeewgXUmaWGaWF72pKJ/03+2kvvZhrJBXOtQ3AqSlI8P+dZoj+ION5Sn+HvN75riOcvEJ+0v8Rc8GtgI4jJjj/vWrCDRCY3jfipS0UspU2DGf53u2NeZU6Jc6WACxXK0qJ6y6HJzpM6+W471cWT8bfjJ0jrxGokNoM544SOURUGw8y8hQyMrMh1nG7lB4+UPCoXsIo0VT0rqy3Rv3dJLZuM7qGhKhakPNuqtsM1qka240A7XnHSHAhvKX3loDbgQQByR3hhX4DddSoMEQb9qNYHbApq8WDK29LtC7z6q87iH7/FO0tMaI8FQyalnm1G//K3ZfdaGBtn3AVXmKR0LwgBOEwXKUImg9JbcKaibSMo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?qFjY3W8xH5UTar06AkSdUaPcoJtKx/aIzf2sb80viW/sUD6AwXSZbpSRbP?=
- =?iso-8859-1?Q?VEPaS93PDlFzkO6qx7kW+RgJFfl4xUrBj/MkBTODORHYW3uGMY738HbrNr?=
- =?iso-8859-1?Q?htDUI9+sxQH2FF8tA9cSUIIvahA98w4sqqCs2101r6MdCxMO+Rd0Tj4TMM?=
- =?iso-8859-1?Q?n8RLf/85WMOw8rWOoSlALVLv7n8k0SPiIBl8NC9DM0RyoVW5bFKBfK1gJo?=
- =?iso-8859-1?Q?Fd5VI1JvEUvNuY0kCp87fxDAm7KowLnz0BgqdGBKFGludEPNX6uj5d/TYd?=
- =?iso-8859-1?Q?6KxlCMnfCykHCfmmT8VlH5glXzLV8sOySxWhJP8JhbeaPoxc/xCs7ScnS6?=
- =?iso-8859-1?Q?JfHO9T1Jwa1gpmzAIo0QFzZfFuas8TFPpo8+0YC2rCsvVY4+kB5JAaLsdn?=
- =?iso-8859-1?Q?loKIQQ8sbRfj3acRhci+gIQNqLCD9E+k9zNMK57uZP3AmkUB8ve+rt0NV0?=
- =?iso-8859-1?Q?XBwZN9SeZxDLt5X+t3io+fZXNkfWP04/iJJ1uxr9g0shDmGvBfxmoh3iG2?=
- =?iso-8859-1?Q?f8YKFd4g6g3G9O1Fs+vu11VR/vVkVqpXOBTqMgthVgN/KvSULaFixWHkTV?=
- =?iso-8859-1?Q?l+OD3m9x7z6ngOLUajRwc+ugXK3rL/HA6/mYQrmROThOB6xvl0XXOD3M6N?=
- =?iso-8859-1?Q?E/qNIizTjGc84Y0O13RAnko9+GLQovOrxdT7nhXgWI3d1844BARgdp8Xan?=
- =?iso-8859-1?Q?b5IDavzXdOE/kQwT8Fib/kbV9a531Iv9yINhLn2rPMXsuk10hJRb+/uoZs?=
- =?iso-8859-1?Q?9V7vpVTVciOTaooZsfLypp0Ke8aZa2jZ2PE7GzLMyPVAfCC29STRyOsv56?=
- =?iso-8859-1?Q?YU+l1yDAmBoE0sVG419Z5+vqw2FzmTpFqn9G/T+5CFEaWVQMt853jQ+A8u?=
- =?iso-8859-1?Q?tdiwWttaibzuxSsgQ5M2Q+tdqn83OWSTsOz5jiLYgLJH3R0eyfKsbqJlU7?=
- =?iso-8859-1?Q?VvWoBc16RNfKvJz3laf0td9teoMMCTaRCdAdB5KM7vBKLTsyjV7yk8p1kw?=
- =?iso-8859-1?Q?u3aKfruWMb98SDFeecsQbvIbeWYfiNVbU6NKlUH76ehOQmjCFNdxAtPp3I?=
- =?iso-8859-1?Q?SgpqTzfLAV/f6hjT+A2nZSlkdKe+f855SGVMi2jKssnt60DwaJ82+Af5ir?=
- =?iso-8859-1?Q?PuL6EgIyiORLbLBsrBDdVxoP6kVL165hH7kM9JiwvuAQa2HJQlZknpQojq?=
- =?iso-8859-1?Q?22ftJy0JMThYvgqMKjWwuyHwYmAXtLOfwW2nmSnNj8hMvMIe9IQy+1jHPv?=
- =?iso-8859-1?Q?ldVj+Qciv0DcKDXg63x4Cd/XEEWzJmDH46iCObSB8X4omxuPZG+GcpcFPI?=
- =?iso-8859-1?Q?VKtbdwPf4jjBwWqjXRuFGW65ZGEpO43BiS0ChAe8GNjoA/4CdX4KH6tGoc?=
- =?iso-8859-1?Q?gorikgmS8gaPfQmNZwHPzTrj6OCZ+W7irBEI2CKjO83yq4AOJi6Vdqn3Fk?=
- =?iso-8859-1?Q?YiHGYdT7K8e9AQ3lxHXSF/ZuqteD9OelhUanFD6OKUSkPv+0tXIAdd/yUj?=
- =?iso-8859-1?Q?PqaOVw7jfrS0OMgnWVP6cnf1g9LhZowWOuxI6bZod/fpkg8Op8+nFcU1mt?=
- =?iso-8859-1?Q?Wtyhio7tRKlR15v0uxkH8adY9nwnF2PZifUW3KjD7OgkdS+s++WT/l2QRE?=
- =?iso-8859-1?Q?xWLhmtJeUzgbhBZ1pZBIv9pvTsZNsScbF96yhNtrM1B78LoOrlfbNbiYjf?=
- =?iso-8859-1?Q?ppriDgy75FJ0eGkp65fRnG8ThkJicFcQr1lRt0rn5q7HstRpDyqzEWlq4g?=
- =?iso-8859-1?Q?hY1ffTjh9sMUzhQmlmxmmwEfBcJADp2Y2HTgYr4yrQIA0gRU5HKY2HeLyK?=
- =?iso-8859-1?Q?oNtttHi3+gTAi3NgIu5ffC0TLoNMPwPei4TEiyt6h+q05OlXKBxU?=
-X-Exchange-RoutingPolicyChecked: ABp+dh8LoCuf5GjDbJZFTaPGm1VVqh4EUPst36uzxDaNGalG1FflKfwb2ktaanrg5SaL4fQDAfkheEOS1wm9T+g9YcTXSq2YBFAdJ8DZGFJGdB//0BorX+CJyW1ECNkMCgpyxBYPBwQ1n0EIKY7XEarr/fUsXhoI1rGE3wECgmaPhfJJFsw/MQ+Y0+dUR//a92nQfgzGUhBPxct6Bkd4+PyROVFp7S9UKnK6RcUgEZdLXQQXx8QU3hVBJAl/sNOqkM+do21n6FBmoxX8UZh5mFsJGmN1v3C34FG7Vhvt6eGvFuDjWa3EGxzQObcdYMTF7tBpUlbDt5oTE3s/VL5viA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 194b1b4c-cf22-4b1d-4e17-08df3c8a7d28
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-Exchange-RoutingPolicyChecked: DC7aLIfH/G5rckS4Ne1l0WmNwVrvXofNTUGKoPWVZJrE1pJUEBxOEzPbAzeTQXfIqLIrPKUt+yV7p7gx+wn+0b3/ajNANo4phXMgAhvIwzTVcCE7FFSOFKZDFoOBiVSVlWSAnsEdr04Ii07aX6oILtz7pbgyzRoL1FHScXJmsoXQJwmr9tzdJh+9eorltq8n0tQAhRKD2kJ+rfezx7dqy0dqm+m7UZT8gAgxYtQ/pBDGJ4pDpnbFo2uaLQrEHSrO+0SGpc7dKBxCyiVYf428RwxHk1M3/OK8ahbXOi+K86fd0qFVFl6JzIlLyxvgnhh2P95htpZEpaXl+ep9StBfZw==
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 04:49:21.6250
+X-MS-Exchange-CrossTenant-AuthSource: LV1PR11MB8790.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d15b6263-0be9-4add-2fc3-08df3c8ac002
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2026 04:51:13.3897
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d+B7QYjMjpw9pzdE1ewC06zFwkRhvl96B/tJnLqfty/cwicrAwcHr6SdELxS8SpEdNcQDR3DbfFD/JJ/j6aN0fuvAJetUI98K0Ae8pQ0v2NYq3Z6bGsfhBJpIr98EUfo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB308671
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mVsrhCvrMhbMUfHk1NqN9oz5e9g2FhgZ/zHFu+utYlbz9ziVI0777ow50s8MFtKg8pcmX7rEaZr5EWJqdno61eu4qAYMmg6jaGENY3olWNg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB9727
 X-OriginatorOrg: intel.com
 
-On Fri, Jul 10, 2026 at 07:56:01PM -0700, Matthew Brost wrote:
->Add per-device tracking of BOs whose backing TT pages were allocated
->below the pool's beneficial order, as reported by the
->TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED tt page flag (read via
->ttm_tt_is_beneficial_order_failed()). These BOs are future candidates for
->a defragmentation pass that reallocates their pages at the beneficial
->order.
->
->Add a mem.defrag sub-struct (lock, list, atomic count) to struct
->xe_device and a defrag_link to struct xe_bo, initialised at BO create
->and device init. Membership is updated from xe_bo_move() via
->xe_bo_defrag_update(): a BO is added when it is a populated, needed,
->non-pinned ttm_bo_type_device object flagged
->TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED, and removed otherwise. BOs are also
->removed on pin, on purge, moved to dontneed, and at destroy.
->
->Only ttm_bo_type_device BOs are tracked.
->
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->Assisted-by: GitHub_Copilot:claude-opus-4.8
->Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->---
-> drivers/gpu/drm/xe/xe_bo.c           | 115 +++++++++++++++++++++++++++
-> drivers/gpu/drm/xe/xe_bo.h           |   1 +
-> drivers/gpu/drm/xe/xe_bo_types.h     |   6 ++
-> drivers/gpu/drm/xe/xe_device.c       |   2 +
-> drivers/gpu/drm/xe/xe_device_types.h |  19 +++++
-> 5 files changed, 143 insertions(+)
->
->diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
->index 4ee48cdc02ac..ff324caab6da 100644
->--- a/drivers/gpu/drm/xe/xe_bo.c
->+++ b/drivers/gpu/drm/xe/xe_bo.c
->@@ -926,6 +926,9 @@ static void xe_bo_set_purgeable_shrinker(struct xe_bo *bo,
-> 	}
-> }
->
->+static void xe_bo_defrag_update(struct xe_bo *bo);
->+static void xe_bo_defrag_remove(struct xe_bo *bo);
->+
-> /**
->  * xe_bo_set_purgeable_state() - Set BO purgeable state with validation
->  * @bo: Buffer object
->@@ -954,6 +957,7 @@ void xe_bo_set_purgeable_state(struct xe_bo *bo,
->
-> 	bo->purgeable.state = new_state;
-> 	xe_bo_set_purgeable_shrinker(bo, new_state);
->+	xe_bo_defrag_update(bo);
-> }
->
-> /**
->@@ -1003,9 +1007,100 @@ static int xe_ttm_bo_purge(struct ttm_buffer_object *ttm_bo, struct ttm_operatio
-> 	/* Commit the state transition only once invalidation was queued */
-> 	xe_bo_set_purgeable_state(bo, XE_MADV_PURGEABLE_PURGED);
->
->+	/*
->+	 * The backing store is gone, so the BO no longer needs defrag. Drop it
->+	 * from the defrag list here so the count stays accurate even for purge
->+	 * paths that don't pass through xe_bo_move() (e.g. swap_notify).
->+	 */
->+	xe_bo_defrag_remove(bo);
->+
-> 	return 0;
-> }
->
->+/**
->+ * xe_bo_defrag_init_early() - Initialize the device defrag BO tracking
->+ * @xe: The xe device
->+ *
->+ * Initialize the list, lock and count used to track BOs whose backing TT
->+ * pages were allocated at a sub-optimal order.
->+ */
->+void xe_bo_defrag_init_early(struct xe_device *xe)
->+{
->+	spin_lock_init(&xe->mem.defrag.lock);
->+	INIT_LIST_HEAD(&xe->mem.defrag.list);
->+	atomic_set(&xe->mem.defrag.count, 0);
->+}
->+
->+static bool xe_bo_needs_defrag(struct xe_bo *bo)
->+{
->+	struct ttm_buffer_object *ttm_bo = &bo->ttm;
->+	struct ttm_tt *tt = ttm_bo->ttm;
->+
->+	xe_bo_assert_held(bo);
->+
->+	return ttm_bo->type == ttm_bo_type_device && tt &&
->+		!xe_bo_madv_is_dontneed(bo) &&
->+		ttm_tt_is_populated(tt) &&
->+		ttm_tt_is_beneficial_order_failed(tt) &&
->+		ttm_bo->resource && ttm_bo->resource->mem_type == XE_PL_TT &&
->+		!xe_bo_is_pinned(bo);
->+}
->+
->+static void xe_bo_defrag_add(struct xe_bo *bo)
->+{
->+	struct xe_device *xe = xe_bo_device(bo);
->+
->+	xe_bo_assert_held(bo);
->+	xe_assert(xe, xe_bo_needs_defrag(bo));
->+
->+	scoped_guard(spinlock, &xe->mem.defrag.lock) {
->+		if (list_empty(&bo->defrag_link)) {
->+			list_add_tail(&bo->defrag_link, &xe->mem.defrag.list);
->+			atomic_inc(&xe->mem.defrag.count);
->+		}
->+	}
->+}
->+
->+static void __xe_bo_defrag_remove(struct xe_bo *bo)
->+{
->+	struct xe_device *xe = xe_bo_device(bo);
->+
->+	guard(spinlock)(&xe->mem.defrag.lock);
->+	if (!list_empty(&bo->defrag_link)) {
->+		list_del_init(&bo->defrag_link);
->+		atomic_dec(&xe->mem.defrag.count);
->+	}
->+}
+> -----Original Message-----
+> From: Petr Oros <poros@redhat.com>=20
+> Sent: Friday, October 2, 2026 6:08 AM
+> To: netdev@vger.kernel.org
+> Cc: Oros, Petr <poros@redhat.com>; Nguyen, Anthony L <anthony.l.nguyen@in=
+tel.com>; Kitszel, Przemyslaw <przemyslaw.kitszel@intel.com>; Andrew Lunn <=
+andrew+netdev@lunn.ch>; David S. Miller <davem@davemloft.net>; Eric Dumazet=
+ <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni <pabe=
+ni@redhat.com>; Lobakin, Aleksander <aleksander.lobakin@intel.com>; Alexei =
+Starovoitov <ast@kernel.org>; Daniel Borkmann <daniel@iogearbox.net>; Jespe=
+r Dangaard Brouer <hawk@kernel.org>; John Fastabend <john.fastabend@gmail.c=
+om>; Stanislav Fomichev <sdf@fomichev.me>; Henry Tieman > <henry.w.tieman@i=
+ntel.com>; Anirudh Venkataramanan <anirudh.venkataramanan@intel.com>; Micha=
+l Swiatkowski <michal.swiatkowski@linux.intel.com>; Jesse Brandeburg <jbran=
+deb@kernel.org>; Preethi Banala <preethi.banala@intel.com>; Kiran Patil <ki=
+ran.patil@intel.com>; Dan Nowlin <dan.nowlin@intel.com>; Stephen Hemminger =
+<stephen@networkplumber.org>; intel-wired-lan@lists.osuosl.org; linux-kerne=
+l@vger.kernel.org; bpf@vger.kernel.org
+> Subject: [PATCH iwl-net 01/10] ice: replay UDP tunnel ports after a core =
+or global reset
+>=20
+> A CORER, GLOBR or EMPR reloads the DDP package in ice_rebuild() and
+> ice_init_pkg_hints() clears hw->tnl, so every offloaded VXLAN and GENEVE =
+port is gone from both the boost TCAM and the driver table. The udp_tunnel_=
+nic core is never told about it and still considers the ports > programmed,=
+ so the Rx tunnel offloads silently stop working after the reset. With VXLA=
+N port 4789 offloaded, 64 flows that differ only in the inner headers are s=
+pread over all six Rx queues of the test port by RSS, after a CORER they al=
+l land in a single queue, the same as without the port. Removing the port l=
+ater trips the WARN_ON() in
+> ice_destroy_tunnel() because its table entry is no longer valid:
+>=20
+>   WARNING: ice_flex_pipe.c:524 at ice_udp_tunnel_unset_port+0x56/0x280 [i=
+ce]
+>   ice 0000:04:00.3 enp4s0f3np3: Error removing UDP tunnel - -5
+>   ice 0000:04:00.3 enp4s0f3np3: UDP tunnel port sync failed port 4789 typ=
+e vxlan: -5
+>=20
+> Call udp_tunnel_nic_reset_ntf() once the main VSI is rebuilt so the core =
+programs the ports again. A PF reset keeps the package and the table, so it=
+ is left alone. No rtnl_lock is needed since commit 1ead7501094c
+> ("udp_tunnel: remove rtnl_lock dependency").
+>=20
+> i40e fixed the same problem in commit 1f190d936948 ("i40e: Reprogram port=
+ offloads after reset").
+>=20
+> Fixes: a4e82a81f573 ("ice: Add support for tunnel offloads")
+> Assisted-by: LLM
+> Signed-off-by: Petr Oros <poros@redhat.com>
+> ---
+>  drivers/net/ethernet/intel/ice/ice_main.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 
-Assisted-by: LLM
-
-NIT...probably worth adding a comment saying this version
-can be called without holding bo dma-resv lock?
-
->+
->+static void xe_bo_defrag_remove(struct xe_bo *bo)
->+{
->+	xe_bo_assert_held(bo);
->+
->+	if (list_empty(&bo->defrag_link))
->+		return;
->+
->+	__xe_bo_defrag_remove(bo);
->+}
->+
->+/**
->+ * xe_bo_defrag_update() - Update defrag list membership for a BO
->+ * @bo: The buffer object
->+ *
->+ * Add @bo to the device defrag list when it is a ttm_bo_type_device BO resident
->+ * in XE_PL_TT with a populated TT whose pages were allocated at a sub-optimal
->+ * order (ttm_tt_is_beneficial_order_failed()) and it isn't pinned. Otherwise
->+ * ensure it is removed from the list.
->+ */
->+static void xe_bo_defrag_update(struct xe_bo *bo)
->+{
->+	xe_bo_assert_held(bo);
->+
->+	if (xe_bo_needs_defrag(bo))
->+		xe_bo_defrag_add(bo);
->+	else
->+		xe_bo_defrag_remove(bo);
->+}
->+
-> static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
-> 		      struct ttm_operation_ctx *ctx,
-> 		      struct ttm_resource *new_mem,
->@@ -1231,6 +1326,8 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
-> 		xe_tt_unmap_sg(xe, ttm_bo->ttm);
-> 	}
->
->+	xe_bo_defrag_update(bo);
->+
-> 	return ret;
-> }
->
->@@ -1267,6 +1364,15 @@ static long xe_bo_shrink_purge(struct ttm_operation_ctx *ctx,
-> 	if (lret > 0) {
-> 		xe_ttm_tt_account_subtract(xe, bo->ttm);
-> 		update_global_total_pages(bo->bdev, -(long)tt->num_pages);
->+
->+		/*
->+		 * The pages are gone, so a tracked BO no longer needs defrag.
->+		 * This shrinker purge path frees pages without going through
->+		 * xe_bo_move(), so drop any stale defrag list entry here. Ghost
->+		 * bos are never tracked, so guard for real xe bos.
->+		 */
->+		if (xe_bo_is_xe_bo(bo))
->+			xe_bo_defrag_remove(ttm_to_xe_bo(bo));
-> 	}
->
-> 	return lret;
->@@ -1909,6 +2015,8 @@ static void xe_ttm_bo_destroy(struct ttm_buffer_object *ttm_bo)
-> 		list_del(&bo->vram_userfault_link);
-> 	mutex_unlock(&xe->mem_access.vram_userfault.lock);
->
->+	__xe_bo_defrag_remove(bo);
->+
-> 	kfree(bo);
-> }
->
->@@ -2414,6 +2522,7 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
-> 	bo->ttm.base.funcs = &xe_gem_object_funcs;
-> 	bo->ttm.priority = XE_BO_PRIORITY_NORMAL;
-> 	INIT_LIST_HEAD(&bo->pinned_link);
->+	INIT_LIST_HEAD(&bo->defrag_link);
-> #ifdef CONFIG_PROC_FS
-> 	INIT_LIST_HEAD(&bo->client_link);
-> #endif
->@@ -3020,6 +3129,8 @@ int xe_bo_pin_external(struct xe_bo *bo, bool in_place, struct drm_exec *exec)
-> 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
-> 		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
->
->+	xe_bo_defrag_remove(bo);
->+
-> 	/*
-> 	 * FIXME: If we always use the reserve / unreserve functions for locking
-> 	 * we do not need this.
->@@ -3078,6 +3189,8 @@ int xe_bo_pin(struct xe_bo *bo, struct drm_exec *exec)
-> 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
-> 		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
->
->+	xe_bo_defrag_remove(bo);
->+
-> 	/*
-> 	 * FIXME: If we always use the reserve / unreserve functions for locking
-> 	 * we do not need this.
->@@ -3113,6 +3226,7 @@ void xe_bo_unpin_external(struct xe_bo *bo)
-> 	ttm_bo_unpin(&bo->ttm);
-> 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
-> 		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
->+	xe_bo_defrag_update(bo);
->
-> 	/*
-> 	 * FIXME: If we always use the reserve / unreserve functions for locking
->@@ -3145,6 +3259,7 @@ void xe_bo_unpin(struct xe_bo *bo)
-> 	ttm_bo_unpin(&bo->ttm);
-> 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
-> 		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
->+	xe_bo_defrag_update(bo);
-> }
-
-Looks like list update needs to be called from 2 other places,
-
-1. ttm_bo_populate() getting called from CPU fault path and from TTM fault
-    never calls xe_bo_defrag_update().
-2. In xe_bo_shrink() if ttm_bo_shrink() returns >0 value. This will inflate
-    the defrag.count value.
-
->
-> /**
->diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
->index 6340317f7d2e..4186cb51af87 100644
->--- a/drivers/gpu/drm/xe/xe_bo.h
->+++ b/drivers/gpu/drm/xe/xe_bo.h
->@@ -224,6 +224,7 @@ int xe_bo_pin_external(struct xe_bo *bo, bool in_place, struct drm_exec *exec);
-> int xe_bo_pin(struct xe_bo *bo, struct drm_exec *exec);
-> void xe_bo_unpin_external(struct xe_bo *bo);
-> void xe_bo_unpin(struct xe_bo *bo);
->+void xe_bo_defrag_init_early(struct xe_device *xe);
-> int xe_bo_validate(struct xe_bo *bo, struct xe_vm *vm, bool allow_res_evict,
-> 		   struct drm_exec *exec);
->
->diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
->index fcc63ae3f455..9eea9ab380e5 100644
->--- a/drivers/gpu/drm/xe/xe_bo_types.h
->+++ b/drivers/gpu/drm/xe/xe_bo_types.h
->@@ -54,6 +54,12 @@ struct xe_bo {
-> 	struct ttm_bo_kmap_obj kmap;
-> 	/** @pinned_link: link to present / evicted list of pinned BO */
-> 	struct list_head pinned_link;
->+	/**
->+	 * @defrag_link: link into @xe_device.mem.defrag.list for BOs whose
->+	 * backing TT pages were allocated at a sub-optimal order. Protected by
->+	 * @xe_device.mem.defrag.lock.
->+	 */
->+	struct list_head defrag_link;
-> #ifdef CONFIG_PROC_FS
-> 	/**
-> 	 * @client: @xe_drm_client which created the bo
->diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
->index 97cc2d185e45..bb93425a5c70 100644
->--- a/drivers/gpu/drm/xe/xe_device.c
->+++ b/drivers/gpu/drm/xe/xe_device.c
->@@ -607,6 +607,8 @@ int xe_device_init_early(struct xe_device *xe)
-> 	if (err)
-> 		return err;
->
->+	xe_bo_defrag_init_early(xe);
->+
-> 	xe->preempt_fence_wq = alloc_ordered_workqueue("xe-preempt-fence-wq",
-> 						       WQ_MEM_RECLAIM);
-> 	xe->ordered_wq = alloc_ordered_workqueue("xe-ordered-wq", 0);
->diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
->index 95e7cea91cbf..9e6244d8f41b 100644
->--- a/drivers/gpu/drm/xe/xe_device_types.h
->+++ b/drivers/gpu/drm/xe/xe_device_types.h
->@@ -296,6 +296,25 @@ struct xe_device {
-> 		 */
-> 		atomic_long_t dma_mapped_pages_svm[NR_PAGE_ORDERS];
-> #endif
->+		/**
->+		 * @mem.defrag: Tracking of BOs whose backing TT pages were
->+		 * allocated at a sub-optimal (smaller than beneficial) order.
->+		 *
->+		 * Such BOs are candidates for a future defragmentation pass that
->+		 * tries to reallocate their pages at the device's beneficial
->+		 * order. Only ttm_bo_type_device BOs are tracked.
->+		 */
->+		struct {
->+			/** @mem.defrag.lock: Protects @mem.defrag.list. */
->+			spinlock_t lock;
->+			/** @mem.defrag.list: List of struct xe_bo defrag_link. */
->+			struct list_head list;
->+			/**
->+			 * @mem.defrag.count: Number of BOs currently on
->+			 * @mem.defrag.list.
->+			 */
->+			atomic_t count;
-
-NIT...Not sure if we need it to be atomic. Count is only used in patch 16 and
-usage is approximation anyhow (doesn't guarantee anything as list lenght can
-be changing).
-
-Niranjana
-
->+		} defrag;
-> 	} mem;
->
-> 	/** @sriov: device level virtualization data */
->-- 
->2.34.1
->
+Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
