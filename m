@@ -1,94 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029553;
-	b=DD+XIBe+oDLfUlh/Nq7K4pCsu3h4UeUN2PPxvrkkeEdcQorAcE2Vh6YOzvHKp6mV7f7I
-	 5CXhsRbhLBcGEp4/RvRj6y6djwqHz6Hb9v8ndpcmS6HPFnm4nbslT89FEd6XDbv5n21pD
-	 J5WTkSKp7I5RV13dFztU4PXLpH7AG9dKn8+GfmzHaFKblq7olAEEghX2sJlnTQVcIhj6n
-	 rz2rQXCF9Q4aOknxdEFKoGgsPREytyp0G59Ws9h+UVbAbxhodajZlX1PP8Zozhweyx9Jd
-	 D4C9d0VV0SkmPHial0C3IdBaJjwIpi/Abz82B2nrWBCVC1LNFW0Kl2wTpQgZK5AxBuA==
+	t=1794029738;
+	b=aomNyY8sJZxRcAn5gH1MyUBLHVhjIMXQztOxuDAxU4cwC2EhjHdfs2MXn37S5vo20PnX
+	 IWxG0xMhHf/4ecJ2UHbYGuJVrtQT7moOONahZivJkXhRgcQR92fc7OpKtQYTnUNJIqYS8
+	 V7wbfwfl/8LaJrrqecyPha7xCHyjg/Ubh8Q4hAgmUOHjAECd2+jwHHPuoqFCQdy3ronLk
+	 n5e+czG7bDITJbNPxmnEyLalV3NedaSSZFYj1f0G5pNA3xqicpo58+qF/qt/gnOLe4dyZ
+	 ugzYt5zRhNIzNcQYRGzajAEas1yaCYslj73rUMRi9GIG5CB/7g2volBev/EjcDyK4+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029553;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6sW0z1d5SKi+Jg6QexltnX75AHvo1gx3Slpp03kBvI0=;
-	b=bR4nMg7SmfhpZMmoMaF/6ybe4pg3KbCYU7ZLnK6roogJmTMN7ZK33gv6OxSMfAtE3tlv
-	 4ss12XhK0YPNmhcwMZsbE6AkxsnJErqWN88w08TM+JmSrhWQDU9OlT2doagI9V0cxc1D/
-	 +ODuWO7kldOTILKprniTD4ikuok0IqDhbsv6Nfv+FnRiLJ76htV4oLIdzc9TAIdfHETq4
-	 MJe9zBoZasF4Od+QU/WcLpzA0feXv7AfQeI3DKBveqNWxall/mVPq3hDElUxRv/tKolZe
-	 wFgv/Ubn3VArLgsIZNUZ1Umwl/3s8uOsqB9XGscPbXUixDgJMHIcFlFn8lKstyc5pbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029738;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=4BU3jWG6HgtUEzCXO9L6HXY2c3GFaOpgCDBfsihICbY=;
+	b=cc5M/e4ZfZRri2/Xk9y/dsKtWhO9NZzhlFZ2GydC8l9rBdqM1/C0tEaSwjeunKszGztI
+	 QkJ7tzfDSlzgY3dD4MyonVL+e8B/I6E00cOAXAjlQ5O8UMHsUowEWjUZYSDelplh6HCIk
+	 3ypiPuIB7okIFTdqPO61/lDr46bPiMnuCutXC5zB8nysyCY7ccQ9K/H3/eHDjSKSRn3nG
+	 YnnbHZRsbbeULVvW57lqtCQx5YhDYFuzREF7V0Y7HdQWhrjUW8Gnl6IABzCWjwjyx1x/r
+	 6FQE4uGqhg5wP5rmoThX1I4fy2OWjxLCGmUfJsYL8aVgZpTPryJ702Q02abK/kjhX0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N2RzNSmy;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E665606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:32:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E665606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N2RzNSmy
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b0a2a44a0cso1049211a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:32:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794029552; x=1794634352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6sW0z1d5SKi+Jg6QexltnX75AHvo1gx3Slpp03kBvI0=;
-        b=N2RzNSmyusmLoY8g/mYzOOXpMkwMV+nt4Au5OExq1lWzAth0BoRtgb5KnabOAdMS7l
-         Jbmj3h0AnlJT6JMhcEs/L8BfW0tS+1bkTprYeMusbzhRuO+g9fUQCGT0QZSbV1UMhADX
-         q+d01OEw21eD+8kOVmqeXwCAhHPZ1RGKL1T0RoAh+QUE5jHGD378S6AHzxVSZss4QnLt
-         09ouoXBH6jK98P4lIbQO+UCedHeyY4LhZFmc2CtMRL81/kpXO0iSCXnt1KxssqRSoJng
-         tn06ClnIDO8C7dON4lk8Dw/n2RV6jj+jO2MVTrI5/1a1ckG+Kvml4/rT1x+VKfsBi9jr
-         G+tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794029552; x=1794634352;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6sW0z1d5SKi+Jg6QexltnX75AHvo1gx3Slpp03kBvI0=;
-        b=jYYXZ1K8xsFASxiuM5CMI4H4CTkWc4pm4AdqNC7k9RVEMzF3wwNCDZeJY7JRUdbVo+
-         jcYX01vA700iDRkUBurXgzko/UaxS6T5UNfxZa5PiOaKcXbR2ZBkO1JBQq4k549Q677z
-         b1fwzxBgvYMQlS4fqfDJv6N9aWdqjA40i9X4Xe5C5ToX4blsP+rza9fNSkgtW01vsJIe
-         0+vg1Z5klrso0RmvD0bYs9Pd2gg9rRfLZO8HqCXuy5a/fPTxPKRaLaqab2boHouWF9Zg
-         jFgye544kCcGN3FldfJ1W++r3jqDHXKtSz/zU0TYY/Tx/So4j67uEhEOIDJZrB04/0sd
-         I+cg==
-X-Forwarded-Encrypted: i=1; AL+hErFvP4c4JYsVHBhX7UDjc2DHXi8WD+VcxzoSijLggykzW/PSDdHySNrkGqqPe88/llHS76nvQ+U8aF6Tk34=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CW08SzPfSLXGzaAC8+V9oLmA5zYmC1L9fIIsDeQWlTC+ku/xn
-	gW8UiaCzsIWsPoBoVWJlbEFc6Ma5p4IQR25aS+lqiI/jICNwotWBTNbt
-X-Gm-Gg: AYBFou29NICHa+TlzF+Cm3Mf2CoC6FCiWQ5D+TRXtsbPEN78tSAoDluHWvBxTMN9GtE
-	oIKAGoHqovCZAG/qIgGU+xTARwLj2shE+99Mj9zVdznr2JJyYZQwWvXgcsZmf7VmKwBAyG0J42F
-	8IWX7aPJGPgFcCSTUksubteTaF7+Sl+d9y2HXYwGegfzNaYP1UQIAd7YmNagaJfbm1TvCmZixrQ
-	4fMeoI2tlg/A/TzQBB85pkNMP1bGxlj11hb5Lpxa4tXSfkxQlmtlB5G8YmdFbJW7t3IA/GoPqqB
-	bHKWge5YFvJGKiSmysNWBpssGEL8Fn9/1r5dCdS4ZknqnftugJiRd9bgwK3PIpLleb+vU2399Ry
-	GioPpJA3dMm5Q38VOcgTPICcbIORmmmA1aLl9wKkRi/oRtPO976qyA6zvcOm3aCyYMfOirJC8q/
-	98irv9mfKgPuJR9JwQZlE5SsK+NKlGYgFWN2tEWxbjFh88dWpIEecyyKnp75zkyH3Ws5t9UC/Pg
-	0DvCeLRjNET/kjlDaj9VLOjPkFV94wo5R9H4Fn/cbevp5klfvoA5hn++VQ5ccs2EcK4MCsDrYpP
-	Kbih8u527/WnQlxridlEYqX5t+J18/O5nh4xH6a6TpF8Emd0
-X-Received: by 2002:a17:90a:d24d:b0:3b0:db75:4bcf with SMTP id 98e67ed59e1d1-3b0db754c65mr3213278a91.42.1794029552419;
-        Fri, 06 Nov 2026 21:32:32 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b101bc4586sm1246851a91.2.2026.11.06.21.32.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:32:32 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Chong Qiao <qiaochong@loongson.cn>,
-	Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mfd: ls2kbmc: cancel the reset work before the driver data is freed
-Date: Sat,  7 Nov 2026 14:32:18 +0900
-Message-ID: <20261107053218.3326443-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD0D606A326;
+	Sat,  7 Nov 2026 05:35:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD0D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAA3QZKauO5qndt5AA--.17203S2;
+	Sat, 07 Nov 2026 13:35:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Simon Horman <horms@kernel.org>
+Cc: enachman@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH] net: prestera: release the ruleset in prestera_flower_prio_get
+In-Reply-To: <20261106121731.GI865646@horms.kernel.org>
+References: <20261103100532.1309990-1-vulab@iscas.ac.cn>
+ <20261106121731.GI865646@horms.kernel.org>
+Date: Sat, 07 Nov 2026 05:35:17 -0000
+Message-ID: <179402971765.2318769.17775485131459248250@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,61 +56,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAA3QZKauO5qndt5AA--.17203S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF15tFW8Jw4DKrW8Jw45Awb_yoWfXFbE9w
+	4vy347Za1UAF17Ja1YyrWYvrZ3Wr48CrW5Z34rXr13try5ZFZaqw1vkrZ0yw1SqFWUAFZx
+	Jr1Yy3yYk34qgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F
+	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxV
+	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
+	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
+	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
+	1UYxBIdaVFxhVjvjDU0xZFpf9x07bnXd8UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUEA2rucA5nSwACsP
 
-From: Hyunjung Ko <hj351016@gmail.com>
+Hi Simon,
 
-ls2k_bmc_init() INIT_WORK()s ddata->bmc_reset_work (ls2k_bmc_events_fn)
-and requests two device-managed interrupts (ls2k_bmc_interrupt) that
-schedule_work(&ddata->bmc_reset_work).  The work handler dereferences
-ddata via container_of().
+Thank you for reviewing this patch and providing your Reviewed-by.
 
-ddata is devm_kzalloc()'d, so devres frees it when the device is
-unbound.  Nothing cancels bmc_reset_work: free_irq() (run by devres)
-only waits for the interrupt handler to finish, not for a work item it
-has already queued.  If a BMC reset interrupt fires shortly before
-unbind, the queued ls2k_bmc_events_fn() can run after ddata has been
-freed -> use-after-free.
+I apologize for the delayed reply and for the excessive volume of
+patches I sent to netdev. I also failed to follow up on earlier
+feedback promptly, creating additional work for you and other
+reviewers. I take responsibility for that.
 
-Register the work for device-managed cancellation with
-devm_work_autocancel(), before the devm_request_irq() calls that arm
-it, so devres (LIFO) frees the interrupts first, then cancels the work,
-and only then frees ddata.
+Your concern about the submission volume is well founded. I will
+personally go through the outstanding feedback, review each comment
+carefully, and respond in the relevant threads. I will respect the
+posting pause requested in the earlier discussions while I address
+that feedback.
 
-Found by code review; not reproduced (needs Loongson-2K BMC hardware and
-a reset interrupt racing driver unbind).
+Going forward, I will not send large batches of patches. I will keep
+submissions within my personal capacity to understand and validate
+each change, and to respond to review in a timely manner.
 
-Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/mfd/ls2k-bmc-core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Thank you again for your time and careful review.
 
-diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
-index 408056b..c44291e 100644
---- a/drivers/mfd/ls2k-bmc-core.c
-+++ b/drivers/mfd/ls2k-bmc-core.c
-@@ -12,6 +12,7 @@
- #include <linux/aperture.h>
- #include <linux/bitfield.h>
- #include <linux/delay.h>
-+#include <linux/devm-helpers.h>
- #include <linux/errno.h>
- #include <linux/init.h>
- #include <linux/iopoll.h>
-@@ -371,7 +372,10 @@ static int ls2k_bmc_init(struct ls2k_bmc_ddata *ddata)
- 
- 	ls2k_bmc_save_pci_data(pdev, ddata);
- 
--	INIT_WORK(&ddata->bmc_reset_work, ls2k_bmc_events_fn);
-+	ret = devm_work_autocancel(ddata->dev, &ddata->bmc_reset_work,
-+				   ls2k_bmc_events_fn);
-+	if (ret)
-+		return ret;
- 
- 	ret = devm_request_irq(&pdev->dev, pdev->irq, ls2k_bmc_interrupt,
- 			       IRQF_SHARED | IRQF_TRIGGER_FALLING, "ls2kbmc pcie", ddata);
--- 
-2.43.0
+Best regards,
+Wentao Liang
 
