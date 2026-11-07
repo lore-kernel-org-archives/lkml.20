@@ -1,126 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093590;
-	b=B5fMjMzzmNQYtouqTavgwqqaxdjWctdrbgDVy3nsjVvhwDL4+zizpkEhUuYr6jceMG4b
-	 ixhXykk2ggW7r9N1vuLhKT/TTzPuHcWX3Z0omi3vRrrknI/CgvnmWLmszMBPlFtRQMLIL
-	 bMY2Sa4bd4/yIXTnE2mFVlczAqmdsk6xImuGtjSETGG/hIKOIlg+85yxeXOQwPaPolaMZ
-	 yEFweHv4qj9GCSLrT+Wi4idpB2erL9RgGSuqOd9tOoZwqym6QhOYuWNBtw/nH4e/sOqmW
-	 CqceqjLLz5CZgJcU6Ew1Vt+M0djju2JX/Pk1motnOk752bLXXZbmnxVGc07o9Wfpysw==
+	t=1794093786;
+	b=XImpQUAf06QCgyZqFXbZWymDMRrlIOtb063S7hJEpHPUk9C2OV4my8QGMe01NBpuhpXE
+	 vt69/W+ZfeOcvFHCEZeBsZkMwoLZUzqt9mavEEWfFljHzHCLqX20uvLV3bi0eaeqfHbk6
+	 b7a9P0U5KHuLFqAecV/pWKE2BxRxA1qxwUsADzGPNYUEGuqDep1eFc+hty+xYgKoEgDfg
+	 1ZbZFCnrTL8Ff8MRhC90hwsYNqdnNMiQDRQjaH4Ali8e1vKBT7jSmXNCVZfTqAewK2qe1
+	 HGWaULS+G0PMciotqYl/sREE14CZ2oUP5z3gisecsRNks7HZf3lPUMlhKPfRRtlBuGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093590;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=qSJOzOej/lzgd23kvJOtZKXZtncGpnK0ntNc95PAhyg=;
-	b=OpenT19hpoQ59DJcA/wPJmYvI1OQzSOaODn7lvnCU8DwqjJEX8zKTu99huXoztFhJtOI
-	 nHq44VU7MrQ0Igh3vDtSyJGwQU1paBWOX+fth2e4hbtUGat0WNqXqTls3lyp4Zka5u6Vg
-	 IojYpI14W+VlYZik2OjNsCrxuMhUBsR3Cf80+WA4enLLjde2AxZig9pvZ58s/CFdIYn2h
-	 KcDEBhTZM/ejNMXGSX+cOE+zsuz08Jz2+xzON2KfC2iSexcp9SyUM+JSx6lL2d0yBg0a0
-	 /HWYCfs5UuQ3YfnPiXXgMBqFi+mGkbEn9FdHF1BnNT33bja1gVkVOEHpb3QsBBb1txA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794093786;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wjc637b5mR1rWcFoGPlClV34pmy3lLIZ+mkAlzih90I=;
+	b=OX7OQsY6NfWl7q3BlxxVgP+OCsN2UwPhVYCd+4lYjOyBZs6Sv9fTVdXL5llg+/IJKM7q
+	 2lfpUbzzYv/Xtz0CdGvIlowzLDj5gV5+/MDyF7sPYK8Df2W1Iis2x8DUY92X1dQX854La
+	 oiE1/itHJK3jkgtKVz1sX0TZKkZ0L5aMtoQv+EhjzTB7jFWO3x4mFO3ENDsrccCo5H/8K
+	 dsleR6amZv2+BwHzSvVQxVWZBbfeh3bEr+1KFYL3vAgTCywJ4llXbYH0zEgX4SLOEsgdC
+	 FiVmXhOo2IzjUztOezlbFlmc+/pT7ulpmv12N8O2FiYTe+NwDaPmUDQl3fXdfQVr8Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=o1eDqJEZ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hxD4Evgc;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=efvkRhXd;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84456606A33D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 23:19:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84456606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43435606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 23:23:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43435606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=o1eDqJEZ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hxD4Evgc
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id A5FB3EC0141
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:19:48 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Sat, 07 Nov 2026 18:19:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794093588; x=
-	1794179988; bh=qSJOzOej/lzgd23kvJOtZKXZtncGpnK0ntNc95PAhyg=; b=o
-	1eDqJEZMofF57phlyTlyDBXpDXViOvcQH1x24iO5KLy7nmhZla5VAog/f0WRhEKe
-	iRAqMeu/al60e3IB7mcumccnaggWaJbpvNF2PQ9u2ZEgGJEmwh7h6KHywpeJyF2c
-	CJfXRtKP3t+InSxQtxmA86TNkm7geniVcBRJEFvdPL+tdfhcgskJLvZFAdXJhLtO
-	YmEp1VFFva9N3tbPjWD/o81zGWjtsebQOTige6Umowkv05cvgAmP4hunNWlPImO6
-	X4tnBq4Onfl55w2cn+9mZvivebkoe+27yH/DRHFzLUBFiH4nv8nRwPaT+/I4sNQA
-	qQSn/VQGUb17HwK/Hu/Xw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794093588; x=1794179988; bh=q
-	SJOzOej/lzgd23kvJOtZKXZtncGpnK0ntNc95PAhyg=; b=hxD4EvgcqAlQhheK8
-	gLCpXd3BwbLDVyV+QOah4V0gB3CsnurEVT7By/rKpOwDp+srYuqC8632S+rc0Kau
-	qnqsLr30xbKcXIVeal3DbFjYjLn/UquuEbrk9tv/jBtCu5//lZ/gIEDsTmuy3gv5
-	w19VDkmeCxSWu+TnrDKdiT3nJj74crlw9GqCjeQ5TVf2ANT4nBH7/F/bZ/2T6qH1
-	mCkfdjea2EQzOwGF/plSbbOUdumpx0yX+q+9/HOyUsaRtO743cIc4aVOVCVCusW9
-	dE/DytAyutMOfO99mTLTEop17wj/A2NkYhJ5PfsJM3Fp4RjMFQvNpQVnBg3DKARP
-	7ZzvA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794093588; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:SXNR9DQiGbvx/RmoMGBMOn0x4nP5aobNfse0endA9lNwiFH
-	sxx6er6sK620oY5WceDN/onLCCjh7xPlwAKilo0erf4N+Niu44age9nHCzvIvRx7
-	5LwPIo9XxMnR54RjzaVTvl4dS9G4cH3Ce+adgqlxr1JdO26bL0IngYKAaJM352nh
-	tGPcWbGImRUJSSEU+TxyQmOTuE08Vl2wVV2U+1wMauD1Vrq+b7nRslO0UehLxx1y
-	K9iTsfCQNxCO8FSk0TWOpZlpgV2FN9lcWxstQjdDo/ymmVez48+xRSdfG4UKmO0P
-	mXpD4fJ/54x5FXrFrYT7AD9xn05+TZo8sBi7MdQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:QQqNpo3/PcQdDbfaWXYr0KUSFElQDjD7GBBMBzoZqxI=:3AVipOxupeCn0hZo5tw6pys6JMFGN9QV7mZ9dYnLezQ=;
-X-ME-Sender: <xms:FLLvaqAeto4urpbpAiyo9vNsaWa70tR-VSyOgtZTWBuKzxrWV6ySqg>
-    <xme:FLLvagjIRj_LPbIFWq5prLETdy4gDCcDZi6k-1SuD-RSrSp4-_BEPxpDmigNh27-T
-    8zGOXNKXVzx1w5gQ9FkC1yjY_M5MKieW7g3f3HjCP9JxYEBfoQ7q_81>
-X-ME-Received: <xmr:FLLvavyr_WKCvPeCcYOnu5mmGsSSuVq1Zpx816LYZfj66tFeRpGU_WhiQr-ARuJ->
-X-ME-Proxy-Cause: dmFkZTF3A2RNYDSzppuLfJv23ZeZqdZGjyr5+tBcTjdHmcnhg1lhAuR3eU80W8lWp3/t4/
-    28U5Ft9H89wUqxgNArx4xzHPGqFa/uTLcArDMuZejURvlfVcMJ7+2Sb2vI3dQTernsAfIM
-    xijTQFmgCvqYqhM+8dCUDvrUVK1Td/1Zj1qlZ25QQ5MfYQybPKaJpZSu1SyP6m+v1SdZk4
-    U3ob8VISlbglRKgsG3RRekDxTc+tSpCEs9rypv1SF8lV9q6R+t5ZeIH2K9jtMg3dndG88H
-    mFVvmQ7mZe6iNtauJYapEySSpQu1mSTsHL+MeJ033nVKZYNhgvv43tEPQWXGdePMNytJZs
-    tbFJgJZhua2VyHCpJU6EdhK+9R8c1JK/45XF9Wh2Wwpg8LDW1AcWfIkYjYqZll94rC/9ML
-    mvhYm6Rp2MCpQu6GSCxa5CkBuiXAuadGPZCbko/j3PYQagwcH6AkHXm581IQ3MGpVi1h/4
-    rIvakyIgBdnpNHrtYwIuCHN5HLzDYJoFvB5qh3O8P/ZLJX7PkRWThHoTXcQ0/nk0ckNn0v
-    /w9SLGsRzXWT2FGPgMx1soZaCG8UUFFjkpQ9POBCeBOpiiBJYugm+yvoa4pPff1RyyJL44
-    4W3Qe3QNbPHBb+y8SA7w260ts37cjWiuaY8N9dMYSj6GfHl2Jv++q1WnG04w
-X-ME-Proxy: <xmx:FLLvap2CilXIFKeyzbWfg7a8MikhTslAn0T7S5KUOUjZsVo3A5Szbg>
-    <xmx:FLLvas9_LPNbacbp5NEJVZy9ULbX0ndjpC9O6SGdXMXJKsOOqaI3lg>
-    <xmx:FLLvapoaJ-fYGeKv9OdeqoOtlh_R5EpdNvci6F8ixZbxtgM-Un3Ajg>
-    <xmx:FLLvamTfBCExPNfYDIbg0Z7WMJqQigtNtJYkzyTBc4KDi7R-9P-F0A>
-    <xmx:FLLvajoEPFuxi-a1dKCKcDTwOA6IzfOH9E8p-MspiFSO_5vqwt3LGQCV>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 7 Nov 2026 18:19:47 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=efvkRhXd
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8446af403b5so40080a34.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 15:23:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794093785; x=1794698585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wjc637b5mR1rWcFoGPlClV34pmy3lLIZ+mkAlzih90I=;
+        b=efvkRhXdSfSqtBZv5C8xbgRbpRTnG3wxY9qzpi1f3lBED9RyKEGdkFbfMOff+5MyDT
+         FEkUhpDVD5hVAaS/fNU2jleG4/NQ4Jgc2pCg0tvIbW4FR3wDrTbnJd2NaGxwVK1Tz234
+         ikdtMWMDoblClxpb6TR3JeSKJU2DnvkJUH/T/ZpnvQwDlyz6jk3kPaYOmILXg5s8PvDD
+         h09jwIhTg1oGXp0Dc1pUn2292fOeSsAeNE3E9J1CqHa4PKprF0vOEjYd+7WEVICylEV4
+         zqfGHIOjX+o/iBpMuXv9ntd2FpfrVqQbVXr/1LUzqWDz+itMV7aUZnvgUlfLoddcz1Kl
+         ezkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794093785; x=1794698585;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wjc637b5mR1rWcFoGPlClV34pmy3lLIZ+mkAlzih90I=;
+        b=1Rw2ZrfWx/EOCHkK8P/R0RAcrgObFHvhHEfzsIeG74qXbQFPtraEjqyglRKyLcXft8
+         er7a70uzSc4CyCqsXkJNmfkyxHjsmKezWScnMOKRXB8f1V1MgZAvIUOGtilJNYnDnU8+
+         Y5HJazU/ahojmiWHnysS+CuZ6IEe91QQ1LlaJJYausdVBef1KCMixSuJ+J3ZJDL9FSY7
+         npMcsQe///xF86WwpLOhulEUt0xNRVDeEfSjxWtfu/BA8d4QPIGZjFgvT6KeAJ+Fa6oJ
+         OOl1p08ooNTGzs83uS4a4CGONobHStFz5cpktxyZVpToUYeEE+BVfy2SNBNppWg02cSz
+         //Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7oGpTaRkLdarbSdWbBkCE2rkd6AFDLIIe9YG83dV4q1CjDFAQHSx9lb+Pu4UBrKt0lUxISn+WUCqz4AI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+v8RovoSnmb9gpiE8RoJNBpBCwYVtmDd9XxetVrJzW8o6NANuF
+	i4HAyVjJMPHRQVjJD4etqfZiiqno7FiWTq1dkCRt0scryo/cnbkq/ncJ
+X-Gm-Gg: AYBFou3yaTIFzzvzvcWPnbwbFpURPJv7X7Xn72ul/ysmZSofVfZ8X/oTRuBFdKdpeIl
+	U8jIRump++kRqNxQlFhiiereP/7gUBUpje5zwklFZ7+BhbVlePFEfvNf/vDN0PCehk8NIj+98iJ
+	q+jqE3ELGUuTNzLveIvfL0Z0RoTSlUePym2zzDhHWayZDxZMyeXyQvWFtNPIlLm4WpUPyYs0dbi
+	1YEVXHcaJaJprJW0x7ayh1C1QPnEAt+KrvaeV7R9Yrmtl/5THG8o7l9w4T7RGpDykOAgbVjs4Pb
+	J7xvTdWocG/FKFNGjp9ysuOPWdJ6jAYkH29YhLzxaamyO5T8hoOmWMtsKhzoNhddB59QazjssM8
+	HtWjb7kEbcGfRJhbbZ/sM+B1orV/gJut73OuNLE8qzgi2lXfcT5FpKEq2KNE4Zphnoy6uedI0mH
+	bJ/SRmnyqICHBdco+7wbOvjlN5ZqZ6ph+ic03zbOdizJ3BZc5+fkmhWs7OpI6ydnW9XSUp8gcj5
+	/oP1B5CQGmovZc3AtAUY+Sp9SCPaR+pReLGbsFOhPQD/1daoq4yOZ8+FVPtWabpGWUi5Z+261Iq
+	aU/cpt+qWo6j
+X-Received: by 2002:a05:6830:4494:b0:81c:a8c5:633c with SMTP id 46e09a7af769-85f50724927mr150239a34.17.1794093785105;
+        Sat, 07 Nov 2026 15:23:05 -0800 (PST)
+Received: from huawei-d14 ([2806:104e:25:7de8::2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4f2df8dfsm329315a34.0.2026.11.07.15.23.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 15:23:04 -0800 (PST)
+From: Samuel Leyva <samuelslg03idk@gmail.com>
+To: broonie@kernel.org
+Cc: Vijendar.Mukunda@amd.com,
+	venkataprasad.potturu@amd.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] ksmbd: evaluate the DACL in order for explicit access requests
-Date: Sat,  7 Nov 2026 17:19:40 -0600
-Message-ID: <20261107231941.1824289-2-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107231941.1824289-1-icb@fastmail.org>
-References: <20261107231941.1824289-1-icb@fastmail.org>
+	Samuel Leyva <samuelslg03idk@gmail.com>
+Subject: [PATCH v2 0/2] ASoC: amd: acp: Support Huawei MateBook D 14 (NBM-WXX9)
+Date: Sat,  7 Nov 2026 17:22:23 -0600
+Message-ID: <20261107232225.3838-1-samuelslg03idk@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,265 +102,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For requests without MAXIMUM_ALLOWED, smb_check_perm_dacl() selects one
-ACE: the first for the caller or the last Everyone or Authenticated
-Users ACE. When that ACE is a deny ACE, the function allows the
-complement of the ACE's mask, so the deny grants every right it does
-not name. Deny ACEs before the selected ACE are ignored. The selected
-ACE can also be an inherit-only ACE, an ACE of an unsupported type, or
-an NFS mode ACE. Guest and anonymous sessions also match Authenticated
-Users, although they are not authenticated.
+The Huawei MateBook D 14 AMD (NBM-WXX9) has the same ES8336 + ACP3x
+audio layout as the already supported BOM-WXX9, but is missing from
+the DMI tables, so only the DMIC-only driver binds and the speakers
+do not work.
 
-These bugs give real SMB access on acl_xattr shares. A deny of
-FILE_READ_DATA can grant FILE_WRITE_DATA, and a deny of FILE_WRITE_DATA
-can grant FILE_READ_DATA. A deny ACE for Everyone does the same for
-every caller, including guests. Guest and anonymous sessions can also
-read files granted only to Authenticated Users.
+Patch 1 adds the DMI quirk.
 
-Use the ordered DACL walk for explicit requests. Match, by exact SID,
-the caller, Everyone, Authenticated Users for authenticated sessions,
-OWNER RIGHTS for the owner and the caller's groups. Ignore the NFS
-mode SID.
+Patch 2 greatly reduces a pop heard every time the speaker output powers
+up (a faint one is still audible on this machine):
+the speaker amplifier GPIO was driven from a SUPPLY widget, which DAPM
+enables before the codec output. It is independent of patch 1.
 
-Keep the single-ACE evaluation when a non-inherit-only object deny ACE
-is present, as ksmbd does not parse those ACEs. Guest and anonymous
-sessions do not match Authenticated Users there either.
-MAXIMUM_ALLOWED remains unchanged.
+Both were tested as an out-of-tree DKMS module on the NBM-WXX9.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Fixes: cc2f133e80eb ("ksmbd: fix maximum allowed access checks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+Changes in v2:
+- Patch 2: only move the speaker amplifier to the endpoint widget.
+  The Headphone widget shares its power-up rank with the ES8316 output
+  drivers, so the reordering did not hold for headphones (Sashiko).
+- Patch 2: use braces on both if/else branches (Sashiko).
+- Patch 2: add Fixes tag (Sashiko).
+- Patch 1: unchanged.
 
-Notes:
-    This patch changes explicit requests only. MAXIMUM_ALLOWED and
-    maximal-access replies still treat guest and anonymous sessions as
-    Authenticated Users.
-    
-    The NFS mode ACE carries the POSIX mode but names no caller, so the
-    DACL check ignores it. inode_permission() still enforces the mode.
-    
-    Ordered evaluation now allows a right that an allow ACE grants
-    before a later deny ACE names it. A reproducer is available on
-    request.
+Samuel Leyva (2):
+  ASoC: amd: acp: Add DMI quirk for Huawei MateBook D 14 (NBM-WXX9)
+  ASoC: amd: acp: es83xx: Enable speaker amplifier after the codec
+    output
 
- fs/smb/server/mgmt/user_config.h   |  5 ++++
- fs/smb/server/smb2pdu.c            | 11 +++++--
- fs/smb/server/smbacl.c             | 47 +++++++++++++++++++++++-------
- fs/smb/server/smbacl.h             |  2 +-
- fs/smb/server/tests/smbacl_kunit.c |  4 +--
- 5 files changed, 53 insertions(+), 16 deletions(-)
+ sound/soc/amd/acp-config.c                    | 14 +++++++++++
+ sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c | 24 +++++++++++++------
+ 2 files changed, 31 insertions(+), 7 deletions(-)
 
-diff --git a/fs/smb/server/mgmt/user_config.h b/fs/smb/server/mgmt/user_config.h
-index cc460b4ff7d3..e116b2ee9917 100644
---- a/fs/smb/server/mgmt/user_config.h
-+++ b/fs/smb/server/mgmt/user_config.h
-@@ -67,4 +67,9 @@ struct ksmbd_user *ksmbd_alloc_user(struct ksmbd_login_response *resp,
- void ksmbd_free_user(struct ksmbd_user *user);
- bool ksmbd_anonymous_user(struct ksmbd_user *user);
- bool ksmbd_compare_user(struct ksmbd_user *u1, struct ksmbd_user *u2);
-+
-+static inline bool ksmbd_user_authenticated(struct ksmbd_user *user)
-+{
-+	return user && !user_guest(user) && !ksmbd_anonymous_user(user);
-+}
- #endif /* __USER_CONFIG_MANAGEMENT_H__ */
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5bbc33d5a3a8..72981756ee23 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -4338,7 +4338,8 @@ static int smb2_handle_app_instance_id(struct ksmbd_work *work,
- 	/* Authorize the referenced open even if its name changes meanwhile. */
- 	old_path = &old_fp->filp->f_path;
- 	rc = smb_check_perm_dacl(conn, old_path, &maximal_access, 0,
--				 work->sess->user->uid, false);
-+				 work->sess->user->uid,
-+				 ksmbd_user_authenticated(work->sess->user), false);
- 	if (rc) {
- 		/* Access denial prevents takeover, not the CREATE itself. */
- 		ksmbd_put_durable_fd(old_fp);
-@@ -4860,14 +4861,17 @@ int smb2_open(struct ksmbd_work *work)
- 	if (file_present && !(req->CreateOptions & FILE_DELETE_ON_CLOSE_LE)) {
- 		rc = smb_check_perm_dacl(conn, &path, &daccess,
- 					 req->DesiredAccess,
--					 sess->user->uid, false);
-+					 sess->user->uid,
-+					 ksmbd_user_authenticated(sess->user), false);
- 		if (rc)
- 			goto err_out;
- 
- 		if (maximal_access_ctxt) {
- 			maximal_access = FILE_MAXIMAL_ACCESS_LE;
- 			rc = smb_check_perm_dacl(conn, &path, &maximal_access,
--						 0, sess->user->uid, false);
-+						 0, sess->user->uid,
-+						 ksmbd_user_authenticated(sess->user),
-+						 false);
- 			if (rc)
- 				goto err_out;
- 
-@@ -6347,6 +6351,7 @@ static int process_query_dir_entries(struct smb2_query_dir_private *priv)
- 			rc = smb_check_perm_dacl(priv->work->conn, &path,
- 						 &daccess, daccess,
- 						 priv->work->sess->user->uid,
-+						 ksmbd_user_authenticated(priv->work->sess->user),
- 						 true);
- 			if (rc) {
- 				dput(dent);
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 32feafe9f73b..f773ab8efb3f 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1478,6 +1478,12 @@ static bool smb_sid_in_group(const struct smb_sid *sid)
- 	return in_group_p(make_kgid(&init_user_ns, gid));
- }
- 
-+/* Whether two SIDs are the same SID */
-+static bool smb_sid_equal(const struct smb_sid *a, const struct smb_sid *b)
-+{
-+	return a->num_subauth == b->num_subauth && !compare_sids(a, b);
-+}
-+
- /*
-  * compare_sids() compares only the sub-authorities both SIDs have, so it
-  * also matches a shorter or longer SID, such as S-1-3 or S-1-3-4-777
-@@ -1490,7 +1496,7 @@ static bool smb_sid_is_owner_rights(const struct smb_sid *sid)
- 
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
--			bool strict)
-+			bool authenticated, bool strict)
- {
- 	const struct mnt_idmap *idmap = mnt_idmap(path->mnt);
- 	struct smb_ntsd *pntsd = NULL;
-@@ -1513,6 +1519,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	unsigned short ace_size;
- 	bool is_owner, owner_rights = false;
- 	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
-+	/*
-+	 * MAXIMUM_ALLOWED requests match every session against
-+	 * Authenticated Users.
-+	 */
-+	bool authusers = authenticated || maximal;
- 	vfsuid_t vfsuid;
- 
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
-@@ -1564,9 +1575,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 
- 	/*
- 	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2). access_bits collects
--	 * the MAXIMUM_ALLOWED result. grp_granted collects what ACEs for the
--	 * caller's groups, or OWNER RIGHTS for the owner, grant. It is used
--	 * when the SID lookup and POSIX ACL fallback below do not decide.
-+	 * the result for the ACEs that apply to the caller, without its groups
-+	 * for MAXIMUM_ALLOWED. grp_granted collects what ACEs for the caller's
-+	 * groups, or OWNER RIGHTS for the owner, grant. It is used when the
-+	 * SID lookup and POSIX ACL fallback below do not decide.
- 	 */
- 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 	aces_size = pdacl_size - sizeof(struct smb_acl);
-@@ -1606,10 +1618,18 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		    (compare_sids(&sid, &ace->sid) &&
- 		     compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
- 		     compare_sids(&sid_everyone, &ace->sid) &&
--		     compare_sids(&sid_authusers, &ace->sid) &&
-+		     (!authusers ||
-+		      compare_sids(&sid_authusers, &ace->sid)) &&
- 		     compare_sids(&sid_owner_rights, &ace->sid) &&
- 		     !member))
- 			goto next_ace;
-+		/* An explicit request counts only SIDs that match exactly */
-+		if (!maximal && !member &&
-+		    !smb_sid_equal(&sid, &ace->sid) &&
-+		    !smb_sid_equal(&sid_everyone, &ace->sid) &&
-+		    !(authusers && smb_sid_equal(&sid_authusers, &ace->sid)) &&
-+		    !smb_sid_is_owner_rights(&ace->sid))
-+			goto next_ace;
- 
- 		bits = le32_to_cpu(ace->access_req);
- 		switch (ace->type) {
-@@ -1627,8 +1647,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		case ACCESS_DENIED_CALLBACK_ACE_TYPE:
- 			if (counted)
- 				grp_denied |= ~grp_allowed & bits;
--			/* access_bits takes no group denials either */
--			if (!member)
-+			/* MAXIMUM_ALLOWED takes no group denials either */
-+			if (!(maximal && member))
- 				denied |= ~access_bits & bits;
- 			break;
- 		}
-@@ -1648,8 +1668,14 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
- 			access_bits |= FILE_EXECUTE;
- 		granted = requested | access_bits;
-+	} else if (!obj_deny) {
-+		/* An explicit request takes the ordered result */
-+		access_bits &= ~denied;
- 	} else {
--		/* An explicit request uses only grp_granted and obj_deny */
-+		/*
-+		 * ksmbd does not parse object deny ACEs, so with one present an
-+		 * explicit request keeps the answer of the ACE found below
-+		 */
- 		access_bits = 0;
- 	}
- 
-@@ -1680,7 +1706,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		    !(ace->flags & INHERIT_ONLY_ACE))
- 			or_ace = true;
- 		if (!compare_sids(&sid_everyone, &ace->sid) ||
--		    !compare_sids(&sid_authusers, &ace->sid))
-+		    (authusers &&
-+		     !compare_sids(&sid_authusers, &ace->sid)))
- 			others_ace = ace;
- 
- 		ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
-@@ -1752,7 +1779,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		}
- 	}
- 
--	if (!maximal) {
-+	if (!maximal && obj_deny) {
- 		switch (ace->type) {
- 		case ACCESS_ALLOWED_ACE_TYPE:
- 			access_bits = le32_to_cpu(ace->access_req);
-diff --git a/fs/smb/server/smbacl.h b/fs/smb/server/smbacl.h
-index 3342cebab333..bbd35948a379 100644
---- a/fs/smb/server/smbacl.h
-+++ b/fs/smb/server/smbacl.h
-@@ -97,7 +97,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		     unsigned int uid, unsigned int gid);
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
--			bool strict);
-+			bool authenticated, bool strict);
- int set_info_sec(struct ksmbd_conn *conn, struct ksmbd_tree_connect *tcon,
- 		 const struct path *path, struct smb_ntsd *pntsd, int ntsd_len,
- 		 bool type_check, bool get_write, bool posix_open,
-diff --git a/fs/smb/server/tests/smbacl_kunit.c b/fs/smb/server/tests/smbacl_kunit.c
-index 33496b4d31a3..bf28439a7696 100644
---- a/fs/smb/server/tests/smbacl_kunit.c
-+++ b/fs/smb/server/tests/smbacl_kunit.c
-@@ -229,7 +229,7 @@ static void ksmbd_smb_check_perm_dacl_boundary_test(struct kunit *test)
- 		goto out;
- 
- 	rc = smb_check_perm_dacl(NULL, &file->f_path, &daccess,
--				 cpu_to_le32(FILE_READ_DATA), 0, false);
-+				 cpu_to_le32(FILE_READ_DATA), 0, true, false);
- 
- 	/*
- 	 * The post-boundary ACE (ACE #2, beyond pdacl->size) grants
-@@ -271,7 +271,7 @@ ksmbd_smb_check_perm_dacl_maximal_boundary_test(struct kunit *test)
- 		goto out;
- 
- 	rc = smb_check_perm_dacl(NULL, &file->f_path, &daccess,
--				 FILE_MAXIMAL_ACCESS_LE, 0, false);
-+				 FILE_MAXIMAL_ACCESS_LE, 0, true, false);
- 	KUNIT_EXPECT_EQ(test, 0, rc);
- 	if (rc)
- 		goto out;
 -- 
-2.47.3
+2.56.0
 
