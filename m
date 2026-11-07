@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794072985;
-	b=gL/g/bJVMy17wZRvWT3vkSDk01rrMSdNd28ih0hQCfEFWqWtbYUZREz8hQevoJz1eq/O
-	 h53p1q3xCB7jD5ak74bZl9PPHy7kAAgo5vp6vWcPJXl3/bGQcUn+ciAh5XvATFNm0YrlI
-	 08QW7ByRcbClpVxJVvszKLemtR0CSn4Z8cBh6ncdJwey/W0AcR4QfSxSMjG6yhKNtfXvw
-	 ADIdtI2VnG1HV5jbeLxGvoRsRSuwx6HDvDkDy9T1amDaW8Hddd6mskTQdYzFfz9VKMbZ1
-	 fikmv2yRdn5PtY20JgVa+ALnmH5eopUlevObK2FyFIAkeWVZAh/CkF/yyiKO7GG8clw==
+	t=1794072990;
+	b=o4g41B5H9h0262Pa1aSQbkiaFeYJ/MWtKvlTVMwVi0FhfDcT4aWOQ9vYbAm3p5RNuJDo
+	 kppFe59pCo/tCoSD/khycOzPF2qDy/fypfV9yZmgm1l/3K7owS74WojWrFeLxo82yl3QJ
+	 T/ozT24DiYStc2CLgfSgJs2t6RPmDWZycRTlUmqXBIzPazE0mk5ssbSEdNdKRP2IoKiSp
+	 fpubVc1VCPrwhN360uwqI7G9JlWtJrjHQvJ1Hq887RqbpbD+cy+kvr3JaHliRYzPqnTWR
+	 H5nBeMJjRxM44HNZcqRbKTSMe2BG5ulMw2QrQim1/tPG/ZhF0vyLe3JMeptA14vk8tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794072985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794072990;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
-	b=v34efmyYMuqja8O7iLGdWK3LtEADGf3yudcNcMed7gijql2zinIbKKvB2p0GyYNlMDLe
-	 zmaIrqOA1LgY/Se11se23Z9tx1C6xEn5O+X5ao6c1aMLIEISTKh9rlOOkOl3zMB1Myb27
-	 kaLEJAq3iC7az+cECGRn+LY4iir1afqPyf6Ue4WLO4RSo1IMUd9osKeez+vt+aRogez9h
-	 OSsiWuhKa/LkgB1bwa4K/dvKkvN8y2lqNZNChcr6J5ZDyZRLhQmWcg7qG0s9SPH2T5bh9
-	 n5+i+sBk7+8t3rlQt3lSCvT5agid1tXdY/HVcUXsrbUpOIBeXe0tCDSXDN6fXwScwuw==
+	bh=Zcb5445YiVrXkw3TVtZShbjqyVnT/6aqrHWFz/Ykqto=;
+	b=ECV8FRrU6vZRwtlc48ypL55TMulOOFqnW+9xpJT0ObMz0obaE6nW1/y75cQqfGaGiU6e
+	 CMocHtEyUj8ClNVfOFf9UTLjG3mEArSlhneby+dzJUsgdedhYzuWfAXc2wAmLipAdQHjD
+	 pUEDmSyc+6iRdTe7kCnL8BQgA/kVTjHJblPwkazsphyx3f4DAoVG6wzklbI9UjUaWN69g
+	 ZBymG4ww+FhJyzyMrhKPJkQQes47zia6LS+GhTTHdVK7gAyWq+ZB13JB4p9yIgSVXzwSf
+	 +lX1wrE248zEqw4IMxIdVkQFU0HIOPnCwIT9ZEKJaKXZLPZ5S27Q2VTLe4eK9D0NhFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LcWuYdtK;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ql5gha3W;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CB7606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:36:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86CB7606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9001D606A334
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:36:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9001D606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LcWuYdtK
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so2848331a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:36:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ql5gha3W
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso1951497a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:36:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794072984; x=1794677784; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794072988; x=1794677788; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
-        b=LcWuYdtKzAQXjAiGkMtC7MFNLWxj5VWUkZsCGKXE/bHjOzCY800sS0xQ6APOiCApor
-         zKE/pNrCyBlWUBpEKaoTFG1lNH0NlVdxnCYxjFnyCA+2lNqxYh0O51TqqxVrN3bVS9c7
-         C5BJyHFx0y7nkJoPqVS5anAsm7fgUOi66fq479C17gGqt46M9CtWYSAYR86DWkONojQN
-         TQErmaSF+CGLq3Ip4mpd9Twi2UEAzgXVCeR/iMIh3oMWL8oq2P+uCUljS8a0LhWrokIl
-         HcmlLk+y7rgGcvfXCo+WUO5ezv5KAxsyf/+smhk+U4S9itLfTCnHDm8odwUKws6ZHBqR
-         vmWw==
+        bh=Zcb5445YiVrXkw3TVtZShbjqyVnT/6aqrHWFz/Ykqto=;
+        b=Ql5gha3WSkvZZGQcUTTPxxfTWFX4vNGBZ9KzjFRg3Q8XLAa4+pRXrFhZ02GlfGXqe1
+         zA86pREG7LZygl/5elO9OeeHtRQk3lVN8sEtVQrNPZfHHV0JTIsUj+2Oh9MLoaEhJe6p
+         LxgZUCb2bLjyrSiFHeQRg9Db+LYR2nYHhNbWWWfDB44UXYEm7fvZ1zs0fWjRuHwzwrwF
+         4d4ubqouPBAzMKSo9hUHQqTRfPnno9IdA3uS1OPkJdUodCqitXJYuy/TNpDqHOgv7TJW
+         SfMVQ1xYy2usz70n1TTzZMwuHsnxMcjg95euQs9jCis3uu0cDwYJlwVUnty1J8CSnXF/
+         KzfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794072984; x=1794677784;
+        d=1e100.net; s=20260707; t=1794072988; x=1794677788;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mC2u0vUUXfAcht3UeB6sS34d5oV5j/9WVSnyafoVF9E=;
-        b=XAHdOxwA1gPPI26uocGQW8035azJzFZbG0kxc2xoDsZy3uKCp6LOz0KwEO+SVdmMau
-         xBiEtoyHJMkoyzhrXpnAKeWAx6x7RCzg82Zad08ymldeUjljIxHfs0oTqa71xnsjBZkX
-         jzb/uqB07SFER3BjcLEZ3n1HcN/KMnR2iSOjgSoFtRslE/LNleg9zSG+kvmrzmsEsjI1
-         pR+SJWqTaEzubTVayJqjJIHwpPxFcsfJg6sxNlAd0Z3ju9mS8zFki0WJxNR+jm89/PSa
-         8iXEUFCN21YnNXQ7QfT8s1Ob38dBIIzdfvM0xkD8jBua+9As9cmm10/DpYRuaFLn3W8c
-         GlbA==
-X-Forwarded-Encrypted: i=1; AL+hErFHRrpkoByiJoJvn4WGkVd3wYiJnf9qdSbXo0hLKwxTy5lEqgnRgltAwr4bdaQXwtwS2tP5BoJ9iPLb1P8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/W+hXhFd3aTxBrHsqP5UKlOhAhRpgIra2GAETL0prgx8Hwt78Y
-	gV/UJ2p2GSK8jZ/7l9UPK/hz4t88xrL1cwb34lUIkREhyuN++BELdae0tir4119B
-X-Gm-Gg: AYBFou2jQvmt9NdVlgo2wAxtPKpTuL0vgDhhfc4/6wsj0fV2MbIgITKrXur/xsRQcOr
-	52PcVIKB+a6tf3D/mFlGBnLkAqyIOLdzDOLd1fD7u66SYoepzD91HJZydFS+wjJM4yvllu4nkcs
-	Z5uIwgN6gTxfKtPZuZ5qJTYlsKTNBJMKVqRTSTi4tbqoM2k/h6rrdCpj9aHenvQ1+wqR0qVgQWs
-	XCfpaiFSAODQMvZHer1QmVEDKkUFoLSKvgmNOiGrcJuoiNTNNP3BrzOv/YRlLaTI1f8/Amh+JrV
-	UEBSIRzlMqPanelBgIVOGhXXS56COl3ELUtaX66vyYqAzb/1xW2zfqWhtyLlv/3MToY8D1MJ01I
-	hkcoGfFCVhkqTYmXCmUAV8Uu0X2x9T3FjTvEzaWxJIzN33lybr210wuBeaq2wXOWSfANWXspTDs
-	Q5NLDxemosj/uNavopfmLlROAzQhnpHoGtlc6N8bb2QjYiSKHQZq532VSahdJUqzB65MOX8vY10
-	VVxH4tLHsensr2zYGNUsFIjjAKHxlx5sc2RUyxM1B3fbLDfq9B/mC7oatY/owX27Wa1lZ630tKY
-	DJ1poljbewISgoVY291MR2429hfkE0hlSkoyCfhAqbS7I2b1dfzMAwz4KR4=
-X-Received: by 2002:a05:6402:27cf:b0:6b4:16fb:b9ba with SMTP id 4fb4d7f45d1cf-6b5977f7062mr3789365a12.36.1794072983832;
-        Sat, 07 Nov 2026 09:36:23 -0800 (PST)
+        bh=Zcb5445YiVrXkw3TVtZShbjqyVnT/6aqrHWFz/Ykqto=;
+        b=qAv6QCwAzjX3oYYeMnqZwG+R3De+cxxGXsg1JhHkY2iFfxXB3zOB2z7tGSDmdX6DGU
+         E1FIORLAFepLRHmgo7dQY4bSh8FgkCSNQbdPYjvxHwN5KmglKhsAqU/LuIyusjCsmq1q
+         zuNQmaSsBrREgDGqEAb4h4Q4oCNvIgWvPyLJVspZ7/gmtR3Rb5f7MFd4ASIxMHhXoT7D
+         3SyFGn218lx/9lARsp8qzZ05i8we8L7bhhs0za4j3JJN9tpsPrU1BH6WBMoQrN5CTyzD
+         51QuEn/nlDDI0jEeTo4cJqXpRrnm92y2iXYbDpH/iJ/SoOR3terh76+QLXIcuudEyHMw
+         spSA==
+X-Forwarded-Encrypted: i=1; AL+hErF975xNghh/Td/4vmlkQxdraXBxDjBC2oJrulaEvb+GnwIrCIaIU6EkgD2CwxikT6r0p6TT1b6yn8KgqfQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7FHvipO3XcvK7yaoYiqSYIS7QtqYICR5856lIVDhYkqKVPuVP
+	2v5wx/6PyCIVRGnuCWsQ+O4x2A0c2Gg2HU8eC77dCLqz2ts6nokdLFej
+X-Gm-Gg: AYBFou1GkyXmy9BV3SkYC8Of6H63k5Z40NVARC7C2c/itSD/CgmpGng1Bth90U5ti5x
+	AiLIPEmbqn+3mmxUUKs/qeEpStzoinXX1GGPiBGav6ENLeVPcRAgmG2VlMJtXKcuzgcEohx6ZUc
+	cjObIXkcM+mIWkKNFr3FtmCa3Ig1JSqJBQDCfBLSROsSs40rvwRYNTwjHBTP2Lbr+Aa5pG2Hxa3
+	ibMyrvTFtq3SW0OLy6kJJiwi/XcEsCPgDt9+TBp3mUoohe4LHkK9WDHzYxl6PEdAjDxgyDisexS
+	6Bgl5GzCdTbtLhVNYhyiDGkKa6Gx/VI0+QvDymvNtvlU4GcVxiLBUyq2JJaQ3MsIXftINogW9Cc
+	4hJ1ow7YTdbH1r68sNvEo94bDonoJN7EHyPykn8iDByhOtDKu+Semq79LUn8Po84Xen7jYbps5A
+	2xnDSbPhfnT4mWG1Ie480nhbAWwx0257ksuDUK9T5xmyeTIh4VyuXx7jyiBlaFn8DzlutzcxjTl
+	GnT2IGOklMgsQWs7lYen3wb/BblfPjKgOSxXIsAyZlFGPRjpfu2ojM5MF6zyD4NUW5sWrqqN4H9
+	lgVpmRZzB7+5YLI4j3ras2NP/UrKUhziWGipPTmS5gt9cGHlxrqCpWajb6k=
+X-Received: by 2002:a05:6402:3219:b0:6b6:e759:b5da with SMTP id 4fb4d7f45d1cf-6b6e759b78fmr3202045a12.19.1794072987863;
+        Sat, 07 Nov 2026 09:36:27 -0800 (PST)
 Received: from frame (h-155-4-132-44.NA.cust.bahnhof.se. [155.4.132.44])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664afbc12sm1890076a12.22.2026.11.07.09.36.21
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664afbc12sm1890076a12.22.2026.11.07.09.36.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:36:22 -0800 (PST)
+        Sat, 07 Nov 2026 09:36:26 -0800 (PST)
 From: Elvira Khabirova <lineprinter0@gmail.com>
 To: Bin Liu <b-liu@ti.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -85,9 +85,9 @@ Cc: =?UTF-8?q?Hubert=20Wi=C5=9Bniewski?= <hubert.wisniewski.25632@gmail.com>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Elvira Khabirova <lineprinter0@gmail.com>
-Subject: [PATCH v3 1/2] usb: musb: gadget: count givebacks in busy
-Date: Sat,  7 Nov 2026 18:36:00 +0100
-Message-ID: <20261107173601.63095-2-lineprinter0@gmail.com>
+Subject: [PATCH v3 2/2] usb: musb: gadget: don't flush a waiting RX packet when queueing a request
+Date: Sat,  7 Nov 2026 18:36:01 +0100
+Message-ID: <20261107173601.63095-3-lineprinter0@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261107173601.63095-1-lineprinter0@gmail.com>
 References: <20261107173601.63095-1-lineprinter0@gmail.com>
@@ -102,120 +102,362 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ep->busy flag is used by musb_g_giveback() to signal that
-req->complete() is running on an endpoint, the ep is busy and
-starting a new request is not appropriate right now.
+Since commit 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx
+endpoint request"), musb_ep_restart() flushes the RX FIFO instead of
+calling rxstate(), with the premise that in case of Ethernet, dropping
+a couple of packets during gadget initialization is not an issue,
+because it will only happen when the software is not yet ready.
 
-It is only a flag and not a counter currently;
-musb_g_giveback() saves the old ep->busy value, sets busy to 1,
-releases musb->lock, runs req->complete(), restores the old ep->busy.
-This works when there is no possibility of two musb_g_giveback()s
-running in parallel.
+But when using other functions with musb, for example, f_mass_storage
+or f_acm, this code path will be used not only when the software is not
+yet ready, but also mid-communication, and it will cause data loss.
+Data loss happens on gadgets that don't always have requests queued
+for an ep.
 
-This does not work when musb_gadget_dequeue()->...->musb_g_giveback()
-happens at the same time as musb_interrupt()->...->musb_g_giveback().
-The above save-then-restore can get the busy flag stuck at 1.
+The timeline of a data loss:
 
-  CPU0 (interrupt)                CPU1 (usb_ep_dequeue())
-  giveback: saved 0, busy = 1
-  unlock, ->complete()
-                                  giveback: saved 1, busy = 1
-                                  unlock, ->complete()
-  lock, busy = 0
-                                  lock, busy = 1
+1. A function that does not have a lot of requests pre-queued
+   completes an OUT request. The queue is empty.
+2. The next packet comes. MUSB auto-acks it, places it into the FIFO,
+   sets RXPKTRDY, raises an interrupt.
+3. musb_g_rx() is called, sees the request queue is empty,
+   early returns.
+4. The function queues the next request (f_mass_storage does it from
+   the main fsg thread), musb_ep_restart does FLUSHFIFO, packet is lost.
+5. The packet was auto-acked by MUSB, so it is not resent by the host.
 
-...and this gets the entire endpoint stuck.
+Next data chunk arrives with an IRQ like so:
 
-This was reproduced and the patch was tested on a Pine A64+
-(Allwinner A64, four cores, no DMA) with PREEMPT_DYNAMIC and lockdep,
-using a specially constructed f_fs function that keeps two AIO requests
-queued on a bulk endpoint and cancels the newer one with io_cancel(),
-in a loop. Tested with both a bulk IN and a bulk OUT endpoint.
+musb_g_rx returns, queue empty
+        (drivers/usb/musb/musb_gadget.c:810)
+musb_g_rx from musb_interrupt
+        (drivers/usb/musb/musb_core.c:1786)
+musb_interrupt from dsps_interrupt
+        (drivers/usb/musb/musb_dsps.c:389)
 
-If musb_g_giveback() were to be started from some other context,
-the same issue would come up.
+and then it is dropped from the FIFO when usb_ep_queue() is called:
 
-"Promote" ep->busy from a flag to a counter.
+MUSB_RXCSR_FLUSHFIFO from musb_ep_restart
+        (drivers/usb/musb/musb_gadget.c:1174)
+musb_ep_restart from musb_ep_restart_resume_work
+        (drivers/usb/musb/musb_gadget.c:1184)
+musb_ep_restart_resume_work from musb_queue_resume_work
+        (drivers/usb/musb/musb_core.c:2277)
+musb_queue_resume_work from musb_gadget_queue
+        (drivers/usb/musb/musb_gadget.c:1249)
+musb_gadget_queue from usb_ep_queue
+        (drivers/usb/gadget/udc/core.c:306)
 
-musb_gadget_enable() should not reset `busy` to 0 anymore because
-musb_g_giveback() decrements busy, and if these two run in parallel,
-it would be problematic (cause an underflow).
+In case of f_mass_storage, it keeps waiting for the lost data;
+the host then times out and resets the device. Since this is a race
+condition, this can be seen as data transfers taking too long,
+or as drives getting mounted but disappearing when data
+is read/written, and so on.
 
+  usb 1-8.4: reset high-speed USB device number 31 using xhci_hcd
+  I/O error, dev sdb, sector 240 op 0x1:(WRITE) flags 0x804800 phys_seg 30 prio class 2
+  Buffer I/O error on dev sdb, logical block 30, lost async page write
+
+When testing f_acm, this is seen as byte loss on the tty. f_hid,
+f_printer and f_fs lose data similarly.
+
+Testing with commit 3fc137386c46 ("usb: musb: Fix hardware lockup on
+first Rx endpoint request") reverted fixed these symptoms.
+
+Move the data processing to system_bh_wq. Purpose of doing so is to
+honor the usb_ep_queue docstring and to run in an interrupt context,
+avoiding the lockup Hubert described in his commit message.
+Alternative way of looking at this is it "re-triggers" the interrupt,
+running the musb_g_rx that had to be skipped.
+
+Such a change makes a different race condition more visible.
+On SMP or PREEMPT_RT, the RX interrupt can come while musb_g_giveback()
+is running on the same endpoint and has already dropped musb->lock;
+before this patch, that would be possible only when usb_ep_dequeue()
+runs in parallel with an interrupt, but after this patch,
+it could be the workqueue item running when an interrupt comes.
+Handling it at that moment could lead to packets getting stuck
+never matched with their requests (locking up the device essentially)
+or requests completing but out of order.
+
+So in musb_g_rx() and musb_gadget_queue(), also defer the RX'd data
+to a work item if ep->busy is set. The deferred work items are scheduled
+when the last musb_g_giveback() finishes and busy drops to 0.
+
+On suspend, disable the work items; on resume, enable the work items
+and also schedule one work item on every enabled OUT endpoint,
+to be sure no work is pending from before the suspend.
+
+Do not do any deferral of DMA completion. When musb_g_rx() is called
+with DMAENAB set, it means it's called from musb_dma_completion().
+A DMA completion could not be happening at the same time as
+a workqueue non-DMA giveback (because this DMA needed to be programmed
+first, and programming of a DMA is only possible when all non-DMA
+requests ahead in the request queue already got their givebacks).
+And work items of DMA requests don't do givebacks.
+Deferring DMA completion is more work, so just don't change
+the behavior there.
+
+DMA completion can still race with usb_ep_dequeue(), that's the same
+as without this patch. So DMA situation should not become any worse.
+
+The issue was reproduced and the patch was tested on a BeagleBone Black
+(AM335x, one core, no RX DMA) with f_mass_storage, f_acm, f_hid, f_printer
+and f_fs. It was also verified OK before and after this patch
+with f_ecm and f_ncm.
+
+This issue was also reproduced and the patch was tested on a Pine A64+
+(Allwinner A64, four cores, no DMA) with both PREEMPT_DYNAMIC
+and PREEMPT_RT, with lockdep enabled, with f_mass_storage, f_acm,
+f_hid, f_printer and f_fs. PREEMPT_DYNAMIC was also tested with KASAN.
+
+This patch was also tested with suspend to RAM on the Pine A64+,
+both idle and during a transfer.
+
+Fixes: 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx endpoint request")
 Signed-off-by: Elvira Khabirova <lineprinter0@gmail.com>
 ---
- drivers/usb/musb/musb_gadget.c | 10 +++++-----
- drivers/usb/musb/musb_gadget.h |  2 +-
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/usb/musb/musb_core.c   |   3 +
+ drivers/usb/musb/musb_gadget.c | 118 ++++++++++++++++++++++++++++++++-
+ drivers/usb/musb/musb_gadget.h |   9 +++
+ 3 files changed, 127 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
+index 73ac25f53..38469727a 100644
+--- a/drivers/usb/musb/musb_core.c
++++ b/drivers/usb/musb/musb_core.c
+@@ -2818,6 +2818,8 @@ static int musb_suspend(struct device *dev)
+ 		;
+ 	musb->flush_irq_work = false;
+ 
++	musb_gadget_disable_rx_kicks(musb);
++
+ 	if (!(musb->ops->quirks & MUSB_PRESERVE_SESSION))
+ 		musb_writeb(musb->mregs, MUSB_DEVCTL, 0);
+ 
+@@ -2866,6 +2868,7 @@ static int musb_resume(struct device *dev)
+ 	if ((devctl & mask) != (musb->context.devctl & mask))
+ 		musb->port1_status = 0;
+ 
++	musb_gadget_enable_rx_kicks(musb);
+ 	musb_enable_interrupts(musb);
+ 	musb_platform_enable(musb);
+ 
 diff --git a/drivers/usb/musb/musb_gadget.c b/drivers/usb/musb/musb_gadget.c
-index 016d3f3fc..b500e0d8b 100644
+index b500e0d8b..08bb605aa 100644
 --- a/drivers/usb/musb/musb_gadget.c
 +++ b/drivers/usb/musb/musb_gadget.c
-@@ -129,7 +129,6 @@ __acquires(ep->musb->lock)
- {
- 	struct musb_request	*req;
- 	struct musb		*musb;
--	int			busy = ep->busy;
- 
- 	req = to_musb_request(request);
- 
-@@ -138,7 +137,7 @@ __acquires(ep->musb->lock)
- 		req->request.status = status;
- 	musb = req->musb;
- 
--	ep->busy = 1;
-+	ep->busy++;
- 	spin_unlock(&musb->lock);
- 
- 	if (!dma_mapping_error(&musb->g.dev, request->dma))
-@@ -147,7 +146,7 @@ __acquires(ep->musb->lock)
- 	trace_musb_req_gb(req);
+@@ -147,6 +147,21 @@ __acquires(ep->musb->lock)
  	usb_gadget_giveback_request(&req->ep->end_point, &req->request);
  	spin_lock(&musb->lock);
--	ep->busy = busy;
-+	ep->busy--;
- }
- 
- /* ----------------------------------------------------------------------- */
-@@ -162,7 +161,7 @@ static void nuke(struct musb_ep *ep, const int status)
- 	struct musb_request	*req = NULL;
- 	void __iomem *epio = ep->musb->endpoints[ep->current_epnum].regs;
- 
--	ep->busy = 1;
-+	ep->busy++;
- 
- 	if (is_dma_capable() && ep->dma) {
- 		struct dma_controller	*c = ep->musb->dma_controller;
-@@ -195,6 +194,8 @@ static void nuke(struct musb_ep *ep, const int status)
- 		req = list_first_entry(&ep->req_list, struct musb_request, list);
- 		musb_g_giveback(ep, &req->request, status);
- 	}
+ 	ep->busy--;
 +
-+	ep->busy--;
++	if (!ep->busy && ep->rx_kick_deferred) {
++		ep->rx_kick_deferred = false;
++		if (!queue_work(system_bh_wq, &ep->rx_kick))
++			pm_runtime_put_noidle(musb->controller);
++	}
++}
++
++static void musb_g_defer_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
++{
++	if (musb_ep->rx_kick_deferred)
++		return;
++
++	pm_runtime_get_noresume(musb->controller);
++	musb_ep->rx_kick_deferred = true;
  }
  
  /* ----------------------------------------------------------------------- */
-@@ -1061,7 +1062,6 @@ static int musb_gadget_enable(struct usb_ep *ep,
- 		musb_ep->dma = NULL;
+@@ -817,6 +832,17 @@ void musb_g_rx(struct musb *musb, u8 epnum)
+ 	csr = musb_readw(epio, MUSB_RXCSR);
+ 	dma = is_dma_capable() ? musb_ep->dma : NULL;
  
- 	musb_ep->desc = desc;
--	musb_ep->busy = 0;
- 	musb_ep->wedged = 0;
- 	status = 0;
++	/*
++	 * A giveback is in progress on this endpoint, so the packet can't be
++	 * handled now: the function could get its data out of order. Check for
++	 * the packet once the giveback is done.
++	 * Do not defer DMA completions: only usb_ep_dequeue() can overlap them.
++	 */
++	if (musb_ep->busy && !(csr & MUSB_RXCSR_DMAENAB)) {
++		musb_g_defer_rx_kick(musb, musb_ep);
++		return;
++	}
++
+ 	musb_dbg(musb, "<== %s, rxcsr %04x%s %p", musb_ep->end_point.name,
+ 			csr, dma ? " (dma)" : "", request);
  
+@@ -1111,6 +1137,12 @@ static int musb_gadget_disable(struct usb_ep *ep)
+ 
+ 	/* abort all pending DMA and requests */
+ 	nuke(musb_ep, -ESHUTDOWN);
++	if (cancel_work(&musb_ep->rx_kick))
++		pm_runtime_put_autosuspend(musb->controller);
++	if (musb_ep->rx_kick_deferred) {
++		musb_ep->rx_kick_deferred = false;
++		pm_runtime_put_autosuspend(musb->controller);
++	}
+ 
+ 	musb_ep->desc = NULL;
+ 	musb_ep->end_point.desc = NULL;
+@@ -1171,12 +1203,41 @@ void musb_ep_restart(struct musb *musb, struct musb_request *req)
+ 		txstate(musb, req);
+ 	} else {
+ 		csr = musb_readw(epio, MUSB_RXCSR);
+-		csr |= MUSB_RXCSR_FLUSHFIFO | MUSB_RXCSR_P_WZC_BITS;
+-		musb_writew(epio, MUSB_RXCSR, csr);
+-		musb_writew(epio, MUSB_RXCSR, csr);
++		if (csr & MUSB_RXCSR_RXPKTRDY) {
++			pm_runtime_get_noresume(musb->controller);
++			if (!queue_work(system_bh_wq, &req->ep->rx_kick))
++				pm_runtime_put_noidle(musb->controller);
++		}
+ 	}
+ }
+ 
++static void musb_g_rx_kick(struct work_struct *work)
++{
++	struct musb_ep *musb_ep = container_of(work, struct musb_ep, rx_kick);
++	struct musb *musb = musb_ep->musb;
++	unsigned long flags;
++	u8 epnum = musb_ep->current_epnum;
++	u16 csr;
++
++	spin_lock_irqsave(&musb->lock, flags);
++
++	if (!musb_ep->desc || musb->is_runtime_suspended)
++		goto out;
++
++	if (musb_ep->busy) {
++		musb_g_defer_rx_kick(musb, musb_ep);
++		goto out;
++	}
++
++	musb_ep_select(musb->mregs, epnum);
++	csr = musb_readw(musb->endpoints[epnum].regs, MUSB_RXCSR);
++	if (csr & MUSB_RXCSR_RXPKTRDY)
++		musb_g_rx(musb, epnum);
++out:
++	spin_unlock_irqrestore(&musb->lock, flags);
++	pm_runtime_put_autosuspend(musb->controller);
++}
++
+ static int musb_ep_restart_resume_work(struct musb *musb, void *data)
+ {
+ 	struct musb_request *req = data;
+@@ -1254,6 +1315,15 @@ static int musb_gadget_queue(struct usb_ep *ep, struct usb_request *req,
+ 				__func__, status);
+ 			list_del(&request->list);
+ 		}
++	} else if (musb_ep->busy && !request->tx &&
++		   &request->list == musb_ep->req_list.next) {
++		/*
++		 * A giveback is in progress on this endpoint, so the request
++		 * can't be started now. A packet may already be waiting, its
++		 * interrupt having found no request. Check for the packet once
++		 * the giveback is done.
++		 */
++		musb_g_defer_rx_kick(musb, musb_ep);
+ 	}
+ 
+ unlock:
+@@ -1701,6 +1771,7 @@ init_peripheral_ep(struct musb *musb, struct musb_ep *ep, u8 epnum, int is_in)
+ 	ep->is_in = is_in;
+ 
+ 	INIT_LIST_HEAD(&ep->req_list);
++	INIT_WORK(&ep->rx_kick, musb_g_rx_kick);
+ 
+ 	sprintf(ep->name, "ep%d%s", epnum,
+ 			(!epnum || hw_ep->is_shared_fifo) ? "" : (
+@@ -1810,6 +1881,47 @@ void musb_gadget_cleanup(struct musb *musb)
+ 
+ 	cancel_delayed_work_sync(&musb->gadget_work);
+ 	usb_del_gadget_udc(&musb->g);
++
++	musb_gadget_disable_rx_kicks(musb);
++}
++
++static void musb_g_disable_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
++{
++	if (musb_ep->rx_kick.func && disable_work_sync(&musb_ep->rx_kick))
++		pm_runtime_put_noidle(musb->controller);
++}
++
++void musb_gadget_disable_rx_kicks(struct musb *musb)
++{
++	int i;
++
++	for (i = 0; i < musb->nr_endpoints; i++) {
++		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_in);
++		musb_g_disable_rx_kick(musb, &musb->endpoints[i].ep_out);
++	}
++}
++
++static void musb_g_enable_rx_kick(struct musb *musb, struct musb_ep *musb_ep)
++{
++	if (!musb_ep->rx_kick.func)
++		return;
++
++	enable_work(&musb_ep->rx_kick);
++	if (musb_ep->desc && !musb_ep->is_in) {
++		pm_runtime_get_noresume(musb->controller);
++		if (!queue_work(system_bh_wq, &musb_ep->rx_kick))
++			pm_runtime_put_noidle(musb->controller);
++	}
++}
++
++void musb_gadget_enable_rx_kicks(struct musb *musb)
++{
++	int i;
++
++	for (i = 0; i < musb->nr_endpoints; i++) {
++		musb_g_enable_rx_kick(musb, &musb->endpoints[i].ep_in);
++		musb_g_enable_rx_kick(musb, &musb->endpoints[i].ep_out);
++	}
+ }
+ 
+ /*
 diff --git a/drivers/usb/musb/musb_gadget.h b/drivers/usb/musb/musb_gadget.h
-index f49f25b3b..95bc746f7 100644
+index 95bc746f7..25482d46a 100644
 --- a/drivers/usb/musb/musb_gadget.h
 +++ b/drivers/usb/musb/musb_gadget.h
-@@ -90,7 +90,7 @@ struct musb_ep {
+@@ -11,6 +11,7 @@
+ #define __MUSB_GADGET_H
  
- 	u8				wedged;
+ #include <linux/list.h>
++#include <linux/workqueue.h>
  
--	/* true if lock must be dropped but req_list may not be advanced */
-+	/* number of givebacks in progress; req_list may not be advanced */
+ #if IS_ENABLED(CONFIG_USB_MUSB_GADGET) || IS_ENABLED(CONFIG_USB_MUSB_DUAL_ROLE)
+ extern irqreturn_t musb_g_ep0_irq(struct musb *);
+@@ -23,6 +24,8 @@ extern void musb_g_wakeup(struct musb *);
+ extern void musb_g_disconnect(struct musb *);
+ extern void musb_gadget_cleanup(struct musb *);
+ extern int musb_gadget_setup(struct musb *);
++void musb_gadget_disable_rx_kicks(struct musb *musb);
++void musb_gadget_enable_rx_kicks(struct musb *musb);
+ 
+ #else
+ static inline irqreturn_t musb_g_ep0_irq(struct musb *musb)
+@@ -42,6 +45,9 @@ static inline int musb_gadget_setup(struct musb *musb)
+ {
+ 	return 0;
+ }
++
++static inline void musb_gadget_disable_rx_kicks(struct musb *musb)	{}
++static inline void musb_gadget_enable_rx_kicks(struct musb *musb)	{}
+ #endif
+ 
+ enum buffer_map_state {
+@@ -93,6 +99,9 @@ struct musb_ep {
+ 	/* number of givebacks in progress; req_list may not be advanced */
  	u8				busy;
  
++	struct work_struct		rx_kick;
++	bool				rx_kick_deferred;
++
  	u8				hb_mult;
+ };
+ 
 -- 
 2.53.0
 
