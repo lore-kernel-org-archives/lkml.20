@@ -1,56 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794081653;
-	b=jWtF+J0FfUqLFK0SJlo0z/jQr9mo9xQigBoOQMBRXZZo3wrkxiJJc8yKpo0K/3bWV8NH
-	 DHjKzi8y+24+YQ4oYX9KeKDMSdveb2xkHXWPwT9da6RFjRNWbT7/4JFpqQncROmPftIq9
-	 vmyGNd4bAZ9kBgxtKYZpVluJcHXLbt4LVjyPsGfDsPZjL0vb5P75tIWgYJJq1KxGJMAdR
-	 d4BMMfCHgCnEHL/bsfGVduWCIdogrC+Jhqp9Am2bneCRBZLTbw8R/J159KbT7TwV2oAmJ
-	 4P2F0h40iT2vLpfMDLMzI7hF1jLYHZYSkkOAgTA7yOAMZBcRjwu/rXgrrIDSiLYXVJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794081653;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=D+WPfo+qbidntoQuZIdORED59/5TVu8lZ6NuximfsFo=;
-	b=QzQaP8n5h/GfnA4GPmbRoMwLv28N/AlEerePy+OQAjqXP8P/fx5TeaqKI4o+lD7HV5g4
-	 U/Co0dQMzvatN9169XK2zZ08iVqL/JNEzfhIhbF/DE2YDwlK+86IY89nG70Smt67SjfxZ
-	 Uqy4zNB63y2c20/z8tmXp9NCk8x9g7loqLJXRvGzjFxronxylkWJdwau8pJD4aZO7YyxY
-	 CuKEFQZCT45POAH2Z4d/+pZJ6oiR+O4rdIKhQIeqyx1uB8IK/bjzgOmJwDbpmnDAIT44U
-	 aYJ9s54o7h1RjasXu7+hK1nFb8ICsEaIezq4RUFUqlAe+pZ04UMHLLVqhIX1ljQ/q+g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZMTYZM/W";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794081655;
+	b=ABqVQiI/upHleFuc9w0RNCFOf9wEmd3xyDaqwtY4rMlZY8BBrJq5tvqupmDm1uI7Cj1D
+	 N20OjjZMHTGw77hnQGo7kJ1GmdUavuiaSMvc8UqyQ3Rwzy+vEC3jJCPJgsFA1Oz/QG1ka
+	 bWw55A1bNZp5e+GM+GXTzjB1HHgMNFyQjatPlBq0W49P4Ob07bEQxKCf9J1Ltxll7gDpO
+	 w9dmM8hSzSEVtL/NWm8NQJbbrF8kospNJuNH8u4owD4PfjjahRwrD15gy84egKHu0OoxR
+	 qn3c4WbbgSNelTDtBZtIYesZ3JmPto5Zz0a7HtEKK3E7gDtQgQr7ON7TSTgFf/s/VZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794081655;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=A9PiKhrsfGsTyeU01SUsRcBpanBcSXe1TCOBbWxDRmw=;
+	b=ns7raHYQczb2c/KViSwr4Eyfe39EQxv2xMrZkVRZl8btUgSEdsA6ySg0Ftv0w8yM6bVD
+	 iAJyL0rzQTOPl9zbjK8EWWubLtO55tqFQliENRpujPudAEjs3dxKBOP+eRx7dty+iviFK
+	 XSa6kR/Ky5MOVIZv/fdz9v7YLkqi5zPDRklDe/pD8QJoyHmAXw274Rrjm/5QK8q+dwdMM
+	 laZYd4CIEQGd9ObBUZZV1+aNTXuHYaXqPifbenka087pjADKElrDBxieS1mafjWm9ItiY
+	 VJg5jWNs8bogdZOmtujFB3ShNxi1hgqyopY6+jUZDNMaPckZr209UEg7KYQmu1m+zOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPoWJ1p3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70EB606A32C;
-	Sat,  7 Nov 2026 20:00:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC050606A336;
+	Sat,  7 Nov 2026 20:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMTYZM/W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093661F0089F;
-	Sat,  7 Nov 2026 20:00:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPoWJ1p3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794081654;
+	b=I/cmiLf2CJ82CIkKNrvyNzTLJJ0I5vlh3VEuH96UKVlUKONyU90zmDEs7Qg7Lq6+jpMn
+	 C1Oi2MohCtg4R9vvdoZWf4prDVSkESOYbgWYJ0RaYPa7Gyn++g0KRNcfSm+6ayLTJJogn
+	 G9JiT2R5YJh2wHXbXj0hIHEOFD4AXx69gJd6URj1cNUpEPTaqhMLOPo7Od5oJQDJLWrVP
+	 puVgwSk1q8ztsu2BX3Rc9Y+CLVQAzbxJaJVFBJWmjkDlwVAS4P2l4FopRGevImLr8wfRQ
+	 zRyrTlgDukYM7Df3wL6R8sKlFW5bgriBSRlBgMN6BrTZWurllddDVHYI6LXpXolSJag==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794081654;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=A9PiKhrsfGsTyeU01SUsRcBpanBcSXe1TCOBbWxDRmw=;
+	b=PrfSOhBozZ5wIDq9Dm4oRS+5xwT+T4AJHB8KX7VUgLcuvdOVUyqtqRXhSSZaLpzQtoSo
+	 bIGUGvo25VUSj7A7i2vvQiMSdLnOdL+D5B3js5JX2MEPoYXS3la1W046GL/elXVgVRyV7
+	 oLrGapSkob67x/xbQgF2mpEdeR4OPB0MmXFkIc3+zHsHGVr4gYsN3m1X+MowjfhYdY7NJ
+	 KCOy3mfvMAO57A+L9oFe/XvItQVtUPJd87/qCQszzQgOcLg0w7Pq+z7cI+PbEYhf9egg7
+	 vxgz/+145FDe1lMSx3Tgk0lYgJC90DYMIq0sl683M4+lq6rQVjEkVnN27IthanXZ0gw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D68601F008A2;
+	Sat,  7 Nov 2026 20:00:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794081652;
-	bh=D+WPfo+qbidntoQuZIdORED59/5TVu8lZ6NuximfsFo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZMTYZM/WiGXKAkuSlDGYEyhe7HivsVF65PfVuSKDaaymBqvobsjmMnxldaRkPAhCD
-	 Y615a72iYrZPyIfl+0p6l2U5sGf48S5L0BvK9Av1FYnidsxDHkcf2mbwKMoC/7iTwh
-	 yJupr+o4/6IlXdQllbSDW77abxnB6tk2Z5HjpxldS1pvHdl4yIx3889uj0ZWgom801
-	 C1DVS/NHDVNBkNymqt3X57oyAJjX9viUQdWnqcHncB+kJy3rZI+bW/aviM//BtJRmH
-	 XDT+nwCixxHeyVZjd5Ouw855cEyrr4DeDvBVb4Ph854WnN86THjn2SEqoPocKw4QSl
-	 iha0oIDDftSLg==
-Date: Sat, 7 Nov 2026 13:00:50 -0700
-From: Keith Busch <kbusch@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Keith Busch <kbusch@meta.com>, bhelgaas@google.com, maz@kernel.org,
-	lrizzo@google.com, hch@lst.de, changfengnan@bytedance.com,
-	namjain@linux.microsoft.com, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org
-Subject: Re: [PATCH v3 2/2] PCI/MSI: Implement irq_mask_noflush() for MSI-X
-Message-ID: <au-DcqwAz2wmmOne@kbusch-mbp>
-References: <20261106173448.34794-1-kbusch@meta.com>
- <20261106173448.34794-3-kbusch@meta.com>
- <87wlqpwukt.ffs@fw13>
+	s=k20260515; t=1794081654;
+	bh=A9PiKhrsfGsTyeU01SUsRcBpanBcSXe1TCOBbWxDRmw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=aPoWJ1p3AFwlxXpT2At1fuXsCnFsOpFlWDkh3BpIMDi/KGALhD7T82Pyg6UJ1WuQo
+	 ovAFzu2/JIQZQY/rxScJoEe2/xOFhdYKc4rcuHXG+CcioQBrYJra8Bpvsojwd5QnyE
+	 jqrSoh/pt3h2pUgb/QB/zjjV2WlX3THXaOV6+qvF4nasAm3kYzLBTV0zk/Gls0a2b8
+	 nbn6uLnMog0Rh4KUpQ7oFgfGiX88tY4QSiFK9gGpwqolETHm4t0NRMBTYvtFdpgBq8
+	 T6GVs82vghqIqv0mMosnc7x/Im/PvielJdz6jXQTNEh4CTBgu5SxTWPYub5Gczc2Ic
+	 HxF2GgQ+sZRoA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6970D47CD4;
+	Sat,  7 Nov 2026 20:00:53 +0000 (UTC)
+From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
+Date: Sat, 07 Nov 2026 21:00:50 +0100
+Subject: [PATCH] iommu/arm-smmu-qcom: Add SM8550 MDSS compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,29 +82,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87wlqpwukt.ffs@fw13>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-b4-smmu-sm8550-v1-1-777d0a41170b@dxdmail.cc>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNz3SQT3eLc3FIgYWFqaqBraWFqZJhiYpmanGKiBNRUUJSallkBNjA
+ 6trYWACyoUvRgAAAA
+X-Change-ID: 20261107-b4-smmu-sm8550-98521d49ecd4
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Nizat Mikayilli <nacht@dxdmail.cc>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794081653; l=1170;
+ i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
+ bh=I+cZ1+xcU8CJV0qjts4gYWFK7UhBiDpGLpae4t5CYy0=;
+ b=NkMED2aV/LYn6RCVXeu3yCrogjKaMuCYqOcoLgxBi5pmCjZKeQcmzjGxY5BtpSm6lapuAMURR
+ NGRdTTK028QAJ5nW1ofTlnfor8Sr2Tw8Z9Ne1DmhB0Kp0Bl0ZxYUqr0
+X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
+ pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
+X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
+ auth_id=1111
+X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Reply-To: nacht@dxdmail.cc
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 06, 2026 at 09:53:06PM +0100, Thomas Gleixner wrote:
-> On Fri, Nov 06 2026 at 09:34, Keith Busch wrote:
-> > -static inline void pci_msix_mask(struct msi_desc *desc)
-> > +/* Posted write only: the device may still send an interrupt after return */
-> > +static inline void pci_msix_mask_noflush(struct msi_desc *desc)
-> >  {
-> >  	desc->pci.msix_ctrl |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
-> > +	pci_msix_write_vector_ctrl(desc, desc->pci.msix_ctrl);
-> > +}
-> > +
-> > +static inline void pci_msix_mask(struct msi_desc *desc)
-> > +{
-> > +	pci_msix_mask_noflush(desc);
-> 
-> That's before the offline check now, which looks more than wrong.
+From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-This is done on purpose: pci_msix_write_vector_ctrl() already has the
-same offline check, so nothing actually gets written, same as before.
+Add the SM8550 MDSS compatible to the clients list, as it also needs an
+identity domain at boot. Otherwise the scanout of the bootloader's
+splash screen causes unhandled context faults and the screen goes
+black.
 
-And regardless of whether it's offline or not, we have to set the
-PCI_MSIX_ENTRY_CTRL_MASKBIT in the cached msxi_ctrl. That's common to
-both paths, so it lives in the noflush helper to avoid duplicating it.
+Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
+---
+Found while bringing up the display on the Samsung Galaxy Tab S9 Wi-Fi.
+---
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index 795e8ec7e8fa..483e9e4147b3 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -426,6 +426,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+ 	{ .compatible = "qcom,sm8150-mdss" },
+ 	{ .compatible = "qcom,sm8250-mdss" },
+ 	{ .compatible = "qcom,sm8450-mdss" },
++	{ .compatible = "qcom,sm8550-mdss" },
+ 	{ .compatible = "qcom,x1e80100-mdss" },
+ 	{ }
+ };
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-b4-smmu-sm8550-98521d49ecd4
+
+Best regards,
+-- 
+Nizat Mikayilli <nacht@dxdmail.cc>
+
+
