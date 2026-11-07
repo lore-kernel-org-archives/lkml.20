@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794034487;
-	b=GPg5s/+7Sq+R7kdt4qKw3pf0NqNQrB9jM1GetKITG3O/xjYpn7tsNrekd/EHH9c06q+d
-	 sSCcd70kM+SJ4yhPHqn6z7MBkUS/wYn3UUnWflYAHONcD/VSglUI0VHSowdPFqTz/EbVd
-	 idCt51pnZszJ2LInpzuO/U4sIhEPv6lrB+MfrkUkduV/M/3c7MofHPqweKBlpWAWOLHMN
-	 ljbgy/tNd82iczK1VQ5H8AEXUU9tq/t5LXhS0t+obnEKmMoCD0cqoNYAD5U3j5SJAPPVa
-	 uaCi/Gfk+ILokiqhLQC2A3TmjjCYvCv5jdlcbrc2SyLX5hofhXPnC5NGatlqrxI+1DQ==
+	t=1794034488;
+	b=C8IL1H4ons+sUy0lGT9nqcxwNU7OnDNHbeP1GX3eJlRxnsxVYdVUgrzXhT288N7qRIl/
+	 19sEKitVALsNsBbgb3kNDeGOmBVPzGlnQdTehTV/OQuILDsWa5ego6klZ+cccEFRBiK0g
+	 r+vkZD6P4m/0Vgi3AqKe6KEMcHaPVF6G77z+YzPxSGIProN0eyvnNub14c+135JmD80oH
+	 u5N6AWrNw1leE5ahOspD4ZSMgygEhZcRBsaNFo5UcBkoOl5X/D1rxOZkyL6rpCXHL1mB9
+	 HjxM/UlFXUZTbyXqBj5W4AxdsI0ZE4lV5C0QoFFlkpbHEC0h/ijI2lS0al60vYnihjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794034487;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794034488;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
 	 X-HM-Spam-Status:DKIM-Signature;
-	bh=/FCux6jgIPm46jP4gUFYYgvKYW+4Rz5Ju8SSHD0kUhE=;
-	b=P6MZ1d4ciySbzRZ4PnvArDj5ccpLRWn+piipf8Am3TYoUnfrdJ7NUFtG2ckDHF7MIZVe
-	 12+R6hLgiwAiu60xsmxzbzrPNDzm/eKwpW4Qg0Y5WP6pT2hrObLb0vxRfc19G7zeDSVee
-	 3XBYOpHoj7G0i86hJPhEiJgkOO1Hkx5RdPo8tqF6qLaFPSAoxO6IpyxaFnTrdJ8yJpYsF
-	 YTmBU5LZSL4yp8AFAloITOezyjeLO7ruQC+IFFzN0DYjXi1H8t1yKFy8kchmO+Gw1CzI1
-	 594muLgP9KtuW5HKjeQk01RNC4j24KSDvCDwuvbIjwZlNf7XWdQdnrmITH0JmKJCaiw==
+	bh=Q7byZT0uSBls4TZbWFIu4jBgVekwFAbwJ3Kw7AbsK00=;
+	b=rnXCvtkKMqh8jkR9U3mA79CgNFES4ehUjXHFWnHPFQVKzMVNTxSejm3DNfNUtA1YRyXV
+	 k3cdQCIxqFYqo6HPcJlWxUGa0z/KZ1jJO39ZbVnD3lcsNsRqoGWAVr61cDfl6pRU+2Ivn
+	 7wjjgmHH0tfCXXPKqDsT/zJ/iugdsFTA+YWGifOFgWgnmkLVj/A98pChb+RzXKR2cYQbn
+	 FnWYquIncQ2NKhN290uqKBticmz9OtetPbrjjUHsta/1I19sLBhBLG7rPP5KAEK+v6epR
+	 Xm1FvvxguctCX0VthzP/mQ+7koa6d9GJ6gWUpKaeLzpEallaPwGFdsGrQONlW8NJeuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=G1onGQ1W;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=UzYpnFD8;
 	arc=none smtp.remote-ip=45.254.49.197
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ABE606A32C;
-	Sat,  7 Nov 2026 06:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16ABE606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3170606A33C;
+	Sat,  7 Nov 2026 06:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3170606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=G1onGQ1W
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=UzYpnFD8
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 53d65d8fa;
-	Sat, 7 Nov 2026 14:54:36 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 53d65d8fd;
+	Sat, 7 Nov 2026 14:54:38 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH] media: mediatek: mdp3: Fix potential use-after-free on SCP removal
-Date: Sat,  7 Nov 2026 14:54:35 +0800
-Message-ID: <20261107-0d0c29e10a-media-mediatek-mdp3-1@mail.sdu.edu.cn>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: phy: micrel: Fix potential shared PHC use-after-free
+Date: Sat,  7 Nov 2026 14:54:37 +0800
+Message-ID: <20261107-0d0c29e10a-net-micrel-lan8814-1@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,341 +60,401 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1b4c9a39903a1kunmde59ae2f82b65
+X-HM-Tid: 0aa1b4c9abe803a1kunmd42b1c4382b6d
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0hIVkNKGEtOSk5MGhoeGVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTUwZVkxNTkIaT04YSRlMQ1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE
 	1DVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=G1onGQ1WeE2CyEpmKCJixxA/33f6sKFropE31Up8JTuxaXXSkhd0XLVIDTC+kVxOAALy6gbEsLbUhTadqDe+nSf7IkGdYznvlNDZD8BPOK5M6creVX4+iLleoBfx21wOwBsLzuA9aSqswWQxMQ/LMwHBMDRvV+eX/UqA1J8Spzo=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=/FCux6jgIPm46jP4gUFYYgvKYW+4Rz5Ju8SSHD0kUhE=;
+	b=UzYpnFD8m+B5zXtbmJKSMU4qnv4MwOHXcPeuSg3XeZrVPW9YPWkrdnqc0J2W6bS3J5rMBm2JO3VCZIlmN5+e/48nF966to+UFDf/fKndDrLa43Yh6JZeIap8wN6dtODBG2GelxBP+fXjoD5ayTBuRxKVEA8vmpNuYScyhqwhlBU=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=Q7byZT0uSBls4TZbWFIu4jBgVekwFAbwJ3Kw7AbsK00=;
 	h=date:mime-version:subject:message-id:from;
 
-MDP contexts can outlive the SCP driver whose data they use for VPU
-teardown. Unregistering only the V4L2 parent neither disconnects the
-video node nor finishes these sessions.
+The shared PHC outlives the first PHY's managed pin array and is not
+unregistered before the package data is freed. Subsequent PHC operations
+can therefore access released storage.
 
-Link MDP to SCP and disconnect the video node before draining jobs and
-closing every VPU session. Release hardware dependencies during remove,
-while retaining the software state for the last open file. Balance the
-remoteproc references on session shutdown and failed initialization.
+Keep the pins at package scope and select a remaining PHY for register
+access when a member leaves. Unregister the clock before releasing its
+storage on the last member's exit. Pair each member's registration with
+cleanup that also runs on probe failure, and serialize clock access with
+member removal.
 
 This issue was found by our static analysis tool under development.
+Validated by source review, x86-64 W=1 object builds and an extracted-code
+lifecycle test with mocked services. Not tested on hardware.
 
-Fixes: 61890ccaefaf ("media: platform: mtk-mdp3: add MediaTek MDP3 driver")
+Fixes: ece19502834d ("net: phy: micrel: 1588 support for LAN8814 phy")
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
-Validation: Changed-object compilation passed with W=1 in the recorded
-configuration. No hardware/kernel runtime test or full linked-kernel
-build.
+Validation: x86-64 Clang W=1 micrel.o passed with allmodconfig,
+allyesconfig and PTP disabled. An extracted-code test with mocked
+services passed under GCC ASan/UBSan; this is not a kernel reproducer.
+No hardware test or full linked-kernel build.
 OpenAI Codex assisted with source review, patch implementation and
 commit-message drafting. The submitter has reviewed the changes.
 
- .../platform/mediatek/mdp3/mtk-mdp3-core.c    | 84 ++++++++++++++-----
- .../platform/mediatek/mdp3/mtk-mdp3-core.h    |  1 +
- .../platform/mediatek/mdp3/mtk-mdp3-m2m.c     | 34 ++++++--
- .../platform/mediatek/mdp3/mtk-mdp3-m2m.h     |  3 +-
- .../platform/mediatek/mdp3/mtk-mdp3-vpu.c     |  2 +-
- 5 files changed, 96 insertions(+), 28 deletions(-)
+ drivers/net/phy/micrel.c | 177 ++++++++++++++++++++++++++++++---------
+ 1 file changed, 139 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-index f412aadb5996..9fe42181a08c 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-@@ -108,6 +108,7 @@ int mdp_vpu_get_locked(struct mdp_dev *mdp)
- err_init_vpu:
- 	mdp_vpu_unregister(mdp);
- err_reg_vpu:
-+	rproc_shutdown(mdp->rproc_handle);
- err_load_vpu:
- 	mdp->vpu_count--;
- 	return ret;
-@@ -118,19 +119,24 @@ void mdp_vpu_put_locked(struct mdp_dev *mdp)
- 	if (--mdp->vpu_count == 0) {
- 		mdp_vpu_dev_deinit(&mdp->vpu);
- 		mdp_vpu_unregister(mdp);
-+		rproc_shutdown(mdp->rproc_handle);
- 	}
- }
+diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
+index d0b1ad21667b..8c48d00b0ccf 100644
+--- a/drivers/net/phy/micrel.c
++++ b/drivers/net/phy/micrel.c
+@@ -413,6 +413,10 @@ struct kszphy_type {
+ /* Shared structure between the PHYs of the same package. */
+ struct lan8814_shared_priv {
+ 	struct phy_device *phydev;
++	struct phy_device *members[PHY_MAX_ADDR];
++	bool lock_initialized;
++	bool coma_released;
++	bool clock_stopping;
+ 	struct ptp_clock *ptp_clock;
+ 	struct ptp_clock_info ptp_clock_info;
+ 	struct ptp_pin_desc *pin_config;
+@@ -3257,7 +3261,13 @@ static int lan8814_ts_info(struct mii_timestamper *mii_ts, struct kernel_ethtool
+ 				SOF_TIMESTAMPING_RX_HARDWARE |
+ 				SOF_TIMESTAMPING_RAW_HARDWARE;
  
--void mdp_video_device_release(struct video_device *vdev)
-+static void mdp_hardware_cleanup(struct mdp_dev *mdp)
- {
--	struct mdp_dev *mdp = (struct mdp_dev *)video_get_drvdata(vdev);
- 	int i;
- 
-+	flush_workqueue(mdp->job_wq);
-+	flush_workqueue(mdp->clock_wq);
-+
- 	for (i = 0; i < mdp->mdp_data->pp_used; i++)
- 		if (mdp->cmdq_clt[i])
- 			cmdq_mbox_destroy(mdp->cmdq_clt[i]);
- 
-+	mdp_vpu_shared_mem_free(&mdp->vpu);
- 	scp_put(mdp->scp);
-+	mdp->scp = NULL;
- 
- 	destroy_workqueue(mdp->job_wq);
- 	destroy_workqueue(mdp->clock_wq);
-@@ -151,10 +157,16 @@ void mdp_video_device_release(struct video_device *vdev)
- 		if (!IS_ERR_OR_NULL(m))
- 			mtk_mutex_put(m);
- 	}
-+}
-+
-+void mdp_video_device_release(struct video_device *vdev)
-+{
-+	struct mdp_dev *mdp = video_get_drvdata(vdev);
- 
--	mdp_vpu_shared_mem_free(&mdp->vpu);
- 	v4l2_m2m_release(mdp->m2m_dev);
-+	ida_destroy(&mdp->mdp_ida);
- 	kfree(mdp);
-+	video_device_release(vdev);
- }
- 
- static void mdp_put_device(void *_dev)
-@@ -213,11 +225,45 @@ static int mdp_mm_subsys_deploy(struct mdp_dev *mdp, enum mdp_infra_id id)
- 	return 0;
- }
- 
-+static int mdp_get_scp(struct mdp_dev *mdp)
-+{
-+	struct device_node *node;
-+	struct platform_device *scp_pdev;
-+	struct device_link *link;
-+	int ret = -EPROBE_DEFER;
-+
-+	node = of_parse_phandle(mdp->pdev->dev.of_node, "mediatek,scp", 0);
-+	if (node) {
-+		scp_pdev = of_find_device_by_node(node);
-+		of_node_put(node);
-+	} else {
-+		scp_pdev = __get_pdev_by_id(mdp->pdev, NULL, MDP_INFRA_SCP);
++	mutex_lock(&shared->shared_lock);
++	if (!shared->ptp_clock || shared->clock_stopping) {
++		mutex_unlock(&shared->shared_lock);
++		return -ENODEV;
 +	}
-+	if (!scp_pdev)
-+		return -EPROBE_DEFER;
-+
-+	link = device_link_add(&mdp->pdev->dev, &scp_pdev->dev,
-+			       DL_FLAG_AUTOREMOVE_CONSUMER);
-+	if (!link) {
-+		ret = -ENOMEM;
-+		goto err_put;
-+	}
-+	if (!device_is_bound(&scp_pdev->dev))
-+		goto err_put;
-+
-+	mdp->scp = platform_get_drvdata(scp_pdev);
-+	if (mdp->scp)
-+		return 0;
-+
-+err_put:
-+	put_device(&scp_pdev->dev);
-+	return ret;
-+}
-+
- static int mdp_probe(struct platform_device *pdev)
+ 	info->phc_index = ptp_clock_index(shared->ptp_clock);
++	mutex_unlock(&shared->shared_lock);
+ 
+ 	info->tx_types =
+ 		(1 << HWTSTAMP_TX_OFF) |
+@@ -3539,11 +3549,12 @@ static int lan8814_ptpci_gettime64(struct ptp_clock_info *ptpci,
  {
- 	struct device *dev = &pdev->dev;
- 	struct mdp_dev *mdp;
--	struct platform_device *mm_pdev;
- 	struct resource *res;
- 	int ret, i, mutex_id;
+ 	struct lan8814_shared_priv *shared = container_of(ptpci, struct lan8814_shared_priv,
+ 							  ptp_clock_info);
+-	struct phy_device *phydev = shared->phydev;
++	struct phy_device *phydev;
+ 	u32 nano_seconds;
+ 	time64_t seconds;
  
-@@ -285,27 +331,16 @@ static int mdp_probe(struct platform_device *pdev)
- 		goto err_destroy_job_wq;
- 	}
- 
--	mdp->scp = scp_get(pdev);
--	if (!mdp->scp) {
--		mm_pdev = __get_pdev_by_id(pdev, NULL, MDP_INFRA_SCP);
--		if (WARN_ON(!mm_pdev)) {
--			dev_err(&pdev->dev, "Could not get scp device\n");
--			ret = -ENODEV;
--			goto err_destroy_clock_wq;
--		}
--		mdp->scp = platform_get_drvdata(mm_pdev);
--	}
--
--	if (!mdp->scp) {
--		ret = -EPROBE_DEFER;
-+	ret = mdp_get_scp(mdp);
-+	if (ret)
- 		goto err_destroy_clock_wq;
--	}
- 
- 	mdp->rproc_handle = scp_get_rproc(mdp->scp);
- 	dev_dbg(&pdev->dev, "MDP rproc_handle: %p", mdp->rproc_handle);
- 
- 	mutex_init(&mdp->vpu_lock);
- 	mutex_init(&mdp->m2m_lock);
-+	INIT_LIST_HEAD(&mdp->contexts);
- 
- 	for (i = 0; i < mdp->mdp_data->pp_used; i++) {
- 		mdp->cmdq_clt[i] = cmdq_mbox_create(dev, i);
-@@ -373,10 +408,19 @@ static int mdp_probe(struct platform_device *pdev)
- static void mdp_remove(struct platform_device *pdev)
+ 	mutex_lock(&shared->shared_lock);
++	phydev = shared->phydev;
+ 	lan8814_ptp_clock_get(phydev, &seconds, &nano_seconds);
+ 	mutex_unlock(&shared->shared_lock);
+ 	ts->tv_sec = seconds;
+@@ -3557,9 +3568,10 @@ static int lan8814_ptpci_settime64(struct ptp_clock_info *ptpci,
  {
- 	struct mdp_dev *mdp = platform_get_drvdata(pdev);
-+	struct video_device *vdev = mdp->m2m_vdev;
+ 	struct lan8814_shared_priv *shared = container_of(ptpci, struct lan8814_shared_priv,
+ 							  ptp_clock_info);
+-	struct phy_device *phydev = shared->phydev;
++	struct phy_device *phydev;
  
--	v4l2_device_unregister(&mdp->v4l2_dev);
-+	if (!vdev) {
-+		kfree(mdp);
-+		return;
-+	}
+ 	mutex_lock(&shared->shared_lock);
++	phydev = shared->phydev;
+ 	lan8814_ptp_clock_set(phydev, ts->tv_sec, ts->tv_nsec);
+ 	mutex_unlock(&shared->shared_lock);
  
--	dev_dbg(&pdev->dev, "%s driver unloaded\n", pdev->name);
-+	/* Keep the software state until removal and all open files finish. */
-+	get_device(&vdev->dev);
-+	mdp_m2m_device_unregister(mdp);
-+	mdp_hardware_cleanup(mdp);
-+	v4l2_device_unregister(&mdp->v4l2_dev);
-+	put_device(&vdev->dev);
- }
+@@ -3739,9 +3751,10 @@ static int lan8814_ptpci_adjtime(struct ptp_clock_info *ptpci, s64 delta)
+ {
+ 	struct lan8814_shared_priv *shared = container_of(ptpci, struct lan8814_shared_priv,
+ 							  ptp_clock_info);
+-	struct phy_device *phydev = shared->phydev;
++	struct phy_device *phydev;
  
- static int __maybe_unused mdp_suspend(struct device *dev)
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-index 05cade1d098e..cf9662bd2792 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-@@ -134,6 +134,7 @@ struct mdp_dev {
- 	struct v4l2_m2m_dev			*m2m_dev;
- 	/* synchronization protect for m2m device operation */
- 	struct mutex				m2m_lock;
-+	struct list_head			contexts;
- 	atomic_t				suspended;
- 	refcount_t				job_count;
- };
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-index ad3ae89c231c..ce0efe15866d 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-@@ -490,7 +490,7 @@ static int mdp_m2m_queue_init(void *priv,
- 	src_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
- 	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
- 	src_vq->dev = &ctx->mdp_dev->pdev->dev;
--	src_vq->lock = &ctx->ctx_lock;
-+	src_vq->lock = &ctx->mdp_dev->m2m_lock;
+ 	mutex_lock(&shared->shared_lock);
++	phydev = shared->phydev;
+ 	lan8814_ptp_clock_step(phydev, delta);
+ 	mutex_unlock(&shared->shared_lock);
  
- 	ret = vb2_queue_init(src_vq);
- 	if (ret)
-@@ -504,7 +504,7 @@ static int mdp_m2m_queue_init(void *priv,
- 	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
- 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
- 	dst_vq->dev = &ctx->mdp_dev->pdev->dev;
--	dst_vq->lock = &ctx->ctx_lock;
-+	dst_vq->lock = &ctx->mdp_dev->m2m_lock;
+@@ -3752,7 +3765,7 @@ static int lan8814_ptpci_adjfine(struct ptp_clock_info *ptpci, long scaled_ppm)
+ {
+ 	struct lan8814_shared_priv *shared = container_of(ptpci, struct lan8814_shared_priv,
+ 							  ptp_clock_info);
+-	struct phy_device *phydev = shared->phydev;
++	struct phy_device *phydev;
+ 	u16 kszphy_rate_adj_lo, kszphy_rate_adj_hi;
+ 	bool positive = true;
+ 	u32 kszphy_rate_adj;
+@@ -3772,6 +3785,7 @@ static int lan8814_ptpci_adjfine(struct ptp_clock_info *ptpci, long scaled_ppm)
+ 		kszphy_rate_adj_hi |= PTP_CLOCK_RATE_ADJ_DIR_;
  
- 	return vb2_queue_init(dst_vq);
- }
-@@ -577,6 +577,11 @@ static int mdp_m2m_open(struct file *file)
- 		goto err_free_ctx;
- 	}
+ 	mutex_lock(&shared->shared_lock);
++	phydev = shared->phydev;
+ 	lanphy_write_page_reg(phydev, LAN8814_PAGE_COMMON_REGS, PTP_CLOCK_RATE_ADJ_HI,
+ 			      kszphy_rate_adj_hi);
+ 	lanphy_write_page_reg(phydev, LAN8814_PAGE_COMMON_REGS, PTP_CLOCK_RATE_ADJ_LO,
+@@ -3875,13 +3889,14 @@ static int lan8814_ptp_perout(struct ptp_clock_info *ptpci,
+ {
+ 	struct lan8814_shared_priv *shared = container_of(ptpci, struct lan8814_shared_priv,
+ 							  ptp_clock_info);
+-	struct phy_device *phydev = shared->phydev;
++	struct phy_device *phydev;
+ 	struct timespec64 ts_on, ts_period;
+ 	s64 on_nsec, period_nsec;
+ 	int pulse_width;
+ 	int pin, event;
  
-+	if (!video_is_registered(vdev)) {
+ 	mutex_lock(&shared->shared_lock);
++	phydev = shared->phydev;
+ 	event = rq->perout.index;
+ 	pin = ptp_find_pin(shared->ptp_clock, PTP_PF_PEROUT, event);
+ 	if (pin < 0 || pin >= LAN8814_PTP_PEROUT_NUM) {
+@@ -4047,7 +4062,7 @@ static int lan8814_ptp_extts(struct ptp_clock_info *ptpci,
+ {
+ 	struct lan8814_shared_priv *shared = container_of(ptpci, struct lan8814_shared_priv,
+ 							  ptp_clock_info);
+-	struct phy_device *phydev = shared->phydev;
++	struct phy_device *phydev;
+ 	int pin;
+ 
+ 	pin = ptp_find_pin(shared->ptp_clock, PTP_PF_EXTTS,
+@@ -4056,6 +4071,7 @@ static int lan8814_ptp_extts(struct ptp_clock_info *ptpci,
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&shared->shared_lock);
++	phydev = shared->phydev;
+ 	if (on)
+ 		lan8814_ptp_extts_on(phydev, pin, rq->extts.flags);
+ 	else
+@@ -4331,7 +4347,10 @@ static int lan8814_handle_gpio_interrupt(struct phy_device *phydev, u16 status)
+ 	int ret;
+ 
+ 	mutex_lock(&shared->shared_lock);
+-	ret = lan8814_gpio_process_cap(shared);
++	if (shared->ptp_clock && !shared->clock_stopping)
++		ret = lan8814_gpio_process_cap(shared);
++	else
 +		ret = -ENODEV;
-+		goto err_unlock_mutex;
-+	}
-+
- 	ret = ida_alloc(&mdp->mdp_ida, GFP_KERNEL);
- 	if (ret < 0)
- 		goto err_unlock_mutex;
-@@ -593,7 +598,6 @@ static int mdp_m2m_open(struct file *file)
- 	ctx->fh.ctrl_handler = &ctx->ctrl_handler;
- 	v4l2_fh_add(&ctx->fh, file);
+ 	mutex_unlock(&shared->shared_lock);
  
--	mutex_init(&ctx->ctx_lock);
- 	ctx->m2m_ctx = v4l2_m2m_ctx_init(mdp->m2m_dev, ctx, mdp_m2m_queue_init);
- 	if (IS_ERR(ctx->m2m_ctx)) {
- 		dev_err(dev, "Failed to initialize m2m context\n");
-@@ -609,8 +613,6 @@ static int mdp_m2m_open(struct file *file)
- 		goto err_release_m2m_ctx;
+ 	return ret;
+@@ -4559,20 +4578,15 @@ static void lan8814_ptp_init(struct phy_device *phydev)
+ 	phydev->default_timestamp = true;
+ }
+ 
+-static int __lan8814_ptp_probe_once(struct phy_device *phydev, char *pin_name,
+-				    int gpios)
++static int lan8814_ptp_register(struct phy_device *phydev, char *pin_name,
++				int gpios)
+ {
+ 	struct lan8814_shared_priv *shared = phy_package_get_priv(phydev);
+ 
+ 	shared->phydev = phydev;
+ 
+-	/* Initialise shared lock for clock*/
+-	mutex_init(&shared->shared_lock);
+-
+-	shared->pin_config = devm_kmalloc_array(&phydev->mdio.dev,
+-						gpios,
+-						sizeof(*shared->pin_config),
+-						GFP_KERNEL);
++	shared->pin_config = kmalloc_array(gpios, sizeof(*shared->pin_config),
++					   GFP_KERNEL);
+ 	if (!shared->pin_config)
+ 		return -ENOMEM;
+ 
+@@ -4612,13 +4626,12 @@ static int __lan8814_ptp_probe_once(struct phy_device *phydev, char *pin_name,
+ 	if (IS_ERR(shared->ptp_clock)) {
+ 		phydev_err(phydev, "ptp_clock_register failed %pe\n",
+ 			   shared->ptp_clock);
++		shared->ptp_clock = NULL;
++		kfree(shared->pin_config);
++		shared->pin_config = NULL;
+ 		return -EINVAL;
  	}
  
--	mutex_unlock(&mdp->m2m_lock);
+-	/* Check if PHC support is missing at the configuration level */
+-	if (!shared->ptp_clock)
+-		return 0;
 -
- 	/* Default format */
- 	default_format.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
- 	default_format.fmt.pix_mp.width = limit->out_limit.wmin;
-@@ -620,6 +622,9 @@ static int mdp_m2m_open(struct file *file)
- 	default_format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
- 	mdp_m2m_s_fmt_mplane(file, &ctx->fh, &default_format);
+ 	phydev_dbg(phydev, "successfully registered ptp clock\n");
  
-+	list_add_tail(&ctx->list, &mdp->contexts);
-+	mutex_unlock(&mdp->m2m_lock);
-+
- 	dev_dbg(dev, "%s:[%d]", __func__, ctx->id);
- 
+ 	/* The EP.4 is shared between all the PHYs in the package and also it
+@@ -4636,12 +4649,90 @@ static int __lan8814_ptp_probe_once(struct phy_device *phydev, char *pin_name,
  	return 0;
-@@ -647,6 +652,7 @@ static int mdp_m2m_release(struct file *file)
- 	struct device *dev = &mdp->pdev->dev;
+ }
  
- 	mutex_lock(&mdp->m2m_lock);
-+	list_del(&ctx->list);
- 	v4l2_m2m_ctx_release(ctx->m2m_ctx);
- 	if (mdp_m2m_ctx_is_state_set(ctx, MDP_VPU_INIT))
- 		mdp_vpu_put_locked(mdp);
-@@ -727,7 +733,25 @@ int mdp_m2m_device_register(struct mdp_dev *mdp)
- 
- void mdp_m2m_device_unregister(struct mdp_dev *mdp)
- {
-+	struct mdp_m2m_ctx *ctx;
+-static int lan8814_ptp_probe_once(struct phy_device *phydev)
++static void lan8814_ptp_leave(void *data)
++{
++	struct phy_device *phydev = data;
++	struct lan8814_shared_priv *shared = phy_package_get_priv(phydev);
++	struct phy_device *next = NULL;
++	unsigned int i;
 +
-+	mutex_lock(&mdp->m2m_lock);
- 	video_unregister_device(mdp->m2m_vdev);
-+	v4l2_m2m_suspend(mdp->m2m_dev);
-+
-+	list_for_each_entry(ctx, &mdp->contexts, list) {
-+		vb2_queue_error(v4l2_m2m_get_src_vq(ctx->m2m_ctx));
-+		vb2_queue_error(v4l2_m2m_get_dst_vq(ctx->m2m_ctx));
-+		v4l2_m2m_streamoff(NULL, ctx->m2m_ctx,
-+				   V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
-+		v4l2_m2m_streamoff(NULL, ctx->m2m_ctx,
-+				   V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-+		if (mdp_m2m_ctx_is_state_set(ctx, MDP_VPU_INIT)) {
-+			mdp_vpu_put_locked(mdp);
-+			atomic_andnot(MDP_VPU_INIT, &ctx->curr_param.state);
++	phy_package_lock(phydev);
++	mutex_lock(&shared->shared_lock);
++	shared->members[phydev->mdio.addr] = NULL;
++	for (i = 0; i < ARRAY_SIZE(shared->members); i++) {
++		if (shared->members[i]) {
++			next = shared->members[i];
++			break;
 +		}
 +	}
-+	mutex_unlock(&mdp->m2m_lock);
++	if (next) {
++		shared->phydev = next;
++		mutex_unlock(&shared->shared_lock);
++		phy_package_unlock(phydev);
++		return;
++	}
++
++	shared->clock_stopping = true;
++	mutex_unlock(&shared->shared_lock);
++	/* Unregister calls enable() to disable events, using the last PHY. */
++	ptp_clock_unregister(shared->ptp_clock);
++	mutex_lock(&shared->shared_lock);
++	shared->ptp_clock = NULL;
++	shared->phydev = NULL;
++	kfree(shared->pin_config);
++	shared->pin_config = NULL;
++	shared->clock_stopping = false;
++	mutex_unlock(&shared->shared_lock);
++	phy_package_unlock(phydev);
++}
++
++static int lan8814_ptp_join(struct phy_device *phydev, char *pin_name,
++			    int gpios)
++{
++	struct lan8814_shared_priv *shared = phy_package_get_priv(phydev);
++	int ret = 0;
++
++	phy_package_lock(phydev);
++	if (!shared->lock_initialized) {
++		mutex_init(&shared->shared_lock);
++		shared->lock_initialized = true;
++	}
++	if (!IS_ENABLED(CONFIG_PTP_1588_CLOCK)) {
++		phy_package_unlock(phydev);
++		return 0;
++	}
++	mutex_lock(&shared->shared_lock);
++	if (!shared->ptp_clock)
++		ret = lan8814_ptp_register(phydev, pin_name, gpios);
++	if (!ret)
++		shared->members[phydev->mdio.addr] = phydev;
++	mutex_unlock(&shared->shared_lock);
++	phy_package_unlock(phydev);
++	if (ret)
++		return ret;
++
++	return devm_add_action_or_reset(&phydev->mdio.dev, lan8814_ptp_leave,
++					phydev);
++}
++
++static void lan8814_remove(struct phy_device *phydev)
++{
++	struct lan8814_shared_priv *shared;
++
++	if (!phydev->shared)
++		return;
++
++	shared = phy_package_get_priv(phydev);
++	if (shared->members[phydev->mdio.addr])
++		devm_release_action(&phydev->mdio.dev, lan8814_ptp_leave, phydev);
++}
++
++static int lan8814_ptp_probe(struct phy_device *phydev)
+ {
+ 	if (!lan8814_has_ptp(phydev))
+ 		return 0;
+ 
+-	return __lan8814_ptp_probe_once(phydev, "lan8814_ptp_pin",
++	return lan8814_ptp_join(phydev, "lan8814_ptp_pin",
+ 					LAN8814_PTP_GPIO_NUM);
  }
  
- void mdp_m2m_job_finish(struct mdp_m2m_ctx *ctx)
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
-index dfc59e5b3b87..f473f5f20aa2 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
-@@ -27,6 +27,7 @@ struct mdp_m2m_ctrls {
- };
- 
- struct mdp_m2m_ctx {
-+	struct list_head			list;
- 	u32				id;
- 	struct mdp_dev			*mdp_dev;
- 	struct v4l2_fh			fh;
-@@ -36,8 +37,6 @@ struct mdp_m2m_ctx {
- 	u32				frame_count[MDP_M2M_MAX];
- 
- 	struct mdp_frameparam		curr_param;
--	/* synchronization protect for mdp m2m context */
--	struct mutex			ctx_lock;
- };
- 
- int mdp_m2m_device_register(struct mdp_dev *mdp);
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
-index 67f3001153ae..c1fd639930e5 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
-@@ -62,7 +62,7 @@ void mdp_vpu_shared_mem_free(struct mdp_vpu_dev *vpu)
+@@ -4747,6 +4838,7 @@ static void lan8814_update_meas_time(struct phy_device *phydev)
+ static int lan8814_probe(struct phy_device *phydev)
  {
- 	struct device *dev;
+ 	const struct kszphy_type *type = phydev->drv->driver_data;
++	struct lan8814_shared_priv *shared;
+ 	struct kszphy_priv *priv;
+ 	u16 addr;
+ 	int err;
+@@ -4765,8 +4857,11 @@ static int lan8814_probe(struct phy_device *phydev)
+ 	 * phy address value
+ 	 */
+ 	addr = lanphy_read_page_reg(phydev, LAN8814_PAGE_COMMON_REGS, 0) & 0x1F;
+-	devm_phy_package_join(&phydev->mdio.dev, phydev,
+-			      addr, sizeof(struct lan8814_shared_priv));
++	err = devm_phy_package_join(&phydev->mdio.dev, phydev, addr,
++				    sizeof(struct lan8814_shared_priv));
++	if (err)
++		return err;
++	shared = phy_package_get_priv(phydev);
  
--	if (IS_ERR_OR_NULL(vpu))
-+	if (IS_ERR_OR_NULL(vpu) || !vpu->scp)
- 		return;
+ 	/* There are lan8814 SKUs that don't support PTP. Make sure that for
+ 	 * those skus no PTP device is created. Here we check if the SKU
+@@ -4780,15 +4875,21 @@ static int lan8814_probe(struct phy_device *phydev)
+ 	priv->is_ptp_available = err == LAN8814_REV_LAN8814 ||
+ 				 err == LAN8814_REV_LAN8818;
  
- 	dev = scp_get_device(vpu->scp);
+-	if (phy_package_probe_once(phydev)) {
++	phy_package_lock(phydev);
++	if (!shared->coma_released) {
+ 		err = lan8814_release_coma_mode(phydev);
+-		if (err)
+-			return err;
+-
+-		err = lan8814_ptp_probe_once(phydev);
+-		if (err)
+-			return err;
++		if (!err)
++			shared->coma_released = true;
++	} else {
++		err = 0;
+ 	}
++	phy_package_unlock(phydev);
++	if (err)
++		return err;
++
++	err = lan8814_ptp_probe(phydev);
++	if (err)
++		return err;
+ 
+ 	lan8814_ptp_init(phydev);
+ 
+@@ -6143,9 +6244,9 @@ static int ksz9131_resume(struct phy_device *phydev)
+ 
+ #define LAN8842_PTP_GPIO_NUM 16
+ 
+-static int lan8842_ptp_probe_once(struct phy_device *phydev)
++static int lan8842_ptp_probe(struct phy_device *phydev)
+ {
+-	return __lan8814_ptp_probe_once(phydev, "lan8842_ptp_pin",
++	return lan8814_ptp_join(phydev, "lan8842_ptp_pin",
+ 					LAN8842_PTP_GPIO_NUM);
+ }
+ 
+@@ -6213,11 +6314,9 @@ static int lan8842_probe(struct phy_device *phydev)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (phy_package_init_once(phydev)) {
+-		ret = lan8842_ptp_probe_once(phydev);
+-		if (ret)
+-			return ret;
+-	}
++	ret = lan8842_ptp_probe(phydev);
++	if (ret)
++		return ret;
+ 
+ 	lan8814_ptp_init(phydev);
+ 
+@@ -6955,6 +7054,7 @@ static struct phy_driver ksphy_driver[] = {
+ 	.config_init	= lan8814_config_init,
+ 	.driver_data	= &lan8814_type,
+ 	.probe		= lan8814_probe,
++	.remove		= lan8814_remove,
+ 	.soft_reset	= genphy_soft_reset,
+ 	.read_status	= ksz9031_read_status,
+ 	.get_sset_count	= kszphy_get_sset_count,
+@@ -7006,6 +7106,7 @@ static struct phy_driver ksphy_driver[] = {
+ 	.flags		= PHY_POLL_CABLE_TEST,
+ 	.driver_data	= &lan8814_type,
+ 	.probe		= lan8842_probe,
++	.remove		= lan8814_remove,
+ 	.config_init	= lan8842_config_init,
+ 	.config_intr	= lan8842_config_intr,
+ 	.inband_caps	= lan8842_inband_caps,
 
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+base-commit: 787268686c64be60023743b527645a907e38ccca
