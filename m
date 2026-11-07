@@ -1,67 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063992;
-	b=la3pOFF7p8yB2jV5WSonOIXDvusxf3PPG9FRRst4pz4fRQc1tb+QoqGEyZx+vjHxSJdr
-	 cQw9s54OOlFNVSXkrRnUa6RtLC5yOyPN2t0nrI3Xb9O7klY+94WDU11Sv4eZlLIPGc8B6
-	 kH17ctA3Fkp2OKl6ZbD88UaZL8qr1xRepD8hbpvC28bIAzOBz9oZAHQHUyYcYkDMfAwYM
-	 RGDfTmBHVb/p21/sfcCKq4TM2sP6WsbNmPL5sqBmi/RlJrUyG4n3fxwUaraiN26OzW2js
-	 t3xSsa/8vB1pJmFhdlXjMGRyWKfFRRoz/b7n/byrelvPAGIEBqf/kIeXKYWE/J2MaaA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063992;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=aNl6N5aZvIYcmu8uPSEH2CIEocI5mNcKcn5UzSShfFE=;
-	b=UognnyoTDqievvR24oZ8zyXXduICdtpyKilS7kQjz8XYRx9rpyIxiG2ycPRLoiE7FQ2x
-	 5aAPKiOTH2g+qsZM0eIPW7xVIvk57jNqq2xhAZu4rf2D8e7dJEgc302w6AM2WYLRIiG9c
-	 dw8czP67OwszKXOmXYtZi5Lu4JBvKZLrnVeS5oixBldBuqDalDLagRr1uAmhTX9OXujfS
-	 KJViXX0NDFQCf7huiXPApCLei2EPIL2x3gDb3Cs/H84+Rk5xV5kbIeRF0i+OFnyxHTdZC
-	 uHyx4b3TVFr0DdOxkv75PhrwWA9H4a8WKTHJPq83KX3YUffywOzALTENvtmlC/GXoyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bojanowski.me;
-	spf=pass smtp.mailfrom=bojanowski.me;
-	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=mO6Hho2W;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794063999;
+	b=owyXfQvTeR/bBfgX/OBjwzysXC9+VixkUdRLZydNGo9ZHKDwvOGQ1XgjGhfCdBvTCr5l
+	 UtTGejeExHll5swDJDRvU0NZSPd0/Vg17/8VnENLzCEybNi+7aCzu71LMX2c+Jw+Plyd9
+	 gK92tivVrBvUDUkHlvFB0pwmrD2/+aYX2/V4EBOzhvc+iZCqpR/YLsdC5342DXLfHhVZh
+	 xXW2GJp0WV1QeZkvpFnQmL5FGImp9h6Qi//fEcd7aCcfPsBVBEXfiZqnS4gu8B7Twuthc
+	 ZslI/I3epazvk3ZBUdcsZR5zaReo3bigIh2JlB2zo6+zuwXhkPfO8jKXJuqjK7jm/qA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063999;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cxr3dU8XiH5bi2u1dg6SGQxZyh/jEU0GS+krtHvgiEQ=;
+	b=06VBJUnki/weQTa88VaBhrNPZOVb+tRoqn/9cDVQoWLWnTVDgKO02Sini0eDQegdanJf
+	 Rctj1hY5IeF8TDenVNB5IUv8K5O40xyVfW//EUblsKUQwilodsbCYXE3TpfDX5g8FA20a
+	 5/WLK3E+bvUEabsXyXCqgmvlKQ30YQ1c4cPWSMrkGgdSJfiEmlGjRXPJddzAfNWyux3fd
+	 n/OCmnEarWNuqDSeksXo3wIubSbairQWah1gyYDjYRBHlZWejQ1oY+CrJrFAYHEL7HlWL
+	 qDbhVJ0RzZBNR/j92GKEha2aNWNBn801Y+77Cse037MlRbB+Jv5FECMAQrfRSMCIJnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvGZrorQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5790960A2620;
+	Sat,  7 Nov 2026 15:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvGZrorQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794063999;
+	b=u1/fl+N4yU/DaxvVlUFDhjKrNjmEg+Do4FOuLih92TDXuS8yOZR09RLOm/OY5+FR2/cV
+	 KVHwU5dxBPRCJh4MFNbIbgJ25SD0QeslH9GUNcSr5l+HQY3SrKHumRjkWicoG3x2Trub6
+	 pSmkkMLLLs7OIQaygNenJph1MxhffrDGTLM4TxkJvaiQQyuqtRVoh8XGwaK/ur8daBkx6
+	 f5asy0vhJPhFi1B0JdtxPc/AYn2PX2Qce4vYdTUm+s6CSLFZLnmS+h3Ct1aDIIu9lDJwH
+	 BTP8g08647mNYFRHrQ5kE+mZQdHX8UybJldMW4MSAB+rk663Ajl5mOZOUncHJK8Shpg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794063999;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cxr3dU8XiH5bi2u1dg6SGQxZyh/jEU0GS+krtHvgiEQ=;
+	b=RXMYWNZVTXVUtFH5yDMjeN67a8D/xhftL7T0XWmYRnjrB/SbEfKOvyY8mMHDw46DaMMx
+	 7rtZzwrr6tz6MLn6oSUs+7AXv2TdJljGSjWTFIU+EhTEfoopXlnoveOyKLDh2qbeufnMX
+	 yT49R0nJ3Dz9Km1056Xjdps45TY3ICzA5Awgj3CeRId1iTtV8ZAKxOpbjg+tG30QyoE7K
+	 zKS2VBIfB5VNipipAvWIeg9cfY397OLrOswUPHxYr8v+/1Cz1Xobm1Vk4vCs8mqtXcYf8
+	 Or5pa5HprEKy/JAn2znJnQW1nKHMhzLnriA0G+9L74gf4WmaFZC5SL19yaCHRKMNmWw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D4D606D83C;
-	Sat,  7 Nov 2026 15:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23D4D606D83C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=mO6Hho2W
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jMKBP0pbDzKnRH;
-	Sat, 07 Nov 2026 16:06:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
-	s=MBO0001; t=1794063981;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=aNl6N5aZvIYcmu8uPSEH2CIEocI5mNcKcn5UzSShfFE=;
-	b=mO6Hho2Wn/x/gP8L9WrgszrwSwMdcZ99DfLP79uoCA9gyCtmpFWoSr2sohn7pSVMRg9GUD
-	TOT1Eth2C7M4ixYNcxnVAt9+uSjmFogmU5AGdC0RBC/PqrhxBRAExluU3Nivcw/+ivwscM
-	5/UM/AqvPquxKnyWw4jRDZHNl/iq5zdLHJ+hcFpCHtgqHm3m0pmOo6lDBtP2J3LQB3DcLI
-	zAgui+JVBvGkKvGqVZVsh90EAmzUpzdz0xLyPbAVu5htJGVxRNTOAZqh0udzWPK0uFQrLT
-	Cth9dXHRXzExQEaShtOBqzNsQSrEi5S+irgXjQvS6DRPzo0qbzZHd3+8nPLCDg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
-From: Tomasz Bojanowski <tomasz@bojanowski.me>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hamza Mahfooz <someguy@effective-light.com>
-Subject: [PATCH] hwmon: (nct6683) Remove the 32 mV voltage scale
-Date: Sat,  7 Nov 2026 16:06:19 +0100
-Message-ID: <20261107150619.297999-1-tomasz@bojanowski.me>
-X-Mailer: git-send-email 2.56.0
+	by smtp.kernel.org (Postfix) with ESMTPS id A78A41F0089F;
+	Sat,  7 Nov 2026 15:06:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794063999;
+	bh=cxr3dU8XiH5bi2u1dg6SGQxZyh/jEU0GS+krtHvgiEQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=RvGZrorQy1WVyUVTlPZAHIGEym2mWW++qFiUu0oLDvkFSCKEi1gpBWlSXYxcFEwUS
+	 Rvk1ycjAXHGuGpZazav9AhYrsfRXu59TXrJ1WhPNyHou+yakSACacFMype4Gmd0Sbv
+	 FTRVolWLJ+DAGTyiCMXByKsvjCb52z3Wf3dKsFilplBXW3JGNcNuCO8FULCZDRqAoK
+	 bLkVwe5/0ji3rLzb30BWJPcuYVL91cU4vGKFV4hB6bFmZ94U4GEfnN5ofWrgc0AJql
+	 O293jDzuSKPz1C57MjVDwSi3N1vX+gYvAS2Y5FdIxnvi1dOIAqR57vjV22UuKYjfGO
+	 UyhMFdbZVq7rQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 39D1F47C43;
+	Sat,  7 Nov 2026 15:06:38 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Sat, 07 Nov 2026 09:06:37 -0600
+Subject: [PATCH] staging: octeon: fix OF node leak and kernel-doc in
+ ethernet-mdio.c
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,70 +83,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-octeon-mdio-fixes-v1-1-9620a30952eb@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LQQqAIBBA0avIrBvQEo2uEi3EpppFGhoRiHdPW
+ j4+v0CmxJRhEgUSPZw5hgbVCfCHCzshr83Qy94oJS1Gf1MMeK4cceOXMtpBj8poPThnoX1Xoj+
+ 0bV5q/QDGU87uYwAAAA==
+X-Change-ID: 20261107-octeon-mdio-fixes-734816443aa7
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794063997; l=1411;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=vNQzcWCw6v+GGPCU8kFndUmRbbBQdBJ6gMhfqAvp8Dc=;
+ b=FC+6l190WVFl95b+7mKRrFwTrjPz9j+cS6JFhICFLvALpgRLRoLfkU2CmJZ11q6sFVRCFjUEj
+ IktMsPrQelKBx6nMVvV9yTFTsTsqdH6t4Wrh3nN00qMNE+qMtbgmvSl
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jMKBP0pbDzKnRH
 
-in_from_reg() is meant to scale the VCC, VSB, AVSB and VBAT sources
-by 32 mV, but show_in_reg() passes it the monitor channel of the first
-three voltage sensors instead of the source of the sensor shown. The
-32 mV case therefore never matches, and all voltages have been scaled
-by 16 mV since commit 41082d66bfd6 ("hwmon: Driver for NCT6683D").
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-According to the datasheet, there is no 32 mV LSB. On an MSI MAG
-B850M MORTAR WIFI (NCT6687D, customer ID 0x20d), VCC reads 3.31 V,
-VSB and AVSB 3.34 V and VBAT 3.10 V with 16 mV. With 32 mV they would
-read 6.6 V, 6.7 V and 6.2 V.
+Fix a reference count leak in cvm_oct_phy_setup_device() where the
+device_node pointer 'phy_node' was not released if of_phy_connect()
+returned NULL on a probe deferral scenario. Balance the reference count
+by calling of_node_put() within the error path block.
 
-Drop the source argument and the 32 mV case. No functional change.
+Additionally, correct the documentation style of the function by
+replacing 'Returns' with the standard 'Return:' keyword to comply with
+kernel-doc scripting requirements.
 
-Link: https://lore.kernel.org/linux-hwmon/20261106144247.30507-1-tomasz@bojanowski.me/
-Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
-On this board, CPU Vcore is connected to VIN4 (confirmed from the EC
-monitor configuration registers) and reads 1.33-1.36 V with 16 mV
-with the cores at 5.5 GHz, so a separate 8 mV scale for Vcore does
-not apply here. I have no data from boards of other vendors.
+ drivers/staging/octeon/ethernet-mdio.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- drivers/hwmon/nct6683.c | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+diff --git a/drivers/staging/octeon/ethernet-mdio.c b/drivers/staging/octeon/ethernet-mdio.c
+index 211423059e30..05bc536ebded 100644
+--- a/drivers/staging/octeon/ethernet-mdio.c
++++ b/drivers/staging/octeon/ethernet-mdio.c
+@@ -151,11 +151,13 @@ int cvm_oct_phy_setup_device(struct net_device *dev)
+ 
+ 	phydev = of_phy_connect(dev, phy_node, cvm_oct_adjust_link, 0,
+ 				priv->phy_mode);
+-	of_node_put(phy_node);
+ 
+-	if (!phydev)
++	if (!phydev) {
++		of_node_put(phy_node);
+ 		return -EPROBE_DEFER;
++	}
+ 
++	of_node_put(phy_node);
+ 	priv->last_link = 0;
+ 	phy_start(phydev);
+ 
 
-diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
-index d0ae3daaf049..b5c5931d3dfe 100644
---- a/drivers/hwmon/nct6683.c
-+++ b/drivers/hwmon/nct6683.c
-@@ -503,20 +503,10 @@ nct6683_create_attr_group(struct device *dev,
- 	return group;
- }
- 
--/* LSB is 16 mV, except for the following sources, where it is 32 mV */
--#define MON_SRC_VCC	0x60
--#define MON_SRC_VSB	0x61
--#define MON_SRC_AVSB	0x62
--#define MON_SRC_VBAT	0x64
--
--static inline long in_from_reg(u16 reg, u8 src)
-+/* LSB is 16 mV */
-+static inline long in_from_reg(u8 reg)
- {
--	int scale = 16;
--
--	if (src == MON_SRC_VCC || src == MON_SRC_VSB || src == MON_SRC_AVSB ||
--	    src == MON_SRC_VBAT)
--		scale <<= 1;
--	return reg * scale;
-+	return reg * 16;
- }
- 
- static u16 nct6683_read(struct nct6683_data *data, u16 reg)
-@@ -701,7 +691,7 @@ show_in_reg(struct device *dev, struct device_attribute *attr, char *buf)
- 	int nr = sattr->nr;
- 
- 	return sprintf(buf, "%ld\n",
--		       in_from_reg(data->in[index][nr], data->in_index[index]));
-+		       in_from_reg(data->in[index][nr]));
- }
- 
- static umode_t nct6683_in_is_visible(struct kobject *kobj,
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261107-octeon-mdio-fixes-734816443aa7
+
+Best regards,
 -- 
-2.56.0
+Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+
 
