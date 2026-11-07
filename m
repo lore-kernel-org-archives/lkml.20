@@ -1,118 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794071592;
-	b=De3Mgeuhx4YH1lWittWgo1ezY89y3ltyD9kdt+matIXFLx31X+4SaodDffMUndANcrwy
-	 ZlBGPyq0rvUwP+8IUkFtSYKeJxBdujh+CQtaG/7RB/ZOvEUXrOEbLq72/ycuun6ac9byQ
-	 hDhuh6ATb4UEKUOYqfMcQndSP88nx9c8frmikm19BWQW+gpbKIfmbijxET+wTRUnZLEeH
-	 y4ZJKh2mjoEYbbmzIW+twj/CGAz+G1pqKqOV8zuWPgbONcUJ/cxNYC1Ats6/9/bgypDWQ
-	 6qZti99pZHg2VEV2IJPNNeIXqQrMQyB3Qc0HKs+3RuOmrYx31vNMtFC2TqvysSEc0SA==
+	t=1794071594;
+	b=1AONcs4vj6s25K2LR61ju06Qms62zv0aNqqJD82ET3jYbvcVF9089XXyfPI1C9dLYWHh
+	 hHV/TKbZJzfUKGpbv/OuC3HleCjFtkmi2/GqfCJAO/JQxuy4Om5RxzHD9+I1Yly68Wa8O
+	 GJ5GnNr2XRjTIj2zjaHW/b8F1KCtUosqeXs8Uj8rz9shf0ur6Ypz/nIz7jXTPuVRsN71p
+	 yhxqPGDFTXelHlH+1YvQ+3GqM4YpRN7QJCwfkbj0+Lp45wPyLE36r8pd3+/UnCC1jSwiu
+	 QACuM0CXXPWjN61Y4CW8ARKRRD0mJK1Zp3lGEiPe57IDbcq4qqgKtoTqRf1tzNMGOLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794071592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794071594;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mynYKR1ZAkpBPyX1Y39GAIXi0uQVHkLOFJGn8mGHCF8=;
-	b=XHiX3RzGKQ+2V1tW1lD1YbekzF7BsLQXjdqwQcJBV5Z2jKbIR1eRi6qlD8eT7i2fvolJ
-	 isrOQ+Qt+AdlnFO8wfHONqWBk5H9pstf7qOLwBXUhLIk67154PS4Z5a/nGA8ghmROJ9Y+
-	 bnabmC2teOi67xBxdRdfuvYzXtaqoX32t/fwf5kjgfWhKy3XDFCGmxyihO5wA3Fc6xDhb
-	 GQd/o8NyTyaQg0reXyNJR3nl6INrEzPQdTIF0v1bDCwwgliaMkhE6mNJpHJeNtsn8oMW0
-	 9zj7tJF/hHOl7KBxCSpZMQXYVPLajfq45drl4PdB4aPOZvcayLnRarxaRcrm+QGtrTw==
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=RrcIjc82wzLHRIBiu7WsbnPLnaaISGaTukITjRMdwK4=;
+	b=zlBTZ/nHZDXlUocXfb34UwGHmBiv8eJE9GFCkC3TM5bK92LSQOnyrNeTA984XeApMMbT
+	 5PVcCtdWCPJE7qLPo1JtqzpB3srRYFmPjDneMbze6QQxVl+/98tSijNO+6QoxxMotDDdp
+	 jVDmbYQVkg+75QBQy9/SHqEGxFJXWfnGX8CCX8V4Dure5CBZWlf9IYiJFh6U8Qq1NDORV
+	 aVTZkisCwNst1fFdo1V1zWqlAEtBfeJRM23J7bEbU+AwuyUrjGJks+yzWj1XgZTEd9LLa
+	 FWOL7WZrh23MAdy89moy3zZGtV3HMv/1xp+iHJ9kBOUhQcDWZbiN+NSH5HIxXMNZ9iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AlVGkqZf;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LSKRq+Su;
+	arc=none smtp.remote-ip=209.85.221.177
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88291606D82E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:13:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88291606D82E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6247B606EEA0
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6247B606EEA0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AlVGkqZf
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e46e449e8so1012950f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:13:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LSKRq+Su
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eaabf28c06so1278616e0c.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:13:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794071590; x=1794676390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mynYKR1ZAkpBPyX1Y39GAIXi0uQVHkLOFJGn8mGHCF8=;
-        b=AlVGkqZfi0ocabBbxkt2TvF5QtI39r3zXqB4qI3AH1FllhWANSWuGEqNJv5LOzmuxa
-         9ccpc/FYIqJMUn3gf7pEUnbdTJAGORDj3s/IqFYmC/ADcn1e0eYzqGCKU12Z2riCt4A0
-         mFraTB9qHtBpwxehnrJaooQE3e3KJ0i1Xv4Q75KnZuTew6xTXlaK2TNPLf3S9fr2OE5f
-         WBw8pxOlCFMaTwgGnNByzPQD05IrFWHGccXNS0hZm7QLT9Ri83BrYeI/4c127U8ZbwCU
-         J+ySr+wQ1tXiMVAbI343gkpyG8GstjI3kbT/OVmTmfbm9CFFrM2h6mJ+5RbpMRiDOISH
-         /6Qw==
+        d=gmail.com; s=20260707; t=1794071592; x=1794676392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RrcIjc82wzLHRIBiu7WsbnPLnaaISGaTukITjRMdwK4=;
+        b=LSKRq+Sub16VAsEMonpzRlOiZ8U/Plpyjo0xR2iYyxNNpt3DqQhh77kmf5d1aaRvti
+         IyZhXH9yctfuza57fW/gCZP74SmXlTA4YxybQsjf6uITlQpHi39WwbzFBfjmHJuVO+Gk
+         iQdTg3oJ9cpYc1ZmoFUBFuz79/TEvjwIL8YDIHzozD4wLMoy4Y2kWPfoC9VILYoSVr/E
+         HRWn5S+FkoluHtTxKQiD/DB5X7aHTVcmofLixtW6CNTen71h88Vubkd+QhyfUReog68T
+         rEwCnatBtUQqKCoKFSm8v16DmtVOf2V3BoRTUyIjCLyut6lNnDair7haTTLmVaNRvSSn
+         TN4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794071590; x=1794676390;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mynYKR1ZAkpBPyX1Y39GAIXi0uQVHkLOFJGn8mGHCF8=;
-        b=fEGgyKM5QuA5u7s4mr6KxIDhdb2TbcNxRXd8Kwcd3ab2bRpXPdsHDy48c4E5xwdbTI
-         EBZWGB6Grl19ZKrlEWwvFS4Xjyt8qbVQH++5HSiS7OSVzI4TALqh1WFiVZYvKRP2tXHy
-         evbM9r6roAe3G6RVP19cKgq0S9bWsMQkD4o7K3Y/pK2QwCQbwbo1fVuTiBarAEP4MwT5
-         cZmqk0Ik1S7bbaLL7NVsXFAGjWhV6LtCBmnsJHqRJNLLUjZQLU9e2nMJJ2smztEOUDCt
-         XYQpRvb6hr3lc/e9ySCzvprarwH29z7voDIG5zzAVcHC+jiGp2eUVnDvt75JxZPe/8PT
-         fNEw==
-X-Forwarded-Encrypted: i=1; AL+hErFcJNjsnFHjsegVLtD91LWdE04+3W6vCJxkPZ/19dmFo8T2iRCFkKFgT8RQTwA6kUO+L3sPYg8dq4Bz5i8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vh8KTuELGMdolylzFoz7il1ZrBQ1Kw0DLPb7NTcjf5GYL/20I
-	67un/gQ+VMQUeFVjmNUoGNL4Y9chcD2eIgr8pu4gSX+X4csZGvs4+MkT
-X-Gm-Gg: AYBFou1OeoDYw1+8fe1a54OhJ781iXbG1MZvaQrUQFAok5IPDMbVOtcx0SkX7aeZSy/
-	3m4K/MDtS5ZYLt84l1KNz0B86vnm2waPVvtpJFwGSMaBQSTWgURWlgcyM6OHDr4Kz2rx9tpDn+F
-	QlSXBb9bFFacQpr0O799to/NxKrGeNW5j0UB5pY3vqM4nIVnzmt12k3XEdexdk7XSzFPUdr8c8W
-	8nPC2TKM8UC58nFpg+p3rcJThAeAFG3tyPTGf85h0dMOwsx8Z8uimpriXajsQeWwtDzfPvkgRKp
-	0CBV1u5GI+KAfmPiC0/dvDJkrCaMDeaY/STulnj2T+IGuW3GGxudo98iv4lmK7VBoK3TuB+3QMK
-	2kJPPQ8yN8zu1kXC2qn+miS3VBFP7BKNNdFFKZd3PiCjw1jsrlm5W38DrlCplL5+4+/EUFXOdiR
-	Klu3UdZHJsiMV4jMlwVhaQveSg5BW6wlKX+J/v7QtIWlvaAiynai/Njufy+DWOqt7ucTeOsVh8F
-	/CjUlvj1azeR1Z2kf9qIDPC+s0zhw3ntrQi5R+Wd/HL1FSA6hSkkGWR1tLcdisZB/H1IoQleDqX
-	9MbjYl2HS3xWkBqCh3IhboZbd+lzyec5hH/FFmJua2z02uxMAgAEdfu0wvd8hpSK4/9uBr/ALmz
-	DzuwKfhm98hXj8A2FhNA2vvKot63rlkTcGZYfVjnoD1ailRM1x821MFstUV1F2ePiUECDogQhGQ
-	n7iTTdRFfLNyOtt7MkcZKXMsLOS3HgMh8=
-X-Received: by 2002:a05:6000:2689:b0:48b:e50:714e with SMTP id ffacd0b85a97d-493aa8d24d2mr7126885f8f.36.1794071589545;
-        Sat, 07 Nov 2026 09:13:09 -0800 (PST)
-Received: from localhost.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723222fsm10627105f8f.21.2026.11.07.09.13.08
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 09:13:09 -0800 (PST)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Gabriele Monaco <gmonaco@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Wen Yang <wen.yang@linux.dev>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2 1/9] tracing/irq: Add generic IRQ context boundary tracepoints
-Date: Sat,  7 Nov 2026 18:12:44 +0100
-Message-Id: <20261107171252.25090-2-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261107171252.25090-1-kmehltretter@gmail.com>
-References: <20261107171252.25090-1-kmehltretter@gmail.com>
+        d=1e100.net; s=20260707; t=1794071592; x=1794676392;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RrcIjc82wzLHRIBiu7WsbnPLnaaISGaTukITjRMdwK4=;
+        b=MDEhIr/JvwWNUP+cP+YlpPdyEaEppnJ/izS0lPrBSO+Vmpd5GbzuKkxTIIcQkmpkMy
+         ht7AyWIvtAO/1XEkMOwt8yItVSY7SYRdAsXPEhZCOLOhlAJoaqwhiS25LxUStgAas+Mv
+         v/qHllDqjJhzIEMN3ASdnDeGRv4+gqfHPmZXTi2MbPMgC36FBShYZV996FWJOQZC/Zhm
+         /VzPsKdrNgCKfCe4Bhjg6alVCsiufqj0ZxA3iIMMlltF1WskPgf4HmxOIZAuM0Fy+BkK
+         nfaC1g79SCXObyvF8cBEWfmKzdOQcriN/gG82fn4tVXrp5HHPepAA/QhDtQ38LzxEVnO
+         q0XA==
+X-Forwarded-Encrypted: i=1; AL+hErE7ZCpysSE54WNxkeEZtKZh81bRKmF7he3ugItjt2ZrG1Fl/GGc4rrK/SBH5+3aNqr7a6/RpgYQv+EzkZM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8zva8pRQbFKIS2xFk0O0Wxqhx7MX77r81fFyak9GYCnCIFZuud
+	qJ992YJeF++FocQGCJufUDPyYEQgD8WVmXtqWOeQHzOtHNtgvv3PWiPJ
+X-Gm-Gg: AYBFou3A6gLHnOCrocCB53GDTjl/Mk+hDQ6PK9p/h+5ennJ7ZSdKZS5FOjvC/xigBYm
+	4dA9sO/UDp0MxZ2rqJG6yrjrSbbfnb4U4yH3/PbW7vVKolLYwo3QvgRb90vaX/HiwbGRvbZY4fr
+	xIck8PRHQuUreNjV6t8Aun+kJRRwNOTturxeQTmzzYrMx+QVqAETz8ksFTItXcDFXCY9sZwlu+t
+	Dsc21ZKNQArhIsNuZwLdK/N+H1JlV7UxYao0ZDjmukF30qs7mP52pRJ4c/B+uWp+M82GY5d+vNW
+	FN15HhjfyLoIByaIPW8UoEui9BwzBAGi/CnI14F/yvjK2hMSbNCwVteQNIh8adD5CB6fp+9yx5j
+	DBbYs7q0BEAtl9wyIR+CvH0vTv2mDS0je+xfyDzNvdKY/Hic8LjUa/7fd525AAHVBStoSGqzfiB
+	hB9fvWS8Ic4ug9ob/l2q+07a4eSurE8NpDFE2uF6gFl2zq0ura0YbjZaqtEZ0m+047wS5b4z4+3
+	nUNzlfZJ+Hx3GhEhx49fhVdSdQFexWHXztvkkjIalSLkVh6GmY47bKUiHK2E8YBJeKL4WP9SSJZ
+	avbTiF/v0SPcgdl2qU+9Dm/2P+3AnE2U8bh7v27JUkoA1gVTY5Ev3TzLwett0UA5doqVxGrl0w3
+	TwKpGsTZMYzySA4hWaFO/45XCWnhX8gcfQS83TDvAGXl+vSyfn0XRwjhI8ERyoqo+kPkNy5my
+X-Received: by 2002:a05:6122:3c45:b0:5ea:aedd:6087 with SMTP id 71dfb90a1353d-5ecc43a4d30mr2895214e0c.4.1794071592253;
+        Sat, 07 Nov 2026 09:13:12 -0800 (PST)
+Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc64ccb58sm4015495e0c.9.2026.11.07.09.13.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 09:13:10 -0800 (PST)
+Date: Sat, 07 Nov 2026 12:13:09 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Kalpesh Solanki <skalpesh942@gmail.com>, 
+ willemdebruijn.kernel@gmail.com, 
+ jasowangio@gmail.com, 
+ alex.aring@gmail.com, 
+ stefan@datenfreihafen.org, 
+ miquel.raynal@bootlin.com, 
+ davem@davemloft.net, 
+ edumazet@kernel.org, 
+ kuba@kernel.org, 
+ pabeni@redhat.com
+Cc: andrew+netdev@lunn.ch, 
+ linux-wpan@vger.kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com, 
+ Kalpesh Solanki <skalpesh942@gmail.com>
+Message-ID: <willemdebruijn.kernel.2b153da88ae03@gmail.com>
+In-Reply-To: <20261107162649.282982-1-skalpesh942@gmail.com>
+References: <20261107162649.282982-1-skalpesh942@gmail.com>
+Subject: Re: [PATCH net v3] tun: disallow setting IEEE 802.15.4 and 6LoWPAN
+ link types via TUNSETLINK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,255 +112,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-IRQ action tracepoints describe handlers, not the enclosing interrupt
-context. One hardirq context may run several actions, while synthetic
-dispatch can invoke an action outside hardirq context.
+Kalpesh Solanki wrote:
+> A userspace application can set the link type of a TUN/TAP interface
+> to ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, or ARPHRD_6LOWPAN
+> via ioctl(fd, TUNSETLINK, arg) because tun_get_addr_len() explicitly
+> recognized these types.
+> 
+> However, TUN devices cannot function as genuine IEEE 802.15.4 or 6LoWPAN
+> interfaces:
+> 
+> 1. They lack wpan_phy, channels, PAN IDs, and MLME operations, and tun
+>    never initializes dev->ieee802154_ptr or dev->ml_priv. When an
+>    unprivileged user creates a TUN interface in a user+net namespace,
+>    changes its link type to ARPHRD_IEEE802154, and issues a netlink dump
+>    request (such as IEEE802154_LLSEC_LIST_KEY),
+>    ieee802154_llsec_dump_table() unconditionally dereferences
+>    dev->ieee802154_ptr / ieee802154_mlme_ops(dev), triggering a supervisor
+>    null-pointer dereference / general protection fault. Similar
+>    dereferences occur across net/ieee802154/nl-phy.c (ieee802154_del_iface)
+>    and net/ieee802154/socket.c.
+> 
+> 2. Similarly, the 6LoWPAN subsystem assumes via lowpan_dev(dev) that
+>    netdev_priv(dev) is struct lowpan_dev. On a TUN device, netdev_priv(dev)
+>    is struct tun_struct. On netdev events (such as NETDEV_DOWN in
+>    net/6lowpan/core.c:lowpan_device_event), it clears bits in
+>    lowpan_dev(dev)->ctx.table flags, which corrupts private memory inside
+>    tun_struct.
+> 
+> Rather than scattering checks across subsystems, fix the issue at the
+> source: disallow setting ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, and
+> ARPHRD_6LOWPAN via TUNSETLINK by returning -EINVAL.
+> 
+> Fixes: cca8ea3b05c9 ("net: tun: set tun->dev->addr_len during TUNSETLINK processing")
 
-Add bare tracepoints at the generic hardirq and serving-softirq
-boundaries using DECLARE_TRACE() so they can be hooked by in-kernel
-verifiers and tests without exposing a new user-space tracefs ABI.
-Record hardirq depth and whether serving-softirq state temporarily
-replaces hardirq state during interrupt return.
+Should this be
 
-A boundary callback can raise work after the normal pending-work
-decision. Include work raised at softirq entry in the initial pending
-snapshot, and hand work raised at a final boundary to the appropriate
-worker.
+Fixes: ff4cc3ac93e1 ("[TUNTAP]: Allow setting the linktype of the tap device from userspace")
 
-The tracepoints cover irq_enter() or irq_enter_rcu() and their matching
-exits. Raw and direct low-level entry users remain outside their scope.
+> Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
+> ---
+> v2 -> v3:
+> - Include ARPHRD_6LOWPAN alongside ARPHRD_IEEE802154 as agreed with Willem
+>   de Bruijn, preventing Sashiko AI flags and addressing the underlying
+>   lowpan_dev(dev) memory corruption.
+> - Minimize code churn as advised by Willem de Bruijn: drop unrelated
+>   USHRT_MAX check and preserve tun_get_addr_len(), headers, and existing
+>   block indentation.
+> - Fresh standalone thread as advised by Jakub Kicinski.
+> - Link to v1 and v2 discussion:
+>   https://lore.kernel.org/all/20261101092219.1278751-1-skalpesh942@gmail.com/
+> 
+> v1 -> v2:
+> - Instead of adding NULL checks in net/ieee802154/nl-mac.c, disallow setting
+>   ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR link types via TUNSETLINK in
+>   drivers/net/tun.c, as discussed with Andrew Lunn and identified in Sashiko
+>   bot review. Virtual IEEE 802.15.4 interfaces are properly provided by
+>   mac802154_hwsim and fakelb; TUN devices cannot function as genuine 802.15.4
+>   radios and lack private 802.15.4 contexts.
+> - Add an explicit bounds check (arg > USHRT_MAX) to prevent integer truncation
+>   bypasses when casting 64-bit ioctl arg to 16-bit dev->type.
+> - Remove ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR from tun_get_addr_len()
+>   and drop unused <linux/ieee802154.h> header.
+> 
+>  drivers/net/tun.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> index dcec7311e60..05eb28578b8 100644
+> --- a/drivers/net/tun.c
+> +++ b/drivers/net/tun.c
+> @@ -3362,6 +3362,10 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
+>  			netif_info(tun, drv, tun->dev,
+>  				   "Linktype set failed because interface is up\n");
+>  			ret = -EBUSY;
+> +		} else if (arg == ARPHRD_IEEE802154 ||
+> +			   arg == ARPHRD_IEEE802154_MONITOR ||
+> +			   arg == ARPHRD_6LOWPAN) {
+> +			ret = -EINVAL;
 
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- include/trace/events/irq.h | 56 +++++++++++++++++++++++++
- kernel/softirq.c           | 83 +++++++++++++++++++++++++++++++++++++-
- 2 files changed, 137 insertions(+), 2 deletions(-)
+Thanks, a lot simpler.
 
-diff --git a/include/trace/events/irq.h b/include/trace/events/irq.h
-index 837c1740d0d07..1b2e05aaf7763 100644
---- a/include/trace/events/irq.h
-+++ b/include/trace/events/irq.h
-@@ -207,6 +207,62 @@ DEFINE_EVENT(tasklet, tasklet_exit,
- 	TP_ARGS(t, func)
- );
- 
-+/*
-+ * Following tracepoints are not exported in tracefs and provide hooking
-+ * mechanisms only for testing and debugging purposes.
-+ */
-+
-+/*
-+ * hardirq_context_entry - generic hardirq state has been established
-+ * @depth: hardirq nesting depth, including the context being entered
-+ *
-+ * This tracepoint is emitted after generic hardirq preempt-count, lockdep,
-+ * timer, and accounting state has been established. It does not describe the
-+ * architecture-specific interval before irq_enter() or irq_enter_rcu().
-+ */
-+DECLARE_TRACE(hardirq_context_entry,
-+	      TP_PROTO(unsigned int depth),
-+	      TP_ARGS(depth));
-+
-+/*
-+ * hardirq_context_exit - generic hardirq state is about to be removed
-+ * @depth: hardirq nesting depth, including the context being exited
-+ *
-+ * This tracepoint is emitted with interrupts disabled near the end of generic
-+ * hardirq exit, after tick-exit work and before hardirq preempt-count state is
-+ * removed. A late-work handoff may run after callbacks return. Hardirq
-+ * accounting ends earlier.
-+ */
-+DECLARE_TRACE(hardirq_context_exit,
-+	      TP_PROTO(unsigned int depth),
-+	      TP_ARGS(depth));
-+
-+/*
-+ * softirq_context_entry - serving-softirq state has been established
-+ * @serving: whether the current task is serving a softirq
-+ * @from_hardirq: whether hardirq state was replaced by serving-softirq state
-+ *
-+ * This tracepoint runs with local interrupts disabled after the serving bit is
-+ * set. On PREEMPT_RT it includes preparation before handle_softirqs(), even
-+ * if the pending-work check finds nothing. It does not mark an individual
-+ * action or the start of CPU-time accounting.
-+ */
-+DECLARE_TRACE(softirq_context_entry,
-+	      TP_PROTO(bool serving, bool from_hardirq),
-+	      TP_ARGS(serving, from_hardirq));
-+
-+/*
-+ * softirq_context_exit - serving-softirq state is about to be removed
-+ * @serving: whether the current task is serving a softirq
-+ * @from_hardirq: whether hardirq state will replace serving-softirq state
-+ *
-+ * This tracepoint runs with local interrupts disabled before the serving bit is
-+ * cleared. On PREEMPT_RT this includes teardown after handle_softirqs().
-+ */
-+DECLARE_TRACE(softirq_context_exit,
-+	      TP_PROTO(bool serving, bool from_hardirq),
-+	      TP_ARGS(serving, from_hardirq));
-+
- #endif /*  _TRACE_IRQ_H */
- 
- /* This part must be outside protection */
-diff --git a/kernel/softirq.c b/kernel/softirq.c
-index 7fc2200392cdf..0d5fe265e354b 100644
---- a/kernel/softirq.c
-+++ b/kernel/softirq.c
-@@ -178,7 +178,9 @@ bool local_bh_blocked(void)
- 
- void __local_bh_disable_ip(unsigned long ip, unsigned int cnt)
- {
-+	unsigned long trace_flags = 0;
- 	unsigned long flags;
-+	bool trace_serving;
- 	int newcnt;
- 
- 	WARN_ON_ONCE(in_hardirq());
-@@ -200,6 +202,16 @@ void __local_bh_disable_ip(unsigned long ip, unsigned int cnt)
- 		}
- 	}
- 
-+	/*
-+	 * A serving interval starts here, before handle_softirqs(). When its
-+	 * entry is traced, keep IRQs and task switches from observing the bit
-+	 * before the event. Any blocking BH lock was acquired above.
-+	 */
-+	trace_serving = (cnt & SOFTIRQ_OFFSET) &&
-+			trace_softirq_context_entry_tp_enabled();
-+	if (trace_serving)
-+		local_irq_save(trace_flags);
-+
- 	/*
- 	 * Track the per CPU softirq disabled state. On RT this is per CPU
- 	 * state to allow preemption of bottom half disabled sections.
-@@ -233,15 +245,27 @@ void __local_bh_disable_ip(unsigned long ip, unsigned int cnt)
- 			raw_local_irq_restore(flags);
- 		}
- 	}
-+
-+	if (trace_serving) {
-+		trace_softirq_context_entry_tp(!!in_serving_softirq(), false);
-+		local_irq_restore(trace_flags);
-+	}
- }
- EXPORT_SYMBOL(__local_bh_disable_ip);
- 
- static void __local_bh_enable(unsigned int cnt, bool unlock)
- {
-+	bool entering = (cnt & SOFTIRQ_OFFSET) && !in_serving_softirq();
-+	bool trace_exiting = (cnt & SOFTIRQ_OFFSET) && !entering &&
-+			     trace_softirq_context_exit_tp_enabled();
- 	unsigned long flags;
- 	bool sirq_en = false;
- 	int newcnt;
- 
-+	/* Callers already disabled IRQs around the counter and its events. */
-+	if (trace_exiting)
-+		trace_softirq_context_exit_tp(!!in_serving_softirq(), false);
-+
- 	if (IS_ENABLED(CONFIG_PREEMPT_RT_NEEDS_BH_LOCK)) {
- 		DEBUG_LOCKS_WARN_ON(current->softirq_disable_cnt !=
- 				    this_cpu_read(softirq_ctrl.cnt));
-@@ -276,6 +300,18 @@ static void __local_bh_enable(unsigned int cnt, bool unlock)
- 			WARN_ON_ONCE(current->softirq_disable_cnt < 0);
- 		}
- 	}
-+
-+	/*
-+	 * An exit probe can raise a softirq while serving state still suppresses
-+	 * the normal ksoftirqd wakeup. Hand it off once no outer BH-disable
-+	 * reference remains.
-+	 */
-+	if (trace_exiting && sirq_en && unlikely(local_softirq_pending()))
-+		wakeup_softirqd();
-+
-+	/* local_bh_enable() can turn BH-disabled state into serving state. */
-+	if (entering)
-+		trace_softirq_context_entry_tp(!!in_serving_softirq(), false);
- }
- 
- void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
-@@ -640,11 +676,15 @@ static void handle_softirqs(bool ksirqd)
- 	 */
- 	current->flags &= ~PF_MEMALLOC;
- 
--	pending = local_softirq_pending();
--
- 	from_irq_exit = softirq_handle_begin();
- 	in_hardirq = lockdep_softirq_start();
- 	account_softirq_enter(current);
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		trace_softirq_context_entry_tp(!!in_serving_softirq(),
-+					       from_irq_exit);
-+
-+	/* Include work raised by the context-entry event. */
-+	pending = local_softirq_pending();
- 
- restart:
- 	/* Reset the pending bitmask before enabling irqs */
-@@ -692,6 +732,14 @@ static void handle_softirqs(bool ksirqd)
- 		wakeup_softirqd();
- 	}
- 
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT) &&
-+	    trace_softirq_context_exit_tp_enabled()) {
-+		trace_softirq_context_exit_tp(!!in_serving_softirq(),
-+					      from_irq_exit);
-+		/* The final pending-work decision above has already completed. */
-+		if (unlikely(local_softirq_pending()))
-+			wakeup_softirqd();
-+	}
- 	account_softirq_exit(current);
- 	lockdep_softirq_end(in_hardirq);
- 	softirq_handle_end(from_irq_exit);
-@@ -722,6 +770,7 @@ void irq_enter_rcu(void)
- 		tick_irq_enter();
- 
- 	account_hardirq_enter(current);
-+	trace_hardirq_context_entry_tp(hardirq_count() >> HARDIRQ_SHIFT);
- }
- 
- /**
-@@ -796,6 +845,36 @@ static inline void __irq_exit_rcu(void)
- 		wake_timersd();
- 
- 	tick_irq_exit();
-+	if (trace_hardirq_context_exit_tp_enabled()) {
-+		bool ksoftirqd_wake_requested = false;
-+		bool timersd_wake_requested = false;
-+
-+		trace_hardirq_context_exit_tp(hardirq_count() >> HARDIRQ_SHIFT);
-+
-+		/* Hand work raised by the final boundary event to its worker. */
-+		if (hardirq_count() == HARDIRQ_OFFSET) {
-+			if (irq_count() == HARDIRQ_OFFSET &&
-+			    unlikely(local_softirq_pending()) &&
-+			    should_wake_ksoftirqd()) {
-+				wakeup_softirqd();
-+				ksoftirqd_wake_requested = true;
-+			}
-+
-+			if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) &&
-+			    force_irqthreads() && local_timers_pending_force_th()) {
-+				wake_timersd();
-+				timersd_wake_requested = true;
-+			}
-+
-+			/* The timersd wakeup can itself raise a softirq. */
-+			if (timersd_wake_requested &&
-+			    !ksoftirqd_wake_requested &&
-+			    irq_count() == HARDIRQ_OFFSET &&
-+			    unlikely(local_softirq_pending()) &&
-+			    should_wake_ksoftirqd())
-+				wakeup_softirqd();
-+		}
-+	}
- 	preempt_count_sub(HARDIRQ_OFFSET);
- }
- 
--- 
-2.39.5 (Apple Git-154)
+But, arg is unsigned long while tun->dev->type is unsigned short.
+
+An arg ARPHRD_IEEE802154 | 0x10000 could pass this check, get and get
+assigned while truncated.
+
+Cast to unsigned short in these comparisons?
+
+>  		} else {
+>  			ret = call_netdevice_notifiers(NETDEV_PRE_TYPE_CHANGE,
+>  						       tun->dev);
+> -- 
+> 2.53.0
+> 
+
 
