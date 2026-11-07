@@ -1,61 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064769;
-	b=o9jnGhY8zdD/uIcU9JUe4iHD/LZxhIcfIqkAs8Q3/ZnUQ7g74yzY9thQ9Gmv9i6YtcsM
-	 rMM+qUaEAYzuHwJqbKt0yQjvz5pIshH/lrCTHtFXzF8zu8OilKgR3mCNXl/Z1IjphWO3y
-	 mkXfkh8VLskmzOqL0KIo5sjByRP+vUW+f6Z3hbhxomv9UGpSPnn0hf94X39vSzEUwtqQA
-	 mdthEZ7ZY+MtsoZ03DMhm+gb4E1VJf+T6+KZY/XLdNy24PLaBhv6svjSLOkG6YXBNfmNa
-	 7c+XFOV/CVjedN5hHU47PHHaiEi0H3bINDFxN5yM6jNU0I9XN1aiDtDK8fmK9R0bIVQ==
+	t=1794064989;
+	b=MTq7TEWwCEdE6ibyozNe14ct3w8BkbHgMDwMOska8CmPByrzLNiAzA/VTkTDIDlCbbc6
+	 2hps66yBvkmwDFxxOkMYZFDM5AKruE/TlGhilPkjPCFsN59g9bBsX/N/k6dLVSLRnU8mb
+	 jizc3fek0Giw0uoM+3EZn8Ghf5HZxSeutL1/euSRn/6pN/aXQB05gN02OeoaCi5xOusff
+	 BEl2Y5S+H750LAxRHACytS4qOP7DQ6+jbM3hrYX8wKMaInYeUCX+UxI/GEkHi8DdkRtzr
+	 4CE7HHGdiKwM5g1+5Um7U3AZ69YYZ6id7dKVB1nVeK08qSxEg30xP9v1KumvpTnn3fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064769;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=258GQipFsyTOXoUA2ByHEo7WeWVzLxapMXTt6kx2fyA=;
-	b=GiFsaazjrtndNPSgheIWUC7x8HPgWnrWzKSPja7FEmTfCxespYQBdfnVnkhXVLQURqBF
-	 2yxiFHvR+Gmm+ED33EN2WvzPnQt70yuXp2hVeY4AbISsPe2Ho+UGMCCpBiGwnZJJgD1Xi
-	 iRsX9WSjqDqQb208LFCO264znM/mrhE8eX2xfVRxZyULtObTdIYSspUH4ODAbLJrC0IUP
-	 Gc3e59ETT2ByiO8dioPobyHqbkhZRgAgkLMBk8Wl+vY/AYSKoVG7CQGka6miaE2QHVwJn
-	 wFyFvr3VnABSr9nJ8Oepc/NW9p5kfhANtryXhGJzs3lf63QBprt78X1ZcBlW5Vh8zdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064989;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=rmV/drJwFzjGVIpMrdq/RYdfM4Dnd81hhWt/4N/tmbU=;
+	b=vJgFahtAthJxytfWfILxqg7MH8VhwyGa9yDkKjPs5LPIRyRqjzqFszudo6z+Er+Tm8rr
+	 iKAgkpBAGVOu9p+rXDUShbTRtltVVOIWeIzjVrvxoqrkgoaVCu8PZl+hTxzxp12XuBYMW
+	 wX0AH6fduLkQJXDyNZajybW7F9CD96iByEAyx6eWgqgrK2u5uZEO7sWBtr7g9Mb/QBtCU
+	 L6EdY4HPQrpQlF04WTI3FZKHaOzASziyWd1Ol+s1a73Krg8Vuh43VLcIfh71+Pp9p23xZ
+	 m+w6o+KaxEnP0ZscAMUaFO9moti3MJTy/cpKWBEJHTjZDOEjwXM/Xr5JMTVXGp3gg7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xgo2kU6B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA4F606A9E6;
-	Sat,  7 Nov 2026 15:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xgo2kU6B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893CF1F0089F;
-	Sat,  7 Nov 2026 15:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794064768;
-	bh=258GQipFsyTOXoUA2ByHEo7WeWVzLxapMXTt6kx2fyA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Xgo2kU6BrJF85uNf2ydBeHc5WVewhtgdRgVneBNRk2GFI87HoPKGUnCYxgXK+kLaQ
-	 2FPw7HkRpbYka8EGzJXqqHAXl1zdsVl1CR+8V7WDUSQdAFfpwRQM06bgZBidy64BB2
-	 fgxv4gmc7LgxMSKaCPPWs9qAVdDVtimtSQnWbVOPNwrKhKgTXlBvQq43/v61YRc5rO
-	 56LKgfTjl8OBebk8AUjEtljqPmz/Q4JjMnSZI6YVUUGEL1TNBcbeYpxThgfyFCuYxa
-	 S8B5+gVLgE3DCVpF7fibkCQ7bsB2ZxpX2xPKDlXx2ZlWhYEa1PmXbL/6/7CMObkNcG
-	 uXDTwtHQuz/Pg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id C0AB92AB32AB;
-	Sat, 07 Nov 2026 15:19:26 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
- Robert Jarzmik <robert.jarzmik@free.fr>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20261104113405.1634275-1-peng.fan@oss.nxp.com>
-References: <20261104113405.1634275-1-peng.fan@oss.nxp.com>
-Subject: Re: [PATCH] spi: Convert to subsys_platform_driver()
-Message-Id: <179406122369.3424803.2354704707540163499.b4-ty@b4>
-Date: Sat, 07 Nov 2026 14:20:23 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881E2606A9FC;
+	Sat,  7 Nov 2026 15:23:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881E2606A9FC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jMKYc30Jdz51Sm4;
+	Sat, 07 Nov 2026 23:23:00 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6A7FMutY052234;
+	Sat, 7 Nov 2026 23:22:56 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 7 Nov 2026 23:22:58 +0800 (CST)
+X-Zmail-TransId: 2afb6aef42527d1-331d1
+X-Mailer: Zmail v1.0
+Message-ID: <20261107232258297K0a2CCYzVIOXLNuYCYeq6@zte.com.cn>
+In-Reply-To: <willemdebruijn.kernel.703e96022339@gmail.com>
+References: 20261107215051120CrLjo_cGXWfdJxXk4ae8s@zte.com.cn,willemdebruijn.kernel.703e96022339@gmail.com
+Date: Sat, 7 Nov 2026 23:22:58 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,47 +58,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1096; i=broonie@kernel.org;
- h=from:subject:message-id; bh=IsGdt/njLVLe0xHvqyi3tjPSeuC6ymg0tAUQ836nNnc=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeO9btbpz5m92sNtxrmp+QisY3mV3ct4NyeB896050z
- K3acD24o5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABP5msPwT+mA1Kw16/dcYP30
- O9v6R7qAcz+XhF4Jr/zjM09uuPCsSmJkeJwsKcMwV+2mKMfqdT93Hje/22NSLf2Y29cnn3dNYN1
- EdgA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <willemb@google.com>, <netdev@vger.kernel.org>, <davem@davemloft.net>,
+        <edumazet@kernel.org>, <kuba@kernel.org>, <pabeni@redhat.com>
+Cc: <josef@toxicpanda.com>, <horms@kernel.org>, <almasrymina@google.com>,
+        <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gbmV0OiBza2J1ZmY6IGRvbid0IEJVRygpIHdoZW4gc2tiX2NvcHlfYml0cygpIGZhaWxzIGluIF9fcHNrYl9wdWxsX3RhaWw=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A7FMutY052234
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 23:23:00 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEF4254.000/4jMKYc30Jdz51Sm4
 
-On Wed, 04 Nov 2026 19:34:05 +0800, Peng Fan (OSS) wrote:
-> spi: Convert to subsys_platform_driver()
+On Sat, Nov 07, 2026 at 10:04:25AM -0500, Willem de Bruijn wrote:
+> In the series, Josef reported
+>
+>   Two BUG_ON()s are left on purpose.  __pskb_pull_tail() and
+>   skb_pull_rcsum() have callers that can't otherwise fail, so they don't
+>   check the return.  Some of them would carry on and BUG() somewhere
+>   else, or push back a pull that never happened.  Those need their
+>   callers fixed first and will come as separate series.
 
-Applied to
+Yes, and this is that separate series for __pskb_pull_tail();
+skb_pull_rcsum() is still untouched.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
+The return contract is not new.  __pskb_pull_tail() already returns NULL
+today when skb_frags_readable() is false or pskb_expand_head() fails; the
+patch only stops BUG()ing on the third failure, skb_copy_bits() failing on
+a frag_list child.  That failure returns before the commit block at the
+bottom, so the skb is left exactly as it was (apart from a possible head
+realloc) and there is no half-done pull to push back.
 
-Thanks!
+Of the direct callers that ignore the return:
 
-[1/1] spi: Convert to subsys_platform_driver()
-      https://git.kernel.org/broonie/spi/c/4462c852b34a
+- skb_condense() is the one that can reach it.  It runs on receive skbs
+  that can carry a frag_list, i.e. the GRO-merged skb from
+  skb_gro_receive() that the patch is about; it now checks the return and
+  keeps truesize.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+- xen-netfront pulls pull_to - skb_headlen() only when nr_frags is already
+  MAX_SKB_FRAGS.  On failure nothing is committed, so nr_frags is still
+  MAX_SKB_FRAGS and the check right below drops the skb with -ENOENT.
+  That is the same path the existing NULL returns already take.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+- niu, mlx5 and ftmac100 cannot reach it: delta is bounded by
+  skb->data_len at the call site (niu caps the pull at sizeof(*rh) +
+  VLAN_ETH_HLEN, mlx5 clamps to skb->data_len, ftmac100 pulls ETH_HLEN or
+  the frame length), and their skbs are built from page frags only, never
+  with a frag_list child, so skb_copy_bits() cannot fail.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+skb_pull() propagates the same NULL as before; on the GRO path the
+protocol handlers get at the data through pskb_may_pull().  A length
+mismatch is a driver bug, and DEBUG_NET_WARN_ON_ONCE() reports it.
 
 Thanks,
-Mark
-
+Shao
