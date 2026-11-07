@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794019697;
-	b=Z4e6itJ4C3DflN6fNrV289bPoZCnoE3oqcIEWP9pwrBmbao0t4ltE0MWQaSL7bHPky74
-	 2JyK1OT+UY8X2w4gmwz3o+wX+uw+ItY9Z42UZwcV1h2c8qOuFs4L2zmWZN9rN1/HKhXVT
-	 r6owAubWui9LOPT5zmAmuOceytnvlA4luweg5Hq9YknO/vOyssUEG5f4s2n/kBY+dt//O
-	 zyvuZfT90YnfqCO2myjHnqPXE321mt4JO2HTHWFrJZdjbqgvID7erqQJ/UoLb4p3olUb7
-	 6eQH2zlatL6+ZKJRZvf582tUBIBMvT7OLiyrCJRuxDP2fKS8QomcmY5Lb02KluLzqag==
+	t=1794019725;
+	b=rhLPbKSSCZfzmT6XUolw6YgBKpI1j9EnWGwlukIAc0WDtQhTx9VtrhUmCrl/qB4LOnYg
+	 YondDP5edGKsWHwmBbwvnXVxEZhRJ/937tg9K4JhD05BPYxS5guRH+ikTa85DoZxQ97Oa
+	 XvFf0jbbGO8W6vM/aGWngYtZRv8jyiBxOyBtkCQng1KBEnBerJN1vZH2fiia1xTE9wBtn
+	 j4EJ82ainqsnlUI7+ihah9UkCl6CKrmetn8WvbSr83eiEJzfCwhbj5TlNzdPKeIy1l26V
+	 0c2eV6tE0wYXgCQOXucjYVJsLSysO46TJDEaa4l8no6fokaLwwPESop2l+1Gw1aYdsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794019697;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=AAIgwpH/ck9FKfPm3RWaDCqCEhNWIqAAxiu/CXOeZw8=;
-	b=J1y06oLzyHr7Bw4B+BFSsbfXPzWZVW0FeUjPsOUS/8e0tH4b9Bh+EAnFddovWmIRV2tO
-	 L1p44khFxHGAPbnfTn0QZnF62/U2G/UAKZpSG/nbwBX3xzec/ryEoyDv6XyD76Tpy9oXY
-	 fJVEho99n7AgH9e9AI71otBKIAoj7RABnvLGQXD8oRCugIZBeFHlUv+KFgpUQ8vAMTNkG
-	 omdaatOs7Lfwt2nK03MYa4GFqpE0DO4lsdhiOQEnFHze9HrEfVJ3cxm7KLt74GiNWVvgb
-	 mQlYulJamKJ/t80H8k+x1xRCTq7yuz7Y37KEjhNo9dT5sZsa5+gBwcNKUihug5h86ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794019725;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=fBwqy9R61SqvFjj6f4NiY/zITihotHz0FIoS201eK7I=;
+	b=EjV6y2YLJakpOgU9olb1yah4jsIwCrwKTQLnsWEGLW3HSM1UlDC+GTVhRE9ZGgF9Y5NU
+	 hRMvGr8LnOfg0cr1hpAHyV6nQmw0OL9Sd9ZKxdh3JSdAhf1wxigdxZRhtXmO0uWTVWVyR
+	 DJ11nfqDqIx4HevXxX2EsM8pBOT5ZWm45UxjZQQkCdn5YvjUsVGYjJy0hUodG2qrGfGdS
+	 FOEMofZ9FRSPl6S+Fc6hGNcY+PLYJRrqjfeKfqiKf1wvoI/w/yry2ruT7RZ3B6jXM+KB7
+	 7BwI9Ecf2lpbM0uTfi/o2b6UD+Fl4BkqVaq2u3AqdhtyYxhamzlqz8VXLz562wwSx+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oIJy15Yg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A554E606A326;
-	Sat,  7 Nov 2026 02:48:16 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hrTbHXNt;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B54C606A32E;
+	Sat,  7 Nov 2026 02:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B54C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oIJy15Yg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4591F0089F;
-	Sat,  7 Nov 2026 02:48:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794019696;
-	bh=AAIgwpH/ck9FKfPm3RWaDCqCEhNWIqAAxiu/CXOeZw8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oIJy15YggkrbYsz7vbSYSHLYIrrndeJYFAxF/tYGjT+SBtOH7QVjHQKAQ/A4YhSMM
-	 MZd1NYS67f9OJtZzymdNykiLg/gtCvtSrlvLMBRAW2PzoUgWyjxUbem2UvSSmUqXlG
-	 I6F8866P9fQDrfDqc7cIsFryGX3SUMNrB6DCE60BM0XFkLHhqEkXG91ED3EZer+/Yh
-	 IOvpKqyB65MJ64RENmG4aJhmK92hMaxOy91aO5Fs709w2YX3lXBUpFiTlw+JHEpxqj
-	 X2AlXJUTgCRQdGiSwzh+eXTHBixdOWi2b2o4tPYM9MLdJ89I3mA2zJy755M2mm3Svw
-	 eO4lweULJNDVg==
-Message-ID: <sashiko-outbox-202515@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 20/26] sched/deadline: Credit a rebuild to the CPU
- recorded with the task's bandwidth
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261107014451.1487825-21-mathieu.desnoyers@efficios.com>
-References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
- <20261107014451.1487825-21-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 07 Nov 2026 02:48:11 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hrTbHXNt
+Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id D322120B7168;
+	Fri,  6 Nov 2026 18:48:43 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D322120B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794019724;
+	bh=fBwqy9R61SqvFjj6f4NiY/zITihotHz0FIoS201eK7I=;
+	h=From:To:Cc:Subject:Date:From;
+	b=hrTbHXNt9ndcF1CGr7damsN1KsIduTRZhj3fqmoi8zjdcLh678dPeENCZgnCjN/WX
+	 XmgOvhSKhnlPCHPetwiJ1bxgIj82cofwDfM5U8640LWsxTyDX6r231VZjiTXGwnsPW
+	 UPCE0RrEL0nl460CV8kOFmC0mX0LXIHhdiQrTfyo=
+From: Mukesh R <mrathor@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	mhkelley58@gmail.com
+Subject: [PATCH] mshv: Do pre-commit before mapping a guest VM GPA
+Date: Fri,  6 Nov 2026 18:48:42 -0800
+Message-ID: <20261107024842.3929415-1-mrathor@linux.microsoft.com>
+X-Mailer: git-send-email 2.51.2.vfs.0.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,160 +60,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] sched/deadline: stale dl_bw_cpu used by dl_task_rebuild_cpu()
-  after fallback migration
-- [Medium] sched/deadline: dl_task_rebuild_cpu() disagrees with
-  select_fallback_rq() on isolated CPUs
---
+Pre commit reduces TLB flush overheads in the hypervisor. On systems
+with large number of CPUs, there is signficant advantage to doing
+this. Pre-commit allows the hypervisor to build all data structs needed
+in anticipation of the map gpa hypercall, thus reducing or eliminating
+deposit page returns from the map gpa hypercall, and as a result reducing
+TLB flushes. In some performance benchmarks, it made the maps of large
+ranges almost 30% faster.
 
-commit 95575db84831c783a0bb061a74c9e5615adce1b2
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+---
+ drivers/hv/mshv_root_hv_call.c | 52 ++++++++++++++++++++++++++++++++++
+ include/asm-generic/mshyperv.h |  3 ++
+ include/hyperv/hvgdk_mini.h    |  1 +
+ include/hyperv/hvhdk.h         |  7 +++++
+ 4 files changed, 63 insertions(+)
 
-sched/deadline: Credit a rebuild to the CPU recorded with the task's bandwi=
-dth
+diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+index bf0f90515dad..5c44ba8f72b0 100644
+--- a/drivers/hv/mshv_root_hv_call.c
++++ b/drivers/hv/mshv_root_hv_call.c
+@@ -181,6 +181,54 @@ int hv_call_delete_partition(u64 partition_id)
+ 	return hv_result_to_errno(status);
+ }
+ 
++/*
++ * Pre commit to reduce TLB flush overheads in the hypervisor. On systems with
++ * large CPUs, there is signficant advantage to doing this. Pre-commit allows
++ * the hypervisor to build all data structs needed in anticipation of the map
++ * gpa hypercall, thus reducing or eliminating deposit page returns from the
++ * map gpa hypercall, and as a result reducing TLB flushes.
++ */
++static int hv_pre_commit_gpa(u64 pt_id, u64 gfn, u64 num_pages)
++{
++	ulong irq_flags;
++	struct hv_input_precommit_gpa_pages *input_page;
++	int rc = 0;
++	u64 status, done = 0;
++
++	while (done < num_pages) {
++		u16 rep_count = min(num_pages - done, HV_REP_COUNT_MAX);
++
++		local_irq_save(irq_flags);
++		input_page = *this_cpu_ptr(hyperv_pcpu_input_arg);
++		memset(input_page, 0, sizeof(*input_page));
++
++		input_page->partition_id = pt_id;
++		input_page->target_gpa_base = gfn;
++
++		status = hv_do_rep_hypercall(HVCALL_PRECOMMIT_GPA_PAGES,
++					     rep_count, 0, input_page, NULL);
++		local_irq_restore(irq_flags);
++
++		done += hv_repcomp(status);
++		gfn += hv_repcomp(status);
++
++		if (hv_result_needs_memory(status)) {
++			rc = hv_deposit_memory(pt_id, status);
++			if (rc)
++				break;
++
++		} else if (!hv_result_success(status)) {
++			pr_err("%s: failed to pre commit for gfn %#llx done %llu/%llu, status=%#llx (%s)\n",
++			       __func__, gfn, done, num_pages, status,
++			       hv_result_to_string(hv_result(status)));
++			rc = hv_result_to_errno(status);
++			break;
++		}
++	}
++
++	return rc;
++}
++
+ /* Ask the hypervisor to map guest ram pages or the guest mmio space */
+ static int hv_do_map_gpa_hcall(u64 partition_id, u64 gfn, u64 page_struct_count,
+ 			       u32 flags, struct page **pages, u64 mmio_spa)
+@@ -205,6 +253,10 @@ static int hv_do_map_gpa_hcall(u64 partition_id, u64 gfn, u64 page_struct_count,
+ 		page_count >>= large_shift;
+ 	}
+ 
++	ret = hv_pre_commit_gpa(partition_id, gfn, page_struct_count);
++	if (ret)
++		return ret;
++
+ 	while (done < page_count) {
+ 		ulong i, completed, remain = page_count - done;
+ 		int rep_count = min(remain, HV_MAP_GPA_BATCH_SIZE);
+diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+index 4c9f3353074a..a3d497d99b0b 100644
+--- a/include/asm-generic/mshyperv.h
++++ b/include/asm-generic/mshyperv.h
+@@ -28,6 +28,9 @@
+ 
+ #define VTPM_BASE_ADDRESS 0xfed40000
+ 
++#define HV_REP_COUNT_MAX        \
++	(HV_HYPERCALL_REP_COMP_MASK >> HV_HYPERCALL_REP_COMP_OFFSET)
++
+ enum hv_partition_type {
+ 	HV_PARTITION_TYPE_GUEST,
+ 	HV_PARTITION_TYPE_ROOT,
+diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
+index 966945f0504f..16c41ee5079a 100644
+--- a/include/hyperv/hvgdk_mini.h
++++ b/include/hyperv/hvgdk_mini.h
+@@ -489,6 +489,7 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
+ #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST	0x00b0
+ #define HVCALL_CREATE_DEVICE_DOMAIN			0x00b1
+ #define HVCALL_ATTACH_DEVICE_DOMAIN			0x00b2
++#define HVCALL_PRECOMMIT_GPA_PAGES			0x00be
+ #define HVCALL_SIGNAL_EVENT_DIRECT			0x00c0
+ #define HVCALL_POST_MESSAGE_DIRECT			0x00c1
+ #define HVCALL_DISPATCH_VP				0x00c2
+diff --git a/include/hyperv/hvhdk.h b/include/hyperv/hvhdk.h
+index 0c89c62c9706..3944e51d0a2d 100644
+--- a/include/hyperv/hvhdk.h
++++ b/include/hyperv/hvhdk.h
+@@ -953,4 +953,11 @@ struct hv_input_modify_sparse_spa_page_host_access {
+ #define HV_MODIFY_SPA_PAGE_HOST_ACCESS_LARGE_PAGE      0x4
+ #define HV_MODIFY_SPA_PAGE_HOST_ACCESS_HUGE_PAGE       0x8
+ 
++struct hv_input_precommit_gpa_pages {	/* HV_INPUT_PRECOMMIT_GPA_PAGES */
++	u64 partition_id;
++	u32 flags;
++	u32 reserved;
++	u64 target_gpa_base;
++} __packed;
++
+ #endif /* _HV_HVHDK_H */
+-- 
+2.51.2.vfs.0.1
 
-This commit adds dl_task_rebuild_cpu() so root domain bandwidth rebuilds
-credit each deadline task to the CPU recorded with its bandwidth when active
-and allowed, and updates dl_task_offline_migration() to add bandwidth even
-when a prior rebuild left the task out.
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index f169cf35e3136..ed951246e3d2d 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-
-[ ... ]
-
-> @@ -3656,6 +3662,47 @@ static void dl_get_task_effective_cpus(struct task=
-_struct *p, struct cpumask *cp
->  	cpuset_cpus_allowed_locked(p, cpus);
->  }
-> =20
-> +/*
-> + * A CPU of the root domain that a rebuild of the accounting counts @p's
-> + * bandwidth in. The one recorded with it, where it is active and the
-> + * cpuset of @p allows it: that of the root domain that admitted the
-> + * bandwidth, or that the last move put it in, which the cpuset alone do=
-es
-> + * not tell where it holds CPUs of two root domains, housekeeping ones
-> + * beside the ones isolcpus=3D"domain" leaves to the default root domain=
-. The
-> + * record answers as well for a task whose own CPUs went offline, moved =
-to
-> + * an active one by dl_task_offline_migration(). Else the first active C=
-PU
-> + * the cpuset allows, a housekeeping one where it has any; and nr_cpu_ids
-> + * where it allows none, which the isolated CPUs allow, no deadline task
-> + * of theirs keeping the last of them online.
-> + */
-> +static unsigned int dl_task_rebuild_cpu(struct task_struct *p)
-> +{
-> +	struct cpumask *msk =3D this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
-> +	int recorded =3D p->dl.dl_bw_cpu;
-> +	unsigned int cpu;
-> +
-> +	/*
-> +	 * The task's own CPUs first: a change of cpusets sets the mask of
-> +	 * each task before the rebuild it makes, where the housekeeping mask
-> +	 * that dl_get_task_effective_cpus() reads lags that change. With
-> +	 * none of them active, the CPU recorded is where
-> +	 * dl_task_offline_migration() moved the task; else its cpuset says.
-> +	 */
-> +	cpumask_and(msk, &p->cpus_mask, cpu_active_mask);
-> +	if (cpumask_empty(msk)) {
-> +		if (recorded >=3D 0 && cpu_active(recorded))
-> +			return recorded;
-> +		dl_get_task_effective_cpus(p, msk);
-> +		cpumask_and(msk, msk, cpu_active_mask);
-> +	}
-> +	if (recorded >=3D 0 && cpumask_test_cpu(recorded, msk))
-> +		return recorded;
-> +	cpu =3D cpumask_first_and(msk, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT=
-));
-> +	if (cpu < nr_cpu_ids)
-> +		return cpu;
-> +	return cpumask_first(msk);
-> +}
-
-[Severity: Medium]
-Can dl_task_rebuild_cpu() credit a task's bandwidth to a different root
-domain than the one select_fallback_rq() places the task on when multiple
-CPUs are isolated with isolcpus=3Ddomain?
-
-Suppose CPUs 0 and 1 are housekeeping and CPUs 2 and 3 are isolated in
-def_root_domain, and a sleeping deadline task is pinned to CPU 2 when CPU 2
-goes offline.  Because p->cpus_mask has no active CPU and p->dl.dl_bw_cpu
-(2) is inactive, dl_task_rebuild_cpu() falls back to
-dl_get_task_effective_cpus(), which sees p->cpus_ptr disjoint from hk_msk
-and returns the remaining active isolated CPU 3, so dl_add_task_root_domain=
-()
-credits def_root_domain and sets p->dl.dl_bw_cpu =3D 3.  When the task later
-wakes up, select_fallback_rq() -> cpuset_cpus_allowed_fallback() ->
-set_cpus_allowed_force() widens p->cpus_mask to all possible CPUs {0..3} and
-selects the first active CPU 0 in the housekeeping root domain, while
-p->dl.dl_bw_cpu remains 3 (now in p->cpus_mask) so subsequent rebuilds keep
-the bandwidth in def_root_domain.
-
-Conversely, if CPUs 0 and 1 are isolated and CPUs 2 and 3 are housekeeping,
-and a running task pinned to CPU 0 is migrated by balance_push() ->
-select_fallback_rq() when CPU 0 goes offline, select_fallback_rq() widens
-p->cpus_mask to {0..3} and moves the task to the first active CPU 1 in
-def_root_domain.  When dl_task_rebuild_cpu() then runs with recorded =3D 0
-(inactive) and msk =3D {1, 2, 3}, cpumask_first_and(msk,
-housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)) picks housekeeping CPU 2 instead
-of task_cpu(p) (CPU 1), crediting the housekeeping root domain while the
-task runs in def_root_domain.
-
->  /* From dl_rebuild_rd_accounting(), under the locks it asserts. */
->  void dl_add_task_root_domain(struct task_struct *p)
->  {
-> @@ -3663,7 +3710,6 @@ void dl_add_task_root_domain(struct task_struct *p)
->  	struct rq *rq;
->  	struct dl_bw *dl_b;
->  	unsigned int cpu;
-> -	struct cpumask *msk;
-> =20
->  	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
->  	/*
-> @@ -3677,10 +3723,16 @@ void dl_add_task_root_domain(struct task_struct *=
-p)
->  		return;
->  	}
-> =20
-> -	msk =3D this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
-> -	dl_get_task_effective_cpus(p, msk);
-> -	cpu =3D cpumask_first_and(cpu_active_mask, msk);
-> -	BUG_ON(cpu >=3D nr_cpu_ids);
-> +	cpu =3D dl_task_rebuild_cpu(p);
-> +	if (cpu >=3D nr_cpu_ids) {
-> +		/*
-> +		 * No active CPU to count this task's bandwidth: leave it out
-> +		 * of this rebuild, where dl_bw_gen keeps its release out as
-> +		 * well, until one has a CPU for it.
-> +		 */
-> +		raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
-> +		return;
-> +	}
-
-[Severity: Medium]
-When a task has no active CPU and is left out of the rebuild here, does
-leaving p->dl.dl_bw_cpu untouched cause a later rebuild to credit its
-bandwidth back to the old isolated CPU after fallback migration?
-
-If a sleeping task confined to isolated CPU 2 is skipped here when CPU 2
-goes offline, p->dl.dl_bw_cpu stays 2.  When the task wakes up while CPU 2
-is still offline, try_to_wake_up() -> select_task_rq() ->
-select_fallback_rq() calls set_cpus_allowed_force() without
-SCA_DL_BW_RESERVED, widening p->cpus_mask to all possible CPUs and moving
-the task to a housekeeping CPU without updating p->dl.dl_bw_cpu.  Once CPU 2
-is brought back online, dl_task_rebuild_cpu() sees recorded =3D=3D 2 set in
-p->cpus_mask & cpu_active_mask and returns CPU 2, crediting the task's
-bandwidth to def_root_domain even though the task was left out of the
-previous generation and is now running in the housekeeping root domain.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107014451.1487=
-825-1-mathieu.desnoyers@efficios.com?part=3D20
