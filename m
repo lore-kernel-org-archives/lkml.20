@@ -1,73 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794084889;
-	b=n8pfh5PFKGF87PgJG8BTuGFbIorpVeSHQabyLtFruKQ7UuYGi9eOHm3UVYG+CO/zDUdV
-	 VV0uAI4Tk7Ap7M0UEHWu84+YJ/QzpOhaMrA/xK+2ZPB0Mc4BZrg8FElSDQ4UrglftZ3gb
-	 rkALUD0muPf3IvNEtff/YcgbSjEimGkwk3bivDwT7fO/8HRhnn+Q2YZ+oW8JteYq5JgZN
-	 1XfFUo0KX24S1heP2pC25TE0iVwGEhFfA3g0NXHKawcNbbww1NWwzXyWw2mEb5WJy8CfQ
-	 pThw4IsmHm6ZJsZj0muWRmh2SfCBkkvinQAaV9xz4XRpnxIDl25O4HJo2K+FJhx29Wg==
+	t=1794085120;
+	b=PDY/DP+Kbsxw86K/DsR/FvmwMO8MDuX/1F950sr8ubeZMg8q2mPeCLzXxx/l68FzzWA6
+	 90NGbTmWZ9azXDXIvFB01v4ELa4XEHcJ4zYFnLjJ8YY2zV0+QoZMnXdBnOS+KzFgjW247
+	 TcsMEUIqkzKBlW9Aikfb4GF3TObbErcJqP86cVccRFK/S41s/AuTRtUsxFB4Ty0bdsyxb
+	 Jxo9mMJ5t4FqXNTvk9NcKhbu44JjxfCZw9xONc0dYl5jlZN/OZ7iYHZJoLl+05zH5GQsQ
+	 pA7VYoaGKU4z8g0xaT32qMF/KrcLlfNhP11Og1KLd02bjHTj5egqPADakuIg+UXr4/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794084889;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=tREVUEUf9bCitrWRPmhokHLgiBPXJLteRSjyxCcR6Js=;
-	b=DupFnrUNz8YeeFt9iU4zJWSLPU6N9Hf2VgntCZrA9iaQl2mlqS8zU3MUwMfjMSKeOY/3
-	 Kk6A+/KYb/SPm8ftUqolMW3C0AnmRuiDJszW73Em9u1+mBOQiuBOGw1P+4yQAtE9DRehy
-	 ekjCzRJ2pgI+5a2DRgIux0HhqI/eaizjtiZTh/N47Zw921BHhWQXbl3SnNZOhaZviBX9C
-	 l5VquS1O8zSHx/pfcBsZ7haaEohwPzgmcA7pQfiSqRlFXdAttb1puxONAjXyfpSC2iETH
-	 V9MJv/ckxGunKE92QfRRcgCk5DtFIIK/Nd0s06zznPxlBbCDnKGJox3kerMZGSsRq7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794085120;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MquOJTyAOSA85wPBCkYjBgdo8R4QVbXqYtRJqICmdiI=;
+	b=lOnAg2C5Lv4Py+Nb3rrnZf3nKGmvgeckfCb3xYFxJKK4AxH7YRjhUiOwGNWrOgUZ9Uhu
+	 3NuMUY8iSssnpfkLp/TE5wCC2H+pyrQ8qrDatLAlyf1VRHa2rlVgKTQaqEuU/RfEIBHf2
+	 KWEMBCZR2q4xtE/39NdYtmnwaCPGDbj6Pakgpp5t6Wfx3vaB2G7ExNFKVGpgWw73PaKvq
+	 ujuQIhmciI/bnGbU6ROdZG6Bb94BpuzFOLt+oHUHYT8XWyFc3uWVL6n21iJEPcnpjIach
+	 Po1TccWZJsm2gXM0+gK31NTZ7N5HyKc89+jyEVwStS+QuJchXSLmVMav/yIfz5eYkzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bojanowski.me;
-	spf=pass smtp.mailfrom=bojanowski.me;
-	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=p8+sUpVt;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+zMOrQB;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCD3606A326;
-	Sat,  7 Nov 2026 20:54:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBCD3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3723606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 20:58:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3723606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=p8+sUpVt
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jMSwN0tmGz8tLh;
-	Sat, 07 Nov 2026 21:54:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
-	s=MBO0001; t=1794084884;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tREVUEUf9bCitrWRPmhokHLgiBPXJLteRSjyxCcR6Js=;
-	b=p8+sUpVte1jstTGrw1LgkBC3mfewBSbepVq/8jzTA0y667tEu+1nfdgsylv+pwyP059Ybb
-	dNimNtaQqqDqPhj7Lj/W3KjbFG3hm/gYwkdddEsQKsdDAo0WYpUhpcCZvTvzZpe2PcBqPK
-	daSLY6PpAiemD2Zb/amEaRCDkntTy1QZqJEY8JeIUGpHXveoodYgRKq7gg3LeWJTixjbCF
-	oeaNaIX0aB/uarvGFoihlSqGllGi2DINChdOd6C1BDKPTWJ04M2gNfUABTubFpm6qRVILU
-	VZBxgYjyvIDhswu4B9+XPgELhzlMQWmvrj4jfbnnJlGV1C8EwHBPPLcO2xQsBw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
-From: Tomasz Bojanowski <tomasz@bojanowski.me>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: Add driver for MSI Mystic Light controller voltage sensors
-Date: Sat,  7 Nov 2026 21:54:42 +0100
-Message-ID: <20261107205442.431992-1-tomasz@bojanowski.me>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107203300.427273-1-tomasz@bojanowski.me>
-References: <20261107082821.8257-1-tomasz@bojanowski.me> <812ee6c0-82ac-41f6-9eca-1f17c6ef715d@roeck-us.net> <20261107161249.336512-1-tomasz@bojanowski.me> <5e99fd86-d934-49c1-a867-02cc61ab1ecf@roeck-us.net> <20261107181518.385136-1-tomasz@bojanowski.me> <e79d3e26-4ca5-4ca4-9159-427a5a6f1129@roeck-us.net> <20261107203300.427273-1-tomasz@bojanowski.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+zMOrQB
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so105615e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 12:58:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794085118; x=1794689918; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MquOJTyAOSA85wPBCkYjBgdo8R4QVbXqYtRJqICmdiI=;
+        b=O+zMOrQBc6YPVqLx7vh4M83N1v+pRXf5SAk27K9jRtk5LMl1sqRKMTIWe3E30PZ0n3
+         2ABeN4Zd0tE42EOb/hsgrDMSKQLNNWwG9JqvLrMa7Bt5vdLlAFRtx0JEPWa5ZYcXKh3t
+         JG/QKW6I8OD78M4TftXyCsvDJhoWWunh2trOJwV9ugF7hcKdo4VQsqZ8vBtzcGQP/fva
+         f2/3mJiuHqyIkJURlbT3oY96XldAAoiEbZ3NA82l0JqYW5GRfFoLhNhUUH6ScpEtS0Dc
+         t25t0Rt5wbLLDdp9Dw+FaTO748r1cvuXvySVLFtWMF3HTB6TBijZ+uzwWoe5nYZUSkt0
+         sKqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794085118; x=1794689918;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MquOJTyAOSA85wPBCkYjBgdo8R4QVbXqYtRJqICmdiI=;
+        b=JeaFMNb2jKd2rFdaPzBFYGh/ghn7YRV9Gb9ddj0ZZXr2WPHYcDnnPlU1VAlZdIv0p1
+         m7RWyGGFHW83barQxARUfuWno0SmzaB1CejmMZRzecr6gBxFjKuhQH08d2Vbg/ez8c7d
+         zuIawr46U256fkQym5/DRhHCCsSzxtn4QD+8u1S2+PXHJwnAFJQc0EKxOkgzPM7bdW7r
+         ZFx5OKqjfN2TAMKzVOnB1O2jYdOkTxisBiz79iNOZRVVqPUpflHE+V5qEN71TMy7Sq71
+         p1YvgCLGz4tlOWJtYZgqmTC0PvfK2M+g4B1qUFDJzhp6miyQhGZIiGMB7Kfw2UEDxyaF
+         0tKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCT/f80zxC7Lolqe0SiKzdAjtPDkVTCuZAOPsGPISHD7dVZROEyZOsCJ7ysF7YaIZ6Y7+8d3z4DyvHBbs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9x4GZ+WjSTp/T0f8OfTZ8gg3s5H5kr6J0i6EygNk7mfFnn8+ZM
+	q4+2kFwg/i2bq88fxiwK3HS9JzpGtCLIqMLQ9HJI8qhrORgRDjmRb1/Q
+X-Gm-Gg: AYBFou21RznVOx9yU3juCJfaayTDnnhYNYgwm+4q6hAnZ5DyF1CqGzOSwj3dYdS8jU4
+	UeYXIp/wdKc9gxdW+Re/IhtRdAM6eipJ31TJSGHLPTvKpXiLn4cj88ky0MOnEwDekMRgEcTGk4s
+	XMylRtXuM7ixN8ZgBXgktvY4pHqnSkbi96IDX1QeuZQ5GrwCpy3ZsWuxwGiCKFBnS5tltBYjv8k
+	aVkJMZHQlFNJvJKQDpEmSq3h6Z4bxXf1/8ddiXguNtdnvzIYjR9qZMKybW34j6x+rSrr8rkvpo9
+	soESA+aYCzn/8K+ohF6JTBtDbwBBIMxNAdl82A+5RRcLWj7a1FkhzloU2Cl5aMgOcmZ2L6cF4cK
+	2Uu5GBm/eu1XIWyGoCp+mNADZPn0boOjNuiptTVuQ1vzQ+RA4E1y6rewusU6m+QD82VtMRVFdqo
+	TVUy30SO9Yyo1nvDv5YBKQhnwO0wZyU+kezcUiDy1UPB7VGi3MnNj8aVMrtwwBbnvnHKUhEvTf5
+	s8sfI3kHpAlQVoIHwm2Y09+bRzFxqxnWSX0HlYqa74aTyUdLpek4ilXWyME13S0+NU6uA5/6FSc
+	zKfIQNfRnvFOiJiLfSYP47FEWUcilAw0XLqvs4dp86YMVjU2bUHvZb1PsbPaUNnIU8kl3roueXg
+	H4Nup4oh0pZnqBY68JD5JN6BD/Cs2xRU/dNzPgw==
+X-Received: by 2002:a05:600c:3d96:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4b6df7d4d86mr97639175e9.33.1794085118056;
+        Sat, 07 Nov 2026 12:58:38 -0800 (PST)
+Received: from DESKTOP-0KSTGNI.localdomain ([197.52.47.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90ee1ddc7sm8536545e9.4.2026.11.07.12.58.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 12:58:37 -0800 (PST)
+From: Temitope obabi <obabitemitope765@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Temitope obabi <obabitemitope765@gmail.com>
+Subject: [PATCH v3] rxrpc: Remove unused rxrpc_drop_ack tracepoint
+Date: Sat,  7 Nov 2026 22:56:37 +0200
+Message-ID: <20261107205637.665-1-obabitemitope765@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,13 +102,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jMSwN0tmGz8tLh
 
-One more note on the MS-7C94, after a closer look at the vendor
-software: it only lists CPU VDDP on that board if the CPU name
-contains Bristol, Raven, Picasso, Renoir or Cezanne. These are all
-APUs, so with a CPU without integrated graphics, the 2 mV at offset
-11 is probably expected. It does not use offset 15 on this board at
-all.
+The only call to trace_rxrpc_drop_ack(), in rxrpc_send_ACK(), was removed
+by commit 5e6ef4f1017c ("rxrpc: Make the I/O thread take over the call and
+local processor work"). The tracepoint is no longer reached by any caller.
 
-Tomasz
+Removing this tracepoint avoids keeping unused tracing code and makes the
+code easier to maintain. Each defined tracepoint also takes up around 5K of
+code and data, even when it is never used.
+
+Fixes: 5e6ef4f1017c ("rxrpc: Make the I/O thread take over the call and local processor work")
+Signed-off-by: Temitope obabi <obabitemitope765@gmail.com>
+---
+ include/trace/events/rxrpc.h | 29 -----------------------------
+ 1 file changed, 29 deletions(-)
+
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index 56dc9b614071..ec145da21ca8 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -1837,35 +1837,6 @@ TRACE_EVENT(rxrpc_send_ack,
+ 		      __entry->serial)
+ 	    );
+ 
+-TRACE_EVENT(rxrpc_drop_ack,
+-	    TP_PROTO(struct rxrpc_call *call, enum rxrpc_propose_ack_trace why,
+-		     u8 ack_reason, rxrpc_serial_t serial, bool nobuf),
+-
+-	    TP_ARGS(call, why, ack_reason, serial, nobuf),
+-
+-	    TP_STRUCT__entry(
+-		    __field(unsigned int,			call)
+-		    __field(enum rxrpc_propose_ack_trace,	why)
+-		    __field(rxrpc_serial_t,			serial)
+-		    __field(u8,					ack_reason)
+-		    __field(bool,				nobuf)
+-			     ),
+-
+-	    TP_fast_assign(
+-		    __entry->call	= call->debug_id;
+-		    __entry->why	= why;
+-		    __entry->serial	= serial;
+-		    __entry->ack_reason	= ack_reason;
+-		    __entry->nobuf	= nobuf;
+-			   ),
+-
+-	    TP_printk("c=%08x %s %s r=%08x nbf=%u",
+-		      __entry->call,
+-		      __print_symbolic(__entry->why, rxrpc_propose_ack_traces),
+-		      __print_symbolic(__entry->ack_reason, rxrpc_ack_names),
+-		      __entry->serial, __entry->nobuf)
+-	    );
+-
+ TRACE_EVENT(rxrpc_retransmit,
+ 	    TP_PROTO(struct rxrpc_call *call,
+ 		     struct rxrpc_send_data_req *req,
+-- 
+2.53.0
+
