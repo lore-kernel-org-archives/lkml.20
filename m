@@ -1,76 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794025753;
-	b=c3iPOb5anfxZ8TGTd1BJMTk91jMwXBX5uBDiizV3lnDwvpCqCuHBlyflHPAlXHl0LyWN
-	 vXYZo9/HoUtVyWrPb0i0FwMSvehoH6HTh++nha5pjYTcocIrcBXkXtB6amvxrhLfgRagp
-	 WHcVmHZWGVdtb0LP95gIRiRYuOwF6fFbV89oYXLiJimVyZCcOhfO5gb1Cx0hJiW4/AdQG
-	 cQqeKNPosoPUwRpyty9m8NBdGME0klLpXSGPTLLhfz99m/gDrnwWwDL3Na5/jajjNz4Lk
-	 QszjaKqQSoXO4GFZT5lhTnTZ2iYAN5Ai4StseISNIgUFuIM9eL1FhVo7YYxBRsjIU4A==
+	t=1794025884;
+	b=oIdNDGrLdE1UyNQGJjQzh/Ee3pV0MymkdYa+OEQ964tXlEV6EAy97Q8hoKGEkcV/F73W
+	 Hgm9gazEegzqolT1FBLqOob+2P5FeqwfusYJZ8InByPIXwnMrjc9Ecl4+lKFmkAa/4He2
+	 UH3tq1YyC9LBcaETyDnP7IEHWWbM8Hf0maVQ2NxaxcxJe/CxZO5Tg9hsIn5zUmyKV1Du6
+	 TNABa3HixsSt6KJDAGuDSYGHF/q1M3GfWuPToujjeGWWg3zzCZZ/QI9mJ5q6B8qzRuu4X
+	 Z/9LQ05tWOZ9jtc7vKVD8vq2uobbRsxT7lQ0veiQ3oLuqniXxoHHKIHJbqJo21bS33A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025753;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:In-Reply-To:
-	 References:Date:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=iX4UozUO3MlxlRY8rbobS09QzTYf/voPJs4YZBBQplg=;
-	b=CgEfYOJKE/uFoB97NUftgXecaDbqgdN6Mb9XoxpwIAZHeANIsbCJ0adL51t/biT2Ca9V
-	 xQeSDc9VBc8420baSVUfErHS9jQOn+d+U+HT7Mm55wvpFlAWpCnGCzV4bBcWBCzCZ0D6D
-	 JRhMXiDqFxekJsMoN2Kn73gqRYiXBLm3leCrAu0SVryixrj2Pfapyr3hayoXjx8crguDW
-	 TQzwwizT6xpQ0fAchTNiCnGRpYkPTeuIWbdd0JEZWtwxlgyECSPW5/opghYI/w8wS9iHN
-	 rZj5WiE53+nYe6yVetPDWtTqc7HgbDhblw7GaHTunWoS8CMK2OUb2g//0uKtF9FmNZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025884;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
+	b=wU6ioxAM9xZlMggxAGF8WoZVyj6xRSOFM6HcRyFoFR6Lch2nIQ34tVNaIujHxqu7MS4H
+	 WvE1ymEkpg1HmAD8ykBIU3o/YxHNNO2R1JCsvBcVzN9bVhuVNwJ4rLviJX78CSCLBIenn
+	 OafoKG4VxaMe3XM8ZZNZHFned8ynmHmXmXwP12or+5XKDHG3DqJX4u0mbnZLf5Hq06J8L
+	 F2aCAQsUKbBpWriHiAEIcUANBouuVS/+c9SUkO2Fe6/r/LFF5eBiDO7NJiSs0CDPf3eeY
+	 faIHQ69nkGOzjLKNHLYF06WzXECbX2mVQx8ZHWZ7rsUg7Ih4/WMAK9wwYcoPALUNBtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=shlc24jQ;
-	arc=none smtp.remote-ip=203.205.221.245
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=afgtQFQ8;
+	arc=none smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B3606A326;
-	Sat,  7 Nov 2026 04:29:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 771B3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E1B606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E1B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=shlc24jQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794025743; bh=iX4UozUO3MlxlRY8rbobS09QzTYf/voPJs4YZBBQplg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=shlc24jQJ74+lIJeryVOU3Ie4wZZa93jFmqZaAcH2LIpeuTo1G8vkx4L6hVHT3cX3
-	 wL5Ku3/ISAVoG5Rus/iGgpSVL3B5H4jsx30ikHv03OZVjmYid6refOjJI7mrABvXD6
-	 q5FeRFAzJJUENxnBwJ08l8NRx9nww8+0lCeRymyA=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 7411C4AF; Sat, 07 Nov 2026 12:29:01 +0800
-X-QQ-mid: xmsmtpt1794025741tbj3z0pz6
-Message-ID: <tencent_64A24695F85844F5A5227DB38C503A219B0A@qq.com>
-X-QQ-XMAILINFO: OdpilHhB3Diu2r6R4FAx8c2RirsIeTm5JbdNmOK7nBwz0WY/VumI1MvGEw0FG2
-	 ogEgiRKlib/BThli9MIVJbUQ7UNuJ6ON7Zs7C31Td1Y1rjWyLvmdDBoXv/+PbTznfn8E4C8Gimkh
-	 zW23l2yU7hdfda6Gsc6GKoizcI5ml1YwNFVAJgp6nHPX2w3CMlcQRqvjmoj5Db7ANX1H3gRuwRlb
-	 7s7g2Y1nZpHsvTwAdPc+Xcwr+nhrsmJ47K5fMoEm0+7M1XnNbyHbf3/u8y7ze23bnRswBboF3xwr
-	 +dd3/qI/g81GAzPI+HKoK9d9iEUsT9MyaY626SdQWWSXIM7z8fACyMZJVOfgp41KKXCdhxEx8k8K
-	 OBCtItnwlK7ISuhAUbfS1l33XOK7/0NoPPR7RsBCl2QtoPwxi11C/YYdDFqwjt46tAi6NJKOWOt+
-	 SFxT0L8WVrt8kZFwptgUGVmwzCrTmrgKl9Of/tplR47/Kg+WyRr71M8Rd8/+69FxL/SxOKOF2vj+
-	 nln10/A/MhAurVkCJxNOU6tEdFbBI7VZM50AAzfg2/FhfThx1mcI8/NkIFTYSbPMFQVfG6vMVvdE
-	 /ZsgeaFTD3lERGAkECJ7kg3NRRIeMGT75lEOxiGoJvm367HwB8lM4qiagbBX3U7TsjVh+5MKfr41
-	 ODKyZB5CvtZSpYjxtYfyHvLzBOVtzeKD9flN2nOsigtNltjGjAiPZyNGjAvRJx3EQ7OvApXFOjAh
-	 jHlZBOctFNWBrF/NwPwu8WXEgNPbcc5eX/vbqBhqOdr9PWks32lANlHE3ES5rl7qpo1kAkY4eGPM
-	 sAvItfKsbJ/H2qEzY5BbC2qLUbCIxhqiEOxMBH6KYxql4ILyBlCqJhkh5qghReU4DsNdiNhDMu0+
-	 BWiZ/v5tikGq0DdSLYKgsEf9yBusrPKXgDG4/rwU3CYOp84q+4z39x4KBADn9y2WvKLZvnBFGdky
-	 SemNPvk8tkxaoeDTTnoy4e3F92lyeFRr5cP1uVqh42QXO/Txq452PzgbVszYfTNyk/DRlTUdK6R7
-	 nVM2G2siFp6Yk2blcc7cONAzACkZnW4udyfQ5cPUMwjEgSEeFEExtXlCiVRWE=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: ntfs3: two out-of-bounds reads in $LogFile replay (restart page
- resize, restart table offset)
-X-OQ-MSGID: <c26c27-ntfs3-logfile-more-20261106@qq.com>
-In-Reply-To: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
-References: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
-Date: Fri, 06 Nov 2026 23:30:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=afgtQFQ8
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6df7f544919so755628eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:31:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794025883; x=1794630683; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
+        b=afgtQFQ8CqFm8A9ZkN2qARev23JoQK54oZ97jcMr1Uo78QBBJkeN0xAnkJ92JagxK5
+         RtnuGRdwzBqzElwbLaWQcq/vj6rIICR9SjgCclhKHjZyckSODQLOCt09A6lfyeaNzqlE
+         zY0lkk3fls7krEPREDmIlO9yAqzBOCgmdLZiGy6BKoc3EM+TdOTA1KkCvxbVUNMEWgFa
+         r8LRl/CcXVR+ZpCuPU8qnJwdktkx2ksZQ72kgpalWIjgKKrQ6lqVqaKK33WToUAc4fYc
+         9Wc6u2F8P3k/q4aP5dWKh6wFONKSINVX0Vdr6pwFuft0M6twwoN9NSCjUSCYcgG7qpfy
+         mptg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794025883; x=1794630683;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
+        b=0+XUO7Wkq7TfSgJC11kELgxvkY193EuU7Q1QUdVRhpg/kaa+xGTqkXzN0euf14bF6y
+         GkVeFc4GcM9qrRtaoSzB3Caoy+0d6vg6MDZkRFOpnOs7UG2NjOruKwF3jLKTe/s4BabS
+         6KfcrwN5e1XVNX3MFeZuhqydhfJkv1i7wyw1Xe1rL//as9JcR/IRN1VWYXPnukkXAdY4
+         iZ6TJMkRXWo9f4bBVpK5Nhwhss35C3yFaDM8g+K8YMYmTVFX70wLrg9hzjGEML09V8uO
+         Get/R5PFFWpLvolc7FxruTUPPtmt2yJDYR9FIKOZZnc4RZLeZ3WYpGyMy8OAaavQGTYr
+         Yk7A==
+X-Forwarded-Encrypted: i=1; AKwUvByMceK73fylmCW2G1QdU8xCHTQv2FZlcy2pkzTdU6+t1Dh04JLbs31w/QBxA/05AsitDnzd25vO+AkFV7c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MRi3HW2lPMzGX3mEjgwh7k4eGsh1MWnKM+iGn7kZbWG004I2k
+	i0NbxsWQbJjffpfvJS7dMA1TuJyrlUSvMMthGrkmVeiquOOojx8U9ovBo/n+Kg==
+X-Gm-Gg: AYBFou3a+aEeJZF7i7ZAS0ptcThy8XKcd6FYISpv2k6k2jQKwYrmMHpN2ep2/CxZwWU
+	pkgK81HoCwF/7PV+6a5aMICCzEzhlUFPq380RoGpeBLDEUL7SODMl3VTJkVt0ZRT45V9ahUZzFx
+	yQ99jSt0JXy+yxXIN7VWGyADf1uc3MxXQaS9kj49Isvq3OE+I28mfI/zbjYt2WwiDALnyD+8KWl
+	77XDNKXhTs2tl+3GcQjEAeXEc/Nuiyy7IlnW6x/emqlp3oqu8hnw2N7xps+MU5jhSITEN9Vu3a6
+	RPikal2qL4yYk7DLOfqBZCtsTeryIkLONh6KigWc5mKI6jDWkhE6T0vYlj8GVE2Mzmp6xjq8+fN
+	AWXfD8BwirJZ1qpXstjZ+CRHrUyIkAZ/NiwwyCfnBjLsmGNDZFAQfo8UWFfqZuE2Ep+EH6GxMmS
+	43Bl65Yz2SHpg//bFnTbHoER61BnM1QMsTkE9zR6ym/6Na4aMMn59VJb4mRV51jTB88EemOR3AY
+	h5REc3Gl8/bemnrdmN1omuehn323Uhwgu8l066VjE/4mq4WPSbeJcHtwnduTGqpmBXwqkMz1iiG
+	XXh6oDQyc8vjH9VXV8BVF5b3HAbQ9Y3GJWaxi50Die2K5T9MI/33semXepMDWeOQya25lLasPg2
+	fyi4kdOvyW1IqguWBnskVivtIDHpFBwdB/efPB8saFUGfMD71iGvJqCTL9FBBBgot6S9+SZvZcp
+	UfVyPawFjVFBUvWwJNdXL6LnuchaupM9rPzrn3dpOwgJeun4AS3l8=
+X-Received: by 2002:a05:6820:3417:10b0:713:da3b:9127 with SMTP id 006d021491bc7-716e7912499mr1864653eaf.46.1794025883255;
+        Fri, 06 Nov 2026 20:31:23 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ad979ebbd1sm3579607fac.9.2026.11.06.20.31.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 20:31:21 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 06 Nov 2026 21:31:18 -0700
+Subject: [PATCH] mtdchar: initialize MEMREAD statistics before each read
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,95 +92,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-submit-mtdchar-read-stats-v1-v1-1-173ac5c3ceb0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAxFf2X02eBaoWz+iviQtpmrsCpJHcLYv
+ 5u6h/twbnLPZoQ4k5hrtxmmNUt+FQV76kycsTwIclI2rnfe2t6DfMKSKyw16Z2BCRNIxSqwWsD
+ pQujG0bthMKp4M035+9ff7gfr/kmxNmf7CCgEgbHEuVWqPbccq33/AejgRP2gAAAA
+X-Change-ID: 20261106-submit-mtdchar-read-stats-v1-af3ea2996288
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ =?utf-8?q?Micha=C5=82_K=C4=99pie=C5=84?= <kernel@kempniu.pl>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Hi,
+mtd_read_oob() can reject an invalid OOB range before initializing
+ops->stats. mtdchar_read_ioctl() nevertheless accumulates the per-read
+statistics before checking the return code and copies the accumulated
+values back to userspace, even when the ioctl returns an error.
 
-Two more in the same path while re-checking it - one OOB read, one OOB
-write. Same forged-logfile setup as before, mainline 2026-11-06
-unchanged.
+Initialize the local statistics on every loop iteration so a rejected
+read contributes zero counters and preserves statistics from any earlier
+completed reads.
 
-## 3. Undo pass indexes the open-attribute table without the bound the
-   redo pass has
+Fixes: 095bb6e44eb1 ("mtdchar: add MEMREAD ioctl")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/mtd/mtdchar.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The redo pass bounds target_attr (fs/ntfs3/fslog.c:5105):
+diff --git a/drivers/mtd/mtdchar.c b/drivers/mtd/mtdchar.c
+index bf01e6ac7293..cbc7114686b9 100644
+--- a/drivers/mtd/mtdchar.c
++++ b/drivers/mtd/mtdchar.c
+@@ -750,7 +750,7 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
+ 	}
+ 
+ 	while (req.len > 0 || (!usr_data && req.ooblen > 0)) {
+-		struct mtd_req_stats stats;
++		struct mtd_req_stats stats = {};
+ 		struct mtd_oob_ops ops = {
+ 			.mode = req.mode,
+ 			.len = min_t(size_t, req.len, datbuf_len),
 
-  t16 = le16_to_cpu(lrh->target_attr);
-  if (t16 >= bytes_per_rt(oatbl)) {
-          err = -EINVAL;
-          goto out;
-  }
-  oe = Add2Ptr(oatbl, t16);
+---
+base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
+change-id: 20261106-submit-mtdchar-read-stats-v1-af3ea2996288
 
-The undo pass does not (fslog.c:5251):
-
-  oe = Add2Ptr(oatbl, le16_to_cpu(lrh->target_attr));
-  oa = oe->ptr;
-
-check_log_rec() only validates target_attr when lcns_follow != 0, so a
-record with undo_op != Noop, lcns_follow = 0 and target_attr beyond
-the open-attribute table reaches oe->ptr outside the table:
-
-  BUG: KASAN: slab-out-of-bounds in log_replay+0xafda/0xf580
-  Read of size 8 ... located 104 bytes to the right of allocated
-  344-byte region (kmalloc-512)
-  Allocated by: init_rsttbl -> log_replay
-
-In our run the table is 0x158 bytes and target_attr = 0x1A0.
-
-Suggested fix: mirror the redo-pass check in the undo pass.
-
-## 4. Dirty page table size underflow in the analysis pass ->
-   OOB write via copy_lcns()
-
-The number of lcns per dirty-page entry is computed differently in
-two places. The version-0 conversion has a guard (fslog.c:4357):
-
-  t16 = le16_to_cpu(dptbl->size);
-  if (t16 < sizeof(struct DIR_PAGE_ENTRY)) { ... goto out; }
-  t32 = (t16 - sizeof(struct DIR_PAGE_ENTRY)) / sizeof(u64);
-
-The analysis pass does the same subtraction without the guard
-(fslog.c:4666):
-
-  if (dptbl) {
-          t32 = (le16_to_cpu(dptbl->size) -
-                 sizeof(struct DIR_PAGE_ENTRY)) / sizeof(u64);
-  }
-
-dptbl->size is an on-disk u16. A table header of size = 0x10, total = 0
-passes check_rstbl() (rsize nonzero, no allocated entries) and
-check_dp_table() (nothing to enumerate). The unsigned subtraction then
-wraps, and copy_lcns() copies lrh->lcns_follow = 0x60 entries into
-dp->page_lcns[] of a table that extend_rsttbl() allocated for the
-bogus per-entry size - the 29th entry writes past the end:
-
-  BUG: KASAN: slab-out-of-bounds in log_replay+0x8b01/0xf580
-  Write of size 8 ... located 0 bytes to the right of allocated
-  280-byte region (kmalloc-512)
-  Allocated by: extend_rsttbl -> log_replay
-
-This is an OOB write, unlike the three reads reported so far.
-
-Suggested fix: apply the same t16 < sizeof(struct DIR_PAGE_ENTRY)
-guard (or reject size < sizeof(struct DIR_PAGE_ENTRY) in
-check_rstbl()/check_dp_table() itself, which covers both sites).
-
-## Context
-
-Both reproduce 3/3 with panic_on_warn=1, mount(2) alone, clean image
-mounts fine as control. The forged volume is the same one used for
-reports 1 and 2 - each of the four findings differs from the last by
-one field of one log record.
-
-Four different missing-bound mechanisms are now known on this replay
-path: buffer resizing (report 1), unbounded in-record offset (report
-2), redo/undo asymmetry (3) and the version-0/analysis asymmetry plus
-underflow (4). Given the pattern, a systematic pass over the remaining
-offsets in log_replay() may be more effective than fixing these one by
-one - happy to test any patch.
-
-Both sites are unchanged in mainline as of 2026-11-06.
-
-Thanks,
-Guikun Yang
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
