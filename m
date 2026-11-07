@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.12.242.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794085304;
-	b=o6eRLnfYDrjpfvraZ2ivJRZOR7ili+vkP5nrB0h1O9W6+A4sLY8f/Q9zcqIz5EMGgXkd
-	 fZQyEacl8o+wuWl+4hR3IvgKY9ZRpak0PHhzg2GJcPdDCYYCDEesXk5Zvkx0N8epjrBY9
-	 QXHhNHZ2+NkpqDa6raFThh+AOj0Xhmev40qgmlQen4PYeCCZE5KSkZLrOV52Ec15qeCKw
-	 CY+INp8gKkuz47euqtNV9ottC9vCJMbBIdMimkrNxMdzHRsN9k1vIN9dGmhhMHOetmISv
-	 lnSjWNSx9F3KY5s+VVQt241dFlQCqyAOE0rimQuwwBZRwxekfIdWRKPECAKiksawQLQ==
+	t=1794085366;
+	b=Dqji3xU180L4E/GLzFQ9WMO8t5nXtixBb1oU6EONL5Oo1DomLZJclFpQEN9BUI8dk08h
+	 eHpYbdxgyUfjVlg7GXUAdzJa7xk33jp8sFirP5wBS2UF4YMxVWyqgd81+c0m16SGHQbEZ
+	 k8b7ujmtHJarJnOMBFKYzOQe77iYXVYUdDUqylHWPtupTToFixvMPVC4yB80hPus7Azu+
+	 Q0SmqI/ugRk65ApC3wvN17VQvqd3/X6PxkrJ89zSMtOQlIH8HYxgTUDl5OENWb2iyhn3K
+	 aCgCziYuEpO0gwwGK4ZZm8t76y+fOBma+m4Rq9RIwzy3bVgA2cYRtQl1UBhpCx0/6nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794085304;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794085366;
+	h=DMARC-Filter:Received:DKIM-Signature:X-ME-Helo:X-ME-Auth:X-ME-Date:
+	 X-ME-IP:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ArJdLWr8o0oO4xfWC0qNE8GAjULqRVkduBQm2jzPol8=;
-	b=Wd0cc0/ibJGQy/KbxXo5D9DyJVk7Tamo42+L28cQlBAHixLRBEMBBqHYx6hOF0wWGLXr
-	 UlIeM4fJRhPOkDJaiGQdWA/8qRZNZV4o7I80DgP7HMlNXQZKjzzMEc3M7ATnH9aQjo0xL
-	 kFvpJ4dV1zcQGP8u5RpOjMq5+anxqwrt/qPAF0+qYLWwT0Huq1n3bW9PHQv65QTdQVCxj
-	 2mgh6caftqLif1S/hf5EbeCwYWANwA8wGnQk/76ciJHztReBVNNvncagHjODpPNwcBgFj
-	 uayan3LGVwG9en0UppMVhkPOLnVF7tiDspB6qOLJQpdQpbNoHIuuCIxp8Iw9CX3Fovg==
+	bh=ytzh+f2hWVC3qMgjXHHlQffaGWO1lgegsrFwsZaSV94=;
+	b=SxvR20Q0nPWxZmzGX8qYIiB33IikFaG3Gz7EDp8sR5SmOrF1uiVcGyIWppJ1dpwQJPnd
+	 4WknnAbKBmLVMiPcxomWUuQBtU4WRpsJLs1rhi0jygN9JNcvQiRUWv9//DCWKuvaeTzUE
+	 LXFcPSdihPzndfYUUfQi0bTdOnR0Nf8sNymWJwsQzUUUoUd5dOg5MHMlkS4a6tbUbHa86
+	 AoL+eIWzgVK4UPqs6AMqShlKHnfFEfOPPPqZx5BbOqEIbkLvUAxqR0xSNd3E1x2Qwq4L0
+	 zXzm9L5RujTXBSp7f+3KUBtUzNqLfihpa0u+2eYN/RjJ1PcfcTYslui98Ww/MsvcsNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g29z27b3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=wanadoo.fr;
+	spf=pass smtp.mailfrom=wanadoo.fr;
+	dkim=pass header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=Uz0WNsLx;
+	arc=none smtp.remote-ip=80.12.242.24
+Received: from smtp.smtpout.orange.fr (smtp-24.smtpout.orange.fr [80.12.242.24])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19042606A326;
-	Sat,  7 Nov 2026 21:01:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0A2606A326;
+	Sat,  7 Nov 2026 21:02:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B0A2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g29z27b3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCBBF1F0089F;
-	Sat,  7 Nov 2026 21:01:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794085303;
-	bh=ArJdLWr8o0oO4xfWC0qNE8GAjULqRVkduBQm2jzPol8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=g29z27b3Y0i3aM0cWZQbPDWK/i8n7rWieWleJygKnJt94A5B5nAAtdE9wYrX2eAF8
-	 TVKxNe3iVUFc3GKMHVw8TQv/Xg3sPMIWRynpBu0/LWt9t2ZapH/CtkL4yYZOtuQATT
-	 1YAOO2RD3N9VRGGzME7uJyjitJu4/FnbZsmnmgGugRz9wQqNqUYii+wl1rvaizwoO5
-	 Kkxhz/B+lpD5yxjGa6D2lZZFTGrY9a9/R2bpABxIfZOTCkzXmRiiKPrNlDJ95n7Kzg
-	 IFro843S1c+EPmMuZepDAoZYEOT1vURMBPu6mu9XoHe3DqWf/J9nvauQ/ClKOQP7nn
-	 ve8L/5Uo/LvJw==
-Date: Sat, 7 Nov 2026 21:01:39 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nikhil Gautam <nikhilgtr@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org
-Subject: Re: [PATCH v5] iio: chemical: ccs811: Make sampling frequency
- configurable
-Message-ID: <20261107210139.4290dd12@jic23-hlaptop>
-In-Reply-To: <20261104151138.9968-1-nikhilgtr@gmail.com>
-References: <20261104151138.9968-1-nikhilgtr@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=Uz0WNsLx
+Received: from 2a01cb1007850b0026fbaefb6cd2db0e.ipv6.abo.wanadoo.fr
+ ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
+	by smtp.orange.fr with ESMTPSA
+	id PnYUxiovuisBxPnYUx0XoL; Sat, 07 Nov 2026 22:02:35 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1794085355;
+	bh=ytzh+f2hWVC3qMgjXHHlQffaGWO1lgegsrFwsZaSV94=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Uz0WNsLxEF16vdVPY+YbsDFnNImuZ3W6BU6PRAfGxsIc5DyH2moF7RfbwvpZ+g/7d
+	 Lpb0ZIUIFYrsQb78mi9qayr1IUjJjHcHVcnyrY2bAMuIfuB41eQ/A9zruKj7/uJJNi
+	 E4+gR2fKa1L8k7XK7C5DVcCSAJuZAOkXfraINc8Pc3KqB5sPEpEjt2YlvdVu4TiBZH
+	 H5Ptc1wpnnV04zL8NWXKdvPu8TtixBBQuUEbyjFNzwgTwllwH0qwceDyDUYHpWWiwo
+	 dxzzzlfNZqEUsvCtQZkjOql/estwyHt5BwbSriD8KklBs8fOY7eFc3fPs6gGpY+CuA
+	 oUcwEmjEjL/SA==
+X-ME-Helo: 2a01cb1007850b0026fbaefb6cd2db0e.ipv6.abo.wanadoo.fr
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 07 Nov 2026 22:02:35 +0100
+X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Davidlohr Bueso <dave@stgolabs.net>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	rcu@vger.kernel.org
+Subject: [PATCH] rcuscale: Constify struct rcu_scale_ops
+Date: Sat,  7 Nov 2026 22:02:25 +0100
+Message-ID: <3f546f8e102ef271e7d5ac6d8b6a1f44d0fb20cb.1794085327.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,149 +81,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed,  4 Nov 2026 20:41:38 +0530
-Nikhil Gautam <nikhilgtr@gmail.com> wrote:
+'struct rcu_scale_ops' is not modified in this driver.
 
-> Allow userspace to configure the CCS811 IAQ measurement rate through
-> the IIO sampling_frequency attribute.
->=20
-> Support the three IAQ measurement modes with sampling frequencies of
-> 1 Hz, 0.1 Hz, and approximately 0.016667 Hz, corresponding to
-> measurement intervals of 1, 10, and 60 seconds.
->=20
-> Preserve unrelated bits in the MEAS_MODE register when updating the
-> drive mode, and cache the selected mode after a successful register
-> write. Expose the supported frequencies through
-> sampling_frequency_available.
->=20
-> Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
-A few trivial things + a note on why you are seeing those build failures.
+Constifying these structures moves some data to a read-only section, so
+increases overall security, especially when the structure holds some
+function pointers.
 
-If it wasn't for that scope issue I might have applied this version
-and possibly tidied up the trivial stuff.
+On a x86_64, with allmodconfig:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  45585	  24946	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
 
-There is also one more significant suggestion inline if you want
-to take it on.  Up to you though!
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  46545	  23986	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
 
-Jonathan
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested only.
+---
+ kernel/rcu/rcuscale.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-> @@ -163,16 +185,21 @@ static int ccs811_start_sensor_application(struct i=
-2c_client *client)
->  	return 0;
->  }
-> =20
-> -static int ccs811_setup(struct i2c_client *client)
-> +static int ccs811_setup(struct ccs811_data *data)
->  {
->  	int ret;
-> =20
-> -	ret =3D ccs811_start_sensor_application(client);
-> +	ret =3D ccs811_start_sensor_application(data->client);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D i2c_smbus_write_byte_data(data->client, CCS811_MEAS_MODE,
-> +					CCS811_MODE_IAQ_1SEC);
->  	if (ret < 0)
->  		return ret;
-> =20
-> -	return i2c_smbus_write_byte_data(client, CCS811_MEAS_MODE,
-> -					 CCS811_MODE_IAQ_1SEC);
-> +	data->drive_mode =3D CCS811_MODE_IAQ_1SEC;
-
-Trivial but a blank line here would be a tiny readability=20
-improvement.  Lets the eye immediately spot the 'good' return path.
-
-> +	return 0;
->  }
-
-> +
-> +static int ccs811_set_sampling_freq(struct ccs811_data *data,
-> +				    int val, int val2)
-> +{
-> +	int ret;
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	ccs811_set_wakeup(data, true);
-> +	ret =3D ccs811_update_sampling_freq(data, val, val2);
-> +	ccs811_set_wakeup(data, false);
-
-If you are feeling adventurous and want a follow up, it might
-be worth thinking about defining a guard for ccs811_set_wakeup.
-
-=46rom a quick glance it looks to me like it would simplify some
-existing paths in the driver as well.  I suspect it doesn't need
-to be as tightly scoped as it is in probe() today and can wait
-for the end of that function.  To prevent races it might be necessary
-to take data->lock in probe though - I haven't walked through exactly
-what that is protecting but as wakeup isn't reference counted it
-seems likely that is part of the protected state.
-
-Anyhow, entirely optional - I just noticed it because it would have
-saved a few lines of code here.
-
-> +
-> +	return ret;
-> +}
-
->  static int ccs811_read_info_raw(struct ccs811_data *data,
->  				struct iio_chan_spec const *chan,
->  				int *val, int mask)
-> @@ -249,6 +343,24 @@ static int ccs811_read_info_raw(struct ccs811_data *=
-data,
->  	}
->  }
-> =20
-> +static int ccs811_write_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int val, int val2, long mask)
-> +{
-> +	struct ccs811_data *data =3D iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-
-The build warnings are because this doesn't have scope defined
-around the declaration of the variable cleanup that is
-the magic behind these.
-	case IIO_CHAN_INFO_SAMP_FREQ: {
-		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-		if (IIO_DEV_ACQUIRE_FAILED(claim))
-			return -EBUSY;
-
-		return ccs811_set_sampling_freq(data, val, val2);
-	}
-	default:
-
-should fix that up.
-
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		return ccs811_set_sampling_freq(data, val, val2);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-> +
-> +static int ccs811_write_raw_get_fmt(struct iio_dev *indio_dev,
-> +				    struct iio_chan_spec const *chan,
-> +				    long mask)
-> +{
-> +	if (mask =3D=3D IIO_CHAN_INFO_SAMP_FREQ)
-> +		return IIO_VAL_INT_PLUS_MICRO;
-
-This is the the default, so should be no need to provide get_fmt.
-
-> +
-> +	return -EINVAL;
-> +}
-
->  		return ret;
+diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
+index 1097ec15879c..522f7bc2e693 100644
+--- a/kernel/rcu/rcuscale.c
++++ b/kernel/rcu/rcuscale.c
+@@ -159,7 +159,7 @@ struct rcu_scale_ops {
+ 	const char *name;
+ };
+ 
+-static struct rcu_scale_ops *cur_ops;
++static const struct rcu_scale_ops *cur_ops;
+ 
+ /*
+  * Definitions for rcu scalability testing.
+@@ -185,7 +185,7 @@ static void rcu_sync_scale_init(void)
+ {
+ }
+ 
+-static struct rcu_scale_ops rcu_ops = {
++static const struct rcu_scale_ops rcu_ops = {
+ 	.ptype		= RCU_FLAVOR,
+ 	.init		= rcu_sync_scale_init,
+ 	.readlock	= rcu_scale_read_lock,
+@@ -247,7 +247,7 @@ static void srcu_scale_synchronize_expedited(void)
+ 	synchronize_srcu_expedited(srcu_ctlp);
+ }
+ 
+-static struct rcu_scale_ops srcu_ops = {
++static const struct rcu_scale_ops srcu_ops = {
+ 	.ptype		= SRCU_FLAVOR,
+ 	.init		= rcu_sync_scale_init,
+ 	.readlock	= srcu_scale_read_lock,
+@@ -276,7 +276,7 @@ static void srcu_sync_scale_cleanup(void)
+ 	cleanup_srcu_struct(srcu_ctlp);
+ }
+ 
+-static struct rcu_scale_ops srcud_ops = {
++static const struct rcu_scale_ops srcud_ops = {
+ 	.ptype		= SRCU_FLAVOR,
+ 	.init		= srcu_sync_scale_init,
+ 	.cleanup	= srcu_sync_scale_cleanup,
+@@ -313,7 +313,7 @@ static void rcu_tasks_scale_stats(void)
+ 	rcu_tasks_torture_stats_print(scale_type, SCALE_FLAG);
+ }
+ 
+-static struct rcu_scale_ops tasks_ops = {
++static const struct rcu_scale_ops tasks_ops = {
+ 	.ptype		= RCU_TASKS_FLAVOR,
+ 	.init		= rcu_sync_scale_init,
+ 	.readlock	= tasks_scale_read_lock,
+@@ -357,7 +357,7 @@ static void rcu_tasks_rude_scale_stats(void)
+ 	rcu_tasks_rude_torture_stats_print(scale_type, SCALE_FLAG);
+ }
+ 
+-static struct rcu_scale_ops tasks_rude_ops = {
++static const struct rcu_scale_ops tasks_rude_ops = {
+ 	.ptype		= RCU_TASKS_RUDE_FLAVOR,
+ 	.init		= rcu_sync_scale_init,
+ 	.readlock	= tasks_rude_scale_read_lock,
+@@ -396,7 +396,7 @@ static void tasks_trace_scale_read_unlock(int idx)
+ 	rcu_read_unlock_trace();
+ }
+ 
+-static struct rcu_scale_ops tasks_tracing_ops = {
++static const struct rcu_scale_ops tasks_tracing_ops = {
+ 	.ptype		= RCU_TASKS_FLAVOR,
+ 	.init		= rcu_sync_scale_init,
+ 	.readlock	= tasks_trace_scale_read_lock,
+@@ -693,7 +693,7 @@ rcu_scale_writer(void *arg)
+ }
+ 
+ static void
+-rcu_scale_print_module_parms(struct rcu_scale_ops *cur_ops, const char *tag)
++rcu_scale_print_module_parms(const struct rcu_scale_ops *cur_ops, const char *tag)
+ {
+ 	pr_alert("%s" SCALE_FLAG
+ 		 "--- %s: gp_async=%d gp_async_max=%d gp_exp=%d holdoff=%d minruntime=%d nreaders=%d nwriters=%d nexp=%d exp_interval=%d writer_holdoff=%d writer_holdoff_jiffies=%d verbose=%d shutdown_secs=%d\n",
+@@ -1109,7 +1109,7 @@ rcu_scale_init(void)
+ 	int firsterr = 0;
+ 	long i;
+ 	long j;
+-	static struct rcu_scale_ops *scale_ops[] = {
++	static const struct rcu_scale_ops *scale_ops[] = {
+ 		&rcu_ops, &srcu_ops, &srcud_ops, TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
+ 	};
+ 
+-- 
+2.56.0
 
