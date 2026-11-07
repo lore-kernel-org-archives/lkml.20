@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060859;
-	b=RA2SF775XRf3/+axwLjmh58E/6CyHLAgwbgdU4rmz35mBZQ1X1hEb7/hIE1rzSOR/SgK
-	 w9qbfpozdBP6O0e5jFmOTLrWC2q/IU0AQmUH/nVsKuO2/Bz+VAak5cnjwPJYX8grXeJCe
-	 nBwwu3SYR3slr4oV6u1QHa0YfqbJZ1jhgN72/bbibHE16YuPA2kh7QgEv5G1qr3OOstSk
-	 8WgcCGvP2rQ0raejGR/UFLr0kollzRRtIyoCcRf2ATWLL0vBtL6IqIxVYsosygJs/bWkc
-	 j3LBsZvEUeyXh/istmkJZReAEAmT04VXD09ciMXdF9B16t6bqlDnHwCZvnsVGEw9KbQ==
+	t=1794060861;
+	b=JBfg/xANsJqqd565e8TqJzQP+oOep2/Xv7tOCryLu9CMJuEZuXTrDoxaE/tOn09x2Sfz
+	 2PgKLEP90X6PFOO+Pwoc3LMJR0dFex5crBHwVxio4nybq77gamXWGGnCxIga3dcUiQE9s
+	 v6Swwc62aHyNlj+jGayviz+bqYhakYRHVFy6tmcix/+Picu8yhxpyoTkZnPIIY41Oad5/
+	 f6u6eChAqc7f0AZB/2g+2J5rkjQ1KlUvfFK5DwoCGSCOYPp2/wZvMcSS84oukf7r2WXx8
+	 QPCQ52r/S8YpEGHoSSQe/9xELcaapOKaHwUxQnpOgPnzSKMjxkWVxAsTcO2HBuQV82g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060859;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
-	b=2n0bB9daEuoPteF6IjEuson9Eh1mWZPQSYFIpoXjCKikCidUQtO4AlKfovOlRNFfaXHN
-	 5cZ+6u3ULWrljwhVERd2dO6c0DzAT0WwYSwwk3J7hM+kHEJyvIbZVInEMsx0TjdkM438x
-	 g/Fmk1beaNuQs1KWV3EnTsrkY0U/9HEpE2UHgGsQVLRy/mBu2QLdCXazK4/WnsC16AimD
-	 3DjXwEpbLA2wVJXvzIVdACuM6lDDxgEghSctbMlZmpbyJ1ze1Ze4A1ofFoFIwV8F3Msu0
-	 8S6cyqYwVStZRQFPEVe3yRfmzZEKyeHtOZw69CF7HejzFvM0gMGWqwwETeoj5OpTffQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060861;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=RPPlRfAa8q8m8kCH4uT5obJP/Uf1/VTGNGMMDfFCbMQ=;
+	b=gZF8yGbj9qR8bWsARfb4+Q9j35HUlVVAzRkVsqYXysIEP3yUC6YmPpoE7G4mxJN5U6Wj
+	 8azkJWxvnyH+KQYJop5wRJo8nG4n6qqTtaAta9KZo/796mUmIWxmFhut9scnl/DU+U8vK
+	 NrdQ/CtktPZqUHBF/j/vUaK2NcBnhlCAbY3RCjvqNGKmIt86JKvEGh7BYEj42/ZOH6p9s
+	 jMQLvxsKwbdSFMVQley9krplcbRxPBfFu26lxE7tst+wcZO6Jtynf2nJuDYSZ/r+klqfI
+	 MmiTc42+mIP3bonEqv+3+7qu2uVlJNLv6MJVD1kBMC/HWSBVrye18D+fFXtkSIiea3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=MAWJYyL0;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f1IRyn2/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3E2606A330
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:14:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC3E2606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71821606D834;
+	Sat,  7 Nov 2026 14:14:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=MAWJYyL0
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so16934565e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 06:14:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1794060857; x=1794665657; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
-        b=MAWJYyL0rpMUeh50MqLVtyVAh4JKfnKvk2lMaNL2hXmBXl2PGzhPKq8W654wuqAvDz
-         /XqP4Jq0OedV/xAHm3U8YbNIc/WSxem2c3Aq1xT8LspWNvjrAz79bo/PddfOqfDf1/cc
-         FUH0evqobXt/P2jy1R1Gv/lrPnFJOr/7eZRkM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794060857; x=1794665657;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J0t2KdflhR1USZ5uSPDHpmPQ6LbU6AJD684om9GpEew=;
-        b=jXkCF1WTuU7hWqN5aYStjPCrLRj2y5/5FerXp2rGKx0V1dUU2YRv1E9WizGPU9nM/Y
-         uxQ3c0m/j/h88yJNcrbVJkjyJrBXD/S/iM2hQxlqbNVi7eVR8Oes7l0rns0YgK1dX7Sz
-         sjYIglEaEnv6eFqxQxmAHr5qAmN0ttvw4bvMlAYXAoaDBfxK/sewbwhZlkg0Ol62+LPl
-         4MpkfgolQ81s5WOgdy80AJlmcMw6JUfjDVoIOBChF2GpvE59mvoUKZ1VsmqVpPeNiYq3
-         4S1WF10DTlo46W2UBXmOlIBFwe6MVzD84wKcBypyGP0seuKjD1bfM7D6QLrAyJzdryUX
-         QFGg==
-X-Gm-Message-State: APuU4Z9BSl/3wHUXGXfn+k5GV71AaVXBW7qPtTkrkZUz6DpY9x508nfE
-	Bl7wDoRKiE+vBGXmaoXr1Gye4dmpM6M5YozW69qHRFKGW0DKGugLmREefg97wgKn/gvGDDlGkfW
-	NbN5M
-X-Gm-Gg: AYBFou0Fi4hUk2BayLURP6pQ0Q7zTrBwoVchXtTtykLxoVEGduTyHyxQ4faV9VWItu/
-	F3H4eCCh9H5YQbg5+L2uEcQkXmMn3OPe23zuxUecKLqF6ofZOW/zV4Y6igrKuAeYLcjplsWeHwu
-	FNvW7Zo9urSzSa0GAHVfYnklzcN5xXlMdZL9SUj8Gq2lyD/LYBYbA+f7brOLgZC14cU6i32QqUc
-	Eq0V2p26VY40e/2NYPzUR/qjmShPB/kUSvZ6vidOTts03Q/kYGSoekAJU13mnDs8/5rlxYVEAjg
-	XSfhK8skQzpPPvq8zKHmEoQMDVYaGcMqu10Hsi3uZ+bH65FwBR6lCsIC9iXd1g/xd/+eTZ3t/lH
-	ehkV91pT1KNk/T2d9xuCjXq5FiW9zCgjsIFclPODxc6lVTqI1Y55gnsswLtDuoegs896PB02EsA
-	MK+wpWpEV32hLDv/pNLW2orKIKrH2u1YJMh2FvoyNUMxNqkO/zPU6Lf5kvqIfsbuLlpPdh7fmgt
-	XwCqpBRa4p4Y1rWBlz8fMU6TMHC9TDX7kleqlOTrpQGA2cqeTxVnkRzZ3Z68a8BWP6+7L/+DXqE
-	RifMyTzUtTpK9GYWJtSM8IW3MlIclfaTBaBrcNszB8YZIIDjR2rrIadVHQYATKW5LMHqe8S7M67
-	wCm/KVUc3Aza4YlGHx0+l2iJBPTFTd1OwKqdXpfczqQnY1CCUIkESp/+UbGdvYK4nZ7NxtR4ZMJ
-	x+Tbj4ghaGaCuvhVyQzimH4D6sVw==
-X-Received: by 2002:a05:6000:178d:b0:48e:5550:c64c with SMTP id ffacd0b85a97d-492753739f8mr11843574f8f.14.1794060856956;
-        Sat, 07 Nov 2026 06:14:16 -0800 (PST)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d809df21sm9757531f8f.54.2026.11.07.06.14.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 06:14:15 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	michael@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH] arm64: dts: st: add boot phase tags for Engicam MicroGEA-STM32MP257D-RMM
-Date: Sat,  7 Nov 2026 15:13:48 +0100
-Message-ID: <20261107141353.2228391-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1IRyn2/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C741F0089F;
+	Sat,  7 Nov 2026 14:14:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794060861;
+	bh=RPPlRfAa8q8m8kCH4uT5obJP/Uf1/VTGNGMMDfFCbMQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=f1IRyn2/Dk6JQfdqfRFHHDKQGpk1hoxJ7mMklxxgAGoXuepM3aaQwhHCJPPBTZyjY
+	 YZCbYosjuNx9EDZ+KdOsRvOwC3ENGERUNG+/kL3CSgAGJbfWXXN+wK/QeCzH+vWn1L
+	 6zuwWQrxM+JzLEVPupOA7tqs98h/VwqfHQsLBm5t7HcsHyrNSYuunJrTt5b36WroZ3
+	 CIiXkaxIIb1AnrmvBKTq+d/tShMiVh/RX+Fo5i0zu/WKmn7KbdfDYLw1pQF7iGBOLk
+	 R4Mf5NyOVd4hZ/NkXJb4HNcaLWhb2Q+tAo4ULKfprXH1ZVotTjZeA5FvFlS/6ZbhiA
+	 6sf4KXWxSAxGw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id DBE0F29E6B03;
+	Sat, 07 Nov 2026 14:14:17 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Ban Tao <fengzheng923@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Joao Schim <joao@schimsalabim.eu>, 
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Jiale Yao <yaojiale02@163.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20261028050626.133421-1-yaojiale02@163.com>
+References: <20261028050626.133421-1-yaojiale02@163.com>
+Subject: Re: [PATCH] ASoC: sunxi: sun50i-dmic: resume device for control
+ access
+Message-Id: <179405379422.3424803.12187103513130159217.b4-ty@b4>
+Date: Sat, 07 Nov 2026 12:16:34 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,61 +68,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1131; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Gu1jY485f4IoGWid9OKwTb1mv5ZWsLOBY84mmSMNKrE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeG1kmymo8l2CKLdzRIesYnnZH6qabygPdQB+zUwUPZ
+ i/MVGbvKGVhEONikBVTZInL4n5ZX/J6Dd/BhW0wc1iZQIYwcHEKwES8Ghn+uwsysivcezXhK0vs
+ yai2pyp1nlECsz9Xs23uVtjXLdRXxMjwT42Jb1YKx4ydCdu/C5RftOu0twy0EFym42kkENs9iYs
+ dAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Add the bootph-all tag to the nodes used by the bootloader during the
-early stages of bootup.
+On Wed, 28 Oct 2026 13:06:26 +0800, Jiale Yao wrote:
+> ASoC: sunxi: sun50i-dmic: resume device for control access
 
-This includes the console UART with its pins and the display controller,
-used for the splash screen.
+Applied to
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
----
+Thanks!
 
- .../dts/st/stm32mp257d-engicam-microgea-rmm.dts | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+[1/1] ASoC: sunxi: sun50i-dmic: resume device for control access
+      https://git.kernel.org/broonie/sound/c/73ade6a51c79
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-index 96b7cb6b5bc1..4495b168fdaf 100644
---- a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-@@ -163,6 +163,10 @@ sgtl5000_rx_endpoint: endpoint@1 {
- 	};
- };
- 
-+&ltdc {
-+	bootph-all;
-+};
-+
- &m_can1 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&m_can1_pins_a>;
-@@ -269,7 +273,20 @@ &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/ dmas;
- 	/delete-property/ dma-names;
- 	status = "okay";
- };
-+
-+&usart2_pins_a {
-+	bootph-all;
-+
-+	pins1 {
-+		bootph-all;
-+	};
-+
-+	pins2 {
-+		bootph-all;
-+	};
-+};
----
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-branch: stm32mp257d-rmm-bootph
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
--- 
-2.43.0
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
