@@ -1,72 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049190;
-	b=KySdRXE/Ffk55lVLy3TKgRwRz6/kh59B87EmcgSp69ddb1tet4GWPEXHFe0btsAXya/s
-	 9qSdZ6nYh6jmQKZnz4rtQwNGpem3cATzZaHALpWAbC070S83//0FqJoy/abjcFSVQWGfd
-	 v4qhPT0f8Jo2itmcvX7qORMQks7kPmKQCo/QtTZv2k2fTK9BeFWYTRlq5QWEgnGE/Xpy7
-	 1KjPZjUBUVGD23p6IRwuKWYg/+/vQNEwuClqtp1ofNHdwwRDSB/o+662jWKrDJUeO6gYG
-	 NEQedRDY1HKQJBiB3u9wMPcwS2by8K2nC5b5GN+DlNro9TrNhagayykW1EEdtRW0cNw==
+	t=1794049199;
+	b=0S6P5lzTYMwK0hIjOJXJfr1DPw1yykMbRkV6jm2L5+wQbwRL4dOnTLQPi5t9/vBmCy8V
+	 atVWgsU0r7S7WCDS0QDFjqhiaDyKs5l5owcHz+Io24WahXb1RJNrjeN6g8mfylAUAKp3s
+	 SugzI99jZ+u4I4vZEqTU/I4nIsXl+KDKyBou8ohIpFOi5liQwlhFZfd8deEti8NXpIaxU
+	 tY+0Gn2EMAKjKnVPhYnfHSH7CItP5bgzr7/KlNffLts3oKfgkxTh2ipjCBfDlEii1/QhW
+	 WdGW3cDYwKM6MwK38EY1nqGFrSj0fbzH9Nw8UqA7XyQ/diZpofA/ouhNwQw0TvuEzZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049190;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=+3Xf0PE+LagmTc4tqKy4edOsojgcvPiX0DMuZnq5S3k=;
-	b=TsGKts6VzD8fXnb/dffuEXIY/Vit3RTdnvcR8Lpq1HDpui8qAEbT5l31eidlJE3k1tmD
-	 DEcVcivLs9+mnNARD5lPJsUk1Pe/GBcPskG7YWC2+HBzuybchMpRgGhgVyYFFJ/JppAwj
-	 kOjUe+yFPgdmXIaLYLoGm3mt9saqKubiWd6ML1OZO0zen+ngijcJCrqXRcfeXBz1X7QNN
-	 gGapoOhapMsNN7VA/AzF4NOriGEyFD/LMLVsRpCs71Ean3IJM1pqTr0nWOF87RZHDl3m+
-	 qGOi7Ae69+ojiGRjZWb4apXSnmawbpwv9p0ySpXMI7wbVXrTqgHSGxSYCYS5nHa37yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049199;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Oc4jjD8XQSC2/fee27mZvC70iUwrZPsGol2lwE8De0Q=;
+	b=goonYOqzUKMDWbC6METXB0ChDXIVIskdtEzPve+QaLhhm9S498VuEzmtGr4ffCGygMm1
+	 svEbTzgx3fAzxD3NX7Zy2Xa/9xt6ja+BQ/PPo07b/qY7GyBfOW2nVhlprjnqYJibC7k1n
+	 moHpW32RJgGNT20OxtB7O/t8w6DLsGXpAVGH5vlVvMVytB1aKrbf9xiEFf3IapZQxAk+J
+	 rP1ya0yRZvZunFQ6iD/RFjow3L362d0YIVpK9Mk18byhKcU+eU+sGGMG1okHGYSPrYbU7
+	 MVKewF4HmPH5/SyH44SNldDj9BLMmw5nzQIBFrE7Yo9KxvCQA60NTqYeXvtjobVkddA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N9WAtu/F";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=wGel0Pqc;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33AC606A33A;
-	Sat,  7 Nov 2026 10:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB08606D803;
+	Sat,  7 Nov 2026 10:59:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CB08606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N9WAtu/F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1ED1F0089F;
-	Sat,  7 Nov 2026 10:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049189;
-	bh=+3Xf0PE+LagmTc4tqKy4edOsojgcvPiX0DMuZnq5S3k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N9WAtu/Fie4JSawBbWTucmridD3H+Ras9ViIcMJUXiO/NqRxEoZVYTVJS1Axowtcb
-	 nycReq0Jp9FjPTbzD/sv2jw/dlWi9fDwIfqgjibz+3VVXan3Mu0WAi74xfwFLSIH5i
-	 3ZibKHb8/Fm95Xl1JyHhK9MfCGld6IcI9Z/k0VudFZK0ndIU/43p3CRoui9aDR2xck
-	 XkcPtwDk29izrMiVuXpwrhFVAL+KGDx7KgAHSXhzFN6/LOrv5T4dkBgg+vom3cruTs
-	 2OZILCbM2z9SPGg86iv8xVzcKOE6t8Tl6C7wcGGy8WotPiM+W028Fg/DTCxTYi9J2S
-	 qRlrGh1ONtuvw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 81D3D28D2449; Sat, 07 Nov 2026 10:59:44 +0000 (GMT)
-Date: Sat, 7 Nov 2026 10:59:44 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Matt Porter <mporter@kernel.crashing.org>,
-	Alexandre Bounine <alex.bou9@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org, netdev@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sound@vger.kernel.org,
-	imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 3/3] ASoC: sprd: use dmaengine_prep_slave_sg_context()
- instead of device_prep_slave_sg()
-Message-ID: <6ca75bd5-f402-4757-b264-6720b03b0365@sirena.org.uk>
-References: <20261106-rio_sg-v1-0-bc54b4bd8c95@nxp.com>
- <20261106-rio_sg-v1-3-bc54b4bd8c95@nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=wGel0Pqc
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4203EC14;
+	Sat,  7 Nov 2026 11:57:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794049048;
+	bh=j+h2K+Hb5Cv2MefIVwTunwXi7NhuqCo+7EeZpAlrKXE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=wGel0Pqc9wogfYLkIWvCWYNBcfKnlwz/12QrYbBRqM/q/lkKG9sovWnku8VZMjSDF
+	 yHM9aH+Ag55miR72fxIpH22uACsSXkA1x8k6nLQa7Jy7A6EoknoYnRKWOQfYnNW8zb
+	 c/mXHaHtwAUn6AOPohE7aQDZ/LEQerUreLVAQBFg=
+Date: Sat, 7 Nov 2026 12:59:46 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] media: synchronize CPU access to imported DMA-BUFs
+Message-ID: <20261107105946.GA96745@killaraus.ideasonboard.com>
+References: <20261107104703.44111-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,36 +68,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aU+YWAD6yJFUUGmA"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106-rio_sg-v1-3-bc54b4bd8c95@nxp.com>
-X-Cookie: Whoever dies with the most toys wins.
+In-Reply-To: <20261107104703.44111-1-kmehltretter@gmail.com>
 
+Hi Karl,
 
---aU+YWAD6yJFUUGmA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+We discussed in v1 how this is not the right approach. Why are you
+posting a v2 without addressing that ? You need to go back to the design
+table.
 
-On Fri, Nov 06, 2026 at 05:43:10PM -0500, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
->=20
-> Replace direct calls to chan->device->device_prep_slave_sg() with the
-> dmaengine_prep_slave_sg_context() helper in both sprd-pcm-dma.c and
-> sprd-pcm-compress.c.
+On Sat, Nov 07, 2026 at 11:47:00AM +0100, Karl Mehltretter wrote:
+> uvcvideo and vivid (when using vb2-vmalloc) access imported DMA-BUFs
+> through a kernel vmap without cache synchronization. When a non-coherent
+> importer such as V3D maps the same DMA-BUF persistently, captured data
+> remains in the CPU cache while physical RAM holds stale bytes.
+> 
+> Add an opt-in uses_cpu_access queue flag for vb2-vmalloc queues to
+> bracket the interval from buf_prepare() through buf_finish() with
+> dma_buf_begin_cpu_access() and dma_buf_end_cpu_access(). Keep this
+> opt-in because some vb2-vmalloc drivers pass imported buffers to
+> hardware, and end CPU access in process context because DMA-BUF
+> callbacks may sleep.
+> 
+> This follows the per-queue flag proposed here:
+> https://lore.kernel.org/r/CAAFQd5Am5jBev5P1HmsdeHoJfROZat3bi1W=UsN7wpVqw-XUQQ@mail.gmail.com/
+> 
+> Based on Linux 7.4-rc1 with prerequisite patch "media: videobuf2: finish
+> prepared buffers in VIDIOC_REMOVE_BUFS":
+> https://lore.kernel.org/r/20261026071735.37220-1-kmehltretter@gmail.com/
+> 
+> Changes in v2:
+> - Split patch 1 of v1 into the standalone VIDIOC_REMOVE_BUFS patch above
+>   and use its __vb2_buf_cancel() helper so queue cancellation and
+>   VIDIOC_REMOVE_BUFS share the finish path (Tomasz).
+> - Scope uses_cpu_access to vb2-vmalloc queues and drop the attach_dmabuf
+>   dma_dir parameter from vb2_mem_ops, videobuf2-dma-contig,
+>   videobuf2-dma-sg and videobuf2-vmalloc (Tomasz).
+> - Enable uses_cpu_access in vivid only when vivid uses
+>   vb2_vmalloc_memops (Tomasz).
+> 
+> Link to v1:
+>   https://lore.kernel.org/r/cover.1792392288.git.kmehltretter@gmail.com/
+> 
+> Testing:
+> 
+> - Raspberry Pi 500+ (6.18.34+rpt-rpi-2712, aarch64, 16 KiB pages,
+>   Sunplus UVC camera 1bcf:2701 and Broadcom V3D 7.1 GPU), backport of
+>   the prerequisite patch plus patches 1 and 2: eight 640x480 YUYV frames
+>   (614,400 B) captured into DMA-BUFs pre-seeded with 0xA5 and imported
+>   into persistent EGL_LINUX_DMA_BUF_EXT textures before VIDIOC_STREAMON,
+>   then copied by V3D 7.1 immediately after VIDIOC_DQBUF:
+> 
+>   Heap                        Baseline stale      Patched v2 stale
+>   /dev/dma_heap/linux,cma     8/8 (329,890 B)        0/8 (0 B)
+>   /dev/dma_heap/system        8/8 (509,818 B)        0/8 (0 B)
+> 
+> - QEMU virt (arm64, Linux 7.4-rc1 with the prerequisite patch and
+>   patches 1-3, VIDEO_ADV_DEBUG=y, DEBUG_ATOMIC_SLEEP=y): six vivid
+>   lifecycle cases (stream, streamoff-queued, prepare-reqbufs0,
+>   prepare-remove, close-streaming, replace-dmabuf) across single-planar
+>   and multi-planar queues with kprobe counters on
+>   dma_buf_begin_cpu_access() and dma_buf_end_cpu_access():
+> 
+>   Queue                        begin/end calls   Unbalanced   Warnings
+>   vivid vb2-vmalloc (SP)           34 / 34            0           0
+>   vivid vb2-vmalloc (MP)           34 / 34            0           0
+>   vivid vb2-dma-contig (SP)         0 / 0             0           0
+>   vivid vb2-dma-contig (MP)         0 / 0             0           0
+>   20x prepare-remove (vmalloc)     20 / 20            0           0
+> 
+> Assisted by an LLM for code changes, test harnesses and commit message
+> drafting.
+> 
+> Karl Mehltretter (3):
+>   media: videobuf2: add opt-in DMA-BUF CPU access
+>   media: uvcvideo: synchronize imported DMA-BUFs for CPU access
+>   media: vivid: synchronize imported DMA-BUFs for CPU access
+> 
+>  .../media/common/videobuf2/videobuf2-core.c   | 76 +++++++++++++++++++
+>  drivers/media/test-drivers/vivid/vivid-core.c |  4 +-
+>  drivers/media/usb/uvc/uvc_queue.c             |  1 +
+>  include/media/videobuf2-core.h                |  5 ++
+>  4 files changed, 85 insertions(+), 1 deletion(-)
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> prerequisite-patch-id: aa99d5c3c27082cbe003ed94a195e3de415777c9
+> -- 
+> 2.39.5 (Apple Git-154)
 
-Acked-by: Mark Brown <broonie@kernel.org>
+-- 
+Regards,
 
---aU+YWAD6yJFUUGmA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau8EmwAKCRAv73Ows9A4
-iW+5AP9aetZoADx2kgpQxvUXbikjHna+8G8k3cywS9jVU4nvyQD/V5fyZbvLDm/v
-sgHODthprx1rRSCge4KCShshtklVhQQ=
-=X2k0
------END PGP SIGNATURE-----
-
---aU+YWAD6yJFUUGmA--
+Laurent Pinchart
