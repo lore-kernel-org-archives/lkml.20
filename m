@@ -1,60 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794078470;
-	b=PY08ziW3fuMU5/82eWn/lIiDGg5fE/Hhyb6SXQP+KgK4msWWAJWTxce+Qmjm0t+tjvqM
-	 XCfBHIlbKO71ujfc3wGvKl7x3pomP2B7DIIdAcjynNbgr4mxwOkMDjnvF+j74mLNrExt3
-	 Z6Z5x9Lftxv8FSix7GZvUbI4sMI3LVAyB6iKxC7LO+Arl2SB3XTpB47p4wlxoaLI7mXTW
-	 NJ3Ewr++1mHlJe4LLK6xU76bAUDSg4LmDY5Qi58Yv+UmcEsbZc5beaADFbsU4FcaRnDOH
-	 7/9Q6693dKSv3QZoPeNnlFQNULbl51qnJN6WZ/kaBVpQtALevw7n/I6XqP9Z19AI82A==
+	t=1794078691;
+	b=M6r1bBzvRJXsw79RCA3WSAhWmiVR8UxUSFFgHfo36R73JTIPbZ+zLWLRp7E4t5t6fvGu
+	 Ow7zFgiArYUxzIQNvfYJPusKjF5x39btnaHTreRWjl3DOmA9q8XDMwgNoF22rGeSCBDHs
+	 C8B0YymiXSY5iJxuxXXh3qdEFF0Bz4kJjBaZeMvO/4DqSbrbdiInpW8zxiDHhBSiGGUKL
+	 +Wb/9supHnSbdoslxPZcFh2WgsKW42unOu8fejOn2NzzNC/wZ3iRyFOj74TyBxtVDdHwJ
+	 ztbb1x2AxDSJEA1EoE7Afbzo64Stsl7AP1Bu9LSF6uQt439C5t9t8Q7Oc6HeNyuV8tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794078470;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cyz2NFxR2TTqznASBFfFVQdH/HjNm93pYhLVGS1WQFs=;
-	b=ksS9zYQxaPndGCrHIJuPumlcbSIvdntA+om4h/eOw6FzjkSRLQD63ZCK5QdI24fU9tys
-	 JrGUjYac+Zvd4i+RQ2BW+7SS7DkJ7vf7yKMkG4rd4CPPjvT1N6nc5Zn7ZV7kiDn3WV823
-	 /PTo/gZg3f8vNmMz9BpLcXAGoY+kXBas+TTaOrLT0iXmDQnDRk8aB+P50Jy7EoRjB0dzD
-	 NiJdDek8qAPviYAUoUqSep27q6ik85xVXjMi2cmYRAFVYyYY3fOd/4oUC1JIU65zmvPgs
-	 9scw+wdtMbaMAGBF+0q0+KvYzryaIMp5fcNMBAw+k2Y9m7rtjvnsZVrU7RR3Hr1q+zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794078691;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bH4sG8PxPI3XSzLdlTVmZF250KgsDqk6SB0vAlniKYA=;
+	b=EUcaa44q3xhVHLGa5zHz7MyvUCdZzITJCf/L3Cwk9k/ud+6iisQcnx4PzN/sIiktJ4TO
+	 SZCW/0n+PLi+p3Gt8AIEHweRWZb/TWUn06tJXrB4i6vlH9d/YzqbFyLcVenaUIuIqHnyP
+	 4xKy+XoLyffPyG9LMCyagHOCRdqFQ5b2dthL4MrZOqWx9JwoOEXJ2+rDkPBuXDQ71K3Zr
+	 tblhVxLDfOuReFX7AwfIqpDFrvy7+wvNBdM4fQiezWzDDEh+7cw9//FiknppeRlGjJpRG
+	 rBr+vyGV/OFWZsYBt/OpXntkMJo0S0Ppo4kJ5B9CbSkgwV5mCpiB+83IfQ1rrQNBkcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrpiGbFd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGdo3SDi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6466C606A32C;
-	Sat,  7 Nov 2026 19:07:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919A2606A326;
+	Sat,  7 Nov 2026 19:11:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrpiGbFd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252FE1F0089F;
-	Sat,  7 Nov 2026 19:07:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGdo3SDi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8494D1F0089F;
+	Sat,  7 Nov 2026 19:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794078469;
-	bh=cyz2NFxR2TTqznASBFfFVQdH/HjNm93pYhLVGS1WQFs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YrpiGbFdJS6XCu941w0dbx2RfXi88d89t8XsOQ/nXEhw5JWr6bsZECFD70cPsjsEM
-	 YEtaS5k2eO++bZ2Wvo03ah9sidP3iX/FrGPQHdqjyDDzEznSxfs7jyzdvHtKufHTtS
-	 rSzRp5taPNAg0GuHLlGoD4+GZ3WT3zFx315FPtdXDYU2pim47Pq68F0v43O4G4PPGj
-	 HNnWnCyYRqoUbHOL7y0+O7Dv1xMkethoFFLIYAjNyVeWOigNTFof7k/k1SyCz6z8p9
-	 MoNu9fUmCRjgUN0QSPZLrs4Vk418Lm9u4rZgHN6Hd1b52spzDAnMQ028pECOK0qboz
-	 +QDL0hRs6Uvkw==
-Date: Sat, 7 Nov 2026 19:07:44 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: proximity: sx9360: reject unsupported hardware
- gain values
-Message-ID: <20261107190744.7640de2a@jic23-hlaptop>
-In-Reply-To: <20261107111710.442318-3-kapoorarnav43@gmail.com>
-References: <20261107111710.442318-1-kapoorarnav43@gmail.com>
-	<20261107111710.442318-3-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794078691;
+	bh=bH4sG8PxPI3XSzLdlTVmZF250KgsDqk6SB0vAlniKYA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FGdo3SDiFOSVJa7QtUjtACayp7b8sVPqRbO3gF7fYZjX1hK6a06frhyCqWXIocQmC
+	 ds6G3zS67yyL7FQFLkmzTYK4ZKIp+G06fQLc9+OUIarNaiiHJmP6HZvy9jnnNUsZt8
+	 JY4E9RciuGTOvMYJSNI17z1awb5d+A4ywGBTekNU5dMtJSJkXqWG4MrDSUPWIq29qp
+	 71Sv4e35V4075qjeGekKguMC3mnd+ji4ap3LrRzuzPb9ACN1f6jtotMrxh+WgiteWC
+	 FqsFYn/XbrVP1dS+kN4DQWgAQGL3S1OtnmNZTljmNcp9pRKbqLgx7MR4/qn96dlIDI
+	 jdCpUvUvq4EjQ==
+Message-ID: <bc095bd8-ee9f-4bab-8333-8f2333b2590a@kernel.org>
+Date: Sat, 7 Nov 2026 20:11:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,51 +51,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/migrate: fix softlockup in do_pages_move() with huge
+ page arrays
+To: Zi Yan <ziy@nvidia.com>, shao.mingyin@zte.com.cn,
+ akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
+ byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
+ apopple@nvidia.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261107213856462Jx8pIdgdtLvPLfOFTwV4X@zte.com.cn>
+ <DMP795RB75PQ.1XIZ1QUJ51Y0H@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <DMP795RB75PQ.1XIZ1QUJ51Y0H@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Sat,  7 Nov 2026 16:47:04 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+On 11/7/26 19:45, Zi Yan wrote:
+> On Sat Nov 7, 2026 at 8:38 AM EST,  wrote:
+>> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+>>
+>> mm/migrate: fix softlockup in do_pages_move() with huge page arrays
+>>
+>> do_pages_move() walks the user page array one page at a time.  For each
+>> entry it performs two get_user() calls, an mmap_read_lock()/unlock()
+>> around a folio walk, and an optional store_status(); none of them has to
+>> sleep when the arrays stay resident and the rwsem is uncontended.
+>> move_pages_and_store_status() returns early while the page list is
+>> empty, so an array whose entries all resolve to the same node can run
+>> the whole loop without any scheduling point.  nr_pages comes straight
+>> from move_pages(), so a huge array can hold a CPU past the watchdog
+>> threshold on a non-preemptible kernel; with KASAN and function tracing
+>> enabled, ten million entries can exceed it.
+>>
+>> Add cond_resched() so that long calls yield periodically.
+>> do_pages_stat() has the same problem and is being fixed separately.  In
+>> current mainline only alpha, hexagon and classic m68k can still select
+>> PREEMPT_NONE, and they cannot enable CONFIG_NUMA, so this mainly
+>> targets pre-v7.0 stable kernels.
+> 
+> This is probably in the same spirit as the do_pages_stat() patch[1][2].
 
-> sx9360_write_gain() passes any value from userspace to ilog2() and then
-> FIELD_PREP() into the 3-bit PROX_CTRL0 gain field without checking it.
-> Only gains of 1, 2, 4 and 8 are supported (and listed in
-> hardwaregain_available), but other values are not rejected:
-> 
->   - 3, 5, 6, 7 are rounded down to the next power of two;
->   - 16 to 128 write gain codes 4 to 7, which the driver does not
->     advertise, and the next read reports gains of 16 to 128;
->   - 256 and larger wrap around in the field, e.g. 256 sets a gain of 1;
->   - 0 and negative values write code 7 (read back as 128), because
->     ilog2(0) is -1 and a negative int becomes a large unsigned value.
-> 
-> The write returns success in every case.
-> 
-> Return -EINVAL for anything other than 1, 2, 4 or 8.
-> 
-> Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-Same comments as for the previous.  Fine to reject stuff that will
-get unexpected results. The rounding down is more reasonable so
-don't reject that.
+Right, and I'd like to see an actual reproducer, because we sure have a bunch of
+cond_resched() already in migration code.
 
-J
-> ---
->  drivers/iio/proximity/sx9360.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
-> index 2a9b37df8f62..c6e5b3e557bb 100644
-> --- a/drivers/iio/proximity/sx9360.c
-> +++ b/drivers/iio/proximity/sx9360.c
-> @@ -625,6 +625,9 @@ static int sx9360_write_gain(struct sx_common_data *data,
->  {
->  	unsigned int gain, reg;
->  
-> +	if (val <= 0 || val > 8 || !is_power_of_2(val))
-> +		return -EINVAL;
-> +
->  	gain = ilog2(val);
->  	reg = SX9360_REG_PROX_CTRL0_PHR + chan->channel;
->  	gain = FIELD_PREP(SX9360_REG_PROX_CTRL0_GAIN_MASK, gain);
+-- 
+Cheers,
 
+David
