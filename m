@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060389;
-	b=PnPQvTt7ubU7fUUOWS1HprTo1Tdpxfz2bp9OImGcegWHImzv6JXTmuPesozdroDpV7iz
-	 Rt3oEPkYSSFN2qdeXhqYZmizCvPkOWO0CLHpA8lIUMNAoq6UP0NA4Kp6GzNRkQo2mBX2U
-	 K6KTAmZvmCRYwBQmb1VLcWk8FAbnK8mzh7Mq229vpTUFO8fpC/mFZf8o0a8e/nNnGMvjK
-	 K+01hXqiIxl3mQsZTpd+8oIst7+LW19VIh47aoWvg/QXS+nWZQmSYMw3Yo/Ay6YtG0O2l
-	 0l0kxn6ysZMOOMDtCpGbozUUWaN+wkbfxebUV3wSmzOq6rBzm8zsibF8l6YaDLdjUIw==
+	t=1794060393;
+	b=ti6qwjLSoaoZUoeiSYXkWOn75mBBKZXU2iLbpy6uieMMaIVeYtQujpXvTsYHRpaTVEFW
+	 Ye9fxJFu23v4lliOr7vpLWvrGYK3g7ZIJ5Q1AeynBHbb30/xycbiG9g5s/R5tlnas96Bl
+	 FYVHLD5BS5rvwA9Udy39pge+ijfmh6kvAEb9TCG5xYQXXTTvdoOZBegj5JzuuY72iFHpG
+	 FItFssqwY9CNz+usM2+hF2HeTjbXgs04ddEoz0Hokt/GBy8qM8pCQe1+jV3N4I5DlxAsi
+	 I8uKvnUj0f3jrJF7+TGtYD5XUHyoDI3l3ur9D4u9Lc68WuCqmyZFgf8EoaZg3oZl3Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060389;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lN6MEVTLqxQZaRhIMVGcckvM4AhB2Yd9HdbNbDtVrlA=;
-	b=Fte9uCzsal4GW8Lph/bjvBXu9pVOP9pLwV048kHNxy93fedjCC9brhm3jGqe7J7ju+jD
-	 E5VFPPvAJqU/Z5iDuQmQdt8kz2BMipDW1QOlZOFZ7WfVN1YFQ1t+hJue9GylQdROWYP09
-	 IyQ7iDna05+KJO71RWGDaggcar3g+KLGSKmnd5zKQ9eT/+rn+gBFWOordqAXFSjlZMTJK
-	 Siztzs3ZQjOoa/AjfopYgZQ1pFCQNNuaZxiJnnCI5aYRQV5Fzo4TH92te4ZcW6zB9ERmI
-	 YYva3iEOo2yVupvqgoSHS7q2rpMtNaLjW+LGBs1B1SYdyuG+OfxHNnfC4B3JGkmgVJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060393;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type;
+	bh=uHuPMmxtakQOLPdxtT12nV3cnYI7LfwJjOVqp2rwr7w=;
+	b=OcSB7+/oh8tnGtrubIR36riJLzvJ1lhWrT+ZtAcIIeeLApErnTpCUI/NOanHNZ6yJj7L
+	 EHOLYINV+0FLE2GhGzr+jDB9df++T8KtxAJJhjzQjlnItoHEm44ytzB8vyG7WlKI2kceH
+	 kHUhWOiIWsk0IDazSY+rEMAVx/2acMdv0Jz/HEqHU26dNEG8Mg6v3geq0h0Mg/Dj8rQX/
+	 1W0o242+zvf61AxhKVD2Dew/nXHGX+hTilYj5uwWtBvc6sNR6XXUt8uOJrd093zL1NFav
+	 ARyXbEeK7LDUOpVksmYYqu1Uo3eJlfQn0crLssb6VbWafPoVWIN5FK0svxh8ktBK6Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOfL5CB5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=imxV8DPC;
+	arc=none smtp.remote-ip=79.135.106.120
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB9D606A33B
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:06:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735FF606D814
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:06:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 735FF606D814
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOfL5CB5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581C91F008A5;
-	Sat,  7 Nov 2026 14:06:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794060389;
-	bh=lN6MEVTLqxQZaRhIMVGcckvM4AhB2Yd9HdbNbDtVrlA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WOfL5CB5L+dz7EAp/U9cZKaHOfkSdSte8r9Zl9PdDINIP8kqdNTpe9gExHHcQdRc+
-	 pWa71RHtpZkQnijX8QDtR2sxvZOhw1XJkuunIrkapyy0Z8G5lX5rR+TBc8EeSF7Xy9
-	 hjCn13ZaUNKh0ITroHRosAmPLqHjCFjMi5XJ+ObKs8ooJxToGY1umSXSxx8je0ZoAy
-	 IIVg1V9cmBbuPf2ZZfF2NJe0VTF88QYAXA/0mB5gY3NCSBa5YKjf/5bZhLIu5hwBYW
-	 em7cxjInqAzt3gc4VjceyoSAIgauthcJrM5S0I8SCsCkzdvi3NnGj/v89tvYNe0gS9
-	 XyXH2FrSoeR8A==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Nam Cao <namcao@linutronix.de>
-Subject: [PATCH RESEND v5 2/3] riscv: word-at-a-time: improve find_zero() for RV32
-Date: Sat,  7 Nov 2026 21:46:12 +0800
-Message-ID: <20261107134613.17830-3-jszhang@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261107134613.17830-1-jszhang@kernel.org>
-References: <20261107134613.17830-1-jszhang@kernel.org>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=imxV8DPC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1794060390; x=1794319590;
+	bh=uHuPMmxtakQOLPdxtT12nV3cnYI7LfwJjOVqp2rwr7w=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=imxV8DPCU1e1+6sjVJKEJJINC+AYNGDkvSMxuusEhnuL1EposvHAORGKE1XSwW7OX
+	 qM3V0F47Vj1mjAFA34cY5QAUmiDYd9QNqgwWylZfZP2s7CsTh60cMpBcuRwHxDLu5E
+	 qq0ii6Q8bUNvd48M7nirHShBbetBTBeZWgFf/vMCZd5COsbgstPUU203m6aqnlCzU3
+	 ZleAIT0AbblL/Q66+0jhazBIDReHj9PlZAaJULutUKRok9TarnhXImKu82zTuN+gXD
+	 YlRprgEwYnplKQM+BW/09oWimYbk78fAE6i/JRIOcOguNGskf8alTXfqkT5z5/HV5s
+	 dudDNvuui9tPA==
+Date: Sat, 07 Nov 2026 14:06:24 +0000
+To: Oliver Neukum <oliver@neukum.org>, netdev@vger.kernel.org
+From: Ryan Prinz <rc4d5a@protonmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, rc4d5a@protonmail.com
+Subject: [PATCH] net: usb: cdc_ncm: fix out-of-bounds read of chained NDP32 offset
+Message-ID: <20261107140432.647365-1-rc4d5a@protonmail.com>
+Feedback-ID: 190731814:user:proton
+X-Pm-Message-ID: 7a32d0583cf51430320d0ea36759a1de7d5828ba
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,30 +60,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------0069204657d9df8cf4194503c90bb3fa2463289ee31cd304c80a0972fb84c9ce"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------0069204657d9df8cf4194503c90bb3fa2463289ee31cd304c80a0972fb84c9ce
+Content-Type: multipart/mixed;
+ boundary=2a1cb552390cbfe7fd100b88c3ace6355fd4256b41310b91c8759db253cb
+From: Ryan Prinz <rc4d5a@protonmail.com>
+To: Oliver Neukum <oliver@neukum.org>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rc4d5a@protonmail.com
+Subject: [PATCH] net: usb: cdc_ncm: fix out-of-bounds read of chained NDP32 offset
+Date: Sat,  7 Nov 2026 15:04:32 +0100
+Message-ID: <20261107140432.647365-1-rc4d5a@protonmail.com>
+X-Mailer: git-send-email 2.56.0
+MIME-Version: 1.0
+
+--2a1cb552390cbfe7fd100b88c3ace6355fd4256b41310b91c8759db253cb
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-To remove non-necessary zero bits couting on RV32, replace the
-'fls64(mask) >> 3' with '!mask ? 0 : ((__fls(mask) + 1) >> 3);'
+The NDP offset read from dwNextNdpIndex on the 32-bit NTB (NDP32)
+path is not checked for a negative value before use. A
+device-supplied dwNextNdpIndex in the 0xFFFFFFF0-0xFFFFFFFF range
+sign-converts to a small negative int, bypassing the bounds check in
+cdc_ncm_rx_verify_ndp32() via size_t wraparound, causing an
+out-of-bounds read of up to 16 bytes before the skb's data buffer.
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Reviewed-by: Nam Cao <namcao@linutronix.de>
+Fixes: 0fa81b304a79 ("cdc_ncm: Implement the 32-bit version of NCM Transfer Block")
+Signed-off-by: Ryan Prinz <rc4d5a@protonmail.com>
 ---
- arch/riscv/include/asm/word-at-a-time.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reproduced by calling cdc_ncm_rx_fixup() directly from a small
+out-of-tree test module with a hand-crafted NTB. With memory-sanitizer
+instrumentation enabled to pinpoint the vulnerability:
 
-diff --git a/arch/riscv/include/asm/word-at-a-time.h b/arch/riscv/include/asm/word-at-a-time.h
-index ce04d6a088f6..f2d16c1eea8d 100644
---- a/arch/riscv/include/asm/word-at-a-time.h
-+++ b/arch/riscv/include/asm/word-at-a-time.h
-@@ -67,7 +67,7 @@ static inline unsigned long find_zero(unsigned long mask)
- {
- 	if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZBB) &&
- 	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB))
--		return fls64(mask) >> 3;
-+		return !mask ? 0 : ((__fls(mask) + 1) >> 3);
+    BUG: KASAN: slab-out-of-bounds in cdc_ncm_rx_verify_ndp32+0x11e/0x130 [cdc_ncm]
+    Read of size 2 at addr ffff88800fcd2a34 by task insmod/367
+     cdc_ncm_rx_verify_ndp32+0x11e/0x130 [cdc_ncm]
+     cdc_ncm_rx_fixup+0x7a3/0xed0 [cdc_ncm]
+
+Scope/impact:
+- Triggerin
+g the 32-bit NTB (NDP32) path requires the host driver to
+  set CDC_NCM_FLAG_PREFER_NTB32 for the device. The only driver that
+  does so unconditionally is huawei_cdc_ncm.c, for Huawei mobile
+  broadband hardware. Local/physical-USB-attachment or
+  compromised-device-firmware attack surface, not remote.
+- Reachable offset range is -1 to -16, bounded by
+  sizeof(struct usb_cdc_ncm_ndp32); the subsequent dpe32 array read
+  always lands back inside the legitimate buffer, so this doesn't
+  escalate into a larger OOB excursion.
+- No out-of-bounds write found, and the leaked bytes only feed a
+  signature-match comparison. There is no path found for them to
+  reach a delivered packet or the device/attacker.
+
+Given the local-only trigger and lack of a confirmed write primitive
+or crash, my read is this doesn't need security@kernel.org handling,
+but happy to redirect there if you think otherwise.
+
+AI Disclosure: An AI assistant (Claude) was used to assist with the
+analysis and
+ testing. I have verified the vulnerability, the fix,
+and the test results myself and take responsibility for this
+contribution, per Documentation/process/coding-assistants.rst.
+
+ drivers/net/usb/cdc_ncm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/usb/cdc_ncm.c b/drivers/net/usb/cdc_ncm.c
+index 19db5a668..f5c8a6070 100644
+--- a/drivers/net/usb/cdc_ncm.c
++++ b/drivers/net/usb/cdc_ncm.c
+@@ -1838,6 +1838,9 @@ int cdc_ncm_rx_fixup(struct usbnet *dev, struct sk_buff *skb_in)
+ 	else
+ 		ndpoffset = le32_to_cpu(ndp.ndp32->dwNextNdpIndex);
  
- 	return count_masked_bytes(mask);
- }
++	if (ndpoffset < 0)
++		goto error;
++
+ 	if (ndpoffset && loopcount--)
+ 		goto next_ndp;
+ 
 -- 
-2.51.0
+2.51.2
+
+--2a1cb552390cbfe7fd100b88c3ace6355fd4256b41310b91c8759db253cb
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - rc4d5a@protonmail.com
+ - 0xE775BF83.asc"; name="publickey - rc4d5a@protonmail.com -
+ 0xE775BF83.asc"
+Content-Type: application/pgp-keys; filename="publickey -
+ rc4d5a@protonmail.com - 0xE775BF83.asc"; name="publickey -
+ rc4d5a@protonmail.com - 0xE775BF83.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
+ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRWFkRFpyUllKS3dZQkJBSGFS
+dzhCQVFkQTFpeGV6cng0ZTBFNWJGcjV6UU8xMitlb20vdWZnUVFTS05jQwpHU1ZjUzlqTkxYSmpO
+R1ExWVVCd2NtOTBiMjV0WVdsc0xtTnZiU0E4Y21NMFpEVmhRSEJ5YjNSdmJtMWhhV3d1ClkyOXRQ
+c0xBRVFRVEZnb0Fnd1dDYWREWnJRTUxDUWNKRUFVYktZOW5tekdRUlJRQUFBQUFBQndBSUhOaGJI
+UkEKYm05MFlYUnBiMjV6TG05d1pXNXdaM0JxY3k1dmNtY21EdVNNSm1tcTJWVDN2aFkzY0JzRDFS
+YUVsZGE2dDdpTwo1S21uZXZwYXhRTVZDZ2dFRmdBQ0FRSVpBUUtiQXdJZUFSWWhCT2QxdjRPUWRH
+ZGFobnFvR0FVYktZOW5tekdRCkFBQmFDUUVBdWxVaElDbmFPSU9DT1d4T3pldUNUZ0dUVGkxM1k4
+WjdVL3pYaER1bmFpa0EvaUJRRVBZOEx5NisKU2RZUnZzekQwcHBsS0M0elB2WkhqRDZaMEo4U2Ir
+RUh6amdFYWREWnJSSUtLd1lCQkFHWFZRRUZBUUVIUUNwbApBSFVLZXNpb25QaGlBVnBvL3dDUFdt
+MnR3SGtpL0tmaUpHQVdlckIxQXdFSUI4SytCQmdXQ2dCd0JZSnAwTm10CkNSQUZHeW1QWjVzeGtF
+VVVBQUFBQUFBY0FDQnpZV3gwUUc1dmRHRjBhVzl1Y3k1dmNHVnVjR2R3YW5NdWIzSm4KNlJuS0R5
+WjJlV1BjOSs3NEJIR3VPM1E1VGVuWFZ6bWRrRjQ3L1lYQUxFOENtd3dXSVFUbmRiK0RrSFJuV29a
+NgpxQmdGR3ltUFo1c3hrQUFBN1RzQS8zRy9hUE9NeGE2MDZxdlh2U3lUOURDNTJCa294ZmlNMk5N
+SFpHK0QwSnVGCkFQMFhXbGRlbEVvTFY1bWNRbXFIVThqMVp2ZzRtT1hWL2owYytPWmRheVhUQnc9
+PQo9VnZDNAotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0t
+--2a1cb552390cbfe7fd100b88c3ace6355fd4256b41310b91c8759db253cb--
+
+--------0069204657d9df8cf4194503c90bb3fa2463289ee31cd304c80a0972fb84c9ce
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wqsEARYIAF0FgmrvMF8JEAUbKY9nmzGQNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdhXGWCgxzq10VV91y58/b5FiEE53W/g5B0Z1qG
+eqgYBRspj2ebMZAAAO5oAQCOHUtK1WOHhLTKNRwTLk+mlWprKqCJd/M7LfES
+oH7BrAEA9HcqXNoc6tzllJ3KUZjsjXwdNyaL+FikezMp1JQHjQU=
+=lGeW
+-----END PGP SIGNATURE-----
+
+
+--------0069204657d9df8cf4194503c90bb3fa2463289ee31cd304c80a0972fb84c9ce--
 
