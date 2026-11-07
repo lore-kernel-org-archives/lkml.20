@@ -1,98 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794058767;
-	b=yls6tSJliuZecpl8b5eBVOgIPrK3/0/HcPewoAWS61dRFKro4mOuuvuJmJ8PxDaW7/QK
-	 uqAT6pm1SoGwk9gZVR6UaRLdpVdsx82vGroUF+QDTpq4hzED9/J9G399a+5crZWzglRnK
-	 jt9FRGuJVytXewVyXd8cE860hDs3cdh84xmyvcivuc+01dMI9UedahTzUPXh28n+ApC2d
-	 kESavlCaId2Q6s/Oh+l2eVaLa2RAi+dXzTr/32wqbNurp0jS6lUzCyyvAGXuqKTa4mxm4
-	 sYBYUm/QDGmdXAWSZ0QoYTNjUID8JyrvdwCEQ8j39JYaqkCIPTsB3MDCPoN6M9cIlMA==
+	t=1794058861;
+	b=CN/JWUTNtVPA79jk5Fr2Ua2eRJtUKCPiREYGSF5YESpp2l811+MO77L5nygae7jH58ca
+	 V0/SQ976VOCc6nSM9qQGdWJMELMW9OjV8V87/EiVqfuxRhm6mlBwBAXif0usooj4xGMYp
+	 rKCYtc3pxWu9M7TQw4PLiUEJpFPuP0JomuMVVUG181K2ykljpOJKViXw4/4oBaFcD8UOS
+	 GqdT/4reZSTgJnCZ30VcO1zwdDGYWNyK8nmPALiHSmxpnM6qSv0hcIugbYisHAmEDg+F2
+	 dEmCgwjwJBzOKPms+VoDzKDWQBfc7jf3xc8LGWXQy4gxsHxaHbI2UUFfE5nalkyxkPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058767;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=w/IBxYIH+K6Y9RZD4pOBn7Z5Vj6ZH2uF8SNKdz2mVno=;
-	b=PLAPgsyRXfzrvEO47lWZAL1zYalZKi/NKWb8k013w2AiV0Oskjic5CTYrNutiZfqcxId
-	 TU/L3Ww2/zATDMEzFqmInLTL/TbUZSJ3yOWKWIJmk7olYEMu9O8YAW8cbHKaNRCPFSwZA
-	 JUubYCeLioNDPRunaXq6k/gKgCBibWk+0HTotgvPz0qbiwag9njhiY2p44hcJsv2iAJJ8
-	 uQ/7p5y7705HfsRkLk1VNcQT5BV24qGZx0VxBk5qYWW9sXO26Gs16t70BpEL/WQPRZ4Cy
-	 CJgcaHzeLgiPsnI4Ulw1nevmue5HqyXqkuITbcEzY+B+Dh17LeJ+43WZzoauwCES5dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794058861;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=COksASPtim2reqsAachBbM80m9nkEvjOTM2iuax8eXU=;
+	b=ZTW9ZveshmY1Mm51FsBii2fKPnxzLAcwFE9eIPrwHX8lQBMmy6MKJESOrptdv7WbL8Ml
+	 X8GMClWL+vUEDhFe1bj3OJnxn+be4ITcnRk8cuIiAJ3BJOC98v9q8hoQv3vm3+lKLM7pW
+	 v5h6YSZzaJCGcepqU8hsyPD9mOphsNznWq/3+BpBvths2zZNjHv85RurgOJd0s/jBJMr/
+	 Wc0ZCGcOYlRJzB+LjOYxONDC6oyKiJf2sdtcP2ySIISPsAPAIdZbXcy/NutWcCWMYz2wJ
+	 oGy2XUIj/QdFTN2Wed36rFag3QrEbyN+4jmoojj4M+Uf2TITJW55f6WXdL328pMlxTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bairaktaris.de;
-	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=xdTjjITC;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=hKSBbSM6;
+	arc=none smtp.remote-ip=212.227.15.4
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6E5606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:39:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D6E5606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07420606A337
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07420606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=xdTjjITC
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c3fd91337baso272738866b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:39:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1794058765; x=1794663565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w/IBxYIH+K6Y9RZD4pOBn7Z5Vj6ZH2uF8SNKdz2mVno=;
-        b=xdTjjITC6uUAK2uZxG4/Z3iWhfeed0+Cz8NpRqPW2zaY+vJXI8RCP6dPu+W5eB2i8H
-         0LKj3s7Qa/l9ByrWhJ6dbEMDWzjEmA327Wixh0wkF0VXhtHk2hDDmed7M/gOk2JYfvYE
-         ot+9GUiW3WZtoFqCPCziJFfZBa6rl5skHROza6qlyLWltCq0/O3YsSF2UIO1uMW8m+eM
-         OXY/tberDq+yx+j31NX5RAHGwmsI6LKFRENIo2VhzpXIZr/ceWDoM3dE0hGQWmERJEyQ
-         Su1Q6h1KfSiJDHif/r3hA4KnvMkRnXx0jX4Koo4u0joR6W6UTBH3CvfL18TE9KjU1S5d
-         6FgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794058765; x=1794663565;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w/IBxYIH+K6Y9RZD4pOBn7Z5Vj6ZH2uF8SNKdz2mVno=;
-        b=iVgFVyRG6IhIzHyz8MPk4K/9CcEQ6HQ26UMf8Z8nfeqr99o9RLTBiEUIsnsNaqkopB
-         nMPsOf1rD+iqCxmtJiDrUy+HysFYRsOkWOK1zibesCOoLOyWXt0fpbwk7R/EDaqKAXms
-         /OQxrqoW+C3ySV+KeVDBfL68pRrvGGm77ADrueMUlp4jBIdCU5y/QgPaKNw6yfHGPkTA
-         WLosDtokKkwnm6d0rFGjsDO/O3pxv0gw4aExz74LzXbr3BdyzGCBWC9daJtq+CGmDROI
-         t3wCoNvyNNOo/dfmspwRKVcBPhXb38lUz3u166sJ+LRHju8OgyDT8BDK3tVtab8l8Wmn
-         ciEw==
-X-Forwarded-Encrypted: i=1; AKwUvByBNb+p47V/U2EQGWVh3jHJQzUs6r9H4Tq7Y6JHAsBauidKl8HGkm1H+WXWwT1MDfIflNZPvuW/g84T9bo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+s32jSH0v9nmD13JglEA+8sDsDMC62MxPwf/jYw6UbkqXSJdi
-	5mTs5FqB8XZxkenV3mFTMRYLny15/JJndIsymWXnomh2Ks2aFRXgKdQj8zSQIFANOw==
-X-Gm-Gg: AYBFou1xlMyOpXfih85jH3N+7ugQaeLi2c7iMbEJatvlFKj3Wc5/y/Kn7dYAPUqqvrF
-	Og7wJMxVIZ/eH3+PmvMp/c8kHfuP+MSuCdBUjj6S4S8EdAyH2wXp3TXQu8IXlA1BkBZMAhV8O0j
-	6yMrZndgiY5JP/eAflD//XpOBJKYw8CtRFdBbyrcew1a0xBAr9VhVNpaVoW714rkD52esQC4UD5
-	smVDULW29cF05ZxiSeubNinMK3+fFy28KrMirAV8TELgcBJBUz6wHuW02C1BmMIRHLa2fER3bA5
-	xCj7NAr9TflMsaKkLLYXzxX5/TBEriEseJcPcFFFuLRSjzXJkRCH4UgV3bI9lzdzhmEHa4aM5D0
-	EC8o0rt0TsbSdUbFtg6VFC5J6RFVaNSmqHNGqqoDeNEleAZ4/8J290uxz3xYn6YMQ4AorQ4zwFR
-	SCtUWrwaBXb1Mc2YTYjGGJfbJRwz2wy0hW9w/ApSyyDrqaSb2X6QUF/No14Ta8MFqomqqZ8QYb/
-	KlWyvExOlEYh6yLy+tuUuhY2dq6gauXbi0uQK9bnZ1YlbAa8Qk4B8yXg8ckpeqvnfMkWIcUkQ63
-	3xT+F3PRMYrwDP6n7VElFgnYzMhPl4Xi3/A633RYbFh1nqDiNNTRPa9DntwbfDTyZ6SlZXWdDEl
-	ru7ph3NEAXjWJS4o0T3COSKkwU+zV1voWPI+RdexnDaHWx6Op723Zz5NYxbsvbxUy37C2QS2WMY
-	prnp7bUCX8USi0prOlrpfADzzMnczxVttjcy4y2LsVy4frA7JxnV33K5u9xZMBYcbUNnLsMcGQM
-	E/SzuVUNewdMUsr/y1yVlCmqgfxdsqUYMZtS5/AaDJyXy3OFNqZEf2G9kxs4Fn2V7Nt2QTvNm4a
-	MvhU6HX4N5wtnMXm8A==
-X-Received: by 2002:a17:906:ef04:b0:c24:6985:d7a1 with SMTP id a640c23a62f3a-c4d3468f9f2mr431978766b.7.1794058764366;
-        Sat, 07 Nov 2026 05:39:24 -0800 (PST)
-Received: from Desktop (pd95130be.dip0.t-ipconnect.de. [217.81.48.190])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d354ab149sm151758266b.3.2026.11.07.05.39.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 05:39:23 -0800 (PST)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: ath11k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH ath-next] wifi: ath11k: replace a pairwise key in place
-Date: Sat,  7 Nov 2026 14:39:25 +0100
-Message-ID: <20261107133925.3522299-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=hKSBbSM6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1794058857; x=1794663657; i=markus.elfring@web.de;
+	bh=COksASPtim2reqsAachBbM80m9nkEvjOTM2iuax8eXU=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=hKSBbSM6TQlKGIx8+JJV9ez6BpGOF75M3/+K78799oKIQmPW2a8FOutENivsU2bW
+	 rPCueft1CgT6osnvfurf0Xy5klUAcbgwso4rCDEhU4saxOFy856pPvB2+sSaMXmuR
+	 Fa+T6pOgcpC1wc3lhV2qJBCEmDNjQ2ukvIEehWSgf9lW3YAMKBie2+F9fSDAnm5r2
+	 cAwFq4HKAFTrQyDIq0pGlZHPLuOGUsGNsiPa/P73jH/Fhv85Z+OHSiBDFGFx1hS47
+	 QAgetyy+N1VUyOrUWlPTvqwrK3QjYWN88Pqq05cmNMbSOQar20c4AyhvoZBBWLjMF
+	 N4bArXaTizXk7dD7XA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N4NDG-1wOcDH3b9y-01142X; Sat, 07
+ Nov 2026 14:40:57 +0100
+Message-ID: <b5518744-4692-475c-8a78-9e6921a4fac8@web.de>
+Date: Sat, 7 Nov 2026 14:40:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,170 +62,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Chad Aldreda <ca@modelmiser.com>, cocci@inria.fr
+Cc: LKML <linux-kernel@vger.kernel.org>, Julia Lawall
+ <Julia.Lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>
+References: <20261106193517.3267013-2-ca@modelmiser.com>
+Subject: Re: [PATCH] coccinelle: api: add a checker for device nodes in devm_
+ memory
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261106193517.3267013-2-ca@modelmiser.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:nDQFFXPPe3wD74P5912HPkmA0aGGu92hbGid/Z4koJYeKfi/XQI
+ cGkOdYyFVPuzWnw4TjN2meedYJsYc7QXmQh5pWv6F481T1hSYFs8851Zl5g3w/PZNMAHuh9
+ ZQEgCD19LoGA6xFUoHwe3sVbhjlptTLS22luVsO+w7zAtCaIny/n1MIS84KL/HvJ8/1TCHU
+ RuXn1tDUlzYrNJFc8N2gw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:3fBXvbI1+Cg=;Px/a1AQmCsM/1VUtXuY0Uz6Rxvc
+ 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
 
-mac80211 replaces an in-use PTK by calling set_key() with DISABLE_KEY
-for the old key and SET_KEY for the new one, which ath11k sends to the
-firmware as an install of cipher NONE followed by an install of the new
-key. Commit 97acb0259cc9 ("wifi: ath11k: fix group data packet drops
-during rekey") stopped this clear-then-install sequence for group keys,
-and it fails the same way for a pairwise key: on an IPQ8074 AP, the
-station stopped receiving at its first PTK rekey in 6 of 6 runs, with a
-Broadcom and a Qualcomm client, the REO counted up to 165 PN check
-failures per run, and hostapd deauthenticated the station at the next
-rekey. Because ath11k does not set NL80211_EXT_FEATURE_CAN_REPLACE_PTK0,
-mac80211 also warns "Rekeying PTK for STA ... but driver can't safely do
-that" and flushes the queues, which waits ATH11K_FLUSH_TIMEOUT (5 s) for
-the whole radio whenever a busy station keeps frames pending.
+=E2=80=A6
+> +    coccilib.report.print_report(p[0], "WARNING: devm_ memory registere=
+d at line %s as a device node or a v4l2_device; an open file outlives unbi=
+nd" % q[0].line)
+=E2=80=A6
 
-Keep the old pairwise key in the firmware when mac80211 disables it for
-a station, so that the following SET_KEY overwrites it in place, as the
-group key path already does. Outside raw mode the hardware encrypts a
-frame with the key it holds for the peer and generates the PN, so a
-frame queued across the replace leaves with the old key or the new one
-and never in the clear, and the SET_KEY resets the REO PN state. A
-pairwise key removed without a replacement is cleared when the station
-leaves the authorized state, and peer deletion drops it with the peer.
-With this, advertise NL80211_EXT_FEATURE_CAN_REPLACE_PTK0.
+How do you think about to use formatted string literals instead?
+https://docs.python.org/3/reference/lexical_analysis.html#f-strings
 
-With hostapd rekeying the PTK every 20 s, a download to a FastConnect
-7800 station holds 914 to 945 Mbit/s through four rekeys, with no
-second below 854 Mbit/s (3 runs); before, the station lost the
-connection in 3 of 3 runs.
-
-Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.12-01460-QCAHKSWPL_SILICONZ-1
-
-Fixes: 436a4e886598 ("ath11k: clear the keys properly via DISABLE_KEY")
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
----
-I used Claude (Anthropic) to help write this patch.
-
- drivers/net/wireless/ath/ath11k/core.h |  8 ++++
- drivers/net/wireless/ath/ath11k/mac.c  | 55 +++++++++++++++++++++++++-
- 2 files changed, 62 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index a0d725923ef24..69e612a3e71b3 100644
---- a/drivers/net/wireless/ath/ath11k/core.h
-+++ b/drivers/net/wireless/ath/ath11k/core.h
-@@ -571,6 +571,14 @@ struct ath11k_sta {
- 	bool use_4addr_set;
- 	u16 tcl_metadata;
- 
-+	/* A pairwise key mac80211 removed but the firmware still holds,
-+	 * cleared by the next SET_KEY or when the port closes.
-+	 * Protected by ar->conf_mutex.
-+	 */
-+	bool ptk_clear_pending;
-+	u8 ptk_clear_idx;
-+	u32 ptk_clear_cipher;
-+
- 	/* Protected with ar->data_lock */
- 	enum ath11k_wmi_peer_ps_state peer_ps_state;
- 	u64 ps_start_time;
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 1a237adaa37d1..386e9593e4590 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -4509,6 +4509,33 @@ static int ath11k_set_group_keys(struct ath11k_vif *arvif)
- 	return first_errno;
- }
- 
-+static int ath11k_mac_clear_ptk(struct ath11k_vif *arvif,
-+				struct ieee80211_sta *sta)
-+{
-+	struct ath11k_sta *arsta = ath11k_sta_to_arsta(sta);
-+	struct ieee80211_key_conf key = {
-+		.cipher = arsta->ptk_clear_cipher,
-+		.keyidx = arsta->ptk_clear_idx,
-+		.flags = IEEE80211_KEY_FLAG_PAIRWISE,
-+	};
-+	int ret;
-+
-+	lockdep_assert_held(&arvif->ar->conf_mutex);
-+
-+	arsta->ptk_clear_pending = false;
-+
-+	ret = ath11k_install_key(arvif, &key, DISABLE_KEY, sta->addr,
-+				 WMI_KEY_PAIRWISE);
-+	if (!ret)
-+		ret = ath11k_dp_peer_rx_pn_replay_config(arvif, sta->addr,
-+							 DISABLE_KEY, &key);
-+	if (ret)
-+		ath11k_warn(arvif->ar->ab, "failed to clear pairwise key of %pM: %d\n",
-+			    sta->addr, ret);
-+
-+	return ret;
-+}
-+
- static int ath11k_mac_op_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 				 struct ieee80211_vif *vif, struct ieee80211_sta *sta,
- 				 struct ieee80211_key_conf *key)
-@@ -4519,6 +4546,7 @@ static int ath11k_mac_op_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 	struct ath11k_peer *peer;
- 	struct ath11k_sta *arsta;
- 	bool is_ap_with_no_sta;
-+	bool keep_ptk;
- 	const u8 *peer_addr;
- 	int ret = 0;
- 	u32 flags = 0;
-@@ -4614,7 +4642,21 @@ static int ath11k_mac_op_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 
- 	is_ap_with_no_sta = (vif->type == NL80211_IFTYPE_AP &&
- 			     !arvif->num_stations);
--	if (flags == WMI_KEY_PAIRWISE || cmd == SET_KEY || is_ap_with_no_sta) {
-+
-+	/* The same firmware race hits a pairwise key: a clear followed by
-+	 * an install of the same peer's key leaves the firmware dropping
-+	 * every unicast frame to the peer. mac80211 replaces a PTK by
-+	 * DISABLE_KEY on the old key and SET_KEY on the new one, so keep
-+	 * the old key until the new one overwrites it in place. Frames
-+	 * queued in the hardware leave with the old key or the new one,
-+	 * never in the clear. A removal not followed by an install is
-+	 * completed when the port closes, and peer deletion drops the
-+	 * key with the peer.
-+	 */
-+	keep_ptk = sta && flags == WMI_KEY_PAIRWISE && cmd == DISABLE_KEY;
-+
-+	if (!keep_ptk &&
-+	    (flags == WMI_KEY_PAIRWISE || cmd == SET_KEY || is_ap_with_no_sta)) {
- 		ret = ath11k_install_key(arvif, key, cmd, peer_addr, flags);
- 		if (ret) {
- 			ath11k_warn(ab, "ath11k_install_key failed (%d)\n", ret);
-@@ -4656,6 +4698,12 @@ static int ath11k_mac_op_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 	if (sta) {
- 		arsta = ath11k_sta_to_arsta(sta);
- 
-+		if (flags == WMI_KEY_PAIRWISE) {
-+			arsta->ptk_clear_pending = keep_ptk;
-+			arsta->ptk_clear_idx = key->keyidx;
-+			arsta->ptk_clear_cipher = key->cipher;
-+		}
-+
- 		switch (key->cipher) {
- 		case WLAN_CIPHER_SUITE_TKIP:
- 		case WLAN_CIPHER_SUITE_CCMP:
-@@ -10056,6 +10104,9 @@ static int ath11k_mac_op_sta_state(struct ieee80211_hw *hw,
- 		}
- 	} else if (old_state == IEEE80211_STA_AUTHORIZED &&
- 		   new_state == IEEE80211_STA_ASSOC) {
-+		if (arsta->ptk_clear_pending)
-+			ath11k_mac_clear_ptk(arvif, sta);
-+
- 		spin_lock_bh(&ar->ab->base_lock);
- 
- 		peer = ath11k_peer_find(ar->ab, arvif->vdev_id, sta->addr);
-@@ -10606,6 +10657,8 @@ static int __ath11k_mac_register(struct ath11k *ar)
- 
- 	wiphy_ext_feature_set(ar->hw->wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
- 	wiphy_ext_feature_set(ar->hw->wiphy, NL80211_EXT_FEATURE_STA_TX_PWR);
-+	wiphy_ext_feature_set(ar->hw->wiphy,
-+			      NL80211_EXT_FEATURE_CAN_REPLACE_PTK0);
- 	if (test_bit(WMI_TLV_SERVICE_BSS_COLOR_OFFLOAD,
- 		     ar->ab->wmi_ab.svc_map)) {
- 		wiphy_ext_feature_set(ar->hw->wiphy,
-
-base-commit: ad6bdd5f9030dbcf29a67f40ccdb3fa57afecff5
--- 
-2.53.0
-
+Regards,
+Markus
