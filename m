@@ -1,60 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.160
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794046276;
-	b=UED9oiAj9gCErWI5pB28v/WnBZcLY5brCGRsM3ZLqCUVOb+5FqhMoyeSrRIC8eZ6z5YP
-	 QtFAroi9Hr/3sr79P0Xe8uOeWaj6NOS3qKl8Cw+QIBUZdPyqGV2fnufod4jtplEvYVAUV
-	 JkewGXGbQQeoqpUL22VCUUpjOBABqsZKeywL/sbC96kc4V8XH9cWh/rTqV4psQ37xLocP
-	 y1RqKAEkRHiMHKORN59M+c69dcMRybhdekF2PBcNvtjQ0DQHhtA+qppYcOJlu/mbbCQsu
-	 Tzk+rvlO3k8jztTpHMDLJnLLg/TJaDiU50MxnGZJOGbeJ3XMPFzFJ/ttyroGeYniCdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046276;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=D8qnkZYaP8QEiEnWStUV7Ol/+8QaugHXvxXWg6fF5ic=;
-	b=X8DLQlj8b4Zcq9Il3KBk6T965Gp65nizHGfTOaXDisDolM8oOolZd0AIvOirIjq6dHpp
-	 Pf57X/OFxKnfEp1p9diOhOWXGvrqaYWVTAmq3EMoqFuVsw6j74AocWUXph6yGGpOp2ceU
-	 j1w9/+DWv24WwK/DJ9jG9SaXqFux4mEbrYo8HtzGfRM6cK6kmJ9n6wQo0ffSQLVaNCEYf
-	 Frs88DLDDfIs+u7eGhnn8TodZUVv7l3b0Li2QhJ/+losN5+xg8kjG5MAuvxJFSVdeGoRm
-	 8ltdy+pmcdbJNc/U89cA8MsldNCaGQttOwXxVT33/WTXRh2lrn8Tn4MJISGrIk7uSSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eldare.de;
-	spf=pass smtp.mailfrom=eldare.de;
-	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=q1TwewhQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.160
-Received: from mail-200160.simplelogin.co (mail-200160.simplelogin.co [176.119.200.160])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794046352;
+	b=i59WYP43JWSWqUmW5cT9N0EbN8h++jnI0sMpsYfpH4/QwBhnf/j1SINaWlM7NOdrfkB4
+	 NQyVsEZMucQFKCW3IFQu4DsUtVebVJ3Qko6jnFj0rSltWzZICdcCNUr5q/qS48PfrVfTp
+	 f44okIaD+c2pKWec/Xiue8vF+ubnTdmokw+CIcz78sVdnGKYWEXT0Ox3LKhOv36HwULWz
+	 K5tz698yWhldSZpoZlwAs1YbM4EPEGFNbk4C7XeJGDyLpyL87Q3wDg9NE21aB4fH/NIE8
+	 ezJavaXQ2sRmgs1axBF72pIDkyzkzDdz0omaboi39f6MQ3wZ4+GnjsZRuE0Vg+4y6Bw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046352;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Qw5FjnXXfzwpDGlNW2PfeJtFwV+3pUInVwDZZKmI6fY=;
+	b=frhizmAj8uEel3+tfY1QQoofeoeUWY1Z0qc/HB0FOwlIeOlwC8kDFD31T9ntL374GTEg
+	 BcuIz1ppUMCLGqvcmsFob0TW9rwUl6aKOiePOjjnV/o0SrbY8ZGxJWTuleP2zWhbHN5Ux
+	 KHbYdQCUQSkJPoGBrT69t1eWaMChtSzkCrGxu+8RVf+28k6Ki8AD2VxwtJQngz+JXFHcF
+	 aHtKiugaJoIxbI6V++0y9gtSMMteDrLqRuor8bnX1U15ddlasDchgh7Eh8xJv6rbLKsGY
+	 vpKOpvU1uWIsDIw8iMFCryEcB3oDW4LuaOm4ZXLBArFL84b2mwCrTaQ0oojcKFCCcFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=acnxV8t9;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AE3606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56AE3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D14606A331;
+	Sat,  7 Nov 2026 10:12:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67D14606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=q1TwewhQ
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1794046268;
-	cv=none; b=xS8aD2HGe4ybkhvAxcy23Uju9Ua5YEWpDolaFfugRJIyOELJSe5QQlSii0wucOr7B4RJJ/WNHx/NT6QALUCgiNWsMaPB27e/IieEs6KEWLgzwZWswCUunjujVx6JSeZiXOROGvGWGNueEYkOLp1WcnB2hIbKd+wFbnCLnoBkhxw28lUQWlUatsLMbyd2nXrNTNUfcZXHA7ynBYr457CMOdg0SEr0uiHaP3pjKlquz8mkiFkm9Bp7i9gQ87dnFYO6SKthrFzKWzhIrfIQJYdfYI5U0fiK+gvpmIV0PXW00cjOzhGxmHvqpg+f6v/oK7j/HKLIuS9V9Qcmgwvq9cocSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1794046268; c=relaxed/simple;
-	bh=jVDqDvrRQsAZ22D6DF6i3XHA4gMN1HWL8uRQDdFvR2U=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=OX5iolHxHJ7GYPpDAjsIleRleMrzWGFDdhT2pZdOnXqsPrCgPcbX4KL4+n51w5mdN0MdGHvvhCE4SBwA1L5am8EbcQXX9AwUDmo/PK3k9XFI/XzZlOqRbUzDTcGzX5IWu4WbSHR272laR1p8yN/I/dXq/C88FaE7ayO2cInSUO7K9fqLKK60Wa6q6AunwfWBkI4LjcWkI605If4xgak1EHHMB6KgqxRtNIt34u2HS/aWrRVSQBpAKX4obHU5QwToPAYxlRrbt40J5Zv+pITZRoeLE84G3tDs5edZHtSnNCHEizFbVQQUZ3HcRrXA/+j8iKYKMyylaCw8+am5lLy4kw==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
-	t=1794046268;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D8qnkZYaP8QEiEnWStUV7Ol/+8QaugHXvxXWg6fF5ic=;
-	b=q1TwewhQ5ajU6fl/jS9kD6SZHUNm1uvJjg5h1dyrlxc5eqF6z6dCKtUiv2tJrKBMntPJpo
-	H5HftQyv7G7nZU/TewxoX/Deayyh04N48Wx3Syis0La5ohbqg+kxKYB3nSuNV+Yv3FOLDx
-	tyFt8DB4Y1i0OCssow0jX6SOn1A1+YY=
-Date: Sat, 07 Nov 2026 10:11:02 +0000
-Subject: Re: [PATCH net v4 1/2] vsock/bpf: release sock lock while waiting for
- data in recvmsg
-In-Reply-To: <DMOM2SFCFHYK.3BT44IQ90X9UB@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=acnxV8t9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794046348; x=1825582348;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+0bzElMLRQVQdeuAy6k4sQcLdl/lR0vD4aQMswNIzmg=;
+  b=acnxV8t9A6pr2EtyClRwFU+9heG+e8P7ChrBIO1uM1CHMXlrq6IIrxbQ
+   A6OgOzYyq3H5Q6BDyli8xJgQs8mwMqaBr51ZkKZ08b29LvGFLOdN42wcA
+   O/MFwuqmxY17NLbssro5dJtEb9YtAPjMLEd1MW3IzvvH1KilRbnjvu6kg
+   cSLfIE+yj1RGlLJV6XGqGsgwpPEhU36WLWlZUzbYjEFdJJCPuq+cl7iTU
+   RHCskcGthL7RHWm3tlXQ10gZYnm2EYbmWlsZ093PMgLZuKBHJs51lOegA
+   zBxkF0NbpfnLvX1r8wOjbfHwLpG29zwMGP1mNHHYveuvfjnRCeNcwcjTZ
+   g==;
+X-CSE-ConnectionGUID: LJQmv9VERBWSG2fA6tlPlw==
+X-CSE-MsgGUID: HCQZpLSjQyiA1rrPFbr0TA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2892365"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2892365"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 02:12:27 -0800
+X-CSE-ConnectionGUID: 2rjWWHb6QYmHb4j4e90Wlw==
+X-CSE-MsgGUID: 5t5VTdhRQMuVE/6lieGArw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7498928"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 07 Nov 2026 02:12:24 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPdPK-00000000qhD-02IR;
+	Sat, 07 Nov 2026 10:12:22 +0000
+Date: Sat, 7 Nov 2026 18:11:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Sunil-kumar.Dommati@amd.com, vijendar.mukunda@amd.com,
+	Mario.Limonciello@amd.com, venkataprasad.potturu@amd.com,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for
+ ACP7.F
+Message-ID: <202611071819.8CnKog4h-lkp@intel.com>
+References: <20261106191627.1590542-2-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,54 +90,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: jrmmhm.kernel@eldare.de
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Stefano Garzarella <sgarzare@redhat.com>,Bobby Eshleman
- <bobbyeshleman@meta.com>,"David S. Miller" <davem@davemloft.net>,Eric Dumazet
- <edumazet@kernel.org>,Jakub  Kicinski <kuba@kernel.org>,Paolo Abeni
- <pabeni@redhat.com>,Simon  Horman <horms@kernel.org>,"Michael S. Tsirkin"
- <mst@redhat.com>,Michal Luczaj
- <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
-Message-ID: <179404626756.7.5004773530941890450.1753698952@eldare.de>
-References: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
- <20261106-kbh3-1-022-fix-v2-v4-1-c7d36703814d@eldare.de>
- <DMOM2SFCFHYK.3BT44IQ90X9UB@gmail.com>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1753698993
-X-SimpleLogin-Want-Signing: yes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106191627.1590542-2-syed.sabakareem@amd.com>
 
-On Sat, 07 Nov 2026 02:09:17 +0000, Alexei Starovoitov wrote:
-> No need for a 2nd copy of the return values.
-[...]
->   recv()                          no sockmap    this series   the diff
->   ------------------------------  ------------  ------------  -----------
->   after a virtio reset            -ENOTCONN     -ECONNRESET   -ENOTCONN
->   after a reset, len =3D=3D 0         -ENOTCONN     0             -ENOTCO=
-NN
->   after a reset, MSG_OOB          -ENOTCONN     -EOPNOTSUPP   -ENOTCONN
->   after peer shutdown, SO_INQ on  0 + SCM_INQ   0             0 + SCM_INQ
->   asleep when the reset comes     -ECONNRESET   -ECONNRESET   -ENOTCONN
+Hi Syed,
 
-Agreed. I ran your diff in a guest with the reproducers of this series:
-the deadlock, the dataless wakeup, signal, timeout, peer shutdown,
-MSG_ERRQUEUE and MSG_OOB cases behave as with v4, with no KASAN, lockdep
-or hung task report. In the first four rows of your table the sockmap
-socket now returns exactly what a native one returns.
+kernel test robot noticed the following build warnings:
 
-The last row is confirmed as well. I'd accept that and say so in the
-commit message, since it only changes which error a reader of an
-already reset connection sees.
+[auto build test WARNING on broonie-sound/for-next]
+[cannot apply to linus/master v7.4-rc1 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> None of these tests sleeps in vsock_msg_wait_data().
-> The sockmap tests call select() before recv() or pass MSG_DONTWAIT.
-> vmtest.sh doesn't use sockmap.
+url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261107-004611
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261106191627.1590542-2-syed.sabakareem%40amd.com
+patch subject: [PATCH 1/2] ASoC: amd: acp: add Cirrus SoundWire configs for ACP7.F
+config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20261107/202611071819.8CnKog4h-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611071819.8CnKog4h-lkp@intel.com/reproduce)
 
-Right. v5 won't cite them as coverage of this change.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611071819.8CnKog4h-lkp@intel.com/
 
-v5 will be a single patch based on your diff, with your Suggested-by.
+All warnings (new ones prefixed by >>):
 
-Thanks,
-Jerome
+>> sound/soc/amd/acp/amd-acp7x-acpi-match.c:394:43: warning: unused variable 'acp7x_cs35l63x4_l0u0246' [-Wunused-const-variable]
+     394 | static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
+         |                                           ^~~~~~~~~~~~~~~~~~~~~~~
+   1 warning generated.
 
+
+vim +/acp7x_cs35l63x4_l0u0246 +394 sound/soc/amd/acp/amd-acp7x-acpi-match.c
+
+   393	
+ > 394	static const struct snd_soc_acpi_link_adr acp7x_cs35l63x4_l0u0246[] = {
+   395		{
+   396			.mask = BIT(0),
+   397			.num_adr = ARRAY_SIZE(cs35l63x4_l0u0246_adr),
+   398			.adr_d = cs35l63x4_l0u0246_adr,
+   399		},
+   400		{}
+   401	};
+   402	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
