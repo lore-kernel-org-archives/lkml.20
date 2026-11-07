@@ -1,53 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068559;
-	b=gZflqk5s1ReU/s4mrB92qNAZdDUc55kD42xZw9SM+mWx0PE1PdW1CWLAl/849Gtgd4Wn
-	 3U1R1ksxrAr5A4r1204nUxGR3OIbCVcsVFVD5dghLtU3UBI83LDyKKRBtqZBkqoXPZvGg
-	 /emWPQGUL1EjxKGe5fMulYMMX4Uj6ElUFKZC0JkCYwZ20YV5WQeDCFO9I+LcpiveW/7lS
-	 GADO+65MwBlghsCpD6bXoTGVstvkAbnJhxV3Ol3wlBoMW1ZtMW73sLiHaoIkLu8LdixVv
-	 JlIBHI27Mxhiy5h1ZboRK97fUkatscI9kmZW0KfnZMHT9HFK4yNRk6AhBjHlV7Qk/NQ==
+	t=1794068632;
+	b=agbDQazZ2oqxkTzjzmgRgt+Kx+tH/3Rc32bIOerTjsB3aez1gmfagXUq0cGPiVBAWDsg
+	 TVLBaG0W01Y0Gs/71eZlwaR75X+rAwiJpcEEGIo6UlOVaA5/kdG9KGlqTbiblA4kj9Nsj
+	 QlheHxvMavaDFb9oi4UdYnprQM8K3+Lg84NtyhGpinVA3VTAUJM0ajkx63QJ6iy2ElAzm
+	 svSeoHCsK5l+KLrzIoDdn9ZfSlCanlslf7vnxKr9wYVkG9Y0IORLVnwwgHcxDiHBYyVOw
+	 6psGmg+IA/1LH8Itz6JCK44ohKnfvku2cwDQEuGPMZsbZ23Wppp250HZA5Lk7FveaeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068559;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 Feedback-ID:X-Infomaniak-Routing;
-	bh=+pZEKhJ4S1DIwNXL8RYuy+6X+cpdAugo+6kxHr+BwgY=;
-	b=CQFTl4icm3Km7UbJAbERar/FXjBpeePSdJABMMqgpp7EYzF5e+iwcxEWplJapIV7TyL9
-	 g/Af2grskvwq0E50Tdb6PsYYEoOWDyLLe23IF2z42Ff0Khkwm1mcbqERxXfhWcvUPdzPs
-	 hNbIf+CVlDcfpkB5UwEFCobYZg61HTpAC7TzAFB4WoW3pj8+W6ivoz48Bl4vc6cCwloyh
-	 bBQhgIGhPS8+g94k9zmweAZvKeZ9vWMt3c1UtzkXQ4ZQWQRX8dSsKZdwZy08ejinkvXLi
-	 qwzfh5zAhhKeF/MK1dZPWVCtRP5ooghrNs3K26t0jpovGUBu+FMBXKlIm/Dbhxe5+Hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068632;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BJxOd6zhjF3M7CCyz6Z10/bR/tIxDr4jHdB+bON0ABU=;
+	b=4caS3V0B8OwWpefVHlZ21awNytZl9ZK7NP4/TiVTPKnmXmhCAyUq0YS2xcacwHDvYR4E
+	 avtVuETKNBYgac39mJAAngdDEPScANYtCk4G9Gnzxbx/NFQdkd50BaULdK9c1YjZYRuC5
+	 lu3JDh1ZfTJFPBMg7UbFgBKGpb+0/eDcsOMAk4TOqWt8NR+0c6TTQNI07LdzWcVyaL+bt
+	 BnVHjh5WacbG4MrpyiADo+8kkklzF/r2G0AgoKzCCbbV9kIfJHRx5ldbYGP1ortf8BdnV
+	 6XFMUNJFsohxK1IIf7DS4rfpQaHcDizd8KF9Xu/JUeG/N+XnsAzXPSqRWWxqSUMxxVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=etik.com;
-	spf=pass smtp.mailfrom=etik.com;
-	dkim=pass header.d=etik.com header.i=@etik.com header.a=rsa-sha256 header.s=20210927 header.b=vITsI77r;
-	arc=none smtp.remote-ip=45.157.188.14
-Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vhRh4k6U;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA212606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:22:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA212606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3211A606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:23:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3211A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=etik.com header.i=@etik.com header.a=rsa-sha256 header.s=20210927 header.b=vITsI77r
-Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jMLtD5dTYzGrY;
-	Sat,  7 Nov 2026 17:22:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
-	s=20210927; t=1794068548;
-	bh=+pZEKhJ4S1DIwNXL8RYuy+6X+cpdAugo+6kxHr+BwgY=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=vITsI77rxiY7b6mTrSWS3Z2lj1kOpGxI6MI9N8f/G9iPv80bLAY+HgZksppd4BpBU
-	 hAZvXq5UL8ODnsKpbWJefpE4meeXv7vnFMJXNx8S3HP6Aw9GZ9NKh5UOOaNtMjepPm
-	 orC6vgEEYC/7YjtZuIG5b+FJIVKnOA28gf2jLuws=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jMLtB4S97zT1t;
-	Sat,  7 Nov 2026 17:22:26 +0100 (CET)
-Message-ID: <1435d106-d4b0-487e-85d3-4032a9fe9332@etik.com>
-Date: Sat, 7 Nov 2026 17:22:25 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vhRh4k6U
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so15017325e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:23:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794068631; x=1794673431; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BJxOd6zhjF3M7CCyz6Z10/bR/tIxDr4jHdB+bON0ABU=;
+        b=vhRh4k6UdOFLN+vT5tn4sQHilCzwg0NmRbtEbazlnN/bZXHYmHEKvuoiYXfquRrGXh
+         m2fWFz+kLgb6XPU+X74RBoN5ywSIvKY6dKw2quJapA5WFTYUcttdfyy29F5VMkjfcSyF
+         K3QCpb4QE51Jf5lqjk0hFZPizKo4W4FIEiQ8/L+863sc9sYzcAOwjN36YgVduv7AXCXb
+         BTb5JbLLpLfX8DxRQY2iimXKZr23hCtyl5e4/YfgBDEizpJlZU5QD8umP1fF6K/wzqw5
+         ViSpt9gp4weGNd1puQ1OYNe6NPAN89Uxmq5QqT+8thQjdeMB/MFsCsSjRrNauGzgEx41
+         CeMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794068631; x=1794673431;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BJxOd6zhjF3M7CCyz6Z10/bR/tIxDr4jHdB+bON0ABU=;
+        b=H3nEqP1qVCEZXrzA5xLvLkf3IvKmtqY3A/A+GCatH6cqI5rei9TuAsjTEdCfcaMTM3
+         GjfByn2PTpnnNpDBM0DCM7LXmcAatx5iYNmPySP+jnzHHO2Me6RLJ+9DZN8xt7FWShRd
+         JBGs6ZfUidKSyl6eB3/vV53fYd/FQUwkJU3G0vaiQXAnC6bdZEmFraMln9UmJkF/6BpX
+         BbMOgFNlbntKJPUcMyf5GFFS49foNk+nRcTcLyLEQZMLGijXvGIJNx3JvaPBNQeWUv7x
+         4Kn3NkV5n/AL6eLmVE33O+Bzud2vbbnBU/ygvCvj4nHxq662bx8DrPXKmOWdW1ypQaeq
+         9+wg==
+X-Forwarded-Encrypted: i=1; AKwUvBzIrspTDNi+6olgxAzmPeYiMOcmCNNtp7Xi2ECn7z+DBuMon1YjOdbGh9hjQIOOxXpo3c5nDIbR2cykrmA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+m6J4smYZg7wepjczWQPYXceGASAT27coLoS/YUwWjMDUSAQMv
+	P+rMNydle87xXMCiqaTDD9GH/L9SnCJWGKTuk8lRJLP0pQzZblJ7Qf78iNqP
+X-Gm-Gg: AYBFou0nq01vr36J/7+ublEYphGhEwOITqO2bDAwQCgDMRAy326ATijYF71435frALn
+	WsTiFeTSDSgIIhOgWH+1A7Xn1FxpuZqDZp/X/FZpbLrJ+ZMRC+iAGjuvx5pNK1yL2cf3XgtlG5G
+	EibVY/Q2SnIaaRM34XhQ/IUECSq4zH9hfzqRMQ9+KNkGmG8ojuKtAt3gK3CpfJFn2/Si78vxmxA
+	dw3uP1olPg3RHqgcWZIsW3Sw72QNvIoKlV8vW7o6DenATEV7VcvaZYkSD453QhPP8DntEYOFXIB
+	D4AMa4yA472uWbrrx1CWVIbYsximLYwY3vqHNQveGp1660bSke9XtJY6crH8f3kDwThqhZQHgd2
+	fT9MTDU1T3levrV+Pjg8Gub6Ygky9q9iKyyXoJ3UvsoeTCk002K9AuPZTGBQghxvxMNpOBTuHb3
+	IeNiFuAQE/0oCPDYS4O4BpInckDXQ4mKaVt2jTSU6cyvLJFBFhxhjlj+Wxw3Svl3oBdpC2FmWf0
+	wcbhOrWLNizfG6MFUPSwbrF5N05sgJC09mS0SN1JZnBIJ5vR1SrcHhNrfzY8c+N8Ete+clxjnrY
+	hVNrlCM02O0hB5Q=
+X-Received: by 2002:a05:600c:8886:b0:4b7:6a8b:9df2 with SMTP id 5b1f17b1804b1-4b76a8b9e1dmr61230145e9.25.1794068630454;
+        Sat, 07 Nov 2026 08:23:50 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32b46a3sm83755155e9.6.2026.11.07.08.23.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 08:23:50 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Oder Chiou <oder_chiou@realtek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Bard Liao <bardliao@realtek.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] ASoC: rt5659: fix teardown order and stale state across card rebind
+Date: Sat,  7 Nov 2026 16:23:41 +0000
+Message-ID: <20261107162341.1494240-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,152 +101,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: DV <dv@etik.com>
-Subject: Re: [PATCH] kvm: hyper-v: Delay firing of expired stimers
-To: Vitaly Kuznetsov <vkuznets@redhat.com>
-Cc: Alexander Graf <graf@amazon.com>, Sean Christopherson
- <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- hpa@zytor.com, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- nh-open-source@amazon.com, gurugubs@amazon.com, jalliste@amazon.co.uk,
- Michael Kelley <mhklinux@outlook.com>, John Starks <jostarks@microsoft.com>,
- David Woodhouse <dwmw2@infradead.org>, Marcelo Tosatti
- <mtosatti@redhat.com>, qemu-devel@nongnu.org
-References: <20260115141520.24176-1-graf@amazon.com>
- <aXO8I6xuZyZB7CxV@google.com>
- <769f538d-dd42-4d36-a4c5-7e6e48b209f6@amazon.com> <87bjigaeyx.fsf@redhat.com>
-Content-Language: en-US
-In-Reply-To: <87bjigaeyx.fsf@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Feedback-ID: :74c292bbbde641d:ham:123049f310c9d1d
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: 8bit
 
-Hi Vitaly, Alex, all,
+From: Tristan Madani <tristan@talencesecurity.com>
 
-On Mon, 26 Jan 2026, Vitaly Kuznetsov wrote:
-> My bet goes to the clocksource switch, e.g. the guest disables (or
-> just stops using, good luck detecting that :-) ) TSC page and uses
-> raw TSC for some period or something.
+The cleanup in rt5659_remove() does not reset hs_jack, jack_type, or
+the component pointer, and does not mark the regmap cache dirty after
+the codec reset.  On card rebind this leaves a dangling hs_jack pointer
+and causes regmap_update_bits() to skip re-programming jack-detection
+registers because the cache still holds the pre-reset values.
 
-I think I've hit a close relative of this, with a reproducer that
-works on every boot. A Windows guest running its own Hyper-V computes
-direct-mode stimer deadlines from the raw TSC, while KVM's reference
-counter lags the TSC because of how QEMU restores kvmclock. Here the
-lag is positive, so the guest's timers fire late instead of storming.
+Additionally, headset detection registers from a previous session
+remain cached after the hardware reset.  regcache_sync() on rebind
+restores this stale state, which can leave the SAR source on button
+mode or HDA plug flags in an incorrect state.  Clear the headset
+state by calling rt5659_headset_detect(component, 0) before the
+codec reset, and reset the HDA header plug tracking flags.
 
-Setup
------
+If the I2C device unbinds without a card bound, rt5659_remove() is
+never called and the IRQ keeps queuing jack_detect_work until devres
+frees the private data.  Register a devm action to disable the IRQ
+and cancel the delayed work on any I2C teardown path.  Guard
+disable_irq() in rt5659_i2c_shutdown() with the irq_disabled flag
+to avoid an unbalanced disable when rt5659_remove() already ran.
 
-Host: Intel Core Ultra 9 285K (invariant TSC, 3686.4 MHz), Linux
-7.3.0, QEMU 10.2.4 (pc-q35-10.2), libvirt 12.2.0.
+Store the I2C client pointer in rt5659_priv so all paths can
+reference it directly.
 
-Guest: Windows 11 Pro 26H2 (build 26300.9711), 8 vCPUs, with
-virtualization-based security on. So Windows runs as the root
-partition on its own Hyper-V (L1), nested on KVM.
+Fixes: d3cb2de2479b ("ASoC: rt5659: add rt5659 codec driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ sound/soc/codecs/rt5659.c | 39 ++++++++++++++++++++++++++++++++++++---
+ sound/soc/codecs/rt5659.h |  1 +
+ 2 files changed, 37 insertions(+), 3 deletions(-)
 
-   -cpu host,migratable=off,hv-time=on,hv-relaxed=on,hv-vapic=on,
-        hv-spinlocks=0xfff,hv-vpindex=on,hv-runtime=on,hv-synic=on,
-        hv-stimer=on,hv-stimer-direct=on,hv-frequencies=on,
-        hv-tlbflush=on,hv-tlbflush-direct=on,hv-tlbflush-ext=on,
-        hv-evmcs=on,hv-avic=on,hv-emsr-bitmap=on,hv-xmm-input=on,...
+diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
+index 68f7d5673e190..14111f40384e5 100644
+--- a/sound/soc/codecs/rt5659.c
++++ b/sound/soc/codecs/rt5659.c
+@@ -3660,6 +3660,16 @@ static int rt5659_set_bias_level(struct snd_soc_component *component,
+ 	return 0;
+ }
+ 
++static void rt5659_i2c_disable_irq_and_cancel_work(void *data)
++{
++	struct rt5659_priv *rt5659 = data;
++
++	if (rt5659->irq_acquired && !rt5659->irq_disabled)
++		disable_irq(rt5659->i2c->irq);
++	if (rt5659->jack_detect_work_inited)
++		cancel_delayed_work_sync(&rt5659->jack_detect_work);
++}
++
+ static int rt5659_probe(struct snd_soc_component *component)
+ {
+ 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
+@@ -3667,8 +3677,10 @@ static int rt5659_probe(struct snd_soc_component *component)
+ 
+ 	rt5659->component = component;
+ 
++	regcache_sync(rt5659->regmap);
++
+ 	if (rt5659->irq_disabled) {
+-		enable_irq(to_i2c_client(component->dev)->irq);
++		enable_irq(rt5659->i2c->irq);
+ 		rt5659->irq_disabled = false;
+ 	}
+ 
+@@ -3689,17 +3701,26 @@ static int rt5659_probe(struct snd_soc_component *component)
+ static void rt5659_remove(struct snd_soc_component *component)
+ {
+ 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
+-	struct i2c_client *i2c = to_i2c_client(component->dev);
+ 
+ 	if (rt5659->irq_acquired) {
+-		disable_irq(i2c->irq);
++		disable_irq(rt5659->i2c->irq);
+ 		rt5659->irq_disabled = true;
+ 	}
+ 
+ 	if (rt5659->jack_detect_work_inited)
+ 		cancel_delayed_work_sync(&rt5659->jack_detect_work);
+ 
++	if (rt5659->jack_type)
++		rt5659_headset_detect(component, 0);
++
++	rt5659->hs_jack = NULL;
++	rt5659->jack_type = 0;
++	rt5659->hda_hp_plugged = false;
++	rt5659->hda_mic_plugged = false;
++	rt5659->component = NULL;
++
+ 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
++	regcache_mark_dirty(rt5659->regmap);
+ }
+ 
+ #ifdef CONFIG_PM
+@@ -4328,6 +4349,13 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
+ 				   RT5659_GP1_PIN_MASK, RT5659_GP1_PIN_IRQ);
+ 	}
+ 
++	rt5659->i2c = i2c;
++	ret = devm_add_action_or_reset(&i2c->dev,
++				      rt5659_i2c_disable_irq_and_cancel_work,
++				      rt5659);
++	if (ret)
++		return ret;
++
+ 	return devm_snd_soc_register_component(&i2c->dev,
+ 			&soc_component_dev_rt5659,
+ 			rt5659_dai, ARRAY_SIZE(rt5659_dai));
+@@ -4337,6 +4365,11 @@ static void rt5659_i2c_shutdown(struct i2c_client *client)
+ {
+ 	struct rt5659_priv *rt5659 = i2c_get_clientdata(client);
+ 
++	if (rt5659->irq_acquired && !rt5659->irq_disabled)
++		disable_irq(client->irq);
++	if (rt5659->jack_detect_work_inited)
++		cancel_delayed_work_sync(&rt5659->jack_detect_work);
++
+ 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
+ }
+ 
+diff --git a/sound/soc/codecs/rt5659.h b/sound/soc/codecs/rt5659.h
+index e10b3844501b9..1118e6ab1887d 100644
+--- a/sound/soc/codecs/rt5659.h
++++ b/sound/soc/codecs/rt5659.h
+@@ -1793,6 +1793,7 @@ struct rt5659_priv {
+ 	struct snd_soc_component *component;
+ 	struct rt5659_platform_data pdata;
+ 	struct regmap *regmap;
++	struct i2c_client *i2c;
+ 	struct gpio_desc *gpiod_ldo1_en;
+ 	struct gpio_desc *gpiod_reset;
+ 	struct snd_soc_jack *hs_jack;
+-- 
+2.47.3
 
-Symptom
--------
-
-Every timer inside Windows fired 0.3-0.7 s late. A 1 ms wait on a
-high-resolution waitable timer took up to 466 ms, and an indirect
-display driver paced only by a timer refreshed at 6-8 Hz instead of
-120. Things only moved when some other interrupt woke a vCPU.
-
-What L1 does
-------------
-
-With both hv-stimer-direct and hv-frequencies, L1 arms stimer0 in
-direct mode (config 0x1ef8: vector 0xef, direct, auto-enable) and
-writes absolute counts. Call X the amount by which the reference
-counter lags guest TSC / HV_X64_MSR_TSC_FREQUENCY. L1's counts are
-X too far out. A timer that should fire right away looks like this:
-
-   kvm_hv_stimer_start_one_shot: vcpu_id 6 timer 0
-       time_now 40095770231 count 40100417164
-
-That count is 464.69 ms ahead of time_now, and X on that boot was
-464.7 ms. L1 writes the count again on every L2 timer exit, so such a
-timer keeps moving to now + X and only fires once the vCPU is quiet
-for that long.
-
-Without hv-stimer-direct, without hv-frequencies, or without
-hv-stimer, L1 uses the local APIC timer instead (TMICT/TDCR writes,
-a relative countdown), and all timers are on time. I've turned direct
-mode off as a workaround: a 1 ms wait is now late by at most 1.24 ms.
-
-Why the reference counter lags
-------------------------------
-
-get_time_ref_counter() follows kvmclock on both paths. The fallback
-divides get_kvmclock_ns() by 100, and compute_tsc_page_parameters()
-takes the TSC page's tsc_offset from the pvclock system_time.
-
-QEMU's kvmclock_realize() calls KVM_GET_CLOCK when the VM is created.
-kvmclock_vm_state_change() writes the saved value back with
-KVM_SET_CLOCK when the VM starts running, and saves a new value
-whenever it stops. So kvmclock, and with it the reference counter,
-stands still from creation to first run and during every pause. The
-guest TSC keeps counting through both. On six boots X was 297, 465,
-570, 495, 669 and 512 ms.
-
-Two measurements tie X to this:
-
-- In a trace from QEMU startup, extrapolated back to zero, the guest
-   TSC started at host monotonic 265208.1505 s and the reference
-   counter at 265208.8205 s, 0.670 s later. X on that boot was
-   669.2 ms.
-
-- virsh suspend for 1.045 s, then resume: X grew from 669.2 to
-   1689.3 ms (+1020.1 ms), and L1's far stimer deadline moved out by
-   the same amount.
-
-hv-evmcs off (X = 570.1 ms) and hv-reenlightenment on (X = 494.7 ms)
-didn't change the behaviour. Host load and power management were
-ruled out too.
-
-Connection to your thread
--------------------------
-
-If the reference counter were ahead of TSC time instead, L1's
-deadlines would land in the past. stimer_start() expires a one-shot
-whose count is in the past at once, L1 arms it again on its next
-exit, and that would look like the expired-stimer storm Alex's patch
-delays.
-
-I haven't been able to try that here, because libvirt is set up to
-start a fresh QEMU whenever the guest reboots. But a reset inside the
-same QEMU process sets the guest TSC back to 0 while kvmclock keeps
-counting, so I'd expect it to flip the sign, possibly by the whole
-previous uptime. A resume path that restores the two clocks
-differently could do the same.
-
-Questions
----------
-
-1. Should KVM keep the Hyper-V reference counter equal to guest TSC /
-    TSC frequency when hv-frequencies is exposed? L1 seems to assume
-    it is.
-
-2. If so, where does the fix belong: in QEMU's kvmclock save/restore,
-    or in KVM deriving the reference counter (and TSC page) from the
-    guest TSC?
-
-3. If not, should hv-stimer-direct be documented as unsafe for guests
-    that run their own Hyper-V?
-
-I can share the full traces and the Windows-side timer and frame
-probes if they'd help.
-
-Claude Code, an AI coding assistant, did the tracing and analysis
-while I was looking into why the VM's virtual display ran at a few
-frames per second.
-
-Thanks,
-David
