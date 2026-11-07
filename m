@@ -1,95 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794079725;
-	b=xDuAroNjeZpKFJ+qR/Th1pI7ZBjrxbv1efDedGTupQFr7dknTyXUMiOKp4/O/LQ/MKps
-	 TF9Qz+dDMnK4W3T05JHiWaR/xjjfssYvseOEoNoi6DHXMOHlR1Myok3CWemmkTEpWNtO8
-	 4GpW2eS9AVYnPjrtqLtj8m6TNthWxHDcoVff9fWThSEEBvnwX/zZCI0vi+17hbFFl8ZTk
-	 zgKIrTWYusOJ77rInAiZCOKTRkdqXQpjGagatUdLAjHIIrs38LSp2WFEHoNIKKUrtdQRN
-	 oajyl3JcU0BSp9nCJAtxLV2N6FeTVThRTiw8PlEGtLAC79JFCMrEiXhhvu8b8D6tH+A==
+	t=1794079732;
+	b=lRitEuZGsV5bLx2Cefh0F9MDxrBaXp2AWQVW/5ZRwSMJ4E+ulBhgznGcyYe0iDDvVMi/
+	 yHF/1miUDUVhQ81dhv/on1PExMhZRoBnH3GVKkwldclRCHOlH67+wXuHpBoFSc3HC+S2d
+	 hf4jtKHL4v7YXD/Md5UgowkUcbg7WjHTRS7ZqP82UoNjxEsbG/RqDSMMlsuSZEmD0FixE
+	 H/krEh1523Nq8sasdCQHjfq8+lwBrxNzHY+JM3kxOQv39fi6OVNnT6JqvsnmlTVFz5w7F
+	 HtEdV4RYMHnZKzVj9xoqs12OcKYy1NWbJbOmg5fEn0CsCED1lcuutxEhPcMdDPJupCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794079725;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079732;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=w90szJpdzekfEVNOhw/amrduU9AsVHLVBfjyoWv/t+A=;
-	b=CrcVPxZv0fmVoNkHUs3VY5UQGGbL2LIuAd0Ff1nSRBfZ/X8rc2U4FUo0zEmguCgFMox9
-	 NbwttROnCLWgcJq4edjgm2mp+IZtYtaroEr6ZvEkiIg+bBffPcYhwQcXbzSaTdXrTQm+K
-	 hXTehWDp7diN4VzPxbzL/bczDxwVY8ftRZ+A0v+bnIfIjVqpEK3X7f6L1DWqxQ+1jTJMs
-	 WsXkF4QtKglk6uQkJDCShUbxdzoTP67dtaHeThoIRsXxRpOTMmklBp+7Mq1GFwJigbY79
-	 Cd1b51XsKzrU4S3GPq/6tjR6jQihKLP3712FbLz4mM3/hCYak2Py3gFHo6lJfSCYVag==
+	bh=4YvQ88Tw3BpTAX+GwccgHZpr8xDWaxtWSxka8yipfg8=;
+	b=LynLFmKXVSutUgmcG2q4kTpEYcmLxVXT7F3xdtZtqmocMt0NeTH34Zg9A1si9Bfac/VH
+	 +LYBC+OUh2+Bmnyt9SE3guyjQFAMYi7zSnyCLSbaq3+PBob97Ep/oSMdcasZkIJLowj5o
+	 CsKPbURUbsz+1EY1p60UevJPHCUU1kXNNTyQ5+d3MYM6PLW/TmrYul+Hra5qOa1SKN8KB
+	 MLUfODRVezwEG0kZTrvomErbYJqKtBdeNTyQrCUTZFFIBtgXFanrA/lkVyywioFHYA8dp
+	 HYa0IYswQlMh4rzGNFhjBpWV0WpwrCc3sLD8S94f6+zLWFq0Cc1RjCzafPovnnAGkYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RGr0hTsv;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YO5yP8qC;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FA4606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:28:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5FA4606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70968606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:28:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70968606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RGr0hTsv
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso57294eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:28:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YO5yP8qC
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3282db206d3so50935eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:28:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794079724; x=1794684524; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794079731; x=1794684531; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w90szJpdzekfEVNOhw/amrduU9AsVHLVBfjyoWv/t+A=;
-        b=RGr0hTsvyDG9kcYi8oObA5cl5JlsF0oZFUgGMVMyW8SLmtQ+h3JpPrwQSS6D++cvR9
-         gxcXj7JBZbHOaEGrZR85aG5xKyZH645cimD0jAa53sNhV7jREcwQqyuMSesdSatcYJGl
-         AhdLbRTc7u8WhkGQVklb8nnBxcyYt4ARztUYWEikdVYbbYuZu4QMxVwYSeACdwo/mWjz
-         6CxVV5iz6AzfZc7ilsiNQPhd4MkdP+5szujUtQ3OoC47FTWmgivZLyqreQN+oPFwSaZk
-         tLBkd2vlNoYbwEGXAsHOfT1IOz6WgsnDfhmhdz/7EsskpmeqeEriFXHjU6PSwjiYBabF
-         BKYA==
+        bh=4YvQ88Tw3BpTAX+GwccgHZpr8xDWaxtWSxka8yipfg8=;
+        b=YO5yP8qCHZt3E1p7kirdA3BaQ/nmYjlsW6tYhTjLTm7hN0UMx49b/eckfBQdj9h3Ob
+         Iwq3aZM0S8PHvI0b/7XMozBn1SEYbBxVgnaPCgkEc1jBWlf6LD3U7QiuAlAs5yI/STBA
+         QnpBx9bE8cWbQ2Vq5EGysf9+rAue2S6KdRMwBrdl4EwllbxX+EOAZ9hzgWXQooFCLGnl
+         QbqheRZMzHkt2ye2ZTjB1YXBkH/VNHKIiNPWpFNYK2wukaVo+QMth0DRU9W4nYWCE0tW
+         jU9JEDMea7K3oxpyJ4cyVopstrPMVs5j5nz8USvb+UymAO5RhaiKc8Wx6ArBEWv7Tiuz
+         Ax2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794079724; x=1794684524;
+        d=1e100.net; s=20260707; t=1794079731; x=1794684531;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w90szJpdzekfEVNOhw/amrduU9AsVHLVBfjyoWv/t+A=;
-        b=ESNPW3ZfB4UAQ0oU2s54BWuS4CTWVF/Dx0ybOioi87gCghwC4aaImEE+f5X/d98aTR
-         s5rcJK2ciayQiPUlavIL1200CNfJUIrhYIkEY2F/Zv6+Okxq1IzHkZZ0jyZjYXISpmWW
-         GoSm+Vzduj/PvnSWB+Fh3YsUjeTxziuFbptwd6uFp5E/cvTRChpKsGqvzdRQj26l7iSs
-         A1ClHe7UZcvm9sgJDpg8Dn4hd7ChuphWIJQtGhQo/SfmOm/cXX64u32Ogn71jjWi8UJI
-         9/BmaaGjXTPXYuBWpdSK0P3QKbzMsiHiW9CFXIhruqAEtE49qYIrIWkzGVaRudYO7d7M
-         BZ9w==
-X-Forwarded-Encrypted: i=1; AL+hErE2RNJD8k2Tl5MZpGAh7VV/4cT5LirWiu81yNs1m4f2GV1sJAYg9Qh4WMIxai1B2/ob09emrxYlB8kcBfE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NWEqMR3WYz5OoS2Jgii73bdn/44IIro8axKpiO8kLLwLp6iGw
-	oc+38XrKuwMlS7q8pE6Ix00X9ilv7htXxdwg2jZhyNYVFBQJ5ITub25u
-X-Gm-Gg: AYBFou0odc+8QkzOEHdgx4D0/bxSpagR9wqYygp/tEVNXfW1TD8wasU8B4Y6rr5QBvO
-	pJ3YFHRkDcTxae6miQKVAM7QXWeioR+ul3jzkAiKbTWmkYOqYj1/4A/KIvLRRhJSIcEi6KYSENu
-	O17vOzh+7N4vCYztqzwaR9FTp2EtbDZAq3G0feeJGqyn5OQiP9Opb6EHHblxNdPFn1IQw9lqAUb
-	s+vUzjOHJQ8NLmu4ikaULJQ6B+xaceKWxnYdZbSHv+651rwy7JQsiU4WnIObO3Jx/YmM3oviqId
-	Pbl2Y+LsIsg1fZA+XCrodfBU3vtn4mtd96Yr2354us0UFzVhI0rp4FJsfHIAHnF5VHRdh62XbNC
-	q+OoQ/Z3dMUVFX3vWNQwByAL+pjY+fJdwRrjaBjcSnyOTCpYM/TLeofc/Thl1sjbuSmJ3dtiay8
-	0r3TNDuspnFLpSHI0cELYqWcbGCTDuXtBIXe8IDizPs3o4AV0z2rxvwiO8hEkrr6f/JjzNJMdZV
-	6k8tzK6aUQF6xQJjDCTSeAXGlq+Naph6A2FUp9rIKOcanHb1KtG6nrbNrBQrf4hm8jZPn2eGIT7
-	zHnobC2UhhEaEnvzTOauGrEpZnryah6qUSBSmTPNwGw2WNrM43DCM+suF7jTosdGgqDYWUIImuH
-	np68PcIgqdaM=
-X-Received: by 2002:a05:7300:f498:b0:369:fe4c:b48f with SMTP id 5a478bee46e88-3724ff5b718mr132577eec.0.1794079723626;
-        Sat, 07 Nov 2026 11:28:43 -0800 (PST)
+        bh=4YvQ88Tw3BpTAX+GwccgHZpr8xDWaxtWSxka8yipfg8=;
+        b=DG050BMo4PEraU3AP1G8U9pbVfDoxtxU/59PoXHHT52g/qNu+f7zQXqAd4uU55caaV
+         I7DeiVSmzWGNp2I+8lRIj54CVcq+07UFzIMxXooV369gR7+s+d0miiEsJnP1zIRUmJ1X
+         bk4fDsau8rAyEZARRQXINmn/BbtKldV3Y33QbxcO3yAHdzdD5aRAQtlg7+RPmn78lAOM
+         y3TldG/MoN8S9s7Mu9REcuU1MhL5fBiD06zvUsoOkJIYAzcRf0aJU8wIGstKtJDAhkxA
+         s6/j1yhsxJrRogDPkVF216sfsdl5/+5zJruX/Pan49oP7rbllceQ9nu74tZDD6kQOYOx
+         vIuA==
+X-Forwarded-Encrypted: i=1; AKwUvBys7INSobL+nx3uIneQZIcEMt0OYVdVtk4zuFCAlbf+kl6WF6wPKUXE9dLWCzcmwFCbsCTIr6AzWDZrDyI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+NFm4EL1h0qbfJMzPGQL+aVIPoq8vwMrw2GsHb3rTn2RcRV/1
+	BRK+OcSRk/T8SZE8pU3KbcjTyB7LF4otMyYmzwJP6WvWzuuizfutmOpc
+X-Gm-Gg: AYBFou2nYeo+esyHwsfRZDDFfyfi+/s1+Sl+9LuboooYh2scauCgyteTOrYK07PVJcv
+	VJR/ITkxqsk8IpPWgQkD/rA8a74h1O1GITlu5+BAL4BJdwDg0nWd66AtK8y+Q+3uN39d7FU2Xvz
+	j/F5ub8rVgeTvDzfM/JL/Fsr2jmrNDIbW630MC9O0j+CPjWzJG1fk1LlWmd7d3dXr6SdYQYaax5
+	h5Nu7Q3wKeweUFNLAEG4SN7K53/Z+Hq3b/LL+K/e/c3zZyd5eOSZaMkgZfQUywkWX+e/FWJU0Bd
+	I0UzLj+jWG/xDJrG/wuz2KkyX7kSZyGYobATUv5ad0zHN10INYXl9M+fnXCLrpX902wmBPapI/L
+	9K6i9v57ZqLAplMeMTrjQ7+V44rJ9hn8YepQjaQTTwjnVZ1Nn5dGh+X8kMdamGg6Uu7pWXQ2sJw
+	y1lcCXOD7tf2Qi0Lnom3m/SWIQHBu76DMhijrZCICQmhSyPDRiRdBaU97I9nUshbTYTE5ajr1hP
+	RrXMU3wJUMsyJYHxr1cdu66MsSO7bYhYg5djGwtr9HeS8x23tW3/OA8hfjgYfu2OCVf/TkWufz7
+	33jL611KSZjwYpQnsz1d+JWhCMydYJ4fT27Tbdevfl08qoQhqC/w/VJKeX6ywGYPGQ==
+X-Received: by 2002:a05:701b:270d:b0:1a2:2da2:b278 with SMTP id a92af1059eb24-1b25d30af61mr9520523c88.14.1794079731268;
+        Sat, 07 Nov 2026 11:28:51 -0800 (PST)
 Received: from anon-laptop ([103.187.196.132])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm23026419eec.19.2026.11.07.11.28.40
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e936bsm551856c88.6.2026.11.07.11.28.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 11:28:43 -0800 (PST)
+        Sat, 07 Nov 2026 11:28:50 -0800 (PST)
 From: Wahid Khan <wahidzk0091@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>
 Cc: Hyunchul Lee <hyc.lee@gmail.com>,
 	ntfs@lists.linux.dev,
 	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wahid Khan <wahidzk0091@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ntfs: open a named $DATA stream by name when making room in a record
-Date: Sun,  8 Nov 2026 00:58:36 +0530
-Message-ID: <20261107192836.3908453-1-wahidzk0091@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] ntfs: do not convert a named $DATA stream when making room in a record
+Date: Sun,  8 Nov 2026 00:58:44 +0530
+Message-ID: <20261107192844.3908575-1-wahidzk0091@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
 References: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
@@ -104,61 +101,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an attribute has to grow and the mft record is full,
-ntfs_resident_attr_resize() walks the other resident attributes and
-converts them to non-resident ones. For $DATA it always opens the
-unnamed data inode of the base inode, even if the attribute found is a
-named stream:
+Hi Namjae,
 
-  tvi = ntfs_iget(sb, base_ni->mft_no);
-  ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
+I sent v3 of this patch as a reply to this mail. It opens a named $DATA
+stream with ntfs_attr_iget() like the other attribute types in the loop,
+and keeps ntfs_iget() for the unnamed one. With it the image that
+triggered the WARN mounts and walks cleanly on a KASAN and lockdep
+kernel. Without it the WARN fires at ntfs_attr_make_non_resident().
 
-value_len is the length of the stream, so it does not match the
-attribute that ntfs_attr_make_non_resident() looks up for the unnamed
-inode, and the WARN_ON() on entry fires:
+About the lock ordering: I checked the code. The comment above the
+__filemap_get_folio() call in ntfs_attr_make_non_resident() says the
+folio lock nests outside all ntfs locks, but its callers hold mrec_lock
+when they get there (ntfs_expand_for_write() takes it in file.c and goes
+through ntfs_attr_expand() into ntfs_resident_attr_resize()). The read
+side takes the folio first and mrec_lock inside
+ntfs_read_iomap_begin_resident(). So the two orders do exist. This is
+true for the direct conversion at the top of ntfs_resident_attr_resize()
+as well, not only for the loop.
 
-  WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
-   ntfs_resident_attr_resize
-   ntfs_attr_expand_locked
-   ntfs_expand_for_write
-   ntfs_file_write_iter
-   vfs_write
+I could not turn it into a hang. A reader and a writer racing on resident
+files, also with a delay forced between taking mrec_lock and the folio,
+completed every time. So I do not know how reachable it is, and I did
+not want to change the locking in this patch on a guess.
 
-With debug output the values were attr_size 13 (unnamed $DATA) and
-data_size 550 (named stream) for the same mft record.
+If you want the order fixed, I think it needs the folio to be taken
+before mrec_lock in the callers (or a non-blocking folio get on the
+make-room path, which only tries to free space). Tell me which you
+prefer and I will send it as a separate patch.
 
-It does not need a damaged volume. A file with an alternate data stream
-whose record has no room left is enough. The fuzzer found it through a
-single changed byte in a file name of an image from mkntfs, which made
-a write grow a resident attribute in such a record.
-
-Use ntfs_attr_iget() with the name of the attribute for a named $DATA
-stream, as is already done for the other attribute types in this loop,
-and keep ntfs_iget() for the unnamed one.
-
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
----
-v3: open a named $DATA stream with ntfs_attr_iget(), as suggested, instead
-    of skipping it (v2). Same change as v1 of this patch.
-
- fs/ntfs/attrib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index ce7c1b524180..c92d1b06afc3 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -4933,7 +4933,7 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
- 		if (a->type == AT_DATA && !value_len)
- 			continue;
- 
--		if (a->type == AT_DATA)
-+		if (a->type == AT_DATA && !a->name_length)
- 			tvi = ntfs_iget(sb, base_ni->mft_no);
- 		else
- 			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type,
--- 
-2.56.0
-
+Thanks,
+Wahid
