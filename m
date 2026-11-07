@@ -1,88 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794070641;
-	b=y0d0uRVkSWCaEnp1g5+Z+umVIlDWiakVnY4cYfL+OeBgrf7WEt98WGe/xV+PPh+D8+3y
-	 HqtFP4BeObMwnMp8XuAnfJKrIS9qdD82RaUwFkJn8r3s1ulESDMWU7b8kcH+znPwJuz8e
-	 72wVxcnCmeFBcwmcr4LE0Yvv9t8+aDNtg10f3pqcO3jPCvNA7sMZzzHAYaNPtQBjwVymU
-	 g5AiO04e2cN3OxLxl4ltpXRvzdXUbXr5nFF2ZG6uMFBlyzTgVkYDxUXJEpa5rHnCZt74P
-	 f7ZmhmHO8A0SEd+OMCSbh8GZvzujaSgHj01FiHG1bHFMa3adXnIxU+OyzFA/RHjYE4g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070641;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Hy+b2FmS+WOb9VH7r/wCKLd2ZpYqYwoBlahUfl/vu2s=;
-	b=avb6IQZyamNqqznaGoNfw+0H5Dqc1sKE4icJFo9MwNgyn6Tilg6Gug869PH3C4gMvORs
-	 UjKYc+c0KoHGpb8ZFGnT2GmL9XpY5BxgUNljbdcjr4NHpzd1mOSB+/zSf1ko9dRmItUbe
-	 K2KVBrqHESmpDVaVz305MXbEUqkFbLRKME4mt7NzFJL3lJEEyAn6IAR0d05iwBeynReml
-	 VEhLnvXlnRm1DM4d/b7stBTwM9iN5RC78chG+a4ctQBL+GtGacZaMfUJSH/HND74lCAEO
-	 EwbtgjQwEBTF0aYmacBBAxH5fX9WdPCR9xa4WVElv9JRgn8bCKK9Uti45AiBR2xACVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FVbx9nZ2;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794070649;
+	b=WAqFdBLrgsbhAmujUs17J/KyuPyYcsqubhtx6aNYEpfCXZysM42DWpJz+NVydR1f9q9y
+	 LaLIZyZZbPCP5Rvn7NkvhbSMyzsQxAjZpdOufKyi0rpTlcNbDik9pE4LhzY6zkhEapTvd
+	 rZ5RV61znoazse4uwIvm9BuPax1kg7DcvWFtb5otpuiyK5+8CGrklyqPbwzZhEgPfZ7ba
+	 Z3uNIMARGvUt/9cYPowENOSgG2B/aoRtWEgFTigY2hOLoGUeYDy0YdgMVyzIH6/hI1BJ2
+	 AABovaQ0SCW4BlZhio7w1dLmg6o0YIxOe/paEIkyrTtiXWWWLgbihTwZSZkbFHbx+qA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070649;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received;
+	bh=JOzZOraI8sktGVnhlAox4eAkjHdAPOg27ohrD02Wfes=;
+	b=KmiNJpmcYEHwAJjgHYA9uLd4FzyWJxtxIqjNsSlWQWsUmotZ5EoR8FIu60IHONhfXdYD
+	 sQ7zO8PO/fp8OVWCJInpApq6bi4xRprI3POqsf5lntUumTpYHCZdWI55Sqk52TnXw7XbI
+	 89I8oltXmI1zBIVY6TmJZJxVx831oXAPqz7GhoPpsLjHwoI4Dl/YhaV8DOPjpR3yq6ePd
+	 mRsz4DMQxdvlmqh6kj5/73p6HbNsI9ANuEpIVlpRKHZyMDVQpkaFYlvrIU3z8+aABhIN3
+	 A6iPlyo7kqmEyebFe5a/8o5tinIisx1H+00Lc+piuOykGONYCPIvxElpZTqPZnlFZhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QDL2trT+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BBA606A326;
+	Sat,  7 Nov 2026 16:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QDL2trT+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794070648;
+	b=sGC/EePSyXgomDl+J9v8e4P1pXH6/sLCeNZC9IqtlS0ON1RvqAUcNXW4KTHf8hlueZCL
+	 qB7XhhK+nu5n8sYGLdF94JSC3cf05oZ9dOe3NKJ0wQG632OV7/VpaINnjZb2VC5QNERCb
+	 p3gdeicY3erFCCNLhI4ruAs9xPGF+lj6oVHL22XRJuM1M3aAq8eDzM/6zlYz3io/RDOI6
+	 7W3u2EdQNBtsDGx4JFO82/AtlC95cjK4tvecH7a7Gb1OGkRZm9SgN7k4JdkqasqhvedTh
+	 IGdx3p3BGMi/liSy+lSCTL5l6eopRSqwg0V6aZyXa1jaigQ2bgiZpVzj0Bs1CbdRUag==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794070648;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
+	bh=JOzZOraI8sktGVnhlAox4eAkjHdAPOg27ohrD02Wfes=;
+	b=jPjH9XX/roXF52PF3RV4HWIyhDUaKqzaZBgIGhMMxfTVT7yD8Yv8EvTVNtHIkjwsKQiY
+	 IofEeEzG9bdC0IyVkymzmGv2bqspuk3QMLHCkOZmLyycHJ0l8mTPyMXoIkuYmDiCT700p
+	 B0vxlyEfFXf1AZk3QCu1s+DmrQFy2RkdNZfdzOPhw2IufTg5aZ0PkgErzmsaucyoQBfFB
+	 24Mjyy+JFtsunslqjRYSSHai2zCLDHGFLq+Ebs9YTwqgLN/39H6zndaK8nRdS+53EZ8aw
+	 CurUyRQsGJl3yUYrOddJa1ww32pfjlzaOfLLShxQAshD8oWKSQ9ekYpjnTF8oeG8MLg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98EF606A330
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:57:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B98EF606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FVbx9nZ2
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15dd124bbe7so459481c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:57:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794070640; x=1794675440; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hy+b2FmS+WOb9VH7r/wCKLd2ZpYqYwoBlahUfl/vu2s=;
-        b=FVbx9nZ2ZQU/Elz+giW71b2m0Bac3qeomfVqTX0WiyIt4mAJdLaKsWVhSGk2pUiUpy
-         cpzvDvXBUBsmrsfeQuJ+D7gsbcQK8ztdetkr06L53bMUL4YkCCkC0Z70DqQY5tK83ehs
-         x8kQS562yWqhZ7zMv3AQYRkKC3IzyAYzzljvPmJmA6RIE/f5lzFm/puQvZDX5KFVzcC7
-         QYH2kyHHjXJGksKwIjGlUtHpmAdZne9UdiaTWs7xx5MOwQboahwUbuG9lskgNAVngZUP
-         YpnCQej80VTWKfth5/o8/BUtIDUJmsylsOtEDA3GTYHp15Tion5NtJt6Gr3KLf3pppci
-         PC3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794070640; x=1794675440;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hy+b2FmS+WOb9VH7r/wCKLd2ZpYqYwoBlahUfl/vu2s=;
-        b=enmw+qMGS+VSqABL0+EOVXI+Z1JEZwxxkOck7sph2Q5lgm6EXYSjAmtupYp1HdqTIz
-         UbnTXUXp5f8mYRkgzQuqkSZneQ1hq+qFROZOvJhvJ9IB5+DkThSVTW3/dNZzi87dLEHc
-         FWGahgWwPgxefP31Z1zGP/ErtAos0hi1x+sC7uks5SiktxJYvSsTSYaGcMklnWGeIjU3
-         GtHi0tlHRx2uXzguxrSxPkMIEH2wJupnPbek2PHpcUk49EDKmsDbdBKryHPL0LZCaRWw
-         KmvuAGqeu3ZdepEZ/0VgXUFRvdIOv/LkRnNYbWrzXsGPRGo9+mF6j973uAgigSvQdVMd
-         kreg==
-X-Forwarded-Encrypted: i=1; AKwUvBxsXsZe8feAvh9mb5/qMH62kSirGi1WhwSVCPSW5bWJ/DcvDyrIcyuX6stSCa1bWSiIGQe7+cRKPFAsDLI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bN4h0VdkNjyTRnDZVwpiwNeqgDClaVV7sPxGUQQhwFJSJ0Jha
-	FlsS03PbC6SfURStcAX8sUJf+ox43ntk30L0OLRUlPXp2au9CduqxJof
-X-Gm-Gg: AYBFou2o99V1Tj67Er1JF8I0O4GrRiPXsd7NPh6rSp0URxhvY3+S1FnrZ66XUTFauKg
-	Mmqxm046szJkeDFYzjjQarJ7IS+Z0YJyV8wchpsxQgujmYmmi0stSwhYhyPJH8//EX0f7pETzS2
-	oNnNa+yC6mB6mZgmtxcAlsMfeDDf8SjYv6xTGrj1mZZp9U4aj20U86WLiIEhPYiztfSzw/iLMDS
-	A3wO7gVFjlAUXI0EZ0nF2n6KnFrpyVgVLFLPdLg9ydB37FXfLosrH0ovE1YnUj9JcvxLnK8Kjvk
-	vZZi4lP1wOnQcXWIzKigcWB3n3LCTfJcQ4krmrlg8VzzfTpVh3SnZQ+UTaCN1MAIsGL0FmSFyso
-	xef4B3QZjyfoXrfIeQ4hKYHY2DfwDhoqpnIDFDT9SMITPoG9uNGXB3veNLtqYNQDU/kxVU+qUtX
-	mVx0Y9mgFJ+jGnKSNHXeU1qPgsOref8XvY2S7HKzF1XnWyA4qSE61zB7tHriYPXVVcv3KIz3btx
-	c++9lphW8F6NRedcRjtd7yX4YuTIbnK5z4g8JEZR4CnnOeQTmbSSQrC1CUOEwAzc5kb+4AHE8Xh
-	kPEkf7j2iwCYQA3EDm4I5Sa0
-X-Received: by 2002:a05:7022:5e09:b0:1ab:de8b:5f0f with SMTP id a92af1059eb24-1b25d36f9dfmr7314191c88.40.1794070639786;
-        Sat, 07 Nov 2026 08:57:19 -0800 (PST)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4b4aa7sm15456126c88.13.2026.11.07.08.57.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:57:19 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Sat, 07 Nov 2026 11:57:01 -0500
-Subject: [PATCH v3 2/4] docs/mm: ksm: describe how smart scan picks the
- scans to skip
+	by smtp.kernel.org (Postfix) with ESMTPS id DFD461F0089F;
+	Sat,  7 Nov 2026 16:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794070648;
+	bh=JOzZOraI8sktGVnhlAox4eAkjHdAPOg27ohrD02Wfes=;
+	h=From:Date:Subject:To:Cc;
+	b=QDL2trT+pxFA3GrSlDsQ4gZfUJ/uysSd/GK+A4OY3RsWJ0Q3hD1b9NsaLCPNjlY60
+	 NWNkeuAX3StW9V/FwOs8cUo0qNkZ3gKczPiUOktHK/q8stlL2bWw8eIjYfgfzp8zuK
+	 lncxb8zdbkEAp69yUXmjpn5SjWzg72ojY3NfDauC06h+BFcxVR2FIetWRq9HsYpV0q
+	 UYvx0KGgA00wUiaxphqcJZWbBqjg72qstrVMumRotfUgOsnIt/8DDY5EafDIB/MsN7
+	 iVwel7owEvY6QP+tGHuWCHyqjjhBq1/Fv67qfTic8aP/bw/GuO34IK/H92beT+gL6b
+	 5j+Ecnr8DFJ0g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2FA2847C82;
+	Sat,  7 Nov 2026 16:57:27 +0000 (UTC)
+From: Sven Peter <sven@kernel.org>
+Date: Sat, 07 Nov 2026 17:57:06 +0100
+Subject: [PATCH] thunderbolt: Drop the DP tunnel activation callback data
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,67 +83,311 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-2-16d5ce8b5fd6@gmail.com>
-References: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-0-16d5ce8b5fd6@gmail.com>
-In-Reply-To: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-0-16d5ce8b5fd6@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Message-Id: <20261107-b4-tbt-callback-v1-1-5ade9391461d@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDtgRE31KsVFJk50WrEliSKId
+ 2/U5Vv8v0NgLxygzXbwvEqQ75ygHhnY0cwDo/TJUORFrVSukUqMFNGaaSJjP6h15ahyz4ZrhlT
+ 9PDvZruOrux0WerON5waO4w8liXm6cwAAAA==
+X-Change-ID: 20261107-b4-tbt-callback-775fb5f89e6e
+To: Andreas Noever <andreas.noever@gmail.com>, 
+ Mika Westerberg <westeri@kernel.org>, 
+ Yehezkel Bernat <YehezkelShB@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sven Peter <sven@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11811; i=sven@kernel.org;
+ h=from:subject:message-id;
+ bh=vpOtS+KsLpRwTvuWWGQUwIquEM0RjvCPrf3l3BXb0qE=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9b7iIzzrAH2y/s7JS34jyw8lbuYs/K3EGvd26ztkTOTL
+ qpsXqLRUcrCIMbFICumyLJ9v73pk4dvBJduuvQeZg4rE8gQBi5OAZjIz2xGhk0Wu23MvlwrYheR
+ eve4efUeb54MCROuy++5/x7iWXh/oggjw/x8GTYx4WXtN9c4vn4rYqY47Y8zU8cr1Ydz2Gosfs7
+ /ygAA
+X-Developer-Key: i=sven@kernel.org; a=openpgp;
+ fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
+X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
+ auth_id=407
 
-Documentation/mm/ksm.rst covers the stable tree and its reverse mapping,
-and Documentation/admin-guide/mm/ksm.rst only says that smart scan skips
-pages KSM has failed to merge before.
+The callback data is always the domain the tunnel belongs to which the
+callback can just take from the tunnel itself.
 
-Neither says how often an unmerged page is looked at, or that the scans
-are picked by the global scan number so that identical pages of
-different ages still meet in some scan, which merging through the
-unstable tree depends on.
-
-Add a section on smart scan that describes both.
-
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- Documentation/mm/ksm.rst | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+As requested in [1], here's the last patch now that -rc1 is out.
 
-diff --git a/Documentation/mm/ksm.rst b/Documentation/mm/ksm.rst
-index 5a80573162def..f954d221e8017 100644
---- a/Documentation/mm/ksm.rst
-+++ b/Documentation/mm/ksm.rst
-@@ -75,6 +75,22 @@ The whole list of stable_node "dups" linked in the stable_node
- The frequency of such scans is defined by
- ``stable_node_chains_prune_millisecs`` sysfs tunable.
+[1] https://lore.kernel.org/asahi/20260901081924.GA106095@black.igk.intel.com/
+---
+ drivers/thunderbolt/tb.c     | 10 +++++-----
+ drivers/thunderbolt/test.c   | 24 ++++++++++++------------
+ drivers/thunderbolt/tunnel.c | 12 +++---------
+ drivers/thunderbolt/tunnel.h | 10 +++-------
+ 4 files changed, 23 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index 57c11ba13459..418ad0a61a5d 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -89,7 +89,7 @@ static void tb_dp_resource_unavailable(struct tb *tb, struct tb_port *port,
+ 				       const char *reason);
+ static void tb_queue_dp_bandwidth_request(struct tb *tb, u64 route, u8 port,
+ 					  int retry, unsigned long delay);
+-static void tb_dp_tunnel_active(struct tb_tunnel *tunnel, void *data);
++static void tb_dp_tunnel_active(struct tb_tunnel *tunnel);
  
-+Smart scan
-+----------
-+With ``smart_scan`` enabled, ksmd skips pages that it has already tried
-+to merge without success. The ``age`` of a page's ksm_rmap_item counts
-+the scans that went by while the page stayed unmerged. A page younger
-+than three scans is looked at on every scan; after that it is looked at
-+every second scan up to an age of five, every fourth scan up to an age
-+of eight, and every eighth scan from then on.
-+
-+The scans that look at a page are picked by the global scan number
-+``ksm_scan.seqnr``, not counted per page. The unstable tree is rebuilt
-+on every scan, so two identical pages can only be merged in a scan that
-+looks at both. As the periods are powers of two, every page is looked
-+at on each scan whose number is a multiple of eight, so two identical
-+pages meet at least every eighth scan whatever their ages.
-+
- Reference
- ---------
- .. kernel-doc:: mm/ksm.c
+ static void tb_queue_hotplug(struct tb *tb, u64 route, u8 port, bool unplug)
+ {
+@@ -387,7 +387,7 @@ static void tb_switch_discover_tunnels(struct tb_switch *sw,
+ 		switch (port->config.type) {
+ 		case TB_TYPE_DP_HDMI_IN:
+ 			tunnel = tb_tunnel_discover_dp(tb, port, alloc_hopids,
+-						       tb_dp_tunnel_active, tb);
++						       tb_dp_tunnel_active);
+ 			tb_increase_tmu_accuracy(tunnel);
+ 			break;
+ 
+@@ -1905,11 +1905,11 @@ static struct tb_port *tb_find_dp_out(struct tb *tb, struct tb_port *in)
+ 	return NULL;
+ }
+ 
+-static void tb_dp_tunnel_active(struct tb_tunnel *tunnel, void *data)
++static void tb_dp_tunnel_active(struct tb_tunnel *tunnel)
+ {
+ 	struct tb_port *in = tunnel->src_port;
+ 	struct tb_port *out = tunnel->dst_port;
+-	struct tb *tb = data;
++	struct tb *tb = tunnel->tb;
+ 
+ 	mutex_lock(&tb->lock);
+ 
+@@ -2038,7 +2038,7 @@ static void tb_tunnel_one_dp(struct tb *tb, struct tb_port *in,
+ 	       available_up, available_down);
+ 
+ 	tunnel = tb_tunnel_alloc_dp(tb, in, out, link_nr, available_up,
+-				    available_down, tb_dp_tunnel_active, tb);
++				    available_down, tb_dp_tunnel_active);
+ 	if (!tunnel) {
+ 		tb_port_dbg(out, "could not allocate DP tunnel\n");
+ 		goto err_reclaim_usb;
+diff --git a/drivers/thunderbolt/test.c b/drivers/thunderbolt/test.c
+index c8c648f31107..a1f9dbb66940 100644
+--- a/drivers/thunderbolt/test.c
++++ b/drivers/thunderbolt/test.c
+@@ -1407,7 +1407,7 @@ static void tb_test_tunnel_pcie(struct kunit *test)
+ 	tb_tunnel_put(tunnel1);
+ }
+ 
+-static void tb_test_dp_tunnel_active(struct tb_tunnel *tunnel, void *data)
++static void tb_test_dp_tunnel_active(struct tb_tunnel *tunnel)
+ {
+ }
+ 
+@@ -1432,7 +1432,7 @@ static void tb_test_tunnel_dp(struct kunit *test)
+ 	out = &dev->ports[13];
+ 
+ 	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-				    tb_test_dp_tunnel_active, NULL);
++				    tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1479,7 +1479,7 @@ static void tb_test_tunnel_dp_chain(struct kunit *test)
+ 	out = &dev4->ports[14];
+ 
+ 	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-				    tb_test_dp_tunnel_active, NULL);
++				    tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1530,7 +1530,7 @@ static void tb_test_tunnel_dp_tree(struct kunit *test)
+ 	out = &dev5->ports[13];
+ 
+ 	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-				    tb_test_dp_tunnel_active, NULL);
++				    tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1596,7 +1596,7 @@ static void tb_test_tunnel_dp_max_length(struct kunit *test)
+ 	out = &dev12->ports[13];
+ 
+ 	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-				    tb_test_dp_tunnel_active, NULL);
++				    tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_EXPECT_EQ(test, tunnel->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel->src_port, in);
+@@ -1667,7 +1667,7 @@ static void tb_test_tunnel_3dp(struct kunit *test)
+ 	out3 = &dev4->ports[14];
+ 
+ 	tunnel1 = tb_tunnel_alloc_dp(NULL, in1, out1, 1, 0, 0,
+-				     tb_test_dp_tunnel_active, NULL);
++				     tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_TRUE(test, tunnel1 != NULL);
+ 	KUNIT_EXPECT_EQ(test, tunnel1->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel1->src_port, in1);
+@@ -1676,7 +1676,7 @@ static void tb_test_tunnel_3dp(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, tunnel1->paths[0]->path_length, 3);
+ 
+ 	tunnel2 = tb_tunnel_alloc_dp(NULL, in2, out2, 1, 0, 0,
+-				     tb_test_dp_tunnel_active, NULL);
++				     tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_TRUE(test, tunnel2 != NULL);
+ 	KUNIT_EXPECT_EQ(test, tunnel2->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel2->src_port, in2);
+@@ -1685,7 +1685,7 @@ static void tb_test_tunnel_3dp(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, tunnel2->paths[0]->path_length, 4);
+ 
+ 	tunnel3 = tb_tunnel_alloc_dp(NULL, in3, out3, 1, 0, 0,
+-				     tb_test_dp_tunnel_active, NULL);
++				     tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_TRUE(test, tunnel3 != NULL);
+ 	KUNIT_EXPECT_EQ(test, tunnel3->type, TB_TUNNEL_DP);
+ 	KUNIT_EXPECT_PTR_EQ(test, tunnel3->src_port, in3);
+@@ -1784,7 +1784,7 @@ static void tb_test_tunnel_port_on_path(struct kunit *test)
+ 	out = &dev5->ports[13];
+ 
+ 	dp_tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-				       tb_test_dp_tunnel_active, NULL);
++				       tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, dp_tunnel);
+ 
+ 	KUNIT_EXPECT_TRUE(test, tb_tunnel_port_on_path(dp_tunnel, in));
+@@ -2217,7 +2217,7 @@ static void tb_test_credit_alloc_dp(struct kunit *test)
+ 	out = &dev->ports[14];
+ 
+ 	tunnel = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-				    tb_test_dp_tunnel_active, NULL);
++				    tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, tunnel);
+ 	KUNIT_ASSERT_EQ(test, tunnel->npaths, (size_t)3);
+ 
+@@ -2454,7 +2454,7 @@ static struct tb_tunnel *TB_TEST_DP_TUNNEL1(struct kunit *test,
+ 	in = &host->ports[5];
+ 	out = &dev->ports[13];
+ 	dp_tunnel1 = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-					tb_test_dp_tunnel_active, NULL);
++					tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, dp_tunnel1);
+ 	KUNIT_ASSERT_EQ(test, dp_tunnel1->npaths, (size_t)3);
+ 
+@@ -2492,7 +2492,7 @@ static struct tb_tunnel *TB_TEST_DP_TUNNEL2(struct kunit *test,
+ 	in = &host->ports[6];
+ 	out = &dev->ports[14];
+ 	dp_tunnel2 = tb_tunnel_alloc_dp(NULL, in, out, 1, 0, 0,
+-					tb_test_dp_tunnel_active, NULL);
++					tb_test_dp_tunnel_active);
+ 	KUNIT_ASSERT_NOT_NULL(test, dp_tunnel2);
+ 	KUNIT_ASSERT_EQ(test, dp_tunnel2->npaths, (size_t)3);
+ 
+diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
+index 2b911372001c..8145657835c5 100644
+--- a/drivers/thunderbolt/tunnel.c
++++ b/drivers/thunderbolt/tunnel.c
+@@ -1117,7 +1117,7 @@ static void tb_dp_dprx_work(struct work_struct *work)
+ 	}
+ 	mutex_unlock(&tb->lock);
+ 
+-	tunnel->callback(tunnel, tunnel->callback_data);
++	tunnel->callback(tunnel);
+ 	tb_tunnel_put(tunnel);
+ 	tb_domain_put(tb);
+ }
+@@ -1593,7 +1593,6 @@ static void tb_dp_dump(struct tb_tunnel *tunnel)
+  * @alloc_hopid: Allocate HopIDs from visited ports
+  * @callback: Callback that is called when the DP tunnel is fully
+  *	      activated (or there is an error)
+- * @callback_data: Data for @callback
+  *
+  * If @in adapter is active, follows the tunnel to the DP out adapter
+  * and back. Returns the discovered tunnel or %NULL if there was no
+@@ -1603,8 +1602,7 @@ static void tb_dp_dump(struct tb_tunnel *tunnel)
+  */
+ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+ 					bool alloc_hopid,
+-					void (*callback)(struct tb_tunnel *, void *),
+-					void *callback_data)
++					void (*callback)(struct tb_tunnel *))
+ {
+ 	struct tb_tunnel *tunnel;
+ 	struct tb_port *port;
+@@ -1629,7 +1627,6 @@ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+ 	tunnel->consumed_bandwidth = tb_dp_consumed_bandwidth;
+ 	tunnel->src_port = in;
+ 	tunnel->callback = callback;
+-	tunnel->callback_data = callback_data;
+ 	INIT_DELAYED_WORK(&tunnel->dprx_work, tb_dp_dprx_work);
+ 
+ 	path = tb_path_discover(in, TB_DP_VIDEO_HOPID, NULL, -1,
+@@ -1700,7 +1697,6 @@ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+  *	      %0 if no available bandwidth.
+  * @callback: Callback that is called when the DP tunnel is fully
+  *	      activated (or there is an error)
+- * @callback_data: Data for @callback
+  *
+  * Allocates a tunnel between @in and @out that is capable of tunneling
+  * Display Port traffic. The @callback is called after tb_tunnel_activate()
+@@ -1714,8 +1710,7 @@ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+ struct tb_tunnel *tb_tunnel_alloc_dp(struct tb *tb, struct tb_port *in,
+ 				     struct tb_port *out, int link_nr,
+ 				     int max_up, int max_down,
+-				     void (*callback)(struct tb_tunnel *, void *),
+-				     void *callback_data)
++				     void (*callback)(struct tb_tunnel *))
+ {
+ 	struct tb_tunnel *tunnel;
+ 	struct tb_path **paths;
+@@ -1741,7 +1736,6 @@ struct tb_tunnel *tb_tunnel_alloc_dp(struct tb *tb, struct tb_port *in,
+ 	tunnel->max_up = max_up;
+ 	tunnel->max_down = max_down;
+ 	tunnel->callback = callback;
+-	tunnel->callback_data = callback_data;
+ 	INIT_DELAYED_WORK(&tunnel->dprx_work, tb_dp_dprx_work);
+ 
+ 	paths = tunnel->paths;
+diff --git a/drivers/thunderbolt/tunnel.h b/drivers/thunderbolt/tunnel.h
+index 7d1d255ab5a7..28f49f7e9f56 100644
+--- a/drivers/thunderbolt/tunnel.h
++++ b/drivers/thunderbolt/tunnel.h
+@@ -67,7 +67,6 @@ enum tb_tunnel_state {
+  * @dprx_timeout: If set DPRX capabilities read poll work will timeout after this passes
+  * @dprx_work: Worker that is scheduled to poll completion of DPRX capabilities read
+  * @callback: Callback called when DP tunnel is fully activated
+- * @callback_data: Data for @callback
+  * @paths: All paths required by the tunnel
+  */
+ struct tb_tunnel {
+@@ -104,8 +103,7 @@ struct tb_tunnel {
+ 	bool dprx_canceled;
+ 	ktime_t dprx_timeout;
+ 	struct delayed_work dprx_work;
+-	void (*callback)(struct tb_tunnel *tunnel, void *data);
+-	void *callback_data;
++	void (*callback)(struct tb_tunnel *tunnel);
+ 
+ 	struct tb_path *paths[] __counted_by(npaths);
+ };
+@@ -118,13 +116,11 @@ bool tb_tunnel_reserved_pci(struct tb_port *port, int *reserved_up,
+ 			    int *reserved_down);
+ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
+ 					bool alloc_hopid,
+-					void (*callback)(struct tb_tunnel *, void *),
+-					void *callback_data);
++					void (*callback)(struct tb_tunnel *));
+ struct tb_tunnel *tb_tunnel_alloc_dp(struct tb *tb, struct tb_port *in,
+ 				     struct tb_port *out, int link_nr,
+ 				     int max_up, int max_down,
+-				     void (*callback)(struct tb_tunnel *, void *),
+-				     void *callback_data);
++				     void (*callback)(struct tb_tunnel *));
+ struct tb_tunnel *tb_tunnel_alloc_dma(struct tb *tb, struct tb_port *nhi,
+ 				      struct tb_port *dst, int transmit_path,
+ 				      int transmit_ring, int receive_path,
 
--- 
-2.43.0
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-b4-tbt-callback-775fb5f89e6e
+
+Best regards,
+--  
+Sven Peter <sven@kernel.org>
+
 
