@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794074389;
-	b=Rvu/Tit7UNQuVqx6Zs5ZdSGThDfxZ2KUXIxMh8xKZQkuFCpr5vgZZgvggCKN1T7P+/nL
-	 gTDX16vkhox2z/NCYV2IYnZ8gTe8/4LVCAmZ67ezFjE0uuiEvYYxiAxAkGOHjGgJrPoh8
-	 6mgPBHEGFVAWFiuLUWiO6WtGE2Vt4LqSyP0d6I+Gb2baIvbSNSzAshfB5333Ssd8Cq3Pc
-	 MV/D2Mpfem3bx5N2fWxz89VrH0Y3d5iYpVXmBo3anErN5gAXhFsR9GRrYpHFdHUNbTnr1
-	 UREs6lumrNiYFjWAwXO4J62gYbgMNIwwth4RoLjvJ0PzWxktA91T3Cwlr3Rb3nnHzKw==
+	b=b2EOE6M08mgHIqIvhjin5IlbmEvHD/Ckk6dstH14bUPBr64gzFKf1Hg3t7oICIvvcAFf
+	 aw6e5PpS6mVPHCwZtPGPgKv5/jQvd29gaInISRJY+Up7F86VjEf5MEBDMA9WVrDkfJ4kH
+	 F7/X3Ks2mQ1GjIjca3oShD4znOwBqt0SVoW58cq4jZ3Tqv03GXnkLlXftyrYXU/zUoIe6
+	 j0UXlJVi8giSePEIdSCTizqc9q3EGIAuYOqy9U23T1tYekXWdkiDvOxRxcusvacaf50mp
+	 cM+nM0o4J8y3y1F+gytj7eCB2BQnPRGzRV2xTgJqr7o0m9BAkoAtInwLH+RPbzqwXyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794074389;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=HGNBZg04KAZeZlrv62ywxVBlGQjVP9azSckK49EmwII=;
-	b=wZU6PO/6cDufhUvNYJ4Ni8JWeKC/oBZqPp5K10clIaNbjjM1lpNA5yjQ7DxboEr8o3FG
-	 9tkI6C1fmY4HAKOwSo8Jq6XbiMlvftA4EZW12TjLKPnNjhFCtQytdHR2Ex/qZiUf2RI/A
-	 HyYx+62be0onf+K9fTi1TuMNgyerbZj3wUQp4NKsR7PX0o4r6bDvN/swyNjcX8y5QtFSY
-	 I7dDcywZWB51nzwJQF19Lk3O0hxBTttFKrjK0jQCmJsKm6d7FfRFcVOP6j97YcaoGRhqW
-	 Q6KyP1VMdR1Il5QQx4qZeSOOWKBbFM3Yy7ogWCXrbZ9+reZ9oavB8OHGdPxAmAC8XpQ==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=8lVLvxc8Qs6BngpHaRFwnA/hdSpn+KLdbrSSp8PidEc=;
+	b=I9hsqleBrnSYNqRjD/7+2jVFsFnPmGEMhSl1S2G+LwCdXCVGO4GV0yQsSqdDy+AZp4/T
+	 Bl5nbDtozEMiGOh1pWdmBrz015XFR1XGoNwASLa/tm08lBeVWv0VuU01dApa8i0pegt7N
+	 v+N4ZFgA2bJ+yPvsnKPkMnpLAyyOcVR3S/OZhoRdFsvzqBSCn/JYbpj7jd8wlme1FZG9m
+	 iGBzXicGgOrxKZxXrbYvB4+FzSEAQ4Tf7Id5rniyVydJAO0nVWWUk6DfXq0P0t7gfNHpx
+	 nHZoKcH4Uk4xdzNgPK4DwmD+a4ZaW3JWGOphrPlf9SdXH4O95rBLwdcLfdoTDqkSsgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rbox.co;
 	spf=pass smtp.mailfrom=rbox.co;
-	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=j8v7OvK0;
+	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=inpLAybU;
 	arc=none smtp.remote-ip=185.226.149.38
 Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC019606A33A
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:59:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC019606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFEB606A339;
+	Sat,  7 Nov 2026 17:59:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBFEB606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=j8v7OvK0
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=inpLAybU
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
 	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <mhal@rbox.co>)
-	id 1xPkhN-007oUD-Je; Sat, 07 Nov 2026 18:59:29 +0100
+	id 1xPkhN-007oU0-2t; Sat, 07 Nov 2026 18:59:29 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From;
-	bh=HGNBZg04KAZeZlrv62ywxVBlGQjVP9azSckK49EmwII=; b=j8v7OvK0njXYWBtd/wFwp+SE7n
-	/3R1aIgEO0qFBEqD0gdCWDWcKEv+0AcIzVwSgQeM3JeOgdUUW49mBlCMbZ50u/RKhDxQ/swi9HSvr
-	W3B7YKHMCWbjNvjsRtmsh6+Kianj9O2Sjofjsw1fIpGV627oBa2xwgmam+s15szb2nC8eUpgJE8vS
-	o2hqBy2me5iEOfgkztAJkIaE5JP66wPDTE2xoErpX5edR2ZhPYAE/zRbRFfAgpfoC9yHvtAGojbDg
-	LD46T/hfy2q74rAVDrtE9p42jPY8D5QwAiC5uEnbEQxDWrX7rRQtReFLBFg/kZh5S1zhNiaZJl+iD
-	u3BDMDgQ==;
+	s=selector1; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From; bh=8lVLvxc8Qs6BngpHaRFwnA/hdSpn+KLdbrSSp8PidEc=
+	; b=inpLAybUUeGEXVpxpjf2xkIg/S8TV16mUpOyCBS1FjTk0Ae7d+3SYOqHNxhi+qwcnSEhXie8N
+	Wm7dOcChwdhYCegGVfc4ML8ZKqz6RbnBcbiAV6766WYadGmRHP2lNRIMvcKnWE6lMoDO44kNav1OI
+	BMOjNr/W/Ic2AmYZQLyIC7y8y59GNoi0ER+BkM/FYRsmdP2fjaJRaxtzEvoCVq41R3b/gT8BnMG9I
+	nAqMJ+ZpxhT7nENW2OGq+Ks/qzWeZGDZIEaajt8rJY9eDtWNPir4U5vs73VyNLtq2HpE9lEMAeMWn
+	j6bayALldb+08aGxMLa859NJWFnpFpSc1ZwBsw==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <mhal@rbox.co>)
-	id 1xPkhD-0006IH-9I; Sat, 07 Nov 2026 18:59:19 +0100
+	id 1xPkhB-0006ai-A7; Sat, 07 Nov 2026 18:59:17 +0100
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xPkh1-007LnK-VQ;
-	Sat, 07 Nov 2026 18:59:08 +0100
+	id 1xPkgy-007LnK-Th;
+	Sat, 07 Nov 2026 18:59:05 +0100
 From: Michal Luczaj <mhal@rbox.co>
-Date: Sat, 07 Nov 2026 18:58:24 +0100
-Subject: [PATCH bpf-next v3 2/8] bpf, sockmap: Restrict iter-context
- sockmap updates to iter/sockmap
+Subject: [PATCH bpf-next v3 0/8] bpf, sockmap: Restrict iter-context
+ sockmap updates to sockmap iterators
+Date: Sat, 07 Nov 2026 18:58:22 +0100
+Message-Id: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,9 +70,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-sockmap-update-limit-iter-v3-2-7c0bad1ad036@rbox.co>
-References: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
-In-Reply-To: <20261107-sockmap-update-limit-iter-v3-0-7c0bad1ad036@rbox.co>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Oyw6CMBBFf8V07Zg+pFhX/odx0ZZBRoWSthCM4
+ d9FXLhzeXPnnjMvljASJnbcvFjEkRKFbglqu2G+sd0VgaolM8mlFpwfIAV/b20PQ1/ZjPCgljJ
+ QxggVV2hlUZuyLNiy7yPWNK3sM3N9DR1OmV2+TRrcDX3+oD+3DaUc4nN9YxTr4msU+o9xFMBBq
+ tqava5cYfAUXZh2PqyWUf44gst/HLlw0Girld8rp8yPM8/zG0I5NR0kAQAA
+X-Change-ID: 20261008-sockmap-update-limit-iter-d03ea25f9775
 To: Alexei Starovoitov <ast@kernel.org>, 
  Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
  Eduard Zingerman <eddyz87@gmail.com>, 
@@ -96,52 +98,88 @@ Cc: Michal Luczaj <mhal@rbox.co>, bpf@vger.kernel.org,
  Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 
-Among tracing progs, allow only iter/sockmap to update sockmaps and
-sockhashes. Previously, any BPF_TRACE_ITER program could perform these
-updates, which caused locking issues in specific scenarios [1][2][3]. This
-tightening is part of the broader effort to lock down the BPF API [4].
+Follow-up to Sashiko's report [1] and the decision to restrict which
+iterator may perform sockmap updates [2]. Series started short: remove
+about-to-be-stale test, restrict updates, add a negative test. Then it
+expanded: mark bpf_iter__sockmap::sk as PTR_TRUSTED, restrict
+bpf_sock_destroy() callers to iter/{tcp,udp}, few little tweaks.
 
-[1]: commit 4d328dd69538 ("bpf, sockmap: Fix af_unix iter deadlock")
-[2]: commit 64c2f93fc325 ("bpf, sockmap: Take state lock for af_unix iter")
-[3]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
-[4]: https://msgid.link/akRZ_e7DJh2aP-2i@john-p8
+[1]: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
+[2]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
-Suggested-by: Jakub Sitnicki <jakub@cloudflare.com>
 Signed-off-by: Michal Luczaj <mhal@rbox.co>
 ---
-I was tempted to define BTF_ID_LIST_SINGLE(bpf_iter_sockmap_id, func,
-bpf_iter_sockmap) and just compare against env->prog->aux->attach_btf_id,
-but a single line BTF_ID_LIST_SINGLE quickly turned into a 6-line
-ifdef-CONFIG_NET-fery, so I've sticked with strcmp().
+Changes in v3:
+- Drop RFC prefix
+- Update bpf_iter_reg::feature docs
+- Fix tcp_request_sock BTF build error
+- Restrict allowed callers of bpf_sock_destroy() to iter/{tcp,udp} (Alexei)
+- Link to v2: https://patch.msgid.link/20261102-sockmap-update-limit-iter-v2-0-e96a63c43b39@rbox.co
+
+Changes in v2:
+- Commit 7cc639dc45c5 ("bpf: Don't take an extension for an iterator
+  program") and commit b83bacf2161d ("bpf: Don't take a program with a
+  target program for an iterator") landed. Drop the redundant
+  env->prog->type check.
+- Mark bpf_iter__sockmap::sk as PTR_TRUSTED (Alexei)
+- Link to v1: https://patch.msgid.link/20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co
+
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Andrii Nakryiko <andrii@kernel.org>
+To: Eduard Zingerman <eddyz87@gmail.com>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+To: Martin KaFai Lau <martin.lau@linux.dev>
+To: Song Liu <song@kernel.org>
+To: Yonghong Song <yonghong.song@linux.dev>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Emil Tsalapatis <emil@etsalapatis.com>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Shuah Khan <shuah@kernel.org>
+To: John Fastabend <john.fastabend@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Willem de Bruijn <willemb@google.com>
+To: Jakub Sitnicki <jakub@cloudflare.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: "David S. Miller" <davem@davemloft.net>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Simon Horman <horms@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Stanislav Fomichev <sdf@fomichev.me>
+Cc: bpf@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: netdev@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+
 ---
- kernel/bpf/verifier.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Michal Luczaj (8):
+      selftests/bpf: Remove sockmap update from bpf_iter_unix
+      bpf, sockmap: Restrict iter-context sockmap updates to iter/sockmap
+      selftests/bpf: Add negative test for sockmap update from non-sockmap iter
+      bpf, docs: Document BPF_ITER_NOSLEEP
+      bpf: Restrict bpf_sock_destroy() to iter/{tcp,udp}
+      bpf: Mark bpf_iter__sockmap::sk as PTR_TRUSTED
+      selftests/bpf: Add iter/sockmap bpf_sock_destroy() negative test
+      bpf: Fix "unresolved symbol tcp_request_sock" build error
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 09a44723bb2e..e784e4a1e5f2 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -10543,6 +10543,7 @@ static bool may_update_sockmap(struct bpf_verifier_env *env, int func_id)
- {
- 	enum bpf_attach_type eatype = env->prog->expected_attach_type;
- 	enum bpf_prog_type type = resolve_prog_type(env->prog);
-+	const char *afname = env->prog->aux->attach_func_name;
- 
- 	if (func_id != BPF_FUNC_map_update_elem &&
- 	    func_id != BPF_FUNC_map_delete_elem)
-@@ -10553,7 +10554,8 @@ static bool may_update_sockmap(struct bpf_verifier_env *env, int func_id)
- 	 */
- 	switch (type) {
- 	case BPF_PROG_TYPE_TRACING:
--		if (eatype == BPF_TRACE_ITER)
-+		if (eatype == BPF_TRACE_ITER &&
-+		    !strcmp(afname + strlen(BPF_ITER_FUNC_PREFIX), "sockmap"))
- 			return true;
- 		break;
- 	case BPF_PROG_TYPE_SOCK_OPS:
+ Documentation/bpf/bpf_iterators.rst                       | 12 +++++++++---
+ kernel/bpf/verifier.c                                     |  4 +++-
+ net/core/filter.c                                         | 15 ++++++++++++++-
+ net/core/sock_map.c                                       |  2 +-
+ tools/testing/selftests/bpf/progs/bpf_iter_unix.c         | 10 ----------
+ .../testing/selftests/bpf/progs/sock_destroy_prog_fail.c  | 11 +++++++++++
+ .../testing/selftests/bpf/progs/verifier_sockmap_mutate.c | 14 ++++++++++++++
+ 7 files changed, 52 insertions(+), 16 deletions(-)
+---
+base-commit: 2d0b457611c06304138754a05e0873cc18acfb7e
+change-id: 20261008-sockmap-update-limit-iter-d03ea25f9775
 
--- 
-2.56.0
+Best regards,
+--  
+Michal Luczaj <mhal@rbox.co>
 
