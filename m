@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011840;
-	b=w6px+idG8Qodiq0zf1GAHzGSsZa17mA3GzMXdyvyvGoNjPkesiuslZJRG0vyPoYXHiI6
-	 2FkcCP7uQRdZd069AiS7iVqn7i1RLhz8hGVlwB5Y0qIq3Jk07Jfig5hYRYEAJJdIB+2Tj
-	 ma5L08/h2+0L7sk/Rzy4dJMkCcrenMu7mQcujs1RXml1lxuJ2awzQsvESukFrcZIgcnt3
-	 uHcdluZuld+rwooQRzku8ZXSNzGmy+S1JaxhNzs6relfCE124WYZjZcasObvdiiXCt9/c
-	 psK5G67sKcCxH2FJ4+PpGaNS6ZTpYXCrx8/xF+6ugn6SBOmK41Imjv/ZjfeK5daNZrA==
+	t=1794011842;
+	b=pO+EUx5rlK7LzLWa7fgNp7mMZTGvJ8eNJbuUxmp/yOFgM6w6BeoJbo87CIa4teKzlm5u
+	 QBpvEkHcN8yr6XTiq7i4u4smw8diO9utp40a8jcBs/WDNWd0O+XO7yDvqQV9HUuT3eFq8
+	 /Ov6+WvEIMNqY3hoaLSZ7EDwE4bEM8dnA2Xf6c6b0Pu6FPpVXeY4qy6boZmhsFf4ZeNOW
+	 4yPvUwIKyYoRoPg+AcW939Eb6L9r1xhkQsBE6e+dCg+1lWAJRSNF5GzKdDktJpul48wyQ
+	 kPc8HxSsf90j6E67Dzx1dpQb3XfGCfXyinzIQXDOqmwHYWaiHoWNQnziUkRvHR1n6Eg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011842;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0nkKW4qaDx3asj2guFXILmxbH04Ei7Qw0v+PRGtBfmM=;
-	b=DeV0ca24W8+d1x6iEbecLoy7E5QmRQ+2xHVpZvrlbW7qfm6e/NuYLjtS8iNvPVpEjMr/
-	 AkI16Kv8Ujl4/AUCTyUiE20GGe+04Qs5eZD9xtiJUWJt9w4kdwnuM0ouGcxDiOWQZudVw
-	 RoLtbrAdylF4UywsIprga7CT9fg7u63ce3BgQ2+8bk4LZUDc6o1rGNXPRPc8TYGwE+emS
-	 WNWiZwNGtDtLfwTF+RPYy5oABdv4lmOPdjw+DhjtDgtTPabkh7TRRsNXPR9MalgIjiX7x
-	 ns+A6vJKR/gqQQa+M/9tqpsGiygSXNDoh0xtyIKiRNGRMTjgohGaKMQrAHxByqkje3w==
+	bh=sxqsi8+toyrpTaa7l33gT+8/FQLeWRcGY9DZTW0jNlc=;
+	b=eab9k6maIqbeP47dPyVCHwTDO02IqBXDSnCqaa+wygVq7DS9fMLzBzDhYugEH7kyzfe9
+	 llinNw2xgUkC4cO10s0b+msqv4+WXDiOvbIrpeZgOPuhi7AoR7hiXsgaEYZJrdqk1FCrZ
+	 +MTB//FW+TlkhTULq7XDlk/VirVsVYkg7buV2Jl6j+h5QYEqvvfujyHN+P0xPT6J4HkuW
+	 vD0iKBeIOLk74b313q+kkcpSv9MIW73ToVuXWMoBGqkDIgRtEafkMsXrzwDrpqNMA6QAI
+	 VehQnQPj7Fp5gKVZ1FNNjatjZs0AMcMAUqN5am3IOw5VqF78Kzvi2Ok7iVItP7cN9Pg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hazlIY6T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoR1VlJm;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE481606AF8C;
-	Sat,  7 Nov 2026 00:37:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0ACF606B779;
+	Sat,  7 Nov 2026 00:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hazlIY6T
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoR1VlJm
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011839;
-	b=i3OjkfOEm6IXp1VyiCWIyLE8QFPCgCTpa9ToPd1NL9YXN/iV4mZfAp8VDWdWp83YIXfo
-	 AFyYe52P736v5tjTqrEFeyuxdYDOMKejSwrTT0duKlszhQHP44b6rjO053RTbThhKGgdN
-	 tAcfPI8G/BBLOkCho1W8jVEY4XYKaIphx/PMvTXC2QMemgHVAWylX8CPB17HOb2J1dQ2s
-	 AOaVa7jCkaIzOY2okmZxzW3RtX2a4SUwv5efZFdP5fJXpqarjNLy516BFk+qBm2g3pXE2
-	 B812GoLlHdSsT/uCof1lrZUaM1tIDszuoIa+a2hCPM0eUPaKv1AGMu4IvQdryWVFIbg==
+	t=1794011841;
+	b=qUABWoYQZFC7EY34Kr38ZCoujYBCxmdwpNYmyaAz0Lr4WCX+E+C9elbHuUuY/y2JbbRc
+	 TWS1hIE+TEsGuErLP3TN8xy5dMxgUixYZWYPW4VYvkjLTUZrKIjmPHXXZ5C0oGdg/SQ6n
+	 mEzEgLLab4XH/7LDfnjtR37BQlcPPHrDrWQzfWbptynK5jo6fE1MXBz/8YdvJIbrx+dP/
+	 kdudRrX7jPEPCl5KaIyTJTpUTCcop5It/7pZAAl8+Hlf68AJTzmuu8OKcvgdbK1v4PdTB
+	 wvRMdSgwN3lGBCwdIDEBRP9aA61xoa/0zQ6xFBWu3NeSWU6v6khhcXoLEWxyhhQrd/Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011839;
+	c=relaxed/relaxed; t=1794011841;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0nkKW4qaDx3asj2guFXILmxbH04Ei7Qw0v+PRGtBfmM=;
-	b=zrZ65MbsloqKg+o34ShyiAI9rC2PdFU0auT0c6t+rwvqRHuiVYq0Js7Kb9J1HpXZzwrF
-	 M9o1X/LSpwMLqNyH44cx8gH38t7sLyo7qm9oOyTzw/SWaXNqGB4dRP16OYJ6K5KbnOyMW
-	 SscE/01qzIzluMwEejpGYK8b3oZwxudmvxO4/GwNC2k7lrXSH9+VbLZ5DrqMSAJOdKbRF
-	 PPWqatBwQi/yepuWx33Ovn9LmypTB/Ym+Xqo1Krim2rAV8a39AFJdF9pCYK+xC/SL0W/6
-	 ObPtZsk0fJHicBdoPqkY0ZXGD+n/MQ/+fs5J6y2moaM5+21woDpqVTD08lddCQCZ28g==
+	bh=sxqsi8+toyrpTaa7l33gT+8/FQLeWRcGY9DZTW0jNlc=;
+	b=Wo0J3QzYBnZlX5hx1iqM3tpVTnFCSreQemxvxBpivmGlT6t8c+DnIXMbyROU2bEg8EGS
+	 s3zs8t9Bpysn7PyMuVSbvi9irSK1iUAJmuCU99jIGOmcuQOJkmkW5ceU/R9ia4fU84fYA
+	 apkIVqlOKkpwtw1cT/MpkQB3mn9cYf5gAOTp6my6iA8W7yv3ViqAHf+wFP9ZG4VyFRJlw
+	 m4ebeCleD7YbAF3ri9Gko5/qp1Q6+ci+TmYBE9YHmN4XTfhc5KB+5hQ7HmYlwOry51xqJ
+	 yL4MbPQBoOYPgGa0kPhYOj13ndt2ilVULBbqQR/z4bCvQDt64gtzZXLwLJ7dZwr6Yzw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 420141F00901;
-	Sat,  7 Nov 2026 00:37:15 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0AA231F008BF;
+	Sat,  7 Nov 2026 00:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011839;
-	bh=0nkKW4qaDx3asj2guFXILmxbH04Ei7Qw0v+PRGtBfmM=;
+	s=k20260515; t=1794011841;
+	bh=sxqsi8+toyrpTaa7l33gT+8/FQLeWRcGY9DZTW0jNlc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hazlIY6TaUYJJBHK20yeEie7vDuC4nIuUs6rgF5AWjaAsWS2CR3tdgWF9zrpnxyfQ
-	 dlLfxX/O+9rSMGB3ImgNqjX7jRPH8TaUg3lRxijCT+c6OdznXVyiyJrVwFWEK59Gun
-	 SEuQlLLYn4z6QF2wQnJUlHlPrqTQSa249YP3JFjHvI+bD7ZSOJEKcY3Lp2hWCRn1Im
-	 GkUa+f5Uj0W2D06vn9830RKJxd/TlXD0zUqdlfFW0ZUFlKoOZs7GKWjIbSQTY0/xPG
-	 iak9/tablOE2/IwsA/R76zv8LkqFWlwwUXHlSSjeYMKEx/CKcdyBL5pBWIX7H+IqA3
-	 jKFMSj8pbiIUw==
+	b=UoR1VlJmvBnw2565e3nIFjL8HA/IsIFk5h10Dza6vZUgg+EU2aECgR3BBHS90PTDp
+	 c1zpA5/n27GNgnKBRXFD9nXm48HUKZ9YiQ1SPU1XMkagsFKf5KHL6TVo6K3WEM8hUe
+	 DqNSivmaE0I5tuM1e8KANO6TY9Hwqj+ktBDQZyI7nlUUEcZHaTqNcY+Rvtwy6s+Khp
+	 RejGcfGI27rUQ32aFmlKPE7t3qem25R7GU4syFv0pnjsMF7JjYmSqEUoxQw5dd03+9
+	 DOv2pOgOZuuTtvTOC76WrnZONO2LjFP8Id0VDlICpcwy2E8Mcz9G/uxwWkzk9ok+2R
+	 upJK9KJKo9uzQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 18F5847A3F;
+	by lkml.kernel.org (Postfix) with ESMTP id 35FE547A46;
 	Sat,  7 Nov 2026 00:36:58 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:37:51 -0800
-Subject: [PATCH RFC v3 77/88] KVM: selftests: Verify VFIO device reset for
- igb device
+Date: Fri, 06 Nov 2026 16:37:53 -0800
+Subject: [PATCH RFC v3 79/88] KVM: selftests: Verify BAR revocation and
+ access gating in low power state
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-77-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-79-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -105,11 +105,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=2756;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=4274;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=jIcxaC8x28xPsLi5SMudkDfabTx4GIIOp8BRTMbwoBw=;
- b=22zVgyg/vzsiW0zlhJ3ne60GqMpiyEfDMQk6bsvNnD6uIZt2eSXJ3foj8SNHHIzAaGagwcB/5
- y8itLkPWPqaCVForcElwYW6W+a1qYjsL6jumqYkGxAoeFuJhkUTZucc
+ bh=HXOqCEcn1wMNNgFV4ufgWpq3HP3d5KMTONODuY/LkjQ=;
+ b=hfJIou2E40cEogfjGxqpPpOHJzj8+eMJz0hE+mUJsmyO3SWxtyR789XZaiT8+HTKnEdUzJ2If
+ Q0v4pcLysRCBmrNVjh3IoBZrnVwu9QVRWFtl+wJj7s9Fai6Pwzf069q
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -120,38 +120,39 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Add a subtest for VFIO_DEVICE_RESET on the bound Intel 82576 device.
+When a device transitions to low power state (D3hot), physical BAR
+access is invalidated. The kernel revokes existing memory mappings and
+marks the BARs unavailable.
 
-Configure PCI command space to enable memory decode, map BAR0, and write
-a distinct test pattern to the scratch receive address low (RAL0) register.
+Add a subtest to verify BAR revocation upon entering low power state.
+Populate BAR0 mappings, write a test pattern, and enter low power mode.
+Confirm that host mmap access to the revoked region raises SIGBUS and
+that pread and pwrite on the BAR descriptor fail with -EIO while in low
+power mode.
 
-Trigger a device reset via the VFIO device ioctl, handling potential lock
-contention with retry logic. Re-enable memory decode post-reset and assert
-that the scratch register pattern reverted to its hardware reset value.
-
-This verifies hardware reset lifecycle behavior, establishing a baseline
-to later confirm that resetting a device revokes access when BAR0 is
-wrapped by guest_memfd.
+Exit low power state back to D0 and confirm that host mmap access and
+pread/pwrite operations are restored and succeed again.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- .../selftests/kvm/x86/guest_memfd_vfio_test.c      | 45 ++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ .../selftests/kvm/x86/guest_memfd_vfio_test.c      | 86 ++++++++++++++++++++++
+ 1 file changed, 86 insertions(+)
 
 diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-index 4d5211b6acf79..91cba359e4392 100644
+index 03c324f7f618d..cf2d46a365504 100644
 --- a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
 +++ b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-@@ -331,4 +331,49 @@ TEST_F(guest_memfd_vfio, bar_mmap)
+@@ -443,4 +443,90 @@ TEST_F(guest_memfd_vfio, device_reset)
  	ASSERT_EQ(0, munmap(bar0, bar0_info.size));
  }
  
-+TEST_F(guest_memfd_vfio, device_reset)
++TEST_F(guest_memfd_vfio, low_power_bar_revocation)
 +{
++	struct vfio_device_feature feat = {};
 +	struct vfio_region_info bar0_info = {};
++	ssize_t ret_bytes;
 +	uint32_t val;
 +	void *bar0;
-+	int retries = 20;
 +	int ret;
 +
 +	vfio_pci_enable_memory_and_bus_master(_metadata, self->vfio_fd);
@@ -160,33 +161,73 @@ index 4d5211b6acf79..91cba359e4392 100644
 +	bar0_info.index = VFIO_PCI_BAR0_REGION_INDEX;
 +	ret = ioctl(self->vfio_fd, VFIO_DEVICE_GET_REGION_INFO, &bar0_info);
 +	ASSERT_EQ(0, ret);
++	ASSERT_TRUE(bar0_info.flags & VFIO_REGION_INFO_FLAG_MMAP);
 +
 +	bar0 = mmap(NULL, bar0_info.size, PROT_READ | PROT_WRITE, MAP_SHARED,
-+		    self->vfio_fd, bar0_info.offset);
++		    self->bar_fd, bar0_info.offset);
 +	ASSERT_NE(MAP_FAILED, bar0);
 +
-+	/* Write scratch test pattern to RAL0 */
++	/* Probe support for VFIO_DEVICE_FEATURE_LOW_POWER_ENTRY */
++	feat.argsz = sizeof(feat);
++	feat.flags = VFIO_DEVICE_FEATURE_PROBE |
++		     VFIO_DEVICE_FEATURE_SET |
++		     VFIO_DEVICE_FEATURE_LOW_POWER_ENTRY;
++	ret = ioctl(self->vfio_fd, VFIO_DEVICE_FEATURE, &feat);
++	if (ret != 0) {
++		ASSERT_EQ(0, munmap(bar0, bar0_info.size));
++		SKIP(return, "LOW_POWER_ENTRY feature not supported on device");
++	}
++
++	/* Populate mapping and write test pattern to scratch register */
 +	WRITE_ONCE(*(uint32_t *)((char *)bar0 + E1000_RAL0), 0xdeadbeef);
 +	val = READ_ONCE(*(uint32_t *)((char *)bar0 + E1000_RAL0));
 +	ASSERT_EQ(0xdeadbeef, val);
 +
-+	/* Trigger VFIO_DEVICE_RESET, handling possible lock contention (-EAGAIN) */
-+	do {
-+		ret = ioctl(self->vfio_fd, VFIO_DEVICE_RESET, NULL);
-+		if (ret != 0 && errno == EAGAIN)
-+			usleep(10000);
-+	} while (ret != 0 && errno == EAGAIN && retries-- > 0);
++	/* Enter low-power D3hot state */
++	feat.argsz = sizeof(feat);
++	feat.flags = VFIO_DEVICE_FEATURE_SET |
++		     VFIO_DEVICE_FEATURE_LOW_POWER_ENTRY;
++	ret = ioctl(self->vfio_fd, VFIO_DEVICE_FEATURE, &feat);
 +	ASSERT_EQ(0, ret);
 +
 +	/*
-+	 * After device reset, PCI Command register memory decode is cleared by
-+	 * hardware. Re-enable it to access BAR0 registers again.
++	 * In low-power state, BARs are marked unavailable and mappings are
++	 * revoked.
++	 *
++	 * - Host mmap accesses trigger SIGBUS because page tables were zapped
++	 *   and get_pfn fails with -EFAULT while in low power state.
++	 * - Host pread() and pwrite() on the BAR descriptor fail with -EIO.
 +	 */
-+	vfio_pci_enable_memory_and_bus_master(_metadata, self->vfio_fd);
++	TEST_EXPECT_SIGBUS((void)READ_ONCE(*(uint32_t *)((char *)bar0 + E1000_RAL0)));
++	TEST_EXPECT_SIGBUS(WRITE_ONCE(*(uint32_t *)((char *)bar0 + E1000_RAL0), 0x12345678));
 +
-+	/* Verify RAL0 was reset and reverted from scratch pattern */
++	val = 0;
++	ret_bytes = pread(self->bar_fd, &val, sizeof(val), bar0_info.offset + E1000_STATUS);
++	ASSERT_EQ(-1, ret_bytes);
++	ASSERT_EQ(EIO, errno);
++
++	val = 0x12345678;
++	ret_bytes = pwrite(self->bar_fd, &val, sizeof(val), bar0_info.offset + E1000_RAL0);
++	ASSERT_EQ(-1, ret_bytes);
++	ASSERT_EQ(EIO, errno);
++
++	/* Exit low-power state back to D0 */
++	feat.argsz = sizeof(feat);
++	feat.flags = VFIO_DEVICE_FEATURE_SET |
++		     VFIO_DEVICE_FEATURE_LOW_POWER_EXIT;
++	ret = ioctl(self->vfio_fd, VFIO_DEVICE_FEATURE, &feat);
++	ASSERT_EQ(0, ret);
++
++	/*
++	 * Access must succeed again after returning to active D0.
++	 */
 +	val = READ_ONCE(*(uint32_t *)((char *)bar0 + E1000_RAL0));
-+	ASSERT_NE(0xdeadbeef, val);
++	ASSERT_EQ(0xdeadbeef, val);
++
++	val = 0;
++	ret_bytes = pread(self->bar_fd, &val, sizeof(val), bar0_info.offset + E1000_STATUS);
++	ASSERT_EQ(sizeof(val), ret_bytes);
++	ASSERT_NE(0xFFFFFFFF, val);
 +
 +	ASSERT_EQ(0, munmap(bar0, bar0_info.size));
 +}
