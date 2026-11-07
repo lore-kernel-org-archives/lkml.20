@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794050144;
-	b=eirYFCQEY1ymbB5Wd1fgU4+qYqwWJpDEaMLhF8Gl9wpp0Xj3MlVGPZN2NcQ/8JQ593YR
-	 jLYaW3yjEGat1F7EZDvJgqb7/mil6IKmLr7FU4BAy04BnBwPlKLPzAbVeojlHlJ5wCfiw
-	 IlJBTAtelqDObsjohUqSAnAXnD7pXPJGtA8K3nyrcN2dK2Mji6QcQ3eLNYWX/9Av0evl2
-	 sqtWUdRJKPolVFi1328en2Wm9j1b6d1yX+6kQY3YJnX+WPuiXxNZ66PuKDks9A4VMYlNy
-	 FJDHK2f5u12uFi0G/D22p6eROwBB3EXSRnJYz57cRSeB48J0ZUhHR2YF1etx29CAQfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050144;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3HSmB0DZjHvws5cEwelRodlMTqP7Ejl6doLTNQjKzKA=;
-	b=avibCyG6RRW4V2P5Wh8TBXtJjo6TIcvcbr54mSqAewMAZ3O17MRW9K+yfDb2xKGOdClV
-	 jYs7GyTQCX0D+/sbeteOFWEVZLf8I1s+IcnAqeaXiyq42Ch+y/tNaKnSphb+tC5yhtMMG
-	 3ksx60aNtxtOtQCTY/doMR1ygyWk4eLHhEo1+vmOxBfizR3MyuNdtUtAZ6lkY90cIgHXL
-	 ZbmRj5hEk4By4/4IieoyrcdxhgfmCM7HUwwTknKhbQ5ukuy6s+RtkyZCuY57fB9jj2unf
-	 YI/WOzMILfS0G6TRgxvuWn17Xr47ApUa9WUxcbfaAFzmtTX2d/R/WmGcYKbd2MiRGgw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XGAZmRWQ;
-	arc=fail smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794050147;
+	b=UCQFDz4PzeuULrddYIhhrD+bZe7jEW4V1vCGL3kOk0CKkRuTfZLJoZrHDVwf9MZ9XUN/
+	 UqvISYq3VhNB+hderj5JBf+Tg8/fuFt8/WfqNsCWkuKq4vG9ilFP3ap14ilMZe6xrU/CH
+	 S91tOQD6yMMOk39eGW5brlA2T8qv6gS7DgA7ithGO9WwwQaE2OsseF5CPGDHZwXoBQWQj
+	 5eNPAMRsnTMdEvXdpABOkz/6KKcK8qnMmor8Rzp8LGwnspM+jdBN611zBb0YnupMDoKnB
+	 5H5noNGax6p7G5sZc5hz2gjrExISDGoJYqQWaIb84TnHsSJmmjj0fCfi4gyJtNIylyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050147;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=HlLkPFRA47iYpBWPfJSKGrVGd9XNqqaIsaN822UA81k=;
+	b=GDhWm2ysEpWiLUSj1sclQflcIQjeN4LYq4+bqceN1C1hmZIPwmTmaQ6s02SoJBrj8PW/
+	 wDi5bl0mUmRH/BUo/JL5KzmwJT/BZO0dyYUxx70ZqFLG2E7UHTMXclIqvJsZjMhCOyYew
+	 ywgw1DpEWdlysiMsAjb016UNd/MFIg8w9fpmEpd+XK0DVtO7GPtmptFQsr2lkEaloq4iS
+	 egpq0dex86j28gE4b2owYQpCJowNw655/6m7ucoes9Pa8gJ4GTgw3RF8At8ngec6U0Fqo
+	 Iqq9He7YZx/iSagZyHEyXeg5CcLxamHuw47vU7okFV/Horr3jNaf5nLHeE2xY+N6Uaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8yvilQ6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2154C606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:15:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2154C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DCD606D802;
+	Sat,  7 Nov 2026 11:15:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XGAZmRWQ
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b331cad3cfso11380167b3.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:15:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794050143; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fiE9lKl4pz8ZjambYjVuSQaxQcj3XgrlFf3uFakHSqsLmF0EUkhY5yHEAEdHHpzPsm
-         quZFmYigEpWYzfd2hBeQIjMwgb29u4I9LjILZGXJtvf20db7f+GzPUKEaFfEjoB2zygv
-         1TfnUymkqVK/yi2zip+lJbm5BWih5w7o6AzlmL+FzXDWoW7Elvffx37qAkZE/q7mVSpW
-         qAythgppSEMwVVI3rWim0GoEeAR3m+eNx4IkTXszgkyknUlX0xST1bhIqu4yNO8r8SFo
-         WrJdSx2gOr3dP3ZjwBHc3gGLAgfVbLQW8f9oN/DKRiX+aNkK9/PQtr+QCZ06hq/xxiFq
-         SEQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3HSmB0DZjHvws5cEwelRodlMTqP7Ejl6doLTNQjKzKA=;
-        fh=bvGbyPjtUTZSzuaS0dp8tJ1U3+xXHbUhzfF8UaStB6A=;
-        b=iPQ1lTfkCVAumu3OP38HhPsp0hJ3+uXgrbyDPCAMMemQeE7j6tM2za6wt1U1RGano4
-         mcjdtnzLgXVixevYVKp/A6/Y4vmeysEmgY5hCwpi+UUUC2SGWD4a+RCGQm/T1I0nDb/P
-         2BsBlzPBb5hz8FwgVdgc/xd2/LKdIpfdfG/2C29Bbb0/X1jVs7DAe0PwSjL99bqsLYUk
-         FHJxKkfJSWSa2jvsLXDTPB2bMRyXHupgBbSOVrjedCwcdROuiYQxC9lkrTqUiUniIU/u
-         Vv40LpR2JxNtODmvrBttyfk1ppKgmxB0HcpcLFM8lkpuY096NUFyCCLjyQro6Z5m8ILh
-         LVIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794050143; x=1794654943; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3HSmB0DZjHvws5cEwelRodlMTqP7Ejl6doLTNQjKzKA=;
-        b=XGAZmRWQx6mLwFv8/yCKATDy5MtBDRhngwjAjXpXlZPMTz9crPtxgiDQ6ic8RkYx+Q
-         b3zaal0mwySuURptH4A/DMPx1BERxU/LFOxcBe8eMt+QwcSRtPXr/3OQxGp4iPtcAmNg
-         Rb/U2egfEzii3F7w6W2d6ltigRz8qaDb2FiXnuzhNLI35IheNKXeRH0xMzKxRqjSX1sT
-         V8qSsh7xUeuc7jkkeYsIhOXTybHi1D6gURy69AD/dta1ZKZvLKbzgisWVIWunwB+vZ2p
-         oyVfGYWf6GfLJmMePpIZk5moatKyXBJxzQF7vLATfefuNH8SCFJCgz3x2vg7BuIIXOLH
-         o98w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794050143; x=1794654943;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3HSmB0DZjHvws5cEwelRodlMTqP7Ejl6doLTNQjKzKA=;
-        b=IOxOP422n2eWEvLyeVUe0LnhfQlZbSMiIzaT8iOrJS3uwB/yBy1CFVKun/MMqTUCo8
-         8M23TNxN2MIsxbuhUtfeur2OFc5TWws1r5xLeKZvJ4FM0tBLeatJfXnjBhW2/4u3gTci
-         IFv1LjMDkDEyMmDY+yDmt9pWLi614D8FucrgIqksr4aa1KUeSJdwrYVaIUbeaqlJJBzA
-         EHEKWSo4tyCOB53H7TqH2i1bR+G908/OgknUzPgLiSzl0CipcunxuDsA//7wGaVGhP/A
-         wPpnEjiWXFocxBd1xXtHG9NXUoQTlka1XjBQzIdEchB1IcUBK9KpjoW1yMcWp95aXtxH
-         7OzQ==
-X-Forwarded-Encrypted: i=1; AL+hErH2NAXOzj1nr2kUbL0MAai+nU+0w4dRlS9xstX1R4j1y+UMSmHKpqptWym9tYgRC3k2yNIHN9bmnzWk2C0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/251fHMJsTx+KaFDy3NJTLTvU1xzKHNCKUpupbfTCbvAtr9ODQ
-	vFnMmgmfjOMgTxM1LMpUM1ALStvGQBzZwRLH3OGhW41j/e9YDLbUXEQGBZUpNP75wUMS9K2pQ0m
-	gEbtgb0PJ6zhanS9DOqS+UARlrm4S7Ws=
-X-Gm-Gg: AYBFou3dRECd9/nopCatGr6Ov9W0EalTYrqpe1Tvfvm8s4c6OkAP7ybLr4Yw2O02dSP
-	TdKcqVXsqB9YNUjV3DkvNvtnAkFMv3oKw+ZGp7GiBhCPKo+1NXdLvXO9hwOUEQkTqv/bd31knmH
-	Nv0lUrmeQIQzggvIen8ys40eW+1VX+r4+9/21sSofJRkHYGwQOL5kZOuHKkZxzR/8N7n+I9LJLt
-	IHRz8Nnr41TBTb7s08iteQFu9DFVQ0s1bXNzrGkBfq5xkDSRcB+m40ab5ZW9dlOLphvX4nfItUA
-	DGC6x32xGLH3rqAyLbx3fG7uQnCtN9OCKN0aGO2V7Q92WNyP5vQJcpGeenRmETpFlaPE2E/+T/9
-	xOgX4Kd/VJmXidJuGU0qIFLqiZCq/ycOIrMcNMP+u+7rkrS1seqfJaQOtBSkr3gEVf8g6CV+I9N
-	ccFRiN1M9Ty6q247XWVCq7Jqh3DHzGDfzchW4OBNpTn0IaeUlAvbAOVu8bZxIewJDKSPkh71yE2
-	Tn+VPI4BxyPqqqpewrvPiP5D/TjsFqJNSRgY4rwc2J4L8j+NMxA8YbXIA5PYA==
-X-Received: by 2002:a05:690c:f8b:b0:8af:1843:a9e5 with SMTP id
- 00721157ae682-8b341947fcemr31396197b3.23.1794050143143; Sat, 07 Nov 2026
- 03:15:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8yvilQ6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04FAF1F0089F;
+	Sat,  7 Nov 2026 11:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794050146;
+	bh=HlLkPFRA47iYpBWPfJSKGrVGd9XNqqaIsaN822UA81k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=E8yvilQ6bM1/ZFCRN2Aupy3mdGtXi1d07S7K3DERfQLlQTetUnJxAsoMfuMGva9Hl
+	 /yNdTK8FcqGwgtPsgIqT/j4OV1sSE/x/EADkVCS40ef4G/qpkCYRKa4/Uaa84EgnQb
+	 gVC6t6dvVQnIqBcHvl/bOQ4Mt8Ax7M2duIE8iepjKZQnapKpm1d+m3Zq0fMU0Zubvi
+	 FLWppSRyV+URd9AtlXGKBDedzLWfRLk4oAKWLTTrmbMmq8DIju889NrGuFj56uc9aW
+	 yMeHS6w7DP0bMzez+Q3sWtM7/iBGPHPDGHgBm0sJUvs16+kS0OnlQ9pTZ5hAjMIjmU
+	 1GKxqKehFqeyA==
+Subject: Re: [PATCH] net: ixgbe: drop the SA reference if secpath_set() fails
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 07 Nov 2026 11:15:45 +0000
+Message-ID: <179405014554.994134.10719290719575125531@kernel.org>
+In-Reply-To: <20261103100534.1310039-1-vulab@iscas.ac.cn>
+References: <20261103100534.1310039-1-vulab@iscas.ac.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,35 +63,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com> <20261105-b4-gpiolib-free-v3-8-bb47ad58642d@gmail.com>
-In-Reply-To: <20261105-b4-gpiolib-free-v3-8-bb47ad58642d@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 7 Nov 2026 13:15:06 +0200
-X-Gm-Features: AclHuK-AuhNYR5_8OMU43ye9BksXkryOCBq9XAGKYISL53Li5pqA0n8BIGvcR4U
-Message-ID: <CAHp75Vfu8vtRXj04Z4+AW9tkK6e8p7hFyatJ=PO7X1M29TE9OA@mail.gmail.com>
-Subject: Re: [PATCH v3 8/8] gpiolib: use %*pb format specifier when printing
- array masks
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 8:30=E2=80=AFAM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
->
-> In gpiod_get_array(), the dev_dbg() statement prints get_mask, set_mask,
-> and invert_mask using %lx after dereferencing them as raw unsigned long
-> pointers. This truncates masks wider than BITS_PER_LONG to their first
-> word and relies on the raw unsigned long pointer representation of
-> bitmaps.
->
-> Switch to the %*pb format specifier, passing the mask size and pointer
-> for each mask.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
 
---=20
-With Best Regards,
-Andy Shevchenko
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] This patch fixes the SA reference leak in only one of the two
+  copies of this Rx code.
+
+Pre-existing issues:
+- [High] ixgbe_ipsec_del_sa() unlinks the rx_sa from the RCU hash table
+  with hash_del_rcu(&rsa->hlist) (line 783) and then zeroes the same…
+- [High] ixgbe_ipsec_find_rx_state() finds rsa->xs only under
+  rcu_read_lock() and takes its reference with xfrm_state_hold(), which…
+
+--
+
+net: ixgbe: drop the SA reference if secpath_set() fails
+
+ixgbe_ipsec_find_rx_state() takes a reference on an xfrm_state. With this
+patch, ixgbe_ipsec_rx() releases that reference when secpath_set() fails
+to allocate the skb extension. Before this patch the reference was leaked
+on that error path.
+
+> diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
+> index bd397b3d7deab..e44d5eed9ab59 100644
+> --- a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
+> +++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
+> @@ -1197,8 +1197,10 @@ void ixgbe_ipsec_rx(struct ixgbe_ring *rx_ring,
+>  		return;
+>  
+>  	sp = secpath_set(skb);
+> -	if (unlikely(!sp))
+> +	if (unlikely(!sp)) {
+> +		xfrm_state_put(xs);
+>  		return;
+> +	}
+
+[Severity: Medium]
+Does ixgbevf need the same fix? The VF driver has a copy of this Rx code
+in drivers/net/ethernet/intel/ixgbevf/ipsec.c. After this patch,
+ixgbevf_ipsec_rx() still returns without dropping the reference:
+
+drivers/net/ethernet/intel/ixgbevf/ipsec.c:ixgbevf_ipsec_rx() {
+    ...
+	sp = secpath_set(skb);
+	if (unlikely(!sp))
+		return;
+    ...
+}
+
+ixgbevf_ipsec_find_rx_state() takes the reference the same way the PF
+helper does:
+
+			ret = rsa->xs;
+			xfrm_state_hold(ret);
+			break;
+
+secpath_set()->skb_ext_add() is a GFP_ATOMIC allocation. Suppose a VF gets
+inline-offloaded ESP/AH traffic while memory is tight. Would one
+xfrm_state reference leak each time the allocation fails? If so, the state
+would never be freed after the SA is deleted.
+
+Could ixgbevf get a matching fix with its own Fixes: tag?
+
+>  
+>  	sp->xvec[sp->len++] = xs;
+>  	sp->olen++;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is the rx_sa entry walked
+by ixgbe_ipsec_find_rx_state() safe against ixgbe_ipsec_del_sa()?
+
+ixgbe_ipsec_del_sa() unlinks the entry and zeroes it straight away. There
+is no grace period in between:
+
+drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c:ixgbe_ipsec_del_sa() {
+    ...
+		hash_del_rcu(&rsa->hlist);
+    ...
+		memset(rsa, 0, sizeof(struct rx_sa));
+		ipsec->num_rx_sa--;
+    ...
+}
+
+The NAPI reader runs under rcu_read_lock() and loads rsa->mode and
+rsa->xs with plain loads:
+
+ixgbe_ipsec_find_rx_state() {
+    ...
+		if (rsa->mode & IXGBE_RXTXMOD_VF)
+			continue;
+		if (spi == rsa->xs->id.spi &&
+		    ((ip4 && *daddr == rsa->xs->id.daddr.a4) ||
+    ...
+}
+
+Suppose a reader picked up rsa from the bucket before hash_del_rcu(). Can
+it then see rsa->mode == 0, pass the VF check, and dereference
+rsa->xs == NULL in softirq? If ixgbe_ipsec_add_sa() reuses the slot, the
+reader could also see a mix of old and new SA fields.
+
+The trigger would be an SA deletion (XFRM_MSG_DELSA, IKE rekey or
+lifetime expiry) racing with Rx traffic whose SPI hashes to the same
+bucket.
+
+ixgbevf_ipsec_del_sa() has the same pattern:
+
+		hash_del_rcu(&ipsec->rx_tbl[sa_idx].hlist);
+		memset(&ipsec->rx_tbl[sa_idx], 0, sizeof(struct rx_sa));
+
+[Severity: High]
+This is a pre-existing issue, but is xfrm_state_hold() safe on an
+xfrm_state that was found only under rcu_read_lock()?
+
+ixgbe_ipsec_find_rx_state() does this:
+
+			ret = rsa->xs;
+			xfrm_state_hold(ret);
+
+xfrm_state_hold() is an unconditional refcount_inc(). The rx_sa entry
+holds no reference of its own on xs. __xfrm_state_delete() calls
+xfrm_dev_state_delete() and then drops the reference right away:
+
+net/xfrm/xfrm_state.c:__xfrm_state_delete() {
+    ...
+		xfrm_dev_state_delete(x);
+
+		xfrm_state_delete_tunnel(x);
+		...
+		xfrm_state_put(x);
+    ...
+}
+
+Can the refcount reach zero while a NAPI reader that has already loaded
+rsa->xs is still in its RCU section? If so, refcount_inc() would run on 0.
+That warns and saturates, but the pointer still ends up in sp->xvec[]
+above.
+
+xfrm_state_gc_task() frees the state after synchronize_rcu(). That waits
+for RCU readers, but not for skbs that hold the secpath.
+
+Suppose the skb outlives the grace period, for example when RPS queues it
+to another CPU's backlog. Would xfrm_input() and
+secpath_put()->xfrm_state_put() then touch freed memory?
+
+The xfrm core handles this case with xfrm_state_hold_rcu(), which uses
+refcount_inc_not_zero(). Should the driver take its reference with an
+inc-not-zero as well? ixgbevf_ipsec_find_rx_state() has the same pattern.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103100534.1310039-1-vulab%40iscas.ac.cn
