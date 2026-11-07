@@ -1,123 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794013688;
-	b=Abx7liTMuqFwZBTK9Z+6i+IzbPHL6NYLkzRbLNvTM1iBRWT4MB06axiw6MD9AQqEiTFN
-	 ntdnNT7hyYaf4/+a3yVPj0b5ox3OkhGYfQ69z9RR/wMICLgYcQfCck0xeccpaWpXuBXl1
-	 C5AWeSY9p4RlX4v2binegZ+IgyRprBLFAPOHwmokVlIwWIgG4PM6n1s96UYpdMP/WVSig
-	 NjWuZOZ8z2P6yve/KM/QhFatudtKAeUxAr32SoLhzG8tpXnhSW1tL1KImZhclgr8xixo+
-	 xuh/17d2yo0+pKOEoJC7omkjDnMCjb72Ppp3YEZ+e5lMcIqFphKw8JTSWnFm/Kvb7jw==
+	t=1794013689;
+	b=A0Z3OqNvouhjpK3/GMB5A/rKWyHUT0cq2/z1YSuu7iZ8RvpczRTl+uk30yaYBOfqQFkU
+	 UHN69u5BvKvlHAr8xSXWoi0FY8txllboNb3yyjd9FuXr2fqlgPouh6ZAbHfYHwvPTDQ7r
+	 gHP66Fu2ReQEgegR+NeePvDO1AXp7aTvw7p4iZmqEkW/rnT0958c5e0kQyBjCB/f1Pb5l
+	 Wf0qnuAGw7x2ZlzEhstfsxoRjj+ay0WoWe2516f8EqGou7F4spUG/8DKLLBk1bedpkfyW
+	 9hhdrtC8EwgWPVJ4VmXR71qi0H7G4FnN/dFDCQ1riAEFTCqyCch91Rs3vtUsiTKEcFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794013688;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
-	b=XHWGavClLzMOrc66FBZ92s0lILixI3XzQwQMsbYNF2vxEMPoqLAcI+AmmMpmnTxxk/W0
-	 5zodq9X2FscaJRXmh4k7iqYoD41UX4gpHJ6b6kPTXOkWNDgUu3d/mpk/1hmcVi3EkZPV4
-	 /XUo4oeFy+bZLfjhA7Gy3OJrLRyCogA9GyDr9HglmxCtgINMxUKKwxWxTzuBJ5bkrMlIU
-	 MQZHD6RAjGAxtWnxmX5YwP4ig56ON4tmzyBggK5Zt3cfeBjtYInnRjpt7GPNr1kGCef8r
-	 bO5xih9v7IJ8E1IZ0tH1BXHLZ+Bq97T9kyWHsGvdUv2fhn3yXMZA4frinWd4wsA7AWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794013689;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=QXV2j9N+OCsupic/UJYrnfVM8yDj5IVkePu2jYOlWxg=;
+	b=Dxof4Q2TiiQCQ+qjozVRmVEuvzCbUujk4fM2Qs/JsRBOsI2bsNKf5uo801AnkzfP9FfV
+	 ItVcO+F+lB3W782X0WZtptIYt1xVsGXXGo+3D4mugSR9CtrEfXWResB7nJY/FYFt49bz8
+	 6byyNBT8T/KPv41xsxDZIYv2B1GfA2MA7NmmAEvs8BAYmHI4AM5DrBVVB+tnmPLm2H7Vb
+	 LUK4ksV/2pJ6ahXtC+H4YWuSsejvFK2+9fFMHK3YO176yrbLu85+yHGQDvnJkJt4dM2Qv
+	 03dvA0MycEE4nh4sBLDdEQ8Ta67WHl135z6YfJ+r3HlzUo7eQpfslC2/4jz+k2ooSSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nzvsnKf4;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H69D9yvc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TLmFVqLX;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MHY9KMVr;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79138606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D5F606A32F
 	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 01:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79138606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D5F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nzvsnKf4;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H69D9yvc
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6MoQFV3696848
-	for <linux-kernel@vger.kernel.org>; Sat, 7 Nov 2026 01:08:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=XqszqiOkBMd
-	k1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=; b=nzvsnKf4vSqy5I3sIwru73tIh/C
-	PkLvqXCjrNMuZRvybGPsDiFnaL+MLmf/w/+fqiny32jbJ0n+3ffI7He3VoZE1nIm
-	29PLZ0FYkhyN17eFrL9/yCjtsSl1XGWQdS1FWC3kaG3uDbeRwk3oZgguz4rgdSkJ
-	Qvfe8QRetKM0dosQXmVFkRuvs57K7L2i7k2bt1BwfJ4PGYOawDLko4IHgVa1HI6z
-	Q3xLqlTIuzyFu6k6tJ9Br4f5AVKQ6qdLWdDzMN/dKJvGVOlzHO+GyUZYXBNIS0HA
-	xls7WtflYKX4odjenNt74HqjWWYx1cT9wBrRzh/Ii2re4deua6tzZoFO8rg==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsmyqryht-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 01:08:07 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67994010b21so2190237d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 17:08:07 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TLmFVqLX;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MHY9KMVr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794013687;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=QXV2j9N+OCsupic/UJYrnfVM8yDj5IVkePu2jYOlWxg=;
+	b=TLmFVqLXekxFEcRQYW+dmIt+VZP1RK16xYTemlpBbLnEFv/qZedqxTt0Mvf9TD+nLYjvoM
+	i/PNmQh4KdnUZTeTwUE9OmviyV8ijF46TGG4pioK0v5MzYAsr6XHM3m6XpWi7m33EjCiIS
+	BgCIrov53EowoQqWi0lKVdVzIPZPz1E=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-412-xEp9LtdYNUWu5gM4RX4idA-1; Fri, 06 Nov 2026 20:08:06 -0500
+X-MC-Unique: xEp9LtdYNUWu5gM4RX4idA-1
+X-Mimecast-MFC-AGG-ID: xEp9LtdYNUWu5gM4RX4idA_1794013686
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-537548d4bc0so29632521cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 17:08:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794013686; x=1794618486; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
-        b=H69D9yvc7F435FJmPIi2NwpLKPr+qSEO8rDym/CA0uhzlay0uuYxDQhyay6F1nq+hc
-         rEgl0DMDaV8IbmVgJe1GlqUBE1kIYML75u5f+n8q1x2qTByE8vNEY8LS1Lwurtee8L1n
-         wZpnFnJB6QCJuKMPhuy6PIttocbM2EGZhvZ95r+xwgfc3efceDJrykgjO+QYxS79C/3o
-         NYThuemJb4bU3PorRBZLvs53qtNXxjaaLYFe6kQYnTa3dtyskZ86nfbovA0vuGJEcWtG
-         7TT47vD7C0hmOE6ZPipuRDZrDxsujvkHBHGQ9bYq+JyrRT4r7MjF9yxuodKMNtnVJQ7T
-         ZEYw==
+        d=redhat.com; s=google; t=1794013686; x=1794618486; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QXV2j9N+OCsupic/UJYrnfVM8yDj5IVkePu2jYOlWxg=;
+        b=MHY9KMVr6ushneSy2+gp6nMGf7J7oreepksFd4MuEdywIM1W03VikyHr8YI6PFWPN/
+         Xz/vG3iMTKwMaDg4lOYEYevgt0ZB+pKr4AIrSpLUh7MQjtz3meIsd3MvfjEcJjaMBrIh
+         LQFRWeAoftMwzIg6ZK6u1lev0ObFu9yWGUnHQtwrnbYuLmNn7Pmh50s54sSPJ33WsWfd
+         MKXIYBOmEMgksMn6XX6AR8PPeWVhrCIHPNkZbOCRjPsy70m0rytnQUhUwRvFh+/oY1/U
+         GOYkIvAwd4SiiXILbcTDncxJtMJ+OBpKi3kjHQ8v739JxZHj/A10p9S9NDbZptIAT0H+
+         yc4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794013686; x=1794618486;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XqszqiOkBMdk1vvS7oxfstl8dAzvdx7vbMieJ9TUstw=;
-        b=C/q4eRyI5qi36U1D7MXmNJ99JmxsBbnjimIJxuwGaBtu5/Ryw8CmMyhJ5AfN9bBJJV
-         syff+OJkCn4TQf3++t1zxqaL0pMak2OC+K+pnVsymeH6vnqinvs01p3CYByBDjPloIWw
-         FS26xte3KcUNmh6dcRcYfFkJdKVYq7uEQjBIorDsrEb1Mp5FZeMcdLKhaRygnofjeIHY
-         x7e8XoensX1fKE7TR3sO/oyRFsYxG0jAcboaSMCRIHm57oMxR8TkBlebtRMRc74H+jrB
-         IsXDDqEYVsUmhwQXfUVdj4uTTIakpxV6RcyfTXjapyF2P0eftDlR4svSnFMqmBeqa0IO
-         1x9g==
-X-Forwarded-Encrypted: i=1; AL+hErFPnecFXag4If0q9PglmAgKN5LJkg8p3yuwpDYVfQ0BjTBqf3XtgPammfrRsMLro3+ACbGdYTiZEB48bkE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BJQac4ijsmC19Jqs5mXsSI5E6OEqd6NXU/WbDUe0fTElx6UsY
-	Ll9+ligDyRkrVGFBtctpMXO4i1Gy0zZaZBImfC9M9ti50kgE7DiglHFoimNlSFKsxY1IYdYBE1p
-	ErpWv8xLwXHC6Ur/lqu2C0upbuXxmxdHbEgqykKYTukY7YnrkFyOY1THsJPzzOae0cZA=
-X-Gm-Gg: AYBFou3yqDVBECatksxnlTz/OUkXzP3qh2degJ2P5V0R39eocKlt4W4nN42+FJxh/Gv
-	oFtyzzkvD8aFabJs+O8qCcW7MtGoURhPLmlCVrsb9wRepDg6rni0GLBr0EtKlMGtNuCotMtSvzR
-	0ulx6UWo77ySv6vi30Qh16E3eAkBrc6vrbfXFyo8vWy84W19aEphcwpZnbyzrU/EptDhxrbdYvJ
-	u8SnmhMsk3wHB1QyEvlRXfI+jyDRby6MZl5SvoJE4YtZfH5rxk9U+IH3YNbR9FlE1ds4eYidg4X
-	fN8UUs5KZO7oz5QmirpRHu6sxOU8GXQXyd9DxbPI/q1sfRIr2J9iMlrjFqLwcRJv0J4NWFr0R36
-	hOls2TUr03T9E4SIHOOpDLZT70WqtgF40luaPy2C3MbhL0LZj5CyO2lRE3uZrDG29gNbPeITJ1T
-	bwDju3Qh+cowFKL+0/Q6M0qozbPhJUgxycDA==
-X-Received: by 2002:a05:690e:4814:b0:674:d78:4bd with SMTP id 956f58d0204a3-67c1407f86emr1633718d50.5.1794013686515;
-        Fri, 06 Nov 2026 17:08:06 -0800 (PST)
-X-Received: by 2002:a05:690e:4814:b0:674:d78:4bd with SMTP id 956f58d0204a3-67c1407f86emr1633700d50.5.1794013685859;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QXV2j9N+OCsupic/UJYrnfVM8yDj5IVkePu2jYOlWxg=;
+        b=FApEKtt0+SDnpDsHGRAXb9OaBGCQ0XeWN53XAENt9z7F7JKaHL6M5/zGDeMlNb2q58
+         jnsdbX6uQcHHL1PxLviH4WMsGy4mW9Bs/kCMx6Fa8A41l+eRnyuQmdwkamAFjv11Ocrv
+         sxY7tzID1DpkPx05tTi5CG0wYciyTev7MpsCp1RXcNP2BBE5KQIVk0gsL/S6GWlr2HU0
+         YCZlPAOg924IFM6KLIUMvJI9MJEXimq4GF/4YKP40rBuKRs2yoUjah1uac6yZuYkhqgE
+         isR3QIahmvM4/HAsNJmQrLI7gqiua8zcik3elvuZBKFEocc01Wk04LptHd4ATeeghZ26
+         H0AA==
+X-Gm-Message-State: APuU4Z/pubdpVRtmVOFtpD9LgLxTnBw3LdkXZivYs9cm1bAd5LzPaFWq
+	pnoXa1JogVX15RaesFn1/IMk1mShwyjsGCgSjYHV88wpwYBqpEA50lNC8DSUaEsLVN6Alz1cHJd
+	ULXRzOl60wSLzIgIq/AM7HvtGwm+LvmEK5kcEu5zFDAygyJUOY9BHDFQbBLilmpW4do8gK4UaIC
+	X97vd3Xe4cEfHkFnR7v6WRdLDGDPCbTarLrc62f0DHAvUcvECX+7Y=
+X-Gm-Gg: AYBFou16Gq7m9qezKlyEskhl8HvsyGGu5/mz6Fxs0x3zqzK9ATShJmB50QvLvRN2l/6
+	fkAsRLnI9VLIqorz/3SF5KzCD4VaC62oYixwmqP9NJHejT9xkFVRv3LJBlZ7a9WmJHUr8vwyg4X
+	ow96TzxSSN+M9Vg46/zHQLxRrs/bVKWSNftqzP5ofDHXLs6lxL+K3Azl07OVrIH4RmVTaYPaJuf
+	uB+IYPqrgx/bwkARLkMlff1Ip9UF0lQu+m8tIM/Dat/lJXvxg3jBM3QVoMfuDHq474ncDwflMYK
+	kwmFrmW7DhZNJ1q58S/JLMs6YqJkhCgUDSrd+0f1dOMArLvWyo/biBWc2m51YUZ+PWDd4Rhnufb
+	4xL1FmwzhBRiuDfjvBPPvYL7woQqQxyJjNFg/U+GigCrRP3cTO6UV2QB8RbZB8uymqylIUqPcQj
+	hKZkn00nvK1Z4Tj1WM
+X-Received: by 2002:a05:622a:124f:b0:54a:9f87:4a57 with SMTP id d75a77b69052e-54e102eff60mr70902541cf.3.1794013685387;
         Fri, 06 Nov 2026 17:08:05 -0800 (PST)
-Received: from x2e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net. [108.208.224.205])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c134f0b5csm3091934d50.7.2026.11.06.17.08.03
+X-Received: by 2002:a05:622a:124f:b0:54a:9f87:4a57 with SMTP id d75a77b69052e-54e102eff60mr70902111cf.3.1794013684824;
+        Fri, 06 Nov 2026 17:08:04 -0800 (PST)
+Received: from bmasney-x1.rmtuswv.csb ([69.43.42.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a638a7sm32936686d6.22.2026.11.06.17.08.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 17:08:05 -0800 (PST)
-From: Tyler Baker <tyler.baker@oss.qualcomm.com>
-To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Thierry Escande <thierry.escande@linaro.org>,
-        Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] fastrpc: fix probe-time races between rpmsg and userspace
-Date: Fri,  6 Nov 2026 20:07:59 -0500
-Message-ID: <20261107010801.3451213-1-tyler.baker@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
-References: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
+        Fri, 06 Nov 2026 17:08:04 -0800 (PST)
+From: Brian Masney <bmasney@redhat.com>
+Date: Fri, 06 Nov 2026 20:07:44 -0500
+Subject: [PATCH] extcon: max77843: convert to subsys_platform_driver()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,32 +110,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Yc9p_0Se0oNy0VcTwZK7w5AAGnmMC748
-X-Authority-Analysis: v=2.4 cv=aNZlOr9m c=1 sm=1 tr=0 ts=6aee79f7 cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=fP8dIGKjERIvVM-sKqAA:9 a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA3MDAwNCBTYWx0ZWRfXyw8CKrFYCrXW
- l5tA+avOPitkSCfvqYrGn0fqhBdcxN1Cc57IGs5nW5qlnJsjpRw9MIxjIyKX8WXhSKMx0Yc23QC
- qjz9D9YIditjevbv3sK1MOnQTBsbWMo=
-X-Proofpoint-GUID: Yc9p_0Se0oNy0VcTwZK7w5AAGnmMC748
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA3MDAwNCBTYWx0ZWRfX9pgwqAEzUiyh
- hjtKHIPYMux0KQtHNHBn+RPZNC/UC2BE8OL3w4bbtJxQIQk2T4dZPY217ZVuLyGGoP4Fj8Z0kHJ
- fqKpa5KJdsVOseExYYeFGIXZd4EDHlnPefL/pCaxYO+at2tByV/AdjQoe50UkITFDON25pzzmJl
- +N0ggkZS275muWQGxT+GGfQ2k+9GBFo+6TDbrz9/akI/vGMpMQyBbxjGbFq/2cqOruZ9tM2xs00
- f/FYNammh+O9hm71R1AgPk3c13JMweE97elEsUeoxILmO4z8iBbuy6Yo3g1nUqzFNf8GyiGYH20
- 2eIvkn96L6o+PQYkN0Pv948h4WYfm2aDHQ6oEaSrumwk7Lsb1W20O2zn40v6qTTKfzOHdaSTcQN
- LgFZ2FyQ7S1vO9kJYRzdHMhdjQxEpongVFu/ndlzlKg+G0P4e/j8saq4aKvhde1GQgaLmxzzuuZ
- oqF0x8r1A09UQ7q/3eg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_07,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611070004
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-extcon-subsys-v1-1-6a781b323d6f@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVpGxF1FbGoGoxFSQch0rsrl
+ l/y3n8DYyBkqLMbAh7EtPgElWfgJutHFNQng5a6VEqWAs/NLV7w3vHFQhe6ktZ2tjAG0mcNOND
+ 59Zr2d1rO6LY3AjE+KNU+Y3EAAAA=
+X-Change-ID: 20261106-extcon-subsys-24280aaba499
+To: Chanwoo Choi <cw00.choi@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ MyungJoo Ham <myungjoo.ham@samsung.com>
+Cc: linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>
+X-Mailer: b4 0.17-dev-d96cb
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1389; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=gT+j5AZr6awdfo6enGTtH90WdUB+Q9yjoOtCRKDM8u4=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLeVX5Qyokqnpfzds6WBSuvzHGKnpcS4N7gPnHHjTNt8
+ 6aZ/lp8raOUhUGMi0FWTJFlSa5RQUTqKtt7dzRZYOawMoEMYeDiFICJ/J7K8FdG69vLopAD2XPa
+ 78vsmLDmv+HdPlW/zZ38CzVn3e2y+tHByLDkU9bGierlrOZenhaCr6t+FLkcErh2JFw6actMm7v
+ Mz1kB
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Tested-by: Tyler Baker <tyler.baker@oss.qualcomm.com> # Eliza EVK, EL2
+Reduce boilerplate code in this driver and convert it over to use
+the macro subsys_platform_driver().
+
+Note that this driver is configured in the Kconfig to be a tristate,
+the driver doesn't have suppress_bind_attrs set, and there is no __exit
+function defined. This change will add an __exit function that
+unregisters the platform driver.
+
+Signed-off-by: Brian Masney <bmasney@redhat.com>
+---
+ drivers/extcon/extcon-max77843.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/extcon/extcon-max77843.c b/drivers/extcon/extcon-max77843.c
+index 2ae9f7f1a67f..6adc4cd6f94a 100644
+--- a/drivers/extcon/extcon-max77843.c
++++ b/drivers/extcon/extcon-max77843.c
+@@ -960,11 +960,7 @@ static struct platform_driver max77843_muic_driver = {
+ 	.id_table	= max77843_muic_id,
+ };
+ 
+-static int __init max77843_muic_init(void)
+-{
+-	return platform_driver_register(&max77843_muic_driver);
+-}
+-subsys_initcall(max77843_muic_init);
++subsys_platform_driver(max77843_muic_driver);
+ 
+ MODULE_DESCRIPTION("Maxim MAX77843 Extcon driver");
+ MODULE_AUTHOR("Jaewon Kim <jaewon02.kim@samsung.com>");
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261106-extcon-subsys-24280aaba499
+
+Best regards,
+--  
+Brian Masney <bmasney@redhat.com>
+
