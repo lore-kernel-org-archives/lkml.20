@@ -1,59 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794071162;
-	b=imSljNqr87ibcRofCcxDxa51NuHD9C1cUBuRMIxwqzXWEQZ6rD28Lfj+F2KUVlkMUdZK
-	 dmX8lU/bPD3CF4k4d3SvTiNdMRaSLQR0XSMp8JvIe3a8Y7WOS3H2H4FJ+SunjjLj8hIP/
-	 y4zBrkiPyA4E5HggXlp/aX9hwd5IOIeZgRKRmCv8G4vCkpDlFIXorn2vRRkKNwudseYqQ
-	 jzrmuetQS1OuCHa1OeKb6aQlXEm3vB/JydY9HCqZI6Tt93E/OSa+eoSJ8bz00EUEWs5Yr
-	 ZjVMWErTxVkWCtCWVJNyivc2r8bnyTTYx/+5l5yA/KCD6nnxIK8pv8BgYgGqKYbJo4g==
+	t=1794071170;
+	b=UWYm82jIFMSqAdKw+4XD0D8sIixRW59w9GsNjeIJyJCbVDWOXwoEhQNAeJ6K/wH3v66L
+	 20UIg5xscxMLnMCpRVrgtgh0ieNmeChrPKLqXs0tbWziY6waSHoxAmG4QP+FDJqhFIwaw
+	 d423yB7yy9zPx+P82pv8ObSWR8vm78WV1+pBACPe/UEwC40yC7O8MXq+Zs8Iw/Hl831Y0
+	 QSuMoxaIV2+Vwl8kJ9Ti3BRfiEbYFO140/bd+6gK4/rqpPnwqZGFgBUw9WenQPafyqSJb
+	 8yJyccYzgad3u+MNl/W9Kmk4yqaAYLYG4py8d8ZJbg/qvExm+iItgbrHE3+EN5n/6JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794071162;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794071170;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=Fe4F4dXUwFtHilALHNjDKqLA8kT583a1m+7DZY5OsBc=;
-	b=OfgxFsxSdrlE95dtJK/jkBA7kAB4pB7wOt+wgL16lw0YUWwsP1dyJjl6I5ae58HzuBI8
-	 k+vt6bMuhlIBu1DXOy0OCmEJaUBQ1295+E1ldJGJAvvkXMBvQ92s55hNg9YPclmHDHSMb
-	 OO4f2HI6FrYOFJPZe77tIfffAGBbF/y/sPYL56QkDzobE5HPA1SrXVoPtr49QYhbyJ9Po
-	 mQRWxqBWGyPMRFpB+nIFEId2lbZa+QjLNmCiWndZpg2LVatEfnMeecUKz95CCiLhwG3DK
-	 wXwav9IQWQPy/46eJKh7Ogfc11GmxWi7U4D/6g7Vixq3Zd5DuP048HblbqxzZZabLWw==
+	bh=d+1eKfy6qMd6pKHF3ktaAO77sENSIIXeVFenlobzG6M=;
+	b=ckNwpJKxN0EAvrVIby83Z+X2zRcFNCae5WmBz165y1KbvnHSJfbLtJAHN00TM9CLR3tR
+	 Ht1j9E+f/UtgLqlG3Pqmtc9AceNQI2VxL3ezszP1fSSkWKhBf9KprByqyOvb2FEv5bU0O
+	 avXYzxjssLFCPvwcMgCrI2Wm3FmJDgMc1k5RnfkfMxMjMsNqpZXnNQh9dA8ED2qEOttLO
+	 nXC8pLUjJirQfwG0CYY5RP82azCBo0YXZu1xOxw4VSPyreCtNjCQy9yfUHaMX4G1h6o7X
+	 AHv5Kl8257T2fAzR/ev6NKZFOIQmx1NqA2TaTrnjIVTJC2Q6fQ0emOWjZXwIybS8UQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqBwnHBb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngQ+0km0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D7D606A332;
-	Sat,  7 Nov 2026 17:06:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFE1606D819;
+	Sat,  7 Nov 2026 17:06:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqBwnHBb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991641F008A1;
-	Sat,  7 Nov 2026 17:06:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngQ+0km0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0291F008A1;
+	Sat,  7 Nov 2026 17:06:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794071162;
-	bh=Fe4F4dXUwFtHilALHNjDKqLA8kT583a1m+7DZY5OsBc=;
+	s=k20260515; t=1794071169;
+	bh=d+1eKfy6qMd6pKHF3ktaAO77sENSIIXeVFenlobzG6M=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gqBwnHBbT4ltjC04v5T/t2uExKYybCerw9doHxHPyU8ZjB7LhTARzIskVeS1s4LsY
-	 niBjboNRR3EEqKstWkSmfEyI0DI/5lK2LS8gZ0SEkSkxuLVvP4IHNTGZ7B0nFdWLdv
-	 SriFBZ1beIye7YD1SV6ffuDrMOUZeQ+PsZ4z1Ke03+WZN/bXPee09MrElNMgwPt7tC
-	 6WVFnI9qER3+JTIRHSyuIju+QyVvo3w7KszLuVp0koF3g/OG8Jhgnn5EM2Vd6odkRf
-	 IH7zZMz0qk0jr5pNVQepPry2IH2nuCl66eMzB0Znga6KdrwqE3+cmFX0Khr5tnl3pr
-	 kWsxvBA3mAGVA==
+	b=ngQ+0km01FtTsOLYUvJa12NnwczBsUZlZwfMOK1LO7ZjGX3viTT+tOfnQTLATB7E1
+	 owqu52MjIgxs3+k6elYalG18nkLmMPCdesrcJY0/nQW68ByOvkxL2m8HBkWHalo4D7
+	 pcg3SxlzqZsPsrC42L0qa/KT3xFT3xwvifrHbpalsTc/FXE+eOZEHbFuJVbcCWgDEl
+	 WpvBRaLlhnOuX5v+kZMnVLMBIdx2pKGS5s3yfRDj2RtkHU/Xz3rnp98GiSVXam20uR
+	 YGA1enYYfvvYAkSs+a5O1tCj/Em7goQqZAL7DbRvGhnebywiNk/q4KYE6htU1GKGsD
+	 NaJ/1g8rtqQAQ==
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Shawn Lin <shawn.lin@rock-chips.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>, 
- Igor Velkov <iav@iav.lv>
-Cc: Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261103-rockchip-pcie-async-v1-1-4dcadb94af64@iav.lv>
-References: <20261103-rockchip-pcie-async-v1-1-4dcadb94af64@iav.lv>
-Subject: Re: [PATCH] PCI: rockchip-host: Enable async probe by default
-Message-Id: <179407116151.87338.4711703729751463299.b4-ty@b4>
-Date: Sat, 07 Nov 2026 22:36:01 +0530
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Yixun Lan <dlan@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Alex Elder <elder@riscstar.com>, 
+ Encrow Thorne <encrow.thorne@linux.spacemit.com>
+Cc: linux-pci@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Bruno Banelli <bbanelli@gmail.com>, Ali Tariq <alitariq45892@gmail.com>
+In-Reply-To: <20261106-spacemit-k1-pcie-fix-v2-1-6d74563b01d5@linux.spacemit.com>
+References: <20261106-spacemit-k1-pcie-fix-v2-1-6d74563b01d5@linux.spacemit.com>
+Subject: Re: [PATCH v2] PCI: spacemit: Ignore PERST# input in RC mode on K1
+Message-Id: <179407116872.87432.14136333294569642589.b4-ty@b4>
+Date: Sat, 07 Nov 2026 22:36:08 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,24 +70,22 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.16.0
 
 
-On Tue, 03 Nov 2026 06:07:35 +0000, Igor Velkov wrote:
-> The probe waits for the link to come up, and with an empty slot it
-> holds the deferred-probe worker for about 0.7 s. On ROCK Pi 4 with
-> UHS-I enabled for the SD card, the I/O-domain driver then binds only
-> after the card has switched to 1.8 V, and tuning fails ("All phases
-> bad!").
+On Fri, 06 Nov 2026 10:13:53 +0800, Encrow Thorne wrote:
+> In RC mode, the K1 PERST# pad input also affects the local controller.
+> Without PCIE_IGNORE_PERSTN set, asserting PERST# to reset the endpoint
+> also resets the RC, losing previously programmed register values,
+> including the vendor and device IDs.
 > 
-> Probe asynchronously, as commit c0e1eb441b1d ("PCI: qcom: Enable async
-> probe by default") does for the Qualcomm host driver. This does not
-> order the I/O domain before dw_mmc in general; an explicit dependency
-> was proposed in [1] and not merged.
+> Set PCIE_IGNORE_PERSTN during RC initialization to prevent this
+> feedback. Set it before the first DBI access, since PERST# may already
+> be low when initialization starts, causing the access to hang.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] PCI: rockchip-host: Enable async probe by default
-      commit: abc53e14b57aa29fb0ec822a2a9eb5b279cd05b0
+[1/1] PCI: spacemit: Ignore PERST# input in RC mode on K1
+      commit: d606b0d156c6e34d754fae20b31f69d662eb04e8
 
 Best regards,
 -- 
