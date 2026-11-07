@@ -1,106 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794011343;
-	b=LY/hMWokGIUSt/Zt4b3dp93xTlTjl6nTzOcg6eC4J9ZgtC/mXt59XkGZVwqX+0NtQAL6
-	 lZJvt1DycS+kaXrHiXt1bzIIInD2OJmkzIv+DBf4dq4Fae0KhN86bmojK68Suq0edvz9i
-	 3J0WyeSU7dtf/IeR+4qvXoiiwAMwOG9tMvjGN9Rhif5flbn6flQ2PzPdr/I0tKtGjU1yK
-	 xpAXGdoUb1D3QLLzYVJ5eRZ9Hl7uMAEsiJcMYwHh4rsF7gVR9KO2GzXWIaEvna5ke7yV7
-	 WN7zk7pCXqX11/NoKxwkmiGNaLIb5HWXqXprAFUqRNh4FWBreDVFmMuPKpkBYsGhosA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011343;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=gaBG4tF2dtj1yCCjozoR+3yiqRMFZ6QaunJVXhUcrbM=;
-	b=UBpxBaoQVhDW1eSDUfy7lJaoOMJXD6rsByFTo6tIPpSK7t2pE87EJDIKkpEqa6pG7oqT
-	 sfeJ6Opb7xI3hKgfUCYdp10DuqleZE4smE47ImXg71YRdZPfkShQH4T80EvC23gsgRp0e
-	 mD7N7aItsyQDQ3ttcTzTkaHLS7riMaZclNOx8pSQznudz+Mew64UnV6gIj6JoupTNPUo2
-	 ZOyk0/eidFaP3B4/ZLhtgHSMTKbcM/NzutSco4grPfxfto9ch0HYu+WImMWemx0uG7fz2
-	 D6dRFPpaROCA7bRZwnkec6FrvyFiz+y82gsOoT2n1lxLoBtfIF+IOjAIVlm9DzVdH7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="bJ0Ydj/5";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HrTTOLEB;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794011388;
+	b=VI9k+V5mlhxrdnNHo1DoMMdJQC8OY7ILLqH7Qs6nuWbjVmUU2+09h6hHn/CVv2REEs67
+	 csox6qkuI2PrQNboTAFZJ/fgZTHQrZf/NuXxBWmq2DuNwZ7P1HCooFu5Q/tDU7LDnfiBS
+	 v9YsXFP7JD2NzidHriBVAHqeHExPMlrDNMoaRTy0sMrwT0bRfzuh6IuzqaKydKXTO46FB
+	 ltphhCN1pFMG3SlTnALWqtmr4tqVy9aQDa/y9QmIdeQYrQt87/rnyxwDe3vRrfUZnrNK+
+	 tiUKmD3aWiqrALOTqdbaqkoLAF7t+osza1lCT46NhhCu6GOJZbAjbXGjLLMahzUPauA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011388;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=eLjIrIz+B9gxEx5DejIidZbO4jheWMCwZXdFswVlN50=;
+	b=dgXA20DFZ7rk4rDoYTXqyQ0JZOnJG6bY11B1rC+kNHvLJ8jopVbgShfOW9VX4XV05/8P
+	 /76Wci3q2n67qj/fRq12Fz2ezSy5nd7hQJRBmuKvIkDyrkNQavoiqilv7h7CeBPz8/9AQ
+	 OoVgcebit0PEOb6ca/JYqPGha7v4dr3RKBChv97TAuyd6MeV1dbaSbicIb7hiRiWD66ih
+	 9xEMHWJatBudMB5l2AVweV9kyvin4pJSkqnDaCTahNTEwGEibILCY8GOKvId7JeBYGxcj
+	 n9zTOXiWWsldib6JgTYDE406TQWTnWdOX55DHxAGbzLQxFUN0fY75B2aLb/vP84fnOA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="I7Q/bkPq";
+	arc=fail smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B796606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:29:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B796606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12811606A326;
+	Sat,  7 Nov 2026 00:29:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12811606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bJ0Ydj/5;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HrTTOLEB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794011341;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=gaBG4tF2dtj1yCCjozoR+3yiqRMFZ6QaunJVXhUcrbM=;
-	b=bJ0Ydj/5zdPqonzs0Qp8SdKWhcvyezWzY6uoeHrFxgWJ2ni8C97z6+rkCjWl9wyPnck+KK
-	jd9rL4RrV/1BJL97m7C9wQhx5a+Q7kArmXTfoBBOgXitEpsa2tr3lnpwKsZvuVqNGSqLVx
-	gSKwyM8NaJqMHLWJCOVizs40gV2ov5U=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-626-GZzGPaa5OgiHWuEiT6ffcQ-1; Fri, 06 Nov 2026 19:29:00 -0500
-X-MC-Unique: GZzGPaa5OgiHWuEiT6ffcQ-1
-X-Mimecast-MFC-AGG-ID: GZzGPaa5OgiHWuEiT6ffcQ_1794011340
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5351f1b26e6so19503471cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:29:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794011339; x=1794616139; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gaBG4tF2dtj1yCCjozoR+3yiqRMFZ6QaunJVXhUcrbM=;
-        b=HrTTOLEBQxI3/p/SwDs5wGowCzDv3qap7BaDopPDW4QgVtV71FgQ5dxjSDq/r/KP/l
-         X8vMbe8KofIG/6ej0/YNwUEaznXMDewYEVaiXwm8kdRE6Odwg66CZYGVYC4/SBgkVUjG
-         /2aEucS6IyUBmp3L1tZyV2ZWrKqWTM6qiSC0KkhGHJ/ZLNYruUAzSh+as/XZlGmyHlc2
-         TeVrIVOazRp9hoL92k6ygi3P28VuaMQcJtT0IRBofI/wIGTrzHj4ba3KvUiGIIOJNt8h
-         ui2ZF7XgOLFbcfrepIt0jdT2J1dgICVzZKHGeOpfFgp1Qdye9ZIbPEPypjbEJmOZf5BY
-         bpHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794011339; x=1794616139;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=gaBG4tF2dtj1yCCjozoR+3yiqRMFZ6QaunJVXhUcrbM=;
-        b=WOsCarDNHp/Mx4GYWNg9RMSIEkIO6uoVRbihSZOYbItVkDgqseK5cACSZ5Ucx1FevM
-         W0zqSxx7mCaF1ecN9xttsfZE38IQLFIA7o2koy1bF+xWBb5kR+d3ak4sMDxvyfPtuHVS
-         I3zxcAc82M9oDU/7rQ4nr5TJRCQ46NNRmad9G8CJzrvB3LRipaRDvWhY1boSrlXBfyHn
-         rJTuRhihNONhLUa+jsxT/kuJN4QPQem/V4vd2BLKI0gkX9x1L5VV2MVoU9mHE7Pk0luO
-         5yqXLQvYkqFQWYXtYZouymungjlH/ZedUlRGKcIuHmluxmtM3PnpiD9ipbg38sd5tBUm
-         +4Ew==
-X-Gm-Message-State: APuU4Z9QctdWXjS3vlOLgyVMoRwBdDs5GDOs26DsELBnLhaaQT7OKsvJ
-	UNUmxOvw3KttBg4XG7dooTbzUE9axqMotiYMfvGsCFQUV26qga8EBi1DhBa8Or6sC7Wgjd9Cwrv
-	QsAIknfRDgxpxRqjeN7Wrbc3ltTrinfpe9uRjnupuHoJ6hbqrqUjDZYDcirmnFsS5CECp974BSE
-	1XtYhf3btzObxOQnfj7QHJ6S5oL6irr3ObFR3qUPuclI38VGUELzA=
-X-Gm-Gg: AYBFou1VUh8QQUePuOzX83kTpd8fMopzNKssFfaPaTlK0FKepGB4/lbHXkG52FP7l5w
-	40uCxhFw/EQOnykjPrYFmgUFzYD97uDC6PEdJIEcpG8yo4FnkncFNQYunum+mW8SIn4EKfZwMBB
-	9wXpsw0HRu7LpfeX3xJCt3PZjwck9W08MVJDqAZUX2eCTTUeDhmMALS7QD0Xl/IzIfQ+ZWERPtE
-	4sX6cUUi6G//SeU74tknfF1L3O9HZVOSWAonJ1wApSnH12QzUKj3Qhl5rh+eYx2S9Zg29jZ9APd
-	Hc12SPdyWWaYuK3q+pvBAnPy16vpvPXkWPtE2ALsapHF3t0Fl42qnW7qWbCXArYsZpurtV5QT9F
-	Wis64nzJ57Z9f2FAtR6+U3v5X3T0iFGMyfborFIy/tsXxuv5mDvSy+efRLDpUgpwk4uoZ9VzGC8
-	mc8lJwTIrn10GVtA1L
-X-Received: by 2002:ac8:59d4:0:b0:536:458d:525e with SMTP id d75a77b69052e-54e14372689mr65272231cf.37.1794011339438;
-        Fri, 06 Nov 2026 16:28:59 -0800 (PST)
-X-Received: by 2002:ac8:59d4:0:b0:536:458d:525e with SMTP id d75a77b69052e-54e14372689mr65271841cf.37.1794011338715;
-        Fri, 06 Nov 2026 16:28:58 -0800 (PST)
-Received: from bmasney-x1.rmtuswv.csb ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e2625abafsm32950211cf.16.2026.11.06.16.28.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 16:28:57 -0800 (PST)
-From: Brian Masney <bmasney@redhat.com>
-Date: Fri, 06 Nov 2026 19:28:46 -0500
-Subject: [PATCH] regulator: convert to subsys_platform_driver()
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I7Q/bkPq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794011386; x=1825547386;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=FuzJDcxRBddNUcFp94RJG8t58z0m6YnZ7OU62ZC1Bbc=;
+  b=I7Q/bkPqL7QEErvaXVof8P1WbnnegU82CN/IILM3Ip3UNC7iu+PfPZBx
+   Z64gYM81bl515eZQ6M4M7tK3aKwG1iM15MuYhO4UcjC0sPYxfUjo07rjj
+   OFrQOWMdM+VM1VOSdHld4OpzWVBOGaR6qltfGda78v8zTGP/fdCvNwxbo
+   Cii7oATOqlxV/vCOC+LOH4C0dGfRXOhRov+UP4GzYdamxmaY9Uf6vdd9E
+   HopI9BtcgA3qXV+BaPVZjPb+8Gm6sKf+BJV4dUO7vyeUBTxKXZapTR5xy
+   khL9VJkX3EjL7PjLHd6gGxJsWOIOVJUFkRNQGZiHZHPSOP9pd/cOwJVYl
+   w==;
+X-CSE-ConnectionGUID: hSO3m4D5T1yCOV7NXBg/aw==
+X-CSE-MsgGUID: W+XO1kYMSeefQfUhrWEl3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2748636"
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="2748636"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 16:29:45 -0800
+X-CSE-ConnectionGUID: V1JZ8D66Rw6fdIJx1Yw4lg==
+X-CSE-MsgGUID: jwpPvb1BR3CimCtosteFew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="7559702"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 16:29:44 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 6 Nov 2026 16:29:43 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 6 Nov 2026 16:29:43 -0800
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.65) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 6 Nov 2026 16:29:43 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i7kCRgdzpPfC0w5XKpLyoGeinjKmgjvSUDsBKMgG6lBFpf6aGcu3QKUdnHRRIb/7/9cuNt6io7dSdO5mc0KlTQxz7CIHnzz1XFLjOOs7vGwsDlaTu5jxTjQf1drG4Y8QSWMYGI0QYNKu6sdgsVs92CHG/edgP7SI4A97Xxbn/N/m9OMKnDOTWE4mnXijyTmBpOf2h/UdBEwTW3p8UxMMVcvMxmIZG4Fvn3k5jo+LO9xYsk1BdfIl+5MDT/yUkO8Tt+obxMwDly2JDt82PDtYU8rbUzc83zhWu8btSo0lEoI1gNbeCRQ615CWX88LvD2dYcEToggK/8dHXIS+mnJ47A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eLjIrIz+B9gxEx5DejIidZbO4jheWMCwZXdFswVlN50=;
+ b=OG+CGb+rwBIuHUH3cnJX8LPDPdKIUSp66T5XlE009Pi4GeWRb2D10eVYACzqtCTZhngiHMytF4KXUHQ2p3AV54RBZ2DM849QwH6v5avF2/X4Nd6xFkxIz1i39mx08f0wZsb7SIOe2yYWe4qTLrkazS6pZnr8roCO9+1Sy6L158UZHdWxjJqkN6ss8eIlPtSHFZu61Xuc+w0aK2qa2zy1FvWnSlTPG8lp0sYyF/k+jEnkEiKWBuKtRXw4Otj1wtXbskBwcoS4T48XUsCppDjFqroj+N0yGNfqo0u/bDAuq/vEC9z+Myz8F0rSUoPicrPqDoRCAmwKL8qWnx2c7YalXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com (2603:10b6:208:488::20)
+ by IA3PR11MB179642.namprd11.prod.outlook.com (2603:10b6:208:61f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 00:29:41 +0000
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6]) by IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6%6]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
+ 00:29:41 +0000
+Message-ID: <808923a4-0a6e-4d8f-8ace-d3573aa125e8@intel.com>
+Date: Fri, 6 Nov 2026 16:29:38 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] selftests/resctrl: Implement cl_flush() and sb()
+ for aarch64
+To: Ben Horgan <ben.horgan@arm.com>, Richard Cheng <icheng@nvidia.com>
+CC: <tony.luck@intel.com>, <x86@kernel.org>, <shuah@kernel.org>,
+	<fenghuay@nvidia.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<babu.moger@amd.com>, <linux-kernel@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <kaihengf@nvidia.com>, <kobak@nvidia.com>,
+	<newtonl@nvidia.com>, <kristinc@nvidia.com>
+References: <20261012074729.40042-1-icheng@nvidia.com>
+ <20261012074729.40042-2-icheng@nvidia.com>
+ <847af89d-7b79-44b4-8273-243dfb51ef5e@arm.com>
+ <9cccea63-397c-4913-95bc-eed38f0ebd66@arm.com> <aurOz7iGKInyjddW@MWDK4CY14F>
+ <b94aa5e5-a4ab-4b61-a864-d10ff1ff2b63@arm.com> <auxM9hVAgp61Qbgv@MWDK4CY14F>
+ <c58c397e-26e4-4866-be80-59d9bd861654@arm.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <c58c397e-26e4-4866-be80-59d9bd861654@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0056.namprd03.prod.outlook.com
+ (2603:10b6:303:8e::31) To IA0PR11MB8379.namprd11.prod.outlook.com
+ (2603:10b6:208:488::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,841 +142,299 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-regulator-subsys-v1-1-1f91f4204bf5@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAyF4auUrKfQuMjCq4iLamONiEqiwwzi3
- aeOyw/e+08wVmGD2p2g/BaTdSnAl4N+jEtmL6kYqlARYiCvnI857qt6Ozr7mqcBiVLAFCJDuW3
- Kg3z+yaZ9XJYT9/vdgev6Ae7ZxCF0AAAA
-X-Change-ID: 20261106-regulator-subsys-6f166d01d0ae
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Support Opensource <support.opensource@diasemi.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, patches@opensource.cirrus.com, 
- Brian Masney <bmasney@redhat.com>
-X-Mailer: b4 0.17-dev-d96cb
-X-Developer-Signature: v=1; a=openpgp-sha256; l=28541; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=3BSZKVbX3zqJ0laX782klMVHOEsD6TNxuFJpqSfyqZQ=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLeFRydfTqg8erBbat+GOytdls66YZb3bazwZNXJTbZH
- Z4p8ZTTuKOUhUGMi0FWTJFlSa5RQUTqKtt7dzRZYOawMoEMYeDiFICJeDMxMiwOWqBbsW/LI3X5
- cumt7/3sJk7s5dGOv5uz9b3r/+JmzjxGhmsXG85t9VTI6pRZ8FiwcHpBgPwJrfuPl2hmLDZ6uMi
- ohwkA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB8379:EE_|IA3PR11MB179642:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea05834a-80ce-43a5-a420-08df3c6636cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|260925021911599003|260925021311599003|260925022911599003|5023799004|11063799006|4143699003|261022105027099003|56012099006|261021121427099003|261022075727099003|261009223027099003|261026140227099003|261102123227099003|261026121527099003|261028144727099003|10067099003|6133799003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: XbZM649b+WVoJPtOtvIwcN//r0uaaLcaS36lEMOrSYC00R7htokZADmQYtESQZ8VaMife8RRmEdIqKD53qe5xj7bJoiRv3O65e1bCcWgvWXiUy6VDkQp3AmRQiaQqRusO0dn68MEBQXHYKN5ePOw7Ki7Eg0juMgNdV2KWn+91x0khbnN0THWfrBnfzTwq6jXyJ4eiqsoX+ccSyAXFP8k/U5eAI6CiNmxOQPRGrjF0bPpBmho7i92AGRBE6jG6hOmgPF1+qyLA9ai+hPkVMXMxUpnnBY250fI9GyY3RSqB5TSSGQlaJ4jseGjCTmisR4uGtbF2RJMn+eKu8iBi3xjifR9TbtknB9S9I3jwzKjwRiaJ5MIf/ni+aEZIi47sOk8K3Fhxe6IWizISRSFROxDQXtHLpod5cdtkBg6dfUC+QPYUUwqmiR3yh80+5EuWJgd//ZbqgbWioL6hnHgQRTdDvExGFj4+cViFlBRH214qbWh9nCkNzh5BwoLcwjZRAmQ41qNsb0mLLmdV1f32LCo56sFeQZ/4SP9X84iJFSQBHXw3gwCg7O+tCoX/hxfElv3x+G9FCv+lcb7Q/S1g0is46DMu1/Qk3qE1eYnToSY5E9+bHgz7vrJFVFygl+AcGwP
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(260925021911599003)(260925021311599003)(260925022911599003)(5023799004)(11063799006)(4143699003)(261022105027099003)(56012099006)(261021121427099003)(261022075727099003)(261009223027099003)(261026140227099003)(261102123227099003)(261026121527099003)(261028144727099003)(10067099003)(6133799003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QUFJV3dMbndLWStBZTZCVktTVkE0L2pscitlTFZWVFlnTWFJOUtrZ2lSMnpt?=
+ =?utf-8?B?cmlvNTA4L3lwUXBhYTJvbVk3R1BNaXhXU2dYek9ieHE5WUpQamlMblE1UmpX?=
+ =?utf-8?B?Vk1rODVScnJNejJOS3Y3UTdzcU5DdzEwTHBxNXFBUzNpOFpJanlHYVcxMHc1?=
+ =?utf-8?B?RFVVaGkxdkhZZFI1SHNPTHM0Z3JobzhqMVQ2UW5TMjczMi9TclN3cGZEZlZx?=
+ =?utf-8?B?NnNpeC84Vzc1dUVZaFZiZVlFWWhFVmsrbHY4WVJCR0xuM0JlWWJ1NmtXelV4?=
+ =?utf-8?B?cnk0ZThzL2x1YTN3ajJ5S2F2YTBBbkxvb3hmcm8xWkFWT3FLbHNJVVhzV3Rs?=
+ =?utf-8?B?VXFCT3pUaWFaRk4wOENKY0U1YzYwSmtpaEZUY2kvT0tJWFAyMG96eXZIU3dQ?=
+ =?utf-8?B?YnJ0ZVhPNU5LQmFvV3dCdWhpYWJkWldjTTI1Yk9pSHZxdlFwUGF5ZndaVHA4?=
+ =?utf-8?B?eXUxRmxvMW9GVVVhZFZFblRIRHdjdkh4clpNb3hHVjVycnI4eGhBY0pBTVQr?=
+ =?utf-8?B?d0EyS2JKKzdmZ0d5enQyZVZRMzd1MnpYNk5BVVJZVEcrcVhkSlNxajV0b2xs?=
+ =?utf-8?B?cFJ2aHpNVWlxMzcxQmhJYWcyRktXRVp2Z1IwYktkb3FHSEQvcTNyL2JVVDRw?=
+ =?utf-8?B?YkZYRzdwTXB4TVI3MjNMUE42bXNDaEF1WVdtYXNFSEZtd3NzUWJaRXUrc1gr?=
+ =?utf-8?B?bWhlSDlJczMzcVBmM1czSlJTTnhJYVRTSDRUZk8wOSt1ZDhuall2TlVFSEhl?=
+ =?utf-8?B?NXg3dVh6cFkyT05COXJZbXh5enhYREcyMW5pTXVsWkxOSDRXUi9SSzFwRjVG?=
+ =?utf-8?B?YjNVeTlPWHp1dkhaUGRSNVhzdDlVNGg2cGl5MVlNMzIzUEdiVkxwNDY4M3Rj?=
+ =?utf-8?B?OGFtYy9maUZpa0pGTGs2bE1KREdrZHM1ZFRRbjBHM1B3VjdJcVhYbzJycXl6?=
+ =?utf-8?B?bHpQSlZWWDJwQndCTUZQcTYyV0JMV1gxZytkdXNoVHhXNDhjTzB0bjE3ZGlL?=
+ =?utf-8?B?cDJtUTB1YmJVUEE1WUUxeFEvTFpjQzZacDhRVWRDVGVRMDJFTGo2Ykk1cjBE?=
+ =?utf-8?B?andCOTZXM1FJTHcwV1k2Y091V0ZQcWJUTjNmcDV6K01DYURFWjNZcFJSV1NT?=
+ =?utf-8?B?TVRsaTBmazJES1UvWDFWL0NUUGdkSWRjbGlSdUNsa3phdmNLUDBreXY3c0hR?=
+ =?utf-8?B?UXpCUDFSWkdvME9VUXIvdCs5SWYvejFyc2lpdWRQejdJZEpWdnpVSVdQVHZK?=
+ =?utf-8?B?Ry82MTJxaVdHRDdQZVVjdnRlaGRkb2dmNm9HdmdJYzh3Z3psY1ZHUlpHazZ0?=
+ =?utf-8?B?Nk1EZ3hldG1JeHlneVJhSzBNV3IwTm0wRHc4K3MvbFhybTUwZ1JQRHNFUlBC?=
+ =?utf-8?B?TmJuREpXaVYxV3YyNnJaR0xIaE5EeE1mN0NxWDloRUk5ZWp5Z1E3RHpGbTZ1?=
+ =?utf-8?B?eE1nS2VTQlo1WVA0cnZnTldHMG5XR2tyb3hRcWtsamZ0NFRGQlZKeERnYy9t?=
+ =?utf-8?B?VDhkd0tpSGExcDdFR1FEVmpxM3gxcEZvMVJxNXJIUGZvVTMvOHZvMW9wWld4?=
+ =?utf-8?B?T2pCMnhkUDd6YzJPdGpURTFTNXhpRlI4V3BlMGhtUmF0SytHa0F1Ty9vUXE1?=
+ =?utf-8?B?ZzZDNFBqSVloaHdYTEhBTlZNNnFPT09MeHJucUt0ZmtHYkdEMHc3ZGd2OE55?=
+ =?utf-8?B?WHU2TThJczRwblEwekZBaTZwQmJBTVY1akNHdDBtOFBJdzJVNmlZODlMYWpJ?=
+ =?utf-8?B?Y2g1c2ZOOGJrKzN6VmcrWkFCTmpreEw4TmNCWDNVd3FSR0VuYVJwem5ERkUy?=
+ =?utf-8?B?alMwYjdYN01qQ3lSYUp4M045QkFCMUF5bmh2eHVwcVFuL3pYellIN0UwYm94?=
+ =?utf-8?B?L1RjTlB5UUhaZHBVeHJGTjB1bm1YQjhUOEMvaGxSaDdOWHV5QWlDbFJaNXlX?=
+ =?utf-8?B?YUM4d1NnZWJzRGw1TlFhOEtaZkl4LzdqUEg3MDg1TFJ0WkF5VzkrSkdoV0Zt?=
+ =?utf-8?B?bjlHMWduRXJvNG9WT3hFN2x4SkVQdXVGM2JEVXhCZEVwR3VEK01wMEk2TXU2?=
+ =?utf-8?B?ZFlITnF5cVJrYjEyVEZ4QWtTMlluYkpXTUJXYW5aalpiclJhYmt0TVdqQ2lk?=
+ =?utf-8?B?NUJuTkppV1cra2gyUUNGdEZ3WVNVV1h0UXExK1IvbGV3QmYxeEt3dXowcFN1?=
+ =?utf-8?B?dDBvK2ZHS1FTRVRtZVVsK2ZKSHZ4bWN6UjhDSlZTOVhTZ3hTUkpDcnRzWTVy?=
+ =?utf-8?B?bUs2RjhsdlNXb1ZSM3E4NkhOM0NyNmxwYVo4QlM2NHowVzZCR1lxZis4SmtC?=
+ =?utf-8?B?ditIdmo0TVdCcnMzQXQxUzhoVmJpYS9sMlg5SFh0QzRyTjZscm0wSHM5SWN2?=
+ =?utf-8?Q?Hlfz/eCEu6GF3eG0=3D?=
+X-Exchange-RoutingPolicyChecked: CjyOA3xIh97nFkGrWM3JyxSf1WlLPeEBncaYMuO9Fc1jE2KnO9GbvPglpSbc3EEqHW1x/XLBcrzjiAqG9sZVSBqqdRK7kdIwJbZpi1bsnWBb2nbLbfzw1Mavf37tp0vjWj5stgNlE3FBGAl04hXGXsGyoJKHiZ0DKPTrHI0BDtpWenzkqaHwaj+sZxbwU5jjJSDGhj43N1u5CeMxarqbCCu67bg+6KhAMzb9Ll8QFIC1/RZO1VsVIro4BKMiepctKJVdKkH5ZaCgF2JiAGMybRgTpL7uayof16mvPrGF0XVhH/WT1dmoVysr+GJ66+egghPTvf0MOQsrewDlpdIsjg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea05834a-80ce-43a5-a420-08df3c6636cf
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8379.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 00:29:41.5616
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +vY7NqO47ZqGt/+xgX/MKFlKJtxX7ROQaZjNBf4d8ptPR/YtuGDVQsiLUTOtDZrj9SvWo0XcdXATjkN/xM6tN5EjKjer3yv7gEkWdLPaBWc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB179642
+X-OriginatorOrg: intel.com
 
-Reduce boilerplate code in these drivers and convert them over to use
-the macro subsys_platform_driver().
+Hi Ben and Richard,
 
-Signed-off-by: Brian Masney <bmasney@redhat.com>
----
- drivers/regulator/88pm8607.c           | 12 +-----------
- drivers/regulator/aat2870-regulator.c  | 12 +-----------
- drivers/regulator/as3711-regulator.c   | 12 +-----------
- drivers/regulator/da903x-regulator.c   | 12 +-----------
- drivers/regulator/da9052-regulator.c   | 12 +-----------
- drivers/regulator/da9055-regulator.c   | 12 +-----------
- drivers/regulator/da9062-regulator.c   | 12 +-----------
- drivers/regulator/da9063-regulator.c   | 12 +-----------
- drivers/regulator/fixed.c              | 12 +-----------
- drivers/regulator/gpio-regulator.c     | 12 +-----------
- drivers/regulator/lp8788-buck.c        | 12 +-----------
- drivers/regulator/max77693-regulator.c | 12 +-----------
- drivers/regulator/max8907-regulator.c  | 14 +-------------
- drivers/regulator/max8925-regulator.c  | 12 +-----------
- drivers/regulator/max8997-regulator.c  | 12 +-----------
- drivers/regulator/max8998.c            | 12 +-----------
- drivers/regulator/mc13783-regulator.c  | 12 +-----------
- drivers/regulator/mc13892-regulator.c  | 12 +-----------
- drivers/regulator/palmas-regulator.c   | 12 +-----------
- drivers/regulator/qcom_rpm-regulator.c | 12 +-----------
- drivers/regulator/qcom_smd-regulator.c | 12 +-----------
- drivers/regulator/rc5t583-regulator.c  | 12 +-----------
- drivers/regulator/tps6105x-regulator.c | 12 +-----------
- drivers/regulator/tps6507x-regulator.c | 12 +-----------
- drivers/regulator/tps65090-regulator.c | 12 +-----------
- drivers/regulator/tps65217-regulator.c | 12 +-----------
- drivers/regulator/tps6586x-regulator.c | 12 +-----------
- drivers/regulator/tps65910-regulator.c | 12 +-----------
- drivers/regulator/tps68470-regulator.c | 12 +-----------
- drivers/regulator/twl-regulator.c      | 12 +-----------
- drivers/regulator/twl6030-regulator.c  | 12 +-----------
- drivers/regulator/wm8350-regulator.c   | 12 +-----------
- drivers/regulator/wm8400-regulator.c   | 12 +-----------
- 33 files changed, 33 insertions(+), 365 deletions(-)
+On 11/6/26 7:53 AM, Ben Horgan wrote:
+> Hi Richard,
+> 
+> On 05/11/2026 09:41, Richard Cheng wrote:
+>> On Wed, Nov 04, 2026 at 05:09:28PM +0800, Ben Horgan wrote:
+>>> Hi Richard,
+>>>
+>>> On 04/11/2026 06:43, Richard Cheng wrote:
+>>>> On Wed, Oct 21, 2026 at 10:55:35AM +0800, Ben Horgan wrote:
+>>>>> Hi Richard,
+>>>>>
+>>>>> On 20/10/2026 17:30, Ben Horgan wrote:
+>>>>>> Hi Richard,
+>>>>>>
+>>>>>> Thanks for having a look at the arm64 side of the resctrl selftests. That hasn't had much love but
+>>>>>> it would be good to have them working properly.
+>>>>>>
+>>>>>> On 12/10/2026 08:47, Richard Cheng wrote:
+>>>>>>> cl_flush() and sb() compile to empty functions on aarch64, making
+>>>>>>> mem_flush() a silent no-op and leaving CMT/CAT tests operating on
+>>>>>>> unflushed state.
+>>>>>>>
+>>>>>>> Add "dsb sy" for sb(), ARM requires a DSB whose access type covers both
+>>>>>>> loads and stores.
+>>>>>>
+>>>>>> I guess this is referring to the synchronization required for the cache maintenance instruction but
+>>>>>> that's not what you are using in this patch.
+>>>>>>
+>>>>>>>
+>>>>>>> For cl_flush(), "dc civac" only reaches the Point of Coherency, on
+>>>>>>> ARM MPAM systems the SLC lies past the PoC and may be a NOP on coherent
+>>>>>>> platforms. Instead, dirty each cacheline with a store so that
+>>>>>>> mem_flush's full-buffer sweep evicts lines from the SLC via LRU
+>>>>>>> pressure.
+>>>>>>>
+>>>>>>> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+>>>>>>> ---
+>>>>>>>  tools/testing/selftests/resctrl/fill_buf.c | 11 +++++++++++
+>>>>>>>  1 file changed, 11 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/tools/testing/selftests/resctrl/fill_buf.c b/tools/testing/selftests/resctrl/fill_buf.c
+>>>>>>> index b9fa7968cd6e..eae0262fe265 100644
+>>>>>>> --- a/tools/testing/selftests/resctrl/fill_buf.c
+>>>>>>> +++ b/tools/testing/selftests/resctrl/fill_buf.c
+>>>>>>> @@ -27,6 +27,9 @@ static void sb(void)
+>>>>>>>  #if defined(__i386) || defined(__x86_64)
+>>>>>>>  	asm volatile("sfence\n\t"
+>>>>>>>  		     : : : "memory");
+>>>>>>> +#elif defined(__aarch64__)
+>>>>>>> +	asm volatile("dsb sy\n\t"
+>>>>>>> +		     : : : "memory");
+>>>>>>>  #endif
+>>>>>>>  }
+>>>>>>>  
+>>>>>>> @@ -35,6 +38,14 @@ static void cl_flush(void *p)
+>>>>>>>  #if defined(__i386) || defined(__x86_64)
+>>>>>>>  	asm volatile("clflush (%0)\n\t"
+>>>>>>>  		     : : "r"(p) : "memory");
+>>>>>>> +#elif defined(__aarch64__)
+>>>>>>> +	/*
+>>>>>>> +	 * Dirty the cache line with a store. As mem_flush() sweeps
+>>>>>>> +	 * the full test buffer (sized larger than the SLC), cache pressure
+>>>>>>> +	 * evicts lines from the SLC via LRU replacement.
+>>>>>>> +	 */
+>>>>>>> +	asm volatile("strb wzr, [%0]\n\t"
+>>>>>>> +		     : : "r"(p) : "memory");
+>>>>>>>  #endif
+>>>>>
+>>>>> One more thing that occurred to me is that if this is intended to evict all existing data in the
+>>>>> cache then it would require that the cache portions bitmap for the control group (PARTID) in use is
+>>>>> set to all 1s. E.g. 'L3:0=0xffff'. Otherwise, you may not affect the whole cache. This likely means
+>>>>> that the cl_flush() function isn't the right abstraction for MPAM and the test needs a bit of
+>>>>> restructuring to get this to fit in elegantly. Similarly, to the limbo handler in resctrl you could
+>>>>> then check the llc_occupancy() to check it's under a "low enough" threshold.
+>>>>>
+>>>>> Thanks,
+>>>>>
+>>>>> Ben
+>>>>>
+>>>>
+>>>> Hi Ben,
+>>>>
+>>>> Thanks for the feedback. I checked the code and ran some tests.
+>>>> You're right, my implementation writes into the benchmark's own buffer using
+>>>> the same PARRID/PMG, and the buffer isn't always larger than the SLC.
+>>>>
+>>>> I can't claim that it produces an eviction sweep 100%.
+>>>>
+>>>> I think what are want to do is to check whether reducing a group's cache
+>>>> allocation causes more cache misses, thus the data left in cache from the
+>>>> previous allocation must not affect the next measurement. That is also
+>>>> why I want to reuse the concept of Intel's test with CLFLUSH before
+>>>> warming the buffer under the new allocation.
+>>>>
+>>>> I'm thinking maybe the assumption can't be achieve on ARM, I ran tests to
+>>>> measure occupancy before and after each preparation method.
+>>>>
+>>>> I tried this patch's implement, and "DC CIVAC" since I think it can affectively
+>>>> invalidate cacheline without throwing old data away, which should left
+>>>> occupancy almost unchanged.
+>>>> And one more method with a separate large buffer in another group.
+>>>>
+>>>> The result turns out like the following
+>>>>
+>>>> Preparation                     Before (MiB)   After (MiB)
+>>>> DC CIVAC + DSB SY                     51.19         50.47
+>>>> zero-byte stores + DSB SY          53.12         56.43
+>>>> Separate-buffer pressure             53.25          7.14
+>>>>
+>>>>
+>>>> The current method increased the benchmark group's occupancy instead of
+>>>> reducing it. "DC CIVAC" left occupancy almost unchanged.
+>>>> The separate buffer method reduced occupancy very much, but still left data
+>>>> behind.
+>>>>
+>>>> It makes me think we should reconsider the test method. I think the goal is
+>>>> to check whether the MPAM allocation limit works, clearing the cache is only
+>>>> how the Intel RDT test prepares for that check.
+>>>>
+>>>> How about we set a group's mask before its worker initialize the buffer and
+>>>
+>>> We'll still need to make sure that the PARTID used for the test hasn't got high occupancy in the
+>>> cache before running the benchmark.
+>>>
+>>>> then run sustained cache traffic and measure occupancy after it settles?
+>>>
+>>> I assume the occupancy is measured via resctrl, llc_occupancy.
+>>>
+>>>> Maybe compare full, half and quarter masks to see whether the allocation limits take effect.
+>>>>
+>>>> Does that sound like a useful direction for MPAM test for you ?
+>>>
+>>> Yes, I think so.
+>>>
+>>> Would it end up like this?
+>>>
+>>> 1. Choose a test control group and ensure that it doesn't have high cache occupancy using llc_occupancy
+>>> (If it does have high cache occupancy then clean it. Probably by using separate buffer with a
+>>> separate control group)
+>>> 2. Configure the L3 cache bitmap for the test control group
+>>> 3. Run a benchmark
+>>> 4. Check that the llc_occupancy is as expected
+>>> 5. Repeat 1-4 with different cache bitmaps.
+>>>
+>>> However, it doesn't sound specific to MPAM but more like a general test for the cache portion
+>>> bitmap. Possibly it can be a separate cross-architecture resctrl selftest that compliments the
+>>> (somewhat) intel specific cat_test. (There isn't a platform independent way of measuring slc cache
+>>> misses on arm64.) This depends of the resctrl selftest maintainers view.
+>>>
+>>> Thanks,
+>>>
+>>> Ben
+>>>
+>>
+>> Hi Ben,
+>> I like the idea to make it a general test for cache on different arch,
+>> but yeah let's leave it for resctrl's maintainers to decide, I do not know other
+>> arch's cache topology and such so what I'm designing is very likely to overfit on ARM64.
+>>
+>> Anyway, per your suggestion, I tried a few experiment and came up with the approach
+>> like the following, and still have some points needs to discuss with you if you don't mind.
+>>
+>> We'll reuse one test group and buffer across tests for different bitmaps,
+>> and a separate group and buffer for sweeping.
+>>
+>> 1. Set up. Create the test and sweep group, assign workers, init buffer, give the sweep group the full cache mask.
+>> 2. Prepare before each mask. Keep the test worker stopped. Run the sweep worker and check "llc_occupancy" repeately,
+>> until it stays below a starting threshold, I set it as 4KB on my testing machine, we can discuss about it
+> 
+> A starting threshold of 4KB on a machine with 164MB cache seems lower than required. Assuming, the
+> maximum number of cache portions supported by resctrl, 32, then each portion is about 5MB, and so if
+> you are measuring occupancy to check if the cache portion bitmap has the desired effect then 4KB is
+> in the noise.
+> 
+>> since the value should fit on different machine. And we'll put a timeout for cleanup time.
+>> 3. Stop the sweep and apply cache maskWarmup test workload for 3 sec
+>> 4. Run the workloadRead llc_occupancy and see if it meets the expected value ( that's what we need to discuss )
+>>
+>> So on my machine it has a 164 MB share cache, no matter what cache masks I use, the cache occupancy won't be 100%,
+>> even I use some mask like 0001, 8000. I'm not sure what kind of expectation should we apply on the test,
+>> just not exceeding the rule's enforcement is enough ? or should it exceed certain amount of usage ?
+> 
+> 
+> I'd say just sufficient precision to be able distinguish between a cache bitmap with n bit set and
+> one with n + 1 bits.
+> 
+> Does checking which of these intervals the occupancy in give you a reproducible way of determining
+> how many bits are set? Hopefully overshoot can be sized to make this reliable.
+> 
+> (0, size/num_bits + overshoot),
+> (size/num_bits + overshoot, 2*size/num_bits + overshoot),
+> (2*size/num_bits + overshoot, 3*size/num_bits + overshoot),
+> ...
+> ((num_bits - 1)*size/num_bits + overshoot, size)
+> 
+> As you mention above, making this reliable across architectures and even across arm platforms means
+> that you can't be just be looking for precise numbers or exactly repeatable behaviour.
+> 
+Using benchmarks as a measure of resctrl health keeps giving problems due to the differences
+between systems. I cannot recall these tests failing because of an issue in resctrl self, which
+they are intended to test, yet they do fail and then need to be "tweaked" to accommodate some
+new architectural nuance that has nothing to do with the resctrl subsystem. For example,
 
-diff --git a/drivers/regulator/88pm8607.c b/drivers/regulator/88pm8607.c
-index 969554725a67..a02c21d7f9af 100644
---- a/drivers/regulator/88pm8607.c
-+++ b/drivers/regulator/88pm8607.c
-@@ -387,17 +387,7 @@ static struct platform_driver pm8607_regulator_driver = {
- 	.id_table	= pm8607_regulator_driver_ids,
- };
- 
--static int __init pm8607_regulator_init(void)
--{
--	return platform_driver_register(&pm8607_regulator_driver);
--}
--subsys_initcall(pm8607_regulator_init);
--
--static void __exit pm8607_regulator_exit(void)
--{
--	platform_driver_unregister(&pm8607_regulator_driver);
--}
--module_exit(pm8607_regulator_exit);
-+subsys_platform_driver(pm8607_regulator_driver);
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Haojian Zhuang <haojian.zhuang@marvell.com>");
-diff --git a/drivers/regulator/aat2870-regulator.c b/drivers/regulator/aat2870-regulator.c
-index 970d86f2bbb8..5f5ac84c6668 100644
---- a/drivers/regulator/aat2870-regulator.c
-+++ b/drivers/regulator/aat2870-regulator.c
-@@ -183,17 +183,7 @@ static struct platform_driver aat2870_regulator_driver = {
- 	.probe	= aat2870_regulator_probe,
- };
- 
--static int __init aat2870_regulator_init(void)
--{
--	return platform_driver_register(&aat2870_regulator_driver);
--}
--subsys_initcall(aat2870_regulator_init);
--
--static void __exit aat2870_regulator_exit(void)
--{
--	platform_driver_unregister(&aat2870_regulator_driver);
--}
--module_exit(aat2870_regulator_exit);
-+subsys_platform_driver(aat2870_regulator_driver);
- 
- MODULE_DESCRIPTION("AnalogicTech AAT2870 Regulator");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/regulator/as3711-regulator.c b/drivers/regulator/as3711-regulator.c
-index 0431a732cd78..510c4d5c0935 100644
---- a/drivers/regulator/as3711-regulator.c
-+++ b/drivers/regulator/as3711-regulator.c
-@@ -248,17 +248,7 @@ static struct platform_driver as3711_regulator_driver = {
- 	.probe		= as3711_regulator_probe,
- };
- 
--static int __init as3711_regulator_init(void)
--{
--	return platform_driver_register(&as3711_regulator_driver);
--}
--subsys_initcall(as3711_regulator_init);
--
--static void __exit as3711_regulator_exit(void)
--{
--	platform_driver_unregister(&as3711_regulator_driver);
--}
--module_exit(as3711_regulator_exit);
-+subsys_platform_driver(as3711_regulator_driver);
- 
- MODULE_AUTHOR("Guennadi Liakhovetski <g.liakhovetski@gmx.de>");
- MODULE_DESCRIPTION("AS3711 regulator driver");
-diff --git a/drivers/regulator/da903x-regulator.c b/drivers/regulator/da903x-regulator.c
-index 2f85897183b3..084868adbff8 100644
---- a/drivers/regulator/da903x-regulator.c
-+++ b/drivers/regulator/da903x-regulator.c
-@@ -476,17 +476,7 @@ static struct platform_driver da903x_regulator_driver = {
- 	.probe		= da903x_regulator_probe,
- };
- 
--static int __init da903x_regulator_init(void)
--{
--	return platform_driver_register(&da903x_regulator_driver);
--}
--subsys_initcall(da903x_regulator_init);
--
--static void __exit da903x_regulator_exit(void)
--{
--	platform_driver_unregister(&da903x_regulator_driver);
--}
--module_exit(da903x_regulator_exit);
-+subsys_platform_driver(da903x_regulator_driver);
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Eric Miao <eric.miao@marvell.com>"
-diff --git a/drivers/regulator/da9052-regulator.c b/drivers/regulator/da9052-regulator.c
-index fbebe538a648..289711143d76 100644
---- a/drivers/regulator/da9052-regulator.c
-+++ b/drivers/regulator/da9052-regulator.c
-@@ -442,17 +442,7 @@ static struct platform_driver da9052_regulator_driver = {
- 	},
- };
- 
--static int __init da9052_regulator_init(void)
--{
--	return platform_driver_register(&da9052_regulator_driver);
--}
--subsys_initcall(da9052_regulator_init);
--
--static void __exit da9052_regulator_exit(void)
--{
--	platform_driver_unregister(&da9052_regulator_driver);
--}
--module_exit(da9052_regulator_exit);
-+subsys_platform_driver(da9052_regulator_driver);
- 
- MODULE_AUTHOR("David Dajun Chen <dchen@diasemi.com>");
- MODULE_DESCRIPTION("Power Regulator driver for Dialog DA9052 PMIC");
-diff --git a/drivers/regulator/da9055-regulator.c b/drivers/regulator/da9055-regulator.c
-index a0d3414aa79e..aadc4d762d3f 100644
---- a/drivers/regulator/da9055-regulator.c
-+++ b/drivers/regulator/da9055-regulator.c
-@@ -580,17 +580,7 @@ static struct platform_driver da9055_regulator_driver = {
- 	},
- };
- 
--static int __init da9055_regulator_init(void)
--{
--	return platform_driver_register(&da9055_regulator_driver);
--}
--subsys_initcall(da9055_regulator_init);
--
--static void __exit da9055_regulator_exit(void)
--{
--	platform_driver_unregister(&da9055_regulator_driver);
--}
--module_exit(da9055_regulator_exit);
-+subsys_platform_driver(da9055_regulator_driver);
- 
- MODULE_AUTHOR("David Dajun Chen <dchen@diasemi.com>");
- MODULE_DESCRIPTION("Power Regulator driver for Dialog DA9055 PMIC");
-diff --git a/drivers/regulator/da9062-regulator.c b/drivers/regulator/da9062-regulator.c
-index e0c96f10e570..fd7f57991175 100644
---- a/drivers/regulator/da9062-regulator.c
-+++ b/drivers/regulator/da9062-regulator.c
-@@ -1037,17 +1037,7 @@ static struct platform_driver da9062_regulator_driver = {
- 	.probe = da9062_regulator_probe,
- };
- 
--static int __init da9062_regulator_init(void)
--{
--	return platform_driver_register(&da9062_regulator_driver);
--}
--subsys_initcall(da9062_regulator_init);
--
--static void __exit da9062_regulator_cleanup(void)
--{
--	platform_driver_unregister(&da9062_regulator_driver);
--}
--module_exit(da9062_regulator_cleanup);
-+subsys_platform_driver(da9062_regulator_driver);
- 
- /* Module information */
- MODULE_AUTHOR("S Twiss <stwiss.opensource@diasemi.com>");
-diff --git a/drivers/regulator/da9063-regulator.c b/drivers/regulator/da9063-regulator.c
-index bf34ea440d77..6df44d60c927 100644
---- a/drivers/regulator/da9063-regulator.c
-+++ b/drivers/regulator/da9063-regulator.c
-@@ -1065,17 +1065,7 @@ static struct platform_driver da9063_regulator_driver = {
- 	.probe = da9063_regulator_probe,
- };
- 
--static int __init da9063_regulator_init(void)
--{
--	return platform_driver_register(&da9063_regulator_driver);
--}
--subsys_initcall(da9063_regulator_init);
--
--static void __exit da9063_regulator_cleanup(void)
--{
--	platform_driver_unregister(&da9063_regulator_driver);
--}
--module_exit(da9063_regulator_cleanup);
-+subsys_platform_driver(da9063_regulator_driver);
- 
- 
- /* Module information */
-diff --git a/drivers/regulator/fixed.c b/drivers/regulator/fixed.c
-index f797cb504b9a..9d0c0513acfd 100644
---- a/drivers/regulator/fixed.c
-+++ b/drivers/regulator/fixed.c
-@@ -389,17 +389,7 @@ static struct platform_driver regulator_fixed_voltage_driver = {
- 	},
- };
- 
--static int __init regulator_fixed_voltage_init(void)
--{
--	return platform_driver_register(&regulator_fixed_voltage_driver);
--}
--subsys_initcall(regulator_fixed_voltage_init);
--
--static void __exit regulator_fixed_voltage_exit(void)
--{
--	platform_driver_unregister(&regulator_fixed_voltage_driver);
--}
--module_exit(regulator_fixed_voltage_exit);
-+subsys_platform_driver(regulator_fixed_voltage_driver);
- 
- MODULE_AUTHOR("Mark Brown <broonie@opensource.wolfsonmicro.com>");
- MODULE_DESCRIPTION("Fixed voltage regulator");
-diff --git a/drivers/regulator/gpio-regulator.c b/drivers/regulator/gpio-regulator.c
-index 6351ceefdb3e..53e65ae576df 100644
---- a/drivers/regulator/gpio-regulator.c
-+++ b/drivers/regulator/gpio-regulator.c
-@@ -371,17 +371,7 @@ static struct platform_driver gpio_regulator_driver = {
- 	},
- };
- 
--static int __init gpio_regulator_init(void)
--{
--	return platform_driver_register(&gpio_regulator_driver);
--}
--subsys_initcall(gpio_regulator_init);
--
--static void __exit gpio_regulator_exit(void)
--{
--	platform_driver_unregister(&gpio_regulator_driver);
--}
--module_exit(gpio_regulator_exit);
-+subsys_platform_driver(gpio_regulator_driver);
- 
- MODULE_AUTHOR("Heiko Stuebner <heiko@sntech.de>");
- MODULE_DESCRIPTION("gpio voltage regulator");
-diff --git a/drivers/regulator/lp8788-buck.c b/drivers/regulator/lp8788-buck.c
-index 2ade249ab6df..d11b8dfb2656 100644
---- a/drivers/regulator/lp8788-buck.c
-+++ b/drivers/regulator/lp8788-buck.c
-@@ -523,17 +523,7 @@ static struct platform_driver lp8788_buck_driver = {
- 	},
- };
- 
--static int __init lp8788_buck_init(void)
--{
--	return platform_driver_register(&lp8788_buck_driver);
--}
--subsys_initcall(lp8788_buck_init);
--
--static void __exit lp8788_buck_exit(void)
--{
--	platform_driver_unregister(&lp8788_buck_driver);
--}
--module_exit(lp8788_buck_exit);
-+subsys_platform_driver(lp8788_buck_driver);
- 
- MODULE_DESCRIPTION("TI LP8788 BUCK Driver");
- MODULE_AUTHOR("Milo Kim");
-diff --git a/drivers/regulator/max77693-regulator.c b/drivers/regulator/max77693-regulator.c
-index a8b3a2058d34..71c03c5db8c3 100644
---- a/drivers/regulator/max77693-regulator.c
-+++ b/drivers/regulator/max77693-regulator.c
-@@ -287,17 +287,7 @@ static struct platform_driver max77693_pmic_driver = {
- 	.id_table = max77693_pmic_id,
- };
- 
--static int __init max77693_pmic_init(void)
--{
--	return platform_driver_register(&max77693_pmic_driver);
--}
--subsys_initcall(max77693_pmic_init);
--
--static void __exit max77693_pmic_cleanup(void)
--{
--	platform_driver_unregister(&max77693_pmic_driver);
--}
--module_exit(max77693_pmic_cleanup);
-+subsys_platform_driver(max77693_pmic_driver);
- 
- MODULE_DESCRIPTION("MAXIM 77693/77843 regulator driver");
- MODULE_AUTHOR("Jonghwa Lee <jonghwa3.lee@samsung.com>");
-diff --git a/drivers/regulator/max8907-regulator.c b/drivers/regulator/max8907-regulator.c
-index e59aa7a3ee54..f8f0a50161c6 100644
---- a/drivers/regulator/max8907-regulator.c
-+++ b/drivers/regulator/max8907-regulator.c
-@@ -377,19 +377,7 @@ static struct platform_driver max8907_regulator_driver = {
- 	.probe = max8907_regulator_probe,
- };
- 
--static int __init max8907_regulator_init(void)
--{
--	return platform_driver_register(&max8907_regulator_driver);
--}
--
--subsys_initcall(max8907_regulator_init);
--
--static void __exit max8907_reg_exit(void)
--{
--	platform_driver_unregister(&max8907_regulator_driver);
--}
--
--module_exit(max8907_reg_exit);
-+subsys_platform_driver(max8907_regulator_driver);
- 
- MODULE_DESCRIPTION("MAX8907 regulator driver");
- MODULE_AUTHOR("Gyungoh Yoo <jack.yoo@maxim-ic.com>");
-diff --git a/drivers/regulator/max8925-regulator.c b/drivers/regulator/max8925-regulator.c
-index c1532db0a4ee..348ab150603b 100644
---- a/drivers/regulator/max8925-regulator.c
-+++ b/drivers/regulator/max8925-regulator.c
-@@ -268,17 +268,7 @@ static struct platform_driver max8925_regulator_driver = {
- 	.probe		= max8925_regulator_probe,
- };
- 
--static int __init max8925_regulator_init(void)
--{
--	return platform_driver_register(&max8925_regulator_driver);
--}
--subsys_initcall(max8925_regulator_init);
--
--static void __exit max8925_regulator_exit(void)
--{
--	platform_driver_unregister(&max8925_regulator_driver);
--}
--module_exit(max8925_regulator_exit);
-+subsys_platform_driver(max8925_regulator_driver);
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Haojian Zhuang <haojian.zhuang@marvell.com>");
-diff --git a/drivers/regulator/max8997-regulator.c b/drivers/regulator/max8997-regulator.c
-index e48ba694a906..a16c54162153 100644
---- a/drivers/regulator/max8997-regulator.c
-+++ b/drivers/regulator/max8997-regulator.c
-@@ -1166,17 +1166,7 @@ static struct platform_driver max8997_pmic_driver = {
- 	.id_table = max8997_pmic_id,
- };
- 
--static int __init max8997_pmic_init(void)
--{
--	return platform_driver_register(&max8997_pmic_driver);
--}
--subsys_initcall(max8997_pmic_init);
--
--static void __exit max8997_pmic_cleanup(void)
--{
--	platform_driver_unregister(&max8997_pmic_driver);
--}
--module_exit(max8997_pmic_cleanup);
-+subsys_platform_driver(max8997_pmic_driver);
- 
- MODULE_DESCRIPTION("MAXIM 8997/8966 Regulator Driver");
- MODULE_AUTHOR("MyungJoo Ham <myungjoo.ham@samsung.com>");
-diff --git a/drivers/regulator/max8998.c b/drivers/regulator/max8998.c
-index 90651f4d1828..a29b19fbaf64 100644
---- a/drivers/regulator/max8998.c
-+++ b/drivers/regulator/max8998.c
-@@ -766,17 +766,7 @@ static struct platform_driver max8998_pmic_driver = {
- 	.id_table = max8998_pmic_id,
- };
- 
--static int __init max8998_pmic_init(void)
--{
--	return platform_driver_register(&max8998_pmic_driver);
--}
--subsys_initcall(max8998_pmic_init);
--
--static void __exit max8998_pmic_cleanup(void)
--{
--	platform_driver_unregister(&max8998_pmic_driver);
--}
--module_exit(max8998_pmic_cleanup);
-+subsys_platform_driver(max8998_pmic_driver);
- 
- MODULE_DESCRIPTION("MAXIM 8998 voltage regulator driver");
- MODULE_AUTHOR("Kyungmin Park <kyungmin.park@samsung.com>");
-diff --git a/drivers/regulator/mc13783-regulator.c b/drivers/regulator/mc13783-regulator.c
-index fb3aa1cec1f2..1b634c334c30 100644
---- a/drivers/regulator/mc13783-regulator.c
-+++ b/drivers/regulator/mc13783-regulator.c
-@@ -460,17 +460,7 @@ static struct platform_driver mc13783_regulator_driver = {
- 	.probe		= mc13783_regulator_probe,
- };
- 
--static int __init mc13783_regulator_init(void)
--{
--	return platform_driver_register(&mc13783_regulator_driver);
--}
--subsys_initcall(mc13783_regulator_init);
--
--static void __exit mc13783_regulator_exit(void)
--{
--	platform_driver_unregister(&mc13783_regulator_driver);
--}
--module_exit(mc13783_regulator_exit);
-+subsys_platform_driver(mc13783_regulator_driver);
- 
- MODULE_LICENSE("GPL v2");
- MODULE_AUTHOR("Sascha Hauer <s.hauer@pengutronix.de>");
-diff --git a/drivers/regulator/mc13892-regulator.c b/drivers/regulator/mc13892-regulator.c
-index b29cf6ba6f12..803db41b7363 100644
---- a/drivers/regulator/mc13892-regulator.c
-+++ b/drivers/regulator/mc13892-regulator.c
-@@ -634,17 +634,7 @@ static struct platform_driver mc13892_regulator_driver = {
- 	.probe	= mc13892_regulator_probe,
- };
- 
--static int __init mc13892_regulator_init(void)
--{
--	return platform_driver_register(&mc13892_regulator_driver);
--}
--subsys_initcall(mc13892_regulator_init);
--
--static void __exit mc13892_regulator_exit(void)
--{
--	platform_driver_unregister(&mc13892_regulator_driver);
--}
--module_exit(mc13892_regulator_exit);
-+subsys_platform_driver(mc13892_regulator_driver);
- 
- MODULE_LICENSE("GPL v2");
- MODULE_AUTHOR("Yong Shen <yong.shen@linaro.org>");
-diff --git a/drivers/regulator/palmas-regulator.c b/drivers/regulator/palmas-regulator.c
-index f82618a70106..3d8ee8587f66 100644
---- a/drivers/regulator/palmas-regulator.c
-+++ b/drivers/regulator/palmas-regulator.c
-@@ -1669,17 +1669,7 @@ static struct platform_driver palmas_driver = {
- 	.probe = palmas_regulators_probe,
- };
- 
--static int __init palmas_init(void)
--{
--	return platform_driver_register(&palmas_driver);
--}
--subsys_initcall(palmas_init);
--
--static void __exit palmas_exit(void)
--{
--	platform_driver_unregister(&palmas_driver);
--}
--module_exit(palmas_exit);
-+subsys_platform_driver(palmas_driver);
- 
- MODULE_AUTHOR("Graeme Gregory <gg@slimlogic.co.uk>");
- MODULE_DESCRIPTION("Palmas voltage regulator driver");
-diff --git a/drivers/regulator/qcom_rpm-regulator.c b/drivers/regulator/qcom_rpm-regulator.c
-index 2d5fec1457d1..6a15dcc4fe4f 100644
---- a/drivers/regulator/qcom_rpm-regulator.c
-+++ b/drivers/regulator/qcom_rpm-regulator.c
-@@ -994,17 +994,7 @@ static struct platform_driver rpm_reg_driver = {
- 	},
- };
- 
--static int __init rpm_reg_init(void)
--{
--	return platform_driver_register(&rpm_reg_driver);
--}
--subsys_initcall(rpm_reg_init);
--
--static void __exit rpm_reg_exit(void)
--{
--	platform_driver_unregister(&rpm_reg_driver);
--}
--module_exit(rpm_reg_exit)
-+subsys_platform_driver(rpm_reg_driver);
- 
- MODULE_DESCRIPTION("Qualcomm RPM regulator driver");
- MODULE_LICENSE("GPL v2");
-diff --git a/drivers/regulator/qcom_smd-regulator.c b/drivers/regulator/qcom_smd-regulator.c
-index 23ed594b574e..6242f7237836 100644
---- a/drivers/regulator/qcom_smd-regulator.c
-+++ b/drivers/regulator/qcom_smd-regulator.c
-@@ -1532,17 +1532,7 @@ static struct platform_driver rpm_reg_driver = {
- 	},
- };
- 
--static int __init rpm_reg_init(void)
--{
--	return platform_driver_register(&rpm_reg_driver);
--}
--subsys_initcall(rpm_reg_init);
--
--static void __exit rpm_reg_exit(void)
--{
--	platform_driver_unregister(&rpm_reg_driver);
--}
--module_exit(rpm_reg_exit)
-+subsys_platform_driver(rpm_reg_driver);
- 
- MODULE_DESCRIPTION("Qualcomm RPM regulator driver");
- MODULE_LICENSE("GPL v2");
-diff --git a/drivers/regulator/rc5t583-regulator.c b/drivers/regulator/rc5t583-regulator.c
-index a25a141e86c4..4633f996e6dc 100644
---- a/drivers/regulator/rc5t583-regulator.c
-+++ b/drivers/regulator/rc5t583-regulator.c
-@@ -153,17 +153,7 @@ static struct platform_driver rc5t583_regulator_driver = {
- 	.probe		= rc5t583_regulator_probe,
- };
- 
--static int __init rc5t583_regulator_init(void)
--{
--	return platform_driver_register(&rc5t583_regulator_driver);
--}
--subsys_initcall(rc5t583_regulator_init);
--
--static void __exit rc5t583_regulator_exit(void)
--{
--	platform_driver_unregister(&rc5t583_regulator_driver);
--}
--module_exit(rc5t583_regulator_exit);
-+subsys_platform_driver(rc5t583_regulator_driver);
- 
- MODULE_AUTHOR("Laxman Dewangan <ldewangan@nvidia.com>");
- MODULE_DESCRIPTION("RC5T583 regulator driver");
-diff --git a/drivers/regulator/tps6105x-regulator.c b/drivers/regulator/tps6105x-regulator.c
-index 7f99f3e90bec..e5a053e0ad06 100644
---- a/drivers/regulator/tps6105x-regulator.c
-+++ b/drivers/regulator/tps6105x-regulator.c
-@@ -98,17 +98,7 @@ static struct platform_driver tps6105x_regulator_driver = {
- 	.probe = tps6105x_regulator_probe,
- };
- 
--static __init int tps6105x_regulator_init(void)
--{
--	return platform_driver_register(&tps6105x_regulator_driver);
--}
--subsys_initcall(tps6105x_regulator_init);
--
--static __exit void tps6105x_regulator_exit(void)
--{
--	platform_driver_unregister(&tps6105x_regulator_driver);
--}
--module_exit(tps6105x_regulator_exit);
-+subsys_platform_driver(tps6105x_regulator_driver);
- 
- MODULE_AUTHOR("Linus Walleij <linus.walleij@linaro.org>");
- MODULE_DESCRIPTION("TPS6105x regulator driver");
-diff --git a/drivers/regulator/tps6507x-regulator.c b/drivers/regulator/tps6507x-regulator.c
-index 6655d9c31187..aba2b41da549 100644
---- a/drivers/regulator/tps6507x-regulator.c
-+++ b/drivers/regulator/tps6507x-regulator.c
-@@ -443,17 +443,7 @@ static struct platform_driver tps6507x_pmic_driver = {
- 	.probe = tps6507x_pmic_probe,
- };
- 
--static int __init tps6507x_pmic_init(void)
--{
--	return platform_driver_register(&tps6507x_pmic_driver);
--}
--subsys_initcall(tps6507x_pmic_init);
--
--static void __exit tps6507x_pmic_cleanup(void)
--{
--	platform_driver_unregister(&tps6507x_pmic_driver);
--}
--module_exit(tps6507x_pmic_cleanup);
-+subsys_platform_driver(tps6507x_pmic_driver);
- 
- MODULE_AUTHOR("Texas Instruments");
- MODULE_DESCRIPTION("TPS6507x voltage regulator driver");
-diff --git a/drivers/regulator/tps65090-regulator.c b/drivers/regulator/tps65090-regulator.c
-index 8f916ee366e5..329af2f878b7 100644
---- a/drivers/regulator/tps65090-regulator.c
-+++ b/drivers/regulator/tps65090-regulator.c
-@@ -516,17 +516,7 @@ static struct platform_driver tps65090_regulator_driver = {
- 	.probe		= tps65090_regulator_probe,
- };
- 
--static int __init tps65090_regulator_init(void)
--{
--	return platform_driver_register(&tps65090_regulator_driver);
--}
--subsys_initcall(tps65090_regulator_init);
--
--static void __exit tps65090_regulator_exit(void)
--{
--	platform_driver_unregister(&tps65090_regulator_driver);
--}
--module_exit(tps65090_regulator_exit);
-+subsys_platform_driver(tps65090_regulator_driver);
- 
- MODULE_DESCRIPTION("tps65090 regulator driver");
- MODULE_AUTHOR("Venu Byravarasu <vbyravarasu@nvidia.com>");
-diff --git a/drivers/regulator/tps65217-regulator.c b/drivers/regulator/tps65217-regulator.c
-index b167ba22fe16..c30b0a330bba 100644
---- a/drivers/regulator/tps65217-regulator.c
-+++ b/drivers/regulator/tps65217-regulator.c
-@@ -263,17 +263,7 @@ static struct platform_driver tps65217_regulator_driver = {
- 	.probe = tps65217_regulator_probe,
- };
- 
--static int __init tps65217_regulator_init(void)
--{
--	return platform_driver_register(&tps65217_regulator_driver);
--}
--subsys_initcall(tps65217_regulator_init);
--
--static void __exit tps65217_regulator_exit(void)
--{
--	platform_driver_unregister(&tps65217_regulator_driver);
--}
--module_exit(tps65217_regulator_exit);
-+subsys_platform_driver(tps65217_regulator_driver);
- 
- MODULE_AUTHOR("AnilKumar Ch <anilkumar@ti.com>");
- MODULE_DESCRIPTION("TPS65217 voltage regulator driver");
-diff --git a/drivers/regulator/tps6586x-regulator.c b/drivers/regulator/tps6586x-regulator.c
-index 1ab5767590f3..93fde5f81cc9 100644
---- a/drivers/regulator/tps6586x-regulator.c
-+++ b/drivers/regulator/tps6586x-regulator.c
-@@ -525,17 +525,7 @@ static struct platform_driver tps6586x_regulator_driver = {
- 	.probe		= tps6586x_regulator_probe,
- };
- 
--static int __init tps6586x_regulator_init(void)
--{
--	return platform_driver_register(&tps6586x_regulator_driver);
--}
--subsys_initcall(tps6586x_regulator_init);
--
--static void __exit tps6586x_regulator_exit(void)
--{
--	platform_driver_unregister(&tps6586x_regulator_driver);
--}
--module_exit(tps6586x_regulator_exit);
-+subsys_platform_driver(tps6586x_regulator_driver);
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Mike Rapoport <mike@compulab.co.il>");
-diff --git a/drivers/regulator/tps65910-regulator.c b/drivers/regulator/tps65910-regulator.c
-index 3a3027e0b94e..84fba40263d2 100644
---- a/drivers/regulator/tps65910-regulator.c
-+++ b/drivers/regulator/tps65910-regulator.c
-@@ -1260,17 +1260,7 @@ static struct platform_driver tps65910_driver = {
- 	.shutdown = tps65910_shutdown,
- };
- 
--static int __init tps65910_init(void)
--{
--	return platform_driver_register(&tps65910_driver);
--}
--subsys_initcall(tps65910_init);
--
--static void __exit tps65910_cleanup(void)
--{
--	platform_driver_unregister(&tps65910_driver);
--}
--module_exit(tps65910_cleanup);
-+subsys_platform_driver(tps65910_driver);
- 
- MODULE_AUTHOR("Graeme Gregory <gg@slimlogic.co.uk>");
- MODULE_DESCRIPTION("TPS65910/TPS65911 voltage regulator driver");
-diff --git a/drivers/regulator/tps68470-regulator.c b/drivers/regulator/tps68470-regulator.c
-index de7db7690f6b..7aef0c12fbcc 100644
---- a/drivers/regulator/tps68470-regulator.c
-+++ b/drivers/regulator/tps68470-regulator.c
-@@ -185,17 +185,7 @@ static struct platform_driver tps68470_regulator_driver = {
-  * registering before the drivers for the camera-sensors which use them bind.
-  * subsys_initcall() ensures this when the drivers are builtin.
-  */
--static int __init tps68470_regulator_init(void)
--{
--	return platform_driver_register(&tps68470_regulator_driver);
--}
--subsys_initcall(tps68470_regulator_init);
--
--static void __exit tps68470_regulator_exit(void)
--{
--	platform_driver_unregister(&tps68470_regulator_driver);
--}
--module_exit(tps68470_regulator_exit);
-+subsys_platform_driver(tps68470_regulator_driver);
- 
- MODULE_ALIAS("platform:tps68470-regulator");
- MODULE_DESCRIPTION("TPS68470 voltage regulator driver");
-diff --git a/drivers/regulator/twl-regulator.c b/drivers/regulator/twl-regulator.c
-index 5bacfcebf59a..05579f2ee0e2 100644
---- a/drivers/regulator/twl-regulator.c
-+++ b/drivers/regulator/twl-regulator.c
-@@ -660,17 +660,7 @@ static struct platform_driver twlreg_driver = {
- 	},
- };
- 
--static int __init twlreg_init(void)
--{
--	return platform_driver_register(&twlreg_driver);
--}
--subsys_initcall(twlreg_init);
--
--static void __exit twlreg_exit(void)
--{
--	platform_driver_unregister(&twlreg_driver);
--}
--module_exit(twlreg_exit)
-+subsys_platform_driver(twlreg_driver);
- 
- MODULE_DESCRIPTION("TWL4030 regulator driver");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/regulator/twl6030-regulator.c b/drivers/regulator/twl6030-regulator.c
-index 6eed0f6e0adb..5a7c6e2a5e0b 100644
---- a/drivers/regulator/twl6030-regulator.c
-+++ b/drivers/regulator/twl6030-regulator.c
-@@ -769,17 +769,7 @@ static struct platform_driver twlreg_driver = {
- 	},
- };
- 
--static int __init twlreg_init(void)
--{
--	return platform_driver_register(&twlreg_driver);
--}
--subsys_initcall(twlreg_init);
--
--static void __exit twlreg_exit(void)
--{
--	platform_driver_unregister(&twlreg_driver);
--}
--module_exit(twlreg_exit)
-+subsys_platform_driver(twlreg_driver);
- 
- MODULE_DESCRIPTION("TWL6030 regulator driver");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/regulator/wm8350-regulator.c b/drivers/regulator/wm8350-regulator.c
-index d09864bae5ef..90942d0f439c 100644
---- a/drivers/regulator/wm8350-regulator.c
-+++ b/drivers/regulator/wm8350-regulator.c
-@@ -1311,17 +1311,7 @@ static struct platform_driver wm8350_regulator_driver = {
- 	},
- };
- 
--static int __init wm8350_regulator_init(void)
--{
--	return platform_driver_register(&wm8350_regulator_driver);
--}
--subsys_initcall(wm8350_regulator_init);
--
--static void __exit wm8350_regulator_exit(void)
--{
--	platform_driver_unregister(&wm8350_regulator_driver);
--}
--module_exit(wm8350_regulator_exit);
-+subsys_platform_driver(wm8350_regulator_driver);
- 
- /* Module information */
- MODULE_AUTHOR("Liam Girdwood");
-diff --git a/drivers/regulator/wm8400-regulator.c b/drivers/regulator/wm8400-regulator.c
-index fb3ca7956d00..61627892224e 100644
---- a/drivers/regulator/wm8400-regulator.c
-+++ b/drivers/regulator/wm8400-regulator.c
-@@ -258,17 +258,7 @@ int wm8400_register_regulator(struct device *dev, int reg,
- }
- EXPORT_SYMBOL_GPL(wm8400_register_regulator);
- 
--static int __init wm8400_regulator_init(void)
--{
--	return platform_driver_register(&wm8400_regulator_driver);
--}
--subsys_initcall(wm8400_regulator_init);
--
--static void __exit wm8400_regulator_exit(void)
--{
--	platform_driver_unregister(&wm8400_regulator_driver);
--}
--module_exit(wm8400_regulator_exit);
-+subsys_platform_driver(wm8400_regulator_driver);
- 
- MODULE_AUTHOR("Mark Brown <broonie@opensource.wolfsonmicro.com>");
- MODULE_DESCRIPTION("WM8400 regulator driver");
+	https://lore.kernel.org/all/6de4da5486354c0f25fef0d194956470cb744041.1775266384.git.reinette.chatre@intel.com/
 
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261106-regulator-subsys-6f166d01d0ae
+Please take a moment and consider what you want to achieve with these tests: what is this
+intended to test? In a way the benchmarks seem to be testing the hardware capabilities and useful
+to hardware validation folks more so than testing resctrl subsystem in a useful way to
+kernel development. 
 
-Best regards,
---  
-Brian Masney <bmasney@redhat.com>
+More specifically, if this test "fails" - is there *anything* we can do about
+it that does not involve "fixing" the test? 
 
+In the end I find these performance tests valuable in how they interact with the
+resctrl filesystem in different ways, not the actual performance values returned by the tests.
+
+Of course it is up to you, I am just concerned that you may end up (as I have) spending a lot
+of effort on work that does not end up being a deterministic measurement of resctrl health yet
+is used to produce a "pass" or "fail" verdict about resctrl subsystem health.
+
+If you do end up using a benchmark I'd suggest to make the checks as forgiving as
+possible. For example, instead of checking something like "LLC occupancy needs to be
+X when bitmap is Y" it should check something like "LLC occupancy when bitmap is all ones
+is larger than LLC occupancy when only half of bitmap is ones". 
+
+I find work like
+
+	https://lore.kernel.org/all/20260810095124.32244-1-icheng@nvidia.com/
+
+to be valuable as deterministic measurements of resctrl health.
+
+Reinette
