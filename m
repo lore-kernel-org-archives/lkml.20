@@ -1,93 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051954;
-	b=QlRIuUUQYyI4wiAIXoUm1cvKVDg+0QqsQk2eroqT35h5rDDp8HVYGCNsGiy1HFnGsDJN
-	 FUeJ1mnZnSFZg8UtqPblWdjZ1evCLsxr5DHyOHB3+jJ05ler8PZ6TewVAwDAL0ZL6P8b9
-	 9GcFDBSrML/O24WvOW8plvxpHuCTO0l6cobVp+1EiGUuAsa39W+OcgN6PC+NLNgTnZidK
-	 26HIEdN+/bzB/IiGdmvbFztgRG/FBD/c6R/y1cOAgGXWbhBWxUO5ApyWB85NUtkPYqY1s
-	 Rs6gEgUBbGX6ng15eoMtG18Ra9eKEdRfyGRwBxP4Kx1ciCtOxqWJaOkSS5LB/nKQ+bQ==
+	t=1794051982;
+	b=DvZi1zk4/dqPjdF0iaef8fzou4Y+fLX2u3BBe6ciHNaTGeYFIZ1XevKanGhZztOCbIRF
+	 NqMLQDzkQunlidjiVnUxhKVYY47BDQt0A6A8JQECH8xVr0PSMVRSTS+S/yIsK1bNXGg7X
+	 E/TF7Q5Eut7pofV/78E7vEjP8fwqUAz83sDhgzgO8x/rzXe9+fZkN3smURpeaeoFagFt5
+	 Lg4VELJdwx+WC+yt4lWkAIuMj8N3YV3ajCQ9Qrfjqmc/ffmAgvokQsLAIilO+bDbmbAxg
+	 Z7oqDwTinhX85nPHI9P1PcDajrivJu58INPb78LycFSdspudiJI8CQqL8GBZRvMV3Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051954;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Sr1zNGFXUyUQTl9XNV5ciB4koZb58s7llFG2XF1rzeQ=;
-	b=wQfQrddUwWsq+NnjqQdwMyP7GqQkjHdSg+QHSvajCWDDKmeG4e5kMtIDCea4Y2xUCkAC
-	 dJkbGrtwEovnVwXil1BXq/0q13tQ9k+VGm5eJEWBHZLNhE08mL/DSJ/iejcU2LcDSiJpv
-	 AgFy0PMX16Ol4C/o837RwDpPzJd4JxvvFqsdVQvNa6mICeWnmbsA4fDuKqDxbaFuTgxNV
-	 MgDul4Op/XgkDlBP151RReeOJhGf2imXMdEFrQo8NnD781hnLDE5du2dbgPe9Z2KtcS5a
-	 W+/saoLbM8jPPB7WXTRbwRC3VuoGYqOHCXqNjVlXkJOPfiRyfTyijlV4PxIxlop7YWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051982;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=FoJpIHfSpIS3/QYPEruscC9y+4202qKtdIhXLO5zKSA=;
+	b=0vhH6hgfs8ahWLWJpfZQNaeW/YUJdg38lV1z6m3M8bAcfEAGABjNqLU/lU7pk9iskpko
+	 fCVQqxDPKvuECkImKyC+d9GMUl1QIlCsMMcg+9rXHQYoUMYPjOxLKl7qG7hNTjWr2GxXF
+	 V4q3CWlYlhyfGS5fMDSyRkTY/aJ+kOEaRcRJLDOamJzFkXuoi6bqxRUcdcfyWl2szkArz
+	 F+qF1mhTo0y52aO+7e2TWWJUzHcJqYpJK/L9ZEtdH0mEq8raYkwdhR0xYuFFqnKB7sj4A
+	 cADYSn3emiJeJ3n1hOpHToG/LL5D/rszuqjQNnlmXe6wMKvGMZo77hDYMymvfstTQSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPutONwh;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABM1ogIw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F086606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:45:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F086606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F2E606A32C;
+	Sat,  7 Nov 2026 11:46:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPutONwh
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so13200625e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:45:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794051952; x=1794656752; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sr1zNGFXUyUQTl9XNV5ciB4koZb58s7llFG2XF1rzeQ=;
-        b=nPutONwheTmtaI5GQn7Xa+eSIIIS8E5VMKo2Dyey6usHGph5YCcvSHUqp4NFXYxoH7
-         XJqKhn4x32w4qTwf+Fmy08fCw/FuVOerTlBtmmnS0L7XgkEnZU0IJWZMKIorIQukRTHH
-         l/658CS+WTKwX/lIAIBbhu+xz8Fb6l5SmepVNjh8tBE0zis9mpeKiuUbcCAaUK4PzMmO
-         qpzC1IFfoplkVbus0pw66uU1uyBUjpnwxzHiIGX3ou4leV7QKNCUHv5WO2ramKtitbad
-         xmp5Z+rxaRacSNGXDsKKBCx8txFtyCffN/A5FvIzVSGfegIl3vyi9oat5zxAPjcoWz7m
-         8WuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794051952; x=1794656752;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Sr1zNGFXUyUQTl9XNV5ciB4koZb58s7llFG2XF1rzeQ=;
-        b=nvNd1cHcANwSUJ0fY96AEmkWFVlq6fIsHdQHEBmNcnSgwt8N2R2PbC9lIlQrBjPeYd
-         VXkiCfaHv6d/pxKSsY9oLMqS8zBaJLL1t+X5hfH1EmrTxywgVT/jRo+fs3t6tnvStiBP
-         smZ0TqXDjlna/F5fu9aeoCWQZyyY7CUoQtJDbuCLSxE4Ks1E9WOeB3p7kTX5iUaDRX1v
-         uAaJ9jsMAQM+YyN+P+LW7gNzQp30vyLzTNvAlAp3wrfRjjeDc4GBOlYHUD/9Si6nrXHc
-         G2Ks0jVBgqBDRgf9ZiZj2YZ1gikLa0m65iR//1yN+F9mLYg7xxopoaoKG/bgsk34HOZ6
-         LVNA==
-X-Forwarded-Encrypted: i=1; AKwUvBwn87O7wYbsx8Vsojtg2/s8f9jvSlYPl8O7ntV92C+9wpcN7/ag1Aa29blvs8yovNmQWcEjfs8zPUqWx20=@vger.kernel.org
-X-Gm-Message-State: APuU4Z991Fn6Dv0CBl66vhvFjM+BTwWJU5jaQsInN9CoUxlvu5smfn/6
-	KRzGedOoJISb8CInbKKBlhZgL/pdIv4F1lnGzp7P9HzmXQcofkfL4PGD
-X-Gm-Gg: AYBFou11bd5nr3i7/Ou4dRyipxka0+L1cfUmP4Ll/AgLcW15QOXJ2TN9G0abz3eTrTE
-	TfPAUU7Qjshgv8qqYMQBxP6sCohvJFjWIPdwvxloD3g8s1qtL/8KXjaC3+MPr4/kZJ+5ylenhYp
-	/sxLXOwpW7FY2v+mlX1B5lVOw9KigEJfU3xUa+KdvYs7FE5g3CIr4OeJKqDf5LyYdnEADnq7Hox
-	PKbaEKhsIZVGUFPvyWX+gY9ePAc6xRybNF7U6AtL737DTfsnWp2WzfqIMTTG+2DIPuxEfWiw2tO
-	nKHFQ2fYk6pAc6i0ELy4826OA8ZwvruOIS1ohABUUdXRsHNc+wSqdgq6uXDvYZ78R7mlHteDLFP
-	7kpnEhHoRpXlI/pbTF+j5qDQSP9BdTn9z8MDf9m8itXpKWBRWn6/wWfH3aZL/kJ5C9/LcdjiHjb
-	62zimvTJK0QdzjW/AdTpu5kSBuflsJbInCmpM+uTXQyZe+3b0aCDGYwdakDmm2oAdwiqNMKbFf3
-	e8uoyENln/KfkpGc0/3mzsYvTgMwIwamDXPpe+gB4hP+zm4g9R/n2EnPOL6IUUBMX1nmG/u+ott
-	ROvaAuZAIY/8377jvAXm9G3LeJrXMnNsYDMe6HJP5mBwyX5+htwSzwxX066YhQ==
-X-Received: by 2002:a05:600c:19d1:b0:4b1:32c8:27db with SMTP id 5b1f17b1804b1-4b6de691614mr91237845e9.22.1794051952338;
-        Sat, 07 Nov 2026 03:45:52 -0800 (PST)
-Received: from SurfaceArch.localdomain ([207.188.128.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b79501bdedsm43331655e9.3.2026.11.07.03.45.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 03:45:51 -0800 (PST)
-From: =?UTF-8?q?Antonio=20V=C3=A1zquez=20Blanco?= <antoniovazquezblanco@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: Clarify that gain is Analogue gain in OV7251
-Date: Sat,  7 Nov 2026 12:45:49 +0100
-Message-ID: <20261107114549.21301-1-antoniovazquezblanco@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABM1ogIw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38671F0089F;
+	Sat,  7 Nov 2026 11:46:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794051981;
+	bh=FoJpIHfSpIS3/QYPEruscC9y+4202qKtdIhXLO5zKSA=;
+	h=From:Date:Subject:To:Cc;
+	b=ABM1ogIwHoJH4tlmYdvw/HNk9Rn52561lHHTh94v4JqT5rUldqtHYFib8hOQTbEyx
+	 ilYBcxsq10EIvt6F5IurAyoW0O0sDegt97SJytOIaVB4w7lmsEowk4rr2JB4tl6Mit
+	 ybVjAKZDg5+nPxBF0PlN0fmVvTWNCvYaDBKyKF36C85fNi0JWVG19dV7NJuBfyU3tm
+	 1uVzfsgmrmUOqK0hTVkBR+wtAzG/2n6bjALXJKYdEwuP4mNgQyyTtDz9WjXhKsPS88
+	 J9iWx+hBtb5QidLBFKkLWZPekPxT+rgccFW8yJDINZ1pGr/ju2ONjUB5y2TIjFyBCj
+	 yyWs5C0eULoaA==
+From: Joshua Crofts <crofts@kernel.org>
+Date: Sat, 07 Nov 2026 12:46:17 +0100
+Subject: [PATCH] usb: musb: fix use-after-free in musb_remove()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,70 +52,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261107-usb-uaf-fix-v1-1-ba33689d0ca3@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNz3dLiJN3SxDTdtMwK3aTUlOQUy+QUizSTJCWgjoKiVKAw2LTo2Np
+ aANzquTtdAAAA
+X-Change-ID: 20261107-usb-uaf-fix-bedcd9cd8f4b
+To: Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, 
+ Felipe Balbi <balbi@ti.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
+ Joshua Crofts <crofts@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794051978; l=1609;
+ i=crofts@kernel.org; s=20261015; h=from:subject:message-id;
+ bh=2+tNpPgT1lqjQ5iUv0JrjGxDk64BEhMvUdMRlfsw508=;
+ b=u/mh4bkq/FHjK94y4JBivQ4v9qjz2EJW1RiFslAjV0ssIO7GUlU25SwHOBWbxi17DIeGZES8k
+ WUwbjf84ktDCirh2AmI5Vp3x8g9m8qPetvgWaplxC4skJqKqYjWLyqc
+X-Developer-Key: i=crofts@kernel.org; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-From: Daniel Scally <dan.scally@ideasonboard.com>
+Currently in musb_remove(), musb_platform_exit() drops the PHY refcount
+before usb_phy_shutdown() is called, causing a use-after-free bug.
 
-Update the control ID for the gain control in the ov7251 driver to
-V4L2_CID_ANALOGUE_GAIN.
+Reorder the function so that usb_phy_shutdown() is called before
+musb_platform_exit(), the same way as musb_init_controller() does in the
+error path.
 
-Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
-Signed-off-by: Antonio Vázquez Blanco <antoniovazquezblanco@gmail.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-d180c2b9-0006-4638-a22b-13df8c201235
+Fixes: 39cee200c23e ("usb: musb: core: call init and shutdown for the usb phy")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
-Notes:
+ drivers/usb/musb/musb_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This patch is not mine. It has been carried out of tree in the linux-surface
-patch set since 2023 (patches/<ver>/0013-cameras.patch) and has never been
-sent here as far as I can find. Daniel's Signed-off-by is from the original;
-I am passing it on and have added mine. Daniel, if you would rather send it
-yourself, or if there is a reason it was never submitted, please say so and
-I will drop it.
+diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
+index 73ac25f53698..8e52246de948 100644
+--- a/drivers/usb/musb/musb_core.c
++++ b/drivers/usb/musb/musb_core.c
+@@ -2642,6 +2642,7 @@ static void musb_remove(struct platform_device *pdev)
+ 	musb_disable_interrupts(musb);
+ 	musb_writeb(musb->mregs, MUSB_DEVCTL, 0);
+ 	spin_unlock_irqrestore(&musb->lock, flags);
++	usb_phy_shutdown(musb->xceiv);
+ 	musb_platform_exit(musb);
+ 
+ 	pm_runtime_dont_use_autosuspend(musb->controller);
+@@ -2650,7 +2651,6 @@ static void musb_remove(struct platform_device *pdev)
+ 	musb_phy_callback = NULL;
+ 	if (musb->dma_controller)
+ 		musb_dma_controller_destroy(musb->dma_controller);
+-	usb_phy_shutdown(musb->xceiv);
+ 	musb_free(musb);
+ 	device_init_wakeup(dev, 0);
+ }
 
-One deviation from the original: the second hunk now wraps, because leaving
-the call on one line puts it at 82 columns and the media subsystem asks for
-checkpatch --strict --max-line-length=80. The wrap follows the style used in
-commit d938b2f29be6 for ov8865.
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-usb-uaf-fix-bedcd9cd8f4b
 
-Testing: Surface Pro 4, which has three OmniVision sensors on one IPU3,
-ov8865 (INT347A), ov5693 (INT33BE) and ov7251 (INT347E). With this patch the
-ov7251 subdev reports
-
-  analogue_gain 0x009e0903 (int) : min=16 max=1023 step=1 default=16
-
-matching the other two. Without it ov7251 is the only one of the three that
-reports plain gain for the same kind of control, which is the inconsistency
-this fixes on real hardware.
-
-Built with W=1, no new warnings. checkpatch --strict --max-line-length=80
-clean. Based on media/next at 7.4-rc1.
-
- drivers/media/i2c/ov7251.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-index fce6344b5120..6ec979c5fb35 100644
---- a/drivers/media/i2c/ov7251.c
-+++ b/drivers/media/i2c/ov7251.c
-@@ -1052,7 +1052,7 @@ static int ov7251_s_ctrl(struct v4l2_ctrl *ctrl)
- 	case V4L2_CID_EXPOSURE:
- 		ret = ov7251_set_exposure(ov7251, ctrl->val);
- 		break;
--	case V4L2_CID_GAIN:
-+	case V4L2_CID_ANALOGUE_GAIN:
- 		ret = ov7251_set_gain(ov7251, ctrl->val);
- 		break;
- 	case V4L2_CID_TEST_PATTERN:
-@@ -1580,7 +1580,8 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
- 	ov7251->exposure = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
- 					     V4L2_CID_EXPOSURE, 1, 32, 1, 32);
- 	ov7251->gain = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
--					 V4L2_CID_GAIN, 16, 1023, 1, 16);
-+					 V4L2_CID_ANALOGUE_GAIN, 16, 1023, 1,
-+					 16);
- 	v4l2_ctrl_new_std_menu_items(&ov7251->ctrls, &ov7251_ctrl_ops,
- 				     V4L2_CID_TEST_PATTERN,
- 				     ARRAY_SIZE(ov7251_test_pattern_menu) - 1,
+Best regards,
 -- 
-2.56.0
+Joshua Crofts
 
