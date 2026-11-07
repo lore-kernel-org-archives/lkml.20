@@ -1,63 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794084227;
-	b=vjDqYhbHHr7eBpVBDEuQmOXTPhm0sz6qsOIeegVqF0S5wUGSlL1pev6LMxQ/XFbRxbUx
-	 L7ftj+4dttDX8fwXuxrhb5YXidzXd3oxw+h5U4dXb2H7YhRKXD85MX1TrW0/Bf2umazEA
-	 4H6dkXCiV50YhUlbQSo7LJw0EUDPnerjrHCSKa/qu4Ljne2OQFl6Rw+kDWeaZ+yBZ281K
-	 hEhi2Sop6Zr5Piz3hSG6M6W0n+9JMMaIKYGOjAIpOCd3c7Vva2xqbv/WWvo8gmuZ3OJqJ
-	 jONPSX29gTq4Gwh0VBRR2RkXYPoN/p+0X6k8zKqO3ogW26r6pAsVMMg0RCUlS6riuHg==
+	t=1794084604;
+	b=gJJCsuHjljYiZdujmR7u2co3Ce+qI1eLTqRnYRC7eghsy5lO82eJIM8LXXTvrk82B8hB
+	 cQhiCQr7Eej/ApFNhQFVPp0vtOZbdjC++71YmzMfIFD0azP0lyFk5zDijtVn+JhRuKAUd
+	 jsaN4lAEWV5XNYr2ZhTvVsSKfTmY38rvlqQLmh8kTlUFpw/QOKU7QmEBidYPZnkN8R46Z
+	 F/ULt2FxiFCexDtPSXDIVwF526udrK6agWM9YUGDsn1af6MIluSLxE+wNTFb5jxIgZQuM
+	 ofj4AnJpGObGRfaYK8qxFY2Q6bHfW4JympQs95ncxcbwfjTlfwqc6Nuc5ZmXqKswcrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794084227;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xIJP/ux0u2zudpHSHBN3zgctS50zYkGAb3SzJpj0v60=;
-	b=DOUU1II1nOjfg9iri/q+0JwIT+v/8t0+eZXUJF5MgfTEoj9opIA6qMLAR+Q96cCb5XqP
-	 cRfSg49HF9iyBtFM3k4/q62LO5d6Kj1Tua1Izsk7oeOej1UTqU9GuzALAJo3alvlOk8wo
-	 Q56hhk5f2BmfmAL1FyKtOPQ4ry955Ukt/FFKFMEdux3IZrJcoFYlcdqzpmkKzYnTvQOCc
-	 vDXWGVj4T8HT9Yl0o56u41kcArp9Wzj5kRDuzPnnOkaV3dXNDO1Sr3JzV+cDN1iMYO7cb
-	 fHjSvBqC2sNJRO7PS1uxGH3MNPlhSvMvVF27qIyB4pOA0Sj4TpnKMWMUGX7oCu1TxsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794084604;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=aOesGKy7Bt1YCMx1QwBRu3MlgUbtfj3W3WMjPklWMRI=;
+	b=NJhlcicx9B0N3xVMS6Xnda+az9BO5iM649RnjAx27f4PQntvjm4biOp42VDrA5G82Hyz
+	 35kjrSmHuAIms9qVM7WfDMOJGGCV1+gET2S/nlcw2EdOiSJjX7FCufpni543asTFMMnpr
+	 IJ/b+IQTER7akzomGWk0u3aPoVU49r9ixVFUV4Sa6fTy7CQACASTS3FHac1VdSbJmwF2B
+	 VZ6UQ84X/v+4Ym+S/tLu0pk24pbFoICH+9YkSQorjYdyoVRCGZt9/NENFuJ01b02XDWAC
+	 SVb5np4OwNIn015vdyzvnsfUT0vRBTNBMiiyBvnSUctnr9Dy5Yqwtzhj3cUAx6RdadA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+X1Qp2M;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=joshtriplett.org;
+	spf=pass smtp.mailfrom=joshtriplett.org;
+	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b="z6u+N/G2";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=dthcuLss;
+	arc=none smtp.remote-ip=202.12.124.159
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DED9606A326;
-	Sat,  7 Nov 2026 20:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF09E606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 20:50:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF09E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+X1Qp2M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3DD71F0089F;
-	Sat,  7 Nov 2026 20:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794084227;
-	bh=xIJP/ux0u2zudpHSHBN3zgctS50zYkGAb3SzJpj0v60=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=M+X1Qp2MqP3zYUYD6309po4giUA4YS0ZDStqsnfzwZcAmmQCrqcKt6s94A2e5FQqk
-	 3vygZ2+LcYgFDNYRd55jBzgAQQUuXC7EbCLqW58ObeCfkrwHiiMDOacRqLPdQNw2m2
-	 jYPt46CupXaDMm3RrfIIjVKeoq0LX/8+u4ebkGPVOzdaklcrVgI5AZyRniVaGzAqYN
-	 XdO8wXEFUCkudScu1VDf7OxnHqV3ZexLikZrtLUBB3DBzKSMJkXaYi8o0wjvgsJasb
-	 HOTqkART3+P+yH6uImF3aJEX4+ftFHMkLvi9Q3Fr08affb8aAprixKWh4T1NADjlqJ
-	 L+h4Il2mIsEnQ==
-Date: Sat, 7 Nov 2026 20:43:42 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, Conall O'Griofa
- <conall.ogriofa@amd.com>, Salih Erim <salih.erim@amd.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Michal Simek <michal.simek@amd.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, stable@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] iio: adc: xilinx-ams: fix out-of-bounds accesses
- when parsing channels
-Message-ID: <20261107204342.4ff7487e@jic23-hlaptop>
-In-Reply-To: <20261104164510.105359-1-kapoorarnav43@gmail.com>
-References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=z6u+N/G2;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=dthcuLss
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 2D61A7A00F2
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:50:03 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Sat, 07 Nov 2026 15:50:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	joshtriplett.org; h=cc:cc:content-transfer-encoding:content-type
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=fm3; t=1794084601; x=1794171001; bh=aOesGKy7Bt1YCMx1QwBRu
+	3MlgUbtfj3W3WMjPklWMRI=; b=z6u+N/G2KU95qqFq0G5Z9YVJiKgWnQa5G3yvr
+	rYko1LUo1fh8ZyPT4RdiMBwABrTuZaIxpwDdoj0rSsmrWMLvVrug+N/jEfoTiU8W
+	vC5MGEfn8d+GpBZIPw6ZQWjp2T/cUptWMs/FaaqGSZ3nR3g18Zudm19kM2f8JiAn
+	fe7ijTtrDukQMkORYJ+a1P1BeBTkNr/+sx1JBZdavRymrM1EG+1foFsaDYu9MxWt
+	x/dbi3m7A9EoLJDsSRSX+sUrH5cxt9BM82ZB1f8VIlxPDBDCnoOmvLE5bcZR8Ofp
+	pZuep6G/RzDuvxZre+AnDp/Rt+FPI4SDvHtFQIqZ0GtocwujA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794084601; x=
+	1794171001; bh=aOesGKy7Bt1YCMx1QwBRu3MlgUbtfj3W3WMjPklWMRI=; b=d
+	thcuLssM+anEFXWbCJArOEynkrI5v1Jg7Fg/dpmuI9sOL/RLzDPI0PpVK5FR0bjN
+	iqKZVEDpyiOlAACLkOzTkhEZI0/5cm80ofdvI0rQ/7IULCv667AN02oEqdidzLdV
+	YweqhfXi9Zzj7kxdW+TNXtoKoHg2mVRQyMNq2P1Uwv2B5FLQm7vuIIcdjWnpsfNM
+	0EX75KDEjwLhttcVPuDNupZVP5RSeAOTegDHBJfeJC0FAIQG2d5Wq0j8b3SLoJbo
+	PhaFb6NBo0gO4zYs30VnMAQKpNWbdYlnxRBtCxzrBgfLthczNWzISKHRXmVLfaOL
+	epp/7e41dTtvZ4h02DJQw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=joshtriplett.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794084601; d=joshtriplett.org;
+	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Hg/4/o6HA+jPdg3H0vzWdTWG1dD3ASjV9VmiJDyhTVOMfbM
+	WSTSbx5BInrSTp6WKyYvnAjP957CHbVBAUM/Fyqw9wcXU/3HlN+eQJQy2yUUhPzH
+	Jpboo8hFi7pZn/OZhR4s92q1hbDo75IRuP3i8IJQJYvv8lnJcwRXDs0RFqvNo1LT
+	nuZelSmGoLJGKyjsfiTCpR6FeCb8wGfGAUeDMyjtJk0O4DENsxK+zU6zrn+GW8UP
+	zsARiSiI/YfBTOAkufXiu+h/8TC+FV5txexktkAaASsfCFyw0tFAqGapDvolM11p
+	u9S4BHlL6HtqgnL3/9pepo1kbcX/JV5bBImbw/g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:A19Renz0cxkEDfbt/2pLjrnJSUaI6TuPqDwDKxer6XA=:wyge+1tOzwAIZGqBD066PALFzHGlxq9/uxHhTr4zyrA=;
+X-ME-Sender: <xms:-I7vagZaEKGabKaUK2n6AmJXbY---mbLcGIPDmeQf0eIOCBVFHQu7Q>
+    <xme:-I7vaue51KYR_CdyAU9JVtZziXab25DTRCJ2LSZPPgB-zxAv0VJ3VueVHOhQPChXM
+    pJd6Ff8En29aV22QcCLyuu7r5MjkTvP3zVqkFUmNvw2_Wchmt_rwIRo>
+X-ME-Received: <xmr:-I7valmJqjbR82WX4MfEtBx4kgTPAccoL9fD3sM63Fr4okXBEFf2nhYQNQ>
+X-ME-Proxy-Cause: dmFkZTG1ZfC8HBbsKhJNIVCAtBIJYEcqG93Uh6xOwtCMmcb+hKolNtXgix5VRY7hVx0P8B
+    aYZ1u5MQjSiy0VXR2QRQLjMfSZMQs2XO1jXfVvLxh7OHNABgdwZpfX4CAiUwXmim6Ha2X6
+    qESHRKysaogslaAs00WB70ATq9CZzYDD2iGoK1R1YqhYAxANrJjL0h3zVAKqPYe/Sh4gBR
+    XzSZ41dqu5S/3HUnGosu8gvQmNE+ZRKEA7klcbk2KCUA055Y5/hwj8heGdpSLR7BWc0iDR
+    rdakdB0fTjSJhj47sYBvPpEp1KSXZ50H3A54OXwlecHRwFRUQc7WLRfCWkpv9DLN30UJY5
+    J5mqDOj/Qun4Zmx2MvapvFHmGV/iS+qpmWmDZMXraV6rsbFVDuF8jfSX+jei1rAUM0rM1E
+    AjU0fZVGaolYPMwzs806pNedfrALDiobYYQW69xnQmdfuYhP23Vq0wQfbzgSGpHczO+btB
+    x6b79xPE6tN8OkKKerIZ15w1LwiiEkNZG2/7zhTOknvmLMnhxnycxjGwyR8iuhUloF+UOG
+    dfaMb72Q9gjTUw6sXo/6dZdDCF3VBY1SZpVpBxCn/evX8h0/iiOG+xe3/c1ovlgz9Vsjo4
+    iIjGu/SydrpeS37sanYmyf29Ue7d9CkW5gK9EfjZ172E7+5v1dKYa8K2+mWw
+X-ME-Proxy: <xmx:-I7vam3oECNoJpIk_oWKN6zB9KevAY_pFNovB-w_cmYmygslEkMX9Q>
+    <xmx:-I7vamdNQX1CBZWACEd1rUZ_T2PukM2QWo7dD2aaC_gWYnvweU1P6w>
+    <xmx:-I7vaoaPvm8bINod_zcw9qt492Rse3XStQFf54aMVTkHST8DvdBxvw>
+    <xmx:-I7vajFCGNZdr7Oog2JnTNFu9oeJY9YuLYw-BxS3FRlZ2TSjngbr9A>
+    <xmx:-Y7vam24Yt0VSrPKEyka2JwxMCyDIfa0_tk6a5MpH3r4BP66IcNhhqzc>
+Feedback-ID: i83e94755:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 7 Nov 2026 15:49:59 -0500 (EST)
+Date: Sat, 7 Nov 2026 12:49:58 -0800
+From: Josh Triplett <josh@joshtriplett.org>
+To: Rong Zhang <i@rong.moe>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
+Message-ID: <au-O9sHQNnHxla_e@localhost>
+References: <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
+ <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
+ <au5nUp4extfupCpS@localhost>
+ <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,54 +133,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
 
-On Wed,  4 Nov 2026 22:14:59 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+On Sat, Nov 07, 2026 at 07:45:12PM +0800, Rong Zhang wrote:
+> Hi Josh,
+> 
+> On Fri, 2026-11-06 at 15:48 -0800, Josh Triplett wrote:
+> > On Sat, Nov 07, 2026 at 04:48:44AM +0800, Rong Zhang wrote:
+> > > The term "unsafe LED" exists because LEDs are write-only for software and
+> > > fire-and-forget for the EC. By taking the control of an unsafe LED, e.g.,
+> > > attaching an LED trigger, any warning signal from the EC can no longer be
+> > > displayed by the LED.
+> > > 
+> > > When it comes to battery LEDs, they are definitely unsafe to override.
+> > > After all, batteries are dangerous things when they malfuction. Thus, I
+> > > don't think it's suitable to enable it for all users.
+> > 
+> > Choosing to not report "charging" vs "full" vs "not charging" via LEDs
+> > (as opposed to on-screen indicators) is not in itself dangerous. If the
+> > EC has something like "battery is damaged/overheating/exploding" to
+> > report, it had better do that by some more effective means than blinking
+> > an LED, or the message is going to be lost.
+> 
+> This is not in contradiction to the fact that blinking an LED is crucial.
 
-> The driver sizes its channel array for 10 fixed and 21 external PL
-> channels, but accepts external channel nodes numbered 20 to 50, and it
-> never checks the remaining room while filling the array. Channels 20 to
-> 29 are the fixed ones, so listing them adds duplicates and overflows
-> the array.
-> 
-> Patch 1 limits the external channels in the binding to 30-50, as Sai
-> pointed out. Patch 2 does the same in the driver and adds the bounds
-> checks from v2.
+Something can simultaneously be crucial and completely ineffective. As
+mentioned elsewhere in the thread, "immediate shutdown" would be an
+improvement. Bonus if a message appears on the screen for a few seconds
+so the user has some idea what's going on, but whether the OS handles
+that or not, the shutdown would be an improvement.
 
-Applied with the fixes tag for dt binding dropped.  
-Note I'll take this the slow way so this will only merge next
-cycle.
+> > I can't comment on what *every* ThinkPad EC would do, but at least on
+> > this X1 Carbon Gen 11, 
+>
+> That's the whole issue. The patch unlocks charging LEDs on all models,
+> while your ThinkPad can't speak on behalf of other models.
 
-Thanks,
+If that is the primary concern, would you accept a DMI-identity-based
+allowlist?
 
-Jonathan
-
-> 
-> Changes in v3:
-> - New patch 1: limit the binding to channels 30-50 (Sai)
-> - Patch 2: only accept channels 30-50, so a channel node can no longer
->   duplicate a fixed channel (Sai), and add a static_assert() that
->   ams_pl_channels[] holds the fixed plus the external channels
-> - Patch 2: rework the commit message around the duplicate channels
-> - Rebase on fixes-togreg (now on 7.4-rc1)
-> 
-> v2: https://lore.kernel.org/all/20261023185652.195025-1-kapoorarnav43@gmail.com/
-> v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
-> 
-> Compile-tested only (W=1); I don't have ZynqMP hardware. dt_binding_check
-> passes, and rejects a channel@25 node in the example.
-> 
-> Arnav Kapoor (2):
->   dt-bindings: iio: adc: xlnx,zynqmp-ams: limit external channels to
->     30-50
->   iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
-> 
->  .../bindings/iio/adc/xlnx,zynqmp-ams.yaml     |  7 ++-
->  drivers/iio/adc/xilinx-ams.c                  | 57 +++++++++++++++----
->  2 files changed, 50 insertions(+), 14 deletions(-)
-> 
-> 
-> base-commit: c293f0db308fe76a0a9b0f6674cd2dea149b03aa
-
+- Josh
