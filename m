@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794092746;
-	b=l8wicbvoWizBVpDhAYM8gla+P9ih+Z5GoIuAzoXTB21CDhKDsIm47DQChzTDFSpbwqzI
-	 pDzjY/BqZErMN2Tb9Djwd7BJ67ePSUDLmISi2JkcxqTiDBLclMSAtFcVIZxXX9Jl/G9Nb
-	 nqcn3A07AeuHmFj4sK61BdFRlNtUvnxZK7vm4mLJQ5hHBVGYcl9nQ9lHyhojWz4Tjfvxq
-	 tS34RCXLRiIkxBwKCpCXa3eQCpbOsoBRj6uRotYqPLeLJPjs40JjegxSUKBfALr276bxe
-	 dxNSDbpdl/Cxq8UPyX9gB8yKoA7dZtCn0TrqoqKGhzey7g/JHUcNLM7+qlwY38RXZ3w==
+	t=1794092976;
+	b=lDULafNse0PC7kMwTrRUkDssbuW6bbVBBt/f9lZBjkEBFeU4sSruDHCBF6reik+boBsr
+	 wQNj4SOJwZ57G7Hd4ds83mShgC7xXlWTIJDdb7YupsszOvRJM4++izxY2WnhkpkNEa93u
+	 zwCpdAs8QjySNJrrp0AmOkuHEuLFKJDmUCQz59uL5ag89ZfUbU3riSn6qTrrVEvKDdnRv
+	 IznJK5CbEUOjNczmRZceaVw/Egr4tIwPNIVkwYEuXFFHC8gEKLT0OVWOpiHGArU+arpEx
+	 KWsK4WO7Mw8gJK/EbMxVT3tV837xSXC4jODgdUEJ1AluakHdsR1bm9ZDSmLyOHxVzxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794092746;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=DIMiaePVV9GcXMmhefDHZYoBfudUKELmzbg1o7Nw6s0=;
-	b=qCXlXEPX5/8ZoiZdOieffH4bhmvsdScGPNtkS30qJCGd79FJTahD94FQEEvL5R7FLjwh
-	 xVYTO0HGYjqrku+IzmDvUKedInRDmt65D8+TBT0GP70wbnthX7BxzvJQMK5G+ntK1CQBu
-	 WW6XHaDEJj6lcbeJTBRqEbxLsJV6WHtr3936UO9gaE0m2sJyPV9nz4gIs+372R3rsrjma
-	 Wu2YY8a7GfXeewyhmLXmDNZP/KMu59eumIWfSPsROqmfEf8mqlyjY5iITokK7rhm4pq1S
-	 cjZgmwDYKWgYTcAG0DCvPPqy8ikvFI/dbcQmkXOT2iD26v3swjk2gEXQ8jKl2By5d/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794092976;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UWZ2710KGldVZ422EboYiVGcI5Q0MFdr5WPNaQURoWs=;
+	b=JFVmFRvQaryn4HIHTf1L6zEC0J683TLtdj9Y4JcZXusaHAz8gX8j/2jhUfcGiaBcb64i
+	 vzyDn+Oslc2U5ItLtJBdDQmCTAGSTEN1YbDUXXdR8dOW1FocWZtpAK9EbYz8ZdxZEIs+h
+	 QGkpizeCjBHHZWfC67sLW/FftIAtFRCzC1R/r2SDq2/hvjl2NMoss40L3ZfZfOhplu3Rm
+	 MdtvumkQSoeyUlaT9hZke6gamoPYBry91kYF1iT4iUjeQ/EnP9t2S04R3o1c5cmBg1quz
+	 hUkuNGBgdiiMe8e0qzLCfeScOZVoDxZrBJ6myJynfNDXiJmVfpbmheN7gTCVsPaTwMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=fKNReNxx;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nHGRokPF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DDF606A326;
-	Sat,  7 Nov 2026 23:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64DDF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998C5606A326;
+	Sat,  7 Nov 2026 23:09:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=fKNReNxx
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=DIMiaePVV9GcXMmhefDHZYoBfudUKELmzbg1o7Nw6s0=; b=fKNReNxx7jbsQMz9QoJ0/b0oIv
-	VvdJ3cxvHCSoLjVUNoqk5U39eCuLOCXu16s4JonptlVR18DB/phUibsX9y2eXpbAxzXw7oPt8DqzR
-	KOqn8oXkJJMHPQ/mJi+1GkjQkgeKyu3/NIWG/t448lqNEGZy6qOKzDc8bbZ5Ymtth0D7TghRMmq0q
-	x4srJ9xBS/8fT40w/IBylFOyJKl9QCNJfd/DkeZ073ncWZLrIGmz/iZQx7ZpLLushDSYylClKg9fu
-	9fI2l64PPCtfnjB+U6pfPCOMc6K0MdoX+zxHuviMCw/iZzIsIgt8WiKu8l6LoAQ+iNhGU3wVavadd
-	Q7vijMFQ==;
-Received: from [151.115.150.205] (port=44646 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xPpTo-0000000EVj3-1hHr;
-	Sun, 08 Nov 2026 00:05:44 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] evm: fix TOCTOU heap OOB in protected xattr reads
-Date: Sat,  7 Nov 2026 23:05:15 +0000
-Message-ID: <20261107230514.1108379-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nHGRokPF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E5B1F0089F;
+	Sat,  7 Nov 2026 23:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794092975;
+	bh=UWZ2710KGldVZ422EboYiVGcI5Q0MFdr5WPNaQURoWs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nHGRokPFdXKP4VKEz39RSj4rgQD58824xstc5ytKYGQ/vFZCfH+18iyvjQ63nowXP
+	 gdz02PZvMWrUiyPbcbMKn9NFyNujMZq0egH/UulgsHNYka28WTfPpg+DR77iDUKMnj
+	 uoHm+eESHIWH274yZdJh3n2QlE4nX4fUCxkJI12HC2iYuUooDCtCaC7u8JplXOt/UH
+	 TBluEKLEUvJVdYWJSMJ7bPFdamUBAIHyOH/BmQ9E8jjamkd+AQASn4eM1cR6QQQubS
+	 5KzV7YeEDdIW5T7JzN7U2BQoFTsm+s7kd/DM1fcm1Npk1CU/8XW8sOxKj5k5eb6KKH
+	 rcwhP/k7QjN8g==
+Date: Sat, 7 Nov 2026 23:09:25 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux@analog.com, Conor Dooley <conor.dooley@microchip.com>, Marius Cristea
+ <marius.cristea@microchip.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v5 0/3] iio: adc: add support for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <20261107230925.5e66b234@jic23-hlaptop>
+In-Reply-To: <01fe2a71-ba6f-470b-b6bf-e536a1013b09@linaro.org>
+References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
+	<20261104021700.14e69abb@jic23-hlaptop>
+	<01fe2a71-ba6f-470b-b6bf-e536a1013b09@linaro.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,95 +69,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-ima_eventinodexattrs_init_common() queries the total size of protected
-xattrs, allocates that amount, and calls evm_read_protected_xattrs()
-again to fill the buffer. This creates a TOCTOU window: if the
-protected xattr changes between the two calls to
-evm_read_protected_xattrs(), names and lengths are written without
-checking whether the data still fits in the target buffer. This can
-yield an OOB heap write that KASAN reports as:
+On Wed, 4 Nov 2026 09:45:02 +0100
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-  BUG: KASAN: slab-out-of-bounds in evm_read_protected_xattrs+0x15e/0x280
-  Write of size 20 at addr ffff888002c59bcd by task init/62
+> Hi,
+> 
+> On 11/4/26 03:17, Jonathan Cameron wrote:
+> > On Mon, 02 Nov 2026 15:49:03 +0100
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:
+> >   
+> >> The MAX34417 is a specialized current and voltage monitor used to
+> >> determine power consumption of portable systems. The driver supports
+> >> getting the channels voltage, average power and accumulated average
+> >> power and energy over an I2C/SMBUS serial interface.  
+> > https://sashiko.dev/#/patchset/20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c%40linaro.org
+> > 
+> > Sashiko had views and the dt one at least checks out.  
+> 
+> I'll fix the bindings one.
+> 
 
-Reject fields that no longer fit in the target buffer. For xattr
-values, also check the length returned by the copy before accounting it.
-This also handles the case where a size of 0 is treated as a length
-query.
+These are a bit tricky to interpret without context.
 
-Fixes: 8314b6732ae4e ("ima: Define new template fields xattrnames, xattrlengths and xattrvalues")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
-Changes since v1 (after review from Sashiko):
-- Handle the 0 case.
+> But for the other reports:
+> - [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/energy read
+> 
+> This is a tough one, today if either we read power or energy, we erase the accumulated
+> power+count in the context, the context accumulator is only here to make sure we don't
+> loose data from other channels, like if we had a single HW channel.
+> This simulates this, if we had a single HW channel, at each UPDATE we would get back
+> to 0 in hardware anyway if we did read the power or energy.
 
-v1: https://lore.kernel.org/all/20261107194909.1061154-2-Jeremy.Jean@oss.cyber.gouv.fr/
-Sashiko: https://sashiko.dev/#/message/20261107194909.1061154-2-Jeremy.Jean%40oss.cyber.gouv.fr
 
- security/integrity/evm/evm_main.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+I'm only half understanding this.  Let me see...
 
-diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
-index ac8328812e6ef..2ed0b67b9109b 100644
---- a/security/integrity/evm/evm_main.c
-+++ b/security/integrity/evm/evm_main.c
-@@ -389,6 +389,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
- 		case 'n':
- 			size = strlen(xattr->name) + 1;
- 			if (buffer) {
-+				if (total_size > buffer_size ||
-+				    size > buffer_size - total_size)
-+					return -ERANGE;
-+
- 				if (total_size)
- 					*(buffer + total_size - 1) = '|';
- 
-@@ -398,6 +402,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
- 		case 'l':
- 			size = sizeof(u32);
- 			if (buffer) {
-+				if (total_size > buffer_size ||
-+				    size > buffer_size - total_size)
-+					return -ERANGE;
-+
- 				if (canonical_fmt)
- 					rc = (__force int)cpu_to_le32(rc);
- 
-@@ -407,12 +415,20 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
- 		case 'v':
- 			size = rc;
- 			if (buffer) {
-+				if (total_size > buffer_size ||
-+				    size > buffer_size - total_size)
-+					return -ERANGE;
-+
- 				rc = __vfs_getxattr(dentry,
- 					d_backing_inode(dentry), xattr->name,
- 					buffer + total_size,
- 					buffer_size - total_size);
- 				if (rc < 0)
- 					return rc;
-+				/* A size of 0 may be treated as a query. */
-+				if (rc > buffer_size - total_size)
-+					return -ERANGE;
-+				size = rc;
- 			}
- 			break;
- 		default:
--- 
-2.47.3
+I'd expect userspace to see accumulated values since we enabled the channel
+rather than since last read.  I think that's the final suggestion from
+sashiko. 
+
+> 
+> - [Medium] iio: adc: max34417: missing 1 ms delay between UPDATE commands
+> 
+> It's unclear if we need to wait 1ms in CAM mode, I think we should but should we block
+> from the read if we are under the 1ms ?
+
+I'll go with probably?
+
+> 
+> - [Medium] iio: adc: max34417: scale truncation and mJ unit in max34417_read_raw()
+> 
+> Ok this one may be real, should we return Joules or milliJoules ? If so we could
+> fix our precision issue.
+
+Units in the ABI are joules, so if you want to return in millijoules you will need
+scale to incorporate the extra factor of 1000.  Hmm. The comments suggest
+that today it is using milijoules?  If so that needs fixing.
+
+Our units are a bit messy as many years ago I started with what hwmon had before
+concluding they were tricky to keep insistent. So what the base units are tends
+to be dependent on when the channel type was added.  More recent ones are the SI
+unit in most cases.
+
+
+> 
+> - [Medium] iio: adc: max34417: missing UPDATE before CAM in max34417_setup_cam_mode()
+> 
+> It's highly improbable, but I'll fix it.
+> 
+> - [Low] iio: adc: max34417: reuse max34417_reset_smm() in max34417_trigger_smm()
+> 
+> I'll check if it's worth it
+> 
+> Thanks,
+> Neil
 
