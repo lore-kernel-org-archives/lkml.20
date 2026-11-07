@@ -1,45 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056629;
-	b=TPBcAPdI8u14ZDa74XVmjMP2WPnGke3cZQSD5iwHQlMmbTJk9E96TCzJwvElJsDL1zHG
-	 3kIThgsOY9ND0x6vilG/4vNIQ3G+9ZCtS46BDPn6PxBGVzNTC0/TpdRWNZD1P6DH15W/F
-	 YyDCO3xev1ynBPswrmU/1tSCXr1Vzia4BsyWNZFZE64t6ctBPOctlKVJyT0+ncltJasZX
-	 h61v58CHEAHK3g6bZbcEJgwNi46sp2Fr1b6jyT9XXNKjCzw22LL8daO0A1eGZXmKowZxG
-	 JlbYtnISI166sUdZDy5Gmi/gygptf9xN+gVf3W/s07rjNMM0WlC4tUBnMJOfWPNsTUA==
+	t=1794056679;
+	b=JiXW+EGOoQugInnsZVo9L1WjenAKrIaiw8Y94Lb4xL8MCLOlMaVa8nNfAmBwXlXRCnxF
+	 B3t4AWb7yVqHnpyvWnDpTP1zE3GL11znBk2fif636A9BPradWAp17Q8w3wOK7gGwh/2Hu
+	 hrxWh4leG4gBEqdG4mix7f1PImzqzqoOC3NVLhCJiaE6HPNPvNVaUIKR9wmbJVSFh07+G
+	 7Z8UA9d+7DWx9wR0f3wGKIXbcORREAzukxTpXeFR0uueQM+kXmWwE1p4Tt1BjJpvl10HG
+	 t/es36o3Spf0NxYI0ATo7hb32uzF6euEx4jHqysnc4AA2o7yo+TH11otH9mkCXyogRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056629;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=Ey3oHwVRsPT9qCJLHcC4MSGbnBIXfjqy7Yr85fp9kEs=;
-	b=cF07fnY8REdi1edilaZtmnLD8Ka+pLUbFjLlD85yBo4pHe+aapn9Belqb3BFIOcXctKz
-	 nSONobVHQI+oMoFch45fXiuGHju8PZjKlPepHfY/OYNe3UJ8uyn7S4PjCzstkPt8gSpVT
-	 3Sr9Y61oR2yTzLR5yFcAzOyE42i/zSIbJvXGANEKnBADpl5YYw544oCrShJVcaLst0xyO
-	 Y7qjxTYxiRrpNWLpi0eNat5Squ0TRMIIRPHx0yzB7qh1eGApSRXw2b/mcOFnTpBqPDJrB
-	 7IzQnjJKIPhZYMWeH1SwiOHWhDBiRjk16BlG783ZLkW1AJYkXnZcivP1vDItv9xG+4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794056679;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EfvUaRUOM7ozjphpXocqWBL6skIYg2UvfAavGZ0MGTE=;
+	b=k6+wOFQBHe4zEokqYgT2MKU0qSsG5XrDXrkjW+1cFfB1RG3dXrMDvuxwASiLOz0Vr71l
+	 ubPjWWc/ZFx27gfZJIP08lSEmWOZswBHr0CEyY9JJ+29V3JUiVcwGu5eEIpdwBCVFclXo
+	 FZ7fcfPvZ5m6DAcoIAT2MV95kzTlPPIeEfT68IqjQ+CGpwAlkBimuBCzB+J1hFKCu4o9u
+	 b0eDZufJ8zi0nCymjDipAK8m49pETvCCXDY4pgzWld6OIA7wnc7yUZQ46GNOnZ+nOx215
+	 MHPVumvCUWpdL+hb4TMWoNG8/E1gh+2IUtP3T3TosbB7+gDQ63uNfSsAM9yRiQ00JAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyB6++V8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cf6Vu91x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7587D606A326;
-	Sat,  7 Nov 2026 13:03:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A83C606A326;
+	Sat,  7 Nov 2026 13:04:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyB6++V8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533251F0089F;
-	Sat,  7 Nov 2026 13:03:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cf6Vu91x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A09B1F008A1;
+	Sat,  7 Nov 2026 13:04:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794056627;
-	bh=Ey3oHwVRsPT9qCJLHcC4MSGbnBIXfjqy7Yr85fp9kEs=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=OyB6++V8XHk3eQemxKVKupYvoakLI1Ou1n653MBQuMvbrfovPU8DNu53ofiLG6oIj
-	 ixQW+x7K/NPoq7aJMnGxzSSAA+BDUjyihYUmiRVPqlHC2qHP0S+wG9ZUtHoIF3WTrx
-	 jiR7aVFGR+nnDUAGfUoA2SaOLfyigGewEW8DS/8Davt4PUDvF6pBlDVIXJ1Okn8bVM
-	 /fM2L20AKZhINkKEtjjAnrixMCMWc6CHr+K3020NsM/VvZC24IeDQ8pYYqGpCGFuTl
-	 lA0ri66JSFc+2Z8qHTbj8qbGcVA93XgdkchmpZAQv1P5N6eqyvx8cVvaDV174lDIVi
-	 //nA8e1rN5P6A==
+	s=k20260515; t=1794056678;
+	bh=EfvUaRUOM7ozjphpXocqWBL6skIYg2UvfAavGZ0MGTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cf6Vu91xKryem6WmgRRPDil++bnl+9uspIwxeX1I+tIH2/XSDlEwgdu+PpYAyLpDD
+	 63gErkHrzZB6AynTKIQ8OFdu0lH7Ms4gfVi9J/GDqW68jLrvaAyJYvrl+T0zmVC/Du
+	 rzBUhO/FDTN45Zqzx1oTgdqFG3+hk2XmILzDKP+FTmHZ8kbEQpI725+Z6ReURLTw2z
+	 9fKsDXHYPOD8HSAs5FZBFGAXePIs6nC2rr/fRRqw+3kTFzB2bm/O4+muFHbI9ttozp
+	 TSnT/WLUJsl2v9D0PvwtceuwOdQxUs3XXjJ55ghVSwOQs8aHwxMA5FzEs9FndxQXi6
+	 O00Oi6KipgH3A==
+Date: Sat, 7 Nov 2026 14:04:33 +0100
+From: Thorsten Blum <blum@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	bui duc phuc <phucduc.bui@gmail.com>, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: info: Use snprintf() in snd_info_card_create()
+Message-ID: <au8h4SDC6fKaY7st@kernel.org>
+References: <20261107004338.323417-2-blum@kernel.org>
+ <87a4nlypdt.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,57 +59,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 14:03:40 +0100
-Message-Id: <DMOZZTN9Y87S.BEGCSG2XU10S@kernel.org>
-Subject: Re: [PATCH v10 1/3] rust: use Alignment size constants
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261019-chid-v10-0-67de9180b4ed@nvidia.com>
- <20261019-chid-v10-1-67de9180b4ed@nvidia.com>
- <DMOZR1THYXEZ.138HB6J6HIMFK@nvidia.com>
-In-Reply-To: <DMOZR1THYXEZ.138HB6J6HIMFK@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87a4nlypdt.wl-tiwai@suse.de>
 
-On Sat Nov 7, 2026 at 1:52 PM CET, Alexandre Courbot wrote:
-> On Mon Oct 19, 2026 at 1:29 PM JST, Eliot Courtney wrote:
->> Use `SizeConstants` for Alignment that are implemented now.
->>
->> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/fb.rs               | 10 +++++-----
->>  drivers/gpu/nova-core/fb/hal/gb100.rs     |  2 +-
->>  drivers/gpu/nova-core/fsp.rs              |  4 ++--
->>  drivers/gpu/nova-core/gpu.rs              |  7 ++-----
->>  drivers/gpu/nova-core/gsp/fw.rs           | 12 +++---------
->>  drivers/gpu/nova-core/mm.rs               |  2 +-
->>  drivers/gpu/nova-core/mm/bar_user.rs      |  7 ++++---
->>  drivers/gpu/nova-core/mm/pagetable/map.rs |  7 +++++--
->>  drivers/gpu/nova-core/mm/pramin.rs        |  6 +++---
->>  drivers/gpu/nova-core/vbios.rs            |  7 +++++--
->>  rust/kernel/gpu/buddy.rs                  | 26 +++++++++++++-----------=
---
->>  rust/kernel/io.rs                         |  5 +++--
->>  12 files changed, 47 insertions(+), 48 deletions(-)
->
-> Danilo, Alice: could we get an ack for the buddy and io parts, in order
-> to push this series through drm-rust-next?
+On Sat, Nov 07, 2026 at 10:14:38AM +0100, Takashi Iwai wrote:
+> On Sat, 07 Nov 2026 01:43:37 +0100,
+> Thorsten Blum wrote:
+> > 
+> > While the current code works correctly, replace the unbounded sprintf()
+> > with snprintf() to bound the formatted string to the str buffer.
+> > 
+> > Signed-off-by: Thorsten Blum <blum@kernel.org>
+> 
+> Shouldn't we use scnprintf() instead?  Otherwise it may lead to a
+> compiler warning.
 
-Not a big deal, but can't we make this separate patches?
+The only difference between snprintf() and scnprintf() is the return
+value, which is unused here. Both are correct and shouldn't trigger a
+warning.
