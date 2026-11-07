@@ -1,111 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794087785;
-	b=rb6+YoRUABptogp+HVrFoRQrHZMRd0Cp99svuyfeQSg21PoWM/iquq0SKrEknox/O1o2
-	 2kUL+vDGMFrJfeim166Zn1vfQELg74TMJf3DXjSRWFQn1uxLv/XP0haxA1DgXz0OpA9zM
-	 VW9C025f9aR65E20PSgeFbFkd/pT9ii5yNKdbEhggpxF9/Yhd01hfcz9W4+VzycgXeCPL
-	 rCDRuVPNltbVfDQLCRvfgrWC2ojutXOsUdnpxvuUMWMRtZE2jym/7ckyf/xpAcufyos6f
-	 VDgMKSxsb6XHN4WYFUupz12ACJM2owKuCoGEhCfINXKEVwmFSRuT2yuf3tB4oSRlesg==
+	t=1794087863;
+	b=UqUDiDuuxcICuHKhQBLgtug8Qyzh0HVQLFwzEDWl+UVFebATqtaxOk5UrCZ28A+1AFl2
+	 8j0UhVaz+0GNcyaet3mC6iEuS6Pk3PC47Lu/Rf8z9R7LsNNo4LCIrHwRH1SpXmFwZTlw2
+	 g3CRJyVVZ1GCZZvUTQFWvCZ+Ej2lbTo2SgfYkym/4gZJTZr8NqBn89PoKD9CfuLIGLws0
+	 8KgqwcgcseVmTslbDAyuq8BE4nWcdM7AwZOg/mt2e6ED01vKEZaccnl35HbGYZtpoNHxJ
+	 Ye3+92TIO5TayItkMTZ36b6IGwVzWPX3ybklu631L0bXAtPEgdBjpZAY1qXCOi4O7bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794087785;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=HqKs1SSZSd3+2hMpiQXFT+x5XP6mxJr0A3zNLl/PAts=;
-	b=CNDG/Gx33vAPfyocCVMJmKNpRFxZEAAtEOYslJ1EGhXblj+JypVNSB07eCfU+Q5+OXLv
-	 LxHdxYJjTuzAGMLAC7yzCT+7K+SUi3WT2HmJvoJFp7acxyHCGdr/zfB50FBDRcBiOR1Nl
-	 QwtgSJikh6oDE2WuYhph+OhZ+6B47yu30ALdIKKMTsqDzFI3P3oItUgqP1lWLsxYHom6V
-	 hxs1b6Fn+8ySJ4DD6Jj4HYmaeBeUl9tX/pfHzE766SQOLeW9MhNIYnJJuWfQcOxEOziO3
-	 524cChYMbBtLjWWtof/Cbe+tAtT2ZdfKnizYrPgvOokJABRHi+8KQlWOMJo3pSuG/tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794087863;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=sB09WNJW3d+13A5arIFJlIiie4qXGyky7H+wWE0/lag=;
+	b=DZ9y2JqN7cgq1fffXSNAqDtuDltXmhxhnvioaNQUROWl+w4O5A2dJmVTzUCDkzmS6pCo
+	 1ew39ecpvaPFh2AjwVjBr/OVUd+CjpzLAfQRgLd9MTOvHlfX2ePU2hwR+B8JAMP1DTW6v
+	 lIFdqc0L0EHB4s2C0a/ySiZHZApSN3QFcOJhPZk5RJPk9JmlyrqjOL39NaW7UZ7URXYxi
+	 yrfBSWHAxOdwR6bdbZRkCOMPYfVhCl+xKCNYI85+KEwH9/bU9EDZkkbByTzD1htNdAvDk
+	 yQhDh9D6VQERi2y/GX1QaXOyPIgazO/5vWAzN7hSGRLCwssFZewj2HSiQdiyP3e5itg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=joshtriplett.org;
-	spf=pass smtp.mailfrom=joshtriplett.org;
-	dkim=pass header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=jDrjkT4u;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hJKDbvan;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VsNlCjdM;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2139F606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 21:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2139F606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79893606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 21:44:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79893606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=jDrjkT4u;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hJKDbvan
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.stl.internal (Postfix) with ESMTP id 4A72B1D000FA
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:42:59 -0500 (EST)
-Received: from phl-imap-03 ([10.202.2.93])
-  by phl-compute-07.internal (MEProxy); Sat, 07 Nov 2026 16:42:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	joshtriplett.org; h=cc:cc:content-transfer-encoding:content-type
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm3; t=1794087778; x=1794174178; bh=HqKs1SSZSd3+2hMpiQXFT
-	+x5XP6mxJr0A3zNLl/PAts=; b=jDrjkT4utQWYKntWt2KgIohwwxlcqR3BjhBs/
-	UKjlruSi9PeBRLJPYgcHjDNAe2a45JUCeUyWEexCexEyIjQ2puBAnToxYOFBDuo1
-	Dua9NLS3V44iMmak/zBzQX8g4LKREHttoVmxdqkKeXL1y1wH3EG7KRYoTg82peUg
-	kSRp6uSLV55mMaQmb7aM45Y4VzpwWncg6yrLpbQLQxzB2nclDQKOroXfD+TqddyK
-	VweZ/Qmud3po0FBfo1q1bck+TWxZkgpOx+JaHB0uxLUTi4Ax/ZW95aXWmpWi2EwI
-	+36t5ezBMi2kAxNcidCg6GICA5Lv3Rjh47oEtc32QElwV55LQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794087778; x=
-	1794174178; bh=HqKs1SSZSd3+2hMpiQXFT+x5XP6mxJr0A3zNLl/PAts=; b=h
-	JKDbvanWffKYGtyaQojSwTrV2z2XYA2Bh8VfF003/NN7ZToLPkIm7m+2KyP+dUlF
-	k3Jey/WhwjTbwfhnru5atq1tFrYqC9eD5CRJMXs2AcrZXWktrJx11AjqLj473biD
-	vZADWk8VIxcml/9D4NrtpKnkeaLb0OqBkkuGYOGa7YF/w7LM5KmuZfOtuBMcixAJ
-	qOA7t95UYtMqPq6cNmiKkVn1DXhdeaj0C5SJZsPZ6ZPl5WZvAh+fXDOXRa0qCp8M
-	Pc39Ace9+L2MLOm6tCGvSkzH9Z31zgUPw4wfB+nf2RKkb0yFmQ5KHF3DgB01Jp5i
-	XDmWABTbEGKorDEOJCq+A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=joshtriplett.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794087778; d=joshtriplett.org;
-	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:R+aenBXVPUNWas/5714SZs7PD0Ewk3CI9RICHjPCbUK53VQ
-	GTq3PYuLIe0su2lKzw2CuZ1slJOi+RO6BzZNHIu5tcR3KpgMfkXfeK5MrhOL6xNT
-	7X84jB+oAI+W6r4Flbgvd6X8lnLyQrue5fb/LyzZ3XF6hy4mbhFiwzqbgL4kIJIM
-	7yMRE6rTiA5nYHmXi1MJpsh8bqlVoCuTYzHSN8TEzvIQdRDKZinBB7F7jqB7W62a
-	R705437GMw0pq3wUhnuE/on0ALfpakB1uzbYXAEpefD2vOBWSVSmXNysoAvlvfIN
-	8vHhWnwWQcRWeaACMzz8yhbm9HlkGjWqmq3Cs7Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:DunYAvvsDGv/A97USTdOeFN41nxpFm2/+naGRwtLkU4=:HqKs1SSZSd3+2hMpiQXFT+x5XP6mxJr0A3zNLl/PAts=;
-X-ME-Sender: <xms:YZvvat8JVdw5qReldeyBV9K41_hPBg1nmjeaS0pK4lQkkWCMJXXjmA>
-    <xme:YZvvashhNo46PfP4Q_-7GnrMX5QUkO-MVczcmR9_HJI4AIs5yRxKWsRcbW3Krc1yA
-    7Oi_TucQ2_ghv_vxEk2eJNTw1JwuFFvAiVxrkHPLfLBVa3wLAUHJC2w>
-X-ME-Proxy-Cause: dmFkZTEUiwQnPAPK9l92X72Lrxlii9us9e09+lP7lKya6ebS5yq52+FIqTG2oANDNcbxuQ
-    f5CkI0fvWuUx+zXAgzXq+Gl4V6fSB9i2EuhY23bAkvkotD26qF750NvCCeDXVE/BgzZh9S
-    gpeh7e5idxtTWkvWVXn1gyIZU0ScWsy9RrELF6bCKG1Rn8I0ATDr+KQEX5akLJqKa6Gxpz
-    KP9Hf4SGnTEn3PyRMDXs8XEYNXt1+SObxvSTY3vDYTCUhqTYNrQhTto+pkkDSBf6gEH2/1
-    XFoiVnbFyzMycznWk4pmxa3LDlqstYr+gTDzKwN1xVkpjUECyzE8VMrroOKtqO5R2YR9F1
-    jYiSn5wZFGrlbqzzPIvA/rYi7FRVLWkVGbYoEbVBTxWBXVk7EGOoS8jGv912GqrNXy0ior
-    WASNXgY1CRrtLfzzwnFf801BW7NXqIGK9EUkQZLCVDVJnEc+d4d5f9jV4QCymLVIWfsorV
-    K4UgLdhOIbI2AG6k3YcL7DWl5PIyEYtYilsAgIdROQtYWJpL6eeaRKd9TqbS3Gym9jjGu9
-    622Eku/FIdURSjvGMZveWGAcpdvpzERfj/AzOBn5KyXH0D01sOwcviQKZ6dIZHXcJg4D7E
-    4L9VpeOTTmFaWnCgqyVnxhmfDxG9E1Vx17aUzG2yso+WedjHUC6NZBh5Cb5A
-X-ME-Proxy: <xmx:YZvvatLIswgWx9xeuHMWNGlsOVLjUFJHgQRQcyOCwRoPSr5fpbSu4A>
-    <xmx:YZvvavKkk1FmOWwQ4AvnniyW3o2SSBIcnpqfTeZNTcPjCFVJ8-9G4A>
-    <xmx:YZvvaggQ5-BEr1YS4WB-zhCGbYbEV_6DiIfYr7EoHU-e2a1BryOmbA>
-    <xmx:YZvvahMUm9S7QGHD-IlfNgMWDYltESpIfaR4n5FXAHheKfGM9ymx3A>
-    <xmx:Ypvvavzw7BmlIzLKpQ1fEAwgfO-h_oZfs1V3obuLR-_TcgY0MpX4bQAK>
-Feedback-ID: i83e94755:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 2E07118E006C; Sat,  7 Nov 2026 16:42:57 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VsNlCjdM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794087861; x=1825623861;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k/1rDklUHfMI9DthPG297ITL+KaRw6yRNRqwI1fACI4=;
+  b=VsNlCjdM1USFRNJcoE0fpcGRcolhQ7v5RL0jRb0mNc5bbP76h+Gh5AYw
+   9zdpv6iwNsAgl/vL0tbn2Qh3CdAYEHOTihSkkiTIGTQlgTFLJsy50fByY
+   uzCiLFTXqJwOGq5ZnTk2sP4nkVByQG//kpSHspNlWgfjm1+1lYtYDLmTV
+   4elHOyMvyNq1GuUvF+9CgsaDPgrBshXr7q5ExlYgGaGNN6u/Q0xtnCZIp
+   F8ivQ3B1G9r0MlfxRdHmLSjw8KJKT94B1Ka5zJNzjoJ1duMiI+HTZfzgI
+   46As3ZsH/GlDFQwDBE5f6p/AU4RFd4rAgAhVfIRnpH21FJqMLAdjrtAjS
+   A==;
+X-CSE-ConnectionGUID: 09opH/EnRYuPbJSldKfIJQ==
+X-CSE-MsgGUID: hV5Clm6GTmiwngAK4HyNAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2857733"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2857733"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 13:44:19 -0800
+X-CSE-ConnectionGUID: VrhxRO5+Sn2Cwe90b4oEJg==
+X-CSE-MsgGUID: TdkUtEKjQyCGw/zQ3k6YSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7727986"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 07 Nov 2026 13:44:15 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPoCq-00000000rbn-1NfD;
+	Sat, 07 Nov 2026 21:44:12 +0000
+Date: Sun, 8 Nov 2026 05:44:10 +0800
+From: kernel test robot <lkp@intel.com>
+To: amit <amittibi123@gmail.com>, neil.armstrong@linaro.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	hanxu5@huaqin.corp-partner.google.com, jesszhan0024@gmail.com,
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+	icenowy@aosc.io, jagan@amarulasolutions.com, linusw@kernel.org,
+	robert.chiras@nxp.com, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, amit <amittibi123@gmail.com>
+Subject: Re: [PATCH] drm/panel: Replace deprecated DCS display-on calls
+Message-ID: <202611080509.DZUY4PHf-lkp@intel.com>
+References: <20261104073813.42429-1-amittibi123@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,50 +87,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 07 Nov 2026 13:42:36 -0800
-From: "Josh Triplett" <josh@joshtriplett.org>
-To: "Rong Zhang" <i@rong.moe>
-Cc: "Mark Pearson" <mpearson-lenovo@squebb.ca>,
- "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Message-Id: <b2ca4d95-7b66-4a8a-8e47-84ab0e052bd1@app.fastmail.com>
-In-Reply-To: <5219f8fbd637a3b2603ffcca3e6cd624db982aba.camel@rong.moe>
-References: 
- <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
- <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
- <au5nUp4extfupCpS@localhost>
- <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
- <au-O9sHQNnHxla_e@localhost>
- <5219f8fbd637a3b2603ffcca3e6cd624db982aba.camel@rong.moe>
-Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104073813.42429-1-amittibi123@gmail.com>
 
-Rong Zhang wrote:
-> On Sat, 2026-11-07 at 12:49 -0800, Josh Triplett wrote:
->> If that is the primary concern, would you accept a DMI-identity-based
->> allowlist?
->
-> I don't think you need this if we take the module parameter approach.
-> Usually we don't want to introduce a infinitely-growing DMI quirk table
-> for some niche use cases.
+Hi amit,
 
-The module parameter approach seems fine, as long as it doesn't taint the
-kernel to use.
+kernel test robot noticed the following build warnings:
 
-> Meanwhile, I can't totally trust your LLM's conclusion.
+[auto build test WARNING on v7.4-rc1]
+[also build test WARNING on linus/master next-20261105]
+[cannot apply to drm-misc/drm-misc-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Extremely valid.
+url:    https://github.com/intel-lab-lkp/linux/commits/amit/drm-panel-Replace-deprecated-DCS-display-on-calls/20261104-093813
+base:   v7.4-rc1
+patch link:    https://lore.kernel.org/r/20261104073813.42429-1-amittibi123%40gmail.com
+patch subject: [PATCH] drm/panel: Replace deprecated DCS display-on calls
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261108/202611080509.DZUY4PHf-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611080509.DZUY4PHf-lkp@intel.com/reproduce)
 
-> The ACPI part may
-> be correct as understanding decompiled ASL code is not hard for an LLM,
-> while reverse-engineering EC firmware is completely on another dimension.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611080509.DZUY4PHf-lkp@intel.com/
 
-As it turns out, the EC firmware appeared to be unencrypted ARM Thumb code,
-and LLMs are pretty good at disassembling these days, too. But still, full
-support for "can't totally trust". The ideal solution would be if someone
-from Lenovo could confirm the conclusion.
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c:356:10: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+     356 |                 return ret;
+         |                        ^~~
+   drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c:350:9: note: initialize the variable 'ret' to silence this warning
+     350 |         int ret;
+         |                ^
+         |                 = 0
+   1 warning generated.
+
+
+vim +/ret +356 drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
+
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  342  
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  343  static int k101_im2ba02_enable(struct drm_panel *panel)
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  344  {
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  345  	struct k101_im2ba02 *ctx = panel_to_k101_im2ba02(panel);
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  346  	const struct k101_im2ba02_init_cmd *cmd = &timed_cmds[1];
+7bb5e5e01ffc36b amit          2026-11-04  347  	struct mipi_dsi_multi_context dsi_ctx = {
+7bb5e5e01ffc36b amit          2026-11-04  348  		.dsi = ctx->dsi,
+7bb5e5e01ffc36b amit          2026-11-04  349  	};
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  350  	int ret;
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  351  
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  352  	msleep(150);
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  353  
+7bb5e5e01ffc36b amit          2026-11-04  354  	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+7bb5e5e01ffc36b amit          2026-11-04  355  	if (dsi_ctx.accum_err)
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16 @356  		return ret;
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  357  
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  358  	msleep(50);
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  359  
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  360  	return mipi_dsi_dcs_write_buffer(ctx->dsi, cmd->data, K101_IM2BA02_INIT_CMD_LEN);
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  361  }
+fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  362  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
