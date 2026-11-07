@@ -1,77 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794083770;
-	b=05y8O80eLVHWiFJUfmXzJaYXc762+C4/oq/XXtqTE/FEA5YjOii5EXoexd3k2bnJ8q9d
-	 g7wLeU2sDv3FDVTSndjVYx5lpj66P8oDrqbcAa/CaGo8yHU5zodepwWFXNpzkffABdOWT
-	 yf6Ha40MGQzg8b8VjJyiE4Lt5+QNwPbdMFJgI6a3prUhRdN4PkYIkKB+VMCAUPqa0RqOy
-	 RqUGA3LGug4hTU9lKF4Rblh9dtXz8JmOnmhJRuBy3dJSDBRerePU3gd0+8zJ6DxEOEGpr
-	 a/0RJ92W5nJ7+cFEqxNUE1n+5i7ow2VVXgio3Qs6sQYqdBDx+u7aOPQxNwgFaou4QlQ==
+	t=1794083800;
+	b=PkR9qt5KR9E1iyC9Fust24A/K/Wsu0XvFcSoQ7OLMXkdmxcday77N3g1fmUlHxX+9xnO
+	 F6CpWzXyJlA99gVXFdRLGNpXuJrsWaMpYNtzkkdX7dQEKKb5xXm+3v9lm2x0j42XQRv8m
+	 OtN3apsymmn1Sf6zjBzuDvPGNr2e+TNumg7PdaGfLYeonL8r/IrACqFPTW7H/2VJZYTlc
+	 fnNqHxTA5wxg/tJReVMr7AVJoT382rlJLCkqAENQ/BhLWOFw2Y+JNBAHVPlU5i63d6l9R
+	 gRcsIKsJKJVBYgKbrXloEoePKfaj/RJw6occKrArGmCTi8Tu8l3MW4foctRT0ahPckw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794083770;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=UfW/MjP7lx0zRb4o0SszgrqvJgVaIkoZZrFELniqBZA=;
-	b=3meLl3no/6WVkH96p1jySH5008kh13vJFuxCOpxYXyuNHzvlveB9wfBfb4N1whjpYr2a
-	 ly20fmMNLBRc4Hi09vzJSjifst/209jKynIWveoBreRrvSzvXb0s6t4fY8WxldcZsCyHx
-	 08YAB5UwST1rJumR/EBM2Cf7KtkViRCo82N44NksEvJP5XsaIHBz5EWe1I/u8x5Ou6gDn
-	 w+GcIExHxiotXIvPYrsnQZj0r5Tj7ZdUmD43SSAplor7gR2Go8RAG3/xjvReJYowThCtc
-	 JkQB6TbwrfNSNNhe8+VDg/hunooO9v8hXypYzmwiVG1urez6YzJq4hox+xGNh5Oei3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794083800;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=r398tx10WrCtcSUjo84Tq+kxAlN0I4nplPTtKINWzFY=;
+	b=KqrE0qCzFNexNYaCQbyqng3GFRozmdjvQypf5+0d7YcjNgNw5wtqq3G8zZWF3gDI2pon
+	 o6dZ1Q1E2Gs4DSGCBJmpbSLHrDYpor767AQiPGZ7sk9O1wugmKFC2Z/3u8XnKP+CfS+TP
+	 CUlwwY0tFdTjcvtMrCRnSR9bR/hVpIiDbQ8mCd0prcDLLfgRpwult330AnjmmklX+cO+V
+	 o7DQklN3jMKeaso1Kx8xNcbtw1LZhz+vW4SE6pOAW84Cnb8UjIi1aKLG6bTXOc4hwqVs8
+	 pnF2tXBNPmvv1LsPU2LdjIQ3apmIDGxlYlw6RENhBPCXQq7nnClGBvILovuQQq6694Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=keyVQqZQ;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=chaosmail.tech;
+	spf=pass smtp.mailfrom=chaosmail.tech;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=pOsXGO82;
+	arc=none smtp.remote-ip=77.81.229.115
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC6A606A32C;
-	Sat,  7 Nov 2026 20:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC6A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4567C606A32C;
+	Sat,  7 Nov 2026 20:36:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4567C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=keyVQqZQ
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 67F0C40E02AF;
-	Sat,  7 Nov 2026 20:36:00 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 8Pnp9920DlSj; Sat,  7 Nov 2026 20:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794083757; bh=UfW/MjP7lx0zRb4o0SszgrqvJgVaIkoZZrFELniqBZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=keyVQqZQu8nVBODixHek/5PddFHoy6gdpI16n5W5D2s7ZC83vSCUgcxAguIlsyQiC
-	 WUT2ROaceuptCELErKw5sV1cJogUczAW8F8jzfxq74xXc8TIXZLcOBSIz9YooKREER
-	 gWmxPrl8NFAKerFgbxdrgjKBQWqt/+VH3FOgh1drby4yzknLLCGAIoHBD0S4XlO2TH
-	 xzUcpTzSFowOXl4KB0bty0FuL3X6p3q5pCG1Mw90OvxiZClfobsYM9ZxkvWJfCgwUI
-	 cgDNDp07KSslctbp3Sv6WAseoCQLDE5knrGNJRE/gFf2BCPnVzRx914e0+8brbIeSS
-	 JMWi3JGgtizH9W/eGeJTNNcyYobHMYvYJYCgaCpjw12MgzX/IIlh0mY9WB86nlVPvE
-	 r3ORpVqhntb2j4PjGyMP6ITKkTMuw+wQKmE9HLrdgOOmbR6cBIA6ysp2a8dFAXj1Xw
-	 3BsrzCSVldqPFtUWnFlLkrDA2/LKVEM8fB/FoCO3vD3Aa2l+Z61cFaHs33PlHO7Alj
-	 BWWwGwIE5DrqIjDcI9GppAq4HDmJanxbmO737i0mXRRaGZn8S691zgKy2rx5hzvaPv
-	 no1PI0i5snFnIMzGr/CnuybBbfKU2cJ/tSAOHRl6PWF2F8VTBMPs235vQl7rvsADVT
-	 Jgv/bm6jFuq9TAseMA6u7wno=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C9BDA40E01B5;
-	Sat,  7 Nov 2026 20:35:52 +0000 (UTC)
-Date: Sat, 7 Nov 2026 12:35:49 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: tony.luck@intel.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] EDAC/i3200: drop the PCI device reference on module exit
-Message-ID: <20261107203549.GBau-Lpd74Wo9UiSC3@fat_crate.local>
-References: <20261104033833.1566974-1-vulab@iscas.ac.cn>
- <20261105194529.GAauzc2axWPncLCpVo@fat_crate.local>
- <179393571491.2060286.9429869566285761831@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=pOsXGO82
+Received: by chaosmail.tech (Postfix) id 9069E1C8E49;
+	Sat, 07 Nov 2026 20:36:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1794083790;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=r398tx10WrCtcSUjo84Tq+kxAlN0I4nplPTtKINWzFY=;
+	b=pOsXGO825d88dEM3x1B6Gep8E6WEPl2n3Z+KYYgxkGmd5eREcfaeILZzNqE0uce93QsQp/
+	P0H6ggAiLqfM9JFBmGX6sIPwqKa9hqmC/6tV6vs+iQBJppaPFDo1jryTku2jIorL9fcOdD
+	3YeMyEHgkSyIqhj4ZK/I9Nhng6R5zFw=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Subject: [PATCH v11 0/6] spmi: apple: Additional commands and interrupt
+ support.
+Date: Sat, 07 Nov 2026 21:36:22 +0100
+Message-Id: <20261107-t603x-spmi-v11-0-322490215f58@chaosmail.tech>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,38 +58,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179393571491.2060286.9429869566285761831@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/23SyU7DMBAG4FepciZoxrt74j0QBy9jakQXJSEqq
+ vruOEWicfFxrPn+Gdm+dCMNmcZuu7l0A815zMdDKRCfNl3YucM79TmWg44BU6CZ7CcF/NyPp33
+ utVAcfEIPDroCTgOlfL6lvb791uOX/6AwLQlLxy6P03H4vo2bcelrBs/YQ0/omE0hssjNS9nlO
+ O5d/nyeKOy6JX1ma28qz4pPgpNMCCQNb3p+9wZ45XnxAbWXoKJFh00v1r7eX9y8dMiidTq2vVz
+ 7en9ZvJQ8SBdYQq6bXq08qsqrZb503mjnhNC+6fXa1/N18dEl8qRIa26b3qz8w/2b4jWYKCIyg
+ hSb3t69Bay8LR4saWDEPcr2+yH8BSA8BCAsPyAZlEGpoHn6l3C9Xn8AHbI+XP4CAAA=
+X-Change-ID: 20260725-t603x-spmi-74630bf1b0a0
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Sasha Finkelstein <k@chaosmail.tech>, 
+ Conor Dooley <conor.dooley@microchip.com>, Alba Mendez <me@alba.sh>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794083789; l=2745;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=J8UJXr2R5t6eKVLYlZWimSCzQm+/CBY8f4kpeADoPpM=;
+ b=asjcwNEIBLbbvIFYEr4+1mqk4YhMHNz7G86UUN6UlVi8U7LRuIBildbrNO3i/5ojOWWgFUXzY
+ cfSUWi6fY3YAogpyw9264tuP7rSDRGL01pzrFfUOZQbHx89AQofK34P
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-On Fri, Nov 06, 2026 at 03:28:34AM -0000, Wentao Liang wrote:
-> Hi Boris,
-> 
-> Sorry for the late reply, and for the mess it caused.
-> 
-> Thank you for telling me that the EDAC i3200 driver is orphaned. I will stop
-> working on this driver and will not send patches for orphaned EDAC drivers
-> again.
-> 
-> In particular, thank you for pointing out the Assisted-by guidance and the
-> problem with my submission process. This is an important lesson for me. I
-> will go through all previous feedback manually, one by one, and reply in a
-> timely manner from now on. I will also not send patches in large batches
-> going forward, so that I do not accumulate more feedback than I can respond
-> to in time.
-> 
-> Thank you for your patience.
-> 
-> Best regards,
-> Wentao Liang
+The SPMI bus has grown additional responsibilities in the M3
+generation, making the current driver insufficient. Add M3 comatibles,
+support for slave-sent interrupts, FIFO interrupts, power management
+commands, parity validation, and fix locking.
 
-See, and my years of experience talking to submitters tells me that even your
-reply is AI. And I'm not even buying it.
+To simplify the merge strategy, the device tree entries will be sent
+in a future patch series.
 
-So I'm going to ignore all submissions from you from now on.
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+Changes in v11:
+- Rebase on 6.4
+- Link to v10: https://patch.msgid.link/20261001-t603x-spmi-v10-0-ff815c66c73f@chaosmail.tech
 
--- 
-Regards/Gruss,
-    Boris.
+Changes in v10:
+- Just collecting tags, effectively a resend
+- Link to v9: https://patch.msgid.link/20260901-t603x-spmi-v9-0-09e702e3b153@chaosmail.tech
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Changes in v9:
+- more dt-binding fixes
+- Link to v8: https://patch.msgid.link/20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech
+
+Changes in v8:
+- dt-binding style fixes per review
+- Link to v7: https://patch.msgid.link/20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech
+
+Changes in v7:
+- Require interrupt support on M3+
+- Link to v6: https://patch.msgid.link/20260816-t603x-spmi-v6-0-c5ab87aa447b@chaosmail.tech
+
+Changes in v6:
+- Fix interrupt controller teardown
+- Link to v5: https://patch.msgid.link/20260808-t603x-spmi-v5-0-553c5ac2f137@chaosmail.tech
+
+Changes in v5:
+- Style fixes per review
+- Fix fifo flush
+- Link to v4: https://patch.msgid.link/20260805-t603x-spmi-v4-0-c15a12d9a7d1@chaosmail.tech
+
+Changes in v4:
+- Re-do error recovery.
+- Fix an address calculation mistake
+- Link to v3: https://patch.msgid.link/20260803-t603x-spmi-v3-0-c17b506d91a1@chaosmail.tech
+
+Changes in v3:
+- Rework interrupt support
+- Address review comments
+- Link to v2: https://patch.msgid.link/20260728-t603x-spmi-v2-0-f43e5f10e583@chaosmail.tech
+
+Changes in v2:
+- Change locking to non-interruptible
+- Reorder irq ack
+- Clarify dt binding
+- Some data type cleanups
+- Link to v1: https://patch.msgid.link/20260725-t603x-spmi-v1-0-e1a29fcd2d38@chaosmail.tech
+
+---
+Alba Mendez (5):
+      spmi: apple: Validate FIFO state
+      spmi: apple: check transaction status
+      spmi: apple: Implement remaining commands
+      spmi: apple: lock around FIFOs
+      spmi: apple: Add interrupt functionality
+
+Sasha Finkelstein (1):
+      dt-bindings: spmi: apple,spmi: Add t603x and t8122
+
+ .../devicetree/bindings/spmi/apple,spmi.yaml       |  29 ++
+ drivers/spmi/Kconfig                               |   3 +-
+ drivers/spmi/spmi-apple-controller.c               | 389 +++++++++++++++++++--
+ 3 files changed, 389 insertions(+), 32 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260725-t603x-spmi-74630bf1b0a0
+
+Best regards,
+--  
+Sasha Finkelstein <k@chaosmail.tech>
+
