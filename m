@@ -1,90 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069528;
-	b=eIlPs1IOrYo1vEN92JwRcwpa24gwFjwzuoUBmcyBMf3yNzZ4KbWUfjdzm6pXfxX0Oou4
-	 gMWfSJAY1kkE3D9at4R73gMrwW2IUI6VAwbHb+QT+Hvhx9PLGJSUL9R7ytq2XvPZssJPQ
-	 gA9v/YFovErvcsva0xI2No5BFkXn6n8ydn1HMId/mYeiWU/dasCkZ7KPWsOtnsenUEfKY
-	 VSpCEJK8uhZC6ojRMJnAYwS1/sE0jDgfZP4CgRoibZktLrpgxtr2lacCwjuG9pdNn13Q6
-	 YHack8R0rmPFkXpRvKET65I4MMtS6mREifDMsJ0trHNFm10AiNyx0mcC+j4yVF8CDHg==
+	t=1794069542;
+	b=L+Al9+ww4KcGux1UERAt++A9j0+OcI5JgDbvhZ+w/cRwQa5UWGPGrZon6DygWpUMM2I0
+	 tSGXNYYOuv4+lQvKpFazccyf9OW5sOr0Dd5vHEwCjdDAlJuVY3KmTJWYuk6NLoRp338Yc
+	 ulh1Sops5Qw59cTKAUYC3EN45+T2EWvxc14H54jZortauBMGlw9DyAm9uYNO9TsEQ5wvm
+	 UuWy6w9ryqiTVUxm9dcWUv+biqmLUcncJaNS9HL52YqMyaSIUCQGRb/mKh/rSHHtjT3XB
+	 fsG5hINfOD/ANA01EbNYzDXqG/bO0jbBf7wX6WBbNAjK9zeEmLUAJfJCo8Sew9WOHfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069528;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
-	b=QViH4V1PgXOERMKHkDK9leLiyEd1uqogPYqprldSu6NHY9BgfJA1K28Na+us/mIHYzbR
-	 uLq9lz8+OPzzLiZlIVNQOQ+PAWwGRad5jJss0j9VV13/h0U/RXBbQKpYUsmNMZspfrtcr
-	 Wgn+nBJupPgzISFO1bUWlZfD7U965R2MMPlqs+1dTt2aUhgYcV1mnE/5/dl/09+X0eQVx
-	 sBbiTG136DOBs+l9x9NyUw7+vZrFNmu0+JxuU9w2FydaYyJnfGsqQT/xlo0ox30Qrb+go
-	 bHbQnUWQ5XA+ciZnzNuPmvfq7xVXaHsoyKxz03kwKRgCRIgdbb//zEEGnxXBXuCQzBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794069542;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=lWUiedORJz9iuGG8xvWpfiLUfTiY46+2FOj+Hma4KIU=;
+	b=V9aS5gHfpJ6at0K6nyMetyIpHGpF/NBYVslqP/Al1P1/J3/eS9iALwLZPaviSpCUxzBb
+	 d6ykKXXYlhm8aRpVFYrMojgP/7m8q2XQaq8DpEMiAj3hlaaqNb51h7qrzjyeFiAsxHB3m
+	 15Tn+cFFQakqt4z4HYpHD4YYF2USXk0KzrqWTxmeVnJnR7MQCIvqbFeXdDWqguUSN4ADr
+	 sDbZrWS3j7UAAEbDDPX3gGE2EUHYsYPWVuu75UkMIw8E9stSllW3Fl2OAhP388qLVqtbc
+	 Mcot55Pcf8LpG9pMXc/GhBgSYL5eV5Fnfh1iME3LKlk5f/Vaxy/+5vsHRg5huaQ2ctA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="FpkV/aAM";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12ECA606D820
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:38:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12ECA606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FpkV/aAM
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso5394095e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:38:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794069526; x=1794674326; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
-        b=FpkV/aAMr7B65s3dU4wZfwRG6ueE0oji0xczqtI8Sf+KiHYNVonp7F3oDQiLNkyHPr
-         D0dUdLK2U/q0iFgztX4zeOIXRCIF5tTT50QpFbyp2QVF3fLIVFQ83dgbdo03O8cViiMh
-         Zqop7tHgJhGuU3joc9KFFz4T/hBeX14GlJm7uiaN6ZHtEkSgt8ep2f8ERIGXCuXpAuSM
-         VKOnbUCp0N/g8xnnAmfbmlqtPa5ZF2FzN5xK9aJVMOvC3ZmIUQmAkQ0KhhnsHurErNk9
-         MV/cJX1YjBq0qJMErJYN3safbwGBqmZ4QlWwsq+0habamJPfyV9ubiUYd+E9VExqtJNp
-         bjrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794069526; x=1794674326;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
-        b=bvStmac8442uv/QRMjCIfbwJKeayrdDLM61dTdB1LfbrbxxQFlr8I6JLoctnJQKAuE
-         Lluo8QZc7U636WFVQ9d7JATMzbGPOAmaanZGJ77VJyorx/tKKmKsG/SVSnyY1Q2gP47A
-         IUTRUo/pAiJi1l4YfEBDgJPolhn5lucMWQ8Opmcg+0mmHrjeXKkojWUKl51RTt+v7EuQ
-         zG+R5blbaFLJEJMKBTOhFKRzWaQ4LMRWANXNUYboGinRAPX9RWHTgfVK7qxUc3Ua+5fK
-         cEInMg7jkN8rfQD86ckiT3mJ3ZhtVPGE5+IlPEt1SZH3Q/Rk6Kn0iyyev5B52WIkHXiM
-         vHUA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3nErjACao3WE0UvUk0BkXTDdxWABg9WeYek/z06H9Ag/qYhUgzaYg2blmr41WBYq5FrCr8JykY+RUcKQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xz9RgICQHkVCDmshP4CbRqJCp2LjnCJphoRxRiObqTjEaGzls
-	Gtb5u6SV7CAPmfTwDNvg192G4WBgrJ9eMizB7stKdsB4DIBvCCs+XQPL
-X-Gm-Gg: AYBFou0Lg9yiYxqw2RaiGLTI9Bv+lYHdjmHMbsMEbiQ9HZ5jxWrcrcruj+Wi/6XdNpH
-	/Yfbcn/dwZf0bJesJcYkKtOPHl7o3gjVGtZXCUGSyXhcszbR+lDRVEVAVdTGvqah7X4xVUzDmMz
-	wcJOmRR7+8lj4HAwsrhMI84EzEpJgoijYXhNkQmI6azltRb5MtaCWX9NytWcp3nGtsVzyCpaO0n
-	D6ai0OV4EU0YfXBI5WY6lMZNF6z4G9Fw03839+S3qRr8sGehqunVLRIR2d/4mHYExt5PKYlVhaS
-	fJGGojFMUonsNdeNczw4qj2+L/y1r8hR9b7k5Og+VToHHsDSO9mKGiNlEmREbKmuUu/fEqCbs7c
-	A7AuLKqKPzE0F7AwFs2hWOhSZIgKgDhZDr8UdEJXYTpzY4zpf9tdY5sIoY/ChrUfgEUkz6sBt8O
-	VGm+M9BywGhaWTCvc8MRCEfqHM9rAhJ6f1PojMZ0XjCebR2tIyMyrWLj7W+bAUdjCLuFxCf8ild
-	r6ZvTdSMYCz58SCIeEJcKEP7Tnmpr2G2Ba3LnuMmmfR+nt5ZUmjwwDvr/7/7AGniAWQhYcA6lc9
-	cJjbmJ/Lj/0zevDmgJXRXnmFee0MVXtsIAtWuKliYHaAHTb783aq0hv5T2Dqy0NQPXTyj7jFq/5
-	NRznQwEFstocNS67EYe3+E1eRA8PEmBBxGwausA==
-X-Received: by 2002:a05:600c:19cf:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4b6de789199mr109400575e9.11.1794069526433;
-        Sat, 07 Nov 2026 08:38:46 -0800 (PST)
-Received: from zeus.unificl3slsbnxe8mz.com (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm36117925e9.0.2026.11.07.08.38.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:38:46 -0800 (PST)
-From: Sander Speetjens <sander.speetjens@gmail.com>
-Date: Sat, 07 Nov 2026 17:38:09 +0100
-Subject: [PATCH 5/6] firmware: raspberrypi: Document memory barriers in
- property list path
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C41606D80A;
+	Sat,  7 Nov 2026 16:39:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C41606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAB3hpccVO9qzfeBAA--.3936S2;
+	Sun, 08 Nov 2026 00:38:52 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Mark Brown <broonie@kernel.org>
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ vulab@iscas.ac.cn
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix ASRC device leak in
+ fsl_asoc_card_probe()
+In-Reply-To: <1d80b89f-7b33-4036-a450-bf32c603a238@sirena.org.uk>
+References: <20260917165430.2163372-1-vulab@iscas.ac.cn>
+ <1d80b89f-7b33-4036-a450-bf32c603a238@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,63 +60,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-fix-raspberrypi-firmware-v1-5-707362c710cd@gmail.com>
-References: <20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com>
-In-Reply-To: <20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
- Stephen Boyd <sboyd@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>
-Cc: linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- sander.speetjens@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1034;
- i=sander.speetjens@gmail.com; h=from:subject:message-id;
- bh=P9wmJ6Smi8MVD/GA5S6rtkoUUYTGbgyj85KQ4DXkfhY=;
- b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq71QRFlLMnlbeWb11lO41qioslLYVWcI/ZHRz/
- v4NLYvUx7CJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9UEQAKCRB4zXhFDAXI
- ZwxOD/4og+dmsi4eHShCswi47DDv9ZHedikmZkzDjOGZyYC35LtAC/RuRjfTE6hdkqjCfTZAvLJ
- 90kj3EoIKiiB2E3UlFRjsvM7qWyS06TYSpHU+6Y3i3gTfMZTAbGcodIQCCH5Gj2YayYn8tNPtg8
- S17jhQpBQr+eAiHhd2NMtt/PhKCXwmBVfYrck/qZsfSC4xeNQdfi3aaaykGfgvNkWRhqfQi7fQa
- Tfh2JYejd8qdF6TC+VZPgHziKKh/+wh/j0O+aQ1LTCH3aWUVtbF8D1xb9D8esp8Y55MFBgnxJHc
- /QX3fw1yW1aho61RKhNSMQMaKd7+1BCrdCFaHtzbtivpaNTk5ZAPKUL50CEx50ug8Xc9m2lDPjX
- AAw5cs3Jl2aJn+TKZyniqgpgNmtsk4vV0HLJdLFloqfO0YnJPezfK3GnHCvnLNjOyBEK/nvL6Wt
- Xc2iSisov2RiNoQqqnWdZVWnw8l6RtWQWksJXTO3UPfed/BrKG4/cy9QtsMz1Mc+5kzqqUBAenr
- BzTFuJN6wyEhDFpFMbx8dSwugn/gZcae3KcrjcrSZCLcN1t3oU8U1xhIWk4eplcGSP0fxkbbkug
- Kdb3mnv9AQIS/iIGwq27hbJCSgiJ3zseWcEzY1c90pGTAwHlMMxSd9q32scL3qW9UiHRsUIOTd6
- aTudNqUBZQTnN+Q==
-X-Developer-Key: i=sander.speetjens@gmail.com; a=openpgp;
- fpr=56524A8B001A11C3EEC9510178CD78450C05C867
+Date: Sat, 07 Nov 2026 16:38:38 +0000
+Message-ID: <20261107163838.271828-1-vulab@iscas.ac.cn>
+X-CM-TRANSID:rQCowAB3hpccVO9qzfeBAA--.3936S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xw4rJr4kur47Kry3CF1DAwb_yoWfCrgEkw
+	4vkFyjvr1xZFZ8Ww12gFWkZF9F9ayqgryrK348Wa4xuFy5AFyaq3Z3KFn2vw4Iqas8ZF1q
+	qFyqq3yj9w129jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-kFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
+	aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52
+	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4
+	x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMEA2rvPp4fAQAAsz
 
-Add comments explaining the wmb() before the firmware transaction and
-the rmb() before reading the response, as required by coding style.
+On Thu, Sep 17, 2026 at 11:33:55PM +0100, Mark Brown wrote:
+> This doesn't apply against current code, please check and resend.
 
-Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
----
- drivers/firmware/raspberrypi.c | 2 ++
- 1 file changed, 2 insertions(+)
+Sorry for the very late reply, and for the noise.
 
-diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
-index d9a569a6dae7..57f21e4e65d6 100644
---- a/drivers/firmware/raspberrypi.c
-+++ b/drivers/firmware/raspberrypi.c
-@@ -110,10 +110,12 @@ int rpi_firmware_property_list(struct rpi_firmware *fw,
- 	buf[1] = RPI_FIRMWARE_STATUS_REQUEST;
- 	memcpy(&buf[2], data, tag_size);
- 	buf[size / 4 - 1] = RPI_FIRMWARE_PROPERTY_END;
-+	/* Make sure the writes to the buffer are visible to the firmware. */
- 	wmb();
- 
- 	ret = rpi_firmware_transaction(fw, MBOX_CHAN_PROPERTY, bus_addr);
- 
-+	/* Make sure we see the firmware's response before reading it. */
- 	rmb();
- 	memcpy(data, &buf[2], tag_size);
- 	if (ret == 0 && buf[1] != RPI_FIRMWARE_STATUS_SUCCESS) {
+You are right, and it was not a conflict with another fix: the patch was
+generated against a tree predating de27e0cadcce ("ASoC: fsl-asoc-card:
+Move bound-component setup to late_probe"), which removed cpu_pdev and
+the codec_dev[] array from fsl_asoc_card_probe().  The exit path the
+patch was built on no longer exists.
 
--- 
-2.56.0
+The leak itself does: asrc_pdev, taken by of_find_device_by_node(), is
+still never released.  I rebased the fix on current code and resent it
+on Nov 4:
+
+  https://lore.kernel.org/all/20261104024047.1508601-1-vulab@iscas.ac.cn/
+
+It adds put_device(&asrc_pdev->dev) at asrc_fail, applies cleanly to
+310ee4c282a1 (current sound for-next), and builds with arm64 defconfig.
+
+Thanks,
+Wentao
 
