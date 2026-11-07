@@ -1,63 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060829;
-	b=gsf6zRGamWx5ZUJ7gIrTlJQzVA4Gu1WE2uncir6QBhUXT7r9oMIQiCsG4lTmDfSI/COG
-	 zIN9Yr/tpOmXWGGripAs9opcgChSXeD+5n89ie9hz+Rq0xMJwhYez9jYaYOHq/dxEArWL
-	 nxBLblWBjNyo7CKtmNsc+WQDjIrueuItxDJF+Y1wteB83qNju2Xx0aVbaxTbiOzZ37ydn
-	 hzp+m0rxccPLqRGnwGhpcVEOFA7rhVJ/PV1pYpZEC+1rYIQRf9B7Kj+gPjTAWsl1CSVMP
-	 lsty/IBI686692RS8vDvFVuEWKLd68rGEVCtk7KxsRBZUlQgYRu0ycRsbZ3zIaK/AQg==
+	t=1794060850;
+	b=2N5+jpNHUirueXipugtayQzdG3U4UfaY9b0Rw0C2FfCiJyrPeuG0n2xTP3DMMvg2bMhF
+	 YJtYOUyW1lPtN2nQ9TahxjHQQbAVkfqI2kQZ0NnWSQ+iIGFvOfokb7HNg079MlQQ/8ME2
+	 L4ZELGE8ZUvTd5ctVED4ori82AzZipEdKKWX8gAEd4YNY6juI19Qk02rofhE3wcYVCDHG
+	 tQYcizwMIjh4od61tK0PEZl3uROLXQT30kit3t/Xl9PP4hXmojHGfqEW5Qm9oKrGE2ftB
+	 fUtNXgqZOURNB4wPAk7RFwvNTd1q+T6TkH+8uAJyI/1I6CecmYqASwctUjCmwOEoCNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060829;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=BjDAo3PfR3trTZ4CT+21HMF0w5JupT1Q/iWjhnR1UgU=;
-	b=ST4hEppAdoZOpq17ChhJMjGlEzJYU+HQqB80ZA/pyFacmal8/vhVPpIRvri5QLpmjo9K
-	 F0KALNSLiE0iVUTfhtCbqKoJPnfczrG1rr0rEm3vlnuZftC7rYnlXgv6PH8P/wV1JXrd/
-	 LYTQyLpAK/354Acq4uHqm2lWRzClLZplIRDU3wraaa7ELcL9ZFhB3x1VP6h2v61noGViP
-	 2GdGWEucsPc4nZt5ONr6ECZuf18qrP29TesdWldu8GuNC8dim487uIbvoQo3xvqJ3hJ6h
-	 YkPhDQDicrHYFy6coyph1BXGyGvGuI7z4qxEdL7Yjia+tS0sj7rI4NRFff78/1UZUNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060850;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=DBMcm3MQt3rFtazZpSgZ4Roq5LuM5LuAD32o736vMeU=;
+	b=oZXalY2/vjYu8zRqVtBIrgumdvXnB4DZdETV6xthcAGaMF5xsU73HxAeKNPzgPHC7R5s
+	 m6c71m6DYYZGGb+GhwgNmEqYKt0P7xNvcaCm3t0Q0XMg8vDHs4uxqP3oymcvR16K5Bolz
+	 kSzHmWKw8lMhnERs7iQM6jmh35N/3ILjx8CvshzuPJbKovXpm06V2XoZI3OCdJCsmSRXt
+	 UrNRy2XGODdGU3twvoPEgHefuqicuFBAGtjsNzBt6haf494W5dSYxNWI3+NdxIjm/KGjN
+	 ZSFkpxm+deAlXkeQt/7XH6EksJfH4k8He4cjIy22qMkGgPOwHN4G/WLE7JR/rZM4vrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBxpWpXD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=LP1Sjd95;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779CB606A330;
-	Sat,  7 Nov 2026 14:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37FFD606D80A
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:14:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37FFD606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBxpWpXD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3741F008A1;
-	Sat,  7 Nov 2026 14:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794060829;
-	bh=BjDAo3PfR3trTZ4CT+21HMF0w5JupT1Q/iWjhnR1UgU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=bBxpWpXDc/ka98UhYYRuKTi6hB9mfnPgIDAN9FsGUgOhbi3u8DhOsvekzUpunnH1F
-	 skmlwDV5sBsHq7E0qj5+ayegWZML9kTpRRr2+Tlx/4M9tgG3ZziYUuNBdr6AXNPMeS
-	 vm0OvDyaJPm3yGkk5j4TD6fenitVLMaOIplVJL3c/dq4c+Ndv10bm1+ZCnMU2L1coP
-	 i2efFgFSp5IM1Yr2dYr14sVfJ+wXrVSPMv/l9dMM5biOMdxhWxYwLOqeY8zRIrL8AW
-	 vjaQX5dPgzbUuNdJsivC8mDdRY1/u5lKu2lhr5bYP4wcAEZadrK1+9taipIaRTbTJx
-	 ImP4avQix+Tsw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id BE93629E6A72;
-	Sat, 07 Nov 2026 14:13:44 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Myeonghun Pak <mhun512@gmail.com>
-Cc: Fabio Estevam <festevam@gmail.com>, 
- Nicolin Chen <nicoleotsuka@gmail.com>, linux-sound@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <20261016023912.3658714-1-mhun512@gmail.com>
-References: <20261016023912.3658714-1-mhun512@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_esai: Disable reset work before suspending
- on remove
-Message-Id: <179397763038.3231166.2110222144709277815.b4-ty@b4>
-Date: Fri, 06 Nov 2026 15:07:10 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=LP1Sjd95
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=DBMc
+	m3MQt3rFtazZpSgZ4Roq5LuM5LuAD32o736vMeU=; b=LP1Sjd957bnsCYYNwmid
+	tnXPzkXLU9WjO7PrxKfLGp2Memt2xtgldHuJjte2xxhlmzIakSm1tR2544isJ0aS
+	gENrQYPI6UGMOZeeal3xYPXpFTXXxHnyCK7Cu6oHTU6iz3vyZaPO0XQzZbrI2En5
+	UcGUCs7bwsBtEcK3I24kv9prD1h6UnjwUc7z5fYj7hXPvUFNc42Sw9KltLhy5xUv
+	1FQICatg9yuwyiSWhaTE7rZqrjzp2e9BYBZshwNCmXdi/yUcTCL1rnY4oqTfpBND
+	RXk/ciSddnF+0ee2y1B0TmH+Cqxx/Lheair+MwvZzycx10FoCgXXF3gc7buBbmot
+	Og==
+Received: (qmail 2528043 invoked from network); 7 Nov 2026 15:14:06 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 Nov 2026 15:14:06 +0100
+X-UD-Smtp-Session: l3s3148p1@/U5RV7BfEO0FFu4j
+Date: Sat, 7 Nov 2026 16:14:03 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: mail@andrewgigena.dev
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/7] dt-bindings: i2c: qcom-cci: Document SM8150
+ compatible
+Message-ID: <au8yK11wC6Tyvcuo@shikoro>
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-1-0103e8a0bbcd@andrewgigena.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,46 +82,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=broonie@kernel.org;
- h=from:subject:message-id; bh=lNxfmr3kPRt3PVCFU3hjz9tLlDyGlMqmwRteiKLR7nQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeGwllqTpnSBf3KK+dduXwzs0/+Ri2JdycGp59+E+27
- a1DxczbOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRwnaGPzwXxdyCPp1Jm7/j
- u8+dzrnnjPZfTurWi9D5+ziu55zqaW5GhmdTtR/WuAo6L2kVWWcyw/LoF7fsB8nzA2tuXt36/I1
- 5GD8A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-1-0103e8a0bbcd@andrewgigena.dev>
 
-On Thu, 15 Oct 2026 22:39:12 -0400, Myeonghun Pak wrote:
-> ASoC: fsl_esai: Disable reset work before suspending on remove
+On Fri, Nov 06, 2026 at 06:35:33PM +0000, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
+> 
+> Add qcom,sm8150-cci as a CCI v2 compatible, with qcom,msm8996-cci as
+> the fallback.
+> 
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
-Applied to
+Andi, also no driver changes, qcom tree?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
-
-Thanks!
-
-[1/1] ASoC: fsl_esai: Disable reset work before suspending on remove
-      https://git.kernel.org/broonie/sound/c/b72f6bb43dec
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
