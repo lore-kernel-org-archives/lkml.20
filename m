@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.88
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794025087;
-	b=JOSoCl+jVQpgfk7ZRzA611LgOUmvA9PizkxjtcJUTOtsqEfk29B6tqobT90swOOkfcy8
-	 NXYffr+peGs8Cd2N0Y/Ni9aIr3JMkO+29uOdTPY9auU77fv1xVyUH1gAYa/p9VTjQ+cxT
-	 ZzJ+8w4v6OO3xqr9tTlnr+gpTjBQLWSOBPZ+MZgyBe7HKLGZ7JC4ska70v+y30II1pP/l
-	 vJUhiraQLNs0OWUFmnkR63y9OKnJwczhJXEU+UANobg5DXlhfCgCEuJIUki0BZybs4Jkz
-	 C5d5FFAi4qNTFTi2oouuvm+EcbG4aF1j13eTv4hE80VIx5KwQadidT1wkmAjXIbrStg==
+	t=1794025257;
+	b=0RVYxfbK0vQPGKka/0HkJXfWZBdRKRU15XsrTaXBjOPciK5noUaIRneWPdtLKAAc8xW/
+	 Ehhew3aaXZ+xsiUjKOMsLztsN84WHVjT/Qt+C1tpKab9wRIuuyQ+tcD4bJUZBL2PVC2lg
+	 uZlijBzClkOzIV65PTDR2N58IngcGSXTfUqzc8tIp//w8c5uLfRud0mFsFWmgJuMVqkBH
+	 9POJ3JgG3TJOkUgOKxZttYpe3VzXocTRUzlCp3dTGb/8MzKmUyPMogunY2XPEs215r81D
+	 ihSI5PjqcAxDf+N/i9YSFran65oPIgd/KlJ7UxyL5E5Y6DgEBo2gsDUTsCgSAwKDqFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025087;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cuN/Wu6kktf8GRN0frnHoHZPEmUKd7TSmOYwdClsOmA=;
-	b=q6qUmQQ3CEE3lhJzAbdRSNQvvPpmqVObWl3Aw0DFLZcyTZxUWxr/2uFWoBG2RnscNslN
-	 g+7PP9aYMqwRD4v64Mi9hMsS3mjoobzyioA0s8cjXk0MqbYjV5QvrrrcrJsD5InSg3BV+
-	 BN7M2kBmkIS0UPNVJI8F/k08wJyNmk7E2cI16yGbjmRRaNHBzhc6SLo/iQUJY0S99ffdh
-	 /gTWgiLiyU4cbZRDGj3VKOKUpbZl05+dL+Ij5dxaylTmYFtzdX/UsRbNU1Hw3OD4DN4qK
-	 5kmA1qQ5B+Lr7qVyipXmYGChoRoQQUralakqEfGMlxUpLTvLUOKYd1F+X+FnaZ8907A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025257;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=Bq0dCo+hLaUPNO1PMcRPw8Cdoo0r1SoIO6xySRKjG64=;
+	b=k4t2CA7+4E5UmfGxksR/5gZpBM7VUVu9Tw8EHFOOBK3TDEdG1o9B0j0ogYWqRvcM9KXn
+	 iCu0oS9iCwvPomFFeT+FbNShLCb8LaQ4sEkqJrno9KslJWasLmrpiRBKFMl3n/mcANiLl
+	 uCCxaqnBs2NjhzYc+BpZBoKee+YsH5M/eBrBsO5KEVfc+9/Q0bhaOtfyRMUJXnijDjXP0
+	 mLZ+Y0jXpYDaGCPxBFdPfPQFabU/XWoy/DGZrYvdLT6CHoWCcvXCQoGMQ9RnopRycwaCC
+	 Nb20YbgU/FY+pRek/69xy8DTenKbS46BdglE36PnjM/Mn5Nc5R0NEHKeRcwdEOkPmmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b="aSOI3z/i";
-	arc=none smtp.remote-ip=209.85.210.53
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.88
+Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A49606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:18:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78A49606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=aSOI3z/i
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-825b40f8a26so557899a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:18:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1794025086; x=1794629886; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cuN/Wu6kktf8GRN0frnHoHZPEmUKd7TSmOYwdClsOmA=;
-        b=aSOI3z/ivB3dLGUeIFD60/qU+RZHCfSGJam7HUGnDYE6+Cxb0ESvpaauNmGnAy85CX
-         fWEwhNdKw1xAwlpNmPmGfbJ2wb6OWAgDmSJVVbVTd++//Kf1luBFiIOGzM700MLMS8gK
-         72gMqOTQ4KOv69G1T6Uk6xESdIEbXLQUQpMzM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794025086; x=1794629886;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cuN/Wu6kktf8GRN0frnHoHZPEmUKd7TSmOYwdClsOmA=;
-        b=JQdxr9slzRcCDqcvA+mZVaxKlmwiOOC+2Ci2DjzRO9pTNAhV6aaepdy93ngTlUM8vL
-         uHZ8VaAY5QXWKD5ZHhjfrhyKLA43Rwlfdjl8QykYpf/D2ZX4jxSkuYvb4PN9zD67h+5s
-         WkwYti1rtWCLeRbE1IWOgQnXGRj1xR3VZYXEmcHm2E8Dacbf+Dfb2hFIb89riZvtvZnw
-         A908bNLzLXOBlemF0dxDkuVBU8MkiJts85pgnWHq4ajGgIvrjxzDnnA8y5FlGshxhVmr
-         Ws5yj2R8t+nG7+NYGB4XFA2xu/N3/muyHr6AIg1PCczgSNzBw7rsZUm+qwpeTgnPRa9C
-         /NrQ==
-X-Forwarded-Encrypted: i=1; AKwUvByBHQI2zgu3pz0LzE8bDdyr7Um6Kq2OUN4n1R+Y9IefsPw2gWvDcx8iy8LPfgMwTxI1Nrv7sUO7bwCD00o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2OGxix0BRxZ5xzDW5OssTCiNNjCU+pIeSZ6/5EEI9nn+e5w10
-	0sVSh59B0+sr2KKeoDyOy7Sc95HLzniJPaqAQD/a5uI5Kuh9dfDEKEMY8wyQasaUdOw=
-X-Gm-Gg: AYBFou05+jF0BAtiQw6r8QFame7KBKMGK8srsnz0myg2yQdmj06vNJVtGpRFpP+CNjB
-	cjWQeh0hWLie/ynrY0F2nlROqukGE/R6O3VLV7Ls/493doZDtOvY73HRd0n+tUp/jwhSjOdTNvq
-	h+P4V7zai9M7Lmjih2FLTRJ6VDlcGSEjgWlcxJJji3OfV3qayvnToLLvDRQAslNhnfACW1LCc1x
-	EnYA9hnacCHFoP1GnLUgGTRNqkAlQlNzdnm+yGa6RQ/wcDyBXb4zwnfsIv8QxHlHunpFRhv/Fg1
-	RL+6+nylcw+p9OOzsh844BKpQe7l11uWjCtZqJf51LgiCBQGEi7l/CtCK4gkiShEsCNPv80twm5
-	wrzabUVPCNmoNXleLhQZDVE1TzhJpVDEoi0W3bk+T1MHlUlj6HOFXq/sYH3+InF+d2cuVJxd51Z
-	swiLfLz1o6TSAAzvMeONBLLmxcuPdWpIQel0vhKqHCy9zVbKNp9V2FWILtGFCFWXE2XFFRLHVSd
-	M5zVDYkIwzyEaCSQC4knJlryCR0HclvGJEC66iWJioo2chyx7qU/lB7SUSh12r/EBnMqRyH8zvQ
-	hsndISr2A38V7wd0UFGSYnY/7OTRRc31+aL36pAbld7TdY6eRHANdlM8ZxbYjd7mE7ZnaBOyjkL
-	/m+7NqLTa+ki4lkg/opBaFHN0P/eWxQ==
-X-Received: by 2002:a05:6830:2315:b0:81b:bfb5:26cb with SMTP id 46e09a7af769-85f1cd702f9mr4751617a34.3.1794025086363;
-        Fri, 06 Nov 2026 20:18:06 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1d951a8csm3575210a34.3.2026.11.06.20.18.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 20:18:06 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-rdma@vger.kernel.org
-Cc: achender@kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] net/rds: Do not unpin a page after a failed atomic pin
-Date: Fri,  6 Nov 2026 20:18:04 -0800
-Message-ID: <20261107041804.64213-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5911606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5911606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YCcxKrIcMOx//u0TM0K1pfTnYAP28oYPKkMZXvmjwuQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794025242; v=1; x=1794630042;
+ b=G8RMgrtaxyEHR52ZM5HHM056f59sc0AbIq7/H+7xGHWPWy5N/UI2dFf12vCAWGrJx1D9znNj
+ /fsHKScG1wcsHGfWE7xBJujMnhzRPK7+sOJD6XiH2YvsA7HQpea+OHpXO7aH4f+48bckNh/vpZb
+ m2/syuIzpZrtDMlmI3aXgbcg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 36ec68c139595b66;
+	Sat, 07 Nov 2026 04:20:42 +0000
+X-Mizu-Trace-ID: 36ec68c139595b66
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,58 +53,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Sat, 07 Nov 2026 04:20:42 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <2b4b213b4e9b27016982dfc517a5629f2ff5f3b8@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH 0/5] rcu: Record callback enqueue stacks and add torture
+ tests
+To: paulmck@kernel.org, "Joel Fernandes" <joelagnelf@nvidia.com>, "Kunwu
+ Chan" <kunwu.chan@gmail.com>
+Cc: dave@stgolabs.net, josh@joshtriplett.org, frederic@kernel.org,
+ neeraj.upadhyay@kernel.org, boqun@kernel.org, urezki@gmail.com,
+ rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
+ jiangshanlai@gmail.com, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+In-Reply-To: <dda59546-c03a-4c4c-9df3-a107bc629e2c@paulmck-laptop>
+References: <20261106143913.3627722-1-kunwu.chan@gmail.com>
+ <7883f32c-80b8-4bfa-a4e4-f1e04da647f3@nvidia.com>
+ <dda59546-c03a-4c4c-9df3-a107bc629e2c@paulmck-laptop>
 
-rds_cmsg_atomic() assumes that a non-NULL output from rds_pin_pages()
-represents a pin that it owns. However, pin_user_pages_fast() can roll
-back a fast-GUP pin after racing fork() and then fail in the slow path,
-for example after a concurrent mprotect(PROT_NONE). The output slot can
-still contain the already-unpinned page.
+>=20
+>=20On Fri, Nov 06, 2026 at 01:49:04PM -0500, Joel Fernandes wrote:
+>=20
+>=20>=20
+>=20> On 11/6/2026 9:39 AM, Kunwu Chan wrote:
+> >  This series adds KASAN auxiliary stack recording for RCU Tasks
+> >  callbacks, rcutorture coverage for duplicate-callback detection,
+> >  and KASAN aux-stack verification tests across RCU and SRCU flavors.
+> >=20=20
+>=20>  This series is based on [1]. For testing, I also applied Joel
+> >  Fernandes' fix for debugobjects tracking of barrier callbacks
+> >  [2], which is needed for the barrier tests.
+> >=20=20
+>=20>  The changes:
+> >  - Record the enqueueing stack in call_rcu_tasks_generic().
+> >  - Enable duplicate-callback testing for the "tasks" and
+> >  "tasks-tracing" torture types.
+> >  - Add a KASAN aux-stack verification test module with a Kconfig
+> >  choice for each supported flavor.
+> >  - Add one rcutorture scenario per flavor for the verification
+> >  test.
+> >=20=20
+>=20>  Tested on x86_64:
+> >=20=20
+>=20>  - TASKS01, TASKS02, TASKS03, TRACE01, and TRACE02 completed
+> >  3-minute runs successfully.
+> >=20=20
+>=20>  - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dy and
+> >  rcutorture.object_debug=3D1, duplicate-callback detection was
+> >  triggered as expected for both torture types.
+> >=20=20
+>=20>  - TRACE01 was run for 1 minute with
+> >  CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dy and
+> >  rcutorture.object_debug=3D1. The test detected both duplicate
+> >  callback heads through the SRCU enqueue path:
+> >  [ 0.405836] rcutorture: WARN: Duplicate call_tasks-tracing() test st=
+arting.
+> >  [ 0.405852] ODEBUG: activate active (active state 1) object: 0000000=
+020df980d object type: rcu_head hint: 0x0
+> >  [ 0.734724] rcu: __call_srcu(): Duplicate call_srcu() CB 0000000020d=
+f980d->rcu_torture_leak_cb+0x0/0x10()
+> >  [ 0.734780] ODEBUG: activate active (active state 1) object: 0000000=
+06634e8c9 object type: rcu_head hint: 0x0
+> >  [ 0.776688] rcu: __call_srcu(): Duplicate call_srcu() CB 00000000663=
+4e8c9->rcu_torture_leak_cb+0x0/0x10()
+> >  [ 0.779126] rcutorture: WARN: Duplicate call_tasks-tracing() test co=
+mplete.
+> >  [ 65.411342] tasks-tracing-torture:--- End of test: SUCCESS: ...
+> >=20=20
+>=20>  Both duplicate callback heads (the stack-allocated rh2 and
+> >  the kmalloc-allocated rhp) were rejected and neither was invoked.
+> >=20=20
+>=20>  - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=3Dy,
+> >  object_debug=3D1, and n_barrier_cbs=3D4, the TASKS01 barrier
+> >  test completed 630/630 rounds without barrier errors.
+> >  The only debugobjects warnings were the four intentional
+> >  warnings from the duplicate-callback test at startup.
+> >=20=20
+>=20>  - All five aux-stack scenarios (TASKSKASAN01, TREEKASAN01,
+> >  SRCUKASAN01, TINYKASAN01, and SRCUTINYKASAN01) produced the
+> >  expected KASAN use-after-free reports. Each report's
+> >  "Last potentially related work creation" entry showed the
+> >  expected enqueue helper:
+> >=20=20
+>=20>  =3D=3D=3D=3D=3D TASKSKASAN01 =3D=3D=3D=3D=3D
+> >  [ 1.244567] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0x=
+b0
+> >  [ 1.244707] Last potentially related work creation:
+> >  [ 1.244716] aux_test_call_rcu_tasks.constprop.0+0xc/0x20
+> >=20=20
+>=20>  =3D=3D=3D=3D=3D TREEKASAN01 =3D=3D=3D=3D=3D
+> >  [ 0.670399] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0x=
+b0
+> >  [ 0.670561] Last potentially related work creation:
+> >  [ 0.670571] aux_test_call_rcu_tree.constprop.0+0xc/0x20
+> >=20=20
+>=20>  =3D=3D=3D=3D=3D SRCUKASAN01 =3D=3D=3D=3D=3D
+> >  [ 0.658679] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0x=
+c0
+> >  [ 0.658919] Last potentially related work creation:
+> >  [ 0.658932] aux_test_call_srcu.constprop.0+0x16/0x30
+> >=20=20
+>=20>  =3D=3D=3D=3D=3D TINYKASAN01 =3D=3D=3D=3D=3D
+> >  [ 0.951503] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0x=
+b0
+> >  [ 0.951641] Last potentially related work creation:
+> >  [ 0.951650] aux_test_call_rcu_tiny.constprop.0+0xc/0x20
+> >=20=20
+>=20>  =3D=3D=3D=3D=3D SRCUTINYKASAN01 =3D=3D=3D=3D=3D
+> >  [ 1.009005] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0x=
+c0
+> >  [ 1.009141] Last potentially related work creation:
+> >  [ 1.009150] aux_test_call_srcu.constprop.0+0x16/0x30
+> >=20=20
+>=20>  I'm not feeling very excited about adding more configs just for KA=
+SAN. That
+> >  sounds like a maintenance burden. I believe Paul already has KASAN t=
+esting in
+> >  his scripts. Is it possible to activate this testing only when those=
+ are enabled?
+> >=20
+>=20The usual way that I do KASAN testing is with the --kasan argument
+> to kvm.sh. I use --kconfig and --bootargs to specify further testing,
+> usually as another option in torture.sh. This causes the testing to
+> be carried out as a matter of course.
+>=20
+>=20One good thing is that the Kconfig choice in patch 4/5 is automated s=
+o
+> that RCU_KASAN_AUX_TEST causes the right testing to happen depending on
+> what is configured.
+>=20
+>=20Is it possible to drive this from --kasan and the rcutorture.object_d=
+ebug
+> kernel boot parameter or something similar? Or is there a better way
+> to make the overall testing happen?
 
-The common error path calls unpin_user_page() on that stale pointer.
-This can consume another subsystem's pin and allow the page to be freed
-while it is still in use. A local unprivileged reproducer triggers a
-KASAN use-after-free write through an io_uring registered buffer.
+Hello, Kunwu
 
-Clear page when rds_pin_pages() does not return one. The error path
-continues to release the page on errors after a successful pin, and
-successful requests retain their existing ownership and behavior. All
-four RDS atomic ancillary operations share this path.
+Perhaps we can simplify this testing, similar to object_debug testing.
+double-free also should output stack (I did not actually test the
+modifications below) which record by kasan_record_aux_stack():
 
-The issue was found by an LLM.
 
-Fixes: 15133f6e67d8 ("RDS: Implement atomic operations")
-Cc: stable@kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
-v2: Use the net subject prefix, add Fixes and stable Cc tags, and
-    include the validation results.
-v1: https://lore.kernel.org/r/20261030042110.73571-1-kylebot@openai.com
+diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+index 968343be4e0d..93b30bf90cc9 100644
+--- a/kernel/rcu/rcutorture.c
++++ b/kernel/rcu/rcutorture.c
+@@ -120,6 +120,7 @@ torture_param(bool, nmi_calls, true, "Exercise ->call=
+() from NMI on nmi_capable
+ torture_param(int, nreaders, -1, "Number of RCU reader threads");
+ torture_param(bool, nwriters, 1, "Number of RCU writer threads (0 or 1)"=
+);
+ torture_param(int, object_debug, 0, "Enable debug-object double call_rcu=
+() testing");
++torture_param(int, kasan_debug, 0, "Enable call_rcu() kasan testing");
+ torture_param(int, onoff_holdoff, 0, "Time after boot before CPU hotplug=
+s (s)");
+ torture_param(int, onoff_interval, 0, "Time between CPU hotplugs (jiffie=
+s), 0=3Ddisable");
+ torture_param(bool, gpwrap_lag, true, "Enable grace-period wrap lag test=
+ing");
+@@ -4632,6 +4633,25 @@ static void rcu_test_debug_objects(void)
+        kfree(rhp);
+ }
 
-I have a reproducer for this issue and can share via DM
++static void rcu_free_cb(struct rcu_head *rhp)
++{
++       kfree(rhp);
++}
++
++static void rcu_test_kasan(void)
++{
++       if (!IS_ENABLED(CONFIG_KASAN_GENERIC) ||
++                       !cur_ops->call || !cur_ops->cb_barrier)
++               return;
++
++       struct rcu_head *rhp =3D kmalloc_obj(*rhp);
++       if (rhp) {
++               cur_ops->call(rhp, rcu_free_cb);
++               cur_ops->cb_barrier();
++       }
++       kfree(rhp);
++}
++
+ static void rcutorture_sync(void)
+ {
+        static unsigned long n;
+@@ -5191,6 +5211,9 @@ rcu_torture_init(void)
+        if (object_debug)
+                rcu_test_debug_objects();
 
- net/rds/rdma.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
++       if (kasan_debug)
++               rcu_test_kasan();
++
+        if (cur_ops->gp_slow_register && !WARN_ON_ONCE(!cur_ops->gp_slow_=
+unregister))
+                cur_ops->gp_slow_register(&rcu_fwd_cb_nodelay);
 
-diff --git a/net/rds/rdma.c b/net/rds/rdma.c
-index 078090d292fa..71b57abb96c4 100644
---- a/net/rds/rdma.c
-+++ b/net/rds/rdma.c
-@@ -957,8 +957,11 @@ int rds_cmsg_atomic(struct rds_sock *rs, struct rds_message *rm,
- 	}
- 
- 	ret = rds_pin_pages(args->local_addr, 1, &page, 1);
--	if (ret != 1)
-+	if (ret != 1) {
-+		/* A failed pin can leave a stale page pointer. */
-+		page = NULL;
- 		goto err;
-+	}
- 	ret = 0;
- 
- 	sg_set_page(rm->atomic.op_sg, page, 8, offset_in_page(args->local_addr));
 
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
--- 
-2.55.0.openai.911.g06873a30d2f3
 
+Thanks
+Zqiang
+
+
+>=20
+>=20 Thanx, Paul
+>
