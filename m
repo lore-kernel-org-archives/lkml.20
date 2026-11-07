@@ -1,100 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794044510;
-	b=J9CYC4yQPXOtGiOGmtRd5P7Q03NDQTDD4eeR1hlq1eXRtWJTec3hc1KsBvmuLiPUveTV
-	 EBQtzHPemO9ZKnEmMg+Z2w+hyt+Oc1dLMjBMM5m43EUk0mLIRpR9LRpyA2YghL3fqIhvW
-	 QXbG8ZDTbwrKL+WSyohgNJ3d/sPK8NxYa+7p5LcBJ7ohvEUw55SG6hwVxVCSxJ0lmjJKY
-	 96auS1zjJ1Vwbj5UCa8NSeHXxH+vvcoP6ZaWQ94U1/Lr3qh3g21UeGDJb0INBGvlsWKYa
-	 q16K40V/rroMs4D40vAWuGOvGvca9ywqHpK5CJBN+H4690kYx3G8GSTdET+gEY+kscA==
+	t=1794044522;
+	b=DW3z6lgsKO4jYnlbp+SRtAY1ACDueQD7TgOvvTGBSwgBkkUK3DZozGZ6vjcYdnMWbugc
+	 Vp2tjP0fp4tEiMP/NR+D+LUiT7TllTvM8j0edSmg49sbjMekfpEaEp2sJk2zKx6BwP/54
+	 zfCb35WmqzlIISqplr/QP1lRudMTS31ch1PEfEQT8uhFQ8rg7cp7T/lPrOXNZU9lhVGx7
+	 1jiEJfZlCrxLJrjj3mLKNnsluons2ThVXNOSYLU/3RNi97Aaqv7mp1BJI+e/Shy+xA3gB
+	 7fw5Kkz7rgmKbuvFsjmKdRKRhr9tlXwZODv+b1i4C2lj7LzNq+nwdnANtzJ4T0aN9sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794044510;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794044522;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=zNDsPiw4j0+WNidf/YoMdMZHFxZqM2vx1Wj8dYRujeE=;
-	b=diEZuCAyJgX9H62LS+DRDiGXA/KDZb9HPXIr9Q1HUnqQd72uvBhfGTOXdAPWtdclSwvu
-	 jzlL+Mf3HQLKN1YGY613gAS416Wz9hF2FkKKBoXvN3TlbJZJm6UTV/zpMQQx1l5IJw+3m
-	 JvOrbp4fYGU7sOnwhkueUYdgq0oNYMzOYji1ZCYN+CHxPmgB1cgDwphgNSP0IyVpez8bH
-	 BAcPwBIkzd3N3hxO48ppfNLnduf6M0PqZlmUIhq722vKhs6joAVtseNhbH9GaY9ZQLRH/
-	 eDgWngvTzBSyUbA0XcRQTvF2YRldJyZSHwftH74qz3BPYDx38OAXDF/JbW/q55nGJmg==
+	bh=4A0utHeqTpPpsQPoK3Sd00TkXNSK6fwIX1scmyIZteA=;
+	b=z3g5WIppBKw58Vn8kS37p1mHYoTNMZmQwpymWLI/Ujm4Eu8nFAjrBwHKzLZjwSI1s/kZ
+	 eUue5jDjjwIuY9DzHvLgzuW0WooadbxJaZJQajzQVeR2Ll4S0hE4Q8L2EbnToKvPQuRoG
+	 xKMnADpfbeiQGl9j6aSEdtWcYdgk4UhQ+DuOubcyVvYU6PEtaUCI/SAZE8217h9b55pwk
+	 y5VqapmkmKCm7igxkxX3EiEEvrvlQEb9AI0/ZKZgY5o9b3o9NaszLvTnhkX4NvE+odYIY
+	 WZvAHRPLyLoYbg1UGzC0hKkNghJZaB/cOlXzFCYpLmpLkZ/tLhIf2Efu1J9WKzdII4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTHFVLQ7;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uL61zkhZ;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD65606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 09:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBD65606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2699606A333
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 09:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2699606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wTHFVLQ7
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36dbde64409so1980196eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 01:41:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uL61zkhZ
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2341174eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 01:42:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794044509; x=1794649309; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794044521; x=1794649321; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zNDsPiw4j0+WNidf/YoMdMZHFxZqM2vx1Wj8dYRujeE=;
-        b=wTHFVLQ7lIK8cCXieQb/LiXf/TGXT18n+melB6SbVAQtrewoWsMtNSpaRRmmiyMWeK
-         J3e1fUnsbEP8O9GbYUo/qnOn+pBmltZ7VSr9piae9TDTbJrU0jQtR+beThqNBizI/sA6
-         GrGAgLSo7K14uD7iFbhCW7sLyanqbul+D2aVIhub9Dlv4Gw0XlaeZpopOALiqhKx9cnl
-         7DUFH2VjVXCWm4pRAyltmscVNmpz7xeYGdQK85CU8Wjjb+9KqXahF7I3lWNkBWZ0ec7r
-         Pmbmb8PjauMHCuqDUm/s/EmQu0qje812wBNU/IdF3mizlDBgEvAWH308u0N/VyaWT37k
-         fvRQ==
+        bh=4A0utHeqTpPpsQPoK3Sd00TkXNSK6fwIX1scmyIZteA=;
+        b=uL61zkhZRsFHHsiDm5Ks9IqWBn6C2E2i8m/z5Ymh3Z0F0tvWtUGd2sgK1touStbTx7
+         7ZYnNBhr2Ok6MPLtTpjLepfQvAY2/vt5oAyNzt7CGBVMIVu/3Qn9miBcrIo7TpiRLALe
+         uu0Y0BWAA8UChcbO0SArCZVsq7+U6B7Au2AW9D4XNd6xgMW8UJwL+qNnYVN3uCK41OVA
+         Q5BclcM2vPmDvNt20mwH+/Sm2VRdR2j3ug6WcgHnyg68pJauKTDtdil18QjUblS/+iLT
+         Z6f6QO0SusKLn8wSBj/Gf64S2bk9VYAN501x7g1YYR9LAgcpv3UqjxFXiG9Yi17OlIDd
+         rq8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794044509; x=1794649309;
+        d=1e100.net; s=20260707; t=1794044521; x=1794649321;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zNDsPiw4j0+WNidf/YoMdMZHFxZqM2vx1Wj8dYRujeE=;
-        b=SDw7ePNjj5Cs+U58Elxyb+XJrlvMomd1sMQt/pTwgIUUJV/JH/EcjmZSUNkPsVbOIM
-         7L8A86ZBlhMHl21VYTC1jKaz74OyPIimCxj3kqbfJqsGNHIW17B4R6Rr8wSNCG34+C3Z
-         wHxpSt8t/6iYle7gD/C/UfuI7lTmIesVXgkduDJ4b1AzznGcMD2zLXwNcwLxmXmTBxPM
-         yfuRi9WinE3mTPYYtgQYkWIbvjtMtOk2Xs1gqptH5T+t2S4D3ia8Uoff0/yjZRpMLARv
-         fsFjywQpb0Sh2hL+uQKFmaVnQFwKbsf4jyEaGZeMb45CiCGJEEPKitNdji5ie6UEy2K+
-         jDhw==
-X-Forwarded-Encrypted: i=1; AKwUvByy792n0Tghw0t1S+vso6DyAXKmabEjSZg9DFs5XHWwuDqoVTXsCyQ55ieABwB4kcVJJ62hnyfI5ChuxLg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9h7UF6jhvHUXWEA/IoyjvZtp3un5RYdyqv9s9boQhfHTRkvmkB
-	BGvuNDfi0XW/4giCoX06ZDd9JkTpPjTSNCAq+QFmO2ZYEKwg7yKbiLwR
-X-Gm-Gg: AYBFou1lJUXAq8aIdDqtXftyHgSEVjxztb9GcZbTehyRXIEvGJhNMLd4zvgYmGHz9b5
-	D+ApwbBUEM3CVQqHfEk6f+pJSiqBcNIYTJ5i54SnYMYyfPBxv81XsmOYibEw55CJ34mlJmNOOaa
-	YkzUkZZSouOSeJGGip6knT39+p+FauULlTmV2mnWoLwwG9z5YjZ6fQa/SxDwtLntV9ZZ5/0sv/M
-	36v/S3XzsW5R/cdQtDeFNAlI9R4xoEHF+0hnvwcis4ClqGLytZtFMMqfL7LDxxa7ZYiVgRpMY3X
-	R2kgQ/Hz89zpZPa2pVUy40Z7BKioILgEqJkLWInT17nuTT/4xJZ6BoHqtAb58Xh6lOH1V7ogJtI
-	8b6ONQyM3Plhg8zJFVu4YvmHrKJXpu3tuTA4xP9LlCtcyOhlp8V9prahnyp4i6UXSlnWMjpJnKI
-	cStAYSQWgVGXkNL7nbYS6ZUE6WMhb50YXYss3ZacnVLa3IMFpPHkJtRZ/EU32AxIv1fGeU7BYTX
-	O6jfbu8GrR66j9ZDccX61u4jdeHKYO4bOrmv7ISNp6wPRcN47DYJPTl4CPedl7Qy9Gdlv1kAKzD
-	K32qFCC84RSKPQJOoE2TVDCUebhirwrLTDEaAA7DiBexVoqdUzRY0Md0488H8CjXog3yLYxCTpc
-	LSj5kFAesuW2Bkp+oft9XcJNip6+rJtreuNdYxWTK
-X-Received: by 2002:a05:7301:b0c:b0:36d:c3db:9802 with SMTP id 5a478bee46e88-36f76023a2cmr6744419eec.18.1794044508755;
-        Sat, 07 Nov 2026 01:41:48 -0800 (PST)
+        bh=4A0utHeqTpPpsQPoK3Sd00TkXNSK6fwIX1scmyIZteA=;
+        b=PO99UDSWe1QRpPMnHFJzYylWtslJxuhUdZUc+ySxh6VdsobGaRM7P0JiliqF5Nf0sN
+         dA7sV303hb8ueqChCTQxrvLmr+DMkXEZJLc+QanwVLXI9AXTn2ubPoCG0tsDRdFv/PUR
+         8CyAZdG35+rD1Hdto29Nsw/wK6xxN4HYhe6FyvlrcZEPYSaycsvNKc5lyiEpcY1EX+FQ
+         9h3/o1qsab5OYraw/vHihsSb1HvT9++eCH9m+Kk5j5a2uGoBbgcyjBV8t+g8wRKLZxDD
+         R40N09VNATXxvUMNTwa8Xmqe288qZ3TiDUOh3Gmw3R0JKxr4Ls+qjZdJ2tUmK2bbquLA
+         +PdQ==
+X-Forwarded-Encrypted: i=1; AL+hErENjmHnyBlCFbgV9lcbLFeJhw3dHCR73263bvDPEPxL8elm1QVg+7ASPAR8AMq/jhiSj7noFzOOFSHJARc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rCCO4qLigtreqPR42ivwH8CexHNf8li6fsqw8djdZGr9hxXTY
+	jr7+khRbkDKpFnTYRhMD2LKpJtlmslKSHeI50yzx5tEi0P6WHfwuSP2t
+X-Gm-Gg: AYBFou0kGapjDh1/DbQvvzcAXoKYsbGuUOduH9/xj7I/8Zf2n0V08+SICYJc5XfV5LH
+	c2ssZ2qe/sOTc8W0l/kuEPs9rYp/xLcrC9gwxj0vb6onZOml55aAdw1bqHR8T1vU3eUC4gRX9dS
+	9ABJ724fqFC2bGqlIEl6MWypmcS23dkU0I+Yze6LqCAy+XX4XjqeaokqkZn8E22tXb47H/D+vGn
+	7AD/ktSNI30iXSFzSSNbpShi2SmBm7yI3yCmMyAV9JpjT8g8vQd4JxDa4MSW3OiS9n0Z6TURSr4
+	rgPVRpY6ZpazBPL+CAokYJiqayWpVxf8MWbJJK0RMOTWO0zCU83KH+lwq1Uiyl1DlR3oTLoKUBD
+	J7UHR2/xeUksT1r0yxS0of+urJJT4hcZYgKxPe2FA/UTcRfmwq6dT9Pc/S9j/JDmH7Tj8P1hqb/
+	yEQGtkuSeFoxJFJw2tE9C9dDUia4uPY1zMm1uPc7o4aFsdoLpQb5o5vEbRyU89Ohbx8nfHLP0ei
+	EAyfcTMcvnfvp4ZRd95RogTNgaPv5DYYH+Ritzsd4JOxdw3v6nIyKIiSvnd+XBUbnToTg7fg5XI
+	LJaNibU+e4mLv7RzwSSychQ2qwue3NiMxscHcbXnLOrTpfd7qhPyQG+sjXy1+69foYzxBg4fLH6
+	ywWOFGuH5SyvECHR4YBxXsQrcG5aOR6T8EAEJEE79pf7E78DoWSljeyiRrwZrzQ==
+X-Received: by 2002:a05:7300:828b:b0:36f:5861:69a2 with SMTP id 5a478bee46e88-36f729cf8c1mr6557078eec.3.1794044520841;
+        Sat, 07 Nov 2026 01:42:00 -0800 (PST)
 Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fd0000sm12554457eec.21.2026.11.07.01.41.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8d44a5fsm13217351eec.7.2026.11.07.01.41.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 01:41:48 -0800 (PST)
+        Sat, 07 Nov 2026 01:42:00 -0800 (PST)
 From: HyeongJun An <sammiee5311@gmail.com>
 To: Lee Jones <lee@kernel.org>
 Cc: HyeongJun An <sammiee5311@gmail.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Srinivas Kandagatla <srini@kernel.org>,
 	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 00/10] soundwire: Fix Critical and High issues reported by Sashiko
-Date: Sat,  7 Nov 2026 18:41:40 +0900
-Message-ID: <20261107094140.3951536-1-sammiee5311@gmail.com>
+Subject: Re: [PATCH v2 01/10] soundwire: bus: Hold bus_lock when looking up slave devices
+Date: Sat,  7 Nov 2026 18:41:55 +0900
+Message-ID: <20261107094155.3951878-1-sammiee5311@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103095445.81414-1-lee@kernel.org>
-References: <20261103095445.81414-1-lee@kernel.org>
+In-Reply-To: <20261103095445.81414-2-lee@kernel.org>
+References: <20261103095445.81414-1-lee@kernel.org> <20261103095445.81414-2-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,34 +104,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On a Dell Latitude 9420 (Tiger Lake, SOF IPC3, sof_sdw with rt711-sdca
-on link 0, two rt1316 on links 1 and 2 that are aggregated into one
-Speaker stream, and rt714 on link 3), I tested this series on top of
-soundwire next at commit afd88e7ad781. Only patches 1-4 run on this
-machine. The intel_ace2x and qcom patches are not exercised here.
+Tested on a Dell Latitude 9420 (Tiger Lake, sof_sdw) on top of
+soundwire next at commit afd88e7ad781. The details are in my reply to
+the cover letter.
 
-With and without the series:
-- all four peripherals attach at boot
-- playback and capture work on every endpoint
-- 40 start/stop cycles of the multi-link Speaker stream (10 of them
-  after the links had runtime suspended), all links streaming at the
-  same time, and Jack Out start/stop while Speaker was playing all
-  passed
-- ALSA pcm-test: 24 pass, 0 fail
-- the dev-properties, dp0 and dpN sysfs attributes of all four
-  peripherals read back identical (the words arrays are empty on these
-  codecs, so only the trailing newline goes through the changed code)
-
-With the series, s2idle with Speaker playback and Microphone capture
-running: all four peripherals were attached again after resume, both
-streams continued after aplay/arecord re-prepared them, and playback and
-capture on every endpoint still worked. There were no SoundWire or SOF
-kernel messages. I did not run the same s2idle test without the series.
-
-These runs only take the normal paths, so the failure cases that
-patches 3 and 4 guard against were not hit.
-
-I ran these with Claude Code (Claude Opus 5.5) on the laptop.
-
-I am sending Tested-by on patches 1-4 only, in replies to those
-patches.
+Tested-by: HyeongJun An <sammiee5311@gmail.com>
