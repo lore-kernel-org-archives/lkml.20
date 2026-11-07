@@ -1,104 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794030771;
-	b=erIuwyT00ntL9JJrsN6XWR09CUo+1mKHthNjilbhb1izXGXiK2Dtu9r2a4AtvVPFmJc3
-	 1CWPxPJ9XfwA+OY+lUqrVr5eltA2oy8TuHrG7iGfLaXhJncOMto030P1+Ab68GU8TsF+6
-	 Z4Kd/kR2lD1OrjVGxwNqOwTYfIgMcKUiJSHeNurPGR44ojImL855cfZG0JuO3GK8a+Ru8
-	 AWz5wr1Mms8zZQqjis1VblauhN28AehldsGisq8BW2AZE18Te/427k8EmaYQdn8Ur0P0s
-	 jO6wvmUkEOLNXtD+xZexWfcbtA49HfS8oAY4skFkJ4gEwfN1XLq42WoxUFvDjjn89gQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794030771;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EQX2zW/SJRxcCHgqz3pH4mbePZY/P8DRvidJCaOkct4=;
-	b=N1ScJCHelHaEFSGME7QLnQyfiiKgCwqmpVgzKNMfhkH/mb14e3zLwm5ZOSHO3nHe+fWV
-	 R4gVCbu46W2zx8S4P5vXUCjYtIcX+PsUT+n4EMeu1d0alHMcMdKo8TU/zHjmyTckhOJED
-	 8B//aS3ObPYzLdZtzZdEGHYfIImvdUy6a3khnbYO2nEcfLL6ofRZQ56gXX2hqb3mzlDKP
-	 oNMuyZIX9x3zE6eDE5jCeVOeuykDJLGwOj7+BqbVTsuY/kdrsLmb5gSHpB724X/tLX5c4
-	 91aa6p9kmjGt+m9Mowdzo7T2sOeeKcNFNDakqJfKy8LrT0AG8Lo7tGRrDTViVhrtwHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y13YGM3T;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794030905;
+	b=dtzg77Xa7mGeA4VWy276yu205lv3iqJSs23CVYwFSRZ69Nnqcjjmp6udO+CDaft56eWO
+	 ckl0Lc7I+s6sHmQw31VzGA7fbbb4A8SyYQqxcm4dqC8qleZSBCY6J/ju1w6XcbAGgUUNN
+	 cxKjjk8iPLCmivs0vazcR4hmBxENjeDYXh1q9i8MeHoyoIHvNKUCKrEEEaCXkGj2LCMjo
+	 ld7b2Zv8Fen6drxItv7WKR3XaDYK7J7tvqy8VX27hEvjEozfN4PBgCAJz1aogngUCHY5Y
+	 Z4DMlJBN3wzQ+seB2OreiSq3PAEV/uPsJAN2aOA+bpM+QVnbFaPFKIdFhgYHgLIXHMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794030905;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=k6a9rw1NTm5jSqcWk0YZ2ZnFUj3olcprcB7my6xtpkM=;
+	b=1rhmVZe737cSK6ngMI5z9a0EdlBnSb1YLzHRhI//qAsLg/3J8ZYwuRO127HMR7vsVIWu
+	 b/QkPe59U2oNT8jskrAnvNvnd6LCCbLQhbGMgfhJQ7WfzfFnuDm/vi133/1ySoTWb2Gt4
+	 uy+8uIRfxuKQSlqmv1XFoHcpX8G8xT8zmInPATTHqk884BAhk9XbuARJGUVBRaePFnEDc
+	 XFZakh/QiDgv9444CHsVdRXRkB1JtMW1BwwoGS9HB1MfjL+P1fhRsLCMI5RqCX4M8hxvh
+	 Bs1+KWGQc/lJfwS64aifsKKRCEZfR5YNyhtn7gG76advePR6H+Qg0kWBtMd36X6WfqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaYNtGBA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FFD606A326;
+	Sat,  7 Nov 2026 05:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaYNtGBA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794030904;
+	b=MP0O/Vs0B2yUDJAjGJOgKZTbmGK8A4JuTEXfB61rJjr7FVBeAm1nn1myUYrqiRBI3Kfm
+	 0wXYfQXXSQoxCoxwZD5+89ncll599kFq6XYsH3xhoWgISbWKYYwA+oflRa7Cbcj0LMzJq
+	 8bkItnMwJdI4M5jBvfhS0/gj6SU3sRV1tBXB5BvzGdDacJmhJ1jba9AhRxGcuhSyrA0Px
+	 fZHSyMFBMlOKVyCsimwnKrIQeNWI69JT6lvpFLrPPTACZjAZDIYyhWFYYN6Xs4N9vp8Bw
+	 RVIeopHQ6DmGhRmY21T6FEr4sWGKxmGnmlBH8Dy8+8ectl5WZAke5x7TrRBzJjOO6DQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794030904;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=k6a9rw1NTm5jSqcWk0YZ2ZnFUj3olcprcB7my6xtpkM=;
+	b=f1n5EIamrd3n8ruGUK6PGOG48c+BcmJ4U7mcdjrB782Rgkv3a5hd8RJPIwY9PsLcRSaW
+	 tj+UKpwmNcPhIcXHMFdHuT+zMyinCdMIrAYFPoucJ40oVzn91A6KkuE9b5Xm2Ed3apzbo
+	 JGYIlNbx8mK1qQDC1jyCw0aEuQf1oT5ZIoKaaBDsIWQ1zaAF07qPiMkWPu/k3c7y4aFhE
+	 AoD8RNA6XyLf6uMO6HAwg7FA0b65XTv4xVMstvk7AKBTs/xe/tuizvd+lySXXVV1GKJuz
+	 HNbHwsVdqcYncc8NQcyOrcbu0FkbRaKp44mCJHIvdIaUT05H0JM9SsoSuiFGMznGllg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C502606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:52:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C502606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y13YGM3T
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ed2bfe3252so4688885ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:52:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794030770; x=1794635570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EQX2zW/SJRxcCHgqz3pH4mbePZY/P8DRvidJCaOkct4=;
-        b=y13YGM3TjnQSoT5N9eVPyGygJSa5jYGjpORjqRVHk6AXP0qdLDY652+1N7y8PusINL
-         tXE/HOPcD/iYM8S9ni+g7g8hKGnKEzhUberC3SBnCLrRxb2Fz4CH8z7MRz9aYQeqM0D6
-         ggJAqtf9yOHvuByJc+8NUa8xswtUipuU4ydY30W2+eQDkjioAuAogFR/hcPjnOpNxRE5
-         AOpq4QpM6mlf3T+y3b8s3EN10p2tX+vXSn9LGCMqiU4qzmGP+wxXOXDysunKXF3WuB7v
-         DKqdb7Wr2LspnKIGvxuRNIoeXN9JI5z71iAvXkB9ewTnKvnk+VfELbZagf0WS1QWGI5L
-         sN/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794030770; x=1794635570;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EQX2zW/SJRxcCHgqz3pH4mbePZY/P8DRvidJCaOkct4=;
-        b=SQRU0/MBRKXEjGOFdCgWOju+xgCashWbePv32yZljCVWwuT2uvIDRg7RK3NaguYPBr
-         4OLe+Mw8VYzrA7m/zhdLW4FzAMWHVAcYruDD/mHGlUMZkUX6FWAujHRo3suIPJnZE8UU
-         8SbV8nktvlDKqDl6m0cn6avz6OyFDwQ5X+u/14UJow7PSM5F+NKXm6Hy4I0MjGp5w8ik
-         gHxMm49Gy79zqBaathqmcIb3uyLK/If6lLtOwY/sf9yLYn5gmPc3dc/VHxv9jEDnCSKc
-         E9rS9uWiJEtQS3vcJbD6fe5nfQG2iUeg1u17x3EfedxoGSWv+RN96DPICGDc6d919uwD
-         oVKw==
-X-Forwarded-Encrypted: i=1; AL+hErEX2PFAnyomyNdbxjveDoLIRMYFSYOv9s00hXHvD78Q6viwEvCfDoeKdVK8DiKAFz7UpwnMtPTNnZuzvbQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FVfu1QjhVBFBTJaHXB0r7L9z71nNAwVEM6+bJTUvRgfh/KGHW
-	phLZ5pZS7jNcfHMWYzEBXrT6SJ6nF1JnvM9Egc6npioo1Q2xXllk1vsv
-X-Gm-Gg: AYBFou2BXr85gngN7ASV/+VoVqRnODT11AzuENdehZW8hHx9LG279/dSZnb27g/VEXy
-	RQF+UucKJxGcCy7vMM5uIJ8cGZSV6KJ6EiZBZLJtqj0ta9ZfMBdW2uDQofaNqA/VOQ4bEonyHU2
-	3ug+h08L1gqN4QtRnLQon16mvfCWlBotvs8QKe0k8jNTnKfXJm/1jrSSrAEZU10Bk3RVJPz/iMZ
-	flxmefk6nGBv8OxQe8JxF4D6ny+MsPseB7A1PCcCHW/Pb7jvW153RYZ5T+1Vvvo570jLitCrB0+
-	zczx6cz++UDsdrSIyZXzvyrMsWPSFaeAOTM9I5ny3CovJamq7Tb4KjW47zya94Fc7We3HTQd92Q
-	FFnr8cJ5tXp+8tHeY+6Bv8sQhaQf1PZn8o6IfsAVGyK9ja8ratHJgYpld4KuLsyjQ+QrsUaiuvG
-	kMUeeR9BcejLOvgBqOAIfOHHBjbEtJ/CVm0oP1kDDlhzFhdv44zwTM04ptl9hrT+Ud2aFgfY18d
-	RaZbVFFfKZFQ+1Xua2SwFI6jqOjyNulJnMJarnuVYKUMtuZiu+gpVyuYUqiwP9T4NclvBr7Ah0s
-	TJcDRjCJFeChU3HdB2pkED8IjXYOBxNWlwjFRb1xW+s3JFBpQYRoWe7VW9SMY/Z3Z0AVrA==
-X-Received: by 2002:a17:902:830c:b0:2ed:21fb:e75f with SMTP id d9443c01a7336-2ed41c62132mr36730435ad.48.1794030769567;
-        Fri, 06 Nov 2026 21:52:49 -0800 (PST)
-Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:a1a:7bc2:20ba:a479])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d8949fsm11189465ad.62.2026.11.06.21.52.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:52:47 -0800 (PST)
-From: Li Pengfei <ljdlns1987@gmail.com>
-X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	mark.rutland@arm.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	zhangbo56@xiaomi.com,
-	lipengfei28@xiaomi.com,
-	lkp@intel.com
-Subject: [PATCH v8 5/5] selftests/ftrace: Add a stackmap basic functionality test
-Date: Sat,  7 Nov 2026 13:51:39 +0800
-Message-Id: <20261107055139.3138633-6-lipengfei28@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261107055139.3138633-1-lipengfei28@xiaomi.com>
-References: <20261107055139.3138633-1-lipengfei28@xiaomi.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 809231F0089F;
+	Sat,  7 Nov 2026 05:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794030904;
+	bh=k6a9rw1NTm5jSqcWk0YZ2ZnFUj3olcprcB7my6xtpkM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=NaYNtGBAv5I2SirX8wR8g6hay9g4MBIGfkpy8p5UFaLn/VJMiPvIUPKcFpuNDRzv+
+	 oVAG7METzXFWc4o6zhxuhd0d6oT8hdfgL6gSHnvedR/CUUzWMEs3O8vUQMjIpCJwxu
+	 AgfomGIIFcZDDJwL+NKld6Y66vNkKn9R/+qkOZ2HU8CP8lCKIJ2CieK+/7662LRNu7
+	 JYLrvjjTjRiRLNG75kMm46cMbI4DAg3S41RS/gnrpDYXwXmuWrQhfM8XmZ62lZlL4s
+	 Tm29KqZzkPVVOzlpThDcWC9rXGACyU0eDZVTfZ+385E/ONxA/XBStGQfG4t4XpsBdO
+	 51fOzjHC8M0SA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 10FF747AD0;
+	Sat,  7 Nov 2026 05:55:03 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sat, 07 Nov 2026 07:55:00 +0200
+Subject: [PATCH] gpio: rockchip: restore interrupt settings after
+ hibernation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,250 +83,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-b4-gpio-rockchip-hib-v1-1-19f4d163a55e@iav.lv>
+X-B4-Tracking: v=1; b=H4sIADS97moC/x3MQQqAIBBA0avErBtQy6KuEi1SpxyCFIUIpLsnL
+ d/i/wKZElOGuSmQ6ObM4aqQbQPWb9dByK4alFCDlGJE0+MROWAK9rSeI3o2OAptu91pZfoJaho
+ T7fz822V93w+7uc8zZgAAAA==
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>, Jianqun Xu <jay.xu@rock-chips.com>, 
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4448; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=Dk4H/o+1eyRMlxB1wc6jS7hkgNHj7wT6TPN6Ut/qDU4=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFnv9po6dYmpXb28vvvIlp/mXtva1HY+EvnfE9X0OUCqO
+ fYz99KIjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCR8xGMDI8aXPqLJyzbVBVo
+ vm3T2zVfH91ZWvvCJtXQgP/k3vVctsEM/9P1/fnerJbZtzOyccbmzfME7BNft7Xl+gX92Kddv+A
+ 4ExMA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-From: Pengfei Li <lipengfei28@xiaomi.com>
+From: Igor Velkov <iav@iav.lv>
 
-Check that stacks are deduplicated, that a reset succeeds while tracing
-runs and clears the map but not the ring buffer, that the statistics
-match the map, and that free waits for open readers and the next map
-continues the generation.
+Restore from hibernation follows a cold boot. The boot kernel probes
+the GPIO banks, sets every interrupt enable bit, leaves the trigger of
+each line it did not request at the reset value, and then hands over
+to the image. The image restores only the interrupt masks, so a line
+it had set up for both edges comes back with the reset trigger.
 
-Assisted-by: LLM
-Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
+On ODROID-M1 the headphone detect line (GPIO0_B0) is requested for
+both edges and is low with nothing plugged in. After a power loss in
+hybrid sleep its reset trigger fires again as soon as the edge handler
+acknowledges it, and the system does not come back. With this patch
+the board resumed 4 of 4 times, without it 0 of 5.
+
+Save the interrupt enable, type, polarity and both-edge registers with
+the masks and write them back before unmasking. In a normal suspend
+the bank keeps its registers, so this writes back what is already
+there. For lines that emulate both edges on GPIO v1, take the polarity
+from the current pin level.
+
+Fixes: 936ee2675eee ("gpio/rockchip: add driver for rockchip gpio")
+Cc: stable@vger.kernel.org
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- .../ftrace/test.d/ftrace/stackmap-basic.tc    | 222 ++++++++++++++++++
- 1 file changed, 222 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc
+Tested on ODROID-M1 (RK3568, GPIO v2): hybrid sleep with power removed
+during sleep 4/4, deep sleep 10/10. The GPIO v1 path was not tested on
+hardware.
+---
+ drivers/gpio/gpio-rockchip.c       | 21 +++++++++++++++++++++
+ drivers/pinctrl/pinctrl-rockchip.h |  8 ++++++++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc b/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc
-new file mode 100644
-index 000000000000..f5d1ebd8728e
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc
-@@ -0,0 +1,222 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: ftrace - stackmap basic functionality
-+# requires: stack_map stack_map_stat options/stackmap options/stacktrace events/sched/sched_switch/enable
+diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+index 0f46ff095a24..83a5cc8f3fe6 100644
+--- a/drivers/gpio/gpio-rockchip.c
++++ b/drivers/gpio/gpio-rockchip.c
+@@ -489,6 +489,11 @@ static void rockchip_irq_suspend(struct irq_data *d)
+ 	struct rockchip_pin_bank *bank = gc->private;
+ 
+ 	bank->saved_masks = irq_reg_readl(gc, bank->gpio_regs->int_mask);
++	bank->saved_en = rockchip_gpio_readl(bank, bank->gpio_regs->int_en);
++	bank->saved_type = rockchip_gpio_readl(bank, bank->gpio_regs->int_type);
++	bank->saved_polarity = rockchip_gpio_readl(bank, bank->gpio_regs->int_polarity);
++	if (bank->gpio_type == GPIO_TYPE_V2)
++		bank->saved_bothedge = rockchip_gpio_readl(bank, bank->gpio_regs->int_bothedge);
+ 	irq_reg_writel(gc, ~gc->wake_active, bank->gpio_regs->int_mask);
+ }
+ 
+@@ -496,7 +501,23 @@ static void rockchip_irq_resume(struct irq_data *d)
+ {
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+ 	struct rockchip_pin_bank *bank = gc->private;
++	u32 polarity = bank->saved_polarity;
 +
-+# Check deduplication, that reset clears the map but not the ring buffer,
-+# that the statistics match the map, and the free and generation rules.
-+
-+fail() {
-+    echo "FAIL: $1"
-+    exit_fail
-+}
-+
-+records() { awk '/^stack_id / { n++ } END { print n + 0 }' stack_map; }
-+hits() { awk '/^stack_id / { s += $6 } END { print s + 0 }' stack_map; }
-+max_ref() { awk '/^stack_id / { if ($6 > m) m = $6 } END { print m + 0 }' stack_map; }
-+first_gen() { awk '/^stack_id / { print $4; exit }' stack_map; }
-+stat_val() { awk -v k="$1:" '$1 == k { print $2 }' stack_map_stat; }
-+
-+wait_for_worker_stopped() {
-+    tries=0
-+    while [ "$tries" -lt 100 ]; do
-+        state=
-+        if state=$(awk '/^State:/ { print $2 }' "/proc/$worker/status" \
-+                2>/dev/null); then
-+            case "$state" in
-+            T|t)
-+                return 0
-+                ;;
-+            esac
-+        else
-+            return 1
-+        fi
-+        sleep 0.01
-+        tries=$((tries + 1))
-+    done
-+    return 1
-+}
-+
-+worker=
-+free_pid=
-+
-+cleanup() {
-+    exec 3<&- 2>/dev/null || :
-+    [ -z "$free_pid" ] || wait "$free_pid" 2>/dev/null || :
-+    disable_tracing 2>/dev/null || :
-+    if [ -n "$worker" ]; then
-+        kill -CONT "$worker" 2>/dev/null || :
-+        kill "$worker" 2>/dev/null || :
-+        wait "$worker" 2>/dev/null || :
-+    fi
-+    echo 0 > events/sched/sched_switch/filter 2>/dev/null || :
-+    echo 0 > events/sched/sched_switch/enable 2>/dev/null || :
-+    echo 0 > options/stackmap 2>/dev/null || :
-+    echo 0 > options/stacktrace 2>/dev/null || :
-+    echo free > stack_map 2>/dev/null || :
-+}
-+trap cleanup EXIT
-+
-+disable_tracing
-+clear_trace
-+echo 0 > stack_map || fail "initial stackmap reset failed"
-+
-+echo 1 > options/stackmap
-+echo 1 > options/stacktrace
-+echo 1 > events/sched/sched_switch/enable
-+
-+# A sleeping loop: a busy loop on an idle CPU is rarely switched out.
-+(while :; do sleep 0.01; done) &
-+worker=$!
-+echo "prev_pid == $worker || next_pid == $worker" > \
-+    events/sched/sched_switch/filter || fail "could not filter sched_switch workload"
-+
-+enable_tracing
-+sleep 1
-+
-+# While the writer runs, reset only has to succeed. With it stopped and
-+# tracing off, reset must leave the map empty.
-+i=0
-+while [ "$i" -lt 5 ]; do
-+    tries=0
-+    pre_hits=0
-+    while [ "$tries" -lt 1000 ]; do
-+        pre_hits=$(hits)
-+        [ "$pre_hits" -ge 8 ] && break
-+        sleep 0.01
-+        tries=$((tries + 1))
-+    done
-+    [ "$pre_hits" -ge 8 ] ||
-+        fail "active writer did not reach 8 hits before reset (got $pre_hits)"
-+
-+    echo 0 > stack_map || fail "stackmap reset failed with active writer"
-+
-+    kill -STOP "$worker" || fail "could not stop reset workload"
-+    wait_for_worker_stopped ||
-+        fail "reset workload did not enter the stopped state"
-+    disable_tracing
-+
-+    echo 0 > stack_map || fail "stopped-writer verification reset failed"
-+    n=$(records)
-+    [ "$n" -eq 0 ] || fail "stopped-writer reset left $n records"
-+    n=$(stat_val entries)
-+    [ "$n" -eq 0 ] || fail "stopped-writer reset left stat entries $n"
-+
-+    kill -CONT "$worker" || fail "could not resume reset workload"
-+    enable_tracing
-+    i=$((i + 1))
-+done
-+
-+# Reset leaves old cookies in the buffer; drop them.
-+clear_trace
-+
-+# Wait until some record is hit twice, i.e. reused.
-+i=0
-+while [ "$i" -lt 100 ]; do
-+    [ "$(max_ref)" -ge 2 ] && break
-+    sleep 0.1
-+    i=$((i + 1))
-+done
-+
-+kill -STOP "$worker" || fail "could not stop final reset workload"
-+wait_for_worker_stopped ||
-+    fail "final reset workload did not enter the stopped state"
-+disable_tracing
-+
-+entries=$(records)
-+[ "$entries" -gt 0 ] || fail "stackmap did not refill after active-writer reset"
-+ref=$(max_ref)
-+[ "$ref" -ge 2 ] || fail "no record reused after reset ($entries records, max ref $ref)"
-+
-+# Nothing records now, so every stored stack and every hit is counted.
-+n=$(stat_val entries)
-+[ "$n" -eq "$entries" ] || fail "stat entries $n, stack_map has $entries records"
-+n=$(stat_val successes)
-+[ "$n" -eq "$(hits)" ] || fail "stat successes $n, stack_map has $(hits) hits"
-+n=$(stat_val generation)
-+[ "$n" -eq "$(first_gen)" ] || fail "stat generation $n, stack_map has $(first_gen)"
-+
-+kill -CONT "$worker" 2>/dev/null || :
-+kill "$worker" 2>/dev/null || :
-+wait "$worker" 2>/dev/null || :
-+worker=
-+# Without the filter, this shell's own sleeps produce the switches below.
-+echo 0 > events/sched/sched_switch/filter
-+
-+# Stop the event before inspecting the fixed buffer and map contents.
-+echo 0 > events/sched/sched_switch/enable
-+trace_pairs=$(sed -n \
-+    's/.*<stack_id \([0-9][0-9]*\) gen \([0-9][0-9]*\)>.*/\1:\2/p' \
-+    trace | sort -u)
-+[ -n "$trace_pairs" ] ||
-+    fail "trace has no <stack_id N gen G> events after active-writer reset"
-+
-+# Every cookie left in the trace must match a current stack_map record.
-+for pair in $trace_pairs; do
-+    id=${pair%%:*}
-+    gen=${pair##*:}
-+    grep -q "^stack_id $id gen $gen " stack_map ||
-+        fail "trace cookie id $id gen $gen has no current stack_map record"
-+done
-+
-+# Reset clears the map only; the cookies in the ring buffer stay.
-+gen=$(first_gen)
-+before_records=$(grep "<stack_id" trace || true)
-+echo 0 > stack_map || fail "stopped reset failed"
-+[ "$(records)" -eq 0 ] || fail "reset did not clear the map"
-+after_records=$(grep "<stack_id" trace || true)
-+[ "$after_records" = "$before_records" ] || fail "reset changed the trace buffer records"
-+gen=$((gen + 1))
-+
-+# Trace until the map holds a record, for up to 10 s.
-+refill() {
-+    echo 1 > events/sched/sched_switch/enable
-+    enable_tracing
-+    i=0
-+    while [ "$(records)" -eq 0 ] && [ "$i" -lt 100 ]; do
-+        sleep 0.1
-+        i=$((i + 1))
-+    done
-+    disable_tracing
-+    echo 0 > events/sched/sched_switch/enable
-+}
-+
-+# free is refused while the option is enabled.
-+if echo free > stack_map 2>/dev/null; then
-+    fail "free accepted while options/stackmap is enabled"
-+fi
-+
-+# Disabling keeps the map, so the trace can still be resolved.
-+refill
-+echo 0 > options/stackmap
-+[ "$(records)" -gt 0 ] || fail "map released by disabling the option"
-+[ "$(first_gen)" -eq "$gen" ] || fail "generation is $(first_gen) after reset (expected $gen)"
-+
-+# free waits for a reader that opened the map, which still reads it.
-+exec 3< stack_map
-+(exec 3<&-; echo free > stack_map) &
-+free_pid=$!
-+# The waiting writer sleeps killable (D); an exited one is a zombie (Z).
-+i=0
-+st=
-+while [ "$i" -lt 100 ]; do
-+    st=$(awk '/^State:/ { print $2 }' "/proc/$free_pid/status" 2>/dev/null)
-+    [ "$st" = D ] && break
-+    sleep 0.1
-+    i=$((i + 1))
-+done
-+[ "$st" = D ] || fail "free is not blocked on the open reader (state '$st')"
-+[ "$(records)" -eq 0 ] || fail "a new reader still sees the map during free"
-+grep -q '^stack_id ' <&3 || fail "the open reader lost the map"
-+exec 3<&-
-+wait "$free_pid" || fail "free failed after the reader closed"
-+free_pid=
-+[ "$(records)" -eq 0 ] || fail "stack_map still has records after free"
-+[ -z "$(cat stack_map_stat)" ] || fail "stack_map_stat not empty after free"
-+
-+# Re-enabling allocates a map that continues the generation.
-+echo 1 > options/stackmap
-+refill
-+[ "$(records)" -gt 0 ] || fail "new map has no records"
-+[ "$(first_gen)" -eq $((gen + 1)) ] ||
-+    fail "generation after free is $(first_gen) (expected $((gen + 1)))"
++	/*
++	 * Restore from hibernation follows a cold boot: write the enables and
++	 * the trigger back before we unmask.
++	 */
++	if (bank->toggle_edge_mode) {
++		u32 data = readl(bank->reg_base + bank->gpio_regs->ext_port);
+ 
++		polarity &= ~bank->toggle_edge_mode;
++		polarity |= ~data & bank->toggle_edge_mode;
++	}
++	rockchip_gpio_writel(bank, bank->saved_en, bank->gpio_regs->int_en);
++	rockchip_gpio_writel(bank, bank->saved_type, bank->gpio_regs->int_type);
++	rockchip_gpio_writel(bank, polarity, bank->gpio_regs->int_polarity);
++	if (bank->gpio_type == GPIO_TYPE_V2)
++		rockchip_gpio_writel(bank, bank->saved_bothedge, bank->gpio_regs->int_bothedge);
+ 	irq_reg_writel(gc, bank->saved_masks, bank->gpio_regs->int_mask);
+ }
+ 
+diff --git a/drivers/pinctrl/pinctrl-rockchip.h b/drivers/pinctrl/pinctrl-rockchip.h
+index 950097699643..ea280843fcb9 100644
+--- a/drivers/pinctrl/pinctrl-rockchip.h
++++ b/drivers/pinctrl/pinctrl-rockchip.h
+@@ -303,6 +303,10 @@ struct rockchip_drv {
+  * @db_clk: clock of the gpio debounce
+  * @irq: interrupt of the gpio bank
+  * @saved_masks: Saved content of GPIO_INTEN at suspend time.
++ * @saved_en: interrupt enables, saved at suspend time.
++ * @saved_type: interrupt level/edge type, saved at suspend time.
++ * @saved_polarity: interrupt polarity, saved at suspend time.
++ * @saved_bothedge: interrupt both-edge enables (GPIO v2), saved at suspend time.
+  * @pin_base: first pin number
+  * @nr_pins: number of pins in this bank
+  * @name: name of the bank
+@@ -332,6 +336,10 @@ struct rockchip_pin_bank {
+ 	struct clk			*db_clk;
+ 	int				irq;
+ 	u32				saved_masks;
++	u32				saved_en;
++	u32				saved_type;
++	u32				saved_polarity;
++	u32				saved_bothedge;
+ 	u32				pin_base;
+ 	u8				nr_pins;
+ 	char				*name;
+
+---
+base-commit: 0fa38ba784896f2fc32c9dacd33822f844b21906
+change-id: 20261107-b4-gpio-rockchip-hib-705c3fd52b49
+
+Best regards,
 -- 
-2.34.1
+Igor Velkov <iav@iav.lv>
+
 
