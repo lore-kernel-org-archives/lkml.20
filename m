@@ -1,57 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051889;
-	b=BWqGzWytrirVH0EGTuVyLQ/w7VpkNZ+8yxCdsnhLehkiygQSeS3NgM4vBf9iOc2DRsz2
-	 N54IOnM16wqaXVO3CPFEx22WMjX0IrOM5PqX+xpcRD5zMjhBA+qi0qfMw4d/+aXoEJ7ZS
-	 OKEkF7s7aslzMKBuAH1oozjwaHWnITJx/y1bK3vScemDH5dYtugwIXN2YpEXTTcSqtfeK
-	 H7T073OkDc/AZBo6bO6GfHzKYOpLPwdjyxFsu10ipl0PKji3DD9Eq+Z6n3lepAEbSPdqI
-	 9DR8ZQp04Kzpvmfk9mw3UcscXCgGT7QWDZF8EWXbKg7VAdwJNRbfCML+pQ1FuwAo8oQ==
+	t=1794051954;
+	b=QlRIuUUQYyI4wiAIXoUm1cvKVDg+0QqsQk2eroqT35h5rDDp8HVYGCNsGiy1HFnGsDJN
+	 FUeJ1mnZnSFZg8UtqPblWdjZ1evCLsxr5DHyOHB3+jJ05ler8PZ6TewVAwDAL0ZL6P8b9
+	 9GcFDBSrML/O24WvOW8plvxpHuCTO0l6cobVp+1EiGUuAsa39W+OcgN6PC+NLNgTnZidK
+	 26HIEdN+/bzB/IiGdmvbFztgRG/FBD/c6R/y1cOAgGXWbhBWxUO5ApyWB85NUtkPYqY1s
+	 Rs6gEgUBbGX6ng15eoMtG18Ra9eKEdRfyGRwBxP4Kx1ciCtOxqWJaOkSS5LB/nKQ+bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051889;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051954;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Zf+BVk2Z86Q58X6FcAUkm/qDaltz/E03jFDJwzdCkU4=;
-	b=nJ2uVicUCW/GJCnEBi7ouwN+mHaWzO8K7hjnADqP6vNJv5DJlt43/9B5Hc44WDKxP9DE
-	 0LqnfN6Ce5BOmFjwGoXU3kNqBz+kJ2DGM5+zJdrvPP9CsBCxmg8TOT8GZes2Ojt6agIpK
-	 +oL9GbdrAvqgiUQD3gmHD6rbncQRNaLyj77omk6HML5vIeNKJnbXiYpuUcsYqK+I9gxHm
-	 IV5fKl91CBAbq0QZA20PEQ5hte60WhQ28pzfs/tOMujcv+WOIj0YHAWwcxcCJLhRru/Lb
-	 NsA7U9SjxunAQsUZZkWbLwfIiXBlBVEK0q+ArDOshJxIZ8jcNttiQAeEUkk7UwwiP5g==
+	bh=Sr1zNGFXUyUQTl9XNV5ciB4koZb58s7llFG2XF1rzeQ=;
+	b=wQfQrddUwWsq+NnjqQdwMyP7GqQkjHdSg+QHSvajCWDDKmeG4e5kMtIDCea4Y2xUCkAC
+	 dJkbGrtwEovnVwXil1BXq/0q13tQ9k+VGm5eJEWBHZLNhE08mL/DSJ/iejcU2LcDSiJpv
+	 AgFy0PMX16Ol4C/o837RwDpPzJd4JxvvFqsdVQvNa6mICeWnmbsA4fDuKqDxbaFuTgxNV
+	 MgDul4Op/XgkDlBP151RReeOJhGf2imXMdEFrQo8NnD781hnLDE5du2dbgPe9Z2KtcS5a
+	 W+/saoLbM8jPPB7WXTRbwRC3VuoGYqOHCXqNjVlXkJOPfiRyfTyijlV4PxIxlop7YWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=F46ERj2m;
-	arc=none smtp.remote-ip=109.224.244.20
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPutONwh;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE79606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DE79606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F086606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 11:45:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F086606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=F46ERj2m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1794051885; x=1794311085;
-	bh=Zf+BVk2Z86Q58X6FcAUkm/qDaltz/E03jFDJwzdCkU4=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=F46ERj2mDoAudpaThUpr3/9ooOJr+3Oa9iAny2JcMPSpBwm4JtPvLZZo0neLGl9uV
-	 vJT+PDcOO5EXi1OsxuPJJaSeKBFFRtCjcTseXyxcuQqVt/wuot7jx4VdWeM2caq+CG
-	 TVmj60gWlrhFcsAAqmZ4MvRT3qENWSwhZiyZDOuizFHmPWrqL0Rfrtx6Ke7nQiD9zm
-	 2mDrDijoEYjGDFogu7mGhU2Ce8pbd0R6NjfeMF4Yvv1g1WTDMlY74PR4sOC/siOxab
-	 md6jQsT3LzklUG2yEhCA5m3nIwEHsTt3kjVTzA6pa9wZqV6Cb/ouFay/Aoo24aVLJ4
-	 D9bK+WbmqKVwQ==
-Date: Sat, 07 Nov 2026 11:44:39 +0000
-To: Alexander Graf <graf@amazon.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: The AWS Nitro Enclaves Team <aws-nitro-enclaves-devel@amazon.com>, Yuho Choi <oss.patchbox@gmail.com>, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] misc: nsm: keep the device state until the last file is closed
-Message-ID: <20261107114433.3789830-2-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 626f0bb3e64df8ebbf38e6769bb159440913e4bf
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPutONwh
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so13200625e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 03:45:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794051952; x=1794656752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sr1zNGFXUyUQTl9XNV5ciB4koZb58s7llFG2XF1rzeQ=;
+        b=nPutONwheTmtaI5GQn7Xa+eSIIIS8E5VMKo2Dyey6usHGph5YCcvSHUqp4NFXYxoH7
+         XJqKhn4x32w4qTwf+Fmy08fCw/FuVOerTlBtmmnS0L7XgkEnZU0IJWZMKIorIQukRTHH
+         l/658CS+WTKwX/lIAIBbhu+xz8Fb6l5SmepVNjh8tBE0zis9mpeKiuUbcCAaUK4PzMmO
+         qpzC1IFfoplkVbus0pw66uU1uyBUjpnwxzHiIGX3ou4leV7QKNCUHv5WO2ramKtitbad
+         xmp5Z+rxaRacSNGXDsKKBCx8txFtyCffN/A5FvIzVSGfegIl3vyi9oat5zxAPjcoWz7m
+         8WuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794051952; x=1794656752;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sr1zNGFXUyUQTl9XNV5ciB4koZb58s7llFG2XF1rzeQ=;
+        b=nvNd1cHcANwSUJ0fY96AEmkWFVlq6fIsHdQHEBmNcnSgwt8N2R2PbC9lIlQrBjPeYd
+         VXkiCfaHv6d/pxKSsY9oLMqS8zBaJLL1t+X5hfH1EmrTxywgVT/jRo+fs3t6tnvStiBP
+         smZ0TqXDjlna/F5fu9aeoCWQZyyY7CUoQtJDbuCLSxE4Ks1E9WOeB3p7kTX5iUaDRX1v
+         uAaJ9jsMAQM+YyN+P+LW7gNzQp30vyLzTNvAlAp3wrfRjjeDc4GBOlYHUD/9Si6nrXHc
+         G2Ks0jVBgqBDRgf9ZiZj2YZ1gikLa0m65iR//1yN+F9mLYg7xxopoaoKG/bgsk34HOZ6
+         LVNA==
+X-Forwarded-Encrypted: i=1; AKwUvBwn87O7wYbsx8Vsojtg2/s8f9jvSlYPl8O7ntV92C+9wpcN7/ag1Aa29blvs8yovNmQWcEjfs8zPUqWx20=@vger.kernel.org
+X-Gm-Message-State: APuU4Z991Fn6Dv0CBl66vhvFjM+BTwWJU5jaQsInN9CoUxlvu5smfn/6
+	KRzGedOoJISb8CInbKKBlhZgL/pdIv4F1lnGzp7P9HzmXQcofkfL4PGD
+X-Gm-Gg: AYBFou11bd5nr3i7/Ou4dRyipxka0+L1cfUmP4Ll/AgLcW15QOXJ2TN9G0abz3eTrTE
+	TfPAUU7Qjshgv8qqYMQBxP6sCohvJFjWIPdwvxloD3g8s1qtL/8KXjaC3+MPr4/kZJ+5ylenhYp
+	/sxLXOwpW7FY2v+mlX1B5lVOw9KigEJfU3xUa+KdvYs7FE5g3CIr4OeJKqDf5LyYdnEADnq7Hox
+	PKbaEKhsIZVGUFPvyWX+gY9ePAc6xRybNF7U6AtL737DTfsnWp2WzfqIMTTG+2DIPuxEfWiw2tO
+	nKHFQ2fYk6pAc6i0ELy4826OA8ZwvruOIS1ohABUUdXRsHNc+wSqdgq6uXDvYZ78R7mlHteDLFP
+	7kpnEhHoRpXlI/pbTF+j5qDQSP9BdTn9z8MDf9m8itXpKWBRWn6/wWfH3aZL/kJ5C9/LcdjiHjb
+	62zimvTJK0QdzjW/AdTpu5kSBuflsJbInCmpM+uTXQyZe+3b0aCDGYwdakDmm2oAdwiqNMKbFf3
+	e8uoyENln/KfkpGc0/3mzsYvTgMwIwamDXPpe+gB4hP+zm4g9R/n2EnPOL6IUUBMX1nmG/u+ott
+	ROvaAuZAIY/8377jvAXm9G3LeJrXMnNsYDMe6HJP5mBwyX5+htwSzwxX066YhQ==
+X-Received: by 2002:a05:600c:19d1:b0:4b1:32c8:27db with SMTP id 5b1f17b1804b1-4b6de691614mr91237845e9.22.1794051952338;
+        Sat, 07 Nov 2026 03:45:52 -0800 (PST)
+Received: from SurfaceArch.localdomain ([207.188.128.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b79501bdedsm43331655e9.3.2026.11.07.03.45.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 03:45:51 -0800 (PST)
+From: =?UTF-8?q?Antonio=20V=C3=A1zquez=20Blanco?= <antoniovazquezblanco@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: Clarify that gain is Analogue gain in OV7251
+Date: Sat,  7 Nov 2026 12:45:49 +0100
+Message-ID: <20261107114549.21301-1-antoniovazquezblanco@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,176 +97,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-nsm_device_probe() allocates struct nsm with devm_kzalloc(), so it is
-freed when the device is removed, but an open /dev/nsm keeps using it
-through file->private_data. When the virtio device is removed while the
-file is open, for example by a hot-unplug, the next NSM_IOCTL_RAW runs
-on the freed struct nsm and queues buffers on the virtqueue that
-remove() deleted. KASAN reports a slab-use-after-free in
-virtqueue_add_outbuf(), called from nsm_sendrecv_msg_locked().
+From: Daniel Scally <dan.scally@ideasonboard.com>
 
-Allocate struct nsm with kzalloc() and free it on the last reference:
-open() takes a reference and release() drops it, and remove() drops the
-device's own reference after misc_deregister(). misc_open() calls
-open() with misc_mtx held, and misc_deregister() takes misc_mtx before
-remove() drops that reference, so open() always runs while the device's
-reference is held.
+Update the control ID for the gain control in the ov7251 driver to
+V4L2_CID_ANALOGUE_GAIN.
 
-remove() now marks the device as removed and deletes the virtqueue with
-nsm->lock held, so a later NSM_IOCTL_RAW fails with -ENODEV once its
-argument struct has been copied in. To take the lock, remove() waits for
-an ioctl already in progress, which before this patch could still be
-using the virtqueue while it was deleted. That wait has no fixed bound
-while the ioctl copies to or from user memory. If the device was
-surprise-removed while handling the request, it lasts up to
-NSM_DEFAULT_TIMEOUT_MSECS (two minutes), after the existing wait in
-hwrng_unregister().
-
-Fixes: b9873755a6c8 ("misc: Add Nitro Secure Module driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+Signed-off-by: Antonio Vázquez Blanco <antoniovazquezblanco@gmail.com>
 ---
-Reproduced in QEMU 10.2.4 with a virtio-nsm-pci device on a PCIe root
-port. A guest process opens /dev/nsm, the device is removed with
-device_del from the QEMU monitor, and the process then issues
-NSM_IOCTL_RAW. Without this patch KASAN reports the use-after-free of
-the virtqueue; with it the ioctl returns -ENODEV and KASAN reports
-nothing. Not tested on Nitro hardware. (QEMU needs module-id=3D set on
-the device, or it aborts when the device is unplugged.)
+Notes:
 
-Yuho Choi's pending "misc: nsm: reset device before deleting the
-virtqueue on removal" (2026-10-16) changes the same function. The
-reproducer also hits the WARN_ON_ONCE() in virtio_dev_remove() that
-patch fixes, the check commented "Driver should have reset device". The
-two patches are independent. If that one is applied first I can rebase
-on it; the reset would then go inside the locked section, before
-del_vqs().
+This patch is not mine. It has been carried out of tree in the linux-surface
+patch set since 2023 (patches/<ver>/0013-cameras.patch) and has never been
+sent here as far as I can find. Daniel's Signed-off-by is from the original;
+I am passing it on and have added mine. Daniel, if you would rather send it
+yourself, or if there is a reason it was never submitted, please say so and
+I will drop it.
 
-kzalloc() is used rather than kzalloc_obj() so that the fix applies to
-stable kernels before v7.0.
+One deviation from the original: the second hunk now wraps, because leaving
+the call on one line puts it at 82 columns and the media subsystem asks for
+checkpatch --strict --max-line-length=80. The wrap follows the style used in
+commit d938b2f29be6 for ov8865.
 
-Not done here: waking a request that waits on a broken virtqueue, so a
-surprise removal does not wait out the full timeout, and copying user
-buffers outside nsm->lock.
+Testing: Surface Pro 4, which has three OmniVision sensors on one IPU3,
+ov8865 (INT347A), ov5693 (INT33BE) and ov7251 (INT347E). With this patch the
+ov7251 subdev reports
 
- drivers/misc/nsm.c | 43 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
+  analogue_gain 0x009e0903 (int) : min=16 max=1023 step=1 default=16
 
-diff --git a/drivers/misc/nsm.c b/drivers/misc/nsm.c
-index b6d3fa79a5e8..08c0997fb308 100644
---- a/drivers/misc/nsm.c
-+++ b/drivers/misc/nsm.c
-@@ -13,6 +13,7 @@
- #include <linux/fs.h>
- #include <linux/interrupt.h>
- #include <linux/hw_random.h>
-+#include <linux/kref.h>
- #include <linux/miscdevice.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-@@ -55,6 +56,8 @@ struct nsm {
- =09struct miscdevice     misc;
- =09struct hwrng          hwrng;
- =09struct work_struct    misc_init;
-+=09struct kref           kref;
-+=09bool                  removed;=09/* protected by lock */
- =09struct nsm_msg        msg;
- };
-=20
-@@ -372,6 +375,12 @@ static long nsm_dev_ioctl(struct file *file, unsigned =
-int cmd,
-=20
- =09mutex_lock(&nsm->lock);
-=20
-+=09/* The device may have been removed while the file was open */
-+=09if (nsm->removed) {
-+=09=09r =3D -ENODEV;
-+=09=09goto out;
-+=09}
-+
- =09/* Convert kernel argument struct to device request */
- =09r =3D fill_req_raw(nsm, &nsm->msg.req, &raw);
- =09if (r)
-@@ -413,8 +422,31 @@ static int nsm_device_init_vq(struct virtio_device *vd=
-ev)
- =09return 0;
- }
-=20
-+static void nsm_free(struct kref *kref)
-+{
-+=09kfree(container_of(kref, struct nsm, kref));
-+}
-+
-+/*
-+ * misc_open() calls this under misc_mtx, which misc_deregister() also tak=
-es,
-+ * so the device's own reference is still held here.
-+ */
-+static int nsm_dev_open(struct inode *inode, struct file *file)
-+{
-+=09kref_get(&file_to_nsm(file)->kref);
-+=09return 0;
-+}
-+
-+static int nsm_dev_release(struct inode *inode, struct file *file)
-+{
-+=09kref_put(&file_to_nsm(file)->kref, nsm_free);
-+=09return 0;
-+}
-+
- static const struct file_operations nsm_dev_fops =3D {
- =09.owner =3D THIS_MODULE,
-+=09.open =3D nsm_dev_open,
-+=09.release =3D nsm_dev_release,
- =09.unlocked_ioctl =3D nsm_dev_ioctl,
- =09.compat_ioctl =3D compat_ptr_ioctl,
- };
-@@ -426,10 +458,12 @@ static int nsm_device_probe(struct virtio_device *vde=
-v)
- =09struct nsm *nsm;
- =09int rc;
-=20
--=09nsm =3D devm_kzalloc(&vdev->dev, sizeof(*nsm), GFP_KERNEL);
-+=09nsm =3D kzalloc(sizeof(*nsm), GFP_KERNEL);
- =09if (!nsm)
- =09=09return -ENOMEM;
-=20
-+=09kref_init(&nsm->kref);
-+
- =09vdev->priv =3D nsm;
- =09nsm->vdev =3D vdev;
-=20
-@@ -478,6 +512,7 @@ static int nsm_device_probe(struct virtio_device *vdev)
- =09virtio_reset_device(vdev);
- =09vdev->config->del_vqs(vdev);
- err_init_vq:
-+=09kfree(nsm);
- =09return rc;
- }
-=20
-@@ -488,8 +523,14 @@ static void nsm_device_remove(struct virtio_device *vd=
-ev)
-=20
- =09hwrng_unregister(&nsm->hwrng);
-=20
-+=09/* Wait for an ioctl in progress, and fail later ones */
-+=09mutex_lock(&nsm->lock);
-+=09nsm->removed =3D true;
- =09vdev->config->del_vqs(vdev);
-+=09mutex_unlock(&nsm->lock);
-+
- =09misc_deregister(&nsm->misc);
-+=09kref_put(&nsm->kref, nsm_free);
- }
-=20
- /* NSM device configuration structure */
+matching the other two. Without it ov7251 is the only one of the three that
+reports plain gain for the same kind of control, which is the inconsistency
+this fixes on real hardware.
 
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
---=20
-2.43.0
+Built with W=1, no new warnings. checkpatch --strict --max-line-length=80
+clean. Based on media/next at 7.4-rc1.
 
+ drivers/media/i2c/ov7251.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+index fce6344b5120..6ec979c5fb35 100644
+--- a/drivers/media/i2c/ov7251.c
++++ b/drivers/media/i2c/ov7251.c
+@@ -1052,7 +1052,7 @@ static int ov7251_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	case V4L2_CID_EXPOSURE:
+ 		ret = ov7251_set_exposure(ov7251, ctrl->val);
+ 		break;
+-	case V4L2_CID_GAIN:
++	case V4L2_CID_ANALOGUE_GAIN:
+ 		ret = ov7251_set_gain(ov7251, ctrl->val);
+ 		break;
+ 	case V4L2_CID_TEST_PATTERN:
+@@ -1580,7 +1580,8 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
+ 	ov7251->exposure = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
+ 					     V4L2_CID_EXPOSURE, 1, 32, 1, 32);
+ 	ov7251->gain = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
+-					 V4L2_CID_GAIN, 16, 1023, 1, 16);
++					 V4L2_CID_ANALOGUE_GAIN, 16, 1023, 1,
++					 16);
+ 	v4l2_ctrl_new_std_menu_items(&ov7251->ctrls, &ov7251_ctrl_ops,
+ 				     V4L2_CID_TEST_PATTERN,
+ 				     ARRAY_SIZE(ov7251_test_pattern_menu) - 1,
+-- 
+2.56.0
 
