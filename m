@@ -1,58 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794058887;
-	b=iMekVB7zO+LQ6UnHYYADX+zCPatf8DS9VyQkZYEC3+ZGejua81FsjWZZwws+LM8oI8SG
-	 /GliM3agUvgjhqS+TffYOsIeLe6CyqSbJi2htMMu+r/CQJ5z5q7QsceSMexDf0ZgIh9xH
-	 l0fD7TvNFx+ZbHCHnb6Knp6DSudH6TSciKMvn9CivkoI0J6D4xft4dqvkuJrbGDHIGO73
-	 4I6Ne/qMapkqFofCvkYiv9q4Zgv8X0Df2Mo97R2IHWPf7Yl+5YG0FnCy8oV2wOD2olgVj
-	 fqbG5TeO4bbEdF2ZvSnjoc3OkNsttdJEp1H7nBACNG9RU1L9NnVgJytqiFgJrkBRkFg==
+	t=1794059101;
+	b=vBKmvevUbp1IBTxWTAsZNn1JPllMaUaV8epiE2G/qHmbaJ3gPisDTp7htcWKaLnqINd+
+	 draIHYf0x2ccT/NyhaOiQM6m7lmQ32JqzSTeYJZUHXn0qoAcz9cKhUjWnxtrGFhEaGBsx
+	 Y7zBb2wDw2vok2WAbr7VYQTEqCYZ14HH4oBHYt49eel3fxV6Z55dE2YU2rlgSiU/cUGCZ
+	 FDKZwGPz30IuLFg/K4ZZDeYuM05yd5ULJtEyZjDTuv7o00BiamMICWq8UzfcwaJPUWyyi
+	 aEpg0Er4FVTLV17aFNtYgDFu1JPdkFS3nZgQnimCjF7nNOa1qvAWXl4mmMlSs9DUGYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058887;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sxlRFymConWQJ/LilUMf3Ms8/xKFLsDClNm0h78DigA=;
-	b=5RSgwzN8cLTGrV3mTXYmgF+XLdQCzHerfpFaap7U4DLoBqAnb9oypCC9lnw5T2PxDYSO
-	 kU1j8GNk5uiLi43/ZbY0TaygcZpzM1Vy7X7TWg20d89ZJhqX5Op2544xmuqx6qbM9W06g
-	 Zkz4UMH2stslg9mddiU7giRSL6olNylJAlr9z5eDQcU94xb21/dffs9EDHivI/DPCFzIK
-	 Rc0rdIoI4gpEUdZ5mG5aJPibCLnnyWgfdXH/gnyKb0DdEypyi6oawKP5c+4EI1yGmjfEr
-	 iU599NBTGK0l9T0YkJgttT1Y2xA1MG2rRG10xbzyQoktMXUcRXtVaYRlXrPYZsincCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794059101;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=YI+3QYKuySwcsokiC0xd+nm3WzuiFdrD/F94aK+IkoY=;
+	b=buZuIKEBpSnEOFuRagmPhknn/z5f3MxrmDsbi+TTv5lh5p4G2WrNcsDowAshoGB/c/rW
+	 ZaqRoKpFxyrKVtJ8h7Girb2gFNlA20uLP/sI6fyihL3xcvZehT2kNFZNyJTvL4kLs8wF5
+	 6zlCTvhJWZag2SXOM+I/QR4FykdcG0ZJWxUhN7wO/F0NqG/b7OFX1CVrc4JpwONFAQ+io
+	 wrldttt9x9LXYcM7/b5Gp1ONXg47W25kxDvVNjoBfswx7QcdTxVtrxSDiWO5YyVd41GL4
+	 eGMpeGBfdMG1glPIVUfF1BKn5o8CVbGQQoVEZ0aic06bB94DnbWiJZ1xgXfQr5gzGsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWUoIAFd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Vuh0IpUp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=oSYl3sQe;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xtWjTcF5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uNtlLoun;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35F8606D802;
-	Sat,  7 Nov 2026 13:41:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED58D606A326;
+	Sat,  7 Nov 2026 13:45:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED58D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWUoIAFd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5831F008A3;
-	Sat,  7 Nov 2026 13:41:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794058886;
-	bh=sxlRFymConWQJ/LilUMf3Ms8/xKFLsDClNm0h78DigA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FWUoIAFd83ogdJ8oEKd/6J+7fQzXiMs95c+BmcnUnP5Y0KwMj7N0KhrwhZ5PP03Tz
-	 YSbOJIr1HvgrF11s74sVgaxjtjglWGXwSeHpvAmgtGVPE5GIyXg72mBldz1mRv1xcG
-	 GoBNIe2i6bgJ8GIykE+Ni1rpTbOCtTYbXV4hFOVlpORWvplkIA5ixjek1YXxAJk+C7
-	 MO4iBuxYoEF6GofN+P4C64tY/oBdL7rtTzobgwXTEe+4ZBTip0YP5Sk0/kGEA432lV
-	 Ivl+ilQwJYfGMMHJwbN5h//9FJ0PnKdCdQ/QXhVZUMmz/1h+KjT3RPIkWRIrbrw80y
-	 mjiCZ8Q7coMOg==
-Date: Sat, 7 Nov 2026 21:21:13 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Paul Cercueil <paul.cercueil@bootlin.com>
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	Tanmay Jagdale <tanmay@marvell.com>
-Subject: Re: [PATCH 5/5] spi: cadence-xspi: Add workaround for old Marvell
- firmwares
-Message-ID: <au8lyXiMUSvcdPWx@xhacker>
-References: <20261104100643.162694-1-paul.cercueil@bootlin.com>
- <20261104100643.162694-6-paul.cercueil@bootlin.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Vuh0IpUp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=oSYl3sQe;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xtWjTcF5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uNtlLoun
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B7A3D1F7C1;
+	Sat,  7 Nov 2026 13:44:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794059099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YI+3QYKuySwcsokiC0xd+nm3WzuiFdrD/F94aK+IkoY=;
+	b=Vuh0IpUpxrUKoJr/SLu9uXLALfuw9Yp3u9zG/Pnx9LrKkwPgPODN+XA9NC/9aDnxWCmy1S
+	ykYkzGs3aEWJCWzX/HhBS2Ofs/VQHBRbfLkBObzYWUsQPQkwHa0ZnrmnHwi6YDSuKygrf8
+	U4oj0mMPVVONU+p8+XQgK0NUaibx8hc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794059099;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YI+3QYKuySwcsokiC0xd+nm3WzuiFdrD/F94aK+IkoY=;
+	b=oSYl3sQeTBSNOqkO2mPeWxRuSPnFsNuySA6Pva+Qlg6G11sS7FaVfQLb8MIvWvYWsLFtT3
+	cOMxkh0aqOCO5pBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xtWjTcF5;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uNtlLoun
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794059098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YI+3QYKuySwcsokiC0xd+nm3WzuiFdrD/F94aK+IkoY=;
+	b=xtWjTcF51+GkZgtUxiSxPMFNKfGHGbkcfr7skQ54z/7h2sEVPuL1oO4oLjxAUVpFBw04fh
+	bwKLDd6B9f0pdHig2SMVI/YjFaAotnZZsPlGMK+pxRFE29fSSewYx3tKuFHDILrZDHCjhD
+	18j2e/fmUqkq8HePFVZzABe1AcAr3M0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794059098;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YI+3QYKuySwcsokiC0xd+nm3WzuiFdrD/F94aK+IkoY=;
+	b=uNtlLounoZOB1vEaaQxrxCwgNr+hA8iZLyFdEV+ietejhRk+nutb6WlCZoF3PETyfJ6Sgd
+	2Yoc9c1NraoC/CBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3243B132C9;
+	Sat,  7 Nov 2026 13:44:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id T8B9AVor72qucgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 07 Nov 2026 13:44:58 +0000
+Date: Sat, 07 Nov 2026 14:44:57 +0100
+Message-ID: <87tslsycva.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: info: Use snprintf() in snd_info_card_create()
+In-Reply-To: <au8h4SDC6fKaY7st@kernel.org>
+References: <20261107004338.323417-2-blum@kernel.org>
+	<87a4nlypdt.wl-tiwai@suse.de>
+	<au8h4SDC6fKaY7st@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,71 +118,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104100643.162694-6-paul.cercueil@bootlin.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: B7A3D1F7C1
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,perex.cz,suse.com,gmail.com,intel.com,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.01
 
-On Wed, Nov 04, 2026 at 11:06:43AM +0100, Paul Cercueil wrote:
-> From: Tanmay Jagdale <tanmay@marvell.com>
+On Sat, 07 Nov 2026 14:04:33 +0100,
+Thorsten Blum wrote:
 > 
-> Older firmwares from Marvell used the cdns,xspi-nor compatible string
-> for the Marvell-specific xSPI IP, which is incompatible.
+> On Sat, Nov 07, 2026 at 10:14:38AM +0100, Takashi Iwai wrote:
+> > On Sat, 07 Nov 2026 01:43:37 +0100,
+> > Thorsten Blum wrote:
+> > > 
+> > > While the current code works correctly, replace the unbounded sprintf()
+> > > with snprintf() to bound the formatted string to the str buffer.
+> > > 
+> > > Signed-off-by: Thorsten Blum <blum@kernel.org>
+> > 
+> > Shouldn't we use scnprintf() instead?  Otherwise it may lead to a
+> > compiler warning.
 > 
-> Add a workaround to support this by assuming that if the "xfer" resource
-> is found, it means that a Marvell IP is used.
-> S> 
-> Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-> Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
-> ---
->  drivers/spi/spi-cadence-xspi.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-> index 48a109f3fcdb..d326589a6ca3 100644
-> --- a/drivers/spi/spi-cadence-xspi.c
-> +++ b/drivers/spi/spi-cadence-xspi.c
-> @@ -1301,11 +1301,21 @@ static int cdns_xspi_probe(struct platform_device *pdev)
->  	}
->  
->  #ifdef CONFIG_64BIT
-> -	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
-> -		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "xfer");
-> -		if (!res)
-> -			res = platform_get_resource(pdev, IORESOURCE_MEM, 3);
-> +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "xfer");
-> +	if (!res)
-> +		res = platform_get_resource(pdev, IORESOURCE_MEM, 3);
+> The only difference between snprintf() and scnprintf() is the return
+> value, which is unused here. Both are correct and shouldn't trigger a
+> warning.
 
-This moves the mrvl specific code to all users, so I believe this
-needs dt-binding update.
+Well, not really.  For this particular patch, it doesn't make
+difference, but in some cases (like the use with %s), snprintf()
+causes a spurious compile warning with W=1.  e.g. try below.
 
-From another side, this assumes other users doesn't have 4th resource
-but what about if they have? they will get "Marvell-specific xfer
-resource passed, but ..." warning below, this confuse the users.
-I don't think this workaround can be added to all users.
 
-Lastly, does the "firmware" mean dtb? But per my grep, I didn't
-find any mrvl dts(i) uses "cdns,xspi-nor" compatible string, so
-this means the dtb is outside upstream, then can the firmware
-be fixed instead?
+Takashi
 
-> +
-> +	if (res && !cdns_xspi->driver_data->mrvl_hw_overlay) {
-> +		/*
-> +		 * Handle old Marvell firmwares using the cdns,xspi-nor string
-> +		 * instead of the marvell,cn10-xspi-nor string.
-> +		 */
-> +		dev_warn(dev, "Marvell-specific xfer resource passed, but using the cdns,xspi-nor compatible string. Please fix firmware!\n");
->  
-> +		cdns_xspi->driver_data = &marvell_driver_data;
-> +	}
-> +
-> +	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
->  		cdns_xspi->xferbase = devm_ioremap_resource(dev, res);
->  		if (IS_ERR(cdns_xspi->xferbase)) {
->  			dev_info(dev, "XFER register base not found, set it\n");
-> -- 
-> 2.47.3
-> 
+--- a/sound/core/ump.c
++++ b/sound/core/ump.c
+@@ -1369,7 +1369,7 @@ static void update_legacy_substreams(struct snd_ump_endpoint *ump,
+ 		name = ump->groups[idx].name;
+ 		if (!*name)
+ 			name = ump->core.name;
+-		scnprintf(s->name, sizeof(s->name), "Group %d (%.16s)%s",
++		snprintf(s->name, sizeof(s->name), "Group %d (%.16s)%s",
+ 			  idx + 1, name,
+ 			  ump->groups[idx].active ? "" : " [Inactive]");
+ 		s->inactive = !ump->groups[idx].active;
+
