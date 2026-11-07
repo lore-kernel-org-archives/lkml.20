@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794077276;
-	b=q1/sALgIdXPrIxd21xbxv63MW/NZqulDsLgIeBGcaBbl2EaBu6EOjnQghscZVWC0ntEe
-	 MC3/gwO4v0dFyQF14bM4mI/b1NldXOT0U3JT2TYUa257s7o/MDs/z+pbogxCzoGF8IOfE
-	 HndZJPIHj8hgqphwtibv5Rwyp6flPs2ky3SzgodrjT3nZeW9EysVgxlnl8boOeWDR5V0p
-	 3Sk/FX5thDHZ/b51NVcE6WwqRmeS/vvN7CBlXFxHEPOuTPPORQ4ZhN1iqY0UaCzkvNgsO
-	 ep9jr/xO5icXtXnmBJnGeS6g3ZKNAfqatZM/Ar/EOmvRARwwzwjkFgQ9HLlp67yLSpA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794077276;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DWojXY4nDMT9rtwg6h/b477SwUuLPC3ITyeb/WPBYqc=;
-	b=etVHe2pj9KVT8yveebRrYXxjx4nDgU36mtpKWwc8V/35+ZPNK6M2519jZ1fjUV4Veara
-	 DhbsQlSo86hCqlkqPYaLSRN2pbRSAa9KDA0yvU6NJJbIbt0/I5YK2laOKmm/5mS4B0Ym3
-	 XrqJP7e0gKOTkm7nMmXfCRezPGHilaV7aEvuXOO3cbndNWOBT8lDVafaAHCfPRHs4Y9dv
-	 b1FdcX/N37V0AyGdOM5pRi1vy29Ju2tG2O2HwpwFo9eZ9xXGNnDiWaVjCZwmVklZI2EFg
-	 7lUvBJBJJiJjUvKWDpyDZKo+EwBfkB7PPvfZ754mVmlEicMUP9FKCvROw5945hJF7rw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amacapital.net;
-	spf=pass smtp.mailfrom=amacapital.net;
-	dkim=pass header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jDsWkgNe;
-	arc=fail smtp.remote-ip=209.85.167.43
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794077345;
+	b=md2bauQvoe3mey+UuntWpw5/JXahABc6xPpyWwoJVmvb4bF2Lc2nqGIm72gg0T0h7sqH
+	 FoA92hgSZYP6mnlRgxGuOMk6JZgnQ25Af4wvBMLy7M4+KHGM6txyrlHVC4imtNq6eMotS
+	 b/GFdapSZqMUZyz97G0FvT+oFsHc/Qm7E+V2Y8vBZcJw86H0nvqsXFKX2KdfKEFBOUItT
+	 I0IQC/uXDcmyDRqY3d6VhGCE9dEvVRyTs1hrv4+fgvvm6HQTGTULnS+fwzHSMnnVOF+GZ
+	 dTnEscXej4urb9UvgZERMehP/oTV1w29f64/UKDsq+avgigh5nnMWuFzFywRit+8DfQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794077345;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=yyG4T15dTa4Dx/8Fj4WWDBAED1OEdpssCH+wLfgoBEA=;
+	b=Vt4jY8YcDZOjr1gtjY42akiET24Qx/LQOZ0tIv2GYU1CibjWODO/Kchf61d2XJ0+mVd7
+	 DQRnJg+ER3HF7xXju/GYflAQENPvNI3B2v7UEYXrZlKvLd4JoNueIrfvqFJZMfVRbkPAf
+	 L4J1VlXCuqWamxDfFTmZ6PShD0obPHqVvDH6GG2E12rYD9Gpr9RY3bDhFVFyVF/ZDQgbb
+	 bvmSLaLA7fVjoh7N6Q2TSshhjkv/5eEwGIW33KxMY1v1bPgCCnRwi4NrEWVY9Y9rjI766
+	 7m0YdNkOywBqNqtkVk/nRi7WLi9INtDuUZRICUhz54y1MUtQPglDWMBY6SmtmdLYiIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F88606A331
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:47:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05F88606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jDsWkgNe
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so923627e87.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 10:47:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794077274; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SRyXaHUoYhsTukht9GWIHok+2x4gywQrNR3JetCV8VV2AT/MmMGUcyzWL5qMSthvVU
-         p2lDwZiYW4OtgT9SYy8T5rn0q87ljA5HZGNiTJyjvGNxOISD452RqqIrqGAG5rsASo+O
-         nn8oR0P7RNJXQymrvYSvHL/c4UNswrVLwxoSviFdLvg7jaZAvOVvK8bunUmX5qTR7JNi
-         WGUswh0aJ7S3O34wVYR32hIyKTZDgXdaxsWWGnP/dtb+9sLpPeOI3iYkUaogQxV8uZGe
-         MPsaM/VPlvIxw5AtBecmuA0KJYFcVtoob7HD4JhJvFHEmLfeGDG7moNbto41mSj2Byg5
-         DI1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DWojXY4nDMT9rtwg6h/b477SwUuLPC3ITyeb/WPBYqc=;
-        fh=cYp9bhmOKXcjnnRMcMw4OIXfOFhfqTSN/X9SDnFduVQ=;
-        b=mE30Z/wyWgLoLekmy4KI9jW+qknG/7nxA+JzrvtApUzE0rG2EtLzttmGD0i4gl31jZ
-         8sYfvyX7OzpQJYYo7QIsSBmGk4M6vbAw/ubSBnBYpyr7UCR2Omhs1KhOgYDKf0WG1haC
-         9wjdWbBgik8syf9HeMEsUVoIdEKJyq9N/g3ZXSnFsUve5pjQN0OUqNH4Ps5BEsSf8BuT
-         BiFU9UFKmy9vHHBwV20KKr4lJztkD4zeWHzkqv8AGBDL2pzIpm9fh0MQj0zRqwSflga8
-         cGiuVzKPQRiwF+JMM0c6RXcAbPp9z0glpMDo5if4tt6mAPyoPotPDS6EXq2FM9oruQUq
-         2acA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20260707.gappssmtp.com; s=20260707; t=1794077274; x=1794682074; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DWojXY4nDMT9rtwg6h/b477SwUuLPC3ITyeb/WPBYqc=;
-        b=jDsWkgNeFsbdQ7qKqbpHSGOmDkfyI4OzDS2pJc6+Irn0QHpBxG9wPbmRTDmNnDdzS5
-         db8t7KSVAGcHE/QtRbNhFDCWnX4uqUr1mEeZuLglr9YUDK4k94+gZZ0e2v5XDqaLBMAu
-         GF2mKtLq3tPj9IBZGN3w1gGTAF0jFrsZMFCKcXAmKrirJiOIjEcuysNg1l24IqICP4gV
-         r2UQCTmuYiVAi+q/1GU8UDVYE1+IZodom/D3RIz9GtMMMdasHTqHTXmlylMP0IcXnVJO
-         5lWPTzglrmuISOXtwRoPqefa1QyXnIQk56sGTTb2Rf1nGsDNJzcZ5BPRF2XDpKcZZ3TD
-         g2UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794077274; x=1794682074;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DWojXY4nDMT9rtwg6h/b477SwUuLPC3ITyeb/WPBYqc=;
-        b=cLpk85Nt0xVheBthcQGbhioGafariKUk3LpZ1q+uEh6xEpWQL46ChXR3zPbD5qxTPb
-         ZoRpkIqwcvKb7k1toq0Rw42Ad57Bqv+qpJEHZSi9faYm/cyNCHNFvQztzwtdX5A37trs
-         A6GmKvbxgAjSc9Cw4tIloiqY6EJFotVgwzlZ2OoOe/RwNvzO3vNcGLBxDEuKGUapl8HO
-         nKW8qkf8ftTs5Y6buD6ncYuZccMMQzVkZG1FGq7WCPKncfn0OgLGB4t+TOcrT7Vt5tTu
-         gx81U7g5g9VYPxKkH5vJXx38sDiKulDEbQIKldH54r2CX0Pm1E8VtbZztcemvwmBSnxH
-         zQ3A==
-X-Forwarded-Encrypted: i=1; AL+hErHOI868+0aae9yCd9t06dj/4+6fvwMaJAkfDNVxBsW7BkCBCC1E7ev4bptwO5Vecf3LxAOhTfcv8bwQhI8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nZk8t3k4+3oLaIZeLGuZ8mAQmLQ4E7d7Cb4m6X2l/WbTTFBWZ
-	/KAf56CNZmRXFXeT6BxRjVqCe8Sd4Q5Uk0AE3fu9Ygr3r9joid7r2Z/rUh8oh7KT2QOiqib1Rv/
-	+hzkJO0QB85yDnjRYVkBZjidwdWVq9zAZJz/7yAY2
-X-Gm-Gg: AYBFou1vC8JNixwvShGMZ6PjV50igXYi3moy7aouTSibsPOYIKdHDoGlr42BQfHaKkz
-	mFcuvA9xl47YtV8QHFx4XTe3Wrp8+2INSIaBDMgO9US/tczmDG/0VBP9wi9NqxKBDHs9by5L78Q
-	YS3eLYifL/1IjP1GhDTGgqJHcJWApFzIKJipsp6j2SinRtxO2ZoH94XZF+YU700t97rYRhgJmiE
-	Jc9riSswM5zuTPMuw1YCXZAmpdeZRJ0XkY2Z0icUKJjwZYkIQoaC3SnZ1wDiOHHMysPGV02rSXj
-	pDr3+ld6gnoFyXdCYFzlRofcXH0IEEL+dxs4DvLBXWVjLFJUiNmYC2f17BSGFHkqlniDPvQh9yt
-	YGh7DU6fKfATyb2/+gBfj+0B9NPjPapzC+A==
-X-Received: by 2002:a05:6512:291a:b0:5c0:ca1:9dd7 with SMTP id
- 2adb3069b0e04-5c00ca19f2bmr594320e87.35.1794077274068; Sat, 07 Nov 2026
- 10:47:54 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E15606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71E15606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3T7WWcu9qyHeKAA--.6613S2;
+	Sun, 08 Nov 2026 02:48:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915: Fix vm reference leak in mock_gem_device()
+Date: Sat, 07 Nov 2026 17:09:52 +0000
+Message-ID: <1794071392.2684479.vulab@iscas.ac.cn>
+In-Reply-To: <178962823827.28653.5098493516220452854@jlahtine-mobl>
+References: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+ <178962823827.28653.5098493516220452854@jlahtine-mobl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,87 +58,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028221705.3915340-1-halg@google.com> <CALCETrW9ygriu54gxiHFLEd5+hJminQo0r8Jwd63wR69Dj4W7w@mail.gmail.com>
- <20261106-befreien-addieren-eislauf-e09212803534@brauner>
-In-Reply-To: <20261106-befreien-addieren-eislauf-e09212803534@brauner>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Sat, 7 Nov 2026 10:47:41 -0800
-X-Gm-Features: AclHuK9s0dgg3FDVqp4WbjYQnA0hebDpEpxOAgz_VjLjRP_HfRjeTpRH9DX274k
-Message-ID: <CALCETrWa1SBLcb5oWjqjgzZvKvCoHjmYFk=Lf5ytEM9uqm5jYA@mail.gmail.com>
-Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
- opt-in netns loopback
-To: Christian Brauner <brauner@kernel.org>
-Cc: "Hallgrimur H. Gunnarsson" <halg@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
-	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jann Horn <jannh@google.com>, =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
-	KP Singh <kpsingh@kernel.org>, Jonathan Calmels <jcalmels@3xx0.net>, 
-	Casey Schaufler <casey@schaufler-ca.com>, linux-fsdevel@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-api@vger.kernel.org, 
-	containers@lists.linux.dev, netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3T7WWcu9qyHeKAA--.6613S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFWUXr48uFWftryfury5XFb_yoW5ur1UpF
+	s3K3W3Ar1kGF1fCws2vF40y34ruFZ5A3yUXFs8W3yUZ3Z8uFyIgFWSyF4jvasru393Wr12
+	vr4j9rykZF4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvIb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80
+	ewAv7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7x
+	kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxG
+	rwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
+	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
+	tVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
+	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
+	wI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf
+	9x07b0DGrUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIEA2rvPctHVAAAs8
 
-On Fri, Nov 6, 2026 at 5:13=E2=80=AFAM Christian Brauner <brauner@kernel.or=
-g> wrote:
->
-> On Wed, Oct 28, 2026 at 03:56:11PM -0700, Andy Lutomirski wrote:
-> > The whole unshare/clone flag situation is getting out of hand, IMO.
-> > And this new thing makes logical sense but is really about reducing
-> > exposure.
-> >
-> > Perhaps we should instead have a small list associated with a userns
-> > (extensible in the future) of things that the ns's admin (i.e. whoever
-> > has CAP_SYS_ADMIN relative to the ns) may do.  That list could
-> > include:
-> >
-> > - Create loopback with sensible defaults for ipv4 and/or ipv6 (i see
-> > no obvious reason to separate them)
-> > - Create tun/tap interfaces in that ns (and attach them, etc)
-> >
-> > And add a very simple new API to do these things.  Actually, the
->
-> We've had this idea in the past and I think it is reasonable. I had
-> always thought that we should expose a system call to create empty
-> namespaces ot any type. Usually I'd be excited about that but I think
-> that point is a bit moot and I'd really like see whether we can turn
-> cells (or whatever other name) into a first class api.
->
-> The problem I have with the patchset as written is that adds a lot of
-> moving parts. And yes, I find the CLONE_* and UNSHARE_* flags plus
-> sysctl to be suboptimal as well.
->
-> So the TL;DR is that CAP_NET_ADMIN + userns =3D
-> CAP_NET_PRIVILEGE_ESCALATION 10+ years later. And this patchset wants to
-> put it back on a leash.
->
-> So why isn't an aggressively stupid solution to this problem to split a
-> new capability out of CAP_NET_ADMIN so it covers the absolute minimal
-> set of things that should be allowed instead of doing effectively the
-> same thing but split over multiple apis?
+Hi Joonas,
 
-Because we don't actually have a clean way to make a list of
-privileges that are, in theory, harmless but are hazardous from an
-attack surface perspective and assign them only to tasks that ought to
-have them.
+First of all, I sincerely apologize for my very late reply, and thank you
+for taking the time to raise these concerns.
 
-But maybe we should invent such a thing.  It would be very, very nice.
+I have read your message carefully. Your criticism is justified, not only
+regarding this particular patch, but also regarding the way I have been
+submitting patches to the kernel community.
 
-Other than that, I agree with you.
+For this patch, I failed to properly assess the severity and scope of the
+issue before submitting it. This is a selftest-only cleanup, and it should
+never have been marked for stable backporting. I also failed to pay
+sufficient attention to the subsystem's coding conventions and teardown
+ordering. These are things I should have checked myself before asking
+maintainers to review the change.
 
->
-> Anything that is reasonably advanced should not be the kernel's
-> responsibility to delegate. I really think the old privilege model where
-> the kernel grants control over a whole subsystem is inherently flawed
-> and is much better replaced if you have the means to let userspace
-> services grant and delegate resources.
+I have revisited the relevant code and revised the patch to address these
+issues. The v2 removes the Fixes and stable tags, corrects the subject
+prefix, and adjusts the cleanup ordering. I understand that correcting
+these details now does not excuse the lack of care in the original
+submission.
 
+I also want to be transparent about the use of AI tools. The initial
+finding came from static analysis, and I used DeepSeek and GPT 6.1 Sol to
+help examine the finding and prepare the patch. However, I was the one
+who decided to submit it, and I am fully responsible for its correctness,
+testing, and presentation. Using these tools does not reduce that
+responsibility, and I should not have submitted a patch without
+sufficient independent verification.
 
+More importantly, I owe you and the other maintainers an apology for my
+broader submission practices. I submitted far too many patches in a short
+period of time without giving each one the attention it deserved. I also
+failed to respond to review comments and requests for changes, including
+requests to acknowledge AI assistance. I understand how frustrating this
+must have been, especially when maintainers are spending their own
+limited time reviewing contributions.
 
---=20
-Andy Lutomirski
-AMA Capital Management, LLC
+You were right to question whether I was taking the review process
+seriously. Looking back at how I handled those submissions, I can
+understand why they gave that impression. I regret that my actions wasted
+maintainers' time and undermined their trust in my contributions.
+
+I am changing how I approach kernel contributions. I will stop submitting
+patches in bulk, review outstanding feedback individually, and prioritize
+resolving existing discussions over sending new patches. Going forward, I
+will submit changes only after I have examined the relevant code paths,
+checked the subsystem conventions, and performed appropriate validation. I
+will also make sure that any AI assistance is properly acknowledged.
+
+I understand that trust cannot be restored simply by writing an apology.
+It will take consistent care and follow-through in future contributions,
+and I intend to demonstrate that through my actions.
+
+I have prepared a revised version of this patch, but I also understand if
+you do not consider this particular cleanup worth pursuing. I will
+respect that decision and will not continue pushing it if you would
+prefer to leave it aside.
+
+Thank you again for your feedback, and I am genuinely sorry for the
+unnecessary review burden and for not responding sooner.
+
+Regards,
+Wentao
+
