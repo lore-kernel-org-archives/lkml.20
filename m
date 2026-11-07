@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048818;
-	b=Gxbdq0+T07bnlObX9YLF40nFfNOLvaAqGzlEPRPD8xpmfvrhzTEF3A8jplPrUYxsDpyf
-	 m7u9P+aW1RPKzl0SJmea/7C5d7UqYCHCZlz+yZc7Rhiuhs2hy56wBwNrsX/bL2MupES+a
-	 /uOUV35TAlFLO/wumhrkZKlBST96I8nex2y2Ge5uc0FOuetskLIcpH9Ht7UNWw9ncc0Jt
-	 zGUIBWojW+proiOagvshzt2FbLFXz3yFc3dNIUUvROw5Fs0RTSouHjez/gK2lcjsCA8qW
-	 3kRpSJYMOkasEU5vinB6tIric1jiEG7CJ0aP3Csb4zsMF9CR6gJqQoeMvFmne5QZKXQ==
+	t=1794048856;
+	b=ibRlBptEZipY8pWa/jtGsNJ7SajtaOBhRmAgkwh2YIwTOdWAUUzACYJBtU+suqjDLvvx
+	 wggCuOi2Dw4AKzsqXXyFuDvVPfw9ROTiRqAP425jsYsjSKaVPd2B6DIe9rcyoueNpbW2D
+	 xV/8UW/Jexm+mTYpaqLgnUiAY1mJO43o8RxHQnAbanIaNOabvGgY7wNtQz/cv+HHbMuhw
+	 Wl6wUc1cxR15h9UbqyaDfG0oN7x/81aDK+7Y6mD6k3Wonl79sm3gSxBrka1571sqchugT
+	 4r58I8kcfmpLg7eiY1zPuLtdtvh0R2tItxljNoXQ+G1OlXiyBzvbM1ebvyDiuLuibOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048856;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Y180jtVIl9H2E6DxVOXvPpmcMQTvALtSPs5lwc7SY4A=;
-	b=r8gvOc6WyI1NU8+gUlle4n9f3C4/nAhkVw/MruUMnRFtGvN524D2ErgdZiWsGzfPl6T5
-	 6T8C+wjiDm0CGEGtlEjdJNMUH1TqBy+ww4zsMFf6SXFMpTJXSCgzGqkTaaFp1j2NeNrFH
-	 Jo+3Bwvf1XDym8DEGp9sI3WoW1tgVWlVJ2hwX3RFsP2rAkdMD1a4As9am604Myb+nygcN
-	 +CLJO94/0cAVwtoBjD8sEsdte+IwUIHb9ef6aVgA7+gUBDOb+4z6425DPGFmwgx29oE90
-	 OTsw+hL6u8OQ0Ko9pqrHupkDWIX7ilmnn8oliRgVG4s2rldSVClw8avHkL8L2h/gTCA==
+	bh=xmQhl7g8B7wmPUKml5FZxysCguQB96b4jBwJEHOOVFE=;
+	b=he2HRqNwvMmB2Hw1/Jc9XeqRP8oTkyoF4idHhyshdmCilpvOZH3OtV6Gi1wop5SSMTdb
+	 eQZZBqaPvbQqiHzdUhbXKkyIC9TTHPHM/i+hryowR/DoF3xZQxQ5Eu8YXZmIQ6G1Qs8F+
+	 EhgEum0/uHZCjunjiXFxSbrSlVlonFlKH4Th8yk8padaFccZ9hW/e8ufTVLsjsz4IKz9m
+	 bZXlF9lBEXCY3b1JFm6V7mB8BTAQpHdz+rgND9gX8LPGtDhaeus5QsT3ALKF1xfSrhrbQ
+	 OvGuYbdHnY+PpetohnXl05m8CDzmPAIWE7gJcBVBiLQStGLGRkfgc03Cz7b93XVrBAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzw2DrLP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhayLTax;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B01606D806;
-	Sat,  7 Nov 2026 10:53:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C2E606A326;
+	Sat,  7 Nov 2026 10:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzw2DrLP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989CD1F008A1;
-	Sat,  7 Nov 2026 10:53:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhayLTax
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919A91F0089F;
+	Sat,  7 Nov 2026 10:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048817;
-	bh=Y180jtVIl9H2E6DxVOXvPpmcMQTvALtSPs5lwc7SY4A=;
+	s=k20260515; t=1794048856;
+	bh=xmQhl7g8B7wmPUKml5FZxysCguQB96b4jBwJEHOOVFE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dzw2DrLPNnFzvATWGALmZmpt8Cou5+f6k3Y/Wds/QZT1d7y9Q0PqGC2A2epOlHiIU
-	 rv70BpLUlt+ZUGy+zsJ98IlxGxVwc9UoCo/azTLGr6n2z01d3Qm+O/hrex3iMCcUU8
-	 dMprg2UjZGg2Sgwr/G6zZkbqIe20zDFpfEnLXKBRyxzvma3mP3EXrRZLdFhGMxOQ9e
-	 TuCaZvhK6eLKZhrY2r43J3VNnSuxxwBcKo3Y9o5bV5slP71BAH4B5hCUIXAchw+TMa
-	 r0sn5P9IWJJeqS2x7h71KIMmNEeCzxIgZJsgOS5q0x+nvUqQr9h/cDa/cNp7TZ+ptQ
-	 9RU7mhVHVC52w==
-Message-ID: <65af581e-caac-430a-88b1-3b7425c5209e@kernel.org>
-Date: Sat, 7 Nov 2026 11:53:32 +0100
+	b=VhayLTaxHu/cTHUPCyT2zZAIWZ3Diz6Jg6hcC8O4vkCKe7cg8OdQ36UeYvomVX3sh
+	 g8vnxpO2bwWImqa0RPDqBzo4Llp4Dz00JsND/1aBzTTZ1MLnkGXmVhplyJ+VRyY+TL
+	 qq8+04g5ulMGJb1rAwj19bd51P5IERQB8iq9YAXtihuvsjdcgLmqHV98QNcpO8cU4d
+	 05FLWnxRyHM/BKKvKmben9h5xII3mOZD/Twzcg5PtF6XrvCBU2O1TyFW5UKcmkdz2I
+	 yvUmtUt9Aostgnkir15IdUk9JJLI6h6s58BAGCz1I9e26yJFK9XQb/jMGegLLq7Dnc
+	 e+yf90G0CCwFg==
+Message-ID: <2990b649-b860-435c-bc8b-0990396aca6b@kernel.org>
+Date: Sat, 7 Nov 2026 11:54:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64: dts: cix: add RTS5453 PD controllers to Orion
- O6
+Subject: Re: [PATCH 1/4] dt-bindings: usb: add Realtek RTS5453H Type-C port
+ controller
 To: Gary Yang <gary.yang@cixtech.com>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -63,7 +63,7 @@ Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  cix-kernel-upstream@cixtech.com
 References: <20261107011012.3655873-1-gary.yang@cixtech.com>
- <20261107011012.3655873-5-gary.yang@cixtech.com>
+ <20261107011012.3655873-2-gary.yang@cixtech.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -109,35 +109,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261107011012.3655873-5-gary.yang@cixtech.com>
+In-Reply-To: <20261107011012.3655873-2-gary.yang@cixtech.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07/11/2026 02:10, Gary Yang wrote:
-> Describe the two Realtek RTS5453H port controllers on the Orion O6
-> I2C1 bus and add the I2C1 pin configuration.
+> Document the Realtek RTS5453H stand-alone USB Type-C port controller.
+> The controller is connected over I2C and manages a single USB Type-C
+> connector, described with the generic USB connector binding.
 > 
-> The controllers route orientation and DisplayPort mode changes
-> through the USB/DP combo PHY lane switches, but that PHY support is
-> not upstream yet, so the connector graph endpoints are left out for
-> now. The Type-C ports are still registered and reported, only the
-> lane switching is deferred until the PHY nodes are available.
-> 
-> Both controllers report through the same level-triggered interrupt
-> line, which the driver handles with a shared interrupt. The I2C bus
-> runs at 100 kHz because the RTS5453H I2C interface does not support
-> higher rates.
+> The connector's OF graph links to the Type-C orientation switch and
+> mode mux provided by the platform PHY.
 > 
 > Signed-off-by: Gary Yang <gary.yang@cixtech.com>
 > ---
->  arch/arm64/boot/dts/cix/sky1-orion-o6.dts | 51 +++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
+>  .../bindings/usb/realtek,rts5453h.yaml        | 126 ++++++++++++++++++
+>  1 file changed, 126 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/realtek,rts5453h.yaml
+> 
 
-DTS cannot be combined in this patchset and must be split. Don't mix
-patches from independent subsystems when you send something explicitly
-targeting only one subsystem.
-See also: Documentation/devicetree/bindings/submitting-patches.rst
-
+Valid comments from Sashiko.
 
 Best regards,
 Krzysztof
