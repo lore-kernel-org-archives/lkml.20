@@ -1,91 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794034990;
-	b=mwZJxWEGB4kJqa6IcY0XNJL5avsSUdgMvdyyGrcmsxIOiYcaN1jQkGLx88QIPlnxWCO7
-	 4YodS1SAabAjn8Le8WpHN/Hc65VZMXDMECMRypnnqY62IZKN+OORrjW9v2b5Rqi/StRnX
-	 GKKfyvGEcJNDm5JmvOxO9OGsrAj7vn8wcLFG19JxQVPCVPEv/ZTffpDme0ejkOueyVsF9
-	 NT+6S0/GD/Zl+3tEM3nEnOLwWIsYfYGApGk3B8ulQzI4sNNJ13LYsZIRO1fRYqWLdMnXR
-	 RDud4Oyh7EbUkSMXkA+D6JPQvvr8+ctYt6UESc5y0UMNjAyQF4XPrlgibndN/rD44Iw==
+	t=1794035005;
+	b=B+s0e2SS7MVIepnsPfrZ2xmN2GKcca0zcqubYf+jqtplx0xswN+hakic7LyN/3GBlTfR
+	 LLA9+k25dX+Y2HqefQPsU8dAccfpfaLHpEmQ4LehNMvQSihnDUbLu5CNFpA9MYl0Sbfeu
+	 ZBCjB6wITIpEPc8WKEGtiOkC+WHo7KA+UP7UVYnl5dFiVhaEFj6FYQlTnPIesLgkNqj/K
+	 tq302AbAbZZ0yPtv0YPclPICGUua4pgGelcLA0kA0lOi3nTJcWh7MeUEc9z2nMBGb65kr
+	 XkS1W0xhha/3jQOw1JAZlbF/UWnnkOwKCHEWAFw4tqCUu77HnPeJxuQ7Buky7ugijlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794034990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794035005;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
-	b=yZRZ1MWD2ctJMdAVCdjvQabaWeZpxQET9UDT40XB3yHFDye9xtl6IOJlWJxg6pl3N5V0
-	 2DVuxVy3OlxfvlqOYpFaSYhncIouhGCCzuj91jefCKMfhwpjnNwQkfRgw2vR/UKHIIUyl
-	 by9mP8ZXPew7tRLXFIZLuh7God8TCzAvAJnt1j/MiCBY/D7m+PpOaqmRUGWberrfrlLBL
-	 H4Xpf/eXcgRD/TyjGFRgKv0bCuHiVDR1RxAewDzBjTfKkO0sXuWDnf3+odJ2miPsyoJLd
-	 SLT/DMs1LyGEbcVuGJ1TjOWLqJTvWTyNO9RmkijbK6e5qEEY8Je9yr2BvX7xr7ehULQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Baqew0KNyzgBR3FnUq20SDqiNfAUJfjKlTUH2vm2UXw=;
+	b=QNSuyWnfZ8T4dmAphz2JrPMwEbsyHQWqjybXP2dnL/RKBeSx48cWsCSEqSBsE0Ufhw8r
+	 L5XJPf5Jmey91FDO2Be/x+bbqbz1g1L1sd5h5nTsATnc0iULJTc7vnXUuaKH3Egi/EYx6
+	 PIkLZNzUctxAIXNYYWEU+PV643C7nhSdhUywlPEconXc/I+HKfQDMi49eAKQodhdoRc8A
+	 pfBt5uG5VxPFOZOpdh9T7izXyFK2Tszw7QXkJGTv8NImj0Hn1wDDkq1KZEoj1viLTJCQ3
+	 W2neCUrDstOsWriHEUEmL28DgBLrqPTz+ZFuJHrJmjB9eIAzOL8Hs//XC0ULvRmA0pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcmYpw6e;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=npiFAhEI;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97ADB606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97ADB606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAC3606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:03:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCAC3606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcmYpw6e
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdaefe02d5dso824616a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 23:03:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=npiFAhEI
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36ff9c9da34so1796487eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 23:03:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794034990; x=1794639790; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
-        b=GcmYpw6eafQhXUAXEwA8jwummuHvOzaIwSi0Y74SZr4ARQSCpITqDEnVzsgzgEsFFK
-         8XA3N+FlcWdCRo6cxvHhjVmbXoQCBTMnvihWtnebvnUL3NP3Kkpim/1OsujmN6CK+fW1
-         geLraiZRO6B8jG4UZdjv+zwi43Jlr2aXeZgNaBPowHqPglGKqkButi623n2sV2Bvqsrv
-         t+disbEPHRq8Qd0BP166jNXPM9Gqr5OHyQmNU0ce3pgBHLxLRP9CqDP2hWoTHyRYQzdY
-         0oQlaX9hiO5XM3aPoarRtrL9S76WG92mEJ3+29HAyk72Et5dbOW6rKyGY9BwwARORPD6
-         pEWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794034990; x=1794639790;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794035004; x=1794639804; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
-        b=D14cem/g/Qs+piw3uG7139BFyJ6Oh7QCd11fW29zMkZHyCF5U7AMV+dvoudVjqzm4f
-         ufbHcvjcPtu1ZbZjLwUp7fCbRooYvHi3isfiI12vJFHQB55JR7P/pb0D9DtUBINfgm4J
-         1+rervEBUHk6Z2v+EETxu2gHeWxcD/IL26o07Rh8Hqd+tUjTqhGowNNL5QHLd/O0kXxO
-         hpQXN4hfL4MB9QBpb47HItNviiJWFHBw3hjc5J/tc8+uiXgH3bQUCxRnJWm8F2RGKPln
-         YY9bnu179nyIWX1JIx/k8ZqXE0PK4Y9Z2ykI5PTQ0HIRWQTeU5WFJ06pg0Gu4aLMb1YI
-         ERgw==
-X-Gm-Message-State: APuU4Z+jR4DQoX9mk68081kXxMBFQim4/F4y9wda6gbVt7uf0NtJ39sX
-	fPvbdhog5IM6ewPjWUs6YetqwWg/cM07XSDF2LAqbM9I+ZI0y7x8kUSB
-X-Gm-Gg: AYBFou2RKMhEgBk7IKU9qle1rBulqBl8S53W8mgOwyjn9A042zI7T5VRJWEF9c2KXT4
-	6BHaUkl68s3xF4iYo3hG2tkR+2cC/38emYjMuQZ7DOJ/5EqOIf79cW96hsOwQid4DqH/U/yLsOL
-	bpM/sih7D3dztZ0jLsIjDy5ks3uGPCieFO+bVfDDlaRCvScl9my65Umuy8GnU0FOE7ReS5NzK5c
-	+UqRRr7gJq4PjGTqDZT5PF9X+pnVew2Fsn2dWjT87X3/fwA5rXwSKqHdfyRDVBUKS+bW5uLL9JO
-	g5XSR0xOof26k3CFQG0PBgJawbnEu7lYPwS4uSSf/eXobxwijdal4q3yRZt4fv3qKRTh/HrSJtE
-	6Qz9+XGbHA9ftGULZPGUboCj4Ij1UpFU8RiYnf19kA4PVcsB9lw2LPaIVPuy/mpMQM8tCm8+a8g
-	IFAYfHx0xAM3dBREAAJiUO1Aor8HaFjWG7hhX/qdpCap3mi+YSHVPxeRi8UP822vFGWyMUhzp93
-	E7IiDpVPAkEThqv6+OaaG4susZ76oD8kHEIxp5azR4Ijm3ET0eRZiqbMpDmxV70Cz4P61n1PivK
-	VwP5QWFW2k6dVvL3FH9y79OGGSa3KBSMRj8Tzj/XSUi0S5Ga
-X-Received: by 2002:a17:90b:2792:b0:3b0:cc6f:1046 with SMTP id 98e67ed59e1d1-3b0db7109d1mr4442933a91.67.1794034989765;
-        Fri, 06 Nov 2026 23:03:09 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c1c2csm2220866a91.2.2026.11.06.23.03.06
+        bh=Baqew0KNyzgBR3FnUq20SDqiNfAUJfjKlTUH2vm2UXw=;
+        b=npiFAhEIAbNe+iqhoScdUI4ypKHQgHMeUMgY+1/v5jna8muAetGdtn+vTWuZT0+FpE
+         HN1RjZCpyb8QZKzOTmoXpdXwEhB/Uv9HIFeGr7AlxdI/MVZWG5vAzv5L3YDpTVcgFoPn
+         jpGCfPEGkjmmQEHz9LGK2plRmHu7P8uSRPCswDP5fRtzE0FcbJakAOD/AxIp65fEfxHA
+         YS4Hcxeyvc/Fn6cEB+xAdoNz4Y5XLwEJvQ3mqjGykcl/D3dcUzBWMus4EosJAmXL+zVG
+         y+ZFF8BXynb23fgUcfigKomrCs4ZRE+G62CbWWJaDd0AbkzW7Va6rV3GdpTwPfOdpLGA
+         KI/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794035004; x=1794639804;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Baqew0KNyzgBR3FnUq20SDqiNfAUJfjKlTUH2vm2UXw=;
+        b=hwNqewydMVaG4jlbslfD4IGC6Ts55NZRZeZjExQB1eARJNZ1wIb5j4esMnWG+wwVE4
+         E6OKpIDPvn60rSBGuc9UIU2aQeAzsHUlB1vFn8PPW08zHwtn36R8PAVfezhHUUoPnGbw
+         WN05OeEz4+iPuZf5SJ/isrRRKfzy6wlr4oLih3CPep3yOqzQ2rw4U3oeRXg4SGF5BrEB
+         SUODfv7KQZUFYS44M58nDfkGPRwrIYA1KqMqRJfnfFXFuIz93BSeG+7NktPbP0ANjz0T
+         zATunvceffKfITzFvEi5UApMbvjrtLE9/WJjmRiEu9c2S9HUitnpHrbPBrK/QVMefFfe
+         /qxA==
+X-Forwarded-Encrypted: i=1; AL+hErFa4UuGnahP2miO0iJCP/o0T2aXbCo/rOnEFozUVr8abMO7ep0vNa/yX3JE/15J/IYe9N9JXp2KM/G+auw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AFiGJhdN8uYi9Ieh/WC69sw8OEwVMOeShdpyeFf1yZILV1Nm5
+	HrdKD+WkKNs0do3KpSZrtvL2gLvVAoBDR2e4mJRgAb3qY/WZIlFEyFwS
+X-Gm-Gg: AYBFou0tMuPXlzdIxV3r3OXAfu1AaKlXsAtunvHPmSFrQ3JaxlNds/Hh7kujQm4cb+h
+	RQBgZe6Ki8gQkPGOh5AB6YX8jsB2S5/niDhtTgkRsHLWiQGJr2f/jTgNG5gpypma8j10kIy3CNT
+	lXlSgpcFG5mUakB5v5z0o59oAJSc/cbiXWGWztpQ6XijWl9z0EkHsWHKoZSm2guoX0J2a3JA68a
+	+1VM2yVwIQi+W98tMBrw6oZUFRYeZdI98cxXFfskBAJQI2NnXQhfxBqyTD64kAwvlNVRyD2FoGP
+	sESmeL0LWrX2/2wwu3ajiGs/tFloHAafwiTDHicEWgYHfBC6CMfN/zkqCc0hddY1/lLEwfgL662
+	d9BFZuCo4Vg7BUC7TbGdyH3aN2b+ZfPqjHyCusbDQQr6zt765DSKMnV4UCxs7SzQUlxljfWT90V
+	7Cy9XmtB5dbKitkp7c8YfXwRXewhzbZD3aWJ9ou6vy/gZP+qTK7BcMuwIRPd6xOodwCr/xTwGrf
+	s0+8ZLytO0zC0rloJVf+oOZYbOa24SijigF3SqW8CWeHSoNgyVADJ23NGbCZK7/Vgoe/vRwkVdr
+	2PPbJil9cK9wE1ICeKc/cKlB1akOK8pmN3WX2R8HwhEd
+X-Received: by 2002:a05:693c:66cf:20b0:36c:da71:37e0 with SMTP id 5a478bee46e88-36f72cc851fmr6877224eec.2.1794035003650;
+        Fri, 06 Nov 2026 23:03:23 -0800 (PST)
+Received: from asahi.tail4da9e3.ts.net ([223.38.80.59])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa6a649csm12684195eec.26.2026.11.06.23.03.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 23:03:08 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: gadget: pch_udc: drain vbus GPIO works before freeing the device
-Date: Sat,  7 Nov 2026 16:02:58 +0900
-Message-ID: <20261107070258.3413402-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 06 Nov 2026 23:03:23 -0800 (PST)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: Balbir Singh <balbirs@nvidia.com>
+Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] taskstats: account exiting threads once in TGID reports
+Date: Sat,  7 Nov 2026 16:03:19 +0900
+Message-ID: <20261107070319.953869-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261031052451.78846-1-pocj8ur4in@gmail.com>
+References: <20261031052451.78846-1-pocj8ur4in@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,74 +102,266 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+A TGID query can count an exiting thread twice after its contribution
+reaches the cache, or miss a zombie thread whose contribution has not
+been cached. The final TGID exit notification can also be sent before
+other exiting threads finish cache accounting.
 
-pch_vbus_gpio_irq() and pch_udc_dev_isr() schedule
-dev->vbus_gpio.irq_work_fall / irq_work_rise (pch_vbus_gpio_work_fall /
-pch_vbus_gpio_work_rise), whose handlers obtain the pch_udc_dev via
-container_of() and dereference it (dev->driver, dev->pdev, and
-pch_udc_init()/pch_udc_reconnect()). Nothing cancels these works on
-teardown.
+Track whether each exiting thread has contributed to the cache, and
+use that state when collecting TGID statistics. Defer the final exit
+notification until all exiting threads finish cache accounting. This
+keeps TGID queries and the final notification consistent across thread
+exit races.
 
-pch_udc_remove() -> pch_udc_exit() -> pch_vbus_gpio_free() previously
-only called free_irq() for the VBUS GPIO interrupt; dev is allocated with
-devm_kzalloc() and is freed by devres after removal. free_irq() only
-waits for the interrupt handler to finish, it does not cancel a work the
-handler has already queued, so a pending or running work then runs
-against the freed pch_udc_dev (use-after-free). pch_vbus_gpio_work_fall()
-polls for up to PCH_VBUS_PERIOD (3s), widening the window.
+In an arm64 QEMU/KVM guest, forced exit races confirmed that TGID
+queries count a thread once and the final notification includes both
+exiting threads. The existing taskstats selftest passed.
 
-The two works are armed differently. pch_vbus_gpio_init() assigns
-dev->vbus_gpio.port and INIT_WORK()s irq_work_fall *before* request_irq()
-sets dev->vbus_gpio.intr, and pch_udc_dev_isr() schedules irq_work_fall
-exactly when dev->vbus_gpio.intr is 0; irq_work_rise is only initialised
-and scheduled once intr is non-zero. Cancelling both only under
-"if (dev->vbus_gpio.intr)" therefore misses irq_work_fall whenever the
-GPIO is present but the IRQ was not acquired (gpiod_to_irq()/request_irq()
-failure, or a device interrupt racing removal before interrupts are
-masked).
-
-Drain each work according to how it is armed: cancel irq_work_fall
-whenever a VBUS GPIO port exists, and cancel irq_work_rise next to
-free_irq() under the intr guard. free_irq() runs first so the GPIO
-interrupt can no longer schedule work before it is drained.
-
-Found by static analysis and code review; not runtime-reproduced (needs
-EG20T/ML7213 pch_udc hardware with a VBUS detection GPIO and an interrupt
-racing device removal).
-
-Fixes: 637b78eb31e0 ("usb: gadget: pch_udc: Detecting VBUS through GPIO with interrupt")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Fixes: ad4ecbcba728 ("[PATCH] delay accounting taskstats interface send tgid once")
+Link: https://lore.kernel.org/all/asaKCo5lwB3nzWNM@redhat.com/
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
 ---
-v2: drain irq_work_fall under the GPIO-port guard rather than the IRQ
-    guard. irq_work_fall is scheduled from pch_udc_dev_isr() when
-    dev->vbus_gpio.intr == 0, so the v1 "if (intr)" placement skipped it.
-    Spotted by Sashiko AI review. The separate pre-existing missing
-    cancellation in pch_udc_shutdown() that the review also flagged is
-    left for its own patch.
+Changes in v2:
+- Remove the fork-time reset: a task cannot fork after taskstats_exit().
+- Drop the exit_state check: an unaccounted zombie still belongs in the
+  TGID query, including for a single-threaded process.
+- Defer the final PID/AGROUP and TGID notification until every exiting
+  thread has finished cache accounting; keep both records in one message.
+- Use task_struct::atomic_flags rather than adding a new task_struct member.
+- Mark failed cache allocation as finished so a deferred notification
+  is not left pending.
 
- drivers/usb/gadget/udc/pch_udc.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+v1: https://lists.openwall.net/linux-kernel/2026/10/31/267
 
-diff --git a/drivers/usb/gadget/udc/pch_udc.c b/drivers/usb/gadget/udc/pch_udc.c
-index 99b3ce2..5351bd9 100644
---- a/drivers/usb/gadget/udc/pch_udc.c
-+++ b/drivers/usb/gadget/udc/pch_udc.c
-@@ -1406,8 +1406,12 @@ static int pch_vbus_gpio_init(struct pch_udc_dev *dev)
-  */
- static void pch_vbus_gpio_free(struct pch_udc_dev *dev)
+ include/linux/sched.h        |   9 ++++
+ include/linux/sched/signal.h |   5 +++
+ kernel/taskstats.c           | 104 +++++++++++++++++++++++++++++++++----------
+ 3 files changed, 95 insertions(+), 23 deletions(-)
+
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index d35ae49a991f7..257e6028c88c1 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1875,6 +1875,8 @@ static __always_inline bool is_user_task(struct task_struct *task)
+ #define PFA_SPEC_IB_DISABLE		5	/* Indirect branch speculation restricted */
+ #define PFA_SPEC_IB_FORCE_DISABLE	6	/* Indirect branch speculation permanently restricted */
+ #define PFA_SPEC_SSB_NOEXEC		7	/* Speculative Store Bypass clear on execve() */
++#define PFA_TASKSTATS_TGID_ACCOUNTED	8	/* Included in signal->stats */
++#define PFA_TASKSTATS_TGID_SKIPPED	9	/* No TGID cache at taskstats_exit */
+ 
+ #define TASK_PFA_TEST(name, func)					\
+ 	static inline bool task_##func(struct task_struct *p)		\
+@@ -1913,6 +1915,13 @@ TASK_PFA_CLEAR(SPEC_IB_DISABLE, spec_ib_disable)
+ TASK_PFA_TEST(SPEC_IB_FORCE_DISABLE, spec_ib_force_disable)
+ TASK_PFA_SET(SPEC_IB_FORCE_DISABLE, spec_ib_force_disable)
+ 
++#ifdef CONFIG_TASKSTATS
++TASK_PFA_TEST(TASKSTATS_TGID_ACCOUNTED, tgid_stats_accounted)
++TASK_PFA_SET(TASKSTATS_TGID_ACCOUNTED, tgid_stats_accounted)
++TASK_PFA_TEST(TASKSTATS_TGID_SKIPPED, tgid_stats_skipped)
++TASK_PFA_SET(TASKSTATS_TGID_SKIPPED, tgid_stats_skipped)
++#endif
++
+ static inline void
+ current_restore_flags(unsigned long orig_flags, unsigned long flags)
  {
--	if (dev->vbus_gpio.intr)
-+	if (dev->vbus_gpio.intr) {
- 		free_irq(dev->vbus_gpio.intr, dev);
-+		cancel_work_sync(&dev->vbus_gpio.irq_work_rise);
-+	}
-+	if (dev->vbus_gpio.port)
-+		cancel_work_sync(&dev->vbus_gpio.irq_work_fall);
+diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+index efa1e2d6c7a6b..b6f4e24e1552e 100644
+--- a/include/linux/sched/signal.h
++++ b/include/linux/sched/signal.h
+@@ -14,6 +14,9 @@
+ #include <linux/mm_types.h>
+ #include <asm/ptrace.h>
+ 
++struct listener_list;
++struct sk_buff;
++
+ /*
+  * Types defining task->signal and task->sighand and APIs using them:
+  */
+@@ -221,6 +224,8 @@ struct signal_struct {
+ #endif
+ #ifdef CONFIG_TASKSTATS
+ 	struct taskstats *stats;
++	struct sk_buff *taskstats_pending_skb;
++	struct listener_list *taskstats_pending_listeners;
+ #endif
+ #ifdef CONFIG_AUDIT
+ 	unsigned audit_tty;
+diff --git a/kernel/taskstats.c b/kernel/taskstats.c
+index f31df72f0e9df..3e1f5a44ee62f 100644
+--- a/kernel/taskstats.c
++++ b/kernel/taskstats.c
+@@ -245,8 +245,8 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
+ 	u64 now_ns;
+ 
+ 	/*
+-	 * Add additional stats from live tasks except zombie thread group
+-	 * leaders who are already counted with the dead tasks
++	 * Add stats from tasks not yet included in the dead-task cache.
++	 * Accounting can finish before exit_state is set.
+ 	 */
+ 	rcu_read_lock();
+ 	first = find_task_by_vpid(tgid);
+@@ -261,7 +261,7 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
+ 
+ 	now_ns = ktime_get_ns();
+ 	for_each_thread(first, tsk) {
+-		if (tsk->exit_state)
++		if (task_tgid_stats_accounted(tsk))
+ 			continue;
+ 
+ 		tgid_stats_add_task(stats, tsk, now_ns);
+@@ -280,20 +280,48 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
+ 	return rc;
  }
  
- /**
+-static void fill_tgid_exit(struct task_struct *tsk)
++static bool tgid_stats_complete(struct task_struct *tsk)
+ {
++	struct task_struct *thread;
++	bool complete = true;
++
++	if (atomic_read(&tsk->signal->live))
++		return false;
++
++	rcu_read_lock();
++	for_each_thread(tsk, thread) {
++		if (!task_tgid_stats_accounted(thread) &&
++		    !task_tgid_stats_skipped(thread)) {
++			complete = false;
++			break;
++		}
++	}
++	rcu_read_unlock();
++
++	return complete;
++}
++
++static struct sk_buff *finish_tgid_exit(struct task_struct *tsk, bool account,
++					struct listener_list **pending_listeners)
++{
++	struct sk_buff *pending = NULL;
+ 	unsigned long flags;
+-	u64 now_ns;
+ 
+ 	spin_lock_irqsave(&tsk->sighand->siglock, flags);
+-	if (!tsk->signal->stats)
+-		goto ret;
+-
+-	now_ns = ktime_get_ns();
+-	tgid_stats_add_task(tsk->signal->stats, tsk, now_ns);
+-ret:
++	if (account) {
++		tgid_stats_add_task(tsk->signal->stats, tsk, ktime_get_ns());
++		task_set_tgid_stats_accounted(tsk);
++	} else {
++		task_set_tgid_stats_skipped(tsk);
++	}
++	if (tgid_stats_complete(tsk)) {
++		pending = tsk->signal->taskstats_pending_skb;
++		*pending_listeners = tsk->signal->taskstats_pending_listeners;
++		tsk->signal->taskstats_pending_skb = NULL;
++		tsk->signal->taskstats_pending_listeners = NULL;
++	}
+ 	spin_unlock_irqrestore(&tsk->sighand->siglock, flags);
+-	return;
++	return pending;
+ }
+ 
+ static int add_del_listener(pid_t pid, const struct cpumask *mask, int isadd)
+@@ -581,13 +609,34 @@ static struct taskstats *taskstats_tgid_alloc(struct task_struct *tsk)
+ 	return stats;
+ }
+ 
++static void send_tgid_notification(struct sk_buff *skb,
++				   struct task_struct *tsk,
++				   struct listener_list *listeners)
++{
++	struct taskstats *stats;
++
++	stats = mk_reply(skb, TASKSTATS_TYPE_TGID,
++			 task_tgid_nr_ns(tsk, &init_pid_ns));
++	if (!stats) {
++		nlmsg_free(skb);
++		return;
++	}
++
++	memcpy(stats, tsk->signal->stats, sizeof(*stats));
++	stats->version = TASKSTATS_VERSION;
++	send_cpu_listeners(skb, listeners);
++}
++
+ /* Send pid data out on exit */
+ void taskstats_exit(struct task_struct *tsk, int group_dead)
+ {
+ 	int rc;
+ 	struct listener_list *listeners;
+ 	struct taskstats *stats;
+-	struct sk_buff *rep_skb;
++	struct sk_buff *rep_skb, *pending = NULL;
++	struct listener_list *pending_listeners = NULL;
++	unsigned long flags;
++	bool complete;
+ 	size_t size;
+ 	int is_thread_group;
+ 
+@@ -603,17 +652,17 @@ void taskstats_exit(struct task_struct *tsk, int group_dead)
+ 	if (is_thread_group) {
+ 		/* PID + STATS + TGID + STATS */
+ 		size = 2 * size;
+-		/* fill the tsk->signal->stats structure */
+-		fill_tgid_exit(tsk);
+ 	}
++	/* A failed cache allocation must not hold a pending TGID reply forever. */
++	pending = finish_tgid_exit(tsk, is_thread_group, &pending_listeners);
+ 
+ 	listeners = raw_cpu_ptr(&listener_array);
+ 	if (list_empty(&listeners->list))
+-		return;
++		goto out_pending;
+ 
+ 	rc = prepare_reply(NULL, TASKSTATS_CMD_NEW, &rep_skb, size);
+ 	if (rc < 0)
+-		return;
++		goto out_pending;
+ 
+ 	stats = mk_reply(rep_skb, TASKSTATS_TYPE_PID,
+ 			 task_pid_nr_ns(tsk, &init_pid_ns));
+@@ -630,19 +679,28 @@ void taskstats_exit(struct task_struct *tsk, int group_dead)
+ 	if (!is_thread_group || !group_dead)
+ 		goto send;
+ 
+-	stats = mk_reply(rep_skb, TASKSTATS_TYPE_TGID,
+-			 task_tgid_nr_ns(tsk, &init_pid_ns));
+-	if (!stats)
+-		goto err;
++	spin_lock_irqsave(&tsk->sighand->siglock, flags);
++	complete = tgid_stats_complete(tsk);
++	if (!complete) {
++		tsk->signal->taskstats_pending_skb = rep_skb;
++		tsk->signal->taskstats_pending_listeners = listeners;
++	}
++	spin_unlock_irqrestore(&tsk->sighand->siglock, flags);
++	if (!complete)
++		goto out_pending;
+ 
+-	memcpy(stats, tsk->signal->stats, sizeof(*stats));
+-	stats->version = TASKSTATS_VERSION;
++	send_tgid_notification(rep_skb, tsk, listeners);
++	goto out_pending;
+ 
+ send:
+ 	send_cpu_listeners(rep_skb, listeners);
++out_pending:
++	if (pending)
++		send_tgid_notification(pending, tsk, pending_listeners);
+ 	return;
+ err:
+ 	nlmsg_free(rep_skb);
++	goto out_pending;
+ }
+ 
+ static const struct genl_ops taskstats_ops[] = {
 -- 
-2.43.0
-
+2.55.0
