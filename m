@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794145322;
-	b=bWdlzB53QlLaMRkkzTIu1RApJWHo0fV4JD6IBx0bDToIZsEqg8/QdIti9102ABwB1Rad
-	 4P73vAeAWx11QUYOVN3zsWc8Ef8cJM5ep9+ihskft0aDKJ7zL8WKZzpCGkw8uc/bJoHaU
-	 rra2kKZaj8mUL2l5Ov6GElUBMljktlM1l4SeeIJ073QEzE/EEpUY4sdqj38653dxmuf8U
-	 uCIlciH9FgEyh1dPCSQUXEpCSm4O3itg7qr9ttTT5Gaih8OcNC2CGOiRXNNcOZigV4jzw
-	 xBxXkkkTQ15cR3EkkglKkf7eg0EsC8tAhhjHSQwj6C90yj6cAp5JN64FBMFxgAAp/2g==
+	t=1794145434;
+	b=jZhNOGxzN60GuwpcBmqbbrR71wINxYRKikbZi6Qhn6hPZ7BFmGhBEqXSiRE891wKnFg7
+	 +bkPW5Eb5qWPyWJg7/EVNFQmqXpcmc0ULMfQOjXzaXhIME3HLzJO+G9+4TlnokUxhHxZa
+	 PcTIe/gI9DF0X7XLUNTcSbzIvENGmRySmpoaCdFHQ1xDJPelzxnOJBxOF9zsCmtai4UFk
+	 UqilpqiDQ//c9c/PzQJ+QMdsdZiLynhLED6JKVVqyEUzq4GJLbYUMsUL+vLHqxQUezozj
+	 p+OA6UiWRZCa3xj3jliDZv0WbPeM22kF8MmmrPCGpOH8eau4ov0mqfGRBRH5ikXFvIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794145322;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=+Sf/dbKnNotRcB/HKFEzImZxE/j4OhJ30lJ32BNW8Xk=;
-	b=XOUIna6IV1aSm5v5GMc+iQstlpdimm2m5wkiO5rz2pJgaZZYq15lsKQYJTC8bPUxEyxH
-	 hVBu9oQom6oE7EPu/Mc8tqk4w8T/fzZiEiMmvxe2Xc8E7MR0jEumFfCz0NCsW2nYD07u0
-	 BRsDZ6PpBSqApHJa2NEyon/K3u1QxvpAZ/qWYvxGcv2J7LzSt02N1qc+o9UL+jdh3OAsA
-	 12Jr7OR0IgW82Fe0E9RWq16m3CfWzE795xmME7ZmNeL3OB1LBj6a18HpB+yQlk8cueMEa
-	 DIq/6azWpHlIPi1FyLa6RnhNsx7Sqnkwd4tN+vtKWlg1Nhsj4IwiuUKVS66s6Y1zs4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794145434;
+	h=Received:DKIM-Signature:Received:From:To:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=FiqicRgGFFmdN/zUTJYuWA333LJrRHYqatW2CdxXaWU=;
+	b=V4ek9zJXErALnd9lyU3qVvNigWYb3xEOJMh6IonIUEO7TZ+xL1POKrseSANSCpVJ/Vek
+	 hkZI+8UY3Ax0/UYv5TUlEpwAFlAa7KQxq4j9mkicvNHaXfb8D0D2V5bmjjJ2Gza4hoSHt
+	 q/5TEIsgPN3gqRKA7wn2EXdcqGFkvbEfA3FEaeOoWT0XgOccxZPZ6GnwO7Lrx+H2TuKIm
+	 rv+QSetpVxxjAQIyIEMTy9PqPiTShi4Tkx8FMT33lwCwjt6ocIWkkjzM9cMDuFFiGQN9L
+	 8WcpTI/YokiG86pWUgyG/cL7hCCVvfPzfBFPWvvBYRzHcWhBRZr2iaoh6G8G9b9bV6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvN+ldnk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF80606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 13:42:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FF80606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f2040e10d8so58359b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 05:42:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794145320; x=1794750120;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+Sf/dbKnNotRcB/HKFEzImZxE/j4OhJ30lJ32BNW8Xk=;
-        b=br98Ywq5YevN516gwVp9jZavdPpPUKcwM/CXZ43vbw5Jbilx1AMZ2ZFkJUHL7Fn/uK
-         PQhwJB/aODFXqatrGwaJFCqiqhM9n0wKPyBGiQmKIN6yopjXdwTavtS0iQDBZtmx+GEi
-         c88J8/eNLQiw4yceybK1ICQt+pb6M1cejI/KuWzeF9f0dEVQB7zjLyVNIPnNjP/1AiNt
-         ATjnMcNXXjpWqUa0GsrUD0rJ7UUreRVlVmktdK2BF/rf1ekmAFkzERT6h3zc8WfWyUH3
-         d53yfY98GU6SfsIdMqBNlWBBvRncMBOQKbg8dVhbRGXLIH8nCIJXj+T5eiQt0pFcssqf
-         3ISg==
-X-Forwarded-Encrypted: i=1; AL+hErHA2Kb4zfo7KYVJHXsS18sLs39dizzGhQpkVoNwtaF1eWImyGog2a5YKBIwaC57nsViLgasCg4kJvIydn8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/N0Q8YmRP+fURKkvhx5FjyNE2QQA1GaEuBCVGa+RuwH58odrDX
-	+g6iYcvyUj3EH/zORr8hblatH+SXzL7PGEa29KgwOsTRFBWoyF+6AZP2b72h8OKZKeWPFJegZqA
-	siY6RWS3dC1ZbPONoW6MNfNO5VKII5lRdhjBH0HP5V4hVSkmm1DCuNRVeEyo=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BC0606A330;
+	Sun,  8 Nov 2026 13:43:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvN+ldnk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CC751F008A1;
+	Sun,  8 Nov 2026 13:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794145433;
+	bh=FiqicRgGFFmdN/zUTJYuWA333LJrRHYqatW2CdxXaWU=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=IvN+ldnklVfjckmSa8v/QBmd3v4Z/h2SyprJcN8nMSkNov+9JghSTnGjC7m+ZqaGK
+	 O0pg5F4bG3Y5jc4VumpHbnK2/IpD/J/X2aV0CmRsZkEpCBvJOvqM266hlHvLV7ZrOa
+	 TAsJ8h1VKevss4Qsmw6dcJul/Mvtdl9IHnko/5aa+U9bBFvoNJFNgq16xYOXaqBUYP
+	 sX0I61z5q+5di8ttgvUA24pTzmXC1ItwZrMKqJSgriNVD1kv3nAjMPVGr936vAaGQX
+	 GldAkOxQagVI+UQ5NKRA0UC3KkqmmhEPpsfN4rusG7/rHQT13S2NqbzaP7XvUj8PTH
+	 MyIg6naQNStSg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 016582C79261;
+	Sun, 08 Nov 2026 13:43:50 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com, 
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, shengjiu.wang@oss.nxp.com
+In-Reply-To: <20261028025921.4155551-1-shengjiu.wang@oss.nxp.com>
+References: <20261028025921.4155551-1-shengjiu.wang@oss.nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_asrc_dma: fix error handling for DMA channel
+ retrieval
+Message-Id: <179406738653.3424803.17185079246753708576.b4-ty@b4>
+Date: Sat, 07 Nov 2026 16:03:06 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,43 +64,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f4e:b0:4f5:41f:fdba with SMTP id
- 5614622812f47-56814645d74mr1034990b6e.20.1794145320701; Sun, 08 Nov 2026
- 05:42:00 -0800 (PST)
-Date: Sun, 08 Nov 2026 05:42:00 -0800
-In-Reply-To: <20261108134155.717-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af07c28.5a668245.1aceb6.000b.GAE@google.com>
-Subject: Re: [PATCH] Fix warning empty list in svc_destroy
-From: syzbot <syzbot+8cbdf9aa6c281a4e6bbe@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com
-Cc: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1159; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=qfnAP/FwyAoEO8cGoqqKsMFVyL4j6Nx5ZrB7pkI4f/8=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+1Ex10njipqc4P6LqndxP3c+KrFMfsVySiJUonaVxz
+ TXu2WGmjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEwk7A4jw5mpvguslvEJPwqu
+ u3CX/23AlOioh536alK7f/LO271hWTfD/8zr3PsF9+xT+lvMUrO366vSgSUXZmaF2B94LWduaxI
+ 1iwcA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> #syz test
+On Wed, 28 Oct 2026 10:59:21 +0800, shengjiu.wang@oss.nxp.com wrote:
+> ASoC: fsl_asrc_dma: fix error handling for DMA channel retrieval
 
-"" does not look like a valid git branch or commit.
+Applied to
 
->
-> diff --git a/fs/nfs/callback.c b/fs/nfs/callback.c
-> index bc282b744f34..74247ed66933 100644
-> --- a/fs/nfs/callback.c
-> +++ b/fs/nfs/callback.c
-> @@ -61,6 +61,12 @@ static int nfs4_callback_up_net(struct svc_serv *serv, struct net *net)
->  		dprintk("NFS: Callback listener port = %u (af %u, net %x)\n",
->  			nn->nfs_callback_tcpport6, PF_INET6, net->ns.inum);
->  	} else if (ret != -EAFNOSUPPORT)
-> +		struct svc_xprt *xprt = svc_find_xprt(serv, "tcp", net, PF_INET,
-> +			     nn->nfs_callback_tcpport);
-> +		if (xprt) {
-> +			svc_xprt_close(xprt);
-> +			svc_xprt_put(xprt);
-> +		}
->  		goto out_err;
->  	return 0;
->  
-> -- 
-> 2.47.3
->
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+
+Thanks!
+
+[1/1] ASoC: fsl_asrc_dma: fix error handling for DMA channel retrieval
+      https://git.kernel.org/broonie/sound/c/1f18d4babdf4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
