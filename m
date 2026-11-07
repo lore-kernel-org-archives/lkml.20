@@ -1,94 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794028652;
-	b=Bu00ea7yrz5vQ70wIRLDHUGOSSWCKvN9MtVqhNU5nuZu9lX9RT3cTLj78iVUqJPaHjWS
-	 9+a/CY2AR9tDbW/2MGmqyl0hjQ5qMQab7RTQGqtC0PgkTcWCOq/0irjxA8xxuQm9v3pMv
-	 5kxa1z39tZ8PQSfgoq/I0iI/nSO+VWRID4W3O252I6T4m06pmlqS/24gHFyG54xItedhl
-	 e/v6KhpoRdmCBNEQe/KyuCnLuf1VMlNq8dcD8w/Vduuel3ZqUwp7sO0iCpShcUb8iwEAF
-	 87tEIivAxPXeBGGt0okMETCKYzY6q5jnzQuZEHvwJz0mSIrEwObJxUECfGnOB/8yy1g==
+	t=1794028655;
+	b=M9M+qvNkWSloHblhnms9Xdq5dLRdtDHun1oZ1i2rnvbP96zR6P2ge+Z48umfQcqqjHAU
+	 0T40OoV1n4ozcCuz7cVHbqHy9NHxni9tGKI+hYhEU6M5ibqT1KhpIYzoIGovdmkRLU9kb
+	 UUpQZdjULCYEo87FOs7U47s4OfG7Quw45JcmW/WyOxCJZ1CPaN0uXNfw/EDnOYw03MxgC
+	 AmiAUdF+fskMfC66uzF2+vu99L8kBdDd0fDxiO4o/3NoZvEl1a2nKzIC1Hh/h5jUHxBuy
+	 YspPuvobydw4vN16IBfAU/4Y4nCBhLzbKgiV/OoXmW1seY3k7Nsv1C9SE6AyFLHBB3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794028652;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794028655;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sF0UOsiio986g30iDrox1EkIxmIR+gJ1qG6PTCrxja4=;
-	b=oTXNiuMX574WNLdRvHHgHXqFaipVONhHeNfn2KyU3/v1zQ6GNCEwEg6g2A3PVFLHWqR7
-	 FqDl01j6FFDS3z93KKr2qwyjV9iqD4++oRuo2oxmusQTbkr57RoTDSEml1P1JcNXA3P5C
-	 Rrgpbo8HexVEHqmz/SdcVoou+KGKqyZf11IlCA+r91Nd7+s9O8ze+BNqdgUb7VlCcJi1p
-	 4qxV+6kBfoX1eOAeC0zoTY47RBZatdtixO3TsmMnZD54whO5gbmUOjxBbMKiyQRFOPZug
-	 GpMQuKZvVhKi9m4zk9Bqe9Pjh80IRuwl7bpIfFZ2f2nSrp58dKvgcLN14We3GlNTsrA==
+	bh=vCTgyycIflOX8DIFUkseDn+OY9DjAvHPkZI6oEwJhxA=;
+	b=3/wA2hgXAH2eJyMtqIT3VHoWDrIOjyA6wXsI9LAasvjhD8YaM0h/Dg4lTO4IzFMpiTNo
+	 wH6tTHeOORgoA4pxAqeLmXlsk5nhFwfbBdLqfAa3GS3pb5p24ywrmeOGK+ZuS4z1XMNzx
+	 XVKsI/VQ23HoW/zWpLaW0kUf/fiI1cSOF+rHPGL2ZB6aGEKdv6iQrm6aOk6hQtJBP88GA
+	 Xi5xiyh6iKGzHYv4PbmKs+1XXpzJfGoLpepmzwsGmpEFEA9/LO6gTAt3mDxLx3SDwdFn8
+	 mqy66RzJTf5ZEoX+Ev28IfMGCw31ifUcZMuiMbOlxJmzKOgbO8nJckcFZ6QLb1spoqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YfCNFqgs;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqY4XhIY;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31CD606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E31CD606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D22606A332
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:17:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D22606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YfCNFqgs
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-370a1bc464cso1326787eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:17:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqY4XhIY
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e9d7791b00so9627615ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:17:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794028651; x=1794633451; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794028654; x=1794633454; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sF0UOsiio986g30iDrox1EkIxmIR+gJ1qG6PTCrxja4=;
-        b=YfCNFqgs5ptX7/y1e5eZqrklQ5J5QcziyQY0Zwzny3iWpwe8KXdKr/vfRo7lYjq2gz
-         Hq7IBpo0aauTt27MrfleSQJmQvda0ZCUGMfKqRl8Z7Yp+bhYYQxCGftDRwNvzPZlXG3g
-         H00hL8MdYQEoJLapglwe2tmYi39UpSuD+zpVZte99ild36cvusWMOjVMsXFYJ8zRqq+0
-         te9bb9JNes2UThkOfAAI0xko/ZQRLiRtzzZ/qWrW2d9xtekiLzcX/RGUxrn3GzGg7yrt
-         Gdp4xWx6Tu9RmbwU3qLnPatIEPW+20tZJu+ojp5nFlXz/iPe8SlMsaTSv7ZZKjY/033n
-         aKTw==
+        bh=vCTgyycIflOX8DIFUkseDn+OY9DjAvHPkZI6oEwJhxA=;
+        b=eqY4XhIYPBdLTeXVUr3lAIezwHA3rSnC5XoR/WMDyE7lVYc28tjb2e5k9SFBD+8nwY
+         mPs42hvwm8pAqkcPYvr8P5Pgei6sf0XcB9HGchj8qwdmfLsuUlIiLwbalO19r8G01F64
+         9ic5E0jNVCGMWlzo4ezbYsoOn6mJ8usyqR/3HTrxnA6Wg0w7PqULkcq9u5Zh3D0KEU6Q
+         /7eAZcsXC42CHYTM3bVvZbb4qHJHlwMFEmRvuj5xQ6wF+62VgBnj1mdBoEx3RsenN8Ku
+         zo47ziPsSAqGkj9GqQbsB8HB7zTFd4uLKFlCHoTI27WldHNyahN8RGVdYksXUCrEbQoZ
+         19wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794028651; x=1794633451;
+        d=1e100.net; s=20260707; t=1794028654; x=1794633454;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sF0UOsiio986g30iDrox1EkIxmIR+gJ1qG6PTCrxja4=;
-        b=xTrm0stTeK8LhO6BVvb/kMO3ScZw4K/5Im3q0RTeT9eQ602bFEzEgJQbs0lJHj7R5z
-         jMX3kJY7xC6UarVTBKlZHqHYPMfGHnlWZZfTYFHpZ3bu2XiFintrWpCmilt/oiyx5e9+
-         JFIcpP5ZgNen4JuMJZcQ0vCEYOVb5spMqf2wDpZTqcB83ljHZrcmssgJo8kGUMmC/YXA
-         qyuc219N6FJwksUdqquu/tjtuNcTxwgPZl4jYSCwVGgN1AM3+EEDlV6YCKrur7eyoF3x
-         TprcTunm4Clw8KuId5slLsKUxGOPHKl46jma4BTqmo+l/Hpjz691vOANPZtX9zgKbVBk
-         Bamw==
-X-Forwarded-Encrypted: i=1; AKwUvBxE7/9Jy/UXPN4fcH7QIngTZvvYTqqCA+KyWHC85sUTq/Bnz9EQAwjObpqz0FpKXOXCoMkwmBhNIHSfuVc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SklD9b3mqM9jOoSFVaAprq1xXOobBFCxhhuDsLwn9cBdRB1tv
-	E8hKTfhFL8tSfEcUNLE6D8gdqnDCjlJ8cqWSmNVkxc9PYVzcHOC7R6Jv
-X-Gm-Gg: AYBFou3yLOG6gyag2E1qZmDLa5sBGcxLUP7iCjarE3bs2OJ1Inwf4lzREUpwilrvs4H
-	INGUDKeAF+TCvROoISjxeT3C2qqVp6QHcEdqlhNWRO3VqxZaH8ZiwXrflfjCJvXeWgPxcZ4jHU9
-	yEX085Cll3Wo92112vPUwYFKCX3plMNsrBLkd6cI42dSjsI031wpyrHPxO+dpXXhkSO8zA40CGY
-	1NIhMcPvjeTsgI5eFrqyVnm0NIRRSNUBYOvYHj9NVuo/OTQ7RkJ75LtByJ7stOEdrI9dSNimmoz
-	oxtmn7M2lW4SKyTFnCOKTouJGKTzekdeMagrBiq5WGv2EffFGfNceWjL2vUJBNY4mzfw4Onw7P2
-	CfEg/JKRTTXRrvA3BobO5N6XAvH6B5wToLtd+4h0MNv8L82NQEvGyRFVe3iwEAdO1IsZTHVG1KK
-	3EkdpUi1Z31ZDt2LTyXxpvbjrdvo6kDinf2eemzJ+9fuXoNWo8vMjJAyzSkcNz0ZytnqF6JjzCN
-	f90uHzYP+nX41pCug4WgVm4bS0ZMWh0WyNhIh+nR0v5fb/8JaUhdfvd6V5vdU1JHzbAMRe7W4IQ
-	QUBkOpetReL8HsngmLP8DHC/hnv9b4n8nCKLzDG+
-X-Received: by 2002:a05:7022:1005:b0:1b2:42ae:94fb with SMTP id a92af1059eb24-1b25d32fe07mr7188206c88.37.1794028650847;
-        Fri, 06 Nov 2026 21:17:30 -0800 (PST)
-Received: from SHAN.localdomain ([171.79.50.139])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4e079esm12135641c88.19.2026.11.06.21.17.27
+        bh=vCTgyycIflOX8DIFUkseDn+OY9DjAvHPkZI6oEwJhxA=;
+        b=uZ1uv0tmJJze9BGBJS+ZgAfMGzJbOd0EJCO8YGLGrXvVwq3r0VY77u6XS2WVjKTDGs
+         3v/KD/ViLDtQDl1C7krjfreUu757hJr5nLY1Yy3AdnR2FLw6snK60NSrriRs8bkD3iY0
+         xLUsKTLYq0nKya/ZOwLxrttxyy8QiA6cVRaw29JJY7es0SKKJiTwrYNbIWTPzU+ytE9e
+         J8yL1IqBJh6ti+7xj9e7PwfLY3P/jbkbvJwc7+vhqLc4XSbdVZs00z6iTuNOInyl9Lgg
+         YRp/TRFBdCbOd8tQ2MGqHZ0lMAULp6cqvTGB2L/oiqEBstf+rwbigUo5bTmww/ruMWkY
+         34TQ==
+X-Forwarded-Encrypted: i=1; AL+hErEarClp7tPmqJ5llh9jSdxmxUtNWZ9sV+lsHJLwp3im/2ls9Qe1uwEgiC2vzgvGYDuKqsH68Cd0mdveYKg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FZDewXA2rCQozdOQV6i1sUt59JeXVNnCC4dn/uAju1qZxbqhD
+	N6UNm5rjOQxlrqixiQWvHYeTqcv4vco0au2nL6TG5/UefbfA/OuuagTp
+X-Gm-Gg: AYBFou0K3LATXuR1kzuaSdHKpTTb2zxa1UfZHWmPNzz4xoo1uO9RUj9G2jdxErJ5uR9
+	x6XixtdEwtwrM3vsJBEqaZ8gCj4wkZMoRz6BnHQQNK7hb3rRZTGrnHqygn4LOE1WDzYvaIK6Mom
+	kvQtYwHLHQ6Bywhg0zGQ2ZLi3IMogwRYb1LcElIa/Oe9IHqWZTk+Od4HviGd5uyLhMULs+cTtck
+	ezFLHJrHFORyUbEJwhLB1qlrs+LXNCxOFwggA//odkssyJWR6F8ORXxDPIsWV9b6Dj37zWYiR6p
+	Ye5IYiNWVFSzpXaXsviy952VJFIeCixum/z0iyDtyvCYVp3MxLeFrQ3TrfrJdzNrjCu72I/9skA
+	HppGT0RDiFjnETxjKTUMhfCBa5wndocUMBNcQ3biSp2xFK8M4LEZWsEMub4eMgMBTkQL2kEr6Xa
+	tg9z3ooNlcgBhBKx+P8OQGU3B9saqExBB64MAR8g7nBZXCWkUcuTPV5C8m3QwvZAjJoFAOR2tl0
+	1QsM/T9zdqznRoRX3SEyKXCYckBUNweZHwo+t0fBa0Fivv9/8EvFineg4V+gvu7tSMaiadZq/CA
+	ZiIKLyW/jTz9L06QE/QVJQ==
+X-Received: by 2002:a17:90b:3c86:b0:3ab:413:49bc with SMTP id 98e67ed59e1d1-3b0db7074c1mr4345247a91.37.1794028654209;
+        Fri, 06 Nov 2026 21:17:34 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b103435561sm1133772a91.3.2026.11.06.21.17.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:17:29 -0800 (PST)
-From: Shanmugapriyan S <sundar25sengai@gmail.com>
-To: mchehab@kernel.org,
-	corbet@lwn.net
-Cc: skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
+        Fri, 06 Nov 2026 21:17:33 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	John Garry <john.garry@linux.dev>,
+	James Clark <james.clark@linaro.org>,
 	linux-kernel@vger.kernel.org,
-	Shanmugapriyan S <sundar25sengai@gmail.com>
-Subject: [PATCH] jobserver: Handle read errors before claiming a slot
-Date: Sat,  7 Nov 2026 05:17:07 +0000
-Message-ID: <20261107051707.1311-1-sundar25sengai@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-arm-kernel@lists.infradead.org,
+	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH] perf vendor events arm64: AmpereOne/AmpereOneX: Fix typos
+Date: Sat,  7 Nov 2026 05:17:30 +0000
+Message-ID: <20261107051730.1880691-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,94 +103,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If os.read() fails with an error other than EWOULDBLOCK before any
-jobserver tokens are collected, the error handler falls through to
-self.jobs += slot. Since slot was never assigned, this raises
-UnboundLocalError instead of gracefully disabling jobserver parallelism.
+Three distinct words are misspelled in eight description fields in the
+AmpereOne and AmpereOneX PMU tables: "Preditable" in BPU_BTB_UPDATE
+(AmpereOneX only), "satisified" in LD_FROM_ST_FWD, and "misprediciton"
+in the branch_mispredict metric.  jevents.py copies the strings into the
+generated tables, so perf list prints them and a grep for the correct
+spelling misses the entries.
 
-Keep returning collected tokens conditional, but reset the claim, warn, and
-return for every unexpected read error. Add a regression test that injects
-EIO on the first read.
+Fix both fields where an entry has them; the metrics entries carry only a
+brief description.  No event code, metric expression or reported value
+changes, and the generated tables are not tracked, so the diff is JSON
+only.  ISTALL - the other codespell hit here - is the ETM stall-control
+bit name, left alone.
 
-OpenAI Codex assisted with finding the issue and developing the fix and
-regression test.
+Written with Hermes Agent, an LLM assistant.  Running jevents.py on this
+change produces none of the three words; perf was not rebuilt, so the
+perf list output was not checked.
 
-Fixes: b2664a90c171 ("jobserver: Split up the big try: block")
-Signed-off-by: Shanmugapriyan S <sundar25sengai@gmail.com>
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 ---
- tools/lib/python/jobserver.py     |  6 ++---
- tools/unittests/test_jobserver.py | 43 +++++++++++++++++++++++++++++++
- 2 files changed, 46 insertions(+), 3 deletions(-)
- create mode 100644 tools/unittests/test_jobserver.py
+ .../arch/arm64/ampere/ampereone/core-imp-def.json         | 4 ++--
+ .../pmu-events/arch/arm64/ampere/ampereone/metrics.json   | 2 +-
+ .../arch/arm64/ampere/ampereonex/core-imp-def.json        | 8 ++++----
+ .../pmu-events/arch/arm64/ampere/ampereonex/metrics.json  | 2 +-
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/tools/lib/python/jobserver.py b/tools/lib/python/jobserver.py
-index 7e94635bf..c8f220a36 100755
---- a/tools/lib/python/jobserver.py
-+++ b/tools/lib/python/jobserver.py
-@@ -154,9 +154,9 @@ class JobserverExec:
-                 #
-                 if self.jobs:
-                     os.write(self.writer, self.jobs)
--                    self.claim = None
--                    warn('error reading from jobserver pipe', repr(e))
--                    return
-+                self.claim = None
-+                warn('error reading from jobserver pipe', repr(e))
-+                return
-             self.jobs += slot
-         #
-         # Add a bump for our caller's reserveration, since we're just going
-diff --git a/tools/unittests/test_jobserver.py b/tools/unittests/test_jobserver.py
-new file mode 100644
-index 000000000..eafac510c
---- /dev/null
-+++ b/tools/unittests/test_jobserver.py
-@@ -0,0 +1,43 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+
-+"""Unit tests for the GNU make jobserver helper."""
-+
-+import errno
-+import os
-+import sys
-+import unittest
-+
-+from unittest.mock import patch
-+
-+
-+SRC_DIR = os.path.dirname(os.path.realpath(__file__))
-+sys.path.insert(0, os.path.join(SRC_DIR, "../lib/python"))
-+
-+from jobserver import JobserverExec
-+from unittest_helper import run_unittest
-+
-+
-+class TestJobserverExec(unittest.TestCase):
-+    """Test jobserver error handling."""
-+
-+    @patch.dict(os.environ, {"MAKEFLAGS": "--jobserver-auth=3,4"})
-+    @patch("jobserver.warn")
-+    @patch("jobserver.os.read", side_effect=OSError(errno.EIO, "I/O error"))
-+    @patch("jobserver.os.open", return_value=5)
-+    def test_read_error_without_claimed_jobs(self, mock_open, mock_read,
-+                                             mock_warn):
-+        """A first-read failure disables jobserver use without crashing."""
-+        jobserver = JobserverExec()
-+
-+        jobserver.open()
-+
-+        self.assertIsNone(jobserver.claim)
-+        mock_open.assert_called_once_with("/proc/self/fd/3",
-+                                          os.O_RDONLY | os.O_NONBLOCK)
-+        mock_read.assert_called_once_with(5, 8)
-+        mock_warn.assert_called_once()
-+
-+
-+if __name__ == "__main__":
-+    run_unittest(__file__)
+diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json
+index 879ff21e0b17..5a82a7717060 100644
+--- a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json
++++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/core-imp-def.json
+@@ -450,10 +450,10 @@
+         "BriefDescription": "OFB full cycles"
+     },
+     {
+-        "PublicDescription": "Load satisified from store forwarded data",
++        "PublicDescription": "Load satisfied from store forwarded data",
+         "EventCode": "0xD605",
+         "EventName": "LD_FROM_ST_FWD",
+-        "BriefDescription": "Load satisified from store forwarded data"
++        "BriefDescription": "Load satisfied from store forwarded data"
+     },
+     {
+         "PublicDescription": "L1 prefetcher, load prefetch requests generated",
+diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json
+index 324104438e78..76cdf38b1e58 100644
+--- a/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json
++++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereone/metrics.json
+@@ -260,7 +260,7 @@
+     {
+         "MetricName": "branch_mispredict",
+         "MetricExpr": "(BR_MIS_PRED_RETIRED / GPC_FLUSH) * slots_lost_misspeculation_fraction",
+-        "BriefDescription": "Fraction of slots lost due to branch misprediciton",
++        "BriefDescription": "Fraction of slots lost due to branch misprediction",
+         "MetricGroup": "TopdownL2",
+         "ScaleUnit": "1percent of slots"
+     },
+diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json
+index eb5a2208d260..558b13fd7d0d 100644
+--- a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json
++++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/core-imp-def.json
+@@ -84,10 +84,10 @@
+         "BriefDescription": "Predictable branch speculatively executed, unpredicted, that mispredict"
+     },
+     {
+-        "PublicDescription": "Preditable branch update the BTB region buffer entry",
++        "PublicDescription": "Predictable branch update the BTB region buffer entry",
+         "EventCode": "0x11c",
+         "EventName": "BPU_BTB_UPDATE",
+-        "BriefDescription": "Preditable branch update the BTB region buffer entry"
++        "BriefDescription": "Predictable branch update the BTB region buffer entry"
+     },
+     {
+         "PublicDescription": "Count predict pipe stalls due to speculative return address predictor full",
+@@ -438,10 +438,10 @@
+         "BriefDescription": "Fill buffer full"
+     },
+     {
+-        "PublicDescription": "Load satisified from store forwarded data",
++        "PublicDescription": "Load satisfied from store forwarded data",
+         "EventCode": "0xD605",
+         "EventName": "LD_FROM_ST_FWD",
+-        "BriefDescription": "Load satisified from store forwarded data"
++        "BriefDescription": "Load satisfied from store forwarded data"
+     },
+     {
+         "PublicDescription": "Store retirement pipe stall",
+diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json
+index a29aadc9b2e3..a0dc917b9462 100644
+--- a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json
++++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/metrics.json
+@@ -260,7 +260,7 @@
+     {
+         "MetricName": "branch_mispredict",
+         "MetricExpr": "(BR_MIS_PRED_RETIRED / GPC_FLUSH) * slots_lost_misspeculation_fraction",
+-        "BriefDescription": "Fraction of slots lost due to branch misprediciton",
++        "BriefDescription": "Fraction of slots lost due to branch misprediction",
+         "MetricGroup": "TopdownL2",
+         "ScaleUnit": "1percent of slots"
+     },
 
 base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
 -- 
-2.43.0
+2.53.0
 
