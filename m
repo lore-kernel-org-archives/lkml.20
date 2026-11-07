@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.204.81.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029378;
-	b=efavguJ0oFnazy9QBst2A6xbjIgIn5WaexjWNQjmJjTxy7Tt5vTEoMUjG0dKEkNviYZQ
-	 yhRgZTPSAJm4XglzJg4Esb7aiGiE3+m9U0bXVg98/Jou7sD2vB3juROPp/DqrAKKwo0sR
-	 ee4zSoobfnPfWDRTZx2Hz6VSEkdywO+TMFCAecL685r8S3dPs4yoKrHXQAR9UyJttrQuo
-	 dYUvrWXgOeAakkNt1NSwvX3VhYyvUne/+5u2KihB1gfedKdgw+ArQatwLTtVK+TS64Vw2
-	 0cL+yw6oiyE1S+Gp5npmaN3un5hpRKdz5CWQR/o+WZ4Ok1H1LjaPQyBvXfZA0W0zFqQ==
+	t=1794029553;
+	b=DD+XIBe+oDLfUlh/Nq7K4pCsu3h4UeUN2PPxvrkkeEdcQorAcE2Vh6YOzvHKp6mV7f7I
+	 5CXhsRbhLBcGEp4/RvRj6y6djwqHz6Hb9v8ndpcmS6HPFnm4nbslT89FEd6XDbv5n21pD
+	 J5WTkSKp7I5RV13dFztU4PXLpH7AG9dKn8+GfmzHaFKblq7olAEEghX2sJlnTQVcIhj6n
+	 rz2rQXCF9Q4aOknxdEFKoGgsPREytyp0G59Ws9h+UVbAbxhodajZlX1PP8Zozhweyx9Jd
+	 D4C9d0VV0SkmPHial0C3IdBaJjwIpi/Abz82B2nrWBCVC1LNFW0Kl2wTpQgZK5AxBuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029378;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
-	 Feedback-ID:X-SECURESERVER-ACCT:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=iWtGlCsXyDg+0XDDQp42mfm/iFWlVjXTouLGzx7/hcs=;
-	b=B+2+6i8Gw+e5WUzSDTTzi5f7bo+dEETMHbhtChckXZ9VS7dvTrXw4TWsjmIlIT8B+cZS
-	 dghOXZHaRrYpb4OkbyeA35+LUwn2evehLw5tsW4eu/182icFyfvmCyA0BSEvRgNfVyNUq
-	 g47f4q8+iN4JKc74W2+KukWxDRJW8QIRqu8Wjof71a7FZW+vljcnD2EnpZZMfGT+KCmc0
-	 B23LfpZ6yXKe1LvBBkNFPhmtuWdAohcUb/6oOO8CsLyDHirJ4jYbUB+JxLZDElYL6SHxk
-	 tthrnZ3zXrm3rbO4xKdUo8YCey+Js3Xfbz/SSYzUg2zpBZRb0zW7/QxT4l/4NEMrlTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029553;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6sW0z1d5SKi+Jg6QexltnX75AHvo1gx3Slpp03kBvI0=;
+	b=bR4nMg7SmfhpZMmoMaF/6ybe4pg3KbCYU7ZLnK6roogJmTMN7ZK33gv6OxSMfAtE3tlv
+	 4ss12XhK0YPNmhcwMZsbE6AkxsnJErqWN88w08TM+JmSrhWQDU9OlT2doagI9V0cxc1D/
+	 +ODuWO7kldOTILKprniTD4ikuok0IqDhbsv6Nfv+FnRiLJ76htV4oLIdzc9TAIdfHETq4
+	 MJe9zBoZasF4Od+QU/WcLpzA0feXv7AfQeI3DKBveqNWxall/mVPq3hDElUxRv/tKolZe
+	 wFgv/Ubn3VArLgsIZNUZ1Umwl/3s8uOsqB9XGscPbXUixDgJMHIcFlFn8lKstyc5pbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squashfs.org.uk;
-	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=wd2vtWfH;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b="edi85yK/";
-	arc=none smtp.remote-ip=92.204.81.222
-Received: from sxplsmtpa04-10.prod.sxb1.secureserver.net (sxplsmtpa04-10.prod.sxb1.secureserver.net [92.204.81.222])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N2RzNSmy;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E174606A32F
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E174606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E665606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:32:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E665606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=wd2vtWfH;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=edi85yK/
-Received: from avalon.fritz.box ([82.69.79.175])
-	by :SMTPAUTH: with ESMTPA
-	id PYyzxFofBjLMrPYzNx4crb; Sat, 07 Nov 2026 05:29:18 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794029359;
-	bh=iWtGlCsXyDg+0XDDQp42mfm/iFWlVjXTouLGzx7/hcs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wd2vtWfHQCMLwknGi+pNw/KauzM9fStzordvi2WoHNGpw8AyV8xVbKZN0LP3wZ8WE
-	 9/vcl8qWtSCDw1gufNAxxNMBkK3m/DNYVcdvvywP7OppJa5mNRE7B1HJfdero7pKJu
-	 DS4GLDSsugZJVB99yixicaXFcpTKtMqetQya231Jt7fhFp96IRkLYLIogdgw1lhEOa
-	 6DRVpV6PcJBNaZz7C+AcVuYSR1dhPHP6RYHUPg3tbWWNgGrcW5Haca9gubcSL3dpMX
-	 EDv5FwT664v0PKDGjR8NsZv9yF/iNmOaIsgJRey2TU7VRrBgbOrANhNkqK02/mx+01
-	 fTuJhAWW0EvAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794029359;
-	bh=iWtGlCsXyDg+0XDDQp42mfm/iFWlVjXTouLGzx7/hcs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=edi85yK/YhCm6YosrBbqGtSPYYXstlXNaHRySYxlNVSWPg+Jinjyzrpytn/UwinBG
-	 tCIIOvCo4NdCfO3OxYWepYZKM+h88LLdf5sHq9IwERE9K8Nwee7npslDS8f9Za+pfN
-	 9wQZEcTAI4dxOGh6RljrBiqZVdBV7eifvUFsbP2FwU/Z0x6Er1yThpNgwlYrgH5qZ7
-	 2FhDgxspidUi+1ZNuYu47ptcQss7EXoK2Vi0Ht142Tw417oBF8EZFycF4q6niXk/uk
-	 BudRE/2icFA0hM4YVebFFGERHA6nD63b7qrzkIEywcAgpKE462Lx05YEz6Ac7Bg9dp
-	 dMLEekFyuS3EA==
-X-CMAE-Analysis: v=2.4 cv=fZ84WEQF c=1 sm=1 tr=0 ts=6aeeb72e
- a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17 a=FXvPX3liAAAA:8
- a=yKgdCBhA7QK4Y9OD5tEA:9 a=UObqyxdv-6Yh2QiB9mM_:22
-Feedback-ID: 48d75bb9d4b0034978209d62233e4f39:squashfs.org.uk:ssnet
-X-SECURESERVER-ACCT: phillip@squashfs.org.uk
-From: Phillip Lougher <phillip@squashfs.org.uk>
-To: akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org
-Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [PATCH 07/18] Squashfs: fix fragment bytes overflow on 32-bit architectures
-Date: Sat,  7 Nov 2026 05:28:32 +0000
-Message-ID: <20261107052843.725239-8-phillip@squashfs.org.uk>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107052843.725239-1-phillip@squashfs.org.uk>
-References: <20261107052843.725239-1-phillip@squashfs.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N2RzNSmy
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b0a2a44a0cso1049211a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:32:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794029552; x=1794634352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6sW0z1d5SKi+Jg6QexltnX75AHvo1gx3Slpp03kBvI0=;
+        b=N2RzNSmyusmLoY8g/mYzOOXpMkwMV+nt4Au5OExq1lWzAth0BoRtgb5KnabOAdMS7l
+         Jbmj3h0AnlJT6JMhcEs/L8BfW0tS+1bkTprYeMusbzhRuO+g9fUQCGT0QZSbV1UMhADX
+         q+d01OEw21eD+8kOVmqeXwCAhHPZ1RGKL1T0RoAh+QUE5jHGD378S6AHzxVSZss4QnLt
+         09ouoXBH6jK98P4lIbQO+UCedHeyY4LhZFmc2CtMRL81/kpXO0iSCXnt1KxssqRSoJng
+         tn06ClnIDO8C7dON4lk8Dw/n2RV6jj+jO2MVTrI5/1a1ckG+Kvml4/rT1x+VKfsBi9jr
+         G+tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794029552; x=1794634352;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6sW0z1d5SKi+Jg6QexltnX75AHvo1gx3Slpp03kBvI0=;
+        b=jYYXZ1K8xsFASxiuM5CMI4H4CTkWc4pm4AdqNC7k9RVEMzF3wwNCDZeJY7JRUdbVo+
+         jcYX01vA700iDRkUBurXgzko/UaxS6T5UNfxZa5PiOaKcXbR2ZBkO1JBQq4k549Q677z
+         b1fwzxBgvYMQlS4fqfDJv6N9aWdqjA40i9X4Xe5C5ToX4blsP+rza9fNSkgtW01vsJIe
+         0+vg1Z5klrso0RmvD0bYs9Pd2gg9rRfLZO8HqCXuy5a/fPTxPKRaLaqab2boHouWF9Zg
+         jFgye544kCcGN3FldfJ1W++r3jqDHXKtSz/zU0TYY/Tx/So4j67uEhEOIDJZrB04/0sd
+         I+cg==
+X-Forwarded-Encrypted: i=1; AL+hErFvP4c4JYsVHBhX7UDjc2DHXi8WD+VcxzoSijLggykzW/PSDdHySNrkGqqPe88/llHS76nvQ+U8aF6Tk34=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CW08SzPfSLXGzaAC8+V9oLmA5zYmC1L9fIIsDeQWlTC+ku/xn
+	gW8UiaCzsIWsPoBoVWJlbEFc6Ma5p4IQR25aS+lqiI/jICNwotWBTNbt
+X-Gm-Gg: AYBFou29NICHa+TlzF+Cm3Mf2CoC6FCiWQ5D+TRXtsbPEN78tSAoDluHWvBxTMN9GtE
+	oIKAGoHqovCZAG/qIgGU+xTARwLj2shE+99Mj9zVdznr2JJyYZQwWvXgcsZmf7VmKwBAyG0J42F
+	8IWX7aPJGPgFcCSTUksubteTaF7+Sl+d9y2HXYwGegfzNaYP1UQIAd7YmNagaJfbm1TvCmZixrQ
+	4fMeoI2tlg/A/TzQBB85pkNMP1bGxlj11hb5Lpxa4tXSfkxQlmtlB5G8YmdFbJW7t3IA/GoPqqB
+	bHKWge5YFvJGKiSmysNWBpssGEL8Fn9/1r5dCdS4ZknqnftugJiRd9bgwK3PIpLleb+vU2399Ry
+	GioPpJA3dMm5Q38VOcgTPICcbIORmmmA1aLl9wKkRi/oRtPO976qyA6zvcOm3aCyYMfOirJC8q/
+	98irv9mfKgPuJR9JwQZlE5SsK+NKlGYgFWN2tEWxbjFh88dWpIEecyyKnp75zkyH3Ws5t9UC/Pg
+	0DvCeLRjNET/kjlDaj9VLOjPkFV94wo5R9H4Fn/cbevp5klfvoA5hn++VQ5ccs2EcK4MCsDrYpP
+	Kbih8u527/WnQlxridlEYqX5t+J18/O5nh4xH6a6TpF8Emd0
+X-Received: by 2002:a17:90a:d24d:b0:3b0:db75:4bcf with SMTP id 98e67ed59e1d1-3b0db754c65mr3213278a91.42.1794029552419;
+        Fri, 06 Nov 2026 21:32:32 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b101bc4586sm1246851a91.2.2026.11.06.21.32.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 21:32:32 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Chong Qiao <qiaochong@loongson.cn>,
+	Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mfd: ls2kbmc: cancel the reset work before the driver data is freed
+Date: Sat,  7 Nov 2026 14:32:18 +0900
+Message-ID: <20261107053218.3326443-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,134 +99,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfDu/yLk2/aHObaQTc6RbFrmcIl61u2alngyDbXFz7JNDSVMFEmfiSmRQerJcqysekTVGNt8OAXeBpmUj8BWrdgrgrtU8Z5rTnYceZj20Y/JTFS1ABRkq
- BBdrs7Yw57o2lJWm/2n4qsmW3g+r+GC399c7SyNYTuqwfYyBxEMlzZi/e0lEyDikDSpYa6EfiHB4xhY57YQMQLToa+7LAXwN7q8cMzgxk31q4giKV2/QA6pD
- aUbG+Qf1AHjEnuLhmbMP/T+uu4r8M++rjWS0teQ5CNItW0T+aYHTRdBCF+T9cZd0
 
-In helper function squashfs_fragment_bytes() the u32 fragments
-variable is multiplied by sizeof(struct squashfs_fragment_enty).
+From: Hyunjung Ko <hj351016@gmail.com>
 
-On a 32-bit architecture the type of sizeof() is a 32-bit unsigned
-integer, which means the computation will overflow for fragments
-values above 268435455.
+ls2k_bmc_init() INIT_WORK()s ddata->bmc_reset_work (ls2k_bmc_events_fn)
+and requests two device-managed interrupts (ls2k_bmc_interrupt) that
+schedule_work(&ddata->bmc_reset_work).  The work handler dereferences
+ddata via container_of().
 
-The knock-on effect is the size of the in memory fragment index
-table will be incorrectly computed, and a much smaller than expected
-index table will be allocated and read into memory.
+ddata is devm_kzalloc()'d, so devres frees it when the device is
+unbound.  Nothing cancels bmc_reset_work: free_irq() (run by devres)
+only waits for the interrupt handler to finish, not for a work item it
+has already queued.  If a BMC reset interrupt fires shortly before
+unbind, the queued ls2k_bmc_events_fn() can run after ddata has been
+freed -> use-after-free.
 
-Later when a fragment index beyond this is looked up in this table,
-this will produce an out of bounds access.
+Register the work for device-managed cancellation with
+devm_work_autocancel(), before the devm_request_irq() calls that arm
+it, so devres (LIFO) frees the interrupts first, then cancels the work,
+and only then frees ddata.
 
-The fix is to explicitly widen the fragments variable to a long long
-in the squashfs_fragment_bytes() helper function.
+Found by code review; not reproduced (needs Loongson-2K BMC hardware and
+a reset interrupt racing driver unbind).
 
-Reproducer
-=========
-
-The following script when run on a 32-bit x86 kernel (which lacks
-KASAN support) will produce an I/O error.  On a 32-bit ARM kernel
-with KASAN enabled, the out of bounds access will also produce a
-KASAN report.
-
-[  193.817260] ==================================================================
-[  193.818057] BUG: KASAN: slab-out-of-bounds in squashfs_frag_lookup+0x23c/0x264
-[  193.820408] Read of size 8 at addr cc126708 by task stat/357
-[  193.820720]
-[  193.821675] CPU: 3 UID: 0 PID: 357 Comm: stat Not tainted 7.2.0-13187-g66498c75b4f8 #113 VOLUNTARY
-
-=================================================================
-#!/bin/bash
-
-ARGS="-no-duplicates -no-sparse -no-hardlinks -quiet -no-progress"
-
-finish() {
-	popd 2>&1 > /dev/null
-	rm -rf $DIR
-	exit 1
-}
-
-# Create a Squashfs filesystem with 1026 files and 513 fragments.
-# This will create a two entry Squashfs fragment index table.
-#
-DIR=$(mktemp -d)
-
-pushd $DIR 2>&1 > /dev/null
-
-# Create a Squashfs pseudo file which is fed to Mksquashfs
-echo Create a Squashfs pseudo file which is fed to Mksquashfs
-
-dd if=/dev/urandom of=urandom bs=1024 count=50 status=none
-for i in $(seq 1 1026); do
-	echo "$i l urandom" >> pseudo
-done
-
-# Create the Squashfs filesystem
-echo Create the Squashfs filesystem
-
-if ! mksquashfs - img.sqsh -pf pseudo -p "/ d 0777 0 0" $ARGS; then
-	echo Failed to create Squashfs filesystem
-	finish
-
-fi
-
-# The fragments field (fragment count) in the superblock is at offset
-# 16 bytes.
-#
-# Over-write the fragments count with 268,435,457 little-endian.  On a
-# 32-bit architecture, this when multiplied by 16 will overflow, giving
-# the value 16.
-#
-# Ultimately this will cause the kernel code to create and read a single
-# entry index table (where in fact the table has two entries).
-#
-# Then stating file 999 which has a fragment id in the second index,
-# will cause an out of bounds access.
-
-# Write 268,435,457 in little-endian format to file
-/usr/bin/echo -en "\x01\x00\x00\x10" > file
-
-# Over-write the fragments count in the superblock
-echo Over-write the fragments count in the superblock
-
-dd bs=1 seek=16 if=file of=img.sqsh count=4 conv=notrunc status=none
-
-# Mount the filesystem to /mnt
-echo Mount the filesystem to /mnt
-
-if ! mount -t squashfs img.sqsh /mnt; then
-	echo Mount of Squashfs filesystem failed
-	finish
-fi
-
-# Stat file 999
-echo Stat file 999
-
-stat /mnt/999
-
-popd 2>&1 > /dev/null
-
-rm -rf $DIR
-=================================================================
-
-Fixes: ffae2cd73a9e ("Squashfs: header files")
-Signed-off-by: Phillip Lougher <phillip@squashfs.org.uk>
+Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- fs/squashfs/squashfs_helpers.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mfd/ls2k-bmc-core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/fs/squashfs/squashfs_helpers.h b/fs/squashfs/squashfs_helpers.h
-index 4088e598400f..524d4a77686d 100644
---- a/fs/squashfs/squashfs_helpers.h
-+++ b/fs/squashfs/squashfs_helpers.h
-@@ -55,7 +55,7 @@ static inline s64 squashfs_mkinode(u32 start, u16 offset)
- /* fragment and fragment table defines */
- static inline s64 squashfs_fragment_bytes(u32 fragments)
- {
--	return fragments * sizeof(struct squashfs_fragment_entry);
-+	return (s64) fragments * sizeof(struct squashfs_fragment_entry);
- }
+diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
+index 408056b..c44291e 100644
+--- a/drivers/mfd/ls2k-bmc-core.c
++++ b/drivers/mfd/ls2k-bmc-core.c
+@@ -12,6 +12,7 @@
+ #include <linux/aperture.h>
+ #include <linux/bitfield.h>
+ #include <linux/delay.h>
++#include <linux/devm-helpers.h>
+ #include <linux/errno.h>
+ #include <linux/init.h>
+ #include <linux/iopoll.h>
+@@ -371,7 +372,10 @@ static int ls2k_bmc_init(struct ls2k_bmc_ddata *ddata)
  
- static inline s32 squashfs_fragment_index(u32 fragments)
+ 	ls2k_bmc_save_pci_data(pdev, ddata);
+ 
+-	INIT_WORK(&ddata->bmc_reset_work, ls2k_bmc_events_fn);
++	ret = devm_work_autocancel(ddata->dev, &ddata->bmc_reset_work,
++				   ls2k_bmc_events_fn);
++	if (ret)
++		return ret;
+ 
+ 	ret = devm_request_irq(&pdev->dev, pdev->irq, ls2k_bmc_interrupt,
+ 			       IRQF_SHARED | IRQF_TRIGGER_FALLING, "ls2kbmc pcie", ddata);
 -- 
-2.47.3
+2.43.0
 
