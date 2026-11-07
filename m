@@ -1,55 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.235
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065274;
-	b=s4Y0TbbcLKFZaDKuiuucKHd65CcAABBm++EwgjoE9kyA++09NCYm9aSFc2UbchdGIHjt
-	 pUGaAzbyz6bmTncW9RY/DU43xG6AfatOaQFQbgJ+Amht+wU73hH/Sw8Ebjd57BlbcKGDI
-	 mUESZpi1yBwQXg+bjZc+6bOUqfJlWAKGlEgyUmhSmSZSDE2ESI+ePA+7Z/pc4HvqLUX5q
-	 8Qf+xbXVUKuWWlZ6rIcK1CbxQiMlHpP4NSHB9a++NX2nPvOx/o8fDIBKcXfnaPQHiovxr
-	 5x0J4k3yoLkaKK/7qg9F5UuQ/t7breAAINXcMlT9ItQkYYLlYKvEN36dOFS46Y6VLEw==
+	t=1794065401;
+	b=0yQA4JVU3bLbSNSxT8W7qRQe+R/9SwjMAW1oZp53fop9EUoTSxCftlG4RJqLH/VLXenR
+	 q+qihNfJ9ULE1HmTvHFQJCg/3A3aiakbhiBfHN4/J04QvMr1/YfopHBQwMHW6O/QpBQhJ
+	 V9cxQueV27S09GvrK6b7rS9ab+OKr5O0M8C43QQyVwGr6X5uFoGsZiJ1zIvlvsNmyu8Lh
+	 2k+2LVXYRNC5TGBc1hwnGfCLnQKWQw2+CfV9y9ECYxlQOpSN3jGH49pCYtU+81Pictdrf
+	 MKx3k7TZVYMiOvRBTX+QB7Mx7g+0ARjz9EoRdL+gNvMNdWsZg5ywCH+qDm1ULdTCLyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065274;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ph2t4knCJOyucU1WzKS5xblnUdrZ8Cbp0nWPL8wGjTU=;
-	b=gIxIohLzwO+gE9gm2ym4Co7A9Cnq+fshJiWGGg5Z2pFVtltjraXLFHJ27i8DGiuQGeXx
-	 m4XYd1x3iH6her7qGf2AYGNogZrLgtyVgWBFWFFK1A78rM+RfSMRXfdO8kQQE7dfB9dgv
-	 IlqS1DuJHCGM7YPVzRRZnsc/Pc4+hJ5l6z9XeGf/pS9J250XFy3tus6wIatsW1PA1PH93
-	 qNxLh9RodynwvOAva68TdoQGFJUDy3co36vxnZ9Q15HBc2kdZDeEzQQcqlkwTxZD3MzWM
-	 9fuQNhZiNgrklflGAgvuvqG44ejkvV3OyaJS9YkQQcQc+h1KN7KN3XrMLp5s4fkkdFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065401;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Gos6EounOErZ7sTr9+vYXOr/o0iNI5gjdw4MzsgIeXg=;
+	b=efjZDB2sJKEDlJcS7zmUyX/uRa+j6iztawAB7lGK/XeluYu1259ZtebbmEb+Aw571xxn
+	 o647Vlf7z4gjsWLaR8aF4Ew2wtifNJW4DG/OOMvqP50h+A2+3SYTfoVeacUP6W2ge/Y5O
+	 tSxez+7zRh8Xl8/TgcIan/KUMN4vbwaQ3wdiM/kPoFPf0Ll82WAcn9qeThw+OYMLVA5ys
+	 A1EIQ8K5vF32DAcCIbEXfcmG6IdGLOkcJw0hwouA5cVy38oAYyA/kypzFweZxyCywZqkb
+	 hwE7yRjlfvOGVrbKB8OFRtWbP++uJQbI9l5antzrnSIwNvWd3p8vQmehKPeKlf+E5JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlEK02+Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OzM8utpH;
+	arc=none smtp.remote-ip=203.205.221.235
+Received: from out203-205-221-235.mail.qq.com (out203-205-221-235.mail.qq.com [203.205.221.235])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA58606A326;
-	Sat,  7 Nov 2026 15:27:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E480F606D805
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:29:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E480F606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlEK02+Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159EA1F0089F;
-	Sat,  7 Nov 2026 15:27:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794065273;
-	bh=Ph2t4knCJOyucU1WzKS5xblnUdrZ8Cbp0nWPL8wGjTU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QlEK02+ZHmhnxP31ehAeA2Juadksl6+HcJm1iqoMA/FBqYvha/Oe+18fvSZzPcgjL
-	 lxlq1zOl+sNyMeJJ1HYCSiFBebHo3ktJYiW95XW6a7OIQrjWbTAYLRXH4V0L3P9R3d
-	 EbnQBatdHYDew1aO5p5Vkx6qTEv5hq9IGSDvu18jviNrZwoNtqKTzNIRXrkkxPIwn3
-	 HW+vDh7J2VBZhYT5jQKOzcj1u5snXjmQy0KRwfmJ+7RD4xyNfT1thuW9L5WQpBJzN5
-	 Fw+tyIOAy8gYj56IUuYsM1ElORAv6btJqLxuLDHgVj4+KYb6KRM0WP/x2SBeSug8Je
-	 JBqbj+8mU78KQ==
-Date: Sat, 7 Nov 2026 16:27:39 +0100
-From: Joel Granados <joel.granados@kernel.org>
-To: Wen Yang <wen.yang@linux.dev>
-Cc: David Laight <david.laight.linux@gmail.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
- typed bounds and context
-Message-ID: <au85ISJ2qUsB7y-6@hobbes>
-References: <cover.1793204511.git.wen.yang@linux.dev>
- <20261029105837.2f8bee67@pumpkin>
- <0316f664-d98c-43be-92af-13c30436727a@linux.dev>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OzM8utpH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794065390; bh=Gos6EounOErZ7sTr9+vYXOr/o0iNI5gjdw4MzsgIeXg=;
+	h=From:To:Cc:Subject:Date;
+	b=OzM8utpHE69f60axpy20eF/DsDeD3SpGz38SxoMPrBdfOpr7GCTKhDlUDZ3IkqeXl
+	 VirzyJuACjhYeG4PKSv7qIGCxQD1NqISNdA5+8y7Y3ASgPs9aY5ZGUl/y507lhIHbi
+	 iQ4nls5htpP6YvFoF7r75bAlwQ+BM7m2baS3Ji2c=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:5872:d752:285e:a265])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 76F1E2CD; Sat, 07 Nov 2026 23:29:47 +0800
+X-QQ-mid: xmsmtpt1794065387t21kanaok
+Message-ID: <tencent_CB9E1044AC97882719FF3A9F5B410A562408@qq.com>
+X-QQ-XMAILINFO: Me3sdj1312powEzU6IheEQILYwAnsTqLbMqKsjSxLxikW8K/nCL9tCMt0Mpj5n
+	 qvKtZwOgtAIHo9PCO2jvfRld9+hQinWbeD1SQA7KMATpF68ysxJgGIboukB8H/HPncoYRx9A79MS
+	 796HleGrcGMlEsdTkubN4gcu14nKno8TNWFOo04BDvxkv4rlNhiYqrG/iqaqGEricrC6Yquk1IZu
+	 Ke4GyD9D+264kM5sjY6KT4VmkG/iXvwnbhyGK7Y2HRijdw7sGDuG9dIGzbiXNnr4+Yj3PkzgY75a
+	 KxUQQ5k0HcSIY3UXLObxW+jtCiyuzSf1BluumMHVAN56NJwG3+qn5zQlKUTPHzW+F6aD9dylli4l
+	 1oV7WhRZ7c80GitnXHSx8LhsQmesW4ZsUflkic46ya7wRZ7IlENnA0jT7Nj/tfrNA7qHHHQwb3PD
+	 UYuuHTb2minaU69Hqf1uoJSa5eZtRlBoJebb6m84pjdUFSJN+Vu4XcSeUiQ3nX46begRnBGLmkDT
+	 0QNaKOMGtHj3BG0zLkzCLPTffZX6Bz0U8gPZal2QDFHZiH8whljdzpSrhrcleLFY6sLQqzrpuLCK
+	 Q3lbeV1zq05DjvmfufnbFpCqgucv6JU9QANGkTYP+9zAGxaGHyLKt7G45PPAG3SgDPR36Zx4Kuuk
+	 WfSDNRyoLzrFRJGCrNpYnyaZGUlLi7IS3DP6qRonuJWUKkZH7a8b5PJPP0YY1fGnqTATVX9Wkw7g
+	 ZcF7S8yiGNmmTuqsoHpihejtilPqxXWNS/I9Nvg3OBUKRfQ6SIuYri9CIoL368Ew/49xN3kXob2l
+	 /RioNws4ftSrurGvogx7Qm/FvTiNX8isUQd51fm9KIfIjDs48UcNAElUe0j/PUnGXSHMiJrAD0Cp
+	 Y1acBndgalYWMXOn8UVKsICtbC8lKObQt1QhLpnrpYXYVOAAQT2sNXWMyIspEj9pOB8xlr6da9xZ
+	 wFQswXvdgAVy47ED1QIgUK1gvcA9uqgSs6wlep8mHiqlpWitW9OzhPlhTnXKeDyBsIDO0+8rodye
+	 eSYbwEqj3plT1EQDmmqFiL2Gv4RAP6povIpcFctmXUBI7Cr0Xtx4XCg0HAexITNxrlO6cNNFOQ6W
+	 /fbFlor2XIMoStLKY=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Yingjie Wang <1075151112@qq.com>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Thomas Graf <tgraf@suug.ch>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: ipv6: reject collect_md tunnel route without inet6_dev
+Date: Sat,  7 Nov 2026 23:29:47 +0800
+X-OQ-MSGID: <20261107152947.1621464-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,164 +86,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="izytb5obkgwh663k"
-Content-Disposition: inline
-In-Reply-To: <0316f664-d98c-43be-92af-13c30436727a@linux.dev>
+Content-Transfer-Encoding: 8bit
 
+ip6_tnl_xmit() selects an outer source address for a collect_md tunnel
+with an unspecified metadata source by dereferencing
+ip6_dst_idev(dst)->dev.
 
---izytb5obkgwh663k
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
- typed bounds and context
-MIME-Version: 1.0
+A route using a nexthop object can remain after its output device loses
+its inet6_dev when its MTU is lowered below IPV6_MIN_MTU. The route still
+has no error, so ip6_route_output() returns it with rt6i_idev == NULL.
 
-On Mon, Nov 02, 2026 at 11:40:40PM +0800, Wen Yang wrote:
->=20
->=20
-> On 10/29/26 18:58, David Laight wrote:
-> > On Thu, 29 Oct 2026 00:34:39 +0800
-> > wen.yang@linux.dev wrote:
-> >=20
-> > > From: Wen Yang <wen.yang@linux.dev>
-> > >=20
-> > > struct ctl_table describes an entry with data, maxlen and, until this
-> > > series, two untyped misc pointers in extra1 and extra2. Those two poi=
-nters
-> > > have accumulated at least seven unrelated jobs: a fixed bound, a boun=
-d read
-> > > through a pointer on every call, an object or namespace pointer, a sm=
-all
-> > > integer cookie encoded into the pointer, a lock signal, NULL standing=
- for
-> > > "no bound", and a value the core itself casts to unsigned int while
-> > > validating a u8 range. Nothing in the entry says which job applies, so
-> > > readers infer it from the handler, and the core gets it wrong where it
-> > > treats extra1 as an unsigned int.
-<--- snip --->
-> > > (~574 new min/max initializers) instead of pointing at constants. The
-> > > sysctl ABI is unchanged; the parport spintime minimum is corrected as
-> > > described above.
-> > >=20
-> > > The cost is 8 bytes per ctl_table entry on 64-bit (56 -> 64) and 4 by=
-tes on
-> > > 32-bit, because priv is appended; the range read path gains no indire=
-ction
-> > > and the migrated entries no longer dereference a bound pointer.
-> >=20
-> > Can you remove the little-used 'priv' parameter by making the extra
-> > information just follow the table entry (nested structure) and have
-> > the relevant functions use container_of() to get the outer structure
-> > and extra values?
-> >=20
->=20
->=20
-> Hi David, Hi Joel,
->=20
-> I reworked the context side of the series so that priv is gone entirely;
-> and the final tree has no per-entry context pointer.
-> A small helper recovers the enclosing object, but it needs the slot
-> index from the caller:
->=20
->   #define sysctl_table_container(entry, type, member, index) ({       \
->           static_assert(__same_type(*(entry),                         \
->                                     typeof_member(type, member[0])),  \
->                         "pointer type mismatch");                     \
->           (type *)((void *)(entry) - offsetof(type, member) -         \
->                    (size_t)(index) * sizeof(*(entry)));               \
->   })
->=20
-> The reason plain container_of() is not enough is that the core keeps the
-> table as a contiguous array.  For
->=20
->   struct addrconf_sysctl_table {
->           struct addrconf_sysctl_ctx context;
->           struct ctl_table table[];
->   };
->=20
-> the handler receives an interior entry, and
->=20
->   container_of(ctl, struct addrconf_sysctl_table, table)
->       =3D=3D (char *)outer + index * sizeof(struct ctl_table)
->=20
-> for ctl =3D=3D &outer->table[index].  It only returns the outer object for
-> index 0.  Passing the index explicitly keeps the original registered
-> entry usable:
->=20
->   static int addrconf_sysctl_forward(const struct ctl_table *ctl, ...)
->   {
->           struct addrconf_sysctl_table *t =3D
->                   sysctl_table_container(ctl, struct addrconf_sysctl_tabl=
-e,
->                                          table, ADDRCONF_SYSCTL_FORWARDIN=
-G);
->           const struct addrconf_sysctl_ctx *ctx =3D &t->context;
->           ...
->   }
->=20
-> Shared handlers get one wrapper per slot; the common body does not need
-> to know its position:
->=20
->   #define DEVINET_CONF_WRAPPER(attr)                                  \
->   static int devinet_conf_##attr(const struct ctl_table *ctl, ...)    \
->   {                                                                   \
->           struct devinet_sysctl_table *t =3D                            \
->                   sysctl_table_container(ctl,                         \
->                           struct devinet_sysctl_table, devinet_vars,  \
->                           IPV4_DEVCONF_##attr - 1);                   \
->           return devinet_conf_proc_common(ctl, &t->context, ...);     \
->   }
+An unprivileged user with CAP_NET_ADMIN in a private user and network
+namespace can create this state and send an encapsulated packet through
+an external ip6tnl device. The unchecked dereference then causes a NULL
+pointer dereference in ip6_tnl_xmit(). With panic_on_oops enabled, this
+panics the host.
 
-Two questions before seeing the actual implementation of this.
+A similar missing inet6_dev check was fixed in
+commit 1b9b5323725e ("netfilter: ip6t_rpfilter: reject routes
+without inet6_dev").
 
-1. This means that we will have to add more macros to the sysctl
-   callers? There is a clear signal in [1] against overuse of macros.
-2. I understand that you are doing this to avoid having priv. Is it to
-   save memory?  Yes. priv is a void* and we are also trying to get rid
-   of these. But this changes removes the use of two void pointers and
-   replaces it with just one.
+However, the collect_md transmit path in ip6_tnl_xmit()
+still dereferences ip6_dst_idev(dst)->dev without checking
+whether the route has an associated inet6_dev.
 
-Best
+Check the route's inet6_dev before using its device. The unmodified
+net/main KASAN kernel reproduced the NULL dereference, and the same
+reproducer on the fixed kernel rejected the packet without a KASAN report,
+oops, or panic. The fixed kernel also passed the ip6_tunnel.sh selftest.
 
-[1] https://lore.kernel.org/CAHk-=3DwjUmLrJd4KM4xvJHUN4P0r8oSu5LyvG4Jipnhxi=
-zBrE9Q@mail.gmail.com
->=20
-> Single-entry tables simply use slot 0:
->=20
->   struct devinet_forward_table *t =3D
->           sysctl_table_container(ctl, struct devinet_forward_table, table,
-> 0);
->=20
->=20
-> The series is 20 commits over 134 files, with no priv at any point.  If
-> you would prefer a different shape for the helper or the wrappers, I am
-> happy to adjust it.
->=20
->=20
-> Thanks,
-> Wen
->=20
-> > David
-> >=20
+Fixes: 8d79266bc48c ("ip6_tunnel: add collect_md mode to IPv6 tunnels")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+---
+ net/ipv6/ip6_tunnel.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
---izytb5obkgwh663k
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
+index 64a184bca467..547c23c3121b 100644
+--- a/net/ipv6/ip6_tunnel.c
++++ b/net/ipv6/ip6_tunnel.c
+@@ -1187,10 +1187,14 @@ int ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev, __u8 dsfield,
+ 			dst = NULL;
+ 			goto tx_err_link_failure;
+ 		}
+-		if (t->parms.collect_md && ipv6_addr_any(&fl6->saddr) &&
+-		    ipv6_dev_get_saddr(net, ip6_dst_idev(dst)->dev,
+-				       &fl6->daddr, 0, &fl6->saddr))
+-			goto tx_err_link_failure;
++		if (t->parms.collect_md && ipv6_addr_any(&fl6->saddr)) {
++			struct inet6_dev *idev = ip6_dst_idev(dst);
++
++			if (!idev ||
++			    ipv6_dev_get_saddr(net, idev->dev, &fl6->daddr,
++					       0, &fl6->saddr))
++				goto tx_err_link_failure;
++		}
+ 		ndst = dst;
+ 	}
+ 
 
------BEGIN PGP SIGNATURE-----
+base-commit: 30c71476d842b094651bd7712f6c8ee8716147d0
+-- 
+2.43.0
 
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrvQ2QACgkQupfNUreW
-QU8nhgv/bOtQvxtZIW9FR4G5+avco51TQR3Rx2Cb+L6Hb2JDt4cm1xIGlE4DzoZC
-AqwnuTVyvHXmSTZ14YXgUPtgnB6bdfMq+uXX3wuIP/wflX3WknrpcQst2lznVje7
-tgXZvBiIULte8LblHlXULFm+Jrp5zJmWN9U4HU8LqJ1rieZrin5J93c/9362gU7z
-xHQdFjwKYbUVaYsVb2bwvhdm/Q+6Y0HhqaSEV3HrV3IuyPoqqWpLkg3Rkn2EgQt2
-pYea7y2PGh9B414D/mTFU2VV/lUYHxLwMAm7Zk10T3GSDU5ts8/Vg776koYnnVlM
-gXjvj0KazVj4y8nHD6NbrHqQ8tnEUldj8QoJ3R26WJhCPUCYzFQA6I5dbLOlj/1/
-jPhgJJ/3YpQY9vF3R7X0Lx35D5V2tSnPoVreWAk+cZQ6P+fRYYRTivDO4Hh6qlyc
-jANi09hOu2gJYeSVlzYOZBsXu87rIbC02Lsgu99zvXC64g517ryvsvgmwm8bPuzv
-cEFzHXHX
-=NJK7
------END PGP SIGNATURE-----
-
---izytb5obkgwh663k--
