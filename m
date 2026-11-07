@@ -1,94 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068669;
-	b=jb60ZsLcah6vLMCoAW1eB8cxlvBzEENu1rGhmTZ5ycNOtBQ6JxjqZ3z/HH2FN+wzbkQE
-	 wzu3upzEgtQI92uBs31hgqaikTnar17I+aebW/pGHOyKIkj6zHXZ8KeRQ9kKNNPuNb82i
-	 Vc9ZowQca57ijczZxcjzoPCWCd6tIfgOoUFn3O7gCziWscTaXFGaI2vZA9wVJ8ROsJ7mb
-	 jLmSnr1J4k/0B0673Mdwhv0+4R7ITPc0iRmEqziuWa68RNaTOGheimws2ho7YFlWJv7ON
-	 7oNQbx+R5unsvwnlYiWI7lF1+QTL++GEA8rLuEZBmB4yPH2O2vFXkswbXOfo0OeGFOQ==
+	t=1794068844;
+	b=GyrjsrO+cmtp9DBmepzwGlZu7Az3LqfITCFOrO0OexHh0SvW4BXJfEZV3E+uEWOjWE4b
+	 mDB4MChtJncYB+/06zsPWKbqavrQPkspGZSahXA95AMNoUUG/GnKNhziSGezraSyvmfxJ
+	 9Ceq+QDjZxwa/7ZPsP62911aVq9S6132d5mzKtAb+Dt7n32drtpTIhmw247w/W40cla2c
+	 9cXIoVIS7StTOSsB64eRhlff3eupJebgqpr+orSR37IVvPoRjNwOUKO5wghlqGttoenaf
+	 Py92p1+4NQqRXiTOsVPLuJoGOxNc6ySJe0N7T3yhLZn0idhPqahsnbkG1umCWUQgMTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068844;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=G0Hqu1+FGz/IWPNQ567UsEhZ0Yh7IpxOzw14Cvzayz8=;
-	b=P4FNOp09KrzlDSniE/8082l5eEcTvmbDL0ON8SV+hkbAFhDjUJmzxxxLaI5BUVXtAWFa
-	 aGHkN3/yUVpLSVlI24v/iL9i0bejskno8d43IYK0smLq3F9yK+ooye+b/ALa5hD8pr0qG
-	 6q/lk5jCX/4wrultCDIvEEME+ts2PqYOq5l5G+usTVOrc4R89a25BQzmodLz93FzAbXbV
-	 OuCtJDsCOW2kVJJXuqDwMsSRlcytxMgGpM1qM5Py2J9GBpyVcPWCsvM+IKRLy/2jrOq7+
-	 AXeCs2X6mfxMV5JCDSPQm2OlvvPEPiix1HyMetqMV52U6MfR5ySAQq+tZduTZ8ui08Q==
+	bh=8iDgo6XjJcvB5XRw1w2M3oqlB25XsiQDubeqinQmBrM=;
+	b=fCjnGLYoe5FuPkliEn4AOVF3KzJxXqAYkxT01CNcYaZhLfPbE6PmvyegLyZhuJDVqdqv
+	 n1pQuEqYZ9/14yIDI4ZanpngOAy98uyTU05iwRXyTxiGpmiX6/d6PnS/TECi6L0d8M+34
+	 vN4vtOg6YUk0OJ74dBjnkTNfCVsbeJed4PQeNcNUL+qunvWXolZGmESh74rCxVV8nz6ak
+	 nWMRzbDlBqbcL6fOWVloWlSmtTQomaH1Zw8/sfc7MGbNkJipTP9qtfSjGYxhMVzHMgJKj
+	 R4LZHLavjup0E8CBIFBOUZlZXq08ldmk8WP2MF5CxDmNLPQNSIFsOgKHxomuI9M3sQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="rF/WqaYE";
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wWDsj2Cw;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD93606A32E
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:24:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBD93606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D300F606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:27:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D300F606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rF/WqaYE
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b244fb7fffso2358915c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:24:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wWDsj2Cw
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b244fb7fffso2359962c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:27:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794068668; x=1794673468; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794068843; x=1794673643; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G0Hqu1+FGz/IWPNQ567UsEhZ0Yh7IpxOzw14Cvzayz8=;
-        b=rF/WqaYEza57PrcTeP20UCOKjtuV3xFLTpZWGIpMwgWX77YJcYiquOqutIGEzYd6py
-         V71XQXFoxp7gSODveG6Io2g8PKRph5REtXexqiP5gLf4xmqZCA/FOPey6CLQLQbmvBW4
-         +YjuxYsYFEZSY830VcJdefBYytyoQYQwp/ie1RVPSpg/JARjunuIFKnw+5E6vxNJLMvv
-         0qsckkAMsNExQu+l8fBCITFlLuvtxMJR0joYDCwE3M5PapPqHOfEvZpqBXXhm0unedZX
-         95ArVI5DZ8AvKpEGX+mnbXKcBTeA+hqu049ALfhny2Tqf63lpBmfy/WujqeHbYdsQPTL
-         2y6w==
+        bh=8iDgo6XjJcvB5XRw1w2M3oqlB25XsiQDubeqinQmBrM=;
+        b=wWDsj2CwAZa7+glxJkIliQdsvFrzUPRaa+1MfUK/l/CTx/1bu8Qat8tT551GBRkT6V
+         9uzHPdIZT2bVCs3gRP7FmiLWPavC25Ktm/6kv/N74t6mzjCHOzFbJIO9WpPrXpkjyyHH
+         CzOPIJEQ6RITHqe2bp4t9SZD4+KuXhajqA6LLK0SEMbPQ3N9+LNmQwai9NfbYJ7rLK5G
+         XWAzre+3+3ZoQ+nuvhW6bzT1BWtmQes4eigvar3t6cTk41KYmM0nA09LOcCuzKliR7ae
+         3AlRjHCiJrNbFOj31v5TOoZqjnz0Ju4WJCc+VJuGhJznnZIY+LLRgXrHI7+D28Tgea5r
+         rPBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068668; x=1794673468;
+        d=1e100.net; s=20260707; t=1794068843; x=1794673643;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G0Hqu1+FGz/IWPNQ567UsEhZ0Yh7IpxOzw14Cvzayz8=;
-        b=2qP2ydPCT7CWfDNF9we8GTLz0eWXW51zmohYX6APjbugDC1J0j3O6pXzZz/24HG65e
-         QDcUAmwm8RTwDrBPhuB712FWRm+nReYBOKFvu/KZfLVGJppuJcSol08iqEPlWv20Lqne
-         MTqN0EHf0MqYZKQQOy8hXUhwhPEe6FnajhgWCHbirn7pwC0RB6k1kurbzxCbhNfYGuOd
-         BmvvUyeb0mqO1p6/OxuZpbzYMRD8VU+wWM3FKD55qX2NrazbPI8rCs58Fw5tOI6rMKSK
-         MLonceZdre7tWN69UwMawYYi+pCw73s8XcOfJIsdvWLtf0/yrIMDOiYcb5snXohL6OxC
-         NA3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwGo+0q3eGlY7O2b3zcr/FmkZx676egsJbknlluykgzONK13n65QRU6WbsNMpQCX+mWHGibCzUY/u2Mv/I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+P/9cMIO1NWdymobGnZ1Kk4L0IFFK6pk3FWlFqM1g8KukM7Uv8
-	2gSEirdlWallsHzJJzVYxh6rzbszPlsKNAWqT4VR7ZwbgyFTDGaEvOid
-X-Gm-Gg: AYBFou0iPAj1SU2BuFIxesr82QO+lzLeUY+RR+2nrV310xJCn1qGskpoy1Ok6Zn8qJA
-	/sJz5g8SrwD1wzBFJ5m2BS66G8d7RJRpvftje4TtZQb6E68mwUvmtyGrHxowKhQrOv3g+QWVaov
-	UGbz1HlJTN5M4CAlWibQXM9lFHeQULEo90Zj1S0KW5R8UHSTvKYfNcRebPtoDcDj/iPjZdSG3So
-	7yr8xRXkRyjoY+jKRgZ27OgjrMBm/KI4m39n9or+lhuz2mVTmCi6dDaCl634DZXD+z5FPtQKY/F
-	B4Rs2/4jvG275MbsvDReyvVGLtOZR43sbQs56Sht/yV7hNzelLL/RcqOwpw2eq4JCcOoo0yamRF
-	C+ZXOV6GiNq4SbcwCkaCgnw6sXOaJnElVqo9dbrWh74bO5goULL1Ij0d0hBaV+msOKxQHfTSRHa
-	F/R1PMm9lOYQt3fe6rp2rBhhClyxwU0RBjkdH5urFr8rPq3VVRm7168bmmxn06ETx9hoDWOGtn5
-	zbkR2x+lw0ljDwMeYhuAj1X77UNc76aTZtOKIPlUUUOsZ3+nz9iYewHR9FMjv/L7XcjTGNwqh2y
-	0CxXdqsw3Usu72PepY+kcXnY1crbN4azKRuocxiCbC3GnfZQS0WDw5qzz3jLg1tMg73QuekvLBy
-	wUmn5HAJZODYjurirqYEug6ms2jM0
-X-Received: by 2002:a05:701b:2706:b0:1a0:5c85:d1b3 with SMTP id a92af1059eb24-1b25d3a8127mr6940925c88.43.1794068667872;
-        Sat, 07 Nov 2026 08:24:27 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:b097:433d:def1:34a1])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b26294289dsm22854161c88.4.2026.11.07.08.24.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 08:24:27 -0800 (PST)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Nikolas Koesling <nikolas@koesling.info>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
+        bh=8iDgo6XjJcvB5XRw1w2M3oqlB25XsiQDubeqinQmBrM=;
+        b=ZR3AQC4+lLYnENhHBBmxUbMSQpC8+2jcqpu7g/HOLvrcMTEX6sO6U6ky0AQxZ91QbO
+         0d4bP0qF0EieX5rELx88tpyNE9nmazcYeUrzAovHi98JrJOE/bIlaKXeCukozApK0U3M
+         UhoEBemSACqiWc+dmP0f6Glgs5iteyQq8qxn8sAt3QHyEFeklurHwOn18RDB4DlnCNwS
+         kiGKL2yItPHzOGjE9Nx/R13+7229UMYBEkbl16yVWQZb0+v+u/3iyRq1763/3Pwennb7
+         gfiJmk74sMDewU84kxrQ7fJbrQZsfmI6wdUFOuweJd/TFLJZ/rhKrudI6UA3ajm9zbtR
+         Pr4g==
+X-Forwarded-Encrypted: i=1; AKwUvBzKtOG8WaFVN8NzuBBm9uL6Gz09iP9PrM8KT5hu80rfLgF0EnFGh5Bn0pBneMkwO280xyRdSSiRmRTmv9U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KOeJVTzUZ0WxnUBRVlxxVpXTKYMWw/ASsBVgdFZ8N7mrwWwfS
+	nRKbJ+IqKq08ewTr5IEcdUKvEGEItJOL3iMREYyIbciM7/f1O9XCpFbu
+X-Gm-Gg: AYBFou1BTK1icavSUf11V5KigxxwpCi0HglZLCn2U2m8z5sLT3Oxy09HrqZBaQFCGUt
+	eLjuS7UxVWHHTZkX/jGGqv1hh5tI4OAU3rEgXEtFBwH8R9+70K4T39C4ZbToRVlupHnmk2kbHQu
+	lFqztIlA+njw9IYjXfSPgiGfObnGPX/SglrHge5KefF49RqvQPLSOjd96ljxpAcMoiQMmfY46SD
+	YoXcPWtqGdxaIOmji01mxsVwZj2J2mwNRG2Ra+c00n8EKSFps4Sd+Y/BZAvJxbG62LPFNbgXaFT
+	wCfOSvSG76XBZfGTdrsNNT+1oBSGXsXDtVcnck1GfTENkYbT3XOqXaOZUhdaNZHuUkHMnYrtkN3
+	HVknlLyik+LtwUnRN1NCCOC0C6DTt870wLwDAS4HFYzw2qrF5VheMKeL22KF/YkX0mVHNt/30G0
+	wSAB5yVWxAufbiSq0uzs1bOSxralT90E/v5HVL354cCHghbgQpcQr7m6Q0K2DCV/Ou0G1yuQCGN
+	5D6RZxF25E1NkUQ6cKhBU2Ku6gG1VADPH2ID2YtVXM9P3iGdvPfT9PAtvSXdIulCv52q3KM/J+E
+	Z16r+A4EgXgnvwH55504wanyU7blXSlZtgMpKXk=
+X-Received: by 2002:a05:7022:29b:b0:159:aa67:28c1 with SMTP id a92af1059eb24-1b25d3499f8mr6609198c88.20.1794068842773;
+        Sat, 07 Nov 2026 08:27:22 -0800 (PST)
+Received: from xploitoverload ([2409:40c1:6412:e5b:5516:cd42:6c8f:c918])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9aea75fsm29025370eec.15.2026.11.07.08.27.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 08:27:21 -0800 (PST)
+From: Kalpesh Solanki <skalpesh942@gmail.com>
+To: willemdebruijn.kernel@gmail.com,
+	jasowangio@gmail.com,
+	alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: andrew+netdev@lunn.ch,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH v3] HID: pulsar: print errors with %pe
-Date: Sat,  7 Nov 2026 21:54:06 +0530
-Message-ID: <20261107162419.9051-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+	Kalpesh Solanki <skalpesh942@gmail.com>
+Subject: [PATCH net v3] tun: disallow setting IEEE 802.15.4 and 6LoWPAN link types via TUNSETLINK
+Date: Sat,  7 Nov 2026 21:56:49 +0530
+Message-ID: <20261107162649.282982-1-skalpesh942@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,105 +108,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-%pe prints the symbolic errno, which is easier to read in a log than the
-raw number. Convert every print in the driver that logs an errno so they
-all report the same way.
+A userspace application can set the link type of a TUN/TAP interface
+to ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, or ARPHRD_6LOWPAN
+via ioctl(fd, TUNSETLINK, arg) because tun_get_addr_len() explicitly
+recognized these types.
 
-The prints that log data bytes, battery readings or a byte count are left
-on %d, those are not error values.
+However, TUN devices cannot function as genuine IEEE 802.15.4 or 6LoWPAN
+interfaces:
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+1. They lack wpan_phy, channels, PAN IDs, and MLME operations, and tun
+   never initializes dev->ieee802154_ptr or dev->ml_priv. When an
+   unprivileged user creates a TUN interface in a user+net namespace,
+   changes its link type to ARPHRD_IEEE802154, and issues a netlink dump
+   request (such as IEEE802154_LLSEC_LIST_KEY),
+   ieee802154_llsec_dump_table() unconditionally dereferences
+   dev->ieee802154_ptr / ieee802154_mlme_ops(dev), triggering a supervisor
+   null-pointer dereference / general protection fault. Similar
+   dereferences occur across net/ieee802154/nl-phy.c (ieee802154_del_iface)
+   and net/ieee802154/socket.c.
+
+2. Similarly, the 6LoWPAN subsystem assumes via lowpan_dev(dev) that
+   netdev_priv(dev) is struct lowpan_dev. On a TUN device, netdev_priv(dev)
+   is struct tun_struct. On netdev events (such as NETDEV_DOWN in
+   net/6lowpan/core.c:lowpan_device_event), it clears bits in
+   lowpan_dev(dev)->ctx.table flags, which corrupts private memory inside
+   tun_struct.
+
+Rather than scattering checks across subsystems, fix the issue at the
+source: disallow setting ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, and
+ARPHRD_6LOWPAN via TUNSETLINK by returning -EINVAL.
+
+Fixes: cca8ea3b05c9 ("net: tun: set tun->dev->addr_len during TUNSETLINK processing")
+Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
 ---
-v3: 
-  - move changelog below as requested by Nikolas
-v2: https://lore.kernel.org/all/20261106083419.29334-1-sinha.aryan03@gmail.com/
-  - convert the remaining errno prints too, not just the battery one
-v1: https://lore.kernel.org/all/20261104150055.33028-1-sinha.aryan03@gmail.com/
- drivers/hid/hid-pulsar.c | 27 ++++++++++++++-------------
- 1 file changed, 14 insertions(+), 13 deletions(-)
+v2 -> v3:
+- Include ARPHRD_6LOWPAN alongside ARPHRD_IEEE802154 as agreed with Willem
+  de Bruijn, preventing Sashiko AI flags and addressing the underlying
+  lowpan_dev(dev) memory corruption.
+- Minimize code churn as advised by Willem de Bruijn: drop unrelated
+  USHRT_MAX check and preserve tun_get_addr_len(), headers, and existing
+  block indentation.
+- Fresh standalone thread as advised by Jakub Kicinski.
+- Link to v1 and v2 discussion:
+  https://lore.kernel.org/all/20261101092219.1278751-1-skalpesh942@gmail.com/
 
-diff --git a/drivers/hid/hid-pulsar.c b/drivers/hid/hid-pulsar.c
-index b0b34849f..495ce3b5c 100644
---- a/drivers/hid/hid-pulsar.c
-+++ b/drivers/hid/hid-pulsar.c
-@@ -162,8 +162,8 @@ static int exec_cmd(struct pulsar_data *drvdata, const u8 *payload,
- 		spin_lock_irqsave(&drvdata->raw_event_lock, flags);
- 		drvdata->pending_event = CMD_NONE;
- 		spin_unlock_irqrestore(&drvdata->raw_event_lock, flags);
--		hid_err(hdev, "failed to send command 0x%02x: %d\n",
--			payload[1], ret);
-+		hid_err(hdev, "failed to send command 0x%02x: %pe\n",
-+			payload[1], ERR_PTR(ret));
- 		goto out;
- 	}
- 
-@@ -295,8 +295,8 @@ static int read_power(struct pulsar_data *drvdata)
- 		if (status < 0) {
- 			ret = status;
- 			hid_err(drvdata->hdev,
--				"%s: failed to read status: %d\n",
--				__func__, ret);
-+				"%s: failed to read status: %pe\n",
-+				__func__, ERR_PTR(ret));
- 			goto unlock;
- 		}
- 
-@@ -320,8 +320,8 @@ static int read_power(struct pulsar_data *drvdata)
- 
- 	ret = exec_cmd(drvdata, payload, response, CMD_TIMEOUT_MSEC);
- 	if (ret < 0) {
--		hid_err(drvdata->hdev, "%s: failed to read power: %d\n",
--			__func__, ret);
-+		hid_err(drvdata->hdev, "%s: failed to read power: %pe\n",
-+			__func__, ERR_PTR(ret));
- 		goto unlock;
- 	}
- 
-@@ -411,8 +411,8 @@ static void power_uevent_work_handler(struct work_struct *work)
- 
- 	ret = read_power(drvdata);
- 	if (ret < 0) {
--		hid_err(drvdata->hdev, "%s: failed to read power: %d\n",
--			__func__, ret);
-+		hid_err(drvdata->hdev, "%s: failed to read power: %pe\n",
-+			__func__, ERR_PTR(ret));
- 		return;
- 	}
- 
-@@ -584,10 +584,11 @@ static void pulsar_init_work(struct work_struct *work)
- 	}
- 	if (ret < 0) {
- 		if (drvdata->type == TYPE_PULSAR) {
--			hid_err(hdev, "failed to read device info: %d\n", ret);
-+			hid_err(hdev, "failed to read device info: %pe\n",
-+				ERR_PTR(ret));
- 			return;
- 		}
--		hid_dbg(hdev, "failed to read device info: %d\n", ret);
-+		hid_dbg(hdev, "failed to read device info: %pe\n", ERR_PTR(ret));
- 		snprintf(drvdata->battery.model,
- 			 sizeof(drvdata->battery.model), "%s", hdev->name);
- 		goto register_battery;
-@@ -615,8 +616,8 @@ static void pulsar_init_work(struct work_struct *work)
- 	    devm_power_supply_register(&hdev->dev, &drvdata->battery.desc,
- 				       &psy_cfg);
- 	if (IS_ERR(drvdata->battery.ps)) {
--		hid_err(hdev, "failed to register battery: %ld\n",
--			PTR_ERR(drvdata->battery.ps));
-+		hid_err(hdev, "failed to register battery: %pe\n",
-+			drvdata->battery.ps);
- 		drvdata->battery.ps = NULL;
- 		return;
- 	}
-@@ -639,7 +640,7 @@ static int pulsar_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 	ret = hid_parse(hdev);
- 	if (ret < 0) {
--		hid_err(hdev, "hid_parse failed: %d\n", ret);
-+		hid_err(hdev, "hid_parse failed: %pe\n", ERR_PTR(ret));
- 		return ret;
- 	}
- 
+v1 -> v2:
+- Instead of adding NULL checks in net/ieee802154/nl-mac.c, disallow setting
+  ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR link types via TUNSETLINK in
+  drivers/net/tun.c, as discussed with Andrew Lunn and identified in Sashiko
+  bot review. Virtual IEEE 802.15.4 interfaces are properly provided by
+  mac802154_hwsim and fakelb; TUN devices cannot function as genuine 802.15.4
+  radios and lack private 802.15.4 contexts.
+- Add an explicit bounds check (arg > USHRT_MAX) to prevent integer truncation
+  bypasses when casting 64-bit ioctl arg to 16-bit dev->type.
+- Remove ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR from tun_get_addr_len()
+  and drop unused <linux/ieee802154.h> header.
+
+ drivers/net/tun.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index dcec7311e60..05eb28578b8 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -3362,6 +3362,10 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
+ 			netif_info(tun, drv, tun->dev,
+ 				   "Linktype set failed because interface is up\n");
+ 			ret = -EBUSY;
++		} else if (arg == ARPHRD_IEEE802154 ||
++			   arg == ARPHRD_IEEE802154_MONITOR ||
++			   arg == ARPHRD_6LOWPAN) {
++			ret = -EINVAL;
+ 		} else {
+ 			ret = call_netdevice_notifiers(NETDEV_PRE_TYPE_CHANGE,
+ 						       tun->dev);
 -- 
-2.46.0
+2.53.0
 
