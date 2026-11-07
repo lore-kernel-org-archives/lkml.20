@@ -1,88 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794025884;
-	b=oIdNDGrLdE1UyNQGJjQzh/Ee3pV0MymkdYa+OEQ964tXlEV6EAy97Q8hoKGEkcV/F73W
-	 Hgm9gazEegzqolT1FBLqOob+2P5FeqwfusYJZ8InByPIXwnMrjc9Ecl4+lKFmkAa/4He2
-	 UH3tq1YyC9LBcaETyDnP7IEHWWbM8Hf0maVQ2NxaxcxJe/CxZO5Tg9hsIn5zUmyKV1Du6
-	 TNABa3HixsSt6KJDAGuDSYGHF/q1M3GfWuPToujjeGWWg3zzCZZ/QI9mJ5q6B8qzRuu4X
-	 Z/9LQ05tWOZ9jtc7vKVD8vq2uobbRsxT7lQ0veiQ3oLuqniXxoHHKIHJbqJo21bS33A==
+	t=1794025919;
+	b=WOod1PZnZpNEg6ZQ+OSHLwIbupzH8uutagxvh/VO9vxu73c8xqPIci7SA01CDIX5FfOM
+	 UrmcOlfPyGcD2qX3hoN9os1AY6wNX7STAC9tzLCmS9FU5yuK9+dm5snBq32J0P9r6s1jB
+	 DoFdE00yTD2efYuhqJQ5kdRuEIBkmCMbdzjFVr4PsgFymsjxsGllo1SS3CJSQGY+WXteH
+	 wtWdbz3SFF0CAqawMlcMYkauvJwAuJEkTs9iXyxOfJsrWZzn5eN3z80q9luuUqY4+w06h
+	 U3RclSuVcEyhkxTpJPWFmC2HEyyytXW+Mb4DS+KIiK4sQ2VMHzy1rZaKLtrABydnl1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025884;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025919;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
-	b=wU6ioxAM9xZlMggxAGF8WoZVyj6xRSOFM6HcRyFoFR6Lch2nIQ34tVNaIujHxqu7MS4H
-	 WvE1ymEkpg1HmAD8ykBIU3o/YxHNNO2R1JCsvBcVzN9bVhuVNwJ4rLviJX78CSCLBIenn
-	 OafoKG4VxaMe3XM8ZZNZHFned8ynmHmXmXwP12or+5XKDHG3DqJX4u0mbnZLf5Hq06J8L
-	 F2aCAQsUKbBpWriHiAEIcUANBouuVS/+c9SUkO2Fe6/r/LFF5eBiDO7NJiSs0CDPf3eeY
-	 faIHQ69nkGOzjLKNHLYF06WzXECbX2mVQx8ZHWZ7rsUg7Ih4/WMAK9wwYcoPALUNBtA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tMJYIXC5HK/L92Fsjcvgr4iGfrMwtNzZGIshDMxf8u0=;
+	b=UNWGjmf3tmxH2lctb1wFIS3fgZ/n2k2PpPjA/Mvrrk1W1fuC+PQR/4q5070rTKvEM+Ch
+	 IqbZWFiyIFh6eauRREcP74tJtXpi3Ru7anA3I0LiolT/z0AacRvjZXm2aaUWWfqzcpAge
+	 Tlb5+7Z6A9eSiRu4YsSIcf6E0/NP1QepM/pN/c06hclzfuNkhOQgyy7gRyuFlSJvd8X+e
+	 X9y9VquX16PW5Pz1dj8W9u4fnm/Kqlr+9SEMEvwzZAFlmKiHx4BuPQyjqvis2HrwfGTeS
+	 1vSEyBlfrIkbiosNEUqij2DT5lU5OxtIdQ/Jlc01aaZIdtyGr4Domoz4kCRgTeldpow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=afgtQFQ8;
-	arc=none smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=X0EQnD75;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E1B606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:31:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63E1B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287F0606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:31:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 287F0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=afgtQFQ8
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6df7f544919so755628eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:31:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=X0EQnD75
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdb681db419so68242a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:31:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794025883; x=1794630683; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
-        b=afgtQFQ8CqFm8A9ZkN2qARev23JoQK54oZ97jcMr1Uo78QBBJkeN0xAnkJ92JagxK5
-         RtnuGRdwzBqzElwbLaWQcq/vj6rIICR9SjgCclhKHjZyckSODQLOCt09A6lfyeaNzqlE
-         zY0lkk3fls7krEPREDmIlO9yAqzBOCgmdLZiGy6BKoc3EM+TdOTA1KkCvxbVUNMEWgFa
-         r8LRl/CcXVR+ZpCuPU8qnJwdktkx2ksZQ72kgpalWIjgKKrQ6lqVqaKK33WToUAc4fYc
-         9Wc6u2F8P3k/q4aP5dWKh6wFONKSINVX0Vdr6pwFuft0M6twwoN9NSCjUSCYcgG7qpfy
-         mptg==
+        d=bytedance.com; s=google; t=1794025917; x=1794630717; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tMJYIXC5HK/L92Fsjcvgr4iGfrMwtNzZGIshDMxf8u0=;
+        b=X0EQnD75PIK6vc2eVCS5KpgklpuhKr/WyFpvsPfyHY+zSsNm071AVoO8F1DmpaUfWD
+         yp3xzgMU557Jkf+8OJGDlyt1CFU4YFbYmSFv/iRjSUsXoy2x7PYtDUwOTpsqoobZ/1EQ
+         XVNB7Vpsd3nF8nCwMkMR5NT5LfRqIfAqeEySi4P6QWAI9xMCRD59iSf0FzYVB6KksWRz
+         /Y+4EMYXWNT81sZZoapBW8joObXg3geIsx0HLll0rLrf/sUN7AYArzIwohjQJyt2fy/e
+         nIxShM6NJMqtmwp7UXNNqw2SztYcQpkY0Va0eW9FkB0IiButJ4dF8j2OtlAYN19AKsZN
+         sVYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794025883; x=1794630683;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
-        b=0+XUO7Wkq7TfSgJC11kELgxvkY193EuU7Q1QUdVRhpg/kaa+xGTqkXzN0euf14bF6y
-         GkVeFc4GcM9qrRtaoSzB3Caoy+0d6vg6MDZkRFOpnOs7UG2NjOruKwF3jLKTe/s4BabS
-         6KfcrwN5e1XVNX3MFeZuhqydhfJkv1i7wyw1Xe1rL//as9JcR/IRN1VWYXPnukkXAdY4
-         iZ6TJMkRXWo9f4bBVpK5Nhwhss35C3yFaDM8g+K8YMYmTVFX70wLrg9hzjGEML09V8uO
-         Get/R5PFFWpLvolc7FxruTUPPtmt2yJDYR9FIKOZZnc4RZLeZ3WYpGyMy8OAaavQGTYr
-         Yk7A==
-X-Forwarded-Encrypted: i=1; AKwUvByMceK73fylmCW2G1QdU8xCHTQv2FZlcy2pkzTdU6+t1Dh04JLbs31w/QBxA/05AsitDnzd25vO+AkFV7c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MRi3HW2lPMzGX3mEjgwh7k4eGsh1MWnKM+iGn7kZbWG004I2k
-	i0NbxsWQbJjffpfvJS7dMA1TuJyrlUSvMMthGrkmVeiquOOojx8U9ovBo/n+Kg==
-X-Gm-Gg: AYBFou3a+aEeJZF7i7ZAS0ptcThy8XKcd6FYISpv2k6k2jQKwYrmMHpN2ep2/CxZwWU
-	pkgK81HoCwF/7PV+6a5aMICCzEzhlUFPq380RoGpeBLDEUL7SODMl3VTJkVt0ZRT45V9ahUZzFx
-	yQ99jSt0JXy+yxXIN7VWGyADf1uc3MxXQaS9kj49Isvq3OE+I28mfI/zbjYt2WwiDALnyD+8KWl
-	77XDNKXhTs2tl+3GcQjEAeXEc/Nuiyy7IlnW6x/emqlp3oqu8hnw2N7xps+MU5jhSITEN9Vu3a6
-	RPikal2qL4yYk7DLOfqBZCtsTeryIkLONh6KigWc5mKI6jDWkhE6T0vYlj8GVE2Mzmp6xjq8+fN
-	AWXfD8BwirJZ1qpXstjZ+CRHrUyIkAZ/NiwwyCfnBjLsmGNDZFAQfo8UWFfqZuE2Ep+EH6GxMmS
-	43Bl65Yz2SHpg//bFnTbHoER61BnM1QMsTkE9zR6ym/6Na4aMMn59VJb4mRV51jTB88EemOR3AY
-	h5REc3Gl8/bemnrdmN1omuehn323Uhwgu8l066VjE/4mq4WPSbeJcHtwnduTGqpmBXwqkMz1iiG
-	XXh6oDQyc8vjH9VXV8BVF5b3HAbQ9Y3GJWaxi50Die2K5T9MI/33semXepMDWeOQya25lLasPg2
-	fyi4kdOvyW1IqguWBnskVivtIDHpFBwdB/efPB8saFUGfMD71iGvJqCTL9FBBBgot6S9+SZvZcp
-	UfVyPawFjVFBUvWwJNdXL6LnuchaupM9rPzrn3dpOwgJeun4AS3l8=
-X-Received: by 2002:a05:6820:3417:10b0:713:da3b:9127 with SMTP id 006d021491bc7-716e7912499mr1864653eaf.46.1794025883255;
-        Fri, 06 Nov 2026 20:31:23 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ad979ebbd1sm3579607fac.9.2026.11.06.20.31.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 20:31:21 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 06 Nov 2026 21:31:18 -0700
-Subject: [PATCH] mtdchar: initialize MEMREAD statistics before each read
+        d=1e100.net; s=20260707; t=1794025917; x=1794630717;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tMJYIXC5HK/L92Fsjcvgr4iGfrMwtNzZGIshDMxf8u0=;
+        b=0nRBU/ai82ro2zU88664w0dc9PMuPsD2yFjd6DpI0LRiKOPj7UIvHz5OdHeE+3CTO6
+         vqyZEsUw5eeqZQfZN9ElSiSJYSUNRC4f2VNT+sjACXOw3hmSESm8VwvjOwyMFXMsHNdH
+         gf7+0+BVKS9n3lbF9ZnnYpUL5XitfOcIuv2w5qpj42/KA7QSUuZIFIMIoNcQndHK1v4m
+         6Ups2FUoR//cR71imKm31M7fPmIFwQYKaplTbjkprJRk3x3RomzJeyvuBtIx6DZ4i9BH
+         Zp6XJUfu1bce4sCQ0XLGMI3daOKH03u72pCKf1atY2Eep6oCk6Mo90vNSRPX0s+Lfp0k
+         35WQ==
+X-Forwarded-Encrypted: i=1; AL+hErG1RugBcyYdPmHmqE8Un8TkyCezZn4Z6TF1CdhYQ4L6jk7uLaqQqLTjFTEHLWiz6WaQvc6RcwRICHoA9TU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Nwyd/qI4APs4GkZ4ooX7WDuq4WVkOCNQ1ZnQI5jv9abcpOa1u
+	pmbInG0iZtmYAIq0Fk4b5BYIOqFnyCba5MDGhUu9q1rv0FHzckILYFOJlKsPA4YolBY=
+X-Gm-Gg: AYBFou3BPUNQ1Uxe6QiuBl/83FllZb4NOpGSBo5Hbnq5OIhCEY+RjQFxBh3wCMKVBX9
+	pFX/qVUZSmqZBaBmAS73IRIxhYpHwSDTaxAs4p6Gwh/pLMkhrAIdlFW16Ben+k91Td4iNc9Zmaw
+	wqxwzzcJuZiBOS2Jsjn3uoqLcZGOw6fmTxlkCyA+8YyZtdyQrcIW9ua11oyNB0gSlS5p2tISl8l
+	fVZovfbXe9PqgP2JGimK1+rGIFW/vEgcHUV1HxfALoK+nRmX+bi+5dIX3KxcZxlOGA0DRLxfGOz
+	Rv+fhmE0zsRlTLK7vo/mpEUziIhTDikT/oUHadLc5lS14T9bpa13+C4Ad09btv/+7g4LK4dTXz5
+	VFr+51oEDoiyZ+4rpBrfUenHqJz7drDAHjTMJy5RbdbXK7AGQxQfSy+dPRVPTRpnvIKiaVTGX7E
+	0Ld8/aNDAvRgcf73jZwDBhkF4LoxxOLqdj6bZZw4hETLzWgZeZZUsRPFvjk2DCV8z5kXudOuyxg
+	BIdD9FnQLZYUFkdhDpMuKn3SD+BbHwRSDv+qDCB2TCtfdpjfCLlE/ZgTKOADDsfvs208ivyn2WN
+	380VX7yoWVqm/UVSoPQhozBnCcpD1TtBHzSnzNFNqlWNFPuHv+JbIZvJdjfx
+X-Received: by 2002:a17:90b:3c0a:b0:3a0:eec6:b065 with SMTP id 98e67ed59e1d1-3b1060a6be4mr758538a91.13.1794025917280;
+        Fri, 06 Nov 2026 20:31:57 -0800 (PST)
+Received: from G6L4RL2QG9 ([2409:8a00:1832:6900:c8de:13da:804b:a0fa])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10584b66bsm1578451a91.14.2026.11.06.20.31.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 20:31:56 -0800 (PST)
+From: Muchun Song <songmuchun@bytedance.com>
+To: David Hildenbrand <david@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Lance Yang <lance.yang@linux.dev>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	linux-mm@kvack.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	x86@kernel.org,
+	loongarch@lists.linux.dev,
+	linux-s390@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH v3 0/5] mm: Simplify device DAX vmemmap optimization plumbing
+Date: Sat,  7 Nov 2026 12:31:17 +0800
+Message-ID: <20261107043122.25650-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,55 +115,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-submit-mtdchar-read-stats-v1-v1-1-173ac5c3ceb0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAxFf2X02eBaoWz+iviQtpmrsCpJHcLYv
- 5u6h/twbnLPZoQ4k5hrtxmmNUt+FQV76kycsTwIclI2rnfe2t6DfMKSKyw16Z2BCRNIxSqwWsD
- pQujG0bthMKp4M035+9ff7gfr/kmxNmf7CCgEgbHEuVWqPbccq33/AejgRP2gAAAA
-X-Change-ID: 20261106-submit-mtdchar-read-stats-v1-af3ea2996288
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- =?utf-8?q?Micha=C5=82_K=C4=99pie=C5=84?= <kernel@kempniu.pl>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-mtd_read_oob() can reject an invalid OOB range before initializing
-ops->stats. mtdchar_read_ioctl() nevertheless accumulates the per-read
-statistics before checking the return code and copies the accumulated
-values back to userspace, even when the ioctl returns an error.
+Hi,
 
-Initialize the local statistics on every loop iteration so a rejected
-read contributes zero counters and preserves statistics from any earlier
-completed reads.
+This series is split out from the earlier, larger series "mm: Generalize
+HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+vmemmap optimization across HugeTLB and device DAX, this subset addresses
+a single, self-contained step: simplifying the device DAX vmemmap
+optimization plumbing.
 
-Fixes: 095bb6e44eb1 ("mtdchar: add MEMREAD ioctl")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/mtdchar.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+After device DAX was converted to section-based vmemmap optimization,
+whether a mapping can be optimized is carried in mem_section, and the
+architecture-specific population path can handle any remaining fallback.
+The code still retains the DAX-specific vmemmap_can_optimize() helper, a
+PowerPC override, and @pgmap arguments threaded through lower-level
+vmemmap population and memory-removal interfaces. These duplicate the
+section-order policy and keep otherwise generic paths coupled to
+dev_pagemap.
 
-diff --git a/drivers/mtd/mtdchar.c b/drivers/mtd/mtdchar.c
-index bf01e6ac7293..cbc7114686b9 100644
---- a/drivers/mtd/mtdchar.c
-+++ b/drivers/mtd/mtdchar.c
-@@ -750,7 +750,7 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
- 	}
- 
- 	while (req.len > 0 || (!usr_data && req.ooblen > 0)) {
--		struct mtd_req_stats stats;
-+		struct mtd_req_stats stats = {};
- 		struct mtd_oob_ops ops = {
- 			.mode = req.mode,
- 			.len = min_t(size_t, req.len, datbuf_len),
+This series removes that obsolete plumbing by consolidating the
+optimization policy around memory-section metadata and simplifying the
+generic and architecture-specific population paths. This also eliminates
+dependencies that are no longer needed once the optimization state is
+carried by the memory section.
 
----
-base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261106-submit-mtdchar-read-stats-v1-af3ea2996288
+This leaves the section compound order as the single source of truth for
+vmemmap optimization and decouples the generic sparse-vmemmap and
+memory-hotplug paths from device DAX.
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+This is another smaller step toward the broader HVO generalization.
+
+[1] https://lore.kernel.org/20260513130542.35604-1-songmuchun@bytedance.com/
+
+v3:
+- Rebase onto mm-new at 684242af7090.
+- Move section_vmemmap_optimization_disable() out of line to fix the
+  LoongArch header-order build failure (reported by Sashiko and the
+  kernel test robot).
+- Keep section_vmemmap_optimizable() in mm/sparse.h and leave the
+  vmemmap_optimizable_order() relocation in patch 4.
+- Tighten the disable helper checks to require one aligned memory
+  section.
+- Collect Reviewed-by from Lance Yang.
+
+v2: https://lore.kernel.org/20261105061217.13302-1-songmuchun@bytedance.com/
+- Rebase onto mm-new at dba8aba0a9a0
+- Add section_vmemmap_optimization_disable() and use it for PowerPC,
+  LoongArch, and altmap fallbacks.
+- Add a LoongArch patch that keeps device DAX vmemmap optimization
+  disabled while leaving HugeTLB HVO unchanged.
+- Ignore section compound orders that cannot be optimized.
+- Add direct vmemmap-optimization.h includes for architecture users.
+
+v1: https://lore.kernel.org/20261030140720.1256062-1-songmuchun@bytedance.com/
+
+Muchun Song (5):
+  powerpc/mm: make vmemmap_populate_compound_pages() static
+  powerpc/mm: drop powerpc vmemmap_can_optimize()
+  loongarch/mm: disable device DAX vmemmap optimization
+  mm/sparse-vmemmap: drop vmemmap_can_optimize()
+  mm/sparse-vmemmap: drop @pgmap from vmemmap population APIs
+
+ arch/arm64/mm/mmu.c                        |  5 +--
+ arch/loongarch/mm/init.c                   |  7 ++--
+ arch/powerpc/include/asm/book3s/64/radix.h | 12 ------
+ arch/powerpc/mm/book3s64/radix_pgtable.c   | 23 ++++-------
+ arch/powerpc/mm/init_64.c                  |  2 +
+ arch/powerpc/mm/mem.c                      |  5 +--
+ arch/riscv/mm/init.c                       |  5 +--
+ arch/s390/mm/init.c                        |  5 +--
+ arch/x86/mm/init_64.c                      |  5 +--
+ include/linux/memory_hotplug.h             |  8 ++--
+ include/linux/mm.h                         | 40 +------------------
+ include/linux/vmemmap-optimization.h       | 31 +++++++++------
+ mm/memory_hotplug.c                        | 16 ++++----
+ mm/memremap.c                              |  4 +-
+ mm/sparse-vmemmap.c                        | 46 +++++++++++++++-------
+ mm/sparse.c                                |  6 +--
+ 16 files changed, 89 insertions(+), 131 deletions(-)
+
+
+base-commit: 684242af7090928ada5e48fd40a0f3a539b3fd5b
+-- 
+2.54.0
 
