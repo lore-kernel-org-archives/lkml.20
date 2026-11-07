@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794039180;
-	b=EcS4+4vlVfikh5U+LGiAyuGZ7H3F+ywOGCz8IrGXcHINiuAQVAVMZcQGeR5ko2xfx5im
-	 GDZxf4/xFaiOTQUbnbtYjIZGAARzEl2/gm6mNIPPaXFsEGQWUhEv9MLPCnnLv7FaCWe4w
-	 qdwGzBxpx2KYvvQDtysdDJdW8ROZHppZS57LGRG7n4ewaC+TzTmnGKyf8k9LLFOJQWrOg
-	 G0/auR8vHQeypn0xlf6evK6bRiqlvTKTItxOOE/i2c7LwEnLAQdiJ9vmJdIpmwQjPsESp
-	 yzoPvghYYVjW3a9n7mozpiIDKCzmOel2a+lZHRxxYjR9rrR/J/fOgmjx4FK/hHFsEAw==
+	t=1794039184;
+	b=Ex7awCzGSjp/qVHXkHU+QVpiCcZmBUdoEaieYIOpXXm2NpLxYtiDuHKDc60WczqqrcAC
+	 bqVOuPGoWIY5943RV16IlD/6+MM+76h7IXLKtxoSERIDG/UlTt8T255avOeFhOXLnl+zU
+	 dBH9JxwTBQwZfm3TZGSIxwO9h+E9OE9ufrbAVAeVz9peripawQGgfBLWax+8S1+itbHQA
+	 RpauYK1vrRznidNx7MwlNpQF3Xejkp5vFQ0QGXgUxfGXRQ0YlTkKjvhxaOp9GbSuz2unm
+	 jdjASMoBhSAeEB66TmXAOezi0D21v4PwFWOwqnvwIXzZHaZGax2mdQfwq5qmExxP3Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794039180;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794039184;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
 	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
 	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
 	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=FUQxplniV3XqQbTU1x3njSsIKxJzZ2Kl6zaiv8H9iYQ=;
-	b=Tki0wHabAWimv2AIcyLjC2VknjmB3g3TvG4+Z2+NA1ufPDi6UDXhrqSjhG4bP6bN1KAR
-	 c1VQc9qD9cjFIxk++pwqK6j97sDLCDkP4Sz43sivh+UaGCfbnMEr37aRjOk0Q963yfm/y
-	 gC8VJTPv8YnaDRWTU1ve/JYIKA1QgZ6e8F1+lyrVXwRvJvZFW9lRdrIXTa2uSXNyWadBi
-	 tPjIUlVBeUbAVEoo8be3sw8gmMitZrtJLlG+5UcaB9L/KS4YiSDqZ0BYyQl4R0SLBNlYt
-	 NquFiXtVGeWZOcpn6jqZisme6287yyjCNlTy3vgeLeqApxP3foNENDBoeusCE6NnPYw==
+	bh=TrlYktlz+QB1WmS75vmLbDabB1fj4HW7gCbD4G0RvVE=;
+	b=MnXo0W9vqDIcb7V1Oxoww+6pE5qN32wg5quoFlGNCPM1J3lkhnQ0fY/bQyt0FSkEhEkI
+	 Y+WO7zuxn6KID0Dds7jUsgPzKm+Srj0SQDRKHjY5ld6U9kt7CIVp8KMKkuVOcySX/YLLI
+	 2ab8Nboq/OSljTHgoQKMaBlmQSQGIMl+ZvFSDAX6f9cpv7wxwFdGq6ZwwX4Njawgym2Im
+	 70DE61VB4L9txAHMQys3c6ZrzCblaTYDYJgrlYKeuCpKzMGxRAZ/nYDO5vxCnfsqlNu+h
+	 ILuhO5hN7IrG3fcwtl1GUnkuSHzNwZHeOK/nSbfUrVb1JBTQOZyQenVr/VGdTaablpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A6F606A330;
-	Sat,  7 Nov 2026 08:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7A6F606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DEC606A32C;
+	Sat,  7 Nov 2026 08:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32DEC606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jM81Q30Bbz8XrrX;
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jM81Q6Kdcz57HS4;
 	Sat, 07 Nov 2026 16:12:58 +0800 (CST)
 Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6A78Cr5c098744;
+	by mse-fl1.zte.com.cn with SMTP id 6A78CrQv025375;
 	Sat, 7 Nov 2026 16:12:53 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sat, 7 Nov 2026 16:12:54 +0800 (CST)
-X-Zmail-TransId: 2afa6aeedd86ea4-98a3d
+	Sat, 7 Nov 2026 16:12:55 +0800 (CST)
+X-Zmail-TransId: 2afb6aeedd87fbd-8ab64
 X-Mailer: Zmail v1.0
-Message-ID: <20261107161254042rp3ZKRkQGz2jfH-FBrmtg@zte.com.cn>
+Message-ID: <20261107161255426IYcq8bz4WVHRTuqOH1BUA@zte.com.cn>
 In-Reply-To: <202611071612471583hApcIRmqJX9mMWQtxmcN@zte.com.cn>
 References: 202611071612471583hApcIRmqJX9mMWQtxmcN@zte.com.cn
-Date: Sat, 7 Nov 2026 16:12:54 +0800 (CST)
+Date: Sat, 7 Nov 2026 16:12:55 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,48 +65,46 @@ Cc: <linux-kernel@vger.kernel.org>, <geert+renesas@glider.be>,
         <andrew@codeconstruct.com.au>, <wbg@kernel.org>, <opendmb@gmail.com>,
         <florian.fainelli@broadcom.com>,
         <bcm-kernel-feedback-list@broadcom.com>, <jelonek.jonas@gmail.com>
-Subject: =?UTF-8?B?W1BBVENIIDIvNV0gZ3BpbzogYXNwZWVkLXNncGlvOiBwcm9wYWdhdGUgSVJRIHNldHVwIGVycm9yIGluIHByb2Jl?=
+Subject: =?UTF-8?B?W1BBVENIIDMvNV0gZ3BpbzogMTA0LWlkaS00ODogZml4IG1heF9yZWdpc3RlciBibG9ja2luZyB0aGUgSVJRIHJlZ2lzdGVy?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A78Cr5c098744
+X-MAIL:mse-fl1.zte.com.cn 6A78CrQv025375
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 07 Nov 2026 16:12:58 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 16:12:58 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEEDD8A.001/4jM81Q30Bbz8XrrX
+X-Fangmail-MID-QID: 6AEEDD8A.000/4jM81Q6Kdcz57HS4
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-aspeed_sgpio_probe() ignores the return value of
-aspeed_sgpio_setup_irqs().  That function returns the result of
-platform_get_irq(), so on failure - in particular -EPROBE_DEFER while
-the parent interrupt controller is still probing - the driver carries on
-and registers the gpiochip with no interrupt support, and the deferred
-probe is never retried, leaving GPIO interrupts permanently broken.
+The regmap config declares max_register = 0x6, but the device's IRQ
+status/enable register lives at offset 0x7 (IDI48_IRQ_STATUS /
+IDI48_IRQ_ENABLE, also listed in the readable/precious ranges and used
+as status_base/unmask_base by the regmap-irq chip).  regmap_readable()
+and regmap_writeable() both return false for any register above
+max_register, so regmap_read() of the status register fails with -EIO
+inside regmap_irq_thread() and no GPIO interrupt is ever delivered.
 
-The "interrupts" property is mandatory for this device, so propagate the
-error from probe.
+Raise max_register to 0x7 so the IRQ register is accessible.
 
-Fixes: 7db47faae79b ("gpio: aspeed: Add SGPIO driver")
+Fixes: e28432a77365 ("gpio: 104-idi-48: Migrate to the regmap-irq API")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
- drivers/gpio/gpio-aspeed-sgpio.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpio/gpio-104-idi-48.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpio/gpio-aspeed-sgpio.c b/drivers/gpio/gpio-aspeed-sgpio.c
-index 4225261f61..9df0082270 100644
---- a/drivers/gpio/gpio-aspeed-sgpio.c
-+++ b/drivers/gpio/gpio-aspeed-sgpio.c
-@@ -686,7 +686,9 @@
- 	gpio->chip.label = dev_name(&pdev->dev);
- 	gpio->chip.base = -1;
- 
--	aspeed_sgpio_setup_irqs(gpio, pdev);
-+	rc = aspeed_sgpio_setup_irqs(gpio, pdev);
-+	if (rc)
-+		return rc;
- 
- 	rc = devm_gpiochip_add_data(&pdev->dev, &gpio->chip, gpio);
- 	if (rc < 0)
+diff --git a/drivers/gpio/gpio-104-idi-48.c b/drivers/gpio/gpio-104-idi-48.c
+index fb017569cf..493d1fe708 100644
+--- a/drivers/gpio/gpio-104-idi-48.c
++++ b/drivers/gpio/gpio-104-idi-48.c
+@@ -78,7 +78,7 @@
+ 	.reg_stride = 1,
+ 	.val_bits = 8,
+ 	.io_port = true,
+-	.max_register = 0x6,
++	.max_register = 0x7,
+ 	.wr_table = &idi_48_wr_table,
+ 	.rd_table = &idi_48_rd_table,
+ 	.precious_table = &idi_48_precious_table,
