@@ -1,83 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794087863;
-	b=UqUDiDuuxcICuHKhQBLgtug8Qyzh0HVQLFwzEDWl+UVFebATqtaxOk5UrCZ28A+1AFl2
-	 8j0UhVaz+0GNcyaet3mC6iEuS6Pk3PC47Lu/Rf8z9R7LsNNo4LCIrHwRH1SpXmFwZTlw2
-	 g3CRJyVVZ1GCZZvUTQFWvCZ+Ej2lbTo2SgfYkym/4gZJTZr8NqBn89PoKD9CfuLIGLws0
-	 8KgqwcgcseVmTslbDAyuq8BE4nWcdM7AwZOg/mt2e6ED01vKEZaccnl35HbGYZtpoNHxJ
-	 Ye3+92TIO5TayItkMTZ36b6IGwVzWPX3ybklu631L0bXAtPEgdBjpZAY1qXCOi4O7bw==
+	t=1794087935;
+	b=HgaZTtEStf28m/fv2LvbIYqy2kEDXt60MSJRfwVNXW0TK7wYMUPzoRMct2b/fxgk9oNN
+	 1mk4IETTc3XA1Y5tXjjN1VyeK/JTWjHxMEL0lyBmlzlNR9/LscOKrH0ljzMPf5c6EnHj2
+	 2mrai5cp+1qXb7bpmR0pN18OxYCcPFyWaHR3Zou6AjaWf6QhEuDOIPlVkJeS0c9QLTwR4
+	 1EFCYuSFvcK8FsoWRlhHNXLIQSEkyBGQdH8Da8OeczBevkji6fCQ1c4BnoAnd+jKl+GKj
+	 tBgVT2l93xL0R7XxGu2Z+1L3Vn2wXBgZsNg1Jn11Xfo0TPm5xK7auEwf0K8YvN0a33g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794087863;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=sB09WNJW3d+13A5arIFJlIiie4qXGyky7H+wWE0/lag=;
-	b=DZ9y2JqN7cgq1fffXSNAqDtuDltXmhxhnvioaNQUROWl+w4O5A2dJmVTzUCDkzmS6pCo
-	 1ew39ecpvaPFh2AjwVjBr/OVUd+CjpzLAfQRgLd9MTOvHlfX2ePU2hwR+B8JAMP1DTW6v
-	 lIFdqc0L0EHB4s2C0a/ySiZHZApSN3QFcOJhPZk5RJPk9JmlyrqjOL39NaW7UZ7URXYxi
-	 yrfBSWHAxOdwR6bdbZRkCOMPYfVhCl+xKCNYI85+KEwH9/bU9EDZkkbByTzD1htNdAvDk
-	 yQhDh9D6VQERi2y/GX1QaXOyPIgazO/5vWAzN7hSGRLCwssFZewj2HSiQdiyP3e5itg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794087935;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Jg6uYRNhV7mTrgb91kiVKd41vY7ff4cg96iZM39MthE=;
+	b=28Bi3Ahg/0moaUL6ZWO9FJQ6mep5gJnWfTK6/vMkDr6IxRDdodu4Uq0dWLk+eeCpp0pF
+	 7KrmU98KHvsfmZbZ61C8+V9XiwpTVHYi3nYWdlZpSnIAVrDtAekKwuH0cUATY5cGdkFfZ
+	 2T+VP+qb3XCbD8gIx29Y1ABz/li8rLIL0DbH/Mx0B2+mMmS5e32uy+GwYIl3BBNFkReS3
+	 t0oip053hVuTs+NIU6WZ/ZLfzjhacjnBH+cz5Ivh/2bwoXE9eC4cNRalH2MbUSuPc2jmA
+	 qbMJQ+A8DeJtme8dk+ajpVytkwdlpFts+fSHFKvgZXJGneoe810xeTvv2c3nyIXUIpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VsNlCjdM;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oL/zu0XQ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79893606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 21:44:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79893606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9E9606A32C;
+	Sat,  7 Nov 2026 21:45:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VsNlCjdM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794087861; x=1825623861;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=k/1rDklUHfMI9DthPG297ITL+KaRw6yRNRqwI1fACI4=;
-  b=VsNlCjdM1USFRNJcoE0fpcGRcolhQ7v5RL0jRb0mNc5bbP76h+Gh5AYw
-   9zdpv6iwNsAgl/vL0tbn2Qh3CdAYEHOTihSkkiTIGTQlgTFLJsy50fByY
-   uzCiLFTXqJwOGq5ZnTk2sP4nkVByQG//kpSHspNlWgfjm1+1lYtYDLmTV
-   4elHOyMvyNq1GuUvF+9CgsaDPgrBshXr7q5ExlYgGaGNN6u/Q0xtnCZIp
-   F8ivQ3B1G9r0MlfxRdHmLSjw8KJKT94B1Ka5zJNzjoJ1duMiI+HTZfzgI
-   46As3ZsH/GlDFQwDBE5f6p/AU4RFd4rAgAhVfIRnpH21FJqMLAdjrtAjS
-   A==;
-X-CSE-ConnectionGUID: 09opH/EnRYuPbJSldKfIJQ==
-X-CSE-MsgGUID: hV5Clm6GTmiwngAK4HyNAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2857733"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2857733"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 13:44:19 -0800
-X-CSE-ConnectionGUID: VrhxRO5+Sn2Cwe90b4oEJg==
-X-CSE-MsgGUID: TdkUtEKjQyCGw/zQ3k6YSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7727986"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 07 Nov 2026 13:44:15 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPoCq-00000000rbn-1NfD;
-	Sat, 07 Nov 2026 21:44:12 +0000
-Date: Sun, 8 Nov 2026 05:44:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: amit <amittibi123@gmail.com>, neil.armstrong@linaro.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	hanxu5@huaqin.corp-partner.google.com, jesszhan0024@gmail.com,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	icenowy@aosc.io, jagan@amarulasolutions.com, linusw@kernel.org,
-	robert.chiras@nxp.com, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, amit <amittibi123@gmail.com>
-Subject: Re: [PATCH] drm/panel: Replace deprecated DCS display-on calls
-Message-ID: <202611080509.DZUY4PHf-lkp@intel.com>
-References: <20261104073813.42429-1-amittibi123@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oL/zu0XQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A641F008A2;
+	Sat,  7 Nov 2026 21:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794087934;
+	bh=Jg6uYRNhV7mTrgb91kiVKd41vY7ff4cg96iZM39MthE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oL/zu0XQFZaVfByvORZm31uzlL1kH9iZIQ5kdPtCh6MIXLDcb95w1Y8QfuHey5/fQ
+	 WfhE2Uv3CrpUZO+yBgilHI+A9zN2eQu0oO+XijYO+CkTsztVUvrk1IphCLlJMRhJAl
+	 2vaqWMhpdt0KQGtAmmC9hAjskXzZmnJWJQfE2OYLBCEIklZff4LKXlmY3T3NlnyEbd
+	 Ow3TNupoUfoJNfTIYk6CfPqgZibk4yk5G3uXFZax64L8sS8i7UvdGok6ElA5k8L8So
+	 g4cKAtJ4K7aIaKIvNjizyxxL8V6ArKR6vfrs1oyxLsRcEBNdS6qsvabpy2Ni4MTslt
+	 PlTVyKZIQO6KQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.12.y 1/5] mm/damon/core: skip applying scheme if region split for quota fails
+Date: Sat,  7 Nov 2026 13:45:20 -0800
+Message-ID: <20261107214525.304638-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107214525.304638-1-sj@kernel.org>
+References: <20261107214525.304638-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,71 +63,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104073813.42429-1-amittibi123@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi amit,
+Patch series "mm/damon: fix DAMOS bugs in core, paddr and vaddr".
 
-kernel test robot noticed the following build warnings:
+Fix misc bugs of DAMOS.  Patch 1 makes DAMOS less stress memory allocator
+under extreme situation.  Patches 2 and 3 fix wrong folios walking in
+DAMON_PADDR.  Patches 4 and 5 fix wrong folios walking in DAMON_VADDR.
+Patches 6-8 handle extreme and unlikely memory situations that can cause
+divide by zero and underflow.
 
-[auto build test WARNING on v7.4-rc1]
-[also build test WARNING on linus/master next-20261105]
-[cannot apply to drm-misc/drm-misc-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+All bugs are discovered by Sashiko.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/amit/drm-panel-Replace-deprecated-DCS-display-on-calls/20261104-093813
-base:   v7.4-rc1
-patch link:    https://lore.kernel.org/r/20261104073813.42429-1-amittibi123%40gmail.com
-patch subject: [PATCH] drm/panel: Replace deprecated DCS display-on calls
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261108/202611080509.DZUY4PHf-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611080509.DZUY4PHf-lkp@intel.com/reproduce)
+This patch (of 8):
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611080509.DZUY4PHf-lkp@intel.com/
+damos_apply_scheme() splits a region and apply the action to the subregion
+if it is needed for not violating the quota.  The split operation
+(damon_split_region_at()) could fail for allocation failure.  In the case,
+the quota could be violated.  From the user's perspective, DAMOS becomes
+more aggressive than expected under the extreme situation.  Handle the
+failure.
 
-All warnings (new ones prefixed by >>):
+The user impact is not critical.  The failure of damon_split_region_at()
+is unlikely since it is arguably too small to fail.  Also DAMOS being
+aggressive is limited to the single region.  Users can set min_nr_regions
+to set the maximum size of each region.  If it is reasonably set, the
+transient overhead shouldn't be critical.
 
->> drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c:356:10: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
-     356 |                 return ret;
-         |                        ^~~
-   drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c:350:9: note: initialize the variable 'ret' to silence this warning
-     350 |         int ret;
-         |                ^
-         |                 = 0
-   1 warning generated.
+The issue was discovered [1] by Sashiko.
 
+6.12.y porting notes.  Modify damon_split_region_at() to return
+failures.  It is a part of commit c60874860762 ("mm/damon/core: handle
+region split failure in apply_min_nr_regions()").  Without it, build
+fails.
 
-vim +/ret +356 drivers/gpu/drm/panel/panel-feixin-k101-im2ba02.c
+Link: https://lore.kernel.org/20260901131850.98037-1-sj@kernel.org
+Link: https://lore.kernel.org/20260901131850.98037-2-sj@kernel.org
+Link: https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org [1]
+Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Usama Arif <usamaarif642@gmail.com>
+Cc: <stable@vger.kernel.org> # 5.16.x
+(cherry picked from commit 90c2fa6adfed7abe0935506a43cdff3a05c1fff0)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  342  
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  343  static int k101_im2ba02_enable(struct drm_panel *panel)
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  344  {
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  345  	struct k101_im2ba02 *ctx = panel_to_k101_im2ba02(panel);
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  346  	const struct k101_im2ba02_init_cmd *cmd = &timed_cmds[1];
-7bb5e5e01ffc36b amit          2026-11-04  347  	struct mipi_dsi_multi_context dsi_ctx = {
-7bb5e5e01ffc36b amit          2026-11-04  348  		.dsi = ctx->dsi,
-7bb5e5e01ffc36b amit          2026-11-04  349  	};
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  350  	int ret;
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  351  
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  352  	msleep(150);
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  353  
-7bb5e5e01ffc36b amit          2026-11-04  354  	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-7bb5e5e01ffc36b amit          2026-11-04  355  	if (dsi_ctx.accum_err)
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16 @356  		return ret;
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  357  
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  358  	msleep(50);
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  359  
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  360  	return mipi_dsi_dcs_write_buffer(ctx->dsi, cmd->data, K101_IM2BA02_INIT_CMD_LEN);
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  361  }
-fac47b1ebeda3b5 Icenowy Zheng 2020-01-16  362  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 81d44e41de210..6ef77741b783b 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1266,7 +1266,7 @@ static void kdamond_reset_aggregated(struct damon_ctx *c)
+ 	}
+ }
+ 
+-static void damon_split_region_at(struct damon_target *t,
++static int damon_split_region_at(struct damon_target *t,
+ 				  struct damon_region *r, unsigned long sz_r);
+ 
+ static bool __damos_valid_target(struct damon_region *r, struct damos *s)
+@@ -1470,7 +1470,8 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
+ 					DAMON_MIN_REGION);
+ 			if (!sz)
+ 				goto update_stat;
+-			damon_split_region_at(t, r, sz);
++			if (damon_split_region_at(t, r, sz))
++				goto update_stat;
+ 		}
+ 		if (damos_filter_out(c, t, r, s))
+ 			return;
+@@ -1861,15 +1862,17 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+  *
+  * r		the region to be split
+  * sz_r		size of the first sub-region that will be made
++ *
++ * Return: 0 on success, negative error code otherwise.
+  */
+-static void damon_split_region_at(struct damon_target *t,
++static int damon_split_region_at(struct damon_target *t,
+ 				  struct damon_region *r, unsigned long sz_r)
+ {
+ 	struct damon_region *new;
+ 
+ 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
+ 	if (!new)
+-		return;
++		return -ENOMEM;
+ 
+ 	r->ar.end = new->ar.start;
+ 
+@@ -1879,6 +1882,7 @@ static void damon_split_region_at(struct damon_target *t,
+ 	new->nr_accesses = r->nr_accesses;
+ 
+ 	damon_insert_region(new, r, damon_next_region(r), t);
++	return 0;
+ }
+ 
+ /* Split every region in the given target into 'nr_subs' regions */
+-- 
+2.47.3
