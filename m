@@ -1,53 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794083800;
-	b=ZgBEocvqXu11FziU25LVDclHHZdgRyG/dCHoG/OLrYgKGea4WKH9fKfbcz/fMx7gyHeq
-	 gFx+xWT1v6poqHsFWRWOTjoPCCiy+UvSpfukMw34jeJYP9rYtvTaJLPAqe+mQKqq8AXBD
-	 Ylu5UvqYBw/16lKjJUYEBjSQ1wT1/LWQb7O2NeSs/b85xP2UdlNiT+RLKGZ17HsrCgTMR
-	 mXBfnQcimQJBf81MIxsxFA/DAy11+LVoQEe3T4Z0lHom/6i8aQMCUv1IcbBxPbyTOGlMP
-	 trZmXLC4x2i9sb7da/I2hv7X8C6RooIxYpLkO8sXd8umI8QGOaNmAK4On/8M/Db79ug==
+	t=1794083913;
+	b=RiCf7aWyq8DN0I1+Iw6CAbKzMbOG+qdSqsVfcNb4vegJGFb6+uJSdzf7ljgU0zWVqlAf
+	 eysqIC2AJL/yQi6LOg15e1rmMA9+Hs4tsohAUJz9RqfA55kZGalyiqx57z9qG5wEdPJhb
+	 xMuoksZCgmRx/VG2q3yd9oxRgZpbK4mfjL+ek030nu2sNMZ57oparbwV6tT0MGbUDdVhb
+	 Jc0/N3hn342ekOxpf3YLsuvMA5cd/xC46XZ1ZOQ7u6U3+O7euc+yC+miVjTB/bYiaylhX
+	 uCtr0u+fHZaBJ0q2hTxHUP/Hv93hEYt4Ua7BabaMGwuaCqd/Gnon/5YsmKyCujL2tUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794083800;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
-	bh=m1cywuN9POCHGVkY3HMh/Fn+/naoEZscsamoMt9C/K4=;
-	b=Tg/9lEl7Y+TibDixyH8Rqtf9MBJAL91v8fkcFqwzU0hG/mkqnrb7lcnYRHw7wkK05Ng+
-	 5g99x09HrLQhRfqhgLA9Ucl2jxvSeU91UQO2ad1a09aSGKE7l95f1oiq2QGAu3DEB/jCd
-	 5qQDZeZR/dKFXTt2mHj+ntyve+JYUl7lxkfux979KvfVaJitIZa+j923heSVjhDTIqgcx
-	 PUTX+WcyBPXRVe74FL/dtiZbyGSUFd9u540xR3quwwlLqI+K8j352bA3LAWPc6bq7Y6VD
-	 nerO2qFW1g9IZUlAofmfNXbZ4To3B3VCrzCjkaEKZlhnsdx0ZxmAobp/O+u/emfjMYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794083913;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=k1NDAYVTI0gMo1fR2XywehCeetsAagr1fmpBupImFSc=;
+	b=3vljWQK0cLJcSmD0DNQoyPlo2GZEAuyzkIeBVXiVp0md9gEwiKX/SnuHC0juNbUAkI8w
+	 girk158eUfQJ3+0MBjpKa71jfPXAG/nSfTrOXrlGzGNu5uGuHD1vXavgPT6pMEZ99mkYj
+	 7AUMMJW93LbzY0+5vsR2Mfl0hP84jZWOcmkO2ilEzCZSxaQUsuUsspssQMgqVexJ8W3HC
+	 sZY3ZL4PKEuOYVYfGUEZsWw5cWVuhj1RFpKgwJQNEP92gr7LZwW84vXgCYUfN0ah3Y6Tw
+	 Y6UvEzU8zP3Ll765vNgoLdRyNkvsNAxP7+KhyEdAt+CxDkdRKDWnRvFD51+ZeIszF2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chaosmail.tech;
-	spf=pass smtp.mailfrom=chaosmail.tech;
-	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b="dF/Q0i3z";
-	arc=none smtp.remote-ip=77.81.229.115
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODo+SvZu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57468606A330;
-	Sat,  7 Nov 2026 20:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57468606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C91606A32D;
+	Sat,  7 Nov 2026 20:38:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=dF/Q0i3z
-Received: by chaosmail.tech (Postfix) id 26AEA1C984E;
-	Sat, 07 Nov 2026 20:36:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1794083791;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m1cywuN9POCHGVkY3HMh/Fn+/naoEZscsamoMt9C/K4=;
-	b=dF/Q0i3zig4kCsRUNVXV7SRnJTy/JaqYkyYAtzVy0CjZetGNwZw0mTrQ2B7eh6l0QkXN3V
-	4c1+Ipgj8ckiVnl33gyEYVW9KjmslCnCWxl5q/HgD9CSMgzPv8iOYsH8R034nybaSmditG
-	KFG2H1ATm6TzimaMHTxM/qDSvkkrdlA=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Sat, 07 Nov 2026 21:36:24 +0100
-Subject: [PATCH v11 2/6] spmi: apple: Validate FIFO state
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODo+SvZu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC7A1F0089F;
+	Sat,  7 Nov 2026 20:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794083912;
+	bh=k1NDAYVTI0gMo1fR2XywehCeetsAagr1fmpBupImFSc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ODo+SvZu9laO+Oezbbdm7auRwZ4BUbLEDE7CtQPCh1paxKDuQQDXOzxXJvS2bKNz3
+	 q58qVh8HIV2pCX25GANZCwWWnADgt4f+XPppYMZT6g2AIfakc52tYnfNWwnZ91u7Hs
+	 nFNYzVW6jNv1l4MsclMtSuZKkuoS721BmV9JyRWgVd8oje2WuwLvK5Z3FMleN3xoPz
+	 1cH2mthCBAywtwIIwzCq6sf3pJMmKIlNuKEEXdbgGDtKQBGPIoWW94JbwtAlfHswAv
+	 aZZgu8BrtdpcsvBOPHHpyIsUMH1+zlCB2nX1RdxehXeua0MLtTUnRYl7m2V4q0RtVr
+	 ECW+1jCccXlIw==
+Date: Sat, 7 Nov 2026 20:38:25 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: =?UTF-8?B?0KHQtdC80ZHQvSDQnNCw0YDRjNGP0YHQuNC9?= 
+ <simeon@maryasin.name>, jikos@kernel.org, bentiss@kernel.org,
+ linux-input@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] iio: hid-sensors: fix fractional part for unit
+ exponents -7 and -8
+Message-ID: <20261107203825.6988b783@jic23-hlaptop>
+In-Reply-To: <53c382715b89d26f77f495f79036d31850bf453d.camel@linux.intel.com>
+References: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
+	<CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
+	<53c382715b89d26f77f495f79036d31850bf453d.camel@linux.intel.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,130 +64,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-t603x-spmi-v11-2-322490215f58@chaosmail.tech>
-References: <20261107-t603x-spmi-v11-0-322490215f58@chaosmail.tech>
-In-Reply-To: <20261107-t603x-spmi-v11-0-322490215f58@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794083789; l=3000;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=oo0A5mTyjhQs/shRoCqBQAm46h7YyRWHCbKW2E+1Huk=;
- b=E6Fi/ubY3mpQ6PvfuFKfQiucxMwtWJRy97qI91vrIK3FjwC0qtyiiiiVRcRfITMOVInxCWyFq
- k3pnBU7mOPAAYRL/gCL6kSuu34DX2ngUzBGOsTLFS6RB5Spkx3KSO+z
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Alba Mendez <me@alba.sh>
+On Thu, 05 Nov 2026 15:56:26 -0800
+Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
 
-Check for data before reading the body of a reply, and check for
-end of data afterwards.
+> On Thu, 2026-11-05 at 22:26 +0300, =D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=
+=D0=B0=D1=80=D1=8C=D1=8F=D1=81=D0=B8=D0=BD wrote:
+> > Tested-by: Semyon Maryasin <simeon@maryasin.name>
+> >=20
+> > Here is what I observe with this patch:
+> > 1. Enable sensor and run xxd /dev/HID-SENSOR-2000e1.3.auto
+> > 2. In the second terminal, do rmmod intel_ishtp_hid
+> > 3. Observed result: xxd stops with "xxd: No such device"
+> > 4. At the same time, in kernel logs I see the following:
+> >=20
+> > =D0=BD=D0=BE=D1=8F 05 22:19:16 dook kernel: hid-sensor-hub 001F:8087:0A=
+C2.0005:
+> > timeout waiting for response from ISHTP device
+> > =D0=BD=D0=BE=D1=8F 05 22:19:19 dook kernel: hid-sensor-hub 001F:8087:0A=
+C2.0005:
+> > timeout waiting for response from ISHTP device
+> > =D0=BD=D0=BE=D1=8F 05 22:19:22 dook kernel: hid-sensor-hub 001F:8087:0A=
+C2.0006:
+> > timeout waiting for response from ISHTP device
+> > =D0=BD=D0=BE=D1=8F 05 22:19:25 dook kernel: hid-sensor-hub 001F:8087:0A=
+C2.0006:
+> > timeout waiting for response from ISHTP device
+> >=20
+> > No system crash, so I suppose this is okay?
+> >  =20
+> That is fine.
+Applied to the fixes-togreg branch of iio.git.
 
-Signed-off-by: Alba Mendez <me@alba.sh>
-Reviewed-by: Janne Grunau <j@jannau.net>
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- drivers/spmi/spmi-apple-controller.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Thanks,
 
-diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-index 376cf682c43e..15721cb41d5c 100644
---- a/drivers/spmi/spmi-apple-controller.c
-+++ b/drivers/spmi/spmi-apple-controller.c
-@@ -21,7 +21,9 @@
- #define SPMI_STATUS_REG 0
- #define SPMI_CMD_REG 0x4
- #define SPMI_RSP_REG 0x8
-+#define SPMI_ACT_REG 0xa4
- 
-+#define SPMI_ACT_FIFO_FLUSH BIT(0)
- #define SPMI_RX_FIFO_EMPTY BIT(24)
- 
- #define REG_POLL_INTERVAL_US 10000
-@@ -29,6 +31,7 @@
- 
- struct apple_spmi {
- 	void __iomem *regs;
-+	bool prev_fail;
- };
- 
- #define poll_reg(spmi, reg, val, cond) \
-@@ -49,6 +52,7 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
- 
- 	ret = poll_reg(spmi, SPMI_STATUS_REG, status, !(status & SPMI_RX_FIFO_EMPTY));
- 	if (ret) {
-+		spmi->prev_fail = true;
- 		dev_err(&ctrl->dev,
- 			"failed to wait for RX FIFO not empty\n");
- 		return ret;
-@@ -67,6 +71,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 	u8 i;
- 	int ret;
- 
-+	if (spmi->prev_fail) {
-+		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
-+		spmi->prev_fail = false;
-+	}
-+
- 	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
- 
- 	ret = apple_spmi_wait_rx_not_empty(ctrl);
-@@ -78,6 +87,12 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 
- 	/* Read SPMI data reply */
- 	while (len_read < len) {
-+		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
-+			spmi->prev_fail = true;
-+			dev_err_ratelimited(&ctrl->dev,
-+					    "FIFO lacks reply data, controller stuck?\n");
-+			return -EIO;
-+		}
- 		rsp = readl(spmi->regs + SPMI_RSP_REG);
- 		i = 0;
- 		while ((len_read < len) && (i < 4)) {
-@@ -86,6 +101,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 		}
- 	}
- 
-+	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
-+		dev_warn(&ctrl->dev, "FIFO has extra data\n");
-+		spmi->prev_fail = true;
-+	}
-+
- 	return 0;
- }
- 
-@@ -97,6 +117,11 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 	size_t i = 0, j;
- 	int ret;
- 
-+	if (spmi->prev_fail) {
-+		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
-+		spmi->prev_fail = false;
-+	}
-+
- 	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
- 
- 	while (i < len) {
-@@ -115,6 +140,11 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 	/* Discard */
- 	readl(spmi->regs + SPMI_RSP_REG);
- 
-+	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
-+		dev_warn(&ctrl->dev, "FIFO has extra data\n");
-+		spmi->prev_fail = true;
-+	}
-+
- 	return 0;
- }
- 
+Jonathan
 
--- 
-2.56.0
+>=20
+> Thanks,
+> Srinivas
+>=20
+>=20
+> > After subsequent modprobe the sensor initializes and works properly.
+> > No kernel crash with this patch.
+> >=20
+> > =D1=81=D1=80, 4 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3. =D0=B2 1=
+9:53, Srinivas Pandruvada
+> > <srinivas.pandruvada@linux.intel.com>: =20
+> > >=20
+> > > split_micro_fraction() scales the remainder to micro units by
+> > > multiplying it by 10^(6 - exp). The unit exponent of a HID field
+> > > goes
+> > > down to -8, so exp can be 7 or 8 here. Then the argument of
+> > > int_pow()
+> > > is negative, which the unsigned parameter turns into a huge power
+> > > of
+> > > ten: 0 modulo 2^64. As a result, the fractional part of a value
+> > > read
+> > > from the hysteresis attributes is always reported as 0.
+> > >=20
+> > > Divide by 10^(exp - 6) in these two cases. This matches the reverse
+> > > conversion in convert_to_vtf_format().
+> > >=20
+> > > Fixes: 73c6768b710a ("iio: hid-sensors: Common attribute and
+> > > trigger")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Srinivas Pandruvada
+> > > <srinivas.pandruvada@linux.intel.com>
+> > > ---
+> > > v2:
+> > > - Fix __udivdi3 link error on 32-bit by using a 32-bit divisor
+> > > - Address Andy's comment:
+> > > Keep no % divisor in a temporary variable next to no / divisor
+> > >=20
+> > > =C2=A0drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 7 ++++=
+++-
+> > > =C2=A01 file changed, 6 insertions(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> > > b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> > > index 9e7c26e37880..d44091faf122 100644
+> > > --- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> > > +++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> > > @@ -96,9 +96,14 @@ static void simple_div(int dividend, int
+> > > divisor, int *whole, int *micro_frac)
+> > > =C2=A0static void split_micro_fraction(unsigned int no, int exp, int
+> > > *val1, int *val2)
+> > > =C2=A0{
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int divisor =3D int_pow(10=
+, exp);
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int rem;
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *val1 =3D no / divisor;
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *val2 =3D no % divisor * int_po=
+w(10, 6 - exp);
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rem =3D no % divisor;
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (exp > 6)
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 *val2 =3D rem / (unsigned int)int_pow(10, exp - 6);
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 *val2 =3D rem * int_pow(10, 6 - exp);
+> > > =C2=A0}
+> > >=20
+> > > =C2=A0/*
+> > > --
+> > > 2.56.0
+> > >=20
+> > >  =20
+> >  =20
 
