@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794068103;
-	b=hXlh1oYSC0d/L84lcALZA4eo4wPteZ94Kf7Cco0AkEAGlH18ilLH6p+7RA6d5ZPBz1vD
-	 H0mc0skeS9QYdFAYIsX8I6oPZlu5zy+OcbzE06nHsraPDaN09/dzqVwwU0nH7oZwuUqRw
-	 XLSlANUYqRx46s3r/Ljlx4gAEQI3HHL6fPh6gxl9g9MxuVatSCRwYg40PTgYSYPQyIcMT
-	 CgY3ggXwMEiqsTm552ai02+gISIvsBd50BAV7hbTxklgYqxgymo1/NxBGJ53UMRlEgv5F
-	 9tvLP40LQe3ZjKgGX2rojWZvuqUf6riBb5PVTpsh/U1KevBVVTLzEjY92m0NVqO2agg==
+	t=1794068108;
+	b=0+nwfY5cikGeavl1Q5x4ezInEiUxJ9IaroR7h5i0clU3tVNnGzkJKYsk3rOvcapmRKTg
+	 xupyY28XqZ5rERAr4M6iqYjdGhgB+50ew3POwQP1IErhyVKbJYNoEm3oozjO0VfspAXhL
+	 wlZzUN/sfOeTyvyzQHJzFxfrM+h5xKDvJrXSBrO4A9hp481tMCllYRDrbF0lA+mH04B2r
+	 oW4LYby33qac8K80joiqVPvkYx4gFSrOw6xZBK1lHEfWpR0I5SbN0xu2MHQVRLspo8q5I
+	 r0ONpvoRz2kA2omaQaJzhnvWgax46FqFl9IqiZLeH1vYDDq6hoAfMNZDC9Fute1om6w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068108;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UyKXHPJssAZn7LJUXK9b+ujmtwD2aMnHRC80D70IveM=;
-	b=wTMIMNottViEIkIvVhiriggH4S+t+8vzprdqZFZgzE56mKbMzPcY4GnxHH8w6f794af4
-	 jooPODhdAMl0ytqBFTdvzcqaCnO1fecEbSb5LtzZhICkZGk6TV8210WEnVDPGbRMcX3cx
-	 J3GRfil3X4LQ61g7FCsQ2JHQvZt78mrTZc0jWCBcMiB6BjrO6CDUZoihmPbsWco0mujlo
-	 nl3+djb2hmp8ZOMvV0jwDTonxrA57SdanGui86YusUMhb5NhZZjnatOLk584U8qMZ9Z52
-	 LOcJ9w7yNngeeadRlfJ5RW5EKGA3hY1+cO9tuw1HLyfVi1pvHICgZFGP8rIwAkFEAGw==
+	bh=BanOOqZSKvK9JmeUIGJNE5wX3BicRASqFfy6QYPhCgM=;
+	b=FARQmqxtmVGjOk3WaH8MBBttan1G+vOOExZxFxkcrx65CG0fvIqdgYSjjBbLbKorvVHQ
+	 T8MHxZCcRN+Cno0HswD+CBZRA5/OJvyI1V/uXwDQaXRzduYyNni9mfbZXgHND8jUNacXT
+	 t+o+dPmZkXAUZhe+8hxIVIRCN0SGyAYlXUvVkjMY2rpPL/YYmuJnE/YlqLnZbAI5FvPrI
+	 elZnlZIW1mDGm9+1LOdgLLfe/4FnkkMiVmA7Y6+VR6rZ3wtFS+/m+lh+fyYOc2ccTpSYv
+	 fboVKy8Q+tnf9ukPPvt5cZ2IbHZ3SUExdqNlH4n7Pw32JAeYNsfqeOwfznRVuQMaa+w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RvDo6Wv2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Zo2yvumh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.13
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011013.outbound.protection.outlook.com [52.101.57.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655F1606A336;
-	Sat,  7 Nov 2026 16:15:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 655F1606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D76606AC01;
+	Sat,  7 Nov 2026 16:15:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D76606AC01
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RvDo6Wv2
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Zo2yvumh
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UDK6UEgzwSFNbGJVcoSd6EWYSQe742X3pRImRqDs3eZrYKWaYDMCv7BAh9wFJ/o6HyFYpz/jhj6p7bfOtuJzO1bZveIG0OjXf2UDJ7KDUgddNLaD//fJr//22Hgj0wCNDtdmp63E9oD0X5llh779uYYTMt7Q+yNonDCrrhzvsPWCHya8sTfVMEBcxAVUOJdWfgDhi/ERd9TirwweGTfg5Nmhvjc7MS4636WYNE+Gd8Nrk8Tt8NifmZno1QIsdhFw6axo7VEDk49ZrBYEayUvevKi2sIC4fAdmq3biDN9rQJLEay+qmom65CPuC0PGa8GFSaR+GnVx08u1DZiMGY31A==
+ b=GtDw2vVqhHlATCwvZyTfVXt/tkryZ8DXFFwyqFDaLIdHjZt1Bv2meyFU3ILVhtT4pSWLMST3dpKXsnwyXUdjm8r0+Yfgf4O1F7z/WUy842F3PexruT5NUH3MWFB0pqT5MEyxSEw35oNocE9yMVzrgVi2Kze+xJtG4xAjDeNu8uTAA3NrGE4zTjHJpk3j7jAJqIXpQ3HMuDO5MC1yjX4P5pUDqXDVGLHlezv4hJvHRrPKCkzQ7mLx/5BWD1Pi7658CAQMeR6miSkaanjWT84u2VMoBB1196X1GCw41aMmtlCilUp4FE0J85LnfZa11ufsU4RYKMgA+yvJUgP9CS2J8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UyKXHPJssAZn7LJUXK9b+ujmtwD2aMnHRC80D70IveM=;
- b=eQoweEct/RD0MLYA9QkgfrfdvKDS265lGSuWvdyD36sQYwL5nSropowszR5YbDWOyzjO1kOqwp2O0h/J0V1tIsDS9IQ/7cYS/YqVIM3jevY6MyDdTRr7qRzHBo2iyVeujYA1lUcryted6pw+/sWSq0t4k+yj16LLrdj73L8iziI70GYwVuqQ8UZyQD9vEBX4ICPlJ1uEAPsS8+zqcghlGILgFq+7WfT7ER1KZuTNXpIgKhv2MkXIPl+cIRqoKsTeiB+ZwatL/y9igF/cNY/E6oaJiS1qXKICMLvzIKoIAOI4bhmg9m+bsXcQX88VhbgQJp09l/PnqSZlF2TzguEiug==
+ bh=BanOOqZSKvK9JmeUIGJNE5wX3BicRASqFfy6QYPhCgM=;
+ b=U+W6648i2/6uqUYKwmHmmZZq/1t/32YpDynAndzDPLJiIVN8u9rJExoEWusItDOdRW1nKsHfY/qiBz6LkUc2epB0ml4Cxw9NDj0zgpSX+NPMkwxEXf8gZ3cDVoSoMAeJr796HE4Gi3eBdFOarpmr7HURPmu4LukMLU0xdaqJ/R+Y9RRYIJFQxlHG9gzA/U7R1GhvFQUnhC7jWArLfE6o/yYtQ3Zf2k2WdGF2g+nB/lSwgUeXvKuPLnP8DDpWpTEM+VTMYT/6iNj8lirr52tjg2uEBNOyfgquXUJkhMnA2X4+ibIxQWUNuBN4/CutgSqwKjx5e6l/+4nB6C2+masUqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UyKXHPJssAZn7LJUXK9b+ujmtwD2aMnHRC80D70IveM=;
- b=RvDo6Wv2SBS/eCB1gYJm76oGqg7fKdNDZEqOseLeTvUdPX4M1GifCS5xRRONWu29tKotKSn8s0offiXeSA/ffHmN01UbF9hmOeGIdRZNH06aGBp67toEgrcByRyMaKxPGbF50U7obyZE9VzgTZQ9kH1gR+QiFWlX2JSk0HuaTvc=
-Received: from BN0PR04CA0072.namprd04.prod.outlook.com (2603:10b6:408:ea::17)
- by BN5PR12MB9464.namprd12.prod.outlook.com (2603:10b6:408:2ab::10) with
+ bh=BanOOqZSKvK9JmeUIGJNE5wX3BicRASqFfy6QYPhCgM=;
+ b=Zo2yvumh2tzQ4xcnhypqcxiUltnFR8kut+cwjt6Q3j/7A8uSAtkmAnzuvMj6ql9UtCLQq4qMYzYnmsm+jhXcph2pBOc6jCiF6xjFouE8PnQlnLTRDM0hn0ay/JSOXaBE9k5zBLipkF+BcVZfYptWsiFopUoE7dqOj4qcKhvAAy0=
+Received: from BN9P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::7)
+ by DS2PR12MB313866.namprd12.prod.outlook.com (2603:10b6:8:3bf::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 16:14:59 +0000
-Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
- (2603:10b6:408:ea:cafe::90) by BN0PR04CA0072.outlook.office365.com
- (2603:10b6:408:ea::17) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 16:15:04 +0000
+Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
+ (2603:10b6:408:13e:cafe::4f) by BN9P220CA0002.outlook.office365.com
+ (2603:10b6:408:13e::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Sat, 7
- Nov 2026 16:14:59 +0000
+ Nov 2026 16:15:04 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,16 +80,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBC.mail.protection.outlook.com (10.167.243.182) with Microsoft
+ BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 16:14:59 +0000
+ 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 16:15:04 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 7 Nov
- 2026 10:14:57 -0600
+ 2026 10:15:01 -0600
 Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Sat, 7 Nov 2026 10:14:54 -0600
+ via Frontend Transport; Sat, 7 Nov 2026 10:14:58 -0600
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <vkoul@kernel.org>
 CC: <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
@@ -98,9 +98,9 @@ CC: <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
 	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>, <Poojitha.N@amd.com>,
 	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
  Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH v3 02/11] soundwire: amd: allocate pdevinfo and sdw_pdata by ACP revision in probe
-Date: Sat, 7 Nov 2026 21:42:19 +0530
-Message-ID: <20261107161345.3411491-3-Vijendar.Mukunda@amd.com>
+Subject: [PATCH v3 03/11] soundwire: amd: allocate sdw_amd_ctx pdev array dynamically
+Date: Sat, 7 Nov 2026 21:42:20 +0530
+Message-ID: <20261107161345.3411491-4-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261107161345.3411491-1-Vijendar.Mukunda@amd.com>
 References: <20261107161345.3411491-1-Vijendar.Mukunda@amd.com>
@@ -117,119 +117,115 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|BN5PR12MB9464:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf94ccc4-ee44-4439-8204-08df3cea4531
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|DS2PR12MB313866:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64830c2e-1fbf-471c-16da-08df3cea4846
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|56012099006|261021123027099003|261021121427099003|261009223027099003|261102123227099003|10067099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|11063799006|56012099006|261009223027099003|261021121427099003|261021123027099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	lch8Y/1dPprUPEFikJyLJx+b86wy0yUPWQeWqFSLPhFbk5hguR3hT1yuv1/gHNYsEGdoRpTleP4Ea/g8tlDNoXYQh+rf6JeNq17HU9Lhq5rjhz+dmuHx9O2TFaaTDyMNJiLX5/7B+YMlLssfQMKptrleTGQLCOYTvVptO9n5V4jbgiz3vMNjyFEbY3NOEH/2LJiVeLNrVChhnigjijdhzOjTQTRoLMqwmT7onnjbkayA1ELpVE4REGuM7osTPy903Tt+HqoBvTMBG1502gkk8jWejWyAn3hYQdxH6W4t0yBcMSt76oMdRSdIPf7OzYCyzto1WYSiNyx97tXH2M1WX0mu1wUel/SAgqcXqfd3aGPKsvzkkQI2582MiIkEz13xprGy5kGOt5Dw1kfOkvsDUvGzySzJugiC+Y/aqUhbx9dDUhKeRMXCDIC+z2kxsT6kH7bOwm/gFVXPUKwIMVvhjqKEg/zBgHkz3Lmc9yKaPxldT29LSqzmws6k3t8iuFnFBPWtq3j0hRv+TbJX9Rffpl88ip9/OuDSJwgPXJ/grZEvsL72VrCJc0dGMwvDRgrRA6R4nmP+rVjQODVBgAgVEbvJssyVyUVAFJIi5MAuO2+rRIuN5YEGDoDTykbCMmwoikLskAE1xM4mLZzW0KMfGpHQvfCzET6ldy1BrzvCwAeM48WYfPRSgbRSXzwYDqFF72bcDWDgKzCRIhQO60Aadg==
+	mSyTNN0DySEt4y4ghXGYCiRrs3haAv5gKJAngqxyhP2c+oR4VZzqVhwFjydx6WQce4VwWGX5MQ5AvUAhQFIeUUzqJNQPqFulcMMok/BNm6Y9jzWnnG0PFnWDhiyLUary/c1s3zN6nlFjA28cZakOVVWg1+aKsCjnaYWL5IkVOslMOZVM7xhQN02XBRXICxSuHnYZnx6Tec8LpBwrXgkABg0MhoXIV6YEyyy550aiKPU9zmAs88XEfGYY/rOi7lYMsvNM3p1h1F78jfmPax/Auj93kF7F2jnQSkOxeblx1GCuS92gHcSueHEnBZvrsnwikM4VoQJyhCur16mgSSQwngtT0h2qypqQBo0SG7P3Htu/ffohZq44NZJPRdlbV6nzNnlGmgCkLb3nXcs24IzZIpGjuGsZo071FPs0G6RZPnOG0wo+Ihcg27Zu+GOkTX3Ef1++2QQ22OMkIsYzQaKZOOwahZRx6VV5a7yv9ipuR7G/L0nTfMFj7DpRaD1FJNdp/xUe5KzZmOTI6xObzz6nOT2ewTVvKASK8bKvAvGkhusD+83R3ZuqaJoiruibC/WkMRkasIWc4tKaVqF/quehth7qxagIY1hi0aOnv+Fv0CGp9ZPpHpO1Cs5WsXFQXfWQE7ko9q9pvUct1dnGoIoFPvWiOwjTjZSIPf36nlTTjJhfbexnCa+X+el2mTx5j/dmhCO5n4jVe31K3XfElmvXIg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(261021123027099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	hKQ+XnsATwNJk5B8vVyN/TIB0v8K6ctLfXsCPevKvSgdCO8TZfVCrWBeC+K/eScU/bwygdvgzO+JyBbyuqp9ycsO3pfvYrEXKJec8E//vEVEeJIfrxM7BK9Z/WJtKuMK6RAS3GAk0Rhz1zEkS3XaKY1hC06nMGdubKOjrZ9KY129V71vgFKWUMbkZzfWwRZ5sFyvQX7uUzh8Uhs9wlNaHGc9zrR+pKnCqzWQe9EzRyh/g+3T8EkFvO6kuUza6Efvyi7kpkXD/LuEHCSXxX1TWwAd69pYuRin7OUcHAoc5cUUeF3C/U9kpTSyovce+pVWj7tbgBv9RgVgrFMMfGbrm9qYzHO1blTiUlZyHM+zYllG7T1cc/2ii2hOSrvSn+Y5l51v62gyjTHo2NjvGSrJPTPaFzXs8w71qEfQN7t6NQm9xlqIletQwX2JFIoGUviP
+	+PuBLsTdzTqfVyGlDYq6T2OAXw7OIhSCXkmgB8+V/Xp1tgbL0LkPIGf8Nppu+VBn4k0YPvtpjIE3pXSlhF3GaGsL7X97HnUAAs6Sk66b+8RvM/9S3xevJQNcC2ZpIwoX066sZG0KdTT+af8PIkU3g+VI5bKCINpOR/PZBDCwAUpQSp8HS2POZOkImnqemh4/+iWVKKQGBdPGxcap/fYKwtoE+embs8IRmyTqu1ZYrgucWKpLKhqkWAESeXU1BJvRU4x5kHKmDE59eOxsPkXMxeU7lqmyZRb8rn/40kXDXJ0864etgwxwRsNW53iZ4tLD5N8WX5i39cwuqh9/EYLXkzoxxKhE0plTkOg+02nVMBn2tTwHmQsT7+b6p6vGYAt59kITpnT6Z80T9I0mQ2RVt8g5EbYAQ+kZJGGZF8cGcjhnP+/n0932bfbZeFu7CrVT
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 16:14:59.0362
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 16:15:04.2010
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf94ccc4-ee44-4439-8204-08df3cea4531
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64830c2e-1fbf-471c-16da-08df3cea4846
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBC.namprd04.prod.outlook.com
+	BN2PEPF00004FC1.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9464
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB313866
 
-Determine the SoundWire manager count from the ACP revision and allocate
-the pdevinfo and sdw_pdata arrays dynamically instead of using fixed-size
-stack arrays.
+Replace the fixed-size pdev[AMD_ACP63_SDW_MAX_MANAGER_COUNT] member of
+struct sdw_amd_ctx with a dynamically allocated pointer array. The array
+is sized by max_manager_count via kcalloc() in sdw_amd_probe_controller()
+and freed on all error paths and in sdw_amd_cleanup().
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- drivers/soundwire/amd_init.c | 37 ++++++++++++++++++++++++++++++++----
- 1 file changed, 33 insertions(+), 4 deletions(-)
+ drivers/soundwire/amd_init.c      | 12 ++++++++++++
+ include/linux/soundwire/sdw_amd.h |  4 ++--
+ 2 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/soundwire/amd_init.c b/drivers/soundwire/amd_init.c
-index e5e6c7415dc6..92586185865a 100644
+index 92586185865a..2d3b88cdd484 100644
 --- a/drivers/soundwire/amd_init.c
 +++ b/drivers/soundwire/amd_init.c
-@@ -78,12 +78,12 @@ static int sdw_amd_cleanup(struct sdw_amd_ctx *ctx)
+@@ -72,6 +72,7 @@ static int sdw_amd_cleanup(struct sdw_amd_ctx *ctx)
+ 			continue;
+ 		platform_device_unregister(ctx->pdev[i]);
+ 	}
++	kfree(ctx->pdev);
  
- static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
- {
-+	struct platform_device_info *pdevinfo;
-+	struct acp_sdw_pdata *sdw_pdata;
- 	struct sdw_amd_ctx *ctx;
- 	struct acpi_device *adev;
--	struct acp_sdw_pdata sdw_pdata[2];
--	struct platform_device_info pdevinfo[2];
- 	u32 link_mask;
--	int count, index;
-+	int count, index, max_manager_count;
- 	int ret;
+ 	return 0;
+ }
+@@ -126,8 +127,16 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
  
- 	if (!res)
-@@ -98,6 +98,18 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
- 
- 	count = res->count;
- 	dev_dbg(&adev->dev, "Creating %d SDW Link devices\n", count);
-+	switch (res->acp_rev) {
-+	case ACP63_PCI_REV_ID:
-+	case ACP70_PCI_REV_ID:
-+	case ACP71_PCI_REV_ID:
-+	case ACP72_PCI_REV_ID:
-+		max_manager_count = AMD_ACP63_SDW_MAX_MANAGER_COUNT;
-+		break;
-+	default:
-+		dev_err(&adev->dev, "unsupported ACP revision: 0x%x\n", res->acp_rev);
+ 	ctx->count = count;
+ 	ctx->link_mask = res->link_mask;
++
++	ctx->pdev = kcalloc(max_manager_count, sizeof(*ctx->pdev), GFP_KERNEL);
++	if (!ctx->pdev) {
++		kfree(ctx);
 +		return NULL;
 +	}
 +
- 	ret = amd_enable_sdw_pads(res->mmio_base, res->link_mask, res->acp_rev, res->parent);
- 	if (ret)
+ 	struct resource *sdw_res __free(kfree) = kzalloc_obj(*sdw_res);
+ 	if (!sdw_res) {
++		kfree(ctx->pdev);
+ 		kfree(ctx);
  		return NULL;
-@@ -122,7 +134,20 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
- 	sdw_res->flags = IORESOURCE_MEM;
- 	sdw_res->start = res->addr;
- 	sdw_res->end = res->addr + res->reg_range;
--	memset(&pdevinfo, 0, sizeof(pdevinfo));
-+
-+	sdw_pdata = kcalloc(max_manager_count, sizeof(*sdw_pdata), GFP_KERNEL);
-+	if (!sdw_pdata) {
-+		kfree(ctx);
-+		return NULL;
-+	}
-+
-+	pdevinfo = kcalloc(max_manager_count, sizeof(*pdevinfo), GFP_KERNEL);
-+	if (!pdevinfo) {
-+		kfree(sdw_pdata);
-+		kfree(ctx);
-+		return NULL;
-+	}
-+
- 	link_mask = ctx->link_mask;
- 	for (index = 0; index < count; index++) {
- 		if (!(link_mask & BIT(index)))
-@@ -143,6 +168,8 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
- 		if (IS_ERR(ctx->pdev[index]))
- 			goto err;
  	}
-+	kfree(pdevinfo);
-+	kfree(sdw_pdata);
- 	return ctx;
- err:
- 	while (index--) {
-@@ -152,6 +179,8 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
- 		platform_device_unregister(ctx->pdev[index]);
- 	}
+@@ -137,6 +146,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
  
-+	kfree(pdevinfo);
-+	kfree(sdw_pdata);
+ 	sdw_pdata = kcalloc(max_manager_count, sizeof(*sdw_pdata), GFP_KERNEL);
+ 	if (!sdw_pdata) {
++		kfree(ctx->pdev);
+ 		kfree(ctx);
+ 		return NULL;
+ 	}
+@@ -144,6 +154,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
+ 	pdevinfo = kcalloc(max_manager_count, sizeof(*pdevinfo), GFP_KERNEL);
+ 	if (!pdevinfo) {
+ 		kfree(sdw_pdata);
++		kfree(ctx->pdev);
+ 		kfree(ctx);
+ 		return NULL;
+ 	}
+@@ -181,6 +192,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
+ 
+ 	kfree(pdevinfo);
+ 	kfree(sdw_pdata);
++	kfree(ctx->pdev);
  	kfree(ctx);
  	return NULL;
  }
+diff --git a/include/linux/soundwire/sdw_amd.h b/include/linux/soundwire/sdw_amd.h
+index b67ae581fa17..6174e888b433 100644
+--- a/include/linux/soundwire/sdw_amd.h
++++ b/include/linux/soundwire/sdw_amd.h
+@@ -144,13 +144,13 @@ struct sdw_amd_acpi_info {
+  * @count: link count
+  * @link_mask: bit-wise mask listing SoundWire links reported by the
+  * Controller
+- * @pdev: platform device structure
++ * @pdev: dynamically allocated array of platform device pointers, freed by sdw_amd_cleanup()
+  * @peripherals: array representing Peripherals exposed across all enabled links
+  */
+ struct sdw_amd_ctx {
+ 	int count;
+ 	u32 link_mask;
+-	struct platform_device *pdev[AMD_ACP63_SDW_MAX_MANAGER_COUNT];
++	struct platform_device **pdev;
+ 	struct sdw_peripherals *peripherals;
+ };
+ 
 -- 
 2.53.0
 
