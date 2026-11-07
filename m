@@ -1,45 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056736;
-	b=bBDW3/xlaUHDMyd3Y+Kj8781dMMYfqXbhsDdep9P9mJ1rljpjeRUoP6h4aWBgduxB5MO
-	 8PRp4iuFzq2SKLI8oR+V9c+pCCJ0koc/SkPjlnqlShkaQS9Mtp7jhJiHkzlwupWMcM1c4
-	 jB+aWk/QfBT7EXzvOyfC9xY4SnHF+5KXgSkJi8goYbUhPoTABlwffgq4cPk7iSa+OJXPE
-	 zQdLudYxMeTcvm39z+BL3bTqShyJyJ80oGR11Okn5pdAonrZ4XIlephvqMcdMTuZZ5K0H
-	 77FsJGgX25pX51QeQwhMMvqzVmbCMt7x5m71P8vMWfrJxOjlFiCoHyWjE87oehDwgTw==
+	t=1794056758;
+	b=R0oq/1KCpB+ZRb3fvEs+4SnoCKV2bx6q7nXqYl1f0RALNqLG28m02B5wcetMoGLYIoND
+	 JfXnWcb3U8dNb0AV5hLtyX3K25UwPAFh/QaSFJ1bnZLJp0U0MiMh8CmDtEkvPMkKTY5pg
+	 qsYnZk5BgOntS2SZbGJWdB0calz3QzlaM1H4ye7GhHza7Jl6588CFgZhGZQyTdhkQpUqG
+	 Vq+cpaL0fTO94JC81eBE/UXgNEvUwXfASHXcNHRxwg/wwc9+gXNi1x3SXRyvjDURpyMG2
+	 Q7zCMOw5XxbZvgOQPk3CvAQ435Pip+gbv5gpzcZ+G4pNKtrlpSdG/sKdbLOxSs986iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056736;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=rYqeNBed//aUso9h3NDMo/epkX/7HrNV/QjT/z9k1Ss=;
-	b=X7ZJReb8B8WdXERZFNItO4t1bvoFSlQ5m2gZwzzPJBtZFlm37fblvta3p25lOogPSFrv
-	 YdwF+M1ocau/mvsLN709jutfCHOmrAOgNy6hexmfIoLVw5aNve2nq1hS/iSnbfSr+WRFl
-	 C0u7KciqtS/45cfqnnM2UUZDz9w43lo+jAWKUeBUyEtzMfWhbT3TO3j9gnbNRPMXpv8el
-	 iPL3nokQML0A7PZDISVMczAG4N2Wo6uEo3NvqpQV6dmmraqGEejLpuBC9JEzkxfnRIrQt
-	 v7I2pBlhgB6/rPk3qjvB4GmhQKXpigu7cQwrAVADtXp7A2QXqCsbOyAI5icjNtLv7Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794056758;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/3sAFHtPYKh4hfh5oHSjJm2FliB8mRvDUUYSRjLsl2w=;
+	b=FBjI5lF8r65Lnp1CFyo/KARK+haLwubzhzG7dJUKdah/EhZ1O6r0CAW+PUpxKIUMt6qT
+	 gXURTweMIAPuLNcO4C9hOSkQh6LQYSar9G158GV0aSlG3oHNHw74jLtnkF9wMGYQ/nyox
+	 c1gY++fRFAqvssmfjy1mBqjLf0O9u41TQlDBn7weBvy2hZG0C5yExQq11VOw4swe15QCS
+	 9ksnkfTnqcPchhJe8YJ0+Rg1xBMcTz6/fldSBqloMswfswZql4QevsQdFjY8YyhrMwEfU
+	 2qsarSoOJCuWK7Qlo4RoZTO/gEJb1nbvAsJrtBDb1DXRU4kLCbFXn11NOQO2d8CYIRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0r9MZRe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=EOjxcNSL;
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F99C606A32C;
-	Sat,  7 Nov 2026 13:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFF3606A331;
+	Sat,  7 Nov 2026 13:05:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AFF3606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0r9MZRe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590FA1F008A4;
-	Sat,  7 Nov 2026 13:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794056736;
-	bh=rYqeNBed//aUso9h3NDMo/epkX/7HrNV/QjT/z9k1Ss=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=A0r9MZRetEvVa+dMthvCVtFMvOuaaemVTDV8WVlfmyS1qyaA12o8pEKgN7au/jvNG
-	 orLAQ45eruZbQYwsin0gOwd6HbWhYoiUW1bcVWa6M0OMFKzXNC9yaPBu3w/f7WFik3
-	 ttlIcZmRfuXXImfpncKXFwccRZ+MpgjUsDympNa+hWye0I6jLEhDe/BpGMgulY9vmh
-	 TI+vwg6X1Yl50+8YMxAEFX6KnvkDVfIewoEyQW4bSjDvMlN+FaFIAjR8iSo8PD3UzB
-	 nePVNAL4Cz+ImI3FZe1Vee4hZzNxdGs/Z8tKQcPT/iGEI6qpBRlXyinWVCm52lgPpH
-	 mBZaTP4/rWqbg==
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=EOjxcNSL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1794056754; x=1794315954;
+	bh=/3sAFHtPYKh4hfh5oHSjJm2FliB8mRvDUUYSRjLsl2w=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=EOjxcNSL5Bum7bEk2C0Vd49WKS7rrBFS6p11yhtRpfi2ClHAQh3If5jMEiWF5MD3R
+	 tXqq67EqzYI/aIZadN8AOLn4pTIoRN04HKqVVeYlMgW4sk2YFmEiwoicCJS1Gs/eK6
+	 4kq2HEt5fmyoka4M4vcvnX1nEhXRSI78DVHmij4HSbYCvfce+hYD9J0hB69+Fn1nn7
+	 Dqpdt0vGmNRgvJsrazIqqScVqHglXH6fqZN4WlZ6dvREP26oZK9qIlGzmcIjd+UfWv
+	 OSWnfPLrZAcQ7dfY22sGl1gkknl0xR/F9ex2evxNoW3yvgxlZtnWTXO48H8TaBenf1
+	 r44//TQ5n2eVA==
+Date: Sat, 07 Nov 2026 13:05:50 +0000
+To: i@udp0.com
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: watchdog: mediatek,mtk-wdt: Add MT6833
+Message-ID: <NHTtBa55FlZroePPfTapZ39Pvy1b4wyqCCdSD04TWCQXFLmLQy2sA6FNcAybpbZP5XAT42Ze_JPK1F8mA3c49Wk7dm8_Uir4anxYntb_CNI=@protonmail.com>
+In-Reply-To: <20261107-mt6833-base-v1-2-bda21083e9f3@udp0.com>
+References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com> <20261107-mt6833-base-v1-2-bda21083e9f3@udp0.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 457835996074fe34483b037e7f2162c30162acfc
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,35 +63,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 14:05:31 +0100
-Message-Id: <DMP018P7T755.1IJWOWDYOLB2B@kernel.org>
-Subject: Re: [PATCH v2 06/12] rust: io: register: implement Copy and Clone
- for RegisterArrayLoc
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
- <20261107-r000-fw-v2-6-fb37cc5b20cd@nvidia.com>
-In-Reply-To: <20261107-r000-fw-v2-6-fb37cc5b20cd@nvidia.com>
 
-On Sat Nov 7, 2026 at 10:48 AM CET, Alexandre Courbot wrote:
-> Register array locations are small values that are cheap to copy, but
-> obtaining one can fail. Making them implement `Copy` lets the same
-> location be checked once and used for several accesses.
->
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Alice Ryhl <aliceryhl@google.com>
-> Cc: Daniel Almeida <daniel.almeida@collabora.com>
-> Cc: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Hi,
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+On Saturday, November 7th, 2026 at 2:22 PM, Rui Cao via B4 Relay <devnull+i=
+.udp0.com@kernel.org> wrote:
+
+> From: Rui Cao <i@udp0.com>
+>=20
+> Add MediaTek's MT6833 (Dimensity 700). Its watchdog works as MT6589's,
+> which it falls back to.
+>=20
+> Signed-off-by: Rui Cao <i@udp0.com>
+
+Does mt6833 watchdog have the same resets as mt6589? Please take a look
+at mt6895 series [1].
+
+[1]: https://lore.kernel.org/linux-mediatek/au7UMdlP9O6oo41i@buffalo-ssd/
+
+Best regards,
+Roman
+
+> ---
+>  Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
+yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> index f9b725592c2..dfdc06c758d 100644
+> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> @@ -38,6 +38,7 @@ properties:
+>                - mediatek,mt6572-wdt
+>                - mediatek,mt6582-wdt
+>                - mediatek,mt6797-wdt
+> +              - mediatek,mt6833-wdt
+>                - mediatek,mt7622-wdt
+>                - mediatek,mt7623-wdt
+>                - mediatek,mt7629-wdt
+>=20
+> --
+> Git-157)
+>=20
+>=20
+>=20
+> 
