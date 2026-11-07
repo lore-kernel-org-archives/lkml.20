@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794081536;
-	b=PzlB7EZJThoC+VszROvVnd+XLlVGjqDk0EMAw0MQl8aSpPCsa78pEVGOsPGp7Ws/ltCo
-	 tfrEIR54KBpKnbNKNViWqEVkvuA82ep+wIiMgOW+6TfRjE5QchoFjfVzYEbxhTnI50GvX
-	 Zz2EfSXwiMHud61KHD8CnDxX5lvbQt7L8saPbLcYwRC7DhXwUBzOhyupVnbo1rVpfEr8j
-	 Tue0afxYjPHefqt1dtbe8lWZTyweJnSbzUUr2mRZAns4onwNxF204wFGe8rpLrj9bZFSH
-	 rd7Qj4KggHCAiC9Np9lJQhsP1WH1+vNnz0iNUT1KCtrwHgWG1aZZdBHfDWCYwLPORIg==
+	t=1794081531;
+	b=tme9mNnnhSGi+mxlbLaCo5qpDqSBvFOLETzriuMaHeMTNq1U2dn3HpbnoyLRhGYf687X
+	 kus2dsQhlMSEE0plbiZg54TG8y3Eo1u4bysmgtiCwlZ82sGUzbjd05hLAEaSfwIWKs2VZ
+	 FwK8Ej8fwGY5IN3Y6GmfxElq9K/t5ZGMWuYDdujN2woVUDIypmmo/eCHwK5nu2uGsKpXn
+	 zf4g+7B/7by+a0P1/g1LaRxeLv53BmDmOh+sI3DR/JpeanLnpR30E6XN3VxqklGhc6cAd
+	 yjQq48X5gYjXJ7hL7RE9fe4ZJcCQ4SJ4odj+2BNMcKFI9p+U4Ztizu/dz6HOj5s95qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794081536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794081531;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=K+6FXcYHVfobAwwclOPrbTchyR3ZZDSNjw3ExZa6P2g=;
-	b=du+uAhWbxIQ8aQNrf89ILt8rZ8EhYB5AcI3X39/YGFh1KN7syk6CVrC0aOIjt8TdTiTY
-	 TE6hDNzqsaF6HGf5h3XrFraaAb7be13o6Qrxt6MmiukvVLTwBQdEdG+AW5waokP+Kg1Ng
-	 1/SGjU1lGQjMfoH6VrOX1MZSkewomIJnyutNGHnTczvBohnX8T4lhkbBeVNEzUjuYfp+r
-	 Gs1e/oiNkRHmObXSe3F/6WTPp4o3fbNWIDQm+0wifpjODQ7i8k2W6CdS5MF7beQbTRQis
-	 nPD2eh4T/SS4yas8n2bJlmLGpFBzmV2vl4Ix39FW8MpyFn1Bg6VK8Yw3eviglnS3PBw==
+	bh=HsH/ESsjxGT6Amr/Yi1q7u+6v57LDKwT2C5DQH3AF4o=;
+	b=Pa4cWWU6h+p6n/prWHGUmrhybE3ZX2bRqU3FWFO+nZVcJuaT7WB3nAg3jz2tqPjzL4Ke
+	 PGExw+u7J3gqJJiP8+UgsUaq1luOLXPr+98qGr5n0mOIeeaOQZ4P8+UbtPoK35gufpjrn
+	 LYikVz6L9Ov3yk+pMV5dD6xU4Nrp2i+qaGwHYsIKNziiBzqUac2lB5nYNsGhXC7ieytqg
+	 vl+4g13ZtoKSZdhy8zYF0NlWaV2FSV9SjFHOAVQAaYs32GKa1ciVl13997Y7afv/3iXhv
+	 L6h0KAHd2javLsdDyH5b9ZmD0JDWlK0DtWiE0n8tWkN56+aPnqa7ZiV/IGJIY6be+3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jw6S19Kp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ar9bK5wV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF85606A32E;
-	Sat,  7 Nov 2026 19:58:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0767C606A326;
+	Sat,  7 Nov 2026 19:58:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jw6S19Kp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98CF1F0089F;
-	Sat,  7 Nov 2026 19:58:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ar9bK5wV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3917E1F0089F;
+	Sat,  7 Nov 2026 19:58:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794081536;
-	bh=K+6FXcYHVfobAwwclOPrbTchyR3ZZDSNjw3ExZa6P2g=;
+	s=k20260515; t=1794081530;
+	bh=HsH/ESsjxGT6Amr/Yi1q7u+6v57LDKwT2C5DQH3AF4o=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jw6S19KpASIeXF4u3PI90hyNUUY14hsQ6bRmBcCqxuo8kxSa0nNryuY7LaFcV4g9e
-	 +4CAhq2IQ0rLcDHYphkVKl8+cNLcAAxHlIN3H8nADr3jgJX/iVgICSrC4vTshNGmBB
-	 CRDluSAKh6pJUuBAhT1Tbwy2mqS5bNwIBPbzC99XRVUJ026y61R6IxcAvkuA8E8bym
-	 ed9JDNdp+rXEiZr1S5StGN0G3vS+RgDn6WjdbZ2ebK64excMfsNw8c6FlibGwmF/0A
-	 QjUoa7FlRH1RPFGLXK6ZnY61/X+N2H9ej4FIqhsZPRDoagchh0hDKOKdp9EJo3m9Rf
-	 NRj35qOtIj+rw==
+	b=ar9bK5wVmRadgJhlJXaQpAm2lxh3PsDy4DRIkbZJ3FADImtkGLIXCAfVozfHg3G9S
+	 9TAtOr5NTfv1KCmAA7EP7WJatk8/TAC4id068YdMXmzQ4hlYo1wjwH0UPVE/NdaRf2
+	 hT86EIbxigIxL4H4Inr/JEc2+J1xn8iDgsyqXnyCkGPeELUWLDw89pJSmlOhQnQlhy
+	 qQogmARgqA0PW2q5dAYjbtDewkZDzKu6aObrbiYgSDpfbUrponrFso//jGzbJxyW1n
+	 9u6Mq6SuWa5FK7YO7Q+FgafCb9ZIvvt06VnuAxcFoSS5Vjxs293uv5V3pw5KnFNQOJ
+	 Ki5LFrNJMd01g==
 Subject:
- Re: [PATCH net] net: mii: Check speed and duplex only when autoneg is off
+ Re: [PATCH net v5 1/4] bnxt_en: return the RING_FREE status to callers
 From: netdev-bot+sashiko@kernel.org
-To: anthony.pighin@nokia.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+To: joe@dama.to
+Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
+ pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- zhangxiangqian@kylinos.cn, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Sat, 07 Nov 2026 19:58:55 +0000
-Message-ID: <179408153520.994134.11224591607932425032@kernel.org>
-In-Reply-To: <20261106195544.4146568-1-anthony.pighin@nokia.com>
-References: <20261106195544.4146568-1-anthony.pighin@nokia.com>
+ prashant@broadcom.com, edumazet@google.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 07 Nov 2026 19:58:49 +0000
+Message-ID: <179408152976.994134.11735257663578231009@kernel.org>
+In-Reply-To: <20261106191423.4194081-2-joe@dama.to>
+References: <20261106191423.4194081-2-joe@dama.to>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -76,164 +77,164 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] This fix only covers the autoneg case of the read-modify-write
-  (RMW) breakage caused by f6f2e946aa4d.
-- [Medium] After this patch, mii_ethtool_set_link_ksettings() accepts any
-  base.speed and base.duplex when autoneg is AUTONEG_ENABLE.
+- [High] The patch makes bnxt_hwrm_rx_ring_free(),
+  bnxt_hwrm_rx_agg_ring_free() and bnxt_hwrm_tx_ring_free() return the…
+- [Medium] The commit message says "All three ring free helpers that send
+  the command discard the value", but four helpers send HWRM_RING_FREE,…
 
 --
 
-net: mii: Check speed and duplex only when autoneg is off
+bnxt_en: return the RING_FREE status to callers
 
-This patch moves the speed and duplex checks in
-mii_ethtool_set_link_ksettings() under the AUTONEG_DISABLE case. With
-that change, enabling autoneg on a port with no link no longer fails
-with -EINVAL. Before, it failed because the getter reports
-SPEED_UNKNOWN.
+This commit changes bnxt_hwrm_tx_ring_free(), bnxt_hwrm_rx_ring_free()
+and bnxt_hwrm_rx_agg_ring_free() so they return the status from
+hwrm_ring_free_send_msg() instead of discarding it. No caller acts on
+the returned value yet.
 
-> diff --git a/drivers/net/mii.c b/drivers/net/mii.c
-> index 37bc3131d31a8..4394446375373 100644
-> --- a/drivers/net/mii.c
-> +++ b/drivers/net/mii.c
-> @@ -333,12 +333,6 @@ int mii_ethtool_set_link_ksettings(struct mii_if_info *mii,
->  	struct net_device *dev = mii->dev;
->  	u32 speed = cmd->base.speed;
+> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> index 33c4cacc8ffe3..ea8529c789947 100644
+> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> @@ -7679,50 +7679,55 @@ static int hwrm_ring_free_send_msg(struct bnxt *bp,
+
+[ ... ]
+
+> -static void bnxt_hwrm_rx_ring_free(struct bnxt *bp,
+> -				   struct bnxt_rx_ring_info *rxr,
+> -				   bool close_path)
+> +static int bnxt_hwrm_rx_ring_free(struct bnxt *bp,
+> +				  struct bnxt_rx_ring_info *rxr,
+> +				  bool close_path)
+>  {
+>  	struct bnxt_ring_struct *ring = &rxr->rx_ring_struct;
+>  	u32 grp_idx = rxr->bnapi->index;
+>  	u32 cmpl_ring_id;
+> +	int rc;
 >  
-> -	if (speed != SPEED_10 &&
-> -	    speed != SPEED_100 &&
-> -	    speed != SPEED_1000)
-> -		return -EINVAL;
-> -	if (cmd->base.duplex != DUPLEX_HALF && cmd->base.duplex != DUPLEX_FULL)
-> -		return -EINVAL;
->  	if (cmd->base.port != PORT_MII)
->  		return -EINVAL;
->  	if (cmd->base.phy_address != mii->phy_id)
-> @@ -346,8 +340,19 @@ int mii_ethtool_set_link_ksettings(struct mii_if_info *mii,
->  	if (cmd->base.autoneg != AUTONEG_DISABLE &&
->  	    cmd->base.autoneg != AUTONEG_ENABLE)
->  		return -EINVAL;
-> -	if ((speed == SPEED_1000) && (!mii->supports_gmii))
-> -		return -EINVAL;
-> +
-> +	/* Speed is SPEED_UNKNOWN while the link is down; autoneg ignores it */
-> +	if (cmd->base.autoneg == AUTONEG_DISABLE) {
-> +		if (speed != SPEED_10 &&
-> +		    speed != SPEED_100 &&
-> +		    speed != SPEED_1000)
-> +			return -EINVAL;
+>  	if (ring->fw_ring_id == INVALID_HW_RING_ID)
+> -		return;
+> +		return 0;
+>  
+>  	cmpl_ring_id = bnxt_cp_ring_for_rx(bp, rxr);
+> -	hwrm_ring_free_send_msg(bp, ring,
+> -				RING_FREE_REQ_RING_TYPE_RX,
+> -				close_path ? cmpl_ring_id :
+> -				INVALID_HW_RING_ID);
+> +	rc = hwrm_ring_free_send_msg(bp, ring,
+> +				     RING_FREE_REQ_RING_TYPE_RX,
+> +				     close_path ? cmpl_ring_id :
+> +				     INVALID_HW_RING_ID);
+>  	ring->fw_ring_id = INVALID_HW_RING_ID;
+>  	bp->grp_info[grp_idx].rx_fw_ring_id = INVALID_HW_RING_ID;
+> +	return rc;
+>  }
 
 [Severity: High]
+The per-queue callers of these helpers still ignore the returned status,
+and none of the later patches in the series seems to change them. Can
+the queue restart path still release rings that the firmware did not
+free?
 
-Do forced-media ports with no link still hit the same -EINVAL?
+In bnxt_queue_stop():
 
-mii_ethtool_get_link_ksettings() sets the speed to SPEED_UNKNOWN after
-both branches. In forced mode, that replaces the speed the
-AUTONEG_DISABLE branch has just read from BMCR:
+	bnxt_hwrm_rx_ring_free(bp, rxr, false);
+	bnxt_hwrm_rx_agg_ring_free(bp, rxr, false);
+	...
+	memcpy(qmem, rxr, sizeof(*rxr));
+	bnxt_init_rx_ring_struct(bp, qmem);
 
-drivers/net/mii.c:mii_ethtool_get_link_ksettings() {
-    ...
-	} else {
-		cmd->base.autoneg = AUTONEG_DISABLE;
+	return 0;
 
-		cmd->base.speed = ((bmcr & BMCR_SPEED1000 &&
-				    (bmcr & BMCR_SPEED100) == 0) ?
-				   SPEED_1000 :
-				   ((bmcr & BMCR_SPEED100) ?
-				    SPEED_100 : SPEED_10));
-		...
-	}
+If the firmware rejects HWRM_RING_FREE or it times out, ndo_queue_stop
+still returns 0. netdev_rx_queue_reconfig() then calls
+ndo_queue_mem_free() on the old queue memory.
 
-	if (!(bmsr & BMSR_LSTATUS))
-		cmd->base.speed = SPEED_UNKNOWN;
-    ...
-}
+bnxt_queue_mem_free() then frees the RX buffers, destroys the page pools
+and frees the RX and AGG descriptor rings. The firmware ring may still be
+live at that point.
 
-So a request that leaves the speed alone sends SPEED_UNKNOWN back. One
-example is "ethtool -s eth0 duplex half" on a forced-media port with no
-cable.
+With tph_mode set, bnxt_tx_queue_stop() does the same thing for TX:
 
-On the netlink path, ethnl_update_linkmodes() only updates
-lsettings->speed when ETHTOOL_A_LINKMODES_SPEED is present. The ioctl
-read-modify-write path behaves the same way.
+		bnxt_hwrm_tx_ring_free(bp, txr, true);
+		bnxt_hwrm_cp_ring_free(bp, txr->tx_cpr);
+		bnxt_free_one_tx_ring_skbs(bp, txr, txr->txq_index);
 
-That SPEED_UNKNOWN then fails the check above and returns -EINVAL.
-Before f6f2e946aa4d the same command worked, because the getter reported
-the BMCR speed in forced mode.
+The helpers also clear ring->fw_ring_id even when rc is non-zero. After
+that, the stale firmware ring is no longer visible to the stuck ring
+accounting that the later patch "bnxt_en: stop DMA before releasing
+rings the firmware did not free" adds to bnxt_hwrm_ring_free(). Would a
+later close then skip bnxt_stop_dma() for that ring?
 
-Since this carries the f6f2e946aa4d Fixes: tag and Cc: stable, should
-the forced case be covered too? phylib reports the forced speed and
-duplex even when the link is down, and only reports SPEED_UNKNOWN under
-autoneg. Would doing the same in the getter's AUTONEG_DISABLE branch fix
-the remaining case?
+This path can be reached through netdev_rx_queue_restart(), either from
+devmem TCP or io_uring zcrx memory provider binding, or from the bnxt
+TPH IRQ affinity work.
 
-> +		if (cmd->base.duplex != DUPLEX_HALF &&
-> +		    cmd->base.duplex != DUPLEX_FULL)
-> +			return -EINVAL;
-> +		if ((speed == SPEED_1000) && (!mii->supports_gmii))
-> +			return -EINVAL;
-> +	}
+> -static void bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
+> -				       struct bnxt_rx_ring_info *rxr,
+> -				       bool close_path)
+> +static int bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
+> +				      struct bnxt_rx_ring_info *rxr,
+> +				      bool close_path)
+
+[ ... ]
+
+> @@ -7730,14 +7735,15 @@ static void bnxt_hwrm_rx_agg_ring_free(struct bnxt *bp,
+>  		type = RING_FREE_REQ_RING_TYPE_RX;
+>  
+>  	if (ring->fw_ring_id == INVALID_HW_RING_ID)
+> -		return;
+> +		return 0;
+>  
+>  	cmpl_ring_id = bnxt_cp_ring_for_rx(bp, rxr);
+> -	hwrm_ring_free_send_msg(bp, ring, type,
+> -				close_path ? cmpl_ring_id :
+> -				INVALID_HW_RING_ID);
+> +	rc = hwrm_ring_free_send_msg(bp, ring, type,
+> +				     close_path ? cmpl_ring_id :
+> +				     INVALID_HW_RING_ID);
+>  	ring->fw_ring_id = INVALID_HW_RING_ID;
+>  	bp->grp_info[grp_idx].agg_fw_ring_id = INVALID_HW_RING_ID;
+> +	return rc;
+>  }
+>  
+>  static void bnxt_hwrm_cp_ring_free(struct bnxt *bp,
 
 [Severity: Medium]
+The commit message says:
 
-With AUTONEG_ENABLE, any base.speed and base.duplex now pass this
-function. mii_ethtool_sset() in the same file still rejects those values
-in every mode:
+    All three ring free helpers that send the command discard the value.
 
-drivers/net/mii.c:mii_ethtool_sset() {
-    ...
-	if (speed != SPEED_10 &&
-	    speed != SPEED_100 &&
-	    speed != SPEED_1000)
-		return -EINVAL;
-	if (ecmd->duplex != DUPLEX_HALF && ecmd->duplex != DUPLEX_FULL)
-		return -EINVAL;
-    ...
-}
+Is that count right? bnxt_hwrm_cp_ring_free() also sends HWRM_RING_FREE,
+and it still returns void:
 
-Can this leave the pch_gbe PHY without the requested advertisement?
-pch_gbe_set_link_ksettings() only rewrites speed == UINT_MAX. It then
-stores whatever this function accepted:
+	hwrm_ring_free_send_msg(bp, ring, RING_FREE_REQ_RING_TYPE_L2_CMPL,
+				INVALID_HW_RING_ID);
+	ring->fw_ring_id = INVALID_HW_RING_ID;
 
-drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_ethtool.c:pch_gbe_set_link_ksettings() {
-    ...
-	ret = mii_ethtool_set_link_ksettings(&adapter->mii, &copy_ecmd);
-	...
-	hw->mac.link_speed = speed;
-	hw->mac.link_duplex = copy_ecmd.base.duplex;
-    ...
-}
+The inline NQ/L2_CMPL free in bnxt_hwrm_ring_free() also drops its
+status:
 
-Some requests used to get -EINVAL and now succeed. One is
-"ethtool -s ethX autoneg on speed 2500 advertise 0x2f", where the
-explicit advertise mask skips ethnl_auto_linkmodes(). Another is an
-out-of-range duplex sent through raw netlink or ioctl.
+		if (ring->fw_ring_id != INVALID_HW_RING_ID) {
+			hwrm_ring_free_send_msg(bp, ring, type,
+						INVALID_HW_RING_ID);
 
-When the interface is not running, the path is:
+By the end of the series, bnxt_hwrm_ring_free() counts stuck rings only
+for TX, RX and AGG failures. If a CP or NQ RING_FREE fails, would
+bnxt_stop_dma() be skipped, with __bnxt_close_nic() going on to free
+that ring's memory in bnxt_free_mem()?
 
-pch_gbe_set_link_ksettings()
-  pch_gbe_reset()
-    pch_gbe_phy_init_setting()
-      pch_gbe_phy_write_reg_miic(hw, MII_BMCR, BMCR_RESET);
-      mii_ethtool_sset()   <- returns -EINVAL
+Ring 0 of the CP/NQ set is also registered as the firmware async event
+completion ring by bnxt_hwrm_set_async_event_cr() in
+bnxt_hwrm_ring_alloc(). The close path does not move that registration.
 
-pch_gbe_phy_init_setting() passes the stored hw->mac.link_speed and
-hw->mac.link_duplex to mii_ethtool_sset() right after the PHY reset.
-mii_ethtool_sset() rejects them and "Error: mii_ethtool_sset" is logged.
+It is not certain that firmware keeps writing to an unfreed CP/NQ ring
+after the TX and RX rings are gone. Async event completions are the
+likely source if it does.
 
-The requested advertisement is never written to the freshly reset PHY,
-even though the ethtool call has already returned success.
-
-The stored link_speed can also reach pch_gbe_set_rgmii_ctrl() and
-pch_gbe_set_mode() in __pch_gbe_suspend(). This happens if the watchdog
-never overwrites it, and the watchdog only does that once the link comes
-up.
-
-Should mii_ethtool_set_link_ksettings() and mii_ethtool_sset() stay
-consistent here?
-
->  
->  	/* ignore supported, maxtxpkt, maxrxpkt */
->
+On the per-queue paths, bnxt_tx_queue_stop() and bnxt_queue_stop() (with
+tph_mode) call the converted helpers right next to
+bnxt_hwrm_cp_ring_free(). The CP ring free status is not available to
+those callers either.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106195544.4146568-1-anthony.pighin%40nokia.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106191423.4194081-1-joe%40dama.to
