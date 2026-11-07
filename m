@@ -1,51 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794009837;
-	b=KEZA5cF8bU9k4ZzaOysvCKo0eKkbP+tncpF1OENo0UGZRET5wK/FlRY5fUya4YPy+FLs
-	 eXuJZEtNCQGCVJDdbsfGqY+wBGcAQG/6yQfAH+8SECtSFLI/mFakStQrmBdL3B2b4SmDB
-	 +HD83sX/yVsSNonn0Pp+FONYA2qxE2q6w50315YmQ/KoO3KhOFFK1GkMoBi/AAjSiKW+Y
-	 RmTQlkEbhoUIJ/T0bijR6/ZtC1nq7zjqjoawocMVL7HAiwdPZfWcRoT+S2RuK9qN9kjgJ
-	 lb8YR3mTKNWY1NNQvM3DUSj2WRonHBmgBCIsLWmCp7XIKavSwsi7ynnMI+Vh0wAzNlQ==
+	t=1794010004;
+	b=UbGSfBTB+IECY+cIviEeNQfGT8B0xyfBh9+p9gxC0e4MHDEu4BYramMJXTobICiOsmyz
+	 XeNl1DmV2QB0y72V1oggFk4gjQ3GJ30FSCiR9h75ZrQvUfnELoBydW9XH946/7A8/YIm2
+	 Vh1mP6yErq01iHcFcU2kPnDhl2CXN39mbjhyIR+1iWEGh+Z6W8F3G9y6pO2Zfv2DQNGH9
+	 H2xSVj16kezKKkosW3ufSmJycKmYkoIVfrhVxrUwqolOrjlOc2KIm4nOol7xdBG9EeoeV
+	 Dvv0be85lGuxsGeS3TXDd0BmF5UNeyLl/MH1A5X6or44VjWsczTw8mBZsvYZ4rxJhRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794009837;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=N5zAt8Yfwfbo9aLmLei9uajidRaIZ6L7NRxi78xe+5Y=;
-	b=Q4xcOum8QKbGjM5WCotDN47XZJxV+DT7Xx023n0UmKo29cjFPHRO0mYumbJN+sgiuHf4
-	 LQY4+6T0ZSw7ev/a5bw54GkMnBeuF06rMw7BoPf4MU1RbxELH8FwSN8V8hops9InsTrxm
-	 xh+/2T+IVzc9g3+nU5BOmKLHoslJ83jKNPASpzajAMlS6LP5fw4Ur1RMu4uS2S8Cne0pV
-	 9EKb+S5ck/dmxihH2SQsTqgkM6T9T8yhFSQhGNbizFihq3LsRF2gj31XguTSaIye8Q3bH
-	 pOlUAcEMA03GDemmCchmAyPLiCr+QEaD8rt8P0Nf7ga5JS0sqlhCWPaZzeTYlIWidtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794010004;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=UdtdyDCTn3IifZCbbp9UgSX4Df7wJU84qONeUfr3t8U=;
+	b=KBUkzwfnVLShXv4sqrDSCBwBxISBjm4zVpeuaI3HXRdj9s+v15KDKJ8jGEsmcPQ48nPA
+	 AD7EjmJOg+3r2So/ffHgUn1zfz3aum7Chl9O+tcPmwWuNUryP1p2JqGS4jwB9T/uZRjTN
+	 yx8GEyEC4h+FkZCKTKpygw1BJwxRcdTKr6866/nZL1nUO3on9d+VmQyXVEYzyIJgnMPFq
+	 wgh3+i+3xHqj2WyGLgWr8D+hVsq2Zi3rEU4KbH1OxXuj1ma5xclFPUJ6ShATaLyv0k+wA
+	 BpWWE/mXf/K+VmyXg2J/8M0rlHDD4Ly/U8LLpATL1ISEN2wvrMrfIt/e9B5EJTV2xuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6998A606A326;
-	Sat,  7 Nov 2026 00:03:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6998A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMDGjmrfau5qFy4TAA--.51007S2;
-	Sat, 07 Nov 2026 08:03:43 +0800 (CST)
-Received: from hust.edu.cn (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wDn7zfaau5qf2clAA--.45807S2;
-	Sat, 07 Nov 2026 08:03:40 +0800 (CST)
-From: Dongliang Mu <dzm91@hust.edu.cn>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: improve translation update checks across locales
-Date: Sat,  7 Nov 2026 08:03:38 +0800
-Message-ID: <20261107000338.1243411-1-dzm91@hust.edu.cn>
-X-Mailer: git-send-email 2.51.0
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=J2mdFPLW;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mDyPFmBi;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB9F606A334
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:06:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB9F606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=J2mdFPLW;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mDyPFmBi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794010003;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdtdyDCTn3IifZCbbp9UgSX4Df7wJU84qONeUfr3t8U=;
+	b=J2mdFPLWoZblA9/riGdEejTfiDLNaPzDkrMtWOrO1dRebaAsRSSRN3oGzlfTjNs2OPmSEv
+	dh3pdyEr23QImZRrdPA5fAGca8d/CaGLOwaEZLpAe13Gvx4DyV1m5Jq3kFbmxcgAdLA6Lw
+	OHjemFdjcpMIBHfytHweYH8HCM+2Kh8=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-399-Xu0_4mfIPBi2TSRU0_xjug-1; Fri, 06 Nov 2026 19:06:42 -0500
+X-MC-Unique: Xu0_4mfIPBi2TSRU0_xjug-1
+X-Mimecast-MFC-AGG-ID: Xu0_4mfIPBi2TSRU0_xjug_1794010001
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91ea3a6c1a0so23050066d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:06:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794010001; x=1794614801; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UdtdyDCTn3IifZCbbp9UgSX4Df7wJU84qONeUfr3t8U=;
+        b=mDyPFmBiJx0CuA9DKdpTph8XYOdPT9ehGm70fYZWIqNhCucrNHqslty9kYa9carEQv
+         ThgEx+7S1WA7hjnxbGAuqwfN+mWX14uvGCOK3FOhd+3f0XPqbjIPs7XG/7bJSCqVIEBt
+         yYrBHlNaft3p6mZEQxdx3khB8/Lp/0983UvHjEiei2EGfiQM6XutM/yfS5GvgwpQNfGh
+         3H+ywp+vof3CbPUR29LhW34X7Cl0Tfnp8DnzvSjdxRCXNWGOUp9teEOFLYswjhL3y1JP
+         pvYWCfQz5ePPKTdkzfM+YBOycI7bWJi83J4iYf4Ex62RDupaU+GDTLVOkke4YmYqpsv1
+         bvKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794010001; x=1794614801;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UdtdyDCTn3IifZCbbp9UgSX4Df7wJU84qONeUfr3t8U=;
+        b=RJrtHs+FLO1A7d4eiot5gvFEXD2+viPlUZtPWHOJiX07ZVlWp0K3IPfLXlgYT2P3rU
+         RWxIiIv/v1igqnHd6xfv1N81WJY3qNxtfVUfmWgFlTQbg+HlbqSxIXG30dz1m9UW0JdE
+         4YijgXYh0sHDFShjv5/ozvn+5tX68jSBC+iKXxMl8hnsIstPcEs6zlvRoJSoOVmvs7xc
+         ElTh3XxYbbgOmxx7zkW1DNsX2lq3WHniS/J1f8gkSw7f7Q9QFk2LjdMzoT5FiKcajoEb
+         I5nUiRCPI5AmzjkazyAynmaebxH0sB1OnZAB/if86ewPJ0YJDWXPvTRYkSWFL9VlzeqJ
+         wSHQ==
+X-Forwarded-Encrypted: i=1; AL+hErHVtFp9E1k9gT7iOMaZHsPdXQvgbAuvr6nJhP/H3isVPBVj818HXXyAF9Cna/A7V1ZXatJLsmPm9JaRYcs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kfCp1btkkD2NhSU1cYqiZkL7kEQFtUxl37iLXv9En3KvyZDBQ
+	f1/uU3JzaIQl10syibESiBBNfarnHnjbY4VVq+h97MBZ+KPt95b59i910dAj42W2mR4b5mi+sFx
+	IJzkBKrRoDN50ZLqB4MFzSlkQ0JLkMJ4urHXNzvRDMIuXzm711XAvYcLjtPl7THpumQ==
+X-Gm-Gg: AYBFou1jWhO3GjgreUtnQFyclT9z6ZOjPkXl6cW9hFhacbGkDyfn/n+jjmRQjOT9VET
+	qNyY+FWftIiTlFlh77ebQ/mSTf37U1+A3Hj3ZAcYv33J9jYtON9s+TMLMtCRxj+6DBCqs6f5J9i
+	jkbm/s5Z/e+jBUp/nQbt3ME1oRG4VaAA0sZvB1Qb71KjHt2ff6qtRSLr/ZG4nxBUwL+V9V5Ixbv
+	5W1m+pvgShBcV74EAKMXGCkKoBHlRFTTc/eup5NvxPWjTRnt5qsMF2BftT6KF62HOmRVlEI4w56
+	FcYWHkfn42T1ugyRkK6NjiPMpUtLVBsmakX3MkwuYCG0mLfQMkXNX+S3nIEvVoCY3fzSbo52btf
+	VFoMXAVX5Qrf7PyUq4cjPa8Ohf3tj1etoYaJGw7Zo59JLYBSgSjQ8IIDQ7R7j/r8gU6wTeA/o9M
+	ZQUPVb8dTn96IoXJjc
+X-Received: by 2002:a05:6214:460e:b0:91e:7bef:a4b4 with SMTP id 6a1803df08f44-91ea927f443mr60123986d6.2.1794010001225;
+        Fri, 06 Nov 2026 16:06:41 -0800 (PST)
+X-Received: by 2002:a05:6214:460e:b0:91e:7bef:a4b4 with SMTP id 6a1803df08f44-91ea927f443mr60123486d6.2.1794010000556;
+        Fri, 06 Nov 2026 16:06:40 -0800 (PST)
+Received: from bmasney-x1.rmtuswv.csb ([69.43.42.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6acc4a7sm31624376d6.44.2026.11.06.16.06.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 16:06:39 -0800 (PST)
+From: Brian Masney <bmasney@redhat.com>
+Date: Fri, 06 Nov 2026 19:06:08 -0500
+Subject: [PATCH 1/3] dmaengine: convert to subsys_platform_driver()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,366 +112,319 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IAEQrMDGjmrfau5qFy4TAA--.51007S2
-Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvAXoW3CF1fXw1UKFW7CFWUZrykGrg_yoW8XFykXo
-	ZxWw45Cw1Ivws8JF1UCr4kJFy3CF1SkF4kA345Cw1q9w12ywsYg3yfZwn8Wa4fArW3ur93
-	Z343XayrXa1qyF93n29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUOp7k0a2IF6w4kM7kC6x804xWl1xkIjI8I6I8E6xAIw20EY4v2
-	0xvaj40_Wr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7
-	IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
-	CY02Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC2
-	0s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUvYsjDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-dmaengine-subsys-v1-1-780eeddbf3ef@redhat.com>
+References: <20261106-dmaengine-subsys-v1-0-780eeddbf3ef@redhat.com>
+In-Reply-To: <20261106-dmaengine-subsys-v1-0-780eeddbf3ef@redhat.com>
+To: Ludovic Desroches <ludovic.desroches@microchip.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Paul Cercueil <paul@crapouillou.net>, Viresh Kumar <vireshk@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Zhang Wei <zw@zh-kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ imx@lists.linux.dev, linux-actions@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
+ Brian Masney <bmasney@redhat.com>
+X-Mailer: b4 0.17-dev-d96cb
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8793; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=7C9fqKNgBFi22vFkQ7N44YlNIVFY4LFfjkA6CgiIeoo=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLeZTfvfKz943LobmVhe7b8mWVbi7s0N16MnLjy6OrJu
+ nMrz9dc7ChlYRDjYpAVU2RZkmtUEJG6yvbeHU0WmDmsTCBDGLg4BWAiIZYMf3h6irao8mR5rN9e
+ nCO3qDN2/abUyA6TmvOSek6z107tdmVk2HVn4sn8uxFz/s7Ilqp7F3bZzq7Zj/+OyvPF04Um7DS
+ OYAMA
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Improve locale-wide scans and report English documents without matching
-translations. When a translation commit lacks its English source in its
-history, use the source history at HEAD for the author-date fallback.
-Capture Git errors for unavailable commit IDs, honor --logfile, and stop
-at the first file that cannot be checked.
+Reduce boilerplate code in these drivers and convert them over to use
+the macro subsys_platform_driver().
 
-Update the English and zh_CN guides to describe the fallback behavior,
-directory arguments, and logging options.
+Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- Documentation/doc-guide/checktransupdate.rst  | 42 ++++++++--
- .../zh_CN/doc-guide/checktransupdate.rst      | 38 ++++++---
- tools/docs/checktransupdate.py                | 83 ++++++++++---------
- 3 files changed, 107 insertions(+), 56 deletions(-)
+ drivers/dma/at_xdmac.c          | 12 +-----------
+ drivers/dma/bestcomm/bestcomm.c | 18 +-----------------
+ drivers/dma/dma-jz4780.c        | 12 +-----------
+ drivers/dma/dw/platform.c       | 12 +-----------
+ drivers/dma/fsl-edma-main.c     | 12 +-----------
+ drivers/dma/mcf-edma-main.c     | 12 +-----------
+ drivers/dma/moxart-dma.c        | 12 +-----------
+ drivers/dma/owl-dma.c           | 12 +-----------
+ drivers/dma/sa11x0-dma.c        | 12 +-----------
+ drivers/dma/sf-pdma/sf-pdma.c   | 14 +-------------
+ drivers/dma/ti/omap-dma.c       | 12 +-----------
+ 11 files changed, 11 insertions(+), 129 deletions(-)
 
-diff --git a/Documentation/doc-guide/checktransupdate.rst b/Documentation/doc-guide/checktransupdate.rst
-index 7b25375cc6d9..94366110451a 100644
---- a/Documentation/doc-guide/checktransupdate.rst
-+++ b/Documentation/doc-guide/checktransupdate.rst
-@@ -10,17 +10,35 @@ the English counterpart.
- How it works
- ------------
+diff --git a/drivers/dma/at_xdmac.c b/drivers/dma/at_xdmac.c
+index d40a8b40dddc..8b19d46ac812 100644
+--- a/drivers/dma/at_xdmac.c
++++ b/drivers/dma/at_xdmac.c
+@@ -2488,17 +2488,7 @@ static struct platform_driver at_xdmac_driver = {
+ 	}
+ };
  
--It uses ``git log`` command to track the latest English commit from the
--translation commit (order by author date) and the latest English commits
--from HEAD. If any differences occur, the file is considered as out-of-date,
--then commits that need to be updated will be collected and reported.
-+The English kernel documentation and its translation use the same relative path
-+below ``Documentation/`` and ``Documentation/translations/<locale>/``.
-+For example, ``Documentation/process/foo.rst`` corresponds to
-+``Documentation/translations/zh_CN/process/foo.rst``. A locale-wide check
-+starts with English files and reports any without a translation at the
-+corresponding path. A translated file at a different path is not treated as
-+its translation. When explicitly checked, the script reports that it cannot
-+find a same-path English source for such a file. This says nothing about
-+the accuracy of any existing source-path annotation in that file. The script
-+does not read ``:Original:`` fields.
-+
-+The script uses ``git log`` to find the latest English commit corresponding
-+to the translation and the latest English commit at HEAD. It first checks
-+the translation commit message for ``update to commit`` or ``Update the
-+translation through commit`` followed by a 12-character hexadecimal commit
-+hash. Otherwise, it estimates the source revision by author date. This
-+includes cases where the translation and English source were initially
-+merged on different branches, or the named commit is unavailable in the
-+local Git history. The estimate can be inaccurate, especially when commits
-+are backdated or the source has moved.
-+If the two English revisions differ, the script reports the commits to review.
- 
- Features implemented
- 
- -  check all files in a certain locale
- -  check a single file or a set of files
---  provide options to change output format
-+-  select the logging level and log file
- -  track the translation status of files that have no translation
-+-  check files in a directory
- 
- Usage
- -----
-@@ -34,9 +52,14 @@ Please refer to the output of argument parser for usage details.
- Samples
- 
- -  ``tools/docs/checktransupdate.py -l zh_CN``
--   This will print all the files that need to be updated in the zh_CN locale.
-+   This checks for updates to zh_CN translations and lists English files
-+   without a corresponding translation.
- -  ``tools/docs/checktransupdate.py Documentation/translations/zh_CN/dev-tools/testing-overview.rst``
-    This will only print the status of the specified file.
-+-  ``tools/docs/checktransupdate.py -l sp_SP``
-+   This will check Spanish translations at the corresponding paths.
-+-  ``tools/docs/checktransupdate.py Documentation/translations/it_IT/process``
-+   This will check translated files under the directory.
- 
- Then the output is something like:
- 
-@@ -49,6 +72,7 @@ Then the output is something like:
-     commit 42fb9cfd5b18 ("Documentation: dev-tools: Add link to RV docs")
-     1 commits needs resolving in total
- 
--Features to be implemented
+-static int __init at_xdmac_init(void)
+-{
+-	return platform_driver_register(&at_xdmac_driver);
+-}
+-subsys_initcall(at_xdmac_init);
 -
--- files can be a folder instead of only a file
-+The script stops at the first translated file it cannot check and exits with
-+a nonzero status.
-+It does not determine whether the translated text fully reflects the English
-+source; review the reported commits and the files themselves.
-diff --git a/Documentation/translations/zh_CN/doc-guide/checktransupdate.rst b/Documentation/translations/zh_CN/doc-guide/checktransupdate.rst
-index dbfd65398077..c3cc16d9897c 100644
---- a/Documentation/translations/zh_CN/doc-guide/checktransupdate.rst
-+++ b/Documentation/translations/zh_CN/doc-guide/checktransupdate.rst
-@@ -7,21 +7,36 @@
- :译者: 慕冬亮 Dongliang Mu <dzm91@hust.edu.cn>
+-static void __exit at_xdmac_exit(void)
+-{
+-	platform_driver_unregister(&at_xdmac_driver);
+-}
+-module_exit(at_xdmac_exit);
++subsys_platform_driver(at_xdmac_driver);
  
- 检查翻译更新
-+============
+ MODULE_DESCRIPTION("Atmel Extended DMA Controller driver");
+ MODULE_AUTHOR("Ludovic Desroches <ludovic.desroches@atmel.com>");
+diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
+index 241a91936fe8..1dadcc259382 100644
+--- a/drivers/dma/bestcomm/bestcomm.c
++++ b/drivers/dma/bestcomm/bestcomm.c
+@@ -474,23 +474,7 @@ static struct platform_driver mpc52xx_bcom_of_platform_driver = {
+ /* Module                                                                   */
+ /* ======================================================================== */
  
--这个脚本帮助跟踪不同语言的文档翻译状态，即文档是否与对应的英文版本保持更新。
-+这个脚本帮助跟踪不同语言的文档翻译状态，判断译文是否需要根据英文原文更新。
- 
- 工作原理
- ------------
- 
--它使用 ``git log`` 命令来跟踪翻译提交的最新英文提交（按作者日期排序）和英文文档的
--最新提交。如果有任何差异，则该文件被认为是过期的，然后需要更新的提交将被收集并报告。
-+英文原文与译文在 ``Documentation/`` 和
-+``Documentation/translations/<locale>/`` 下使用相同的相对路径。例如，
-+``Documentation/process/foo.rst`` 对应
-+``Documentation/translations/zh_CN/process/foo.rst``。检查整个语言目录时，
-+脚本从英文文件出发，报告在对应路径下没有译文的文件。其他路径下的译文不会被
-+视为该英文文件的翻译。如果单独检查这类译文，脚本会报告找不到同路径的英文原文。
-+这并不表示该译文中已有的原文路径标注有误。脚本不读取 ``:Original:`` 字段。
-+
-+脚本使用 ``git log`` 查找译文对应的最新英文提交，以及英文文件在 HEAD 中的
-+最新提交。它先从翻译提交信息中查找 ``update to commit`` 或
-+``Update the translation through commit`` 后面的 12 位十六进制提交哈希。
-+如果没有找到，或指定的提交不在本地 Git 历史中，就按作者日期估计译文所依据的
-+英文版本。英文原文和译文最初从不同分支合入时，脚本也会使用这一估计。提交日期
-+被回填或英文原文移动过路径时，这种估计可能不准确。如果两个英文提交不同，脚本
-+会列出需要检查的提交。
- 
- 实现的功能
- 
- - 检查特定语言中的所有文件
- - 检查单个文件或一组文件
--- 提供更改输出格式的选项
-+- 选择日志级别和日志文件
- - 跟踪没有翻译过的文件的翻译状态
-+- 检查目录中的文件
- 
- 用法
- -----
-@@ -30,14 +45,18 @@
- 
-     tools/docs/checktransupdate.py --help
- 
--具体用法请参考参数解析器的输出
-+具体用法请参考参数解析器的输出。
- 
- 示例
- 
- -  ``tools/docs/checktransupdate.py -l zh_CN``
--   这将打印 zh_CN 语言中需要更新的所有文件。
-+   检查 zh_CN 语言中需要更新的文件，并列出尚无译文的英文文件。
- -  ``tools/docs/checktransupdate.py Documentation/translations/zh_CN/dev-tools/testing-overview.rst``
--   这将只打印指定文件的状态。
-+   只检查指定文件的状态。
-+-  ``tools/docs/checktransupdate.py -l sp_SP``
-+   检查西班牙语译文在对应路径下的更新状态。
-+-  ``tools/docs/checktransupdate.py Documentation/translations/it_IT/process``
-+   检查该目录下的译文。
- 
- 然后输出类似如下的内容：
- 
-@@ -50,6 +69,5 @@
-     commit 42fb9cfd5b18 ("Documentation: dev-tools: Add link to RV docs")
-     1 commits needs resolving in total
- 
--待实现的功能
+-static int __init
+-mpc52xx_bcom_init(void)
+-{
+-	return platform_driver_register(&mpc52xx_bcom_of_platform_driver);
+-}
 -
--- 文件参数可以是文件夹而不仅仅是单个文件
-+遇到无法检查的译文时，脚本会立即停止，并以非零状态退出。它无法判断译文内容是否
-+已经完整反映英文原文；仍需人工检查列出的提交以及相应文件。
-diff --git a/tools/docs/checktransupdate.py b/tools/docs/checktransupdate.py
-index d7b98753e35f..5f2517b59771 100755
---- a/tools/docs/checktransupdate.py
-+++ b/tools/docs/checktransupdate.py
-@@ -7,6 +7,9 @@ in different locales, e.g., zh_CN. More specially, it uses `git log`
- commit to find the latest english commit from the translation commit
- (order by author date) and the latest english commits from HEAD. If
- differences occur, report the file and commits that need to be updated.
-+The English kernel documentation and corresponding translation are
-+matched by their relative paths under
-+Documentation/ and Documentation/translations/<locale>/, respectively.
- 
- The usage is as follows:
- - tools/docs/checktransupdate.py -l zh_CN
-@@ -29,26 +32,30 @@ import os
- import re
- import time
- import logging
-+import subprocess
-+import sys
- from argparse import ArgumentParser, ArgumentTypeError, BooleanOptionalAction
- from datetime import datetime
- 
- 
- def get_origin_path(file_path):
--    """Get the origin path from the translation path"""
--    paths = file_path.split("/")
--    tidx = paths.index("translations")
--    opaths = paths[:tidx]
--    opaths += paths[tidx + 2 :]
--    return "/".join(opaths)
-+    """Map a translated path to the same path under Documentation/."""
-+    parts = file_path.split("/")
-+    return "/".join([parts[0], *parts[3:]])
- 
- 
- def get_latest_commit_from(file_path, commit):
-     """Get the latest commit from the specified commit for the specified file"""
--    command = f"git log --pretty=format:%H%n%aD%n%cD%n%n%B {commit} -1 -- {file_path}"
--    logging.debug(command)
--    pipe = os.popen(command)
--    result = pipe.read()
--    result = result.split("\n")
-+    command = [
-+        "git", "log", "--pretty=format:%H%n%aD%n%cD%n%n%B",
-+        commit, "-1", "--", file_path,
-+    ]
-+    logging.debug("%s", command)
-+    completed = subprocess.run(command, capture_output=True, text=True, check=False)
-+    if completed.returncode:
-+        logging.warning("Cannot read Git revision %s: %s", commit, completed.stderr.strip())
-+        return None
-+    result = completed.stdout.split("\n")
-     if len(result) <= 1:
-         return None
- 
-@@ -65,6 +72,11 @@ def get_latest_commit_from(file_path, commit):
- def get_origin_from_trans(origin_path, t_from_head):
-     """Get the latest origin commit from the translation commit"""
-     o_from_t = get_latest_commit_from(origin_path, t_from_head["hash"])
-+    if o_from_t is None:
-+        # The translation can enter the history on a different branch before
-+        # the English source is merged. Search the current source history by
-+        # author date in that case, using the same heuristic as below.
-+        o_from_t = get_latest_commit_from(origin_path, "HEAD")
-     while o_from_t is not None and o_from_t["author_date"] > t_from_head["author_date"]:
-         o_from_t = get_latest_commit_from(origin_path, o_from_t["hash"] + "^")
-     if o_from_t is not None:
-@@ -128,20 +140,20 @@ def valid_commit(commit):
-     msg = pretty_output(commit)
-     return "Merge tag" not in msg
- 
-+
- def check_per_file(file_path):
-     """Check the translation status for the specified file"""
-     opath = get_origin_path(file_path)
+-static void __exit
+-mpc52xx_bcom_exit(void)
+-{
+-	platform_driver_unregister(&mpc52xx_bcom_of_platform_driver);
+-}
 -
-     if not os.path.isfile(opath):
-         logging.error("Cannot find the origin path for %s", file_path)
--        return
-+        return False
+-/* If we're not a module, we must make sure everything is setup before  */
+-/* anyone tries to use us ... that's why we use subsys_initcall instead */
+-/* of module_init. */
+-subsys_initcall(mpc52xx_bcom_init);
+-module_exit(mpc52xx_bcom_exit);
++subsys_platform_driver(mpc52xx_bcom_of_platform_driver);
  
-     o_from_head = get_latest_commit_from(opath, "HEAD")
-     t_from_head = get_latest_commit_from(file_path, "HEAD")
+ MODULE_DESCRIPTION("Freescale MPC52xx BestComm DMA");
+ MODULE_AUTHOR("Sylvain Munaut <tnt@246tNt.com>");
+diff --git a/drivers/dma/dma-jz4780.c b/drivers/dma/dma-jz4780.c
+index ac2094e65ecf..32a40c17e0cd 100644
+--- a/drivers/dma/dma-jz4780.c
++++ b/drivers/dma/dma-jz4780.c
+@@ -1129,17 +1129,7 @@ static struct platform_driver jz4780_dma_driver = {
+ 	},
+ };
  
-     if o_from_head is None or t_from_head is None:
-         logging.error("Cannot find the latest commit for %s", file_path)
--        return
-+        return False
- 
-     o_from_t = get_origin_from_trans_smartly(opath, t_from_head)
-     # notice, o_from_t from get_*_smartly() is always more accurate than from get_*()
-@@ -150,7 +162,7 @@ def check_per_file(file_path):
- 
-     if o_from_t is None:
-         logging.error("Error: Cannot find the latest origin commit for %s", file_path)
--        return
-+        return False
- 
-     if o_from_head["hash"] == o_from_t["hash"]:
-         logging.debug("No update needed for %s", file_path)
-@@ -165,14 +177,17 @@ def check_per_file(file_path):
-                 logging.info("commit %s", pretty_output(commit))
-                 count += 1
-         logging.info("%d commits needs resolving in total\n", count)
-+    return True
- 
- 
- def valid_locales(locale):
-     """Check if the locale is valid or not"""
-     script_path = os.path.dirname(os.path.abspath(__file__))
-     linux_path = os.path.join(script_path, "../..")
--    if not os.path.isdir(f"{linux_path}/Documentation/translations/{locale}"):
--        raise ArgumentTypeError("Invalid locale: {locale}")
-+    if locale not in os.listdir(f"{linux_path}/Documentation/translations") or not os.path.isdir(
-+        f"{linux_path}/Documentation/translations/{locale}"
-+    ):
-+        raise ArgumentTypeError(f"Invalid locale: {locale}")
-     return locale
- 
- 
-@@ -270,31 +285,24 @@ def main():
- 
-     # Configure logging based on the --log argument
-     log_level = getattr(logging, args.log.upper(), logging.INFO)
--    config_logging(log_level)
-+    config_logging(log_level, args.logfile)
- 
-     # Get files related to linux path
-     files = args.files
-     if len(files) == 0:
--        offical_files = list_files_with_excluding_folders(
-+        official_files = list_files_with_excluding_folders(
-             os.path.join(linux_path, "Documentation"), ["translations", "output"], "rst"
-         )
+-static int __init jz4780_dma_init(void)
+-{
+-	return platform_driver_register(&jz4780_dma_driver);
+-}
+-subsys_initcall(jz4780_dma_init);
 -
--        for file in offical_files:
--            # split the path into parts
--            path_parts = file.split(os.sep)
--            # find the index of the "Documentation" directory
--            kindex = path_parts.index("Documentation")
--            # insert the translations and locale after the Documentation directory
--            new_path_parts = path_parts[:kindex + 1] + ["translations", args.locale] \
--                           + path_parts[kindex + 1 :]
--            # join the path parts back together
--            new_file = os.sep.join(new_path_parts)
--            if os.path.isfile(new_file):
--                files.append(new_file)
--            else:
--                if args.print_missing_translations:
--                    logging.info(os.path.relpath(os.path.abspath(file), linux_path))
--                    logging.info("No translation in the locale of %s\n", args.locale)
-+        for file in official_files:
-+            relative = os.path.relpath(file, os.path.join(linux_path, "Documentation"))
-+            translated = os.path.join(
-+                linux_path, "Documentation", "translations", args.locale, relative
-+            )
-+            if os.path.isfile(translated):
-+                files.append(translated)
-+            elif args.print_missing_translations:
-+                logging.info(os.path.relpath(file, linux_path))
-+                logging.info("No translation in the locale of %s\n", args.locale)
-     else:
-         # check if the files are directories or files
-         new_files = []
-@@ -312,7 +320,8 @@ def main():
-     os.chdir(linux_path)
+-static void __exit jz4780_dma_exit(void)
+-{
+-	platform_driver_unregister(&jz4780_dma_driver);
+-}
+-module_exit(jz4780_dma_exit);
++subsys_platform_driver(jz4780_dma_driver);
  
-     for file in files:
--        check_per_file(file)
-+        if not check_per_file(file):
-+            sys.exit(1)
+ MODULE_AUTHOR("Alex Smith <alex@alex-smith.me.uk>");
+ MODULE_DESCRIPTION("Ingenic JZ4780 DMA controller driver");
+diff --git a/drivers/dma/dw/platform.c b/drivers/dma/dw/platform.c
+index 5c1c97eb28a4..7576ad255343 100644
+--- a/drivers/dma/dw/platform.c
++++ b/drivers/dma/dw/platform.c
+@@ -195,17 +195,7 @@ static struct platform_driver dw_driver = {
+ 	},
+ };
  
+-static int __init dw_init(void)
+-{
+-	return platform_driver_register(&dw_driver);
+-}
+-subsys_initcall(dw_init);
+-
+-static void __exit dw_exit(void)
+-{
+-	platform_driver_unregister(&dw_driver);
+-}
+-module_exit(dw_exit);
++subsys_platform_driver(dw_driver);
  
- if __name__ == "__main__":
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("Synopsys DesignWare DMA Controller platform driver");
+diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
+index 630285c85482..c731104c3306 100644
+--- a/drivers/dma/fsl-edma-main.c
++++ b/drivers/dma/fsl-edma-main.c
+@@ -978,17 +978,7 @@ static struct platform_driver fsl_edma_driver = {
+ 	.remove		= fsl_edma_remove,
+ };
+ 
+-static int __init fsl_edma_init(void)
+-{
+-	return platform_driver_register(&fsl_edma_driver);
+-}
+-subsys_initcall(fsl_edma_init);
+-
+-static void __exit fsl_edma_exit(void)
+-{
+-	platform_driver_unregister(&fsl_edma_driver);
+-}
+-module_exit(fsl_edma_exit);
++subsys_platform_driver(fsl_edma_driver);
+ 
+ MODULE_DESCRIPTION("Freescale eDMA engine driver");
+ MODULE_LICENSE("GPL v2");
+diff --git a/drivers/dma/mcf-edma-main.c b/drivers/dma/mcf-edma-main.c
+index 9e1c6400c77b..fb6c06d4a8d1 100644
+--- a/drivers/dma/mcf-edma-main.c
++++ b/drivers/dma/mcf-edma-main.c
+@@ -282,17 +282,7 @@ bool mcf_edma_filter_fn(struct dma_chan *chan, void *param)
+ }
+ EXPORT_SYMBOL(mcf_edma_filter_fn);
+ 
+-static int __init mcf_edma_init(void)
+-{
+-	return platform_driver_register(&mcf_edma_driver);
+-}
+-subsys_initcall(mcf_edma_init);
+-
+-static void __exit mcf_edma_exit(void)
+-{
+-	platform_driver_unregister(&mcf_edma_driver);
+-}
+-module_exit(mcf_edma_exit);
++subsys_platform_driver(mcf_edma_driver);
+ 
+ MODULE_ALIAS("platform:mcf-edma");
+ MODULE_DESCRIPTION("Freescale eDMA engine driver, ColdFire family");
+diff --git a/drivers/dma/moxart-dma.c b/drivers/dma/moxart-dma.c
+index 28be93eed4cc..d33733afce9d 100644
+--- a/drivers/dma/moxart-dma.c
++++ b/drivers/dma/moxart-dma.c
+@@ -646,17 +646,7 @@ static struct platform_driver moxart_driver = {
+ 	},
+ };
+ 
+-static int moxart_init(void)
+-{
+-	return platform_driver_register(&moxart_driver);
+-}
+-subsys_initcall(moxart_init);
+-
+-static void __exit moxart_exit(void)
+-{
+-	platform_driver_unregister(&moxart_driver);
+-}
+-module_exit(moxart_exit);
++subsys_platform_driver(moxart_driver);
+ 
+ MODULE_AUTHOR("Jonas Jensen <jonas.jensen@gmail.com>");
+ MODULE_DESCRIPTION("MOXART DMA engine driver");
+diff --git a/drivers/dma/owl-dma.c b/drivers/dma/owl-dma.c
+index 9dc88d804a2e..c13c449ad05b 100644
+--- a/drivers/dma/owl-dma.c
++++ b/drivers/dma/owl-dma.c
+@@ -1254,17 +1254,7 @@ static struct platform_driver owl_dma_driver = {
+ 	},
+ };
+ 
+-static int owl_dma_init(void)
+-{
+-	return platform_driver_register(&owl_dma_driver);
+-}
+-subsys_initcall(owl_dma_init);
+-
+-static void __exit owl_dma_exit(void)
+-{
+-	platform_driver_unregister(&owl_dma_driver);
+-}
+-module_exit(owl_dma_exit);
++subsys_platform_driver(owl_dma_driver);
+ 
+ MODULE_AUTHOR("David Liu <liuwei@actions-semi.com>");
+ MODULE_AUTHOR("Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>");
+diff --git a/drivers/dma/sa11x0-dma.c b/drivers/dma/sa11x0-dma.c
+index a6fa431530e3..70b191519053 100644
+--- a/drivers/dma/sa11x0-dma.c
++++ b/drivers/dma/sa11x0-dma.c
+@@ -1080,17 +1080,7 @@ static struct platform_driver sa11x0_dma_driver = {
+ 	.remove		= sa11x0_dma_remove,
+ };
+ 
+-static int __init sa11x0_dma_init(void)
+-{
+-	return platform_driver_register(&sa11x0_dma_driver);
+-}
+-subsys_initcall(sa11x0_dma_init);
+-
+-static void __exit sa11x0_dma_exit(void)
+-{
+-	platform_driver_unregister(&sa11x0_dma_driver);
+-}
+-module_exit(sa11x0_dma_exit);
++subsys_platform_driver(sa11x0_dma_driver);
+ 
+ MODULE_AUTHOR("Russell King");
+ MODULE_DESCRIPTION("SA-11x0 DMA driver");
+diff --git a/drivers/dma/sf-pdma/sf-pdma.c b/drivers/dma/sf-pdma/sf-pdma.c
+index 6f79cc28703e..d62563f6c7f0 100644
+--- a/drivers/dma/sf-pdma/sf-pdma.c
++++ b/drivers/dma/sf-pdma/sf-pdma.c
+@@ -639,19 +639,7 @@ static struct platform_driver sf_pdma_driver = {
+ 	},
+ };
+ 
+-static int __init sf_pdma_init(void)
+-{
+-	return platform_driver_register(&sf_pdma_driver);
+-}
+-
+-static void __exit sf_pdma_exit(void)
+-{
+-	platform_driver_unregister(&sf_pdma_driver);
+-}
+-
+-/* do early init */
+-subsys_initcall(sf_pdma_init);
+-module_exit(sf_pdma_exit);
++subsys_platform_driver(sf_pdma_driver);
+ 
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("SiFive Platform DMA driver");
+diff --git a/drivers/dma/ti/omap-dma.c b/drivers/dma/ti/omap-dma.c
+index 55ece7fd0d99..da1f4eec9eb2 100644
+--- a/drivers/dma/ti/omap-dma.c
++++ b/drivers/dma/ti/omap-dma.c
+@@ -1941,17 +1941,7 @@ static bool omap_dma_filter_fn(struct dma_chan *chan, void *param)
+ 	return false;
+ }
+ 
+-static int omap_dma_init(void)
+-{
+-	return platform_driver_register(&omap_dma_driver);
+-}
+-subsys_initcall(omap_dma_init);
+-
+-static void __exit omap_dma_exit(void)
+-{
+-	platform_driver_unregister(&omap_dma_driver);
+-}
+-module_exit(omap_dma_exit);
++subsys_platform_driver(omap_dma_driver);
+ 
+ MODULE_AUTHOR("Russell King");
+ MODULE_DESCRIPTION("Texas Instruments sDMA DMAengine support");
+
 -- 
-2.51.0
+2.56.0
 
