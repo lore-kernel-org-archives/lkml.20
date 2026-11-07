@@ -1,97 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794036419;
-	b=EUyrzyjX7xLDssVcg7HZC7BOnWTBEGLrfe9TBuvoeaT/o5cGWyADRCM+Ec/veBHEwOc2
-	 17cKBIKbG5aErXhRh+F4R9GXSbOSxynM4LckSf7uyBWNhrw1ADqLSHES/FynIx/jfPlSA
-	 pubKNlyHzE3YwSUn7JsJoAuuFKVCUQoOyyAxr/1Z5BnvYJ7eyJMbUVUzZ7EAc/FuuGSb6
-	 H2zepNYdGIIVoi7+PmQZxtywhSzJ2AwpQcgfm2Ju6f9lYqPdbkSot4dUFgINcYygMZlqv
-	 t9Dvh0VCWxWFJ/rndInFq+f269oFSNJlKLx7ug4gT91+4ivE6jqfGmabmS7WJ1cva9w==
+	t=1794036447;
+	b=qWKzOiiOIU9EvMir59MmtBThyMNkHQzFGaZtReEIUxOzQ1j/fkuWJJj9ZU+NIyrkERcL
+	 3FuVjESJjc7oC89fjcl7iwE3h0XVHof3ew+Qbq9WzFwEyW4KM7T5o6jwO0ozRbZsotK3C
+	 yNUDQ+HsIP3PMebY0rahc1V9eNAN+QG4DREZ9+vU3zswbgRSD9233sq48ZOeWtWk5LZ6J
+	 IUFSHMl180V4CSy3g0tQrVG4b/WwTcEgqAjMQhWzz+91o9nl9gJaHe+8DdpZmCxBQEVa7
+	 KagubGepfL48UNSfJBmfoidfn7MpVsZpgvEuDTv+P2Eb+ZcKcNvl8Bh0Tsboz1fDrOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036419;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PSwvgBY5tKnxuW7xy2pwUvdfMnozikmSscxGDiw6G2I=;
-	b=qMKXv0XO4TNgNR9pyYJ601US2D+daoAZdDoqgi6sawIpR2wKJFUOe8V5zzBP2eOqFef6
-	 BjvCIt03UgDbgRwgVqTfTeTIHrMD/0z6m3iYO/uLK+I1rd0F4HlFmaq4zl3o5OTYFzJC9
-	 3iIvSs2ZVTVzLgAHKtQUjzEVdzuzyHymgnNjrR/m37JUogZ7bYP4/NooN21lG63tHeBS6
-	 KdFfzsTd1VHikzU/uzhRTlJTqCdiSbONDfST1u4InLfId+jCpeia8FuTGwbF21B6nQ59o
-	 W1DX8TLEN4JwLBxBJS1YNOZoHOk241kT9JKQwJECrQGJyhr2MxW06eOSlDeibu0/uDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036447;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VpkuHhPwzWbf6tDZsWXKj1gNOGLkMgtoPlDaCXACNQ8=;
+	b=Nan+gLv3Zxb6Fxk7/eBeMHMIcjJ038CDPbvCA132kh2QE+VMDQ3kBvq5cYqZZklPrYIj
+	 DsSjIwF2R9aCku0XjdXOx5myKoDWGuwg2uXphEBEGNH0x/n7LeBYZGDv8Cz8TvMumlUMl
+	 UbHMrezNsi3I5LJOUT2cobWBDQP3RZNlELb8WO1zX5NfEE+7wgospfb9776y/7eWQ2l+f
+	 9x5aMCTgsQsP9OA1MKwbAguIoqPGYP7OX91Tup3mnNS4IRlJOGoaUP8Rw7X5YqvBPKbRS
+	 yV5NDCm/HoUaee7tpllk5KW81txwAHKdIHM9/EDYnsMue6220PGbxsS8KVrRj5GZd7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PQPugjLI;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIqiDFLQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2944A606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2944A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB086606A326;
+	Sat,  7 Nov 2026 07:27:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PQPugjLI
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so17523005e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 23:26:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794036417; x=1794641217; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PSwvgBY5tKnxuW7xy2pwUvdfMnozikmSscxGDiw6G2I=;
-        b=PQPugjLInEABVjaemwtq7Hu8bTFa2wVlgSheOLBj1ew76vrFonee9caA3Yqej2AkYO
-         TxHEEixr8E5yJ0bQp2o1uyHpd9zyym8zxBJXbt/XDerDBsr9Q7HZi/373arHH6yrOQxI
-         E514PhTSAscHwrdKYHRiGizCCh6z4DQjjhAQN4syvRjQfZbIB+hRrcFao6nTUrnB5LUi
-         BKUB5lD0ESlT/Dof/Sb88v7mcwECxkCTrpJqe4bqNP4rUZiBbILHRLDi5fPdqS3iYuMl
-         2p13t9zik0xEVaMfekckwFJsqTbjhZ9fTBV9vSATdAmIvMzKtOMeuHWpFh6o8LSg7GF2
-         Gllg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794036417; x=1794641217;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PSwvgBY5tKnxuW7xy2pwUvdfMnozikmSscxGDiw6G2I=;
-        b=b1frMR4voVmjAy7C2UUXuoBXl/HXD+tq+lv7N+4Nc+GRJhsYJhDV4UGcrqkNkignRT
-         cCaW6hM5FBYzJm6p9deudNTc5QC1MnDUp5L9OSBd+A/MafcuhiwtvhNQ5SQo7OaVOdto
-         yQ8em3ucINJgDMGoIaupGJ11uRcGkPOJN2ICYewvJb0pNe8jE7t6jCmPICzMF3wCiSTs
-         SoiDvQe4tHK/F8Ev5anPXQpHJhTXwVTsWh9jMDxTZbBs6Lo4s40V8BBl74hQRw4PK9jJ
-         iVZuTG+QO665B3jp2qltGQH/qSo8Lw4txJ5dZ9Xykb9EAjSrNg1NWV0PnkWTdoccgBEV
-         I9nA==
-X-Forwarded-Encrypted: i=1; AKwUvByC5ZCFTX05jbx3o2RtMbKwsvQc4/LpjdH4susrXpzerdolCPjIgRzZZkEx0DUw3Jt19DDn9ssRQ9hVUqo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Q63ffJpP0VBflJkyTvO+V65shcF4m6VY1gKOx6CZzgyaJgdve
-	bQi0niE/1ro4NKi9G9B2Msxe7Nn/ig5cCjgPqmiFH+U874xgzEcBZqF2
-X-Gm-Gg: AYBFou2cIf6UZt6vFV2j4kBzL10Ypgya3Na50qfGiYZl3P6xaz4XqiIrFfSXjNAE9E/
-	X9CF7DbOj1zRlwhaSHRVDHlQEtvLrSyoYf9paBBfho/M+nutGzJheCUXD+S+1+Gp4hx8bsQOpK0
-	OjtghJT8/dKLaqlloBdDJpnxhxUhNcucsjRwr94g0pSNSnKRcZNRjT6WtQYPpDevuEkkP4iw+n2
-	eCU4sziFAk7mxbbNEkvId1yxxkwMCKclfIPQsSOMbUm8kSl1ORAS6pKsGFxMXP+L6EA4pfLpJ4r
-	ndbxpYtRloOPL8Eru4EnnRTL8lrrp/jdvce43+ROCAyLNSxILa3r+SpRwIWHLlRX3bgyOXtGd9k
-	JnTcvFbgatqgCRCPjncyaDpvJ16mhLOezGgf+oiB7pkVgiVVy0+Jr2fBdnkrAyWXm3Gyp4BAst0
-	8sMn27RrET4odPjo4uTZvc6JyMZBZ+l+bV/y45NKHrDvvp0FR5BnNIoti4rYeSJnINN9C1V9ddC
-	5pnqBPGmqRhnnM+yF4kb+HqD6/Bd4CArKBljWtmExzkpCJfATDABqcCBTHhni4mw2h/4AJP6l9a
-	CglocLw2lwnWZ12BDqLeZlWUOI14AMs/MPw8gJz/0DyldIp7rXTxY9N/FCBMxtOCE79Q65iYHqs
-	Ve65fHXf0AQGmb7coWCw8RxDagnYvpFnSS4zl+Fhp/qecjZBahNU=
-X-Received: by 2002:a05:600c:34ca:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4b6df212530mr76856485e9.16.1794036417341;
-        Fri, 06 Nov 2026 23:26:57 -0800 (PST)
-Received: from DESKTOP-IR7J1S9.localdomain ([129.45.78.107])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3283b50sm41843175e9.10.2026.11.06.23.26.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 23:26:56 -0800 (PST)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Cc: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com,
-	dm-devel@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIqiDFLQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4821F0089F;
+	Sat,  7 Nov 2026 07:27:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794036446;
+	bh=VpkuHhPwzWbf6tDZsWXKj1gNOGLkMgtoPlDaCXACNQ8=;
+	h=From:To:Cc:Subject:Date;
+	b=dIqiDFLQCUnwW5qjLQ7JXyfU/EUcf7RkwYjqfL+uRAaS3YySu9pRwdD3KjB9s597A
+	 Z979d35StLZZEyZlbYNqW/4hzWp7EplV0I90z8mzD+UB4Eputa9uTEsWMGHqnp7BOE
+	 3Vqr0fehOVPuRHBsW8/Jilm9y7f0JRwaD+s8+jmyXG0NvMTREGP4UY9DhG5WgKV29H
+	 17a7OFQcbFkJpu+AIHmQ2xQsDaqQWHVyPkdx0Q0F4xb8QGvgkCIpdlmjSX9a/cfIRm
+	 c5WcPe/mpskEL+fTo5rEUd7lVJXrTgdoDDrntNcQgY0dDDypL6ibGxoAAW7M48SyQ/
+	 8W6VLDRFQzXEA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] dm cache: fix divide error in too_many_discard_blocks
-Date: Sat,  7 Nov 2026 08:26:48 +0100
-Message-ID: <20261107072648.554-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	Michael Drobot <michael.drobot@garmin.com>
+Subject: [PATCH] spi: dw: configure CPOL/CPHA for each message before sending
+Date: Sat,  7 Nov 2026 15:07:18 +0800
+Message-ID: <20261107070718.17395-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,41 +59,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-too_many_discard_blocks() uses sector_div(), whose divisor is a u32.
-discard_block_size is a 64-bit sector_t that calculate_discard_block_size()
-keeps doubling, so once it reaches a multiple of 2^32 the divisor is
-truncated to 0 and the division traps with a divide error. Smaller values
-above 2^32 are also silently truncated, giving a wrong quotient.
+From: Michael Drobot <michael.drobot@garmin.com>
 
-This needs an origin of more than 2^45 sectors, which is unrealistic (this
-is a thing still in 2026!!) for a real device but reachable with a fuzzer.
+Configure CPOL and CPHA in CTRLR0 before starting the message sending
+procedure. Without this preconfiguration step CPOL and CPHA will be set
+in dw_spi_update_config(), which runs after CS is asserted when using
+GPIO-controlled CS. This causes framing errors on any SPI mode other
+than 0.
 
-Switching the div operation to one that uses 64 bits divisor would cause regression,
-so we just limit the value of cache->discard_block_size to U32_MAX.
-
-Reported-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
-Fixes: 08b184514f65 (" dm cache: revert "prevent corruption caused by discard_block_size > cache_block_size" ")
-Tested-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Signed-off-by: Michael Drobot <michael.drobot@garmin.com>
+Co-authored-by: Jisheng Zhang <jszhang@kernel.org>
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
- drivers/md/dm-cache-target.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/spi/spi-dw-core.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 1a5072425c4a..b51ceca60afc 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -2383,6 +2383,8 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
- static bool too_many_discard_blocks(sector_t discard_block_size,
- 				    sector_t origin_size)
- {
-+	if (discard_block_size > U32_MAX / 2)
-+		return false;
- 	(void) sector_div(origin_size, discard_block_size);
+diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+index 90af2cc9e17d..2bd4ad0f13ad 100644
+--- a/drivers/spi/spi-dw-core.c
++++ b/drivers/spi/spi-dw-core.c
+@@ -507,6 +507,33 @@ static int dw_spi_poll_transfer(struct dw_spi *dws,
+ 	return 0;
+ }
  
- 	return origin_size > MAX_DISCARD_BLOCKS;
++static int dw_spi_prepare_message(struct spi_controller *ctlr,
++				  struct spi_message *msg)
++{
++	struct dw_spi *dws = spi_controller_get_devdata(ctlr);
++	struct spi_device *spi = msg->spi;
++	struct dw_spi_cfg cfg = {
++		.tmode = DW_SPI_CTRLR0_TMOD_TR,
++		.dfs = spi->bits_per_word,
++		.freq = spi->max_speed_hz,
++		.spi_frf = DW_SPI_CTRLR0_SPI_FRF_STD_SPI,
++	};
++
++	/*
++	 * For GPIO CS case, set CPOL/CPHA before the SPI core asserts GPIO CS.
++	 * transfer_one() will configure any per-transfer word size or speed
++	 * overrides.
++	 */
++	if (spi_is_csgpiod(spi)) {
++		dw_spi_enable_chip(dws, 0);
++		dw_spi_update_config(dws, spi, &cfg, NULL);
++		dw_spi_mask_intr(dws, 0xff);
++		dw_spi_enable_chip(dws, 1);
++	}
++
++	return 0;
++}
++
+ static int dw_spi_transfer_one(struct spi_controller *ctlr,
+ 			       struct spi_device *spi,
+ 			       struct spi_transfer *transfer)
+@@ -1382,6 +1409,7 @@ int dw_spi_add_controller(struct device *dev, struct dw_spi *dws)
+ 
+ 	if (!target) {
+ 		ctlr->use_gpio_descriptors = true;
++		ctlr->prepare_message = dw_spi_prepare_message;
+ 		ctlr->mode_bits |= SPI_LOOP;
+ 		if (dws->set_cs)
+ 			ctlr->set_cs = dws->set_cs;
 -- 
-2.47.3
+2.53.0
 
