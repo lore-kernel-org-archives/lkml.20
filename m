@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794028847;
-	b=itNttxjAgKIxYJ8i9GMScFQGPpEmEMxSs2nT0HDFJgLcPybR8ZIBGXrLRlXzVuA4ej9u
-	 Frhl3mRGuPIhc5fuWkNIyf+xaedtU7i9uqcJd/T0Om11nhpfGbRpncXxl28ZjfYTBL7Gh
-	 X76p9kjwbO/Dzs5EAaD8rudDywMbieGM9n2k/xD8vpawdNuECynw7t4StRnupd2pM3SdV
-	 2XWlbjAsRhB1A4mRCzaSAwcI9VP6jOekP+WhsG4uYhGPVsa6TRWNNNPcFR+EsqIxRHrMw
-	 03Sc/6HApzD1YA8Hx5d7PI96+ZZ5UnjXSwXkjZ68/X3x+I873nUy4Bxu60zKFM2O6Tg==
+	t=1794028843;
+	b=UPlCBQ9+Fo2cCv6zWMPkA9PH1xhJIJqIKcfsu7qhp7sffLdlkEn5Z3hSUnIhQLvOt0nI
+	 2u7DOFyVD5CN1y0Nhh/ggRgI/b88oAchz3NXrjbRW4xvk0ibF3BXEwrHyzrhrhAwYPd8q
+	 h7CoL8DCddaHXrdE9V1k7l/nolmRACUqPrwAVAPK0CddB/zTeeNqicDo5C2aNtX1N1z3e
+	 /64HHqPkecTsTFqSsyDiUl9saXuX9yePU8/ze5WYB74X8741BArpn5m7FXn4z31oq9O6X
+	 VhgqCCg+lto0pWxRHxbf11prrE51dmRUBHLmZlegJ6WGQdnftd1yuYD/0X+Lz7qVC1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794028847;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794028843;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=mapGuynXXw7KDW6DKyURQpWmkV/D5C6EmEzFKbFPSPE=;
-	b=kiWncPuUjmyA5uOqgUCJqb+b1TeDX0cYddzxPs3z/g30ycX8VJXRtk3/flkAtUX8t7rd
-	 fv4sDCqZrPfij35QMpr3F29PA7deEAJzhI1ZKPbJWciuks3Ia61WKxuBsje+wgo35w88I
-	 rt9j27fIb99E/+clcxVwvLNpPnrtJTo1YKKqOLQ13w3u5QfF+7JDTNVjW0O27SgdGO3We
-	 mzc7sjecVYv4hotZpmfTZWMMqPDWmQR/YuG3ABtSK8JqDCh0cI4D5z/2CD6UAWYufUHpn
-	 pRBSPa6zLnYt4tvS67XO5Qz7ISYwEAclG05TXzwlgZIokkH49yAJhr7oa+izp8QBIQg==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=v9Tdiy9REOY1qeQxFjltXsTnBPcqZlFKUcohy8cjEnM=;
+	b=fCePR1s7WM1Y+YyrFOq4mOihb9X+L16GV/QriSN/Y1yizbBPDOHkLMluUrXVZE/9Q2iV
+	 gYFJFj555eOh0+9Wjdojc5543gFnVqsT6p+MRY4M1fHWuBfJy2JI1saBbb5R9XUlalKU7
+	 fjAWzbNKjH7yaS6AXWhmc9uhRkjA5kdErLSXn7IBXaFmuxHIUueYyLAgP0OwdjwKTexrP
+	 PaqXYeTLIA1UayvEHS4GREqWLGmVGtYqmdACTV2//QrnFm0g0NKy/jahKkTFATe/RvDT3
+	 z8dsndHDI++85kEQAYZ2tA1Zk5bCBeQt5Y/fIRUecknBRp7QYnTHPtLkACYzvGyebXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NdBv65Yw;
-	arc=none smtp.remote-ip=209.85.167.180
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYqPScO4;
+	arc=none smtp.remote-ip=209.85.167.172
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26851606D807
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:20:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26851606D807
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B050606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B050606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NdBv65Yw
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-53dda625f63so1075416b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:20:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYqPScO4
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4f55a53898cso683650b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:20:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794028846; x=1794633646; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mapGuynXXw7KDW6DKyURQpWmkV/D5C6EmEzFKbFPSPE=;
-        b=NdBv65YwE5bvpAEcYqLR7BYHh1iHUsAMeBQavJH2Xy/4T0H6ccBJVot9u4kyOjjjkf
-         8eEibxyA3cJHUlKRfltxED6UenL56HW+ArUDRhQjZ1lDOkCSu2la40iJT+A3SftHOMnH
-         3qbeo/3Zgj4IAVf90L+e9aPXRcwoHIZJ5bU7re2gAHr1U6waSjoo1py6gWyuezxmryKm
-         8OKFxCUW1HHqLV/ZtxwcS84jUmXwdHeRObkCDT1/lOFea++9SH4324u3PWYdoe4dmq0j
-         XNA6yAuUygUiKT8pSWr383A4ub6ui42Wa8CoDj8lV3rwfYRAKcDuvza/dVgCI0Zy8QPP
-         5ekA==
+        d=gmail.com; s=20260707; t=1794028842; x=1794633642; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v9Tdiy9REOY1qeQxFjltXsTnBPcqZlFKUcohy8cjEnM=;
+        b=RYqPScO4cPEx58XXCs4YMXEPGQK7K8qQCGw7XZ4hIAPE0vYmKl92KnhNEpUcjjpbW7
+         ZkcOiBMpMJIA4VaXLIz2W+WxEd6DMYzcakRcTCNvNv48Ew0SXSUJuHheAPaZneAT2SGL
+         Neu5xBe8h/vDWgH5l9jtvg+WDYHg60WICe+/pc8soaicovEiTsfL9xw4BwTDch3J7n6W
+         dEcGKk0xMsO4oS3LoE/rKPhARjU5MDGwL2uzd0sfjISfZD+k6CrovN3VkVJdgP57YJij
+         tKHRCow3DEtoO07ilW57X8US4swAPkbAjzUWfq3dReQaN0aMu8RbtWNHhncKSkVkIvz8
+         dygQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794028846; x=1794633646;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mapGuynXXw7KDW6DKyURQpWmkV/D5C6EmEzFKbFPSPE=;
-        b=1M38qsPInwyx+sXsTqdA4Yn0fkWw+/gae0QsQldKanejFyqfYvRwhxokjNO8KQNFgj
-         fmMQRzXVtlFsgOYvBClxHoXtYdiwz/T7wUa+ov6e4e4lxaWgEoMD/7my4eKyGeZrTwkR
-         uN7JUvfern52ZS7tDdzK29VSsHYBjoHVv4eGjrqdzvMpXeFuDoDlaG2d4WnDFePfhKS9
-         Tv/dabzKCBSYAQD02q8+RPvFCCaE+H+lmJbxgB/IrEtnncHT9D24MWwlqOgSXVItYviN
-         Okj9MQR3dd05XguNMasAgp2RwTZttHcW8tDf/CHljTHG8Xyj4P36LbEAzKh30srK9/yu
-         WHRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0tiTcDGyOAZvls4uF03Zc7u3OSjxhDq9aIzBjqpFiBKdwVtrpZ37LN9oU140NjDllOQb1O1Zkq0OBOtA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YKtknKT7r/laTPo1NkoPGqBF1UVoG96JImmegcFRXCnI8LLPH
-	j0ox848ZvmlHgwFZbrF8JJqNdjgnADqnF0Sa6e+c6J094pGLliwjQu63
-X-Gm-Gg: AYBFou2BnDqia/tvbjO7yKAlEUHoJTCPblboUV891m48ypggaqcqh7FsPyuUjRIBgN8
-	4tIyuA7/2i6ZGMb9nz82IsuE3yLv0QpIhQ3OgLi0bXx5z53SnTYxLwXpAo+3QeY/0s24Iml5fpe
-	Lb9etWLBzBPA0Y0JKv/ZMMtAv/fiqXCJVtpu2hF8vKi8N+JYQgN+MuTzxI6fgQ9mYHQAvZ3G90Q
-	0WcTUH1mvIPuLjTj3AtHpwDMIA4IkNA3I/8PzijElnop8qZ8GQ0c58wPD817ptgZuoCk5qzq6Lk
-	dqJYPqywOGNH64HYfzl+R5CPHwdbcVzG+aPhnWZeME0I9vLTVHEHvCoM32xf/J0jRIv40BgV6UI
-	sRuauMlc5+3NbMKk3m7+2XSSAXOuTKPvkfUJY7Zyalie7GJpSpnDxm5DU6CrUtQ3XjNmp46wUpZ
-	57jkQjYR4VpG1pYv97tbFa0GvBw7I5IFgwUpj49Q/Hwj00WIa7NSBLmn5rLkqu3UWLJVuQnRGii
-	H0UWutaYFQLXM0DfWzFwGrqR0OeZ3uXGdmnqkZs0zmCPzxD7YUg43EzK69YTLgPyG0cxh91K6zu
-	Crx3tCcP4kPGj81h4yKZ0MwywaxVRl4Sodgm0SuxvU2qKdpv/fPXdYceDxBKMw98loWplCKg574
-	cbliushE4N5ycpObhCLco7j17BVL5ILU7GrTWzBb++Rw5ty8mXHNTHIXqOuPjy5eCCt0HpoKf3F
-	fKcbmG+rgOSeorNX3rijaMYSgAwXfvXsTRq2iC/UC2SbCyM1Tz1fjE7A==
-X-Received: by 2002:a05:6808:f13:b0:4c3:4e34:c69e with SMTP id 5614622812f47-567e0fa6011mr3158855b6e.8.1794028846024;
-        Fri, 06 Nov 2026 21:20:46 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794028842; x=1794633642;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=v9Tdiy9REOY1qeQxFjltXsTnBPcqZlFKUcohy8cjEnM=;
+        b=KDi3V2RYmTIF7Z62DN2OsZE7lV4BJ99YbjWT6jQFYDrwfgv3OdMPbOUQ6Bv5N2jVmD
+         mBrrFJJrEpn9igwYTsquSrZwyIT+hg6dlS0Nt6hRJTIfOI08pH1izdF7UrhzNoYv3BL2
+         xWRgySSYyJdYjIJmQ3OSENs+r47XekJSEgUVA0R7ui1loxHFZWIcwKu89lnnaH0UwIzc
+         s1uxmhCJPLx71+3KrexfmhEH/XTmAMeSoieEO/yOyXdbTyqFs05qewAOsac/ckECcryy
+         nSeZSnwWwzKRK9F8tXrKyboRABEOSRsDmRqkFDsIMj895ng4L0m7EXcBa9amxVDSEhv/
+         FrjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByoBhP7ZgFJovyzUkZYrQlg//NDuqQng4aNDO1xT30glkTkCIErFeEIyAUYKkF1uf5f/qUNASmSiEzJoFs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bWyLqlS2EvyUvUF+MhVnuj6JD8MmOrPvQ81PPLzrgs41q+vd1
+	Dnkr0n2VFwALXrhiu0qAewaPls+oKWPAStLYmpBbL8YwrVVUGkLCIAv5
+X-Gm-Gg: AYBFou3KBUKKQpi/PHJWZMtxubzrFSBxgaCovi9EvpssXOKLdyfJcyKQENEmo8z3c2j
+	8e5KRBm/YM8DO1YTQKFvv/otA+R3n05poL3foWbFXFBUeZADReqwD6eOV3DJMGECSxxr+T0UuwF
+	uq/5k296JGG+4gmkc1h7uuiFEyrxrY2T8R3cdPHWYjUPAlwWkqGpRg2eNK47I+DX2/AR96Q+bgq
+	/5jP7JdJKYWh2rRKdcSQk1oBx/XfyHozv5r97lO5umPVoLLhABzEGLCMbpkPb00YntR7s4Vvsfr
+	L/R9YWDXH/kGtYE/GGn7XtOJquvSsI1yWM0Qez6X/+HUWFUZ83ePeb3ixV+S053sDYFQViLa23a
+	x5IwHBW8uUzmvxLJegmz5qXbGDLtXRgbc5TIAsUnwYdxX7KoRaz5BSy8NjdsoFp0b7kkXoGP+HR
+	2KewPd901tsm/nUi7MsHYTYJK3R9v6giP8vKRRSEiC0ysxGw91zfysF7yvRqes9Nv2798pyVgMZ
+	M2mgyOnm57+DEBHgOkU6miY+OrXDwMabMTyHvtJx1ehIsd47MNr7gTQFLsLfkVeSp44vOZBMR1+
+	XFFC584pgx2cO7dYc8eEybP36EZni2cAgmFa8slBGqNSSY7DbYj+u0tvpAYttHO/5mXYhkcWoPr
+	gNfHDdaqkTqO6xd4DI2+pku0imkdlEOKT8T0XH7aNZ69oYQI6dvupbduiQKpWirryElGio4AE0l
+	lOKaFLAUfXdvA/XuZ1hZELL3betXvJTebavsWWvsUpA9c/AuB3iK4D
+X-Received: by 2002:a05:6808:10d3:b0:4f5:d873:aaaf with SMTP id 5614622812f47-567e1440dfbmr4090440b6e.14.1794028842361;
+        Fri, 06 Nov 2026 21:20:42 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7ebf4edsm3059846b6e.13.2026.11.06.21.20.44
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7ebf4edsm3059846b6e.13.2026.11.06.21.20.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:20:45 -0800 (PST)
+        Fri, 06 Nov 2026 21:20:41 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 06 Nov 2026 22:20:41 -0700
-Subject: [PATCH 3/3] mtdchar: keep OOB chunks aligned with their data pages
+Subject: [PATCH 0/3] mtdchar: keep data and OOB aligned across ioctl chunks
+Date: Fri, 06 Nov 2026 22:20:38 -0700
+Message-Id: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,9 +95,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-submit-mtdchar-page-chunking-v1-v1-3-2973a03531bc@gmail.com>
-References: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
-In-Reply-To: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN0QrCMAxFf2Xk2WA7IYi/Ij60XVyjrI62G8LYv
+ 5u6hzyc5ObcDQpn4QK3boPMqxT5JAV76iBEl0ZGGZShNz1ZawjL4iepONVB7xlnp5EQl/SWNOJ
+ qkehKF/LGcxhALXPmp3z/DffHwap4cahN2xLeFUafXQqxrdR8bnN87fsPjK4B3KMAAAA=
+X-Change-ID: 20261106-submit-mtdchar-page-chunking-v1-668636b0becd
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
  =?utf-8?q?Micha=C5=82_K=C4=99pie=C5=84?= <kernel@kempniu.pl>
@@ -105,148 +106,43 @@ Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-MEMREAD and MEMWRITE advance the flash address by the data bytes
-transferred. OOB-only operations transfer no data, so another buffer-sized
-chunk starts at the same address and repeats pages.
+MEMREAD and MEMWRITE split requests into bounded data and OOB buffers.
+Their chunk lengths and flash-address updates must keep both streams
+associated with the same pages.
 
-Advance OOB-only requests by the number of pages transferred. Round
-non-final OOB chunks down to whole pages so the next call starts at the
-next page, rather than repeating a partially consumed page. Allow the
-buffer to hold at least one page of OOB and reject requests when the
-selected mode has no OOB capacity.
+An intermediate read can consume OOB from pages beyond its data chunk.
+OOB-only requests do not advance the flash address between chunks, while
+a buffer ending within a page's OOB can leave the next operation starting
+at the wrong page. When the OOB buffer is the limiting factor, the data
+chunk must stop at the same page boundary.
 
-When OOB is the limiting buffer, also cap the data chunk to those same
-pages. Otherwise a combined request can exhaust its data before all OOB
-has been transferred.
+The OOB-limited case was found while testing a proposed BootROM-format
+MTD view with 1024 data bytes and 1152 OOB bytes per page. A 64-page
+request has 65536 data bytes and 73728 OOB bytes, but the original
+65536-byte buffer limit lets the first operation consume all the data
+while transferring only part of the OOB.
 
-Fixes: 6420ac0af95d ("mtdchar: prevent unbounded allocation in MEMWRITE ioctl")
-Fixes: 095bb6e44eb1 ("mtdchar: add MEMREAD ioctl")
-Cc: stable@vger.kernel.org
+First simplify the page-capacity calculation, then bound OOB in
+intermediate reads to their data pages. Finally keep non-final OOB chunks
+page-aligned, limit their accompanying data and advance OOB-only requests
+by the pages transferred.
+
+Assisted-by: Codex:gpt-6-astra
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+
 ---
- drivers/mtd/mtdchar.c | 53 +++++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 47 insertions(+), 6 deletions(-)
+James Hilliard (3):
+      mtdchar: calculate OOB capacity from the starting column
+      mtdchar: bound OOB reads to the data in intermediate chunks
+      mtdchar: keep OOB chunks aligned with their data pages
 
-diff --git a/drivers/mtd/mtdchar.c b/drivers/mtd/mtdchar.c
-index 189e462a9df0..85e98905f732 100644
---- a/drivers/mtd/mtdchar.c
-+++ b/drivers/mtd/mtdchar.c
-@@ -589,6 +589,30 @@ static void adjust_oob_length(struct mtd_info *mtd, uint64_t start,
- 	ops->ooblen = min_t(u64, ops->ooblen, pages * oob_per_page);
- }
- 
-+static int mtdchar_adjust_io_lengths(struct mtd_info *mtd, uint64_t start,
-+				     struct mtd_oob_ops *ops, uint64_t remaining_oob)
-+{
-+	u32 oob_per_page = mtd_oobavail(mtd, ops);
-+	u64 len;
-+
-+	if (!ops->ooblen)
-+		return 0;
-+	if (!oob_per_page)
-+		return -EINVAL;
-+
-+	if (ops->ooblen < remaining_oob) {
-+		/* Keep a page's OOB together when another chunk follows. */
-+		ops->ooblen = rounddown(ops->ooblen, oob_per_page);
-+		if (ops->len) {
-+			len = (u64)(ops->ooblen / oob_per_page) * mtd->writesize;
-+			len -= mtd_mod_by_ws(start, mtd);
-+			ops->len = min_t(u64, ops->len, len);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static noinline_for_stack int
- mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
- {
-@@ -628,7 +652,8 @@ mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
- 			return -ENOMEM;
- 	}
- 
--	oobbuf_len = min_t(size_t, req.ooblen, mtd->erasesize);
-+	oobbuf_len = min_t(size_t, req.ooblen,
-+			   max(mtd->erasesize, mtd->oobsize));
- 	if (oobbuf_len > 0) {
- 		oobbuf = kvmalloc(oobbuf_len, GFP_KERNEL);
- 		if (!oobbuf) {
-@@ -648,13 +673,17 @@ mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
- 
- 		/*
- 		 * Shorten non-page-aligned, eraseblock-sized writes so that
--		 * the write ends on an eraseblock boundary.  This is necessary
-+		 * the write ends on a page boundary.  This is necessary
- 		 * for adjust_oob_length() to properly handle non-page-aligned
- 		 * writes.
- 		 */
- 		if (ops.len == mtd->erasesize)
- 			ops.len -= mtd_mod_by_ws(req.start + ops.len, mtd);
- 
-+		ret = mtdchar_adjust_io_lengths(mtd, req.start, &ops, req.ooblen);
-+		if (ret)
-+			break;
-+
- 		/*
- 		 * For writes which are not OOB-only, adjust the amount of OOB
- 		 * data written according to the number of data pages written.
-@@ -674,7 +703,11 @@ mtdchar_write_ioctl(struct mtd_info *mtd, struct mtd_write_req __user *argp)
- 		if (ret)
- 			break;
- 
--		req.start += ops.retlen;
-+		if (usr_data)
-+			req.start += ops.retlen;
-+		else
-+			req.start += (u64)(ops.oobretlen / mtd_oobavail(mtd, &ops)) *
-+				     mtd->writesize;
- 		req.len -= ops.retlen;
- 		usr_data += ops.retlen;
- 
-@@ -739,7 +772,8 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
- 		}
- 	}
- 
--	oobbuf_len = min_t(size_t, req.ooblen, mtd->erasesize);
-+	oobbuf_len = min_t(size_t, req.ooblen,
-+			   max(mtd->erasesize, mtd->oobsize));
- 	if (oobbuf_len > 0) {
- 		oobbuf = kvmalloc(oobbuf_len, GFP_KERNEL);
- 		if (!oobbuf) {
-@@ -761,7 +795,7 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
- 
- 		/*
- 		 * Shorten non-page-aligned, eraseblock-sized reads so that the
--		 * read ends on an eraseblock boundary.  This is necessary in
-+		 * read ends on a page boundary.  This is necessary in
- 		 * order to prevent OOB data for some pages from being
- 		 * duplicated in the output of non-page-aligned reads requiring
- 		 * multiple mtd_read_oob() calls to be completed.
-@@ -769,6 +803,9 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
- 		if (ops.len == mtd->erasesize)
- 			ops.len -= mtd_mod_by_ws(req.start + ops.len, mtd);
- 
-+		ret = mtdchar_adjust_io_lengths(mtd, req.start, &ops, req.ooblen);
-+		if (ret)
-+			break;
- 		if (ops.len < req.len)
- 			adjust_oob_length(mtd, req.start, &ops);
- 
-@@ -789,7 +826,11 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
- 			break;
- 		}
- 
--		req.start += ops.retlen;
-+		if (usr_data)
-+			req.start += ops.retlen;
-+		else
-+			req.start += (u64)(ops.oobretlen / mtd_oobavail(mtd, &ops)) *
-+				     mtd->writesize;
- 		req.len -= ops.retlen;
- 		usr_data += ops.retlen;
- 
+ drivers/mtd/mtdchar.c | 65 ++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 54 insertions(+), 11 deletions(-)
+---
+base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
+change-id: 20261106-submit-mtdchar-page-chunking-v1-668636b0becd
 
--- 
-2.53.0
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
