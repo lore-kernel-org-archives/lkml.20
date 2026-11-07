@@ -1,52 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029738;
-	b=aomNyY8sJZxRcAn5gH1MyUBLHVhjIMXQztOxuDAxU4cwC2EhjHdfs2MXn37S5vo20PnX
-	 IWxG0xMhHf/4ecJ2UHbYGuJVrtQT7moOONahZivJkXhRgcQR92fc7OpKtQYTnUNJIqYS8
-	 V7wbfwfl/8LaJrrqecyPha7xCHyjg/Ubh8Q4hAgmUOHjAECd2+jwHHPuoqFCQdy3ronLk
-	 n5e+czG7bDITJbNPxmnEyLalV3NedaSSZFYj1f0G5pNA3xqicpo58+qF/qt/gnOLe4dyZ
-	 ugzYt5zRhNIzNcQYRGzajAEas1yaCYslj73rUMRi9GIG5CB/7g2volBev/EjcDyK4+g==
+	t=1794029975;
+	b=EncLMiMbQaE4X0wtQo1vPIYEES7jkHA4GANke/0vlvffdrvzcpbLdxCdzK7gkFrfpXYl
+	 ObhgJQr0tc5bUXxu7WBTTGNHXltHH+73VqpLX5zq39XePIRrZMm4wZBdKhqQeqEkRkGXz
+	 boBcKIjc9yOSoXkARjOBEroQ42xywXdTRs97Zv5/7EiL9LZUc587uzDYh8DwR7ZHwKK5F
+	 IuYCf2IMOIQjqiUfBiILxUkRsV+UZ8K8swD8rQ28Q7PE9ty+ruMC0v7IWfeOwZUyjzEYd
+	 nAiz8sJkyv7dDxVI2aI+wRsjC3UFj17PDNUSTNqkAv1oPTtbYo/pv16T1UP/XgzuW3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029738;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=4BU3jWG6HgtUEzCXO9L6HXY2c3GFaOpgCDBfsihICbY=;
-	b=cc5M/e4ZfZRri2/Xk9y/dsKtWhO9NZzhlFZ2GydC8l9rBdqM1/C0tEaSwjeunKszGztI
-	 QkJ7tzfDSlzgY3dD4MyonVL+e8B/I6E00cOAXAjlQ5O8UMHsUowEWjUZYSDelplh6HCIk
-	 3ypiPuIB7okIFTdqPO61/lDr46bPiMnuCutXC5zB8nysyCY7ccQ9K/H3/eHDjSKSRn3nG
-	 YnnbHZRsbbeULVvW57lqtCQx5YhDYFuzREF7V0Y7HdQWhrjUW8Gnl6IABzCWjwjyx1x/r
-	 6FQE4uGqhg5wP5rmoThX1I4fy2OWjxLCGmUfJsYL8aVgZpTPryJ702Q02abK/kjhX0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029975;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=mf4ZlSzQK0A1YfaXfnQYSWywPw9KHcmgJ0Zlx/5jJks=;
+	b=dAW8B3Z3eyxLmE6St9F5UvcCDAxkIJnhon+VYKqq8ERUVgMKdguiSVJNlWWHnd2KqbrH
+	 xIlxHX7QJEz8W6V219R168P1qYtHthR5an7BanVpxr/iWWMRhsX2YZrDOV5U+KePiNwLp
+	 ya/mTPTya59veBeLGXuQ7/7wWSv4S/jF3rXA9Wlwmn6K4f8caviU7UWfqkwXKuc3GX0vv
+	 5C1P2+QV/vmyv4anveQlvDjxvuue4CwJ3W69qyQBGDxgnrVFE9t+UBAhFuDNW1pSkbfv6
+	 jgIHu0NAhwB63uq9DgzhaRrvAbCLI6Sd2SF4kH6DdXE4Ro7xSr9mL1MPvVvPL0dXRnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYxxEQoA;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD0D606A326;
-	Sat,  7 Nov 2026 05:35:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD0D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAA3QZKauO5qndt5AA--.17203S2;
-	Sat, 07 Nov 2026 13:35:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Simon Horman <horms@kernel.org>
-Cc: enachman@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH] net: prestera: release the ruleset in prestera_flower_prio_get
-In-Reply-To: <20261106121731.GI865646@horms.kernel.org>
-References: <20261103100532.1309990-1-vulab@iscas.ac.cn>
- <20261106121731.GI865646@horms.kernel.org>
-Date: Sat, 07 Nov 2026 05:35:17 -0000
-Message-ID: <179402971765.2318769.17775485131459248250@iscas.ac.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985FB606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:39:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985FB606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYxxEQoA
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso531146a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:39:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794029974; x=1794634774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mf4ZlSzQK0A1YfaXfnQYSWywPw9KHcmgJ0Zlx/5jJks=;
+        b=qYxxEQoAgeRTjMwaQDC2fAV485jTtyVXXUh6AN8P3ryYgsUwS7AzrM/L9YOTmUktBL
+         GrmxIh+aph7bmf1AxySbrEQwF1kVvNaiFABat9MAI0HWL4TvDQAeVqzgzJuqtoEuw6eQ
+         lXAm0ibaN7snVWedEdSBLO15ROieRTahbPsvyOWVseeXVlO35wemXKH3VSUJhQ0Lx4V7
+         yrTBrej7U/w/9xOobPcuIsCY53gGXyWvz1TUQHwH3AJNJsnHoe5Esl5h88vkgrjdYMVK
+         1usU1L8rLYsy61hnyX/H7fDmdOaYfPzLbXxMCOOAnoSzAfkb1XYCAlLKarUsU5kGF+KS
+         +3Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794029974; x=1794634774;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mf4ZlSzQK0A1YfaXfnQYSWywPw9KHcmgJ0Zlx/5jJks=;
+        b=SnbZIBNCJI6GX48sGum6kOFSdBQOUUAdShMqcsOFLTzRXfUj/IkkftLrjYr/FeQ0KY
+         Vxn91PpSY/+Onvh3BwshqRS9urF08FVLd8eNn8iqjg7nddxdA7+NqmqCCKTSx60m+utx
+         WxThpVhBFP/owFOpRF1eah36Jz5+APUtoMhbII8kiI7tvIxlVZOOGRtPESu2thLSmf4V
+         i1B4ZDvCanjFU3zb6IkS5slqNYUdWccuji4DPysNCqVG4Ri6GVWGez4CIgKgdDMVdDq4
+         zQEr7jckiIYiM3HjJpyyedeINCyLlzn7zS51OsyEtrhKV8k16VTiWJDGPGxgG0bYqQzI
+         7jTQ==
+X-Forwarded-Encrypted: i=1; AL+hErHcN+iStZDzrbVgVo0JDi3hSRuVpo/8AzMg5ztrJ4QMvGMUsfiFkbpZmu3MpCSqTBItsnU4OAeLgSDSKnE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0w2+xdT3OVNs+iivsab/wypQEDmUys8pz00xI7PlMGYW+GEdR
+	utPfq+uPxUBGpsWWme5e+axwl24b6izlpWDBv01CgPdEwVhevxihow2J
+X-Gm-Gg: AYBFou2tVmD+VAcbNqmLp/paMIAJmQvQzexzki3CbqaHLIhYXssl88I2PZzUK/852ib
+	FVQGwd98ix4CRlH0jlYKVqwfjrT7e9b8Vl9J0zMN6jJPMrcVx6b8cUHg/WM+CtBI4+8jyjRx16o
+	AnVdr2Qt+u09WBIWbJEnxFzrqcKkalSTBIlYBpDHATeOXo97UIjbbori+tTLTcn0t/4cxYhM4rv
+	cWy7dP5R5jQ7b0SgXb8v96Nj+nVcZgU06vzXOmfXasZ+vx5NbpCdfg6GAC9IFA5sSsqchpUIzll
+	0WQ2plqenCtvXlJ/kFMwRBJaK8+fdRW/NDWhuOMxFRgupmuul3bx89BbVQIKZJdf/ESO+PWzKhG
+	vn2K5Ca8YVbnF3mQGdjj/4b9LEj3pD4NYmmOmi06HoBDsdZT/zOZFc6DEGBAqV4ZHw1h5w0HLo7
+	2UDa6QcnzRf2U1ZD63SS5Cjxo+p1tNan4MyCwH5B+3/jv83+iFc0YZwPk7NMtN+vql2ZbHEfANJ
+	UnlbdgGmuj2seIcXjDS4X2Qi4t0ycVQzY+CJAjA6p5oL2UIIH3Wu2RFaaOVkePI55BEtWaMe1o0
+	hLB9IyAVmqVZFRqQb00fG7ORg6M9Etktp950hbEj1diArhuX1STLG2IPdKFQcqgRh7pruw==
+X-Received: by 2002:a17:90b:3950:b0:3b0:92b2:2e74 with SMTP id 98e67ed59e1d1-3b0db6f6c35mr4733562a91.62.1794029973785;
+        Fri, 06 Nov 2026 21:39:33 -0800 (PST)
+Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:a1a:7bc2:20ba:a479])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057b17f8sm1838127a91.1.2026.11.06.21.39.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 21:39:33 -0800 (PST)
+From: Li Pengfei <ljdlns1987@gmail.com>
+X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	mark.rutland@arm.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	zhangbo56@xiaomi.com,
+	lipengfei28@xiaomi.com
+Subject: Re: [RFC PATCH v7 02/10] trace: use the stackmap from the ftrace stack recording path
+Date: Sat,  7 Nov 2026 13:38:58 +0800
+Message-Id: <20261107053858.3070072-1-lipengfei28@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261103193421.63f4454a@gandalf.local.home>
+References: <20260912083753.3426176-1-lipengfei28@xiaomi.com> <20260912083753.3426176-3-lipengfei28@xiaomi.com> <20261103193421.63f4454a@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,46 +107,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAA3QZKauO5qndt5AA--.17203S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF15tFW8Jw4DKrW8Jw45Awb_yoWfXFbE9w
-	4vy347Za1UAF17Ja1YyrWYvrZ3Wr48CrW5Z34rXr13try5ZFZaqw1vkrZ0yw1SqFWUAFZx
-	Jr1Yy3yYk34qgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxV
-	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
-	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
-	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x07bnXd8UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUEA2rucA5nSwACsP
+Content-Transfer-Encoding: 8bit
 
-Hi Simon,
+From: Pengfei Li <lipengfei28@xiaomi.com>
 
-Thank you for reviewing this patch and providing your Reviewed-by.
+On Tue, 3 Nov 2026 19:34:21 -0500
+Steven Rostedt <rostedt@goodmis.org> wrote:
 
-I apologize for the delayed reply and for the excessive volume of
-patches I sent to netdev. I also failed to follow up on earlier
-feedback promptly, creating additional work for you and other
-reviewers. I take responsibility for that.
+> FYI, the tracing subsystem requires starting subjects with capital letters:
+> 
+>   trace: Use the stackmap from the ftrace stack recording path
 
-Your concern about the submission volume is well founded. I will
-personally go through the outstanding feedback, review each comment
-carefully, and respond in the relevant threads. I will respect the
-posting pause requested in the earlier discussions while I address
-that feedback.
+Will fix for all patches, and use the "tracing:" prefix that the rest of
+kernel/trace uses.
 
-Going forward, I will not send large batches of patches. I will keep
-submissions within my personal capacity to understand and validate
-each change, and to respond to review in a timely manner.
+> Also, did you use AI for this? Most of the comments are useless, and sound
+> like they come from AI.
 
-Thank you again for your time and careful review.
+Yes. I used an AI assistant to help draft a substantial portion of the
+code, nearly all of the comments and changelogs, and most of the test
+programs. The design decisions are mine, and I checked the test results
+and went through every version, but I should have trimmed the comments
+myself before sending. Many of them were added in response to automated
+review findings rather than to explain the code, and they stayed. I
+should also have stated the AI use from the first version.
 
-Best regards,
-Wentao Liang
+For v8 I am going through every comment in the series, removing the ones
+that only restate the code or the review history, and keeping only what
+the code cannot say. v8 carries Assisted-by tags, and the cover letter
+says what the assistant was used for.
 
+The rest of your comments on this patch will be in v8: a record_stackmap()
+helper with a stub, the depth check before loading the map, a named enum,
+the tracefs setup moved into a helper, a stub for
+stackmap_mark_init_failed() so the #ifdef goes away, and the comments you
+pointed out removed.
+
+Thanks,
+Pengfei Li
