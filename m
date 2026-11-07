@@ -1,47 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045520;
-	b=jvJqh01Xd+Uz8C7SK/Cg8uSLSCXXt4+Ibs2sRRVqphT79sJJAvEp4267TNWWwJDhbG2A
-	 +9bFKzV6bYZ8WoNEnWX5V2fGcdamCLxGGnJcbzG3adfGYewx5fcsSKRc07RP8DTXVguRi
-	 aXQTxzQxgPUDMrbDMP1geEy9N1ZRza/Dcf75M+WSY7JAggjlz29G8Mibf/SL2HF4HWBC+
-	 LlQBsDqR37WkdraMYC3WQ08g8BaUA2UGnmGbuiEeV6DYwn1SUSF3Slxy50WP/yIlNU7iX
-	 aC9uqA1L4ncj1gvgR/eUSyoBrB6sN3oYchOqN1iDCahP5G5gwxiFxunNHg/aF/S/OSw==
+	t=1794045748;
+	b=P9S2q6LaGt+EJrNLY4LR7Fq4jgb8/9hwm5HXymPUFjOMv2l7TWO27dMATfpEB0Q0vAFf
+	 /exgCutrWtoRHBCkY5DOBrJaAC9ehIxXAU05EjANDF14NPZ7ROjzYBX1ctrkrZE6Vo7Jc
+	 qPB7t5suZyGp3e9qxQjuptZHigcHOiDyWKoKQ6bSuXNa4uytazvZbFe2x5HB/sXyrt9Ux
+	 nhhNntskRWz0eu7pg25NoEXIFV5PEcuRl6XLBkfpDH0oLExwFp1E+wgdS/oWfEB2rE/49
+	 ZKfHe8/NwgIx8hSs4SR5K9jOG16Tyynh0i42VHn6F/ayuvyHBQvknuZZQTUc6CKg2OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045520;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=IgMSlsD7DyAJC88dH9PzbWGMxD8cM5My6CHNDmAT3YQ=;
-	b=bVezuG0+9PGWYoklbsW292tR5Vt8pVLQx3ZHsMFc6K+/DvzEMiuXUk+7Satr3CXuCQMT
-	 f/hid50jNnvKHxnqbx8INN9hPqTEbfDx1q4uJvNpaeEbZFMIt0oezMuXcDm6G9n4FWe8e
-	 8XJQ3/4TUuDkq+sMSO87vHJDxYMWrRRy+6O8Q4T5MBcC0OQBcMHInNgrVbSWxM1+1ZwPg
-	 gCeYn6EyXsImpFWaWqDywsP9X/eTuU0XF6VUb8Em26pWtad+s6rhHTGGuh36mEOQISnLo
-	 QyCg7OP1iRZ+Uj/3VBoY24k2cZS96mcssrC2htPseJxjskSQcwU/HpDs2yvm2IJuBpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045748;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=TjMdFk8RF2kaRdnGIftRqRXHaK9TIJqelTHCSWvnKbg=;
+	b=D7yz3vl7pUwRg3vphWjNCEkgelCIvPfkfgzPmVVQCaBOmnQqFv5OzOrfm62BDMyMKOrj
+	 2hY3Q3uzfrC7cft3ruaMIQ+XAavBjiqX8yCAvIbU9Gv9cWV2pWLlYNmDEyYLaiD2KdjgY
+	 6Dk8dNcQNFcfg8lFmYL68UWOoKCiOaPZ+dyUFtekpNs2lvjOQjMWWNlWELSh/jSFjUmwO
+	 m+eTkVe/EE0qjoJRXTB8ELJbui2D5hTxP7mHUvzDkgYSzO52J5C+ImmWbkI3S9GjHvIYX
+	 NuiW477vkbt3CACp82OsghM+DuR6OJDTnEEsW+6B0lYgyMbI3KFDacHh7i1CfNrTkzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AdEiO3B7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kernelriot.com;
+	spf=pass smtp.mailfrom=kernelriot.com;
+	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=YA3oaAqq;
+	arc=none smtp.remote-ip=74.208.142.49
+Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AE7606A32C;
-	Sat,  7 Nov 2026 09:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B4D606A32F;
+	Sat,  7 Nov 2026 10:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04B4D606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelriot.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AdEiO3B7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD771F0089F;
-	Sat,  7 Nov 2026 09:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045519;
-	bh=IgMSlsD7DyAJC88dH9PzbWGMxD8cM5My6CHNDmAT3YQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AdEiO3B7L7OaprmRE07LXwWw7Gbx0ctG+hUaJhP2lkGsMq6V82O6bo4LaamLJU6Lh
-	 /gnawExoGY8wTgjnvglrly/DJ/+bra4KJSniM00on4UWx/poIDTiS+g3nhyU9PwFV2
-	 DJcuAImOmfFelmoVCkxAwljLJNaaxs4nhbTzNrx9oWXVtuxLZsbqSh9ad7raF8Kad6
-	 gstdEfEWFW6Cqgq3TQPITWkpiLT2wvSorU2VL3uuL71EEotIx8LmO4mw5y+Xr3mW2y
-	 gPsCmEEsHnzlKMH+2IBMQZpfXiR++gbBNf3Uo+VSOmS9JpAueBh+hDg8/EN/6OkQG5
-	 q6vjOMo6AD+hQ==
-Message-ID: <b1e6aa27-4a2b-43d2-91c1-2addb528dcab@kernel.org>
-Date: Sat, 7 Nov 2026 10:58:35 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=YA3oaAqq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
+	s=kr2026; t=1794045741;
+	bh=+/ah8vkaUP87DIJHEblp3tls1hoAvi5cG63uzTk2jyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:From;
+	b=YA3oaAqqZeN6mMwRbLlWFxUHJTOS/YV5Tf0YMXVoJGIeGL1kBg3ADZFfe5MNss8vE
+	 MIEoobu/aDKNIrDejwSZFcURBEatbOt+BAIuzjkZ12NRCYmeGkrHMnGDIOSWsNpEGL
+	 MLf7cp1GrS1iC0Gx4bH5sxaEq5fH4DhVKFjeqsM2x7fbVWaYgtZRG2Ft0H2JG9ORJ6
+	 zI2LEmpGjLw+Yx/XISWN6bbUKkyzu/ViR20cEfpKUwmyJpEkeI11ITx49iO45mk6sZ
+	 XwvkqaG4hxP0HO+2XeRh9sURl+EKV0txlu5rE6XO/0QqJ00xhuY0DmB5bfzSISoDvF
+	 lMG6KdXpegkHw==
+Received: by mail.kernelriot.com (Postfix, from userid 995)
+	id 3E6128147A; Sat,  7 Nov 2026 10:02:21 +0000 (UTC)
+From: Magnus Leatti <magnusleatti@kernelriot.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net v2] net: stmmac: Clear DMA errors for multi-channel interrupts
+Date: Sat,  7 Nov 2026 07:01:40 -0300
+Message-ID: <20261107100140.8279-1-magnusleatti@kernelriot.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <179379704484.488856.2140619507341432623@kernel.org>
+References: <20261103125430.962715-1-maxime.chevallier@bootlin.com> <179379704484.488856.2140619507341432623@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,97 +79,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: microchip: mpfs: Fix flash leak in
- mpfs_sys_controller_probe()
-To: Wentao Liang <vulab@iscas.ac.cn>, Conor Dooley <conor@kernel.org>
-Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- stable@vger.kernel.org
-References: <20260917153550.2160672-1-vulab@iscas.ac.cn>
- <20261002-garnish-president-6e8abfdacf4c@spud>
- <20261008-47741881fb032091ea3d7f0c@squawk>
- <179393668487.2060453.14381920142402581273@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <179393668487.2060453.14381920142402581273@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/11/2026 04:44, Wentao Liang wrote:
-> Hi Krzysztof, Conor,
-> 
-> Thank you both for the detailed review.
-> 
-> Sorry for the late reply, and for the mess it caused.
-> 
-> This is a v2 of the earlier patch, but I sent it without the v2 prefix,
-> without a changelog, and without referring back to Conor's review from
-> 8 October:
-> 
->   https://lore.kernel.org/all/20261008-47741881fb032091ea3d7f0c@squawk/
-> 
-> You are also right that the patches were sent in bulk across unrelated
-> subsystems, without being grouped into patchsets, without running checkpatch
-> on them, and without documenting what was and was not tested. I am sorry for
-> the extra work this has caused you.
-> 
-> In particular, thank you for pointing me to the kernel documentation on
-> subsystem identification, patchset organization and testing, and for the
-> guidance on how this work should be submitted. This is an important lesson
-> for me, and from now on I will go through all the remaining feedback
-> manually, one by one, and reply in a timely manner.
-> 
-> Going forward, I will also not send patches in large batches, so that I do
-> not exceed my own capacity to respond.
+> Should the Fixes: tag point at 1b9707e6f1a9 instead, or also include it?
+> As written, stable may backport this to 5.13+ trees that cannot hit these
+> storms.
 
-If it sends patches like a bot, if it ignored feeedback like a bot 100
-times and then finally if it responds like a bot, it is probably a bot.
+A data point for the RBU case from the YT6801, same 64-byte UDP RX
+flood, all on the same 7.0.13 kernel:
 
-https://en.wikipedia.org/wiki/Duck_test
+  stmmac from 7.0.13 (has 6ccf12ae111e, not 1b9707e6f1a9):
+    no storm; the MAC interrupt never fires (4 streams for 10 s,
+    and 8 streams plus TX for 30 s)
+  stmmac from 7.2.11, built for 7.0.13:
+    storm, the machine hangs
+  the same, with only 1b9707e6f1a9 reverted:
+    no storm
 
-Best regards,
-Krzysztof
+So on this hardware the RBU storm needs 1b9707e6f1a9. I did not test
+the RPS case.
+
+> Since RBU and RPS were enabled only for statistics, was masking them in
+> multi-MSI mode considered as an alternative?
+
+For reference, d3265c19b35d ("net: stmmac: xgmac2: disable RBUE in
+default RX interrupt mask") took that route for xgmac2.
+
+Magnus
