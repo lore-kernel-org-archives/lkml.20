@@ -1,67 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064074;
-	b=iBt36GF/1pgPmxPWBYAfM8pmGWMdfw4bk7yaWn+DgjW/v5uN7X4gghPcHmJgE10J0CqJ
-	 sKm1JA5uDf/bcz3QYs6IcgtsBppFIMNCO75TALETsawx6OumXUeV8K8f7HbbtMzt2MkUF
-	 5cyYKzSTrCasFo1pty3nTGQFwwUy9RhadwSW09Gxia+8b3Lcg4wD7/vmDwe4UCv1xtq9/
-	 Ifdbiu03ZM6J86RKXat7tw3Z8SO8o+d+Bl0nY4hfsAET1R6yD67+nE0dfVFBR1EAcHqxL
-	 M1bKjuAf1FKnl3NCNPAm0v1mdJ3OiRqOi6RUtprQlWIk1V+R2djpHfclc+LB7MiSYpQ==
+	t=1794064118;
+	b=JLdgTbwABJztb0olOf+tYctMJqSTFllk7SRckhzhbUcvq6DuwpcPHbXNMVyl9WG3o9Gp
+	 IqPNLCvfi78/Hdg078lNeKFt07daT1X8YFjG731VKUPUeW3b4RATC917NTjA3FQhjjbYk
+	 Xb/FPLadvRaMqX9OJb8pjJVS1uur74LSpddToTBiUXJp19mclnflWje/6zA4QTY9ttlYW
+	 Tm7f6m5VaEVyEqn0U22NmK3Pl+GSnq+PuE+x90JIF7wleOUuy78g4lpe4FM+74U/gt9kx
+	 z8ZWIqQ+ahBjS3Dt54cPUQoL4bb/NwpvswYqVFD2HmJG6DSrephWrO71uvj4xy+oHKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064074;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SIIbZJRteDk7lfiVpVQ7ZVtmuUKJZZxsXp/vVISgb4o=;
-	b=CWfxgOJjtiXcrcZa4IxiPlnyOoW/FP9f6gkNbB8aF5r2gbZDl6bveK/NgURbGBtgfOyO
-	 Ajl61iZy+vlyKmBNtUkEYy0XrzVz0gQAEcVoVdd25QUVv84Ej2P+nWkBR2FUnwkZ6Eg2w
-	 HIRU6zp7ZLv+pLcQeEYgkkOsc2KZqpKKPcW1cximYIpQ7iK1Mi2uLqCzSbhD6KY4QJcnZ
-	 wqdnwDxA/px5nAjPBtTb1u8Y2ZFlje+nJwjhgUjSxDG7Pr9hVuUIenEuQnP2PYcMQaV0Z
-	 hmumCowF+g2EgqQQc8IVzXcVm2g8+0PBhHX21Mxpoa7tyu6hhddXSjQvbUnFjHS0wqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064118;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ALGSenX0zs2BVHF/84nUUmepv/GDcgnI5RNZWHPQC+I=;
+	b=OQC/AK9SEOevyQQxNuqXPxO47RBSlviZS46R+ihm1vT74EsOV8ewHYeySWv7msZSxxjB
+	 Xvpon9xwZbUlQZ7joMzksD+bCNGuyoRCnRG2S1nunaooCOxGzPQGzlZxY+1SQxBf4R4HX
+	 I1FwpE53taDxQn1Z687e5RJG3xoMRCSnH2XjasmYRKyll+66xPXoDlZdVEbrJ90whrDGf
+	 vrjRd6tSzWhQHHwDb+/5XWeB9gLitjEV2SwnfgxIKEZwBlo8CZTDPx2roB4mMktZQRveP
+	 5JVpBTpxvMAT8r77lJUq5AksGEf/eEue0Qdc+CefhfJDFP8qsaJhutMOA8cf3hMiznA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fsOLGJzS;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD999606A9F0;
-	Sat,  7 Nov 2026 15:07:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD999606A9F0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JV1vknhq;
+	arc=none smtp.remote-ip=209.85.221.180
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B742606D839
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 15:08:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B742606D839
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fsOLGJzS
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JV1vknhq
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eaf34452a9so554813e0c.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 07:08:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=fsOLGJzSPi0Ebi+TD9FCGosq6BXI4skxpBf7ZiXhkL7Gob9MGD4H6F7sKaQM/njU48uZZ4ylcH664
-	 iH4jD1dlqeVJeN0/LmQsEkftCwi45qzrmnKKZaWLXLcGMJCZMfaGAIdiF1XU63qXNcZGZKOVnkyTVf
-	 iqtTXDzvQQ3ZQwII=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36aef3ec5283-8385e;
-	Sat, 07 Nov 2026 23:07:49 +0800 (CST)
-X-RM-TRANSID:2ee36aef3ec5283-8385e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[112.0.144.25])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26aef3ec3728-48d1d;
-	Sat, 07 Nov 2026 23:07:49 +0800 (CST)
-X-RM-TRANSID:2ee26aef3ec3728-48d1d
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: mdf@kernel.org,
-	yilun.xu@intel.com
-Cc: trix@redhat.com,
-	linux-fpga@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	laixiangwu <laixiangwu@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] fpga: altera-hps2fpga: Fix reset control leak
-Date: Sat,  7 Nov 2026 23:07:47 +0800
-Message-ID: <20261107150747.1152-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+        d=gmail.com; s=20260707; t=1794064117; x=1794668917; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ALGSenX0zs2BVHF/84nUUmepv/GDcgnI5RNZWHPQC+I=;
+        b=JV1vknhqyz68CXblk7gJJEBC30Y31srYk2XDMjYnwMH9498cfA1iexxosTCnNbEZZy
+         hzmlQi9mS5eh/uB/LIKf9M6obAQZdSM9XSCkm0rHeZQVfGcTtyCGtGEpK9ttqbUjLZUb
+         /iFAZ8BTYWoDKxySIgPu744IUaOwOEU630Wl33rM+O6wO9sBanuUcjen+4gt5/FjsxB+
+         E1Ag4O4IGPq6fLw8N+0LKwHXjl6mLo0CuSwBz5Gv7sEIWV6B7pTfMcr4E8ObuxucWql4
+         B7dF6RojE7bezcandIg4VziQxbb47WzVHiAjAG+j0V+kVmSuTGsfwhdAXKwBNySOv3ZK
+         hxYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794064117; x=1794668917;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ALGSenX0zs2BVHF/84nUUmepv/GDcgnI5RNZWHPQC+I=;
+        b=A1IDJ096AP9hHtbyNrCNw5UbrBP0PcpH6xxqdLnlN5jSoZrSdaikB+W218RPIg8ugp
+         aCmgZ+bLx/QwQylkh/QkSAbne9ew/3OBDLzU5984hqJatns3OvclK/bKz0tSWoIclBR1
+         9IBYy0LCwus3PLVn0ssgZjlhwsJaTJUV8nLq5hlOkrZ2TbZ2e6P/ZsSO29jmCx21aZkp
+         VAfZ0RqqgVYNpikOCsxSQ57cvCbTf2X9bi9/fZOTA3mXzNJ75ImpMiM1YXBGcevNFKR9
+         TW8FCd5LaxGgx3FwuzGKTe+z0oRwOGa6i7f10W+52j59jLxoSTmTuF0EUcQ0JX59y3i8
+         47Tg==
+X-Forwarded-Encrypted: i=1; AL+hErGB8GnmtmUQh2tGmwH81vdF8lWL/JXTJVStwDl0vxmUtKBn3ffuavaUGGnNUcz31Gyb/XbFCjA03/s8N5A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qgr/iKc8TT2/95tSyFeknqyxCtZQVKb0rV8S/UqL0XcaxIiTR
+	REruDD8GTUUFehI94UTpY0H4Q68E7uXZyJhOXlATuHKTWsJ6y0D5LQda0g5aVA==
+X-Gm-Gg: AYBFou014nGzUy4QwoIuhcQX1aHlUpjFXHPhTqyEJju5YWlWVXAyprOhrhsjerRNvNy
+	u5d2tKxKetv4Qh6XDr4zf2hSw6czWLZFqh3T3lr0fRclY+zb/qV2vSf6EX+soIp4OlzSYCk74Y7
+	QAUF14IS5RPHk0QTAZ5sw00EIXUHq3Nm/KnqBPt65UCE/brX8PV8PHA461kJYrDNleN2Z2rFaEO
+	NrIR2S6SBZUaYq3j0X4fKggXFa1DZ+UkMlPiyBGxOzluR7Emk+/x6+s8S+tlBLAvSQS97C0KQdZ
+	c367XZ015T6uAH7Zuo/MYT53bSF23ypBA4u4UX28KV8HBaFZOpm9cunRmZiYHiqT6EAIVi8+0ea
+	nsY5MDVe1bHFOPncZem6AbMr6jYj2y9jx3dDZ4nD771HfxVl6mBEvhMW8Nj7m6zd4uHyKDPXdEZ
+	UI4wpjhvzI0cAwso/URjdMnXLfalfKjJ2Rb0PRyYM7iWayBwjViJubRLHcP8ydAM/d+0nwbwy1V
+	O4ZRGweCyCP16ZQ5TkB1RQFNdlbilxWsyDvcjhJPW2mH2mxH+ojPcdjEYbDrjZdtbfDGTdlHgi3
+	gw7ouRgzF1Q0MBG0UBgMcQKDG06kbaeL3rrOMNG6nb9xu1thq42/VnxHpApn6VlCJkdGGJNOgM+
+	D2wQ+PNSk5FTjd86uD9XMwXDzfADn1qrZ45Q/P2oJXv5eZncmi6nd6loTATI2JLyR4EHerSQ=
+X-Received: by 2002:a05:6122:6e0f:b0:5ea:cb6c:6513 with SMTP id 71dfb90a1353d-5ecd1af4864mr502091e0c.1.1794064117333;
+        Sat, 07 Nov 2026 07:08:37 -0800 (PST)
+Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc64ccb58sm3801606e0c.9.2026.11.07.07.08.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 07:08:36 -0800 (PST)
+Date: Sat, 07 Nov 2026 10:08:35 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Kalpesh Solanki <skalpesh942@gmail.com>, 
+ willemb@google.com
+Cc: Kalpesh Solanki <skalpesh942@gmail.com>, 
+ willemdebruijn.kernel@gmail.com, 
+ jasowang@redhat.com, 
+ alex.aring@gmail.com, 
+ stefan@datenfreihafen.org, 
+ miquel.raynal@bootlin.com, 
+ andrew+netdev@lunn.ch, 
+ davem@davemloft.net, 
+ edumazet@kernel.org, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ linux-wpan@vger.kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Message-ID: <willemdebruijn.kernel.1e7cfcaee3e82@gmail.com>
+In-Reply-To: <20261107062755.23145-1-skalpesh942@gmail.com>
+References: <20261107062755.23145-1-skalpesh942@gmail.com>
+Subject: Re: [PATCH net v2] tun: disallow setting IEEE 802.15.4 link types via
+ TUNSETLINK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,53 +113,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+Kalpesh Solanki wrote:
+> On Sat, Nov 07, 2026 at 01:51, Willem de Bruijn wrote:
+> > One exception is if this has never worked. If this was a NULL ptr
+> > exception from the start, then clearly no userspace can depend on it.
+> 
+> Right, this has never worked.
 
-alt_fpga_bridge_probe() acquires the bridge reset control with
-of_reset_control_get_exclusive_by_index(), which is not
-device-managed. None of the probe error paths release it, and
-alt_fpga_bridge_remove() does not call reset_control_put() either,
-so the reset control reference leaks both on a failed probe and on
-every bind/unbind cycle.
+In that case, the fewer these weird exceptions, the better.
++1 on explicitly failing this, thanks.
 
-Since the leaked exclusive reset remains acquired, rebinding the
-driver afterwards also fails with -EBUSY.
+> TUN devices only have tun_netdev_ops and never allocate dev->ieee802154_ptr
+> or register with wpan_phy. Setting ARPHRD_IEEE802154 via TUNSETLINK was only
+> handled in tun_get_addr_len() to set addr_len, but any actual use (like
+> dumping interfaces, llsec keys, or opening an IEEE 802.15.4 socket) immediately
+> triggers a NULL pointer dereference. Real virtual wpan devices are created
+> with mac802154_hwsim. So blocking it won't break any working userspace setup.
+> 
+> > Apparently a similar issue affects ARPHRD_6LOWPAN.
+> 
+> Yes, good catch. Setting ARPHRD_6LOWPAN has the same issue: lowpan_dev(dev)
+> assumes netdev_priv(dev) is struct lowpan_dev, but on TUN it's struct
+> tun_struct. On events like NETDEV_DOWN, lowpan_device_event() writes to
+> lowpan_dev(dev)->ctx.table flags, which corrupts tun's private memory.
+> 
+> Should I block ARPHRD_6LOWPAN in the same patch, or would you prefer that
+> in a separate fix?
 
-Use devm_reset_control_get_exclusive_by_index() so the reset control
-is released automatically when the driver is unbound or the probe
-fails.
+Depends on the complexity? If you could handle both, that would be
+great. Sashiko would probably call out the same thing otherwise, too.
+No preference on whether one patch or two from me.
 
-Fixes: e5f8efa5c8bf ("ARM: socfpga: fpga bridge driver support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
----
-Changes in v2:
-- Drop the enumeration of probe error path examples from the commit
-  message, as suggested by Xu Yilun.
-- Add Cc: stable@vger.kernel.org for backporting.
+> > If blocking this proves safe, prefer as little unrelated code churn as
+> > possible.
+> 
+> Understood. I'll drop the USHRT_MAX check and avoid touching tun_get_addr_len
+> or the include header in v3, keeping the patch strictly to checking the
+> rejected types in TUNSETLINK.
 
-Link: https://lore.kernel.org/r/20261103014240.1194-1-laixiangwu@cmss.chinamobile.com
- drivers/fpga/altera-hps2fpga.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Mostly, try to avoid changing the indentation of that otherwise untouched
+basic block.
 
-diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
-index f2f125068..6d9798bb9 100644
---- a/drivers/fpga/altera-hps2fpga.c
-+++ b/drivers/fpga/altera-hps2fpga.c
-@@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
- 
- 	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
- 
--	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
--								     0);
-+	priv->bridge_reset = devm_reset_control_get_exclusive_by_index(dev, 0);
- 	if (IS_ERR(priv->bridge_reset)) {
- 		dev_err(dev, "Could not get %s reset control\n", priv->name);
- 		return PTR_ERR(priv->bridge_reset);
--- 
-2.50.1.windows.1
-
+> Thanks,
+> Kalpesh
 
 
