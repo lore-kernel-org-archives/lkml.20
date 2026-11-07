@@ -1,90 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794013326;
-	b=4nPPIwUiv3HuoxMcdmqamhYXzEw3gMnZ+sS+7358bcxmWa1UmDWRXsZUy3C21y87bJZn
-	 sgndexgv3Xm7jhpw3vbGr0gkEKerqJBNevNdqYcvVfgFnF2fdk/gFUeuhAazpPyozqLK5
-	 q+4I+qUhm9j4VaCCNwCZ0xEoMDysaxIZjP+uwrUJ4k+6NzPW2NaUvwcK2RiVlhgDA6stC
-	 sU2i5Ph8HQaFU69pb4Nkjqlna35QXzRGV48hEzxbuvFCJgZJe+4OpalAvGi4Ao3Va8IxC
-	 e+ldhLpVkhvNhNCJWiICTiN5s466V1b67Hd+s2h+zcJLoupNe6ook3sgTpS2PXzm8nA==
+	t=1794013444;
+	b=RdO3O1NUuMI8gHX7lf4LmHkA+svH5hjRu8ubjt3b4PXXQ/Qx6KIfqtgFMNlFuC7L/QLj
+	 N2KsM1qgd9ovrHy2GbvMTjxAeVa9j3ItlynHQ+Es45Mv6f8jGoMMmx6MDPuec9ryWJ5Zi
+	 d8B/Gv4a8pOCixec9x+KawGChDU9x5k934V179fYVYyPHGLSnQDywin10ZQaTxV99+meK
+	 ziUWBEgfEUhISdjaGDRreddF1ZcXOBWwYq/e454tdfkjq5KcXhrv51ShLyNAMc3bEYnbC
+	 JRwlBZhJ7sCRq5rJzr6DIJjr2/xeRCCiw6/2WgPMTWSEoM34N5ojjdbpbWal/4UBH2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794013326;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=WVOppmOPF0oNPzwcOcitqSAGp8bpqXEMygjr0XfAqEE=;
-	b=oEdQ6jgP24l1a9Kysuroc+11+vMS+vxQbazp0NkvoCCeCRH3rXp6iZR7H1eHgPgb0pth
-	 P/NAASQTk0WhXksuC8cDKfYLHNKm2lkv+P5Cg0SVE8apyLcJkEYIJ/JWudWsz8mTf584l
-	 D6TRgDKDr4JGB1H4TmEMJ/O0JDHkWue0BrcWwS4Cqj13eOxj0K1IdxoFK3Td8DLtvJ720
-	 JRkV0raBYsdCC5421iqKnGn3LA5A4v3VfBRXuTCyOGxgPDIpah+46zIHmfTwOLT4N+q81
-	 0GaIRC50an7vQv5jlKqiMFKAMnfBY2fsQRQGG2d5zcfGX3xGjj/EoJ9kXfvSR+2iJAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794013444;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xSABotSf9eGOgeEhuxBGujWoU+JvUjNA0CDmsTEXxtU=;
+	b=P9P/Zjn74zXkSKAs1VGFzLxWvmTw0gnZPLzVWMujm9aGjKjXjzItgwRtheSjr7AjKnXV
+	 Rt+9PngqBMNCMptllgHZ8O3t6ttqEuKGcyJHDyb5ZdjSDJaPLOC11KRjCaetXOAouu3+U
+	 eRaak/0o/vh9uXwkE6zsRm4Z2b01t5PALm4GL/hMjUs9+tLuBQ3USn+eV80hAiiwNx/P+
+	 foYL7bYrmDxGO8/Mv3I1Z+6CNnp/t4SledsSXRU+3RLC6l0au79GjNahVSkfVVYPd2UoG
+	 S+oWWO5FkTKUBRxwO0tnCJPr1CA1329Mc4kdi1wUKOk/ioiLrQNXXQb22lhz6FdcVyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HUJAVbfA;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+O6wpVV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9D5606EEBF
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 01:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C9D5606EEBF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29060606A32C;
+	Sat,  7 Nov 2026 01:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HUJAVbfA
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so10030565e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 17:02:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794013325; x=1794618125; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WVOppmOPF0oNPzwcOcitqSAGp8bpqXEMygjr0XfAqEE=;
-        b=HUJAVbfAXgHnnfOkKEqfhXt7eOqE/3lxwihUWmgBgG+QO2xO3Fb3L00X3zIy6iGr+P
-         fBCcYkwhfRxizQUPDVM+v1TTjarkWPtRoA/uHniB3oRuhcJ9Z2G+TpoZGSh2DdWscIqI
-         O1Kwa9W32sC/mcHITA3jTUcie3AShYLY3WraKRGogb3b4TCpUcC0tgr2wGn9WgoRifDH
-         gKPJ1hTfx5JNYDX+deZEp98DZCbWHVoEbV7/AH5pVGydvQmMpp4Jcp5F47TVhNuIvxtX
-         SuwCc4RML2+idWggnNsHCt30mCgj9p9Pq5gHb7+ycKJGAVxsYcJsrny5qNbM2wDa1Ajk
-         IJ2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794013325; x=1794618125;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WVOppmOPF0oNPzwcOcitqSAGp8bpqXEMygjr0XfAqEE=;
-        b=QWc1/+kApjt1fAThT5+duWANVqQyYS+dfCYKVWTu2iIKcHeoQxjiVCUKiEqB+HQOQ7
-         XT0upC8cDLv4BbFO/AMRbf/htpbRYgJ5n2jwS6yO59JpUHB/xjSH0dynyzKTVkiJc8XD
-         IolcxijZvuW1rnGhmG9Oovjipj5rbBylHCbUX8mZjfQLEltDNQYiVxIIEAoeEJWcckHs
-         RRu6bSfId2XtwCil+4kxWcrcB8yAMXONwoIXp+G4Hhib0IT0+W/i+pCMABY85oe3sufu
-         DuB7YpJts6qbYmMbyaCqyGvtpt4c/ucs2g0nUTquFfqV/yt56kAfCJXN+oFGeGYJV2pn
-         hWAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdzx4f7RfXI7ypdRfg4emGAsbNRU5CGpXP6wuHA6N9AFfm73jtKBaEJXB4sH3sBUkyeQT+xXjL9S1yMc0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/a3NqqCJtNuA4vh9CarlYCH1rUaj/uZgReexrw56UZMurwk5Du
-	EpP8M+8VJyr/9eIdYFJA59NEMz/wq0wkwBedCiEvmzF67UdPmVwcbK83zFu3cuLzl6s=
-X-Gm-Gg: AYBFou0xZHZhlAI1h8oVXxaz5bu/HU4pGCjc4WucADl4j0hM140+lYUd+JEDLfR3SI1
-	8SHm/VaDNqAOJtrGXBLN0bDc5q6R7PeqHWsJRiKNTrzzjhnZRvQNNsit28mbszHkQwEHiy/ilON
-	wPrUVHeTPGJhFpMhOvfxzroSxq41E9hDpqbbCSc9oKNOFPdEJj9SE8zyZPoyAoczqM/+E3sm7MC
-	Gv8Sx1iViRHhvP2G698jhd1ov+qCuHNVFmd7Heek84hhvOdPWZ0sCR/uvKe8vYU3+PbjxMt+x/M
-	gvqfzjOrsOqWvlq/AgVn7vTHStgQ9y/R42uhRpwDClaB4Pw4jlNySfkmSsCQeqVJlvnW2szWUAw
-	hJHCSsDinkI20FaU6bKWaKNKt9UrhaQJTV7UO37G//pH9GckzP4fs0TG3AFKp2xQ+FhdqbtrY7X
-	NDd6Ueej7ZbM9qeJiYac0rPw3+A9lRvd3RidpYIYALH9o2eJhn/sHq+YHwjyDH5hekSh1IWiGJ1
-	F6pcNJwh+p66sThHQ48gRJla4kmHWs5E7+853T+DsQkrxfOhcpcwgTpn11s9Yucz1Iw7BLYQFyu
-	Ok3VESX9b+ATiEOr9JVPIg==
-X-Received: by 2002:a05:600c:4f0f:b0:4a2:e0c:2b0a with SMTP id 5b1f17b1804b1-4b6df5ea98dmr73002115e9.16.1794013324705;
-        Fri, 06 Nov 2026 17:02:04 -0800 (PST)
-Received: from [127.0.0.1] ([109.77.115.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3291531sm24526375e9.15.2026.11.06.17.02.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 17:02:04 -0800 (PST)
-From: bryan.odonoghue@linaro.org
-X-Google-Original-From: bod@kernel.org
-Date: Sat, 07 Nov 2026 01:01:52 +0000
-Subject: [PATCH v3 09/11] media: qcom: camss: Switch on frame_sync_en for
- x1e/x2e
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+O6wpVV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8BA1F0089F;
+	Sat,  7 Nov 2026 01:04:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794013444;
+	bh=xSABotSf9eGOgeEhuxBGujWoU+JvUjNA0CDmsTEXxtU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=D+O6wpVVaOdJbSDeaxoUlfP5e4LIp8EX2r1a4AiOfVbbqES4lFOtisPle0bK9E7ot
+	 FqODWb5EP5bFV1oIlqhZihY8yqIrDxbvS5SrS/JTlyHZMiOWHsH2r63Yra/Fobo2W1
+	 zkyJf08uDJjjxp1yuanTwgJFXpjsjJRRkXTWNu+EGgHuyOMK4ISJ0mdhE3eDs7xqd2
+	 uXvdTfNyeD4jQecULRCAR4sccSr4pAqNXLq7X8zKllD0dsBFKTTEaBHqWuMnCFqRQT
+	 aeq1Y9IQua00/+xGriU8eHYjBZprKvIXznnZfiUzcTtCTHh+OxVqBnIcAikhXmlh9P
+	 f0AaT7SNWGs8A==
+Date: Sat, 7 Nov 2026 01:03:56 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Daniel Balint <dbalint@google.com>
+Cc: Benson Leung <bleung@chromium.org>, Lee Jones <lee@kernel.org>, Tzung-Bi
+ Shih <tzungbi@kernel.org>, linux-iio@vger.kernel.org,
+ chrome-platform@lists.linux.dev, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/3] Introduce cros_ec power monitoring
+Message-ID: <20261107010356.39d9eddf@jic23-hlaptop>
+In-Reply-To: <20261106193129.43493-1-dbalint@google.com>
+References: <20261106193129.43493-1-dbalint@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,91 +61,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-v4l2-frame-sync-v3-9-e5bf7073a35d@kernel.org>
-References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
-In-Reply-To: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2079; i=bod@kernel.org;
- h=from:subject:message-id; bh=DXNUQKSL1UUmzc8AGuykclATY5iBLPt7wD2yXM5hnAA=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq7nh/S6VmlcFdfBkMCXtHjo8D/B2ArAk4K59QI
- gk6UhV8bjSJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCau54fwAKCRAicTuzoY3I
- OugeD/9kSVCLRPiCuIo3sJuPXfxeAcvqE3cKWqAtbtXSS//SuZxbzlayEcM8SyieSQQuy0s0LhX
- QeiczEXKS2yYZ0aHWWrI2YUUU5Y8YWnO8hj1ySrt3rPVuMEWfPZLciXJlaGSugbvBpizLjBpzI2
- WTwoQc0oP4xqjN1/9PF1L+0yjd70ZU5+uMxGSOq3RNlunM4OBWZsMJYdShPYAEVIYJykvyQpTXK
- LpXUV1okjlx/hYeLvV5Jh5TygtS0hxfqaeTfr3ugGiWJ3+FsSBD/XAdJrh4ljg5OhGgErigTQBQ
- LZypl/zdYwJavXdaE6M1btwe4qb2YFY/za8jsL3R7Gqg9EmDMvo+DaBnSLr4n6oC93gCerOqx4F
- R41eYxhqhD0uSNmsv9SUp62BVUrXlk6m5hxq0GxtSBW/0zTDkyS5QyV37VxoWcFKXt7xL3sYXlN
- rA6wWWb/n0PGh/5j1YhLPiKWSaDn5nWswURE09oxWDkY5/dznljUomrjjK+Tocjj8zP6KcecRjN
- 9OOrmM2U/eJx1xyfBgjZlHW1hDqrYLyDYS9Al+rb2e73p1yPejvsSTgDctRe0KwSINZ3h+1WizM
- MMXkXQvTnsiZ29xKkg7ExaJEph8gZilOPe6Rmmh+NbwXm0neu0TRAoFM/45S4axaeEZAF6c5DdY
- bAmUweoGQRMjvOg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On Fri,  6 Nov 2026 19:31:14 +0000
+Daniel Balint <dbalint@google.com> wrote:
 
-Switch frame_sync_en to true to track and consume SOF/EOF data.
+> This series adds the ChromeOS EC On-Device Power Monitoring 
+> (cros_ec_pwrmon) driver to read onboard power-monitoring ADCs,
+> such as PAC194x, wired through the embedded controller (EC).
+> 
+> Several ChromeOS platforms are equipped with onboard ADCs that are
+> connected to the EC via I2C bus. The driver interfaces with the EC
+> via the existing EC_CMD_PWRMON host command API (and EC_MKBP_EVENT_PWRMON
+> events) to manage ADC accumulation and expose accumulated per-rail energy
+> through an IIO sysfs attribute.
+> 
+> The driver is only loaded when the underlying hardware feature is present.
+> The series also fixes alignment padding in EC_CMD_PWRMON definitions.
 
-Tested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> # x1e CRD
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
----
- drivers/media/platform/qcom/camss/camss.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Hi Daniel
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index b7821019241d7..7911b30494ac9 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4255,6 +4255,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4275,6 +4276,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4295,6 +4297,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.reg = { "csid2" },
- 		.interrupt = { "csid2" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4316,6 +4319,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.interrupt = { "csid_lite0" },
- 		.csid = {
- 			.is_lite = true,
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4338,6 +4342,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.interrupt = { "csid_lite1" },
- 		.csid = {
- 			.is_lite = true,
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
+I'm not necessarily against this but when adding monitoring components
+to IIO the usual question is why not hwmon?  What features are not
+well supported by that framework?
 
--- 
-2.56.0
+Note historically I suspect we accepted one or two drives into IIO that
+would have fitted better there so precedence isn't a strong argument.
+
+Convention for these somewhat borderline case is +CC hmwon maintainer
+and list as well as IIO with that explanation in the cover letter.
+That avoids any last minute surprises!
+
+Jonathan
+
+> 
+> Daniel Balint (3):
+>   platform/chrome: cros_ec: fix alignment of ec_params_pwrmon
+>   iio: adc: add cros_ec_pwrmon driver
+>   mfd: cros_ec: load cros_ec_pwrmon on supported ECs
+> 
+>  .../ABI/testing/sysfs-bus-iio-cros-ec         |  13 +
+>  MAINTAINERS                                   |   7 +
+>  drivers/iio/adc/Kconfig                       |  11 +
+>  drivers/iio/adc/Makefile                      |   1 +
+>  drivers/iio/adc/cros_ec_pwrmon.c              | 333 ++++++++++++++++++
+>  drivers/mfd/cros_ec_dev.c                     |   9 +
+>  .../linux/platform_data/cros_ec_commands.h    |   2 +
+>  7 files changed, 376 insertions(+)
+>  create mode 100644 drivers/iio/adc/cros_ec_pwrmon.c
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
