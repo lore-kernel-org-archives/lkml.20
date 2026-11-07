@@ -1,63 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794071155;
-	b=m0SngaprfOFVkRFnc2BmDKwU6rI+QMIgvR5pmwIyOLebCwrv3fceMX938PdXZwqnPg8G
-	 6xyNORfbA3tl1RyeXyETlWE5t5g/Kgwl52lQEFy9fzMSizTvndo80FqEM3+L/UErIBAHM
-	 YDs0pNQQ8a7eLn+b3whYhc02XT+mjQ2PuXpep0HF00bn3/UKHNy4PuipjLJIGZgwE2+sN
-	 vRER87mpnNc+NUyE9J0Kw42Lf60y6vnslWLNYRKCqTq6yTBEFNxdXXbjFoILvDJG7Vw+/
-	 2lsgf2xDXWDC/dCmh0IfLBVBOQmiZwLl7Or1lhS/PapR5LzsiwzkfKGNLRHpHJPyukA==
+	t=1794071165;
+	b=vm/XWxtPSPNtyK5V4Qg1F4gcWKrmHVVLmPO3Bq6ur+dIUvYCbrAhvPtBLNoE3JiDTM7m
+	 xm/xhdxbljxbBJPa7QqchpfNiL+6fL61yYuKRFb8VrZH6CQZo36Uk3rIN10OPUceOWX0Q
+	 IXVI4DPVFF3PFe+lciSeV4HtCukVc1QnKK1GSxbvkO/KkbXMoWDA8+mimC92y8Vr2aklY
+	 ifh6xKGFJOESp7n/UOsk6wvPIIjDyhT8hYcWmz0FiTqYWJXrU6oJuD8y9JuEJOZUDv0uN
+	 cLBVbVHakV7uYnKaNCS0hHoncIcj8oya5BSoIO5d71C3bJbEpWsEtMLz6Jrya0cRJmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794071155;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794071165;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=FNKUE9KN5gqUNftHqErKO4XRPnmFTGx1efebnCS4O7w=;
-	b=bJ8FVG3u2Dm0ZugCmmsoK07FeopryExGhTWs1RnEJucbiHfCpT1cmvvESoLz+X9AWsW0
-	 dSfNcq9kzXXpYQL3lYMuzidXkK9Zah/LrmxEutfCplgXrCfyt8zGoN/86HlDJQaZhQsz5
-	 Yh4mvZ91lsG1UZnRVEEeRfkEOvKFQUSXWUx3DdGc2dhGcXtZAuWobSgMKtUfQYZ856Af6
-	 yoQgVfUJhFt7dbmlYqJ7buRsbZSz2uf6Joi48peJHR3CyWoOVbNIntzvjYKptPE3hVkfu
-	 NrhpS+H74cpuJV6NbNlnpe3LEWH/iRdADH6mhvTOZcLTHXwIIv1uQ8ARkSyk29F5KXg==
+	bh=yXwGL1AZc0M9lqEVf5JtZMTpSZJEBwrczEg6pRkVWnI=;
+	b=1Tqb6HS+gI5W0bgtY8g6uEo80437f+ucCYgutttzVgrdWy+gld/f+S/bsFq7vAGs3IxN
+	 jlF971HlN9nlFQCPCi3INQ6RLX/r1F14zNMMaYpkAmbWftmK6aDb1JACUaQvu/wQZzWNW
+	 lW/JKbzbINEHHni9LqvGKVCiUK/VSOnS8HqjKhF4OkYfsku4TG3AKh/AkKU91e9WuBLFF
+	 nuohohPpRJTcj3bXU7IlfOXs3Fz4NwW0kR70fEBHuFR2ZR2guPhsbcROQVfUDW/Eo0Z1N
+	 6lFCgWrg1sspBEVEQ2Bbox97mCK1gH6AntFaLVcbGFi5FXo3bm2Ygnda92cNsBSPVZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BHAhYTR1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6yHADH8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D00B606A326;
-	Sat,  7 Nov 2026 17:05:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8D5606A32F;
+	Sat,  7 Nov 2026 17:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BHAhYTR1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8AC21F008BC;
-	Sat,  7 Nov 2026 17:05:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6yHADH8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E661F008A2;
+	Sat,  7 Nov 2026 17:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794071155;
-	bh=FNKUE9KN5gqUNftHqErKO4XRPnmFTGx1efebnCS4O7w=;
+	s=k20260515; t=1794071164;
+	bh=yXwGL1AZc0M9lqEVf5JtZMTpSZJEBwrczEg6pRkVWnI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BHAhYTR17CvWOCfIwPyzFwTvS4Xhyt2C7Cyt48wzNl4x++bt5Y/f54VkWLcidgVr8
-	 V0i2qp2vOufmVhMtRaHkoH/sgowjTTLQsIjo7KOCwDOkk+GJSVd8OMueFNYuX3h+ra
-	 9eBGFiXJgnUH6E3JunuVa3x5aoeo5vUEsImDF0K5ZHfyUVYUxyiiHLU6pF9vTz73Lf
-	 LFt5/5Odk6GEQY5NVOK5H07sidjGPyXIHh+y0OroHZWYyrG//o9H6jtCauYds7dm5+
-	 JHY9k8tsru965IG8JjeCkfk18/bCSHHT8tBlppx07+Pu0zH9UifgvX4QWHaE9O830e
-	 cGf8na2IgzFTw==
+	b=d6yHADH8x1hJEqQF3nfvVmum2rHernfhB1XW6CMvJadKyl5nktUDfeupkHstjCnNf
+	 rvpKZOpwSQ0sZqo/WsBO7E2riroV/Js0ZaRbqHUWd0YoQLe6/5X9rlXIm0qPP7HCeL
+	 TZQ+JL9dJTyyQrSBI8rZA+G9xvPgQhEwo0EVih5cpG9gHobzwtMjHSUcTCiElsoNhM
+	 1oC78OQ1SSxgHrJrb8KDMxpM1DwgOev9YYXoM7phN2JLHfnc1XCFpShHN0LwErHwBb
+	 uKWX/PlHq7oMvCqukq8OT6h2K8+bcwme+AeZaIgVrbRDalKzF2V9Z6m7TzgmUvgDzh
+	 d099+0JQQV/9A==
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Jingoo Han <jingoohan1@gmail.com>, Shawn Lin <shawn.lin@rock-chips.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com
-In-Reply-To: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
-References: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
-Subject: Re: [PATCH v9 0/9] PCI: dw-rockchip: add system suspend support
-Message-Id: <179407115382.87267.12160393716568806842.b4-ty@b4>
-Date: Sat, 07 Nov 2026 22:35:53 +0530
+To: sergio.paracuellos@gmail.com, lpieralisi@kernel.org, 
+ kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com, 
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, 
+ p.zabel@pengutronix.de, Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+In-Reply-To: <20261101070121.2714-1-sreekuttan2156239@gmail.com>
+References: <20261101070121.2714-1-sreekuttan2156239@gmail.com>
+Subject: Re: [PATCH] PCI: mt7621: Fix reset control leak on PHY
+ initialization failure
+Message-Id: <179407116392.87368.9250979022176600686.b4-ty@b4>
+Date: Sat, 07 Nov 2026 22:36:03 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,40 +67,21 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.16.0
 
 
-On Thu, 05 Nov 2026 14:33:08 +0100, Sebastian Reichel wrote:
-> I've been working on fixing up at least basic system suspend support on
-> the Rockchip RK3576 platform. This series is a follow-up for Shawn Lin's
-> series with feedback from Niklas Cassel and Manivannan Sadhasivam being
-> handled as well as some of my own changes fixing up things I noticed.
+On Sun, 01 Nov 2026 07:01:21 +0000, Sreeraj S Kurup wrote:
+> The PCIe port initialization code acquires a reset control handle using
+> of_reset_control_get_exclusive(). However, when PHY initialization or
+> power-on fails, the port is removed from the PCIe port list without
+> releasing the acquired reset control handle.
 > 
-> Tested boards:
->  * Sige5 (RK3576)
->  * Rock 4D (RK3576)
->  * RK3588 EVB1 (RK3588)
->  * ODROID-M1 (RK3568), Igor Velkov (previous version)
+> Since the reset control cleanup iterates over the remaining ports in
+> the list, the removed port's reset control handle is never released.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/9] PCI: dw-rockchip: Fix LTSSM set functions
-      commit: 46d1b4f773b3a8d640c4cb44ccc2daf60043b737
-[2/9] PCI: dw-rockchip: Restore vpcie3v3 regulator handle
-      commit: 6c57adbbae715f91455c270e397cf8a604e27585
-[3/9] PCI: dw-rockchip: Move devm_phy_get out of phy_init
-      commit: 1335c85fdd3ae2bf118bf345e456f4f472ea0dc0
-[4/9] PCI: dw-rockchip: Add helper function for enhanced LTSSM control mode
-      commit: f266f1b24aaf63d33995ae81c54d903391f416b5
-[5/9] PCI: dw-rockchip: Add helper function for controller mode
-      commit: 301d905b81c16409a644a9bdad37cece03d5ee9d
-[6/9] PCI: dw-rockchip: Add helper function for DLL interrupts
-      commit: 7c7fdcb6bb28d377fba5be67d9672384081c0ce4
-[7/9] PCI: dw-rockchip: Add pme_turn_off support
-      commit: 7bd39e56b21329d99e59b7eb7dff760c2280d1bf
-[8/9] PCI: dw-rockchip: Set broken L1SS resume flag
-      commit: 39365e59ffcebbdf910935875a55af9bee83257f
-[9/9] PCI: dw-rockchip: Add system PM support
-      commit: efb2c00e3c47895aecee624d039473534764a6f8
+[1/1] PCI: mt7621: Fix reset control leak on PHY initialization failure
+      commit: 1973b0f280bb753e0810346a9377766c38230752
 
 Best regards,
 -- 
