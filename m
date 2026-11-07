@@ -1,98 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048818;
-	b=FhuvF0J7ofih6kQWY3iO8HMbiJMo1JOiREO1xYLZOTr4pTiqujGBHP/inXOKhvP2mkn0
-	 6vc+6rqIHdlZxvE7WV0BnzAa5E1EwwV6b4xUSO8Yt2OD2bcP6iRna+Kt+ApGh0kY/UxXW
-	 BUpBjBWE196KEnysbVW6HaUvYGBRzZfhWWrYUJ0wo/b7Pc+meZPc5IHqnjpio3Ly9eDIK
-	 XGH4KwzVqwn/rX0NWpA1XwfaWLJEKD6CXzodNR/HR8J8T3L8R1oi9SnjHCKOLggx70Vj/
-	 Lnts1YMrUQdjR7MabEYF/BjQFt995t7iW3YxPC1mUgzkfs5rUUdFVYNY+6sRBYT1lyg==
+	t=1794048815;
+	b=sLtLmrR7jiFyHRXrANWUMrVmL5bbbdEMGXy4DfgrGj9HRrx1sB7V1MKSP363jNKy2Ene
+	 FzbG7zcB3RTogFzMPMrChq57+Dd7m3lg788VSCvMt+uOLbMSRXDaJYIwyJfGuWr6d5gSY
+	 JOOPEsU9byZMXVrpYP/62TvlYHFy4PAFcEVAWoghfAFdaW3p0fMe+xgvl6e2MrnEaYNmT
+	 vfRQ8K5CBpJ1D76wS+7CZfND2jnM364i35zT7xywDU9Ef4MpS2dN0pzTy68fflzK2AAyV
+	 4zkfMLYxUDtiAqZ8Jx42dbc/LsuohfEaO1ZjZAgsVOkn7r3BULzB73uYgpJuSy5gdng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048818;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=k93Uquzi2gmvL8btLkqz1m+7uDv12qNerGrKi9jXuw8=;
-	b=QyK3vZ+VB4tpgiWduKXu04lXTOMlGG2hwcIXQCLxqzEjZ/X3fE/q/sCQBQmxBG9rcRoi
-	 xDZbCmvoB2e0dfESVrMEzWTvZnRAcxI+hXXQnr/RPHitcQvhkdhOv7cP3LC7Vu8jY80wP
-	 eDhxK+VfmtHRchxwAemi13/SXZcK3lAlQ1/Ec++vhPKi9D0STQcluFb5z7NwbXpLOCuND
-	 zfrM7ExidQNZG4nr9gnwoVvisPdHCAzn/Kjev9B/lD2srNwfBtEP+zNyPpc4QU9DAkjXN
-	 6vkjzVhyQniMqdg4Jl1dS8snVy4fXfCI3w5jaP7PsOfdmFNTg+DFNP3QadqSxINjc4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048815;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=83piHwpYSzR6zROHuprEnSIuvOzBU+T0roPQgf/SBA8=;
+	b=TB5M4DgCv3NQXapHcT+xyIbN9lK3/V5J58uNP2VhIrH6RzOmYB2OibdfcZDZ2scnL4f9
+	 SVqpcgNPKowZG/MP5TnVxW5fnZ3IK2/AGNbqYYJrSrcgQ8rbx6tTDk7FfHHo4G80pn1bc
+	 t52e0Ky14zcptFRJlMT8kKZK0f07kjNNI8eFXfziJPjoK4DJp3iX2tYZFn8VZMS8uOJ8X
+	 EN0xdXKHO/VpchmkAshwVbqfAwC7OWjq+F7574zHoWt8Zrh2XwWf2d/ngeTQX4nur6Qsv
+	 uyp3Ca/MgFTP9l1E33ECgDfRAYRfo0Y4xxauEru22PsWP/bbLOhMdzIkkIg6kQF5Srw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yBQznKcF;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WS3zeBlg;
+	arc=none smtp.remote-ip=95.215.58.176
+Received: from mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB66606D803
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BB66606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AACA606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 10:53:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AACA606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yBQznKcF
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so15719485e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 02:53:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794048816; x=1794653616; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k93Uquzi2gmvL8btLkqz1m+7uDv12qNerGrKi9jXuw8=;
-        b=yBQznKcFH1qW2p5hPPNyh8Ph+Y1MExnF4KNZYxHzWNa9DWZlgo7aWr9EktqX59K3Zk
-         m8eagAnh96qTyut5zTrfKX9PtxagT3C/xz4nGUdTBt1SsV+RtL3WiQNQ3OVAwtSzB7p8
-         ZoVA0zkmzDzNzqMNJTGZIwO/fNW7cwo/jfNXagnToyZt3dyBH5fQ3fMqekGPJZaM1ZSV
-         DwbB8HQozKv5+HeSwbRsoAVi6lwh6MS7n1psEHAn/tqCmGM+TKE1k1J6l9/uZHFCCZ28
-         wICCkzqAh1rGQogdAjy3kqcyoVOVJkt6rtxruUrvFwoFMcyx6AJzXhYl0SgohnNCjnzh
-         kHQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794048816; x=1794653616;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k93Uquzi2gmvL8btLkqz1m+7uDv12qNerGrKi9jXuw8=;
-        b=QXdH7ayTvIfA7za01Z+ojltJ+wvCreBECGIgv9w9TCfJ86jf9c6tzoWrNIKWCPuXmC
-         D1+kG30G2gL55JgQp+PNGKd4xNeg1XIw+3dxBtN3htm1A1u5n0tlR6KGxBCI6+jWOobB
-         Bc+i8rtZhDXMycF5LhXDSFip3/ST5+/cBQzbaV9xPnlXklT7Zpq3nueUsp+ekgQXFC0G
-         oUmhVlSyRm36wF2Jeo1FZqthB0eFKpCDxmV9KixaBd9X12KK5LbloCaZ5n/dj+Ajmaab
-         8J32BoOSc9+RUhgulPwO6BKIa9JVM4yZU7Wi4RkIdLpo/p4gRGAlbziaLBUpwveO+yQa
-         CDhw==
-X-Forwarded-Encrypted: i=1; AKwUvBzSHuoFbCWgUAm7HvjUY2SNU1KvPnky8KJA1mCyxjwyxUgNruSGqNtC8L0pA67O9Fu9UJ4LJ+CkbEtBcto=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/B7mpKx982zQGx3T/UX2Gx++/skT82qF2HEqzte+ohU9KyAhB7
-	WHgmodi7DsInMyeS+Vtlh+MShy2dIuheHTQ8mK9cSkbwg0m8nxUvva8B
-X-Gm-Gg: AYBFou2JgpcEPI2INR2NI15Ndc0yUhRVj2OMH5bc0qIkxOzCiNbd9o2VMjjY2awJy8B
-	LSR0CggvKFpVPklWy9nPTyliT48hNnXFpCIImfozSF/lqgz2rirno8qG784PUtrFdU+6xWOcVVu
-	zGw0xYKepmDapZmeUjDYH9lSYGFqqjfcSqeCiEoBEj1trtwgy6IfUTyyxRD/5WAythxIJPosqAW
-	mK2WzADyq8w46ElXnLXMMQ/A1wCtHe/gDQHE9M7tVZxn1W/veQ8SfvSDgZpQ4qCLm6rJXadoBU8
-	nc3ctCpYTZkAeMrJ1Rl1wM+/ugQseLlg+4OugVI8wSk3i/2/feTTlKSrYNDzoiKPQA1oizL6L8c
-	hQ+4Pycf35Kh3QlUoo1nhrmIUXVg/BfPJ2AJy8VCBpggcTA0PC3Z2HkTRJT4l2LxNxeRbSt153+
-	2rKqHaREnqcmnyPHfSm4gX06ak5kaOSU8gONMydf10OnrFNL/E5jI+FyJDH/tRIpw1pXBm23ayh
-	atLanMggQDfKblfHBF5uER8K9KI9O5QbSEEMwrhnoJtjzYOjDUb9LVtgEvuFVsLKE5LpMFhfxYL
-	PbUcKVdzjmyxOe3aEGjk0XEx6guAMQ/652m9K+tNFgi2+4OgJ4NhwHN94Fww8vUlki4Q9sCSA7E
-	a+xqi6UV3jRovSsepa5nE5lm9GnBfe9ZL5qU4L7ZjzSX+xy2E3Tvmi0m1XUyg6n3tcPXcMYps8H
-	CQKX8zwwFm7w==
-X-Received: by 2002:a05:600c:1914:b0:4a4:7a8d:c436 with SMTP id 5b1f17b1804b1-4b6de788f5bmr87694475e9.11.1794048816330;
-        Sat, 07 Nov 2026 02:53:36 -0800 (PST)
-Received: from PC-Marco.lan ([151.59.49.14])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b8af10dd35sm42291335e9.4.2026.11.07.02.53.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:53:35 -0800 (PST)
-From: Marco Ziliani <rylos78@gmail.com>
-To: Kyrylo Biryuk <illofspeed@gmail.com>
-Cc: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ata: libata-pmp: disable the SEMB port on Marvell 88SM9705
-Date: Sat,  7 Nov 2026 11:53:33 +0100
-Message-ID: <20261107105333.19934-1-rylos78@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107081335.3360920-1-illofspeed@gmail.com>
-References: <20261107081335.3360920-1-illofspeed@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WS3zeBlg
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jejRIbtJ8blFOjhH4ULa65m0uCrlH4/Znb48G0JTX1A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794048810; v=1; x=1794653610;
+ b=WS3zeBlghc0sA53wZNaWTC9ehFtIpjeLXuogzJ8zZatnmogYn8xvjZ8Xe4CKQgx6UWWCPCp9
+ qFLYkpfah/G21nQqBcL9mNCTnj/s6fLJLDLY4FIp3+msDLuhI1+JpqCnqd4hA/mgrtldBVyMZx4
+ 5Dxhyn2EgBKieFKK2JSfW0+0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c87cc596a113beb7;
+	Sat, 07 Nov 2026 10:53:30 +0000
+X-Mizu-Trace-ID: c87cc596a113beb7
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <00c4ec9e-d772-4a2e-a336-aa7076328707@linux.dev>
+Date: Sat, 7 Nov 2026 18:53:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,24 +58,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] cpuset: settle isolation state when CPUs are given
+ back to parent
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261106105538.2915492-1-ridong.chen@linux.dev>
+ <20261106105538.2915492-4-ridong.chen@linux.dev>
+ <8efc80ab-3b65-4573-aac4-452bfdbb9a80@redhat.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <8efc80ab-3b65-4573-aac4-452bfdbb9a80@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Kyrylo,
 
-On Sat, Nov 07, 2026 at 09:13:35AM +0100, Kyrylo Biryuk wrote:
->                                     softreset  reset failed,  last disk
->                                     failed     giving up      attached
->   7.4-rc1, no libata.force          60         12             197 s
->   7.4-rc1, libata.force=N.05:norst   0          0              70 s
->   7.4-rc1 + this patch, no force     0          0              11 s
 
-Thanks a lot for testing, and on a second unit with a different setup.
+On 11/7/2026 10:28 AM, Waiman Long wrote:
+> 
+> On 11/6/26 5:55 AM, Ridong Chen wrote:
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> partition_xcpus_del() only updates isolated_cpus when the partition that
+>> gives back the CPUs has a different state than its parent. CPUs that were
+>> further distributed to descendant isolated partitions are not taken into
+>> account, so isolated_cpus_release() has to be called afterwards in
+>> several places to walk up the ancestors and fix isolated_cpus.
+>>
+>> Make partition_xcpus_del() always set the isolation state of the given
+>> back CPUs to the state of the parent that receives them. As the
+>> effective_xcpus of a partition covers the CPUs distributed to its
+>> descendants, the isolation state of those CPUs is settled at the same
+>> time. Boot-time isolated CPUs are still preserved by isolated_cpu_update().
+>>
+>> compute_partition_effective_cpumask() invalidates a child partition
+>> without going through partition_xcpus_del(), so do the same there: the
+>> CPUs of the invalidated child take the isolation state of its parent.
+>>
+>> As the parent may be shrunk and its effective_xcpus not updated yet,
+>> only do so for the CPUs the parent still owns. This is to keep the
+>> isolation state correct for now, the in-place invalidation here will be
+>> removed later in the partition rework.
+>>
+>> isolated_cpus_release() is no longer needed and is removed.
+>>
+>> Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   kernel/cgroup/cpuset.c | 86 +++++++++++-------------------------------
+>>   1 file changed, 23 insertions(+), 63 deletions(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index 85e5b529d144..a5ab9396eb61 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -1264,42 +1264,21 @@ static void isolated_cpus_update(int old_prs, int 
+>> new_prs, struct cpumask *xcpus
+>>   }
+>>   /*
+>> - * isolated_cpus_release - Remove the relevant CPUs in @xcpus from isolated_cpus
+>> - * @cs: the current cpuset
+>> - * @xcpus: the set of effective xcpus to be considered for removal
+>> - *
+>> - * This function is called when an isolated partition is invalidated or when
+>> - * some of its effective xcpus are to be removed from isolated_cpus due to
+>> - * changes in parent cpuset. The given @xcpus must be modifiable as the function
+>> - * will update its value to determine the right set of CPUs to be removed.
+>> + * isolated_cpus_set_state - Set the isolation state of @xcpus
+>> + * @prs: partition root state that @xcpus will belong to
+>> + * @xcpus: exclusive CPUs whose isolation state may change
+>>    */
+>> -static void isolated_cpus_release(struct cpuset *cs, struct cpumask *xcpus)
+>> +static void isolated_cpus_set_state(int prs, struct cpumask *xcpus)
+>>   {
+>> -    struct cpuset *ancestor = parent_cs(cs);
+>> -    struct cpuset *iancestor = NULL;
+>> -
+>> -    /*
+>> -     * Search the furthest isolated partition root ancestor available
+>> -     * until top_cpuset or a remote partition root is hit.
+>> -     */
+>> -    for (; ancestor; ancestor = parent_cs(ancestor)) {
+>> -        if (ancestor->partition_root_state == PRS_ISOLATED)
+>> -            iancestor = ancestor;
+>> -        if (is_remote_partition(ancestor))
+>> -            break;
+>> -    }
+>> -
+>> -    /*
+>> -     * If a furthest isolated partition acnestor is found, use it to
+>> -     * determine which of the CPUs in @xcpus should be removed from
+>> -     * isolated_cpus. Otherwise, all of them will be removed.
+>> -     */
+>> -    if (iancestor && !cpumask_andnot(xcpus, xcpus, iancestor->effective_xcpus))
+>> -        return; /* No CPU should be removed from isolated_cpus */
+>> +    bool updated = false;
+>> +    int cpu;
+>> -    spin_lock_irq(&callback_lock);
+>> -    isolated_cpus_update(PRS_ISOLATED, PRS_ROOT, xcpus);
+>> -    spin_unlock_irq(&callback_lock);
+>> +    lockdep_assert_held(&callback_lock);
+>> +    lockdep_assert_held(&cpuset_mutex);
+>> +    for_each_cpu(cpu, xcpus)
+>> +        updated |= isolated_cpu_update(prs, cpu);
+>> +    if (updated)
+>> +        update_housekeeping = true;
+>>   }
+> 
+> isolated_cpus_set_state() is almost the same as isolated_cpus_update(). 
+> isolated_cpus_update() just assumes that parent and child prs state should be 
+> different. You are right that we should proceed no matter if the parent and 
+> child has the same state or not. So you should consider merging these two 
+> functions as well.
+> 
 
-The norst row shows that the commit message is too strong where it
-says libata.force cannot work around the problem: norst on port 5
-removes the retry loop, but the last disk still comes up about a
-minute later than with the patch. Niklas, Damien, I can send a v2
-that says so, or you can reword that sentence when applying, as you
-prefer.
+Hi Longman,
 
-Marco
+Thanks for the review. You're right, these two functions should be merged.
+
+I didn't touch partition_xcpus_add() because the rework never hit a
+problem there, so I added isolated_cpus_set_state() instead of changing
+isolated_cpus_update(). However, that's not the right approach;
+
+In the next version, I'll drop the @old_prs argument and the
+WARN_ON_ONCE() from isolated_cpus_update(), use it everywhere, and
+remove isolated_cpus_set_state(). The state check in
+partition_xcpus_add() will go away too, since updating CPUs that are
+already in the right state is a no-op.
+
+> 
+>>   /*
+>> @@ -1355,9 +1334,8 @@ static void partition_xcpus_del(int old_prs, struct 
+>> cpuset *parent,
+>>       if (parent == &top_cpuset)
+>>           cpumask_andnot(subpartitions_cpus, subpartitions_cpus, xcpus);
+>> -    if (old_prs != parent->partition_root_state)
+>> -        isolated_cpus_update(old_prs, parent->partition_root_state,
+>> -                     xcpus);
+>> +    /* CPUs given back, including those of descendants, take parent's state */
+>> +    isolated_cpus_set_state(parent->partition_root_state, xcpus);
+>>       cpumask_or(parent->effective_cpus, parent->effective_cpus, xcpus);
+>>       cpumask_and(parent->effective_cpus, parent->effective_cpus, 
+>> cpu_active_mask);
+>> @@ -1612,6 +1590,7 @@ static void compute_partition_effective_cpumask(struct 
+>> cpuset *cs,
+>>       struct cgroup_subsys_state *css;
+>>       struct cpuset *child;
+>>       bool populated = partition_is_populated(cs, NULL);
+>> +    static cpumask_t xcpus;        /* Protected by cpuset_mutex */
+>>       /*
+>>        * Check child partition roots to see if they should be invalidated
+>> @@ -1640,14 +1619,15 @@ static void compute_partition_effective_cpumask(struct 
+>> cpuset *cs,
+>>               int parent_prs = cs->partition_root_state;
+>>               /*
+>> -             * Invalidate child partition and update isolated_cpus
+>> -             * if necessary.
+>> +             * Invalidate child partition. Its CPUs still owned by
+>> +             * cs take the isolation state of cs. effective_xcpus
+>> +             * of cs may not be updated yet, so recompute it.
+>>                */
+>>               spin_lock_irq(&callback_lock);
+>>               WRITE_ONCE(child->prs_err, PERR_NOCPUS);
+>> -            if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
+>> -                isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
+>> -                             child->effective_xcpus);
+>> +            compute_excpus(cs, &xcpus);
+>> +            cpumask_and(&xcpus, &xcpus, child->effective_xcpus);
+>> +            isolated_cpus_set_state(parent_prs, &xcpus);
+>>               child->partition_root_state = -old_prs;
+>>               spin_unlock_irq(&callback_lock);
+>>               notify_partition_change(child, old_prs);
+>> @@ -2080,22 +2060,8 @@ static int update_parent_effective_cpumask(struct 
+>> cpuset *cs, int cmd,
+>>            *
+>>            * A partition error happens when parent has tasks and all
+>>            * its effective CPUs will have to be distributed out.
+>> -         *
+>> -         * For an isolated partition with a shrunk root partition parent
+>> -         * we may need to return some or all of its isolated CPUs.
+>>            */
+>>           nocpu |= cpumask_empty(tmp->delmask);
+>> -        if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED)) {
+>> -            cpumask_clear(tmp->addmask);
+>> -            if (nocpu)
+>> -                cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>> -            else if (!cpumask_subset(cs->effective_xcpus, parent- 
+>> >effective_xcpus))
+>> -                cpumask_andnot(tmp->addmask, cs->effective_xcpus,
+>> -                                 parent->effective_xcpus);
+>> -            if (!cpumask_empty(tmp->addmask))
+>> -                isolated_cpus_release(cs, tmp->addmask);
+>> -            /* Expansion of parent's effective_xcpus is handled below */
+>> -        }
+>>           if (nocpu) {
+>>               part_error = PERR_NOCPUS;
+>>               if (is_partition_valid(cs))
+>> @@ -2341,18 +2307,12 @@ static void update_cpumasks_hier(struct cpuset *cs, 
+>> struct tmpmasks *tmp,
+>>                   /*
+>>                    * When parent is not a valid partition root,
+>>                    * child partition roots become invalid too.
+>> -                 *
+>> -                 * For a to be invalidated isolated partition,
+>> -                 * call return_isolated_cpus() to remove the
+>> -                 * relevant CPUs from isolated_cpus.
+>> +                 * The isolation state of their CPUs has been
+>> +                 * settled when the parent gave them back.
+>>                    */
+>>                   if (is_partition_valid(cp))
+>>                       new_prs = -old_prs;
+>> -                if (old_prs == PRS_ISOLATED) {
+>> -                    cpumask_copy(tmp->delmask, cp->effective_xcpus);
+>> -                    isolated_cpus_release(cp, tmp->delmask);
+>> -                }
+>>                   WRITE_ONCE(cp->prs_err,
+>>                          is_partition_invalid(parent)
+>>                          ? PERR_INVPARENT : PERR_NOTPART);
+> 
+
+-- 
+Best regards
+Ridong
+
