@@ -1,54 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794011944;
-	b=gvxFYmRdidczqeBwOBsde8TFMQyXp7fWdjU5zkhSv10PFnAXTWZbOkT5RmcbW4bSZi3y
-	 RAl6VknbQGpiJqkGgQS8R1nub/N9Y511LgztWJudlCPFhbeU0YihFUbG0Jqd2m3cWH37w
-	 ks4M2r/KUdnoYrcQw0H7mxSyk9xEY6zXAIczg/a5h3FPzp3D9sz9ciAkskBPbP2Ces5ZY
-	 dmtmZOfSjBN5NOCfrdn+RPIJGiGz1m8fG5jYvMCSueCPgNT0rVsD7JeUkfFPcnZHD0T5Y
-	 PEWrRgJbvIG8lsUQWDUxEfY4nFrNE/PgUkVXbyKwZnIv53c+uZyGvfALmOkftegMYFA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011944;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=XmDY8jXtrZerT3jaIPQ+zcGTnit1QSugddbd2m/UzSI=;
-	b=c7RDKU+AiAAIP+SqAobSR8xs5QcDnbMNJ4TQQGqZ7dwB6NexNZsROx/QgGF7/asGOUcB
-	 TJ7Wc21c22qM7C/a81ZZmW5fRA3eq6jTjBn8At8oGKWB6p5KJHt65LB9vJJvmkf6JO6TI
-	 yv2Rd51rm7SpAxxSJBhuj+1J4jJMPXWympEfZtx1LVKtIOjB0nXTj44w4QnIDJ2jkBkR+
-	 u2LnGA175IwvVQxjcM9Z9hMvrKv2DdxqYpSemjq7ciYJLleVtjWzHDuS45/ddD2auT4R9
-	 sa6hW6j5/glVrEflUSBfRaQY+gj25px1L8xHV7fm8IWcvYlVNjhRq/oHTJLKRpCAszg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794011982;
+	b=yRU7UG4Z+beInNH6PvFI71gzzFEnA2eXwhq7L8nbxCBcGUdqKnxexihr/JarzDF6u5em
+	 km3NzRMg9227pGR93PsAgYW3/KP9sN0GzzbBd+AsQedzedCXHL4qkKPqCY5LyT3KH+rbk
+	 ZEdS7mYIehux7YzLaxrmSW9yQjMZSWKIXcFAEs4LZGwMRDczVQFlbiVlA6DzWG9vXUk/L
+	 PvbrlGelp38EOpxKVdXT8Ej+TrDlVxaPecnhhfr49yipplI6mckgF8xDcbYzywja0Vmq/
+	 kDcySdnItOVZ+hI4v5FRB7XR5v6unnMCdEnhnx15KVoFrdy0a+OqQ7LQiCG2hcSDqjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011982;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=n1qe+Ai+Cjg9nPrR5ZL/qLniQ+zYp17ei2DAbjmh7DE=;
+	b=0o7+x+aeTFoidt87WJTbm99rjcjgg3RhKPI5PWF+2Vcyy3k5IizV8nn9ajjW8F2yw3wz
+	 katEobT1jMkxYTOz+CbxeHcVUYZaJ0uL8wyMWS7T7ZQDNwoCyS54gviz6Kzwv+idhB3ok
+	 2pjKUMe6rP3UggquEu/W0+jF+mCcXJnMM9ZYQmnqdQP4EAxDQilyNiw+ru4mJYIk2dfZY
+	 LONjMnNaPG86fkckCxAN69ivwHwoKEf/MSFNiaXfvbeWyqdIhlgtEu4n3BiCnPYd8vxQU
+	 Q9St7s2C9ggvdxdwNKfyvB0JCLH04EH5fS20egSKY1ee6exrb3xlJWi4bagQ5Ro3JWQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jPSmbn+c;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.5
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011005.outbound.protection.outlook.com [40.107.208.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB9F606B753
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:39:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCB9F606B753
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-54dbbf252cdso1711659b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:39:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794011943; x=1794616743;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XmDY8jXtrZerT3jaIPQ+zcGTnit1QSugddbd2m/UzSI=;
-        b=rHe0rn/7xLNbODSB28ceHV79/iLb3bygqje4PqQ5rs3kyAGN8wXaKl4P7+wv+p1TGH
-         u4ei8Hr5lwfUGeCqOvcdYYpg4Fsi/fzaBmqgBiYLY2GhYZcfHVyPighWo6VkctlVnzPu
-         A1Q+j3u5f6HchXB/2gL8B27YAtKQckWZ7lwpTV7mldmGbMCtsaR3J4PdsRwnSWwJy2Ao
-         pCV8JGlQdv3j0bp9xoBYFKBAsHOL7t/LCZOAuhtW39LYRXU91Qw94DIzeFbE7J5DEEzB
-         9uY4/1M5rapABjFzCvwZu5yywIzzbA64UhzvarwknFgNkNPMP8oBkf71NTh2aYHBKSCe
-         eabQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzH/9aYqlCpGQCilA99CO+GYNjoTZnTBJfejgylKwJh2fegWyFUPD6abj3BhYF7S1VdIr9Za1TBDjh/CE0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5gtAAWXlBEtWMNI0WAYOr0ZRr2xk1rM5aq+DP1LN8kCb6DvPF
-	RnN/bZszRFhMaQ3JjBYPxtZEn+eQHbpZovL4QJ4vUfzbs2F4Jf7xEaQZ5ZIS4eb9S3bIsNgeomm
-	N5KE6Z1GqJ/EOgjEiXA1+2vF9b77NIJ24Tdpxy/KYTvagh2naL3l7NojhmzI=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7730B606A800;
+	Sat,  7 Nov 2026 00:39:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7730B606A800
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jPSmbn+c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pQq3SJJB4OePUDX1m9Ho7IcF8f+ccwLtEatoND2WeDoxQlf3konUbsjgI+w+xVQFQV+95O6itHKDPJIEI99XzbkLIUuRS4tyfHnlnsDAKkGgLSWLS/X6woFprysISf+Qqoj4swopXnR0dKHq3TXHpiUZTSreAcu8o4egmxVYFHxfc84NCfVvTjQLkpn8U+AzaEaUz8Ggj3Zm/crd9o6V2gyt7fA+XRm9J3Nu3OATb0+agyhO1q3WnY2JVilzICMrLxFduHX4+WDWvuNNynm8Uy+6mIEAbgcbScnMvwsAIShTKiXeaGo+KXXumMssqIeLxSsH5TxCfT8HewdShzysTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n1qe+Ai+Cjg9nPrR5ZL/qLniQ+zYp17ei2DAbjmh7DE=;
+ b=gtvaXKFYYe6bbpiTODaNZtzhEiICojarclk2WYKnPsUEealuwKRAH0XYhbowY85ytQ2mXPi06pjARfrRiwcHRqbYsgRU+jpleFOQ0XL9eWg3XXorJ43sMEIPk8+RHDOIS5QE2TPvWVA3m54jTy2QtKb0HC4eJnkgyC4gH9Oq38d3EuETrgDVhuBX+PsjzrAQKDe9CiVLW94ENkex1PTYHp1X7MkFVf0peDeWAzgoCzaU+mU4EaKYqrBo5C2dZKg54WLakW136yzPICAa0lLY+HE4jOfPRaJWT3mgaQrY+B7YDnzuz2TN7YLyNAaOdAROSYk4/HBq39cMZ0whhKV4ZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n1qe+Ai+Cjg9nPrR5ZL/qLniQ+zYp17ei2DAbjmh7DE=;
+ b=jPSmbn+cxE7uNNW0cGykKuJlEMx8Iv1d9ZbKoGhgK2VVmOip6idwYa9BPrcgwyEsnfkeDFwCrWaGtPUZx/emrnR/40UloTZxOiGK83keVpu1GKpAhs1Q8mu/FWBEMbZ2ckJqWj3wlXXbYWO9FmuwsZdEUdu5cux0PsoTdD3lFRcqpyWW0XxPdKhlD34mf26brAHW4NNYkY+0cn1czEQR8LcDlVGBitDILgremo4mCypLmVzwD0ujfT55/zJZAFPwblrMT/GaToOyxNfm5YjZZgDMxQHVGMKEpRgW8ZwCzphthNevUQ4T+3SA6ai/ciiVzwJbfmeTgJa7gCNkyP4RPA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
+ by CH3PR12MB8658.namprd12.prod.outlook.com (2603:10b6:610:175::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Sat, 7 Nov
+ 2026 00:39:33 +0000
+Received: from SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
+ ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0569.011; Sat, 7 Nov 2026
+ 00:39:33 +0000
+Message-ID: <ce4c6b64-98ff-4b50-8454-9cdb5aa6970e@nvidia.com>
+Date: Fri, 6 Nov 2026 16:39:32 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/3] gpu: nova-core: retain the GSP-RM log buffers
+To: Vladislav Zaharov <vladazaharova2018@gmail.com>, dakr@kernel.org
+Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
+ gary@garyguo.net, nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0198.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::23) To SA1PR12MB5614.namprd12.prod.outlook.com
+ (2603:10b6:806:228::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +98,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2224:b0:4f4:9a44:73c0 with SMTP id
- 5614622812f47-567e0f40fe3mr3282611b6e.6.1794011942886; Fri, 06 Nov 2026
- 16:39:02 -0800 (PST)
-Date: Fri, 06 Nov 2026 16:39:02 -0800
-In-Reply-To: <20261106204154.255-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aee7326.49d0a7c9.b7ee5.0002.GAE@google.com>
-Subject: Re: [syzbot] [dm?] divide error in cache_ctr
-From: syzbot <syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|CH3PR12MB8658:EE_
+X-MS-Office365-Filtering-Correlation-Id: b458a80f-383e-4f2d-41b5-08df3c6797cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|5023799004|11063799006|261021121427099003|56012099006|261022115727099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261102123227099003|261026140227099003|261028144727099003|261026121527099003|18002099003|22082099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	8+7hcUU1XVna4I5x/uzpC8KaFbvSdmf82c90zP/KN29ZZSYfIgv9N8zJVKmESX435vtiXUP6ldWtBoALTV37fR/7fuekmYuh+IEZR27Gj7lNm1dzH0/yPUiXAYzefhrXuYvymXVCjgF21cjRdRpbOHOvBFzA5dN2HAd9J9o2p/e64Se/nTvzKoLTAtKdaLYYMdx98wP6iJin9TVsvzl+zqa4xOyvkxab5kLzML84b4MiWA3lNNl0mXFT9YsNM79WGlqsC3kFSPLwHjhOE3licnLQ7ewwaLF3G28Bwy7jivjELmf4LXVrBWKSYw/HirbGiFam7MO2Me3gVABvbGOXBsonJS9jsXa8MVusPtkDFIT6P9eCZMxQAFSJ7YSenYvo4hOp77g41Y2nsNGMf1rQ4S2M79V9iFcjl6eootlMFDpAojDNdfOVzKtZJzf3lfmQg3OhpWE5HCePKH8Pw+RV+Jxmg8CQdfzpvHJa5iP1Q72l0NPWsWqEXiDN6uttxnXv1TOCN7jSexnIGjkiW6WSqwNw3H9ijVoxbiIOuE/CjBeqyPtI7kafoNW/4bXDC4ByawrFwcZXgXhQ43b5ULBg3TiKU0pbtsoNY1piAeNap4bliE7vGw9P/8TED/d0Vu0+9KKWrxZGOLvGHtrpy7SV4KftS843knFkTmXSd1OM9z0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(5023799004)(11063799006)(261021121427099003)(56012099006)(261022115727099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261102123227099003)(261026140227099003)(261028144727099003)(261026121527099003)(18002099003)(22082099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UEdPaFlqRUE5Y0IrTHNycVdDVGNBTVJ0OFpjUkp2Y24rNHYwMnd5RFFLVnhj?=
+ =?utf-8?B?dmdJNUZ1VVNucXdnL2RjTTZRUzUzeGpsSjRzbkNOOFdPZ01QcjMreHBoSjIw?=
+ =?utf-8?B?dXhaNHpaVk5paERXU3UvRys4a2lYRE1McS94emtqbWZZWlRwQnBCWXgvR2Uz?=
+ =?utf-8?B?ZW5TTUFXVkVSWXo2R3lDS3E1eTMxT0lWb2lHRDF6NHRSWFJheUJTbkYyZ2VV?=
+ =?utf-8?B?S1pPWFZHWmJ3dzhHdXJxU1kvTGVvRzRiMlRYUms5emVGN3dIT0lOTDZtemll?=
+ =?utf-8?B?T0w3Vkc2VEU1MStBdytaNG5IVkdpTXExR0FEcEVEZCtRRkFjb3Y1SDRPZmdy?=
+ =?utf-8?B?OHQwYlN2WjExN2V5NngyUlZaZ3RjM0lBeHA2Ym5sTlErcy9zeTRrSTVzYzEy?=
+ =?utf-8?B?bXR5bVZWOWtBcUpiZUUzeGRycllZMCtBdzErbDAyMThkMFAraHdqNkNaMCtj?=
+ =?utf-8?B?QnBsQ2FKWm9YTC9oYXl4dE84ZXd4ZURneVJoTFkwT2pwZTlObUJrVTVoMGFB?=
+ =?utf-8?B?QUpEY2VjejQrekNqZDV6eFU5VlZQSlVzckFLempUZ1hVQ1daWEY2bDg5cGZU?=
+ =?utf-8?B?VEI3RENERVFDYjhIS2MyNDVEcW5aZHJYZm5jL20zQmNKZ3VoVHJ6bTZJbVZ0?=
+ =?utf-8?B?UEd5UExNb1VaN2IvUTVNay9JSkFiaWQ1Q25ER2JCeWMxNmFGd1Z6SytWUEw0?=
+ =?utf-8?B?aGtPYXE4VFh6VmJSaW50R1J6eGFwTFNqL3lsbmE4QUhHZEJ0N1p5WUN0L2Qw?=
+ =?utf-8?B?c1lWbUNiYm1LaDZzNUNZSUxORDVIQXM4VWZpTFRWd25OR2lPWVFHS3pqTjZQ?=
+ =?utf-8?B?a1UvWGVnczc2ZG9qRy9BaXhZUkFuY2RYcFJzemZkMUZBdGNwbWVZd0FhNEJq?=
+ =?utf-8?B?OFpiN3NuYlQ2YzBtNzFHaGNFem9iS2VsRkdNZ1lqUXFFSnFQOEU3ZzF0TW1Q?=
+ =?utf-8?B?N3Q1TEdBelFodEFXWkRCYlNKWlZTMmVZZFc2K1lyanFmQThqWUxScHcvMkZ5?=
+ =?utf-8?B?bmNCVWhQWFhaOG0zOGRjaEFPQUVnYXFaSE1POFduOW1mYlUyV1crMmtRVm42?=
+ =?utf-8?B?WmR1YXpTY1hMNnAzdjdTdjRsUnhhSVd6dytnclFKdHZtNGs1M2x0V3gzYk1B?=
+ =?utf-8?B?T3hwaG80bmxsb0xoQUhDSjJoeUhJdThObVp3VjRtNWZwb29uOGJXbllRejg0?=
+ =?utf-8?B?NHZPVGhuVVdXTS9PeStKVnlRT0pERWJOb2FjTHh5M3JORnBVa2llaVdTMklW?=
+ =?utf-8?B?ajNRMW12c0p0MEZHLzh1Mkt5ejhRQThCY2FxaVJoSXFHeWlXYVRvSm1nQ3Er?=
+ =?utf-8?B?R3FzK0FYMk43cjZ4dUlKZ0xPdk5PaXVUVjRMUC9FR2dPVlVlQzNZV0x3YVlj?=
+ =?utf-8?B?ZEpObE45SXl1RU5FUEVydkxPa1ord3NyQTZvVk5ROGZXeGhlS2VXL1QyWTFt?=
+ =?utf-8?B?OFpDSDZURC8rMDBvWDAxUXo1WXlNSW13M0hoV0l3V01YTTIyWkhxMUNwdkFG?=
+ =?utf-8?B?NWttMGJicEd5ZFBUdU9RZGtrNllac3l2RVI2OTJHYlAwY0hwbzZlOUxPL2Ny?=
+ =?utf-8?B?UGUzenUyWk8rLzBMV3NCWWRRUkhxYnpGMlYzcDFzai94Wjg3TXNGWEc2dmVK?=
+ =?utf-8?B?V0VadW5vNHpTMnlJcmxNQ0xhMjhTZ3NaSC85VUZRcS9Ma0FnRFA0RnBzWUZo?=
+ =?utf-8?B?YkU3VGpNdkJwQzh1K211cEhpbTB2bmpyUUdZcE1scTlwdzcvSHpPRkJ0S3ZD?=
+ =?utf-8?B?VFBlNWs2SGZDcnZDSjkzZHh1SkVvd2V0dStmVG5FRkUvSFlxSUFRVnd5YkxF?=
+ =?utf-8?B?UXJTMFFIQ2EwS1I2N3lUMVNHQjRPVTRaM2x3NVRkR1dDRFdqaXFBdFdyU0Rj?=
+ =?utf-8?B?clJyV2pleTZrMllDdFhzMThabEI3OTdnc0I3UHpZc2RQaE4zcWtXYndhblRK?=
+ =?utf-8?B?OC83ZGw3ajVMcGdlUXllSFU1RGc4VEJQVHlLM1krRTNBa0pFK2ZGMFZsbHJ2?=
+ =?utf-8?B?NVlrSnU5eWR4V0o4TlpCME1Rc29DdHF6dUtBcHNxYW94V1RLWklsbUFHNkdw?=
+ =?utf-8?B?NmtHQzZuTWxlKzc4aFFTa1A5b0FFTUNaQm9GRFNhMmsyYU1ZcDEzbzFwRm1S?=
+ =?utf-8?B?OC9BQUZpTFBWK3ZVSGxxbnNBUG5uck9jdjRiWDNNZjNGMzlRWTJjOGR6cVFO?=
+ =?utf-8?B?UFVneGVNazJweVhTdTN1dnQxNStNa0lFa01YNmFYOHRldkRaY1FEanpyYjlT?=
+ =?utf-8?B?K1VjU3V3Y3dmdnZIb2w4Nm1PaEt2RHRVRHREWXV4cXB2Q2xicytHWTIyNlUv?=
+ =?utf-8?B?MzFrdHlyY1pmOThFNTUyczdnNmNadEZiT2dDR2JMZHdwQWpSazA5dz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b458a80f-383e-4f2d-41b5-08df3c6797cb
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 00:39:33.7655
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kdVngfuhmxw9WmnOWaTSFAnPdwaHdbcSBVtN9Dby7FAzIs5vkCJz8SWQjMviVc7AnMPe3gaV2m8/ys2e0dacvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8658
 
-Hello,
+On 10/14/26 8:45 AM, Vladislav Zaharov wrote:
+> The GSP-RM log buffers are exposed through debugfs, but they are DMA
+> allocations of the device, so they go away as soon as the GPU is unbound,
+> and in particular when probe() fails. That is the case todo.rst asks
+> about, and the one where a GSP log is most useful.
+> 
+> Patch 1 moves the debugfs root into the module data. Patch 2 adds a
+> gsp_keep_logs module parameter: when it is set, whatever the GSP wrote
+> is copied into module memory and kept under a "retained" directory until
+> the module is unloaded. Patch 3 drops the completed item from todo.rst.
+> 
+> v5 got no comments, so this version only carries one fix and a rebase.
+> 
+> Changes since v5:
+>  - keep the "put" pointer read before the barrier in the copy, rather
+>    than the one the copy reads again, which is not ordered against the
+>    rest of the data (reported by the Sashiko review bot)
+>  - rebase onto current drm-rust-next
+> 
+> Tested on a GB203 on top of drm-rust-next with the TLV firmware images:
+> 
+>   - without gsp_keep_logs nothing changes, and no "retained" directory
+>     is created;
+>   - with gsp_keep_logs=1, retained/<BDF>/{loginit,logintr,logrm} hold
+>     the full 64 KiB of each buffer after unbind;
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Although this "works", it has a significant usability issue that I think
+we need not accept. We should fix it instead.
 
-Reported-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
-Tested-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
+Specifically, (as you mention above), I had to add "retained/" to the
+directory path in order to retrieve the logs. That is awkward, because
+that means that if I ask for gsp_keep_logs=1, now I have to know/remember
+that they are in:
 
-Tested on:
+    /sys/kernel/debug/nova-core/retained/<BDF>/
 
-commit:         ddfe51b0 Add linux-next specific files for 20261105
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=10e7f6a1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3dffa811bfeed6b4
-dashboard link: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=123de369580000
+instead of:
 
-Note: testing is done by a robot and is best-effort only.
+    /sys/kernel/debug/nova-core/<BDF>
+
+We should try hard to avoid such complications, especially given that
+debugging is often done when one has a thousand other complicated things
+going on at the same time, late at night, too.
+
+I did a very quick LLM-powered fix on top of your series, and it seems to
+work just fine without the "retained/" subdir.
+
+Can you please do that? I can look more closely and provide details and/or
+help, if necessary, I have the PoC diffs here.
+
+Let me know how I can help.
+
+thanks,
+-- 
+John Hubbard
+
+
+>   - binding again does not disturb the copies, and a second unbind
+>     replaces them, leaving one set;
+>   - with a failure injected after the GSP has booted, probe() fails with
+>     -EINVAL and the logs of that attempt are still readable;
+>   - with a failure injected into the driver registration, the module
+>     fails to load, leaves no debugfs directory behind, and the next load
+>     works;
+>   - repeated load/unload cycles leave nothing behind.
+> 
+> No warnings or oopses in dmesg. Each patch builds on its own, and the
+> series is clean with CLIPPY=1, rustfmtcheck and checkpatch --strict
+> (apart from the MAINTAINERS note for the new file, which is already
+> covered by "F: drivers/gpu/nova-core/").
+> 
+> v5: https://lore.kernel.org/nova-gpu/20260923045551.229259-1-vladazaharova2018@gmail.com/
+> 
+> Vladislav Zaharov (3):
+>   gpu: nova-core: move the debugfs root into the module data
+>   gpu: nova-core: gsp: retain the GSP-RM log buffers after unbind
+>   Documentation: nova: remove completed GSP log buffer task
+> 
+>  Documentation/gpu/nova/core/todo.rst   |  12 --
+>  drivers/gpu/nova-core/gsp.rs           | 100 ++--------
+>  drivers/gpu/nova-core/gsp/logbuffer.rs | 255 +++++++++++++++++++++++++
+>  drivers/gpu/nova-core/nova_core.rs     | 101 ++++++++--
+>  4 files changed, 356 insertions(+), 112 deletions(-)
+>  create mode 100644 drivers/gpu/nova-core/gsp/logbuffer.rs
+> 
+> 
+> base-commit: 5a1b7121a6c4db6c0239d3ac3fd1c2bb33a40025
+
+
