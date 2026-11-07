@@ -1,65 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794036805;
-	b=jDPqb3Y2LuB4XOnCtpoG5ahaJy33YbE0iimu1bdW+69Iy593PzGrzMiqWdb2xvY8NmDE
-	 PT1IlSGFFQUF1I9D5siuw+NxBPOkMiFAIvT452xsy4+lgU9Jty8Yoxo7VzuYo50FbLEHu
-	 Mw8V52S1jfYKaxfn7WqMSkeemtBXKMBXNiAW0nbax83+6S+25lgVa7bMoCigZbFB33GDt
-	 U5NYo0NJTnLgWYmPmhB9bJTXzWuDdK0s+v/MRtelNZeDztrvs+fn/jIMPL3jfpYbjYDtm
-	 ksAxQLf7WQhmssndl7ScO8fsJjVzYINlzRHIpsTFuVRFKd0lcwtxH06gaGZuodNPt5Q==
+	t=1794036830;
+	b=Rvdj8WVOdgy4tDdULh0rcNFoD5b+Ude7PycvAKZF/nKvubxVZ7U3G0lvHvLW3intaED1
+	 hQwfvaBfVdwhfOhsiC9TKh8sJqsx0NEdrNRG7OZtMHcMv/cErekBkZQyjpMSHkkz3kZHE
+	 1s4bb3BJr4JC72q8oOZLbHnwj22PDEwGF6fS9I9oGWLIPdiP7g3cApPX0inleB2iOR32N
+	 gGGGdyoGmQ+OdYOyOkvR/MOyvDGmGxvQHsR2cWEcdui8XDq8G+MieM0a+ZHcTc736t/rj
+	 tx/cos7MSCeMjBNwoDZsa8qxDMqGcnv991VrkgXrA9KRepI8aH0qrQUp24lMIWUtMQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036805;
-	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RqcMsUowjiasOdRKT6/n1tz64a/KAgMWOjxLOv2ccbk=;
-	b=vR0K1tJ1sn+egcFsudbNalcMzqWt/R5q9o6RCg+X3QisWCFf7s/LqfYL2CIY1HSFWg+N
-	 SrkvIcHoTFm/MS1iYfxV4d4sZ9e79W4Grj7VLuXLdlsPTQ1Ara+1CDzCHeiIOxG/lcAmt
-	 S8DTK6fdmlc0t8n81pfLmiKj9ShBTsZY6vDqxqxIyC/T8GfYEcHkhNl09pFXQsEeSIk/c
-	 DC5EOw72ye3aMKLjRDkaUx/Aia+bqm9QLgEw50IPQH+W6Y1taHuJ6mRXNUEjC2cqx8DRU
-	 PP6PEREplYCMFOoUI/80DsZDnT68kuQukAkPgmDyPRUbKTDCLcGmQVvj1YvyYCDAf7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036830;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YFZRmCfQkWp9l98IMbH5VkBf2tDBMZN1QOvzm/n0/Ek=;
+	b=5l4Cp4OSmI0j3ZZYSPlnVlbjjgNX9gDOBVF/bD9AQGwpZgDs9+2fdhVKUbC8kBPlDoYK
+	 yxUN55Rh0dQod3ZJ2tULBe53XKOQwVCjDr5SRhPPd6rLKcrVJ2RK3QKHq6BJe/FmNbbhZ
+	 R6GIgAGL6ahULPTUnQ6elmn7IITl0DDwmO+tWkxTBARnyCBvqtCTbGPGXuLPvyQ8s9BcD
+	 xB2Qcw4nc/xK/8uYoSFPq5huvR+auhN8kRuDQFcl24kffnCAmnV+mwKeSg1qNyH8OrTpF
+	 pn6aQAYunRjs8c884TDFRMuDh6Nq6BmAzVRhwmqhqOT36I73Py3J8KfF7/SE+8yvrEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7BMVbPW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrpxnUKZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A862606A326;
-	Sat,  7 Nov 2026 07:33:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C7F606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7BMVbPW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3E61F0089F;
-	Sat,  7 Nov 2026 07:33:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrpxnUKZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E091B1F0089F;
+	Sat,  7 Nov 2026 07:33:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794036804;
-	bh=RqcMsUowjiasOdRKT6/n1tz64a/KAgMWOjxLOv2ccbk=;
-	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
-	b=M7BMVbPW6X5rsGfsZmA9wkvAxPkJ5ypVXRYiBkJWHdWmkli06NP3bw2Zt+tSzIKSl
-	 /m357etyPyHcmOOTB8rak7PiWr+yzbxx+nJH+eJ2zckRSl92wDXxSiNVuSsTTr9/6d
-	 9i5pyNR/97/pebPXbVIVmDeFacFlroNjc0B2ipUelgGEBYJ1xu14hFo8CswvcRXaDf
-	 TFtcE2cfRziRWhlNDXqctpvRV4b1NcOlOFlrkZJLQAxS9BzWx50R5ExIrUvdq1rAfv
-	 bU7lICdRpvm5BAvVeOppiXjSLwNxqFxlpzVdTfuA3SwiNMhH25cmCLywdcT9CjxHgu
-	 MPGP+4aKDsOFQ==
-Date: Sat, 7 Nov 2026 08:33:02 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
-	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
-	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
-	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
-	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
-	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
-	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
-Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <au7TvMP0YhW2e_oM@debian>
-References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
- <20261105125154.83478-1-geert@linux-m68k.org>
- <aux8LYQkGSNjCGHv@devuan>
- <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+	s=k20260515; t=1794036829;
+	bh=YFZRmCfQkWp9l98IMbH5VkBf2tDBMZN1QOvzm/n0/Ek=;
+	h=From:To:Cc:Subject:Date;
+	b=OrpxnUKZ9n9S2pN6xJmZV65t8uBDUFiJ4lH0YwEi2xm3FWo8q+0fcd+4HzXfczeoP
+	 2uutuIREt3xoDSKJzOlrSJu2lZNdHg7uOQlMwzXOFkADgWCq3QCYGpCzHN2kNIAwdC
+	 15u3DioQMCR41YjiXY/FKcKdcshWKH6myFG2ziGYD4OadAFCOyPVBCA6eYv21eZrPw
+	 NMCP+FELW1efVOmW2gvhmW9pzkxozKYI6mjYSWgJkyJAcOXdNBt/s/cRPEl6TnKiib
+	 k1lqCbtLnrA7K4/gdFk1diN7VwBaFIp70t3VuFWeikG5C6o8kHcvRhPIGU7hgoHNEQ
+	 yFnbSQmlKpCqg==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Tejun Heo <tj@kernel.org>,
+	Dennis Zhou <dennis@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org
+Subject: [PATCH 0/4] arm64: Fix instrumentation escapes from noinstr path
+Date: Sat,  7 Nov 2026 15:13:35 +0800
+Message-ID: <20261107071339.17467-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,103 +68,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dul5zpskzyut57vy"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+Content-Transfer-Encoding: 8bit
 
+Code marked with noinstr can only safely call other noinstr or
+__always_inline functions. When reading arm64 source code, I found
+necessary noinstr markers is missing somewhere. So I asked AI to scan
+the arm64, this series is the result.
 
---dul5zpskzyut57vy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-List-Id: <linux-hardening.lore.kernel.org>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
-	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
-	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
-	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
-	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
-	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
-	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
-Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <au7TvMP0YhW2e_oM@debian>
-References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
- <20261105125154.83478-1-geert@linux-m68k.org>
- <aux8LYQkGSNjCGHv@devuan>
- <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+Jisheng Zhang (4):
+  arm64: percpu: Always inline helpers used by noinstr code
+  arm64: entry: Always inline helpers used by non-instrumentable paths
+  arm64: stacktrace: Always inline internal stack boundary helpers
+  arm64: alternatives: Make branch and ADRP offset helpers noinst
 
-Hi Maciej,
+ arch/arm64/include/asm/cpufeature.h        |  8 +--
+ arch/arm64/include/asm/entry-common.h      |  2 +-
+ arch/arm64/include/asm/fpsimd.h            |  4 +-
+ arch/arm64/include/asm/mte-kasan.h         |  4 +-
+ arch/arm64/include/asm/mte.h               |  6 +--
+ arch/arm64/include/asm/percpu.h            |  6 +--
+ arch/arm64/include/asm/stacktrace.h        | 16 +++---
+ arch/arm64/include/asm/stacktrace/common.h | 12 ++---
+ arch/arm64/lib/insn.c                      | 57 ++++++++++++++--------
+ 9 files changed, 66 insertions(+), 49 deletions(-)
 
-> Date: 2026-11-07 02:44:23+0000
-> From: "Maciej W. Rozycki" <macro@orcam.me.uk>
->
-> On Thu, 5 Nov 2026, Alejandro Colomar wrote:
->=20
-> > Do you think strafterprefix() would be better?  Do you have any other
-> > suggestions?
->=20
->  FWIW strsuffix() seems an obvious choice to me.  After all what the API=
-=20
-> does is request the string's suffix beyond the specified leading part.
+-- 
+2.55.0
 
-Actually, strsuffix() is something else:
-
-	char *
-	strsuffix_(const char *str, const char *suffix)
-	{
-		ptrdiff_t  off;
-
-		off =3D strlen(str) - strlen(suffix);
-		if (off < 0)
-			return NULL;
-
-		if (!streq(str + off, suffix))
-			return NULL;
-
-		return str + off;
-	}
-
-It finds the start of a suffix in a string.  That is:
-
-	strcmp(strsuffix("foobar", "bar"), "bar") =3D=3D 0;
-
-
-Have a lovely day!
-Alex
-
->=20
->   Maciej
-
---=20
-<https://www.alejandro-colomar.es>
-
---dul5zpskzyut57vy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmru1C4ACgkQ64mZXMKQ
-wqm7rA//SurddKJhcpcYSVF08Ab2FAhfNpH0ioW7Yb/l+oX0VEpkWj3qqra1tx55
-Z1UFA8Zc2S23a2zgGIVgckruLAScw3TgH56+01s0K2rHCab1CAG6jhPnj2SrdRDd
-3r1e/bTSwdBBaL3YjGLE8QJ6Ovr4k4QIfx4hrJDEoc1Bd8d/kX4hP5ck/UvUQRps
-uxgukH/uuh069/6RuDrbqyZNTYaII3QF5In16FORibSjdYhJ3zk6jSHglRU2c2RK
-rdB3UhGgvmRwioMK6O8uvjAvh+8Uh25hUkodhUwK5zrL/R7KD6hcJ4Qzgs5f3UC/
-eFCzJpR+vV4VgOfmxBzJ5B6iZiXbMgXPuYmIw6MtXddrQMKZYV6pmSy8EEUODC/G
-PGynmMkcNOcSxnAy4LX7my5c1ilQ6eVlnQ5mdPR6QUIzKIhC7QL0V9B8UUFGgJ+C
-CX19+pefdS4MdHB5A0NTMPdp/kzdw8LbHsPz5EcumrjxvhFl+m6xfo9wYmkRD+2m
-VJF6uwqVpJ9rP8zJNT2qonLoTk6sbT5Kc8SRSOCsfOOXVkci1C7Y6ZC8ynE4Xyrf
-/G3gpTejPyd+cYuZkOBrRv9NGBaDx/Ioh6ZExvc2hoVh+LaIctAwYoLhxLaU7neV
-ElYN26nlmyCnrZ82m7JphVIFX5IQerK6gzXdIOg4PEXNRNs8l5o=
-=gJHo
------END PGP SIGNATURE-----
-
---dul5zpskzyut57vy--
