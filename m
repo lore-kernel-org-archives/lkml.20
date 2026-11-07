@@ -1,95 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794079732;
-	b=lRitEuZGsV5bLx2Cefh0F9MDxrBaXp2AWQVW/5ZRwSMJ4E+ulBhgznGcyYe0iDDvVMi/
-	 yHF/1miUDUVhQ81dhv/on1PExMhZRoBnH3GVKkwldclRCHOlH67+wXuHpBoFSc3HC+S2d
-	 hf4jtKHL4v7YXD/Md5UgowkUcbg7WjHTRS7ZqP82UoNjxEsbG/RqDSMMlsuSZEmD0FixE
-	 H/krEh1523Nq8sasdCQHjfq8+lwBrxNzHY+JM3kxOQv39fi6OVNnT6JqvsnmlTVFz5w7F
-	 HtEdV4RYMHnZKzVj9xoqs12OcKYy1NWbJbOmg5fEn0CsCED1lcuutxEhPcMdDPJupCg==
+	t=1794079738;
+	b=jcPt/6QVxMwfXwpmoko2LjtBWc9B3mO2Ly6S7Hn/m/CTEFe1taopmBOBndmihq5kTh0O
+	 BeqVzp8XzH9tSGPJegw0/soNA3YFRroBCIvwCWv9AFUQKQKErlNyWrVLKIsDnjRwPCMLq
+	 1t6zIVu3Krq6cCOMsQFnq1D6AGtk+jnlegjzivb8if/Ff5FQ5EnRWaIIqr5sSsZixK84g
+	 HeQp2yetixuisi5+CIX7hXninFSpFB5KUboa+GFqMX7D4zz920VGNkw3ESMT3RnsQ+zkb
+	 qucOQl4BWXW43pJ/X40svZYrGpb9sWjC24xlRrxCPtaSBlA4MYSD+3Q32Ng5vXArXRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794079732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4YvQ88Tw3BpTAX+GwccgHZpr8xDWaxtWSxka8yipfg8=;
-	b=LynLFmKXVSutUgmcG2q4kTpEYcmLxVXT7F3xdtZtqmocMt0NeTH34Zg9A1si9Bfac/VH
-	 +LYBC+OUh2+Bmnyt9SE3guyjQFAMYi7zSnyCLSbaq3+PBob97Ep/oSMdcasZkIJLowj5o
-	 CsKPbURUbsz+1EY1p60UevJPHCUU1kXNNTyQ5+d3MYM6PLW/TmrYul+Hra5qOa1SKN8KB
-	 MLUfODRVezwEG0kZTrvomErbYJqKtBdeNTyQrCUTZFFIBtgXFanrA/lkVyywioFHYA8dp
-	 HYa0IYswQlMh4rzGNFhjBpWV0WpwrCc3sLD8S94f6+zLWFq0Cc1RjCzafPovnnAGkYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079738;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ceuxJi15N0XDXQDo6374s+XT+vL0yYabgxchhlTK8RQ=;
+	b=aNG8xVYjEpyvv5Y4xcomMXznU2pwpJs+jqXuFBUUtVinR1IuunVYgMK+U28jhSyZ5d/9
+	 p/JKzl7TF3+81nveUoQPkCNhfxRuL51ooJNthQxTJPY+1AxbROSqwqpdeH7TDKfk0KzeC
+	 9ersYWh1NVfLRopDGJ5rH0jyBru6w1n+x4GpLC3ENakHU2KpvXty1gf5OBCi7pAHrvnd2
+	 fbw36EL5sqI08/F20VzTKRqGBv85O6lpdYWPkcBbO35V5T/sogGKJT55PPodt2DotmKHI
+	 E229/fsNsc+u8BzJhFXfh3g9tCcxGiHeaZ7KTLcQ37c2pHX5ymFUAT+bLOr5UQem46g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YO5yP8qC;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxsPxi8K;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70968606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70968606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00C7606A33A
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:28:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YO5yP8qC
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3282db206d3so50935eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:28:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794079731; x=1794684531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4YvQ88Tw3BpTAX+GwccgHZpr8xDWaxtWSxka8yipfg8=;
-        b=YO5yP8qCHZt3E1p7kirdA3BaQ/nmYjlsW6tYhTjLTm7hN0UMx49b/eckfBQdj9h3Ob
-         Iwq3aZM0S8PHvI0b/7XMozBn1SEYbBxVgnaPCgkEc1jBWlf6LD3U7QiuAlAs5yI/STBA
-         QnpBx9bE8cWbQ2Vq5EGysf9+rAue2S6KdRMwBrdl4EwllbxX+EOAZ9hzgWXQooFCLGnl
-         QbqheRZMzHkt2ye2ZTjB1YXBkH/VNHKIiNPWpFNYK2wukaVo+QMth0DRU9W4nYWCE0tW
-         jU9JEDMea7K3oxpyJ4cyVopstrPMVs5j5nz8USvb+UymAO5RhaiKc8Wx6ArBEWv7Tiuz
-         Ax2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794079731; x=1794684531;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4YvQ88Tw3BpTAX+GwccgHZpr8xDWaxtWSxka8yipfg8=;
-        b=DG050BMo4PEraU3AP1G8U9pbVfDoxtxU/59PoXHHT52g/qNu+f7zQXqAd4uU55caaV
-         I7DeiVSmzWGNp2I+8lRIj54CVcq+07UFzIMxXooV369gR7+s+d0miiEsJnP1zIRUmJ1X
-         bk4fDsau8rAyEZARRQXINmn/BbtKldV3Y33QbxcO3yAHdzdD5aRAQtlg7+RPmn78lAOM
-         y3TldG/MoN8S9s7Mu9REcuU1MhL5fBiD06zvUsoOkJIYAzcRf0aJU8wIGstKtJDAhkxA
-         s6/j1yhsxJrRogDPkVF216sfsdl5/+5zJruX/Pan49oP7rbllceQ9nu74tZDD6kQOYOx
-         vIuA==
-X-Forwarded-Encrypted: i=1; AKwUvBys7INSobL+nx3uIneQZIcEMt0OYVdVtk4zuFCAlbf+kl6WF6wPKUXE9dLWCzcmwFCbsCTIr6AzWDZrDyI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+NFm4EL1h0qbfJMzPGQL+aVIPoq8vwMrw2GsHb3rTn2RcRV/1
-	BRK+OcSRk/T8SZE8pU3KbcjTyB7LF4otMyYmzwJP6WvWzuuizfutmOpc
-X-Gm-Gg: AYBFou2nYeo+esyHwsfRZDDFfyfi+/s1+Sl+9LuboooYh2scauCgyteTOrYK07PVJcv
-	VJR/ITkxqsk8IpPWgQkD/rA8a74h1O1GITlu5+BAL4BJdwDg0nWd66AtK8y+Q+3uN39d7FU2Xvz
-	j/F5ub8rVgeTvDzfM/JL/Fsr2jmrNDIbW630MC9O0j+CPjWzJG1fk1LlWmd7d3dXr6SdYQYaax5
-	h5Nu7Q3wKeweUFNLAEG4SN7K53/Z+Hq3b/LL+K/e/c3zZyd5eOSZaMkgZfQUywkWX+e/FWJU0Bd
-	I0UzLj+jWG/xDJrG/wuz2KkyX7kSZyGYobATUv5ad0zHN10INYXl9M+fnXCLrpX902wmBPapI/L
-	9K6i9v57ZqLAplMeMTrjQ7+V44rJ9hn8YepQjaQTTwjnVZ1Nn5dGh+X8kMdamGg6Uu7pWXQ2sJw
-	y1lcCXOD7tf2Qi0Lnom3m/SWIQHBu76DMhijrZCICQmhSyPDRiRdBaU97I9nUshbTYTE5ajr1hP
-	RrXMU3wJUMsyJYHxr1cdu66MsSO7bYhYg5djGwtr9HeS8x23tW3/OA8hfjgYfu2OCVf/TkWufz7
-	33jL611KSZjwYpQnsz1d+JWhCMydYJ4fT27Tbdevfl08qoQhqC/w/VJKeX6ywGYPGQ==
-X-Received: by 2002:a05:701b:270d:b0:1a2:2da2:b278 with SMTP id a92af1059eb24-1b25d30af61mr9520523c88.14.1794079731268;
-        Sat, 07 Nov 2026 11:28:51 -0800 (PST)
-Received: from anon-laptop ([103.187.196.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e936bsm551856c88.6.2026.11.07.11.28.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 11:28:50 -0800 (PST)
-From: Wahid Khan <wahidzk0091@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>,
-	ntfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] ntfs: do not convert a named $DATA stream when making room in a record
-Date: Sun,  8 Nov 2026 00:58:44 +0530
-Message-ID: <20261107192844.3908575-1-wahidzk0091@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
-References: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxsPxi8K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955CD1F008A4;
+	Sat,  7 Nov 2026 19:28:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794079737;
+	bh=ceuxJi15N0XDXQDo6374s+XT+vL0yYabgxchhlTK8RQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DxsPxi8Kg3gfycnlzmlUVJk4U8J7azeOChy+NqS3Z/+kajfq+annfVCxjhXZsfTzt
+	 PghA6AWpHmJ4RvXug567VNYLv0foNHITz43pDR2aQwVxMg190gRtHeAqq/HfX98kHO
+	 6rHF2p0H18U5H6rFSJQl/Fdpt4kC9TFb1KLKzXcdE7LS0/pdcKl39wwdlHwdXPPW43
+	 NRdQ3fJoHUA7J0GJCmESRjk2IQ9j3L+lg2aW4RO2IVBHUUoPaZki9qgkO2c4ua+5+0
+	 m26gd3Sp7ob2iGWwZ0b8bhM4DR6RxqOHWGO8VXoo2xsadeLN1o6zOyAFgXmHVhubm0
+	 YEkq+ZOwa0P8A==
+Date: Sat, 7 Nov 2026 19:28:52 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Waiman Long <longman@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org, 
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] locking/rwsem: don't let a read lock steal from a queued
+ writer
+Message-ID: <au92oUJyEnth8b9E@gremlin>
+References: <20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org>
+ <98a82cda-e363-449e-9b2b-8432f8fdcc3a@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,35 +60,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <98a82cda-e363-449e-9b2b-8432f8fdcc3a@redhat.com>
 
-Hi Namjae,
+On Thu, Nov 05, 2026 at 11:55:37PM -0500, Waiman Long wrote:
+>
+> On 11/5/26 3:24 PM, Lorenzo Stoakes (ARM) wrote:
+> > Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
+> > stealing"), a racing read lock can steal an rwsem from under a queued
+> > writer whose handoff timeout hasn't expired yet.
+> >
+> > This is most problematic when an rwsem read lock is released then
+> > reacquired in order to relieve lock contention, as instead it will simply
+> > have the lock handed right back to it ahead of the intended beneficiary.
+> >
+> > Naturally, this behaviour rather defeats the object of doing this kind of
+> > thing, so this is less than ideal.
+>
+> If there is only one reader doing this release and then acquire operation,
+> it will leave its task_struct value in the owner field. So we can check if
+> the owner field  to determine if we should skip the lock stealing operation.
 
-I sent v3 of this patch as a reply to this mail. It opens a named $DATA
-stream with ntfs_attr_iget() like the other attribute types in the loop,
-and keeps ntfs_iget() for the unnamed one. With it the image that
-triggered the WARN mounts and walks cleanly on a KASAN and lockdep
-kernel. Without it the WARN fires at ntfs_attr_make_non_resident().
+That seems like it's overfitted the problem though? And would cede to read locks
+also, no?
 
-About the lock ordering: I checked the code. The comment above the
-__filemap_get_folio() call in ntfs_attr_make_non_resident() says the
-folio lock nests outside all ntfs locks, but its callers hold mrec_lock
-when they get there (ntfs_expand_for_write() takes it in file.c and goes
-through ntfs_attr_expand() into ntfs_resident_attr_resize()). The read
-side takes the folio first and mrec_lock inside
-ntfs_read_iomap_begin_resident(). So the two orders do exist. This is
-true for the direct conversion at the top of ntfs_resident_attr_resize()
-as well, not only for the loop.
+The intent is to prevent starvation of write locks, which seems like a
+worthwhile goal not only in the case of dropping an rwsem to relieve contention.
 
-I could not turn it into a hang. A reader and a writer racing on resident
-files, also with a delay forced between taking mrec_lock and the folio,
-completed every time. So I do not know how reachable it is, and I did
-not want to change the locking in this patch on a guess.
+>
+> Something like
+>
+> diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
+> index b9c180ac1eee..1f0fffd75c18 100644
+> --- a/kernel/locking/rwsem.c
+> +++ b/kernel/locking/rwsem.c
+> @@ -1019,15 +1019,17 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem,
+> long count, unsigned int stat
+>         long adjustment = -RWSEM_READER_BIAS;
+>         long rcnt = (count >> RWSEM_READER_SHIFT);
+>         struct rwsem_waiter waiter, *first;
+> +       long owner = atomic_long_read(&sem->owner);
+>         DEFINE_WAKE_Q(wake_q);
+>
+>         /*
+>          * To prevent a constant stream of readers from starving a sleeping
+>          * writer, don't attempt optimistic lock stealing if the lock is
+> -        * very likely owned by readers.
+> +        * very likely owned by readers or when the current task is the
+> +        * previous owning reader.
+>          */
+> -       if ((atomic_long_read(&sem->owner) & RWSEM_READER_OWNED) &&
+> -           (rcnt > 1) && !(count & RWSEM_WRITER_LOCKED))
+> +       if ((owner & RWSEM_READER_OWNED) && ((rcnt > 1) ||
+> +           (current == (struct task_struct *)(owner &
+> ~RWSEM_OWNER_FLAGS_MASK))))
 
-If you want the order fixed, I think it needs the folio to be taken
-before mrec_lock in the callers (or a non-blocking folio get on the
-make-room path, which only tries to free space). Tell me which you
-prefer and I will send it as a separate patch.
+Actually the RWSEM_WRITER_LOCKED here is redundant given the block below, I
+did think about removing it...
 
-Thanks,
-Wahid
+And could probably avoid that open-coded expression with
+rwsem_owner_flags() I think?
+
+Anyway, it seems this code would be redundant with CONFIG_DEBUG_RWSEMS or
+CONFIG_DETECT_HUNG_TASK_BLOCKER, both of which implement code for
+rwsem_clear_reader_owned() which is called when a read lock is dropped.
+
+That would mean any kernel with those set would not get the required
+behaviour, which is unexpected behaviour, so I think this is out anyway.
+
+>                 goto queue;
+>
+>         /*
+>
+> ------------------------------------------------------------------------------------------------------------------------
+>
+> Will this help?
+
+I think in general the original patch is more useful in that it expressly
+prefers a first-in-the-queue writer to an incoming reader.
+
+>
+> Cheers,
+> Longman
+>
+
+--
+Cheers, Lorenzo
