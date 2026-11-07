@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.25.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794078849;
-	b=JS11fuGgSfkGroTtvLsnK7HNC+saI29Pi83Fx+nI1DO+EfOzW89IJm3lrjwugGDkhYfq
-	 SNxJ159lplJs3+MDDzM2LItNkq4VuZ5drtYSL6MLktylgJVYFXq8w0aSrtCCCgt8RAC07
-	 FIHq/hs02JN+oFjt/9Xq+nmPog7F4H2fPLNG3pCfv6j3kASZqYaWdGUTXyeIjMMe6gXV5
-	 f4LZfWEowqJTXN0OIMr7jjz4mjNqkWGel563XokTXyTxfdP6Jf40tIGuKOyeRq3pc3/Kb
-	 +c2uDHjH3sSk2Gr8W4hTciG7OqwJ20VwSibLCdNSp2W/rV2OgZnSLN1c5CxE3LZXWkw==
+	t=1794078857;
+	b=n4v8TysTFErcN8Su0oybePdWoLXF2dWpC+mAri3anbZULsuBrwTIuJ9gbO47QGXD6Uqv
+	 P9fSDmSrmesW4b/b3x3y/yGiX2hK8/dsXC1xLFxCvQvINPCauVsey78nJYLRbMIKv9eU/
+	 nYPBwdnyvTZe0Ww6loS3pz5PxmxYFG3oIUq5Cfv5p8bXFxX4IAkG93IkACSCENYO4qsGo
+	 k5d+EN63K+K+bkvPSWrCU9MEAhgLzrwBFSfwMnAgsKXdCARwvo1mJgGzsJc/y3AuF4yMN
+	 dBF5ed25kUtnZCr5SYJarNW7jSKUMkTvYwM6+1huo8FCv4K/1KIABkW5WK1wYHpMc2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794078849;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=tunTQ1LmTP+2zaktre8ztPhkPmVKZKY+j+RBegBaJ7Q=;
-	b=TOZbGkrO2ThVx4yccpp0KHar5rhI/GcIEWQxV794shVYW3ZDbd+u2V2r85HTs3GbV5Yd
-	 GbFTVl7s697P3n3j6rzCAF9ZXyyYXUQ892yAkpKMVniHepyo6zRrbW95+g4ah57cStOnJ
-	 c/ufWPu5dpT7sQ8ySbuynmTzSjW4FZzbzEUuC6Gm1CS1GRkuvucSnIREH5w4A4yWw1n1G
-	 zTOZyjccHjhstyNVjIUDt5+TPfn9bkZKedXLUrE2K5eA1NfKLmnSlymVOknk7JcsPng1c
-	 rqc1nbHBN8xN2rbdNFgoh3lftzfnOI+r7+ASuFXfC7P7OcatgWcIuX2WcT/FC2krYHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794078857;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WL1Kog7EuPHk80hIIy3ijm37NziL2Dh7hPMB6VRxMXs=;
+	b=YVdMVoyrHf2Ys1GG0AfQP6zYWIHby/7tyssKsYilpiiwND/QlelkeIY/yJVY+RlO7TMy
+	 NqtLNOipH44+p25zzIlcPy6JkEMzjg1HNDk0NyKp9hUNB4McxtDfvdj/ipxXTUwLhzXWs
+	 IxWt+RVMVh5zxxVcHcrhLeKwjfZebZB8OXmcF2A7ACKUbOSxB6yHRBWQsRKA8yWvl/mv/
+	 WCunnTdEgVUgfwZDSfGSZIyfaLHPlRxUwLsHhSdkuk9QZxT8Nz/fzFnmj0JZ7BsRWR3wZ
+	 Fwx4N3aKXl/6iD/iAXHfr31N+qikloqud5Lk4jEFaeCYLSV6KoaJGiDEuLvsf98OqYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=daylightlinux.ch;
-	spf=pass smtp.mailfrom=daylightlinux.ch;
-	dkim=pass header.d=daylightlinux.ch header.i=@daylightlinux.ch header.a=rsa-sha256 header.s=20261016 header.b=ODXiXbsE;
-	arc=none smtp.remote-ip=185.125.25.10
-Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch [185.125.25.10])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVQLjI6z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B622A606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:14:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B622A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=daylightlinux.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=daylightlinux.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46E2606A335;
+	Sat,  7 Nov 2026 19:14:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=daylightlinux.ch header.i=@daylightlinux.ch header.a=rsa-sha256 header.s=20261016 header.b=ODXiXbsE
-Received: from smtp-4-0001 (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jMQh65wsBz3lY;
-	Sat,  7 Nov 2026 20:13:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daylightlinux.ch;
-	s=20261016; t=1794078838;
-	bh=tunTQ1LmTP+2zaktre8ztPhkPmVKZKY+j+RBegBaJ7Q=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ODXiXbsEfgfHACbHkButIGn8Qui9QaVj9av+pSIq0bIz+WwzRNeC1EUuv3GlQD9xC
-	 HA47XDoLBkOfLkwJ9It3DP6XfbazSQCQmVzO7knCuKFZ9lqsiNZ6jqQTP5LLPl6CLi
-	 mVb8mgeCsJCOSLT1767NA1nmKQmYkdtaikfrveqcHgVA0L6vaCoL+SUv3dG1nma2V/
-	 E38T4/zGYMmmlVEAnsmr+tajKtKVY1QTl82KyPEOwrqRDx58emKuSmN5vFUKxDX9Ta
-	 5kLenOUPTrv0aPyHoZe3Xyx3fZolvev44LopKiMFRlfcRXdVbhKgzvcpVai3RuGAE+
-	 yEq8GD/myzz6w==
-Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jMQh56RrmzGlk;
-	Sat,  7 Nov 2026 20:13:57 +0100 (CET)
-Received: from unknown by raspberrypi with local (Exim 4.96)
-	(envelope-from <info@daylightlinux.ch>)
-	id 1xPlrR-00038B-19;
-	Sat, 07 Nov 2026 20:13:57 +0100
-From: Hamdy Abou El Anein <info@daylightlinux.ch>
-To: sohil.mehta@intel.com,
-	dave.hansen@linux.intel.com
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	hamdy.aea@protonmail.com
-Subject: [PATCH] scripts/x86/intel: keep the highest microcode revision
-Date: Sat,  7 Nov 2026 20:13:56 +0100
-Message-ID: <20261107191356.151287-1-info@daylightlinux.ch>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVQLjI6z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A898C1F008A3;
+	Sat,  7 Nov 2026 19:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794078856;
+	bh=WL1Kog7EuPHk80hIIy3ijm37NziL2Dh7hPMB6VRxMXs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YVQLjI6znbPkC2CZnQHdAJGdU7ywdGuFFkoE8cximwB6IYy0XKxxvVYxJj3oB7LIr
+	 nGb41dGVLdwHyU9fvJWVGkgJ8eRgcxAwVHj3/W1sc0nA4XX68dAAN5mq5AuheibTTN
+	 w3OeLC8HTIgaX13Hq6IGajFNTohn0P7DqjT1MlfozoBKpORu+iwlLskkalDFkktvaC
+	 RqI18ReEIt2OEqC+f6pHxq0Vng/xhZQPQjh+7Dt8ja3Gg8BKc3IhZ6ofR7yFQfpxX2
+	 HlfVGFBIVP6b/X0J0JNGqHKxKrbqEuFUghWjg6BEwSC0BjO2jlFBLLscK+G8DPvQgl
+	 rldT20mpIhFKQ==
+Date: Sat, 7 Nov 2026 19:14:09 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] iio: proximity: sx9360: fix hardware gain encoding
+Message-ID: <20261107191409.0e4acaad@jic23-hlaptop>
+In-Reply-To: <20261107112335.444813-1-kapoorarnav43@gmail.com>
+References: <20261107112335.444813-1-kapoorarnav43@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,77 +62,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
+On Sat,  7 Nov 2026 16:53:34 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
 
-Ucode equality ignores the revision, so adding entries to a set keeps
-the first revision seen for a CPU identity and platform mask. When
-multiple input files contain different revisions of the same microcode,
-the generated old-microcode thresholds depend on their order.
+> The sx9360 PROX_CTRL0 gain handling was copied from the original sx9324
+> driver and has the same bugs that commit 108e4d4de2b5
+> ("iio:proximity:sx9324: Fix hardware gain read/write") fixed there:
+> 
+>   - The gain field holds ilog2(<gain>) + 1, with 0 reserved, so a gain
+>     of 1 is 0x1 and a gain of 8 is 0x4. read_gain() and write_gain()
+>     use ilog2(<gain>) instead, so every gain is off by one: writing 1
+>     programs the reserved code 0 and writing 8 programs a gain of 4.
+>   - SX9360_REG_PROX_CTRL0_GAIN_1 is 0x80, which sets the reserved bit 7
+>     and leaves the gain field at the reserved code 0, instead of
+>     0x1 << 3.
+> 
+> Use the same encoding as sx9324: add one when writing, subtract one when
+> reading, return -EINVAL for the reserved and out-of-range codes, and
+> build the default with FIELD_PREP_CONST(). Use BIT() for the read value,
+> as Andy suggested for the same code in 2022.
+> 
+> Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> ---
+> RFC because I don't have the SX9360 datasheet. The only public copy I
+> found (the one linked at the top of sx9360.c) is a short excerpt of the
+> SX9324 datasheet without the register map, so this follows the sx9324
+> fix by analogy: the sx9360 gain code is a copy of the pre-fix sx9324
+> code, with the same mask, the same 0x80 default and the same missing +1.
+> Gwendal, Stephen: could you confirm that SX9360 PROX_CTRL0 uses the same
+> gain encoding as SX9324 (bits 5:3, ilog2(gain) + 1, 0 reserved, bit 7
+> reserved)?
 
-For example, passing the 06-8f-08 blobs from microcode-20250512 before
-microcode-20250812 keeps 0x2b000639 and 0x2c0003f7 instead of the newer
-0x2b000643 and 0x2c000401. Reversing the inputs selects the newer values.
+The default value is odd.  Do we have any idea what is in that top bit?
+I'm going to guess something harmless and that perhaps the gain value
+due to writing a 0 is either rejected, or actually mapped to same as 1.
 
-Keep entries in a dictionary keyed by the same CPU identity and platform
-mask, and replace an entry when a higher revision is found. Preserve
-the existing output ordering and debug-revision rejection.
+You are correct that we really need someone with datasheet access to
+sanity check this sone.
 
-Tested with iucode_tool 2.3.1 and both official Intel release blobs in
-both orders and with repeated inputs. Nine regression tests also cover
-equal revisions, distinct identities, malformed listings and tool errors.
+Thanks,
 
-AI assistance: ChatGPT/Codex identified the issue and prepared the
-change, commit message and executable regression tests.
+J
 
-Fixes: 00e05495c572 ("scripts/x86/intel: Add a script to update the old microcode list")
-Signed-off-by: Hamdy Abou El Anein <hamdy.aea@protonmail.com>
----
-The real-file regression uses intel-ucode/06-8f-08 from the official
-Intel microcode-20250512 and microcode-20250812 tags. It verifies that
-combined input produces the same output as the newer release alone.
-
- scripts/update-intel-ucode-defs.py | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/scripts/update-intel-ucode-defs.py b/scripts/update-intel-ucode-defs.py
-index 9d6cc2c60..60f5ae329 100755
---- a/scripts/update-intel-ucode-defs.py
-+++ b/scripts/update-intel-ucode-defs.py
-@@ -95,7 +95,7 @@ def main():
-             print(result.stderr, file=sys.stderr, end='')
-         sys.exit(1)
- 
--    ucodes = set()
-+    ucodes = {}
- 
-     # Parse the output of iucode-tool
-     for line in result.stdout.splitlines():
-@@ -114,7 +114,10 @@ def main():
-             print("Error: Debug ucode file found, exiting", file=sys.stderr)
-             sys.exit(1)
- 
--        ucodes.add(Ucode(sig, pfm, rev))
-+        ucode = Ucode(sig, pfm, rev)
-+        existing = ucodes.get(ucode.key)
-+        if existing is None or ucode.rev > existing.rev:
-+            ucodes[ucode.key] = ucode
- 
-     if not ucodes:
-         print("Error: No valid microcode files found, exiting", file=sys.stderr)
-@@ -123,7 +126,7 @@ def main():
-     # Sort and print the microcode entries
-     print("/* SPDX-License-Identifier: GPL-2.0 */")
-     print("/* Auto-generated by scripts/update-intel-ucode-defs.py */")
--    for u in sorted(ucodes, key=lambda x: x.key):
-+    for u in sorted(ucodes.values(), key=lambda x: x.key):
-         print(u)
- 
- if __name__ == "__main__":
-
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
--- 
-2.56.0
+> 
+> Xiaohui Zhang posted the same change in June 2022 ("iio:proximity:sx9360:
+> Fix hardware gain read/write"); it had build errors and a dead-code
+> read path and was not respun. The read path here uses the corrected
+> check from the sx9324 read_gain() fix I sent on 2026-11-04.
+> 
+> Applies on top of my series "iio: proximity: sx9310/sx9360: reject
+> unsupported hardware gain values":
+> https://lore.kernel.org/all/20261107111710.442318-1-kapoorarnav43@gmail.com/
+> 
+> Compile-tested only (W=1); I don't have SX9360 hardware.
+> 
+>  drivers/iio/proximity/sx9360.c | 19 ++++++++++++++-----
+>  1 file changed, 14 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
+> index c6e5b3e557bb..01a4a94219ec 100644
+> --- a/drivers/iio/proximity/sx9360.c
+> +++ b/drivers/iio/proximity/sx9360.c
+> @@ -67,7 +67,9 @@
+>  #define SX9360_REG_PROX_CTRL0_PHR	0x40
+>  #define SX9360_REG_PROX_CTRL0_PHM	0x41
+>  #define SX9360_REG_PROX_CTRL0_GAIN_MASK	GENMASK(5, 3)
+> -#define SX9360_REG_PROX_CTRL0_GAIN_1		0x80
+> +#define SX9360_REG_PROX_CTRL0_GAIN_RSVD		0x0
+> +#define SX9360_REG_PROX_CTRL0_GAIN_1		0x1
+> +#define SX9360_REG_PROX_CTRL0_GAIN_8		0x4
+>  #define SX9360_REG_PROX_CTRL0_RAWFILT_MASK	GENMASK(2, 0)
+>  #define SX9360_REG_PROX_CTRL0_RAWFILT_1P50	0x01
+>  #define SX9360_REG_PROX_CTRL1		0x42
+> @@ -291,7 +293,12 @@ static int sx9360_read_gain(struct sx_common_data *data,
+>  	if (ret)
+>  		return ret;
+>  
+> -	*val = 1 << FIELD_GET(SX9360_REG_PROX_CTRL0_GAIN_MASK, regval);
+> +	regval = FIELD_GET(SX9360_REG_PROX_CTRL0_GAIN_MASK, regval);
+> +	if (regval == SX9360_REG_PROX_CTRL0_GAIN_RSVD ||
+> +	    regval > SX9360_REG_PROX_CTRL0_GAIN_8)
+> +		return -EINVAL;
+> +
+> +	*val = BIT(regval - 1);
+>  
+>  	return IIO_VAL_INT;
+>  }
+> @@ -628,7 +635,7 @@ static int sx9360_write_gain(struct sx_common_data *data,
+>  	if (val <= 0 || val > 8 || !is_power_of_2(val))
+>  		return -EINVAL;
+>  
+> -	gain = ilog2(val);
+> +	gain = ilog2(val) + 1;
+>  	reg = SX9360_REG_PROX_CTRL0_PHR + chan->channel;
+>  	gain = FIELD_PREP(SX9360_REG_PROX_CTRL0_GAIN_MASK, gain);
+>  
+> @@ -676,9 +683,11 @@ static const struct sx_common_reg_default sx9360_default_regs[] = {
+>  	{ SX9360_REG_AFE_PARAM1_PHM, SX9360_REG_AFE_PARAM1_AGAIN_PHM_6PF |
+>  		SX9360_REG_AFE_PARAM1_FREQ_83_33HZ, "afe_param1_phm" },
+>  
+> -	{ SX9360_REG_PROX_CTRL0_PHR, SX9360_REG_PROX_CTRL0_GAIN_1 |
+> +	{ SX9360_REG_PROX_CTRL0_PHR,
+> +		FIELD_PREP_CONST(SX9360_REG_PROX_CTRL0_GAIN_MASK, SX9360_REG_PROX_CTRL0_GAIN_1) |
+>  		SX9360_REG_PROX_CTRL0_RAWFILT_1P50, "prox_ctrl0_phr" },
+> -	{ SX9360_REG_PROX_CTRL0_PHM, SX9360_REG_PROX_CTRL0_GAIN_1 |
+> +	{ SX9360_REG_PROX_CTRL0_PHM,
+> +		FIELD_PREP_CONST(SX9360_REG_PROX_CTRL0_GAIN_MASK, SX9360_REG_PROX_CTRL0_GAIN_1) |
+>  		SX9360_REG_PROX_CTRL0_RAWFILT_1P50, "prox_ctrl0_phm" },
+>  	{ SX9360_REG_PROX_CTRL1, SX9360_REG_PROX_CTRL1_AVGNEG_THRESH_16K, "prox_ctrl1" },
+>  	{ SX9360_REG_PROX_CTRL2, SX9360_REG_PROX_CTRL2_AVGDEB_2SAMPLES |
+> 
+> base-commit: 509224d37ff169a02f388ab6e525d5517fb570dc
 
