@@ -1,78 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794054124;
-	b=xrfMthpTBwiSSZrRh+U+E0BNE9TOcxfK1iDgUTGCi0amkpVvfB8QA35FIn4CazBnDEWb
-	 wXQE+XFzaMOK8FzTkpa0lbdsqYbih892myeALNDDcqN5dT4qBryLXom3r/U3S3yWm4ml0
-	 fz2DDyp9+jF724Vbb9ibSxJb/yTy5nMKMkqpguEXvxzjZ3rT3AqEqhENOPYJ8qsTrSSgP
-	 56TabHBUFCalhTQsZJuY94n9XhTy2+WXXcvKRFAxDOHVOXh1WEXUc2Q6I9Ktncikt6OY4
-	 qh29i8WhEIMAKWq0j6r/AkPpd9Ap5cwhS0GhVlXs9qabemYXaxdBVRFiQx7nz90/TZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794054124;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iq+4RPE8xfBkVGXWnIB8K+YFPH7w7Lo6KEQ8N9HLzTs=;
-	b=sxc8g7diD765jRDjgPaZGqytFRSCbZ/CF0bhyoRGcGmVMSuSecr5g5+ssot6RYJoNp9U
-	 jr2hSx7pM59FJl16If8XbbuLl+8BipUWAnbjRC0KFsQUVLxmD2u2izekS0Zo4A1bO+NsI
-	 iZ/EfAVs3bfWb+cjLIruZ5d65OcSrOi9zOtvA5kYOyVEKrTcCDcHq8OosXLB2JRiOUyvo
-	 0iWAO0cJf5zkngfXnRexpaeeRR/FWgoNG1iPlNmBaM4d2/OSyaWge7tFDUWhd4MwM5RDQ
-	 bi1ccNA+8284KKtrP0d1LCfzWz5hFo+WJogbFGZRUEHNvfQdql3Z/auLpY2V7h74KlQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNd3B3A4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B23606A32E;
-	Sat,  7 Nov 2026 12:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNd3B3A4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794054124;
-	b=n/arFKVIHv4S3V8jLEODYsSauHO3kDnBZZAyglGBUsF7+QofC7yQCOvfyx1+1V096/Uo
-	 zDaSfYcRipDBia8pERZotxoBba7BJBqRodLf83HNO87ai6W6TVLrbR15pwP5WSV3BctVj
-	 CBHf91tB6b4OeH7cxMX1FtyKZdviERdRZW2+hPsoxRwsEzlb9GS5Tjcb/Ec4zuSGT/dJc
-	 2nSDgBzGqQdnh2Xr4NBI/XXsrb75fFyHbz40VCDP/hLXmftEa5AJXZtnNQGGpNa9p6DGV
-	 6lTWow3o0XZnT2Zj5cvw6s4+1EWseunRMQlURrLztFSMGWSSXbD5U4wMy5xTJWfmACw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794054124;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iq+4RPE8xfBkVGXWnIB8K+YFPH7w7Lo6KEQ8N9HLzTs=;
-	b=brge581lxYt/QtNSYelcba8XtOpPEEUdVdNf592PktpB6tuDTTJk/Iyfsu/sL4ujU/fh
-	 Y2drfn++7Tpk6Zh+FkJENIXxVFQjx3HLCLY5HzzmSatB+slXfnhm5AC+im6Vy8ClwLud1
-	 dkO9o0IDCJtk/X84l+JHL3ZkStjqNWsVCFqcqd0D+B9NnA1R2HRn11d7IMhJPfZZPuXdf
-	 uly/aO2mElOZiYsx9uwJeWrpBxkwP2Boy1aPGEiGBhRXkyFonB/qVfU4O+KcOt0GsBLWx
-	 56FgbGoddob0R+WA68cOskrzbVy62rLfJeAh2LntknxZYZ+jHlR/U19qrHrRnw+w0bA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794054186;
+	b=A1iegJETKiHB6tzNs/RC0OSzJY2HYNHRinI++yld5bAUjqDUt5DdwnO3YJni1SYPV3gE
+	 tMkdBJ0UcFd2uDmc5L3BhlsnyMrdAM8d1M6bUk6i/jL0r7whY1IYxzURZwNAv+3YdTQqw
+	 zVZQ0TZbViDTilqBCMwbHbS3fVc3u++lJZbmR7H3OOW7n4pSMLfLZzLFffB4NPhw1KStQ
+	 p7z7MiveqtFfT8ooFAGepL0g3c6iXsdzeFpVIhy4yqp3b+WHquXSY8v4xaImllSR/6sKF
+	 ZGenpoA6IVTwe4f77/a/oVPGiJFjA+dtURVc+ZTmBuajIOpSsxDuYss4wZvlHKIhBnA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794054186;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
+	 MIME-Version:Content-Type;
+	bh=TBEFW26Kc/QyTcxgmba5XzRa43zG6gzVhqlbzSDo17M=;
+	b=xrUGF573oFE1mn+pivFB/kGwoYy9aTzaFHhnzNPq0oZtVRqgMdZJAz2l5zLsRpg18qyA
+	 0D1HvlNCeamp9FZC9p1kUSj2TD+LQliPudj7e4Pg5+9wawAyQ9Vo8Fc8sRD4ui6lIzzCZ
+	 bwNmOnnymrrIHgRnjwYiVYRkZU/8SmUKHdII57wInZCTnNq14jWj4os0xc6DxcmvXv77p
+	 0wbo9e2FPRywzFw9x749NjLHmmetILf2GEprYbZKo6Mlz6eyEGWQ8NURh36Z+dIw5xcWP
+	 9ys+5HKwrNdOrYXNecg8qqgdfPOxsOZ1iPq4557gmg7nEPEiTDkzIjYF6wnISGC62pg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CixpGjrE;
+	arc=none smtp.remote-ip=115.124.30.119
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 69EED1F008A3;
-	Sat,  7 Nov 2026 12:22:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794054124;
-	bh=iq+4RPE8xfBkVGXWnIB8K+YFPH7w7Lo6KEQ8N9HLzTs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SNd3B3A4LqUrWO+Siuv2wt6omL2I+hovrNUDREfyLe+kbdvSymngJYlD+/9qTGGMX
-	 jGSTQJCNOJ2OKQwT7e8JJeEKipBi8A6dy2S3OOQNXFu/Tm5T/+lgYYjJ5fCoy980Jw
-	 SPf7e7LpEbZaZ5NGtWbtXKK+FZaLt0vFBQ+W/JEroAfntks3o8LCM6mVR/RD5UfXsM
-	 HIg1PY5GXt2YcssbP5MUveP78vkkw9KmZ2YghaGV6kHS6+0L3390J/AVmLoTszhHjm
-	 4dFF9gEvWEecI6TrL/I9XEnBKcVDzN/dVqDo3mWMbPny8zBIuV7apVrOO82t5fHuHW
-	 oqEQEC8yds1iQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E85D347BE4;
-	Sat,  7 Nov 2026 12:22:02 +0000 (UTC)
-From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
-Date: Sat, 07 Nov 2026 20:22:00 +0800
-Subject: [PATCH 3/4] dt-bindings: serial: mediatek,uart: Add MT6833
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF591606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:23:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF591606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CixpGjrE
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794054174; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=TBEFW26Kc/QyTcxgmba5XzRa43zG6gzVhqlbzSDo17M=;
+	b=CixpGjrEj/7iaCzDjfkoklDY+Cul9M6ytkOvWcEKf/Y3RKpd7nDkuKXwBrnc/fiWSnUWL69EXQNp1jb2WTeVSSv/JVVGapPBuNbTPWq1W/IPs5JRAceMHoZBXhEAfC/NXMLKZH2tfH0EzplL7gC6KEKfdKYek8+kZ/zNW9qivTI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XEEWiqy_1794054171;
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XEEWiqy_1794054171 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 07 Nov 2026 20:22:52 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: Zhiteng Qiu <qiuzhiteng@hygon.cn>
+Cc: Andrew Morton <akpm@linux-foundation.org>,  David Hildenbrand
+ <david@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Matthew Brost
+ <matthew.brost@intel.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>,
+  Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Alistair Popple <apopple@nvidia.com>,  Xin Hao <xhao@linux.alibaba.com>,
+  Dave Hansen <dave.hansen@linux.intel.com>,  <linux-mm@kvack.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mm/migrate: don't batch the TLB flush when there is
+ nothing to batch
+In-Reply-To: <20261107190737.1538200-1-qiuzhiteng@hygon.cn> (Zhiteng Qiu's
+	message of "Sat, 7 Nov 2026 19:07:37 +0800")
+References: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
+	<87zevmwbaj.fsf@DESKTOP-5N7EMDA>
+	<179395975709.1235605.1971486611419119070@hygon.cn>
+	<20261107015057.1328227-1-qiuzhiteng@hygon.cn>
+	<87qzgxw2qx.fsf@DESKTOP-5N7EMDA>
+	<20261107190737.1538200-1-qiuzhiteng@hygon.cn>
+Date: Sat, 07 Nov 2026 20:22:50 +0800
+Message-ID: <87ld74x23p.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,60 +73,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-mt6833-base-v1-3-bda21083e9f3@udp0.com>
-References: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com>
-In-Reply-To: <20261107-mt6833-base-v1-0-bda21083e9f3@udp0.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sean Wang <sean.wang@mediatek.com>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org, 
- Rui Cao <i@udp0.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794054121; l=922;
- i=i@udp0.com; s=20261107; h=from:subject:message-id;
- bh=MCmYdSBiOIw8bXy+sk2ZwCXWlI1Th2hdoYn0z9IY1kA=;
- b=hH0l5R2xfuIHSQAeZ2qg287lrnJtGDXFTbdBa2A0CTVpFX7/OhuoVWLRyB4Xm6uj09pCJm8Q3
- VbJeoSqz8CyAmk0MIi8pEyzn+nMn53mqGVYuiVNWNUIDDbIRw4dd0YM
-X-Developer-Key: i=i@udp0.com; a=ed25519;
- pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
-X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
-X-Original-From: Rui Cao <i@udp0.com>
-Reply-To: i@udp0.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ascii
 
-From: Rui Cao <i@udp0.com>
+Zhiteng Qiu <qiuzhiteng@hygon.cn> writes:
 
-Add MediaTek's MT6833 (Dimensity 700). Its UARTs are MT6577-compatible:
-MediaTek's MT6833 device tree gives them "mediatek,mt6577-uart" alone.
+> Hi Ying,
+>
+>> Have you adjusted the NUMA scanning parameters?
+>
+> No.  All NUMA balancing tunables are at their defaults
+> (scan_delay_ms=1000, scan_period_min_ms=1000,
+> scan_period_max_ms=60000, scan_size_mb=256).
+>
+> The scan is indeed slow: 58 passes of 256 MB in 55 s, 89 ms each,
+> about 9% of wall time.  But the hint faults are not spread evenly
+> between passes: those 9% carry 33% of all migrations.
+>
+> The faults come from the scan, just not from the pass that happens
+> to be running at that instant.  Of the migrations that happen
+> during a pass, 60% are for pages in the 256 MB chunk being scanned
+> right now; nearly all the rest are for pages scanned one or two
+> chunks earlier (lower addresses, within 512 MB).  None are from
+> addresses the scanner has not reached yet.  So the scan makes the
+> pages PROT_NONE and the workload touches them again within a second
+> or two, while this or the next pass is running.  The collision is
+> not a coincidence between two independent events.
+>
+> Here is the sequence, one pass on the unpatched kernel:
+>
+>   CPU A (task_numa_work)          CPU B..N (workload threads)
+>   ----------------------          ---------------------------
+>   tlb_gather_mmu()
+>     tlb_flush_pending++
+>   change_pte_range(table 1)
+>     PTEs -> PROT_NONE
+>                                   access page in table 1
+>                                   do_numa_page()
+>                                    migrate_misplaced_folio()
+>                                     try_to_migrate_one()
+>                                      PROT_NONE, but pending set:
+>                                      pte_accessible() == true
+>                                      tlb_flush_batched++
+>                                     try_to_unmap_flush()
+>                                      full flush, IPI to ~380 CPUs
+>   change_pte_range(table 2)
+>     flush_tlb_batched_pending()
+>       pending != flushed:
+>       flush_tlb_mm(), IPI to ~380 CPUs
+>     PTEs -> PROT_NONE
+>                                   (same for pages in table 2)
+>   ... 128 PTE tables, ~0.7 ms each ...
+>   tlb_finish_mmu()                    pass took ~89 ms, not ~7 ms
+>     tlb_flush_pending--
 
-Signed-off-by: Rui Cao <i@udp0.com>
+This looks much more clear!  Thanks!
+
+> Each table flush makes the pass longer, and a longer pass lets more
+> faults happen while tlb_flush_pending is set.  With the patch the
+> migration takes the direct path: it may still flush while the pass
+> is running, but it does not bump tlb_flush_batched, so the scan does
+> not pay per table and the pass stays at ~7 ms.
+>
+>> That appear too complex.
+>
+> Agreed.  I'll keep the change in migrate_folio_unmap() and put the
+> sequence above into the v2 changelog.
+
+Sounds good to me.
+
 ---
- Documentation/devicetree/bindings/serial/mediatek,uart.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-index 5bd8a8853ae..8fb793c3408 100644
---- a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-@@ -34,6 +34,7 @@ properties:
-               - mediatek,mt6779-uart
-               - mediatek,mt6795-uart
-               - mediatek,mt6797-uart
-+              - mediatek,mt6833-uart
-               - mediatek,mt6893-uart
-               - mediatek,mt7622-uart
-               - mediatek,mt7623-uart
-
--- 
-Git-157)
-
-
+Best Regards,
+Huang, Ying
