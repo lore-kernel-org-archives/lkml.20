@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794039180;
-	b=yxcCXtoOvpI9CAnfHmWH8qvEPts7W3PcHmRzCi7wRPu0M8vHAQ+6RxzUp7UTg1/+XGED
-	 4iE18XPt8fbnZ8iSSan4aWxfjycHw5OntNQTg7t3KBYtKHMdbDMjL1NYQus50cckp7MJD
-	 BW5+C+QRXDj6+iIBirqCUZMKc93+53OK4BzJG7WuFZ+yhXN0LSZdYefHjryYJT2JAUdCC
-	 1uoaAKeNJ1ewhCtt/ARnthUsDwrpE1gGZ0b/4IefirsqE/C+3lyNBpLj+sAPE/rz9LJFn
-	 +EZRzGTO6d95nFXa6zwpUvMYrEJwTSFoXip883nSMJo3lrthejrM8r+oSt9L4reHe4g==
+	t=1794039184;
+	b=Ba4OuelmSR0CdvpPEqcHaad3YNFUvxz3Yd5FEgEvGRDG/09KHAcEbNuzH/KLu3ClSE/A
+	 e5AMWGTXCEAwwE9gfqEHBf1esAkOGwWUt13q3T3TtifxU3ZOlBJAAJ+OUn6G0F55EKFib
+	 m9ELt3oRVH4FilyjGjMLxVUxkZUAgY3yUtjTcEmBbcPra6murwHj0ZLW3btQ6wGGl7X50
+	 j6cc6uUizN0Sw+5nUZKqKIu5zUWVQmEJlrGKxmyLlbKEgUSkiAbCu4aiP/wqkoHZjyAl5
+	 ERpV/gf3qG2qfnsVGQ63I1snLMk3ZVC+PuPAQ+5bFuz3AjON/O5hK2ch4lbYhPT9m0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794039180;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794039184;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
 	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
 	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
 	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=0dMcGIrClBRXSilC9u6sG/X2FPAj9hcjI/15dI3yqZ4=;
-	b=w39N7i4lxveXbREy8bgXCXMcLpruERRf5GRg3ajrR0oPWywEFYDnBiZsgrf7PX4OMmoX
-	 4y/CAbkvLDC28qK4GLD8ei+lUzmw/5LgVRQJLQvkAY7TVGoclTus3DyeU304ja41elJIi
-	 lse3KXm2T1u0D9GAtL5WxlJ86aieK1DPzaAXeiZEKd71PtdZ4/zTFroZ29WjCM5x99lzR
-	 dpfrNU5r2KwziOHReG6NILXrJ/2aGNKBMLnJLPxpca1R9HVBIKtCHhll4Y1r6v8QivcqL
-	 kzFZ5r1kBebtOU3y3v4DPuuLW5355FTokcVA1WtPineCXB4YPdMyAczXs5Qx64ki1Ag==
+	bh=LWMnkT0TZcrNPi5fFhzkJ/BjbqPv2tTb4jg9xdpl5aw=;
+	b=hvAeMtIU+3DC/2xq9chtis7U6E/B+n1ux0igV6eQ0TiVrXs1iudLUFsZaDRGba5Nsupb
+	 IcI4W6cbvTB5/j5wRi4fGAsW9YBWCrnwfQrOj4FHcMOiOwJQOmpkcoyETJ9LxFFFjD+p0
+	 emN1Kx2UetdlxjfMDF13Cj8KYuNbMFxP6iWM1EOxYAPi/Jn5Qrx+Sq8mh3BokC+wW6C12
+	 s42NHT0pa42CiuVYdrHx62EoARPhEgFCny1s/O/KRSTDZR8gNATHQz0diSPyali4jEa3/
+	 MjVoyyggHhAyzrtk9v8+US/2Hs7colRq02gosAS01uNLjfma1g2NMjTXWFavE29kIoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A75F606A334;
-	Sat,  7 Nov 2026 08:13:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A75F606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D5B606A32D;
+	Sat,  7 Nov 2026 08:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05D5B606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jM81L59HLz57HS0;
-	Sat, 07 Nov 2026 16:12:54 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6A78CoH8098737;
-	Sat, 7 Nov 2026 16:12:50 +0800 (+08)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jM81V5RHgz8XrrX;
+	Sat, 07 Nov 2026 16:13:02 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6A78CtJB025397;
+	Sat, 7 Nov 2026 16:12:56 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sat, 7 Nov 2026 16:12:52 +0800 (CST)
-X-Zmail-TransId: 2af96aeedd84159-86d03
+	Sat, 7 Nov 2026 16:12:58 +0800 (CST)
+X-Zmail-TransId: 2afb6aeedd8a0a3-8ac49
 X-Mailer: Zmail v1.0
-Message-ID: <20261107161252647FthWsffiqzpLz7zrKd2ux@zte.com.cn>
+Message-ID: <20261107161258203oCy-Pa4_0rNe65TqrzFWD@zte.com.cn>
 In-Reply-To: <202611071612471583hApcIRmqJX9mMWQtxmcN@zte.com.cn>
 References: 202611071612471583hApcIRmqJX9mMWQtxmcN@zte.com.cn
-Date: Sat, 7 Nov 2026 16:12:52 +0800 (CST)
+Date: Sat, 7 Nov 2026 16:12:58 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,45 +65,51 @@ Cc: <linux-kernel@vger.kernel.org>, <geert+renesas@glider.be>,
         <andrew@codeconstruct.com.au>, <wbg@kernel.org>, <opendmb@gmail.com>,
         <florian.fainelli@broadcom.com>,
         <bcm-kernel-feedback-list@broadcom.com>, <jelonek.jonas@gmail.com>
-Subject: =?UTF-8?B?W1BBVENIIDEvNV0gZ3BpbzogcmNhcjogZG9uJ3QgY2xvYmJlciBJTlRNU0sgd2hlbiBkaXNhYmxpbmcgYSBzaW5nbGUgbGluZQ==?=
+Subject: =?UTF-8?B?W1BBVENIIDUvNV0gZ3BpbzogbGluZS1tdXg6IGZpeCB1bnNpZ25lZCB0cnVuY2F0aW9uIG9mIHByb3BlcnR5IGNvdW50IGVycm9y?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A78CoH8098737
+X-MAIL:mse-fl1.zte.com.cn 6A78CtJB025397
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 07 Nov 2026 16:12:54 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 16:13:02 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEEDD86.000/4jM81L59HLz57HS0
+X-Fangmail-MID-QID: 6AEEDD8E.002/4jM81V5RHgz8XrrX
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-gpio_rcar_irq_disable() writes ~BIT(hwirq) to the whole INTMSK register,
-which clears the bit of the line being disabled but sets every other bit
-in the bank to 1.  Since a set bit in INTMSK means "interrupt enabled"
-(gpio_rcar_irq_handler() only handles lines whose INTMSK bit is set),
-this disables one GPIO interrupt while collateral-enabling all the
-other GPIO interrupts of the bank, which can cause a storm of spurious
-cascaded interrupts on level-triggered lines.
+device_property_count_u32() returns an int and reports errors with a
+negative errno (e.g. -EINVAL when the "gpio-line-mux-states" property is
+missing).  Storing that into an unsigned int turns -EINVAL into a huge
+value, so the "if (!ngpio)" guard never triggers and struct_size() then
+computes a huge size.  The allocation fails with -ENOMEM, hiding the
+real error; struct_size() saturates on overflow, so this is not an
+undersized allocation on 32-bit builds either.
 
-Do a read-modify-write to clear only the line being disabled.
+Use a signed int for the count and reject non-positive values.
 
-Fixes: 119f5e448d32 ("gpio: Renesas R-Car GPIO driver V3")
-Cc: stable@vger.kernel.org
+Fixes: 2b03d9a40cd1 ("gpio: add gpio-line-mux driver")
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
- drivers/gpio/gpio-rcar.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpio/gpio-line-mux.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpio/gpio-rcar.c b/drivers/gpio/gpio-rcar.c
-index 1192e1f1c6..239d78a2ae 100644
---- a/drivers/gpio/gpio-rcar.c
-+++ b/drivers/gpio/gpio-rcar.c
-@@ -129,7 +129,7 @@
- 	struct gpio_rcar_priv *p = gpiochip_get_data(gc);
- 	irq_hw_number_t hwirq = irqd_to_hwirq(d);
+diff --git a/drivers/gpio/gpio-line-mux.c b/drivers/gpio/gpio-line-mux.c
+index b4452d956b..19e4212de2 100644
+--- a/drivers/gpio/gpio-line-mux.c
++++ b/drivers/gpio/gpio-line-mux.c
+@@ -48,12 +48,12 @@
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct gpio_lmux *glm;
+-	unsigned int ngpio;
++	int ngpio;
+ 	size_t size;
+ 	int ret;
  
--	gpio_rcar_write(p, INTMSK, ~BIT(hwirq));
-+	gpio_rcar_write(p, INTMSK, gpio_rcar_read(p, INTMSK) & ~BIT(hwirq));
- 	gpiochip_disable_irq(gc, hwirq);
- }
+ 	ngpio = device_property_count_u32(dev, "gpio-line-mux-states");
+-	if (!ngpio)
++	if (ngpio <= 0)
+ 		return -EINVAL;
+ 
+ 	size = struct_size(glm, gpio_mux_states, ngpio);
