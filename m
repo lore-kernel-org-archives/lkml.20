@@ -1,80 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.227.220.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080048;
-	b=uycvIYlSWh8jqdVsiptoKWI32eeyfUN+gwxmtOBoH8t+k52JNA2r637Vp0ZxibHrnDKV
-	 57GKWJd5lVoxeA4C0KOJK4ydNwtWVJHvel65HDWE6vuRUP89qYBNiqK4mSqcHM7+HAq4T
-	 815UYIkqv7kA53bXIiVtpA4REqr/rhLYBQiZdiO6YY1WZy5+n91s48AavjnHcq8YPh6wM
-	 62+SO2LdqYf9x+adFXE4Gx/W1rgmaCbkykArAMGCcZaT1Hbs8V6AMwmAy5FGG5+rRLYIZ
-	 n4CubkEsh8GEZ32PUl1wjbRPU2n4P8sg1d8f0ZTw004W45+hHJVSnf8pist4B8YzoQA==
+	t=1794080059;
+	b=yN0/IOQKIGxMG125REKmu+lCJElRX9kk8/VEwytr53W7pOA9u5gCCN54u6Jb7Vl6lqP5
+	 IcYNKu2IxvBxunp+Rx8CfS7q74ek1pcNOpEOznZvO6oqSxlyvdsBpTsS9k3lvOYW1HG6i
+	 hCDCYKHUUvh8Udm05XRRflgsZgvvqYzMfoW7Ai2Q3zM0SwYndOkjHw1O20scKFzFSl1Hs
+	 ElrBMRznoe4OlRcXxybXtElyshlR1ty5+kU/04Ky9NqEM9iSbQEqBf8gUxNfvk/rD5tyL
+	 QvzAHXgyO2+FHB/VmFZfS5TNa3dr3SpOSad5QMBTXqEGgjC7EvD4XXQrXRXFId1AyDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080048;
-	h=DMARC-Filter:Date:DKIM-Signature:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=iSm02S9UFPqyxcXJfE/yMCdmauGWZNHUIjvGtZ/NnKU=;
-	b=ZHVkqoUjfAls0jVm0OIph5zBzDxQs3WnASvo/+Hh1ZLWzkKSZFCcw48lXOh4bwDk6YAN
-	 WEHtd+YIKya8CTHJToHHaoWpvJdCYqEMKsHUKwAtEKbXfyMhCeDl/8daD+70VLxAEB/K4
-	 U4TTNr3d5efVcHBXraY1cSHYYx1As5hhdSL/PGdO1EQNlbGln1ESmpsaVDukskSqdyI+l
-	 0nu2qLBGaKUB0DGV5FFunxfH4BoWkH8zxreFWGukQ6C1qwzt/VO9iDiSpvN3E/9Bd/sdO
-	 0JUof9KFvH4BTLdsQdH0v4ab7mycUcaBBzSVI/pMLqL6g1+ZbNGlkkYitge1ioKYNaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080059;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=aaRufT/glcbzYQ5iaYMOzr8eW1mrAYYmjrdy6CYbTHA=;
+	b=aoehTJRRggFVBrGNtMNwkvH0lo2v51V5L6PTfSd5XU0+kZHDjtZC0sgyN8wmS4r/LfFd
+	 2DuXUkMt8hw4Y3tw5E1H3A57L/s8WwYcbLe3P2BxybGzaFh6+BywqECAwiEFJW0nUq3cz
+	 UrIWvRLEyZOvE367waYErr2rEf+FgJ8ciEK3uKJUne6hW/kCfVtCozC6vxme0LB9SIev8
+	 3pdcVKxz6kEMGlCaObKVyAI15mm1Ayg/SqjxhTqNIbfyablD1lGy/t9Yo8y7nHnI8Mjx9
+	 7v1fj/UGe3AWNOEgPgqv1KOXi6MPlYWK8dSxVH/bZhjAZb3zEWCwqeO4xKCLb0l7O1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mareichelt.com;
-	spf=pass smtp.mailfrom=mareichelt.com;
-	dkim=pass header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=33XC+mGy;
-	arc=none smtp.remote-ip=91.227.220.155
-Received: from mail.antaris-organics.com (mail.antaris-organics.com [91.227.220.155])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l61BeN6V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB3B606A32C;
-	Sat,  7 Nov 2026 19:34:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB3B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mareichelt.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA875606A330;
+	Sat,  7 Nov 2026 19:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=33XC+mGy
-Date: Sat, 7 Nov 2026 20:33:58 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mareichelt.com;
-	s=202107; t=1794080039;
-	bh=iSm02S9UFPqyxcXJfE/yMCdmauGWZNHUIjvGtZ/NnKU=;
-	h=Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:date:
-	 author:from:to:subject:message-id:in-reply-to:references:
-	 mail-followup-to:openpgp:mime-version:content-type:
-	 content-transfer-encoding:author:from:subject:date:to:cc:
-	 resent-author:resent-date:resent-from:resent-sender:resent-to:
-	 resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
-	 mime-version:content-type:content-transfer-encoding:
-	 content-disposition:content-id:content-description:message-id:
-	 mail-followup-to:openpgp;
-	b=33XC+mGykPVMszVlywKf/jjOHp5XTiedLZF4e1fTb8HbS5AtU2UN3RO0ez+c1EjRK
-	 DC9OnYYVTawu0zRm0NYsNQB/k4G3+A15KpSLBWaAYQw7moDVG8XAKm1zAirljB1MQi
-	 eUrXHuKxKlGlyBgquCKMXEVpfPszguhHQMKCwc/rkbYMnHmchPJ7v1l01FNy35Z39A
-	 9sQZ+jM4C/Afxv9pzo+puukdbjo9Px6gr3h9RjjIm72hU3Tx86GhCbs2anlG0UZG8N
-	 d4kklCVB+uLztThKADVQUZVbrSSEWurJ2p3zaQVj5jXndMFuZejKhhS9M6IBbyYpSv
-	 kUc6Rz5hSR21A==
-From: Markus Reichelt <lkt+2023@mareichelt.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-Message-ID: <20261107193358.GA6808@pc21.mareichelt.com>
-Mail-Followup-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-References: <20261107134939.434104957@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l61BeN6V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A5E1F0089F;
+	Sat,  7 Nov 2026 19:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794080058;
+	bh=aaRufT/glcbzYQ5iaYMOzr8eW1mrAYYmjrdy6CYbTHA=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=l61BeN6VNO6PxnpQ8ZAhTZNXnMtNO9+NJ7YaoTCqV76LmaUNIw4L0b+/d0PNSbBMy
+	 lJdnOFUWDIoPFMgPkIL5Rx/tsa+w+VqZEqcgz5rwLy+h0/cu8DUen5KPKtTwVw7g3v
+	 Fgx+jf12Y0wXpmRSQbDsvNHVR62AQun74rfLTqWVDHcR/cX+R8KaN5BhonzcRQGVnM
+	 uTDcQ/1YSt/M081EICQamPrQXKQC8ma9v0O5b6ta63sAXLjlyQyIsMIVvzXA32K7AV
+	 a5f7xQmprI+1S5Sja/wRT/AzlTa23yZqm22yn3s6HKfG6gJ5vY4ND3ee438e4g9gUh
+	 nMjC6MgxcZWjg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B3B8380821F;
+	Sat,  7 Nov 2026 19:34:18 +0000 (UTC)
+Subject: Re: [GIT PULL] sound fixes for 7.4-rc2
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <87y0b6pc4e.wl-tiwai@suse.de>
+References: <87y0b6pc4e.wl-tiwai@suse.de>
+X-PR-Tracked-List-Id: <linux-sound.vger.kernel.org>
+X-PR-Tracked-Message-Id: <87y0b6pc4e.wl-tiwai@suse.de>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.4-rc2
+X-PR-Tracked-Commit-Id: 22733b6e2e1ebf75228a1e15b9fb9760a86137cc
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: fd7e9dc9997a3e792e93f8b6795cba1de0f52726
+Message-Id: <179408005720.1301131.83873369247686413.pr-tracker-bot@kernel.org>
+Date: Sat, 07 Nov 2026 19:34:17 +0000
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,25 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 
-* Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+The pull request you sent on Fri, 06 Nov 2026 10:01:21 +0100:
 
-> This is the start of the stable review cycle for the 7.3.4 release.
-> There are 1257 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
-> Anything received after that time might be too late.
+> git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.4-rc2
 
-7.3.4-rc1 compiles on x86_64 (Xeon E5-1620 v2, Slackware64-15.0),
-and boots & runs on x86_64 (AMD Ryzen 5 7520U, Slackware64-current).
-No regressions observed during boot & my custom tests.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/fd7e9dc9997a3e792e93f8b6795cba1de0f52726
 
-I did not observe the build error already reported in this thread.
+Thank you!
 
-Tested-by: Markus Reichelt <lkt+2023@mareichelt.com>
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
