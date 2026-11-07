@@ -1,107 +1,109 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794011140;
-	b=MH5KgWz7MYxA4VfiOrh7kLbCt7PnxkeqFcP2HFzgND3JAlzXyBokUl/GNChmV3gH86E6
-	 ExJe8oDaHxdk+Uz82OrZVBb9YWAwEKJPkqz7gK5sGHzXXDnL1wazRjOkcvJk8NCHoFkPe
-	 kFAzXjQzT9W/mBGBY6ibwAflOT4tLBIzsBvtIBZa2L2jxuA4yOBVY/on6aI3KkEKXzwNH
-	 KI76IeT3vRyHijAwsDVh09zCxgUqXn9aUHVqOwHd1VBvwyVedQTf5byaD9HkK23hltxJ0
-	 SAII4LadG7AG9JKzfyFU1v5eD3eRaxq49e7gRNEdXbq96O17UAzPgOCXX7c1GrrY6Yw==
+	t=1794011141;
+	b=rwvAy3Wi3ugHI9b/XCRFEN2MtU5h7xh97kza5Z2K0KwBlt/80zV7kBRW3H9luqZXTWRU
+	 u1+USUzDIhhEweAAM2k0bGtECWYmSL1G8G91LmXXP73aiXoroEJVqWlPXIrLrIwS7/K/R
+	 qcgEKavKvjY/dro1fh/nlCEsgn41dT44ygSY7B1I8jErLVFlydhrXTQMm/wUveqVR0E9k
+	 uqZeqbyQtcWmANRtglWNKgN29zDPje/KdzvGgYo2RMgyO+82JlN7mKHV78cflYoOss/MQ
+	 UR9oyntRtAra1zVXcfo2EhqD4zPE620p3C0Zj2ACLnlIBD3h76E461nezGdxSGsklUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011140;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011141;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=v5HBDmcj0GX2lBmhlBM7xuasV234qwUB54gNIX51b6k=;
-	b=N4frhB9W3UmEcvZowEdWHFUzggaTTIz2bcC7MqKEfV4binUz/bfpbH92dgqydDkN9ftm
-	 Aa67G+qr4evHkCMuN02v2XcVotJ7uf+rMXg7aTn7RqyS8TSbwAhEZBz168H6m8gj/C/Vu
-	 Yi/6Hm+LfyPEYF+dguzOTwmijy33ETyFWwClFHWs8knz3YyMJ09eSOLn+7SXvrCD5Twhk
-	 0U8epJhdC1acnNjPzI3bXksNGwyld6N7sz+SnIe810M5P/vdd4crDevGyMrSSIApZDWcn
-	 8wYsYv/eTprwDjB3xamOhk50xsDQjcE+4BkxbkehYc/ZA46N6H8kZhNVFn86FGmyE1Q==
+	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=cg9pFndiAQ2c3E3VGmGq+B5hFIactzj03FyWxZNckcc=;
+	b=i1gMZwa021KUJCCiPH2jxnVKbN2AY6Ubp6kxZo3mk5PCQs1kmeW1Lun3a+M51V0UAH3c
+	 hwnveNXeb/xLwgqX2ehas0YAkr0hsjYLADSEbOiYWmlZH27Jq6i7UXIMpaFOSYLGRP3wP
+	 cOCbWbTJtzeoCHz/g5TlqSoXrztiV7titfc6W/nRGqdaGZCyu0EiNtclEdYM2vvBfZg6N
+	 kW2BEdzxZIcAmYv7xok64MrJtcuMK7my/EomikERpocCdQg4xo3K34k5QmzIHjVniz3OM
+	 0HfOzaAUA7oOH7ZWKTzdPWRefiazSUz47VavYtL9+waE0HoMt+4Zs4reWQGL1ZJkAYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NZVkr8T1;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FOUAmPSv;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="E1ulno/0";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IC4FofNJ;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E757606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:25:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E757606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C41606A32F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:25:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C41606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NZVkr8T1;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FOUAmPSv
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=E1ulno/0;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IC4FofNJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794011138;
+	s=mimecast20190719; t=1794011139;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=v5HBDmcj0GX2lBmhlBM7xuasV234qwUB54gNIX51b6k=;
-	b=NZVkr8T1owta1UfhQc83OEr1bdVTuiSWuyoI0N9l8BzdoJkcNWiKBCrEQ+zpBB/EwQyWHc
-	PLidHehd025dKy8Nf/Z5iLG40LJ91P3KsOshwyYgqVS+oRfvxhEclT6Z9az+6MzK36XMgc
-	m5UG33F9+Q27wb8552P9FIoNfS0BEP8=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cg9pFndiAQ2c3E3VGmGq+B5hFIactzj03FyWxZNckcc=;
+	b=E1ulno/0MAXz0zUCh8mjcWzFOTjLfBQukvH38aUnCsPWHzb5/SnlTxDPXnxbkLOvVM37pW
+	mnCWoLxrNTbYnogMhHvl7dpkOqgYAb7IlEFEiafFwbbe25Xux8kHxKlSkeKdhmsK2KvFFV
+	+U5AUP859KkcEqPkZNTkfAliTRtbTnw=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-676-E1rXkFcqMvOmnK6z46vDBw-1; Fri, 06 Nov 2026 19:25:37 -0500
-X-MC-Unique: E1rXkFcqMvOmnK6z46vDBw-1
-X-Mimecast-MFC-AGG-ID: E1rXkFcqMvOmnK6z46vDBw_1794011136
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91c8a517107so33406076d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:25:37 -0800 (PST)
+ us-mta-54-y_wlGGuiPwaYcBn0ENwHsA-1; Fri, 06 Nov 2026 19:25:38 -0500
+X-MC-Unique: y_wlGGuiPwaYcBn0ENwHsA-1
+X-Mimecast-MFC-AGG-ID: y_wlGGuiPwaYcBn0ENwHsA_1794011138
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f33438950so279815485a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:25:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794011136; x=1794615936; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=v5HBDmcj0GX2lBmhlBM7xuasV234qwUB54gNIX51b6k=;
-        b=FOUAmPSv6OXpe0wMiRsW4IBJY8DYL4YVc7XoBgSTZ5IUhuD3qsezMCn8BvsXTKSiIY
-         3q7qOVxVw3ISmniDPYCtbOaz9LWeiozIKvSxnIl+Ew4vIybOEsGbvXPBos4cI0zX1c6b
-         aOI/yhtbX7WAkEPFYPdMao5KF0QEP0lIewNvY7EjZsT3WBhLYUAml6EKEecSL3XE6bh7
-         FOHohTI5mkX3fOseZtvk1lhMJ2TYM+zgE4K0HQSBZoCGbPs/3+hR34mpsKnsaLiWzO4R
-         DB9NY7f9beB/+EEE/30h+p0eLQRLO54N19ZBHMhDnYqYWVudnwUatO3W6QrJS0a/Nlmq
-         pi4Q==
+        d=redhat.com; s=google; t=1794011138; x=1794615938; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cg9pFndiAQ2c3E3VGmGq+B5hFIactzj03FyWxZNckcc=;
+        b=IC4FofNJxzmljsIAPVXNin7VXR8pEWLB5cdC9bm0XPYLr4XlFN9LYtiD6Iv7J9ni2k
+         X0dJI8BZ2KLyPlH5hAe7vH9NEvRJjBIq6aAConoVChZLfeZioTkOHndDksUHZEhWLLhq
+         7GivJvh2XHIW4U71hmWwGEeEbVJELhsx208AjhyO7dXlCLsfkN+BlGXF0YU1XhW6pN5A
+         cUes3YohKeMqA1HgPZvqX0pPEpztCQgSeFXJPw4TNJo/CNOsfovaR5OfYhnkCr+WO+Bx
+         Ev9jJzS5bKuVd0gsTZQtwIY3cmi4oD+gRi9jDSylhhwS4zReXpe4d9CJio3vJa0tnb38
+         tCSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794011136; x=1794615936;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=v5HBDmcj0GX2lBmhlBM7xuasV234qwUB54gNIX51b6k=;
-        b=jeF/QSrHZqqZkskm3712uSw7KO3eIDj1ejcbZU3yjiNfyzPkV77wVqY3HGXhQnycf5
-         UTp7yUfjmXsw0llHtCjqHHNGCNBYuD/kOYziCey2iJATaseysWcYsBY7eD7wwhAqaMD7
-         091au1thRV2qWnIKrBMOXt7phIqJ58rtCPYq160jgiTPcnOxRswzPTjL1baWLJIP+JWC
-         pzN4ehOdIRX//hy5RnQQW1s/zYdtH1BlrDnUwHdAEqOI0To0IMRmiR+94u2vHPSRqRhv
-         Iqrkf0tD/9/VWriRXSTHM+SHjd9BImNxNwwP5avisUxJkL9qYcHQMHNAqjNPlzPNaora
-         QZ1A==
-X-Forwarded-Encrypted: i=1; AL+hErE62HSXLyIxvzz8awC9iMvr1obJShaM/aR2Ewm2Rbk9seSXcuBatvIGZGSEhtK8u1UDaTduQJCa6J4sUJI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UophYbgG6jWUUv7UCTOBaN3Xixa956Kh9/cjgmo+Wv1nd9NHY
-	R1ClX7cEybMWYOISVZbFw6ck15DhUPASDYbYkfWC5osAAlhgdZgJbXqqoGBW71Q8V2BGe8xGw4g
-	ncGCfhUw27G6eriub+bI+y+8aNdnZ3yFPTz1or2Yxb53mgfbh8KsgCkNPkd3tiaANyg==
-X-Gm-Gg: AYBFou3DjfJDzTWUaIux7P8GKIXoWwqApbT8lOnVav3sQ+iwObrJD4EYTQom958HU91
-	fsNmbQuWh8Wl3UmrUqr7c78o/AY/TpIFES3S0oxeWdoeXP0LMVM+hPQyXZqkqsFucFlM+yLrpun
-	LSRSQP2XBU3AkPvZVlQ+jdp905VKv9Vj+AT42hGhXhP6/nVTNRN4cW4Xn9KUOWIODiuGbkRSzqM
-	YdIzX5+lZfI/KINMBdq4mIk0k2ddByOP7dBc4CkawATftO2QZmlwOHdVw6KeF1nh8C4U6lenZBW
-	UPDqE9Eb/yiZMv3O3YK6aAmQTAmMuuNnUKj0JALHMS1DDohgcA8p3ygsGksCC3T1nBvslz7GRO/
-	F8BFlIxEksBRfYpVZGHlDu8p+rkF94JJ9uhzOHgF83MUJar0JSgwpcwFnQImOW6bo7yVaihDQNv
-	Fq6FLBc2OwckxvDXR4
-X-Received: by 2002:a05:6214:5d0b:b0:91e:850b:770b with SMTP id 6a1803df08f44-91ea96a62damr61889686d6.17.1794011136276;
-        Fri, 06 Nov 2026 16:25:36 -0800 (PST)
-X-Received: by 2002:a05:6214:5d0b:b0:91e:850b:770b with SMTP id 6a1803df08f44-91ea96a62damr61889396d6.17.1794011135846;
-        Fri, 06 Nov 2026 16:25:35 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794011138; x=1794615938;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cg9pFndiAQ2c3E3VGmGq+B5hFIactzj03FyWxZNckcc=;
+        b=JyDOBGLcSXxN4K8u9yqYdLdKsU+m3tYVWBN2sOsxYTqot2qxhBT0ty9nO7XkvImGAC
+         HiaSqmdR6ZyHCJpPwsKpiF532jrv/cO8U80S7cweWVK81kYbHCAyIuuf7T/GrKuh/Clh
+         t3qg/gElSn88RQ5JhkLdqlwKSC08luWo+tqtiEzAp0q/XOFL/DAz4+ssXetI/jVZfrbR
+         IFXeUXzjlUeULX85RwElVSWpfFuV8xu9jq3Q71q5rG9LKXIt0p4PN7OncMruUjHTxA1+
+         9Su+a/otI8tExumoJnUljs/EO3qMEyyGyd23MlKJx4zeCW2c0MpqezR/J4IUf6wSqmN8
+         dRVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBysAoy6Fm3Btj38Ah8NgRGu4UP+3X7UtACLakoPUQpVMBMt5XZQriQXVH1N7cQvWNfjO8NfAHzVn5O2PF4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9v8rgDEzW51Cwg/FZglIwcuKQlkyf/5VXIcnZIJmjk8aIgaX2/
+	f2MHWGMP0N04W14NB/Fp7KZ8+fFf/THWgwJymJy42fWQ4q21ORxewS/XgQO5V3dqPI/0fciil22
+	vhogEnJwLBDJFeKobe0Q/inTBDJQXZqwRHxHOSlO3pHnBBiLKSHDM/ScZeBxfRBAZ3w==
+X-Gm-Gg: AYBFou21Igk6HOakT91x5gEcSu1FySW25sSZWLGmew5aoQNbLzJZ1O0Ph0uhM26eMyx
+	WuSAYZEHvPYcy80rlY1NAojepteSRbEHKTFDsjRvaoYamkFidOCMeL0XOAGCi2ImamftSSZ/QZI
+	lLyyuIscPiGnp+8YYo6Ys/XcY34aFWqICl1uCfs+dozosPO5t7O6uEI93krKuRmnjJNKFH+4He8
+	6x7Ym5fF5N/onTERB0ppSNtA4ouG8Hxc+T9TxsROhB/xTrAgODlCjrurYNxJcvMQfYMqSVNVPBS
+	1zJ0dgqJkeKNkVqy9ML4UbBW3xoImltHtJWmzWNzpTBW4MqEcMunCGG3M2rXp0H2JZOpasXzVbO
+	cK/B7Os02Wjbb/nOBPfnvALS/dwZiCawxwZaSIkOr/tjT3cgS05P+WdlwnnXlwEnwCcAsfwAAP5
+	XNS/boY0Cx9ORIqF89
+X-Received: by 2002:a05:620a:414b:b0:940:f224:5a70 with SMTP id af79cd13be357-945f362ec8dmr668083185a.72.1794011137497;
+        Fri, 06 Nov 2026 16:25:37 -0800 (PST)
+X-Received: by 2002:a05:620a:414b:b0:940:f224:5a70 with SMTP id af79cd13be357-945f362ec8dmr668080185a.72.1794011137017;
+        Fri, 06 Nov 2026 16:25:37 -0800 (PST)
 Received: from bmasney-x1.rmtuswv.csb ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6ab543csm32089856d6.39.2026.11.06.16.25.34
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6ab543csm32089856d6.39.2026.11.06.16.25.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 16:25:35 -0800 (PST)
+        Fri, 06 Nov 2026 16:25:36 -0800 (PST)
 From: Brian Masney <bmasney@redhat.com>
-Subject: [PATCH 0/2] phy: convert to subsys_platform_driver()
-Date: Fri, 06 Nov 2026 19:25:19 -0500
-Message-Id: <20261106-phy-subsys-v1-0-9a443422e563@redhat.com>
+Date: Fri, 06 Nov 2026 19:25:20 -0500
+Subject: [PATCH 1/2] phy: ti: omap-control: convert to
+ subsys_platform_driver()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,44 +115,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVpG5mEq4gFNdWxQDoIEXdXL
- L/kvf8CocgkUGUXRNpZeJ4STJ6BC+00kOI+Gay2aIxGtYRTydbJKcoQYektYlF6SIclkufji9X
- N77Qcya1vAe77AXPe4MJuAAAA
-X-Change-ID: 20261106-phy-subsys-1ee69f26649f
+Message-Id: <20261106-phy-subsys-v1-1-9a443422e563@redhat.com>
+References: <20261106-phy-subsys-v1-0-9a443422e563@redhat.com>
+In-Reply-To: <20261106-phy-subsys-v1-0-9a443422e563@redhat.com>
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>
 Cc: linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Brian Masney <bmasney@redhat.com>
 X-Mailer: b4 0.17-dev-d96cb
-X-Developer-Signature: v=1; a=openpgp-sha256; l=729; i=bmasney@redhat.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1051; i=bmasney@redhat.com;
  s=20250903; h=from:subject:message-id;
- bh=6hJaXWA30Jxx6HByRtYUmyJvFx2Jm5Df1B9uMcHm6ow=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLe5f+037brxKLVVa99LVzl1/7lSW0xDvyd6/m+yGJtv
- IfwNjOWjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACbiE87IcCPz/RHZ8kMCG/h0
- 1ngtj/DYdp09327poxTzLecsxR9nSDD8d3v+Nrc1umHXjH2bF5zWNSyuXS2T6Sx9NaqKJzXzcdw
- NHgA=
+ bh=lQFgVtCGl8A4/MEJxmwBSoolju9xUsS+nYB3gk5iu1Y=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLe5f92P9xRvnqXvmvGY4lpy9fEnG9ha2A5YVP/xY5jB
+ 8ODdp/VHaUsDGJcDLJiiixLco0KIlJX2d67o8kCM4eVCWQIAxenAEzkjTXDf487H5qm/Q4O5Awy
+ 6nr7LdT8x6FcjmOHDxx+8Zz53fU5jIsYGZofn9rO4cI4ec7Msi8SMhs+ThbvNtX4zmhx19cw8Ex
+ iKxMA
 X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
  fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Reduce boilerplate code in these drivers and convert them over to use
+Reduce boilerplate code in this driver and convert it over to use
 the macro subsys_platform_driver().
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
-Brian Masney (2):
-      phy: ti: omap-control: convert to subsys_platform_driver()
-      phy: ti: phy-twl4030-usb: convert to subsys_platform_driver()
-
  drivers/phy/ti/phy-omap-control.c | 12 +-----------
- drivers/phy/ti/phy-twl4030-usb.c  | 12 +-----------
- 2 files changed, 2 insertions(+), 22 deletions(-)
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261106-phy-subsys-1ee69f26649f
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-Best regards,
---  
-Brian Masney <bmasney@redhat.com>
+diff --git a/drivers/phy/ti/phy-omap-control.c b/drivers/phy/ti/phy-omap-control.c
+index 4968434312f8..3747401600a6 100644
+--- a/drivers/phy/ti/phy-omap-control.c
++++ b/drivers/phy/ti/phy-omap-control.c
+@@ -322,17 +322,7 @@ static struct platform_driver omap_control_phy_driver = {
+ 	},
+ };
+ 
+-static int __init omap_control_phy_init(void)
+-{
+-	return platform_driver_register(&omap_control_phy_driver);
+-}
+-subsys_initcall(omap_control_phy_init);
+-
+-static void __exit omap_control_phy_exit(void)
+-{
+-	platform_driver_unregister(&omap_control_phy_driver);
+-}
+-module_exit(omap_control_phy_exit);
++subsys_platform_driver(omap_control_phy_driver);
+ 
+ MODULE_AUTHOR("Texas Instruments Inc.");
+ MODULE_DESCRIPTION("OMAP Control Module PHY Driver");
+
+-- 
+2.56.0
 
