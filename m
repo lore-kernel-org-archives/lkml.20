@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794018498;
-	b=q+MIuaHxqKkCBCrM8U1KCYhBgVGlrDXfq2sHGmpLYJ7e4ETZo0EYGqfrc0yFtmkEBrBT
-	 Iid+oVi9sFu5vLWJIlpfeXNyr07ejPdd3QtiKpeaEYMCuSEdJoS5ZWRtkOAoP7wm1PWil
-	 NK9Srste/N0mow4t/RHafnBfhkGiQYszdqoiM6CuPz8isR3npXKkIllpsGVO7ZPXoOng5
-	 vx+7qvqmMIChHAbGennxNyAU9D3eUXII7XHVE+MXnil/rOHRMqVbl2j7UwN9/5xVU2qOH
-	 hBSjP9ZXSlcTphYwFAchPjouwUlrZXLOUHLbw8cBV5+lkWFUujRjKCwQwpgiSNQbVXg==
+	t=1794018552;
+	b=CRTqyI4LJk0L55l7MWyU6+n4OliVrEuVSb6YxrJnLeIwOXyAJ1JfY+gtQDv/QA9cUOFK
+	 MLUN8AuO5ObWL4w2iEgFvaQXgnrWK86mQr4fLG630YnmmSXV8kU5Bes8G640hryVEWDkL
+	 W7ZO61nrwUH5o+bBoqW8a3+VOBkV8O5Q34VTIF5YxtAF1l6dT9rM7VrGiwqFBfJGZNyLV
+	 kjLqRc6+2asVwUvhBtOXrzLf7hWZ1vGoJTKygkPK3MHGwBP6DgBW2mxWNJM3tO/PwxqDT
+	 5twCBc97s7dCuG/RaOEdUINqzqZUqN7WUeMAbSVwT9rKXsDTON0cL5BgC/bx2TmFn+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794018498;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=PQIY5AfzFKo+BkiA5kBZ+MPfUU094fTi0Qg5ZumEVnE=;
-	b=Xr8JyTjVdOr73vO4NHKBGxIukg27ND/JJJX+UQyyLVrpRsc6eOgondcFkHGl6FZtfpOX
-	 fMUSDoKW+VpybIgS4wyMDI1FYpLqJz/k0UVE7tPc85WAs3EHK52MUu3gltaxeYtPzKx+M
-	 yH5fz2FHQ6WmJvH6JzqDnhkxsVd7lttdP1xeXQjSyuDVCxNowpiiaLtm4rXOiO49ikbz5
-	 Y/+2BmkveZY/0V4m7i3c9LmNYK96UTgJGJrp/t8ldXlHzUbNuSmtyDo3Q7lexpfRByq0L
-	 uGuIQ/TySMeV5IktbAwbJu98jBVs7/T86igPZ8V2etTF0CXp+kvecDXuH98jdYyTUcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794018552;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7sMnTr3y994wfcbimt+l9yBgD/ZKDtjQNzqbWZRRBzE=;
+	b=q6WGpSN8v8D+O25lmoF1zh+wu3KR0tOFyurzwOnTPOWfQQnofYp2AU726DpamsJ1V9Ec
+	 rYgWg5yrHf0JnaOO5mJ7pK8WMV9Be+SNSMODeJyiQpIK6WOpk/ShRwWzTGGg4N1BwcOYk
+	 T2JGdN3EUqeUs7qZrqG+B1ZjcJDAB+Xb9KDwmg5o44wWIF1ToMnR1GQbV7RhShIB8Ojo+
+	 2CGZtdcwojRHBLtrcdt2DGB7scKEgA9Ws+Am+ama3e3bnAFcjj80UNDvRmc9cT2B+TPTf
+	 tS+CjJ1JRJXqiKnj37C4o9FTKfKwUBs5mB3ORKnRXA9CuTlAP2GIZHtfOgJNfKzh8zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Qiv+/SgG";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=DlKA0eRn;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A988606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 02:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A988606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92442606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 02:29:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92442606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Qiv+/SgG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794018496;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PQIY5AfzFKo+BkiA5kBZ+MPfUU094fTi0Qg5ZumEVnE=;
-	b=Qiv+/SgGGNWtcnTrdRXA3z1AW0E8EbMt4Kb/MlYhYWa3P7xpK+KAuW8lFI2iK1j1XNdy3+
-	axCw2gPdGnwmxplZKX4lf40XZdH+qOwrJirytV8lKFoCC8dfbJtkrZAgSdWKlVuZkPaEM4
-	NinjRKP1Eg21duc6KORJMl0Ff+5M1Uw=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-35-3SoHPqelPZuoNwmfP82KUQ-1; Fri,
- 06 Nov 2026 21:28:12 -0500
-X-MC-Unique: 3SoHPqelPZuoNwmfP82KUQ-1
-X-Mimecast-MFC-AGG-ID: 3SoHPqelPZuoNwmfP82KUQ_1794018491
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 830131944EB6;
-	Sat,  7 Nov 2026 02:28:09 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E862218004E9;
-	Sat,  7 Nov 2026 02:28:06 +0000 (UTC)
-Message-ID: <8efc80ab-3b65-4573-aac4-452bfdbb9a80@redhat.com>
-Date: Fri, 6 Nov 2026 21:28:05 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=DlKA0eRn
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso1898473eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 18:29:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794018550; x=1794623350; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7sMnTr3y994wfcbimt+l9yBgD/ZKDtjQNzqbWZRRBzE=;
+        b=DlKA0eRnRK5NDtVFOtMol4Er9h/u5VBXLx2kMdBwQXV6NwTU8SGmCz+JIqaN1St3jT
+         rhwHRz2HZGB3VkVnZmBqp6t9+UwgnyEQxvDoHoCOfUismMHUoLpIkXjOGCcVeSwBa/Ei
+         DT/tamP+w6cxDN3NacE+tid2RXdgEg8dsbGFTnaUa1kmIpUAcDPbH8bVK5+PDBNe4eEY
+         bjRE3kBjBqSjWOGafOLTAJt1b/yfdW5xQ7Jn1fDsRbygcgki2YE0Nfzx2zRyl7uZDnuA
+         EAXBLRy5QsFLA6S9LjDuADNj90tKUILhTQQ4i1QiFnHeAgpVptzObxMB1heJURCRhJ41
+         IV+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794018550; x=1794623350;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7sMnTr3y994wfcbimt+l9yBgD/ZKDtjQNzqbWZRRBzE=;
+        b=MtkS/QHYPGkP/YBYKjTKr69EccPa7MIetMzQcpn07H8h0Eo9ugmrGTtIdCgI+QoMop
+         +mIaeIwFZoarknq10+rJz3U9qsbJW8SsO04P9qTEOiEvG4+WoIz7T7+sS37cyUfygzeE
+         vdE+45/UaUfBTnMiZzzjmHJii7teuuV7qUwUkIwbkomPOIbdDB4Bs8KnCreIJw/0VSzs
+         el/kvlJObg6cznhCuWtaCvAKjzwWMsSIoxuOmEJ+I4H6/OgNbJNZ01avdZcTDu6UcZ8W
+         nddz8wh/fXMMrQekpoWyjLpDq6dKPjbHd1chia7MU9JJ5roqPgOpaKpA4AFsE/uOtm6I
+         Elbg==
+X-Forwarded-Encrypted: i=1; AL+hErG0CmFExpgIEsvlpsxqkLAtcyyr23Od5gD6aQ7CxTl5CAtIi7aye30Ht76AkVk/yGrKPLl8+s9Elj8DnCk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QBDBxHa5FozHn1MMBVrbS2swG1cnlDnbY5En+9NI2DqnNXUOU
+	MTcnny2M2fjfdLPcAImaLRm5ebtJ0DQHi1r8iMYDg6McFpwOlYDS8y4y3Yle6SsQ3zk=
+X-Gm-Gg: AYBFou3BCEFoxEdkKHYnkWNtILzIFS3TeKE9Fk4bRFO/WaNBmBLxP7kBQeFnPDSLRJ7
+	JewybXiXpXKjaF7YJHvWoUgULNjszTbGsHSu8H1zroX7c8jqu4rHjEgzjX6z5gIvLXdisf/chbA
+	EJDsnCk2Y5wTektdYQOYI7Llg1QVWLmyz9Jp862BDFvmQ7NdigAyLhdFGUbFyYVYXX+mCU2onOk
+	Ar6tinLuz0SJ8uF1EDFePkurXb0S2un12VMugQNHefhdh4KAkaF4G2gyj3aESEnGzlkpKIb3lHC
+	ERkUZjsB+tglMsF4EvKXVR2lfBVTs87IbVmN5O3f3tQXYnQPI+zMcGu1CiGPzwMAFN1Xik35TGp
+	s6Veh/JA9haBOBarvnPwLzBmVork66nMIhGXcI5GrR/QNoItkxCaE/P1wyLsL3QpaB0GI62/ZZg
+	UAgLua7D5d8b1e7ekBxom9rrnwjcXCXnufKTooPlM42yTSdT/vRBWz241M9UBTDS33nAnGtFrEr
+	XhdZe/9e7xy3oUM+mdFbuiHshj+Ear12oBfZjdOjqefuBdrtVYLzQ4qc9go0iKTcTX7ZXkLV4bV
+	8PLBjDFffy3dhxziSNi3itJaJCX5RjM1z4aIcXkLiUs1wJBPhBnEJrkkUEHm
+X-Received: by 2002:a05:693c:88cd:20b0:370:1333:5e84 with SMTP id 5a478bee46e88-37013335ee3mr3852383eec.11.1794018550307;
+        Fri, 06 Nov 2026 18:29:10 -0800 (PST)
+Received: from G6L4RL2QG9 ([2409:8a00:1832:6900:c8de:13da:804b:a0fa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa4b8aacsm10457077eec.23.2026.11.06.18.29.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 18:29:09 -0800 (PST)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>
+Cc: Qi Zheng <qi.zheng@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	James Houghton <jthoughton@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Yili Zhang <zhangyili01@baidu.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH v4 00/13] mm: Decouple folio-based vmemmap optimization from HugeTLB
+Date: Sat,  7 Nov 2026 10:27:43 +0800
+Message-ID: <20261107022756.77731-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,210 +104,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] cpuset: settle isolation state when CPUs are given
- back to parent
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20261106105538.2915492-1-ridong.chen@linux.dev>
- <20261106105538.2915492-4-ridong.chen@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261106105538.2915492-4-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+
+Hi,
+
+Section-based vmemmap optimization is implemented in sparse-vmemmap.c,
+while folio-based optimization currently lives in hugetlb_vmemmap.c.
+The latter is tightly coupled to HugeTLB-specific state even though the
+underlying page-table remapping operates on one folio at a time.
+
+To make these interfaces easier to maintain, the folio-based remapping
+mechanics first need a boundary that is independent of HugeTLB-specific
+state and raw address ranges. This will allow the mechanics to be moved
+into a common vmemmap optimization layer alongside the section-based
+interface.
+
+This series establishes that boundary through three folio-oriented
+operations, each with a distinct role:
+
+  - vmemmap_optimize_folio() optimizes the vmemmap backing of a folio;
+  - vmemmap_restore_folio() restores the vmemmap backing of a folio; and
+  - vmemmap_pteify_folio() converts the vmemmap backing of a folio to
+    PTE mappings.
+
+Together, these operations encapsulate the address-range calculation and
+remapping mechanics for a folio. HugeTLB wrappers retain policy decisions
+such as eligibility, optimized state, batching and TLB flush handling.
+
+Patch 1 is a standalone prerequisite fix for best-effort HVO head-page
+allocation. Patches 2-9 generalize the underlying vmemmap remapping
+infrastructure by removing HugeTLB-specific assumptions and simplifying
+remap control and resource handling. Patches 10-13 then establish
+folio-oriented operations for optimization, restoration and PTE
+conversion.
+
+The implementation remains in hugetlb_vmemmap.c for now. A follow-up can
+move the folio-based operations into the common vmemmap optimization layer
+once the interface boundary is in place.
+
+v4:
+- Rebase onto mm/mm-new at f735a2c21aa9
+- Split the HVO head-page allocation fix into a standalone prerequisite
+  and retain Yili Zhang as its author
+- Add __GFP_NOWARN and pass caller-selected GFP masks through the
+  generalized allocator and folio-oriented helpers
+- Propagate alloc_vmemmap_page_list() errors directly (suggested by Oscar
+  Salvador)
+- Remove the redundant order check from vmemmap_pteify_folio() (suggested
+  by Oscar Salvador)
+- Collect Reviewed-by tags from Oscar Salvador and Mike Rapoport
+- Collect Tested-by from Andrew Morton
+
+v3: https://lore.kernel.org/20261104023510.260766-1-songmuchun@bytedance.com/
+- Rebase onto mm/mm-new at 74d73ffcffe0
+- Use two tabs for continued function parameters in modified declarations
+  (suggested by Mike Rapoport)
+- Rework vmemmap page allocation failure cleanup to free temporary pages
+  directly while keeping accounting batched (suggested by Mike Rapoport)
+- Collect Reviewed-by tags from Mike Rapoport
+
+v2: https://lore.kernel.org/20261102032525.3597743-1-songmuchun@bytedance.com/
+- Rebase onto mm/mm-new at d42dfde37af7
+- Rename the unified TLB flag to VMEMMAP_DEFER_TLB_FLUSH and clarify that
+  it defers only safely batchable flushes (suggested by Qi Zheng)
+- Update the vmemmap page-list documentation to describe its input/output
+  contract (suggested by Lance Yang and Qi Zheng)
+- Use page_address() instead of page_to_virt() when copying a vmemmap
+  replacement page
+- Collect Reviewed-by tags from Lance Yang and Qi Zheng
+
+v1: https://lore.kernel.org/20261020115306.813483-1-songmuchun@bytedance.com/
+
+Muchun Song (12):
+  mm: hugetlb_vmemmap: remove HugeTLB-specific vmemmap optimization
+    macros
+  mm: hugetlb_vmemmap: unify VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
+  mm: hugetlb_vmemmap: simplify vmemmap head page handling
+  mm: hugetlb_vmemmap: generalize vmemmap page allocation
+  mm: hugetlb_vmemmap: unify writable vmemmap page preparation
+  mm: hugetlb_vmemmap: rename vmemmap_remap_pte() to
+    vmemmap_optimize_pte()
+  mm: hugetlb_vmemmap: simplify shared tail page handling
+  mm: hugetlb_vmemmap: move alloc_vmemmap_page_list() next to its free
+    helper
+  mm: hugetlb_vmemmap: make vmemmap optimization folio-oriented
+  mm: hugetlb_vmemmap: make vmemmap restoration folio-oriented
+  mm: hugetlb_vmemmap: unify vmemmap range restoration
+  mm: hugetlb_vmemmap: make vmemmap PTE conversion folio-oriented
+
+Yili Zhang (1):
+  mm: hugetlb_vmemmap: fix OOM during head page allocation
+
+ include/linux/vmemmap-optimization.h |  10 +-
+ mm/hugetlb.c                         |   4 +-
+ mm/hugetlb_vmemmap.c                 | 379 ++++++++++++---------------
+ mm/hugetlb_vmemmap.h                 |  10 +-
+ mm/mm_init.c                         |   6 +-
+ mm/sparse-vmemmap.c                  |   7 +-
+ 6 files changed, 186 insertions(+), 230 deletions(-)
 
 
-On 11/6/26 5:55 AM, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> partition_xcpus_del() only updates isolated_cpus when the partition that
-> gives back the CPUs has a different state than its parent. CPUs that were
-> further distributed to descendant isolated partitions are not taken into
-> account, so isolated_cpus_release() has to be called afterwards in
-> several places to walk up the ancestors and fix isolated_cpus.
->
-> Make partition_xcpus_del() always set the isolation state of the given
-> back CPUs to the state of the parent that receives them. As the
-> effective_xcpus of a partition covers the CPUs distributed to its
-> descendants, the isolation state of those CPUs is settled at the same
-> time. Boot-time isolated CPUs are still preserved by isolated_cpu_update().
->
-> compute_partition_effective_cpumask() invalidates a child partition
-> without going through partition_xcpus_del(), so do the same there: the
-> CPUs of the invalidated child take the isolation state of its parent.
->
-> As the parent may be shrunk and its effective_xcpus not updated yet,
-> only do so for the CPUs the parent still owns. This is to keep the
-> isolation state correct for now, the in-place invalidation here will be
-> removed later in the partition rework.
->
-> isolated_cpus_release() is no longer needed and is removed.
->
-> Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->   kernel/cgroup/cpuset.c | 86 +++++++++++-------------------------------
->   1 file changed, 23 insertions(+), 63 deletions(-)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 85e5b529d144..a5ab9396eb61 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1264,42 +1264,21 @@ static void isolated_cpus_update(int old_prs, int new_prs, struct cpumask *xcpus
->   }
->   
->   /*
-> - * isolated_cpus_release - Remove the relevant CPUs in @xcpus from isolated_cpus
-> - * @cs: the current cpuset
-> - * @xcpus: the set of effective xcpus to be considered for removal
-> - *
-> - * This function is called when an isolated partition is invalidated or when
-> - * some of its effective xcpus are to be removed from isolated_cpus due to
-> - * changes in parent cpuset. The given @xcpus must be modifiable as the function
-> - * will update its value to determine the right set of CPUs to be removed.
-> + * isolated_cpus_set_state - Set the isolation state of @xcpus
-> + * @prs: partition root state that @xcpus will belong to
-> + * @xcpus: exclusive CPUs whose isolation state may change
->    */
-> -static void isolated_cpus_release(struct cpuset *cs, struct cpumask *xcpus)
-> +static void isolated_cpus_set_state(int prs, struct cpumask *xcpus)
->   {
-> -	struct cpuset *ancestor = parent_cs(cs);
-> -	struct cpuset *iancestor = NULL;
-> -
-> -	/*
-> -	 * Search the furthest isolated partition root ancestor available
-> -	 * until top_cpuset or a remote partition root is hit.
-> -	 */
-> -	for (; ancestor; ancestor = parent_cs(ancestor)) {
-> -		if (ancestor->partition_root_state == PRS_ISOLATED)
-> -			iancestor = ancestor;
-> -		if (is_remote_partition(ancestor))
-> -			break;
-> -	}
-> -
-> -	/*
-> -	 * If a furthest isolated partition acnestor is found, use it to
-> -	 * determine which of the CPUs in @xcpus should be removed from
-> -	 * isolated_cpus. Otherwise, all of them will be removed.
-> -	 */
-> -	if (iancestor && !cpumask_andnot(xcpus, xcpus, iancestor->effective_xcpus))
-> -		return; /* No CPU should be removed from isolated_cpus */
-> +	bool updated = false;
-> +	int cpu;
->   
-> -	spin_lock_irq(&callback_lock);
-> -	isolated_cpus_update(PRS_ISOLATED, PRS_ROOT, xcpus);
-> -	spin_unlock_irq(&callback_lock);
-> +	lockdep_assert_held(&callback_lock);
-> +	lockdep_assert_held(&cpuset_mutex);
-> +	for_each_cpu(cpu, xcpus)
-> +		updated |= isolated_cpu_update(prs, cpu);
-> +	if (updated)
-> +		update_housekeeping = true;
->   }
->   
-
-isolated_cpus_set_state() is almost the same as isolated_cpus_update(). 
-isolated_cpus_update() just assumes that parent and child prs state 
-should be different. You are right that we should proceed no matter if 
-the parent and child has the same state or not. So you should consider 
-merging these two functions as well.
-
-Cheers,
-Longman
-
->   /*
-> @@ -1355,9 +1334,8 @@ static void partition_xcpus_del(int old_prs, struct cpuset *parent,
->   	if (parent == &top_cpuset)
->   		cpumask_andnot(subpartitions_cpus, subpartitions_cpus, xcpus);
->   
-> -	if (old_prs != parent->partition_root_state)
-> -		isolated_cpus_update(old_prs, parent->partition_root_state,
-> -				     xcpus);
-> +	/* CPUs given back, including those of descendants, take parent's state */
-> +	isolated_cpus_set_state(parent->partition_root_state, xcpus);
->   
->   	cpumask_or(parent->effective_cpus, parent->effective_cpus, xcpus);
->   	cpumask_and(parent->effective_cpus, parent->effective_cpus, cpu_active_mask);
-> @@ -1612,6 +1590,7 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->   	struct cgroup_subsys_state *css;
->   	struct cpuset *child;
->   	bool populated = partition_is_populated(cs, NULL);
-> +	static cpumask_t xcpus;		/* Protected by cpuset_mutex */
->   
->   	/*
->   	 * Check child partition roots to see if they should be invalidated
-> @@ -1640,14 +1619,15 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->   			int parent_prs = cs->partition_root_state;
->   
->   			/*
-> -			 * Invalidate child partition and update isolated_cpus
-> -			 * if necessary.
-> +			 * Invalidate child partition. Its CPUs still owned by
-> +			 * cs take the isolation state of cs. effective_xcpus
-> +			 * of cs may not be updated yet, so recompute it.
->   			 */
->   			spin_lock_irq(&callback_lock);
->   			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
-> -			if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
-> -				isolated_cpus_update(PRS_ISOLATED, PRS_ROOT,
-> -						     child->effective_xcpus);
-> +			compute_excpus(cs, &xcpus);
-> +			cpumask_and(&xcpus, &xcpus, child->effective_xcpus);
-> +			isolated_cpus_set_state(parent_prs, &xcpus);
->   			child->partition_root_state = -old_prs;
->   			spin_unlock_irq(&callback_lock);
->   			notify_partition_change(child, old_prs);
-> @@ -2080,22 +2060,8 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   		 *
->   		 * A partition error happens when parent has tasks and all
->   		 * its effective CPUs will have to be distributed out.
-> -		 *
-> -		 * For an isolated partition with a shrunk root partition parent
-> -		 * we may need to return some or all of its isolated CPUs.
->   		 */
->   		nocpu |= cpumask_empty(tmp->delmask);
-> -		if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED)) {
-> -			cpumask_clear(tmp->addmask);
-> -			if (nocpu)
-> -				cpumask_copy(tmp->addmask, cs->effective_xcpus);
-> -			else if (!cpumask_subset(cs->effective_xcpus, parent->effective_xcpus))
-> -				cpumask_andnot(tmp->addmask, cs->effective_xcpus,
-> -							     parent->effective_xcpus);
-> -			if (!cpumask_empty(tmp->addmask))
-> -				isolated_cpus_release(cs, tmp->addmask);
-> -			/* Expansion of parent's effective_xcpus is handled below */
-> -		}
->   		if (nocpu) {
->   			part_error = PERR_NOCPUS;
->   			if (is_partition_valid(cs))
-> @@ -2341,18 +2307,12 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
->   				/*
->   				 * When parent is not a valid partition root,
->   				 * child partition roots become invalid too.
-> -				 *
-> -				 * For a to be invalidated isolated partition,
-> -				 * call return_isolated_cpus() to remove the
-> -				 * relevant CPUs from isolated_cpus.
-> +				 * The isolation state of their CPUs has been
-> +				 * settled when the parent gave them back.
->   				 */
->   				if (is_partition_valid(cp))
->   					new_prs = -old_prs;
->   
-> -				if (old_prs == PRS_ISOLATED) {
-> -					cpumask_copy(tmp->delmask, cp->effective_xcpus);
-> -					isolated_cpus_release(cp, tmp->delmask);
-> -				}
->   				WRITE_ONCE(cp->prs_err,
->   					   is_partition_invalid(parent)
->   					   ? PERR_INVPARENT : PERR_NOTPART);
+base-commit: f735a2c21aa94b7b86a93d36f3b17eecc6d49aba
+-- 
+2.54.0
 
