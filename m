@@ -1,79 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082196;
-	b=Hf5mFNE+woNxwsLbP831TXM+mKHl6GAV+wdlx8QZXMWwdGMNBDLghlaa7c3LXXJkM0dv
-	 LwRz5bSrMDfMm6p7cdYJ85qincYalueiqEB8PnXWP6SZkSm8XxCU98oMBMYjyWJlHvhbY
-	 Q5LXHwBgjWOlbf5U0EMSmzpsu8HdGhXkzB6teWVaaR2kZR1OX5/3QHITMNJhGjAdUFSPz
-	 Ad7ukdh+X/1hh0Oo7PlSNnLLEQs2u5BfzgXy/ZZsx25HrE7XHCi6Mms4dCsz//MrUx5Ky
-	 zZcykvQYcqbf1cx19zacJ/xcRKoV0DAXriEb0v4uB63DnSlPSxr68dELIiEKZksrVeg==
+	t=1794082209;
+	b=eKZ+gdApyDkIRyy7D+YMG3cjfrkG9+nc1WBjPKIVsVXbagFQNpRZRv/Xg7mV3zySn6YU
+	 6VZvK5yXyS80er/rNtor3wpNMFNGHix66t/JTZwhqgXR7Y9gS+nWKoj3Z6qlMDolWMDMi
+	 D4zfm7xXxhJIdTD8H0/QNHuNYeflpsqWrqcQYBfjmfzR03Ls4J/2jnD01aScoIQzCe50K
+	 ywtLq56i2xcukgWFTktTzfPUCmQzRQkNlN7XahdwEnjT+438uxiLSKFpMd7MjHrT3J6sy
+	 JB2mFGD39MmU7Gr9rmoHS6rhr63ynfi70T0cryzcC5tepNDyM+l8csYEoTtawWC/AdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082196;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Xk0X32457iFYN1BGU3GAQStNoc/gho7s4TDAKaTabps=;
-	b=vca6Bs9QKAy3e0rIoMyFU+tW+zZA7xSkMrXg1QvkyE8LmnL4VqwB4UnBR1XywDJ4hbab
-	 Gg/Wc60ugQYt3P/Em6Q9EERgdx/R6e1NWaHZMSuNoRyXXfc73Y5MFr2WjSzjvu44GYqzI
-	 9I3TEJjjtMxZCK9DTQs/LOrWC/XmwMsvr3zF/zk0uO9fQx8ZCqH90Y8AprxWpKIgkwk68
-	 x6UTn8yG8eOqveKRtx0DVb0kjLRTL/nnHcpLxflId5Lh1svT2cweMtk7GBZnhzxYIx2q3
-	 uzt+KHSTkBTV6e2GGW20Qv4ovVcCYoMXeG9/ol/mnEJ9Wop6HTrdhdE62QofrQubn7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082209;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KcvosEEs4C5uASYPUIJSJcPZ+WqW144BqAVvtj0NdMI=;
+	b=woWUuSscmruA7gmidL8nXNq0z3N/pQXtlcRKSpm4GTreZ2Bt6v332IN14ArRIt1D+JNL
+	 eGbyInW9tZUgxfIiVgyJRukZgziASBSNJmkq/kAPuj1dgnVFnl1aOcKrHujBq4t9CxmTk
+	 fRzw8+uoK6DHaTkm/CSmanteiMhJWl81xkHLPm4ES2lhmFp17bJuhqyxrGEFNkyZfdjt9
+	 6KR8vbjGp5Cp1utxBD9DTUiCpFy9K2DJnH1HLv4xQFUnzTTcqlfXepUxqlASEkfrvWasW
+	 5uZcLFXUxdPJ4KihJwZHdbyCEW2HVuL7tQR78GTTfArOujVR9TTaFCF8qjhUU9xpJHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJk2JMZp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IudT9GhW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 94202606A326;
-	Sat,  7 Nov 2026 20:09:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F585606A32D;
+	Sat,  7 Nov 2026 20:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJk2JMZp
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7BEB71F0089F;
-	Sat,  7 Nov 2026 20:09:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IudT9GhW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153CB1F0089F;
+	Sat,  7 Nov 2026 20:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082196;
-	bh=Xk0X32457iFYN1BGU3GAQStNoc/gho7s4TDAKaTabps=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oJk2JMZp0MhPfM8rzByqvvNnCZjRq5/RY7VGZe+RGNUqtal6lzJMGADUx0eDfObDF
-	 x2A0zR1atvNeDMgM2ktcKIboDUB9BPMreYceFMHuHIgOmqz2XqRFZpLCVf7lhmzz8G
-	 WDb2lvIBtPuwpxbrOw2n2McsL+/Q8FwD/CzM/s4tZV0HYJj6ZEtsLCF+pTWqRSBmJ8
-	 DQdUEMjqXJ8B+aTq5CDAwsGLoBvaGHMDxag7gChJA6W4qjNCBgKWQT60y7LFKKuQAT
-	 pyd7fSUqhXm7s9byjv7mU1nBJd1UWuousgWCOyt2kj2wppSM8Mmw1UDgm9dTFCV8nt
-	 DYR7iGPZp/JzA==
-Date: Sat, 7 Nov 2026 22:09:52 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: bpf@vger.kernel.org, dm-devel@lists.linux.dev, fsverity@lists.linux.dev,
-	keyrings@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
+	s=k20260515; t=1794082209;
+	bh=KcvosEEs4C5uASYPUIJSJcPZ+WqW144BqAVvtj0NdMI=;
+	h=From:To:Cc:Subject:Date;
+	b=IudT9GhWhndqHy3FqR1+Izf6avXc2zjv/IR9kPWwCH9tNrYphn/6NCI/49cR5+/a0
+	 6TwTZTzxSXdHzqwsRREk8fg1FtpV47aBkAQA3MDPvdA39fOf6U04VAUh5O8SbpPp7K
+	 jX6c+kQAKNKP5+hmDt9AumFD72AtJEDzrLhoZYvWzyGrla/tLU4PhFm30+CpD2Iu5O
+	 TYomYie9xTmU9eg2pZb/shCd64b/ifeswFnc0yLaS6hbHsyGFljPgh2SNPPen9THt+
+	 Yj/sHltHlorrI8FX7CJOMH+cTZ7abahlxNWAesAKocstZRw8yK93WgdENyKIDeJ56b
+	 OjhoxfHrpyTNw==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ignat Korchagin <ignat@linux.win>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>
-Subject: Re: [PATCH v6 0/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <au-FkAtC4Gcw7Bkb@kernel.org>
-References: <20261107195605.3929659-1-jarkko@kernel.org>
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	Usama Arif <usamaarif642@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.18.y 0/5] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
+Date: Sat,  7 Nov 2026 12:09:56 -0800
+Message-ID: <20261107201001.206120-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,64 +64,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107195605.3929659-1-jarkko@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 07, 2026 at 09:56:01PM +0200, Jarkko Sakkinen wrote:
-> The keyrings subsystem is the sole user of assoc_array. It has over 1700
-> lines of code, no test suite, and a long history of bugs, with LLMs now
-> finding more.
-> 
-> This unfortunate outcome has evolved over time by large from the shortage
-> of in-kernel callers, time bandwidth and 3rd party contributors.
-> 
-> What the keyrings subsystem needs is just a generic key-value store, which
-> performs well with sparse key sets. Replace assoc_array with an
-> rhashtable-backed keyring index and remove assoc_array from the kernel.
+Manually port five DAMON fixes that cherry-pick failed [1-5] and turned
+out to really need to be picked.  Note that seven patches [6-12] that
+also failed in the same day were having wrong Cc:stable@ tags, so
+ignored.
 
-Sashiko: https://sashiko.dev/#/patchset/20261107195605.3929659-1-jarkko%40kernel.org
+Patches that this series is porting.
+[1] https://lore.kernel.org/20261107050847-failed-6.18-90c2fa6adfed@kernel.org
+[2] https://lore.kernel.org/20261107050851-failed-6.18-29c6084658af@kernel.org
+[3] https://lore.kernel.org/20261107051039-failed-6.18-af19aff38d6f@kernel.org
+[4] https://lore.kernel.org/20261107051438-failed-6.18-5695abc4e742@kernel.org
+[5] https://lore.kernel.org/20261107051441-failed-6.18-bbeec2d8324d@kernel.org
 
-Not addressing this as only one patch changed and the change was
-exactly:
+Patches that also cherry-pick failed but deliverately ignored.
+[6] https://lore.kernel.org/20261107050853-failed-6.18-df7d9a0f8d91@kernel.org
+[7] https://lore.kernel.org/20261107051022-failed-6.18-6f276422aded@kernel.org
+[8] https://lore.kernel.org/20261107051024-failed-6.18-1bfb9384ae0e@kernel.org
+[9] https://lore.kernel.org/20261107051027-failed-6.18-1d2397b2c414@kernel.org
+[10] https://lore.kernel.org/20261107051029-failed-6.18-cec08aad3def@kernel.org
+[11] https://lore.kernel.org/20261107051032-failed-6.18-a1c7fdaf1657@kernel.org
+[12] https://lore.kernel.org/20261107051034-failed-6.18-409d2ab6d982@kernel.org
 
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 772fa0e35f9d..6761c6801edc 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -12,7 +12,6 @@
- #include <linux/security.h>
- #include <linux/seq_file.h>
- #include <linux/err.h>
--#include <linux/delay.h>
- #include <linux/jhash.h>
- #include <linux/user_namespace.h>
- #include <linux/nsproxy.h>
-@@ -101,6 +100,7 @@ static const struct rhashtable_params keyring_link_params = {
-        .min_size               = 4,
-        .nelem_hint             = 3,
-        .automatic_shrinking    = true,
-+       .insecure_elasticity    = true,
- };
+SJ Park (5):
+  mm/damon/core: skip applying scheme if region split for quota fails
+  mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+  mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
+  mm/damon/core: remove unreachable damos charge_{target,addr}_from
+  mm/damon/core: filter out damos address filter-split failed region
 
- static struct keyring_index *keyring_index_locked(const struct key *keyring)
-@@ -1225,12 +1225,8 @@ int __key_link_begin(struct key *keyring,
-                if (ret < 0)
-                        goto error;
+ mm/damon/core.c             | 63 +++++++++++++++++++++++++++++++------
+ mm/damon/sysfs-schemes.c    |  5 ++-
+ mm/damon/tests/core-kunit.h | 16 +++++++---
+ 3 files changed, 66 insertions(+), 18 deletions(-)
 
--               do {
--                       ret = rhashtable_insert_fast(&links->ht, &link->node,
--                                                    keyring_link_params);
--                       if (ret == -EBUSY)
--                               fsleep(100);
--               } while (ret == -EBUSY);
-+               ret = rhashtable_insert_fast(&links->ht, &link->node,
-+                                            keyring_link_params);
-                if (ret < 0) {
-                        key_payload_reserve(keyring,
-                                            keyring->datalen - KEYQUOTA_LINK_BYTES);
 
-So I don't think there are any real issue with the patch set, except I
-will need to rebase the commits to the latest mainline.
-
-Br, Jarkko
+base-commit: 270830fb661321a6230f2433667a328e41b2fb7f
+-- 
+2.47.3
