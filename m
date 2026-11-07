@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794026505;
-	b=KfS4rAbvuAtIJLilZ32g2o1zlqsWovsIXchLcfiB3Eubzph6pzYAaZvRADQx2r0ccGEb
-	 3itCHIFcqkHrWOPpc7Bq4uPhYMGNuGfjIajWP08vHYmCQCLLY9TN0YDXwLXY4hLRthLEc
-	 PI7pDEmfecAN90utc9eun3Dy9oYT55RFVisBTGK3vSWxrKNLQrF6ZjGpJ9g+6U5VIMai5
-	 sqEffG1MhQ3Cfh5Af3BNN7AZj053WtC2bP+2lt7d5PMliQmq1JJNWiZB1dV+Afw+/ZcsD
-	 0V0bYjPfZIEYyIoKNTCdZNUAstR9BsyLGo5AzjWq3TEpZs7W+SJQW7xUb611QADPkJQ==
+	t=1794026509;
+	b=gaE+MN464k9BmCMP9QHZEbwIRD1FWDkF+jtGF/aw6+uTzh2tQmAyaWh6YfOnmEoyeXYQ
+	 E8PdW0DJf/oAChQP2GrobQ0fIYBJSi8lNzTRjM8I50P2u5mm4gYkIh6G8/qCQjxe+GDSW
+	 7HJF0DYD3XWVGlDt7OtkSNjsV1Brqc3/W1xEZiaURElWqITHAxF10KWsk2u9Cx5wnN6vm
+	 XST+eRLZZEthwfylfmgl14ug5Rtjao+aKHu6h82vAbB2I16exDppS4yQCJ37bOMvy7lUr
+	 3YaMiFLDpCGNb4tjG+aOr7/tqhlM9rlNW2kqEOLE0Svod+4sdCA4w0/6BfFSXPRP52g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794026505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794026509;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=8fpDtewxya+EYK3jmswcs9yxCGy73I7vhb7kQLzwzLs=;
-	b=TzivhHT+dp7F3tj9OFK8WpDTwKLWWzkGwHnpunnfk82WzH0rEipz9ePVH3u5AGXFN1cj
-	 XUpVjD0wPyRRHwOFNmKZ8nvn9Vb+m7+Qe9FB1BDKFlNfyNUIP5sgXt0nqfS/QdHJwMMH5
-	 iBejqUAYDKKmxgqtgE37MH0EPekqLaYfYXmsyotIC8XdnaZlvOkb5QBcehdhXKjFaFl8N
-	 ZlolaTHZ+IXc777KJlcE9Ckk9GgAo3VgjWcB3G4KwjpTyHiLgQkjDjZAbZRP1i5UNo4Kp
-	 hTmIFl1ET0TMXGpDvKx97jSzgRFHe1rKPTjie8/G+uJfXlTJN+e9nSmF9MGgYF+8lRg==
+	bh=XZtmXCO5rPqSF5TB73JVHVsA8zk5dMz4OqnHdHYyiiI=;
+	b=mXLKuGZp0TdocGCZQqdVfKn/9E+ug/jy8vmQ4bruShEE5qjM66ejACp8c5ClDRiY9VOu
+	 x6zUDpeO0xOtKiiItkA0UOneIXRmcY7nHAqbipXVpJ6dkx1XMvnwtVJWW6R9z5iGdR+6n
+	 PpMqFQ030KkdJRf8jetrBNpEESzxpjhxBT96ewM8Phnxg9/6YChzuh4G2yhy+xS3qOZtk
+	 VEIErR3YxZcuJX7No6uOiFaOHkJkIt+k/ljAPe/T32mH0JPwgyXd+sWojhrYRHrZK5cp+
+	 /7NuzlbIqw3eD2O/U9MU3mTJ7w9g/7i49jCy0vvle7tSgfooouZFiWyobXrRSlKAQRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MwS6dPZA;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JvxdanR6;
 	arc=none smtp.remote-ip=74.125.82.199
 Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBC4606D801
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FBC4606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680A0606EEBD
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 04:41:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 680A0606EEBD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MwS6dPZA
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33713e5e6daso1807198eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:41:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JvxdanR6
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36d69ab3c2bso1753037eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 20:41:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794026503; x=1794631303; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794026508; x=1794631308; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8fpDtewxya+EYK3jmswcs9yxCGy73I7vhb7kQLzwzLs=;
-        b=MwS6dPZAn7gQblbB8pTkmM8dxLQdWJiVPkrW5AyX6LCsNeo+Hr7+eMfqa8ctgslBYz
-         r/YAT9JemRaoIKB9k+f++LKi6u5PallUgJ8jO+swlf5e3JmgpMHafWP2ilalOM73gF1o
-         Tu0xCAXWxUocI85iWzYo+rh3VWuhr0Gn3XMcumk4SnSj3LNXKmcCCqO49jLF8NadAE1V
-         yYLGsZiPfa+5adqsGkdcbWFfUiMqNJ7lB9EXMGNbEEGUctxEwvkECKcE05/FIZE87Nyy
-         AUsCQgvQJhB9rY4RsT0hNMvcO0/kA/K/v93VFan3OzjWgmzXmLr0XOxED2fg+LH9DDIS
-         wkwg==
+        bh=XZtmXCO5rPqSF5TB73JVHVsA8zk5dMz4OqnHdHYyiiI=;
+        b=JvxdanR6JsskHk8bo+HHVTVUcKbAiwPzqbXeGY17gwfHrc3lvDmMOf8mNarIf9fZib
+         419mV6gz4XFLg4c6HYxHaS2AaVYVePCdbfMHqGqPHYzm+xiFjP95OM/HwYxcRKvjYEna
+         XHRt5DvptqLO0mXrkbI9lAZqQxX6IgiH2C568k91s4/sl41uOM75DZXf7NZ2UzQ2SNWT
+         2uzNQa9xTxioPAWTJeLBfH2dk6RuOniFDOsHOI3xcDdqyFKuqWDXC0rZlALc5fS5jyMW
+         3dbwlQgZ4cjyp1udR559Rc2CMNvdLUC581yKstTFzdgkBGWnuRbSr1T5QeDLnmW9fxYD
+         A7Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794026503; x=1794631303;
+        d=1e100.net; s=20260707; t=1794026508; x=1794631308;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8fpDtewxya+EYK3jmswcs9yxCGy73I7vhb7kQLzwzLs=;
-        b=kVcoNqBQ/eK5V2ipLqEXqIC119gEdXFEV3m+7Pt1bvIaMe+DS1XMVlaf1tbw0QrEh5
-         yPewApnUL4I9aVPNnumLyFe4wx+g02KkjZHFQrtTFoQuNhx2qPgzqQ+nnWcccg8uM4nY
-         lnetRxPpFqCvMWclYEk0ojC1stUC0nF7UvDmLt8pFUThMEBgpO8/tQ7nDl4kBWOPGBua
-         X1xzv1Kuo6wo7GbQ8jshyFfqFOLPX4rHn/qB0rMQMT0gMYWblJCDHEGJxBcfIVjc5uwf
-         WnZCFD4XAmUHP6U9Cpbe3VoH5NAMwfOvj734aEY+ga+V2gfxV+mQ3anQrDCLb6636Upm
-         OK+A==
-X-Forwarded-Encrypted: i=1; AL+hErEoREw2MhHix15Kf/VAhCoG8XncR4ho+/vjb1B2YVHWRntl3DFmgF5rXDXfbZYyktuW7pRe4lQ58Y4EKTs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/B9EuFhJtk1RRo95BApkCJ+mlmAL924gQAjvdAOCd0nomQigqD
-	HC+B+JGNtFe86rAEm8fN9Y6kJ4JikEs00e0XqwuUAQin0iHm46+DHUoOsQe6YqQiqeZoWJXOqlW
-	EchM9lvTLmw==
-X-Received: from dybqr3.prod.google.com ([2002:a05:7301:6083:b0:369:f60c:3f6b])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:88dc:10b0:370:19d2:ad0a
- with SMTP id 5a478bee46e88-37019d2b224mr4209163eec.3.1794026502954; Fri, 06
- Nov 2026 20:41:42 -0800 (PST)
-Date: Fri,  6 Nov 2026 20:40:58 -0800
+        bh=XZtmXCO5rPqSF5TB73JVHVsA8zk5dMz4OqnHdHYyiiI=;
+        b=gJGt5GKBXI7QnviST/UyH7JZdkwWUXExELJbawmrk87SbE0g3Y5nT+8riJ1CjEd7fK
+         hHgWBfw8fVoguJzGvbcYUCXbcS1PqLAebtxU1wsX6SDZRC+COa1bWVFYSiHqFJFKwRB4
+         WpiNZINO/VC8UsYAR2CCI8krgP7bdKCTe7KOY0B127ae1C0rPB5b7VzztNkA/QimyC07
+         zjbn6/82fikIF+4t+RXOpKKTkyfyosEKnUi7PW82bGmy0z/KI1kWylumv2vvoWSsBma4
+         xW6crwiTCnr8kYmfINxXTJIHq/cMPf2PyWIRwompC3TyGuMD6sbeuEy8CPPzBWpJTtoE
+         lx3g==
+X-Forwarded-Encrypted: i=1; AL+hErEc7HeLfQraef7tekQecKR0lczhKfrOSmItZlf+/baYai2yABqvWMJOr0BzaoEbw4yJ56tf0QGU168ukJw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Odg3TiX9n2fE048HJgbB9N+uSVllceuGG/hj8bVtcnx7MQ3D3
+	7Q8naM8yvKrV5dQWsKJWZEvpvxfd8X/I7wMy6/X1d41IzoT6zw9+ocpc1AyTfT4LIwXm95FOOir
+	1RpGyXjMojA==
+X-Received: from dyuw12-n2.prod.google.com ([2002:a05:693c:880c:20b0:370:948e:79b2])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:ea8e:b0:370:ff2:f78d
+ with SMTP id 5a478bee46e88-3700ff2f98cmr4135624eec.8.1794026507236; Fri, 06
+ Nov 2026 20:41:47 -0800 (PST)
+Date: Fri,  6 Nov 2026 20:41:00 -0800
 In-Reply-To: <20261107044102.1506626-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261107044102.1506626-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261107044102.1506626-18-irogers@google.com>
-Subject: [PATCH v11 17/20] perf config, intel-tpebs, env: Add __guarded_by and
- __must_hold annotations
+Message-ID: <20261107044102.1506626-20-irogers@google.com>
+Subject: [PATCH v11 19/20] perf maps: Fix map index lookup fallback and removal
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, bvanassche@acm.org, elver@google.com, 
@@ -93,273 +92,456 @@ Cc: adrian.hunter@intel.com, bvanassche@acm.org, elver@google.com,
 	ndesaulniers@google.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add __guarded_by() and __must_hold() annotations to static parser and
-config state in util/config.c, TPEBS state in util/intel-tpebs.c, and
-bpf_progs and cgroups trees in struct perf_env.
+maps__by_address_index() and maps__by_name_index() currently only run
+their linear pointer scan when maps_by_address_sorted or
+maps_by_name_sorted is false, returning -1 (UINT_MAX) immediately if
+bsearch() returns NULL. When a map's start/end address or DSO short_name
+is updated in place without clearing the sorted flags (for example
+during module map setup), map__start_cmp() or map__strcmp() tie-breakers
+can become stale and cause bsearch() to miss an entry that is present in
+the array.
 
+Fix the lookup and removal paths so stale sort keys or missing maps are
+handled safely:
+  - Fall back to the linear pointer scan in maps__by_address_index() and
+    maps__by_name_index() when bsearch() returns NULL, and avoid calling
+    bsearch() on empty or NULL arrays.
+  - Check map__start(prev) < map__start(new) in __maps__insert() before
+    preserving maps_by_address_sorted so entries with end == 0 (from
+    map__new2()) or equal start addresses do not leave an unsorted array
+    marked sorted.
+  - Factor out __maps__remove_at() with bounds checks on address_idx and
+    name_idx (freeing maps_by_name if out of bounds) and remove from
+    maps_by_name before calling map__put() on the maps_by_address entry
+    so REFCNT_CHECKING does not see a freed handle. Have
+    maps__remove_maps() call __maps__remove_at(maps, i) directly so it
+    removes at index i in O(1) without redundant lookup or risking an
+    infinite loop if lookup failed.
+  - Guard against maps__by_address_index() returning -1 wrapping ++i to
+    0 in maps__find_next_entry().
+  - Clear maps_by_name_sorted and re-sort maps_by_address when
+    maps__fixup_end() clamps equal-start maps, and use
+    machine__update_kernel_mmap() instead of the unlocked
+    machine__set_kernel_mmap() in machine__create_kernel_maps().
+
+Add a unit test in tests/maps.c covering maps__remove(),
+maps__remove_maps(), maps__fixup_end(), and maps__find_next_entry().
+
+Fixes: 659ad3492b91 ("perf maps: Switch from rbtree to lazily sorted array for addresses")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/bpf-event.h   |  5 ++--
- tools/perf/util/config.c      | 47 +++++++++++++++++++++--------------
- tools/perf/util/env.c         |  1 +
- tools/perf/util/env.h         | 19 ++++++++------
- tools/perf/util/intel-tpebs.c | 16 ++++++------
- 5 files changed, 53 insertions(+), 35 deletions(-)
+ tools/perf/tests/maps.c   | 140 ++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/machine.c |  21 ++----
+ tools/perf/util/maps.c    |  92 ++++++++++++++++---------
+ 3 files changed, 208 insertions(+), 45 deletions(-)
 
-diff --git a/tools/perf/util/bpf-event.h b/tools/perf/util/bpf-event.h
-index da4eeb4a1a73..3f3323f98f49 100644
---- a/tools/perf/util/bpf-event.h
-+++ b/tools/perf/util/bpf-event.h
-@@ -6,11 +6,11 @@
- #include <linux/rbtree.h>
- #include <api/fd/array.h>
- #include <stdio.h>
-+#include "env.h"
+diff --git a/tools/perf/tests/maps.c b/tools/perf/tests/maps.c
+index ff6d25f9c043..054e4fafef3f 100644
+--- a/tools/perf/tests/maps.c
++++ b/tools/perf/tests/maps.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <inttypes.h>
++#include <string.h>
+ #include <unistd.h>
+ #include <linux/compiler.h>
+ #include <linux/kernel.h>
+@@ -253,9 +254,148 @@ static int test__maps__fixup_overlap_and_insert(struct test_suite *t __maybe_unu
+ 	return TEST_OK;
+ }
  
- struct bpf_prog_info;
- struct machine;
- union perf_event;
--struct perf_env;
- struct perf_sample;
- struct perf_session;
- struct record_opts;
-@@ -42,7 +42,8 @@ int machine__process_bpf(struct machine *machine, union perf_event *event,
- int evlist__add_bpf_sb_event(struct evlist *evlist, struct perf_env *env);
- void __bpf_event__print_bpf_prog_info(struct perf_bpil *info_linear,
- 				      struct perf_env *env,
--				      FILE *fp);
-+				      FILE *fp)
-+	__must_hold_shared(&env->bpf_progs.lock);
- void bpf_metadata_free(struct bpf_metadata *metadata);
- #else
- static inline int machine__process_bpf(struct machine *machine __maybe_unused,
-diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
-index 287401f159e6..0e6b77a0a5e7 100644
---- a/tools/perf/util/config.c
-+++ b/tools/perf/util/config.c
-@@ -64,15 +64,29 @@ struct perf_stat_config stat_config = {
- 
- char buildid_dir[MAXPATHLEN]; /* root dir for buildid, binary cache */
- 
--static FILE *config_file;
--static const char *config_file_name;
--static int config_linenr;
--static int config_file_eof;
--static struct perf_config_set *config_set;
-+/* Parsing and rewriting share the static parser state. */
-+static DEFINE_MUTEX(config_mutex);
++static bool remove_not_keep_cb(struct map *map, void *data)
++{
++	const char *keep_name = data;
 +
-+/* Serializes whole perf_config__set_variable() updates. */
-+static DEFINE_MUTEX(config_update_mutex);
++	return strcmp(dso__name(map__dso(map)), keep_name) != 0;
++}
 +
-+/*
-+ * Protects the global config_set. Separate from config_mutex because
-+ * initializing config_set parses the config files, which acquires
-+ * config_mutex.
-+ */
-+static DEFINE_MUTEX(config_set_mutex);
++static int check_remove_after_end_update(bool swap_order, bool use_by_name,
++					 bool use_fixup_end, bool use_remove_maps)
++{
++	struct perf_env host_env;
++	struct machine *machine;
++	struct maps *maps;
++	struct map *map_a = NULL, *map_b = NULL, *map_keep = NULL, *missing = NULL;
++	struct map *map_first, *map_second, *found;
++	struct map_def expected_after_first[] = {
++		{ "map_same", 1000, use_fixup_end ? 1000 : 1100 },
++		{ "z_keep",   1000, 1300 },
++	};
++	struct map_def expected_after_remove_maps[] = {
++		{ "z_keep",   1000, 1300 },
++	};
++	int ret = TEST_FAIL;
 +
-+static FILE *config_file __guarded_by(&config_mutex);
-+static const char *config_file_name __guarded_by(&config_mutex);
-+static int config_linenr __guarded_by(&config_mutex);
-+static int config_file_eof __guarded_by(&config_mutex);
-+static struct perf_config_set *config_set __guarded_by(&config_set_mutex);
++	perf_env__init(&host_env);
++	machine = machine__new_live(&host_env, /*kernel_maps=*/false, getpid());
++	maps = maps__new(machine);
++	if (!machine || !maps)
++		goto out_env;
++
++	map_a = dso__new_map("map_same");
++	map_b = dso__new_map("map_same");
++	map_keep = dso__new_map("z_keep");
++	missing = dso__new_map("missing");
++	if (!map_a || !map_b || !map_keep || !missing)
++		goto out_maps;
++
++	map_first = swap_order ? map_b : map_a;
++	map_second = swap_order ? map_a : map_b;
++
++	map__set_start(map_first, 1000);
++	map__set_end(map_first, 1100);
++	map__set_start(map_second, 1000);
++	map__set_end(map_second, 1200);
++	map__set_start(map_keep, 1000);
++	map__set_end(map_keep, 1300);
++
++	if (maps__insert(maps, map_first) ||
++	    maps__insert(maps, map_second) ||
++	    maps__insert(maps, map_keep))
++		goto out_maps;
++
++	/* Trigger sorting of maps_by_address, and optionally maps_by_name. */
++	found = maps__find(maps, 1000);
++	map__zput(found);
++	if (use_by_name) {
++		found = maps__find_by_name(maps, "z_keep");
++		map__zput(found);
++	}
++
++	/* Missing map must not wrap around to index 0 in maps__find_next_entry(). */
++	found = maps__find_next_entry(maps, missing);
++	if (found) {
++		map__zput(found);
++		goto out_maps;
++	}
++
++	if (use_fixup_end) {
++		maps__fixup_end(maps);
++	} else {
++		/*
++		 * Simulate in-place end adjustment (as in module map setup),
++		 * which can invert the pointer tie-breaker in map__start_cmp().
++		 */
++		map__set_end(map_second, 1100);
++	}
++
++	if (use_remove_maps) {
++		map__zput(map_a);
++		map__zput(map_b);
++		map__zput(map_keep);
++		maps__remove_maps(maps, remove_not_keep_cb, (void *)"z_keep");
++		if (use_by_name) {
++			found = maps__find_by_name(maps, "z_keep");
++			if (found && maps__nr_maps(maps) == 1)
++				ret = TEST_OK;
++			map__zput(found);
++		} else {
++			ret = check_maps(expected_after_remove_maps,
++					 ARRAY_SIZE(expected_after_remove_maps), maps);
++		}
++	} else {
++		maps__remove(maps, map_first);
++		map__zput(map_a);
++		map__zput(map_b);
++		map__zput(map_keep);
++		if (use_by_name) {
++			found = maps__find_by_name(maps, "z_keep");
++			if (found && maps__nr_maps(maps) == 2)
++				ret = TEST_OK;
++			map__zput(found);
++		} else {
++			ret = check_maps(expected_after_first,
++					 ARRAY_SIZE(expected_after_first), maps);
++		}
++	}
++
++out_maps:
++	map__zput(map_a);
++	map__zput(map_b);
++	map__zput(map_keep);
++	map__zput(missing);
++out_env:
++	maps__zput(maps);
++	machine__delete(machine);
++	perf_env__exit(&host_env);
++	return ret;
++}
++
++static int test__maps__remove(struct test_suite *t __maybe_unused, int subtest __maybe_unused)
++{
++	for (int fixup = 0; fixup <= 1; fixup++) {
++		for (int by_name = 0; by_name <= 1; by_name++) {
++			for (int swap = 0; swap <= 1; swap++) {
++				TEST_ASSERT_VAL("maps__remove failed",
++						check_remove_after_end_update(swap, by_name,
++									      fixup, false) ==
++						TEST_OK);
++				TEST_ASSERT_VAL("maps__remove_maps failed",
++						check_remove_after_end_update(swap, by_name,
++									      fixup, true) ==
++						TEST_OK);
++			}
++		}
++	}
++	return TEST_OK;
++}
++
+ static struct test_case tests__maps[] = {
+ 	TEST_CASE("Test merge_in interface", maps__merge_in),
+ 	TEST_CASE("Test fix up overlap interface", maps__fixup_overlap_and_insert),
++	TEST_CASE("Test remove interface", maps__remove),
+ 	{	.name = NULL, }
+ };
  
- const char *config_exclusive_filename;
- 
- static int get_next_char(void)
-+	__must_hold(&config_mutex)
- {
- 	int c;
- 	FILE *f;
-@@ -99,8 +113,9 @@ static int get_next_char(void)
- }
- 
- static char *parse_value(void)
-+	__must_hold(&config_mutex)
- {
--	static char value[1024];
-+	static char value[1024] __guarded_by(&config_mutex);
- 	int quote = 0, comment = 0, space = 0;
- 	size_t len = 0;
- 
-@@ -170,6 +185,7 @@ static inline int iskeychar(int c)
- }
- 
- static int get_value(config_fn_t fn, void *data, char *name, unsigned int len)
-+	__must_hold(&config_mutex)
- {
- 	int c;
- 	char *value;
-@@ -201,6 +217,7 @@ static int get_value(config_fn_t fn, void *data, char *name, unsigned int len)
- }
- 
- static int get_extended_base_var(char *name, int baselen, int c)
-+	__must_hold(&config_mutex)
- {
- 	do {
- 		if (c == '\n')
-@@ -237,6 +254,7 @@ static int get_extended_base_var(char *name, int baselen, int c)
- }
- 
- static int get_base_var(char *name)
-+	__must_hold(&config_mutex)
- {
- 	int baselen = 0;
- 
-@@ -257,10 +275,11 @@ static int get_base_var(char *name)
- }
- 
- static int perf_parse_file(config_fn_t fn, void *data)
-+	__must_hold(&config_mutex)
- {
- 	int comment = 0;
- 	int baselen = 0;
--	static char var[MAXNAME];
-+	static char var[MAXNAME] __guarded_by(&config_mutex);
- 
- 	/* U+FEFF Byte Order Mark in UTF8 */
- 	static const unsigned char *utf8_bom = (unsigned char *) "\xef\xbb\xbf";
-@@ -549,12 +568,6 @@ int perf_default_config(const char *var, const char *value,
+diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+index 0044ea046aca..bd1554e9f56d 100644
+--- a/tools/perf/util/machine.c
++++ b/tools/perf/util/machine.c
+@@ -1551,19 +1551,6 @@ static int machine__create_modules(struct machine *machine)
  	return 0;
  }
  
--/* Parsing and rewriting share the static parser state. */
--static DEFINE_MUTEX(config_mutex);
+-static void machine__set_kernel_mmap(struct machine *machine,
+-				     u64 start, u64 end)
+-{
+-	map__set_start(machine->vmlinux_map, start);
+-	map__set_end(machine->vmlinux_map, end);
+-	/*
+-	 * Be a bit paranoid here, some perf.data file came with
+-	 * a zero sized synthesized MMAP event for the kernel.
+-	 */
+-	if (start == 0 && end == 0)
+-		map__set_end(machine->vmlinux_map, ~0ULL);
+-}
 -
--/* Serializes whole perf_config__set_variable() updates. */
--static DEFINE_MUTEX(config_update_mutex);
--
- static int perf_config_from_file(config_fn_t fn, const char *filename, void *data)
- {
- 	int ret;
-@@ -737,6 +750,7 @@ static int set_value(struct perf_config_item *item, const char *value)
+ struct kernel_mmap_mutation_ctx {
+ 	u64 start;
+ 	u64 end;
+@@ -1575,6 +1562,10 @@ static int kernel_mmap_mutate_cb(struct map *map, void *data)
  
- static int collect_config(const char *var, const char *value,
- 			  void *perf_config_set)
-+	__must_hold(&config_mutex)
+ 	map__set_start(map, ctx->start);
+ 	map__set_end(map, ctx->end);
++	/*
++	 * Be a bit paranoid here, some perf.data file came with
++	 * a zero sized synthesized MMAP event for the kernel.
++	 */
+ 	if (ctx->start == 0 && ctx->end == 0)
+ 		map__set_end(map, ~0ULL);
+ 	return 0;
+@@ -1639,8 +1630,10 @@ int machine__create_kernel_maps(struct machine *machine)
+ 							 machine__kernel_map(machine));
+ 
+ 		if (next) {
+-			machine__set_kernel_mmap(machine, start, map__start(next));
++			ret = machine__update_kernel_mmap(machine, start, map__start(next));
+ 			map__put(next);
++			if (ret < 0)
++				goto out_put;
+ 		}
+ 	}
+ 
+diff --git a/tools/perf/util/maps.c b/tools/perf/util/maps.c
+index 7ca33e5218e7..e6a53b31006f 100644
+--- a/tools/perf/util/maps.c
++++ b/tools/perf/util/maps.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <errno.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include <linux/zalloc.h>
+ #include "debug.h"
+ #include "dso.h"
+@@ -411,19 +412,19 @@ static int maps__sort_by_name(struct maps *maps)
+ static unsigned int maps__by_address_index(const struct maps *maps, const struct map *map)
  {
- 	int ret = -1;
- 	char *ptr, *key;
-@@ -853,11 +867,8 @@ struct perf_config_set *perf_config_set__load_file(const char *file)
- 	return set;
+ 	struct map **maps_by_address = maps__maps_by_address(maps);
++	unsigned int nr_maps = maps__nr_maps(maps);
+ 
+-	if (maps__maps_by_address_sorted(maps)) {
++	if (nr_maps && maps__maps_by_address_sorted(maps)) {
+ 		struct map **mapp =
+-			bsearch(&map, maps__maps_by_address(maps), maps__nr_maps(maps),
++			bsearch(&map, maps_by_address, nr_maps,
+ 				sizeof(*mapp), map__start_cmp);
+ 
+ 		if (mapp)
+ 			return mapp - maps_by_address;
+-	} else {
+-		for (unsigned int i = 0; i < maps__nr_maps(maps); i++) {
+-			if (RC_CHK_ACCESS(maps_by_address[i]) == RC_CHK_ACCESS(map))
+-				return i;
+-		}
++	}
++	for (unsigned int i = 0; i < nr_maps; i++) {
++		if (RC_CHK_ACCESS(maps_by_address[i]) == RC_CHK_ACCESS(map))
++			return i;
+ 	}
+ 	pr_err("Map missing from maps");
+ 	return -1;
+@@ -432,19 +433,22 @@ static unsigned int maps__by_address_index(const struct maps *maps, const struct
+ static unsigned int maps__by_name_index(const struct maps *maps, const struct map *map)
+ {
+ 	struct map **maps_by_name = maps__maps_by_name(maps);
++	unsigned int nr_maps = maps__nr_maps(maps);
++
++	if (!maps_by_name)
++		return -1;
+ 
+-	if (maps__maps_by_name_sorted(maps)) {
++	if (nr_maps && maps__maps_by_name_sorted(maps)) {
+ 		struct map **mapp =
+-			bsearch(&map, maps_by_name, maps__nr_maps(maps),
++			bsearch(&map, maps_by_name, nr_maps,
+ 				sizeof(*mapp), map__strcmp);
+ 
+ 		if (mapp)
+ 			return mapp - maps_by_name;
+-	} else {
+-		for (unsigned int i = 0; i < maps__nr_maps(maps); i++) {
+-			if (RC_CHK_ACCESS(maps_by_name[i]) == RC_CHK_ACCESS(map))
+-				return i;
+-		}
++	}
++	for (unsigned int i = 0; i < nr_maps; i++) {
++		if (RC_CHK_ACCESS(maps_by_name[i]) == RC_CHK_ACCESS(map))
++			return i;
+ 	}
+ 	pr_err("Map missing from maps");
+ 	return -1;
+@@ -519,6 +523,7 @@ static int __maps__insert(struct maps *maps, struct map *new)
+ 		/* Sorted if maps were already sorted and this map starts after the last one. */
+ 		maps__set_maps_by_address_sorted(maps,
+ 			maps__maps_by_address_sorted(maps) &&
++			map__start(maps_by_address[nr_maps - 2]) < map__start(new) &&
+ 			map__end(maps_by_address[nr_maps - 2]) <= map__start(new));
+ 		maps__set_maps_by_name_sorted(maps, false);
+ 	}
+@@ -539,32 +544,44 @@ int maps__insert(struct maps *maps, struct map *map)
+ 	return ret;
  }
  
--/* Not config_mutex: building the set parses the config files, which takes it. */
--static DEFINE_MUTEX(config_set_mutex);
--
--/* Called with config_set_mutex held. */
- static int perf_config__init(void)
-+	__must_hold(&config_set_mutex)
+-static void __maps__remove(struct maps *maps, struct map *map)
++static void __maps__remove_at(struct maps *maps, unsigned int address_idx)
  {
- 	if (config_set == NULL)
- 		config_set = perf_config_set__new();
-@@ -975,7 +986,7 @@ int perf_config__set_variable(const char *var, const char *value)
+ 	struct map **maps_by_address = maps__maps_by_address(maps);
+ 	struct map **maps_by_name = maps__maps_by_name(maps);
+ 	unsigned int nr_maps = maps__nr_maps(maps);
+-	unsigned int address_idx;
++	struct map *map;
  
- 	/* Static: the parser publishes it as config_file_name. */
- 	{
--		static char path[PATH_MAX];
-+		static char path[PATH_MAX] __guarded_by(&config_update_mutex);
- 		char *user_config = mkpath(path, sizeof(path), "%s/.perfconfig", getenv("HOME"));
+-	/* Slide later mappings over the one to remove */
+-	address_idx = maps__by_address_index(maps, map);
+-	map__put(maps_by_address[address_idx]);
+-	memmove(&maps_by_address[address_idx],
+-		&maps_by_address[address_idx + 1],
+-		(nr_maps - address_idx - 1) * sizeof(*maps_by_address));
++	if (address_idx >= nr_maps)
++		return;
  
- 		config_filename = config_exclusive_filename ?: user_config;
-diff --git a/tools/perf/util/env.c b/tools/perf/util/env.c
-index 50993b0dedc5..9e8e5d1d822a 100644
---- a/tools/perf/util/env.c
-+++ b/tools/perf/util/env.c
-@@ -302,6 +302,7 @@ void perf_env__exit(struct perf_env *env)
++	/* Slide later mappings over the one to remove */
++	map = maps_by_address[address_idx];
+ 	if (maps_by_name) {
+ 		unsigned int name_idx = maps__by_name_index(maps, map);
+ 
+-		map__put(maps_by_name[name_idx]);
+-		memmove(&maps_by_name[name_idx],
+-			&maps_by_name[name_idx + 1],
+-			(nr_maps - name_idx - 1) *  sizeof(*maps_by_name));
++		if (name_idx < nr_maps) {
++			map__put(maps_by_name[name_idx]);
++			memmove(&maps_by_name[name_idx],
++				&maps_by_name[name_idx + 1],
++				(nr_maps - name_idx - 1) * sizeof(*maps_by_name));
++		} else {
++			__maps__free_maps_by_name(maps);
++		}
+ 	}
+ 
++	map__put(map);
++	memmove(&maps_by_address[address_idx],
++		&maps_by_address[address_idx + 1],
++		(nr_maps - address_idx - 1) * sizeof(*maps_by_address));
++
+ 	--RC_CHK_ACCESS(maps)->nr_maps;
  }
  
- void perf_env__init(struct perf_env *env)
-+	__context_unsafe(/* initialization */)
++static void __maps__remove(struct maps *maps, struct map *map)
++{
++	__maps__remove_at(maps, maps__by_address_index(maps, map));
++}
++
+ void maps__remove(struct maps *maps, struct map *map)
  {
- 	memset(env, 0, sizeof(*env));
- #ifdef HAVE_LIBBPF_SUPPORT
-diff --git a/tools/perf/util/env.h b/tools/perf/util/env.h
-index 23d35425efe3..6b2083e3640c 100644
---- a/tools/perf/util/env.h
-+++ b/tools/perf/util/env.h
-@@ -139,16 +139,16 @@ struct perf_env {
+ 	down_write(maps__lock(maps));
+@@ -713,7 +730,7 @@ void maps__remove_maps(struct maps *maps, bool (*cb)(struct map *map, void *data
+ 	maps_by_address = maps__maps_by_address(maps);
+ 	for (unsigned int i = 0; i < maps__nr_maps(maps);) {
+ 		if (cb(maps_by_address[i], data)) {
+-			__maps__remove(maps, maps_by_address[i]);
++			__maps__remove_at(maps, i);
+ 			removed = true;
+ 		} else {
+ 			i++;
+@@ -1319,7 +1336,7 @@ struct map *maps__find_by_name(struct maps *maps, const char *name)
+ 
+ struct map *maps__find_next_entry(struct maps *maps, struct map *map)
+ {
+-	unsigned int i;
++	unsigned int i, nr_maps;
+ 	struct map *result = NULL;
+ 
+ 	down_read(maps__lock(maps));
+@@ -1329,7 +1346,8 @@ struct map *maps__find_next_entry(struct maps *maps, struct map *map)
+ 		down_read(maps__lock(maps));
+ 	}
+ 	i = maps__by_address_index(maps, map);
+-	if (++i < maps__nr_maps(maps))
++	nr_maps = maps__nr_maps(maps);
++	if (i < nr_maps && ++i < nr_maps)
+ 		result = map__get(maps__maps_by_address(maps)[i]);
+ 
+ 	up_read(maps__lock(maps));
+@@ -1340,6 +1358,7 @@ void maps__fixup_end(struct maps *maps)
+ {
+ 	struct map **maps_by_address;
+ 	unsigned int n;
++	bool revalidate_sort = false;
+ 
+ 	down_write(maps__lock(maps));
+ 	if (!maps__maps_by_address_sorted(maps))
+@@ -1351,16 +1370,27 @@ void maps__fixup_end(struct maps *maps)
+ 		struct map *prev = maps_by_address[i - 1];
+ 		struct map *curr = maps_by_address[i];
+ 
+-		if (!map__end(prev) || map__end(prev) > map__start(curr))
++		if (!map__end(prev) || map__end(prev) > map__start(curr)) {
+ 			map__set_end(prev, map__start(curr));
++			if (map__start(prev) == map__start(curr))
++				revalidate_sort = true;
++			maps__set_maps_by_name_sorted(maps, false);
++		}
+ 	}
+ 
+ 	/*
+ 	 * We still haven't the actual symbols, so guess the
+ 	 * last map final address.
  	 */
- 	struct {
- 		struct rw_semaphore	lock;
--		struct rb_root		infos;
--		u32			infos_cnt;
--		struct rb_root		btfs;
--		u32			btfs_cnt;
-+		struct rb_root		infos __guarded_by(&lock);
-+		u32			infos_cnt __guarded_by(&lock);
-+		struct rb_root		btfs __guarded_by(&lock);
-+		u32			btfs_cnt __guarded_by(&lock);
- 	} bpf_progs;
- #endif // HAVE_LIBBPF_SUPPORT
- 	/* same reason as above (for perf-top) */
- 	struct {
- 		struct rw_semaphore	lock;
--		struct rb_root		tree;
-+		struct rb_root		tree __guarded_by(&lock);
- 	} cgroups;
+-	if (n > 0 && !map__end(maps_by_address[n - 1]))
++	if (n > 0 && !map__end(maps_by_address[n - 1])) {
+ 		map__set_end(maps_by_address[n - 1], ~0ULL);
++		maps__set_maps_by_name_sorted(maps, false);
++	}
++
++	if (revalidate_sort) {
++		maps__set_maps_by_address_sorted(maps, false);
++		__maps__sort_by_address(maps);
++	}
  
- 	/* For fast cpu to numa node lookup via perf_env__numa_node */
-@@ -223,7 +223,8 @@ int perf_env__nr_cpus_avail(struct perf_env *env);
- void perf_env__init(struct perf_env *env);
- #ifdef HAVE_LIBBPF_SUPPORT
- bool __perf_env__insert_bpf_prog_info(struct perf_env *env,
--				      struct bpf_prog_info_node *info_node);
-+				      struct bpf_prog_info_node *info_node)
-+	__must_hold(&env->bpf_progs.lock);
- bool perf_env__insert_bpf_prog_info(struct perf_env *env,
- 				    struct bpf_prog_info_node *info_node);
- struct bpf_prog_info_node *perf_env__find_bpf_prog_info(struct perf_env *env,
-@@ -233,9 +234,11 @@ void perf_env__iterate_bpf_prog_info(struct perf_env *env,
- 						void *data),
- 				     void *data);
- bool perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node);
--bool __perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node);
-+bool __perf_env__insert_btf(struct perf_env *env, struct btf_node *btf_node)
-+	__must_hold(&env->bpf_progs.lock);
- struct btf_node *perf_env__find_btf(struct perf_env *env, __u32 btf_id);
--struct btf_node *__perf_env__find_btf(struct perf_env *env, __u32 btf_id);
-+struct btf_node *__perf_env__find_btf(struct perf_env *env, __u32 btf_id)
-+	__must_hold_shared(&env->bpf_progs.lock);
- #endif // HAVE_LIBBPF_SUPPORT
- 
- int perf_env__numa_node(struct perf_env *env, struct perf_cpu cpu);
-diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpebs.c
-index 525e38506737..b61ad72f93b1 100644
---- a/tools/perf/util/intel-tpebs.c
-+++ b/tools/perf/util/intel-tpebs.c
-@@ -39,14 +39,15 @@
- bool tpebs_recording;
- enum tpebs_mode tpebs_mode;
- static DEFINE_MUTEX(tpebs_mtx);
--static LIST_HEAD(tpebs_results);
--static pthread_t tpebs_reader_thread;
--static struct child_process tpebs_cmd;
-+static struct list_head tpebs_results __guarded_by(&tpebs_mtx) = LIST_HEAD_INIT(tpebs_results);
-+static pthread_t tpebs_reader_thread __guarded_by(&tpebs_mtx);
-+static struct child_process tpebs_cmd __guarded_by(&tpebs_mtx);
- static struct cond tpebs_cmd_cond = { .cond = PTHREAD_COND_INITIALIZER };
--static int control_fd[2] = { -1, -1 }, ack_fd[2] = { -1, -1 };
--static bool tpebs_stopping;
--static bool tpebs_cmd_in_flight;
--static uint64_t tpebs_gen;
-+static int control_fd[2] __guarded_by(&tpebs_mtx) = { -1, -1 };
-+static int ack_fd[2] __guarded_by(&tpebs_mtx) = { -1, -1 };
-+static bool tpebs_stopping __guarded_by(&tpebs_mtx);
-+static bool tpebs_cmd_in_flight __guarded_by(&tpebs_mtx);
-+static uint64_t tpebs_gen __guarded_by(&tpebs_mtx);
- 
- struct tpebs_retire_lat {
- 	struct list_head nd;
-@@ -66,6 +67,7 @@ static struct tpebs_retire_lat *tpebs_retire_lat__find(struct evsel *evsel)
- 	__must_hold(&tpebs_mtx);
- 
- static int evsel__tpebs_start_perf_record(struct evsel *evsel)
-+	__must_hold(&tpebs_mtx)
- {
- 	const char **record_argv;
- 	int tpebs_event_size = 0, i = 0, ret;
+ 	RC_CHK_ACCESS(maps)->ends_broken = false;
+ 	check_invariants(maps);
 -- 
 2.56.0.455.g6c5a503b38-goog
 
