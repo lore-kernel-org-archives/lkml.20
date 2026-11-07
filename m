@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794075740;
-	b=BqdVuTN6CEcSqpQz9i/EmrY9wzLzH3U1fs6fmlRAdY8wW0zObNdrGdI0iEcPVZcrD/SN
-	 u6vT46agvu0M8DRhW7a4WnawklU8vNm8trqF+ZM+Fyr1Wyp/e5HYpsvi5CfvQFZ5T2Hrh
-	 +SIH2q1ddAHU4jxb1EENJNFgm2Inbb6eWtIwHfj1cZ7YnEbGsTwbyq525YkDvNYJydkFo
-	 KtXRz4Wv/Ln2b8IYVjUHObeT/s2eeF3gxzETPGdVs4lcNhcVuYJgQDZh0yU69WNvC+VAz
-	 gXWoMWphNdDEO0L5FYmhNNGh2x9pq58dcwYJKM9US/VDzUcRh0oeYgJ3qYqrmVryrrQ==
+	t=1794075736;
+	b=WYnPih72nvRAhBp2NVgUn059ejJr1nTK7SZK5xQKP3E1QVOrKzyCWxg5DSMRojxsMXHf
+	 4g+ZoXRt2ZWyHV0k1c5gS9rsOgeZtYxWTfv/hMtkdWZ6VA0Yy1YKGOi71l/S3i20o7uow
+	 FxUPhVF68KrItJHr0PlWwp9a0QD523Iyb9zQ2GryLodz2fBDUkGMw+uqjcbxBTp4dBic2
+	 DcqsICm2GF4/cLMZaEE+FojZEtHNj3toppfVmuVZx9iAFlSPHPE2qy1zjTfN7bdKzIr2Q
+	 2uRrnqmV2m8uu/FUbzkiV48Os/ykAV6soIzxXyvRlzspi9DuyVhiKKG/2cI/2grxSUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794075740;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794075736;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
-	b=nJB9fq3DYgTbpbD7tQHVQaw59H26B8eKW/74uv5JBxV6EZPPWL+jW/EX33JVHeHvC3a9
-	 7pKX9nSdB194pqGShJBMw49Lm/pUBsVtx8I73YIAoax96MxNyK2UiZP/wCS+Sm5CbuxJU
-	 hZvGz1corvnFYruBaETFrvFUQODIIn5nNXMdyu4bkPDvR/qwgVcxPWhGToZrWZgULkKZ8
-	 Q2LXl5hP7IB6hU829OT0bE1Dr7Xd7bTymYToJE9+JCjGYY9a7HUvltwadYb/dolaAYxSV
-	 l7fMwddIb2jNEeeQkET2eLgxZucREIDUmyZ+lRD3RYXrRybDJb5CL7F5AIG/A1UADXA==
+	bh=qIUo8w5jnVZGhZQV3yXbT0Mmx7eP44OB6GHW9QwQx2s=;
+	b=oTwfpgsExTZ/UsPYfatdi/jVKctt35h9be8AcO3eHgTWlIyePneQnTkTMLu1n+QBZeGP
+	 betsdxRR+jDMtEbyzzgpLu+vVqrUj9d0JKMLSQyK7qUtyVFXR1C6MMrsE7Tprid2TU1pU
+	 MztVI9S325WNCT/U3BybSagRCsFaz6QctksHLR/qloPNuyWsDr08GtI9mm1vxalHSHUOK
+	 933k5SLdmOYxjJDn+0YOSLAQFczRwMbkNkEgWmHW22Ha2qs9rAgLVHL0Fe0B9CCBea5pF
+	 YCf1O8qotW+BLPAdWZ+9mZmlPGLJ6qCZlqolLFWaFbviKNgg+oMv2/hqCyV3GNCBbZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=himYNpLz;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vNjPfhEV;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E43606D81B
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:22:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E43606D81B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E3B606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:22:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13E3B606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=himYNpLz
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so16932295e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 10:22:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vNjPfhEV
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso13575905e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 10:22:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794075738; x=1794680538; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
-        b=himYNpLzZcNXXAmhKRKSZU9yH05YDEjwm1NbCITImA4cc4vmA9CMcVfnCY4APWUtYx
-         b0NipC8HeY+hXJK6g4Z4UwENA3xFcf8Ep5M2NQk5UCLRPTRymtPsxdijtmkfkEO86L/r
-         YCCgSQeycbbsuD9/IZDSPjA1Z1yUKRKNITQL4a//EcEDJZis06wPGS92auOVsBxZAKy2
-         v0iNZSJi3GQRtavcyuF5yiyYeJrm8/rOcN3hHebjxatLCRcUGvProkblZKFDyOTM+Bkr
-         bjR3E7kj0sg8Q0vD2kpWnaX5QRLCXH9Wq+HzsZ6mhAsBYIxQ7Tf3+GBtstV/y3w73G9k
-         lQ4g==
+        d=gmail.com; s=20260707; t=1794075734; x=1794680534; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qIUo8w5jnVZGhZQV3yXbT0Mmx7eP44OB6GHW9QwQx2s=;
+        b=vNjPfhEV9Pka0KLIusKIQvFHSdjtKDDD36PpAkKVW31mLlJKdaJ2k0vxJ+1SN9YiTy
+         QAl6Irw1iRjnvpKfvQFIU0s+z5WhWjZ1XUrd9cquNBiMA8vI+LNj0k6PYpUkiRKRAT6p
+         iRheH3rILf9pn2OuY9TQd6CRU5e5y17kReb4+nh4BsNIRfIXBGV461OrazP6UfoH+4mN
+         Co/bQaXt6dAHqLnDeR//GcWuj8hJb7q9y0Ir47LS7cz2XhqQAIQUIkf7fixSvdOow/QP
+         j5XJi3aamX0wk1GUGIAOQUXdIEXTQ3wAVDvzhAqLSuXEuhAzVgKlZYQWdWspLO+jRPcJ
+         JVyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794075738; x=1794680538;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=asWdhl3Pp2O56PoH+ShacAZ49+nr8lbfDLql5h7tLgo=;
-        b=Swvlb9VM/3O0qChGgNPdOTVQBmue496NwrFhM+KMw1TiE54uwnjWun1lJOfuXanopB
-         XVOignhLdZ/062ZMcLOzx8Zw93VE0G6sPMagpNhHKaRsuvo57N3kKiZVAAkdX7JFVcYP
-         g0v/3Xr8TJSE+hEPgLC2j17Ks01kBSB3CgfqdDSJx7ZjfMu9ai/KIHwkwhAOzQ+f10OF
-         hzIx9xe6RT8abhTZemJtWVMmwjrFaaK+YQSk317kcpXwNmRgYN8j5grxVbjrMirNfrtq
-         YF/IhZIkKiJxGB4i3VQQ+8X5s8FdjgbYiIOdX2LzVE8GA8AncDw9QIXoU3wjuuRymbpH
-         /+iA==
-X-Forwarded-Encrypted: i=1; AKwUvBztCoLpvmF5jvJxrk0ATzU2hfZ9In1J5vv0nr5sf7/PVdfpN6IX0fWWomuo+GbsfzCgIXuE5402A7mfwgI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/HD+t7nSoKnF8eZrfRhURXD4fFpaNWRaRHqhnLMl780ORZLlGM
-	m3ngPC8FmZYQ+WegFVNQXuQmwJzYhBv8JwBKgO6CP3CZv2TOPmmE5pbO
-X-Gm-Gg: AYBFou2FB2CCat8qvwEd4JEgYlBJrGBgTNsGScLZAAoTY95unLPHX/HcVw28HOoBR9D
-	w4I2wbMuxnlN5TkWI9qvJkcsfPFJ31CltTrOQHfmdjjKIyI1biN3odTcpR0HkxPetbaWPztRuAj
-	NJWTPQt7kOTF76K5BrsRWiime/r95KZvTz1wJsWcFdHKUoTrjHc7BKUSL1nG5d9tD/bHtXFvAvE
-	STW451EStRGFfrJFY3FiepSApkbXHAuya+cr/7BFGmfi6TMq9ZdU6Cc7PB0R4gIHiAxt8ZvsK5Q
-	hUm2aFuUheh/mbKJ0fj92rVnTG5+/j/nCv7hntutKl47fXcrCWvIINgKysIWkEumrSsuHBzQvJ8
-	1HlQFrwS4qW/iEDIYuaEt/G0atVwACoJI62ZoEc8dLwh9oxrT+HYPO3uSTsfIitWxRg/Zh8ApIe
-	OwwMQvqtQ6cgxFDQU0wQs+KO27/WXXxNjNj44H1w2re76Ee/I5LCey2fhP4O3bVjyi7xLcU5uMH
-	OLyCE6hRi4kem6QkV1zIA5j/QyBcyG0DVCzFhvapCUI1PZmfkXSM8aqYqBVBEG6v3UihtBpoQlM
-	WkZj3hfJKjbJW9TUP9wzINxNiJO9h3t2nCNlpRFuQe8nbQcNuY//F8gUeYX5Jedvb1FOe/nWJ+1
-	pkhCNWC9AF0amW9U=
-X-Received: by 2002:a05:600c:6288:b0:4a2:1a:a129 with SMTP id 5b1f17b1804b1-4b6e063f189mr100513395e9.35.1794075738073;
-        Sat, 07 Nov 2026 10:22:18 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794075734; x=1794680534;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qIUo8w5jnVZGhZQV3yXbT0Mmx7eP44OB6GHW9QwQx2s=;
+        b=XyeK5oTK6SUEycGoCYmWaknr2TfgKwvyeTfoOB53dUrt2jfAU3of7D3IJrywgRHLIB
+         hd0CP48UdwFbh8xfiHErXwBL3oaHy8RLKZEmQ5YZGFYx/UmZThpLB2HLa7PHASK0J8lE
+         +V6xx0w4drEIRjxlD67tFWn1pWmyHawUyEkIQry95UXXEkFB5rlMqUcLn40nYwqxbMdY
+         lX19bJM2IrjEPnLd46R0SAL9/CRpJ4fpkk/+okL7LNFKthEmGO4cBu/8OoWBQwpmHVKH
+         pRaDr0oQGLi9AgP/BA6VtYDfvBmHjXh+ZweH+CyubvYJWFKkwj0ita7vX0CCS+vaSjLl
+         DNTg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4uCrSUMLAtfrsSbhs8cvYTp60G5FFYuPFeyGCRrjEQa8Sr7Ap33OOw45HUb+AesIR5l/VyEXH6iU2ZQE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80GLJY701Pvgd5dGskCPAR+Bk1KffxVjg9m2IkufixgNx9lTs2
+	hLvBEtFQqJ5Iputb7JKNNA05FsOc/xyUXh9I3N2AiuP4idlEO9VHCaIG
+X-Gm-Gg: AYBFou2MChbRdoS8Z+MAbEEYiefLgxPJFajzBctLFlMTpSfge6EgBJmG/9MkvKM1TPp
+	vuaPBOqK0Z2bkvfOcs30je7EhSFQL8E7NA2VqsXhVy62nK+Su2YwYRC8gUFWYOUhrvqAHZJYrxP
+	+QKEU0fd4iGi94CEyy/4a7cYAzuQIYTj7WfeUEV3HwDDw4KyOUIO/d/TLE2tPvwyizoB4M/DyTG
+	2Oz1KzhJSVJ7H5Qq1NebYd4advwXPqyj+3z/0H65Q6DgkT1ige808WKnIGIUikxXOhlkHNBKvSx
+	kLesPIPRyvjrWsPs0ynvBLzqZEEU+ZCjFTY2uqA/m05QbxX9oHuS9Vr3udORoePy80S+QEqFFkd
+	uy3/7VKotydbiczjJJ/+mwdX1stvhSNXjyJ3bvYvvMPZ/7f7O/gMGBXk3u5xqWWDTWx8G7PZEex
+	BHz4HHoAw7Cb3/EEfBphJ/cX9MzAL4YXw3eszpk+ZR6tFXx0kN/s/YpdL2UJxVWYMVfdZrdzpiS
+	yis0KUMza6U4/5RzG+KB62NPhQlLaMOw2+YjS58zYS7iSO68sCVcB0XThpWtcPWE/UuDZEk8YDr
+	JxjQo/0iXwT6qeHxL42p/XkdHnugoKbyQVJlyNBSL3TglqF0dV1KMH7pzJgIImAJEbbuCnLlgq5
+	w4UY5KWMoJ7FuF3bA6FPQ8D8oDb6CXDLtVV5B
+X-Received: by 2002:a05:600c:348f:b0:4a1:f377:5c6c with SMTP id 5b1f17b1804b1-4b6de788f12mr102711915e9.10.1794075734154;
+        Sat, 07 Nov 2026 10:22:14 -0800 (PST)
 Received: from zeus.unificl3slsbnxe8mz.com (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbd082dsm59551055e9.1.2026.11.07.10.22.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbd082dsm59551055e9.1.2026.11.07.10.22.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 10:22:17 -0800 (PST)
+        Sat, 07 Nov 2026 10:22:13 -0800 (PST)
 From: Sander Speetjens <sander.speetjens@gmail.com>
-Date: Sat, 07 Nov 2026 19:21:35 +0100
-Subject: [PATCH v2 5/6] firmware: raspberrypi: Document memory barriers in
- property list path
+Subject: [PATCH v2 0/6] firmware: raspberrypi: Style cleanups and fix child
+ device lifetime
+Date: Sat, 07 Nov 2026 19:21:30 +0100
+Message-Id: <20261107-fix-raspberrypi-firmware-v2-0-5bfe605a5cc5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,9 +96,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-fix-raspberrypi-firmware-v2-5-5bfe605a5cc5@gmail.com>
-References: <20261107-fix-raspberrypi-firmware-v2-0-5bfe605a5cc5@gmail.com>
-In-Reply-To: <20261107-fix-raspberrypi-firmware-v2-0-5bfe605a5cc5@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43NTQqDMBBA4auEWTslSTGhrnoPcRHjqAP1h0lJF
+ fHupZ6g27f43gGJhClBpQ4Qypx4maFStlAQxzAPhNxBpcBq64zRHnveUEJaWxLZV8aeZfoEIWz
+ pEZ22nfNlCYWCVajn7aLrplAwcnovsl+nbH71DzQb1Oi1vzsbvdGxew5T4NctLhM053l+AYDyQ
+ Q3AAAAA
+X-Change-ID: 20261107-fix-raspberrypi-firmware-be9c602d6755
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
  Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
@@ -107,50 +109,61 @@ Cc: linux-rpi-kernel@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  sander.speetjens@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1034;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1762;
  i=sander.speetjens@gmail.com; h=from:subject:message-id;
- bh=P9wmJ6Smi8MVD/GA5S6rtkoUUYTGbgyj85KQ4DXkfhY=;
- b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq72xVj2xkyPVT5nXwKtxjSn3VGbitptwgZjFMG
- flgoMHF3+mJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9sVQAKCRB4zXhFDAXI
- Z8ckD/9/14C3WyvvP5/nFvlvavHAesDmGwgScVhZPxVwkTIbluUS86Yfcgvxe6e7LwCFBZdihey
- I6Avezu5N0XeO7niGu+YE0T8ciIn5KMas2xS+3jPjezE5aRZC6z9KNhTvQTK/y7jZTYOBcJ1IsG
- 40iS7x3HiUKf68mLXn/q6iE78wc5QJsMvkMtlY4AY2XdtEMtVRwHE6bu5O9yxPWRQayDtPb2aIj
- sW8lOnzdzEF1D5TdMNgF9tWn2cK0JN/6i1RTmHBCAg/bVsqSkF43vJ7lO9VtQDRTnXwBWcJLzvB
- /PMsuc4wZvz/QT5CiDdN+VW7SxVHk2L7QMPxrIvl4+V3tYwsx1L7ifnJUemdBl+AcE91CSmG0Ks
- /l7XFCebwzC+A5noVmk5Cxeyos4iuTiS87gRWxPeoaefhCNlhv3G/BIempfih8pdhUYg4QJpHfR
- shk/G7kOijA4ZzPd7vCRjWdL8rwAkVBb3S4gtp5eYoCdhYDBYIGn3JP2Dxmj+iRL5WevBdXrx9T
- YPJafQgmGaIhPdS8fkbWPRP0gFOukJsKC/8/JcgNv3AsqPniL9upuugB5zdpgn2gkSzgpM14XEU
- ZnJv1dDzBzrTLfto/OFKf2uq1rLHf9t74YFfG/P8L6RrzTwMjE2z1S9RQbGvGBP01KN9Je9PHn/
- N3AK3uQijVtHijQ==
+ bh=0rEgn/6yzRAJIGB+6WT8d+hJikkPqbyZkdSE8/Lf2L8=;
+ b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq72xV8RRfQstVxHlzO/Uw/9nrDdf3i1iA4/BKs
+ TEh1kgTbNqJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9sVQAKCRB4zXhFDAXI
+ Z2ZcD/0d0jRDf27K/pqicnJj9cUKv/CamEep7l9ryUSiGGLLSJIg3q0Xv+TjC9eSoBHMyG+KOOF
+ 0bkwyldbA9hOxWtKjTjPPzWL01c1TzWK0uRB6cdCYVMPtqYS9Gl5OB7eNYCyz3bgyIE4MhQ5/hL
+ fuyD5ahh62gfkQ6rvIq7HawHP36v3U3yxZSJe1v+5THrE47/MOF3YxeCvzpZn6SE3TbZOa0iowr
+ Ln2S1MwDY4WPIYYOU5l7ZDWtwzpcvokV3xBsG79w+J0mGJ2yGP3suAcLzUpbPWwwOj6xiRvAngY
+ uGVDzXKLia9mvXL+ccIYXt6B2GNDqTF9zS/YO7xQmT3Fwgcc6mGZaqSiaQpSpWzid1CNdHmUQKE
+ 6Wel9sAnv7sdcvKQ+Xz6NTVu4l6bCFpbxXIkywmMkElBg6OaGRHu5ZY+XrKvGTk73gA3ORrkumD
+ 6ZIMYD9lbK7prNTKvi7K6EZ8L6nUcsvCceDfn39ZxIAotVRQ96dGKBbE+Jd9uAOSOT2vdaIFact
+ SsZzJtuvKmcF2gNHkYu4OcbCfiq9ajjq71W8YRfsTnDp2MJU0vgU8uanNGSGyhQJi6+eqayxReO
+ I7wovhglVMESvA4iGcpHkCLZwTHoMxD6aa1rwnhYmPVQrhFkxtqW0shkRouPv3rGpcKQCwuq6MQ
+ o2iB7DlsmRRvyMA==
 X-Developer-Key: i=sander.speetjens@gmail.com; a=openpgp;
  fpr=56524A8B001A11C3EEC9510178CD78450C05C867
 
-Add comments explaining the wmb() before the firmware transaction and
-the rmb() before reading the response, as required by coding style.
+This series does minor style cleanups in the Raspberry Pi firmware
+driver and fixes the lifetime handling of the hwmon and clock child
+devices.
 
-Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
+The first five patches address checkpatch warnings (missing blank lines
+after declarations, incorrect indentation, unnecessary braces, and
+undocumented memory barriers).
+
+The final patch moves the hwmon and clock platform device pointers from
+globals into struct rpi_firmware.  This pairs their lifetime with the
+parent device and prevents leaks or incorrect unregistration if the
+driver is probed more than once.  It also checks the return value of
+platform_device_register_data() so that an error pointer is never
+stored.  Registration failures are not propagated because the child
+devices are optional.
+
 ---
- drivers/firmware/raspberrypi.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2:
+- Move platform device pointers to rpi firmware struct
+- Link to v1: https://lore.kernel.org/r/20261107-fix-raspberrypi-firmware-v1-0-707362c710cd@gmail.com
 
-diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
-index d9a569a6dae7..57f21e4e65d6 100644
---- a/drivers/firmware/raspberrypi.c
-+++ b/drivers/firmware/raspberrypi.c
-@@ -110,10 +110,12 @@ int rpi_firmware_property_list(struct rpi_firmware *fw,
- 	buf[1] = RPI_FIRMWARE_STATUS_REQUEST;
- 	memcpy(&buf[2], data, tag_size);
- 	buf[size / 4 - 1] = RPI_FIRMWARE_PROPERTY_END;
-+	/* Make sure the writes to the buffer are visible to the firmware. */
- 	wmb();
- 
- 	ret = rpi_firmware_transaction(fw, MBOX_CHAN_PROPERTY, bus_addr);
- 
-+	/* Make sure we see the firmware's response before reading it. */
- 	rmb();
- 	memcpy(data, &buf[2], tag_size);
- 	if (ret == 0 && buf[1] != RPI_FIRMWARE_STATUS_SUCCESS) {
+---
+Sander Speetjens (6):
+      firmware: raspberrypi: Add blank line after declaration in response_callback
+      firmware: raspberrypi: Fix indentation of return statement
+      firmware: raspberrypi: Add blank line after declaration in probe error path
+      firmware: raspberrypi: Remove unnecessary braces in transaction helper
+      firmware: raspberrypi: Document memory barriers in property list path
+      firmware: raspberrypi: Store child devices in struct rpi_firmware
 
+ drivers/firmware/raspberrypi.c | 61 ++++++++++++++++++++++++++----------------
+ 1 file changed, 38 insertions(+), 23 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-fix-raspberrypi-firmware-be9c602d6755
+
+Best regards,
 -- 
-2.56.0
+Sander Speetjens <sander.speetjens@gmail.com>
 
