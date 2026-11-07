@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794038911;
-	b=nAowMCtuOhnaHxeyJiycNvnGir8JjE7K1A4HgDi8mg1oU1rsaDp3xYTb6Ssn4L0wS8CS
-	 2fmok5huJgRVM6ivi1LdmrS7kS8ViGFrXA9MjOA/MfUnzgc2ufXd+jo9JBbP4xcWbyYOM
-	 QlVa1UFxug1M6eM8MFeeqEOhNG/tJXxvyrZedQ+kG+Bj/wHgxppB2nc8zyIZhUIlsX1nU
-	 6qnA1JukRj5dUqdCveo2so0x9OoiJ31UyZ2XEFS1GHHQpgxNNLLB7opn4aAT7mel/akCp
-	 CIf99+Uu4/+eDXAFVif+zaxYJsHm1wHNuVRHVv+j76HX5oVaPp7MkjzWiHq31hzk02Q==
+	t=1794038907;
+	b=nObYfHP/NK1AZc9wh2nvJXMObFsYCpdTP/yizXisDn1s6GRxDm0oOz3oqogWVTLSFOZz
+	 0CZdbKfZ71TTkAwdgYkjHuhmXD6os6aSMR1XIIp2adIqTmkQnJgl16g8WrjNPRPuxXz9o
+	 VfbYvmUN3G1pvfHtw+n0natnfu0wfcI+dyoJjoR8Mksspg9wFBKvk9AvVjr1H+skBMqMS
+	 PAcwmmREmLaA/bzdyJSnQbFQzNu+FAJEf/i29abdxfRYvr3CfXYqHI1XRLcAqzA/xu9v/
+	 wafMm7Li1h7z+EQ9yp/D7RPS3ag4FXdl4sJBZksNQoYTEs8xJMr2PGi2hBZRiYL3iWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794038911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794038907;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
 	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
 	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
 	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=5dGP7OsYZrgZld9I1X847oOXXK6extHaSO2lUmdQfn4=;
-	b=4t90a7A4+UmJVrV4D3bzZC53PrA859852pfzTFj6VtVafp1iV3KRmwEupnGdjJuDDw0D
-	 QoICuy8/hvovxmtRWLzXto479hvPbtZ73dmXAQDS7QwDT9LuKGQURzlOaaf3W82Yo9xEk
-	 V01p/HECe7kFXArTbLNIJ3PeKFBfLNk5/M6pwNJMNE8mL7WFy4FPFFW3cWur7rMYIQ5WX
-	 2fVpyp7OYU/tCCismxf0lk6VSNmf/sVQ+4NbDft6SPFnFBAKFp1kGyJZp5BKXdYn21LPX
-	 95jqNaAJ93o5lo3BKRvKEsfEIQyjJ36L+u/GYdGEA3+iOpLivgucQ90yxRdu95IJZLw==
+	bh=ekhsu2gD2ffd2XUnkad76rYwYpPwsHO9XjiLqW89QII=;
+	b=smcfyRWoTnhSIeXHGLvnvTewNfw6/EV6x0KL3Ohm2T/I1Z+xxQDVLP1kYu+bqSzY5BnP
+	 PTTRJqBNv4UiMd5B9OyL9N6BstRUd2p62KnXfQSFvnuk+r0y/U+AF56R1rt0aMhYlWUz0
+	 +fdPVqI5hObhi9aYjyYoi2lPzk7hBop/jAOr/M7a4vZaxCO61LiMSwPlK5Ttv1geQePy3
+	 BNPIQNEjmZsDfBs3fi/wskOLZ53FCq/94v8lhDjzacJvQsga+rmbohLVKi6wHp4q7Inqf
+	 RQvzx4tm4X93bs08rLzYt1umQojRMHq85wybTgax5jG9OgtctkfcaKmWhSKYrhqkNEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
@@ -26,30 +26,30 @@ Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BCB606D828;
-	Sat,  7 Nov 2026 08:08:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1BCB606D828
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C48606A330;
+	Sat,  7 Nov 2026 08:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C48606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jM7wB3t1tz57HS1;
-	Sat, 07 Nov 2026 16:08:26 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6A788OUH022866;
-	Sat, 7 Nov 2026 16:08:25 +0800 (+08)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jM7w53lPSz57HS0;
+	Sat, 07 Nov 2026 16:08:21 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6A788J1W096644;
+	Sat, 7 Nov 2026 16:08:19 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp05[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sat, 7 Nov 2026 16:08:27 +0800 (CST)
-X-Zmail-TransId: 2afa6aeedc7b7b3-93351
+	Sat, 7 Nov 2026 16:08:21 +0800 (CST)
+X-Zmail-TransId: 2afc6aeedc75063-80c13
 X-Mailer: Zmail v1.0
-Message-ID: <20261107160827257FwoXZMjcThgcfD-ZPfKsk@zte.com.cn>
+Message-ID: <20261107160821263n_tb5YdtJX-icNTWJbOW9@zte.com.cn>
 In-Reply-To: <20261107160815352Q4eO0zXOX0KF5AwEbOJ6f@zte.com.cn>
 References: 20261107160815352Q4eO0zXOX0KF5AwEbOJ6f@zte.com.cn
-Date: Sat, 7 Nov 2026 16:08:27 +0800 (CST)
+Date: Sat, 7 Nov 2026 16:08:21 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,55 +68,41 @@ Cc: <lgirdwood@gmail.com>, <heiko@sntech.de>,
         <linux-sunxi@lists.linux.dev>, <kuninori.morimoto.gx@renesas.com>,
         <linux-renesas-soc@vger.kernel.org>, <srini@kernel.org>,
         <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDUvNV0gQVNvQzogcnNuZDogZml4IFNTSVUgbm9kZSByZWZlcmVuY2UgbGVhayBpbiByc25kX2RtYV9vZl9wYXRo?=
+Subject: =?UTF-8?B?W1BBVENIIDEvNV0gQVNvQzogcnNuZDogZml4IE5VTEwgZGVyZWZlcmVuY2Ugd2hlbiByZW1vdGUgcG9ydCBoYXMgbm8gZW5kcG9pbnQ=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A788OUH022866
+X-MAIL:mse-fl2.zte.com.cn 6A788J1W096644
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 16:08:26 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 07 Nov 2026 16:08:21 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEEDC7A.000/4jM7wB3t1tz57HS1
+X-Fangmail-MID-QID: 6AEEDC75.000/4jM7w53lPSz57HS0
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-rsnd_ssiu_of_node() returns the child node obtained by
-of_get_child_by_name(), which holds a reference.  rsnd_dma_of_path()
-only tests that node and never drops the reference, so every DMA path
-setup leaks the SSIU node.
+rsnd_parse_connect_graph() uses the node returned by
+of_graph_get_remote_port_parent() without checking it for NULL.  An
+endpoint node with no remote-endpoint phandle yields NULL, and the
+following strstr() on remote_node->full_name dereferences it during
+probe.
 
-Put the node after the SSIU branch has used it.
+Return early when the remote node is absent, so a graph link that does
+not lead anywhere is ignored instead of crashing the kernel.
 
-Fixes: 4e7788fb8018 ("ASoC: rsnd: add SSIU BUSIF support")
+Fixes: beed78aeeb10 ("ASoC: rsnd: move HDMI information from ssi.c to core.c")
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-index 793dd4adbe5c..ece23ef5e56c 100644
---- a/sound/soc/renesas/rcar/dma.c
-+++ b/sound/soc/renesas/rcar/dma.c
-@@ -791,6 +791,7 @@ static void rsnd_dma_of_path(struct rsnd_mod *this,
- 	struct rsnd_mod *mod_start, *mod_end;
- 	struct rsnd_priv *priv = rsnd_mod_to_priv(this);
- 	struct device *dev = rsnd_priv_to_dev(priv);
-+	struct device_node *ssiu_np;
- 	int nr, i, idx;
+diff --git a/sound/soc/renesas/rcar/core.c b/sound/soc/renesas/rcar/core.c
+index b7954746e953..6fba4f46868b 100644
+--- a/sound/soc/renesas/rcar/core.c
++++ b/sound/soc/renesas/rcar/core.c
+@@ -1140,6 +1140,8 @@ static void rsnd_parse_connect_graph(struct rsnd_priv *priv,
+ 		return;
  
- 	/*
-@@ -803,13 +804,15 @@ static void rsnd_dma_of_path(struct rsnd_mod *this,
- 	 *	rsnd_ssiu_dma_req()
- 	 *	rsnd_ssi_dma_req()
- 	 */
--	if (rsnd_ssiu_of_node(priv)) {
-+	ssiu_np = rsnd_ssiu_of_node(priv);
-+	if (ssiu_np) {
- 		struct rsnd_mod *ssiu = rsnd_io_to_mod_ssiu(io);
+ 	remote_node = of_graph_get_remote_port_parent(endpoint);
++	if (!remote_node)
++		return;
  
- 		/* use SSIU */
- 		ssi = ssiu;
- 		if (this == rsnd_io_to_mod_ssi(io))
- 			this = ssiu;
-+		of_node_put(ssiu_np);
- 	} else {
- 		/* keep compatible, use SSI */
- 		ssi = rsnd_io_to_mod_ssi(io);
+ 	/* HDMI0 */
+ 	if (strstr(remote_node->full_name, "hdmi@fead0000")) {
