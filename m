@@ -1,54 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794076977;
-	b=pA93bwnYRlpo1aDbcUnpDAENGhYB4SjNibL6vBzzCpI+4OTHqT50dqnEpwrdNZjMrRwG
-	 7PXqzoTN9Ur5Kn+6xzi2UbPmqO+sxgWfY4T4hPN1jjIKu+rFnN+b6I2HPyquKQg86hVa+
-	 z6K/gv5d945iX5y2YsAIj2wkoEed7TBUJeHa0y+DFsnA3AZwzibf2Kcuwt6d2IEttf2UA
-	 An/5tnI3vp2ublZBh8UhY9NHGV0Z7xL13Q4f6zQMoa07InzRlQlffzcDA1XmEgzpjun29
-	 UAXI0H67mqTBe3dIzPj1lPXhVrmYam/jQ458PdUhumWBPBJCi2Lg7ZCe0BHTyI/ot9A==
+	t=1794077021;
+	b=vc6fyORXk0uhDXnZCTrPY/LTFhpI3qIU6BkrIlqwHqZbdvQgCk8+VIRCMrIw31bBN1el
+	 qW7ErOMhM++LuWpMuPNNicSb93aRMyPR31smu5qDDW3Lvx+aKrv8VE6k07iaWm6DiUtab
+	 KLbugC6ZGcanzKixLqLK7bLr9fhrGz5C922O2GWp49ZDGkhr7f9acjBQLNzGOoCirxm/0
+	 O/wHjZF+d563bpw3mtl8Jzqc4IZMyyz0DCDefg4Zk39b/2LcbwIm9eUaLyamTJ7MPW+BZ
+	 x3VyBK5UMnjGpgbK/H3aqzLnOYDNvdTXk/xgqyhJ2Apag8X0RIJEppOZH6mJmekNftw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794076977;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=c5xASuE4WTD0ldxKOS7KGdAZeVJCQeGDMJozP8KV2tg=;
-	b=ru1dj6XI9PnehXWBAkN40fLj0o4FP2qJo2oc7S8j2z5zFRSzynXYkYCzS8WoAZTQDieP
-	 ap/LPV51kqZt/ZtUWWZuJzh1dopJ6sbThzNuif1c7Ab0KeVY6LiRbHZyIQxCRETgTWfmP
-	 CyqmarcZy4u1MtFi5FVmZVrNDMUVqYbYREXRxMCVy6EqGduO9SXs/rtWyTUIKNAASudtQ
-	 BNiZx1PoFtUNmOzS+Afk/pwmCbCAuQYQc7ErK05fQ/QxqjRaeC05T5BybCefmOadqUtS2
-	 xnbxQgNOP/z9LiJiMd8mpdwa5KElnM1Qcj1RHW/dCylD98TYpVLYorxBdAQ2OiYyPag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794077021;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=t1HVA44UAY32xlSYNWcCK2CrgjT7OyVdPsj6AxJutDE=;
+	b=CM3MnwcOpmZynNkLLrsMIYe1NAspBH4J3GxAN7W/pn3E8MD5vvsU0V5k609PZWeIqVhn
+	 jYA6QERiDrJH6DKG3Zv1kzZWBMPf3xHfWkt8e2ipjZjoFWDNsQfGO2oIa1+2uFkEnkWJX
+	 vMFeqpb3WBrJpYUd4DrOtylIA4PTOBMVvYfR+/8MolVZ9e1MWoST2WyTYqTISzFCdgvwd
+	 /OWclcnE0SkDLNJVdTM8Ct9OIpqUT8ag0BTEhSQdKjD3uRwwfuGhAxLjEqUrwfsW1m93o
+	 GBALaglMOtaaoPM+0qMxxVUT6aNLLFkEgWyFP2jISbJQSk1EOm/p/YEH+t4O+O+UIew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=AtQPrfzp;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=l2H7aosd;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3357606A334
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:42:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3357606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABnArgnce9qi1yKAA--.6774S2;
-	Sun, 08 Nov 2026 02:42:47 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>
-Subject:
- [PATCH v2] firmware/sysfb: Fix device reference count leak in sysfb_disable()
-Date: Sat, 07 Nov 2026 17:05:00 +0000
-Message-ID: <1794071765.2669957.4378216502938475@iscas.ac.cn>
-In-Reply-To: <2d89b88f-863c-4e8d-839c-5e800b4c4902@suse.de>
-References: <20260916073815.1972045-1-vulab@iscas.ac.cn> =?utf-8?q?=3CBN9PR1?=
- =?utf-8?q?2MB5146B7A8975825C3623CFF97F7B92=40BN9PR12MB5146=2Enamprd12=2Epro?=
- =?utf-8?q?d=2Eoutlook=2Ecom=3E?=
- <2d89b88f-863c-4e8d-839c-5e800b4c4902@suse.de>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43285606A326;
+	Sat,  7 Nov 2026 18:43:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43285606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=AtQPrfzp;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=l2H7aosd
+Date: Sat, 07 Nov 2026 18:43:30 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794077012;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=t1HVA44UAY32xlSYNWcCK2CrgjT7OyVdPsj6AxJutDE=;
+	b=AtQPrfzp73aBB78zd41LLb8M2Dum3a02dz7zfi2MU4nd0MXeOX2FSspG0qkD2nGnQ/CoV1
+	z5CnD6yqRR3Zly+COKH6uhXu8vwmMeYgkq92bdEqz3+HpEkwH+bAO/14CbkV9iGoNBmzG7
+	M4OMqAMb0PKJ2xjYVBvsVZgM0nx1KHBukupyjO5uPHaciriiFkIREVLKkujqkVFCLhf5qF
+	KJY4PcJNQa70G1I6aZFX1e71OGn4he7n+Bd/pTwmLQJaeUTlzGGPtRihvBfHboncllKVOI
+	asuCQD+MVEv6h4QL0Cz1j9ETaZGB1B1FIh1DcL9cn3XHh61aNvXvLAzU32oh8g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794077012;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=t1HVA44UAY32xlSYNWcCK2CrgjT7OyVdPsj6AxJutDE=;
+	b=l2H7aosdoPUhXhl1GQpt5HiJI2/T06vf+vMa/IUrH0cvtDbU+OPy9tmx2cviNgOvSXTSIv
+	XZJl7skfGpLWerDg==
+From: "tip-bot2 for Chris Mason" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/mm: Fix global ASID handed out to two processes
+Cc: Chris Mason <mason@kernel.org>, Rik van Riel <riel@surriel.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,  <stable@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,101 +73,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABnArgnce9qi1yKAA--.6774S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw4UtF1Dtr1kWrykKw13CFg_yoW5WF18pr
-	4fGFW5trWDGF429a1UuF10ya4YyFn7Aa4rCr1kJFyruwn8JryI9r1xtFyrWF1UArZ5GF1F
-	qF4Yqw18CF4UAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvv1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64
-	vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI
-	7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjfUruWLUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMEA2rvPodDrwABsS
+Message-ID: <179407701052.2093942.14761445604537918621.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Thomas, Alex,
+The following commit has been merged into the x86/urgent branch of tip:
 
-Sorry for the very late reply, and thanks for the review.
+Commit-ID:     5cdc3746fa163fb4e8d05fa3cabf46bc6aa7df75
+Gitweb:        https://git.kernel.org/tip/5cdc3746fa163fb4e8d05fa3cabf46bc6aa=
+7df75
+Author:        Chris Mason <mason@kernel.org>
+AuthorDate:    Fri, 06 Nov 2026 18:47:17 -05:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Sat, 07 Nov 2026 10:35:02 -08:00
 
-Alex, you asked whether sysfb_unregister() would still need to be called
-when the parent device lookup returns an error. It does: without a known
-parent we cannot tell whether the system framebuffer belongs to the
-calling device, and leaving it registered could make sysfb interfere with
-the native driver. Thomas, that is the defensive behaviour you suggested,
-so v2 unregisters unconditionally when sysfb_parent_dev() fails and only
-drops the reference on the non-error path.
+x86/mm: Fix global ASID handed out to two processes
 
-The reference leak fix itself is unchanged.
+On AMD CPUs with INVLPGB, two live processes can get the same MAX_ASID_AVAILA=
+BLE
+global ASID value. The two then hit each other's TLB entries, so each can read
+or corrupt the other's memory.
 
-From 8c5f084941a3b6aca5d3ae8cff0c3bd1d4ae1e6f Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Sat, 7 Nov 2026 17:02:27 +0000
-Subject: [PATCH v2] firmware/sysfb: Fix device reference count leak in
- sysfb_disable()
+The global ASID space is managed lazily. When a global ASID is freed, its bit=
+ is
+set in the global_asid_freed bitmap. Once the free ASID search reaches the end
+of the global_asid_used bitmap, a global flush is done to really reclaim the
+lazily freed global ASIDs.
 
-sysfb_parent_dev() returns a pointer to &pdev->dev with an acquired
-reference when it finds the PCI device that contains the system
-framebuffer. sysfb_disable() never drops that reference, so a reference
-to the PCI device is leaked on every call that resolves a parent.
+However, the current code can assign the same global ASID to two different
+processes, if one process is assigned MAX_ASID_AVAILABLE - 1, another process
+MAX_ASID_AVAILABLE, and both stick around (keeping their global ASID numbers =
+in
+use) until the search wraps around again.  At that point a third process could
+also get assigned MAX_ASID_AVAILABLE.
 
-Release the reference with put_device() before leaving the critical
-section.
+    the highest ASID stays in use, so it is not handed out again
+      last_global_asid stays below it, so no reset
+        the clear bits run out
+          find_next_zero_bit() returns MAX_ASID_AVAILABLE
+            global_asid_available > 0, so the failure is not caught
+              MAX_ASID_AVAILABLE is handed out as an ASID
 
-If the parent device cannot be determined, unregister the system
-framebuffer unconditionally, as it might still belong to the calling
-device. Leaving sysfb registered in that case can make it interfere
-with the native driver.
+A search only looks at the bits below MAX_ASID_AVAILABLE, so it cannot see th=
+at
+this value is in use. The next failed search hands it out again, even if the
+first process still holds it.
 
-Fixes: b49420d6a1ae ("video/aperture: optionally match the device in sysfb_disable()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+The fix used here is to reset the global ASID space after a failed search, and
+to search again. If that search fails too, no global ASID is handed out.
+
+The test for !global_asid_available is removed, because use_global_asid() only
+calls allocate_global_asid() if global_asid_available > 0. The remaining test=
+ is
+for a condition that should be impossible.
+
+  [ riel: simplify code, massage changelog and comment ]
+
+Fixes: d504d1247e36 ("x86/mm: Add global ASID allocation helper functions")
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: <stable@kernel.org>
 ---
-Changes in v2:
-- Sorry for the late reply.
-- Unregister the system framebuffer when the parent device lookup fails,
-  as pointed out by Alex Deucher and Thomas Zimmermann.
+ arch/x86/mm/tlb.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-Disclosure: the candidate was found with our static analysis tooling, and
-the audit and the fix were assisted by DeepSeek and GPT 6.1 sol.
----
- drivers/firmware/sysfb.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-index 8833582c1883..4cd6e9f86962 100644
---- a/drivers/firmware/sysfb.c
-+++ b/drivers/firmware/sysfb.c
-@@ -71,10 +71,20 @@ void sysfb_disable(struct device *dev)
- 
- 	mutex_lock(&disable_lock);
- 	parent = sysfb_parent_dev(si);
--	if (!dev || !parent || dev == parent) {
-+
+diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
+index 0c4da32..53dcab3 100644
+--- a/arch/x86/mm/tlb.c
++++ b/arch/x86/mm/tlb.c
+@@ -320,13 +320,19 @@ static u16 allocate_global_asid(void)
+=20
+ 	lockdep_assert_held(&global_asid_lock);
+=20
+-	/* The previous allocation hit the edge of available address space */
+-	if (last_global_asid >=3D MAX_ASID_AVAILABLE - 1)
+-		reset_global_asid_space();
+-
+ 	asid =3D find_next_zero_bit(global_asid_used, MAX_ASID_AVAILABLE, last_glob=
+al_asid);
+=20
+-	if (asid >=3D MAX_ASID_AVAILABLE && !global_asid_available) {
 +	/*
-+	 * If the parent device cannot be determined, unregister the system
-+	 * framebuffer unconditionally. It might belong to the calling device
-+	 * and would otherwise interfere with the native driver.
++	 * Nothing is free between last_global_asid and MAX_ASID_AVAILABLE.
++	 * Flush lazy-freed ASIDs and reset the search space.
 +	 */
-+	if (IS_ERR_OR_NULL(parent) || !dev || dev == parent) {
- 		sysfb_unregister();
- 		disabled = true;
- 	}
++	if (asid >=3D MAX_ASID_AVAILABLE) {
++		reset_global_asid_space();
++		asid =3D find_next_zero_bit(global_asid_used, MAX_ASID_AVAILABLE,
++					  last_global_asid);
++	}
 +
-+	if (!IS_ERR(parent))
-+		put_device(parent);
-+
- 	mutex_unlock(&disable_lock);
- }
- EXPORT_SYMBOL_GPL(sysfb_disable);
--- 
-2.34.1
-
++	if (asid >=3D MAX_ASID_AVAILABLE) {
+ 		/* This should never happen. */
+ 		VM_WARN_ONCE(1, "Unable to allocate global ASID despite %d available\n",
+ 				global_asid_available);
