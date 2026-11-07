@@ -1,59 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052247;
-	b=hh9ZBF3oAQMl2TuDo+Ls5gPCfwOxrW+WaBb6C0YPq9KdCtt/5RBKO5vjU86JH2N8e2+m
-	 cxlOHHr80fgjqdoGYDsvYqpxJ40MFEIkPqqU+tvqesCLElVkkqtZWHqe39k5DfFMqSm+F
-	 +/M6QS7QXgmB1tynjgYbVNVyBHTJIbf2SXefUrPglhrDBRYXeuayd4z/NZ3rRDKSk1D62
-	 vOfAC2Mbgyi1jtwcX4fe+hbURuDuWwGM2CYR+Gq9BVDNPR+pUn9QglGOZEQur87eVfqTq
-	 SfF2CvFzYxYX+/y7H9xqD87DjhUdxjNydQ71Bf+C57Lt0wjny71II28JYUSV34p47ew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052247;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0nl3EtW/t9ZcBzb8A/tKhYaRHR6Wov+cG3wp3yyG6Fw=;
-	b=SDb8aUQIhrNkzXro978XkEH8BEp+jcgRM2CHU1Vp1w6MLXtSikU9mE+ajL84IasauYEI
-	 SKZT3zRHBk6prPFDRRFUp5+k69UecG8cH2S1CmC7q2Hy8uQbTnAiAWe6U7ESdpGMWx7JC
-	 VG1+EqSVBgXBGVe719dQNQCmw9YSLXtPRlU4/5nCRo3spDYsN9ipjpdwK+KhkqF7h3BoG
-	 8XFZjcR/il8eie5zzSw1zaA/xh+re7fr+NyE7Y0eeEc9IE194QF9s5UudJFDVoi7wyN5m
-	 RNj63t+4NiT47R4vlwA83+mhxzgelXO27tySCf168Q2u4QtNm0hsRZOJuQiic3hmdeA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4yDtueU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794052271;
+	b=fUUJtDTcWobCIGhc6/WcRkKpuC38tqy5vysoUAciEIELJ8W3KRrvq/A4I+C0D41jOwqb
+	 r6VXA5XLqoDOByVkBeje//oEPj/22rorQJNtNMwQut9/uLqOhtQv5PPtEl30alH2haW43
+	 DZijqaiEfVPiI5tArquXHmwf+V2kiOhyomT+8LaFQMISiAqF4eSLJLP7UlT6vuQDgKRBV
+	 aHMbX2p9oq4mPNs2f0Lk3U57qiDHQv5cuACagGmKOiR7C9+eclzrXjcLhKtlqAzMB0RpR
+	 /JusVw0bfWp0Eti3sWThohwGSYDUrFd7BsS0NJlZS+JckfIUumaWS9+xojQ2zh5ZMjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052271;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=wzNf0R8HXIUXQSXCUaFIslGp/QSSRE/+udoUQ+hnha8=;
+	b=wn99Fj04nIyPCqoUe7XaxAgFQ52LMzS92XmCmXcwZJf2t2OmQzr3fDPYisHSdvgsTApc
+	 CPs/gx4hjKWZ2uxRiX6umdPG2h8iGTz68XJij/kuT/hgI2uUFCHb5Kw0qfjCIZpmySOKq
+	 qHH4C3qE+/kgdHCvj/VCyMnxzgiDgsEYw4p1MAbdplmSKUdH1RAlW/vIbiiGS8b5biTZd
+	 PTkQ4jvWrtcti36NaKyxxpNJ2Qk6R3N3W8I4cSQ1T82p7KMx+oa3WOy4Mo2OvLi8ZGaua
+	 KyvipNwFB8uiGVmblmhfZPWh/ejFN/4o4uSFyIhUpG75cH9qLxqigzUOWQQfsfdBdLQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=OOYi6dly;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A550606A326;
-	Sat,  7 Nov 2026 11:50:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DE5606A326;
+	Sat,  7 Nov 2026 11:51:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13DE5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4yDtueU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667A31F0089F;
-	Sat,  7 Nov 2026 11:50:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794052247;
-	bh=0nl3EtW/t9ZcBzb8A/tKhYaRHR6Wov+cG3wp3yyG6Fw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=i4yDtueUQSU5XJr9MzitR2Fl+pi/ipaP5eQHiW3wI8jA04yP3Ok9og7wETsVtL5Dd
-	 khsI5tCNk0CRHKKOlG5BgT5h7oGlEJDKOSwH17Ic4gXhNV7wJ1tJ+XPYWd1vXME0Cd
-	 uzIBb2RH4riODr+k1Urj2IwkxxLY9aRKfBeaQ9ZexG0draPrkjTVvs8fAsmMtclti5
-	 MrH+i/d+Tby9UEB8FLJUiqWL3QuAmGyRYvVHo/MiylZGgxcF/pV+cOIXf7OKY58OHM
-	 T34Wir8JbVG2jllyGg71m2PV3nBpyM4ntVqk4Z4X2Oa933BCwnXuFsz44lwfMgooyv
-	 ynUWz5evMo9zA==
-Subject: Re: [PATCH] ice: release the VF reference in the switchdev trust path
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 07 Nov 2026 11:50:45 +0000
-Message-ID: <179405224597.994134.14854399116658341017@kernel.org>
-In-Reply-To: <20261103100530.1309907-1-vulab@iscas.ac.cn>
-References: <20261103100530.1309907-1-vulab@iscas.ac.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=OOYi6dly
+ARC-Seal: i=1; a=rsa-sha256; t=1794052249; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=H+ReWpPyte4kMoxb0+/aRjSN1rze2SF1Cc7BLucx24vukE482+YyXpY+fKAAjkcXTqREZHTCPB9hkTT8AXPKdPf4c3b7Ex+BqrgMcM7mBmsOWgWC7et9DA/+3KuxJbJeyyJVwrBQcDEqQhVn29qI69TT3n0qkmuQ02+B1gKANfo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794052249; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=wzNf0R8HXIUXQSXCUaFIslGp/QSSRE/+udoUQ+hnha8=; 
+	b=H4z6NR0GijQs3SUT+g2dg3conj+TrrP5ynLg/7gLhELxZi7S8t4nAhqiq+wLmt2XuI/wd3ubi7Nbu8WchgqEWUnXyOA8K1ULrtzBIpc+005gS8BgbScYZFpXayPwWbKNDje+4YjCXNZaJBEH1AHq/wHExuVG62RqGHX8EYlVjto=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=OOYi6dlyAffDoVFo6f+e/4pdVxNvrMhAGQ6//axGKnVIlYc4o41qRBJLq497u6EAqmGd0croTFQ6ah0xSR+OuqQyyoruZHAY1WonBhSk4VQTEmKQoARvpdHJGKnS7fIXFsK2Wp+Lc3KE37BMv6kSCsUSQ90t0N7tuZYc8BWyWUY7+rT4Cbmj/j0Lgc+7iy9IGlx1vQh0SRGR8bGQgrsLyCRhzoiR67ZyVrjOJMl9VKhd7oOHF92FVXbDn4D7YuekgPab1iXtNGYoURr+Nh8r0vbri2R1wGx2xJMxDYhVlIhFFcc8lnrEY/+p/ktcfo555JFCNQP4n+y+l2OTst5UPw==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=wzNf0R8HXIUXQSXCUaFIslGp/QSSRE/+udoUQ+hnha8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794052248313533.5836605321382;
+	Sat, 7 Nov 2026 03:50:48 -0800 (PST)
+Message-ID: <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
+Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
+From: Rong Zhang <i@rong.moe>
+To: Josh Triplett <josh@joshtriplett.org>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Henrique de Moraes Holschuh	
+ <hmh@hmh.eng.br>, "Derek J. Clark" <derekjohn.clark@gmail.com>, Hans de
+ Goede	 <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, 
+	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+In-Reply-To: <au5nUp4extfupCpS@localhost>
+References:
+		 	<a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
+			 <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
+			 <au5nUp4extfupCpS@localhost>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 07 Nov 2026 19:45:12 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,98 +73,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Josh,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+On Fri, 2026-11-06 at 15:48 -0800, Josh Triplett wrote:
+> On Sat, Nov 07, 2026 at 04:48:44AM +0800, Rong Zhang wrote:
+> > The term "unsafe LED" exists because LEDs are write-only for software a=
+nd
+> > fire-and-forget for the EC. By taking the control of an unsafe LED, e.g=
+.,
+> > attaching an LED trigger, any warning signal from the EC can no longer =
+be
+> > displayed by the LED.
+> >=20
+> > When it comes to battery LEDs, they are definitely unsafe to override.
+> > After all, batteries are dangerous things when they malfuction. Thus, I
+> > don't think it's suitable to enable it for all users.
+>=20
+> Choosing to not report "charging" vs "full" vs "not charging" via LEDs
+> (as opposed to on-screen indicators) is not in itself dangerous. If the
+> EC has something like "battery is damaged/overheating/exploding" to
+> report, it had better do that by some more effective means than blinking
+> an LED, or the message is going to be lost.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This is not in contradiction to the fact that blinking an LED is crucial.
 
-- [Medium] The Fixes: tag in commit "ice: release the VF reference in the
-  switchdev trust path" points at the wrong commit.
+When the EC "does that by some more effective means", it will have to
+rely on the OS to ensure that the message is delivered. It's both
+effective and ineffective.
 
---
+>=20
+> I can't comment on what *every* ThinkPad EC would do, but at least on
+> this X1 Carbon Gen 11,=C2=A0
+>=20
 
-ice: release the VF reference in the switchdev trust path
+That's the whole issue. The patch unlocks charging LEDs on all models,
+while your ThinkPad can't speak on behalf of other models.
 
-In ice_set_vf_trust(), the VF reference taken by ice_get_vf_by_id() was
-not dropped when the request was rejected because the PF is in switchdev
-mode. This patch sends that path through the existing out_put_vf label
-so ice_put_vf() is called.
+> based on some (LLM-assisted, but all of this mail
+> is 100% human-written) disassembly of both the ACPI tables and the EC
+> firmware (EC version 1.22 specifically), the EC does not appear to
+> report any battery states via the battery LEDs other than:
+> - AC not present (LEDs off)
+> - AC present and battery <90% (LEDs yellow)
+> - AC present and battery >90% (LEDs white).
+>=20
+> Critical battery diagnostics can get reported through ACPI, and if the
+> firmware reports one of those, it appears to lead to tpacpi reporting
+> "THERMAL EMERGENCY" and sending a userspace netlink message. (As an
+> aside, AFAICT a system running upower and GNOME doesn't display that,
+> unlike low-battery warnings. It really should, in a hard-to-ignore way.)
 
-> ice: release the VF reference in the switchdev trust path
->
-> ice_set_vf_trust() takes a reference on the VF with ice_get_vf_by_id()
-> and then rejects the request when the PF is in switchdev mode without
-> dropping that reference.
->
-> Return through the existing out_put_vf label so the VF reference is
-> released on this path too.
->
-> Fixes: 1281b7459657 ("ice: Forbid trusted VFs in switchdev mode")
+That's why relying on the OS to deliver the "effective means" can be
+ineffective.
 
-[Severity: Medium]
-Is this the right commit for the Fixes: tag?
+>=20
+> Some other models (e.g. the X1 Carbon Gen 12) can emit other kinds of
+> diagnostics via LED blink codes (
+> https://download.lenovo.com/manual/x1_carbon_g12/user_guide/en/help_troub=
+leshoot_or_diagnose_problems.html#t3
+> ). But those primarily appear to represent pre-boot failure states where =
+you
+> won't get to an OS, anyway.
 
-When 1281b7459657 added the switchdev check, it was at the very top of
-ice_set_vf_trust(), before any VF lookup. VF refcounting (3d5985a185e6)
-did not exist yet, so the bare return did not leak anything.
+Again, "some other models" can't speak on behalf of all models.
 
-The leak seems to come from 83b49e7f63da ("ice: check if VF exists before
-mode check"). That commit moved the lookup above the switchdev check and
-did not change the early return:
+>=20
+> > Since not providing them via the LED core does not really prevents user=
+s
+> > to control them, I am also thinking about adding a debugfs attribute th=
+at
+> > unlocks unsafe LEDs and taints the kernel.
+>=20
+> I'd really love to not have a tainted kernel
+>=20
 
-    +	vf = ice_get_vf_by_id(pf, vf_id);
-    +	if (!vf)
-    +		return -EINVAL;
-    +
-     	if (ice_is_eswitch_mode_switchdev(pf)) {
-     		dev_info(ice_pf_to_dev(pf), "Trusted VF is forbidden in switchdev mode\n");
-     		return -EOPNOTSUPP;
-     	}
+A tainted kernel isn't something really bad. It just provides a signal to
+the (upstream and distribution) maintainers that something outstanding
+has occurred.
 
-    -	vf = ice_get_vf_by_id(pf, vf_id);
-    -	if (!vf)
-    -		return -EINVAL;
-    -
+OTOH, CONFIG_THINKPAD_ACPI_UNSAFE_LEDS should taint the kernel on the
+very beginning.
 
-With Cc: stable, the current tag would aim at trees that have
-1281b7459657 but not 83b49e7f63da. Those trees do not have the leak.
-There, ice_get_vf_by_id() still comes after the switchdev check, so a
-fuzzed backport would add a goto out_put_vf that runs before vf is
-assigned.
+>  just because I'd like to
+> not have a bright LED in my hotel room when I'm trying to sleep.
 
-Should this be the following instead?
+That's why I proposed the debugfs approach. At the cost of tainting the
+kernel, it can hopefully enter all major distributions, making it widely
+available. Users with some sensible reasons (like yours) will be able to
+unlock any LED without rebuilding the kernel on their own.
 
-    Fixes: 83b49e7f63da ("ice: check if VF exists before mode check")
+Thanks,
+Rong
 
-The phrase "takes a reference on the VF with ice_get_vf_by_id() and then
-rejects the request" also reads as if the check has always leaked. That
-has only been true since 83b49e7f63da.
-
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-
-> diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-> index c49f48b5ae38c..90bf1becbc3da 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_sriov.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-> @@ -1400,7 +1400,8 @@ int ice_set_vf_trust(struct net_device *netdev, int vf_id, bool trusted)
->
->  	if (ice_is_eswitch_mode_switchdev(pf)) {
->  		dev_info(ice_pf_to_dev(pf), "Trusted VF is forbidden in switchdev mode\n");
-> -		return -EOPNOTSUPP;
-> +		ret = -EOPNOTSUPP;
-> +		goto out_put_vf;
->  	}
->
->  	ret = ice_check_vf_ready_for_cfg(vf);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103100530.1309907-1-vulab%40iscas.ac.cn
+>=20
+> - Josh
