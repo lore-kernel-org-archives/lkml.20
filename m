@@ -1,92 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082215;
-	b=uHXW3fAvQtUp7AwtObeDMEY2z5xz2SuP20HBG6V+k8SvStKuexo39nTUdBe/7ZWaoWpI
-	 LD9qLi8kYqeizve7W5eR/GZIdZijURWkV1Ob8mRTQWduXYljpMX6dHWHjnPOrcFP14lF5
-	 sMS7c4eOwLqe3dL8NCLdc7ZfdmCFyqSFP71FUYAp8aA+9QqSBKdEX50t1PyuL9qvdDuZX
-	 TsqrRA31M8HFahZ37v08GKHuC8LdcGNG51utO8/8/0CIlaoXLPPHUUCTTPDfOagwLcFRL
-	 YMJn2PhLqPOtBJIsOt8GGlTIsXWOc06fFrOzdapk+ebBgATmGs5qPG+qZ7FyzhikI1w==
+	t=1794082211;
+	b=NiN1ycbNJbmAsarpZ+Z01v6AtkwxTIL2SQSHL8PNMYJWVlvg1zYfKOBA9c+LF96RkfhJ
+	 mfUmvrEcrsHUrYbsiXjxTrJeQ5N9p0swLRXQoEJgpJ8NYDrayfbVN1YHZtjvz7S0+rgal
+	 sIhnH0DWe2coCC3xrwid3aKZjeLHicRnlUOHi2jZYm62lpI9IQ+oJMZkKcEJjLGdIEWYC
+	 w6ZLVZoUcOqpneTzAX0KdnaH4FJybWU3+ZRWqpd57vhVbooLQqQNMR29BpsMeAsf5eoN1
+	 zNc3Q/HXm8nd2TDeOl6L377KR5CPRsWVIuVWbUkQXyLo4trKoXewLJ+b1N82Jh0+AgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082215;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CMFxkbGnr/NpLAXZXk8rbwy5EGs+66IVJk9lKIVoNp8=;
-	b=uX1djr4KrJAMZKxMVMBGYBEm/Gr7wt1qgnOzrDxZK9R1iSBgprGdLPyP6K/Kq5ISNBIN
-	 wMVrjJPxY+WYgwM6OzCuCxosnXy6wpI7W2HCMKsmd4geOY/3EXgMLxeQzoTZZKzIr/H56
-	 N3barsESmMZbnsBeKFP/sE+lvJdpfnVBVYh6KtGrA6YPQCjDC5vbFEdrF/uGb8eu08gGQ
-	 IIiYpTSbihqegc9CVuAUJXC/ca/2FRym+yV5s/6JKpiCAr5bxDzblan4+s6Pnbta5N+DB
-	 y+rKReozhIyNO+exF3zibImrmrZ/WANB3SHiefsi5qtkY52sPd3I9px3QHhTq1zuMRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082211;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=oUgpNIq5y7P8hrOoDRzoRBlVsghumVDo96fytymZU4o=;
+	b=akhSK4jYcAFwUnNdZCwmcZ8V4epug4UB2ZLFxM2Tk+mULlp2mY0bO39ej9lsg602LXug
+	 5+kGrzstlj/khhefnS0SFmtSgwhO/D7otuLnBwKfjHC/pE0U33zwuqZ1AxDc5cl3Dn7Xr
+	 lTLFbP67zDLVY6bT0RgI48FngRWnZh0NLP3lvZ62aMWE7gLay/aUavndGVRlHyYLtzRKJ
+	 4EcIyujxJBw1Nt4rT5RG2lxt4cvL2/3vkk0Q7NrGBM42zGkcfSWyaYEK8tuoyIpiPXQAY
+	 DyHaMKMwPzYosvcNiQ0bFovghpuvchbWz0f8khxDix/DMZt8/onmWqSxVmUoRK6TxOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLeOYJRj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8GiealS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830D7606A331;
-	Sat,  7 Nov 2026 20:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C6A606D820;
+	Sat,  7 Nov 2026 20:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLeOYJRj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D661F008A3;
-	Sat,  7 Nov 2026 20:09:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8GiealS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC091F008A7;
+	Sat,  7 Nov 2026 20:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082215;
-	bh=CMFxkbGnr/NpLAXZXk8rbwy5EGs+66IVJk9lKIVoNp8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iLeOYJRjjnhZl3LWMSGaUd1S27vEBJh9NrDzelAqlZmg4R2RciRfWoeIsojODwzqH
-	 AmV3EGrrSvx70iXnLVmV7/bs2dBDE1x/r3nyPcxADmxBtch4xZP+oTaqLUfx+eYAuG
-	 SGRWdAxli2sYIZwe/Tbuw0udh+c0QNfiwmJOXLSfQKYp1etxVNRgoDq0IPlAd0lt9t
-	 yDMA0BPoIWju9BFMAW7mO+dutMm2GHuzj6pjWBP8PMNdT9kLO2lCpBJij+NhIf7LIF
-	 N/2SXcwPj4meyprPc8KlcX/gZ5yZ2cdhj422kyiEPIrnEjIKnHoNmFfhk++nuATcLn
-	 UZoP1hyr/4Jww==
-Date: Sat, 7 Nov 2026 20:09:55 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
-	Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, SJ Park <sj@kernel.org>, 
-	Rakie Kim <rakie.kim@sk.com>, David Rientjes <rientjes@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	John Johansen <john.johansen@canonical.com>, Georgia Garcia <georgia.garcia@canonical.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
-	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
-	Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, damon@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, selinux@vger.kernel.org
-Subject: Re: [PATCH 00/13] mm: continue vma_flags_t conversion
-Message-ID: <au-DXpEi4wHwsz0r@gremlin>
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
- <d0ea7929-7c12-4245-ba3f-6dd5c0269e6b@kernel.org>
- <au3r0-geuwtRYPiC@gremlin>
- <1c0b1368-a381-4b25-bba9-7a4f8e92b764@kernel.org>
+	s=k20260515; t=1794082211;
+	bh=oUgpNIq5y7P8hrOoDRzoRBlVsghumVDo96fytymZU4o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=c8GiealSX7kI27Hkj91eti8JBokuozsH9hmLJ2W+cHpUKvghW7FhbRPdGgKqdIImM
+	 5MVOfYeYluV3UkNGpqzbB90EiRcgKcT25oJrfVu7Pu+tQu6qn/vK01Fg53jesd9FCI
+	 4/5h0ACmiirgOTFGbgzFUfD8Oe/TGZ6H9bnCD8BV+IibAKWyUpNQghLscLvQp1MRQE
+	 8tXNithdLu9suG7QjyiOLWuDZy6+NHUUd1c/qLRJnbAvNYszj+dW0JUfdV8YwAmb9o
+	 uOjd+lD+sdGF5J3wCQYXfSzn4/4v58IVs9sBUhzFm+l8AQLVgePEKHvp3HufUPsy2A
+	 35BW5Dp2u7rEA==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.18.y 4/5] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Sat,  7 Nov 2026 12:10:00 -0800
+Message-ID: <20261107201001.206120-5-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107201001.206120-1-sj@kernel.org>
+References: <20261107201001.206120-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,82 +62,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1c0b1368-a381-4b25-bba9-7a4f8e92b764@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-I think we're slightly talking across purposes, so to be clear - I am totally
-fine with you taking any of this through your tree or whatever works for you and
-Andrew to avoid merge pain :)
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-I was just talking more generally about how to merge series that touch a lot of
-subsystems and maintainers-who-may-never-reply, etc.
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-These are the edge cases that make things... fun :)
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
 
-Anyway, I guess easiest resolution here is for you to take the bits that belong
-to your trees and Andrew takes the bits that belong elsewhere?
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
 
-I don't think anything here has an inter-dependency.
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
+(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-
-On Sat, Nov 07, 2026 at 08:26:29PM +0100, David Hildenbrand (Arm) wrote:
-[ ... ]
->
-> Because of [PATCH 05/13] mm: convert THP VMA flag tests to use vma_flags_t which
-> is THP-only, and feels like it could go straight through one of my trees,
-> avoiding conflicts with Andrew's tree. But maybe there is more to it that I am
-> missing.
-
-Sorry about that! Please take that through your tree.
-
->
-> I assume stable topic branches would fix that, but they are currently
-> unfortunately not on the table ... :)
-
-I guess we need everybody-on-git for this!
-
-I guess when Liam and & I have the VMA tree we can do that at least for stuff
-that goes there :)
-
->
-> >
-> >>
-> >> Ideally, patches really only touch one component.
-> >
-> > Right, but sometimes functions are declared in one place and called in
-> > others. It is impossible to change the signature of one without also touching
-> > the others.
->
-> Yes. Something like that is unavoidable. Or if you need new APIs/
-
-Yes.
-
->
-> >
-> >>
-> >> [PATCH 07/13] mm/madvise: convert madvise_vma_behavior() to use vma_flags_t
-> >>
-> >> is all over the place :)
-> >
-> > It's not really all over the place, it's converting vm_flags_t to
-> > vma_flags_t across madvise.c, which involves changing a few function
-> > signatures, whose callers must be updated.
->
-> Ah, yeah. What on earth does arch/powerpc/kvm/book3s_hv_uvmem.c do with madvise :(
-
-Yeah it's quite worrying that... :)
-
->
-> >
-> > I could split it up into 3 patches where 1 does internal-only, one changes 1
-> > function, and the next changes another, if that works?
->
-> No, these things really have to go in as one unit, no need to split that up.
-
-Thanks, yeah, it's a pain I know but eventually 'one fine day' (probably in
-2028) everything will be converted to vma_flags_t/mmap_prepare and we won't have
-to think about this :P
-
---
-Cheers, Lorenzo
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index f2666770b5436..00cd0e2a1e341 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2261,6 +2261,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
+ 	trace_damos_esz(cidx, sidx, quota->esz);
+ }
+ 
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
++{
++	struct damos_quota *quota;
++	struct damon_target *t;
++
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
++}
++
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ {
+ 	struct damos_quota *quota = &s->quota;
+@@ -2297,6 +2317,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 			damos_trace_esz(c, s, quota);
+ 	}
+ 
++	damos_fix_stale_charge_pointers(c, s);
++
+ 	if (!c->ops.get_scheme_score)
+ 		return;
+ 
+-- 
+2.47.3
