@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794011848;
-	b=k0A9tkVKkqXL94cuVhMVx7YapJuzNW4PD/rXwSWTOwISlcI2PN+ziKadys/cUtRsCi2p
-	 h+YxLZT7dtZHj131LbmropbC42KMYFCscUR2ONKg5Gq7YltQCGg4CBtnmoOngIzGny8Xa
-	 UPe4btoLvUmfGsQfQxysfWgozVRZ2zIv1MuIHTKKHaTWvZBB1ERivaPHM2FYOEeLrTLWq
-	 diaysxJDynshxTwL9tb8E16TrMHIf7wzX2y3XWLs3G1c2AfrtA+HsH4RTfmpjhtMebREE
-	 YURrUf9lmRXCYG3r2ejvRcLmhnVNHDcENiRUSRhfDPDwp5mFhUAPIXmgmOPivU0zsWg==
+	t=1794011843;
+	b=smoKWWUmMCei3wfVRXiJmPbLrxdo+zetSqollAs+YTREhCnDk3Hn50tqHXe9XJsJ9Zrj
+	 nPp2eyRnVh4HQy7VHIN8MDKOSwIFyTc+l8pMQZu09+i0QC+Mq4UWH0lLzt9Nsn7eu69T5
+	 8fyeGBdcumMbfyLx8dQgb3o5oBhcvyvs1pZc7HMzBTtcN//vGNtxIlNgkZITRpJAfP7pb
+	 zrIXDFEcCi6/yzUFvAN7BZeHMVeyje45WuGsG//upYK3qwUrnSfNabzeqO9SideN+O4h0
+	 RcnQetkMWCs14dT6XfSSzvJVRpZmcX4qcB+oKL4+DVHnTn9MmsZih/K04p9m/lnaA1w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011843;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SxZseH1D/U//4ssKZEL6OBhMNAqOusdgqcQCPzcsa1A=;
-	b=0iT2JSa1WceNS996LcTt0wrT+9Nc79PlKXr8j0DAA6ir5whPSAg7Mdg02U4cR9cf4AAT
-	 ErL9xtGnKTXNzLKV2tRtYfOHnx3u3ysglpVLpmsVPC7XqU7Qc998bAPvFHSgdV3h44XCq
-	 c50FpKe1RJ3YzMM7+2PlS6szipJqxKacy2HIFQwCpAmmLAhUlKYGZR2HoK/QVfoTwWoFl
-	 8X0ivgusdxZnaFxMhlwtjIuqcTc+B8fv9iOfyR0fl2vu90N7cxf1ZqFpeOSnyIfh02IFa
-	 I9aj2RwSMfeWDoHtanjRLxtkRL8VKrVCjI1Vkuf7orX6HlyO3hZnAanqZBHMEYc0bjA==
+	bh=9SeL/ZiEo1JNFa6uJldLRoyMRqFFh5GFWRQajcrSB+U=;
+	b=AcTYhxYvNIfJSkY7/LbE3ZK+GevuAsv7lE9u4oDD6XEG8gZiaH1kLXIsVmAalCD5Bwm1
+	 572uC9+yQwzV0jzr4d6jf6nj8PASqzoEbQsFcFZ02yV6vatBlAIcv0JEhePY/d3ykX0LP
+	 QnO+ER/hvfOCgj27GCHAC6flVFdJ8nmuK+hq5yt4WbfxNNbcwUsIn1LJ9G0ZEtcFLka6u
+	 UHiFDwSNd4DtbGKdkXEZ63qo478nJ/FlG8o4wdbo3W3Vrrl3FXCMPVLeyroN1mD2ViFbp
+	 T/0RRRZ5UuGKAInEHTfmXD5lUfVXDAwFSDPqPAYLBZzRvhiWWaQ+BfvTzzRf9WuzZAw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mUBFs/H/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7vOcxIF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB576070BAE;
-	Sat,  7 Nov 2026 00:37:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CE8606B771;
+	Sat,  7 Nov 2026 00:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUBFs/H/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7vOcxIF
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794011842;
-	b=jzOrZDWUD1p8kRij7cmVHLLe4mumO4XJrdbrb5T92+kjvRJlJX58DBxDoPOMgJbStZV0
-	 zUYQWk1qUb62mmo0x+Z66by7GK0AFWNpWx5dQ7rwn+m5yMtMmsDflC6kVIx0UlRVIbdhw
-	 NpwjBT5b2SD+3MPRPXbgaJGJY7GxjGANJsNT805PRK+3QAS6bkNPkWgP90smMZ7NN0R5s
-	 37anuPvmlYENpYaLPfmKt/2v8IS5EX22MfaJLH9q0vnYAQOJH6XYFRYjkupTswBHb+svS
-	 1kaMGgCReRBiB/oUKjerFal58QYnHsF2jHAzgrqMlLe+KrqzE3vZBnE3wpEqnEdUENQ==
+	t=1794011841;
+	b=xuBuVHOw3B27Mps1cafEnHg4JhdM7f7FaAW+UnilnXm+6hfIK/ifZm3JtXWFs6zika5Y
+	 GhT436agRRAKtmPSzKi/llAInBvuXOwtdrE/6vyW2bYOAg6nRGLBeNvLNWjvZW5qDmfVo
+	 ZWHmjXEPs30bbyi7VlYT01Xp5SPxATrnfn8peHTPDeaZ5XmJBiDcBo3i8wP35lT7k5s+v
+	 JnN5JfqfyC8VoUAfcMlxcRToRUGfD0+BPwyOw+hpnLSOFw4wwlrUkxqHGzJEQpcMqd+ye
+	 bA+jb25y5hHuHCxl7LWFmKLwNiygZuSumUeDPqm642P4FCSwv/6D7IO4LzVhEfVktMw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794011842;
+	c=relaxed/relaxed; t=1794011841;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SxZseH1D/U//4ssKZEL6OBhMNAqOusdgqcQCPzcsa1A=;
-	b=Dy+Z+ObJO3FzbV4FOUB+h7rnmNS1gQ8AMaGQxZCHs5oXZGcMl99n7uqOR9sJRAyBzoTH
-	 CcoXXdGb2DZdEEzIIEchPKWWIx1FWTtLaKaYBDVx5x8srY9y8bIHXsY7csJjuqyO9mH+P
-	 BfUi/zMBB75GslOqpIA7UXudlgN3YKErXkmo7JIOlFe7gbDDGyMoh0fu3y25pIr1B1uup
-	 98fymrOignzArdl1iqhHxtcsnaBityb2XvpwqOS845qyfu3p4O+k5QQSS+bRsk4u7tXQU
-	 09UCChdjCiJecFSdHlWyX+7RiRsYmmf5b0+1pjNZmIFzgWymHlMfwjg3KF+a4561eug==
+	bh=9SeL/ZiEo1JNFa6uJldLRoyMRqFFh5GFWRQajcrSB+U=;
+	b=LCWgrOyVZbhP/NpZ9bbl8BAs7oF/by8cg0CcoaI1IWSVhMHrBG8R/RBUNraffgovGoI/
+	 8rUQNj4uu05ympegFr8C6mzBwxGjd+9E7KySCoeSVNp2t7W0tNizFG1n1MTugas+ZnTDp
+	 XRjDW+G8VxTKWvCm12HMgO2B611ug9yxrkeNCBiCAIXMJGFynrHesf9BAd3WOEZcuw3F4
+	 ix2UdWkJdzmGfQm+mlMz6LH9mg8S/mfIIpUUL+QnjGTmRVRdEN99rd/ldtk5q2Q6qNxzI
+	 RBHtEZf6pvh2H/SsFEvFNwcGuBwdim/Woi97Ho97nWEyYa9bDVs1eeS8y0/kOqh7EAA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0D5AB1F008A4;
-	Sat,  7 Nov 2026 00:37:15 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 899E51F008AB;
+	Sat,  7 Nov 2026 00:37:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794011842;
-	bh=SxZseH1D/U//4ssKZEL6OBhMNAqOusdgqcQCPzcsa1A=;
+	s=k20260515; t=1794011841;
+	bh=9SeL/ZiEo1JNFa6uJldLRoyMRqFFh5GFWRQajcrSB+U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mUBFs/H/7OWwoFBVxL4CLWIAEgOJOkKjVNsHtKrGyqlRUKut7S4Hgy/uPK56zo1B1
-	 hCYuzouZpkZkjFbKVLdn3ZRjkhftiwdOE0ZRH1Ro8MoBanvvLQW91mro4yeSqM4eD1
-	 OwlbCh8IytC02h4XXubQQtfX3FjwzLwf3cKzfbcI1sREobTztwhzr2++avhhOnhm46
-	 gJj17sf5PdbMAvLLMs0mK750/ntTjXUOZ2Sbw8CL3sHaMoN6SK+SEAybPmFlPdiuQ6
-	 N96KjR1WgCHQQ7BbaUV0x0WSb6B+aLjFEg5d1u/JgohH9qWkbOVDSXYyhreOVr0qKo
-	 7NhGXGhma0QcQ==
+	b=I7vOcxIFHL5E6ZIo+hKvEMkq5XPe2+sRl/+U24PXDo2j+rgwUgOzjpL6J0ErFf/dZ
+	 fNZQGfmB/IAwMXQvYiT2cypxB1fcTE4HKmSWUiyTb768HNOa0TmSo6Bkpz08zMc8T3
+	 u/w4Ep7pdORe+5Mb1+imXkyyaQDOyM8zMV7Hico5FlepNd9hQbnQrCmiA3/Ey3husJ
+	 A+DOv2XKgzvE2nMmAtF+lnzU9n2Q78AHxkWAotnfcNYsUiulANXVX1U7qCpOfUaT6+
+	 006kToY9nUAcEJjIJYuiQRvrmi8jzBWtZ2/phxj0O+f6MsusemwsjMioF4t1E3/FiJ
+	 AcYORGjCahE5g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EF32A47A37;
-	Sat,  7 Nov 2026 00:36:57 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 8D01F47A5C;
+	Sat,  7 Nov 2026 00:36:58 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 06 Nov 2026 16:37:49 -0800
-Subject: [PATCH RFC v3 75/88] KVM: selftests: Verify VFIO MMIO read and
- write for igb device
+Date: Fri, 06 Nov 2026 16:37:59 -0800
+Subject: [PATCH RFC v3 85/88] KVM: selftests: Verify shared and private
+ mmap access for VFIO BARs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-gmem-alternative-providers-v3-75-8484dde66a7e@google.com>
+Message-Id: <20261106-gmem-alternative-providers-v3-85-8484dde66a7e@google.com>
 References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 In-Reply-To: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
 To: Alexey Kardashevskiy <aik@amd.com>, 
@@ -105,11 +105,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=3042;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794011810; l=5917;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=3rXXPklnl0jKOPE29y7ipXm7LsNh6MGUlvgjiF//KXQ=;
- b=xloQFGBoKJ2DqV21AvqSu5E1J/CpqtQbloSW0T3GvaqdUgvm8xoOH8M0ztGaadapQ2nhxCakj
- IhodY//gGI6CJqHf9PiPv1GyWySREMT+8pDpBuxA/6S9HQ3zZS/kyLY
+ bh=yUySByGqxzqT+Oxfxi3dJk8aiTpxLOKEtbuq/Vzm03I=;
+ b=VqBOv4KmhHTpFhYWjDlROlLzM9MRdZp2uwmZyBVP69w5BMEFrucxqf7UGKtcrD4c4NU99K12n
+ wWDeO9xZmwvCEAtS9rYITeg/7NOxvTnZdLrUEPPNtklmStGGeLHfVew
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -120,58 +120,80 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Add a subtest verifying direct pread() and pwrite() operations on the
-device descriptor targeting BAR0 MMIO space.
+Add a subtest to verify read and write access to VFIO device BAR memory
+mmap-ed via guest_memfd across shared and private states from both host
+and guest perspectives.
 
-Enable memory decoding in the PCI Command register, verify that reading
-the device status register returns an accessible value, and verify that
-writing and reading back a scratch MAC register (RAL0) succeeds with
-expected data.
+Map an operational device BAR (BAR0) through guest_memfd and configure
+it into a KVM memslot for a software-protected VM.
 
-This validates that kernel-mediated MMIO operations over the VFIO device
-descriptor function properly, providing a baseline to compare against
-when guest_memfd wraps the BAR.
+In shared state, verify that host userspace reads the device status
+register and performs read-write verification on the scratch receive
+address low register (RAL0). Add and initialize the guest vCPU with
+a guest loop synchronized via GUEST_SYNC to perform read and write
+operations over the BAR GPA and confirm that changes made by the guest
+are visible to the host.
+
+Convert the BAR memory to private. Verify that host userspace reads and
+writes to the mmap-ed region are blocked and trigger SIGBUS, as
+unmediated host access to private memory is disallowed. Verify that the
+guest vCPU continues to have full read and write access to the private
+BAR registers without exiting.
+
+Convert the BAR memory back to shared. Verify that host userspace
+access is restored, that host reads observe updates made by the guest
+while private, and that guest operations continue normally.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- .../selftests/kvm/x86/guest_memfd_vfio_test.c      | 58 ++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+ .../selftests/kvm/x86/guest_memfd_vfio_test.c      | 130 +++++++++++++++++++++
+ 1 file changed, 130 insertions(+)
 
 diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-index 6525f392b3930..fa05b7cfb3185 100644
+index 18fab1a39041e..a520cf45fccb8 100644
 --- a/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
 +++ b/tools/testing/selftests/kvm/x86/guest_memfd_vfio_test.c
-@@ -236,4 +236,62 @@ TEST_F(guest_memfd_vfio, get_irq_info)
- 	}
+@@ -814,4 +814,134 @@ TEST_F(guest_memfd_vfio, conversions)
+ 	ASSERT_EQ(0, ret);
  }
  
-+static void vfio_pci_enable_memory_and_bus_master(struct __test_metadata *_metadata,
-+						  int vfio_fd)
++static uint32_t guest_write_val;
++
++static void guest_rw_test_code(uint64_t bar_gpa)
 +{
-+	struct vfio_region_info cfg_info = {};
-+	ssize_t ret_bytes;
-+	uint16_t cmd;
-+	int ret;
++	uint32_t *ral0 = (uint32_t *)(bar_gpa + E1000_RAL0);
++	uint32_t *status = (uint32_t *)(bar_gpa + E1000_STATUS);
++	uint32_t val;
 +
-+	cfg_info.argsz = sizeof(cfg_info);
-+	cfg_info.index = VFIO_PCI_CONFIG_REGION_INDEX;
-+	ret = ioctl(vfio_fd, VFIO_DEVICE_GET_REGION_INFO, &cfg_info);
-+	ASSERT_EQ(0, ret);
++	for (;;) {
++		uint32_t write_val = READ_ONCE(guest_write_val);
 +
-+	/* Enable Memory Space and Bus Master in PCI Command register */
-+	ret_bytes = pread(vfio_fd, &cmd, sizeof(cmd), cfg_info.offset + PCI_COMMAND);
-+	ASSERT_EQ(sizeof(cmd), ret_bytes);
-+	cmd |= (PCI_COMMAND_MEMORY | PCI_COMMAND_MASTER);
-+	ret_bytes = pwrite(vfio_fd, &cmd, sizeof(cmd), cfg_info.offset + PCI_COMMAND);
-+	ASSERT_EQ(sizeof(cmd), ret_bytes);
++		/* Read read-only device STATUS register */
++		val = READ_ONCE(*status);
++		GUEST_ASSERT(val != 0xFFFFFFFF);
++
++		/* Write and read-back read-write RAL0 register */
++		WRITE_ONCE(*ral0, write_val);
++		val = READ_ONCE(*ral0);
++		GUEST_ASSERT_EQ(val, write_val);
++
++		GUEST_SYNC(0);
++	}
 +}
 +
-+TEST_F(guest_memfd_vfio, bar_rw)
++TEST_F(guest_memfd_vfio, mmap_shared_private_rw)
 +{
 +	struct vfio_region_info bar0_info = {};
-+	ssize_t ret_bytes;
++	uint64_t bar_gpa = 0xc0000000;
++	struct kvm_vcpu *vcpu;
++	void *bar0_mmap;
++	uint32_t *h_ral0;
++	uint32_t *h_status;
 +	uint32_t val;
 +	int ret;
++
++	if (!variant->use_gmem)
++		SKIP(return, "Shared and private attribute rw test only applies to guest_memfd");
 +
 +	vfio_pci_enable_memory_and_bus_master(_metadata, self->vfio_fd);
 +
@@ -179,28 +201,90 @@ index 6525f392b3930..fa05b7cfb3185 100644
 +	bar0_info.index = VFIO_PCI_BAR0_REGION_INDEX;
 +	ret = ioctl(self->vfio_fd, VFIO_DEVICE_GET_REGION_INFO, &bar0_info);
 +	ASSERT_EQ(0, ret);
++	ASSERT_TRUE(bar0_info.flags & VFIO_REGION_INFO_FLAG_MMAP);
++
++	/* mmap the VFIO BAR through guest_memfd descriptor */
++	bar0_mmap = mmap(NULL, bar0_info.size, PROT_READ | PROT_WRITE,
++			 MAP_SHARED, self->bar_fd, bar0_info.offset);
++	ASSERT_NE(MAP_FAILED, bar0_mmap);
++
++	h_status = (uint32_t *)((uintptr_t)bar0_mmap + E1000_STATUS);
++	h_ral0 = (uint32_t *)((uintptr_t)bar0_mmap + E1000_RAL0);
++
++	/* Configure KVM guest memslot backed by guest_memfd */
++	vcpu = vm_vcpu_add(self->vm, 0, guest_rw_test_code);
++	vm_set_user_memory_region2(self->vm, 1, KVM_MEM_GUEST_MEMFD,
++				   bar_gpa, bar0_info.size, bar0_mmap,
++				   self->gmem_fd, bar0_info.offset);
++	virt_map(self->vm, bar_gpa, bar_gpa, bar0_info.size >> self->vm->page_shift);
 +
 +	/*
-+	 * Read Device Status (E1000_STATUS) via pread() at BAR0 offset.
-+	 * Confirm device is readable and does not return 0xFFFFFFFF.
++	 * Phase 1: Shared memory access from Host and Guest.
++	 * Initially, the entire guest_memfd resource is shared.
 +	 */
-+	val = 0;
-+	ret_bytes = pread(self->vfio_fd, &val, sizeof(val), bar0_info.offset + E1000_STATUS);
-+	ASSERT_EQ(sizeof(val), ret_bytes);
++	/* Host read from STATUS and write/read-back to RAL0 */
++	val = READ_ONCE(*h_status);
 +	ASSERT_NE(0xFFFFFFFF, val);
++	WRITE_ONCE(*h_ral0, 0x11223344);
++	val = READ_ONCE(*h_ral0);
++	ASSERT_EQ(0x11223344, val);
++
++	/* Guest read/write to shared BAR memory */
++	vcpu_args_set(vcpu, 1, bar_gpa);
++	guest_write_val = 0xaabbccdd;
++	sync_global_to_guest(self->vm, guest_write_val);
++	vcpu_run(vcpu);
++	ASSERT_EQ(UCALL_SYNC, get_ucall(vcpu, NULL));
++
++	/* Verify host sees the value written by guest in shared mode */
++	val = READ_ONCE(*h_ral0);
++	ASSERT_EQ(0xaabbccdd, val);
 +
 +	/*
-+	 * Write a distinct scratch test pattern to RAL0 via pwrite() and read
-+	 * it back via pread().
++	 * Phase 2: Convert BAR0 memory to Private.
 +	 */
-+	val = 0xdeadbeef;
-+	ret_bytes = pwrite(self->vfio_fd, &val, sizeof(val), bar0_info.offset + E1000_RAL0);
-+	ASSERT_EQ(sizeof(val), ret_bytes);
++	gmem_set_private(self->gmem_fd, bar0_info.offset, bar0_info.size);
 +
-+	val = 0;
-+	ret_bytes = pread(self->vfio_fd, &val, sizeof(val), bar0_info.offset + E1000_RAL0);
-+	ASSERT_EQ(sizeof(val), ret_bytes);
-+	ASSERT_EQ(0xdeadbeef, val);
++	/*
++	 * Host accesses to private guest_memfd memory must fail with SIGBUS.
++	 */
++	TEST_EXPECT_SIGBUS((void)READ_ONCE(*h_status));
++	TEST_EXPECT_SIGBUS(WRITE_ONCE(*h_ral0, 0x12345678));
++
++	/*
++	 * Guest read and write access to private BAR memory must succeed.
++	 */
++	guest_write_val = 0x55667788;
++	sync_global_to_guest(self->vm, guest_write_val);
++	vcpu_run(vcpu);
++	ASSERT_EQ(UCALL_SYNC, get_ucall(vcpu, NULL));
++
++	/*
++	 * Phase 3: Convert BAR0 memory back to Shared.
++	 */
++	gmem_set_shared(self->gmem_fd, bar0_info.offset, bar0_info.size);
++
++	/* Host read/write access must now succeed again */
++	val = READ_ONCE(*h_status);
++	ASSERT_NE(0xFFFFFFFF, val);
++	/* Host sees the value written by the guest while private */
++	val = READ_ONCE(*h_ral0);
++	ASSERT_EQ(0x55667788, val);
++
++	WRITE_ONCE(*h_ral0, 0x99aabbcc);
++	val = READ_ONCE(*h_ral0);
++	ASSERT_EQ(0x99aabbcc, val);
++
++	/* Guest read/write access continues to succeed in shared mode */
++	guest_write_val = 0xdeedbeef;
++	sync_global_to_guest(self->vm, guest_write_val);
++	vcpu_run(vcpu);
++	ASSERT_EQ(UCALL_SYNC, get_ucall(vcpu, NULL));
++
++	val = READ_ONCE(*h_ral0);
++	ASSERT_EQ(0xdeedbeef, val);
++
++	ASSERT_EQ(0, munmap(bar0_mmap, bar0_info.size));
 +}
 +
  TEST_HARNESS_MAIN
