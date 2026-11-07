@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794077085;
-	b=aB3zXBuUIFBmeBOmM0ci1DW3O03/HUaJDPZuuwpoNrdOXWh/LZmotQ9agKv2hm09vQ2p
-	 FeY7QLPyxgcAaTierdQbuhAHmWPrGR2KZdGuhQLlIDbtOs+fc7X3BBC3Hl+TvfLEp+gau
-	 2FfDEEUMYbA9zIAz9Fty7u+LkJdIzOLmfBZPhXY8kYssRG0V/rJxi1JSaaNru0ngDvqND
-	 SvOk0vkW68lh5At5EE966UEcLLgn4gsI4RC2H19oPUYgs0Z5hZexNzhuHenaDRipqLkRX
-	 7rKur2e+JrPotLRcj2FcPcRqiL/lWwpqTloXwmvn4QiG/HgQ1T84g4LmDJOQIWdH66A==
+	t=1794077101;
+	b=JDNf4y5lVoHHNczt4JdNDhR/tGJJwYfWs9ouu7mGMpDq8N7QhWfr9riB9Jbeb6R0JWpn
+	 8bvkzcOUz/gHXpryCBcridfWhXprsXwnye17ywJ4YMBjJ+K/ZOhjdWUg+9IXlVjP8lDhm
+	 iT3+b6Q/AwJZRsbZTGSlyf46BUEOlNtE+UsmWcQuu0h5TnppaiG/y7nlOIcBxGkDT8hp1
+	 GaIrJmNnRPk6eUitW4ZqsiwMvVSYpaafb0SPjgIIHgY5VCqrJhob1eeMxLCkke/x0QPmg
+	 S3Tm2sLymWyfDZOD2MSaUcmUe8ykCVU2QWh49k65Ej+9CYni+VG6dNaGrTwbMjwEBOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794077085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794077101;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KZ+ukhZnuLhEoTcJCFbadpKzgvv+xdEMUoSf7p2jX1E=;
-	b=i1mrc/ZKcCAFBLwJBdku/9+jzwA6VHhocMC+Q9Ou8P/mRKCGK79i+9WNMkUvAVvyEFCs
-	 iFaK7CmusCpZvhnPV/L2UjLvZZRqVPf/eLYQbQT1NdWOUwDUC0ZR0h7+J3QjB2FrA5fhp
-	 1zri5DM32GIo/irLSu0FSruIdOfPKzaCdVknxF66VwuDXERjxV1D+OfcRhhAoHXm/sw11
-	 hjSsuxjoU4rMHQqTvou/Oli640RLOK4tWaRs9+wXYT2OBjKOu677QugvpwaG28TzdJ4tU
-	 BlM8kBQywN0X8EDwzZLjvHpBjeGHxRl7okwy6fSjq8F8sn9sy91rACXICUpUBQeFKJA==
+	bh=u3pF9cSG2s2OvUiOff2e3lsOipUwDDFyl2aM5L15+sk=;
+	b=Vx8GHsvw/Vrr36RdRtRe4g0xNk6fKyv/uEb8MUB0lPp9jlZr6gCAKAo/COO8dYtFT7eP
+	 Yu8iIo/EVjktmyjbrdPZ8v1t2GqovWemSWG5jtHulTG0so48D6qjy3q0gup58fd8ufYWk
+	 91JKUisXKi1nQJ8sBvSqOdIAoDBP42Zo0d6NTaOYlb+ZhZb9/gXXWnoPJa4ZCbLl5gO0F
+	 x+yy4CAYgfIlM48DDrOkX26sQbV2mPhppiwgDg3vD1ALTs6IjsW0fZRCPfiFgpAjfu+1Q
+	 ZIKQqKQbeUOA18wb7/pWZ6tBNW92JeLbBBMjr58kOrazAngdoWsVvxKlzuVZU3/Dhkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=blockcast.net;
 	spf=pass smtp.mailfrom=blockcast.net;
-	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=fdYjPVwt;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=v223FkNi;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A37606D806
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A37606D806
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B903606EEB4
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:45:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B903606EEB4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=fdYjPVwt
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2804904eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 10:44:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.a=rsa-sha256 header.s=google header.b=v223FkNi
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2805123eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 10:45:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1794077084; x=1794681884; darn=vger.kernel.org;
+        d=blockcast.net; s=google; t=1794077100; x=1794681900; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KZ+ukhZnuLhEoTcJCFbadpKzgvv+xdEMUoSf7p2jX1E=;
-        b=fdYjPVwtfjRAngxFK3IxmrpzQEm2aqrueU/2fJxIXkKkWai7Ca9ceI+Dd+aC0HgP7n
-         c7rNS+7+YoDUspPUIoPtYaMZUTRAM3dLADmi7ux24KzCWfCIn5e0GdzOC89vgAa2Ec/C
-         bcH1HhSDEb2X6FK6vB5FwqZfoLgPGVYWyolzUPrq4cwjxmQkMahUnWcYstEXTtwxEt2R
-         EBx81T9GsUQDt5qEOd2WYvTwOfZGomaJMRvInTtkp9wRahOqVcVyz+kZESdAyia+my59
-         kzhKDcvSYp9jG8sD6PbEFaqVOXqQroPJl7LUnt7/temfn9UuJ+AgziLsF6ZROVe3isBK
-         b9MQ==
+        bh=u3pF9cSG2s2OvUiOff2e3lsOipUwDDFyl2aM5L15+sk=;
+        b=v223FkNijesrgNpTUfmBe6Qu54+NRmuf0tnJdnKwuFzr+Lv4YB2EnGU52GX/Ldm6Z2
+         dLtexW34puVcO52oSJTijenVjq55fO/dMZg3Fh8WOL7GNtFHzffluF62CqOXnVb8LPtj
+         WBpUUCG+Wd0bhtZciAA6aTZej13YWY+ZFFmwIMu8q9AAyuFMhmSBes2n53yaYipv97b6
+         BjtVUrCx50MZpkmho9WxqU02v4oUqIgfpSiNz75rPZg8Rc043hgmXP/0DfGm48lEffiU
+         n0ZPL/Uahn9qnb3H4q+Fjo1cSVK9tvNZRkiLGQvcMnBuBcIP5pd18vXHqNOzKYozxUzU
+         3w/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794077084; x=1794681884;
+        d=1e100.net; s=20260707; t=1794077100; x=1794681900;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KZ+ukhZnuLhEoTcJCFbadpKzgvv+xdEMUoSf7p2jX1E=;
-        b=h9/3GQFl2shDF4IfnnJz+LY2lXnN28GRc7PSeW6V9i2lMPDW+XgfXc2xqWV4+3SMzM
-         Mpn0/cVLrphrLr0P+Cp7ktFsRkx7PeQjwgs35eWxq1dPZpXApsgi4ViFYF6kbIk0mutX
-         Qwe9yrA88GeH/r4Laz09FjM2Z8uYmbuXlHIVE7Y4AMaDQjuualkSm1EEUSwf5VJ93SyX
-         q5VTxb+ewLKooj7mWaiiNO9tYKKOYuSY13afVtgrYEsjn3uTsWMcwgvry/pow352YUeZ
-         F5Y7/PfdlpaPx5FeEaz4ZrgUqfX/y8lOLm4bHQ9CVEY4bdDXRuqcbGnGNH9OhgnkiTmz
-         ymXg==
-X-Forwarded-Encrypted: i=1; AL+hErEsVWPAn6Mj+YvQCLIp8TlR2jnran3wKUewC5oaNK8OeNEqasQ/cPeRj+VR8HY41DEeiNPzIZoTEt+fQ50=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+LbGQu3rD9QvsJHAuuAPSsDb7cvFajRYjpy3vdUd0R8oMupfM
-	MuodfYytregmO9coxTw4VBP8HmsclT/jijPVKhFB1NemayztL9Zz7s/QxiUSV+zpBCk=
-X-Gm-Gg: AYBFou0p+uSkv47sCJR88XvldWmABspqqXFAL8BElvv9QaeS2yobWD5n/qzVsaCBJMq
-	N9eXvFihf6cYzmVxfQfocJZxZXrbVuv1jSN4tU8sK6XLr7RWxpUT+sja67WYyubBMoDKoYg7e0T
-	vFQIIemUYqtBGl0vFjKakwninC4lS7ZzQwQcfgtVTrAHc64hOhbRALaUs+e89k+c7CVlO9utQS0
-	khC6hVOKMcaJoebC+1d8GDihOfrTrxjID/RWOFQXDY5ynTNoGXUGAZw+CftBKwQjf4jlhRebQ5J
-	gQepjSIK2J9Nmu4R7xwe5ZZOQULgO+/SRNOyJ2rbc+PqUqDRicRXPMMDyZgDNIPGzi3sCvTqchC
-	+hVB3bJWkm4merqLBGplXqktoRKX/HwhjexC5wSV+RXQH+xCYJ+ukczMTCbd0EceUfk8SWEh1di
-	7WuG7z21auB9tpEE05DE6tK8beoOZEIdD1Ir2sKlwLO3CapTKXlKML6KZkDZGBCZ09oJWOtdX9Z
-	AAJhWf5nMMoICLnwKllgLS68x+Gykyszh8A5QI5RZ5rEHeeNIaeH4F3zT9YP/st3riTGVHmuWBo
-	twU0c2+Fz0vtchzujn64P9fTb0ltqBqJV0QI2wXw1kkw1Ij1wxGChifyFeyWqBW6OXyKxm9dnjh
-	ZL+6Wa+B5FG/+0I0P
-X-Received: by 2002:a05:7301:f0b:b0:366:83dd:46f7 with SMTP id 5a478bee46e88-36f75a26838mr8205255eec.17.1794077083543;
-        Sat, 07 Nov 2026 10:44:43 -0800 (PST)
+        bh=u3pF9cSG2s2OvUiOff2e3lsOipUwDDFyl2aM5L15+sk=;
+        b=Lt0ZInO2tlkXol15MtoN8MlVRqILFUxg1GAyxZbqQkSyer8gsh8y8ApOtFP4G3vtFH
+         oupHaETLobpbIVrXW8YLR9j+j7PA2NOXIaQyRDAvEshVzYS592esnYqSnaBQTvr5ZqP6
+         mRJbNQQ+YuoqDCgDjwyDD/ZxPSyDW9XnMEavnTMUiLDW1P+DHp5bTyDtiXxrLVkvwgDJ
+         kyd39hyRBYbQQYdRmX2XmKxFQ/Th7W19SJbdSszQHVnybCf6SIYNMLZW88kBH5XxHzMO
+         ZJuxm8S8q0cyTuq2FwFqzEPAwb3hcg87Fv5zN4NrqefX+SRjA1+XmEwHhhDs1fAfSV2n
+         gEbg==
+X-Forwarded-Encrypted: i=1; AL+hErEnOoowhiVnr18IDE3btHrPrZQIqxeGORGJaKSVKOVtHb44M8/KRWEIB01rAXlJlW4mOvU6wB3Sfq1ueiY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GFrG8BJhPH6bMzDU+18nDnRJy9fYe9sVc3bi00GtW4WiCtRdp
+	VK/miWrEK+yR+LxJ1JG3MrtvEeS3jI8dWJ0SWv5+9EgjwFqqg/ip6RSJD4/XE5XL04c=
+X-Gm-Gg: AYBFou13fNgFKb4+FEAMJ594k5OdSId2/YI7HiGrmrp8CqMj+4idk1khwjklDAF1wcZ
+	Q0hg+cxxmcyspnbYl8/5kYVo//yPUFX9JHK5Ga8X9AK26AkYJb5vxS1FUmg9MJQYa8tG3BFhyjr
+	eLJr+WCEucbsuGxgA+trQRP9aR+3RdRGrscVkSqlZHOIFXqjRJOPhu6eYphrHP8jvvh3OYlfKGk
+	6m1wYPaVY2aPqkH42AT5V/+ZyEi22Gdosr7oH7W5w9cG2hcpTbCMesTA2jAAEf5XNAM/q/l2Buo
+	bIdnbCX2fIKcqm1E7f3dILBDR00cMXm1lCLu4mMgwdLXHbTlq9GUGtcOciDnncb9xAQGzT6yl35
+	Facl844LKtUp2+pOQn9sEXvBqlGstp49ib+wJOTBwdSEWfcmHk02g9lzxTsD6cH6nR8bo3zGMht
+	OMusBN20pxss+0gFqDMofU4GyxNLG1c1Yq85Us4vGSwA+Z9+whn19xz+4KD1DeAVE00eZ7htUBZ
+	ESxpTvlGe/IuD6flostvnWI1WSuG6vmrJP7GUH2mRFxYdqe1q1VEL1ecbor1TE/wzBVY1DqLUYB
+	EaHT+PBP4tuff3SU1vN4KUrtXoikhItBKL5MuLUT6XDbNiMnrz8bSdqQ6LwtZc3s/Bbr1Bk=
+X-Received: by 2002:a05:7300:b0aa:b0:36f:4d62:2884 with SMTP id 5a478bee46e88-36f7691a412mr8340188eec.30.1794077099785;
+        Sat, 07 Nov 2026 10:44:59 -0800 (PST)
 Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8c4f28dsm17286897eec.9.2026.11.07.10.44.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8c4f28dsm17286897eec.9.2026.11.07.10.44.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 10:44:42 -0800 (PST)
+        Sat, 07 Nov 2026 10:44:58 -0800 (PST)
 From: Omar Ramadan <omar@blockcast.net>
 To: Taehee Yoo <ap420073@gmail.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -107,9 +106,9 @@ Cc: netdev@vger.kernel.org,
 	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
 	linux-kselftest@vger.kernel.org,
 	linux-hardening@vger.kernel.org
-Subject: [RFC PATCH net-next 1/9] amt: add the relay replication offload provider header
-Date: Sat,  7 Nov 2026 18:44:29 +0000
-Message-ID: <20261107184437.2783174-2-omar@blockcast.net>
+Subject: [RFC PATCH net-next 8/9] selftests: net: add amt_offload.sh for AMT relay offload
+Date: Sat,  7 Nov 2026 18:44:36 +0000
+Message-ID: <20261107184437.2783174-9-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261107184437.2783174-1-omar@blockcast.net>
 References: <20261107184437.2783174-1-omar@blockcast.net>
@@ -124,289 +123,702 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-include/net/amt_offload.h: provider caps, opaque provider-owned endpoint
-and group handles, struct amt_offload_ops, TX/INGRESS paths,
-FALLBACK/CONSUMED/BUSY results, the per-binding u64 epoch, and the
-amt_offload_register()/amt_offload_unregister() entry points. An
-in-kernel interface with no ABI promise; nothing touches struct
-net_device or net_device_ops.
+Exercise the AMT relay replication offload contract against netdevsim's
+TX reference provider. A relay in offload auto mode transmits on one
+netdevsim port; four in-tree AMT gateways, each in its own netns (an amt
+device binds relay_port on INADDR_ANY, so two gateways cannot share
+one), reach its peer through a bridge. Copies are counted per gateway on
+the decapsulating amtg device, and hardware copies on the provider's own
+counter, so the eleven assertions are about what actually reached each
+gateway:
+
+ 1. no membership: no copy anywhere
+ 2. one copy per committed endpoint per packet, all from the provider,
+    and the provider's devlink resources agree
+ 3. members joining under traffic (generation replace): stable members
+    get exactly one copy of every packet, and every copy comes from the
+    provider
+ 4. xmit BUSY: exactly one software copy set, counted
+ 5. forwarding is per group: an INCLUDE(S1) member still receives S2
+ 6. a programming op overruns op_timeout_ms: amt resets the provider,
+    ignores the stale result, replays, and copies stay at one; the
+    provider's health reporter records it
+ 7. partial commit (group_update succeeds, group_commit fails): no
+    hardware copy, the group is served in software
+ 8. every member leaves: once the relay times their sources out, the
+    group is disabled, no copy anywhere
+ 9. offload required with no provider: refused with an extack, counted
+10. the peer unlinked under traffic, relinked, then the relay's netdevsim
+    deleted under traffic: ordered teardown, no splat
+11. a lower carrying two amt devices deleted: both go with it, no splat
+    (runs first, in its own netns, independent of the offload setup;
+    one dmesg snapshot after its netns teardown ends its splat scan
+    and starts case 10's)
+
+No IGMPv3 leave takes effect at once on this base: a BLOCK or TO_IN
+leaves the timer of each source it drops alone, so the relay keeps the
+source until that timer expires, at least a GMI (260 s by default)
+after the last report that refreshed it. So case 3 drives its
+generation replaces with joins alone, and case 8 waits out the GMI.
+
+The test SKIPs, loudly, when ip cannot set the offload mode or the
+netdevsim has no provider, rather than silently testing software only.
 
 Assisted-by: LLM
 Signed-off-by: Omar Ramadan <omar@blockcast.net>
 ---
- include/net/amt_offload.h | 263 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 263 insertions(+)
- create mode 100644 include/net/amt_offload.h
+ tools/testing/selftests/net/Makefile       |   1 +
+ tools/testing/selftests/net/amt_offload.sh | 608 +++++++++++++++++++++
+ tools/testing/selftests/net/config         |   2 +
+ 3 files changed, 611 insertions(+)
+ create mode 100755 tools/testing/selftests/net/amt_offload.sh
 
-diff --git a/include/net/amt_offload.h b/include/net/amt_offload.h
-new file mode 100644
-index 000000000..3be5d129c
+diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
+index 5db68de0b..2d6c6de0d 100644
+--- a/tools/testing/selftests/net/Makefile
++++ b/tools/testing/selftests/net/Makefile
+@@ -11,6 +11,7 @@ TEST_PROGS := \
+ 	amt.sh \
+ 	amt_v6.sh \
+ 	amt_gw_v6.sh \
++	amt_offload.sh \
+ 	amt_scale.sh \
+ 	arp_ndisc_evict_nocarrier.sh \
+ 	arp_ndisc_untracked_subnets.sh \
+diff --git a/tools/testing/selftests/net/amt_offload.sh b/tools/testing/selftests/net/amt_offload.sh
+new file mode 100755
+index 000000000..4e00fba0b
 --- /dev/null
-+++ b/include/net/amt_offload.h
-@@ -0,0 +1,263 @@
-+/* SPDX-License-Identifier: GPL-2.0+ */
-+/*
-+ * AMT relay replication offload: the contract between the amt driver and
-+ * a provider that replicates relay multicast data to gateways in hardware
-+ * (or, for testing, in a simulated device).
-+ *
-+ * This is an IN-KERNEL INTERFACE WITH NO ABI PROMISE. It may change in any
-+ * release, like every other in-kernel API; out-of-tree providers get no
-+ * stability guarantee.
-+ *
-+ * Registration is keyed by the lower netdev a relay transmits on (its
-+ * IFLA_AMT_LINK stream device). Nothing here adds a field or an ndo to
-+ * struct net_device.
-+ */
-+#ifndef _NET_AMT_OFFLOAD_H_
-+#define _NET_AMT_OFFLOAD_H_
++++ b/tools/testing/selftests/net/amt_offload.sh
+@@ -0,0 +1,608 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++#
++# AMT relay replication offload, against netdevsim's TX reference provider.
++#
++# netdevsim keeps its own endpoint and group tables and emits each copy
++# through amt_offload_encap_xmit() out of the relay's stream device to its
++# peer, so a divergence between what amt wants and what the provider
++# committed shows up as a wrong copy count at the gateways. Copies are
++# counted per gateway on the decapsulating amtg device (AF_PACKET), and
++# hardware copies on the provider's own counter in debugfs.
++#
++#   RELAY netns                                GATEWAY netns
++#   src0 (S1 172.17.0.2, S2 172.17.0.3)
++#     | sender, IP_MULTICAST_IF amtr
++#   amtr (relay, offload auto)
++#     | stream_dev
++#   nsim_r 10.0.0.2/24  <== netdevsim peer link ==>  nsim_g -- br0
++#                                                              |
++#                                     veth to GATEWAY netns i = 1..4:
++#                                     gw<i> 10.0.0.1<i>/24, amtg<i>
++#
++# One gateway per netns: an amt device binds its UDP socket to relay_port
++# on INADDR_ANY in its netns, gateways included, so a second gateway in
++# the same netns fails to come up with EADDRINUSE.
++#
++# The source sits in the relay netns and transmits on amtr directly: how
++# multicast reaches amtr (mroute) is not under test, amt_dev_xmit is.
++#
++# Eleven assertions, each printing one "TEST: ... [ OK ]" line; the run
++# passes only if all eleven printed OK.
 +
-+#include <linux/bits.h>
-+#include <linux/in6.h>
-+#include <linux/types.h>
++source "$(dirname "$0")"/lib.sh
 +
-+struct net_device;
-+struct sk_buff;
++readonly RELAY=$(mktemp -u amtofl-r-XXXXXXXX)
++readonly GW=$(mktemp -u amtofl-g-XXXXXXXX)
++readonly TMP=$(mktemp -d)
++readonly G1=239.1.1.1 G2=239.1.1.2 G3=239.1.1.3 G4=232.1.1.4 G5=239.1.1.5
++readonly S1=172.17.0.2 S2=172.17.0.3
++readonly K=50
++NSIM_R_ID=$((256 + RANDOM % 256))
++NSIM_G_ID=$((NSIM_R_ID + 256))
++readonly NSIM_SYS=/sys/bus/netdevsim
++readonly DFS=/sys/kernel/debug/netdevsim/netdevsim$NSIM_R_ID/ports/0/amt
++readonly DL=netdevsim/netdevsim$NSIM_R_ID
++ERR=$ksft_skip
++OKS=0
++PIDS=()
++gwns() { echo "$GW-$1"; }
++declare -A JOIN
 +
-+/* Outer transport families, for &amt_offload_caps.families. */
-+#define AMT_OFFLOAD_FAMILY_V4		BIT(0)
-+#define AMT_OFFLOAD_FAMILY_V6		BIT(1)
++cleanup()
++{
++	for p in "${PIDS[@]}" "${JOIN[@]}"; do
++		kill "$p" 2>/dev/null
++	done
++	wait 2>/dev/null
++	ip netns del "$RELAY" 2>/dev/null
++	ip netns del "$GW" 2>/dev/null
++	for i in 1 2 3 4 mu; do
++		ip netns del "$(gwns $i)" 2>/dev/null
++	done
++	echo "$NSIM_R_ID" > $NSIM_SYS/del_device 2>/dev/null
++	echo "$NSIM_G_ID" > $NSIM_SYS/del_device 2>/dev/null
++	rm -rf "$TMP"
++	exit $ERR
++}
 +
-+/*
-+ * Reserved: (S,G)-keyed forwarding. v1 forwards per (family, group) exactly
-+ * as the software path does, so this bit has NO v1 semantics. A provider
-+ * must not set it; amt ignores it.
-+ */
-+#define AMT_OFFLOAD_F_SOURCE_FILTER	BIT(0)
++skip()
++{
++	echo "SKIP: $*"
++	# A failure already printed (assertion 11 runs before the provider
++	# checks) must not be reported as a skip.
++	[ "$ERR" = 1 ] || ERR=$ksft_skip
++	exit $ERR
++}
 +
-+/**
-+ * enum amt_offload_path - where a provider replicates
-+ * @AMT_OFFLOAD_PATH_TX: amt hands the provider each relay data packet of
-+ *	a group whose commit it has published (&amt_offload_ops.group_commit),
-+ *	before its software fan-out (&amt_offload_ops.xmit), while the binding
-+ *	admits packets and amt has not lost its desired state. amt withdraws a
-+ *	group without a callback when a member leaves, until it publishes the
-+ *	recommit. Every other packet goes straight to software.
-+ * @AMT_OFFLOAD_PATH_INGRESS: the provider replicates on ingress and the
-+ *	host only sees punted packets. Semantics only until a real provider
-+ *	exists; no simulated provider implements it.
-+ */
-+enum amt_offload_path {
-+	AMT_OFFLOAD_PATH_TX,
-+	AMT_OFFLOAD_PATH_INGRESS,
-+};
++ok()
++{
++	printf "TEST: %-62s  [ OK ]\n" "$1"
++	OKS=$((OKS + 1))
++}
 +
-+/**
-+ * struct amt_offload_caps - what a bound provider can do
-+ * @families: AMT_OFFLOAD_FAMILY_* outer families it can encapsulate. A
-+ *	relay whose outer family is missing stays unbound (counted), with the
-+ *	outcome of a failed &amt_offload_ops.bind, except that amt first calls
-+ *	&amt_offload_ops.unbind, since that bind succeeded.
-+ * @paths: BIT(enum amt_offload_path) it implements.
-+ * @op_timeout_ms: longest a programming op may take before amt treats the
-+ *	provider as wedged, resets it and replays from desired state.
-+ * @features: AMT_OFFLOAD_F_* bits. None has v1 semantics.
-+ * @max_endpoints: endpoint table size; 0 means unbounded. Informational:
-+ *	amt does not read it in this version. A provider out of room fails an
-+ *	&amt_offload_ops.endpoint_add for a key it does not hold, by
-+ *	convention with -ENOSPC.
-+ * @max_groups: group table size; 0 means unbounded. Informational: amt
-+ *	does not read it in this version. A provider out of room fails the
-+ *	&amt_offload_ops.group_update that needs a new group, by convention
-+ *	with -ENOSPC.
-+ *
-+ * Filled by &amt_offload_ops.bind.
-+ */
-+struct amt_offload_caps {
-+	u32 families;
-+	u32 paths;
-+	u32 op_timeout_ms;
-+	u32 features;
-+	u32 max_endpoints;
-+	u32 max_groups;
-+};
++fail()
++{
++	printf "TEST: %-62s  [FAIL]\n" "$1"
++	shift
++	[ $# -gt 0 ] && echo "      $*"
++	ERR=1
++	return 0
++}
 +
-+/**
-+ * struct amt_offload_binding - one relay device bound to one provider
-+ * @lower: the registered lower netdev (the relay's stream device).
-+ * @dev: the amt relay netdev.
-+ * @epoch: monotonic per relay device, bumped on every bind, reset and
-+ *	teardown. A completion carrying an older epoch is stale and ignored.
-+ * @priv: provider-owned; amt never touches it.
-+ *
-+ * Allocated and freed by amt. Valid from &amt_offload_ops.bind until
-+ * &amt_offload_ops.unbind returns.
-+ */
-+struct amt_offload_binding {
-+	struct net_device *lower;
-+	struct net_device *dev;
-+	u64 epoch;
-+	void *priv;
-+};
++# --- helpers --------------------------------------------------------------
 +
-+/**
-+ * struct amt_offload_endpoint_key - one gateway's outer endpoint
-+ * @family: AF_INET or AF_INET6, the relay's outer family.
-+ * @addr: gateway outer address.
-+ * @addr.ip4: IPv4 address when @family is AF_INET.
-+ * @addr.ip6: IPv6 address when @family is AF_INET6.
-+ * @port: gateway outer UDP port (tunnel identity is address + port).
-+ */
-+struct amt_offload_endpoint_key {
-+	u8 family;
-+	union {
-+		__be32 ip4;
-+		struct in6_addr ip6;
-+	} addr;
-+	__be16 port;
-+};
++cat > "$TMP/join.py" <<'EOF'
++# join.py IFNAME GROUP [SOURCE]: hold an ASM or SSM membership on IFNAME
++# until killed; leaving is closing the socket.
++import signal, socket, struct, sys, time
++ifn, grp = sys.argv[1], sys.argv[2]
++src = sys.argv[3] if len(sys.argv) > 3 else None
++def sin(a):
++    return struct.pack('=HH4s120x', socket.AF_INET, 0, socket.inet_aton(a))
++s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
++req = struct.pack('=I4x', socket.if_nametoindex(ifn)) + sin(grp)
++if src:
++    s.setsockopt(socket.IPPROTO_IP, 46, req + sin(src)) # MCAST_JOIN_SOURCE_GROUP
++else:
++    s.setsockopt(socket.IPPROTO_IP, 42, req)            # MCAST_JOIN_GROUP
++signal.signal(signal.SIGTERM, lambda *a: sys.exit(0))
++while True:
++    time.sleep(3600)
++EOF
 +
-+/**
-+ * struct amt_offload_group_key - one replicated group
-+ * @family: AF_INET or AF_INET6, the INNER group family.
-+ * @group: group address.
-+ * @group.ip4: IPv4 group when @family is AF_INET.
-+ * @group.ip6: IPv6 group when @family is AF_INET6.
-+ *
-+ * Forwarding is per (family, group), never per source: a gateway holding
-+ * an INCLUDE(S1) membership still receives S2, exactly as the software
-+ * fan-out does today.
-+ */
-+struct amt_offload_group_key {
-+	u8 family;
-+	union {
-+		__be32 ip4;
-+		struct in6_addr ip6;
-+	} group;
-+};
++cat > "$TMP/send.py" <<'EOF'
++# send.py IFNAME SRC GROUP COUNT INTERVAL: COUNT UDP datagrams to GROUP:5000
++# from SRC out of IFNAME. Send errors (the device going away) are ignored.
++import socket, struct, sys, time
++ifn, src, grp, n, ivl = sys.argv[1:6]
++s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
++s.bind((src, 0))
++s.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_IF,
++             struct.pack('=4s4si', bytes(4), bytes(4),
++                         socket.if_nametoindex(ifn)))
++s.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 8)
++s.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, 0)
++for i in range(int(n)):
++    try:
++        s.sendto(b'%08d' % i + bytes(56), (grp, 5000))
++    except OSError:
++        pass
++    time.sleep(float(ivl))
++EOF
 +
-+/* Provider-owned table entries. amt only stores the pointers. */
-+struct amt_offload_endpoint;
-+struct amt_offload_group;
++cat > "$TMP/count.py" <<'EOF'
++# count.py IFNAME...: count received UDP datagrams to port 5000 per
++# (interface, source, group) until SIGTERM, then read what is already
++# queued and print one line per key.
++import collections, select, signal, socket, sys
++socks = {}
++for ifn in sys.argv[1:]:
++    s = socket.socket(socket.AF_PACKET, socket.SOCK_DGRAM, socket.htons(0x0800))
++    s.bind((ifn, 0x0800))
++    socks[s] = ifn
++cnt = collections.Counter()
++done = False
++def stop(*a):
++    global done
++    done = True
++signal.signal(signal.SIGTERM, stop)
++sys.stdout.write('READY\n'); sys.stdout.flush()
++while True:
++    r = select.select(list(socks), [], [], 0 if done else 0.1)[0]
++    if not r and done:
++        break
++    for s in r:
++        d, a = s.recvfrom(4096)
++        if a[2] == socket.PACKET_OUTGOING or len(d) < 28 or d[9] != 17:
++            continue
++        hl = (d[0] & 15) * 4
++        if int.from_bytes(d[hl + 2:hl + 4], 'big') != 5000:
++            continue
++        cnt[(socks[s], socket.inet_ntoa(d[12:16]),
++             socket.inet_ntoa(d[16:20]))] += 1
++for (ifn, src, grp), n in sorted(cnt.items()):
++    print(ifn, src, grp, n)
++EOF
 +
-+/**
-+ * enum amt_offload_result - outcome of &amt_offload_ops.xmit
-+ * @AMT_OFFLOAD_FALLBACK: skb untouched; amt runs its software fan-out.
-+ * @AMT_OFFLOAD_CONSUMED: the provider handled every copy of this packet
-+ *	under the generation it was given and owns the skb; amt emits none and
-+ *	retries none. A copy that failed is the provider's to count, except one
-+ *	amt_offload_encap_xmit() could not copy or route, which amt has already
-+ *	counted in the relay's tx_dropped.
-+ * @AMT_OFFLOAD_BUSY: skb untouched; amt runs one synchronous software pass
-+ *	and counts it. Never NETDEV_TX_BUSY: the relay is IFF_NO_QUEUE.
-+ *
-+ * Exactly one actor handles each packet, so no packet is duplicated.
-+ */
-+enum amt_offload_result {
-+	AMT_OFFLOAD_FALLBACK,
-+	AMT_OFFLOAD_CONSUMED,
-+	AMT_OFFLOAD_BUSY,
-+};
++dfs() { cat "$DFS/$1"; }
++dfs_set() { echo "$2" > "$DFS/$1"; }
++rsys() { ip netns exec "$RELAY" cat "/sys/class/net/amtr/offload/$1"; }
 +
-+/**
-+ * struct amt_offload_stats - provider-side counters
-+ * @tx_packets: copies the provider emitted.
-+ * @tx_bytes: bytes of those copies on the wire.
-+ * @tx_dropped: copies the provider failed to emit.
-+ */
-+struct amt_offload_stats {
-+	u64 tx_packets;
-+	u64 tx_bytes;
-+	u64 tx_dropped;
-+};
++# Committed member count of group $1 in the provider's own table, or 0.
++hw_members()
++{
++	awk -v g="group $1" '
++		$0 == g { in_g = 1; next }
++		/^group / || /^endpoint / || /^binding / { in_g = 0 }
++		in_g && $1 == "committed" { n = $5; sub(":", "", n); print n; f = 1; exit }
++		END { if (!f) print 0 }' "$DFS/tables"
++}
 +
-+/**
-+ * struct amt_offload_ops - provider callbacks
-+ * @bind: a relay transmitting on the registered lower device starts using
-+ *	this provider. Fill @caps. Process context, RTNL held. Nonzero leaves
-+ *	the relay unbound (counted): in software in auto mode; in required
-+ *	mode refused if it is being created, else without carrier.
-+ * @unbind: last call for a binding. Every endpoint and group has already
-+ *	been deleted or disabled. Free @b->priv. RTNL held.
-+ * @endpoint_add: program one gateway endpoint. Idempotent: an identical
-+ *	key returns the existing handle. 0 means accepted and durable, not yet
-+ *	forwarding. Process context, never under amt's spinlocks.
-+ * @endpoint_del: remove an endpoint no group references any more.
-+ * @group_update: stage the member set of one group under generation @gen,
-+ *	allocating *@grp on first use. Not forwarding until @group_commit.
-+ * @group_commit: start forwarding generation @gen of @grp. amt hands @gen
-+ *	to @xmit only after this returns 0, and may never do so: an overrun
-+ *	resets the provider, and on TX a member leaving meanwhile withholds
-+ *	the commit until the next one. Until amt publishes @gen, any @xmit for
-+ *	@grp carries an earlier generation this provider committed, and a call
-+ *	already in flight may carry any of those or @gen itself; the provider
-+ *	serves such a generation or declines it. A provider must never emit
-+ *	one packet to one endpoint under two generations. On failure the group
-+ *	stays in software and previously added endpoints stay valid.
-+ * @group_disable: stop forwarding @grp and free it.
-+ * @xmit: TX path. Replicate @skb for @grp under @gen or decline; see
-+ *	&enum amt_offload_result. Softirq context, under rcu_read_lock().
-+ * @flush: drop every endpoint and group (reset after a timeout). amt then
-+ *	replays from its own desired state under a new epoch, except when
-+ *	the op that overran was a @group_disable or @endpoint_del of amt
-+ *	giving everything back -- at teardown, where @unbind follows, or
-+ *	after its desired state was lost: then nothing is replayed and the
-+ *	epoch does not move.
-+ * @stats: fill @st. Optional; amt does not call it in this version.
-+ *
-+ * Teardown order, on unregistration of the lower device and on
-+ * amt_offload_unregister(): amt stops admitting packets to @xmit, waits for
-+ * in-flight @xmit calls, cancels its programming work, calls @group_disable
-+ * for every group, @endpoint_del for every endpoint, then @unbind, then
-+ * synchronize_rcu(); the relay is back in software afterwards. If one of
-+ * those @group_disable/@endpoint_del calls overruns op_timeout_ms, amt
-+ * calls @flush once instead of the rest, then @unbind, with no replay.
-+ */
-+struct amt_offload_ops {
-+	int (*bind)(struct amt_offload_binding *b,
-+		    struct amt_offload_caps *caps);
-+	void (*unbind)(struct amt_offload_binding *b);
-+	int (*endpoint_add)(struct amt_offload_binding *b,
-+			    const struct amt_offload_endpoint_key *key,
-+			    struct amt_offload_endpoint **ep);
-+	void (*endpoint_del)(struct amt_offload_binding *b,
-+			     struct amt_offload_endpoint *ep);
-+	int (*group_update)(struct amt_offload_binding *b,
-+			    const struct amt_offload_group_key *key,
-+			    struct amt_offload_endpoint *const *members,
-+			    unsigned int nr_members, u64 gen,
-+			    struct amt_offload_group **grp);
-+	int (*group_commit)(struct amt_offload_binding *b,
-+			    struct amt_offload_group *grp, u64 gen);
-+	void (*group_disable)(struct amt_offload_binding *b,
-+			      struct amt_offload_group *grp);
-+	enum amt_offload_result (*xmit)(struct amt_offload_binding *b,
-+					struct amt_offload_group *grp,
-+					struct sk_buff *skb, u64 gen);
-+	void (*flush)(struct amt_offload_binding *b);
-+	void (*stats)(struct amt_offload_binding *b,
-+		      struct amt_offload_stats *st);
-+};
++hw_group_present()
++{
++	grep -qx "group $1" "$DFS/tables"
++}
 +
-+/**
-+ * amt_offload_register - offer a provider for relays on @lower
-+ * @lower: the netdev the relays transmit on.
-+ * @ops: provider callbacks; must outlive the registration.
-+ *
-+ * Every relay already using @lower in auto or required mode tries to bind
-+ * now. Caller holds RTNL.
-+ *
-+ * Return: 0, -EEXIST if @lower already has a provider, or -ENOMEM.
-+ */
-+int amt_offload_register(struct net_device *lower,
-+			 const struct amt_offload_ops *ops);
++# wait_for SECONDS CMD...: poll CMD every 0.2s.
++wait_for()
++{
++	local t=$(( $1 * 5 ))
 +
-+/**
-+ * amt_offload_unregister - withdraw the provider for @lower
-+ * @lower: as passed to amt_offload_register().
-+ *
-+ * Tears every binding down in the documented order and returns with every
-+ * relay on @lower in software. Caller holds RTNL. A no-op if @lower has no
-+ * provider, which is the case after @lower itself was unregistered.
-+ */
-+void amt_offload_unregister(struct net_device *lower);
++	shift
++	while [ $t -gt 0 ]; do
++		"$@" && return 0
++		sleep 0.2
++		t=$((t - 1))
++	done
++	return 1
++}
 +
-+#endif /* _NET_AMT_OFFLOAD_H_ */
++members_eq() { [ "$(hw_members "$1")" = "$2" ]; }
++group_gone() { ! hw_group_present "$1"; }
++sysfs_ge() { [ "$(rsys "$1")" -ge "$2" ]; }
++
++# Members that later leave join source-specific, so a relay that applies
++# INCLUDE leaves at once drops the group at once. This base does not: a
++# BLOCK or TO_IN leaves the timer of each source it drops alone, so the
++# relay keeps the source until that timer expires, at least a GMI after
++# the last report that refreshed it, and deletes the group with its last
++# source (an ASM leave waits out the group timer the same way). So case 8
++# waits out the GMI, and case 3 drives its generation replaces with joins
++# alone.
++join()	# join KEY IFNAME GROUP [SOURCE]
++{
++	local key=$1
++
++	shift
++	ip netns exec "$(gwns "${1#amtg}")" python3 "$TMP/join.py" "$@" &
++	JOIN[$key]=$!
++}
++
++leave()
++{
++	kill "${JOIN[$1]}" 2>/dev/null
++	wait "${JOIN[$1]}" 2>/dev/null
++	unset "JOIN[$1]"
++}
++
++# measure SRC GROUP COUNT INTERVAL [HOOK]: send, count per gateway, and
++# the provider's hardware copies. Fills CNT[amtgN] (copies from SRC to
++# GROUP) and HW (tx_copies delta). The counters run until a second after
++# the last packet is sent, however long sending takes. HOOK, a function
++# that must not block, runs once every counter is ready, just before the
++# first packet.
++declare -A CNT
++HW=0
++measure()
++{
++	local src=$1 grp=$2 n=$3 ivl=$4 hw0 line i cpids=()
++
++	hw0=$(dfs tx_copies)
++	for i in 1 2 3 4; do
++		ip netns exec "$(gwns $i)" python3 "$TMP/count.py" amtg$i \
++			> "$TMP/count$i.out" &
++		cpids+=($!)
++	done
++	for i in 1 2 3 4; do
++		wait_for 5 grep -q READY "$TMP/count$i.out"
++	done
++	[ -z "${5:-}" ] || "$5"
++	ip netns exec "$RELAY" python3 "$TMP/send.py" amtr "$src" "$grp" "$n" \
++		"$ivl"
++	sleep 1
++	kill -TERM "${cpids[@]}" 2>/dev/null
++	wait "${cpids[@]}"
++	HW=$(( $(dfs tx_copies) - hw0 ))
++	CNT=([amtg1]=0 [amtg2]=0 [amtg3]=0 [amtg4]=0)
++	while read -r ifn s g c; do
++		[ "$s" = "$src" ] && [ "$g" = "$grp" ] && CNT[$ifn]=$c
++	done < <(cat "$TMP"/count[1-4].out | grep -v READY)
++}
++
++counts() { echo "amtg1..4=${CNT[amtg1]},${CNT[amtg2]},${CNT[amtg3]},${CNT[amtg4]} hw=$HW"; }
++
++dl_occ()
++{
++	devlink -j resource show "$DL" | jq -r --arg r "$1" \
++		'.resources[][] | select(.name == "amt") | .resources[] |
++		 select(.name == $r) | .occ'
++}
++
++# --- preflight ------------------------------------------------------------
++
++[ "$(id -u)" -eq 0 ] || skip "needs root"
++for c in python3 jq devlink; do
++	command -v $c > /dev/null || skip "$c not found"
++done
++# A guest whose ip cannot set the mode would silently test software only.
++ip link help amt 2>&1 | grep -q 'offload OFFLOAD' ||
++	skip "ip lacks IFLA_AMT_OFFLOAD_MODE (iproute2 amt offload patch)"
++modprobe amt 2>/dev/null
++modprobe netdevsim 2>/dev/null
++[ -w $NSIM_SYS/new_device ] || skip "netdevsim not available"
++
++trap cleanup EXIT
++DMESG0=$(dmesg | wc -l)
++
++# --- 11. a lower carrying two amt devices is deleted ------------------------
++# Not offload, so it runs first, in its own netns, and is not lost when
++# the offload setup below fails: the amt notifier must take down every
++# amt device on an unregistering lower, not just the first.
++# One left linked trips the upper-dev WARN in
++# unregister_netdevice_many_notify() and a kernfs upper_* splat. The
++# devices stay down: two gateways cannot both bind relay_port in one
++# netns, and linking is all this needs.
++MU=$(gwns mu)
++ip netns add "$MU"
++ip -n "$MU" link add mu0 type dummy
++ip -n "$MU" addr add 10.9.0.1/24 dev mu0
++for d in mu_a mu_b; do
++	ip -n "$MU" link add $d type amt mode gateway local 10.9.0.1 \
++		discovery 10.9.0.2 dev mu0
++done
++made=$(ip -n "$MU" -o link show type amt | wc -l)
++ip -n "$MU" link del mu0
++left=$(ip -n "$MU" -o link show type amt | wc -l)
++ip netns del "$MU"
++# The netns teardown is asynchronous: give it a second. Then one dmesg
++# snapshot ends this case's scan and starts case 10's, so the two scans
++# tile and a splat this case provokes fails this case only.
++sleep 1
++dm=$(dmesg)
++DMESG1=$(printf '%s\n' "$dm" | wc -l)
++splat=$(printf '%s\n' "$dm" | tail -n +$((DMESG0 + 1)) |
++	grep -E 'WARNING:|BUG:|Oops|kernfs: can not remove|refcount_t|use-after-free')
++if [ "$made" -eq 2 ] && [ "$left" -eq 0 ] && [ -z "$splat" ]; then
++	ok "lower carrying two amt devices deleted: both gone"
++else
++	fail "lower carrying two amt devices deleted" \
++		"made=$made left=$left splat: $splat"
++fi
++
++echo "$NSIM_R_ID" > $NSIM_SYS/new_device
++echo "$NSIM_G_ID" > $NSIM_SYS/new_device
++udevadm settle 2>/dev/null
++[ -d "$DFS" ] || skip "netdevsim has no AMT offload provider ($DFS)"
++NR=$(ls $NSIM_SYS/devices/netdevsim$NSIM_R_ID/net)
++NG=$(ls $NSIM_SYS/devices/netdevsim$NSIM_G_ID/net)
++
++set -e
++ip netns add "$RELAY"
++ip netns add "$GW"
++ip link set "$NR" netns "$RELAY"
++ip link set "$NG" netns "$GW"
++ip -n "$RELAY" link set "$NR" name nsim_r
++ip -n "$GW" link set "$NG" name nsim_g
++for ns in "$RELAY" "$GW"; do
++	ip -n "$ns" link set lo up
++done
++ip -n "$RELAY" addr add 10.0.0.2/24 dev nsim_r
++ip -n "$RELAY" link set nsim_r up
++ip -n "$GW" link set nsim_g up
++
++exec {FD_R}<"/var/run/netns/$RELAY"
++exec {FD_G}<"/var/run/netns/$GW"
++IFX_R=$(ip netns exec "$RELAY" cat /sys/class/net/nsim_r/ifindex)
++IFX_G=$(ip netns exec "$GW" cat /sys/class/net/nsim_g/ifindex)
++echo "$FD_R:$IFX_R $FD_G:$IFX_G" > $NSIM_SYS/link_device
++
++ip -n "$RELAY" link add src0 type dummy
++ip -n "$RELAY" addr add $S1/24 dev src0
++ip -n "$RELAY" addr add $S2/24 dev src0
++ip -n "$RELAY" link set src0 up
++ip -n "$RELAY" link add amtr type amt mode relay local 10.0.0.2 dev nsim_r \
++	relay_port 2268 offload auto
++ip -n "$RELAY" link set amtr up
++ip -n "$GW" link add br0 type bridge
++ip -n "$GW" link set nsim_g master br0
++ip -n "$GW" link set br0 up
++for i in 1 2 3 4; do
++	ns=$(gwns $i)
++	ip netns add "$ns"
++	# No IPv6 on the gateways: amtg would join solicited-node groups over
++	# the tunnel and the relay would offload them alongside G1..G4.
++	ip netns exec "$ns" sysctl -qw net.ipv6.conf.default.disable_ipv6=1 \
++		2>/dev/null || true
++	ip -n "$ns" link set lo up
++	ip -n "$GW" link add br_g$i type veth peer name gw$i netns "$ns"
++	ip -n "$GW" link set br_g$i master br0 up
++	ip -n "$ns" addr add 10.0.0.1$i/24 dev gw$i
++	ip -n "$ns" link set gw$i up
++	ip -n "$ns" link add amtg$i type amt mode gateway local 10.0.0.1$i \
++		discovery 10.0.0.2 dev gw$i gateway_port 2268 relay_port 2268
++	ip -n "$ns" addr add 192.168.$i.1/32 dev amtg$i
++	ip -n "$ns" link set amtg$i up
++done
++set +e
++
++discovered()
++{
++	local i
++
++	for i in 1 2 3 4; do
++		[ "$(ip -n "$(gwns $i)" -d -j link show amtg$i |
++		     jq -r '.[0].linkinfo.info_data.remote')" = 10.0.0.2 ] ||
++			return 1
++	done
++}
++wait_for 30 discovered || { fail "setup" "gateways never discovered the relay"; exit; }
++
++mode=$(ip -n "$RELAY" -d -j link show amtr | jq -r '.[0].linkinfo.info_data.offload')
++[ "$mode" = auto ] && [ "$(rsys bound)" = 1 ] ||
++	{ fail "setup" "relay offload mode '$mode', bound $(rsys bound)"; exit; }
++ERR=0
++
++# --- 1. no membership, nothing committed: no copies anywhere ----------------
++measure $S1 $G1 $K 0.01
++if [ "$HW" -eq 0 ] && [ $((CNT[amtg1] + CNT[amtg2] + CNT[amtg3] + CNT[amtg4])) -eq 0 ]; then
++	ok "0 copies before any group is committed"
++else
++	fail "0 copies before any group is committed" "$(counts)"
++fi
++
++# --- 2. one hardware copy per committed endpoint per packet -----------------
++for i in 1 2 3; do
++	join a$i amtg$i $G1 $S1
++done
++if ! wait_for 40 members_eq $G1 3; then
++	fail "1 copy per endpoint per packet" \
++		"G1 never committed with 3 members: $(cat "$DFS/tables")"
++else
++	measure $S1 $G1 $K 0.01
++	if [ "${CNT[amtg1]}" -eq $K ] && [ "${CNT[amtg2]}" -eq $K ] &&
++	   [ "${CNT[amtg3]}" -eq $K ] && [ "${CNT[amtg4]}" -eq 0 ] &&
++	   [ "$HW" -eq $((3 * K)) ] && [ "$(dl_occ endpoints)" = 3 ] &&
++	   [ "$(dl_occ groups)" = 1 ] && [ "$(dl_occ members)" = 3 ]; then
++		ok "1 copy per endpoint per packet, all from the provider"
++	else
++		fail "1 copy per endpoint per packet" "$(counts)" \
++			"devlink endpoints/groups/members:" \
++			"$(dl_occ endpoints)/$(dl_occ groups)/$(dl_occ members)"
++	fi
++fi
++
++# --- 3. generation replace under traffic: no duplicate, no loss --------------
++# G5 has two stable members; two more join while it is sent, 3 s and 6 s
++# into a 12 s stream, so each join is a generation replace under traffic.
++late_joins()
++{
++	ip netns exec "$(gwns 3)" bash -c \
++		"sleep 3; exec python3 $TMP/join.py amtg3 $G5 $S1" &
++	JOIN[l3]=$!
++	ip netns exec "$(gwns 4)" bash -c \
++		"sleep 6; exec python3 $TMP/join.py amtg4 $G5 $S1" &
++	JOIN[l4]=$!
++}
++join l1 amtg1 $G5 $S1
++join l2 amtg2 $G5 $S1
++if ! wait_for 40 members_eq $G5 2; then
++	fail "generation replace under traffic" \
++		"G5 never committed with 2 members: $(cat "$DFS/tables")"
++else
++	c0=$(dfs commits)
++	st0=$(dfs tx_stale_gen)
++	measure $S1 $G5 600 0.02 late_joins
++	gens=$(( $(dfs commits) - c0 ))
++	stale=$(( $(dfs tx_stale_gen) - st0 ))
++	# The stable members got every packet once, the late members some
++	# but not all of them, and every copy came from the provider (HW is
++	# their sum), none from a software fallback on a stale generation.
++	if [ "${CNT[amtg1]}" -eq 600 ] && [ "${CNT[amtg2]}" -eq 600 ] &&
++	   [ "${CNT[amtg3]}" -gt 0 ] && [ "${CNT[amtg3]}" -lt 600 ] &&
++	   [ "${CNT[amtg4]}" -gt 0 ] && [ "${CNT[amtg4]}" -lt 600 ] &&
++	   [ "$HW" -eq $((CNT[amtg1] + CNT[amtg2] + CNT[amtg3] + CNT[amtg4])) ] &&
++	   [ $gens -ge 2 ] && [ $stale -eq 0 ]; then
++		ok "generation replace: stable members get exactly 1 copy"
++	else
++		fail "generation replace under traffic" \
++			"$(counts) generations=$gens stale_gen=+$stale"
++	fi
++fi
++
++# --- 4. BUSY: exactly one software copy set -----------------------------------
++b0=$(rsys busy_fallback)
++t0=$(dfs tx_busy)
++dfs_set busy 1
++measure $S1 $G1 $K 0.01
++dfs_set busy 0
++if [ "${CNT[amtg1]}" -eq $K ] && [ "${CNT[amtg2]}" -eq $K ] &&
++   [ "${CNT[amtg3]}" -eq $K ] && [ "$HW" -eq 0 ] &&
++   [ $(( $(rsys busy_fallback) - b0 )) -eq $K ] && [ $(( $(dfs tx_busy) - t0 )) -eq $K ]; then
++	ok "BUSY: exactly one software copy set per packet"
++else
++	fail "BUSY: exactly one software copy set" "$(counts)" \
++		"busy_fallback +$(( $(rsys busy_fallback) - b0 ))"
++fi
++
++# --- 5. forwarding is per group: INCLUDE(S1) still receives S2 ----------------
++join s1 amtg1 $G4 $S1
++if ! wait_for 40 members_eq $G4 1; then
++	fail "INCLUDE(S1) member receives S2" "G4 never committed: $(cat "$DFS/tables")"
++else
++	measure $S2 $G4 $K 0.01
++	if [ "${CNT[amtg1]}" -eq $K ] && [ "$HW" -eq $K ]; then
++		ok "INCLUDE(S1) member still receives S2, in hardware"
++	else
++		fail "INCLUDE(S1) member receives S2" "$(counts)"
++	fi
++fi
++
++# --- 6. op overruns op_timeout_ms: reset, stale results ignored, no dup -------
++r0=$(rsys resets)
++s0=$(rsys stale_completions)
++f0=$(dfs flushes)
++h0=$(devlink -j health show "$DL" reporter amt | jq '.health[][0].error')
++dfs_set stall_ms 1500
++join r2 amtg2 $G3
++wait_for 30 sysfs_ge resets $((r0 + 1))
++dfs_set stall_ms 0
++if ! wait_for 40 members_eq $G3 1; then
++	fail "reset: stale completion ignored" \
++		"G3 never committed after reset: $(cat "$DFS/tables")"
++else
++	measure $S1 $G3 $K 0.01
++	h1=$(devlink -j health show "$DL" reporter amt | jq '.health[][0].error')
++	if [ "${CNT[amtg2]}" -eq $K ] && [ "$HW" -eq $K ] &&
++	   [ "$(rsys resets)" -gt "$r0" ] && [ "$(rsys stale_completions)" -gt "$s0" ] &&
++	   [ "$(dfs flushes)" -gt "$f0" ] && [ "$h1" -gt "$h0" ]; then
++		ok "reset: stale completion ignored, replay gives 1 copy"
++	else
++		fail "reset: stale completion ignored" "$(counts)" \
++			"resets $r0->$(rsys resets)" \
++			"stale $s0->$(rsys stale_completions) health $h0->$h1"
++	fi
++fi
++
++# --- 7. partial commit: group staged, commit refused -> software -------------
++w0=$(rsys sw_remainder)
++dfs_set fail_commit 1
++for i in 1 2 3; do
++	join p$i amtg$i $G2 $S1
++done
++wait_for 40 sysfs_ge sw_remainder $((w0 + 1))
++sleep 2
++measure $S1 $G2 $K 0.01
++dfs_set fail_commit 0
++if [ "${CNT[amtg1]}" -eq $K ] && [ "${CNT[amtg2]}" -eq $K ] &&
++   [ "${CNT[amtg3]}" -eq $K ] && [ "$HW" -eq 0 ] && [ "$(hw_members $G2)" = 0 ]; then
++	ok "partial commit: 0 hardware copies, software remainder"
++else
++	fail "partial commit: software remainder" "$(counts) sw_remainder $w0->$(rsys sw_remainder)"
++fi
++for i in 1 2 3; do
++	leave p$i
++done
++
++# --- 8. every member leaves: group disabled, no copies ------------------------
++# The relay drops S1, and G1 with it, at least a GMI after the last
++# report that refreshed it: qrv * 125 s query interval + 10 s response
++# interval. The timer wheel can fire it up to 8/63 of its delay late
++# (32.8 s of a 260 s GMI at HZ=1000), so wait a seventh more, and 10 s.
++gmi=$(( $(ip netns exec "$RELAY" sysctl -n net.ipv4.igmp_qrv) * 125 + 10 ))
++for i in 1 2 3; do
++	leave a$i
++done
++if wait_for $((gmi + gmi / 7 + 10)) group_gone $G1; then
++	measure $S1 $G1 $K 0.01
++	if [ "$HW" -eq 0 ] && [ $((CNT[amtg1] + CNT[amtg2] + CNT[amtg3] + CNT[amtg4])) -eq 0 ]; then
++		ok "0 copies after the group is disabled"
++	else
++		fail "0 copies after the group is disabled" "$(counts)"
++	fi
++else
++	fail "0 copies after the group is disabled" "G1 still in the provider: $(cat "$DFS/tables")"
++fi
++
++# --- 9. required mode with no provider: refused with extack -----------------
++ip -n "$RELAY" link add dum0 type dummy
++ip -n "$RELAY" addr add 10.0.1.2/24 dev dum0
++q0=$(cat /sys/module/amt/parameters/offload_required_refused)
++msg=$(ip -n "$RELAY" link add amtx type amt mode relay local 10.0.1.2 \
++	dev dum0 offload required 2>&1)
++rc=$?
++q1=$(cat /sys/module/amt/parameters/offload_required_refused)
++if [ $rc -ne 0 ] && echo "$msg" | grep -q '^Error: ' && [ $((q1 - q0)) -eq 1 ] &&
++   ! ip -n "$RELAY" link show amtx > /dev/null 2>&1; then
++	ok "required with no provider: refused with extack, counted"
++else
++	fail "required refuses with extack" "rc=$rc refused $q0->$q1 msg: $msg"
++fi
++
++# --- 10. lower device torn away under traffic: ordered teardown ---------------
++# Unlink the peer mid-stream (copies stop, the binding survives), relink
++# (copies resume at 1 per packet), then delete the relay's netdevsim under
++# traffic: amt tears the binding down before the relay goes, with no splat.
++# The unlink-phase stream is from S1, so copies queued while unlinked and
++# released on relink are not counted as the relinked (S2, G4) copies.
++ip netns exec "$RELAY" python3 "$TMP/send.py" amtr $S1 $G4 100 0.02 &
++PIDS+=($!)
++sleep 0.5
++echo "$FD_R:$IFX_R" > $NSIM_SYS/unlink_device
++wait "${PIDS[-1]}"
++bound_after_unlink=$(rsys bound)
++echo "$FD_R:$IFX_R $FD_G:$IFX_G" > $NSIM_SYS/link_device
++wait_for 20 members_eq $G4 1
++measure $S2 $G4 $K 0.01
++relinked=${CNT[amtg1]}
++relinked_hw=$HW
++ip netns exec "$RELAY" python3 "$TMP/send.py" amtr $S2 $G4 200 0.01 &
++PIDS+=($!)
++sleep 0.5
++echo "$NSIM_R_ID" > $NSIM_SYS/del_device
++wait "${PIDS[-1]}"
++splat=$(dmesg | tail -n +$((DMESG1 + 1)) |
++	grep -E 'WARNING:|BUG:|Oops|refcount_t|use-after-free|list_(add|del) corruption')
++if [ "$bound_after_unlink" = 1 ] && [ "$relinked" -eq $K ] && [ "$relinked_hw" -eq $K ] &&
++   ! ip -n "$RELAY" link show amtr > /dev/null 2>&1 && [ ! -d "$DFS" ] &&
++   [ -z "$splat" ]; then
++	ok "lower device unlinked and deleted under traffic: ordered teardown"
++else
++	fail "ordered teardown under traffic" \
++		"bound=$bound_after_unlink relinked=$relinked hw=$relinked_hw splat: $splat"
++fi
++
++if [ $OKS -ne 11 ]; then
++	echo "only $OKS of 11 assertions passed"
++	ERR=1
++fi
+diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
+index 94d722770..88eb75060 100644
+--- a/tools/testing/selftests/net/config
++++ b/tools/testing/selftests/net/config
+@@ -11,6 +11,7 @@ CONFIG_CRYPTO_ARIA=y
+ CONFIG_CRYPTO_CHACHA20POLY1305=m
+ CONFIG_CRYPTO_SHA1=y
+ CONFIG_CRYPTO_SM4_GENERIC=y
++CONFIG_DEBUG_FS=y
+ CONFIG_DEBUG_INFO_BTF=y
+ CONFIG_DEBUG_INFO_BTF_MODULES=n
+ CONFIG_DUMMY=y
+@@ -117,6 +118,7 @@ CONFIG_OPENVSWITCH=m
+ CONFIG_OPENVSWITCH_GENEVE=m
+ CONFIG_OPENVSWITCH_GRE=m
+ CONFIG_OPENVSWITCH_VXLAN=m
++CONFIG_PACKET=y
+ CONFIG_PROC_SYSCTL=y
+ CONFIG_PSAMPLE=m
+ CONFIG_RPS=y
 -- 
 2.43.0
 
