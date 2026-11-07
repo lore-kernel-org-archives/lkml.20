@@ -1,47 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080489;
-	b=LHRlTd7QmI7+maphuLnoFLxsbRdmt2DFi9QAao98dHYMn/XbfBehuyauaEhL6JQMJKYj
-	 izzizp4upbo71Ftt8UujpBijYdLC65Ychum55wo1x/wcW0t1wFd8spX610kzHdvM4bHjz
-	 rlByFWovRHTYeLYxaxe+wHrIowq3nKrazBTHckqkz20sH9E7JdTolkOPB6ltaZ+uVJ54k
-	 ZenfrIQQGDZL1cd9DAzavVMchuOuEVxe2XqgladsxCd81E69KMYWhRSnrd5AJ+fHeAQWA
-	 39WjTPp8byrsPU9Cj/JowV19hAzvufbMS2YcQaivbPEaZU0ioa6H33F93ujW+HKQwYw==
+	t=1794080556;
+	b=sxWid0KdtsAeccvK5TUcJwQfURapVfjDx53VTY0cckVscv5TtU9X85asOV40+UhTZh4k
+	 2ZArvSKzSr7mSvSCQN9/XwslNRv3sMA+3J+GzKrXKcbe08oyP5oM4c/TfeDN0MWn2+o2p
+	 oZ8Ahp3s21EPacvGwG0EpPZaK4NKSoOC4SQpV/EhxcGgus71SqTv3gTPgqaoIsiRbBkaa
+	 ZIa33fAyZuxC4pU8UCnYn+wLY0ibG4wK2T3TlnM8yeVTvIOFzUyg9hFLvv0zMWCa5epNj
+	 L4cf48vTCbZjkokedOn1pff/V4xFqW32iexIg580HKxZFSCSG1UxkHIwMcRZAVI7/Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080489;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qrayV5HgmTcSMMMhveHmxbWzQ03GCDulO+jtmHjEwSs=;
-	b=D8ToVfB6ha4PXjbRYsqkejdupw/CqTY+CR8eqA9GlhsR+JnptMk+V8QrZ4C0QWhHOvri
-	 /825gszztdhcinLnRADuYpbISKXoVohRwqXD05+V3nNwLNfVwPA8nWnLb7gJwOUFFDmAP
-	 GvV+igPQ1T/3xBmEXwB1atvU7JUTuG9+b7Hq5sjlcQY4mpEgy1/n48wA9z0CmoC5TX43D
-	 10YEqT9poRfod1SLtmtnXkFdDsd0d3QVAt4U9f86JTmm5khGyUDojKp/q88zRvHq71c9r
-	 NBDeBzXWt1EdVGWbsbBbSNdd8PQNQsceqZVoE6keWJXA8BNzC4fPJ0dNuTgCR2r4fMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080556;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=BFmExUZNkeWrEtyH9eFzdslvWVHLBcuvWey6vYUf3mU=;
+	b=kgrk5kBM+5do7BzxM9bXAvOsa+OB2h1bUAIyNiuCM5iamO397eWf/AcetfgKbUGvaeCq
+	 eOYZJ6ZDVwjBdLevNmZeWJj7sYlTomKKzVIY+1lUxDJynhX7Par62/aHiJJxgCmmfJxbB
+	 3WzLt4sfP0Lz3x8unG+VLXralFJW6fYlefmK3ilHtZY+n+EksHZRHUHpEwZzaPWOUiaS0
+	 bRmqovaXk4WpyXWmexNjOCzWPGqZgrj//9q92dDo2qs3eIcLmiTqjyuQCIuw+emdH8+P2
+	 oIxUNyjX8dz7vVhrBQEfANyDKrImnUiOkV4jmGfvlFnQEZ+NOw9aYaEeTgr9KyprqnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7xKMfQW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cI6JlBJb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF84606A326;
-	Sat,  7 Nov 2026 19:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C87606A326;
+	Sat,  7 Nov 2026 19:42:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7xKMfQW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4C31F0089F;
-	Sat,  7 Nov 2026 19:41:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cI6JlBJb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07E831F008A1;
+	Sat,  7 Nov 2026 19:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794080488;
-	bh=qrayV5HgmTcSMMMhveHmxbWzQ03GCDulO+jtmHjEwSs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R7xKMfQWAmEBP+7jr8m/rTZ0qcf3cHfKaGgUQmL4AL+Jj4Q2KlaWLJPKn2wxc/iKK
-	 w9lZQcb/W0uS33hvwpHeyja1a1AQGSExELOIHIA+c/XPHnmuVxQ56RTUbkNWaePdN+
-	 SB78P3uixsTGMMZNrngsUP4hm6/kMzANIxudL81PFPRxkj4MztpEE7T1Kn7dxsTZmz
-	 PhkVPpKh/5AYLInaD/Ev+Y+vUawgIT+MO67PN3fHo5eAvvaSeA2gbcEXbMlKgwbKUS
-	 MozNuMr9XlaQ1OoA7p69wSmY1N6ilueUU+3XjSJknb7Y7qum6Wb/FLvYPYvJ3s1Wzf
-	 Ll0jmq/T6D4tw==
-Message-ID: <a2ec6814-d3d3-425a-b379-f99b219aa55e@kernel.org>
-Date: Sat, 7 Nov 2026 20:41:20 +0100
+	s=k20260515; t=1794080555;
+	bh=BFmExUZNkeWrEtyH9eFzdslvWVHLBcuvWey6vYUf3mU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cI6JlBJboBmVnJ/BdTVHG8qMMG4HO4LW0O8t8Bn/cdTrdHoVMtz4z4dCGl/Ty+AmB
+	 QRi6jnA5icDX0WHsYMwHw5fMNS0//w/7h4/9FZSpM9+L/viBz1pUdTQ79INR+P9V9S
+	 UtWVz7Xty4UB8T2pBpi1UkR41/oAQW0s0TungqKwuQHSldGdmclC+ymQvuoVLq4R1b
+	 HW+BFptOl0MboauE6eGzxZTwo9fwLBTZbmh47twElBMF8aPILY2lgNMjZPjvndTbc0
+	 hdN1UMbvcdLDtr5zzawaowa0orSWbQ9GqKhgUt3yEreedOIIw5f6DR6UNoadN+JBQw
+	 ai42ekxC1s3Ow==
+Subject:
+ Re: [PATCH net-next v2 2/2] tls: make the record number wrap abort final
+From: netdev-bot+sashiko@kernel.org
+To: rjethwani@purestorage.com
+Cc: netdev@vger.kernel.org,
+ syzbot+cca46a9d1276f38af2ae@syzkaller.appspotmail.com, sd@queasysnail.net,
+ john.fastabend@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, vakul.garg@nxp.com,
+ linux-kernel@vger.kernel.org
+Date: Sat, 07 Nov 2026 19:42:34 +0000
+Message-ID: <179408055455.994134.12887172212869899418@kernel.org>
+In-Reply-To: <20261106193210.1152577-2-rjethwani@purestorage.com>
+References: <20261106193210.1152577-2-rjethwani@purestorage.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +65,340 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/memory_hotplug: don't offline a hwpoisoned page still
- in the page cache
-To: Mani Tofigh <mt4022@columbia.edu>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>,
- linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- tz2294@columbia.edu, stable@vger.kernel.org
-References: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
- <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
- <a002901b-715a-4adc-bdcb-7a6fcda67711@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <a002901b-715a-4adc-bdcb-7a6fcda67711@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/3/26 20:59, Mani Tofigh wrote:
-> On 11/2/26 1:56 AM, David Hildenbrand (Arm) wrote:
->>
->> What if we still have the page pinned somehow? (vmscplice etc).
->>
->> Wouldn't it be better to make sure that poisoning code holds exactly one
->> reference (whoever set hwpoison) and check here that the refcount is 1 ?
->>
->> Pagecache references would turn it > 1.
-> 
-> 
-> Yes right, a pin isn't covered (neither before nor with this patch).
-> 
-> I don't think refcount == 1 can replace the mapping check though. In the
-> race from the changelog memory_failure() has set PG_hwpoison but is 
-> still waiting in get_hwpoison_page(), so it doesn't hold its reference 
-> yet, and a clean page-cache folio then has just the one reference from 
-> the page cache. memory_failure() also doesn't take a reference on the 
-> kernel pages it ignores, and a poisoned page that gets freed later sits 
-> at 0.
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider.
 
-So the right fix is to fix that then.
+Critical: 0 · High: 0 · Medium: 2 · Low: 5
 
-We'd need to sync memory_failure() with memory offlining, correct?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] With async encryption on the SW TX path, the record that uses
+  the last record number is counted as sent and sendmsg() can return…
+- [Medium] The new tls.rst text says, for an abort in either direction,
+  that the error is not cleared when it is reported and that 'poll()…
+- [Low] The handling of a KeyUpdate in the last record number differs
+  between directions.
+- [Low] The commit fixes behaviour reachable in the baseline: after a
+  record number wraps, once sk_err has been consumed by SO_ERROR or…
+- [Low] Documentation/networking/tls.rst limits the wrap exemption to 'A
+  TLS 1.3 KeyUpdate ... receive ... continues once the new key is…
+- [Low] The doc says that after the final abort 'every later send ...
+  fails with EBADMSG'.
+- [Low] On the sync SW TX path, whether the refused wrapped record is
+  counted as sent still depends on a lockless read of `sk->sk_err ==…
+
+--
+
+tls: make the record number wrap abort final
+
+The EBADMSG abort on a record number wrap now persists. It is recorded
+in a new tls_context->final_err field that is never cleared. After a
+wrap, RX delivers no more records unless the last one carried a
+KeyUpdate, TX refuses to encrypt or push further records, poll()
+reports EPOLLERR, and TLS 1.3 selftests are added.
+
+> diff --git a/net/tls/tls.h b/net/tls/tls.h
+> index 60a37bdaaa250..517dcc452c67f 100644
+> --- a/net/tls/tls.h
+> +++ b/net/tls/tls.h
+
+[ ... ]
+
+> @@ -307,17 +308,30 @@ static inline void tls_bigint_subtract(unsigned char *seq, int  n)
+>  	*p = cpu_to_be64(rcd_sn - n);
+>  }
+>  
+> -static inline void
+> -tls_advance_record_sn(struct sock *sk, struct tls_prot_info *prot,
+> -		      struct cipher_context *ctx)
+> +static inline bool
+> +__tls_advance_record_sn(struct tls_prot_info *prot, struct cipher_context *ctx)
+>  {
+> -	if (tls_bigint_increment(ctx->rec_seq, prot->rec_seq_size))
+> -		tls_err_abort(sk, -EBADMSG);
+
+[Severity: Low]
+The commit message describes behaviour that already exists in released
+kernels. Once SO_ERROR or sock_error() has consumed sk_err after a wrap,
+both RX and TX continue under the same key with record number 0.
+
+Should this have a Fixes: tag for the commit that added the
+tls_err_abort() wrap handling removed here? That would tell backporters
+which trees are affected. If the patch is meant for net-next only, could
+the commit message say so?
+
+> +	bool wrapped = tls_bigint_increment(ctx->rec_seq, prot->rec_seq_size);
+
+[ ... ]
+
+> +static inline void
+> +tls_advance_record_sn(struct sock *sk, struct tls_prot_info *prot,
+> +		      struct cipher_context *ctx)
+> +{
+> +	if (__tls_advance_record_sn(prot, ctx))
+> +		tls_err_abort_final(sk, -EBADMSG);
+> +}
+
+[Severity: Low]
+On RX, tls_rx_one_record() exempts a KeyUpdate that uses the last record
+number. There is no matching exemption on TX. Is that asymmetry
+intended?
+
+tls_advance_record_sn() runs after the record has been encrypted. That
+is tls_do_encryption() on the SW path and tls_push_record() in
+tls_device.c. It calls tls_err_abort_final() whatever the content type
+is, and tls_push_sg() then refuses the record.
+
+So a KeyUpdate that userspace sends via cmsg at rec_seq 2^64-1, which
+RFC 8446 permits, is never sent. final_err is never cleared, so
+installing the new key with setsockopt(TLS_TX) can't recover the
+connection either.
+
+The new KeyUpdate paragraph in tls.rst only covers the receive side.
+Could it also describe the TX behaviour, or explain why kTLS refuses to
+send what it accepts from the peer?
+
+[ ... ]
+
+> diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
+> index b8d5a843f7617..d5605df59334d 100644
+> --- a/net/tls/tls_main.c
+> +++ b/net/tls/tls_main.c
+
+[ ... ]
+
+> @@ -414,8 +414,12 @@ static __poll_t tls_sk_poll(struct file *file, struct socket *sock,
+>  	tls_ctx = tls_get_ctx(sk);
+>  	ctx = tls_sw_ctx_rx(tls_ctx);
+>  
+> +	/* the final abort outlives sk_err, only decrypted data is readable */
+> +	if (unlikely(tls_final_err(tls_ctx)))
+> +		mask |= EPOLLERR;
+
+[Severity: Medium]
+The new documentation says "poll() reports EPOLLERR" for an abort in
+either direction, but this is the only place the persistent EPOLLERR is
+set. Does that hold for TX-only kTLS sockets?
+
+build_proto_ops() only installs tls_sk_poll for configurations with RX:
+
+net/tls/tls_main.c:build_proto_ops() {
+	ops[TLS_SW  ][TLS_BASE] = ops[TLS_BASE][TLS_BASE];
+	ops[TLS_SW  ][TLS_BASE].splice_eof	= tls_sw_splice_eof;
+    ...
+	ops[TLS_BASE][TLS_SW  ].poll		= tls_sk_poll;
+    ...
+	ops[TLS_SW  ][TLS_SW  ].poll		= tls_sk_poll;
+    ...
+	ops[TLS_HW  ][TLS_BASE] = ops[TLS_BASE][TLS_BASE];
+    ...
+}
+
+A socket with only TLS_TX configured, SW or HW, uses tcp_poll(). That
+reports EPOLLERR only while sk_err is set, and a TX wrap is exactly the
+case where these sockets matter.
+
+Once SO_ERROR consumes sk_err, as the tx_wrap selftest does, poll() no
+longer reports EPOLLERR, while send() still fails with EBADMSG.
+
+Even when tls_sk_poll() is used, it can return before reaching the new
+check:
+
+	if (unlikely(state != TCP_ESTABLISHED || shutdown & RCV_SHUTDOWN))
+		return mask;
+
+Once sk_err is cleared, wouldn't the documented EPOLLERR also be missing
+in those states?
+
+[ ... ]
+
+> diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+> index b4535139438ae..37ba09055220d 100644
+> --- a/net/tls/tls_sw.c
+> +++ b/net/tls/tls_sw.c
+
+[ ... ]
+
+> @@ -458,7 +470,9 @@ int tls_tx_records(struct sock *sk, int flags)
+>  	}
+>  
+>  tx_err:
+> -	if (rc < 0 && rc != -EAGAIN && rc != -EINTR && rc != -ERESTARTSYS)
+> +	/* a final abort already reported its error */
+> +	if (rc < 0 && rc != -EAGAIN && rc != -EINTR && rc != -ERESTARTSYS &&
+> +	    !tls_final_err(tls_ctx))
+>  		tls_err_abort(sk, rc);
+
+[Severity: Low]
+With this change, tls_tx_records() no longer sets sk_err again when
+final_err is set. On the sync SW TX path, bpf_exec_tx_verdict() still
+uses a lockless read of sk_err to decide whether to subtract the refused
+wrapped record from copied:
+
+net/tls/tls_sw.c:bpf_exec_tx_verdict() {
+    ...
+	err = tls_push_record(sk, flags, record_type);
+	if (err && err != -EINPROGRESS && sk->sk_err == EBADMSG) {
+		*copied -= sk_msg_free(sk, msg);
+		tls_free_open_rec(sk);
+		err = -sk->sk_err;
+	}
+    ...
+}
+
+Can a concurrent SO_ERROR reader defeat this check? For example:
+
+CPU1 (sendmsg, holds lock_sock)
+tls_do_encryption()
+  tls_advance_record_sn()
+    tls_err_abort_final()
+      sk_err = EBADMSG; sk_error_report()
+
+CPU2
+getsockopt(SO_ERROR)
+  sock_error()
+    xchg(&sk->sk_err, 0)
+
+CPU1
+tls_tx_records()
+  tls_push_sg() returns final_err (-EBADMSG)
+  sk_err is not set again here
+bpf_exec_tx_verdict()
+  sk->sk_err == EBADMSG is false, copied is not reduced
+
+sendmsg() would then return a copied count that includes the refused
+record. If sk_err is cleared between the == EBADMSG test and the
+err = -sk->sk_err assignment, err becomes 0 instead.
+
+The device path uses tls_final_err() for the same decision. Would
+checking tls_final_err(tls_ctx) here too, with a single snapshot of the
+error, close the window?
+
+[ ... ]
+
+> @@ -628,6 +642,11 @@ static int tls_push_record(struct sock *sk, int flags,
+>  	int rc;
+>  	u32 i;
+>  
+> +	/* tls_push_sg() would refuse it, don't encrypt it */
+> +	rc = tls_final_err(tls_ctx);
+> +	if (unlikely(rc))
+> +		return rc;
+> +
+
+[Severity: Medium]
+With async encryption, is the refused record still counted as sent?
+
+The commit message says "The device push doesn't count the refused
+record as sent, like the SW path". tls.rst says "the send that completes
+it doesn't count its data as sent".
+
+tls_do_encryption() advances the record number, and so raises the final
+abort, even when crypto_aead_encrypt() returns -EINPROGRESS:
+
+net/tls/tls_sw.c:tls_do_encryption() {
+    ...
+	/* Unhook the record from context if encryption is not failure */
+	ctx->open_rec = NULL;
+	tls_advance_record_sn(sk, prot, &tls_ctx->tx);
+	return rc;
+}
+
+tls_push_record() then returns -EINPROGRESS without reaching
+tls_tx_records(). bpf_exec_tx_verdict() skips the un-count because of
+its err != -EINPROGRESS condition. tls_sw_sendmsg_locked() increments
+num_async and ends up at send_end:
+
+send_end:
+	...
+		err = tls_encrypt_async_wait(ctx);
+	...
+	if (test_and_clear_bit(BIT_TX_SCHEDULED, &ctx->tx_bitmask)) {
+		cancel_delayed_work(&ctx->tx_work.work);
+		tls_tx_records(sk, msg->msg_flags);
+	}
+
+end:
+	ret = sk_stream_error(sk, msg->msg_flags, ret);
+	return copied > 0 ? copied : ret;
+
+tls_encrypt_async_wait() returns 0 because the encryption succeeded.
+The -EBADMSG that tls_tx_records() gets from tls_push_sg() is ignored.
+
+So sendmsg() reports the record's bytes as sent. Later flushes from
+tls_encrypt_done() and tx_work_handler() are refused, so the data is
+never sent.
+
+The same seems to happen when the wrapped record is encrypted
+synchronously while an earlier record is still pending async.
+tls_tx_records() stops at the first record that isn't tx_ready and
+returns 0, so bpf_exec_tx_verdict() leaves the bytes in copied.
+
+The selftests only use synchronous software GCM, so they don't cover
+this.
+
+> @@ -802,6 +821,13 @@ static int tls_sw_sendmsg_locked(struct sock *sk, struct msghdr *msg,
+>  	}
+>  
+>  	while (msg_data_left(msg)) {
+> +		int err = tls_final_err(tls_ctx);
+> +
+> +		if (unlikely(err)) {
+> +			ret = err;
+> +			goto send_end;
+> +		}
+
+[Severity: Low]
+final_err is only checked inside the while (msg_data_left(msg)) loop.
+Does a zero-length send() still succeed after the abort?
+
+With size 0 and no cmsg, the loop never runs and num_async is 0.
+sk_stream_error(sk, flags, 0) returns 0, so send() returns 0.
+
+tls_push_data() on the device path checks tls_final_err() on entry, so
+the same call fails there with EBADMSG. tls.rst says "every later send
+... fails with EBADMSG".
+
+[ ... ]
+
+> @@ -1582,9 +1613,14 @@ static int tls_rx_one_record(struct sock *sk, struct msghdr *msg,
+>  	rxm = strp_msg(darg->skb);
+>  	rxm->offset += prot->prepend_size;
+>  	rxm->full_len -= prot->overhead_size;
+> -	tls_advance_record_sn(sk, prot, &tls_ctx->rx);
+>  
+> -	return tls_check_pending_rekey(sk, tls_ctx, darg->skb);
+> +	err = tls_check_pending_rekey(sk, tls_ctx, darg->skb);
+> +	/* A KeyUpdate in the last record retires the key as usual */
+> +	if (__tls_advance_record_sn(prot, &tls_ctx->rx) &&
+> +	    !tls_sw_ctx_rx(tls_ctx)->key_update_pending)
+> +		tls_err_abort_final(sk, -EBADMSG);
+
+[Severity: Low]
+tls.rst limits this exemption to "A TLS 1.3 KeyUpdate", but this check
+only looks at key_update_pending. tls_check_pending_rekey() sets that
+flag for any decrypted handshake record that starts with
+TLS_HANDSHAKE_KEYUPDATE, whatever the version:
+
+	if (hs_type == TLS_HANDSHAKE_KEYUPDATE) {
+		struct tls_sw_context_rx *rx_ctx = ctx->priv_ctx_rx;
+
+		WRITE_ONCE(rx_ctx->key_update_pending, true);
+
+On TLS 1.2, a peer can put such a record at the last record number. Then
+neither final_err nor sk_err is set. recv() returns EKEYEXPIRED forever,
+SO_ERROR is 0, and poll() shows no EPOLLERR.
+
+do_tls_setsockopt_conf() rejects a TLS 1.2 RX rekey with -EBUSY, so the
+new key can never be installed.
+
+Should the exemption also require prot->version == TLS_1_3_VERSION, so
+TLS 1.2 gets the documented EBADMSG abort?
 
 -- 
-Cheers,
-
-David
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106193210.1152577-1-rjethwani%40purestorage.com
