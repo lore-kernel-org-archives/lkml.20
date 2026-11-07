@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794063285;
-	b=G08EOHhwC55x3+lsKpxHsJ3pNgug2UW46oHikIxNLbkV1DRZpKr1wewH9HVsvY2kS3qu
-	 OZiygZqgTwkrOymJBV6Qj7fx1DQpk35+X6tba8pz8j0LR8tZg1hT5B+fqKfLOdY6Avksj
-	 OZmVKpJRVuNRIeYDHscdgd6kMSlKyAVakfmbmlrDh6ly0VGQxKLKsCJr1eaa3OXDPe0Z7
-	 1JSeHHNWuJevrXU6paSL7dqjs8yz6x7HK0dXcm0CDp6gL2HZGTvRGSNiHkSj44MZX6a8l
-	 xNNMQfWw8B7BmnP0tKLZ+vWQyH7UY3bxIt6UhsYPUmhYnByV34XAIdpHHj/H+Sv9c+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063285;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SCSNncZb6gAvUHL12mxyJu+NPT2Q1zvEWGLqdpdMtDU=;
-	b=SXR/OyzK/V2GcVXSYtg5LS/feXurq5RFs+jMYMjC/hKyM8AQmBYI0OLYuMfkoxvVbVRq
-	 w7ZPowfa2SDof6alH5guCk8vCPTvU0mV2gtuRs5sO8sLYzEt7XP78rn9g9f2NwQcnv7AX
-	 GHjFxpgvWnYetrsg3pYf0tiPrDjb5xXwdEpoyok0IWldVvmmTEACah4GsDvLyzPdS7VOv
-	 iB+zx6awxLU3TXLmKDG59sdOfvqAkYSoNhJI8RkH/4UUnBYJJMPRXA9qll6m20GSTJSi8
-	 fjdOtmMGShoGWfLRqG2I23E05vlRuI1F+bEVp3RdvLvi/48d1b+ss+gdIU7/qBoqdfg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwfuwu8E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209E4606A32D;
-	Sat,  7 Nov 2026 14:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwfuwu8E
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794063285;
-	b=S9QmgNjCd7imTlhfSc+11/lEAHdGxcWcszJg7qcczvD9rY2O4Jw6mJuly0SWS436kR2A
-	 /GOKqXaA8zuX5iWJu5Axob6SIEP2AM6amsr24IEuIqQF0jtvoXv33Ag/Jj6kAmsAkhJI3
-	 ydoEPr7SJYyxtgTcZ7BcK+xR0dJUvB/SVIAaOodG4LaIrxj2Ga+L54635+4qsmnybhfNi
-	 1CA267DkMTCpcRM9FZuv6Caeqz0Yddq7S3VXFrc/Z4r0r+a2ARceunyjG9omdgG8AP920
-	 6o0BP3xUfOu1u230JBh21PK8X5ZP/8RgE/+44+OhBXXYrSfcJDT2P747KE+JsKfPFog==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794063285;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SCSNncZb6gAvUHL12mxyJu+NPT2Q1zvEWGLqdpdMtDU=;
-	b=HaIeMCIf5CdXL3ETSqvRnZyYE/3LO4907XPTc+iJjEgXP/eZHmhlNhgWt55CQyHqRnZA
-	 PMJuknBG4W/ggoVsrkeaACcYsl2u2vRNSgr2s3Krcj0EJC0VR1aLnTnVPNHK2BTd95jcF
-	 yg5qzZ6yv0tRFr/xu9CU0pyBq/oi34Y3395Ey/EX2QjyR3FOH/rh1XQhZ5/k26eBDTxxK
-	 7ns6XogDF+P3amo00J0nhGFqtRhBMDTXMPHwEsI5FzuVs/gzZcS0IR/04HKKWr2aa/paI
-	 v2nM7fWKbLy9V4uNll0Egs31q9zI+HfwZh+lN9/Vqoti5Ydg4uCc9wlV38O7WKJgO7w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794063299;
+	b=HhLSE2nIpMen/PxSo0PTkXSdBvg0IeTjMwkwvsW/i9sQ7oh99aOs4RCk8+IT3MmkBDJJ
+	 jxcF/dRhYP94nE41o9Y7QVGFa72Z3UTKlUaEKvgwO9tRYQuwkidd+iZOhfX1s9VGks6xV
+	 Rhen2rM2nhr96YpfvIYBrqBx6/tJYzSvE118e1zZhpcgHuVus3JTSL9wue6V706KIGjZU
+	 20wqp4D1lS2SzgsoUalQjaPaMQd84V1qm07vDtrcLSRyZ6yd91UBM8pP01ec4kv9SfT5t
+	 9ZwWhhpoVfZzkGE97nwpPW59Y2gijQKBHwwbnx+GxfF9vdfuiNdk3BeJ6A5z6xLUf2Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063299;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Disposition:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=fwzgFfyRkO7QHTV+n5xTB271rZfLlWMBGyUdFQl14XY=;
+	b=sPy71IzB6uTolJL68SpZIPS5ZA5wOFU97VkJcE8n9YS1mvaP+wkwk4to/bTnl+JxRzyE
+	 CmozLa20foYijz11Fk8ft+JWn45ohqFOnMxY4U+Rpp5+0Jl30bJ0J5JJy2oW0WGcXuyTm
+	 IT3yrsPykChQflOikrRl+O8YdPBTynzJKN8d+PzPSqMNkvXQ4rRdGoFvPwZRlKAc/rN6A
+	 OELQKO8FZupjLcnq7g9FYT5R3YJOXYY7MSqjJ+VLsONyGdFMZVnSwhV6vep4f9zQjQfzg
+	 E3vobnnSuFIWmCpAO9exua1Lu6ewiqtVmvrYEQ5tH/zb8Y1G1H8qOrHceeTeXAb+f6w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 707C31F008A3;
-	Sat,  7 Nov 2026 14:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794063284;
-	bh=SCSNncZb6gAvUHL12mxyJu+NPT2Q1zvEWGLqdpdMtDU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gwfuwu8EKLyTD9sruuX0I5EotzL1B2BxsQrnrM2HsiU2NmvjPwZ4ZgSNeyNE9vvzz
-	 WGMyI0VcYlqCqA0yl+veF88OYASr8jAsITz30ygCrt6oYh7/hvRxRisQD+p2KTmymk
-	 KWsFQUi6Cj162U03JtDeN87rYitWHwx3YUDzuOe3YbU/atT43QgifeMpt6z6DfS3SL
-	 GK3Mxp+NIiFF6/tKvm2hJFQTSgjx7STxw27rFoVXGn6Ch1dnG/aeGP9rkML1siMMaE
-	 0yK1d5Ut3rKBO8EuSLrR2TPBg0dJzIEWH8UGgwyV3pZinskUkzDunYlaS+8fZ2Rnfv
-	 b2CwJ0Zhwibbg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 00DDC47C3E;
-	Sat,  7 Nov 2026 14:54:44 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 16:54:42 +0200
-Subject: [PATCH v3 1/3] dt-bindings: usb: mtu3: add mt6595
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1532E606D821
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 14:54:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1532E606D821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3vI2+O+9qHm2AAA--.8910S2;
+	Sat, 07 Nov 2026 22:54:55 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-regulator@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] regulator: tps6594-regulator: Fix np_pmic_parent leak
+ in tps6594_regulator_probe()
+Date: Fri, 7 Nov 2026 15:00:00 +0800
+Message-ID: <20261107070000.0000000-1-vulab@iscas.ac.cn>
+In-Reply-To: <9931609e-c74a-45b3-8dc9-ced30cc44d81@sirena.org.uk>
+References: <20260917143155.2156974-1-vulab@iscas.ac.cn>
+ <9931609e-c74a-45b3-8dc9-ced30cc44d81@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,59 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-6595-mtu3-v3-1-f36bc569cb47@protonmail.com>
-References: <20261107-6595-mtu3-v3-0-f36bc569cb47@protonmail.com>
-In-Reply-To: <20261107-6595-mtu3-v3-0-f36bc569cb47@protonmail.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794063282; l=938;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=6lNL8+H5yPn87h4OAqJ4JTDlIkabDJzqSIYmECK+Ohw=;
- b=11NQyOkxtXUeokO0Et/HXlv+SYZRAi1hV9g4eL0CVQdE+MqaOsnHiZuF31wHhipK08FhbRIh3
- VG62KWmULOaD48GOreLtoULia+8lBqD3ro6vw07hugciqa8P5BpCKS2
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-CM-TRANSID:rQCowAC3vI2+O+9qHm2AAA--.8910S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruw4kuw4rXFW7Cr1UCryrCrg_yoW3trcE9r
+	WkKrsrKaykJrW8W3W5KF4aqF9Iga4j9w1xCw4DXFW7JryUZFykXFyrtw1v93Z29FWjgr4a
+	9r98CayY9r1qvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M280x2IEY4vE77IFxVWUZVW8XwA2ocxC64kIII
+	0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xv
+	wVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjc
+	xK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr
+	0_GcWlOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxAIw28IcxkI7VAKI48JMxAI
+	w28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1Y6r17
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
+	573PUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMEA2rvBClaZQABsU
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Thu, Sep 17, 2026 at 11:21:42PM +0100, Mark Brown wrote:
+> This doesn't apply against current code, please check and resend.
 
-Add a compatible string for the MTU3 IP found on the MediaTek mt6595 SoC.
+Sorry for the very late reply, and for not checking the patch against
+current code before sending it.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml | 1 +
- 1 file changed, 1 insertion(+)
+The reason it does not apply is that the leak has already been fixed by
 
-diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
-index 21fc6bbe954f..4538df164a16 100644
---- a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
-+++ b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
-@@ -22,6 +22,7 @@ properties:
-     items:
-       - enum:
-           - mediatek,mt2712-mtu3
-+          - mediatek,mt6595-mtu3
-           - mediatek,mt8173-mtu3
-           - mediatek,mt8183-mtu3
-           - mediatek,mt8186-mtu3
+  7fd28093b3ef ("regulator: tps6594: Fix device node reference leaks in multiphase loop")
 
--- 
-2.56.0
+which releases np, the intermediate parent and np_pmic_parent at the end
+of each iteration, and adds the missing NULL check after
+of_find_node_by_name() as well.  The commit is in v7.3-rc1 and later, and
+I confirmed that current mainline has no unbalanced of_get_parent() left
+in that loop.
 
+So there is nothing to resend from my side, and I will not submit a
+duplicate.  Sorry again for the delay and for the noise.
+
+Thanks,
+Wentao
 
