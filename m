@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082571;
-	b=sbxxFFOpqYcNFpiVMO1QJ2ErYfNL8bdG/dwVb48Cw9IumZ+oil1PS0u3LUBpQPbOWvvx
-	 wZG+SB3FlwRMVaqPJK3H9WJU6tb/MclkNKwUeeLtqhX9kVR2MaZt5tCu9pqjR+IX9wBM2
-	 GFuqiiz8Sd9JSIV4kMskOrelW63+0pH9VwkoZUQlO9pAI0/bI/siMvBlQrJjDpB4DqrHi
-	 nLL4QloiOR88dHhT2pPOT+VgFjcz+Fg9FXUGGETErMoUd6biceGamLi41ZJrCqPUGolcL
-	 ZU2BnJMfwZRyYfwLuwKx6F2EapnQ02aCeDzC0nXE8uOph6p2xP6H55dq2R1StKNFXYg==
+	t=1794082779;
+	b=CjHW0Ua5ogsF0aP9BOc7PuoY7oumTYznvihBH5I9jXohNGathesduxhFtZ2KSnXeJVtx
+	 VTVJ4djUXGFdU04kVkP1S14hegeE0lY1XotZJvMT4u1gPXTAyMLeYNGKOshhZAHM6VqIC
+	 Kmw70Rr2yikEPTefsqx+jS9eiMNWnrbjdkXTqydZ8tctbVP1UPwKnKnkU0GzrLD2Kb45r
+	 QWJ0X4hNIIEFnxOFDSTRa8vJEAYkfi3ZHpilGGUFnTxUYWHZEgJneclDVVf5w86a0KsA8
+	 ZiX5PCBI3KWos4Acnof1JHGTL6aHoUNbzUfbjxoUD4MMbfhDwvblfr0Iq5cpwiPEMxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082571;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FJ6uIHCg/Nv3UfSn+KtMNeOWaSMTeRzKLIHEwClVtTk=;
-	b=Ho6xC/qEVUPO2ekwAlFO9pR2h9B4Ok8dhvsYZIfVc6z7hSNNSMiuBNLSUA71f07C5EEB
-	 RlN/QPVy78G1Uhl4iGpdwr7OKW+fBWbVCyFchPzbh+LpM+69h7/lmaLjlKDErA84zupTq
-	 n968o8lCJGZn6+bLlVbXkN+zEqnnnzanmC2MnAbqDixkwKSElQwMPzD6MnQ+jnrwpRKUn
-	 KuObUz4O2nElON6N8mvBq6PwUCFJPM2YnhPldNWsn0GS66wUu5LpCjQCHWG/TFZd19gNr
-	 aZtdWZUQmAJomADR0C0mEW7B2pyoL0waqW7E8jFaYM7/ACJ8vLtxzMjpbw971n45pgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082779;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=g/QILAHardkuFuxTC3XF586hCYVEuecrYiA7fYdJbpk=;
+	b=zQ7NXUpNpaS9cKoJSe9Zk97ixxzuR0pc7mBXwDunE9mP41k2O3QqCoyvqiqOR5TzUnIM
+	 60kgs4gqc0/5uF/JTA3vuR3LxXG4iDZuX0K4lkGyLqkDrD7Bq3H6jf50f9Yjdwmho4OyK
+	 1rHPIdPGiNXoprlNw0la7c2+ou6UssPczgwN2dfwJASDDIqWf1I9LKkulsgaeQMcsPiT+
+	 FWaItrjPJLRiZWz31ajjcoY6wLbybdK2Qy7TEoFOkVhLhojwvBCRUKvr/ACg/qXq3ag8Q
+	 JC5MtTUxV9yQYhCS0aV2qcOOADpPHRci6GMmoiVS83e9WD9IdpOWH+Gc82VpdjNU+Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QELX8uWM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njRbfbTZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3C4606A32F;
-	Sat,  7 Nov 2026 20:16:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E468606A331;
+	Sat,  7 Nov 2026 20:19:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QELX8uWM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5241F0089F;
-	Sat,  7 Nov 2026 20:16:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njRbfbTZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7C21F0089F;
+	Sat,  7 Nov 2026 20:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082570;
-	bh=FJ6uIHCg/Nv3UfSn+KtMNeOWaSMTeRzKLIHEwClVtTk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QELX8uWMXEX56NX2jthu56daLO/ojSTqfXaeHYuRnszElirpFRDSBfRFF0fGy8Vt8
-	 SmXsMoAseLiGGqyOc9cyzHwNxZct6yuTmkbv59Oqk378JzqAgNrJGugJJX04obsUO3
-	 +z51GA9srCRx9C6AJswM9jBRbIwrSm7hBkWr6r/5pBTfGv2Gxdhc2UrlA/LqeF+lPO
-	 0QRjMp+9entkNETSvVTc97mJnNN+YlsYOBnPLPHo1J3u9jjcmL8q7qEOSPgi5+Sjbr
-	 bFX4ksF6hXMxxGI6crv9a2PYfXc3+g5Q5TQElJoxZNsA1Fcoftp339Kcq2m9e8J00B
-	 yKkBLYJZV7v1g==
-Date: Sat, 7 Nov 2026 20:16:01 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- simeon@maryasin.name, lixu.zhang@intel.com, crofts@kernel.org
-Subject: Re: [PATCH v2 6/7] HID: sensor: custom: Register enable attribute
- after misc device
-Message-ID: <20261107201601.7d5aa69f@jic23-hlaptop>
-In-Reply-To: <20261104201403.2039921-7-srinivas.pandruvada@linux.intel.com>
-References: <20261104201403.2039921-1-srinivas.pandruvada@linux.intel.com>
-	<20261104201403.2039921-7-srinivas.pandruvada@linux.intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794082778;
+	bh=g/QILAHardkuFuxTC3XF586hCYVEuecrYiA7fYdJbpk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=njRbfbTZNMSIk/ax55AGM6ZF4XptiK3yoC1xJuRlNGy9OvBF7Zw+SObdqNIDnFFTU
+	 QVEKXkyMTENfbWPBsWbEFGwPHQM/tmL4ZWn2LgkPCZMDyTyPFLrsPVPXqVMiHnFfGY
+	 ADy59urmjwe/vCKLI35K6XuCZHROQ2jWz1QIwxqBQ+PqiGbjOWo9k/Ii4FQtR/9Jhs
+	 Jbveo1nBe8l6VUqPv/gMRViXGhSIZy5mt04QDeEgTHFa2LWCDcQHXh+72S6P04q4dJ
+	 7bYdpoktEHuuRNCS4hO6sBU0gxVFvPFS5DRPbm9Ti8JTmxUIrx0pXmc+hHPpigv0OI
+	 YN/0uRUFT3GAg==
+From: William Breathitt Gray <wbg@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: William Breathitt Gray <wbg@kernel.org>,
+	linusw@kernel.org,
+	brgl@kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	geert+renesas@glider.be,
+	andrew@codeconstruct.com.au,
+	opendmb@gmail.com,
+	florian.fainelli@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	jelonek.jonas@gmail.com
+Subject: Re: [PATCH 3/5] gpio: 104-idi-48: fix max_register blocking the IRQ register
+Date: Sat,  7 Nov 2026 15:19:31 -0500
+Message-ID: <20261107201932.4159230-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107161255426IYcq8bz4WVHRTuqOH1BUA@zte.com.cn>
+References: <20261107161255426IYcq8bz4WVHRTuqOH1BUA@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,73 +68,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=wbg@kernel.org; h=from:subject; bh=xR8tJq+hCRn4xscrzTvmOAfByBzYqw+SWQEGfsStx7Y=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFnv24/tfvCCKc/0aaiVm3lKjUmU9Lkkn61xz7tyNf8Xl t2+GLe+o5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZjI2t8M/+y2KLetnnC2wnH1 LWvZWMbV2wKj5I4ZXXf87P96Ko9MkxAjw4xpdxt2XH6+eM4ZqZPfpr5PihVcs5rlZ514cPUS9ba IfgYA
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Transfer-Encoding: 8bit
 
-On Wed,  4 Nov 2026 12:14:02 -0800
-Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
+On Sat, Nov 07, 2026 at 04:12:55PM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> The regmap config declares max_register = 0x6, but the device's IRQ
+> status/enable register lives at offset 0x7 (IDI48_IRQ_STATUS /
+> IDI48_IRQ_ENABLE, also listed in the readable/precious ranges and used
+> as status_base/unmask_base by the regmap-irq chip).  regmap_readable()
+> and regmap_writeable() both return false for any register above
+> max_register, so regmap_read() of the status register fails with -EIO
+> inside regmap_irq_thread() and no GPIO interrupt is ever delivered.
+> 
+> Raise max_register to 0x7 so the IRQ register is accessible.
+> 
+> Fixes: e28432a77365 ("gpio: 104-idi-48: Migrate to the regmap-irq API")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-> Register the enable_sensor sysfs group only after misc-device setup
-> succeeds. This prevents userspace from opening the sensor hub while
-> probe can still fail, which would otherwise leave the hub open reference
-> unbalanced on unwind.
->=20
-> Fixes: 4a7de0519df5 ("HID: sensor: Custom and Generic sensor support")
-> Reported-by: =D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=
-=8F=D1=81=D0=B8=D0=BD <simeon@maryasin.name>
-> Closes: https://lore.kernel.org/all/CAM2dg7ewfVJSP4rFyhkCB1Rmd1+X56sAg=3D=
-eUdbPthG2xrLqwQQ@mail.gmail.com/
-> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-You probably already saw it, but sashiko had more feedback.
-https://sashiko.dev/#/patchset/20261104201403.2039921-1-srinivas.pandruvada=
-%40linux.intel.com
-
-I haven't looked closely at it though so might be either wrong
-or material for a future patch.
-
-One rather odd looking thing in here though.
-
-
-> ---
->  drivers/hid/hid-sensor-custom.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/hid/hid-sensor-custom.c b/drivers/hid/hid-sensor-cus=
-tom.c
-> index 4f824cadd370..990e653995e1 100644
-> --- a/drivers/hid/hid-sensor-custom.c
-> +++ b/drivers/hid/hid-sensor-custom.c
-> @@ -1059,20 +1059,21 @@ static int hid_sensor_custom_probe(struct platfor=
-m_device *pdev)
->  	if (ret)
->  		goto err_remove_callback;
-> =20
-> -	ret =3D sysfs_create_group(&sensor_inst->pdev->dev.kobj,
-> -				 &enable_sensor_attr_group);
-> +	ret =3D hid_sensor_custom_dev_if_add(sensor_inst);
->  	if (ret)
->  		goto err_remove_attributes;
-> =20
-> -	ret =3D hid_sensor_custom_dev_if_add(sensor_inst);
-> +	ret =3D sysfs_create_group(&sensor_inst->pdev->dev.kobj,
-> +				 &enable_sensor_attr_group);
->  	if (ret)
-> -		goto err_remove_group;
-> +		goto err_remove_dev_if;
-> =20
->  	return 0;
-> =20
-> -err_remove_group:
-> -	sysfs_remove_group(&sensor_inst->pdev->dev.kobj,
-> -			   &enable_sensor_attr_group);
-> +err_remove_dev_if:
-> +	sensor_hub_remove_callback(hsdev, hsdev->usage);
-> +	hid_sensor_custom_dev_if_remove(sensor_inst);
-> +	goto err_remove_attributes;
-
-If my eyes are tricking me, isn't this going to the next line?
-
->  err_remove_attributes:
->  	hid_sensor_custom_remove_attributes(sensor_inst);
->  err_remove_callback:
-
+Acked-by: William Breathitt Gray <wbg@kernel.org>
