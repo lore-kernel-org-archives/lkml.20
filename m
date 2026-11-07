@@ -1,108 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794071594;
-	b=1AONcs4vj6s25K2LR61ju06Qms62zv0aNqqJD82ET3jYbvcVF9089XXyfPI1C9dLYWHh
-	 hHV/TKbZJzfUKGpbv/OuC3HleCjFtkmi2/GqfCJAO/JQxuy4Om5RxzHD9+I1Yly68Wa8O
-	 GJ5GnNr2XRjTIj2zjaHW/b8F1KCtUosqeXs8Uj8rz9shf0ur6Ypz/nIz7jXTPuVRsN71p
-	 yhxqPGDFTXelHlH+1YvQ+3GqM4YpRN7QJCwfkbj0+Lp45wPyLE36r8pd3+/UnCC1jSwiu
-	 QACuM0CXXPWjN61Y4CW8ARKRRD0mJK1Zp3lGEiPe57IDbcq4qqgKtoTqRf1tzNMGOLw==
+	b=t6qSiW1evsGimZUAcWB8wEe/6m/laPgoNDgJWUNl8TRcCDpcGR+9YAnEFINJw5fyVltP
+	 YKjx5c9SUEpKpmVTkPDVQaH8WxxxdFZVnJx+a8CuuUe6xVTFtmY3aHkQi19fkeh3xUmpi
+	 WoJwmrD/jTUUQ1IeHuotbYG59BEqwSoKO973hdtPDPV2s9YRzgpsAdMi1NtQcRVobop9T
+	 kqnASjn7kHohzsrPU/odZKqZ5/SAGj6ZhMcsxjymdh41BSNGBRexNxOEkZ2QpvrYxJ4vs
+	 mj37mncetxFTzaPCZYsnmBPX2aqCbEqinqp3qNu62F8thwFiLBBCMnC8S394w9R4AdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794071594;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RrcIjc82wzLHRIBiu7WsbnPLnaaISGaTukITjRMdwK4=;
-	b=zlBTZ/nHZDXlUocXfb34UwGHmBiv8eJE9GFCkC3TM5bK92LSQOnyrNeTA984XeApMMbT
-	 5PVcCtdWCPJE7qLPo1JtqzpB3srRYFmPjDneMbze6QQxVl+/98tSijNO+6QoxxMotDDdp
-	 jVDmbYQVkg+75QBQy9/SHqEGxFJXWfnGX8CCX8V4Dure5CBZWlf9IYiJFh6U8Qq1NDORV
-	 aVTZkisCwNst1fFdo1V1zWqlAEtBfeJRM23J7bEbU+AwuyUrjGJks+yzWj1XgZTEd9LLa
-	 FWOL7WZrh23MAdy89moy3zZGtV3HMv/1xp+iHJ9kBOUhQcDWZbiN+NSH5HIxXMNZ9iw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vG12dDB2cOlbfaJe777WCUEVPBMgOyFMr8jFTvptykE=;
+	b=vOqqpNa5lHnQCcjGqnky7ayE03dZz+//du85OKeXxYLO+xVSE+WORR4O2tKCU2DNdDMT
+	 8Uy8aXIrxZOt69UHixnoqTIq8Px+CkAy/rf1xT99zDGTUIMP5yCPd5bdhOedvsCEjgBLc
+	 7sTW6qngAl56UE5vjDGJC3yPn5MVJj6DeTft8f/1KNXxBv7mCEcJ3SWKnkmVAisLP7pax
+	 FB4kq006K0ZOvMV0nAsv29aIoLXN9+a8LodUz+7tMG2qenANZiwBGdw2iKQhPhnOQXBKv
+	 Pr+W/F57tOlSpjAmy4B0NxI9YEpNckm8D8tZivfFZoCaalbjXSNADFNhHJLC7enGDmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LSKRq+Su;
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SWVyDxQw;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6247B606EEA0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1831606EEAE
 	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6247B606EEA0
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1831606EEAE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LSKRq+Su
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eaabf28c06so1278616e0c.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SWVyDxQw
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e6eb21a8fso682841f8f.1
         for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:13:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1794071592; x=1794676392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RrcIjc82wzLHRIBiu7WsbnPLnaaISGaTukITjRMdwK4=;
-        b=LSKRq+Sub16VAsEMonpzRlOiZ8U/Plpyjo0xR2iYyxNNpt3DqQhh77kmf5d1aaRvti
-         IyZhXH9yctfuza57fW/gCZP74SmXlTA4YxybQsjf6uITlQpHi39WwbzFBfjmHJuVO+Gk
-         iQdTg3oJ9cpYc1ZmoFUBFuz79/TEvjwIL8YDIHzozD4wLMoy4Y2kWPfoC9VILYoSVr/E
-         HRWn5S+FkoluHtTxKQiD/DB5X7aHTVcmofLixtW6CNTen71h88Vubkd+QhyfUReog68T
-         rEwCnatBtUQqKCoKFSm8v16DmtVOf2V3BoRTUyIjCLyut6lNnDair7haTTLmVaNRvSSn
-         TN4A==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vG12dDB2cOlbfaJe777WCUEVPBMgOyFMr8jFTvptykE=;
+        b=SWVyDxQwJ8qnXh3rwRERwuMRPtImEWFDn2JsbKBNMOVftDIcZuWLZbpxkw2PqJv1wu
+         An6AX/k7xtIc3KVgSd0KlmjvlEs+GX91Wyov3SnQ9k/U0nDCBTNpUY7/1cmTid/HpgYV
+         XI9B/A2Fd+lMDhd8uD7u4FacrI9Hq3z0BvhVCWGGus+8Dsx+vVVBKyH+7vNLApBC/S+e
+         2tvuIYR0aDxUCOIkOwep7nQq3subLl3ktGXWx27vSL+y52S35hFUpCpVE4dwW+aEyjfS
+         3EsaajPa9jH/oDSkETW5BbCJV3qIvctPKtnv+gQUjGbg4LzVu+Cb74CKt2y8RDrHXhgQ
+         vQPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794071592; x=1794676392;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RrcIjc82wzLHRIBiu7WsbnPLnaaISGaTukITjRMdwK4=;
-        b=MDEhIr/JvwWNUP+cP+YlpPdyEaEppnJ/izS0lPrBSO+Vmpd5GbzuKkxTIIcQkmpkMy
-         ht7AyWIvtAO/1XEkMOwt8yItVSY7SYRdAsXPEhZCOLOhlAJoaqwhiS25LxUStgAas+Mv
-         v/qHllDqjJhzIEMN3ASdnDeGRv4+gqfHPmZXTi2MbPMgC36FBShYZV996FWJOQZC/Zhm
-         /VzPsKdrNgCKfCe4Bhjg6alVCsiufqj0ZxA3iIMMlltF1WskPgf4HmxOIZAuM0Fy+BkK
-         nfaC1g79SCXObyvF8cBEWfmKzdOQcriN/gG82fn4tVXrp5HHPepAA/QhDtQ38LzxEVnO
-         q0XA==
-X-Forwarded-Encrypted: i=1; AL+hErE7ZCpysSE54WNxkeEZtKZh81bRKmF7he3ugItjt2ZrG1Fl/GGc4rrK/SBH5+3aNqr7a6/RpgYQv+EzkZM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zva8pRQbFKIS2xFk0O0Wxqhx7MX77r81fFyak9GYCnCIFZuud
-	qJ992YJeF++FocQGCJufUDPyYEQgD8WVmXtqWOeQHzOtHNtgvv3PWiPJ
-X-Gm-Gg: AYBFou3A6gLHnOCrocCB53GDTjl/Mk+hDQ6PK9p/h+5ennJ7ZSdKZS5FOjvC/xigBYm
-	4dA9sO/UDp0MxZ2rqJG6yrjrSbbfnb4U4yH3/PbW7vVKolLYwo3QvgRb90vaX/HiwbGRvbZY4fr
-	xIck8PRHQuUreNjV6t8Aun+kJRRwNOTturxeQTmzzYrMx+QVqAETz8ksFTItXcDFXCY9sZwlu+t
-	Dsc21ZKNQArhIsNuZwLdK/N+H1JlV7UxYao0ZDjmukF30qs7mP52pRJ4c/B+uWp+M82GY5d+vNW
-	FN15HhjfyLoIByaIPW8UoEui9BwzBAGi/CnI14F/yvjK2hMSbNCwVteQNIh8adD5CB6fp+9yx5j
-	DBbYs7q0BEAtl9wyIR+CvH0vTv2mDS0je+xfyDzNvdKY/Hic8LjUa/7fd525AAHVBStoSGqzfiB
-	hB9fvWS8Ic4ug9ob/l2q+07a4eSurE8NpDFE2uF6gFl2zq0ura0YbjZaqtEZ0m+047wS5b4z4+3
-	nUNzlfZJ+Hx3GhEhx49fhVdSdQFexWHXztvkkjIalSLkVh6GmY47bKUiHK2E8YBJeKL4WP9SSJZ
-	avbTiF/v0SPcgdl2qU+9Dm/2P+3AnE2U8bh7v27JUkoA1gVTY5Ev3TzLwett0UA5doqVxGrl0w3
-	TwKpGsTZMYzySA4hWaFO/45XCWnhX8gcfQS83TDvAGXl+vSyfn0XRwjhI8ERyoqo+kPkNy5my
-X-Received: by 2002:a05:6122:3c45:b0:5ea:aedd:6087 with SMTP id 71dfb90a1353d-5ecc43a4d30mr2895214e0c.4.1794071592253;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vG12dDB2cOlbfaJe777WCUEVPBMgOyFMr8jFTvptykE=;
+        b=PiUMxT3PXwq/SXJ/ttNMcrvs9ZiFxK35Q18uDS1pBvD3DNhYE3h8RJaZjENUoIzjmv
+         dtI3VdvB9uzkipd37hMFfioJZL5kANK79GqeUcxy7ANLC3j+ljnbKt41FvyMq6MtkNDD
+         4NptNBISwqg9lw0D4UOupAWZ+UErp+A8W6XcZglQC43ZOVV2Z324BWGkhb/aHlyZ0Gi+
+         ZoPPnsrz6vURYKWY9qzB9mFPBUyQvD/bwxuw3ed7xCgT33wwOt45APUIsupMmOz9D9HC
+         9TnY/ZBrwMZ+DmuWGli3GJ4P8MBagbOdKbbp05BBiK6Hu6NsFns51Ck4uIRe4YNHI3J3
+         BVpg==
+X-Forwarded-Encrypted: i=1; AL+hErEtX3Ai6kSmYZANQuxqwZ1ojJb2CjZq/0wHV1eTRGzmzEjGz7mL0iQ1HWzobOfpvy2xpBc0x6mTwa9Zot8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ss0ueuRNSx8hRtCxbosAMY7Kzp2qKMlO/zVrGdlmwwev4fQoG
+	z8Q/oeEb6ASt9hLq7nYwZ/15AgT/9VXXQ9L6i5g+DeWPorelK0Wh8JOE
+X-Gm-Gg: AYBFou21Fd9tdthdqwfZfERmUY+fPfOdMYND88+hUucuAVyCaWzB7gqcPGNQvHuVbF4
+	pGrGirqGZQ9+RnC1ACSZjfhQjGZeBn4vtXt6pCQiyaUJkLUdghJSovRBuc2giQzcbtXk+9ITvSl
+	G7irjp1NeqXYZNv/jjujKTVO7Z+bolJv4mBmMa4xc/e1v+kiawpnOA2jWlQ1Cdh6+6e+KPoaWEG
+	HxMFA0YXjfoy4+EbvZRmgPL7kMeTzoa8NnR/GIfqHhryPQotaBtfaOFMrMmHZxfzttNRXxXKeSa
+	CheXSXfhaha35ihmbJZSAHLnKXS5SnvyLcL0uuRQI4CLLoC5YRlhkhMrzeifGlMYD41qwRGdmK9
+	nXKP2ZjpYyQU2iTtn9gjj6SsANE7xoBzy3C4wpEyQZBPpTClZtpy6vXnmO/14sVebZ2Mb/qmbwm
+	8Ja1wYSUOhMw4p/Z5yNu+1vXxFJvEpyIkDgDze5hbWvQhCsbTQKOTNSZvg5HMSiayzkudT4Dz1z
+	wKw5oYkshqcIYrD5ZucdQmxaaQA5zJKhRnH6elkdcSYM5yVDwWei8B15E6PeVvi3DvRswS1pZnT
+	k8VT+phUeet2wd9rraSq7w22x7Kk2PSE2KD8wUjA3EuTehZ+qCgjctPXe90AfGrgHk3CT1s2WGk
+	dysuz/DzAJzW64OiaTCAEyV7IFrBfSQzQvCOIX+OWYhhCyuGy++EbMGq8HpXZTa4czsTzF6AU5g
+	vKldousJd2ql+MQI5JztRibVUyhzJHs6Y=
+X-Received: by 2002:a05:6000:2dc9:b0:491:8462:20cc with SMTP id ffacd0b85a97d-49277bb1d39mr11173964f8f.37.1794071592005;
         Sat, 07 Nov 2026 09:13:12 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc64ccb58sm4015495e0c.9.2026.11.07.09.13.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:13:10 -0800 (PST)
-Date: Sat, 07 Nov 2026 12:13:09 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Kalpesh Solanki <skalpesh942@gmail.com>, 
- willemdebruijn.kernel@gmail.com, 
- jasowangio@gmail.com, 
- alex.aring@gmail.com, 
- stefan@datenfreihafen.org, 
- miquel.raynal@bootlin.com, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com
-Cc: andrew+netdev@lunn.ch, 
- linux-wpan@vger.kernel.org, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com, 
- Kalpesh Solanki <skalpesh942@gmail.com>
-Message-ID: <willemdebruijn.kernel.2b153da88ae03@gmail.com>
-In-Reply-To: <20261107162649.282982-1-skalpesh942@gmail.com>
-References: <20261107162649.282982-1-skalpesh942@gmail.com>
-Subject: Re: [PATCH net v3] tun: disallow setting IEEE 802.15.4 and 6LoWPAN
- link types via TUNSETLINK
+Received: from localhost.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723222fsm10627105f8f.21.2026.11.07.09.13.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 09:13:11 -0800 (PST)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Gabriele Monaco <gmonaco@redhat.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Wen Yang <wen.yang@linux.dev>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 2/9] tracing/sched: Add IRQ preemption lifecycle tracepoints
+Date: Sat,  7 Nov 2026 18:12:45 +0100
+Message-Id: <20261107171252.25090-3-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261107171252.25090-1-kmehltretter@gmail.com>
+References: <20261107171252.25090-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,104 +122,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Kalpesh Solanki wrote:
-> A userspace application can set the link type of a TUN/TAP interface
-> to ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, or ARPHRD_6LOWPAN
-> via ioctl(fd, TUNSETLINK, arg) because tun_get_addr_len() explicitly
-> recognized these types.
-> 
-> However, TUN devices cannot function as genuine IEEE 802.15.4 or 6LoWPAN
-> interfaces:
-> 
-> 1. They lack wpan_phy, channels, PAN IDs, and MLME operations, and tun
->    never initializes dev->ieee802154_ptr or dev->ml_priv. When an
->    unprivileged user creates a TUN interface in a user+net namespace,
->    changes its link type to ARPHRD_IEEE802154, and issues a netlink dump
->    request (such as IEEE802154_LLSEC_LIST_KEY),
->    ieee802154_llsec_dump_table() unconditionally dereferences
->    dev->ieee802154_ptr / ieee802154_mlme_ops(dev), triggering a supervisor
->    null-pointer dereference / general protection fault. Similar
->    dereferences occur across net/ieee802154/nl-phy.c (ieee802154_del_iface)
->    and net/ieee802154/socket.c.
-> 
-> 2. Similarly, the 6LoWPAN subsystem assumes via lowpan_dev(dev) that
->    netdev_priv(dev) is struct lowpan_dev. On a TUN device, netdev_priv(dev)
->    is struct tun_struct. On netdev events (such as NETDEV_DOWN in
->    net/6lowpan/core.c:lowpan_device_event), it clears bits in
->    lowpan_dev(dev)->ctx.table flags, which corrupts private memory inside
->    tun_struct.
-> 
-> Rather than scattering checks across subsystems, fix the issue at the
-> source: disallow setting ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, and
-> ARPHRD_6LOWPAN via TUNSETLINK by returning -EINVAL.
-> 
-> Fixes: cca8ea3b05c9 ("net: tun: set tun->dev->addr_len during TUNSETLINK processing")
+Tracepoints around __schedule() do not identify the start and end of one
+preempt_schedule_irq() invocation. The calling task may switch out and
+resume on another CPU before the invocation returns.
 
-Should this be
+Add bare entry and exit tracepoints around the generic helper using
+DECLARE_TRACE() so they are not exported in tracefs. Record the task
+that called preempt_schedule_irq() as the owner in both tracepoints so
+consumers can follow the invocation across switches and migration.
+Sample the preempt count and interrupt state before dispatching
+tracepoint callbacks.
 
-Fixes: ff4cc3ac93e1 ("[TUNTAP]: Allow setting the linktype of the tap device from userspace")
+The tracepoints bracket preempt_schedule_irq() only. They do not cover
+architecture-specific interrupt-return work or establish that the helper
+was reached from a physical interrupt.
 
-> Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
-> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
-> ---
-> v2 -> v3:
-> - Include ARPHRD_6LOWPAN alongside ARPHRD_IEEE802154 as agreed with Willem
->   de Bruijn, preventing Sashiko AI flags and addressing the underlying
->   lowpan_dev(dev) memory corruption.
-> - Minimize code churn as advised by Willem de Bruijn: drop unrelated
->   USHRT_MAX check and preserve tun_get_addr_len(), headers, and existing
->   block indentation.
-> - Fresh standalone thread as advised by Jakub Kicinski.
-> - Link to v1 and v2 discussion:
->   https://lore.kernel.org/all/20261101092219.1278751-1-skalpesh942@gmail.com/
-> 
-> v1 -> v2:
-> - Instead of adding NULL checks in net/ieee802154/nl-mac.c, disallow setting
->   ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR link types via TUNSETLINK in
->   drivers/net/tun.c, as discussed with Andrew Lunn and identified in Sashiko
->   bot review. Virtual IEEE 802.15.4 interfaces are properly provided by
->   mac802154_hwsim and fakelb; TUN devices cannot function as genuine 802.15.4
->   radios and lack private 802.15.4 contexts.
-> - Add an explicit bounds check (arg > USHRT_MAX) to prevent integer truncation
->   bypasses when casting 64-bit ioctl arg to 16-bit dev->type.
-> - Remove ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR from tun_get_addr_len()
->   and drop unused <linux/ieee802154.h> header.
-> 
->  drivers/net/tun.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-> index dcec7311e60..05eb28578b8 100644
-> --- a/drivers/net/tun.c
-> +++ b/drivers/net/tun.c
-> @@ -3362,6 +3362,10 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
->  			netif_info(tun, drv, tun->dev,
->  				   "Linktype set failed because interface is up\n");
->  			ret = -EBUSY;
-> +		} else if (arg == ARPHRD_IEEE802154 ||
-> +			   arg == ARPHRD_IEEE802154_MONITOR ||
-> +			   arg == ARPHRD_6LOWPAN) {
-> +			ret = -EINVAL;
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ include/trace/events/sched.h | 26 ++++++++++++++++++++++++++
+ kernel/sched/core.c          |  6 ++++++
+ 2 files changed, 32 insertions(+)
 
-Thanks, a lot simpler.
-
-But, arg is unsigned long while tun->dev->type is unsigned short.
-
-An arg ARPHRD_IEEE802154 | 0x10000 could pass this check, get and get
-assigned while truncated.
-
-Cast to unsigned short in these comparisons?
-
->  		} else {
->  			ret = call_netdevice_notifiers(NETDEV_PRE_TYPE_CHANGE,
->  						       tun->dev);
-> -- 
-> 2.53.0
-> 
-
+diff --git a/include/trace/events/sched.h b/include/trace/events/sched.h
+index 535860581f159..c7aeaa85d27ef 100644
+--- a/include/trace/events/sched.h
++++ b/include/trace/events/sched.h
+@@ -896,6 +896,32 @@ DECLARE_TRACE(sched_set_need_resched,
+ 	TP_PROTO(struct task_struct *tsk, int cpu, int tif),
+ 	TP_ARGS(tsk, cpu, tif));
+ 
++/*
++ * sched_irq_preempt_entry - begin preempt_schedule_irq() processing
++ * @owner: task whose interrupted execution will resume after scheduling
++ * @pc: preempt count sampled at the call site, before tracing bookkeeping
++ * @irq_off: interrupt state sampled at the same call site
++ *
++ * Emitted after entry assertions and context-tracking setup, with zero
++ * preempt count and local interrupts disabled. Exception-return paths can
++ * also use this scheduler entrypoint.
++ */
++DECLARE_TRACE(sched_irq_preempt_entry,
++	      TP_PROTO(struct task_struct *owner, unsigned long pc, bool irq_off),
++	      TP_ARGS(owner, pc, irq_off));
++
++/*
++ * sched_irq_preempt_exit - original preempt_schedule_irq() invocation resumes
++ * @owner: task saved by the matching entry, possibly on a different CPU
++ * @pc: preempt count sampled at the call site, before tracing bookkeeping
++ * @irq_off: interrupt state sampled at the same call site
++ *
++ * Emitted with local interrupts disabled before restoring context tracking.
++ */
++DECLARE_TRACE(sched_irq_preempt_exit,
++	      TP_PROTO(struct task_struct *owner, unsigned long pc, bool irq_off),
++	      TP_ARGS(owner, pc, irq_off));
++
+ #define DL_OTHER 0
+ #define DL_TASK 1
+ #define DL_SERVER_FAIR 2
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 04b62c16fa8ca..e5c476d27eca7 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7649,12 +7649,16 @@ EXPORT_SYMBOL_GPL(preempt_schedule_notrace);
+  */
+ asmlinkage __visible void __sched preempt_schedule_irq(void)
+ {
++	struct task_struct *owner = current;
+ 	enum ctx_state prev_state;
+ 
+ 	/* Catch callers which need to be fixed */
+ 	BUG_ON(preempt_count() || !irqs_disabled());
+ 
+ 	prev_state = exception_enter();
++	/* Sample before tracing bookkeeping can change the observed context. */
++	if (trace_sched_irq_preempt_entry_tp_enabled())
++		trace_sched_irq_preempt_entry_tp(owner, preempt_count(), irqs_disabled());
+ 
+ 	do {
+ 		preempt_disable();
+@@ -7664,6 +7668,8 @@ asmlinkage __visible void __sched preempt_schedule_irq(void)
+ 		sched_preempt_enable_no_resched();
+ 	} while (need_resched());
+ 
++	if (trace_sched_irq_preempt_exit_tp_enabled())
++		trace_sched_irq_preempt_exit_tp(owner, preempt_count(), irqs_disabled());
+ 	exception_exit(prev_state);
+ }
+ 
+-- 
+2.39.5 (Apple Git-154)
 
