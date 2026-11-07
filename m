@@ -1,83 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794071380;
-	b=xPg8y+MBHeAk/fBqZoEJb484WbE8wKruFo17gJao3NEyyWrCWxSPx0ErSOR2iUP81ZmJ
-	 /twjbp621Xcl2eXDdPFmi5TwGy7lJ7hByiiXDBZ9NSY3IhZ/+PzExEv5M9dvC4X9RBAAX
-	 tuRILXMIZ/3yTN2YXvbWJxRaA4iMO4ulL+EGrMdvDGECiDqBX/SBotYAaAt7FZ8Ey50mu
-	 Lc/fyMOWmpX4UJaCJwGNuOgfhPjGGCPlCx/ZkFT88tc0vPY+y5Cx+bSg9nLFfj1G/DwC9
-	 3BNHqh+2g3BhmJm/gA4b5CbneycsA4c2EFlBX+fOwcCpO6baXuNpmlAPnXN2dhWsmVA==
+	t=1794071592;
+	b=De3Mgeuhx4YH1lWittWgo1ezY89y3ltyD9kdt+matIXFLx31X+4SaodDffMUndANcrwy
+	 ZlBGPyq0rvUwP+8IUkFtSYKeJxBdujh+CQtaG/7RB/ZOvEUXrOEbLq72/ycuun6ac9byQ
+	 hDhuh6ATb4UEKUOYqfMcQndSP88nx9c8frmikm19BWQW+gpbKIfmbijxET+wTRUnZLEeH
+	 y4ZJKh2mjoEYbbmzIW+twj/CGAz+G1pqKqOV8zuWPgbONcUJ/cxNYC1Ats6/9/bgypDWQ
+	 6qZti99pZHg2VEV2IJPNNeIXqQrMQyB3Qc0HKs+3RuOmrYx31vNMtFC2TqvysSEc0SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794071380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794071592;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:X-Mailer:
-	 References:In-Reply-To;
-	bh=Uo6XeYcnV/x5wbpR7pZuFSSSODwH8TPy4AbG/hgvRWs=;
-	b=e6Vb+VF6juIsbIds+2tfVWihZ8yBz5J0f/9Y9OHb3t0Kr9vprOeBsXwDdvrhbJqRyw56
-	 rFZJwe2Ls2wpqNNN/T25CxhnxEI+kM3gsHVaAKnjINAHQRRYZxNsjxHx/ejqZuTk0L4yJ
-	 vGqL2kvNblUYZFuQ9VaHplIBkLSczTHYshdjeoymUXJSyo89qRnOTrG+7HSAcSFHodAa1
-	 Tr6xSK4kI5RgyQuAByNFZQBAC1oesLTtc/VBYcv13wYcIFSvSXySMIu+boZ6zgqDutJ+m
-	 ZPt+knQ3pTw7DkssMbKfdbbIU8c9AICfUlTvUpfTaEMgqaKq2x5khHNBOXiJU6R5ZQg==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mynYKR1ZAkpBPyX1Y39GAIXi0uQVHkLOFJGn8mGHCF8=;
+	b=XHiX3RzGKQ+2V1tW1lD1YbekzF7BsLQXjdqwQcJBV5Z2jKbIR1eRi6qlD8eT7i2fvolJ
+	 isrOQ+Qt+AdlnFO8wfHONqWBk5H9pstf7qOLwBXUhLIk67154PS4Z5a/nGA8ghmROJ9Y+
+	 bnabmC2teOi67xBxdRdfuvYzXtaqoX32t/fwf5kjgfWhKy3XDFCGmxyihO5wA3Fc6xDhb
+	 GQd/o8NyTyaQg0reXyNJR3nl6INrEzPQdTIF0v1bDCwwgliaMkhE6mNJpHJeNtsn8oMW0
+	 9zj7tJF/hHOl7KBxCSpZMQXYVPLajfq45drl4PdB4aPOZvcayLnRarxaRcrm+QGtrTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FBLki2AJ;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AlVGkqZf;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A67606A32D
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:09:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1A67606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88291606D82E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 17:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88291606D82E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FBLki2AJ
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so15124395e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:09:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AlVGkqZf
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e46e449e8so1012950f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 09:13:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794071378; x=1794676178; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Uo6XeYcnV/x5wbpR7pZuFSSSODwH8TPy4AbG/hgvRWs=;
-        b=FBLki2AJGBeQ54jkvu0WK8OGjDWsQzv8Q+98dp9ZolzbeG2I1S7zLKim2dXIgiJq9N
-         vNHmoKkQWpTwLHfUKcmlhSwxPHVBkgKgEeNzJZgCDvKeJGrdGBQ1wSNmB7ZFiw/1tR9p
-         W+S9+okUE7B0Z7oL7B30Dle49C5AU+y7OnJ3sCUl3FiX8BMeJTj9RpFAeRDwYtV60pfw
-         Z55WiM3bCmJd633OoJVcSqoEBl9H3DNTtm6S9jCOz1bQwkr4U5V25mNy9uD0Nfjj+Fgg
-         ru9bMo958NpEI2RI+hojtJs3sdsEjpmVz6t95FtiDa2hNkD2JQnfUka+02t/AjDEIFHi
-         rNvg==
+        d=gmail.com; s=20260707; t=1794071590; x=1794676390; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mynYKR1ZAkpBPyX1Y39GAIXi0uQVHkLOFJGn8mGHCF8=;
+        b=AlVGkqZfi0ocabBbxkt2TvF5QtI39r3zXqB4qI3AH1FllhWANSWuGEqNJv5LOzmuxa
+         9ccpc/FYIqJMUn3gf7pEUnbdTJAGORDj3s/IqFYmC/ADcn1e0eYzqGCKU12Z2riCt4A0
+         mFraTB9qHtBpwxehnrJaooQE3e3KJ0i1Xv4Q75KnZuTew6xTXlaK2TNPLf3S9fr2OE5f
+         WBw8pxOlCFMaTwgGnNByzPQD05IrFWHGccXNS0hZm7QLT9Ri83BrYeI/4c127U8ZbwCU
+         J+ySr+wQ1tXiMVAbI343gkpyG8GstjI3kbT/OVmTmfbm9CFFrM2h6mJ+5RbpMRiDOISH
+         /6Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794071378; x=1794676178;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Uo6XeYcnV/x5wbpR7pZuFSSSODwH8TPy4AbG/hgvRWs=;
-        b=sswSwR6WxDoUQnssS98YDoVb/PUBkcdgKURbZw2Q/8+mW4NdCjMhr9dt7oXJKdIpV3
-         QYGWYqoMPQAjC7choUCIgfVFvVnUbdeCkCEOu4C1vDAmh3+AhV1lF6MBjzgS6LlOD/vD
-         kwumsw9/RWsyXF6jcoWpnSIDtACBEqjOc+qh6JFIja7VYnrsjZpDsTOoSd3YkGXpy/nL
-         jPPrSGd0rkxhGMhzRVpci9NE4KUtWITfO9cuKH5xil74lEFLrXSEzZo9h+YugV60D6uP
-         5w/m/Gl5x0kl4aRuzBirEQCHrnf3V7tzJFHiwn7K54BxDARaPqHDBVbYvONurDgjtDHu
-         dZ2g==
-X-Forwarded-Encrypted: i=1; AKwUvBzkUb79q+XWwVMRyCka+XsqLsAzwLUULMG5DsVUUrJ1+JFNUplrClmh4ii19iXjv9H83CQ9gaVExnGUSIM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MG2pC6Zfwj3J5U+nuChdfrc6jFhscG5HNyu+qNzGX2IF0wUcL
-	gNqP2wJjijHEs3i6Gm9rUbY63nzFy+Sd0bGRhroo5niypJk/LVMXB8v5
-X-Gm-Gg: AYBFou2I26JjmhLKkVjCw79wwEas3ibYoiuWEGWblAda6To9Qirxu3G609rsA7oH6RQ
-	QsW/DSS466CXVqbX+OPd+jt86hHjhCV+NU4UEMiXf++mlyGG9yQRJRmHAayyM1b0Sr23KaCV0Rp
-	l22zocyvJ8eAsHpAGKBchE3tVOfaxCFU/yBZJz1pvnwR/D95PA4vubAgtoSnicE2NT5kkwmXRSZ
-	tkMdxuQkht9jqd7CX8Hl/P7h2++exk7V+Q0aogzzKxBmBZxvVxh1sNpOmiKvw5nGh5vf0VN3tjm
-	d3VmJMCYr6BJIdpsEYA4XFgoHh6DPabXBBrC3jpDYtyrBPv18QPMA0DLXuo8AMxe/Qh+7EmxsUM
-	r59OTNFmyODmGvHCrZP91Ix4Mbul2v6N94S5m6HCjq05Zzp+Ru4DQ+CX+DCwn0nVWKEaONZlc+Q
-	pOcHgh/TUbeTuIIL1Qp+ysr1dBZeIhcGqB2AkChmGHXet4/DAiS2ENc/PrHIEU3WfyCtPouIMEL
-	UzpEWx3w8RVOj1lToAoTE5IvRdfe0meX+cjFdhCG/JKJA2JJiCNmEuo8HvWdymBsrVrPP04Hm6t
-	Xcx6WfggfJMhwbLzkSi4v0HD0A==
-X-Received: by 2002:a05:600c:a013:b0:4a1:c6fd:4db0 with SMTP id 5b1f17b1804b1-4b6df5eabebmr104412535e9.19.1794071378114;
-        Sat, 07 Nov 2026 09:09:38 -0800 (PST)
-Received: from localhost ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad610sm201380835e9.3.2026.11.07.09.09.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Nov 2026 09:09:37 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794071590; x=1794676390;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mynYKR1ZAkpBPyX1Y39GAIXi0uQVHkLOFJGn8mGHCF8=;
+        b=fEGgyKM5QuA5u7s4mr6KxIDhdb2TbcNxRXd8Kwcd3ab2bRpXPdsHDy48c4E5xwdbTI
+         EBZWGB6Grl19ZKrlEWwvFS4Xjyt8qbVQH++5HSiS7OSVzI4TALqh1WFiVZYvKRP2tXHy
+         evbM9r6roAe3G6RVP19cKgq0S9bWsMQkD4o7K3Y/pK2QwCQbwbo1fVuTiBarAEP4MwT5
+         cZmqk0Ik1S7bbaLL7NVsXFAGjWhV6LtCBmnsJHqRJNLLUjZQLU9e2nMJJ2smztEOUDCt
+         XYQpRvb6hr3lc/e9ySCzvprarwH29z7voDIG5zzAVcHC+jiGp2eUVnDvt75JxZPe/8PT
+         fNEw==
+X-Forwarded-Encrypted: i=1; AL+hErFcJNjsnFHjsegVLtD91LWdE04+3W6vCJxkPZ/19dmFo8T2iRCFkKFgT8RQTwA6kUO+L3sPYg8dq4Bz5i8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vh8KTuELGMdolylzFoz7il1ZrBQ1Kw0DLPb7NTcjf5GYL/20I
+	67un/gQ+VMQUeFVjmNUoGNL4Y9chcD2eIgr8pu4gSX+X4csZGvs4+MkT
+X-Gm-Gg: AYBFou1OeoDYw1+8fe1a54OhJ781iXbG1MZvaQrUQFAok5IPDMbVOtcx0SkX7aeZSy/
+	3m4K/MDtS5ZYLt84l1KNz0B86vnm2waPVvtpJFwGSMaBQSTWgURWlgcyM6OHDr4Kz2rx9tpDn+F
+	QlSXBb9bFFacQpr0O799to/NxKrGeNW5j0UB5pY3vqM4nIVnzmt12k3XEdexdk7XSzFPUdr8c8W
+	8nPC2TKM8UC58nFpg+p3rcJThAeAFG3tyPTGf85h0dMOwsx8Z8uimpriXajsQeWwtDzfPvkgRKp
+	0CBV1u5GI+KAfmPiC0/dvDJkrCaMDeaY/STulnj2T+IGuW3GGxudo98iv4lmK7VBoK3TuB+3QMK
+	2kJPPQ8yN8zu1kXC2qn+miS3VBFP7BKNNdFFKZd3PiCjw1jsrlm5W38DrlCplL5+4+/EUFXOdiR
+	Klu3UdZHJsiMV4jMlwVhaQveSg5BW6wlKX+J/v7QtIWlvaAiynai/Njufy+DWOqt7ucTeOsVh8F
+	/CjUlvj1azeR1Z2kf9qIDPC+s0zhw3ntrQi5R+Wd/HL1FSA6hSkkGWR1tLcdisZB/H1IoQleDqX
+	9MbjYl2HS3xWkBqCh3IhboZbd+lzyec5hH/FFmJua2z02uxMAgAEdfu0wvd8hpSK4/9uBr/ALmz
+	DzuwKfhm98hXj8A2FhNA2vvKot63rlkTcGZYfVjnoD1ailRM1x821MFstUV1F2ePiUECDogQhGQ
+	n7iTTdRFfLNyOtt7MkcZKXMsLOS3HgMh8=
+X-Received: by 2002:a05:6000:2689:b0:48b:e50:714e with SMTP id ffacd0b85a97d-493aa8d24d2mr7126885f8f.36.1794071589545;
+        Sat, 07 Nov 2026 09:13:09 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723222fsm10627105f8f.21.2026.11.07.09.13.08
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 09:13:09 -0800 (PST)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Gabriele Monaco <gmonaco@redhat.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Wen Yang <wen.yang@linux.dev>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 1/9] tracing/irq: Add generic IRQ context boundary tracepoints
+Date: Sat,  7 Nov 2026 18:12:44 +0100
+Message-Id: <20261107171252.25090-2-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261107171252.25090-1-kmehltretter@gmail.com>
+References: <20261107171252.25090-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,221 +121,256 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=90b72889c6b6179eb92b7fa762786d4ce0b6554dc9b311a78855b8ffacbe;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Sat, 07 Nov 2026 18:09:32 +0100
-Message-Id: <DMP582BGB7DV.2U0SJLJL7A87K@gmail.com>
-Subject: Re: [RFC PATCH v3 1/5] vfs: add provenance time (ptime)
-From: "koraynilay" <koray.fra@gmail.com>
-To: "Amir Goldstein" <amir73il@gmail.com>, "koraynilay"
- <koray.fra@gmail.com>
-Cc: "David Sterba" <dsterba@suse.com>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Namjae Jeon" <linkinjeon@kernel.org>, "Sungjong Seo"
- <sj1557.seo@samsung.com>, "Konstantin Komarov"
- <almaz.alexandrovich@paragon-software.com>, "Chris Mason"
- <mason@kernel.org>, "Jan Kara" <jack@suse.cz>, "Yuezhang Mo"
- <yuezhang.mo@sony.com>, "Chuck Lever" <cel@kernel.org>, "Darrick J . Wong"
- <djwong@kernel.org>, "Sean Smith" <defendthedisabled@gmail.com>, "Andrey
- Albershteyn" <aalbersh@kernel.org>, "Pedro Falcato" <pfalcato@suse.de>,
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- <linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <exfat@lists.linux.dev>,
- <ntfs3@lists.linux.dev>, <linux-api@vger.kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261101015551.786044-1-koray.fra@gmail.com>
- <20261101015551.786044-2-koray.fra@gmail.com>
- <CAOQ4uxiuJ=eZu28FZAUz3rpqPKqCimPxJucOnYYuBowvD09_Cw@mail.gmail.com>
- <DMP3UBB0QVOT.20HIXK7ZL6K6U@gmail.com>
- <CAOQ4uxgSVc8n1LbL_dcU-DpNN5BB-ap_vGdXEu7+d0Td7PK5Tw@mail.gmail.com>
-In-Reply-To: <CAOQ4uxgSVc8n1LbL_dcU-DpNN5BB-ap_vGdXEu7+d0Td7PK5Tw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---90b72889c6b6179eb92b7fa762786d4ce0b6554dc9b311a78855b8ffacbe
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+IRQ action tracepoints describe handlers, not the enclosing interrupt
+context. One hardirq context may run several actions, while synthetic
+dispatch can invoke an action outside hardirq context.
 
-On Sat Nov 7, 2026 at 5:48 PM CET, Amir Goldstein wrote:
-> On Sat, Nov 7, 2026 at 5:04=E2=80=AFPM koraynilay <koray.fra@gmail.com> w=
-rote:
->>
->> On Mon Nov 2, 2026 at 3:00 PM CET, Amir Goldstein wrote:
->> > On Sun, Nov 1, 2026 at 2:57=E2=80=AFAM koraynilay <koray.fra@gmail.com=
-> wrote:
->> >>
->> >> Add provenance time (ptime), indicating the time when a file or
->> >> directory was created. This is user-settable via file_setattr() and
->> >> retrievable via statx(2) (using STATX_PTIME) or file_getattr().
->> >>
->> >> The semantics of when to preserve this new timestamp are the same as
->> >> mtime, the idea being that there is a correspondence like this:
->> >>
->> >> ctime <-> btime
->> >> mtime <-> ptime
->> >>
->> >> so every operation (copying, moving, ...) that currently preserves mt=
-ime
->> >> should also preserve ptime.
->> >>
->> >> Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
->> >> FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
->> >> xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr()=
- to
->> >> allow ptime to be used with the file_setattr()/file_getattr() syscall=
-s.
->> >>
->> >> [ This is a re-implementation of the initial patch[1] by Sean Smith
->> >>   <defendthedisabled@gmail.com>, following the advice[2] from Darrick=
- J.
->> >>   Wong <djwong@kernel.org> of using file_setattr() instead of updatin=
-g
->> >>   utimensat() ]
->> >>
->> >> [1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@=
-gmail.com
->> >> [2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
->> >>
->> >> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
->> >> Signed-off-by: koraynilay <koray.fra@gmail.com>
->> >> ---
->> >>  fs/file_attr.c            | 33 +++++++++++++++++++++++++++++++--
->> >>  fs/stat.c                 |  2 ++
->> >>  include/linux/fileattr.h  |  5 +++++
->> >>  include/linux/stat.h      |  1 +
->> >>  include/uapi/linux/fs.h   |  8 +++++++-
->> >>  include/uapi/linux/stat.h |  7 ++++++-
->> >>  6 files changed, 52 insertions(+), 4 deletions(-)
->> >>
->> >> diff --git a/fs/file_attr.c b/fs/file_attr.c
->> >> index 833e03810b24..c0645cb22bf3 100644
->> >> --- a/fs/file_attr.c
->> >> +++ b/fs/file_attr.c
->> >> @@ -102,7 +102,7 @@ EXPORT_SYMBOL(vfs_fileattr_get);
->> >>  static void fileattr_to_file_attr(const struct file_kattr *fa,
->> >>                                   struct file_attr *fattr)
->> >>  {
->> >> -       __u32 mask =3D FS_XFLAGS_MASK;
->> >> +       __u32 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
->> >>
->> >>         memset(fattr, 0, sizeof(struct file_attr));
->> >>         fattr->fa_xflags =3D fa->fsx_xflags & mask;
->> >> @@ -110,6 +110,8 @@ static void fileattr_to_file_attr(const struct fi=
-le_kattr *fa,
->> >>         fattr->fa_nextents =3D fa->fsx_nextents;
->> >>         fattr->fa_projid =3D fa->fsx_projid;
->> >>         fattr->fa_cowextsize =3D fa->fsx_cowextsize;
->> >> +       fattr->fa_ptime_sec =3D fa->fsx_ptime.tv_sec;
->> >> +       fattr->fa_ptime_nsec =3D fa->fsx_ptime.tv_nsec;
->> >>  }
->> >>
->> >>  /**
->> >> @@ -141,15 +143,20 @@ EXPORT_SYMBOL(copy_fsxattr_to_user);
->> >>  static int file_attr_to_fileattr(const struct file_attr *fattr,
->> >>                                  struct file_kattr *fa)
->> >>  {
->> >> -       __u64 mask =3D FS_XFLAGS_MASK;
->> >> +       __u64 mask =3D FS_FILE_ATTR_XFLAGS_MASK;
->> >
->> > That is not the correct way to extend this API.
->> > This fixed mask was added as a placeholder for
->> > "We intend to add support for more xflags to selective filesystems":
->> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-2-amir73i=
-l@gmail.com/
->> >
->> > Please see this POC patch for filesystems to publish their supported
->> > xflags mask:
->> > https://lore.kernel.org/linux-fsdevel/20250329143312.1350603-3-amir73i=
-l@gmail.com/
->>
->> Quick quesiton, should _mask also be used for user-space -> VFS to adver=
-tise
->> what it wants to change?
->> This would be useful for on/off flags, but for ptime both fa->xflags and
->> fa->xflags_mask would have the same meaning of "I want to change ptime,
->> look at fa->ptime".
->> Should we make _mask the only way to advertise what the user wants to
->> change, ignore xflags | PTIME in user-space -> VFS and use it only in FS
->> -> VFS -> user-space to say "this fs supports PTIME for this file"
->> (which will be always once support is added to an FS, so it would just
->> be "this FS supports PTIME")?
->>
->
-> Sorry I was not able to parse your question.
->
-> I think the mask should mean "this FS supports PTIME"
-> regardless if the user asked to get/set it or not.
+Add bare tracepoints at the generic hardirq and serving-softirq
+boundaries using DECLARE_TRACE() so they can be hooked by in-kernel
+verifiers and tests without exposing a new user-space tracefs ABI.
+Record hardirq depth and whether serving-softirq state temporarily
+replaces hardirq state during interrupt return.
 
-Yeah sorry, I'm just a bit confused because of all the similar names and
-concepts.
+A boundary callback can raise work after the normal pending-work
+decision. Include work raised at softirq entry in the initial pending
+snapshot, and hand work raised at a final boundary to the appropriate
+worker.
 
-(assuming btrfs supports ptime and ext4 doesn't)
+The tracepoints cover irq_enter() or irq_enter_rcu() and their matching
+exits. Raw and direct low-level entry users remain outside their scope.
 
-* filesystem -> VFS -> user-space, while in fileattr_to_file_attr():
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ include/trace/events/irq.h | 56 +++++++++++++++++++++++++
+ kernel/softirq.c           | 83 +++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 137 insertions(+), 2 deletions(-)
 
-  for btrfs, for all files[1]:
-        fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 1
-        fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1
+diff --git a/include/trace/events/irq.h b/include/trace/events/irq.h
+index 837c1740d0d07..1b2e05aaf7763 100644
+--- a/include/trace/events/irq.h
++++ b/include/trace/events/irq.h
+@@ -207,6 +207,62 @@ DEFINE_EVENT(tasklet, tasklet_exit,
+ 	TP_ARGS(t, func)
+ );
+ 
++/*
++ * Following tracepoints are not exported in tracefs and provide hooking
++ * mechanisms only for testing and debugging purposes.
++ */
++
++/*
++ * hardirq_context_entry - generic hardirq state has been established
++ * @depth: hardirq nesting depth, including the context being entered
++ *
++ * This tracepoint is emitted after generic hardirq preempt-count, lockdep,
++ * timer, and accounting state has been established. It does not describe the
++ * architecture-specific interval before irq_enter() or irq_enter_rcu().
++ */
++DECLARE_TRACE(hardirq_context_entry,
++	      TP_PROTO(unsigned int depth),
++	      TP_ARGS(depth));
++
++/*
++ * hardirq_context_exit - generic hardirq state is about to be removed
++ * @depth: hardirq nesting depth, including the context being exited
++ *
++ * This tracepoint is emitted with interrupts disabled near the end of generic
++ * hardirq exit, after tick-exit work and before hardirq preempt-count state is
++ * removed. A late-work handoff may run after callbacks return. Hardirq
++ * accounting ends earlier.
++ */
++DECLARE_TRACE(hardirq_context_exit,
++	      TP_PROTO(unsigned int depth),
++	      TP_ARGS(depth));
++
++/*
++ * softirq_context_entry - serving-softirq state has been established
++ * @serving: whether the current task is serving a softirq
++ * @from_hardirq: whether hardirq state was replaced by serving-softirq state
++ *
++ * This tracepoint runs with local interrupts disabled after the serving bit is
++ * set. On PREEMPT_RT it includes preparation before handle_softirqs(), even
++ * if the pending-work check finds nothing. It does not mark an individual
++ * action or the start of CPU-time accounting.
++ */
++DECLARE_TRACE(softirq_context_entry,
++	      TP_PROTO(bool serving, bool from_hardirq),
++	      TP_ARGS(serving, from_hardirq));
++
++/*
++ * softirq_context_exit - serving-softirq state is about to be removed
++ * @serving: whether the current task is serving a softirq
++ * @from_hardirq: whether hardirq state will replace serving-softirq state
++ *
++ * This tracepoint runs with local interrupts disabled before the serving bit is
++ * cleared. On PREEMPT_RT this includes teardown after handle_softirqs().
++ */
++DECLARE_TRACE(softirq_context_exit,
++	      TP_PROTO(bool serving, bool from_hardirq),
++	      TP_ARGS(serving, from_hardirq));
++
+ #endif /*  _TRACE_IRQ_H */
+ 
+ /* This part must be outside protection */
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+index 7fc2200392cdf..0d5fe265e354b 100644
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -178,7 +178,9 @@ bool local_bh_blocked(void)
+ 
+ void __local_bh_disable_ip(unsigned long ip, unsigned int cnt)
+ {
++	unsigned long trace_flags = 0;
+ 	unsigned long flags;
++	bool trace_serving;
+ 	int newcnt;
+ 
+ 	WARN_ON_ONCE(in_hardirq());
+@@ -200,6 +202,16 @@ void __local_bh_disable_ip(unsigned long ip, unsigned int cnt)
+ 		}
+ 	}
+ 
++	/*
++	 * A serving interval starts here, before handle_softirqs(). When its
++	 * entry is traced, keep IRQs and task switches from observing the bit
++	 * before the event. Any blocking BH lock was acquired above.
++	 */
++	trace_serving = (cnt & SOFTIRQ_OFFSET) &&
++			trace_softirq_context_entry_tp_enabled();
++	if (trace_serving)
++		local_irq_save(trace_flags);
++
+ 	/*
+ 	 * Track the per CPU softirq disabled state. On RT this is per CPU
+ 	 * state to allow preemption of bottom half disabled sections.
+@@ -233,15 +245,27 @@ void __local_bh_disable_ip(unsigned long ip, unsigned int cnt)
+ 			raw_local_irq_restore(flags);
+ 		}
+ 	}
++
++	if (trace_serving) {
++		trace_softirq_context_entry_tp(!!in_serving_softirq(), false);
++		local_irq_restore(trace_flags);
++	}
+ }
+ EXPORT_SYMBOL(__local_bh_disable_ip);
+ 
+ static void __local_bh_enable(unsigned int cnt, bool unlock)
+ {
++	bool entering = (cnt & SOFTIRQ_OFFSET) && !in_serving_softirq();
++	bool trace_exiting = (cnt & SOFTIRQ_OFFSET) && !entering &&
++			     trace_softirq_context_exit_tp_enabled();
+ 	unsigned long flags;
+ 	bool sirq_en = false;
+ 	int newcnt;
+ 
++	/* Callers already disabled IRQs around the counter and its events. */
++	if (trace_exiting)
++		trace_softirq_context_exit_tp(!!in_serving_softirq(), false);
++
+ 	if (IS_ENABLED(CONFIG_PREEMPT_RT_NEEDS_BH_LOCK)) {
+ 		DEBUG_LOCKS_WARN_ON(current->softirq_disable_cnt !=
+ 				    this_cpu_read(softirq_ctrl.cnt));
+@@ -276,6 +300,18 @@ static void __local_bh_enable(unsigned int cnt, bool unlock)
+ 			WARN_ON_ONCE(current->softirq_disable_cnt < 0);
+ 		}
+ 	}
++
++	/*
++	 * An exit probe can raise a softirq while serving state still suppresses
++	 * the normal ksoftirqd wakeup. Hand it off once no outer BH-disable
++	 * reference remains.
++	 */
++	if (trace_exiting && sirq_en && unlikely(local_softirq_pending()))
++		wakeup_softirqd();
++
++	/* local_bh_enable() can turn BH-disabled state into serving state. */
++	if (entering)
++		trace_softirq_context_entry_tp(!!in_serving_softirq(), false);
+ }
+ 
+ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
+@@ -640,11 +676,15 @@ static void handle_softirqs(bool ksirqd)
+ 	 */
+ 	current->flags &= ~PF_MEMALLOC;
+ 
+-	pending = local_softirq_pending();
+-
+ 	from_irq_exit = softirq_handle_begin();
+ 	in_hardirq = lockdep_softirq_start();
+ 	account_softirq_enter(current);
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		trace_softirq_context_entry_tp(!!in_serving_softirq(),
++					       from_irq_exit);
++
++	/* Include work raised by the context-entry event. */
++	pending = local_softirq_pending();
+ 
+ restart:
+ 	/* Reset the pending bitmask before enabling irqs */
+@@ -692,6 +732,14 @@ static void handle_softirqs(bool ksirqd)
+ 		wakeup_softirqd();
+ 	}
+ 
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT) &&
++	    trace_softirq_context_exit_tp_enabled()) {
++		trace_softirq_context_exit_tp(!!in_serving_softirq(),
++					      from_irq_exit);
++		/* The final pending-work decision above has already completed. */
++		if (unlikely(local_softirq_pending()))
++			wakeup_softirqd();
++	}
+ 	account_softirq_exit(current);
+ 	lockdep_softirq_end(in_hardirq);
+ 	softirq_handle_end(from_irq_exit);
+@@ -722,6 +770,7 @@ void irq_enter_rcu(void)
+ 		tick_irq_enter();
+ 
+ 	account_hardirq_enter(current);
++	trace_hardirq_context_entry_tp(hardirq_count() >> HARDIRQ_SHIFT);
+ }
+ 
+ /**
+@@ -796,6 +845,36 @@ static inline void __irq_exit_rcu(void)
+ 		wake_timersd();
+ 
+ 	tick_irq_exit();
++	if (trace_hardirq_context_exit_tp_enabled()) {
++		bool ksoftirqd_wake_requested = false;
++		bool timersd_wake_requested = false;
++
++		trace_hardirq_context_exit_tp(hardirq_count() >> HARDIRQ_SHIFT);
++
++		/* Hand work raised by the final boundary event to its worker. */
++		if (hardirq_count() == HARDIRQ_OFFSET) {
++			if (irq_count() == HARDIRQ_OFFSET &&
++			    unlikely(local_softirq_pending()) &&
++			    should_wake_ksoftirqd()) {
++				wakeup_softirqd();
++				ksoftirqd_wake_requested = true;
++			}
++
++			if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) &&
++			    force_irqthreads() && local_timers_pending_force_th()) {
++				wake_timersd();
++				timersd_wake_requested = true;
++			}
++
++			/* The timersd wakeup can itself raise a softirq. */
++			if (timersd_wake_requested &&
++			    !ksoftirqd_wake_requested &&
++			    irq_count() == HARDIRQ_OFFSET &&
++			    unlikely(local_softirq_pending()) &&
++			    should_wake_ksoftirqd())
++				wakeup_softirqd();
++		}
++	}
+ 	preempt_count_sub(HARDIRQ_OFFSET);
+ }
+ 
+-- 
+2.39.5 (Apple Git-154)
 
-  for ext4, for all files:
-        fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 0
-        fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 0
-
-* user-space -> VFS -> filesystem, while in file_attr_to_fileattr():
-
-        fattr->fa_xflags & FS_XFLAG_PTIME =3D=3D ignored
-        fattr->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1 if user wants to se=
-t it, otherwise 0
-
-Would this be correct?
-
-Or would it be better to set FS_XFLAG_PTIME only in fa_xflags_mask, and
-never touch fa_xflags with it, which would make the above become:
-
-
-* filesystem -> VFS -> user-space, while in fileattr_to_file_attr():
-
-  for btrfs, for all files[1]:
-        fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1
-
-  for ext4, for all files:
-        fa->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 0
-
-  (and always fa->fa_xflags & FS_XFLAG_PTIME =3D=3D 0)
-
-* user-space -> VFS -> filesystem, while in file_attr_to_fileattr():
-
-        (fattr->fa_xflags & FS_XFLAG_PTIME =3D=3D ignored)
-        fattr->fa_xflags_mask & FS_XFLAG_PTIME =3D=3D 1 if user wants to se=
-t it, otherwise 0
-
-This would mean that fa_xflags_mask is used like stx_mask both by the fs
-(to let the user know what it supports (a.k.a. what it's returning)) and
-by the user (to let the fs know what it's trying to set), and fa_xflags
-is used only for ON/OFF flags (like immutable).
-
-Let me know if it's clearer.
-
-Thanks,
-koraynilay
-
-[1]: as we don't have a "no ptime" value (since 0 is a valid epoch), all
-files would have it if the fs supports it
-
-> Thanks,
-> Amir.
-
-
-
---90b72889c6b6179eb92b7fa762786d4ce0b6554dc9b311a78855b8ffacbe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSgVimKafU5DQMcjcDmj22qf5IGXAUCau9bTAAKCRDmj22qf5IG
-XLOnAQCYgmkH9FcgSKhJkILhSIa5F/PVtSlv2NxQd9SmQy++kAD+O8Jm/L7wqEIX
-9+esMnf9eYtazI3CTEE5wrzfACj7uQs=
-=Jjnq
------END PGP SIGNATURE-----
-
---90b72889c6b6179eb92b7fa762786d4ce0b6554dc9b311a78855b8ffacbe--
