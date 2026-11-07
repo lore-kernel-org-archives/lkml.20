@@ -1,57 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069254;
-	b=JQau3hXuTyzfVD4j9zYvuUToJef8DvBefYj3Ushv4fFgDNQQ7j9jF//rgwJeiO+VJXed
-	 UNW3ZHRRj04fvgiaKkVbxgjE5LlfhIFYvl2jhP7be4yuUJdDfb+QywuMstJo53LRkVI8x
-	 Xw2hZjDUSkxUtGIN2Xt03X1LokGCWhK6cAMQs6XUiej+m/F5piKtSmKrxE3Gw3eTDV4jC
-	 47Fm6wB/LYrg5NbsIiUPQf9iWjMBp1MtaP2gRrB1CRKF9N4YBHNSScRx1M+mGUN5aa3Mg
-	 2iIjordtvG/QmkxXfKrw6t1lIABStZ6oAsAkkOClzuZAYM+6toJ9YgKguL3nBu4UCyA==
+	t=1794069308;
+	b=ysqAKZdKWSG/UDsCgFnpLbSmjtIIkLHA3z2/r2H52bh51lcCBHAzPnrogIUooUwUO8f6
+	 eV2IHuFShid3sOjL1QBMjajukFiLNKsJ9GJ6YEtxg4rzh3YhwDPFxJE5BFjXp3b9nmOCi
+	 wD+gnSPOF7Fdc8BZeG9TF/mbFVzmzNaU7F/3XjxFXIqdoKZgqtW9SmUBOjEhR0z2cfGLJ
+	 7e+l2JXDnEe7qEezTasev8xgr97rb6L+acdACQfgZBTtD4irldnpO5vkDEVuTRO5keNR2
+	 xQVvwwcPFWzn3+flG7oXjxsTedxdjWn0t9fQgO/YYNJDA0gNUr3KlSbC3iuFKOjSt2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069254;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mcGUxoLI+ikhf+8cHnw1noGtyfu3ho7IeBqehooAtOc=;
-	b=iClCtHtpp9PcOeQMauq0eBrgzsVW89TXzl2HxWE1+quuoHKpZZBKbloiXC/VqIeitxuX
-	 sXa62yGwjXjOK1KNoKFSnlw+QPF41osNecp/I5Zllb7szOIL3dCezcowzmbZG5AUGdS3W
-	 Qv+U5r8TJ25q+Uia3cpc5TupiUgqH4jA8sYYk9l1anNAEXOQhG0XEMr9BE0g49H+aHSCi
-	 pgnAM5/CswoSeIiZ8T98gL+C4vW6bV3FSdAa8TUUK8sMw1g3DZ7lRAOJMZ1kP4TZjUwGD
-	 ixIk0rdLtAr1ceYBsfzL3/Euziy5BaQCEkurIJRf6DKf0VF0AR2dD/Ibdu84YvNBYEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794069308;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:User-Agent;
+	bh=t9lxvGsvnVKAYbZJhO8MAWe0ocVncbdFnsrj+9efmqA=;
+	b=ilG6BUVFSgmNtVkPLh4Yh67uP30wCwwm9CvL9799yDHoBQIQR+Y00MBQRPDai63GELwg
+	 AkwweCBT5xjT41WSMnQcjWlbpXGD89QXEX4B6bR+5xOUoEfBS0Bd5U0BPRI4yxm3WHWj1
+	 Ytx0ZWhnDX6ePW3i/ySf3mdl4liPFA14s8XOg8iDgK+DadO31ol8yESDHn9mS3zsD1KLW
+	 fUyiW1CBgIlAADO5uZU6vi2ALivSAyCnmUFbZjg0mBjw/aLnAAkon+8WUj2LjswgyaLv/
+	 LWr4moUr6H2Tf1mAAFF8fovUrXnG04P9LyxZHXzUECUrPB4hRzhmC3TwdrA1Eqiqc7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=000ty.net;
-	spf=pass smtp.mailfrom=000ty.net;
-	dkim=pass header.d=000ty.net header.i=@000ty.net header.a=rsa-sha256 header.s=protonmail2 header.b=l5pgC2Hm;
-	arc=none smtp.remote-ip=109.224.244.21
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=TNBOtk8t;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19982606A32D;
-	Sat,  7 Nov 2026 16:34:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19982606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=000ty.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=000ty.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D82606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 16:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2D82606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=000ty.net header.i=@000ty.net header.a=rsa-sha256 header.s=protonmail2 header.b=l5pgC2Hm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=000ty.net;
-	s=protonmail2; t=1794069252; x=1794328452;
-	bh=mcGUxoLI+ikhf+8cHnw1noGtyfu3ho7IeBqehooAtOc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=l5pgC2HmKH0t2HzWZNxMe4Vqz7CgHOLwiimjoOb+MRxuqiVoykc6WeDgY9SIOk8I1
-	 G4GJep++SPESb4SqXObRKY3c9T53mhYqI9YuQ1AN2qBYXYJrNrAdHZxckin+9YfrY9
-	 hFVqsL8jmzvdevtHvEJSqNNYX57H3Gu9rMBYWCnO5fejkJFl4YYZJb5JbtY8/eX2/8
-	 NSdAb/00a6if5kJa3YGsll0tlD89RqmKZmbhZhPusVAVz/CBV8et/d9LzFGoHGgxLb
-	 MP6DF/iUVX4Mw9VTFJTNTAjKHEVsxnAWW8YjBXzfxuOsRRC/IJSSoffH7q1J4Zx9PJ
-	 16pbfbtCoP2rg==
-Date: Sat, 07 Nov 2026 16:34:08 +0000
-To: netfilter-devel@vger.kernel.org
-From: Tamaki Yanagawa <ty@000ty.net>
-Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, coreteam@netfilter.org, linux-kernel@vger.kernel.org, ty@000ty.net
-Subject: [PATCH nf v2] netfilter: nfnetlink_queue: make skb writable before writing NFQA_L2HDR
-Message-ID: <20261107163402.1458-1-ty@000ty.net>
-Feedback-ID: 168296199:user:proton
-X-Pm-Message-ID: 3fb11530f64dcb731da31945594b885781d1cc3c
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=TNBOtk8t
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so965135a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 08:35:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1794069307; x=1794674107; darn=vger.kernel.org;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t9lxvGsvnVKAYbZJhO8MAWe0ocVncbdFnsrj+9efmqA=;
+        b=TNBOtk8tJLyhYRYcUZ6jwm7nfKmCagIm7N9TXcmUQ4pXY2fzS+SzU3GmVAphRD0tsk
+         Dj3u99LGuC/LtlzRqD9RcW80Hof0n3tV5DEkhPOUd167Ts0jC0urKJHx+1EL05HrKv3x
+         34CgyoRjK0WnQ+PkZuLCnhmWTLd0pbIXEN9hY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794069307; x=1794674107;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=t9lxvGsvnVKAYbZJhO8MAWe0ocVncbdFnsrj+9efmqA=;
+        b=dkTzJPqgp8Nn104VtP9V50SY3IPTuuO5Va5uR+bbds3daInQHJQ0HU12LLEoO1D0Pv
+         ca7QoKQ4wMi/2I2aAp8rHB+zZLJ1tV0pCSzYpyp9RRBseaa3SBR2kd2E4WJ5NaMKWZG0
+         +kEx75RWdEs6XMbX4UXhl1gDM4Ma5K8YGvDi29Zp4BlHEwgOeDQX0tUcWaNHW5gyGB9t
+         fu5ECSL+e+OOtj5IhIgPOOTY92nJST+qWPc/yWPjgZueK00bJNZTO6ecwYW957NGtVHo
+         o13V4zF2ehQN/sd6avp5e3dXEmnqZ/45FQxbCtALlvxXdjTK3LFUeO+n+dNRoMc2ogGN
+         qghw==
+X-Forwarded-Encrypted: i=1; AL+hErHLKaV9vdkeZTPK7/IavfYM10/ntAPeAxOu4nrtusXipxM64P1sUjT7TM0A952NGIUaiuiBEpI0FjSYwRM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QhJDL/yM3NXbp/ejpC6NYUUpIKzFV07EWu4YmPYz+0Rs/pnz2
+	0ZkbMtde8pxC5IsuENm5VO3CveIVl1FUS82RMgPAHjuRHy1sPK94B0sBJbOALtK0e00=
+X-Gm-Gg: AYBFou0/FlEkuZ1iz4MM3YHjgUekqEkEqIP+jJAj+OYQOZt5fuUZPl3IXYJkgZqmwsE
+	sPOJfgvq+ye6E1gu7oyQwkfcGs8rlju3NgKg/NiMzS/nxntQ+cE/Ru4EKV41eIe29LGFAtXdYCy
+	mmmrtNeC+CauMzxT7eY/KQOm1pU3VRgZMcT4o/Z5PgoOCzIoEroIjidcNuXfmN4mjtfAtcVXcgQ
+	8INLTTC7cgAwokjsy3Vws6CUc9+sc6dFbOFmPOhT78HEMd6ZRArp7DPuimyHolH1ExecS13Hcgj
+	pZZ8ebQu/+d/WRxqeQxQCnKmrm7B9sZ5dQ7xABCadSuaRgE3hHKLwDPH0CUztWeqS4Za9XaEI3Q
+	5+9n5SSR641mGGl0GmPXOGDvQBkiY+LEtQ8V9o1PBSAXKhIh1fXqgYQRU3ixstL+toQlZAcu9gJ
+	CE7LKhj+6r1yL2SqcyS2dM1YhQnIBeLQ6D3HgKYnZ0udLGj1vHTW2vRnhu9eGtjAA6LMnIDlxg9
+	bH17dYLvqlfSIHj7z1eI0hqMH1Zfey3poEbkNEBa+VrwTw+fN/RjsvgzOl7mcQdmXF6rV+jsp2M
+	GcW+lErW4mwsXWXvo3tRi4RuH6sSTMow5rqxg1Cgdu2ID15feyGY7FEP860p4FkbdJMBo7BEOHa
+	FtqUwN5JPjW8/VynMdpRVpML6qNNw5h29CulKpB9Nr6TcM1AOLk+xSwUgIT9tloLN/lpSrmxdHF
+	bO3pNGlEh1O7mXw6apjCsfIDBTGTpO/dL5i7GAOvER+79vyWuTDVhsmg==
+X-Received: by 2002:a17:90b:5107:b0:3ad:8a14:bc73 with SMTP id 98e67ed59e1d1-3b0db6e8f4fmr5544638a91.50.1794069306903;
+        Sat, 07 Nov 2026 08:35:06 -0800 (PST)
+Received: from localhost ([50.175.87.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058a80a1sm3974994a91.12.2026.11.07.08.35.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 08:35:06 -0800 (PST)
+Date: Sat, 7 Nov 2026 08:35:05 -0800
+From: Chris Down <chris@chrisdown.name>
+To: "Martin K. Petersen" <mkp@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>
+Cc: Christoph Hellwig <hch@lst.de>, linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH 0/2] scsi: sd: Fix WRITE SAME(10) data corruption
+Message-ID: <cover.1794069087.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,65 +94,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-nfqa_parse_bridge() copies the NFQA_L2HDR attribute over the mac header
-of the queued skb in place. Bridge flooding queues clones that share
-their data with the copies sent to the other ports, so the rewritten
-header also shows up on frames that never went through the queue, and
-is changed while those may already be in transmission. Call
-skb_ensure_writable() before the copy. At the bridge hooks skb->data
-points to the network header, so the mac header sits in the headroom,
-which skb_clone_writable() already takes into account: a write length
-of zero is enough, and a clone that owns its header area (nohdr) is
-left alone instead of being copied.
+With scsi_debug and 512-byte logical blocks, a 1 MiB discard at 2 TiB
+succeeds, but it's the first MiB of the disk that gets discarded. This
+happens because the starting LBA wraps to zero, because it doesn't fit
+in WRITE SAME(10).
 
-Fixes: 8d45ff22f1b4 ("netfilter: bridge: nf queue verdict to use NFQA_VLAN =
-and NFQA_L2HDR")
-Signed-off-by: Tamaki Yanagawa <ty@000ty.net>
-Assisted-by: Claude:claude-opus-5-5
----
+Write zeroes can also run out of bits for the block count. With a
+0x20000-block WRITE SAME limit, a 64 MiB hole punch sends a count of
+zero and leaves the whole range as it was.
 
-Notes:
-    v2: use skb_ensure_writable() instead of skb_unclone(), as suggested by=
- Florian Westphal
-   =20
-    v1: https://lore.kernel.org/netfilter-devel/20261107160517.726-1-ty@000=
-ty.net/
+Let's use plain WRITE SAME(16) for write zeroes when the LBA or count
+won't fit in WRITE SAME(10). For discard, we can just refuse the request
+and leave the data alone.
 
- net/netfilter/nfnetlink_queue.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Chris Down (2):
+  scsi: sd: Fix data corruption in WRITE SAME(10) write zeroes
+  scsi: sd: Fix data corruption in WRITE SAME(10) discards
 
-diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queu=
-e.c
-index 90d887546f..7d0980286f 100644
---- a/net/netfilter/nfnetlink_queue.c
-+++ b/net/netfilter/nfnetlink_queue.c
-@@ -1819,10 +1819,18 @@ static int nfqa_parse_bridge(struct nf_queue_entry =
-*entry,
-=20
- =09=09if (mac_header_len !=3D nla_len(nfqa[NFQA_L2HDR]))
- =09=09=09return -EINVAL;
--=09=09else if (mac_header_len > 0)
-+
-+=09=09if (mac_header_len > 0) {
-+=09=09=09/* the mac header is in the headroom, which
-+=09=09=09 * skb_clone_writable() accounts for
-+=09=09=09 */
-+=09=09=09if (skb_ensure_writable(entry->skb, 0))
-+=09=09=09=09return -ENOMEM;
-+
- =09=09=09memcpy(skb_mac_header(entry->skb),
- =09=09=09       nla_data(nfqa[NFQA_L2HDR]),
- =09=09=09       mac_header_len);
-+=09=09}
- =09}
-=20
- =09return 0;
+ drivers/scsi/sd.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
---=20
-2.52.0
 
+base-commit: 04feb5fd2c23894ebc2cdaf4a4cc38b8667b17ac
+-- 
+2.54.0
 
