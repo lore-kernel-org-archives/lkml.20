@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.85
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794033936;
-	b=DRAxM2QyQimv5DkmfvPmnWPPfN4oaQ8AceDOGaZo65WXg1pJzOIJs/OX3wh2NA+nDrUF
-	 zRazy/fojWsAhVrEwnSuKOtzIaQEbkthWDP+hIgFkTi2sH5nXVg62w8Js9Ca1DZQa8i7d
-	 C7nusqblecPjfxK6iyGcY8pnBOcT8DGZgq8SVEOLjO/fyjMDTH18hnFEEyEsxIuCn6kAf
-	 ax29tKm07YB3LKVbCRkyDJ0W4sxV3kv+hVE9u3AHuBc23fQImnITdgh6OtUxT1NJqWrPO
-	 85R2oVsQBVqRUTyOIebssSYMlSM0Jmh3RCUHao5r3JppTm1df0dHgdMbGwxKjpsn7FA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794033936;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=p0Q+aPh9FXmspSlImRXpx816BsnlvW0umQZjVoRPYEU=;
-	b=pciDiNqiuC+P8MEcOCoeOnqepLPQ6XVvRoKuizAjWr1fYNaXVf7RXyFtrj/YWoEf1PV1
-	 xCdlXHqyMgwjCovQie0vCK7pOdSTS4vYI24UGJe8vfQxa2XhcOsWtkb10DWpRr5jBLEGh
-	 G7xW+moO4BtoMDuSd9QIMMKw4iJfSxIaOPZZcAamKtR5qBFhiOmiAasRd/61UrVprmKW8
-	 mSvtkezM7MIEIA/GnCx2fajjem5DlBwIRtbtU2uGOHLM9m4ioYHmPEXh9j2hj3W/rWmp4
-	 ePBiXAx3QGlfclmm2vjB5UZIEamvCb4R/ykUaNwhaYaNOyBEDKEqytP5HNA+ZrEhhuQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PLiMgy2m;
-	arc=none smtp.remote-ip=91.218.175.85
-Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794034077;
+	b=sIH+C/SlnZ9bJBp6QxiHtGRYLKtt3Tk42hR/r98H83ag4vWjbs6294jiRIsZlmmmaVjd
+	 12yUNpAfV7xnhjqW39z0LYdtGZcP3VEUw/FYRFdYIVZiw3+Po918m4SwRhbY+MPPfLpIj
+	 R4ayM8DDMy5VZHHXiEbBivYjcK30TMGKuar9RMAgPusZ3dWkqjPjllOBcomwTh3PQZxya
+	 WqDArQg3yilS1fUTHgAw+4SAMJBttfig/2KoEjPwldrrPxAVDRCYN7JtLru35HT4yWH5O
+	 iysl+WaybXo7uRuztqTvEFoUdGYmKOnIWa2QhG0l2VtSKhGAhSEJ6UdqEcSd56dCSYg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794034077;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Awso86uur2X1QFxm5c20pt/OWO820tRoP2pWWpr1/Qo=;
+	b=Y8xFlPZvzzlJguWKdEBAu+KL42pZHnOj6GRmSxJenoDLZhBYXNBGVuqpiUXk7Jqs1gza
+	 tIu3TDjABXaOi8yhUw8ocV/66MTrd5zK9XNCBmOc5fTIF+AzX/PwwuHHWBKcy+MJnEi1Q
+	 QumXJM+CtzE8kLdaTi68yhWOolO16b4FGZYE6/l0GWAYv+/4JU3acN2v6ITWSobh/71Dg
+	 5vZXmnrSgdQPJiaIaS9rf4jK6jAFsHNQLbepvgy2X9a+y4C8fv8RF2ljQqwSI0J+MFsrO
+	 g0vwQjeFDWRU1sARu6fUq/F85j3Q2jXF6ZK/LJU1B4D9PGFHxG6ZSJXJFkBPkbxOgJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GCZqKHGo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.40
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA11A606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 06:45:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA11A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72222606A32D;
+	Sat,  7 Nov 2026 06:47:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72222606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PLiMgy2m
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=l8FwMw+tmHQ7yeBnzjT9XdJgKx4elexMVrnBE3P9GII=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794033932; v=1; x=1794638732;
- b=PLiMgy2mkCsCeBwAzcCbel54H98GbsWHqYUPAwA5TRiOgHIetnjEEAApj6O5kb7uV3oKEhxR
- LGsMaFY4sLqQldb0T6GTheqink0+up+b5DfPjNWpu057NaTIe9xJfNGONa4kUuFMRghIbI0vCPD
- uLnvROtZzHXdMzbJHO5d1TDk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id c05da5992c7d8cdf;
-	Sat, 07 Nov 2026 06:45:29 +0000
-X-Mizu-Trace-ID: c05da5992c7d8cdf
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GCZqKHGo
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I5Uc4b4YJzf2VbXKphdd2pyGiaxMoaD0utQPctNw04X2WSwBDIJN7BUUiQhCABm5LXoeV5BfTNdmmRg9sCzmcoLHAiEnidE46FtPb7doPCNsvtzRrLa+lC6bL0dA8uFCCCVhWMLm1g4QsZF/+z31DS2tVSG5vkRl+hH0WhCIHp84IZjcJrc342+241HaHGZ/1RqzaaTuzwUSZ0pz5JvuIOIGvNkPd+hlmMfMV8/vudlamWqMAW6lwuUs2H3Uo06n0CJCHJ25aqI7vu5rQcZdUCQDUogW3D9PmiTAgwgWhHYBxqTtLWgn06yiReWRtEYXAIoNQD7EE+BXZfRaP6RORQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Awso86uur2X1QFxm5c20pt/OWO820tRoP2pWWpr1/Qo=;
+ b=yxQFQ6VgP9D5oAEdQPKc0RN2f98CU5IqbMsQda8e0JLaOa4MANvL5wtj2Qk64icOddfgwtiWGOU/2nsgiKsEf2eCMXguD9NntnaejexoPdy3wpdJkJp+c67RbhBCyXgwxR7avsMpPmPABOkEiw/n4odtZmStNBty+a7uOacJ4MnVsJEvvk5rEHDFr9mSpz/QaNyoNlKKFRkGPuEijI+jpzWN8/VxATkG+D9Qphph1iiGpHiOQBwndrlJXY39SKB0xLjsNjrbBMvL2o6wGDUIJIlVtttC3o2CpEne27L1na5uatrs7myKvSbS60/HAM1a2X9IEtx8pT8VasyuabsahQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Awso86uur2X1QFxm5c20pt/OWO820tRoP2pWWpr1/Qo=;
+ b=GCZqKHGob0KVhPvJaSwA0zKLejTQ3Mcpm9u6uIiuT497MvrS8UjaweOjeWEhyNf2dcA2SsmOpDOEdVlEv3Ulz9G1RhIQzmxLhx93TkNJuIve8ukPOrAhrvlsfpQ+Otg+UZ2y+Hg/HWLNYVnwKK1Vu5nTv+X5SsdYXc4Of/0maxohHX4ARjsk4Q+0U1neeDyZ8WndpVnNknVoQdEDA7ua1tviQt6m2Bwg0XYdDmZzvUBKRZfcw6pThxZLIY29EQ6HyDpmN3ProY4f+28R29crMU9nlS4TgRKepbnoVamQR7UVlMyoLAsYQGdMkqknzfLDEm/gIBIKRAuVu7gMyhTeuA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by MN0PR12MB6151.namprd12.prod.outlook.com (2603:10b6:208:3c5::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Sat, 7 Nov
+ 2026 06:47:51 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Sat, 7 Nov 2026
+ 06:47:50 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 07 Nov 2026 15:47:47 +0900
+Message-Id: <DMOS00OZYWU5.2SUZRN37DEH87@nvidia.com>
+Cc: <dakr@kernel.org>, <jhubbard@nvidia.com>, <aliceryhl@google.com>,
+ <ttabi@nvidia.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v6 1/3] gpu: nova-core: move the debugfs root into the
+ module data
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+ <20261014154554.231015-2-vladazaharova2018@gmail.com>
+In-Reply-To: <20261014154554.231015-2-vladazaharova2018@gmail.com>
+X-ClientProxiedBy: OS0P286CA0009.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:9c::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,127 +99,241 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 13/20] arm64: Support hugetlb vmemmap optimization
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261003002123.505555-14-jthoughton@google.com>
-Date: Sat, 7 Nov 2026 14:45:11 +0800
-Cc: Will Deacon <will@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nikos Nikoleris <nikos.nikoleris@arm.com>,
- Linu Cherian <linu.cherian@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- David Hildenbrand <david@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Nanyong Sun <sunnanyong@huawei.com>,
- Yu Zhao <yuzhao@google.com>,
- Frank van der Linden <fvdl@google.com>,
- David Rientjes <rientjes@google.com>,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <CAF9824D-CDC5-48E6-A1F6-840CB299EADB@linux.dev>
-References: <20261003002123.505555-1-jthoughton@google.com>
- <20261003002123.505555-14-jthoughton@google.com>
-To: James Houghton <jthoughton@google.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MN0PR12MB6151:EE_
+X-MS-Office365-Filtering-Correlation-Id: 253e314b-8a7e-4025-ab6c-08df3c9b0a83
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|10070799003|23010399003|6133799003|18002099003|22082099003|261009223027099003|261026121527099003|261022075727099003|261028144727099003|261022105027099003|261021121427099003|261026140227099003|10067099003|56012099006|11063799006|5023799004|4143699003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	5b+4idtzljvHr5S3qTk0NmIfmZfgKppzw1oy6I+i16uk3eVnWcEL0C1bAM+A+42f8eAycfwD6ku7Lht4LeYIfG8ScL2q5XPIr814zvFqnAlKxOc2iG8C4AEvb0/oqp7xUwzIk+kNasv73F33xNPO2zXnhobJXw17/FRjWaFzko+Cv6mJR/Za6xcpmRYEyjmWZi52Q2boGj+YAJKid935rgeH6OO95KSCSBTMWQSPTCQQyqC2MDMxwkFpY+Cmp2atqoSOLilgm+w1RN7t7GMkuo8ZGhHgPkqk/yk+A1UKi251vblxpGFnc9ysGgtMmiwXItjxFU2eM1wf/lWIIkyxugOq2T84WOKMjwGkkdJuYoQS3BB6yGy6wfF8xyhIWfffksZ2VzBzkW6gS0Ca7cxGbln3jtUj3dhTtUwq0k7VoThkL3wdL4AQlOmYjuRs50dWht5P5aqFS61NRF1ilwcLRfyImFwHWU5g7B6FkPGL5rknmNrbJKe1wPEA6yvySHTMrz+MiXGi3a8PgHmf01Afup/r9OadYhuvYkuJF2vcPH76DyOsiG7YkQJPbLz6FPhOimavXFkqv3zcr+fFxcVCTOrSkpMHNqZzyzZun7Az/RBA6SLMLc0pGjZY0NoL8/tyZLy6OOlaQ69qVLRF8FPlp9sClUJmBBvWXzMuU02J3fM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(10070799003)(23010399003)(6133799003)(18002099003)(22082099003)(261009223027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261022105027099003)(261021121427099003)(261026140227099003)(10067099003)(56012099006)(11063799006)(5023799004)(4143699003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OXk5Qzc0NGt0N2FTSFF6RHNuNUxJRWN1dVJuUWFVZ3dXRXVXZ0FkNnF6bVdZ?=
+ =?utf-8?B?bjlSY2kzQ242WFVJNEZKcHVRVklFd0x1Y2ZqMGlISmdXL3c2cU1KY3o3NGJu?=
+ =?utf-8?B?VHo2VWRybmRGS3lSejNtcnNLZ0QxaG93T3k5NjlLOWlZSENQd00vT3NSL3Qv?=
+ =?utf-8?B?YzZXamFISG10QjMveFd2cDFUSFhGZ1dNRmpYZjZDT2tWV1dCbkdDa01GQUpH?=
+ =?utf-8?B?MVVCODg1WDNRbnBldzAvUW9BUEVRVm9SUFV4TmkzUjBOeXNZWVNOWGxacTI3?=
+ =?utf-8?B?QlRoUEZKcnBZeWF4bEE2OS94ZktQTDB5TElCMWRCUitUbUpJcFU1ZkZlc2NY?=
+ =?utf-8?B?ZTVOZkprU05JbncwWDBCVGZSbE9ES0xWQlU2enp4MDFSdnFud2NrRFYvUGlG?=
+ =?utf-8?B?WWlXS29XL3pveFdGUG1sM0ZPcWNOdGRjc3pmSHZQaFNtaWpLNEpiOWtlOUsz?=
+ =?utf-8?B?NUpNTkZiYXlUaEN4akdhTWtnUFluRWd2SUFHMXkrZm53ZitXcFFsb2JKTnhR?=
+ =?utf-8?B?NHNhYWdac3BpVHhYcnlGbmlWSkZyS1ZVdXoxRE9NeUtZZFJ3eGtZeVhFYUpi?=
+ =?utf-8?B?NGdjekJGeXluWkh3cDdxbzRxTW9KYlVrUHBRWVJ2WHVxNkdqeGZjb25odEpq?=
+ =?utf-8?B?Ni9WN0xESkJseXFhOVlNbmhsbnZ6SG9BQTQ4N1pIZElkeDh2R0pScE5DellP?=
+ =?utf-8?B?RVlQUDlxZUd4U2lDVFJxRXRUODNPWXR5RGw5ZTMraEltY3d2bE41a2oxTUlu?=
+ =?utf-8?B?U01mRWxnQ25PcjU2ZmttcXpoRTlQTEkya3BLUERHRUxwelFHRnFtZjBCd1c5?=
+ =?utf-8?B?a2RCTVY0Z3psRjlHTm5KdEpCcFJJZTZ1bG95R1JLeFEra21PV0dMVXJrUENU?=
+ =?utf-8?B?SEJHM3oycDM3T1BjQ3B0VWJCT1VtaTFqZjFEdGZNZ3RVcW5KN01DQ1hVZHZX?=
+ =?utf-8?B?OTVQMElaZGZSRFNEakNqQ3RSQWFBRzArZGZWeU44dVRaTHJiWHZ0OXRJSTFB?=
+ =?utf-8?B?ZUVqc1dFeC9od1RFMksrNWVkUkc4bXptbnpqWUVQc29xRkV0NklRUGtGY2k3?=
+ =?utf-8?B?ODRiV0hOREJpZlRLc3lFRUJCNVJleTBSMStBdWRMdnRnRmxCbkZMc1ZCTVls?=
+ =?utf-8?B?VUxKcTRNSFRhNkZnaDF2U0Y2WVZaVFB0ZmdOeWV2WUZIZjYvUWg5aHpBeDl4?=
+ =?utf-8?B?d2tqZS9JdGlWbjU5TE1FclovRkhkaUNEdWJNWVNsbWFyUUpqWFcyU3k0aVpO?=
+ =?utf-8?B?S0lLOXhkbHhVbzdxYVdyZUlWeWNsbVR6aExVUGUzUzRadUZmVzd5MWhrQlVE?=
+ =?utf-8?B?TUxjV2s4MUdLSERDWEJvK1BnaDVLOTdHRlRoZXpyODFWdFdGeGsrLzc0N0pU?=
+ =?utf-8?B?Z1JiTDY2eFcrZ0FpRUhLUnU1M3QrdHZ0NFgrUm1xMU9xYzE1aFJ2dHdVQ0ZT?=
+ =?utf-8?B?NXJJSWVDcDNMZG9uWFZHNmdKd082L2Fmay9TNWp5TjUyV1RvNGlPWXlQMlcv?=
+ =?utf-8?B?VW55alpINzFYTjFqeHltVmRtVzIvdG5yejVpK25sdFJRSDlZTSs0N0RHN2d4?=
+ =?utf-8?B?QWNXWFFDRTN3b1NEQVdNbEpWRmhjbmJZdnNzNWlhTHhqZC9uL25PUDM1emIw?=
+ =?utf-8?B?TW9aVHl4bmtjaU83VHI0QXlsV1ZZTUlRRVJqYTFaOWNWVkMxSlNNbkVRN3ZY?=
+ =?utf-8?B?dmFRV2RtaUlucU4zWWJ3RXFIV3JHU0dzR0tQMndhdDdkWXVjTFUyY2ZSSCt5?=
+ =?utf-8?B?bklITWJaMURZeUYwWm9OWU5KTVlTdVd3U0VuQlgxRUFYaDNkc3dINUsyaTJs?=
+ =?utf-8?B?ejljdWFYQ3ZPZGx4MnE3akoyNkJCUHJuSUs3dUh0bnc2K01ZbDRwU1ZEOS9N?=
+ =?utf-8?B?RlN6SFVMRFp0OUlZdGlzVWcyTXpTeU42RzZadktGWC91L3hUQUp1VzJBcFJS?=
+ =?utf-8?B?NjY5aHQwWTZsOVBOVDZnT25sSUVOMk80aXBySFoyQmZNeFdnNlVwRnhLWDBZ?=
+ =?utf-8?B?RXBzL2VMa2F0RG9BUHBTK3ZzT1JzczFMZmZ1UVZES0F4YUM4UFN4OENSQyto?=
+ =?utf-8?B?Qk4yOWtLRTVjb1ZFc2xDRXNuQUZ1dWphWkgrdGFEbmJuSGxKM1dabmtmdDQ3?=
+ =?utf-8?B?blBydWRSbHE3Mi80cUdxY2R0L1FSZXQxVTFHZXpxL1VOeDV3bFhMeFhPUjY2?=
+ =?utf-8?B?cU9vdDY4T0FGTjg0YngzZ3o0NG9jSmlIeXNkSDNFbFJCYVk1Y0dEdmlkcmE4?=
+ =?utf-8?B?MGU3L1pzN1NjQmJzRnVPdXFhdFB0WTNaOXZFS3dRTGNKYkhNdVhJTFljQk1q?=
+ =?utf-8?B?SDJhUTNIbG5ZZFc1a0RGUE5XRzh4N0NDWTIrdUtHL1NYUVFablN5WDJHNlFD?=
+ =?utf-8?Q?uWJSdRWv7IpHDB+laWyGr/p14Ox/vWwNkTDtx2adRluqr?=
+X-MS-Exchange-AntiSpam-MessageData-1: iPzEaNUG0tBpaA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 253e314b-8a7e-4025-ab6c-08df3c9b0a83
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 06:47:50.5983
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: j2hU2I+1gpDPv44FSL3zo/uUh3yCEihi7juPBzJwuHbPfeazHQ3h1IwgCPcEc0U1tTGZXZ7NoGa4xA/3ZqMwlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6151
 
-
-
-> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> =
-wrote:
->=20
-> Support HVO if HW AF and BBML3 are supported. These are the required
-> features for the vmemmap to be modified in place.
->=20
-> On arm64 systems that do not have the required hardware features to
-> support HVO, the HVO sysctl will not appear, and any attempts to =
-enable
-> HVO (either via the command line or via
-> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON=3Dy) will have no =
-effect.
->=20
-> Signed-off-by: James Houghton <jthoughton@google.com>
-> ---
-> arch/arm64/Kconfig               | 2 ++
-> arch/arm64/include/asm/hugetlb.h | 7 +++++++
-> mm/hugetlb_vmemmap.c             | 4 ++++
-> 3 files changed, 13 insertions(+)
->=20
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b51d23a62c92..e4c87487bc7f 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -92,7 +92,9 @@ config ARM64
-> 	select ARCH_WANT_DEFAULT_TOPDOWN_MMAP_LAYOUT
-> 	select ARCH_WANT_FRAME_POINTERS
-> 	select ARCH_WANT_HUGE_PMD_SHARE if ARM64_4K_PAGES || =
-(ARM64_16K_PAGES && !ARM64_VA_BITS_36)
-> +	select ARCH_WANT_HUGETLB_VMEMMAP_RO_AFTER_INIT
-> 	select ARCH_WANT_LD_ORPHAN_WARN
-> +	select ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP if ARM64_HW_AFDBM
-
-Because vmemmap optimization depends on compound_info_has_mask(), before
-enabling HVO on arm64, its vmemmap start address needs to be aligned to
-MAX_FOLIO_VMEMMAP_ALIGN. Therefore, a prerequisite patch is required.
-
-Thanks,
-Muchun
-
-> 	select ARCH_WANTS_EXECMEM_LATE
-> 	select ARCH_WANTS_NO_INSTR
-> 	select ARCH_WANTS_THP_SWAP if ARM64_4K_PAGES
-> diff --git a/arch/arm64/include/asm/hugetlb.h =
-b/arch/arm64/include/asm/hugetlb.h
-> index d038ff14d16c..938d7896a31e 100644
-> --- a/arch/arm64/include/asm/hugetlb.h
-> +++ b/arch/arm64/include/asm/hugetlb.h
-> @@ -11,6 +11,7 @@
-> #define __ASM_HUGETLB_H
->=20
-> #include <asm/cacheflush.h>
-> +#include <asm/cpufeature.h>
-> #include <asm/mte.h>
-> #include <asm/page.h>
->=20
-> @@ -65,6 +66,12 @@ extern void huge_ptep_modify_prot_commit(struct =
-vm_area_struct *vma,
-> 					 unsigned long addr, pte_t =
-*ptep,
-> 					 pte_t old_pte, pte_t new_pte);
->=20
-> +#define __HAVE_ARCH_HVO_SUPPORTED
-> +static inline bool arch_hugetlb_vmemmap_optimization_supported(void)
-> +{
-> +	return system_supports_bbm_through_af();
+On Thu Oct 15, 2026 at 12:45 AM JST, Vladislav Zaharov wrote:
+<...>
+> diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/n=
+ova_core.rs
+> index a8f6dc22057b..ee3a6600f320 100644
+> --- a/drivers/gpu/nova-core/nova_core.rs
+> +++ b/drivers/gpu/nova-core/nova_core.rs
+> @@ -4,6 +4,7 @@
+> =20
+>  use kernel::{
+>      debugfs,
+> +    device,
+>      driver::Registration,
+>      pci,
+>      prelude::*,
+> @@ -32,40 +33,75 @@
+> =20
+>  pub(crate) const MODULE_NAME: &core::ffi::CStr =3D <LocalModule as kerne=
+l::ModuleMetadata>::NAME;
+> =20
+> -// TODO: Move this into per-module data once that exists.
+> -static mut DEBUGFS_ROOT: Option<debugfs::Dir> =3D None;
+> +/// Pointer to the [`DebugfsData`] the module owns.
+> +///
+> +/// A device has no way to reach the data of its module, so code running=
+ on behalf of a bound
+> +/// device goes through here instead.
+> +///
+> +/// Written once, while the module data is built, and never again: what =
+it points at is dropped
+> +/// only after the driver is unregistered, so it is good for as long as =
+any device is bound, and
+> +/// is not read outside of that.
+> +// TODO: Drop this once devices can reach the data of their module.
+> +static mut DEBUGFS_DATA: *const DebugfsData =3D core::ptr::null();
+> =20
+> -/// Guard that clears `DEBUGFS_ROOT` when dropped.
+> -struct DebugfsRootGuard;
+> +/// Data the module shares with every GPU it drives.
+> +///
+> +/// Reached from a device through [`debugfs_data()`].
+> +#[pin_data]
+> +pub(crate) struct DebugfsData {
+> +    /// Root directory of the driver in debugfs.
+> +    root: debugfs::Dir,
 > +}
 > +
-> #include <asm-generic/hugetlb.h>
->=20
-> static inline void __flush_hugetlb_tlb_range(struct vm_area_struct =
-*vma,
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index c1c736dd08b9..fabf2b25fe59 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -85,6 +85,10 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct =
-page *head, unsigned long start,
->=20
-> 		/* Make pte visible before pmd. See comment in =
-pmd_install(). */
-> 		smp_wmb();
-> +		/*
-> +		 * On arm64, this requires BBML3. Its support has =
-already been
-> +		 * checked.
-> +		 */
-> 		pmd_populate_kernel(&init_mm, pmd, pgtable);
-> 		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
-> 			flush_tlb_kernel_range(start, start + PMD_SIZE);
-> --=20
-> 2.56.0.rc1.315.gc6ed9934b7-goog
->=20
+> +impl DebugfsData {
+> +    /// Creates the shared data.
+> +    fn new() -> impl PinInit<Self> {
+> +        pin_init!(Self {
+> +            root: debugfs::Dir::new(c"nova-core"),
+> +        })
+> +    }
 
+Another thing: since this is declaring now a proper interface, can you
+move `DebugfsData`, `debugfs_data` and `DEBUGFS_DATA` into a sub-module,
+say `debugfs.rs`? This will keep the root module free of clutter and
+keep all the debugfs-related setup under a single module.
+
+Tring doing that locally also made me notice another potential
+improvement, see below.
+
+> =20
+> -impl Drop for DebugfsRootGuard {
+> -    fn drop(&mut self) {
+> -        // SAFETY: This guard is dropped after `_driver` (due to field o=
+rder),
+> -        // so the driver is unregistered and no probe() can be running.
+> -        unsafe { DEBUGFS_ROOT =3D None };
+> +    /// Returns the root directory of the driver in debugfs.
+> +    pub(crate) fn root(&self) -> &debugfs::Dir {
+> +        &self.root
+>      }
+>  }
+> =20
+> +/// Returns the data the module shares with its devices.
+> +///
+> +/// The bound device is what makes this sound: the data is built before =
+the driver is registered
+> +/// and dropped after it is unregistered, so it outlives every device th=
+at is bound, and the
+> +/// returned reference cannot be held past the one it is taken for.
+> +pub(crate) fn debugfs_data<'a>(_dev: &'a device::Device<device::Bound>) =
+-> &'a DebugfsData {
+> +    // SAFETY: A device can only be bound once the driver is registered,=
+ which happens after
+> +    // `DEBUGFS_DATA` is written, so it points at the data of this modul=
+e, which lives at least
+> +    // as long as the caller's device is bound.
+> +    unsafe { &*DEBUGFS_DATA }
+> +}
+> +
+>  #[pin_data]
+>  struct NovaCoreModule {
+> -    // Fields are dropped in declaration order, so `_driver` is dropped =
+first,
+> -    // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
+> +    // Fields are dropped in declaration order, so the registration goes=
+ first and no probe() can
+> +    // still be running once the shared data is torn down. `init()` buil=
+ds them the other way
+> +    // round, as the data has to be there before the first probe() reach=
+es for it.
+>      #[pin]
+>      _driver: Registration<pci::Adapter<driver::NovaCoreDriver>>,
+> -    _debugfs_guard: DebugfsRootGuard,
+> +    #[pin]
+> +    _debugfs: DebugfsData,
+>  }
+> =20
+>  impl InPlaceModule for NovaCoreModule {
+>      fn init(module: &'static kernel::ThisModule) -> impl PinInit<Self, E=
+rror> {
+> -        let dir =3D debugfs::Dir::new(c"nova-core");
+> -
+> -        // SAFETY: We are the only driver code running during init, so t=
+here
+> -        // cannot be any concurrent access to `DEBUGFS_ROOT`.
+> -        unsafe { DEBUGFS_ROOT =3D Some(dir) };
+> -
+>          try_pin_init!(Self {
+> +            _debugfs <- DebugfsData::new(),
+> +            _: {
+> +                // SAFETY: Nothing reads `DEBUGFS_DATA` before a device =
+is bound, which cannot
+> +                // happen until the driver is registered below. What it =
+points at is dropped only
+> +                // once the driver is unregistered, so it is valid for a=
+s long as any device is
+> +                // bound, and nothing reads it outside of that.
+> +                unsafe { DEBUGFS_DATA =3D &*_debugfs };
+> +            },
+
+Let's move this initialization into `DebugfsData::new`, using
+`pin_chain`:
+
+    /// Returns an initializer that creates the shared debugfs data.
+    ///
+    /// # Safety
+    ///
+    /// The returned initializer must be run exactly once before the driver=
+ is registered. The
+    /// initialized [`DebugfsData`] must outlive the driver registration.
+    pub(super) unsafe fn new() -> impl PinInit<Self> {
+        pin_init!(Self {
+            root: debugfs::Dir::new(c"nova-core"),
+        })
+        .pin_chain(|debugfs| {
+            // SAFETY: Per the method's safety block, the driver is not reg=
+istered yet, meaning that
+            // no device can be probed and thus nothing can access `DEBUGFS=
+_DATA` concurrently.
+            //
+            // INVARIANT: Per the method's safety block, `DEBUGFS_DATA` is =
+written before the driver
+            // is registered and points to a valid instance of `DebugfsData=
+`, which is pinned
+            // and dropped after the driver is unregistered.
+            unsafe { DEBUGFS_DATA =3D &*debugfs };
+            Ok(())
+        })
+    }
+
+That way, the burden of enforcing the invariants for `DEBUGFS_DATA`
+relies exclusively on `new` (and we made it unsafe to force the caller
+to do that). The only thing `nova_core` has to take care about is
+calling it before the driver is registered, and keeping the result alive
+until it is unregistered. Simple and trivial to check since `nova_core`
+now doesn't contain any of the debugfs code stuff anymore and literally
+fits within one screen worth of code.
