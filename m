@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794074659;
-	b=I5VPI7OVgbuFUDwtxtOyRgWSjO7Y68bGLcCNKCAwCYEPZhlNfwNxUDpxC1iL1ZbwWtzc
-	 fD8mmZ9PgH9xIrD6LOCUzi+tZkvXKfgHtILnGs513BRvlR0U+le9GH+6uA1ASqfH0rh2/
-	 fv2DQYNDqnYwCl9kj6JcyMGO+2m/svM1jAVl4nNw50PnTq6Ub0Lsp0MRV2L7FxlxlEIdf
-	 4/wwrT8oM3TNaGvtEu0Ma/y4t9EC9197tY32JWL2CNe4tfpdD/sVzoNg+xN3szEE0eQOQ
-	 Q4CsTcjMohg9cT4Hi7CjaapBmlsUiuZtEuqkXFdBdCLceS7uNY4rxOVN+uS/nExkQpw==
+	t=1794074665;
+	b=VgQD1N0fHyXtz2ebYRtlAUbtSYGxOd/aGOWwjnV4N3CAY/jOKd01bXm+GDCCp2vFkuCe
+	 MX1IhBTMuwVUaFs8dwRXXphEG0vmlIVuyRQvkvGeVscWGg+wIeAZrN/261BqZdZH3bSq+
+	 +fpse+j3nzQcDJmiLCGFJ5x5i3nZqs2EGwGGcT6F7L/YB6v0l+G8Bc+zQcNxz9tNn3R2a
+	 VovoOO6L/1Q6x4P1TrgbJQH/yuxnONKyNzuIN7RN6jhNK5nAzuicfSjOlA+X8FaerYTyc
+	 ccEGRNx6YKFFHpkfmsok6k+scGzc90/oHjHUwV00gCk+cbCv+fWsPZ+tP/B1Cn59hag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794074659;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type;
-	bh=hdsVF3wRllbgTsrjk576K0X32tICTvbqh3EyFm4AKF0=;
-	b=Jxw4xcPu15UPHuAkvTL479VvNK6vZAsS7ab5OIgq3T3q1giHa80RmCD2eGJvjlIL/ZjG
-	 gKGrVdViEQOXNo7fQjqzM3fRK6ORAzgUY0s3nKC5UL337b1IGr2YRYHXq5wTZnVS0eXRo
-	 uKuhGHwLMigMSnypao7T/UmM7xi02gmp2Lxlpkt5R8m5OAWeR+qfs7e2/j7ASkNXC/Leq
-	 0KysJsPCYzp7EneAsb/g6XHvg61x/tihAHIQn3K+O7UBYZ/GggYDx268JGgwQFxtPLF+z
-	 q8hd/9392ObMYAvs6Sb8d+F6MaUluh2LAfcZR/0fFVelORB9DneDWazApOv4nzMCdkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794074665;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=QXa9zPuXA8rkMsYvvuuKZtvoPATPnpClQ4XaIx2/zF4=;
+	b=footZrQygu18/RXX9gQnWn7ZkIXRaXB2xsatufxPJyWTpNeKT57wkGo5L0UiIQGYJwtj
+	 p4vZmYdqtynO9IfyIwt0Bxk2MwbYzKxrhsAzjIEYMz7PubjvHqPvJN5ClIDEcHPVBmKgv
+	 AFxlu/o1pzTZjuQfdu5SOFg9VRpq0In1CNj4jDjScTg8AFZUpwY/eAvlGcfUaJTGOTMLo
+	 EtwCpnOXI5MUuT9Ab74SSIPkfUz/C90ZQ70gOQtENpfp/1uocDP1vau35iDTCccgZQsod
+	 NxIvDLA2KfI2nfj4nrvjpk0tHw5fmwWhe5QdhCioeqFQyZ1jjogyg+USKXlScq77DEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=mDO8nJcM;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=eq1HoqyF;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43562606A326;
-	Sat,  7 Nov 2026 18:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43562606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F05B606A32C;
+	Sat,  7 Nov 2026 18:04:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F05B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=mDO8nJcM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=hdsVF3wRllbgTsrjk576K0X32tICTvbqh3EyFm4AKF0=; b=mDO8nJcMrYS89GOecvJEVnXtPB
-	QwORuhAVl/cACZuSARDqXrzTKV2KK3tCZ9zEuizaEYAoAZPdiJ2hWjS0KdL9Wp1H8JBvqUhQaxg4V
-	os+bq5iPHvCtB3QNFhAoM1hJc17haYDZrYGcuNL0FFcTfbvrqFxPnMmgLX9ixKD6FDrGpPBQ5P+6/
-	G9+uJXWIZVZ9Phl1hMpyBoP0q+pJnaL3b7BtejfCa1v+l4HGxS0gnFD+nO/msqOkcz2dyIaRvVgy/
-	Nn8IK9GRZNBt+UKA7vcn/ZL1fHeLaTkqf8JeM/dz3iocn/OD6ydkzJG99OOi1+PkMSQvc65N1bHfs
-	V3O8aqKQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xPkm0-000000017yM-04WV;
-	Sat, 07 Nov 2026 15:04:17 -0300
-Message-ID: <14e62e2c2cf3e910a5d86fdd465d9e4f@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Andrey Misiurov <andrey.misyrov@gmail.com>, Namjae Jeon
- <linkinjeon@kernel.org>
-Cc: Steve French <stfrench@microsoft.com>, Henrique Carvalho
- <henrique.carvalho@suse.com>, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrey Misiurov <andrey.misyrov@gmail.com>
-Subject: Re: [PATCH] smb: client: fix OOB write when compounding SMB2_IOCTL
- with encryption
-In-Reply-To: <20261030213827.2216453-1-andrey.misyrov@gmail.com>
-References: <20261030213827.2216453-1-andrey.misyrov@gmail.com>
-Date: Sat, 07 Nov 2026 15:04:16 -0300
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=eq1HoqyF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=QXa9zPuXA8rkMsYvvuuKZtvoPATPnpClQ4XaIx2/zF4=; b=eq1HoqyFQIvJLyReDT83mibARm
+	BGgcdJ0JbC3NASn9nta9n0oNtzGHqCxRrlT9WxKqRxOeSTJ8Y3ic/a/FbZMUrVij3qacGwXj4IkBu
+	UOeV2+mgVGR8R1qfkjHhmIgEEGnJZ1ynvSbxCCRoPPXycjD3MNSTtab7ceduuZvm5Pg0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xPkm4-00EzOJ-1p; Sat, 07 Nov 2026 19:04:20 +0100
+Date: Sat, 7 Nov 2026 19:04:20 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Dong Yibo <dong100@mucse.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	yaojun@mucse.com
+Subject: Re: [PATCH net-next 3/5] net: rnpgbe: Support copper link
+ configuration
+Message-ID: <a60f0f38-85c7-4453-8a9d-310db05f4615@lunn.ch>
+References: <FB722C2F25FE9005+20261106112420.43050-1-dong100@mucse.com>
+ <D2E577671FEE0E12+20261106112533.44065-1-dong100@mucse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,48 +65,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <D2E577671FEE0E12+20261106112533.44065-1-dong100@mucse.com>
 
-Andrey Misiurov <andrey.misyrov@gmail.com> writes:
+> @@ -236,7 +236,7 @@ int mucse_mbx_set_link(struct mucse_hw *hw, u32 advertising, bool autoneg,
+>  
+>  	len = le16_to_cpu(req.r.datalen);
+>  	mutex_lock(&hw->mbx.lock);
+> -	err = mucse_write_and_wait_ack_mbx(hw, req.dwords, len);
+> +	err = mucse_write_mbx_coalesce_event(hw, req.dwords, len);
+>  	mutex_unlock(&hw->mbx.lock);
 
-> On an encrypted ("seal") mount, SMB2_ioctl_init() keeps the IOCTL input
-> in a separate iov (iov[1]); iov[0] is a 448-byte buffer from
-> cifs_small_buf_get().  When such an IOCTL is not the last request of a
-> compound, smb2_set_next_command() pads it for alignment by copying the
-> whole request into iov[0].  A large enough input overflows that 448-byte
-> buffer and corrupts the slab; the copy also sets rq_nvec to 1, so the
-> input buffer is leaked too.
->
-> An unprivileged user can trigger it by creating a symlink with a long
-> target on such a mount: the native symlink is sent as
-> FSCTL_SET_REPARSE_POINT + QUERY_INFO + CLOSE in one compound, so the
-> IOCTL is not the last request.
->
-> With slub_debug red zones on the cifs_small_rq cache, the overflow is
-> caught on the next allocation from that cache in the same compound (the
-> 0x61 bytes are the 'a' characters of the symlink target):
->
->   BUG cifs_small_rq (Not tainted): Object corrupt
->   [Left Redzone overwritten] 0xffff8a59c7790500-0xffff8a59c779053f First byte 0x61 instead of 0xbb
->   Call Trace:
->    check_object+0x1a8/0x350
->    alloc_debug_processing+0xab/0x110
->    ___slab_alloc+0x7e/0x2f0
->    kmem_cache_alloc_noprof+0x28d/0x4b0
->    mempool_alloc_slab+0x16/0x30
->    cifs_small_buf_get+0x1a/0x30 [cifs]
->    SMB2_close_init+0x8a/0x100 [cifs]
->    smb2_compound_op+0x2571/0x2b50 [cifs]
->    smb2_create_reparse_inode+0x27e/0x490 [cifs]
->    mknod_nfs+0x1ce/0x2e0 [cifs]
->    create_reparse_symlink+0x119/0x180 [cifs]
->    cifs_symlink+0x19f/0x8e0 [cifs]
->    vfs_symlink+0xa3/0x1b0
->    __x64_sys_symlink+0x41/0x70
->
-> Pad the input to a multiple of 8 bytes when encryption is required.  The
-> request is then already aligned and smb2_set_next_command() no longer
-> copies it; InputCount still carries the real length.
-> ...
+This seems out of place.
 
-Applied.
+     Andrew
