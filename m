@@ -1,89 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794028843;
-	b=UPlCBQ9+Fo2cCv6zWMPkA9PH1xhJIJqIKcfsu7qhp7sffLdlkEn5Z3hSUnIhQLvOt0nI
-	 2u7DOFyVD5CN1y0Nhh/ggRgI/b88oAchz3NXrjbRW4xvk0ibF3BXEwrHyzrhrhAwYPd8q
-	 h7CoL8DCddaHXrdE9V1k7l/nolmRACUqPrwAVAPK0CddB/zTeeNqicDo5C2aNtX1N1z3e
-	 /64HHqPkecTsTFqSsyDiUl9saXuX9yePU8/ze5WYB74X8741BArpn5m7FXn4z31oq9O6X
-	 VhgqCCg+lto0pWxRHxbf11prrE51dmRUBHLmZlegJ6WGQdnftd1yuYD/0X+Lz7qVC1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794028843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=v9Tdiy9REOY1qeQxFjltXsTnBPcqZlFKUcohy8cjEnM=;
-	b=fCePR1s7WM1Y+YyrFOq4mOihb9X+L16GV/QriSN/Y1yizbBPDOHkLMluUrXVZE/9Q2iV
-	 gYFJFj555eOh0+9Wjdojc5543gFnVqsT6p+MRY4M1fHWuBfJy2JI1saBbb5R9XUlalKU7
-	 fjAWzbNKjH7yaS6AXWhmc9uhRkjA5kdErLSXn7IBXaFmuxHIUueYyLAgP0OwdjwKTexrP
-	 PaqXYeTLIA1UayvEHS4GREqWLGmVGtYqmdACTV2//QrnFm0g0NKy/jahKkTFATe/RvDT3
-	 z8dsndHDI++85kEQAYZ2tA1Zk5bCBeQt5Y/fIRUecknBRp7QYnTHPtLkACYzvGyebXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYqPScO4;
-	arc=none smtp.remote-ip=209.85.167.172
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794029279;
+	b=dmknmsVuWHamP8Fikio6M07P7fwjEWmEY/UAXCGvAjNPe6quZXKxZt+zbluHBPdNraXz
+	 N+yhl/xblLhOk/qOE80cnHLJmDx3u4t0xlmoWT2nf/oh6GprlSGKxdyWxjA59zqNBHydX
+	 zpClRvCUeMTtu4a86lg8QVBA7UI3qcZ6EHUKS0kataDXkmTxXzA9BDZz3+iuQoPvZm4Ek
+	 1Oc2jVlq7i5dtPySjvJeTcEOeDI1sDD90vMkQDYLw8UMziGbZoVvjjWn3GHZZE22rq/wb
+	 yxkyf23Sm54ENH3KeGTauRctpaJat9a1OxdSEv/Ap2Es4JjxdgKYdDrZ1wav2bGl7LQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794029279;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=KN/PNSefPnpKWE+eWzuXqjiMMswYO0XzMMrKlg7bGyQ=;
+	b=zAkH2OaeK5xb18Gn2eiGETRuldF5Gq4gjr/2dTHkI9ctPp52JwWduESwzsMY6hG2z9t+
+	 DYnXecwagUDY5aBqzC2cXKRarPPt0X/DQ09WMQZ0stQ/ZQEm3Vv6DBYzRPVWP8HiD+FrL
+	 pQsFZqcx+lPgoV4ffY3bvxyyJPN18ipgcdOz6aOkYKrAq26TksvO98hB52pI+k5+N26W2
+	 Fp8Dc33PfbE98Ba6EN1B9h0gouNNwtDWH/4Wu+Ld9tOkcmMrwy5a1xgDiahvO3SluSOmi
+	 NF9ZrOAUjoDK62WfN7GU0oNXgQGFoC3AHW5my9XYeufEBtCEJW855xuXKsAJzSoe37A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZBrUa7t7;
+	arc=fail smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B050606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B050606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C86606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 05:27:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C86606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYqPScO4
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4f55a53898cso683650b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 21:20:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794028842; x=1794633642; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=v9Tdiy9REOY1qeQxFjltXsTnBPcqZlFKUcohy8cjEnM=;
-        b=RYqPScO4cPEx58XXCs4YMXEPGQK7K8qQCGw7XZ4hIAPE0vYmKl92KnhNEpUcjjpbW7
-         ZkcOiBMpMJIA4VaXLIz2W+WxEd6DMYzcakRcTCNvNv48Ew0SXSUJuHheAPaZneAT2SGL
-         Neu5xBe8h/vDWgH5l9jtvg+WDYHg60WICe+/pc8soaicovEiTsfL9xw4BwTDch3J7n6W
-         dEcGKk0xMsO4oS3LoE/rKPhARjU5MDGwL2uzd0sfjISfZD+k6CrovN3VkVJdgP57YJij
-         tKHRCow3DEtoO07ilW57X8US4swAPkbAjzUWfq3dReQaN0aMu8RbtWNHhncKSkVkIvz8
-         dygQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794028842; x=1794633642;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=v9Tdiy9REOY1qeQxFjltXsTnBPcqZlFKUcohy8cjEnM=;
-        b=KDi3V2RYmTIF7Z62DN2OsZE7lV4BJ99YbjWT6jQFYDrwfgv3OdMPbOUQ6Bv5N2jVmD
-         mBrrFJJrEpn9igwYTsquSrZwyIT+hg6dlS0Nt6hRJTIfOI08pH1izdF7UrhzNoYv3BL2
-         xWRgySSYyJdYjIJmQ3OSENs+r47XekJSEgUVA0R7ui1loxHFZWIcwKu89lnnaH0UwIzc
-         s1uxmhCJPLx71+3KrexfmhEH/XTmAMeSoieEO/yOyXdbTyqFs05qewAOsac/ckECcryy
-         nSeZSnwWwzKRK9F8tXrKyboRABEOSRsDmRqkFDsIMj895ng4L0m7EXcBa9amxVDSEhv/
-         FrjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByoBhP7ZgFJovyzUkZYrQlg//NDuqQng4aNDO1xT30glkTkCIErFeEIyAUYKkF1uf5f/qUNASmSiEzJoFs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bWyLqlS2EvyUvUF+MhVnuj6JD8MmOrPvQ81PPLzrgs41q+vd1
-	Dnkr0n2VFwALXrhiu0qAewaPls+oKWPAStLYmpBbL8YwrVVUGkLCIAv5
-X-Gm-Gg: AYBFou3KBUKKQpi/PHJWZMtxubzrFSBxgaCovi9EvpssXOKLdyfJcyKQENEmo8z3c2j
-	8e5KRBm/YM8DO1YTQKFvv/otA+R3n05poL3foWbFXFBUeZADReqwD6eOV3DJMGECSxxr+T0UuwF
-	uq/5k296JGG+4gmkc1h7uuiFEyrxrY2T8R3cdPHWYjUPAlwWkqGpRg2eNK47I+DX2/AR96Q+bgq
-	/5jP7JdJKYWh2rRKdcSQk1oBx/XfyHozv5r97lO5umPVoLLhABzEGLCMbpkPb00YntR7s4Vvsfr
-	L/R9YWDXH/kGtYE/GGn7XtOJquvSsI1yWM0Qez6X/+HUWFUZ83ePeb3ixV+S053sDYFQViLa23a
-	x5IwHBW8uUzmvxLJegmz5qXbGDLtXRgbc5TIAsUnwYdxX7KoRaz5BSy8NjdsoFp0b7kkXoGP+HR
-	2KewPd901tsm/nUi7MsHYTYJK3R9v6giP8vKRRSEiC0ysxGw91zfysF7yvRqes9Nv2798pyVgMZ
-	M2mgyOnm57+DEBHgOkU6miY+OrXDwMabMTyHvtJx1ehIsd47MNr7gTQFLsLfkVeSp44vOZBMR1+
-	XFFC584pgx2cO7dYc8eEybP36EZni2cAgmFa8slBGqNSSY7DbYj+u0tvpAYttHO/5mXYhkcWoPr
-	gNfHDdaqkTqO6xd4DI2+pku0imkdlEOKT8T0XH7aNZ69oYQI6dvupbduiQKpWirryElGio4AE0l
-	lOKaFLAUfXdvA/XuZ1hZELL3betXvJTebavsWWvsUpA9c/AuB3iK4D
-X-Received: by 2002:a05:6808:10d3:b0:4f5:d873:aaaf with SMTP id 5614622812f47-567e1440dfbmr4090440b6e.14.1794028842361;
-        Fri, 06 Nov 2026 21:20:42 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7ebf4edsm3059846b6e.13.2026.11.06.21.20.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:20:41 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH 0/3] mtdchar: keep data and OOB aligned across ioctl chunks
-Date: Fri, 06 Nov 2026 22:20:38 -0700
-Message-Id: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZBrUa7t7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794029277; x=1825565277;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=MY7vwtlihRlZNmSN0J1NztFZ8Ya6nNcZUalEbyfj83A=;
+  b=ZBrUa7t734vfTadPv00mh7QAUTym590zYpCnJsy+LU0rjQCL3L2dgKUl
+   tlRiXEjWNERq0wH5aS5DCd4D+7AtvWbMn5Q5uY4ovIgILZuyuti4Ely83
+   engmj0ZDGu4MH1m3yjYgmAjMQ0sp0MD5+Q7pTa4ktpUVlDqsPRtzIJtWS
+   gFBMoSBRYteY17qdp6SAoIn+kQg4Mgj33Mw3wvpJBAT/w/qmf6GQOPAl/
+   XDhC1yWeGpnuqMUQhnRrsZpoxM3NjSnHgfhRIanFvoZbdzaOqbDLy+q3+
+   VUFWH3UqRoCe1KneUS/2ayouq9gFBuBQLk56wq7k9gZfam3/EhRkPjFbq
+   g==;
+X-CSE-ConnectionGUID: bVcswMoNQJKWl0TLRpg0GQ==
+X-CSE-MsgGUID: OXMUJEyWT62UQKlyPCojPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2733805"
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="2733805"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 21:27:56 -0800
+X-CSE-ConnectionGUID: D4oHA8gFTDid9PlXktIqAQ==
+X-CSE-MsgGUID: 8aCZwm/DSU2Xafq5aWt8wg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="7781281"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 21:27:55 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 6 Nov 2026 21:27:54 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 6 Nov 2026 21:27:54 -0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.9) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 6 Nov 2026 21:27:54 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I89DdjnGVMxKfTtaLYCR91gjvMsoSkHxZhVIpAspBP7UdXAGvlVQYVg74VXHj1hS2+rOo3Bx/qw5/AYwHljFv1TB7zs3xipTJrCnO862QpSCzshFBXLTdFkOe92Ssot504Vfhmnrvkp+9d602NvFuZilwJrvP6GxrVoq+UQUJo5gJ2FzGmCw9GmJ8iJOBpb10r5PTPEgPIxIxGhiMrbL7flNGR7JPJJk6fecixFDy6vxWU/V0vtwDdRWxxHVD0zR7AoxH+KKtk+DYmgHS6bvDtjdFyHxdPKvpmxcFGiIz8YvUKuke7ho5a2quzQ+erW/nm4GHnTsxxZq8y82jaND/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ICGIZl0yGe001kHFVgX7MAY41f5i5HDJiJ3WZIZxb2c=;
+ b=P+bdLoVbcRixLA2KtMbRQUEroYoXVLpZnwnFvbRHQSGwybtuCoJ9+FWDujll/plIrtwR+y4FAAXghfFF64MZSC3QRyVX3nkR1yxeC8bGGfmEp+muGdcsiPLMg0iWrLxYvLU58GVyQ+V8lcKxs6djfiMG0rUacD08Zf6iloAe6v8h2feWisJSXKk/wDWQt53D+U08SlJnY7ktA69hLXDYrk7/FPXfocjbhAvbNksfo/YJJv5ep39NK/Yi6zE12vmmJYdlrCVvXh+83VrSEFFp5v9jS5rzfcvinHHN/c5jMLvQ7yscf9/SubRuO0Dl8w9rRrDHnXJJEZv+nQs7zAVNoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by DS2PR11MB154527.namprd11.prod.outlook.com (2603:10b6:8:3bf::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 05:27:52 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0569.011; Sat, 7 Nov 2026
+ 05:27:51 +0000
+Date: Fri, 6 Nov 2026 21:27:48 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 20/33] drm/xe: Add a page defragmentation worker
+Message-ID: <au621A_K50hsPxnv@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-21-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-21-matthew.brost@intel.com>
+X-ClientProxiedBy: BY3PR10CA0030.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::35) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,56 +139,568 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN0QrCMAxFf2Xk2WA7IYi/Ij60XVyjrI62G8LYv
- 5u6hzyc5ObcDQpn4QK3boPMqxT5JAV76iBEl0ZGGZShNz1ZawjL4iepONVB7xlnp5EQl/SWNOJ
- qkehKF/LGcxhALXPmp3z/DffHwap4cahN2xLeFUafXQqxrdR8bnN87fsPjK4B3KMAAAA=
-X-Change-ID: 20261106-submit-mtdchar-page-chunking-v1-668636b0becd
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- =?utf-8?q?Micha=C5=82_K=C4=99pie=C5=84?= <kernel@kempniu.pl>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|DS2PR11MB154527:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c21eb5e-5b50-4184-83d3-08df3c8fdde8
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|23010399003|376014|366016|6133799003|18002099003|22082099003|10067099003|11063799006|56012099006|4143699003|5023799004|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021123027099003|261021121427099003|261009223027099003|261022075727099003|261009221227099003;
+X-Microsoft-Antispam-Message-Info: Wxr7cRDpukdfGIDwI1MIbw1Ni4y/lptMkuqcKrU8bh8JXjCAkTSyK2fo0nPxARBT+2dFDzDUdv24fPtBmgYf5aFtD4K8H4vO2xmvIoIzA3babCD9IZpsxgCeCScZDD+0KzByqx+1gRUgMFm60jx2fkUg7IEhM6n0tG5Qaj/U7ORi4jxWRyq0FruV5f3ZAU7viaZxxSS4KbgGfdRCqe/xdCkd0PxRh2JlpwH45Xm4ejEAyVY0lBMc4jiW+7Xp7s1tcQPVSVoczrrDB4AGqIaD8WKlSzjqEcclFS4DDYZfDJtZKUK2C7jw7lY/b5uwrHKZ23o+sv10Y5OyiyGPpNhzl8UJkVm2IUy4iYYqbXTI1gOlvxTTqqvSoh4BXeorSXoF3DPbsoqTaH89Qr+lDgdF+niagcTk+Brpx4XVoY7ibn7HN9k7xB4BKnhOhJNDW8C3kNIjF0UlAmS6K2F472Mt0Ar8ykgo/VVqrWHPEzjymGmrbmhb7eFhe7EriDI+zSknBFJERDF7WvyT5EFpcU67NLtWzudoSe+ajOD4YG8rgumZ5jGvs3PJu8EOGbYRhjuxUOv//3iQCCFSbvUEgZIUJQcy7pvKWB0CV3k7Su546XAvYNaxxCjgqeQZXjhJKWXgxovMSJqgi2NpjbAQhCDOwB7CKo9zYW9njSXINaafmWw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006)(4143699003)(5023799004)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(261022075727099003)(261009221227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?fjpgxPzJlJCwkEFptKRmJzc/xmN8cWrUCRtKt42m4V0+wWufM2SIC+CNjZ?=
+ =?iso-8859-1?Q?lMKBn5Ar1Tvi5blFUfhg0QopzsaIn38c5Qlly4Gnfzs5TrDav6Z7Gx9hhx?=
+ =?iso-8859-1?Q?EnhNPOucxubky4w1cbF8jngGKfYxzXfwJPrDiOhQpHMhk9hbErwFi7BlOB?=
+ =?iso-8859-1?Q?ro8vSUnEuxsRK3xshGXPip4q2AZyRAujKDLnHMkEDbloPLsGmJVB0u9gcj?=
+ =?iso-8859-1?Q?NNr9NfY0loJLtvlhTyHCmF2B1qE8KM9UXM+0iafbES4+7PxaY8AAQ7mY8K?=
+ =?iso-8859-1?Q?+FPfi2YckPZAsCBGKKUhyK8YIjAJeVFdPfbhILHjamhhGfGareq+ok2+PS?=
+ =?iso-8859-1?Q?d/YTm9bdRlVw2wt3E94WhLqUTGcd1ERZSK5lntGGuxOAOqyHwItPnZBHus?=
+ =?iso-8859-1?Q?TZtuIw8jfJRJYggugUN8a1IDns1YgyxYlKnMHJzRO6ofnzGC1bilYn7CmT?=
+ =?iso-8859-1?Q?Fq5vN1+j13OU0NZMAesNmhsMMiKBFglfu906HwONU0btYg01AekfHqrAjU?=
+ =?iso-8859-1?Q?ON0eUXc6IFmmqVPGYbHPmGZnmOpZpdFtg12pEX/NDCvBFG7BNHZGnM9gsO?=
+ =?iso-8859-1?Q?0glJsH81JkjLq0aObkDlLAR5dwRTxrjeztjUzEXpb4BbyBMDND0FaojHvy?=
+ =?iso-8859-1?Q?5cQQzlgdhnBahBgeDypguciXsKE0HqOi/LKL11McxlXdLqEgwvk89iwbcx?=
+ =?iso-8859-1?Q?JaqFcw31fUQVXxgZk2k+2elfHdsiOGIi8lZYWqrMBdO4S+5zCi78HNxvX5?=
+ =?iso-8859-1?Q?iV2P7UAFQGE+FS0h+hvPoYKjbayHBAlIPeuCYiZyR2DdUzV6YghJ3mDxwB?=
+ =?iso-8859-1?Q?uWzaik9UHcAEUeHPKJWH2hQVqFjwwiflWxFcjYUnd+kq+O6BtHq/7GeoEN?=
+ =?iso-8859-1?Q?ewGwlJeQPrE6h4yVKW0rBTYHJevr399YG7+bEgR/rj45TNdUEoWM/+8PfG?=
+ =?iso-8859-1?Q?y5tfAv5MvcP65qmBxLSSy/c2DIjb9q0f2R4/TFqneQRBlGUDr6WHSLqbkm?=
+ =?iso-8859-1?Q?i512nD5qxZNNrJmAhAgFdrj7yHvsSb6MT2YE85nJdVIu8YpBPntypFGEWz?=
+ =?iso-8859-1?Q?wqwj9cBeE8fNwyDOqUo+SlYqxnpyOVm6bv9FA1+93h3oOWTNk+kGLsxSI0?=
+ =?iso-8859-1?Q?02XkLcPU7ljtt5iVVzOouBdSpIxF0iNLCMuRiIdR4WoCym/uQTZjIDFmOY?=
+ =?iso-8859-1?Q?Y1b+fcEOzGS4nTX5VH+OR50Oo/M3FErSJqy9c5JaPmDR6gL4svO4uaseQ/?=
+ =?iso-8859-1?Q?DoxFHc7s8fXMURhpZYWg+FohngiKkBGvDxqM8JS1192Ok0nWDH4xQ9Hfgb?=
+ =?iso-8859-1?Q?hV8egVlHnQzoSkDpUnWXDnof3g6H3yCkk3XMGcfMuHq4l6sWqOWXXGE4s/?=
+ =?iso-8859-1?Q?pYcihwwU8IxsM/dk0gVwb5WCZ7TV6NJoSKYM8Vg1i9EAp8XlboveNmVz+u?=
+ =?iso-8859-1?Q?nRT4KyQ6oNSNSxxzJooQrioI3mj08ibJyQ8RjQU5nKyCAFX5nj2+fUb213?=
+ =?iso-8859-1?Q?LO5h00Eg6cXU4ZcbZNQhOCy2u59mxQi0/j0Wz8n0WUZ57/9wYRzVgI5GQo?=
+ =?iso-8859-1?Q?do7zsObGzhiN4qc1rwgN2eg5pXa11neUOudVmsGLFupbs7vi0iBU9nSeAI?=
+ =?iso-8859-1?Q?0PAcEFyZg9hHT5Mj3G96OMwzTBBp9FgM5qFpNRzMc6N8qhmXtM7RcXkv8t?=
+ =?iso-8859-1?Q?jiKVMqJICd52xOcHdcUIkDgVXVoSevkuH+e1RcgOtjviXF40WAZ0A8vKQ9?=
+ =?iso-8859-1?Q?Khrija+mqUbFJQi4twXiWhmciYdfbNZGIapvt7MxlnbVAp0Cvy/1g2X336?=
+ =?iso-8859-1?Q?OCs/4hEH8IzA33Gq1QG5jL/7Yll7rrw9Rqz4vWYcBuXHYo/8ti7O?=
+X-Exchange-RoutingPolicyChecked: WKsQ3V2pCUrxvTU1XYlqiT5h1a4NwHHAYiGq2we6x+oBhiN9pYwCJbrOKgM/2QDifdqbwalnr+h7MFjwj/2kh/CusMc0y6UeFF/8+vO0iCZvNIgYypzDbJyuR6rGMwYtZlM431GOly035GXPE7oJVlcT/IgXzFk2iqxTfJ8RBGz2ZoutFZAslLUIv/lY1UPqgfp/TBVbWRQNRWanIoadoOK/qSMJPRXY8XR75bG2gKP1GGkm3+ktB9W2Mxzj1gBvEfUskV1Z9PN2KT/tdM0uoD+MQU7PuFzcYrYOIn4XTmWf+5D6MSSLdf7A1noM04aon88+apZarltAIWTYh16pBQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c21eb5e-5b50-4184-83d3-08df3c8fdde8
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 05:27:51.4896
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ST4e/tT5sjgc3WfRXfo4CrfL0gg6WsTmjHNGWW+0BdVW2L6ucMBU8Hz+erUi2JMhdZP6bC+ov0cwGjck+hMGSL5tPaGENbIai+1PMnjmRBg+9STYGgXEwqeN20AV0/AG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR11MB154527
+X-OriginatorOrg: intel.com
 
-MEMREAD and MEMWRITE split requests into bounded data and OOB buffers.
-Their chunk lengths and flash-address updates must keep both streams
-associated with the same pages.
+On Fri, Jul 10, 2026 at 07:56:06PM -0700, Matthew Brost wrote:
+>BOs whose backing TT pages were allocated below the device's beneficial
+>order (tracked via the TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED tt page flag)
+>are added to a per-device defrag list. Add a delayed worker that
+>periodically walks this list and attempts to re-back each BO with
+>beneficial-order pages, improving TLB efficiency for long-lived objects
+>that were initially allocated under memory pressure.
+>
+>The worker is kicked when the list first transitions to non-empty and
+>reschedules itself while work remains. On a failed pass it backs off
+>exponentially (XE_BO_DEFRAG_INTERVAL_MS up to
+>XE_BO_DEFRAG_INTERVAL_MAX_MS) and retries the whole list later; the
+>interval is reset to the default on the next fresh enqueue. The worker
+>stops scheduling once the list drains.
+>
+>A defrag move synchronously reallocates and re-copies a BO's backing
+>store, which is not free. To avoid stalling concurrent active work when
+>many BOs (or one very large BO) become eligible at once (e.g. after a
+>burst of memory pressure, which would otherwise manifest as a large FPS
+>drop while the worker churns through the whole list), cap the number of
+>newly (re)allocated bytes processed per run to XE_BO_DEFRAG_SIZE_LIMIT
+>and reschedule. Only the pages a move actually reallocates are charged -
+>pages harvested (borrowed) from the old backing are free and do not count
+>- so the budget tracks real defrag work and an object larger than the
+>budget is upgraded in budget-sized slices across runs. This spreads the
+>defrag effort over time, keeping it in the background and yielding to
+>userspace progress.
+>
+>Defragmenting a BO forces a TTM move (ctx.defrag) that reallocates the
+>backing at the beneficial order and relocates the contents on the GPU
+>(see xe_bo_move()). The per-BO move is bounded by the run's remaining
+>byte budget via ctx.defrag_bytes_remaining; the pool allocator reports
+>how much it spent so the worker can charge it accurately. When
+>beneficial-order pages cannot be obtained the new allocation is
+>discharged during populate and the BO keeps its original backing, staying
+>on the list for a later retry.
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>
+>---
+>
+>v3:
+> - Compute the needs-more state under the BO lock via an out-param
+>   instead of re-reading bo->ttm.ttm after unlock (Sashiko)
+>---
+> drivers/gpu/drm/xe/xe_bo.c           | 296 ++++++++++++++++++++++++++-
+> drivers/gpu/drm/xe/xe_bo.h           |   1 +
+> drivers/gpu/drm/xe/xe_device.c       |   9 +
+> drivers/gpu/drm/xe/xe_device_types.h |  11 +
+> 4 files changed, 313 insertions(+), 4 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+>index 7f6ee9b8d12e..907cfa57481f 100644
+>--- a/drivers/gpu/drm/xe/xe_bo.c
+>+++ b/drivers/gpu/drm/xe/xe_bo.c
+>@@ -31,6 +31,7 @@
+> #include "xe_pat.h"
+> #include "xe_pm.h"
+> #include "xe_preempt_fence.h"
+>+#include "xe_printk.h"
+> #include "xe_pxp.h"
+> #include "xe_res_cursor.h"
+> #include "xe_shrinker.h"
+>@@ -49,6 +50,35 @@
+>  */
+> #define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	2
+>
+>+/*
+>+ * Maximum number of bytes of newly (re)allocated backing the defrag worker will
+>+ * produce in a single run before yielding and rescheduling itself.
+>+ *
+>+ * A defrag move synchronously reallocates and re-copies a BO's backing store,
+>+ * which is not free. If a large number of BOs (or one very large BO) become
+>+ * eligible at once (e.g. after a burst of memory pressure), processing them all
+>+ * in one worker run would hold things up for a long, unbounded stretch and can
+>+ * visibly starve concurrent active work (e.g. a large FPS drop). Instead, cap
+>+ * the bytes actually upgraded per run and requeue, spreading the defrag effort
+>+ * out over time so it stays in the background and yields to userspace progress.
+>+ * Only pages a move truly reallocates are charged; pages harvested from the old
+>+ * backing are free, so an object larger than the budget is upgraded in
+>+ * budget-sized slices across runs.
+>+ */
+>+#define XE_BO_DEFRAG_SIZE_LIMIT			SZ_32M
+>+
+>+/* Default delay before (re)running the defrag worker, in milliseconds. */
+>+#define XE_BO_DEFRAG_INTERVAL_MS		25
+>+
+>+/*
+>+ * Upper bound for the (exponentially backed off) defrag worker interval, in
+>+ * milliseconds, so repeated failures don't push the retry arbitrarily far out.
+>+ */
+>+#define XE_BO_DEFRAG_INTERVAL_MAX_MS		15000	/* 15 seconds */
+>+
+>+static void xe_bo_defrag_worker(struct work_struct *w);
+>+static void xe_place_from_ttm_type(u32 mem_type, struct ttm_place *place);
+>+
+> const char *const xe_mem_type_to_name[TTM_NUM_MEM_TYPES]  = {
+> 	[XE_PL_SYSTEM] = "system",
+> 	[XE_PL_TT] = "gtt",
+>@@ -624,8 +654,10 @@ static int xe_ttm_tt_populate(struct ttm_device *ttm_dev, struct ttm_tt *tt,
+> 	} else {
+> 		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
+>
+>-		if (atomic_read(&xe->mem.defrag.count) >=
+>-		    XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD)
+>+		if (ctx->defrag)
+>+			ctx->beneficial_reclaim_backoff = false;
+>+		else if (atomic_read(&xe->mem.defrag.count) >=
+>+			 XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD)
+> 			ctx->beneficial_reclaim_backoff = true;
+>
+> 		ttm_tt_clear_backed_up(tt);
+>@@ -1047,18 +1079,54 @@ static int xe_ttm_bo_purge(struct ttm_buffer_object *ttm_bo, struct ttm_operatio
+> 	return 0;
+> }
+>
+>+static void xe_bo_defrag_fini(void *arg)
+>+{
+>+	struct xe_device *xe = arg;
+>+
+>+	disable_delayed_work_sync(&xe->mem.defrag.worker);
+>+}
+>+
+> /**
+>  * xe_bo_defrag_init_early() - Initialize the device defrag BO tracking
+>  * @xe: The xe device
+>  *
+>- * Initialize the list, lock and count used to track BOs whose backing TT
+>- * pages were allocated at a sub-optimal order.
+>+ * Initialize the list, lock, count and delayed worker used to track and
+>+ * defragment BOs whose backing TT pages were allocated at a sub-optimal order.
+>+ *
+>+ * The devm action that cancels the worker on teardown is registered separately
+>+ * by xe_bo_defrag_init(), which must run after the migrate contexts the
+>+ * worker depends on have been initialized.
+>  */
+> void xe_bo_defrag_init_early(struct xe_device *xe)
+> {
+> 	spin_lock_init(&xe->mem.defrag.lock);
+> 	INIT_LIST_HEAD(&xe->mem.defrag.list);
+> 	atomic_set(&xe->mem.defrag.count, 0);
+>+	xe->mem.defrag.interval_ms = XE_BO_DEFRAG_INTERVAL_MS;
+>+	INIT_DELAYED_WORK(&xe->mem.defrag.worker, xe_bo_defrag_worker);
+>+}
+>+
+>+/**
+>+ * xe_bo_defrag_init() - Register defrag worker teardown
+>+ * @xe: The xe device
+>+ *
+>+ * Register the devm action that disables and drains the defrag worker on
+>+ * device teardown. This must be called after xe_migrate_init() so that, with
+>+ * devm's reverse-order cleanup, the worker is stopped before the migrate
+>+ * contexts it relies on (via xe_bo_defrag_one() -> ttm_bo_validate() ->
+>+ * xe_bo_move() -> xe_migrate_copy_defrag()) are torn down.
+>+ *
+>+ * Return: 0 on success, negative error code on failure.
+>+ */
+>+int xe_bo_defrag_init(struct xe_device *xe)
+>+{
+>+	return devm_add_action_or_reset(xe->drm.dev, xe_bo_defrag_fini, xe);
+>+}
+>+
+>+static void xe_bo_defrag_schedule(struct xe_device *xe)
+>+{
+>+	schedule_delayed_work(&xe->mem.defrag.worker,
+>+			      msecs_to_jiffies(xe->mem.defrag.interval_ms));
+> }
+>
+> static bool xe_bo_needs_defrag(struct xe_bo *bo)
+>@@ -1079,16 +1147,24 @@ static bool xe_bo_needs_defrag(struct xe_bo *bo)
+> static void xe_bo_defrag_add(struct xe_bo *bo)
+> {
+> 	struct xe_device *xe = xe_bo_device(bo);
+>+	bool kick = false;
+>
+> 	xe_bo_assert_held(bo);
+> 	xe_assert(xe, xe_bo_needs_defrag(bo));
+>
+> 	scoped_guard(spinlock, &xe->mem.defrag.lock) {
+> 		if (list_empty(&bo->defrag_link)) {
+>+			/* Kick the worker when the list transitions to non-empty. */
+>+			kick = list_empty(&xe->mem.defrag.list);
+>+			if (kick)
+>+				xe->mem.defrag.interval_ms = XE_BO_DEFRAG_INTERVAL_MS;
+> 			list_add_tail(&bo->defrag_link, &xe->mem.defrag.list);
+> 			atomic_inc(&xe->mem.defrag.count);
+> 		}
+> 	}
+>+
+>+	if (kick)
+>+		xe_bo_defrag_schedule(xe);
+> }
+>
+> static void __xe_bo_defrag_remove(struct xe_bo *bo)
+>@@ -1131,6 +1207,218 @@ static void xe_bo_defrag_update(struct xe_bo *bo)
+> 		xe_bo_defrag_remove(bo);
+> }
+>
+>+/*
+>+ * Attempt to defragment a single BO by forcing a move that reallocates its
+>+ * backing at the device's beneficial order. @budget bounds how many bytes of
+>+ * new pages the move may (re)allocate; the remainder of the object is completed
+>+ * by harvesting the old backing, and the BO stays flagged for a later pass. On
+>+ * return *@consumed holds the bytes actually (re)allocated (0 on failure or
+>+ * when nothing needed reallocating). *@needs_more is set to true when the move
+>+ * succeeded but the BO still has sub-beneficial backing (partial upgrade) and
+>+ * should be revisited; it is computed under the BO lock so the caller does not
+>+ * need to re-inspect bo->ttm.ttm after the lock is dropped. Returns 0 if the BO
+>+ * no longer needs to be tracked (either defragmented or no longer eligible), or
+>+ * a negative error code if the attempt should be retried later.
+>+ */
+>+static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+>+			    u64 budget, u64 *consumed, bool *needs_more)
+>+{
+>+	struct ttm_operation_ctx ctx = {
+>+		.gfp_retry_mayfail = true,
+>+		.defrag = true,
+>+		.defrag_bytes_remaining = budget,
+>+	};
+>+	struct ttm_buffer_object *ttm_bo = &bo->ttm;
+>+	struct ttm_placement placement;
+>+	struct ttm_place place;
+>+	int ret = 0;
+>+
+>+	*consumed = 0;
+>+	*needs_more = false;
+>+
+>+	xe_bo_lock(bo, false);
 
-An intermediate read can consume OOB from pages beyond its data chunk.
-OOB-only requests do not advance the flash address between chunks, while
-a buffer ending within a page's OOB can leave the next operation starting
-at the wrong page. When the OOB buffer is the limiting factor, the data
-chunk must stop at the same page boundary.
+Assisted-by: LLM
 
-The OOB-limited case was found while testing a proposed BootROM-format
-MTD view with 1024 data bytes and 1152 OOB bytes per page. A 64-page
-request has 65536 data bytes and 73728 OOB bytes, but the original
-65536-byte buffer limit lets the first operation consume all the data
-while transferring only part of the OOB.
+Instead of waiting for the lock here, would it be worth trylocking it
+and upon failure move to next bo?
 
-First simplify the page-capacity calculation, then bound OOB in
-intermediate reads to their data pages. Finally keep non-final OOB chunks
-page-aligned, limit their accompanying data and advance OOB-only requests
-by the pages transferred.
+>+
+>+	/* Re-check eligibility under the BO lock. */
+>+	if (!xe_bo_needs_defrag(bo)) {
+>+		xe_bo_defrag_remove(bo);
+>+		goto unlock;
+>+	}
+>+
+>+	xe_place_from_ttm_type(ttm_bo->resource->mem_type, &place);
+>+	place.flags |= TTM_PL_FLAG_TEMPORARY;
+>+	placement.num_placement = 1;
+>+	placement.placement = &place;
+>+
+>+	/*
+>+	 * On success the move reallocates the backing at beneficial order and
+>+	 * drops the BO from the defrag list. On failure the BO keeps its
+>+	 * original backing and stays on the list for a later retry.
+>+	 */
+>+	ret = ttm_bo_validate(ttm_bo, &placement, &ctx);
+>+
+>+	/*
+>+	 * The pool allocator decremented defrag_bytes_remaining as it
+>+	 * (re)allocated pages, so the unused budget tells us how much was spent.
+>+	 * Only meaningful when the move succeeded. A successful move may spend
+>+	 * nothing - e.g. when the object was already fully upgraded and every
+>+	 * chunk is harvested (borrowed) from the old backing for free - so a
+>+	 * zero spend is legitimate and must be charged as zero, not the whole
+>+	 * budget.
+>+	 */
+>+	if (!ret) {
+>+		s64 spent = (s64)budget - ctx.defrag_bytes_remaining;
+>+
+>+		*consumed = spent > 0 ? spent : 0;
+>+	}
+>+
+>+	xe_dbg(xe, "Defrag attempt on BO size=%zu: ret=%pe consumed=%llu\n",
+>+	       xe_bo_size(bo), ERR_PTR(ret), *consumed);
+>+
+>+	if (!ret && ttm_tt_is_beneficial_order_failed(bo->ttm.ttm))
+>+		*needs_more = true;
+>+
+>+unlock:
+>+	xe_bo_unlock(bo);
+>+	return ret;
+>+}
+>+
+>+static void xe_bo_defrag_worker(struct work_struct *w)
+>+{
+>+	struct delayed_work *dwork = to_delayed_work(w);
+>+	struct xe_device *xe =
+>+		container_of(dwork, struct xe_device, mem.defrag.worker);
+>+	u64 defrag_bytes = 0;
+>+	bool requeue = false;
+>+	int idx;
+>+
+>+	if (!drm_dev_enter(&xe->drm, &idx))
+>+		return;
+>+
+>+	if (!xe_pm_runtime_get_if_in_use(xe)) {
+>+		/*
+>+		 * The device is (runtime) suspending/suspended. Reschedule so
+>+		 * the pass retries once it is active again: the enqueue-time
+>+		 * kick in xe_bo_defrag_add() only fires on an empty->non-empty
+>+		 * transition, so it will not re-arm the worker while the list
+>+		 * is still non-empty. Requeue here to avoid stranding tracked
+>+		 * BOs. The get attempt does not resume the device, so this is
+>+		 * just a lightweight CPU-side timer while suspended.
+>+		 */
+>+		if (atomic_read(&xe->mem.defrag.count))
+>+			xe_bo_defrag_schedule(xe);
 
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Instead of keep retrying with backoff during suspend, would be good to launch
+this worker from the resume handler?
 
----
-James Hilliard (3):
-      mtdchar: calculate OOB capacity from the starting column
-      mtdchar: bound OOB reads to the data in intermediate chunks
-      mtdchar: keep OOB chunks aligned with their data pages
+>+		drm_dev_exit(idx);
+>+		return;
+>+	}
+>+
+>+	/*
+>+	 * Process at most XE_BO_DEFRAG_SIZE_LIMIT bytes of newly (re)allocated
+>+	 * backing per run rather than draining the whole list in one go. Only
+>+	 * the pages a move actually reallocates are charged - pages harvested
+>+	 * (borrowed) from the old backing are free and do not count - so the
+>+	 * budget tracks real defrag work. A single object larger than the
+>+	 * budget is upgraded in slices across successive runs. Each defrag is
+>+	 * synchronous and relatively expensive, so bounding the work per run
+>+	 * keeps the worker from monopolising resources and lets concurrent
+>+	 * active work make progress; any remaining work is handled by a
+>+	 * follow-up run scheduled below.
+>+	 */
+>+	while (defrag_bytes < XE_BO_DEFRAG_SIZE_LIMIT) {
+>+		struct xe_bo *first, *bo;
+>+		u64 consumed = 0;
+>+		bool needs_more = false;
+>+		int ret;
+>+
+>+		scoped_guard(spinlock, &xe->mem.defrag.lock) {
+>+			bool again;
+>+
+>+			/* Progress, reset interval */
+>+			if (defrag_bytes)
+>+				xe->mem.defrag.interval_ms = XE_BO_DEFRAG_INTERVAL_MS;
+>+
+>+			do {
+>+				first = list_first_entry_or_null(&xe->mem.defrag.list,
+>+								 struct xe_bo,
+>+								 defrag_link);
+>+				bo = first ? xe_bo_get_unless_zero(first) : NULL;
+>+				again = first && !bo;
+>+				if (again) {
+>+					list_del_init(&first->defrag_link);
+>+					atomic_dec(&xe->mem.defrag.count);
+>+				}
+>+			} while (again);
+>+		}
+>+
+>+		if (!bo)
+>+			break;
+>+
+>+		/*
+>+		 * Bound the per-BO move to the run's remaining byte budget. A
+>+		 * large object is upgraded in budget-sized slices across runs;
+>+		 * the slices already upgraded come back as free already-
+>+		 * beneficial harvests, so each run only spends budget on new
+>+		 * forward progress.
+>+		 */
+>+		ret = xe_bo_defrag_one(xe, bo, XE_BO_DEFRAG_SIZE_LIMIT - defrag_bytes,
+>+				       &consumed, &needs_more);
+>+		defrag_bytes += consumed;
+>+
+>+		if (ret || needs_more) {
+>+			scoped_guard(spinlock, &xe->mem.defrag.lock) {
+>+				if (ret)
+>+					/*
+>+					 * Abort the pass and retry the whole
+>+					 * list later, backing off exponentially
+>+					 * on every failure.
+>+					 */
+>+					xe->mem.defrag.interval_ms =
+>+						min(xe->mem.defrag.interval_ms * 2,
+>+						    (unsigned int)XE_BO_DEFRAG_INTERVAL_MAX_MS);
+>+				else
+>+					/* Progress, reset interval */
+>+					xe->mem.defrag.interval_ms = XE_BO_DEFRAG_INTERVAL_MS;
+>+			}
+>+
 
- drivers/mtd/mtdchar.c | 65 ++++++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 54 insertions(+), 11 deletions(-)
----
-base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261106-submit-mtdchar-page-chunking-v1-668636b0becd
+If xe_bo_defrag_one() returns error, code does backoff and retry but with the same BO
+at the head of the list which can fail again (more so if that BO is a large BO).
+Not sure if that is fine or we should move the failing bo in the list.
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+Also, if the BO is large and returns needs_more, code backsoff and retries until that
+large BO is gets beneficial order. Would it be better instead to move on to other BOs
+without the backoff?
 
+>+			xe_bo_put(bo);
+>+			requeue = true;
+>+			break;
+>+		}
+>+
+>+		xe_bo_put(bo);
+>+	}
+>+
+>+	/*
+>+	 * Decide whether to reschedule:
+>+	 *
+>+	 *  - The loop hit its per-run limit (defrag_bytes >=
+>+	 *    XE_BO_DEFRAG_SIZE_LIMIT): we stopped early to spread the work out,
+>+	 *    so requeue at the default interval (reset here since this run made
+>+	 *    progress) whenever the list still has entries.
+>+	 *
+>+	 *  - The loop aborted on a failed defrag (requeue): retry later at the
+>+	 *    backed-off interval computed above.
+>+	 *
+>+	 *  - The loop drained the list (broke on the empty list): nothing left to
+>+	 *    do, so stop scheduling. A fresh enqueue will kick the worker again.
+>+	 */
+>+	if (defrag_bytes >= XE_BO_DEFRAG_SIZE_LIMIT) {
+>+		struct xe_bo *bo;
+>+
+>+		scoped_guard(spinlock, &xe->mem.defrag.lock) {
+>+			bo = list_first_entry_or_null(&xe->mem.defrag.list,
+>+						      struct xe_bo, defrag_link);
+>+			xe->mem.defrag.interval_ms = XE_BO_DEFRAG_INTERVAL_MS;
+>+		}
+>+
+>+		if (bo)
+>+			xe_bo_defrag_schedule(xe);
+>+	} else if (requeue) {
+>+		xe_bo_defrag_schedule(xe);
+>+	}
+>+
+>+	xe_pm_runtime_put(xe);
+>+	drm_dev_exit(idx);
+>+}
+>+
+> static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+> 		      struct ttm_operation_ctx *ctx,
+> 		      struct ttm_resource *new_mem,
+>diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+>index 32211016a722..38d50f8122cb 100644
+>--- a/drivers/gpu/drm/xe/xe_bo.h
+>+++ b/drivers/gpu/drm/xe/xe_bo.h
+>@@ -226,6 +226,7 @@ int xe_bo_pin(struct xe_bo *bo, struct drm_exec *exec);
+> void xe_bo_unpin_external(struct xe_bo *bo);
+> void xe_bo_unpin(struct xe_bo *bo);
+> void xe_bo_defrag_init_early(struct xe_device *xe);
+>+int xe_bo_defrag_init(struct xe_device *xe);
+> int xe_bo_validate(struct xe_bo *bo, struct xe_vm *vm, bool allow_res_evict,
+> 		   struct drm_exec *exec);
+>
+>diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+>index bb93425a5c70..19d38e14c910 100644
+>--- a/drivers/gpu/drm/xe/xe_device.c
+>+++ b/drivers/gpu/drm/xe/xe_device.c
+>@@ -1069,6 +1069,15 @@ int xe_device_probe(struct xe_device *xe)
+> 			return err;
+> 	}
+>
+>+	/*
+>+	 * Register the defrag worker teardown now that the migrate contexts it
+>+	 * depends on are initialized, so devm's reverse-order cleanup stops the
+>+	 * worker before those contexts are torn down.
+>+	 */
+>+	err = xe_bo_defrag_init(xe);
+>+	if (err)
+>+		return err;
+>+
+
+There is a sashiko reported bug here regarding probe failing earlier than this
+teardown registration causing teardown not waiting for worker to finish. Not
+sure if there will be any defrag list at that time, but probably work a fix
+for completeness?
+
+Niranjana
+
+> 	err = xe_pagefault_init(xe);
+> 	if (err)
+> 		return err;
+>diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+>index 9e6244d8f41b..6e68add4d652 100644
+>--- a/drivers/gpu/drm/xe/xe_device_types.h
+>+++ b/drivers/gpu/drm/xe/xe_device_types.h
+>@@ -314,6 +314,17 @@ struct xe_device {
+> 			 * @mem.defrag.list.
+> 			 */
+> 			atomic_t count;
+>+			/**
+>+			 * @mem.defrag.worker: Delayed worker that walks
+>+			 * @mem.defrag.list trying to reallocate BO backing
+>+			 * store at the device's beneficial order.
+>+			 */
+>+			struct delayed_work worker;
+>+			/**
+>+			 * @mem.defrag.interval_ms: Reschedule interval for
+>+			 * @mem.defrag.worker, in milliseconds.
+>+			 */
+>+			unsigned int interval_ms;
+> 		} defrag;
+> 	} mem;
+>
+>-- 
+>2.34.1
+>
