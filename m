@@ -1,107 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794011485;
-	b=Mkrf+fLKYWh9IyGwJOK3GtR/+pOz6c9D+rAdvd6jK0pR5kQ5fObbYskGqbhBQC/jytx8
-	 ThyMB7LKZwMdQ3/FprX4ds6oPArbeo5j3GhEtJ8oLw6OLPFQzlHuf5j2m+ZbaOJyYfoOn
-	 INIO+sLAmeOg3lV4ZzYU3ic1tMqvnXbO5sIJRttnIBn81b8P36naLwnUpkw/2WpBForDf
-	 w1ivnlSg0FFueuVF0UgLfVHTKz40PXaeEYtGv74BeZSs5y7g4ktc6Zq9WzghEdrM95OlZ
-	 +Sk5+reaqRK/DzjRy8fV6NH3bEe/rtXPRnFvyRCeRmL9TcVNzbAuHp8CVKUJwixsZDg==
+	t=1794011551;
+	b=rNgvayqOkNV/y7zK5Yhu7yuIvjbZGCQGDu8gXisuUU1DO2Vcvq7YQmKKGpBVfSxi/YXo
+	 i8xUUUDrMN13ECaf3ilJx7lEl9HneXPhDCNoWDxAXLNTFugLGp4rTH9p/uK3ReTKsPm4A
+	 vFcbEAV7NdituXlE8zcBLrM+4l1cBe8eeK73Y3AN1mH01tB21dbUP+oWBUBXrpNPKs7DC
+	 J/NeJAplWLADb4E0nhdyawPB/kkU0/P8bb48p2qgRNFQfAYAwTBRBUWd6m4JWw64HSFxA
+	 RdvN7MdsJMdhXhNN35yg7MveSqaGI3bDNTvhK2BJw3pAvK2xZJQ+Ub6MlN3Ina/5w9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794011485;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=B0lhdTIv2RJ0Nk7yZOY6c6n/tT6BIBcM8LFtVJo3BXw=;
-	b=m+9POcGpo6CA1WYXDZDKFcruWzwNk7lhYqlpmd/ZHDpZznDvlAUaNI94k0UJtuuRyJ4t
-	 ncay0JPUeYDRPUzwwOokSfbiYwNJI6wyRAFhOpb1cr0e8ovYe9luXA/WsIcPIlBsgZsyI
-	 C0uQEwXtJ1LtdmoHBfPRK0m+SY1tskA1f/NeoTZaUeXwSmftQfPenlzyQZ2Yac/1xeDVH
-	 hBNSuKlC4VPb+N+bo/EdKxIyJ7bnC5bXtrLoVdUgsXmdXnvc6vhpG6VzdDJZcErzib54t
-	 pj7D+6hdXVpWA069pv+GsDRc9//pTFRvxkXq2HJBnmvyb0Cv+uNVKlchXmPHWZEgWKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794011551;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=pkTlAxtLLfyZwA9aguqr+9HUOssKJfczq1T7Ue2K5u0=;
+	b=Ff6qeUxuUNRsLHt6q8WK1+BeZ2jXHsezMXaEY9MLyCZrWDeQj0M6LhGlDgbL5WXudyIb
+	 /Si+BoOsrHi7VGfFaIHuyZ481lZFv+Jbp2MaJ3vvCEI+IPt9egDGF4575tlDPIwDmog7A
+	 KqsYJXQ1iUrHsIIVM0z/s2TevUOzsJu0MiOivhE1cQwgur8oGsyB2eVOQ7QVbxYPFmFjm
+	 QD8xy/DtjaKUlUM7KjLC2vI6jWgaMOlFK+FxY/qOaxTPk4hd2GGhKrgZ2hPWRpMI8ozZD
+	 Oa6I6DhOlYmgoomJQgNnvShHKHfEliF1BAbUl6CfpekAHOQRjffyhq7ZE9l8rW+021A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TZzOiPwd;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="s/PvKbQj";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JHhzOp9u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8BC606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:31:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A8BC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A2A606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:32:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TZzOiPwd;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=s/PvKbQj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794011483;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=B0lhdTIv2RJ0Nk7yZOY6c6n/tT6BIBcM8LFtVJo3BXw=;
-	b=TZzOiPwdIXrA7gtycvMSfD7/SRcQGWY1v289opOJc5BfMg8v5bJ8A8NBt724JpePOcdUAO
-	78d/oXmbScNobJsSfZ2muYYHfXP8nOvJxvuuo0scJr9B+FyfkcERoQiSz2WKbCtQoZNHR1
-	rqnuLYwk6y5GtBhxxuh/IHRe0wpFRuk=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-6-9jc5t2gGP5mKp-mjXFA33w-1; Fri, 06 Nov 2026 19:31:22 -0500
-X-MC-Unique: 9jc5t2gGP5mKp-mjXFA33w-1
-X-Mimecast-MFC-AGG-ID: 9jc5t2gGP5mKp-mjXFA33w_1794011482
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91c8a517107so33507946d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:31:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794011482; x=1794616282; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B0lhdTIv2RJ0Nk7yZOY6c6n/tT6BIBcM8LFtVJo3BXw=;
-        b=s/PvKbQjIaCmL1s+Kf7r70RsE+aF31+Oo+18MylQgu1oPJnN47l9rvUJ9v34BD9W+G
-         7laXGU2QnAxKa8OVRu643xNemdc2egLlUW1Ks4/NMCN6mSAfxnuDmOg4GlOeKQ9SoFDH
-         UWDesJVkMoVzaLwakWza687fnpwEPaELY0tGNeluEQ1AfC7q+Z79qP+kjdKv3kyBKZb+
-         3w4IEzbLKWhFQjglCaKzES6n9slR09YDN9h8/aLt8ozqmyqIG5z6agyJo45IylgV4oh1
-         GGe5RAVx6Hf3QMXDR/XA/rirQFaR0kyhca4d7HLoTOUzv+ruwT+Uo6WKuTIITUVsVov1
-         PBkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794011482; x=1794616282;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=B0lhdTIv2RJ0Nk7yZOY6c6n/tT6BIBcM8LFtVJo3BXw=;
-        b=e7YEd8wwsradqjt0EAaq2m//r0Pf/tqblTibNqzxEqw+HIjskixFjV7RjxT5yTTlu+
-         u/nykULBmuQTVL2oPRxo34GqaU0lJqXmjYzMjKilVn9igOZu1MsgSp2nXCOLcBiDQvFA
-         9Q4g0p6jnuQzeHxWmn/4os/1CSPZcec401Edv7GiPerIUrFt2bBWF/ulOLWRLbk8G3KY
-         bXVAACmlqQ4BrkFbylwnmVdIiKXuLbrMbB0LGFsyQ/1z4NjmwMOWqOaD1jzOiLmedGnJ
-         h7K7jOJpPN2ER/RnSAjQRVrk83I/IaI+uHMaHkVJxeQsOQLKuK6j0loismiq1rXR6OPa
-         PlpQ==
-X-Forwarded-Encrypted: i=1; AL+hErHGqsWdYTfzIkuq/baHucf3AImoamVZYnuNQs8HWdbphPoFHFY1qz5u5TURFvBqo9BUdlcu44N0DM48d0E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82pWHm0IG36ftctJ4XlqXSqflcekgmDKjbrrMUKDqY+uCyQPi5
-	68FxB2vRj04lcq2uhfCS2iptt5hfIV1/ZJwtqyau7uiboILoIY4MT9Qrs91su5ClM8bgSk/mEo3
-	0jgfoOCLknNweePNbM+gKFI8mdxJDH8ZqiFTVd9IHQpeOtb/jSmZUp6k05y0diAE7/YGekmlonk
-	UNS7Na1VyB5GFXkX1zCPkwWG1AuvQSUprPk+o3ieIoymZlwxgknpI=
-X-Gm-Gg: AYBFou15L7ErhCb+9KsxMZFETDyhsATks3ae8Z/rkgvMQpsPCeaaCh8WjeaCUKgstID
-	Xp1Tq+C0ZRsDOUR5RanyokiDcs0657TRAowemkTF8VzJezmL+1j+ELBqsPssiHxrVbgZe9PpeDu
-	3+cWq7bURp/1jfoU3fmTRzZyFtXSlNzdyg2LcZz1/+cW4aeOCvnlJrJokeE5dMUP2uzuBV6jKFB
-	ZLuWn/Ug6eta0LpjEnIyMf7cKzL31/vXoDb2Pv3k03uMf6H5cDxCuUtP3IWh3fOaT1+/R1Ke0ju
-	J5yjUSNLJzj3CyVu31Sgu4QgWakIF3AufgXH5zrdzd1Hslpv8eoARMqWfo7EtBovdvFGiND/9D9
-	dumSpcXRsRbpl8H1bvK/Hm/l9kKl8QZ8FqTyzkpsNIP0okrvOtZYL8tXdpZSmYyy4jxO1T7xxUU
-	0P/acCEQxfR1JuYfaV
-X-Received: by 2002:a05:6214:3016:b0:91e:9b7a:7f12 with SMTP id 6a1803df08f44-91ea96a599bmr57139716d6.9.1794011481769;
-        Fri, 06 Nov 2026 16:31:21 -0800 (PST)
-X-Received: by 2002:a05:6214:3016:b0:91e:9b7a:7f12 with SMTP id 6a1803df08f44-91ea96a599bmr57139336d6.9.1794011481139;
-        Fri, 06 Nov 2026 16:31:21 -0800 (PST)
-Received: from bmasney-x1.rmtuswv.csb ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a2c5cesm32490556d6.14.2026.11.06.16.31.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 16:31:20 -0800 (PST)
-From: Brian Masney <bmasney@redhat.com>
-Date: Fri, 06 Nov 2026 19:31:12 -0500
-Subject: [PATCH] rpmsg: qcom_glink_rpm: convert to subsys_platform_driver()
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JHhzOp9u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59D21F0089F
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 00:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794011550;
+	bh=pkTlAxtLLfyZwA9aguqr+9HUOssKJfczq1T7Ue2K5u0=;
+	h=From:Date:Subject:To:Cc;
+	b=JHhzOp9u/2kHc+69zZEWOiwrJb9bVWslGdt96MBTrxaAhV1os28igsKBz5isZ6tCG
+	 /NlJ4l3pGY89fuPzLtf9GfJdbI0fH5BSRE9LHM7SO6aDInTPDkK9nAN7FAdAQuTHBg
+	 C2n30cmNYUun2Z3hC11y3hiFfV5Z3X+ddh0OspWunJTStw3WybUzcm2+RsIqEWxWff
+	 0w5KVHMhPqpdXSE83wrABAF64b9kjwubYAzxFynGO/e/P7w0vGfSKpfVApoRZ2cFa3
+	 SDR1Jczph0oLzrHkdc2iKJ/9rDe415zxlH5zVk4AqUU7HYcM95gk+WuJ6PMteHILNI
+	 8mt0wp9P48haw==
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so1311635a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:32:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFKME5KPG9/dtOBlXf8whSbqseSRPgH+t4ORznIV4b17XrDIUIGDdz9KP/9qfhD1sJ3na1PPETDevw0lF8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+U6MdPvGsigRI/CVc/ChcKfJc+t6EeGkUaO6N3GFVOIwn3kWgA
+	CX70RZwNlwso6DG8XZXnGkIjUSTHCGVhTGQz7OxGn3MwNq2GRSdbH5URkdTUPYwCwSEyHESlY7K
+	2n+HBMJaDix0bImLcb9lkcY1xlBuenSc=
+X-Received: by 2002:a05:6402:1493:b0:6b5:7140:e2f9 with SMTP id
+ 4fb4d7f45d1cf-6b59781b3demr2164432a12.33.1794011549496; Fri, 06 Nov 2026
+ 16:32:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,66 +59,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-rpmsg-subsys-v1-1-c13666cf5678@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWvSqcvCq4iF1mAkLukgRLy7Y
- vkl5/wXCHkmgSK6wNPOwvMUgHEErq+njhQ3wWC0yRF1rvwySqdks3KKQmNtozOT6gQhXBZPLR9
- frqx+h+VAbn0bcN8PMb0YgXAAAAA=
-X-Change-ID: 20261106-rpmsg-subsys-12bbd0524031
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>
-X-Mailer: b4 0.17-dev-d96cb
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1234; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=zDSabrd/5Mwlu683aLMSHp+YFB2DVM8Y3Ir2NXH8Zw0=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLeFYZwXJjtcnDNzaSH70tfenM+ODn7fJD3rdYfGqE+t
- m6v/72X7yhlYRDjYpAVU2RZkmtUEJG6yvbeHU0WmDmsTCBDGLg4BWAiDUmMDKdv2maZXDzZM71N
- surpkSeij53ExG9lWK10cj/UOp1j2hZGhtOLwk7euq0UaLVo4V+Zh92Nu3wsD/b7SbGkOogf+xG
- wkRkA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 7 Nov 2026 09:32:17 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8+9m-FZuNU5Ahcco1reEac8u7b5KJ295ezA37rtcGjUQ@mail.gmail.com>
+X-Gm-Features: AclHuK-V2WSrAkXb-coK7inCzTNsqTJGz-F9vMC0MQQRjsxZT4my5Vlm815RDb4
+Message-ID: <CAKYAXd8+9m-FZuNU5Ahcco1reEac8u7b5KJ295ezA37rtcGjUQ@mail.gmail.com>
+Subject: [GIT PULL] ntfs fixes for 7.4-rc2
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	"open list:NTFS FILESYSTEM" <ntfs@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-Reduce boilerplate code in this driver and convert it over to use
-the macro subsys_platform_driver().
+Hi Linus,
 
-Signed-off-by: Brian Masney <bmasney@redhat.com>
----
- drivers/rpmsg/qcom_glink_rpm.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+This is ntfs fixes pull request for v7.4-rc2. I add the description of
+this pull request below. Please pull the following ntfs fixes.
 
-diff --git a/drivers/rpmsg/qcom_glink_rpm.c b/drivers/rpmsg/qcom_glink_rpm.c
-index e3ba2c63a5fc..5e60d5cf97e6 100644
---- a/drivers/rpmsg/qcom_glink_rpm.c
-+++ b/drivers/rpmsg/qcom_glink_rpm.c
-@@ -388,17 +388,7 @@ static struct platform_driver glink_rpm_driver = {
- 	},
- };
- 
--static int __init glink_rpm_init(void)
--{
--	return platform_driver_register(&glink_rpm_driver);
--}
--subsys_initcall(glink_rpm_init);
--
--static void __exit glink_rpm_exit(void)
--{
--	platform_driver_unregister(&glink_rpm_driver);
--}
--module_exit(glink_rpm_exit);
-+subsys_platform_driver(glink_rpm_driver);
- 
- MODULE_AUTHOR("Bjorn Andersson <bjorn.andersson@linaro.org>");
- MODULE_DESCRIPTION("Qualcomm GLINK RPM driver");
+Thanks!
 
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261106-rpmsg-subsys-12bbd0524031
+The following changes since commit 6b4b543fa18757297ac756a6fe6e64f506b7844a:
 
-Best regards,
---  
-Brian Masney <bmasney@redhat.com>
+  Merge tag 'parisc-for-7.4-rc1' of
+git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux
+(2026-10-25 18:04:17 -1000)
 
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git
+tags/ntfs-for-7.4-rc2
+
+for you to fetch changes up to c77ab4eeeb3ed471bcc99a94673f0e0142c4b84a:
+
+  ntfs: don't allow compression on volumes with clusters larger than
+4K (2026-11-02 22:53:56 +0900)
+
+----------------------------------------------------------------
+- Don't allow compression to be enabled through system.ntfs_attrib on
+  volumes with clusters larger than 4 KiB, preventing out-of-bounds
+  accesses in the compressed read path.
+
+- Don't allow resident attribute values to overlap the attribute header,
+  preventing malformed records from causing writes outside the MFT
+  record buffer.
+
+- Fix recursive acquisition of the mapping invalidate lock when writing
+  to non-resident named streams through NTFS_IOC_STREAM_WRITE.
+
+- Keep the file size unchanged when extending the initialized size fails,
+  avoiding unintended truncation and page-cache removal.
+
+- Avoid integer overflow when limiting attribute reads to the attribute
+  size.
+
+- Initialize the promoted index entry's child VCN before inserting it
+  into the parent during an index split.
+
+- Validate index entry VCNs and return an error for negative attribute
+  read positions before they reach pointer arithmetic.
+
+- Fix cleanup after ACL initialization fails in __ntfs_create(), avoiding
+  an erroneous free of $MFT, unmapping an unmapped record, and unlocking
+  mutexes that were never held.
+
+----------------------------------------------------------------
+Bart Van Assche (1):
+      ntfs: Fix error handling in __ntfs_create()
+
+Hongling Zeng (2):
+      ntfs: keep the file size on a failed initialized-size extension
+      ntfs: fix a self-deadlock on writes to non-resident named streams
+
+Hyunchul Lee (3):
+      ntfs: reject negative attribute read positions
+      ntfs: initialize VCN when inserting index entries
+      ntfs: avoid overflow when limiting attribute read length
+
+Namjae Jeon (1):
+      ntfs: don't allow resident values to overlap the attribute header
+
+Zhan Xusheng (1):
+      ntfs: don't allow compression on volumes with clusters larger than 4K
+
+ fs/ntfs/attrib.c |  9 ++++++---
+ fs/ntfs/ea.c     |  5 +++++
+ fs/ntfs/index.c  | 41 +++++++++++++++++++++++++++++++++++++++--
+ fs/ntfs/index.h  |  1 +
+ fs/ntfs/inode.c  | 38 +++++++++++++++++++++++++++++---------
+ fs/ntfs/namei.c  |  6 ++++--
+ 6 files changed, 84 insertions(+), 16 deletions(-)
