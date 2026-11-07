@@ -1,61 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082211;
-	b=2Hl6d/EElLesIQVXaKSCSoQ9ldpwgdVzMzluxr+F0r9hDJ/rlY+H2qVpy7JQSxEG6olK
-	 GVhMWNsuO29bgitIc4DoOgxGcUpZ0vbkJxnzPl0kkYb6YeVPCx1GSOKqYOo97wX9JR9Qy
-	 Y72D5RMmhoMC4M0wNhyuioJoZPpERPA7al0ssH5ISpOGB+jvM2vamxEpbA/cE/hGckjE1
-	 rM3oDzXlj2cki3HJqCSCuORTQ1BQ1dKMS/3JVZW6D6C8J/WQedyykcbAT5MRz2zYniudX
-	 A4hymdETnCsXvG0OXuwP5f1/Hih/CoUa7SrkieFavweVkM0hRg+pOt7x5rw6KTRscQQ==
+	t=1794082212;
+	b=fi1IG3b4FGMIqqXh0R/4nC9TcQVRDoDaLVG6QaEroQTuaJV78GwTKh9nEYjFEFRdqxWa
+	 ncJRI2g4jQX36vV1IO4s+bOYqkzv/OL2nNmdjiqqmXre+UrSCmmI+wIa3XzZT2nHin9Fd
+	 AUllyQP9S0pfOW5w/9Z2P1sbSeS1XaWMFuzVau7EkUSBhiy5pt4Vh6n0vFB1NbxkWBhcs
+	 vdRA3uhu5FAK3pm9FL5H7xRbzpGEOp5Ce+Cvh42H3JxICH5KkX12MV24QxM8djrVi04/T
+	 zvKYY9gXjqWB+AtRkKNMYFUlrppshfYxZQGHkLhpv11F75mjYIjF8NiN2Jzwz2UNIGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082211;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
-	b=MmhqjqsiUcblXakzQDTRQbb1r7MJQPv44Gm6Q8o+HA2jE753D7EqO/xAclwxkXnU7aJ4
-	 pWQb1Xs2H53YHZ+REcE9m/3IoVzF++k4wgdBvL3+m3AWr4Pm44XviLMqroRFGDnFkqk7T
-	 CW7akHJRY0DJU6RZRSvYvXr4r1aMeyUd94HEMBD1n3IPzoExGhJhIYzcJlOu8X2QtW7d7
-	 t3KpgSngg85cvtfn7t/kgVp2F/9K7qyM+wgmWWgIOZzWHcIG7a0MAClG9U7+Hv/mGU5UG
-	 OZra6w6SVhPi+EtEZhF04kblxiDvv1H0NG12Xxf7WYk0DCiMLj+ZL/5kktdtAE9h6UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082212;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=0BAmvwUewoGLOJLuXxq6dZ5RycZKZl8yqwoNBMJWREA=;
+	b=yzSG0JidUG8Rq4RlOm4D6ZTT5Fmnq4m79ZDZWNK9/M4OnweWJ2aq8MwDBX1IPmIiLuHT
+	 atDu9PzRftgDoExVqBCoz/1dvxS/htdjoecb+7mVj8q3AY5qnNRq9CZjw3eN2fqhPhc49
+	 FtBvO+NM264iG98dvvc478jTexSZW3nLBiUQ7Y44Ic227BDcWVD1GDWSm+Qb8RiAofW83
+	 iGSmNY4OlyOACHrv0iqf4FgeHWxNudwoAGQBqvQNX0AdmmoY7WSWRVLPHzwtTwnW19Zrh
+	 KuarelEA0vN3yjEyShIewmsUgDz0Ww6DGZcKeRON7tNCyZkD32mV7QPy1gVuTlJyRSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G/Jxmopc";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=gmail.com;
+	spf=pass smtp.mailfrom=upstreamdata.ca;
+	arc=none smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258B0606D813;
-	Sat,  7 Nov 2026 20:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G/Jxmopc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C27D1F008A1;
-	Sat,  7 Nov 2026 20:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082210;
-	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G/JxmopcOvg0rAmmnZebR2qYHC5gTkH3JI07UamM8CjbLw04fADnRq11h1rY4xY6Q
-	 BNMigWOw48azYVCplHgJjv4y4MmMLuWkSlJ7iiBQrPlCboUd+Qpf9J6cABkggGXPth
-	 ih10HLkwsfv/KljYgYI+HJm/+V0b06QRaoKm52Su4l6g4S8mTYBo6AA1vniPFozkXV
-	 /CcbQr8OazMRCOmvVK5b1GxJiOswamMEjhBBMQt1aW5IndlzWV+ZgMOgqfTJhZzgZ8
-	 qNhp6OzBwyk/fabJNMtb/Tq2eFxKbUvsUQmsNcWxwx2CsEy12gVC7xsrynS9t6Kxbg
-	 tRe4Mlyf1Us4w==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Usama Arif <usamaarif642@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 6.18.y 3/5] mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
-Date: Sat,  7 Nov 2026 12:09:59 -0800
-Message-ID: <20261107201001.206120-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107201001.206120-1-sj@kernel.org>
-References: <20261107201001.206120-1-sj@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F71606D81D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 20:10:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F71606D81D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=upstreamdata.ca
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6fe4372c5f3so1056986eaf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 12:10:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794082210; x=1794687010;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0BAmvwUewoGLOJLuXxq6dZ5RycZKZl8yqwoNBMJWREA=;
+        b=C7ZQPtWHlUsVv7R/spcu8aXQquEqecFbDL/cwJ6TWLqeDPYhh0Rzm9OhLuADponZPr
+         6Q95gwIpY9mssQz9X4FZiLPwSyttViCB0wefRSM9svdYCUrm7K/eGDAIAQLt2/uYM/p2
+         6pJM0KYM73hxXF2GlCcN7J7jRMQdAh3tCcYjKSAi2ZOvxb5uXpyJoSThWUfrsknielFd
+         RNoTyerDIh/dfWzl5lxk/KcSLeFV5c/sWvt7zTeT7j6BVDnlY/COQP2zzGuHRBXKEXdl
+         67VI7lKUh1BG36AhQ3A9yQEbVpbcjoWAcR9kQGmTE0gRzyPygyp1uxEPsehxXzmzEB7e
+         RipQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAVTE1KY4Hz4C5oCYH7Rx4etfKszseZRU93xht7svf8h6FQWBifbMKNJh3X4ipE1YaELyDgzhFIlwYTBI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cwL6vPk4qn1cKIsqP5k/vYCbHReQj1BpFOfu7ObCiSUi9eD7D
+	oSWXfo4yL+nFuH0OGrYlOJApiRC1bU1IGs8uNmXDl+DUsHwFmujM1lETMPUduzuikgQ=
+X-Gm-Gg: AYBFou0OqCb+lYowcMJSw0FhPYbGISvHjP5DdrTYDmY0LqCIF7xIqcsPaXLQ3uLEZMC
+	JWmyNE+oMtU4my7ZRB4uSHc77Nu+pIidGnBolCrGDVSAzLFmomhCctG6bb0nngwL7RPSCPR8XNJ
+	HLs94EoS/JIqRBmdZ7/LXnE1rlH2TyxOB5s4ZW/jDMHEpNMkDrpAqkiKcmJl5EFL5lz1Lron+Rp
+	w3DMqPt/72vSofmvRySU8YXmWQbBe2SlZMQ2ZP5Pp5fpIuzBLcFHkwVQ1PqxNDYB2vDXEDKoOnz
+	5J9pyns5i02FO2EYbcwpSUZON9d0y4jz/9WteRDOCmzlvMPRaVrCavxi0Fdxs8Q9v3qZI/1Kt8g
+	ksaw476riDq4RKra3z85MVl0Oe7RlxrqRHI3HUKixNOg4oFhBusWHB67zJNkonTHdI2khzNBlfC
+	unzyTXg4ItnB9tm02D2jQT2xy77tEWuzqeQvApM6LwEWOiPYTgwa5MSRPbzvCdJ/Qy42dWdeFIH
+	mK53WwUPIBrl+TiqcM3w9SnIZKTAlr0ajxOcJQdv6/Pic4jdOpikMQwJCNd8G0iVKOhFcIARL35
+	HSfXjFJRr9SDGQZtI8gYSXaKeHlePF132BKrjizq8UrCXRFCnfwZASXz+Ns=
+X-Received: by 2002:a05:6820:7054:b0:6de:25a7:3be4 with SMTP id 006d021491bc7-7170f349085mr6610eaf.75.1794082210155;
+        Sat, 07 Nov 2026 12:10:10 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade6a26d74sm212708fac.15.2026.11.07.12.10.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 12:10:09 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 07 Nov 2026 19:33:38 +0000
+Subject: [PATCH 25/58] mtd: rawnand: hisi504: retain open-handle state on removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,55 +76,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-25-4311be01fa4f@gmail.com>
+References: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
+In-Reply-To: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+  Brian Norris <computersforpeace@gmail.com>,
+  Boris Brezillon <bbrezillon@kernel.org>,
+  Arseniy Krasnov <AVKrasnov@sberdevices.ru>, Chen-Yu Tsai <wens@kernel.org>,
+  Jernej Skrabec <jernej.skrabec@gmail.com>,
+  Samuel Holland <samuel@sholland.org>, Thomas Gleixner <tglx@kernel.org>,
+  Vitaly Wool <vitalywool@gmail.com>, David Woodhouse <dwmw2@infradead.org>,
+  Russell King <rmk+kernel@arm.linux.org.uk>,
+  David Woodhouse <David.Woodhouse@intel.com>,
+  Mike Rapoport <rppt@kernel.org>,
+  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+  Alexandre Torgue <alexandre.torgue@foss.st.com>,
+  Christophe Kerello <christophe.kerello@st.com>,
+  Jason Roberts <jason.e.roberts@intel.com>,
+  Michal Simek <michal.simek@amd.com>,
+  Boris Brezillon <boris.brezillon@collabora.com>,
+  Mason Yang <masonccyang@mxic.com.tw>,
+  Ramuthevar Vadivel Murugan <vadivel.muruganx.ramuthevar@linux.intel.com>,
+  Stefan Agner <stefan@agner.ch>, Lucas Stach <dev@lynxeye.de>,
+  Thierry Reding <thierry.reding@kernel.org>,
+  Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>,
+  Matthias Brugger <matthias.bgg@gmail.com>,
+  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+  Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+  Heiko Stuebner <heiko@sntech.de>, Yifeng Zhao <yifeng.zhao@rock-chips.com>,
+  Nicolas Ferre <nicolas.ferre@microchip.com>,
+  Alexandre Belloni <alexandre.belloni@bootlin.com>,
+  Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+  Keguang Zhang <keguang.zhang@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
+  Shan-Chun Hung <schung@nuvoton.com>, Frank Li <Frank.Li@nxp.com>,
+  Sascha Hauer <s.hauer@pengutronix.de>,
+  Pengutronix Kernel Team <kernel@pengutronix.de>,
+  Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+  Liang Yang <liang.yang@amlogic.com>,
+  Neil Armstrong <neil.armstrong@linaro.org>,
+  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+  Manivannan Sadhasivam <mani@kernel.org>,
+  Kamal Dasu <kamal.dasu@broadcom.com>,  Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,  Vladimir Zapolskiy <vz@mleia.com>,
+  Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+  Paul Cercueil <paul@crapouillou.net>,
+  Harvey Hunt <harveyhuntnexus@gmail.com>,
+  Maxim Levitsky <maximlevitsky@gmail.com>, Michael Walle <michael@walle.cc>,
+  Srinivas Kandagatla <srini@kernel.org>
+Cc: Tze Yee Ng <tze.yee.ng@altera.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+ linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-DAMON sysfs interface reads the user-provided size range arguments for
-hugepage_size type DAMOS filter twice.  Once for validation, and once
-again for assignments to the variable that will be passed to the core
-layer.  If the user updates the arguments in parallel, an invalid size
-range could be passed to the core layer.  Avoid it by doing the
-assignments first, and then validating the assigned variables before
-passing those to the core layer.
+Keep chip metadata and controller storage alive until the final MTD
+reference is released. Unregister and disconnect each published chip
+before releasing the resources used by its hardware operations.
 
-User impact of the bug should be trivial.  From the core layer's
-perspective, the invalid size range is not really invalid.  It just works
-as having a weird size range.  No critical issues such as a crash or a
-leak could happen.  And sane users ain't do such parallel arguments update
-anyway.  If they do, such racy behavior is arguably somewhat expected and
-deserved.  That said, there is no reason to keep such races.
+Retain the host through its embedded legacy controller.
 
-Link: https://lore.kernel.org/20260914142327.92510-3-sj@kernel.org
-Fixes: ea1f204ba29a ("mm/damon/sysfs-schemes: add files for setting damos_filter->sz_range")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org>
-(cherry picked from commit af19aff38d6faea35b10f26cca32d0e54f8aea5e)
-Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- mm/damon/sysfs-schemes.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/mtd/nand/raw/hisi504_nand.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 37e0a8bef4b1f..0f945ef043709 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2493,12 +2493,11 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
- 			filter->target_idx = sysfs_filter->target_idx;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
--			if (sysfs_filter->sz_range.min >
--					sysfs_filter->sz_range.max) {
-+			filter->sz_range = sysfs_filter->sz_range;
-+			if (filter->sz_range.min > filter->sz_range.max) {
- 				damos_destroy_filter(filter);
- 				return -EINVAL;
- 			}
--			filter->sz_range = sysfs_filter->sz_range;
- 		}
+diff --git a/drivers/mtd/nand/raw/hisi504_nand.c b/drivers/mtd/nand/raw/hisi504_nand.c
+index d97270ec1185..36427a242c2b 100644
+--- a/drivers/mtd/nand/raw/hisi504_nand.c
++++ b/drivers/mtd/nand/raw/hisi504_nand.c
+@@ -731,6 +731,11 @@ static const struct nand_controller_ops hisi_nfc_controller_ops = {
+ 	.attach_chip = hisi_nfc_attach_chip,
+ };
  
- 		damos_add_filter(scheme, filter);
++static void hisi_nfc_release(struct nand_controller *controller)
++{
++	kfree(container_of(controller, struct hinfc_host, chip.legacy.dummy_controller));
++}
++
+ static int hisi_nfc_probe(struct platform_device *pdev)
+ {
+ 	int ret = 0, irq, max_chips = HINFC504_MAX_CHIP;
+@@ -740,9 +745,14 @@ static int hisi_nfc_probe(struct platform_device *pdev)
+ 	struct mtd_info   *mtd;
+ 	struct device_node *np = dev->of_node;
+ 
+-	host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
++	host = kzalloc_obj(*host);
+ 	if (!host)
+ 		return -ENOMEM;
++	chip = &host->chip;
++	chip->controller = &chip->legacy.dummy_controller;
++	ret = devm_nand_controller_init(dev, chip->controller, hisi_nfc_release);
++	if (ret)
++		return ret;
+ 	host->dev = dev;
+ 
+ 	platform_set_drvdata(pdev, host);
+@@ -788,10 +798,16 @@ static int hisi_nfc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = nand_set_release(chip, NULL);
++	if (ret) {
++		nand_cleanup(chip);
++		return ret;
++	}
+ 	ret = mtd_device_register(mtd, NULL, 0);
+ 	if (ret) {
+ 		dev_err(dev, "Err MTD partition=%d\n", ret);
+-		nand_cleanup(chip);
++		nand_disconnect(chip);
++		mtd_put_master(mtd);
+ 		return ret;
+ 	}
+ 
+@@ -806,7 +822,8 @@ static void hisi_nfc_remove(struct platform_device *pdev)
+ 
+ 	ret = mtd_device_unregister(nand_to_mtd(chip));
+ 	WARN_ON(ret);
+-	nand_cleanup(chip);
++	nand_disconnect(chip);
++	mtd_put_master(nand_to_mtd(chip));
+ }
+ 
+ #ifdef CONFIG_PM_SLEEP
+
 -- 
-2.47.3
+2.53.0
+
