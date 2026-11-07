@@ -1,54 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794034938;
-	b=nV5epetHULmwStCtcLnFTu8l9GlARtovWYPwYwdLd4fhIGC2tqB++eMOcwpUyBjo3wT1
-	 d9ahmyPMrBAJslyyi6FNTYiEzxh3L+fskDw58tbdmO5HqF7sHBvW8hysOGXBN1NItZEJP
-	 nNYo0wc0HnFWD9vJKHLnkclGjzbbLyCEZebNnqY3AXubdizLVvjzlfsI6xlivFUnchwie
-	 5T2tk5hUYLzF58rCjQwilPactGEePF7im6jiIhubgxej98VNPpwSGxZCiasV1u28zn+EX
-	 dktC8IzJogBw8+ws/8bLD/wCnhAb87zJqJ+RtD+HTfeKPEHnf3TBVD5oYaiQJo5v8lA==
+	t=1794034990;
+	b=mwZJxWEGB4kJqa6IcY0XNJL5avsSUdgMvdyyGrcmsxIOiYcaN1jQkGLx88QIPlnxWCO7
+	 4YodS1SAabAjn8Le8WpHN/Hc65VZMXDMECMRypnnqY62IZKN+OORrjW9v2b5Rqi/StRnX
+	 GKKfyvGEcJNDm5JmvOxO9OGsrAj7vn8wcLFG19JxQVPCVPEv/ZTffpDme0ejkOueyVsF9
+	 NT+6S0/GD/Zl+3tEM3nEnOLwWIsYfYGApGk3B8ulQzI4sNNJ13LYsZIRO1fRYqWLdMnXR
+	 RDud4Oyh7EbUkSMXkA+D6JPQvvr8+ctYt6UESc5y0UMNjAyQF4XPrlgibndN/rD44Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794034938;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=SNyW7L7svCZC+4vm04JJa3Y3COX/LWxh617gbF6SI0E=;
-	b=X3t3Tc7hFwhO1gC38Oof/Yx9XYEA4OJb1KRxG/QxD/4grvczIpBsEONKTGTcSrnxpPCQ
-	 dWqrpBkqjSnUJJGEV9JK2OZnGxVLUVj1H3C7w1v/lfnf7EtuFPJsEY5Zjp40CnpBhrHqu
-	 UOBvVJchPAge7lVcUNuuiASnoHz9id38elxqgvLg4AhElAdtNqENYRoBVe41r/w5P0ZpH
-	 pfAYzJ0esXkMUKDWzbn65xtc+X9Txh0Ndov9X0Ys9Yt8gslviUtEQK2CXHojdIBlmmrZW
-	 X9iy4BF9TnlFlAo/ydiO/TP8te6oxKv+NnCjyqGsAYVCfeFZEXTE6eefw2E2PAQve2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794034990;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
+	b=yZRZ1MWD2ctJMdAVCdjvQabaWeZpxQET9UDT40XB3yHFDye9xtl6IOJlWJxg6pl3N5V0
+	 2DVuxVy3OlxfvlqOYpFaSYhncIouhGCCzuj91jefCKMfhwpjnNwQkfRgw2vR/UKHIIUyl
+	 by9mP8ZXPew7tRLXFIZLuh7God8TCzAvAJnt1j/MiCBY/D7m+PpOaqmRUGWberrfrlLBL
+	 H4Xpf/eXcgRD/TyjGFRgKv0bCuHiVDR1RxAewDzBjTfKkO0sXuWDnf3+odJ2miPsyoJLd
+	 SLT/DMs1LyGEbcVuGJ1TjOWLqJTvWTyNO9RmkijbK6e5qEEY8Je9yr2BvX7xr7ehULQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I3yQwc+n;
-	arc=none smtp.remote-ip=91.218.175.210
-Received: from mta0.migadu.com (out-210.mta0.migadu.com [91.218.175.210])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcmYpw6e;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC3B606A326
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:02:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC3B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97ADB606A32D
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 07:03:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97ADB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I3yQwc+n
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1eU8LB4FiA31cEPkSs3z/GNpYbcTIlce7/3o/u8t5mo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794034934; v=1; x=1794639734;
- b=I3yQwc+nnr9dZ9rJHoIeeQfQUjIaGc2f/SLqKrFxDV2I480KdIkDlwFLnBpoNmKhbVN3fUXJ
- 61MUGbXwbuS+9RE94YjhsGLI1nsOE0EUWlJkqkywRE5Q624MjkvGo6fGlaAjtrHSpshsbklTY2m
- LIEKSxp9znNWy0ITPbV6NfYw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 89d1383c0cbcfc28;
-	Sat, 07 Nov 2026 07:02:14 +0000
-X-Mizu-Trace-ID: 89d1383c0cbcfc28
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcmYpw6e
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdaefe02d5dso824616a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 23:03:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794034990; x=1794639790; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
+        b=GcmYpw6eafQhXUAXEwA8jwummuHvOzaIwSi0Y74SZr4ARQSCpITqDEnVzsgzgEsFFK
+         8XA3N+FlcWdCRo6cxvHhjVmbXoQCBTMnvihWtnebvnUL3NP3Kkpim/1OsujmN6CK+fW1
+         geLraiZRO6B8jG4UZdjv+zwi43Jlr2aXeZgNaBPowHqPglGKqkButi623n2sV2Bvqsrv
+         t+disbEPHRq8Qd0BP166jNXPM9Gqr5OHyQmNU0ce3pgBHLxLRP9CqDP2hWoTHyRYQzdY
+         0oQlaX9hiO5XM3aPoarRtrL9S76WG92mEJ3+29HAyk72Et5dbOW6rKyGY9BwwARORPD6
+         pEWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794034990; x=1794639790;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
+        b=D14cem/g/Qs+piw3uG7139BFyJ6Oh7QCd11fW29zMkZHyCF5U7AMV+dvoudVjqzm4f
+         ufbHcvjcPtu1ZbZjLwUp7fCbRooYvHi3isfiI12vJFHQB55JR7P/pb0D9DtUBINfgm4J
+         1+rervEBUHk6Z2v+EETxu2gHeWxcD/IL26o07Rh8Hqd+tUjTqhGowNNL5QHLd/O0kXxO
+         hpQXN4hfL4MB9QBpb47HItNviiJWFHBw3hjc5J/tc8+uiXgH3bQUCxRnJWm8F2RGKPln
+         YY9bnu179nyIWX1JIx/k8ZqXE0PK4Y9Z2ykI5PTQ0HIRWQTeU5WFJ06pg0Gu4aLMb1YI
+         ERgw==
+X-Gm-Message-State: APuU4Z+jR4DQoX9mk68081kXxMBFQim4/F4y9wda6gbVt7uf0NtJ39sX
+	fPvbdhog5IM6ewPjWUs6YetqwWg/cM07XSDF2LAqbM9I+ZI0y7x8kUSB
+X-Gm-Gg: AYBFou2RKMhEgBk7IKU9qle1rBulqBl8S53W8mgOwyjn9A042zI7T5VRJWEF9c2KXT4
+	6BHaUkl68s3xF4iYo3hG2tkR+2cC/38emYjMuQZ7DOJ/5EqOIf79cW96hsOwQid4DqH/U/yLsOL
+	bpM/sih7D3dztZ0jLsIjDy5ks3uGPCieFO+bVfDDlaRCvScl9my65Umuy8GnU0FOE7ReS5NzK5c
+	+UqRRr7gJq4PjGTqDZT5PF9X+pnVew2Fsn2dWjT87X3/fwA5rXwSKqHdfyRDVBUKS+bW5uLL9JO
+	g5XSR0xOof26k3CFQG0PBgJawbnEu7lYPwS4uSSf/eXobxwijdal4q3yRZt4fv3qKRTh/HrSJtE
+	6Qz9+XGbHA9ftGULZPGUboCj4Ij1UpFU8RiYnf19kA4PVcsB9lw2LPaIVPuy/mpMQM8tCm8+a8g
+	IFAYfHx0xAM3dBREAAJiUO1Aor8HaFjWG7hhX/qdpCap3mi+YSHVPxeRi8UP822vFGWyMUhzp93
+	E7IiDpVPAkEThqv6+OaaG4susZ76oD8kHEIxp5azR4Ijm3ET0eRZiqbMpDmxV70Cz4P61n1PivK
+	VwP5QWFW2k6dVvL3FH9y79OGGSa3KBSMRj8Tzj/XSUi0S5Ga
+X-Received: by 2002:a17:90b:2792:b0:3b0:cc6f:1046 with SMTP id 98e67ed59e1d1-3b0db7109d1mr4442933a91.67.1794034989765;
+        Fri, 06 Nov 2026 23:03:09 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c1c2csm2220866a91.2.2026.11.06.23.03.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 23:03:08 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] usb: gadget: pch_udc: drain vbus GPIO works before freeing the device
+Date: Sat,  7 Nov 2026 16:02:58 +0900
+Message-ID: <20261107070258.3413402-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,107 +94,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 07/20] hugetlb_vmemmap: Disable HVO sysctl if arch
- doesn't support HVO
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261003002123.505555-8-jthoughton@google.com>
-Date: Sat, 7 Nov 2026 15:01:47 +0800
-Cc: Will Deacon <will@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nikos Nikoleris <nikos.nikoleris@arm.com>,
- Linu Cherian <linu.cherian@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- David Hildenbrand <david@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Nanyong Sun <sunnanyong@huawei.com>,
- Yu Zhao <yuzhao@google.com>,
- Frank van der Linden <fvdl@google.com>,
- David Rientjes <rientjes@google.com>,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <2122761A-45AD-4AEC-AE88-B51E92E2CA40@linux.dev>
-References: <20261003002123.505555-1-jthoughton@google.com>
- <20261003002123.505555-8-jthoughton@google.com>
-To: James Houghton <jthoughton@google.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Hyunjung Ko <hj351016@gmail.com>
 
+pch_vbus_gpio_irq() and pch_udc_dev_isr() schedule
+dev->vbus_gpio.irq_work_fall / irq_work_rise (pch_vbus_gpio_work_fall /
+pch_vbus_gpio_work_rise), whose handlers obtain the pch_udc_dev via
+container_of() and dereference it (dev->driver, dev->pdev, and
+pch_udc_init()/pch_udc_reconnect()). Nothing cancels these works on
+teardown.
 
-> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> =
-wrote:
->=20
-> Do not create the vm.hugetlb_optimize_vmemmap sysctl when the
-> architecture lacks support. This serves only to avoid confusion for
-> users.
->=20
-> arm64 support for HVO is conditional on certain hardware features =
-being
-> enabled for all online CPUs. By the time hugetlb_vmemmap_init() runs,
-> all secondary CPUs will have started, and the system feature set will
-> have stabilized, including HVO-through-BBM, which
-> arch_hugetlb_vmemmap_optimization_supported() checks for.
->=20
-> Signed-off-by: James Houghton <jthoughton@google.com>
-> ---
-> mm/hugetlb_vmemmap.c | 15 +++++++++++++++
-> 1 file changed, 15 insertions(+)
->=20
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index 8596a462fee6..817ce39d4cf3 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -763,6 +763,21 @@ static int __init hugetlb_vmemmap_init(void)
-> 	/* HUGETLB_VMEMMAP_RESERVE_SIZE should cover all used struct =
-pages */
-> 	BUILD_BUG_ON(__NR_USED_SUBPAGE > HUGETLB_VMEMMAP_RESERVE_PAGES);
->=20
-> +	/*
-> +	 * Architectures that need to probe CPU support for HVO have =
-done
-> +	 * such probing now. =
-arch_hugetlb_vmemmap_optimization_supported()
-> +	 * will return the correct value.
-> +	 */
-> +	if (!arch_hugetlb_vmemmap_optimization_supported()) {
+pch_udc_remove() -> pch_udc_exit() -> pch_vbus_gpio_free() previously
+only called free_irq() for the VBUS GPIO interrupt; dev is allocated with
+devm_kzalloc() and is freed by devres after removal. free_irq() only
+waits for the interrupt handler to finish, it does not cancel a work the
+handler has already queued, so a pending or running work then runs
+against the freed pch_udc_dev (use-after-free). pch_vbus_gpio_work_fall()
+polls for up to PCH_VBUS_PERIOD (3s), widening the window.
 
-I'm wondering if we could put this architectural check into =
-hugetlb_vmemmap_optimizable(),
+The two works are armed differently. pch_vbus_gpio_init() assigns
+dev->vbus_gpio.port and INIT_WORK()s irq_work_fall *before* request_irq()
+sets dev->vbus_gpio.intr, and pch_udc_dev_isr() schedules irq_work_fall
+exactly when dev->vbus_gpio.intr is 0; irq_work_rise is only initialised
+and scheduled once intr is non-zero. Cancelling both only under
+"if (dev->vbus_gpio.intr)" therefore misses irq_work_fall whenever the
+GPIO is present but the IRQ was not acquired (gpiod_to_irq()/request_irq()
+failure, or a device interrupt racing removal before interrupts are
+masked).
 
+Drain each work according to how it is armed: cancel irq_work_fall
+whenever a VBUS GPIO port exists, and cancel irq_work_rise next to
+free_irq() under the intr guard. free_irq() runs first so the GPIO
+interrupt can no longer schedule work before it is drained.
 
-> +		if (vmemmap_optimize_enabled)
-> +			pr_info("vmemmap optimization not supported by =
-hardware\n");
+Found by static analysis and code review; not runtime-reproduced (needs
+EG20T/ML7213 pch_udc hardware with a VBUS detection GPIO and an interrupt
+racing device removal).
 
-then, we do not need those code. If the current kernel does not support =
-HVO,
-then the sysctl does not exist. It's already a common case when the size =
-of
-struct page is not power of two. If users really want to know whether =
-HVO
-is enabled, they can check via this sysctl file. Therefore, we don't =
-need to
-print a log line.
+Fixes: 637b78eb31e0 ("usb: gadget: pch_udc: Detecting VBUS through GPIO with interrupt")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+v2: drain irq_work_fall under the GPIO-port guard rather than the IRQ
+    guard. irq_work_fall is scheduled from pch_udc_dev_isr() when
+    dev->vbus_gpio.intr == 0, so the v1 "if (intr)" placement skipped it.
+    Spotted by Sashiko AI review. The separate pre-existing missing
+    cancellation in pch_udc_shutdown() that the review also flagged is
+    left for its own patch.
 
-Thanks,
-Muchun
+ drivers/usb/gadget/udc/pch_udc.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-> +		/*
-> +		 * Return early to avoid setting up the hugetlb vmemmap
-> +		 * sysctls; HVO is not usable.
-> +		 */
-> +		return 0;
-> +	}
-> +
-> 	for_each_hstate(h) {
-> 		if (hugetlb_vmemmap_optimizable(h)) {
-> 			register_sysctl_init("vm", =
-hugetlb_vmemmap_sysctls);
-> --=20
-> 2.56.0.rc1.315.gc6ed9934b7-goog
->=20
+diff --git a/drivers/usb/gadget/udc/pch_udc.c b/drivers/usb/gadget/udc/pch_udc.c
+index 99b3ce2..5351bd9 100644
+--- a/drivers/usb/gadget/udc/pch_udc.c
++++ b/drivers/usb/gadget/udc/pch_udc.c
+@@ -1406,8 +1406,12 @@ static int pch_vbus_gpio_init(struct pch_udc_dev *dev)
+  */
+ static void pch_vbus_gpio_free(struct pch_udc_dev *dev)
+ {
+-	if (dev->vbus_gpio.intr)
++	if (dev->vbus_gpio.intr) {
+ 		free_irq(dev->vbus_gpio.intr, dev);
++		cancel_work_sync(&dev->vbus_gpio.irq_work_rise);
++	}
++	if (dev->vbus_gpio.port)
++		cancel_work_sync(&dev->vbus_gpio.irq_work_fall);
+ }
+ 
+ /**
+-- 
+2.43.0
 
