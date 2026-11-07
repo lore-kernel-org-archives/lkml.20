@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794022558;
-	b=nhGzcdBEPNb6DwPvzPh5wkOknRlQy1ARcBn7PLQJljmUPHBzvavLOmxVkbBe5eH4vBd3
-	 Mg1EGzxYb5ArFvqGQ6FY6pydzge6A11x2z8SrqVIE14nA94oBEUkMXv6y+w0gevJlKKLl
-	 N/TXB70uLQDJMWrLmC284orAgMlfscgs3Oq10acpzgegkYva5F0jCUXZsISesqmUGH1uQ
-	 /c3vcODxBl6+3jb5JraK1JmujMrg/nKQO6T/XqHWt1oZ5eYosTY3EsDuEgTKjmd14yENi
-	 AhcJcNETv0R3g3nwuNr121FXYPuQQhCfv+g28Q57KUiHQME3Rmn8kI4FYHkTqdefmiw==
+	t=1794022775;
+	b=eCtLS/Wnd093rd7cWBXGqi+GkB77UacbY/CBZ2ewPaEXBmk4vYTFJBpuSAc73XSAVWhq
+	 HRS1r0B+kHXfIo5RU8gXfLIxcKSH3t7QnQw/39MwmBIyHDBBx8RahAo15QoKsmZxpwCME
+	 xgappsV44mkD7IgL4EKLq0UvoN6687bOdsjyyKhWOJvCTYTipvUS326+M4NLETQm1p2zt
+	 2m3YuV1E3M4KrNEfVBsnwjSDKk3C3N41BbpOZrW3S0JYjQfhxE8nju38/0Y81kKOrZq72
+	 WJ19pxtjdBwnl30LCw0dw+QDjx1zDCYm8diT7s7X5S8Uvwavf3p6q5WXbuJoi3TjHeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794022558;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KgaZ62oSa00oA9mQS/DfUIyhLFgBJL1fbVfHwuLm/0U=;
-	b=yOoPaeVj1rB8bJ6Sri9g89ixCAK83+xWbZVnQt40oFKEJE7T6Ym8uOEorpmyRbvKu5+c
-	 q/PXFOUbY6bRkqrYG0ZxcdUx5L14vmADobl09V2eLnDnvPWcbnqxCGDwwJim5jH7iTlHX
-	 us3C1y9/+p8Qjw6MlxcsV/rF3AuHlopIBnD8Jx7ywjlc49b0/t1x/T5bCaLJx9/7C/77j
-	 RvjDCGwOMAGDT4dtvgLufa2nZ53VCUDh3Q8V1Dx6lXATVvw1cRLOwSAq7aCur4DpzUeCR
-	 8Z0VdSqgUIg0Kxv4Nh7zCJTNn0OHklcNkAfszYfrB+StCA8wGTXL3Kt2+TjP5mpDUSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794022775;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Sde4rWYPzlk+BjvGEtm/0bEjWk4rqiDVQzGqAxbKKl8=;
+	b=a6XHH5HH7hB8NISl7MkQAkhRtLqdOGoMJktnVslc2JeTylqIfaToKqZT1cNlEDOMcjL2
+	 /nY6BuFP+vHWfRSL9p1VhuH2dQOln62YbIUqCU3rP1RWiEGkliKWiHZXJR8l5GBgnMC0G
+	 mkRkm3mdujcwJUf6dRCWoOscUoOLZ0gIa7nDAOkVWQEtcJgeQVShuMV4gpMVw1X39SnOZ
+	 1Q05yJjnGJxXVTKSIkfrMJIp5gjt8LMQCnwAxBcdfNX+Svo5TANBTbs/OAsLiYDKHDKBT
+	 WKkqQNEfxNSDVeeMCW7UnUaLSltNLkcJRUG4Lgb+MfNZxgyT/XO3ycubyw0wqGPnMxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrEbFcbX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DvtMkzgz;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0146F606A326;
-	Sat,  7 Nov 2026 03:35:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D06606A32C
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 03:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93D06606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrEbFcbX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57B131F0089F;
-	Sat,  7 Nov 2026 03:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794022557;
-	bh=KgaZ62oSa00oA9mQS/DfUIyhLFgBJL1fbVfHwuLm/0U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QrEbFcbXL8YtqePGg360aL/IUtwgqELEWhHqDqb3YTK+qyfITfNzQSBKAWGFl9VQ+
-	 iyRYocFCvXWN43ih35bEYsaY/ht89KYf2QlFWRCl1fDVsATK/2ldrh+NbW/ed6xQUW
-	 YJ6NKsYcV8sca1El91XQsOZuaBmq2aenkvrnEINUtVpj658c3jDNbqJ93O7getmZIO
-	 XBu23OMpIuxeEYsGkYqXav5cYqbUWxsQR6SNxxUD/U0IbG5Jz5FE2xvg2FAMcaeepn
-	 9EOlXZPjZt+trt8RiULb+jzYplZtao+3R2FKSgtxpTesA1ydAEWkpEyTDXN+0OqAHp
-	 IMRVP43KsRlzQ==
-Date: Sat, 7 Nov 2026 03:35:53 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>,
- "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Dragos Bogdan" <dragos.bogdan@analog.com>,
- <linux@analog.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 0/2] iio: adc: ad7405: Add ADuM7801/7802/7811/7812
- support
-Message-ID: <20261107033553.362bb0e5@jic23-hlaptop>
-In-Reply-To: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
-References: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DvtMkzgz
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso1946558eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 19:39:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794022775; x=1794627575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sde4rWYPzlk+BjvGEtm/0bEjWk4rqiDVQzGqAxbKKl8=;
+        b=DvtMkzgzjLMcaDQoyNjMQKjUQqxyzlLBiQUkoif9cFrK4HXhCvPfUWH4F4+h+8f5HW
+         +NYmIIMExeqOloneuyGJPB53Xjg+3mlvtFzXNhw+1Mhg/Ay/fE8H1TazVpzMYFLmGp8U
+         IoOIkP6qV4Mybf2IeOVuYOXhvi2F7j4ej16WFry6WxxSRSOCo68sMiZIstPgpuYCh0Mj
+         J4NuXpfR2jhLFwL09bkvkL/gW76a+/8SP7X9ysVqq/y+2J509YDGFZZ6x/BQGQ+sauim
+         l5/Aatx7kFufP396rJ3KVLrv5uwLI9zyY7c/NMYY8oTc/QDMUreCN/46UrKltJeyzqP1
+         tgow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794022775; x=1794627575;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sde4rWYPzlk+BjvGEtm/0bEjWk4rqiDVQzGqAxbKKl8=;
+        b=tYHW6TJ9dtnIb5VxzbmnlF0W01DpAIuFSdU2tImW9Tpjpk7C8gGLo6LKf5KmzYVzmI
+         dPF1tXFiNqnIoHjcgQs6zH+O+qKQj7GxDtF+6VnaTIurYAUCf1OoVGh56xApYCG1LYpe
+         i/byTvr7D3rQaPV2GTBWVZnGg2bCmxiTkwJnz0UHH8JbEEjITYWowMf2DUm9r+ccAxg3
+         5aA+HNT+IChklj1gsRlQs+zSczsi0c2QZf3dNZquE7Q1dUen8S+fMuVftxtmgXjGfeyo
+         DKHu/65mByUM/2+vCd0HkKH2FsYM0Y3Td8H6F2UayudskipBweG1hcxOkAGUJxHakmNC
+         WgBQ==
+X-Forwarded-Encrypted: i=1; AL+hErH/5y9mRjmwXaLsLY1VKDMIOggBcv9PWd7tvaD2eHr/3gEZfeZu8rCSSCQ0sLhXVInklsOi6aP+WFpZJfo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VNa6Rw3I/lz318SyS3Mkw8v2nwrmRCsVS1QonON9EmpS23TnK
+	GUEJ7loc6ijRhZLte0GfDJCUrLBnetKzbJHkRZwHejwiZW4LkZ3mURzP
+X-Gm-Gg: AYBFou3OLNkiIx5kOcC3fRN+1Fa34JZWop+OfMZhR3DucuJORDOwt0QnfjxGaCLuC2p
+	eTOr2e+ZpdIMvFmgt5UrNVOgioMKo5Hva5qwMQp93KzgJiqdvmCP3LwIIsd7uLpph+BdFx/HUKj
+	35dZogT5lHfAXwFBvSPX68ZYUcbkS4expwIp764masnhi5uhVDPxEK2rNja0sFlOS0KJH9IVJJY
+	JYpQ3kwXEg3U/5p4A1r/sMftHcbGi/EqkPUP8LIFZsuGPVBfcX8og7ydwYUQ86ECk+bWhLu72BJ
+	1d+Ps12Ls1Qw4+3GMu4tej8ewn+3ttG5E+BSvFIawhRkd42Qu+HtlKueV/YCmasXyP1q+BHe2AU
+	kGdWMirsap/zYWiHkqm5WPO+4VsiLoM7CEvMHMWfdlUpeUr9dltgyLDJM6adrNnLRmyjAFAxg3+
+	7KJD8RHhI9GSmnOZeSsQncEOY1yyWQ8nN1K+IU3m3mgqDH3a9V5oVUwLmOfI/TISkGHjUX3Br37
+	h4LbymQj1vehDd5HI8eWo33ITJxB22nlpUwUafNFY9ldQdlnToQxTzoKRbnLWUy11dyj5GLs5Yy
+	l07aO+8J73Z7Xun3/9Mxfyfb40ojQOcndLBIw4m5ArHtTHIWxPZtAodctTE=
+X-Received: by 2002:a05:7300:10c:b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-36f7710a6e3mr5903376eec.38.1794022774554;
+        Fri, 06 Nov 2026 19:39:34 -0800 (PST)
+Received: from homik.search.charter.net ([2603:8002:ad40:56f0:e335:1852:72d2:7bdd])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922c6c7sm13790821eec.10.2026.11.06.19.39.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 19:39:33 -0800 (PST)
+From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	kees@kernel.org,
+	justinstitt@google.com,
+	morbo@google.com,
+	alx@kernel.org,
+	shlomojune6@gmail.com,
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Subject: [PATCH v4] media: siano: Replace strlcat() with scnprintf() in sms_ir_init()
+Date: Fri,  6 Nov 2026 19:39:28 -0800
+Message-ID: <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,38 +104,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 6 Nov 2026 09:39:35 +0200
-Pop Ioan Daniel <pop.ioan-daniel@analog.com> wrote:
+In preparation for removing the deprecated strlcat() API[1], replace
+the strscpy() and strlcat() calls with a single bounded scnprintf()
+call to construct the IR device path.
 
-> This series adds support for the ADuM7801, ADuM7802, ADuM7811 and
-> ADuM7812 isolated second-order sigma-delta modulators to the ad7405
-> driver.
-> 
-> The parts are compatible with the existing ADuM7701/7702 handling and
-> differ in input full scale and maximum master clock frequency:
->   - ADuM7801/7811: +/-320 mV full scale
->   - ADuM7802/7812: +/-64 mV full scale
->   - ADuM7801/7802: master clock up to 25 MHz
->   - ADuM7811/7812: master clock up to 50 MHz
-Applied.
+This preserves the original NUL-terminated output, including partial
+or omitted "/ir0" suffixes when the 32-byte buffer is too small.
 
-Thanks
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+---
+Changes in v4:
+- Replace seq_buf with scnprintf(), as suggested by David Laight
+  and Kees Cook.
+- Remove the unused seq_buf include and local variable.
 
-Jonathan
+Changes in v3:
+- Replace snprintf() with seq_buf operations after reproducing
+  the GCC -Wformat-truncation warning noted by David Laight.
+- Drop the previous Reviewed-by tags due to the implementation change.
 
-> 
-> Pop Ioan Daniel (2):
->   dt-bindings: iio: adc: ad7405: Add ADuM7801/7802/7811/7812 support
->   iio: adc: ad7405: Add support for ADuM7801/7802/7811/7812
-> 
->  .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++----
->  drivers/iio/adc/Kconfig                       | 14 ++++++++--
->  drivers/iio/adc/ad7405.c                      | 28 +++++++++++++++++--
->  3 files changed, 57 insertions(+), 10 deletions(-)
-> 
-> 
-> base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+Changes in v2:
+- No code changes.
+- Remove the statement about buffer capacities from the commit message.
+- Add Reviewed-by tags from Alejandro Colomar and Shihuang Liu.
+
+ drivers/media/common/siano/smsir.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/siano/smsir.c
+index 283770d583d5..6952871c5816 100644
+--- a/drivers/media/common/siano/smsir.c
++++ b/drivers/media/common/siano/smsir.c
+@@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
+ 	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+ 		 "SMS IR (%s)", sms_get_board(board_id)->name);
+ 
+-	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
+-	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
++	scnprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
++		  "%s/ir0", coredev->devpath);
+ 
+ 	dev->device_name = coredev->ir.name;
+ 	dev->input_phys = coredev->ir.phys;
+-- 
+2.43.0
 
