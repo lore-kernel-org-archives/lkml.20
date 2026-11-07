@@ -1,102 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794059770;
-	b=No86dvnUrGsHtY86myU6ahYY7Sge8X9xhDpZAOSyxC4hyqQh4SZeF4cxl4d1J+h4u5EC
-	 akpTzHywQFW0Fd23yrL3cIlC5ZSklhQI0AOWHgphzLmkuIzpDiKWfXBV2OxvTHn80nWWg
-	 f1A5a/nbpiEAgav6cKpwp+YrakpwEdnOVEzHz3TM8iSlanOtHSCZrAyax/FQzVKHFDrj1
-	 sPL80Q/BZzw7LzJhTQogrI/JQxOOA8QPXC76/n2/ugnN9UdAY3kmfpwBE7VC4dVFlJrFg
-	 LlWkYuEs563vg2DMl2paMssknD2d8HrSis+3cBXL6E6NcT+wGlsduA7s5eTdeKCScsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794059770;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vXwIUjXp77hYc2R/kc6J/JRFYx1vYu9yjBnWkWwz1xo=;
-	b=UQxlSNSy5IQXab3KbHlIPce5CRg7BJifG2ns/nZ9IpvhjaIZ2TMrZi+bjwnz0pYm8j8p
-	 2Pxy+q5cjygEuhPe9I6vV/PIwyuoR0w1BalVAnhTtch4Yl2DLdReQgCxeEGLG/vhjINzF
-	 G/8iL9k4Wtkdlcl64H65ayvCYXkofJYMzlnR5buNshUMO64nVcz39B7hTZ3qLAUp1CZnB
-	 BpeNKpuJQ4UyQ0VaOv7bAWG+jvq3Hr7Feh3H8+yow5zXNrJUI0UXRCXs1YwKNC9dF+o1G
-	 qHG1zzRlgHzAOuXIYIStQ/bPQENljpckRGnci+LVqhOoA5pQs/0fitx2viX5XRt7mBQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QPQYMWy7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794059793;
+	b=1uv8Ef/cPlurJaq6o+iShyGWSubA48GT/OhW4/CQno2c4WztuORD06Q/tOSSL8cZWko0
+	 rtZ1ltrtPsDrgmWsGfBCWhifmpk7nOuMT1b148j5S4ikQzUL6SN8Mv/f2HcXzXD/zJ+il
+	 Oqi+mDGu1+9UNAcLI7OKY6snU+ZRWI/cQDdth9s0WZ7yf3mO2EUW+VFfxhHw1KhLH1uuP
+	 /96vDOdmek8oKyDmti1IzS1geexq1988tKUYWBNDaWqLIThPdtWMG40stcmfZjOD7nt81
+	 qVotwtVJmLc0YMUcri6+jSL1DA/Eu5s9jlkChY+SKzn5KJr5cSslebGEAiS3DlHlg3w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794059793;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6TDIa4WBe03aqlzFy9TN8awAuksm28T92BfNeJQsqFs=;
+	b=jJE0wi7A0UcL04PV5lB/gyWxrQwm6rDjM0bASRFF4XQU9ctHz2U+oBiwQ6cHCEkC/FM9
+	 8G6USjvjtPSrH74uh6L0i06HVCtogH9HYx5hZhr7xZeCGA2mTybwYXQN+BoL3WrFxEN3D
+	 8DGCg67qjmL5cIc3z45aXVRYoJanGkC9FaJCWVMDd/MI/jzH48KMtPG32yW7DejpFehmX
+	 l2MIb9I2nj3vbs6Nm9X6SzAA60/TrOu54dHXqo3Ou87YX4Mzan+69GcT5Vh/yWy+Ro0kT
+	 qkpACpMtbsf5I+xBUs7OQGcoh+qIOoOPFc57wPHqpqlQMsege83GeAnC82/fBaD2GTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=younes.io;
+	spf=pass smtp.mailfrom=younes.io;
+	dkim=pass header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail3 header.b=oSVOeTmc;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b="mGhbr0/r";
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F257606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:56:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F257606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C56606A326
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 13:56:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C56606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=younes.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=younes.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QPQYMWy7
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-6798af41644so1254471d50.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 05:56:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794059769; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LH6yEaX2YwI/JMfuRevvJkE/6/h3C3cpaDslJN9o4vIEMiQUuj2C2CDYaMkgKb6B+P
-         1d6wz/rXUdstdNJjlPGnqINskU73Dmc4IgB7UKFL8LRC1YJOfcwaUFoVI7wVcBUPJhq6
-         AoS51sZXVKhvnKgVIs9kLc02NcMJ3YwiM9dmFNqAsWNsh+zoAR5UcEm2HSjcUouvbuZa
-         SQOrQdMxA9ZKYQSegTzM0IY7Ibv/FGIrJjFt+PnE1RObdLWhCCZ8nBtnpM0mfwaQu0IH
-         u+mJWfJ2+etqg6baw3st8RIbB09zRkToKXQFITQp083WhiyGFG+J+DmPmJVnEuDSFjFB
-         e6hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vXwIUjXp77hYc2R/kc6J/JRFYx1vYu9yjBnWkWwz1xo=;
-        fh=uFiMs6PRbFlWpUIFK1AzgWyFBAdNyVMESefraA7HmKs=;
-        b=sXmz+mQTxmJrAIM2LRo5MGgz5DmZkbJZkPpNmGLSzwcxeo0lMsaF09blAJRFlzTFpR
-         melyIrSDcYBXKAdmqNIOIAEbk+xGA/YhRcPgpRVDx3SMIc6YN7uilLe2I1MQA1iLqN2T
-         Wx6RFHsm2lJzfgx9EeLv8nYo+VBP3X3H+p6VLjXTMchjVff5x2xeTojhAxnybDasn8Ug
-         +hTNcBAaPglTKMR1zVn7Zlt9Bm3C4VhQ//hfylc2F6y0gbU20OQIjU7hcpadeo3v9PtO
-         Ez+vB2bRPap3eB3o3mCJcs2Hpll9bBI5lLtIQEwBk0/WNNdm8ZXGsBwUXtUaDCqt4U0p
-         e+0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794059769; x=1794664569; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vXwIUjXp77hYc2R/kc6J/JRFYx1vYu9yjBnWkWwz1xo=;
-        b=QPQYMWy72eNto4tQUnulLnMpxOQQX/+irw8cRocDOhl9IH9rYeIx/4gvYRebRtiWGA
-         am8rG7QGBYIl8M+fFafPUSfBe847J4JVotpdxuzP7k5CTx8Ckt8NQyqFZVDHGtIpcglC
-         Vx45lLt6uPvcvYGKX4UTuRNlKxAaKfWsvWeZqliydSHa4eKNP8mYJY1UsTO+hRy48+BE
-         GQ/SBw++WEXgNykb8D9QbUxKn1wKQXac1b6c9g4+xbB0gWWFmsrWObgMQfrSsM3tx4L/
-         5vz0HzqgZROT4/9FxvrUIuOkQelqER9GbwrLUzpa+J2vEFWu0zTB96J75JXz3r9SdApq
-         m/WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794059769; x=1794664569;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vXwIUjXp77hYc2R/kc6J/JRFYx1vYu9yjBnWkWwz1xo=;
-        b=YuNol9/GLIF8Q77PGmB9JuFiYClthlR3hi9bZ0hPqjx4ObMUa1fAVORd6pZYnJYCx+
-         lKhA+p4D0po4bSIL6w5o+AkIFXXHPMbuHWt+ln7GmYoWMrGStx5dm/NtkwfK38cykfEx
-         8ltdxk6zigUUaAHTTcDiUotgA2wKGYG6M8rgWmqU9t4sKmYoEEDJZEWEOFfkriqlshPy
-         EGlhR6YcJsflTU3yZtxF8e656L/JXe9ksZjIyxylyb2fWSYpQRChmcr5lSh3XRJeLAwx
-         TTpatqCrxkkJBZa7aEfYUM18EOvRp3HJtl1E08vBpcoac7m/Mw2f3z4T2VrVwwalT0lS
-         BqGw==
-X-Forwarded-Encrypted: i=1; AL+hErHT7mRcO/dDT8QDSV48YhQCpjot/NVIDZ4gW/GLyH+9DdYMkkjgjWUYH2Y14R9Praq/YW4Vjt+7xHsHYv0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Mll38YhxIR0cMgUQeHQI74g0LzH9kEw3EmEZ45dEXlzdzhICA
-	3DYMFzxdtWgJqFVRvunQftyvdDvGXalMP3hvo8VpM5L3cArJUgqr4t4vEezR5hPccngDG3Vneco
-	gWXVC6Sv1CamH4+z/zBOce07hYoOeEDg=
-X-Gm-Gg: AYBFou2mn+TBW0CnftVBcuctkBWmwYreeE432sM8btPC5Ckw+HLOJzY5f+nYFPMV/Mk
-	4Jn5Xtkm7PxT1ssNVQ1kIyEFTIxUcuTNv1RmClSwnpFUTLIZK6yqOcYlgPOemwKMZwY086wg6La
-	TTaLDvVotCtf2XQimmdevIcE3x4TNykcXWd+4MzwaGq3XtvO0ijFnomq6k+FVXa+SJOdpYoUSEg
-	ms47m2zZbzWUpKxnUAD0K/2FW5ZnjUJtkwHryCJOidQg9pdkoq4m9+LulaS4+mL0jZtpoT9F/9U
-	JXkJdmornXuMAiwLsc8UbbOuX4CzBaNqHs+XEyO9ZvrV0GqAdzN6Gn36SgGgNDAayDWsyqnfw6u
-	+r6DBDn3IRng/I70KjC43TLwuY8C4f5AnF0yqB/Vos24q5ztOp/FsK2clELpTDV60sadOtGX315
-	LTzIsMOR/VftoaabGTClxOWO6mhPpW457/gkxy+CM6oRCnKziT/3AmDKOyVJ1iYjr5ydfDeATBn
-	rEjAewtjvfb+OxMgDQ+4LaDA9MnWUa02q2yp6poS6Lt0iaPJx1GbBRGfhxv6Q==
-X-Received: by 2002:a05:690e:4144:b0:67c:1d44:7887 with SMTP id
- 956f58d0204a3-67c1d4484eamr2616415d50.13.1794059769189; Sat, 07 Nov 2026
- 05:56:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail3 header.b=oSVOeTmc;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=mGhbr0/r
+DKIM-Signature: a=rsa-sha256; b=oSVOeTmcxLLUBomE4OrFL/BBmxJdRciQ+RsuktVDWk3vlhuRgZoWvhhB4stg/BHIev1M9AgQSz6yk052hjxuIWUctFdf8YfTN3q2yjUoKNgbPcum8NGvVZqHC+fICJijAmNi/53PaWE8YiiximjVdfrCXCd4Ure5g+8cZncGG/f4AIn5c6WG+8HhMPOhEuvbcNR3Tc94EjvrvzMeY/vvrbwT9ClCGsW+DGv3Oo0Qw5lnN9euLkoaoRymFq34YjfEoHuv7dvFrisZRoGlKkkrF07WNrsg5uSYslncazQaoIQOGnJZJShDlguL0jhlHuezqMBCIk0pd8goyIyCJL/Kxw==; s=purelymail3; d=younes.io; v=1; bh=Fc6IXWLwH5VrIIY4TpPhp1GmAfGDN5J90ztlIHB9e0c=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=mGhbr0/r7rErQIyfbQs8b8HFkifVWABVgEVIcYD7l8kfYuVa4UeErsSmyEzvm3LVD3ZzHYbk5Dp7vkE600JNYsFlue5uWgkwQkYgyEP1pMVAJtnIFEx4eWsvu7JGLOm8sCOv9wHPn0lZlpKOxjm51Wh+d3YiTiB8ZQupyj9lC2C4WWxoco59dbEN9yTYN1ebYAnuXTKxPims2vdSqGUwMUB0ztlo33r7WHlwgKf9R71rU4Gsa7vJgbDcihud2Mve2kOceA1VDfrdkvYYijI7aWkrBsxFBA9P/QeGBLuaSnOpXhVOjzRwPExPCtfXL8I7KJn6P9t2TZTOZ3ChmIp3xQ==; s=purelymail3; d=purelymail.com; v=1; bh=Fc6IXWLwH5VrIIY4TpPhp1GmAfGDN5J90ztlIHB9e0c=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 1578161:62319:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1341206260;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sat, 07 Nov 2026 13:55:39 +0000 (UTC)
+From: Younes Akhouayri <git@younes.io>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 7/8] rust: drm: Add JobQueue
+Date: Sat, 7 Nov 2026 13:55:38 +0000
+Message-ID: <kw-1794059738.215694434-299782-0@younes.io>
+In-Reply-To: <20261106140752.520386-9-phasta@kernel.org>
+References: <20261106140752.520386-2-phasta@kernel.org>
+ <20261106140752.520386-9-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,50 +77,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107210058841pJqeakmrIVxw9Uu1aqCHK@zte.com.cn>
-In-Reply-To: <20261107210058841pJqeakmrIVxw9Uu1aqCHK@zte.com.cn>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 7 Nov 2026 15:55:32 +0200
-X-Gm-Features: AclHuK-iIbre76arm7YsKKgk9O4j5Q4N4M52GRLIKhagF0WUvCqb_aZvfwDucCA
-Message-ID: <CAHp75Vcv03fUWx1ebtZtGsURL6s7DvnKPq4K_Zr=DT6OTjc=PQ@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: lpat: Avoid division by zero on degenerate LPAT tables
-To: shao.mingyin@zte.com.cn
-Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, lenb@kernel.org, 
-	andy@kernel.org, westeri@kernel.org, srinivas.pandruvada@linux.intel.com, 
-	rui.zhang@intel.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 7, 2026 at 3:01=E2=80=AFPM <shao.mingyin@zte.com.cn> wrote:
->
-> acpi_lpat_raw_to_temp() and acpi_lpat_temp_to_raw() linearly interpolate
-> between consecutive LPAT table entries by dividing the difference of the
-> other coordinate by delta_raw or delta_temp.  The table is provided by
-> the firmware through the LPAT control method and
-> acpi_lpat_get_conversion_table() only checks the package shape and the
-> element types, so nothing guarantees that two adjacent entries have
-> distinct raw (or temperature) values.
->
-> If the queried value lies between two consecutive entries that share the
-> same raw value, delta_raw is zero and acpi_lpat_raw_to_temp() traps with
-> a #DE exception and oopses the kernel.  The same happens in
-> acpi_lpat_temp_to_raw() when two adjacent entries share the same
-> temperature.  Callers such as int340x thermal zones and the Intel PMIC
-> opregion handlers pass firmware-controlled values straight into these
-> functions, so a malformed LPAT object is enough to trigger the trap.
->
-> Return the endpoint value instead of dividing when the delta is zero.  In
-> that case the query value necessarily equals the shared endpoint, so the
-> other coordinate of that entry is the natural fallback and no interpolati=
-on
-> is possible.
+On Fri, 6 Nov 2026 15:07:52 +0100, Philipp Stanner wrote:
+> +
+> +            drop(jq); // Release lock.
+> +            T::run_job(work.fctx, runnable_job);
+> +            jq = work.inner.lock(); // Retake lock.
+> +
+> +            // run_job() above needs to be called without lock protection. Thus,
+> +            // it is possible that the driver instructed completion right before
+> +            // we could re-take the lock.
+> +            if jq.last_completed >= seqno {
+> +                *jq.as_mut().project().capacity += u64::from(job.cost);
+> +                fence.signal(Ok(()));
+> +
+> +                // Drop here directly if possible. Otherwise, let the DropWorker
+> +                // take care of it.
+> +                if core::mem::needs_drop::<T::JobDataType>() {
+> +                    jq.drop_list.push_back(job);
+> +                }
+> +            } else {
+> +                jq.running_jobs.push_back(job);
+> +            }
 
-> Fixes: c55d62820efe ("ACPI / LPAT: Common table processing functions")
+When the IRQ wins the race, `complete_jobs_up_to_seqno()` kicks the DropWorker before the job lands on `drop_list`, and this branch pushes it there without kicking again. Am I reading it right that the job then sits on `drop_list` until the next completion or until the queue drops? If so, is that acceptable, or does this path need a `check_start_drop_worker()` too?
 
-I'm not objecting to the code, but this is not a fix, it's hardening
-for sure, otherwise your expectation is that we have such a table IRL.
-If so, this commit message should have a pointer.
 
---=20
-With Best Regards,
-Andy Shevchenko
+> +        self.with_inner(|inner| {
+> +            let mut inner = inner.lock();
+> +            let drop_list = core::mem::take(&mut inner.drop_list);
+> +            let waiting_jobs = core::mem::take(&mut inner.waiting_jobs);
+> +            let mut running_jobs = core::mem::take(&mut inner.running_jobs);
+> +
+> +            while let Some(job) = running_jobs.pop_front() {
+> +                let fence = job.fence.as_ref().expect("fence not present");
+> +                fence.signal(Err(self.err));
+> +            }
+> +
+> +            drop(inner);
+> +            drop(drop_list);
+> +            drop(waiting_jobs);
+> +            drop(running_jobs);
+> +        })
+
+In the `while let Some(job) = running_jobs.pop_front()` loop, `job` goes out of scope at the end of each iteration, while `inner` is still locked. If `JobDataType` has a `Drop` impl, that ends up in `DriverFence::drop` -> `synchronize_rcu()`; so is sleeping there with the irq spinlock held intended, or should those jobs be collected and dropped after `drop(inner)` like `drop_list` and `waiting_jobs` are?
+
+Regards,
+Younes
