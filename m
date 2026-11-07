@@ -1,62 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794095013;
-	b=ErXKGy3HW7g/nyUa3UsLXBa+mlfSGMBo1gJugSZeLZdvgOglpCGpHa1eaBUyySS3K0ij
-	 /s4Gd9SXOdzV2bbhN1T9D6YRQYkAEXJqbijqCh8cJ8qgu4WO1vUB7vGVuXUeQxax0RRO6
-	 zq/YUGeBhYNj8+veAz/6IWkSwsdBhN9bKQ99/qAQRNpu4CIW3H0uHeQ33ZuNITfOnFFro
-	 oYNsxs3ynJ7wadDSd8l6X8LyKJwfnx7Qkj5MMb1zt21kr9wPN/uiHgLLsK+0SxSefR6BW
-	 b6ppvvBGuwywinEPdn0GCSXaEIETUONVCz7cERTAcxW07q5bYKxrrVUV5719Wxprb2g==
+	t=1794095069;
+	b=rC2JLlrDXmtcVxlf+dM5+4jjoykW5zzZPV6XseQACKaJoiPK1hrRLn69ATSDV53AtyBu
+	 fhIAH+wyZ42HhtLcKxV8o1D8E8uVgguf1UFcW7k9JnjhW5A5gV/N56xOC7gMI59bk4NLo
+	 4bfw2mkT7nRjOPVgZpARVQ1BgFBWB3myAlSq0KPrrAh8dT+fLpfVbam3H0mFzdnL3jLLf
+	 /THU5+yoXCeKDQFCyXSiVJn4z2vEB6VMorZxiexSJIcT/lQFyAUtntUuYsa1LlSMMabeH
+	 AAzQr+vYSwITYGn84RuXYAmQ8hAtcgIokUcz2jUq1TUE+1Qc+zXZ/5/yaCO2+PHvvng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794095013;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794095069;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=9JVhoZv/kApjV5ecEB9wAeg1QHl094+ex1qsxNehnhc=;
-	b=LQ5fTY2lakWV6L0qnpUnrhFBoAOPBJV9qAyHBziDyvifY6CUz8Pd3lwh6veDvWsrYZ5F
-	 ED0CABDFWzGYw3sLg5a1hGgJn6gFlWnt6o1lEjPMxR/d9I2Cy0PMAqIfd4Kwgn1SIafQd
-	 DoyQdvWnWPxQs5xVO0dGzMMmWKFiISPWXUEcm45dKZ7eAC+re5ubjtRnLxiTELErftmB+
-	 K2YRlnwIsW3nEcv8vLgcV9BMxSDmnLGYOu18v2l9KU3ObvvsKTCmAR+Cz0/KWB/P27fKJ
-	 1zC9FfBziBfE+Z2RxK0PSnLnSkcq4OYl8II2Cn3JPoSJ9ugza4KiANgIOfCJngRw1XA==
+	bh=XRo5GmA0GQ35Bp1sx4M4gmJrDlqDnPyxXOg2fAZaFSc=;
+	b=faZLgSrJtzAatFC8YoJLb7YQc607DoOgby0pidBD0zxFre0+XvPzMtCQdLMAvFnT5le+
+	 aH/Gi5MkiF3sCrMlEKpo2FzyAzQl8OWK+ZIB4pIkVA6+Wzm60ue8XBenuD8iBea841W70
+	 p4CD7riIDVEy9XiWWWe0JuslVHXGy9/mKLgu7q3wSK/MYhNB/o/SgzINU5ZfhslgY1OF9
+	 Mth4D/cq4wMbCKqFIQpNhaeotjAIshltf92GQUVZ/zI/g3j9jRV+HefIE28a5jIsQg/7o
+	 NmKvmhMFYcYwTqbfgBacQ8g+J7NJ1VCeqUSn0b4V8Bc2OCmnnTaZe9kU+aqybqBkHjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhhiDMTO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNbaBipV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A19606A326;
-	Sat,  7 Nov 2026 23:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FF9606A326;
+	Sat,  7 Nov 2026 23:44:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhhiDMTO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EAD61F0089F;
-	Sat,  7 Nov 2026 23:43:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNbaBipV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0BD41F0089F;
+	Sat,  7 Nov 2026 23:44:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794095012;
-	bh=9JVhoZv/kApjV5ecEB9wAeg1QHl094+ex1qsxNehnhc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UhhiDMTOXiySnfYDmTQByecsNuzvdkkUYa2f2XsT9gcuhd1owatVF5gjkOY95l2pQ
-	 qN7llj/K7lYPqktGk2IgIr0luMD7W21SVInSqvvKvMfuZx7GGgzDu/38wXrHchKlBI
-	 mW4RhKSpgi0IBfsbiak0KnlDzajD7qO4+wYIX8wtRdTEasE/rZNtcqdkgxTdc/udfU
-	 RD/1ss1OCeK4xjdco3O06oEA8eecxNZHkM5D/n28NcgNPB5Rmhe/XlHh+mRv3ZRu88
-	 vvcSuYb6SEodgyl6CDvK41XJTy8moTRsIG5MYuv2nZzety/bsx17nejZhY+puwwShA
-	 EHO8KKUg5MHBg==
-Date: Sat, 7 Nov 2026 23:43:23 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Cc: Michal Simek <michal.simek@amd.com>, Sai Krishna Potthuri
- <sai.krishna.potthuri@amd.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <amitrkcian2002@gmail.com>
-Subject: Re: [PATCH 4/6] iio: adc: versal-sysmon: add over-temperature alarm
- events
-Message-ID: <20261107234323.0aef5ae0@jic23-hlaptop>
-In-Reply-To: <20261102122112.1723130-5-amit.kumar-mahapatra@amd.com>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
-	<20261102122112.1723130-5-amit.kumar-mahapatra@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794095069;
+	bh=XRo5GmA0GQ35Bp1sx4M4gmJrDlqDnPyxXOg2fAZaFSc=;
+	h=From:To:Cc:Subject:Date;
+	b=kNbaBipVwcU4/q2d7jG93ZnOfvEN78IfY0u4R6kE27LOLulS3VnbheDX93aX0Xm3B
+	 cdcfHfptPKd8Szl8mRsLHxaAmKMJd0eOY3OIqjcbZlKjehY1SdLKlGwxaI1Nxh6UcN
+	 pUakG8zfsofmF3vUb42i/CagLueoLEg9rbg6DQJouJVDQ00I/4rERRk1PRizXvC+cY
+	 dm+EzIGEq9Ipv/AmPnP6E32bzYtdjyqfgrwUZSKMYiYDzLKJDiiTkA0JwmL8APLjMh
+	 XU3y7DWw78aiFAhBTtM8fyyZf1uYjTUJWCmJ1Eri6A9x4hAgKv385NIhrMwIUMDaqH
+	 eq+9gIMlC/Xfw==
+From: Thorsten Blum <blum@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] Input: amijoy - remove amijoy_phys
+Date: Sun,  8 Nov 2026 00:43:47 +0100
+Message-ID: <20261107234349.382944-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,102 +58,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1290; i=blum@kernel.org; h=from:subject; bh=2EEp21DeOVypGkdIacSVjdQZ+ZgwGS9NRiPOQjHhNoc=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnvt299FTxfkemFjrSf3mUTbcV3OVIbWf/Oydp6z7hO9 dsFBatfHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRBfMZ/mcLV/ee/dj8pk1U YmbJq4AYf4vIa0JlE1MXHvtza8O7WQkMf2W+TNhe2ZkQVv6I+7tLwmor6WQvyZAKn823arbM1PL r5AMA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2 Nov 2026 17:51:10 +0530
-Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com> wrote:
+amijoy_phys has only two entries and is only used by amijoy_init().
+Select the physical path directly and remove the array.
 
-> The SysMon has two independent temperature comparators. The driver
-> exposes only DEVICE_TEMP on interrupt bit 9; the over-temperature alarm
-> on bit 8, with its own threshold pair at OT_TEMP_TH_LOWER and
-> OT_TEMP_TH_UPPER, is not reported to userspace at all.
-> 
-> The two are structurally identical: an upper threshold, a lower
-> threshold acting as the hysteresis floor, and a hysteresis mode bit in
-> ALARM_CONFIG, bit 0 for OT and bit 1 for DEVICE_TEMP. Per AM006 the
-> over-temperature shutdown response is a PMC function configured at
-> design time, so the kernel's role here is threshold configuration and
-> notification rather than acting on the alarm.
-> 
-> IIO identifies an event by channel, type and direction, and both
-> comparators are rising thresholds on the same aggregate temperature, so
-> they cannot share a channel. Add an event-only channel labelled "ot"
-> carrying the OT thresholds.
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+Changes in v2:
+- Remove amijoy_phys as suggested by Dmitry
+- v1: https://lore.kernel.org/r/20261107174739.369375-2-blum@kernel.org/
 
-So the reason we don't normally do multiple threshold levels is they
-have minimal use for an IIO interface - as you've discovered they've
-reported the same on the events interface.
+ drivers/input/joystick/amijoy.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-If this wasn't an existing driver, the support of this is something that
-would strongly push in favour of an hwmon driver where the concept of
-warn and critical thresholds exists.  That's there precisely because
-the critical is often wired to a pmic or similar.
-
-However, that isn't normally a problem even in an IIO driver
-because that threshold should be a design time concern with the
-limits coming from firmware.   So why is this even settable by
-userspace? Feels like an interface to create the bad type of smoke.
-
-We have a few times discussed how we would perhaps add another
-layer of indexing to events, but it is hard given the the compact
-event codes and I'm not sure I'm seeing a usecase that justifies
-that complexity here.
-
-I also can't work out where your new channel turns up. What does
-the userspace ABI look like for this and the existing event controls?
-
-Thanks,
-
-Jonathan
-
-
-> 
-> The channel is appended after the device tree derived channels because
-> io-channels phandle arguments are raw array positions, and placing it
-> earlier would silently repoint existing consumers. It is created only
-> when the device has an interrupt, as without one it would carry no
-> events.
-> 
-> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
->
-W
-> @@ -880,6 +932,9 @@ static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev, int ir
->  
->  	num_static = ARRAY_SIZE(temp_channels);
->  	num_chan = size_add(num_temp, size_add(num_static, num_supply));
-> +	/* The over-temperature channel exists only when events do */
-> +	if (irq > 0)
-> +		num_chan = size_add(num_chan, 1);
->  	sysmon_channels = devm_kcalloc(dev, num_chan, sizeof(*sysmon_channels), GFP_KERNEL);
->  	if (!sysmon_channels)
->  		return -ENOMEM;
-> @@ -960,6 +1015,25 @@ static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev, int ir
->  		};
->  	}
->  
-> +	/*
-> +	 * Over-temperature alarm. The OT comparator watches the same
-> +	 * aggregate temperature as channel 0 but against its own threshold
-> +	 * pair, and IIO cannot express two rising thresholds on one channel.
-> +	 * It has no reading of its own, so only event attributes and a label
-> +	 * are exposed. Appended last, because io-channels phandle arguments
-> +	 * are raw array positions and inserting it earlier would silently
-> +	 * repoint every existing consumer.
-> +	 */
-> +	if (irq > 0)
-> +		sysmon_channels[idx++] = (struct iio_chan_spec) {
-> +			.type = IIO_TEMP,
-> +			.indexed = 1,
-
-indexed without an index? I'm not even sure what this
-turns up as. There are already 4 indexed temperature channels
-so why isn't this just landing on the index 0 one?
-
-> +			.address = SYSMON_OT_TH_UP,
-> +			.event_spec = sysmon_temp_events,
-> +			.num_event_specs = ARRAY_SIZE(sysmon_temp_events),
-> +			.datasheet_name = "ot",
-> +		};
-> +
-
+diff --git a/drivers/input/joystick/amijoy.c b/drivers/input/joystick/amijoy.c
+index 3752dc2a2086..cfe407b56c41 100644
+--- a/drivers/input/joystick/amijoy.c
++++ b/drivers/input/joystick/amijoy.c
+@@ -30,7 +30,6 @@ MODULE_PARM_DESC(map, "Map of attached joysticks in form of <a>,<b> (default is
+ static int amijoy_used;
+ static DEFINE_MUTEX(amijoy_mutex);
+ static struct input_dev *amijoy_dev[2];
+-static char *amijoy_phys[2] = { "amijoy/input0", "amijoy/input1" };
+ 
+ static irqreturn_t amijoy_interrupt(int irq, void *dummy)
+ {
+@@ -108,7 +107,7 @@ static int __init amijoy_init(void)
+ 		}
+ 
+ 		amijoy_dev[i]->name = "Amiga joystick";
+-		amijoy_dev[i]->phys = amijoy_phys[i];
++		amijoy_dev[i]->phys = i ? "amijoy/input1" : "amijoy/input0";
+ 		amijoy_dev[i]->id.bustype = BUS_AMIGA;
+ 		amijoy_dev[i]->id.vendor = 0x0001;
+ 		amijoy_dev[i]->id.product = 0x0003;
