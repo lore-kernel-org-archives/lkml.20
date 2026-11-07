@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052980;
-	b=woVHnmnwrKjsNt48pDVFOQGeGgANr8dBtfvUqIza5DsYuoUoJqX0LSl2G8DVs+/w2wAd
-	 HEmOvPQqSiUw1PDQje58yCd3PSfNbE5Cu7z8d/rdwn84+HZAgd18roHTSnvMKx9GP76FB
-	 kUPxskLmyaRPuYqOdfua7ImZ7JrdYRjF6TrX/OpJO4DGLq0HofnS5h9ip6xsePOdTCFZT
-	 drzMzWtRgs56tZzH+PXmXrcFCbm6Lkr/2OiEz3cpdRbmxgTqGZR1L+3yd9sizOWVcRR97
-	 bylGntwsDRvZBcW3dDCP/jaP/8uTUKN8mOOAG1l+1zbp/AJbS2BPbG2m1ipG55X04Ng==
+	t=1794052975;
+	b=bROM4lAez3l9S9aWLLe6evDysrT9aDzD1QhBSmibzXGgD1lWVVsn8coKG+sYcKjiyEl1
+	 l3dgnLS2Zj/GSfOgODQrYtdKvnGAeJfmzh1ZatWxAktXzMqBNdBlBjcDRIRFMgaNKAVic
+	 sFK3P9HObp5jSSNUdLqA3d0gd0GMHqZa39pbjicLZar/jG2peHfVU6lbLXQKV5HkJlYGG
+	 8G2LTIDnZFyeNEMVn7MBKCgpLBCVXonC9lEMM+HBxjmvnaTF1m9fsDDlW9wMlzPZngKaj
+	 vTw2sA/uLhWl2kvmFzMQyXLy0F13u4LukZigQSC1Vg1weBoe+qUtN/z72fR6DVmGa1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052975;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
 	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
-	bh=J2BDJ/52TL1KSLFD0+jGK076gvNMWOuIwR0EWAvl6a8=;
-	b=qudnMmtHYSqS+PZyUeZYguk8ttBRZESQ/OtAamFjO45ZTl3uxVKGeyqwJu/NKlT2xMoO
-	 zb+wgLdPzmRbX3awHILKkf9jm0i9pbe+zBUk2c0fsESMSundqmz7QfQxh2LHtRwfc4vUY
-	 VDsMQl0YVmGLSxYab+bErrtU6ZKEkeZbjUVLAf3/GjmQDhPTHQvkOaz98BbD5GzQWgPt3
-	 XYY04I2XiltwHgK2JsHprnV4jjqoZyXjXYwEpNry1wewJ9ySOGyDaX6FVgUYgn+ycKG3B
-	 Q5vkhtHVHiodaS0lOAl0vJabI/I1jU0v0WzJevsYc/bhDNyZAFCofDBMTtjiC5v0Lzg==
+	bh=KuLz3vefNn5xh9zIM0MFtxrM6rHYInTb9vA6g+BILSA=;
+	b=dTBkACmoruWVZl248UPPBDXh9SHPVkkUybKrvueV9Pt6TjT4FL5+oxKF8kSdEq2XT8v6
+	 llpvCZ2V+brpNZUQG0oJJ8BJtNH8YTHq6zOXHcn1OTp0DFMFGXiB561nUPgR2pIvUfkxp
+	 IODQq7km7QYfqa+Fa5hOnYWjdiyABTcrGMPYC5OCUVwYT/RpvSIqJJBIKUD/c961kr8lV
+	 MjAD4CxyvVtXqk9pPPUJZJYZzkQgCHpBW0/oi4h+TRZ6K1YDCqhr5D6fzWDktuRBoQ8H7
+	 Jmk1hwCE0ZhasjKVELiwwKPdMrx3N2qlF5DxF61iefAxlgp8m3SSLlwo9vwX2W4ZTxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=oBixrCPI;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=wJWIT4md;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEC1606A33B
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BEC1606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EA8606A334
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42EA8606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=oBixrCPI
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=wJWIT4md
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
+	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
 	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:In-Reply-To;
-	bh=J2BDJ/52TL1KSLFD0+jGK076gvNMWOuIwR0EWAvl6a8=; b=oBixrCPIWMyQum3b7pZKuASHbp
-	2CDpPGQ2q/NRE6/8fVf3svviqgXC1BrWtokcg5kRAOPWARd3kQuZiqj6wE8PEbOcn79xkOvyteC5H
-	zPrNjDMnx48Wgg1IblShBvgKpDH3vEJV40icARJXPeeaBTkqz/+e0finySQ0N8fd+j4nCqINbvG94
-	l5IL+E78KS4/BIgHx8VNx2oHD+cV83EEvSMEomYnBmyeX23gW/QfUjlBtSSeh7NeQHTJgdwDFPQWk
-	CkgU1AMfFHrK392JKVkPgjIjfd4pnP/CPBUwS0TLkPxFM1DTtCxiju3PqNGWAboLNdRguyEhnSCBv
-	/9B8yS7g==;
+	bh=KuLz3vefNn5xh9zIM0MFtxrM6rHYInTb9vA6g+BILSA=; b=wJWIT4mdFvW2ONdk03zLUPMfwg
+	+eWO+HcJ8bZhk7E9L+fDda4MKYn3VKRhLEY/YYxi9CKsufPBSjepBmTIC8Fd8Uum5L9gQuAul2+O+
+	xiRIo6IQ0o08Ws6B8KgXQaGg/5UR65dhXHDgIb8geh8B9CU8a6L8e+F5Vo9RYnOLnQdRCXebwpaT2
+	A/Ze13EITnGAub1BA9HoIgF+H48TMpxnQs/UBmtadkUG8g8OH4HceW+chl0GgvRq1emK82niHHmnF
+	BP90abOEjo0jfvigEeh4XgkWFzJWM9S5N/gVDKV07z7wx1fWSUyd/+l/ssAhDxfvy7+j7jH/cK5KA
+	H868KUTQ==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPf8B-00000005BYg-1pfc;
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xPf8B-000000008zB-0Zbr;
 	Sat, 07 Nov 2026 12:02:47 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
-	id 2979F302FBB; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
-Message-ID: <20261107120207.361504499@infradead.org>
+	id 45742303315; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
+Message-ID: <20261107120208.153536827@infradead.org>
 User-Agent: quilt/0.68
-Date: Sat, 07 Nov 2026 12:59:19 +0100
+Date: Sat, 07 Nov 2026 12:59:25 +0100
 From: Peter Zijlstra <peterz@infradead.org>
 To: mingo@kernel.org
 Cc: peterz@infradead.org,
@@ -65,7 +65,7 @@ Cc: peterz@infradead.org,
  linux-kernel@vger.kernel.org,
  tj@kernel.org,
  ziqianlu@bytedance.com
-Subject: [PATCH v2 06/12] sched/core: New rq_{pin,drop,repin,unpin}_lock() semantics
+Subject: [PATCH v2 12/12] sched: Remove sched_class::balance()
 References: <20261107115913.261163891@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,125 +78,228 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-The current semantics are such that UPDATED is cleared on rq_pin_lock() but
-remains set on rq_unpin_lock(). This works because rq_clock() itself asserts
-rq->lock is held.
+Ever since commit 50653216e4ff ("sched: Add support to pick functions to take
+rf"), we have the unfortunate situation that both sched_class::balance() and
+sched_class::pick_task() have overlapping functionality in that they drop
+rq->lock and balance tasks.
 
-However, there are two problems with this, both related to the newidle/balance
-lock drop.
+Additionally, prev_balance() is only called for a single RQ in the core-sched
+case, resulting in 'missed' balance opportunities in this case.
 
-The code as-is, tries to preserve UPDATED over drop()/repin(), but during the
-drop an interleaving lock()+update_rq_clock() will still move the clock --
-since it will clear UPDATED on lock(). Make this stronger using the freshly
-minted freeze and thaw. This way the clock remains where it was, restoring the
-'atomicity' of schedule().
+Just like pick_task(), prev_balance() would iterate the classes and stop when
+there is a runnable task found. The only difference is that pick_task() starts
+from the top class, while prev_balance() would start from prev->class.
 
-Additionally, there is a variant with core-scheduling. In that case rq->lock is
-shared among the sibling threads, but rq->clock and rq->clock_update_flags are
-very much per thread. This disparity can cause another form of the above
-problem, where one sibling is trying to forward the clock of the other sibling.
+This means that if prev was an RT task, we'd get an extra visit to balance_dl()
+-- and similary, if prev is fair, we'd visit balance_{dl,rt}() both. However,
+this is not a problem, because both need_pull_{dl,rt}_task() will DTRT.
 
-Sort this by making lock() clear all sibling UPDATED, but only for non-nested
-(using core_pick_in_flight as nesting counter).
+Therefore, move balance_{rt,dl}() into pick_task_{rt,dl}() and remove
+sched_class::balance().
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- kernel/sched/sched.h |   61 ++++++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 51 insertions(+), 10 deletions(-)
+ kernel/sched/core.c      |   23 -----------------------
+ kernel/sched/deadline.c  |   10 ++++++----
+ kernel/sched/idle.c      |    7 -------
+ kernel/sched/rt.c        |   14 ++++++--------
+ kernel/sched/sched.h     |    5 -----
+ kernel/sched/stop_task.c |    7 -------
+ 6 files changed, 12 insertions(+), 54 deletions(-)
 
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1936,6 +1936,51 @@ static inline void assert_balance_callba
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6185,25 +6185,6 @@ static inline void schedule_debug(struct
+ 	schedstat_inc(this_rq()->sched_count);
+ }
+ 
+-static void prev_balance(struct rq *rq, struct rq_flags *rf)
+-{
+-	const struct sched_class *start_class = rq->donor->sched_class;
+-	const struct sched_class *class;
+-
+-	/*
+-	 * We must do the balancing pass before put_prev_task(), such
+-	 * that when we release the rq->lock the task is in the same
+-	 * state as before we took rq->lock.
+-	 *
+-	 * We can terminate the balance pass as soon as we know there is
+-	 * a runnable task of @class priority or higher.
+-	 */
+-	for_active_class_range(class, start_class, &idle_sched_class) {
+-		if (class->balance && class->balance(rq, rf))
+-			break;
+-	}
+-}
+-
+ /*
+  * Pick up the highest-prio task:
+  */
+@@ -6241,8 +6222,6 @@ __pick_next_task(struct rq *rq, struct r
+ 	}
+ 
+ restart:
+-	prev_balance(rq, rf);
+-
+ 	for_each_active_class(class) {
+ 		p = class->pick_task(rq, rf);
+ 		if (unlikely(p == RETRY_TASK))
+@@ -6348,8 +6327,6 @@ pick_next_task(struct rq *rq, struct rq_
+ 		goto out_set_next;
+ 	}
+ 
+-	prev_balance(rq, rf);
+-
+ 	smt_mask = cpu_smt_mask(cpu);
+ 
+ restart:
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -2705,7 +2705,7 @@ static void check_preempt_equal_dl(struc
+ 	resched_curr(rq);
+ }
+ 
+-static int balance_dl(struct rq *rq, struct rq_flags *rf)
++static void balance_dl(struct rq *rq, struct rq_flags *rf)
+ {
+ 	/*
+ 	 * Note, rq->donor may change during rq lock drops,
+@@ -2724,8 +2724,6 @@ static int balance_dl(struct rq *rq, str
+ 		pull_dl_task(rq);
+ 		rq_repin_lock(rq, rf);
+ 	}
+-
+-	return sched_stop_runnable(rq) || sched_dl_runnable(rq);
  }
  
  /*
-+ * We want clocks to be updated _once_ during core scheduling.
-+ *
-+ * rq_lock(smt0)
-+ *   __rq_clock_clear(); // outer
-+ *
-+ * core->core_pick_in_flight++;
-+ * update_rq_clock(smt0);
-+ * drop()
-+ *   freeze();
-+ *
-+ *			rq_lock(smt1)
-+ *			  __rq_clock_clear(); // inner
-+ *
-+ *			update_rq_clock(smt1)
-+ *
-+ *			rq_unlock(smt1)
-+ *
-+ * relock()
-+ *   thaw();
-+ * update_rq_clock(smt1) // no second update
-+ * core_pick_in_flight--;
-+ *
-+ * rq_unlock()
-+ */
-+static inline void __rq_clock_clear(struct rq *rq)
-+{
-+	if (!sched_core_enabled(rq)) {
-+		rq->clock_update_flags &= ~RQCF_UPDATED;
-+		return;
-+	}
-+
-+#ifdef CONFIG_SCHED_CORE
-+	/*
-+	 * Inner rq_{,un}lock() should preserve state.
-+	 */
-+	if (!rq->core->core_pick_in_flight) {
-+		int cpu;
-+
-+		for_each_cpu(cpu, cpu_smt_mask(cpu_of(rq)))
-+			cpu_rq(cpu)->clock_update_flags &= ~RQCF_UPDATED;
-+	}
-+#endif
-+}
-+
-+/*
-  * Lockdep annotation that avoids accidental unlocks; it's like a
-  * sticky/continuous lockdep_assert_held().
-  *
-@@ -1949,33 +1994,29 @@ static inline void rq_pin_lock(struct rq
- {
- 	rf->cookie = lockdep_pin_lock(__rq_lockp(rq));
+@@ -2823,6 +2821,11 @@ static struct task_struct *__pick_task_d
+ 	struct dl_rq *dl_rq = &rq->dl;
+ 	struct task_struct *p;
  
--	rq->clock_update_flags &= ~RQCF_UPDATED;
-+	__rq_clock_clear(rq);
- 	rf->clock_update_flags = 0;
- 	assert_balance_callbacks_empty(rq);
++	rq_modified_begin(rq, &dl_sched_class);
++	balance_dl(rq, rf);
++	if (rq_modified_above(rq, &dl_sched_class))
++		return RETRY_TASK;
++
+ again:
+ 	if (!sched_dl_runnable(rq))
+ 		return NULL;
+@@ -3654,7 +3657,6 @@ DEFINE_SCHED_CLASS(dl) = {
+ 	.put_prev_task		= put_prev_task_dl,
+ 	.set_next_task		= set_next_task_dl,
+ 
+-	.balance		= balance_dl,
+ 	.select_task_rq		= select_task_rq_dl,
+ 	.migrate_task_rq	= migrate_task_rq_dl,
+ 	.set_cpus_allowed       = set_cpus_allowed_dl,
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -468,12 +468,6 @@ select_task_rq_idle(struct task_struct *
+ 	return task_cpu(p); /* IDLE tasks as never migrated */
  }
  
- static inline void rq_unpin_lock(struct rq *rq, struct rq_flags *rf)
- {
--	if (rq->clock_update_flags & RQCF_UPDATED)
--		rf->clock_update_flags = RQCF_UPDATED;
+-static int
+-balance_idle(struct rq *rq, struct rq_flags *rf)
+-{
+-	return WARN_ON_ONCE(1);
+-}
 -
-+	/* __rq_clock_clear(rq); */
- 	scx_rq_clock_invalidate(rq);
- 	lockdep_unpin_lock(__rq_lockp(rq), rf->cookie);
+ /*
+  * Idle tasks are unconditionally rescheduled:
+  */
+@@ -594,7 +588,6 @@ DEFINE_SCHED_CLASS(idle) = {
+ 	.put_prev_task		= put_prev_task_idle,
+ 	.set_next_task          = set_next_task_idle,
+ 
+-	.balance		= balance_idle,
+ 	.select_task_rq		= select_task_rq_idle,
+ 	.set_cpus_allowed	= set_cpus_allowed_common,
+ 
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -1596,7 +1596,7 @@ static void check_preempt_equal_prio(str
+ 	resched_curr(rq);
  }
  
- static inline void rq_drop_lock(struct rq *rq, struct rq_flags *rf)
+-static int balance_rt(struct rq *rq, struct rq_flags *rf)
++static void balance_rt(struct rq *rq, struct rq_flags *rf)
  {
--	rq_unpin_lock(rq, rf);
-+	rf->clock_update_flags = rq_clock_freeze(rq);
-+	scx_rq_clock_invalidate(rq);
-+	lockdep_unpin_lock(__rq_lockp(rq), rf->cookie);
+ 	/*
+ 	 * Note, rq->donor may change during rq lock drops,
+@@ -1615,8 +1615,6 @@ static int balance_rt(struct rq *rq, str
+ 		pull_rt_task(rq);
+ 		rq_repin_lock(rq, rf);
+ 	}
+-
+-	return sched_stop_runnable(rq) || sched_dl_runnable(rq) || sched_rt_runnable(rq);
  }
  
- static inline void rq_repin_lock(struct rq *rq, struct rq_flags *rf)
+ /*
+@@ -1718,14 +1716,15 @@ static struct task_struct *_pick_next_ta
+ 
+ static struct task_struct *pick_task_rt(struct rq *rq, struct rq_flags *rf)
  {
- 	lockdep_repin_lock(__rq_lockp(rq), rf->cookie);
+-	struct task_struct *p;
++	rq_modified_begin(rq, &rt_sched_class);
++	balance_rt(rq, rf);
++	if (rq_modified_above(rq, &rt_sched_class))
++		return RETRY_TASK;
+ 
+ 	if (!sched_rt_runnable(rq))
+ 		return NULL;
+ 
+-	p = _pick_next_task_rt(rq);
+-
+-	return p;
++	return _pick_next_task_rt(rq);
+ }
+ 
+ static void put_prev_task_rt(struct rq *rq, struct task_struct *p, struct task_struct *next)
+@@ -2616,7 +2615,6 @@ DEFINE_SCHED_CLASS(rt) = {
+ 	.put_prev_task		= put_prev_task_rt,
+ 	.set_next_task          = set_next_task_rt,
+ 
+-	.balance		= balance_rt,
+ 	.select_task_rq		= select_task_rq_rt,
+ 	.set_cpus_allowed       = set_cpus_allowed_common,
+ 	.rq_online              = rq_online_rt,
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2785,11 +2785,6 @@ struct sched_class {
+ 	void (*wakeup_preempt)(struct rq *rq, struct task_struct *p, int flags);
+ 
+ 	/*
+-	 * schedule/pick_next_task/prev_balance: rq->lock
+-	 */
+-	int (*balance)(struct rq *rq, struct rq_flags *rf);
 -
 -	/*
--	 * Restore the value we stashed in @rf for this pin context.
--	 */
--	rq->clock_update_flags |= rf->clock_update_flags;
-+	rq_clock_thaw(rq, rf->clock_update_flags);
+ 	 * schedule/pick_next_task: rq->lock
+ 	 */
+ 	struct task_struct *(*pick_task)(struct rq *rq, struct rq_flags *rf);
+--- a/kernel/sched/stop_task.c
++++ b/kernel/sched/stop_task.c
+@@ -15,12 +15,6 @@ select_task_rq_stop(struct task_struct *
+ 	return task_cpu(p); /* stop tasks as never migrate */
  }
  
- #define __task_rq_lock(...) __acquire_ret(___task_rq_lock(__VA_ARGS__), __rq_lockp(__ret))
+-static int
+-balance_stop(struct rq *rq, struct rq_flags *rf)
+-{
+-	return sched_stop_runnable(rq);
+-}
+-
+ static void
+ wakeup_preempt_stop(struct rq *rq, struct task_struct *p, int flags)
+ {
+@@ -110,7 +104,6 @@ DEFINE_SCHED_CLASS(stop) = {
+ 	.put_prev_task		= put_prev_task_stop,
+ 	.set_next_task          = set_next_task_stop,
+ 
+-	.balance		= balance_stop,
+ 	.select_task_rq		= select_task_rq_stop,
+ 	.set_cpus_allowed	= set_cpus_allowed_common,
+ 
 
 
