@@ -1,66 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080009;
-	b=GPJdW0XB9vh7igqGx1Zg564KQlY61H+6S6IycBC0gS4p8pTHIoYYkneB16OmSUaURrSv
-	 3eIKjkJq/TfssBEb0z2UvDvaPktsQ7lA5CfYATRKAd9LNI4QVD8FZ+oqZjRJTMbnbvy5+
-	 MjTHyjJVnkEMcs/darKjNO8OxmP4YtoMoSh1gs/Avpp4hFLfp2Fm/CVeU915uyaF8co/G
-	 El2QN8nGG/uUiet9gzVNGq1ZyLL8/fCP3BCZrsWqu5NK1ifNT4IjJ+S5k4gnRt96E7HFE
-	 R7d2NTCZ3Sb/i6omZi1hZOD5WcLgCuBi6xzLCT0XQ6izWRT8MObb6RYOU/cL9HC8YvQ==
+	t=1794080050;
+	b=Z+pq9MSDb698meNdODk4esHvsQ4nMDedwYYmOD1xGq0+esjcONf5JrTdaxP+gVt/nk9n
+	 wEGHaPW8tLcZah9SHe1vuNPBLEHb7hTx0CdQv3sXnaaPu2/DveF2U4iZCQc2BlGZHwtFX
+	 7XDoazHhDnMO7YFHNk5eMypM+lPeccT/UZcTbjZFSUNI4sIPl1b6Rvtl9QaAmXawZq8o5
+	 8+R9OO482vm6UJ7AE6ZxbphlXP/TuqcSj9iXEhtjtK338+uVRtIgeapx6uOeeyX0VX4Hw
+	 wNBWZVdfgRL4jxAwnqNvkhpyujpTxVkAaWgme1J6w1XNY43yMhAmLvZ5R4rGcphxYPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080009;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=bdEnRhaq9naN/jfM+EgRhagkLAGd6elDVRBsfzO9N9c=;
-	b=l8DYCso8pzCcnXfiw9rc6JPDSZI15f9lcQv1+NP5+p/4800McrmHVPZkjbbQ+lGoiGNp
-	 hi3yoQclc+exl0HczmH7TT6zJN3io3I5K/CmqGrWchzR/n2Z/BRTPmraOJsVHHQrC1YZT
-	 HVWpmd8wXV0PCGGHMXWKJ8kAbytDm/VSa+R1rrG7biC83pi9HMbvwHMVoIJGSmXqLzZ2g
-	 x2rMa2IEe0/mIjlcuz4bmDnUhvKRGNlPt6ZgaH8VrHsnetpm4fSoTl1L1T2bUpNYe0TLJ
-	 jK8yprmtn8DlDeeOR4PWCNK48qBiyjYz2xq/euhp/FVuZ/0cRmMg+eyKZx5CuQA5H1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080050;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=tTMbY5wDu0Q9kyyP5WALVTT8c1BJMdKWv4LGJnBFjhc=;
+	b=Amv8+MiHIR2Rm1hKlfF+5kLRiijFHwJPqMApnqUHOTaBBVYGFTzCyIIE9JxX9GL63fC4
+	 Id1TXz3wW7P/4DvFsz1z5LkWluuiJzXq7SpUivX9kka1VPrEv2y6fCfIzCnp5a4mjuvm0
+	 6aY8hrkU0T4Xxlle5/fI+bsqtldM2rypHBDU19W8LSNAoeLYypp27myoY2hJKTgwU61kQ
+	 ZS/mwOxYEHTZAFml/91p02CLCxfXqTcKu4jmx4g0jaxIvjD3Jw3OqKC/lJXcH20/d7cMj
+	 6F/BAE6uEWv63iw+gckB/lvO5UJAwTCGr4dqk5LKMhYqB9Bs1Ng4PBDg2gmWj9e8Syw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftQfmrgX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KLxrqfM7;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CF8606A326;
-	Sat,  7 Nov 2026 19:33:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D933606A338
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:34:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D933606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftQfmrgX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C431F0089F;
-	Sat,  7 Nov 2026 19:33:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794080009;
-	bh=bdEnRhaq9naN/jfM+EgRhagkLAGd6elDVRBsfzO9N9c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ftQfmrgX0PTL6OyPr21ItVBP7iEotgJoBBodKYZzA9N+WTPgVMGgNEt7hRvo8RcW6
-	 aQ0PevE5CQFQNDEijOMftez1rUxlx71Q/4QI+2JjPZsru6Ascqo0HoBhrHkQjeoWn6
-	 tSejtejf+yz41ID74q+dJDLcq7PwtP0rNph9cqRo8zVJ/ANC37AuElytIy7b1KOj8l
-	 3u1PF4itd0zJ2DU0wEzj3v3dRa9voEvSE0mamgbMPpilnqGMl1YFM3pCr/8AhoBwVE
-	 60Fu6EBLAlsHK9iOoTf97nGo532cXVaNYsgqrJXZ+Md/QzdrUuMOU0CTtmEp+pGXal
-	 uxFoWTxTMFGig==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>, 
- Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261106-fix-split_folio_to_order-race-v2-1-1b59c67b8af3@nvidia.com>
-References: <20261106-fix-split_folio_to_order-race-v2-1-1b59c67b8af3@nvidia.com>
-Subject: Re: [PATCH v2] mm/huge_memory: prevent losing PG_waiters in
- __split_folio_to_order()
-Message-Id: <179408000316.4465.8734683078485520816.b4-ty@b4>
-Date: Sat, 07 Nov 2026 20:33:23 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KLxrqfM7
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed00709df0so15869275ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 11:34:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794080049; x=1794684849; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tTMbY5wDu0Q9kyyP5WALVTT8c1BJMdKWv4LGJnBFjhc=;
+        b=KLxrqfM7u7uxgIMHAjsKmhtRJzAp+RwNzVoYEu9m3l2q/VEQBRvxR1azMIMowRWtPU
+         Ybh3pdXyLOYMy1vxHG0BXAtbMhHhuIxUO3+VoL+GnSeEH3Esy/WeYhTkcPWiy3EpVsh7
+         gehZbvSgUJi/5SNvluEmcUyx5I6iEdvs+cbgyuh+WtIoSqrUhQS0kzQ7cr7SHEXbBIV1
+         a7Z26cEUJQTt2eiUv3xLTJu6Z8Ya+TUVV4okI/1exFuGUWd+dHdXCxnUg2YIz8ELkThA
+         B9ymKTEVZOYuApXh1SHPhckbNuw5P68jP0PYlcLW4PAzcMSss6BUnIm3JSDZmbAWLZVT
+         V5/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794080049; x=1794684849;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tTMbY5wDu0Q9kyyP5WALVTT8c1BJMdKWv4LGJnBFjhc=;
+        b=0DdB32tAO7ZkJJZIFV4pSQi8kZagwP0Z50JNC0bnI/0XtNGif0p+y5x2q2iBN8DqWZ
+         h51p4hj9zuF4aVipCdefS8i238Gc7wDoOlxye5JrtwMvlnJEBF6qQ2ZoMoTu7s5BO7hW
+         UhI8E4bBBOutNobWv1EXN3bLpBamc/wpuoy7rkUIMKTa39qHT0G0f/3Ls9gKHlfj1tun
+         zbtpKxRdaoSAAlgCRf2UBpeo7HI++DyvwuT019XGDa3ybD5TzAOrnMWEiIgoDcEdOAvB
+         uKInJusIw1lZe+u3rDcqgpTvuf70SYRewgeDn9Yq3wwL3r6VD+zOEr1yvX7nrNSGl6w4
+         iP3Q==
+X-Forwarded-Encrypted: i=1; AL+hErE2mOGfasrOOdSDkRkkp/Dx0PTbi/l029uBkJqkJj99b0lvLOY7Bda0a3eau84wZ4Ak4MdHpuntNar7pPc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aHoBjxlx45HZOmSc7MX3CFKSPZWFeaXEtobT4UttbP3k5TjYO
+	k3ljevPY5jPJOo8Ehgpze7AZg5B3Gpdi4YDa3Ym1me8POC4Y1DXavm5G8tePjvKjYEAfccrNhjx
+	GQDdJgQ==
+X-Received: from plon11.prod.google.com ([2002:a17:903:1a8b:b0:2ea:ce88:ff88])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e88e:b0:2e9:9a19:c4f
+ with SMTP id d9443c01a7336-2ed40e89b01mr67905115ad.61.1794080048300; Sat, 07
+ Nov 2026 11:34:08 -0800 (PST)
+Date: Sat, 7 Nov 2026 19:34:07 +0000
+In-Reply-To: <a951af6957fe4890d3eaaf5a661754fc259a4b79@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,50 +77,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Mime-Version: 1.0
+References: <20261009091941.5837-1-qiang.zhang@linux.dev> <CAAVpQUAeHP7M07uMweRePtuzPPUo-99dL6jOYUiVf7CSVUxNDQ@mail.gmail.com>
+ <a951af6957fe4890d3eaaf5a661754fc259a4b79@linux.dev>
+Message-ID: <au99DNHQEsaaDqpJ@google.com>
+Subject: Re: [PATCH] neighbour: Move the netdev_put() out of RCU callback
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Zqiang <qiang.zhang@linux.dev>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, 06 Nov 2026 13:28:46 -0500, Zi Yan wrote:
-> __split_folio_to_order() calls prep_compound_page() on each new head page
-> to create a compound page after clear_compound_head(). prep_compound_page()
-> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
-> and frozen and no one else is supposed to modify the folio's flags.
+On Sat, 07 Nov 2026 11:47:45 +0000, Zqiang wrote:
+> > 
+> > On Fri, Oct 9, 2026 at 2:19 AM Zqiang <qiang.zhang@linux.dev> wrote:
+> > 
+> > > 
+> > > For builts with CONFIG_NET_DEV_REFCNT_TRACKER=y kernels, netdev_put()
+> > >  records the caller's stack trace via ref_tracker_free() for debugging
+> > >  reference leaks. however, the netdev_put() is within pneigh_destroy()
+> > >  RCU callback, this recorded stack is uninformative, it does not reveal
+> > >  which code path initiated the deletion.
+> > > 
+> > Have you seen pneigh double-free ? What motivates this change ?
 > 
-> However, code calling migration_entry_wait() can reach the folio by PFN,
-> then access its flags. It is because softleaf_entry_wait_on_locked() used
-> by migration_entry_wait() sets PG_waiters concurrently without taking a
-> reference and the frozen refcount during split cannot block it. Meanwhile,
-> __SetPageHead() does a plain read and write, so PG_waiters atomically set
-> by softleaf_entry_wait_on_locked() will be lost if the set happens after
-> __SetPageHead()'s read and before its write.
+> Firstly, Apologies for delayed reply.
 > 
-> [...]
+> 
+> 
+> Actually, I didn't see any double-free happening,  just wanted it to
+> record a meaningful callstack which on release path.  After all, if double-free
+> really occurs, the callstack of the RCU callback execution path will not be helpful.
+> 
+> 
+> > 
+> > > 
+> > > This commit therefore move netdev_put() from the RCU callback into the
+> > >  caller's process context, and replace call_rcu() with kfree_rcu().
+> > > 
+> > >  Fixes: d539d8fbd8fc ("neighbour: Free pneigh_entry after RCU grace period.")
+> > > 
+> > Please elaborate why your change is safe in the commit message
+> > and remove the tag.
+> 
+> Does it refer to using kfree_rcu instead of call_rcu ensures safely ?
 
-Applied, thanks!
+I mean why dropping netdev refcnt waiting RCU gp is safe.
 
-tree: mm/core.git
-branch: for-next-fixes
 
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
-      https://git.kernel.org/mm/core/c/654fdaf4
-
--- 
-Cheers,
-
-David
-
+> 
+> Thanks
+> Zqiang
+> 
+> > 
+> > > 
+> > > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> > > 
+> > nit: full name
+> > 
+> > > 
+> > > ---
+> > >  net/core/neighbour.c | 14 ++++----------
+> > >  1 file changed, 4 insertions(+), 10 deletions(-)
+> > > 
+> > >  diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> > >  index 6ed8eb075146..4263689fc415 100644
+> > >  --- a/net/core/neighbour.c
+> > >  +++ b/net/core/neighbour.c
+> > >  @@ -818,14 +818,6 @@ int pneigh_create(struct neigh_table *tbl,
+> > >  return err;
+> > >  }
+> > > 
+> > >  -static void pneigh_destroy(struct rcu_head *rcu)
+> > >  -{
+> > >  - struct pneigh_entry *n = container_of(rcu, struct pneigh_entry, rcu);
+> > >  -
+> > >  - netdev_put(n->dev, &n->dev_tracker);
+> > >  - kfree(n);
+> > >  -}
+> > >  -
+> > >  int pneigh_delete(struct neigh_table *tbl, const void *pkey,
+> > >  struct net_device *dev)
+> > >  {
+> > >  @@ -849,7 +841,8 @@ int pneigh_delete(struct neigh_table *tbl, const void *pkey,
+> > >  if (tbl->pdestructor)
+> > >  tbl->pdestructor(n);
+> > > 
+> > >  - call_rcu(&n->rcu, pneigh_destroy);
+> > >  + netdev_put(n->dev, &n->dev_tracker);
+> > >  + kfree_rcu(n, rcu);
+> > >  return 0;
+> > >  }
+> > >  }
+> > >  @@ -891,7 +884,8 @@ static void pneigh_ifdown(struct neigh_table *tbl, struct net_device *dev,
+> > >  if (tbl->pdestructor)
+> > >  tbl->pdestructor(n);
+> > > 
+> > >  - call_rcu(&n->rcu, pneigh_destroy);
+> > >  + netdev_put(n->dev, &n->dev_tracker);
+> > >  + kfree_rcu(n, rcu);
+> > >  }
+> > >  }
+> > > 
+> > >  --
+> > >  2.17.1
+> > >
+> >
