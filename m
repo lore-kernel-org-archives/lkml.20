@@ -1,92 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794043200;
-	b=jmh2lr0N00IHfx0NSVLffwevAgVjqVbJzDzJU2+CdY/0flqRzMStX4WitIbYwc+u2o4s
-	 6nAq6xb0ZNMbkbzpRoPJF0c1SCZLGW3aQNtSF9rPqRCDm7iqHKf3n21LU/P2Z+AJf/f3t
-	 fqpQfSmdN2rtVlQVXn4zDioJ0dCoB/YAIX7P2gmh4UA2QOObO42iANwKX+OEgor0ha/sk
-	 ILnnS9+f4E1WEjxsAv2pgDNr3Y/Bc3JZ51CIZ4XPKG/XyETPnV26jMEUXP3Z6VMMGX/PN
-	 aDDaWfTGZbpq9x9+VJIH5eSMBbXdQsSJXf1hzCKIy+fMFmiACkSj51kEOQqp2ps3KmA==
+	b=WLw7g29BHbN8G1KSsV9fukOtlJlmm6clSkWeO9YRNahpOpzZpTxH4qgP7obNjZc6OOAG
+	 RlR7xMP2M+KzDnGiqHleuG9GRhSEF+HiolGx3yMyoUziqxuidcr8vlz0ItCZ6lE5TaPiv
+	 eUCyPKbr0ZvzgvThKEKyGHOkJic7v8hsTbzCNR8Db3flesnEA1mpQ4DuiDbOiYPW/mrOs
+	 hj1Qij83nVHg1atsMwLIf1ztS/MsrNg++sIh8h6aJQFU4+SvDBejMBNKW43Nab9OYRR7T
+	 HxC/Zw1D9Nj+fAWcE896Er61n6+RHjfDLLMv5U526J9z/axVIiiglCefeSGmHLTFPFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794043200;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dZHYs9Xo6IvnEdYXT1TI48a85ZqCmEQBlvnpyMiF9q0=;
-	b=a4GkPSM+g3EbI/KcUQhaWjznj29i2I/1jSoZvvc7VdGHXy9VCPFIDv7IBGFd88/2bkEf
-	 Ufd3r5+DzqK1/z7rr+lISUB/esLzLzR+1onO5OzEpK6LNCkX6MkFbDMsf/32FpfDjyZf8
-	 z+rIgLX1AiuLOpoZt/iHY+4x8T37rwrIsLk452ExX1b/kllgMMJOo84wrp0NuxSPsiBG0
-	 S7qjpCdPzT9W6P1pvYNecb/CgIhoKHbnGzWmLzrCMOQ/KTkc8tfTI5ZJtGmWI5ajEKXtw
-	 1RLxP0AAVAM2GZorCwevK4D4eAgmeV9Bv0TVXizjf49ZUMb7JL8uHd+Aur+Atdfeh3Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qNorqVzMtOJQNgkxj+V5JXWSTJIpc86ccOUkJXX2g3M=;
+	b=5hiEp1COSO0G7iGDPAvyyJLkEGG5ahFm1+88twUe03zns+bq62HQKBlG1ADIo1+8MW1t
+	 DFYwdSRnc//iQkdRMp5XIFhE9oduGsMCoh/1Z1BE3ELo+fzZhAhvzAYccjuG/vRZ/q2UX
+	 jCHP0gEribkBlZrSzcNnL6jo8YBTDVCOqKqgBwj3Hx1vqghCSRJfOLPvoYcwJbpRWhbvE
+	 YjR20djn8ieUlQQLWe7lvDmGsNPm/QbccMjYhX1/oHjBNCijkBoTM9PB2CNySmhgypw7m
+	 T01Ts5PZ/jHSk0JAt8GYSu+RmzKXhEJjxseDiVObQv8mrWHOoFM6bcqVuW9dEQhRzeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XQqXeKtw;
-	arc=none smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BOttPRcq;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DBB606A32C
-	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 09:19:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45DBB606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F89606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 09:20:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30F89606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XQqXeKtw
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b4f7d3cd98so1509395a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 01:19:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BOttPRcq
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso219164266b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 01:20:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794043198; x=1794647998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dZHYs9Xo6IvnEdYXT1TI48a85ZqCmEQBlvnpyMiF9q0=;
-        b=XQqXeKtwwMWmPG0WFy0rud8ZqMkYwSeOlrVR/EVHDWxI9iXbpc7MTvIib9QyOen9wG
-         9idvZwmDVHIpLmRUl3AOzOEJOqvL5OqpYoDv+IwsNG3ovC67Nzx7qkykz9rLBHu68oT7
-         AmkUG0FHWWnur+tkPDpx/h/kXLXmxWrOh3o+yS0rL2u7ehjPWS5ZOLydcZDBkQxkjgoN
-         KbjOQFtAwvT/UgfyF4ah1ubH5D4vBxDaF9m6omxylhFrLhxz1e33wtqRmkeSRQP0aP9z
-         uGFBUZbGzLM3sAuyd4JYqtX0+bQ7jnMjDkEpEIXohNbjWtNM0uuH94C6BV7gCyISggWp
-         j+7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794043198; x=1794647998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794043199; x=1794647999; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dZHYs9Xo6IvnEdYXT1TI48a85ZqCmEQBlvnpyMiF9q0=;
-        b=gG/0/6eI5uqtrqwTW3HC00MpFsm3y0tXjMEddfiGrewFvKOBEPaLaizrPxgY/pkzBm
-         tk/Kr5oKUCaJQXsi2MlY65M9VdEHcZznLQthLyRTJ+5aAg4ase718PNUyO1rzDQUAYcl
-         p3shv/ysZhQUaBKWEh5ufIsS4txOgFNCbr8V1n1bJl81z90A4g4A1NsUzouxV3AYjtCa
-         rAwe1SlIEfnMW8Bxrbfp7TKaX1KRy3iALqMhMn3o07YgTWuBG9oPQIsb3dnifeBfm+17
-         NL5Sj/U4wLSj+4YOZgYAWQJMW+gNQ4+plVPQJmjoBW3/YKglsEutCjame7ymEPIivKCW
-         rPwA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFoFMwh/RnU+B58wA37cFogxUiqWgwC+N806ARBwDBI/k7zD7muqeZAID7CiM26uWry2Ysz6V9WF7Jm20=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MFU4LwM/NIJCzifq3xdMhc8od8xRuEMeJeZV7R/cvvcea2atO
-	lJZjWNHChXJjqAU/CxHEwQyRTsD6gf4n9vvK5p03CwPR+oPBDxdYZf4K
-X-Gm-Gg: AYBFou3U+e+g/9McOoK+fADJFTiH4Q+3/lBSXHXklZljHHGROY9L1j9ZMoU4ynIuiNJ
-	BNDJ8a8g5KGgG5tHq9T8rRL1YLfnEpir2fwtYzxr8Dl1w9V4NFg+zhqpGYA+W/oaMxX7VG4gOg9
-	jyZ4YdST+ZWHurwb/rP3G+qtvcdEbWszBKmha2BK9lS+LHmaR7nnUHc/CAslVmyuVVlUYCOMFsd
-	O3x2FeiagbyZcBaqR63YGi+UeeSNidlQqtl3EYd2/rOSrxIinpHzqeBMnuEGhLfsM1wuWhE5HVJ
-	chagIhx8DfUmfsXtxAlZoh/qaLZMhSJ97yFmfpuOqdfU9UfiK7VG0QodS72x+RF1eUJczh7JG3Z
-	6FtbK0eTqz33WJlyzf26QvgPwDZCMYQ2JgeQnXvz2Er3aoSH1DWn5SSlYwscs2LGRpjReq6Y9aB
-	R7KXhL/JEVe6QsA9PmHEriEP/ZsMa7Fvi8ZpwE7Ukx6WPBN6Hfh62pcQh0NWrvYqGO3onfyF8yM
-	q/fSZGc3zzoeCJ5Ae3f8H/PkowUSf4+xUMcanNMLVCwTEPgAcNH4nU5kzbi0wWO8Hx5t8rAT9Ww
-	JKdjSN/b9WNMeBLVvCTWl1gecLVnXF/mks9sdTjLdt6QXUkFKgw9KwCEmD89TFKtCDeApXA=
-X-Received: by 2002:a17:906:c109:b0:c46:c3ad:e1ca with SMTP id a640c23a62f3a-c4d3546b3damr354337666b.9.1794043197422;
-        Sat, 07 Nov 2026 01:19:57 -0800 (PST)
+        bh=qNorqVzMtOJQNgkxj+V5JXWSTJIpc86ccOUkJXX2g3M=;
+        b=BOttPRcqgG+uZ0c1NZVMcEkJcW1JBATm1iUsZXY1cNHKw4awRWDBfFfwiWoaQEjWSp
+         UwRL3Ci0zb4a/nyLBsQnHMHkdJQPqyMg6rYE/GraEnvlkmyU+KvGMaMAdhBdflZ7JDi6
+         Xnl+Dy2hD7bOw0D4DOdEh7zb7dcgXgbEVN5WpJM1KtBXvGKJ4il9XbmOR4eb6zHqbima
+         7Frh6KmDI2DT/AeMhD7Pd6lc5twnabWf3Qxouxey718ovDVBfcaAFUOr8LDrDDFu8SG4
+         g7fob+Y1QR+lTTmG4nD2Kgg0HhL0buO1J0Cw0QTfGyEjk1YWonsivVkTKfAdVgS0t/eV
+         XyYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794043199; x=1794647999;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qNorqVzMtOJQNgkxj+V5JXWSTJIpc86ccOUkJXX2g3M=;
+        b=g7zmb5vXkgFLgEP8uEQ9wTZi6HKFII7WaOnZYbkmiZhIlwboWAfjtoD9yp8u0pVt+9
+         1POBSEaFkQ7qAs89SKO66loqas2xiPmAvRfhWThuRrKOmbEERFR8smguVN+kv0bJLTni
+         nlz2TXG5OOlw+zVKwLbG3oa5kvvXscwubgDFW/do8pXoeZWjVu6JIxiV+2EVwmrBsonC
+         bVhMwg1JLC5XoZId58n0DCoWpOdu1rhYF9IgW3T44DeG39FmNwU7iqPmwqXBBAPP1Kmn
+         wMeG4+8Obs8wiISuvdAtIzcWNIV8bdIC3a87YxEkiEu7F2tm/M7mafyvT/KWiMOskr57
+         RUug==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ96gLPw+KjxPHo3DuIDVSINvjjeRQoUstP8CLUTVXdX67DA2LpRt/dkJTmHYYOfgcKgt4v5YrigGsBiA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kgdhzywNsc1bBfqPT57IbR7dLHizfHvFCnOXXE3ifgk7qjnqe
+	rgdsiZ9+so20Nm6tS3y/QwGmargoU28Z3wD9XRQpg1wGDt4bI1rhA0htUeT4S72R
+X-Gm-Gg: AYBFou1qt7itwCq0bxrhg137mFCs7+RdTEogsstMS1oOku9DlGO18ZauzCxvQcRSMJv
+	Jq7IZ01IKiwjBlmKvvtHbbg5nF+dRbStiytFGt1NMartsJHXvSkzE8KlWj2qZLpbj3q8gtlamSa
+	ERhXwg0kGPM6vLvtvrmJPgSk172AOopea/KW4tBB9340ww4qYUoa6hzeN4YKgF540UwY8fEoMRR
+	sic7FYtz5DpBBL7Ltw9okb4C9G+gWUCnsNYyHVpR1Q0pSeKx+HQaZ2vgyNjdsdDATDhP9D7NMDU
+	xW3rcjaVcYRWqgpZr090YHSETxmsOnnGEQ8g8HJesHiCf+dA+1SEb/jZC6xXFY/1jzpevug4WXk
+	n9bEJBNAJjU/jA5YB9xP9z7cxEA2s92grWmzz5Lmc+7yLXKOL59E3EYwFyVuhWCg72Lsgd7g8dM
+	mGZigH1iXWYM/x6PG1oenwD0fjPcifKHHfn9PruC219B2GOxszBx5Z+O7yjgsfBLdJd+8xae9NN
+	EVTAqK0kGw4NL2B2PdWIpXz+RJb3clLjlwUjMMsMRftyyCCY9PjR9CdddTCUEFZZRt4MMgbWbg3
+	Jf0/39Sst3eOh4lUrWx1lcevVqAF7BCIWJ0AUxVTp94ADlB4CGf1xo9DivPXnVENiP5p6/ZOLeq
+	GyWNVY1qob2qCtubG
+X-Received: by 2002:a17:907:3d94:b0:c2a:b1cc:158d with SMTP id a640c23a62f3a-c4d35554748mr386898566b.32.1794043198450;
+        Sat, 07 Nov 2026 01:19:58 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356c776csm138824766b.70.2026.11.07.01.19.56
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356c776csm138824766b.70.2026.11.07.01.19.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 01:19:56 -0800 (PST)
+        Sat, 07 Nov 2026 01:19:57 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: richard.henderson@linaro.org,
 	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
 	linux-alpha@vger.kernel.org
 Cc: linmag7@gmail.com
-Subject: [PATCH 0/1] alpha/perf: Enable duration-based sampling throttling
-Date: Sat,  7 Nov 2026 10:18:34 +0100
-Message-ID: <cover.1794040317.git.linmag7@gmail.com>
+Subject: [PATCH 1/1] alpha/perf: Account for time spent handling PMU interrupts
+Date: Sat,  7 Nov 2026 10:18:35 +0100
+Message-ID: <547ee20a68b3f2d848d451c69ad023c0361f41ee.1794040317.git.linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1794040317.git.linmag7@gmail.com>
+References: <cover.1794040317.git.linmag7@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,113 +102,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Alpha does not report PMU interrupt duration to perf, preventing its
+adaptive throttling from reducing an excessively costly sampling rate.
 
-While testing Matt's v7 ProfileMe series [1] on my EV67 AlphaServer ES40,
-I found that short-period sampling could make the machine unresponsive.
-Once serial logging was enabled, the console showed RCU grace-period
-kthread starvation reports.
+Measure handler time with RPCC and report it to perf_sample_event_took().
+Convert cycles using the calibrated frequency selected by time_init();
+Alpha's tick-based sched_clock() is too coarse for this measurement.
+Wrap the existing handler so all return paths are accounted for, without
+changing counter programming or event handling.
 
-Count-based throttling was working: at HZ=1024 and the default limit of
-100000 samples/s, the observed cadence was approximately 98 interrupts
-per throttle cycle. However, Alpha never called perf_sample_event_took(),
-so perf could not reduce that limit based on interrupt handling cost.
-Setting perf_cpu_time_max_percent to 25 did not provide that feedback.
-
-Keeping period 17 but lowering the limit to 1024 or 4096 samples/s made
-the tests pass while still exercising repeated stop/park/restart cycles.
-Adding duration feedback also made the original high-rate test pass,
-without changing those counter-state operations. The minimal fix measured
-average handler costs of 24-26 us against a 2.5 us budget and reduced the
-limit to 7168-8192 samples/s.
-
-Reproducer
-==========
-
-The reproducer requires Matt's ProfileMe kernel series and matching perf
-tools. On the ES40 I used the following one-second workload, built
-natively as "busy":
-
-  #include <stdint.h>
-  #include <time.h>
-
-  static double now(void)
-  {
-          struct timespec t;
-
-          clock_gettime(CLOCK_MONOTONIC, &t);
-          return t.tv_sec + t.tv_nsec * 1e-9;
-  }
-
-  int main(void)
-  {
-          uint64_t x = 1;
-          double end = now() + 1;
-
-          do {
-                  for (int i = 0; i < 1000; i++)
-                          asm volatile("mulq %0,3,%0" : "+r" (x));
-          } while (now() < end);
-          return 0;
-  }
-
-  cc -O2 -o busy busy.c
-
-As root, with serial capture running:
-
-  dmesg -n 7
-  sysctl -w kernel.perf_event_max_sample_rate=100000
-  sysctl -w kernel.perf_cpu_time_max_percent=25
-
-The period-10007 control completed successfully:
-
-  taskset -c 0 perf record -B -R \
-      -e cpu/instructions,profileme,randomize/ -c 10007 \
-      -o control.data -- ./busy
-
-Changing only the period reproduced the failure:
-
-  taskset -c 0 perf record -B -R \
-      -e cpu/instructions,profileme,randomize/ -c 17 \
-      -o period17.data -- ./busy
-
-The unpatched runs required a manual reset; a userspace timeout did not
-reliably recover the system. The commands above are the essential
-recording commands from the controlled tests, which also used a timeout
-supervisor and saved logs on another machine.
-
-Validation and submission scope
-===============================
-
-The minimal fix, without diagnostic instrumentation, passed three
-repeats of the high-rate reproducer and the two low-rate controls.
-Broader testing covered 21 cases on all three CPUs: randomized ProfileMe
-instruction sampling at periods 16, 17 and 31, ProfileMe and Aggregate
-cycle sampling, and concurrent ProfileMe and mixed-mode workloads.
-All completed, with 1352488 samples, no recorded losses and no new RCU
-stalls or kernel faults. This was bounded stress testing, not a long soak.
-
-The missing feedback predates ProfileMe. This patch is therefore based
-on mainline and can be reviewed and applied independently of Matt's
-series. I cross-built vmlinux, the Alpha boot image and modules on
-mainline d48723711bae with the ES40 configuration and GCC 15.0.1. The
-only build warning was the existing saved_config COMMON-symbol warning.
-
-The hardware results above used Matt's v7 series with this fix applied;
-the mainline-only build has not been boot-tested. RPCC supplies a short,
-same-CPU interval because Alpha's tick-based sched_clock() is too coarse
-for this measurement. Counter programming and event handling are unchanged.
-
-[1] https://lore.kernel.org/linux-alpha/20261105-alpha-profileme-v7-0-c474e892abb0@gmail.com/
-
-Thanks,
-Magnus
-
-Magnus Lindholm (1):
-  alpha/perf: Account for time spent handling PMU interrupts
-
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
  arch/alpha/kernel/perf_event.c | 26 ++++++++++++++++++++++++--
  1 file changed, 24 insertions(+), 2 deletions(-)
 
-
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
+index a3eaab094ece..dd3bc70b71d7 100644
+--- a/arch/alpha/kernel/perf_event.c
++++ b/arch/alpha/kernel/perf_event.c
+@@ -16,8 +16,10 @@
+ #include <linux/kdebug.h>
+ #include <linux/mutex.h>
+ #include <linux/init.h>
++#include <linux/math64.h>
+ 
+ #include <asm/hwrpb.h>
++#include <asm/timex.h>
+ #include <linux/atomic.h>
+ #include <asm/irq.h>
+ #include <asm/irq_regs.h>
+@@ -26,6 +28,9 @@
+ #include <asm/hw_irq.h>
+ 
+ 
++extern unsigned long est_cycle_freq;
++static unsigned long pmu_cycle_freq __read_mostly;
++
+ /* The maximum number of PMCs on any Alpha CPU whatsoever. */
+ #define MAX_HWEVENTS 3
+ #define PMC_NO_INDEX -1
+@@ -797,8 +802,8 @@ void perf_event_print_debug(void)
+  * Performance Monitoring Interrupt Service Routine called when a PMC
+  * overflows.  The PMC that overflowed is passed in la_ptr.
+  */
+-static void alpha_perf_event_irq_handler(unsigned long la_ptr,
+-					struct pt_regs *regs)
++static void alpha_perf_event_irq_inner(unsigned long la_ptr,
++				       struct pt_regs *regs)
+ {
+ 	struct cpu_hw_events *cpuc;
+ 	struct perf_sample_data data;
+@@ -862,6 +867,21 @@ static void alpha_perf_event_irq_handler(unsigned long la_ptr,
+ 
+ 
+ 
++/* sched_clock() is tick-based on Alpha; measure a short same-CPU interval. */
++static void alpha_perf_event_irq_handler(unsigned long la_ptr,
++					 struct pt_regs *regs)
++{
++	u32 start = get_cycles();
++	u32 cycles;
++
++	alpha_perf_event_irq_inner(la_ptr, regs);
++	/* Unsigned subtraction handles a wrap of the low 32-bit counter. */
++	cycles = (u32)get_cycles() - start;
++	if (likely(pmu_cycle_freq))
++		perf_sample_event_took(div64_u64((u64)cycles * NSEC_PER_SEC,
++						 pmu_cycle_freq));
++}
++
+ /*
+  * Init call to initialise performance events at kernel startup.
+  */
+@@ -878,6 +898,8 @@ static int __init init_hw_perf_events(void)
+ 
+ 	/* Override performance counter IRQ vector */
+ 
++	/* Match the calibrated frequency selected by time_init(). */
++	pmu_cycle_freq = est_cycle_freq ? est_cycle_freq : hwrpb->cycle_freq;
+ 	perf_irq = alpha_perf_event_irq_handler;
+ 
+ 	/* And set up PMU specification */
