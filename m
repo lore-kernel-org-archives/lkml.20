@@ -1,61 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794133524;
-	b=QiiBuGp75TGtZJ0Lg789tpIExfqvQV5VAo2f6PlUuVq/cBRfXqo+O+ZUAC4P1PuzVzpm
-	 AtxFnDHyUkUO/83LcuJkmVGXz1UsstZ/D2Jln7OIujSek6wC8BaASu8cT86oZs3H19Bsv
-	 pw6LwGjWDuHC6kMWNdMFDY0NoT7EGg05DQ33ZF4UoOtdZsaOHwtuq5MA4gLPBOsBHf2qV
-	 8ixVyPS6QXTC0mHJ918F4XTFSXqzhm5VpoaFJMRE6yJGYWfOXbs+TswxkFUGvTpi1HZFV
-	 rjrChRSxCOuMYSO69AxP/vU9qHTXgEKluS0NuSCd8zY5WmA9hmv7XRejrSSDNHjpXtg==
+	t=1794133525;
+	b=1vYD3+C14qbV+YI27oU+mTMBlog2B+sbwJTscrhuFsTvWMbNBkA0Nt395Bac6APQBRPV
+	 1sJXUTOISRbOfLYVi3WI6dXHRV9i9UcxHmY2RQ6mHoZMkOPSMGqo03pSFQkMWR6DunDuV
+	 FdZsEOZ3uJO3mR0Rvr0hDCFUmVEVAhhcrEhLyvJDyXcp1mW7MQUyGAVMjwlJt/Q0CJ94I
+	 AqjqbXGlLirO/ZuegX+OpzHZFSqb/i33cLbGzAIb9DhizvHKxP/obhZ62SLyaAMizLvtf
+	 MzvMVZHQL1BZfKfUyJRhS3IKs5OExXxfIXm5RJkfqpbKDl1Z5dA2VFbakzUG03YWwfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794133524;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794133525;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=hfhNnalS9GFYuSHidbjYftuezJdAnfZU/VmvCK8JZAI=;
-	b=aZ/rrG+ZiTxwBWLKPK5RAjM/ihabvMiGIBXBf7VIJyUwYc5p+PzXnEWY0Gq+s8lPVbP3
-	 zXZogFC3hxTKR2wBFlQ8kB5He3a4T9OuTM31VDdVeMr+CKhR96wAnMkYmc62ok6oI/yYG
-	 tgM0LKYXZqU9IFl0kF/BuZy5KGbNSNLHSp+N9CsmvRt+5VqLhkD7RzYAqmv8KG6AQ1lbj
-	 UU192xD7ppXG86vD34jEY3ZpJyILLovygeuBVgiQyRlqeBEQHWaSXhcBWnJ+FwWVAEtzu
-	 KTg5pACJL+Tjf5vrHTJ2L7eL+HENkcu8AgUHYf9uJj0Jib32Hh3qQup7WUHVGqrkB2w==
+	bh=bylo8flS+1WrpbHSY6IQ0kdWCHHEhu5AQHuYzOr6dbU=;
+	b=DSFmyhEeIMICjCw4Fd0Ks4TIQWzFtl0Ej6f1MBRwOYC4jEU4F3D4Q+kBtKn/cJ0tuHhT
+	 hhSHlOElUq8x4mMw0C7CdjAD5BaDNN80+/ejxW/0PCAERVAn0LTDUCaGFR0kOrhC3NHiP
+	 QKclX3HEucrpiHCJUBJIhTSZswEeLFW2eFJRWOe+kErhcjAo6mxc7S+wM7lMCRCewR/Ne
+	 A0tYLLoQMnBFUOlDQdMZuggITrezO0RDqG0KlufBf3hcL2uQJ4ZX8TzLgJQ9oBiHq2+uw
+	 ZhLE+oPUU0Ixzr4XNrmV1xzxwxFeV5qmL+6QAfM3okUHj1xU96ALirwW4BD1L8jry7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIbYNzdw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLOMfnW0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11018606A31C;
-	Sun,  8 Nov 2026 10:25:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567A9606A332;
+	Sun,  8 Nov 2026 10:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIbYNzdw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF5D1F0089F;
-	Sun,  8 Nov 2026 10:25:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLOMfnW0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03C71F0089F;
+	Sun,  8 Nov 2026 10:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794133523;
-	bh=hfhNnalS9GFYuSHidbjYftuezJdAnfZU/VmvCK8JZAI=;
+	s=k20260515; t=1794133524;
+	bh=bylo8flS+1WrpbHSY6IQ0kdWCHHEhu5AQHuYzOr6dbU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=DIbYNzdw/xd20UIweNIOFw4xuGa0z2Opsb1tiTzcrFvEpr8X4P6M+OMzhgQhN26Fq
-	 XkdIied3b+4zN02FPcioxorPn8rzicJfivVx9Y/dJJOBEy2bo+HCGAfroJ3EvbhwMO
-	 kIyd2PHJrrSpXo5k9dSDg5sHIqsLZVsfTrCmNbglCZY1PJv1xFsKJfNWLQHlhOiuFk
-	 IEqYmIgu05TTyc+nR2f9aQyzMkdRSiIhqH7MmEewuR47hBZTUJKxtzovPRz8QWnvNH
-	 8iiC2EUOWvPRrtWezY5+cldEXWhd2Ge8ypYmyFAvSJMymHjGYSfG6DgKatAqXAcO6Y
-	 6ytd5FRWISg2w==
+	b=DLOMfnW09en14tWIVBR/tzxZ4isJtBOxAzNTh/vDEjBlzj0wArGkr/GmTPeFLCr2V
+	 1kAZk21ca6A7uY/P+Xb/ddFjslsdvv26PtedVF5PuM8xzkM/spL+P2FYrbIxxYWNPR
+	 5+oEQt6Ns/jYVnFex8ThqDlgBxjUx6oqBY++8Wxxi+VZB7jcL/TRGEvUgeifNIBkX6
+	 glA10y46RzgvH6I6DpYD1MQoASJArlBtfZT7MhuhsWjTeqpD8aFvZNcYNX5obYVBQy
+	 mrRUIX4uP4gj4OzAEV7TRT4fDxAkiRL3dMQ9GnnQ9r04DjbJ3AKHcqVZjvLoGSTDz7
+	 vOAZJHOCyMfAA==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id A37922BDEFF4;
-	Sun, 08 Nov 2026 10:25:21 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 324132BDF001;
+	Sun, 08 Nov 2026 10:25:23 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- srini@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
- Tang Bin <tangbin@cmss.chinamobile.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261028015732.1985-1-tangbin@cmss.chinamobile.com>
-References: <20261028015732.1985-1-tangbin@cmss.chinamobile.com>
-Subject: Re: [PATCH v2] ASoC: qdsp6: q6routing: Fix memory leak on probe
- failure
-Message-Id: <179406053601.3424803.7992285493416201804.b4-ty@b4>
-Date: Sat, 07 Nov 2026 14:08:56 +0000
+To: Lars-Peter Clausen <lars@metafoo.de>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, 
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+ Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>, 
+ Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Kexin Sun <kexinsun@smail.nju.edu.cn>, Frank Li <Frank.Li@nxp.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Tianchu Chen <flynnnchen@tencent.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ bui duc phuc <phucduc.bui@gmail.com>, 
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, Frank.Li@oss.nxp.com
+Cc: imx@lists.linux.dev, vkoul@kernel.org
+In-Reply-To: <20261102180915.3981805-1-Frank.Li@oss.nxp.com>
+References: <20261102180915.3981805-1-Frank.Li@oss.nxp.com>
+Subject: Re: [PATCH 1/1] ASoC/sound: use dmaengine_desc_set_callback()
+Message-Id: <179405609792.3424803.2824098810391321403.b4-ty@b4>
+Date: Sat, 07 Nov 2026 12:54:57 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,17 +83,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1126; i=broonie@kernel.org;
- h=from:subject:message-id; bh=lAhKU4TgygOB5Lb3CWrRkNBcESMfQk/0i9gbpYwWWIE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI++PGdd2FpeskYvX/1Ucdbn/h9dsWudDE6vDnVQm1Jr
- dFXwbg1HaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIsmhGhl1B/9X/LvA//k8+
- R6w4vkEwUjglpW1u2Mkf6TdKF52/Y8zwT91lyrPfs53elR2S61w1T+jGv+Av6rmP750v0/j1mvv
- IYX4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1116; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=gfsu4URJ4HbF/VzoK1NmEFJNQ3R2Mj/pfy798YFc6MA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI++AkX7mLYkPFsxe8VX+ScFq+6v6wwNjy1ds4lnQe8A
+ d/3qWgqd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAivJWMDCsU27R3/1k/a8W3
+ hVq15xS8mMK8Lzsc0Tx6/NrZf3lTRB4y/BWwTAhRTPD76Fklyf1+6zuXc0sun7Df85TjccGc+6t
+ XWbMCAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 28 Oct 2026 09:57:31 +0800, Tang Bin wrote:
-> ASoC: qdsp6: q6routing: Fix memory leak on probe failure
+On Mon, 02 Nov 2026 13:09:08 -0500, Frank.Li@oss.nxp.com wrote:
+> ASoC/sound: use dmaengine_desc_set_callback()
 
 Applied to
 
@@ -86,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qdsp6: q6routing: Fix memory leak on probe failure
-      https://git.kernel.org/broonie/sound/c/861f35761dc8
+[1/1] ASoC/sound: use dmaengine_desc_set_callback()
+      https://git.kernel.org/broonie/sound/c/bd9d1df5a856
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
