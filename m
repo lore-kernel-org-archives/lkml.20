@@ -1,60 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794079586;
-	b=1ZWsKjv7EsQ4yKlDJ1T+am3x+amml3cGdd4yvEN22N/Pyt/KxEci0LI/CSmRG9gHgTGI
-	 hYWaHt0e1Y4m9nir15invz1UJilvNVYR6K7JrGZlioVdaKnmVsLOyF5iqLQ+R7ZvyoXi0
-	 uYT4jUAFoo+uc0DAnvXOjZ/ucmTanhqfpMrBRqPbJQ+Laa6w1iqfTAmfMYQHCB+tTpBnH
-	 aLVK933w9BpYNC6fq3M+/O4E1zd1z8sekG+nfe5QtJF2rybiWyn91vYZ/xd6s0atI8sn+
-	 0yIbyTHaucNUeCuK79sUHNLAvWJgLxn4UgHc5uJPbxTWSDfd4yIrNUUfD8J412/8pvA==
+	t=1794079628;
+	b=BzmVAzp8mOymRpzljLImzqzOddyb9FQaoUuhV3rrEZcdkG9dc+nuErwDUmtoIm+Sc2fV
+	 BEuTPlE71cBivNrVjMhCckBvk9TlQZVnhedrcRv4eMc576SJpjdnZ/X6S4zkioZRwo611
+	 zqVucwF6GuvbpPM8uiCmEUhxfPMO6kjHjmgeHcCU82gEwH+/NSz6l6Pmd/xX6tJGohdnr
+	 PJWZpiKkfL9oQYYwmD3XRY/mlNTLJwkZTtQjT3a2CV9O54mukzXdZEoMQGVUIp71e5U+H
+	 iH8eskqjI5II+v1z7qINxCumC/+fkZeZnCNWmvBnVd3t595XYYPwqIxRvNI4YHbJlOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794079586;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3HNu1KANaG+U8kTSPLyfgpYzK/AYsfGQ9PW6Idr9ttQ=;
-	b=3J5u+jACJV/kAn0M+Cd4HuPbEezyiRa76hZzc3B+fJ9ZEyROGKiQinHe+epleIUidksK
-	 zIreXzKs19pv5C5uJJodyK7O7A/Tv6bydb4SidMhnF8syuF63zYccPsY7hJc+G9SxSzNO
-	 b1e87mRIvKWYJpDd3xxgAvoBL67DPj6PKQSSUGbqjvs1DdJs/JIBzyUuX4Vkiqd9LZc6O
-	 6oG8XQit7pFd57R9r4eFeSunXQruR2HzXeIcdi6yKIYgRlXg7YfWxu63v84AIeoca2LN3
-	 VXGuL5TKtGrV+OVteEZ1obpDVWcP02unr/dDES3a5wv0SMs2oVKrWDD3WEUAC+kLisw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079628;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JWUWmDtmMJj9uR+KdODad96y/2aPbtjqytw6K7FIvTo=;
+	b=OaTXM1KMYY+6EN6bMeX1IP9BPlP44YfSSv8Bhpl5nfb3T1P1udtOZx+LqUXJ0MPzgdUz
+	 qcCTelBljkOciC8WL5LEWKt1V7Z4DN9yyRFKMU9BA04HtO9aXAV834drtluH3IvqnslS+
+	 uuylAnFCdKQd5WRbgudSTeriQWirR44cI9zshpsgqyt4tMHHiaDBjJwp3PQLgJ4uraMb9
+	 UyynOQWd9+aRrx9baEqfZiR7rBbNhn2FAOOPTarslLpVYDroS1AQgVAYYftknZ/MfglYM
+	 SN/z8bvqWgRAPrRNWxkapviuxW0L2LQrZ7y/0GMO/aKST2ZL9adRhnD16NwNb7tzWcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgXkTM7u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4qb68Vh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB391606A326;
-	Sat,  7 Nov 2026 19:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480B5606A326;
+	Sat,  7 Nov 2026 19:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgXkTM7u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E341F0089F;
-	Sat,  7 Nov 2026 19:26:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4qb68Vh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B5851F008A3;
+	Sat,  7 Nov 2026 19:26:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794079585;
-	bh=3HNu1KANaG+U8kTSPLyfgpYzK/AYsfGQ9PW6Idr9ttQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WgXkTM7u6dTBcGz/vnQ4v/VhNxTWi7yJ9hWG0RAm0INiQZwNTFNany0uZXGs0Kndu
-	 6DPX2ffdGvnfXLDp7mymglHw+BrHwmvUMDF3XX74iQbkwc+0UdsrbfDkQ3zuRfw32J
-	 wB1/pQGCieiqQ2aLuxW65W2vKHKuYyWH1j1CTbjOOnuQt8adaT69dQSfjr8fCVE8J6
-	 Sejzo7rt5p1U+XwsDl/l93oh+SHpSyEDvSmJMpb3jfGLfVDCH/TwOAcTnW58rhCR/l
-	 CnPrrJ00PV3G7U1n00/e/4bIb3xzq7REIMl+aA9eayN0KWmtjm8yDHZu1UPOoumlGl
-	 eY6v3z6VDSzNQ==
-Date: Sat, 7 Nov 2026 19:26:18 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-Cc: <lars@metafoo.de>, <sai.krishna.potthuri@amd.com>,
- <dlechner@baylibre.com>, <nuno.sa@analog.com>, <andy@kernel.org>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <michal.simek@amd.com>, <pramod.nexgen@gmail.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <git@amd.com>
-Subject: Re: [PATCH v5] dt-bindings: iio: adc: Convert xilinx-xadc bindings
- to YAML schema
-Message-ID: <20261107192618.6814da6a@jic23-hlaptop>
-In-Reply-To: <20261107134955.1423727-1-dileepkumar.nagavarapu@amd.com>
-References: <20261107134955.1423727-1-dileepkumar.nagavarapu@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794079627;
+	bh=JWUWmDtmMJj9uR+KdODad96y/2aPbtjqytw6K7FIvTo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=l4qb68Vh5+EpKxfkY8T2j1202etzw9CcaJfnA0gcKPSK2QHF/jdVbFeNxQcShSzl2
+	 kGpXtGW2fD0YNMDmHCEE3KSCdbOQiaNyhgkt6IR9Mflf4BT8u9+mw5mx8X2EiIZj2J
+	 W8W07b0n8ionghCXH/Pzs86IDhVnoJB0NTTVnrhSptFlIBu04i6fwkc33GYm5oDenJ
+	 dpcADsDdrjz0nxyX8rqzWI9tfKG3Iau9FGoEwVkaWYXlv7gP2dIUmvZTJfklUnLWIc
+	 8i4jWo0RR5wZfXr60bMXqdXmQ18dHss7MDPdDsIl+hGwk9ACyEf8QSb02+CeyhY9ai
+	 zAA+05ycOtvEw==
+Message-ID: <1c0b1368-a381-4b25-bba9-7a4f8e92b764@kernel.org>
+Date: Sat, 7 Nov 2026 20:26:29 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,272 +51,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/13] mm: continue vma_flags_t conversion
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>,
+ SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
+ David Rientjes <rientjes@google.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, John Johansen
+ <john.johansen@canonical.com>, Georgia Garcia
+ <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, damon@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+ <d0ea7929-7c12-4245-ba3f-6dd5c0269e6b@kernel.org> <au3r0-geuwtRYPiC@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <au3r0-geuwtRYPiC@gremlin>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Sat, 7 Nov 2026 19:19:55 +0530
-Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com> wrote:
-
-> From: Pramod Maurya <pramod.nexgen@gmail.com>
+On 11/6/26 16:22, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Nov 06, 2026 at 03:35:01PM +0100, David Hildenbrand (Arm) wrote:
+>> I agree that this should be picked separately. For example, I will pick
+>> everything that falls into my realm to reduce conflicts.
 > 
-> Convert the Xilinx XADC and UltraScale System Monitor device tree binding
-> from the legacy plain-text format to a YAML.
+> Hmm, generally tree-wide mechanical changes are the exception to that rule
+> no?
+
+I think it really depends. If changes are well standalone, I don't see why it
+couldn't just cleanly go through separate trees.
+
+Anything that is more involved (like the madvise change), there is not really a
+way around.
+
+Well, there is: stable topic branch and letting separate trees merge that ...
+
 > 
-> The new binding covers the same hardware and compatible strings:
->   - xlnx,zynq-xadc-1.00.a (ZYNQ hardblock)
->   - xlnx,axi-xadc-1.00.a  (AXI softblock)
->   - xlnx,system-management-wiz-1.3 (UltraScale System Management Wizard)
+> It's going to make the rest of the VMA flags/mmap_prepare conversion really
+> quite difficult if I have to chase every single driver maintainer in the
+> kernel (literally in both cases pretty much :).
+> > And sometimes there are dependencies which mean you really can't split it
+> across trees unless you establish functionality in one cycle and callers in
+> another, but that seems a little silly.
 > 
-> The xlnx,channels subnode retains its legacy name (including the comma)
-> for backwards compatibility with existing device trees.
+> I was thinking that once the VMA tree is separate I'd put mechanical
+> changes like this through it. Is that not the way to go?
+
+Maybe? We'll have to learn. Right now it immediately caused conflicts between
+mine and Andrew's tree.
+
+Because of [PATCH 05/13] mm: convert THP VMA flag tests to use vma_flags_t which
+is THP-only, and feels like it could go straight through one of my trees,
+avoiding conflicts with Andrew's tree. But maybe there is more to it that I am
+missing.
+
+I assume stable topic branches would fix that, but they are currently
+unfortunately not on the table ... :)
+
 > 
-> Move xlnx,channels under properties, as dt-schema now allows node names
-> containing a comma for long-established bindings.Constrain the reg
-
-Space after .
-
-> property of the channel subnodes to the valid channel range of 0 to
-> 16 with minimum and maximum.
+>>
+>> Ideally, patches really only touch one component.
 > 
-> Drop the redundant "type: boolean" from xlnx,bipolar, since its $ref to
-> the flag type already implies it.
+> Right, but sometimes functions are declared in one place and called in
+> others. It is impossible to change the signature of one without also touching
+> the others.
+
+Yes. Something like that is unavoidable. Or if you need new APIs/
+
 > 
-> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
-> Co-developed-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-> Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-
-Hi Dileep,
-
-Given the legacy nature of the binding this looks fine to me.
-I noted a few things on how I think it would look today, but not
-expecting any changes to this doc based on those.
-
-I do want an Ack from Lars-Peter Clausen though if we are going
-to more formally list him as maintainer.  No idea if he has time
-to keep an eye on this one!
-
-Jonathan
-
-> ---
->  .../bindings/iio/adc/xilinx-xadc.txt          | 141 ---------------
->  .../bindings/iio/adc/xlnx,xadc.yaml           | 165 ++++++++++++++++++
->  MAINTAINERS                                   |   9 +
->  3 files changed, 174 insertions(+), 141 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+>>
+>> [PATCH 07/13] mm/madvise: convert madvise_vma_behavior() to use vma_flags_t
+>>
+>> is all over the place :)
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-> deleted file mode 100644
-> index f42e18078376..000000000000
-> --- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-> +++ /dev/null
+> It's not really all over the place, it's converting vm_flags_t to
+> vma_flags_t across madvise.c, which involves changing a few function
+> signatures, whose callers must be updated.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> new file mode 100644
-> index 000000000000..2cbc3b82a26f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> @@ -0,0 +1,165 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Xilinx XADC and UltraScale System Monitor
-> +
-> +maintainers:
-> +  - Lars-Peter Clausen <lars@metafoo.de>
+Ah, yeah. What on earth does arch/powerpc/kvm/book3s_hv_uvmem.c do with madvise :(
 
-As below. Need an Ack from Lars-Peter.
+> 
+> I could split it up into 3 patches where 1 does internal-only, one changes 1
+> function, and the next changes another, if that works?
 
-> +  - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-> +  - Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-> +
-> +description: |
-> +  The Xilinx XADC is an ADC found in the Series 7 FPGAs. It has a DRP
-> +  (Dynamic Reconfiguration Port) interface for communication. Two different
-> +  frontends for the DRP interface are supported:
-> +
-> +    - ZYNQ hardblock: available only on the ZYNQ family as a hardblock in
-> +      the SoC portion of the ZYNQ device.
-> +    - AXI softblock: available on all Series 7 platforms as a softblock
-> +      with an AXI interface (PG019).
-> +
-> +  The Xilinx System Monitor is an ADC found in UltraScale and UltraScale+
-> +  FPGAs. It is accessed through the Xilinx System Management Wizard IP core
-> +  via an AXI interface in the FPGA fabric.
-> +
-> +  The xlnx,channels subnode name contains a comma as part of the legacy
-> +  device tree binding that has been in use for over a decade. This name is
-> +  retained for backwards compatibility with existing device trees.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - xlnx,zynq-xadc-1.00.a
-> +      - xlnx,axi-xadc-1.00.a
-> +      - xlnx,system-management-wiz-1.3
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  xlnx,external-mux:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Selects the external multiplexer mode. 
-> +    enum:
-> +      - none
-> +      - single
-> +      - dual
-> +    default: none
-> +
-> +  xlnx,external-mux-channel:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Configures which pair of pins is used to sample data in external
-> +      multiplexer mode. Required when xlnx,external-mux is "single" or
-> +      "dual".
+No, these things really have to go in as one unit, no need to split that up.
 
-I guess this is a legacy binding, but if we were doing this today we'd
-put an explicit mux consumer in front of it that makes use of the
-channel via the io-channels consumer mapping stuff.
-My guess is that stuff all came in well after this driver!
+-- 
+Cheers,
 
-This is also rather inflexible as why can't we have a 4 
-channel mux that is therefore in front of 4 ADC channels?
-
-> +
-> +      Valid values for single external multiplexer mode:
-> +        0: VP/VN
-> +        1: VAUXP[0]/VAUXN[0]
-> +        2: VAUXP[1]/VAUXN[1]
-> +        ...
-> +        16: VAUXP[15]/VAUXN[15]
-> +
-> +      Valid values for dual external multiplexer mode:
-> +        1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
-> +        2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
-> +        ...
-> +        8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
-> +    minimum: 0
-> +    maximum: 16
-> +
-> +  xlnx,channels:
-> +    type: object
-> +    description:
-> +      List of external channels connected to the ADC. If this node is
-> +      absent, no external channels are assumed to be connected.
-> +
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
-> +    patternProperties:
-> +      "^channel@([0-9a-f]|10)$":
-> +        type: object
-> +        description:
-> +          Represents an external channel connected to the ADC.
-> +
-> +        properties:
-> +          reg:
-> +            description: |
-> +              Pair of pins the channel is connected to.
-> +                0: VP/VN
-> +                1: VAUXP[0]/VAUXN[0]
-> +                2: VAUXP[1]/VAUXN[1]
-> +                ...
-> +                16: VAUXP[15]/VAUXN[15]
-
-Another legacy one which is fine.  If we were doing this today
-we'd use diff-channels rather than reg to specify this I think.
-
-> +            minimum: 0
-> +            maximum: 16
-> +
-> +          xlnx,bipolar:
-> +            $ref: /schemas/types.yaml#/definitions/flag
-> +            description:
-> +              If set, the channel is used in bipolar mode.
-> +
-> +        required:
-> +          - reg
-> +
-> +        additionalProperties: false
-> +
-> +    required:
-> +      - '#address-cells'
-> +      - '#size-cells'
-> +
-> +    additionalProperties: false
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          enum:
-> +            - single
-> +            - dual
-> +      required:
-> +        - xlnx,external-mux
-> +    then:
-> +      required:
-> +        - xlnx,external-mux-channel
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    xadc@43200000 {
-> +        compatible = "xlnx,axi-xadc-1.00.a";
-> +        reg = <0x43200000 0x1000>;
-> +        interrupts = <0 53 4>;
-> +        interrupt-parent = <&gic>;
-> +        clocks = <&fpga1_clk>;
-> +
-> +        xlnx,channels {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +            channel@0 {
-> +                reg = <0>;
-> +                xlnx,bipolar;
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 745d8d0169b2..2d7e9c9ca659 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -29996,6 +29996,15 @@ F:	Documentation/devicetree/bindings/watchdog/xlnx,xps-timebase-wdt.yaml
->  F:	drivers/watchdog/of_xilinx_wdt.c
->  F:	drivers/watchdog/xilinx_wwdt.c
->  
-> +XILINX XADC DRIVER
-> +M:	Lars-Peter Clausen <lars@metafoo.de>
-
-I'll need an Ack from Lars-Peter for that.   Whilst sometimes about
-Lars isn't anywhere near as active as he once was.
-
-> +M:	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-> +M:	Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> +F:	drivers/iio/adc/xilinx-xadc*
-
-
+David
