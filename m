@@ -1,47 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794075613;
-	b=Z254vagHYxMsGdBYzIMiod7eP0qhY/965+DhgD8j0cUvfAKp72SnTE9BD6JO8o0lbvnn
-	 HdlmATQu7l+z9Yc+7EUi8UAxaFwBUJrC5rMoe1etMS4V9XH4gxy4kUnE9oeWQFxZm8cx/
-	 R9lpB7DKavlDYjVU7ywG7iIJvvX2m8D/iJsGvdkO7y5agHSES0YCgthrlEg3eAEH2TezF
-	 9dJyW6rV+FeLaEUcoMKQFyg9nFoL4K5/v6FPaYnhDWGfpLktnzxQfxfhCTfLIVhipdee7
-	 pkbFw8JMymL9rKSQ6uWg3eRvczgp1fFe9hiaeKfOkJsw37k2TiXlCOhzVKs8qJsclyQ==
+	t=1794075737;
+	b=w+E7GWnLO8Vj007Tu2FfM2dt/oA5Uy80vmEjbMbJhioJv7CFoQMLEqYlN7Uqa0nTea3R
+	 SOplFvJ+pYM66SaSGwcg1aC35eFvnpnPjddS8nH7GsdgdjB3rB2poBmtkhE+GPkY4qkB5
+	 xKxBsgQ6jvn6YlOwC/4jqihf25ZxL0uszIozlpRMGKRat+OP/70dUc7CZLugwPtCJc4jR
+	 qK6nSmBCFw2WiMRLSYJnG5WZCJQfJRXk95ejwov6yvlsk99APrlt8bAGbJYCkQOkK+YTr
+	 uQkyFXeS43IVvNEF4MMAjCaIJDmGrg7QV+bHecM95fT95PjamIV0XwLCyXwoPAZsedg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794075613;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1pjnHje6Qb1kHlz8WaN4eNa2MT/clIj+haAeBAgYG+k=;
-	b=MtCgYEs3KG18zItevMV0i479iEKg+BPjMn4VnhG/QjKDoHfu/kuv/LqyzGSb7NU55bVt
-	 7xbNgrhA5kikjzZMKe6pGhlvuNcJwK93whaJp1QEGV+RSuzuO/LkmA2FVjWU30Nw65LR1
-	 ZGsAcsDUsESZzVBQTyElj6IkRgtfE95YE8N+SM8wm3RtNhdrsYB/dA8xOOZpf7ErYGsxQ
-	 WIIVFqg8R/L9Vac5QYv7QOTItT80a3Uf6tOqHLRjSpuYjPr4rbhwxvC23DvbeI9upKPsB
-	 4ebZ3IzYQNjaTPR8SpzfUzUnip2j3tY0jPcLs88bKgU8jl9xofcEUfuRN3MbkfYv5zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794075737;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=TW6QFkGd7neo8fg6RUV9wkGb9LD/OTXb46vxR11jHYs=;
+	b=cjQhwvxsClSwWlkLJRqR3G8a6mfzekO//UyVqda6Jj/YEn/o/kWRh/x9UnusMYtxWxnf
+	 npahBH2N6EbKEmwP44KcbsfPvkYMsuUzIm5fvRMZV2M+vQVX0SAcUrwFt0mA2MZK3BOJd
+	 Mq0NaITP5zK+WXT1f5CzUFsYAqughhVyCdKZ+UE39FA9gmP5qGWf17J58DMLOugNl4Ih9
+	 3EYQMY2vUnccKSxegD/OcQHvR7MNpFwVNyeNGqeKoJvKHHdmOxwEgTK1BY0+2hiPhd3fz
+	 rmh3wAzxjZHiSd8HcU4blbY0mmprqdOkOi8Vj7IVllpCGczR+1Ub9OWOq87LXEPC7tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1sYa023;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r+4giMnL;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080F7606A326;
-	Sat,  7 Nov 2026 18:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9835A606A330
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 18:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9835A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C1sYa023
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0C21F0089F;
-	Sat,  7 Nov 2026 18:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794075612;
-	bh=1pjnHje6Qb1kHlz8WaN4eNa2MT/clIj+haAeBAgYG+k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=C1sYa023IOebqDzktccEL/GnqdyMhlnIn18DNUC1Sgtp9yv+XhSCgYpBawdgnNPGJ
-	 1jmy08jxGm7xQR2DKYEEO9QPKbm2XQU3r1B6N5nBPd4HMWoU+CLSk9mGC3982NUaYj
-	 0WEc5R8QPvn/ArI2m14ey2IbiN5/k/GUKWBYoD7IV96S6YDdd3ctTYzroOtVACDTPn
-	 kCLsaKsYERXgamn3Tv2at/jQX1x0iPX4Pp8A4dLYVt25eXkKVSqioBAPcwYkpQgKy4
-	 PHJHTdaktocbt0gsWvH+P9L7jyt0OWP9th65AJD+QgiWizezgsGd0MHJDlQm91ilHr
-	 mScwirajJmJQQ==
-Message-ID: <af5ad990-bae9-4bdf-9109-1ac3e6c15e94@kernel.org>
-Date: Sat, 7 Nov 2026 19:20:03 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r+4giMnL
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4b467581b98so13104965e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 10:22:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794075735; x=1794680535; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TW6QFkGd7neo8fg6RUV9wkGb9LD/OTXb46vxR11jHYs=;
+        b=r+4giMnLD6D7bD0G5TjnwMTGNTmxIZ3ZSqc+WRg1QY3+lFsFaLxGGuXfcE/H5tIXUs
+         lOP73pN36iNz6KFqDaX1/ouI1LK+oYDM8Wdeq3RKGI6zTk7R8wAVIpF/uC2MWtkhSu7i
+         kTj9/U6sHVSQlOvM70RAZ8C/8aVc1ypLzgzdhXdX9oS4z3GTw/HHWUR8h4xWgYUafhUI
+         sOpGtcS/mzNNC2rO/jTqH5oDrP6nionTaB7CR092CgUwc94MCIxilzL/PdQ0jU9VuMQz
+         pSjEE2tXMOAIQ1Li4hWCCdPgKRJsJPyKLperkagbHtPZxW315FRw6Mh7G1FrmFILGZXV
+         lsyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794075735; x=1794680535;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TW6QFkGd7neo8fg6RUV9wkGb9LD/OTXb46vxR11jHYs=;
+        b=DCoGTkSzhG5Y61oIIC9oqGONlORokfvl9i7unbhEbDg2zsrxcl1wN7+lTDxyghFG2F
+         XjvJO0TlDQq0TR7KHmP8ccK86Fe6yfSxQdAcBtgUnFxnM2tXZ/M0dzurnFIsDH1xc/cY
+         tmaUE3Oe1TuPbhRfQ29iaaYFLwRBGFq1uaOyOqnBFvMDiARu47AXvOL8e6x8cGJJ02KH
+         0kKNsd3odTUikh8TRlWeBfsZzWLg/N8xFwuCeQuolpdcQVLs6/BhU1NB9wHStKGusekd
+         ni4Sn38HuYQopkn80wMBN3YwTTmaNZoo3vGiZh6uHlIcr6/LTyB2DaP5cjnK/jMAlnds
+         P4sw==
+X-Forwarded-Encrypted: i=1; AKwUvByQ2j1PbLbzh/din2yg04xLnlCwrHFuqO8YW8cFZ5T2oizuYF6epiEV48ojH2olSPstJkTzkvJZ3qcIqRM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SaSvTwdcyS+45SQyIe4zqsyCyheaJ48T0BUWxZfYiGZPwOiNK
+	hytZxTobD6eCLQxJf6b1i5kIagONXGhkZSbbHyxsCf71MDMvUKjT9oPK
+X-Gm-Gg: AYBFou1MbsTBWe0WzoMYnuAshUDzxxL5nWuOojsImNmJWXOUPHRvK5CYPNqU6RV0XSA
+	mfPc8LqpgLXFJCaYQGqFfXFhb6EEFzMdg4A0b0rbP5vIfVRPZ33R9OXuWb6BN2UnpF6k/zsh5Dp
+	ICItjhv/wrGALmIt2uSh4VXBGvChX8Jjc3VRn7qwo1SnZhLCNbqL6e2FJgLRKfwrR8+sdqxriht
+	C+8JN9i2fa5wMFS+IK9IaEklH+r1/1klteCcyo1k4sdWCiI84SX/KI9GI5FdnvxoJIY8w2FMPs2
+	L28tPt4y4LSmQZ0qvxyyOb17X9zStTxErwU2whX9ajd1DSmioB8a7FRrkUia7KySzV8geqqO223
+	YL8lO+wY/ouM4HHqKl7Pt6HArXXBjVLN7pseJE6rovkPoHxaz/+OQXoAL/mNHpeemZKrBCiaeV+
+	uPDaJYX6S2BjybQmQFo0pBQvnf7o1T9rCAhcZJQEyY5mHiy00EBSUSDxwj4tMpITAuptzdnbfyv
+	AV2P6+YaOA4PRnWqK+AXnqdYkOUiu0ZhkEJhGf096dFJ9wBgLdoI9C+jiyLWYlsST+SyQOrUwel
+	5sIveafqyhczyjCvWp3p+uFlxEMsRbEaNVxL4ETv7zPJDAdy2C5jXKu8V57tirqE9EdDeBN/5PG
+	LGz3aLjbc05H9Wpg=
+X-Received: by 2002:a05:600d:82e2:b0:4a2:18d4:f9e0 with SMTP id 5b1f17b1804b1-4b6df6deffbmr110679175e9.25.1794075734861;
+        Sat, 07 Nov 2026 10:22:14 -0800 (PST)
+Received: from zeus.unificl3slsbnxe8mz.com (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbd082dsm59551055e9.1.2026.11.07.10.22.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 10:22:14 -0800 (PST)
+From: Sander Speetjens <sander.speetjens@gmail.com>
+Date: Sat, 07 Nov 2026 19:21:31 +0100
+Subject: [PATCH v2 1/6] firmware: raspberrypi: Add blank line after
+ declaration in response_callback
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,90 +94,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/migrate: fix softlockup in do_pages_move() with huge
- page arrays
-To: shao.mingyin@zte.com.cn, akpm@linux-foundation.org
-Cc: linux-mm@kvack.org, ziy@nvidia.com, matthew.brost@intel.com,
- joshua.hahnjy@gmail.com, byungchul@sk.com, gourry@gourry.net,
- ying.huang@linux.alibaba.com, apopple@nvidia.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261107213856462Jx8pIdgdtLvPLfOFTwV4X@zte.com.cn>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261107213856462Jx8pIdgdtLvPLfOFTwV4X@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261107-fix-raspberrypi-firmware-v2-1-5bfe605a5cc5@gmail.com>
+References: <20261107-fix-raspberrypi-firmware-v2-0-5bfe605a5cc5@gmail.com>
+In-Reply-To: <20261107-fix-raspberrypi-firmware-v2-0-5bfe605a5cc5@gmail.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+ Stephen Boyd <sboyd@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>
+Cc: linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ sander.speetjens@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=641;
+ i=sander.speetjens@gmail.com; h=from:subject:message-id;
+ bh=oT/JQjeja8ZJ/ptNbh5as5O7phAoJf3oIOYYqQOmlq0=;
+ b=owEBbQKS/ZANAwAKAXjNeEUMBchnAcsmYgBq72xVMnfEP2TO+oiRDwrTAxKzhsHQjuXtWzrj9
+ 5gP9eekUcOJAjMEAAEKAB0WIQRWUkqLABoRw+7JUQF4zXhFDAXIZwUCau9sVQAKCRB4zXhFDAXI
+ Z4ifD/wKSyOFDfXtz3emcdtFHTQzLEeOphtdfj8ZonH60pWC/jo7wuJSwuCddoVKD/9BvKRXB+U
+ IIyRnOY4FNKKMZkEW0SqIFH14r0j9ZANA/CBqjJ5MFqrGpxiMgL8SsdPeqG4jyaTySgH+IOfO+a
+ jCbHKv+ebLFeRNFafNTbEwbx2Q1DNLwFaekcZlLcUg4t+1diQtJ987s7S90aXRILodT4IcNHcsV
+ Kmff29vG0BvtUvaEDvys10FOPPOT+7YTYdIBrq8hj8bYqxk2zU3TSPGXsEhMjtnwZQtpHiOZrA4
+ xthOJ8uf9w6r1plx507zqeK8JJja9stJgDhRNBqkslu781LcJGt1hq9mJAtwBCtdva9k5jFvTLQ
+ jXU/2/tYgAm00KSS5DwEDRbCG+Vq5sFAQmgU1IUUBI7pPIMGQtxRp7JCKQVt/KmbnuNc0aUDmhn
+ VHZKDvixjrbep0Gy8Ok31uGPDD6W9PNfQTqKbxOI4vnThwS7I/Kj67lJR98H754mo17XdJvg07S
+ IGcgu2zAEto9uRMxxmusz8ylPK6QPjzg5N1ZhD1MhYS0aGDzAJJbQGqR0bOXgMbLGtATTUabPHo
+ tw2RZnwZwOwbJXKUU07GBqicUQaQmoiswFlJmwwl7hjPkO8OklYSoPbAgegkI9HwfpxmBCke9Xu
+ eMKqF/G5AubmQvA==
+X-Developer-Key: i=sander.speetjens@gmail.com; a=openpgp;
+ fpr=56524A8B001A11C3EEC9510178CD78450C05C867
 
-On 11/7/26 14:38, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> mm/migrate: fix softlockup in do_pages_move() with huge page arrays
-> 
-> do_pages_move() walks the user page array one page at a time.  For each
-> entry it performs two get_user() calls, an mmap_read_lock()/unlock()
-> around a folio walk, and an optional store_status(); none of them has to
-> sleep when the arrays stay resident and the rwsem is uncontended.
-> move_pages_and_store_status() returns early while the page list is
-> empty, so an array whose entries all resolve to the same node can run
-> the whole loop without any scheduling point.  nr_pages comes straight
-> from move_pages(), so a huge array can hold a CPU past the watchdog
-> threshold on a non-preemptible kernel; with KASAN and function tracing
-> enabled, ten million entries can exceed it.
-> 
-> Add cond_resched() so that long calls yield periodically.
-> do_pages_stat() has the same problem and is being fixed separately.  In
-> current mainline only alpha, hexagon and classic m68k can still select
-> PREEMPT_NONE, and they cannot enable CONFIG_NUMA, so this mainly
-> targets pre-v7.0 stable kernels.
+Add a blank line after the local variable declaration.
 
-Please share a real kernel splat from a real system.
+Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
+---
+ drivers/firmware/raspberrypi.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
+index 443459c8c90f..8f3653c4a669 100644
+--- a/drivers/firmware/raspberrypi.c
++++ b/drivers/firmware/raspberrypi.c
+@@ -40,6 +40,7 @@ static DEFINE_MUTEX(transaction_lock);
+ static void response_callback(struct mbox_client *cl, void *msg)
+ {
+ 	struct rpi_firmware *fw = container_of(cl, struct rpi_firmware, cl);
++
+ 	complete(&fw->c);
+ }
+ 
 
 -- 
-Cheers,
+2.56.0
 
-David
