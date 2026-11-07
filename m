@@ -1,75 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052923;
-	b=3Tc2mnwi31so/nBIYOMVrhqYy7sKHmJvXZWAZfTU4soC7NKgydyuzaVVgA2ZC44FZeQz
-	 RfK0lX5Zeb+dVcFkucvnnZB9IYhwz+GOuFVYc3WPLfzInuaF033oYCHGk3WElw22XyBji
-	 lUSeWe6A6JujG3bsQpB6frAPTPL5MnN9vsGgGAdYaDyp5rMixZQUJ8Oj5o3ZO2byZpPGu
-	 vNO/A2yvdpojjee/opI2n6QCfE/u7okx3siCRnF7OsK4EBOBxoM9oaBIUKA/gsr2yDlMZ
-	 SYJV8Sjeti7tpPsB7xpi4EgZhvRUYzlU1eZcnQY/vQJsXppypVOToaDGmMpHLRcECDw==
+	t=1794052975;
+	b=gBw0/4UeClckQrlVXT4P2bfj8IdeHlQ4GCo+lvARlV/fP6mhQuWK1S7SD1J9jWs5W/u2
+	 UkCzp0PN9Xyx4u0CDZLo6HDik62o9WJed9gUMPnG2fcoBcXktFMCD+rahv2/6V9VfEqMH
+	 0y98nskGggdG8mc7Ge6b8F8+y8mg/DlwkJHQJs+7tWWKTARDx2vbcVbaj3ltlvISZgogl
+	 eU9lFiJdhyMz0jOUoIU9NFEuhsjjZG+61669fQiNcz60hEG7nkejJwC0FxnTKb73hVCLC
+	 3lMyst82lkgqJENX6RcPOXmY5Du8Z4VBbWiak9pJreVh4FzfETu2afeC2KSS67VpDAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052923;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6l29ITgxWRP/RPIDL1S17WPdPIKKgSBKzLqNTQ1cETo=;
-	b=WJmHzg4xIjNwZMKV/PjuoUkS1u/yv5BrCPzsjTOh8lqh1N8PhEK5ZOIN7uSpkuZiL6ai
-	 5mM/830RbtRgX10faElABftkL7GYBnVWB/1sHshm28nhsBUVRJ7bQNlQITGglhGnQIuBj
-	 fXpLgY0GOURqIQJv+CbuJonUGuHZmezKnFwIedXCZySSUMtdaLVkRazZ9RFAHU/1oWyej
-	 gFRpzEq7PxTS/eMfFLTaDIrPMMPF2m4YDP/q6dn7co38cF2KRTLSFRKTGoetNQ5xe/Yu6
-	 dcYD97K9fE+0PLYHPtvJT70xNnaJU64ZWO4NJruR9riUheJOtJpC1C1mfygZPDiUy2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794052975;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
+	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
+	bh=18Gqpg6a8mYPKsqaIFV8FR07ll7ZqbzcL3bZ/3yheIA=;
+	b=UamU5Y9RGIuSO6MkNKMKvzwcxiM8wvzcFimJPrbeUmaoGbbqtwXIHDgEqROYfOXWuIid
+	 MgL8qDO3547HluKJagwBZyjPebCQERqstVr28SbPwTHEIAJroH3gjNLwzBnDcnZ2dQKuL
+	 U5hTgoL9QW/f6dHI/Q3Yz18cxXPRsmGTFNWQ3qjQmt+GByVuvUbwkfSLI8wzJNdzw7R68
+	 g2bTjxk20yfvoDka6RShlH7IuPU3UQp4TNe8SJLye6HULtXEP6uqznrAqPSFsMPuPvwZL
+	 FptOk7bie7xozoUIzE/tDZWRNYMhk/Eg6Py0IVOGqy/wWM8G66yn2tOx0nZp78VjxPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UAxvM2vU;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=N8sIin2H;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B995A606A32C;
-	Sat,  7 Nov 2026 12:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B995A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD76606A32E
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 12:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD76606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UAxvM2vU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794052923; x=1825588923;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A0vDV6UDV2S8kIMrzEXy7j7XiMNIdXowu/T8xtzthiw=;
-  b=UAxvM2vUlO8mnFwvFQHSjNm8i+qMbjhOpawv9NrsHNFhqeTi/WkX1lwO
-   6mpdEB+F6kcyZwZXLopH5SdWvuHVIL/1roYkjUlXmsyQZwdKoiC00f63U
-   FMXSXEKux1MA6L4p4x4JuYQYTxCaIGRQf9pIZ1mDYY56JhAn99meLYLj6
-   QgM/BJlsIGs2CkEGaR3yHrabDkX+djjpE7OjRJyhppxRjtH1roRBKJRl2
-   ReZdiG2q6rOh4jSB2kQRyh+u6wiq1kw56dIb9mLQ/+56unqi49l7fpoZS
-   DlMtvyrAth6K56pI7QtQloujFFXK8W1LNw/NEvxAkC7/QkClXov07OXkQ
-   A==;
-X-CSE-ConnectionGUID: UfEs/KqVRuq8/uUVUXPX7w==
-X-CSE-MsgGUID: i3uXcEIOQlOIMMHkxvkq1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2752855"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2752855"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 04:02:02 -0800
-X-CSE-ConnectionGUID: 4HZYybmyQ5aDdyX7j7LcEQ==
-X-CSE-MsgGUID: zsA6wVQ+T9yrH/E5QiJ5rA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7377976"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa005.jf.intel.com with ESMTP; 07 Nov 2026 04:02:00 -0800
-Date: Sat, 7 Nov 2026 19:54:35 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fpga: altera-hps2fpga: Fix reset control leak
-Message-ID: <au8Re5V0ZRhSQCMy@yilunxu-OptiPlex-7050>
-References: <20261103014240.1194-1-laixiangwu@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=N8sIin2H
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
+	Content-ID:Content-Description:In-Reply-To;
+	bh=18Gqpg6a8mYPKsqaIFV8FR07ll7ZqbzcL3bZ/3yheIA=; b=N8sIin2HnadvnEhQV5RQ+2V+QW
+	7yNHR9ndk/FjvhT7tRElCriR8i77ue6Pmce6HUvQaKksOakkdT/kEJk6cnXr+Bx2g5/Ru2ydLeMHo
+	jHeFW9mZ0KgSLZ41NaCE/hitL6QB8eFJMql/EyHr/K7yBvDYSZ6VccekGvZaC03jq6io/m7OL7xmA
+	jmMQZyfsx7Wl2CfGFwTSswMee+eRe4vJqk05yuVdt/x2xgfEz1jHexJbXDJM50WFkpnCdhzAif2tw
+	cId3jidg4PtRZlRpqF7sPt1yfTQOn4mDm3KYWNIsWTnNC0Y4og3nUHBNLMzvLJTsESKpEFHGHJYRb
+	MVIhtztw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xPf8A-000000008y2-1ZK4;
+	Sat, 07 Nov 2026 12:02:46 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
+	id 2D7AA302FFB; Sat, 07 Nov 2026 13:02:45 +0100 (CET)
+Message-ID: <20261107120207.538879470@infradead.org>
+User-Agent: quilt/0.68
+Date: Sat, 07 Nov 2026 12:59:20 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: mingo@kernel.org
+Cc: peterz@infradead.org,
+ juri.lelli@redhat.com,
+ vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com,
+ rostedt@goodmis.org,
+ bsegall@google.com,
+ mgorman@suse.de,
+ vschneid@redhat.com,
+ kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org,
+ tj@kernel.org,
+ ziqianlu@bytedance.com
+Subject: [PATCH v2 07/12] sched/core: Simplify/fix time updates
+References: <20261107115913.261163891@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,53 +76,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103014240.1194-1-laixiangwu@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8
 
-On Tue, Nov 03, 2026 at 09:42:40AM +0800, Xiangwu Lai wrote:
-> alt_fpga_bridge_probe() acquires the bridge reset control with
-> of_reset_control_get_exclusive_by_index(), which is not
-> device-managed.  None of the probe error paths (l3regs lookup
-> failure, missing clock, clock enable failure, bridge registration
-> failure)
+Use __update_rq_clock() and the new update semantics instead of using
+convoluted logic to try and divinate if a clock needs updating.
 
-Remove these examples, they are just noise that hurts reading.
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+---
+ kernel/sched/core.c |   25 ++++++-------------------
+ 1 file changed, 6 insertions(+), 19 deletions(-)
 
-> release it, and alt_fpga_bridge_remove() does not call
-> reset_control_put() either, so the reset control reference leaks both
-> on a failed probe and on every bind/unbind cycle.
-> 
-> Use devm_reset_control_get_exclusive_by_index() so the reset control
-> is released automatically when the driver is unbound or the probe
-> fails.
-> 
-> Fixes: e5f8efa5c8bf ("ARM: socfpga: fpga bridge driver support")
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6302,7 +6302,6 @@ static struct task_struct *
+ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	__must_hold(__rq_lockp(rq))
+ {
+-	bool core_clock_updated = (rq == rq->core);
+ 	struct task_struct *next, *p, *max;
+ 	const struct cpumask *smt_mask;
+ 	int i, cpu, seq, occ = 0;
+@@ -6358,10 +6357,7 @@ pick_next_task(struct rq *rq, struct rq_
+ 	/* reset state */
+ 	rq->core->core_cookie = 0UL;
+ 	if (rq->core->core_forceidle_count) {
+-		if (!core_clock_updated) {
+-			update_rq_clock(rq->core);
+-			core_clock_updated = true;
+-		}
++		__update_rq_clock(rq->core);
+ 		sched_core_account_forceidle(rq);
+ 		/* reset after accounting force idle */
+ 		rq->core->core_forceidle_start = 0;
+@@ -6390,14 +6386,11 @@ pick_next_task(struct rq *rq, struct rq_
+ 	 * and there are no cookied tasks running on siblings.
+ 	 */
+ 	if (!need_sync) {
++		__update_rq_clock(rq);
++
+ 		next = pick_task(rq, rf);
+-		if (unlikely(next == RETRY_TASK)) {
+-			/* rq lock may have been dropped, clocks invalidated */
+-			core_clock_updated = false;
+-			if (!(rq->clock_update_flags & RQCF_UPDATED))
+-				update_rq_clock(rq);
++		if (unlikely(next == RETRY_TASK))
+ 			goto restart;
+-		}
+ 
+ 		if (!next->core_cookie) {
+ 			/*
+@@ -6436,18 +6429,12 @@ pick_next_task(struct rq *rq, struct rq_
+ 		 * pick_next_task(). If the current cpu is not the core,
+ 		 * the core may also have been updated above.
+ 		 */
+-		if (i != cpu && (rq_i != rq->core || !core_clock_updated))
+-			update_rq_clock(rq_i);
++		__update_rq_clock(rq_i);
+ 
+ 		p = pick_task(rq_i, rf);
+ 		if (unlikely(seq != rq->core->core_task_seq ||
+-			     WARN_ON_ONCE(p == RETRY_TASK))) {
+-			/* rq lock may have been dropped, clocks invalidated */
+-			core_clock_updated = false;
+-			if (!(rq->clock_update_flags & RQCF_UPDATED))
+-				update_rq_clock(rq);
++			     WARN_ON_ONCE(p == RETRY_TASK)))
+ 			goto restart;
+-		}
+ 
+ 		rq_i->core_pick = p;
+ 		rq_i->core_dl_server = rq_i->dl_server;
 
-Cc stable please
 
-> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-
-Otherwise it's a good fix. Looking forward a v2.
-
-> ---
->  drivers/fpga/altera-hps2fpga.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
-> index f2f125068..6d9798bb9 100644
-> --- a/drivers/fpga/altera-hps2fpga.c
-> +++ b/drivers/fpga/altera-hps2fpga.c
-> @@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
->  
->  	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
->  
-> -	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
-> -								     0);
-> +	priv->bridge_reset = devm_reset_control_get_exclusive_by_index(dev, 0);
->  	if (IS_ERR(priv->bridge_reset)) {
->  		dev_err(dev, "Could not get %s reset control\n", priv->name);
->  		return PTR_ERR(priv->bridge_reset);
-> 
-> 
-> 
