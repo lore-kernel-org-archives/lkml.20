@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177361;
-	b=Ik+GXpHYqaUa9I5I3oluROa4U0Q8JkzO9HuiuB6VDYE6T+1dB+/KtL9S4kKxGHBiRNUy
-	 tVezdrRVJa9dLemYohvQn0zP0HfZsTA5JZ0ZzHnKs9xsAw64ZFqHoidsNpZcOrWT1jk8n
-	 AxogceqREcuVF/LC84KqmjnP6pm+WitcRCXAZYU18ViO6sJTwBO4Q2BfQnnWHzpnAKOB3
-	 kRMvJQ3wsBjDEZ+5FvXUVmvCZP0TdXu6w2S50vMrkf6kMNi3tYUuTGczDP9i0BW2Okm+7
-	 8UYNQG+jfEHhvhzYL9S463OrvzGj3e77RUs/jmFPWCB/oqkhvEurM5MQRXoelKrrneA==
+	t=1794177368;
+	b=UEGI4onUGM+Xbc8mQlGLNlQCT2ndFxuyl4DgxP80HHu1ix8+hFsAYisvG+gcQPEDXNL0
+	 RIu261/zG1SDEX3zb5TnOuBMtbVUYhqgCe3i1e+oIzCuMFRdYme8R1bVa6R6lWmzmIMoG
+	 rE3MAmFVsW23LrBNUk3zzH2CEvCH1BFL7R/4Ar0M9enCWN0IBgFw5fEZbiw+8XevnHeJ/
+	 9H6rcjYERC8u0Of4hmezk32OfgeNT6YoWjd2eNC/H6wLFtr8Af0saVCsYeSCgeZE0fi5C
+	 3zw1MyOrQ4rVgDQi1cZZXfezfWOlTK1NO+D7zw4DfxihlP5v1Hap0OLgT3w0SaKlrdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177368;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=YTPXp+rfthb63UDmqgrgjjBHFcdZbohfcfTgb+voGVw=;
-	b=z+h2V69wTf/BxcjnIuC3XscE01EIniOKELkTy4sDhrG3fbeA/ydY+IRc+BVTTqOpM5IY
-	 MzdBB8AEc/tx4VBkrqKzlIC/FJt2XwThAy7teC0T78qf4x8fMc0uAXfyc5PjNB23XBs/E
-	 b9+1do+7tWuWM29rVQv1HWCZhRGhhqIDMCHN//5qfaPoxja1cX7d/Vi9MnHewPu3ZG2NM
-	 2pFReLRIHPDsh4ljbDwmD6DlqH98hlBJ4fOhhjQVt4Dj3G4AXl7xkQQkRF5ZChlGTwn5p
-	 yDk/xBhXL0i/Ql28JE/S2bXGM2KTB52ncNRyAycURKAW9tpSBglScWXrg2V6etKGxIQ==
+	bh=0B84fgUAvEG0Glyv3A7RkeExOVAqdU6JtDjEommuU5s=;
+	b=K9gyQRG6OleELNihFjdrO/VwZJ4m5r82OAwm8BLdaOsoomnzFZxTOgbnZ0zvsAJ2B0bj
+	 YPYtZwXggITWZJ+gJcb9rfN00ttAoRd1PeJg0zXtNxQYA4YalGiICzlWYlNpJpnowVWzB
+	 /DryFzDYGQzQv/0hdc4wREQxy60UK/DGqczlR13EcLCCaQBZjCmzArq2hdubQ3bkr/KzI
+	 11WtpUbaazsYEi52+n+rOrcEPbd3ZhvaIxeSFsxX1HTL6jfgPdERdkmzXhZReZqLzKY3d
+	 Bnm7S2NYrBQ5sPtxA5aJ3fuFeB94oQMn8dyaDvcR1sDbPahF+g502x9b+fJUiG8LaCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KmTq/tU2";
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o0myVGUE;
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4ED606D809
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:36:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C4ED606D809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A3F606D80A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:36:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15A3F606D80A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KmTq/tU2
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so496880a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:36:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o0myVGUE
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b6e7a05225so429566a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:36:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177360; x=1794782160; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794177366; x=1794782166; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YTPXp+rfthb63UDmqgrgjjBHFcdZbohfcfTgb+voGVw=;
-        b=KmTq/tU2byKqoGfA5Mu/teizX7wmKZmVmG0zXIJqaYIv82+6WSfzgcitUPk0ZP+fWl
-         xaoMbh9h6RsO+eSsDtYNpE4O8jdqj+17O9UUVHgbqgnI19unpCIdXZXg/o8R/Wiy//dH
-         c2nFnH9WX4o3urVTviABdOPGBLjGbpvoG+9tjlAcEl++Ozzsi7XBbp5rum2kj/XoDI7c
-         PrnB6omsKvdr8kE3UOmemwFYzluI/NKCr7RtrVFNQfFqwt7sIxNUAWL/DiBB82mXBdCs
-         TUyy/lLv9HSj7hm/teFcqEIY2T7Eb6N3M9PixI5kJrJQWU1pbN/YZ3N70NUn12MGp7eu
-         kc+Q==
+        bh=0B84fgUAvEG0Glyv3A7RkeExOVAqdU6JtDjEommuU5s=;
+        b=o0myVGUETIrYhSDiGMzAzUwj64MUtklp2Y9qAfc1GvUrFIIhzzPaL7EoavTacrJgIP
+         VtmRTdUUic1gqHV0eLCEOcvw+/ydUgxQW18x+xkiqXNQzYUmA6dxGyJCylpe8BLrTa/S
+         UlFpRYM32XnHsAUc6ov6VZs5So2lE60b7ojcDwodbhMXN1EkDfcR4gDK85xZqlks0BDG
+         ecq0Va+T6sHti1Mr8AmFbgkjw7IPD7uixvMzKwTIXVN4Afin3AS9rgTDK++vQx1Hukxb
+         tcVlyXE9iKNw5Iem6qjV5zK864QtDmNSzIyzVbdd16z3YincCLylWneKTvNp2lFBaslg
+         kG2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177360; x=1794782160;
+        d=1e100.net; s=20260707; t=1794177366; x=1794782166;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YTPXp+rfthb63UDmqgrgjjBHFcdZbohfcfTgb+voGVw=;
-        b=NORz0G1JzRqg3TNzzhRLGrc9YuzS7RFypvVr1dEX6HnD1nhvqkQFuQrYLU367RM70z
-         9tLNsPLAEtRMc2pZ7WecI7t4AMOZPxw6YbCs4Nx/XhnHe+TsaVkoRqovGr/ONGg418nV
-         4PpHB+v8ucvdrfNLrR25RMgR8W6p/TgnwOBc7660YUB8QHod7biV6mZTk9Nm964h+ycV
-         kUMIgPyPUCcCS0mV8cDLvR4a1ktCmmOzWUO3YeDrIy3P4EHPkG2vqE+99zI0IOG0IboO
-         YY+4kO42vQHvB8ZkdCY2ZGYbZBGTOYsGPqQ8Mt45pGDopi7EASpHzQXwwa9j5apVTupN
-         BFlA==
-X-Forwarded-Encrypted: i=1; AL+hErG9JOmCvu+euCkB5x2lxJRz9q9/8B5zBbfGz9a4dFcfBs3uVY8fbYGaEbuGmD8i7ZtizZfnRAjhjut4V30=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CzdvWOGzdXz85ZfE1oCYG+lKfq1S3mSczilUo5Z+gy8g9iPpz
-	xn0HGSJinFQGQuDgrDZU/aPKLyD8799gCBZzwTEsIs8QvQbf7JWCLuQUVmMUyayy
-X-Gm-Gg: AYBFou1+QKcDBmTcwqy+2C0XTjUrFs8TgqlHk4ccni90mRNWJbgniiQmYGbuUtVtK7y
-	piMWXdcjJfo1H5DIAbH5P5ZRMSZPUj6BU6uqdARC2AxHRKn5xJNqn5sEwES2nu2/K3cX8rWvPTM
-	s2KYlDYPRDsVXoaERa+8Kg0gNBTenSxp8rsQ0Fdt7iYxVS86j8zM17CUPfQ6WHJW4eWhOfzmKaz
-	nXXkXswibQtvkdjqWp8eLBzG//wACI5Y1uJ1HVFeGfazVntMhbdeGQBFZVla5EHgiedWKSY/nM3
-	yX5KFnRnbdjMK3Vl+RZ+soyAieE9QixNy+dVaGbhXfE6utnYIJ5ofc5QAg/1Plm7TzfMlEWNiSz
-	n8pI3aUwsbVY54A2+1x4qeBuoDVm13r76QKIJ3PPE13DSL7ZOzFtrI39JzQSQzv/yQdNzPcaYYw
-	Y3zXzpiSbEKO6eIdYjM7nvgWpuLmVBAm09RroBSfOuofLlcKbb5Par02fufquHikzv3tuZ0n6wW
-	lhDdYlM1Vgh19EIEUoDhHXvnfgjr2fTmmc6CquEcWqbFF3uIEdobspHNkRFRn0gmeEm5rBdhBnb
-	JjaiS5FBVPaMaqkseRrAk3WFLFXcmCd1acAQRDeROpE8Gssez6FgTj0RkYtJmQ4MY1ipGho=
-X-Received: by 2002:a05:6402:4504:b0:6b5:4baf:ad96 with SMTP id 4fb4d7f45d1cf-6b7224194a7mr1543782a12.17.1794177359944;
-        Sun, 08 Nov 2026 14:35:59 -0800 (PST)
+        bh=0B84fgUAvEG0Glyv3A7RkeExOVAqdU6JtDjEommuU5s=;
+        b=t8JwkeVk12n9rPFpuzaXdYvEGve8U1GUJwefjeHZpF5fS0mTmBc9KIfZ4dhdCwHA9v
+         SaoVFrEHN49RrNZUW41PfvWrT3uP6aHAYYkDeTQKvypafsRfLj6mtpBsrubL0vH6tzEi
+         KA3Tcaw2dxsjGYi5XFjUieT9IuX/AXWkk3bStcKzuq3VLeDEzR9gbEXUDb7VUcVYIrTx
+         cSjdfUovuRDkCnhpKN7XqonmdE8XfjUjk/V1RemsFSCv2F33apvX2zNe7f7tlNXHmwEj
+         2Nn3Hrs+y3Etel3n2Sa21Jx1Gm0eCp+6SdfEzJ+36cQ9i756L3eU7s1qQKTqV7kWJGLM
+         1sFg==
+X-Forwarded-Encrypted: i=1; AL+hErEOfmJMRqYUAkes7EAuWhvZPKtfeeQ1OABEhRRHbP8J1rYMNG6s9QqRJwGUzpCuNOREy7V5cb9VvK0yHpU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RNOOwKGdGoOTQQPvXDE9W9m8PLqFcYmX+07MH+YiTPAdRTe6S
+	t+bXa8t3frmpgU4p57G2LpTmNH0x6pDlTAZFXen4LwnDFBlPJNE7uaAnjyJjCVJj
+X-Gm-Gg: AYBFou1nNWhXeSh9lQTohLlK7iJoa0FTJuAbuy2oq9ikqT/PipH6k5wR3z8Ky4zC1st
+	4ok164TS2mcARrsjt/W32LhIlbmhSFCkfVyK0gIpTYWHn5W6wCnEDFrN42ahe+Esk0YLiYOoffq
+	GcAw6KiqAJbg7Lb0tLae4hiu2XzmxIA+fqJFbdeyD6tI276yEtcVxzwJtELUcuI4E3HHfWm+2Ao
+	f0iGzC82qYj/tiFetGsKPMOSoypJUnigMAU9d1zZh5EBYQRC/DVo395PxRZUDC1KeUrxaS+PTa7
+	AUuqecZusnjd41Xi9XJCOf+7iAw8FNiAg4aVSKa2dXhzYTN/mX86rJ9QBX6rzo7z2swda3pf/pI
+	eKR07yBXUzFd1iI2v4qLOSWp9XNaok0ueH25U0R5ZsCpoAKD2EidNxSppOFIvItb9t7wz3wpX0Z
+	n6SFz2Blekaf/PiQXugVIYygiLQSuVNJEydxUFRg2eJVQFvWVM8gTzcjGCaRn4coX/Y1L/FZFxn
+	j4zD2AxuolBdxx4VMaq7QHou2h5R49UeJG90MIQtCKHwcF32v6kDEyZC2ImqjGnfhtflZLe3b9M
+	hhsXMIChT+Okca8rUExer/4S6Cga2LuZobHDNw8uS95/dBBlVLe/LAYV/XCqvWtpc7QBYSDBaNI
+	uUFcN4D+vqIma0qUf
+X-Received: by 2002:a05:6402:1d55:b0:6b7:6f9:2ef7 with SMTP id 4fb4d7f45d1cf-6b722456828mr1336914a12.11.1794177366393;
+        Sun, 08 Nov 2026 14:36:06 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebc7b0sm859272a12.14.2026.11.08.14.35.58
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebc7b0sm859272a12.14.2026.11.08.14.36.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:35:59 -0800 (PST)
+        Sun, 08 Nov 2026 14:36:05 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com
@@ -85,9 +86,9 @@ Cc: sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linmag7@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH 3/9] sparc32: do not flush a NULL address in flush_dcache_folio
-Date: Sun,  8 Nov 2026 23:34:13 +0100
-Message-ID: <20261108223516.1125534-4-linmag7@gmail.com>
+Subject: [PATCH 8/9] sparc32: retain mm_cpumask across TLB shootdowns
+Date: Sun,  8 Nov 2026 23:34:18 +0100
+Message-ID: <20261108223516.1125534-9-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261108223516.1125534-1-linmag7@gmail.com>
 References: <20261108223516.1125534-1-linmag7@gmail.com>
@@ -102,62 +103,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sparc_flush_folio_to_ram() is sparc32's flush_dcache_folio() and takes the
-address to flush from folio_address(). For a highmem folio that is NULL,
-so it flushes virtual address 0, and 0 + PAGE_SIZE and so on for a multi-
-page folio.
+smp_flush_tlb_mm() narrows mm_cpumask to the current CPU when mm_users is
+one and current->active_mm matches. That snapshot does not exclude another
+task obtaining a reference with mmget_not_zero() and using the address
+space through kthread_use_mm(). Clearing its CPU bit can make subsequent
+shootdowns miss translations on that CPU. Testing current->mm instead does
+not serialize against that race.
 
-On HyperSPARC, hypersparc_flush_page_to_ram() probes with
-ASI_M_FLUSH_PROBE, finds nothing mapped at 0 and returns, so nothing is
-flushed at all.
+Remove the narrowing. This follows the SPARC64 fix in commit bafb056ce279
+("sparc64: remove mm_cpumask clearing to fix kthread_use_mm race"). Retain
+the accumulated CPU mask until normal address-space teardown.
 
-Returning early would be wrong: flush_dcache_folio() is also the barrier
-taken before reading a folio userspace may have dirtied, as in
-filemap_read() when the folio is writably mapped. Fall back to the whole-
-cache operation, which reaches user aliases at any colour and on SMP is
-cross-called to every cpu.
+A single-threaded mm that has migrated can consequently need remote
+shootdowns for the remainder of its lifetime; sun4m broadcasts them to
+online peers. This trades extra cross-calls for correct coverage.
 
-Do that only when the folio is mapped by userspace; otherwise the only
-other mapping is the kmap_local slot, which arch_kmap_local_pre_unmap()
-writes back on teardown. Without that test block_write_end() makes every
-buffered write discard 512 KB of VAC, which cost 106 s against 56 s on a
-64 MB dd.
-
-With the mapping live and a reader on another cpu, 150 of 150 reads
-returned stale data before and 0 of 150 after, every first mismatch on a
-32-byte boundary, the VAC line size.
-
-The separate HyperSPARC mapped-folio fix completes the lowmem and PKMAP
-colour handling. The highmem fallback can be expensive for GUP: each
-mapped folio may require whole-cache maintenance on all CPUs.
-
-Fixes: 665f64029454 ("sparc32: implement the new page table range API")
 Cc: stable@vger.kernel.org
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/sparc/mm/init_32.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/sparc/mm/srmmu.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/arch/sparc/mm/init_32.c b/arch/sparc/mm/init_32.c
-index 7b53ee9f061f..9cf0065fc2d4 100644
---- a/arch/sparc/mm/init_32.c
-+++ b/arch/sparc/mm/init_32.c
-@@ -131,6 +131,16 @@ void sparc_flush_folio_to_ram(struct folio *folio)
- 	unsigned long vaddr = (unsigned long)folio_address(folio);
- 	unsigned int i, nr = folio_nr_pages(folio);
- 
-+	/*
-+	 * No kernel address to aim at. Only a user alias can be incoherent
-+	 * here; the kmap the kernel used is flushed when it is unmapped.
-+	 */
-+	if (!vaddr) {
-+		if (folio_mapped(folio))
-+			flush_cache_all();
-+		return;
-+	}
-+
- 	for (i = 0; i < nr; i++)
- 		__flush_page_to_ram(vaddr + i * PAGE_SIZE);
+diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
+index aa53ec10cd8a..d3634bcb048d 100644
+--- a/arch/sparc/mm/srmmu.c
++++ b/arch/sparc/mm/srmmu.c
+@@ -1624,12 +1624,8 @@ static void smp_flush_cache_mm(struct mm_struct *mm)
+ static void smp_flush_tlb_mm(struct mm_struct *mm)
+ {
+ 	if (mm->context != NO_CONTEXT) {
+-		if (any_other_mm_cpus(mm)) {
++		if (any_other_mm_cpus(mm))
+ 			xc1(local_ops->tlb_mm, (unsigned long)mm);
+-			if (atomic_read(&mm->mm_users) == 1 && current->active_mm == mm)
+-				cpumask_copy(mm_cpumask(mm),
+-					     cpumask_of(smp_processor_id()));
+-		}
+ 		local_ops->tlb_mm(mm);
+ 	}
  }
 -- 
 2.43.0
