@@ -1,95 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794143061;
-	b=facoc2/AF05BWLYeq0NqSiG81sDbYoflFBxKCkFCxLTIuqjTYxADYb/X7/yHYFygKLSr
-	 wq5+icARKL4BKpq/4GSBU18LxDTuh8gACzbfsafCfAGf7I2iHJ+n6NGdm3hDosp2dQfsr
-	 D9n2BfsCcOT+vq0NmuobuUhb9KPwmsvNq3/XPVP+Zt6b1v4JCz3+btfXhjMXdGCpaOxQw
-	 nywk382Y8rt0wGeBzDiIrQLsvt9eWf8zk8orIkC/oSFN4qX40oiLDrz9yM4a0N839s2zp
-	 dlMx7LArL2M2Nwlah6St9H+ZsuQuAY6L4ECIxRFq4Z/LvbebISmBXf8pf7TqHEUJWdg==
+	t=1794143151;
+	b=udGAPNDrOA0QzUvQ9YFUdXc3AtNJXPpEAXYq6rhzmxh9X4tUl4XkUYDohYvoWQieIn/v
+	 nfghAlcpPeOtMXHnnX+g9A/2foTToR9saQLfaqDK+rGCMAVMQoeiux6sCYIV/HWOPOUf/
+	 0f9XRk2pRqnkP8CpLXcGc0LcYUZgX1CazDAxtwEDUBMzXHx1hgC1s3XXbHHWuB3f9pDGr
+	 8O6FhWuXO6GFPUvMCULix2e0Z/uv50wF5lR13LimlOABFY3HDC1G6hR5G9pFLr05KDeq4
+	 ynMkqF/VJqlEz8SKKS/9l6+C2dmZBLIIAUXb3ajrJD+hsVFc2VnX3NNuDL+9S8HWKlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794143061;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4MBZrSo4M2t6N6LTFd7oh2D/UR4KwQa3fw9of3KWmhQ=;
-	b=Bq6oqMnEN31uK+zVlB7HsIbPki5FtsKcN8SoFTGpuOCPaNC/RzRsC5wZ69iwkPKxtAd/
-	 AIX/WkU2kZbeD8zAQSRs+46jYy6y8jr+M+h1aPVfyQ7MoxdgJD4l63TYWTJflSg58Grt4
-	 Vxfl6ef5gwTJijBlBA5sSHa9vdp29ea8kRctOLrpgB3EbfB1bbIOUQX2amS1SWpxmLeZ4
-	 de5fG0mm6G5eg87iHKF/6IhW7XNAVc3La46Rj/s78TLUWkfBB+zeG/7sZSz4/ZOicUM/J
-	 VCBHtpVSZy4f6pg4cNbC9OAomX1KY2Sa3PT+KdZp0QjcbLoRl3ILTT9Nv9g6Ke9o6gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794143151;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=/ju0UIjdCG6ZiMr1SA/N7Lj70Ti90KDSIS/K4qvyQxQ=;
+	b=uejM8/yDrsYZlXUDy89vTOklOrTFGPtX5OQPU/0P0f7cGCE7RyR7TWDVhkzSsOHJR14z
+	 JlE3W/f8jK0UqFZ2W7eJgJ8cw+RGJe1LmPl1tmSww1jSBV25hq8302ly8tS/uTmNP+zds
+	 9rHxA8q1qOLHaP4BAF+MfUZO97WQXV4vM9NxS8Zi0rvDlxUtGxFtNHHAXMkQwumvFXlDB
+	 c0b2INaOooXBHwSxzFj76prnQD0YBHHPL3OF/iWuLsyec1Yi6tobiOFLlD3a9CMdDobZc
+	 SgjoKnIGeoWxGQp7tO+kmaorhk9wUERKjyEcrP+Y5GoL6gnzmRdPZfnjDEcQSe6EZcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JL6yqpci;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=o3rqLGjq;
+	arc=none smtp.remote-ip=185.70.43.16
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0833606A33B
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 13:04:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0833606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE063606A31C;
+	Sun,  8 Nov 2026 13:05:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE063606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JL6yqpci
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so78724c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 05:04:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794143060; x=1794747860; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4MBZrSo4M2t6N6LTFd7oh2D/UR4KwQa3fw9of3KWmhQ=;
-        b=JL6yqpci2uGcxbX8kiFZVEMOBrySXPpk0sE1jcRutNKEsoVJ7ipPlis6ei/0rIQMH6
-         LffU4p0G7zePNOC4J19apvMk1+onRQQg2kZR0VM6A4PpQzuH4RXZcsq9v8noqewFDmHX
-         PIqo0gcLd5ewogEKbjNJo5C6J9PupXIrG3Sqj9dbQeiFBMZQ89l3pKy91tLtIvE2GCOp
-         NGPzhQrqaPcZwc3gZ3H3wqRqf/KEQla4/h31bI9jFRLHgSEZe77mtc3puBqoY7BC1GZh
-         uBO5Xx2lkq2zXPWbGmWp+JRIX4zCOZWLnFoL/p9JUfJo7rl0ceDmiEm+zqU9rvzfqQoD
-         0Z+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794143060; x=1794747860;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4MBZrSo4M2t6N6LTFd7oh2D/UR4KwQa3fw9of3KWmhQ=;
-        b=hEQcCjjGdpnkxyBcqLQk136/kX6BjcX6SQXpdWFr7S7CwEsvraldQOOiX0QeJ3Tfd5
-         W4S6z2gwI3OE2O6ToYnHCc4sDlwGzBNG93GABtllIf7XMfoUIJJMTb9Z9CKDk4Yi+C0D
-         SmClAEmvH08TQHVc5QLdTk6Ksj0cT3vQc25O+0Cj4WxL1IHOl9Os+J2zAEKFtrCDDtvM
-         lcESrr8hHDtz7msIArsg4DrwhemmuETBHWDsto1EzBNv/c8Xyh2vNk/6SCcIidCNeMiL
-         /m8pD+lsaAHgEiTvUxU1uLdeK+g03Z3imCcEe28YVXXEuXP1j9bFvzObmc12MHw41NQL
-         wl8Q==
-X-Forwarded-Encrypted: i=1; AL+hErEB6G3CpRlM2RZlHNHD5qTmRwhOqGNKM6EavYNBat/2o+HpJ6idHYdRmVkzPcUsm3SHMx+eSr7MplNqKuQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+b0bfhhZ2gkrlkfG8qkMtJ+1g0NWGbtk+WmZqsLqW4dWxq4RpW
-	Q+DI2J5NkTCOY22WdGK82uWTJBuAuq0sM70K2rEUh3a2LaQsJL6nd3O+
-X-Gm-Gg: AYBFou3xLJ6QI3SpskNEFtwwR2hcBozwEsdqUQEqZgTF1/9+dR7a6U1ksNZaVjSAmd7
-	ZGO+L3ese/0oe7spehONz+rpJRjkVR84WexcCbKSX8oUD8zlGFINFvTco5OpMP5Zn0F9foZpUZt
-	QrY8AR5ZkZ16wKQSlKb2cIDyoFK5V9f4HN2/W1pREckh6SlWfOcKN3SSwdosjUnen2d2ZdX94zB
-	BfzWeHa0DKpu3RaWsm1FfO4BROmJR1GynIqU5+tIaczvdTL4h/eWlwV4vdMsU6G3XXxG7MZetbG
-	swO7VWSwyZ0BPiJHtwkC53XjK4XtqyKOLnKU630tquEUyJiLZOWQw4GHShFPxCgVz476uYQYfRn
-	noySutAx6+Wk8czY7XGeMFcmE25Ne0g4yKje6zUPmZZAwua7zYSeIXKGr2y2jIKtHJ5gEB8wnbD
-	12+3T8IIVv8xScB5SUhgtErSG8RoPu2dkOEMUAq0sStdv0yBaqyU4o+esWXd3JH2ALJdSubOdKJ
-	i8BEljCTWuPZ5douGHiwSubIYIX16a7IIY0jivAiXZQvujaJCZb6lVQcqoRsylr/OWcRBhPb5h/
-	E8rhQ7fqW2K3gY/K/3I5IgkzA17Xu1yzmyIzm74aZ7eJVe0sCdQB8Cg=
-X-Received: by 2002:a05:7022:3b84:b0:164:4e36:f956 with SMTP id a92af1059eb24-1b39fe876bemr2336578c88.16.1794143057605;
-        Sun, 08 Nov 2026 05:04:17 -0800 (PST)
-Received: from prts ([103.156.242.195])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e936bsm6603194c88.6.2026.11.08.05.04.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 05:04:17 -0800 (PST)
-From: Xinyu Wei <xinyuwei1024@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Xinyu Wei <xinyuwei1024@gmail.com>
-Subject: [PATCH 2/2] ALSA: usb-audio: fix the format bits of the Steinberg UR22C
-Date: Sun,  8 Nov 2026 21:03:03 +0800
-Message-ID: <20261108130303.387288-3-xinyuwei1024@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261108130303.387288-1-xinyuwei1024@gmail.com>
-References: <20261108130303.387288-1-xinyuwei1024@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=o3rqLGjq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1794143147; x=1794402347;
+	bh=/ju0UIjdCG6ZiMr1SA/N7Lj70Ti90KDSIS/K4qvyQxQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=o3rqLGjqvzp7+G6cz6+cQdskBARZy19bhv3arsNAaM6Mu/7MygMNlfAwf+DNDE7ua
+	 3BsuSmuFRODGta6hmfkPAtpNHnzQu8mR/xNqlG2dox3mywQ6xZ0VmRdtm8MWRkYott
+	 7RQfvnlaXH8pC9lI/PGHedSDHN4QkIsjxb57/ujWxglp2Pld05WgSoJIKY3UL9vFz/
+	 fsetGO2+6SxFXHWFbaVOukQfAYznq/l0+6Ep/PtD5PXNYHW7dc3Q7l4mckg1fwOjAr
+	 /EjIxp59cp5lSb+5u+r/dq+q2gZae8buhSk8ZCpCKnCgRVyDpSIWGtSQtwvg+nzk9Q
+	 Npc/SuJsDVEpw==
+Date: Sun, 08 Nov 2026 13:05:39 +0000
+To: linux-wpan@vger.kernel.org, netdev@vger.kernel.org
+From: Ryan Prinz <rc4d5a@protonmail.com>
+Cc: Alexander Aring <alex.aring@gmail.com>, Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal <miquel.raynal@bootlin.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, Ryan Prinz <rc4d5a@protonmail.com>
+Subject: [PATCH RESEND] ieee802154: 6lowpan: validate fragment offset against datagram size
+Message-ID: <20261108130206.754001-1-rc4d5a@protonmail.com>
+In-Reply-To: <20261107223217.718177-1-rc4d5a@protonmail.com>
+References: <20261107223217.718177-1-rc4d5a@protonmail.com>
+Feedback-ID: 190731814:user:proton
+X-Pm-Message-ID: 3198adb360e38418fb809f75944811b80fa1d874
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,44 +64,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32
+Content-Type: multipart/mixed;
+ boundary=1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1
+From: Ryan Prinz <rc4d5a@protonmail.com>
+To: linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: Alexander Aring <alex.aring@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Ryan Prinz <rc4d5a@protonmail.com>
+Subject: [PATCH RESEND] ieee802154: 6lowpan: validate fragment offset against datagram size
+Date: Sun,  8 Nov 2026 14:01:17 +0100
+Message-ID: <20261108130206.754001-1-rc4d5a@protonmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107223217.718177-1-rc4d5a@protonmail.com>
+References: <20261107223217.718177-1-rc4d5a@protonmail.com>
+MIME-Version: 1.0
+
+--1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In configuration 2 of the Steinberg UR22C (0499:172f), the capture
-AS_GENERAL descriptor reports bmFormats = 0xffffffff, causing the driver
-to advertise U8, S32_LE, FLOAT_LE, MU_LAW, A_LAW and SPECIAL even though
-the hardware only supports 32-bit PCM (S32_LE).
+A 6LoWPAN fragment announces the total size of the datagram it belongs
+to (d_size) and its own offset within that datagram. The reassembly
+code never checks that the offset actually fits inside d_size, so a
+fragment claiming to start far past the end of the datagram is
+accepted the same as a legitimate one, allowing an attacker to forge
+data of another sender.
 
-Because playback is implicit-feedback synced to the capture endpoint
-(0x81 on interface 2), hw_rule_format() restricts playback to the active
-capture stream's format.  If capture is opened first with a non-S32_LE
-format such as FLOAT_LE, the intersection with playback's S32_LE-only
-format mask is empty and playback fails to open with -EINVAL.
+lowpan_frag_queue() considers a datagram complete by counting bytes
+received (fq->q.meat) against the declared size (fq->q.len), not by
+verifying the bytes form a contiguous range. A fragment with an
+out-of-range offset still has its length counted toward that total, so
+a legitimate fragment exchange plus an attacker fragment can sum to
+d_size, marking the datagram complete while a gap in the data was
+never filled, and appending the out-of-range fragment's bytes to the
+end of the reassembled buffer as if they were part of the message.
 
-Clamp bmFormats to UAC2 PCM (1) in parse_audio_format_i_type() when
-chip->usb_id is 0499:172f and format == 0xffffffff, matching the
-existing DS4201 workaround below it.
+IPv6's reassembly (net/ipv6/reassembly.c, ip6_frag_queue()) computes
+end = of
+fset + payload length for every fragment and checks end
+against IPV6_MAXPLEN, which bounds offset by construction. 6LoWPAN's
+d_offset and d_size are independent wire fields with no such coupling,
+and no separate bounds check was added for it.
 
-Signed-off-by: Xinyu Wei <xinyuwei1024@gmail.com>
+The same class of bug was assigned CVE-2019-8359 (CVSS 9.8) in
+Contiki-NG's 6LoWPAN stack before a 2019 fix; RIOT-OS's implementation
+(gnrc_sixlowpan_frag_rb_add) rejects a fragment once offset + size
+exceeds the reassembly buffer's datagram_size. Linux's 6LoWPAN
+reassembly is the only one of these implementations without an
+equivalent check.
+
+Fix by rejecting any fragment whose offset, or offset plus length,
+falls outside [0, d_size).
+
+Reproduced two ways: with a local kernel module calling
+lowpan_frag_rcv() directly, and over mac802154_hwsim with three
+independent processes standing in for sender, receiver and attacker.
+An attacker in radio range who observes one fragment of an
+in-progress transmission reads d_tag, d_size and
+ the addressing in the
+clear, then sends a single out-of-range fragment of its own. The
+receiver's reassembly completes with the attacker's bytes appended to
+the legitimate data. Both reproducers were re-run against this fix to
+confirm the out-of-range fragment is now rejected and the datagram no
+longer completes with it included.
+
+AI Disclosure: An AI assistant (Claude) was used to assist with the
+analysis and testing. I have verified the vulnerability, the fix, and
+the test results myself and take responsibility for this contribution,
+per Documentation/process/coding-assistants.rst.
+
+Fixes: 7240cdec60b1 ("6lowpan: handling 6lowpan fragmentation via inet_frag api")
+Signed-off-by: Ryan Prinz <rc4d5a@protonmail.com>
 ---
- sound/usb/format.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Resending to fix a diff formatting issue in my previous mail.
 
-diff --git a/sound/usb/format.c b/sound/usb/format.c
-index 4830f9f93..7ca2b5d5c 100644
---- a/sound/usb/format.c
-+++ b/sound/usb/format.c
-@@ -57,6 +57,11 @@ static u64 parse_audio_format_i_type(struct snd_usb_audio *chip,
- 		sample_width = fmt->bBitResolution;
- 		sample_bytes = fmt->bSubslotSize;
+ net/ieee802154/6lowpan/reassembly.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
+index ddb6a5817d09..9
+05ba5f86844 100644
+--- a/net/ieee802154/6lowpan/reassembly.c
++++ b/net/ieee802154/6lowpan/reassembly.c
+@@ -103,6 +103,9 @@ static int lowpan_frag_queue(struct lowpan_frag_queue *fq,
+ 	offset = lowpan_802154_cb(skb)->d_offset << 3;
+ 	end = lowpan_802154_cb(skb)->d_size;
  
-+		/* Steinberg UR22C workaround: config 2 capture sets 0xffffffff */
-+		if (chip->usb_id == USB_ID(0x0499, 0x172f) &&
-+		    format == 0xffffffff)
-+			format = 1;
++	if (offset > end || skb->len > end - offset)
++		goto err;
 +
- 		if (format & UAC2_FORMAT_TYPE_I_RAW_DATA) {
- 			pcm_formats |= SNDRV_PCM_FMTBIT_SPECIAL;
- 			/* flag potentially raw DSD capable altsettings */
+ 	/* Is this the final fragment? */
+ 	if (offset + skb->len == end) {
+ 		/* If we already have some bits beyond end
 -- 
-2.56.0
+2.51.2
+
+--1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - rc4d5a@protonmail.com
+ - 0xE775BF83.asc"; name="publickey - rc4d5a@protonmail.com -
+ 0xE775BF83.asc"
+Content-Type: application/pgp-keys; filename="publickey -
+ rc4d5a@protonmail.com - 0xE775BF83.asc"; name="publickey -
+ rc4d5a@protonmail.com - 0xE775BF83.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
+ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRWFkRFpyUllKS3dZQkJBSGFS
+dzhCQVFkQTFpeGV6cng0ZTBFNWJGcjV6UU8xMitlb20vdWZnUVFTS05jQwpHU1ZjUzlqTkxYSmpO
+R1ExWVVCd2NtOTBiMjV0WVdsc0xtTnZiU0E4Y21NMFpEVmhRSEJ5YjNSdmJtMWhhV3d1ClkyOXRQ
+c0xBRVFRVEZnb0Fnd1dDYWREWnJRTUxDUWNKRUFVYktZOW5tekdRUlJRQUFBQUFBQndBSUhOaGJI
+UkEKYm05MFlYUnBiMjV6TG05d1pXNXdaM0JxY3k1dmNtY21EdVNNSm1tcTJWVDN2aFkzY0JzRDFS
+YUVsZGE2dDdpTwo1S21uZXZwYXhRTVZDZ2dFRmdBQ0FRSVpBUUtiQXdJZUFSWWhCT2QxdjRPUWRH
+ZGFobnFvR0FVYktZOW5tekdRCkFBQmFDUUVBdWxVaElDbmFPSU9DT1d4T3pldUNUZ0dUVGkxM1k4
+WjdVL3pYaER1bmFpa0EvaUJRRVBZOEx5NisKU2RZUnZzekQwcHBsS0M0elB2WkhqRDZaMEo4U2Ir
+RUh6amdFYWREWnJSSUtLd1lCQkFHWFZRRUZBUUVIUUNwbApBSFVLZXNpb25QaGlBVnBvL3dDUFdt
+MnR3SGtpL0tmaUpHQVdlckIxQXdFSUI4SytCQmdXQ2dCd0JZSnAwTm10CkNSQUZHeW1QWjVzeGtF
+VVVBQUFBQUFBY0FDQnpZV3gwUUc1dmRHRjBhVzl1Y3k1dmNHVnVjR2R3YW5NdWIzSm4KNlJuS0R5
+WjJlV1BjOSs3NEJIR3VPM1E1VGVuWFZ6bWRrRjQ3L1lYQUxFOENtd3dXSVFUbmRiK0RrSFJuV29a
+NgpxQmdGR3ltUFo1c3hrQUFBN1RzQS8zRy9hUE9NeGE2MDZxdlh2U3lUOURDNTJCa294ZmlNMk5N
+SFpHK0QwSnVGCkFQMFhXbGRlbEVvTFY1bWNRbXFIVThqMVp2ZzRtT1hWL2owYytPWmRheVhUQnc9
+PQo9VnZDNAotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0t
+--1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1--
+
+--------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wqsEARYIAF0Fgmrwc6EJEAUbKY9nmzGQNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdVS9eo+zjAiYA0l4KVgkLaFiEE53W/g5B0Z1qG
+eqgYBRspj2ebMZAAANfIAQCtF6Zd8rhwswy4nrHGfMF/jswh0TUkx7Q0ez0N
+CPr3kQD/TdaeisSlJm3LvLvmVkYKWlG9UEYjzyPsg74qGFYZ4wY=
+=X2QL
+-----END PGP SIGNATURE-----
+
+
+--------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32--
 
