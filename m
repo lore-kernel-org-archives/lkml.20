@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794114973;
-	b=VEEugvMYahaHO70h4cv3jnziT8ktyN4FDogYOL4BNNGFohRM1Ixd2KadxnGDpW+i/Fk2
-	 59XsorgC4c+1DoO47fF9GXmdh1kHcvKwDy0r9/C6cm2ajB5c/IXd3vgv+rSNKdIxIjYg6
-	 DhEu/Ps8hrZbj1bm577cQd6N/hRG6nWmevBN87lgmROFUPuPJ7WEglejZc7ARCTg07wFB
-	 +DA3n45+4QOf+exDFMk3mvAlZCJJ615O2ae0dDJcsXX1PORfzG1EpNI7VzMhl84MM2kU8
-	 3JGKCZ3dmEKFR5YIlIy5uTEeaO9dRC8TZ/M2LjSL9d8nUurnoLuGns+5fQ5NfrIhc4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114973;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=GaJ0kJ7iGwr4NJdNnl3p/qA/RRPtTceFFlBooGp8kRY=;
-	b=Xz66yJtOiQzCVYhtxVebiFtauBHgWpqjJGKa9UBOEQpo0cceuE0+VLNWaxHTvoHmMC2p
-	 +1RL7lOwjx7Jzs0AO58FMxp/fmZ+OJWrdYZJO2GOMTv79wp+0YCmvDkxHMUfS6FnQFKQf
-	 +8sM5M8kXpniEYzzMXOc9XXgDE+oZszsbhGRqFdKspvW51mFJcAdF62XxsgJTsAJtLbx/
-	 giMUDUqu/OWB3QDXf1oAeI0aJqeyyVBp02nRWioT7hsVeiPhjV4BXvOnCbRT5FGhoYlB1
-	 ybbIJHwf5VH41xz/IJaZolq9eT/taKNcYx0roOQ941qz7FfkYvbvnx471xNOz6mqvLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ee7vqJqb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5996C606A31A;
-	Sun,  8 Nov 2026 05:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ee7vqJqb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794114972;
-	b=oL0FJ9NN6kD2oz6KZ7Te742CtBSLQavRBod0mI3N1fe0f/Duc/E62roypS2UWZQ1Vap7
-	 r7lH0bWSNTyTGWptPK3sEBNPmTzXCHsnSn82e3RvXqKZXGrp137+EGlXXnY1PUuCTAlbv
-	 UsVngdUQ+wEX4uciZcnkz+UonWYb6Tt0/HncZIwTGj2bcXtt7cQToH2aAjVlTbowk16b2
-	 jg/pCwy0GTeMD8EZwJ21ZMjWfw/MEmDAL0Pyvgni4T8mPAs+4G9VfpJ+pY0y1K2VPaZmx
-	 eTkd7QDUhKEd8RaHqBX4huFeHYG6AoO/mw6yT1qhYpkwQC2PqLg3JZRwI1V2Otg+jLg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794114972;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=GaJ0kJ7iGwr4NJdNnl3p/qA/RRPtTceFFlBooGp8kRY=;
-	b=dI08UNewVADlCq7KxMnXpkgJXsUspY8ZOuSKzIRiAO6P71L2SC8/cKMGV7jdR/R6ytUV
-	 OIfdSu6dvH+GkT8Z3WcAY0lDL7uNPj3EhMI5CooIUrA94TiIVCPwky6eDRL0mTJUDbLlJ
-	 6SbjxxAAK/qikYHSYwkUFO+CmPsYlPtTr965sqT8PEfXaMh8JsvpudaTUQCutsMOBnkmt
-	 a4x7AQG7dLpQuJnzG/0ZBv1/yLRJR9Ab287JTrNDuY7jFE/R9xcT26SBnaeKs7nLcVVsY
-	 hXAtaDKoJVhFCZVo2WPmMCpOpy80fUt//QNLlPYEE7MC/2NQ9aSEUMFnny3IZRYvJ1g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794115003;
+	b=eHtnegXoZC9098B4I/Nrl795dK/QqRyO2MVXR+A56pWca/YzN3xwnhbMSTfF3nkhnd3N
+	 a2PUziVFj5WxI46dGaq42AS0HKMqc9ktpEdm53j+YTFd8BFHqY4o5wikDj/dm7uDGTbQ8
+	 Bjevebh2XVuCQU4pbpPxQuyW4BJgJ7Sg2Rt6csMLTpuf0lzR8Wu8400BQ2qBsypI1ABgP
+	 rCYaQ+N6PmMTVJVIQV5jcpzoG6ifJHvtAENWrppvruALbZztebgjjpUXUFBGoZ1vg/TnM
+	 cnwdsm+kD+yt8c81SOSAviziX7R+kvgjc8pwaruoCNw3HUiHnivx2PUeEL2VjMLArng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794115003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=gT62dXId+eAb8ukDUrV+GLnTEFym+aAlD/IHLPxFdUE=;
+	b=zvBhc72BzpVa0PBnnVnQmp5lMhvFB3cub1cCbBEwy+5noc6UeMDFTiD2ZmwndEb+h3z+
+	 FhRUKCeM14D10vm3HHVHdcOP9acEknk6Wa9t0BPG49pvv7xXr/hjYn12MphLO/KfjzqWh
+	 gaOSCYpx/6a6w/WQ7lR5cusPcmsjk12HJHOJHcLxhJBJOW3RT3sUIC+HcZ2Gt4hjpZGsh
+	 TNFPUX1qlRXr3VmHJXFmLKMEkkAzqIzUdV0ynXkWDb9EHwj/Bhg+/SSHhKSxCK/pKx96G
+	 4YjsGe+5JGl5kw+eKYNiYVQgKkJTHhKeNhqa4ba8KZerkVir5m/E8Z6RLEB44OYJbyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=engqbeXt;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D85BE1F0089F;
-	Sun,  8 Nov 2026 05:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794114972;
-	bh=GaJ0kJ7iGwr4NJdNnl3p/qA/RRPtTceFFlBooGp8kRY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ee7vqJqbfoVpzwntvymbHhBetWeh4SBmLaPCjXyh4JvGWODgkrXTJmSmT8PAafYF7
-	 SRDZ6W6lAsjVFAvODwDe6cUcDx0eAZJjj7XoTzX0o8puqeUkFYBKGiYklIX1sjGIEG
-	 PcCmKcUUeYyZf64OCTxT13xtCj3d85Tpp74O/hhpsYAwFHAhW4ERWIRIDEH+U5/QqV
-	 91JRePqZJV/wO8iDMfUdbqmaZ3Vk33dVoaZnG6KRxiJRBQuGX1owO5Gfh3XPfMbuH/
-	 B7vrUW4+Aw11CkxEp74UlcC092+aJyCIJsvOdS2HrOFz6TVLui53uWB2deay4dD/SK
-	 fkBJMuwqx/n5Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 539F447DF7;
-	Sun,  8 Nov 2026 05:16:11 +0000 (UTC)
-From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Sat, 07 Nov 2026 21:16:11 -0800
-Subject: [PATCH] staging: media: imx: ic-prp: add FORMAT_TRY frame interval
- support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7D5606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE7D5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=engqbeXt
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a315ed211so236084eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:16:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794115002; x=1794719802; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gT62dXId+eAb8ukDUrV+GLnTEFym+aAlD/IHLPxFdUE=;
+        b=engqbeXtR+rWOhiZBYTkPKjjtnb2puay/ycsWiBLGX8+NMoejL9uT3B+p63imdwMRz
+         wKi0k8S44NdnihDJ2kDYDN1RokTA2Wf1Lxx77jziVHZ1dN1WriHv7ckibVukhHSKENSJ
+         /aygp1AW5ijJgeqZI7W5ZezrV2ZUEx/s1wDrNgwZB832MumiRNE2ZD1sq6eG84g1wPYG
+         SMXDSD/w6pIrWZ+WYYQUs73M+Dvt61ebj26ZOf5h7VH9GmBwEkEpnrGjpysdLkPcOmO6
+         kgCIx92MRkIB6cX0E/aUQbLWAeg8UKbxvzlkV9Is137WLbceMfybIgQWsLUpC3X+RF4s
+         SVaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794115002; x=1794719802;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gT62dXId+eAb8ukDUrV+GLnTEFym+aAlD/IHLPxFdUE=;
+        b=UJhgkkVDwL4xzTc6MgvHD7CbWTmvPp+dKcNodZskcnJuLkn8r1+cYkAX5xDxYaB5S0
+         VhprG4/FKHb7KNTN6rzl9GRI7LOgs/nhIt8bzJyJDQzeW1hXq1SpkyLOgbnbSOeOkXx5
+         lsIZ++nJg3L2ryuo2dwAMCBGE5S9tgBzT1f5fEtPc9lel5kKHeFcjIz8jJqviYn4ZTmR
+         IhATMP4hrpKtbgTTezQRhdbZwsipUoetFlPv0ARvBPtLTTccV6yOeSF2mzoWLawvuRFe
+         o4FaVbEcx0l3QDvKamzz9P6wDZHOLG7/Bol0Df5Gln6RUXQ21pWmpFikWhbhJtoAx8p7
+         /LRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwO0QBLvUlsenmBHEaOGzHXg95Q8mmykJGAqJYpgUtPRuqYz7y9NYguNEla3sdAQbnwnfi2hua1fndV8b4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GL7A3EekhI6SUMWXp7FwZ+T06wyotWPtPCgGEFnGqmx4c2+jr
+	ZYsTUxreGITfKJqrKioxI8fkQjZb7qfAJvA65WhxoiyL2vLO6+OXQfxORboMiw==
+X-Gm-Gg: AYBFou2VmWBpKf37x6Zb0Dk4QgTKPk+DKxqKSmtkDB8qBGp51WBn1m6I1q7waAHyWE9
+	Cu7hZmDFvN/rMayvAI9H5uUDtYhZoZIohX9RgV+I+B+KyvSuEpCn3gBhIuucrtvMOa/SU7T0Pcr
+	D/sJsUxvad/2rEf6aKLT5BWpESbzJ2bAHFcFA4cdmLvgIb8TpUaSPCLdChg++BAxszm16/jUZsn
+	BrcJAnzYuju2OnqWAYfadWVZTdjsJCkmYBM5z3y9OBmlgUfqSR+Lks3kMgJ4yIPynSGOeqOwaEQ
+	HNCMhu77OoIcQTmexUcwCIwDNoCJdgh0C5SGfXrQ2rzCVOddDme+wOiUYuqY+mSrmVZ7I0F2zHq
+	cGy1mNe2Rs6omrZ+rim5OiwQ7Ao52CDvNXkODo+b+8qWFWms4VM9gfG7bBVmDE68N6A5Ot9Q9q8
+	IpwD+9RFHYSVK47TtywPPKov+LdnRurYMqQ6B2Nra72r9e1JQAUH/r+FiaH8gwQx3WSWKiZK9nh
+	/mtsBJTvWIr+BOjuuc/WrV/SlbHuHNSp2pE9WgBucjIuRNs+SqSClo+sN2PRx8CT0hOsKwUpEkV
+	sBDDaMSAoKYMSWoxr/iqJ3SFGw==
+X-Received: by 2002:a05:693c:8819:20b0:36c:dbfc:ee6f with SMTP id 5a478bee46e88-370f6ec412cmr5291748eec.14.1794115001952;
+        Sat, 07 Nov 2026 21:16:41 -0800 (PST)
+Received: from [127.0.1.1] ([121.125.115.175])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d60absm2750989eec.26.2026.11.07.21.16.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 21:16:41 -0800 (PST)
+From: Gyeyoung Baek <gye976@gmail.com>
+Subject: [PATCH v2 0/6] drm/imagination: Add async VM_BIND with sparse
+ mappings
+Date: Sun, 08 Nov 2026 14:16:22 +0900
+Message-Id: <20261108-pvr-vm-bind-v2-0-730103d2cc9a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,206 +94,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-batch1-m1-prp-try-v1-1-56a08f54791b@tubot.lat>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdukRYTEVzEetlGlJOLSDYIhv
- DtTj9/h/zdIYioJrtUGJosmfU8FfKogDG56CmpfDDXVLTN16F0OA+OLMVrEbB88d+ToQuKb3kP
- poslD19/zdv87zX6UkL8j2PcDkrMvbnUAAAA=
-X-Change-ID: 20261107-batch1-m1-prp-try-370a050eb4db
-To: slongerbeam@gmail.com
-Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
- vickramk.207@gmail.com, linux-staging@lists.linux.dev, 
- linux-media@vger.kernel.org, mchehab@kernel.org, imx@lists.linux.dev, 
- p.zabel@pengutronix.de, DelaySystem <DelaySystem@tubot.lat>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5034;
- i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=WVwUtRUjTKbxdRiEtnEo30aSNjX2ZGooES481TnxQgg=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfWGd9fOqwyWtq5BOrH5nv1DU/vb/7omYJ/+TszM3r1
- mhZaXyX7ChlYRDjYJAVU2QRk+F5X39fJ87aas4JmDmsTCBDGLg4BWAij14yMmwO4DdmCFppdeZt
- 3zWtkF+P/rv9OcNbaPl0Z+PTJUlKn34w/A94EjT/0BobpxkrN/Y+8Res3C9p1r7QOz2Rs/fG+YV
- 1N5gB
-X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
- fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
-X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
- auth_id=1447
-X-Original-From: DelaySystem <DelaySystem@tubot.lat>
-Reply-To: DelaySystem@tubot.lat
+X-B4-Tracking: v=1; b=H4sIAKgF8GoC/22QzU5DIRBGX6VhLYbhAheaxvgeposBhpbk/gntj
+ abpu0uvGjcuz2JOzjc3Vqlkqmy/u7FCa655nhrIpx0LZ5xOxHNszKSQRljo+bIWvo7c5ylyCKS
+ ScAh9r1i7WAql/LHZ3o6NPVbivuAUzpsjCNkRhdQpFY2K2AdrhfYGlZagQ0gyUhL6R1Xo/dp6L
+ t8+NlKtuPXsd4dHDgjQW851GnHhOAx8mOeFr8CBaxVMb6ICadzracQ8PId5fGG/VQ3GfGlDo0b
+ bQRddSM46b5PuUBvr0BmyDnxyLnkZ2GPPOdfLXD63Z62wVf37l1YguECRJHjqY2f/Ctjxfr9/A
+ Wnul1h2AQAA
+X-Change-ID: 20260817-pvr-vm-bind-1ce4f09a1774
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Philipp Stanner <phasta@kernel.org>, 
+ Donald Robson <donald.robson@imgtec.com>, 
+ Sarah Walker <sarah.walker@imgtec.com>, 
+ Matt Coster <opensource@mtcoster.net>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+ Gyeyoung Baek <gye976@gmail.com>
+X-Mailer: b4 0.15.1
 
-From: Vickram Kapoor <vickramk.207@gmail.com>
+Userspace MR:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43794
 
-Implement frame interval handling for V4L2_SUBDEV_FORMAT_TRY
-by storing and retrieving per-pad intervals from the subdev state.
-Also add a PRP-specific init_state callback to initialize TRY intervals
-from the active default, and move default interval initialization to
-prp_init().
+This series is for Vulkan sparse binding.
 
-Link: https://lore.kernel.org/all/20260426002659.119625-1-vickramk.207@gmail.com/
-Signed-off-by: Vickram Kapoor <vickramk.207@gmail.com>
-Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
+- Patches 1-2 switch the GPUVM to immediate mode.
+- Patch 3 moves the existing map and unmap paths onto a single bind
+  entry point.
+- Patch 4 adds the VM_BIND ioctl.
+- Patch 5 adds asynchronous requests.
+- Patch 6 adds sparse mappings.
+
+Patches 1-2 were sent separately [1]. They conflict with drm-misc-next,
+so they are rebased and included here.
+
+Testing:
+Tested on BeagleY-AI.
+- The existing IGT pvr_vm_map passes without regressions.
+- dEQP-VK.sparse_resources passes for the sparse features the Mesa MR
+  above exposes.
+
+[1] https://lore.kernel.org/r/20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com
+
+Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
 ---
-Compile-tested only: x86_64, VIDEO_IMX_MEDIA=m via COMPILE_TEST, zero
-warnings. No i.MX hardware here for runtime testing; hardware testing
-by others is welcome.
----
- drivers/staging/media/imx/imx-ic-prp.c | 87 +++++++++++++++++++++++++---------
- 1 file changed, 64 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/staging/media/imx/imx-ic-prp.c b/drivers/staging/media/imx/imx-ic-prp.c
-index b2c648149964..3f1690d22483 100644
---- a/drivers/staging/media/imx/imx-ic-prp.c
-+++ b/drivers/staging/media/imx/imx-ic-prp.c
-@@ -87,6 +87,18 @@ __prp_get_fmt(struct prp_priv *priv, struct v4l2_subdev_state *sd_state,
- 		return &priv->format_mbus;
- }
- 
-+static struct v4l2_fract *
-+__prp_get_frame_interval(struct prp_priv *priv,
-+			 struct v4l2_subdev_state *sd_state,
-+			 unsigned int pad,
-+			 enum v4l2_subdev_format_whence which)
-+{
-+	if (which == V4L2_SUBDEV_FORMAT_TRY)
-+		return v4l2_subdev_state_get_interval(sd_state, pad);
-+
-+	return &priv->frame_interval;
-+}
-+
- /*
-  * V4L2 subdev operations.
-  */
-@@ -398,22 +410,25 @@ static int prp_get_frame_interval(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_frame_interval *fi)
- {
- 	struct prp_priv *priv = sd_to_priv(sd);
--
--	/*
--	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
--	 * subdev active state API.
--	 */
--	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
--		return -EINVAL;
-+	struct v4l2_fract *interval;
-+	int ret = 0;
- 
- 	if (fi->pad >= PRP_NUM_PADS)
- 		return -EINVAL;
- 
- 	mutex_lock(&priv->lock);
--	fi->interval = priv->frame_interval;
-+	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
-+					    fi->which);
-+	if (!interval) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	fi->interval = *interval;
-+out:
- 	mutex_unlock(&priv->lock);
- 
--	return 0;
-+	return ret;
- }
- 
- static int prp_set_frame_interval(struct v4l2_subdev *sd,
-@@ -421,24 +436,50 @@ static int prp_set_frame_interval(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_frame_interval *fi)
- {
- 	struct prp_priv *priv = sd_to_priv(sd);
--
--	/*
--	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
--	 * subdev active state API.
--	 */
--	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
--		return -EINVAL;
-+	struct v4l2_fract *interval;
-+	int ret = 0;
- 
- 	if (fi->pad >= PRP_NUM_PADS)
- 		return -EINVAL;
- 
- 	mutex_lock(&priv->lock);
-+	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
-+					    fi->which);
-+	if (!interval) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	/* No limits on valid frame intervals */
- 	if (fi->interval.numerator == 0 || fi->interval.denominator == 0)
--		fi->interval = priv->frame_interval;
-+		fi->interval = *interval;
- 	else
--		priv->frame_interval = fi->interval;
-+		*interval = fi->interval;
-+out:
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
-+static int prp_init_state(struct v4l2_subdev *sd,
-+			  struct v4l2_subdev_state *sd_state)
-+{
-+	struct prp_priv *priv = sd_to_priv(sd);
-+	struct v4l2_fract *interval;
-+	unsigned int pad;
-+	int ret;
-+
-+	ret = imx_media_init_state(sd, sd_state);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&priv->lock);
-+
-+	for (pad = 0; pad < PRP_NUM_PADS; pad++) {
-+		interval = v4l2_subdev_state_get_interval(sd_state, pad);
-+		if (interval)
-+			*interval = priv->frame_interval;
-+	}
- 
- 	mutex_unlock(&priv->lock);
- 
-@@ -450,10 +491,6 @@ static int prp_registered(struct v4l2_subdev *sd)
- 	struct prp_priv *priv = sd_to_priv(sd);
- 	u32 code;
- 
--	/* init default frame interval */
--	priv->frame_interval.numerator = 1;
--	priv->frame_interval.denominator = 30;
--
- 	/* set a default mbus format  */
- 	imx_media_enum_ipu_formats(&code, 0, PIXFMT_SEL_YUV);
- 
-@@ -487,7 +524,7 @@ static const struct v4l2_subdev_ops prp_subdev_ops = {
- };
- 
- static const struct v4l2_subdev_internal_ops prp_internal_ops = {
--	.init_state = imx_media_init_state,
-+	.init_state = prp_init_state,
- 	.registered = prp_registered,
- };
- 
-@@ -504,6 +541,10 @@ static int prp_init(struct imx_ic_priv *ic_priv)
- 	ic_priv->task_priv = priv;
- 	priv->ic_priv = ic_priv;
- 
-+	/* init default frame interval */
-+	priv->frame_interval.numerator = 1;
-+	priv->frame_interval.denominator = 30;
-+
- 	for (i = 0; i < PRP_NUM_PADS; i++)
- 		priv->pad[i].flags = (i == PRP_SINK_PAD) ?
- 			MEDIA_PAD_FL_SINK : MEDIA_PAD_FL_SOURCE;
+Changes in v2:
+- New patch 3, "Route map and unmap through pvr_vm_bind()".
+- Split v1 3/4 into the ioctl (4) and the asynchronous mode (5).
+- Bump the driver interface version to 1.2, as 1.1 is already taken by
+  another patch.
+- Link to v1: https://lore.kernel.org/r/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com
 
 ---
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261107-batch1-m1-prp-try-370a050eb4db
+Gyeyoung Baek (6):
+      drm/imagination: Switch the GPUVM to immediate mode
+      drm/imagination: Stop locking reservations around map and unmap
+      drm/imagination: Route map and unmap through pvr_vm_bind()
+      drm/imagination: Add VM_BIND ioctl
+      drm/imagination: Add asynchronous VM_BIND
+      drm/imagination: Add MAP_SPARSE to VM_BIND
+
+ Documentation/gpu/imagination/uapi.rst     |  15 +
+ drivers/gpu/drm/imagination/pvr_device.h   |  10 +
+ drivers/gpu/drm/imagination/pvr_drv.c      | 331 ++++++++++++
+ drivers/gpu/drm/imagination/pvr_drv.h      |   4 +-
+ drivers/gpu/drm/imagination/pvr_fw_meta.c  |   6 +-
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c |   6 +-
+ drivers/gpu/drm/imagination/pvr_job.c      |   6 +
+ drivers/gpu/drm/imagination/pvr_mmu.c      |   2 +-
+ drivers/gpu/drm/imagination/pvr_mmu.h      |   1 +
+ drivers/gpu/drm/imagination/pvr_queue.c    |   3 +
+ drivers/gpu/drm/imagination/pvr_sync.c     | 146 +++++-
+ drivers/gpu/drm/imagination/pvr_sync.h     |  13 +
+ drivers/gpu/drm/imagination/pvr_vm.c       | 781 ++++++++++++++++++++++-------
+ drivers/gpu/drm/imagination/pvr_vm.h       |  63 ++-
+ include/uapi/drm/pvr_drm.h                 | 129 +++++
+ 15 files changed, 1303 insertions(+), 213 deletions(-)
+---
+base-commit: 2d5a8313d9cf989b8f53a5689a96e891bf99fb2c
+change-id: 20260817-pvr-vm-bind-1ce4f09a1774
+prerequisite-message-id: <20261015-pvr-unmap-all-loop-v1-1-54c676d41269@gmail.com>
+prerequisite-patch-id: 5188d944e90112e4cf2678e75255c7a91434ad09
 
 Best regards,
 --  
-DelaySystem <DelaySystem@tubot.lat>
-
+Gyeyoung Baek <gye976@gmail.com>
 
