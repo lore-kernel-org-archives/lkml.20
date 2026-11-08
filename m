@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147748;
-	b=1WzG1oJTrPy0ozDlzpLK5sV1s2OGrFN+uexrKohIfTSWXrl4/SYrIE9W+yxZ6VHHCJ02
-	 BMb2CjCvay9As1ydts6brIdsTmekRKgbcNv6wDVdxoW/+A6K8efJ+wDi6N5GwqqMKdZJv
-	 RXfCDcK0D7Zztx43ERXtJiuV4OVPrkM82wn3Dwo70LdKkme0f0ryE7Bb4F1WZN6wPLJj1
-	 3AY5aFLwH0MVglzqUpEhLFSw9WiUrlgXNrbazRfrkwZwj6Q+6AzixIxE73flZNbQQ+WCc
-	 YUNVnDMf3zWwEqBd8qQ9zzW7wcS8uLR7i+T+2HyH/Re+56Rp3ZZDAJcqTgkgWXWMhkg==
+	t=1794147750;
+	b=t6nBxBCSHaI5mywXb/QjTqqEPVl3gZItVqS57FosR61Mr2J5fBuMgiiwJ2qpGMEov9ol
+	 BffYBROCX6PpkLLE2xHb52pf5uabTc+wukbMCdvVeiNh6meBckh5V65PjqOw1k+RnFP8+
+	 DQiaI0zFEg1FuhtR/2eIwb2IRYrVOTw4DrMVRuSGOVI0O+52b48Q2lXpX4TJxgnjCbg2O
+	 DY0pIFrrvfktdkVea4/EQSRWTprP19Ll2e1uGV0r36/PBMDz1pTafEoREWyoq1Ky+YZNE
+	 V8W11Eu8OuSThFiV9Tny7qI3XBkESexXOIvPluURX+iB8DXnS/3w34YLmoQLA0otIYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147748;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794147750;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=eDN1XV5sAMvfKPM6blkAGifJPoKZQVmVWde94+gPZzI=;
-	b=XmorjDN96nLsqJfBM5ThU0t+0ZljvcP6Gq4qaScJGg6jmrrltnOtvK15TpeZzvRxuLVh
-	 DMNBhhbkMbAxeP3hK0lw5KdO9Em9wvprsY8jYoEfKK8pueTY1umV68I3Ycgl27beWD713
-	 CE8rhj6DjLWKUzFc1jJjygE87YINpiEI4anr5VMH34oas3qJhaNMeK7ac0i3IDfGRiwlt
-	 Xseu3O9+x/EJ6AgPgoNc85TxEpXZD5X7yzYS3nDFe4+kqNGgnd+vgU+OPSPICJLffxE7Y
-	 zcD9MnZflG/i0fXtNoGX931ZV56QE/jJBiG1Lh6Vz0K3IK4h4Jycq3El1haBb3l79iQ==
+	bh=8nSnyp4qIY+eMxZ+jWwWlVQJaqb6UKomcauQ+sOlv74=;
+	b=mz9VcawaIUXe4NQUKbvI1KY/vpNN4rYaxqCMKRdwHkWBhPDtnhygiIIf/PhwSz1QcJN1
+	 QVJ69REEGshLDFe2ZST3kMhCPvHEkjcpli8OgHy8waTfNQ/YAJYcnh3QspM8ZvqhhPcn5
+	 Buc44CnaL040bhaYO5JvwUh/2JG2FuTPvKkRVC9psxpLrNZORfLX7hOJhj2tUGuZD/iN2
+	 DkEoNwi3uU9yqBtIbMeUrEN0PRQ1SbQVbeE0d24x3Hv4SrrBe5TuT5sF+O0IQNL/E7bQL
+	 1B7YDvfRTr7PwOQqQG0jJG6or8SUX2lhOXYMEYu/4YWI654DJdodclmqOVZ6yH0hekg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPCxpjV9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BR6d+siC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DB1606A31C;
-	Sun,  8 Nov 2026 14:22:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F965606A331;
+	Sun,  8 Nov 2026 14:22:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPCxpjV9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33FB01F0089F;
-	Sun,  8 Nov 2026 14:22:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BR6d+siC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6720C1F0089F;
+	Sun,  8 Nov 2026 14:22:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794147747;
-	bh=eDN1XV5sAMvfKPM6blkAGifJPoKZQVmVWde94+gPZzI=;
+	s=k20260515; t=1794147749;
+	bh=8nSnyp4qIY+eMxZ+jWwWlVQJaqb6UKomcauQ+sOlv74=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LPCxpjV9Nnqw47Jv7F3R5X7lhWecevD9bVKnOzxayfjbpIC4XMcVMnF4GHQpH5qUt
-	 35keBR8G//8B4uJHpe+as2rwwGn9pSo/gGVqdefuFOpUFk5XohJdl8PSP+O0nEAqg+
-	 +zh+9KsrIstfDwIluWw7Wa+GDdasZg7P8gToZq5NdxSWwL5xbqNCLsBfJvOvM9Hz/3
-	 denItmhqLYPL1o3EsY9Cp8F3t9i+eeFNoS5L1vzmtbzK9kmG1mPbP+/owj3Y1fa3Ot
-	 JX6Tysscp5x9gM33Fm5aDAnDioBL7Yi92L9KgZE1p3nqTIbRnsmm1RLZI64bLEFEl5
-	 KvpqTQJNv8mmQ==
-Subject: Re: [PATCH net-next 1/4] net: dsa: motorcomm: Fix stats64 error
- counter mapping
+	b=BR6d+siCVXoHe+4BaQgvXxUzZKyolUL4fCaEOmHQuNmqygG+idw61mbvLKmiyxX9A
+	 5iyZg9dRKtZTo3J6mV9F9zhEsvysqNOvQwveT1o2nSqmUzI6pbOe6Ta6Rf5v5nZeMc
+	 mfWsgb0wcJt/0HPbEf4K5YptCnnWeEriaSBgzcIGxd7i8adg0RgzrJkqd9VxUkNNsy
+	 LdJVPw2n72R9d0whtwE8Yyv8/fo9r4NZxfVciO8ck/S2WaAtMz5ICSj6vZHx1E2xIC
+	 IB59w4T/7aIQMIMESwAr1VrMRNJx512GnptBeEjnufF1R26lH35jirI7klk7aw15h9
+	 IMFZ41N1FIW7Q==
+Subject:
+ Re: [PATCH net-next 3/4] net: dsa: motorcomm: Use safe 64-bit counter reader
 From: netdev-bot+sashiko@kernel.org
 To: mmyangfl@gmail.com
 Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  linux-kernel@vger.kernel.org
-Date: Sun, 08 Nov 2026 14:22:26 +0000
-Message-ID: <179414774671.994134.1756882573318817305@kernel.org>
-In-Reply-To: <20261107132040.1066996-2-mmyangfl@gmail.com>
-References: <20261107132040.1066996-2-mmyangfl@gmail.com>
+Date: Sun, 08 Nov 2026 14:22:29 +0000
+Message-ID: <179414774900.994134.836318177639068785@kernel.org>
+In-Reply-To: <20261107132040.1066996-4-mmyangfl@gmail.com>
+References: <20261107132040.1066996-4-mmyangfl@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -67,7 +67,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,131 +75,147 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In yt921x_dsa_get_stats64(), this patch removes the
-  `tx_fifo_errors = tx_undersize_errors` mapping and changes the…
-- [Low] The commit "net: dsa: motorcomm: Fix stats64 error counter
-  mapping" corrects counters that users see in rtnl_link_stats64 (`ip -s…
-
-Pre-existing issues:
-- [Low] yt921x_dsa_get_rmon_stats() sets RMON etherStatsFragments from
-  the alignment-error counter (`rmon_stats->fragments =…
+- [Medium] yt921x_counter_read() in drivers/net/dsa/motorcomm/smi.c
+  returns a false -EIO for half of the low-word wraps that race with a…
+- [Low] "net: dsa: motorcomm: Use safe 64-bit counter reader" fixes a
+  user-visible bug, a transient ~4 GiB jump in the 64-bit RX/TX good-…
 
 --
 
-net: dsa: motorcomm: Fix stats64 error counter mapping
+net: dsa: motorcomm: Use safe 64-bit counter reader
 
-This commit changes yt921x_dsa_get_stats64() to report the RX oversize
-counter in rx_length_errors instead of rx_over_errors. It also drops the
-mapping of TX undersize to tx_fifo_errors and exposes that counter as a
-driver-private TxUndersize ethtool stat instead.
+This commit changes how yt921x_mib_read() reads the 64-bit MIB counters.
+The old code read the low word and then the high word. That is replaced
+with a new helper, yt921x_counter_read(), which reads the low word again
+and reads the high word again if the low word wrapped. The aim is to
+avoid a spurious ~4 GiB jump when the low word wraps between the two
+reads.
 
 > diff --git a/drivers/net/dsa/motorcomm/mib.c b/drivers/net/dsa/motorcomm/mib.c
-> index 6b170fc6e1875..5c027edb71e3e 100644
+> index 90b0ef670aa31..b45bc82117412 100644
 > --- a/drivers/net/dsa/motorcomm/mib.c
 > +++ b/drivers/net/dsa/motorcomm/mib.c
+> @@ -102,29 +102,26 @@ static int yt921x_mib_read(struct yt921x_priv *priv, int port)
 
 [ ... ]
 
-> @@ -376,8 +376,9 @@ yt921x_dsa_get_stats64(struct dsa_switch *ds, int port,
->  		start = u64_stats_fetch_begin(&pm->syncp);
+> -		} else {
+> -			u32 val1;
 >  
->  		stats->rx_length_errors = u64_stats_read(&mib->rx_undersize_errors) +
-> -					  u64_stats_read(&mib->rx_fragment_errors);
-> -		stats->rx_over_errors = u64_stats_read(&mib->rx_oversize_errors);
-> +					  u64_stats_read(&mib->rx_fragment_errors) +
-> +					  u64_stats_read(&mib->rx_oversize_errors);
-> +		/* stats->rx_over_errors */
+> -			res = yt921x_reg_read(priv, reg + 4, &val1);
+> +			buf[i] = val;
+> +		} else {
+> +			res = yt921x_counter_read(priv, reg, &buf[i]);
+>  			if (res)
+>  				break;
+> -			val = ((u64)val1 << 32) | val0;
+>  		}
 
 [Severity: Low]
-Should this patch have a Fixes: tag?
+The commit fixes a user-visible problem: a transient ~4 GiB jump in the
+64-bit good-bytes and bad-bytes counters. That jump shows up in ethtool -S
+and rtnl_link_stats64. Should it carry a Fixes: tag?
 
-The mapping it corrects came in with the original driver. At that
-commit, yt921x_dsa_get_stats64() in drivers/net/dsa/yt921x.c had:
-
-	stats->rx_over_errors = mib->rx_oversize_errors;
-	...
-	stats->tx_fifo_errors = mib->tx_undersize_errors;
-
-Both values were also summed into rx_errors and tx_errors.
-
-Commit 25265e7ccdb5 later moved this code to
-drivers/net/dsa/motorcomm/mib.c, and commit ed4453587dc0 wrapped the
-reads in u64_stats_read(). Neither commit changed the mapping.
-
-Would something like this be appropriate?
+The read removed here, which takes the low word and then the high word in
+two separate transactions, has been in the driver since it was added in
+drivers/net/dsa/yt921x.c. It was later moved into
+drivers/net/dsa/motorcomm/mib.c by 25265e7ccdb51b. That would suggest:
 
 Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
 
->  		stats->rx_crc_errors = u64_stats_read(&mib->rx_crc_errors);
->  		stats->rx_frame_errors = u64_stats_read(&mib->rx_alignment_errors);
-
-[Severity: Low]
-This is a pre-existing issue, not one introduced by this patch. Since
-this function uses rx_fragment_errors as the fragment count, does
-yt921x_dsa_get_rmon_stats() read the wrong counter for RMON fragments?
-
-drivers/net/dsa/motorcomm/mib.c:yt921x_dsa_get_rmon_stats() {
-    ...
-	rmon_stats->fragments = u64_stats_read(&mib->rx_alignment_errors);
-    ...
-}
-
-rx_alignment_errors is already reported as AlignmentErrors in
-yt921x_dsa_get_eth_mac_stats() and as rx_frame_errors here. That means
-the hardware fragment counter (YT921X_MIB_DATA_RX_FRAG_ERR) can't be
-seen through the standard RMON stats.
-
-A later patch in this series, "net: dsa: motorcomm: Fix RMON fragments
-stat", changes that line to read rx_fragment_errors. Nothing is left to
-fix by the end of the series.
-
->  		/* stats->rx_fifo_errors */
-> @@ -385,7 +386,7 @@ yt921x_dsa_get_stats64(struct dsa_switch *ds, int port,
->  
->  		stats->tx_aborted_errors = u64_stats_read(&mib->tx_aborted_errors);
->  		/* stats->tx_carrier_errors */
-> -		stats->tx_fifo_errors = u64_stats_read(&mib->tx_undersize_errors);
-> +		/* stats->tx_fifo_errors */
->  		/* stats->tx_heartbeat_errors */
->  		stats->tx_window_errors = u64_stats_read(&mib->tx_late_collisions);
->  
-> @@ -401,10 +402,9 @@ yt921x_dsa_get_stats64(struct dsa_switch *ds, int port,
->  		stats->collisions = u64_stats_read(&mib->tx_collisions);
->  	} while (u64_stats_fetch_retry(&pm->syncp, start));
->  
-> -	stats->rx_errors = stats->rx_length_errors + stats->rx_over_errors +
-> -			   stats->rx_crc_errors + stats->rx_frame_errors;
-> -	stats->tx_errors = stats->tx_aborted_errors + stats->tx_fifo_errors +
-> -			   stats->tx_window_errors;
-> +	stats->rx_errors = stats->rx_length_errors + stats->rx_crc_errors +
-> +			   stats->rx_frame_errors;
-> +	stats->tx_errors = stats->tx_aborted_errors + stats->tx_window_errors;
-
-[Severity: Medium]
-With the tx_fifo_errors mapping removed, TX undersize events are no
-longer counted in any rtnl_link_stats64 field, and that includes
-tx_errors. Is this intended?
-
-The tx_errors kernel-doc in include/uapi/linux/if_link.h says:
-
- * @tx_errors: Total number of transmit problems.
- *   This counter must include events counter by @tx_aborted_errors,
- *   @tx_carrier_errors, @tx_fifo_errors, @tx_heartbeat_errors,
- *   @tx_window_errors and other errors not otherwise counted.
-
-A runt frame may not be a FIFO underrun. Could tx_undersize_errors still
-be added to tx_errors as an error not otherwise counted?
-
-As written, a port that sends runt frames now shows a lower tx_errors in
-ip -s link and /proc/net/dev than before this patch. The only place these
-events still appear is the driver-private TxUndersize ethtool -S string.
-
-The commit message also doesn't mention the change to tx_errors. The
-later patches in this series don't change this calculation.
-
+> diff --git a/drivers/net/dsa/motorcomm/smi.c b/drivers/net/dsa/motorcomm/smi.c
+> index bf3adfd64165a..16f62409422d5 100644
+> --- a/drivers/net/dsa/motorcomm/smi.c
+> +++ b/drivers/net/dsa/motorcomm/smi.c
+> @@ -63,6 +63,41 @@ int yt921x_reg_update_bits(struct yt921x_priv *priv, u32 reg, u32 mask, u32 val)
+>  	return yt921x_reg_write(priv, reg, u);
 >  }
 >  
->  void
+> +/* Reliably read a 64-bit counter, assuming the counter isn't that "fast" */
+> +int yt921x_counter_read(struct yt921x_priv *priv, u32 reg, u64 *valp)
+> +{
+> +	u32 old_lo;
+> +	int res;
+> +	u32 hi;
+> +	u32 lo;
+> +
+> +	res = yt921x_reg_read(priv, reg, &old_lo);
+> +	if (res)
+> +		return res;
+> +
+> +	res = yt921x_reg_read(priv, reg + 4, &hi);
+> +	if (res)
+> +		return res;
+> +
+> +	res = yt921x_reg_read(priv, reg, &lo);
+> +	if (res)
+> +		return res;
+> +
+> +	if (lo < old_lo) {
+> +		u32 new_hi;
+> +
+> +		res = yt921x_reg_read(priv, reg + 4, &new_hi);
+> +		if (res)
+> +			return res;
+> +		if (new_hi != hi + 1)
+> +			return -EIO;
+
+[Severity: Medium]
+Can this return -EIO for a read that is actually consistent?
+
+The reads happen in this order:
+
+  t0: old_lo = [reg]
+  t1: hi     = [reg + 4]
+  t2: lo     = [reg]
+  t3: new_hi = [reg + 4]   (only if lo < old_lo)
+
+lo < old_lo only shows that the low word wrapped somewhere between t0 and
+t2.
+
+If the wrap happens between t1 and t2, then hi == H and new_hi == H + 1,
+so the check passes.
+
+If the wrap happens between t0 and t1, the carry is already in the high
+word when hi is read. Then hi == H + 1 and new_hi == H + 1 == hi. The
+(hi, lo) pair is a valid snapshot, but new_hi != hi + 1 rejects it with
+-EIO.
+
+The t0..t1 window is one SMI transaction, the same size as the t1..t2
+window. So roughly half of the wraps that race with a read would take
+this path. At 1 Gb/s the low words of the good-bytes and bad-bytes
+counters wrap about every 34 seconds.
+
+When it happens, yt921x_mib_read() breaks out of its descriptor loop, so
+the remaining counters for that port are not refreshed. The partially
+refreshed buffer is still published, and this message is logged:
+
+  Failed to read stats for port N: -5
+
+In addition, yt921x_mib_poll() backs off:
+
+	if (res)
+		delay *= 4;
+
+That moves the poll interval from 3 seconds to 12 seconds, for a bus
+error that never occurred.
+
+The later "net: dsa: motorcomm: Prevent rx_bytes/tx_bytes underflow"
+change drops the whole sample for that cycle instead. It does not touch
+yt921x_counter_read(), so the false -EIO is still present after it.
+
+Would it work to accept new_hi when it equals either hi or hi + 1 and
+pair it with lo? Another option is a hi/lo/hi read that retries while
+the two hi values differ.
+
+> +		hi = new_hi;
+> +	}
+> +
+> +	*valp = ((u64)hi << 32) | lo;
+> +	return 0;
+> +}
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107132040.1066996-1-mmyangfl%40gmail.com
