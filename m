@@ -1,55 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794107732;
-	b=aHpFhY1xifpWEFiOkGX7h4LJt8DAuqmuPVvLKAoAMLH7tXoIs7A3zI+H2QRQbliheZt9
-	 6TpCgimKRtO67cldfbIb7kMXXzOgVQ17dw/JnZN2mIno7FXI4A3TF0YEPGHtcLXW61Bym
-	 BtjThyuXaZBcIS23jB10do5bKpv/11oqvS7TG8WPsCJllvi5NSzFZ0mgvi63rpiKP13GB
-	 +GnG7yw3j9IyTXnULvMN+n3iQd6BciS7dISJKtdVGjn8Abj79MM5+opCIOouoLWoXyHPI
-	 ApKHIAQeDJUzhPjucscGe5DvjDUWxM2NRAf4zlNgbkmfW76n1tRIi6xdwa5Rk9RZZFg==
+	t=1794107812;
+	b=OcIuvX8H7eeHN8J8X+YhxExK6kzhH70RoUv9LsyWNVLXtGLohVx15sQ+v+fthbyAN1iv
+	 TQne1NnRi/hx+/lDEGLatydzocQBUUsrw7NJcMbBY3vOMtCDXBZhHEOkXJWJVorP6SQUR
+	 w1OVN1Hj9gqLUC++lsX6IN2dehbr0CYwaKI/zhSqRKF3ZuIdy+9VWMvBCeakBb2mho+NE
+	 ZCnBNcjlZURDV/VWL1DfRNdmHF3h+yIH7/ToutjZxPlGZbUxSl5cfVK7Ke4wgjIbg6GO0
+	 PED6L0pQsE3OpgEqnXXXWah8OsBXpN1JoSWrlsveFgl8MRDoHIfgkfsp7cL4xrzaBIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794107732;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=a/bZ5iXP4DDa9C3rE1j+9R8AKF/7AKe9/pell36SluI=;
-	b=q4ZcdxCmA6ZEwE8MhR2IoXkd50qzYvz0hyLCJVBaPwgf7Cr1846iikW/A2ttJG+Y4vTr
-	 8IWGd1lFK5sIZZGPUlKKdvDjBs1ZJS7N0UsTMrKg2L/q63syIq27WgTkXFBXv5C1B10nY
-	 aW3rXynh949/2i+Vc76haWAhOI8O09ZnUlNQeT8X/If9kRYF8OOEwcxPONSTowRQvT9i2
-	 1JE20uJbL5AHe7+3o7TVHhy8Z4oUPu69HfkqYqIIyiEG/ziM/+7Huu7fgvSvcZNtprJZO
-	 UCgWIJ9d+7Bu1KTh43Ra2/9vNW1yu5U9zZvu1WmWqtuJKfx68ZQyKPTluJ79Pbrb0jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794107812;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:User-Agent;
+	bh=CYbXanoVIznje4wNLs5CNwhXIty16UVDrSGIc7iuqrM=;
+	b=Iv4rAtRqtI86OnEBuTqvs9KxtH2tXvlDSS+aUVFTIfmfPNloKZ82H4rMbQEH1/GaHOQx
+	 m7+crI3VDSbPmwWCAQuonSjl1p2xfcLM07cFzbAqPTILXlTfhzKlfawX3hGxOSvruHrXX
+	 d1TwI+rGdMrhb6o5evAeWoYwsGOapZPQGIb6juEZZ7ZG4GB+uIrRkj9G5FRS9ax8hfzI/
+	 Mw9JqNiyb1pDzQGN2axl+9EoifWEffuI67PQbd4DVQLqHFAoLEsUIMQ/R8jbqqOK2OrU6
+	 V7H1QnrHlG2RIrJx93ssL5i262Vwt+yiqY5ip4y6aelDUnOy7/hAhN1w7w/0siQqoCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQRE8BJc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ZEE4WdQY;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96236606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 03:15:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE34606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 03:16:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BE34606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQRE8BJc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788341F008A3;
-	Sun,  8 Nov 2026 03:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794107732;
-	bh=a/bZ5iXP4DDa9C3rE1j+9R8AKF/7AKe9/pell36SluI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gQRE8BJcf8LvyLbU47fcRumukgkMk2dqVAt4858j0hUiHCefBAFkrZdi+AsmTUQpM
-	 REhZREwjELCnrvmjsck9IssG56NK7j45N6PlBZwUQI4HE8GD8GThzFGrJwatPFYveQ
-	 WUYJQ3kzP0NS3TlardL7VE0gJhHe+YXtLVveZ54B096kZV2NYo+n9PrdQ/Io8BHiRY
-	 pwzdVWv9Dmbnmp8idhvLp37xFaPETNxvefnR5wlk+o0Pr7NiNKkKinqIL3LPiavF2l
-	 kNmbqZshDFTAKlrtFQHiGT1UsyjKasBC/viuUerMhAO+8RxwoOyQyGpxQJ4H6S+SXT
-	 c4/hVjEF/2okQ==
-Date: Sun, 8 Nov 2026 10:55:19 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Waterman <andrew@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] riscv: mm: Skip the icache flush for special PTEs
-Message-ID: <au_klz4_971bxJ_c@xhacker>
-References: <20261017013634.792220-1-nickolai@csail.mit.edu>
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ZEE4WdQY
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b1015a4259so114651a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 19:16:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1794107812; x=1794712612; darn=vger.kernel.org;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CYbXanoVIznje4wNLs5CNwhXIty16UVDrSGIc7iuqrM=;
+        b=ZEE4WdQYEwXXZXioxDQ7Kuk3roMKT2YUNju7Qb+mi3Mj+DlEcvJicx1RjVPDg6N/qP
+         +5cNNcQfUGlKmyzSE8EVFvcdn0ibcpdyENZOTt1njCFRo1N76sptGEqrSxgjgNebgmJ4
+         +zacY+02xOI09uZ/WuqkSXZrp9L5SxHOhDNJ0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794107812; x=1794712612;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CYbXanoVIznje4wNLs5CNwhXIty16UVDrSGIc7iuqrM=;
+        b=lmadIs+kLBu6t5+YSTb2IBZj0zbs7y1o2BNhXBgmGqpVvf3A0P1p5GXCihRlf96Z6V
+         XwqdO9CshgjrTQE8VFc0qtzPeAGdXkK44YNiDCk9cwn+OrbuT/0Kglk1hdgYJbeA6VVo
+         6zzjs8ubq3s8yFv5IswU5BLGaXWiAAuy7XyM/KAXC4CGRm1D1a0hNbYLG+Rq9lBvb7QU
+         fhJfkGMB5qFqvzQhnNGeGN2s8VKaGFKPytjzKcSy3lKINY5/0T1Ci550EGvu79Sb0+Pr
+         tJWiLxy3TeS4x9St7lXHIadzFqHNRLsGXlso+gJVVa44s/y22r95y/dt5sLh1S6tkC4t
+         RDmA==
+X-Forwarded-Encrypted: i=1; AL+hErGBx8R8GRoIjuW1gXjqZt/WDNKoGy5xVxGTnJB64B+nSsKLWAvhgooMbfdT0RvKgd3iqZqXQ4/Elrww+9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/M0Q6J5T2C0WCgfmucmZzQ1DVAHHVDbQ9ldChw1+lreUtxwF1S
+	toLpgzJ/qrsgH28uN1p6TbjolhB+KcZz6gATcFD9T3hkudePlmF0nzh4d6osLTDo5X4=
+X-Gm-Gg: AYBFou1iMSRINCM0ZtoEl+PRySCHx6P9dfxJOM6rj2tvrdpo7EKZWaaRyf97oeB0wuX
+	iAfrcTo7sHt3K6bOH+70PsixuqwZAvvvX+qbo4gft6WrnVFY+vB8TqXskmZZFtjyZK3FMObqV6p
+	M4VSjD0mWVvtCAhRyX7MA1IlLbJFVFtRh7P6TYc6DlxlbzQjWwb8hi9f/FubIXS0bEkPuzWDZun
+	ag4QCL14UbZIQ0hSLoj1swPeFm3UeyvED9zjwgRCs8NdgeYNct74qCQgkdJ1VF5QwLaLO9kyGpI
+	CTBGsS4jU4IAYFGUW7/PWY7HbKVGa5hAU/vDon0S4CkpLi1wrGOj3Pq/cuRA6zBmx8QbOXCpKTM
+	5juhHkFvhgvlfEjC9GGlcrycHujNmBLDsNhLVuW+nx0DtMn3QRKgPVUTP2WKctgZVNv3W+VcXY9
+	wCx+juiyT8bzGbBmJOvyxfUhWC9mEyUa1F5mteoaZHOq2XzNtHzVhrAmDGi/JzxHUtNPcVEz9M4
+	dlCJSWyNdQ+LRf9lHjZEV5txdFM8mP8R9vmDIjq+pq9xyUoJt86w0NLo1x6qcBnBuPwbXXYsFB/
+	2cx8D8Sh9GMYPI0mF+XCxCSRWGA0NLtnUy8ua/GHBY+zbj27o7ApOE3PQ/rlwyjRmXCmApI/2s/
+	YWvpHHZ2n5Ltn5jYaO77k4FbH/CFD77zUOaMeV5s32Jr5fQ37AU4X6OxLqeeB7OSmg34gMpm7AL
+	B7nvwm6O5MkSHKA+RMBz4nNjD+A0rIVbHB6rfAYCw+7T02Z7FB5m3e
+X-Received: by 2002:a17:90b:274b:b0:3a4:77b8:1770 with SMTP id 98e67ed59e1d1-3b12d3cbd66mr374011a91.15.1794107811685;
+        Sat, 07 Nov 2026 19:16:51 -0800 (PST)
+Received: from localhost ([50.175.87.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105864375sm5351700a91.4.2026.11.07.19.16.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 19:16:49 -0800 (PST)
+Date: Sat, 7 Nov 2026 19:16:46 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Serge Hallyn <serge.hallyn@ubuntu.com>, driver-core@lists.linux.dev,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH] kernfs: Build paths in linear time with respect to depth
+Message-ID: <au_pnu4s141ylqHD@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,151 +97,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261017013634.792220-1-nickolai@csail.mit.edu>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-On Fri, Oct 16, 2026 at 09:36:34PM -0400, Nickolai Zeldovich wrote:
-> Mapping device memory executable crashes the kernel: an mmap() with
-> PROT_EXEC of a physical range outside RAM, from /dev/mem, from a PCI
-> BAR's sysfs resource file, from a frame buffer or from any driver whose
-> mmap() uses remap_pfn_range(), io_remap_pfn_range() or vmf_insert_pfn(),
-> oopses in flush_icache_pte() with the page table lock held; the task
-> never completes its exit and its parent's wait() hangs. On QEMU virt
-> with the riscv64 defconfig of v7.3-rc7, mapping the PCIe ECAM window
-> from /dev/mem:
-> 
-> mmap(/dev/mem, phys 0x30000000, PROT_READ|PROT_EXEC, MAP_SHARED)
-> Unable to handle kernel paging request at virtual address ff1c000000c00008
-> Oops [#1]
-> epc : flush_icache_pte+0x74/0xa0
->  ra : do_remap_pfn_range+0x2b2/0x3ee
-> ...
-> note: test[52] exited with preempt_count 2
-> 
-> With CONFIG_FLATMEM (32-bit, or a 64-bit configuration without
-> SPARSEMEM) nothing faults: pte_page() of a pfn outside RAM is a pointer
-> outside mem_map, and flush_icache_pte() tests and sets a bit of whatever
-> memory it lands on. The privilege needed is that of the device file
-> (root for /dev/mem and the PCI resource files). Present since the port
-> was merged (v4.15).
-> 
-> __set_pte_at() calls flush_icache_pte() for every present executable
-> PTE. flush_icache_pte() does the flush once per folio: it takes
-> page_folio(pte_page(pte)) and tests and sets PG_dcache_clean. A special
-> PTE (pte_mkspecial(), what remap_pfn_range() and vmf_insert_pfn() write
-> into a VM_PFNMAP mapping) maps a frame the kernel does not manage as a
-> page: there is no struct page behind it, so pte_page() returns a vmemmap
-> address with no memory section, or with FLATMEM a pointer outside the
-> array.
-> 
-> Skip the flush for special PTEs, as arm64 does since
-> commit 71fdb6bf61bf ("arm64: Do not synchronise I and D caches for
-> special ptes"). These mappings are device memory or buffers the kernel
-> never wrote code into on the user's behalf; a user that writes code
-> into one and executes it has to flush with the cache flush system
-> call, as for any memory it writes itself.
-> 
-> Found while formally verifying remap_pte_range() against the kernel
-> binary.
-> 
-> Fixes: 08f051eda33b ("RISC-V: Flush I$ when making a dirty page executable")
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+kernfs nodes only point to their parent. To build a path top-down,
+kernfs_path_from_node_locked() walks back up from the leaf for each
+name, so the work grows with the square of the depth. Reading
+/proc/<pid>/cgroup does this with IRQs off and css_set_lock held, so a
+read from a deep delegated subtree can hold up fork and exit elsewhere
+on the machine, which is certainly suboptimal.
 
-this patch looks good to me, but the comment needs updating, see below
-With that,
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+Let's improve this by filling the buffer from the end as we walk up,
+and if the path fits, moving it into place directly.
 
-> ---
-> 
-> Notes:
->     Every pte_special() PTE goes through this path: remap_pfn_range() and
->     io_remap_pfn_range() (remap_pte_range() writes pte_mkspecial(pfn_pte())),
->     vmf_insert_pfn() (insert_pfn()), and the huge variants through
->     set_pmd_at()/set_pud_at(), which also land in __set_pte_at(). The
->     pte_special() bit is _PAGE_SPECIAL (RSW bit 8) on every riscv
->     configuration; ARCH_HAS_PTE_SPECIAL is selected unconditionally.
->     
->     Non-special PTEs are unchanged: anonymous, page cache and
->     vm_insert_page() mappings keep the per-folio flush. A RAM-backed
->     VM_PFNMAP mapping (dma_mmap_coherent() of an allocated buffer, /dev/mem
->     over RAM) loses the flush it used to get; nothing in the kernel writes
->     instructions into such a buffer for userspace to execute, and the
->     PG_dcache_clean state of those pages was never maintained for that use.
->     
->     Reproducer (QEMU virt, riscv64 defconfig, as /init with /dev/mem c 1 1
->     in the initramfs; the PCIe ECAM window is at 0x30000000, any non-RAM
->     range does):
->     
->       riscv64-linux-gnu-gcc -O2 -static -o test exec_mmio_mmap.c
->       qemu-system-riscv64 -M virt -cpu max -smp 2 -m 1G -nographic \
->           -bios /usr/share/qemu/opensbi-riscv64-generic-fw_dynamic.bin \
->           -kernel Image -initrd initramfs.cpio -append "console=ttyS0 rdinit=/init"
->     
->       unpatched: Unable to handle kernel paging request at virtual address
->                  ff1c000000c00008, epc : flush_icache_pte+0x74/0xa0,
->                  ra : do_remap_pfn_range+0x2b2/0x3ee; the task never exits
->       patched:   mapped at 0x7fffab55d000, first word 0x00081b36
->                  (the host bridge's vendor and device ID)
->     
->       #include <fcntl.h>
->       #include <stdint.h>
->       #include <stdio.h>
->       #include <stdlib.h>
->       #include <sys/mman.h>
->       #include <unistd.h>
->     
->       int main(int argc, char **argv)
->       {
->       	unsigned long phys = argc > 1 ? strtoul(argv[1], NULL, 0) : 0x30000000UL;
->       	volatile uint32_t *p;
->       	int fd;
->     
->       	fd = open("/dev/mem", O_RDONLY | O_SYNC);
->       	if (fd < 0) {
->       		perror("open /dev/mem");
->       		return 2;
->       	}
->       	printf("mmap(/dev/mem, phys 0x%lx, PROT_READ|PROT_EXEC, MAP_SHARED)\n", phys);
->       	fflush(stdout);
->       	p = mmap(NULL, 4096, PROT_READ | PROT_EXEC, MAP_SHARED, fd, phys);
->       	if (p == MAP_FAILED) {
->       		perror("mmap");
->       		return 2;
->       	}
->       	printf("mapped at %p, first word 0x%08x\n", p, p[0]);
->       	return 0;
->       }
-> 
->  arch/riscv/include/asm/pgtable.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-> index 40b1ed4f3ea8..7a4d60ccabb0 100644
-> --- a/arch/riscv/include/asm/pgtable.h
-> +++ b/arch/riscv/include/asm/pgtable.h
-> @@ -628,7 +628,8 @@ void flush_icache_pte(struct mm_struct *mm, pte_t pte);
->  
->  static inline void __set_pte_at(struct mm_struct *mm, pte_t *ptep, pte_t pteval)
->  {
-> -	if (pte_present(pteval) && pte_exec(pteval))
-> +	/* A special PTE has no struct page for flush_icache_pte() to track. */
+In terms of operations, with a 15,000 deep path chain and a 4 KiB
+buffer:
 
-what about "Special PTE mappings are not intended to be executable and
-may not even have an associated struct page"?
+1. Parent and name pointer reads go from 112.6 million to 75,003 with
+   this change
+2. On my machine the second read of /proc/self/cgroup takes 99.86% less
+   time.
 
-> +	if (pte_present(pteval) && pte_exec(pteval) && !pte_special(pteval))
->  		flush_icache_pte(mm, pteval);
->  
->  	set_pte(ptep, pteval);
-> 
-> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
-> -- 
-> 2.53.0
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+Fixes: 3abb1d90f5d9 ("kernfs: make kernfs_path*() behave in the style of strlcpy()")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Chris Down <chris@chrisdown.name>
+---
+ fs/kernfs/dir.c | 61 +++++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 49 insertions(+), 12 deletions(-)
+
+diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+index 800af10d9511..1ac6a5ec451b 100644
+--- a/fs/kernfs/dir.c
++++ b/fs/kernfs/dir.c
+@@ -94,6 +94,14 @@ static struct kernfs_node *kernfs_common_ancestor(struct kernfs_node *a,
+ 	return a;
+ }
+ 
++static void kernfs_reverse_path(char *buf, size_t len)
++{
++	size_t i;
++
++	for (i = 0; i < len / 2; i++)
++		swap(buf[i], buf[len - i - 1]);
++}
++
+ /**
+  * kernfs_path_from_node_locked - find a pseudo-absolute path to @kn_to,
+  * where kn_from is treated as root of the path.
+@@ -130,9 +138,14 @@ static int kernfs_path_from_node_locked(struct kernfs_node *kn_to,
+ {
+ 	struct kernfs_node *kn, *common;
+ 	const char parent_str[] = "/..";
+-	size_t depth_from, depth_to, len = 0;
++	size_t depth_from, len = 0, end, pos, room, n;
++	bool wrapped = false;
++	const char *name;
+ 	ssize_t copied;
+-	int i, j;
++	int i;
++
++	if (!buflen)
++		return -E2BIG;
+ 
+ 	if (!kn_to)
+ 		return strscpy(buf, "(null)", buflen);
+@@ -147,7 +160,6 @@ static int kernfs_path_from_node_locked(struct kernfs_node *kn_to,
+ 	if (WARN_ON(!common))
+ 		return -EINVAL;
+ 
+-	depth_to = kernfs_depth(common, kn_to);
+ 	depth_from = kernfs_depth(common, kn_from);
+ 
+ 	buf[0] = '\0';
+@@ -159,18 +171,43 @@ static int kernfs_path_from_node_locked(struct kernfs_node *kn_to,
+ 		len += copied;
+ 	}
+ 
+-	/* Calculate how many bytes we need for the rest */
+-	for (i = depth_to - 1; i >= 0; i--) {
+-		const char *name;
+-
+-		for (kn = kn_to, j = 0; j < i; j++)
+-			kn = rcu_dereference(kn->__parent);
+-
++	/*
++	 * We can only walk towards the root. Fill from the end and wrap
++	 * so that if the path is too long we keep its first bytes.
++	 */
++	end = buflen - 1;
++	room = end - len;
++	if (!room)
++		return len;
++
++	pos = end;
++	buf[end] = '\0';
++	for (kn = kn_to; kn != common; kn = rcu_dereference(kn->__parent)) {
+ 		name = rcu_dereference(kn->name);
+-		len += scnprintf(buf + len, buflen - len, "/%s", name);
++		n = min(strlen(name), room - 1);
++		if (n + 1 > pos - len) {
++			size_t head = pos - len;
++
++			memcpy(buf + len, name + n - head, head);
++			n -= head;
++			pos = end;
++			wrapped = true;
++		}
++		pos -= n;
++		memcpy(buf + pos, name, n);
++		buf[--pos] = '/';
++	}
++
++	if (wrapped) {
++		/* Rotate the two pieces into path order. */
++		kernfs_reverse_path(buf + len, pos - len);
++		kernfs_reverse_path(buf + pos, end - pos);
++		kernfs_reverse_path(buf + len, room);
++		return end;
+ 	}
+ 
+-	return len;
++	memmove(buf + len, buf + pos, end - pos + 1);
++	return len + (end - pos);
+ }
+ 
+ /**
+
+base-commit: a42ae51fe3c36cef82dc687ea594ca232a785fd4
+-- 
+2.54.0
+
