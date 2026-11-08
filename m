@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794114805;
-	b=0sForK+eZrgU/kcTRkkSAmMxwaUWm+eCMVrOtTwf7TC97lfYO0WCvnuR6qWdK2iop3ZJ
-	 DW7JYJ2JoMczs6Cx0J81u2pR7lGDqOjhewIWOZvbziTzKtJUWcuMNCHij3A8de7t3lDDs
-	 KavKM41MVt9JMTob1zPtObjDd+hCmm4O8twuy+KJgtaSQ7pnhDDl9TPe4ppO5OX9HpmKR
-	 EI7tXuRVM/ZHSu2ciNUA79SrrDM7wLGf6R7jY1naiCP2lwdUvOVQJXNW9spfbSrEaTEJ0
-	 oful7BOYW/IlkbjEwSxhLynO4DyM2J6NQ50C/y7JC1xNCltz1wa8qaMPW4sbtDJx/Yg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114805;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tBv1HO+8MaH5NzZpx2131rviAviguXtqgAPNO0YP1pE=;
-	b=tZAqBa9WoMgEQfBxJ0bJJ5QCkPSuJewmNFJg6ko8GglQfEka4N8LlPG5p1H4dNwU0Zpu
-	 0zLeK0DNHzK12W1EIe+dYbZahELTz2+vSQMOetk9PE1J8xazBcNfEAuabOZlw9XgoMJM0
-	 S0PjRmeffb1v0Edp7jDLs8s87XQFQ067cr95KYkKzG67g3gLGyZnDY5mKrxytcEgOyJKi
-	 YHf7X0qw4eV2W75KRkwbhsosb4tv7n43rUHIdT0+QahLOBdCVaqgZJQeuyHQtz27MSwUI
-	 7VmKYIN7fO1mJLWV/c1LrF7lm0L/qYCSncBBwV6vnVYoQ3scICKJgbiMTz7NU4oXGEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr9kI0te;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794114844;
+	b=oVK4JjaExwL2HBLRvENG82WYoZzsVLccawn3eC0gxRlJY+C0d58dQPq8X6OAem281zcm
+	 RKkJokJoiR5L5RAnDHMOpn3AY77fhLyUY47pstxR4j/Yk3ZVYSKXsKkmWkr2itgEv8KM0
+	 5nd6Bw6ie6/Sy2uKK3IM1+lv4zBQn+ZBOrVWVBJLwEwVo3TCJMQ5BLhZ6FHsyO4/P0Ptw
+	 bXSfvsi9w4FzovyLANRPrjiyeZMPbxbgD9Tbsp+jbqtcj2QR7HRcspQRJowIXg87567hs
+	 LEtTyPBLXA/G+F2akd7RoBJtE+MCwiaJ26hYy9C+6nkGNP51orz415sEBKCsOxSQHMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114844;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=G/htg+82caSvwQpCes/2upHgSspm1kzDs/D3FDHUNhY=;
+	b=OorCJ5ZTVhFMekGPLgTw1Zjp8xtVpyVLy138NfSjEdhpKZwPyC2EJWp3mij7aubjcTCo
+	 1Qqm45n8QkrwpAiROx+R7lGwGaR4QGUmfi94ZQ7SjoPKC+jVYaedoBPc37ZUE3M/H/aSO
+	 tn5jaj7hO55ED/YXVT7hnUhDorXa3DOxHTuxRbKjXZKbzxzyUuxA8DA4onGMY7aHaG22h
+	 IUjNadVpTuAYAAMyG/28ZSQY+yswyQlR2xBdBqXjQDVfXlQV62PwXhS17UW8FAXf8Kuld
+	 mPvhhTXcDpNYz3adTMx8DOuD24taMcJ9YzxHgspm58SEcqPC0Uaz6Nl8H0aNn2HWOOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B+xTJ6hw;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6132606A31A;
-	Sun,  8 Nov 2026 05:13:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C9A606A31C;
+	Sun,  8 Nov 2026 05:14:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C9A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr9kI0te
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794114804;
-	b=IGugQXJwL22NUY+fjL9K46ALBDNmZeORRyzoptYmKNUILWcL1mC6iqf/AS6w+VynlO6V
-	 W48o1cXuYX3Ir96++ee570prCw2t17ZNhNgW6Nh6md1cREC5jB382eOfv/c/716J9qh72
-	 Ji0b/Tq8zRI+ZpYcx4+j+5pBLW9hkKh+T4PjOzZpXj62EAAOVKAb/intRX43PI+OEuWJs
-	 5yt+Ri8dtAvQ11YMa/JloQxCpvsTkTkTnQXwFaZ1+539lkPdgv6+dJyxS012n8ueUwi3e
-	 SGqzN9nnuAqFcuLzZtMgrue30fcQs6nQreZEUVR6EoG+yAAUM2zkR3+NKW4gn7ZCf9g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794114804;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tBv1HO+8MaH5NzZpx2131rviAviguXtqgAPNO0YP1pE=;
-	b=jXnGnW1HqQR34dlMLM2jk1tZssyxnQ2bALpanUHP6GMNi5Q6QJu82yI8pLXGVlJ/aMH8
-	 3zNgJXhRK2gZ/0OGSqCj5UyV7Tx5mFm2M1HMG9T8cwGdU/IYiTr5zFdYpTE8j1kK1V8Ue
-	 nByvgzSTOME/RfMNCxKPnvGXDECrvtcZjO/uysycwu2BMUOSwOZHfhSt/PKtk+bBhdI1h
-	 cWR93bBNfZDZn1RP3alXAZZr7Uaxixhogbk5KYR1Cwyp6hld8dLaKG7CSu9390+2oCJOk
-	 lKxzOEcmdh+tXA63+pmUHfwR06Efw0j1dg9tLliBeU7eMpiKCCZqdb6th3jrqXTM7WA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A09071F0089F;
-	Sun,  8 Nov 2026 05:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794114804;
-	bh=tBv1HO+8MaH5NzZpx2131rviAviguXtqgAPNO0YP1pE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=gr9kI0teHy8JYaj0vd2F1tso2yADVFhzDgRIDSGMgm4F4aIWf1rA8TSi0vDyUL9IJ
-	 o5L+1SE6/0zBM4RpMh2NBaokEWT/1+M2+J1IrXIsHGtmQT4YYrMNbwof4O93mIicPf
-	 RBpBTGuBZZX1WmiI0qEl+E6DyEVpFZDtJ4blEugGiHyk8zbT0zAJnuJuRSI1TvcpwY
-	 f08u118C6BVWNNC+d5MYYSTMUXZM+ZrMjphK83BZdNRs5uiIIqmxbM2B2ENtao4fuD
-	 VdkNzyonVCYk/ebmSz14rP1SwiKsFQp4aLjk7yom1M8K75H+FostngWXYj4+kbti+w
-	 blLQSZyPXzZQg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F20C047E05;
-	Sun,  8 Nov 2026 05:13:22 +0000 (UTC)
-From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Sat, 07 Nov 2026 21:13:23 -0800
-Subject: [PATCH] staging: iio: adc: ad7816: use dev_err_probe() for GPIO
- lookups
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B+xTJ6hw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794114842; x=1825650842;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OTaUFugVRZP1qC2U/0ALiQEKDrcWIcToCzjWAKgP0xU=;
+  b=B+xTJ6hwVMgl5Gh68CTpZ77m3OlcNbqmR5Pt2Li/xF9XqjpCtBr9UHOw
+   sXpj1bgqGL53R+wVIh4fAxX+g52Yp6EwbREmNruYwcrIhVsyOe3LBqssH
+   FiVEOMFmsLdlWNdciEVTrxvVcMu8hAE2DLQpsIHd+Za/BC/iyuwWCHmf9
+   X2KIZmTuMQkBihgtrUlUxKmpQAPWo3gdaovolkFJr/Q3LsedozICi4dLW
+   Xx7hHRbHArfHSnc/pdhogsZ1JjSqXMqhjU9BlWCyj69rDofrkU4ntmEte
+   c7viF2u212fMLPTRF8YvuC/zpW4u50WldHEr49EyriaAfHGqEN5RXqLP3
+   g==;
+X-CSE-ConnectionGUID: ZT21aEKsSoW5C8EZTGDDPw==
+X-CSE-MsgGUID: GWwS8b2bQHeybsz2gZ/+Vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2878161"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2878161"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 21:14:02 -0800
+X-CSE-ConnectionGUID: 6o0RgvbdS+6kv99plMYIKA==
+X-CSE-MsgGUID: llm9UCwsTei6Q0DQQz3frQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7423691"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 07 Nov 2026 21:13:58 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPvE3-00000000s7z-185F;
+	Sun, 08 Nov 2026 05:13:55 +0000
+Date: Sun, 8 Nov 2026 13:13:44 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tim Michals <tcmichals@gmail.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-sunxi@lists.linux.dev,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Tim Michals <tcmichals@gmail.com>
+Subject: Re: [PATCH v3 7/7] remoteproc: sunxi: Add KUnit tests
+Message-ID: <202611081239.zlQqllPm-lkp@intel.com>
+References: <20261101185735.762559-8-tcmichals@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,86 +92,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-batch1-s3-warn-v1-1-4fc38341ca38@tubot.lat>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdOEjgSGr2I4bKVKPUyzApoQ3
- p2px+/w/zuYZBWDS7VDlk1Nn6mA6gp4DukuqFMxuMZ1RE2PMSw8E1qL75ATOj/w4LmPRB5K9Mp
- y089veB3/tjU+hJfvBY7jBFQOt1hyAAAA
-X-Change-ID: 20261107-batch1-s3-warn-289c98c7b118
-To: nuno.sa@analog.com, jic23@kernel.org, dlechner@baylibre.com, 
- gregkh@linuxfoundation.org, Michael.Hennerich@analog.com, andy@kernel.org
-Cc: linux-staging@lists.linux.dev, linux@analog.com, 
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- DelaySystem <DelaySystem@tubot.lat>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1972;
- i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=/dZESaHHxJHhLeUXDlNHKxcjmakcm6DTe+ZTrXLn33w=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfWD4t2bDKqnq67s85Mr/1JV9fvep+fmbqL/Yte2qKN
- LMX+l1P6yhlYRDjYJAVU2QRk+F5X39fJ87aas4JmDmsTCBDGLg4BWAiF4QY/tcG5uh+2zCf3eWD
- zpuSCbnZUR//x5pyS+eEWUWsmdjBfJ/hn+3hwoNS2uoTJBisTGqu876eXBO9la0gSPGTzk32ANa
- /fAA=
-X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
- fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
-X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
- auth_id=1447
-X-Original-From: DelaySystem <DelaySystem@tubot.lat>
-Reply-To: DelaySystem@tubot.lat
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101185735.762559-8-tcmichals@gmail.com>
 
-From: DelaySystem <DelaySystem@tubot.lat>
+Hi Tim,
 
-GPIO lookups can return -EPROBE_DEFER.  Convert the rdwr and convert
-GPIO lookup failures in ad7816_probe() to dev_err_probe(), which
-suppresses the error message on deferral and records the deferral
-reason.  The busy-GPIO path is left untouched: its optionality is the
-subject of a separate proposed change.
+kernel test robot noticed the following build errors:
 
-No functional change other than defer handling.
+[auto build test ERROR on 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
 
-Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
----
- drivers/staging/iio/adc/ad7816.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Tim-Michals/dt-bindings-mailbox-Add-Allwinner-A523-message-box/20261101-125729
+base:   7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+patch link:    https://lore.kernel.org/r/20261101185735.762559-8-tcmichals%40gmail.com
+patch subject: [PATCH v3 7/7] remoteproc: sunxi: Add KUnit tests
+config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20261108/202611081239.zlQqllPm-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611081239.zlQqllPm-lkp@intel.com/reproduce)
 
-diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
-index 2a15d7598abb..11292216dfb5 100644
---- a/drivers/staging/iio/adc/ad7816.c
-+++ b/drivers/staging/iio/adc/ad7816.c
-@@ -381,20 +381,14 @@ static int ad7816_probe(struct spi_device *spi_dev)
- 
- 	chip->id = spi_get_device_id(spi_dev)->driver_data;
- 	chip->rdwr_pin = devm_gpiod_get(&spi_dev->dev, "rdwr", GPIOD_OUT_HIGH);
--	if (IS_ERR(chip->rdwr_pin)) {
--		ret = PTR_ERR(chip->rdwr_pin);
--		dev_err(&spi_dev->dev, "Failed to request rdwr GPIO: %d\n",
--			ret);
--		return ret;
--	}
-+	if (IS_ERR(chip->rdwr_pin))
-+		return dev_err_probe(&spi_dev->dev, PTR_ERR(chip->rdwr_pin),
-+				     "Failed to request rdwr GPIO\n");
- 	chip->convert_pin = devm_gpiod_get(&spi_dev->dev, "convert",
- 					   GPIOD_OUT_HIGH);
--	if (IS_ERR(chip->convert_pin)) {
--		ret = PTR_ERR(chip->convert_pin);
--		dev_err(&spi_dev->dev, "Failed to request convert GPIO: %d\n",
--			ret);
--		return ret;
--	}
-+	if (IS_ERR(chip->convert_pin))
-+		return dev_err_probe(&spi_dev->dev, PTR_ERR(chip->convert_pin),
-+				     "Failed to request convert GPIO\n");
- 	if (chip->id == ID_AD7816 || chip->id == ID_AD7817) {
- 		chip->busy_pin = devm_gpiod_get(&spi_dev->dev, "busy",
- 						GPIOD_IN);
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611081239.zlQqllPm-lkp@intel.com/
 
----
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261107-batch1-s3-warn-289c98c7b118
+All errors (new ones prefixed by >>):
 
-Best regards,
---  
-DelaySystem <DelaySystem@tubot.lat>
+   In file included from include/kunit/device.h:16,
+                    from drivers/remoteproc/sunxi_rproc_kunit.c:29:
+   drivers/remoteproc/sunxi_rproc_kunit.c: In function 'expect_powered_off':
+>> drivers/remoteproc/sunxi_rproc_kunit.c:962:64: error: 'struct dev_pm_info' has no member named 'usage_count'
+     962 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+         |                                                                ^
+   include/kunit/test.h:840:22: note: in definition of macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                      ^~~~
+   include/kunit/test.h:1037:9: note: in expansion of macro 'KUNIT_BINARY_INT_ASSERTION'
+    1037 |         KUNIT_BINARY_INT_ASSERTION(test,                                       \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1034:9: note: in expansion of macro 'KUNIT_EXPECT_EQ_MSG'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:962:9: note: in expansion of macro 'KUNIT_EXPECT_EQ'
+     962 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+         |         ^~~~~~~~~~~~~~~
+>> drivers/remoteproc/sunxi_rproc_kunit.c:962:64: error: 'struct dev_pm_info' has no member named 'usage_count'
+     962 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+         |                                                                ^
+   include/kunit/test.h:840:38: note: in definition of macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                                      ^~~~
+   include/kunit/test.h:1037:9: note: in expansion of macro 'KUNIT_BINARY_INT_ASSERTION'
+    1037 |         KUNIT_BINARY_INT_ASSERTION(test,                                       \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1034:9: note: in expansion of macro 'KUNIT_EXPECT_EQ_MSG'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:962:9: note: in expansion of macro 'KUNIT_EXPECT_EQ'
+     962 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+         |         ^~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c: In function 'test_prepare_unprepare_order':
+   drivers/remoteproc/sunxi_rproc_kunit.c:977:64: error: 'struct dev_pm_info' has no member named 'usage_count'
+     977 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 1);
+         |                                                                ^
+   include/kunit/test.h:840:22: note: in definition of macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                      ^~~~
+   include/kunit/test.h:1037:9: note: in expansion of macro 'KUNIT_BINARY_INT_ASSERTION'
+    1037 |         KUNIT_BINARY_INT_ASSERTION(test,                                       \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1034:9: note: in expansion of macro 'KUNIT_EXPECT_EQ_MSG'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:977:9: note: in expansion of macro 'KUNIT_EXPECT_EQ'
+     977 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 1);
+         |         ^~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:977:64: error: 'struct dev_pm_info' has no member named 'usage_count'
+     977 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 1);
+         |                                                                ^
+   include/kunit/test.h:840:38: note: in definition of macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                                      ^~~~
+   include/kunit/test.h:1037:9: note: in expansion of macro 'KUNIT_BINARY_INT_ASSERTION'
+    1037 |         KUNIT_BINARY_INT_ASSERTION(test,                                       \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1034:9: note: in expansion of macro 'KUNIT_EXPECT_EQ_MSG'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:977:9: note: in expansion of macro 'KUNIT_EXPECT_EQ'
+     977 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 1);
+         |         ^~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c: In function 'test_prepare_power_up_failure':
+   drivers/remoteproc/sunxi_rproc_kunit.c:1107:54: error: 'struct dev_pm_info' has no member named 'usage_count'
+    1107 |         KUNIT_EXPECT_EQ(test, atomic_read(&dev->power.usage_count), 0);
+         |                                                      ^
+   include/kunit/test.h:840:22: note: in definition of macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                      ^~~~
+   include/kunit/test.h:1037:9: note: in expansion of macro 'KUNIT_BINARY_INT_ASSERTION'
+    1037 |         KUNIT_BINARY_INT_ASSERTION(test,                                       \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1034:9: note: in expansion of macro 'KUNIT_EXPECT_EQ_MSG'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:1107:9: note: in expansion of macro 'KUNIT_EXPECT_EQ'
+    1107 |         KUNIT_EXPECT_EQ(test, atomic_read(&dev->power.usage_count), 0);
+         |         ^~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:1107:54: error: 'struct dev_pm_info' has no member named 'usage_count'
+    1107 |         KUNIT_EXPECT_EQ(test, atomic_read(&dev->power.usage_count), 0);
+         |                                                      ^
+   include/kunit/test.h:840:38: note: in definition of macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                                      ^~~~
+   include/kunit/test.h:1037:9: note: in expansion of macro 'KUNIT_BINARY_INT_ASSERTION'
+    1037 |         KUNIT_BINARY_INT_ASSERTION(test,                                       \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1034:9: note: in expansion of macro 'KUNIT_EXPECT_EQ_MSG'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:1107:9: note: in expansion of macro 'KUNIT_EXPECT_EQ'
+    1107 |         KUNIT_EXPECT_EQ(test, atomic_read(&dev->power.usage_count), 0);
+         |         ^~~~~~~~~~~~~~~
 
 
+vim +962 drivers/remoteproc/sunxi_rproc_kunit.c
+
+   949	
+   950	/* Everything as before prepare(): resets asserted, clocks off, no PM reference */
+   951	static void expect_powered_off(struct kunit *test, struct test_context *ctx,
+   952				       struct mock_providers *mp, bool core_held)
+   953	{
+   954		int i;
+   955	
+   956		KUNIT_EXPECT_TRUE(test, mp->asserted[RST_CFG]);
+   957		KUNIT_EXPECT_TRUE(test, mp->asserted[RST_SRAM]);
+   958		KUNIT_EXPECT_TRUE(test, mp->asserted[RST_DEBUG]);
+   959		KUNIT_EXPECT_EQ(test, mp->asserted[RST_CORE], core_held);
+   960		for (i = 0; i < NR_CLK; i++)
+   961			KUNIT_EXPECT_FALSE_MSG(test, clk_hw_is_prepared(&mp->clk[i].hw), "clock %d", i);
+ > 962		KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+   963	}
+   964	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
