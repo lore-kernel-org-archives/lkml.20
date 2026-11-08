@@ -1,57 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169468;
-	b=ikrVpZEUl3/LTgzwy5N7Hjkya+eByW//5EL+3BpKFgsHHqpMMS+qzHACdCfCuMckfpED
-	 QQVPTHedlJLi6j42UZcNJ4QKz8TfvkxNPMkfgMjiwBB9hEBWuLy168RlZBjDB8NurrTs7
-	 MCFOKXH9HoeJGrnlKyuWBEgeGGlpDK9sUzVa1LfFPd+5+/jUYX3DFOXBbgEbDrQ3ifHbJ
-	 5a0TpnYK0caWDIIPGVv5Qdepy5984W6vemO1Lyb6zcFmz/goXJgPk5jq11aq1T1iUkuM8
-	 TArIvOBHBSeLnI24Mw65Atwq0dlCtXlBO6bVemPAMa9tC//9ip0hH/xjAaPaUNv689w==
+	t=1794169469;
+	b=xCjhOrur5xCenvOnBwae5hnhbMCtUcanmFtMA1HxpnEsBqI7f0QlToO2I1hUfbLXpJKP
+	 xyTnOsPUR97mL+Sq8pXBPLuIqAd2Cgmo5pmYusMmAXutOKIN6Nt/jYSKQWxzjOMPCi63H
+	 Gk+Vys0yKA9tOFq6uRKu6IxMA4d7PFrAJD0m2ZIectoP/SgCsddOHKMq1sMArRB+d0l4J
+	 hrHzBq0/xNtCcIxvJQ8Eb6pX7RSQxlwrAuH0Q4tc8kx8Rcsr+3dVouNH0tKEaIMFdmQqR
+	 /4NGKe6Fe2ZxE+YLAypk9gDpEfQcEKd0oJeLUmfQNWeDhbsvkNyorjLcKUfI8bAErrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169468;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1GfSXoiJaYUndgE9kA3m/MkxWtasIDPZT8INP8qmESM=;
-	b=cohH4x60vWPZ3xDuUaqGFI3BotHWGSyMKWJ5L6baKvkph7y4peR0F3EQ6UuLzK/1E5CX
-	 D4LYFIzvYw8IHUuRPdv8mVOxFerpTbZ/ilTHszaHav34CCZP7/60uyCslh5sindkxb9h3
-	 AxCW2fsNLNYvBKN1fnOaFngLGJSybaTbxWg8QEu7eiZ9OQD0urwR34Iitd2teGdqJvU2a
-	 1Fzr2vma5nPE+xab7V+tmPY1UVb8HoQEaUCW5MW8+PoAoWOG2oeAru8Zqp+V26+ojRNDr
-	 3rANBDKfyyCj4gjXXEXMe0TJ6WZpu/z8FRmuU7W96HNhItYFqum0cMUAtn9SRk3K8pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169469;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=sl1RiSecafJJLjcGJkmLnXileJoqiVI5c1VnjtgRMUs=;
+	b=xx0HXnxjQY/b5H6P+cXSW+ZCyLV5UaWhRIQbECBzRXIxcFuCd0ds2msk9c8hz3Dng2jb
+	 dAekPZunQud9G2yBCM5nsWpvyb/+e/wteevPDhd7ooodJooSq3cD2Fz73FnKsBV8JE0VH
+	 SVVvBhTo6BEYM4LDTfzy9S0zYJv001aXbqhwjR7FAZvMQ8QN7V+fR6UbTWNAdTAAp1dQk
+	 SsFjKn4NuiUBDtXf0ezzkuBNdyV6VHZDxIuwtUYde80GKOIkT7PLX1vgswMv8GQ0XQN2O
+	 bTtPvBeAvR+TYRzfg+ogD2Ol4A7TzAz4L9emoo/rAKOf52dslbThqzxtLGWPaU/RpJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hMjjts5D;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qh/J0nAf";
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0FC606E029;
-	Sun,  8 Nov 2026 20:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283AC606E036
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:24:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 283AC606E036
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hMjjts5D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37FE1F008A5;
-	Sun,  8 Nov 2026 20:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169468;
-	bh=1GfSXoiJaYUndgE9kA3m/MkxWtasIDPZT8INP8qmESM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hMjjts5Djz02kbRi7aiySS1dCnT4LT2Fdl+yP/PUGktZubm+1MVol+Qvxus6ZhpQk
-	 dBWU/TjiNIoTO/dxe9J4yiGKMXCJ22P1D3iAqhCZANzx8c8nP5c4mlV1eRHPe8WH6M
-	 47Ups5VhgumfLKcYvXSJtzgaTTcZqrV2LnuDAarA6SbvMJATBw2h8cggNrzAfRB1Ae
-	 ZQf3P7//rKAwq0VzQWbQEkAYTIpbAox7L2ZKhEXDTxnawwNMmQjGCGPDzSS+5JtsyA
-	 dDqQC/GQ0YZ8gK/+9SM+9UVqq77SS+bE9M0z0PyOq/L+dl3PVMVCsC3FY/1s4RfjaV
-	 U5aEki75X53UA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Ishu Brar <patches@brar.si>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: ubwc: Add SM7250 configuration
-Date: Sun,  8 Nov 2026 14:21:02 -0600
-Message-ID: <179416929483.628393.4971242619354444736.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027-ubwc-sm7250-v1-1-e766b1e264cf@brar.si>
-References: <20261027-ubwc-sm7250-v1-1-e766b1e264cf@brar.si>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qh/J0nAf
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-49134c8509fso212748f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 12:24:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794169467; x=1794774267; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sl1RiSecafJJLjcGJkmLnXileJoqiVI5c1VnjtgRMUs=;
+        b=qh/J0nAfM6eBV9ItcrhQzKqEOSU/vZC2wJNodHwTQe8F+q38Va1rm0wWiivcjb0p4k
+         SJERNgoH+ND5g41BxVpsW92mxP0kfxZeS1o/0Coeqk0D5RJdR1XkTjkkXjMn/cXPFYfs
+         4QK7REVIOvzccmpMVzMxDJrAXuaDnesijlli94ob0iI9HxJ0f3/2BHWYVZgb/mHIPrj1
+         +59b3DXoHQ2HTRhHxhqiiUvz2P/x7YKj8dHjnbjbzGj3FkXWtAgVyr45TJr3KflskABO
+         QlDVIVHUbVnLzUO2ssGOKKfaXDQoZs4T06oeB4LP1670qFZ/EYickeqF2B6YtyDEIg3W
+         CyxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794169467; x=1794774267;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sl1RiSecafJJLjcGJkmLnXileJoqiVI5c1VnjtgRMUs=;
+        b=XXjYeByJKcAoH7TjsUi1DdEoaJ+HLGrMr6C42rNaYMYu/MEYsRkBXiquhs03N37gp1
+         HTHSw/tY8tbktgOHX3ta2KKTKy4/VPEtPwwG7IQmzZOntqYsY3Sm6U83tWkgM1uqHC3n
+         ej8ncwfmXfXe8gzIBt1i/WuKhIlLA54kifhHRwvt15Zyge9lYR9rSk/tOCq33f0WW4So
+         2lNxwP0UEBIUWKrvAHt8D29zQ+DI+zU50xC1TSCspj498l22z19pbGrjPlcT4SuNM2Lf
+         lBQR2j4B0/uBE37z43EZWZelIYziPJ386Ozx9T0nQh4n5dW3IpsQwIXfWgwp5GciNHoo
+         Kxhg==
+X-Forwarded-Encrypted: i=1; AL+hErGeAztY07z/3FrqTTLlGyPc/NNE5kyrjJ3yhs5XmDlvxbNoJXgFpmjGn3HXlEKtGqcI8+LhFgSoW2Dq/+c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JRLraWWWW8/99XmbwmmY1N05QoiTO+uBkUFTn+E9Bpr45MfR4
+	/SH7Vr4PxmcuxftUjekfWyumhChQkRYrhbQ0FanM8cv2T8stY6jj/krJ
+X-Gm-Gg: AYBFou2jPQqRJ9y4PouqcpMeywnzkZO2oUE2OKwoVupjlirWvczbRav3q/bdNCS5Bin
+	7xIXRMBUe3j0hbcNzfsVr01unQUzxXqAQ/3HgSq5SXJJ4e1v+YdQLy6fOlGH7wE0uOSQWTSkIz7
+	obe/7oQebIFBaSpc0f9GT/GxsUsoftkNG20wGJX5iQaEB2btRd/5QfAkfPs6bgQqfLzpbQb+z5/
+	2dPGegfrIjucLlxLc/K5hlV2gCn9tweHwrPZPpBVwle6xHY9wl9R1P7wJ0Bdg4NE1rTETbYnx/p
+	PtgsGwlleLeEHZQiXDykEadIYaehC8QhCS2nSoxh/fYIJESbMZ1R3C0aqgFi6TJk5ksGqFMCq1K
+	GPhteaZe8/D1vuNx/oIqzIcsWtTbkAhdoLqViWWxhoNRykCN0jsHmZxhCyd5ADGzszhV4lEjkYs
+	BYP39Q0AJ6dxsT3sJs1AutEh4mgTNLIfTJlTMQuUuZogsB8GthDoo+Ozrr822/h9oHk5/usTH7x
+	m/+zspWZPlcPMY7MS6TTBCsWnW4BVFflGnBitjKog/tfXEFLc6hsf1ppKRwRzsw6EqlhuXISZPL
+	6hs8rWYZnE14cV6ru7YDkuvacub7zQxIjOu3QsnlFpO/cs4U57GTnA==
+X-Received: by 2002:a05:6000:1a89:b0:48d:c186:dcc6 with SMTP id ffacd0b85a97d-49585f85ae7mr5659490f8f.57.1794169467418;
+        Sun, 08 Nov 2026 12:24:27 -0800 (PST)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596bc3ba1sm6034100f8f.24.2026.11.08.12.24.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 12:24:27 -0800 (PST)
+From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+Date: Sun, 08 Nov 2026 21:23:50 +0100
+Subject: [PATCH v2 3/4] landlock: Simplify landlock_get_fs_access_mask()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +93,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261108-b4-landlock-refer-nonfs-layer-v2-3-2b405fc1b3aa@gmail.com>
+References: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
+In-Reply-To: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
+To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, 
+ Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
+ Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>, 
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, 
+ =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
+X-Mailer: b4 0.15.2
 
+Return the handled FS access mask as it is, instead of artificially
+adding LANDLOCK_ACCESS_FS_REFER to it.
 
-On Tue, 27 Oct 2026 11:49:31 +0530, Ishu Brar wrote:
-> Add the UBWC configuration of the Qualcomm SM7250 SoC (Snapdragon
-> 765/765G/768G): UBWC encoder version 3.0 with highest bank bit 14.
-> 
-> The downstream GPU devicetree of the platform sets qcom,ubwc-mode to 3
-> (UBWC 3.0) and a highest bank bit of 14, the downstream GPU driver does
-> not enable the 8-channel macrotile mode of UBWC 3.1, and the downstream
-> display devicetree also gives UBWC 3.0. No existing entry has UBWC 3.0
-> with this bank bit, so add one.
-> 
-> [...]
+Since commit d6c7cf84a24f ("landlock: Simplify initially denied access
+rights"), the merge operation already bakes the initially denied
+access rights (LANDLOCK_ACCESS_FS_REFER) into the a layer's handled FS
+access rights. -- They don't need to be added explicitly any more.
 
-Applied, thanks!
+No functional change.
 
-[1/1] soc: qcom: ubwc: Add SM7250 configuration
-      commit: 6622281cbda9faa3e9c325921906e520734491a7
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+---
+ security/landlock/domain.h | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-Best regards,
+diff --git a/security/landlock/domain.h b/security/landlock/domain.h
+index d9ebf4857fce..812c324cb6ef 100644
+--- a/security/landlock/domain.h
++++ b/security/landlock/domain.h
+@@ -262,16 +262,12 @@ static inline access_mask_t
+ landlock_get_fs_access_mask(const struct landlock_domain *const domain,
+ 			    const u16 layer_level)
+ {
+-	access_mask_t handled = domain->layers[layer_level].handled.fs;
+-
+ 	/*
+-	 * Handles all initially denied by default access rights, but only for
+-	 * layers handling filesystem accesses.
++	 * Initially denied by default access rights are already included for
++	 * layers handling filesystem accesses, see
++	 * landlock_upgrade_handled_layer_config().
+ 	 */
+-	if (handled)
+-		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
+-
+-	return handled;
++	return domain->layers[layer_level].handled.fs;
+ }
+ 
+ static inline access_mask_t
+
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.56.0
+
