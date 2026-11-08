@@ -1,78 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794148253;
-	b=n7giVgS6NT7aBFisQfFkRO8p6FuLmg3+ViPWBRYlQVH/L/vXcrfhLhycmZh6JXPeUvkS
-	 PEplQQxkx71MY3RdKpmjX9k6iCMoon122IAnXVTUFAkqEkUBdC85C/gPQebu8ZQyKeMWn
-	 zshVpFvnR7XTwKQDcRxlvbZnVDvhxjZKVOoBdBRHYFhEvxdk7ubyOEkGxIidtkJIebNZf
-	 CtGBRO05lqcgErS3+46gZ7dpN27zLDUy2LBPR5skFb49zC7Ywc/zmfo+9h7TOMmbKq89e
-	 xX8UQihbYYeE/Tvw9COWml9y8kPzVGp0/ikI0hElD6wM74VTHaCQ1n3nN1dgKBpvIoA==
+	t=1794148315;
+	b=UrW0k0y0HLdKKyi43oJBLhquEQcXxWP47yJ/+T+31p3BCmsXpnfpwhB4+rul3WkU6IBL
+	 y2MPHhtJYK6jDrOrc+2K/ZK19Oadsxc0VT7BHNce8j/v6f0cXYC1JMosuekWdcfCvquW9
+	 OoZ+7zT/4LQsd7DUId3DOK9Z+K6EIhUZ/XFerQzvOPd+8vQupNngVsLzdBD9ZpGVBe9WP
+	 oxkA/roZGg1aSjtwU+GWKNNgKAmNZbFlWlqrTxqLt2AodfVpGKKnFeCfiuVBog48HO4zB
+	 e7CD3Y79lDrBuIEv2IOzhztrFrJSDHAjdzgL7ddUiTpzbQbwu1Y8Dn0ojY+JZh+/Ncg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794148253;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=CY/McYpu+0ebDojIJRHMZeui4dASH1SC50Q2/rCUGZo=;
-	b=2tiTzdLF1ag4X0Kf9909Yn9/CbVjDL6ZxyaeoTZR2NVUUw9H2AL9L6r76LLKuf2l+1wr
-	 eXtCIfwHE/TYByvDjyNfvNtkXntv4HmjVdonPH8CYBu1q1h8I4ycxsL6LzAbo2W7emn84
-	 ZyezWG3KsEHFgmRY3RdD+9FsR6lAztIJjrnK0hJUv2abUfm07IyewKI3L2mLoEEcPisbY
-	 YNMPsVFXaObce/osXLBzqAk8tXhlHLKJODXqbaMfdHOQwza7zlHtiKG3977edI6YwuYhk
-	 3Qnp4Y4XZi32AGv6SsfuF1FTBGsjpma6aathXr0t+HC1hySTnGnq14q9wI60WZr0hkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794148315;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=liy1VmXlPKvtQbzDRyOlq4Ft68qogIpqnl5phnSa1P8=;
+	b=120rtR9GSpT5Mu9uvVJECKVnRpF1mU0EedRrubofx0LAZsnVuVxT5ar+XBCxl7X1NFFi
+	 wi0SvJjt/kcShom8o07HG7jt7T+IAXFw2S6fOnYGUTSFbcvg2uqNYOmmBFW7fvgEB/0nb
+	 7YiFx6Hr9pP96/2J8cv831qS17HAcfNdQ22AQLxai9zUvs0UwkAwmH/9TCU1MZ2DebWQP
+	 cX8AIeMFXsyL1SUPdrftwBB4k7Vnr2CZ4f6YX5FxG1+NkOSLCvah4Vm27wRdNUQPPL6vV
+	 0jjZSPCOjbUX+V1ixc5YqwG1A1GeKsTOZ1pDiXDW6+V3Za2y0FVZX/3xEoYsXQe4xiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=erw3Q4pc;
-	arc=none smtp.remote-ip=37.27.248.198
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ct+Jmk/m";
+	arc=none smtp.remote-ip=74.125.225.139
+Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC98606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:30:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AC98606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1185606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:31:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1185606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=erw3Q4pc
-Received: from relay10 (localhost.localdomain [127.0.0.1])
-	by relay10.grserver.gr (Proxmox) with ESMTP id 0E38142F69
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:30:51 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay10.grserver.gr (Proxmox) with ESMTPS id 6B0EF42F9F
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:30:50 +0200 (EET)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 8B3EC1FF251
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:30:49 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1794148249;
-	bh=CY/McYpu+0ebDojIJRHMZeui4dASH1SC50Q2/rCUGZo=;
-	h=Received:From:Subject:To;
-	b=erw3Q4pcR4kAOLdWHXfF+fgsLaeHJdjSPB/fXV7TSxw9KPAFR4Q44g7hvPpyo3vBV
-	 9q7/TCh/xeI3Uyp9X1LbZlLdqYk/LFMJYecmOnSXpr7V5X81PsTnWJFjgI73dwpK+H
-	 wVIyRnS8bTvjPMTnFEw6bCKw8OIFRXBG6UdAsovpfP3U070UaTQAsfuIaWzXDRed7P
-	 ZdPLCPlcOdCX4OCf9y38/lLmcb9G7nFwGxJiLjPIcp0eVTE742dOG6tcbj+eSUB46m
-	 dU/A2U1VxYu8FGh+mEAChIQDTzI5QbGKqrKSm/RiLbS1920p+Qnv6EPxSbA4NWvEzZ
-	 UZHN6U6O8lxOA==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.214.170) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f170.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2e95bd1c14cso957265ad.2
-        for <linux-kernel@vger.kernel.org>;
- Sun, 08 Nov 2026 06:30:49 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErE9LZnDkIX5YS8fb+xqDhb1VgInzQh6PY0Zq6FlNB3F/LBfK/ZiiP2NrffzB4pJh8zewyYhFpBibIJj89k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9eIomABWyJHCJEDdsM5Rn/c/rn1xPC0D82WHPesrNKvUu/F54
-	qgzs0PAUOjy4CoDFEB63y1UlQGkUE2txJ8Gzg5o1wPaB+PpHXCyxlSKtk0tTsXKow3rNTLGGA5C
-	PyzLmCmj6uOd2gSTHyGXomqCKqKi3SBU=
-X-Received: by 2002:a17:903:110e:b0:2ed:3be3:c63d with SMTP id
- d9443c01a7336-2ed837afe76mr13741695ad.23.1794148248256; Sun, 08 Nov 2026
- 06:30:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ct+Jmk/m
+Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-4a5f76661b5so420355e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:31:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794148313; x=1794753113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=liy1VmXlPKvtQbzDRyOlq4Ft68qogIpqnl5phnSa1P8=;
+        b=ct+Jmk/mePCfTNw5JyEoXJ7aIvsqtL4IGtHgKGpa04qLsoMnl4r+Qg+yTKy2GAaw3n
+         hSvi/HC60IrGTS+oAUXuvKQOU4uXbos4v5ieY2GRnHOcoTq+GmG7ugaqaN+vNhAd2LhG
+         5yXwQFTC5NmMIxEZdXn5If4oAbuwwrnM2CNH6s1Pzxqgw8nvmQQXU6R7VulpOb9jmHI+
+         W90Wwm/sRaujuk0oqa7ZPCghzshMJBeu8c1lcjhcPcnfni37053BicRy+vGN8Rviavwi
+         fiScHJb4mIIdX2aOrXl0LXO+zq7bXwFB40qm5SI6mzEPPc40k3anAfxuvkUqzCLm6RIj
+         0JDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794148313; x=1794753113;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=liy1VmXlPKvtQbzDRyOlq4Ft68qogIpqnl5phnSa1P8=;
+        b=vf4nj6xh0xhw43yjvEidmdoUJSyhZ/7Ppb8fjS2MM50uABRhOgK+nCVin3DY5iSHAA
+         i2yIxWR7jNNzC0zmJJCk/jpXl2yGyDvnfrI9SBSfJiNtIAp2W71CNsE548bpsmx2wdX5
+         94jAlEpU3aMiDVh9gRC5BUQVJI0ttaYi+E/yXyYtpGGIa6gr4zAXA6Jl7SOuiJGL3Yk2
+         7CdHdcdgOF5EDt6JOdBVby0mCG8hi5cuqo0as/mPJ0nr5Qn3PEhX+dsA5qnlA3XUHUen
+         ucK6oAp8acu0N0Zau/6v+/i9wqAXHwsRxlZ11TlC/WoN577qOZZ/IkrYGBrRmZv8OpLy
+         y5Sg==
+X-Forwarded-Encrypted: i=1; AL+hErFX3u3RyNxzxTI0o4EGXKA8LDHFFXWHUSmDMRI0msANsMQEzoxi+B25KBQETAr6nTl3K+kHq423w6UZSK8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qrY6yicBjc7+BRdHzPQCj1jFMJuQjXWyA6YPZ11hiwQTJuptr
+	S9RG4FJkk6iBQZl12TxMURVh+0muUVIc7PqCJw5Bo8T9fMxc2Mk9kqIy
+X-Gm-Gg: AYBFou1+Mx5HqE+OnRbM4qLaFj10yJ5rHbIy6pW1BjpY1kgkU9zAY6JJ6DvELJwfWWB
+	9Y0GEyPY3lzmGZSNP8xgRTBs3OaLQf4JRTok2T1UT6jPZPxz++ktiV9psUz4AI5V7B9UqM6sv/B
+	IHvBn9GBZhxzxKqAeZWAgSwlB+z+U9Ch5TwQVGJb3PFQn2Bu/75zKiQHIwGt0vIR76PdSSa2hrR
+	KkQH7edTmrO+fWIC+N5Na6qQaXPJDI25yapCkcmVvgfTppJ8LWZwOtzNfeDpTRuOkJCv1FxcvFK
+	eAZWRTuyKK65zsGRR1+hhOHKJBJ9wkOqsOkbKXou2nWCRnQXXSD4xe/LpoepUQCRa+ibmpyXQFB
+	pv/55E+goqZyIN5YFBxmL1NnKgWE/reIGfP6gtnaRHMSsZcnW0QRDIX7rCYHEO2nzOstHi8kkep
+	8YCBmVGSzpbOvsk3OUMGl7kcfTn3P2IKmhSE1KiTcL8vECIL6c+Yht2ycApHWyct6ELBth0LJyu
+	Ik8uqwCUsbleKS+xVzEyzt2HP6JH9P6WYYyFAnvfkpfKzbyVtCc2fUj++gmNBFxMSEHzyT+K7lM
+	YhSb4k3Tg2hgXdEom9ncnyAqfI3Dp/8=
+X-Received: by 2002:a05:600c:c4a6:b0:4a7:669c:c988 with SMTP id 5b1f17b1804b1-4b963c8eb13mr31501935e9.23.1794148312740;
+        Sun, 08 Nov 2026 06:31:52 -0800 (PST)
+Received: from fedora41 ([2a01:e0a:1058:7c30:e315:b955:cb8b:b86b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90ee2b8c0sm68486485e9.9.2026.11.08.06.31.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 06:31:52 -0800 (PST)
+From: Timo Joannin <timo.joannin@gmail.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Orgad Shaneh <orgads@gmail.com>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Timo Joannin <timo.joannin@gmail.com>
+Subject: [PATCH] mips: cavium-octeon: fix missing prototypes
+Date: Sun,  8 Nov 2026 15:31:40 +0100
+Message-ID: <20261108143140.157628-1-timo.joannin@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,129 +96,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: 
- <CAGwozwEKXJGBY5oZtdrrzfK-aOyYu5GaiOqkejSqbCPdeq0UJg@mail.gmail.com>
- <20261108135505.67330-1-hijae99@gmail.com>
- <CAGwozwHoTDCw63MoP2S6Qd1dk9Ym-=_E1e3oXOXkoWNfJxmUVQ@mail.gmail.com>
- <CAGwozwFv9x_d5WprytNTdgAFqepeqxgT6TTKeXLD8-G1Z9T3yg@mail.gmail.com>
-In-Reply-To: 
- <CAGwozwFv9x_d5WprytNTdgAFqepeqxgT6TTKeXLD8-G1Z9T3yg@mail.gmail.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sun, 8 Nov 2026 15:30:34 +0100
-X-Gmail-Original-Message-ID: 
- <CAGwozwE2vN9Za2eYNwaKHN-NjE6zRfC43-dSr2ug5-2OS2z_kw@mail.gmail.com>
-X-Gm-Features: AclHuK_HzHti2lUaHGe0yFtShcc0XhjDDjFmALYvAZ1Wrf5mnv5HvKejfealJrA
-Message-ID: 
- <CAGwozwE2vN9Za2eYNwaKHN-NjE6zRfC43-dSr2ug5-2OS2z_kw@mail.gmail.com>
-Subject: Re: [PATCH] HID: ayaneo-flip-kb: Add driver for keyboard backlight
-To: Hijae Song <hijae99@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179414824989.1264538.10234623492139348994@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: 8bit
 
-On Sun, 8 Nov 2026 at 15:28, Antheas Kapenekakis <lkml@antheas.dev> wrote:
->
-> On Sun, 8 Nov 2026 at 15:26, Antheas Kapenekakis <lkml@antheas.dev> wrote:
-> >
-> > On Sun, 8 Nov 2026 at 14:55, Hijae Song <hijae99@gmail.com> wrote:
-> > >
-> > > Hi Antheas,
-> > >
-> > > Thanks for the feedback.
-> > >
-> > > > If this is an actual keyboard product on the market and Ayaneo is
-> > > > sourcing the part for their device, look-up similar devices and kernel
-> > > > drivers.
-> > >
-> > > I checked. hid-sigmamicro only fixes the 0x0059 report descriptor, and
-> > > I found no SiGma Micro backlight driver on lore.
-> > >
-> > > > The name of the driver cannot be -flip-kb. You need to make sure it is
-> > > > generic enough to match most Ayaneo devices.
-> > >
-> > > 1c4f:007c also appears on the AYANEO Slide in hhd-dev/hwinfo, with the
-> > > same vendor interface (report ID 0x41, 7-byte feature report). I only
-> > > have a Flip KB, so I can only test the byte layout there.
-> > >
-> > > Matias's hid-ayaneo already claims 1c4f:0002 behind a DMI check for
-> > > AYANEO 3. Would you prefer that I add 007c backlight support to
-> > > hid-ayaneo once it is merged, or keep a separate driver named after
-> > > the chip? I lean towards hid-ayaneo, since the Slide may work the same
-> > > way, but I would like your view first.
-> >
-> > Mmmm so Ayaneo does not have a vid and may trample the pid of another
-> > device. That is not good. There is no guarantee this led profile is
-> > used by a different vendor.
-> >
-> > There are two options:
-> >  - Adding the keyboard to the hid-ayaneo driver
-> >      - This would happen after it merges
-> >      - There is 0 common logic between the rgb device and the keyboard device
-> >      - Driver registers a different led sysfs ABI and has convoluted
-> > dmi handling
-> >      - The driver would devolve
-> >  - Adding a scoped driver for the keyboard
-> >      - You can start now
-> >      - Can tightly scope to keyboard device
-> >      - name can be hid-ayaneo-kbd unless other vendor is found
-> >
-> > I would tend towards the latter. hid-ayaneo has plenty of work to
-> > merge. The controller firmware is quite unstable. Even my
-> > implementation in userspace is buggy. But that's fine... Windows is
-> > buggy too.
-> >
-> > I have two comments for your current version:
-> >   - remove all flip kbd references, name AYANEO_KBD
-> >   - use brightness values of 0 and 1, no scaling. DEs know how to
-> > handle these values by toggling.
-> >      - another option is 0-3, which looks nicer, but let's not get too
-> > deep into this
-> >   - use devm to register the led structure, drop remove entry point.
-> > Use devm prior to starting the device so that register code stays with
-> > initialization
-> >   - check if led subsystem is appropriate. I am not sure of the
-> > correct place. If not, current location is fine
-> >   - initialize host values to ff ff ff so on first write we get a nice
-> > white color
-> >   - if there is only one effect, brightness 0 is off. Do not add an
-> > effect handler
->
-> Ah yes, if the device supports Fn+Space, for this driver to merge you
-> need to send the correct hw notify and have at least KDE report the
-> cycling correctly. You will also need to read the values currently in
-> the device instead of hardcoding them. If it is a feature report, a
-> get_report should return current values
->
-> I am not sure what your current comment means about sending 0 breaking
-> the toggle.
+The compiler throws -Wmissing-prototypes warnings for
+several functions in the cavium octeon architecture code.
 
-Ok got it. Make intensity take values of 0 and 1, and use those for
-the mode byte. Do not scale intensities. Always send what is
-programmed currently. Implement the readback correctly and see if the
-device notifies you when brightness changes. If it does, use hw notify
-(as other drivers do) to notify userspace and have them read the new
-value.
+It occurs due to a mix of hardcoded prototypes scattered
+across C files, a block-scoped extern declaration,
+and missing header files.
 
-Antheas
+Fix the warnings by:
+- Moving the prototype for octeon_fill_mac_addresses() from
+setup.c to <asm/octeon/octeon.h>
+- Removing the block-scoped extern declaration for
+octeon_send_ipi_single() in mm/c-octeon.c and exposing via
+<asm/octeon/octeon.h>
+- Moving the prototype __cvmx_interrupt_gmxx_rxx_int_en_enable()
+from cvmx-interrupt-rsl.c to the cvmx-gmxx-defs shared header.
+- Adding the missing #include <asm/octeon/cvmx-helper-errata.h> to
+cvmx-helper-errata.c.
 
-> Best,
-> Antheas
->
-> > With 2-3 revisions this should be good to go. While at it, try to find
-> > a Slide user
-> >
-> > Best,
-> > Antheas
-> >
-> > > I will also fix the two sashiko comments in v2.
-> > >
-> > > Thanks,
-> > > Hijae
-> > >
+These changes pass the compiler's -Wmissing-prototypes safety
+checks without changing any runtime logic.
+
+Signed-off-by: Timo Joannin <timo.joannin@gmail.com>
+---
+ arch/mips/cavium-octeon/executive/cvmx-helper-errata.c | 1 +
+ arch/mips/cavium-octeon/executive/cvmx-interrupt-rsl.c | 2 --
+ arch/mips/cavium-octeon/setup.c                        | 2 --
+ arch/mips/include/asm/octeon/cvmx-gmxx-defs.h          | 2 ++
+ arch/mips/include/asm/octeon/octeon.h                  | 2 ++
+ arch/mips/mm/c-octeon.c                                | 1 -
+ 6 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/mips/cavium-octeon/executive/cvmx-helper-errata.c b/arch/mips/cavium-octeon/executive/cvmx-helper-errata.c
+index 4b26fedecf46..4ced03c18ad8 100644
+--- a/arch/mips/cavium-octeon/executive/cvmx-helper-errata.c
++++ b/arch/mips/cavium-octeon/executive/cvmx-helper-errata.c
+@@ -38,6 +38,7 @@
+ #include <asm/octeon/octeon.h>
+ 
+ #include <asm/octeon/cvmx-helper-jtag.h>
++#include <asm/octeon/cvmx-helper-errata.h>
+ 
+ /**
+  * Due to errata G-720, the 2nd order CDR circuit on CN52XX pass
+diff --git a/arch/mips/cavium-octeon/executive/cvmx-interrupt-rsl.c b/arch/mips/cavium-octeon/executive/cvmx-interrupt-rsl.c
+index d23f46736dd6..314672040f2f 100644
+--- a/arch/mips/cavium-octeon/executive/cvmx-interrupt-rsl.c
++++ b/arch/mips/cavium-octeon/executive/cvmx-interrupt-rsl.c
+@@ -39,8 +39,6 @@
+ #define PRINT_ERROR(format, ...)
+ #endif
+ 
+-void __cvmx_interrupt_gmxx_rxx_int_en_enable(int index, int block);
+-
+ /**
+  * Enable ASX error interrupts that exist on CN3XXX, CN50XX, and
+  * CN58XX.
+diff --git a/arch/mips/cavium-octeon/setup.c b/arch/mips/cavium-octeon/setup.c
+index 7497be7b9431..a1159a3d7f78 100644
+--- a/arch/mips/cavium-octeon/setup.c
++++ b/arch/mips/cavium-octeon/setup.c
+@@ -1156,8 +1156,6 @@ void __init prom_free_prom_memory(void)
+ 	}
+ }
+ 
+-void __init octeon_fill_mac_addresses(void);
+-
+ void __init device_tree_init(void)
+ {
+ 	const void *fdt = NULL;
+diff --git a/arch/mips/include/asm/octeon/cvmx-gmxx-defs.h b/arch/mips/include/asm/octeon/cvmx-gmxx-defs.h
+index bdba676f1f2c..27b2ae74e948 100644
+--- a/arch/mips/include/asm/octeon/cvmx-gmxx-defs.h
++++ b/arch/mips/include/asm/octeon/cvmx-gmxx-defs.h
+@@ -2256,4 +2256,6 @@ union cvmx_gmxx_tx_xaui_ctl {
+ 	} s;
+ };
+ 
++void __cvmx_interrupt_gmxx_rxx_int_en_enable(int index, int block);
++
+ #endif
+diff --git a/arch/mips/include/asm/octeon/octeon.h b/arch/mips/include/asm/octeon/octeon.h
+index 5c1d726c702f..ef1eb000f46d 100644
+--- a/arch/mips/include/asm/octeon/octeon.h
++++ b/arch/mips/include/asm/octeon/octeon.h
+@@ -31,6 +31,7 @@ extern void *octeon_bootmem_alloc_named_address(uint64_t size, uint64_t address,
+ extern int octeon_bootmem_free_named(char *name);
+ extern void octeon_bootmem_lock(void);
+ extern void octeon_bootmem_unlock(void);
++extern void octeon_send_ipi_single(int cpu, unsigned int action);
+ 
+ extern int octeon_is_simulation(void);
+ extern int octeon_is_pci_host(void);
+@@ -47,6 +48,7 @@ extern void octeon_user_io_init(void);
+ 
+ extern void octeon_init_cvmcount(void);
+ extern void octeon_setup_delays(void);
++extern void octeon_fill_mac_addresses(void);
+ extern void octeon_io_clk_delay(unsigned long);
+ 
+ #define OCTEON_ARGV_MAX_ARGS	64
+diff --git a/arch/mips/mm/c-octeon.c b/arch/mips/mm/c-octeon.c
+index b7393b61cfa7..f6b890a89ea1 100644
+--- a/arch/mips/mm/c-octeon.c
++++ b/arch/mips/mm/c-octeon.c
+@@ -62,7 +62,6 @@ static void local_octeon_flush_icache_range(unsigned long start,
+  */
+ static void octeon_flush_icache_all_cores(struct vm_area_struct *vma)
+ {
+-	extern void octeon_send_ipi_single(int cpu, unsigned int action);
+ #ifdef CONFIG_SMP
+ 	int cpu;
+ 	cpumask_t mask;
+-- 
+2.56.0
 
