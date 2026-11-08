@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794172089;
-	b=p9pNxRfU3zky6Dbn6//0W1wy2POjkqL+XG8fm5QVH1Ncq/vz2pRXY+aAiPlzxzse3FxG
-	 8ngjg9ocrVnTV1W3BWJxaNB3lEwKuL5th5M67kYMfMQIipvqlXd4na9mdAkRi1y8+HL6I
-	 ChWmb6n1mth6SsH3FkswV3ho8MyA3SvyguE4vBTIHkO4olcmciZL1KdWG/+0PbtUlZFud
-	 6uGDqRR3K5kGZ+Li9t0qn0C+QZKBm6n/U7bKVHdeXivOB7igrOS0cbiZejKBoarmILMx3
-	 +NBvlt2Zn0MvWDv9y2rBOyuaPIf8CBzdrjq4khGdjrfGEYky9I3ozUk57dKhRApRaAw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794172089;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
-	b=Kfq53GnvlkfKnEXgA5UugM6qI3YkaxOzmKCKWe9chtXsTxuupnH5BOD8C+/cmz5h4pkq
-	 ohLrXYiEk0FG3lVZZ07RvRO5Qs/8WIe1H3kaONrpx8w+lemVYgmroMe06+Fkv0xyQBSO2
-	 XlzB18JflZDGc5GpmRyTFlTKITF6PuRSmmQ/oughdnPTfB8EUmlzg/fHLlk90HmJk/OLg
-	 5lr/Gux6HPdeDbJsJKHpsyy+34Uv526LT6I3ao4AIGlW5F+OsEi5GUNv4uIFPb/TJ+Axi
-	 h5de847OBQbZSEmoCZzl5bHN8KxMeXBFVEJ17CEqjFfDoJZSoztfBZ8UYWnSGOa2hsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=sHCr7ys8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794172088;
+	b=XA5STblskWK+jnaZrHPHeoqwo0BGe4Oz3hs7NUPTxW0tKufYTq0BqIbE6pT778Sz+2HY
+	 eVpr85eBqJVG0taScmiWrvgZZHQu2C9tF0sdzO/dc/pRzXaOL5n8S1jD4eGc2I3Qo/Obd
+	 5K0Ma7WUB5AZ0BgQs3jPVMeqEzRxa4ynbBS45qIZsFsBQ6t1+nATJgiqZdJD3lKcMVosV
+	 QrYXjVB14RUN6oAG7m2ciIEo8UMFAgynCPJfGnv/TvtgKoXOJrX9SvTW8FvpkDvvQahHi
+	 B68RYNwI/2Uj81Tc8ok3BtQ+4xDwKAPuij1jFkcSL68GMEZWVuPqvSekV3WvAJJpWfg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794172088;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Y7JWEwg9Ct2ossjTf4kZV+QIKiz/YwDb7vKoIKIg5Pg=;
+	b=3iB/WdB9cwEvIDBkLeONIu0BOjN8/RV6vTCbOP3btlTbJWg+oL3ZWV2unE9MA0k9ySca
+	 Y7EEG/yv0OGAjitTDox5ZMklxoORc0RuiDIx+xGaBMU3gkKVNdl4R3QTuQlU+FN0PFf7r
+	 VhArkdpfRBPTubMJLK9Cq4INpveHU9sGfozvg4D7SANCdS1NdyGAXRU8mDRBgPHiAiatr
+	 r5YScKUqOkWx4hqUDpcic2iRK+wLbz2qdAcsimLeFKfch9i6VH+zz0jgyPEwWKT7K60hs
+	 DTKLSoy/6H5i48bXFua/5E1xrYIa2PdUcbrde466jc4IeDepf9xEGwouLiievWc8NEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ki0vmA/G";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FEA606A334
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:08:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40FEA606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3872D606A31C;
+	Sun,  8 Nov 2026 21:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=sHCr7ys8
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67c246c0c60so310523d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:08:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794172088; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R5sJDRStgwrI3uXlJ0Oe+Jcmq0GTDU3UyLWJJ4mtmaDx/eyJqDv9avUyQK6PPfEvfj
-         +BU5t3Mg4L3aht/maGgqXBxRdyliA3yZU8OzWgRWDgbIQJUG/TTZeC/sViATcxLCdrvj
-         x7gwLsiczRG5jOjskexCa0K+Mk7Lu4mla8a6u0Os88mqgNkUs2ToY3X9q2muSRJCa7DC
-         Ya2rXHWWxkbLF7iHELpyLieGn/ovyiHRfW8mJ8WrOiwG0URfqT5p2SNyGsfE63lsWR8j
-         6xwtMQ5fh/n+tVdWvbw7PHJlGhrCiA7cinHyXSomtvnwiCUNp30qmbjpgCCSFu0XmLAa
-         nJjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
-        fh=/XNCSXq/UesyDkhDs/M5fIptsc1KU0PF+tuf7i5/2c8=;
-        b=sFyfgyg4XWmQwkeTsjgZ9IzJfkmXcmCTfcFU9cABC75ssyiwbITyOa81WXJqXQvQCX
-         h55LTcVL5i8AWWauUUKyyvZiroE8GoS+45u6d+Z1PotkzzJoqJ8Pu71jBtIjILeX7yhQ
-         S88R7eO96gkghkPd0Rajn+to1MHvn53hihSW3bzERwoD0JnjNevxEQVRxlpO6VAbwBQ7
-         w4w+oxmqBKX0+fP1lG3CThOSYjg5x2oKESKmbkSztskhPjOeEn6O4KQpDN+bmL9y+5p/
-         a2tYKLkVpTZqEjb04MReRSL87m/eC6JySAtCBHVpGUUSAIO8+yZpdNWEx5CcwbElk5+k
-         F/Qw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794172088; x=1794776888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
-        b=sHCr7ys8bNxUaNsy+bUcoVeFML1dbnDW2w+esIPjXGCAWDbekntbuCZmOXJdfZDpOE
-         j/6JTt8w/B7tGmi0lCs2djCp2qXoxDaRRmam//5cOdpqkHTeIDr2h6qKGDGhT3JMXge6
-         seVklIruMWETKxT1xvP+o52n1+TZm/WHjI9Cb0uZZYBUAag61hqA1gbT6Xs1BZbBV9KJ
-         Fazm//EF8BTNNaSnIm47n6vXZFxTa1i3vf+uFY8qVgTkN1LzNs53nKiFOv0vj1AEttZC
-         VwI8vzuDA1+Qo4Fc3Ynw2gV2cC96Uk3LCFIyZeSodsXc/Mf8y/1x9PvB/mINIzic79Z4
-         sLiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794172088; x=1794776888;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TKd3XlZghnq1bRXZV5ZgDD+2oyCcUDkC2gv49H+TH8c=;
-        b=ThZ/OpDbsNO48deXmIksgiF2jUzpz0qZ3bIJaqUHyjFCCs44uwHXykVaAzPwBZH0O3
-         D2IGtOLrmuNC+Rv2QevCtTs6u5l6io/QaMvm6sEvSJuUGTmOAhdowZfmd7qqdvkqKcxJ
-         2BiOsO+wkpD2Jw36DGJH9xmGVmNB03aipcLZLHBiMYIvQi6WSuZz315aDenUVvO/g/4E
-         ijIZFvTExewQkUzVm4d2KIXuzyMZK47NKmI9ZlB19zqgG1SSpDiK2Qo0hOh71YGTVGuQ
-         Bm75JmuDBA6CCLObzjcsYXjTy9YsSRlEuJUg5UK+NKYBkJS0hS0v8UBIMDPx5afneNYS
-         APbg==
-X-Forwarded-Encrypted: i=1; AL+hErEMb/pyUPrmuhy1Ei3NOQhCa4qb6M9qN4LGcQDBSTe7aG+2XVUdua96zrdpwlHCAgNGmJNcqE/0zsfwmBQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97wfSKWos+97/euX9FvX5yhzHDgAHhEPx6xHQKr/XvxxskQjhu
-	OL06YoSQEY/TMwXYgRyi4F/MgR1yRtZEamcx+uPoEpo3pA3+3AAOu8wt8e9e0/uVMjfHInkq13P
-	IzeluY/LyLFzYx16FHiCJMzZb+c8GHI4=
-X-Gm-Gg: AYBFou1+/KeFZsGW0SVWKU/wt71TDA7XcGM1mgpVvhHQ5jM0AVm+bgGJNKZAuBjZQ1F
-	wMD9SsKCt/5Lcn6pdg28f3x4wczMqJvwq6i6X808tQVpRM7vFeSrOV7SzODqIJYOx4NkEjURLOY
-	zyN68BU+zBFtS/ld9qd6AeYdad59MjGaooVUEAOvb83c2W2+s89BTqqjhegHQCWV15cbUBy+F54
-	v34J2+vcu6nJG55QCV3axvo1SF+ERrtlS4Nb8S1QBjidsjUglOG482AVw4ZmDu2ljmn74UgyTZy
-	9ayTf+rULaacPO5nCFUOwXKCXVjyR7Vh+UzdsNNh5sxWR+y4ybYL80ONby4bDAQtISLpdJuud3L
-	LXmuykKuG+LRfFls3i6CYmkZ+Vq5pCIr5w1Qd3HWEWGx8cF5AIVR8HIoFZ10tFICH7YBqMhGwaR
-	qIaR6FGvK8vXZP7tM=
-X-Received: by 2002:a05:690e:bc7:b0:677:df02:fce with SMTP id
- 956f58d0204a3-67c3d7cc43cmr1612153d50.5.1794172088171; Sun, 08 Nov 2026
- 13:08:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ki0vmA/G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3881F0089F;
+	Sun,  8 Nov 2026 21:08:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794172087;
+	bh=Y7JWEwg9Ct2ossjTf4kZV+QIKiz/YwDb7vKoIKIg5Pg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ki0vmA/GXah8WIGjXye7gsUwmK5t16oHld4y12MwkB7ntU38OWnaPADjYuR9LnEnx
+	 IryscbnrQcqwbwggEzZWX6L3XUsSyw3CyTEGco1/vAw4QsrZsSKU/2xTj6msqDeKWn
+	 3WhwzkvhlwD/2LQeLp9uHbr3H+qHNWixdx1OVV7sPrG+k7AndCDjzxkUkjHHUfk1PX
+	 D+rBWQ0PT/qV83LbckRT2Ik4PQko74LzRbS/4v8yuYezoSifQ5pEFV4y4frnPwHcRW
+	 SGWMsUvLOWjfq/uufLAsk4u4ONwqODDPm/bAiA+n5qyss+jm+qWdgs4z4WODhB6TH+
+	 AfMWo0TYEYjuw==
+Subject: Re: [PATCH net v3] net: dsa: clear the conduit RX queue on receive
+From: netdev-bot+sashiko@kernel.org
+To: dencity7@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 08 Nov 2026 21:08:06 +0000
+Message-ID: <179417208676.994134.17082599035866210951@kernel.org>
+In-Reply-To: <20261107210653.2007194-1-dencity7@gmail.com>
+References: <20261107210653.2007194-1-dencity7@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,37 +62,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at> <20261106101913.46664-3-christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <20261106101913.46664-3-christian.koever-draxl@student.uibk.ac.at>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 8 Nov 2026 22:07:57 +0100
-X-Gm-Features: AclHuK_oGazsWw9BXqhuCXk0AQ3FrnvIBj2gHr_VP-7Spxdsvm38LfrWlZ3lq_0
-Message-ID: <CAFBinCDS_toG+4BySkUoXx73a2JWtp+tD6NHwYHk4mU+p+GF=Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] thermal/drivers/amlogic: add S4 support
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: glaroque@baylibre.com, rafael@kernel.org, daniel.lezcano@kernel.org, 
-	rui.zhang@intel.com, lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-pm@vger.kernel.org, 
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 11:19=E2=80=AFAM
-<christian.koever-draxl@student.uibk.ac.at> wrote:
->
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->
-> The S4 CPU sensor reads its calibration through the secure monitor and
-> otherwise matches the T7 setup, including the separate bus and
-> functional clocks, so reuse the T7 data for it. The driver already
-> enables every clock the device tree lists.
->
-> Without the calibration the driver reported about -144 degrees Celsius
-> on an S905W2 board; with it the readings are plausible and CPU
-> throttling engages.
->
-> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de=
->
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The commit message lists what changes for "code that reads the
+  recorded queue later" (skb_tx_hash() and sk_rx_queue_mapping/xps_rxqs).
+
+--
+
+net: dsa: clear the conduit RX queue on receive
+
+This patch clears skb->queue_mapping in dsa_switch_rcv() after the tagger
+has chosen skb->dev. The conduit's RX queue index is then no longer carried
+over to a DSA user port, or to a bond/team that receives trunk-tagged
+frames. With that, rps_cpus on user ports applies to traffic from every
+conduit queue, not just queue 0.
+
+> diff --git a/net/dsa/tag.c b/net/dsa/tag.c
+> index 6a5aa7fc331c3..e53dc3f3c477c 100644
+> --- a/net/dsa/tag.c
+> +++ b/net/dsa/tag.c
+> @@ -95,6 +95,13 @@ static int dsa_switch_rcv(struct sk_buff *skb, struct net_device *dev,
+>  	skb->pkt_type = PACKET_HOST;
+>  	skb->protocol = eth_type_trans(skb, skb->dev);
+>  
+> +	/* The RX queue the conduit recorded is an index into the conduit's
+> +	 * queues. It means nothing on skb->dev, a user port with a single RX
+> +	 * queue or a bond/team with its own queue count, and get_rps_cpu()
+> +	 * would check it against that device. Leave no queue recorded.
+> +	 */
+> +	skb_set_queue_mapping(skb, 0);
+
+[Severity: Medium]
+The commit message lists what changes for code that reads the recorded
+queue later:
+
+  This leaves no RX queue recorded, rather than recording queue 0. Both
+  make get_rps_cpu() use the first RX queue's map. They differ for code
+  that reads the recorded queue later:
+
+It then covers skb_tx_hash() and sk_rx_queue_mapping/xps_rxqs. Are there
+other readers of skb->queue_mapping on the user port or bond/team that
+the message should mention?
+
+One reader that userspace can see is PACKET_FANOUT_QM, in
+net/packet/af_packet.c:
+
+static unsigned int fanout_demux_qm(struct packet_fanout *f,
+				    struct sk_buff *skb,
+				    unsigned int num)
+{
+	return skb_get_queue_mapping(skb) % num;
+}
+
+Take a QM fanout group bound to a DSA user port, or to the bond/team that
+receives trunk-tagged frames. Before this patch, its packets were spread
+across members by conduit RX ring, as (ring + 1) % num.
+
+Now that queue_mapping is always 0 here, will every packet go to member 0?
+Recording queue 0 instead would send them all to member 1 % num. In both
+cases the group would stop spreading load.
+
+The same applies to tc/BPF ingress programs that read
+__sk_buff->queue_mapping, and to the tc ematch meta queue_mapping
+selector. On DSA ports they would now always see 0, not the conduit ring
+index.
+
+This patch has a Fixes: tag and is headed for net/stable. Could the
+commit message also describe these two changes: how QM fanout distributes
+packets, and the queue_mapping value that tc/BPF sees on DSA ports?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107210653.2007194-1-dencity7%40gmail.com
