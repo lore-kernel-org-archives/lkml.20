@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177065;
-	b=QZuqIE2l6rSXAlkc/SmBCM7y9HjNOF1c66llXwj0773+btVJuQeUcXJCtnkfgpWjvAbt
-	 ebep20JzKy4qI2ppY2xaeAagjBwIasKjZ2diJBBv06ptE6kYpVHgnx8oTpNRKXAkRA0dL
-	 AO3fMY9gn8RxqgMRDI8X6UV0ufYb0z012VeQqp2VJpFMCgFny+Buti9zSyjTr6zLIbL+b
-	 PX0XvaY0LiuXG5kteF0zckPCucVP51HpxLuE8VimeKHVzyP+pinA8rHB9xnuH3HjF2a4h
-	 yh6g8yTv3XO7EG48cPJzSn8xu/pliZsQuHeUECyAK1yjh5dyw8XUCW0uBNH4w6/EUYQ==
+	t=1794177072;
+	b=eERSaSuVpnWZn5b8cJTn40RMVih4pA2SKLVwcTJ39TWYGPf2CPfW3XwyKtN6fwZUM6ut
+	 gJCUixCguQTEU1RXLnh+KqORwbr9TTrmH2nDcNcpT9wryRnWaTuEaQW3yfBlbs8x3kDZQ
+	 ZoXQDarP3B0E3Q5UrAQ1AnXoFyIOPeW0OxgiFVeF3wQvkZhTC7D/wKnGKFin0YCBgngz4
+	 5DhD699e4IHtVuG4nHin4YyxOXCD+lYRxx8XPvEyCD9BWzttm2qaGn1Af/vTzqern1qcz
+	 Gr0BK+OsaWB7yCvHxkLA99dozVFyUFEdHaxXyGpCEz9EyOEgMD3F5ccvVYhD/C51Jaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177065;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177072;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=1sW1mmLPlw0EKa7jU988h9/QwbW3FrIHOvYZABaI7ME=;
-	b=qSwH6gvHHOd1fu0uGKrmXwY9dh5yNtz6VWS0Wr6bzRQwj2ArVjVLcibh8BfWk1WTnLLu
-	 11R/X1nTH59Pt8DswQ2LHkCkW5t4WcFXDDkRDlz4zJBpvEe4oHkBptVr61OCZWaJenEjj
-	 21ihE3JBbdwjwxAw3Waztj+Um+8JXumKLgnc1ACp0iTltAYxRUYHFz/kp8rs+FRsgWt8X
-	 i/NiYbyu6mYciL4iBHQ0PQ1CUNDhbJIP5SVtlnJKyKIaezEVQIYl+vD1GHBiQNm2e9hJH
-	 HRFfdAHy2WJZQ6WHOtxVADLm0+WE5SopCALDPAEkwMkcTu/eNUpqU/JMtnPXmkoho7Q==
+	bh=hrR6uj82ahGfQqaO3EwipOvU/f/xUlTfwnwZhxjl76c=;
+	b=EWKYtDtAPxRY99F+V7yfduOBDwuA/t92MhA+3aAVMTnoqrveiv3j1LqecezN5axCACTR
+	 BZCgP/B6bYp64JhBbYa3NKZXKs3snrU2tE0983yAz8x56QgRHPG916X7jUOFF+YWDP9pa
+	 BcQGYouymXVr1b87PnaMncxegcBWzyOr1cZsw1seAhBCdrVPBHFU933gA8QZOIm789gfc
+	 6uVs20lttVYULeipPe7FTkggzbh7YH9iaEVN8X4Xg6BpWAkbF3G+pd2zdJcFdatniLsnX
+	 tCP8nBJnCjmVVQpG+Sy8/K8hsTCEW+LWkMNETz8jbtznnf2QZrzi5QRbLD3jEMdEJRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ttz5znjgmbg6hozo2ejrmcjh2e.protonmail2 header.b=Uph2DApY;
-	arc=none smtp.remote-ip=79.135.106.29
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=mFTHf5TF;
+	arc=none smtp.remote-ip=185.70.43.100
+Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EFE606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:31:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5EFE606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF8C606A331
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF8C606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ttz5znjgmbg6hozo2ejrmcjh2e.protonmail2 header.b=Uph2DApY
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=mFTHf5TF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=ttz5znjgmbg6hozo2ejrmcjh2e.protonmail2; t=1794177062;
-	x=1794436262; bh=1sW1mmLPlw0EKa7jU988h9/QwbW3FrIHOvYZABaI7ME=;
+	s=protonmail2; t=1794177067; x=1794436267;
+	bh=hrR6uj82ahGfQqaO3EwipOvU/f/xUlTfwnwZhxjl76c=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Uph2DApYA1WZrge6sTCfSMA8XLaHKdo7LqEIx3pEVIbSotG6hxAAAEG/SJzCOshTJ
-	 BuJzJUrIgYBWSVmqepb4espY/tlRt3TSa8l+eUdNEVElRgOt0qNFJ5N25JmvBU7Hc3
-	 ESQDeerg4Lh9mKUWWocQAPZXAQ70hKKBafdlEpFqBkejmp9PMsk00/l0gm/ResuqK3
-	 EqpKw/tVl9u5NrdEAff3FcqHeLPYLNaRRRgkWrVQbob/SyZVXBQFx8LFjDTJHlot4s
-	 ousE5KteOo4Cm0sKvTUFp+BiNr9MdmHmxJpQOmqBUWR+EwyYvh5z0Tu1LvYvkUTP5d
-	 CiPWYc27OR5MA==
-Date: Sun, 08 Nov 2026 22:30:59 +0000
-To: "linkinjeon@kernel.org" <linkinjeon@kernel.org>
+	b=mFTHf5TFf7pz7nD7JJqYXcJfFZV7+IWxpkOnDapWSq0S5T6VlsdsYlgwuX29P8n3/
+	 jIoM6KCyqtl39W+9Oz7k5xIMzWxxUHO/T20keouB6FoEiNOYXe0W9SFzDEeLQXH14J
+	 LbGjG3S4+be9QmGGI51K6hDRcn8+QiEAYHTnpB0959bc/GRsjd3tPhyhJPiy2zZJCB
+	 mPhFmxFIJ4aUwsqLgrk/XhDnTwydTqsAc2mQDWKP6E+YNgHI0DPyobfVsQbS3hDtzO
+	 j8bB7D+D0V7d2BoJL/pz+//it5/2OHEQZrbSRkBJtCxUBMOkaV2LHjfmNh4fzlJxZB
+	 GumiUYx0oAzMw==
+Date: Sun, 08 Nov 2026 22:31:02 +0000
+To: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, "christian.koenig@amd.com" <christian.koenig@amd.com>, "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.com" <simona@ffwll.com>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "linux-cifs@vger.kernel.org" <linux-cifs@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "security@kernel.org" <security@kernel.org>
-Subject: [PATCH] ksmbd: read request header for compounded CANCEL
-Message-ID: <0cRgD2yOWbwKBhBZfP0O2ejMhJmcsRk-SQgKJhFyowKBsLZmKYKUb_iKGC1VTDPMUlJrnX1Qpa-CsfMFLwt8hxFqjGhvOLwzEGkO-0JgtvQ=@proton.me>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm/amdgpu/atom: do not dereference NULL vbios string pointer
+Message-ID: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: 9264b9ba86082f5e8c578dec8ef8e37008e7e2f3
+X-Pm-Message-ID: adc73b7730ce65d5d72be26e93817641b3bd221b
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,26 +66,27 @@ Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-For a compounded CANCEL, smb2_cancel() matches the cancel against the
-*response* header:
+In atom_get_vbios_pn(), when the part-number string is empty and
+atom_find_str_in_rom() cannot find the ATOMBIOS anchor, the fallback
+computes NULL + sizeof(BIOS_ATOM_PREFIX) - 1, i.e. (unsigned char *)8:
 
-    if (work->next_smb2_rcv_hdr_off)
-            hdr =3D ksmbd_resp_buf_next(work);
+    vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
+    if (vbios_str =3D=3D NULL)
+            vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
 
-The chained response header is initialized with Flags =3D
-SERVER_TO_REDIR|RELATED, so SMB2_FLAGS_ASYNC_COMMAND is never set there:
-an async-form CANCEL therefore always takes the MessageId branch and
-matches nothing, i.e. a compounded async CANCEL is a silent no-op and
-the deferred work keeps running until it completes, times out or the
-connection closes. MS-SMB2 forbids compounding CANCEL, so only
-non-conforming clients are affected, and the read itself is always
-in-bounds (the response header is fully initialized).
+The subsequent range check is false for a near-NULL pointer, so the
+value survives and *vbios_str dereferences address 8 - a NULL-page oops
+during probe with a malformed VBIOS that passes the magic checks. The
+recent hardening of the neighboring date/version/build helpers closed
+their OOB reads; this fallback path was left intact.
 
-Read the request header for the compounded case.
+Simply leave the part number empty when the anchor is not found.
 
 Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd =
-(v7.4-rc1, 2026-11-07), fs/smb/server/smb2pdu.c:10515-10524 (smb2_cancel).
-Pre-existing in v7.3.
+(v7.4-rc1, 2026-11-07), drivers/gpu/drm/amd/amdgpu/atom.c:1491-1503 (atom_g=
+et_vbios_pn).
+Pointer-arithmetic-on-NULL is pre-existing; this window's hardening series =
+made it the sole fallback outcome.
 
 This was found during an assisted (AI-supported) static source review of
 mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); e=
@@ -97,17 +98,20 @@ verification rather than a battle-tested fix.
 
 Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
 ---
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index b084cca..36c5a40 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -10521,7 +10521,7 @@ int smb2_cancel(struct ksmbd_work *work)
- =09struct list_head *command_list;
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu=
+/atom.c
+index 1a599d5..7598606 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1493,8 +1493,6 @@ static void atom_get_vbios_pn(struct atom_context *ct=
+x)
 =20
- =09if (work->next_smb2_rcv_hdr_off)
--=09=09hdr =3D ksmbd_resp_buf_next(work);
-+=09=09hdr =3D ksmbd_req_buf_next(work);
-=20
- =09ksmbd_debug(SMB, "smb2 cancel called on mid %llu, async flags 0x%x\n",
- =09=09    le64_to_cpu(hdr->MessageId),
+ =09if (vbios_str =3D=3D NULL || *vbios_str =3D=3D 0) {
+ =09=09vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 6=
+4);
+-=09=09if (vbios_str =3D=3D NULL)
+-=09=09=09vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
+ =09=09if (vbios_str >=3D p_rom + ctx->bios_size)
+ =09=09=09vbios_str =3D NULL;
+ =09}
 
