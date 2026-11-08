@@ -1,75 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.127
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174582;
-	b=Hdrw2C2EpGWx39Fl4SnULr++qDOfptPyC1Rwsk8C7HCO0kxG4efYxDaOnjNmOBB0/FRO
-	 cF0ULAaEHtIpBM/ncr/SX1GHkl9gWCnS2iNFSWFMVeTeCtaWkMESnRDbSTswQgM4ScIn5
-	 IY8XbtMDclbqQUAXyaGEV+c6nnJRQjedvamUC4a6vLTmT49OrMn+9ZuQxtrSXReRdRHOT
-	 ejmxabVgliz2JfbUxI6vVFA6lKsZF0NvKPzo7DQ7lzswW4mGGzhi0Jue7vPE4OnSpe1z7
-	 3v65pz9OM10cHwOd8EhOVg/BLjOZrYtf03c4Qsg+mwg+TbWGukGoizfX5KVovmYmx9Q==
+	t=1794174583;
+	b=C6IEoj4aT957TpHDpQ9miui46bBFIiRfMCSnij/T6WxyhJbxt6FGSOJpR/rXa/x9HZ/e
+	 IQbDIZzPssBE3+YnZg5BL+61LMFeGL6vcKkoWdm+mXCARmibAvcSOatUyCEddQWFwuq5r
+	 yAL8HjGb5eZ8eK68GfftJlo+4NALrFcI9dwVTV6yXoDd/6jf0dE9w3nrPOJQJbRaHmsq6
+	 JhlFEKyDJSfxMUvQCZFih+yJ7Txyy0BtOa1TRVd32GtJIyY+dQN49ff4llpH42ei3Ovih
+	 PzbGbD/mJ+a/dlwwGAcHpPf5DCcaotnrX9AhmzEKovojPTaOwUN82oc+dZ+zjm1FjzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174582;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=tUAv7JN7en/U+lrJ/s9HjMUlJtaJD6Xx2DVWbeuFjhk=;
-	b=cpsJ9T+T85exGfPSG1SqNGq5+wtDqc3nx13HKWr+XxcBTE+LIMHX2mFLFqUJGkUlS/Bh
-	 ZNiw/IdNM5WLgnIvfn93f0qUoVQQ0/JH+7pF7/Ffiz3qetPS2rYPbGGuLdBpqOj9nN0sw
-	 cxa9dQdZr3VzN8bOnnAW8IFryaLxAVMMFIViw6ZbXi+Ann4l0ukFRvbX1dhJbdWi9JIhD
-	 cUwbFdaU+DiI9UDP40HED7RFbAR9ttWth3PXnnHNTzv0K9ohg/B4fPdDKiYF7NqMyAxex
-	 dmNSSn1rlBngXEh5DswuIwcjdRC9LqoNbt/JzR03QkJxdkxcq4Daa3af7x2+pZHaNsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174583;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=pcvsOvY+1nARVNwveblF9kWsR1jprq/mjoxrNvXiCgU=;
+	b=15UEEumVszR9c4G9LXQEdvpSDFMCWHKWLK0XuhZuc+RXL2PNUa6LbIra9hIoRQQiAzSA
+	 bgIMRlB++7e7i4TfQZ+84MLScRIupQvrOc2JXMvtbGtgwMfLgrRBd2pAM0DkiiALlJVtC
+	 qZm2p9IlLYxhJO9A7RGy/0mOUrOqoH1Knb3R01+G+kMB+kMelmTUZUfP/fnXK+POYPx/2
+	 nAQjhX4GD8TV1Z/Ktp8/ZxYXhI+GI5RzJ0PpIbiWkAfXQVtxQ6ZQW8mM4cRM+X2V+2cKI
+	 EzlvcSzBsnP3zJvKiSeuNM9LkiuFDTDxnbnn/NWJJFtKzY51Mi8fTy8rm5aJLhTGbFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvOSqhql;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="AZ6t/8+D";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b="Ux/RbJPh";
+	arc=none smtp.remote-ip=91.218.175.127
+Received: from mta0.migadu.com (out-127.mta0.migadu.com [91.218.175.127])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29561606D80D;
-	Sun,  8 Nov 2026 21:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29561606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD29E606A333
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:49:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD29E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvOSqhql;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=AZ6t/8+D
-Date: Sun, 08 Nov 2026 21:49:37 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794174578;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tUAv7JN7en/U+lrJ/s9HjMUlJtaJD6Xx2DVWbeuFjhk=;
-	b=FvOSqhql6i+7TBSfO3BH15bNWtsd+1jtxPILWT/eaSpwr2jhDww/HmkcNLB3AQIPQJj2em
-	ZU5gUXpdQ99kOhll5z/V+wYbCbTQa90nN33CEy5kMe95L0c2/OCDnhUzwolrb+frayYK9g
-	IUmPkJO5Uvo7vWOHxaMiFfeGfAxeM44jhm7Ety+fshWII5W9MSX6K2dqbvIOAYXHemXVYT
-	2OgNieFR3+i8mRymx2qViUoHfPE6EgGxO+NVq/1KjWyfavs7U6LFYN20d+2XsL1CEvE7RQ
-	7rqacUHF+QDSUEg/D79WH7CKC09iGpu/EwvR+iQ20deBrTCalLNdnbpO0WTf3g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794174578;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tUAv7JN7en/U+lrJ/s9HjMUlJtaJD6Xx2DVWbeuFjhk=;
-	b=AZ6t/8+DE/UVv7Q9K49529gHCnOlJ9+5+vzl/KsvytaQUYyq+SdHdXEIIqbxsGuGweGV9q
-	DnobPSnze01/UeAQ==
-From: "tip-bot2 for Zhipeng Wang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/imx-irqsteer: Convert to
- devm_pm_runtime_set_active_enabled()
-Cc: Fabio Estevam <festevam@nabladev.com>,
- Zhipeng Wang <zhipeng.wang_1@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104073759.386777-5-Zhipeng.wang_1@oss.nxp.com>
-References: <20261104073759.386777-5-Zhipeng.wang_1@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=Ux/RbJPh
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eW/HzrtU3D2RlCcjuS/znvMmExSBkJPsARgvIb59RCs=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794174580; v=1; x=1794779380;
+ b=Ux/RbJPhH6Cw9/+Y791sDJNpDb6+Cpd2+emKg0es5NSfHUVOmQByQ07S9+lLMoMba3nwLLdS
+ RFGFih2o/6WltHEuEs9ML4jXiivPWn/1mAdo+m8ocRkllMh/6IAQLgBGhNzue78n4pmEwGodl4c
+ ZJpB96PHIZ67SjhsNwpAhmNZaK2DNW97sEKCTE5Zcn8Fuk56o3mUKpKKWGbz7kUL8f7xNnaVhec
+ iimD8npWgDjIZ2ReVFlQAx9dsn5J34/Q/ff3pNs6ipTHtpIc7WcI+OArnIfg6nZ869Uw9JC/Z96
+ FUREML078SdXOYUrQ3Y9a5qGbtQhohrPi5ZkE1jOhiHTQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b24ab47eae340d24;
+	Sun, 08 Nov 2026 21:49:40 +0000
+X-Mizu-Trace-ID: b24ab47eae340d24
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 08 Nov 2026 14:49:13 -0700
+Subject: [PATCH v4 2/4] leds: aw2013: Add AW2027 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,92 +61,314 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179417457707.2093942.7891342208189600663.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-aw2013-aw20xx-rename-v4-2-826529beeb52@postmarketos.org>
+References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174570; l=8947;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=eW/HzrtU3D2RlCcjuS/znvMmExSBkJPsARgvIb59RCs=;
+ b=PMJSeaNmX6EvgZKHXYVLXvZDuJietwj+Vxe6eHT+UycRXlq59Jos/vG8WcpJyfUcln03PTHnl
+ ZHrxXEQZOBqDZCMDgQNeX0hpL54clZEDAXixpvueNzU9kzOA6dfbyF3
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-The following commit has been merged into the irq/drivers branch of tip:
+The AW2027 is basically the same as the AW2013.
 
-Commit-ID:     95cb660c28dcecf55b18dd185f5bbd3c185d5acb
-Gitweb:        https://git.kernel.org/tip/95cb660c28dcecf55b18dd185f5bbd3c185=
-d5acb
-Author:        Zhipeng Wang <zhipeng.wang_1@nxp.com>
-AuthorDate:    Wed, 04 Nov 2026 16:37:52 +09:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 08 Nov 2026 22:43:43 +01:00
+It differs in:
+- the max current (30mA rather than 15)
+- the number of current levels for colour-mixing (16 rather than 4)
+- the supply voltage max
+- the charge indicator (unsupported by our driver at this time)
 
-irqchip/imx-irqsteer: Convert to devm_pm_runtime_set_active_enabled()
+The max current register (imax) also moves from LCFG to GCR2, and the
+selectable current levels for colour-mixing (LCFG_CUR) take their place.
 
-imx_irqsteer_probe() enables runtime PM with pm_runtime_enable(), but
-imx_irqsteer_remove() never disables it. Runtime PM therefore stays
-enabled after the device is unbound, and rebinding it triggers:
+The current driver implementation provided here sets the global imax to
+it's maximum, and scales each led to the closest value using the local
+imax. It's the best result achievable short of adding custom sysfs
+entries and mucking up the linux interfaces.
 
-  Unbalanced pm_runtime_enable!
+Comparison of all AW20XX chips https://www.awinic.com/en/productCompareList?id=47&ids=1022,74,96,75,72,71,928,927,73,76,578
+AW2027 datasheet: https://doc.awinic.com/doc/202507/77b87097-27bf-48cd-af9b-9b615064c1e1.pdf
+Vendor driver: https://www.awinic.com/en/driver/AW2027DNR/454
 
-Use devm_pm_runtime_set_active_enabled() so the driver core marks the
-device active (matching the enabled clock) and disables runtime PM again
-on unbind, keeping the enable balanced across unbind/rebind.
-
-This becomes reachable once the driver can be unbound and reloaded, but
-the imbalance already exists today on unbind, so fix it separately with
-a Fixes tag for stable.
-
-Fixes: 4730d2233311 ("irqchip/imx-irqsteer: Add runtime PM support")
-Suggested-by: Fabio Estevam <festevam@nabladev.com>
-Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20261104073759.386777-5-Zhipeng.wang_1@oss.nxp=
-.com
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- drivers/irqchip/irq-imx-irqsteer.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/leds/leds-aw2013.c | 145 +++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 127 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx-irq=
-steer.c
-index b9ea1e8..9bf739a 100644
---- a/drivers/irqchip/irq-imx-irqsteer.c
-+++ b/drivers/irqchip/irq-imx-irqsteer.c
-@@ -239,6 +239,12 @@ static int imx_irqsteer_probe(struct platform_device *pd=
-ev)
- 	if (irqsteer_has_chanctrl(data->devtype_data))
- 		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
-=20
-+	platform_set_drvdata(pdev, data);
+diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
+index 216755d6010f..a51b72de21ac 100644
+--- a/drivers/leds/leds-aw2013.c
++++ b/drivers/leds/leds-aw2013.c
+@@ -1,5 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0+
+-// Driver for Awinic AW2013 3-channel LED driver
++// Driver for Awinic AW2013/AW2027 3-channel LED drivers
+ 
+ #include <linux/i2c.h>
+ #include <linux/leds.h>
+@@ -20,13 +20,15 @@
+ #define AW2013_GCR 0x01
+ #define AW2013_GCR_ENABLE BIT(0)
+ 
++#define AW20XX_GCR2 0x04
 +
-+	ret =3D devm_pm_runtime_set_active_enabled(&pdev->dev);
-+	if (ret)
-+		goto out;
+ /* LED channel enable register */
+ #define AW2013_LCTR 0x30
+ #define AW2013_LCTR_LE(x) BIT((x))
+ 
+ /* LED channel control registers */
+ #define AW2013_LCFG(x) (0x31 + (x))
+-#define AW2013_LCFG_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
++#define AW2013_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
+ #define AW2013_LCFG_MD BIT(4)
+ #define AW2013_LCFG_FI BIT(5)
+ #define AW2013_LCFG_FO BIT(6)
+@@ -51,6 +53,16 @@
+ 
+ #define AW2013_TIME_STEP 130 /* ms */
+ 
++/* AW2027-specific defines */
++#define AW2016_23_27_33_CHIPID 0x09 /* vendor shared same chipid between several chips */
++#define AW2027_REG_MAX 0x7F /* copied from vendor driver, but only up to 0x3F is documented */
++#define AW2027_LOCAL_IMAX_MASK GENMASK(3, 0)
 +
- 	data->domain =3D irq_domain_create_linear(dev_fwnode(&pdev->dev), data->reg=
-_num * 32,
- 						&imx_irqsteer_domain_ops, data);
- 	if (!data->domain) {
-@@ -258,11 +264,6 @@ static int imx_irqsteer_probe(struct platform_device *pd=
-ev)
- 						 data);
++#define AW2027_GLOBAL_IMAX_15MA 0
++#define AW2027_GLOBAL_IMAX_30MA 1
++#define AW2027_GLOBAL_IMAX_5MA  2
++#define AW2027_GLOBAL_IMAX_10MA 3
++
+ struct aw2013;
+ 
+ struct aw2013_led {
+@@ -60,23 +72,87 @@ struct aw2013_led {
+ 	unsigned int imax;
+ };
+ 
++struct aw2013_chipdef {
++	u8 chip_id;
++	const struct regmap_config *regmap_cfg;
++	u32 default_imax;
++	bool gcr2_imax;
++	unsigned int current_levels;
++	unsigned int current_max;
++};
++
+ struct aw2013 {
+ 	struct mutex mutex; /* held when writing to registers */
+ 	struct regulator_bulk_data regulators[2];
+ 	struct i2c_client *client;
+ 	struct aw2013_led leds[AW2013_MAX_LEDS];
+ 	struct regmap *regmap;
++	const struct aw2013_chipdef *cdef;
+ 	int num_leds;
+ 	bool enabled;
+ };
+ 
+-static int aw2013_chip_init(struct aw2013 *chip)
++static const struct regmap_config aw2013_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = AW2013_REG_MAX,
++};
++
++static const struct regmap_config aw2027_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = AW2027_REG_MAX,
++};
++
++static const struct aw2013_chipdef aw2013_chipdef = {
++	.chip_id = AW2013_RSTR_CHIP_ID,
++	.regmap_cfg = &aw2013_regmap_config,
++	.default_imax = 1, // 5mA
++	.gcr2_imax = false,
++	.current_levels = 4,
++	.current_max = 15000,
++};
++
++static const struct aw2013_chipdef aw2027_chipdef = {
++	.chip_id = AW2016_23_27_33_CHIPID,
++	.regmap_cfg = &aw2027_regmap_config,
++	.default_imax = 3, // 6mA
++	.gcr2_imax = true,
++	.current_levels = 16,
++	.current_max = 30000,
++};
++
++/**
++ * aw2013_microamp_to_imax() - Finds the closest current step to the given microamp
++ * @microamp: Desired current in microamps
++ * @cdef: Chip definition
++ *
++ * Return: The closest current-step to the given microamp
++ */
++static inline u32 aw2013_microamp_to_imax(u32 microamp, const struct aw2013_chipdef *cdef)
++{
++	return min_t(u32, (microamp * (cdef->current_levels - 1))
++			  / cdef->current_max,
++		     cdef->current_levels - 1);
++}
++
++static int aw2027_set_imax(struct aw2013 *chip)
+ {
+ 	int i, ret;
+ 
+-	ret = regmap_write(chip->regmap, AW2013_GCR, AW2013_GCR_ENABLE);
++	/*
++	 * AW2027 supports 4-step global imax, and also a 16-step control for limiting
++	 * individual current per LED. This doesn't map to the single value the
++	 * devicetree provides super well, so set global imax to maximum, and
++	 * local imax to whatever gets us closest to the value in the devicetree.
++	 */
++	ret = regmap_update_bits(chip->regmap,
++				 AW20XX_GCR2,
++				 AW2013_IMAX_MASK,
++				 AW2027_GLOBAL_IMAX_30MA);
+ 	if (ret) {
+-		dev_err(&chip->client->dev, "Failed to enable the chip: %d\n",
++		dev_err(&chip->client->dev,
++			"Failed to set maximum global current: %d\n",
+ 			ret);
+ 		return ret;
  	}
-=20
--	platform_set_drvdata(pdev, data);
--
--	pm_runtime_set_active(&pdev->dev);
--	pm_runtime_enable(&pdev->dev);
--
- 	return 0;
- out:
- 	clk_disable_unprepare(data->ipg_clk);
-@@ -283,7 +284,8 @@ static void imx_irqsteer_remove(struct platform_device *p=
-dev)
-=20
- 	irq_domain_remove(irqsteer_data->domain);
-=20
--	clk_disable_unprepare(irqsteer_data->ipg_clk);
-+	if (!pm_runtime_status_suspended(&pdev->dev))
-+		clk_disable_unprepare(irqsteer_data->ipg_clk);
+@@ -84,7 +160,7 @@ static int aw2013_chip_init(struct aw2013 *chip)
+ 	for (i = 0; i < chip->num_leds; i++) {
+ 		ret = regmap_update_bits(chip->regmap,
+ 					 AW2013_LCFG(chip->leds[i].num),
+-					 AW2013_LCFG_IMAX_MASK,
++					 AW2027_LOCAL_IMAX_MASK,
+ 					 chip->leds[i].imax);
+ 		if (ret) {
+ 			dev_err(&chip->client->dev,
+@@ -97,6 +173,38 @@ static int aw2013_chip_init(struct aw2013 *chip)
+ 	return ret;
  }
-=20
- #ifdef CONFIG_PM
+ 
++static int aw2013_chip_init(struct aw2013 *chip)
++{
++	int i, ret;
++
++	ret = regmap_write(chip->regmap, AW2013_GCR, AW2013_GCR_ENABLE);
++	if (ret) {
++		dev_err(&chip->client->dev, "Failed to enable the chip: %d\n",
++			ret);
++		return ret;
++	}
++
++	if (chip->cdef->gcr2_imax) {
++		ret = aw2027_set_imax(chip);
++	} else {
++		/* AW2013 only supports 4-step individual current per LED */
++		for (i = 0; i < chip->num_leds; i++) {
++			ret = regmap_update_bits(chip->regmap,
++						 AW2013_LCFG(chip->leds[i].num),
++						 AW2013_IMAX_MASK,
++						 chip->leds[i].imax);
++			if (ret) {
++				dev_err(&chip->client->dev,
++					"Failed to set maximum current for led %d: %d\n",
++					chip->leds[i].num, ret);
++				return ret;
++			}
++		}
++	}
++
++	return ret;
++}
++
+ static void aw2013_chip_disable(struct aw2013 *chip)
+ {
+ 	int ret;
+@@ -292,9 +400,9 @@ static int aw2013_probe_dt(struct aw2013 *chip)
+ 		init_data.fwnode = of_fwnode_handle(child);
+ 
+ 		if (!of_property_read_u32(child, "led-max-microamp", &imax)) {
+-			led->imax = min_t(u32, imax / 5000, 3);
++			led->imax = aw2013_microamp_to_imax(imax, chip->cdef);
+ 		} else {
+-			led->imax = 1; // 5mA
++			led->imax = chip->cdef->default_imax;
+ 			dev_info(&chip->client->dev,
+ 				 "DT property led-max-microamp is missing\n");
+ 		}
+@@ -323,18 +431,18 @@ static void aw2013_chip_disable_action(void *data)
+ 	aw2013_chip_disable(data);
+ }
+ 
+-static const struct regmap_config aw2013_regmap_config = {
+-	.reg_bits = 8,
+-	.val_bits = 8,
+-	.max_register = AW2013_REG_MAX,
+-};
+ 
+ static int aw2013_probe(struct i2c_client *client)
+ {
+ 	struct aw2013 *chip;
++	const struct aw2013_chipdef *cdef;
+ 	int ret;
+ 	unsigned int chipid;
+ 
++	cdef = device_get_match_data(&client->dev);
++	if (!cdef)
++		return -ENODEV;
++
+ 	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
+ 	if (!chip)
+ 		return -ENOMEM;
+@@ -346,9 +454,10 @@ static int aw2013_probe(struct i2c_client *client)
+ 	mutex_lock(&chip->mutex);
+ 
+ 	chip->client = client;
++	chip->cdef = cdef;
+ 	i2c_set_clientdata(client, chip);
+ 
+-	chip->regmap = devm_regmap_init_i2c(client, &aw2013_regmap_config);
++	chip->regmap = devm_regmap_init_i2c(client, chip->cdef->regmap_cfg);
+ 	if (IS_ERR(chip->regmap)) {
+ 		ret = PTR_ERR(chip->regmap);
+ 		dev_err(&client->dev, "Failed to allocate register map: %d\n",
+@@ -382,8 +491,7 @@ static int aw2013_probe(struct i2c_client *client)
+ 			ret);
+ 		goto error_reg;
+ 	}
+-
+-	if (chipid != AW2013_RSTR_CHIP_ID) {
++	if (chipid != chip->cdef->chip_id) {
+ 		dev_err(&client->dev, "Chip reported wrong ID: %x\n",
+ 			chipid);
+ 		ret = -ENODEV;
+@@ -420,7 +528,8 @@ static int aw2013_probe(struct i2c_client *client)
+ }
+ 
+ static const struct of_device_id aw2013_match_table[] = {
+-	{ .compatible = "awinic,aw2013", },
++	{ .compatible = "awinic,aw2013", .data = &aw2013_chipdef },
++	{ .compatible = "awinic,aw2027", .data = &aw2027_chipdef },
+ 	{ /* sentinel */ },
+ };
+ 
+@@ -437,5 +546,5 @@ static struct i2c_driver aw2013_driver = {
+ module_i2c_driver(aw2013_driver);
+ 
+ MODULE_AUTHOR("Nikita Travkin <nikitos.tr@gmail.com>");
+-MODULE_DESCRIPTION("AW2013 LED driver");
++MODULE_DESCRIPTION("AW2013/AW2027 LED driver");
+ MODULE_LICENSE("GPL v2");
+
+-- 
+2.56.0
+
