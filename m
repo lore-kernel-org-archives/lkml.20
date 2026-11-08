@@ -1,97 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794378586;
-	b=oGEXXraqVMDaTvNLT/kk9eIRy15uR58jZKUaoCTVWI12nSt73PdNgp+c7XtfwyzIANUG
-	 AOJBpi2scN2C/HOYzIGlLQ5RlDYmtncdsU5hBAnW+PKBokOp2UnCFUX2ZkdHn5OjXYlM8
-	 TZ9kTFz0qF65wDhojG3979dNdK3/qsOnea/ztW5dOvHhPC46gVB7EIM8/Cs9T6bXUuF6w
-	 lEpGiCcs6JcB1ao3mxkwmzmWMVpPhEOO6kqOQBZM35qsG8mzaZgf7kG7PRjkFNSyYLqqZ
-	 GDA8AFoTOaN4DYbBlsxhksuXcutTGtH3TlwpzkRxHs0E6JNFDwZ5P/p49fSECrbZ7fA==
+	t=1794378614;
+	b=N2k89kyy4NE0RxHuszmkw4sTtfJAWO/+0Ewk2bI+7uOSl1EZRmRi0m9PL+z9wGQeD0j0
+	 JZprfHAMKEhSuiaUOP4IqLnsFY+owqla/i9hVreYrEUUlPmUzAFusrPHh8RYtoj0vdEy0
+	 z5j4rfncnQyoIk/nGLyrrIOyPCX4ji0Ul6QpzZZG8LkCpwKXsRBraOjehLK87eBzUhaPs
+	 KtR2zP1i9pFHUxlsSzTjoQv54RoVvlMPJxaroMLU9ddl7tQ7G6ZvD1QZgu1oz9hxeJwPj
+	 WVmCUKDuyokwvysZ8wPFifVAhp2b+pNwmauoV4qdfrVP6zgxXOauYWvKahLf9mosNRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794378586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=982skjmQWlVWeCR0dvMpkvy4QcIduHPcJMkY3lSuKFM=;
-	b=Ippj0V51bMcDL7ZlF9f+l7Ig3XEZTW/7mREibYXN75xYssU8mp3Mam2GqV29RkAR8Wx1
-	 gNbSLSOzEAS7cwfUy/6ZPTHWoffMsBDLv6LYJ8b0qKCJNBZ24x9PCT2UA9bxDI9CAt14M
-	 YDjw/kaXr94SQPKGbrZ4+IhSdPMy3YTw4CQt/Bi2KBlPM48ZAFGnE4uPs6EfxpJjelZN2
-	 sb8iIQx+qwyujQ4qT0L0Yb23nW9S2EVSGKptudU2qb0KaxbAHzgIy/geYhIl9tp/Uemi2
-	 e1vPd35Ml/AtuG05Ax3btpCoLMI1Ux9zoWdtGayIjoToX7QMMtHoUHzvABx5io1AYRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794378614;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=OkP72PiE2ON2H9VZh3M0HnWeTkIa/MFwv0dP7X1pRv8=;
+	b=SJ5mqzn+q5MhOL1G49Na+k3AvlKZVuCNbMOJTfXNYc2uxN09EDcQs8ZNNMPgsqLOHlO/
+	 6iY/N0QV6lsWSjaxcUNE1UJLuWNC2Tv0r9+lc2wwT80l3isCmKeHYSkX57wyTn6PNxP26
+	 vptAji8gBeZzWtvf9lrPOYd4XxJ5C3o8MNL6l2P4UHns8qv7yaFTllOxvMLUc54y80Zlg
+	 7eBhkklzmm2XlZgQJc9ZNiuLpd+6fdRnEI4Q2GcZEPhMJr/wOX6A++Vf/4o9Bevd3iltB
+	 vmSi+UzZhlJRUlQZ67aW9HEhNaGnL3/7jH+BjJZdXUEAunGs9NgiKlRkK5Ttge1eeow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rcGrU7AJ;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=F7wfYg17;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE91606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 11 Nov 2026 06:29:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE91606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41F3606A321;
+	Wed, 11 Nov 2026 06:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A41F3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rcGrU7AJ
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8b904d10882so1274321b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 22:29:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794378585; x=1794983385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=982skjmQWlVWeCR0dvMpkvy4QcIduHPcJMkY3lSuKFM=;
-        b=rcGrU7AJZ3TRwLxUVeh9SZu6G7z3Wc5rpfM3PG1/5MlZKLWZKgUvDi5n/3XZ286nHt
-         QXztxMQgJG6fjXgy23xxlv7srj+3uMgioYvgKHhFj4vBlMwfGh0aCS/qinuKzS2Sip4i
-         vNMFBtM0c/iaERTORa7SiSECAI+Do/24rzSbAQ9zg0mKPU/WpOXjbrcHFvHX79j8ERVc
-         gT66+DBO48fwF40KLU1poVQOsTfHuTEPKmIWohfbMcXNOmGQ79IPgWQpROsMDsEd+ztX
-         PrhlumJwpM3pQt3PSOLMQeQ6yimeXzFfJngh8XwVjtn+kyFI/Gfr42g3+T5V/pTdzoBu
-         U2vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794378585; x=1794983385;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=982skjmQWlVWeCR0dvMpkvy4QcIduHPcJMkY3lSuKFM=;
-        b=bL/DOXcC2hUZ5B+a54990X/CqpRr/rwGAslUfNac22PzFryazjbUa0vu7Fh362FxHn
-         9Al6OYH2vVD2LW16AJGexDqy/bcw58BKF/bx2Kdd53kL6HBtH4b9qUI1J7cbaNXba29x
-         NLcDZ+l7E2EiS4dW+GtHJN17fKjR8LKhA4vHNLlDNoU51ZnL7E6zb46du+WK6WRKbu0X
-         F/X8u/CPmph5Bx897wgeJA4TTtE0o2RI7rNT5FgBHQRyN2dwt2sHwh4YZX9/slc8MMAg
-         aYrZCvK448QJ+06HTGcYHJ6/BLTnkGqvD81PEPPTwbIgoze+qP0OweepGHvU/jZmSZ3V
-         BJwQ==
-X-Forwarded-Encrypted: i=1; AL+hErGxuYQDnBjo7usvuvAr9LiFcES8TrlHlu0VKptEmg1DvBbtStzrREpzAbVGgamk9ba/Lzv+D0mQr9tTCUg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Kce4KXvW0HHHFI5R5RTZ3r9gss2ojwEUhf5gopUHRPC5PoT2C
-	cK0+Fm7mXPxxjGXfZusBbrLkqXOBy4fBG9SrzQrWInCQdV03edvH2EuE
-X-Gm-Gg: AYBFou3DzThjKAbYahwQij5S7AWo52xVWi5twELr/9xWz5pGlfJahgEjWSfFZzXxo6g
-	DHudiRoA/n7moslySkLB3RNtle4oSfYCUot5bGlbyVt/KbofmbaftuOjHMMw+kK06GXPPGrmDEj
-	0x0sGafjVLpvyyd2fTeWLetAr8Cu68NLqBlBw9tQzGvqi58Gm3HKFQsbDUeVKF+aixEH5K83Zc/
-	iKMleF7AhKOUL6yV3gympp1HDwlExDrtw2t+Enlv0HCN199dBtOPUhIYvCwRR+zLmWe6hdmBzzm
-	HAEU0utZXjZ/r8JxMiI1fPRjrVF7OgTjoVkk30d/ZfJe2zSl9xnyvgrFtYdrRJ+rbShkohWovui
-	ylJSTAhx2osnd2wJ1XkugrbICKEX3igNBUZNZo/J60c756+8kPaWbB1sfedyIS1WeKHyf86/lIb
-	ZVHRB3EmD8KwKAcKlvZMKJ7+mOWIKVrKaRvaVKjHf1PO1QecSoLQkydVoR7ZHhv1CBx+W8ygG8C
-	9K4x7hoC3n8OSxy9C1XRvWada2jziH/iQn0YOrBtz63REVZ5EQDfTNDkJMiFXB/EJYu+feF4rBa
-	Ji6iIBhG7ipOtGHfnlJ8O+yw39lejETFUq6Qfo2EtQ==
-X-Received: by 2002:a05:6a00:2343:b0:8a0:3336:4b45 with SMTP id d2e1a72fcca58-8bc1c594810mr1681640b3a.12.1794378584851;
-        Tue, 10 Nov 2026 22:29:44 -0800 (PST)
-Received: from localhost.localdomain ([183.62.176.219])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaae3e25esm1768266b3a.37.2026.11.10.22.29.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:29:44 -0800 (PST)
-From: liuyong <pkfxxxing@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: Re: [PATCH v2] RDMA/srpt: Limit read data transfers to the command length
-Date: Wed, 11 Nov 2026 14:28:50 +0800
-Message-ID: <20261111062852.1279950-1-pkfxxxing@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2e748067-f733-4edc-b71b-540de4bc3d26@acm.org>
-References: <20261110030809.913063-1-pkfxxxing@gmail.com> <20261110030809.913063-2-pkfxxxing@gmail.com> <20261110052827.963143-1-pkfxxxing@gmail.com> <2e748067-f733-4edc-b71b-540de4bc3d26@acm.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=F7wfYg17
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=OkP72PiE2ON2H9VZh3M0HnWeTkIa/MFwv0dP7X1pRv8=;
+	b=F7wfYg17IGNRwcVZzac9OMBgJgrkx9RprsM+NqGDFeTHIfBSmJsnp295tzEmnB
+	ygrPTFTko6F8oNzIfNmEM2HNAmMjyN1iXOQDyut6Ud2avCLhyimtQrXSu2ecIzlZ
+	Mpmyfohcc9eVICL3byoVwN7TdSEKUHjvld9IhHC/QCxIc=
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: Robin van der Gracht <robin@protonic.nl>, Oleksij Rempel <o.rempel@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH net v7 1/4] can: j1939: arm the abort timer under the session list lock
+Date: Sun, 08 Nov 2026 09:34:23 +0800
+Message-ID: <179410166345.60581.16722127854597502548@163.com>
+In-Reply-To: <179410166344.60581.3898011861151549156@163.com>
+References: <179410166344.60581.3898011861151549156@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,34 +57,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n7ReC_RqVbDqGQ--.1148S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr1kKF48Kr4kWr18Kw15urg_yoWrJryrpr
+	W5Kry3Gr1DWr4xZrs7JayDWFyFvwn3Xr48XF1xJ3sayayakF45tF4DG34Igayqyw4kA39x
+	u3WSqw1DGw4kW37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jo89NUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4x+xJ2r0C1+XzAAA37
 
-Hi Bart,
+From 672c37cb66569c9103f28405d455c8777c81c9e0 Mon Sep 17 00:00:00 2001
+From: Chaosheng Qu <quchaosheng000406@163.com>
+Date: Sun, 8 Nov 2026 09:22:28 +0800
+Subject: [PATCH net v7 1/4] can: j1939: arm the abort timer under the session
+ list lock
 
-> For the second case,
-> srpt_get_desc_tbl() should reject SRP_CMD requests for which the sum
-> of the direct descriptor lengths does not match the total length in
-> the indirect buffer descriptor instead of building RDMA contexts for
-> an inconsistent descriptor table.
+j1939_session_cancel() cancels the receive timer while holding
+active_session_list_lock.  hrtimer_cancel() waits for a callback that is
+already running, and j1939_tp_rxtimer() takes the same lock, so a softirq
+callback waiting for the lock deadlocks against the CPU that holds it.
+Cancel the timer before taking the lock instead.
 
-Agreed. In v3, srpt_get_desc_tbl() sums the direct descriptor lengths in
-u64 and rejects a total that differs from idb->len before allocating
-RDMA contexts. The existing descriptor-count check is preserved.
-I also initialize the command before returning BUSY for a parsing error,
-so the response and completion paths have a valid command reference.
+Cancelling outside the lock opens a second window: the cancel/get/start
+sequence is no longer atomic against j1939_tp_set_rxtimeout(), which rearms
+the same timer from the receive path without holding the lock.  A
+concurrent
+arm in that window queues a timer whose reference is never dropped, and the
+session then never reaches j1939_session_destroy(), keeping both its netdev
+and its j1939_priv reference alive.  Take the lock for the rearms so both
+armers are serialized; hrtimer_start() does not wait for a callback, so it
+is safe to call while holding it.
 
-> - In srpt_queue_response(), zero the part of the data buffer beyond
->   cmd->data_length, e.g. with sg_zero_buffer(), if the data buffer is
->   larger than cmd->data_length.
+A session that is already in J1939_SESSION_WAITING_ABORT also gets its
+timer
+back.  A second unparsable frame re-enters j1939_session_cancel() after
+j1939_session_timers_cancel() has killed the timer, and without a rearmed
+timer nothing ever moves that session out of WAITING_ABORT, so
+unregistering
+the device hangs in unregister_netdevice().
 
-I have replaced the WR/SGE modification loop with tail zeroing using
-sg_zero_buffer(). v3 saves the original buffer length and clears the
-unused tail before posting the existing RDMA transfers. Each separately
-mapped SG list is synchronized for device access after zeroing. The work
-requests and SGEs returned by the RDMA R/W API are left unchanged.
+The reference accounting stays balanced: one j1939_session_get() per
+hrtimer_start(), dropped by j1939_session_put() in j1939_tp_rxtimer() when
+the timer fires.
 
-Thanks for the review and suggestions.
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+---
+ net/can/j1939/transport.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-Regards,
-liuyong
-360 Vulnerability Research Institute
+diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+index 8fcfd13e5e6f..590a04c453b5 100644
+--- a/net/can/j1939/transport.c
++++ b/net/can/j1939/transport.c
+@@ -1161,12 +1161,38 @@ static void __j1939_session_cancel(struct j1939_session *session,
+ static void j1939_session_cancel(struct j1939_session *session,
+ 				 enum j1939_xtp_abort err)
+ {
++	bool abort_sent = false;
++
++	/* Cancel the abort timer before taking the list lock.
++	 *
++	 * hrtimer_cancel() waits for a callback that is already running, and
++	 * j1939_tp_rxtimer() takes the same lock, so cancelling the timer while
++	 * holding active_session_list_lock can deadlock: the lock holder waits
++	 * for the callback, the callback waits for the lock.
++	 */
++	j1939_session_rxtimer_cancel(session);
++
+ 	j1939_session_list_lock(session->priv);
+ 
+ 	if (session->state >= J1939_SESSION_ACTIVE &&
+ 	    session->state < J1939_SESSION_WAITING_ABORT) {
+-		j1939_tp_set_rxtimeout(session, J1939_XTP_ABORT_TIMEOUT_MS);
+ 		__j1939_session_cancel(session, err);
++		abort_sent = true;
++	}
++
++	/* Re-arm under the lock, whether the abort frame just went out or the
++	 * session is already in WAITING_ABORT and only needs its timer back.
++	 *
++	 * hrtimer_start() does not wait for a running callback, so arming here
++	 * cannot deadlock, and taking the lock closes the window against
++	 * j1939_tp_set_rxtimeout(), which rearms the same timer from the
++	 * receive path without holding it.
++	 */
++	if (abort_sent || session->state == J1939_SESSION_WAITING_ABORT) {
++		j1939_session_get(session);
++		hrtimer_start(&session->rxtimer,
++			      ms_to_ktime(J1939_XTP_ABORT_TIMEOUT_MS),
++			      HRTIMER_MODE_REL_SOFT);
+ 	}
+ 
+ 	j1939_session_list_unlock(session->priv);
+-- 
+2.43.0
+
+
