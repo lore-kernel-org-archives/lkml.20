@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794137882;
-	b=tqWhlg1Cp3f3c7hb2F+2kbjq9/d+Ts6tYRUjLq0EeHt6uvTEVV2i5XHnEz5GF6zU5FII
-	 VmP2J4FIfB81lb8G6ztVc8yzFSotAf3VGnj2QAOzSm5kkpYbGUTuteoPIAujeHxn4Vmrl
-	 TDxg08WZPDqO2sURI+Ek91JDlFvkuE7OLSyrD0c+HKMQAQ+Trx3YALHIc3l8QqbWGEFRv
-	 x4H0A8vH/cZbEpLvDMdTSg++aemZUB4Q/fpAyuZVkNCYouL14frVl9cgTtH+yDB3xUYSz
-	 ln6KB2llFheVBWdgUcBzc4mSg6Wz8m0oSXrRI6n2JOEa+yuAFEjgyjE5WatT6iesrfQ==
+	t=1794137954;
+	b=1RFxk6WzPD0ip7Ma8TOgwRbe17NoMUEgluXHN3oLg8FXdMOQ9O9s1uZuBsWy04sGLfVu
+	 JEUX84b/LwZp8lYcNyGrWd/lpgFgYhRlqpSX+k6SrececpfbQMb/vsIv3B/+6vVTR3xEX
+	 rGYFi7bMUlnrWXPwJO+Mjeap5ePHPLoWsE72Wgzev/BqH1h5wJhbZ4S3uZsLDyoqC4G/u
+	 jeS6nxgdh3I5yNh7Ii+hmi7fnt5tHj75udQJAPAl6bcQkVvVKGTc4qOOBx45+ZoM8571y
+	 B/TVi9N4CbyERsW2eGIjrRihGfFYMxDMeVlUTazCaAe17rqFUCvCnFnfzxa4IJGf1tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794137882;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=aeLqZnp9/l1a11Bpvlag2NNd15Eb5k/MpOolGoipei0=;
-	b=RCAxBYHhQiDl+I0UlZalWZS2fBM1e1VLb53G9kBclE9o5sx9BqxfHNn/P9udHKJdpuno
-	 Weo9JGAJyrBT6tt/THWCmgZ+3OqXFxhmXA5HXkNQIp/Cgv2a0y2KbnI7evu70Vj8/zMVI
-	 8sQLVE9gWZyTSyrQjjVB/rU/1P+T+age4X6Y1uKBUKEzYUZYWZ3YQ8tc/TuG71tqfE6ID
-	 4DY0SXvu1USTD7YxJHBhCFoORrVMuGkXloX5H5sr3TeuEgoViDYq9cFOvVpNhz1H1SXqj
-	 GqxeEDMB8hEG8lHoBcCGLemqSlmxoSJMnVSKZkn6cCm1J/0/G84qYhESxgczcBTPLzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794137954;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=k/JlVhtdHW1N7+kfk+zWcbzIZHLZh0ZrTv2A0uour0Y=;
+	b=TBi7eVnYJe8TgFK2z+N+ScLqUz8WmL3SCaQgtrznJ/oVVRGQtjGHoGZgo3oYGAv2ZKbF
+	 9HSCZsnA89bac5fQL8XMU2muu0dRpVzJVPEDugCHyWjbhh4WZmVfSDC9NTFb77OlTYJuV
+	 +M7NLeMNCZ8b02obNPkSIhFB7yE7xGBCTzeL+86tV7NnVB4/bHKgoE8VlEY68qVocLM6Z
+	 FHSaZTdaBKYMSG5IM3EIlDDMUQ+z8Bzoc7b0Lq4JMNqQAFJ/9mtCt05UqQenLrVhAtRU3
+	 dCxdgCrpt8qrKeZiD5fCKOCZ5DzKdma59OsmZQVbjN7yhop7yMOtwfhfNErYJqufL/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.70
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A423606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:38:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A423606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-83edc5c5ae9so16874a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:38:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794137881; x=1794742681;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aeLqZnp9/l1a11Bpvlag2NNd15Eb5k/MpOolGoipei0=;
-        b=dPCjUKDdDZDdlvYr/KdanXwgryPdDTlehq0ix//vSQlSEfWvu7xC+KCLnOG53Hi1+L
-         xaLfWrM48JkHQPDtkQgoMk4c4moVDvJU85Llx48WfZ+gju4mrIcRnChn++JJqDuKV6lu
-         H+GVUZ9ntLzF9j/5+Uq6pKKBxocFWwiatRzARlNX1wykDdnmmZrMTKByC0Ul0mzzlqIX
-         lU8CQQSRbb6JSNC9JSVlyawzGA0Tj88eOClF8irx4BIMVRo9KTYaHb78ImZ6BAfLS0iD
-         im/S0ZTa6HpqqkzRXOS++E415gix+rlRgraQDcIQhagpq6e7AEmr1TPZsbDkgzQSAjJS
-         nxPw==
-X-Forwarded-Encrypted: i=1; AL+hErG5L6c6duWVuBMc6dzpDjluR5Ay8pSuEc7Boiid7PIL+K6Bh+mYJ0pBl1qT03CpBmY7QlyIQV9gHM4RfaI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/il7IMypkQujsZC32RqgB1H5T4Q51WviNEXBoqaNI4cmDXedbH
-	j6iwYn1KnQ+Z8hZ0otnfpwPlLwPB+rMoWI0uSCkaz9lHy64/nxAUPToxZRBqvuHiUOxZsuj9dSH
-	M9pPCjBNzHUl2itYTt3D24LvXCYnR+Hs5erA2r0FX4NOeJNGXnm6ZUWe12+k=
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bQ0UtJQT;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCCB8606A31C;
+	Sun,  8 Nov 2026 11:39:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCCB8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bQ0UtJQT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=bQ0UtJQT/dgIUSZd+hfA3NZf90pdvg1CzJBYIsVuOR7Ut1tMz7kobpi19EQRoqDCtgJOzK6NuFQjt
+	 15Eu87YHioxIv59a8eyvESMPUgXDaB0OiFpOgD88QVyth3hm0AmZhXHJnECELvR9ckSrMdwcPfTX6U
+	 qqHppyYQcZzVHTWc=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af05f5da3a-b8eb3;
+	Sun, 08 Nov 2026 19:39:09 +0800 (CST)
+X-RM-TRANSID:2ee56af05f5da3a-b8eb3
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from openEuler-24.03.03 (unknown[74.82.203.40])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af05f47e53-6669c;
+	Sun, 08 Nov 2026 19:39:09 +0800 (CST)
+X-RM-TRANSID:2eea6af05f47e53-6669c
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	netdev@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 0/3] virtio_net: AF_XDP zero-copy fixes for arm64 and suspend
+Date: Mon,  9 Nov 2026 04:38:36 +0900
+Message-ID: <20261108193845.73621-1-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,33 +82,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6c8c:b0:53c:5052:ea07 with SMTP id
- 5614622812f47-568143a8d41mr872317b6e.5.1794137881308; Sun, 08 Nov 2026
- 03:38:01 -0800 (PST)
-Date: Sun, 08 Nov 2026 03:38:01 -0800
-In-Reply-To: <CACbwGuTvOUpZU3h5VLw4aC=Kyd+CapUx8iuADR2Ezr+0aagHcQ@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af05f19.4dd4714a.f8d02.0013.GAE@google.com>
-Subject: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: gbughunter8@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Three AF_XDP zero-copy fixes for virtio_net.
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Patch 1: on arm64, binding a zero-copy socket fails with -ENOMEM and a
+"rejecting DMA map of vmalloc memory" warning whenever the device uses
+the DMA API (e.g. VIRTIO_F_ACCESS_PLATFORM), because the static TX
+header lives in the kernel image, which arm64 maps in the vmalloc area.
 
-owned.c:1: error: VRP_SYZBOT_ROOT_RCE_1108_6d3f91a7
+Patch 2: removing XDP can leave a zero-copy pool bound to a queue above
+curr_queue_pairs. Closing the socket then fails in the driver, and the
+queue is refilled from the freed pool.
+
+Patch 3: freeze frees the rx/tx queues while the sockets stay bound in
+the xsk core. The driver state of the pools is leaked, and closing the
+socket after resume hits a "Missing register" warning and a NULL
+pointer dereference in xp_dma_unmap(). v2 keeps the pools DMA mapped
+across suspend and only moves the driver state to the new queues.
+
+Freeze also drops the XDP program of virtio_net, so it has to be
+attached again after resume. That is an older issue and this series
+does not change it.
+
+Testing used x86_64 KASAN kernels in QEMU/KVM (q35, intel-iommu,
+virtio-net-pci with iommu_platform=on, x-pcie-pm-init=off) with a
+small /init that binds an XDP_ZEROCOPY socket, redirects to it with an
+XSKMAP program, and sends an ARP request through the TX ring and waits
+for the reply on the RX ring, before suspend and after each of two
+suspend cycles (pm_test=devices), then closes the socket:
+
+- net: no TX or RX on the socket after resume, and an oops when it is
+  closed. With a socket bound to an XDP queue and XDP removed, closing
+  it gives "Failed to disable zero-copy!" and a KASAN use-after-free in
+  xp_alloc_batch().
+- v1: passes with an aligned umem, but with an unaligned umem nothing
+  is received after resume. The XDP queue case behaves as on net.
+- v2: all cases pass, without warnings, also with an unaligned umem and
+  with a suspend cycle between removing XDP and closing the socket.
+
+The test program is not part of the series; I can send it if useful.
+Patch 1 is unchanged since v1, where it was tested on arm64 (QEMU TCG,
+virt) with a KASAN kernel; arm64 was not tested again for v2. Real
+hibernation and multiqueue traffic were not tested.
+
+The issues were found with the help of an AI coding assistant.
+
+Changes in v2:
+- Patch 1: drop the sentence about cache lines from the changelog
+  (Sashiko).
+- New patch 2, for a pool left on a queue above curr_queue_pairs
+  (Sashiko).
+- Patch 3: keep the pools DMA mapped across suspend and set the driver
+  state up on the new queues before NAPI is enabled, instead of
+  disabling and enabling the pools while their sockets are still bound
+  (Sashiko). This avoids a race with the RX path on freeze, stale DMA
+  addresses with an unaligned umem, and transmitting before the TX
+  header is mapped on restore.
+- Rebased on net 30c71476d842.
+
+v1: https://lore.kernel.org/netdev/20261107125723.33547-1-yanhaishuang@cmss.chinamobile.com/
+
+Haishuang Yan (3):
+  virtio_net: Don't DMA map the kernel image for the AF_XDP TX header
+  virtio_net: Disable AF_XDP pools on queues above curr_queue_pairs
+  virtio_net: Keep AF_XDP zero-copy pools bound across suspend
+
+ drivers/net/virtio_net.c | 177 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 166 insertions(+), 11 deletions(-)
 
 
-Tested on:
+base-commit: 30c71476d842b094651bd7712f6c8ee8716147d0
+-- 
+2.43.0
 
-commit:         62aaeae9 add bounded privilege-position fields
-git tree:       https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-62aaeae main
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8bdeea7ee6735f91
-dashboard link: https://syzkaller.appspot.com/bug?extid=c22bb42560ec86726aba
-compiler:       
 
-Note: no patches were applied.
+
