@@ -1,73 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.160
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127245;
-	b=eAemxvQBbUEbZIgh1iZ1o3wGpTKtSPOAG07mzGWFugoeixSpuIutAUSMfDz1m0+PJp0o
-	 CHWxQT/5+OIbuOL4zra5OV90J/inI1V4lzOJc8O2B0RV6jSPh6T5nuPkO+gDe0HzWsrrE
-	 E5avHbD65RuoyD0xnnlEeP1KZldEKW1X2XAaoWCVZqbV+S/50rhQR8Nd+uexhyiYwFhCg
-	 qUoqvKorojFiOIP3weKrfGCTl0iGadeAP8ks27E+7nu4sv6lSkvYCH3M9robuSv97J6Cp
-	 tJAFwn7y4IwdUUQ1CfNJNZrurY7LWrL3r4wojmVIjG4M8X5cf7XM2I6yv/VDu68pobw==
+	t=1794127301;
+	b=YnIvMZ2d7kF60p/wdeKrBnlAGUN7k71MhMx9XhIje43grrm0xHfFBg2Q5zknKOEoHH4I
+	 eE58dJyFc9v5eVnqnC2y7sGtxxa7sdROcbZ3CQabtmrbJAOHjZaQz+Z6zhzWoQIuoFYNt
+	 ZT01A0ieEqNV2A/yPeIsHjHNy/YboMA+gtH+N0a6NqFvAOBIN60EEcblzouP2tA+SUsn+
+	 5JyWZRW/InPLcZgylAvawCn0sKHvt0It2puM9SBAqRN+TYXMfq6Tora4vxpVHlMDX0UTR
+	 WH6ndD5qu8x14eUFMh2qiq3a/VRoe51oeNBKTmJJB4L+i6opy1Obisbc8DlJZ1h5d3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127245;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aYoUmexxPLJigYcrWiTOVyZolQmaaSPk22SDsY8yV2M=;
-	b=J1bqqeU0u83DXP2Wj9DjbmuUXNfZLJ8vc/MUjwMW17ojuL1jX/YFNol3NzfLoQjKBOX5
-	 B9OQkqyrz/7Fb3NZfaNcEWqj8ojh9DgiUyqm1F7NLQ6EI6q7/PTZ9CtS4fhjNrp9afGQX
-	 MA3RWbyn3jK1okHsRSXcjBKFHWQg7g2H36TJBJ8UukUluqMST1Q2chTpclw04qoeYx61v
-	 pvjnIKRGWefs8u4iersb5WNpuNGBUNqBy6p/jRqwNQZGatfMOZnhDAdJoZcnBdaoUZojk
-	 DWJ6PNHt0vxGhwsg8dPatBssiANf4ytPBiD5BHrKfP7jJClkzGQgM9EqmBBfzVaNlKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127301;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:User-Agent;
+	bh=04OWJWl0q4USzjLVzwemPm053ugbzZoSSOQ6EL5Fbvs=;
+	b=WFRsOyqZmgl617yBnLOijefwYrT2wMHpxTdFKKHhlHgJF4yu+bzwHYD/B95Qx8pZIVdi
+	 WLLhs8blRWXKeTNHnIbpruwncEYrOV70QhKQ5kXiNISn+ooVHbp4zeDeanYkP84hR8wfw
+	 zTzRcOW4P3AkGfpN0leljXMxxlxujaNoUxH0yh5AnhBWk2gIDvMiV0No59rtzzYZfzO3I
+	 BFriokoXZvwiCJpcuAnMSwawv3hB3wesSgzbgeKplMlhILJhO0VkWqzA3vkpZsLgiZHY3
+	 9sVZ4Vb5jTtuzyEnid3mqNMTtzTgGEHG5ibse6f1hbyjJ8ZQ4dQwux45jRyU2M4hWxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KkGdeozW;
-	arc=none smtp.remote-ip=91.218.175.160
-Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=d4G+Qk7i;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FADB606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:40:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FADB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4726606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:41:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4726606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KkGdeozW
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BYyngODmPBf6+ONXmDqmz1GGGko3fLEGOZKdoUTwChM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794127241; v=1; x=1794732041;
- b=KkGdeozWw6GzIN8/N1hxwiHvUcHndwbzmWMXS7USNunUJ+FeltMBIA61FH1QyV1noHYwTZaL
- lqQnkwuDy9gYU9aZHZ0BwPRLdCkrMG8Ryi4wOesGVzbn7U+RHJ+Ci/bcrIJGcab1pufAWsnLlyi
- gr5PHUZgMheMxtfRnWLaiPRI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8756b258539f3c21;
-	Sun, 08 Nov 2026 08:40:41 +0000
-X-Mizu-Trace-ID: 8756b258539f3c21
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	rppt@kernel.org,
-	peterx@redhat.com,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	qi.zheng@linux.dev,
-	tz2294@columbia.edu,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mprotect: don't skip uffd marker install when racing with PTE table reclaim
-Date: Sun,  8 Nov 2026 16:40:35 +0800
-Message-ID: <20261108084035.85404-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261107-uffd_shmem_marker-v1-1-91fa2d653cfe@kernel.org>
-References: <20261107-uffd_shmem_marker-v1-1-91fa2d653cfe@kernel.org>
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=d4G+Qk7i
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b0b3754f57so127764a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:41:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1794127300; x=1794732100; darn=vger.kernel.org;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=04OWJWl0q4USzjLVzwemPm053ugbzZoSSOQ6EL5Fbvs=;
+        b=d4G+Qk7i9L7YqnXb63Yt8hNFVlT9F14ZiFmxza3GzeCu8eU7/7uSBFQfb6vy08FOlW
+         X/Po1s3J4ztNeKa6n71PqF1FHeBsFng7jQJxQfOQjplrHxf+TvCfin+simyiUHXuU2EC
+         X8H+K6tMSmyw5qBXCO+tth7JyW4GlR3KP3g50=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794127300; x=1794732100;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=04OWJWl0q4USzjLVzwemPm053ugbzZoSSOQ6EL5Fbvs=;
+        b=ekMzzjRu/RXfULPOz/SFpb56+j8/i97t4aBwxVr3ooTakU0/zytuf815Z6UdKhNA6F
+         Ptim9EHSCskumfQFgoygE5NIFi+HZS36V8qefd3Mafp9Q4kpEIrVUT+EDLEtjwpMPFB2
+         zcmdANRF8b1y22NFxxU4eB6DVZUmXL/mQ+wh18N8uzMi0waACqGLO1+ZuDv4bzc3dEsN
+         OQxWunQd2aM8sGsZRPgY3MG4pNvDCn95YRM/zLH+xlqCYS2Sxrz9tdJEuFwNdUsiN6Gq
+         PYrOIHOPdyqvYsV8nzhjrBZ/FPLDupdApLhqm1gwDUTzq/j8YfYgcXq4ATDuOQrtmawT
+         P9Jw==
+X-Forwarded-Encrypted: i=1; AL+hErFJHeOPzbjcClASWU/zy4n570MeCekWsffTeVIibsQf1k7nx4qXHGBsvI3qbiwYT4LzLS4iI4l+bqrWtZU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98uzLenkRz2gq2gzHfXX8kk6mszbUW1pSpCbUW51izDbBIwgZr
+	Pp4afHARtS40n4GC8vyJAuPrfeu2364fk7c6Psveki9SL5hsulN8pKFokfCTSTGSvUg=
+X-Gm-Gg: AYBFou2La3GrfMPeogDTvLnv1kjcuyZCb0Zg+HvEhFXLUl8s3DzKipp9jQ+5Vms4ANl
+	Bc5mcF6a3/Su9RWygTH9UlhLn+15j1HO/H1NkNH4y+9uDb345fH9iAnS/FyD0/95jf3HAlNmbqJ
+	K+ut7vdmw1pS5uFvjxMt6S261OvLm4vGmFt8AdO7VyDBwQFjoT4U74GWiMRJcVEvHet6CS3TCjQ
+	382lruxWz+h6H4PkokaOMKbZQZPLTxC65N0aWBHl6WVoEWa2jd2z3IbNFI7Yb6mkn2m8uCxsQO+
+	+vSa1/nPgteA5vqGkD4UIOQBOd0EHs1alFe9cdyOoi0KcUXZ3WFkt8pUP72PcDZMlnkZY1vtmK/
+	+lBqyAA5iyX8M8PhAgEy69eIbsej4XRTY1qF0UwxHbchFbEzfh7UdUZfM+EgZxHvvqfSmI48PXu
+	UbbaYI6gUfVlXC7RzHk7cP2r2sg0/9U2oKyisTcW4cn+6Dm+SVhx/rIuGjUm6WfB9S6SZ4iYlso
+	cV/yvtZIfeU5PAphWZwCNDPSDdZnbXX5hD6Soam1YS6VfN1SK5CHqxyp8SNRa0WqQAppdWynX3K
+	Nsq6gT+huvxZXVpgmqx3I2mYWsoaPjIsjiYolbA5PPxdJZS8e4tR4uqvXZtU22V7o1qtZBPTE4b
+	Mtsh27TdQw5XIRUgBwJ1ZntqSGU5kpRN5aKU/n4vVut8xTrwZqyda5HvtGKhai1CyYwdcOpOLdn
+	YqwfNeAClipml8NYNIDIAhEM87TZQq9/ZKch48CaRMkt0F/ZmO2Bob
+X-Received: by 2002:a17:90b:4b83:b0:3b0:ac2c:1619 with SMTP id 98e67ed59e1d1-3b12d3e713amr651515a91.39.1794127299954;
+        Sun, 08 Nov 2026 00:41:39 -0800 (PST)
+Received: from localhost ([50.175.87.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b101bc4586sm3906321a91.2.2026.11.08.00.41.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 00:41:39 -0800 (PST)
+Date: Sun, 8 Nov 2026 00:41:37 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Zhan Xusheng <zhanxusheng1024@gmail.com>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH v2] mm: memcontrol: Don't lose track of exiting OOM victims
+Message-ID: <avA1wXhTMs9eY2NF@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,123 +100,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
+When oom_evaluate_task() comes across a victim we've already killed, it
+backs off until the victim's mm has MMF_OOM_SKIP. This gives the victim
+a chance to free some memory before we kill anything else. However,
+since commit a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup"),
+css_task_iter skips exiting tasks once signal->live reaches zero. That
+happens before exit_mm(), so a single-threaded victim can disappear
+from the memcg scan while it still has all its memory.
 
-On Sat, Nov 07, 2026 at 12:28:55AM +0100, David Hildenbrand (Arm) wrote:
->change_pmd_range() populates PTE tables before installing uffd-wp
->markers. An empty PTE table can be removed after change_pmd_prepare()
->returns but before the pmd_none() check.
->
->That check then skips the range, allowing UFFDIO_WRITEPROTECT to report
->success without installing the required markers. Subsequent writes by
->userspace to these areas will not trigger uffd events.
->
->PTE table reclaim during MADV_DONTNEED and page table retraction during
->khugepaged can trigger this.
->
->Retry page-table allocation in that case. Simplify the code, getting
->rid of change_pmd_prepare() by routing all code through the "again" label.
+This can kill another process when the first kill would have been
+enough to recover, and we've seen it happen in production. If the
+second victim is in a cgroup with memory.oom.group enabled, the extra
+kill can take down the whole workload.
 
-Cool, nice work1
+In tests I used a 64 MiB memcg with swap disabled. I started a process
+that faults in 44 MiB of anonymous memory, submits a 4 KiB direct AIO
+read to null_blk, and goes to sleep. I set null_blk to take 10 seconds
+to complete the read so the victim would have to wait for it in
+exit_aio(). Two seconds after starting the first process, I started a
+second one that tries to fault in 40 MiB.
 
->It's a small race though, so likely this is not very urgent.
->
->Fixes: fe2567eb5521 ("mm/shmem: allow uffd wr-protect none pte for file-backed mem")
->Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
->Cc: stable@vger.kernel.org
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
->I expect Andrew to pick this up.
->---
-> mm/mprotect.c | 48 +++++++++++-------------------------------------
-> 1 file changed, 11 insertions(+), 37 deletions(-)
->
->diff --git a/mm/mprotect.c b/mm/mprotect.c
->index e18d4e12fc341..ef4e7188e24da 100644
->--- a/mm/mprotect.c
->+++ b/mm/mprotect.c
->@@ -470,25 +470,8 @@ pgtable_populate_needed(struct vm_area_struct *vma, unsigned long cp_flags)
-> }
-> 
-> /*
->- * Populate the pgtable underneath for whatever reason if requested.
->- * When {pte|pmd|...}_alloc() failed we treat it the same way as pgtable
->- * allocation failures during page faults by kicking OOM and returning
->- * error.
->- */
->-#define  change_pmd_prepare(vma, pmd, cp_flags)				\
->-	({								\
->-		long err = 0;						\
->-		if (unlikely(pgtable_populate_needed(vma, cp_flags))) {	\
->-			if (pte_alloc(vma->vm_mm, pmd))			\
->-				err = -ENOMEM;				\
->-		}							\
->-		err;							\
->-	})
->-
->-/*
->- * This is the general pud/p4d/pgd version of change_pmd_prepare(). We need to
->- * have separate change_pmd_prepare() because pte_alloc() returns 0 on success,
->- * while {pmd|pud|p4d}_alloc() returns the valid pointer on success.
->+ * Populate the lower-level page table if marker installation requires it.
->+ * Return -ENOMEM on allocation failure.
->  */
-> #define  change_prepare(vma, high, low, addr, cp_flags)			\
-> 	  ({								\
->@@ -517,30 +500,21 @@ static inline long change_pmd_range(struct mmu_gather *tlb,
-> again:
-> 		next = pmd_addr_end(addr, end);
-> 
->-		ret = change_pmd_prepare(vma, pmd, cp_flags);
->-		if (ret) {
->-			pages = ret;
->-			break;
->-		}
->-
->-		if (pmd_none(*pmd))
->+		if (unlikely(pgtable_populate_needed(vma, cp_flags))) {
->+			if (pte_alloc(vma->vm_mm, pmd)) {
->+				pages = -ENOMEM;
->+				break;
->+			}
->+		} else if (pmd_none(*pmd)) {
-> 			goto next;
->+		}
+The 40 MiB allocation hits memory.max partway through and triggers an
+OOM kill. The OOM killer picks the first process, which has more
+resident memory. With the read still pending, the victim blocks in
+exit_aio() before it can tear down its address space.
 
-Previously, reclaim could clear the PMD after allocation and we'd just
-skip the range without installing the markers ...
+memory.events showed oom_kill 2 in three runs. In one of them the first
+process hadn't submitted the read yet when it was killed. The slow read
+just makes the window easier to hit.
 
-Now it's change_pte_range() -> -EAGAIN -> goto again (retry the same range)
+The cgroup iterator hides these tasks so that cgroup.procs doesn't
+show processes that waitpid() may already have reaped. That's fine for
+cgroup.procs, but the OOM scan needs to see a victim even after its last
+thread has started exiting. We already have CSS_TASK_ITER_WITH_DEAD
+for sched_ext, so use it for mem_cgroup_scan_tasks() as well.
 
-And yeah, that should do the trick ;)
+With this applied, OOM selection backs off while the first victim still
+has memory to free. The 40 MiB allocation completes and memory.events
+shows oom_kill 1 in three test runs.
 
-> 
-> 		_pmd = pmdp_get_lockless(pmd);
-> 		if (pmd_is_huge(_pmd)) {
-> 			if ((next - addr != HPAGE_PMD_SIZE) ||
-> 			    pgtable_split_needed(vma, cp_flags)) {
-> 				__split_huge_pmd(vma, pmd, addr, false);
->-				/*
->-				 * For file-backed, the pmd could have been
->-				 * cleared; make sure pmd populated if
->-				 * necessary, then fall-through to pte level.
->-				 */
->-				ret = change_pmd_prepare(vma, pmd, cp_flags);
->-				if (ret) {
->-					pages = ret;
->-					break;
->-				}
->+				goto again;
+Fixes: a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Chris Down <chris@chrisdown.name>
+---
+v2: Give more concrete details in changelog (akpm)
 
-And, after the split, we just go back to again -> allocate a PTE table
-if needed -> recheck the PMD.
+ mm/memcontrol.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-So, no need for that second change_pmd_prepare() ANYMORE :D
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 84f4a8fd4d16..cb7cfae9ce5a 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -1451,7 +1451,13 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
+ 		struct css_task_iter it;
+ 		struct task_struct *task;
+ 
+-		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
++		/*
++		 * An OOM victim can start exiting well before its mm is
++		 * torn down. Keep it visible so oom_evaluate_task() can
++		 * back off while there's still memory to free.
++		 */
++		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS |
++				    CSS_TASK_ITER_WITH_DEAD, &it);
+ 		while (!ret && (task = css_task_iter_next(&it))) {
+ 			ret = fn(task, arg);
+ 			/* Avoid potential softlockup warning */
 
-LGTM!
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-
-Cheers, Lance
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
