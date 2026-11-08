@@ -1,91 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127657;
-	b=RfmKp08fsgtVYUM0HXJsMX1+zqXGvvqmULHp9mXe9PqIzVFmD9yElmG1k/OmryN13aMR
-	 BZf6YC6m7ciyAWFKzRXYR36hCQJqjmM8g+JmfsyeN3uCxEPUmy76sckxiYgI0pk8hLolB
-	 ByzJhuVQK59YGMwG0lOvTFp8CjY4luzkVE2PZeWokQ9dDO4xLs/3TV95auEQkzaU8+gFA
-	 mQonNzYoiLI+u4zljrFqmTxBEMyb4mfXCYcoGh8cPtOAD4Pa0ijoYnTcvoiGCc5TUNnII
-	 xy+yNDlWfTdaRl5EOX2Rzf57LcKqrViiunvXztxutRIL4LygWJT1pj1V478xn+uw7TA==
+	t=1794127684;
+	b=SasfBdP4y6iEpdgGjmNkcbVn00iwA+WKz/cb6r8XY/xxqfBihHmMoe2YTSShDj2M1f+X
+	 iqf5yBbmfOtj/8EU0SaBTRVZ4Yy/vwegsIhrdtXLM3xgVIInLHoiANi2JscofMzFEhxR7
+	 9Gs10230P0ksHjfc+ImnxniGUBMq6Z5+hd7KYgPzu7Ui7aBvsqKFweVNKf3mJlCfVEyk8
+	 CC0kh8g+9STQSLO7oewB7oaZ7hAdg+8neRXgLnZ/ddDGdr54pAYA1XFb7H98JPIMsVhbg
+	 i0WJcIxXGpVBxtE9tOqwuPTxa2q7Fqxbl0w8JCnWfr+n8/ZuxHhQBceMZa4RWiqCKfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127657;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:User-Agent;
-	bh=oImRzjWDz8Wxxig3JSKCeNvDBZv9ghzuzFbbGiNLN58=;
-	b=JQZYkrUJXlQCD84Nq10/eSNixhv7Tpnb5N2TtqgOqWIOkPbE/BLWP7ZgP5DyNKX0SWnt
-	 wB+o1hx2vBZ/qt5FQDBm8J6FtltNz3j7EssBejbvi+qpCKjxm8rsOedhzBT+4vNMRitfJ
-	 klxjCmvdAsbz2B8Pf6kbnVkp1QPf/7ecArpWj5EJgIBi1QKgNwbTH5QajQEJtSAAG92PG
-	 v3Y9WK0zPx5DrVJAt0GvNcOzM3BZRFi4xH/ze740vPlndjDh4UdN0U3Pwx7mo5zEO3z3N
-	 0Q1exQif642oIeDq1uQA/ZSlJXUwqchaxVQwecQcfcdkRE3xopJ8HrP//jhAlxMSbQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127684;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hYQT1iQSwsWlveP/FynCeMcR1777Wf6i9C77SMccBzs=;
+	b=joBf+Hqk0uTeX9C4YJ9S07hTUlHN+OxGKGZDKMOaQGfijV7Mgzr3HViE6N+0DUtE6d9N
+	 na6UaRxWXX+7X5ldMnev/lACy5bJ5dZ6ntlmeO1BHdzb2NJ9DhGZTrMfgZRLIPd6GDrYw
+	 o3gxyPDAK2BlKANotuHOwfSZSd/n3TnqKFo8c4tyLtos7w36hEFZsWY8nXPb4pLiVfwVx
+	 DfGj7zTbKmPytcZZ3+J52Uy3rNaSHGsgukZACzv4woAwn1HQeSiKSfWgsNyLq1q1fBNcl
+	 FEGkmmYa/UeNso3djCJYINf6XFmc91iFgORBlkhUcV6ojlrhBoimKJw4RJmNvDMxipg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=drMYhROL;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdhHIcBU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DAE1606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DAE1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id AF25E606A31C;
+	Sun,  8 Nov 2026 08:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=drMYhROL
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9e53d011eso1182845ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:47:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794127656; x=1794732456; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oImRzjWDz8Wxxig3JSKCeNvDBZv9ghzuzFbbGiNLN58=;
-        b=drMYhROLQAzQQ0rCvGEW7U6+4IS+QEXz/+0FkEIiLobw7IaBIVdyXViS1ICHUVrB5e
-         bQSZVXmdMJ/FHLzna2uXzpaACX1RrMI8fEQg+In6z3kQVB3rbAs5i+Y4sk1uCE3jruNU
-         At/6FWAaHlS1dN4I7SabSoDcdqgB87zdbm9jU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794127656; x=1794732456;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oImRzjWDz8Wxxig3JSKCeNvDBZv9ghzuzFbbGiNLN58=;
-        b=e032u0p5G9XAazC2ho14ck3/r/hGKSmK6ytP9n9Q4vGjsPPZ7PUtf/XR4yKKQCWb43
-         CY0mGQQdhrO/QU/gjCQuvYHI1JVXDetIZkW7umSeE8hzVRDEQQag+LL1s4Kmvkjb+SFa
-         jTF4XFeH2Wy+/jVxQWGmMHzABnUqEBWOVktd7MgWupa81guBFPLuAdOsMh4Q/+N7pDBf
-         ++36UftlCGZNQd+DcUYsIYYhPrfrlhXXTy7hw4Yv0qnHqSvAFcHlVxMc7x5mMfO6Cuhx
-         AeiWVqZpPSnhxnq9q1s/W5wx4BaPtgbOr46/0C+Z9tevieZ5pMO7yv3qXgX/rnHXn8v1
-         aDng==
-X-Forwarded-Encrypted: i=1; AL+hErE3CEbl+IManMeTsLeEZbFayyoCy0TlWC77c04sQrD+PNsos2/AeqdzR0sHN9LPbNI8oGU/Xgrn6ZDZnAM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+5sQTKkew3vHeoUK9+QdLGuYJCmcAwiicpSzIRi+8zUcc0Rzv
-	tKMhDKpzZq8GQPl1NwjbrJFtvz5+jEAQezWN/IbGVacTZNAapGdgNScUvMhFW0S4N2A=
-X-Gm-Gg: AYBFou3GXm+KX6spMH8geySnm2ONAPGVTywBEXatPTOzUrEtAf4yyLUgbYFO5dOF4/B
-	LQmyi1ACV6ohgsg2ZctlDldffRVow3IOSPeCvswxUZLsotQqLeWPUjfg3zZeDAiV30ph4snYgHg
-	pOd7KclVuB21GMLNO3++CbjeS/Lbf69XNGMajmPUbsaOybfV4aAx+Bu7ZpV3KOYT0ehVmrNSY1x
-	OVElutmtj+h05okDkezntXCEbrl73Umg+s6rZo+v+uxQf9tgBki3/6UnXydFto4ecB6mKsuxuUe
-	HWc5BDiwoEikEVnr8Nof0ALPkPKBwwaNF3ZD1E2M9gPWVpQPgaagAMwM6sDOxxg6aSGrHsTykqS
-	soOjAwPcMf4rwue6xjhIgdF1m2i9N9/GcpYkS18/Bvu5/D8mXUa27qfPD1vAJbuobGcnmt6OIgE
-	uQqgCEekNo9Ijxwo1YiFpH2qMeGfdXNhuq3D+yhk2LwXxEcOhXPKbJluK6qQ31dxhQQpu1Rze9X
-	xSDK2j4QL6NKIKtkAbykww0DwvG/BmM0AEaKdu1SeIDXNJLjSa+rHq6KOiHM7O4TjlkDrX43Dos
-	O3/kS+XEiZZ5eLD2eKgTfAE6oGe0baRe3LE7NkLQqKubxJsE5Jxp4LtWDlMKH24PY2lqFpVtjmZ
-	WdXasFMjUkHY0jVGb5HRKYfAxjquYCRltSW7NfGtNi56s6JfMvlH9GponpXkbjqVHZ/vrIla4rk
-	SoN08fAoEX6nebu46Kp5nX6RggvbU0pAWY6UNFXiVqu2bTN65bnR53
-X-Received: by 2002:a17:902:ec8b:b0:2ed:3f47:9699 with SMTP id d9443c01a7336-2ed837dab45mr8233875ad.38.1794127655733;
-        Sun, 08 Nov 2026 00:47:35 -0800 (PST)
-Received: from localhost ([50.175.87.158])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed815e72acsm3030105ad.13.2026.11.08.00.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 00:47:35 -0800 (PST)
-Date: Sun, 8 Nov 2026 00:47:33 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH] md/raid10: Prevent data corruption after a rejected
- backwards reshape
-Message-ID: <avA3JQ6lyAlMm1Q8@chrisdown.name>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdhHIcBU
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 954681F0089F;
+	Sun,  8 Nov 2026 08:48:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794127683;
+	bh=hYQT1iQSwsWlveP/FynCeMcR1777Wf6i9C77SMccBzs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cdhHIcBUGL1DwEzHNq9EeqVORPfy/7Lwlnhw2LDIqiQUv8o3U8IyJtPXB0+duiRwy
+	 xSucdJ2mmZKm0uHL9ddexlHHiUSqzcJXww/f0q3UD5n92prMlCooafMZY34x3gWk/a
+	 sTXFr/6pFSgJv7TLwMJXKzfh8jvGq+cESUX6bIMHlpGbhcsDmQmRSe9vDQXHXcCkPh
+	 5Cg26OuGBG5vlsOpNqPbqHS2758xD5bRXxG7HnOX4qwQdzEWsfqYi/9BQFN/v9gwbQ
+	 8at/mRxwdOZkbBLVwYpJCYBjpIZT5dpBwTY2YTpDzuO2zLPO6513gDlIsEI/Vm4KHW
+	 nPGYipMLqIu0g==
+Date: Sun, 8 Nov 2026 09:48:00 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Neal Gompa <neal@gompa.dev>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Hector Martin <marcan@marcan.st>, Sasha Finkelstein <k@chaosmail.tech>, 
+	Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
+ compatible
+Message-ID: <avA2hReZKJL8KFUB@monoceros>
+References: <20261106-apple-m5-initial-devicetrees-v3-0-cee55de54b2f@cyberchaos.dev>
+ <20261106-apple-m5-initial-devicetrees-v3-5-cee55de54b2f@cyberchaos.dev>
+ <avA1rkMvbmTiJDPC@monoceros>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,41 +67,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4zgarb7k2vkd62n2"
 Content-Disposition: inline
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+In-Reply-To: <avA1rkMvbmTiJDPC@monoceros>
 
-A rejected backwards RAID10 reshape can leave the array using the
-requested geometry because raid10_start_reshape() updates conf->geo
-before checking whether the new geometry can hold the current array
-size. If the check fails, we return -EINVAL with the new geometry still
-in place. Subsequent I/O then uses a layout the data hasn't been moved
-to, so reads can return the wrong data and writes can silently corrupt
-the array.
 
-To fix this, let's take the existing abort path to restore the old
-geometry.
+--4zgarb7k2vkd62n2
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
+ compatible
+MIME-Version: 1.0
 
-Fixes: 3ea7daa5d7fd ("md/raid10: add reshape support")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
- drivers/md/raid10.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Hello,
 
-diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
-index 066c43154497..4ade0cf3281f 100644
---- a/drivers/md/raid10.c
-+++ b/drivers/md/raid10.c
-@@ -4393,7 +4393,8 @@ static int raid10_start_reshape(struct mddev *mddev)
- 			spin_unlock_irq(&conf->device_lock);
- 			pr_warn("md/raid10:%s: array size must be reduce before number of disks\n",
- 				mdname(mddev));
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto abort;
- 		}
- 		mddev->resync_max_sectors = size;
- 		conf->reshape_progress = size;
+On Sun, Nov 08, 2026 at 09:43:37AM +0100, Uwe Kleine-K=F6nig wrote:
+> On Fri, Nov 06, 2026 at 10:24:54PM +0100, Yureka Lilian wrote:
+> > The PWM controller on the Apple silicon t8142 (M5) SoC is compatible
+> > with t8103. Add "apple,t8142-fpwm" as SoC specific compatible under
+> > "apple,s5l-fpwm".
+> >=20
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+>=20
+> Fine for me to let this go through apple-soc.
+>=20
+> Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
+>=20
+> (I already wrote this in reply to v2 on the same day v3 was sent. So
+> just forwarding the tag for v3.)
 
-base-commit: 47e1b18f38d74015cb9fd30b5ff2a1eb88e77d31
+Oh, however I already acked the (implicit) v1 on Oct 27[1], please make
+sure to pick up tags when sending out a new revision (or mention why you
+didn't) to save maintainer time.
+
+Thanks
+Uwe
+
+[1] https://lore.kernel.org/all/auBgZhx0qcbAgHnF@monoceros/
+
+--4zgarb7k2vkd62n2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrwNz0ACgkQj4D7WH0S
+/k5bbAf/VUi/eOyCBOz+RaTap74L+qL1XDuN4e956ywIcsS1NBkWSQaBWwNlV6H+
+pjPo6dozWYBNJXR2FW4AutssKdTHbXaYzs1gNQ1yuLb+n41RWcuTlAmRmtLShWZs
+Y9I/+os8WcXECFf5TGTVYX7UJUXlKazj9cFnpz0d8rqbszXWFo7vW5NUxmi4b+Cl
+5nXgFGTJ+FZN+FzlfT96Dk9TaGSGCb4BjayHMZakKeC2VdWTi/EgtB9pMDOJ91k7
+yOmmyv+p0ESkl0XEoTncCa3V78XpYZGz6IYS74flWYs9epw9l5qEvU8fEEFbKUIo
+yaZSkXCtDUT1o93z4tLmyPXWu4H6Rw==
+=LzhV
+-----END PGP SIGNATURE-----
+
+--4zgarb7k2vkd62n2--
