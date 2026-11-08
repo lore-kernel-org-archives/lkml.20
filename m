@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794165384;
-	b=gs5iVQE1CQ8qZEbEzKb5yD8poNwgf6cBP2N0U1KKnPjxywUoGNJ0vAjEhrWcBmppIcXD
-	 7gqH3gqsggs+fSdfdY/jClNmNSHaTyAvI/3KMoOhYbn7mm95Oi3xHX7tldH4Ipzk0UXFD
-	 LaJ2zxuE260Tkl0MyHDkE45OdaPMxgTp0pWq7uTg4bbt0ogNsK3TGVBEwFFbkus4Y7Iyc
-	 JhQoI7swivEIs6Vj77kRA+GyWyGgjvZF8iSPNDAHpkuyJBgrwe45/rhLKcje/IbLNidEb
-	 HBxAnB6cC5r2ZbVUKIdnDAxUerGijDW3OuKUE971VqS1uLHf9/QgF/+Qvd1bwtjRvxQ==
+	t=1794165401;
+	b=Z7qomGVWFXElzP7ScNhERLS8ER3S2AG6YLa+EdlbaLLgTtqr/oQWhGjl+dQVty89UyJB
+	 vO1bS60w+gYJn4g+VwnR5Vn2ujHhmjqBW7ym3Fh5P1ihySq7elfVQnjxCC/WP/nbq37dI
+	 eCZnkq83gJBzWR4kK3uhuvOhlR0ByiKcu/Q7p7pc7GvXz4XoqBcg73ykZL63wXZlboU4L
+	 ZDs14uAd/9l7XFILNZWAGIG4cuYM22txHflvSOvCj2mpFPxyTr6B20uwi2pwM/TmwD+5C
+	 hRgCJR67daQS6QjXxNQt7uUfsykVCXjzJgGi5lDnFoaX7Ux8r3CDlF6QEOX6RHkUcLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165384;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kafHwu6q55LG1XprWuU0JCx4heKZt+x43kKCH82bMRw=;
-	b=jSHfZtq2ZM1gTMjBdaZAMpKIYtcpQsjCJxKFuVA1DmjnoRqBlCmK2fLYwNIQf6QLQ0RU
-	 0eaoZDfrVq0L60FM1yB2zuASLvtVHlXLbqIcY06xkMS/ytbGALNyAoM5cbXRjaRhQjCDs
-	 opoUjEug2qy/IQrOa4Cg6ZX2VTspQ0UaGIOksROFevwGjxADEAJi+gPZ+jVMoD5Z+p87P
-	 hpxqlG6y30/B4qbGcFWtWD3K1+TMmJMiWU3G9rinP6CYN59Gsrls3C3YCvWB4RjVgFWTA
-	 xls2mKW4jBE54xI9Y7xaOfKj5iV0sOD/eAouVrJ53GLl6Vz+PLa2eOVv/QJ9hrVCj1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165401;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WHhmKLeDTRwj49XIu5uDDUoPAxMbsDAkiOYdqoJD4ew=;
+	b=gyTIWk3S2T/wDXwmUVQeuFWWNUSmee7nCRgwwb+40D8JJo5yXxk1/zHCwHNoHMrIe1q5
+	 QrT4AHOP4vsmLEj4m8X04rT4gNw6oaQNIOibmdXZqPHiUqgLFrKO6lNlhKK6gC+cPmdqD
+	 rPlmBRPDo9K7sFYgT0vrfZM/CXYo4GGURL/4+kcyrYpe8DOcJQXjTXClBA89dgkZERnn/
+	 z1QiJlOybNMBFh8KFeeO20T034XWEZoVhZcOOBx01dATLlhR4Nfxky7EzcFsn5yrpSewr
+	 MXiBZFGFI5ZepTZEx4H3ldcM4kBOSFPlSurrXitIkbc01BaBXL5/e2QGr5zIxjJA6Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNRuJY05;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=JHRG5Dou;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=LBX4T4nJ;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C110A606A31C;
-	Sun,  8 Nov 2026 19:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8E8606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:16:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C8E8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNRuJY05
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6801D1F008A2;
-	Sun,  8 Nov 2026 19:16:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794165383;
-	bh=kafHwu6q55LG1XprWuU0JCx4heKZt+x43kKCH82bMRw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RNRuJY05Khbnu6awMwIH8DQxPOvF7hltgBdnzqfCPDwjAuw/+YR2We/qbQPiKk2wI
-	 w2XYdYDTjQtv7zNCnhrYw1vkUtoCb3YrDnpHO4F44oljuLkkCNF+lmJ2Af0+gxWpXT
-	 6vWMdhiyEOM40eNyIDcv9EdgqUyv9C1cZREheNOXQW0Gr8KblCpY29G5J7mY9ANEHc
-	 7DQETo4d5eStxj9bW8ZgyRK+eKIzl8h/wak/fZ1LeagjAGXNYmw+dMBMBXnzyIxi+A
-	 eitvdeRw1Kxfrfzvaimj22YwyLGOFTOvMpBRpRfJUeb31Hie5J2j/OwOCPE+fCZS57
-	 0JOMNge7Q2Bug==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 1/4] mm/damon/api: define DAMON_FILTER_TYPE_ACTIVE
-Date: Sun,  8 Nov 2026 11:16:11 -0800
-Message-ID: <20261108191615.113362-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261108191615.113362-1-sj@kernel.org>
-References: <20261108191615.113362-1-sj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=JHRG5Dou;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=LBX4T4nJ
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1794165392; bh=WHhmKLeDTRwj49XIu5uDDUo
+	PAxMbsDAkiOYdqoJD4ew=; b=JHRG5DouWApyhWwlX0Bp/9rj23q3hL2PPjXD+o+mdzDIqrtzma
+	rZOUmsZwvBFMG/puAYYUFiO7JSzWcbn9th2WCih2JfG3+M+HMUr2FNaSgXgQT2EVACZN16CaDwX
+	QnY9ys11FCCIeJ8feZKmnGDjS+/Zbi1b+AEwp0scZdsdMQ2X1wk3DdsMRBfC1YHuHgnjE4mfb2i
+	4ovf3er/hDEs20mWAet4m9JSwtmxb+rwBApgEm8eRjqyTB6TLHTiQjOAIpYKWvA0jz1BGY6GT+S
+	OYCN9OmueABi2lJIFJij0by6U/b0hCVYp8Ek7Ut7MV0c6JjO+E1O0wifHyKuarN9AJA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1794165392; bh=WHhmKLeDTRwj49XIu5uDDUo
+	PAxMbsDAkiOYdqoJD4ew=; b=LBX4T4nJniBAGZcdTcf2e+GoUy1oHkFu+GxvgU6Zk660CFHpOk
+	cLArrN8h1n702/4w8mKjUsHLZfxPgPbBkbAQ==;
+Date: Sun, 08 Nov 2026 19:16:33 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: kizilgunmete@gmail.com
+CC: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Add kernel.cpp
+In-Reply-To: <20261108154503.17529-1-kizilgunmete@gmail.com>
+Message-ID: <4FF24E39-CCB2-4D12-98A5-C711ACAFED34@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,40 +62,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Knowing which memory is on Active LRU lists is useful for understanding
-and optimally operating systems.  Extend the DAMON core layer to be
-ready for support of that.  For that, define a new damon_filter_type,
-DAMON_FILTER_TYPE_ACTIVE.  It has no additional arguments and therefore
-no additional change in the core layer is needed.  Testing if a given
-memory is on an LRU list for the type of filter should be implemented in
-the operation set layer.
+On 8 November 2026 15:45:03 GMT, AwesomeNick <kizilgunmete@gmail.com>
+wrote:
+>Please add this to the kernel now. It would be a shame if you don't.
+>
+>CRUNCHY CRUNCHY, MADE BY AI
+>
+>Signed-off-by: AwesomeNick <kizilgunmete@gmail.com>
+>---
+> kernel.cpp | 6 ++++++
+> 1 file changed, 6 insertions(+)
+> create mode 100644 kernel.cpp
+>
+>diff --git a/kernel.cpp b/kernel.cpp
+>new file mode 100644
+>index 0000000..7202cfd
+>--- /dev/null
+>+++ b/kernel.cpp
+>@@ -0,0 +1,6 @@
+>+#include <cstdio>
+>+
+>+int main() {
+>+    printf("I am the kernel's great update!\n");
+>+    return 0;
+>+}
 
-Signed-off-by: SJ Park <sj@kernel.org>
----
- include/linux/damon.h | 2 ++
- 1 file changed, 2 insertions(+)
+Oh em gee! Best patch ever! BOI
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 1302ffb6f0bcb..858b4c6900fde 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -780,6 +780,7 @@ struct damon_prep {
-  * @DAMON_FILTER_TYPE_PGIDLE_UNSET:	Pgidle is unset.
-  * @DAMON_FILTER_TYPE_PGIDLE_SET:	Pgidle is set.
-  * @DAMON_FILTER_TYPE_HUGEPAGE_SIZE:	Page is part of a hugepage.
-+ * @DAMON_FILTER_TYPE_ACTIVE:		LRU-active pages.
-  */
- enum damon_filter_type {
- 	DAMON_FILTER_TYPE_ANON,
-@@ -787,6 +788,7 @@ enum damon_filter_type {
- 	DAMON_FILTER_TYPE_PGIDLE_UNSET,
- 	DAMON_FILTER_TYPE_PGIDLE_SET,
- 	DAMON_FILTER_TYPE_HUGEPAGE_SIZE,
-+	DAMON_FILTER_TYPE_ACTIVE,
- };
- 
- /**
--- 
-2.47.3
+Reblonked-by: Harry Potter <harrypotter@imnot.ai>
+
+No but seriously this has to be a joke...
+
+
+>
+
+--- Thanks!
