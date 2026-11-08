@@ -1,82 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794130489;
-	b=sTl1Nm1Gsc7BjVkX2O5mTnLUCTqEJt+YGrg3Q+/hZ7AFSBS6mimydqSOd4c8kt8zhbFV
-	 VVok/R7KI0UP+vxXLI1uV0hOTOaZE6lujcPKyJawsGNPjtcDNxceGyG4zUAyOoLL19Tz5
-	 95SHKJ6xQv8G/egimy5hBBBSEOPSa3kIchBXHW85RqDFasKqbbBxKa9sLpKFHuBgcWrSM
-	 C/ylNdYmAUas3gbwsj01a3GisPwBmKR2IzhbpqwQUtbwZvIf9xfOAMwBgf/MZuWVGQH0j
-	 3AkMKwg1fMpWDLx2QiyH79l8/NOw66DzixWbGDRZxSkaCN8Y3gXjWge0tkg1V5tXUhw==
+	t=1794130589;
+	b=RZFJ3hzHwurRNvx6VpfX2l6TfFhyG2hSu7iLNCAQJPzhyRnXywF/A1UkSHjW+k/6h3w1
+	 PA0iw5/L9ovVIiQoat/8K1BQVy76++PqpZHeoJQ2klhgJ4JeUiw6MJhq3/6D1wn4h0otS
+	 eR/wJwURUJEDrA3vANaDmegZbo+VKYcworgMLwR7f5MPbjFHj5MLtutXDbUcsxAoOU6Vg
+	 C3kNcHotY/PpiGScohheaDW5xWUJDzEkXqj+pSzi/G1WJ7CS0WaGrZecxfIuubj5EXthd
+	 gL0zOPApmQLT0As9RJZhI+czZgkVzlsGX/VckK0B8DHqKRijjTyAbxI6a6lhZXA+P0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794130489;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=26mdlMVJY/cCagL9S9DgkIy3gT2A9gcY1ogtAJRX8+o=;
-	b=H17opcqXMlG7wFI48SpmG/vPrvk6SKqLMZQesKTumJaV/rEYVVziZ9A1W+Dw+MBvMR3r
-	 Xl4RhrkDXzabyPtci6H+5hL+eAIecVJBBVP7gHCxCSOMeXf5apjyo41NfDGtjGkv1XmGx
-	 EyC5IBsN3XUuJIb1LjzQWZ/kUFHcKH3+oUBDoL+ud4071nfsJMlnILhtN/zmCNEMD1ZSH
-	 I1WLIP9A7ElUiBoLbrkZeifersNxP58QZnZWorya+btcnhoaqn0nFNFe+mRpDMy0m+NjD
-	 EDiE3GUrzgcx/j7VHz4m6jG5fyqcg+l0wqZAC8ZTMNiHptkaRM+yBCy0QT4hsCkDaHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794130589;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1gFuR1bxc5xsOK5qncGI4pXWKli3a5dtxlSmm79GBRM=;
+	b=HsFU6gYqHUDX9lQVqlnXNRdXy6oobuNtF+AxS/Sx00nnRN67zooGJjHASd63b+OpBkTE
+	 QCyYzskX8WI+6nu3AefN0snTD0MG7bimNMdeMPSTEtuBcreyTh1MejifjEXRO+7VZjfxY
+	 dISuNmn7eAaE9Mgm9677Q91M+m8NVT0BIZviWYQFPRIBpuenkbFHHa3ltdT+2oW2eg3os
+	 JDIOZF9+Q0MYkPxDyNEH9gq+WInMG7RDuXKCtNG9yeCLy081zpHMxIWGNePspPrrBYldB
+	 XeyxaarU191bYbvHAMBTL01YZ5sVAA1S2p6KCccA+DMTxKJb7gXUlTL19PoDSLq7KvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c5Gq5RgZ;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eL5zqJOO;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A750606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A750606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD23C606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD23C606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c5Gq5RgZ
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A87iX853944789;
-	Sun, 8 Nov 2026 09:34:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=26mdlM
-	VJY/cCagL9S9DgkIy3gT2A9gcY1ogtAJRX8+o=; b=c5Gq5RgZxdtde19j+ldiu7
-	qUPj8Hcyz+4M/yKrvg4PSJwws9J/Sz28XFeTebERCG9SHk2g4tI3Fxdi2w3ubouF
-	Zlh/xnP4JG/GTS/Hj+4wr2f7njVxD0+hayPcpCMrfRg+2AOzSss1XTBMUbevaMPZ
-	9X3f12T+L/RWxcEi1OR3Rc5WnfnsV8VKeYwbUYXkd5IHSoHBl6xO5U3sLRfhvYnC
-	Xb78b5ZZ2EHyT6uAZ7P4L+bDd0fPBFi1FqBAy4Y40+hMFP2TcrQ7+ruYOlMyZHNo
-	WRmop5LsNDWbwfrAJd5LtrQp/sVSEsos8A4+kqpYPorUmciQej8a5riq9jfDhUuw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumue2um-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 08 Nov 2026 09:34:11 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A87ns221117441;
-	Sun, 8 Nov 2026 09:34:10 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4htghfs6mu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 08 Nov 2026 09:34:10 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A89Y8R455181806
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 8 Nov 2026 09:34:09 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9078F25C83;
-	Sun,  8 Nov 2026 09:33:34 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E3CDD24EA1;
-	Fri,  6 Nov 2026 08:59:13 +0000 (GMT)
-Received: from [9.43.97.220] (unknown [9.43.97.220])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2026 08:59:12 +0000 (GMT)
-Message-ID: <b361a5d7-d107-4fbd-a08f-1c89d71e3886@linux.ibm.com>
-Date: Fri, 6 Nov 2026 14:29:11 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eL5zqJOO
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so1495555e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:36:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794130587; x=1794735387; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1gFuR1bxc5xsOK5qncGI4pXWKli3a5dtxlSmm79GBRM=;
+        b=eL5zqJOOARgwAeZRFDpXiRsgR9hEN4hg09+7A+7qbkDObfGuLgBVmATW2/FPOPJL4m
+         xbpFxRD4Ux2lWfJFSujF9lkj9iyFKy2u3dtjHSMlNQev3Q307jC/VLPtpBAFiYST8opR
+         pys5iKpT80hWYq1mcF7KHr0FKdebak0ZvlC+MXmGq1TxwzEur6BUwMLlWGizBzSGHwl2
+         oV2gIeWoBYjVIAATVHb7ZAtVV9/R5CPOaViz+Vp55Ctl9w9wmPxz39hVkhlR2b+sAzdK
+         qXU7o5BlzMGLm5YiDQiv2Q5yJ7JxDNqiF8trC3z8utebmHcYTtfC6zFaDqOqz0MoKAZK
+         2SQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794130587; x=1794735387;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1gFuR1bxc5xsOK5qncGI4pXWKli3a5dtxlSmm79GBRM=;
+        b=P+eFyDHKc11XPeNhI4tt5A2h5l7Iq5Jk2D6cG53DLz9uSPt2IQ6/9L0Vz7iWxc/S+d
+         uxm7AezLVWyrd99YDiXtLpPFqMMUfWkr/kYDEoU7NNPkmOvrOKMghM6q/jBU1wupSwwp
+         lAFhlVkl3PdMY8tpQzuehMgfe3Y/+VaRv42Z3fN/0e5zVn0YycB83GfSG2t6qY+xBqT+
+         iQR6q62fAeOymrm0DdyC4xcEMIdNV6obluCS7ykNsKZIpZMjwekrghQUaALi1wzn2bxJ
+         AhDAGNgukHyet6vgCN8BOTRZ/5Br0m7n61To8phJ6JvlnQCoE1a7FnjzfjgxSJtuX6cZ
+         meNw==
+X-Forwarded-Encrypted: i=1; AL+hErEvwkZ+vuKhLpfYjgiY7elu4NSnx/C6hBjy/NiAtjlkasU9cdxIuFLLNW9bmTLQ60IkecrBSEKJthnlZIE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+WJ2+IFh+R+3b2OZCj20eWFx3Wrr+C0qSHDX5W54BAZ77r7/C
+	1ZyKXQAc1yvxwVk08Z3vyRVTPKcQ5fZey3R/VfruQeIZwvBdt9AImjHw
+X-Gm-Gg: AYBFou3lrrXvN+XBTBnSiJBNsFvMgz6i5NsQ5eclmEtAbtMc762k80eVy/nHxgDrbzo
+	+C/lXdRyP757h4l8YFKlQvUHYSho1o64Ni/d4GTSjAYZ7QpOY+SmwOxVw15m68H5gVXxlL73FNV
+	jmjq7OxTtQcJ8Cl0JoEAnwV96XZvnN7Zbjm2v0UJIh83Wt5C1afyEBJJujufOUckoRtFz0eme7R
+	MYrtE/Amakl+9/CATMRyzFR//nBmq5EmryZl2kLYyQEcqtcK0Hv6iFCDeLxCLgnCAxjqNKHAxBO
+	W49dUHD1fzMIpHkEqXI1LMpGVJxQBTq1eqo8u21feU0eb9PgCzZlRqMf3Jn5v1eETADSf9dGPm6
+	7Gis24KQ/Yc2KDWkzDrSwwunhZJFGTwlpNTgDjoeWTvY6Du156Kh9CvfaE2d+h3pGOEe1x1KZHL
+	LoAzWQ+hXXgffEAkWqrvrxevZ0zWJk+b8IG2nMc7qE+mFPC/JycURV4OzcUEq/UhGBB5KISN84p
+	FKnCCVxdgQVjM/xuOlPPieCDhrJlm9CBV7GD++j3QxvyaiBOxD5XUsIOBO8dlJ0g7qxWhvaIa1j
+	Ev33fpRreB2CMXkktiZuEYHWQ2rWKDsa8iscGaul8LKCYaK5zQSKqb/IVPhmwmo=
+X-Received: by 2002:a05:600c:1c0c:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4b963c69d23mr19923505e9.19.1794130587155;
+        Sun, 08 Nov 2026 01:36:27 -0800 (PST)
+Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e6eca30asm141650355e9.7.2026.11.08.01.36.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 01:36:26 -0800 (PST)
+From: Pablo Mazzini <pmazzini@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Lee Jones <lee@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pablo Mazzini <pmazzini@gmail.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-hwmon@vger.kernel.org,
+	mfd@lists.linux.dev,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/5] sy7636a: power the panel only during updates
+Date: Sun,  8 Nov 2026 09:35:57 +0000
+Message-ID: <20261108093602.329554-1-pmazzini@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,294 +107,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/crash: Add only the onlined CPU's node to the
- crash FDT
-To: Vishal Chourasia <vishalc@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-        x86@kernel.org
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org, sshegde@linux.ibm.com, tglx@kernel.org,
-        mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-        akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
-        pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
-        seanjc@google.com, sourabhjain@linux.ibm.com
-References: <20261104053848.1381005-1-vishalc@linux.ibm.com>
-Content-Language: en-US
-From: samir <samir@linux.ibm.com>
-In-Reply-To: <20261104053848.1381005-1-vishalc@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA4MDAzNiBTYWx0ZWRfXx7pUdwHhJFGz
- yCTjm5dI5XqXlRiYqUY/9zcvBG16CagNbNgfUlOt3H8iDhVBPHe8mTcvex7NOhUDJ6In1nQG886
- vMelCwX268psW3gI2gStrmWfShcpt50=
-X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af04214 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=WK97a0cl3x871QaWk5EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: gGX8h1OsfJFICuAbGlI8T9wEWLmMFXFU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA4MDAzNiBTYWx0ZWRfXzlg6L82NvpKt
- 5EDxA821838PbQ/WML3iKPSslEaxlJuJegrrmXyRbqyUs3Niyt+woF4cmDjLSOzDL1Ejor2pNi8
- fhrwD+W7OdQdDIYb42n70K+pe/UhiTMMcgGziiHE2QcshyVkUjgn4Lqel6OKWt5L8RI+VKWj5b5
- oLsApvVHeY851pPP3H+lLl3Ls5OM1IKgiWm/d19U0YfUMImbwri0b99SoRFaU2BIuhBK/66sZJa
- PtedTTvJ7t24lraI9mfweW6OrXDs0ThKWtJVbykQxC3Rhd2GnTeyWNLYRMIFDWeLH99oXGpdhk7
- e2MdIBrNnuXoGakDNtAcALjavGjRvARrR5a6pQ4RnrxVPuEJ/VKuFHgQmhO6R3E6zyndtAVZojH
- uxfybuIAq9GnUEEkk5Dd267aD9UySuTNjxBIdhpFlPWM4C1c+t9+gGyGyQZwKMESWsrewgtDF8h
- a2jPZYvFYxYPXM77tzg==
-X-Proofpoint-ORIG-GUID: DAss56jNuKtoIAlVmp3D2uTiX8ErBuW8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-08_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
- priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611080036
 
-Hi All,
+The SY7636A hwmon driver keeps VCOM on from probe, so a display driver
+can not power the panel only during updates.
 
-On 04/11/26 11:08 am, Vishal Chourasia wrote:
-> A CPU coming online never changes the nodes that are already in the FDT,
-> so add only the node of that CPU. update_crash_fdt() looks up the device
-> node of the onlined CPU and does nothing if the FDT already has a node of
-> that name, which is the case when an offlined CPU comes back online. Only
-> when the node is missing, the crash image is invalidated while the node is
-> created with fdt_add_subnode() and its properties are copied from the live
-> device node with fdt_setprop(). All of this is done directly in
-> update_crash_fdt().
->
-> fdt_add_subnode() inserts the node as the first child of /cpus, which is
-> the same position a node attached to the live device tree takes, so the
-> FDT keeps the order of the live tree.
->
-> Signed-off-by: Vishal Chourasia <vishalc@linux.ibm.com>
-> ---
->   arch/powerpc/kexec/crash.c | 65 +++++++++++++++++++++++++++++++-------
->   arch/x86/kernel/crash.c    |  2 +-
->   kernel/crash_core.c        | 11 +++++--
->   3 files changed, 64 insertions(+), 14 deletions(-)
->
-> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-> index 775895f31037..ca37006bddea 100644
-> --- a/arch/powerpc/kexec/crash.c
-> +++ b/arch/powerpc/kexec/crash.c
-> @@ -18,6 +18,7 @@
->   #include <linux/types.h>
->   #include <linux/libfdt.h>
->   #include <linux/memory.h>
-> +#include <linux/of.h>
->   
->   #include <asm/processor.h>
->   #include <asm/machdep.h>
-> @@ -584,32 +585,71 @@ static int get_fdt_index(struct kimage *image)
->   }
->   
->   /**
-> - * update_crash_fdt - updates the cpus node of the crash FDT.
-> + * update_crash_fdt - add the node of the onlined CPU to the crash FDT.
->    *
->    * @image: a pointer to kexec_crash_image
-> + * @cpu: the CPU that was onlined
-> + *
-> + * The node is added as the first child of /cpus, the same position a node
-> + * attached to the live device tree takes. Nothing is done if the FDT already
-> + * has the node, for example when an offlined CPU comes back.
->    */
-> -static void update_crash_fdt(struct kimage *image)
-> +static void update_crash_fdt(struct kimage *image, unsigned int cpu)
->   {
-> +	struct device_node *dn;
-> +	struct property *pp;
->   	void *fdt;
-> -	int fdt_index;
-> +	int fdt_index, cpus_offset, node_offset;
-> +
-> +	dn = of_get_cpu_node(cpu, NULL);
-> +	if (!dn) {
-> +		pr_err("No device node found for CPU %u\n", cpu);
-> +		return;
-> +	}
->   
->   	fdt_index = get_fdt_index(image);
->   	if (fdt_index < 0) {
->   		pr_err("Unable to locate FDT segment.\n");
-> -		return;
-> +		goto put;
->   	}
->   
->   	fdt = __va((void *)image->segment[fdt_index].mem);
->   
-> -	/* Temporarily invalidate the crash image while it is replaced */
-> +	cpus_offset = fdt_path_offset(fdt, "/cpus");
-> +	if (cpus_offset < 0) {
-> +		pr_err("Malformed device tree: error reading /cpus node: %s\n",
-> +		       fdt_strerror(cpus_offset));
-> +		goto put;
-> +	}
-> +
-> +	/* Node already present, e.g. an offlined CPU came back online */
-> +	if (fdt_subnode_offset(fdt, cpus_offset, dn->full_name) >= 0)
-> +		goto put;
-> +
-> +	/* Temporarily invalidate the crash image while it is updated */
->   	xchg(&kexec_crash_image, NULL);
->   
-> -	/* update FDT to reflect changes in CPU resources */
-> -	if (update_cpus_node(fdt))
-> -		pr_err("Failed to update crash FDT");
-> +	node_offset = fdt_add_subnode(fdt, cpus_offset, dn->full_name);
-> +	if (node_offset < 0) {
-> +		pr_err("Unable to add %s subnode: %s\n", dn->full_name,
-> +		       fdt_strerror(node_offset));
-> +		goto out;
-> +	}
->   
-> +	for_each_property_of_node(dn, pp) {
-> +		int ret = fdt_setprop(fdt, node_offset, pp->name, pp->value, pp->length);
-> +
-> +		if (ret < 0) {
-> +			pr_err("Unable to add %s property: %s\n", pp->name,
-> +			       fdt_strerror(ret));
-> +			break;
-> +		}
-> +	}
-> +out:
->   	/* The crash image is now valid once again */
->   	xchg(&kexec_crash_image, image);
-> +put:
-> +	of_node_put(dn);
->   }
->   
->   int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
-> @@ -625,10 +665,11 @@ int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
->    * arch_crash_handle_hotplug_event - Handle crash CPU/Memory hotplug events to update the
->    *				     necessary kexec segments based on the hotplug event.
->    * @image: a pointer to kexec_crash_image
-> - * @arg: struct memory_notify handler for memory hotplug case and NULL for CPU hotplug case.
-> + * @arg: struct memory_notify handler for memory hotplug case and pointer to the
-> + *	 cpu number for CPU hotplug case.
->    *
->    * Update the kdump image based on the type of hotplug event, represented by image->hp_action.
-> - * CPU add: Update the FDT segment to include the newly added CPU.
-> + * CPU add: Add the node of the newly added CPU to the FDT segment, if missing.
->    * CPU remove: No action is needed, with the assumption that it's okay to have offline CPUs
->    *	       part of the FDT.
->    * Memory add/remove: No action is taken as this is not yet supported.
-> @@ -636,13 +677,15 @@ int arch_crash_hotplug_support(struct kimage *image, unsigned long kexec_flags)
->   void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->   {
->   	struct memory_notify *mn;
-> +	unsigned int cpu;
->   
->   	switch (image->hp_action) {
->   	case KEXEC_CRASH_HP_REMOVE_CPU:
->   		return;
->   
->   	case KEXEC_CRASH_HP_ADD_CPU:
-> -		update_crash_fdt(image);
-> +		cpu = *(unsigned int *)arg;
-> +		update_crash_fdt(image, cpu);
->   		break;
->   
->   	case KEXEC_CRASH_HP_REMOVE_MEMORY:
-> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-> index e6f23933a6df..1660f26f3a44 100644
-> --- a/arch/x86/kernel/crash.c
-> +++ b/arch/x86/kernel/crash.c
-> @@ -441,7 +441,7 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
->    * arch_crash_handle_hotplug_event() - Handle hotplug elfcorehdr changes
->    * @image: a pointer to kexec_crash_image
->    * @arg: struct memory_notify handler for memory hotplug case and
-> - *       NULL for CPU hotplug case.
-> + *       pointer to the cpu number (unused here) for CPU hotplug case.
->    *
->    * Prepare the new elfcorehdr and replace the existing elfcorehdr.
->    */
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index d0bd2d0cf899..53d4f2c1760c 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -651,6 +651,9 @@ int crash_check_hotplug_support(void)
->    * NR_CPUS and CRASH_MAX_MEMORY_RANGES. The elfcorehdr is
->    * excluded from SHA verification by default if the architecture
->    * supports crash hotplug.
-> + *
-> + * @arg is a struct memory_notify pointer for memory hotplug events and a
-> + * pointer to the unsigned int cpu number for CPU hotplug events.
->    */
->   static void crash_handle_hotplug_event(unsigned int hp_action, unsigned int cpu, void *arg)
->   {
-> @@ -676,10 +679,14 @@ static void crash_handle_hotplug_event(unsigned int hp_action, unsigned int cpu,
->   		goto out;
->   
->   	if (hp_action == KEXEC_CRASH_HP_ADD_CPU ||
-> -		hp_action == KEXEC_CRASH_HP_REMOVE_CPU)
-> +		hp_action == KEXEC_CRASH_HP_REMOVE_CPU) {
->   		pr_debug("hp_action %u, cpu %u\n", hp_action, cpu);
-> -	else
-> +		/* CPU events are raised with no argument, the CPU number is passed instead */
-> +		WARN_ON(arg);
-> +		arg = &cpu;
-> +	} else {
->   		pr_debug("hp_action %u\n", hp_action);
-> +	}
->   
->   	/*
->   	 * The elfcorehdr_index is set to -1 when the struct kimage
+Read the temperature only while the rails are on instead, and bind the
+regulator to the I2C device directly, with the hwmon driver as its
+auxiliary driver.
 
-I tested the patch with the following configuration and performed 
-performance and functional validation
+v2 patches 1-3 are in regulator for-7.5, so this is based on it.
+Patch 3 touches the regulator, hwmon and MFD drivers and removes the
+MFD header, so the series should go through the regulator tree, with
+acks from Guenter and Lee.
 
-Test Configuration:
--------------------
-System         : PowerPC LPAR
-LPAR Mode      : Dedicated
-CPU/Memory     : 50 cores / 80 GB
-Kernel Version : 7.4.0-rc1
+Tested on a PocketBook Verse (B288).
 
-Case 1: SMT Switching Performance
----------------------------------
-We measured SMT ON/OFF times with and without the patches, with
-expedited RCU enabled via /sys/kernel/rcu_expedited and the crash
-kernel image loaded (kexec_crash_loaded verified).
+v3:
+- drop the applied patches 1-3
+- new patch 1: no wait when power good is already high (Mark)
+- move the I2C binding before the hwmon read change, so the hwmon driver
+  only probes once vin is on (Andreas)
+- patch 4: explain in a comment why power good gates the read, and its
+  limitation (Guenter, Andreas)
 
-SMT Mode | Without Patch (s) | With Patch (s) | Improvement (%)
-----------------------------------------------------------------
-SMT ON   |      66.331       |      6.155     |  90.72% faster
-SMT OFF  |       6.402       |      6.339     |   0.98% faster
+v2:
+- drop the DT patch keeping VCOM always-on (Andreas)
+- only wait for power good, VCOM_EN stays as it was (Andreas)
+- new patch: fix negative temperatures
+- keep the temperature in drivers/hwmon as an auxiliary driver of the
+  regulator, instead of moving it into the regulator driver (Guenter,
+  Andreas)
+- no VCOM enable at probe, which also removes the probe race
+- read power good and the temperature in one transfer (Andreas)
 
-Observation:
-With the crash kernel loaded, SMT ON takes significantly longer
-without the patches. The patches reduce SMT ON time by 90.72%,
-while SMT OFF performance remains nearly unchanged.
+Pablo Mazzini (5):
 
-Case 2: Functional Validation
------------------------------
+  regulator: sy7636a: don't wait for power good if already on
+  hwmon: sy7636a: fix negative temperatures
+  regulator: sy7636a: bind to the I2C device directly
+  hwmon: sy7636a: read the temperature only while the rails are on
+  ARM: imx_v6_v7_defconfig: drop the SY7636A MFD option
 
-Test 1: Crash Dump Collection
------------------------------
-After performing CPU DLPAR with the crash kernel enabled, we
-triggered a crash on CPU 3 using:
-
-echo 1 > /proc/sys/kernel/sysrq
-taskset -c 3 bash -c "echo c > /proc/sysrq-trigger"
-
-Result: PASS - The crash kernel successfully collected the vmcore.
-
-Test 2: CPU/NUMA Node Verification
-----------------------------------
-Verified that the newly added CPUs after DLPAR were correctly
-reflected in NUMA node 5, including the updated CPU count and
-adjusted logical CPU numbering.
-
-Result: PASS
-
-Overall, the patch significantly improve SMT ON performance,
-and both functional validation tests passed.
+ arch/arm/configs/imx_v6_v7_defconfig  |  1 -
+ drivers/hwmon/Kconfig                 |  2 +-
+ drivers/hwmon/sy7636a-hwmon.c         | 66 ++++++++++++--------
+ drivers/mfd/Kconfig                   | 10 ---
+ drivers/mfd/simple-mfd-i2c.c          | 11 ----
+ drivers/regulator/Kconfig             |  4 +-
+ drivers/regulator/sy7636a-regulator.c | 90 ++++++++++++++++-----------
+ include/linux/mfd/sy7636a.h           | 34 ----------
+ 8 files changed, 99 insertions(+), 119 deletions(-)
+ delete mode 100644 include/linux/mfd/sy7636a.h
 
 
-Regards,
-Samir
+base-commit: 2a1984b30e9cfcb306a076cb4b9e68d71daeb45c
+-- 
+2.52.0
+
