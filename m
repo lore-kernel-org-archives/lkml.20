@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.116
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794158000;
-	b=Bv4KB57MCxnmelh2jnWJp6yNO07GLYf5pZ0Id0WcoHOZm3oPKP1P4edCEiT9S9hv1/Up
-	 ggZOiiUeRg43/MHrmc1jq3jeGKY2h9Aw1k3FAogM60V3q5RaDNWAQJ9nVTLEueC7vM9ng
-	 bKQIvCQWSxiV09bp2Rk+qy8AybeU2UQh7ezmMlbyEPL7DS2sODxxGGAgYNvghsnqTI+o1
-	 zbKNlyVHbLxU7yUKjWB99P00tjsvqsO7AfeCXylhfeEvacwPsaYLcJKuOXdJXJlZi+j3o
-	 7GW/tFySVWwzWxX+SuSb4d8vl1/YNSJOxpeCpzYdVCE4vetu4MQpnuTHkneS2GsaOTA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794158000;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=iPoTbsPUcaAQM8kPYpsKksGB/wxM72SDm8WasouMY9c=;
-	b=mZ2eMdWxS2gWa9VC6q7YbbRa6dAURgOfVlc77aqaQN/n6rQH00GqfzdsDXOSp1AaaiJ4
-	 9D5kxjz/5h9lV/c53M1KgNZaWZlKt5t4WxIrZTln6puATccYkFaswYTKrw8/9qOEtwT+7
-	 6y65j6Vli55pEiW9kix7Jdpw71nJJY4FY8ug35W+cHFL7T963/kgu2PcJVh9IsC6OCNqD
-	 i7tQVlzxT/e50Y1KyxTEQxf1LL/oJ+Xrwc0Gob8ydciLsPkUziW776HJRZaQm5i5NNsUc
-	 lYahIMbcL6s0+29j+d+JDMehEoUxTR4tkQVdj7mhninNnfYEm0NsMvDd2WkyZi18Feg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VpIad7wD;
-	arc=none smtp.remote-ip=95.215.58.116
-Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794158122;
+	b=5kU01veFeB48CShDPvTdWH2QdwGLjHYQIpI26RKppE5Nt8aRq+l0NlX0USpsE6tpW/7X
+	 8YMZTq/0yFbfuvWSR919AJ1dSiw2CH/Czw6Tl5/+R+pWYlwX9f30V6MqR/hcwZNI4Wgvl
+	 7or+zzc+dI3vGCC49kislWoxWPztlGiAcsWB0/6V+CpCobdKK4wlCi8e+7DRgZ5nOVW/X
+	 Ug9iHl3DfVFa/hm7vA+cAg5O1F8N8rlC8mvVOho8sqKqWsa7lgFnGVSTgfSgK50owsfg/
+	 2JQUEMFXMTm49d0mWqEULJcuXu2X978VCLh83/8VMtLzL298859RjfHrZzfUTMCZXkg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794158122;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZQU7p4tR/ulXMEWiEs/vvuxtN+ooDf321Dtf3Db82H0=;
+	b=yam/31ZpLGtJAQuxfYG/XsWBC0gp7NBxl9El4/5U4/69+rx8KHCMsjD+PE2cxMssUQc3
+	 +8X96PN2bytXaT7O+pmNsJJXuWKrGzeJwHDlXb20LuP8EJpzcnZARIZTuTHJfHraZQ1Ck
+	 lQ3Jv/W/MDx+owNCAc1o0hb7Ni9SqN4cLRfrz5mLZnsRyUoN7S4pbT0NX8dNC1XYIPcrf
+	 IGyswc/cQkh3mzZ3q9uNLDc7cezbb8vrGuliZ14cax63QQFQJVOhi+UXpzdz65WxMiPsb
+	 QEoyFODM8O0qjbH9HWGtO83n2Nl5D5g09+REToo4AfBCEvlo4tfGIVzOyG5kC4Lca/A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ul4avjep;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3964606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:13:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3964606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3AD606A323
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:15:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF3AD606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VpIad7wD
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=amKArKTv82RVKkSYoJyK4ALaBbAyN8c1ugX/yaRdhmY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794157997; v=1; x=1794762797;
- b=VpIad7wDzyi+WfpCMwKx+0fjfyQFA24/hrUxTtg6N45SewVcLETXoYftLqEpwZA1jsaP9u3f
- YuL7nRH9xvpSaQuUhyua6wcAJ8JPJF/8+vVuJvUJE8/pmiboSPWaw61irk+FCn7GnOE4lH0k4Gw
- Qn++M/iOazBZzh5kdyqxq2U8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id f91c847ed652e982;
-	Sun, 08 Nov 2026 17:13:17 +0000
-X-Mizu-Trace-ID: f91c847ed652e982
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6bc16c54-a9f1-4c51-ab68-b227eeecaf66@linux.dev>
-Date: Sun, 8 Nov 2026 17:13:16 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ul4avjep
+Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3ad85432c52so2153211fa.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 09:15:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794158120; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hfy8nEzWcpYOqkSdGdP1rlsnD6ehkGda0TVnE1XivHvekDXCpKjesz/DVL4dNCKl1C
+         CIeCZCgQMTScPHYLaXbEafmEZ8zdZkWJsG6Q+2MfCnEmFW9DP+TTb3TCHXUbm2orr5uG
+         uDu6SKB3xkFDOQxklQfL19pwNuu07jwQgBGfxZNJnaAQPWJ4DpkdTDEQLD91bxJ7/UmC
+         vV10zV14sceUgfcpeuL1lQypCnXyrtrUy99HnaLJL9pHmrXCUu2dwwDdF83AVf6UiHvI
+         wo4KGCY7oiV/8NjxlI7wDz6qm2NMJZOtXhyr80GaGhmniU9POoSzZDAvI7YLqZM9Z++6
+         Jgzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZQU7p4tR/ulXMEWiEs/vvuxtN+ooDf321Dtf3Db82H0=;
+        fh=xlPUjunM9OzKw6F7ev6cnqqV+ie1MxI+w2izzAyFfk8=;
+        b=LXHibl9k6euLGj+xZbulKuDXT0iRh+UxurZag6zgdGaIt7lswyKXl5HRPaQ6r/zfKO
+         8VHZG54iSVc+l7OZOn72CLY5iZMTCMiqEqMsTwUMGUFv0jUkjrDVv8o5ptmHts8wxMIv
+         pHTepjT8qyTEVRFsOAY1kucG8gdVoxcDIc7GoOjB6dpOHM1niZ2VFBti7iZt7NoTV3HW
+         mMGDyAXrCPOpclMgruZWyIMtgEa20vhfabvgUTw0AWNtqfX8MMFvPrxhtj5BwGL+7Ku1
+         h0gKk7gQXmPiRGiUbZSzBuyekibxSDlL+etSBEPWr80Jr5ZAyUTiwrWuW2DO5EId2eLH
+         L3Rg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794158120; x=1794762920; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZQU7p4tR/ulXMEWiEs/vvuxtN+ooDf321Dtf3Db82H0=;
+        b=ul4avjepeuaa386rmE9YWn62JG18ea6045+l+b3rjjQdNoNUFiRfTaw5SnjaNeV6Eu
+         6EdruEkOQY1IFzVJp0NV+AuXEwsAuaxfqglr8RkJIwWtY1WfZAz1N5p/YeMZplteMlDp
+         OcOa/tahpd1upt/ArVejygvvbH8vMFM3owHmuMHczGkUPvhAoj7Nl0aV0Aav8EX30CEh
+         DrikzPVfp0kUw+77LJev99cBQcQO4UlRMFjSDoyElosmVvwhNQMyFnZyLR27W9jmFJgK
+         Q8kkwvBmgLmYa/2w5rw3yaU6mz6CkU6TCnV7S+W7M09835cMKpYItLPZyaIvVxh3AEq0
+         ak+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794158120; x=1794762920;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZQU7p4tR/ulXMEWiEs/vvuxtN+ooDf321Dtf3Db82H0=;
+        b=oIDXAPyLGlgyXkTVhWbcLtAGDJbQGYBVkplnwL1guHkyDuFziWWK/VD0a7v9DhWd2E
+         JrIvrjJb8M84JLeMCmfVs+zkjWX14aPClm5di2K8v5BvB3lkTRU3aNlEMLnnc6Ov1cx6
+         k3/Li3zGqp23wT1oBoH7vH9dgdZkMwrHKwJAJlkbNm296v6snOB7rI17vlKRvlJtgN74
+         0OJz5Mus9eKpa2qtJXkDQJ1h2bhtDXzGrq5+eErXN1qeQOl10tremD/ui/PHqG0OlkSl
+         VCKa67NLhO4Q78hLWdpKSA0seMm588faIW61xqzYYGZ28rjS4n4hK6qV82wM5VclAZds
+         51CA==
+X-Forwarded-Encrypted: i=1; AL+hErE0z8P5KD81JasKM+LLI/IyBaVGonTjTGem2U5KjPCtWQhdag8MpQhKNPBDEV6wHU1wHS5CB91fr/DglPY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ymaNP3Qry/XiIRXerPYrWctWGy20y7pdBLpzxVktNMJGZTieI
+	3J2FZrtHnctFsniYnurJA1I+cxigBuESfWbwzmPw5JXpn7cZ83TP8ccsJkY7+UN+KoygOkuJLUt
+	7BSmOFXK08oWBtCYYXr+3kNfW8Cuz8oU=
+X-Gm-Gg: AYBFou3JUXJn7yEmCBoWOx8JnJfzgj3vqfMdUNO76gkk7hvdFAjf54XhgqFkXiNOyAX
+	Vsky2NnyM3pbpKBVaarElQL4UG9CbK9oLc6Mj+ziPD2n7tscFBCVX24g8DkyKmLi0uEamzjsZR3
+	rmjI5QYqy4OoYsISR2+ZGoPxXThEnbIAKCERzx2Dv5VRrixA3o7oeg6rx1iCiNa+Dl4usMkaeDz
+	9v4fAIijnxHBJE8YXjHfGLk9AFeJWO+GsMI2A/R5DPDfx5Zk5l2Cv6Qw7/M8TTBcCIoY8FLATGi
+	g1stx2kWFZ9VyMyq0qnR8+VQ+/SjdG5JakAXpNv8VFsPv+HlruJk8OfTVyRMa1CyfwSrBGCJV4Q
+	FkBDGWrV0pfT+nxiKjw+WCIj1XtiLWGhVKI8=
+X-Received: by 2002:a05:651c:150d:b0:3ab:28cd:f612 with SMTP id
+ 38308e7fff4ca-3adfa32c7abmr4972131fa.1.1794158119886; Sun, 08 Nov 2026
+ 09:15:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,64 +104,254 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] block: fail a short atomic bounce in
- bio_iov_iter_bounce_write()
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christian Brauner <brauner@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261107-blkdev-atomic-bounce-v1-0-f66344262096@columbia.edu>
- <20261107-blkdev-atomic-bounce-v1-1-f66344262096@columbia.edu>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20261107-blkdev-atomic-bounce-v1-1-f66344262096@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <CAO-4RZ2EzuShr1dNEQt+CEjqan8SSyD=-E9g6RW1oocah+chcQ@mail.gmail.com>
+ <aud4isATIt0JOOL_@kernel.org> <012799b9-aa35-4990-86df-23b012ab94e6@linux.ibm.com>
+In-Reply-To: <012799b9-aa35-4990-86df-23b012ab94e6@linux.ibm.com>
+From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Date: Mon, 9 Nov 2026 01:15:07 +0800
+X-Gm-Features: AclHuK8r2f2--ezEXDEYO3_9R2f_lejThWLcjakBiwd_a71fevjpitvK-Q4Xh6A
+Message-ID: <CAO-4RZ0Od63iUeFkoPznV4vd84Ghjii4CGo+khybQckCv=EXkQ@mail.gmail.com>
+Subject: Re: [BUG] tpm: prolonged stall in vtpm_proxy_fops_release() on Linux 7.3
+To: Stefan Berger <stefanb@linux.ibm.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, peterhuewe@gmx.de, Jason Gunthorpe <jgg@ziepe.ca>, 
+	linux-integrity@vger.kernel.org, syzkaller@googlegroups.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/8/26 04:24, Tal Zussman wrote:
-> bio_iov_iter_get_pages() fails a REQ_ATOMIC bio that doesn't cover the
-> whole iterator, since an atomic write is submitted as a single bio, and
-> submitting only part of it would tear the write. In contrast,
-> bio_iov_iter_bounce_write() doesn't. If a folio allocation fails partway
-> through, it returns a short bio, which for an atomic write triggers a
-> WARN_ON_ONCE() in iomap_dio_bio_iter_one().
-> 
-> Make bio_iov_iter_bounce_write() also check that a REQ_ATOMIC bio covers
-> the whole iterator, and clean up and return -EINVAL if it doesn't.
-> 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+Hi Stefan,
 
-This looks reasonable, as atomic stable writes are implied to be 
-supported from 3373503df025a ("xfs: use bounce buffering direct I/O when 
-the device requires stable pages"). I am wondering how to test and prove 
-this (change is good and maintained)?
+Thank you for the patch
+("tpm: tpm_vtpm_proxy: Set STATE_OPENED_FLAG before inode is created").
+We applied and tested it, and we have also reproduced the boot warning
+Stefan reported and identified a sufficient condition for
+it (running without KVM acceleration). Two findings first; "Where to
+look" at the end points to the exact files in our repository.
 
-> ---
->   block/bio.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/block/bio.c b/block/bio.c
-> index b0fcc69de653..61a3812520a2 100644
-> --- a/block/bio.c
-> +++ b/block/bio.c
-> @@ -1523,6 +1523,16 @@ int bio_iov_iter_bounce_write(struct bio *bio, struct iov_iter *iter,
->   		}
->   	}
->   
-> +	/*
-> +	 * An atomic write is submitted as a single bio, so it has to cover
-> +	 * the whole iterator or it would be torn.
-> +	 */
-> +	if ((bio->bi_opf & REQ_ATOMIC) && iov_iter_count(iter)) {
-> +		iov_iter_revert(iter, total_copied);
-> +		bio_free_folios(bio);
-> +		return -EINVAL;
-> +	}
-> +
->   	return 0;
+1. Your patch does not change the outcome of the hang
+
+A/B test, same session, same QEMU layout and command line, two-step
+reproduction (49-program state-construction sequence; the hang appears
+when its executor process exits and releases the vTPM fds):
+
+  patched kernel  (7.3.0-kernsight-kasan #3, your patch applied;
+                   drivers/char/tpm/tpm_vtpm_proxy.c is the only change):
+    hang reproduced, 1/1 run
+    t=3D414s: INFO: task syz.0.26:10773 blocked for more than 143 seconds.
+            (t=3D434s: 163 seconds), blocked in
+            vtpm_proxy_fops_release() -> __flush_work()
+    t=3D460s sysrq-t: the chip-register work is sleeping in
+            tpm_transmit() <- vtpm_proxy_request_locality(), with
+            vtpm_proxy_tpm_req_canceled() present as the transmit wait's
+            cancel callback; workqueue tpm-vtpm backlog
+            "inactive: 64*vtpm_proxy_work" (plus 4+58 on a second pwq);
+            serial repeats "tpm tpmN: Operation Timed out".
+
+  unpatched control (7.3.0-kernsight-kasan #1, same session):
+    hang reproduced, 1/1 run, t=3D387s, identical blocked stack.
+
+So the udev / STATE_OPENED_FLAG race does not explain this stall. This
+fits the shape of the reproducer: it creates vTPM proxy devices via
+/dev/vtpmx and exits; nothing else ever opens the server-side anon-inode
+fd, so there is no udev open/close racing the flag. What happens is:
+fput() of the server fd -> vtpm_proxy_fops_release() ->
+vtpm_proxy_work_stop() -> flush_work(), while the chip-register work
+keeps taking TPM-timeout-sized naps on a client that never responds and
+dozens of such works are queued behind it.
+
+v7.4-rc1 is affected as well: drivers/char/tpm/tpm_vtpm_proxy.c is
+unchanged between v7.3.0 and v7.4-rc1 (empty diff), and the same
+reproduction hangs there 1/1 (t=3D402s, same signature).
+
+Given that vtpm_proxy_tpm_req_canceled() is registered as the transmit
+wait's cancel callback, which direction would you prefer for a fix?
+  (a) make teardown terminate the in-flight register work promptly
+      (e.g. the transmit path honors the closed/torn-down state so
+      tpm_transmit() aborts instead of timing out), or
+  (b) a lifecycle-safe teardown approach you consider appropriate for
+      the release path and the in-flight register work (we defer to your
+      preferred design).
+We are happy to build and test whichever you prefer; the environment is
+scripted, a build + run cycle takes about 15 minutes.
+
+2. Your boot warning reproduces under TCG (no KVM acceleration)
+
+You reported (2026-11-01) that the suggested QEMU command line fails
+with:
+
+  sched: CPU #2's llc-sibling CPU #0 is not on the same node!
+         [node: 1 !=3D 0]. Ignoring dependency.
+  WARNING: arch/x86/kernel/smpboot.c:329 at topology_sane.isra.0
+
+With KVM acceleration we could NOT reproduce it on our hosts, in any
+combination we tried: QEMU 6.2 and QEMU 10.2.1 (Ubuntu 26.04,
+seabios 1.17.0-1ubuntu1 =E2=80=94 the BIOS string matches his report), full
+layout, the original suggested command line, and even forcing the exact
+cross-node-LLC shape via "-smp 4,sockets=3D1,cores=3D4,threads=3D1": clean
+boots every time.
+
+Without KVM acceleration it reproduces byte-for-byte: booting the same
+QEMU 10.2.1 stack with "-accel tcg,thread=3Dmulti -cpu max" (same layout,
+same command line, same unpatched kernel) produces exactly the warning
+from your report (topology_sane.isra.0+0xa3/0xb0, same Hardware
+name string) and then panics via panic_on_warn=3D1 =E2=80=94 i.e. the boot =
+fails
+as he described.
+
+Mechanism: with KVM + "-cpu host" the cache-topology CPUID leaves mostly
+pass through our host CPU (Intel Xeon Gold 6326), so the guest never
+sees LLC siblings across the NUMA nodes of the suggested layout; under
+TCG QEMU synthesizes the topology itself, LLC siblings span both nodes,
+and topology_sane() fires. Whether your machine ran TCG (e.g. no
+usable /dev/kvm) or a host CPU whose KVM enumeration differs cannot be
+determined from your report, but the condition is now reproducible and
+checkable on our side. Note the two runs differ in both the accelerator
+and the CPU model (KVM runs used "-cpu host", the TCG run "-cpu max"),
+so the experiment isolates the pair, not the accelerator alone.
+
+The mitigation works in both modes: "-smp 4,sockets=3D2,cores=3D2,threads=
+=3D1"
+keeps each socket's LLC within one NUMA node =E2=80=94 the TCG boot then
+proceeds with no warning, and under KVM the hang still reproduces with
+the fixed topology, so the one-line change makes the boot robust
+regardless of the accelerator while the bug stays testable.
+
+3. Where to look in the repository [1]
+
+  tcg-topology-20261109/            <- the TCG finding
+    README.md                       KVM vs TCG comparison, mechanism
+    serial-tcg-hit.log              boot under TCG: the warning + panic
+                                    (byte-identical to your report)
+    serial-tcg-fixed-topology.log   same TCG boot with the -smp
+                                    mitigation: clean boot
+    boot-tcg.sh / boot-tcg-fixed.sh exact QEMU wrappers of both runs
+
+  patch-ab-test-20261107/           <- the patch A/B and v7.4-rc1
+    README.md                       results table and build details
+    0001-tpm-tpm_vtpm_proxy-Set-STATE_OPENED_FLAG-before-inod.patch
+                                    the tested patch
+    serial-7.3-patched.log          patched run (two hung-task reports)
+    sysrq-t-7.3-patched-excerpts.txt  worker stack + workqueue backlog
+    serial-7.3-unpatched-ctrl.txt   unpatched control run
+    sysrq-t-7.3-unpatched-ctrl.txt  control sysrq-t dump
+    serial-7.4-rc1.log              v7.4-rc1 run (hung-task report)
+    sysrq-t-7.4-rc1.txt             v7.4-rc1 sysrq-t dump
+
+  repro/                            state-construction sequence + testcase
+  cmdline/                          guest kernel command lines, QEMU args
+  kernel/kernel-7.3.config          kernel configuration (KASAN/KCOV)
+  logs/                             original syzkaller campaign evidence
+
+4. Caveat
+
+In every log the window ends while the release task is still blocked, so
+we have not captured whether the release eventually completes once the
+backlog drains; we are not claiming a permanent deadlock.
+
+Happy to test any proposed patch in either direction, and to provide any
+file inline.
+
+Best regards,
+Zheng Zheng
+
+[1] https://github.com/Zheng-zheng-codes/vtpm-proxy-release-hang-repro
+
+On Sat, Nov 7, 2026 at 3:11=E2=80=AFAM Stefan Berger <stefanb@linux.ibm.com=
+> wrote:
+>
+>
+>
+> On 11/1/26 12:36 PM, Jarkko Sakkinen wrote:
+> > On Sun, Nov 01, 2026 at 09:22:30AM +0800, =E9=93=AE wrote:
+> >> Hi Peter, Jarkko and Jason,
+> > >>
+> >> Question
+> >> --------
+> >> vtpm_proxy_tpm_req_canceled() already exists and the driver marks the
+> >> device as being torn down before flush_work(); from the captured dumps
+> >> I cannot tell why the wait nevertheless persists for minutes. Should
+> >> the release path be bounded, or should the in-flight chip-register wor=
+k
+> >> be ended more promptly once the proxy is being torn down? I am happy t=
+o
+> >> test proposed patches.
+>
+> I have tried to reproduce this now but cannot. The kernel fails for me
+> like this when booting with the suggested QEMU command line:
+>
+> [    3.224399][    T1] Timer migration: 2 hierarchy levels; 8 children
+> per group; 1 crossnode level
+> [    3.239948][    T1] smp: Bringing up secondary CPUs ...
+> [    3.243980][    T1] smpboot: x86: Booting SMP configuration:
+> [    3.246035][    T1] .... node  #0, CPUs:      #1
+> [    3.252255][    T1] .... node  #1, CPUs:   #2 #3
+> [    0.076393][    T0] ------------[ cut here ]------------
+> [    0.076393][    T0] sched: CPU #2's llc-sibling CPU #0 is not on the
+> same node! [node: 1 !=3D 0]. Ignoring dependency.
+> [    0.076393][    T0] WARNING: arch/x86/kernel/smpboot.c:329 at
+> topology_sane.isra.0+0x97/0xb0, CPU#2: swapper/2/0
+> [    0.076393][    T0] Modules linked in:
+> [    0.076393][    T0] CPU: 2 UID: 0 PID: 0 Comm: swapper/2 Not tainted
+> 7.3.0-kernsight-kasan #1 PREEMPT(full)
+> [    0.076393][    T0] Hardware name: QEMU Ubuntu 26.04 PC (i440FX +
+> PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+> [    0.076393][    T0] RIP: 0010:topology_sane.isra.0+0xa3/0xb0
+> [    0.076393][    T0] Code: 07 00 44 89 ef e8 ed fa 07 00 44 89 e7 89
+> c3 e8 e3 fa 07 00 41 89 c0 48 8d 3d 79 4e 3e 10 41 89 d9 44 89 e9 4c 89
+> fa 44 89 e6 <67> 48 0f b9 3a eb a5 66 0f 1f 44 00 00 90 90 90 90 90 90
+> 90 90 90
+> [    0.076393][    T0] RSP: 0000:ffffc900001afde0 EFLAGS: 00010092
+>
+> The first thing I was going to try is whether this has something to do
+> with the 'STATE_OPENED_FLAG' flag. There's one location where this is
+> set and that's after the anon_inode_getfile() was called. For a server
+> side device to be able to access the device, udev would have to run.
+> Maybe udev does run between anon_inode_getfile() and the server side
+> opens the device and the immediately closes it and resets the flag
+> BEFORE current vtpm_proxy_fops_open() sets the flag and makes the client
+> think that there still is an server-side app responding to requests. So,
+> let's reverse the order and set the flag before the inode gets created
+> and the flag can be reset - patch also as attachment:
+>
+>
+> diff --git a/drivers/char/tpm/tpm_vtpm_proxy.c
+> b/drivers/char/tpm/tpm_vtpm_proxy.c
+> index b81fd2a537df..245a8f959bc7 100644
+> --- a/drivers/char/tpm/tpm_vtpm_proxy.c
+> +++ b/drivers/char/tpm/tpm_vtpm_proxy.c
+> @@ -197,10 +197,8 @@ static __poll_t vtpm_proxy_fops_poll(struct file
+> *filp, poll_table *wait)
+>    *
+>    * Called when setting up the anonymous file descriptor
+>    */
+> -static void vtpm_proxy_fops_open(struct file *filp)
+> +static void vtpm_proxy_fops_open(struct proxy_dev *proxy_dev)
+>   {
+> -       struct proxy_dev *proxy_dev =3D filp->private_data;
+> -
+>         proxy_dev->state |=3D STATE_OPENED_FLAG;
 >   }
->   EXPORT_SYMBOL_GPL(bio_iov_iter_bounce_write);
-> 
-
+>
+> @@ -550,6 +548,9 @@ static struct file *vtpm_proxy_create_device(
+>                 goto err_delete_proxy_dev;
+>         }
+>
+> +       /* simulate an open() on the server side */
+> +       vtpm_proxy_fops_open(proxy_dev);
+> +
+>         file =3D anon_inode_getfile("[vtpms]", &vtpm_proxy_fops, proxy_de=
+v,
+>                                   O_RDWR);
+>         if (IS_ERR(file)) {
+> @@ -558,8 +559,6 @@ static struct file *vtpm_proxy_create_device(
+>         }
+>
+>         /* from now on we can unwind with put_unused_fd() + fput() */
+> -       /* simulate an open() on the server side */
+> -       vtpm_proxy_fops_open(file);
+>
+>         if (proxy_dev->flags & VTPM_PROXY_FLAG_TPM2)
+>                 proxy_dev->chip->flags |=3D TPM_CHIP_FLAG_TPM2;
+>
+>
+>
