@@ -1,94 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177368;
-	b=UEGI4onUGM+Xbc8mQlGLNlQCT2ndFxuyl4DgxP80HHu1ix8+hFsAYisvG+gcQPEDXNL0
-	 RIu261/zG1SDEX3zb5TnOuBMtbVUYhqgCe3i1e+oIzCuMFRdYme8R1bVa6R6lWmzmIMoG
-	 rE3MAmFVsW23LrBNUk3zzH2CEvCH1BFL7R/4Ar0M9enCWN0IBgFw5fEZbiw+8XevnHeJ/
-	 9H6rcjYERC8u0Of4hmezk32OfgeNT6YoWjd2eNC/H6wLFtr8Af0saVCsYeSCgeZE0fi5C
-	 3zw1MyOrQ4rVgDQi1cZZXfezfWOlTK1NO+D7zw4DfxihlP5v1Hap0OLgT3w0SaKlrdQ==
+	t=1794177364;
+	b=DVBFP5iDXFJB+coqQMWAcff8BcZWHht85hYeesvilkJ/Ru+H+xCB+x2ResA6HeTxmwcf
+	 tXD8otd+H1uj3xa21LGEq8s1r902+ReIoewfx9CR/NCX6hQftjn2jedjFCqSNDW95beTh
+	 iSL0WS0P1r3rmiPplmHbQv5hAXD2eQKlCcPArfslhwEL3Q//zdWq9NyeoFW988WyW9TX3
+	 +CVeqj9h7v3MlZll5bnmT1F7DF0yGojuNcwb60Ls5XSq2dvxs9EtqwoZWdR0SxBTtrwTS
+	 UnZ+vPpwBimDT2xcAb+mqgRZWrI7b7a74M/bUUHU/SEVzDSVcxsqczUKrmIvxEgxxzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177368;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177364;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=0B84fgUAvEG0Glyv3A7RkeExOVAqdU6JtDjEommuU5s=;
-	b=K9gyQRG6OleELNihFjdrO/VwZJ4m5r82OAwm8BLdaOsoomnzFZxTOgbnZ0zvsAJ2B0bj
-	 YPYtZwXggITWZJ+gJcb9rfN00ttAoRd1PeJg0zXtNxQYA4YalGiICzlWYlNpJpnowVWzB
-	 /DryFzDYGQzQv/0hdc4wREQxy60UK/DGqczlR13EcLCCaQBZjCmzArq2hdubQ3bkr/KzI
-	 11WtpUbaazsYEi52+n+rOrcEPbd3ZhvaIxeSFsxX1HTL6jfgPdERdkmzXhZReZqLzKY3d
-	 Bnm7S2NYrBQ5sPtxA5aJ3fuFeB94oQMn8dyaDvcR1sDbPahF+g502x9b+fJUiG8LaCQ==
+	bh=yjigVlqZ7YlJzjIRljgnWOG1b/RgP2qYk03IHWd+kyQ=;
+	b=nRGMCHs7BeGfQdzU51aMwp05FpnYXPpt2E1ocNUQwU9xwKa/ymfZWFk68GY3n0pkjRxY
+	 IM1Jjeo95C/+atxI62P4ir9RA18n4WllM2iM4mjosse55gK2dWlDPUj7pq/QKO3o57t9J
+	 mWzFLaF1OnM10PzskHVKA8gzWTNOumKDqTCac1fb3/hHUWDlzWTJVsMr7E+gnYqqiBDcz
+	 UeZ70h1SAp9jqArZu7TDWfRO9oKZfeB4CBlTz9TDWC3rlmmO6+9o8YxGkflKjL+1cxCCM
+	 s0ge0AnnQpE71BeBftlxkAiQkdI1zVuJQDy/qQuerShRCqZjFFNqzRlspvT0JmLyEVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o0myVGUE;
-	arc=none smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qPdEvlXN;
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A3F606D80A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15A3F606D80A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344F8606D82E
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:36:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 344F8606D82E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o0myVGUE
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b6e7a05225so429566a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:36:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qPdEvlXN
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so346080a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:36:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177366; x=1794782166; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794177363; x=1794782163; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0B84fgUAvEG0Glyv3A7RkeExOVAqdU6JtDjEommuU5s=;
-        b=o0myVGUETIrYhSDiGMzAzUwj64MUtklp2Y9qAfc1GvUrFIIhzzPaL7EoavTacrJgIP
-         VtmRTdUUic1gqHV0eLCEOcvw+/ydUgxQW18x+xkiqXNQzYUmA6dxGyJCylpe8BLrTa/S
-         UlFpRYM32XnHsAUc6ov6VZs5So2lE60b7ojcDwodbhMXN1EkDfcR4gDK85xZqlks0BDG
-         ecq0Va+T6sHti1Mr8AmFbgkjw7IPD7uixvMzKwTIXVN4Afin3AS9rgTDK++vQx1Hukxb
-         tcVlyXE9iKNw5Iem6qjV5zK864QtDmNSzIyzVbdd16z3YincCLylWneKTvNp2lFBaslg
-         kG2w==
+        bh=yjigVlqZ7YlJzjIRljgnWOG1b/RgP2qYk03IHWd+kyQ=;
+        b=qPdEvlXN/8NYW+AIFOUBAaAsmqasuqAXI+HQki9oDLjkSxLb6+KPwYlg0VepThaJ4u
+         jhs0LZWMGL2Hti/VATF3AZ49ta8ezuKTNpoKCxa6Rm22lXmIENvG5E6MIfWkYMbA9J7i
+         7M3BOY/40qFCSj+vzVzMjgYEWgWXhd7YDXjyfrGPZ4nKMkLAMqbKr9tADXgNZurxlGQ9
+         21eI+WhVw1SaZrxx1xiGxKCVDzj74mh0ZAo2Dw63UKwoWmTQN5MgMTPqzV2lnmfdOiK3
+         LBgvVAOq1j8lH1z7UO4wy4D7mcL77tqTof8+IQAdAfyPYuYQiwXG2BFuCqTi4GIM1uAj
+         t0mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177366; x=1794782166;
+        d=1e100.net; s=20260707; t=1794177363; x=1794782163;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0B84fgUAvEG0Glyv3A7RkeExOVAqdU6JtDjEommuU5s=;
-        b=t8JwkeVk12n9rPFpuzaXdYvEGve8U1GUJwefjeHZpF5fS0mTmBc9KIfZ4dhdCwHA9v
-         SaoVFrEHN49RrNZUW41PfvWrT3uP6aHAYYkDeTQKvypafsRfLj6mtpBsrubL0vH6tzEi
-         KA3Tcaw2dxsjGYi5XFjUieT9IuX/AXWkk3bStcKzuq3VLeDEzR9gbEXUDb7VUcVYIrTx
-         cSjdfUovuRDkCnhpKN7XqonmdE8XfjUjk/V1RemsFSCv2F33apvX2zNe7f7tlNXHmwEj
-         2Nn3Hrs+y3Etel3n2Sa21Jx1Gm0eCp+6SdfEzJ+36cQ9i756L3eU7s1qQKTqV7kWJGLM
-         1sFg==
-X-Forwarded-Encrypted: i=1; AL+hErEOfmJMRqYUAkes7EAuWhvZPKtfeeQ1OABEhRRHbP8J1rYMNG6s9QqRJwGUzpCuNOREy7V5cb9VvK0yHpU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8RNOOwKGdGoOTQQPvXDE9W9m8PLqFcYmX+07MH+YiTPAdRTe6S
-	t+bXa8t3frmpgU4p57G2LpTmNH0x6pDlTAZFXen4LwnDFBlPJNE7uaAnjyJjCVJj
-X-Gm-Gg: AYBFou1nNWhXeSh9lQTohLlK7iJoa0FTJuAbuy2oq9ikqT/PipH6k5wR3z8Ky4zC1st
-	4ok164TS2mcARrsjt/W32LhIlbmhSFCkfVyK0gIpTYWHn5W6wCnEDFrN42ahe+Esk0YLiYOoffq
-	GcAw6KiqAJbg7Lb0tLae4hiu2XzmxIA+fqJFbdeyD6tI276yEtcVxzwJtELUcuI4E3HHfWm+2Ao
-	f0iGzC82qYj/tiFetGsKPMOSoypJUnigMAU9d1zZh5EBYQRC/DVo395PxRZUDC1KeUrxaS+PTa7
-	AUuqecZusnjd41Xi9XJCOf+7iAw8FNiAg4aVSKa2dXhzYTN/mX86rJ9QBX6rzo7z2swda3pf/pI
-	eKR07yBXUzFd1iI2v4qLOSWp9XNaok0ueH25U0R5ZsCpoAKD2EidNxSppOFIvItb9t7wz3wpX0Z
-	n6SFz2Blekaf/PiQXugVIYygiLQSuVNJEydxUFRg2eJVQFvWVM8gTzcjGCaRn4coX/Y1L/FZFxn
-	j4zD2AxuolBdxx4VMaq7QHou2h5R49UeJG90MIQtCKHwcF32v6kDEyZC2ImqjGnfhtflZLe3b9M
-	hhsXMIChT+Okca8rUExer/4S6Cga2LuZobHDNw8uS95/dBBlVLe/LAYV/XCqvWtpc7QBYSDBaNI
-	uUFcN4D+vqIma0qUf
-X-Received: by 2002:a05:6402:1d55:b0:6b7:6f9:2ef7 with SMTP id 4fb4d7f45d1cf-6b722456828mr1336914a12.11.1794177366393;
-        Sun, 08 Nov 2026 14:36:06 -0800 (PST)
+        bh=yjigVlqZ7YlJzjIRljgnWOG1b/RgP2qYk03IHWd+kyQ=;
+        b=NwvU0byDv7bKshdyo87rCmnyn8IYPq7TZ2BNr0aMSNFe3qkcyxLS1IC8L7oaqU2GcK
+         /gss+hPXxO4rfl4bq/GaAyF43PSpPCJewGAoa26rHMJVfv/N34a5ClR+yUFN+F5rRMG1
+         g6aJk1yVXjHSvTtrBqUnxSdn/2ASJsubCkTQuOuyoZBShgWl6wkzbGF7+cHxT1YFd036
+         BWbVk5SXXKyHb7hNmmgXmL3WF5OZyuTVhhQYUfkjqopK9/89YBSKFfVLNO5KVzOMQ2R1
+         av8dCxzkjpm1D7LkRvK7wLEANU3KMX2HlEEikiwvD/OaJl4RuwTkoeXOaSjvdzI9PuLI
+         pGiw==
+X-Forwarded-Encrypted: i=1; AL+hErH3WrTP/oMGLrUY2V6XgT1AwwKggZ7b3KgrRSuQarw8/yEOlw46GJh46flawge6me2e74h6x4aqlnyfGc4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IVox6mCkSBTZ6S+H8dsmSAnszYrPk1L2WQUliTGS1UlspyzWz
+	w1v8PGSMDfKnFZS/A1cu9ZKRGy1/bTZcPJWeqmVNe9ebvviK0BVP+AWR
+X-Gm-Gg: AYBFou0T7Km3cUjtPiBCzpKBERZozPRFQHfyY28qe1ifDtpTRhUhE+46dPj7ONaAy/8
+	q3/QlUv1cg4mPn+1MYJ1atfc3hRiShtYKjJ+msPQtIB8grTtIuh4hCBgYsf7LyGqILtRzMmC6qT
+	IS+UH42PZB4wocJbRhiSbzAHDm0j+/fA4WbJLiJrHWhiiXHkwxYQsL7sOPg2sVa4QehrNdt+vXA
+	ehJYbEr9g3mOTJpMxwVJbYNQb/01RbNwS/3T5CuCEnS5I2s5FI9hT/BGiZalCcQH23MMMJdyfwh
+	+mh8U3qx2X1S+3QB8KY6p3Kc50yM6ymbCvOOEK5VBPssRDKa3Gek3xpmO6NlxbZs4DvOMoY7a+6
+	QiQdmWwhsxRQMvrBk3ERw2LSHUx1jiPNoM5RWnquF2lJyUqy6j2w8qaRnC8Cb9zqAjnlJJzovXL
+	bpQrd3ESflwruQrrjLnZhKIy3DemARO7byqxcl849skDDhpasHCJOMp4qhzrXyV/A8H+T9KqQXe
+	yaZLArAbSSecPpjvWkoxcgW2bQLN/cPut1CBwAgNBISxQuNO9blRhaA3noTvpYAMqq54ssRdFSM
+	8n/dnom/WAIEwxD6iJBUqKuUU7b5cacMvPww9ONBEr3GozRV2u8cci/BUJsuO0937rZTMm4=
+X-Received: by 2002:a05:6402:5288:b0:6b7:1d67:eeec with SMTP id 4fb4d7f45d1cf-6b7224522bamr1427849a12.14.1794177362272;
+        Sun, 08 Nov 2026 14:36:02 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebc7b0sm859272a12.14.2026.11.08.14.36.05
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebc7b0sm859272a12.14.2026.11.08.14.36.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:36:05 -0800 (PST)
+        Sun, 08 Nov 2026 14:36:01 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com
 Cc: sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linmag7@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH 8/9] sparc32: retain mm_cpumask across TLB shootdowns
-Date: Sun,  8 Nov 2026 23:34:18 +0100
-Message-ID: <20261108223516.1125534-9-linmag7@gmail.com>
+	linmag7@gmail.com
+Subject: [PATCH 5/9] sparc32: preset modified and referenced bits in kmap PTEs
+Date: Sun,  8 Nov 2026 23:34:15 +0100
+Message-ID: <20261108223516.1125534-6-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261108223516.1125534-1-linmag7@gmail.com>
 References: <20261108223516.1125534-1-linmag7@gmail.com>
@@ -103,45 +101,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smp_flush_tlb_mm() narrows mm_cpumask to the current CPU when mm_users is
-one and current->active_mm matches. That snapshot does not exclude another
-task obtaining a reference with mmget_not_zero() and using the address
-space through kthread_use_mm(). Clearing its CPU bit can make subsequent
-shootdowns miss translations on that CPU. Testing current->mm instead does
-not serialize against that race.
+Preset SRMMU_DIRTY and SRMMU_REF in kernel kmap PTEs, matching
+PAGE_KERNEL. These mappings do not use hardware M/R transitions for user
+dirty/accessed accounting. The protection applies to persistent PKMAP
+entries as well as transient local mappings.
 
-Remove the narrowing. This follows the SPARC64 fix in commit bafb056ce279
-("sparc64: remove mm_cpumask clearing to fix kthread_use_mm race"). Retain
-the accumulated CPU mask until normal address-space teardown.
+ROSS SPARC RISC User's Guide, section 4.2.1.1, describes hardware table
+walks and PTE updates when a write or translating operation encounters an
+unset M/R bit. Presetting the bits avoids those updates for kernel
+accesses. A whole-context cache flush does not perform that translating
+access.
 
-A single-threaded mm that has migrated can consequently need remote
-shootdowns for the remainder of its lifetime; sun4m broadcasts them to
-online peers. This trades extra cross-calls for correct coverage.
+This also provides the PTE convention needed by subsequent alias
+reconciliation, but does not by itself provide that protocol.
 
-Cc: stable@vger.kernel.org
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/sparc/mm/srmmu.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ arch/sparc/include/asm/highmem.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
-index aa53ec10cd8a..d3634bcb048d 100644
---- a/arch/sparc/mm/srmmu.c
-+++ b/arch/sparc/mm/srmmu.c
-@@ -1624,12 +1624,8 @@ static void smp_flush_cache_mm(struct mm_struct *mm)
- static void smp_flush_tlb_mm(struct mm_struct *mm)
- {
- 	if (mm->context != NO_CONTEXT) {
--		if (any_other_mm_cpus(mm)) {
-+		if (any_other_mm_cpus(mm))
- 			xc1(local_ops->tlb_mm, (unsigned long)mm);
--			if (atomic_read(&mm->mm_users) == 1 && current->active_mm == mm)
--				cpumask_copy(mm_cpumask(mm),
--					     cpumask_of(smp_processor_id()));
--		}
- 		local_ops->tlb_mm(mm);
- 	}
- }
+diff --git a/arch/sparc/include/asm/highmem.h b/arch/sparc/include/asm/highmem.h
+index 14b03f348823..d451232625d3 100644
+--- a/arch/sparc/include/asm/highmem.h
++++ b/arch/sparc/include/asm/highmem.h
+@@ -30,7 +30,12 @@ void sparc32_kmap_local_cache_flush(unsigned long vaddr);
+ void sparc32_kmap_local_tlb_flush(unsigned long vaddr);
+ void sparc32_kmap_local_post_map(unsigned long vaddr, pte_t pteval);
+ 
+-#define kmap_prot __pgprot(SRMMU_ET_PTE | SRMMU_PRIV | SRMMU_CACHE)
++/*
++ * Kernel kmap mappings do not need hardware dirty/accessed tracking.
++ * Match PAGE_KERNEL and avoid M/R updates during translated accesses.
++ */
++#define kmap_prot __pgprot(SRMMU_ET_PTE | SRMMU_PRIV | SRMMU_CACHE | \
++			   SRMMU_DIRTY | SRMMU_REF)
+ extern pte_t *pkmap_page_table;
+ 
+ /*
 -- 
 2.43.0
 
