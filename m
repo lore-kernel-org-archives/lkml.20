@@ -1,58 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174580;
-	b=I3KnBz1CgvN/rt6bCI+cZNxIz5w7xiiU3fzLaoqxvKxXZ0NbXmv8B+39pUANQn02ZHNf
-	 1zHvMO3o0dmKXcmpdD2UgtjBB/X4xJxIa+dxwkN7Tu8uto+ou0TCo9NwLZZhAyRZh814J
-	 uDXccCjR+w7hYTwUhnKxWOC+IU0zdYmUvYp8xXwnW7w7xhJTvZC4fJAwUeSof01ZSSdsR
-	 OvicXlWhlULQ+Z1NnxbV5q51v7HCHlurnVIV4fpSc+DweutBicfQVZ5YO24SsYEX2KL0h
-	 Vye9XJXJNxu3hEnTYJjSvTy6+O9GdmqCeHhKDdIfFoUHNIRiAUakZVk0eZrSVHn27nw==
+	t=1794174582;
+	b=Hdrw2C2EpGWx39Fl4SnULr++qDOfptPyC1Rwsk8C7HCO0kxG4efYxDaOnjNmOBB0/FRO
+	 cF0ULAaEHtIpBM/ncr/SX1GHkl9gWCnS2iNFSWFMVeTeCtaWkMESnRDbSTswQgM4ScIn5
+	 IY8XbtMDclbqQUAXyaGEV+c6nnJRQjedvamUC4a6vLTmT49OrMn+9ZuQxtrSXReRdRHOT
+	 ejmxabVgliz2JfbUxI6vVFA6lKsZF0NvKPzo7DQ7lzswW4mGGzhi0Jue7vPE4OnSpe1z7
+	 3v65pz9OM10cHwOd8EhOVg/BLjOZrYtf03c4Qsg+mwg+TbWGukGoizfX5KVovmYmx9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174580;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=3gRAP1YxlQCWGPap37hqUthvPeiuImlF2tdnQbsDgtg=;
-	b=E8rjWTyhaUTJIXHByU4eeOPEYE41z31q0sHY4Ev1PSDL+Bhl5esmaGTrIke4vfOVk8tx
-	 cpRyWTg8P5Rixt9egdnNfMou45NtFkBAumKOBVQVL00lc+PADP/RgvBTrhngZ3EE1A8rz
-	 DBKwgHRVPKZZhJQoeTkHU57LG+qB4OFQrkFRBxxAbpv20xVKrl1BhJHUwWr9/NbYwhcQu
-	 ouYwhaX8UxmogtIwrXweKtOlK8sqXdapcyhyR9a8H9Vz+WOk0VrsEINDnkTcziT0c2BHa
-	 +Pr1qR9dp8TkkbQyWmTZ+mu0HhZGP1aPUO8+DZjERaT8/p1P9MdOqsDSFQkRJYFsjTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174582;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=tUAv7JN7en/U+lrJ/s9HjMUlJtaJD6Xx2DVWbeuFjhk=;
+	b=cpsJ9T+T85exGfPSG1SqNGq5+wtDqc3nx13HKWr+XxcBTE+LIMHX2mFLFqUJGkUlS/Bh
+	 ZNiw/IdNM5WLgnIvfn93f0qUoVQQ0/JH+7pF7/Ffiz3qetPS2rYPbGGuLdBpqOj9nN0sw
+	 cxa9dQdZr3VzN8bOnnAW8IFryaLxAVMMFIViw6ZbXi+Ann4l0ukFRvbX1dhJbdWi9JIhD
+	 cUwbFdaU+DiI9UDP40HED7RFbAR9ttWth3PXnnHNTzv0K9ohg/B4fPdDKiYF7NqMyAxex
+	 dmNSSn1rlBngXEh5DswuIwcjdRC9LqoNbt/JzR03QkJxdkxcq4Daa3af7x2+pZHaNsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=DPmEstMt;
-	arc=none smtp.remote-ip=91.218.175.120
-Received: from mta0.migadu.com (out-120.mta0.migadu.com [91.218.175.120])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvOSqhql;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="AZ6t/8+D";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CB7606A331
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54CB7606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29561606D80D;
+	Sun,  8 Nov 2026 21:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29561606D80D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=DPmEstMt
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=w/6qEc2cwOI6T/xUHNJh3OifoyGO3FRpW1FATx28UoM=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794174577; v=1; x=1794779377;
- b=DPmEstMtjRJP75XGK0jU3H99b/kwySRpXknVFtHp0iwYU1/ABZ8uFcX514b/8cPt3sbvcmjr
- 9KXWN7+ImblWVjXeAocUzJDgXApCjvsQVna4S3QT+VgyEk4J9pHMOeK4bBjEAmx5Xb4Sz25HWzu
- TszyeNrVFw2tf3w9MIgnpzaIK2y69AvywMhXQ1u04p1hZYfTxFrKywoehlggBMWLBR6llbwbyM2
- PuvSofRBvazxzZObKx1Eio1AH+kYw0tVt9grKv2Dma1FhYyIGE1OJujNOnGAVV7tRiTqGgmW9Xc
- okbkwOWz2YIIvwn76oNOB3inT2J+ZJiRMBh/CINjaOz3Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7783f211d67b9856;
-	Sun, 08 Nov 2026 21:49:37 +0000
-X-Mizu-Trace-ID: 7783f211d67b9856
-X-Migadu-Flow: FLOW_OUT
-From: Paul Sajna <sajattack@postmarketos.org>
-Date: Sun, 08 Nov 2026 14:49:12 -0700
-Subject: [PATCH v4 1/4] dt-bindings: leds: aw2013: Add awinic,aw2027
- compatible
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FvOSqhql;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=AZ6t/8+D
+Date: Sun, 08 Nov 2026 21:49:37 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794174578;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tUAv7JN7en/U+lrJ/s9HjMUlJtaJD6Xx2DVWbeuFjhk=;
+	b=FvOSqhql6i+7TBSfO3BH15bNWtsd+1jtxPILWT/eaSpwr2jhDww/HmkcNLB3AQIPQJj2em
+	ZU5gUXpdQ99kOhll5z/V+wYbCbTQa90nN33CEy5kMe95L0c2/OCDnhUzwolrb+frayYK9g
+	IUmPkJO5Uvo7vWOHxaMiFfeGfAxeM44jhm7Ety+fshWII5W9MSX6K2dqbvIOAYXHemXVYT
+	2OgNieFR3+i8mRymx2qViUoHfPE6EgGxO+NVq/1KjWyfavs7U6LFYN20d+2XsL1CEvE7RQ
+	7rqacUHF+QDSUEg/D79WH7CKC09iGpu/EwvR+iQ20deBrTCalLNdnbpO0WTf3g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794174578;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tUAv7JN7en/U+lrJ/s9HjMUlJtaJD6Xx2DVWbeuFjhk=;
+	b=AZ6t/8+DE/UVv7Q9K49529gHCnOlJ9+5+vzl/KsvytaQUYyq+SdHdXEIIqbxsGuGweGV9q
+	DnobPSnze01/UeAQ==
+From: "tip-bot2 for Zhipeng Wang" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/imx-irqsteer: Convert to
+ devm_pm_runtime_set_active_enabled()
+Cc: Fabio Estevam <festevam@nabladev.com>,
+ Zhipeng Wang <zhipeng.wang_1@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104073759.386777-5-Zhipeng.wang_1@oss.nxp.com>
+References: <20261104073759.386777-5-Zhipeng.wang_1@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,67 +79,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Message-ID: <179417457707.2093942.7891342208189600663.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-aw2013-aw20xx-rename-v4-1-826529beeb52@postmarketos.org>
-References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
-In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
- Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
- Griffin Kroah-Hartman <griffin@kroah.com>
-Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174570; l=1313;
- i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=w/6qEc2cwOI6T/xUHNJh3OifoyGO3FRpW1FATx28UoM=;
- b=vzfsl081FbFIiyzZnvCW2wCOy36hSI8+MO79cCOflVhL6CE5/pRgzXh4IO3i1Y+5/fQzRJZNi
- QJ7aOlLaHCJCDAcNdRM+kj/0an2Ikp5AFWwAbhSEQqb7PcSt/S+wyTS
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
+Content-Transfer-Encoding: quoted-printable
 
-The aw2027 is largely the same as the aw2013, with the
-exception of the way the max current is written to registers.
-This exception makes it different enough to not work without
-driver modifications, but similar enough to fall under the
-umbrella of the same driver.
+The following commit has been merged into the irq/drivers branch of tip:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+Commit-ID:     95cb660c28dcecf55b18dd185f5bbd3c185d5acb
+Gitweb:        https://git.kernel.org/tip/95cb660c28dcecf55b18dd185f5bbd3c185=
+d5acb
+Author:        Zhipeng Wang <zhipeng.wang_1@nxp.com>
+AuthorDate:    Wed, 04 Nov 2026 16:37:52 +09:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Sun, 08 Nov 2026 22:43:43 +01:00
+
+irqchip/imx-irqsteer: Convert to devm_pm_runtime_set_active_enabled()
+
+imx_irqsteer_probe() enables runtime PM with pm_runtime_enable(), but
+imx_irqsteer_remove() never disables it. Runtime PM therefore stays
+enabled after the device is unbound, and rebinding it triggers:
+
+  Unbalanced pm_runtime_enable!
+
+Use devm_pm_runtime_set_active_enabled() so the driver core marks the
+device active (matching the enabled clock) and disables runtime PM again
+on unbind, keeping the enable balanced across unbind/rebind.
+
+This becomes reachable once the driver can be unbound and reloaded, but
+the imbalance already exists today on unbind, so fix it separately with
+a Fixes tag for stable.
+
+Fixes: 4730d2233311 ("irqchip/imx-irqsteer: Add runtime PM support")
+Suggested-by: Fabio Estevam <festevam@nabladev.com>
+Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20261104073759.386777-5-Zhipeng.wang_1@oss.nxp=
+.com
 ---
- Documentation/devicetree/bindings/leds/leds-aw2013.yaml | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/irqchip/irq-imx-irqsteer.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml b/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
-index 26238446f2bd..1ad165cfe34a 100644
---- a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
-+++ b/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/leds/leds-aw2013.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: AWINIC AW2013 3-channel LED Driver
-+title: AWINIC AW2013/AW2027 3-channel LED Driver
- 
- maintainers:
-   - Nikita Travkin <nikitos.tr@gmail.com>
-@@ -15,7 +15,9 @@ description: |
- 
- properties:
-   compatible:
--    const: awinic,aw2013
-+    enum:
-+      - awinic,aw2013
-+      - awinic,aw2027
- 
-   reg:
-     maxItems: 1
-
--- 
-2.56.0
-
+diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx-irq=
+steer.c
+index b9ea1e8..9bf739a 100644
+--- a/drivers/irqchip/irq-imx-irqsteer.c
++++ b/drivers/irqchip/irq-imx-irqsteer.c
+@@ -239,6 +239,12 @@ static int imx_irqsteer_probe(struct platform_device *pd=
+ev)
+ 	if (irqsteer_has_chanctrl(data->devtype_data))
+ 		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
+=20
++	platform_set_drvdata(pdev, data);
++
++	ret =3D devm_pm_runtime_set_active_enabled(&pdev->dev);
++	if (ret)
++		goto out;
++
+ 	data->domain =3D irq_domain_create_linear(dev_fwnode(&pdev->dev), data->reg=
+_num * 32,
+ 						&imx_irqsteer_domain_ops, data);
+ 	if (!data->domain) {
+@@ -258,11 +264,6 @@ static int imx_irqsteer_probe(struct platform_device *pd=
+ev)
+ 						 data);
+ 	}
+=20
+-	platform_set_drvdata(pdev, data);
+-
+-	pm_runtime_set_active(&pdev->dev);
+-	pm_runtime_enable(&pdev->dev);
+-
+ 	return 0;
+ out:
+ 	clk_disable_unprepare(data->ipg_clk);
+@@ -283,7 +284,8 @@ static void imx_irqsteer_remove(struct platform_device *p=
+dev)
+=20
+ 	irq_domain_remove(irqsteer_data->domain);
+=20
+-	clk_disable_unprepare(irqsteer_data->ipg_clk);
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		clk_disable_unprepare(irqsteer_data->ipg_clk);
+ }
+=20
+ #ifdef CONFIG_PM
