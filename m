@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169689;
-	b=S71XR5UDPjZjzMgiwS4zzDn2kaHJ0E+/gz1htmX4hO841yqLIk4ZHTdfo4g6QuiYfAQl
-	 6L1FcTncAS0ZGK/o19PulU4IOpzAJLQBBi+qv8Bwwh3Ifo0fMPzOeJj5FtmRv6FPY5ifH
-	 CxRHNyVhggqT0CUdoZ/qwac1KM3+U1O9jbaVrW0tuziCxLVz3dK1OywkpuJmb130GyXCX
-	 Jw4NDgalTvNvYIskHKkkeTvCuqg7+JMO5enpM4jgihw3LzrYNkAZK9rcE2J3eGdL9i2dl
-	 2L+mXfkDtFQuXkyG8e0NGTiso/FYcEuvfFMQ3KYnVQinOCWOWYyHY+0DzMJo8TKpI3A==
+	t=1794169723;
+	b=W735+6645l6t7T+hxGpJJcxt/68DNH9oFZP4QjB8ROI55HTDqDfhllMWs5dkoFTSMej+
+	 rFavevwi9GXMUylESCrfY9nerwLeGoYzVXOJmcINwbyXBZv3GlcETcCUKRziDCo0mP4Ov
+	 +LnOBe+AqWucVItc0y4+dZrkYkjY4a81mMAPHGlBYf0icKRaxNT12l6LVGEQFC2O6AkG0
+	 JRs2lU7MUUq2F+kPZ776HzbOOgwwQMyGiZvI0IbamTyYybdu+SO0il2NPO7erj/+p5j85
+	 rPIekuAfpKQMSsyvh9WBTdjiob+wdADjxxBuX8ojvjDNFut5W+k4XhjgFtbNChYeABA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169689;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z5j7HhXnzELbkFkJqEZQNTDWxIhKaeKvJLsv/O41RlA=;
-	b=VG/a9G+Js/3yDE4aUjwle8Gq27feebscLz7q0pCMuwxnN2C9wiDHAwC7OV11nzyAH5JA
-	 +wFmspT1ddtO6wy58j4bmCs10A942Y28G0c+Dywr+ZXO+b36GL+0U81twjbbG2kmH55em
-	 gnHYW+JPjhoBEjuUqxT7lIOSZI/w/+7DctpoAeFQg+3D9sc/WTeKVKk2oUpTuiMPEZ0Lx
-	 PNK4eZKpkkkYewBRh4kQWaPo0AYjAlvgT1n5Q20Xv+gUHoGcYIy6ilWET8g26tAPiijzF
-	 4lFZgwhaj3pqbMC6JbdnNYYEnn5Ob2Twl6xxRg7tbdBq581bwMW7Urmb7MT5T2u1viA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169723;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=wcKESyKlUe53z2QO1nYuSnZfwG6Mb4uKZfngmDr9m+s=;
+	b=yNKHO+tUlRi5wgBL2m+Lis4NteUHsKEtCiMiw+FZVpgcJ7ebkpuUh2XoCna/0PJgXNCv
+	 Dia5NObYqZNvIwCcZx+o7SHwZoWPjwmU44bQxd8VasUtvLAzdjNixhgVHBWocVcuqgo3P
+	 G077vjEKr//cOhMWW8Z2RwNStZ67hO6udC/wp903suQIAFIwnX8gLTmn1jluCFz6/n8hB
+	 oOQ5E3Os1j3Tt4nmwJzcX6UMvxflqKhYOGj4vLuTSNlewnaGSEO6AqjlXUTq+AsCoFsEp
+	 QF0+rp/q1FYWeC591rZXYN6X7aG4AYH/XzMr5tGUw75PSlER9E6h08CtSpYNmvZQLBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfNPdoBK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GtQ74TfS;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE0C606A339;
-	Sun,  8 Nov 2026 20:28:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D93B606A334;
+	Sun,  8 Nov 2026 20:28:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D93B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfNPdoBK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F7B1F008BD;
-	Sun,  8 Nov 2026 20:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169688;
-	bh=Z5j7HhXnzELbkFkJqEZQNTDWxIhKaeKvJLsv/O41RlA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gfNPdoBKXcAtf6hRjx3oBKNvxuctMSQpp/iU/H5+S3lFaJwT4pILePYk9ynCAGLLH
-	 ZQJ8bqirTCcBOaXloqpNaEz2VKMDfqtY8wq4tMkfj7Ehg8JKLyIxP6QwEiN/8RBgm3
-	 zXrTuKZvl5Vrr23sVgTtroZLOxmzLMKXtdCYkWpY2T7PclwpuiIUqThyvEPj8VvwKm
-	 DKqLyBO6KsoAsvY50IdhNuQicPCA+ngvurlEjB2UN3IXpMRho/hJneE4TnKedvnJhC
-	 ehL1nyF63OVVy5QiPeDpZl6kbiEl0Xs2vCWKJueP591ZB0wWAHb9+2Eqsz54sXK6pX
-	 7YEr5HJQOZm6w==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 6.1.y 2/2] mm/damon/core: remove unreachable damos charge_{target,addr}_from
-Date: Sun,  8 Nov 2026 12:27:58 -0800
-Message-ID: <20261108202759.117377-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261108202759.117377-1-sj@kernel.org>
-References: <20261108202759.117377-1-sj@kernel.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GtQ74TfS
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9BA5340E03FF;
+	Sun,  8 Nov 2026 20:28:38 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id rJWilwZAF7WO; Sun,  8 Nov 2026 20:28:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794169715; bh=wcKESyKlUe53z2QO1nYuSnZfwG6Mb4uKZfngmDr9m+s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GtQ74TfSGkD7TRvT2iWVY3SynnnUOQGBEDhAlJkLNo73XS+Un9sROdycb5XsYxC6+
+	 Sx47AgPzAv0LDaaokC4CoUiuZVHsuBhokQQ7U5WwzU/XphT6JMSjQPEeNMls6MYd8M
+	 +LSdoHT4yf89y4e8oP6R0KvduSmitj2vOwiTAHVzH9aGxWfbHh/s7k90xQd1eLEhWg
+	 0Zcc8nhh426LIWvU7F35BMwLwdfyRRVM2BaB/Nl6RIoMrL72ynCwWppnmdwghCuBPS
+	 rvsbYTcKoKKCJF347nHXtRWDMfrnfdIFo1Em8FrR1OEdwbEeKlPfiuOLouds54ArmP
+	 zFxl8cZZpdDw5/kDtTOYMbp9KLrswwoURZ2zi2K76Mpmc5VFvFfT4a7QfwVms1ncF0
+	 8jtMshlSY7gZmyNITOHkSQluggabL8hotOrvo+0KJdps9MvdrtlA0yVXfLId+rUSEK
+	 6cO/0IptDhIC7rOGk+qm/HmBto7bsmKhOvBJZrJQstolq9ayPHCGOBUIOFxdtqJxkO
+	 iKt84nZgFp3ebM70urX99RFdqDTtPGZGz+WtquVap+iKB7UZKRjm1aKrLbgfI4a4Wb
+	 EePKTEr+iZKVNruBrXgLJMvxexPq9m8pv80oR9aC41vtFhGvEl9ONaQnLvadbT0wub
+	 tcwpXM90f9rLw5rgk6b2wEaY=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E456140E016C;
+	Sun,  8 Nov 2026 20:28:22 +0000 (UTC)
+Date: Sun, 8 Nov 2026 12:28:20 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Rik van Riel <riel@surriel.com>
+Cc: Tony Luck <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH] x86/mce: Restore rate limit on MCE logged message
+Message-ID: <20261108202820.GCavDbZJgmwKqysH4X@fat_crate.local>
+References: <20261108143751.3af49e48@fangorn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,81 +83,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261108143751.3af49e48@fangorn>
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+On Sun, Nov 08, 2026 at 02:37:51PM -0500, Rik van Riel wrote:
+> FCommit ea324444ece9f moved the "Machine check events logged"
+> print from mce_notify_irq() into mce_log() and dropped its
+> two-per-minute rate limit as a side effect.
+> 
+> A particularly unhappy system can spew out around 100 million
+> of those "Machine check events logged" messages every hour,
+> without that rate limit. A large fleet may have several unhappy
+> systems, leaving the netcons infrastructure somewhat flustered.
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+I need more info here. How are you running those systems?
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+Usually, correctable errors are consumed by the CEC and you don't see
+anything. So you must be doing something else.
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
+.config and dmesg pls.
 
-Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Cc: <stable@vger.kernel.org> # 5.19.x
-(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+Thx.
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 9206737d05ae7..01f93146b92fe 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -860,6 +860,26 @@ static void damos_set_effective_quota(struct damos_quota *quota)
- 	quota->esz = esz;
- }
- 
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
-+{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
-+
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
-+		}
-+	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
-+}
-+
- static void kdamond_apply_schemes(struct damon_ctx *c)
- {
- 	struct damon_target *t;
-@@ -890,6 +910,8 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
- 			damos_set_effective_quota(quota);
- 		}
- 
-+		damos_fix_stale_charge_pointers(c, s);
-+
- 		if (!c->ops.get_scheme_score)
- 			continue;
- 
 -- 
-2.47.3
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
