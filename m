@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794150811;
-	b=OZyRm6SZwjFGqCIU1Yc2pUY4g5U22WroiiIdwvmj/V6VitUAEdgrXmNDcwosMChJtCrg
-	 5cyDDyrwU4SWrCSYCcTWC1YURohzt0cOE2oAfHj0lp0DfwZhrWFld6SBcwuYblhLFQmcC
-	 7R4rmhVy67pKAk/d9D8SpLihucMQxJ7TgGqT08X8aCo5clo7ftQc3MX7nDprZiLo4Nhg9
-	 7i568pbAsIn5Y1uihpvcy4BDi2WrK8/ziP0Yz6Dwdl39exQuviQ2rWMPgzepEy1a2p7Gh
-	 wVQqw0LYUdxIRjxmuHJe3MhX9QLqkyL1dKCsAG3qCIqPfL1gjrKVhsGlYXj/5FgoINw==
+	t=1794150853;
+	b=GqO0rGRhbgjINfMTTbXo3crqythPuc+pnowfCVhuAWICKvZ3L31pbhPnZUDWXlC1Wdzm
+	 69BWrP5gxJ7ilxhh/MWldxfmuTTlXAJtSsVVyMcjQT840mt5q0oPQVfCATbpSnAoMfott
+	 klfsGWKbPSvE/zpP9IiTPASCgSkCaFkvDgYhK0O8z1i7j9jl7IvY4oDY7hWQGeADifecK
+	 r5AkR5xpjVoVz402cVRTF1jiLf32ho8oUT7WsFp/Bl76aHQ0iWazAT+GT+pephx5NUbNa
+	 Xf1p80nU2pW/se2EeDvNSS6Gv4BnG3TH09XGRNYdVvW2YbIh27RuHXBECzyUpvAiYkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794150811;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=owc1kl59fRsLMXs8CdiyeFMD40mCiUsX7mDx+bmxT2Q=;
-	b=bVmVE/Pcy+RKVU26Xue8sqXNLAzVZt7nWcyDisIMmn9RSHmdGWgQrAjDU2BIdYMPu7iO
-	 Db9YIxRS1hlXWgHVWUph+7lejJBMV1u480qSV45Y/nfm8+QwD3GJBlnqtLhy8MbjS5tKi
-	 M7B+e/ElHJN3Lei5eLt7FNkmsd8z7WmobdSEfplV/yKW1P46W67dn/VzMkLibWL7uDl5s
-	 7qgtJMGxk0X0xoyHkjlEoKORECQ5hRTu9uBSKZHlGdFMX19VgNCeTfB4NMg7io9j/mGA+
-	 W86aJQ8FTcmplPh/aX1/qGujM3DE3UCu2d9eYfB5PExuLlk7iCSl6AprqcLBs9YsZCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794150853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=9cq0cqQDrxxDheKf6OQcVpHWZ5KutleAsdIV+8QNjz4=;
+	b=fDSfxqEeyPiRZzqKaozfGEg99r0r+RPIA60CSi/XP7q//26r7ervETDkbsnBz7PuAlrq
+	 PZpQQ/QxXcITj4ZaOqJwVnTUxBjei3vCly0Uh2D7i4WHMmif4QcynAhyjvHxSm1XOgy/i
+	 FiPJPWqDx4alL4Z+edQ+LuMN5F90wFMmwOxioTnTUpBTkoIMDehQoRFp2tUUSemIyqax5
+	 z2Q+ERx1+td0rYljsMvzOtrrr+bT2DJJdJfHhw01tFe7ooK9zhj2E1G6sWSF8m/WZGxsO
+	 kqq07LnBQUT8eF6YGF9NJqWvi4vP7+2KBR0m+N6I6zREotcHBGgnjVVTuTOihr4O7Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJxHrG6g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k+sw3vLY;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3E8606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCF8606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:14:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CCF8606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJxHrG6g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FEFD1F0089F;
-	Sun,  8 Nov 2026 15:13:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794150810;
-	bh=owc1kl59fRsLMXs8CdiyeFMD40mCiUsX7mDx+bmxT2Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hJxHrG6gadAASHWzhhRcQeMizkCVbNhu5QrVm4z14XBwmyQynyqWhmIVsTb0wAywq
-	 HrFsM8sUPdqYnWxzVgpf0wPz49ARaij5lTw+DA7gysNX5ylQFWL/LHZeuRKtXsk4aq
-	 QEqvllsGcb6Abs/c+dW0an0l5vlnrg0OKtkx/yJ+3U1R/WOK7y4054CEJ3VCdefpxb
-	 Ogv7wuVs6zW0q9iHRgFgJmrX1kMhbW4afN0vcYJmuQvO22twaKeASMJ4LbBexzaZCu
-	 ENKVO6ek84aW4Tu3vpFneDHQYet0eyjy4L+/wth+2vtevjdCtKa1+t6ZD+Y7tSk+zD
-	 7s5/YUdaiLbPA==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 94E612CCC9AC; Sun, 08 Nov 2026 15:13:27 +0000 (GMT)
-Date: Sun, 8 Nov 2026 15:13:27 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Mike Looijmans <mike.looijmans@topic.nl>
-Cc: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Subject: Re: [PATCH 2/2] regulator: pwm-regulator: Revert "Add validity
- checks in continuous .get_voltage"
-Message-ID: <6c74f007-5a18-4a4c-90b8-df2f3cc3b36a@sirena.org.uk>
-References: <20261106130010.340950-1-mike.looijmans@topic.nl>
- <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.6954786b-65e0-4206-a0c4-60cd251dbec9@emailsignatures365.codetwo.com>
- <20261106130010.340950-2-mike.looijmans@topic.nl>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k+sw3vLY
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d473cfff6so15934666b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:14:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794150852; x=1794755652; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9cq0cqQDrxxDheKf6OQcVpHWZ5KutleAsdIV+8QNjz4=;
+        b=k+sw3vLYGtsdgh44ewI3ONGEVRE5G9Yc4ViLK/9qvelJ6ZuQ1Zg+Wy3yLBQj9ROLgd
+         xs8ytVyJZNi3KPl8VJPkuuuPV5Mi98hZ9s7lytBpov8P3Dv8sm57NzypUQ3ewuDNxN+P
+         ZbpLJCKQVPQEjt3EhHdXCk2STdgMORsCuFRsHRuRCufEvM/x6D21MPgZqtrrs6V3+go3
+         VEZLh48Mk2yewVFxSVZYCOkqtYhQ8IZD1a9M8FSj9/cp2wbLKUxxKePnXQWWRq7SyUUE
+         Cy9ZSGSUe2N+Mqp7zISjkA2uIb+izKV0GLdxE4z6dai0ODMn8sIoREhE9KSjJ0yq4+u3
+         dpmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794150852; x=1794755652;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9cq0cqQDrxxDheKf6OQcVpHWZ5KutleAsdIV+8QNjz4=;
+        b=YNKmLwdvs9fZevdvU6VUFcnPYW3GuX6o3KMtVlVOLuGRpvdR99cZosMnfmYn0toi46
+         xU4vBnHe01kl1whaohmFb7IZ2HSJ/mugmYrpGbZYTGQUSSB4jcPMvo1I02k7M5JsoE1t
+         dirVWRfmXVJ3Td31BFR0tFB49+NHKhXa2eTyeYNk2QGdwTPhFOL0509L/pRCp6xyPmrg
+         /+KFsWpu89edE3y77b1ZKY2lf6Xq9nsnVU49zzwa49G/4yJoRC720sOsqqgy2x+ZUGdu
+         oTxe+rdZZdUTDMdzAR24X+ELo7y3tPAXfIgwstdWFpdprvWOKC/uJpasIHXlMgILHdln
+         aToQ==
+X-Gm-Message-State: APuU4Z/JwxiWxd8IbV4L+hbttnwTpmmEPfvfsTjrrrV17mFRLFYvDzu/
+	zu+n+H7Jen108uLzwiGw+d86aG7h9kDRTxxFemksBrnGNZVo9bmh1kO+
+X-Gm-Gg: AYBFou0lJqGgQtQ/+DD+F2uOLqfQipIwOLNIT7mRjtpb1KR+/3zug4DVTjiRERq4W69
+	l9Mk2gsJQ+WsByRBomzsMSXuTgOx1G+wR95iLp1XiaTWSPL+fKL6U2c56r0Wwr408DYbvjDTALa
+	vRy3KM9T22BsPs2prmvJBcxRPBE51w1vY2yvXRK3BimKtqwmbFPS1olYbNtKyuC+KazPV0o8Fm+
+	WvCi9ULtAewcB1g4nsJbB+HVQEGFK66mgvPYjIvfxsRUgVE04IQbbBgtbpFMljPpbEpd+ee/xTh
+	PudjN1R2nBqfXD+qQTgGfZwPwkKPdqosyIxkDND2QLy2E/r55SDdoufahwzdjQXgTYOCQPN8H5L
+	bh1qdVxAt71R8dfpCyIK0D6+ZKAdWaEOatUiyGnRZ5GJFSlOAbNN2AaCepF7MCYrYBhRn5RgT7f
+	4TWLhHf5PIkBts7/ILCT52+CV5v3lgnObdwxv2N+VZCIu0iq9UByw3K/R6CKEyuuU/b60XeQsCP
+	Hb5ouqAvVicMB53uXlDxDPpCd9JYtpQS+AsLxDGgy8aV9+mT7p4p1JRbXc/j2AQhc3M3jEo5o/a
+	Z6G3P3SqQwkDXfE2c1JMp0egA7nqcAkdLRL6tPPGXENi+AcYol+ALNSbqP8CYDwTg13qzzF/W/d
+	hCBohtEZNeA==
+X-Received: by 2002:a17:906:c150:b0:c29:3c97:c994 with SMTP id a640c23a62f3a-c4d6db81459mr108618266b.35.1794150850606;
+        Sun, 08 Nov 2026 07:14:10 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a978892sm69689966b.58.2026.11.08.07.14.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 07:14:08 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH v5 0/3] leds: Add driver for MAX8907 LED cell
+Date: Sun,  8 Nov 2026 17:13:45 +0200
+Message-ID: <20261108151348.204182-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,58 +103,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="akU8xEcfF4xSW4+N"
-Content-Disposition: inline
-In-Reply-To: <20261106130010.340950-2-mike.looijmans@topic.nl>
-X-Cookie: Whoever dies with the most toys wins.
+Content-Transfer-Encoding: 8bit
 
+Add a small driver to control the LED cell provided by the MAX8907 PMIC.
+The LED does not require any specific configuration and is folded into the
+PMIC's node.
 
---akU8xEcfF4xSW4+N
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Patch 1 of the series requires this patch:
+("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
+https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
 
-On Fri, Nov 06, 2026 at 01:59:56PM +0100, Mike Looijmans wrote:
-> This reverts commit c92688cac239 ("regulator: pwm-regulator: Add validity
-> checks in continuous .get_voltage").
+---
+Changes in v2:
+- rebased so patch is now applicable to linux/next
 
-> The core, and in particular the machine_constraints_voltage() method,
-> expects the regulator to report what the current setting is, even if that
-> is outside the allowed range. The core will then bring the voltage into
-> that range. It cannot do that if the regulator refuses to return its
-> setting, and causes probe() to fail for a pwm-regulator when it has
-> restrictions to the PWM range with messages like:
->   dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
->   pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to register
->     regulator pwm-regulator
->   pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator failed
->     with error -131
+Changes in v3:
+- added check if led is off for get callback
+- added dedicated MAX8907_REG_WLED_MODE_ON mask
+- switched to devm_led_classdev_register_ext
 
-Are you sure?  We have specific handling for -ENOTRECOVERABLE which just
-blindly writes in the range specified in the constraints if the current
-voltage is unreadable.  If that mechanism isn't working we should fix it
-rather than changing drivers.
+Changes in v4:
+- platform_set_drvdata dropped
+- init_data.devicename dropped
+- added MODULE_ALIAS
 
-> Besides that, regulator_get_voltage() is not supposed to return any
-> state information, as is mentioned in the API documentation.
+Changes in v5:
+- add and document a dedicated node for LED
+- split adding led cell to mfd into separate commit
+- expand Kconfig description
+- populate devicename and default_label of init_data
+- unfold platform_driver->driver
 
->  	voltage = pwm_get_relative_duty_cycle(&pstate, duty_unit);
-> -	if (voltage < min(max_uV_duty, min_uV_duty) ||
-> -	    voltage > max(max_uV_duty, min_uV_duty))
-> -		return -ENOTRECOVERABLE;
+---
 
-The rest of the function relies on this to avoid having to deal with
-wrapping when things are out of range.
+Svyatoslav Ryhel (3):
+  regulator: dt-bindings: maxim,max8907: Document LED support
+  leds: Add driver for MAX8907 LED cell
+  mfd: max8907: Add LED cell
 
---akU8xEcfF4xSW4+N
-Content-Type: application/pgp-signature; name="signature.asc"
+ .../bindings/regulator/maxim,max8907.yaml     |  4 +
+ drivers/leds/Kconfig                          | 10 ++
+ drivers/leds/Makefile                         |  1 +
+ drivers/leds/leds-max8907.c                   | 99 +++++++++++++++++++
+ drivers/mfd/max8907.c                         |  1 +
+ include/linux/mfd/max8907.h                   |  2 +-
+ 6 files changed, 116 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/leds/leds-max8907.c
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.53.0
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavCRlwAKCRAv73Ows9A4
-iTV7APsGnN6GpTtoYfXfdOjpfCdgSlqZ904y7whHTmat6xC2aAEA1cwEHj+OhvyG
-JlJxJjHbULaFfSXPFoMxARI8Sx174wA=
-=za1F
------END PGP SIGNATURE-----
-
---akU8xEcfF4xSW4+N--
