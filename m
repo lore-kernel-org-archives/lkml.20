@@ -1,93 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794124291;
-	b=T7UOedWtM75JLrJ9MBp/0TWv4ZXsFYLOpYSJ5lkXj0iAcCX1Wr5K7o3SHZBsgPHZc1ZT
-	 oPYVIDGAUcPylzCLdNM4t+2QVMv4VfWoVTwRaOgtWR07BChrCDDRz6bLWQbJoLVqKuBnq
-	 5S8x54uHU3AzeQAe28utfpIy0IzL444rouX5ulGhSCPXLRc7LkpL6j9OXHsp7cXST9YVt
-	 zgj8B1KUFDZO20BB4WTEaRi046KIB1MSjjlG8IV0+oDy/XjESTH5gh1JopI89bIOvB7zU
-	 r5sh8n6oZKGSBgDFnMespOHG/K4AMZBxL4eoGc5UPcsMJPIW3mRH25ZG9S3zOURvHxw==
+	t=1794124451;
+	b=24yHmYcrMPyji3gCUi2cFUEw3RF9qHoMQIyl2DLpfLnKUt4nbXkmCPw96cU0+dU6mYuW
+	 AOD02Hs9j31lPIbUdU4Am7OttELSV9fwnnvJoOH6yBzzyhZbjXrNV05QK3wAJnORSE4W5
+	 UmQVMX99k4WbtyNtPydWgQXT00hieCvUQgQBkt0uBd/1ZXE/GwQ9mxr6Gs1h/tzsCTyQO
+	 /1pC4eTFSNwspMNUgBGjF52mT5JT/esnDYBsZ/CnoI39QTtmNYLsetFoYqxYaFE8J8ycE
+	 THfg2jirqC2dhR6lNrktxY0lVYQMkigCx8MQMu4v7/HhjlKRvzbt6+cTqPws4J1OJ4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794124291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794124451;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=nAolJ4zrHlGn8Rop6XJv9YeUU1fj1l2rVCM3Mny8M7I=;
-	b=VAHFLhHzHeOwItufZMVummf+V4yrduuTnBvzPyZ4e8Z/HMiWM8UWSONKZUslgBTQLfqg
-	 Y5uGUBGqTraofJGiYUHJMLQFgvXV5YHDi/Pa3+aoPI48daLb6EFtEc7XEJPeMuR0R5eLg
-	 Nds0v90ltrvKcZrgCDJBjbCxkcksO1UOZE7pfNUoWyYR3kwPOC0xhdkINJnw8WVkdSIjB
-	 RvjUUBpM+QZvEpTWY9YH3vSpbDpcBylReCudNK5lmBbA//5vfEx+cpZYtWmgf3/Hh0h7h
-	 wKP72M/PaZQ0ifxf7OTkmoSzGzw2DRA+RytrXh6fuB5h18/NTJdWrvaDk2EiIxErERA==
+	bh=8tBhA04OZW48u2CYSoRKHfkBmCLrM00ptAagGQEc3QE=;
+	b=sZfxM5gciFTRlhp/+T0iLnrs2O2CRYeLi3UwlR4d+kvE7+WTtAajvBlbG73X1UnH16Ld
+	 cFgsae9qHF+E7dXC3tighvGCbmtIXe2NpqXViaXLL8HUqKJrTKlBiqzilGvippuw7AUOT
+	 oPdUppzYO9ysZkIJ+SBc/4nCDz+YPETsSY7mbM0pxk1SSOvaiNVGzXjBjwz9fINmV9WF3
+	 51thC0WSNySMOpBR6HXb2Qud3JhH0EsewkM97K/099Pn6WwxDpzHmZXwy6VfD6FLHtsiz
+	 UrPBahzOzVHF2Zl/jozgxL7O2oXQr1Vc5AlhKwqoNs0NxL67BabGX52QP0Z/ktO+e7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="x/5/dbHb";
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="i/sDtTbG";
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EEA606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56EEA606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0469606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:54:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0469606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x/5/dbHb
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so701936eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:51:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i/sDtTbG
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so154584eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:54:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794124290; x=1794729090; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794124450; x=1794729250; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nAolJ4zrHlGn8Rop6XJv9YeUU1fj1l2rVCM3Mny8M7I=;
-        b=x/5/dbHbTtV3HzASC0mSTL6DCkKTqJmhN0woh9gHzab72ecWApO97cGLZbtOzsx5Wq
-         Drdpr33yCVYl3pf5qHuHgHHxIsWAzuW5gd39HtpPd35teYSnYvdvp3TvP9NDICzy1YhR
-         94U9qWczgdFTmaqEAue9gSPLqTeMUia+qAiWIZUANv2f/A0Bc3P+FbfTwTNW2JKOHv8X
-         G2UbdtG+OaFou3O4xCQPRzN3poPeWy7zMVjbUfMsOQNCdxDPaYpuxrJZyS7uZhI9Zmzr
-         ITBQU7XLcgNpqNXJj7pV/XDmFZD4wbLFwIlT5OlZjmfSJ/Ii+3m/Vq5l2JsH95yThOnG
-         Jqhg==
+        bh=8tBhA04OZW48u2CYSoRKHfkBmCLrM00ptAagGQEc3QE=;
+        b=i/sDtTbGL+2267Y5l+x2Jgvf9uKniNyUYqBo43wRpqI3BXpR1Ra+ZRe7IqNSsw23Pn
+         dy2dUwo+DSlR5UW0iVtSNG7nt/Ougwc6CSiG5OeSL4iqro8c8ugcOC0jhGPufJXB0SU1
+         QkNT2nQQzxmUYpHpgqhDw04LjQMrKUGa6yPMwJ4NgATZNSMTeIFs88qeAiVl0/Nc+TkT
+         hetzFTlcfzUZy9w4I8kO7nds1GScD/nMADpqlO3kjXqx7FFXqR8PG54ZqUxz/Cm3oNyy
+         0iMidBDAJ+e/9lV5X1H5SSHUm9EMshuiBeXJFDwW6V998U++m8hVPGRmzz6hQOGMeUbb
+         zrNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794124290; x=1794729090;
+        d=1e100.net; s=20260707; t=1794124450; x=1794729250;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nAolJ4zrHlGn8Rop6XJv9YeUU1fj1l2rVCM3Mny8M7I=;
-        b=XnXHPpSuRMt7xEf0FZkskX0LgQ0GXB4BzdnIl0/IHVYxRmY4ojMEuBjmGrx0YFdPMS
-         Y4mM7JdgGpK09XQ3mfZ7PvT7p1bMgijb410Kx77UepQwcJVrsXGqc4YUHZQd8ZDq1nHN
-         WXfslOj9uxt4kd60im0nFvPnchoAnbgiIdNSRdNvLYC55p/zlH14P0mBYVKRIylNrEwI
-         ZjnqMF2GXX6cRDXySnjyN+90EKwunyXfq1whzVxN2WzscwvYyX91TSpu5Piu9peSi/xB
-         fjHAAqECB6ExJ7qac0IJ1BzocrXqL+tjFdLS94Nk62oOisYQpbfqNW2Zw+Jo5UMxBlEC
-         Cn7A==
-X-Forwarded-Encrypted: i=1; AL+hErFIxuUExWzXnYnBsV/dNV6m7uLrwBGHh8liquJGwvbRSzswkgUAfGJjre3E8l3zfb+TwM96X8OcN61grgI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8koPHrLo6+cCSEXQnmy9EVKa42sdP2sOtI1r99QeZxNJitCsBT
-	c2GgaHkgfThe904mxqLxBfZG2mL/tpTVgSQHeplN0xLrnGYOMM+jIQQz
-X-Gm-Gg: AYBFou2SkaPjgxWmCKfeJV1uAzJjzZkuOqxnK33+hjVeuBb/sb+syqXDkjd6gcE9Pgs
-	8gtOwHIrECQ84kVglflwTW0bNLsIvLJe9k6tcWNLY2EnIV2JMRLhA/WvF+KBbGxwmwe3e0pVqOo
-	IIN/49ORX03xXyzyEelcopYTHrUHuLq6OKxdguS/fXqaR22Zy1BgqsrENOG56maC1PPgjfJs7t7
-	5oIFXHzbVOzaoRYFe76gw37JqOh1sEuVtY+UzYRu5z5F+dv3gRZ8cgtYy1zJS0wH5ouwaoUEVNq
-	DhsH04MjCpKjat6Z2+8hgebTah0ATCnrEuOumhUiOyEhYDROWZN8+KlNKvjY9fy74a40u+HNXHS
-	qk7F440C+9lZE6ZhbKJ02km1TrvnE180nRpEg9T83+Nv6LCIZp/R7i5KbHaviSic4caAgWV/mYn
-	D9B7nfKbXzG8nBErs+kbHGPg83Hp6KnJg93Y8b95zapsWWjiQ4PC53rKt1RyUIPnIIYNbsn9uQL
-	IzGfoNXKLqOGImONaMI6bdbuZ8lU+O65kvzvpuU59E0GS6Z2QfZpOsmCbMdBI8YhayHQzD07aLw
-	yY39BFXbycEhYSyXnieGhteFpafwFOwiWILxPrZortOEKv+2AyubyOGn3gFTlRwZheb3cg==
-X-Received: by 2002:a05:7300:ce93:b0:369:f18f:34ab with SMTP id 5a478bee46e88-3725d77f97emr2096920eec.11.1794124290231;
-        Sat, 07 Nov 2026 23:51:30 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372632d7d62sm5627672eec.3.2026.11.07.23.51.27
+        bh=8tBhA04OZW48u2CYSoRKHfkBmCLrM00ptAagGQEc3QE=;
+        b=XrrJuVeC7r8Pzt2SeMNWDLTHHwMDhqkaAPeqVzcbShAi8ebDvTAx6b16/onR3yw3Mo
+         NESMP9DCuF3AX+18RZoy/8jw69S5S1F0hCaV2WkePPQAP/9gN5iLekyebM9rswQlcwMi
+         fo+LoUkaeEGLJLlipBh6/ZzCoTILO8isHaufQi5hcD7rS6XBy9xuQ+hvIfyiAZCMdUeo
+         v9XO6LgkGDa9j/WT+S4TiUzDgDBtDvD4ReB1uJQP+9OcYOPvhvz6RB74c5zojBBICS3d
+         JuOFiYWYVc1sfPsKZbmTASS+6s4e3xMDqnkGkXmazudDlMWXY2tMN3rw/NUh1ampP4fr
+         X7oA==
+X-Forwarded-Encrypted: i=1; AL+hErFrD5Aco7+gzTo9eOdwxVIeAz3JwttKhvcBvRAvLJg7OnKNowG9vjA58IW6i4sZzpJl0dMlazA+g4znpp8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9k8Xhbmwnsr2UpU2cqry7kWdul5bTonNaL2pRbYAY5xnsSA4P3
+	8c2qn7Okz7PjAjfG+/FuLztce4ZxYE2V5ym1uBUfrQcUl8l3USJQBQD14K3xi4rut9Y=
+X-Gm-Gg: AYBFou2Z9fSCUp1/ajexsPI8GQYmohTrwe3nuunETXT3eggwGmYB/+8Jcy8e9pDBc56
+	FDiHnCheaevuWtCA/CKTVjiKE55/fF2JYcifa22SirSwt64jp5jrArXgR71IwmjyPbWueIjMNu8
+	vSfwKQnGciRmibtwnZqnHeFZt22bPDUaCnOmdtPpRpnpOD+YXtPqnw3XGfxaORK5uBVARi519ua
+	cGfS613J+b+SjWy9ivVN4tb23brcwPnuFtDu5Gg4txVjxAU8hKHEJjeLAXnilhfGHOT+iSfLOZt
+	6ALJ1+tsZ9UIwQmyW21vpWUS4cQbpYYpN6XlLBS32Yy8m0WOYKE3sJIj1cZP46UOv71aiZAeanj
+	e57MgF9QMfI25rU6fl9npJjLoQnZt+L5O42ZjlO35KTGbvrnjvQHAXbW1hCYd10w7KoCnLRuZzu
+	+tynIjGDuK+ssPpxeyhk0D5hhMi8WhuSEes0FRQ8wZY8U0xuQbtNFVZWc7T5aGjXAkYYAf/W4Dk
+	KC00Fm+6/uuIT3qgADMqzeSz3aF2A2WBAAsDYje2fZbLavZke1E2PdS825PPKQPnH9vZivWVG6P
+	eIVmxJNhCirF/HTTIuWnGvIAp/TGu8mtBiO6LX38lSRktpfInmHMUiKuPHVCD4haGSdPUmOXLqh
+	UMU7w1MAe9C78z9yGe25DhZT7JBxckkIyi7SrWg==
+X-Received: by 2002:a05:7301:d80e:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-372575c557amr2132822eec.7.1794124449668;
+        Sat, 07 Nov 2026 23:54:09 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265ff3415sm3310760eec.18.2026.11.07.23.54.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 23:51:29 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ruslan Bilovol <ruslan.bilovol@gmail.com>,
-	linux-usb@vger.kernel.org,
+        Sat, 07 Nov 2026 23:54:09 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] usb: gadget: f_uac1_legacy: cancel playback_work before freeing f_audio
-Date: Sun,  8 Nov 2026 16:51:15 +0900
-Message-ID: <20261108075116.251501-1-hj351016@gmail.com>
+	dennylin0707@gmail.com
+Subject: [PATCH] f2fs: require CAP_SYS_ADMIN for fallocate on pinned files
+Date: Sun,  8 Nov 2026 07:53:57 +0000
+Message-ID: <20261108075357.43331-1-dennylin0707@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,52 +99,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+fallocate() on a pinned file allocates blocks without zeroing them, so
+reading the file returns whatever the blocks held before.
+Documentation/filesystems/f2fs.rst describes this as "zero or random
+data". Commit cad3836f9eb2 ("f2fs: allocate blocks for pinned file")
+added this while F2FS_IOC_SET_PIN_FILE required CAP_SYS_ADMIN, but
+commit b13bdf03bb80 ("f2fs: allow all the users to pin a file") then let
+any user pin a file. Since then any user can create a file, pin it,
+fallocate() it and read back data of files that other users have
+deleted.
 
-The OUT endpoint completion (f_audio_out_ep_complete) and the set_alt path
-schedule audio->playback_work, whose handler (f_audio_playback_work)
-dereferences the f_audio (audio->lock, audio->play_queue, audio->card).
-On teardown f_audio_free() frees the f_audio with kfree(audio) but never
-cancels playback_work -- f_audio_disable() is empty and nothing else
-drains it. A playback_work still pending when the function is freed runs
-against freed memory, a use-after-free.
+Require CAP_SYS_ADMIN for fallocate() on a pinned file. The documented
+use of these blocks needs write access to the block device anyway, and
+Android's gsid, which creates pinned image files through libfiemap, has
+CAP_SYS_ADMIN. Users without CAP_SYS_ADMIN can still pin files, but can
+no longer preallocate blocks for them. fallocate() on files that are not
+pinned is not affected.
 
-Cancel playback_work in f_audio_free() before kfree(audio). By then the
-function is unbound and the OUT endpoint is disabled, so the work cannot
-be re-queued and cancel_work_sync() is sufficient.
-
-This was reproduced with KASAN as a slab-use-after-free in
-u_audio_playback(), reached from f_audio_playback_work(), under dummy_hcd:
-with a UAC1 playback stream active, unlinking the configfs function frees
-the f_audio in f_audio_free() while the work is still in flight. A delay
-was added to the gadget streaming path to make the schedule-vs-free race
-land deterministically; the missing cancel is present regardless. With
-this patch applied the splat no longer occurs.
-
-Fixes: d355339eecd9 ("usb: gadget: function: make current f_uac1 implementation legacy")
+Fixes: b13bdf03bb80 ("f2fs: allow all the users to pin a file")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/usb/gadget/function/f_uac1_legacy.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ fs/f2fs/file.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
-index 7c8d60c..2dca5cd 100644
---- a/drivers/usb/gadget/function/f_uac1_legacy.c
-+++ b/drivers/usb/gadget/function/f_uac1_legacy.c
-@@ -945,6 +945,12 @@ static void f_audio_free(struct usb_function *f)
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index e2c0f5083313..d1b52b41a1eb 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1973,6 +1973,9 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+ 	block_t expanded = 0;
+ 	int err;
  
- 	gaudio_cleanup(&audio->card);
- 	opts = container_of(f->fi, struct f_uac1_legacy_opts, func_inst);
-+	/*
-+	 * The function is already unbound, so the OUT endpoint can no longer
-+	 * queue playback_work. Drain any work still pending before the
-+	 * containing f_audio is freed, otherwise it runs against freed memory.
-+	 */
-+	cancel_work_sync(&audio->playback_work);
- 	kfree(audio);
- 	mutex_lock(&opts->lock);
- 	--opts->refcnt;
++	if (f2fs_is_pinned_file(inode) && !capable(CAP_SYS_ADMIN))
++		return -EPERM;
++
+ 	err = inode_newsize_ok(inode, (len + offset));
+ 	if (err)
+ 		return err;
 -- 
 2.43.0
 
