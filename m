@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794114312;
-	b=wT8MfW3IQLwfHEUJzBZWt45YH4farKUmWc2VB2ffoC3KeL0O/+EoYt3p5YemS7Q81W2P
-	 n9DLCSnUu3SBENKOCoC2CsFDuZnyp6bxgAu/hFsAHZSWuj672uB93QHTzdlcro1JC25vs
-	 rhitGMNGXnpf9/MWs5c9vQx2qDT15A+se0BWKxW4HIIm73wv72loPrrb4ky+yjD0F5W8E
-	 XulSjPcmZ2JKgj388Ongyrapr3McOWUNvmFjB3StRKmXgSCOpRMa6VM0tD7wI/Bj6z1Wd
-	 4qDQh4n25raL0Tc6Q0gOLNFQjDqT2Ws+HMLkl3iMLogmf54BUDyyWsV7GC8lsHeIvWA==
+	t=1794114351;
+	b=XDyVC+L1yAlvLJ5B2x1rCLs8JP5naEUUw0MKb80gKl9EbqA6pTneF+iCt2NWowIH5a2X
+	 uauviPg06zwOddjuemlAIZj31rQsZD735ABNCJ6XKwDgoBi52x/9O4ofVMg025pxSRMlW
+	 02cHyg7T8C+q34DibYFn56860auO82nHYEc+vtMs1kLz7d4rCVf9iClh5clT1H5N+Yr8B
+	 ZIkOWRKtLGm+UI39yvVFuAolG0RZDVzYeAfUnj9CcK+eLgULiAlM2kGGxUS+P1jEBpVQn
+	 dn3g0bk/g5639PUxokRZndrQmIwHN1zQr3DlsJqiggC+uSmSoFglIgzG+dWNJL+MFtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114351;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5u9pOhE33kqguxgR494dsEWXe7ZtrDvrnpyBZ7YKUoI=;
-	b=YsJkCq5Wh9PUg1ovm1uKkmaLyceOzuhyP2Dp14BQ/DqBuzPThzmDOrqv4wa4K9C6X3Lu
-	 WtSVPCcw2/dQCwkdBBNAkmnmu37xtwdxis1X4cawu5ImTnMYY0R14PIvP5vOPCdv4lPi4
-	 OE6j6RxWAjx2dYKArztECQyLpN/iNIQa8mP93FEQZBhjdCoMcxoL6zM34hagmCgGVHWpv
-	 zLFYkzOp40ro0RG2mRUPwQzYRA5xxAaGLJfnZ+O4vsQkLuB8lsok4c9XvXw1uc0ds6r+z
-	 lpCdWuxd7/6ucx5YWTxKLytZxzt6MlMWG+/m9P/je3NFRJnmda+/1B//k4MpApS4Lcw==
+	bh=DMAnc9Xs3KUNlFWK24lYx3EB87h8Uvn2c/RHBGCf0T0=;
+	b=wFJ/jtcWDf+hBrf8+ZFxvvDz7a/3v9HwEt2QVRW3C7t9E2m/6wronbed3s9QMkOyigAF
+	 /DvgpQ2QnY7AJqTc3USeNIn9WrowmEofmnIt9Vrc+dA+a8F6BiwL6KBse/rlUTAfdK4VO
+	 xqRyhIqsut8OW0a15bhxUaMWBXmrGBLaFOQvIhK8LKi/vGljBWmqP3WMvMA6jEKmGI85c
+	 yOnXYJXvTjggsUqfSTsRzulRApcLHBRMnnFRb9AX8psJJ2HZ/fYsjfZl1zbhVsVZoTgEC
+	 fjFK0DYnJHs0Ijp6g6TGuCD7r6se0UraBA5l3+ZtnTepoUiHuO/0ryedIwFGnZfpV8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+Wt18xZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vum+POLL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665E5606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:05:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1287A606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:05:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+Wt18xZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA44B1F008A1
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:05:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vum+POLL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E37EF1F008A5
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794114312;
-	bh=5u9pOhE33kqguxgR494dsEWXe7ZtrDvrnpyBZ7YKUoI=;
+	s=k20260515; t=1794114350;
+	bh=DMAnc9Xs3KUNlFWK24lYx3EB87h8Uvn2c/RHBGCf0T0=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Y+Wt18xZwAMR4MPJEMQS4hQ+QgZweEM/oV3En6fO3qgY0JPcsbL24afMJ/r6F1OHx
-	 2AN7RPqztiLPGBpE//Udrp8UAM8xg98r0mtyWGC7xuAg5CGCMBseDMkB9MrMDN7dCi
-	 3EcqEGb5eOM2LGPm+IHVpjNZTvznxaO85qiuxbOfTpdgPpwug79R4CMTTQrgyBq8vc
-	 u/JrrgOw81F3aRvbnL2DuLo+h8ET4eswdAXkVd27wFStRvrqONmdeanRdZehOJcPdT
-	 swPtjArdakQqxPTDLMV3cmACTKT4tHPNtiQ6ZjnNTSh+0s4WbKKZBLND5Bfvh4nOUo
-	 UCWAVbQzebZ2A==
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so173556a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:05:11 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE1Nzy/iNdhoNTSS1T2Vnt6wEaLBZJNi5M0qxlQJqFbJ/if0pLMqT5K051BdB81VJ5NUknvPssfu3K/RRQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8H6ek41iFGU8mZ5w6nFTRUCOkoSdOiFFnFqE4tMatk8ZsXBFwD
-	FopaTP6cohAhWNfVWm5or0SZHyPU6DeBWallHsX4m9+ysknihhEjE5rtCqgotMkDQtK7DUj8fk/
-	FQti2qp01nVN6CsoK81ByJRfyWCFVGYM=
-X-Received: by 2002:a05:6402:4022:b0:6b4:16fb:b9bc with SMTP id
- 4fb4d7f45d1cf-6b7224d5614mr349494a12.37.1794114310590; Sat, 07 Nov 2026
- 21:05:10 -0800 (PST)
+	b=Vum+POLLdPenwWmmEFX+OR/z0AOexlfFNKekeJXHE3QB8MvTvXKgbiEexpO+DAqGR
+	 rKO2ptDcp4QW3+4DDvXRUC9ZBLeAVVLjTlm6zgvMsxAl2Cf/HNsL+O26s5qR+uPHvE
+	 0jwVARfEzJp7jsOn/YvLgLxGruZSZ+b29o9dy3GhCj6wCA9zC5BeM/PlQ0215I4jT5
+	 +97JQELF0tywlw51Mj2MaE3S88XX1KHIAQi5NIVwFjWXCSS+IoPaSV2Y6vxMhJ9tvM
+	 2+8r6+BP+REW1lxNVbHrNLhV+lR27VCG4kWWX+dyMDQg+4hqV96tUcFeJUK9L0ie1P
+	 HjzPmBLtzChRg==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so175566a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:05:50 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwvE8B10jG9CEVAcR5A8acNhDbzSGOiptHAonPkhaLjI+VNAhVeCR6U5tc4wiG2TvES2h5tbKmZOD8YeIE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80DHCFkFjWFL6fMwvljyUJ7Oy+z46hsBcBy2Jc1zhG8NtbQdJd
+	hynEtara4hlWrkemqejn/BULrcIGcdV/7EbDlj8fvya9a4EAicy6MEWZqyhqzYiDQjDIKyi5HS5
+	rT794/9xYWE//BmV0vhZX5SEXMsbZLRI=
+X-Received: by 2002:a17:906:d550:b0:c4c:e344:ecec with SMTP id
+ a640c23a62f3a-c4d6d15a575mr44829966b.6.1794114349578; Sat, 07 Nov 2026
+ 21:05:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,69 +59,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105125906.2284169-1-ruanjinjie@huawei.com>
-In-Reply-To: <20261105125906.2284169-1-ruanjinjie@huawei.com>
+References: <20261016095151.1155049-1-cui.tao@linux.dev>
+In-Reply-To: <20261016095151.1155049-1-cui.tao@linux.dev>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 8 Nov 2026 13:04:59 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5jtQZs+cZAUiLTRt955yYiOx33TwsgoNs9bPNCDikMgg@mail.gmail.com>
-X-Gm-Features: AclHuK-D4QHwaK4gbmoN3WrbT8MH-F2XcRC6F-4Ti5FNOEguflRxA54anPRIFws
-Message-ID: <CAAhV-H5jtQZs+cZAUiLTRt955yYiOx33TwsgoNs9bPNCDikMgg@mail.gmail.com>
-Subject: Re: [PATCH v8] LoongArch: kexec_file: Fix elf_headers memory leak in
- retry loop
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: kernel@xen0n.name, rppt@kernel.org, tangyouling@kylinos.cn, 
-	baoquan.he@linux.dev, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Sun, 8 Nov 2026 13:05:38 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4ZU1KaagDfObCZFYDTowG5EYf3QpdUebdpBdtozzF00g@mail.gmail.com>
+X-Gm-Features: AclHuK_a2jTQjAVHTLhyRW9kDvdj1qOm6NVMjMG_Ua0PORpvn7SJ5WZ1nS5nXwA
+Message-ID: <CAAhV-H4ZU1KaagDfObCZFYDTowG5EYf3QpdUebdpBdtozzF00g@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] LoongArch: KVM: irqchip fixes
+To: Tao Cui <cui.tao@linux.dev>
+Cc: maobibo@loongson.cn, gaosong@loongson.cn, zhaotianrui@loongson.cn, 
+	loongarch@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel@xen0n.name, nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Applied, thanks.
+Series applied, thanks.
 
 Huacai
 
-On Thu, Nov 5, 2026 at 8:59=E2=80=AFPM Jinjie Ruan <ruanjinjie@huawei.com> =
-wrote:
+On Fri, Oct 16, 2026 at 5:52=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wrote:
 >
-> A retry allocates new elf headers and overwrites image->elf_headers,
-> leaking the previous buffer.
+> From: Tao Cui <cuitao@kylinos.cn>
 >
-> Free it before assigning.
+> Hi,
 >
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: WANG Xuerui <kernel@xen0n.name>
-> Cc: Youling Tang <tangyouling@kylinos.cn>
-> Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Cc: Kees Cook <kees@kernel.org>
-> Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
-40huawei.com
-> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
-> v7 -> v8:
-> - Split out from the patch set as Mike suggested.
-> - Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjin=
-jie@huawei.com/
-> ---
->  arch/loongarch/kernel/machine_kexec_file.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> Three fixes for the LoongArch KVM irqchip code:
 >
-> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/=
-kernel/machine_kexec_file.c
-> index 5412aa9f3568..0fe60907b97f 100644
-> --- a/arch/loongarch/kernel/machine_kexec_file.c
-> +++ b/arch/loongarch/kernel/machine_kexec_file.c
-> @@ -166,6 +166,10 @@ int load_other_segments(struct kimage *image,
->                         vfree(headers);
->                         goto out_err;
->                 }
-> +
-> +               if (unlikely(image->elf_headers))
-> +                       vfree(image->elf_headers);
-> +
->                 image->elf_headers =3D headers;
->                 image->elf_load_addr =3D kbuf.mem;
->                 image->elf_headers_sz =3D headers_sz;
+> - Patch 1 clears the device pointer in the destroy callbacks: when
+>   KVM_CREATE_DEVICE succeeds but the following fd allocation fails
+>   (e.g. under RLIMIT_NOFILE), ops->destroy() frees the irqchip while
+>   kvm->arch.* still points to it.
+>
+> - Patch 2 aligns kvm_pch_pic_create() with kvm_eiointc_create() by
+>   propagating the real error code; the kvm_ipi_create() counterpart is
+>   being fixed separately (Chaithanya Lagisetty).
+>
+> - Patch 3 rejects repeated PCH-PIC CTRL_INIT with -EEXIST, using the
+>   initialized state of the kvm_io_device as the indicator.  The check,
+>   the MMIO base update and the bus registration are serialized by
+>   slots_lock; on a registration failure the state is rolled back so
+>   that a retry can start over.
+>
+> All patches carry Fixes tags.
+>
+> Changes in v5:
+>
+> - Patch 3: roll back the base and the device state on registration
+>   failure, as suggested by Bibo.
+>
+> Changes in v4:
+>
+> - Patch 3: update pch_pic_base unconditionally, as suggested by
+>   Huacai.
+>
+> Changes in v3:
+>
+> - Drop "Load dmsintc pointer once in pch_msi_set_irq" (v2 patch 2),
+>   suggested by Bibo and Huacai.
+>
+> - Patch 3 (v2 patch 4): reject repeated CTRL_INIT by checking the
+>   kvm_io_device state instead of a separate has_init flag, also
+>   suggested by Huacai; the check stays under slots_lock.
+>
+> Changes in v2:
+>
+> - Drop "Guard against NULL irqchip in irq injection" (v1 patch 2) and
+>   "Rebase steal time counter in vcpu context" (v1 patch 4) after
+>   review discussion: their trigger scenarios are not reachable
+>   through real VMM behaviour.
+>
+> - Use the one-line destroy style in dmsintc suggested by Bibo.
+>
+> - Track repeated PCH-PIC CTRL_INIT with a has_init flag and return
+>   -EEXIST instead of -EBUSY, also suggested by Bibo; move the check
+>   and base update under slots_lock so they are atomic.
+>
+> - Add READ_ONCE() to the dmsintc pointer loads so the compiler
+>   keeps each of them a single load.
+>
+> Tao Cui (3):
+>   LoongArch: KVM: Clear device pointer in irqchip destroy callbacks
+>   LoongArch: KVM: Propagate real error code in kvm_pch_pic_create
+>   LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+>
+>  arch/loongarch/kvm/intc/dmsintc.c |  1 +
+>  arch/loongarch/kvm/intc/eiointc.c |  1 +
+>  arch/loongarch/kvm/intc/ipi.c     |  1 +
+>  arch/loongarch/kvm/intc/pch_pic.c | 19 +++++++++++++++----
+>  4 files changed, 18 insertions(+), 4 deletions(-)
+>
 > --
-> 2.34.1
+> 2.43.0
 >
