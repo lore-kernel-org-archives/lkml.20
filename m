@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794167181;
-	b=1qOdRZlB96Au/OaA439AlaeqXLYOb948mvTP8RrLRAJslK6MkK++KBpA76yhcO0V/DOu
-	 gqQmZQ4x4cIxv7pPEfkussNj06pit17JvDbMtP+UrkuNa6CQhIt1zX5mIt4Nsu9xavWQ2
-	 IRm81bOX+a3oRqUris+bTdlpfgdrpDM8bHE03OdUgpBtgXvgSAhGMq6I07Xr0sxvbOnRI
-	 UoGZZHgZb2hWdMDgHcjn3T3xqGamN+7tp4EDGI2Hbz0YfQ46cFk4DZvFDqomKehbBEDKw
-	 eNwvDN1gdcs1mf9gspR7m8VBA45jRBneXZZA6MrfLfdjATHZ/dzZMUyWjqJVTgVbLuA==
+	t=1794167177;
+	b=TeUUFl/N3CvHLrcy7kumVZjoNOv0jv2zNSFQfqKper48eUAARRyCZzzcQnGWRm0bqger
+	 5KBJTNR5LSCy/5NdQKznML5+wK8ZALam7AGFgp8M5XMyFNs6AIRUAYh55AZ9Fqy4GFAQv
+	 2/WbOJ9t1LQO9/JxS/f4BqSW9xXQZGAfkePqi9Plw+NeW8FizslutJkr2ikDuutmoBbv1
+	 mQVAuBYk7hK3h3rskMDVeIjmv8UuTa4ZMG82UmBGFXh6DXj2EJSH+el+GnDeQ1UbSYSct
+	 gb0XupDcV7pI0Y2G7Yv9wLhkAxirxgjvTCpzM1F2A8pzVFxMoS49twpFMNSl/cBpTOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794167181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794167177;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=Gk7oumf+HicsMhwT45NE9Wt3n8bGr4FhJw7LLMGOuj4=;
-	b=SDWmD5QqmheCIIiLs+GppJwOdWZ4NbOPc9Qs0u15eldyGxx9gxt/CxlRvpN+VQGljB5m
-	 m+xaqZ8SE1DaDclAOQKVN1BfJfqXS9eQrLPWzTeYOgVzvxa9MVi4ec1Q5IQMz/mOLtkkY
-	 8RtTPiXip25DSEyAx2YRYDw7e79968nlzTqEAMC1XRxYX1uBRBMAPV+KCC7iDpQNhSXvi
-	 QtNHkNsPQIhv4Hy7xjbvl6p24uOBqt/PKbkjJtkzRyycy8Fy6jPwDScozo6KVY6Yip3mM
-	 nvmVM/EWQfYoaKMY/ie1f72Ff1Xp1h8EdtbwUwC2b6qyBDewPsX4Cc9uQLZ9G2pGZTA==
+	bh=AuCAgYiC3n+Jv2yY5rZTQ7zkNasnfQt/+d3WZ1SSg/Y=;
+	b=OwAy0V4nOVNb7vc1XwpKwMoYrogcm1wQ5EaBzCT0q0A8db2L1Vn+9ZqbBrGyl3LjGVHP
+	 MNv5CvcHQuyeuLznrSvoIZZbTBh4l65+KWvCLlS1SeycDaqBlVcRKPka49Nz3GXz68oEc
+	 Em1aIZ+Q7Higjddb6Z1hO68u57rfJutE6QPI8v+LXvVrV5InG4g1+e4shn0RIJKQBQC+u
+	 DcVs4Q38cQztg4y1x1cebPHJSr5SYlqWAGl+lJHTVEQdRmDOzaDdXgMbZafcwi+B5vlv1
+	 3BthR0DhcRGbDhGGIRMQP3djkuGwPKzxi2+98bM3VteN0SXjeyaeO7I1mRLqTYcJqqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiOKXem9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUseGnKx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9359B606A333
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD40B606A326;
+	Sun,  8 Nov 2026 19:46:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiOKXem9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B8511F008A1;
-	Sun,  8 Nov 2026 19:46:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUseGnKx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50A21F008A2;
+	Sun,  8 Nov 2026 19:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794167181;
-	bh=Gk7oumf+HicsMhwT45NE9Wt3n8bGr4FhJw7LLMGOuj4=;
+	s=k20260515; t=1794167176;
+	bh=AuCAgYiC3n+Jv2yY5rZTQ7zkNasnfQt/+d3WZ1SSg/Y=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=IiOKXem9wFLkJJm4JuVyLbKvsxi/DmHgqPJOv8YhB8z8KwOOxLFsDP/cPS/y2BSmZ
-	 WjOfxPe9Mh+TYuPEdMN3IdLmbZf973szd3PR4oR4b6LGGAHATtX88lE7w96+faxMfK
-	 h3GnEQmos8A5+CWkoRcHg7L7DxslcziKopC4vgKCZRG8zfACT/Tq7DFnSyIFsIny9j
-	 ilRJ+Ou++woP7iX9dBcnOUZ0hXPbF4sqSwKJ6HOXlEclgv8MOUYo0dGZXfqUdHCWp6
-	 9EgdFzLeqpCK1noD2BBUMCU+NqYbHnFMbjhbSn01Px4iNexyKSODqhUzQ3bubL4o9m
-	 TmcsY+HYFxhhw==
+	b=fUseGnKxhrkpuDroAberiVKbkqOItiuOptl6p9Y2LTe7SZJwP5tz/Z4fOd6HkJlvX
+	 kWZeSE3bhqFCHKWhESk4tjbleD20+5oGPgKiFB31CHeJKaZF+rvu4joET91yj4maix
+	 QIJdxnKDlNO0XsFFlUg0QCzxSmbio20i2sVmWMQHHOVwRGfFkYpww3sYjZVXEeh6Z5
+	 zIkNVXt3cfJ9s2XdRidNr0T74UFdQnfWMwV05P70MSqDWERFRdq22IEtRpzDNXX+6O
+	 Oj8ZWBBAs3MDDGi+ujNcPb4TTFdpzxdYgfEUGSDp7krPEUBqI59e8TWYYulMKNCekL
+	 LrWGoyhfM8q6w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 20FB9380821F;
-	Sun,  8 Nov 2026 19:46:21 +0000 (UTC)
-Subject: Re: [GIT PULL] perf events fixes
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B2B8380821F;
+	Sun,  8 Nov 2026 19:46:16 +0000 (UTC)
+Subject: Re: [GIT PULL] Rust fixes for 7.4 (2nd)
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <avA8O8tiG0pLpMKn@gmail.com>
-References: <avA8O8tiG0pLpMKn@gmail.com>
+In-Reply-To: <20261108041659.97199-1-ojeda@kernel.org>
+References: <20261108041659.97199-1-ojeda@kernel.org>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <avA8O8tiG0pLpMKn@gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git perf-urgent-2026-11-08
-X-PR-Tracked-Commit-Id: 6f083fbccd5f06889bc08e1182bd02c0383b9121
+X-PR-Tracked-Message-Id: <20261108041659.97199-1-ojeda@kernel.org>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.4-2
+X-PR-Tracked-Commit-Id: 57d916a3eb765ee0577d269bb2ac1bdf3a7a7f40
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 40f3717a64edff0b91686e22208312114f7e2061
-Message-Id: <179416717962.1685596.17034884405793730341.pr-tracker-bot@kernel.org>
-Date: Sun, 08 Nov 2026 19:46:19 +0000
-To: Ingo Molnar <mingo@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, Mark Rutland <mark.rutland@arm.com>, Namhyung Kim <namhyung@kernel.org>
+X-PR-Merge-Commit-Id: bef911b8064db38d32ccfed7f05ac639978180d6
+Message-Id: <179416717527.1685596.3377852099809721701.pr-tracker-bot@kernel.org>
+Date: Sun, 08 Nov 2026 19:46:15 +0000
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Sun, 8 Nov 2026 10:09:15 +0100:
+The pull request you sent on Sun,  8 Nov 2026 05:16:59 +0100:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git perf-urgent-2026-11-08
+> https://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.4-2
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/40f3717a64edff0b91686e22208312114f7e2061
+https://git.kernel.org/torvalds/c/bef911b8064db38d32ccfed7f05ac639978180d6
 
 Thank you!
 
