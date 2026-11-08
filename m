@@ -1,75 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177595;
-	b=BexaOrqmq0KNaphfJ59tLu3yXzq8awPQZ21/+UX0DwVA7Qts5Ir8iX8UWXniJhIj4YvH
-	 A/OVd6wUX9ji60x+i39l6JtylDqLlIfkTOCJm6HdzccR9h+cd/NYThwLJdfcPkyH2HWaJ
-	 NbHrp3UtQLBTyLGqhT6anW+SDa5FY9e64PeVOsw8VALazNXP1m24Nqyj+vYKDyTvolHCX
-	 vIh6yfWq7KnnZa17MnKg3qOChQ5/PmSsWYXAensfOjo/tSmrM1P9EPey0meqWlaw/DuFF
-	 JZl7l5EaKwtQzHJ2iPPjr85bM1tgv8cC2EBl+pIhfYfing/f72wcdhVpxsYQ+09bXaA==
+	t=1794177597;
+	b=KZS52N30DY4wQNEZOFSfAbF7CMFwoapFIwZgfZ2CoWIpLParRhqL8UpYUR7NOMJuv0m9
+	 llxsWJ1V0/Y9dcSdDSu9hMglhtXaeviTCcw0OtCfSukn3le5Wi9FEAMCEnu6Cxy91L5Dq
+	 m83h6dpnigtT/huPHv46AMjDw29XQiUODql/5S+dUcuZcJukdXxT1rVoWMO6Bkl4Xmoe/
+	 1Qg24mKIXn5WHI3k3TAXMYES4IGhnF9fmTLZR4a4snVbyBun2PK5OIzMfanC+Gtxg4lmk
+	 rF7ExaENK8HKtF4fyKE7eM6Z5zXTMaLWuHhpt/JVA+k7Hjt31xlnlTZcdPGN/1Do/5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177595;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177597;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
-	b=Q4yeJr3qkT289EgITKIPVYTSkgIXGDdjbJyTsY0Cl2KzD7Ucwae52ZnEx1mr3PdBBNCn
-	 nMWQtGOk6kEgjpL0Ep/kfqdzjqBUFW8EtkZgU4l1DmoVnoOV+1SwYsMlj71hX/HcYuUV8
-	 NCLT5XQGrkKzU0SdKRgN1c0cE3x6kkiCtFhncAzlWeQhpxQxjvBdq9AF/j6+F7BMghTEx
-	 mixT32ZQbKuEwHsKZIop1PKdAvV8cYD3t1hKOTJqKgWW+DiCzwYciAk3h4EqNkZfBlhPI
-	 ZOHSmCg/bqSmLb01GLkxwzZwWESXXJhsxZqQqtpIYHuzKt1mPkVSTZIRJKnn5dTD73w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
+	b=c0ro0gCoQNE390InPD9Jr42tYDrUlKQK8Yddi7QsvQZDv/Sc7KTumnS6FLinCCW3/0sV
+	 hAyq8rQhJX6lT6EI6jfO//QbSTKXdM2+dlMCMmhW8OYJVF1AHEUPQtwg26usMZIThL23k
+	 T+NQbHAgDcR7ilf865R9/e6mAXCzsc+pbr+nfgUHVwuSZk1G1w4YVVgbtuaaQqkTs9jQx
+	 vmeIOrRXlrZkrUPt6LTUXNpiWSTMtaCY6LUkUVpC8HfNvmqc/4A90k/zvofqtIDEDV9DD
+	 do1nPGE5W70ZBueV4Ic3N2TU59fIJCHOx9SPQXeXhAAk1BVCDDdfnDF+ySxq8t7TFGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kQO+69v9;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIcDVyCM;
+	arc=none smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B27606EE9D
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:39:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80B27606EE9D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B743B606D80A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:39:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B743B606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kQO+69v9
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36efb506f29so200274eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:39:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIcDVyCM
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6dd7070699eso180530eaf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:39:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794177595; x=1794782395; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
-        b=kQO+69v9cjNiQn3adE++1NC4MdSxNQ+mJce7mQncXEvEXvhY+MdKRMoZbdhq8FH/O0
-         h3BbezYI6ZTaUJS6YImya3e9ccgWHDLHlLGV48d4aGvfsW4X/j149mh7/N61D6fvRPWO
-         H5iapVpytk5MCfpkqd+ncnG7dF6vi0zUO+wtASuUIaEbyn6qWRXk+VviUF08JH3zQod8
-         806GcKs4xZrtrJzYqMZZqknwjPDTtlGvMEHLf6Gn/0L1E5uk9VABOWZWTKj2BMLU0xHS
-         zFGFVWHyIHHUR59ylVJu1HQY8xEsqH5fPJ2cfScDPlSejw3QtdYRKBrQa7vs0+eXJvZt
-         3iMw==
+        d=gmail.com; s=20260707; t=1794177596; x=1794782396; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
+        b=AIcDVyCMD4CMxZQaALEvvx7PHNLdDnl+kXVVYfmq/I2jnUrb2mMfudBA3TBcN7PymD
+         xbhmNc49SQSDHiokqZpi4iN/TdzinttT3dCdu2GG3aku/hLxXW/86Fm72uI6kee7WYzA
+         Omio9YsTtGfikq5cLF2BxQw3kkQMIqZsHC2hPdstNvE4dlnA1Uj3ww5EsD7phhmnd/Rx
+         W+A2Fp0vgpbXutWhNh/jytiRRnx+S5YrQ3ypfirDhpoBXtTRq/2jdNZWJvmyiZ/uexuQ
+         ZPzIjiLX/xF9dqRU37AeBXS5y59tRXu25jSTDU9Nsd04r0ytnPXcXQxpAdzTu2/jUAOf
+         K+7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177595; x=1794782395;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
-        b=WAQ9Nte/8AdNNwAON4j+7jcRODPOrCdZLwAAlaw66OhkV+7bfDx6+RY8zzN9DiUqi4
-         SoNpKV+DQVuCFEfu6MuCFuBlFVTTsRTczpUgVLTuP+KPHVpsfdD+KGmphCsibk3mpk3T
-         wEetuMsBZe7d0i27A8rO2f6p5jG22hGfD1k+0IGT4sfapQaGxa/mIj7HeoB5g/fdKqnS
-         g7L0PU5DDvDsiNuKkhKZVyKpTy8P0YF17C4Y6rqDOIO8P3+aybwRzd/kWuR+a4nQojtJ
-         7oGHVcrn6v7XR8K34d0mIWHAZRjw95WlQTkRvWboA1ZX/lYpCv2sj5nqnNwS+iSr9myc
-         EETw==
-X-Forwarded-Encrypted: i=1; AL+hErHYqfhNH26NGOys2hNDuoFDY86vJhxHjiY6/noJaWXVSKNS0PD39K4VTB/Lpza0FI4bVEkJqM4AbeuM8b8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81kVM1xcLAfxSr3qj3pkVGqtF/ei8TKD0o6AE/09HlE/e8Ph8p
-	UCzaXOcYBq2svM0E2Kt2ZPvnxEinBoAftK0Av+JPnkMZcm5v08rbrH6IIaAUG4CNPEZCR0PwDZ+
-	0RXtGcPB0Aw==
-X-Received: from dyblf39.prod.google.com ([2002:a05:7301:a27:b0:373:6c70:7c9c])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:d584:b0:36c:9f1a:30b8
- with SMTP id 5a478bee46e88-3725661520amr5331882eec.31.1794177594363; Sun, 08
- Nov 2026 14:39:54 -0800 (PST)
-Date: Sun,  8 Nov 2026 14:39:11 -0800
-In-Reply-To: <20261108223913.3624571-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1794177596; x=1794782396;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
+        b=hFLoRqDa/PLwqrwencjNgJSI6Wtv4mvHaX9orBnEdvWHDWbX0q/ueJ8NtXl3LVEdVv
+         Kil9fYCOpD1T7iDnvCtaklclPWMWsQMbvCGA6N/8cQum27R39MFhut5NU7YMruXce/b8
+         TsGV2wqmLgVYNpL4YjsYM2wf02F8tf9ENUqE1S9jGu2VZ+e8Gx4iAG/TAu073uCIg9oO
+         j7iIBUyevC/ZPnQBvPxzfatka3p9oRkkGRe1w/m8ubjsgQ6iHJBj1pvjBVkTivqNRCUL
+         vkPJXEmbY2ZzqOqv7F1XFP+BrA380Jfx6xuxM992iUyHgADPKy0lmvsYqwGLtEWjxT0R
+         LXdw==
+X-Forwarded-Encrypted: i=1; AL+hErGPW222Z45as4dUCLUHD8TXuV7o5EYju5bh2BqpiFJpiHG5duVEuzjnjoaeWIFJ98+jYoi8E18ln3/B7mo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PwDbWhAnvZjdtzodEryePPVtIvjAfl4bTzu+hgSxxwfVEaHb5
+	SkTRnPui4p5//EfZeM6oW6tNUmY4kLF+28F5/uGlHLNZuJtD8D7v+7eO
+X-Gm-Gg: AYBFou2EbHK8XQi24Klq9tmDYKrBMhSARAAnWJu2UbEiyyILcipoAyNnMVV/kHt7S9x
+	Xjcs32Fz5kckBEIXn58kzy8tU0c9wvcj9MM/vGCkx0PcCe6PoIkmuj/UZ/mAHPI92yboyPGRjby
+	I18tg79RU8P1kwgBMhzgX93b9clDPyX9sigZbi+wfsbtPGZ9vEp72vjjflKwfiIiUfnv+iZAHG8
+	wQvZG7wW6LmeL7P07Dn2+tZ0qe12HU3j0YQWKtYd3O4pTDfIq8vHHNCuNgrUIh/cnJ3i1CCu7aQ
+	/IEul6zIm8cDOJwV0cY8N4bNCcZhHRAIqAb/o0ktkP2byYU8ayM/qhMpoh83wZ0Ev7bELeiyjzf
+	waIBwi/PaxKavEgTzpI7CeP6MfuDUcgJUD/tkvI64K1S2MnkhipPBl69VPgp7zH76sJWCb3sv+u
+	xk3pzb+wqKXKsxMwN38Esm6Ml9YtSk2qvFngVD46mVWN2e5cjqDMPxY0RkUTUmsXG8Hmgmn/yBq
+	fcrVhRBcPmuUnEfErjn08XcU1M0dcGhHBX25SWQHBiXRA1RzUl60Bg3CjcdT9h0HH/Jag1i7vHL
+	26HgwT1CZslRLMuGal4H4RbqhQl/WooRxsSo1ORGbSIAUMHxX0YQsygQw/EUqQaF7g2AP7dS7yI
+	Mz/T5MYrzIRvThETti8DHtTJvc97Go+c/y8lF2lLfWuUErqX+KBbNokUEFxZUZZWEOUCmTQOZW/
+	T/R1sk8aYKTt3BPg/eJzthBVXRkZoLI8tsbPCg5ygm6nqNQlM71iSu
+X-Received: by 2002:a05:6820:811:b0:716:f300:648e with SMTP id 006d021491bc7-7170f1be2bemr1233736eaf.5.1794177595688;
+        Sun, 08 Nov 2026 14:39:55 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8cbcb9sm2087214eaf.6.2026.11.08.14.39.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 14:39:55 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 08 Nov 2026 15:39:52 -0700
+Subject: [PATCH] mtd: rawnand: nandsim: reject unrepresentable page counts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,105 +91,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261108223913.3624571-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261108223913.3624571-8-irogers@google.com>
-Subject: [PATCH v3 7/9] ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
-From: Ian Rogers <irogers@google.com>
-To: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
-	Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Alexander Aring <aahringo@redhat.com>, 
-	Felix Kuehling <felix.kuehling@amd.com>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Zhihao Cheng <chengzhihao1@huawei.com>, 
-	Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, llvm@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-submit-nandsim-page-count-v1-v1-1-63e961cc1dcf@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywqDMBBFf0Vm3cHERbD9ldJFHmOdQkZJogjiv
+ zdpl+dy7jkhU2LK8OhOSLRz5kUq6FsHfrbyJuRQGQY1GK3ViHlzkQuKlZA54mqr4pdNCu4a7za
+ M2qjJeeOhJtZEEx+//PP15/r/kC+t2QxnM6FLVvzcplhC39K90FHgur4GIcqpoAAAAA==
+X-Change-ID: 20261108-submit-nandsim-page-count-v1-9ad8160fbc6c
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ David Woodhouse <dwmw2@infradead.org>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-ubifs_kset was a static struct kset using a custom ubifs_ktype that
-had no default_groups and no .release callback. With
-CONFIG_DEBUG_KOBJECT_RELEASE=y, unloading the ubifs module while delayed
-kobject release is pending causes a use-after-free on the static kset.
+The simulator stores its total page count in an unsigned int and uses
+signed int indices to initialize and free the page array. A device size
+accepted by overridesize can exceed both limits even when the eraseblock
+count is representable. In particular, a power-of-two page count above
+UINT_MAX truncates to zero and reaches a zero-sized allocation.
 
-Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
-allocated kset via kset_create_and_add().
+Reject page counts above INT_MAX before allocating wear counters or page
+storage. This preserves the full page count and keeps the page-array
+indices representable, while reporting invalid geometry as -EINVAL.
 
-Fixes: 203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()")
-Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Ian Rogers <irogers@google.com>
+Fixes: 6eda7a55f786 ("[MTD] [NAND] nandsim: allow for 64-bit size")
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/r/sashiko-outbox-204066@kernel.org/
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- fs/ubifs/sysfs.c | 24 +++++++-----------------
- 1 file changed, 7 insertions(+), 17 deletions(-)
+ drivers/mtd/nand/raw/nandsim.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/ubifs/sysfs.c b/fs/ubifs/sysfs.c
-index dbf967dcf26e..e20931e3a62f 100644
---- a/fs/ubifs/sysfs.c
-+++ b/fs/ubifs/sysfs.c
-@@ -80,13 +80,7 @@ static const struct kobj_type ubifs_sb_ktype = {
- 	.release	= ubifs_sb_release,
- };
+diff --git a/drivers/mtd/nand/raw/nandsim.c b/drivers/mtd/nand/raw/nandsim.c
+index fe968037f75a..802493e01ed9 100644
+--- a/drivers/mtd/nand/raw/nandsim.c
++++ b/drivers/mtd/nand/raw/nandsim.c
+@@ -13,6 +13,7 @@
+ #define pr_fmt(fmt)  "[nandsim]" fmt
  
--static const struct kobj_type ubifs_ktype = {
--	.sysfs_ops	= &ubifs_attr_ops,
--};
--
--static struct kset ubifs_kset = {
--	.kobj	= {.ktype = &ubifs_ktype},
--};
-+static struct kset *ubifs_kset;
- 
- int ubifs_sysfs_register(struct ubifs_info *c)
- {
-@@ -107,7 +101,7 @@ int ubifs_sysfs_register(struct ubifs_info *c)
- 		goto out_free;
+ #include <linux/init.h>
++#include <linux/limits.h>
+ #include <linux/types.h>
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+@@ -2361,6 +2362,12 @@ static int __init ns_init_module(void)
+ 		chip->pagemask = (targetsize >> chip->page_shift) - 1;
  	}
  
--	c->kobj.kset = &ubifs_kset;
-+	c->kobj.kset = ubifs_kset;
- 	init_completion(&c->kobj_unregister);
- 
- 	ret = kobject_init_and_add(&c->kobj, &ubifs_sb_ktype, NULL,
-@@ -139,18 +133,14 @@ void ubifs_sysfs_unregister(struct ubifs_info *c)
- 
- int __init ubifs_sysfs_init(void)
- {
--	int ret;
-+	ubifs_kset = kset_create_and_add("ubifs", NULL, fs_kobj);
-+	if (!ubifs_kset)
-+		return -ENOMEM;
- 
--	kobject_set_name(&ubifs_kset.kobj, "ubifs");
--	ubifs_kset.kobj.parent = fs_kobj;
--	ret = kset_register(&ubifs_kset);
--	if (ret)
--		kset_put(&ubifs_kset);
--
--	return ret;
-+	return 0;
- }
- 
- void ubifs_sysfs_exit(void)
- {
--	kset_unregister(&ubifs_kset);
-+	kset_unregister(ubifs_kset);
- }
--- 
-2.56.0.455.g6c5a503b38-goog
++	if (div_u64(nsmtd->size, nsmtd->writesize) > INT_MAX) {
++		NS_ERR("too many pages for the simulator\n");
++		ret = -EINVAL;
++		goto cleanup_nand;
++	}
++
+ 	ret = ns_setup_wear_reporting(nsmtd);
+ 	if (ret)
+ 		goto cleanup_nand;
+
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20261108-submit-nandsim-page-count-v1-9ad8160fbc6c
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
