@@ -1,69 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169369;
-	b=kLZUrcf/dmYk79rtLzeiE2LDA9hz5fxMDjZSI7LrzChDSvhgcioKODboglqyxlXK9S3B
-	 /hTu6jvmFRUI9ALlBCjhohP/YPR7+zH56GaL2lghO1ixGQpZypIkF0hOGTxRmBzz27cFn
-	 NCIvOteht0kSkgsPK7IOJW6GG9yj4gtFTirPOiEubcPkpiedzlr1Ofub+tbeAYjQ/JT3y
-	 lT3exFc4CVUyLDZHXlT83IPLQSYt+s4bjwhV1c9P8x0gD7BjwI85A461+Dw1LWxW5cur2
-	 DLOioR4pfwn/weJgv54WH5KO6XPNm5ZDIRbWSXUux/wC4JmD5IaznJwWciMbP5m8G+g==
+	t=1794169396;
+	b=Pjeyz9Jf4HvP4u2BJ6DoveMcArXeM8pO1C9UC/yFoEyjKlRLlHyc30EiyogiIGVqDRfz
+	 a6/ZJRLbVTnbg9wkUOF5Me2zvWlVFFkgiIXoXGavYBPUkPwHA1Nr0/QBsK91/yJM5j/Ft
+	 FVyjrdJMXffCLEF8XO8Nu4FV8ewu7/yWQaWm40d28oTLnJSl+cW9ADePIgr+zfIQtlQEZ
+	 eGeFA3T2j6Nn4f7yy5F+MG2jdnr0fksfVcnqCarMiksV/7fliAquiP6ZWAKQn1s+aNpRD
+	 w3p/S30bvvfxWy0jCskgRei8iBk4MI0jGOy6oet6KqP6gWB7zLYYF8RFhEOlDPhjkKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169369;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169396;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=100YKRuRKsiW1NaEv+XOz4kg/+neIFnM/cCJIWfyymA=;
-	b=Tdji0IhmxxvMCFPkH++cwO4F/yQCcB7yKuoyFghGNsRnUKSg/O+4VhLzpvtjXFm+/0FE
-	 EFsPBGmGm6Mu6UcJYMBWsTn1PDA160urYjjgpnNh0EuVTsPLwIgud3je0q89qKS4LzSFq
-	 rjfgVw3ENerW+cFNyyUFPzUVGUoN5jFTUg3iGfVqDk4x3p3DWmAGYv4DnkpF1mVXRukVt
-	 KajbWl3DP+s2ohORejGMxgxjHN3iN578LgTZ9yUAICJXpSb5Zj7f1wZDq8MBsH3YGkHJ+
-	 7UgEJHcsuTrPUhnXc0a89yDiTaCh+PY+sG2zUKmAh/+Ysg0DlkMtcpCg/TLN5Zf9VKA==
+	bh=C3G54qPUdWsfUVdnYpgT2BJNeeG8r6sZuERbj33Mns8=;
+	b=qFNRJchuSjuZKgcYJEx5cq36vylyH0bGaYxVm2BgDSuXAn9j3B/Mb+fRHYZekckpFvl1
+	 FrTTcXwH2D/U1oVUSoDn2+qJxNl5UOIn1iMP3jnvd0AwzYnGf6SUkH8SCnKrsZ52+nYC3
+	 Q8CE08dNQCl+ZxVnj2NWZFzCsOlCLEQ6amVXDBrRSO3FE4IzlYfXGA10onZfH9N3hFfYs
+	 TCqfxb9qQS9y+CUwnK6UHqRa34gNQWtoDgIrx1ZhwyPc13okQjFRrsXWXI4O8P00sa0pU
+	 NTtfi2nI3lrNdDDSqTNgAQzA8QlDQ1Tcus0SjrnuDpUw7ws4sS/LvQsGcNEw2xqTMRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bbsi5Dcf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rlbzfylg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376E06082BD9;
-	Sun,  8 Nov 2026 20:22:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF7A606F8F2;
+	Sun,  8 Nov 2026 20:23:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bbsi5Dcf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776021F008A2;
-	Sun,  8 Nov 2026 20:22:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rlbzfylg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35FB1F008BC;
+	Sun,  8 Nov 2026 20:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169369;
-	bh=100YKRuRKsiW1NaEv+XOz4kg/+neIFnM/cCJIWfyymA=;
+	s=k20260515; t=1794169396;
+	bh=C3G54qPUdWsfUVdnYpgT2BJNeeG8r6sZuERbj33Mns8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bbsi5DcfbLPN4rWOem9xOAc+Ao0N/PzM99OdQgszZl/X6PdGjx4jkux1bpDjsZKsK
-	 Ela7ifTNISM79PUUewsZx0Y8h6KhsF+lSqeqLSlF/5esHwU2WVnN9ZnV+8C6HZKicd
-	 D95lkNhurZqqz3jXm6r0rZ9F8FbrkGCL3SzAijrtmlRPiNYJKniRq3xBrzAV5nRceo
-	 IW8Fn4HcByfJa1MPwsfcIy6ECF+MAxv6j20351VByfZB/SprwBwF4fjQUllOkK636c
-	 INRAvfJJ0Ww6NkOsl7OHBz4FduLQg0tO1s4olHJZpnYT8rA2eElPOr6B1JJTVIMbyA
-	 e1L3qLeZZXrDA==
+	b=RlbzfylgCBJmWb1si8RdOfj9Eeutq791Y5q62I7Y1KDz8ohwLvedT03M81adUX1Fn
+	 /1S0yy+bA8UPVW7WJXdkBOwLHWclBOxjWJCpv+L09YmgzKy0r1uswvAfx2d46xaAa0
+	 0aP9Ph13C33L2yUZBo+4mTtWqtO+xEfgJKI8ox6tCVmllqGj11qqYh7epTyxhtQLaj
+	 eqmYLENRI9zSTnYmxd1YhsErgvzQGYaNwj85bXemMKNJf6F+5sjNXWvvGeABgthS7Y
+	 6d4femgPKQ19qBj/tiXcINFLN9AEW+UgkBjNisRY2ouw8JkQC0gu9/jCMTWfE4FpuG
+	 RF2N81KThyEcw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Jianping Li <jianping.li@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	George Moussalem <george.moussalem@outlook.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+	Alexey Klimov <alexey.klimov@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/8] Flatten USB Controller Nodes on IPQ SoCs
-Date: Sun,  8 Nov 2026 14:19:47 -0600
-Message-ID: <179416929299.628393.16311614850618605688.b4-ty@b4>
+	quic_chennak@quicinc.com
+Subject: Re: [PATCH v1 0/4] arm64: dts: qcom: Make ADSP remote heaps no-map
+Date: Sun,  8 Nov 2026 14:20:03 -0600
+Message-ID: <179416929386.628393.17504471435913051235.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
-References: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
+In-Reply-To: <20261015071511.977-1-jianping.li@oss.qualcomm.com>
+References: <20261015071511.977-1-jianping.li@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,37 +73,29 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 01 Oct 2026 11:53:43 +0400, George Moussalem wrote:
-> Flatten usb controller node and update to using latest bindings and
-> flattened driver approach.
+On Thu, 15 Oct 2026 15:15:07 +0800, Jianping Li wrote:
+> Several Qualcomm platforms declare the ADSP remote heap as a reusable
+> shared DMA pool. This allows the kernel to reuse the region for movable
+> allocations.
 > 
-> In addition, set the right UTMI clock rate and override any clock
-> rate inherited from the bootloader.
-> 
-> I've split these patches from a larger patch set to add USB3 support on
-> IPQ5018 and IPQ5332 SoCs where these patches are required to ensure new
-> functionality is added to the new flattened driver and binding model.
+> When FastRPC assigns the entire region to the DSP without first
+> allocating its pages from CMA, those pages remain available for HLOS
+> allocations despite HLOS access permissions having been revoked.
+> Subsequent kernel accesses can therefore cause synchronous external
+> aborts.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/8] arm64: dts: qcom: ipq5018: Flatten usb controller node
-      commit: 3df51eeb0f7269979f41ec29bfa5d7bf732ac549
-[2/8] arm64: dts: qcom: ipq5332: Flatten usb controller node
-      commit: 6f4b3755dc13c710ddc9379443b8367178c5fd1b
-[3/8] arm64: dts: qcom: ipq5424: Flatten usb controller nodes
-      (no commit info)
-[4/8] arm64: dts: qcom: ipq6018: move DR mode to board DTS
-      commit: a94fc01b1c39772198b238bca35d5024fd928bf3
-[5/8] arm64: dts: qcom: ipq6018: Flatten usb controller nodes
-      commit: 6579a36743c1e7af96bce61f9c8b23d375214dfa
-[6/8] arm64: dts: qcom: ipq8074: move DR mode to board DTS
-      commit: 5a0787dd1acd2783cb81a846208aedbcade2d9c0
-[7/8] arm64: dts: qcom: ipq8074: Flatten usb controller nodes
-      commit: 512f352f2c70434d918654a42103d672936211cc
-[8/8] arm64: dts: qcom: ipq9574: Flatten usb controller node
-      commit: 6ce86653cb091106545e6eb52087466193173afa
+[1/4] arm64: dts: qcom: kodiak: Make the ADSP remote heap no-map
+      commit: 0848803d3508bcc5ebce717e049e3b0066059037
+[2/4] arm64: dts: qcom: glymur: Make the ADSP remote heap no-map
+      commit: bcd702e52ae0a480b3f24f8838aedb1ee1ec25cb
+[3/4] arm64: dts: qcom: sm8250: Make the ADSP remote heap no-map
+      commit: c5e78d1c30a53ca7130223c2c742c8840a8c9970
+[4/4] arm64: dts: qcom: sm8750: Make the ADSP remote heap no-map
+      commit: 730aae8cf388064ea5ff8df5293019f53a7422dc
 
 Best regards,
 -- 
