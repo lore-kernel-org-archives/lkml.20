@@ -1,66 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169494;
-	b=Bd512JYYlsm/eORye2nzwBiUPsru+3upYnyrvCgPFbhc6b9pJGGO9G9RiFIHU0xQSczO
-	 b1agDoZylyGXr7VXnUr4HNb8NKVst0P2ZyFS5+2yqm45RZcnVQmTVkMn6Idx34UgHjxJz
-	 tX3aY0dMeqhllZBlcmaLS2rRzCa6jo5KrfbvutfxICTCTvb2ywnNXuZahKPVAM3W0PpUN
-	 AbYkAFPyuhhhlB3g/+NCkB4ZTeWGmTdUwtxeARE9ALwSIh3ALPZZpelY3MXQtx/wT8It1
-	 3l3oAPv71h0Sdc9TR3+/s67YSHir6x4bZhBMP+XQHabhjx2TlAhw5jCV5ougYiS7o4w==
+	t=1794169492;
+	b=jyMf8p8/c9kNV/NjwiJfOb3KFI/in7UAPYU+aBtSlsAE8Qvx9L11R+BEuAB9LdV1jGpg
+	 3of5viRMzXj+pZdD+gvrm1ZnrwwIHg/BywFwrcYyu9LwyROSrkIxEKTBrYhFufEmo9bw/
+	 OEnEuvaVwG4da90dSdVYcYe+bjQltbDCEqSYCXxUpXBGDjUc05Tl+qeyiUoA//xW9JNcy
+	 17GZjFUzCkI/OC5P0Gj38IFNSvSLvsiLPoPLyJupHFo4v6meSe+tXI8IAubaw9M+2iRUf
+	 mzjqq1APPdGV5r8eQ/RuqW10UvwmKi6CtLOUNE0GaiZOBtXucpMsISZ3vktdniaKb0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169494;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169492;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=5YXJOK8gbHZE6IIOUiZiRXRJr++pQ7BFim7SsT/bt/Y=;
-	b=xEJN+B1vQJJO2Aj/TVdwbcWL9QsXMi7HuO1Hxh2b+AKRKFsBBmh6qhaMDVTQuSwJuC/r
-	 893IojjpxsLKWYG0yDUVc3MWZicgfmC47PKz7YIRiuKfKPRC6vF4oOculI4w44WnPnj+4
-	 8EFNkSWcs0/qnpgOLrmCVpopRY4urSK7ZokiHOVwirah4igqcMzsb1Tv0fgy6Sxv3KVWP
-	 kRMHxYLqkKyIZeBUkGyhaTpnDA6e0kEFVimhTNTFUPnjTs/Qa077kqa8k8EnQ+RGqLDAV
-	 5mOkLGzzmm3nPPwvMHJilcMO94jRubDh8X4kMKd5rmD5qqvS5Mdi4x/JDuoaGlMH6tw==
+	bh=QqI2BeVuF5y/RGOq7tOqreiH+gzsy68D7SybMVh4HLc=;
+	b=b035y9H4JRpS3mv/dYFcmTDgtFNM1fm4pp5MrezIWKdF13Y1Tdecvv/dOer9fRM4+DaP
+	 vNuxCjfjbpGlwfCqYE6ve8AR7ptySUmgCudZ21Ftgbr/OdkGn0Mu38HUlkj1gQLka3/bI
+	 nCx+hqOYLeD79bQbsJd9UsMDdbiVusdiqhbkOIxNxHAAQcP30ouU/8t9zhJIhBswN/EZE
+	 tPslJZE+Envzsg/CgOI3srQ0FTBVVcnLLVpf6ici3pQaEppPhJTR4SsXwwB5+0a9vUi8G
+	 jsTq0w5C9X7UOOBXMPlXBQhPJBBwRp1auL38MWz+E1rURVYhjJ1hVvOyBcofFeBqekQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gdj1c88Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y4dr/ZFe";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80011608032B;
-	Sun,  8 Nov 2026 20:24:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C6A606A9CD;
+	Sun,  8 Nov 2026 20:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gdj1c88Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5AE1F00902;
-	Sun,  8 Nov 2026 20:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y4dr/ZFe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FB31F008A2;
+	Sun,  8 Nov 2026 20:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169494;
-	bh=5YXJOK8gbHZE6IIOUiZiRXRJr++pQ7BFim7SsT/bt/Y=;
+	s=k20260515; t=1794169491;
+	bh=QqI2BeVuF5y/RGOq7tOqreiH+gzsy68D7SybMVh4HLc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gdj1c88YGpXDc8rMllrhLi5NFINdgDBp09RXMAwx1ZACuI+lc61ktU22Co3Ypm7HP
-	 bYTEpLAGVfBxR63c6MVYOt1BEpkCYET0L59UR215/YxpCBh8pPr+0YNL2R1zgeiXMm
-	 MyC9F/W0SrFKsW16rv7SsS7g9LXMCZolY58M1WqOzbZJXhpGFr5LeM7FCXVJ4zAufv
-	 I6rBICzJJP9lV0psytXeNeAubM6DYUswhziPgu+Un9wPh8Mbd9fVPE/yoOO4hynu2C
-	 mIhubHo5y4ZhaDIAwXvAVpAQuVnX50k3XIoNeckvIMMXCxVeEmkeurNR+6NFu7BSK4
-	 tko/lNt05C46Q==
+	b=Y4dr/ZFeRROsf+B4ZeDAN/4RMZtJlYdga2OFk8mVzw7nBI9WKl2GLi2ZvxfU84cBD
+	 ntBokYTcC0QtEteDSxmpojr3Crxo4v49mNfxc0I5pJPIczJilztgnWTwEN8SxHWmmx
+	 17o6E7KAX/ll/0KrICQ++jVelcsgiPcL29eatpm4kaGrUxBwgxAqep5xeOxDYV16tQ
+	 7tVbmpxREu4GcsH+8qCCPUT8zf/v81+A/S0m3U19t/bGHv1ZJUX8pAoI2SdYNVmgX+
+	 OEQdka0lC/kcZ++pTJBu5DrS4RR3U61FTpaNb4rarH3T7yeGXBla9wN6V6d90NYlNv
+	 YfKwpafA5P0Vg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Alexey Klimov <alexey.klimov@linaro.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	Xilin Wu <sophon@radxa.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v4 0/4] arm64: dts: arduino-imola: add support for sound
-Date: Sun,  8 Nov 2026 14:21:21 -0600
-Message-ID: <179416929290.628393.4394985534153581062.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	dragon@radxa.com,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3] arm64: dts: qcom: sc8280xp: add missing QUP pinctrl states
+Date: Sun,  8 Nov 2026 14:21:19 -0600
+Message-ID: <179416929510.628393.15246454384618080287.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930124607.1109167-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260930124607.1109167-1-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
+References: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,20 +70,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 30 Sep 2026 13:46:02 +0100, Srinivas Kandagatla wrote:
-> This patchset adds support for audio on Arduino-Imola platform which is
-> based on Agatti SoC. Some of Alexey's patches are reworked and sent
-> here as per previous review comments, mainly on the dt-bindings part.
+On Thu, 29 Oct 2026 15:52:32 +0800, Xilin Wu wrote:
+> Add the missing tlmm pinctrl states for the SC8280XP QUP engines so common
+> I2C, SPI and UART pinmux definitions are available from the SoC dtsi.
+> Populate all 24 engines using the SC8280XP lane-to-GPIO mapping, including
+> the non-linear QUP instances, and keep the mux function names aligned with
+> the driver-supported qup0..qup23 names.
 > 
-> Base SoC-level dtsi bits are picked up from
-> https://git.codelinaro.org/alexey.klimov/linux_next_tracking/-/commits/rb1_audio_wip_v3?ref_type=HEADS
+> Define common four-wire UART electrical defaults in the SoC dtsi: CTS uses
+> bus hold, RX uses a pull-up, and RTS/TX use 2 mA drive with no bias. This
+> matches the Bluetooth UART configuration used by the existing boards, lets
+> them reference the shared QUP state directly, and removes duplicated
+> board-local pinctrl definitions.
 > 
 > [...]
 
 Applied, thanks!
 
-[4/4] arm64: defconfig: Enable pm4125 audio codec driver
-      commit: 15c0b87688233d9b53aae20a37133b93e67dc1ed
+[1/1] arm64: dts: qcom: sc8280xp: add missing QUP pinctrl states
+      commit: 08e237329a6a7aac877e978246609db9a49d2519
 
 Best regards,
 -- 
