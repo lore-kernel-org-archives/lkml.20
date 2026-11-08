@@ -1,59 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794114231;
-	b=dpHE4Punzze+/Fca1D6WDIGlJfwdw1pYaZJWbzoqorYhrSuzAClrpmq+8AsZPRNQlWQh
-	 CgTrE+BK7HQfL/c8zZytjEq7CuLhQFfKJ9rZZRrj6x6XOgU9J1Uf6+iPx7eaAXJUfYmMD
-	 uS9E1UNXR4uFGZ+dRNbBvCu6AJNPUIkdBPwipPxU2xYYL/WKcANq8L8SgjzY6waX7fKX7
-	 lPs9DwyNQvbFx1KDNXWAAE47Mcnl3J7+Y2ux91TvFCP1V2xcJaqBwgR0+fKC8NH+t8m40
-	 PBkG5fbcBGOau7PuQ/4NBFSKnyG3HJ057Btl/S6DxjXiYMwgml7/bGiQM70oxgaZhPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114231;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=a+JbwsepHx9Uk2AzsEX7xxvXiLmEyOWKB/M2T5kLRG4=;
-	b=Q8CTpdE9jgsGwG6CU9R2lmbm6uJp54YX8ZCgSNV0VHIk/D+VVxzi+SZkUsJ5RYSohcCv
-	 q8EkphWs4lZgKKNrmo9s4gd+aQnCfHIQf3rFKUDLQDO01p9kwZS8O9zAOpmqSWtXZUMC4
-	 NWKDi82pHRqF6cfdNKY0BOg5C67w+a6GC51MLOhlrsCxQGW4G7MGgHJ4iLF4wP96/XFIO
-	 B458Kjt/SXN+ZP/LZvINCx6yKTaYQ/spnpXVqb+eFF3qHcydYM9YjBMclY76C4EAZ35dI
-	 rktdq+IA0ioY1gf7PEc828/S+fLgWjVyI9ggUcfV4swRrHEE3+GsPQeMSi1iazTx0Gw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBIaTmaZ;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794114236;
+	b=HYTZF3PK0SWNPcfPJ3OSjkwV4UrsMiQDIfrJ61bDU0+a11Va3OfmLqaTMUVHbXBXIbkU
+	 6DJwQbmoPlchPJvpvfWIXWJfaA+3PMZfUypgtzGiUCNpDuZI1FwnqOBwv28asj412zL5E
+	 ETNbqyIpJaKfXeraKT3jykEdvYU6JP8Vf0TOsKSAhrAyYuE2TwkSerNfNJzb79PDxDfhm
+	 hgVqxxeVrlG8mVcibop4JYYCSi6dhn21rq/tY/zy8emZHz60qR/HR2FGZFAv/msSWf0/N
+	 eMatSErW8GrPxzFxTG8qvCL8xicMxa8/O0uNM/eOcqGL8GPCaLjT79yXjcdoPoai+lQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114236;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=y9ev3s3YMPZdFE4SZFvlvU0BpodHB4LshDf/j3oeyMM=;
+	b=yJoD1uaPu2EdaTf4/j26YmyjrdNRSVBPoJezR2pSlFz3r6koeBDzoRFDBNq2icE49zyJ
+	 wdezHG6f8CJwqz8tETdPayF20DuP/GwJbe/CX4eW1/efm4NkEdZIGf9kl2P2BOT4xSrQg
+	 M91C1li5zN7IppgEixLceTmyhBW9qGxoPKgPN/6ZVJfVLLO/I0ItmBmYB834QbVQgpTLM
+	 oi+vzMrHh6unUS2pwPHpjr6JGrO5so5eCt3deVbnB2zgmSKPc0bY5B2l9zzJgv2Kt8KNY
+	 uh5gjO/h/Gm97pQn+f5NKa81iQjqAzwn5EgDglgHf3+6/uxRSQXS8dRGChiw+kk8f6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJo21YPp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D182606A31A;
-	Sun,  8 Nov 2026 05:03:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D804606A31D
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBIaTmaZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382881F0089F;
-	Sun,  8 Nov 2026 05:03:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJo21YPp
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794114235;
+	b=QrVbyChXm49LyDVp2LOeYaJvpuKb2i97JRwCN1kjEaw0fSZHsNgD7IxJlh0SlosLC0Dn
+	 zQOrgo/EFvFw0Mzu6XvkAxSFY6GIA9YLN6++6DjFSSh6QoPkbmDX21PHkjvtFZax/WvsW
+	 hHRlKJnC2jvRqpbnb7cNE7sOJBmxoQsLV74ntRjEgNdFI7vgJmsxHa+zw5gSD86Gtswvs
+	 MR46NAOx3vFvbyxOOGZU7c7Qv/QGTlNUmdxV+IUiwhGEEcxPunlxL3leonf0EExRegdz7
+	 VjWkkZgvy5fe/Oxb1K4ZGeG682Nbey7Ce16te3V0+LgxqgDIw9vyFqDPvCX+RDAIzQg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794114235;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=y9ev3s3YMPZdFE4SZFvlvU0BpodHB4LshDf/j3oeyMM=;
+	b=Wi+QI7qhXH4duxoJsqTebgWCQU22fgFsjQK5gwtA4WQGqNoceLMzwatB3C0EOYhtIOLu
+	 CDtqscBQ5CwSWyuFCbOxcccuJhrSpjrO4BTLswXnIM2+cNOUT+8fW6ptv4Hs6TH5GPVEq
+	 NsCZLUx5zZ0TYJyLu8QF4YskPXzTNDwONOjAzn93t8AJE50tZbMYf5NiDzOj/ZQh8lQWI
+	 HI7uGdRTzrF7Co7PjCG0rn1WDP8RErkKlDy20PNlZgPBwDcoy5O6V9mZZlucRCfEZK+aK
+	 qih88d8XMWdVP8wHYs/a5p3g7dHrE1pbAX1reZYpQbqwvhdayv0IU0RSaPUhE2MvSGg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 560041F008A4;
+	Sun,  8 Nov 2026 05:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794114230;
-	bh=a+JbwsepHx9Uk2AzsEX7xxvXiLmEyOWKB/M2T5kLRG4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hBIaTmaZeD8km6dArl4lJEQpIWcEB5RyPi6UioymbYW3QNlJ1rcRGCFnjZIcyK2s0
-	 1bf9K5WBJkAR0VL2L8fF1/m9CkGyzbeC4eTgjZuHfyjkdkxhOPzx0CYjlzzA2TsAKU
-	 5lPrtpPtY4Mam5MHzrOZO4t1N4rrdxAKWF9Q82dVe9klP9iOWD4KOxdE16hM4veUxL
-	 23Xvm94gYdoUbiiS+5Qr4UIGzau8hzdlaXEvq78O0C1PaDTp+UE6Ax8s3TdAGUMDwK
-	 rXseucLMNSoI1OACw/5lEXcHnwW0BcpS6RLGoWZNkDOHmN2owyOS31KzyX2UqQbBF6
-	 /lylpETjHXieg==
-Subject:
- Re: [PATCH net-next v2] erspan: drop packets with an unknown ERSPAN version
-From: netdev-bot+sashiko@kernel.org
-To: yanhaishuang@cmss.chinamobile.com
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, witu@nvidia.com, linux-kernel@vger.kernel.org
-Date: Sun, 08 Nov 2026 05:03:49 +0000
-Message-ID: <179411422969.994134.8902723149137301857@kernel.org>
-In-Reply-To: <20261107130030.35220-1-yanhaishuang@cmss.chinamobile.com>
-References: <20261107130030.35220-1-yanhaishuang@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794114235;
+	bh=y9ev3s3YMPZdFE4SZFvlvU0BpodHB4LshDf/j3oeyMM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=XJo21YPpCmN6lEtLgW73Wx3BugSvpshfV8kM/B1bd96cGtQOYDl4su9Tfx0515Md3
+	 fHtjp7Lt4kppAlQ8nKCit+CCyvw/oT6GVlQ3WYh9LGjliQhIxLcfrR6mB4UlwPkL9h
+	 KPCrwmQjJNWWPA6ZDvMbgxTc86xgVRTlLllJCqhLWcGLz4E8+FwpMAU1CajAOLDP5J
+	 9i/ZqpPlFOpHLogXB/14uT3KCC6w8zfBGFFTwISiSIe92ZjZMgxwj402T7oczxBiig
+	 cZT6epOLhC7N7Z6eZe+H2r1aHzhDY1SehWhzYNxMTaYeFbyaz5h281m+cDV4ciPajf
+	 aSesRQHPTTc6w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id ABAC747DF7;
+	Sun,  8 Nov 2026 05:03:54 +0000 (UTC)
+From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
+Date: Sat, 07 Nov 2026 21:03:55 -0800
+Subject: [PATCH] media: ipu6: declare firmware files with MODULE_FIRMWARE
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,98 +82,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-batch1-s1-ipu6-fw-v1-1-1d5323aff7b2@tubot.lat>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqEMAxA4atI1gZMhYpeZXBRa6pxodL4B+Ld7
+ cwsv8V7NyhHYYUmuyHyISrLnEB5Bn5088AofTKYwliiosLObX4kVEJZd4vhxN6aEJx1pa8JUrd
+ GDnL9np/2b927if32HcHzvKX6zLd1AAAA
+X-Change-ID: 20261107-batch1-s1-ipu6-fw-d62ffa6a3c91
+To: sakari.ailus@linux.intel.com
+Cc: linux-kernel@vger.kernel.org, DelaySystem <DelaySystem@tubot.lat>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1586;
+ i=DelaySystem@tubot.lat; h=from:subject:message-id;
+ bh=JVZ6MoRJlfn70hECkm/g+rCgcAl0la+JGGIypLxaXEs=;
+ b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfmHalaE08JBftXu23M8ZizcKvLd8c1BuVZ8/+oyxg/
+ jQ780VORykLgxgHg6yYIouYDM/7+vs6cdZWc07AzGFlAhnCwMUpABNRjmdkWFtTN7Fpl4fVoqs9
+ BnueNfzemzmBe7+ikHeHxMycSe++OjD8Yrat0Pj8/KLAvTrVX3GHStKSX2nLX5HKD1J9ZBb1+uB
+ 2FgA=
+X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
+ fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
+X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
+ auth_id=1447
+X-Original-From: DelaySystem <DelaySystem@tubot.lat>
+Reply-To: DelaySystem@tubot.lat
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: DelaySystem <DelaySystem@tubot.lat>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+The driver requests one of eight firmware blobs at runtime depending on
+the detected SoC (IPU6, IPU6SE, IPU6EP, IPU6EPADLN, IPU6EPMTL, IPU7,
+IPU7P5 or IPU8), selected through isp->cpd_fw_name, but never declares
+them.  As a result modinfo shows no firmware: lines and initramfs
+generators cannot pick up the dependency automatically.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Add MODULE_FIRMWARE() for every blob the driver can request.
 
-- [Medium] The new version check can be bypassed: an ETH_P_ERSPAN2 (type
-  III) frame with a 4-byte GRE header never reaches it.
+Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Link: https://lore.kernel.org/all/apqB28RBDZV4BlDZ@kekkonen.localdomain/
+Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
+---
+ drivers/media/pci/intel/ipu6/ipu6.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
---
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+index cdf812c02960..ec2a9c2bf587 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.c
++++ b/drivers/media/pci/intel/ipu6/ipu6.c
+@@ -1028,3 +1028,11 @@ MODULE_AUTHOR("Yunliang Ding <yunliang.ding@intel.com>");
+ MODULE_AUTHOR("Hongju Wang");
+ MODULE_LICENSE("GPL");
+ MODULE_DESCRIPTION("Intel IPU6 PCI driver");
++MODULE_FIRMWARE(IPU6SE_FIRMWARE_NAME);
++MODULE_FIRMWARE(IPU6EP_FIRMWARE_NAME);
++MODULE_FIRMWARE(IPU6_FIRMWARE_NAME);
++MODULE_FIRMWARE(IPU6EPMTL_FIRMWARE_NAME);
++MODULE_FIRMWARE(IPU6EPADLN_FIRMWARE_NAME);
++MODULE_FIRMWARE(IPU7_FIRMWARE_NAME);
++MODULE_FIRMWARE(IPU7P5_FIRMWARE_NAME);
++MODULE_FIRMWARE(IPU8_FIRMWARE_NAME);
 
-erspan: drop packets with an unknown ERSPAN version
+---
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+change-id: 20261107-batch1-s1-ipu6-fw-d62ffa6a3c91
 
-This patch makes erspan_rcv() and ip6erspan_rcv() reject packets whose
-ERSPAN version field is not 1 (type II) or 2 (type III). Before this,
-such packets either had no ERSPAN header pulled or were given the type
-III length.
+Best regards,
+--  
+DelaySystem <DelaySystem@tubot.lat>
 
-> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-> index 5485586fa0e62..ea41be3c4229b 100644
-> --- a/net/ipv4/ip_gre.c
-> +++ b/net/ipv4/ip_gre.c
-> @@ -303,8 +303,10 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
->  	if (tunnel) {
->  		if (is_erspan_type1(gre_hdr_len))
->  			len = gre_hdr_len;
-> -		else
-> +		else if (ver == ERSPAN_VERSION || ver == ERSPAN_VERSION2)
->  			len = gre_hdr_len + erspan_hdr_len(ver);
-> +		else
-> +			return PACKET_REJECT;
 
-[Severity: Medium]
-Can an ETH_P_ERSPAN2 frame with a 4-byte GRE header get around this new
-check?
-
-is_erspan_type1() looks only at gre_hdr_len and never checks
-tpi->proto:
-
-net/ipv4/ip_gre.c:is_erspan_type1() {
-	/* Both ERSPAN type I (version 0) and type II (version 1) use
-	 * protocol 0x88BE, but the type I has only 4-byte GRE header,
-	 * while type II has 8-byte.
-	 */
-	return gre_hdr_len == 4;
-}
-
-gre_parse_header() treats ETH_P_ERSPAN2 (0x22EB, defined in uAPI as
-type III) as always carrying an ERSPAN base header, whatever hdr_len
-is:
-
-net/ipv4/gre_demux.c:gre_parse_header() {
-    ...
-	if ((greh->protocol == htons(ETH_P_ERSPAN) && hdr_len != 4) ||
-	    greh->protocol == htons(ETH_P_ERSPAN2)) {
-		...
-		tpi->key = cpu_to_be32(get_session_id(ershdr));
-	}
-    ...
-}
-
-gre_rcv() then calls erspan_rcv(skb, &tpi, 4). Since
-is_erspan_type1(4) is true, ver is forced to 0 and the lookup uses
-NO_KEY with key 0. That can match a keyless erspan_ver 0 tunnel or the
-collect_md fallback in ip_tunnel_lookup().
-
->From there len = gre_hdr_len and the new version check is skipped. An
-ERSPAN header with any version (0 or 3..15) is passed up as the start
-of the inner Ethernet frame, which is the outcome the commit message
-says is fixed.
-
-In collect_md mode, tun_id = key32_to_tunnel_id(tpi->key) is also built
-from the session ID in those 4 bytes, and the same bytes are handed up
-as the inner MAC header.
-
-__iptunnel_pull_header() still pulls ETH_HLEN, so nothing is read out
-of bounds.
-
-Would it make sense to also require tpi->proto == htons(ETH_P_ERSPAN)
-when classifying a packet as type I, so this path is covered too?
-
->  
->  		if (unlikely(!pskb_may_pull(skb, len)))
->  			return PACKET_REJECT;
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107130030.35220-1-yanhaishuang%40cmss.chinamobile.com
