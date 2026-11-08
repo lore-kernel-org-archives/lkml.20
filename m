@@ -1,60 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169476;
-	b=VUQcExvUb569rC4nvdzTAty4DOIhXdC7bNkKpwk1Mjdm0gAUpJY9lV3BGtlXySoXl/me
-	 5koxxuJVRY3TJGYpIAY7w+FwxyG54Z5rBuNH/27GCQJ6zJbuAIzCS57mJJYa9bhHKXEZw
-	 XKMXEeUYIaFqMYRSoD5WEqcOvXtceFccoLT7nESpJDdo0lPOodjcFjVcMZGOoIaP586YY
-	 +T0v4gJU9hseYh4sPdadrwmB/QmJUeNuCVh6Y151JR8tqPRGWxdWwHmwizb2rs9yiaTa4
-	 +LnaLaIObMUj17S6bUhInpLyOYI9Oupxow/amVL6mUm9hR/A5h+08UUNbFWrN02r6Yw==
+	t=1794169481;
+	b=2D6XL8UG0fAk8gb71cCjXxb0hYpm6BOsqHHC/o04PJjbKovTiRZqdIbIXG2Lz7X5XMSB
+	 tVxqiIIDvmhZ0cSml4PyWzj9+sBuBCur5N5nc6nCYn2AC4yfeBg0ztOF/YfkoSbZlSVGe
+	 zgWSandHhgWWm5Xe97QBrtw3vcYK0/Yl7y9mXL9SBytFexGqeJE4YTihcBYHhHwFzU3qK
+	 fTtr8e2q59DDsMZ/wwGRBdUTJbKkhDeAxD9V/MwJ/QMG+XhokixWaFuVwXYjAntAfI1DL
+	 doIQEHt00EtpUaDxXINzLqIvbIjUm0xBhIqziXPAKSOxX5+Y77nX8SRwc18VHiYBjdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169481;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=7ggyIcwYOM80LKMycSmwhM+8vTZbUAlXjcnBi2PVQ/c=;
-	b=JMIBZtUnkNR2LTdGx6iFZapq0NywQt9unpPluY2A7x0UffI/MLxroUmDXP1QKVndwmwx
-	 k4/Y4sL2a5iosH9sQ2YjwOrRHk2hx4R5ydYQN2CtEMcAKNi03+Pu2ALiMLMavVl72dcPe
-	 lPo146vknn7qacUh+P2rvW8hEt6EqJqwQ+4DpTNDLp3GijnVvbSV2/Rr88ECk3jyTh2n+
-	 syZnvpu6fpszTzvJjPHbQ377bXeFy+fuAt4l1M1ffPI0DqFMuF70XOlzHMfw+WQ0bgGbU
-	 i554uLXn/epMExeUw3lmBW60v8fF2779BANM+peCeyapJq1SyDmbp2uj1w2Ei/oVw4Q==
+	bh=O7hlAbfoXMWo8ls0Hzjqu9/SqcS/k+aHJqi0nIPwCF4=;
+	b=3nsUaOqLt6SHpQBDxI0RrtwUIyN3AXNmmFFgmpRPxlvLvLvuj7248onMfD1Cxt0g/hR2
+	 LIhOQ07rufG5BzTp873MasNURbfDAIS/tivtjUnSdTqRy5NE1VhkhaSFSzKa3KzRDO8Z1
+	 hSc4Ps9Vx3GcGm5AN0Yc4rJt6rBxDlJ1V6jhPlJS/LogqEZ3RbsQb5+2BJGxWxja1OkP8
+	 vLESLHL6eCE3Vp4qr6cU5bSg7nj7urMN6rc3pPHTuvKu89gY6dLNXWvAsEe1LaSjISHfF
+	 DeA0O5i4R762ZAuEn8RYFh/bZtXI8+lO+zNuGi9iY9cVIXtB0bc5xbKoXIU4nU8uuWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6iU+ZOK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elHQVnEm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ABD607CECC;
-	Sun,  8 Nov 2026 20:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53E8607E49C;
+	Sun,  8 Nov 2026 20:24:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6iU+ZOK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25451F008BC;
-	Sun,  8 Nov 2026 20:24:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elHQVnEm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EE11F008A1;
+	Sun,  8 Nov 2026 20:24:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169475;
-	bh=7ggyIcwYOM80LKMycSmwhM+8vTZbUAlXjcnBi2PVQ/c=;
+	s=k20260515; t=1794169481;
+	bh=O7hlAbfoXMWo8ls0Hzjqu9/SqcS/k+aHJqi0nIPwCF4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g6iU+ZOK1wknp7xZDrf6hGTPCHcs2M4SnZr443rrFu+1LzdL2SQt7EbGXe7DwIbnk
-	 o8qomeBS6PNHZLWewHFY/3FCGfVTjFbg5zYHi5kaH2rjokMlwFrHPTrIqCh+kMYSXh
-	 scXqbKM9JwVLlAO3PcPMEsNA2CvBoAz1zTOjPQJBIYrPIJcfDZ8PKwrO7ySJxM9HcP
-	 VMpsEqTJ9of5EIWUAh/n2DbysGeROOZua2/MWL8lvk73Q+hFcntNJzJb9c0hp7u1vH
-	 GLQMIFfpU/HlCHvgl+AI7zunhJhyMTe6Pp0x4c5m14XD6r5XVgcIIeCFT6X2MKcEV0
-	 P62PjPg9n65OQ==
+	b=elHQVnEmPD/DaaExD+FliiO6OyYW7cBbS0UGyDBxy997EYWb9R+B43QEslsxIKTiP
+	 OLzgB9qXNLE45eU4Q/nAhYj6qpaYbbVImcoxljoJcfY8VuMnmdIzcdkXJYuvDoE5ZM
+	 iSKr/9RO1K71gW4SM65KnePjbt6gqc5WVM1zbtLSok8SIsdk/2AiUrlbGYSA8NeqFs
+	 rRmGtqqktk8AUh0OpB677+6WyxV1VZjjHiTH4OLLqIZMQifcJFMk539YYZCoTPlHVQ
+	 8SMwpOXL2l8UPTe9Q5bce6UtZamChWRdLJuwZuqwGJ/MzRgh138NJxTjmgIXEh3LYH
+	 7P9+Oi+cuPYRA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	"Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+	Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
 	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: ipq6018: Drop undocumented 'qcom,ipq6018-wcss-pil'
-Date: Sun,  8 Nov 2026 14:21:07 -0600
-Message-ID: <179416929556.628393.15466602761506698116.b4-ty@b4>
+Subject: Re: (subset) [PATCH v3 0/6] arm64: dts: qcom: Introduce SA8255P as Lemans family SoC
+Date: Sun,  8 Nov 2026 14:21:11 -0600
+Message-ID: <179416929532.628393.8073843162038778455.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261103225845.984564-1-robh@kernel.org>
-References: <20261103225845.984564-1-robh@kernel.org>
+In-Reply-To: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,14 +72,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 03 Nov 2026 16:58:44 -0600, Rob Herring (Arm) wrote:
-> The 'qcom,ipq6018-wcss-pil' is not documented nor used by any driver in
-> the kernel, so remove it.
+On Sat, 31 Oct 2026 21:10:36 +0800, Shawn Guo wrote:
+> While the patchset [1] supports SA8255P as a standalone SoC, this series
+> offers an alternative by introducing SA8255P as a Lemans family SoC.
+> 
+> Lemans family has two variants: Embedded variant (IQ9/SA8775P) where
+> platform resources like clocks, regulators, interconnects etc. are
+> managed by HLOS, and GearVM variant (SA8255P) where they are managed by
+> a VM acting as SCMI server.  All Lemans family SoCs actually share the
+> same hardware configurations like memory maps, interrupts, DMAs, etc.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: ipq6018: Drop undocumented 'qcom,ipq6018-wcss-pil'
-      commit: 67b58fac77db8d2653e53266f62964cba96397fb
+[5/6] dt-bindings: arm: qcom: add SA8255p Ride board
+      commit: 8f1791c25b66388a2ddd2dc0b84aae08fe77dce6
 
 Best regards,
 -- 
