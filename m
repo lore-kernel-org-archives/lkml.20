@@ -1,113 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794130129;
-	b=MCQb2TzddHUCCaeR08SFc3WahWUOEzC9sD32yygkD7excT6zymVP28UwhTd5NFtU3W+Y
-	 ptoJiEOhwT9EnRbCdp7+pIzt43uznwWgIpRquc8othV8SYBIeFI1ZBPyH0FXKxdXh/Y1a
-	 hOPwMG3rlDUhoxkU07nqmiq6mBCrJsB+pDa0VvaIlcUxLId0eoPF26eJfyFWTbKd7bnDt
-	 h/7sSGnltQFuVze1VfoewmNzy0qIizSiETQOVmzt4NRCst+7ojLmIYysoZokKec4CVcXN
-	 lDSEhzO7/nnlU87nGwTewSgls46QKrRWZRg0fQp7VYMLhRM6wzhIw+mPnfA8vy2dM7w==
+	t=1794130133;
+	b=K5XuWpV1qOlj6cWNZbM1sAy0Zr0+CEAkneLcW8553MtB1UclkO2l5YFNEqbxYfOy8ahe
+	 SyH282IDK2tHFMGxGepc+rYiskB0goEbw21yoosC01EjnemO2JtRR84MnXo8V3cxuAZq4
+	 2YFAWZdpMWiz1vnxP7YdtMwkDiaHPFaQrCCbydxSk7NKBUOvAqk9N8ODD+v+A4VE41GHv
+	 ei4mP82GSP+E5/b4CCshJ0RK2BSu2f8nELzH0v5sZ1D7rvs9IbC/K0NTVfvE7CR05X2uw
+	 FRYIIo83KWHiS/PKUUP/xba6PlhG2T8LOIukzPI3fI25I3HW83bFMRUyTzCDqLi8qpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794130129;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=giruqofCEKLGW/gftydut3TGaQa4hJZhY1xYbnABmjg=;
-	b=F6Iw+9TTiETbHcJ4pHD2N2FnW7WXuUmvEMQtS/QMdtKBLfXhQct/juJbbXomKxT+ZaMP
-	 60yxvjcINLORN7xVW6YhKV0WRhXPIjz8ZXMmBw2h7mfu2xQ5mQgmJtL93MD5njqwdJlCh
-	 2vBUpjBi84cdaoILBsmKh6ArGt25vJ7yegE4Mpv9e6sJoB3hxj7jcSmsOuhUs/lHT5+Jd
-	 TB6pwYoI+y2/kUtr7c3rRPDfQTsOVMavBDMuygHtK03kxxCixuBfJ4gy4sl2wqNiX/8V4
-	 NkXhabfP/7LWRjCCuWOIkyxN4tU+KDgTGxLZucGUWSyIHy84++RUTVs6I7eWQMPJOAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794130133;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:Date:
+	 Message-Id:To:Cc:In-Reply-To:References:X-Mailer;
+	bh=SHRuDocsQ82mahFLnJgxxsiffMzQsz1Feg2GezQdVrA=;
+	b=FfpOdnyGF04z94Dz+sYdgmjZtjekA890KWW78/urB030XVXpnvoeddyHtyO+D/U7SaWL
+	 NgnOVrl70aFqWthnp31gSbciRWfFVYkxfPVEM5HDR2wVfKonr5sJEGQ8UYWUHeYvtBrWz
+	 4Caemi0gA4Crw0P4Tn6T9toWMl6o3sXrUx/FjTB6KaRYnqGsrfVvPv5It1vbYcHueA+kW
+	 Ors0tEhwNi/TqtTGiT29zOG+2sVjAl7Id4/ty+pgFm95Ho2J33v4B8/2d5mdL162UF3I9
+	 3LOOWBF/pV5JJGbGsc+4sCuMUvKvcH2r5Hw+MKKYeDY2WQvdjRvHvonQDTfbfudJ5Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PWezvDtO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6EadtCRt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PWezvDtO;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6EadtCRt;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gAInEK5Y;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B73606A31C;
-	Sun,  8 Nov 2026 09:28:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67B73606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E35606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:28:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86E35606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PWezvDtO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6EadtCRt;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PWezvDtO;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6EadtCRt
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 29E9F21E34;
-	Sun,  8 Nov 2026 09:28:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794130120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=giruqofCEKLGW/gftydut3TGaQa4hJZhY1xYbnABmjg=;
-	b=PWezvDtO/1RfweS1GD5i710qXqBGStJ1uEK6/2kjppq1v7OC1eaXD3NJoKs4Bd4wvx+2EB
-	Da2ExaK0kruG8hm6+8YZyXnwhvupse74942m0cHn0h8tfE3U2ttMzQuZSErmBy16mjoAyG
-	za8oszn/duSGAAr+n42QgYjiZVGrBvA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794130120;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=giruqofCEKLGW/gftydut3TGaQa4hJZhY1xYbnABmjg=;
-	b=6EadtCRtQE+NcLSwndUztHzsk6GC2F6GPUfgUpFdEo09PJY4PMMvphGWIdxjYflXL3stfW
-	wOvRfef0JdUkZjDA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PWezvDtO;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=6EadtCRt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794130120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=giruqofCEKLGW/gftydut3TGaQa4hJZhY1xYbnABmjg=;
-	b=PWezvDtO/1RfweS1GD5i710qXqBGStJ1uEK6/2kjppq1v7OC1eaXD3NJoKs4Bd4wvx+2EB
-	Da2ExaK0kruG8hm6+8YZyXnwhvupse74942m0cHn0h8tfE3U2ttMzQuZSErmBy16mjoAyG
-	za8oszn/duSGAAr+n42QgYjiZVGrBvA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794130120;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=giruqofCEKLGW/gftydut3TGaQa4hJZhY1xYbnABmjg=;
-	b=6EadtCRtQE+NcLSwndUztHzsk6GC2F6GPUfgUpFdEo09PJY4PMMvphGWIdxjYflXL3stfW
-	wOvRfef0JdUkZjDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9F5731339B;
-	Sun,  8 Nov 2026 09:28:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GHaQHMdA8Go6CgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 08 Nov 2026 09:28:39 +0000
-Date: Sun, 08 Nov 2026 10:28:39 +0100
-Message-ID: <87eccvy8mw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: info: Use scnprintf() in snd_info_card_create()
-In-Reply-To: <20261107140949.350482-2-blum@kernel.org>
-References: <20261107140949.350482-2-blum@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gAInEK5Y
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36caa19b0ffso23001eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:28:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794130133; x=1794734933; darn=vger.kernel.org;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SHRuDocsQ82mahFLnJgxxsiffMzQsz1Feg2GezQdVrA=;
+        b=gAInEK5Y32M5VqpPzU0TZHnEFEs8PK30K+m6rbTcPj4rJc5fPGY4T6e0xFW9gmh9zc
+         a3k5lVvfHf9LPC7hjtJF1Y+8v/PqtUQIagkR5Mu6vC8PfhLeg+R23ThA73LFMs4o7Bc5
+         JL0NBFBisQQdIMRCB/8n0SskKDY190G6yCFOPRF9ZH1/k72l0pOjstZaOLWsU29Fl5nZ
+         bAcVpFLMFgbMKBwIs8F1XMhgHHBVXQAcGFV+utnHwGbnkRKHKI4VI153aheB2TGoXYBP
+         E1nrd27hXRil3Hb8EOqmEIKg/IBrfER9JqcQ0rBI/WnyYZcDVSx0l1QK4KYNWNJxRmds
+         uArg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794130133; x=1794734933;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SHRuDocsQ82mahFLnJgxxsiffMzQsz1Feg2GezQdVrA=;
+        b=AVkf38lT5MEfcIphQgHJjJmKIUu8KGEhglnF0qC2eHoI7lhCVaPfUunLeb79CFIZKP
+         P/GHOVIQuDQRAMzRrio5HBN7Qj2em3k7AfmN3tRzYvF0z68zyvIccfyUMiJHxzWZtHdm
+         4tBf29T8Rg5BOyWLr/bhRuC/JRwCnn9dzl8GK/Rt2dEVBQ6ZecooNnmLsSkMfCTxbrUB
+         k0OVuNW7hIHA6ILOD7iMJsrirzCkdFiBOpnYuRSinqnbYYPbozwjttFBYNRpdTwaeR8o
+         KY2VHpeENPeshkr+jol8hoMoMJtA4QdeAT+om5EVP4DCXzHCgJsxkOkQtkJB9ejbRJJa
+         yF4Q==
+X-Forwarded-Encrypted: i=1; AL+hErFwR6YsWn3j8QR0+02KXTs4LralbWZXl28u2B/FbPgbCMfIf1ajg/7fHskz/y2OYaICWquLRR3tewph7Lo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+tgSbUjHMqneASLWD5B9JlrLTr1y0NHtJpcbSXUtueV/PnLTGS
+	U5Qwl8ywO9n7+r+Dm/XoLwtIJH99aNaSe6A+5AOUMpy4mjQo1hZS421G
+X-Gm-Gg: AYBFou3ZDxcxi5So5ts9ehNmS/ugGYNenmHkh7RisGT7Q5VzO2Lpl2jm5S65yxaMIc/
+	CAIzUra9S0NS+GoLoAG3XWL2+eyspDbfvr+EZB+YAdBu4PfNv16DEBh/YUbATQ1iylQeGB9CUVE
+	ROpICDm84JwiVQF6wnvPM+sof4ZuHgUljw4KY4A9L+HxZh0GoHFQhA0QDi+fsRjuhk/Pshvz158
+	FFmvZAM9IzF+7frrKzpNWo9bGzWtdfYZLd+SRpVmD36957w7MVjk5c4SuNfyhknDI3VYNqfAgbV
+	TgUNL6Q6PzlYquKw04cqGnUK829Hi1MgnE2vKA01oOFWDSkw6wIa6VINSak7FMgmrW0mJlZnAjk
+	q4XD1GlH4td8UaT32YTfLO27ikRbX6rb73p4NrijamOOYHYSQCcnhMCdSmzdZxnm6HOx40kvgOt
+	46JTw1g4VTNIW6n9kDfeVrgFEG6hgF6BAmA+UBXEnRznjatyRDC9YeaLUO31HC/ZQF656xcB1Zy
+	oZzWFIXnzx3hwKuFEtLwJ4eTtb3r+TkmrZv8QgHq4pZqgiL+HA1pyZ+VtKk7Q7WDk6uhzlM39jV
+	j6LCwMmPj6E8cczWD16HfEbXhtTFOsLF2aVco/cnaMQIBqfaCRDImUVxR5ULEVeUFrreiiDOCOC
+	ZA2tHXg==
+X-Received: by 2002:a05:7301:7004:b0:36c:9b35:5d46 with SMTP id 5a478bee46e88-372571d9ac9mr2446013eec.26.1794130132533;
+        Sun, 08 Nov 2026 01:28:52 -0800 (PST)
+Received: from [192.168.50.20] ([50.7.253.42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d78ebsm4250150eec.27.2026.11.08.01.28.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 01:28:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,50 +88,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 29E9F21E34
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,intel.com,gmail.com,suse.de,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -11.01
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] drm/amdkfd: handle SVM interval notifier
+ registration failures
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Sun, 08 Nov 2026 20:25:29 +1100
+Message-Id: <179412992976.2.9438818840890765075.b4-reply@b4>
+To: sashiko-reviews@lists.linux.dev
+Cc: David Airlie <airlied@gmail.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, 
+ honghuan@amd.com, honglei1.huang@amd.com, linux-kernel@vger.kernel.org, 
+ Philip Yang <Philip.Yang@amd.com>, psirt@amd.com, sashiko-bot@kernel.org, 
+ Simona Vetter <simona@ffwll.ch>, Sunil Khatri <sunil.khatri@amd.com>
+In-Reply-To: <sashiko-outbox-203586@kernel.org>
+References: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
+ <20261108-kfd-svm-baseline-errors-20261107-v1-1-9ef4008019ab@gmail.com>
+ <sashiko-outbox-203586@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Sat, 07 Nov 2026 15:09:48 +0100,
-Thorsten Blum wrote:
-> 
-> While the current code works correctly, replace the unbounded sprintf()
-> with scnprintf() to bound the formatted string to the str buffer.
-> 
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+Hi Sashiko,
 
-Applied to for-next branch now.  Thanks.
+On Sun, 08 Nov 2026 05:35:46 +0000 sashiko-bot@kernel.org wrote:
 
+> This problem wasn't introduced by this patch, but does
+> svm_range_restore_pages() pass a page number instead of a byte address to
+> amdgpu_gmc_filter_faults_remove() [1]?
 
-Takashi
+Yes, I'll fix this in a separate patch.
+
+Thanks,
+Aveline Noir
