@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177024;
-	b=HcQMNdNy+D0WTz3eIkvK7zRx9+I3Cp6CPXs3UmXweAIsiu6pOuQA4emJWG0355SRzNjG
-	 Shn/wR1hdmpoyQxkSvGmgX4Ir51INHF9fwM5ScKHbPkujD6EBRgmDfaipzANJqqkuycDJ
-	 NZNE4B+qa2YvqOADlp9SumegBhX5Xpy1JnIDn2+RZsCakW+PPPNKjBS0TTHRg+cEE7GO+
-	 FAP/sM15HJ8JFDNNvGYYqp+9zHCMlszB4rg/gEShUcsktE94bpcLIkOAGVua5u2i8r/tI
-	 2y8A7kIx0ecrXD7L7MpA5u7xRpi1YDa2WIHT3gne99zAWKWfYx9suKvPXliKRbI8hVw==
+	t=1794177065;
+	b=QZuqIE2l6rSXAlkc/SmBCM7y9HjNOF1c66llXwj0773+btVJuQeUcXJCtnkfgpWjvAbt
+	 ebep20JzKy4qI2ppY2xaeAagjBwIasKjZ2diJBBv06ptE6kYpVHgnx8oTpNRKXAkRA0dL
+	 AO3fMY9gn8RxqgMRDI8X6UV0ufYb0z012VeQqp2VJpFMCgFny+Buti9zSyjTr6zLIbL+b
+	 PX0XvaY0LiuXG5kteF0zckPCucVP51HpxLuE8VimeKHVzyP+pinA8rHB9xnuH3HjF2a4h
+	 yh6g8yTv3XO7EG48cPJzSn8xu/pliZsQuHeUECyAK1yjh5dyw8XUCW0uBNH4w6/EUYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177065;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LraNvc3nOkreiyFCQDE2c+yLeQKCkjvUV3ZdM9btlOs=;
-	b=waR6G9EguX85q5ioFVm0uvjWh31xgd3Ogce8myni1bgUk+R8elKfR6RaeRu+n7a4C1sG
-	 AcZXkyDxmvbzpGDiOwb0HZNhWoUECs0wCI2kIJvP1nNERr4e6upEDwRUFOVZfv/l0c06c
-	 OnSMgqlUR6IiXhe6iGIUVxU0UCOvVft++3AsCzCBFF1YI4O0HRYANrrk5+BV6Nmjple9U
-	 oePar4uR8Gi5INtDfoRwd1DhQgSjdze0p/uX0j4dffFBHrEhzZDItvxuVXVd+qGwmWtLy
-	 ZhIRMYKosuQWk+kkGUFlGtagu+TgaCy0epth5FgQngl46gFiTy8FYJZZ1PX+K+/syTg==
+	bh=1sW1mmLPlw0EKa7jU988h9/QwbW3FrIHOvYZABaI7ME=;
+	b=qSwH6gvHHOd1fu0uGKrmXwY9dh5yNtz6VWS0Wr6bzRQwj2ArVjVLcibh8BfWk1WTnLLu
+	 11R/X1nTH59Pt8DswQ2LHkCkW5t4WcFXDDkRDlz4zJBpvEe4oHkBptVr61OCZWaJenEjj
+	 21ihE3JBbdwjwxAw3Waztj+Um+8JXumKLgnc1ACp0iTltAYxRUYHFz/kp8rs+FRsgWt8X
+	 i/NiYbyu6mYciL4iBHQ0PQ1CUNDhbJIP5SVtlnJKyKIaezEVQIYl+vD1GHBiQNm2e9hJH
+	 HRFfdAHy2WJZQ6WHOtxVADLm0+WE5SopCALDPAEkwMkcTu/eNUpqU/JMtnPXmkoho7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=HR25B7N5;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ttz5znjgmbg6hozo2ejrmcjh2e.protonmail2 header.b=Uph2DApY;
+	arc=none smtp.remote-ip=79.135.106.29
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DDC606A33D
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:30:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2DDC606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EFE606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:31:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5EFE606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=HR25B7N5
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ttz5znjgmbg6hozo2ejrmcjh2e.protonmail2 header.b=Uph2DApY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794177020; x=1794436220;
-	bh=LraNvc3nOkreiyFCQDE2c+yLeQKCkjvUV3ZdM9btlOs=;
+	s=ttz5znjgmbg6hozo2ejrmcjh2e.protonmail2; t=1794177062;
+	x=1794436262; bh=1sW1mmLPlw0EKa7jU988h9/QwbW3FrIHOvYZABaI7ME=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=HR25B7N56PNW/so8OEPMqZk9gDAtYbJ6iBgJhWFXjROykEzyMO5Cdql72pGo51fX/
-	 e6QX2Z7nNzwdmiqlPpSgw8UnK2nxvsv68UForoySADTubzHpF2yUkpcQEC/Pw9SsIL
-	 NjktMNDnG4WEYfLAXf5dqe9bTDg3TwH1haGPAPJ+fDQmiOFF6Zo/89uY4qhCEz6PXA
-	 jDK1U3LKLIP2mJtO+jzo3plRZI2l8KaORnE0HySRKXxzBtLeNZKeu/eIySs+h4lH2k
-	 cZJrwCEEMbciqzorhpx5NqaVA0PZs9C5kG/B8gGfTdYnKmiCfdbJdPC+jY3lnzDwO6
-	 5xPdlW4T1vKqA==
-Date: Sun, 08 Nov 2026 22:30:15 +0000
-To: "david@ixit.cz" <david@ixit.cz>, "davem@davemloft.net" <davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
+	b=Uph2DApYA1WZrge6sTCfSMA8XLaHKdo7LqEIx3pEVIbSotG6hxAAAEG/SJzCOshTJ
+	 BuJzJUrIgYBWSVmqepb4espY/tlRt3TSa8l+eUdNEVElRgOt0qNFJ5N25JmvBU7Hc3
+	 ESQDeerg4Lh9mKUWWocQAPZXAQ70hKKBafdlEpFqBkejmp9PMsk00/l0gm/ResuqK3
+	 EqpKw/tVl9u5NrdEAff3FcqHeLPYLNaRRRgkWrVQbob/SyZVXBQFx8LFjDTJHlot4s
+	 ousE5KteOo4Cm0sKvTUFp+BiNr9MdmHmxJpQOmqBUWR+EwyYvh5z0Tu1LvYvkUTP5d
+	 CiPWYc27OR5MA==
+Date: Sun, 08 Nov 2026 22:30:59 +0000
+To: "linkinjeon@kernel.org" <linkinjeon@kernel.org>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] nfc: digital: check length before reading SENS_REQ
-Message-ID: <i69izu1c4hLS_ZLvaL0RVyF5pJt0gkMCEY-87g-j6iGMyCi9WKPGInJF53uwP9q9k4IPeEoBS6RKRCNaavGJlY7G-ifRKqdeMSC0rzYf9Tg=@proton.me>
+Cc: "linux-cifs@vger.kernel.org" <linux-cifs@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "security@kernel.org" <security@kernel.org>
+Subject: [PATCH] ksmbd: read request header for compounded CANCEL
+Message-ID: <0cRgD2yOWbwKBhBZfP0O2ejMhJmcsRk-SQgKJhFyowKBsLZmKYKUb_iKGC1VTDPMUlJrnX1Qpa-CsfMFLwt8hxFqjGhvOLwzEGkO-0JgtvQ=@proton.me>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: e54c4e86c06a3adb22bca49215ddaa4197b07323
+X-Pm-Message-ID: 9264b9ba86082f5e8c578dec8ef8e37008e7e2f3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,16 +66,26 @@ Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-digital_tg_recv_sens_req() reads resp->data[0] into sens_req before the
-!resp->len check in the very next statement, so an empty frame reads one
-byte past skb->len. The patch simply reorders the check (the ||
-short-circuit then makes the read unreachable on empty frames) and drops
-the now-unused local.
+For a compounded CANCEL, smb2_cancel() matches the cancel against the
+*response* header:
+
+    if (work->next_smb2_rcv_hdr_off)
+            hdr =3D ksmbd_resp_buf_next(work);
+
+The chained response header is initialized with Flags =3D
+SERVER_TO_REDIR|RELATED, so SMB2_FLAGS_ASYNC_COMMAND is never set there:
+an async-form CANCEL therefore always takes the MessageId branch and
+matches nothing, i.e. a compounded async CANCEL is a silent no-op and
+the deferred work keeps running until it completes, times out or the
+connection closes. MS-SMB2 forbids compounding CANCEL, so only
+non-conforming clients are affected, and the read itself is always
+in-bounds (the response header is fully initialized).
+
+Read the request header for the compounded case.
 
 Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd =
-(v7.4-rc1, 2026-11-07), net/nfc/digital_technology.c:1088-1112 (digital_tg_=
-recv_sens_req).
-Longstanding code.
+(v7.4-rc1, 2026-11-07), fs/smb/server/smb2pdu.c:10515-10524 (smb2_cancel).
+Pre-existing in v7.3.
 
 This was found during an assisted (AI-supported) static source review of
 mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); e=
@@ -87,31 +97,17 @@ verification rather than a battle-tested fix.
 
 Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
 ---
-diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
-index ae6487c..d9a8e9f 100644
---- a/net/nfc/digital_technology.c
-+++ b/net/nfc/digital_technology.c
-@@ -1088,7 +1088,6 @@ static int digital_tg_send_sens_res(struct nfc_digita=
-l_dev *ddev)
- void digital_tg_recv_sens_req(struct nfc_digital_dev *ddev, void *arg,
- =09=09=09      struct sk_buff *resp)
- {
--=09u8 sens_req;
- =09int rc;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b084cca..36c5a40 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -10521,7 +10521,7 @@ int smb2_cancel(struct ksmbd_work *work)
+ =09struct list_head *command_list;
 =20
- =09if (IS_ERR(resp)) {
-@@ -1097,10 +1096,8 @@ void digital_tg_recv_sens_req(struct nfc_digital_dev=
- *ddev, void *arg,
- =09=09goto exit;
- =09}
+ =09if (work->next_smb2_rcv_hdr_off)
+-=09=09hdr =3D ksmbd_resp_buf_next(work);
++=09=09hdr =3D ksmbd_req_buf_next(work);
 =20
--=09sens_req =3D resp->data[0];
--
--=09if (!resp->len || (sens_req !=3D DIGITAL_CMD_SENS_REQ &&
--=09    sens_req !=3D DIGITAL_CMD_ALL_REQ)) {
-+=09if (!resp->len || (resp->data[0] !=3D DIGITAL_CMD_SENS_REQ &&
-+=09    resp->data[0] !=3D DIGITAL_CMD_ALL_REQ)) {
- =09=09rc =3D -EINVAL;
- =09=09goto exit;
- =09}
+ =09ksmbd_debug(SMB, "smb2 cancel called on mid %llu, async flags 0x%x\n",
+ =09=09    le64_to_cpu(hdr->MessageId),
 
