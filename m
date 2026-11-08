@@ -1,74 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174587;
-	b=aQx1KzokpilzyKjU5M0kXXB4hF9U7W4JyTmBfk8YnPHGkftTUsb8Dw36Q6MvrO7xWGjU
-	 6sLSJmtVBAdF9XZEAjc3OYQOq9Mp730L2uLwwwKfld11ZiFjD59/U1NxG0wpN1PSHJvk2
-	 1FwKclJzfloJ7IwJm5na4pCly+yj/i83Cj24D3bRphex/bc/3T5jdTEUAJcHTlTyg1j7W
-	 ay2lYEvaEgKQ5HoMRkAFeXXqQzVF1MUMLjlXWmkA35BHJdHn6757cMukiGOuXNqC6FmH8
-	 3bh/0+ES4KBlM21N5R2Vtgv7jJ3H8iXi+HAWZjO/2C60YWfaVJdwy1Vut3JeHT9z4+A==
+	t=1794174590;
+	b=t9+M5khCHrOKQgCRjeWI2lYclAdMwZkj81l6zvvpXQUHbi+lE8S5BcGu17akc5Ro9eFm
+	 BnSq8IHmCRP3XK+HysrmBpesuBT1l9hkNDrLp577ksgXtCmW1Xg/xNnr7LIm5klBKnraa
+	 GsKmC+B4ajIl6zNSeMruGvlTWYw+wUUNYpSTHhc4kEdNTM3ydLRGnahvghvgcw15jLSHj
+	 /+69uWF3cqCbyG3Ivz69UVz3iQmqYvfcaW4V6DBQypsFExwEuAh6TsCCd4gErDqqv+7Tu
+	 cIwXSbNe7tu0I9p3ZORr4Z1RYDHR5h5OjR0Amj2gt9Dg3P7W+YaCLIyNPS4eI0L6rsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174587;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=Ds1vGYi06IDtrERMc8egowDuQYn1y7mXhqlbOZvkhvM=;
-	b=R36tGviOTb38Go9S4fMI5zXM/J/FQRPH4LhECzS7jW+XG81OR/M12Zv7XseJ2ZXAfGoD
-	 ojZm4I+pDhGoY3EFPFQxDM4Mz/yJKQqZlqoo2rspE6pwieV/M0xkIO3WAwWS9A1e6o9V9
-	 bcrVX0FB5SO8QFMqmhbEsFaoqTd35zHvlDsiO/FR1PhqSmf8KhzQl6Eidal9ub/uQaxnq
-	 cIShMXV2UbGgHW4RKN9Hd8s+Id88kKK8Im3QAVV8c5pk4WTkTWBoayFOjWw8c4NELa0qq
-	 uN/ERCTElFBRIOEo2HEUx+QtjVNOdbvv33HWii6t9f4Z0vqk/oyrJGgc27m1gnoYfVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174590;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ID8aXSDi6DUqVlcBNz/m4nIgtfKw4nmq+cmUYg5AD44=;
+	b=1nBVgCe8DZXrqNT6u1UVt63CkYFo/o58DiVaZmmAaLJ5D1Sf1oclyZnCeDEHzafE/MXc
+	 ucNhkZJylFEhJYx67jW2Nhj+hNwCBTlSLzewZj12wHl6JR2BFxEHDKC4XC4k2BxB4rqau
+	 VSwZrpSNK1zoYXlVU//tlgvvGNWv+Et5DcvnmaRBTQqjA4TnMjduKwEhd2jR0gsLQhDDG
+	 Z81YsFHLfxIywDv9V+dJKM7PbUpBuz8ZHFdBJn75Ztlg94W+MSJwOaKT5T1cRcQHyh/a9
+	 FYLEoMfKtg+8bb5377FBNSBs0U1d2GMxAb/4vzUycmBsrnFzYco0Boo742bxO1bSobA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=n6ipgnkr;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CSCNo8Mf;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=nCS3Yvu2;
+	arc=none smtp.remote-ip=95.215.58.181
+Received: from mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295A3606D80E;
-	Sun,  8 Nov 2026 21:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295A3606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0205A606EE96
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0205A606EE96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=n6ipgnkr;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CSCNo8Mf
-Date: Sun, 08 Nov 2026 21:49:35 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794174577;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ds1vGYi06IDtrERMc8egowDuQYn1y7mXhqlbOZvkhvM=;
-	b=n6ipgnkrk5qBOlnp03/HfZUzswsPs7reM6y1VL1qy3mp4LaFo/j3/Jvkw9EZ9ovdpLhfOU
-	cUpJQvrA6H9Z+TFx5ho1eUok4Vqwyn9Mw1sNd3n837qndVppYbAJaosG5UYUi2Uf66XBO8
-	iks2b/GAdli83gGWSSkNPemL+KgdQXiR6TmXhQtuqnqbJI3co9t6pMxtV44ccUKzTxcuBI
-	8BzbqvtS60Y/BhIUB4JMvJtJ+NL1TWM8oWOuxd4hJWVstgkJ9eMaDcBNeOzQb3F9yNHOnt
-	X2yHp+Og9WnzGJetOTjjiEhFmbC+etZI748Y+Gc/bi0kYxdxADWLl+CMttFflw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794174577;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ds1vGYi06IDtrERMc8egowDuQYn1y7mXhqlbOZvkhvM=;
-	b=CSCNo8MfDZRnDW+pQc3oexVZkBuJ2AXjFObXZlZO6O8jVUXyz+LZOLV0djgMoIcaf0Eihm
-	LCB/+GP/3teI86Bg==
-From: "tip-bot2 for Zhipeng Wang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: irq/drivers] irqchip/imx-irqsteer: Mask all interrupts in probe()
-Cc: Zhipeng Wang <zhipeng.wang_1@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104073759.386777-6-Zhipeng.wang_1@oss.nxp.com>
-References: <20261104073759.386777-6-Zhipeng.wang_1@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=nCS3Yvu2
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ettSwBxSa5xIRDiOTDO3cSPU46l8tVUsC0Q7wr2qb8U=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794174587; v=1; x=1794779387;
+ b=nCS3Yvu2Nm4bNtFZcUTcOfbKjrD2FaIvrAOc0H9/hlCzzGESPIjKVLlR8eyS9PKYES/B8Gex
+ FFOzM1vJNChSc09algLfW/TTPthzpjnwx62woHQf1RkegufZCezUieX3QyitCJnApcMii8HTio9
+ R1QyukAqq0o/WjPIzK7ckxBLXnmQC1R8uQ9qDT/dXEtWGxJMJMpsquwohhyAWcfhGCdt+KFjArT
+ HDiBb2zttl+kXQdGxWPebL3sLY+5ahQ17gudiiTqXAk5/tTa9letI0JcLGi/NDKSy92vLigvg0h
+ CapmdQJVAEFXM2XAhOk7OXz4C5K1rz3NziktwR0YmX1Rg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9c6cbfdcf6ab8252;
+	Sun, 08 Nov 2026 21:49:46 +0000
+X-Mizu-Trace-ID: 9c6cbfdcf6ab8252
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 08 Nov 2026 14:49:15 -0700
+Subject: [PATCH v4 4/4] leds: aw2013: Move assignment of chip->num_leds
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,72 +61,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179417457566.2093942.10211601329840267009.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-aw2013-aw20xx-rename-v4-4-826529beeb52@postmarketos.org>
+References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174570; l=1195;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=ettSwBxSa5xIRDiOTDO3cSPU46l8tVUsC0Q7wr2qb8U=;
+ b=tyyg0CXSxsNHTK/G9Jo5Y1cgKmitvJlkxuqEswdfAB8ZAQr3B/yij1fhxxoolkOtq1RvVbnpB
+ iuG1fdMYZsVBXVSHJCoOY1dV7kTXkTLEwlryKMTpI8xwS2zj8adJuLK
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-The following commit has been merged into the irq/drivers branch of tip:
+devm_led_classdev_register_ext() executes default triggers
+synchronously, which call aw20xx_brightness_set().
+aw20xx_chip_in_use() silently returns false, skipping chip enablement and
+causing unbalanced regulator disables while probe is still running.
 
-Commit-ID:     f98835ded6dcbb9df327023320d1947fecdfbff5
-Gitweb:        https://git.kernel.org/tip/f98835ded6dcbb9df327023320d1947fecd=
-fbff5
-Author:        Zhipeng Wang <zhipeng.wang_1@nxp.com>
-AuthorDate:    Wed, 04 Nov 2026 16:37:53 +09:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 08 Nov 2026 22:43:44 +01:00
+Increment chip->num_leds inside the loop, so that each call gets the
+correct value for it's default trigger.
 
-irqchip/imx-irqsteer: Mask all interrupts in probe()
-
-probe() sets up the chained handlers without first masking the input
-interrupts. For a built-in driver this happened to be harmless because
-CHANMASK resets to all-masked, but once the driver can be unloaded and
-reloaded a child interrupt left unmasked at unload time survives in
-hardware. On the next probe() the parent interrupts are re-mapped and
-unmasked before the new domain is ready, so a still-asserted line
-immediately storms the parent with no handler to service it.
-
-Mask all interrupts in probe() before wiring up the chained handlers.
-CHANMASK uses inverted polarity (a set bit enables the interrupt), so
-masking means writing zero. This mirrors the sibling NXP chained mux
-irq-imx-intmux.c, which masks all sources at probe() time.
-
-Masking is only done in probe(), not in remove(): the next probe()
-quiesces the hardware before it re-maps and unmasks the parent
-interrupts, which is the only window in which a stale line could storm.
-Masking in remove() would also mean touching CHANMASK while the device
-may already be runtime-suspended with the clock gated.
-
-Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Radu Rendec <radu@rendec.net>
-Link: https://patch.msgid.link/20261104073759.386777-6-Zhipeng.wang_1@oss.nxp=
-.com
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- drivers/irqchip/irq-imx-irqsteer.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/leds/leds-aw2013.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx-irq=
-steer.c
-index 9bf739a..7451c15 100644
---- a/drivers/irqchip/irq-imx-irqsteer.c
-+++ b/drivers/irqchip/irq-imx-irqsteer.c
-@@ -239,6 +239,14 @@ static int imx_irqsteer_probe(struct platform_device *pd=
-ev)
- 	if (irqsteer_has_chanctrl(data->devtype_data))
- 		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
-=20
-+	/*
-+	 * Mask all interrupts before wiring up the chained handlers. CHANMASK
-+	 * has inverted polarity (a set bit enables the interrupt), so writing
-+	 * zero masks the source.
-+	 */
-+	for (i =3D 0; i < data->reg_num; i++)
-+		writel_relaxed(0, data->regs + CHANMASK(i, data->reg_num));
+diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
+index cf8e4b0a4572..c5df652ad8c4 100644
+--- a/drivers/leds/leds-aw2013.c
++++ b/drivers/leds/leds-aw2013.c
+@@ -410,6 +410,8 @@ static int aw2013_probe_dt(struct aw2013 *chip)
+ 		led->cdev.brightness_set_blocking = aw2013_brightness_set;
+ 		led->cdev.blink_set = aw2013_blink_set;
+ 
++		chip->num_leds = i + 1;
 +
- 	platform_set_drvdata(pdev, data);
-=20
- 	ret =3D devm_pm_runtime_set_active_enabled(&pdev->dev);
+ 		ret = devm_led_classdev_register_ext(&chip->client->dev,
+ 						     &led->cdev, &init_data);
+ 		if (ret < 0)
+@@ -421,8 +423,6 @@ static int aw2013_probe_dt(struct aw2013 *chip)
+ 	if (!count)
+ 		return -EINVAL;
+ 
+-	chip->num_leds = i;
+-
+ 	return 0;
+ }
+ 
+
+-- 
+2.56.0
+
