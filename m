@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794104205;
-	b=wh108jXvg/7LPELnsMcgiKvaNZ52Y5o84kp+D41DAiXZqBxbcRYU71VrQY95GgtpKV8R
-	 DWk/UPQplIXHnwgBzPT4mpgfZpCjZwR+PWpdnps0WYOjS4IQpA0o+O3H8uzhoocYWx3L9
-	 w59veohTTizCekoanNdkPPXBHrMNFBVixAUzhz9gKvPRWuUFPY3+Tczpe8WYSSQxFzonU
-	 z7FGdRU9/zS0hxlzBDqi1TfJfmV4kXIQd8BkLLpHY+Z+F70EbXd2BUdGbbyeW5nyFDRT+
-	 8KyEkhBXxGoi/ypsqroZ0RvLE0PyGfUBmdEL2yViDT98ga4HNpvNp5RDE1HgREIgxEA==
+	t=1794104211;
+	b=IqibjQ2MeI6JZHdDCbR0bMYE2MNC41yK6fZWPXb8GabWv/9iVr3HPZ4lYCDPB8Qel7fF
+	 GS5IRZWAlXxj26zYs5tDmdtLlZ4rJn/v2LJXxBh6Ixv78K80pqOzNPQlwYWa7GtpFYDhu
+	 Dk0V9gSnyo/qizKxH191VxM7+tOSLhedvsmgO72R5XxG8LgKHdPBy9NmEoG+MQxs+OJrV
+	 u5zYDO5g0By+5ld1iurRxKjraasOlOqpxwOHdEGKy8TuyVUB6rLRQUycfnOd+JuzLFg3J
+	 cnGX+UaHcl7b4CoqnwV9BfH7OIb7b04hd19K7y7X3kS196LHZpGlI8WnXTRs4bRoUFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794104205;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=aisVsid9E0p4t2IH80WlOxa6zGBD+4xeavWz7iRsU/k=;
-	b=bGhKVmOlNTP5Qu/mYW6PB8VuUeEkOqES4pNJd6ayPWaPgsO5On+a9A78Zs0YRb7HvqDC
-	 VXn/cji5weMyymFg1vY6TVapbTS+6bckcymQRPknxh11g0qUf/aZDDjgAq8LrJ6+ISmln
-	 ecHDumgUozxLhgoait7Fs8F83YjHp2zomx3ZhGk895HFJ5uEoQ5gypdFn2q+YPqLTmadp
-	 DNboXCRaNrE1Ly7FxUInCa1TNG/RMXrS8KgCJqPChSRFr5KZres3He7DWH+KJlEjM/Zr7
-	 klFtnGEY/Wfx/zhxhK3OCLx+pHHhkfTolCPrFeN+LpfqjKzKEJAxwbED4TCiQU7wxJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794104211;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rhaNAYOBGQbAJRxA/86LGQPp9w1ZXItaLYNXRKOAJ+0=;
+	b=4ykyj4U6PZC3dRoD5e/9rKc/QjDUtDseAI/jD7ccdk0HbiJ4ZKYIKGytkxw0EQoFJtFB
+	 CgzzAc4vR+CtRHPw83lxzc8punjOsoY8r5imw9cmwa9v+mKMn6fzROe+AbiiLbHaSh7o2
+	 eTk5E/Hqg+0fffRETm8y6NrLvYhWnt5HsI5GAzSvXranbn8MYE4acgOvfIOLtqjGdrcUo
+	 W1oDlcFjiTBG8/jcBY9NFsiRGDpq3yDsyeEYYJui2/oX0Kz7Rd7c3rBUy3GE2geFyrTDW
+	 CthyZvZUFY7m32bAhjwBDF0iaQCGbarpEBXO8A5u6gencYEiKWLAyVFaQ1Vd8XVPfPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JPZBwQn5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C87606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79C87606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id CA6B5A7FDE;
-	Sun,  8 Nov 2026 02:16:42 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf14.hostedemail.com (Postfix) with ESMTPA id E53D132;
-	Sun,  8 Nov 2026 02:16:40 +0000 (UTC)
-Message-ID: <17c32de7bab37b0a005f35c016aeb85da8c5f116.camel@perches.com>
-Subject: Re: [PATCH] checkpatch: Fix bad COMPLEX_MACRO on asm volatile
-From: Joe Perches <joe@perches.com>
-To: =?ISO-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>, Andy
- Whitcroft	 <apw@canonical.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org
-Date: Sat, 07 Nov 2026 18:16:39 -0800
-In-Reply-To: <20261107-checkpatch-asm-complex_macro-v1-1-9a7b3c69fc28@google.com>
-References: 
-	<20261107-checkpatch-asm-complex_macro-v1-1-9a7b3c69fc28@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D266606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JPZBwQn5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4551F008A1
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794104210;
+	bh=rhaNAYOBGQbAJRxA/86LGQPp9w1ZXItaLYNXRKOAJ+0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JPZBwQn5OcX5oFVQPgyAPLyVxbtqjTdwXPBbqr59GJ+EGHmMMcyOc3wYkIplUlShs
+	 U/zXJ+b7aMhCTzW/elSfIhwcFZ1lCGiyFLq+XCS6k+OwPeXzu5tgsQ+3e3M7REVEu7
+	 tlQtQlYWzQwfjxhjmQXn68y5OKe6VnxkKZSZwS9j4xKDsUIRo+w7c195jn/bV/NIlJ
+	 XPbOEXWWppZtgc94J/5zA8UeEH6go7PKc/kJo81exelZhH4PoAiA28DdP3ovrxGmZl
+	 FocEBvQV7NAMCGiVX0Y+annnOKN6r4odq3oYSyCxLrbdttbm7Z9tPBFAHUdMneg6T1
+	 +FuIyqF60OZyg==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso245694a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:16:50 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy9j0ZoKo3+Qn1J8WYZoCA/+035iA3Dn2U2gfL/UyECEjLKBFgIGtfL3dvtzDeMe8TC3hAmzyFzCxca71k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YF/SqApLBzcAOqz0BiGXqSbohKr00S268Yo5E4udUCn/fhTUY
+	Rb55gV3jeIZgZJhGyk8TlyaY2cnmuUN9PIAI5uIYUEE7VLBGFyXg0KPxSxsX8grQMQZkvLzv+Et
+	CwwY0TZezHdIwMt42Af6A7wMkD2qeLTU=
+X-Received: by 2002:a17:907:84a:b0:c33:9fab:5f61 with SMTP id
+ a640c23a62f3a-c4d6db7fe58mr44458366b.29.1794104209459; Sat, 07 Nov 2026
+ 18:16:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,82 +59,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: E53D132
-X-Stat-Signature: bkdt4hip631dy1cpkzykcfnbnmziohkd
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18NP+YNNXBmOVMZwXx+YDMusZQ0CVzvy2E=
-X-HE-Tag: 1794104200-939489
-X-HE-Meta: U2FsdGVkX1/o6I2L+9/ETczOKScpj1NTO/a/r4IQUkxuXT4N8Gre6yWO4kKpkaS05vKpCj3kRke3elimPmPFRKbjKMg/taqbNBLdawIAngV8L0fCfzsCx5ht5bnkVxfEgN1eoVMPyJ8whZZT0ixlIG68iS7MaErYAq1mTaFeeC3cj+wuw+vppWScN0dN4euoYiv2JjYx8D0hiy8tijl8ZPE8Nwewv5KzkHV16CWcma8s/W5uZ7FB1uuFLLCVSL8gU5jjaRworuQLbXpdS4lKJlt3AenjKAgqFFZb22SP3Fc6jaJHnBOWl1725VYbMUnG4x3exYxjChjlhizabzWCx/wTObIWX7BbEbGWQfUC0quZqWUfvm7Hm/eAuB69xjhf+WynkzlEJn7UcOxPjNjKcA==
+References: <20261107020257.363811-1-fredric.cover.lkernel@gmail.com>
+In-Reply-To: <20261107020257.363811-1-fredric.cover.lkernel@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sun, 8 Nov 2026 11:16:37 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_yf2eU7fJLaE5JR6ddO=EXsDOMBC0xyByuSJ4imPJvow@mail.gmail.com>
+X-Gm-Features: AclHuK_rAD0_X9-1rzYyea-9ppXgdhtoO7-wF5lKZILAvB31CXfCLyGzIrTDMfs
+Message-ID: <CAKYAXd_yf2eU7fJLaE5JR6ddO=EXsDOMBC0xyByuSJ4imPJvow@mail.gmail.com>
+Subject: Re: [PATCH 0/2] smb: client: fix DFS handling of non-ASCII paths with
+ non-utf8 charset
+To: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
+	Tom Talpey <tom@talpey.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-11-07 at 15:57 +0100, Pierre-Cl=C3=A9ment Tosi wrote:
-> Commit 42e152931deb ("checkpatch: exclude asm volatile from complex macro
-> check") added a substitution converting "asm volatile" into "asm_volatile=
-"
-> so that macros expanding to an asm volatile statement would be treated li=
-ke
-> a single function call and excluded from the COMPLEX_MACRO error ("Macros
-> with complex values should be enclosed in parentheses").
+On Sat, Nov 7, 2026 at 11:03=E2=80=AFAM Fredric Cover
+<fredric.cover.lkernel@gmail.com> wrote:
+>
+> Hi Paulo,
+>
+> This series fixes two problems that show up when a DFS mount uses a
+> non-utf8 charset (iocharset=3Diso8859-1, or a kernel built with a
+> non-utf8 CONFIG_NLS_DEFAULT) and the DFS path has non-ASCII
+> characters.
+>
+> Patch 1 fixes an out-of-bounds read in dfs_parse_target_referral().
+> path_consumed is a utf8 byte count (the DFS cache works in utf8), but
+> it is applied to full_path, which is in the mount charset.  When the
+> count exceeds strlen(full_path), the unsigned subtraction wraps and
+> prepath points past the terminating NUL.
+>
+> Patch 2 fixes a double conversion in setup_dfs_ref().  The path is
+> converted to utf8, then converted again by dfs_cache_find(), so
+> "=C3=A9" is sent to the server as c3 83 c2 a9 and the second-level
+> referral fails with -ENOENT.
+>
+> Order matters.  Patch 2 lets these mounts get past the second-level
+> referral, which makes the over-read from patch 1 reachable.  Applied
+> in the other order, patch 2 would turn a clean -ENOENT into an
+> out-of-bounds read (a KASAN report on KASAN kernels).
+>
+> Testing: Samba 4.23 DFS root with a link named "caf=C3=A9", client on a
+> KASAN kernel, with iocharset=3Diso8859-1 and the raw 0xe9 byte in the
+> mount path.
+>   - On an unmodified tree the mount fails with -ENOENT.
+>   - With only the setup_dfs_ref() change applied: KASAN
+>     slab-out-of-bounds read in dfs_parse_target_referral()
+>     (strlen(full_path)=3D29, path_consumed=3D30).
+>   - With both patches: the mount succeeds, no KASAN report.
+>   - Regression run: iocharset=3Dutf8 with "caf=C3=A9" mounts as before.
+>
+> Known limitation, not addressed here: when a non-ASCII link is
+> followed by a path component (e.g. //srv/dfs/caf=C3=A9/sub), path_consume=
+d
+> is still in utf8 bytes while full_path is in the mount charset, so the
+> prefix path is offset incorrectly.  I saw this as -ENOENT.  Patch 1
+> only prevents the out-of-bounds access.  Fixing it needs the
+> consumed length converted to mount-charset units, which changes the
+> dfs_parse_target_referral() interface, so I haven't attempted it.
+> Paulo, how would you like that handled?
+>
+> I haven't added Fixes tags.  The strlen() - path_consumed arithmetic
+> was moved by commit abdb1742a312 ("cifs: get rid of mount options
+> string parsing") and appears to date back further, and the double
+> conversion in setup_dfs_ref() also predates 5433c629e8d4, which only
+> moved the call. I couldn't pin down where either became reachable, so
+> I'd appreciate it if you could add the right tags. I haven't added
+> stable tags either; let me know if you'd like them.
+>
+> Fredric Cover (2):
+>   smb: client: fix out-of-bounds read in dfs_parse_target_referral()
+>   smb: client: fix double conversion of DFS path in setup_dfs_ref()
+Looks good to me:
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 
 Thanks.
-
-Acked-by: Joe Perches <joe@perches.com>
-
->=20
-> However, that substitution was placed after the loop that flattens
-> parenthesized expressions into "1u" (originally "1"). For a macro without
-> whitespace between "volatile" and "(", such as:
->=20
->     #define foo(x) asm volatile("..." : : "r" (x))
->=20
-> flattening the parenthesized argument list first turns the statement into
-> "asm volatile1u". Because "1u" starts with a word character, the trailing
-> word boundary (\b) in /\b_*asm_*\s+_*volatile_*\b/ no longer matches afte=
-r
-> "volatile", leaving the space between "asm" and "volatile1u" intact and
-> causing the macro to still fail the single-lvalue check and trigger a
-> false-positive COMPLEX_MACRO error.
->=20
-> Move the "asm volatile" to "asm_volatile" substitution before the
-> parenthesis-flattening loop so that "asm volatile(...)" is first rewritte=
-n
-> to "asm_volatile(...)" and then flattened to "asm_volatile1u" as intended=
-.
->=20
-> Fixes: 42e152931deb ("checkpatch: exclude asm volatile from complex macro=
- check")
-> Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
-> ---
->  scripts/checkpatch.pl | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-> index b8b64f720191..5319a8ecec50 100755
-> --- a/scripts/checkpatch.pl
-> +++ b/scripts/checkpatch.pl
-> @@ -6050,6 +6050,9 @@ sub process {
->  			$dstat =3D~ s/^\s*//s;
->  			$dstat =3D~ s/\s*$//s;
-> =20
-> +			# Make asm volatile uses seem like a generic function
-> +			$dstat =3D~ s/\b_*asm_*\s+_*volatile_*\b/asm_volatile/g;
-> +
->  			# Flatten any parentheses and braces
->  			while ($dstat =3D~ s/\([^\(\)]*\)/1u/ ||
->  			       $dstat =3D~ s/\{[^\{\}]*\}/1u/ ||
-> @@ -6063,9 +6066,6 @@ sub process {
->  			{
->  			}
-> =20
-> -			# Make asm volatile uses seem like a generic function
-> -			$dstat =3D~ s/\b_*asm_*\s+_*volatile_*\b/asm_volatile/g;
-> -
->  			my $exceptions =3D qr{
->  				$Declare|
->  				# named exceptions
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261107-checkpatch-asm-complex_macro-75ee815da528
->=20
-> Best regards,
