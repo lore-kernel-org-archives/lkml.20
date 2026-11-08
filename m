@@ -1,97 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794124693;
-	b=UoeKmkPnPHaDSJoFfPavHGmiZ+W7BGFDjW99INb1vQVPiJV5pZPLjcA3ADenTmpBUXi3
-	 dJFs2DoA8u52GvFtEA+56jmL5UCH2ZDUNkrX5JVK0Zm+SfFqOJhoKTGk1A2N/uTw+kifg
-	 sWGy37yH63RTr1C+Hxfvgigm1/ms+UUxTZ/fNcF/g8if9rB42kZeQ/cdW/jdmo2unrA6S
-	 awfSGJ58HRitd3arjoByHDsWk75fcC+XGt/h5jJYd+VMLNkTwCusVBHJFtgzHOt3klBLW
-	 3qoDUWrGL0USCjXusD1RNQ9/ZggCcqgvtejSfy9pQXBFxgT+UiVN6q5sm5rYc+zSE3g==
+	t=1794124741;
+	b=w+GiDIK96AP3CS9VHlPGLctndw/HtD/V2yrYl1hrwQIuPvJIDIO7FXiXLcA/WvDd/Mya
+	 X95Ys6XAE1mqrXCLgQaS1Iz2kZJZX6wHxIdYNQ8AskL6FDthClJNgaG+5c4FnZPeSUchY
+	 //osUuVWLnj5OLNcHgFUXzufFeQuS83/GB0PrKSn8EKIbCbIBVxX5vW4tw4xTR22uF1CX
+	 LfOWqA4HPyhZR7TAGDAxBWm+bsR7mdnX8glTmeijWucQm7bBo7QLv4IXoXrcUNU1VT/dY
+	 5b0pwYi0iZqTrItgwvervAKJtqnMrOM2ccs3YuOcK4/qcfAbvxk++4aH4ejg8e49AkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794124693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794124741;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=MxlVXrp6rlOPl7F6z/PePk753r6QIMo4ZGdlX0mzQgY=;
-	b=ZmDOWJZpcjipVmYd6OOuDVXaZMnH5xf1j8ok1rGXRrFMRXwHe4F+ZfqPuqFn0W8QK6eG
-	 0MNzuIID+BiCaX7yaYmuIN4/vwN/PqSqgvm7lznpyKfrLiGoskkOoQ1vO7d0jtoAzyjm9
-	 0CbIgEovfqQNpFHRW75/8D+I8b6hMSf3vXmXR0Txyac1GWGl9Z6qSNFjpNIfZr1QbthON
-	 bUxBgezXXNj4QfBsMgEtK6rdf9IoixlntUGSpzIKlZlLyw2Sx4DpuBjztcJG1INFStt/8
-	 Yep4bcO4J6G5FFw2eAG0yxeXVeVPBJMpXuq1SffObnpoSgka9FUgcZSMQlq/M34jfaA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hwIhs2lYepVcUm7QFvUJxPA/hvff1VaV/dOu2IxaRvM=;
+	b=A4bz1kELbv67uBwzJBrlI6OJPJRASksdeHPRyLh4d3ITaSVolbDRtb7wrD7eUFiX4Eo7
+	 sBM/G/FmG0UnFdf6nmckto4mdeI9ERkKKEjFTjfs8ooec7K3nvTsDT0ZCA+fGCH6puxTc
+	 qj+YWqr6y/8VF58EA9DuCIZLceXlV+SO8GHCHqHk1WgkOpHQE8MnJOHDL1pURbeK1xUR9
+	 B2u0MD5hngU7Chd2awpjGk/eYmUqx0AWMKQ0n+ukTwoL9jyWqeKOimG5VRj7jENnjhfwH
+	 k/fnS7bfFPv2ibdmKa/xfbpnvw9Mv4d1A2PBVnfC/h9N9IbApwusaNv5D7txrENensA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="d/D0VLJo";
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weR81Ncw;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A347606A331
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A347606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45D2606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:59:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E45D2606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d/D0VLJo
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso222349f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:58:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weR81Ncw
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3282db206d3so794772eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:59:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794124692; x=1794729492; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MxlVXrp6rlOPl7F6z/PePk753r6QIMo4ZGdlX0mzQgY=;
-        b=d/D0VLJotg4qrzbZoi23OlLMY9CkzcHSQ9zbQJaGcaeL6tBoozZi4l+KQtVcckRoc+
-         l6LNPyQum/KASsPE+flmFY755tb4OkB6dYSPRVVZMTYrDwfef6jPzrQsJ3I5conwO2Gk
-         C83KJ1pRBBrmYC5I5JxqT0/XBPFbYuYv+syfetAiWt5+ELBJcJ4oklBsokzhHV+Z/1vl
-         nR/iJxco0OX7X7NNAF4nbyfmgPFFpTgv+zhKfoD4ISPihr1BHA9uDBZoeU+iY+lSwXGA
-         DQi48yfwWe6CNhbUpDgTGhQYFG3olYNeyKAVg40MeMhR6aq+qQH8jQDNuMhsQd6SnPB3
-         Irbw==
+        d=gmail.com; s=20260707; t=1794124740; x=1794729540; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hwIhs2lYepVcUm7QFvUJxPA/hvff1VaV/dOu2IxaRvM=;
+        b=weR81NcweyuBhQaWTFWZGi0vcRkp5kMYOWKhOi4uNjRNhOxGNm4GnkUKoMkOmfC9U7
+         VVizkZCDuufxRNyda4QuRywNb2G1xpxgezv+rn5cr3/6hv0IWTEiF7ihY9m8kp9GDam1
+         9yH6619OKEKqVpKmvBWEIBG3JMt0ZbvRpeKm8BcIB1o4+4GGPgcESFv01/xEbcxdrRc9
+         hCiUJfSeWkxI5kxPY260FaxU+Px/24c9/Upo2CciHRAmXjQwRmBSu/Tk9Zpq6x+rOI+x
+         q0Ygf2Soy41A6/ifyYohAxMd0DVynJZukvVIoXHOWWiny+wv7xqx9tsHiX2nlSGSxAjy
+         NXag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794124692; x=1794729492;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MxlVXrp6rlOPl7F6z/PePk753r6QIMo4ZGdlX0mzQgY=;
-        b=PIIaYtgH8UFCBvqKmN6U4veIjhuTPPdc+8vGflj+1/ftp8jkZApFh5uZvcGi6aiCCw
-         h3ah9brCuqfQfSg7FZq+bxkqRTqxrdmeBhAhEkyG0unfUDj1zuW7jhqb/FqfFOnS+v8R
-         9JphJimouUGImjeqHz0o01xZRMZd23FlID9rIQAgOJn6MD/CYGdf2Umqj75LQGHX6YC8
-         CM5lJqjABMLFdlWNCN+FSFIfO2ERh/4Ic6G7QwHyYcn2rv8w9jDqsQ81gcH9n5C3FZdZ
-         IxM1t3/QDV/G8hzEJPn0B7NuT3okKxyLP+pGOHvge0hMMSppZo7FccnmI7pjHDyDHCdD
-         AOJA==
-X-Forwarded-Encrypted: i=1; AL+hErHWYslJzhJANS2lXMGdFzTVp4L9WX15RkpfrPIgRkNLvIv0PTAbsCzKfWCfSHOV1TaTSWMZSTv9aUltCCk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hDipjVNjVSMT8pS6n9bfUxNTntX3UwHOVQxXdz7eSQntq8x/S
-	UfOWe2xgkdHCogmvF8RKaQ+Jbztec+q7Uyf7GejNItXkKMH/3Akf/+je
-X-Gm-Gg: AYBFou31opsJp6evZh4WqW3eij0ptkzRcEN/xVX5Ah5tSgzFEEHC97xhlbzXDlOI85b
-	sV5poC72z3BUSsLDfxTo7qEC9hk+CamVBeb3EWj6zagCOidFqfm9cQYMFKQ/VDEF6uK5wCdPksC
-	7HYhoZEg7hkpmejCJ6YvoucpBEu0VinsUMzSX3SxHMHGZk3lQD3WFen6t7DdvSZqEeLH70PSSCl
-	+CWhZvQO7yf+gb/P7nOOVMzaMMZ3J+xwZcK1Sq1P2omaS9cjfcMako2ZnDPFeczv32RJvrNgv6L
-	a0oABcpsscJzWrtn9da6VpZPEXyKNM72kOfiAgrP96xKuYKgzdVyGhm92th8CjBzAd/Ozqy6TqX
-	Rp/XrwOkwxu0Rao9jphbmMIc8E8FM3JbJfVwlJ0hfpOP7dbwwG9Xl98uc/TtxDCirFaVHpVysjD
-	N5XdfJZvtTR+VSLiUMbZOKdWstZDuwiDeIfUjy87jFvAWpeUSAn3lijHJKeYqp49OPtq45scDTZ
-	267yeldY7ZziWGa1qUWGdvGuxcBFtxOoY3LTbi57SS6N1XMtZ2vuXlbZmyNV9aSPY7JTg6X4KUB
-	EolCi4AllpFl624/oX3zq0fMdemOEaRiDT037Bs1zFlfeQEmMTUbsVDM/5xxmSFk62xrWGjFGE8
-	y1z1v6w==
-X-Received: by 2002:a05:6000:2388:b0:491:68e2:bf2f with SMTP id ffacd0b85a97d-4958d021480mr1459790f8f.52.1794124691575;
-        Sat, 07 Nov 2026 23:58:11 -0800 (PST)
-Received: from localhost (brnt-04-b2-v4wan-170138-cust2432.vm7.cable.virginm.net. [94.175.9.129])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597186eb9sm2616918f8f.35.2026.11.07.23.58.10
+        d=1e100.net; s=20260707; t=1794124740; x=1794729540;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hwIhs2lYepVcUm7QFvUJxPA/hvff1VaV/dOu2IxaRvM=;
+        b=rb9u6MuZ37QO4WP8oF4qu9H1an+RJ58GQ3/rXSbLhMYjTokn32uIZ0Z1xQDkfLoXD9
+         NbX0q0Sf9aNGGmXznk9FaFKG01fDIp5Ddv/9072YILR3mpNLRKQ5s6E+/UjW7tFgv6vw
+         JcUlU08uyX2EOvt/3lU4vLZSI/F/1tbRiAmMiJUQhUOFoth+R52OcXApfmcrSTwYU8kS
+         VEU/BFd2tJPQ5Bi2H//Rld6pqYVRCLJhwKt79xGjn9pdcMkO/bOJy1GxFjVw3Fq+cR/W
+         9hx5qidHgmquJvwaWTsApz65gmkYd6iwDihPgRyXEH8j9OiQbK9PM7KoVFng4fNLOMMY
+         6tpg==
+X-Forwarded-Encrypted: i=1; AL+hErFjXcjQM+ivI1gQcETWHtOKGl+Y2xOWbJluG2LPDIjnlnBNTxZ6VJEFUHzQdmFkfXIuu4OdZ/j0GR6KKac=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZaRU5V/WubRGNNXQZRBdEW2x4O4dlCDC+8KyAGUImGQgdYxpm
+	4TAGbZw+tG86cgAUCsh9m5NXN95bL2nmYh1+JEh3ob5i2JEERQd8+Zxc
+X-Gm-Gg: AYBFou0IjXqNP53sDkEj2d6FCYID6AbUf+8EChuWKIkEcV2mYP2nCVW8yhRyb8WkkEg
+	lkRtbyAM94VDBPLjzCmsvKRoeC9OZwCF9Rc5zSiBhr+eXqMSr7ppf3CKDsjVqOabjS/zQ+Fr7+Q
+	XvPOKJ1J7OtCR3BMfvChhbX7j5bZIFRM3/YVAs/kqQ58GVkLH/RzeqZ43cD2ypuaz2Jz+kGPwT7
+	FyQUvXFX0qT1flwy3Ke58/apMuc4QsTvRG641D3cbCZ0sHRaLYAE+Teyr15wkSVf82lEBwWBW/3
+	2omsar2xyj9aWli/YKpvvnrz1MLDQwduRzkY7DiKKofVvbLWXoweMrPvjPnoGI6R1ZxrKe0TK/+
+	euIrQLYwDBHxbeAHTveZueGOEkZCvNEGvgYx6V/D4m1io2CoepmQvusW0N0y+NtiafgoM0dvyKY
+	OvNGl5+g7KZ6DW+1frZqce1iu7oW/LStDyihdO55auPFroOGmeAQU2wIgdYhRVZbwyq9UeJNiOJ
+	xyLnJW0eTbp9e1IR5anIdrS82z9MUhkSVlbLqxSKQN+KUtIMzh5+5qNdjJaLlDpcnKelQiU070P
+	7YClEDKopylIdOEyUDqpRusD5BZRgu5hd1aGg1l45ekr6Y59
+X-Received: by 2002:a05:7300:d211:b0:36a:1709:458 with SMTP id 5a478bee46e88-37256df1551mr2243835eec.27.1794124739956;
+        Sat, 07 Nov 2026 23:58:59 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372669d48bdsm5966379eec.28.2026.11.07.23.58.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 23:58:11 -0800 (PST)
-Date: Sun, 8 Nov 2026 07:58:10 +0000
-From: Stafford Horne <shorne@gmail.com>
-To: Sahil Siddiq <sahilcdq0@gmail.com>
-Cc: jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
-	naveen@kernel.org, davem@davemloft.net, mhiramat@kernel.org,
-	pjw@kernel.org, wangruikang@iscas.ac.cn, namcao@linutronix.de,
-	kees@kernel.org, linux-openrisc@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] openrisc: Add Kretprobes
-Message-ID: <avArkiSOmUfSrmYF@antec>
-References: <20260930202744.50489-1-sahilcdq0@gmail.com>
- <20261026201240.107462-5-sahilcdq0@gmail.com>
+        Sat, 07 Nov 2026 23:58:58 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	Tadeusz Struk <tadeusz.struk@intel.com>,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] tpm: flush timeout work outside buffer_mutex to avoid deadlock
+Date: Sun,  8 Nov 2026 16:58:48 +0900
+Message-ID: <20261108075848.257145-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,250 +99,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026201240.107462-5-sahilcdq0@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 01:42:40AM +0530, Sahil Siddiq wrote:
-> Add Kretprobes support for OpenRISC. Kretprobes allow a probe to be
-> fired when a function returns. They are built on top of the generic
-> rethook framework and also require the KProbe mechanism introduced
-> in the previous commit. This work is primarily based on similar work
-> done for RISC-V.
-> 
-> Kretprobes work by inserting a KProbe at a function's entry point.
-> When the function begins to execute, the KProbe is fired and its
-> pre-handler replaces the function's return address with that of the
-> rethook trampoline. The trampoline in turn calls the kretprobe handler.
-> Control is returned to the original caller following this.
-> 
-> Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
-> ---
-> Changes v2 -> v3:
-> - arch/openrisc/kernel/rethook_trampoline.S:
->   (save_all_base_regs): Save SR and SP registers
->   (restore_all_base_regs): Restore SR register
-> 
-> Changes v1 -> v2: New commit
-> 
->  arch/openrisc/Kconfig                     |   2 +
->  arch/openrisc/kernel/Makefile             |   1 +
->  arch/openrisc/kernel/rethook.c            |  32 +++++++
->  arch/openrisc/kernel/rethook.h            |   8 ++
->  arch/openrisc/kernel/rethook_trampoline.S | 111 ++++++++++++++++++++++
->  5 files changed, 154 insertions(+)
->  create mode 100644 arch/openrisc/kernel/rethook.c
->  create mode 100644 arch/openrisc/kernel/rethook.h
->  create mode 100644 arch/openrisc/kernel/rethook_trampoline.S
-> 
-> diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
-> index d240533b424b..82365eb8f574 100644
-> --- a/arch/openrisc/Kconfig
-> +++ b/arch/openrisc/Kconfig
-> @@ -28,6 +28,8 @@ config OPENRISC
->  	select HAVE_ARCH_JUMP_LABEL_RELATIVE
->  	select HAVE_PCI
->  	select HAVE_KPROBES
-> +	select HAVE_KRETPROBES
-> +	select HAVE_RETHOOK
->  	select HAVE_UID16
->  	select HAVE_PAGE_SIZE_8KB
->  	select HAVE_REGS_AND_STACK_ACCESS_API
-> diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
-> index 0c1cade09e0c..e36537cea319 100644
-> --- a/arch/openrisc/kernel/Makefile
-> +++ b/arch/openrisc/kernel/Makefile
-> @@ -15,6 +15,7 @@ obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
->  obj-$(CONFIG_MODULES)		+= module.o
->  obj-$(CONFIG_OF)		+= prom.o
->  obj-$(CONFIG_KPROBES)		+= kprobes.o
-> +obj-$(CONFIG_RETHOOK)		+= rethook.o rethook_trampoline.o
->  obj-$(CONFIG_OR_KPROBES_KUNIT)	+= tests/
->  obj-y	+= patching.o
->  
-> diff --git a/arch/openrisc/kernel/rethook.c b/arch/openrisc/kernel/rethook.c
-> new file mode 100644
-> index 000000000000..50ef6715d044
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/rethook.c
-> @@ -0,0 +1,32 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Generic return hook for OpenRISC. Depends on KProbes.
-> + *
-> + * Linux architectural port borrowing liberally from similar works of
-> + * others.  All original copyrights apply as per the original source
-> + * declaration.
-> + *
-> + * OpenRISC implementation:
-> + * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
-> + */
-> +
-> +#include <linux/kprobes.h>
-> +#include <linux/rethook.h>
-> +#include "rethook.h"
-> +
-> +unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs)
-> +{
-> +	return rethook_trampoline_handler(regs, regs->gpr2);
-> +}
-> +NOKPROBE_SYMBOL(arch_rethook_trampoline_callback)
-> +
-> +void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount)
-> +{
-> +	/* Store original return address and frame pointer */
-> +	rhn->ret_addr = regs->gpr9;
-> +	rhn->frame = regs->gpr2;
-> +
-> +	/* Set return address to trampoline */
-> +	regs->gpr9 = (unsigned long)arch_rethook_trampoline;
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Though this will work, in the kernel code we prefer to regs->gpr[n] syntax
-for accessing gprs.  So to be consistent could you use that?  i.e. regs->gpr[9];
+tpm_common_read() flushes priv->timeout_work while holding
+priv->buffer_mutex:
 
-> +}
-> +NOKPROBE_SYMBOL(arch_rethook_prepare)
-> diff --git a/arch/openrisc/kernel/rethook.h b/arch/openrisc/kernel/rethook.h
-> new file mode 100644
-> index 000000000000..332306a5c380
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/rethook.h
-> @@ -0,0 +1,8 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +#ifndef __OPENRISC_RETHOOK_H
-> +#define __OPENRISC_RETHOOK_H
-> +
-> +unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs);
-> +void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount);
-> +
-> +#endif
-> diff --git a/arch/openrisc/kernel/rethook_trampoline.S b/arch/openrisc/kernel/rethook_trampoline.S
-> new file mode 100644
-> index 000000000000..5e8fd5a65222
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/rethook_trampoline.S
-> @@ -0,0 +1,111 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Author: Sahil Siddiq <sahilcdq0@gmail.com>
-> + */
-> +
-> +#include <linux/linkage.h>
-> +
-> +#include <asm/asm.h>
-> +#include <asm/asm-offsets.h>
-> +#include <asm/ptrace.h>
-> +
-> +	.text
-> +
-> +	.macro save_all_base_regs
-> +	l.sw	PT_GPR2(r1),r2
-> +	l.sw	PT_GPR3(r1),r3
-> +	l.sw	PT_GPR4(r1),r4
-> +	l.sw	PT_GPR5(r1),r5
-> +	l.sw	PT_GPR6(r1),r6
-> +	l.sw	PT_GPR7(r1),r7
-> +	l.sw	PT_GPR8(r1),r8
-> +	l.sw	PT_GPR9(r1),r9
-> +	l.sw	PT_GPR10(r1),r10
-> +	l.sw	PT_GPR11(r1),r11
-> +	l.sw	PT_GPR12(r1),r12
-> +	l.sw	PT_GPR13(r1),r13
-> +	l.sw	PT_GPR14(r1),r14
-> +	l.sw	PT_GPR15(r1),r15
-> +	l.sw	PT_GPR16(r1),r16
-> +	l.sw	PT_GPR17(r1),r17
-> +	l.sw	PT_GPR18(r1),r18
-> +	l.sw	PT_GPR19(r1),r19
-> +	l.sw	PT_GPR20(r1),r20
-> +	l.sw	PT_GPR21(r1),r21
-> +	l.sw	PT_GPR22(r1),r22
-> +	l.sw	PT_GPR23(r1),r23
-> +	l.sw	PT_GPR24(r1),r24
-> +	l.sw	PT_GPR25(r1),r25
-> +	l.sw	PT_GPR26(r1),r26
-> +	l.sw	PT_GPR27(r1),r27
-> +	l.sw	PT_GPR28(r1),r28
-> +	l.sw	PT_GPR29(r1),r29
-> +	l.sw	PT_GPR30(r1),r30
-> +	l.sw	PT_GPR31(r1),r31
-> +	/* Save SR in pt_regs */
-> +	l.mfspr	r13,r0,SPR_SR
-> +	l.sw	PT_SR(r1),r13
-> +	/* Save SP in pt_regs as it was prior to setting up this frame */
-> +	l.addi	r13,r1,PT_SIZE
-> +	l.sw	PT_SP(r1),r13
-> +	.endm
-> +
-> +	.macro restore_all_base_regs
-> +	/* Restore SR from pt_regs */
-> +	l.lwz	r13,PT_SR(r1)
-> +	l.mtspr	r0,r13,SPR_SR
-> +	/*
-> +	 * r1 doesn't need to be explicitly restored from pt_regs. When
-> +	 * arch_rethook_trampoline_callback finishes, it restores SP to
-> +	 * what it was before its frame was set up.
-> +	 */
-> +	l.lwz	r2,PT_GPR2(r1)
-> +	l.lwz	r3,PT_GPR3(r1)
-> +	l.lwz	r4,PT_GPR4(r1)
-> +	l.lwz	r5,PT_GPR5(r1)
-> +	l.lwz	r6,PT_GPR6(r1)
-> +	l.lwz	r7,PT_GPR7(r1)
-> +	l.lwz	r8,PT_GPR8(r1)
-> +	/* Return address in r9 is stale, so don't restore it */
-> +	l.lwz	r10,PT_GPR10(r1)
-> +	l.lwz	r11,PT_GPR11(r1)
-> +	l.lwz	r12,PT_GPR12(r1)
-> +	l.lwz	r13,PT_GPR13(r1)
-> +	l.lwz	r14,PT_GPR14(r1)
-> +	l.lwz	r15,PT_GPR15(r1)
-> +	l.lwz	r16,PT_GPR16(r1)
-> +	l.lwz	r17,PT_GPR17(r1)
-> +	l.lwz	r18,PT_GPR18(r1)
-> +	l.lwz	r19,PT_GPR19(r1)
-> +	l.lwz	r20,PT_GPR20(r1)
-> +	l.lwz	r21,PT_GPR21(r1)
-> +	l.lwz	r22,PT_GPR22(r1)
-> +	l.lwz	r23,PT_GPR23(r1)
-> +	l.lwz	r24,PT_GPR24(r1)
-> +	l.lwz	r25,PT_GPR25(r1)
-> +	l.lwz	r26,PT_GPR26(r1)
-> +	l.lwz	r27,PT_GPR27(r1)
-> +	l.lwz	r28,PT_GPR28(r1)
-> +	l.lwz	r29,PT_GPR29(r1)
-> +	l.lwz	r30,PT_GPR30(r1)
-> +	l.lwz	r31,PT_GPR31(r1)
-> +	.endm
-> +
-> +SYM_CODE_START(arch_rethook_trampoline)
-> +	/* Allocate enough space on stack for pt_regs */
-> +	l.addi	r1,r1,-PT_SIZE
-> +	save_all_base_regs
-> +
-> +	l.addi	r3,r1,0	/* pt_regs */
-> +	l.jal	arch_rethook_trampoline_callback
-> +	l.nop
+	mutex_lock(&priv->buffer_mutex);
+	...
+	if (!priv->response_length) {
+		*off = 0;
+		timer_delete_sync(&priv->user_read_timer);
+		flush_work(&priv->timeout_work);
+	}
+	mutex_unlock(&priv->buffer_mutex);
 
-Could you indent the delay slot? For example:
+The flushed handler, tpm_timeout_work(), takes the same buffer_mutex at
+its start. user_reader_timeout() schedules timeout_work from the
+user_read_timer, which is armed while a response is pending. If that
+timer fires and timeout_work starts running while a reader holds
+buffer_mutex, flush_work() waits for timeout_work to finish while the
+reader holds the mutex, and timeout_work blocks acquiring that same
+mutex -> deadlock. lockdep would report this as a circular locking
+dependency between buffer_mutex and the work.
 
-	l.jal	...
-	 l.nop
+Before commit 9488585b21be ("tpm: add support for partial reads") the
+timer deletion and the work flush ran before buffer_mutex was taken;
+that commit moved them into the mutex-held section, introducing the
+flush-under-lock cycle.
 
-> +
-> +	/* use the result as the return-address */
-> +	l.addi	r9,r11,0
-> +
-> +	restore_all_base_regs
-> +	l.addi	r1,r1,PT_SIZE
-> +
-> +	l.jr	r9
-> +	l.nop
+Flush timeout_work after dropping buffer_mutex. The timer is still
+deleted under the lock, so no new timeout work can be queued once the
+mutex is released, and the flush no longer runs under the lock the work
+needs.
 
-Indent here too.
+Found by static analysis (a checker for cancel/flush-sync of a work
+performed under a lock that the work's handler also takes) and confirmed
+by code inspection. Not reproduced at runtime: it requires the
+deprecated user-space read timeout to fire while a read holds
+buffer_mutex, so the deadlock is established by inspection rather than an
+observed lockdep splat.
 
-> +SYM_CODE_END(arch_rethook_trampoline)
+Fixes: 9488585b21be ("tpm: add support for partial reads")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/char/tpm/tpm-dev-common.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-Thanks,
+diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
+index 6569212..f9b18ef 100644
+--- a/drivers/char/tpm/tpm-dev-common.c
++++ b/drivers/char/tpm/tpm-dev-common.c
+@@ -132,6 +132,7 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
+ {
+ 	struct file_priv *priv = file->private_data;
+ 	ssize_t ret_size = 0;
++	bool flush_timeout = false;
+ 	int rc;
+ 
+ 	if (!size)
+@@ -164,9 +165,19 @@ out:
+ 	if (!priv->response_length) {
+ 		*off = 0;
+ 		timer_delete_sync(&priv->user_read_timer);
+-		flush_work(&priv->timeout_work);
++		flush_timeout = true;
+ 	}
+ 	mutex_unlock(&priv->buffer_mutex);
++
++	/*
++	 * tpm_timeout_work() acquires buffer_mutex, so flushing it while that
++	 * mutex is held deadlocks if the timeout work is already running and
++	 * waiting for the lock. Flush after dropping the mutex; the timer is
++	 * deleted above under the lock, so no new timeout work can be queued.
++	 */
++	if (flush_timeout)
++		flush_work(&priv->timeout_work);
++
+ 	return ret_size;
+ }
+ 
+-- 
+2.43.0
 
--Stafford
