@@ -1,67 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794161950;
-	b=KI8OUne/81A9bIu+gsWcXkBGIuVW15CtOayaebX3ZdKRnSS947gVwbfePW3kbODsxZ/T
-	 0tsEGQphvWBEuI4EKfQSy+MIp5jfKsoZf0Z0RiOPUyHlq5qesAaohJLYfxlIQx1/noRzz
-	 GgM+4adzdJPtNbE2qY+3Elh/X1IoXSZvkst2YKtDOIQu+2tkIu7WkStwE6AOowm9gAXVq
-	 4NgmaSvNaFfAU+kidVZ5ofRIKgBAh6Adem3B0HseVvIDEsPTypbW35dU5tAcYeE9OHR+w
-	 bu1gCImtCCK5clnvuYok7QAU+9TtTcFQUOmcYOW01Q1on2I+3ptX/mC8E17pfXvGT4Q==
+	t=1794162012;
+	b=R+xMvyxAXx9VC+asLzN8dMlRx29uMfF93Q1XtAs+IQkwgMhKr5Ch1RmyBGPG5XzDF7sA
+	 YrKiysGNStIdfsgbeuJCms1dppOVzV/icuTbLYGWeJDAsB5T+gGhiSkpYDwWU90gthdYb
+	 Z2tIeK+SEo4AvsW6C/ai8pe9SGFVyNLL0kJGE5q7h6PeDN/cQPfzvjMLZSpuxQ3E5HjoW
+	 NCPMBOgBYeoaoGGn+N7L+xUsjbHbzRRexIOQDUKHuqQtA/VmSPbnBxVXhnkoFCsr/a5He
+	 pLlv95Maqhr8m7oh0uMnXRlLKy0Es63i8x/LEnv5UAs5PGqeaoAs95tLk/CcNedMrJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161950;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=r7RYXT+QmgrQAsQyPZOf2kc4tNAIjzUp407Mrri0Csg=;
-	b=pbmJbHpb6X+LPaRvQ3WGhhz0IphmPHa+RIns1MvpdRZeYPTs1TRRg86Rp/vhGv58u7Sv
-	 wWNE8Zo8tnIE+RfLG1mvCkHwRbR9HQyte5btIhUUfeEWYUj7QC0yPhJFkiMGdbfFa2Nyg
-	 Wl+eDPm+XWrFeqpuCOpuwHr3LxapFh+IEzDLlE7inB0lipY8WZQ7L2CR9LnP/Quu8KFrv
-	 0lI7n29cf84m4PDi/HH107x+NqxUR1gMW2l8MqMeuClSwigRdLyDDYtB3zHNkGTBvtODw
-	 Q1HkvDuxDBZllsKL9ZEP+OYyYpEVr0J3TUo3TCytQVzN/SbuZuwySk3t/381PD6NwrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794162012;
+	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=I1oaPtMYd1CpuNQ+9RV9pHUSZcdWTLTk3KLAz0I7Ch0=;
+	b=Icd6y0A+B7F4nhIiJKfE7OxMiNZz7NBkTt/Vb50pS1Pby3tnDlCV4AQ1FewBICQDGKuy
+	 RW7TDbjBGBvJjm+pQonagpCjVdsj4LjZs/4oZf+JWXRhagpm/npHoxoh+xGHvoR1s4gPh
+	 WX2DqjNqOVRC0UnRLXX/tFlJzcQ9//oUh187GDr1c31gJukjS8y5z0YqLtWlEXFK4T34/
+	 qb2DRiFaRnwkpo7xljJpTpVxSAXMKq6J+m0b4fOXUn0JqtzlY+rMN4jHKvOjLZqs27gS2
+	 1nqUyaZ9PLsBv0NQEnf6JFCF7tBnNkuWz8BPbJv/MRwLjMkdHnTvfzGRGfIfPY/0krQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Zp/7DqXg";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=none header.from=deq.rocks;
+	spf=none smtp.mailfrom=deq.rocks;
+	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=hGCaEe0V;
+	arc=none smtp.remote-ip=91.216.248.207
+Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF148606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF148606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD430606A31C;
+	Sun,  8 Nov 2026 18:20:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD430606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Zp/7DqXg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794161948;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=r7RYXT+QmgrQAsQyPZOf2kc4tNAIjzUp407Mrri0Csg=;
-	b=Zp/7DqXg4DA7OkH4MbykMWgH+226D0whFidMJIUSQbkfQvSe6Q5dh4v30OfFMN2jOYl7YR
-	p8gT+rc25z7hQxyZkcWNTd2bVua//ZZ1mLbcsEYpLymgvq0kzdbsOnaMzoFTbp8nGPq/0b
-	PE67dMZNlcuDl1fZu3dDFn0XfOGt54s=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-426-cJP-Oz6FMJyr_o9T47XZNQ-1; Sun,
- 08 Nov 2026 13:19:04 -0500
-X-MC-Unique: cJP-Oz6FMJyr_o9T47XZNQ-1
-X-Mimecast-MFC-AGG-ID: cJP-Oz6FMJyr_o9T47XZNQ_1794161943
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 35DC219560B2;
-	Sun,  8 Nov 2026 18:19:03 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 53FFC195608C;
-	Sun,  8 Nov 2026 18:19:02 +0000 (UTC)
-Message-ID: <8ac6e2d1-c5de-4205-97b3-3b75359316bb@redhat.com>
-Date: Sun, 8 Nov 2026 13:19:01 -0500
+	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=hGCaEe0V
+Date: Sun, 8 Nov 2026 19:20:00 +0100
+X-Lima-ML-UUID: 31c93440-a169-4383-9b5a-bcdeee7649e1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+	s=securedbylima-20251205; t=1794162002;
+	bh=I1oaPtMYd1CpuNQ+9RV9pHUSZcdWTLTk3KLAz0I7Ch0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=hGCaEe0VjzEMBXn7xs/UKaj1ZXlPeFL9R85SWBzQWXZEqnlcmPlLUECB3jMrK0aGq
+	 g3SiWWoonspu2pemV+70VeFWpbKD09snI2l6LkXyLgLahuj8CL6WrTpUDto+JaARYl
+	 23LvzYg/g/zHwfDFXCdLo84bji7SIn8lePgfyX4IKXEKxFwWKhFILeCq3kLVPtEY06
+	 ZDR6cMkOkLgbFJOIOk4/SKqd7+ud2avndL/4/KDSRRa4TIa/4S+oiDQlQ7aBsurehU
+	 eHT51WlWEknjeKNCQD2v5vcfkHvJ97qfabt9alAcZu9ju8Ex31VJTLm1k56ZBjVVXI
+	 xKXYZfBjPEOuA==
+From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+ linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] wifi: brcmfmac: AWDL for AirDrop on Apple T2 Macs
+Message-ID: <20261108192000.2a1d416e@kait2en-mbp15-1>
+In-Reply-To: <c93fa1b2-9d05-4536-9025-6c4d1e6e6b5f@broadcom.com>
+References: <20261104151547.70333-1-dev@deq.rocks>
+	<c93fa1b2-9d05-4536-9025-6c4d1e6e6b5f@broadcom.com>
+Organization: KaiT2en
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,66 +66,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpu: Fix online housekeeping CPU check in _cpu_down()
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>
-References: <20261108180849.1268263-1-longman@redhat.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261108180849.1268263-1-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Mathieu,
+On Sun, 8 Nov 2026 16:41:37 +0100
+Arend van Spriel <arend.vanspriel@broadcom.com> wrote:
 
-Sorry, I forgot to cc you on this patch.
-
-Cheers,
-Longman
-
-On 11/8/26 1:08 PM, Waiman Long wrote:
-> There is currently a check in _cpu_down() to make sure that there is
-> at least one online housekeeping (HK) CPU left after the shutdown of
-> the given @cpu parameter. However the cpu_online_mask used for the
-> check may include the current @cpu to be shut down. So the fact that
-> there is at least one online housekeeping CPU at the moment does not
-> guarantee that there will be any online housekeeping CPU left for the
-> sched domain after the shutdown.
+> I really have no idea how to deal with this series. AWDL is not part
+> of the IEEE 802.11 so I can imagine the kernel wireless subsystem
+> does not care to support this. From driver perspective I am not keen
+> on supporting this upstream either. My limited understanding of AWDL
+> was that it was Apple's variant of TDLS (802.11z).
 >
-> Fix that by making sure that there are at least 2 online housekeeping
-> CPUs available if @cpu is currently a housekeeping CPU.
->
-> Fixes: de715325cc47 ("cpu: Revert "cpu/hotplug: Prevent self deadlock on CPU hot-unplug"")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cpu.c | 11 +++++++----
->   1 file changed, 7 insertions(+), 4 deletions(-)
->
-> diff --git a/kernel/cpu.c b/kernel/cpu.c
-> index b3c8553d7bd6..ed641ee6b37c 100644
-> --- a/kernel/cpu.c
-> +++ b/kernel/cpu.c
-> @@ -1415,11 +1415,14 @@ static int __ref _cpu_down(unsigned int cpu, int tasks_frozen,
->   	cpus_write_lock();
->   
->   	/*
-> -	 * Keep at least one housekeeping cpu onlined to avoid generating
-> -	 * an empty sched_domain span.
-> +	 * Keep at least one housekeeping cpu online to avoid generating an
-> +	 * empty sched_domain span. As cpu_online_mask includes the @cpu to be
-> +	 * shut down, there should be at least 2 online HK CPUs at the moment
-> +	 * if @cpu is currently a HK CPU.
->   	 */
-> -	if (cpumask_any_and(cpu_online_mask,
-> -			    housekeeping_cpumask(HK_TYPE_DOMAIN)) >= nr_cpu_ids) {
-> +	if (cpumask_test_cpu(cpu, housekeeping_cpumask(HK_TYPE_DOMAIN)) &&
-> +	   (cpumask_weight_and(cpu_online_mask,
-> +			       housekeeping_cpumask(HK_TYPE_DOMAIN)) < 2)) {
->   		ret = -EBUSY;
->   		goto out;
->   	}
+> So what does AWDL provide to user-space and could the same be
+> accomplished by TDLS?
 
+Hi Arend,
+
+I think I can be direct here. My submission is a long shot. If I were in
+your place I wouldn't be keen on it either...
+
+But! AirDrop is the feature people miss most when they move from macOS
+to Linux. Also you may have noticed Google reversed AirDrop in early
+2026 and newer Pixel and Samsung devices ship with it. So there is a
+huge demand. Especially for former macOS users. Those often have a
+complete Airdrop "ecosystem" at home. Personally, I don't use it. But
+that is what I was told by our community members.
+
+However, on our Macs the firmware already implements AWDL, the driver is
+the only missing piece. And it will work on T2 and Apple Silicon Macs
+alike. Maybe even on some pre-T2 Macs. So we would give a huge ammount
+of users big grins on their faces.
+
+--
+
+Re TDLS: to my understanding, TDLS needs both peers associated to the
+same AP. AWDL needs no AP at all. The peers agree on availability
+windows and a channel schedule among themselves, so two devices
+exchange data while they are on different networks or on no network at
+all. Like on a train or at a customer site. That is what AirDrop
+depends on, and it is why it can't be built on TDLS.
+
+IIRC the closest standard is Wi-Fi Aware (NAN), not TDLS. But... to be
+perfectly honest with you. If we can't get awdl into the kernel, I am
+not keen on changing it to NAN. Then let one of those kernel modifying
+distros pick it up and let them do what they want.
+
+> From the explanation above it seems AWDL provides more knobs to
+> user-space, but not sure whether the awdl%d interface is merely a
+> control interface or actually passing data through it (patch 5
+> implies it does).
+
+It passes data. awdl%d is the data interface, AirDrop runs over IPv6
+link-local on it. The vendor commands only carry the AWDL action
+frames and the peer setup, the schedule itself runs in the firmware.
+
+> If my memory does not fail me then adding vendor commands is
+> generally pushed back.
+
+Agreed. They wont like it. Hence "long shot". But worth a try maybe.
+nl80211 has no AWDL interface type, which is why I went with vendor
+commands. If there is any interface you and Johannes would rather see,
+let me know.
+
+
+Best,
+Andre
