@@ -1,64 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794145433;
-	b=dtSnB/zLUrBPIED6i8g2wJahF+20lwZiIhqzrziha321SWA06k5ZFoZI5wDrclfCqEbp
-	 NfUCm5GNupByb6cSR9ZRceqb0561CaDD6zI3482QTkVDlRqnJ5k8B/ExI9HdTw3NjfCqA
-	 121F5v+ChSvrXB7rcyE5PU9Bu3dWQfTOjAc1R53fVlH+cMb78jNwGFU5OpvmP0RXBY8Pe
-	 Z4jDI/aXIYpaqfsigwgCX1lXvSLADQ/SfWZccEb7hJpsmctDK3PnfhNqtC0vicK6RJe76
-	 Q7WMt930oC/YJdLSUAJNvhwFO7t8eLrUpomKDeOB4H9NSUP54G7otr4xLPbe+ICTf+w==
+	t=1794145438;
+	b=VeG0oiwkb+hFQo/xSJbExjCV+tZPyrGda0+Ga2lVop6XBMkndLUb9s4VxJd013wXnv+O
+	 dWiEds0HunhVEdrxHPs++TvKvlzxA5KHjudsfEwygboM5fF4diyjsaVvGFL6mLXHBRESx
+	 OtRRdy1hObKLTZqjPhOI8HMc5meLzs+uaEH/IP2iPpLis+m5SsXF3inRtCN4foPdInF5c
+	 kWKL0iAWXG656afFSPL8DSMZP6F75EMHS2SPG5U55oYYcCeCwmo/d3zAViCJKQRyBukS1
+	 xYUecmZPNvw/fY97KPIhRycMK5oVN8PqnnkGwpaBe4lZRmLgvPAmiKpe7coYGon68kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794145433;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=jyyfi9t7z31wdkTHmBUQ+fMjVugiO0ZSiqAAX6XBmWo=;
-	b=nl9jzFBdEy/w75k2fMo1+VFj+JxYj0X+NxAwvFDsr0iWXSLm+U8z6pozMWi03dczrS5b
-	 M0SQGkB9vFcus3ePeUfdesuNWUOOXOn8M8X4qDzuv8XLX53xYSfrbC4xDlx9o+HKbIG7Q
-	 T+Vz1yLvGZgeleacPmqKsuAfOKviNwueCfuRX59MIklJXJhfRaby/xtips8qA9nUa9iHk
-	 MXShqzeQ5+F3oaE4zS0ct2jfR3Ykpn5pJzZC96f8z5+tFc1D+3ORAqzyurQ9CwqxmkGq6
-	 Dj8GfWCZQGPYbyQ0VTuLyu2OpCURFcfR6s68dKq2Dy7OoD0YYFIhS4iy86wqZuyaE1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794145438;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pDQUKcI7F5NsVDOo8X0ORq4VCkYvjz4tg9TFFQsurIA=;
+	b=pwJdAtSkRB+ctHww8Li6VMQi3jiZOvqdSACQ+HaTyywITVturXyd3hY+XC9Sbt5J2Z9b
+	 RQEkRn8VqsCK4hD0d0CaeAZsJ8em3HHu7WTd+qfB3g4lq/oFZwevro8ASMZZpsJnyuT79
+	 9WfhNtIayT7BUjz0Fm/A7XUF516Tweyj+NcIXMLrNVtFpImsCpTqf/IpxE2YoSaCkDWJk
+	 W2TeJ8vMdxfNIA4gboMVFY6uGQc3CndwmzMe3jLoOSsvXGhbJ7d4WW+wV1XLBc9+Ccovs
+	 aTIdDGww+xu62Q7CzxPHmqaODyI12BjVZiFk9SrnHSJxIIjmr3cbw74ptSEMs955ZBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmEm1nen;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vb9p12b3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E388606A31C;
-	Sun,  8 Nov 2026 13:43:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B13C606A334;
+	Sun,  8 Nov 2026 13:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmEm1nen
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD131F0089F;
-	Sun,  8 Nov 2026 13:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794145432;
-	bh=jyyfi9t7z31wdkTHmBUQ+fMjVugiO0ZSiqAAX6XBmWo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=KmEm1nene8y5H8YorJ2KRg5kGano5wehoYWehx59XQwh6nbfg+wLpWI7ykKJHGA8+
-	 XjEYFtlTep4KzIrl/MjDyEz8kia4Cdl8FSRZsHaYUs7Vlt9Wy352qd5zm60UUqI1EU
-	 ZqKNm118tao/pIyRIbuTnADUnfc8e8TiTNDLXlNkJvBUZEGbdEssLzLl4JNj5shYf1
-	 P9SOxvb91sxb3ZhDwaJ7tERKogQZt1oKWvxX/emZ2N9PDSauCMYM6k0nvkAdqvl4iA
-	 uGpm1+G36g1JcjJjXX2nwxqZMte2dIMLb+d8XrfCccAnrY/PgpV8XBbf+wPvW/y6Ac
-	 RKTADLvVCyGkg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 10EB92C79254;
-	Sun, 08 Nov 2026 13:43:49 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261015130628.184279-1-clamor95@gmail.com>
-References: <20261015130628.184279-1-clamor95@gmail.com>
-Subject: Re: [PATCH v1 0/1] ASoC: dt-bindings: nvidia,tegra-audio:
- Consolidate all codec support into a single schema
-Message-Id: <179406677464.3424803.4552675393907616069.b4-ty@b4>
-Date: Sat, 07 Nov 2026 15:52:54 +0000
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vb9p12b3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F07C1F008A3;
+	Sun,  8 Nov 2026 13:43:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794145437;
+	bh=pDQUKcI7F5NsVDOo8X0ORq4VCkYvjz4tg9TFFQsurIA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=vb9p12b3VCH9fUelVcEqnHeeM8ceP7629w6YfwowK1ISoFZ3rKZkrtycjj/PSoSQF
+	 K21D6vPCCHuAzAzhF+yuVMUbQEBxqYzLvpGp5U1R0IBEnbmmW5at8XUYMQxvAuCvCp
+	 UBMlw+LGL+3GnPe9qqrfR+6p0nrrgPqV1GJj4HlI=
+Date: Sun, 8 Nov 2026 08:43:54 -0500
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Bramwel Barack <bramwelbarack89@gmail.com>
+Cc: jirislaby@kernel.org, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH] tty: n_null: remove legacy BUG_ON() from module
+ initialization
+Message-ID: <2026110809-phonics-freeway-6452@gregkh>
+References: <20261108125031.33753-1-bramwelbarack89@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,55 +54,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1608; i=broonie@kernel.org;
- h=from:subject:message-id; bh=RfJx6lDOMYyTez8kNouHxAYi+GWa9mMB09aKjLXIHII=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+1ExoXDHtyaVVrSsXWZ27yHzj/fWsE7G8OdZRR4pNJ
- SXPr+lR7ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEJOcxMjxtvfr0zYHl2U9l
- BUuS+aa//X6yYX7o/F3rtMRvu3o6afAx/LNaqvJ7YeOSDosOI6lD7uwBt9kDltxuyGZOyyn9ftb
- KjRsA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108125031.33753-1-bramwelbarack89@gmail.com>
 
-On Thu, 15 Oct 2026 16:06:27 +0300, Svyatoslav Ryhel wrote:
-> ASoC: dt-bindings: nvidia,tegra-audio: Consolidate all codec support into a single schema
+On Sun, Nov 08, 2026 at 03:50:31PM +0300, Bramwel Barack wrote:
+> The use of BUG_ON() in module initialization paths is heavily deprecated
+> as it triggers a kernel panic and crashes the entire system for non-fatal
+> registration failures. If tty_register_ldisc() fails (e.g., if the slot
+> is already occupied), it should be handled gracefully.
 > 
-> The number of codecs supported by the NVIDIA Tegra audio complex is
-> increasing, which leads to an increasing number of bindings with minimal
-> changes. The main differences between codecs are the compatible strings
-> and possible pin configurations. With the introduction of auxiliary
-> devices, a definitive description of possible pin configurations becomes
-> nearly impossible.
-> 
-> [...]
+> Modernize the initialization path by capturing the return value of
+> tty_register_ldisc(), logging a clean error message via pr_err(), and
+> propagating the error code back up to the module loader.
 
-Applied to
+Nice try, but no, this isn't going to work at all.  Please test this by
+actually testing if this code path can ever fail.  (hint, look in the
+mailing list archives...)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+Why did you decide to make this change if you can't ever hit it?
 
-Thanks!
+thanks,
 
-[1/1] ASoC: dt-bindings: nvidia,tegra-audio: Consolidate all codec support into a single schema
-      https://git.kernel.org/broonie/sound/c/ad6111b192c5
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+greg k-h
