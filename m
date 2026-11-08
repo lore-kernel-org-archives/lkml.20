@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794165216;
-	b=k7PSHOtTqoYbw2icVBToWYFIwkgSNdoK2O4fdPNF9nExdMxqQ8lwNtlh4yeXeDw90yFz
-	 +QhYvTABD2fKmCvXb3QyjI13v61a9ROyGIVpbbp3W9RsnOvko9Y0uRaLKviZS+bi+FJWF
-	 Io6AabvDgG6LnMYQko4kY0fOouz6nDcYUFLwRo5dkm02qXG2kfkeBUGmWv4aqz9CLpsqF
-	 fq+svR80LaFx+XhLD/ddlPkmmT+UdBsCI/yvo9xe5XKVU1yNd9Tk9wgQZDYugEjzVGx3T
-	 Ch7ZSbYJfjm8ZAbudGblPj58T3+AM3VDMUIUQMYxFJvTw8XwVaN8M+5+sFuRgrgV95w==
+	t=1794165255;
+	b=2G/lOwfPENPpuD9vMjunXRNYd08GY30j8t87G3/4vjXOluAn4+0XT9hsz/KTfMDzsMta
+	 QLRkZ9kcYw00IAJ65lHqnTZditZ9YegeEN93MekxPjwQy3PvCaInkYxSMC34EX5hqCoSe
+	 Vmo83cWOAJ5gOyzR6Ikut0UoRPoIs1FcKBzlK8N8Vejwtm1/TyOpO9QxqgMfG9BpP2LPU
+	 jAMNivwRMnuJS16k65myLBguPfAOtkEbTC0Vw2pXj8eBa3TzA2OakvCXDjTCryRM7sQ1b
+	 /ng65Pteoa8DPUPWKmjGqtVc8HAdM5JaT4ZaUURpT6AdX9VhLSF/uI8wCGphvjwdX6Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165216;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bTj9qoNHQi5OZQim48gnEjYI7Uzi+s/92LtGxJlXzy4=;
-	b=5USGosnB3rYkNrCGNL+veUQus6G9o/zXfuura160BfgFzt8PbXvnCNrlnvH/nfNjiEuj
-	 GvWUE8VbbUH3WO6FR0+KdZnwFhhxT36lRhqFBVnHyI11VbsIiXSItECOdI61L6/wT9nV1
-	 /cR3SevbXZMus5sH3qoskfJmM3tngl4hVeURdiFoQdICilvBN5N++V9aAvGsnzjA/vcHl
-	 NrbAq4GENBh1c1Pgbz5GWxkzr7RddeHVon19iRHde3SRrH2zwYACv5C5a1MsHXOprFsBN
-	 SkTDQqe0Hjtgs+V4ekFPWHjUTDzJD+9u1vyF5y0ZoTO515I/UJFktsEm3PINakkVJOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165255;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Aigj0AbyH3j86dbZXjOqGutzBLlzhmdni5njhtK+RHk=;
+	b=mLQtyhI7CgAhNs3BJBSm/jBf/kuL1mJ1rCOa59y1BblSDB0LUOxww4HsCGQGJp13VoK/
+	 cHUqwZ7TRN7jQj4vyqLLP+2b4XS4NaWnlw67SBmv2/lfAntXD3VbwuSQH1zqFUpWJ2HUV
+	 Xnu7tYugbeSFGdN/IbBu+yVSgoW9lGPdWzBKLrx5HO2Akobm7wSKWKA2hS1R1MNP86l8L
+	 IW+kj4d6XDaP6o2sKQ13MEYObH9MWyOAfWt0T3qJPiYmhiiNk+ondpTTbev/6qj65+lwA
+	 wEvnsKoQuK1/U59fUN7N2kB3vkIIS2YEtKbrHGsk5S2Hi/iBUJ7eop8DW4kYECktkEA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSA8zJmJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA68606A31C;
-	Sun,  8 Nov 2026 19:13:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSA8zJmJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794165215;
-	b=E8Dwtr3nBSm6YhWzTWNRDLpqskySRQMG2Qy/fAFIpAkeMOIJdIpQWfH11I+/DlKyZF6v
-	 qWOk6tBbavDZZp0M7ph+dAN2mTNRXjcK9M1GKmgp9g2PmEbAVBBlrbiUBJQ/5sUMzFM4P
-	 HLSrpUDMllCFZzE49ATJBPAEW1TQh/4XP3gcNJO4npddyI9vEsIaq0vqg8iYIK1ujlE87
-	 28VMaghnFRsfnKaWw2QsLzL2wG9PMpVEOPKllXoIbKTt5aNbEMbsW5AWV9rZlaUXwU0Df
-	 X12QZ0qUzTYBJENNtZaiBA4CPatG9eiiKv6449fy6l6mppIV4r6eIXSKYRh+x4SC6nw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794165215;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bTj9qoNHQi5OZQim48gnEjYI7Uzi+s/92LtGxJlXzy4=;
-	b=rgPtjiAYbVd6Vni+rjZBOSexpV1a1klY4+GG4zYGJWVW2s/enemCCyXyhQH+dFdum5JU
-	 8JWRWkvfnejZFY7d3Kb4ONDKPJHiB8njvUc53ghqnEjPKXYmNgHerxWTFZ4YQy3SWEUAK
-	 IQsTV/qU1RVFMIHCzc9olmjWe9oUcsD2MuDNhAJepn2MGAisvV5eVeDQC/Ies/JlEb6eO
-	 fXjlbol32rLx18jEEr7ORKl/BOnt9xyPaArFd2iz7yF/xUtXRPdN/iZI1EP6HjqJx2w9C
-	 kMQlZz0/99XAtPkc9OdNX3/LodPYw5t1pOyvxZBQvgNz5II8+aIzqHq/1zM05NtRc6w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rllbRpEg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 60DFB1F008A1;
-	Sun,  8 Nov 2026 19:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794165215;
-	bh=bTj9qoNHQi5OZQim48gnEjYI7Uzi+s/92LtGxJlXzy4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=eSA8zJmJyRR3ogmrVAzD7TZ2s9uc/6Gvz/0ZjAN/nF9QThrooB0in6OerWHhwJAQ+
-	 RbjIpTSPdp5rzx9tm0FojN6dU5fpadBSXmt4fwoOK6cwijp/xtWhE3uABXrc1nkEPb
-	 qQHeY9FsH/SbfwYlMtdiC/+r9BNUK43Z6WMjIC9+An692rQateaFVM0FzG0SRzhrFm
-	 Fgb82HsyUwIdQ2N2Ch3knlRstp90UcBhx9Llqzb6y7tY2RhdUXftVftqJnmD8YqbmS
-	 +VlFAGWnIxvLkLqzisReQpjbgi7svcq04Hg8wmd77a51n7GKdA0TU357sRaEBo8h75
-	 CAfs1bBHw3x5Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B24F948019;
-	Sun,  8 Nov 2026 19:13:34 +0000 (UTC)
-From: Ofri Zangi via B4 Relay <devnull+ofriz.xsightlabs.com@kernel.org>
-Date: Sun, 08 Nov 2026 21:12:57 +0200
-Subject: [PATCH net] tls: fix async encryption race on weakly ordered
- architectures
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B12B606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:14:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B12B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rllbRpEg
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33fb4680717so574044eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 11:14:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794165254; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bYq4czz29q8are0bsZ5nnfNztcLipf6Ws5+9xjkT+cY0yYO5uAZhmexJzRW6Dmsfo4
+         ClsohHnSfGCiKEBd3pHsDRM4GFjrw8kploYPnyTKsM4/bKz8fnOJe43VOy+Ix/mhvpU3
+         kwDQll8/QnTk2nGN/nQ9HRzQJOwQFX+bSvBlizPu833NKafoww8dQX7WU7L8HxWpmC7D
+         if+l5kWztMT3TxODNQctVSIElU6hIGTNVbEiCMAcfDKtxavAJ4iiBo8RQKC5TJIUpvR/
+         KqkOwX6KO0F+nq1eN5lgHBQP+KNTC9CciNH13VOI/X6ml/XU55f8HsUpKy5Zi2/JUKGv
+         P43A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Aigj0AbyH3j86dbZXjOqGutzBLlzhmdni5njhtK+RHk=;
+        fh=YfYo/RUeEYvrSt1C0TAxuI764OqKVyNFe/YXkIt1WDw=;
+        b=Hvqi+OADu3BsRJAnV3iy7pD6i2dqfg104JjV3XzeJLp6XzHF6J7qzoggvNUs/c6e5y
+         WGI9fpeG6A2prncN+ISU5vEA83SrPT+3x93CZ+dgmoIKizm7fiWMUs9Bmv6HbNVARZXz
+         9YmB9XW+w2RHneCsooUiIkON/YRX2DjjlVlcfGAZnh6DXHPci/0mAmZ9E0+49DFy+uxd
+         +/u92xY6Uk9umCjT5Lc8h4r5GgRopxSQz0OU668gX4woaTDJeE+toVh8xOn2SZaHXIJy
+         QU4X0hvodqCfHglgnSpgE/a3GQBD5tLZmkM2IkpbWn88mPMg439ZDHjO+yu/lv5dSFfm
+         dHqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794165254; x=1794770054; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Aigj0AbyH3j86dbZXjOqGutzBLlzhmdni5njhtK+RHk=;
+        b=rllbRpEgiw5AIuoQnqAOapTJtURQPajg1YXAwpRhZlWjt7K+ZzeDGOMzFSAzbSqle8
+         RZSht2rfco69yYb8DEwj2en5KGT41k/56aT8gFqQnYZbnRoU0I4+FoIQPMMpYyMQr1tR
+         uhD/S0OsBEBHi1wcCfsbCoe2fmWPlMGpvlttpmmuONqFrunvkEbxIVNU548gxCpkJp/H
+         Cp3e/CrOl9QoehwxzPoS8HzOv1MqoWlgKxSSr1+7axyaM2JhbW82FxzdcAhYpfeuaWsq
+         Fr2lWuGq1Mqt6zthCm79fbucEi+tySKeWtrJ+OpVVr7ZEFfBUNeHjQm/YgJYmfsTksLV
+         2cOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794165254; x=1794770054;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Aigj0AbyH3j86dbZXjOqGutzBLlzhmdni5njhtK+RHk=;
+        b=0et4tJQL0ZnzJJV9EcFj5t3n40uIcV3/CkQloi5wCtycNSXhYafpKyXLFnff7OHRMr
+         A760+Rn9CPmormk8uDzgVykq2sJ1Khrp3AlMBuigdc9x1fsuAXA76g5TIoQUw4PcMmAU
+         1RKoKaCKKEkKeg0XYksztv97wigbuSRkUe3u7u4QLTVLCD6VKPdRAOh1BitXtLlpIIZJ
+         DZSOhgsoqccsi5EXpKVkr9wL+B0pYfx+YgAEsvPYDaKqeZ0qgWIcyyF6UcOoeOJcd5hi
+         ZjSETvC4Y77g9Ihyn3MjDVMO1/GyxfXM4NiC4xn1Hu13ARYRV7Dz38D97cukWmtwoNzS
+         h5Wg==
+X-Forwarded-Encrypted: i=1; AL+hErGLWGgTaJbfWceybGHnOQMlLXXY4dMEEhaD7qPq6ilv8fGyl5PjokrWAhTnwqGEKoSX6ecRg9NBfuebeek=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uAtH2oLBDjqIjSfYXMyKLBWP/p5YRMc/FP1R3KMYHgKtPa80n
+	JsXPhOSXyzbj+s0/xNFzTaxrGbzbAtzPVHOG3HvcaSPj/30q1bVapxGY2cTevE+x+agW8iJYxvZ
+	y3u25EwOSYbtpzRk7FjwdPDo2QXhHL9U=
+X-Gm-Gg: AYBFou0AwxvrZqtoP5RA9PWCh7i0L5SpTYuwD4z240MO1uLqVsRWJmB0vG0l8OMYES5
+	OKGjcg7t4WP37Us2ZR4agK5PM+35p3tDkyQDpyT52/Ih0Y3qrIFvW/aoDIDQmuV3HNxOxMBHeuq
+	thfQZcjg27qrJSV4hqVmI5T9KdzGorabcQ1NUF9XljoFdEnrfW907BH//WmS68uCVlLjcpsUZnf
+	pwA/1mbJvjL3LPkR+mZ1Q+XZjpFWNEEHoRWuyActhjIrB1hBFNhO1XXiNmyRASRKkxIr3++bkua
+	CqAEnVMPfotOrtaHaw0r0LhXZgQeQwlJgUslaDhz6hU3DCw/zuByDw6MuG/ka4LVyB81oioU4Ry
+	zoibG5SIvJjeVdXrmgmBYBR9EuhQuMRyw2CYuCIVngfOIB9YsmS+MBlxXguJJ87Ht9dOKnogWj0
+	ZAyKD91dtUli/vXptbYYySd3rpovLsav6FCW1Edg6Qd5NEMmdl5fvAph43g7fvk4gBXEWXwAAcX
+	cNOK3E=
+X-Received: by 2002:a05:7301:7004:b0:372:eab:d700 with SMTP id
+ 5a478bee46e88-37252e3a967mr4833895eec.1.1794165254303; Sun, 08 Nov 2026
+ 11:14:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,104 +106,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-tls-async-tx-ordering-v1-1-f9a1844ca88e@xsightlabs.com>
-X-B4-Tracking: v=1; b=H4sIALjJ8GoC/x3MQQqDQAxA0atI1g1MBlukVxEXOok2ILFMhqKId
- 3fo8i/eP8Elqzi8mxOy/NR1sxr0aCB9RlsElWtDDPFFFJ5YVsfRD0tYdtwyV24LdhIDTUycWoZ
- qv1lm3f/fHkwKDNd1A46LG0lsAAAA
-X-Change-ID: 20261105-tls-async-tx-ordering-8e201bd1dc4d
-To: John Fastabend <john.fastabend@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Vakul Garg <vakul.garg@nxp.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Guy Tzalik <guyt@xsightlabs.com>, Ofri Zangi <ofriz@xsightlabs.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794165214; l=2872;
- i=ofriz@xsightlabs.com; s=20261105; h=from:subject:message-id;
- bh=hcXcF7sxE609mzlFBuSNX0rkVPXJlsc5tyQKGD8S0wc=;
- b=ayXzZfMgnuQMW3NnzjfQ5jTuEsBo7LYME27Rl3fx9x5JicPgVp/2/Lcb6BPAx2gMQvgS9GPAl
- 2if/wONP5OODANNDt9nhRj3LWCaLg6RD9RMYDR2v2aGnFdPV8kZLLtu
-X-Developer-Key: i=ofriz@xsightlabs.com; a=ed25519;
- pk=pD06etcYUBGIxIDkICg6n7JJNuijXIPti5DrRX4CxuQ=
-X-Endpoint-Received: by B4 Relay for ofriz@xsightlabs.com/20261105 with
- auth_id=1416
-X-Original-From: Ofri Zangi <ofriz@xsightlabs.com>
-Reply-To: ofriz@xsightlabs.com
-Content-Transfer-Encoding: 7bit
+References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com> <20261029-rust_kunit_v6_send-v2-3-5ce551efc48e@gmail.com>
+In-Reply-To: <20261029-rust_kunit_v6_send-v2-3-5ce551efc48e@gmail.com>
+From: Burak Emir <burak.emir@gmail.com>
+Date: Sun, 8 Nov 2026 20:14:02 +0100
+X-Gm-Features: AclHuK8Zqm3SYvO-6lPeY5_gCtAhcGYV6kboEDJv7680m_CzRJR-fiUMmy4_9do
+Message-ID: <CABwQupNhiTRmbA+1Ps96tAe_vrUehAR=ZqmPustz8M4k47X6vA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] rust: bitmap: kunit: uncomment owned_bitmap_out_of_bounds
+ panic case
+To: nico.antinori.7@gmail.com
+Cc: Alice Ryhl <aliceryhl@google.com>, Benno Lossin <lossin@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Brendan Higgins <brendan.higgins@linux.dev>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Danilo Krummrich <dakr@kernel.org>, 
+	David Gow <david@davidgow.net>, Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Rae Moar <raemoar63@gmail.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>, kunit-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ofri Zangi <ofriz@xsightlabs.com>
+On Thu, Oct 29, 2026 at 5:59=E2=80=AFPM Nicol=C3=A1s Antinori via B4 Relay
+<devnull+nico.antinori.7.gmail.com@kernel.org> wrote:
+>
+> From: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+>
+> Rust KUnit tests now support `#[should_panic]` attribute. Uncomment the
+> test so it can be run when CONFIG_RUST_BITMAP_HARDENED=3Dy.
+>
+> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+Reviewed-by: Burak Emir <burak.emir@gmail.com>
 
-With async encryption, a record can be transmitted without its TLS
-header on weakly ordered architectures such as arm64, because the
-consumer may observe rec->tx_ready set while still seeing the old
-scatterlist entry.
+Thank you for implementing this TODO, Nicolas!
+Testing panic behavior is useful, not just for ensuring that it meets
+the specification but also ensuring that changes preserve the
+behavior.
 
-tls_encrypt_done() restores the TLS header in the scatterlist entry
-(sge->offset -= prot->prepend_size, sge->length += prot->prepend_size)
-and then publishes the record with smp_store_mb(rec->tx_ready, true).
-On another CPU, tls_tx_records() checks rec->tx_ready with READ_ONCE()
-and then reads the entry in tls_push_sg().
-
-Nothing orders these accesses. The barrier in smp_store_mb() comes
-after the tx_ready store, so it does not order the earlier scatterlist
-update before it. On the reader side, READ_ONCE() does not order the
-later loads of sge->offset and sge->length. The reader can therefore
-see tx_ready set together with the old offset and length, and pushes
-the record without its header.
-
-Publish tx_ready with smp_store_release() in tls_encrypt_done() and read
-it with smp_load_acquire() in tls_tx_records(), so that observing
-tx_ready guarantees the restored scatterlist entry is visible. Keep the
-full barrier that smp_store_mb() provided as an explicit smp_mb(), as
-it is still needed to order the tx_ready store before the tx_list head
-check.
-
-Fixes: a42055e8d2c3 ("net/tls: Add support for async encryption of records for performance")
-Signed-off-by: Ofri Zangi <ofriz@xsightlabs.com>
----
- net/tls/tls_sw.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-index 771e02bff519..c9d3b9eb22be 100644
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -436,7 +436,8 @@ int tls_tx_records(struct sock *sk, int flags)
- 
- 	/* Tx all ready records */
- 	list_for_each_entry_safe(rec, tmp, &ctx->tx_list, list) {
--		if (READ_ONCE(rec->tx_ready)) {
-+		/* Pairs with smp_store_release() in tls_encrypt_done() */
-+		if (smp_load_acquire(&rec->tx_ready)) {
- 			if (flags == -1)
- 				tx_flags = rec->tx_flags;
- 			else
-@@ -504,8 +505,14 @@ static void tls_encrypt_done(void *data, int err)
- 	if (rec) {
- 		struct tls_rec *first_rec;
- 
--		/* Mark the record as ready for transmission */
--		smp_store_mb(rec->tx_ready, true);
-+		/* Mark the record as ready for transmission. Pairs with
-+		 * smp_load_acquire() in tls_tx_records(): the sge
-+		 * offset/length update above must be visible before tx_ready.
-+		 */
-+		smp_store_release(&rec->tx_ready, true);
-+
-+		/* Order the tx_ready store before the tx_list head check */
-+		smp_mb();
- 
- 		/* If received record is at head of tx_list, schedule tx */
- 		first_rec = list_first_entry(&ctx->tx_list,
-
----
-base-commit: 30c71476d842b094651bd7712f6c8ee8716147d0
-change-id: 20261105-tls-async-tx-ordering-8e201bd1dc4d
-
-Best regards,
--- 
-Ofri Zangi <ofriz@xsightlabs.com>
-
-
+cheers,
+Burak
