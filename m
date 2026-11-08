@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794146888;
-	b=miN7VVYqTXM3ycEC877/syKopOVgAQILwP2+gsUFLbtbfUoCUELRmuhsPjh/XDs9oBbW
-	 +gHcMr4qcdopSo3Gq8PtXCjrExJwX5MlFazRgjN2NYxTNcI25B2fOTmKFpK5v6TQYSBCC
-	 WU07VaquWM75Y6CfgWrcsIKzn2ct5C0CRMGwle5s9kcnDLfUzK8KxfiRqgQuEqqq4wJ7U
-	 Ra2OKEsqw8MOCskoC6yWo5fcs8Edhm9WIJFz+cvC/QX7DCuCvjR3mvqFN+pM+ljXOjlAd
-	 wyQ9ByNGqm++bq00n+OahPAFma+Y3eWkJI+uXxYXFDJIezN+NPv9kKxuA2kzWG18RTw==
+	t=1794146902;
+	b=Q9W4uKDXiZlKyWDBhAGgt0YoaV3Zvou4Dt7L5Scz0lmiv6pASHmdymYjqS6pQzoMmSLV
+	 y2VfeqzlXF7FbTzbuAdjuOWh7Hx5fUlHzPxlvtAcCOywlfOqoPI4FPzbK89oIw8gzyji3
+	 ArZS9mKtJOVnDdWh2QrrCEw4xcJjlJ7p+TJRxW+VRTalvEjyLX2tRYIKGV/faaHaf07ny
+	 YBvo356L0Xu8qC1gdDjK7L153dRf/XsfO211AlKZZesRRN7vsqTYg9tlIoQ7ljjuC2BYA
+	 CcTwEgMxP37f4rcVA9R4t/zLhpkxpSgvgkC8i7g+wqjs2G4v4f90JhRJVJI2aITNr4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794146888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794146902;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
 	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
 	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
 	 Content-Type;
 	bh=ks/fSaXENj2G87+dKwpcBMdl+Yql/DC38Jw8RAonNhE=;
-	b=OBlU1rkz6+KHjuG1Pwli2UEdmrS4Hs4/+PbkS4CozjUY66VrphQZHjrN9aAsIl2sRi7C
-	 yTwLh7+tDZJI+zKUVdTP2OCfm01goacwxviE14Lw0cqq7Ux6miA908wZ0qJ+inVNt7//Y
-	 5kJCweMf1dvvlh7ucSiPYGpD+gKgHGYccqhPa2XmA/VZP9Ya1bfkTmAmXY3XxmW8vmi/A
-	 okvFv9zG0pNRbwuCvUKwOpuyKFuuedDcnOM72yPpf7b9gvtK0PCM3Z61PDGcCC6WEgBDQ
-	 mve5wfg4OX4TAXn0VM7ULX42TkHEVkuBHP10PmCXsI1q68AefH+BB8DbW/K+aGwibxA==
+	b=aCTBwFRUlhSVTBrspIEmimlyJ7GsxajngFMkeWpkPiWPeSTdZMsuIrJIhq6VzcSg4giR
+	 1AB2KcgI0sdVjDx1anFI9bmXfEpiT9KScIja0Wd4coo71SHnMe/MOYdsihs7+8kxzVsn8
+	 1NA7pR5atTVbbhe7Hix35CkpW9M0yoGrnWl4z3ODbzHnFZpEocwfC0M+bb51QdKtt6tKu
+	 RVY0C+kUyASX4p8mfr8TLUxzCTALtYfZXhQ4bEY2IYOrXfqE9GJDW12NqfxMoSBLFyYNi
+	 lKvft6EVq9BFYyjrKhf0fNLdKLjN8I4In8xhkjv7YxI4GzDE2dpwMmSr8P1U5xr5t1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	arc=none smtp.remote-ip=209.85.160.69
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBE3606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:08:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BBE3606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4046D606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:08:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4046D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4fb73e868aaso186857b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:08:07 -0800 (PST)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-4519ef1babeso21531fac.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:08:21 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794146887; x=1794751687;
+        d=1e100.net; s=20260707; t=1794146901; x=1794751701;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
         bh=ks/fSaXENj2G87+dKwpcBMdl+Yql/DC38Jw8RAonNhE=;
-        b=Cy8vOA9GHCLJKS0gKvgClM2fRmsnKFWateRgh4kvXZTSN8TkzNcz8Iw23Ww1yOvVrp
-         mzMk4uKt397MgNTiOWou410sYHxev7dphamwtoGeWOJdl5U+SMLjTwasVf/2ENYomCJs
-         JwjPCCXU9r26a/F3ZX4tkyJj/JfeModmrixwiVOr5Hvp/t+VRgIXoJT8VIV452EpqT1B
-         31ye6MoJs0Qq2y3RY+YalAjgnM6AzGQIgj5sIBG6ssr8YC3KVQbveA1iBMJPpGZ6T364
-         ouTjRAh7+I0VEOr2SrRutbImnBMl219keW2Jjcrf9o7JmqAtpcMtEQiFvZw4+rs+yJ6c
-         pL8A==
-X-Gm-Message-State: APuU4Z91HHKhNuJFcY2Pr7CReOEfQDq/cl83DBqg4zx14Q7yUNdmXdsz
-	krpLI6lWVGGNFQvkFnHrTL5UU1265G+1LMmUpuJ4EMF0mu9JtXmQgDIO8NZDwLWTCbe6k/GqPrJ
-	d0bLSfCRw7ecDHKHp5PhqDRtnsW9n03i3AX1XyU760LtBxI8aeTXHL7z56QI=
+        b=OqBl+nU6ewPALjX4CryneWeqpA2Ash+EkEbn+X0ZxrHC3eZHuUvl7SfgjUWD6ykb4V
+         +M1jjzwPY9fZTjCnK+90s5JptcbGsChDMyHTLvm6yjfDbNFXUai3fMwmUmWzncPbyjZi
+         PxVsEq5NZTF3oI5y49SO92ya6mwS6ZCLHiDq46j8w5kOdRYootyoaqY8M23CL8OvPBFh
+         J1Tm0/7Q3E2wU9llArgF1nxZyV3S1sqF6LBY3tYyNlV9lXF5AN9ICy7vgKue6zggZJ2M
+         NvWpYdCViOgygiFsRdaUR/BUTLO0OPvCRIQdJa83TB+MA4kli0QaZ+ZVnZrCBtEtzfbS
+         9yfA==
+X-Gm-Message-State: APuU4Z/NoCi7R4jrBc+9Fwivg1wKJ5KAZc+1mE3o+AHcExwZj4yyNCfo
+	JmD7PhtF2FS0MuYG5bwdDZZOmx6rh1kCtUSMHsXZ36b/gaJLovSrumzUP/mhuPyDCSKjGFZraUb
+	t0DnUyWO7oBKzvD2ndyhdjEHDJ1oR2S+/yYbIPYSE3oxXyYNXbKuQ7YdqzpY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,14 +57,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1713:b0:4d6:9355:7547 with SMTP id
- 5614622812f47-5681469fd52mr919007b6e.66.1794146887024; Sun, 08 Nov 2026
- 06:08:07 -0800 (PST)
-Date: Sun, 08 Nov 2026 06:08:07 -0800
+X-Received: by 2002:a05:6808:192a:b0:55e:fa63:7001 with SMTP id
+ 5614622812f47-568146c5a1dmr1124676b6e.36.1794146901261; Sun, 08 Nov 2026
+ 06:08:21 -0800 (PST)
+Date: Sun, 08 Nov 2026 06:08:21 -0800
 In-Reply-To: <6aee17c4.8be4ead1.3b45e1.0199.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af08247.5a668245.1aceb6.000d.GAE@google.com>
+Message-ID: <6af08255.5a668245.1aceb6.000e.GAE@google.com>
 Subject: Forwarded: [PATCH] Fix warning empty list in svc_destroy
 From: syzbot <syzbot+8cbdf9aa6c281a4e6bbe@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
