@@ -1,123 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794104879;
-	b=MkOjWuXACE/eYaAKZjWHS3KnUwhO7SjC4cdrvYafKBxzsReG5hVSh/Ktu2AKju3hwomI
-	 aqZiXcoq8d2OTlKkaxepANW0hyivEfhjiy167qrzWL57ctXdI57rLIug2/4asK5ZMhdIG
-	 rlBwvgL9Qix3Gm7D8+0B0zOxkCHeVyUTG3wrfsAJ/3DqDgEIlA5WkXmf+g+qLZmGi2lcp
-	 gWRbdZgqVXnOHVvLIRNJkT6znK9QfpzRHET2WKplEaWUsNm4pq6zToQS+lp0m1wB+8Vog
-	 Iq3mEfkm2Bw7gLevZXzT3nYemiUPm5GAa9m8jxsQdEjYODXrdz6gipo+823AszFuqDg==
+	t=1794105310;
+	b=mMcBcwYkWtRELtJQHH4ebwC047N9M13sslFJzf+ZPTP9pLmVSH5AIge2HBPhrGV2RIP7
+	 ZhNmHugh/h2BLRv3ZZBJxhEhhcY5zfDDDuJ80muX3vcOkMVhGtZDZXjYmQg4ORn7a+s3D
+	 wuXY1PxwHdEiXaM7A+FgQPcWoPk1GK8kj0SvQOyQ1GZIFiMJYApInGk9WhTiggnkV3JaW
+	 OS/Csu5WbedhZWoH/G+CCwwkxax/XuuKQwnOaF1OekG29Jz1R1Sdrt+92npeDZt0gHnTt
+	 w78SqJRP78oMGBLhqIUvGKmd9dym9pFwqSCHDTd8UwoW+DKNTlCW5Xf6ZK4OEEEzPWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794104879;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CgFyMsoiKO2B1HX2AvfFumGFOpktUiaDt0kSWOji51M=;
-	b=EQqlSxJKNf3reiiTcdFe/IH3+DNtQXwHS34+mEFC1GbSiXuwm8xtQsLEys4l+X0LFoxP
-	 QeQ6x+nASPNaohckqNiAz5TEtG3/wutYPFGkLuE04Z3zSVRUczFRtqME3Y+s9GTDJpDtU
-	 yiNvheoXER1CSYr7kCGhi/+6NQ6G9bFt37ALpVHqJdxdLp+IMRnbr/NM2AMxj/OWpJCF8
-	 i27fUtfGXtljJAmGRwaB6LRV/FUi24RBraPKLZ8g7TmlFOQwbhFZsp1Ef78cfQmr9AcDG
-	 7bLrUI36MqPsY2RPJDkwcr1VLiVcwlGXAVp/nxtZh5a405AhWpIox8AZEVsU2gCn7mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794105310;
+	h=DMARC-Filter:DKIM-Signature:References:Reply-To:Cc:User-Agent:
+	 Received:Content-Type:From:Subject:Mime-Version:In-Reply-To:Date:
+	 Message-Id:Content-Transfer-Encoding:X-Lms-Return-Path:To:
+	 X-Original-From;
+	bh=dIGQ7eFrFlqilOLIYga1HIT7xjtRLeM8O7PmQE2HBkE=;
+	b=YJEMB+GkRbBQ8xecbCuv4djMW7UF2Go5cN0KF70X2lOn+SRDd9yWZv3DiLrItZxwemih
+	 lZEbx7w20hwr3awh3WHZeHA4vrdnbv7dIH+6uIDyLg3RYiKPdeXXsEvS2/IoJ6uO+BnKm
+	 EXeE6oULmlPxOhSWTFsguwQmhuJYtsGBsJrc6cqWdQ9YBBxdOih52WyhWnW84LmQu2fjW
+	 1OX4a8wxdNjpS5zSFqrsIv0r+Tl3OKnmNHZ3j7iLp7p0CfbhbW+ghqg6GAt14pGbh1+le
+	 GLc3lUDQLKmtPDp8rNAWXQ00xUZdR1MW0aYIloAUAhGWbV76UcuVLf2AdeXeOS4KolA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Crtt9KFl;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=D1oNLB7h;
+	arc=none smtp.remote-ip=209.127.231.18
+Received: from va-2-18.ptr.blmpb.com (va-2-18.ptr.blmpb.com [209.127.231.18])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA16F606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:27:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA16F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5292606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:35:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5292606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Crtt9KFl
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-170135e43c7so146706c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:27:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794104878; x=1794709678; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CgFyMsoiKO2B1HX2AvfFumGFOpktUiaDt0kSWOji51M=;
-        b=Crtt9KFlMLRjcguZk1VYPvhTgDNZMElzf0tf141OxRDD0nRpz/y1O2me5bx5zPEHRw
-         DOcFer5e04/3lH3hXFl06ApuJDKLG77CFSixsb0t6MlRt5PwYzLnVHXQt/lmhfJSUCov
-         8/IoZwOneMKYGudlQKvHL0tGwwIWFHD5bmHdaSx2Aca7D6KfUw3p0kAAsMbidPHSH9K6
-         Vtd7DUJBiDizA1z7P9/HbJj4YxUHaR6Y20nKVwijj6Y8lmutdnjW1IMT8sE8avgxaW3d
-         2oCXfkkFNdLeVsQOzUyKG8TFQRCGvgtR9ixvehQM1zvDECpHHm1ePN1spXa/oKXtzuE9
-         +A7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794104878; x=1794709678;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CgFyMsoiKO2B1HX2AvfFumGFOpktUiaDt0kSWOji51M=;
-        b=vkETI+fNjmGhs0N1KMxwX7lbmI1XLi1675mELLsOfCVO7PiupipYIqb3P/z33wzgGn
-         EIf5qbRb/3B9VzNOeQXgbZu163nvXGezjQ83ed/qeWfntywZZ1RaRDdIjA7Gph4RxnHe
-         kFedEJW1p+PweQCIgvBYCB7dOoyv4u5Qp5p/nwjw11Dqgggn+Yr6Irm8ieDE4n+Esd61
-         i4kwrFFDwmhjLuEUdyVNEqj5FTpa0XCUT1Yy7Be2XnNz200S/pXO0Z8akntfLjJhipc8
-         //NLwhjpJP56DyFcTHysivsabwxAsFTN5i/u7X3uWbPBVBQo7iqYt1tyDio6S/WTIXP4
-         i7cw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcCojpOR7E65WZOyNak1eGIzGjtP0wkew+gSB8CWSO5UlIJ/clcDrlB6Bqp2TseNn0BE/U/uoqFi92yXk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9yCuHW4ZzHt5l2kBCqXBo3K4H7Wgg7c9QI9bzFiOBwlviirV/t
-	ekgyIv81P/N7J5NpHcJtsF4yPmY3HA4L/EE3mKEqEOvbfz+nWyvwIYp/
-X-Gm-Gg: AYBFou31/Gmqcl+DUeFr/NKjNYF/3B044JuWsdmKtvONpr2ffyEUjy/5GqGKCm0fGI5
-	8cwB2fxdHnCINCbnz32fdkQQEXKYbEoosiqn8uGFA8m3Ts2t9GF6p5CTh/X07YU6rhY53dHyWkV
-	ZVeQFTzG5iDdprBlVRD9mY5lIyi9QYYRKqo4NWmt1zQyvlZBS5Mk6bRCG4fMb/sZX34ofvysMI/
-	CDt1WlgioSxzHIJcs9ssUZTq4vZBUicyAPgaa+UMP1Qfk/mY5eIu0gkEE1moqMHgarNXc9/zQ76
-	odiTLq1sxFCnsC0T8yxxIq8I3smLPepZ/h1FxD1o5qcgdcDhUsu1nt1KwRAoYQELrydVnyHSIhV
-	scSEE+RCc+DpuaUbeypvIzZnpnS1fosR/b6oDuVxxL7LaeHVTDsfNAI9Z2uMNjf17rOBvAyOXMF
-	NljQiX34UHlPhCqp84dnCgQrwWtbLrmGuLtSKIbzcRvsfp6ttrYBkwvAnsFX7vVRxln8Gk5yFBN
-	Op4Upmqyp/l7PQPmf+PNSYvLDdpjW1XrIC5eJgDXLfJhXUOugd4dtNnjtauT4VkJUN+pJle31Bm
-	l13DNU/WSNxPmxREf1Jv
-X-Received: by 2002:a05:7022:b0c6:b0:190:d0d9:3110 with SMTP id a92af1059eb24-1b39ff2dademr463410c88.45.1794104877934;
-        Sat, 07 Nov 2026 18:27:57 -0800 (PST)
-Received: from debian ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771ea85bsm2390172c88.18.2026.11.07.18.27.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 18:27:57 -0800 (PST)
-Date: Sat, 7 Nov 2026 21:27:32 -0500
-From: Kwanghoon Son <asdfkwang@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
-Message-ID: <au_eFNCt54nlCafy@debian>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
- <20261029-spyglass-evasion-772697094cb9@spud>
- <20261029-amuser-savior-6a6ab062f471@spud>
- <auSDJH9V31wmbrYv@debian>
- <20261030-slider-finished-360b10521e0b@spud>
- <auXQaY25XfYzxEb1@debian>
- <20261102-throng-botanical-b244058ecc37@spud>
- <auqC9jOIQTyieQUJ@debian>
- <20261106-dislike-despise-91106ac848dd@spud>
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=D1oNLB7h
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1794105301;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=dIGQ7eFrFlqilOLIYga1HIT7xjtRLeM8O7PmQE2HBkE=;
+ b=D1oNLB7hcmv9zuQ5nejNyeJb49LJFqdSDnfqv/EGezidyfuw3hn3VeDuWXnpnaLgW52GWb
+ WpKqi17vIsA7+Qrr9/hc1fmfwBGaPkb332zCmBIYoomoY+cv9nb7NkpQpARmN3EJpoPmNq
+ VuJnQig+vYO9At8FMitB2t/jZeWOg50JWH4///XuX6quBYkdLq7/8o8oK8AUJca0XO2WSG
+ GHwbpiQe8JtVYbOdO2bH73g/31HZKfaL43zcwOsvqlCgdOM+gmsfrZfLAMfpH4WE90thjf
+ +KXMybxUAc4JSN9VnuIPIFoPoGAJTQiBww7S1pTslWQCH59ULMkdj3oNZpEQsw==
+References: <20261102083815.127751-1-wozizhi@huaweicloud.com> <20261102083815.127751-2-wozizhi@huaweicloud.com> <bc03d165-55fa-4029-b653-eb5359a2816c@fygo.io> <ecaeda04-e90b-450b-a591-3cc3cc85fb5f@huaweicloud.com>
+Reply-To: yukuai@fygo.io
+Cc: <linux-kernel@vger.kernel.org>, <yangerkun@huawei.com>, 
+	<chengzhihao1@huawei.com>, <wozizhi@huawei.com>
+User-Agent: Mozilla Thunderbird
+Received: from [192.168.1.104] ([39.182.0.55]) by smtp.larksuite.com with ESMTPS; Sun, 08 Nov 2026 02:34:59 +0000
+Content-Type: text/plain; charset=UTF-8
+From: "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH V3 1/3] md/raid0: reject a takeover whose zones cannot cover the array
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,40 +61,218 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-dislike-despise-91106ac848dd@spud>
+Mime-Version: 1.0
+In-Reply-To: <ecaeda04-e90b-450b-a591-3cc3cc85fb5f@huaweicloud.com>
+Date: Sun, 8 Nov 2026 10:34:56 +0800
+Message-Id: <f3d1b920-9e57-479d-8169-25e68bfe8bac@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26aefdfd4+c95376+vger.kernel.org+yukuai@fygo.io>
+To: "Zizhi Wo" <wozizhi@huaweicloud.com>, <song@kernel.org>, 
+	<magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, "yu kuai" <yukuai@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
 
-On Fri, Nov 06, 2026 at 06:00:13PM +0000, Conor Dooley wrote:
-> 
-> Cool. One thing that I noticed, and felt it was a bit odd actually is
-> that the uarts are fed directly from the crystal oscillator. Jisheng had
-> that in his original series though so I assume that's actually how the
-> hardware works?
+Hi,
 
-I carried over the direct crystal reference from Jisheng's series.
-But will change in v2.
+=E5=9C=A8 2026/11/6 16:20, Zizhi Wo =E5=86=99=E9=81=93:
+> Hi=EF=BC=8Cyukuai
+>
+> =E5=9C=A8 2026/11/6 14:34, yu kuai =E5=86=99=E9=81=93:
+>> Hi,
+>>
+>> =E5=9C=A8 2026/11/2 16:38, Zizhi Wo =E5=86=99=E9=81=93:
+>>> From: Zizhi Wo <wozizhi@huawei.com>
+>>>
+>>> If a raid0 takeover builds strip zones that cover less than the=20
+>>> advertised
+>>> array size, the block layer still accepts I/O for the whole size.
+>>> raid0_make_request() hands any request past the zones to the mapping=20
+>>> code,
+>>> which fails to map it and triggers a BUG_ON.
+>>>
+>>> The zones are built from the member sizes in rdev->sectors, which=20
+>>> may not
+>>> match the size the array already advertises, so the zones can come out
+>>> covering less than it. The extreme case is a member with no size=20
+>>> recorded
+>>> at all: an array created without metadata imports its devices through
+>>> md_import_device(dev, -1, -1), which never sets rdev->sectors, and
+>>> bind_rdev_to_array() does not reject such a member either, because its
+>>> check that mddev->dev_sectors fits inside a member is skipped when
+>>> rdev->sectors is zero.
+>>>
+>>> Refuse a raid0 takeover when its zones cannot cover the size the=20
+>>> gendisk
+>>> advertises. This prevents the takeover from silently shrinking the=20
+>>> array,
+>>> mirroring the rule raid5_start_reshape() and raid10_start_reshape()=20
+>>> apply
+>>> to a reshape.
+>>>
+>>> The check iterates the same devices and uses the same rounding as
+>>> create_strip_zones(). It does not skip devices with rdev->raid_disk=20
+>>> < 0:
+>>> such devices cannot be raid0 members, so counting them only=20
+>>> overestimates
+>>> the coverage and, if present, the takeover fails later in
+>>> create_strip_zones() anyway.
+>>>
+>>> Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and=20
+>>> Raid10->Raid0 takeover")
+>>> Fixes: fc3a08b85b7a ("Add raid1->raid0 takeover support")
+>>> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+>>> ---
+>>> =C2=A0=C2=A0 drivers/md/raid0.c | 37 ++++++++++++++++++++++++++++++++++=
++++
+>>> =C2=A0=C2=A0 1 file changed, 37 insertions(+)
+>>>
+>>> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+>>> index 35e103f0c2c3..fccc62a5fecc 100644
+>>> --- a/drivers/md/raid0.c
+>>> +++ b/drivers/md/raid0.c
+>>> @@ -643,6 +643,34 @@ static void raid0_error(struct mddev *mddev,=20
+>>> struct md_rdev *rdev)
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>> =C2=A0=C2=A0 }
+>>> =C2=A0=C2=A0 +/*
+>>> + * Refuse a takeover whose strip zones cannot cover the capacity=20
+>>> the gendisk
+>>> + * advertises: raid0 derives those zones from the sizes of its=20
+>>> members, so
+>>> + * find_zone() cannot map I/O that falls beyond them.
+>>> + */
+>>> +static int raid0_takeover_check(struct mddev *mddev, int chunk)
+>>> +{
+>>> +=C2=A0=C2=A0=C2=A0 sector_t capacity =3D get_capacity(mddev->gendisk);
+>>> +=C2=A0=C2=A0=C2=A0 sector_t coverage =3D 0;
+>>> +=C2=A0=C2=A0=C2=A0 struct md_rdev *rdev;
+>>> +
+>>> +=C2=A0=C2=A0=C2=A0 rdev_for_each(rdev, mddev) {
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sector_t sectors =3D rdev->=
+sectors;
+>>> +
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sector_div(sectors, chunk);
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 coverage +=3D sectors * chu=
+nk;
+>>> +=C2=A0=C2=A0=C2=A0 }
+>>> +
+>>> +=C2=A0=C2=A0=C2=A0 if (coverage < capacity) {
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_warn("md/raid0:%s: refus=
+ing takeover, zones cover only=20
+>>> %llu of %llu sectors\n",
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mdn=
+ame(mddev), (unsigned long long)coverage,
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (un=
+signed long long)capacity);
+>>
+>> Other than raid1, other levels already have mddev->chunk_secotrs set,=20
+>> and raid456/raid10 already
+>> have a full functional raid0, their takeover can not fail.
+>>
+>> Noted normally mdadm will set rdev->sectors and 1.x metadata will=20
+>> reject zero rdev->sectors in super_1_load.
+>> However, it's still possible raid1 can be created with rdev->sectors=20
+>> be zero, this is the root cause of the
+>> problem syzbot reported.
+>>
+>
+> Please consider the following two cases, both of which reproduce the
+> same BUG_ON locally for me:
+>
+> 1. An array created without metadata leaves rdev->sectors at 0. This
+> isn't raid1-specific =E2=80=94 raid10 hits the same BUG_ON too. raid45 on=
+ly
+> escapes because raid0_takeover_raid45() overwrites rdev->sectors with
+> mddev->dev_sectors first; raid0_takeover_raid10() doesn't.
 
-UART3's baud clock passes through a mux and divider. The current M1s
-firmware selects the 40 MHz crystal via MM_XCLK, while the APB register
-interface runs at 160 MHz.
+This is still legacy usage, and root cause is still that rdev->sectors be 0=
+.
 
-Following your feedback, the UART node in my v2 work now describes
-complete form of clock itself.
-two clock inputs:
+>
+> 2. Even with valid non-zero rdev->sectors, growing the chunk of a
+> running raid45 can make the post-takeover coverage smaller than the
+> previously advertised gendisk capacity. E.g. create a raid5 with
+> component_size=3D8K, chunk=3D4K, run it, then change chunk to 16K and run
+> raid0_takeover_raid45().
 
-clocks = <&uart_apb>, <&uart_baud>;
-clock-names = "apb", "baud";
+How can chunksize grow to 16k in this case?
 
-uart_apb: clock-uart-apb {
-    compatible = "fixed-clock";
-    #clock-cells = <0>;
-    clock-frequency = <160000000>;
-};
+>
+> So I think the real root cause is that the size changes across the
+> takeover, and rdev->sectors =3D=3D 0 is just one special case of it. That=
+'s
+> why the patch compares coverage against the gendisk capacity on every
+> takeover path.
+>
+> For case 2, the problem exists even without a takeover: if the chunk
+> change shrinks the usable size, I/O from the upper filesystem will break
+> just the same. So I'm now inclined to reject a chunk change in raid5/10
+> when it would shrink the usable array size, and additionally check rdev-
+> >sectors for raid1/10 at the takeover path. What do you think?
 
-The fixed-clock providers currently reflect the firmware settings.
-I'll add proper clock-controller support before submitting the DTS.
+There is always a top rule that running array can be mounted, hence any
+changes should not introduce data lost.
 
-Best regards,
-kwang.
+>
+> Thanks,
+> Zizhi Wo
+>
+>> Although raid0_takeover_raid1() already calculate chunksect by=20
+>> mddev->array_sectors, which is exactly the
+>> real rdev->sectors for raid1, and it should be guaranteed such=20
+>> takeover can succeed. However, as it's legacy
+>> usage that rdev->sectors can be zero, I'll suggest just checking=20
+>> rdev->sectors in raid0_takeover_raid1() and
+>> reject if it's 0.
+>>
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
+>>> +=C2=A0=C2=A0=C2=A0 }
+>>> +
+>>> +=C2=A0=C2=A0=C2=A0 return 0;
+>>> +}
+>>> +
+>>> =C2=A0=C2=A0 static void *raid0_takeover_raid45(struct mddev *mddev)
+>>> =C2=A0=C2=A0 {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct md_rdev *rdev;
+>>> @@ -665,6 +693,9 @@ static void *raid0_takeover_raid45(struct mddev=20
+>>> *mddev)
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rdev->sect=
+ors =3D mddev->dev_sectors;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 if (raid0_takeover_check(mddev, mddev-=
+>chunk_sectors))
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR_PTR(-EINVAL);
+>>> +
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Set new parameters */
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_level =3D 0;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_layout =3D 0;
+>>> @@ -707,6 +738,9 @@ static void *raid0_takeover_raid10(struct mddev=20
+>>> *mddev)
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR=
+_PTR(-EINVAL);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 if (raid0_takeover_check(mddev, mddev-=
+>chunk_sectors))
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR_PTR(-EINVAL);
+>>> +
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Set new parameters */
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_level =3D 0;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_layout =3D 0;
+>>> @@ -750,6 +784,9 @@ static void *raid0_takeover_raid1(struct mddev=20
+>>> *mddev)
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* array s=
+ize does not allow a suitable chunk size */
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR=
+_PTR(-EINVAL);
+>>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 if (raid0_takeover_check(mddev, chunks=
+ect))
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR_PTR(-EINVAL);
+>>> +
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Set new parameters */
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_level =3D 0;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_layout =3D 0;
+>>
+>
+--=20
+Thanks,
+Kuai
