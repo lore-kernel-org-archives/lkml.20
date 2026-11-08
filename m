@@ -1,88 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794178591;
-	b=z83KN6WlsYgWDJrF9CoM7EcR+tOQpkace1PSoeLTX4MaUUaTbVC+Bp51dmNvLpJhRl/r
-	 IWEsKUf2rV1pFwMx5CWrTN495Urq+fcZJI3x797R/s5WhLYIYDPn2YKkRwoQmrXsvBunM
-	 4QISAhYTn4XOuGPyddymRMUmp5/uOslTvelWZaUtN8uavDWnukH7tHgfHzgV8GUgX8tjF
-	 laOZt3UUvcqCz0VoVdz3VzrPJaSP6hycQXt1oC+n1F3xOtd8ApgKCWs3A1hl55vWpYk7S
-	 App/ZbuFfy27FEAy7luEITPLpELhm54VvtiTkMpzQdjmyZyjPGYqq9nc9JQTgOrjLnQ==
+	t=1794178621;
+	b=ugFR8y5iAfb3XS6BxfvmwE2clki2aQavlc0tjEn+hnGaI9jNGCsXjvoHhaW3xZRxAjfW
+	 F/K7f09bKk+bbfxf+62Pi7uofWJhatS6z+pI0KD6RpTXbJcNrjB1bZOYtt+sLcseCc116
+	 QVs7/QDkwBlzlghIBQQZOsRrAUWabOsBMc53zn5FkmbwuFlaLX3vr7Saj3ExGREp/imKX
+	 UEmly1kFMbbh+mhSYWzP9wNrW8ZSH1un/1tmZoo/paihj7cOSAQCSpchjU3p11jameXks
+	 qYM/ZRGp7kC1rRDw0KrHXqz7F57B20W6aZNgZMFl6q8pgAIMU+1LtifPCbwmulifFpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794178591;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Ong8M8NnsMoNWNiK2IwB98XwGEmnJ9d7Cx6T8KGpqG4=;
-	b=HjBtI0Zx39ll+aZ9Jzq4jmuYGg/oxX/ZxYrli2OWQRZyx2nNYwqhUalIxbm2oEdugasT
-	 41mOYd14WrKJW0rZBo/YPgs5jOwpWyH7o0B+W0NXQau5ZVOgxsghilYNsXo3H0TWJKbB3
-	 6wiTfXY5J5GJvjkWNR6hlNPUFGAOgFttCvpw+6RGSEPp+iabEXiZ3c4xrfBxluwBXRdPx
-	 Iim42zLFkgmJhLYZFOxYF7B5REwaa72HtGFxfEM0vsqgmp1/XARUGc4VOuXPVlgIg2VIA
-	 7zsz1Vt3UEkLjEtWom0t+gmFXu4HAactSIiphfSzUSK8He+M9e9GtcSUUHXBg5iRm1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794178621;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=20LGVkr7OyVCpXpA7vzhMSUIjmcZLUme60763s7WuI4=;
+	b=z67D43467yWffQja7I7Nz5AABV9untfleozi6LEL0Vx6uuCXtiPXGDtyy7Jspzs6hnbS
+	 sKPBIv8WsiAj7jVb4Jjl9eCInJHcN/4elkWS2Am4cXFNXZspYPWEuL0vbLmcmwf8G078t
+	 YE8orxzpoXhgv2sW3pK8pPyeTCBwbewyZufkH4HwQEBqBsDnCj34TtuqNwN1qjDz3aB/E
+	 vxM25qGzX6cz6EMoqk92zMaCgl5kJCcvURvusCgU1wrQj7XSvXrMt78NiS/+U2QdFbZr8
+	 kEQAnNR+dnEzCJigzm3wQ17O9FZsHUoHsGp4ZHYBUEKiVp9eS85/P9nYSWf1Mpa2qnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="oTIm5aO/";
-	arc=none smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXRE6x6S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B005606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:56:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B005606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC6D606A31C;
+	Sun,  8 Nov 2026 22:57:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oTIm5aO/
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b32bbd39d5so1711767b3.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:56:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794178590; x=1794783390; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ong8M8NnsMoNWNiK2IwB98XwGEmnJ9d7Cx6T8KGpqG4=;
-        b=oTIm5aO/zi5YcfOC6auPAsCQAocZYKj2aWt9GAeuuh5RcAFgrDzNETk6vzkRSzxuSQ
-         +sz1j2M1fgmBXHqcnQa2tt01gzYQDAHRcSDVIznDW43MwetiRLNrGMrFxN5tuynNVrro
-         BHESRr1qkclxcWS1vGyr4puumC39kywqq7YNawpFoqOpctspnIWmRIwHtPPSTctOAYQQ
-         WpFxWpUAfbXrowcxTVSJZxcKGNipPCtcnxMDfX8P4i4q4Fn4ihOpVUuh8nVWwWHCPbvD
-         nCs7eSSXzMX5oHYX6IgfT9cxTb/LOZ7Ja0hB1DVq965T4HwW/IfjcwrOxna/xJw8KUsk
-         LNDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794178590; x=1794783390;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Ong8M8NnsMoNWNiK2IwB98XwGEmnJ9d7Cx6T8KGpqG4=;
-        b=Dxv0+DrMdwDPcEny2et55OGcy5qskxrE9qniVAm0z+Ilfzwf50XV6BzHTXu2Q7NJQq
-         lekWts22KLIhnqg88819smESzBCHX+DXcOnLtkoisWk6QeFv3hgT+k0uNvFpKuCVdL61
-         0gxyh2E1E8sWxUtfg2ilUOBHvcxCJr1buABEJ3O/9RnGV0riG6B5ELpk+FeYyKfgDKdN
-         vGoPJlHkWazPQPZhm1/tjSu+e/wL8ShCtvyU1JLEAuFcKa9lSAHeLN0HtureC2YLtix5
-         KNkS78sVh28ptuRt/SyH+bGMAwOie5CIombg+1Egi3IwKxv7omJn1fotGiLZ+dkaKcR2
-         WLnQ==
-X-Forwarded-Encrypted: i=1; AL+hErH+6uCnCdmxHYdbXPflpfU9Wy1l82tWKGrNzghaWE4D1lI/lPRN/ySt7CLQQmDVuesej7gcGiPaZxjikR8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9VYCv60ZwZoJC11Ao+FdtjgO5w4oQddokn8GaRshpW2xBPfELx
-	5YjmWvC2mqMUKOzRYMCp+OmBhuTmW7PreZdYhd35H/DHPkkgbzbNVmZJ
-X-Gm-Gg: AYBFou2y8nEcGryCNQdwl5iU3eRkzp5Ud0vobLKFVpu3ZIh/WwdezS7YOaIheyDi9KB
-	vYY+ZR0TA3VDQ8SoUnM4ScZ0Hq056FpJp6c83hOBWzt30RhUmKxZxNXLjyNRjdhTspMBR0ofByQ
-	8606FKTjaO9s5uxKIlAyCZ1j687hIcPp9Hk9DI/G6ZA1GfeXFB2LSexJ7qbAruawVTp+8BN+jFj
-	ju++bllb9gWaZ4W0452dX/Bv0emyi2x3nDrB8vLC1jwPYrNftdgLJqhZYY0+ixh0lGtHyvFnfCO
-	gNDeXj8KN+uN1JeRYsjjTelAx6KfWgqVkCp5PlcttB0igMhizKKJbFJKmY0irgnoZJWN+t8j1Ki
-	J9ar0//Ezt9SPH1cl0q+FMgf3IKBZ0V8MVZr4cAPGq3iLzy024rl3we7IZYLoj26/RTB5peKxDa
-	tq5VI7uIgiJV+GH3Vf2vcLEanIL/3a68OLk2mfSj+NI8NYdY/dPCg5ZxNiBbcMT/v2FPe0dY0/e
-	iYSaKyHAaMsw38h1SUO9FsSu/AAKVkriB7hdO/+oWTIEaZ872+cvJwAiGeeQR89H9xTaCWu8vEh
-	/cVTYrgFp+5sW+VsQErb3fYoj+xp
-X-Received: by 2002:a05:690c:660d:b0:8b2:bb94:8cb2 with SMTP id 00721157ae682-8b36cb31f80mr15270887b3.35.1794178590140;
-        Sun, 08 Nov 2026 14:56:30 -0800 (PST)
-Received: from [192.168.100.70] ([2800:40:44:f1f5:f400:4c49:91c1:9905])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36be7d88dsm22485597b3.39.2026.11.08.14.56.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:56:29 -0800 (PST)
-From: Kurt Borja <kuurtb@gmail.com>
-Date: Sun, 08 Nov 2026 19:55:51 -0300
-Subject: [PATCH] iio: adc: ti-ads1262: use umin() for excitation array
- lengths
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXRE6x6S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D71C1F0089F;
+	Sun,  8 Nov 2026 22:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794178620;
+	bh=20LGVkr7OyVCpXpA7vzhMSUIjmcZLUme60763s7WuI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LXRE6x6SdG7IyarknMia1YiU8msG0Ve5ktruCyF0lCx+UVcgvavx8E+O78sPKTsGG
+	 x5+n5UPog+1EzaoORkKrMCILjgKfrifmQUiZVggZUBou2tqsshQs2fe5PG51J+trjH
+	 dKpNJY0KX5zLqfrgGZEfZDmflcz024+wfgXVOl4nnvuWXLPsZcydJrzH6WkbsZrlN4
+	 HBO2PGhub/47bFEdy+0XlTr2OPB5YVKtkl+Q8WIDCWSPgdljaHJI6b4F3wfI4qsbqg
+	 1VoEn+HG0mveOemARyuRmlDOMjnHg7wBGxZyuMlJXXd9evDRmRKRh/Yp3xS5Pe18nV
+	 ue8KI0YIlRAbQ==
+Date: Sun, 8 Nov 2026 22:56:55 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Owen O'Hehir <oo.hehir@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-rtc@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Hal Feng <hal.feng@starfivetech.com>,
+	"ziv.xu" <ziv.xu@starfivetech.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: rtc: Add StarFive JH7110 RTC
+Message-ID: <20261108-arrogant-comfy-702e4005ffb9@spud>
+References: <20261108212826.15890-1-oo.hehir@gmail.com>
+ <20261108212826.15890-2-oo.hehir@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,72 +67,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-ti-ads1262-excitation-umin-v1-1-65929a66394d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtoiivqq4iH2KUawSpNNwZj7
- 746j9/h/xcwKSoGl26BIpOafnIDHTqIT84PQR2awTsfiNwJqyIPRj54lDlq5doKHN+akft05kC
- ud8cEbfAtknTe59fb3zbeXxLr7wjrugEADYzlfgAAAA==
-X-Change-ID: 20261108-ti-ads1262-excitation-umin-a5f9a610504f
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>
-Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel test robot <lkp@intel.com>, Kurt Borja <kuurtb@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1861; i=kuurtb@gmail.com;
- h=from:subject:message-id; bh=EO3cEjfaSpMTJmz44W6v6HuhGs+DvNb3D0mEU0wKIOM=;
- b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkf/v7OXJ996Ldf+/m5rC12UzyKbxtoB61htvtu+2pnw
- UO/pKLmjlIWBjEuBlkxRZb2hEXfHkXlvfU7EHofZg4rE8gQBi5OAZjI8wWMDHsqP8k2RDf9MO7U
- /D9R3OqzjutORcH5dxXTH204+dvRcSojw/ULc5bYKMxLvL1WRUZuovzBHe/uHJoWpqjsk/b0y93
- Ad6wA
-X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
- fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SjCXAX+7+0ikTLlp"
+Content-Disposition: inline
+In-Reply-To: <20261108212826.15890-2-oo.hehir@gmail.com>
 
-min() rejects mixing the signed count with the unsigned ARRAY_SIZE()
-unless the compiler can prove count is non-negative, which fails on
-some configs and breaks the build. count is already checked to be
-non-negative, so use umin().
+--SjCXAX+7+0ikTLlp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610241549.J9R32Wf7-lkp@intel.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202611080814.7RmHoQ6e-lkp@intel.com/
-Fixes: b0b43a26dfc9 ("iio: adc: ti-ads1262: support excitation currents")
-Signed-off-by: Kurt Borja <kuurtb@gmail.com>
----
- drivers/iio/adc/ti-ads1262.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-index 66a7fedfefde..58a8eacc6ef5 100644
---- a/drivers/iio/adc/ti-ads1262.c
-+++ b/drivers/iio/adc/ti-ads1262.c
-@@ -1807,7 +1807,7 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
- 		pins[0] = ADS1262_IDACMUX_NO_CONN;
- 		pins[1] = ADS1262_IDACMUX_NO_CONN;
- 		ret = fwnode_property_read_u32_array(node, "excitation-channels",
--						     pins, min(count, ARRAY_SIZE(pins)));
-+						     pins, umin(count, ARRAY_SIZE(pins)));
- 		if (ret)
- 			return dev_err_probe(dev, ret,
- 					     "%pfwP: failed to read excitation-channels\n", node);
-@@ -1820,7 +1820,7 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
- 		mags[0] = 0;
- 		mags[1] = 0;
- 		ret = fwnode_property_read_u32_array(node, "excitation-current-nanoamp",
--						     mags, min(count, ARRAY_SIZE(mags)));
-+						     mags, umin(count, ARRAY_SIZE(mags)));
- 		if (ret)
- 			return dev_err_probe(dev, ret,
- 					     "%pfwP: failed to read excitation-current-nanoamp\n",
+--SjCXAX+7+0ikTLlp
+Content-Type: application/pgp-signature; name=signature.asc
 
----
-base-commit: b70566610b48ba49dec636019da4d696db64b085
-change-id: 20261108-ti-ads1262-excitation-umin-a5f9a610504f
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Thanks, 
- ~ Kurt
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavD+MQAKCRB4tDGHoIJi
+0pnsAP0eKWJ6w6W1snNjKukK8Fjs/2I49K2VUTuJDFtynSBZkgD+PikODNItjDsS
+5JRL6HhB3lWBTwpaxHIxtWpOFzjT7wM=
+=iVtu
+-----END PGP SIGNATURE-----
 
+--SjCXAX+7+0ikTLlp--
