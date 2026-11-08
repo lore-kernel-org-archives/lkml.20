@@ -1,62 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169410;
-	b=ZAjC//pXKcZ6i9VL8ADFAFPAlfvDPqrmple62CZe7i1pI/qNGbpYM6CnpjzYG4/2hKY5
-	 yWl4AC1piel9KZmhZYZB0SGehGsntN3Y8BY6XnYJ/nRLcUQpa+F1rfhBh2Mvx2z9ld3FU
-	 zvBAkHXNKbEbxPC4f7T3Ccjb9aV9hON39kFl0Lji537nP/krh5Q48gp9aTROKyWT8S71c
-	 oJ9h85T5hedLapvZpez0aHpouaPyydykRd1BUA4tRzYd8eLgOfcpsB0hCnu5BR/PyPNtA
-	 8CD2dqA71xDMcr7sOWVtobVGHP9KFpR7zqdMcqEUy0RL8lUxu56W4CfJWnqPDNiEduQ==
+	t=1794169426;
+	b=1VD0qSs1A1fkylDofWNZeGUSzSWGWAG4fMqpIbUYSCrEv3IvOXtwnPtMWXS7+wEAxo5J
+	 AvzSzBQ/LuvRTsMdSKUtvklXyh0tCo21YwyhvwDjb2+NuuvviEJSGxa1p153UfTAKbkDk
+	 zjSjshyvOszxb3cmT/fgn+LTQQ64VRElOyhLy+Pr1MM+bPz6xv9lO3yVfOf9SS+Y2i03J
+	 0EBSCHPlPd3scvoHSmTtD24UwsvdxZCusuANnSUfFnGvzCLmxHf+o6i/q1C0ahiFds6lF
+	 r9y81D7IVIyT9zxgsvlUUWEWfG6YB7oxfTMSeH1L5V25v+baKbiY1vxkTzSDAOjRtNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169410;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169426;
+	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=1dtWyhD7jwZKZFG5AGRcSW6g5SyHSgdWtbJuXnuJu0A=;
-	b=tdo9P2NPj0FpW+3LqfiYCbJP3WgYH2SC5wE/QJeJjDJoGnAbfiChZWq4Jpthbe621cdF
-	 KHQYYWBb4fGb6i+OkIwjyBcotRKfCSchaSN0AZg4eiW3JmrBSU+4jH7P4tm2IxTOd8ltV
-	 FRiiNoQX15GRORcxg8ru6i+wML2Apqk71thPvAssE0lcwf6tpS5IGP8D5fbBr7Yi8Z9gq
-	 /xc9krm4YYHgcnoLiqTSwNRIBq+wHOHokJvUlwxfdYAShqsAif8NkteTIIwsrPiJxPiZY
-	 P6nAA4DOBhiLTyujvqAVKARLnpguZ4qB3czqlKDTod0EtRtC+U808efrl/bg7uKQAuw==
+	bh=gNp286dN1y431e+JOIpDAIsE4dpizj4zLtHy+AApvAE=;
+	b=lxhpXs8LeK8Ou4POfqjU6t7IUU7sdEiGAWo0dOt4+Ns1XBJTuCxV7Pdp9PGpdOzsri0k
+	 ABe6m94OqRPErWHFHLeziyqtMewYTkeXr0ZAXamMHqZ2Gjr0KuvRf8EgJ5f+9pgtE2wqk
+	 +c0mk92j3oiDX0BzltLxHdYCJBIvCDaQ5GqTM3LlbKtJQdzIUIKOuUOfhIIeKzvHtl3kP
+	 bwLk4LgLo86ijp6bB7YWuNUNuZfMUcsCBTIV7GXEwZhQ+OjM0OrfPCHFyYaXQ3DWcUAvz
+	 hmCdOhC90TSGERyG5g3/GySIj690TPVWbCES6vL1UK4Sj1TaXccRABe8l3Ytu68qFnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hup9f5vz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMU1IkxK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ABE6071630;
-	Sun,  8 Nov 2026 20:23:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEE8606EE95;
+	Sun,  8 Nov 2026 20:23:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hup9f5vz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B21C1F008BE;
-	Sun,  8 Nov 2026 20:23:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMU1IkxK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F8951F008A7;
+	Sun,  8 Nov 2026 20:23:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169409;
-	bh=1dtWyhD7jwZKZFG5AGRcSW6g5SyHSgdWtbJuXnuJu0A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hup9f5vzJANYZxWKk2z1XOYjN/I6tNFz4AtFtfySO4N7Ino1xcI4DIiHYzGCZVXgF
-	 QETxiJHpuvvvpCASBLQiepdQY5GxY8+WLHXkNxsbvDbEOcbLY9DxRiP2el0Z6FuhoI
-	 sVE0ISYFveLTXAKN5iVmO9ETql44rtBER8OJJEz1PtW+yUwa5NKp+W92y44OId5jmW
-	 ArZr0ggFG1KhFJOHZy6fl3z/AI8LJUvu3Yq2I3V9KdrR57zE1RfXHqeZ00hCafxj+g
-	 3In948WocHpQ4C8RtDURWNbqCFfWAGecHEtH1HyDQxy6fWMmBhrrA/4OuxM8FgBNdE
-	 M9XflQaM+lxeQ==
+	s=k20260515; t=1794169425;
+	bh=gNp286dN1y431e+JOIpDAIsE4dpizj4zLtHy+AApvAE=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=BMU1IkxKqnp7+JI5D40+iApUJYIAYoXFCbjfuokWwx7qob3gANj4ER8ViEco6iLjw
+	 HQX2H5WWsavERbTqL8SGw/EI01s3+jU6DsD+xNxtBqcs6sVHpuazmXJ3gn9k+EnE+K
+	 lKWjeJ35phLnnUit6teqQ39kCwGyprYbsPEvwgCrLznJxezaZXfm3xsUG8vtFzRN13
+	 X12M9/OczmwhN0Rr10fOFY6tM+g/jRcaQjrKkvQB0LvcV0VHtE69YVaKphMLwKXPkJ
+	 RfFJXV9TQsvgGbnfGCtZWjl6mHWwHfFbPpx42/I/0GPf1Q5AGcM/LPFlec0ZbIPXNd
+	 kjUjfMAx3aczg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Danila Tikhonov <danila@mainlining.org>,
+	David Wronek <davidwronek@gmail.com>,
 	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v3 0/3] Add support for reporting boot status on Qualcomm IPQ9574 and IPQ5332
-Date: Sun,  8 Nov 2026 14:20:14 -0600
-Message-ID: <179416929436.628393.11004902662518300994.b4-ty@b4>
+Subject: Re: [PATCH v2] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+Date: Sun,  8 Nov 2026 14:20:27 -0600
+Message-ID: <179416929233.628393.7856728142051372012.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-imem_restart_reason-v3-0-e6b1ff5de841@oss.qualcomm.com>
-References: <20261019-imem_restart_reason-v3-0-e6b1ff5de841@oss.qualcomm.com>
+In-Reply-To: <20260827063940.44497-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260827063940.44497-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,14 +74,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 22:16:15 +0530, Kathiravan Thirumoorthy wrote:
-> Similar to IPQ5424, add the IMEM node and the restart-reason child node
-> on IPQ9574 and IPQ5332 to enable reporting of watchdog boot status.
+On Thu, 27 Aug 2026 08:39:41 +0200, Krzysztof Kozlowski wrote:
+> Bindings for Qualcomm SM7150 and SM6375 GCC clock controllers are
+> identical, so this could be one file for less handling and encouraging
+> future grouping of similar devices (like SM7250 which also would fit here).
 
 Applied, thanks!
 
-[1/3] dt-bindings: sram: Document IMEM found in Qualcomm's IPQ9574 and IPQ5332
-      commit: dbec23d260c9db8bad6537ecf6aea40c475f5352
+[1/1] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+      commit: 12a5b06075dba5d6f803cab8b5868bcc5bc2b6e1
 
 Best regards,
 -- 
