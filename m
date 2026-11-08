@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169453;
-	b=teLDdRu2GQ05rScmBqXyUbwzTbRKSVtaHa4pqVmTnNbqMfs5iguspjxbe1qhKzmIWDz5
-	 myXOSTiHgnKRrHTGK+XBG1/qXptEb73XfyaTc4tSAIKdPgvlkrFJXRF10ra3/R5lPDWtU
-	 HXWC1YQl3aIXJGGYu5J1pUo7WxUcQVKMjURXXxFBjKV56zolF6tg4RKvKhflptAxnkVU5
-	 4dr66N2NOM0Wz5ZAI6AK3Qf5kEdP2mYYYg8uMzkD43Ji9ltT0AZy8inF/b3KPjd7tHJ6W
-	 DXm5lWq3JT2BFv1/LeNukgheZ4xncboIlGOWcoZtCA56jLUHhHs3MQs1dj3gusdc6wQ==
+	t=1794169463;
+	b=U7X9Ku1zkgRil1W4ZNY9Lq8HbAhXJWNX1hrshvdeMFYL3u7mIAU5rKzCeE+ZCAOhvgPS
+	 Fpofhjm5YllSRKYPnevMB02MQpSC9fk7zu3NzNajo92stXja4kq1pRtYT5sTnhmpASd1P
+	 3qEEiV++9x6UM1JxItm6xJZjROeY1xF+xmCHhFavHdr39bovECtZ4qTbN6nSga+jKSYRc
+	 OBzMAA7tu0BClVJcn5KCHOVYyflQTyD4aSuxZ43bTHAOIcB/Me/EED1qMshj7aFif/ECt
+	 zaqkMXXofu3AvRFJ9wuAmGOYxcK0m9gLK5QhRWE948PNral/sXjhuh+LeWp2iHanevQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169463;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=H5NdynXi3McZhqJDXg8g3XbykgDJEPZ7u1rzM6f+Mc4=;
-	b=VNQhmWRg3zusWE123b6bzvBqH4ibjCljknnEXL3B6F9ldDnXKBwPtEpuCBmtU037cPmp
-	 W9SOP8Xan+6AnMU5vC/T2A0u8ayFVtAnFPmMpnfBbqDKs95Q7pH7nfusgGoL10trHtQBL
-	 tvFco/DGblhfzgc1+0ZvIJ2NqEfgMgZYth8+WV1xlzH38lGXHrCKv3mp4HzJjKjRDiQH/
-	 lo/nsVbiIFrH5ajxGdm5AQApbJoPfrcLyWMOqK3ibJxncB8ILBiu7QIugopndpD26I10X
-	 R4cZkuAgCc6sz2teVINb9X49ZpR5luvJc9qEzF3IvEaneHr3+MpE+3RJlsD+vp8IkKg==
+	bh=QR9uJVDOQoJGV8Ovz9OfoTgfyZI97RdSj3kd/OCY9aM=;
+	b=B1rIZll9OaYZen4ClchHCFK6DtreDHo/cPk9FlDw96foEu/s1fRACQ/sqet6S9NAtGra
+	 KrpEnc+y9lfSj5UuBi5+3tAKX9uoCxgsK5hV5KXghiV07xs/K0WSw4VnLJffRmnQTMuGj
+	 avKgCDcGqLqo1RgwX6ojIwuCCrAnOJuCwRez9aAPL03AOh01nsO5Hf0Noua9QiVgauLGG
+	 Dy5I15xBqWs6UJ8P7dDso7AWNo22Gpfg36zfosgWpWE3+EVmH5gp9D7EftNc5EaGDXihQ
+	 E5e6eoAR+SGP7n+3ne5SMc8XiihXMo7CDVLjBqZckdH82EunOkBkeBKekqgdN5Gjyvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFGSVFA0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRoqPRYT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9146078039;
-	Sun,  8 Nov 2026 20:24:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4421260A5BDC;
+	Sun,  8 Nov 2026 20:24:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFGSVFA0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C77D41F00904;
-	Sun,  8 Nov 2026 20:24:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nRoqPRYT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F661F0089F;
+	Sun,  8 Nov 2026 20:24:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169453;
-	bh=H5NdynXi3McZhqJDXg8g3XbykgDJEPZ7u1rzM6f+Mc4=;
+	s=k20260515; t=1794169463;
+	bh=QR9uJVDOQoJGV8Ovz9OfoTgfyZI97RdSj3kd/OCY9aM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MFGSVFA0WdxsGtaejOUClh5m+MfIpLoetAynmgoAypAIlBSuYNNAoHcXRGlvcyPVd
-	 roa/RmWnSvsrBsCT494b1Kc9we8Sdr59fxWqsG5r4735fy/W8szbmoqkh4SKTNm47C
-	 yUsdnQpwoMP/M7xOJU/p/BcFjaoBNCe/iPy1595V1bs5Uen2tF4w58k9LUHeimXzlC
-	 LtSTY2xiIW9Qon3l1ghbJONiiUWoSJyzGpmdQAWbhTkn0IUMljlgDVu36h4jTG7bUa
-	 jd375b42zaoC6ymtBUXeDb06BcxjCqnrvcOwO810ATKTZR6Z2tTxOWp1oA7l0LYWX5
-	 7LSsxk7J9RzoA==
+	b=nRoqPRYT1PvughfnxnZ2jcUyxUshHlKePS5dz9eWxnSlABRBiLKSnmYirtCkpfrNe
+	 pvVHGt0jpKqAYOuxaY6LpkVVehfGcqWnn+ANUaer5Bwxw1UefUQ7yG8fq9GdnluufP
+	 KEs/XZQrGvhhjlNfpktHFsNvDy5uI7iNI4ffGWRUK2/8MmlUThPRUe1a8oTQX0sphm
+	 k/yIx7tqLghUZG6V409riHwySyBCC3G2GMbqUoDfO0pzUgQ4HeT+aPz7xhN/pjXGGA
+	 ZgXBg5EG118k1EUH5dv5PKDcKm6L+0NWj543PfJy4U/kNaSGqXTvTE1VwU/kvP3Cew
+	 1vAaQ/WhcH3VQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Monish Chunara <monish.chunara@oss.qualcomm.com>
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>
 Cc: linux-arm-msm@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pradeep.pragallapati@oss.qualcomm.com,
-	nitin.rawat@oss.qualcomm.com,
-	mani@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Add pull-up for SD card detect
-Date: Sun,  8 Nov 2026 14:20:49 -0600
-Message-ID: <179416929501.628393.16114732471311269419.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/3] arm64: dts: qcom: sm8650-valve-deckard: Add watchdog support
+Date: Sun,  8 Nov 2026 14:20:57 -0600
+Message-ID: <179416929313.628393.4067545467661915449.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261028-gly_spu-v1-1-1b5b4e1f8341@oss.qualcomm.com>
-References: <20261028-gly_spu-v1-1-1b5b4e1f8341@oss.qualcomm.com>
+In-Reply-To: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
+References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,22 +73,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 28 Oct 2026 18:44:20 +0530, Monish Chunara wrote:
-> The SD card detect signal is active low and requires a defined high
-> level when no card is inserted. With the GPIO bias disabled, the
-> card-detect input can be left floating and result in spurious
-> interrupts.
+On Fri, 02 Oct 2026 11:45:27 +0200, Neil Armstrong wrote:
+> This series adds Qualcomm SM8650 watchdog support for the Deckard
+> platform by updating both the binding and the SM8650 devicetree.
 > 
-> Enable the internal pull-up on the SD card detect GPIO to keep the
-> signal at a defined level when the card is absent and avoid spurious
-> card-detect interrupts.
+> The watchdog is marked as reserved by default since most boards
+> uses the Gunhyah Hypervisor which owns the watchdog.
+> 
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur-crd: Add pull-up for SD card detect
-      commit: 25c209e099120cb312b2c725fb7149d78ac3c581
+[3/3] arm64: dts: qcom: sm8650-valve-deckard: enable the watchdog
+      commit: dfb2628e364700ef81926623e468b0cd1e2a6f34
 
 Best regards,
 -- 
