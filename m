@@ -1,96 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.242
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794158255;
-	b=JiSAJPC3f7UMpFh9C6yXXFs/R+DYDIjcNrrO54VHciJRCAulb2agzNcqv+/rjInSFDjT
-	 BhI2vaaD755X5vLQRGGfI2FTknbeQuVthavXqn4ey+Z54PRboeybwpUFjkf3mQS93jJ9N
-	 1g80/RbNyqN6N7HyAPvXMjzFg7ppDLkFPxroBbU1LzX4Z9fWGbWZgfZKT6B6kNA3+0NH7
-	 qbAw9xPa6zoa1ELeAK5j4S5Tj9jwdSwG6UL/Vc6rH4e6wK/AUfXItw4N2a5H2vswvoNH6
-	 /76Ek6R2OcbMuJzoaI2fZU0y12PNJPtdCQOocU6dZdaFSFjcFNbv8+G3lFj/Q2LFrkA==
+	t=1794158652;
+	b=meqf3u3rJnwJbk4HBSLPWnwkwcDt4anve4idviVl99uzNlppEZ8CsGnPF68m7pssmDK+
+	 6IOYk/mNe6piJpX3YlzOvlPz/X+aOfeZlwMgO8iAeUHiPTvwSPLTWDnjAapvTdCqStJIc
+	 IlPofC2+f9uiymWBugneGESGvm8DADaAvd6Qsy7aVQDy/emxAwj3AgHi9iDePrerTpCjl
+	 zhNJOgZBHYPsjvEThU0ONOe9OXVBtiQ4c1AfagkMnVIAA3nr5I5Nlxe+UnOCRITSlU12l
+	 3syIL3W1Ydjp/sZFhznPjkgPoUJrRXQHQAK+LPgiubGkVB5yDm2N8hUthi1WuccyaQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794158255;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xrZCsGFBJGE8YTdUW/NXxb7L9++8m8GQvAjnd7WRUIM=;
-	b=bAMUTUXWmpP7mhJFA16RDw/uqrMEwV67g2krfY1B1T2PGLRrhQ69WIu1QMh5UPw/nZBQ
-	 3Zjxz6cCHII2rSsSyU09t88E0PHenk/EIyENbSK++no1fpit/aps597RUU68uaELHHxrr
-	 LTM+gFD6nMcCgePA/LWAmb86zsTFITd1pWH/7qaVFv55giYVYpkPJvFJAodFwq4Ku1S0U
-	 xR4UrJOUm7qQG5LffjnOntRDrPkqm5T/3Mom0DIEILyfCxury517QRsTMyYvmplzuZBqR
-	 BqQZsg0pVt9XOlB/kffioLodRdfUPuJJfmim5jUZM6oDKQLE2z7qy5utBng+hhdWDIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794158652;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:X-OQ-MSGID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=0b8pS7EWD3XHkPrQLqMzimmGYgo96DFsdxG1lwkDwgY=;
+	b=l9MmXFSuehDbvNxSX2lNdBDPB9EfAmx1ldLLVwf0CWi9IzvPBtIu0C2xfm6MblR4WlJR
+	 J22Nliive2vJ6Y+YrrHVKY+MMDFKPU2wXk8L6y8419Fm17dfPRUMoh2RmspvfhcuaXVie
+	 Yp2vebWVqtepUz6BqZcatsanyCD8JhFpl4avKsVZyHtVMTdopm4afJMRm5dxVczNFyROp
+	 OQymQ27HYQZVvSEXMYVH9gkK8fRGZQNE9A4ZP9WxUPyehYA70adAvNh+KWE0O6Y2mPIG8
+	 36fUbL4iAZ72VnhMnhc7N9kozh7tLjsDUxSAgd6AdhFwwKdPazbMZHhmT2iuI/d5LGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNb13mES;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="nS/ZZOnw";
+	arc=none smtp.remote-ip=203.205.221.242
+Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E5B606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:17:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4E5B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8AF606A320;
+	Sun,  8 Nov 2026 17:24:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD8AF606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNb13mES
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-37000e7234bso634890eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 09:17:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794158254; x=1794763054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xrZCsGFBJGE8YTdUW/NXxb7L9++8m8GQvAjnd7WRUIM=;
-        b=sNb13mES/0f5ALwDbw037sVMGFFC0HaA8P4+YFzDQeOJ9X+bYg58bAe6mzpznfMO/O
-         N3GTYiFjgrsMlyZgqiDrzrP98P1TNa/lnt/pEKOq/kZQAWzRhrUaQRxNRuELAip+Cplh
-         AFyFh0UZlkcs3++yk+c5i2fwiZcw47AsEKeQnNTd8lPThdwwl5hg7CdO/N9YM996ZgeB
-         ZLtv2NUqiHBNXgnesgmnkfp/z2WbZAKoDQCINcD9l3tSN9CmrEKzHrl5Jl6JnC/kFuOu
-         qTefALObcsdqTqhhlvNZZRCaFBmmuKh3mamo3V1V/DHLAMrGUODC6PNXXdiEbxOds5eg
-         Sekg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794158254; x=1794763054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xrZCsGFBJGE8YTdUW/NXxb7L9++8m8GQvAjnd7WRUIM=;
-        b=LT9dgSJ4gem7sDstaB5TQ5nzXheQGBC5j2jsMDCWWJ7yw4tPtwt+UzOuCYRkB4etpb
-         MgVqlVIHynZILv4Z91LeETi/Ov/CNZCC4wQzM7jjmM5tJxOj6kMclewMXQdf3lcytTZt
-         6PrI6dhp0wQVgxOtvS6891Ll0j5n2Al/piITevBKSceRqtNtZLY0ldefKMKNfCeHF9ua
-         eXTwLt/hUr7aI4t+J35/YBe0SWn+vag2HGH9jFUFUU585YczKRscKRYaxNhQE8cCL5mF
-         je2eKgDly9Nv2y2JM3WZ8BY2NutmbuQL2i7snt1FN06mJtzRtO11YljhTAMMnXQTKoJj
-         k/VQ==
-X-Forwarded-Encrypted: i=1; AL+hErEfgxaXjF30AAoG2zmLthQPC6ttyweH/3uzAnEmy/aHdL5aXw73e7xA6guqeUjRy9j3xzeqhryBu0ZViIs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dotju8rT+XT06lKd4iCFOX7lx+VmsxAWWDP4QwupwtcVrbg7S
-	jSAWUrCiGCtg9GZ0FMwj9ddcCHUZrkDMJRXOVxXJs514LsxAM0tzN/R2
-X-Gm-Gg: AYBFou36wZRWpT0tJoMs5thG42rbywYZ2w1Ma9okR+n/X7NVs+y9MsmUI+Xfy2BkMiC
-	ONpK0CB1zs5kz7DscZ3FFlNmMtdlax7BG+ZD5Yi0jUGBk8a63Q8QKEUuqwfVSYOG5muOdG4+H89
-	c6CFt1txkCxfLKr8N1LM7y4bkXifFUtiZpQoaZ4/L2+9Og5ibR8ityiO8f2Y8LicLzHhhvj7fsI
-	WsuSVWthsfW0GiSTq8VGfpeccDwQcQiB5PqrevZLayGL3ZztuYyO2xoOScwuSxxnO+aaPbJBPr0
-	Hggr1J4E2Vc/h+N7uqcPieMtYIRJ3z8NI4ftrcUcKhqp3cCCDG1v1IJw0wnxAgpDzakz82y8Xqv
-	nzyHj4KKOD7pTasMiwMY/jNuq2Uv/JGBMQGdfNs4K1AWRLHDlHydBYkR9qU52KXN49UoXNszeev
-	lwymb1r/QH2fbEqJjK/mdHsjpY2+xfTwD1Jfx0474ZBD1eI8p3BjSxLl2Q6lG5dzLYHavHCqSrR
-	7xW7SKqflchgP50d7cyZd1eoEihYS/SJ5+L5nQ34zUJkO259VGFw8SDwFyIhsYF9UICsOzscY6D
-	hm5frN6gUnEkaMos5NdDuN7Jva6tmKtoxtssdfrKQDgyNAPd
-X-Received: by 2002:a05:7023:a42:b0:195:1a77:85f4 with SMTP id a92af1059eb24-1b39feefaa6mr2960462c88.24.1794158253619;
-        Sun, 08 Nov 2026 09:17:33 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372665db8bbsm5983442eec.22.2026.11.08.09.17.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 09:17:33 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] ASoC: twl6040: cancel jack-detect work on component remove
-Date: Mon,  9 Nov 2026 02:17:22 +0900
-Message-ID: <20261108171722.695360-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nS/ZZOnw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794158643; bh=0b8pS7EWD3XHkPrQLqMzimmGYgo96DFsdxG1lwkDwgY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=nS/ZZOnw28Rr+3Gmmm50LrvL3F9QXGGyL6fefJIfRWQff3wPpmEunlw0zKqp4TrIO
+	 Oyg3d1LwN41kJ0eGzJm8IHQXIUlTFFKLUWRxqZc8AcgmPq6PKk/pASxenSMzAUtbSY
+	 1rvEOXt1DFStARNOH7pAFZVjufSS05UNueREW9v8=
+Received: from [127.0.1.1] ([5.195.0.150])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 5F906C5D; Mon, 09 Nov 2026 01:23:57 +0800
+X-QQ-mid: xmsmtpt1794158639twzz43hgg
+Message-ID: <tencent_347EB4680C325257C8890470FCD7A0B2A105@qq.com>
+X-QQ-XMAILINFO: OLHLRPgEm/lFdJAz8vaQpSvtTCsvGZUTg6ICSWRUqdw6nYO+oVQJQCEADIeJUQ
+	 xfR+XsjxYdjV983AUTJFMn35YVK27IJF09L9QMtgvDgiZwnDhC6tlmFl+J4dPh9drvN5RT2+oJsv
+	 /xpiF+J6Kb7PqI1tPYrbSiCxG7k51w0qnW6D69eTSPYtc46dgTEuelnMjuwWGO2iCm86hBYJ1gP1
+	 Nq4ygC16ckiLfPdnheqPnYtNBcJfGDWG05RrwwSVBXwPoi1z8chrC98m7+cYl+xhAXGZzk18EWDN
+	 WXOoUyMYyNzDWZom8xK1PTfImjtozYVT42N5QS+6NWwRKUyVF17B2UDXkD/I++2gV3Bwqntigrgf
+	 USQREURidXI17/4xEHCNbysqcIX+weQmgw7uYe0gm33ml/wTUblFvpxbY9Vb5XEuDPfmsbwzDhGE
+	 VA1X3Dq4Wq2Hn6Syv6q+vNvM1fiPiqFT6Lg3rZ7aT5wBKkuvpllR+ImToV9QII0+NJqX+SDkV1yq
+	 +zSPN6WWhLaHdwiCoyfkg5OLThQYnv3/ZTYXCIewjj8YBjWuWXpS4djaCDNPQIvmcry913Fv+jCd
+	 Yfa5lZLYgiahdX4PEcUxQXIGgYM/r01A19rNn4htZlsUFKcVrCDzJ44FwbqLtGc8wSgVxksEUqe1
+	 OopbdyXfvFjR9aRygKWAdLM9gDLUMcoWgZkR0FQH5wU5b5aZngrPY6RPutPzajN1gpGPA32WUmxD
+	 LTXtIc1DWH1/KPG/kRqc2M7eWF6jx8rfpMb3mjfClQklKaeWCle2ai6zU9/UDC3Qcjl/9nqEYBIK
+	 rdqd6yeM9MX0Qj3t9AVJT7Toy3whnXzyB3FPOs5H3nnG+V1XEyP5mkLNJhLaBdBOeHrVlrPHbv/S
+	 JIyHf+HTZPwkMPoKAEFLaa+cWTmgCn9lPN5zOEpjHqn3DeGOMrPvE6OKZdi8CVmMP/ZoPvqDCTAx
+	 1wTZQi8IBhcTI07go6R3aqe3jThywlDWanx3MlHLf4rr6LQkmlzzYjH6YY15QY9HveuHJ2amA/2+
+	 WIED+x1BIEEFn6Ra/C
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Jiawen Liu <1298662399@qq.com>
+To: Frank Li <Frank.li@oss.nxp.com>, Markus Elfring <Markus.Elfring@web.de>
+Cc: Paul Cercueil <paul@crapouillou.net>, Vinod Koul <vkoul@kernel.org>, linux-mips@vger.kernel.org, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, Frank Li <Frank.Li@kernel.org>
+Subject: Re: [PATCH] dma: jz4780: handle clk_prepare_enable() failure in probe
+In-Reply-To: <tencent_BE00B17EBF2A95EADD8B80203B745B9C7609@qq.com>
+References: <tencent_BE00B17EBF2A95EADD8B80203B745B9C7609@qq.com>
+Date: Sun, 08 Nov 2026 21:22:12 +0400
+X-OQ-MSGID: <179415853264.5.9453351927658731117@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,38 +78,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+Hi Frank, Markus,
 
-twl6040_remove() frees the plug IRQ but does not drain the delayed
-jack-detect work (hs_jack.work, twl6040_accessory_work) that the IRQ arms.
-hs_jack lives in the devm-allocated twl6040_data, so a work still pending
-at remove runs after the private data is freed -- a use-after-free.
+Thanks for the suggestions. The dmaengine subject is clearer. The current
+probe path still ignores clk_prepare_enable()'s return value; I'll check
+the relevant clock failure and cleanup paths and the introducing commit
+before deciding on Fixes and stable tags.
 
-Cancel it after free_irq(), which stops the work from being re-armed.
-
-Fixes: a2d2362edf9f ("ASoC: twl6040: Add jack support for headset and handset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-v2: Rebase onto current ASoC (did not apply, per Mark's note); trim the
-    commit message to the essentials.
- sound/soc/codecs/twl6040.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/codecs/twl6040.c b/sound/soc/codecs/twl6040.c
-index 650836f..826bde1 100644
---- a/sound/soc/codecs/twl6040.c
-+++ b/sound/soc/codecs/twl6040.c
-@@ -1136,6 +1136,7 @@ static void twl6040_remove(struct snd_soc_component *component)
- 	struct twl6040_data *priv = snd_soc_component_get_drvdata(component);
- 
- 	free_irq(priv->plug_irq, component);
-+	cancel_delayed_work_sync(&priv->hs_jack.work);
- }
- 
- static const struct snd_soc_component_driver soc_component_dev_twl6040 = {
--- 
-2.43.0
+Thanks,
+Jiawen
 
