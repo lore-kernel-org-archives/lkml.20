@@ -1,93 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794103458;
-	b=fQ0oO4AuGgPj6fouPKo8MMjtByMrhYZZQmGxhBgh84sRjys4Q6WTzVUuxxHT633ZAXaV
-	 a9l9REku8vV010a/rVYyZaMy8cRXK0maaxOwWX8FVJmMzDExQ5ZGSGT+X9Le/9L+0+4dd
-	 ote8aGSPSNZO6mLkArGIusI7tdkfLIswnFiT0xFcPIU3vnd27DUrCu81/rAwIT6UglLez
-	 7t7e1U7+DV2SRNxj+6+rEzYuOOA3qI7LkeC/0IQH1/wgl1H87Nv2jcSBenhbcQAwx44fK
-	 NXDeWvKoZ1vRnszcQdfAuK+I8aRE6gMTw0EqakhMMyPiSgYlbeDC0h0KMZzFgnYbPgg==
+	t=1794103460;
+	b=pp9Y617d09xWEJiked8fra+gTjmcJHw7OD8gutEzLa34g5NDiSdNnbgkgcORCqKROrdc
+	 MmPzRsJEz5Nyb5AjRdx2FwoRYHRI2ZQ2cBpV6p06qpEBHcJ2K88UvYQ/h+nWuCJgCj3tM
+	 Ji1om6yjLcWpEvCe+DQw+fPzuoqArozm+qnVBPNLZSIbmXrUuTIdiEGrr7jy+x+75/QPo
+	 c5Vh6jA4xMYvCdgTBaPcgmd90v/SHaMP/NBe4TmgnEUM5dAIosw8qAWv0mGCZ7lO9rS5j
+	 nzl6M4egihtta4iirTl0YSE7swjzOR+HdxJXSIgrXS1gxNOaKzd4qeOFCu39gr5maRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103458;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103460;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=p226xUVyOCcEBPo+3Gn7mR+BBT39fpCk4Kx8gUqu/lg=;
-	b=4yAEXhhwM+Zon39iMvZ1/BIBI3xFBkXImsCDfeJJV0zmtdzXCEDq4uixzAO/hmFSDs8q
-	 m81+2N3mbCQRTPYtE+KXlWzHQ6X5pTvb+N5Wh8iJ/fBFL7TOebjYipZZeqmkxPMSJSGUb
-	 dwrjvqJmszmZmH+8rQe5LRIUxPPNMD9ufXFn+CIW43qs2AUlCcZe2MPNp74hII4K2mNnE
-	 ppNZtz+CphW+jXW+obKTZzoxmQVVKIYs+zA11gUoOlkx3BwG55YIBsos7e5dH+SXHryIX
-	 BLcxlwe5ntoOsl0bqzPpEx8jgr++wGJwAlulsLqpg3HjL0hdxWip3GOlyIHRmWEBQNg==
+	bh=KdK+2Y31YGq/pziwmjaFOQoKLGl1Ioy8FCZaLYsW4Yc=;
+	b=czNCvWtYnpWoYAkrxL1EM9YGl6z12vLp52RxlLr0YAvknYF4EZykjTlfFNW+UfvZmX5S
+	 3ANsRZEDLEDLbyyf8Jd5kHUGt0PFQuBnM0GKieRJku0k7dQ5pLjDIPUCzyKQfgL+pU+mb
+	 Z7v+yAqSmxPCRTXnQNMLOCReDNd9BD/Aqh5WzfYu7aDvphepVq+Xd+gokgxqY0ChM+lN4
+	 dRcdZJ9UfRKVQk5sBEJdSDRRHSg0afMCzQG6+5Vsaap/5I7WL55w3Ny5V2MRG5c3c68nZ
+	 h+NmGRS26LmqK8m0U37pmYxhN6gKG+Bcr75KBqb7AJcDYOssC692RVyulPEzhBXtiSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QhyIYeVo;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ9+cVLx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3291C606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:04:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3291C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BFA606A330;
+	Sun,  8 Nov 2026 02:04:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QhyIYeVo
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36fb88ea38cso1008841eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:04:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794103457; x=1794708257; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p226xUVyOCcEBPo+3Gn7mR+BBT39fpCk4Kx8gUqu/lg=;
-        b=QhyIYeVovOnSTnPzrzgRPfs9jV2MTD63IEPI27wWcj2N9qWsFSWTlof/Xlrmg1XR+j
-         HPvrrxbzQ8GUXYURzP7kdjKUZ0MOuxSCxrvquQY2UpylPoEIkuaByUWr/eoP0Ahwe24n
-         8QZGACIZIukS37RsIo67xkbvLWP/wxK+Q+EfC3mzM+laOv2eXbjptQ9eyJDAvL+gX8dz
-         Cbs39QQS9VKd5dZ7jMMz4+x4GN5+J3TRQe+dgVTZ0ElVjUFrLHn+GIpG1BXCi6FiEZ13
-         as3wr9nGOfWLkw34URieKqs8F4iIsAP3kUEfVbEH6RNhQT3iVNfb8edHLE4eDXzbTs7j
-         DPSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794103457; x=1794708257;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p226xUVyOCcEBPo+3Gn7mR+BBT39fpCk4Kx8gUqu/lg=;
-        b=HIrY5umB3Ol7v3WJwmQFC3PRZFuu52QilvSWeSZGVAmPF9umJXThscSgWxmRdJ2KSC
-         2pTbj64jd2TBoOOqaH/OSt/pmes3C0HJS/DYUlQtmYNFDNE9PfXXhHqt+3oft+PH9Bcj
-         e2hMVvVoPjwG+A0wVfJ+GwDyEoaT3eDLyxOCONr58M1WYjyGRyv/CK6ophNnNERybx8d
-         oKCi0vcqdfJhequYwDywX/5IgiwGJxNrk8DZqQGGKl5wGJuIEJ2Ukn9JC/xZUYMuDYOO
-         QrxsxK5dpG+t5An0/T8R748WiDHnPviYvEqCbBPg167VOxxFFFl3TiWapgI76ft1/5dN
-         bCZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxIBJa2SpmcrGKB4wGGQes/j4yWO0PGPRncdv2456ogz2RiYAjxein31Rbwgiqz7fN9cKhj3CDNEQ7UIgc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+etrPHCju0fH10p8mlweJ+5JgG5citSg/g3VTPGUY+4T5r1MLz
-	Ky8LvQ+cNLlh3ZC9Kn3anOq+6BhV43+OXruWsY2oeziR+KviisdemxI=
-X-Gm-Gg: AYBFou1XpglyKZs99SskLmTGrolh7JMzx01Zfm5kIIdcexD5yWVh0IzMX9zQ19jdUhC
-	+Oa5o1zPxJfucyHFgEaIigv1sFkKkXfxIr+oh3Dkz6w3tuyAdiMh5GL6GkCHl458Vuyj/t1YQah
-	HWhX49UoEkzYxND/wiZOpzrA+OkyMfSmezhDwDUut7ZRTYcz6qQdJWrdIdgMNe3lSJgqrTW2CIZ
-	qtf+R87epzxr1aSNFSDK6Wt13pz7rhYSs7gPbCdcUQi2beugqj3Q34/+mP3q/d7YYF76uvfmrAS
-	ySVGF+J/kLe+8SQOKjWhlwJW899zDaDmr/UePeSyNbycKTgvP7LPOUh5Fcx+ng2yGaLii9kSRWR
-	0Oiq9j7RIUHPkdm98viBcKxlxQLgukEYHbyk3rZ8xamKJiOBOeUXrcJ2yc6RnvZNqKNstYRn5Gx
-	cruMWnLxy+RZwuHurFW8+6js3KVTeqEFbyrOaVjbmKwlzh/k2CG/+65W2ZPtiWQK2iI3nTLowlL
-	K8NFf4Wu63FBG2tFdJuUsSBX1tJyxSHSbhgrwpYxV6QOhXhpYoozvQBsNTT1uzV3HwknUK6XXfV
-	0OBVxhRjkqfAV5voobSlLNxD3UI74Utj4Ph6D+SzSuW2QdYkPZuxuQOtLriUmFb1+8rK4RM=
-X-Received: by 2002:a05:7022:c41:b0:1ab:cbd0:1c96 with SMTP id a92af1059eb24-1b269af1bfemr4662689c88.4.1794103457134;
-        Sat, 07 Nov 2026 18:04:17 -0800 (PST)
-Received: from localhost.localdomain ([1.251.173.69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771e5728sm2077895c88.16.2026.11.07.18.04.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 18:04:16 -0800 (PST)
-From: Hijae Song <hijae99@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Antheas Kapenekakis <lkml@antheas.dev>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hijae Song <hijae99@gmail.com>
-Subject: [PATCH] platform/x86: ayaneo-ec: Enable charge control on Flip KB
-Date: Sun,  8 Nov 2026 11:03:51 +0900
-Message-ID: <20261108020351.62494-1-hijae99@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ9+cVLx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9A81F0089F;
+	Sun,  8 Nov 2026 02:04:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794103459;
+	bh=KdK+2Y31YGq/pziwmjaFOQoKLGl1Ioy8FCZaLYsW4Yc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RQ9+cVLxeaJ1CXYlsWl5pI4Rkuo7vgXMMeFTaDljZ6av1cazPPfEihL617klilpxS
+	 DIocx9fFBjUR2+LUvy5qHtcA1KoM5f4pd38yGaDijUKrQ7tcguQ260DtVm19nM8V4m
+	 V4UGKNuEOYohuwHj4gFnNFzFT3fe2rKpr5t5Vg0qljkYRqtIs6Q6pTaH/5kVIcSTFW
+	 WPda/KFke8e3tLSsyxn90zXkVjgKi0jewqY3TyJijGul3mDEVptFUU/UKz6RXyl6EP
+	 CjA3mnZS9EiSfU6dAns8+dq7dcC2vaxE9WTJYcbraGKodfYgANEKRCMTpFqITVLF9h
+	 O9sjqc2V78zsA==
+Date: Sun, 8 Nov 2026 02:04:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: iio: light: stk33xx: add power supply
+ support
+Message-ID: <20261108020410.171489e5@jic23-hlaptop>
+In-Reply-To: <YGYT8qy3NVYYjUfYP3NfqDnjoQ7gdqYMw8opOaTfChdSx2z6jkaYxxJjj1Y4x6E4DMVykIDZzFjWGh_ywapgRTWmRuuCnBajjm89ZsN2JSA=@protonmail.com>
+References: <20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com>
+	<20261108-6768-stk3337-v1-1-0340c99b0e33@protonmail.com>
+	<20261107223601.0ba9ffc6@jic23-hlaptop>
+	<geNqZOyrIjYLfmuUys8cQJU8FM53jylicArPsTGNXPnqSvHPCIc1Jad7dBOBy1GdE38RBEMSYQYDqEmaAqq2PDcglQcRBdkR0yZAjRExEUQ=@protonmail.com>
+	<20261107235342.40f2e45a@jic23-hlaptop>
+	<YGYT8qy3NVYYjUfYP3NfqDnjoQ7gdqYMw8opOaTfChdSx2z6jkaYxxJjj1Y4x6E4DMVykIDZzFjWGh_ywapgRTWmRuuCnBajjm89ZsN2JSA=@protonmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,36 +69,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Flip KB was matched to quirk_fan (fan control only), the same
-quirk used for boards without a working charge-limit EC
-interface. Testing on real hardware shows the charge-limit
-register works identically to AIR/AIR 1S/KUN, so switch it to
-quirk_charge_limit.
+On Sun, 08 Nov 2026 00:06:57 +0000
+Roman Vivchar <rva333@protonmail.com> wrote:
 
-Verified on real hardware: switching charge_behaviour to
-inhibit-charge stops the charge current (status: Not charging,
-power_now: 0), and switching back to auto resumes charging.
+> On Sunday, November 8th, 2026 at 1:53 AM, Jonathan Cameron <jic23@kernel.org> wrote:
+> 
+> > On Sat, 07 Nov 2026 22:45:45 +0000
+> > Roman Vivchar <rva333@protonmail.com> wrote:
+> >   
+> > > Hi Jonathan,
+> > >
+> > > On Sunday, November 8th, 2026 at 12:36 AM, Jonathan Cameron <jic23@kernel.org> wrote:
+> > >  
+> > > > On Sun, 08 Nov 2026 00:15:03 +0200
+> > > > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:
+> > > >  
+> > > > > From: Roman Vivchar <rva333@protonmail.com>
+> > > > >
+> > > > > On some boards, the chip shares a power rail with other components. If
+> > > > > that rail is turned off, the chip can't function.  
+> > > > Not sure how the sharing is relevant.  Even if shared with nothing
+> > > > else we need to turn it on.  So just mention that on some boards it
+> > > > isn't always on.
+> > > >
+> > > > The only reason this would be optional in the binding is if there
+> > > > was internal routing in some packaging or similar that meant there
+> > > > was no pin to connect.
+> > > >
+> > > > Upshot, make this required in the binding. Note that doesn't mean
+> > > > the driver must require it - we are simply documenting that the
+> > > > device needs power.
+> > > >  
+> > >
+> > > I agree this should be required, but that would break dt_binding_check
+> > > for existing boards. I don't have their schematic nor boards themselves
+> > > to verify the regulator for the power supply.  
+> > 
+> > There aren't any upstream (from a quick grep) and so not your problem
+> > unless you have some in a downstream tree that need fixing.  
+> 
+> I found these (next-20261015, 7.3-rc7):
+> $ rg "sensortek,stk" arch/
+> arch/arm64/boot/dts/exynos/exynos7870-on7xelte.dts
+> 467:		compatible = "sensortek,stk3013", "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/exynos/exynos7870-a2corelte.dts
+> 412:		compatible = "sensortek,stk3013", "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> 526:		compatible = "sensortek,stk3311";
+> 
+> arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+> 219:		compatible = "sensortek,stk3311";
+> 
+> arch/arm64/boot/dts/mediatek/mt6768-xiaomi-merlin.dts
+> 348:		compatible = "sensortek,stk3337", "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
+> 206:		compatible = "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/qcom/msm8916-wiko-chuppito.dts
+> 91:		compatible = "sensortek,stk3310";
+> 
+> arch/arm64/boot/dts/qcom/msm8916-alcatel-idol347.dts
+> 173:		compatible = "sensortek,stk3310";
+> 
+> arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+> 169:		compatible = "sensortek,stk3310";
 
-Signed-off-by: Hijae Song <hijae99@gmail.com>
----
- drivers/platform/x86/ayaneo-ec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+huh.  I wonder how I failed to grep for those!
 
-diff --git a/drivers/platform/x86/ayaneo-ec.c b/drivers/platform/x86/ayaneo-ec.c
-index 41a24e09..6fe2387d 100644
---- a/drivers/platform/x86/ayaneo-ec.c
-+++ b/drivers/platform/x86/ayaneo-ec.c
-@@ -88,7 +88,7 @@ static const struct dmi_system_id dmi_table[] = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "AYANEO"),
- 			DMI_MATCH(DMI_BOARD_NAME, "FLIP"),
- 		},
--		.driver_data = (void *)&quirk_fan,
-+		.driver_data = (void *)&quirk_charge_limit,
- 	},
- 	{
- 		.matches = {
--- 
-2.54.0 (Apple Git-157)
+Oops - must have fat fingered the string.
+
+Ok, I guess that's a big enough set we can maybe just skip
+the required.
+
+> 
+> > If you do then there is the option of a fixed regulator to close
+> > the gap.  I consider a missing supply a bug that we should fix but maybe
+> > others disagree.  
+> 
+> Yeah in my tree I have added vdd-supply for my board :D
+> 
+> Best regards,
+> Roman
 
