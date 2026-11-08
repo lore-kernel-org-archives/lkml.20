@@ -1,95 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794129917;
-	b=wyJYG64A6Q4HJhaFgOu+kPx41M1qE2fnD2D6JNps78slfScbnKWJUTT8eXrhjXvS7MjE
-	 3PzD0sVo0pUufFpelDQKTKrBVLA6x8EIJcxRjBJ5V8ZUYJvBSkFXUpJXYM8AxdlpoINKL
-	 EKMQDEs7BAB3xsnlkfdQZXMdgjvnLTLcdxnV1i+kIVU+Fw5I+nu5J/3n0l5SXSgt+XAGL
-	 y4/mey0mO7t897b7KbPshGWbigxBrynysCd72JgwsbjEv9UxvqvMI5SuGWXyeRYOlws8R
-	 /Yq2l+V9L5eA/COv9mYg+xsEVWZvGxpT9+Eos91DyqOuswWOFwM3/Z1rstzxtibkOAQ==
+	t=1794129986;
+	b=BPfZWS1RnySmNhI7OCjyYSImCcT62jFLcuvpWwyuZWNmCjkK4DU8BuTyiylH1K6i2NEC
+	 Zs84Q1rDF3foebhBXprIMzmjkuGe/WefgvEDmVdGRBJkPclHLGa1iaw8rEtspF1WWEHqe
+	 8+kq1cWfc38Bho+y1fudqsBVPATfNtTvk6/+NV29qwAufXflIHRzKkrbuoSRj3pIkZdxi
+	 q1UB+xj6hyKdw53zX5JlC5IVE1RjiT0rydl1sUs7R9DFsvviJoIYzcJp+0j90R6IFaPsP
+	 r+Fdnh8qDbd1IgpM1vZcgCCm4yKHl0UwSWGnduRnjBfw25KAqHwz7RIq+oL1K52AoUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794129917;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=u5YlrDxz3fhgoLFhtNbY64UsUoj272lyDf/p6ZFjQg8=;
-	b=NdDufC3L43h+nBXIMj4olymBYu2hSVcjYxSGpgWLeQ4K5kd628u6QLu2a1d4OTgKQeBk
-	 bytGI/3QYF+kKWxasuKyIW/Nd6qC7K6FNIdWSsRSFmgmD+WnPg6Iv2DfoszWE9/pZctCn
-	 TeJg0eBYqwo5/6ySIVRgjyn13FnMZOQIpSZJvEmw311KVwC7go/m0HzTZM3qPfG/2e2/D
-	 T1iJ3m/ubq5idXo0iU39sbVjiUlI2uukFYT8BHy5c0F8gshsVZmHmwj4LrjA+/m8FgzPL
-	 zAkFwwo/7i5QPA7SqFE/kpAO2ySD+SQZzBR/pxiKxN0PM7IjSRItZNLKhfdzvS8IHSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794129986;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=mfqVrDBy8CKgb42Ov7D4LXPqX3M1hEPgRe88wpo+3VE=;
+	b=ISS5vlXJgLoTzsv99kjHXV5C5SMLVZVVDHn5vHzDuC5fvclONj1BCjNIkOCGFPp9IYPA
+	 X1ICBlHkyD2HykwEJdkmFZlEq5yH30xOuMkTmi7yIYpYAOE0AV4K2X+Ho360CqJ+iQGv9
+	 Kamj+noB2TKx5r6jXaTbL6mAZCZ6zELerJ8SJ2/9lmsBmPvwcAvNh/AmjhirStyvTkrmA
+	 Vrh30s2MGwcf6xXdjk7l46JKEKBSE/OWYTefbZAX5blkLc71fAGCv0LqpyvTLIeBcZaeh
+	 YkOafN8coXHOaMMwXSfdfYCku7ZrhL8pW6++vucM0UOANbD96y6SzIwvc/Mu2OkkZHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJIgxY18;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PuNJGK5z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA1B606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:25:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA1B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB681606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJIgxY18
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a56e05568aso654665e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:25:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794129916; x=1794734716; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u5YlrDxz3fhgoLFhtNbY64UsUoj272lyDf/p6ZFjQg8=;
-        b=QJIgxY18WSwnNUneA2ZLjD9PT/hXl0JGW4CB/urRU2xZdVYnabdiGjCygZGi8Kv82w
-         YmdJcV3HCr2gHBaVFLfCjL5P9e3l9WL5W0WZHfYqpQwES9Cu0Sb+QCDjNJGCwaKqBJzH
-         OVQtdIsSBzBdaKMCcyljv6fSBODPo7uKhVtazyEC8K3GVkYGqo5RWQUBbJzi6gPUXj1w
-         oSyABB/VblU9KYptkCASdwTJOGtM+8VO1exF9yRHMMq28/tGFdhCyKxEB/RKxxyHhn35
-         wovAJPC6oRg11d9XF8++g4yOcu6v6OAmcyuHDecFCZDB8e61LFTCrMsoA0gVAHtjQ3fI
-         aCpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794129916; x=1794734716;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u5YlrDxz3fhgoLFhtNbY64UsUoj272lyDf/p6ZFjQg8=;
-        b=lzATDBymUEYbxcG3TOr/8fUI4w/iIazVQlxHNEPkLcdK5CS5xtnAdcu55RvbzAvXFc
-         CuyxrNw/YY3Q6psfWUQS6DwSAJCVYxb+A46+VdWhsTFWZw4cLKQGkvbhMpSxyi6z7meW
-         Lby14B8BnzwkjnzLNKL4NhhgpJJge+gwETHCLkzTsfmC7HnPa0FKHuv6Kk8Q2dRDNKkP
-         NaWsn8hMGp7ZCQlXKUDjFtJSzI2YkIespe7zHtAu4lEsSZ/vkg8gIyC9Y1wrssCkW9yM
-         x4WYiV4IUh+9YAuY6MC7L1kc2XSI+gPHGz05YQtNegwEMv2iEWqgEcCpHVYRxGLri3ac
-         nQYg==
-X-Forwarded-Encrypted: i=1; AL+hErHgZy29j0OlcSi9nsAkA7iua4+lvDa+qR2Hay94Kecqre88BTU/8aFyiGzbCAEVrRA0PWHxHDFfj2dyoPc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85LB+6i9IgKNv7zOTSCI0QnxRWycMaQHO2yLr+S2iWQmmjxBo6
-	h8rS9oCvmffGpIGDhm3hnSd0+OfQT/J9bQsmI24fEHKbe2RO1uOTUdeK
-X-Gm-Gg: AYBFou2QorEjGPdKuANuNE9DIQksrt0MtorPR2C8hqtdK1l09a1VS4V5sWpfJzpq8+I
-	fQhaLkvu9h6Tgtduw8A0VCCR6SzAqK4wWI1bSJ5W/VSPz61EI3nQPEBhNQQ19oyLpERI2MPCh3Y
-	cq8RS4lY1MdVwuZe7xgQ/R7san/Tqo0SDhOjC+qWL/JD0thhEAb6fBAtQVbyYAE4fZ39Fvmm4DI
-	IdRh4RGuL6NS+IoxPU0N1z5QZQ3+pSDwkjsNZb0+yaJStNvvr/K8gvFoGtpgJ/1+2Ho7KA2JImw
-	vHRb9dHsKfzAh1gVcTcYwX4/E3wBQwUib5hpaPy/HzlNs5yndsK75SnKxGf6OTkG97RyL7BEaR9
-	WoR17+6RC/t60f9v2OjrGUyYO8WR+dyLdLdK+73DOsRtp7ybY0cYKo8cKSsCmANTUq6eAvBIfXe
-	L9Afs4Hn1NXmo38TdYWyPuASApfOpJfMf2jJXdmZW2BXmlKsa3/9RLdaHPoXZcAWCkbQurSVPHr
-	/be9VQwUAIBGGzFh9cmkR/U3sYYeGAK16nVeU9XFn0XAqiMljAy5ytiIh9X4cJ9Z3SD9TfasrgF
-	E8pO/kpgeqGIPfxbw68a8ia8klhBEbLnZN9SBl+Hn87qv5rbra6tPiw=
-X-Received: by 2002:a05:6000:4a12:b0:48e:6651:d82b with SMTP id ffacd0b85a97d-49580c083admr2176808f8f.2.1794129915708;
-        Sun, 08 Nov 2026 01:25:15 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9a9ffsm3083064f8f.30.2026.11.08.01.25.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 01:25:14 -0800 (PST)
-Date: Sun, 8 Nov 2026 12:25:10 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
-	tj@kernel.org, ziqianlu@bytedance.com
-Subject: Re: [PATCH v2 02/12] sched/core: Introduce rq_drop_lock()
-Message-ID: <avA36psY6pULqy8X@scheduler.schedules>
-References: <20261107115913.261163891@infradead.org>
- <20261107120206.858693648@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PuNJGK5z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E521B1F0089F;
+	Sun,  8 Nov 2026 09:26:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794129985;
+	bh=mfqVrDBy8CKgb42Ov7D4LXPqX3M1hEPgRe88wpo+3VE=;
+	h=Date:From:To:Cc:Subject;
+	b=PuNJGK5zeYiqJWJh8pR4pmP+4HEwpTCfyTIUBaQmQsZGuigeQ/BeIotQsZZQW+8Ix
+	 n7Mdj9R5fjVvrXZFc+6ZDJNYKnuWLShAuPNFueWrExNHjGHupuEXHf+xo5eIsCM5Sf
+	 bZcl1CpYn33pYQ2vtEq41plHxRurJao/5CA8RD5nzdTH61OwOh+aoAkV1toOkQ9mqS
+	 LYUnDYmNRyqKhg8XCQrgjKU650CpTnrY9feDWJng72MD+pA+lFedVdQkIJGnqO4p/u
+	 clTIb6JW9KNLq7DKG5fXEFtDlVf17ScvoxyVJ821HBby96gV9T4AO7m2UWcndPg2wR
+	 xdUwIPfMlHNyQ==
+Date: Sun, 8 Nov 2026 10:26:21 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, the arch/x86 maintainers <x86@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [GIT PULL] x86 fixes
+Message-ID: <avBAPReJ7qMWur2g@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,42 +56,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261107120206.858693648@infradead.org>
 
-Hi Peter,
+Linus,
 
-On Sat, Nov 07, 2026 at 12:59:15PM +0100, Peter Zijlstra wrote:
-> Currently rq_unpin_lock() serves a dual purpose, it pairs with both
-> rq_pin_lock() and rq_repin_lock(). That is:
-> 
-> 	rq_pin_lock()
-> 	  rq_unpin_lock()
->           rq_repin_lock()
-> 	rq_unpin_lock()
-> 
-> In prepration of making the temporary drop and the final drop
+Please pull the latest x86/urgent Git tree from:
 
-nit. 'prepration' should be 'preparation' :-).
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-11-08
 
-> distinct, this needs another function. Introduce and use
-> rq_drop_lock() for the temporary drop, like:
-> 
-> 	rq_pin_lock()
-> 	  rq_drop_lock()
->           rq_repin_lock()
-> 	rq_unpin_lock()
-> 
+for you to fetch changes up to 5cdc3746fa163fb4e8d05fa3cabf46bc6aa7df75:
 
-Yeah well sadly I couldn't find anything aside from a nit :-(.
+x86 fixes:
 
-I couldn't even find 1 missed place that we didn't transfered to
-rq_drop_lock().
+ - Select the BHI mitigation based on the attack vector properly
+   (Breno Leitao)
 
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+ - Fix i386-gcov build bug in csum_ipv6_magic() due to overly
+   strict asm constraints that cannot be met in that build mode
+   (Rosen Penev)
+
+ - Fix Vmware-guest i386 high-bandwidth hypercall arguments
+   under UNWINDER_GUESS & disabled frame-pointers (Zack Rusin)
+
+ - Fix resctrl AMD ABMC counter ID field width (Babu Moger)
+
+ - Fix restctrl pqos tool ABI breakage by reverting the
+   mbm_assign_mode to default mode at boot (Babu Moger)
+
+ - Initialize wall clock in get_rtc_noop() (Naman Jain)
+
+ - Fix ptrace historic ABI quirk regression (Thomas Gleixner)
+
+ - Add Drew Fustini as resctrl reviewer and Ben Horgan
+   as fs/resctrl reviewer
+
+ - Clear SEV RMPOPT when segmented RMP is disabled by firmware but
+   is advertised as available (Ashish Kalra)
+
+ - Set up SEV RMPOPT only on an active SNP host (Ashish Kalra)
+
+ - Don't emit KCFI_REFERENCE() in modules (Ridge Lomont)
+
+ - Ignore negative NMI handler durations (Breno Leitao)
+
+ - Fix off-by-one error in boot-time sme_clear_pgd() (Thorsten Blum)
+
+ - Fix ASID allocation bug (Chris Mason)
+
+ Thanks,
+
+	Ingo
+
+------------------>
+Ashish Kalra (2):
+      x86/sev: Clear RMPOPT when segmented RMP is disabled by firmware
+      x86/sev: Set up RMPOPT only on an active SNP host
+
+Babu Moger (2):
+      x86/resctrl: Correct ABMC counter ID field width
+      x86,fs/resctrl: Keep mbm_assign_mode in default mode at boot
+
+Breno Leitao (2):
+      x86/bugs: Select the BHI mitigation based on the attack vector properly
+      x86/nmi: Ignore negative NMI handler durations
+
+Chris Mason (1):
+      x86/mm: Fix global ASID handed out to two processes
+
+Drew Fustini (1):
+      MAINTAINERS: resctrl: Add myself as reviewer
+
+Naman Jain (1):
+      x86/init: Initialize wall clock in get_rtc_noop()
+
+Reinette Chatre (1):
+      MAINTAINERS: Add Ben Horgan as fs/resctrl reviewer
+
+Ridge Lomont (1):
+      x86/kcfi: Don't emit KCFI_REFERENCE() in modules
+
+Rosen Penev (1):
+      x86/csum: Relax the len and proto constraints in 32-bit csum_ipv6_magic()
+
+Thomas Gleixner (1):
+      x86/entry: Fix ptrace regression
+
+Thorsten Blum (1):
+      x86/boot: Fix off-by-one error in sme_clear_pgd()
+
+Zack Rusin (1):
+      x86/vmware: Fix i386 high-bandwidth hypercall arguments
 
 
-Cheers.. Woo..
-
-Kayra
+ Documentation/filesystems/resctrl.rst  | 87 ++++++++++++++++++++--------------
+ MAINTAINERS                            |  2 +
+ arch/x86/boot/startup/sme.c            |  2 +-
+ arch/x86/entry/syscall_32.c            |  4 ++
+ arch/x86/entry/syscall_64.c            | 26 ++++++++--
+ arch/x86/include/asm/checksum_32.h     |  2 +-
+ arch/x86/include/asm/vmware.h          | 24 ++++++----
+ arch/x86/kernel/cpu/bugs.c             | 12 ++---
+ arch/x86/kernel/cpu/cpuid-deps.c       |  1 +
+ arch/x86/kernel/cpu/resctrl/internal.h |  4 +-
+ arch/x86/kernel/cpu/resctrl/monitor.c  |  4 +-
+ arch/x86/kernel/nmi.c                  |  8 ++++
+ arch/x86/kernel/x86_init.c             |  2 +-
+ arch/x86/mm/tlb.c                      | 16 +++++--
+ arch/x86/virt/svm/sev.c                | 20 +++-----
+ include/linux/compiler.h               |  7 ++-
+ 16 files changed, 137 insertions(+), 84 deletions(-)
