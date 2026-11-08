@@ -1,51 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.204
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794120233;
-	b=unWqiE2nZHpOSZ4HDp/Nbjf+VHDGKNZMIx+hMHGkyomMMqNph+LYWCuKXi9nZAi63AkL
-	 qAtPCLBDN+Ok7LpBpOINIECKwLzTU5iKfQF7nECB+mQUhRT4l9S0yRzcuvRriaKMUzNJD
-	 zjQI9WZIZzEnHWT05kaSZBhorJaHpmNUoWWm/FaUogC5+aAsb1e1bxPJ9alkc0wTca+Gf
-	 opm4vMXhXZMpVowOuuLs9KwTzi54QPmpSv2o4VCNiaExT0PYEnJSBJt4R4wh905Dy6cAV
-	 eB8d9dooxPSCh+BbC/R0b9CqCDA9ns4ek+YHsBkF37OFt98CEG1wEp+xTaoiw97+BSA==
+	t=1794120460;
+	b=1mcOnX0RPeQqPp6pBTEWli+VL8aVim2x0wGvLiXOz4rbDtTAPxlaO8Rrh8Ea8vWTtjw5
+	 iwrTWMH9h29l/go00j/SG//FDSDFxFROhU5zw+OgprisgHJHS6WiJ9Q5Mzxoo8PQf5W7o
+	 DuofFbfsNp0lP/Fx+0yOKA7tHGW7l33jnSv75V6dNg94aFSpoC53/rESjV8BsL+XuyHRk
+	 c0E2qigLb6hfPiUBW/WFzXxZPlkdXNUlg26w7E7fVOZ30RyXb1HddBDAyNjNxlqb86Lic
+	 ZEio0nLjgN2zVqVwqxYGJABmQheHrovrg7A9/m+15aatNrEUgVm3P1TK4C+yE0D8kmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794120233;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version:Date:Message-ID:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=Ywe4HIjB+CMojZib3S62i/ySQjR+qizh8Bk8cJSE1aE=;
-	b=2tF1Xru9e6UdxNqw4MnJ8u0IvbdeTdmUfwD88Wk2R07PhPkS+RTNEaZ90RZyoi61TINW
-	 MZ61q/uHk/ygaYYGqkpj9bxVWgFml/wBFPaH9Le2F9j5NqlYztPlGBu7eojb5Olzd873n
-	 UlYTy+lYXKlhNF8Pe7tBOwTGlv3Q05iQyqWXTs3N1bX5gFCznNhjmeQR09mEvsqVqGvGs
-	 7Qkv8a4dWAcGOxOQiPUwxNokcr5kd6r4doO/rp52Dc3nQ4448+4J0Raeq826u+iSXORgP
-	 v5oHVb442Pht0LAQWfiiNm56VWO2D4vC3/INGZn+PVVOTNhdTWn/7MvmKinShL9bsgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794120460;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gFzkxofby7EKQV3LcygbguAnEdPbRDZTbIJ7Q075LwY=;
+	b=HJSaBbYhuwVuOiYO2g26TXUJIHS7lafn6xUYEKsoIXb5iv4Q80Hwh/bCWeo9unRHKt/s
+	 4r7hiS/1ye7hVogrwn3zRU3AhrNDH2vegu7VPD74b6xBZ7GbTSqlNip6LM2OyYy4tXU5K
+	 0euiW1S12MLoXk7IorOFgG89+6xcCXv4wGLBMQY5ZtKvjePTywA/NLC2vYGwh5QAJ4kMd
+	 TcAA1A1dvinpF8vfSvfDr+5Kq2hKWQUIn2RYinm4EAWkHeSHE9dWY2IiGJFNC69MU5YDQ
+	 0kWAJ9ECRIC7aG8W9MrFPZyHxWwoDOoymLfEdAS3313SKbFG5Au9JMIu4/f8fSSS9Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xKCgG8R7;
+	arc=none smtp.remote-ip=91.218.175.204
+Received: from mta0.migadu.com (out-204.mta0.migadu.com [91.218.175.204])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BED606A31A;
-	Sun,  8 Nov 2026 06:43:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94BED606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAnwrcdGvBqpCOWAA--.35723S2;
-	Sun, 08 Nov 2026 14:43:41 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: andy@kernel.org, dlechner@baylibre.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, nuno.sa@analog.com, petre.rodan@subdimension.ro
-Subject: Re: [PATCH] iio: accel: bma220: Fix trigger reference leak in
- bma220_common_probe()
-In-Reply-To: <20261108015221.327af6e9@jic23-hlaptop>
-References: <20260916160823.2082283-1-vulab@iscas.ac.cn>
- <20260917011518.297868ca@jic23-hlaptop>
- <179396508376.2291875.4312877838122457985@iscas.ac.cn>
- <20261108015221.327af6e9@jic23-hlaptop>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC23606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACC23606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xKCgG8R7
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tKpCjzN21BXoeX24UlamatFKebw0e0hK5bdDYDPtIKw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794120456; v=1; x=1794725256;
+ b=xKCgG8R7zG3AqyagEXdfIM2v7M+ORQgkJmUWJS5RnlDcDuhyfOp9j194xbMXuDhQsLR52CB/
+ ado6q+dKeE/35o423TB1Wro46BxZp33GZ0otHYpgMpGYUrjH0gucmikE/cUfEQtwZoUA9AfH6qd
+ TQmhdcliz4bBIIEDzNzLvfDY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 66ec2ed02adbef6d;
+	Sun, 08 Nov 2026 06:47:36 +0000
+X-Mizu-Trace-ID: 66ec2ed02adbef6d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cc1a7374-f253-4436-90ca-a8d6b178a84d@linux.dev>
+Date: Sun, 8 Nov 2026 14:47:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,31 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sun, 08 Nov 2026 06:41:28 -0000
-Message-ID: <1794120088247.5921748.1359043367598265564@iscas.ac.cn>
-X-CM-TRANSID:zQCowAAnwrcdGvBqpCOWAA--.35723S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY-7k0a2IF6w1UM7kC6x804xWl1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr
-	1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwIxGrwCF04k2
-	0xvE74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I0En4kS14v26r126r1DMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x07j1tC7UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEFA2rv42BYvwAAsh
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests: breakpoints: Ignore breakpoint_test_arm64
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: shuah@kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tabba@google.com, will@kernel.org
+References: <20261102095003.2940560-1-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20261102095003.2940560-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jonathan,
+On 11/2/26 5:50 PM, Fuad Tabba wrote:
+> The arm64 build target was added without a matching .gitignore entry,
+> so a build leaves breakpoint_test_arm64 showing up as untracked.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  tools/testing/selftests/breakpoints/.gitignore | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/tools/testing/selftests/breakpoints/.gitignore b/tools/testing/selftests/breakpoints/.gitignore
+> index def2e97dab9a9..c5fbc4a48229c 100644
+> --- a/tools/testing/selftests/breakpoints/.gitignore
+> +++ b/tools/testing/selftests/breakpoints/.gitignore
+> @@ -1,3 +1,4 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+>  breakpoint_test
+> +breakpoint_test_arm64
+>  step_after_suspend_test
 
-Thanks again for taking the time to think this through; a general fix
-sounds much better than patching each driver. I will wait patiently for
-it.
-
-Best regards,
-Wentao
-
+Reviewed-by: Zenghui Yu <zenghui.yu@linux.dev>
