@@ -1,66 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169499;
-	b=HkgcudmZVoLx+7AHhQJ0fckkZYgg6MbKHjwpEyIsazSOgNCUchi+tqMysFH6Tfl/1C9/
-	 ixO0Feufmj1+rUy4VYmEHq5RzSN+T22vl8bwcghnM9oXZFKcDXzSrVAPtn2UirGCi7KNq
-	 Llmy4BAnwWxFcOSOYncKADWSJo9qtKEkx1c0j3yOkIwTpILnN5L1xGvpBmaTnoFxKyXaO
-	 unLiM0YZMgFXmDYaMboHGwzhvCWqLq99V1qPSBXzUDVHYKt4LvCQLHeWp0h5HHFjpz+r0
-	 NYXJI4YGABKSwMYHyI2UINGdsxs4LXJEj8tGoqzklun+wUa5CPjzfxneTjRm93Y3FGQ==
+	t=1794169504;
+	b=YeP6neH2QBKAlpSrDuXxoANJUI/2n/qFKaCB2XN6f6NFqoUxopb7MscTxH+AgPgou5DG
+	 jih2yZ9ZVsJfyAu4nd4fOMZOvDVn13vtxvTpkSs+Laehd7siGyKbXcRTjttTToXIkJfal
+	 o2kP0pCia33a9a3/Fw5hJ3mFmiCr6g8nmHEj5oJGyU8PKG9Vj8wvkcaybFk/SI/T8ZmKP
+	 Vl/S2sa1P7l0uudodL3SnO+W61XvRi0Uz/zKXzYtPGqr1xOQi54oGblrMw8Cmqjj0skuG
+	 2N+hKaPBA6LIMEIPX2j/g5esMD6s+KrKvxaIrBKQepGBN11Kh3/NsDjj/MQdDPSzdGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169504;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lP8mpE85HDMBXvaAb9Nalc0HVWoFE0TAbp5Y6y9tAU4=;
-	b=UA5XhavL+XY8CMKHmN6wv7BmAi7USekvZO3dtGXE5zYjevrM/TKqebjtQCrRnuSzMl98
-	 RLWEMSGiBS/anC6w92+iVp5FA+L5stwS4SzzYwT9PVkXbCk8LgXR/H6QixYdJJM1X3G5A
-	 QfVe7W7uSQ0z6hFLn8uS1xNkE8err68Xj1U/j8b+97PK/5FOUYbGrgWi5SV6soiDLReaI
-	 pLpHm0kMOA1GrTnik/SGdRrcKF8lwlm8S0eVM8qbRHIrr0jtLMD067m+QrXSTZTxnPQE4
-	 3yLXbInaayZT1jh1JFj6eGm88I+LvpuyvZFHObPsPD9zvp0JinIRf5d+MI+AZZg9zgA==
+	bh=fBDoa8c79e/xFCczEDSjXYKOrR/DyHcADjVxK/XT/98=;
+	b=JGBejh00SEXhOVlfCj0lLDhwzKUqOVV6ELZALtbxxH1eVcmMObDoQgMRcY4kxeZZKs6K
+	 6Ko2TjcMBFsrv0oizGrCLKUuk9x8G1BjqMBlFOF2fLmbn7Wdqa1zJ9SDemBYrCW4Q9PuS
+	 ztbxbQNyW5ocrRHUsAKmNTaADmfT/fKNmDdQWnCUTXBYQY2x5PpeWNzlFTYuqW735q2Tn
+	 bwz+0M0zlDYrOFj2P2keVGDwRuGfECAK/hIKQBt6Y+2BgRGUOgmFR1nMYplR5I5EeYu4q
+	 S49lu8S76PnipDsBnepAR91aOsmosdFHYsHCTQNa60oX/51N5+rB3ftyN3Ut698vC4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RRwttH+W;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HowTKSs9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7CE6080C6A;
-	Sun,  8 Nov 2026 20:24:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946B2606A9FC;
+	Sun,  8 Nov 2026 20:25:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RRwttH+W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770F11F008BC;
-	Sun,  8 Nov 2026 20:24:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HowTKSs9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3159A1F00900;
+	Sun,  8 Nov 2026 20:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169498;
-	bh=lP8mpE85HDMBXvaAb9Nalc0HVWoFE0TAbp5Y6y9tAU4=;
+	s=k20260515; t=1794169504;
+	bh=fBDoa8c79e/xFCczEDSjXYKOrR/DyHcADjVxK/XT/98=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RRwttH+Wy2M4oHexM4VJghUlWsJEEoEPLl1Mxz9s9kvRho+QuPHjA3b9RVzyPZp/b
-	 6VRgyUIc4739N2mWDDeTlGLiJJkbLsky8fF36wd4T05aQtpssI4NFDgWAu/SX4mTIP
-	 Hi2OofPG9FOlEQMHuj0hYd3hWAWbGjDh3FIZ4d/L1AaAaIZpT3rLadnmsLiCHXMgb3
-	 +JV8/yp5pXkPonFWAsnRqUTgJUTJSRNeBtsiJWOhNHO5VDwrck19fLAgxTN0fXrY0S
-	 0LV3CxMp2l4ruvcT4eF+gvqxHY9gc5F3ECpoua3y2yLlZZy50i/33UTnbTPI3uSKxm
-	 o0Ra9DKjUGiKg==
+	b=HowTKSs94GjB8ZCNa1h3ocarUueWIrzDoIb0c2NwbFSdAO6lAwpXD2NRceteoWxER
+	 crhGuO0GqVO9XVsBFXzcMtx92U3tfH1Bl2z+rVJda8t3wxKPPPUGBqopjs7CUT8eyJ
+	 GuDlsPjk/Faxut097KfG+TpC39UWBMjz5D1H3ZKhInMMgfMiNCl4q6uZR7QD826RCA
+	 1Nr93pAOY/nHDKe/fqH8lqH5H8i1/7U8RzN9uWOiu5E4Fj1+1BdpAYUhvOczMw8gfA
+	 Bi4pf7yjVUs6feUGdSy+TwJtg7R8lRnG/BycW4ml2SzS7kxRNG8Mk/5TW0YNnbTGuD
+	 Hbm7lQ0HpMw1A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+To: Val Packett <val@packett.cool>
+Cc: Mark Brown <broonie@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-glymur: use collapse-voting for PCIe GDSCs
-Date: Sun,  8 Nov 2026 14:21:24 -0600
-Message-ID: <179416929499.628393.4374705363796025963.b4-ty@b4>
+Subject: Re: (subset) [PATCH 0/5] Enable soundcard on Motorola Edge 30
+Date: Sun,  8 Nov 2026 14:21:27 -0600
+Message-ID: <179416929399.628393.2387253236708275253.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261028-gcc_glymur_pcie-v1-1-a2163e1d2b9b@oss.qualcomm.com>
-References: <20261028-gcc_glymur_pcie-v1-1-a2163e1d2b9b@oss.qualcomm.com>
+In-Reply-To: <20261016073157.611956-1-val@packett.cool>
+References: <20261016073157.611956-1-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,22 +73,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 28 Oct 2026 15:05:32 +0530, Taniya Das wrote:
-> The PCIe GDSCs can be shared with other masters and should use the APCS
-> collapse-vote register when updating the power state.
+On Fri, 16 Oct 2026 04:31:48 -0300, Val Packett wrote:
+> This series enables sound support on motorola-dubai, at least the
+> speakers.. The WCD that handles microphones and analog USB-C sound
+> is left out because it would first need:
+> https://lore.kernel.org/all/20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com/
 > 
-> This is also needed to disable power domains that boot firmware enabled
-> through the vote register.
-> 
-> Describe the collapse-vote register and mask for every PCIe and PCIe PHY
-> GDSC.
+> The senary MI2S patches were previously part of:
+> https://lore.kernel.org/all/20260506204142.659778-1-val@packett.cool/
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] clk: qcom: gcc-glymur: use collapse-voting for PCIe GDSCs
-      commit: 60521e4ff9e7f1b41758f387842d73667a7f0410
+[5/5] arm64: dts: qcom: motorola-dubai: Add sound card with aw88261 speakers
+      commit: ba44607caa70c16a6c36d1616b669b853ffd518e
 
 Best regards,
 -- 
