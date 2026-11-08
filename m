@@ -1,60 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169423;
-	b=sBZmBqeegukGNvCFrPbUGJiuDA3QZ8XB5TnUSBWcCYx8ENgyvNq9afc9VWIMWEpG8+de
-	 RcnMOsPN8A+dvukf7FELE9r7n6adHmuq3uUsLTK254/U8sBycQEjlL17Yqa8v59CvI4Ha
-	 h/k3ITSkGgW+k0lDLFZ0RP0/dAQT7frl0MEWGuwO/jBw5A7cBbbvO/bqtaZnDQRCD4jMo
-	 KHIVxVGcKMlhHrxdydUin0/TPyC6EP1mCvDRyAG57urYTcKbB8u2co9btbyM+HIQKCBaq
-	 50bGZcd9nsMvKRvYXolSz2AdqluU39ZnKbLOoZ4Hj3EztOJkbHiussvOc4sKtBVXkGw==
+	t=1794169434;
+	b=PGmyJG65ZofreAGI3806V3ZeAq3TaYoF4zF+FatWE7srVMvxmBQU0CQe+jNZx16zBWeU
+	 nb06ZXiivZ3VqYWRZqMB5LyYV2Fsz+09DEYk9zL9lqzjyAcazSXSlqcRqjCyzeql8PdnT
+	 ZZOKenCFo8VwIvFFuQocadMiZaE8XofJ7l5sQ/KaG2LLq2iUBWoL6sZKRHkafpUynvPKF
+	 DwLZeEZdgOCWyjeWK+a9W03k4Bo3FjGnRuK6zms76yQVclwSTriwuyofaL3J5EkCutLXI
+	 tgA9G5qdmUHnW+51LMarZ7h6fiUxCdh82Pu2rIJorriCfcKnbefU1h1p/OMyL4GrZxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169434;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=TYyy7nmPCHM39Lr/N2xStjZOHbUaxX+2SRFBUq1o/BY=;
-	b=oCbfYNwbq0DMiVngruHxiv0Sy9ky/TmnlvSd6jLnCifCywmZql5xv6LO84hZJt7HKDJe
-	 niXTuUVECyeIBGAfDgZUE2lU/MLgAGIb8ALOc4ZLgAY2SPVPWgoypssVGXgWrmdYedIcY
-	 xFXBv3e4Y+66VqbV4S1ud8wfGIdPOG89SHGuXvTEvT1Go54Ej8GDSyBKNbGPAYjre0lqA
-	 utWSdKKb32V1vP56/m757+AR11ewPFBjykRss0lgztcfj+9IU20b2YQPD1J2yizD0C3IN
-	 e9NqsIYurC7eRWY5luJscjlz8f0yB1ebamz3GV7cexGMocY+aiB39A0+mNPhuTNtzrg==
+	bh=qBaFjQFLcBBSS0/yQ9Bg9k/67NFL5hQgBHEWS8yf9kI=;
+	b=I7rGi9Tv1pFJ7untXlJJnyRVP75n0caLsjvUyOVYbSqaw6nExgHdoqSC2dL3n48rw3Nb
+	 pfWtyuXdVvejfGyKhIcKFCmbJ9V36zf6zEX6dAIL07FQ1wGPeazbm6bMK+A+RrVlkOVMM
+	 EXCYMu2CbTEvRE/pnL43PaeiyV9jIaPa+aW3krdZq4n094Wl5n9hv23cfYv9arFJJo3mU
+	 wma+YHhCRT0n/TLgt0QZoB942LMnqKLNK9+rMv/35QTD44obqA/MZlm6Mv4YupLeavuQh
+	 iqi1ZXoVGqtABMsvJ1WbhX95iIAQRByyynk0QblcROfUTuxwmqrpXZc90e3L+k27l9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BO64tI9S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnne1OJ+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1186073CC3;
-	Sun,  8 Nov 2026 20:23:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90536074FA7;
+	Sun,  8 Nov 2026 20:23:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BO64tI9S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C49101F008A1;
-	Sun,  8 Nov 2026 20:23:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnne1OJ+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523781F008BF;
+	Sun,  8 Nov 2026 20:23:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169422;
-	bh=TYyy7nmPCHM39Lr/N2xStjZOHbUaxX+2SRFBUq1o/BY=;
+	s=k20260515; t=1794169433;
+	bh=qBaFjQFLcBBSS0/yQ9Bg9k/67NFL5hQgBHEWS8yf9kI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BO64tI9SSg8GSyHDab+n3+2jwAQmYpUcGOHqpK7jgcWWdTnNDOqkIq08ZoNrpJ7GB
-	 JQRwd8R8yc82iTYrQJu1xgTYN1LWjPBAahN11x6Tpra/mN2IhLua2detLL3gKe7pLe
-	 4FiOdEYLTtifgHID/m4FaV/DNmbT2OKJoPOu91NjLDP4rw7XTA6ZqMtAdYbYaLKZpk
-	 dgwthjdevV8piTV8nMPRyNWc/B9BFP3WXYcE8OfzPQts1w/5p+J1mATAk/izNfFQeh
-	 N50elk71RMsFCLBGXIS0iM6u4+nJ8GTgCDA5GpaaBW7DBgVEH6IAyPbn+7B0yW0udn
-	 CaIPscLfx1gXQ==
+	b=mnne1OJ+viWuJ6aHQAjROXw5814T7pS5sGtHwzXTTzw4CtTQOTjZB09A/MrlGZdAB
+	 w9aHipCeUHb5sIBvOKvvIw3lKyk/HZUVL9Lv+OMU9M/suEsl0cuL+wjT2lX8c0dI9Z
+	 OpSLOiy5JcihLkbanYf7K/g0r/XK3vhWe1fMrkCvhhQGuEh3MWzRMsTz7YljPxusze
+	 fr/ymr/REBAAZRdWSVKW75U8wpzaNYgTn4ZS+sYzvb3SgBSMjIeaDcHT3bBXxJzHFS
+	 ORNPRtpAiHX5Hn5f1ayn2E4ejAAOFBZqhVcIUQST+dXfx7FSDHvl58vP7RiTfqLoj1
+	 Y/wzF7meWE64w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Haotian Zhang <vulab@iscas.ac.cn>,
-	linux-arm-msm@vger.kernel.org,
+To: Douglas Anderson <dianders@chromium.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: cmd-db: Fix probe race with possible ERR_PTR dereference
-Date: Sun,  8 Nov 2026 14:20:25 -0600
-Message-ID: <179416929567.628393.17956187622252412553.b4-ty@b4>
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Jasper Korten <jja2000@gmail.com>,
+	Luca Weiss <luca@lucaweiss.eu>,
+	Federico Amedeo Izzo <federico@izzo.pro>
+Subject: Re: (subset) [PATCH 0/3] Support for the Samsung Galaxy Book2 Go (SC7280)
+Date: Sun,  8 Nov 2026 14:20:33 -0600
+Message-ID: <179416929372.628393.6400266306544455392.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261104151550.215604-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261104151550.215604-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,20 +83,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 04 Nov 2026 16:15:51 +0100, Krzysztof Kozlowski wrote:
-> cmd_db_dev_probe() stores the result of devm_memremap() directly in the
-> global "cmd_db_header" variable and only afterwards validates it, which
-> opens a very short window where a concurrent thread could access and
-> dereference stored ERR_PTR.
-> 
-> Theoretical (not reproduced) race condition could look like:
-> 
-> [...]
+On Mon, 12 Oct 2026 20:11:02 +0200, Luca Weiss wrote:
+> Add basic support for the Samsung Galaxy Book2 Go laptop. Basic support
+> is just eDP panel support, devicetree bindings and a devicetree.
 
 Applied, thanks!
 
-[1/1] soc: qcom: cmd-db: Fix probe race with possible ERR_PTR dereference
-      commit: 12e45556d58ffddfa34e3bdbf65646b5fab06113
+[2/3] dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
+      commit: ac299104cdfbac5b0fa2846eff77192d804c60ef
 
 Best regards,
 -- 
