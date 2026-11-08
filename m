@@ -1,63 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794151158;
-	b=ZO1GB1nYFPDx5KZ/uYsXsyCF4Ti04MjNeqn0sCwoSziSF29OyMxxs7KRZSLTh/gU0xeX
-	 xa1DBou5rO3SUfL00WYbzA/Tgno9zyxb9CL81fcP6xsXeunlj7wTOnewRc7tsKAh41wSH
-	 h1dwx3R+/GI+JRwWOp+TWcExuG7mEAHmsn8IRw3FQDPpKeGuGT79QP9BG2r8Vj//TED5g
-	 n5sIMJ9pfzmUftCpfKFELhBu2Etz47IYJ3mfRpzR4ta71Fz9n2D2h/7PT0BGRa874p12L
-	 AsGNqIvIjGUB0i7GyNI0nmpgBFkDkGXSlIY9VdRZXXC/GCPcke3qK+Mbufzexy9DDTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794151158;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=tS7Um5DMhxKUm027vq32NZL/bvrzTjSz3foWuqEhkjw=;
-	b=Lmvbh6Lric4K3SiRXAavBU21o9pqZ98ShfBKEnKcvp7JdprDBnA8uNEhMY8JXSf7t+Jy
-	 Hs04CCRQq3pSMfN2Kk4x6h0XEJGidOMxOzU64k8wZ6WOwkjB4iMfXOvYo2jguGSBUfcfX
-	 fdQccks0bZoGu4gXBYwXCM15kvwvLJ9ii/DiKZ+doDKGZC+WLhlp4S418K/EXfj+3W8nl
-	 mEdktyQbDRSw68zOR6HpO4jQJZI2GTXTN39GlQbTyWKiZVBDNs0GXy68fN4rmtftP4uef
-	 ZwFPs3Fu+yhQDnZVQEfeb7Z6qdRpuDThs/pg3h8Uupn6B6n2RBt5XQxqEK1uBTpAFjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TJYC7u/C";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794151222;
+	b=roIVS11th9FgX8vHffEZdZo0SXMbiNM0BokndGkpDeB7QleNV5wTECUp1eU2w2gnWx+/
+	 HJx1F7ICDK+/F4Fxa2NmcnEjFVzipjNZ2gMCXQIbyR1qavHXbRqQgIzRaX6QL3WAJnEqX
+	 B37mKGQWQZYMInYI0naXh5pkGGuS+ZZbiLf+IVeIt/mDNb2KEY6oOY+io3gxZ3cRijtQb
+	 CerGtOUZ2s16qhuvO4+r/vG+U4frtvQu2SaaJnh4u4dLXNMA+LQyn78ywyGWqLAR1RiHR
+	 LSxnPPoczxrxGufUiQsoeFxVk7eZtJfzKZbiryjOTvHRgS5vmW8Poc60Q1UNWyrEFEQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794151222;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qOxe9JDMzQ5KOLpQ10yhevscBcuPccI/BjPAJmf1lEk=;
+	b=eyQxCQr+K+m561LGuReCC557ZTD6czgNJY3tproHmlRtCm2rmHK/vsfb+jFD79WXiNQp
+	 thag7UqAFZHBkBvnWi53hOm54CNo2GQHXTxPMa/AdtmR6MP1OnZE9kyRyWQMo9W6Vcvap
+	 e8++d8eBLZjS4PBqOThzm3UuDMfWDl3B2Ep3ZFhsz5UoNFFm1Vl/peuv+mjbR0hQn40iT
+	 6DSAP2TV562dDeuf7kA/tGNBzbY9oI6PSZQ+f4LjX5Y4VKu4eP+kL4nkzxjdNd5SKCQ22
+	 gVJ2slkULk9mAhijs3zteV3lu3p1bvRZt7bKws7qR5r1bdewQcyumxSnpBuivtxL46Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jv3fxMaU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EE5606A31C;
-	Sun,  8 Nov 2026 15:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518C7606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:20:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 518C7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJYC7u/C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60DE21F0089F;
-	Sun,  8 Nov 2026 15:19:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794151158;
-	bh=tS7Um5DMhxKUm027vq32NZL/bvrzTjSz3foWuqEhkjw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=TJYC7u/CLpWP+lzfJMc9ogVFoYpkWrgWg5JbRhCFshpLRaQG/otsIs0n1LJZoFASr
-	 rWWWHMgua2gKEFRX6DHGPWFV1lB1t3Mk+Kw4isKdJUy1OPpEC81AUWd1s9S1mmlNti
-	 UOa9dfULVU8gkzxXy1DgF82nvvOSg9+pfQ2Oi1TwFDPP4kmzvZDyxgTDKXNB/cC5W8
-	 a0OsfQed83okN9EjHVZh+uyWM+GTQZEgT3+9s65fScHNciJulbYod0ch2Atk0oySXB
-	 tK/Riqpr1jDaRIxQiApBF5AoBRiWzX5LPIrAhkGaVf6D7axKdK/yl5+0e6zMHVI9Fp
-	 lcgVPdV//Ju9g==
-Subject:
- Re: [PATCH] net: ethernet: mtk_wed: fix double free in mtk_wed_rx_reset
-From: netdev-bot+sashiko@kernel.org
-To: hujy652@gmail.com
-Cc: nbd@nbd.name, lorenzo@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- sujuan.chen@mediatek.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, sashiko-bot@kernel.org,
- stable@vger.kernel.org
-Date: Sun, 08 Nov 2026 15:19:16 +0000
-Message-ID: <179415115690.994134.6626930296330601239@kernel.org>
-In-Reply-To: <20261104-double-free-v1-1-efa52326702f@gmail.com>
-References: <20261104-double-free-v1-1-efa52326702f@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jv3fxMaU
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-372bdb942dbso207869eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:20:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794151221; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VqfAwSvi1+KuZoZGh41h6NEFx71CpZRkdgsr+fsD0ch2xhXU6olVo8o6juxRfd4Ana
+         DeRQZ7Cm2uJhbwrBJKh0LvMWhPdL976vFsVAKm3/mTIGOSs3be4glBS9dbptN+yQ8g1f
+         ADoxy8EurtxPOqxLQVf+2ROjuvOvwXtLEff1r6zp58z0whldYaHUoUZjKE2wFxrVyKir
+         /DO2cZ5BSZuoZByVbFwHclvGBu25p8kTK4u9NIOdsQkiko9ErlNGZdQbBNpu8IrjQ7SB
+         hIOUN7iaZ/HuU4C5ItNhbw1FBUDa8qIJCV+NLFtU2+KQx8E5LPiqG+6BJNXuMSWBSCL9
+         l6Kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qOxe9JDMzQ5KOLpQ10yhevscBcuPccI/BjPAJmf1lEk=;
+        fh=zWuNCLqeXggDrAFaSM8wYhG4Sh0Wue/HbeDa8emfGJI=;
+        b=VeuFf1vBZKu5UnelGU3kPPJjXE3KzcTzZNw1FwyGYThydEarRdU0OP2G2on3UfQ3ma
+         Vru+6FdAPo5S4g+ur7JDkD/+HkMYTig70GLhUprz/0PieoAtMFL4TcMLHUZdZxdVZUSF
+         m/BjftuqPprZ0YrVC36a50YlT+WQrpQHn/eWMTpO1rjytsa4Q3ojfjGs7pNdCleOBBq7
+         ++AWLy8Hy9Oh285bWCtYHxWGOms2jF0kAV8u2H1glLE0DckmBx0BnU4HvbfYOo3YKbP+
+         naZFW5Mh0XF8/1ZpdJEsdFEDcu4RD8E1EDK3l/hO+OfXKWdMk94kteoHLHQpYxVq397T
+         VCbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794151221; x=1794756021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qOxe9JDMzQ5KOLpQ10yhevscBcuPccI/BjPAJmf1lEk=;
+        b=jv3fxMaUWjQVJskOqgtmEZPK5JGekoGIYVJiAw9rzX88q/A2V/a86yiORf8MCpBMJl
+         KUZyKXiq+QuGLJGeWbsJOAse8G2odRZgc1cxeFRnABTlJFNnVnonR1npCbDBdh0WDRd5
+         qmJwPkOmueRkREE+6oGA8n86H56nQQXqkRGbUHzktv8ClLKby71HCTWcMM2fWdD6C80f
+         pZxzIX9YOsECxMfsb0KZfmTdWIwGgb9PhyaCGkMglxqwgvzuzNZHzXd0UevfnB49HT2j
+         1MHjZQ2Kvu8x3Mt0+Jd4y5Lj/uX2z+tgzPjazamTh82kaKu9iQTVdLVTFw3yhhfwPeqc
+         XZXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794151221; x=1794756021;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qOxe9JDMzQ5KOLpQ10yhevscBcuPccI/BjPAJmf1lEk=;
+        b=mSR/JlFo6cGn8UfZeLMmqHFUiBLdKgudr7l8XuQ3nEebmMWDLXlSTBKvUQRSCNVpm+
+         NZavxVGFb9/ojtEMQ714azPyvzijKuAYVl202dRyl/W49DQNRtTopjqoLTcZGUYOx3W9
+         /7Z1t19YA3438CoW0XXXDYor8D1TTTWoJ71RmxGa7eW0KzRw4WsTHydYl2CxMLl0OH0B
+         2eSNA9sBTf2OLukletEXN3HmwNI6Y0hzu8H7PiTxgDE5PsqmZRVznoPGv+zdx04madMS
+         oYbf56QZ7jS0EhBe1Hia/JEiNpy2OuizEoRQuZcHCJDcUe+NJFr66HPuNkbV3rwfPOT8
+         SAuA==
+X-Forwarded-Encrypted: i=1; AL+hErE2lV2r7sqLwo2rgbvei6m2EandoM+9MvwzMGSajq5ilsrGtSUyxQ8pwC0Pmlwa18bzkx/i5Xyk/vPO2N0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CN+eKELe19moPHkyhO24AGu2ZRBswcl91acG6BFoKS07bJUmB
+	pcPcoamDXIQGj7gwKsplerR2j0lLwiXCbjN5SBPtaqz38Ii94VZnVZjCUqi6rWOxZQBGaA8s61n
+	Y+yiD4AFfNsi/yj5FNnM6uMSdVZKhKYc=
+X-Gm-Gg: AYBFou1vEa4yYvJL7IdY2qgRwoxFJcqhHGRN51ODbIH22UIfx6KYhsmCI8KcMqmFLbp
+	ZnfoYu+mufkL0mpRhN42QSDddHe9dyBUmHucAob3/ppC38BpLGNiGRFuWvo6b2rdaC/ZaMXU+zc
+	PvcQdOWOwe+iyANuqvZPLaBVvA/Vkr1nW1sKWvyDn1BVPwriQAN4uLZ6M0xhs8YtXk3WwlzcBeF
+	JrXzdXWgfbjOaXqzN/oljfbKCN83tJ/c4QA6R0N9fKXiRTRwF8LF13gR72iYJsGCkTyd/2gVL+q
+	cBugwsobSyBnCEwZUvWksj1sRw5Uih/Xp5chm5zz1Bl0aDGGY+U7KQ/7wCDm17AstSJ5WL3ETtx
+	hJ3jamgHHgc6DG1Mb8/SdPPoiS6UPwqPESsYvryeZrTC2pexVcbdBnVJmMoSEJftswgo5cDNukx
+	Mhdzb+km89N/1OGovJa8gI7nosci7vMIb65ENUDxgIJUtHwhyVKHs=
+X-Received: by 2002:a05:693c:400b:b0:36c:ec0:23ef with SMTP id
+ 5a478bee46e88-37256befee8mr3287444eec.16.1794151220960; Sun, 08 Nov 2026
+ 07:20:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,118 +105,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261108144548.190622-1-huggek@klattorp.se> <3cd1da5d-8888-4127-b406-a1ed35454e77@klattorp.se>
+In-Reply-To: <3cd1da5d-8888-4127-b406-a1ed35454e77@klattorp.se>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sun, 8 Nov 2026 17:20:09 +0200
+X-Gm-Features: AclHuK-5Ll5NaqunHkPsbBiIe692J-yHEwC2l_OQ_mvftK0D4AH9nvuhP5G7uGM
+Message-ID: <CAPVz0n0KjpfuNNG=r-Zgf6gNX68UnvUARQm4KUS5FNGH439F0w@mail.gmail.com>
+Subject: Re: [PATCH 0/3] power: supply: max17040: report charging status from
+ a gpio-charger
+To: Hugo Karlsson <huggek@klattorp.se>
+Cc: sre@kernel.org, linux-pm@vger.kernel.org, matheus@castello.eng.br, 
+	me@iskren.info, krzk@kernel.org, m.szyprowski@samsung.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+=D0=BD=D0=B4, 8 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 17:09=
+ Hugo Karlsson <huggek@klattorp.se> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Adding the other MAX17040 reviewers, LKML, and Svyatoslav as the
+> author of the commit in the Fixes: tag, whom I missed when sending.
+> Sorry for the noise.
+>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+I do not see your patches on https://lore.kernel.org/lkml/
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch fixes the immediate double free by removing the second
-  mtk_wed_hwrro_free_buffer() call from mtk_wed_rx_reset().
-
---
-
-net: ethernet: mtk_wed: fix double free in mtk_wed_rx_reset
-
-mtk_wed_free_rx_buffer() already calls mtk_wed_hwrro_free_buffer(). The
-patch therefore drops the second mtk_wed_hwrro_free_buffer() call from
-mtk_wed_rx_reset(), which caused a double free of the hw_rro buffers on
-WED v3.
-
-Link: https://sashiko.dev/#/map/216156
-
-> diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
-> index f40ac5794341c..5e9674c9e63ab 100644
-> --- a/drivers/net/ethernet/mediatek/mtk_wed.c
-> +++ b/drivers/net/ethernet/mediatek/mtk_wed.c
-> @@ -1723,7 +1723,6 @@ mtk_wed_rx_reset(struct mtk_wed_device *dev)
->  				   false);
->  	}
->  	mtk_wed_free_rx_buffer(dev);
-> -	mtk_wed_hwrro_free_buffer(dev);
-
-[Severity: High]
-This removes the duplicate call, but the free helpers still never clear the
-pointers they free. Can the stale rx_buf_ring.desc, hw_rro.desc and
-hw_rro.pages still get freed a second time later?
-
-mtk_wed_free_rx_buffer() frees the descriptor ring and leaves
-dev->rx_buf_ring.desc set:
-
-drivers/net/ethernet/mediatek/mtk_wed.c:mtk_wed_free_rx_buffer() {
-	...
-	dev->wlan.release_rx_buf(dev);
-	dma_free_coherent(dev->hw->dev, dev->rx_buf_ring.size * sizeof(*desc),
-			  desc, dev->rx_buf_ring.desc_phys);
-
-	mtk_wed_hwrro_free_buffer(dev);
-}
-
-mtk_wed_hwrro_free_buffer() works the same way. It unmaps and frees the
-pages, calls dma_free_coherent() on hw_rro.desc and kfree()s hw_rro.pages,
-but leaves both pointers set.
-
-After the reset path:
-
-mtk_wed_device_dma_reset()
-  mtk_wed_reset_dma()
-    mtk_wed_rx_reset()
-      mtk_wed_free_rx_buffer()
-
-these pointers stay dangling until mtk_wed_start()->mtk_wed_rx_buffer_alloc()
-overwrites them. Some paths seem to skip that step.
-
-In mt7915_dma_start(), mtk_wed_device_start() is never called if the WO
-rx stats message fails:
-
-	ret = mt7915_mcu_wed_enable_rx_stats(dev);
-	if (ret)
-		return ret;
-
-	mtk_wed_device_start(&dev->mt76.mmio.wed, wed_irq_mask);
-
-mtk_wed_rx_buffer_alloc() returns -ENOMEM before it assigns
-dev->rx_buf_ring.desc if dma_alloc_coherent() fails.
-
-mtk_wed_hwrro_buffer_alloc() returns -ENOMEM in two places. If the
-page_list allocation fails, it returns before assigning hw_rro.pages. If
-the desc dma_alloc_coherent() fails, it returns before assigning
-hw_rro.desc.
-
-In any of these cases, the next unbind or remove would do:
-
-__mtk_wed_detach()
-  mtk_wed_free_rx_rings()
-    mtk_wed_free_rx_buffer()
-      dma_free_coherent() on the old rx_buf_ring.desc
-      mtk_wed_hwrro_free_buffer()
-        reads page_list[] from the already kfree()d hw_rro.pages
-        dma_unmap_page() and __free_page() on already freed pages
-        dma_free_coherent() on the old hw_rro.desc
-        kfree() on the old hw_rro.pages
-
-The if (!desc) and if (!page_list) checks don't help here, because the
-pointers are still non-NULL.
-
-Would it be better to set rx_buf_ring.desc, hw_rro.desc and hw_rro.pages
-to NULL in mtk_wed_free_rx_buffer() and mtk_wed_hwrro_free_buffer()? The
-commit message names the same cause:
-
-  "This would cause double free because dma_free_coherent doesn't set
-  freed desc to NULL."
-
-Clearing the pointers would also have made the removed duplicate call
-harmless.
-
->  
->  	return 0;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104-double-free-v1-1-efa52326702f%40gmail.com
+> //Hugo
+>
+> On 08/11/2026 15:45, Hugo Karlsson wrote:
+> > Hi,
+> >
+> > I work on OpenFlight [1], an open-source golf launch monitor built on a
+> > Raspberry Pi 5 with a Geekworm X1202 UPS board. The board pairs a
+> > MAX1704x fuel gauge at I2C address 0x36 with a GPIO that is high while
+> > input power is present.
+> >
+> > With the gauge and a gpio-charger described in DT and linked by
+> > power-supplies, the battery still always reports status "Unknown", and
+> > capacity reads above 100 when the cell is full (103 here). Desktop
+> > battery indicators then show the wrong state, so we have been shipping
+> > a patched taskbar plugin to work around it.
+> >
+> > Patch 1 passes the device fwnode to the power supply core. Without it,
+> > power-supplies is never parsed, so the supplier status lookup added in
+> > commit f4b782af61ae never finds a supplier.
+> >
+> > Patch 2 covers suppliers that only report "online", such as a
+> > gpio-charger without a charge-status GPIO: the status is derived from
+> > power_supply_am_i_supplied(), and the battery now sends a change event
+> > when its supplier changes.
+> >
+> > Patch 3 clamps the reported capacity to 100.
+> >
+> > The series is based on for-next. I tested it on a Raspberry Pi 5 with a=
+n
+> > X1202, on rpi-6.18.y (6.18.50), where max17040_battery.c only differs
+> > in the style of the i2c_device_id table:
+> >
+> >    stock driver:          status Unknown, capacity 103
+> >    on mains at 100 %:     Full, capacity 100
+> >    unplugged:             Discharging
+> >    plugged in at 98 %:    Charging
+> >
+> > The battery's uevent follows the charger's within 1 ms.
+> >
+> > Related changes for the same boards, for context:
+> >    - Raspberry Pi overlay that links the gauge to the charger [2]
+> >    - Raspberry Pi OS taskbar battery plugin reading capacity [3]
+> >
+> > The patches and changelogs were written with Claude Code
+> > (claude-opus-5-5) from my description of the problem. I reviewed them
+> > and did the hardware testing above.
+> >
+> > [1] https://github.com/open-flight/openflight
+> > [2] https://github.com/raspberrypi/linux/pull/7744
+> > [3] https://github.com/raspberrypi-ui/pplug-batt/pull/17
+> >
+> > Thanks,
+> > Hugo
+> >
+> > Hugo Karlsson (3):
+> >    power: supply: max17040: pass the device fwnode to the power supply
+> >      core
+> >    power: supply: max17040: derive status from an online supplier
+> >    power: supply: max17040: clamp the reported capacity to 100 %
+> >
+> >   drivers/power/supply/max17040_battery.c | 28 +++++++++++++++++++++++-=
+-
+> >   1 file changed, 26 insertions(+), 2 deletions(-)
+> >
