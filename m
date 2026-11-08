@@ -1,63 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169346;
-	b=2Uy74ukmTc5OB65UgDaCEZkPOBySLLsNOEa6KxdI58NJmEn3i1F90Y7Xs/Hqpq7nlbI5
-	 HT0LgIjM4J3LMaaTzb0J3XGoBJhbyywaRSo6iJHGWqxhuSZMOej0VkkiAzsw77jahneNG
-	 0SE/5JhSAcWm5F2JHhTu3/gu5/NyD6TxnwU5dUvK3QPbcHIKiKNWa+wCuWW7k8xCRmaSL
-	 EOBYrg8BZ/GPeeDltZBoObjm04bkR1J0SseqbMtX7IPUSHdXiY3nDvJaDGncRrjWWidqd
-	 APsLQjh5DM5xsXmKpbGBuI6stHKR8H5OMmG+wL0ckUCTrierb+mv7czGzE85QMgBjZQ==
+	t=1794169348;
+	b=fl74B1DtxvDCfGAhKw3GRNjEf2SShOucE5F0gWzB3Cbo4js26uJlYPpACDGKxCso9tsf
+	 rcqzbEgMNNCw3/Xh0qJHFDA0vvwJxepnZxs8mr0mhonnzTg4V9MEzw5mhfIaiqJ00cLiC
+	 qGCWvKVMpX4R4oIFJapKJtm8K/DUqdgyRXOCGyZ0DfpdhbGfjd2o+8PBFMsFp6ICzbxGq
+	 LG71F85utIkULIXnZyu9+7X6ICauRJXOZnkJrQTxrlXn+0EcFb18lNhAAYPGz8gV2f8cX
+	 qW3dtcbmRfTlzDiE7/t8YAZkXksH577JmV/V+83mmEQL2oPl6gsZLPIkhsVIGCs/eyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169348;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=oKswcvR5YtIvBDM/sKvspeXY/a7O44L2kGWjWOUqnjc=;
-	b=CP7q338DXNuwNW08E3/T+gGuhZk73SwhUIBRWvxxC0ufeYWM3bkKQfGk1w/Tbj2lYB6M
-	 /5c2ufuj8l3KWpOiCkoRRq2afz2hC/yvCPu0wesnQgg3ekEMUxJvTTsCCZfR+cTDfoZiH
-	 KJT58uqH5l0fmmDcwy9pEUJuCgOX9lkRevHUa8b+sDsk9zulB4RhFKmo2D1wXWhV45R/2
-	 i2lwgmR8rJYnYK48zWlDkOaf4txW0CivXfqG4VcVuEBD7c2LuXJTKZk33JSJzovJ0MEaR
-	 3ZBPeSj2uSi1Fb4MwM1AZfwe012omtDECbHZQCq11aTk1eGdY9EoTutqZ6k7yyGs0vA==
+	bh=+03jTVGIFZ0Ku5cXK7wtacYgGz6NzL+g69qARhp8Fy4=;
+	b=tGzr/sjul4jZJ3abLr/U7ZGTxt3DCS7Er/cdeKsh+mnIw6Vm82wB6XnZFwv3FylTbc0L
+	 ZszfGzWyeQlHXeqW4dzRPJc7DSJMeDZm/HxotScmudWtZpOeh+ZnvxP0SBfIXteIMpZtj
+	 AcmCmJpliQEsJiDtSuhkSfMhfRKYZkno2naGsgLYIqEeYfgO9AHJ2l3W4QjJSapQWBa+V
+	 uChauQUhq2ksReb1w1zSJDpIw+Lh6VPcuUcCTnsuErZJIOFByxtKnAnqQ0Md+BUOhkARt
+	 vkh8GsTr148gYaHGPr1RkTOnEeih7unpxgc2AQBthzlsLpRWHk7KnGX/Bl6+3MLnNng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+MltNep;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcDvXr0x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DEB60A380A;
-	Sun,  8 Nov 2026 20:22:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B37860A381C;
+	Sun,  8 Nov 2026 20:22:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+MltNep
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7D41F008A1;
-	Sun,  8 Nov 2026 20:22:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcDvXr0x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1AF1F00901;
+	Sun,  8 Nov 2026 20:22:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169345;
-	bh=oKswcvR5YtIvBDM/sKvspeXY/a7O44L2kGWjWOUqnjc=;
+	s=k20260515; t=1794169348;
+	bh=+03jTVGIFZ0Ku5cXK7wtacYgGz6NzL+g69qARhp8Fy4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f+MltNepKhHDEbdA9YbTlNqZLoL0cmwVz7ayY04EiTR47opV364FsZ2Y4su3vg9xG
-	 u3oHt4UvsmafAy4rugWYexHPpr6vGpTS2Oc30VLpMR/9BJc1pgs2i4EhbO6QbTbnfQ
-	 B/sMFdVUWsmqDVS0cB+YNMSKnuPYpxu2bp28R+SMrIL+GJG3IUjo1voPZoj8kzKTbk
-	 wxMbB4ZYHaEz+V0xMW8aWMQpDfxtt1dBARYgqabIFa3uM4u52phyJOrLGVTFxL02g6
-	 7T6npEa5lYKnfCQttbJarDCYRCGLRU219UVlDdNQ7V3vYARz+OeJEzmu7BtCD7dWUJ
-	 iaKi3YGkzkIbQ==
+	b=gcDvXr0xVLxLCrEjipigauQxpwf57I/2DdGp7aX+/aMzEi8hpwA/MRqRcvwr269lH
+	 C7RiqYLLdrpRQ/tTa88M2CuZJ5T4H1zCgTkc0ZZTp8dMfjgrVyzsb8xuirfdSN1MRr
+	 v/2KtyEPDqXYEL2lS/qnl3GF1+jZ7FcnjDVs+sW6JnkkJCRVyVBkB7bxL0fCBGFj1b
+	 GtYT8wp9TYJvm/Z8tfrpL1PXLsNrBED+qn7nZwRq9IJ3Aptska4EU6z65M6nwkkVyx
+	 McbxNVgkWYTMCA7b92nQRCRiPMtOS80gprYhyI4IwNON58nb+D/ZAZxafWP4M79wMT
+	 oIZo7myGggWRQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix the ADV7535 interrupt
-Date: Sun,  8 Nov 2026 14:19:35 -0600
-Message-ID: <179416929440.628393.2150156225768231577.b4-ty@b4>
+	dri-devel@lists.freedesktop.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/5] arm64: dts: qcom: support SDM845 HDK
+Date: Sun,  8 Nov 2026 14:19:36 -0600
+Message-ID: <179416929424.628393.17771350398079284903.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020-ifc6560-adv-v3-0-5da1a33fdcbd@oss.qualcomm.com>
-References: <20261020-ifc6560-adv-v3-0-5da1a33fdcbd@oss.qualcomm.com>
+In-Reply-To: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
+References: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,19 +82,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 20 Oct 2026 11:44:51 +0300, Dmitry Baryshkov wrote:
-> The ADV7535 HDMI bridge on the IFC6560 fails to probe because its
-> interrupt points at the wrong PMIC: the ADV7535 is wired to PM660
-> GPIO11, while the DT uses PM660L GPIO11, a power control output driven
-> by the bootloader. Point the interrupt at the PM660 and configure the
-> pad as an input instead of relying on its bootloader state.
+On Mon, 19 Oct 2026 12:18:02 +0300, Dmitry Baryshkov wrote:
+> Lantronix HDK845 aka Qualcomm SDM845-HDK is a hardware development kit
+> for the Qualcomm SDM845 / SDA845 platform. It uses the modem-less
+> version of the chip (SDA845) and provides a rich set of the peripherals
+> and connectors. The DSI panel is an optional addon, so it is being split
+> to a separate overlay. To (hopefully) ease merging, the overlay is split
+> to a separate patch as it depends on the panel. The base DT doesn't have
+> external dependencies.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix ADV7535 interrupt parent
-      commit: ce13924a93f22d2dc5ccee4fad910da57755d16b
-[2/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix ADV7535 interrupt pin
-      commit: 05329d94fcd490f68e3d9b7670d385080d3e9a1a
+[3/5] dt-bindings: arm: qcom: add Qualcomm SDM845 HDK
+      commit: 930173f0332cc16656996756a5351560a4cf6068
 
 Best regards,
 -- 
