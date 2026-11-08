@@ -1,96 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.117
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794150619;
-	b=WhClQFA68Mf4fm5Lgrpixg5AneTEAmEXQyFfo0J7JumXoD+bMjeiH729RB1sRWGcxohs
-	 pNM/dhrbNCjmo+Z7RCTS8xnUsoRj4Rfn5bk7i1GttSU6JQuvrxPWUP6b4R9tq/7YSzx+n
-	 04Uhx7y+F9FPqaAjjYHeLVwHxhMRTH2DI1GDuvqltZPG8Hj7eIxb9Fm8M+VqqqfJ5BAbb
-	 +9T62VxgaMII7BGYjt9ms7uDY5mQw8temqe0rbywpBSQkL7VGBAsJdM5dO8HQaXi1j4oE
-	 vcbZUsvwU000skJSHq+H0gRXkO1Q7Mj28QdP/B8XWsehI0Ydg8h4U/XOKzYRwZHa/eA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794150619;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NTubyfFtpyK+QuUhhoD1YDzUSx8hcDa6GkgrBLxOqbg=;
-	b=jkVENHddJoPqofBlS/ZmwiyK+iXKWn6OFVqtPesp4iQB80DQaEU1ZYyrqzuwb/IillFL
-	 5DTOPwyiDpezxu4zNf+erSU7FLNQrFYei/UYBu4aotoYQxSntM7j9+OAF2oyyoiD4UbET
-	 HTfyS8rKbuGuAiglrOachPYuJY1tcBidOStL7b0fbmDwJzLaeEHpR220lH/O324Iirkik
-	 Ydpb+mwHQeKufO9b8+1hf3CXJ4HQbeeL0LPFi0gITwVVbm6IBrijhvigjBe2vvcYmPGqE
-	 BXcRsXh4W533nrPjKXeoDLeuOwFSemEcZH6KF6Ry/bIndpUUIMt5X2p//s+JcN/lAIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="L/t5d7mW";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.117
-Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020117.outbound.protection.outlook.com [52.101.191.117])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794150665;
+	b=EiSH/M5R4y14kFaM6Vg/OsCfNreOJHLNc22HpZurLXIWvn9MWoyMFnauKRIixq8Z0mUd
+	 7JoyruqG+u9r3mDLVj50sVbYtQo2q+01BZMb6eoFlE3l9dohUBivIIFcl1YCey6gsT2HQ
+	 qOivyNGh7qeTRO85jtaq+pZH1wKGD34JOUgFz8nHYs539ozTp5zzO9q37/oUufQvJ+dJd
+	 eXhRK+sfkFS0SuQr/4FCi4cWyzBvPPEZKSyemjM6WsAb3C2JEh8XVJv1eAPFe3Na4F9Ha
+	 uQqDpVkC/mMWu8IFs8oaZeTTyPZbS0zxdPMHx+UHxnvbw99+VkpGZTtcDk/GvZhPpWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794150665;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=buB+SNDrFBHZ1hWkragxqZalboFLs7Xvh8M5Rtl1Ros=;
+	b=fJ/r4ld6lBnWF27AhFRUIOUPSJw3kBQpC6YhY3re1g9tqsf3ZRibFzxS0VNO8JLptIlC
+	 1/B8wjQXl3c/oLfZK2/IBZW0yqlA2GA7TqgnuekkgkAoHkfYa/T9hkN8rgIyZrRnMX3ZF
+	 aIWr0cJPZ8jErJ+etFtiSWn6QzHqe/xSPVKYERF8wgHFCy/jyMyPkSUNlLRotx/JnXByr
+	 3FWI49alZspNsTtNIFB3VFCf6CyMlyVxhWckRbWEAgLtENf5lEguiNU5RQf2SgRfoEDT3
+	 zssL8yrJzEZ0JWMy7wVSrJJs38s9XgFrVO7mpewlqvCjo6MCKEbp3N10wGT9R1fdY5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ivEusNDn;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24B9606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D24B9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6BF606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:11:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A6BF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=L/t5d7mW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TRxF20MDDLkU4xHXBt6TJtznTbledqmnaq1X8oQSKyPUqSSHnMpJjGrAc0FSbKsh1D9Gm06YJReMiDEsmyGBwjr4nIGgK2nCD5LIEkrNp97jdZAOvOXzJbKvHpQZizKS9hmnN2IQNIHqvAvTzDYiAHDTZ89x+KmfbMBZ39Goxxk6kynvgrfF5vIcBh76oxBtbgT8RZdh+AD9+5QTvsjBeZuLUc7jQLPIZNnw9XzybQ+5nGIKtbnqKoYcP7tQ7wrWVhYTMSq6vzkjMM1Ezba83kLQVwRtlr2GqmZvTJi0lnU/GBA4A+ZlGG/vYLt52I64+s+omH0MGsZRh8WM26e11A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NTubyfFtpyK+QuUhhoD1YDzUSx8hcDa6GkgrBLxOqbg=;
- b=DoNbzRcyfJWMLqAFud4BnruPQ7EyoIHZCsDpnsL++GHPQ2RJJPmQNeV17hdL9rJS6cHb1B5bwAsnlyeHjvu67uVZ44RaZ7J8BS211O2uVmL61qiwCqzt2WwAZUb3WNtO71SBuMUVvM365OKrq4eOiswY4A1GrNS+olt3IE+Q7rkXnKt9lDu58HHJdEXuXbG/xx0IebRb2JBGm6JmfUt9CwDu/KE8s6MJfM5F0WVQbrjKxBmAEqeGYj8Z5pej1LLqTcyGs6F0UHS2t24DHAJjUvy6BJvFjzdn7SbLy+HCsw2qNTO41frxflbMdqljfbpcq3aQbso/gl6Xf9MMUrw2Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NTubyfFtpyK+QuUhhoD1YDzUSx8hcDa6GkgrBLxOqbg=;
- b=L/t5d7mW+P2PsjlQgCS7gRcjJYYQrURNHjutOv/0vskCQYBxv9bXq+fJBlSSLGSxM/lqU0Z7xs7u41ePuIbMQIpai+Kmt5D1l3DCEBgEfpPLuU7E02a/wnpEci/4QJ+ozLVatgZmvHen+BmM0AyFlx6cot1I0FSiZS5rNEAqvLDxb56dlSIiYTKS+bYTl8KR43Nb3s3zBCl/AP5hnHD7PLnE4wBjzN1nEZuuYybNtC1hGHJEpaTHkdaamwudDvTukF0IcYyxArcwLjhaf8qn9bdni/yNGbnXhXFbw5sVcFsNC+ySXvtMk+3k/Odqym5vaeSvWtO0kwMegX41EkyWpQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YQ1PR01MB373984.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:cb::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
- 2026 15:10:17 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
- 15:10:17 +0000
-Message-ID: <7a8f6db2-aa1d-4881-be1c-09a2d8af5290@efficios.com>
-Date: Sun, 8 Nov 2026 10:10:16 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 16/26] sched/deadline: Record the root domain holding a
- task's bandwidth
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, linux-kernel@vger.kernel.org
-References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
- <20261107014451.1487825-17-mathieu.desnoyers@efficios.com>
- <sashiko-outbox-202514@kernel.org>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-202514@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0173.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8b::16) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ivEusNDn
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36f26e6abe9so268843eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:11:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794150663; x=1794755463; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:date:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=buB+SNDrFBHZ1hWkragxqZalboFLs7Xvh8M5Rtl1Ros=;
+        b=ivEusNDnrfqIuIdRaP8LtJxm21MMlK9JerEehVrvr2l+LMByoIthz3CTqnPVSKmHst
+         P3I7EqnddEk+6FptXbBY6n9wempFctfTmhts5vhpLJyMO4qsa0OuKKvJgn3jX/f2bBsg
+         uKoFB/hM+1U+qgdz2YOGHUGk0ztkMnoNCwzZNb5dDQTZoy8+MHiGHuCJ3xkdV1PueFHE
+         NtWltJihFbVu4Fpu+c1UN+uAdmpwkB3iNet2K8IYk0N93Jo1WDwIXXQRlWzh9eBDDJ2U
+         S91e1jFVV3PXSb2v8tpsbgH5Gha0DCByTapHQxre5goBohybPpKMAWHRVL7Fx3ktLZNq
+         7YBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794150663; x=1794755463;
+        h=content-type:cc:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=buB+SNDrFBHZ1hWkragxqZalboFLs7Xvh8M5Rtl1Ros=;
+        b=qr0DXmUR7+BbLiAVMQzNgqfVEcrXj6XXk2/Nd0LnQir31z/fh92FXw22QrsX9+JUGd
+         9sg294SoMNDU+c8YFDLgkNvqpzsA0ge4dl0inhEbJofhmF7O2hvqo28qcXqoAe7qhmYU
+         7AT6vxMLLf9BMxcdxuVC6QToHAKP4MkmYoeRY8jKPTMkKJqzgOBG2LjcG9+vHs7pXwr0
+         FMsNdWXVlyU8fk1KL43IN9qfBSwzuPZyGVVu93uv4yleJlbIVv+qRBKZynr96gL9ozWt
+         MBcvUMhgdM2Pl8bx0VDjT9WG8R1ToqVFZ93ZlJxusc4AS6VzGwWlzfprp6fOFc/AEATF
+         nkpQ==
+X-Forwarded-Encrypted: i=1; AL+hErGjo0HkpKh/hlNJw6RMkuwKnn7Ohc2kxCdT4FarpGA6BmlMO1KkFz4gfRMv2lxP5kG8Q/q/czMlgfAMhuM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+R7YgCSIrv42PIBWDeecql/U+diAQfzwdMPU8v+h7fEOGg0f7g
+	gqQPCn9WIUGiU+3iIRHtQNgpeJzf6iuWVsdm6Ks2JYAX9wrtNZ8wkz2QhbiWEeN4Pb0mGoZqGMp
+	MPTKIvMlO2aUe2y1JgddJ4WFfUCYTFQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,95 +71,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB373984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21922160-3560-40f4-e30b-08df3daa65ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|56012099006|261021121427099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	YrfB54woAigcFLfnVcJhmz3HmB0cbJaotcyp9lgDuD+P2ryBcFwWYBB7bOSnhDC42A/YxE6FLrXphQ3KDzSTc7Aon+fodxX7RcpepiEWdO7EMUwwZem5LH3ueeK86UT1iJ3Zx9agLysSf54BgEOr3d7RRHy8NlTXoW4jdiw7+QFnEl88IH+5PLJ4sQlTat6p1bUUL5cnY2CvHtX3MMF4sYE5/9+RUWORfJyJ6dsxgKnnodjlqlVRE0hqbiyOlROMZBuxO6Ak1zmH1qjlC9FX2gw7yxcqdjdLV0ZLMQDtERk+xJDrHpAowy6rlrOTEPh8WhHydV0OCA/2HfkqmzGg+ZleUH5Ww5B4Jtm3oGZIlnDmx2pfsCqiD4pgjjLdW5uAduW9u5bK8sngtIeiAznrQTdtdkk2MhPjctjP7vVI4KIZzIq5hJMgU5xWT20j9U6zpG6AkEa8dRcTXi2HCHiuebM5R2G/DyM7tErYwBXX7hisKEL1xS/1ssV4lku1T/SO+nRe6vxk5UdD7Ysu5sskD2PkI3NT//a73GLbU+9bjILp2XMKJNsGqbPKFypHM3dfcm0qufoiT6d1aiTdulGIqKJb7R2z0zc+9GPKwH78bww=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(56012099006)(261021121427099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dURaWnFyeUgwcjcrSW80Vnoxb0JJTjhheWlWY011ZjBBZjFIMDNyTW0vb3lM?=
- =?utf-8?B?V0tDWUxHbGhWWmxiLzRoVTAwTHNvVERiQkl0SXprS2FBQjZnWEFWSGVsVnFx?=
- =?utf-8?B?SlhwbVR5djlwTmx1NTRoZWo2amlMSzAraW05ZTRVMXdrV0I2MDRUNXZUYmJa?=
- =?utf-8?B?VFZLRWtiUnRic1lNc3lOU2lKSm1DbHNqTGdCMTQrdEJqR1lCR3hzVEp1KzN1?=
- =?utf-8?B?Q09ybXJrU0ZTUUJacVJUUndZKzNyR3RlT0RuTDZ4ZENyY3A5TGFtMU5LLzJC?=
- =?utf-8?B?N28ybkttemRzeDZXb2dyVytzLzFjckpaR2MxS0lxSGpFZy9jTE91KzZUbzNS?=
- =?utf-8?B?YWtCNWhMekk0SUE5VUNUTTZiVjM3NW41azRFSGFSYkloeDRVNjU2TDZTV0xj?=
- =?utf-8?B?SlpHQkxDQkpYaE9RQ3NxSTBIM24xR29ab2o0bUxEM1JrVVVFVWt3cXNqNkdX?=
- =?utf-8?B?TlBEMDBqbk5ReXFQMEJ1L21sTis2OGhrSmNtdkhhVFpsc1hmbFJhVWNYV0ZK?=
- =?utf-8?B?VHRMLzJ0ZGhYMkRXSGZkd0IveW51SGMvM29VdkRhM3E5dHhONVVHVDk5TEhr?=
- =?utf-8?B?UzhJaUVpMDJBUlNEbG44Z2xtb2hCUEQ4R1gyK3ZWVmhKa2J2K0NKMjExcVly?=
- =?utf-8?B?enZ2T2x5azRxTEoyWVZTUkNZVWF0SVQ5UE9CSEExUlVBaTUzMTJTazZreU5v?=
- =?utf-8?B?eXU0MWJpWCtURmw4ZkFvcnVETlFIV2c2QUFLM1JPbWRPMzdkb2FjZTNFR2FY?=
- =?utf-8?B?cC80bGNLdHQ4Q05zN0I3QnZ5WVA0U3NPK3o0RTF3V1QrOWd6QitUcG9CWU52?=
- =?utf-8?B?VGZLdmM1RWVRSk9hd2RHRzdaMkNBV21WYUhORit2UkZsRlpvRk4zN29jcVdI?=
- =?utf-8?B?U2JEK0dFeWtFUENhdnY3MmpVQmdNN1BmTXBhZ09OR2FOdkJvbmRETk9pWkcz?=
- =?utf-8?B?T0J6b1F3QWNLZU1uRnUrZjR1SU5VTWhBYncyOG9KY2QrMFpVM1Jxc0drbDJH?=
- =?utf-8?B?UktwNGNPZ2ozbjFtcGIvVTd5ZU16WEhpNmlIK0FLWXh0aWhhOEY0UUthcktw?=
- =?utf-8?B?cFdKYTNjWTdIb2tlYk5ITlVVQi9XYkV6QnhaK3hjS0N6TVBabHhhczhheWtS?=
- =?utf-8?B?emdnN3dRamtobUVwNEZqZlhSdTF0UTRlUUE3bDY1b0pEc1ZEWDFVZXRFUHdQ?=
- =?utf-8?B?OVIvRnhwczVCNkhHWWQzMmU0SGF6ZzZLd200RU9BdFM2Z2xDdy9vL0o1ejhJ?=
- =?utf-8?B?WWthSlR2QVhrbDlqMXFmdExsRnBRTjhIWlNqelJNUzZzR0EvZE03QkNnVnFu?=
- =?utf-8?B?VHVCNkVuOTMwZG1YY3RXNk4yL0dUWWRxTEtBUFFiV3o2V29BUHRrTEZzdzQ4?=
- =?utf-8?B?T3o5Q0ZJbUZQNTN1K2xsdzlwd3pPNWVKZll5S2NRMEVXQ1lwNVpQLzNsaTNI?=
- =?utf-8?B?blVJTTVvMjlrY0hyRXNUT2lWZWw5WkRSOTl4MTFyaVBFMnUzeVZ5MyttTGt5?=
- =?utf-8?B?TFVqam1NaDAveFRFSGRzUEU3dGoxMHljNUJiaGdVeVdML01WZGJockY5VWxB?=
- =?utf-8?B?Q213bEdTVXJkekZTbjUwRDlGSk1IOGovMWpuc3ZYUnpkWVZkSk1IL1czQW01?=
- =?utf-8?B?Q2l3Q0xxWjlaUWk1eGZQaU96M2c1Y2YxMm16OU9ybWhDSkdzTm5Ma1kyenZK?=
- =?utf-8?B?K25rWnRhWlpzanZ0NlowYjVqSkFrbjVSVmgyQmJibXhWS0MxR29TaVhUSzli?=
- =?utf-8?B?VVBOTGp3T3BwL2FKSVVpelRGcGNwVU1UUTJ4UEVtTXVtMkVPeTRPdDB0Kzky?=
- =?utf-8?B?WmZON1owUEJ0RWRWRlhISllXMU85V0V6Y2pWR01zZVc0MW1BMU9CNEJrRDZ6?=
- =?utf-8?B?RnRiT2RaVUp4L1oyZGNGSWMyMFlTeEozelNjbDFVekExdFA4Ly9qNWM2aGxU?=
- =?utf-8?B?OUFFVXJONTJ0ZVFoMm5GOThZVU8wL2E5NDdRbno5bUd2Q3A0M1VqanNiQlZm?=
- =?utf-8?B?YlNPMUFkVGdJK1dOQUlNeWpmekFqblBmMjJ0Mmg1cXhhcUFweWQ4MmcybFFv?=
- =?utf-8?B?bVk5TXRUZ2xQakdMbGZCaUEvN29NN3BYQ2w0aU5Kc1dUVEV3V0RmSWxDZUlj?=
- =?utf-8?B?bW5IT1d1Q1FVOFRaZzhORmZZU09tbERIdXBXb3kyS1NwZ3p0WGVYNW16WkM5?=
- =?utf-8?B?dkw4TTJVTGFpMjBqQzZaMWZqbU5PU1I2WWdpVzRqT3l5eTBuTENORG1OY0xt?=
- =?utf-8?B?YityK1lFL0N0NXh3TDN0MUttaTJaRTVZcEcyZmplOG5LWnBGbmx4b1gyYXE2?=
- =?utf-8?B?ellTWkpKdTdkdHczZnM1dDZkWGZzVXBWMnVSSThpd2Y0N0FMUVdhSW40MklJ?=
- =?utf-8?Q?Sw/+4jlbUgcewvTw=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21922160-3560-40f4-e30b-08df3daa65ca
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 15:10:17.2134
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OxPm8Nex84rPXSJU+RKww/mWuIytGu6zmX1z1AcrV6bKiCd7k8MIc+NboJpQEDU8pl1EwIXy1Wh14WNH5us4hUDUAVZnhjV0PF2+0EeNxD4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB373984
+X-Received: from dybpg4.prod.google.com ([2002:a05:7301:4144:b0:36c:a067:eca4])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:730a:b0:36a:31b2:8643 with SMTP id 5a478bee46e88-37258c2886bmr2826202eec.38.1794150663059;
+ Sun, 08 Nov 2026 07:11:03 -0800 (PST)
+Date: Sun, 08 Nov 2026 15:11:01 GMT
+Message-ID: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
+Subject: [PATCH 1/2] rust_binder: reject sync transaction with pending sync work
+From: Chris Wiseman <chriswiseman@google.com>
+To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-11-06 21:35, sashiko-bot@kernel.org wrote:
- > dl_task_undepart() loses departed state on PI boost
+When a thread replies to a transaction with TF_DEFER_COMPLETE, its
+BR_TRANSACTION_COMPLETE work item stays in inner.work_list while the
+next blocking read waits in Process.ready_threads. A new incoming
+synchronous transaction can then be queued behind that deferred
+completion in inner.work_list. If the thread's read buffer only has
+room for the deferred completion, the ioctl returns to userspace with
+inner.current_transaction cleared while the incoming synchronous
+transaction remains queued in inner.work_list.
 
-This is the case that the v4 cover lists under "Not changed". A boosted
-departed task counts as a deadline task. A rebuild meanwhile counts it
-once, where it runs, and records that CPU. The deboost then releases it
-from there. A deboost that races the rebuild drops the bandwidth until
-its 0-lag time. dl_bw_gen then keeps the release from removing anything.
+If that thread sends an outgoing synchronous BC_TRANSACTION before
+draining its work queue, Thread::transaction_inner sets
+inner.current_transaction to Some(t_out), and the read phase of the
+same BINDER_WRITE_READ ioctl pops the pending incoming transaction and
+overwrites inner.current_transaction with Some(t_in). This orphans
+t_out from the sender's transaction stack so
+Thread::unwind_transaction_stack aborts on exit, leaving a permanent
+Arc<Thread> <-> DArc<Transaction> reference cycle that pins both
+Arc<Process> instances and their mapped ShrinkablePageRange pages
+after the processes exit.
 
-The move in (ii) is admitted in the destination by cpuset_can_attach(),
-as for any deadline task. In (iii) the walk counts each deadline task
-from zero, and the release removes it once. v5 documents the deboost
-race in the comments.
+Resolve the TODO in Thread::transaction_inner by rejecting outgoing
+synchronous transactions with EINVAL when inner.work_list contains any
+item where DeliverToRead::should_sync_wakeup() is true. Checking
+should_sync_wakeup() matches C Binder's BINDER_WORK_TRANSACTION check
+and ignores Node or NodeWrapper BR_INCREFS/BR_ACQUIRE items pushed
+onto inner.work_list when Transaction::new translates flat binder
+objects.
 
- > stale dl_bw_cpu when dl_bw is zero misroutes bandwidth
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+---
+ drivers/android/binder/thread.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Right. No move updates the record of a bandwidth of 0. v5 makes
-sched_dl_overflow() use the task's CPU for it, and adds a selftest case.
-
-Thanks,
-
-Mathieu
-
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index f5965e838a96..3ca5c95695e4 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1393,8 +1393,6 @@ fn transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResu
+         info.to_pid = node_ref.node.owner.task.pid();
+         info.to_node_debug_id = node_ref.node.debug_id;
+         security::binder_transaction(&self.process.cred, &node_ref.node.owner.cred)?;
+-        // TODO: We need to ensure that there isn't a pending transaction in the work queue. How
+-        // could this happen?
+         let top = self.top_of_transaction_stack()?;
+         let list_completion = DTRWrap::arc_try_new(DeliverCode::new(
+             BR_TRANSACTION_COMPLETE,
+@@ -1407,7 +1405,9 @@ fn transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResu
+         // it with the new transaction.
+         {
+             let mut inner = self.inner.lock();
+-            if !transaction.is_stacked_on(&inner.current_transaction) {
++            if inner.work_list.iter().any(|w| w.should_sync_wakeup())
++                || !transaction.is_stacked_on(&inner.current_transaction)
++            {
+                 binder_debug!(UserError, "got new transaction with bad transaction stack");
+                 return Err(EINVAL.into());
+             }
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.56.0.317.g454f8302e1-goog
+
