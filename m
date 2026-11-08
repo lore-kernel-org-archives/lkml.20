@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794165804;
-	b=KpLJurRf6nNEmnW2RBpTVM7I9Aic6VTp0c9ce3JVgxVuijuU3slOWcd2WtZv9TyC9oRR
-	 OpMLJuQixUpGaAPmeOldGvYq+oIsFkGPyfckzLgZzFipUz1PNpaJCCxu6Clz1XafXHiJa
-	 YY/mgP56G0QZwwDtfagInRe+xe+NP8gjrCTEaD9W6ohoFiFirmI2dIMT63sTiBW7hDee1
-	 ODg6WH81kb7MWzACABpb8E/iYH1UQo6nKhK9SUo8GmLxLJgUv9anULsDXdMwlufG0qb6S
-	 hNxTQ2bb1VaG3P88LdMuf6pk2qdyKyx/x7jlqtoNY3NFpsfDvqOz6u9Vu5/Tm9xFp/A==
+	t=1794165924;
+	b=j3/XzzEuG1cZd94ODttF4UlBfITi34dy1tMAk0Wk7SsIdGWaLog+gjWzjFxHKCdyYrx0
+	 IxGRcFA0R4SfBJpDJbvx1xhqKIC3dJ4cETcpePbgBLqxVqB9ZT4A9bho1Tk1xhq8rPEmJ
+	 Km65xcyL7MWYoPs78iqWhLLST6g/NkhL3QSYYtDDoF3KEMxQEh/zPKhyFBOLf9V9NJNad
+	 ZrrsUrpHCtL+OA6/TJPKtU66rfcLyGhwx4NoZGnxRro0jtpj1SmIv3ZychHVx4wpF4mnR
+	 yJuZT9sf50VL8p15Y7OwwDGUf0YMfG23V5h4caokjghTC8YF29bluF6f77S/h6vm3kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165804;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Vpk4Fs6RiYfyqgzUxnt+8NjoeQOC3+Lq1hj7gfvsMqA=;
-	b=u5Tbzep2aGJBb65kXCzxdmiLF/Vo/ecdrvRcBPUMYfqzLkX0ePTPAEnse2SI/32d+AVf
-	 7o9dgYT6jgjAJnKDEENAW+cYSCdf8zrdbxAgutQNogMGyGFO3EDZmBABhtW8NJIiZAaGW
-	 xI1Q4uW9ddMIQ6diqSa5mn1tMYJYWxfBAhxoyoBhHgs3pnuZt7ymL+Npm1sfS4CucllVH
-	 sn6CNnqRR9rBdW+K1SakmLZMtb2FDHndu5XfpLqQhgreEKks93P34Vkpv5Yb2M9v3M0cB
-	 e0tPd18R3x46fpBzwKTAyqveQqRvp2gSwHkVtsrC5CHTnALh71qjqJ0YMio6J519meA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165924;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Idnvy6UBEdjdA2ebpHOLOhTTrf10eml5JHDqpJWTatE=;
+	b=OqkSamGCOJ8o9WFRivrdYjFp7yPmPMCY7POuOw2VVNgR0wOGYuoFMUYfiwqNYdmRSDQ4
+	 4SR9zOXRZQRlZDq1BTYrrds6JrrIhKmb+jYN0cxqhZCAX2ubztSfyUe/vF3etxoHdpcTU
+	 E0Igks4KJm4I9jW/bNprZN3C0iIEjiSYffqomGoGeZTO3wMZDamliokQooo1Qb/RLOO2n
+	 JRWtDHmxUX3bezAkHOR+Mhg2Prpud0Xw6ENu1stC+T7zo8K+53UN5/mmSECnjIbvomLmB
+	 NVZOaIFBPctGDdHT4y0fMxopnbmwRdALhsxPXG0ommjzxsMlk3EvJ1kI8OUx4voLHUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOk0ZHCM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaId8wOQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2A0606A31C;
-	Sun,  8 Nov 2026 19:23:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F19E606A31C;
+	Sun,  8 Nov 2026 19:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOk0ZHCM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD3E01F0089F;
-	Sun,  8 Nov 2026 19:23:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaId8wOQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9771F0089F;
+	Sun,  8 Nov 2026 19:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794165803;
-	bh=Vpk4Fs6RiYfyqgzUxnt+8NjoeQOC3+Lq1hj7gfvsMqA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NOk0ZHCMVwd5CJm4lxQz2xUHKom64W9w7jPGLNUdgG7nLhEtprafLhku//tibrULC
-	 A/4K0CcfbO77dDV6VLjNh7yZFGlefNqjE8zwFcWOQoCI6vUmiTGEmkAeZFfIUQUZW4
-	 XF1SvRV4ne8MExQjHT0oqkdDrODRZeAU3U7/7Vu68ra1wcrNLDSh1fBmOyiYpvbnMg
-	 cNNzsh/J52XqHCUXO5UHAajqUamzJFcdGEKppF5Va9j8Ds8n5bx4tvAEsOl31jPeXv
-	 4yd81+54fV5QgXkVskuvz0ifG//1Vw1W4zJwVOaDzLMyuH0N1IWPmlEQTYmUX/Lb4z
-	 oQ/Z1rKsHUvag==
-Date: Sun, 8 Nov 2026 13:23:18 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, brgl@kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/4] arm64: dts: qcom: nord: Add USB support
-Message-ID: <avDL8IzfY1AcDjzY@zenbook>
-References: <20261013-nord-usb-dwc-dts-v3-0-bcaaf3faae24@oss.qualcomm.com>
+	s=k20260515; t=1794165924;
+	bh=Idnvy6UBEdjdA2ebpHOLOhTTrf10eml5JHDqpJWTatE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UaId8wOQaGFBfv4Z9KvrNcr6YLzL4Mo4Qjp0V+s7P1KYmQt+GZzd7p3SwAQVNEGo2
+	 6cMDkBjB/AK07RIAhZ49WEnD5DJJL8OhuaUIYTlrTJoU7M06pV/rOBj5PCfzK+seZK
+	 11bwt3sWMepF29mM2pHEjvXdZB2Dz1DKz/pVqIRTwsAGpiQUpvLqRBEqPJYY3LDxNl
+	 yoYIqye4GnsoBJTfpCOE53Cp2kCIP8+9bUXVqYhKsV4FrrBoYHK27fkZ5iPVhQZc+t
+	 vjvoWSpBMz1X1USyCUD9z+0ErAwQFXlkNMez+AE9gb5jwddOd2ef7XVlfbWQzMHwEl
+	 4HZDIq63cW8jg==
+Message-ID: <sashiko-outbox-203947@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 22/29] sched/deadline: Make a rebuild use the CPU
+ recorded with a task's bandwidth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261108185406.1549770-23-mathieu.desnoyers@efficios.com>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-23-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 19:25:23 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,103 +60,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-nord-usb-dwc-dts-v3-0-bcaaf3faae24@oss.qualcomm.com>
 
-On Tue, Oct 13, 2026 at 01:34:45PM +0200, Bartosz Golaszewski wrote:
-> Note: This is v7.4 material and depends on several patches that are
-> still not in linux-next. Sending it out to solicit reviews.
-> 
-> This series enables USB on the Qualcomm Nord platform which has three
-> USB controllers:
-> 
->   usb_0 (0xa600000)  eUSB2 + USB3/DP combo PHY
->   usb_1 (0xa400000)  eUSB2 + USB3/DP combo PHY
->   usb_2 (0xa200000)  eUSB2 only, high-speed
-> 
-> The first patch is a fix for the i2c9/i2c10 pin functions, which is a
-> prerequisite because the eUSB2 repeaters and the Type-C controller all
-> sit on i2c9.
-> 
-> Patch 2 adds the three DWC3 controller nodes to nord.dtsi.  They are
-> kept as far as possible free of anything variant specific, so the
-> clocks, resets, power domains, interconnects and PHY references are
-> added separately in patch 3 for the "embedded" variant, alongside the
-> five PHY nodes (three eUSB2, two QMP combo).  Adding the QMP PHYs also
-> lets the two pipe clock placeholders in negcc be filled in.
-> 
-> Patches 4 and 5 wire the ports up per board.
-> 
-> Nord RRD:
-> 
->   usb_0  OTG, USB-C, FUSB15201 Type-C/PD controller
->   usb_1  host, Genesys GL3590 HS/SS onboard hub pair
->   usb_2  left disabled, not routed on this board
-> 
-> Nord Ride Embedded:
-> 
->   usb_0  OTG, USB-C port 0 of a dual-port FUSB15201
->   usb_1  OTG, USB-C port 1 of the same FUSB15201
->   usb_2  host, USB Type-A, VBUS from a PMIC GPIO controlled
->          fixed regulator
-> 
-> Both boards use NXP PTN3222 eUSB2 repeaters, one per enabled port.
-> 
-> Dependencies:
-> - PMIC DTS: https://lore.kernel.org/all/20260929155152.1898666-1-shengchao.guo@oss.qualcomm.com/
-> - FUSB15201: https://lore.kernel.org/all/20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com/
-> - USB PHY clock fix: https://lore.kernel.org/all/20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com/
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] sched/deadline: wrong root domain in dl_task_rebuild_cpu() on
+  empty mask
+--
 
-Figured you resubmitted this because the external dependencies was
-settled. Apparently not, so I had to back this out again after applying
-it.
+commit 2d9a77b300d6ae31513d7938853f189f48778450
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Please resubmit once the dependencies are in linux-next.
+sched/deadline: Make a rebuild use the CPU recorded with a task's bandwidth
 
-Thanks,
-Bjorn
+This commit updates deadline root domain accounting rebuilds to select a
+task's root domain from its current CPU, recorded bandwidth CPU, or active
+cpumask, and skips tasks with no active CPU instead of hitting BUG_ON().
 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - fix eUSB2 PHY reset assignment
-> - add AHB2PHY clock to USB PHYs (Shawn)
-> - fix regulator node ordering
-> - remove code leftover from a rebase
-> - Link to v2: https://patch.msgid.link/20260922-nord-usb-dwc-dts-v2-0-ba2b39f1a843@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Drop pin control fix that was applied upstream
-> - "otg" mode is the default dr_mode so drop it from nodes
-> - move the usb-mode-switch to the SoC level .dtsi
-> - Add hs_phy_irq to DWC3 nodes
-> - Wire-up the USB2 type A connector
-> - Extend the list of quirks in DWC3 nodes
-> - Remove stray comments
-> - Link to v1: https://lore.kernel.org/all/20260911142040.100263-1-shengchao.guo@oss.qualcomm.com/
-> 
-> ---
-> Bartosz Golaszewski (2):
->       arm64: dts: qcom: nord: Add the USB controller nodes
->       arm64: dts: qcom: nord-embedded: Add USB resources and PHYs
-> 
-> Shawn Guo (2):
->       arm64: dts: qcom: nord-rrd: Enable USB ports
->       arm64: dts: qcom: nord-ride-embedded: Enable USB ports
-> 
->  arch/arm64/boot/dts/qcom/nord-embedded.dtsi     | 311 +++++++++++++++++++++++-
->  arch/arm64/boot/dts/qcom/nord-ride-embedded.dts | 222 +++++++++++++++++
->  arch/arm64/boot/dts/qcom/nord-rrd.dts           | 166 +++++++++++++
->  arch/arm64/boot/dts/qcom/nord.dtsi              | 100 ++++++++
->  4 files changed, 797 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 3ce5d3ff6659394e56a7ef0cb2c9982a5c39148e
-> change-id: 20260921-nord-usb-dwc-dts-c2ff685d8219
-> 
-> Best regards,
-> -- 
-> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> 
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 8d9e55bca9439..bc31045e4686f 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+[ ... ]
+> @@ -3720,6 +3726,55 @@ static void dl_get_task_effective_cpus(struct task=
+_struct *p, struct cpumask *cp
+[ ... ]
+> +static unsigned int dl_task_rebuild_cpu(struct task_struct *p)
+> +{
+> +	struct cpumask *msk =3D this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
+> +	int recorded =3D p->dl.dl_bw_cpu;
+> +	unsigned int cpu;
+> +
+> +	/*
+> +	 * Look at the mask of the task first. A change of the cpusets sets
+> +	 * the mask of each task before its rebuild. The housekeeping mask
+> +	 * that dl_get_task_effective_cpus() reads is updated after it. If no
+> +	 * CPU of the mask is active, take the CPU recorded if it is active:
+> +	 * dl_task_offline_migration() moved the task there. Else ask the
+> +	 * cpuset.
+> +	 */
+> +	cpumask_and(msk, &p->cpus_mask, cpu_active_mask);
+> +	cpu =3D task_cpu(p);
+> +	if (cpumask_test_cpu(cpu, msk))
+> +		return cpu;
+> +	if (cpumask_empty(msk)) {
+> +		if (recorded >=3D 0 && cpu_active(recorded))
+> +			return recorded;
+> +		dl_get_task_effective_cpus(p, msk);
+> +		cpumask_and(msk, msk, cpu_active_mask);
+> +	}
+> +	if (recorded >=3D 0 && cpumask_test_cpu(recorded, msk))
+> +		return recorded;
+
+[Severity: Medium]
+Can returning recorded whenever cpu_active(recorded) is true on an empty
+msk charge a sleeping task's bandwidth to a stale root domain instead of
+consulting dl_get_task_effective_cpus()?
+
+Suppose a task in top_cpuset with user_cpus_ptr =3D {1} and cpus_mask =3D {=
+1}
+is asleep when CPU 1 goes offline.  Top_cpuset tasks do not have cpus_mask
+reset on hotplug, so the hotplug rebuild sees cpumask_empty(msk), queries
+dl_get_task_effective_cpus(), and records active CPU 0 in p->dl.dl_bw_cpu.
+If a new cpuset partition root is then created on CPU 0 while the task
+stays asleep, cpuset_update_tasks_cpumask() intersects the remaining
+possible CPUs with user_cpus_ptr ({1}), leaving cpus_mask as {1}.  The
+partition rebuild then sees cpumask_empty(msk) and cpu_active(0), and
+returns CPU 0 without calling dl_get_task_effective_cpus(), charging the
+task's bandwidth to the new partition on CPU 0 rather than top_cpuset.
+
+Also, because the cpumask_empty(msk) block returns early whenever recorded
+is active, if execution reaches dl_get_task_effective_cpus() and
+cpumask_and(msk, msk, cpu_active_mask), recorded is guaranteed to be
+inactive, so the subsequent cpumask_test_cpu(recorded, msk) check can
+never succeed after that fallback.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108185406.1549=
+770-1-mathieu.desnoyers@efficios.com?part=3D22
