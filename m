@@ -1,56 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169410;
-	b=UYXYC4nysmprU2mVrX5wpnZCUZW447Uc0WjSiI2Iq7oXyEDvnu/W0e4EgoyzhkiUenme
-	 8jobrlMm5jQ6jqfcgBTm2qW6+RIFHUDiFE9fmvRrT9TEDGnzgROyy9tQ0F/FeOdc84jGd
-	 EP9VmxGK2kzGbyzxx/FJtPQ6kRHj++PkKZ7uTP+E6cGBH2tz/kqWDIh5MCWsvJr+TPUHz
-	 UBk8LubzyixD6F3yxnr9Tix1hmz9GvMzfmHoaVkYamuYMqZ21Li1ERqyNe2xuUZ30Bt+i
-	 39k9O/zDbOmXIu7bRrdySgvMQQXof9tCujUFJbothGtPCvBJot+Ry3oOa+IwVb5p0Pg==
+	t=1794169427;
+	b=zxUYvry9gmKRu3ZGEf4DWDWqb+crbx8dVG4pSpIaEN32M/zgpd9E864Da7a4LN3PMXaH
+	 GbvRKACpa2v5y4gwkEl1GGZCBYsYWhICyMm9ws3yqFspbfYP5Y6pOsvEvc10hr4PM7CZl
+	 8lAUXU9nhV5JyO//HebNom9PtOlNkxufme+ofMFmpGJdCiWAyopzd1zxmPSwOgbFNIPvA
+	 jZk+WPmzOWWIj/jjsH4lpr+Jzzo8mkOpXe9URa40KkM0Df252WHA3zS3/sYb8T1i8FEcT
+	 tBqWLzvTtuV7npI+AE7CUYqkegkLe1K8dFGxxJPzpjoc3wz/n/QrAQ7A2QIica/t2lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169427;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=OHtbbnXNjLGZhap5GPvMIB0XRYjf7N7iCg+Gn3VnS10=;
-	b=2hMIHFPMkpycFgrMdapMn9+Kjv+JgKNKgkuZp2e25+qb7k/RTEJoSQidfcp3ZkNfkXTh
-	 fy/oir8Qpa6Zdiw6dl+eDFyfEOeKsIv2HvRhIiRPiXnLphGmlnmPxekiIWa5gM4xX0+kb
-	 eums77f0LhhVX1ccwhV3QdVKtZqbwo9ldBhie0Kb66Sx2YXqbgkc5yF5pRo1ndJI/3WXP
-	 E0mT2IGW467EuzihO5Mbx2CGlxe1q2ZbzrTMvOxyym0eBQlKb6CgnhO2D7jOzmn3J+AD7
-	 3n3/uXl5Kokte1XdbmZcxWXsTxmZtQH/Ma1jYOoj6UR0ncwCq6AQqnGAjG7a4j1+0Gg==
+	bh=4+ekBbg/Krun9q7nBkvvnEDo6k648SSKR61QJfaqWqw=;
+	b=wdrJ1VqAu6TcxCvbhVmYpJZulk3L5YsprF+1E1VpwPaCVq+oo5uzsvuMREK8Cth0KgzX
+	 V75U19b/6xaEqLAQOBQSEDAuxXCO42SZuVTGL73O8dLCpfjRJdaXsRAm4aP+Hn1x9X9Ar
+	 0mewTKfdHFmu9ilGSFoiPuwng1MV9aaHMO9jCjlOSPexNvIaaWUiWm36majH7NqKIm6nA
+	 Zkv2qNkuCriSCrcVV5eBYAs7E4OtPUB6zqikfzCfQ4Uf0cjCBOj7AFgPVtJLcGnIzjjYJ
+	 NtS0fR2U2KOihcgchOGFO/TUyFDlDK8F52hWRq8W3FK8RLcnThImdn/anygCyW+r0gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKIBu585;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L5V20ZL2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94212607163E;
-	Sun,  8 Nov 2026 20:23:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC646073CF8;
+	Sun,  8 Nov 2026 20:23:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKIBu585
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00071F008A2;
-	Sun,  8 Nov 2026 20:23:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L5V20ZL2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53751F008BE;
+	Sun,  8 Nov 2026 20:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169410;
-	bh=OHtbbnXNjLGZhap5GPvMIB0XRYjf7N7iCg+Gn3VnS10=;
+	s=k20260515; t=1794169427;
+	bh=4+ekBbg/Krun9q7nBkvvnEDo6k648SSKR61QJfaqWqw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HKIBu585J2wCM1Hv6aQg2GLgrbZOtRFrhItdSLv7027uhXgL9yD6vHDX1SRPg4gJI
-	 jemCRG61mExfqS8Zpr9aF3Z6gbVHQ4nOJhNr1VLPeD9/8bzXURqEzUkKmQwauMAxLc
-	 dMF/oOEOzNBPYZmrpts0R7Lgv5WwCoMJ/ecVJlj9tvQXmYfKvEsbyNMGFJBzcBHWek
-	 1O22PjP0I34+j11yZc0i+X9QruWMmuP790oN0SRmyV5ZafJ6S7rKSqwPbki2nHLKko
-	 w4GdazsE7/wroqY8zrf+QxjZAXKtVnQo3f2E8WEJcIOY003AnjkWbSSOgbqngiTx5z
-	 iBl5ao1vO39ww==
+	b=L5V20ZL2M+Dk6X3w7ZWzh0E+xGbeCkXr7a/3VkjB6jC2jWmJ+HP6xjZiYKvktzLbM
+	 HlVyzMB8YgI88LCTOJ92B07/447SxI4IIEB3OItVNOfgYfCWsUEY7P3Y1QgT1xjPyx
+	 I597LDXE+NoDjZ+NHalCbDidMaE3e12JMu2f7xvvM4/vf0lBYkZAxkpWUrA1RhvyAJ
+	 iDLRd4pefFy/ZNooTzjVJQ+wnHY4txLfKyjEWa7gf5q299WkhMc9BWLNFs1niDrimJ
+	 ZdUBdlMW5PR1UtawKaKCoroa5trMSbD9vCzbYcDXdfJQKdwnd7vsWugJBpCIP5GI96
+	 UH8AXw7pi1nTQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	Kenneth Kabogo <kennethkabogo2@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: mdt_loader: fix off-by-one heap overflow in segment name
-Date: Sun,  8 Nov 2026 14:20:15 -0600
-Message-ID: <179416929243.628393.13902347516696518018.b4-ty@b4>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Andy Gross <andy.gross@linaro.org>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: (subset) [PATCH v3 1/3] soc: qcom: apr: Reject packets with header size larger than packet size
+Date: Sun,  8 Nov 2026 14:20:28 -0600
+Message-ID: <179416929551.628393.10010125445849314508.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912065651.59968-1-kennethkabogo2@gmail.com>
-References: <20260912065651.59968-1-kennethkabogo2@gmail.com>
+In-Reply-To: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,20 +72,28 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 12 Sep 2026 09:56:51 +0300, Kenneth Kabogo wrote:
-> mdt_load_split_segment() builds a segment firmware filename by
-> overwriting the last three characters of a kstrdup'd copy of fw_name
-> with "b%02d" formatted from segment. %02d is a minimum field width,
-> not a cap: for segment in [0, 99] this produces exactly "bNN" + NUL,
-> which fits the buffer, but for segment >= 100 it writes "b100" or
-> wider, one or more bytes past the end of the kstrdup allocation.
+On Tue, 03 Nov 2026 15:56:36 +0100, Krzysztof Kozlowski wrote:
+> apr_do_rx_callback() and gpr_do_rx_callback() validate the header size
+> and the packet size separately, but never check that the header fits
+> within the packet.  Both sizes are u16, so with a malformed packet where
+> the header size exceeds the packet size, the subtraction computing
+> resp.payload_size gets promoted to int and becomes negative.
+> 
+> Further check "resp.payload_size > 0" would fail, leading to
+> resp.payload left uninitialized (stack value).  Reject such packets as
+> having a wrong packet size, although unlikely that firmware would
+> produce such packets.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] soc: qcom: mdt_loader: fix off-by-one heap overflow in segment name
-      commit: 3e0d5015fc90859ca8c3a2edacdbaad546969f54
+[1/3] soc: qcom: apr: Reject packets with header size larger than packet size
+      commit: e6f64f9b76d595cdd697dcf345860a8317b09d2f
+[2/3] soc: qcom: apr: Fix theoretical use-after-free of GPR port on concurrent RX callback
+      commit: a5d51dee5f570362f262301dcdab66ebb6aaf634
+[3/3] soc: qcom: apr: Narrow critical section in error path of gpr_alloc_port()
+      commit: 85fadab9958b7eb5a70c53887a90c2e6fc26367c
 
 Best regards,
 -- 
