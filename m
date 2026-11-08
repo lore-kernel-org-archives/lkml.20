@@ -1,59 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794121169;
-	b=YHmQbAHK6n0h2o9V0C4fiKgPvgbddscoKpJEWk9d64URhcRIL9vV6bitJUZfyq0zTxXi
-	 5dxVjUb+OzP3rcgRGQoXDlE2c6yIMWFXoxZQtVf8ZqGKSWI+DYjv3nynCgSUJMCoSPo1H
-	 jZPZwwDgTp77w6rAry8gCL4S2yJbbPQDb/xoKG9b6aeTJYrKE4osMImgugwThJ64PIi3m
-	 H/yuTBT5DIeS/SMlUtw+dCbTtz1JFln1BoeL/aZcmE5zEFs7yg4mN4egm+EEuNVJ604Ke
-	 7hhD1swXRhtdU9tgF2uA0+oMHuXM7ZZRpPRD+BsJ2yIW27NKHJSWwkOf5/5/mtoAtXA==
+	t=1794121177;
+	b=HOpyh/ph6vOPs0jGny6+x2Fqx6opUc2CbsWMIkCYWBX1mkxV4X60h+0AORpVapG+ctmJ
+	 yrqngkfGuuvO9qVeN34cEHodD6XuH4ezq3YG0S6quwKrM5PG4O6gHUmcnOLbuP3fkaMZT
+	 iKr61jk7AvCLVElJaIls4QeMcgVG6Flw++boZ2tBs9hKengACrxxxWG2pUySGOzdSI9ui
+	 opcfAooqf5uGlb8ek93lpR06N1lhUiIP5bbfkqd/Xl565rzG/MPh1LjTeICQWoIOleKSm
+	 iUHqfMVgBpANw39ZpqkwqU5OruOWBFb6EZ6yn1J9rfjrR3LtV8H/kC4mmBWjlf+EvSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794121169;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TupQffIQ2RIrTTxvmihRQ2AE3+BnRRzJKFVznFFWYHE=;
-	b=1WOsciAAQEL75crC1vXwtD2xrYViTHGSBDRrwWkfKbq8BcWzXL4lS/uenX1f9KEGxyTw
-	 rvGG59eC1NtOjDDf6XESXbTvnn7S/YCIEuN6mcya+VzNqdwmj95Ui5TcC/BovMFwll8Tj
-	 P0Jz3maLcUAgX7E7xFmihmJSq1+MV3bOG3onsAVtN9TB5XOzlodL9fcLZ5m9GnjIW2izM
-	 92hep8vw6Hi0Blhlxt/A30VdlYr3j8Xg1KljJqdW+Ot/JL0wQ6nA4C/2jH/r9+y3oyztJ
-	 oN9MYCBMnidChokn+z1H/pCYY4pmSyamWZVocsRsNyYILXo9woQMAqV9LnDN0b5l/9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794121177;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5c5YwQfw6glIQ3sp4LG2WJX6kW+CuAO4TASY3DLJo6c=;
+	b=FAfVP0fDuMC2VULP+HdQYn+CPj6tyCCuOGHAcahnmWvWK9ArzU+zbvpjG4WzaArLdrv8
+	 Y1SLlA+vrGKUN2vhknWI5ZtS+2UcSOjHunfcMxeJl3TYWdBQK3m9MVxsIvrQ+0YxJ4k/D
+	 q9pQ/ZLdUXDYgdiqJnrKVtguhYYkHlIFA4GpleV2sQYGvNpg9zAkZMnWmP1veLYqR+aHk
+	 KbcnR+MoOfTLUQvLf0hzNN63XSz1F3SRXNO/bysGEMT0yFVgJYjvNA58+/nUdZSx7B4OL
+	 rGtMEcxvixE9ih8ha26yOM98Hg0KFsWGvQSX1f7z+gYjpxoO2vvNi/MaUj7+F2Cu4/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZkPxRwR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=R2pCNZfs;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=BaiwJNkM;
+	arc=none smtp.remote-ip=202.12.124.154
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CCF606A331;
-	Sun,  8 Nov 2026 06:59:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EB4606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:59:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3EB4606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZkPxRwR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84EA51F008A1;
-	Sun,  8 Nov 2026 06:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794121169;
-	bh=TupQffIQ2RIrTTxvmihRQ2AE3+BnRRzJKFVznFFWYHE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mZkPxRwRsVE64BANolon3xxYqB4PqdbqnPKH0+KNwG67kh+jF60AfGefQuCORxwR0
-	 yCbKpfXSM+uP2jMBbfV9j4PWeA5BAjBKj3F3FKJbUjcnHT7zxrzxFHdJYSPT4m5QlF
-	 nwvSJbnMLYxdLO28sYs9LA7DisJ6hZfJTbk+N62oya3HO9DybNBzdaEpsVHr6iqITF
-	 6erwb6zImmwUK8xDBeJss29fjaOTm27atOj7jLBBCZR1EUic20/YUeTDthttFoGjvU
-	 dF6w9N1gRhI3Iu+T9xeKcfBR7wxOCgaCZK0SBpeCVWH5M2Pj+nWdjDvBLglGC8311u
-	 AsGL9ueo0ie6Q==
-Subject:
- Re: [PATCH net 2/3] net: enc28j60: disable work before freeing the netdev
-From: netdev-bot+sashiko@kernel.org
-To: 0xbeac@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 08 Nov 2026 06:59:28 +0000
-Message-ID: <179412116809.994134.6737039110469421460@kernel.org>
-In-Reply-To: <20261104063245.23402-3-0xbeac@gmail.com>
-References: <20261104063245.23402-3-0xbeac@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=R2pCNZfs;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=BaiwJNkM
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 5EC697A00FF
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:59:36 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sun, 08 Nov 2026 01:59:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1794121171; x=1794207571; bh=5c5YwQfw6g
+	lIQ3sp4LG2WJX6kW+CuAO4TASY3DLJo6c=; b=R2pCNZfsdGPizmH5CFvrMPVhSi
+	OAJH4u+rQ0yqv9p2Wtb10U/13JqZ5eHfEorwGfC2TP5FmVf0nPdnHtcyNun3ysvt
+	ufyX+AM3FCXyAr2ketrgBeEX0Qzx+sNt/hCclyEjNZCgyLiQNznmBBI+3YbRDbno
+	JyPb36dliryUdP4JKJJwLytADlpuTypj+LaXNGKNHcZ9MJ/mzQ4jC4tbd5nW/TNc
+	vR8SIhr4MSa7F/AecrkXBnk2ZvzcWefNG2F1QlvRpz5hQR8rxjFpX1WiN5vkLDT9
+	hagwji5hLb7FRepYcdp7Rg1r40EiH7Q5hE6tCsgm75hQLBXcuL4NRjgWJcPw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794121171; x=1794207571; bh=5c5YwQfw6glIQ3sp4LG2WJX6kW+CuAO4TAS
+	Y3DLJo6c=; b=BaiwJNkMLqwzOWQcRZZ7F8J83bvyMzXYj1itNLJhGP6dGbo9VDY
+	fLZeL+XvErD1jsMz97S3E8Vsc3MkzgA32Oh2FRvcTgA7rUrs62zkEK6EhrltO8pU
+	VH4zdoatvU9MntcNB7v9MODrE7shoTSWG9K95BuAmica6z5kyXvGAZlzG2WECaRp
+	vipYBrPTj4UE9uZgEhEjPkmbCS9LUxX8jiYyUFLT6cNv1Fj7mAOBwLHJzxtGOrn9
+	jz8mgrf0BT+jU1SIpi6VYqO6GJU3162g0Bgh68h0WA91YhcS1/X+kW25pdtbx/+h
+	mDOmyQY2G8whs6UBQJ6mStRI8jMlqEtR7jg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794121171; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:gu1e9YyKy83hFoYs6JTWK1GgTt2xkcCzjxRzF2kbadKHps4
+	o/6dKGnfZss6kebFtFMUJmTvah//NkNYyhBHoH0798GGc3LW5W9nHm8pmIjiQQNd
+	mwGRy6nAB1yFx5+5KqxdnA4wpZ6r5JJvz7JnYFx/Nn58FkhXxi48EAKY5Ay2NPCK
+	XD3t6umAW1cNJgqrgq5PgQMNo8Hm7IDaWogQKrgGb9PW1j0UntJDjdKFxbnmv6us
+	S5fSmNyuYraLbuIz3jgEgb5qIJWcUsh1tOWzgfNpH3UCHM6km8k5WGN2OjaJeepO
+	pgDNwO7Qgzo33NzG33bVvBl1I5duDs+lTTI/Jug==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:0Hb6NGQTbSiP6J9K8ROHO2Z8lf23EXIb76JFPze2l+8=:lIARtbVoyFTth3P9LXxTFUZ0gGbe4ogIP4TasWzB74c=;
+X-ME-Sender: <xms:0R3wakADAhVpUtvk0PojSS1Fnbs5bIIv-h-f4KepwONWz0JXkGPTWw>
+    <xme:0R3wai9jViP-GoO5mFkUCsW0FRJIBf99zjIrOlzqV2HSoIm4pFW9XwZdTzEbocA0-
+    Vr1kHxA5kvswsCv-jvvAYC95UbWGG6lbKNwp7caIK6QcN_S277Mu43g>
+X-ME-Received: <xmr:0R3wau2_FuWMJ9JmGKBnZLwinNaEct-wyhcsqRHrHQ6jIUjj6HULVeQyJFZ2BKy4e8uQffK9>
+X-ME-Proxy-Cause: dmFkZTFWwKTEx2JlF6gbxz/CcZ5fOIEPMTwVUWzP082guo7LQMgK7h789MowHkag1AGdJv
+    Qi5S3iCW7IkIlV0pVZbVxPkmE51+n7fGqs28fdNBe7OImR6ZReSfOcge1vefQ2dYIPjd/3
+    8oouzHrOzwizmnPo1Jrj2K0Cz6p+y7cnDV1Q7f64sIfTb/RehvLUFbgwKi6YssWkzdFwq6
+    PiOomVYP7898vo56/KT6uE/vFspwIACRCqrPnfnGSDvko45DWPmIgV1QsN1iiB6XoRbR5/
+    hqF7mdebvlnyTwN4YuJ6h5Db0Q4msVL+t3WXN9SrQ1fzPlgWJWmpS+HhRxJYCi1m+5oETc
+    Hf/c0rOLaIGYwsXYUJk9RDSvEHRxWZa5odvrMxGFaVYAzpZ+RJ6pmy7HNp+L6KNMbjZvcs
+    5w4IeTnfFHNhPQQDXU6R0fvBgaB8bdUCo2xV+DP47ptSNs2iew7ns9kHjQaMGBcENSDf6/
+    1n/tGYGTDpygfLAksUvvLewffFcyx3AiAuqTTRNQpBYBRjpD3ImuWZZwEIJ7NaPqz2Ep0i
+    18NtNYfg3+xwDtsI5f84X0HU/kW5w1owhcdQZh5+RAm/sDzXXggz/GJ3dNjWp/b9ew7SN/
+    tfKtl6cZGQqJIXK0jvbXvDXh6ES2z+DXksOqFyi8EDmUX3DsGB8IwnAhIF2g
+X-ME-Proxy: <xmx:0R3wahTC7yxmYtakbLUznZAn9t9if0Fy93KVG1ar7_RatWT5ahJz_g>
+    <xmx:0R3wapj_xiA45HSZ_mXP_UzBWDt_4dsh_9Qnbbrj15vMN_mZ60ub7g>
+    <xmx:0R3warZa_YTgKxAvMtBxd5tRo-OKbLO7byRud17rUUgFTasbB4wgfg>
+    <xmx:0R3walEYCYjyyHdOG4qxGLNKQPqPju1LTZLedIb1PASn4FGkBN_9wQ>
+    <xmx:0x3wak7QszLLyOVvxgx-4hIUGD2clfHh3Rw9oszNcOA9TTF1ZsIPB8xj>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 8 Nov 2026 01:59:19 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	shawn.lin@rock-chips.com,
+	finley.xiao@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v16 00/16] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sun,  8 Nov 2026 19:59:01 +1300
+Message-ID: <20261108065917.135194-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,174 +151,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+This series adds RK3576 NPU (RKNN) support to the mainline DRM rocket
+driver.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Based on: next-20261105
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Changes in v16:
 
-- [Medium] The skb in flight is leaked when the device is removed, and
-  the new teardown makes this worse.
-- [Medium] net: enc28j60: tx_work and setrx_work run after
-  enc28j60_lowpower() sleep
-- [Low] The commit message justifies disable_work_sync() over
-  cancel_work_sync() because it "rejects a later queue_work(), which a…
+- Tomeu: rewrote the descriptions and code comments of the accel/rocket
+  patches; I write them in Chinese first and translate them into English
+  with an LLM. Added a GET_PARAM ioctl that gives userspace the NPU
+  hardware version (13/16). Please check whether the proposed enum values
+  are fine (RK3588 = 1, RK3576 = 2).
+- Heiko: shortened the commit messages of 1/16 and 3/16 and kept the
+  original comment in 3/16; moved to one power domain per core, and cut
+  the IOMMU clocks from five to four. The measurements are in 8/16 and
+  15/16.
+- Chaoyi: removed the unneeded comment in 11/16.
+- Sashiko: 4/16 now drops the runtime PM reference after
+  rocket_core_reset(), with an A/B test showing that the old order hangs
+  the board.
 
---
+Testing, on a ROCK 4D and an ArmSoM CM5-IO, both running Armbian edge 7.3
+with the v16 changes:
 
-net: enc28j60: disable work before freeing the netdev
+- Tested with charsiu (https://github.com/gahingwoo/charsiu), an open
+  source LLM inference runtime. It drives the NPU directly through the
+  rocket UAPI (/dev/accel), without Mesa or the vendor runtime.
+- Llama-3.2-1B (Q4_0), with both NPU cores running together, gives
+  correct results.
+- Perplexity on the same model and the same text is 41.1009, identical to
+  the previous version.
+- On the ROCK 4D, tested IOMMU clock combinations; four clocks are needed.
+- On the ROCK 4D, repeated resets with a 2 ms job timeout, to compare the
+  two orders of dropping the runtime PM reference.
 
-This commit adds disable_work_sync() calls for tx_work, setrx_work and
-restart_work in enc28j60_remove(). They run after unregister_netdev() and
-before free_irq() and free_netdev(). The goal is to stop the work
-handlers from touching freed private data when they are pending or
-running at remove time.
+Armbian has merged support based on v14, in armbian/build#11162
+and armbian/build#11163.
 
-> Unregister the interface first so the xmit and set_rx_mode paths can no
-> longer queue work, then disable the three works synchronously before
-> freeing the IRQ and the netdev.  disable_work_sync() drains a queued or
-> running instance and rejects a later queue_work(), which a plain
-> cancel_work_sync() would not.
->
-> Fixes: 3ec9c11da033 ("add driver for enc28j60 ethernet chip")
-> Cc: stable@vger.kernel.org # 6.10+
+Known issue: after repeated resets with a 2 ms job timeout, the IOMMU
+does not recover ("MMU_DTE_ADDR is not functioning"). I have not looked
+into it further.
 
-[Severity: Low]
-Is the "rejects a later queue_work()" justification accurate for this
-driver? The only schedule_work() callers are ndo callbacks:
+Tool use:
 
-    enc28j60_send_packet()        -> tx_work      (ndo_start_xmit)
-    enc28j60_tx_timeout()         -> restart_work (ndo_tx_timeout)
-    enc28j60_set_multicast_list() -> setrx_work   (ndo_set_rx_mode)
+An LLM helped me read code and technical material and write part of the
+implementation. Some of the code in the series was first drafted by an
+LLM, and the commit messages and cover letters of earlier versions were
+mostly written by an LLM.
 
-None of these can run once unregister_netdev() has gone through
-dev_close() and dev_deactivate(). The threaded IRQ handler queues no
-work, and none of the three work handlers queues another work.
-enc28j60_restart_work_handler() also checks netif_running() under rtnl.
+I reviewed the generated code and tested the changes on real hardware.
+I also used an LLM to write test scripts and to compare register write
+traces.
 
-The new comment in enc28j60_remove() says the same thing: after
-unregister_netdev() the xmit and set_rx_mode paths "can no longer queue
-new work". So it looks like cancel_work_sync() would be just as correct
-here.
+For v16 I rewrote the cover letter, commit messages and code comments
+myself in Chinese first and translated them into English with an LLM.
 
-Because the patch uses disable_work_sync(), it carries "# 6.10+", while
-the Fixes: tag points at the original driver. The 5.10, 5.15, 6.1 and
-6.6 stable trees have the same use-after-free on remove.
+Tag changes:
 
-Could the commit message be corrected? Would using cancel_work_sync()
-let the fix be backported to those older trees too?
+- Picked up Heiko's Reviewed-by tags from v15.
+- 4/16 changed after Heiko's Reviewed-by. Heiko, please confirm whether
+  it still applies.
+- Igor's Tested-by on 4/16 was given on the earlier code, so I've dropped
+  it until it is retested.
+- 8/16 has Conor's Acked-by. The clock count changed from five to four;
+  Conor, please confirm whether it still applies.
 
-> diff --git a/drivers/net/ethernet/microchip/enc28j60.c b/drivers/net/ethernet/microchip/enc28j60.c
-> index d6c9491537e47..bb29a94a1e2c1 100644
-> --- a/drivers/net/ethernet/microchip/enc28j60.c
-> +++ b/drivers/net/ethernet/microchip/enc28j60.c
-> @@ -1600,7 +1600,16 @@ static void enc28j60_remove(struct spi_device *spi)
->  {
->  	struct enc28j60_net *priv = spi_get_drvdata(spi);
->  
-> +	/*
-> +	 * Stop the interface first so the xmit and set_rx_mode paths can no
-> +	 * longer queue new work.  Then drain the works that were already
-> +	 * queued; the IRQ handler does not queue work, so the IRQ can be
-> +	 * released after the drain and before free_netdev().
-> +	 */
->  	unregister_netdev(priv->netdev);
-> +	disable_work_sync(&priv->tx_work);
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
 
-[Severity: Medium]
-Does draining tx_work and setrx_work only after unregister_netdev()
-still leave a window where they touch the chip after it has been put
-to sleep?
+Jiaxing Hu (15):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain: rockchip: add optional per-domain power-on settle delay
+  pmdomain: rockchip: cycle an optional power-domain reset on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  accel/rocket: add a GET_PARAM ioctl for the hardware version
+  arm64: dts: rockchip: add NPU core domain clocks and resets to rk3576
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
 
-When the interface is up, unregister_netdev() goes through dev_close()
-and calls enc28j60_net_close() before any of the new
-disable_work_sync() calls run:
+ .../bindings/iommu/rockchip,iommu.yaml        | 26 ++++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 40 ++++++++-
+ .../power/rockchip,power-controller.yaml      |  8 ++
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      | 22 +++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 82 ++++++++++++++++-
+ drivers/accel/rocket/rocket_core.c            | 14 ++-
+ drivers/accel/rocket/rocket_core.h            | 10 ++-
+ drivers/accel/rocket/rocket_device.c          |  3 +-
+ drivers/accel/rocket/rocket_drv.c             | 61 +++++++++++--
+ drivers/accel/rocket/rocket_drv.h             |  2 +
+ drivers/accel/rocket/rocket_job.c             | 84 ++++++++++++-----
+ drivers/pmdomain/rockchip/pm-domains.c        | 89 ++++++++++++++-----
+ include/uapi/drm/rocket_accel.h               | 40 +++++++++
+ 13 files changed, 419 insertions(+), 62 deletions(-)
 
-    enc28j60_hw_disable(priv);
-    enc28j60_lowpower(priv, true);
-    netif_stop_queue(dev);
 
-enc28j60_lowpower() clears ECON1_RXEN and waits for ESTAT_RXBUSY and
-ECON1_TXRTS to clear. Then it sets ECON2_PWRSV. Nothing in
-enc28j60_net_close() cancels or waits for tx_work or setrx_work. An
-instance queued by enc28j60_send_packet() or
-enc28j60_set_multicast_list() just before the interface went down can
-still run after enc28j60_lowpower() has returned.
-
-In that case enc28j60_tx_work_handler() calls enc28j60_hw_tx(). That
-writes the frame into the TX buffer and sets ECON1_TXRTS on a chip that
-is in power-save mode with EIE cleared. This is the state that
-enc28j60_lowpower() polled to avoid. enc28j60_setrx_work_handler()
-likewise writes ERXFCON after the chip went to sleep. No TX interrupt
-follows, so priv->tx_skb is also left behind, as in the leak noted
-above.
-
-The disable_work_sync() calls in enc28j60_remove() come too late for
-this. They cannot undo a handler that already ran between ndo_stop and
-the disable. The same window exists on a plain ifdown, and on the
-close/open cycle in enc28j60_restart_work_handler().
-
-Would it be better to cancel tx_work and setrx_work in
-enc28j60_net_close() before enc28j60_hw_disable(), and free any pending
-priv->tx_skb there? Those two handlers appear to take only priv->lock,
-so cancel_work_sync() under rtnl looks safe for them. That is not true
-of restart_work, which takes rtnl_lock itself.
-
-[Severity: Medium]
-Can this leak the skb held in priv->tx_skb?
-
-After enc28j60_send_packet() hands the skb to tx_work and returns
-NETDEV_TX_OK, the driver owns it:
-
-    priv->tx_skb = skb;
-    schedule_work(&priv->tx_work);
-
-    return NETDEV_TX_OK;
-
-The skb is freed in only one place, enc28j60_tx_clear(). That function is
-reached only from the TXIF/TXERIF handling in enc28j60_irq():
-
-    dev_kfree_skb(priv->tx_skb);
-    priv->tx_skb = NULL;
-
-By the time disable_work_sync() runs, this call chain has already masked
-all chip interrupts:
-
-  unregister_netdev()->dev_close()->enc28j60_net_close()->enc28j60_hw_disable()
-
-    nolock_regb_write(priv, EIE, 0x00);
-
-If tx_work is still pending, disable_work_sync() cancels it without
-running it. If tx_work runs during or after close, the frame is written
-to the chip with interrupts masked, so no TX-complete interrupt follows.
-
-Either way, free_netdev() frees priv while priv->tx_skb is still set.
-Nothing frees the skb, and its socket wmem charge is never released.
-
-The new comment says this code will "drain the works that were already
-queued". But disable_work_sync() cancels a pending instance and only
-waits for one that is already running.
-
-The skb could be freed after the disable_work_sync() calls and after
-free_irq(), since the IRQ thread can still free it and clear the
-pointer. For example, just before free_netdev():
-
-    dev_kfree_skb(priv->tx_skb);
-    priv->tx_skb = NULL;
-
-Would that work?
-
-> +	disable_work_sync(&priv->setrx_work);
-> +	disable_work_sync(&priv->restart_work);
->  	free_irq(spi->irq, priv);
->  	free_netdev(priv->netdev);
->  }
-
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104063245.23402-1-0xbeac%40gmail.com
+2.43.0
+
