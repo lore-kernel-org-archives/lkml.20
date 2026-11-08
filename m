@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794181158;
-	b=RpR/Dfi7Iu7+VjCiOpNu7MQeFH0HH/kzdp75E83tz/GzacKqNcI2Z6oDpzef/1BSNt/q
-	 a9y6Mu8GRfpMCPseN/D7QWgcYz9uhwyZAq5Z3ESw5AiJqHBpXFfh8hPlGgLZhFF8D/yNc
-	 lmbfUPBV62KUS2GrFOl05oqgBfBjs+gINd/+CugOW0ok8wYEfjsr3IKV5wusfhjFn1JYo
-	 7qikjV/+c+tQp5115cn/7olC/dcDwNAwJXP5IeYQzmIIgvrOVFQLFDN0K0HO8ibQmN/1Q
-	 mvQkkoDOUJRE/+NV/Hh1/Dgz9cUXqdDFgqAARnmolw6KrmgBE1yP9xDMY88YzDKXqMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794181158;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=07U+LmhabH8dFqhgYfSazQMSm8LvLOQc80NMswqVGGY=;
-	b=n2Lc6rCineraIZVFJW0LYgr1vAgkgR+BQabUYn3tnxXPK0EaXq0h73R6orKNXryL/o+y
-	 qWpBeEwjiVUkIuYYRJjt+y1Vs3KczV/KAgi2ertzUL8nVtsxkkQnb9mivDQ3gAbpOmFIp
-	 0ag32MF6KlSQCDyW/33b0U8pKfGIOTlCm5XeB0mFCkbDlYrEkpqBOrWcjFvjgOrTL6JSv
-	 PMAm6i9YN4MbHcEUBicA65YXEoF76VIYLCd/tvQypPPUcAJg76uobrLWQpLpUUgLZsng8
-	 yXlZ0azQE3Ht1LPALsrm3sTqhJkXGqw8YfHl1lAB2+zTrFTxVvHo6uBBUmtNWArtDKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=A9xXuZ44;
-	arc=none smtp.remote-ip=109.224.244.119
-Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794181380;
+	b=Xn0vVP7I5+x63gzwfKeoc1T9DBbapzj1FZZki4LsJFbZz/7Fu6bk28Bp9gAQxQ15uKKB
+	 p03sCyqr8t7sB3W0Qk20keWzQYa0WoffxhoSfJ+DE4f9drlNRQqcYyHGGS1ssensqSjSu
+	 sMgbCFPypntJiMF9D6PaVkWbf8O10b1B4+86aF7en7RgMdM0l1JHmaxLN2/kYDFdj/wy4
+	 DdbUmV1lz+oeYV71wWA1rVyfvrpFrOju6F3BywMgdcX9y455nm7HvdL498PiBjbNVVAJP
+	 bEeYqltAN8wRjgXhXDSTlKE1eF8pt70e9wvuK8NtyoXWaGnN6YzvByIBa98gVdBtyuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794181380;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=opqy2dA7s0XteS99ezevufI2qSC2s/Ry0FAQ5nqTeqE=;
+	b=DgJ/e1Hw7Jj6OCUkciONVo7ltjjN3INgJZM8jsHekJTGXCUtPH99H2tvk6NehDpjSMa2
+	 Cx0lBXgXaGzZTWSjKAWSSwYMLdfeBDvYDvlvHuDGKVsfyxBZZPTpfMnyI8X7kFIelfnnT
+	 XBs1tysguFmyG+P7xtorQwfC2C7DyTGE5nvU8onR/FuoDGTuBucVjO3VIyRdjfFYbi27z
+	 TZ7MG967UWGYe4QkoHP3mHeU2oguF4LWUhwQLfvhN6kdJP8zJO0MweAgLZkgfgoTb1kyi
+	 Gkwm0lThAOjcLn6BxbN0zkcK4WPwOUMTppiM6BrOK2qRCtzQL96rOqs0aAhgNXijsXQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEVvfpFq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52E3606A31C;
+	Sun,  8 Nov 2026 23:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEVvfpFq
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794181379;
+	b=MOQ4AbK8V/yPLffbmri5g8+7In+Pss3Cm+vmzKtVJ42Ar7gAvDI/ihBq4umIxJax9XPY
+	 wLuOj/0RkwPKW/z7k3B+lBUjIjQ/XvcBz0cN+Qzm+ncTc9PoP5vOxa5zYLxzpyUFqCdT3
+	 xVpeys1YfYy6wczuz8nwEBDff3VNiSIjkjGj1b1qonjVadMW7nDfGYeHp7taBcHFkPCxs
+	 GFSqflsMIDfAWDxLbP+G/UgIqzgDnncyCY0jHwAye4L9rFVD7ckGQeNDTLcVa5Ur2sBFX
+	 mh1BeQV7pTCjDJrYGXGmUMQsYzxPKmDVfuhyBe8f3qCfBuAB/mDl1G9I4u6neWxqm/Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794181379;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=opqy2dA7s0XteS99ezevufI2qSC2s/Ry0FAQ5nqTeqE=;
+	b=0Kp2+6gPRUgzjQCSL6x/v/FUwSxfzOqyoSrDxRU9lTGaDVHlC/R/kIEaYf68e6S/5nYt
+	 yn8Y3EJDoVptdUNUsRCYysTR4me0/cINjEqSlvDaUbaNflZDtUEvnbXDfS2LoJkXD5T/Q
+	 AT5cLwTF9bMZi9BKGXkg16RQV7X0ENvcbiYSg+nJmAFI+mojYLQ0xIOcrE3nHECLnBLie
+	 +B8sKyVpwXd7qsSILNirEOrkwQgE4zrx8f0IkPEk1tMhTGd0RvXWq01+StazM5fDKHJsK
+	 BsD8xl0n4iFPRi4XycjzIWoYSPprG4u6xAGVyD5/hlVTlCxYYWTLsnwtPAT1yo7VUfg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F68606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F68606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=A9xXuZ44
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1794181155; x=1794440355;
-	bh=07U+LmhabH8dFqhgYfSazQMSm8LvLOQc80NMswqVGGY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=A9xXuZ44cgm5rlMXgj5Z0JaFsOQKeRXCykzSY6Mj0n8rRA3pna4EKYwrGipYLABJg
-	 m+UB5b+hupfd3lG48TNHRSdmlFNBLzd1CSCKlXkC8eoCQbDQUgUhVfW/uV2NGR5B1v
-	 vKto4Mu/00nLv7MdaYydVc4rZ2bPEII6oywnM8ljWE7LxQfddDHVoqs5KmJwz8SMgT
-	 peFTxkqxuTAgu70hG+H7quXFaskl7p0yy+ClyjM7C5JrV0g9asltTtxcKJ3Pwhkm14
-	 yp75kGZ8LRp6camsGVCaab0Bob5hkNeatVAGwqtc8BD+Az6siDLTp7UoI7DV540UqK
-	 qoDn5lUmpalPw==
-Date: Sun, 08 Nov 2026 23:39:12 +0000
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, linux-acpi@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ACPI: pfr_update: keep the state until the last file is closed
-Message-ID: <20261108233900.4043941-4-ca@modelmiser.com>
-In-Reply-To: <20261108233900.4043941-3-ca@modelmiser.com>
-References: <20261108233900.4043941-3-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 4f04294de2988898d78ee3744635fcc7ef203b84
+	by smtp.kernel.org (Postfix) with ESMTPS id ACFF31F0089F;
+	Sun,  8 Nov 2026 23:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794181379;
+	bh=opqy2dA7s0XteS99ezevufI2qSC2s/Ry0FAQ5nqTeqE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=DEVvfpFqQEmAPTfamJyLOgrBAkvk4GYGAaEBffroiizTE8ebhrN9sILzj+MO72ifY
+	 7z20XOvFR6F/ub+sREaAQllA8SijwsnR4mz28LedVDWTGy1M0AzVWYoI7rEAZEa5SM
+	 +Q72c5/fELEQRmUJMK5LRtyfbifFgI+0Dsmok8jxyZEeG7R6cDTdczw6STk9iZQNCr
+	 S+xmdXRa/w6MKsR8gqK4px+E4kA7e4OrbHGFdsG3g5XTAzO5Y0aWf1gKiJRNAaBDpB
+	 KVvkeMLaNw9RKw0dlFmb1sP7826TAjVRvXd0Hy59aiSXYlW8lgFtz4xtOvCSPPdOyX
+	 S9MPLrDafwj/w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0C35348181;
+	Sun,  8 Nov 2026 23:42:58 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 09 Nov 2026 00:42:54 +0100
+Subject: [PATCH RFC] crypto: caam - never share the gcm and skcipher
+ descriptors serially
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,193 +83,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-for-upstream-caam-shdsc-share-never-v1-v1-1-65a1dd146db2@free.fr>
+X-B4-Tracking: v=1; b=H4sIAP0I8WoC/x2NsQoCMRAFf+XY2oUk4im2gh9gKxYhefG2MHfsa
+ hCO+3eDzcA0MysZVGB0HlZSNDGZaxe/GyhNsT7BkrtTcGH03p24zMqfxd6K+OIUO2zKljqjgis
+ alJtnjOVYDnAxhz312KIo8v2P7nS7XuixbT+z/oCIfQAAAA==
+To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
+ Pankaj Gupta <pankaj.gupta@nxp.com>, 
+ Sahil Malhotra <sahil.malhotra@nxp.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794181377; l=2652;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=GjgJFHU6i0RDErS9t9bCe4m/vvJ6D6x0VQ3z3zcG9iA=;
+ b=fPogTEoHycur6tnNhWpxrxlaar2/uhPjtIH747LHL7Aord5CzukTNCgAotCO74RcK1cmyuAVH
+ SAHlGW8k7vED9aFiXbxAxzF/uXFjuZzk1+4rYLGtEuSZfDd87qsEi+q
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-struct pfru_device is allocated with devm_kzalloc() and embeds the
-miscdevice, so it is freed when the driver unbinds. A file that is open
-on the node outlives the unbind and nothing holds a reference for it:
-the next ioctl() or write() on that file uses freed memory. Unbinding
-the driver needs root.
+From: Vincent Jardin <vjardin@free.fr>
 
-Allocate the structure with kzalloc() and reference count it: open()
-takes a reference, under misc_mtx, which misc_deregister() also takes,
-release() drops it, and a devm action drops the driver's own. The
-structure also holds a reference on the parent device it uses. A call to
-ioctl() or write() that starts after remove() returns fails with
--ENODEV; one already running finishes against state that is still valid.
+The gcm and skcipher shared descriptors were built with HDR_SHARE_SERIAL,
+so the SEC runs the jobs of one key one after the other:
+it leads to about 4 Gbps per key on LX2160A, whatever the number of
+CPUs or queues. No hardware reason for this code has been found.
 
-The problem was found with a Coccinelle script that reports device nodes
-in devm memory [1]. The fix, the reproducer and this message were
-written with an AI assistant (Claude) and checked by hand. The bug was
-reproduced and the fix tested in QEMU with KASAN, using an SSDT whose
-_DSM stands in for the firmware: ioctl() and write() worked before an
-unbind and, on a file held open across it, failed with -ENODEV. A call
-racing with the unbind was not tested, nor was hardware with this
-firmware interface.
+From benchmarks, when built with HDR_SHARE_NEVER, the performance
+is much better and scales: for instance with one CPU, AES-128-GCM,
+the gains are:
+  - 325 -> 592 MB/s at 1420 B
+  - 498 -> 6283 MB/s at 16 KiB
 
-Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com =
-[1]
-Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update devi=
-ce driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
-The same Coccinelle script reports this driver for the misc_register()
-of &pfru_dev->miscdev.
+ drivers/crypto/caam/caamalg_desc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Reproduced in QEMU 10.2.4 (q35, KASAN, booted with kasan_multi_shot). An
-SSDT adds a device with _HID INTC1080 and a _DSM that returns valid
-packages, and memmap=3D reserves the communication buffer. A process opens
-/dev/acpi_pfr_update0, uses QUERY_CAP, SET_REV, write() of a minimal
-capsule and STAGE, and unbinds the driver through sysfs with the file
-open. Repeating those calls gives, without this patch, 9 KASAN reports
-in pfru_ioctl(), query_capability(), pfru_write() and start_update().
+diff --git a/drivers/crypto/caam/caamalg_desc.c b/drivers/crypto/caam/caamalg_desc.c
+index 04c1105eb1f5..32d614a3431d 100644
+--- a/drivers/crypto/caam/caamalg_desc.c
++++ b/drivers/crypto/caam/caamalg_desc.c
+@@ -639,7 +639,7 @@ void cnstr_shdsc_gcm_encap(u32 * const desc, struct alginfo *cdata,
+ 	u32 *key_jump_cmd, *zero_payload_jump_cmd, *zero_assoc_jump_cmd1,
+ 	    *zero_assoc_jump_cmd2;
+ 
+-	init_sh_desc(desc, HDR_SHARE_SERIAL);
++	init_sh_desc(desc, HDR_SHARE_NEVER);
+ 
+ 	/* skip key loading if they are loaded due to sharing */
+ 	key_jump_cmd = append_jump(desc, JUMP_JSL | JUMP_TEST_ALL |
+@@ -765,7 +765,7 @@ void cnstr_shdsc_gcm_decap(u32 * const desc, struct alginfo *cdata,
+ {
+ 	u32 *key_jump_cmd, *zero_payload_jump_cmd, *zero_assoc_jump_cmd1;
+ 
+-	init_sh_desc(desc, HDR_SHARE_SERIAL);
++	init_sh_desc(desc, HDR_SHARE_NEVER);
+ 
+ 	/* skip key loading if they are loaded due to sharing */
+ 	key_jump_cmd = append_jump(desc, JUMP_JSL |
+@@ -1463,7 +1463,7 @@ void cnstr_shdsc_skcipher_encap(u32 * const desc, struct alginfo *cdata,
+ 	bool is_chacha20 = ((cdata->algtype & OP_ALG_ALGSEL_MASK) ==
+ 			    OP_ALG_ALGSEL_CHACHA20);
+ 
+-	init_sh_desc(desc, HDR_SHARE_SERIAL | HDR_SAVECTX);
++	init_sh_desc(desc, HDR_SHARE_NEVER | HDR_SAVECTX);
+ 	/* Skip if already shared */
+ 	key_jump_cmd = append_jump(desc, JUMP_JSL | JUMP_TEST_ALL |
+ 				   JUMP_COND_SHRD);
+@@ -1539,7 +1539,7 @@ void cnstr_shdsc_skcipher_decap(u32 * const desc, struct alginfo *cdata,
+ 	bool is_chacha20 = ((cdata->algtype & OP_ALG_ALGSEL_MASK) ==
+ 			    OP_ALG_ALGSEL_CHACHA20);
+ 
+-	init_sh_desc(desc, HDR_SHARE_SERIAL | HDR_SAVECTX);
++	init_sh_desc(desc, HDR_SHARE_NEVER | HDR_SAVECTX);
+ 	/* Skip if already shared */
+ 	key_jump_cmd = append_jump(desc, JUMP_JSL | JUMP_TEST_ALL |
+ 				   JUMP_COND_SHRD);
 
-With it there are none. All the calls succeed before the unbind and
-return -ENODEV after it, and the same sequence behaves the same after a
-bind. Unbinding with the file already closed, or never opened, gives no
-reports either. ACTIVATE and STAGE_ACTIVATE were not run; they share
-start_update() with STAGE.
+---
+base-commit: 82e91fe19fb838f235f7c8829afc1eb389c93bdf
+change-id: 20261108-for-upstream-caam-shdsc-share-never-v1-e6f7f5e0ad23
 
-No lock is added. A call that passed the removed check can run during
-the unbind, against state and a parent device that are still valid; the
-driver has never serialized calls from different files. An rwsem would
-make the unbind wait for a firmware update to finish.
-
-kzalloc() rather than kzalloc_obj(), which first appears in v7.0, for
-the stable trees.
-
- drivers/acpi/pfr_update.c | 51 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 49 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-index 98ace679601b..b9e4c1065ad5 100644
---- a/drivers/acpi/pfr_update.c
-+++ b/drivers/acpi/pfr_update.c
-@@ -16,9 +16,11 @@
- #include <linux/file.h>
- #include <linux/fs.h>
- #include <linux/idr.h>
-+#include <linux/kref.h>
- #include <linux/miscdevice.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/slab.h>
- #include <linux/string.h>
- #include <linux/uaccess.h>
- #include <linux/uio.h>
-@@ -82,6 +84,8 @@ struct pfru_device {
- =09u32 rev_id, index;
- =09struct device *parent_dev;
- =09struct miscdevice miscdev;
-+=09struct kref kref;
-+=09bool removed;
- };
-=20
- static DEFINE_IDA(pfru_ida);
-@@ -428,6 +432,9 @@ static long pfru_ioctl(struct file *file, unsigned int =
-cmd, unsigned long arg)
- =09u32 rev;
- =09int ret;
-=20
-+=09if (READ_ONCE(pfru_dev->removed))
-+=09=09return -ENODEV;
-+
- =09switch (cmd) {
- =09case PFRU_IOC_QUERY_CAP:
- =09=09ret =3D query_capability(&cap_hdr, pfru_dev);
-@@ -476,6 +483,9 @@ static ssize_t pfru_write(struct file *file, const char=
- __user *buf,
- =09char *buf_ptr;
- =09int ret;
-=20
-+=09if (READ_ONCE(pfru_dev->removed))
-+=09=09return -ENODEV;
-+
- =09ret =3D query_buffer(&buf_info, pfru_dev);
- =09if (ret)
- =09=09return ret;
-@@ -518,8 +528,39 @@ static ssize_t pfru_write(struct file *file, const cha=
-r __user *buf,
- =09return ret ?: len;
- }
-=20
-+static void pfru_free(struct kref *kref)
-+{
-+=09struct pfru_device *pfru_dev =3D
-+=09=09container_of(kref, struct pfru_device, kref);
-+
-+=09put_device(pfru_dev->parent_dev);
-+=09kfree(pfru_dev);
-+}
-+
-+static void pfru_put(void *data)
-+{
-+=09struct pfru_device *pfru_dev =3D data;
-+
-+=09kref_put(&pfru_dev->kref, pfru_free);
-+}
-+
-+/* misc_open() holds misc_mtx here, and misc_deregister() takes it. */
-+static int pfru_open(struct inode *inode, struct file *file)
-+{
-+=09kref_get(&to_pfru_dev(file)->kref);
-+=09return 0;
-+}
-+
-+static int pfru_release(struct inode *inode, struct file *file)
-+{
-+=09pfru_put(to_pfru_dev(file));
-+=09return 0;
-+}
-+
- static const struct file_operations acpi_pfru_fops =3D {
- =09.owner=09=09=3D THIS_MODULE,
-+=09.open=09=09=3D pfru_open,
-+=09.release=09=3D pfru_release,
- =09.write=09=09=3D pfru_write,
- =09.unlocked_ioctl =3D pfru_ioctl,
- =09.llseek=09=09=3D noop_llseek,
-@@ -530,6 +571,7 @@ static void acpi_pfru_remove(struct platform_device *pd=
-ev)
- =09struct pfru_device *pfru_dev =3D platform_get_drvdata(pdev);
-=20
- =09misc_deregister(&pfru_dev->miscdev);
-+=09WRITE_ONCE(pfru_dev->removed, true);
- }
-=20
- static void pfru_put_idx(void *data)
-@@ -554,10 +596,16 @@ static int acpi_pfru_probe(struct platform_device *pd=
-ev)
- =09=09return -ENODEV;
- =09}
-=20
--=09pfru_dev =3D devm_kzalloc(&pdev->dev, sizeof(*pfru_dev), GFP_KERNEL);
-+=09pfru_dev =3D kzalloc(sizeof(*pfru_dev), GFP_KERNEL);
- =09if (!pfru_dev)
- =09=09return -ENOMEM;
-=20
-+=09kref_init(&pfru_dev->kref);
-+=09pfru_dev->parent_dev =3D get_device(&pdev->dev);
-+=09ret =3D devm_add_action_or_reset(&pdev->dev, pfru_put, pfru_dev);
-+=09if (ret)
-+=09=09return ret;
-+
- =09ret =3D ida_alloc(&pfru_ida, GFP_KERNEL);
- =09if (ret < 0)
- =09=09return ret;
-@@ -568,7 +616,6 @@ static int acpi_pfru_probe(struct platform_device *pdev=
-)
- =09=09return ret;
-=20
- =09pfru_dev->rev_id =3D PFRU_DEFAULT_REV_ID;
--=09pfru_dev->parent_dev =3D &pdev->dev;
-=20
- =09pfru_dev->miscdev.minor =3D MISC_DYNAMIC_MINOR;
- =09pfru_dev->miscdev.name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL,
---=20
-2.43.0
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
 
 
