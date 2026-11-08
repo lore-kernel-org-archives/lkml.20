@@ -1,52 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794138266;
-	b=Pk9ZYFpsN+JlNV6eEwySkrspMo6j2Zbaqx/CwMKrh6EW4m4NQ/tlM6CmMj1F8xVTrv8L
-	 opnSMNotex1yL698yIu1NovILMvpnK6wwGgMSNXYWAj0jD9CqLWKIcdoSa1bInFxb+Esl
-	 NE+TNvzGV75/cvU53X1J7a0ivX30MQ/KDQa8X5/UuXJpm/BUK+kIJu5OA/Fp0wWtl9Usj
-	 60rQrxMoYm2o9rCopo8RJAFXGTKpkzxNa5n/2QC/YaBuM06jVppgW1FWopFDpoHudPYM1
-	 rWAxqs/LqOi0/wR4keJjZSKG/bdD2KrRLwaavjs5n3BxAdzz61rLW6VM1Fx1/hta0XQ==
+	t=1794138454;
+	b=g0uftxEqjX2qXGEOObQmUhOykXENKnniIfYpFwM4r3eowjV/BHTlRCJd6wBt97aSmbbk
+	 swGYt7PlqB1pQPp4F8vf49TEIPI4gZTp0YH21LVylboqYc1tnByGmS9VCTZdGZnIawVRF
+	 QCbABtokdEcx9ZoudcnGmL9Bt/muGz8Oel8t1GPQGtL693RsArj9ogp+QXmsMwLdC61vB
+	 NPlWaMb7P54rgt+o1R1V6Ck5N6gx5fbDZ4vEd09CmW/QK6ZARZ1CvwEAlX+taZt3EAY8l
+	 i5CAlb2Nn7TK9C307E9hx+R0AuSPyI2EGm+61GITVtSGhfe86F7neEyI3K32Dwuxwuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138266;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=3q/lah2BivF8l6bCIIx5ik0n39T6McQx2xUSAGLT6ik=;
-	b=gkPineTR8ZtTKYGnW5Pnbdid6TC0KT9kgCY50DdFT/+chstMKPzyJfW4w77CxT4Wtib7
-	 78AcsGV1szDQ4TkSRYtAz+sQWpv5gp8+jV+fVzIPQl+my7fzrONF0WesYnUIt1CzwxZQv
-	 u/0yMKhM0SRL5WCQSuHgrrv4tt3IxJ4C8pxB6yoxx15g3fiH+BN/xrHrn/NgXMoCzztIV
-	 K3UAkrsPKx6FSkxYJZqUb6D9AIDNhUxCw22NeOlkS9mMObgm3lF8o712Yg2NaOLMWHWxV
-	 o/wI/hbYqBDW106yIiBCKk93Y7gCLtP6z1ocuLzaekX5e5UoIjJA2JLohW3z7W/RlKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138454;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1Y8EnhS7o4bUUaMd+9kBk4x0A+szwvlZw6MXN768V/Y=;
+	b=dyfZjc5mqsqRNJsa51vuCGTFiMZeYzR5rewj/vIit+AhkwBc0iACuT36zfhidrQWZ95R
+	 iIwHc1KP/xLkMI04bAX6UlOExPLJvUKrlHUdjKXcBx4ypZAAXRlJzdJXwVEMnBByXGZ3A
+	 G69/dM/3AJERZ8cZovOasnEcrXFVVZGUBMCrEGFlkWNcw4PUeG2dK82bjsfQiG4gjV9sE
+	 Ab+TQuBu2pOjMpSdsxn8FQX6EeEkNMY2cvslaTuwbJrpuOglyume5786QcKyVrNMM8WWZ
+	 f0siKomPEo9+CrFOMbAy8N+xdcujlAOsw9DowkIGgs542iSXVEDdcj7YEzKJ3aO1OrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lgqb8ZXx;
-	arc=none smtp.remote-ip=95.215.58.156
-Received: from mta1.migadu.com (out-156.mta1.migadu.com [95.215.58.156])
+	dmarc=pass header.from=bairaktaris.de;
+	spf=pass smtp.mailfrom=bairaktaris.de;
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=jETELm1Y;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6FD606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E6FD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9BF606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:47:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA9BF606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lgqb8ZXx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NfxEQyvo6YzvwIKDIqYTEEs+dBfaE7g8zWPgpNgj6VE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794138263; v=1; x=1794743063;
- b=lgqb8ZXx/vWcpQrPjMMCkz11FrUgmviA9aFeX5K1ANatpUqhjv48SdumDgQdqgk1i7iM58lt
- TN9xRur7ub72APowfK+7Jl90UEhW5YqXmy2XH/WlhQMkBVxx0X4sPqBL+4n4/KuAWw7KQXTgG8/
- xfy2EuwdTX/BUOuQwzFnvTYQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 47e901772c1c05d8;
-	Sun, 08 Nov 2026 11:44:22 +0000
-X-Mizu-Trace-ID: 47e901772c1c05d8
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=jETELm1Y
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso7022366b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:47:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1794138452; x=1794743252; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Y8EnhS7o4bUUaMd+9kBk4x0A+szwvlZw6MXN768V/Y=;
+        b=jETELm1Y5XaG/cTJQLXmABBnB7mhSrc9sbdzZ8p6mRRmgHV6onkf4q2pry8PzMZRQH
+         CH3dm5/SCZE/MiaWN8wHHtD5qpo7gm7/gf2xECMQK5aRfgidLCfRdXBlZ/8Z84tYRx4E
+         L8X7ejBSFMFF0wYbSupve7tvU2wwgTNX0paVCHqto+8VRqZf+zRPv/fYjo+RcUGem6Nx
+         xZzYZGGDn7gWrr11CH3oOkoXoDM+rWsPHna29fDctTyHMdBpsJAUCNcBzAOWQ0Q2RXy2
+         IJVzJEbaQIPslyg/cSnz/2UpxAYa+aTS3enUxQM2GyQLLYSa9DXrrsmMAb7puxXIafq0
+         eSZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794138452; x=1794743252;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1Y8EnhS7o4bUUaMd+9kBk4x0A+szwvlZw6MXN768V/Y=;
+        b=vvDQzIH2CBKIR7XWRdcJ3S+rEFsWGuj3VGWg4Rblspb2qCPaA67SSVuAJaiq88zr4V
+         0ux0nkKSEkJb68JK7h3foAnCwtiAGNDFz2T5Pcf3UxgWFye+llaXUuAKyEhOpSSo/zAw
+         0Zkz1N0WnPaBwQSFhCfF7aiOq+dWTvabeSJHQQJ0ss0uiMuuAjSdXi3MqR27RmwCmnTM
+         FCRfUmZWSkjpgdIjXeN1rns103c9PraMJWW2iU8VcuYMIP7rHLYN0CxhOJDxijMO1F2K
+         QqehQQOsz/dbfeY9QEPbFObcWLtLxOWAup63OhSIj75KDp1rzUJQ6EaKnzv2k0DoBT1M
+         gsQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxL7nCJrBr60zKR7F455rvRCi/sS5KGVEKI4zsWonjCgSJ5bdtfwSpJkcdoOEsgwoHoXabW9JmA63dftQU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BVnnfG998pXMpv/11M+/O3SiYg3s/dxnC+f0YfuM/J9hdAsL0
+	GvUS5GgSkwKopEF4Up4y87mT09wRQLg4Pr/JUlOFAk6kBVs0EGnGEiWOonftE2R0hg==
+X-Gm-Gg: AYBFou1T8JFll1wUVlrjHryasFpKCrEJTamBAXov0iOYr7jCQN/fmwMGuWuPIwc+0q5
+	oDvR15fSrVP9dWDkl/fbVpDK7SxA2X5apFS15cBb7rH9YFRkkaa0jZ6S5nh6iWt4HPslp5RXuE1
+	HQVMztV0lF/YhZ1RMCkO4ai2rv9l4ITvhi1daDdYffn9kgVPHu1lhwDEeqEXicm8pnPSVcj63MQ
+	ffRRRGS0lKXl1vew28zmGa4YxeWFT1eWH31BTxgC4gK0bvdCSPRBdzT3nXka26NWUOw8bybDqKM
+	g/VGAb6sFJu7pu7zqb086a76n6ILacJ8a/S3cY1Q25Q2EOxdKV+Gd6G2IJF2c25y73eINf+zD+S
+	hgw6fMOeyEhznZ4wRQ+ZafMQIcLkKdIrxRr8BowAIPmgScuW0O9sHiHqmNQVoz/RneRthQiZ+WI
+	e56fBrzIhPBwPPjZKemqf884mCNjqiWMcBfWiaR5lAtfGMeEWHDKP8+tqiZDRjguCpWg3Uylw5U
+	vF88yjJ64dO0mC1BYYO4KChq1wYHInR6XFew9YHymVOI6TSGJ3yYILbA80KlrRiWMyO3W9cbEW/
+	bl41/bDl6O6CESJEiFBwAB8AL2cPaExaT1D9R4mgOy/LeJJSq13WTbH+7G0iW0+xEa2XAQuD9OT
+	PCZ0p1GD5wajXbwsa23l4sDVGOUu7lKYyyG89Q0+rAoqbOyT2ITtjF1XMWNdOVJx+ff5RgQvi7b
+	XXHLMZ4umO3hSA7FB3NpV3Gk++MUabNZ6mt0Vfz2wEBsayIYTMXiwoXgh87wnWqKtjzdK8x6eA4
+	a8/yOY+jNtXKRnWLNbd7wNsGSD3weEgaMATbrBDKPtPf7k3jBI3iO666zUVVwvoOaUAaNbGcAPC
+	+AX+2VcCQMiotGDsLA==
+X-Received: by 2002:a17:907:80b:b0:c4d:2cb4:7bbd with SMTP id a640c23a62f3a-c4d6d7c1ac0mr93601366b.47.1794138452222;
+        Sun, 08 Nov 2026 03:47:32 -0800 (PST)
+Received: from Desktop (p54afff19.dip0.t-ipconnect.de. [84.175.255.25])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a99320bsm56079066b.67.2026.11.08.03.47.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 03:47:31 -0800 (PST)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: razor@blackwall.org
+Cc: netdev@vger.kernel.org,
+	bridge@lists.linux.dev,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	vladimir.oltean@nxp.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bridge: fdb: hold hash_lock when an entry roams
+Date: Sun,  8 Nov 2026 12:47:31 +0100
+Message-ID: <20261108114731.123174-1-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <01600be7-3d8b-48b2-a59a-1125eb452714@blackwall.org>
+References: <20261004124254.3525496-1-julius@bairaktaris.de> <01600be7-3d8b-48b2-a59a-1125eb452714@blackwall.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,77 +111,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sun, 08 Nov 2026 11:44:22 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <da84e88e367522c239340aff5c3011d7c0642f9a@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v3 2/2] wifi: rtw88: ps: trigger firmware recovery only
- after consecutive LPS leave failures
-To: "Kalpesh Solanki" <skalpesh942@gmail.com>, pkshih@realtek.com
-Cc: kvalo@kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Kalpesh Solanki" <skalpesh942@gmail.com>
-In-Reply-To: <20261108085126.331784-3-skalpesh942@gmail.com>
-References: <20261108085126.331784-1-skalpesh942@gmail.com>
- <20261108085126.331784-3-skalpesh942@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Kalpesh,
+(Resent with the lists on Cc; the first copy went to the To:
+address only.)
 
-I also have a couple of comments for this patch.
+On 04/10/2026 15:44, Nikolay Aleksandrov wrote:
+> Absolutely not, this was made intentionally. Taking the hash_lock would further kill learning
+> and roaming scaling. Surely switchdev drivers must have dealt with this for some time
+> now, if you'd like to fix it do it so the software path isn't affected.
 
-November 8, 2026 at 9:51 AM, "Kalpesh Solanki" <skalpesh942@gmail.com> wr=
-ote:
+The fix moved to DSA, with br_fdb_update() unchanged: "[PATCH net-next
+0/2] net: dsa: fix host fdb refcount when an entry roams". DSA no longer
+counts the roam events; when it handles each event from its workqueue,
+it looks up where the bridge has the entry. The only bridge change is
+that RCU lookup and the filter it shares with br_switchdev_fdb_notify().
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/ps.c b/drivers/net/wire=
-less/realtek/rtw88/ps.c
-> index add5a20b8432..864e2be243ea 100644
-> --- a/drivers/net/wireless/realtek/rtw88/ps.c
-> +++ b/drivers/net/wireless/realtek/rtw88/ps.c
-> @@ -165,7 +165,14 @@ static void rtw_fw_leave_lps_check(struct rtw_dev =
-*rtwdev)
->       if (ret) {
->               rtw_write32_clr(rtwdev, REG_TCR, BIT_PWRMGT_HWDATA_EN);
->               rtw_warn(rtwdev, "firmware failed to leave lps state\n");
-> -             rtw_fw_dump_dbg_info(rtwdev);
+https://lore.kernel.org/netdev/cover.1794134495.git.julius@bairaktaris.de/
 
-rtw_fw_dump_dbg_info() returns right away unless RTW_DBG_FW is set, so I
-don't think it can flood the log in normal use, and the rtw_warn() above
-still prints on every failure. With that debug mask on, the dump from
-the first failure seems useful too. Could it stay where it was?
-
-> +
-> +             rtwdev->ps_hang_cnt++;
-> +             if (rtwdev->ps_hang_cnt >=3D RTW_PS_HANG_MAX_CNT) {
-> +                     rtw_fw_dump_dbg_info(rtwdev);
-> +                     rtw_fw_recovery(rtwdev);
-
-This still reaches USB and SDIO, and as far as I can see
-__fw_recovery_work() can't run there yet. It clears the keys from an
-atomic iterator:
-
-        __fw_recovery_work()
-          rtw_iterate_keys_atomic()
-            ieee80211_iter_keys_atomic()    /* holds local->key_lock */
-              rtw_reset_key_iter()
-                rtw_sec_clear_cam()
-                  rtw_write32()
-
-On USB that write ends in usb_control_msg() and on SDIO it needs
-sdio_claim_host(), so I think both sleep with the spinlock held.
-78d5bf925f30 ("wifi: rtw88: iterate over vif/sta list non-atomically")
-moved other iterators away from this for USB, but until now nothing
-outside PCI could get to the recovery code.
-
-Would it be ok to only call rtw_fw_recovery() on PCI for now, with a
-rtw_hci_type() check? USB and SDIO never had this recovery anyway.
-
-This can also run during a disconnect. ieee80211_set_disassoc() leaves
-LPS before it removes the AP station, so if that is the third failure,
-the recovery work can remove the station first and rtw_ops_sta_remove()
-then removes it again. If I read it right, sta_cnt underflows and
-si->mask is freed twice if a bitrate mask was set. Maybe
-rtw_sta_remove() could skip a station that was already reset?
-
-Best regards,
-Luka Gejak
+Julius
