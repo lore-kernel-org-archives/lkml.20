@@ -1,78 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794149852;
-	b=k2Wxzla0VGkICGja64y9MyKeUEkTv3AS8RTb2Ze8Foy4FAXpP2eh7TR0mag7IfpW057H
-	 4GdvHGQCiaJWTyY4sZYJ0OQreFTe0q6eRY+cmz1FmC2Tpz0T0W6ekWW7muirsPN7wnigZ
-	 3XdlokfbbPvQH4mC4OpScpOkT0lfvJLaapm07hPqOtu/qvoPP7ofRMIEnWRDzH2vmabTz
-	 bQwDdoZEco3ist0vJg6gqLZvKX7hiixnKyuhV3RlX3bhYRYX7AAhULaFGaz8X90eiHdlx
-	 B21WEHUwDyX1jUnc7XyVNn7pIL4N73m3cTrrckrz3THx747mbaKMXTrN7mSmpPdSvSw==
+	t=1794149875;
+	b=jlpYy9rQ9XxDr32DwFCI7jurC9GEg0dfzOH1xi0KmyQRnYLlmauv0ATh5DuFFfS7dYL2
+	 qEmE1FfhDJq9OiLM6lmIgKGw+beeaa3GvkL0EjKA0pMKwfHxXFKYIuWr2uqZM0AKUZQDb
+	 iv6vNocKJ2Dv8hTDSauRUL6NaCeT9UUUqgcG4NSLhNAtIOlrsgG12S1QrJvBY0QAL0Z6J
+	 QH+lyXg++inWB6kh13rUL4FewuJZkeTqBX84WNdhyKt8yQSF1dN7YN0VPmouh2I/GPEKY
+	 0qz3Rb8Uzm9aUxD2LhqKR5ywY6xL3NMdNEFuw2Aq2YMBKRy1DK35lnxgKz9bhFsn/+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794149852;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=Kg+kY0M0GUuWe1c3Qkf2Hd3ul7ZQ/jQ+AqmLEzh9dIs=;
-	b=fq3kJTpIaw3C+UphO45Auvh35SyNLzF+Ma1Riil5qqQ9dhfM9SlZnd5Ub9/zY3zWLyVX
-	 9qlsjsLx+5p3PLstj3hgyaD/jJvcLZQA4qKksVHdYVzfBvscblAkKjbep4ievDwUpaUDj
-	 lDGqgG8fpnoVXrxMtVBxI0/Lw/fgXDTkVSuHSLOdYszCSBwhnMglzxkNkTbqoTV/obz+8
-	 zmxk+KFOECEzHzHdOvXOYWmljlA65Ii+lhNGHevDpe8JED6ozsGlXjUjCP9nEVh1d9tUz
-	 KwKEIDXBpae/Quv1OXD/uxIT0X1WG2Oud3BJYfqfxKmhjYTvI0OeSlD9a8/MMKxachA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794149875;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=eBvV1HvSLM1f5WpxBj3YNWfu0VcDksHS62CpaFr2AYA=;
+	b=FD5331gA7WVplxqDgII/RbhIjzTu7AkWJ2wdNvRzcatlJbGmW32irU7mLqy+7gDgFBTM
+	 cuQWQ13Eqt3otxnD0zjQc535PjUKWmE5bCCbfpak8Z/th1KRYZIuMGncWStZNMcY9d1pp
+	 n7EFFj1wi2AsrtXFd9bns1VZEuZxv/CccWKCYnzwit5JXZiE2FIp3DjADdtyvDJx7xB3f
+	 lYgqCVWocuv/MmzXo2D7gtGB2J2z3QmEaCBzRCyyLpxsbHG8Lsc7ODsKQihGh4g8gwlAn
+	 VVaWm2h7Schi5BNhI4JyWHSMqgwJeFzaWjVOTW51V1MpIBOpw+fH7avFziY82zRZ8aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=TNDg+wAG;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=f2UJcdGF;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=O9me9xdu;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01C3606A31C;
-	Sun,  8 Nov 2026 14:57:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C01C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7A2606A320;
+	Sun,  8 Nov 2026 14:57:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F7A2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=TNDg+wAG;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=f2UJcdGF
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 387A820BD288;
-	Sun,  8 Nov 2026 23:57:30 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1794149850;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Kg+kY0M0GUuWe1c3Qkf2Hd3ul7ZQ/jQ+AqmLEzh9dIs=;
-	b=TNDg+wAG0wFAU3my1SVqzL/a54JpDjrJlX9U8fLaDLImpqPF5wUh4l6wUoSbGUKPeeqkq0
-	3o9krHwUw/PBNB/DHwtMWzi83zCgysRz9XprVh4U9MxbKWqvxVz3xPDTgWo7TV4GbBvVfB
-	PTxKTNl+wPZLF1uqFWzJdpQz48IHKXPLgUWuQjr3m0P5sDo3QUtswR5S7mKZTnfwjwyhsp
-	1b//2X8W32yRnDrPf3pgyTUktAJ5cWko1eHOq4Jq3o2fpOMg6dNxo5U0yO5xMrKGZzjDE8
-	RGW/Ii0WjFz8/ILE4Fqdn4zrCgiB/rAquTQlcqKlSoJQoPoAlT08hJKd26QcwQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1794149850;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Kg+kY0M0GUuWe1c3Qkf2Hd3ul7ZQ/jQ+AqmLEzh9dIs=;
-	b=f2UJcdGFalZYDf0A+RhFbfFbNQqjlJc/WzmiTMXXk3vE2pHmMOjHMrUFFKhkPEHWapzflJ
-	BOE52fIMNZXQkrDQ==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id B0DADE00042;
-	Sun, 08 Nov 2026 23:57:29 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id A470822001DF; Sun, 08 Nov 2026 23:57:29 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  brauner@kernel.org,  djwong@kernel.org,
-  hch@lst.de,  linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 4/8] fat: clean stale bdev buffers of newly
- allocated clusters
-In-Reply-To: <20261031164326.278125-5-matheus.aalmeida@inf.ufrgs.br>
-References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
-	<20261031164326.278125-5-matheus.aalmeida@inf.ufrgs.br>
-Date: Sun, 08 Nov 2026 23:57:29 +0900
-Message-ID: <87ik27tlpi.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=O9me9xdu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794149874;
+	bh=eBvV1HvSLM1f5WpxBj3YNWfu0VcDksHS62CpaFr2AYA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=O9me9xduiw6h5DSWsa0C1WGznGmvte/eyyXiuWISOdMc37XxfWqRFgw4Y9Sewwz1M
+	 +KaAmihychkpM6Ug7YI2wadBDo+epg1I6gKxdxRAFGVADnc7gMtdz5j46eBsRRG/Or
+	 wHLM2SjrLL1eA62SffHBN/g+zDZOgnpLwYSZoj3Te1iELhm/Sjdpfl2goAbcS0+FD4
+	 2yJ1WS1VKlT+FaweqWUtYdoD38vGCzqV9Z2EI/nYAD/r1o2rgvW0tri0iviKXU3DhM
+	 jKr3978wZ0iha1yp0FzWi0DirToQwruWT3iBcTcSah4AwR+1SWIXRh0izNSJQ3r0aC
+	 B1zS1EAnk9LNg==
+Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jMwyB3d8PzMyT;
+	Sun, 08 Nov 2026 09:57:54 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: Waiman Long <longman@redhat.com>,
+	Frederic Weisbecker <frederic@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] cpuset: WARNING in cpuset_update_sd_hk_unlock() when isolated partitions take every housekeeping CPU
+Date: Sun,  8 Nov 2026 09:57:54 -0500
+Message-Id: <20261108145754.1532162-1-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,117 +68,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+Hi,
 
-> Directory I/O uses buffer_heads on the block device, which may leave
-> stale buffers behind when clusters are freed and reused. The buffer_head
-> I/O paths currently call clean_bdev_aliases() for newly allocated blocks,
-> preventing stale buffers from overwriting new data.
->
-> Buffered iomap I/O does not provide this protection. In preparation for
-> the buffered iomap conversion, clean bdev aliases on newly allocated
-> clusters, like exfat patch "exfat: clean stale bdev buffers of newly
-> allocated clusters".
->
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-> ---
->  fs/fat/fatent.c | 34 ++++++++++++++++++++++++++++++++--
->  1 file changed, 32 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
-> index 4fa1fae5abf9..46899efa3cf8 100644
-> --- a/fs/fat/fatent.c
-> +++ b/fs/fat/fatent.c
-> @@ -523,6 +523,21 @@ static int fat_flush_bhs(struct super_block *sb, struct buffer_head **bhs,
->  	return 0;
->  }
->  
-> +/*
-> + * Newly allocated clusters may still have dirty buffer_heads in the block
-> + * device mapping, e.g. the dentries of a directory that was just removed.
-> + * File data does not go through those buffers, so drop them; otherwise a
-> + * later flush of the block device writes them over the new data.
-> + */
-> +static void fat_clean_bdev_aliases(struct super_block *sb,
-> +				   unsigned int clu, unsigned int count)
-> +{
-> +	struct msdos_sb_info *sbi = MSDOS_SB(sb);
-> +
-> +	clean_bdev_aliases(sb->s_bdev, fat_clus_to_blknr(sbi, clu),
-> +			   (sector_t)count * sbi->sec_per_clus);
-> +}
-> +
->  static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster,
->  				bool return_all)
->  {
-> @@ -531,7 +546,7 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
->  	const struct fatent_operations *ops = sbi->fatent_ops;
->  	struct fat_entry fatent, prev_ent;
->  	struct buffer_head *bhs[MAX_BUF_PER_PAGE];
-> -	int i, count, err, nr_bhs, idx_clus;
-> +	int i, count, err, nr_bhs, idx_clus, cont_start, cont_len;
->  
->  	lock_fat(sbi);
->  	if (sbi->free_clusters != -1 && sbi->free_clus_valid &&
-> @@ -540,14 +555,20 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
->  		return -ENOSPC;
->  	}
->  
-> +	cont_len = 0;
->  	err = nr_bhs = idx_clus = 0;
->  	count = FAT_START_ENT;
->  	fatent_init(&prev_ent);
->  	fatent_init(&fatent);
->  	fatent_set_entry(&fatent, sbi->prev_free + 1);
->  	while (count < sbi->max_cluster) {
-> -		if (fatent.entry >= sbi->max_cluster)
-> +		if (fatent.entry >= sbi->max_cluster) {
-> +			if (cont_len) {
-> +				fat_clean_bdev_aliases(sb, cont_start, cont_len);
-> +				cont_len = 0;
-> +			}
->  			fatent.entry = FAT_START_ENT;
-> +		}
->  		fatent_set_entry(&fatent, fatent.entry);
->  		err = fat_ent_read_block(sb, &fatent);
->  		if (err)
-> @@ -573,6 +594,10 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
->  					*cluster = entry;
->  				idx_clus++;
->  
-> +				if (cont_len == 0)
-> +					cont_start = entry;
-> +				cont_len++;
-> +
->  				if (nr_bhs + fatent.nr_bhs > MAX_BUF_PER_PAGE) {
->  					err = fat_flush_bhs(sb, bhs, &nr_bhs,
->  							    inode_needs_sync(inode));
-> @@ -589,6 +614,9 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
->  				 * so we can still use the prev_ent.
->  				 */
->  				prev_ent = fatent;
-> +			} else if (cont_len) {
-> +				fat_clean_bdev_aliases(sb, cont_start, cont_len);
-> +				cont_len = 0;
->  			}
->  			count++;
->  			if (count == sbi->max_cluster)
-> @@ -602,6 +630,8 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
->  	err = -ENOSPC;
->  
->  out:
-> +	if (cont_len)
-> +		fat_clean_bdev_aliases(sb, cont_start, cont_len);
+With isolcpus=domain, cpuset accepts isolated partitions that leave no
+housekeeping CPU. housekeeping_update() then refuses the new mask, and
+cpuset_update_sd_hk_unlock() warns.
 
-We would want to make as possible as shorter lock_fat. At least, this
-part can move outside of unlock_fat(sbi)?
+I found this while testing a fix for another cpuset problem [1]. Its
+sequence goes through that problem first, so I ran it only on a kernel
+with that fix.
 
->  	unlock_fat(sbi);
->  	mark_fsinfo_dirty(sb);
->  	fatent_brelse(&fatent);
+Trigger
+=======
 
-Thanks.
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Boot 5 CPUs with isolcpus=domain,0,1. CPUs 2 to 4 are then the
+housekeeping CPUs. With cgroup v2:
+
+  cd /sys/fs/cgroup
+  echo +cpuset > cgroup.subtree_control
+  mkdir P Q
+  echo 4 > P/cpuset.cpus
+  echo isolated > P/cpuset.cpus.partition
+  echo 2-3 > Q/cpuset.cpus
+  echo root > Q/cpuset.cpus.partition
+  echo isolated > Q/cpuset.cpus.partition    # WARNING
+
+The last write is accepted. Q reads back as isolated.
+
+  WARNING: kernel/cgroup/cpuset.c:1481 at cpuset_update_sd_hk_unlock+0x79/0x80, CPU#1: k2/93
+  CPU: 1 UID: 0 PID: 93 Comm: k2 Not tainted 7.4.0-rc1-00268-ge99d0e004b05 #108 PREEMPT(lazy)
+  RAX: 00000000ffffffea
+  Call Trace:
+   cpuset_partition_write+0x9e/0xe0
+   kernfs_fop_write_iter+0x14d/0x210
+   vfs_write+0x252/0x550
+   ksys_write+0x6c/0xe0
+   do_syscall_64+0x109/0x5d0
+
+RAX is -EINVAL, the return of housekeeping_update().
+
+Analysis
+========
+
+From reading tip sched/urgent (006991aa8997):
+- Making Q isolated would remove CPUs 2 and 3 from HK_TYPE_DOMAIN.
+  CPUs 0 and 1 are isolated at boot, and P holds CPU 4. So no
+  housekeeping CPU would remain.
+- housekeeping_update() refuses that mask with -EINVAL. Commit
+  03ff73510169 ("cpuset: Update HK_TYPE_DOMAIN cpumask from cpuset")
+  calls it under WARN_ON_ONCE() in cpuset_update_sd_hk_unlock().
+- prstate_housekeeping_conflict() refuses such a partition only with
+  nohz_full, since commit 103b08709e8a ("cgroup/cpuset: Fail if
+  isolated and nohz_full don't leave any housekeeping").
+
+So cpuset and the housekeeping code disagree on what is valid. The
+write returns 0, and the isolated CPUs of the top cpuset read 0-4. But
+by reading, HK_TYPE_DOMAIN keeps its old mask.
+
+Should cpuset refuse an isolated partition that leaves no
+HK_TYPE_DOMAIN housekeeping CPU, as it does for nohz_full? I did not
+write a patch, since you may prefer another place for the check.
+
+The analysis was written by an LLM coding assistant under my direction
+and review.
+
+Thanks,
+
+Mathieu
+
+[1] The empty sched domain report, sent along with this one.
