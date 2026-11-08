@@ -1,123 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794182110;
-	b=ra3+bvFICAU0F2k2cbRpl9fsYAj+Jhker8/ysY88SggTs8qtua4cyyfhCfm+aXSv5z1x
-	 1J1e7vI32NhiJqnemXtCRZKGhW/s2VkyDi9iKJepk4Y6IOCNpo/wiMUHA3s2rs8NOi+lv
-	 ZaM5JFFM5uZxJYU7iTOo6QR0IBtgArazwgamqOsnfdJAh+x1qKFP1SX3feek7qzH7yyOr
-	 3cfB5iB2sg/uvDyYnDldT/EIklj8uTKNGalN9+JZ07c4Sg921gVwyEdkYnd5A08u9EMtH
-	 pf7GRWb9kBEEuoNH4MF6Xo+EnTc0hcdZJBB2QlnEdDy2PSwHMXzXG8anrjElAPkqRXg==
+	b=Ej1xOA5H/pNSjzSRoE549vfyTlbqiqyK+bw4hzWsCOjwblH78FY59ZnXjbx1RS2wm8wf
+	 GP8YIsjGvjER4bH4ovjNay/ZSmk9/hKV+hQQCWsmS15Tq7ptDfYu1h5228Gd0fw+PaWB0
+	 geb8JWlTkqcZgZZpV4c/r/ZKorbG3VHdHvl4RYesmyb145Y5rB+QetVdOsiEPFFoHe+zG
+	 pbg+alObLITkUqheQ4/nUWwjhScpccuc4ROl6hN4peM/Snndeqabq5y6qqoVPQ0AwXst8
+	 XnweHrBVy5bL5kMhpW8E9xyi2c5yIBbZz39zqTR2LpmLlWgkodt4sH7IF76kZmDGGdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794182110;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=BpndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=;
-	b=5Fro9cwmZZgSwu84z6x5okZFz4O1vQjULez05oGbIqpHjNI2h2ZL3qRzo6cP8NGJ2bUD
-	 8hA/FowSdwvO9HoytFhgxOG0rHWN1V0fA8Wl+Cq8T/0H9iXvYFrMAyE9BwB8aTi4kPJA9
-	 GCYDZyfkotfmy7slw67qsav9eofVrV5xhiLCr5x+CfzWeDHOlHcRfazaOVzDVug0F7bwh
-	 NrQaKzmjHhBFiWY1+ck3p4gCHTpX/35uBoUYKq0uKTLSeNlyTTRZLGLIPfs6IiYL5Occ7
-	 Jp8V1jmLv5UIVxqSc1CaMnodYK0je9qyj1Ot7xafv5/oivNgYqWOBdQjSSDi1QN9fNw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=V6dd8UEmYGL47gppjCwakrDSGeCZVV1ZnI+Je+e+Uck=;
+	b=f1pYv9rQTBnP5SLtSfpb4XbbXPIoYIMgK74L3TmCwovB7jXU2uVvn4aHdI2un1YW1LUY
+	 CPFXDD7dAyn5H1Ia785GsmgNmhimETCkjxmEs1MdggGYDNdMYZBHlh1PPDEtJaksiS07L
+	 hBkkXGUXPeL7bf1KeJ1CRAjzjdunSpHaX7nItKVrdiir1Re21OBZSnXjX2Y/WDabOB4Gf
+	 tGnkhWziKS5ZrqHSojuLlnKl5SiiqSLzuffQ7usxnVBcmfMWCVvtWdFuzaZrtFxhzFjrL
+	 i74FLaOXOoZqyDczceyFZRGLCEEioD63j3UyNnSfjSfNHReY+jxFBGVZ1ZTUjpr+p2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b="b+rNV/1u";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Mw9Y7Jby;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kcUIo68R;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1835606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:55:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1835606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1284F606A332
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:55:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1284F606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=b+rNV/1u;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Mw9Y7Jby
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 5284A1D000A8
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:55:04 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Sun, 08 Nov 2026 18:55:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794182103; x=
-	1794268503; bh=BpndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=; b=b
-	+rNV/1ui0AOHELpOlZTMNj+ewtUYIjwcvDZm/2sk5kvnTa0rb8UkhAVFdJLrPbiW
-	vOWy4+sb6CwLfr+dpTWctz4k0T+AeVmtWv2bPllIZ6+I/s/9oLGf51M1wGRQvP8x
-	+FNiS0Y5iUz8S73rmHyH6+QhXovVIamEcQf8JDeFKr0rWTt2AgdDMbYSjlApb45H
-	TNhh9uxTDkt/xn4laTEftel30H225tj4NnNnH3ej92jIFjBctm08krRnuHmnr2y3
-	Pncm20brCKV7CGSd6vt2gi7RQNVIGEJPrpbI7NHLMqQLSbWmyDArGFA8qHhDrmFk
-	2yqYuH4JR46D0/eU5vnfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794182103; x=1794268503; bh=B
-	pndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=; b=Mw9Y7JbyFZXyzkBiy
-	Y+es4blFSDFO+lK1ag1g4F8m/ZIM7F5JLFQQ98EaN6H64ExuY2n1859z417feJd0
-	fP7i1HoJspWM522eoUO0JlhJOuFhj/CN9M5qj8QZY+jxGPMPh+HU56QRIeiC9Syp
-	DjpDqv1KgFB2TCK6SHbT1qv+KdCIo71RdmcxeudalondYzuBLj98vyhqKIKF5Lno
-	TxIjWnQ/zngqv9p9gQv6xgrrEfA0D4nyc7vgR7IXCfrgHK7v7jX5IOAP+2vgX6CQ
-	dJpTHQWKCKPY8Gwmj3tYTAwEPSJ9DjarKhxdxeDcb4bEIpfKEdkfTrjP/72gxQsy
-	bMI8g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794182103; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:FDILif3HIzvGRskKe/Dp3Q/8CDLO5nlvxOlBfjNgmMW+HYV
-	zfZtzZfTzEFgaIJvuveyYAPE9dBR96koc7pzmozmUYcs4oU19nDZ4JxbdCUVmjdi
-	b1u36YjY5mEfv7NNfkgwKt/O06S5FsElrWleCK4GHfnm4HAW3ahksHPpRS+fGaSL
-	4j2psZIPoM4j2GNtK262em3TIn1jyuzlHxnB/XPdba3xwKBxLAWBaCOg630OXN2m
-	zjkXNsNsmi1HKzTiJGZMIJTlmo48oj4wt76L+3MspY/bC0/WiA0vOBIgx8GVv/4u
-	9DPwYT+VnCMIdkZLzQn3UtK9M1fmtOPNBxO841g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:TV0oMHwgxZTxvC9kA6NQUdqRauUlF9WZ3y/3uZ4EOqo=:BpndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=;
-X-ME-Sender: <xms:1wvxamVNdlKWVrIHQp-Zbe2rF0JLpGA7oc9Rn9gFkkPV8GV3lPZDYQ>
-    <xme:1wvxakHcpNos3us5_OxNGfCBUnppLeHoin1INNbQm4oSitj7fQU6Bu-7PFw6tGgL5
-    9S0i5oUSSc1xH5FYbD7dVWwJwUhcxhS34DvW1ZSVFviWxYL-e9zUrSR>
-X-ME-Received: <xmr:1wvxaqfqFdXs-gPdw0j5ZU_c26Fp4I0qAyLdD3KtkoJH5QrYiGPjBHaxVlrxQglY>
-X-ME-Proxy-Cause: dmFkZTEyDnw7Z7VWzhWex0tucN4MtH8vIB2allEtx2PrS/GGZY0nkqQBJE8oy6qoZ7f2aq
-    CxMGjy7leTCHBM59/etU/naH5Lmf784tMvEcmZSGk+XWzl8O3T8RVYLJ4Q0cXcYWfs5xNq
-    +YYr8cVmqi54rfAcbGQXaX9Y470AIhLpjC7EebMPrH71J1WpcbbSeX6soGaovm8QPmEc54
-    83Ft5en6hEmHAH+Xu+MKtV5r4/yc9mPHzBIhBMS7C+oWKMhFARflilGEQ1nfynlX8qfZnm
-    MdeVaSNy6vME6g9V1W35fZDr5FmX8AEfCh8U66eOXBSCiD5lpp0+fslTMZNd9ZBDy28QV3
-    rnSrSg2unt/QDUq+bSERe9yo5ryQVfZcXsWe7QDfCX4bSJnVTbShz3Crh96jGw9v6WjjQx
-    FpvNB6dmVzrMVNpFaTnf+AjDUE0+jI96hqrnVWzoXvdA+5VXBmP4P0JpusRaRh1wwI5n6I
-    ERMaan5c63yMb85uDYQOWd0JaA43zqPEjOrSTz5i7sxJVCsfhmRx3rKFRg1iqNzvakXPLM
-    V1BHXC3ozjN0FaG/0QV3QLtVGLe0CcnqpZ0qhY5CR2Lx0p8arEj+5ZRRwMsN/1IhMs4s7W
-    1afNnt6PhpVRJZq4B0wVASu/HCgcvYsk5/R/Jb/KW8X/uz01/KNlDbC17B1g
-X-ME-Proxy: <xmx:1wvxatJMF5O7XfGAnvjACmNkbH1LY59yidFfZFkEtUbE-J6xA626pw>
-    <xmx:1wvxanGpwdMzxDMxtxgy2xrZj2VTzvRlVntH92ONRs8W7fT0gAqrHg>
-    <xmx:1wvxaoDsTVFvNd-Bi3bUAeXjhgvXXR8RJk7UI2D0Zoflr-YHwvgcXA>
-    <xmx:1wvxai8NbO-DVw1uaL5CGDmCf6IjrtbbHDVyh1dbUCcoDnPRyNqltg>
-    <xmx:1wvxakAVX5GTPQa_UqbUnMtuavdKiDRRtR_CD7lhxUAbxFpjuyTXc4mt>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 18:55:03 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: linkinjeon@kernel.org,
-	linux-cifs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kcUIo68R
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ed39646f04so854835ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 15:55:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794182109; x=1794786909; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V6dd8UEmYGL47gppjCwakrDSGeCZVV1ZnI+Je+e+Uck=;
+        b=kcUIo68RUScRY0ZqUggpTUfqo+8eYwH1EDLHD9KKqiPbN2cs8Vl0f8o9MgEKge2UQP
+         k5NuTFWfBjUDq+qkDH1a30+Ct+MxtIV8trUWsPC1VvHuhfbuFEFmDaCPV0K2glNaIh9B
+         2oFmhi0KqgIBTkWOCc6wcSHxn+ICs4yi4ZNJ8BM6089J/KlGzfo7d4dTekkUmL2IWmRz
+         XFVlhbrFWn8XKL01NYr8Yg+w+4w8DE3XUG48+O749rwxK5zR7UPPjlTL+rDmJ/mboZZ9
+         g5uHw0fgfFtvn/sebL9kb9WrTAd8eClTeZ0Cjwxzrk0PhGdAthj0h4QGlmHb0scgfs9G
+         eatw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794182109; x=1794786909;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V6dd8UEmYGL47gppjCwakrDSGeCZVV1ZnI+Je+e+Uck=;
+        b=fB1HUJHUmbL9Q3n71+eV21UQy9J8/ryTuYr6+RPeBobd5+U9idLzs9bnsIDQ74AiN9
+         bDAW7jYajM/hZbF5pC5BVVgfIXbqnptVPJsegbWVjbbSYhuWqNWG/tnP0pwr1sbdjqLQ
+         bUmfpGjhp0Sd16qviqJlDWyXL1egS1GrJlHtn/7mDD/MiO4f7HFmiTE9VH4MmlLg+46Q
+         jLbQE9fUR79vnwpzhhWgOGitEwJhNndEZw0Bx6GY4/ruq7WwQYH7AAKIvAho9KDM9QaC
+         ScR/AEE6LX06M2ZqGQeC6M8kaabqeMlZLVZhykBQJiSIVHIb8WAul1OHr1d7igDuQmtn
+         ITpQ==
+X-Forwarded-Encrypted: i=1; AL+hErHDybpqcwSSLVE/BrI5JGPMEw2+DajmPhq2WaRV3gna54kYPxkPXynvJ7sKjH9DxTo+FxhmvSPMXrKnDXU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9m4eSdcYfkhnxLTpNDIHU693ITQArJrk78HEz7NdkU4vXI7Z+3
+	a6fcZESwI7GgR/fs6FfWS8hLEqUNuXQ7F6hzdfm/LG38IUvU44HjrZMj
+X-Gm-Gg: AYBFou1DR7p7H+2Hxwn72RvemfqSvazTGNT2mZ1MhBQcUYXPTLIbGNFMxoD9FMTyQ0J
+	dp4ClKwtEun3zIausuIgBaPRjffHq6KkOGYp92IR+tuendxbNRLMbdSXDtF/7YuZP/3io0VUzMB
+	6fYcZFUnEpBJhsaDttDdNz70uc+6jfuwWJE/tI5r//1934rulcZ7NUEFXNzocTMpkS6nUeCPLJ3
+	r0adIBZEqkP/no+B8pPKlnB3uq8DHJgv5teVhIBrjIv3I+aviUMNqBc/sVjnZ7GTG5I0VLIBVGP
+	OKI4O2RQrETEaLdr54bAQ70RhXjkkYtw7PkQyQ/GoGHso9h9Ytt/m58WEf5WxJsfUtfeN1gyNvQ
+	HJjQ3x8a1uqm89WbWG7r5G3dVkQTFaNgH1gUd+J2tkVCOzcfI5krc0UkvzkZVnl0Lir4wXPH/d9
+	5pxxo45sevi5l6EDf1vTqyWkpXme0N2P8d2BFDjj6to8n++SKHHrlW27nYF7kQld/XXjQzeDqst
+	d+t7KgMOk/dTIDQslan3PML+iD/qyaFKUgErdd6OHCLBFObuQ8P+VuQ0HPBU4dvnkYELRuHoVzx
+	YTOctVC3H/Wb9KjsvoWJSLASVJFVKRzm6WY/D/SNv9ieceENKHpKwB6KwjpFmKoPFi39RqBpwmj
+	/IpLSFcRVrRA5CWOxWOJoLto/8qLTJCHpF//aUN8eVOe9KxuOp24p2vFLM1Ew8B4yRdjN
+X-Received: by 2002:a17:903:2289:b0:2dd:c100:4b76 with SMTP id d9443c01a7336-2ed8378477amr25176185ad.45.1794182109426;
+        Sun, 08 Nov 2026 15:55:09 -0800 (PST)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81722edesm6095215ad.55.2026.11.08.15.55.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 08 Nov 2026 15:55:08 -0800 (PST)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH] ksmbd: check sign flag of the current compound command
-Date: Sun,  8 Nov 2026 17:54:57 -0600
-Message-ID: <20261108235457.1919632-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <IQLTi_rZrPgaD4zlFXgSybFdR3EsaBQVIorCAH3otR3SGOlNjacAL7jt2xb4mhqNNcdBMPel5CrrBxTOsKoRIFuil5wToLwoYXtR8AJ9vF8=@proton.me>
-References: <IQLTi_rZrPgaD4zlFXgSybFdR3EsaBQVIorCAH3otR3SGOlNjacAL7jt2xb4mhqNNcdBMPel5CrrBxTOsKoRIFuil5wToLwoYXtR8AJ9vF8=@proton.me>
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v21 01/12] ALSA: pcm: mark stop-threshold accesses for capture policy sampling
+Date: Mon,  9 Nov 2026 08:54:46 +0900
+Message-ID: <20261108235457.12688-2-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261108235457.12688-1-mynameisjune111@gmail.com>
+References: <20261108235457.12688-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,42 +109,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 08 Nov 2026 22:34:08 +0000, Noah Weinberger wrote:
-> smb2_is_sign_req() decides whether a command must be verified/answered
-> signed based on the FIRST command's header, even when dispatching
-> commands 2..N of a compound, so the SIGNED flag of the current command
-> is ignored and its response goes out unsigned.
+The staged virtio-snd capture path needs to sample stop_threshold from
+completion context to distinguish free-running capture from bounded
+capture. Software parameters can update this field while capture runs.
 
-The report is right for the request side. __process_request() runs once
-per compound member, and each member's own SIGNED flag should decide
-whether its signature is checked. I found no bypass either way. A member
-of a session that requires signing is still refused when it is unsigned,
-and a signed member is still verified with its own session's key.
+Mark the runtime stop-threshold assignments with WRITE_ONCE and the proc
+status read with READ_ONCE. This pairs the assignments with the driver's
+READ_ONCE policy sampling in patch 9.
 
-The suggested change does not fix the response side, though. It moves
-the problem there.
+These annotations do not provide a transaction for the entire sw_params
+update. The driver serializes its cached policy and accounting with its
+own substream lock.
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 
-__handle_ksmbd_work() calls is_sign_req() a second time to decide
-whether to sign the response. That call comes after
-is_chained_smb2_message(). For every command except the last,
-is_chained_smb2_message() calls init_chained_smb2_rsp(), which has
-already moved next_smb2_rcv_hdr_off to the next request. The response
-that gets signed is the one just built, because smb2_set_sign_rsp() and
-smb3_set_sign_rsp() sign ksmbd_resp_buf_curr(). With the change, whether
-response N is signed therefore depends on the SIGNED flag of request
-N+1.
+---
+sound/core/oss/pcm_oss.c |    2 +-
+ sound/core/pcm.c         |    3 ++-
+ sound/core/pcm_native.c  |    5 +++--
+ 3 files changed, 6 insertions(+), 4 deletions(-)
 
-If request N is signed and request N+1 is not, response N goes out
-unsigned. If request N is unsigned and request N+1 is signed, response N
-goes out signed, although a response to an unsigned request must not be
-signed.
-
-This only matters when the session does not require signing, because a
-session that requires it signs every response anyway. It also needs a
-compound that mixes signed and unsigned commands.
-
-I tested both sides on ksmbd-for-next with compounds of two
-TREE_CONNECTs, on a session that does not require signing.
-
-Thanks,
-Ian
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -2958,7 +2958,7 @@
+ 	       runtime->oss.mmap_bytes);
+ #endif
+ 	/* In mmap mode we never stop */
+-	runtime->stop_threshold = runtime->boundary;
++	WRITE_ONCE(runtime->stop_threshold, runtime->boundary);
+ 
+ 	return 0;
+ }
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -422,7 +422,8 @@
+ 	snd_iprintf(buffer, "period_step: %u\n", runtime->period_step);
+ 	snd_iprintf(buffer, "avail_min: %lu\n", runtime->control->avail_min);
+ 	snd_iprintf(buffer, "start_threshold: %lu\n", runtime->start_threshold);
+-	snd_iprintf(buffer, "stop_threshold: %lu\n", runtime->stop_threshold);
++	snd_iprintf(buffer, "stop_threshold: %lu\n",
++		    READ_ONCE(runtime->stop_threshold));
+ 	snd_iprintf(buffer, "silence_threshold: %lu\n", runtime->silence_threshold);
+ 	snd_iprintf(buffer, "silence_size: %lu\n", runtime->silence_size);
+ 	snd_iprintf(buffer, "boundary: %lu\n", runtime->boundary);
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -871,7 +871,7 @@
+ 	runtime->period_step = 1;
+ 	runtime->control->avail_min = runtime->period_size;
+ 	runtime->start_threshold = 1;
+-	runtime->stop_threshold = runtime->buffer_size;
++	WRITE_ONCE(runtime->stop_threshold, runtime->buffer_size);
+ 	runtime->silence_threshold = 0;
+ 	runtime->silence_size = 0;
+ 	runtime->boundary = runtime->buffer_size;
+@@ -1062,7 +1062,8 @@
+ 		runtime->period_step = params->period_step;
+ 		runtime->control->avail_min = params->avail_min;
+ 		runtime->start_threshold = params->start_threshold;
+-		runtime->stop_threshold = params->stop_threshold;
++		/* Drivers may sample the stop policy from completion context. */
++		WRITE_ONCE(runtime->stop_threshold, params->stop_threshold);
+ 		runtime->silence_threshold = params->silence_threshold;
+ 		runtime->silence_size = params->silence_size;
+ 		params->boundary = runtime->boundary;
