@@ -1,57 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794166330;
-	b=u6djcJHm3g3tdQE31cjggEDfR0myApfz4ItDoK3iaXjuOqBGkKRXiFdr7/XhZOSfIdF1
-	 vgwzgEXxbn0RWHkfW4zs867Smb0PlcxVtGUUCU87UDzeC36yBuc//g+xLj9M0k8U/dnQx
-	 +5OHenHWotMjHcGc4A6bxFQjVWaFBVqVvMmWUNTyFM497LZUZXOq3xVP7vVoIz5ItqBDF
-	 NKmzdrhRl4q9tu+MRU7tzbqnzCZxFR2v/mhlv4Q7YxylFXh+Bt9fdoMY0ZKsjjS/GFsKM
-	 H9ADJbq3x/R5Z1wu9Imck8m9M5AS9/d50p3JSof39S5ZncdQIcEwmhAL6kEBd6ejUqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166330;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=H0KhdtJ508lIJ8z9fPM7Hp6z8VLh9WO5XJIlqHrGSeQ=;
-	b=mKVmuYi58dzLKuezxsT+tcxAVjZXwT43ngJvtcA6lPaKXz6ZSncpgKOZ2nFcSwE25fio
-	 mG2q+Dty4pR7qSUn4XNe70hx5KHb/N8mCGRN6XA9Gm5xtMIC9tgBhuMgWIByBa3qQ/by+
-	 lQsztPti3OyeofTRRg/tYtF1dtgxBt2wWiZo/th4zKpvCrsuUq4p4FKMOutcTRDYS0L19
-	 7dfnWdSoLEwqLHQP4+PwvKppPBYgLe7xNy1YD8KlJtFfHXNvu2v34ebNRo6UKb99Y1h+Y
-	 9U6OCfnKhIzuFt1eiwk8aQt9DZCUYSRIlpSpo75e9i8/UlOI1qh8zGjvcvAIVjxUmqg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BKdm/aR/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.31
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794166338;
+	b=OhOP5mHkaNlPA0Lchmdtk9cmNL+Bsg46Ql5u+ymytNW86O/y6wPsDG3Fupc15LWok8nD
+	 7U9ijK0rlkiu/Vgr/Tyf4RtsctGwOGwm/lpdi9nIXi04hUdtSTVsIVcB2U/nCqWYR0aIy
+	 rEreUIQcF8VRDwXZqT2tyIABIL1VKjs/6Jy6St3U2flkamFi4OuIsUNfDnj1yfjzu1VRi
+	 jrCfvKoj6hbRaqgY00CvCfC9626pv43Fj1vQEyfv2XnKHorvHsRbl2MNHoOUNQ2vRJKdA
+	 uJHpC+9Dm7qBJFG8waHJKCnsUWRHLRXh+Kcz/BugGvfCvE+9+tFO3Lqu9OXy2BPJ2Ng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794166338;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Fn9Qk+/3NGgLtw+AumGFFjczHvZGt9urpzPszHSoE2o=;
+	b=5qlQ1FOs8PmeOs/O0hmGbYeZ76c1IckVnSY0zjGo72rH2sFnv/UmhSMO6A7py19Cl0+J
+	 SkbS72tkMpg4VmURqsj0B0j6pQ+CKqi0rxyY2r9Ojlnp0YwK5lHZwgns7u+uoAAJtVyJD
+	 imhX0q4JWguz5xeJUXkqwz+T5K2LrFIX9dQHEAiid0ALoVcKyeKR+ZqwwkOgBB2grIipz
+	 pJf6CkRePeb6wrSJjKQqvVFb2D0TvIiuxcKVjBeuSAHIhrpdnjVv17tcUfyduvjbxwRQZ
+	 +sNuPUgh8ReNpZwQ+CkCQm2s7iN7LqqGdsHGeFuDuLpLKOoudOC55R/YLnMLXaygWVA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=L6jZQxmN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.31
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010031.outbound.protection.outlook.com [52.101.193.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0BB606A323;
-	Sun,  8 Nov 2026 19:32:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6529606A330;
+	Sun,  8 Nov 2026 19:32:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6529606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKdm/aR/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B031F008A4;
-	Sun,  8 Nov 2026 19:32:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794166329;
-	bh=H0KhdtJ508lIJ8z9fPM7Hp6z8VLh9WO5XJIlqHrGSeQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BKdm/aR/x97UNvlW/q08oNJJpTTrg81mh0jrtANQqOIZ3BToBUeu3ro/0PIMkeOIB
-	 fZTbQo7tQ0u6GZJwOAu//wHwOxje9W+WIf/ZJwWcEyyhIo7noizeuH5F0lbLKTF4hW
-	 k03nmtTCy6bS7cJYEJB7c+QFMsxdzPm8eh7xZ9oL1wSIIhByFZrpLkFaFwW6/QMu1I
-	 UO1MYD/PcSrzETfmBCxGAzUCEcnTDe5PzhHzocDdB+mEYEXLOPWDjFb3g74lxPML6a
-	 QtPhIrJ2LhyBjndXGLCxrt1/B6U1yO5leJFvNUzMnWL4Xn4hChX6pAECdPc+SncLZv
-	 fX7XHAGtIULlg==
-Message-ID: <sashiko-outbox-203956@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 21/29] cgroup/cpuset: Reserve the bandwidth in the
- root domain a task moves to
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261108185406.1549770-22-mathieu.desnoyers@efficios.com>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-22-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 19:32:09 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=L6jZQxmN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i0SsY7CpKVCycgYqufsueYxuZGTKlQ6dUReIj6f04imXC4gEpKZHs6cCejwwRthrFFR7g420JA0vZ8BTzFBDgBr5DWuL8N/MgEg9YdXWRDRxiRd6OmLkirkAJVi7T17+8xpcMWgLPKUoHFFSPBTLNsDf7SKHX2ufjUr1s04OVUHoQGurEP4U4OQKQM05qvjbk0uF7K3XS1YQqQ98VCfd8FVk76MpamNKeyr7lheLCxKYzvdHTX2nV+kK5mOb1bS8Z4Ni8NnZOmgjPsyBtW/dFx4kJ3sA2g/iasRB9g9oll8PJ7Nt+mNoXUKjL8yY4XuvNlIjt5LTU99UEgujJV5mlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fn9Qk+/3NGgLtw+AumGFFjczHvZGt9urpzPszHSoE2o=;
+ b=IMUxKlLUfn4JBYH9WP2qfqy23rn5Kc2o0iG7qOkLuqEJIcxA2bursrQagqx4zO712HASt/D8qPn+6upJ8n0OH0uJs6aBLSh+pf1IVMR/yT3B5FRQGaFO/4Mgk/jKYx5jXbIMGEazCEkaRnqQYd4TkvJV6wJJWOG2HpHwB0xpxv7bJRCT2QIE6TZoBvbd6tpMNE46+2KWJvX6OgS1rqJ+LqeFiVR4K+DcYop4cwzsoJmwzvP7h+nvZbWsX+6AsuRApDpKv1ITN4+PYayFYWtOfqqLnG8y14Sb18jeX4SD5d6YYeZ7/DRSDoLI7RHsWy4lcMOGSlv6i+lzlVeYWEq/6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fn9Qk+/3NGgLtw+AumGFFjczHvZGt9urpzPszHSoE2o=;
+ b=L6jZQxmNytoeLH7qqYlVSC7gMnT48T8r34KBEqqQwLCzIr/V1ZKpr9hRIwaHC0zNGzp7D/J+oa98BkG1EMT7vlEavX+80IOovbZScgw6j7vdhL9jOIjIvfyuHOvYyGfnS+AiOlBtlHDXPEjPOKLWEAzMK481TOzqhoH3V2lOF90=
+Received: from PH7P220CA0052.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::34)
+ by BY5PR12MB4036.namprd12.prod.outlook.com (2603:10b6:a03:210::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
+ 2026 19:32:12 +0000
+Received: from PH3PEPF0005961A.namprd05.prod.outlook.com
+ (2603:10b6:510:32b:cafe::2) by PH7P220CA0052.outlook.office365.com
+ (2603:10b6:510:32b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Sun, 8
+ Nov 2026 19:32:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ PH3PEPF0005961A.mail.protection.outlook.com (10.167.243.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sun, 8 Nov 2026 19:32:12 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 8 Nov
+ 2026 13:32:08 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 8 Nov
+ 2026 13:32:08 -0600
+Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Sun, 8 Nov 2026 13:31:59 -0600
+From: Syed Saba Kareem <syed.sabakareem@amd.com>
+To: <broonie@kernel.org>
+CC: <Sunil-kumar.Dommati@amd.com>, <vijendar.mukunda@amd.com>,
+	<Mario.Limonciello@amd.com>, <venkataprasad.potturu@amd.com>, "Syed Saba
+ Kareem" <Syed.SabaKareem@amd.com>, Siva Subramanian Ravi Saravanan
+	<sravisar@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, "Liam
+ Girdwood" <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, open list <linux-kernel@vger.kernel.org>,
+	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>
+Subject: [PATCH v3 4/6] ASoC: amd: acp: add SOF function topology support
+Date: Mon, 9 Nov 2026 01:00:32 +0530
+Message-ID: <20261108193119.2308421-5-syed.sabakareem@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261108193119.2308421-1-syed.sabakareem@amd.com>
+References: <20261108193119.2308421-1-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,236 +118,229 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH3PEPF0005961A:EE_|BY5PR12MB4036:EE_
+X-MS-Office365-Filtering-Correlation-Id: c91edd2f-f4a7-4959-4efe-08df3dcefcb8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|11063799006|56012099006|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	90qJigE9mVXt4jW2N/1gjcQdDJgYIfeuBCEwhQ/6rdw2994TwEU+fUYDXOEdYDKrGnsUUgIGUtygqqe9w2gNUt/auyYwbKxkCzktWLrPhJjrPUkyQrjWYA3ecs/PIC5xTznHdCX2GnilWO4F/LlKgL3ABosck93kGIgFVl3qg15da+4OyVb7CuA23foyxRP2N0gMJc7nWNHCz0JAKuZT84gtjjZha7h2tFBfe8ygU0KlTl/QQMeaKG3vwACI8a8THANZakpuevxfmRpJ8pUVbDaP/64khd7TGFXgpNWnXdW3TDggKxZMOUB5jcRuAPnhUtdmzEMN3ho6dTPSDAneQT7zwGTBALIu8agMzsX/89GpeVXPJDs4gzxv27hNZ36tuQgitRpPz/9IKs6gv+0g26A6pEWun2tXiOPZeamU3d6/LVuyiT7fnU9oY1cCC24tv3qnISeQUN675qXNs0Xobp5EQDSunznlgTtCfdbzByIuad/hJd8TOI2ON6eWapfo4cpR6OBjsW/xVQF+ZPKhlR7p0cQmOTI8UwKAiesGnV7F5CzpBli9QXalhlmlNEjuF4nsbbbLda98EWzhJOo1vopeAkDJ0ju4ZrTVm1VQXc/dzq4Zj55rsrqayRMDMtUNsugLFD3P/krGB8aITs4bibCIhr/DxZJeFtNqF7kBq+MMupm3uBS6cb2Xc2K85RUEhTp6TgkWd0F4IvF5Za/j0g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	I0io+KiqcD44swmMEF0qDIraNar/TdAWFSHIr2C8qbhyLoj5tNUM4WfE68GFRIH+3MdZBTId9I8D689nmGgcLn4a1vZ++btQ42IxZfk0kFLGg7o+JQHzrR+N+mpFgnZ6hSySVVYuThamXvCPTEvfI+oSm9Xah1WihnsRZcm5/nNd2ADECVnG+V9ojoQ/afVx+8aI1/TKZ8vWnPTKtNZ1aKBUu3MjUdCUCIAcPYj+ODDxl+rAYDwom1h/nFaSTDX32LeXSgog8x8Y/0l+qsl9RC27aGcdnAWR7OronvMHNyKAW53pV/OSMg7zZSxMOi49jjRnhgsd7vhy9EmRu/4QS0AGatp93zmoO/w0aDxOgfpYz5e9OKtGXGMEtl37oaE+ilBWx3HoBHe21nOyABp9WOjWm53SH4a6ZSLktMx6yGrC4mgU0J+Gt5gQ778SowRn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 19:32:12.1616
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c91edd2f-f4a7-4959-4efe-08df3dcefcb8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH3PEPF0005961A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4036
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] sched/deadline: __dl_task_bw_move_cpu() skips move on
-  spanning cpumask
-- [Medium] sched/deadline: per-CPU reservation mismatch when task_cpu()
-  changes
-- [Medium] sched/core: equal cpumask early exit skips
-  set_cpus_allowed_dl()
---
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-commit 3d21f1cc814c2706665d48f13e93dc3e9c2ac11e
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+From: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
 
-cgroup/cpuset: Reserve the bandwidth in the root domain a task moves to
+Add amd_sof_sdw_get_tplg_files() to build the list of SOF function
+topologies from the card DAI links, so that a card can be formed from
+per-function topologies instead of one monolithic topology per codec
+configuration.
 
-This commit reserves SCHED_DEADLINE bandwidth per target CPU during cpuset
-attach so that tasks moving into cpusets spanning multiple root domains or
-retaining user affinity have their bandwidth accounted in the root domain
-they actually move to.
+Signed-off-by: Siva Subramanian Ravi Saravanan <sravisar@amd.com>
+Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+---
+ sound/soc/amd/acp/Makefile                    |   3 +-
+ .../amd/acp/amd-sof-function-topology-lib.c   | 129 ++++++++++++++++++
+ .../amd/acp/amd-sof-function-topology-lib.h   |  19 +++
+ 3 files changed, 150 insertions(+), 1 deletion(-)
+ create mode 100644 sound/soc/amd/acp/amd-sof-function-topology-lib.c
+ create mode 100644 sound/soc/amd/acp/amd-sof-function-topology-lib.h
 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 3a538b42dcdd4..7df1ee4afb550 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -3224,6 +3224,22 @@ static int __set_cpus_allowed_ptr_locked(struct ta=
-sk_struct *p,
->  		goto out;
->  	}
-> =20
-> +	/*
-> +	 * The caller made room for the deadline bandwidth of @p in the root
-> +	 * domain of ctx->dl_bw_cpu. The new mask can span two root domains:
-> +	 * keep @p in that one. Also wake a sleeping @p up on dest_cpu, since
-> +	 * select_fallback_rq() could pick a CPU of the other one.
-> +	 */
-> +	if ((ctx->flags & SCA_DL_BW_RESERVED) &&
-> +	    cpumask_test_cpu(ctx->dl_bw_cpu, cpu_valid_mask) &&
-> +	    cpumask_test_cpu(ctx->dl_bw_cpu, ctx->new_mask)) {
-> +		if (!cpumask_test_cpu(dest_cpu,
-> +				      cpu_rq(ctx->dl_bw_cpu)->rd->span))
-> +			dest_cpu =3D ctx->dl_bw_cpu;
-> +		if (!task_on_rq_queued(p))
-> +			p->wake_cpu =3D dest_cpu;
-> +	}
-> +
->  	do_set_cpus_allowed(p, ctx);
-> =20
->  	return affine_move_task(rq, p, rf, dest_cpu, ctx->flags);
+diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
+index 42e2bd34da06..91bbbeef5b8a 100644
+--- a/sound/soc/amd/acp/Makefile
++++ b/sound/soc/amd/acp/Makefile
+@@ -23,7 +23,8 @@ snd-acp70-y := acp70.o
+ snd-acp-mach-y     := acp-mach-common.o
+ snd-acp-legacy-mach-y     := acp-legacy-mach.o acp3x-es83xx/acp3x-es83xx.o
+ snd-acp-sof-mach-y     := acp-sof-mach.o
+-snd-soc-acpi-amd-match-y := amd-acp63-acpi-match.o amd-acp70-acpi-match.o amd-acp7x-acpi-match.o
++snd-soc-acpi-amd-match-y := amd-acp63-acpi-match.o amd-acp70-acpi-match.o amd-acp7x-acpi-match.o \
++	amd-sof-function-topology-lib.o
+ snd-soc-acpi-amd-match-$(CONFIG_SND_SOC_ACPI_AMD_SDCA_QUIRKS) += soc-acpi-amd-sdca-quirks.o
+ snd-acp-sdw-mach-y     := acp-sdw-mach-common.o
+ snd-acp-sdw-sof-mach-y += acp-sdw-sof-mach.o
+diff --git a/sound/soc/amd/acp/amd-sof-function-topology-lib.c b/sound/soc/amd/acp/amd-sof-function-topology-lib.c
+new file mode 100644
+index 000000000000..8d70d46d769e
+--- /dev/null
++++ b/sound/soc/amd/acp/amd-sof-function-topology-lib.c
+@@ -0,0 +1,129 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) 2026 Advanced Micro Devices, Inc.
++//
++
++#include <linux/bits.h>
++#include <linux/device.h>
++#include <linux/errno.h>
++#include <linux/kernel.h>
++#include <linux/string.h>
++#include <sound/soc.h>
++#include <sound/soc-acpi.h>
++#include "amd-sof-function-topology-lib.h"
++
++#define SOF_AMD_PLATFORM_NAME_MAX 8
++#define SOF_AMD_SDW_MAX_LINKS 4
++
++static int get_sdw_link_num(struct device *dev, struct snd_soc_dai_link *dai_link,
++			    unsigned int *link_num)
++{
++	if (sscanf(dai_link->name, "SDW%u", link_num) != 1 ||
++	    *link_num >= SOF_AMD_SDW_MAX_LINKS) {
++		dev_err(dev, "Can't get SDW link from dai_link->name %s\n", dai_link->name);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++int amd_sof_sdw_get_tplg_files(struct snd_soc_card *card, const struct snd_soc_acpi_mach *mach,
++			       const char *prefix, const char ***tplg_files, bool best_effort)
++{
++	struct snd_soc_dai_link *dai_link;
++	char platform[SOF_AMD_PLATFORM_NAME_MAX];
++	unsigned long tplg_mask = 0;
++	int tplg_num = 0;
++	char *tplg_file;
++	int tplg_bit;
++	int tplg_dev;
++	int ret;
++	int i;
++
++	/* ACP SoundWire and PDM DAI configuration is platform dependent */
++	ret = snd_soc_acpi_get_platform_name(card, mach, platform);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * ACP SoundWire DAI index and stream names in the topologies are
++	 * specific to the SoundWire link, so the link number is part of the
++	 * SoundWire function names.
++	 */
++	for_each_card_prelinks(card, i, dai_link) {
++		unsigned int link_num = 0;
++		const char *tplg_dev_name;
++
++		dev_dbg(card->dev, "dai_link %s id %d\n", dai_link->name, dai_link->id);
++		if (strstr(dai_link->name, "SimpleJack")) {
++			ret = get_sdw_link_num(card->dev, dai_link, &link_num);
++			if (ret)
++				return ret;
++
++			tplg_dev = TPLG_DEVICE_ACP_SDW_JACK;
++			tplg_dev_name = devm_kasprintf(card->dev, GFP_KERNEL, "jack-l%u", link_num);
++			if (!tplg_dev_name)
++				return -ENOMEM;
++		} else if (strstr(dai_link->name, "SmartAmp")) {
++			ret = get_sdw_link_num(card->dev, dai_link, &link_num);
++			if (ret)
++				return ret;
++
++			tplg_dev = TPLG_DEVICE_ACP_SDW_AMP;
++			tplg_dev_name = devm_kasprintf(card->dev, GFP_KERNEL, "%damp-l%u",
++						       dai_link->num_cpus, link_num);
++			if (!tplg_dev_name)
++				return -ENOMEM;
++		} else if (strstr(dai_link->name, "SmartMic")) {
++			ret = get_sdw_link_num(card->dev, dai_link, &link_num);
++			if (ret)
++				return ret;
++
++			tplg_dev = TPLG_DEVICE_ACP_SDW_MIC;
++			tplg_dev_name = devm_kasprintf(card->dev, GFP_KERNEL, "mic-l%u", link_num);
++			if (!tplg_dev_name)
++				return -ENOMEM;
++		} else if (strstr(dai_link->name, "dmic")) {
++			/* ACP PDM DMIC is always stereo */
++			tplg_dev = TPLG_DEVICE_ACP_DMIC;
++			tplg_dev_name = "dmic-2ch";
++		} else {
++			/* The dai link is not supported by separated tplg yet */
++			dev_dbg(card->dev,
++				"dai_link %s is not supported by separated tplg yet\n",
++				dai_link->name);
++			if (best_effort)
++				continue;
++
++			return 0;
++		}
++
++		/* the same function on different links needs its own topology */
++		tplg_bit = (tplg_dev - TPLG_DEVICE_ACP_SDW_JACK) * SOF_AMD_SDW_MAX_LINKS + link_num;
++		if (tplg_mask & BIT(tplg_bit))
++			continue;
++
++		tplg_file = snd_soc_acpi_get_tplg_filename(card->dev, prefix, platform,
++							   tplg_dev_name, dai_link->id, tplg_dev);
++		if (!tplg_file)
++			return -ENOMEM;
++
++		/* Check presence of sub-topologies */
++		if (!snd_soc_acpi_tplg_files_exist(card->dev, tplg_file)) {
++			devm_kfree(card->dev, tplg_file);
++			if (best_effort)
++				continue;
++
++			return 0;
++		}
++
++		tplg_mask |= BIT(tplg_bit);
++
++		(*tplg_files)[tplg_num] = tplg_file;
++		tplg_num++;
++	}
++
++	dev_dbg(card->dev, "tplg_mask %#lx tplg_num %d\n", tplg_mask, tplg_num);
++
++	return tplg_num;
++}
+diff --git a/sound/soc/amd/acp/amd-sof-function-topology-lib.h b/sound/soc/amd/acp/amd-sof-function-topology-lib.h
+new file mode 100644
+index 000000000000..cea49aa9c200
+--- /dev/null
++++ b/sound/soc/amd/acp/amd-sof-function-topology-lib.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * amd-sof-function-topology-lib.h - get-tplg-files ops
++ *
++ * Copyright(c) 2026 Advanced Micro Devices, Inc.
++ */
++
++#ifndef __AMD_SOF_FUNCTION_TOPOLOGY_LIB_H
++#define __AMD_SOF_FUNCTION_TOPOLOGY_LIB_H
++
++#include <linux/types.h>
++
++struct snd_soc_acpi_mach;
++struct snd_soc_card;
++
++int amd_sof_sdw_get_tplg_files(struct snd_soc_card *card, const struct snd_soc_acpi_mach *mach,
++			       const char *prefix, const char ***tplg_files, bool best_effort);
++
++#endif
+-- 
+2.43.0
 
-[Severity: Medium]
-What happens when set_cpus_allowed_bw_reserved() is called for a task
-whose p->cpus_mask already equals ctx->new_mask, while p->dl.dl_bw_cpu
-still points to another root domain?
-
-Earlier in __set_cpus_allowed_ptr_locked(), the cpumask_equal() check
-returns early before reaching the SCA_DL_BW_RESERVED logic or
-do_set_cpus_allowed():
-
-kernel/sched/core.c:__set_cpus_allowed_ptr_locked() {
-    ...
-	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
-		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
-			if (ctx->flags & SCA_USER)
-				swap(p->user_cpus_ptr, ctx->user_mask);
-			goto out;
-		}
-    ...
-}
-
-If an earlier unreserved affinity change (such as sched_setaffinity() to
-isolated CPUs 1-2 while p->dl.dl_bw_cpu is on housekeeping CPU 0) already
-set p->cpus_mask to {1, 2}, attaching the task to a cpuset where
-cpus_attach is {1, 2} reserves bandwidth on CPU 1 in cpuset_can_attach().
-__set_cpus_allowed_ptr_locked() then takes the goto out path without
-calling set_cpus_allowed_dl(), leaving ctx->dl_bw_moved at 0.
-cpuset_free_dl_bw() frees the new reservation on CPU 1 and the task's
-bandwidth remains recorded in the old root domain on CPU 0.
-
-[ ... ]
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 0326527dd2d1e..8d9e55bca9439 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -3558,6 +3558,9 @@ static unsigned int dl_task_root_domain_cpu(struct =
-task_struct *p)
->  	return cpu;
->  }
-> =20
-> +static int __dl_task_bw_move_cpu(struct task_struct *p,
-> +				 const struct cpumask *new_mask);
-> +
->  static void set_cpus_allowed_dl(struct task_struct *p,
->  				struct affinity_context *ctx)
->  {
-> @@ -3572,14 +3575,17 @@ static void set_cpus_allowed_dl(struct task_struc=
-t *p,
->  	 * rebuild of the accounting. Moving it without room would leave no
->  	 * root domain counting it.
->  	 *
-> +	 * The caller made room in the root domain of ctx->dl_bw_cpu, the CPU
-> +	 * it expects the move to record. Move the bandwidth only if the move
-> +	 * records that CPU. The affinity or the CPU of @p may have changed.
-> +	 *
->  	 * Report in @ctx the bandwidth moved. The caller read the record
->  	 * without the runqueue lock, so it must count only what this reports.
->  	 */
->  	if ((ctx->flags & SCA_DL_BW_RESERVED) &&
-> -	    dl_task_needs_bw_move(p, ctx->new_mask)) {
-> +	    __dl_task_bw_move_cpu(p, ctx->new_mask) =3D=3D ctx->dl_bw_cpu) {
->  		unsigned int src_cpu =3D dl_task_root_domain_cpu(p);
->  		struct dl_bw *src_dl_b =3D &cpu_rq(src_cpu)->rd->dl_bw;
-> -		unsigned int cpu;
-> =20
->  		/*
->  		 * We now free resources of the root_domain we are migrating
-> @@ -3593,12 +3599,8 @@ static void set_cpus_allowed_dl(struct task_struct=
- *p,
->  			raw_spin_unlock(&src_dl_b->lock);
->  		}
-> =20
-> -		/*
-> -		 * cpuset_can_attach() made room in the root domain of the new
-> -		 * mask. That root domain counts the bandwidth from now on.
-> -		 */
-> -		cpu =3D cpumask_any_and(ctx->new_mask, cpu_active_mask);
-> -		p->dl.dl_bw_cpu =3D cpu < nr_cpu_ids ? (int)cpu : -1;
-> +		/* Record the CPU the caller made room on. */
-> +		p->dl.dl_bw_cpu =3D ctx->dl_bw_cpu;
->  		p->dl.dl_bw_gen =3D dl_bw_gen;
->  		ctx->dl_bw_moved =3D p->dl.dl_bw;
->  	}
-> @@ -3606,8 +3608,15 @@ static void set_cpus_allowed_dl(struct task_struct=
- *p,
->  	set_cpus_allowed_common(p, ctx);
->  }
-> =20
-> -bool dl_task_needs_bw_move(struct task_struct *p,
-> -			   const struct cpumask *new_mask)
-> +/*
-> + * Return the CPU that a move of @p to the CPUs of @new_mask records with
-> + * its bandwidth. That is the CPU @p is on, if @p can stay there. Else it
-> + * is the first active CPU of @new_mask, a housekeeping one if there is
-> + * one. Return -1 if the bandwidth stays in the root domain that counts
-> + * it. The caller holds the rq lock of @p.
-> + */
-> +static int __dl_task_bw_move_cpu(struct task_struct *p,
-> +				 const struct cpumask *new_mask)
->  {
->  	unsigned int cpu;
-> =20
-> @@ -3617,10 +3626,39 @@ bool dl_task_needs_bw_move(struct task_struct *p,
->  	 * their bandwidth: dl_add_task_root_domain() leaves them out.
->  	 */
->  	if (!dl_task(p) || dl_entity_is_special(&p->dl) || !p->dl.dl_bw)
-> -		return false;
-> +		return -1;
-> =20
->  	cpu =3D dl_task_root_domain_cpu(p);
-> -	return !cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask);
-> +	if (cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask))
-> +		return -1;
-
-[Severity: Medium]
-Can __dl_task_bw_move_cpu() return -1 for a spanning new_mask even when
-the task will be placed onto a CPU in a different root domain?
-
-When cpu_rq(cpu)->rd->span intersects new_mask, __dl_task_bw_move_cpu()
-returns -1 without checking where the task will actually run, and
-cpuset_attach_task() then calls set_cpus_allowed_ptr() without
-SCA_DL_BW_RESERVED.  Because __set_cpus_allowed_ptr_locked() only clamps
-dest_cpu and p->wake_cpu to the bandwidth root domain when
-SCA_DL_BW_RESERVED is set, the task is not kept in cpu_rq(cpu)->rd->span.
-
-For example, with isolcpus=3Ddomain,1,2 (CPUs 1-2 in def_root_domain, CPUs 0
-and 3 in the housekeeping root domain), if a task running on CPU 0 is
-moved to a mask of {1, 2, 3}, cpu_rq(0)->rd->span ({0, 3}) intersects
-{1, 2, 3} at CPU 3, so __dl_task_bw_move_cpu() returns -1.
-__set_cpus_allowed_ptr_locked() can then pick CPU 1 or 2 via
-cpumask_any_and_distribute() (or select_fallback_rq() on wakeup if the
-task was sleeping on CPU 0), moving the task into def_root_domain while
-its bandwidth stays accounted in the housekeeping root domain without
-admission control in def_root_domain.
-
-> +	/*
-> +	 * A task moved asleep is still on a CPU of the root domain it left.
-> +	 * If the new mask holds that CPU, the task wakes up there.
-> +	 */
-> +	cpu =3D task_cpu(p);
-> +	if (cpu_active(cpu) && cpumask_test_cpu(cpu, new_mask))
-> +		return cpu;
-> +	cpu =3D cpumask_first_and_and(new_mask, cpu_active_mask,
-> +				    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-> +	if (cpu >=3D nr_cpu_ids)
-> +		cpu =3D cpumask_any_and(new_mask, cpu_active_mask);
-> +	return cpu < nr_cpu_ids ? (int)cpu : -1;
-> +}
-
-[Severity: Medium]
-Can a wakeup or migration between cpuset_can_attach() and
-set_cpus_allowed_dl() cause __dl_task_bw_move_cpu() to return a different
-CPU in the same destination root domain and skip the bandwidth move?
-
-Suppose task p sleeps on CPU 1 in root domain {0, 1, 2, 3} and was earlier
-migrated while asleep into a partition on CPU 4, setting p->wake_cpu =3D 4
-and p->dl.dl_bw_cpu =3D 4 while task_cpu(p) remains 1.  When p is moved back
-to {0, 1, 2, 3}:
-
-CPU0                              CPU1
-cpuset_can_attach()
-  dl_task_bw_move_cpu(p, {0..3})
-    task_cpu(p) =3D=3D 1 -> returns 1
-  reserves bw in cpuset_dl_bw[1]
-                                  try_to_wake_up(p)
-                                    set_task_cpu(p, 4)
-cpuset_attach_task()
-  dl_task_bw_move_cpu(p, {0..3})
-    task_cpu(p) =3D=3D 4
-    cpumask_first_and_and() -> 0
-  cpuset_dl_bw[0].sum is 0
-  set_cpus_allowed_ptr(p, ...)    <-- bw move skipped
-
-Even though CPU 0 and CPU 1 belong to the same destination root domain,
-matching on the exact CPU number misses the reservation in
-cpuset_dl_bw[1] (and the same mismatch can happen between
-cpuset_attach_task() and set_cpus_allowed_dl()).  cpuset_free_dl_bw() then
-frees the reservation on CPU 1 and p's bandwidth remains recorded on CPU 4
-in the source partition's root domain.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108185406.1549=
-770-1-mathieu.desnoyers@efficios.com?part=3D21
