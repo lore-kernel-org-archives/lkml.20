@@ -1,96 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.80
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794150708;
-	b=IL8DTKx+zAPDVPWXu3CZX3ee1BkVUWoRDNF7L3M8oGoLYM12eWXxdFMmbS8SU3Uzvqo6
-	 zDbTe/s1uMKHw8lF6DjQVIvVY4+P+RjkqLFrARzYHqdc8lLsTUErcJ4WSLYnRiflVthvy
-	 Wote+sYEVqCm+V74xP0wj+dTdFNhuT8nkE5qtLJkbZaRuQZnJWS18XCEcha/Io76paz4E
-	 OuyMAquyACvVaAUxfeqRUrs3Puep5xBlES33b81Dr7vCjVt9j3JMRDJsilm5KUurpEfFN
-	 IvMdUIWhf382rWt9ed14N3pei/qRup3a0v1MJSeAHnWf779lBSx4uuGAAiT88974s1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794150708;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=S3378glPIUpb/Np4ls/UMSQim6gLRzP7jb20yzp7mKo=;
-	b=kvVPNwO6EWymhirx5nNtcrWoIlQhmT50gHmAHXNRBwAOSuS5pY4N6yLts+OcN3QD/m8t
-	 /F2kkuE5grJCsaPF1IA5rBIEiiJPuIgdNad7CcuiAzQGLduFtfqpkBYrqN6W68RLP7Z6z
-	 H6HFreBz0WTLBxxVIQxua5xZtPZejlSJGjyvXs0qijC7oCiYIOMYJzp5/G9dvrkBG0+rw
-	 Oilgvq8HkpN9rKuPZFHmriKwNqAezo7a5g/sFAZww0xZGJGofIVRHeMyxJtPRZnUUBpGd
-	 QBL1J/eTjx6T8Q1ItKHtUGnwZD+kpmgtcx10dBqsbCWAZimZy4xaohlomkb7x+G7Odw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=G6DZTXSm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.80
-Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020080.outbound.protection.outlook.com [52.101.191.80])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794150781;
+	b=yr0rybJTMx/JddxbkW1to4WQYZRckVrbNiqgDhMSFH6YXsKhof4v8AxOLjj3hPkr+sJm
+	 rhOeDekqe4z7mm7zO0xje3417b6CYUZVZT+zlq3zMd5+5fsjLvDAr/XXIwZDXT2gvfZGb
+	 QcV7CLnAo7kp1OZ/m8Rpi/nZ8wNwUxg9Kl8sVrDgLFBjBZoXF4mXQg0tWE5r3nlYImyVl
+	 ezpgOFaRrIXa76AUI9Mi01WugvNiPXw3eHUQipmDPRE4X2Omi21QIDwe6qSAgAO0U5jna
+	 O60oAjFO5bayQxVv0W3yERW6z7mz0Z8bduD0SzPKDEID5YUFVJQm2f3b2ZXNIZnh95Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794150781;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=pDozBG3DKZrrV0VA63gacCvIsYzBdStab0Y4qutdH5I=;
+	b=u8JfHUi5FZm3vAzkq3sQsvvNMVHFcMStPo+w304nrcmWh0hLlwZtrZ+QvuAM+9oSvpMW
+	 WyP6+syyiqN87AtveGTzjtMbA8HbdcSWDWvdxk0ptItohz9vNJ+gnIuvbbCDsux25Mz1O
+	 5tKcavo5vLzU+hZVgSBztV7VesHe2ynI5pVvc7wdDhQkOxBGB60Xh80uoHAIo2JW8gpvu
+	 qYwA9+FnPuCfEIpVflLEVU40w3TFmVm/THorYsCAcvcbwyLzJUXOQxVGn5ereoyFQSX1g
+	 kfBO+qAhW8QIvyB8E/r4hjrG4hlEpF2I2uC5nl/FfOj2P22F9GyH9uZKz5e9ZQ3ryjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkILvNxd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F9F606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:11:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8F9F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46063606A31C;
+	Sun,  8 Nov 2026 15:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=G6DZTXSm
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cR0kqlKldBmd2BYffpPGGc3hhfyrXNpPzxgCqo82skc2oH5QFaOsCIZHgBU/11XYEwRVFyQwrXiPSIfZMjw1jj/WySZifreCRd9Xc/hJUngOPC2PSwzeKWN0Ag6jJMepxiG4F1M/wPJZkyRbef8VGjqkjAVZ/36fMp+n60MUW3WORd7afmg/0Z9Bavhcng/qtfLM8EsQPrsZMR09tbSukx0UjXlscPfqh4MCZ04VFfWgMmn+60c6gu/xIha53wq95EPC0CHKW3tYIrNJtZxuLDGsNzizup8onQsR0+BEXvaNRSL2kr44+dywqsWbdImAgaX51ZBamjMXO5Vn+7QZFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S3378glPIUpb/Np4ls/UMSQim6gLRzP7jb20yzp7mKo=;
- b=fZxXy1+fg4mBi29YjWVdyHgoomtQDWuBkD29/X31PwURGhCVkQEGkmJK/63s5yN+Fi0sx7GKJSQ5EnMT3OfvhC6eJHlXqrNdXAGPnV9b2sL/9R7xcPFhGnT3IHp2J1zgGEr7uKMzY+H0ya7aYnuf9EDPDYay+UpXbiMbZm/TJf82i6Ez/dlBp0/gtnyHh9uBg1jlyb+unYXkMpASXgSUSkICAtP7wTnhMfpuPvR0eI2c3j4FxNAj7jHlqdU+bHab/vggXg5KstkRSfhzoud4AONWH/0Ic95GjJlOsUnbAGAxbdJGN192+NmnO/SXWDyQSx/uNs4bt8MKCpS25r8xug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S3378glPIUpb/Np4ls/UMSQim6gLRzP7jb20yzp7mKo=;
- b=G6DZTXSmIYunFME7kUYCYEconqHkBU8tarsuzBzWahdglorhP/ECGurY11qytvaFM/Sib/yvmPHhXmIe9XUTE1FEB4+lhTp++HonIWzKewM1tBShGV5uah4PeYFDEJWXoIcItemmF7NDO5GHXgkupGNZ2QeqFXhiqkwluxLW7OrWDMAGJ4NSkLOptwiTFf0eUBZTgwy4QgqJ/C7oZ3ASDYyfYj0FFWdmy2OoitAZmIk29Gj5IDmgIr4QkQ7DRZw2GMj/VYT0FEaknTvOnNOP+YZ4iy8O7V9QpRimVBJwZxdVxfZDQ+eczsP6f3Y3FVe1BnAqGNX+/RtSPR2Pb4NWOw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YQ1PR01MB373984.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:cb::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
- 2026 15:11:46 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
- 15:11:46 +0000
-Message-ID: <0f916c89-c184-429f-93a1-0f5b28e516b8@efficios.com>
-Date: Sun, 8 Nov 2026 10:11:45 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 26/26] selftests/sched: Add a test of SCHED_DEADLINE
- bandwidth accounting
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, linux-kernel@vger.kernel.org
-References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
- <20261107014451.1487825-27-mathieu.desnoyers@efficios.com>
- <sashiko-outbox-202508@kernel.org>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-202508@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0158.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::21) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkILvNxd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D212A1F0089F;
+	Sun,  8 Nov 2026 15:12:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794150780;
+	bh=pDozBG3DKZrrV0VA63gacCvIsYzBdStab0Y4qutdH5I=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RkILvNxdcAuP3m1VsG7WfUeqxeyGe9pWQiEVokHLf3VOA8LKq60tCATIxxjrO/1A4
+	 Y2I44BYZ+WlrD5L/eYC4FaKAtw27HWDCCkVfXJb9uYYDDnkJC5E9UdQgEUK6+OPaiV
+	 +SazROZNP/5JtMz3em1Z4LYU31nB7LccYUUq7+ppa2kfq+bHAFYNweLHkgpmFP9L2W
+	 TXmvYGBy73Hnx/lhIvooj2v0io92Adquf2NtQUJDf9FTU5pdZGY8hKPeU4tadRqJqM
+	 szkvyEpzL1zyAP57f9azZtH21+E2427KKNxuwux1mr3j8XxWjEIN31wrPC9Fn/r/x0
+	 o1Fu1FOrSG1OA==
+Subject:
+ Re: [PATCH net] selftests: bonding: feed link monitor to deflake prio_test
+From: netdev-bot+sashiko@kernel.org
+To: doebel@amazon.de
+Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
+ liuhangbin@gmail.com, liali@redhat.com, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 08 Nov 2026 15:12:59 +0000
+Message-ID: <179415077934.994134.13648548366874666986@kernel.org>
+In-Reply-To: <20261104142018.552135-1-doebel@amazon.de>
+References: <20261104142018.552135-1-doebel@amazon.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,82 +64,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB373984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96a8e97a-3308-4189-3065-08df3daa9ac9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|56012099006|261022105027099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	63e1zoUl8lmlmXdHXkcRLpeBb99Aat1oVJvUysmPQSOC587Rw4Xgr4Qu+dsV9L9xVDlPCSdiQxnuGvF3wgq1RVX+6Upovd3TlRLTxLr6Ony9HFHXoWbVYwr79WbUxDn9cPKcTFqP+88CzsCd4qsk1enq9XgR7bJkQOzfU+5UC7o4h64nYqPSSPNrFH4cd/P4i/RvIAC5oJz4bHEfteLYEMz412VyaV8/ZCUQFt3uVpmyWwNpICYaekj/cUUmOOCS2p9mSL0doaGkdal1l9Ex3EcLz3+ZTcYqVDRVSzjsSUEw829vsTesYQYmSi81FGjDryLlqpjSBRGp5WT20owG7dvqNsA4NSkDTkqK2uGBzviIf57dyh1VCeUK0caGj0YNJAv2gLN6+XzqTweB66X/Z6xQMNDUZDplgfhZmBRlt1fFrq6+xcHu89+OBLpYLp1gNeJsdhTisAOpYFzU0JqvzzpLZVFQ5ZrnA4JVlEvnoBgNpaA0Pj6eP6dSje66Zq9AxjOSj6E3SdjDhPSZv8LR+V6tgSxfFFXJemBIKXzD1ABYa7HU7xZZLDv9LF++PrDj3HHbQ2oJ+ykaS8Oe+ym+aZFip66Wn4Nxh8Z7rOVob/g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(56012099006)(261022105027099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QUpTVzFPYUFWekVrOHFlYkd0UHZhbmFsL3NHajd3TGxOTnZ3UU9DYnVhVzNF?=
- =?utf-8?B?eUt2REI5RTZsNW9HbFZEeTBZRzJpWVpHL2xyVDdoaTNzeSs2alZ6WVBsTlpR?=
- =?utf-8?B?Wmk2NUg4cTQrMXJYVHM1SWZtVVFvZkxaRlZuSldJQnFDYm1mc3EzbkFlUkhV?=
- =?utf-8?B?UDVqS2M2a3ZMdmtWTU9hcWhuNWd3T3I0dTRJN2VoQTQwV2JmelRmTDFxNEdR?=
- =?utf-8?B?ZzVENnJEWWZmUkxtMnR6WVoxRk5SRUFxMDU2ZGlIeTYvdncyc2JQSlhYZVpx?=
- =?utf-8?B?STNBYTdKT21UWlhJeXBNN083eEdzQTBZOXdGQnhjUTQxVXY4RHV0bW1vdm44?=
- =?utf-8?B?M0NhdnJWeElacDJhbk9EY29PMTFMd3dVVlMxY2hqUnAyaGh0MlpUa0R0c3p6?=
- =?utf-8?B?WDhyUnZBek83WWdldGpESHR5aGZWVWcxampxMGFIMEJtY0F3bGpqMlJZSHBl?=
- =?utf-8?B?US9aUlo0WGQ5K1pDUSt1c3Z4Yzh3QUU4MnlMTC9ORWFyNFl2azBITm5wVXFv?=
- =?utf-8?B?dHlWeU9ESFNvZ1Z0QnE4WWlVTWpaSFJ4SlBzSXN4ZXJKVUhyYkdNMVdhSmhO?=
- =?utf-8?B?M0xpOWF4aGNYNHJHOTIwT1QyV05GQnJnNGpjbnB0N2tBY1U3a3pPYnZsZnRZ?=
- =?utf-8?B?UkVlWnBqRUhXbTcwU3RWRE9uVGl2ZnRRczgwTDZFQXYxa3ExQ09hTU9URldU?=
- =?utf-8?B?cjY5ajYrVFRPUGgyMFlld3hoREhuYU5sYU1Ud2thMHBXRUJsQnFqeWJiSlp6?=
- =?utf-8?B?Y1BpWVovenJwbVh5MjNoM1ZOamRXMkorVlFTaVdNc2NNMWhIZ3RzQ0cyU1VH?=
- =?utf-8?B?TzBVRno3Vm4xeFNDTVV4YlFCbzJtMTR0QXFuSE1tWnZ0K0d1UFh5MW9hUEhL?=
- =?utf-8?B?SFI4Yzh3a01sY0M1UFc1ZWFISWpKblFlRlBsdUNhNXNSRWU5dS9rL0F1QUlS?=
- =?utf-8?B?L21nM0x4M29ZcUw0VE9KTThTVVYyMTRNZGFDK3ZQY2pyMEo0dFU4SkVXUy8z?=
- =?utf-8?B?U1UvOUtyUktQVGM4cUNMbE9LRVdBOFFNeWFGdDZJOWpXWFNyYllVZFRIdmdo?=
- =?utf-8?B?a1A0ejdEcVVIRXZ4MlNsM0d6b0xyZ0sxNlA0Y0kxeEZQcmhvT1g4MGhnM2h3?=
- =?utf-8?B?R0Rhd0NqZWhGSUREWXdrZVFid0ZUMWd4VHRKNXl5MzhwdHF2elBDVUN5Nm4v?=
- =?utf-8?B?K2ZjMGtIb1dLbnhra3c0eDRTeWNBVUJjZWJna2JBNzdyLzFzZFd3SHhHbU5a?=
- =?utf-8?B?bmgwTjduWlVXSHRqdEpMaHFOaFpwRWVyTEFFa1hPKzZBZGtpRzNEeDVCb3Vu?=
- =?utf-8?B?N2Q2VWVNcHZtaGRmTjVIVjBZSTQ4REpjeWQyYkpRU3FKWDF0LzNyc0JvTnVm?=
- =?utf-8?B?TzBFTy8zWVlMeFozbHF2ZXB2SEE2MC9TbmVzZVJvcUQvQzBNOURWOVNWdnE3?=
- =?utf-8?B?Mk1FV1I5dzRnb0ZqZVpnU0d4WmMrR0plTUpJellJaTM2MG1GaXpQQlN6SmlY?=
- =?utf-8?B?QUQrSjY0TWE4Z1h0WFdMV3I3TlVLcHhpNGNONFVVbWRKam1LUEdOZnFBUWVS?=
- =?utf-8?B?eUNGWmc5aXY4NExKM1dGUTA0NW1wYXUwelhweE53c04vZVlrS1loK0lTVXlC?=
- =?utf-8?B?YzFNWXRVR2tNSDVmOEdWeTZ1UlR1K1V0VU9aZ0kxNWdzNU5JR0Q4NXZ2a3Iy?=
- =?utf-8?B?TW1YdDBZWHN6SGJ5MUpyV2JYZlRJNkJQZUlDbmNML1hRMzNkL1ltdkJDTE84?=
- =?utf-8?B?NndwdDZrdTh2OW13Z1k5U3h2N1VIeEh1SWFYbklqL2dkTlFPMDQ1MURwSFI3?=
- =?utf-8?B?bnFiZGZpNTFuWE1kRExRbVVVbkVHS25iZUxXZ3Y4UlNML2hMVXVUcWRkRkhR?=
- =?utf-8?B?dEM2aEV2QmRPUDNING5uWFgzSVFud2Y4OGxJTFNDS1U3UTBZMHFNelBKUGNE?=
- =?utf-8?B?WTdoTXc3RjJrdWV6Y3BuZzNaMXFSTkgxam1kOXhHQVByQnNBMWNYR2lvbWQ1?=
- =?utf-8?B?cWNiK1VQTVJWWjVSSGpFUDJraThxWHg3OUgwcHVhVDl4R0NhSXlqM1BvM3B6?=
- =?utf-8?B?ZFJpV29SYVNxNk9SdmdiZlFFcC8wUHlNeW5pVXpsQStJc0VBTXRpWnMxY0VY?=
- =?utf-8?B?NERkQzJSdklsMldYMmJSZXN1UTdrQ2taT09RMk1WRnQ5VWQvd0I0WnA3eUhE?=
- =?utf-8?B?c012Vm1DdVFwd0xMOEtJNTkzNGppcFdTVXUxN29wRldPZisvcnlieXRkTWtG?=
- =?utf-8?B?Z2dKNFYrcTlWYTlNanJrU0YvRTFJdkg5Y2JoMDBKRjhhL2lrck1xd0djSE8y?=
- =?utf-8?B?QUs3SzhKVlB1RjN1aDFTN2RKamlrWmJXajVGelBMUlJkeGRCdG1NcWJ2d0hJ?=
- =?utf-8?Q?buSeLvRMDDpvHME4=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96a8e97a-3308-4189-3065-08df3daa9ac9
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 15:11:46.1657
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HTgpnFO+kFmcej6PzblYZwEb0hQEAjn8XhAM6bJ8p+mMGg37+Jgm8Hr93hOmzM0pufKE34FtPfrejTNMWa1hjCcEHH9hg5si4Hj9kp9yqw8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB373984
 
-On 2026-11-06 21:25, sashiko-bot@kernel.org wrote:
- > unchecked boosting_waiter() return and boost state
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Right. In v5 both cases wait until the owner runs at the waiter's
-priority, and fail if the waiter's wait did not time out.
+Critical: 0 · High: 1 · Medium: 0 · Low: 3
 
-Thanks,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Mathieu
+- [High] The commit message and the new comment in prio_test()
+  (tools/testing/selftests/drivers/net/bonding/bond_options.sh:78-86)…
+- [Low] prio_test() starts the background ping unconditionally.
+- [Low] The new background `ip netns exec ${s_ns} ping -i 0.1 -W 1
+  192.0.2.99 &` in prio_test() has no -c or -w, so it never exits on its…
+- [Low] selftests: bonding: inaccurate Fixes tag for prio_test() link
+  monitor race
+
+--
+
+selftests: bonding: feed link monitor to deflake prio_test
+
+This patch starts a background ping to a non-existent neighbor
+(192.0.2.99) in the server namespace for the duration of prio_test() in
+bond_options.sh. The goal is to generate traffic so the arp/ns link
+monitor stops declaring healthy slaves down between test steps, which
+made failover checks fail intermittently under load.
+
+> diff --git a/tools/testing/selftests/drivers/net/bonding/bond_options.sh b/tools/testing/selftests/drivers/net/bonding/bond_options.sh
+> index 187b478d0ddf2..f599a2a8ef156 100755
+> --- a/tools/testing/selftests/drivers/net/bonding/bond_options.sh
+> +++ b/tools/testing/selftests/drivers/net/bonding/bond_options.sh
+> @@ -74,6 +74,16 @@ prio_test()
+>  
+>  	# create bond
+>  	bond_reset "${param}"
+> +
+> +	# Keep the arp/ns link monitor fed for the duration of the test:
+> +	# ping a non-existent neighbor, which generates steady broadcast
+> +	# ARP requests sourced from the bond's own address. These egress on
+> +	# the active slave and are flooded onto the backup slaves' links,
+> +	# where they validate as RX activity. Without traffic, idle slaves
+> +	# are declared down by the monitor between test steps and the
+> +	# failover checks below race with the monitor.
+> +	ip netns exec ${s_ns} ping -i 0.1 -W 1 192.0.2.99 &> /dev/null &
+> +	local ping_pid=$!
+
+[Severity: Low]
+Is 42a8d4aaea84 the right commit for the Fixes tag? As far as I can
+tell, that commit added option_prio.sh with arp_interval 1000, which
+gives a monitor timeout of roughly 3.5 seconds. It had no
+ns_ip6_target variant. It also ran ping -c5 before check_active_slave
+on every failover step. The ~300ms idle window described in the
+commit message doesn't seem to exist in that version of the test.
+
+The failing configuration in the report is prio_ns() calling
+prio_test() with arp_interval 100 and ns_ip6_target. That appears to
+come from 481b56e0391e ("selftests: bonding: re-format bond option
+tests"), which moved the prio tests into bond_options.sh.
+
+Later, 45bf79bc56c4 ("selftests: bonding: reduce
+garp_test/arp_validate test time") moved check_active_slave ahead of
+bond_check_connection in the failover steps. That removed the traffic
+that used to run just before each check.
+
+Should the Fixes tag point at 481b56e0391e instead? Or at
+45bf79bc56c4, if the reordering is what exposed the race? Stable
+backports rely on this tag to pick target trees. Trees that have
+42a8d4aaea84 but not 481b56e0391e have no bond_options.sh, so this
+patch can't apply there anyway.
+
+[Severity: High]
+Does this ping change what the monitor sees? The comment and the commit
+message describe a mechanism that doesn't match what the bonding and
+neighbour code do.
+
+First, is the bond really idle between steps? With arp_interval 100,
+bond_activebackup_arp_mon() calls bond_ab_arp_probe() every 100ms. That
+function already sends broadcast ARP/NS on the active slave:
+
+drivers/net/bonding/bond_main.c:bond_ab_arp_probe() {
+    ...
+	if (curr_active_slave) {
+		bond_send_validate(bond, curr_active_slave);
+		return should_notify_rtnl;
+	}
+    ...
+}
+
+br0 floods these probes to the backup ports. With the default
+arp_validate=none, bond_rcv_validate() refreshes last_rx for any frame
+it receives:
+
+			WRITE_ONCE(slave->last_rx, jiffies);
+
+Since no validation is configured, "validate as RX activity" doesn't
+apply here.
+
+Second, does ping -i 0.1 produce steady ARP? For an unresolved
+neighbour, __neigh_event_send() sends a single probe and arms the timer
+at RETRANS_TIME. Echoes sent while the entry is INCOMPLETE are only
+queued on arp_queue. After that, neigh_timer_handler() re-probes at:
+
+		/* NUD_PROBE|NUD_INCOMPLETE */
+		next = now + max(NEIGH_VAR(neigh->parms, RETRANS_TIME), HZ/100);
+
+and arp_tbl defaults to:
+
+	[NEIGH_VAR_RETRANS_TIME] = 1 * HZ,
+
+That works out to about 1 ARP per second. The monitor itself sends 10
+per second, and the detection windows are about 250-350ms.
+
+Third, the ping does nothing for the active slave. slave->last_tx is
+only updated by the bond's own probes in bond_arp_send() and
+bond_ns_send(), not by ARP generated by the IP stack:
+
+		slave_update_last_tx(slave);
+		arp_xmit(skb);
+
+Nothing answers these ARPs, so the active slave's last_rx doesn't get
+refreshed either. bond_ab_arp_inspect() checks both values:
+
+		last_tx = slave_last_tx(slave);
+		if (bond_is_active_slave(slave) &&
+		    (!bond_time_in_interval(bond, last_tx, bond->params.missed_max) ||
+		     !bond_time_in_interval(bond, last_rx, bond->params.missed_max))) {
+
+Finally, in the fail over step, "ip link set eth1 down" leaves eth1 as
+curr_active_slave until the monitor declares it down. Until then, all
+bond0 TX goes to eth1 and is dropped, including the ping's ARPs.
+
+That means the backups get no RX in exactly the window where two checks
+race: the active slave goes down after missed_max * delta, and the
+backups after (missed_max + 1) * delta. Under load, monitor latency or
+rtnl_trylock retries can still merge or reorder those passes, the same
+as before the patch.
+
+Is 0/100 against 2-4/100 enough to show the fix works? 0.98^100 is
+about 13% and 0.97^100 is about 5%. So 0 failures in 100 runs is quite
+plausible without the patch.
+
+Could the root cause be looked at again, and the comment corrected so
+the tree doesn't keep this explanation?
+
+[Severity: Low]
+Should the ping be started only for the arp_ip_target and ns_ip6_target
+runs? prio_test() is also called from prio_miimon() for active-backup,
+balance-tlb and balance-alb. miimon is carrier-based, so the monitor
+starvation rationale doesn't apply to those runs.
+
+In balance-alb, every ARP request the ping triggers goes through
+bond_alb_xmit()->rlb_arp_xmit(). The ARPOP_REQUEST branch creates an
+rx_hashtbl entry for 192.0.2.99 and resets the RLB update delay:
+
+		tx_slave = rlb_choose_channel(skb, bond, arp);
+
+		/* The ARP reply packets must be delayed so that
+		 * they can cancel out the influence of the ARP request.
+		 */
+		bond->alb_info.rlb_update_delay_counter = RLB_UPDATE_DELAY;
+
+bond_alb_monitor() only calls rlb_update_rx_clients() after that counter
+has counted down to zero:
+
+			if (bond_info->rlb_update_delay_counter) {
+				--bond_info->rlb_update_delay_counter;
+			} else {
+				rlb_update_rx_clients(bond);
+
+RLB_UPDATE_DELAY is 2 seconds, and the ping sends a new ARP request
+about once a second, so the counter never gets to zero. The RLB client
+updates that follow a slave failure are then held off for the whole
+balance-alb prio run.
+
+rlb_choose_channel() returns __rlb_next_rx_slave(), so the request can
+also go out on a non-active slave carrying the bond MAC. That
+contradicts "These egress on the active slave" in the new comment.
+
+This changes what the balance-alb prio tests exercise, and the commit
+message doesn't mention it.
+
+>  	# set active_slave to primary eth1 specifically
+>  	ip -n ${s_ns} link set bond0 type bond active_slave eth1
+>  
+
+[ ... ]
+
+> @@ -157,6 +167,9 @@ prio_test()
+>  		check_active_slave "eth0"
+>  		bond_check_connection "change slave prio"
+>  	fi
+> +
+> +	kill $ping_pid 2>/dev/null
+> +	wait $ping_pid 2>/dev/null
+>  }
+
+[Severity: Low]
+Can the background ping outlive the script? It has no -c or -w, so it
+never exits by itself. ping_pid is a local variable in the function,
+and this kill only runs when prio_test() returns normally.
+
+The EXIT trap handler, cleanup() in bond_topo_2d1c.sh, doesn't kill
+background jobs:
+
+cleanup()
+{
+	pre_cleanup
+
+	client_destroy
+	server_destroy
+	gateway_destroy
+}
+
+The ping gets orphaned if a signal reaches only the script's PID while
+prio_test() is running, for example a manual kill or a harness that
+signals only the main PID. It then runs forever and keeps s_ns alive
+after ip netns del.
+
+The kselftest runner's process-group timeout and Ctrl-C both reach the
+ping, so the common paths are fine.
+
+Would adding -w, or registering kill_process() from net/lib.sh through
+defer or the trap, avoid this?
 
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104142018.552135-1-doebel%40amazon.de
