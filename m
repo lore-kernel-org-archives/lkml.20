@@ -1,59 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794165624;
-	b=IBLXx8aLkW30vbW/qpF/ZyNslKdZAIucmmRf+LVYbanCgzUL4tpKNL3+pKrMu4PLcOTQ
-	 41my5qutgT67gwZvFjypf9FSIqkmyGTYw7ehKzF+SBMR8HL3gIm+rYo4FKff9ebbtkG8J
-	 L3XF2rhDKt5scRuq30uab6RpFt/nSj/Fq4a77hZ3122hBZcuUBHbasLrj80hCUEz4ePlg
-	 6cCZtbrPJVO0fp5tA1fKBH6yv60e6ciwTDLB7TZQxUlmnz8DAi4X29kMZXxiLlrvg03r/
-	 r0TXNhsN9GIJqc8sI2r+/fLBixvGBSqhTyloLKc9bqfRfJsPQySF2x/k/qRL7eTJzRg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165624;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References;
-	bh=Vh/9TrYwU99E4PCgRdKtI1GiSkx+bWoa8oDdIzOoHTQ=;
-	b=CQwxA0hjywlG00j8riM5BRsy1J33lPV++1XmUOHSXauS/797Bb5tGpNboudwhx6zhRiu
-	 c3Y5GwyEHNq15Kszil8zLFUxCuf7U15jdxpfkmGsOercubeZW2NUcofYnnJV+eGPal9Gd
-	 YaZRMf/Y2ZU2wrx96PbRw4Z0RXOZpkjKfSZuYyW0ZHfb0qLwVbRyIc/6RVmCX9Lc8D1D/
-	 xVSd1jYNledflwk3nuwIdgH0PvffBdDqFpzrpqJdvox/cNXErj033VS+M5YIfdzh/6/8g
-	 j4WPwhK/tjYSpmhPVHG9ZqZ/6JuyVMtisxKX1GRAq6asc9G/Hr+egB6ihn2v7Gh6n6A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=AQvmD1Yz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794165653;
+	b=UpkATJZxS1R4pTD11hii44Ew2SKmdHY2ZrhwvjTdor1WqJSDTTdZZ8+P+BIHAcVc10kH
+	 Wo2+LxPGhZXDjpmwJtT8/+F7ShpSr4qNeLE9V9Odm2yNOEeIHd3bH9oCOVHd2NBU2lQy/
+	 dubXhLME+Gbl+8koHWFzmwI1LtNfd5cEzTUgdsIQr01gUD0nwf2n1oK5O9aAjYTtluvhV
+	 UH7kCGSEgvzZ/rQuZsyN8Djlo4frR9aTcJAd1ymue+1w9PH04IYsWAJpga3qUZClwddfM
+	 tII/uSoHfD+CyckfUVZwmvG1XoD7nX7UlUu1CJjk5iqxTSAqD65G12RVMahzNR2YsZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165653;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-MIME-Autoconverted;
+	bh=nET1WJNk3mHLCrQL6NVnuBWMpCe5epTVs5C8Nj7DNa0=;
+	b=0uqeZaep6RzhSmXKRsFnjDf4bwQ+Q4VXUv6IswraJUZn+J5CuoT1xx3vBIbwQKIq2X+N
+	 a/pIfq9QC9FN//SWF9ex9XBksfaX9FQlNDF1Pe7c7/sUzRh434uW2c6MebTmKfm4WYpZ6
+	 +dxMKgtBKBt8fXIG+ex//8Sa9zfsj7/uVflfhH3ygPQ6Lscg1NK1LWuOiADZRR1KJV5Rg
+	 e6zRfuos0EctsKCQ1vd2OFSFXk1BqEQNZk911a/yWUbrEhdBqabpRGPIssP48aKavJX/8
+	 /25p9G9NWT3JIOSTwL25E9Dp6/G9QFOKn4Nns9EMiGaQNoJO61tqQamb4CRBlrNqNGw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=c127.dev;
+	spf=pass smtp.mailfrom=c127.dev;
+	dkim=pass header.d=c127.dev header.i=@c127.dev header.a=rsa-sha256 header.s=purelymail3 header.b=bYrUBH4i;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=Qby1ahSP;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE127606A321;
-	Sun,  8 Nov 2026 19:20:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE127606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CDE606A333
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:20:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91CDE606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=c127.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=AQvmD1Yz
-ARC-Seal: i=1; a=rsa-sha256; t=1794165599; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=H1luY180cpXtbO29I367UMSNTK6y0KyF55ZvVdEna/3s7vvoWRNa7gHyBt/xypqZZMGVuk/EmUAtcvUHPvvAWQR/1veMMrR6PWvpshYeipulwQ+jpW//C7+R5QwUlYj3RD0wLQISLwxIHf96zyiqGdkZJ0JXcdkCXADBJR872f0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1794165599; h=Cc:Cc:Date:Date:From:From:In-Reply-To:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Vh/9TrYwU99E4PCgRdKtI1GiSkx+bWoa8oDdIzOoHTQ=; 
-	b=au8oB9kOxtxGgufNSqVsCnUYGolNFTIKo4ZiWBNef9t72FTe4VNMUnBb+pIBI3iQhhAQSFyokmTJELFAp2MAF1HgtJUdAzV2q7zJJNMtUl4ZowfcpI3tKDblRcs3NxoYfLPPyRPdC+1CkkYyniDyRUC/Nep1cL4TUAw8kii+zOw=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=AQvmD1YzyKqMNB5XrsP9jMBdwMKIHBOezeGPp3sqpeiPnayjypwvDzH7sur3GtV1X6v7SR5FPmrMmzjnMigJuSpl6Pgh8B08Fvjq/VZh31AShvhBxrkeWGdkoM2lS/w3nbUwkJBv32S1IY4AQU8omKjuSlNVa/qo7yl4iSylw3U=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=Vh/9TrYwU99E4PCgRdKtI1GiSkx+bWoa8oDdIzOoHTQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1794165597779665.0347627600589;
-	Sun, 8 Nov 2026 20:19:57 +0100 (CET)
-Date: Sun, 08 Nov 2026 21:19:56 +0200
-From: Igor Velkov <iav@iav.lv>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: iav@iav.lv, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jianqun Xu <jay.xu@rock-chips.com>, linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] gpio: rockchip: restore the bank registers after hibernation
-Message-ID: <20261108-re-v2-gpio-rockchip-hib-dbclk@iav.lv>
-In-Reply-To: <20261108-b4-gpio-rockchip-hib-v2-1-27d3d510cb73@iav.lv>
-References: <20261108-b4-gpio-rockchip-hib-v2-1-27d3d510cb73@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=c127.dev header.i=@c127.dev header.a=rsa-sha256 header.s=purelymail3 header.b=bYrUBH4i;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=Qby1ahSP
+DKIM-Signature: a=rsa-sha256; b=bYrUBH4iUsBPghbZDki/P3a8hQZmHlPyPkwCo1+aE65BNeEEifHU7dtas/0ClkJjmUUwOJf2rIGrzBo7LOJ6IupdxaBQfop8Q1jkhsxRUPfdPy8wD6o65WnvpAR9AELFGtOwmxxB7pTeABTg7ltrlChYeKdvQuE5cI/4kVc+SBacYi+eXdsezcJ97jAy645t9XG0kV0sjdhb2/Mu1OEejqdT+kj9vxM3v2D+JiFmmPWTxD1uSfqXOgOXXTvadK/oiEmmuG/oMdgvkcQTPO24BZCmZZRp5beoq7hX/6NykXX+mEzfra68LQD0N0Skr35xorNCSiWveED5n90WilxLJw==; s=purelymail3; d=c127.dev; v=1; bh=nET1WJNk3mHLCrQL6NVnuBWMpCe5epTVs5C8Nj7DNa0=; h=Received:From:To:Subject:Date:Message-ID;
+DKIM-Signature: a=rsa-sha256; b=Qby1ahSPpZ5NkonjottD6WZtcXGrm2Ur5blwqmp97dQHox6qWoUirBypQoEwuzpTh5gv5eYEXLjnytS8UATZTYVp+goO+QT2DPt6a7I6VJzhJPyBwvYdL1usSwBs6BBIZ3oV6K/MhdP2CG36PM8uhOVkk3VGQqefE7TvhGEFD7o1NLDyrrDPZCsCGxYn+WocB9mOKFXumwbBxSkGODWVDWSeue4DW3AfBE7GUXuztHjjNzepb4PKMXLk0Ha2R1JbIr+1biul/6JIC+ET0KxLHcIdUpRPWNUA2SEHevg6Z7d64kWGfyPc933Aarx982GHGLhTWjYw1Ig4EBchBywDSQ==; s=purelymail3; d=purelymail.com; v=1; bh=nET1WJNk3mHLCrQL6NVnuBWMpCe5epTVs5C8Nj7DNa0=; h=Feedback-ID:Received:From:To:Subject:Date:Message-ID;
+Feedback-ID: 1017243:43747:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 322991363;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sun, 08 Nov 2026 19:20:06 +0000 (UTC)
+From: Johan Alvarado <contact@c127.dev>
+To: alvin.sipraga@analog.com
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+    linusw@kernel.org,
+    andrew@lunn.ch,
+    olteanv@gmail.com,
+    kuba@kernel.org,
+    davem@davemloft.net,
+    edumazet@google.com,
+    pabeni@redhat.com,
+    linux@armlinux.org.uk,
+    luizluca@gmail.com,
+    maxime.chevallier@bootlin.com,
+    netdev@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    gusfmora@gmail.com,
+    kuncy7@gmail.com,
+    fabianotassotti@gmail.com,
+    gabonpivovich@gmail.com
+Subject: Re: [PATCH net-next v9 08/11] net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
+Date: Sun, 08 Nov 2026 14:13:05 -0500
+Message-ID: <1e8da5e3-0d1c-4ce6-bb3c-4b9b7a5789a6@c127.dev>
+In-Reply-To: <39e46930-0d24-46d6-8861-5dd309bb7640@yahoo.com>
+References: <9b73858d-fc09-4988-8bab-fd7b88db9412@yahoo.com> <39e46930-0d24-46d6-8861-5dd309bb7640@yahoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,21 +76,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 
-Hi Heiko,
+Hi Alvin, Mieczyslaw,
 
-Please hold v2: Sashiko is right about the debounce clock. On ODROID-M1,
-after hybrid sleep with a power cut, a line with debounce saw 0/8 edges
-and a control line without debounce 8/8 (one run). dbclk_gpio3 and its
-parent dbclk_gpio read enable count 1 with the hardware gate closed;
-opening both by hand gave 8/8.
+Thanks for adding me. I'm looking into this on my side, and I suspect
+the problem may be somewhere else rather than in this driver.
 
-With WoL on, aclk_gmac0 and pclk_gmac0 come back the same way and the
-network stays down after restore. So this looks wider than GPIO, and
-fixing it per driver looks like the wrong level.
+I'm still investigating and will report back once I have something
+concrete. Until then I would ask to hold off on patch 8.
 
-Should the Rockchip clock driver write its gates back after restore, as
-at91, tegra210 and ti do through clk_restore_context()? I find no
-restore_context in drivers/clk/rockchip.
-
-Igor
+Best regards,
+Johan Alvarado
