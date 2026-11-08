@@ -1,103 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127761;
-	b=Y7Q/N8aOcprWqp2uz+1UZF83NO9oBgsHEyC7KaKlcpagqv4gKoi9vSBsS9CT9XvC6dDO
-	 tQfO93zs9CwgzlpTuNQMnuYGWS1dSDfT5FYbLhRuRufKzhpsPAgfa/m1trn/m06qkPGJs
-	 dWLgiNDHfe7sC5tyWt8rjnMTPeps1vxw8jDRor3vFiu8stKcTjTmX0IvPP0qS0wMDClr8
-	 u4h51imvugDiJbcPPNKY74gBxpMJB/CEPUHh9GRM0F90F+MpamVpcwLzF+2VYlbJ7ahGL
-	 /LU8CjgccMI60S2Mxix+4JEuDy+ziJyTwQWJfJ13BF6kJh56kHRy/Il3iY/ReKguXEA==
+	t=1794127762;
+	b=HHz7mTi/MO5UVSbHNL5KBApDdvcLd2jp4trdID4pdb7j6yEz6LdSUKPi30MNWmggyFRP
+	 SscJqNf1iYv9F00BWcHA/GVMe64j0EuT2JzvBRJD7XLxR3JEMs+a9Llb+VbWD0yoNddwt
+	 lgmk7drQLOnZcF/bWmERaY/bVguWkdMgdgwayE/E/nkTvAuT0pQLDQ4ILXjC6SGFi4Kkz
+	 aP5ZqQP2fkpsMPLelSUpdXP9Me7r3A/VaVrbpcyMiXcU4k4iJp/SKPg3IV3nN9DdFF38I
+	 X8NcfjhQ9JRX1LiOCMlTOt0ky45QpIQYN5sVhymucY3PPEljwFqyVuFiCUkzYxNgNWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127761;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-	b=Y2j9WT9S+uD8H8ff/xBfpGliv1dPlhijkUfMVwQP4TvME3dUGbLhqDeNhU9TBhIj/xoU
-	 uYjt9WgqS83JvUfmYb7VFoLKwk+3HXRlxa9ej7AnqwNwdojQeTXXb5qZWyExQYnilhi1Y
-	 lAxxf9g/yQ1ByQ78BKya/oTqADBvFosZoDgTBVSc3cSRldpF60aL3HRJLdHlRdXBmkIyJ
-	 ZnMeH1NLADBfOLN577zoYn08wY4sNiv6wszTR76DJRx+zbvadWRTNJxtNYbSz0iijDLEt
-	 gEhol4GXdCT6xD2xo+JDy50KKYPkV2UfKRTT3e88EUA7XLsob1IsYlO1PW2jyHJw+YQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127762;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=vGNfBHOfJEaTODk0UVMUPWh2+98FNaAkNc8rBZooR1k=;
+	b=UxrZq/8gB2o/W1YzgE5yq1VODkxuU0tsQfetadzSbOP0eA+f75U67rLhDOfXwrtJ4bvq
+	 iJHWXGyMtLiVFK6Gnrf6PxKd585ZNGdfTIKk7+hwzcMD+0ABFgkgLGQ3mOMntaKsKW133
+	 3RT/+lbT7IRfEbDTaZ3m2Qjn2MuKpQiWLoNFzn61vDey/SWePzU7+KxFlinlVqAz0VYtK
+	 gw+SIctYMSq2d/z64FjZUsumlJSNq66Eoxrh4AX77cBOQX6wcsxMtGp95RmHx/B+2kIeH
+	 U2c3e1s4a5F1FthExdHdGXFeqJ51SC1uOuzTlYk+Z1KqnHYF54yn0KYZs1Mcugbx5ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfFbYqnm;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDvf+CZI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A222606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A222606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845C4606D806;
+	Sun,  8 Nov 2026 08:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfFbYqnm
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36e795af1d4so31834eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:49:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794127760; x=1794732560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=rfFbYqnmrqZfeWjWTp72T2kiiZhsdPB9BB0dU1LZ9it1fl5s2iKLAlHTaYG4zuMcfQ
-         aon2lxlRuyluT5v7V4y4M0i49WylN7ZlE4DEAsT61KXKnBObk7y2cza/8+Q6//dCWHwd
-         Pk/s3VH5/0Eh0I7vvj2lF0Vlw2tdiNJu9KyesOB/pxE1w9p4jwZ3qiv+RyL8yWEV+KUz
-         C6O243ilvNmZPtiONvUrTtpchpq8bjYafhBBUGYATAKJB/U5LdzkxJvXSMKJTjRGl4Gl
-         E3H9TSPHOWLgwIxjWlicEMEPGJanc56c0D+2cGoLKVbLr34FIpZgdCxvSixQyjkk1Ud1
-         XSUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794127760; x=1794732560;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=HbtE+3LMouu7Y6gI/6/WiRwj4vdXNrtsbssp3NDgZtgKDPTFzGRyhVjepWTI4W+Jju
-         Ysq8UoHFI5hw4kEv8Igv5rnflca2DcvBtwg3CDXPLed6ILZMdN9JrYP4LiEDgzSWSs6M
-         tEzmFYFYFcUStEvjyM0uUPuidBIBOZJfttrZy4Ssd5xPIVeUpmvOoqTZeWuBaj1x70h8
-         FdlswLqqhdGrLRAv7yjIVA0XSZvEdDA1Xsup9TsoyE9Sx39hpjA6QEKg/+5jiu32XyqR
-         vx08CkBwVaJ8IyuUlQGxAJyWdcb7Ii0Rrek0QmlhYVRBvO3aVxqNgxcvURah6xndh17F
-         4ixQ==
-X-Forwarded-Encrypted: i=1; AL+hErFf6Izv9z+8Nc5T5zkqCKr3ZtbaYmtDdKsxr9uyz2eZMrUprmEZKcah88Ag1VCGPL6fea+BX+dEZTPXJ9g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZlEz531sxpUZFBkk8RqNFuDV4MlPmXaM59G5T2JwLHUQ2JHZu
-	5f5FyQVhADHLiHDyZBDoLhnUZ+05ZpUnVJIbMq63rttne9gQa/Pv9wWA
-X-Gm-Gg: AYBFou2bUNUputIgHt7IZFWbNJ02alWYBGHiloWhvVRepiSG0xlV5CPNIZyo5qa0YnJ
-	KhmgBlX+oKu+Pt4bOccQ0A6Ccue0Ey9XjB6oeY8q7QQLw6Aamv/QqFo3JqzROy7EP/9OEJJPCqk
-	0hXZ2UGsUQqPccVmuKdExzejo3jeY6ww6hpJatAsez0d/8b8ITFlgVo73vT5JZ5Jh6QRVdnlgpf
-	LUgTGiEBfLAtosdVLPBren5/3bCtkqY9dzq+Jr1THJTgCpYOQPV/55ErsoXZ4FyoC/9iz6D2zhn
-	a47yuPca+XU0CjsjEc7JgvfYwwPGvfOx8fPZnWej/pTuZ0rwrzHGVDeQCfIDY2p5Zti9DHXHTpw
-	xxWQwmkc2ljnEXhLLAJbHtXfUtBFr8Pw/tp9pre/ztbcmrjNdSMrzV04coFiXHoIMv5lYAb272O
-	88K/WfUHuc0DBLS/j/VxWRx+XLlQm/3bBxX1J9nfRKGelKctQCLbziaJYxrZ7WE/DwxK2faA8Lo
-	Bf6KN/sUAezZR4t/wUAY7kOQF8YvaPieZSmVOYP7QfL7si+nFnEyGU1dpc5DLuxqWOuOHrwoQwp
-	kXq1iW6VzjqUe32TUvuKix7cb2IAgIsr9J+lbW2ppZxp5uM/JRs=
-X-Received: by 2002:a05:693c:20cd:20b0:364:377c:cabe with SMTP id 5a478bee46e88-370f8170360mr5884840eec.24.1794127760230;
-        Sun, 08 Nov 2026 00:49:20 -0800 (PST)
-Received: from localhost.localdomain ([103.177.253.80])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d6088sm4445529eec.25.2026.11.08.00.49.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 00:49:19 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: mani@kernel.org
-Cc: angelogioacchino.delregno@collabora.com,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	lpieralisi@kernel.org,
-	matthias.bgg@gmail.com,
-	robh@kernel.org,
-	ryder.lee@mediatek.com,
-	sreekuttan2156239@gmail.com
-Subject: Re: [PATCH v6] PCI: mediatek: Fix integer truncation and handle oversized resources
-Date: Sun,  8 Nov 2026 08:48:21 +0000
-Message-ID: <20261108084821.2827-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179389361906.20463.1092137538074974205.b4-ty@b4>
-References: <179389361906.20463.1092137538074974205.b4-ty@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDvf+CZI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222971F008A1;
+	Sun,  8 Nov 2026 08:49:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794127762;
+	bh=vGNfBHOfJEaTODk0UVMUPWh2+98FNaAkNc8rBZooR1k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=TDvf+CZIwx7eB9ZyWvpd50vKyoNK51ivIdJam3KpGu4w9aEOJqt30YPL3qj0wK9MH
+	 t6bxnEphSPMLZzCBCY5eYKnsjh4kC8gLOGI/63rCnsIEufKQXeEbADEyrT3NxS1ArU
+	 +5NPvW7J3fTaVnhivnbq9uhOehuRHcj3TVdZv9D4lY0eIX2QafzffPmjTUw20js9bC
+	 LGFTCAO/mN3qJWxne8iLoOg0xdBrJghNr7ZD2NhvnrJ4HuJG5wAgwTR7iVU7ODO2ta
+	 Mms/cpMn55diPEThEBQqy08GpQ1P/KMm/lpxaS65wUzXHUcYMJQmtBuNVbXkXLbO1n
+	 mEPecjudyA7iw==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Sun, 08 Nov 2026 10:49:02 +0200
+Subject: [PATCH 5/5] s390/hmcdrv: Replace page allocator calls with
+ k[mz]alloc()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,11 +53,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-s390-char-ready-v1-5-3db507722530@kernel.org>
+References: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
+In-Reply-To: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
+To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org
+X-Mailer: b4 0.16.1-dev
 
-Hi,
+diag_ftp_cmd() allocates the DIAGNOSE 0x2C4 parameter list used for HMC
+file transfers under z/VM, hmcdrv_ftp_probe() and hmcdrv_ftp_cmd()
+allocate the data buffers used for the transfers and
+hmcdrv_cache_startup() allocates the buffer that caches the contents of
+the last file read from the HMC drive.
 
-Thanks for applying the patch!
+These buffers can be allocated with kmalloc() as there's nothing special
+about them to go directly to the page allocator.
 
-Best regards,
-Sreeraj
+kmalloc() provides a better API that does not require ugly casts and
+kfree() does not need to know the size of the freed object.
+
+Performance difference between kmalloc() and __get_free_pages() is not
+measurable as both allocators take an object/page from a per-CPU list for
+fast path allocations.
+
+For the slow path the performance is anyway determined by the amount of
+reclaim involved rather than by what allocator is used.
+
+Replace use of get_zeroed_page() and __get_free_pages() with kzalloc()
+and kmalloc() and free_page[s]() with kfree().
+
+Round transfer and cache buffers up to a page for the required 4K
+alignment, without rounding to a power-of-two number of pages. Reject
+unsupported sizes before rounding.
+
+Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ drivers/s390/char/diag_ftp.c     |  5 +++--
+ drivers/s390/char/hmcdrv_cache.c | 18 +++++++++---------
+ drivers/s390/char/hmcdrv_ftp.c   | 14 +++++++-------
+ 3 files changed, 19 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/s390/char/diag_ftp.c b/drivers/s390/char/diag_ftp.c
+index 0a506559799eb..174c65a6e6052 100644
+--- a/drivers/s390/char/diag_ftp.c
++++ b/drivers/s390/char/diag_ftp.c
+@@ -10,6 +10,7 @@
+ #define pr_fmt(fmt) "hmcdrv: " fmt
+ 
+ #include <linux/kernel.h>
++#include <linux/slab.h>
+ #include <linux/mm.h>
+ #include <linux/irq.h>
+ #include <linux/wait.h>
+@@ -152,7 +153,7 @@ ssize_t diag_ftp_cmd(const struct hmcdrv_ftp_cmdspec *ftp, size_t *fsize)
+ #endif
+ 	init_completion(&diag_ftp_rx_complete);
+ 
+-	ldfpl = (void *) get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	ldfpl = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!ldfpl) {
+ 		len = -ENOMEM;
+ 		goto out;
+@@ -208,7 +209,7 @@ ssize_t diag_ftp_cmd(const struct hmcdrv_ftp_cmdspec *ftp, size_t *fsize)
+ 	}
+ 
+ out_free:
+-	free_page((unsigned long) ldfpl);
++	kfree(ldfpl);
+ out:
+ 	return len;
+ }
+diff --git a/drivers/s390/char/hmcdrv_cache.c b/drivers/s390/char/hmcdrv_cache.c
+index 85fb689594ca8..4857c543a2ef4 100644
+--- a/drivers/s390/char/hmcdrv_cache.c
++++ b/drivers/s390/char/hmcdrv_cache.c
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/kernel.h>
+ #include <linux/mm.h>
++#include <linux/slab.h>
+ #include <linux/jiffies.h>
+ 
+ #include "hmcdrv_ftp.h"
+@@ -42,7 +43,6 @@ struct hmcdrv_cache_entry {
+ 	size_t len;
+ };
+ 
+-static int hmcdrv_cache_order; /* cache allocated page order */
+ 
+ static struct hmcdrv_cache_entry hmcdrv_cache_file = {
+ 	.fsize = SIZE_MAX,
+@@ -214,11 +214,14 @@ ssize_t hmcdrv_cache_cmd(const struct hmcdrv_ftp_cmdspec *ftp,
+  */
+ int hmcdrv_cache_startup(size_t cachesize)
+ {
++	if (cachesize > KMALLOC_MAX_SIZE)
++		return -ENOMEM;
++
+ 	if (cachesize > 0) { /* perform caching ? */
+-		hmcdrv_cache_order = get_order(cachesize);
++		/* the buffer must be 4k aligned, hence round up to page size */
+ 		hmcdrv_cache_file.content =
+-			(void *) __get_free_pages(GFP_KERNEL | GFP_DMA,
+-						  hmcdrv_cache_order);
++			kmalloc(round_up(cachesize, PAGE_SIZE),
++				GFP_KERNEL | GFP_DMA);
+ 
+ 		if (!hmcdrv_cache_file.content) {
+ 			pr_err("Allocating the requested cache size of %zu bytes failed\n",
+@@ -239,11 +242,8 @@ int hmcdrv_cache_startup(size_t cachesize)
+  */
+ void hmcdrv_cache_shutdown(void)
+ {
+-	if (hmcdrv_cache_file.content) {
+-		free_pages((unsigned long) hmcdrv_cache_file.content,
+-			   hmcdrv_cache_order);
+-		hmcdrv_cache_file.content = NULL;
+-	}
++	kfree(hmcdrv_cache_file.content);
++	hmcdrv_cache_file.content = NULL;
+ 
+ 	hmcdrv_cache_file.id = HMCDRV_FTP_NOOP;
+ 	hmcdrv_cache_file.fsize = LLONG_MAX;
+diff --git a/drivers/s390/char/hmcdrv_ftp.c b/drivers/s390/char/hmcdrv_ftp.c
+index 3312b2ac00a9d..e22789b532de2 100644
+--- a/drivers/s390/char/hmcdrv_ftp.c
++++ b/drivers/s390/char/hmcdrv_ftp.c
+@@ -194,7 +194,7 @@ int hmcdrv_ftp_probe(void)
+ 		.len = PAGE_SIZE
+ 	};
+ 
+-	ftp.buf = (void *) get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	ftp.buf = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 
+ 	if (!ftp.buf)
+ 		return -ENOMEM;
+@@ -218,7 +218,7 @@ int hmcdrv_ftp_probe(void)
+ 		break;
+ 	} /* switch */
+ out:
+-	free_page((unsigned long) ftp.buf);
++	kfree(ftp.buf);
+ 	return rc;
+ }
+ EXPORT_SYMBOL(hmcdrv_ftp_probe);
+@@ -238,16 +238,16 @@ EXPORT_SYMBOL(hmcdrv_ftp_probe);
+ ssize_t hmcdrv_ftp_cmd(char __kernel *cmd, loff_t offset,
+ 		       char __user *buf, size_t len)
+ {
+-	int order;
+-
+ 	struct hmcdrv_ftp_cmdspec ftp = {.len = len, .ofs = offset};
+ 	ssize_t retlen = hmcdrv_ftp_parse(cmd, &ftp);
+ 
+ 	if (retlen)
+ 		return retlen;
+ 
+-	order = get_order(ftp.len);
+-	ftp.buf = (void *) __get_free_pages(GFP_KERNEL | GFP_DMA, order);
++	if (!ftp.len || ftp.len > KMALLOC_MAX_SIZE)
++		return -ENOMEM;
++
++	ftp.buf = kmalloc(round_up(ftp.len, PAGE_SIZE), GFP_KERNEL | GFP_DMA);
+ 
+ 	if (!ftp.buf)
+ 		return -ENOMEM;
+@@ -280,7 +280,7 @@ ssize_t hmcdrv_ftp_cmd(char __kernel *cmd, loff_t offset,
+ 		break;
+ 	}
+ 
+-	free_pages((unsigned long) ftp.buf, order);
++	kfree(ftp.buf);
+ 	return retlen;
+ }
+ 
+
+-- 
+2.53.0
+
