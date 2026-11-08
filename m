@@ -1,80 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.191.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794125319;
-	b=FQorzBqz4QaNdlMi6MPDHSDGmH3W0S5L1vJ9P+PxoJpO0DkqyyDw9BdMm+dYNP9wLteg
-	 mx4JdJ3SMbtWknFTIr265YGFFBmzNrhded0VdDB4J6dhkiqH8uo2IFYK/sHdyoVkW4pbR
-	 RUrY1GOErFSgPaWWqqbLJGvYesltgn7FoAtiZEAI9SH7xeYQPVhJaaQCk7FNDbbwI/XQ9
-	 ZB7er21sc51azxiVMz0JO9CfwAlCsA88shkLKuh+6nRzJXztAg1yGg3MbxN74amtoxzti
-	 oRCmuTj+Y9FlTJL+FVYMYnze1ytvGh3VMJScKRhYPDnstCMPKwv99GUhE63Spjk5BMA==
+	t=1794125340;
+	b=sRCRdWt/hxMjPbu0MOuJBguwbRuYETqUTVy2FCpTkJY47gaCCigs9wLq/fUR1bQ36BWJ
+	 8NkVUyomgsuReb1MlKTqMJ9WRzui271iHR4fCbr1R2n417TWrDiw8ZMeFnsRzKYnqBYno
+	 t0z5fu2VaeFFSvFafKQNXqn6khxxsyClD5ZuFiZzDbP9uCbvbO42LKnTC6AosA1l0sf7z
+	 /gDc5XJzwjKEOs9TijUXukuhSF94Ch51/QZRUPS75ub3k+PzX+351MUxrs4Ao5MMlWnTC
+	 WqQ5X6dTED5yy3IlFAc94458m0DlHcDz5/wyeq5pZ4gkDS4VHHWKXXSLmBEeBzo1mRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794125319;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=Dbogl0LaH+J1t3ivrJNvjvl2qFkQi7zEdSVjxYvpF2E=;
-	b=G8juv+SNoC6xTmS3hGqaUxXBP6WjT84bWOpvjSOgXdCUt60siYFhdmOTP6HFXWpze2Xt
-	 VyYaBD98LEuFl5n5hXdat/Od5bH31/sh7nFgpzNrNRI3rzYZKEuVt9UXxni7xRl2XjYcA
-	 7xKtblWg3SRxIfMIb/BGV1jdwmusLl0rPbN++asYd7Ezrg1QFurAsCLdCPo46xdIlV+HJ
-	 gv3+gIijvc8Yy2HJ1EsormJUmGXQWX6p2kCWuuiZSPxRWKm6h7G4FmfaSWbnBuOlD6tRC
-	 CSKNIJw0QK5m+N9bv9NN5DGBHAa9cEN/Y0kKbjRtI5/TPD2eAVQ3FEDyUrIgqYIkF2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794125340;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding;
+	bh=vQLqAa+irjiULq48S9gC4f/+L5vdap2DNH9SvOBPNW0=;
+	b=UrJAGZHdLbkXH2miDESzzYrFOD8iD8K8H6zw1BDMfbRkeRCpgKnOjcyK6R5AEy1S2zXt
+	 rcwua6A+jSA/hIUx0YB0cVuzSivWgVrQZ7utxcu6fMdNXMR4O5Bt/70EaV6i4+ykUDBGT
+	 ljmHNzVNA7PJk6ideJbcx7STTFsmqEjh7vnpQ0l86ONz3Meny6uyjlmmmCFBmt5ce76D4
+	 Y0VApBw4qs8qZ/f7jZ7sPkEXuzzYMbCP/Jpb4eBHF4X+St7Z39iAmWJxbZ58gXav/FQbL
+	 dhfkWM+Eh+WejzEB/nbdFOYWkR9Hzx38tc24ZUixIJ2Ne+p7mlTAlKC/NbeLCDw641Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=kjWor1Uo;
-	arc=none smtp.remote-ip=66.163.191.146
-Received: from sonic304-20.consmr.mail.ne1.yahoo.com (sonic304-20.consmr.mail.ne1.yahoo.com [66.163.191.146])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g1N2KZZJ;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48138606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:08:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48138606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D625E606A331;
+	Sun,  8 Nov 2026 08:08:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D625E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=kjWor1Uo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794125317; bh=Dbogl0LaH+J1t3ivrJNvjvl2qFkQi7zEdSVjxYvpF2E=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=kjWor1Uo6i+29HhwVNCElBqtwvyz0jk3EC98ab3TqdcWMS31r8sfajoPcugFjgC4bOAnfk2Gwz8/Rlmkzd2Zl9kAl1SdWOCmQcGxLUNOjHdsTx5xJTL9KRXglBmAkBYiGQHRRC8bLB8f+LS6tsAbDBzXQhaRp+DwxqdlqqFp0h28c9H8EJ8YsoP67kDqx3T0jEhBKIjgBZOWy0jg18Q7prG8J8jxvEfhxezRkp8y+TZHGmUJba6ASZPKuC8GYPMFOk+0LanhOFoat7VFydBP8kwBzxkehZCeptQeY7YUDnGYp0TxOIEI1V1tdztU0rfH9o9BLyMEKl3lgq08OhlnYg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794125317; bh=ovAqdvffuYI2hQtLJBlUAFoP9AiPmjozOlS4ByNU4o3=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=QigTLM5RhdbYkrwAHrYvthxUaGrAamG6h4t/LBqWFTeyU24ZTMH6kftNpToNSVra6m1QyKe4DSNWPZVkUfHOVJ6b0p23tgikrljYvt52E88kXj8T9iPZFHGS/Um68XRohCJQON9Dd1Fs0MqClLCjiCSFQRv0yibKdTc9CeYPrm7+Iza/iBqoCGusv5oaa8AAOwOSIJZtOu2cYQXoJVv6+1Di/QyzS9gi+rcLVoYc5PrNWvSQO1Tc/9d765P6rrUieX7Y6192mPzeB10z6zWmNXPGHZeCmGIu1QpD4/LSlttkzkYg8bx3fGUq0/544cCaTcZ2AuSvCkmAFyvEUUFTGw==
-X-YMail-OSG: gUyJ4DoVM1m1BGcyRk0JJH8w9h.xJX2m85Kjy7VJ_8bXc9j_iNPRUKzgg0Tpjfj
- jvkz8srxxZkAHER1VSrNal8T6l4rqIR8aiWJJ.QHrsIUSJuCslMQCwXob_0S5UWK8sZSj3R5wMjU
- RAeYEURiqQV8LCCDEUTxCmJOKUzbdsoidUn4PDD5E959xPPdc.dbWDU5SwNun2T0S9bZg2osgmQI
- xDDZmkuWHk5v.eWOd7C9.jgNn5d49AOMmqxUeKjyRT_5PpNEepgzg54VmX2myFVcRAr76MeNdlox
- XSIOlHDmwF3zWZpNbw3kRXHxazeLc0RpBqgltDTCoKz_TIyASWzEKMYbJCV1baewg0z5YeTWZj6E
- NW.xtrEuOKWC0QRXrF_0Xa2JrKWNO7AV4ynt_qeoHe_Wy2yWJWInLDZn8rHlmruNUQrwBm3uKAvf
- v2tnj65xdsvCylirsdWMrazA6CZDKsDOQvUO4A3GJlEhtrUlUFulr8sudH5_JXIZIIYZn97FPd1I
- clP_8FAlG0DkxlAt566x_wnexC.07pM6FW0nhML6LvUYar8sBobhGXwnJaRKD.00EBM8bjxmJz2L
- kE8jZRd3XTfr2kPUX3KatVrt0G7etYnKhoLgRx.7g4IyebMnIjXTMwMUYh4TlQGtuSUp4Xhr2e6R
- dc1BHt.EGWZufdGE5lbG7Z0Zgh86alINng_Ydhu2Zxk_qN5w5F31HIDC1kKNcEB653o8TiNEgU.T
- 1KcAYnlBbX4VvFSJeBh2ZXPjp4wdOws2a_Vx7HDuLqzkBN7Vu_6fRHV5x8WpMALmyhN63J4AZxBL
- zIjJbIACK34n5qtl88cxkOR5iXqi_ZHUCcL9SNWLakEJTUsFtBqP7CvEBsyMTvWpFLAPIeqXhkrK
- TcCB_btF3EuNJ3zdO22ppXRxRt1_OpIYiOtwkiNxlfDNbv5MTR3XB8nTx.S1s3w8zeqIRmkXm6lt
- DvYfYPBPCFXSgoRijNexfA.P4Ji1wC6pN1e5dV5bhmrV57C36hmeWbW3VdEYCGUqxeO3XuHfCeFL
- HwuZ4q_r8QUa9xfVfh9OtVzTQ5O3xs9EqWpdMw.KY_jba4tWQ_TEUG0WcTmz0YGk6IW0.cd7fwMD
- xi_9txSxlSIR9Yx0.TZr_H_v0bUM6ch2X2yA0e_1L8RJjRXCM_W77ja2sf7jPTUoXQALXfpq6.9F
- wCBP2nBPnSQk737zxRtZGw9TQejVFqYgmN5GrZBrFBKWopigy6P0hxMtD5I24k.7aC9a9tgcaLoe
- mkBEsDJrpwnIUFQnYuR5A3YWwWgR7hUwY4QSV.NL6qvm7VXCBYrNZRbCoMZo96nMy0fuW8BtmpV4
- qpO1VMFtuu7BBphw0Cyu8oEP1eajYyKGTRIZR5S3o.kZZa2daZeFhz0o_Af.ks1l_rCv_ffhgJwD
- 4IW81kIVzqIOKDoO.06RX2NB3Yjpl7EljAzu4.75q4YGwEzSSYUTzTkzVLobZwGTuIEwht5Eu22T
- vykO__b.LeDq.XXawkQMR_togUyIJ9wNzW5O87xbwSur3mVBCKdQqWVO8QS.D5Y0.ygLbFPD9iUG
- glxYb8U7eMbP5AxZSji0cm6yBrnhawLTnB4W7jKR9AdszpOtNOfdFQPiqYys0V96IpLkg6_VQu0K
- sXKXmCLWOU9GLsbSSlpiUCdptQFuGdnuqDuXV4.R9RihISujkUpFcZX12Yv44lFf3Kj30FJQNpZj
- _rw2HikjEdTd6n6hp91PQefHaYdznHQogo7Eucv9kCFWH3IAQB9xyvX.csuj7AW2eD3fZTKfwFdh
- q3xjjzasHIZYyFs.TFQghY7FKM7mndrGmI1LiOvwq0HAWTE2Jwpgh4lYWVB0wmcHo.uJJMtq13hz
- oO.8xVHaQ3p_0gBNht6pooeDm4Nz1T1a07a11NvXNMuviflyqUJ.JzGQdIifO8sUIvfd0CWK9z85
- htviTxVQqdjIRsRfdP9sEbaLvei7f8FYsSqA5HNFTog6YGb1m5IUpGSaGGJy2Ve3cigVnUJAhq3g
- 4mBjgJN0w1TctMXLV51VCSLUYlZbrjjy5ey3WC8Fu6Dmn4xvHO6pUzP8M1eQeWlBWw_t2XV45f.T
- neDxbRcmRlOB5KMGGjtJ4qVitkVRdyAZg6.WMIOJb.4kQrrr3u81TFH3spJiV0IEkdZ3XNBuWuqW
- c_GnAC9U70WdHPa9gWL3CcWxEpsmHu2vwT5hhwRcZlBv0oyAI.fY3tXlrQgVjnIUX01VCZX14MkV
- dGJIQnBp_.EEUk1UgRjk68Ris7EJQGaglkVkeWolMI7sMERYHqe0YFwYxBa573HWx_K7HS5pCLZ5
- q5YfJm50Twg0X0JCm9mN40UI3tviuPGeXGL4-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: f8a5b4a8-0d61-43c4-ac20-6e7ba94c25f7
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic304.consmr.mail.ne1.yahoo.com with HTTP; Sun, 8 Nov 2026 08:08:37 +0000
-Received: by hermes--production-bf1-6d6877594b-68jnb (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 5091c17d5684c30a21d2d3e39d4117ae;
-          Sun, 08 Nov 2026 08:08:32 +0000 (UTC)
-Message-ID: <9a9da3fd-2c1c-4911-aa6e-8a2100843bb8@yahoo.com>
-Date: Sun, 8 Nov 2026 09:08:26 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g1N2KZZJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794125340; x=1825661340;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=jSizuwADrEhB/U1cSrHvODt5z2t4L88LWP0K2OJ30LQ=;
+  b=g1N2KZZJqO5ojA9chOQwf3rJfnZdEZOHmssgebqLe5yA36xPag19xuUP
+   F7z9hriL+gEyxYNgNEpsSlQmKmaVGZPktKlcbOWoE/0w50tQ4dZR2tO/G
+   aMVeV3IbvQWqbcVwUQENYluvhEtA8C/Na372fzQylGM2viWD2mhbg5vhP
+   woE0TH1LwzO2pYPiCz+OzydxbwZF5L56Ezo2CWqZyY4gAtx6211mp570L
+   w5eGWMDfbwlucqEcUQE153G61pOFijwvhFolh1kVkrRWnl3C/L7XCMSiw
+   bASMjHS/kakIyxvpd2DE0f+b+OqBuwR8EOAsUi774cj7DGU4iBk3L3ExC
+   A==;
+X-CSE-ConnectionGUID: PPKv2+7WQBmsYh/QKQ7esA==
+X-CSE-MsgGUID: wLckIptxTeC5lOVHzlPu/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2780123"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2780123"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 00:08:59 -0800
+X-CSE-ConnectionGUID: p0sb2FFuRQ+VBwnPjEK7sw==
+X-CSE-MsgGUID: 4MJRbDYpQSSD8bfqsEzHDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7446611"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 00:08:56 -0800
+Date: Sun, 8 Nov 2026 16:08:53 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Zhang Yi <yi.zhang@huawei.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Theodore Ts'o <tytso@mit.edu>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, linux-ext4@vger.kernel.org,
+	yi1.lai@intel.com
+Subject: [linus:master] [ext4]  7f373083b4:  fio.write_iops 54.8% improvement
+Message-ID: <202611080817.b5c132ae-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,163 +79,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v9 04/11] net: dsa: realtek: rtl8365mb: set RGMII
- mode for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
- fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
-References: <9b73858d-fc09-4988-8bab-fd7b88db9412@yahoo.com>
-Content-Language: pl
-In-Reply-To: <9b73858d-fc09-4988-8bab-fd7b88db9412@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On family D, RGMII on extension interface 1 needs two things that the
-other families do not: the EXT1 RGMII TX clock delay field in
-EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, and the pin mux in
-the top-level configuration register must be set up.
 
-The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
-(0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
-Do the same. The init jam table writes 0x0090 to this register, which
-leaves the field at 2, so without the clear an extra TX delay would be
-applied on top of tx-internal-delay-ps. Clearing it makes
-tx-internal-delay-ps the only source of TX delay.
 
-If the internal MAC4 block occupies extension 1, do not advertise RGMII
-for port 7 in phylink_get_caps(), so the configuration is refused before
-any EXT1 register is touched. This mirrors the vendor RTL8367D API, which
-returns an error for RGMII on port 7 when UTP port 4 uses the RGMII
-interface. The driver logs a warning naming the conflict. When MAC4 does
-not own the pins, bind the RGMII/MII pins to MAC7. SerDes 1, which shares
-the pins, is always disabled. The TX delay field, the pin mux and the
-SerDes 1 disable are all programmed before RGMII is selected, so the
-shared pins are never driven by RGMII and SerDes 1 at the same time.
+Hello,
 
-The family D branch is not reachable until the chip table entry is
-added in the last patch.
+kernel test robot noticed a 54.8% improvement of fio.write_iops on:
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
----
- drivers/net/dsa/realtek/rtl8365mb_main.c | 70 +++++++++++++++++++++++-
- 1 file changed, 68 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 0d87d6b..0b7c124 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -334,6 +334,12 @@
- #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
- #define RTL8365MB_SDS_OPTION_REG		0x13C1
- 
-+#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
-+/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
-+ * 5-bit mode fields.
-+ */
-+#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
-+
- /* Embedded DW8051 microcontroller control registers. The microcontroller
-  * can run firmware to manage the SerDes link, but this driver keeps it in
-  * reset and disabled: phylink already performs the link management that
-@@ -466,6 +472,20 @@
- #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
- #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
- 
-+/* EXT_TXC_DLY holds a 3-bit TX clock delay per external interface, for
-+ * RGMII ([2:0] EXT0, [5:3] EXT1, [8:6] EXT2) and separately for GMII.
-+ * Only the EXT1 RGMII field is used here, and it is cleared in RGMII
-+ * mode so that tx-internal-delay-ps is the only TX delay applied.
-+ */
-+#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
-+#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
-+
-+#define RTL8365MB_D_REG_TOP_CON0				0x1d70
-+#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
-+#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
-+
-+#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
-+
- /**
-  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
-  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
-@@ -1258,6 +1278,32 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	if (ret)
- 		return ret;
- 
-+	if (rtl8365mb_is_d(priv) && extint->id == 1) {
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_EXT_TXC_DLY,
-+					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
-+		if (ret)
-+			return ret;
-+
-+		/* Bind the RGMII/MII pins to MAC7. MAC4 does not own them:
-+		 * RGMII is not advertised otherwise, see
-+		 * rtl8365mb_phylink_get_caps().
-+		 */
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_TOP_CON0,
-+					 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
-+					 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_SDS1_MISC0,
-+					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
-+					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = regmap_update_bits(
- 		priv->map, RTL8365MB_DIGITAL_INTERFACE_SELECT_REG(extint->id),
- 		RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_MASK(extint->id),
-@@ -1770,6 +1816,8 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 		rtl8365mb_get_port_extint(ds->priv, port);
- 	struct realtek_priv *priv = ds->priv;
- 	struct rtl8365mb *mb = priv->chip_data;
-+	u32 data;
-+	int ret;
- 
- 	config->mac_capabilities = MAC_SYM_PAUSE | MAC_ASYM_PAUSE |
- 				   MAC_10 | MAC_100 | MAC_1000FD;
-@@ -1799,8 +1847,26 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
- 	 * which remain unimplemented.
- 	 */
- 
--	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII)
--		phy_interface_set_rgmii(config->supported_interfaces);
-+	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII) {
-+		/* On family D the EXT1 pins are shared with MAC4 (UTP port 4).
-+		 * If MAC4 owns them, RGMII on this port cannot work.
-+		 */
-+		if (rtl8365mb_is_d(priv) && extint->id == 1) {
-+			ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
-+			if (ret)
-+				dev_warn(priv->dev,
-+					 "failed to read TOP_CON0, RGMII on port %d disabled: %pe\n",
-+					 port, ERR_PTR(ret));
-+			else if (data & RTL8365MB_D_MAC4_SEL_EXT1_MASK)
-+				dev_warn(priv->dev,
-+					 "port %d: EXT1 is owned by MAC4, RGMII disabled\n",
-+					 port);
-+			else
-+				phy_interface_set_rgmii(config->supported_interfaces);
-+		} else {
-+			phy_interface_set_rgmii(config->supported_interfaces);
-+		}
-+	}
- 
- 	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_SGMII &&
- 	    mb->sds_supported)
+commit: 7f373083b45757b19f36a939f255239d40ccfb24 ("ext4: avoid unnecessary transaction in ext4_map_blocks() for unwritten extents") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+testcase: fio-basic
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 64 threads 2 sockets Intel(R) Xeon(R) Gold 6346 CPU @ 3.10GHz (Ice Lake) with 256G memory
+parameters:
+
+	runtime: 300s
+	disk: 1HDD
+	fs: ext4
+	nr_task: 1
+	test_size: 128G
+	rw: write
+	bs: 4k
+	ioengine: falloc
+	cpufreq_governor: performance
+
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261108/202611080817.b5c132ae-lkp@intel.com
+
+=========================================================================================
+bs/compiler/cpufreq_governor/disk/fs/ioengine/kconfig/nr_task/rootfs/runtime/rw/tbox_group/test_size/testcase:
+  4k/gcc-14/performance/1HDD/ext4/falloc/x86_64-rhel-9.4/1/debian-13-x86_64-20250902.cgz/300s/write/lkp-icl-2sp9/128G/fio-basic
+
+commit: 
+  6585cea3cf ("ext4: allow ext4_map_blocks() to start its own transaction handle")
+  7f373083b4 ("ext4: avoid unnecessary transaction in ext4_map_blocks() for unwritten extents")
+
+6585cea3cf58b8e8 7f373083b45757b19f36a939f25
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+      0.08 ±  5%      -0.1        0.02 ±  4%  fio.latency_2us%
+      0.05 ±  2%      -0.0        0.02 ±  5%  fio.latency_4us%
+     27.91           -34.9%      18.16        fio.time.elapsed_time
+     27.91           -34.9%      18.16        fio.time.elapsed_time.max
+     17.90           -46.7%       9.54        fio.time.system_time
+      3013           -34.2%       1984        fio.time.voluntary_context_switches
+      4758           +54.8%       7366        fio.write_bw_MBps
+    648.00           -44.7%     358.67        fio.write_clat_90%_ns
+    652.00           -44.4%     362.67        fio.write_clat_95%_ns
+    664.00           -43.9%     372.67        fio.write_clat_99%_ns
+    632.44           -43.9%     354.58        fio.write_clat_mean_ns
+   1218093           +54.8%    1885792        fio.write_iops
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
+
 -- 
-2.53.0
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 
