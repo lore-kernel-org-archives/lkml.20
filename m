@@ -1,67 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794149866;
-	b=chEqOICGbaXI0tC90TMkx1P5hifU9vHbsxl1gtw8GutVc4DM0HeqdUO5e8CJDbXdi3XN
-	 zgWI7tmAI8Uf8y+/K6I731PCEIfxR+aEI0gYRGcfJxBwjvP7loMmGCKEqxovIxJTK0nuY
-	 p32uGxniNyr+BvZJu4AdO+ThUDeGRZAdgc7Z6Ihc69UDhW6PawWx4IkTwBrF98j2ZNnKw
-	 aVh4hGvV7J4VFWh+doirE2FDJbloqC20Io2CwA/LbhH7HsDq+aDI7mXvuTWlB1fKgxPqy
-	 OFzJ4ATuSuDCIY0BjCQ0VsCMcHC11+fLd+STOC4AfbWw0W0O8ZxONj/QJBeQa3J3iRw==
+	t=1794149898;
+	b=AJk+Fy4950jrhYDnx6AzFNjPO4NbZT1pXRQ/gDGQPXX9eXb2/08wWJW7SucP7vpsOM14
+	 MDWzlj5KQ814a046rCPzEgfw5FyXUJRNCXo73LzlGOIND8WPz1oJlHOpFGZVErLByl4J+
+	 Do/0a0GHbuuekCbht+Bnf/ED9ZjDkYCOwTEDz89zC7x9EsiYS6+1yZxv5ow7/iz4rTU8j
+	 xKh/c9EvSVe43k5TrlEDb0W31rmN3QSvXhSqCVJkO0mJqql4W7EehkInrDEso1vRb4Bux
+	 69qCBkRcmu5toTMFT6pMQmjPwiEKm5YgfxZNcnoyBMtRo9aBc7ivIyJgRw2BGJ9kuJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794149866;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Dylf67nwHfklDea5FFKRq7P4qQLACKoIR1mg5t6+viM=;
-	b=Ty6Maw2UlCMK7XaN0bNdmWWBOdzlfCnQ9xPcxpDyzw32nDNqjrjYr41cr968wuUcbbRX
-	 AwodsuL36utP+AF6NKq2M4ExXZaAxUPhOSh23ptI/F2yw8M1skKAGs/MVDMVM/wr8jqXg
-	 BVU/nMN57kL691v0TC7WXGLpqHPBI5321OLgENPKwJ096rzzbQsJTosm61PHKsjsdA2Bw
-	 EERELbGpDnBskxohTBidtwJU69N+2YG/pj1n7Mm6csbePWpEJZPk1/UW9g7ebQiUyaJn+
-	 deO24z7l5Mwk1n6YWlFQvNRz9zHDHTsb0HDbrHrWwg3WSLc1XMh5wwHs/KEvqxBbVVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794149898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=zg9wHbUjOFQvCSSXrqJHlgr9ERwDV2A9O9zK2C7wcfk=;
+	b=fpqpQRWVD03YEfrUZTiCWMdnmZaxr0EugsnCFJCUk8l7o05TSmLaSxdyqJKjFAyA12Vs
+	 eTz1jig9YrmoFtEWP0Lz3lmg0UVQKvlo6lfMOIDImruUpu3rFloRHVdVD1jPwVGUlg8Mc
+	 Y0Lx+oFA8CL8c+TfR+gQPlvYAizJOPv5UoDnmoSkQQyLIlksnKkUv6Dp6BeY9yAXrgdP+
+	 47U6BE5CZX4DTVPIHQj+9QTnIsqJF+/AbqRHvEX6pj1RJ3MH019PGr7rAKjaEdwFT6MWW
+	 b5VQmy+nPj2VlDwXO+OI+cdYe2BccZOtDdKvU1qEFJMtVQh2EvjLuy4WVq6qieG8Mgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=XXy66fcm;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=HcS6u0uI;
+	arc=none smtp.remote-ip=209.85.221.175
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAC1606A31C;
-	Sun,  8 Nov 2026 14:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BAC1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75969606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75969606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=XXy66fcm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794149864;
-	bh=Dylf67nwHfklDea5FFKRq7P4qQLACKoIR1mg5t6+viM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=XXy66fcmcq1LfdIwARVM1BRnYsdc8WwXXOthKe/RZ425zqiI0hvk482lLwexCrlDw
-	 aMvQ3qWCH3M84vA73cfqtn+uWozP433zRHDMi1aPEwMkFYoKU/WKh1SECapChgMH81
-	 CY98cO2B0VSyL+WtmX5WjlvAXeo0bDFRhoPAVyvA7ZDBqPFc74Kr2O/NvWrvXylwLA
-	 xLV3OG9KzsJfirgJQsZbycwCm6TzzjF6QmVd68TH1TcRal5TJKo9yw22ci4hvAGbi2
-	 1Sj0urT9b7eWCRA0i4guSTrgEOrWvV9VMd1aFz4pWjGwXRV0nuD14sHu+w8bzTvLDm
-	 r0UEJ4ZxpfSgQ==
-Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jMwy04FnnzMt6;
-	Sun, 08 Nov 2026 09:57:44 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Waiman Long <longman@redhat.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] cpuset: empty sched domain with isolcpus=domain, panic at CPU offline
-Date: Sun,  8 Nov 2026 09:57:44 -0500
-Message-Id: <20261108145744.1532128-1-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=HcS6u0uI
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso28346e0c.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:58:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1794149897; x=1794754697; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zg9wHbUjOFQvCSSXrqJHlgr9ERwDV2A9O9zK2C7wcfk=;
+        b=HcS6u0uIhoh9TG5kUk7m09X0xPU9+Mwuv4H0pil3okKllS/JbNjw4JddmRd+KNy6rK
+         6/COhsGqCao54mkTwsKK9Ew5gFfF4mCvIs0G8yLupXu0KtnG7vtUNEJp65CeqdORuhNu
+         xJR331SS16VS9Nr70KyGExUhIgkJdTDg2mv3rPNv8YPtv5LTEA5Oww/EwRNez94dNV1i
+         VT+kz2lxNqcPAokFzLoY+z9Z8PT4grgBIBs8Qop942/G+pKgSlh2DBBqO04vESPqMOGg
+         6twqXRKFO7dIFS7uVkg0bMCoeA4K5RTedfCOEglxORHoK95jl1CnL6qcUj7o6i0nYNO9
+         6kXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794149897; x=1794754697;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zg9wHbUjOFQvCSSXrqJHlgr9ERwDV2A9O9zK2C7wcfk=;
+        b=WceJEcNWYDNlNFk03DPegUEuF5ggJ8GdbnECQrXQ5DaDK5Y9av8Qd9s05dLofiVGjF
+         jgG6AVj9eDKlIhGtUAQbEaY7xt1yA5PZe07iGbctWdLeiZDLmbWoPGnVVbA2/b4E1ayz
+         HNj+qd8Zf5cU48Gkvcbh5mBtMmPTAqVn07oozRKwiABQNI6RKtCeQkUHgLM3NcA0BUc1
+         9NGIF6tsd/dOly2WHktLP/VFLhh0m9xQTXMZNpnCV4pJRfNU6rQd90Z1UYNmBCDQ6InE
+         5cyiSAX3E7L7zuCqsNfR72nPUYVg3NI4EKLAa2zQ7bdkxrSMQNweZzS/GJtjtPBimiwB
+         3+rg==
+X-Forwarded-Encrypted: i=1; AL+hErGgi9zn/D9QMCFvEvcRYlKdS6U+2NRpHmzZvqPe3EgbeRYImUAjar8g7leUWuov8pTvf2Cj6xbwVwS5tBo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NL/BOYaM7futxvVnYwhSqcWfQwxg2HwcqCP3K7rRPCu+RKeT9
+	1maKH43puwN00rZMiSaT5XQURSSuFzDxGh5Ex0ws1h/QsFI7yE2wHLjoUZttbJCnkVI=
+X-Gm-Gg: AYBFou1v2u5PpgXNcV1ZY/CGnoyeBbmYX73DvUP7ugCcBE2XfflqjY0cDMVs2ZHpFCl
+	9yNwplIXHoIYqkTrhmyWMHp69Vki3UACDfkDPSzrmkm4Q8Uy9rS4VsT6Ir1W2uY/vwQ2+3ki8gG
+	mdSUX0jUfnqQvE0wx8jQja1riiwtgm+fFw7SYWnHa2vOUJcIvgHi+phhKw+uDXV/bXnBDGRRXKL
+	vzFNsO28QvadrclZB+nyrYQ5ls0UlFssYvEygX6gOEm1P/eXbQZ7voFr7/UFPrYttdeAZZdUQXl
+	7yB6//2OjiA81VRDcOA9UHmULfnr2O4gBkYwgjZrF7HCSl9yOl7I35qLi96piuSESGwfGsOuMAQ
+	rT/dSxiv8fR5oI/7hOxQkeE5KXH/VisVsMJnyxeKE3sLtwke6WI13Wc5AWnWKYgaAR10VKDEePt
+	RqXaMmN8iCmnc0b+nDVRH2SnNLbgAmlSKGI5wjJJpBtIe0VB976HX+J7V1IQK9oNyGpO1UyjAZ8
+	cnVMkNVMZEG0R2h8n3aFDHQk2GQXWiI84ZH0dm+KgkuN81JwyoSl2zXVaCiJzJN7GC7kEIxfz2E
+	7MRPbVEmdL9rYbmK11FN6Kr9KP/7SwYmuWwWPwpsmaj5sP1NoyzRuGkD5/E+CPLKc/abB24RYvr
+	TEx6NGjy6iuDeLv1EuKGfKFHw4RTir5Y=
+X-Received: by 2002:a05:6102:511e:b0:7d2:cdd6:6be with SMTP id ada2fe7eead31-7d2db193714mr282127137.21.1794149897376;
+        Sun, 08 Nov 2026 06:58:17 -0800 (PST)
+Received: from localhost (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c02a108d6sm1838855241.7.2026.11.08.06.58.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 06:58:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,232 +88,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 08 Nov 2026 09:58:14 -0500
+Message-Id: <DMPX235ZQEHC.379KOADR3QVFU@soleen.com>
+Cc: "Alexander Graf" <graf@amazon.com>, "Alex Williamson"
+ <alex@shazbot.org>, "Bjorn Helgaas" <bhelgaas@google.com>, "Jason
+ Gunthorpe" <jgg@nvidia.com>, "Jonathan Corbet" <corbet@lwn.net>, "Josh
+ Hilke" <jrhilke@google.com>, "Lukas Wunner" <lukas@wunner.de>, "Mahesh J
+ Salgaonkar" <mahesh@linux.ibm.com>, "Mike Rapoport" <rppt@kernel.org>,
+ "Oliver O'Halloran" <oohall@gmail.com>, "Pasha Tatashin"
+ <pasha.tatashin@soleen.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Randy
+ Dunlap" <rdunlap@infradead.org>, "Samiullah Khawaja" <skhawaja@google.com>,
+ "Shuah Khan" <skhan@linuxfoundation.org>, "Vipin Sharma"
+ <vipinsh@google.com>
+Subject: Re: [PATCH v2 00/17] PCI: Index saved capability state by
+ configuration space offset
+From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
+To: "David Matlack" <dmatlack@google.com>, <kexec@lists.infradead.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-mm@kvack.org>, <linux-pci@vger.kernel.org>,
+ <linuxppc-dev@lists.ozlabs.org>
+X-Mailer: aerc 0.22.0-39-g5d7784875be2
+References: <20261106004218.604799-1-dmatlack@google.com>
+ <CALzav=dOnBUdYKN8ucD8tMF_5RuQZOzYG2aW=K9Grd5itgvnMw@mail.gmail.com>
+In-Reply-To: <CALzav=dOnBUdYKN8ucD8tMF_5RuQZOzYG2aW=K9Grd5itgvnMw@mail.gmail.com>
 
-Hi,
+On Thu Nov 5, 2026 at 7:46 PM EST, David Matlack wrote:
+> On Thu, Nov 5, 2026 at 4:42=E2=80=AFPM David Matlack <dmatlack@google.com=
+> wrote:
+>
+>> Merge Plan
+>> ----------
+>>
+>> This series applies on top of v10 of the PCI core support for Live
+>> Update series [2], which is targeting Linux 7.5. This series is
+>> targeting Linux 7.5 as well.
+>>
+>> Both series will be merged through liveupdate.git, matching the
+>> agreed-upon tree in the MAINTAINERS entry for PCI LIVE UPDATE.
+>
+> Apologies, an update I made here got lost. The PCI core support for
+> Live Update is targeting 7.5, via liveupdate.git. _This_ series should
+> probably target 7.6. I doubt we can get reviews in time for 7.5. And
+> as for which tree, I am not sure. This series is mostly PCI core
+> changes, so I lean towards merging through the PCI tree. Only the last
+> commit touches drivers/pci/liveupdate.c.
 
-With isolcpus=domain, cpuset partitions can take all the housekeeping
-CPUs. The top cpuset then gets an empty sched domain. In a VM, this
-gave a WARNING in build_sched_domains(), then a panic at the next CPU
-offline. I hit it once, while testing a SCHED_DEADLINE series [1]. The
-analysis below is from reading the code after that panic. A proposed
-fix follows the scissors line.
+I looked through this series. Even though it is motivated by Live=20
+Update, it is primarily a refactoring of how the PCI core saves and=20
+restores capability state (to make struct pci_saved_state compatible=20
+with Live Update), so it should go through the PCI tree rather than=20
+liveupdate.git. Only two patches (12 and 17) touch=20
+drivers/pci/liveupdate.c, and we can Ack those.
 
-The code involved is the same in v7.4-rc1 and in tip sched/urgent
-(006991aa8997). The series does not change it.
+Let's get the current v10 PCI core LU series landed in first; after=20
+that, this series can apply against 7.X-rc1 so the PCI tree can cleanly=20
+pick it up.
 
-Trigger
-=======
+--=20
+Pasha
 
-Boot 5 CPUs with isolcpus=domain,0,1. Then, with cgroup v2:
-
-  cd /sys/fs/cgroup
-  echo +cpuset > cgroup.subtree_control
-  mkdir P Q
-  echo 4 > P/cpuset.cpus
-  echo root > P/cpuset.cpus.partition
-  echo 2-3 > Q/cpuset.cpus
-  echo root > Q/cpuset.cpus.partition          # WARNING
-  echo 0 > /sys/devices/system/cpu/cpu2/online  # panic
-
-The test that hit it made these writes. It also ran a deadline task in
-Q, which the analysis does not need. After the writes, the top cpuset
-keeps only CPUs 0 and 1, which are isolated.
-
-Log
-===
-
-  WARNING: kernel/sched/topology.c:3111 at build_sched_domains+0x1321/0x1830, CPU#0: orig/91
-  CPU: 0 UID: 0 PID: 91 Comm: orig Not tainted 7.4.0-rc1-00300-gc36e8c1d51c9 #98 PREEMPT(lazy)
-  Call Trace:
-   partition_sched_domains+0x331/0x990
-   cpuset_update_sd_hk_unlock+0x76/0x80
-   cpuset_partition_write+0x9e/0xe0
-   kernfs_fop_write_iter+0x14d/0x210
-   vfs_write+0x252/0x550
-   ksys_write+0x6c/0xe0
-   do_syscall_64+0x109/0x5d0
-  [...]
-  BUG: unable to handle page fault for address: 0000000083cf6513
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP NOPTI
-  CPU: 2 UID: 0 PID: 26 Comm: cpuhp/2 Tainted: G        W           7.4.0-rc1-00300-gc36e8c1d51c9 #98 PREEMPT(lazy)
-  RIP: 0010:partition_sched_domains+0x5ee/0x990
-  RAX: 0000000083cf58c3 RBX: 0000000000000003 RCX: ff11000004f60b58
-  R10: 0000000000000200 R11: 0000000000000004 R12: 0000000000000040
-  Call Trace:
-   cpuset_update_active_cpus+0x512/0xb00
-   sched_cpu_deactivate+0x1f3/0x300
-   cpuhp_invoke_callback+0x1b4/0x780
-   cpuhp_thread_fun+0x183/0x260
-   smpboot_thread_fn+0x143/0x300
-   kthread+0xfe/0x130
-   ret_from_fork+0x22a/0x330
-  Kernel panic - not syncing: Fatal exception
-
-Analysis
-========
-
-The top cpuset may hold CPUs isolated at boot. generate_sched_domains()
-keeps a partition root if its effective_cpus is not empty. For the top
-cpuset, it then builds the domain from effective_cpus without these
-CPUs:
-
-	if ((cp->partition_root_state == PRS_ROOT) &&
-	    !cpumask_empty(cp->effective_cpus))
-		csa[ndoms++] = cp;
-	[...]
-	if (!csa || csa[i] == &top_cpuset)
-		cpumask_and(doms[i], top_cpuset.effective_cpus,
-			    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-
-Here effective_cpus is 0-1, so the domain is empty.
-build_sched_domains() warns and builds nothing. But
-partition_sched_domains_locked() still records the empty mask in
-doms_cur.
-
-At the CPU offline, cpuset passes the empty domain again. It matches
-the empty one in doms_cur. The reuse branch then reads the runqueue of
-the first CPU of the mask:
-
-	int cpu = cpumask_first(doms_cur[j]);
-
-	guard(rcu)();
-	sd = rcu_dereference(cpu_rq(cpu)->sd);
-
-On an empty mask, cpumask_first() returns NR_CPUS when NR_CPUS is at
-most BITS_PER_LONG. This kernel has NR_CPUS=64. R12 = 0x40 is that
-index into __per_cpu_offset[], one entry past its end. The load of
-rq->sd then faults.
-
-The partition checks do not refuse Q. tasks_nocpu_error() tests the
-effective_cpus of the top cpuset, which still holds CPUs 0 and 1.
-prstate_housekeeping_conflict() keeps boot time isolated CPUs out of
-root partitions. Nothing asks the top cpuset to keep a housekeeping
-CPU.
-
-Versions:
-- The empty domain comes from 9b496a8bbed9 ("cgroup/cpuset: Prevent
-  leakage of isolated CPUs into sched domains"), in v6.13.
-- The reuse branch comes from a7660ce1590f ("sched/cache: Fix
-  has_multi_llcs iff at least one partition has multiple LLCs"), in
-  v7.2.
-
-From v6.13 to v7.1, a similar read would happen elsewhere. This is from
-reading only:
-- detach_destroy_domains() reads per_cpu() of cpumask_any() of the
-  mask, when the empty domain goes away.
-- With CONFIG_ENERGY_MODEL, build_perf_domains() reads
-  cpu_rq(cpumask_first()) of the mask at its first build.
-
-Where to fix
-============
-
-Commit cd1cb3350561 ("sched/topology: Don't try to build empty sched
-domains") fixed a crash of this kind in 2019. It made
-generate_sched_domains() skip empty masks. Its changelog says that the
-scheduler should not have to check cpumask_first() against nr_cpu_ids.
-So the patch below fixes cpuset. It keeps a partition root only if its
-effective_cpus holds a housekeeping CPU.
-
-Two questions:
-- Should cpuset refuse a partition that leaves the top cpuset without
-  a housekeeping CPU? The patch keeps the current behaviour. The
-  partition is valid. The tasks of the top cpuset run on the isolated
-  CPUs.
-- Should the scheduler also skip empty masks? The reuse branch, the
-  perf domain code and detach_destroy_domains() all take a CPU from
-  the mask.
-
-Testing
-=======
-
-With the patch on tip sched/urgent (006991aa8997), in a VM with
-5 CPUs:
-- isolcpus=domain,0,1 and the sequence above. There is no WARNING.
-  All CPU offlines and onlines complete. Q gets the domain 2-3, and the
-  top cpuset gets none. The top cpuset gets the domain 2-3 back when Q
-  becomes a member again.
-- The same boot, with P as an isolated partition. Q is a root
-  partition first, then isolated too. With both isolated, no partition
-  root has a housekeeping CPU. The scheduler then gets no domain, and
-  CPU hotplug works. Making Q isolated also warns in
-  cpuset_update_sd_hk_unlock(). That is a separate problem, which I
-  report separately. The patch does not touch that path.
-- No isolcpus, and the same sequence. There is no WARNING. The top
-  cpuset keeps its domain 0-1.
-
-test_cpuset_prs.sh passes on 9 CPUs. It also passes on 10 CPUs with
-isolcpus=domain,9. I did not run the crash sequence again on a kernel
-without the fix.
-
-The analysis and the patch were written by an LLM coding assistant
-under my direction and review.
-
-Thanks,
-
-Mathieu
-
-[1] https://lore.kernel.org/all/20261107014451.1487825-1-mathieu.desnoyers@efficios.com/
-
--- >8 --
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: cgroup/cpuset: Do not build an empty sched domain for the top cpuset
-
-The scheduler expects each sched domain from cpuset to hold at least
-one CPU. Commit cd1cb3350561 ("sched/topology: Don't try to build empty
-sched domains") made generate_sched_domains() skip a cpuset with an
-empty effective_cpus. It also made build_sched_domains() warn on an
-empty mask.
-
-The top cpuset may hold CPUs isolated at boot. Commit 9b496a8bbed9
-("cgroup/cpuset: Prevent leakage of isolated CPUs into sched domains")
-removes them from its sched domain. The check for an empty domain was
-not updated. It still tests effective_cpus, which includes the isolated
-CPUs.
-
-So partitions that take all the housekeeping CPUs leave the top cpuset
-with an empty domain. For example, boot 5 CPUs with isolcpus=domain,0,1.
-Then make CPUs 2-3 and 4 root partitions. build_sched_domains() warns.
-The scheduler still records the empty mask as a current domain. At the
-next rebuild, the new empty domain matches it.
-partition_sched_domains_locked() then calls cpu_rq() on cpumask_first()
-of the empty mask, which is not a valid CPU. In a VM, the next CPU
-offline panicked there.
-
-Fix this by keeping a partition root only if its effective_cpus holds a
-housekeeping CPU. This tests the mask that the top cpuset gets.
-prstate_housekeeping_conflict() keeps boot time isolated CPUs out of
-the other partition roots. So nothing changes for them.
-
-This change was developed with assistance from an LLM.
-
-Fixes: 9b496a8bbed9 ("cgroup/cpuset: Prevent leakage of isolated CPUs into sched domains")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
----
- kernel/cgroup/cpuset.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 3219f927c35e..426c98cf4a08 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -894,10 +894,13 @@ static int generate_sched_domains(cpumask_var_t **domains,
- 	cpuset_for_each_descendant_pre(cp, pos_css, &top_cpuset) {
- 		/*
- 		 * Only valid partition roots that are not isolated and with
--		 * non-empty effective_cpus will be saved into csa[].
-+		 * housekeeping CPUs in effective_cpus will be saved into csa[].
-+		 * The top cpuset may keep only boot time isolated CPUs. It then
-+		 * gets no sched domain.
- 		 */
- 		if ((cp->partition_root_state == PRS_ROOT) &&
--		    !cpumask_empty(cp->effective_cpus))
-+		    cpumask_intersects(cp->effective_cpus,
-+				       housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
- 			csa[ndoms++] = cp;
- 
- 		/*
