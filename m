@@ -1,64 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169360;
-	b=JMuybmAvqMNYbkarPysP99UKjlHoVsg+xfgeGoxMpfxti17zKvkycH8l9GJOkEodxhmL
-	 anMMhyJGh1yBxyaGvjaRj37S/VkWTLOML8mulFP22NRDN+DG8j5ZzXxadANunlpRm11xJ
-	 blbbEqh14BSoIzCNmJDlRkkW8kAbUDuJvo7WgL5kQ74LFohf/OAiG62moVHhIgmJ5dgXd
-	 tPb1NRPuSHwoLo/FnZTLhPjQnhbhFGiJ67gSgTl+dDWGO6UamLkWzBfivJQLlvVsuJyfq
-	 GWjFX9S9fJpjo7ERqR5I3LvpI1iYow858IUjKITML1a8eUDuWYptsu91mN9VZ5lA/Ig==
+	t=1794169366;
+	b=ee3+M5WxkWNGd68gMjGSRYgmKlP6VEcm1zPaMIm9G0MsE+qRZEid66Lnzt+K8bYe6Lfs
+	 nhEdRpzYeagkelFyMAjcSFiNP+0U7mTkCDBybGBVM1EtFuA99sxhmklW/qPhvIlW1Ewym
+	 1Jg49kEvCzy0JMV8URUgEKbFC+fxGTHvh+2CT4VbQR0Z4tQBRW9co2jPm2hqo20UAzrl8
+	 jv61H0Wnc+8HdaFvmQvLSjVfCofZX0k2V/Fs1JsSVH7T4Y7crw3nFv5k/hnzBXngsNOZI
+	 A9zDjSISYsrlOTc5mtGy/KX23J2tq3imAeQSu2I8d/hr6bMRftOBpYAVW0YGu9WGpNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169360;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169366;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3B/ezaNWqJACgBgjt8jbMHpfCZF0rKokrSlN3ICis1o=;
-	b=oFYo5/9H0qvf66gt1EPkh1dJQfv73WBUIOtjFheiOZC/FnykKGrmCTctHE2/AbMjfGC1
-	 9cEtNZ3asTL4iRQSDd2GAOb2uKa+dUB3um86Ph9Q+5DpudVoorjh+djCQe5xA23A8M00S
-	 oWmbv1NtAPbkjEKJIC0HqOxqLsQRJiD6sy4rya+t5TVhHdMaucdWLx9iFlNt7cc3vuWH+
-	 4YUAYGqODLgJg3fshgQJFAb9Yw7MV2asqvSS1oR6JJjvugkk0zXUo1fmv78eDt0XbXDLy
-	 HPgErXY0yFNGtKF/CD5ot5Bb9V3ce++NzX1Ul17yU1li8S8i2uKnfXhfCN3LmdkYZeg==
+	bh=YpvmXan4lbBMaRPxIka8UXE77WvsxJ91tdRQfWX0O/k=;
+	b=N3Od7d9v420V5Y3d+ysE3NP6Sn/YVSRbtI1wsYpUr5i9iUtIWlR0NjCPIgRV3i6yGvE3
+	 ItP0wjdeLNV0TYZgCErgvGMq7lR5tAIoMueSywMMzQO+kLYnlEJoNYaeAbqiqQ5yCFT4y
+	 RHdgRBHVYquwcbIn6dGEtLkKorGQR792Ot+xEKJJplC0GfPHvtmVYMlcRNSaTlHiG45Pq
+	 w+hbU75pIN34+G+8htKjKPH1IosLaFLmWPaW0t9MqxDkFi6F2UtrLWQg3Cxa5cTObbtdS
+	 a9YPfLYJFKRhA7l1SH3LsakgaL1gYPDje90WE6z8nILclU7XfJEjv+ILpRn7RFeSkPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCE77e71;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PerGWQ6c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C93606A9D4;
-	Sun,  8 Nov 2026 20:22:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A955606B121;
+	Sun,  8 Nov 2026 20:22:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCE77e71
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B81C11F008A5;
-	Sun,  8 Nov 2026 20:22:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PerGWQ6c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48E021F008A3;
+	Sun,  8 Nov 2026 20:22:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169359;
-	bh=3B/ezaNWqJACgBgjt8jbMHpfCZF0rKokrSlN3ICis1o=;
+	s=k20260515; t=1794169366;
+	bh=YpvmXan4lbBMaRPxIka8UXE77WvsxJ91tdRQfWX0O/k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KCE77e71MEVSlFKYqzsHTvjNw/H2lO7UEv2x9p3BnGAy+uxX4gNNlPpt2peyB/nqg
-	 bnklz8vLOtu/XnggCnYwOtno6G/P1Gaz9trfZ1y2OJM5TU4ISx4WSLwuO1anBvYf/d
-	 4ignG3AJsPMJtm55FfsDAJTFtRXtvRE2EH4GG7kmZriZ68j8tvmMAhdW1pgkI/yuEu
-	 X9RMqZ9tJBWkwTBCD4YNGT0y3huVDqqmEsN47rm9GbcmrNgd4GkX+UW/N28bcszZ41
-	 vINkMxeBDsi74lCc1r6PYfMloUVOd0hSsuogGleFPpv4v4y9U1Ev0w2agazrG6Sv56
-	 /0OIx1P2iEfpg==
+	b=PerGWQ6cfPhU4g26hwZ/wCmdAxN4fYQu7aYlQSSylD1DhcxBB4tOhLOdblHXR7/v8
+	 2a2xRsrTpLigpJ7aboomYvObTDCFXmhFS0Q1BolkHfoCJKxii2wm6H9pBBk9eZAlj1
+	 bYtxrPorCA01PGrqEql52GChNY8B7WW7D0rg/Ex/WBhBBttbsFJdLbnhegS1fdfyZ7
+	 ZBmq1/8Nek8stD9VdSvbDA3bboyO7/R5THnorDEpk2MfyE3hciCV79n0AfJzbcJede
+	 5sncrHyTTJRyq+fhdAtM/le4wnEhH5x2mvKL2gpOr6Fd7wNOSuDBz/j7vUuTNHAzga
+	 atJLuCs38rnKg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
-	Martin Botka <martin.botka@somainline.org>,
-	Fabricio Akio <fabricioakio@gmail.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] clk: qcom: mmcc-sdm660: enable the parents of the pixel clock sources
-Date: Sun,  8 Nov 2026 14:19:44 -0600
-Message-ID: <179416929322.628393.9027873794730596947.b4-ty@b4>
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	manaf.pallikunhi@oss.qualcomm.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Casey Connolly <casey.connolly@linaro.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v8 0/9] Add support for Qualcomm remoteproc subsystem cooling
+Date: Sun,  8 Nov 2026 14:19:46 -0600
+Message-ID: <179416929226.628393.17390672415084673437.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002-sdm660-pclk0-parent-enable-v2-1-b07f6c33e96f@gmail.com>
-References: <20261002-sdm660-pclk0-parent-enable-v2-1-b07f6c33e96f@gmail.com>
+In-Reply-To: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
+References: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,21 +88,30 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 02 Oct 2026 13:46:24 -0300, Fabricio Akio wrote:
-> pclk0_clk_src and pclk1_clk_src are fed by the DSI PHY PLLs, which
-> dsi_pll_14nm_vco_set_rate() resets and only clk_prepare() restarts. The
-> DSI host sets the link rates before it prepares the PLL, so the RCG is
-> updated against a stopped source, and if it is enabled at that point
-> the update times out:
+On Sun, 09 Aug 2026 17:58:56 +0530, Gaurav Kohli wrote:
+> This series introduces Qualcomm Messaging Interface based Thermal
+> Mitigation Device (QMI TMD) support to control thermal mitigation
+> on remote subsystems such as the Modem and CDSP.
 > 
->   pclk0_clk_src: rcg didn't update its configuration.
+> The QMI TMD is an interface that instructs a remote subsystem to adjust
+> the performance level of the devices it manages, reducing power consumption
+> in response to critically low battery charge, overcurrent alerts, or
+> overheating conditions.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] clk: qcom: mmcc-sdm660: enable the parents of the pixel clock sources
-      commit: 7e24ec7320f5e82f4f2d1809024de19bbee01871
+[5/9] arm64: dts: qcom: kodiak: Enable CDSP & Modem cooling
+      commit: aaef1df06a7b65778498801995997c42b7b33ee9
+[6/9] arm64: dts: qcom: lemans: Enable CDSP cooling
+      commit: 49b2314dc280fbb4b316676d83a0f03ea44b954e
+[7/9] arm64: dts: qcom: talos: Enable CDSP cooling
+      commit: 0ae7c4dd65f2b7fdab267eb021daec5fcde8cf34
+[8/9] arm64: dts: qcom: monaco: Enable CDSP cooling
+      commit: 59e3a973584a8ff3d8867f352df092c796d3ee7c
+[9/9] arm64: dts: qcom: hamoa: Enable CDSP cooling
+      commit: 682fc950ce3daf460164be075e445e6ea66b40c9
 
 Best regards,
 -- 
