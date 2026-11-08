@@ -1,54 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794150004;
-	b=AI7ZYV7uIfcILhnzlEKf6nFZY6kIQz/abrf8YFzkSrmMT69WnTMlWc1m1pGe8KuZwMuU
-	 tHAtcnBddEzKqP1IdzX0jX8d5sj1f7GixD1BK9pZSq3hqC4DdSpQVZX60eIt08wiOsNvq
-	 f6lZVMyLwjy3OsNeUs2VLIEdy7MA8iIXt8btl12FUWh2/ex02AyFDV0IZKVSzZVrp/q9k
-	 nYxOeJqVxDVNmCNCVJ68nWrUTO16n5KuJGI9jKj658l1Wt0GQFF+phbDYWq5Pap26u92A
-	 tM1wD6S5KcOzl20tpGvy0ggIg8lQsvC050Fc5IOs2rm+d729qmgMZiuCBtBQPq9TnNA==
+	t=1794150184;
+	b=REQc2nCAZSiPPuvJ910xq4u1ZON0bAKuy6Tr+nc5iFtFDbG/TH0zfTfJunj57lqcT7/k
+	 eIwkFGehjpyDHMpGVcEvZBYyUuYQsZKOiQht8yNs/zQJhCNf0X39RinKkaVx08K8Erz3s
+	 BARGg3TP3Y/b/8y/27tz4Uprgq/M4iIY5Oyv3BD0LeT1eojOc5/FG+yVycjxjGQEmRFmN
+	 3UFN+jAM2N78dPgMi7A7U40B94EHACd61/1ufhFrkaapg1pOqalokAghi7H/qC9bPLgpo
+	 8/vF8cSh7m1z95l5zkqdfR75iz9dZQp6pxs0JvzL4RRd2tRY9xEzM6eUjUGfi6b/eHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794150004;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=KOtAHeTFQbPEp181u+mI7MnD3IUoEMWDMST/qXmCbrM=;
-	b=Q/52wCDJB8haPaHizlPdFsMN6KBv42LS7qkW5AM4GNFnn7vRcQwqSisiTr1QCoh5UzYS
-	 4aWRz5EcomvchGgSFNCZOc80tJld510D0ycR04q/dzJXD8jqcDIwWIN8t+/t6NpvAUBt4
-	 ueK+cGf9eP7XP8OarACKEVQflxFeO0t8JJK4cLMS23ZeKPh75nIPLUHHs0JCHFjAIMasJ
-	 L0115Xjx4t/zxs8JYIpXh0ux+1gYUvVksq/VoyxETxubTTzYDm2QcaGj8axL5zw9kcsDo
-	 YalmQUjda1AMVoqVaoEqKqzcUXwnSCyro39KOQew3tvsr5mSksuwg/hy/GFYk6pHZ/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794150184;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=bZMDDSEbstrrBxqro/V4y0hp97EWTM7ZBohHqqfsHp4=;
+	b=WY+IfhfIvl9JRJkEBCZKh8UoF24HF5LGda9+/ooQ+Gruk3DV2+ou8Rxo88d4fDexB11k
+	 iJeGJeMgk4RTZZblpPtcSZuZzfufqCdu0N4bXXvgwHDcvt1wnfN6X5F2N/d1LHGPWTEKV
+	 WEP7yBBbcZna1uxd8nxOlr6TkWZ9x07Q4Kiw58uDtXJfxo1Q4L34cPedI5HNUkZPL+duO
+	 7cN0awmoQ4gf9nnw7+w7T5RBFVC69nEtQNqEvFHMtzV3ZSq1i19zLeWcXFYI49klWjT9M
+	 uHO3LeSHQkscq+NE0PxFHAfCZ1AqZVXXcbf8JK/L7ivR214fboVu0WDP2B7r9kX9zTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.160.69
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b="HL7zu/AH";
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Qo1vOSPm;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77F5606A333
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C77F5606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-4a72bcd6599so153691fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:00:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794150003; x=1794754803;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KOtAHeTFQbPEp181u+mI7MnD3IUoEMWDMST/qXmCbrM=;
-        b=Dpaq9zbHc7MIa83a8J5DPigUdsziEZkG8Jld7CAj7rMVTj3YeBgfycRgR6RgDvqN8X
-         1lnFg6U6z9sZP0meNsbP76ysN17G8Kl2WOAQ14kuyd5/+ixzAAoib/ENNGRN+9QV2QHL
-         XAzovj36/VeLkwfhyYRG48jzr9FGl81g6Z2cVVWry9vw6ULlgFSE3kh5jsSnMmIp1Fgt
-         4rYiu9X3sFsw4ol09szWnNluIZ4JUnfLepTlzGy/Zwez8sZqcKGIfnRiOfy54zfaJcg6
-         ufSvBEPhohIBBvAbx0kpfj+9wQvKb2R4NW+cIBNSZK+RzFxveTeJ5ST1l40+aGmTF8PP
-         Ud9g==
-X-Forwarded-Encrypted: i=1; AL+hErFSJmIqKbPiet+gpRIz3TRlC4xMxmV6HRlg8fC9eabfQQV+JjlhpwGxJw/InKm78wI7yf9NjzBPJzwu4nA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GCuGAFUbvEUYlSLMpZvOyp8Pqf/tbXkx5RTeHagtG+4qk0T0w
-	Lm29Olh2Ttf5s60iPLrFET8X+zOsI4Vr/fLrLwyZDX/WByjmQID0SZO1KaYHh47d2L85k7H3uO6
-	RuFXoseynOvrB6nGFtZ9qaumQyroP/euX71dLsDyLnR1thxUVjcX3qP9jpd4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045CC606A31C;
+	Sun,  8 Nov 2026 15:03:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 045CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=HL7zu/AH;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Qo1vOSPm
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 4A03320BD289;
+	Mon,  9 Nov 2026 00:03:01 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1794150181;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bZMDDSEbstrrBxqro/V4y0hp97EWTM7ZBohHqqfsHp4=;
+	b=HL7zu/AHW2aD8+DnmDe1Fdquyt3x44oI+n93C8etOO3SojOm3S6b7xABPNMK5Vgt2Hrerz
+	Y56eyo0U44Hd1td/X72LxOyeT8Rmaq7lEHqz6juziNlKhowEpgKYYgWDWzAmklJvno1xW/
+	gjHd13/icumay+zlHPqjEWcCmPyYKFu0VzOvpsGkW/b1YCNfKOga2Y/B5hwgd+Cxke1Gq0
+	AUVy/JsylG+QzBJk2CbJtqVyPCiE5FCHsu974y9Whm4JLYSMV33BUa7eGWiHi4qoBgtUMy
+	x06q25r/E9iOzaRa718Oy9Wrywi773Xr3ePgb/eKO/0+zM5aVxhcFDy9TT1ceA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1794150181;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bZMDDSEbstrrBxqro/V4y0hp97EWTM7ZBohHqqfsHp4=;
+	b=Qo1vOSPmVSOdSF4SJHPf5ZLb0+Mf+uxHy0TNYX4vv4FOEeLlPYaw8e1XWnqovvOgWrt1AK
+	2SAzp68ieCit2sCA==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id CB45AE001A6;
+	Mon, 09 Nov 2026 00:03:00 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id B8B7622001DF; Mon, 09 Nov 2026 00:03:00 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  brauner@kernel.org,  djwong@kernel.org,
+  hch@lst.de,  linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 6/8] fat: add iomap buffered I/O support
+In-Reply-To: <20261031164326.278125-7-matheus.aalmeida@inf.ufrgs.br>
+References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+	<20261031164326.278125-7-matheus.aalmeida@inf.ufrgs.br>
+Date: Mon, 09 Nov 2026 00:03:00 +0900
+Message-ID: <87a4njtlgb.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,103 +81,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c125:b0:4f6:a430:1822 with SMTP id
- 5614622812f47-568141ffe0fmr1126838b6e.7.1794150002824; Sun, 08 Nov 2026
- 07:00:02 -0800 (PST)
-Date: Sun, 08 Nov 2026 07:00:02 -0800
-In-Reply-To: <20261108140816.1083-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af08e72.c4c6bce2.24c2d9.0007.GAE@google.com>
-Subject: Re: [syzbot] [nfs?] [net?] WARNING in svc_destroy
-From: syzbot <syzbot+8cbdf9aa6c281a4e6bbe@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-Hello,
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in svc_destroy
+> Use iomap for buffered I/O, replacing buffer_heads. Remove
+> fat_get_block(), fat_write_begin(), fat_write_failed() as the iomap path
+> makes them unnecessary.
+>
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+> ---
+>  fs/fat/fat.h   |   4 +-
+>  fs/fat/file.c  |  72 +++++++++++++++++++----
+>  fs/fat/inode.c | 157 +++++--------------------------------------------
+>  fs/fat/iomap.c |  84 ++++++++++++++++++++++++++
+>  4 files changed, 164 insertions(+), 153 deletions(-)
+>
 
-NFS: callback service start failed
-------------[ cut here ]------------
-SVC: permsocks remain for NFSv4 callback
-WARNING: net/sunrpc/svc.c:532 at svc_destroy+0x299/0x330 net/sunrpc/svc.c:532, CPU#0: syz-executor281/6032
-Modules linked in:
-CPU: 0 UID: 0 PID: 6032 Comm: syz-executor281 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
-RIP: 0010:svc_destroy+0x29d/0x330 net/sunrpc/svc.c:532
-Code: 48 b8 00 00 00 00 00 fc ff df 49 8b 5d 00 48 8d 7b 18 48 89 fa 48 c1 ea 03 80 3c 02 00 75 67 48 8d 3d 07 5e 77 07 48 8b 73 18 <67> 48 0f b9 3a e9 d0 fd ff ff 48 8b 7c 24 08 e8 8f 2c 85 f7 e9 a5
-RSP: 0018:ffffc9000259f858 EFLAGS: 00010246
-RAX: dffffc0000000000 RBX: ffffffff9040bf80 RCX: 0000000000000000
-RDX: 1ffffffff20817f3 RSI: ffffffff8c37ebc0 RDI: ffffffff927b0770
-RBP: 0000000000000000 R08: 00000000ffffffff R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffff888020340000
-R13: ffff888027daec00 R14: ffff88807b8b4000 R15: ffffffff9cd624c0
-FS:  0000555576b41400(0000) GS:ffff888122475000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffdf9156de4 CR3: 0000000075178000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- nfs_callback_up+0x511/0xb50 fs/nfs/callback.c:243
- nfs4_init_callback fs/nfs/nfs4client.c:327 [inline]
- nfs4_init_client_minor_version fs/nfs/nfs4client.c:379 [inline]
- nfs4_init_client+0x236/0x420 fs/nfs/nfs4client.c:429
- nfs_get_client+0xf38/0x1230 fs/nfs/client.c:467
- nfs4_set_client+0x3f6/0x640 fs/nfs/nfs4client.c:763
- nfs4_init_server.isra.0+0x5be/0xf80 fs/nfs/nfs4client.c:1014
- nfs4_create_server+0x185/0x2b0 fs/nfs/nfs4client.c:1063
- nfs4_try_get_tree+0x93/0x140 fs/nfs/nfs4super.c:228
- nfs_get_tree+0xa61/0x1440 fs/nfs/fs_context.c:1621
- vfs_get_tree+0x92/0x320 fs/super.c:1881
- fc_mount fs/namespace.c:1282 [inline]
- do_new_mount_fc fs/namespace.c:3910 [inline]
- do_new_mount fs/namespace.c:3986 [inline]
- path_mount+0x7d0/0x2850 fs/namespace.c:4337
- do_mount fs/namespace.c:4350 [inline]
- __do_sys_mount fs/namespace.c:4565 [inline]
- __se_sys_mount fs/namespace.c:4542 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4542
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f754c860f1a
-Code: 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffdb5c8cd48 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f754c860f1a
-RDX: 00007f754c8bf03f RSI: 00007f754c8beffe RDI: 00007f754c8bf044
-RBP: 0000000000000004 R08: 00007ffdb5c8cdc0 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f754c8beffe
-R13: 0000000000001791 R14: 0000000000000801 R15: 00007ffdb5c8cdc0
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-   7:	fc ff df
-   a:	49 8b 5d 00          	mov    0x0(%r13),%rbx
-   e:	48 8d 7b 18          	lea    0x18(%rbx),%rdi
-  12:	48 89 fa             	mov    %rdi,%rdx
-  15:	48 c1 ea 03          	shr    $0x3,%rdx
-  19:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-  1d:	75 67                	jne    0x86
-  1f:	48 8d 3d 07 5e 77 07 	lea    0x7775e07(%rip),%rdi        # 0x7775e2d
-  26:	48 8b 73 18          	mov    0x18(%rbx),%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 d0 fd ff ff       	jmp    0xfffffe04
-  34:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
-  39:	e8 8f 2c 85 f7       	call   0xf7852ccd
-  3e:	e9                   	.byte 0xe9
-  3f:	a5                   	movsl  %ds:(%rsi),%es:(%rdi)
+[...]
 
+> diff --git a/fs/fat/file.c b/fs/fat/file.c
+> index 8689cbbdad13..723b671d5b4b 100644
+> --- a/fs/fat/file.c
+> +++ b/fs/fat/file.c
 
-Tested on:
+[...]
 
-commit:         fa4ad798 Merge tag 'for-7.4-rc1-tag' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11abca4e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=8cbdf9aa6c281a4e6bbe
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=15bb67a5580000
+> +static int fat_cont_expand(struct inode *inode, loff_t new_size);
+> +
+> +static ssize_t fat_file_write_iter_buffered(struct kiocb *iocb,
+> +					    struct iov_iter *iter)
+> +{
+> +	struct inode *inode = file_inode(iocb->ki_filp);
+> +	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
+> +	loff_t offset, old_size, old_alloc, keep_alloc;
+> +	ssize_t ret;
+> +
+> +	inode_lock(inode);
+> +	ret = generic_write_checks(iocb, iter);
+> +	if (ret <= 0)
+> +		goto out;
+> +
+> +	ret = file_modified(iocb->ki_filp);
+> +	if (ret)
+> +		goto out;
+> +
+> +	offset = iocb->ki_pos;
+> +	old_size = i_size_read(inode);
+> +	if (offset > old_size) {
+> +		/* We need to fill this hole */
+> +		ret = fat_cont_expand(inode, offset);
+> +		if (ret)
+> +			goto out;
+> +	}
+> +
+> +	inode_dio_wait(inode);
+> +	old_alloc = inode_get_bytes(inode);
+> +	ret = iomap_file_buffered_write(iocb, iter, &fat_iomap_write_ops,
+> +					NULL, NULL);
+> +	keep_alloc = max(old_alloc, round_up(i_size_read(inode),
+> +					     sbi->cluster_size));
+> +	if (inode_get_bytes(inode) > keep_alloc)
+> +		fat_truncate_blocks(inode, keep_alloc);
 
+What is doing by this fat_truncate_blocks?
+
+> +	if (ret > 0)
+> +		ret = generic_write_sync(iocb, ret);
+
+Maybe we want to do this outside inode_unlock()?
+
+> +out:
+> +	inode_unlock(inode);
+> +	return ret;
+> +}
+> +
+
+Thanks.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
