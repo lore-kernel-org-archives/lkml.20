@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794168535;
-	b=sLGv9KOyGMotPpgt+4taeZUCAsuFVnloilkM1q/qaQ0cIrSDRhBJqQSYrK8dKT81QQhL
-	 dWcF8pN1EeLJrYKslAvP1WJdkij6eyyDUTT9060wWuHLUF1fXFt3Y8ZDQEUqbgMZ2n3rS
-	 6R7mWWgtKrBMK1tLGxpuxYwwaUNVlIVK3WSh++tIg2+AjnLBPGinZENvLTnpr2fMtT+wY
-	 iz2/FKGN3ms5s9KnvDKI4qFKoDUulYn9RFXhJFmHwDhuigntyYkRqV3sfC9ndwJWD+8Mz
-	 c97DRE2BcbVrLalatV1lJ6wO9CxXxgrePutC29QFQl1b8ZPQ0YZVkw9EvO2JTr3yrng==
+	t=1794168533;
+	b=0LZc8z6qZDp8xYz63T/p1ttXnFvCQUM1X+9IliANhXTE01Vye1BmDc0CkCvJPX4tJU15
+	 epS1aYp6QE3DYmROL6/fDQMtH7MmhEURPV3RNdEM28G4t3itYycdlaqJkYyduZNNQZnLi
+	 1bLBMAPo83oYU85YErEAFWiAk/J5zME8IwjPGjugFWO1sHtHj8jR0V9lKeuqSptHpRUzZ
+	 20m/kxNbbqEUZrv6EuafApasohvYrWJZRRRvpnDtFa5Y5tr4UhJHDwGgxUsBGUVZpprzh
+	 4gZJWLBIFG8frnC1r3E0zPdXce7ugvsbprvllwqtW1V41D0L1mIVp35wy9vxu4Kmh1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794168535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794168533;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=1lcvtkDRUH7x5RzUrkH7YPRWwzWwwl5C53b3f6vIGq8=;
-	b=4MXNgNGkfkoITqPPNXCFR8LEZHk8P9J8zxNWfQ6Mb2+Ya5UuH9fn3fZQOa8hhxD4Av7j
-	 swK5hyg/rolsoSygs4o56wRgA7tFEQpUGL7P9hQTA6/ak0GmGXmrtit5GNtzAhkUEqKik
-	 PrOU6t2MdOTbtxoDVofHJTrdoIKqCGqHbFCDX7yUzqQrVnt0xOfLR7Co5hIYOxVWGKp4T
-	 J2o/UCQX40EyXKSuseFqq/+eGA6wzFWlpuo7SZB+D9nWWz63+BwkpmKdpJPm9AgpCSneX
-	 1EedR0vw0xUgr5IBh6UmbiLjZ66aX7doRvc1K4yscQLloSeTqRCy8RqV3XFmREF2fog==
+	bh=gTjYsVRJGmlfWZW7Qvv44Jg40ecXv+9woQo+/ukc2Es=;
+	b=SIbDnR2iPTwileWTLXBH4f26ap2EIPB5uyQpH6sIbJ+s4B55kpgMZUVFo9k9a+Pmq/bv
+	 8211pjX+4Lcnazn6SuBdiMnUurraSi1B5h50Q2qHHMNbiRRQI0jyF1agmMYDtimb+B56P
+	 QRLgO2ZCGSlSGrl2uRIXFRm2ztSbAZ5vRgMk0ExxCuD+vGRfhXHhveyJhp/Es/M0VHl7O
+	 A5mrfJg4evVkSnP5BX5UUvsXn6CDIP/K9BPMTsfRxnZaWTOvR4BswqLNHX33T65sONKGF
+	 jVcS3p+wthbezYrkCtM1HrgzEkV0uYw2+NK17usUWSUCATLrrrEihNeAt+setx63dsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThDgVmKa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c99UmWQ/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B5D606D81E;
-	Sun,  8 Nov 2026 20:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A327606A337;
+	Sun,  8 Nov 2026 20:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThDgVmKa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508EF1F008A7;
-	Sun,  8 Nov 2026 20:08:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c99UmWQ/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5FF1F008A6;
+	Sun,  8 Nov 2026 20:08:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794168534;
-	bh=1lcvtkDRUH7x5RzUrkH7YPRWwzWwwl5C53b3f6vIGq8=;
+	s=k20260515; t=1794168533;
+	bh=gTjYsVRJGmlfWZW7Qvv44Jg40ecXv+9woQo+/ukc2Es=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ThDgVmKaxZo8O1L21LnEcfkcSAQ2PX1b2X/TMdo1UMh+lT5UNhNFsKDRKzrjvYYZ0
-	 f9azYR29OXMZczh2n0ktQ5tllNluL71YsQM9WVbt7gv0WBGQIXZlUK1JRc/XXG9967
-	 FaPeF4zZ1Mzovw34ReIKJM3MbmFUdrfNpucTF5Le4ZfnPoVHye+2appslj8U64pdCn
-	 BxZFyw9USlelALgoCG2j9TAQN0xLw28n8Lj0xfYI4Xid9+tdWid/RrMDl11J+1Y0NN
-	 vV4tOk4pqYtg3s6ylhe/IO2ebn9K4SFxP0mXzSI0pwsleLl7cGeqnZ/mZRVMoVOWe6
-	 uqhm6tk6tH9WA==
+	b=c99UmWQ/DQNu84WrjkGdV3KUo5LJQ+ksXQeLvJ8Ud/IIYYFPT1Tb9WQWK1Ni4G7nl
+	 8fX1WCWHPeK20JPIj6dgwBvXK8YYws6ACmg3bOERovW5mt/2oJuRgwjELVSesMmDUs
+	 G/sRFlkPszxaak9+RY9pMziVkYxgzjLjHrKIVp60toyRCK3Vwtv699BF0oa4+2f5hc
+	 3JMjkWpratydoxIH2PD6ZKfk6/ck3yvVU2T9CBSU8ILdA3eP0eKwTDf9DJF7Mfo83B
+	 o6oDichQ/FzW4G/Pq8Im5kFv8dPN2cW3cz4gHCmAjc95TclRjgvutSWFBjSdJ1i8pS
+	 5t+bd2QZjeYRg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Brian Masney <bmasney@redhat.com>
+	Luca Weiss <luca@lucaweiss.eu>,
+	=?UTF-8?q?Matti=20Lehtim=C3=A4ki?= <matti.lehtimaki@gmail.com>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rpmsg: qcom_glink_rpm: convert to subsys_platform_driver()
-Date: Sun,  8 Nov 2026 14:08:41 -0600
-Message-ID: <179416851782.24425.1520809512802021104.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_mss: Fix proxy regulator array overflow
+Date: Sun,  8 Nov 2026 14:08:39 -0600
+Message-ID: <179416851788.24425.8337410554392369363.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106-rpmsg-subsys-v1-1-c13666cf5678@redhat.com>
-References: <20261106-rpmsg-subsys-v1-1-c13666cf5678@redhat.com>
+In-Reply-To: <20261027-b4-q6v5_mss_proxy_regs-v1-1-6c5557e42462@oss.qualcomm.com>
+References: <20261027-b4-q6v5_mss_proxy_regs-v1-1-6c5557e42462@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,16 +69,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 06 Nov 2026 19:31:12 -0500, Brian Masney wrote:
-> Reduce boilerplate code in this driver and convert it over to use
-> the macro subsys_platform_driver().
+On Tue, 27 Oct 2026 17:31:22 +0530, Anup Vishwakarma wrote:
+> The proxy supply tables of msm8974, msm8226 and msm8926 list two
+> regulators (pll and mx), but proxy_regs[] has room for one. The second
+> entry written by q6v5_regulator_init() lands in fallback_proxy_regs[0].
 > 
+> On msm8974 with a device tree that has no cx power domain, the
+> fallback table then overwrites that entry with cx, so mx is never
+> enabled and cx is enabled twice.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] rpmsg: qcom_glink_rpm: convert to subsys_platform_driver()
-      commit: 64190e85ddb9572d27e73d5c02f43ac3c776f865
+[1/1] remoteproc: qcom_q6v5_mss: Fix proxy regulator array overflow
+      commit: ec1f9ba57b02fe12a6fa5f141206d439ba3d044e
 
 Best regards,
 -- 
