@@ -1,98 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794118694;
-	b=lfH3cekJyfF1aqNde98sGqQJgksPH2StTqMImTmAgJyMvplNT+cceQQCWP6yd/wNbFZI
-	 yMy2jB+xRQah5aLvj26evS0ldLryjas4Jmkkdv+0GTpY92ADV6w3GgzfWIsS/6kC4rioM
-	 yte0olEbqfH0qp1aYjfzPijhPDwFAIDoCncCwgub5nwySfzlvmv2VY7ekxfuaO+lLC5D8
-	 NH4fEzzQzs0ZADIcUBgMU8u9CyEDpXVeNz0cQQWmv4xM+Acg0IiLy/OEfg11PDVE49vuZ
-	 6xNMTj/K1/fdAcozo2xvHmE7NOuKF2+UwtCYm1NAJZIjHHGV9oQqhC1veADAqA86/ZQ==
+	t=1794118755;
+	b=5LTKfOiyxolr7+SJi+cYvykdN04dmg/p0eZBbu8Fg6Y0xqH4k3Lpe5wLnA3uITx8L6pN
+	 z6+B8MRv7XSxCZR/Hp4n39tqi07++pZrzo7GCKVNFMjl9pPEUJ4Vx5+epy2zyfLvgTnCq
+	 vRkdFhoC81XF8+K//JoHD7qtYg/YbEIftOl5nUxhqX+3rlFd5+RV3vVemFZ51yFHJKesY
+	 yFRTYkYjB1aNk7/LpUjJZ8t4rDgIrEok8QVa940dzTt3KAp8kA1rqhLqKh2Q4Vj12IKGp
+	 1eCRZzaO1CaEJwJpDFGBw3E/gnkeYpfa16uf/x+Q+MhvcV33AkC3h4fbGyuztrxFPnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794118694;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Mcozko3cpjsd4Fb6V5y36/b9iev/kYzZlS9QuT6BrZc=;
-	b=RwIDRsPllzCO15sv04nyxrFfa0PJIew5cxcjNLJRZ5m7GC8OtdnhofB5QmOMbq8rQ6nG
-	 2mzY9ozc7uuWPDe6ESC0w3UYaSIIWp1rcCmNkdSaIx0Bsg1ptoGaAaTjFHjbNL0jL1VhU
-	 bZWARaK7YwfhQbG3VOG0gx8SjmQAcOo8g6Qnyji9qL+jTwYr1oy/MHeklRHiTuTNY7DKn
-	 iY9XKla3zqmOO6musXygS4go96nU6/eRVghs8hQsWE0Andcluj5WihM3KrhKPGgag+Xs7
-	 CdVXmWY2fnbCOISgsUDLthkdrh2c+RCq0eUy/+bd3HNtHZ6PoyWw/HKj1ffC3DJcldw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794118755;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=bSKNeRhoYj51dd326u4b+S/qwJ1yJgRLl0Pp5aorhH0=;
+	b=cNL1/yYibT/uQq4XkkwqOGGPbnA4CXMmL50Iud7PRSO6XR7E/nsiINfYtlW3dReJ8/E8
+	 5bRiqWlhNS8RAE4vWpx7oWWjw9VjrXPtVQOA8Mpw1m110YhVAQYmOUlC0KuoqLaRt3/O2
+	 KMiiLRz5z9pHtAGdv5LSrswFiOqbbWmPnIPF6Rdcwl6lpvvaEKBaJOVeEoxtA8OUf5+gj
+	 qm3RTD5zI0TQyVTX2gcj5iE8v2JrDEIHx4oFZ4POUabOxG14RorBgDlYOgfPfqUMvu8bo
+	 3JUaxZpBhmPy8X4wPkIGoT7KH1JhgfCn5bVDzvP9AUgEbr/po3EIS2erCzo0RkRPEIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=niXzWDD3;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mpjf5xeQ;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0F7606A31D
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:18:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB0F7606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0223F606A321;
+	Sun,  8 Nov 2026 06:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0223F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=niXzWDD3
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15dd124bbe7so341471c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 22:18:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794118693; x=1794723493; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mcozko3cpjsd4Fb6V5y36/b9iev/kYzZlS9QuT6BrZc=;
-        b=niXzWDD37PKYpBFRkqWDTihy/W3R4h/GAC8tTa1OPPMrT58BdfYps9O1lw+lAHqOOW
-         ndCpG4Js/Bs2q3kPesofjxYM79x8xFHQgdWGulBqUJRg9JZqUpfrkf4szH63lo1U4Lnc
-         qPj/Gr4IBJtkGxSKu5stljLMdTzWuy3s7UCKRE3a3S1vcPkGKG61I40ttKPH965/EFqU
-         RdgudLmgUiBKFVcb8fEK+mUjHJFN1QZWfCE4plGPJ883+3NM+1cJ9Y9PDmWnGUXA/SPs
-         zR0pwZXFDQyNFf2vxTX4WNjiDC5u+G9yoC4aqZA9koFuFGYbiRU/hzOZ4lcC8q8D/HPO
-         G7lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794118693; x=1794723493;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mcozko3cpjsd4Fb6V5y36/b9iev/kYzZlS9QuT6BrZc=;
-        b=oYAY/xnoaWVZe8yCp5+fyTuwYsauWOJ0dKlokTwvy9rz6NOilJ6/Gt1ZRELoWpKYLF
-         0I/Z7ed1Om/DIRT0nnI7j6N2N5Bys6FxyUVW0Q9xk/e+C6kOqqLl/kHB8lyxS+KOOYQu
-         zNUahkbgPx7NGLEpD/iNNp9RdQWY8Iqwigbe7OgZaljx96aJLSqvrP0To7IQZP11RFTN
-         CNy+ladMswwNElGEywJviNQbr2ePxIHAx/nd0eVFTtkjNDXcLRk5Va1WcGxrf5tdXcD3
-         iAHNtyJJkf3odKBBkLaBcM8N3GHV62bw6ULcwyFncBF8vmkZdMnSgAvCHDiyQjJ8S+6f
-         VfPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxdR0kr5KBiLzopbyi32Kl+M3ZJYISj1BhC3NXE6OE/+PPcnx7l+Cx9nZAZZs1p2xEUvVjEAImU3WD2/hc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jEwDOzI4VmGenHxWJf30M8L9oQd8ek+FOzgd1CQb0sudx1Mfq
-	ef2dbRGPdMOt3fCZR2PEKxqP821GVUxx02hgp1P0lAa+ZeQdLdLdh5H6
-X-Gm-Gg: AYBFou0F1oRP9H0ngs+g3DoIfk64J1w6AoJllmTjHBLMMLKODA3b+RaaitNLngl9wZF
-	uL+0o4shgduhgq199qKfPBtva4EUtBPgerWjRA210J1eCgVHIzy+pA63uREV70CjPvQtRFoi9Yp
-	/7lpFAq3hJddzuz76wtQ+SFee/2Axa/lWm29wT0pDiWv3sjKqvWaruyBFTVg1+L0asWcLfrx79W
-	FD34dEK6E2TE6r1VZs9eOm5r5BSRtHtXfzzxsSWPRUEHenkKitGO3XD8mqwTTwZl8pt0pCQ+i/A
-	utxHPYz2FH+SvFOC80ywPZwrXWBLN9ssHruwZoTcbU9H8nEYr/O1n4QYZiCTUgnmdkR1HwGImoM
-	fzaTcxZ2vBshaF28KJo0f733jnXoCBdUOd7ic34Qf1llso6r9X73jUbYuXdvSAG7zVqJFAGGG+/
-	vIM/zLfKv5WugduvOCsYYWUFp3s2L1Dzm5hwP8o2PZRw9ocS2gHFsYwyM/ENLEnRlLsrftuPQzT
-	nvqxM1qmQKEnL3ny4BdRUWGzzEzoiU0MdlDGjyC+T1UxTXSHJSW6Win62yNJXZYn9bQMcdV8W+Y
-	3Dg+m/rj+7xyhHz7MALpIRGIafOWg+PciZ4sGM+P47nPcBefmX3xU7pzdIGNh1+E1e8=
-X-Received: by 2002:a05:701b:42c6:10b0:174:cf1b:235c with SMTP id a92af1059eb24-1b39fed16edmr1123611c88.43.1794118692861;
-        Sat, 07 Nov 2026 22:18:12 -0800 (PST)
-Received: from LAPTOP-KD1TH5BD.tail375eb4.ts.net ([47.11.96.146])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37314626dsm4838725c88.1.2026.11.07.22.18.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 22:18:12 -0800 (PST)
-From: Gopal Malaviya <gopalmalaviya53@gmail.com>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] docs: net: fix outdated default values of four sysctls
-Date: Sun,  8 Nov 2026 06:17:46 +0000
-Message-ID: <20261108061746.32090-1-gopalmalaviya53@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mpjf5xeQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794118754; x=1825654754;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pLWtdzulAJWXAefk0jF40+RB4tS7wf4qyhp071KtEyw=;
+  b=Mpjf5xeQmK8iyKTyMMBmhL8gj5cZ2dSEXHXwc8gptAuAvQSaGGy7YQux
+   ZjkUHfnVb93aUPs3CjdAFeccr/jzo5PtdMWZG6tm8i6PIGMVQveCbFCaV
+   AeLMET/49ORtmzyxBqxHd+5Cb3F3vcHDwyeo3U5n0ffKPwEwPWuWM34kg
+   06chDx1Lmt30MPON3jne9T5VYsWT2WirNDRouMgpon7vjFeMfU0xqn1aj
+   5+nOAWAlwtJnIq9DXiPjCxtmmeht5o7ZjO7IOfv9FD0fqa2CryFZadeb0
+   uC2qAhFp6f6EZy+4vT7W004lyKqbFPuLK1hl+wgiKxYU3lZg9LhnK1eYS
+   w==;
+X-CSE-ConnectionGUID: 5llcEsjzRYiDDjMJYfOisQ==
+X-CSE-MsgGUID: W8xOjwGlS9ibRyTagDZ1Dw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2779944"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2779944"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 22:19:13 -0800
+X-CSE-ConnectionGUID: f4exIxHnQQ2lp12beg0EPg==
+X-CSE-MsgGUID: 38M9y+PyQvqsqXa8cqYT4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7738434"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 07 Nov 2026 22:19:10 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPwF9-00000000sGZ-0Dno;
+	Sun, 08 Nov 2026 06:19:07 +0000
+Date: Sun, 8 Nov 2026 14:18:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tim Michals <tcmichals@gmail.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-sunxi@lists.linux.dev, linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Tim Michals <tcmichals@gmail.com>
+Subject: Re: [PATCH v3 7/7] remoteproc: sunxi: Add KUnit tests
+Message-ID: <202611081401.aakRznh0-lkp@intel.com>
+References: <20261101185735.762559-8-tcmichals@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,99 +92,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101185735.762559-8-tcmichals@gmail.com>
 
-The defaults documented in ip-sysctl.rst for four sysctls differ from
-the values the kernel actually uses:
+Hi Tim,
 
-  sysctl                  documented  actual
-  cipso_rbm_strictvalid   0           1
-  flowlabel_state_ranges  1           0
-  router_solicitations    3           -1
-  regen_max_retry         5           3
+kernel test robot noticed the following build errors:
 
-Each one went stale when the code changed and the documentation was not
-updated, or was wrong from the start:
+[auto build test ERROR on 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
 
-- cipso_v4_rbm_strictvalid has been initialised to 1 since CIPSO was
-  merged, while the documentation added with it said 0.
-- Commit be26849bfb6f ("ipv6: Disable flowlabel state ranges by
-  default") changed the default of flowlabel_state_ranges to 0.
-- Commit bd11f0741fa5 ("ipv6 addrconf: implement RFC7559 router
-  solicitation backoff") changed MAX_RTR_SOLICITATIONS from 3 to -1,
-  meaning that router solicitations are sent without a limit. The
-  documentation was not updated and never mentioned -1.
-- Commit 76f793e3a471 ("ipv6: updates to privacy addresses per RFC
-  4941.") changed REGEN_MAX_RETRY from 5 to 3.
+url:    https://github.com/intel-lab-lkp/linux/commits/Tim-Michals/dt-bindings-mailbox-Add-Allwinner-A523-message-box/20261101-125729
+base:   7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+patch link:    https://lore.kernel.org/r/20261101185735.762559-8-tcmichals%40gmail.com
+patch subject: [PATCH v3 7/7] remoteproc: sunxi: Add KUnit tests
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261108/202611081401.aakRznh0-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project fc9576e3b179738d99c5babe5cd9d6c1f883e0db)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611081401.aakRznh0-lkp@intel.com/reproduce)
 
-Update the four defaults and note that -1 means no limit for
-router_solicitations.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611081401.aakRznh0-lkp@intel.com/
 
-The mismatches were found with the help of an AI assistant (Claude),
-which compared the defaults documented in ip-sysctl.rst with the values
-under /proc/sys/net on a running kernel and with the initial values in
-the source. I confirmed each value with sysctl on a running kernel and
-against the net-next source and the commits below. The commit message
-was drafted with the same assistance.
+All errors (new ones prefixed by >>):
 
-Tested by building the networking documentation with
-"make SPHINXDIRS=networking htmldocs": the change adds no warnings and
-the four defaults render as updated.
+>> drivers/remoteproc/sunxi_rproc_kunit.c:962:58: error: no member named 'usage_count' in 'struct dev_pm_info'
+     962 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+         |                                            ~~~~~~~~~~~~~~~~~~~~ ^
+   include/kunit/test.h:1034:28: note: expanded from macro 'KUNIT_EXPECT_EQ'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |                                   ^~~~
+   include/kunit/test.h:1039:8: note: expanded from macro 'KUNIT_EXPECT_EQ_MSG'
+    1039 |                                    left, ==, right,                            \
+         |                                    ^~~~
+   include/kunit/test.h:874:9: note: expanded from macro 'KUNIT_BINARY_INT_ASSERTION'
+     874 |                                     left, op, right,                           \
+         |                                     ^~~~
+   include/kunit/test.h:840:15: note: expanded from macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                      ^~~~
+>> drivers/remoteproc/sunxi_rproc_kunit.c:962:58: error: no member named 'usage_count' in 'struct dev_pm_info'
+     962 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+         |                                            ~~~~~~~~~~~~~~~~~~~~ ^
+   include/kunit/test.h:1034:28: note: expanded from macro 'KUNIT_EXPECT_EQ'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |                                   ^~~~
+   include/kunit/test.h:1039:8: note: expanded from macro 'KUNIT_EXPECT_EQ_MSG'
+    1039 |                                    left, ==, right,                            \
+         |                                    ^~~~
+   include/kunit/test.h:874:9: note: expanded from macro 'KUNIT_BINARY_INT_ASSERTION'
+     874 |                                     left, op, right,                           \
+         |                                     ^~~~
+   include/kunit/test.h:840:31: note: expanded from macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                                      ^~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:977:58: error: no member named 'usage_count' in 'struct dev_pm_info'
+     977 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 1);
+         |                                            ~~~~~~~~~~~~~~~~~~~~ ^
+   include/kunit/test.h:1034:28: note: expanded from macro 'KUNIT_EXPECT_EQ'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |                                   ^~~~
+   include/kunit/test.h:1039:8: note: expanded from macro 'KUNIT_EXPECT_EQ_MSG'
+    1039 |                                    left, ==, right,                            \
+         |                                    ^~~~
+   include/kunit/test.h:874:9: note: expanded from macro 'KUNIT_BINARY_INT_ASSERTION'
+     874 |                                     left, op, right,                           \
+         |                                     ^~~~
+   include/kunit/test.h:840:15: note: expanded from macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                      ^~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:977:58: error: no member named 'usage_count' in 'struct dev_pm_info'
+     977 |         KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 1);
+         |                                            ~~~~~~~~~~~~~~~~~~~~ ^
+   include/kunit/test.h:1034:28: note: expanded from macro 'KUNIT_EXPECT_EQ'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |                                   ^~~~
+   include/kunit/test.h:1039:8: note: expanded from macro 'KUNIT_EXPECT_EQ_MSG'
+    1039 |                                    left, ==, right,                            \
+         |                                    ^~~~
+   include/kunit/test.h:874:9: note: expanded from macro 'KUNIT_BINARY_INT_ASSERTION'
+     874 |                                     left, op, right,                           \
+         |                                     ^~~~
+   include/kunit/test.h:840:31: note: expanded from macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                                      ^~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:1107:48: error: no member named 'usage_count' in 'struct dev_pm_info'
+    1107 |         KUNIT_EXPECT_EQ(test, atomic_read(&dev->power.usage_count), 0);
+         |                                            ~~~~~~~~~~ ^
+   include/kunit/test.h:1034:28: note: expanded from macro 'KUNIT_EXPECT_EQ'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |                                   ^~~~
+   include/kunit/test.h:1039:8: note: expanded from macro 'KUNIT_EXPECT_EQ_MSG'
+    1039 |                                    left, ==, right,                            \
+         |                                    ^~~~
+   include/kunit/test.h:874:9: note: expanded from macro 'KUNIT_BINARY_INT_ASSERTION'
+     874 |                                     left, op, right,                           \
+         |                                     ^~~~
+   include/kunit/test.h:840:15: note: expanded from macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                      ^~~~
+   drivers/remoteproc/sunxi_rproc_kunit.c:1107:48: error: no member named 'usage_count' in 'struct dev_pm_info'
+    1107 |         KUNIT_EXPECT_EQ(test, atomic_read(&dev->power.usage_count), 0);
+         |                                            ~~~~~~~~~~ ^
+   include/kunit/test.h:1034:28: note: expanded from macro 'KUNIT_EXPECT_EQ'
+    1034 |         KUNIT_EXPECT_EQ_MSG(test, left, right, NULL)
+         |                                   ^~~~
+   include/kunit/test.h:1039:8: note: expanded from macro 'KUNIT_EXPECT_EQ_MSG'
+    1039 |                                    left, ==, right,                            \
+         |                                    ^~~~
+   include/kunit/test.h:874:9: note: expanded from macro 'KUNIT_BINARY_INT_ASSERTION'
+     874 |                                     left, op, right,                           \
+         |                                     ^~~~
+   include/kunit/test.h:840:31: note: expanded from macro 'KUNIT_BASE_BINARY_ASSERTION'
+     840 |         const typeof(left) __left = (left);                                    \
+         |                                      ^~~~
+   6 errors generated.
 
-Fixes: 8802f616f6de ("[NetLabel]: documentation")
-Fixes: be26849bfb6f ("ipv6: Disable flowlabel state ranges by default")
-Fixes: bd11f0741fa5 ("ipv6 addrconf: implement RFC7559 router solicitation backoff")
-Fixes: 76f793e3a471 ("ipv6: updates to privacy addresses per RFC 4941.")
-Signed-off-by: Gopal Malaviya <gopalmalaviya53@gmail.com>
----
- Documentation/networking/ip-sysctl.rst | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index bc22400b53..0b7bfbd98a 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -1587,7 +1587,7 @@ cipso_rbm_strictvalid - BOOLEAN
- 	- 0 (disabled)
- 	- 1 (enabled)
- 
--	Default: 0 (disabled)
-+	Default: 1 (enabled)
- 
- IP Variables
- ============
-@@ -2418,7 +2418,7 @@ flowlabel_state_ranges - BOOLEAN
- 	- 0 (disabled)
- 	- 1 (enabled)
- 
--	Default: 1 (enabled)
-+	Default: 0 (disabled)
- 
- 
- flowlabel_reflect - INTEGER
-@@ -2956,9 +2956,9 @@ router_solicitation_interval - INTEGER
- 
- router_solicitations - INTEGER
- 	Number of Router Solicitations to send until assuming no
--	routers are present.
-+	routers are present. A value of -1 means no limit.
- 
--	Default: 3
-+	Default: -1
- 
- use_oif_addrs_only - BOOLEAN
- 	When enabled, the candidate source addresses for destinations
-@@ -3034,7 +3034,7 @@ regen_max_retry - INTEGER
- 	Number of attempts before give up attempting to generate
- 	valid temporary addresses.
- 
--	Default: 5
-+	Default: 3
- 
- max_addresses - INTEGER
- 	Maximum number of autoconfigured addresses per interface.  Setting
+vim +962 drivers/remoteproc/sunxi_rproc_kunit.c
 
-base-commit: fa5196392691051963726787944db872420dfa75
--- 
-2.43.0
+   949	
+   950	/* Everything as before prepare(): resets asserted, clocks off, no PM reference */
+   951	static void expect_powered_off(struct kunit *test, struct test_context *ctx,
+   952				       struct mock_providers *mp, bool core_held)
+   953	{
+   954		int i;
+   955	
+   956		KUNIT_EXPECT_TRUE(test, mp->asserted[RST_CFG]);
+   957		KUNIT_EXPECT_TRUE(test, mp->asserted[RST_SRAM]);
+   958		KUNIT_EXPECT_TRUE(test, mp->asserted[RST_DEBUG]);
+   959		KUNIT_EXPECT_EQ(test, mp->asserted[RST_CORE], core_held);
+   960		for (i = 0; i < NR_CLK; i++)
+   961			KUNIT_EXPECT_FALSE_MSG(test, clk_hw_is_prepared(&mp->clk[i].hw), "clock %d", i);
+ > 962		KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
+   963	}
+   964	
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
