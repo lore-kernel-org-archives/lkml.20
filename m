@@ -1,121 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794165958;
-	b=bQ/M0Wh6ofy2fgyDiiBtSnlkg+RF1kv6/vj4EuFTnUFOU2w4H4pksaeA1ULok0EwE+bX
-	 MqLiww0bUUopxNEYHm1yhXYFpcn7UtKXCewgrgr9qvoHMtn8uMFm9eVE4X8+bB99thYO6
-	 ntr8n2j3e8ERD66BKCYVQIpKD1sPIZBqAR9skykop49TreOvGaX6mMlHSuPVyA3qoEBYZ
-	 uk8LzkQi9fFcFR05yKLViB7MFf2cI2MEUBdEEgOhZgEpXqwE7JQ70pPTGJdZWitQ39hJo
-	 CeRqmW5FKJJeppaSsXfCdV24SeBh2l+dx00ycuOk1IkGwGPRZ84BczGSUPieXH0jNyQ==
+	t=1794165971;
+	b=DbncUnhxjSAUwJ6f15NkhGrcvK/NoeFzNMbaV3qka0pDzNuTy61eiWgmcCA/+ocrvNPO
+	 94GEekRSbB0Yj/ZvsoM+6hhsUPIfzBkf2pXEjJ4I+M8FF5EJ4z6tGRfub38zPI0rpDsfW
+	 tbwJI0TA9isdz6sEIeF+ZNt/PCsAOqPXM1IlhLsSJ6p/gXcEVlzLYnt6wbzY/PBsH3Q+V
+	 grStvduiRsdVaT3XU0cK3Ct6lQFF+GRsqnl9oK7NsXADlgFbYZA3AIJRW2IF0IKIkL1M/
+	 m92zUNavYqVhgCN47/2H3o5L2kM//Ot7TF0CAazr+30EKb/bFaxmSdTSWGlm6sJOlsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165958;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=rvz+8jpHONGozfnXzrVmPZPB8+T67M6uMGo0MVWwUsE=;
-	b=AKJ+LYIBx4oxny3GxfFTbB0INH0SIO1e4PLXFuVomWN4EBYtEbOH3sU6FydOFXvkJek4
-	 XZlKuLS+nQGNi5UEX1KMF6YY/NkwRUv+c4+9/2InMnTw7LDzD7AgrypymcL6IfjKhc2nR
-	 MtQ2/oXyYWaokpdY/7syLpHotGkOfJr1rmM5vq5x0bNb+sv5z+1t1wfcbJwzz93ytKi0n
-	 Uw+2pBWsRfdkLHwsfGJmmw1v1XilYcwd+RDgbj85WfBy9wDkamEyH/SY5i4HBuWOJrybr
-	 xZIMzArYxTHKl//3WQzosQPZfReQqZ2R2X4BrM+RsIqgqJA09Uie35lMPkkj51p3IhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165971;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=7EGu+YSDO7LGtdXz5YjqyDiKnsMSMnT8rQzzEXbjKLA=;
+	b=dLuqfAaspMC4f06JfKaOkI+VajMHeu8uNYeTmcDC249+701y4SHolJjb+/rohqS7Y08D
+	 ge8MU4DF6mDmoMfHJ/VA6eqBqQ5wN6jQkkBFTYaJPRH8Gply3qy71rxfUN1IW7o8OINBK
+	 g/2ZIp+agDqOmxAQaO9Hj5AyJYog7b/BGi1msp/rwaf5obQPXSrT0QIJQkaouJqTpRkCr
+	 U0IqLX235nyGyL5KfgiN9C9HMhTKayEz9gvxT66OzTqWOgkoOo0A9pP3mi0iXHj+yzQq0
+	 SmyCspJShqbQ13B8z3PW697W3O0orl/QSZaLr/rSdNaJMXtVezgxYp3Kc2Ikl9dnlqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ugl5bvoO;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IbXBwigL;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J0N5DkU5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96CC606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:25:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B96CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3BE84606A31C;
+	Sun,  8 Nov 2026 19:26:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ugl5bvoO;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IbXBwigL
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A8Hoc3G2111885
-	for <linux-kernel@vger.kernel.org>; Sun, 8 Nov 2026 19:25:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rvz+8jpHONGozfnXzrVmPZPB
-	8+T67M6uMGo0MVWwUsE=; b=Ugl5bvoOuwlQXxrUrA71wfKTtmkNLftBCbXUUuAN
-	QZ3eC1llxn8rk8MMN98SNoAZu90W38y6VxqbDnqJooqrVKkZ+SxXMvbsTAA3xK82
-	QNk3kmY0knaQozYbR2bUA8Cdb0rZnRhfOtSkmTdj+MyTcBs8EGMjSy6vAJ1/I2Zo
-	Vi4KUFXj7UeiJ99TpJZ94B15gNiH9zYKh4cfF4NcOIGuD7hJU43LeP8l11+MhMBD
-	vBEpjU5CIDq8PbnKmcZprcQP1M+KK1E0Hp/1+wAbOgVRVK2E3PxpcKPimE8JlSCv
-	Bm7PHEuJa0WzkR5qe2O7OPYecH9ZzSVq3zXrU/7ERlcDFg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsv2ubh4a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 19:25:56 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f2005ce21so40730785a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 11:25:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794165956; x=1794770756; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rvz+8jpHONGozfnXzrVmPZPB8+T67M6uMGo0MVWwUsE=;
-        b=IbXBwigLQFsMVyPnDmNgfEB2SlT4wW7jKxbodQ1Jf8vVZmIYt8kScPFakVBWUhWGDj
-         eadh2zrD+G061KpWDLP52MZjUkYzwRbZ5x1fXAAozjGsTwdse9oWfwLyxnSYQXA4Bqzx
-         dOkviwSamVbbC8cVVvP2iQpiVm8vLy/HpD5pjWEwpL64xOGsi1v0TdfpWBDOaQo92/IL
-         trEcdDhyJsmgrRF4C+t7/cMdYmGfKV2j8EDHBXB70dmRCBq3aN5y0x7XZ6YOvZGsDLz1
-         ZVjIwVEi+b25TNcHvXwDuf+pNg8wKKHN9vPjC2GE0WtR3ZZvyrqmWt/9109nXRgqxwof
-         g/qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794165956; x=1794770756;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rvz+8jpHONGozfnXzrVmPZPB8+T67M6uMGo0MVWwUsE=;
-        b=dfntxqxY4S7lpq5ZBuGqQKXl4VE0JChXFgaW33gcO6S+SB5w1rZ2bWcmdE3fiqdeQd
-         wusILbVMpHDW5/H1J31upz2+qKHBlT8h2cNn9JZTOGszRUeH698wYFhy67qjTUAqCpG2
-         Vmop7rF9BXJDPCDjNZC3QqoVGEmF946WQdC1Dw8MYS6Mblvmvvd6sIecG0Gmj2WcMT/3
-         TnTol64g7b8YMLGVEjdzhzjwW2QWHqkUDWxPV6bJjShn3MCpc63l81HLHqrWL0/gi9yt
-         sjX0O59FxKVhXI1xhTQtRNgcDXgZfkQuhOMVlFvBu4guMkJV5tjC7ORiJ6Wa883bjoIl
-         /11A==
-X-Forwarded-Encrypted: i=1; AL+hErFR2hbaxkoACvHX9EoBU+xA7/vxSixpzK3YKm0iMF/RgQYtU+cvyXdtxNWipzGln396MNbrVXCwMInNmyo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BqUSzS05puH8eB4VnOMztWjEzJfM3PugFgaQUuUc2/haZ7TmD
-	9l2vohN8YRI7u4ijeQgXmzv6VIM3Q5615UI8E//b7F3w6ZU4sVHHyjya8y9mRIA/1pw0BaKY/Ee
-	iQPz71+d9Cxx2+bzYP6tWUbB9FVa9FRIXNA+v0s1zP94rx77ejBfbo6c1fQ9o/eLyhmk=
-X-Gm-Gg: AYBFou3UQ2oPDBYE//NflvtjSfKsnGHsbW5Ce3NSJVux0x3P9GAemiu77V8R6rL0ICL
-	kVNzqmoaS1NOOCvLODL/Asbmf5xOa3E6FVmRQ6gUxmOctxPW5ES3E55akqDPuoiMhgVjdbri+Eg
-	3Sb3PwePUV0e4R9zMUWlC+yH+knV7UwRx45cRTjtD/aAmHYpi+Qvf8yKnmUIp9Jv7xRCYPRz2l6
-	f4RYcYcTPXe2W6qWg4hk1g/zB0QWpKQ1fCrCQoyVBiz8U977KquWAI+GTyloh4Jx3Yb1xzaJhXB
-	InG+TT1bMoC0i4ASP86uoVhxqSQ9S+8dd2QODawmaZUqXaWZYideuywyA7mOgsixn7F0hJv12iY
-	a97jXgmR2+DoU/O84xGfK8eP8HtfwEWqcIpCTXTv21QsjRx9d3iefC/lQcmn1AST1V3n5AmdbAp
-	otMoXHaOIHeKFvJ/tkowEjDzsDhSFzKtkUyxKOGm/6M5IiUiLgVS1Pd55tvte8
-X-Received: by 2002:a05:620a:4804:b0:944:907:8f64 with SMTP id af79cd13be357-947842b26e8mr289431985a.67.1794165955723;
-        Sun, 08 Nov 2026 11:25:55 -0800 (PST)
-X-Received: by 2002:a05:620a:4804:b0:944:907:8f64 with SMTP id af79cd13be357-947842b26e8mr289430085a.67.1794165955285;
-        Sun, 08 Nov 2026 11:25:55 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c14b81c9d2sm461073e87.68.2026.11.08.11.25.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 11:25:52 -0800 (PST)
-Date: Sun, 8 Nov 2026 21:25:51 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Robert Meijers <linux@robert.meijers.dev>
-Cc: yongxing.mou@oss.qualcomm.com, abhinav.kumar@linux.dev, airlied@gmail.com,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        jesszhan0024@gmail.com, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, lumag@kernel.org,
-        marijn.suijten@somainline.org, quic_abhinavk@quicinc.com,
-        robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v7 00/35] drm/msm/dp: Add MST support for MSM chipsets
-Message-ID: <vr7xot6mfkdjou3wy2ni33ctban7goaqsr3xuw73przuefaupp@6lexppuvjypx>
-References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <c329cd0a-1396-4a71-a0cb-6921427f7699@robert.meijers.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J0N5DkU5
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 61A111F0089F;
+	Sun,  8 Nov 2026 19:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794165970;
+	bh=7EGu+YSDO7LGtdXz5YjqyDiKnsMSMnT8rQzzEXbjKLA=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=J0N5DkU5fA6Xf8qOKlRzVnvxrZbP5zLF9omvL5YT9x68r5N5AR2DnxPF0is838+f4
+	 k9VLms5fXr0+iXqYRzHddNL/gWh0rpwidd3lqFf7MPEG1B9KUnMi5T8KIW38fl/FLn
+	 eP5IYvG4qaCTgQa8F8Dz2zP2at7ZVeX8AHZpPH6wNOld1XfN3zVM1H3bShkyRaQUHb
+	 A1/PORp8RtWgEpC+m6bDwG/wDbSYw8jMtno6SnITRvrsWs39xniJO+x6IeTBgeE0h5
+	 1aTJhaeYyCdenxS+YZJ5BC1w/0Hg5zBWSDon0CcepKyUtshtjh+QUE9je7ACD2IM6K
+	 6zram65I7Ujhw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,105 +49,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c329cd0a-1396-4a71-a0cb-6921427f7699@robert.meijers.dev>
-X-Proofpoint-ORIG-GUID: IIBd57tBs2y3BKzx445wx2hYujVHSpQj
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA4MDA3NyBTYWx0ZWRfX999W4/Rm3YxK
- 1qlxXDKqrglGBevHM2VBznJn2vbqg3NUWe2HCT8I268nqy92qCqr6ivdJvcT7OOgwe372K1ISqy
- jBBWVQhlnlsc4wvp7UdbKThe6C+8olU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA4MDA3NyBTYWx0ZWRfXx24Pfkw5k2nE
- 3BR24f5qBYj+YymmoWpScHTb0K0r4Jn3QEk65zWg3WYjVSLXLzrBGt76w/W9e9acFRpJQ9NoaA6
- c5KMjnCaKGiJ0jsFYadE79gx0ouCiqhOH8gPM+O+UlTSbQVFiEDMsNTZR6ORKD254kxaCNp0SRS
- E2NnDZQdahnri7ABTumrV7iC+7PnCiXgkKozLrSUfRczbmEqp7Ec5ekFfxzLGB+2Zzn/ZjzERUc
- PoW7skZ3qeV4X4WkWSt+xhHRaCP/F0tt/gvBSw4nQtIui/ha2R6pVgvy9KjD8oUyydqQSbUW5Hm
- AMGWLzw9wrv3Q+DxLA3xq1Fd0F3iAm2lNZ/jxWU+2bN0lgAdG7534tgpHJxFQZaoHecveV1Kmxl
- /5DLQvDwvhbQLOhKEVgPO04BNhck/uy32AVumCgf0NmNbcBOobwLXnWlKbfXQgbnqoXs9crXi4g
- 1jVaQb1bXNA2jdxi2EQ==
-X-Proofpoint-GUID: IIBd57tBs2y3BKzx445wx2hYujVHSpQj
-X-Authority-Analysis: v=2.4 cv=f+rdl+yM c=1 sm=1 tr=0 ts=6af0ccc4 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=ne830HvUTAimPEXBk1gA:9
- a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-08_06,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 lowpriorityscore=0
- malwarescore=0 impostorscore=0 adultscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611080077
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 0/3] <linux/mod_devicetable.h> deprecation continues
+From: Nicolas Schier <nsc@kernel.org>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, 
+ Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Nicolas Schier <nsc@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Raag Jadav <raag.jadav@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Jose Javier Rodriguez Barbarin <dev-josejavier.rodriguez@duagon.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Ingo Molnar <mingo@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Hasan Basbunar <basbunarhasan@gmail.com>, kvm@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org
+In-Reply-To: <cover.1792144769.git.u.kleine-koenig@baylibre.com>
+References: <cover.1792144769.git.u.kleine-koenig@baylibre.com>
+Date: Sun, 08 Nov 2026 20:20:57 +0100
+Message-Id: <179416565740.60865.16102443399828949110.b4-review@b4>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=747; i=nsc@kernel.org;
+ s=20250924; h=from:subject:message-id;
+ bh=VAPx+XY+bQ337J//6PGukivx0Hid5rbw9BgqEnC2/Qw=;
+ b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq8MubGxS86KupbtyVtfQGKmsgDdXwdrHjwvLkR
+ QBrrmEGdOyJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCavDLmwAKCRAHUgpwFiYS
+ aSi4EADrogCK8zsVY0nw5fce7s91WKgv+ThHm+22mUyZevxukgoOQr+OcvyN69zwLuLoe5iWsde
+ 4b0bP7jKvGiELJhdUm3ASX0uqlt9nb4+Kv/uIpC68p1OAiBPapUkDjP42VGlDeDjXmSg5zmPh7M
+ YcBEmNoqjYrLiOMfotWOVIm86wn1CeovwPOoHSy5o2glKSMENWcoBfD1lIYSlBAMTVDMq2tyWUN
+ 0c1iK4Doge1F8Xv4v9q6AbxhJ4XUJR7h5p3vnRVFIItDXxBQwmFoGD6l7v1yJ5QwSm/mDbF84yf
+ IHX4pMPmwLM7nsosfim7mCYZuSBSHi36LWhVdKoCSdSOhV2Vo8QsFYyUA9n+Q6c5Dwz9NIwhxuw
+ /gxE0k/wJ3YkqNWXGzJtDDamdEgdUNu7gS+YENoGh0SIH4EQ47gooQJO70ajktC/ZpzCCCwOzCX
+ TC3AZWouCZKjItvA5dbfE8AGLhXye5LQPpNLzf8jX+sI83bn3gsW1IbsFOCYvwR2/TBHh9wKGUf
+ zsv6svwSvxIWO+Zq98PKY4blYU+M3g+ilVrKslM8uRn3Fcfh67pEm5374LGosuBcKeh9BoPsJVR
+ AaUY7A+pobVgXK7WYlH0ymO/u/iOTrT/qZRcXZ76p+sQ6BEN+ijIC/0hteLbcGFkWezpVqD3zis
+ EJEcnhkC6ZdwIZg==
+X-Developer-Key: i=nsc@kernel.org; a=openpgp;
+ fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
 
-On Tue, Oct 27, 2026 at 10:04:54PM +0100, Robert Meijers wrote:
-> Hi,
+> Hello,
 > 
-> ((Sorry, re-sending because the first was rejected for not being plain
-> text))
-> (First up this is the first time I'm participating on a mailing list,
-> so sorry in advance if I'm doing something wrong).
+> v1 of this series is available from
+> https://lore.kernel.org/lkml/cover.1789988540.git.u.kleine-koenig@baylibre.com/
 > 
-> > Add support for Multi-stream transport for MSM chipsets that allow > a
-> > single instance of DP controller to send multiple streams. > >
-> This series has been validated on sa8775p ride platform using multiple > MST
-> dongles and also daisy chain method on both DP0 and DP1 upto 1080P. > > With
-> 4x4K monitors, due to lack of layer mixers that combination will > not >
-> work but this can be supported as well after some rework on the DPU > side.
-> > > In addition, SST was re-validated with all these changes to ensure >
-> there > were no regressions.
-> I have applied this patch series onto a near mainline 7.3 tree for the
-> Xiaomi Pad 6s Pro ("Sheng"), with SM8550. But with these patches
-> applied I don't have working audio, over USB-C to my (DisplayPort)
-> monitor, anymore. If I disable MST support on the monitor audio works
-> again. Debugging (using AI) reveals that the DP0 Jack is not reported as
-> connected anymore when connected to the monitor, with these patches
-> applied and MST enabled on the monitor. As shown, for example, by
-> amixer:
+> Changes since then are:
 > 
-> $ amixer -c 0 contents | grep -i -A8 -B3 -E 'hdmi|displayport|jack'
-> numid=208,iface=CARD,name='DP0 Jack'
-> ; type=BOOLEAN,access=r-------,values=1
-> : values=off
+>  - rebase to v7.3-rc7
+>  - Add a header guard and a comment about why it's necessary
+>  - Add Acked-by: for Armin Wolf
 > 
-> With MST on the monitor disabled this outputs "values=on". The same is
-> also reflected by "pactl list cards" and "pactl list sinks" where
-> HDMI/DisplayPort is reported as "not available" with MST enabled (and
-> "available" when disabling MST).
+> Nathan identified two merge conflicts for v1 with commits in next. These
+> still happen and are easy to resolve as soon as the respective branches
+> are merged into a common tree.
 > 
-> (Again, suggested by AI) I also checked the ELD, which in both
-> cases (MST on and off on the monitor) is identical, including audio
-> information (like "speakers [0x1] FL/FR"). (Also, audio works both using
-> an AMD and an Intel based laptop, in which case I can also choose
-> whether to use "HDMI" or "HDMI 2" to switch audio output between two
-> monitors, in daisy chain).
-> 
-> So my foremost question is: should audio be supported in case of MST,
-> after applying these patches? Or is this possibly out of scope?
+> Nathan already proposed to take this series via the Kbuild tree after
+> letting it cook in next after the upcomming merge window closes.
 
-I'd say, it was out of scope for now.
+Ok, then let's go; I am going to put this on kbuild-next-unstable and
+kbuild-for-next.
 
-> For clarity I would also like to note that without these patches
-> applied audio over DP does work as well, irrespective of MST being
-> on or off on the monitor (obviously always running as SST because of
-> missing kernel support). Which would make me believe that no audio
-> support in the same setup might be considered a regression?
-
-Technically you are right, it is a regression in your case.
-
-Yongxing, how difficult would it be to support audio over the MST?
-
-> 
-> Note that I do understand that me running a forked kernel on a
-> (by upstream) unsupported device might also lead to issues or require
-> changes for the fork. And that if audio does work with MST then this is
-> something the maintainers of the fork should, most likely, fix. But
-> from the cover letter and commit messages it is unclear to me whether
-> audio support should work and/or has been tested when MST is in use.
-> 
-> Kind regards,
-> Robert
-> 
+Thanks.
 
 -- 
-With best wishes
-Dmitry
+Nicolas
+
