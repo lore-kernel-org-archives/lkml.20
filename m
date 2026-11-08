@@ -1,60 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794097787;
-	b=4yI7IU5Zz7NBOITOnl+Ip4NhTns/dAGSsKLTqmcRF2LlZvzQGwmqywDft4kJDP+Iqkw2
-	 6dYr/JS1qWID26EN59LWgK5oiNtSB1JEUI2apfFsoq/aOGPlUrc+Jrgh3iVxWbinBSuWS
-	 ohGqCvPHwCNsaphzqcOeD/g9lpssMwSvZORJ4MVlhSFx6jcoovYaFBAXVuCm6+jp/9Q4t
-	 A06t5BOyBeTeUKwaWNqyzWf2gjKuME+yfjeYbjilmIopboBUJt7qQ2NSQx29ihgKoZgXu
-	 0M+UyCIMNp6NV1s3SuNp9iVI/szDSOYR+dqjVyZv0z2DoP0nCorYCA/6uE9LkLrTgIA==
+	t=1794098009;
+	b=fpBDJa7Z5fvC024zFzL0fjCSaeLnyK0NAD3MCTQE2VGk8otJihXgu5R7DFtJ6vRWUo0m
+	 22VgjP3a3H9eoRVpJROPUdQCO2ZiFTPT3Xb0GMxz+egcMFWj2FQER9bw+jNdR1jkiF9rv
+	 HHDsDhxggjK6dc0QU/pJDqzHLNBS4WD5DxiGoU8qKUc2esAz3U+8AgCEIPtAqp8/beX75
+	 QlxocLHY/wQtJWF02lN+yZB7foXw3ytRwuZ/maVptGKNwSIWZL3+jlGz4yu5IjL+zJ8aK
+	 QP9PiFlKqUR7l9uKr/xJNQrA5WNCA3fkja8tej+wL/uavisRLhJzrX48n+Tf+5eP+IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794097787;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m/q7Am6D0wIn2Fgr9L3+qxJVWKoo2liSucz2FimhZjw=;
-	b=lwIZzcZY+whw8gjcqYPqGgQ4IcERZTx5IMtvemavjPPnNRGuBoIJBt3Q2Ggnz5MM3hX2
-	 u+HOOrI+CnLHXR0YYxOEuRD4sOEjwv367K5wGazhF8KYQuBrTilYbnu8Cpg3hqRadPyFQ
-	 r/gBPyPxGXnw8VEV8rorFYhKexxpdyTG89zpaMNi4/PFMfJLb8QkVMAYVhnTWIRQR+16A
-	 fMmJD2DN+ll7p38VRr5wzHShdeoZyCPGgcqUAtDZ45ggraDeD20cGj2aBTs+2lvhGaNbA
-	 pQ7dFKd9/2u4dxFct9i8paYZfVBYVMK+vhMD/eR2zxwikhWbrvDo4cIegXtJLUu3umQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794098009;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kmST5SxyWdqoxgmZ7dpias+E9CODkl5gXOtzoBLQgkw=;
+	b=i4hrYdXaFdato+cPUX2ssX4CMFuMZj+xDXLCFYnxEs41Y9NZApt9mxOnKOMwY/zJBiAt
+	 GJopXeYVZ3w8qeI+OMQVpN2YNdOfbMKtY48nOdDJkoVBdBKHX0fe025N5CNOLM3fUz80S
+	 Y5IgW90bI77ARM/88WnEiOEKLfPkKog5ZQZs0AOTd0+H7TAh+UrfutrL31T+Y8/+XEfar
+	 f4x1JPF/ryVzf5jfi/bWuSEmkuFVMAV4j77EbQPwvUXrqu24c6rkGynmoP4OSYiNoRgde
+	 tKZZaVe5+9vUzVcDccVTdm7nsJCXWaVp24lSDHyofMhREqMmMUd3cLJvM74GSyEnnyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2RJu3a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQO0pEYl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D68606A326;
-	Sun,  8 Nov 2026 00:29:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB70606A32E
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:33:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2RJu3a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD63E1F0089F;
-	Sun,  8 Nov 2026 00:29:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQO0pEYl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21E71F0089F;
+	Sun,  8 Nov 2026 00:33:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794097786;
-	bh=m/q7Am6D0wIn2Fgr9L3+qxJVWKoo2liSucz2FimhZjw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ka2RJu3agEgLzYDFBBm5fkd6IBPdTv2jnKlGseVM3JbLRXZC23mWUbrrLY+LB9lZ2
-	 hBo6vFFZfT205VG19kFXihinVH9T3vxwZqufUJ98zGe8Y1Bb9LCGbymXStjE6pq7Ne
-	 jDCGhlxn19gM3ldE9tPzrovVLeQZ5BSrb8f2fTL45dqKyb/4MsX0H19fPMLmlUWKUy
-	 fdu8ULFdfpDM2ND87xRJavB/yoO/UqUSSqnIEX3l84RmUr8AN2HNy9CvMrhHFSS6tc
-	 fgIMel9Ef5YWeWKwq1aqhGNgWvkJLj/bXmIgAqtYj8bWNP50Z75vfa3qlgXaZufXoU
-	 o2VEIvkPg+bHw==
-Date: Sat, 7 Nov 2026 18:29:41 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: anand.tiwari@oss.qualcomm.com
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Shashank Maurya <shashank.maurya@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/6] arm64: dts: qcom: talos-lyra-evk: Add display
- overlays for EVK board
-Message-ID: <au_BvH0rEKpgTpc3@zenbook>
-References: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
+	s=k20260515; t=1794098008;
+	bh=kmST5SxyWdqoxgmZ7dpias+E9CODkl5gXOtzoBLQgkw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TQO0pEYlhrtdqW/6QHSjfE/PgxdsldEp5fR5mm7aqvafRrNpd1P3jWEpUmDsh58Pp
+	 p0Jkb7birrCeBNsRSGi9HURorB1RPvuFkDmUGEYJpI42kamXurrdQb6PYmhYh5KXKv
+	 OVLLSdddGQwKn7/aLiSRGWLmdu+v75X6dBHQRa1YxSkXMFuLo1UjSIwhybxHynw46J
+	 gGxzIAHbkmZkMfMHmNAi4Dslb0nfOoxIA66Z4BD9Go230DRtXbrL/7kQ/FuISE/shd
+	 EzRPz6ptsk4269S3paJkx3Z7r9WGPe4ec4CEzh3oLBOnihYGWuyZHcjXagIVPODf5b
+	 JAXdlPgvnUlCQ==
+Message-ID: <a309cd65-afff-4c7e-8560-8b43f4f77fd5@kernel.org>
+Date: Sat, 7 Nov 2026 16:33:26 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,121 +51,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] lib: extract 32bit mul/div helpers from nios2 into
+ GENERIC_LIB
+To: Simon Schuster <schuster.simon@siemens-energy.com>,
+ Vineet Gupta <vgupta@kernel.org>
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ David Laight <david.laight.linux@gmail.com>
+References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
+ <20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
+ <bba7f6da-82ee-46cc-bd8f-b0e3e027f5e2@kernel.org>
+ <20261106130738.avum4t2nhdnmenyu@dev-vm-schuster>
+From: Vineet Gupta <vgupta@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261106130738.avum4t2nhdnmenyu@dev-vm-schuster>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 01:01:30PM +0530, anand.tiwari@oss.qualcomm.com wrote:
-> Qualcomm Talos Lyra EVK SoC card are mounted on the Lyra carrier card.
-> The DSI0 interface from SoC card is routed to either the 22-pin DSI
-> connector on carrier card named as JDISP1 DSI0 or to the DSI0_B2B
-> connector, through a MUX which can be selected by a hardware DIP
-> switch. There are multiple daughter cards designed that can be
-> connected to this B2B connector.
-> 
-> The below B2B display interfaces are enabled by default in base DTB:
->   - DSI-to-HDMI using the LT9611UXD daughter card
-> 
-> Below overlay DTs are added for additional display configurations:
->   - talos-lyra-evk-dlc0697: DLC0697 DSI panel for Lyra with DLC
->     daughter card
->   - talos-lyra-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
->     panel with touch via the 22-pin DSI connector for Lyra
->   - talos-lyra-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
->     with touch via the 22-pin DSI connector for Lyra
->   - talos-lyra-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel for
->     Lyra with LVDS daughter card
-> 
-> These overlays are applied on top of the corresponding base board
-> DTBs.
-> Link: https://lore.kernel.org/all/20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com/
-> 
-> Dependencies:
-> https://lore.kernel.org/r/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
 
-This was rejected 3 weeks ago, so sending this series wasted both your
-and my time.
 
-Regards,
-Bjorn
+On 11/6/26 05:07, Simon Schuster wrote:
+> Hello Vineet,
+>
+> On Tue, Nov 03, 2026 at 08:23:23PM -0800, Vineet Gupta wrote:
+>>> +/*
+>>> + * Software 32-bit multiply for cores built without the hardware multiplier.
+>>> + */
+>>> +s32 notrace __mulsi3(s32 a, s32 b);
+>>> +s32 notrace __divsi3(s32 a, s32 b);
+>>> +s32 notrace __udivsi3(s32 a, s32 b);
+>>> +s32 notrace __modsi3(s32 a, s32 b);
+>>> +s32 notrace __umodsi3(s32 a, s32 b);
+>> Shouldn't the 'u' prefixed functions have unsigned int args, result.
+>> It seems libgcc/?divmod.c doesn't but ARC does have nint_t for those which
+>> is unsigned.
+>> Nios it seems was removed from gcc?
+> As David has correctly pointed out, nios2 was dropped from gcc with
+> release line 14.y being the last one to contain it.
+> So at least for nios2, it seems like it has always been the case that
+> __udivsi3/__umodsi3 were declared as taking and returning SItypes:
+>
+> https://github.com/gcc-mirror/gcc/blob/releases/gcc-14/libgcc/config/nios2/lib2-divmod.c#L106
+>
+> Given that both implementations continue to pass it through to a very
+> similarly looking udivmodsi4 as u32, I would assume that this has partly
+> relied on 'why should the compiler do any strange upcasts here, it will
+> just pass through the registers and be done with it and this is
+> implementation-defined-good-enough', so I would not mind rolling a v3
+> with u32s for __umodsi3 and __udivsi3. Are these the only two symbols
+> you are concerned about, and would these signatures work for you?
+>
+> u32 notrace __udivsi3(u32 a, u32 b);
+> u32 notrace __umodsi3(u32 a, u32 b);
 
-> https://lore.kernel.org/all/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com/
-> https://lore.kernel.org/all/20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com/
-> 
-> DT bindings:
-> https://lore.kernel.org/all/20261021-lt9611c-v7-v18-1-4978b94896f1@oss.qualcomm.com/
-> 
-> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Added GP CLK Frequency Dependencies
-> - Reorder the &tlmm pinctrl nodes in the LT9611UXD HDMI bridge patch
-> to ascending GPIO number.
-> - Link to v2: https://patch.msgid.link/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Fold in the hdmi_connector port remote-endpoint indentation fix.
-> - Drop the per-patch Depends-on trailer on the LT9611UXD HDMI bridge
->   patch; the dt-bindings dependency is now declared as a series
->   prerequisite (see base-commit/prerequisite info below).
-> - Drop default-on from the DLC0697 backlight node.
-> - Add the ilitek,ili9881c fallback compatible to the RPi 7-inch
->   panel overlay to fix a dtbs_check "too short" binding failure.
-> - Reword the PWM_CLK defconfig commit message to name Qualcomm as
->   the SoC vendor.
-> - Remove a stray blank line and non-ASCII characters from the AUO
->   LVDS panel overlay.
-> - Link to v1: https://patch.msgid.link/20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com
-> 
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Konrad Dybcio <konradybcio@kernel.org>
-> To: Abel Vesa <abelvesa@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Florian Fainelli <florian.fainelli@broadcom.com>
-> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-rpi-kernel@lists.infradead.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> 
-> ---
-> Anand Tiwari (2):
->       arm64: defconfig: Enable PWM_CLK for backlight PWM support
->       arm64: dts: qcom: talos-lyra-evk: Add AUO G133HAN01 LVDS panel overlay
-> 
-> Mohit Dsor (1):
->       arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD HDMI bridge support
-> 
-> Shashank Maurya (3):
->       arm64: dts: qcom: talos-lyra-evk: Add DLC DLC0697 panel overlay
->       arm64: dts: qcom: talos-lyra-evk: Add RPi 7-inch DSI panel overlay
->       arm64: dts: qcom: talos-lyra-evk: Add Waveshare 8-inch DSI panel overlay
-> 
->  arch/arm64/boot/dts/qcom/Makefile                  |  18 +++
->  .../boot/dts/qcom/talos-lyra-evk-dlc0697.dtso      |  77 ++++++++++++
->  .../qcom/talos-lyra-evk-lvds-auo,g133han01.dtso    | 133 +++++++++++++++++++++
->  .../qcom/talos-lyra-evk-raspberrypi-dsi-7inch.dtso |  88 ++++++++++++++
->  .../qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso   |  75 ++++++++++++
->  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts        | 101 ++++++++++++++++
->  arch/arm64/configs/defconfig                       |   1 +
->  7 files changed, 493 insertions(+)
-> ---
-> base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-> change-id: 20261019-lyra-display-upstream-post-24656268a902
-> prerequisite-message-id: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
-> prerequisite-patch-id: 0dfae1e9d0c620866489eecacb4b7201b9333621
-> prerequisite-patch-id: 94923ba8f57911649364a7e0e5494c7cfd478367
-> prerequisite-patch-id: 660755293839baa7364b4baf3a2dd6b4018de48a
-> prerequisite-message-id: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
-> prerequisite-patch-id: 49f1e01bb5594ce9c4301ce4b16715834ece7f41
-> prerequisite-patch-id: 21cfbbfd71515961501a768edad476740336c13c
-> prerequisite-message-id: <20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com>
-> prerequisite-patch-id: 37995c88387ff54737dc82eb7c3b4600901ce061
-> 
-> Best regards,
-> --  
-> Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> 
+Yep that's what I had in my local version.
+
+Thx,
+-Vineet
