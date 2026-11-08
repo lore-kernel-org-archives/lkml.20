@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794117149;
-	b=IXryOAsHmHFOFde1U6DXS5qvQa/eCwJjBhbQujPQlZSQilJHG4H9VQuV6QQ3mPCMzGb/
-	 aAQJVWP6VOnh+A5NANYEJVVnzsS1AJ9tRTWX9qdUmqA64y6crijWSbzkjWgvJCJaoYycs
-	 eJBU4PWJDoGtR6j7jqmjDeUe34/PdEzepmlfOyIaib6wtHIWman+S7QFlXTEcZhdnsibD
-	 RSyRlG3mdl22/NnOKpELnmAXX5mAO10Ztfl8BR0Ee+Poc7wFJJMFyBr7T3DwjmtbuQ5kI
-	 saXoVn+k9A+Dxt1XqQmJNZUwQfP7ZCxRMg8b2zSt2PE3hzNZtpfZf5TqPcprsYBdO3w==
+	t=1794117163;
+	b=zU2X/seNyySukXxT2qHuv5RSpcp1XTy+rNuEUvcuto6YoVmuYQFaIIqd6n3G7oQReGwS
+	 MIXo01JlQ29evQ2IA6MwoILdFKaMASh9EHIBFbTascnlzTj9KFS3bj18+OA9BhmhS7gew
+	 p2ml7HudS5gM+TvZgRVptn/v9yocgUDXq1jdxHk8HWo6Yt3J5AeGQWTEoKs6/SwuoCBI3
+	 T8i5pGEkhCGWq6kB3EIvEMv7htjs52UGIyTptFNa8RwoeOoCKnuvRoAIiUqjzu1bLb61W
+	 NBg0UcdNBrr4KcbUnGZrK4nNTQoiP+AtwCofAGgu4aq9iMBovS6e2LVD4tmoOyKXwGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794117149;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=QJc37cJ/S1g5YDvC+KD7J+WHe+A8KLkh38XT8Ub/b9w=;
-	b=EsIUNbylft2emW3iHSo53qTSaqC6o2dCJzJnK7Sb2RTh3Gmo3uVogvrYR1slezRy7JV+
-	 u6PAcp1+Am4OQZWX5/FEkGIM3LRX0m71XfOZ1JcjnHwqSqy0D/OrLirpi4GRRUK1xh3cm
-	 j1EmxSr/KkwgY4kWO6B+SkeRsIaJzvomhxgM2Y7o3YGyJMkMXuad1gWPX+UL3DMQnOsyu
-	 rVCiA7E/0db+lyzHCYu9ayuB5tkevda67R+cUTqNHwZQ9ySmUGwISCJZmXN3wtGYn4fH5
-	 7sSJyCfJPdPyEOpaIqxRpvCMaXJekXAkkJ+i5gE0h7QQbJVasrSQHYVCPoYgNNdSbFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794117163;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=wJ532/N0M0wnt7q6KhDKefrX1ZSyj6uJXC5Arq09eUI=;
+	b=W0RvNGwG8/dOct2+rbc9f1sTR7dJV4PIqTT+R4Xniu/tCPi/EfEVMuxBsDSZioGmdcT1
+	 rHyDt6rDip0lX1jrBRoBGsBvpqXYhDr/SSDcZokYubikWyOsYVnSYA66LfeGhaIt30pKh
+	 gQl7ZOpo9p4RXW93inKG9aKHyVW4UqTm28cZQzagavcJrdoSNsiRAuF/Urkx0qNWS0Odu
+	 fFFz7vK0JNq2pF2lMi9Bn45wBRxWKokmDGViz7CjHg6HdFFCKZS621HLB4z4ach+wK6uz
+	 ZXVw5a8jzdDxItVZJ7cmfTx3qK4D0aA/xKC9WpF++zTZUmsUCSyBuvxRHW3GZHdqzEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.70
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.sustech.edu.cn;
+	spf=pass smtp.mailfrom=mail.sustech.edu.cn;
+	dkim=pass header.d=mail.sustech.edu.cn header.i=@mail.sustech.edu.cn header.a=rsa-sha256 header.s=oemc2211 header.b=WxhToX1E;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66668606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66668606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-8210034ccc0so336941a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:52:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794117148; x=1794721948;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QJc37cJ/S1g5YDvC+KD7J+WHe+A8KLkh38XT8Ub/b9w=;
-        b=N6Ee6SIJh6p5/MCF2S8+IiAc/rXLiNVEd7qH20Ib475shTWP0Qpm4bF6YW3ZPZvtAv
-         i3O1W5zFh/gSmIgjyZ/4u7BjfOHeUNQzLfOw3LjFnqX8UhfCQRm4Thk++V5zLlwkis57
-         y2C6wKkJ5afzPAHWWjo11bvBWP0FGVLxWp5fX1/gfNGzq8UQ69bs48wF30GjV6R9QfY+
-         7bIYR75mCMgu7EnytymrZm/y/XWr7R3YWo3BSgRhvKhfw+BWZNYt68j6LdojhGrhPWoy
-         ESk3RSnzB+0PjwO/utbZ7npRR1xuI9m/aNEAIBCX5WaJPJxFsb3VSySdihmU32tqAfBi
-         Wt1g==
-X-Forwarded-Encrypted: i=1; AKwUvBydpQpff4FGsjAn+Dla0xErS5gGB/ixkdjYrStFkHx75n+XFEdo5oJhl85k3hNCbZZZlXE/DQkRS15PSFY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ni3EjN+4szXAXsnDFhqHMqxiogxue4cMtUeDPSPMfW5mGeZob
-	eN1lp5fa2yS9kQtny4SnO78Uf4J7H5++iY+/Lv1mjtjpEemSRiRbYtk33qAiOjzG+oxNfegd7Ox
-	NbTL2OybPGuXsxOjiGOZVxFFj/ytc6Pa9h8ymGBNpHTNSCXo3KNZZtDukKH8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10F6606A31C;
+	Sun,  8 Nov 2026 05:52:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10F6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sustech.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sustech.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sustech.edu.cn header.i=@mail.sustech.edu.cn header.a=rsa-sha256 header.s=oemc2211 header.b=WxhToX1E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mail.sustech.edu.cn;
+	s=oemc2211; t=1794117058;
+	bh=wJ532/N0M0wnt7q6KhDKefrX1ZSyj6uJXC5Arq09eUI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=WxhToX1EcZ+IZx22spVnFDnmGEg92a4iFCrdwRkd4fxdyv/TQU4wphbvbpAkaJHtg
+	 ue7yuhCwyIggXJfc6O2bT418CYOu930oH4RNgF1XLBz02ghjV4fMrsBzRytXx5nF0t
+	 gp6qLHBeRTozrOU2Mcs49O8YP1jSvl1kWlNIFbAE=
+X-QQ-mid: zesmtpip4t1794117050t07935af1
+X-QQ-Originating-IP: 1lJSXOUT8kmD4Vn3xBl3BqwdvkbHzRNN+2oG9aO9Mko=
+Received: from szdytom-matebook.sustech.edu.cn ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 08 Nov 2026 13:50:48 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5347852784624739240
+EX-QQ-RecipientCnt: 11
+From: Shi Lecun <shilc2025@mail.sustech.edu.cn>
+To: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Cc: gnoack@google.com,
+	Fengwei Zhang <zhangfw@sustech.edu.cn>,
+	Bryam Vargas <hexlabsecurity@proton.me>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-security-module@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] docs: landlock: clarify F_SETOWN signal scoping
+Date: Sun,  8 Nov 2026 13:50:48 +0800
+Message-ID: <4C69C1457B12AD80+20261108055048.3745750-1-shilc2025@mail.sustech.edu.cn>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107.2f1fa9977739@gnoack.org>
+References: <20261107.2f1fa9977739@gnoack.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,122 +77,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c125:b0:4f6:a430:1822 with SMTP id
- 5614622812f47-568141ffe0fmr509756b6e.7.1794117148467; Sat, 07 Nov 2026
- 21:52:28 -0800 (PST)
-Date: Sat, 07 Nov 2026 21:52:28 -0800
-In-Reply-To: <6aee17c4.8be4ead1.3b45e1.0199.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af00e1c.5a668245.1aceb6.0005.GAE@google.com>
-Subject: Re: [syzbot] [nfs?] [net?] WARNING in svc_destroy
-From: syzbot <syzbot+8cbdf9aa6c281a4e6bbe@syzkaller.appspotmail.com>
-To: anna@kernel.org, cel@kernel.org, dai.ngo@oracle.com, davem@davemloft.net, 
-	edumazet@kernel.org, horms@kernel.org, jlayton@kernel.org, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, neil@brown.name, 
-	netdev@vger.kernel.org, okorniev@redhat.com, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com, tom@talpey.com, trondmy@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:mail.sustech.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NG2b9TD0vVV2ttcOoRNNKfnPKURIOduJW7QZLFHDe30V6PFw+Gp/Ibg6
+	x0YQ6Sh48kIGPiBDKIWECv4NYhpGkN8+PYiZc+PgARI29TVX8TEeOizc0fu8bqOT1oyAEia
+	gzvoAx5Ua2mDKPnWp4aytGYN2NdKRNEBoY1yF3hYfXcnmbmbZ4VHi4sd0J20gUHjZvttQOI
+	AOWhyvtjp24z09pw6VTRHR5sScjce8jS8oMgBBOxcvPvWIWgZJ32jfGyD3ipPYuRyekHRPc
+	bzoB31CWbSMRDvpHui48WMDDKuxVj5ViMPdntCQKGSxDcuSh2vVeWxtUWyOk03uAkVTyd34
+	uJJ+w/TAvjeZntQq9rgSXgrJAfjy76fibJBlaO+EdXWbtoRjNto3/PdBN9ioNcm/Ck9Ho5M
+	sdsucs+YkXUkYuY4vR5l3oiFGhI27TopsKaIoKX9dkFs82yXL2wicYckdIIP7wYtfJfcGdo
+	tQrsEmFGvkjdc1+Io29c5rwmiZ5zur9ZrxD86H/dY/k7aJhaODvOf8Zzjn9F2ocWyLtp7LW
+	80hhhyavf2dNnYtbzNjgjLYihOhEPYMugLYEgiUSOYCETFfljuNFFzzYikYa97JUDQFumDe
+	JesguWi5rvLsh1sm+44IlchCHEo4Acvf7OTT/MDuUfb3RbCCJg0LxOo/xPaOZzWjbgzqWaI
+	34p/kD2tfmoH8jvLyt68+f22vzzwbIYG1Tuwhpu0JlPZ+g7TDnuE4p5n7qNAYf9CyRcnPHv
+	kfPgR7K7KCFN1funsed4hiecOixyKugsZhWxRCoB5tPOPP3eyrOqecz4j646ZEhW18uPx3e
+	BAFsPBptqRgiOUmCWfGxtxzg3hJWoKBs8YpGpmCQON+c8CT6di4AUmdtNEVxsIYta80rCY+
+	SqG/M5Ti/rlXWItNLL6gF46mm5n81DN/12JxPCTNW+qXZamPwb4DrGYcPL7tGkKajT/3KPm
+	4F0BgEJMKYIM1hDfLDyrCE0Eu16SWaE1wmb4mmqFWVL7JoMTyhvBaN+6C0Dpbkt+xp36OQf
+	WrcrcSFQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-syzbot has found a reproducer for the following issue on:
+The signal scope check for asynchronous I/O notifications uses the
+Landlock domain saved when fcntl(F_SETOWN) configures the recipient.
+Adding LANDLOCK_SCOPE_SIGNAL later therefore does not retroactively
+restrict these pre-existing registrations.
 
-HEAD commit:    d164c7d754f0 Merge tag 'devicetree-fixes-for-7.4-1' of git..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=13ac11a1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=8cbdf9aa6c281a4e6bbe
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1494d369580000
+Document this boundary in the IPC scoping section and link to the fcntl
+documentation for I/O availability signaling.
 
-AI-generated root cause summary:
-In fs/nfs/callback.c, nfs4_callback_up_net() first initializes an IPv4 TCP
-listener transport via svc_xprt_create(..., PF_INET, ...), which links the
-transport onto serv->sv_permsocks. When a subsequent call to
-svc_xprt_create(..., PF_INET6, ...) fails with an error other than
--EAFNOSUPPORT, nfs4_callback_up_net() returns the error immediately without
-tearing down the existing IPv4 transport. As a result, nfs_callback_up() unwinds
-on error and calls xprt_svc_destroy_nullify_bc() -> svc_destroy(), which
-triggers the WARN_ONCE(!list_empty(&serv->sv_permsocks)) warning because the
-IPv4 transport is still attached to the service, and subsequently frees the
-service while leaving the active listener with a dangling pointer.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=8cbdf9aa6c281a4e6bbe
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8cbdf9aa6c281a4e6bbe@syzkaller.appspotmail.com
-
-NFS: callback service start failed
-------------[ cut here ]------------
-SVC: permsocks remain for NFSv4 callback
-WARNING: net/sunrpc/svc.c:532 at svc_destroy+0x299/0x330 net/sunrpc/svc.c:532, CPU#1: syz-executor154/6024
-Modules linked in:
-CPU: 1 UID: 0 PID: 6024 Comm: syz-executor154 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-RIP: 0010:svc_destroy+0x29d/0x330 net/sunrpc/svc.c:532
-Code: 48 b8 00 00 00 00 00 fc ff df 49 8b 5d 00 48 8d 7b 18 48 89 fa 48 c1 ea 03 80 3c 02 00 75 67 48 8d 3d e7 6d 77 07 48 8b 73 18 <67> 48 0f b9 3a e9 d0 fd ff ff 48 8b 7c 24 08 e8 7f 4d 85 f7 e9 a5
-RSP: 0018:ffffc9000393f860 EFLAGS: 00010246
-RAX: dffffc0000000000 RBX: ffffffff9040bf80 RCX: 0000000000000000
-RDX: 1ffffffff20817f3 RSI: ffffffff8c37ebc0 RDI: ffffffff927b0660
-RBP: 0000000000000000 R08: 00000000ffffffff R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffff888020bcc000
-R13: ffff8880274a0000 R14: ffff88802c3c4000 R15: ffffffff9cd624c0
-FS:  000055556ff69400(0000) GS:ffff888122575000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055fdb0009fd0 CR3: 00000000377ff000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- nfs_callback_up+0x511/0xad0 fs/nfs/callback.c:236
- nfs4_init_callback fs/nfs/nfs4client.c:327 [inline]
- nfs4_init_client_minor_version fs/nfs/nfs4client.c:379 [inline]
- nfs4_init_client+0x236/0x420 fs/nfs/nfs4client.c:429
- nfs_get_client+0xf38/0x1230 fs/nfs/client.c:467
- nfs4_set_client+0x3f6/0x640 fs/nfs/nfs4client.c:763
- nfs4_init_server.isra.0+0x5be/0xf80 fs/nfs/nfs4client.c:1014
- nfs4_create_server+0x185/0x2b0 fs/nfs/nfs4client.c:1063
- nfs4_try_get_tree+0x93/0x140 fs/nfs/nfs4super.c:228
- nfs_get_tree+0xa61/0x1440 fs/nfs/fs_context.c:1621
- vfs_get_tree+0x92/0x320 fs/super.c:1881
- fc_mount fs/namespace.c:1282 [inline]
- do_new_mount_fc fs/namespace.c:3910 [inline]
- do_new_mount fs/namespace.c:3986 [inline]
- path_mount+0x7d0/0x2850 fs/namespace.c:4337
- do_mount fs/namespace.c:4350 [inline]
- __do_sys_mount fs/namespace.c:4565 [inline]
- __se_sys_mount fs/namespace.c:4542 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4542
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fd324de7f1a
-Code: 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffca5d506e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fd324de7f1a
-RDX: 00007fd324e4603f RSI: 00007fd324e45ffe RDI: 00007fd324e46044
-RBP: 0000000000000004 R08: 00007ffca5d50760 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007fd324e45ffe
-R13: 0000000000001789 R14: 0000000000000801 R15: 00007ffca5d50760
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-   7:	fc ff df
-   a:	49 8b 5d 00          	mov    0x0(%r13),%rbx
-   e:	48 8d 7b 18          	lea    0x18(%rbx),%rdi
-  12:	48 89 fa             	mov    %rdi,%rdx
-  15:	48 c1 ea 03          	shr    $0x3,%rdx
-  19:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-  1d:	75 67                	jne    0x86
-  1f:	48 8d 3d e7 6d 77 07 	lea    0x7776de7(%rip),%rdi        # 0x7776e0d
-  26:	48 8b 73 18          	mov    0x18(%rbx),%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 d0 fd ff ff       	jmp    0xfffffe04
-  34:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
-  39:	e8 7f 4d 85 f7       	call   0xf7854dbd
-  3e:	e9                   	.byte 0xe9
-  3f:	a5                   	movsl  %ds:(%rsi),%es:(%rdi)
-
-
+Link: https://lore.kernel.org/linux-security-module/20261107.2f1fa9977739@gnoack.org/
+Suggested-by: Günther Noack <gnoack3000@gmail.com>
+Signed-off-by: Shi Lecun <shilc2025@mail.sustech.edu.cn>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ Documentation/userspace-api/landlock.rst | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+index 3d45b956b640..cc9c5b102b8d 100644
+--- a/Documentation/userspace-api/landlock.rst
++++ b/Documentation/userspace-api/landlock.rst
+@@ -499,6 +499,10 @@ The operations which can be scoped are:
+     This limits the sending of signals to target processes which run within the
+     same or a nested Landlock domain.
+ 
++    For signaling of I/O availability (:manpage:`F_GETSIG(2const)`), Landlock
++    checks are done with respect to the Landlock domain at the time of
++    ``fcntl(F_SETOWN)``.
++
+ ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
+     This limits the set of abstract :manpage:`unix(7)` sockets to which we can
+     :manpage:`connect(2)` to socket addresses which were created by a process in
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0
+
