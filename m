@@ -1,74 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169348;
-	b=fl74B1DtxvDCfGAhKw3GRNjEf2SShOucE5F0gWzB3Cbo4js26uJlYPpACDGKxCso9tsf
-	 rcqzbEgMNNCw3/Xh0qJHFDA0vvwJxepnZxs8mr0mhonnzTg4V9MEzw5mhfIaiqJ00cLiC
-	 qGCWvKVMpX4R4oIFJapKJtm8K/DUqdgyRXOCGyZ0DfpdhbGfjd2o+8PBFMsFp6ICzbxGq
-	 LG71F85utIkULIXnZyu9+7X6ICauRJXOZnkJrQTxrlXn+0EcFb18lNhAAYPGz8gV2f8cX
-	 qW3dtcbmRfTlzDiE7/t8YAZkXksH577JmV/V+83mmEQL2oPl6gsZLPIkhsVIGCs/eyA==
+	t=1794169350;
+	b=HJvFyWD58kJwWntSwb+sIqpX085yz4LsW92vNtI+N2PeZBCk8/1ioXJZ85jGpVTp2Js8
+	 rYSVq71h8CVgbAzSig9gmFSrGBQ+NYPx1j+ONLwS5bU9DBpq02ULc6bpO5ZeUEdWAZLCN
+	 kCFJUKtQcsIeemzyFbUxT1eYSqht0ptaASdZfYk5GYuGl+x21FpPfhW0lpXTsksdHYzS7
+	 5f3zGVolwpmaRc02FDc/mYN3OGV8VWB2nTmqspLBMb8ombGlin0iuOiey090yiU8rHAs2
+	 RNz9ZOEMxh17qx1mBYSvaOMDFKCB3iB1xXHPPnLchrmO7z25NqNfIXISJ067LoysvqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169348;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169350;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+03jTVGIFZ0Ku5cXK7wtacYgGz6NzL+g69qARhp8Fy4=;
-	b=tGzr/sjul4jZJ3abLr/U7ZGTxt3DCS7Er/cdeKsh+mnIw6Vm82wB6XnZFwv3FylTbc0L
-	 ZszfGzWyeQlHXeqW4dzRPJc7DSJMeDZm/HxotScmudWtZpOeh+ZnvxP0SBfIXteIMpZtj
-	 AcmCmJpliQEsJiDtSuhkSfMhfRKYZkno2naGsgLYIqEeYfgO9AHJ2l3W4QjJSapQWBa+V
-	 uChauQUhq2ksReb1w1zSJDpIw+Lh6VPcuUcCTnsuErZJIOFByxtKnAnqQ0Md+BUOhkARt
-	 vkh8GsTr148gYaHGPr1RkTOnEeih7unpxgc2AQBthzlsLpRWHk7KnGX/Bl6+3MLnNng==
+	bh=dHdYsBVn5EwkVJiTWyMdC7gQBzoWk+m6qQYWiebvhEA=;
+	b=zKbvdk2/MfXtfRoaZT7cZhFq6g4Hmju7R69M2Qn/XvMHr15WWQZHn3fjMdUV41NBthJM
+	 A7pQwJb8w4YtGB5T64vIFjjmY19IpIq6SbgEXk6PCM8tMZRKhLXWhwWsBPGVS8496x4QC
+	 BrS0nz/UAEmlGEsLRNq1pcZVOtzffU6AmKuMypDH4UNE0VbfbnARrtUf5TNtu7ac2lZ8a
+	 j4oZI1B3gaJTHXOUMss3xCPvNM4cZ+BbXnkiqMu41MRaEnpqAisPpPGbQfznMRGckKECf
+	 HqbY+k5P+g4jAViaeKu2GYPmcQbNWCXueTUQFxfrA5Dn5cONqqwhOo5QpD0Lme3dWCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcDvXr0x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJ21zVlf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B37860A381C;
-	Sun,  8 Nov 2026 20:22:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA11606D82E;
+	Sun,  8 Nov 2026 20:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcDvXr0x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1AF1F00901;
-	Sun,  8 Nov 2026 20:22:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJ21zVlf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DAB1F00902;
+	Sun,  8 Nov 2026 20:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169348;
-	bh=+03jTVGIFZ0Ku5cXK7wtacYgGz6NzL+g69qARhp8Fy4=;
+	s=k20260515; t=1794169349;
+	bh=dHdYsBVn5EwkVJiTWyMdC7gQBzoWk+m6qQYWiebvhEA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gcDvXr0xVLxLCrEjipigauQxpwf57I/2DdGp7aX+/aMzEi8hpwA/MRqRcvwr269lH
-	 C7RiqYLLdrpRQ/tTa88M2CuZJ5T4H1zCgTkc0ZZTp8dMfjgrVyzsb8xuirfdSN1MRr
-	 v/2KtyEPDqXYEL2lS/qnl3GF1+jZ7FcnjDVs+sW6JnkkJCRVyVBkB7bxL0fCBGFj1b
-	 GtYT8wp9TYJvm/Z8tfrpL1PXLsNrBED+qn7nZwRq9IJ3Aptska4EU6z65M6nwkkVyx
-	 McbxNVgkWYTMCA7b92nQRCRiPMtOS80gprYhyI4IwNON58nb+D/ZAZxafWP4M79wMT
-	 oIZo7myGggWRQ==
+	b=kJ21zVlfsZWS0WWICPhzWR/inXw5n+56R2zhCGieWuLz43B4zdamCwtO/3L4i7fsd
+	 cVhEC7o88YTW+3+Pkgx8xwMNx7Vx7MDe2g+YB/SHJPIm95oTQN+JUqeiFy6RFgkE5O
+	 pQtcizX8PdpoZc9f5o3SfKoQBZZkQH459rhKJzfJB9xupVFJkWj3SzH9hMChHcwP0Z
+	 JbLguFcvvfF6N6iX816vQilhUzoRXvtU1Hk2sY36dUTRupIIJhuRPstRSP6Wm906Uy
+	 ogEilB4+kTRO3FrCiDyZX9Gobz+zvwDjB4Id2hM0o79UhICYnt7LPrirRUB9YefXM8
+	 XKxLNIEi5EU0w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+	Chenna Kesava Raju <quic_chennak@quicinc.com>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/5] arm64: dts: qcom: support SDM845 HDK
-Date: Sun,  8 Nov 2026 14:19:36 -0600
-Message-ID: <179416929424.628393.17771350398079284903.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: hawi: Add memory-region for audio PD
+Date: Sun,  8 Nov 2026 14:19:37 -0600
+Message-ID: <179416929457.628393.10726172922960756911.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
-References: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
+In-Reply-To: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
+References: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,21 +71,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 12:18:02 +0300, Dmitry Baryshkov wrote:
-> Lantronix HDK845 aka Qualcomm SDM845-HDK is a hardware development kit
-> for the Qualcomm SDM845 / SDA845 platform. It uses the modem-less
-> version of the chip (SDA845) and provides a rich set of the peripherals
-> and connectors. The DSI panel is an optional addon, so it is being split
-> to a separate overlay. To (hopefully) ease merging, the overlay is split
-> to a separate patch as it depends on the panel. The base DT doesn't have
-> external dependencies.
-> 
-> [...]
+On Wed, 21 Oct 2026 17:15:02 +0530, Ekansh Gupta wrote:
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
 
 Applied, thanks!
 
-[3/5] dt-bindings: arm: qcom: add Qualcomm SDM845 HDK
-      commit: 930173f0332cc16656996756a5351560a4cf6068
+[1/1] arm64: dts: qcom: hawi: Add memory-region for audio PD
+      commit: e60f4ae23a488c745301311f29dd41da69c3920e
 
 Best regards,
 -- 
