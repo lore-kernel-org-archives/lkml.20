@@ -1,85 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794104441;
-	b=J2kjsH1B/FEW7zb6aIT0pLOV1rf5ID+dRhc4b6Hhrd6jlEOoNu0fqyRGNQl07fKjRzPC
-	 p0LEsNWhmbBNvWXit72IB/eEAfB35+RwN06mVhWIcy4VjZeXdHL/axO8u5WdyxZqa18Cm
-	 Jf+/wyDY0Q+jJKVa1k5ThKFpcvagIRyy38+50bo5iosJUwQHt5KQgRxn/VgFA9Kg6jhze
-	 pPh7VWIXXWOd0TLf5w21TtZ9YNK/DHT+ct4NmEG9296GHZvmZ19ZZ4by6a7WEVa1uxhgN
-	 mnFhQ/np7f3rX9Hs4bvBumLBPvunS9qZZkqUp40x+hIUvLrh5pEYOi11bYBz5AO2O5w==
+	t=1794104520;
+	b=Zb/Qz46jzOzRNtugh6mby3cqCKh7RHf17CzeN97u/1LbSyUuDDM46/JZxANGIAeBbnE4
+	 D85Wr4xm687oy+BqVWEPA+dfDvfTT727mPoCCPqw4Hv4RSHoDRdzF5gMZEYj6OjYoqgVF
+	 3e8AYZGOS7UMshOKMRsFBoX/V3DiMzUk0WRyvNbzlXZ1snjqvctqYmje3kgwUVLj5qfBW
+	 q0wHPmpRFr3K/jN2306Ndfrsz2fnc735iD5v7OZHdCDy47RQ64E1hjyuLXyTzGjQTPLq8
+	 AQUzjAO7salDTlD9uFlXpDZQvMDo/j2H+caUMx1sEEcUor1z69k8l6l+J1fNONX1+rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794104441;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=SrIhumD197mx4pl6yQkiB2jctqSFaHU4JKWvTq2PlBQ=;
-	b=UPlqbOYWE7saC5KzuGAsQbESutkyhMTlGJlYoL7X9Cb7bsQSF0e03+al0+lQ5F+Ge+DX
-	 /1gp9TIzVOLLJw3GsEcdakPiJ/CrKru2uiD2/Wuwtmo3iw59/UcANaP0jlE3lA6yOmp0C
-	 DPgpaDR8eo4VbSWmQDpL9X9nl2m2FffDJHsolJwi0Fuueb1LY/uX9ukVvefGhn0mLhV1J
-	 jZTDIQTGS2Fu2TZRMMh90/ZjMDpyJxmftH5fQNZrrj0GXICpuZt+sB1U8LnBmBw8F9c0r
-	 Vu+oGVE4Z0HKxPAPuj6IzmwRBwA5L8XVtvXurO6VB8pkEpORdfyJAhyi7TzcepjATWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794104520;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Lg3LEB/Jnk5uLMaIenRlE8DmDu3jBUWxyp6bBvfT6DQ=;
+	b=yqHSGSwcmkobo0mCFtRYsipOxtaMNEAU6BW4Q64h9EjDAVhzvGWZNq7TZuqL8HXXVlov
+	 +4XNixpqiJQ7XjNzMn8w9pYyBOEhkCS0DhcUOXMEiKDK5mx3JooiDfcFDp0sPpLm4UOYI
+	 rXO1CsLrwQJnibC6dQgMI7O/stbiVp6KCHu4k6Eo0V71TQQjQHb8nVehvuPoofwF4ahLv
+	 azZUP4RgU1OJZkOt4xCjjjUhAarf1NcY6RnqauiLd9VwUG1X5VI6+EgfIR+QCsP+YFTQl
+	 BisbMNL8PVvbuQmLSyWlVU7zL5FmgS1wHvRfuG63wF3nmCEyN/CN1CbFEwxdFgJRnTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=korea.io;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GUzworsT;
+	arc=none smtp.remote-ip=203.205.221.233
+Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99825606A33B
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99825606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.io
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1ae18eb9b69so52238c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:20:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794104441; x=1794709241;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SrIhumD197mx4pl6yQkiB2jctqSFaHU4JKWvTq2PlBQ=;
-        b=oA0qELqClTT3lZFyPTJq50nwei4F8c/iHOYCXcCNPs9qB0M0OGMJmSoxmS3sEKs4dZ
-         sYhccYwKqAPZOyRjJEvD9irDMsP2Y8fh2wbJkU9iV6VjgL6SnkXKTuk7BSr5PZhOEeBG
-         62wrA6Tto3L4ETMEOmh9GmcePcHaLS2AGO98ASO9WjV8pzTs8MN6Qv9p1fK19LHfbcx2
-         yZI3wjFmu+nheJnO/Ee/jAboM5D8aXXOumilfFWkWSsPeJ2FVnE39UPnGwFUTVOtSF7h
-         EvzTRbrsmekKgRtpJLFsBuVEu2eRGUwHTtJkG7puDmT3M4rg8Ewz9WmLU2kzj8gDrUvF
-         fshA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8CyntZwi/IWSXiDTa2p8FdjAgIu5bhO2l0FNlTKpnftkIJPuxwsMEUaVlDoK1W8vQtRDYOIxQmWWOKto=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tQW5hklGoxBqdGDHfRuy2rEXDIvTpCQg7gHPNfVfR1KMbPAII
-	srhPzRMoWrzYxFTNnUq37mCziSzVlTOWDU+82T3L27L3pq46spEbm4CAjZWghVfrO4UI
-X-Gm-Gg: AYBFou13BMl97/pKrslXVgtoDmHVvD9ByiuwulAzW+UJOnvzoREV7OeBPijhK6Uapzg
-	7t4zW4FCS2Hgw53UKbAy34mrbVh3dwRG3bY10vlqKZ9KnMVfglGLFZ1o2jnmqsiSBAtZR5Glo/3
-	0cMrbuyNmdnV1RTbDy75gjaZpQsXxtZs/YI9/TcrfHZWCkdMdK4ehNS79QYXiihMpPq6BvIMu5j
-	hu3rCYxp4hKW2NvikvA0INXv+jakzOAoPhGh8mr5HpcQ93gus9ZmI4it9qIlPaJDT48UuD0cRdz
-	kCBH7kIDllgbM0wEe2N2IbQt1mq2oc4EdwGoDG9GVHBLIC/iztInu4Fsdw90hh9LOPdt3vICuuS
-	FJoh3qAd9si6+2MfNFssrRvp47fTrL74WATEsQBGL2+yyNyzUon2tS3oKgEFZgWMO3gUs+FEMe2
-	iFwT6Fcl86kycd5MRpFFHwCW2ZEBxBvEavdYFzFCX+zMG2MpcoY8n2oswK6o6hi+5znx7e7Iusc
-	HMji2yDCBK4PoCCcsXxYGxkAce/y8cD3d5xFo+5Nej8XhrMf6na7Qcfr2uxhIYoPFK1KeW6PKw0
-	EhbEqp6JwWwVa5cG1Qi0PBh3Xi745KKdEoVGblo8SoOlsP9EVXDtk8lMp6bBdA6NOYvjuqjY1de
-	pXcZ/m4y404jMYqwB+7h9JSY4OBMvhDwjHg4GUfg=
-X-Received: by 2002:a05:7022:1586:b0:1a8:b566:80c2 with SMTP id a92af1059eb24-1b39fed11a6mr498579c88.17.1794104440609;
-        Sat, 07 Nov 2026 18:20:40 -0800 (PST)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([118.217.70.161])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37314626dsm3027961c88.1.2026.11.07.18.20.38
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Sat, 07 Nov 2026 18:20:40 -0800 (PST)
-From: Jongwon Lee <ai@linux.com>
-To: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
-Cc: Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Richard Cheng <icheng@nvidia.com>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v5 3/3] cxl/edac: Mask DPA flags in the event record cache key
-Date: Sun, 08 Nov 2026 11:20:25 +0900
-Message-ID: <20261108022022.3352-4-ai@linux.com>
-In-Reply-To: <20261108022022.3352-1-ai@linux.com>
-References: <20261108022022.3352-1-ai@linux.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3C1606A31A;
+	Sun,  8 Nov 2026 02:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E3C1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GUzworsT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794104515; bh=Lg3LEB/Jnk5uLMaIenRlE8DmDu3jBUWxyp6bBvfT6DQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GUzworsTLh+htg+aDcAHBmfqqfpU1z6hPtvTJ1eLuCgENYo2oYRqOj1uWJxG0zCh2
+	 ZsEFfLztr1ebclBsRjMENDIXbqeVSVVkJw4nVwcuCoAOcRKe3xOoEfPuOhC/l9eYeZ
+	 aBs+gEDUfwGd6+Z+yHP2/HoO7YDnBFPkv8V/kI6I=
+Received: from shuai-VMware-Virtual-Platform ([223.88.55.201])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 574A5C8D; Sun, 08 Nov 2026 10:21:52 +0800
+X-QQ-mid: xmsmtpt1794104512te6neevu0
+Message-ID: <tencent_3B0DCBAE7C555338AE85D8D0C4ABBB9E3406@qq.com>
+X-QQ-XMAILINFO: OD1YwH4pKZ9p0QbDbk6hacEWhO72VxVUu5E7qQ9D7OfYbt8GZEeLOXmz8XEzpq
+	 r2tYKZKT5daONjH+Hip4nVgqZxSyHv3kPZzCjb/DUP5dWSB/fnjWvfAy4h/gKLCXo5TmfuuyZo9o
+	 lypoXbgFThT24z2gVb9a+6JSa1X3dGMOxB7cJCUgYGoDGpD77egiOp/XcWdfDn0tIkQfPXIHIQLB
+	 lwL7ytke5Sfo7PRdH0+L9NARPViWYgRl+oNnpoI5u8cm8Opu1AbsZKLUeibiLKa2ebu3pcd8c1PJ
+	 b7hiT1XpYF6uiF7pj6yZWzQHOE4CYYs/rqQDctRICuTb+m8UFlvsNiF9D+4KWMiQIsUzypOXVt4D
+	 B0HGUPbCN86jy5hfHF6Ju+K+70AE/cktXzBx45kXrYgnCk0vZNIpqfYxcNukgZ8363lPW+X00z78
+	 PpM9nCicPqdgmVXQSmmU3/fuvZxFMFgQK72wwIhX1Ur3BtWabsl+VUg7JBdHsij/s4ep6lzUsUmX
+	 zEMeEn3rpLU+DPSarV2WHzrnzM9UpK8szs8+YznByZBMwJStmG7Ho8Usd4pVUNTUqYyMOTpY2d+e
+	 5XXQolwxhXDiif7RHS5cY8XImREzEdY2EZaWYEJzfSVzU0xdv+fOQU2X0VwaVxjtIXU3n9/wPEgW
+	 xFOddT/NLWYn6iG+3wQOwKWG+lP43XbtdrIB/hoymO49x/105jyKJ6dPyLH8NdGvxiCu7kwRn4jc
+	 M92XTXT3Pu9bfioHOgXPLfKNde7XhYE4nfWrF8F12VM9v2W5/1RgbNDIS3v7aGfroi782cOHSTV/
+	 AUcNj7dJexB8Y/F+ys+c0Ap1EBIhPGnmSblOSaH4uAKbIpazWOXSuky4cvEy2gYSg/+XoXQCl1bb
+	 vH3MAdBQNxPxKadpZ3nL0/zHAbmlLqyPAdG6h73ZpPTC+D1Zr25L3J776rFIidByRi73b935BkLI
+	 F2Mwt5e51Ijysn0G8FybSF75LYudyHa9i0gbKPyRt/7BufixrCLVVmus19aROkLwlRePl3fhLvzp
+	 dzmRSn3omEn6zLrRIIIGukGdHHgZk/NfMwwiVk9uph/QAXovDBpOES8bM5DeLIMkwt+DswFNwmgF
+	 FSE4Ro
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Shuai Liu <847807867@qq.com>
+To: syzbot+1eb53c83ab8b0a0302a6@syzkaller.appspotmail.com
+Cc: axboe@kernel.dk,
+	ming.lei@redhat.com,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH] block: release queue freeze lockdep locks under mq_freeze_lock
+Date: Sun,  8 Nov 2026 10:21:32 +0800
+X-OQ-MSGID: <20261108022132.790657-1-847807867@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6acba905.8cdf6287.1eb53.00e4.GAE@google.com>
+References: <6acba905.8cdf6287.1eb53.00e4.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,67 +84,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The low bits of the DPA field in General Media and DRAM event records
-are flags. Bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace
-events print the DPA with CXL_DPA_MASK applied, while
-cxl_store_rec_gen_media() and cxl_store_rec_dram() use the raw value as
-the xarray key.
+The lockdep model for the queue freeze owner decides whether to acquire
+the q_usage_counter io and queue lockdep maps based on
+mq_freeze_disk_dead and mq_freeze_queue_dying.  These two flags are
+re-sampled by blk_freeze_set_owner() whenever the freeze depth drops to
+zero, i.e. after the previous owner released its freeze.
 
-User space takes the DPA from the trace event and writes it to the
-mem_repair dpa attribute. If the record has any flag set, xa_load() does
-not find it and the repair fails with -EINVAL.
+blk_mq_unfreeze_queue_nomemrestore() used to release the matching
+lockdep locks only after dropping mq_freeze_lock.  Between dropping the
+lock and reading the live flags a new freeze can run
+blk_freeze_set_owner() and flip the flags from false to true if the disk
+dies in that window.  The original owner then observes the flipped
+flags and skips the release, leaking both lockdep maps, which triggers
+"WARNING: lock held when returning to user space" with
+&q->q_usage_counter(io) and &q->q_usage_counter(queue) still held.
 
-Use the masked DPA as the key. Records marked NOT_REPAIRABLE are still
-rejected, because the lookup skips them.
+Perform the lockdep release while still holding mq_freeze_lock so that
+blk_freeze_set_owner() cannot interleave and the flags observed at
+release match the values sampled at acquire time.
 
-Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-Signed-off-by: Jongwon Lee <ai@linux.com>
+Fixes: 6f491a8d4b92 ("block: track disk DEAD state automatically for modeling queue freeze lockdep")
+Reported-by: syzbot+1eb53c83ab8b0a0302a6@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?id=1eb53c83ab8b0a0302a6
+Signed-off-by: Shuai Liu <847807867@qq.com>
 ---
- drivers/cxl/core/edac.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ block/blk-mq.c | 30 ++++++++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-index 42683b7c54..f627c73ff6 100644
---- a/drivers/cxl/core/edac.c
-+++ b/drivers/cxl/core/edac.c
-@@ -918,6 +918,16 @@ struct cxl_mem_repair_attrbs {
- 	enum cxl_mem_repair_type repair_type;
- };
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 025a799f35b9..db769c7c88ff 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -208,11 +208,10 @@ void blk_mq_freeze_queue_nomemsave(struct request_queue *q)
+ }
+ EXPORT_SYMBOL_GPL(blk_mq_freeze_queue_nomemsave);
  
-+/*
-+ * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
-+ * Records are looked up by the DPA user space writes back, which comes from
-+ * the trace event and has the flags masked off, so key them the same way.
-+ */
-+static inline unsigned long cxl_rec_dpa(const struct cxl_event_media_hdr *hdr)
-+{
-+	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
+-bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic)
++/* caller has to hold q->mq_freeze_lock */
++static bool __blk_mq_unfreeze_queue_locked(struct request_queue *q,
++					   bool force_atomic)
+ {
+-	bool unfreeze;
+-
+-	mutex_lock(&q->mq_freeze_lock);
+ 	if (force_atomic)
+ 		q->q_usage_counter.data->force_atomic = true;
+ 	q->mq_freeze_depth--;
+@@ -221,7 +220,15 @@ bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic)
+ 		percpu_ref_resurrect(&q->q_usage_counter);
+ 		wake_up_all(&q->mq_freeze_wq);
+ 	}
+-	unfreeze = blk_unfreeze_check_owner(q);
++	return blk_unfreeze_check_owner(q);
 +}
 +
- static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
++bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic)
++{
++	bool unfreeze;
++
++	mutex_lock(&q->mq_freeze_lock);
++	unfreeze = __blk_mq_unfreeze_queue_locked(q, force_atomic);
+ 	mutex_unlock(&q->mq_freeze_lock);
+ 
+ 	return unfreeze;
+@@ -229,8 +236,19 @@ bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic)
+ 
+ void blk_mq_unfreeze_queue_nomemrestore(struct request_queue *q)
  {
- 	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-@@ -1131,8 +1141,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
- 		return -ENOMEM;
+-	if (__blk_mq_unfreeze_queue(q, false))
++	mutex_lock(&q->mq_freeze_lock);
++	/*
++	 * Release the lockdep freeze locks while still holding
++	 * mq_freeze_lock.  blk_freeze_set_owner() re-samples
++	 * mq_freeze_disk_dead/mq_freeze_queue_dying once the freeze depth
++	 * reaches zero, and reading the flags after dropping the lock races
++	 * with that re-sampling: if the disk died in between, the flags flip
++	 * and the release is skipped even though the matching acquire
++	 * grabbed the locks, leaking them.
++	 */
++	if (__blk_mq_unfreeze_queue_locked(q, false))
+ 		blk_unfreeze_release_lock(q);
++	mutex_unlock(&q->mq_freeze_lock);
+ }
+ EXPORT_SYMBOL_GPL(blk_mq_unfreeze_queue_nomemrestore);
  
- 	old_rec = xa_store(&array_rec->rec_gen_media,
--			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
--			   GFP_KERNEL);
-+			   cxl_rec_dpa(&rec->media_hdr), rec, GFP_KERNEL);
- 	if (xa_is_err(old_rec)) {
- 		kfree(rec);
- 		return xa_err(old_rec);
-@@ -1161,8 +1170,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
- 		return -ENOMEM;
- 
- 	old_rec = xa_store(&array_rec->rec_dram,
--			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
--			   GFP_KERNEL);
-+			   cxl_rec_dpa(&rec->media_hdr), rec, GFP_KERNEL);
- 	if (xa_is_err(old_rec)) {
- 		kfree(rec);
- 		return xa_err(old_rec);
 -- 
-2.55.0
+2.53.0
 
