@@ -1,103 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794114225;
-	b=tsoKwhtZb+YqwyhyLWgTS/go/NqubyDHW71DKr1ZSddg0Nw1v4S/UJbffSXDkY3+rg/i
-	 tvAvkKeZLJJ3aUminRgZVHjcZaHTS7JZrToNtXfx3n+XWr9nvI9mlYD54XfyH3h68hkR4
-	 VLK+to5cZWz5H6les87JpVl1MHy8Rrc93c7TJhWQF1rnbtWhtMqhs7jgLMcjT1s6HIeZG
-	 w4qL7QwsfECfoHWUFSv8uINZdK8xrkUf2cc6Kj7ouxYT83/MziBtxXALLjvCmLMPO/ijm
-	 EblkdnpC6upEvi3oj3dvRXoTFIuVHzg+fREl185nDWwpBZhDS2hKDinMRbKoZhiizdA==
+	t=1794114231;
+	b=dpHE4Punzze+/Fca1D6WDIGlJfwdw1pYaZJWbzoqorYhrSuzAClrpmq+8AsZPRNQlWQh
+	 CgTrE+BK7HQfL/c8zZytjEq7CuLhQFfKJ9rZZRrj6x6XOgU9J1Uf6+iPx7eaAXJUfYmMD
+	 uS9E1UNXR4uFGZ+dRNbBvCu6AJNPUIkdBPwipPxU2xYYL/WKcANq8L8SgjzY6waX7fKX7
+	 lPs9DwyNQvbFx1KDNXWAAE47Mcnl3J7+Y2ux91TvFCP1V2xcJaqBwgR0+fKC8NH+t8m40
+	 PBkG5fbcBGOau7PuQ/4NBFSKnyG3HJ057Btl/S6DxjXiYMwgml7/bGiQM70oxgaZhPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114225;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eLx7ZFBpHeg0V+5Mid2XENGd+CE2q1yEb7LrvhyaKaM=;
-	b=CFazvcerk05k3S2dmEJ+EUTSRUSPLLOOpF8jJHRA51tyHCVhJYqNml7R1w7nqA8ST+JN
-	 z/wW1LWWvR5/Ouf3fv1m4A6PtXGDjvF6C2QafjvPstv7Gu8MmU2NXD/YwRYZl42/568JW
-	 y3LjY32btEz0Gev5c99IoW9Qgv9dOSAr8untjLrK5hbsg4NjK2gLgNkkDmv9zQk4/Puiy
-	 ig6DyNLZqRS19LAUIRrEWixiq2bjuGxX2jUf7SbPu4o3xTb5oi+mED05uWl/MbPVz1cal
-	 9rr7yReWAUp2E3a7jtnwf38+FKCy6rESHmYJAymXS9+KU4ok5CU0B9+gOU7ht/eGSng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114231;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=a+JbwsepHx9Uk2AzsEX7xxvXiLmEyOWKB/M2T5kLRG4=;
+	b=Q8CTpdE9jgsGwG6CU9R2lmbm6uJp54YX8ZCgSNV0VHIk/D+VVxzi+SZkUsJ5RYSohcCv
+	 q8EkphWs4lZgKKNrmo9s4gd+aQnCfHIQf3rFKUDLQDO01p9kwZS8O9zAOpmqSWtXZUMC4
+	 NWKDi82pHRqF6cfdNKY0BOg5C67w+a6GC51MLOhlrsCxQGW4G7MGgHJ4iLF4wP96/XFIO
+	 B458Kjt/SXN+ZP/LZvINCx6yKTaYQ/spnpXVqb+eFF3qHcydYM9YjBMclY76C4EAZ35dI
+	 rktdq+IA0ioY1gf7PEc828/S+fLgWjVyI9ggUcfV4swRrHEE3+GsPQeMSi1iazTx0Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Lkwt/5KO";
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBIaTmaZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B954606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B954606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D182606A31A;
+	Sun,  8 Nov 2026 05:03:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lkwt/5KO
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so132309b3a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:03:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794114223; x=1794719023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eLx7ZFBpHeg0V+5Mid2XENGd+CE2q1yEb7LrvhyaKaM=;
-        b=Lkwt/5KOESVHGaor2tkV/L8y19vAoEcLDavWWF/+42eAVPQSQEhnaTB7XQVzfwZkt1
-         EcqTe9ExhTjA5SadnvJzvcNO0JwN28ho4YlBDL4eXQ8lwzHq3FPLCJ3xKMh+PJh56dr0
-         4P2fXapSFknGQJutVp79sXdrFhl3RvsS0CcQhdVRJYn7fN1TR1H1vkgjHUBJ9xEG1Wlt
-         hvwBNYsX2l37DdRCkkVxVonSlCfNswF63ExtuzsJy5FBXfy8RtL2MFc7xyC9ffr2F+lK
-         kr5GjFcA+hjgzxUay8g8FJ/lb+0tMIIPY30i9LXKabUjz0BKB0y6jRen5QfcwZjrlO/f
-         MFcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794114223; x=1794719023;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eLx7ZFBpHeg0V+5Mid2XENGd+CE2q1yEb7LrvhyaKaM=;
-        b=KykZgzh+YEa2YUKxxKwzpKHUB74h7oAE3hL/MFp9o3WEgXaNVWbDSDce6S2TwcS+ck
-         1Zj0CQH8Oofc1xtyOce/lqUo+yljqq5tRuUEj1HyFzfo1EOPkRkKqp81h6UbitFVKZGy
-         SmVNmu5Hyf2bkOFgJrDV8WcIR4scdH6GHckQEamA9tYaodVUy2nl2MS9GYYX4/o0vavp
-         JCWJcE/deWtl4izF9+GEcxahXuJ7YhBPsuTOosIwTN8oi731fwYfHzslGF+CTKjFWRu3
-         gXwg2EMdEfA4xTd6tbLiDLvW2aOl4qAHTxAlmgnc7DZ6FMKzxtkbd9YRdu7ROKCP6soO
-         f+Vg==
-X-Forwarded-Encrypted: i=1; AL+hErGTzDU9N7V7lG9HyZh1dmcjGnTezs4fQcoej3J5PrvynNo5Yj7DSfaqj4VDDecRQjxAxQcOnctqIEcm6pk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MmOKpN/C2sweJRmQO7f95Xe7N/W85TmjPLi260jHRtGtoofBE
-	pK6MxC3pt8XjWCDX1wZGRfAEv1r+JSmH301lSqKB7sA3Pd0Qhd7kYIbPIGlyRNy7/U0=
-X-Gm-Gg: AYBFou06x6Bs4W7KEj8j9ApDQT4oYJZzwcs5TawCZx+gEeyMnNwF47hgGPL2C9XIYFz
-	Txw0XN7V1qlwu82pzU9+PIUHQJKGZCd/9PG3tGn6vmxW0xzoicJ40i0pyPaJWA28V4hudfawh6U
-	wn1AqHeOj34opAJfvBIkljQne3fiXBt2BG0/+eeYem/6gCYh+QkSM88O9v20pyXQ1PcdpMLab25
-	xTxHF7KLQJwgRwEmgRw86tKS/+OedDsVIizErylOOlUm6/618D5PAjdq47gHEZTFm7qqhL5W9Tz
-	6MN9g6qmwII93GZ1bPH/e5MY5U36tu7by8rqIi2+483USsrSEfWGIaYom2ohegrsi8lSiMRvjA9
-	CSeqMs+iM5XrVIcH4ooOvE3M0xOfsZlZw3zk6hjN91Wa691QABVHOnj6CqXeQix3Vk5PUq065mM
-	z9vxwZhwrCFUMuMHoVikVSOOrNo+BWRaukx0aZPm3mACbMdJ8IbMBh2nVcflOklXoIR7nTPz3Wi
-	RK3ajd6aKTU2MEd6Tm0hIhHIqoON/PqX2RHHZj7Fv0kyJZgWWh1D1uyZZBoH0qZzo+SlWwmAFtu
-	kVwttthnZ3XRy5xIgnmKLz1e3IZgZ2H/tPx5kZ4xz7ddgMwj8hr0FqtmKys2VHW6D9kzCcmTGKm
-	3Gg/6pxN+j7kUYnETxl7e+H2gXRGe0ZnjTSXH3L00ikFphmZSblKxYk5q65HbtM+BljQ/bfLctI
-	8ZhYgzrrmRrw==
-X-Received: by 2002:a05:6a00:b8d:b0:8a0:5da1:2264 with SMTP id d2e1a72fcca58-8b6706407cemr466888b3a.47.1794114222996;
-        Sat, 07 Nov 2026 21:03:42 -0800 (PST)
-Received: from sanjays-pc.govzhome.govindz.co.nz ([203.94.55.80])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b648e54738sm267977b3a.20.2026.11.07.21.03.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 21:03:41 -0800 (PST)
-From: Sanjay Govind <sanjay.govind9@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Sanjay Govind <sanjay.govind9@gmail.com>,
-	Roberts Kursitis <roberts.kursitis@azeron.eu>,
-	Krzysztof Furman <krisfur@proton.me>,
-	Dmitriy Zharov <contact@zharov.dev>,
-	Qbeliw Tanaka <q.tanaka@gmx.com>,
-	Shengyu Qu <wiagn233@outlook.com>,
-	Erich Sartison <byt.es@mailbox.org>,
-	Kees Cook <kees@kernel.org>,
-	Elliot Tester <elliotctester@gmail.com>
-Cc: Zoltan Illes <zoliviragh@gmail.com>,
-	Bihaan Sen <stevewholikesthings@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v12] Input: xpad - overhaul device data for wireless devices
-Date: Sun,  8 Nov 2026 18:00:54 +1300
-Message-ID: <20261108050056.424305-2-sanjay.govind9@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBIaTmaZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382881F0089F;
+	Sun,  8 Nov 2026 05:03:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794114230;
+	bh=a+JbwsepHx9Uk2AzsEX7xxvXiLmEyOWKB/M2T5kLRG4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hBIaTmaZeD8km6dArl4lJEQpIWcEB5RyPi6UioymbYW3QNlJ1rcRGCFnjZIcyK2s0
+	 1bf9K5WBJkAR0VL2L8fF1/m9CkGyzbeC4eTgjZuHfyjkdkxhOPzx0CYjlzzA2TsAKU
+	 5lPrtpPtY4Mam5MHzrOZO4t1N4rrdxAKWF9Q82dVe9klP9iOWD4KOxdE16hM4veUxL
+	 23Xvm94gYdoUbiiS+5Qr4UIGzau8hzdlaXEvq78O0C1PaDTp+UE6Ax8s3TdAGUMDwK
+	 rXseucLMNSoI1OACw/5lEXcHnwW0BcpS6RLGoWZNkDOHmN2owyOS31KzyX2UqQbBF6
+	 /lylpETjHXieg==
+Subject:
+ Re: [PATCH net-next v2] erspan: drop packets with an unknown ERSPAN version
+From: netdev-bot+sashiko@kernel.org
+To: yanhaishuang@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, witu@nvidia.com, linux-kernel@vger.kernel.org
+Date: Sun, 08 Nov 2026 05:03:49 +0000
+Message-ID: <179411422969.994134.8902723149137301857@kernel.org>
+In-Reply-To: <20261107130030.35220-1-yanhaishuang@cmss.chinamobile.com>
+References: <20261107130030.35220-1-yanhaishuang@cmss.chinamobile.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,733 +63,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Xbox 360 wireless controllers expose identification information in their
-link and capabilities reports. Use the vendor ID and subtype from the
-link report to give each controller a more descriptive name and product
-ID. Some controllers also encode their vendor ID, product ID and revision
-in the stick capability data; use those IDs when the vendor matches the
-link report.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Defer input device registration until the capabilities report arrives,
-with a 500ms fallback for controllers that do not respond. If a link report
-is not received, retain the receiver-derived identity and the existing
-default product ID of 0x02a1.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Protect the wireless discovery state with a spinlock and initialize the
-input device from a consistent snapshot. Track controller generations
-and revalidate presence and generation after registration, so a
-disconnect or replacement during registration cannot publish a stale
-input device. Stop routing input immediately on disconnect and reconcile
-cancelled discovery or teardown work across suspend.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This changes the IDs reported to userspace when discovery succeeds.
-Wireless controllers previously used the receiver's vendor ID and a
-product ID of 0x02a1. They now use the controller's vendor ID and a product
-ID of 0x02a0 + subtype, unless the capabilities report supplies a product
-ID. This matches Windows for gamepads (0x02a1) and wheels (0x02a2).
-Windows reports all other subtypes as 0x02a9, but Linux has no other way
-to expose the XInput subtype to userspace, so retain the subtype in the
-product ID for those devices as well. SDL already handles these IDs:
-https://github.com/libsdl-org/SDL/commit/fdc5efe1cbbcbffda016fbab9d5d9083ba040470
+- [Medium] The new version check can be bypassed: an ETH_P_ERSPAN2 (type
+  III) frame with a 4-byte GRE header never reaches it.
 
-If the link report carries a subtype but no usable vendor ID, keep the
-receiver's vendor ID together with the subtype-derived product ID. A link
-report with subtype 0 keeps the receiver-derived identity. The version
-is only replaced when the capabilities report supplies one; otherwise it
-remains the receiver's.
+--
 
-Discovery state is cleared on every suspend, so a controller that stays
-connected across suspend is rediscovered on resume and its input device
-is removed and created again.
+erspan: drop packets with an unknown ERSPAN version
 
-Signed-off-by: Sanjay Govind <sanjay.govind9@gmail.com>
----
-Tool assistance:
-Copilot SDK in VS Code assisted with review feedback, implementation,
-code review, and testing preparation.
+This patch makes erspan_rcv() and ip6erspan_rcv() reject packets whose
+ERSPAN version field is not 1 (type II) or 2 (type III). Before this,
+such packets either had no ERSPAN header pulled or were given the type
+III length.
 
-Changes in v12:
-- Rebase onto input/next.
-- Keep the default product ID and the receiver name when the link report
-  carries subtype 0, and name unrecognised subtypes "Xbox 360 Wireless
-  Controller" so the name and product ID stay consistent.
-- Return the error from the capabilities inquiry. If it cannot be sent,
-  finish discovery with the link report data instead of waiting for the
-  timeout.
-- Drop an always-true check in the presence work, drop an unneeded lock
-  around queueing work on resume, and move a misplaced comment.
-- If the wireless start fails during probe, cancel discovery work queued
-  by early reports and tear down any input device it already registered,
-  so neither outlives xpad.
-- Only finish discovery early when it was the capabilities request itself
-  that could not be submitted, not another pending output packet.
-- Ignore the link report VID for subtype 0 as well, so it keeps the
-  receiver-derived identity as documented.
-- Run the presence work immediately when a controller connects, so a stale
-  input device is removed at once instead of at the discovery deadline.
-- Clear xpad->dev when input initialization fails.
-- Rename the link report generation snapshot so it no longer shadows the
-  new generation in the presence handler.
-- Snapshot jiffies once when checking the discovery deadline. Schedule
-  timeout retries while holding the discovery lock so a concurrent
-  capabilities report or disconnect cannot have its immediate work
-  overwritten by a stale timeout.
-- Clear discovery state and the published input pointer on every suspend.
-  Queue teardown on resume so an old input device is removed even if the
-  presence inquiry reports no controller; a newly detected controller
-  starts a fresh discovery generation.
-- Read the wireless presence state under the discovery lock, matching the
-  lock discipline used for all other accesses to pad_info.
-- Continue deriving the subtype-based product ID when a link report has a
-  valid subtype but no usable VID, preserving receiver VID fallback while
-  using the controller subtype for SDL and Windows-compatible IDs.
+> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+> index 5485586fa0e62..ea41be3c4229b 100644
+> --- a/net/ipv4/ip_gre.c
+> +++ b/net/ipv4/ip_gre.c
+> @@ -303,8 +303,10 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
+>  	if (tunnel) {
+>  		if (is_erspan_type1(gre_hdr_len))
+>  			len = gre_hdr_len;
+> -		else
+> +		else if (ver == ERSPAN_VERSION || ver == ERSPAN_VERSION2)
+>  			len = gre_hdr_len + erspan_hdr_len(ver);
+> +		else
+> +			return PACKET_REJECT;
 
-Testing:
-- Built xpad.ko with W=1 against the running 7.2.11-arch1-1 kernel
-  headers, with force feedback and LED support enabled. No new warnings
-  with W=2 either.
-- Hardware tested with an unofficial Xbox 360 wireless receiver
-  (045e:02a9), two official gamepads and a RedOctane guitar connected at
-  the same time:
-  - Gamepads report 045e:02a1 as "Xbox 360 Wireless Controller" and the
-    guitar reports 1430:02a7 as "Xbox 360 Wireless Alternate Guitar".
-  - Repeated reconnects, including powering a gamepad off again while
-    discovery was still running, leave exactly one input device per slot.
-  - Moving controllers between slots, including a gamepad slot that is
-    reused by the guitar, updates the name and IDs with no stale device.
-  - On one USB port the receiver sent no link report at all (confirmed
-    with usbmon). Those controllers fell back to the receiver name and
-    product ID 0x02a1 after the 500ms timeout, as intended.
-  - Suspend powers controllers off and they are rediscovered after
-    resume. This receiver fails the reset-resume on every resume, in both
-    s2idle and deep sleep and on two different host controllers, and is
-    re-enumerated instead. The stock driver behaves the same way, so the
-    xpad_resume() path itself could not be exercised.
-- Not tested: a controller staying connected across suspend, or being
-  replaced while input is stopped during suspend.
+[Severity: Medium]
+Can an ETH_P_ERSPAN2 frame with a 4-byte GRE header get around this new
+check?
 
-Previous revisions:
-v11: Track discovery readiness and a per-generation deadline; reject stale
-     reports and restart discovery after suspend.
-     https://lore.kernel.org/linux-input/20261103021550.1054584-3-sanjay.govind9@gmail.com/
-v10: Protect discovery snapshots and input publication with a spinlock;
-     track controller generations, clear the RCU input pointer on
-     disconnect, and reconcile canceled work over suspend.
-     https://lore.kernel.org/linux-input/20261021221009.361992-3-sanjay.govind9@gmail.com/
-v9: Track controller generations, clear discovery state on disconnect,
-    use a separate capabilities output slot, and validate vendor IDs.
-    https://lore.kernel.org/linux-input/20261015220126.102766-3-sanjay.govind9@gmail.com/
-v8: Clear presence state on suspend and wireless flags on input teardown.
-    https://lore.kernel.org/linux-input/20260818073159.909188-4-sanjay.govind9@gmail.com/
-v7: Check whether the input device has already been initialized.
-v6: Address presence-work time-of-check/time-of-use issues.
-v5: Fix work scheduling races and a typo.
-v4: Clear wireless state on presence changes.
-v3: Handle incorrect or missing link and capabilities reports.
-v2: Defer registration until capabilities discovery or timeout.
----
- drivers/input/joystick/xpad.c | 400 +++++++++++++++++++++++++++++++---
- 1 file changed, 367 insertions(+), 33 deletions(-)
+is_erspan_type1() looks only at gre_hdr_len and never checks
+tpi->proto:
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index 810e52782ae8..a273d820910e 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -30,14 +30,17 @@
- #include <linux/bits.h>
- #include <linux/kernel.h>
- #include <linux/input.h>
-+#include <linux/jiffies.h>
- #include <linux/rcupdate.h>
- #include <linux/slab.h>
- #include <linux/stat.h>
- #include <linux/module.h>
-+#include <linux/unaligned.h>
- #include <linux/usb/input.h>
- #include <linux/usb/quirks.h>
- 
- #define XPAD_PKT_LEN 64
-+#define XPAD360W_DISCOVERY_TIMEOUT	msecs_to_jiffies(500)
- 
- /*
-  * xbox d-pads should map to buttons, as is required for DDR pads
-@@ -60,6 +63,26 @@
- #define XTYPE_XBOXONE     3
- #define XTYPE_UNKNOWN     4
- 
-+/*
-+ * Capability flags reported by x360w pads. Bit 0 matches
-+ * XINPUT_CAPS_FFB_SUPPORTED, which is also set from the link report.
-+ */
-+#define FLAG_FORCE_FEEDBACK	0x01
-+
-+#define SUBTYPE_GAMEPAD			0x01
-+#define SUBTYPE_WHEEL			0x02
-+#define SUBTYPE_ARCADE_STICK		0x03
-+#define SUBTYPE_FLIGHT_STICK		0x04
-+#define SUBTYPE_DANCE_PAD		0x05
-+#define SUBTYPE_GUITAR			0x06
-+#define SUBTYPE_GUITAR_ALTERNATE	0x07
-+#define SUBTYPE_DRUM_KIT		0x08
-+#define SUBTYPE_GUITAR_BASS		0x0B
-+#define SUBTYPE_RB_KEYBOARD		0x0F
-+#define SUBTYPE_ARCADE_PAD		0x13
-+#define SUBTYPE_TURNTABLE		0x17
-+#define SUBTYPE_PRO_GUITAR		0x19
-+
- /* Send power-off packet to xpad360w after holding the mode button for this many
-  * seconds
-  */
-@@ -748,9 +771,24 @@ struct xpad_output_packet {
- #define XPAD_OUT_CMD_IDX	0
- #define XPAD_OUT_FF_IDX		1
- #define XPAD_OUT_LED_IDX	(1 + IS_ENABLED(CONFIG_JOYSTICK_XPAD_FF))
--#define XPAD_NUM_OUT_PACKETS	(1 + \
-+#define XPAD_OUT_CAPS_IDX	(1 + \
- 				 IS_ENABLED(CONFIG_JOYSTICK_XPAD_FF) + \
- 				 IS_ENABLED(CONFIG_JOYSTICK_XPAD_LEDS))
-+#define XPAD_NUM_OUT_PACKETS	(XPAD_OUT_CAPS_IDX + 1)
-+
-+/* Discovery state learned from x360w presence, link and capabilities reports */
-+struct xpad360w_pad_info {
-+	bool present;
-+	bool link_report_received;
-+	bool discovery_ready;
-+	unsigned int gen;
-+	unsigned long discovery_deadline;
-+	u8 sub_type;
-+	u8 flags;
-+	u16 vid;
-+	u16 pid;
-+	u16 version;
-+};
- 
- struct usb_xpad {
- 	struct input_dev *dev;		/* input device interface */
-@@ -758,8 +796,10 @@ struct usb_xpad {
- 	struct usb_device *udev;	/* usb device */
- 	struct usb_interface *intf;	/* usb interface */
- 
--	bool pad_present;
- 	bool input_created;
-+	unsigned int input_gen;		/* generation the input device was created for */
-+	struct xpad360w_pad_info pad_info;
-+	spinlock_t x360w_lock;		/* protects pad_info and x360w_dev publication */
- 
- 	struct urb *irq_in;		/* urb for interrupt in report */
- 	unsigned char *idata;		/* input data */
-@@ -788,17 +828,19 @@ struct usb_xpad {
- 	int packet_type;		/* type of the extended packet */
- 	int pad_nr;			/* the order x360 pads were attached */
- 	const char *name;		/* name of the device */
--	struct work_struct work;	/* init/remove device from callback */
-+	struct delayed_work work;	/* init/remove device from callback */
- 	time64_t mode_btn_down_ts;
- 	bool delay_init;		/* init packets should be delayed */
- 	bool delayed_init_done;
- };
- 
--static int xpad_init_input(struct usb_xpad *xpad);
-+static int xpad_init_input(struct usb_xpad *xpad,
-+			   const struct xpad360w_pad_info *info);
- static void xpad_deinit_input(struct usb_xpad *xpad);
- static int xpad_start_input(struct usb_xpad *xpad);
- static void xpadone_ack_mode_report(struct usb_xpad *xpad, u8 seq_num);
- static void xpad360w_poweroff_controller(struct usb_xpad *xpad);
-+static int xpad_inquiry_pad_capabilities(struct usb_xpad *xpad);
- 
- /*
-  *	xpad_process_packet
-@@ -883,6 +925,8 @@ static void xpad_process_packet(struct usb_xpad *xpad, u16 cmd, unsigned char *d
- static void xpad360_process_packet(struct usb_xpad *xpad, struct input_dev *dev,
- 				   u16 cmd, unsigned char *data)
- {
-+	bool pad_present = false;
-+
- 	/* valid pad data */
- 	if (data[0] != 0x00)
- 		return;
-@@ -954,7 +998,11 @@ static void xpad360_process_packet(struct usb_xpad *xpad, struct input_dev *dev,
- 
- 	/* XBOX360W controllers can't be turned off without driver assistance */
- 	if (xpad->xtype == XTYPE_XBOX360W) {
--		if (xpad->mode_btn_down_ts > 0 && xpad->pad_present &&
-+		scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+			pad_present = xpad->pad_info.present;
-+		}
-+
-+		if (xpad->mode_btn_down_ts > 0 && pad_present &&
- 		    ((ktime_get_seconds() - xpad->mode_btn_down_ts) >=
- 		     XPAD360W_POWEROFF_TIMEOUT)) {
- 			xpad360w_poweroff_controller(xpad);
-@@ -972,19 +1020,22 @@ static void xpad360_process_packet(struct usb_xpad *xpad, struct input_dev *dev,
- 
- static void xpad_presence_work(struct work_struct *work)
- {
--	struct usb_xpad *xpad = container_of(work, struct usb_xpad, work);
-+	struct usb_xpad *xpad = container_of(work, struct usb_xpad, work.work);
-+	struct xpad360w_pad_info info;
-+	unsigned long delay = 0;
-+	unsigned long now;
- 	int error;
- 
--	if (xpad->pad_present) {
--		error = xpad_init_input(xpad);
--		if (error) {
--			/* complain only, not much else we can do here */
--			dev_err(&xpad->dev->dev,
--				"unable to init device: %d\n", error);
--		} else {
--			rcu_assign_pointer(xpad->x360w_dev, xpad->dev);
--		}
--	} else {
-+	/*
-+	 * Take a consistent snapshot, as the reports are processed
-+	 * concurrently from the irq handler.
-+	 */
-+	scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+		info = xpad->pad_info;
-+	}
-+
-+	/* Remove the input device if its controller disconnected or changed. */
-+	if (xpad->input_created && (!info.present || xpad->input_gen != info.gen)) {
- 		RCU_INIT_POINTER(xpad->x360w_dev, NULL);
- 		synchronize_rcu();
- 		/*
-@@ -993,6 +1044,52 @@ static void xpad_presence_work(struct work_struct *work)
- 		 */
- 		xpad_deinit_input(xpad);
- 	}
-+
-+	if (!info.present || xpad->input_created)
-+		return;
-+
-+	/*
-+	 * The work may already be running when a new pad connects, so its
-+	 * original delayed execution cannot be relied on to finish discovery.
-+	 */
-+	scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+		if (!xpad->pad_info.present || xpad->pad_info.gen != info.gen)
-+			return;
-+
-+		now = jiffies;
-+		if (!xpad->pad_info.discovery_ready &&
-+		    time_before(now, xpad->pad_info.discovery_deadline)) {
-+			delay = xpad->pad_info.discovery_deadline - now;
-+			mod_delayed_work(system_percpu_wq, &xpad->work, delay);
-+		} else {
-+			xpad->pad_info.discovery_ready = true;
-+			info = xpad->pad_info;
-+		}
-+	}
-+
-+	if (delay)
-+		return;
-+
-+	error = xpad_init_input(xpad, &info);
-+	if (error) {
-+		/* complain only, not much else we can do here */
-+		dev_err(&xpad->intf->dev, "unable to init device: %d\n", error);
-+		return;
-+	}
-+
-+	scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+		if (xpad->pad_info.present &&
-+		    xpad->pad_info.gen == info.gen &&
-+		    xpad->pad_info.discovery_ready) {
-+			xpad->input_gen = info.gen;
-+			rcu_assign_pointer(xpad->x360w_dev, xpad->dev);
-+			return;
-+		}
-+	}
-+
-+	RCU_INIT_POINTER(xpad->x360w_dev, NULL);
-+	synchronize_rcu();
-+	xpad_deinit_input(xpad);
- }
- 
- /*
-@@ -1009,18 +1106,121 @@ static void xpad_presence_work(struct work_struct *work)
-  * 01.1 - Pad state (Bytes 4+) valid
-  *
-  */
--static void xpad360w_process_packet(struct usb_xpad *xpad, u16 cmd, unsigned char *data)
-+static void xpad360w_process_packet(struct usb_xpad *xpad, u16 cmd, unsigned char *data, u32 len)
- {
-+	struct xpad360w_pad_info *info = &xpad->pad_info;
- 	struct input_dev *dev;
- 	bool present;
-+	bool request_capabilities;
-+	unsigned int link_gen = 0;
-+	u16 parsed_vid;
- 
- 	/* Presence change */
- 	if (data[0] & 0x08) {
- 		present = (data[1] & 0x80) != 0;
- 
--		if (xpad->pad_present != present) {
--			xpad->pad_present = present;
--			schedule_work(&xpad->work);
-+		guard(spinlock_irqsave)(&xpad->x360w_lock);
-+
-+		if (info->present != present) {
-+			if (present) {
-+				unsigned int gen = info->gen + 1;
-+
-+				*info = (struct xpad360w_pad_info) {
-+					.present = true,
-+					.gen = gen,
-+					.discovery_deadline = jiffies +
-+						XPAD360W_DISCOVERY_TIMEOUT,
-+				};
-+				/*
-+				 * Run the work now so it removes any stale input
-+				 * device; it re-arms itself for the deadline.
-+				 */
-+				mod_delayed_work(system_percpu_wq, &xpad->work, 0);
-+			} else {
-+				RCU_INIT_POINTER(xpad->x360w_dev, NULL);
-+				/* Forget everything we learned about the old pad */
-+				*info = (struct xpad360w_pad_info) { .gen = info->gen };
-+				mod_delayed_work(system_percpu_wq, &xpad->work, 0);
-+			}
-+		}
-+	}
-+
-+	/* Link report */
-+	if (len >= 26 && data[0] == 0x00 && data[1] == 0x0F) {
-+		/* Decode vendor id from link report */
-+		parsed_vid = ((data[0x16] & 0xf) | (data[0x18] & 0xf) << 4) << 8 |
-+			     data[0x17];
-+
-+		/* VID 1 means unavailable; fall back to the receiver's VID. */
-+		if (parsed_vid == 1)
-+			parsed_vid = 0;
-+
-+		request_capabilities = false;
-+
-+		scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+			if (info->present && !info->discovery_ready) {
-+				info->sub_type = data[25] & 0x7f;
-+				/*
-+				 * Use the subtype to derive a PID even if the VID
-+				 * is unavailable. Subtype 0 carries no information,
-+				 * so keep the receiver-derived identity for it.
-+				 */
-+				if (info->sub_type) {
-+					info->vid = parsed_vid;
-+					info->pid = 0x02a0 + info->sub_type;
-+				} else {
-+					info->vid = 0;
-+					info->pid = 0;
-+				}
-+				info->version = 0;
-+				info->flags = 0;
-+				info->link_report_received = true;
-+
-+				if ((data[25] & 0x80) != 0)
-+					info->flags |= FLAG_FORCE_FEEDBACK;
-+
-+				request_capabilities = true;
-+				link_gen = info->gen;
-+			}
-+		}
-+
-+		/*
-+		 * If the capabilities request cannot be sent, finish discovery
-+		 * now with the link report data rather than waiting for the
-+		 * timeout.
-+		 */
-+		if (request_capabilities && xpad_inquiry_pad_capabilities(xpad)) {
-+			guard(spinlock_irqsave)(&xpad->x360w_lock);
-+
-+			if (info->present && info->gen == link_gen &&
-+			    !info->discovery_ready) {
-+				info->discovery_ready = true;
-+				mod_delayed_work(system_percpu_wq, &xpad->work, 0);
-+			}
-+		}
-+	}
-+
-+	/* Capabilities report */
-+	if (len >= 21 && data[0] == 0x00 && data[1] == 0x05 && data[5] == 0x12) {
-+		scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+			if (info->present && info->link_report_received &&
-+			    !info->discovery_ready) {
-+				info->flags |= data[20];
-+				/*
-+				 * Some vendors encode identification in the stick
-+				 * capabilities. Only trust it when the VID matches
-+				 * the link report.
-+				 */
-+				if (info->vid &&
-+				    get_unaligned_le16(data + 10) == info->vid &&
-+				    get_unaligned_le16(data + 12)) {
-+					info->pid = get_unaligned_le16(data + 12);
-+					info->version = get_unaligned_le16(data + 14);
-+				}
-+
-+				info->discovery_ready = true;
-+				mod_delayed_work(system_percpu_wq, &xpad->work, 0);
-+			}
- 		}
- 	}
- 
-@@ -1246,7 +1446,7 @@ static void xpad_irq_in(struct urb *urb)
- 		xpad360_process_packet(xpad, xpad->dev, 0, xpad->idata);
- 		break;
- 	case XTYPE_XBOX360W:
--		xpad360w_process_packet(xpad, 0, xpad->idata);
-+		xpad360w_process_packet(xpad, 0, xpad->idata, urb->actual_length);
- 		break;
- 	case XTYPE_XBOXONE:
- 		xpadone_process_packet(xpad, 0, xpad->idata, urb->actual_length);
-@@ -1487,6 +1687,31 @@ static int xpad_inquiry_pad_presence(struct usb_xpad *xpad)
- 	return xpad_try_sending_next_out_packet(xpad);
- }
- 
-+static int xpad_inquiry_pad_capabilities(struct usb_xpad *xpad)
-+{
-+	struct xpad_output_packet *packet =
-+			&xpad->out_packets[XPAD_OUT_CAPS_IDX];
-+	static const u8 caps_inquiry[] = {
-+		0x00, 0x00, 0x02, 0x80, 0x00, 0x00,
-+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-+	};
-+	int error;
-+
-+	guard(spinlock_irqsave)(&xpad->odata_lock);
-+
-+	packet->len = sizeof(caps_inquiry);
-+	memcpy(packet->data, caps_inquiry, packet->len);
-+	packet->pending = true;
-+
-+	error = xpad_try_sending_next_out_packet(xpad);
-+
-+	/*
-+	 * The failed submission may have been for another pending packet.
-+	 * Only report an error if the capabilities request was dropped.
-+	 */
-+	return packet->pending ? 0 : error;
-+}
-+
- static int xpad_start_xbox_one(struct usb_xpad *xpad)
- {
- 	int error;
-@@ -1884,8 +2109,8 @@ static void xpad360w_stop_input(struct usb_xpad *xpad)
- {
- 	usb_kill_urb(xpad->irq_in);
- 
--	/* Make sure we are done with presence work if it was scheduled */
--	flush_work(&xpad->work);
-+	/* Cancel any pending presence work */
-+	cancel_delayed_work_sync(&xpad->work);
- }
- 
- static int xpad_open(struct input_dev *dev)
-@@ -1942,7 +2167,74 @@ static void xpad_deinit_input(struct usb_xpad *xpad)
- 	}
- }
- 
--static int xpad_init_input(struct usb_xpad *xpad)
-+static void xpad360w_set_input_info(struct input_dev *input_dev,
-+				    const struct xpad360w_pad_info *info)
-+{
-+	if (info->vid)
-+		input_dev->id.vendor = info->vid;
-+	if (info->pid)
-+		input_dev->id.product = info->pid;
-+	else
-+		/* Default product id for x360w controllers */
-+		input_dev->id.product = 0x02a1;
-+	if (info->version)
-+		input_dev->id.version = info->version;
-+
-+	switch (info->sub_type) {
-+	case SUBTYPE_GAMEPAD:
-+		input_dev->name = "Xbox 360 Wireless Controller";
-+		break;
-+	case SUBTYPE_WHEEL:
-+		input_dev->name = "Xbox 360 Wireless Wheel";
-+		break;
-+	case SUBTYPE_ARCADE_STICK:
-+		input_dev->name = "Xbox 360 Wireless Arcade Stick";
-+		break;
-+	case SUBTYPE_FLIGHT_STICK:
-+		input_dev->name = "Xbox 360 Wireless Flight Stick";
-+		break;
-+	case SUBTYPE_DANCE_PAD:
-+		input_dev->name = "Xbox 360 Wireless Dance Pad";
-+		break;
-+	case SUBTYPE_GUITAR:
-+		input_dev->name = "Xbox 360 Wireless Guitar";
-+		break;
-+	case SUBTYPE_GUITAR_ALTERNATE:
-+		input_dev->name = "Xbox 360 Wireless Alternate Guitar";
-+		break;
-+	case SUBTYPE_GUITAR_BASS:
-+		input_dev->name = "Xbox 360 Wireless Bass Guitar";
-+		break;
-+	case SUBTYPE_DRUM_KIT:
-+		/* Vendors used force feedback flag to differentiate these */
-+		if (info->flags & FLAG_FORCE_FEEDBACK)
-+			input_dev->name = "Xbox 360 Wireless Guitar Hero Drum Kit";
-+		else
-+			input_dev->name = "Xbox 360 Wireless Rock Band Drum Kit";
-+		break;
-+	case SUBTYPE_RB_KEYBOARD:
-+		input_dev->name = "Xbox 360 Wireless Rock Band Keyboard";
-+		break;
-+	case SUBTYPE_ARCADE_PAD:
-+		input_dev->name = "Xbox 360 Wireless Arcade Pad";
-+		break;
-+	case SUBTYPE_TURNTABLE:
-+		input_dev->name = "Xbox 360 Wireless DJ Hero Turntable";
-+		break;
-+	case SUBTYPE_PRO_GUITAR:
-+		input_dev->name = "Xbox 360 Wireless Rock Band Pro Guitar";
-+		break;
-+	case 0:
-+		/* No subtype reported, keep the receiver's name */
-+		break;
-+	default:
-+		input_dev->name = "Xbox 360 Wireless Controller";
-+		break;
-+	}
-+}
-+
-+static int xpad_init_input(struct usb_xpad *xpad,
-+			   const struct xpad360w_pad_info *info)
- {
- 	struct input_dev *input_dev;
- 	int i, error;
-@@ -1956,10 +2248,8 @@ static int xpad_init_input(struct usb_xpad *xpad)
- 	input_dev->phys = xpad->phys;
- 	usb_to_input_id(xpad->udev, &input_dev->id);
- 
--	if (xpad->xtype == XTYPE_XBOX360W) {
--		/* x360w controllers and the receiver have different ids */
--		input_dev->id.product = 0x02a1;
--	}
-+	if (xpad->xtype == XTYPE_XBOX360W)
-+		xpad360w_set_input_info(input_dev, info);
- 
- 	input_dev->dev.parent = &xpad->intf->dev;
- 
-@@ -2050,6 +2340,7 @@ static int xpad_init_input(struct usb_xpad *xpad)
- 	input_ff_destroy(input_dev);
- err_free_input:
- 	input_free_device(input_dev);
-+	xpad->dev = NULL;
- 	return error;
- }
- 
-@@ -2098,7 +2389,8 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 		xpad->delay_init = true;
- 
- 	xpad->packet_type = PKT_XB;
--	INIT_WORK(&xpad->work, xpad_presence_work);
-+	INIT_DELAYED_WORK(&xpad->work, xpad_presence_work);
-+	spin_lock_init(&xpad->x360w_lock);
- 
- 	if (xpad->xtype == XTYPE_UNKNOWN) {
- 		if (intf->cur_altsetting->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC) {
-@@ -2204,8 +2496,18 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 		 * we're waiting for.
- 		 */
- 		error = xpad360w_start_input(xpad);
--		if (error)
-+		if (error) {
-+			/*
-+			 * Reports received before the inquiry failed may have
-+			 * queued discovery work, or even registered an input
-+			 * device. The irq is already stopped, so nothing can
-+			 * queue more work or use x360w_dev.
-+			 */
-+			cancel_delayed_work_sync(&xpad->work);
-+			RCU_INIT_POINTER(xpad->x360w_dev, NULL);
-+			xpad_deinit_input(xpad);
- 			goto err_deinit_output;
-+		}
- 		/*
- 		 * Wireless controllers require RESET_RESUME to work properly
- 		 * after suspend. Ideally this quirk should be in usb core
-@@ -2215,7 +2517,8 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 		 */
- 		udev->quirks |= USB_QUIRK_RESET_RESUME;
- 	} else {
--		error = xpad_init_input(xpad);
-+		/* Only x360w devices use the device info */
-+		error = xpad_init_input(xpad, NULL);
- 		if (error)
- 			goto err_deinit_output;
- 	}
-@@ -2262,6 +2565,7 @@ static int xpad_suspend(struct usb_interface *intf, pm_message_t message)
- {
- 	struct usb_xpad *xpad = usb_get_intfdata(intf);
- 	struct input_dev *input = xpad->dev;
-+	struct xpad360w_pad_info info;
- 
- 	if (xpad->xtype == XTYPE_XBOX360W) {
- 		/*
-@@ -2271,14 +2575,37 @@ static int xpad_suspend(struct usb_interface *intf, pm_message_t message)
- 		 */
- 		xpad360w_stop_input(xpad);
- 
-+		scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+			info = xpad->pad_info;
-+		}
-+
- 		/*
- 		 * The wireless adapter is going off now, so the
- 		 * gamepads are going to become disconnected.
- 		 * Unless explicitly disabled, power them down
- 		 * so they don't just sit there flashing.
- 		 */
--		if (auto_poweroff && xpad->pad_present)
-+		if (auto_poweroff && info.present)
- 			xpad360w_poweroff_controller(xpad);
-+
-+		/* Finish teardown if suspend cancelled work for an old pad. */
-+		if (xpad->input_created &&
-+		    (!info.present || xpad->input_gen != info.gen)) {
-+			RCU_INIT_POINTER(xpad->x360w_dev, NULL);
-+			synchronize_rcu();
-+			xpad_deinit_input(xpad);
-+		}
-+
-+		/*
-+		 * The controller may have changed while input was stopped.
-+		 * Force resume to rediscover it instead of reusing stale data.
-+		 */
-+		scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+			RCU_INIT_POINTER(xpad->x360w_dev, NULL);
-+			xpad->pad_info = (struct xpad360w_pad_info) {
-+				.gen = xpad->pad_info.gen,
-+			};
-+		}
- 	} else {
- 		guard(mutex)(&input->mutex);
- 
-@@ -2297,8 +2624,15 @@ static int xpad_resume(struct usb_interface *intf)
- 	struct input_dev *input = xpad->dev;
- 
- 	xpad->delayed_init_done = false;
--	if (xpad->xtype == XTYPE_XBOX360W)
-+	if (xpad->xtype == XTYPE_XBOX360W) {
-+		/*
-+		 * Tear down the old input device even if the resume inquiry
-+		 * reports that no controller is currently present.
-+		 */
-+		mod_delayed_work(system_percpu_wq, &xpad->work, 0);
-+
- 		return xpad360w_start_input(xpad);
-+	}
- 
- 	guard(mutex)(&input->mutex);
- 
+net/ipv4/ip_gre.c:is_erspan_type1() {
+	/* Both ERSPAN type I (version 0) and type II (version 1) use
+	 * protocol 0x88BE, but the type I has only 4-byte GRE header,
+	 * while type II has 8-byte.
+	 */
+	return gre_hdr_len == 4;
+}
+
+gre_parse_header() treats ETH_P_ERSPAN2 (0x22EB, defined in uAPI as
+type III) as always carrying an ERSPAN base header, whatever hdr_len
+is:
+
+net/ipv4/gre_demux.c:gre_parse_header() {
+    ...
+	if ((greh->protocol == htons(ETH_P_ERSPAN) && hdr_len != 4) ||
+	    greh->protocol == htons(ETH_P_ERSPAN2)) {
+		...
+		tpi->key = cpu_to_be32(get_session_id(ershdr));
+	}
+    ...
+}
+
+gre_rcv() then calls erspan_rcv(skb, &tpi, 4). Since
+is_erspan_type1(4) is true, ver is forced to 0 and the lookup uses
+NO_KEY with key 0. That can match a keyless erspan_ver 0 tunnel or the
+collect_md fallback in ip_tunnel_lookup().
+
+>From there len = gre_hdr_len and the new version check is skipped. An
+ERSPAN header with any version (0 or 3..15) is passed up as the start
+of the inner Ethernet frame, which is the outcome the commit message
+says is fixed.
+
+In collect_md mode, tun_id = key32_to_tunnel_id(tpi->key) is also built
+from the session ID in those 4 bytes, and the same bytes are handed up
+as the inner MAC header.
+
+__iptunnel_pull_header() still pulls ETH_HLEN, so nothing is read out
+of bounds.
+
+Would it make sense to also require tpi->proto == htons(ETH_P_ERSPAN)
+when classifying a packet as type I, so this path is covered too?
+
+>  
+>  		if (unlikely(!pskb_may_pull(skb, len)))
+>  			return PACKET_REJECT;
+
+[ ... ]
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107130030.35220-1-yanhaishuang%40cmss.chinamobile.com
