@@ -1,85 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794149898;
-	b=AJk+Fy4950jrhYDnx6AzFNjPO4NbZT1pXRQ/gDGQPXX9eXb2/08wWJW7SucP7vpsOM14
-	 MDWzlj5KQ814a046rCPzEgfw5FyXUJRNCXo73LzlGOIND8WPz1oJlHOpFGZVErLByl4J+
-	 Do/0a0GHbuuekCbht+Bnf/ED9ZjDkYCOwTEDz89zC7x9EsiYS6+1yZxv5ow7/iz4rTU8j
-	 xKh/c9EvSVe43k5TrlEDb0W31rmN3QSvXhSqCVJkO0mJqql4W7EehkInrDEso1vRb4Bux
-	 69qCBkRcmu5toTMFT6pMQmjPwiEKm5YgfxZNcnoyBMtRo9aBc7ivIyJgRw2BGJ9kuJA==
+	t=1794149903;
+	b=46oRiRG9xIVoWAAwyuktzBCJrQ7pmjmJvzr1hZxvIiXKDiaYI1vtex6TSOXHp8uG8XiH
+	 ZCr1hHvhcjvnzkLFGLnmKT+RmuFXfCsm21aF/6uMPcXDigy5bXim8q8QvnlrFp+s6O5un
+	 V31dojppW3I1NB0S8Fx8sOH5Ow0rAwAYn7HAvd1Sz/G2uX7AUgY0mq+mih3O1BOr9aDyi
+	 dkLKZ4J8ACD/kAsRKtWSzEcuWtBmi4WQjeaPAPrmILTDkkQL1P/TTSJyTQx9PLAZczfgF
+	 Jzw2m85kEsMPgmrnTt7Smsa7UBs9rAtIyZX5b53m9oIr0UjPYeAHrNzA0y4+nn/nDeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794149898;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=zg9wHbUjOFQvCSSXrqJHlgr9ERwDV2A9O9zK2C7wcfk=;
-	b=fpqpQRWVD03YEfrUZTiCWMdnmZaxr0EugsnCFJCUk8l7o05TSmLaSxdyqJKjFAyA12Vs
-	 eTz1jig9YrmoFtEWP0Lz3lmg0UVQKvlo6lfMOIDImruUpu3rFloRHVdVD1jPwVGUlg8Mc
-	 Y0Lx+oFA8CL8c+TfR+gQPlvYAizJOPv5UoDnmoSkQQyLIlksnKkUv6Dp6BeY9yAXrgdP+
-	 47U6BE5CZX4DTVPIHQj+9QTnIsqJF+/AbqRHvEX6pj1RJ3MH019PGr7rAKjaEdwFT6MWW
-	 b5VQmy+nPj2VlDwXO+OI+cdYe2BccZOtDdKvU1qEFJMtVQh2EvjLuy4WVq6qieG8Mgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794149903;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9G8iDq9PgStkjmR+yV5JSPWsbqrzQ4CGM0C2KH6B3hI=;
+	b=42wEQgZi7dsExqcNDyO3WA2EDs2gxXkVYtHpRjT0qw4V/tKLh73SVWtR4OTV6JeSiT1d
+	 Bfs7kSBW2Vp8/58cJX133atOB0Qv0RbLkGrCUMNUdpB7pMkGfPr99mtWxZq951LWj4ad+
+	 h2mi6lrizszhHaQXOAvqrQ9aaPiT/qiedfj1+zvKWiUpe6P9UKSgFcqMvyikx7X87MtF2
+	 FyJA6EjIXo23FJou7vukmQJTPi0QUt+2ekN29kckrzgmxSRwX2jbI2DE8xIjxfG3wejDm
+	 LlU0avU0HT0F35c+ZEiErivexU5JsOARH01z0ur3eZwwaISNiYL+Ae7cU/oRItsVojA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=HcS6u0uI;
-	arc=none smtp.remote-ip=209.85.221.175
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=GK42ABHy;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0eC0qwAa;
+	arc=none smtp.remote-ip=103.168.172.150
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75969606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75969606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB789606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB789606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=HcS6u0uI
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso28346e0c.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:58:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794149897; x=1794754697; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zg9wHbUjOFQvCSSXrqJHlgr9ERwDV2A9O9zK2C7wcfk=;
-        b=HcS6u0uIhoh9TG5kUk7m09X0xPU9+Mwuv4H0pil3okKllS/JbNjw4JddmRd+KNy6rK
-         6/COhsGqCao54mkTwsKK9Ew5gFfF4mCvIs0G8yLupXu0KtnG7vtUNEJp65CeqdORuhNu
-         xJR331SS16VS9Nr70KyGExUhIgkJdTDg2mv3rPNv8YPtv5LTEA5Oww/EwRNez94dNV1i
-         VT+kz2lxNqcPAokFzLoY+z9Z8PT4grgBIBs8Qop942/G+pKgSlh2DBBqO04vESPqMOGg
-         6twqXRKFO7dIFS7uVkg0bMCoeA4K5RTedfCOEglxORHoK95jl1CnL6qcUj7o6i0nYNO9
-         6kXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794149897; x=1794754697;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zg9wHbUjOFQvCSSXrqJHlgr9ERwDV2A9O9zK2C7wcfk=;
-        b=WceJEcNWYDNlNFk03DPegUEuF5ggJ8GdbnECQrXQ5DaDK5Y9av8Qd9s05dLofiVGjF
-         jgG6AVj9eDKlIhGtUAQbEaY7xt1yA5PZe07iGbctWdLeiZDLmbWoPGnVVbA2/b4E1ayz
-         HNj+qd8Zf5cU48Gkvcbh5mBtMmPTAqVn07oozRKwiABQNI6RKtCeQkUHgLM3NcA0BUc1
-         9NGIF6tsd/dOly2WHktLP/VFLhh0m9xQTXMZNpnCV4pJRfNU6rQd90Z1UYNmBCDQ6InE
-         5cyiSAX3E7L7zuCqsNfR72nPUYVg3NI4EKLAa2zQ7bdkxrSMQNweZzS/GJtjtPBimiwB
-         3+rg==
-X-Forwarded-Encrypted: i=1; AL+hErGgi9zn/D9QMCFvEvcRYlKdS6U+2NRpHmzZvqPe3EgbeRYImUAjar8g7leUWuov8pTvf2Cj6xbwVwS5tBo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NL/BOYaM7futxvVnYwhSqcWfQwxg2HwcqCP3K7rRPCu+RKeT9
-	1maKH43puwN00rZMiSaT5XQURSSuFzDxGh5Ex0ws1h/QsFI7yE2wHLjoUZttbJCnkVI=
-X-Gm-Gg: AYBFou1v2u5PpgXNcV1ZY/CGnoyeBbmYX73DvUP7ugCcBE2XfflqjY0cDMVs2ZHpFCl
-	9yNwplIXHoIYqkTrhmyWMHp69Vki3UACDfkDPSzrmkm4Q8Uy9rS4VsT6Ir1W2uY/vwQ2+3ki8gG
-	mdSUX0jUfnqQvE0wx8jQja1riiwtgm+fFw7SYWnHa2vOUJcIvgHi+phhKw+uDXV/bXnBDGRRXKL
-	vzFNsO28QvadrclZB+nyrYQ5ls0UlFssYvEygX6gOEm1P/eXbQZ7voFr7/UFPrYttdeAZZdUQXl
-	7yB6//2OjiA81VRDcOA9UHmULfnr2O4gBkYwgjZrF7HCSl9yOl7I35qLi96piuSESGwfGsOuMAQ
-	rT/dSxiv8fR5oI/7hOxQkeE5KXH/VisVsMJnyxeKE3sLtwke6WI13Wc5AWnWKYgaAR10VKDEePt
-	RqXaMmN8iCmnc0b+nDVRH2SnNLbgAmlSKGI5wjJJpBtIe0VB976HX+J7V1IQK9oNyGpO1UyjAZ8
-	cnVMkNVMZEG0R2h8n3aFDHQk2GQXWiI84ZH0dm+KgkuN81JwyoSl2zXVaCiJzJN7GC7kEIxfz2E
-	7MRPbVEmdL9rYbmK11FN6Kr9KP/7SwYmuWwWPwpsmaj5sP1NoyzRuGkD5/E+CPLKc/abB24RYvr
-	TEx6NGjy6iuDeLv1EuKGfKFHw4RTir5Y=
-X-Received: by 2002:a05:6102:511e:b0:7d2:cdd6:6be with SMTP id ada2fe7eead31-7d2db193714mr282127137.21.1794149897376;
-        Sun, 08 Nov 2026 06:58:17 -0800 (PST)
-Received: from localhost (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c02a108d6sm1838855241.7.2026.11.08.06.58.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 06:58:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=GK42ABHy;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0eC0qwAa
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id F16DDEC058F
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:58:21 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Sun, 08 Nov 2026 09:58:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1794149901; x=1794236301; bh=9G8iDq9PgS
+	tkjmR+yV5JSPWsbqrzQ4CGM0C2KH6B3hI=; b=GK42ABHyjBtdZT3jPCUSYX7jxL
+	O+a6kIhNL09GUpYqD/jfA30j1rRoAqkw3ihFAUhcmNyTVdmKDFJYhsUGl8owJ3lN
+	Fjl/B/sXfDq4ZVvxEhYlerI3kh+pD9f4rtI2mGy0mDqdWy/LqrINfQ4cocvTIH4q
+	sYm7vw+NRAL9h7z6Z37DdhFIcI+/1JhLh0OnZjA2FYumNGlh4JOdTN7wx/d6vH+k
+	4ZQYWOD3RnyB4pynE833Zz2yK/X3NL7IPwpVa3kH3e26wsTIEzhp+R0sgVMzPmQ1
+	jE/isXCy054cXhHAO8ES0I1PpSCpuATxGNU0L/BfEkmZV2Lc/0bRf4jkg7tw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794149901; x=1794236301; bh=9G8iDq9PgStkjmR+yV5JSPWsbqrzQ4CGM0C
+	2KH6B3hI=; b=0eC0qwAaFWFVLOIZyG4V3PFu4nYgGrm7GW9vSqBj9as/vJRAar7
+	Keg/DYEnt2297sZd43L/sMcKH7Qfi8CEBTJdGj6fEO0D2ohCUlw6AMcsYCUtUuR2
+	Ig0WD5Ji5hQRYu6U5XYf2GtHg52W47MqyeVwlZ6zOtLwUV18k7xBfidOeB9R7RtD
+	OtLI7KKv/VLkCAR+wMlOBrqS7YqBYQ9MQjyNZmwl6YXIljSaeuRlw8LYF32WqGSk
+	YddmVZsIzdU7P0mprh+CAuetmGKP53ZqyIuAGwzDbKYa5K2gLrSTIlYBaZP0PxXp
+	XTrZrUd2YIOWlx4x/7CLUTqbf7CA46vM5DQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794149901; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:MdHO9v3+QhnAbCLKsW9yxVcZ+LDAKYcH61k3QdC6fgbq2O2
+	cKuYABEkfEnovQmP/bEwcy31U087wLclPIg7WeX7F38lR1SQ/NHgCf+L3df5Dl1W
+	zlmt/rDmVDiZSHNTaHvnhpo+gQ2o+G+V76hZP18iyPtmsYb9Q0VH927q5hdwmyKp
+	uWIUttXGAn8ivTvqUWQMi6FHYSUD8UB1i8AMXvxvYhpNp01OlyH21h7TNT+8CXPT
+	+mK6juRtbv6BA/wlD+Wct9gW77e32/TQ+UjTAzMFy7qsBRrKirnNuB0MYNKNLSLj
+	R3VovZ+v6wS55rblSUjxQrDdrcdfkfUGDqc47aA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:FVyg89EHhanLbUX+laxjF8YLXPMSx/LDlmdfiJ03Z3c=:CEgt00gN0SsvFLw1HJqV8+/SJMLe87wDDOVUlEnHRF0=;
+X-ME-Sender: <xms:DY7watBszlm3goS9QnMsC-Gp_1lHJyNUYonfhfC29_fhVaXtl1qCsw>
+    <xme:DY7wakeOY2b7m8CSgmR1FqPAHwAfNkOM6q2_9NtMqfbiAjAkoxTvQXoq3atu9Hmfz
+    Po7rAvC-5pFHFwvJ5P-1uSSRPXcDLsOPHSp91Ih_P53DR5BxzuWEzU>
+X-ME-Received: <xmr:DY7wakKm5BsrHEARH_yqJ3DjXzxF8jyKm1UFJGc_TMbla-JxMpz6yNugCxbYcyzb00NkbNjSmDwMPvvfsmRvPufZcQsZFqXdqTA>
+X-ME-Proxy-Cause: dmFkZTEHaGvpM3yxaQgu7rtFJBM85WX2facGuVlKhrud5kZMZGJGAOISDqwmz6jyz80blO
+    wFnvuQ+m27u39K5gByo/qMS1BLzGiNq1BRkmQyy2hF12i2ibFLohw6efovrLPzcmPSNOV+
+    miVWWlsRsC6ziQhIxNbhhhfHh+0Ow3eEH1YtfkMFsanYBY0y8Y7sinzZ7xGJcQgJyThpab
+    2T2NhRphpP4DzlG3paTwC1s40JSsocbvuTMJ6Ka/u1qxrn0JfZ0tLEZhXu56wJk4SzA+ok
+    qB3lnuQ4sNxBb3PhUEXIkRRGuL+nSL3rIigFQZ605d5V+T5H/ioElZ+yvKEo2O+HxhrFVy
+    S9nWH2NPcFxXRD+8VygpJa5YhRlra+pu6HcvORoCZpqn4DcQAYMSq8qcb9Wevlg2Sy7rYw
+    XCuHk/P9H9q/jxQihgkORYjSScwJZMgGWD5q7dVS/KPQzsojZqZgsOXRZmhjD9b53wbTXR
+    jlizqXWJpUajNTwE6BxevGgOFYOhK82RUXPuk13lg6JK9BPfelAkT33Lw4JNQA0CqEQbRv
+    FI/KyJhVI9yRfc6QVqWNM7igKd0qcpzhGU1EC5a81E2LW717KD/8q+NnBzhIieuSl3b4WJ
+    tX6bbuJmeYIA3jb3od+FGXmk0NayAiW87XHE9wMWVk5HgG6ItW47NBd/T26w
+X-ME-Proxy: <xmx:DY7wan1XA8ZCjYIXi7Qyk39YzIfBzX4CaCvv7LGHUxBa92lLlxRUpg>
+    <xmx:DY7waujoBaYELkOLySvqVA4BNbILcaDUq0P-VmfpW-3AD3n6QiUz7A>
+    <xmx:DY7waoUKksn_a4PdtRnoXSJcRS9acH5fKSuIDq9_WZnRHx8zj_aLEw>
+    <xmx:DY7watXHs3ciSeTtk4Bu82bRFmp-_bdaI71i9VuMxOI0WlEcEdc3Kg>
+    <xmx:DY7wapU9UPUHTu8dgLy5yDRN2iV0y_DaXSvrzpSr-QYlK6RCk0YuXaKQ>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 8 Nov 2026 09:58:21 -0500 (EST)
+Date: Sun, 8 Nov 2026 15:58:20 +0100
+From: Janne Grunau <j@jannau.net>
+To: Sven Peter <sven@kernel.org>
+Cc: Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] soc: apple: Fix swapped paddr and size shift
+Message-ID: <20261108145820.GA1462246@robin.jannau.net>
+References: <20261108-b4-sart-fix-v1-1-dab7dc1e9adb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +120,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 08 Nov 2026 09:58:14 -0500
-Message-Id: <DMPX235ZQEHC.379KOADR3QVFU@soleen.com>
-Cc: "Alexander Graf" <graf@amazon.com>, "Alex Williamson"
- <alex@shazbot.org>, "Bjorn Helgaas" <bhelgaas@google.com>, "Jason
- Gunthorpe" <jgg@nvidia.com>, "Jonathan Corbet" <corbet@lwn.net>, "Josh
- Hilke" <jrhilke@google.com>, "Lukas Wunner" <lukas@wunner.de>, "Mahesh J
- Salgaonkar" <mahesh@linux.ibm.com>, "Mike Rapoport" <rppt@kernel.org>,
- "Oliver O'Halloran" <oohall@gmail.com>, "Pasha Tatashin"
- <pasha.tatashin@soleen.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Samiullah Khawaja" <skhawaja@google.com>,
- "Shuah Khan" <skhan@linuxfoundation.org>, "Vipin Sharma"
- <vipinsh@google.com>
-Subject: Re: [PATCH v2 00/17] PCI: Index saved capability state by
- configuration space offset
-From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
-To: "David Matlack" <dmatlack@google.com>, <kexec@lists.infradead.org>,
- <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-mm@kvack.org>, <linux-pci@vger.kernel.org>,
- <linuxppc-dev@lists.ozlabs.org>
-X-Mailer: aerc 0.22.0-39-g5d7784875be2
-References: <20261106004218.604799-1-dmatlack@google.com>
- <CALzav=dOnBUdYKN8ucD8tMF_5RuQZOzYG2aW=K9Grd5itgvnMw@mail.gmail.com>
-In-Reply-To: <CALzav=dOnBUdYKN8ucD8tMF_5RuQZOzYG2aW=K9Grd5itgvnMw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261108-b4-sart-fix-v1-1-dab7dc1e9adb@kernel.org>
 
-On Thu Nov 5, 2026 at 7:46 PM EST, David Matlack wrote:
-> On Thu, Nov 5, 2026 at 4:42=E2=80=AFPM David Matlack <dmatlack@google.com=
-> wrote:
->
->> Merge Plan
->> ----------
->>
->> This series applies on top of v10 of the PCI core support for Live
->> Update series [2], which is targeting Linux 7.5. This series is
->> targeting Linux 7.5 as well.
->>
->> Both series will be merged through liveupdate.git, matching the
->> agreed-upon tree in the MAINTAINERS entry for PCI LIVE UPDATE.
->
-> Apologies, an update I made here got lost. The PCI core support for
-> Live Update is targeting 7.5, via liveupdate.git. _This_ series should
-> probably target 7.6. I doubt we can get reviews in time for 7.5. And
-> as for which tree, I am not sure. This series is mostly PCI core
-> changes, so I lean towards merging through the PCI tree. Only the last
-> commit touches drivers/pci/liveupdate.c.
+On Sun, Nov 08, 2026 at 03:35:11PM +0100, Sven Peter wrote:
+> Right now we assign the paddr shift to the size shift and vice-versa.
+> Luckily, this doesn't matter because they are the same for all SART
+> versions but fixing this doesn't hurt.
+> 
+> Fixes: b170143ae111 ("soc: apple: Add SART driver")
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+>  drivers/soc/apple/sart.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/soc/apple/sart.c b/drivers/soc/apple/sart.c
+> index 66b99955b395..5f1f9ec5d311 100644
+> --- a/drivers/soc/apple/sart.c
+> +++ b/drivers/soc/apple/sart.c
+> @@ -258,8 +258,8 @@ static int sart_set_entry(struct apple_sart *sart, int index, u8 flags,
+>  	if (paddr & ((1 << sart->ops->paddr_shift) - 1))
+>  		return -EINVAL;
+>  
+> -	paddr >>= sart->ops->size_shift;
+> -	size >>= sart->ops->paddr_shift;
+> +	paddr >>= sart->ops->paddr_shift;
+> +	size >>= sart->ops->size_shift;
+>  
+>  	if (size > sart->ops->size_max)
+>  		return -EINVAL;
 
-I looked through this series. Even though it is motivated by Live=20
-Update, it is primarily a refactoring of how the PCI core saves and=20
-restores capability state (to make struct pci_saved_state compatible=20
-with Live Update), so it should go through the PCI tree rather than=20
-liveupdate.git. Only two patches (12 and 17) touch=20
-drivers/pci/liveupdate.c, and we can Ack those.
+Reviewed-by: Janne Grunau <j@jannau.net>
 
-Let's get the current v10 PCI core LU series landed in first; after=20
-that, this series can apply against 7.X-rc1 so the PCI tree can cleanly=20
-pick it up.
-
---=20
-Pasha
-
+Janne
