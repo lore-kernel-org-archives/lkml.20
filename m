@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794153320;
-	b=Etq2qTSXEjih2TWJNez8JXf+BHuGc9cuC/q9RxjYrw3zWxwpEj4UYpMkyT/wYHZnmQIh
-	 Bkh8A508HkKzoVNLiG5Ua0kQH554cO1JmfReGo7cNaFlklBaCPgbtwVbVQs6BohsPLRnk
-	 c5rJvEuFsL4Vj1S+rgnYGbk2RGTY4vPG++Hujp/RFYnT5jTxrE3VEbP/emS2qv8uf5DY4
-	 lG+XoVTamcnwehyB9T8599sYwXWER+RWVotLRsFCjd+lwWnD8xKyjzXLwKu9YCR77DOQA
-	 yrmT4hvdDYqBrQzVff9ipK1OcEUJRnhnbZMiH6dSv89tqSRPmANiNafs6GF0B4u1PLg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794153320;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=naRY3LivuuNp7aOaJBA7q72WcB6N6bwNBYS0Qj5pXrM=;
-	b=XZi8CKDCibbtiJAPHPcowicerROQhEiflvgEwaSsax2pd9qdZM6aYAjD6bXWv8gKKDqE
-	 Ln8xwo3bzxO+kjSBk24Ph3xh5ZRFhuEgNwXW90ge7/zQw39HHM54CxLDH7iLZkzW39iUO
-	 EG4Y27K3QhLExK9YYULoBhEk1NIaLtQjFFtvMT3mXP1U1Vc/U8NZB5zzmx3X7kCsD1G3l
-	 m8Jh9Vp9Qpt7AA1I7akpBRcyrqsvhdejBdVib5vcR5qnDq87JD7B85syjkcg2US7Vvcx1
-	 61g6CfGfMWHMhTurbvkpwgizxmQNsJYyjVWN58/9xKXdtNiJs1mAD/AD9Wbci8lvWUw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviItnhg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794153366;
+	b=ZIshcSuNGUgw1/VokxGrseYivdcbtzJ/6uxrSOIL8yGLFKAxuVF/lYmskp81uPX5J7e/
+	 1rfJfGi3/MxhBr39ZrIlKeWoyKUNlkf5kMh9TTOQ3ebYCnZ88890Nv/u3VZilBJ7nLoAO
+	 E7l6Du6LQGERCg7D1RaOMf6hVnjdK1ydcFjezD+xKBuju1jo7jabB17WiSHbT5XRHMITu
+	 51Nb/YdiHO6dv85Irmo+gZBbLkZa52BzWfUb025vA8SbyCg8GEHjWehEBHzYx5FYo3iOq
+	 br1qlRy95RTdy6l24cNRaTeRMUslNik3l86TX94YEkbhzjPqolKOIji/msICqeHNXmg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794153366;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=4WgcMk+6Df3kqXCDJbQ0XiMNyOgOuU3OMHCZqmnKHCw=;
+	b=owrpQZEDHOSC+Rp+dTsvpDRxiuE+Frr2Oceeq1iL32+rHB5sBy34oNdrSj1uY5HJo9ZT
+	 G9QY/B750DPRbeYPMCQKxpGTNOWOjEIf0K6w38Iv0Y+OgbMMeLEsqPOp/HNvBMlp4gzwV
+	 MbFPl+14Xjbxqs22AT+y0gXp20VrtSP6u8IGeQtpVA0r8SqAXEtMZqkq/7LqjIYJhWY30
+	 OjUZ+8MEq9PUOXJCKKWn2Em4+YLms1lhZCw+TfvbeQDXlWOWDB2iU9Yhj0RScLdYDG63o
+	 2NN7JqXlfcj2NXiwwzbn/c249VqdYrFA/w4+78ab6KrhE+AHsLdXfpXZxKq6hoVatKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=1xcvbC9O;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB27606A320;
-	Sun,  8 Nov 2026 15:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BB7606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:56:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6BB7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviItnhg
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794153319;
-	b=wA21mHqVLBaSiwq5EXrDhnTQWRqbg4jykUbkwWZogoXtCLEYsnLch6LYNWnD5457v0wQ
-	 7LpvgKUi2RkjY5AwY2RKrRhxHIXVYkH+POfqQUEVZ23l3DavQR1lOvtsRyj457qgzsmLR
-	 NRImVZJ3xqq6wwJIIf6pEAgLc0fRnJMw/+IeO5QygoU0cJNYD20BGRgFpsZB/yaTapuJV
-	 olXMKizR7mx/vlDWQYk+l+2aAPxzO7DfPU/JX8we059T32SSuHnMf7P1NG4vua3ET2Dnq
-	 LM2gNOSQGxsDXqpAVwJZQYvRx0eyvp3TGdZV892SR/KnMKVkMD6RxdsBHz5Up+0S2dw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794153319;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=naRY3LivuuNp7aOaJBA7q72WcB6N6bwNBYS0Qj5pXrM=;
-	b=mVWyNRy+85Fc12H9PjXyy7wpXCJxVIg3Jw/LYOTWIPCwStLQZ3fKivD30HnlVZbbnW2O
-	 M2+CRb1Xfl8MiEqKKoV4xqN9wzm/m5rBZugcLCergqDPvWVUkmo5w5+GXPzq+XrhaHCCY
-	 S9V/GChCO18yUyNJ1dzec6a5QMn4RWUPvR/v0FHm1+obFJVJX8v5wZZWWBOQw21OSY91c
-	 M/9MX3dRmD8Kw+jC7SD0u1v6WvdwgO5F1bkIj8dGOVNflAeoaCOcaXNWfE/Nznw4ywF0U
-	 eKIUdhbQvLKvRDj+tOKDvx8Pu3T64XorG9KJ7zkIqPNzY91I0GyFguu1bn4Ofuc2f4Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D54841F008A1;
-	Sun,  8 Nov 2026 15:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794153319;
-	bh=naRY3LivuuNp7aOaJBA7q72WcB6N6bwNBYS0Qj5pXrM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hviItnhgF0f/4nu17J8UHPhDSfyFdVWR75Rn+7wVVN0QMon9bz27/aAWR7h4KuRJN
-	 dRlWcgdt1xH4zCb9BErgC9tdXBom+t2FWWhngRoUGVBuAPdFPm6N2qFdt31lez/IdT
-	 4z6QpK6k0aPM6J0cigZfPzITwf6a+kr1/jcGYgYvon+1YEHmOoCXZr7gsiBBGkBVXT
-	 tigrVSw+T+CVHGZtWQBruIyvLjaCINpyNGOV26uuH+5mUDs+3ypMG/Leiu8Jf6IdI1
-	 rx0ZN1OWumjsqIz4tWVlmhv8lNtqH13fMiwTedHPAP120QvzKpUHo7Q+GyQufX2A3f
-	 pdLJsFnaSxVpg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5622747FCB;
-	Sun,  8 Nov 2026 15:55:18 +0000 (UTC)
-From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Sun, 08 Nov 2026 16:55:17 +0100
-Subject: [PATCH 1/2] dt-bindings: input: touchscreen: wacom,w9007a-lt03:
- Add Wacom WEZ01
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=1xcvbC9O
+Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
+	by cmsmtp with ESMTPS
+	id PkhwxypyNOOJnQ5FPxwHht; Sun, 08 Nov 2026 15:55:59 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Q5FOxCgXM8cn4Q5FOxUjOH; Sun, 08 Nov 2026 15:55:58 +0000
+X-Authority-Analysis: v=2.4 cv=Qrde3Uyd c=1 sm=1 tr=0 ts=6af09b8e
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=LzFtcxTfFVD5gEon9dMA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=4WgcMk+6Df3kqXCDJbQ0XiMNyOgOuU3OMHCZqmnKHCw=; b=1xcvbC9OmzhzJzOI85flk0cWO2
+	WEftoNyIILHCFmlT0XPX7bHCkSfIhp7HRKp6V0ZIl9h6GwUSCHai5t2UsgcvXSfT6eHn4KWRCRRdk
+	lQB3i7nitDmRpRSuRWlUJ7qiJ7IQqeGWg1BvQzktSBcqzq9Z8g96YLxTbRfOYx335fJYFmqLgc8Ec
+	764Fap7AN5qcxh0JHTZs7OceSmqdiG+grDeaNYuAQ9bwfsSltR2GfILa8w5vhE4JXTSGz5W5xAHzD
+	ETVYUfyCbayriSCnLZR2QaTOGnmk4S48oXaLl3Ly72FOsXBUHQ/IdNJ7Z/42hm4f04ljD3nRjU7h8
+	6FZkhVEQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:47254 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQ5FO-00000000suh-0bYw;
+	Sun, 08 Nov 2026 21:25:58 +0530
+Date: Sun, 8 Nov 2026 07:55:57 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Nurettin Bolucu <Nurettin.Bolucu@analog.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] hwmon: (max31760) Report 0 RPM before the first fan
+ speed measurement
+Message-ID: <8596262a-7670-489c-824b-11fdf9500b3a@roeck-us.net>
+References: <20261108-max31760-fixes-v1-0-a61450463059@gmail.com>
+ <20261108-max31760-fixes-v1-3-a61450463059@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,59 +83,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-b4-wacom-w9000-wez01-v1-1-c2b5e3466187@dxdmail.cc>
-References: <20261108-b4-wacom-w9000-wez01-v1-0-c2b5e3466187@dxdmail.cc>
-In-Reply-To: <20261108-b4-wacom-w9000-wez01-v1-0-c2b5e3466187@dxdmail.cc>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hendrik Noack <hendrik-noack@gmx.de>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nizat Mikayilli <nacht@dxdmail.cc>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794153317; l=1172;
- i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=zq0lqjUM9FPeexdWfMB8KmeYqsPCzR+RvN5Mv4EBnCA=;
- b=Oyt4cvYMINkHSVaq/j/EVgTsYe+L1Dt788tUrL5ktHt2lFF/o29J9V5Gwo7bd5NL0OiWL6+3P
- yON+NPF8H7CAnk9aTsKEutT+xIR6zZvBdbnq1Zu8TmsPyWzyhIYhJF2
-X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
- pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
-X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
- auth_id=1111
-X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
-Reply-To: nacht@dxdmail.cc
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-max31760-fixes-v1-3-a61450463059@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQ5FO-00000000suh-0bYw
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:47254
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 9
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfJaC710AaxyfdqJ1ji14T5LO//pQbfLwrjKarVMdyBKloxR9DuyFESVWU5RIBrQPIadPrK6PpdSQ9jt94F+kIEuRbK8x/yPFx/9pRmuv0SEWcIXqjh27
+ LGdVc3owp0+R4RVs7oP0dN+U4xMWGxH3du6sNXKHgymR8tfRBLe1x6prXrsVI0xid0T7ZIXG81o5h+rB59A4KwzozusDM3qd/BFBNVItfLR0saHuzQxZhwZK
 
-From: Nizat Mikayilli <nacht@dxdmail.cc>
+On Sun, Nov 08, 2026 at 03:59:55AM +0000, Stanislav Aleksandrov wrote:
+> The tachometer count registers initialize to 0 until the first
+> measurement cycle completes after power-on. To prevent division by
+> zero, tach_to_rpm() clamped tach == 0 to 1, causing it to compute
+> and report 3,000,000 RPM (60 * 100000 / 1 / 2).
+> 
+> Return 0 RPM when tach == 0 instead.
+> 
+> Fixes: 38b04ad02d0d ("drivers: hwmon: Add max31760 fan speed controller driver")
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
 
-The Wacom WEZ01 is the S Pen digitizer of the Samsung Galaxy Tab S9. It
-is not compatible with the W9002 or W9007A: it is queried with a plain
-32-byte read that returns the query at offset 16, and its 17-byte
-coordinate messages carry a packet type in the first byte.
+Applied.
 
-Its firmware differs between devices (the Galaxy Z Fold5 reports the
-buttons differently), so the compatible has the Tab S9 codename as a
-suffix, like the W9007A entries.
+Thanks,
+Guenter
 
-Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
----
- .../devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml         | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml b/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml
-index 6d1da6a435d3..7b541c91de36 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml
-@@ -24,6 +24,7 @@ properties:
-       - wacom,w9002
-       - wacom,w9007a-lt03
-       - wacom,w9007a-v1
-+      - wacom,wez01-gts9
- 
-   reg:
-     maxItems: 1
-
--- 
-2.56.0
-
-
+> ---
+>  drivers/hwmon/max31760.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/max31760.c b/drivers/hwmon/max31760.c
+> index e967555a21af..896bd0326b8c 100644
+> --- a/drivers/hwmon/max31760.c
+> +++ b/drivers/hwmon/max31760.c
+> @@ -68,8 +68,9 @@ static const int max31760_pwm_freq[] = {33, 150, 1500, 25000};
+>  
+>  static int tach_to_rpm(u16 tach)
+>  {
+> +	/* The count is 0 until the first measurement */
+>  	if (tach == 0)
+> -		tach = 1;
+> +		return 0;
+>  
+>  	return 60 * 100000 / tach / 2;
+>  }
