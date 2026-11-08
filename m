@@ -1,62 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169424;
-	b=3xx08ahQivnLn8sPB9m01rs1OZWJnxmTF9XQUYtyAxghVSdn0/9BT4Fjv3RZn05igIeh
-	 JHDxf1HzOB0nuPhfvD35MD1xc5O3yljTaviVlgGHQYOfncO57rTPtcdIjrLqH68KquiK3
-	 dCLwFTKCfJPg3bGzH0NVMlv5ow/7Xk6sOZb4YDW2JRlKOOOcSz3mL60R+7vtj1yuLwliX
-	 Asq5jvQoqeDyVYyEhocI8RJZoIU9v/t/oenMC3JmpXh5h9Xn5T7JEsJq7OwxCgseb+CsN
-	 tG6vIFEAMJbnija6WwcGr91iZ7wzHWbmi8O/HYq6SmmggR9PgJ0b/Gk3AwAlzMge39g==
+	t=1794169410;
+	b=UYXYC4nysmprU2mVrX5wpnZCUZW447Uc0WjSiI2Iq7oXyEDvnu/W0e4EgoyzhkiUenme
+	 8jobrlMm5jQ6jqfcgBTm2qW6+RIFHUDiFE9fmvRrT9TEDGnzgROyy9tQ0F/FeOdc84jGd
+	 EP9VmxGK2kzGbyzxx/FJtPQ6kRHj++PkKZ7uTP+E6cGBH2tz/kqWDIh5MCWsvJr+TPUHz
+	 UBk8LubzyixD6F3yxnr9Tix1hmz9GvMzfmHoaVkYamuYMqZ21Li1ERqyNe2xuUZ30Bt+i
+	 39k9O/zDbOmXIu7bRrdySgvMQQXof9tCujUFJbothGtPCvBJot+Ry3oOa+IwVb5p0Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169424;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169410;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=fB2eRbBGnXG4j5Aw7yiLVnjpzdeK1AjXze6Zrl8eOYw=;
-	b=PwiZ+zpORB5d8cW8yf8JObYUioAwKlZ/UsUWJCaWzysonmrBgnFKzo3gXSu3/JNc+VU1
-	 pJ/CUakqWkOaIHMnK6CvyFZV7p/WB1oxo9KsgXftKd1Og4d/a2fmM2EuESLo+uB+FgojT
-	 d+A25wA6DJyOrDlgt9O1N8YBN/c27ToufiE255vvAgiaO4ctgMlD3rHZX5CbAsrfgtmiu
-	 4mSzB16jlBUGIhwum7PnvKjb3TBTvzm3iO0iDhzuPehQemrxCTGEpnlrjZIFgPWXI5f8r
-	 fon0IFtW+mXzxEouiPi7Ovks1ZpP+UK+1EgntbWX3rQoDDKW1tGWzo59Ub9OPRjeULw==
+	bh=OHtbbnXNjLGZhap5GPvMIB0XRYjf7N7iCg+Gn3VnS10=;
+	b=2hMIHFPMkpycFgrMdapMn9+Kjv+JgKNKgkuZp2e25+qb7k/RTEJoSQidfcp3ZkNfkXTh
+	 fy/oir8Qpa6Zdiw6dl+eDFyfEOeKsIv2HvRhIiRPiXnLphGmlnmPxekiIWa5gM4xX0+kb
+	 eums77f0LhhVX1ccwhV3QdVKtZqbwo9ldBhie0Kb66Sx2YXqbgkc5yF5pRo1ndJI/3WXP
+	 E0mT2IGW467EuzihO5Mbx2CGlxe1q2ZbzrTMvOxyym0eBQlKb6CgnhO2D7jOzmn3J+AD7
+	 3n3/uXl5Kokte1XdbmZcxWXsTxmZtQH/Ma1jYOoj6UR0ncwCq6AQqnGAjG7a4j1+0Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cy+GKQB4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKIBu585;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134D66073CD5;
-	Sun,  8 Nov 2026 20:23:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94212607163E;
+	Sun,  8 Nov 2026 20:23:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cy+GKQB4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86DF1F008A4;
-	Sun,  8 Nov 2026 20:23:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKIBu585
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00071F008A2;
+	Sun,  8 Nov 2026 20:23:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169423;
-	bh=fB2eRbBGnXG4j5Aw7yiLVnjpzdeK1AjXze6Zrl8eOYw=;
+	s=k20260515; t=1794169410;
+	bh=OHtbbnXNjLGZhap5GPvMIB0XRYjf7N7iCg+Gn3VnS10=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cy+GKQB4v1JnDQdBI9G648OXBDZbE58f3nlSiOo4lQJVeNcemEd99hrBaSnwu2wob
-	 eBsnOt48eURYfw0hCKUXKVd5WoBkApki33Qv7LpAgOcR8sCNtW0oq0TOukdSv0QGPk
-	 9eb0QNL49+ejfWzklioxcARMZNdhaG3eIrsyM7IG/U5y6fGg1Y0K2fMHasFdntn2PS
-	 E+she3RySRMpQiaK6cQh0JMfh99MTkGaD3dbZW5FMJuqXwyIrUZflG3oE5Kp2ofFdL
-	 OBASmtHysVbiLd+pvdL2tMkHA5Fn+Ap1+HCEsG6Nrqf31LuM43dpKdK3T/sCUPyj4/
-	 g/DYJ5UpVzZyw==
+	b=HKIBu585J2wCM1Hv6aQg2GLgrbZOtRFrhItdSLv7027uhXgL9yD6vHDX1SRPg4gJI
+	 jemCRG61mExfqS8Zpr9aF3Z6gbVHQ4nOJhNr1VLPeD9/8bzXURqEzUkKmQwauMAxLc
+	 dMF/oOEOzNBPYZmrpts0R7Lgv5WwCoMJ/ecVJlj9tvQXmYfKvEsbyNMGFJBzcBHWek
+	 1O22PjP0I34+j11yZc0i+X9QruWMmuP790oN0SRmyV5ZafJ6S7rKSqwPbki2nHLKko
+	 w4GdazsE7/wroqY8zrf+QxjZAXKtVnQo3f2E8WEJcIOY003AnjkWbSSOgbqngiTx5z
+	 iBl5ao1vO39ww==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Andy Gross <agross@codeaurora.org>,
-	Chris Lew <chris.lew@oss.qualcomm.com>,
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: (subset) [PATCH v2 1/3] soc: qcom: smp2p: Fix use-after-free of irq domain on removal
-Date: Sun,  8 Nov 2026 14:20:26 -0600
-Message-ID: <179416929543.628393.9198898842378865126.b4-ty@b4>
+To: konradybcio@kernel.org,
+	Kenneth Kabogo <kennethkabogo2@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] soc: qcom: mdt_loader: fix off-by-one heap overflow in segment name
+Date: Sun,  8 Nov 2026 14:20:15 -0600
+Message-ID: <179416929243.628393.13902347516696518018.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102133531.173434-4-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261102133531.173434-4-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260912065651.59968-1-kennethkabogo2@gmail.com>
+References: <20260912065651.59968-1-kennethkabogo2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,28 +64,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 02 Nov 2026 14:35:32 +0100, Krzysztof Kozlowski wrote:
-> The SMP2P interrupt is requested with devm_request_threaded_irq(), so it
-> is freed only after qcom_smp2p_remove() returns or, in the probe error
-> path, after probe returns.   Both paths, however, explicitly remove the
-> inbound irq domains, unregister outbound SMEM states and free the
-> mailbox channel before that.
-> 
-> If the interrupt is triggered in this window, the interrupt handler
-> would use previously freed data.  Mixing manual probe() cleanup
-> and resource-managed devm leads to such races, thus just convert
-> as much as possible to devm to fix the issue and make code simpler.
+On Sat, 12 Sep 2026 09:56:51 +0300, Kenneth Kabogo wrote:
+> mdt_load_split_segment() builds a segment firmware filename by
+> overwriting the last three characters of a kstrdup'd copy of fw_name
+> with "b%02d" formatted from segment. %02d is a minimum field width,
+> not a cap: for segment in [0, 99] this produces exactly "bNN" + NUL,
+> which fits the buffer, but for segment >= 100 it writes "b100" or
+> wider, one or more bytes past the end of the kstrdup allocation.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] soc: qcom: smp2p: Fix use-after-free of irq domain on removal
-      commit: 357af2197e419ff4918e1581b958f4832b94c699
-[2/3] soc: qcom: smp2p: Fix out-of-bounds with incorrect DTB of too many outbound entries
-      commit: be72e07d039377d1b4e07b54ec32908a4f63d3e4
-[3/3] soc: qcom: smp2p: Fix possible out-of-bounds read with too many inbound entries
-      commit: 72525c6d8cda880fce80d453493878c4dc12fe15
+[1/1] soc: qcom: mdt_loader: fix off-by-one heap overflow in segment name
+      commit: 3e0d5015fc90859ca8c3a2edacdbaad546969f54
 
 Best regards,
 -- 
