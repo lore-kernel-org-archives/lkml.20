@@ -1,65 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169377;
-	b=gtG55469hd+roQlQNgmXhOZmeA6A2TI4/eDa4osyWCsqGtFOU6r3arVte0JSADmdjDNM
-	 l0JchZv3zKLs38tkku4KUdiBtiyriPdWY5gB/g90/riBtqGZxM0Wdr7/PRMbc3cP4t6VE
-	 r2AyCJNQaW6JqWKsqHJ32Mp8CwRMlphcZy6wml2V0yMVMI/W2Rauhxks4gQyg8GUX30B6
-	 R1ZO17tpFrqG0zyhjoHaYB/+ut0Z1hxWT3TzFnJjXYtagn8PtUdZERNAgwrRHaB4axRuH
-	 X/wbLV2cCV0wuDWcydpLBAJOkTAXMGJNXNTT34ErZRJMD2w7VrlobUEszyFn7YGMW4g==
+	t=1794169404;
+	b=vWzQNKdy9+LpHaNuFtL6P5OO6dv35rCBrnk23GzROJccHwLimDwDpqB/58tFFegYbMuu
+	 7V5IdLUvUvC+t+7kAnlhauB9PWTWWiilnKfq23IcS8314XquziLwFiDPYxl66Xfdj5GXf
+	 yGOdKRwktF8nk81y5g+TTxU+AeqLKNytnYdOusrgLB9WXwwJwk2G+SjxbP0yC62h7URrg
+	 CC7zTPQfekLZChIw64SJ0w1dxDTR4te52G0Fh/PFrFtjhqk5RDDqzCgioZJXqJJmCTV+x
+	 Nh4ypKm0Lk65bYtIamSXO/1jiiXY0rnad9pwxLH0v2Wa/g43pYo6sS4vLEmTpSbF7zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169404;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+TGNtBkbY9q8F7TsjFNpGCb5Omd+5aPs8mlI1uZL4OA=;
-	b=19N2DMqiljrhatFA5jeiMKIeKd1zbsrv1p3uS6sssBoXpndZ3hypu5ZHyXCAsLZxxS8e
-	 3lIf120LzvGjZYq9bvHXdpffI/udfYsCE4R0bMc98D5wXRFz1xSfehDAe/Hw91fy+K3oU
-	 aZAyD3XPZwqblmV2IAixGqahyYCEFgFQV4ndbsz3dpBSSfbA/gDCRH+pFaC1mUG2wdHhR
-	 CMpTGbqwKuL5KjvhqHmaiunVgLOOufXyRk8OYU9FD85yX6ZVGXbURvuvr37Kiiu2QSfZL
-	 HzzEWXi94FVvPLJdKzGJXia6AGlKHGSoqxGt0E1WorAkB3IGvMWNTTZYCAW9r+O+n0A==
+	bh=m64o+5a8ILubKLKDQ744vOABCDfgCf3HGpC4zfLipfs=;
+	b=GTnpzmRBic3iRPvgYWMkqFG6aoemXOsCMmSfumJjSb9ZNn8qUWHJDYA1HYq8jic+GEAT
+	 HDrcWrMVoBX2q6Zgas2JQBeWTDNUFjXrjj2ozHDktavxIvUyLuFXsAKeGlpky6AwbXF8G
+	 LJ34DcpMzUlY3nnNIaQSOx43xZDyZGhwamtO3uT89leMJuUIL2Z1Uf1ubHhdiDLMY29/r
+	 lcXVUl9PhvIgNRa7FrD6wwWSgIyFDqBYooetRTKebwhM6Ogcw+zFGeottQh/ugGcEf0ns
+	 GW41DvByeB7xklT0jcxKQxPQMY5lkP/ABQyaD3WQPYO/yoedVxOMHQ/X2NmleJlsRCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnAjCatM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a3VPMvkh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74067606BA7C;
-	Sun,  8 Nov 2026 20:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3786070CD3;
+	Sun,  8 Nov 2026 20:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KnAjCatM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841471F008A4;
-	Sun,  8 Nov 2026 20:22:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a3VPMvkh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0381F008BC;
+	Sun,  8 Nov 2026 20:23:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169377;
-	bh=+TGNtBkbY9q8F7TsjFNpGCb5Omd+5aPs8mlI1uZL4OA=;
+	s=k20260515; t=1794169403;
+	bh=m64o+5a8ILubKLKDQ744vOABCDfgCf3HGpC4zfLipfs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KnAjCatM6jtU5Iv559+8anP65FzZlX7oYCx74Fw01CPC5a3xdNRotIhg1ODU06D0Z
-	 3O1AJitHI8qNpJZ2TdesIlen+KA2pweXMoaeeHhllEvRpgnrKYuf0ca+5X+X+T9PFM
-	 e/mBp6YgR/gVUPKPhiNoIDdM14QFYZOpRJ09ag0pzjshIOv8+Y81RqT/WW64I0qwoX
-	 DtDmRmZCQeEWg//12huru/SDg4iR2BmknRNu5YUL8sWqyRS8GFsfjJplxY7V1MeZFX
-	 qw5EMIto1jlAmgezvxoMpI6F4YHfNBQi/76v2ANljD9tyY7j7gIxQfpF2huzvsHkkP
-	 4Ur940OSHY4ig==
+	b=a3VPMvkhYxbO/C/awmlAOaLDhgXsWHKV8ml6DN9uBG+bRYT2IkD0s5NUx7qCWJK7H
+	 91kzhgJy2S7lYe3KjG1pvY13JlcroOfcuoSub2xzu2SUAGdoxv8FGqLNr3fhz02n3+
+	 sE0r9uMxuKhxmPDfxZOsIMzpSctQV0t8zdjE9i0DrErCSOIy/2SbdUcAcWeRCplyEZ
+	 RzSo4aSeSh81EZ6Z1775f/AABXUCiQbsHPZnv5neocC5tKyVHWRMcvjSuNA/3Pvyae
+	 FKwn6DAo9bCG5GVUCqSJoa3vllI09qa7AweJDRUHWzoJMSycXFAKIwaWzcMDl9BVBe
+	 vKPj3iq24Qbew==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	Juerg Haefliger <juerg.haefliger@canonical.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v7 0/2] Add initial support for Qualcomm Kuno SoC
-Date: Sun,  8 Nov 2026 14:19:51 -0600
-Message-ID: <179416929284.628393.3018595425203478493.b4-ty@b4>
+Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: HP OmniBook X14 / EliteBook Ultra G1q cleanups
+Date: Sun,  8 Nov 2026 14:20:09 -0600
+Message-ID: <179416929368.628393.14033068705210306199.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
-References: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
+In-Reply-To: <20261012-dts-qcom-hp-omnibook-x14-cleanup-v2-0-c859ac395b81@canonical.com>
+References: <20261012-dts-qcom-hp-omnibook-x14-cleanup-v2-0-c859ac395b81@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,23 +70,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 29 Sep 2026 15:18:05 +0530, Hardeep Sharma wrote:
-> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
-> IDP reference board.
+On Mon, 12 Oct 2026 17:50:57 +0200, Juerg Haefliger wrote:
+> This is a small two patch series that cleans up the device trees for the
+> HP OmniBook X14 family and untangles the HP EliteBook Ultra G1q from them.
 > 
-> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. The rest of the
-> series (bindings, GCC, RPMh clocks and power domains, interconnect,
-> pinctrl, geni-se) has been applied and is in linux-next, so v7 carries
-> only the SoC and IDP board devicetree, plus a small geni-se binding
-> update that lets the QUP wrapper use one address/size cell on 32-bit
-> SoCs.
+> Patch 1 consolidates the duplicated hamoa-pmics.dtsi include and
+> chassis-type property into the included x1-hp-omnibook-x14.dtsi.
+> 
+> Patch 2 makes the HP EliteBook Ultra G1q a sibling of the OmniBook X14
+> boards instead of a child, so all three (2 x omnibook, 1 x elitebook) are
+> at the same level.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/2] ARM: dts: qcom: Add initial device tree for Kuno SoC
-      commit: 7f6a63bc5fc9bed3fac66ac57000882926d25f84
+[1/2] arm64: dts: qcom: x1-hp-omnibook-x14: Consolidate pmics and chassis
+      commit: 2e23434108d955b02e003e732c7643a3b44cda9c
+[2/2] arm64: dts: qcom: hp-elitebook-ultra-g1q: Drop omnibook-x14.dts include
+      commit: ad8560386d0b05e89247ebe7d95b3611367ef309
 
 Best regards,
 -- 
