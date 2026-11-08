@@ -1,115 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147778;
-	b=Ow6i0IlpR4IJ2v7g9Nbt1nlTH9L3OD75pEzY+/VDI3Sfwb00lPwlOjMnk+8iRs209Q5n
-	 bRhOdgYeZ2n0PUxI80bbuAlbyxxBCqr4i69n1k/ZfcS8967fYo/DhdHypK7LYLjkxDaSx
-	 pohmLDFipL/Rq0moNzOR48YdGnPwGAVDRsWpuNSMYBtXVc7ZCpwWG6+jabIC2WlAM4iFF
-	 IPSEfI8/6TTMib2LJ8vMmd42d0IWzM7SFuV8Qookelcp3Amt/VXT/xhtsTCicBgdXnTsh
-	 nJijh7MhcgGWMjE1qZRu0K5p87w+PmcWWlCrazHwMAzUYxj0N9sCXQN612G/3qCDVmg==
+	t=1794147799;
+	b=2PAz2maaTiZ93n2yxULg94IjIgcqLUsFc492FZbyeeOdsoaTcJtJVSWkQkGHLbsIbR2q
+	 ZlONOjK0zZKl2kQPSbX5A3bXEvqtpQnizbgx1eOQ5WOhv+IJI32xqcIeC8yT0Mtb7+1Hn
+	 5X9yt0uZaaUiEvlKdK4ILmFSQ8Wz/hSm2FVk7fWNDBQZkSkkvXX2s5oSg2zMcMK2l7jqy
+	 pw6VCS9AS5ir3HlsUBTcHmwR4BGjFK2Hdd94aDGXTAqbs0G+v7sstzPD8meYRxuV6jY2T
+	 5VywkWBxLPf6lx50ZfItC24syao8OQig4K+ocM/R0zvTRdhVc0mj4Ekf9PGtmG6cXxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147778;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Kte5WYMT424VKNrj5TrTokW/zcBpMOsYidoEzhcRPUY=;
-	b=IavC1NKLzYRpylhByx1XVAcc7lYLnlBc5io+hvKUBSE73HHbMTuGkaugnaicNXaSq0LK
-	 VOV3j0pZfC5y+2dsryYeLyai76SMu1njbO5GYKCt84z3ai7g93ux3yJAewLomOh+DIBnM
-	 ELqt3537Uq2un+6lrLf1H1bKkOhQmOHClVesChBhHpT3ykKDbY9QnGyYsLDLbJMaUYGE6
-	 TwgLK/soUSfFFJLGQtEfxYS+OHKA/QdcB94yYMKJq0rJUT0fim1qbbYBGde4Si+CustLR
-	 pVs38uM8aPAyse+s5HKh+oub+dguU3VwHcfYAw1nJZ+29I/cNzVjuasXzm/DECrZwYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794147799;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=gG+88wZUi/y1Vveym/bPnrUsXqEu+rY4Y/0wdGlvsFA=;
+	b=yLDHFuUhnb4fftosqdAlS3sidYdFoNWeWAo7XKNq/VLWyJ7+Z1IdQzi4pX9vooAw3MDp
+	 sgWoWX18LHcO9k6qJCAB4irVo0QElu61QFEFnEcOs/kE5U0VtA/W14X0P/8XyWy9JmxXU
+	 Nq3dslwDjtE9yeW9UIdrMNsI66P6S3ATmzKSudcHIt2F+VDZ/HhXX7E7rH9k9hUALwUhY
+	 3mYfJK3BjBfeKJkqCzIizLuZxyAR17SC/xOPRXTMPbKVfpGXkdX/31X/WUYy3omrOkxHQ
+	 y6sDitqe0lTS3YZ6rwbkvlTFKEZXQBWdWaeeW9A4YI1eMjra4yJBkrVD1wkTkLCnz+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=P1qyvvqa;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=VqasOx12;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=KmhMSfKG;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCAF606D81E
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:22:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABCAF606D81E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89436606A332;
+	Sun,  8 Nov 2026 14:23:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89436606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=P1qyvvqa;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=VqasOx12
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 1154D1400133
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:22:57 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Sun, 08 Nov 2026 09:22:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1794147777;
-	 x=1794234177; bh=Kte5WYMT424VKNrj5TrTokW/zcBpMOsYidoEzhcRPUY=; b=
-	P1qyvvqaxvQuU2Zqb16/NRPVib9d89UgSfgHMASgYY/skgYVEZva8YUQdgcM0E0G
-	4PrLV1fQleZcVnoa+kJvic0y+ISl2wQ8R4oidlj0xeh9Be3JTdzMTw7Jh7DUqERS
-	YRYa35sX5DppZv6nuOoWvN5E8Dbg2lGBrkBKGDOSdJfcUg2+4Ipg8d+DewDccMT8
-	aVSTfuE46aofjRYo+Ydx2TFyaWiiuj14HrDZ3BiQgfh1obkfUQL8onKNsBH3bBMj
-	uCRWVuqZLmN7IfFtCP/y0FdMdjtIrBb5WYPjMYW42iKs57gT7rQayuZmPkXZP4o3
-	ksSPxm1YkipMtcVh+mF2Kw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794147777; x=
-	1794234177; bh=Kte5WYMT424VKNrj5TrTokW/zcBpMOsYidoEzhcRPUY=; b=V
-	qasOx12qUdPznG4L1H+OUr58fmAy051kNtsrr758TxdhuxtEwxYYdcHOeUC9KMKM
-	oVeDpcX3WmLIk/QY25AKox9OwSlygQ/J4OK6OJ3WjQenihRJfCSxOw6R8RUs5P0x
-	xcKkSmi8Qu+3tyfph/Tw4B2C4VnzXqdjSFSyDrMIajcd6AmdiC6Q9p/tKoKj26lV
-	oyc3RdemFH5rp+TXemMRONu4CMvOutp2F1msUKHrSW3ozKdIc4V+rys3D8GQfyBi
-	q3oWH+GUayXKghXCw6VVDzvrdUf9uDDz+wZ1kRcVXhp1KbwbNVSavwzxuc/HaY34
-	2p6b9S/S5iNEfd7k4wHWQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794147777; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:VZCRAVFMx4BGZ3ahzP/75WMWw7ZevZKpTUC6cJWggSpTYM3
-	vv4jusQvZPTipHJ6erxfWelBaikJ9vb1GDYAOeGpukhLngQd1RQpDtWTrINuT0Xp
-	3BdGsXmulAsakEow9bLMzCrH54eEKEilMSpJFL3xlY2dS0YM9H797EVwVehxSXt/
-	FY7eXDK0j7qf0M/JnExPjAdlApcg9K9dXsuMiceY8kHcgKhLIYzj+tI4UuPjqGGR
-	XUMV55smwEgBIRQ0CUrskQmT9l282TasqYN0eJKwEfpyqcS7iFbN35p/jS2CT+rE
-	zD22Xcb660Qr/G9uRWW0C+9Rnr5/hC6mHGV4pSQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:0kLRbMVsEm5LotXwHYnzJehhpAoO6fySlBkC1Y53QFQ=:38WaFZSMlnnR6BRrfybqqIYKvxpuFmMHf44pTN+EAS4=;
-X-ME-Sender: <xms:wIXwaiAiQ9wX3T1RX9jNCSppwH-3M0FSl15SQuNJlv-iS92N_7TnSA>
-    <xme:wIXwat7e2LB_b48ScEQRdU5dE2ArxPGQrC9FN0oqmG8tpDSL0JUZ3n__C-i6sRLxk
-    zbX2no9ugu7oNm3xuUvjhhf-YzJRdXNbul8NFTCuwxLmk2R4kmX_Q>
-X-ME-Received: <xmr:wIXwau0X8bgTcFURfiWS6MI5nwKjSh-dKgTv3JuXGC71hH_97hr49y1I5nB81N29DX-IpakrZCc2KJs1sab6ar3wppYu7tTqGX4>
-X-ME-Proxy-Cause: dmFkZTGo3CfmNkGVcoCqQm+2xF5BgQTQHLEob89QGgMg/fmpPsx9Ba22YEWDsCMCAsJVht
-    iPMwYglQfWngG0EQiTCIk1j//mHbmcbWVDR0k5U/uGGvuPWIdI5VF0QmVDi2K9omMvQXse
-    1SsImkgs2/+NnGnQwBHgKzDKk3rdaZCpy9lOm/CBgsoPRaB2SL90jN/DpplvLkjqri7DRF
-    34GZFZT6mx2KG6dtb3J1oKeeuxv77VarACJ5K9flwFuG4XW+zRuJ4up6S+R6m6RCgUFeXK
-    suuZS7ohMrlLQBXad0P686p3sxTyrb8JLChbCEM521ZgNKvK+lIcmDaAFt7tO6sNGMYcXc
-    ERWeo+bc0+cJk00Nc1WuHBj4r2aWD0sY5QgTsRBu11aBmc2RbF0NVzOMWi/ky0pLGb5jG5
-    xgpLLBw69wEh56SbLbjxtuaNMIER9vRNau2PW3CPQL/xjo8klgzL7DAaz4BmHd/8yQrtPy
-    8swXaLzCNR5u3LXhviVURghCNt0sRL3L42uaPEvbipWbXQYNzhcdOTwPzLuv64z0X7QsLk
-    Y3NCH6ASQ/raumVNH1dVG+7ISJtSwu1FyVlVCKg5/Zbqps5Hhhq4OcwLlyKPR86tGOoKoI
-    C2d7OuGoTfnsap6BU3lLGgcBxnL4l1JTRlR/rWTaCbH89dXB0QuHUizxFWlg
-X-ME-Proxy: <xmx:wIXwapDUmPLK8OCsTVgICrT60ZXVfvOr9X9lXC-41lcbgm5vYsyLpQ>
-    <xmx:wIXwauHqcYRwb8RNHdROFOHo7M8gMtAeOlUto46gIubJxYAjS8KSEw>
-    <xmx:wIXwamSF1nc2A4uBmvIE6Ae27Fxe2nZ6N1knli7xnXeH6R3I5tybcA>
-    <xmx:wIXwatP1TSQI06zPg_SmbCZPM5V4JcxASevN2qD3R6NGQEX4PtODKA>
-    <xmx:wYXwapA60ATdUerfQmZyTFE2mWCZdwJ7rMnl_58_2FEyjOlM1rd6BdSD>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 09:22:56 -0500 (EST)
-From: Janne Grunau <j@jannau.net>
-Date: Sun, 08 Nov 2026 15:22:37 +0100
-Subject: [PATCH v2 3/7] arm64: dts: apple: t6030: Add PCIe nodes
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=KmhMSfKG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794147797;
+	bh=gG+88wZUi/y1Vveym/bPnrUsXqEu+rY4Y/0wdGlvsFA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KmhMSfKGaxO9tKxXEjvFJrmTyZf+j8HXCvghmKXjQFYbSf28ffi+zbV7QKcFktAoL
+	 pCNEiEC+/nsOej9VmUpuETduHhll1WzIg7KA7KIoPt6DleEgVTO1sy+EzLLst+dbV6
+	 R1LgNn4IiiIAUt1H+XHPbWesCTKSqU3JNE5tWSWVLsO8XZBKb8Y25DoeMP0zqPvydO
+	 QqaUUXwT/SbPFXU9/Y9XU0K06vanF9RHlsx6YA7wLdTtRoFm5k+AIx+UKxNqBXB64c
+	 6DEkI1uVGTr0cLOhooRBkJYiD5khFBKhM1HWOR/JmryGFBw8kkxRwRKRjq6XoICmHY
+	 BAEPuo2HmfD5g==
+Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jMwBF2kCPzMmP;
+	Sun, 08 Nov 2026 09:23:17 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: tglx@kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dvhart@infradead.org,
+	dave@stgolabs.net,
+	andrealmeid@igalia.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests/futex: Retry the wake in futex_wait instead of sleeping
+Date: Sun,  8 Nov 2026 09:23:09 -0500
+Message-Id: <20261108142309.1527337-1-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,234 +69,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-apple-m3-pcie-v2-3-0e5ffec71da4@jannau.net>
-References: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
-In-Reply-To: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
-To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
- Joshua Peisach <jpeisach@ubuntu.com>, 
- Michael Reeves <michael.reeves077@gmail.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6143; i=j@jannau.net;
- h=from:subject:message-id; bh=38WaFZSMlnnR6BRrfybqqIYKvxpuFmMHf44pTN+EAS4=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPrVt31Z6tMtf8Nv+fH6/cos0TdKtK10gc+nYke9liu
- R6TZNU3HRNZGMS4GCzFFFmStF92MKyuUYypfRAGM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6xgxcHEKwFRn+jMynFl/3c/I892aQ9z7lSbNXZkeGhvhd+3l9rTT03Lvz87Zu46RYUFj3VT
- jGe5r9mQ8kE7YW9Au5/lP//bv11U77A4HivbI8QMA
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Content-Transfer-Encoding: 8bit
 
-Add the PCIe controller, its ports, IOMMUs and clock request pins to the
-base M3 Pro .dtsi file.
-M3 Pro is only used in 14 and 16-inch Macbook Pro which connect PCIe
-devices to the port 0 and 1.
+Each futex_wait test starts a waiter thread, which calls futex_wait()
+with a 30ms timeout. The main thread sleeps 10ms, then expects
+futex_wake() to wake one waiter. So the test assumes that the waiter
+reaches futex_wait() within 10ms, and that the main thread runs again
+within 30ms.
 
-Signed-off-by: Janne Grunau <j@jannau.net>
+A busy machine breaks both. The built-in locktorture at times holds a
+spinlock for 100ms with preemption off. With it, private_futex failed in
+about 0.5% of the runs in 8-CPU VMs, on v7.4-rc1.
+Timestamps showed two cases. The waiter started up to 75ms late, after
+the wake. Or the main thread woke up to 105ms late, after the waiter
+had timed out.
+
+Fix this by retrying futex_wake() every millisecond until it wakes the
+waiter, for up to 5s. Give the waiter a timeout of 10s, so that it
+outlasts the retries. The tests then wait for the waiter, instead of
+assuming when it runs.
+
+With this patch, private_futex passed 6000 runs of 6000 in the same VMs,
+and the three tests 2000 runs of 2000.
+
+Fixes: c3d128581f64 ("selftests: futex: Add futex wait test")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- arch/arm64/boot/dts/apple/t6030.dtsi | 165 +++++++++++++++++++++++++++++++++++
- 1 file changed, 165 insertions(+)
+ .../selftests/futex/functional/futex_wait.c   | 39 ++++++++++++-------
+ 1 file changed, 26 insertions(+), 13 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/apple/t6030.dtsi
-index 85a16d03e22f..4bac0fbcea8c 100644
---- a/arch/arm64/boot/dts/apple/t6030.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6030.dtsi
-@@ -7,6 +7,7 @@
-  * Copyright The Asahi Linux Contributors
-  */
+diff --git a/tools/testing/selftests/futex/functional/futex_wait.c b/tools/testing/selftests/futex/functional/futex_wait.c
+index 5292f5d2c3b5..e7ebc7d8be1d 100644
+--- a/tools/testing/selftests/futex/functional/futex_wait.c
++++ b/tools/testing/selftests/futex/functional/futex_wait.c
+@@ -14,8 +14,9 @@
+ #include "futextest.h"
+ #include "kselftest_harness.h"
  
-+#include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/apple-aic.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/pinctrl/apple.h>
-@@ -431,6 +432,14 @@ i2c8_pins: i2c8-pins {
- 				pinmux = <APPLE_PINMUX(51, 1)>,
- 					 <APPLE_PINMUX(50, 1)>;
- 			};
-+
-+			pcie_pins: pcie-pins {
-+				// clkreq pins
-+				pinmux = <APPLE_PINMUX(163, 1)>,
-+					 <APPLE_PINMUX(164, 1)>,
-+					 <APPLE_PINMUX(165, 1)>,
-+					 <APPLE_PINMUX(166, 1)>;
-+			};
- 		};
+-#define timeout_ns  30000000
+-#define WAKE_WAIT_US 10000
++#define WAIT_TIMEOUT_S	10
++#define WAKE_RETRY_US	1000
++#define WAKE_TRIES	5000
+ #define SHM_PATH "futex_shm_file"
  
- 		pmgr: power-management@350700000 {
-@@ -579,6 +588,162 @@ nvme: nvme@38dcc0000 {
+ void *futex;
+@@ -32,8 +33,8 @@ static void *waiterfn(void *arg)
+ 	struct timespec to;
+ 	int res;
  
- 			apple,sart = <&sart>;
- 		};
-+
-+		pcie0: pcie@580000000 {
-+			device_type = "pci";
-+			compatible = "apple,t6030-pcie", "apple,t6020-pcie";
-+
-+			reg = <0x5 0x80000000 0x0 0x1000000>,	/* config */
-+			      <0x5 0x91000000 0x0 0x4000>,	/* rc */
-+			      <0x5 0x94008000 0x0 0x4000>,	/* port0 */
-+			      <0x5 0x95008000 0x0 0x4000>,	/* port1 */
-+			      <0x5 0x96008000 0x0 0x4000>,	/* port2 */
-+			      <0x5 0x97008000 0x0 0x4000>,	/* port3 */
-+			      <0x5 0x9e020000 0x0 0x4000>,	/* phy0 */
-+			      <0x5 0x9e024000 0x0 0x4000>,	/* phy1 */
-+			      <0x5 0x9e028000 0x0 0x4000>,	/* phy2 */
-+			      <0x5 0x9e02c000 0x0 0x4000>;	/* phy3 */
-+			reg-names = "config", "rc",
-+				    "port0", "port1", "port2", "port3",
-+				    "phy0", "phy1", "phy2", "phy3";
-+			ranges = <0x43000000 0x5 0xa0000000 0x5 0xa0000000 0x0 0x20000000>,
-+				 <0x02000000 0x0 0xc0000000 0x5 0xc0000000 0x0 0x40000000>;
-+			#address-cells = <3>;
-+			bus-range = <0 4>;
-+
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1038 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1047 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1056 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1065 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			iommu-map = <0x100 &pcie0_dart_0 1 1>,
-+				    <0x200 &pcie0_dart_1 1 1>,
-+				    <0x300 &pcie0_dart_2 1 1>,
-+				    <0x400 &pcie0_dart_3 1 1>;
-+			iommu-map-mask = <0xff00>;
-+
-+			msi-controller;
-+			msi-parent = <&pcie0>;
-+			msi-ranges = <&aic AIC_IRQ 1342 IRQ_TYPE_EDGE_RISING 32>;
-+
-+			pinctrl-0 = <&pcie_pins>;
-+			pinctrl-names = "default";
-+			power-domains = <&ps_apcie_sys_gp>;
-+			#size-cells = <2>;
-+
-+			port00: pci@0,0 {
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port00 0 0 0 0>,
-+						<0 0 0 2 &port00 0 0 0 1>,
-+						<0 0 0 3 &port00 0 0 0 2>,
-+						<0 0 0 4 &port00 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 167 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+			};
-+
-+			port01: pci@1,0 {
-+				device_type = "pci";
-+				reg = <0x800 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port01 0 0 0 0>,
-+						<0 0 0 2 &port01 0 0 0 1>,
-+						<0 0 0 3 &port01 0 0 0 2>,
-+						<0 0 0 4 &port01 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 168 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+			};
-+
-+			port02: pci@2,0 {
-+				device_type = "pci";
-+				reg = <0x1000 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port02 0 0 0 0>,
-+						<0 0 0 2 &port02 0 0 0 1>,
-+						<0 0 0 3 &port02 0 0 0 2>,
-+						<0 0 0 4 &port02 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 169 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+
-+				status = "disabled";
-+			};
-+
-+			port03: pci@3,0 {
-+				device_type = "pci";
-+				reg = <0x1800 0x0 0x0 0x0 0x0>;
-+				ranges;
-+				#address-cells = <3>;
-+
-+				#interrupt-cells = <1>;
-+				interrupt-controller;
-+				interrupt-map = <0 0 0 1 &port03 0 0 0 0>,
-+						<0 0 0 2 &port03 0 0 0 1>,
-+						<0 0 0 3 &port03 0 0 0 2>,
-+						<0 0 0 4 &port03 0 0 0 3>;
-+				interrupt-map-mask = <0 0 0 7>;
-+				reset-gpios = <&pinctrl_ap 170 GPIO_ACTIVE_LOW>;
-+				#size-cells = <2>;
-+
-+				status = "disabled";
-+			};
-+		};
-+
-+		pcie0_dart_0: iommu@594000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x94000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1039 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+		};
-+
-+		pcie0_dart_1: iommu@595000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x95000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1048 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+		};
-+
-+		pcie0_dart_2: iommu@596000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x96000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1057 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+
-+			status = "disabled";
-+		};
-+
-+		pcie0_dart_3: iommu@597000000 {
-+			compatible = "apple,t6030-dart", "apple,t8110-dart";
-+			reg = <0x5 0x97000000 0x0 0x4000>;
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1066 IRQ_TYPE_LEVEL_HIGH>;
-+			#iommu-cells = <1>;
-+			power-domains = <&ps_apcie_sys_gp>;
-+
-+			status = "disabled";
-+		};
- 	};
+-	to.tv_sec = 0;
+-	to.tv_nsec = timeout_ns;
++	to.tv_sec = WAIT_TIMEOUT_S;
++	to.tv_nsec = 0;
  
- 	timer {
+ 	res = futex_wait(futex, 0, &to, args->flags);
+ 	if (res) {
+@@ -45,6 +46,24 @@ static void *waiterfn(void *arg)
+ 	return NULL;
+ }
+ 
++/*
++ * Wake the waiter of @uaddr. The waiter thread may not have reached
++ * futex_wait() yet, so retry until futex_wake() wakes it, for up to
++ * WAKE_TRIES times WAKE_RETRY_US. Return what futex_wake() last returned.
++ */
++static int wake_waiter(void *uaddr, unsigned int flags)
++{
++	int i, res = 0;
++
++	for (i = 0; i < WAKE_TRIES; i++) {
++		res = futex_wake(uaddr, 1, flags);
++		if (res)
++			break;
++		usleep(WAKE_RETRY_US);
++	}
++	return res;
++}
++
+ TEST(private_futex)
+ {
+ 	struct waiter_args *args = malloc(sizeof(*args));
+@@ -61,10 +80,8 @@ TEST(private_futex)
+ 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, args), 0)
+ 		TH_LOG("pthread_create failed");
+ 
+-	usleep(WAKE_WAIT_US);
+-
+ 	TH_LOG("Calling private futex_wake on futex: %p", futex);
+-	res = futex_wake(futex, 1, FUTEX_PRIVATE_FLAG);
++	res = wake_waiter(futex, FUTEX_PRIVATE_FLAG);
+ 	EXPECT_EQ(res, 1)
+ 		TH_LOG("futex_wake private returned: %d %s", res, res < 0 ? strerror(errno) : "");
+ 
+@@ -106,10 +123,8 @@ TEST(anon_page)
+ 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, args), 0)
+ 		TH_LOG("pthread_create failed");
+ 
+-	usleep(WAKE_WAIT_US);
+-
+ 	TH_LOG("Calling shared (page anon) futex_wake on futex: %p", futex);
+-	res = futex_wake(futex, 1, 0);
++	res = wake_waiter(futex, 0);
+ 	EXPECT_EQ(res, 1) {
+ 		TH_LOG("futex_wake shared (page anon) returned: %d %s",
+ 		       res, res < 0 ? strerror(errno) : "");
+@@ -161,10 +176,8 @@ TEST(file_backed)
+ 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, args), 0)
+ 		TH_LOG("pthread_create failed");
+ 
+-	usleep(WAKE_WAIT_US);
+-
+ 	TH_LOG("Calling shared (file backed) futex_wake on futex: %p", futex);
+-	res = futex_wake(shm, 1, 0);
++	res = wake_waiter(shm, 0);
+ 	EXPECT_EQ(res, 1) {
+ 		TH_LOG("futex_wake shared (file backed) returned: %d %s",
+ 		       res, res < 0 ? strerror(errno) : "");
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.0
+2.47.3
 
