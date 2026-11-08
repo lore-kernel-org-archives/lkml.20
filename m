@@ -1,62 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794170824;
-	b=Z+x1Od0tt4z5/v1S/4v5DoO+zRG42DJbb3S35Sd7Nl0KiQ9PdJpLvx7lTkC0em43//Nh
-	 oBdSqjnhfzg8IsonrNku2li/8ocqwfzamwjzDRe7Y9WoMJB1XlLgq36a3kBfNLL2kuP8E
-	 waA6GjebSPfG+PlDNJda9uGZNEwze1o8Rtm1GZht0IfqhsCYqfnRhIPWnSE/BdI9gbzcV
-	 wgSFv4FbaEgzdQgyhF9eZA/vVn7nGd8j+U3DeFzwPT6YK0bHQKmN4FpKUTjlJB6fD8Gk5
-	 6TDNcNWGhhTOs2coJdWPe2ZalyokUxJMEyOMc36WkemVv6s4f17nJfD1J7sSdFgbjEQ==
+	t=1794170912;
+	b=d6OZLiEk7ZRWUz8qvRb/o4d2COXZzYHniuYHacOfieC61dMVlY39BgtjTYdpXiqSeUJD
+	 FQgXygDyyM9Vf8PvhwODNopnyk1ztZ772zWhBBiVPWyBR4pTe/rZChkEYRfqcoEadJkqW
+	 5KMx6vryihYdwIZSXOmM6h6NfrDd0rTf33EIBx2erO14mEzANHn7PZHMCmKTr5CM3sSXP
+	 G/Ne8ghJN/eVg2jzhUg5Hq6RAUTrkYTxJOtkyPTeoU3YS7mUeSJqs+4GMseKKUc6wUk2O
+	 /TEzWVjVwVzjlDJyK8qPX6o1ePD3Vr+V0SPVHMcXB8FxJMt5F/57Id62rDH8krTUNmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794170824;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ThjO24WuCau9eRYMDFPIL89g6rGl0fqGjMwXQk/3iWs=;
-	b=OPkPzfvZSeSbGnDnrXuIs2+jd7YunF9hHBJgpKnMXVXZiPTdb3xb2/OiBJDsoXLO27Vx
-	 dmxhKSzIhIOzMk9kbUKy+j2Y5Isykht45x47OtyzNbdimtcWsuwoLh1Yw35aVAKvZQ/GK
-	 gDlP6WCfQlpvQyyZN2ekxPXIAIdWvPVeIVYp0JYTqBDPUFEzm2V/Wxh82Shq05KlxeS3Z
-	 tzfudJ2RDY7aSJHzzUywI38IVx8Lz3V/hSS/HmY8vJeZQDz9VHv4p8fjV43WhWyB53C6Y
-	 UKdw2nEFhCJihvx1ITlc+Iu2t1c4tperglj7XIZSli9OwMawE3W3bLH8I5s2GlMrbvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794170912;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=djErT1YvUu0mkM8hSl51RULADOIRnOJrc/Fo5hTxu3A=;
+	b=VRWSo4Rmu/BhmYFyFQYwNIL4dmkSWoioRzMbZwlJ4o0wSMjzQlTwVBqtHbtmHKId5aGW
+	 V1b9EhS3/9U7dWxTgx+TXHrkihLbI40XE6S3mqyUxHiU/NQpPJy2bDpOi3Ck0W5ej5TYc
+	 /Q7WD6W9CQDjXZHGNDxXJWtn819O8vV5+59WtR2GO0zlOmnoMvV6SipNWU5+pnQ2HhP7T
+	 mV/EHtdJoW6wJUoeF1HM9IDhOxWWe/+Qc/azhOhUD1tJSvY1WCXFTlOt51qcQLLG4uLm5
+	 MAcgYateLg3kHLtIMBUrUxUQMnHiHUlJgbnUdoTWQpOO7o/RdR39RiKNBXGfki9sUzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GN4eWksL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ9dr7Vw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C2B606A31C;
-	Sun,  8 Nov 2026 20:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E147606D80D
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:48:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GN4eWksL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 720911F0089F;
-	Sun,  8 Nov 2026 20:46:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ9dr7Vw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BDE11F0092F
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794170823;
-	bh=ThjO24WuCau9eRYMDFPIL89g6rGl0fqGjMwXQk/3iWs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GN4eWksLiMRX5GNrr38NWq6Fqu8qqJYs7W73kYoG6RaEMKrkdaJDKUn93toF0k+ti
-	 Q6HooGXYSfkeGB35AoQjIP9rG3G3INDGSRAu2x3OH/8H6hBH/pGSwMUf0UUnAGHd6j
-	 Rq/nAqixUl2DIUSjQHbrnNhoo0idFLpTnyj3phqPEYjg+XQQUidVuCBuIm4WhwYfW4
-	 Kva7RvGA6ABsr1zZzXK9hkGy85AL+x9y0gBgOtQ7InODv3OwnzMZLrbEYgL1RFZdIJ
-	 i3axLKkH7gcVlotTm2raWVWg/TlE6j70nsZaIINUgamtbco151pOM7vyNqJwFFK90X
-	 WWuKI7ccsgjLg==
-Date: Sun, 8 Nov 2026 20:46:53 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Lee Jones <lee@kernel.org>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v1 1/4] regulator: dt-bindings: maxim,max8907: Document
- io-channel-cells property
-Message-ID: <20261108204654.2fe19afb@jic23-hlaptop>
-In-Reply-To: <20261108095634.100517-2-clamor95@gmail.com>
-References: <20261108095634.100517-1-clamor95@gmail.com>
-	<20261108095634.100517-2-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794170912;
+	bh=djErT1YvUu0mkM8hSl51RULADOIRnOJrc/Fo5hTxu3A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VZ9dr7VwZlMqRCf2cZMC4mKBGmvOV4lXJUDDdnwvlDhOR0IigvXaYtuZTIbgdtsNL
+	 f7i8FNCsRcbBGJJWx/OiQOMQIOi7j/NPX9ieTBzSWYw8PLgkFZkhiWP9IWO9uPxVdo
+	 tNh1aka09dtSXfHWJG2oEajh3/HV2MYm0oZh42efak/XWKeBLkvbqt62djOGExRmGr
+	 TS3Gf5XOK1gSeOnsmKJgoyrGsTNpYdAAgaGblzNlLLA22lCk7JlnYaKHuKIh3QNglu
+	 0sL4bJmxZmhPf+AS132DBPMHIJ87VEQIBjTBRbj5lwRegYRCHJvHxHdIxJnl3pRujR
+	 Jqo4EGqr3vFmA==
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93cc1ab5f6cso32206685a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 12:48:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG5nINwc2MbJhAj8EmYP4h9f0JanX78+2dIYAhnMqyP9MOitEMdl6QcJMAgz99IvJapQxLUqok8bEmC+oY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+q+J8SOSPjJIEq+M8R9ee6OQ5gzCFhw95i4YVFRX55UOOrgaGr
+	YGWT7Ef4C7vLI1cfzY5EpJ+rE6+5uu5KUH5y+d2KKRWIA+noWQ9+7GLDRNWKuEkYv7+a4mdbNNW
+	neySvv2UFDldEeT0GxfJlTQqHHW0NmaU=
+X-Received: by 2002:a05:620a:1706:b0:944:d7b:e7a with SMTP id
+ af79cd13be357-9478427a79emr342902085a.52.1794170910757; Sun, 08 Nov 2026
+ 12:48:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,40 +59,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com> <20261016-mglru-fg-v4-6-2106750c0bfa@tencent.com>
+In-Reply-To: <20261016-mglru-fg-v4-6-2106750c0bfa@tencent.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 9 Nov 2026 04:48:19 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zQh0TnAxifWPo2+DcyFFOtpXM+2QW91A07oumfyrqVYg@mail.gmail.com>
+X-Gm-Features: AclHuK_zbDT_3bnI0_EC4q_0TU7opSFYKTqi1euA2GlbUa3wQRMNDwIK1fC-8Kw
+Message-ID: <CAGsJ_4zQh0TnAxifWPo2+DcyFFOtpXM+2QW91A07oumfyrqVYg@mail.gmail.com>
+Subject: Re: [PATCH v4 06/17] mm/mglru: move add/del LRU size accounting out
+ of lru_gen_update_size()
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, SJ Park <sj@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Nico Pache <nico.pache@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
+	Gregory Price <gourry@gourry.net>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>, 
+	David Rientjes <rientjes@google.com>, Yu Zhao <yuzhao@google.com>, 
+	Vernon Yang <vernon2gm@gmail.com>, Zicheng Wang <wangzicheng@honor.com>, 
+	Chen Ridong <chenridong@xiaomi.com>, Tal Zussman <tz2294@columbia.edu>, 
+	Kairui Song <ryncsn@gmail.com>, Xiang Liu <liuxiang.277@bytedance.com>, 
+	Ehab Ababneh <ehab.ababneh@intel.com>, zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, 
+	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>, linux-kernel@vger.kernel.org, 
+	cgroups@vger.kernel.org, damon@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun,  8 Nov 2026 11:56:31 +0200
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-
-> The Maxim MAX8907 has a built-in 8-channel ADC. It does not require any
-> Device Tree (DT) based configuration and is folded into the main PMIC
-> node. Document this behavior.
-
-The actual addition here is to allow other devices in DT to consume
-the channels.  There is nothing stopping you having an ADC driver
-without that which would need nothing at all in DT.
-
-So this patch description is not accurate. The actual change is fine.
-
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+On Fri, Oct 16, 2026 at 2:15=E2=80=AFAM Kairui Song via B4 Relay
+<devnull+kasong.tencent.com@kernel.org> wrote:
+>
+> From: Kairui Song <kasong@tencent.com>
+>
+> Pure code shuffle, no behavior change.  lru_gen_update_size() now only
+> updates the per-generation counters plus the promotion move; the
+> addition and deletion active/inactive accounting move to
+> lru_gen_add_folio() and lru_gen_del_folio(), which know the generation
+> and can apply the active-window test directly.
+>
+> The unevictable case is untouched: unevictable folios never enter
+> lru_gen_add_folio() and keep being accounted by lruvec_add_folio() as
+> before.
+>
+> Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 > ---
->  Documentation/devicetree/bindings/regulator/maxim,max8907.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
-> index ee1a305d1c210..ccdeb9ba21e26 100644
-> --- a/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
-> @@ -27,6 +27,9 @@ properties:
->  
->    system-power-controller: true
->  
-> +  "#io-channel-cells":
-> +    const: 1
-> +
->    mbatt-supply:
->      description:
->        The input supply for MBATT, BBAT, SDBY, VRTC.
 
+The patch looks good to me.
+
+Meanwhile, I've been struggling with the names of
+__update_lru_size() and lru_gen_update_size() for a long
+time.
+
+Given that lru_gen_update_size() now only updates
+nr_pages:
+static inline void lru_gen_update_size(struct lruvec *lruvec, int type,
+                struct folio *folio, int old_gen, int new_gen)
+{
+       ...
+
+        if (old_gen >=3D 0)
+                atomic_long_sub(delta, &lrugen->nr_pages[old_gen][type][zon=
+e]);
+        if (new_gen >=3D 0)
+                atomic_long_add(delta, &lrugen->nr_pages[new_gen][type][zon=
+e]);
+}
+
+while __update_lru_size() only handles
+active/inactive accounting, could we rename them to make
+their roles clearer? For example:
+
+lru_gen_update_nr_pages()
+lru_gen_update_active_inactive_size()
+
+The names are longer, but the lru_gen_ prefix helps
+distinguish this accounting from the actual
+active/inactive LRU lists.
+
+
+>  include/linux/mm_inline.h | 28 ++++++++++++++--------------
+>  1 file changed, 14 insertions(+), 14 deletions(-)
+>
+> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> index cfcbe4a9aa85..65415eeac802 100644
+> --- a/include/linux/mm_inline.h
+> +++ b/include/linux/mm_inline.h
+> @@ -313,21 +313,9 @@ static inline void lru_gen_update_size(struct lruvec=
+ *lruvec, struct folio *foli
+>         if (new_gen >=3D 0)
+>                 atomic_long_add(delta, &lrugen->nr_pages[new_gen][type][z=
+one]);
+>
+> -       /* addition */
+> -       if (old_gen < 0) {
+> -               if (lru_gen_is_active(lruvec, new_gen))
+> -                       lru +=3D LRU_ACTIVE;
+> -               __update_lru_size(lruvec, lru, zone, delta);
+> +       /* return now if not a promotion */
+> +       if (old_gen < 0 || new_gen < 0)
+>                 return;
+> -       }
+> -
+> -       /* deletion */
+> -       if (new_gen < 0) {
+> -               if (lru_gen_is_active(lruvec, old_gen))
+> -                       lru +=3D LRU_ACTIVE;
+> -               __update_lru_size(lruvec, lru, zone, -delta);
+> -               return;
+> -       }
+>
+>         /* promotion */
+>         if (!lru_gen_is_active(lruvec, old_gen) && lru_gen_is_active(lruv=
+ec, new_gen)) {
+> @@ -381,6 +369,8 @@ static inline bool lru_gen_add_folio(struct lruvec *l=
+ruvec, struct folio *folio,
+>         int gen =3D folio_lru_gen(folio);
+>         int type =3D folio_is_file_lru(folio);
+>         int zone =3D folio_zonenum(folio);
+> +       int delta =3D folio_nr_pages(folio);
+> +       enum lru_list lru =3D type * LRU_INACTIVE_FILE;
+>         struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
+>
+>         BUILD_BUG_ON(BIT(LRU_GEN_WIDTH - 1) !=3D MAX_NR_GENS);
+> @@ -396,6 +386,10 @@ static inline bool lru_gen_add_folio(struct lruvec *=
+lruvec, struct folio *folio,
+>         set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK | BIT(PG_active=
+), flags);
+>
+>         lru_gen_update_size(lruvec, folio, -1, gen);
+> +       if (lru_gen_is_active(lruvec, gen))
+> +               lru +=3D LRU_ACTIVE;
+> +       __update_lru_size(lruvec, lru, zone, delta);
+> +
+>         /* for folio_rotate_reclaimable() */
+>         if (reclaiming)
+>                 list_add_tail(&folio->lru, &lrugen->folios[gen][type][zon=
+e]);
+> @@ -409,6 +403,9 @@ static inline bool lru_gen_del_folio(struct lruvec *l=
+ruvec, struct folio *folio,
+>  {
+>         unsigned long flags;
+>         int gen =3D folio_lru_gen(folio);
+> +       int zone =3D folio_zonenum(folio);
+> +       int delta =3D folio_nr_pages(folio);
+> +       enum lru_list lru =3D folio_is_file_lru(folio) * LRU_INACTIVE_FIL=
+E;
+>
+>         if (gen < 0)
+>                 return false;
+> @@ -422,6 +419,9 @@ static inline bool lru_gen_del_folio(struct lruvec *l=
+ruvec, struct folio *folio,
+>         gen =3D ((flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
+>
+>         lru_gen_update_size(lruvec, folio, gen, -1);
+> +       if (lru_gen_is_active(lruvec, gen))
+> +               lru +=3D LRU_ACTIVE;
+> +       __update_lru_size(lruvec, lru, zone, -delta);
+>         list_del(&folio->lru);
+>
+>         return true;
+>
+> --
+> 2.56.0
+>
+>
+
+Thanks,
+Barry
