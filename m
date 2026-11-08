@@ -1,93 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794124451;
-	b=24yHmYcrMPyji3gCUi2cFUEw3RF9qHoMQIyl2DLpfLnKUt4nbXkmCPw96cU0+dU6mYuW
-	 AOD02Hs9j31lPIbUdU4Am7OttELSV9fwnnvJoOH6yBzzyhZbjXrNV05QK3wAJnORSE4W5
-	 UmQVMX99k4WbtyNtPydWgQXT00hieCvUQgQBkt0uBd/1ZXE/GwQ9mxr6Gs1h/tzsCTyQO
-	 /1pC4eTFSNwspMNUgBGjF52mT5JT/esnDYBsZ/CnoI39QTtmNYLsetFoYqxYaFE8J8ycE
-	 THfg2jirqC2dhR6lNrktxY0lVYQMkigCx8MQMu4v7/HhjlKRvzbt6+cTqPws4J1OJ4w==
+	t=1794124566;
+	b=fG2BIOWA1aW5mHUhDPREHytl1wegLXgTH5RgzR6EDfQrkz5i4YsFMpv9k4SpLdcHfcDD
+	 C59plCaPODsZKaHD6Q1FSauqPNbNmBe0RRv5CrqMhb/j4uYaGaWh8KJ+n/x9JDmnbJ4Ih
+	 Y6tNHjXgW+MCrio0BUDIwnwa8OojqIKR47JjTa2V6LD07lXAnRjHw6H0KjCbqv3RNgQAD
+	 /WigdF/Sft6vEWwIKa3dpluKoZGpDyVEh96TrROMzhLSJ04Csb2Tc03codrI0n1lO9eRv
+	 8Z+bgCSxsywA2Tikxz8+edKiOArENvuCbsg6cc333ezwPOTAQBqmrsj+b+7HpPTiMxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794124451;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8tBhA04OZW48u2CYSoRKHfkBmCLrM00ptAagGQEc3QE=;
-	b=sZfxM5gciFTRlhp/+T0iLnrs2O2CRYeLi3UwlR4d+kvE7+WTtAajvBlbG73X1UnH16Ld
-	 cFgsae9qHF+E7dXC3tighvGCbmtIXe2NpqXViaXLL8HUqKJrTKlBiqzilGvippuw7AUOT
-	 oPdUppzYO9ysZkIJ+SBc/4nCDz+YPETsSY7mbM0pxk1SSOvaiNVGzXjBjwz9fINmV9WF3
-	 51thC0WSNySMOpBR6HXb2Qud3JhH0EsewkM97K/099Pn6WwxDpzHmZXwy6VfD6FLHtsiz
-	 UrPBahzOzVHF2Zl/jozgxL7O2oXQr1Vc5AlhKwqoNs0NxL67BabGX52QP0Z/ktO+e7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794124566;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=O+XOpYxnEggyl2hN1NfzgWCb0jUC7SPgqGbZ9K842Mg=;
+	b=GX8yx/e1i2USdZE4JR94AGKJozEdpK8SgOS3HwW7it7YahcAd2Hdq8DMXAqpf9hTayUw
+	 HosvZJ0ul78LsrP5WupQUHANPdApk5SGVX4oqHGWixcj3iiPd812PtZybdM19dJ9avYzU
+	 bujFjsi2XAGNyU+lrag+QtC6dbUoPBDdnOMBBqu3sWoMl2RFxgkrPXzgalDGf79VmMTaS
+	 1bSOjdaLxtnU9EiCVMV0jdXpBSndbVxFUH7/g7RvEPfpCp9Gun3pSPLzsp2evzlpkC2rO
+	 KI68c6aqwj3xVMDp1CPmGMqo7ix8c7z7/jpDfHc8p4Uz3MQ87o7+ecM1OnHpTzB3krg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="i/sDtTbG";
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5q23tuZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0469606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:54:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0469606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31588606A31C;
+	Sun,  8 Nov 2026 07:56:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i/sDtTbG
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so154584eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:54:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794124450; x=1794729250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8tBhA04OZW48u2CYSoRKHfkBmCLrM00ptAagGQEc3QE=;
-        b=i/sDtTbGL+2267Y5l+x2Jgvf9uKniNyUYqBo43wRpqI3BXpR1Ra+ZRe7IqNSsw23Pn
-         dy2dUwo+DSlR5UW0iVtSNG7nt/Ougwc6CSiG5OeSL4iqro8c8ugcOC0jhGPufJXB0SU1
-         QkNT2nQQzxmUYpHpgqhDw04LjQMrKUGa6yPMwJ4NgATZNSMTeIFs88qeAiVl0/Nc+TkT
-         hetzFTlcfzUZy9w4I8kO7nds1GScD/nMADpqlO3kjXqx7FFXqR8PG54ZqUxz/Cm3oNyy
-         0iMidBDAJ+e/9lV5X1H5SSHUm9EMshuiBeXJFDwW6V998U++m8hVPGRmzz6hQOGMeUbb
-         zrNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794124450; x=1794729250;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8tBhA04OZW48u2CYSoRKHfkBmCLrM00ptAagGQEc3QE=;
-        b=XrrJuVeC7r8Pzt2SeMNWDLTHHwMDhqkaAPeqVzcbShAi8ebDvTAx6b16/onR3yw3Mo
-         NESMP9DCuF3AX+18RZoy/8jw69S5S1F0hCaV2WkePPQAP/9gN5iLekyebM9rswQlcwMi
-         fo+LoUkaeEGLJLlipBh6/ZzCoTILO8isHaufQi5hcD7rS6XBy9xuQ+hvIfyiAZCMdUeo
-         v9XO6LgkGDa9j/WT+S4TiUzDgDBtDvD4ReB1uJQP+9OcYOPvhvz6RB74c5zojBBICS3d
-         JuOFiYWYVc1sfPsKZbmTASS+6s4e3xMDqnkGkXmazudDlMWXY2tMN3rw/NUh1ampP4fr
-         X7oA==
-X-Forwarded-Encrypted: i=1; AL+hErFrD5Aco7+gzTo9eOdwxVIeAz3JwttKhvcBvRAvLJg7OnKNowG9vjA58IW6i4sZzpJl0dMlazA+g4znpp8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9k8Xhbmwnsr2UpU2cqry7kWdul5bTonNaL2pRbYAY5xnsSA4P3
-	8c2qn7Okz7PjAjfG+/FuLztce4ZxYE2V5ym1uBUfrQcUl8l3USJQBQD14K3xi4rut9Y=
-X-Gm-Gg: AYBFou2Z9fSCUp1/ajexsPI8GQYmohTrwe3nuunETXT3eggwGmYB/+8Jcy8e9pDBc56
-	FDiHnCheaevuWtCA/CKTVjiKE55/fF2JYcifa22SirSwt64jp5jrArXgR71IwmjyPbWueIjMNu8
-	vSfwKQnGciRmibtwnZqnHeFZt22bPDUaCnOmdtPpRpnpOD+YXtPqnw3XGfxaORK5uBVARi519ua
-	cGfS613J+b+SjWy9ivVN4tb23brcwPnuFtDu5Gg4txVjxAU8hKHEJjeLAXnilhfGHOT+iSfLOZt
-	6ALJ1+tsZ9UIwQmyW21vpWUS4cQbpYYpN6XlLBS32Yy8m0WOYKE3sJIj1cZP46UOv71aiZAeanj
-	e57MgF9QMfI25rU6fl9npJjLoQnZt+L5O42ZjlO35KTGbvrnjvQHAXbW1hCYd10w7KoCnLRuZzu
-	+tynIjGDuK+ssPpxeyhk0D5hhMi8WhuSEes0FRQ8wZY8U0xuQbtNFVZWc7T5aGjXAkYYAf/W4Dk
-	KC00Fm+6/uuIT3qgADMqzeSz3aF2A2WBAAsDYje2fZbLavZke1E2PdS825PPKQPnH9vZivWVG6P
-	eIVmxJNhCirF/HTTIuWnGvIAp/TGu8mtBiO6LX38lSRktpfInmHMUiKuPHVCD4haGSdPUmOXLqh
-	UMU7w1MAe9C78z9yGe25DhZT7JBxckkIyi7SrWg==
-X-Received: by 2002:a05:7301:d80e:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-372575c557amr2132822eec.7.1794124449668;
-        Sat, 07 Nov 2026 23:54:09 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265ff3415sm3310760eec.18.2026.11.07.23.54.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 23:54:09 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] f2fs: require CAP_SYS_ADMIN for fallocate on pinned files
-Date: Sun,  8 Nov 2026 07:53:57 +0000
-Message-ID: <20261108075357.43331-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5q23tuZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142DF1F008A2;
+	Sun,  8 Nov 2026 07:56:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794124565;
+	bh=O+XOpYxnEggyl2hN1NfzgWCb0jUC7SPgqGbZ9K842Mg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=K5q23tuZ0ZnjqXEuwXJlCISGAiRpIT1ZYtjfhHoBJwR+LAjuxHC8UkDQ4woMAA4YB
+	 hy24h8pquTfo1Djlo6ru4IIQL707WZIIDQ2P3u/lix8IhfGet1xyN8c/54VMhJCzpK
+	 nyh6ejzfc158uL/3IVDLwA4MiFw5SfaEqD5ZTG6zAxu84uYvoPi47X0EFNMGRB8d6N
+	 622muy0yByWtBv6D6o3vr1XC9erlnwEDOCVrtvvzxa608JyN80NLmtutvw+9zKOEzx
+	 WmC72pn05kxWdIdQ1lV0znHJ1BCDyElGt58bQStzolBzcM1t8nluCodjZQt2E61aO3
+	 ZBaGDvUDdFJ2A==
+Subject:
+ Re: [PATCH v2] fsl/fman: Fix fm_node reference leak in read_dts_node()
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: horms@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ madalin.bucur@nxp.com, nsaenz@kernel.org, sean.anderson@linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 08 Nov 2026 07:56:04 +0000
+Message-ID: <179412456458.994134.2511936313095675582@kernel.org>
+In-Reply-To: <20261107072941.314160-1-vulab@iscas.ac.cn>
+References: <20261107072941.314160-1-vulab@iscas.ac.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,46 +64,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-fallocate() on a pinned file allocates blocks without zeroing them, so
-reading the file returns whatever the blocks held before.
-Documentation/filesystems/f2fs.rst describes this as "zero or random
-data". Commit cad3836f9eb2 ("f2fs: allocate blocks for pinned file")
-added this while F2FS_IOC_SET_PIN_FILE required CAP_SYS_ADMIN, but
-commit b13bdf03bb80 ("f2fs: allow all the users to pin a file") then let
-any user pin a file. Since then any user can create a file, pin it,
-fallocate() it and read back data of files that other users have
-deleted.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Require CAP_SYS_ADMIN for fallocate() on a pinned file. The documented
-use of these blocks needs write access to the block device anyway, and
-Android's gsid, which creates pinned image files through libfiemap, has
-CAP_SYS_ADMIN. Users without CAP_SYS_ADMIN can still pin files, but can
-no longer preallocate blocks for them. fallocate() on files that are not
-pinned is not affected.
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
 
-Fixes: b13bdf03bb80 ("f2fs: allow all the users to pin a file")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/f2fs/file.c | 3 +++
- 1 file changed, 3 insertions(+)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index e2c0f5083313..d1b52b41a1eb 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1973,6 +1973,9 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
- 	block_t expanded = 0;
- 	int err;
- 
-+	if (f2fs_is_pinned_file(inode) && !capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
- 	err = inode_newsize_ok(inode, (len + offset));
- 	if (err)
- 		return err;
+- [High] This patch adds a double of_node_put(fm_node), so the
+  device_node refcount underflows.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it sits on the
+  error paths the patch edits.
+- [High] This problem wasn't introduced by this patch, but the FMan IRQ
+  handlers are live before driver state is set up, and the init check…
+
+--
+
+fsl/fman: Fix fm_node reference leak in read_dts_node()
+
+The patch adds an of_node_put(fm_node) on the success path of
+read_dts_node(). It also sends the failure paths that used to jump to
+fman_free through fman_node_put instead, and removes the now unused
+fman_free label.
+
+> diff --git a/drivers/net/ethernet/freescale/fman/fman.c b/drivers/net/ethernet/freescale/fman/fman.c
+> index 46cc28895e565..5507002097fd4 100644
+> --- a/drivers/net/ethernet/freescale/fman/fman.c
+> +++ b/drivers/net/ethernet/freescale/fman/fman.c
+> @@ -2760,7 +2760,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
+>  		err = -EINVAL;
+>  		dev_err(&of_dev->dev, "%s: could not find MURAM node\n",
+>  			__func__);
+> -		goto fman_free;
+> +		goto fman_node_put;
+
+[Severity: High]
+Does this drop a reference that read_dts_node() no longer holds?
+
+Just above this hunk, read_dts_node() does:
+
+	muram_node = of_find_matching_node(fm_node, fman_muram_match);
+
+of_find_matching_node() wraps of_find_matching_node_and_match(from,
+matches, NULL), and that function releases from on every path:
+
+drivers/of/base.c:of_find_matching_node_and_match() {
+    ...
+	for_each_of_allnodes_from(from, np) {
+		...
+	}
+	of_node_put(from);
+	raw_spin_unlock_irqrestore(&devtree_lock, flags);
+	return np;
+}
+
+The MURAM lookup therefore consumes the reference taken by
+of_node_get(of_dev->dev.of_node). That means the pre-patch code was
+already balanced. Early failures went through fman_node_put, while the
+later failures and the success path skipped the put.
+
+After this patch, all six error gotos after the lookup, plus the new
+of_node_put(fm_node) before return fman, drop one extra reference on the
+FMan device_node. That happens on every successful probe.
+
+The commit named in the Fixes: tag, ecb239d96d36, describes this exact
+situation:
+
+  "the probe function ends up calling of_find_matching_node() using the
+  node as an argument. The function takes care of decreasing the
+  refcount on it. We are then incorrectly decreasing the refcount on that
+  node again."
+
+With CONFIG_OF_DYNAMIC, of_node_put() becomes kobject_put(). fman_driver
+does not set suppress_bind_attrs, so repeated unbind/bind through sysfs
+can drive the count to zero. Static nodes would then hit "ERROR: Bad
+of_node_put()". Overlay-created nodes could be freed while
+of_dev->dev.of_node and the children created by of_platform_populate()
+still point at them.
+
+Given that the leak described in the commit message doesn't seem to
+exist, should this patch be dropped rather than respun? Without that,
+the Cc: stable tag would also carry the imbalance into stable trees.
+
+>  	}
+>  
+>  	err = of_address_to_resource(muram_node, 0,
+
+[ ... ]
+
+> @@ -2779,7 +2779,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
+>  	if (err < 0) {
+>  		dev_err(&of_dev->dev, "%s: irq %d allocation failed (error = %d)\n",
+>  			__func__, irq, err);
+> -		goto fman_free;
+> +		goto fman_node_put;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch, but can
+fman_irq() run before the driver state it reads has been set up?
+
+fman is allocated with kzalloc_obj(), so fman->cfg and fman->fpm_regs
+start out NULL. Both are only set in fman_config(), which fman_probe()
+calls after read_dts_node() returns. The shared handlers are registered
+here, before that.
+
+is_init_done() treats a NULL cfg as "init done":
+
+static bool is_init_done(struct fman_cfg *cfg)
+{
+	/* Checks if FMan driver parameters were initialized */
+	if (!cfg)
+		return true;
+
+	return false;
+}
+
+If the line fires in that window, fman_irq() does:
+
+	if (!is_init_done(fman->cfg))
+		return IRQ_NONE;
+
+	fpm_rg = fman->fpm_regs;
+
+	/* normal interrupts */
+	pending = ioread32be(&fpm_rg->fm_npi);
+
+That is a NULL pointer dereference in hardirq context. fman_err_irq()
+has the same window.
+
+The interrupt could come from another device sharing the line. It could
+also be an FMan interrupt left enabled by a previous kernel across kexec
+or kdump, since fman_driver has no .shutdown or .remove callback.
+
+[ ... ]
+
+> @@ -2817,11 +2817,12 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
+>  		of_property_read_bool(fm_node, "fsl,erratum-a050385");
+>  #endif
+>  
+> +	of_node_put(fm_node);
+> +
+>  	return fman;
+>  
+>  fman_node_put:
+>  	of_node_put(fm_node);
+> -fman_free:
+>  	kfree(fman);
+
+[Severity: High]
+This is also a pre-existing issue, not one introduced by this patch, but
+can kfree(fman) here leave live shared IRQ handlers pointing at freed
+memory?
+
+read_dts_node() passes fman as dev_id to devm_request_irq() with
+IRQF_SHARED for both fman_irq() and fman_err_irq(). fman itself is plain
+kzalloc memory and devres does not manage it.
+
+Three failures after the IRQ requests reach this kfree(fman) while the
+handlers are still installed:
+
+  - a failed err_irq request
+  - a failed devm_platform_get_and_ioremap_resource()
+  - a failed of_platform_populate()
+
+fman_config() has the same pattern:
+
+err_fm_state:
+	kfree(fman);
+	return -EINVAL;
+
+free_irq() only runs later, from devres_release_all(), after
+fman_probe() returns the error. A shared interrupt in that window would
+call fman_irq() on the freed object.
+
+With CONFIG_DEBUG_SHIRQ, __free_irq() always calls the shared handler
+once during teardown, so this would happen on every such failure.
+
+On the read_dts_node() failure paths, the freed object probably still
+holds cfg == NULL. is_init_done() would then return true, and fman_irq()
+would read fman->fpm_regs and do MMIO through a stale pointer. If the
+read returns nonzero, call_mac_isr() makes indirect calls through
+function pointers in the freed object.
+
+>  	return ERR_PTR(err);
+>  }
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107072941.314160-1-vulab%40iscas.ac.cn
