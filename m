@@ -1,88 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794176886;
-	b=xKg1bk1GCPHhtBNCSKzxLwAZMS+Ei7kg3og0r4p3BXQCkdKB+OlcSnCYZ9m0Vzi6bkcb
-	 YtYNxN584/1Y1Vr8478KFEkqZNEsLbK1C2IKVyMh4r94filfureTAh95xFElvCTsQ28Bu
-	 Fm6DOhR/l5kwZLBrv5VJhWCwt15KuYpzx26UqoZXrtUd8XvBN4cPzwO9cuDfvmdd64Ju5
-	 /EkEeZkfy6GIXRhKDOrpF6Gts6uAcPCOqsz1H1S/cxj+PuXHFtT+Zp2gEeh/g51kXbN4r
-	 bZatBBjv/Pv4W2meHWar5zKn5R1aB8AnGxbg/bHhvdhYiQ8I14kiIMCd3DOrBm56PMA==
+	t=1794176889;
+	b=nbI81OmjZwQvK75/9ydRY1sOEZCN2Y/P6LlZ6eyJyzFkmb/JTH8rVHeySKkfsLlDqMXa
+	 LVKPv+I7qAHvBMoJ2k4z2OBzDAUK+U/DMYhootrRwbmuKkexmUrbsUgPs7T9K88k+ixeS
+	 7jl+U5zOwjvxdOgDU0s63U4f+Nm5PXfMiniGdjgc/s2JiHrqAtVve2mQ9RVYS2wQW+M7f
+	 9EPSx8XOFQMzc8srfcsyywQBBPEAp/XUsFrIsmvlIkMSPzb8TmE7jUtWuT8xfANvPC1CV
+	 3KeMtuoy4zrzQEsbF/LR/gbKR+R20YQ9bNN2omYdb6AuRwrkv4Yy4mybeOCOa4UaszA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794176886;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pPJtaNXXVN6W3aSE9iN/Uh6en78jkh+qXfwU+6KoP0E=;
-	b=Tut27j8bphzXdJwz7V/Tsqwk1zc80EDJ1cP9UxKvR8UwHYo76oIzPl5eH1D8U5UVDdjC
-	 UnPQ9lvhgmlRYStvj27NZQNZMsEQL2Xgt6/2Li6ZndbQMOxo0gNU2jzAe78q+Pz19NSjU
-	 tZgmgxs0awp1kuh5N0mGwhYjizSvywXVYCyyhLzfZofVlG4zQj+2h967Ix+EbqoTy7MB9
-	 bZq2im2eW4ovzLzn7mP0kdgC98I3mk6JVcsFAqhTa9EGC3ygWVnxNq19PolJ9QUBkZMEE
-	 CQH/1WLF4bb3KkIVJwe1cdtEFCAISsS4Xgh6bMhkXiAQHoTokNQcDZl/7HGRf7Kz6MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794176889;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7p12hu+h/2h8BDalwKmT9RqYemNdCQPSYKJ8VeGC68Y=;
+	b=DjHfM/cRJFVP45nEpHDkVQjkmn9VaGZSCvPVO+yH75w8fsh2sJbKNb4gIcKQPAP3tsod
+	 vr0AnL3dYqntPQr2+AEN47UvL3ltYCuSy4v5zxnmZ17ju5MJxjMw4o7H192SCQPXHnjid
+	 6LYWhnXSdUF8iu1FEFrHxLziHjmLGW06R9CLyAWa1jzy9Z+MAvFk/j8rNpnhPd0p320MF
+	 OY84Jg0KK38XNlB4BQgl38KJwsszS6qFs6CvNAiIHWImqp10apfARZWbGLzmpIlwqv+3k
+	 49hITJKIgWN0ga38GLYDD1/BBFI5TE0AgA7SsE/TgZ1TmfIqUW3CgKO/n5zmNFcLGuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e2hYSWFB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gc7oUUKY;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 53082606D819;
-	Sun,  8 Nov 2026 22:28:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D4C6082BCB
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:28:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1D4C6082BCB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e2hYSWFB
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2CEF21F008A3;
-	Sun,  8 Nov 2026 22:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794176885;
-	bh=pPJtaNXXVN6W3aSE9iN/Uh6en78jkh+qXfwU+6KoP0E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e2hYSWFB4Q86hiXFZvJKZYFc9sVaGrYGHg+uVGAQknBcn1oAKpOJd3Bj3RFztVztj
-	 ALLKsIB/GH3symVZgEpzP7WTpnZtsOxNWeloaoic86R/HLgK1cxZknX1loIHthECW6
-	 dcWKguSJ8LCBVepfcQX8mzlX3FlAOrmyXmt/fEbJ1DkJIm9izlPYRgxj4OqYjFnISD
-	 kaWZLma5jW1/1zr9RtgNEeECrqJMXZBDapDSkna8sFEg2kpAoqU32F9BlnkeZKRpBf
-	 b+n50R6ESr8BnP9eZz1U5GYGXOEDL4tKEsAWlUaOWyc4QuhRAV97nsl+J6h+G4sHda
-	 N5V0DLoXoRexQ==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	keyrings@vger.kernel.org,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Anna Schumaker <anna@kernel.org>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	James Morris <jmorris@namei.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Simon Horman <horms@kernel.org>,
-	Sumit Garg <sumit.garg@kernel.org>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Tom Talpey <tom@talpey.com>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Subject: [PATCH v5 10/12] KEYS: Pin the backing kernel module for a key type
-Date: Mon,  9 Nov 2026 00:27:16 +0200
-Message-ID: <20261108222719.304712-11-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261108222719.304712-1-jarkko@kernel.org>
-References: <20261108222719.304712-1-jarkko@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gc7oUUKY
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a78ec32fadso365635e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:28:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794176887; x=1794781687; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7p12hu+h/2h8BDalwKmT9RqYemNdCQPSYKJ8VeGC68Y=;
+        b=Gc7oUUKYhXfkzyx4k8R8oVoqd2a1GEZJYPK8L4AhkN64P4yEv7LvuatfcoSyFVoVWw
+         LgjwkaxoNOBgcBLRLPZ6qRzyJ6gy8CxIHCs45u7htBQv6+liu+k5eDu6hrOsQjCZSA3P
+         ueHS/oBEzNRSm96p8tQUy+0/WHVA/HuqX+6iDRzLP6LPc0wqvybPxavkZv7tOeqKSxyv
+         hi6WTI+N8x9ng5uL5hgJJWVXc+bvFnMEn8MfovnvgBxBL93Cqaq1Tfk5OWmc8iWTSbvy
+         jbU7JtTs/SYdTNq2cmcvjKHrvOL85H9ksfXgMDpUNnXuuqykGC0zvTaBSsFQFjpvo8tC
+         9z9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794176887; x=1794781687;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7p12hu+h/2h8BDalwKmT9RqYemNdCQPSYKJ8VeGC68Y=;
+        b=hn5moImp20EhhL08TqaZAlGXleikvlS6WANTy/ZlkVr3a7TYilwFN8TEA/MropwJiS
+         qj3MkxaRoc1HlsXwcCXrFVab7dmsGYwA9DSyjp4lzlTodNmkWVTFHBMbxngdwn9i5DKw
+         MdaT/O+5hv4T1bn85R+XYidu2BK2/jt3sxiaAJqUwUQ5KNhYgZItFDdFixyt1QIuZOmY
+         S+jfySsiwOPZcHmeKBdK9Nj1VHDsJFL+rF8WdpvtlXMWeWS4gr75cS1OJMTFZqW0GCQD
+         8VSIoWR5tarlsKxGaTbPlkrZBhiVE17xwkZyjlWnlti7Z04vbB45SSBpeK8QaWSDj26L
+         uDRQ==
+X-Forwarded-Encrypted: i=1; AL+hErFTSLTagtJ0DBTacRds2JqYkf7ezQnxn+h+Dsfkk95HWhccHt+qzWYbDBV92OqZt5/eGpuglthJp4aepuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LHnDFMqe3I4rDzrldby5EixudwpdAfNKO1QYa8AWRXejx59X6
+	JIcoD0WAOu3+fPAAhGQPks8x3p0o7GG1i3Leclb2ojtMtyOpkTolOxuf
+X-Gm-Gg: AYBFou10rLmutNyOeEQs8sTAmWZGMM0acbY/Iv/dA+gMQe9ER42XwvKkhyW5OIDuYAU
+	hJrei6x0zX3jMCqdYKUzRVpCYepZzULDlmOEluG7+4pWC6V9sf8d9iJa86GqTRaGOebZ9ih2fo5
+	shQgVwM3SqF9G6YMJCFNVJbeUjENtXnahWGJLimKXdtdFJG3BXtXzqX+9Z02I658GoCaNygGA/V
+	+sn+85qoJ5FSh5eW/GLV1iWONmSXng89eFF1m6csw1Wpz6WdJioP5zjFArUPDrhRUEtoCilWUBc
+	5+myYTbpmJjLS9peXnyTkh8UiyjYOr8CLxIwo7Wa6EpKnjcCyNajaJ1DBbjb09Rs3JocmuDNDHk
+	4vxB+LRdHDlMia0qh5IJ0OTeBjgx1rwMyDl3ga7QwDBp83OuVv4MEGwoN9LJmGz5cNtmELGZfWQ
+	pzTD5O0tAO6buGjK6u/fGaivn4q/c18L/4fJy2Ow6/OcEX0D/mmEB0nvfLVhW2Yahg8rg/eA1MX
+	+52g9iS4WTGQq2zuAITlLXbzqVooffHGl6/VA1vsCT1zIV0FwIhBrjgSRwqhlDuQA27Jg0AgEOI
+	wHNFdzTxoibzr0xCPWk8xiS4C3ZfiUKti/HDPqLvlRMo0KfkPxfq+Q19zOh5h2ys0FFy1HEhJL6
+	JSV1fWjuKMp4IHBJiAcemjt2D4qzU69dak4Jk0Plp+FDYh7bToG1jHL/uVROoI5oQOy4BDoD5no
+	HP26EK86XWYpCRdBiWDoU+EEtiJr/zfwKFMZNJQJCpFqCwGTc=
+X-Received: by 2002:a05:600c:c09a:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4b943f77191mr31556685e9.0.1794176886817;
+        Sun, 08 Nov 2026 14:28:06 -0800 (PST)
+Received: from ?IPV6:2a02:3100:599c:f8fc:6c90:be22:1a93:1ff? (dynamic-2a02-3100-599c-f8fc-6c90-be22-1a93-01ff.310.pool.telefonica.de. [2a02:3100:599c:f8fc:6c90:be22:1a93:1ff])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb772e1sm212597315e9.0.2026.11.08.14.28.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 14:28:05 -0800 (PST)
+Message-ID: <e1a0aa77-908e-4786-96b2-5d0d58675f21@gmail.com>
+Date: Sun, 8 Nov 2026 23:28:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,315 +94,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v8 2/4] net: hsr: refuse forwarding devices as HSR/PRP
+ ports
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+ liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
+ lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
+References: <20261107220544.20-3-xiexinet@gmail.com>
+ <179417570554.994134.17137863494736269542@kernel.org>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ xsDNBGpiHugBDADJ5KuJaOYfUx7TGbRw0UE1km4dLnJomCSNtgq2T9BqgZ6TRPEy37soAmW3
+ XxCPvhfL6CPLldzy6O6EkUD7/8zlbQP1DM6gUIQUyKxxkb8uR+oCogDKjsxt0QPycP/dR9fk
+ SL4qKReprnkOOcGeLahLHzofVdn46mc5igCBsAA/PPSpo1GqsfGk+zYV97rSVa8zhnSXsqZ/
+ 9DbUfQynZKVqYN4tm1B30JE5SEWDCko95Qw9fAORX2W356MOQJGr05z9qMSy7CkF7bAUkziG
+ d6ZSPsGEsel5jYByP8ZvwQ2A8kdKpRy8+zQCaC+vEotTH7Fs7SIzE/Z5mEVIi1xQqEzN1rqG
+ BW7KgzRDWjw8lKsoBbxv20nfhUzuZLan2HzUJ+LxZ18Os4zkWg9sxHgMi+AGqn/+0ppbDcOH
+ 9Jm072/xA7O1MCXLgr4FOP+4PJH1vcqU+0EZVz7KCjrwkdz+l5Ojso2FLXq2MGoqWGShIsDV
+ bF1JYpgm4spdPbnISkidUC0AEQEAAc0cWGluIFhpZSA8eGlleGluZXRAZ21haWwuY29tPsLB
+ DQQTAQgANxYhBAHOahKZFnMu2n/CxrTrSufyPi3LBQJqYh7oBQkFo5qAAhsDBAsJCAcFFQgJ
+ CgsFFgIDAQAACgkQtOtK5/I+LctmngwAlmrGPWnWxDW6PSJeR9SM0faqwuY33TWAE35nshm/
+ EEkBgpVVhG4z4Cdy7L+6TG6NHVDnvl+IHLyyOZlL3LQPQIpiKVgo6jHmm9TF6mK+Vo3nsXAA
+ uSJYu9iY9Aywmy2JVQ15ttQ0NfcoZ0sV14bT7pSr9zXB6D8p3XA4AQI6IBeLvj993Z1+tPyC
+ 6BJ+2aWWLBx7xGpFo3X8dhjS/Lm8QoietKbI+ACefKKCDNiM2KG53P76wdXJp52u4dqP6eFc
+ +Qv35QefnALoPkOGQEdd1qvUycyZhuaCj8h0AxDu7bL3G/IM8G2K8qsbSJuui8zCSZ9b/QZf
+ H7u1nevPOgxyWC1Pep/TbRZ62ktn8lrmWA8PZjuaJJQGjahuK1GgTQZNG+7DB7NwjLr6aXIm
+ JirtT4FeR+IUovvL/ll+VHzpGpFbgXz4GTsWsikQkT1huFSB8MRLlWMXdAKblL96L754j8Z5
+ p/YV26YTppXI56uJ3XyOwZSrfrK1pfqNIp2Yr9vUzsDNBGpiHukBDACePM1YZ1FvAiFay/2v
+ KVDNpuazmpVb1CBFy+rqM9HcuHe+5CuxLd4RI4hb0qmjlm5Vi5M8+AuNB/wi/f8oDuhJwlMn
+ v9L0lfgpRRdShnB26hnt2wWwWFgOU3BwymSruxhEYq+eIjjxCAo6yW7Qm+ArZ+riETMI67sy
+ ZyLx6o4yRiWxOrh1nhwV/f6PIOl+Iv4yLAG3eFXpU7/EZpim610bKMwcXEpiRkf3NjiflIha
+ adoKHV0LCiVNrU7r8TICjjnugpl1tXAR2RlaRcSxmvOzrXY2O/xBLpwPr5erbdk8RCaxUzS0
+ kK0hw+/On3Sr4Z4gtLl2xtDkjRh3KQ9ZqMPrFD/5XOs842ueNivwIyAf2kQJjKfJGWc771EM
+ 0ZWo1r1AthbuM+IeN5QM74rMJxaf5WyDX3ZeqBA55fCJGJ3zrp7Tqeoq8DYufiNkppE9S71z
+ Cvxva2f8mUWTlTUf8s33sRD7C87XpT0whKpn1I9/nJB9Kb0dKyRCdcsT4o1ynxUAEQEAAcLA
+ /AQYAQgAJhYhBAHOahKZFnMu2n/CxrTrSufyPi3LBQJqYh7pBQkFo5qAAhsMAAoJELTrSufy
+ Pi3L/iwL/3aoCeq19Pog3fqisRyEZeX8pXw2GYlrJWYoM0mQ1USaTpdsMwCXaoFMoSBqid0F
+ VPrqlH4bSIEEAzVmFPX0NjGhREDMrQ9eR5S9yqSpBvX+hz+xgpt4NOPhbVQmV+9f4lX9TJT7
+ GOO3EX2eeokg6ZAISycCAx7srXuc8oyRTJtnUQziH9GXrEeon88LHf1QHg0Z0sL/c7DfDqvW
+ 9924M4ngQAZ8RgCBGZocoWuXCemSPkfQVLt5DzycSgSQODhbNSEmr+jb1V9Svf9D9k0CQfEY
+ cB3uwOHWb6Z/yaEARbGZPSPn89YjXBncQTpgSvUM578b5x3pKi6PjZB/hwtUsRgrWGWoIwRi
+ +ZmcHnCzsuo6uuNYX8VvmWqYsVajykjnpjdCGmU89QUsVmrtnDPBrfr8VVJcZPnCJhE595Pk
+ LO29Oj0au9kr7kMW5Q+fBeHj5zz6VggAaRRU74/sgtwLODBWESPZ9LqUUdB5L/XbrSq2VDlD
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <179417570554.994134.17137863494736269542@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add the owner field (populated with THIS_MODULE) to struct key_type.
+The point about cloned data is right: skb_share_check() only
+handles a shared skb, but when packet_rcv() or a tc mirror holds a
+clone, the TCP/UDP GSO handlers on the RX path still write the checksum
+into the shared head. v9 will make the head private with
+skb_cow_head(skb, 0) before __skb_gso_segment().
 
-Pin the module in key_alloc() and keyring_restrict(), and release it in
-key_gc_unused_keys() and keyring_destroy(), which are wires to the keys
-and restrictions.
+I will check the TX GSO cost on HW tag-insertion offloads and mention
+aggregates from older HSR senders as well as older PRP senders in the
+v9 message.
 
-Reject module owners still in MODULE_STATE_COMING so that the failed
-module_init() paths cannot leave behind referenced keys.
+v8 also conflicts with Sebastian's pending "hsr: inline PTP header" v10
+in net-next; v9 will describe how the two combine.
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- include/linux/key-type.h |  6 ++++-
- security/keys/gc.c       | 14 ++++++++++--
- security/keys/key.c      | 48 ++++++++++++++++++++++++++++++----------
- security/keys/keyring.c  | 36 +++++++++++++++++++++++++-----
- 4 files changed, 83 insertions(+), 21 deletions(-)
 
-diff --git a/include/linux/key-type.h b/include/linux/key-type.h
-index c4f329b6ae3f..9ecec31ad571 100644
---- a/include/linux/key-type.h
-+++ b/include/linux/key-type.h
-@@ -10,9 +10,11 @@
- 
- #include <linux/key.h>
- #include <linux/errno.h>
-+#include <linux/init.h>
- 
- #ifdef CONFIG_KEYS
- 
-+struct module;
- struct kernel_pkey_query;
- struct kernel_pkey_params;
- 
-@@ -161,6 +163,7 @@ struct key_type {
- 				     const void *in, const void *in2);
- 
- 	/* internal fields */
-+	struct module		*owner;
- 	atomic64_t		index_id;	/* Opaque keyring index ID */
- 	struct list_head	link;		/* link in types list */
- 	struct lock_class_key	lock_class;	/* key->sem lock class */
-@@ -168,7 +171,8 @@ struct key_type {
- 
- extern struct key_type key_type_keyring;
- 
--extern int register_key_type(struct key_type *ktype);
-+int __register_key_type(struct key_type *ktype, struct module *owner);
-+#define register_key_type(ktype) __register_key_type(ktype, THIS_MODULE)
- extern void unregister_key_type(struct key_type *ktype);
- 
- extern int key_payload_reserve(struct key *key, size_t datalen);
-diff --git a/security/keys/gc.c b/security/keys/gc.c
-index 9b625436d3b5..7b2f32998f58 100644
---- a/security/keys/gc.c
-+++ b/security/keys/gc.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/slab.h>
-+#include <linux/module.h>
- #include <linux/security.h>
- #include <keys/keyring-type.h>
- #include "internal.h"
-@@ -150,6 +151,7 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
- 	while (!list_empty(keys)) {
- 		struct key *key =
- 			list_entry(keys->next, struct key, graveyard_link);
-+		struct module *owner = key->type->owner;
- 		short state = key->state;
- 
- 		list_del(&key->graveyard_link);
-@@ -163,8 +165,15 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
- #endif
- 
- 		/* Throw away the key data if the key is instantiated */
--		if (state == KEY_IS_POSITIVE && key->type->destroy)
--			key->type->destroy(key);
-+		if (state == KEY_IS_POSITIVE) {
-+			if (key->type->destroy)
-+				key->type->destroy(key);
-+		} else if (key->restrict_link) {
-+			if (key->restrict_link->keytype)
-+				module_put(key->restrict_link->keytype->owner);
-+			key_put(key->restrict_link->key);
-+			kfree(key->restrict_link);
-+		}
- 
- 		security_key_free(key);
- 
-@@ -178,6 +187,7 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
- 
- 		memzero_explicit(key, sizeof(*key));
- 		kmem_cache_free(key_jar, key);
-+		module_put(owner);
- 	}
- }
- 
-diff --git a/security/keys/key.c b/security/keys/key.c
-index 3e604d25d35e..be68d19f91d3 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/export.h>
- #include <linux/init.h>
-+#include <linux/module.h>
- #include <linux/poison.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
-@@ -234,19 +235,34 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 
- 	key = ERR_PTR(-EINVAL);
- 	if (!desc || !*desc)
--		goto error;
-+		goto out;
-+
-+	/* Failed module initialization ignores outstanding module references. */
-+	if ((type->owner && module_is_coming(type->owner)) ||
-+	    !try_module_get(type->owner)) {
-+		key = ERR_PTR(-ENOENT);
-+		goto out;
-+	}
-+
-+	if (restrict_link && restrict_link->keytype &&
-+	    ((restrict_link->keytype->owner &&
-+	      module_is_coming(restrict_link->keytype->owner)) ||
-+	     !try_module_get(restrict_link->keytype->owner))) {
-+		key = ERR_PTR(-ENOENT);
-+		goto out_put_module;
-+	}
- 
- 	if (type->vet_description) {
- 		ret = type->vet_description(desc);
- 		if (ret < 0) {
- 			key = ERR_PTR(ret);
--			goto error;
-+			goto out_put_restrict_module;
- 		}
- 	}
- 
- 	desclen = strlen(desc);
- 	if (desclen >= KEY_MAX_DESC_SIZE)
--		goto error;
-+		goto out_put_restrict_module;
- 	quotalen = desclen + 1 + type->def_datalen;
- 
- 	/* get hold of the key tracking for this user */
-@@ -323,8 +339,6 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	refcount_inc(&key->domain_tag->usage);
- 	atomic_inc(&user->nkeys);
- 	key_alloc_serial(key);
--
--error:
- 	return key;
- 
- security_error:
-@@ -338,7 +352,7 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	}
- 	key_user_put(user);
- 	key = ERR_PTR(ret);
--	goto error;
-+	goto out_put_restrict_module;
- 
- no_memory_3:
- 	kmem_cache_free(key_jar, key);
-@@ -352,13 +366,22 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	key_user_put(user);
- no_memory_1:
- 	key = ERR_PTR(-ENOMEM);
--	goto error;
-+	goto out_put_restrict_module;
- 
- no_quota:
- 	spin_unlock_irqrestore(&user->lock, irqflags);
- 	key_user_put(user);
- 	key = ERR_PTR(-EDQUOT);
--	goto error;
-+
-+out_put_restrict_module:
-+	if (restrict_link && restrict_link->keytype)
-+		module_put(restrict_link->keytype->owner);
-+
-+out_put_module:
-+	module_put(type->owner);
-+
-+out:
-+	return key;
- }
- EXPORT_SYMBOL(key_alloc);
- 
-@@ -1231,19 +1254,20 @@ int generic_key_instantiate(struct key *key, struct key_preparsed_payload *prep)
- EXPORT_SYMBOL(generic_key_instantiate);
- 
- /**
-- * register_key_type - Register a type of key.
-+ * __register_key_type - Register a type of key.
-  * @ktype: The new key type.
-+ * @owner: Module owning the key type.
-  *
-  * Register a new key type.
-  *
-  * Returns 0 on success or -EEXIST if a type of this name already exists.
-  */
--int register_key_type(struct key_type *ktype)
-+int __register_key_type(struct key_type *ktype, struct module *owner)
- {
- 	struct key_type *p;
- 	int ret;
- 
--	memset(&ktype->lock_class, 0, sizeof(ktype->lock_class));
-+	ktype->owner = owner;
- 
- 	ret = -EEXIST;
- 	down_write(&key_types_sem);
-@@ -1264,7 +1288,7 @@ int register_key_type(struct key_type *ktype)
- 	up_write(&key_types_sem);
- 	return ret;
- }
--EXPORT_SYMBOL(register_key_type);
-+EXPORT_SYMBOL(__register_key_type);
- 
- /**
-  * unregister_key_type - Unregister a type of key.
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 5281da9d5bf7..f90ab46ecfab 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/export.h>
- #include <linux/init.h>
-+#include <linux/module.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/security.h>
-@@ -436,6 +437,9 @@ static void keyring_destroy(struct key *keyring)
- 	if (keyring->restrict_link) {
- 		struct key_restriction *keyres = keyring->restrict_link;
- 
-+		if (keyres->keytype)
-+			module_put(keyres->keytype->owner);
-+
- 		key_put(keyres->key);
- 		kfree(keyres);
- 	}
-@@ -540,6 +544,9 @@ struct key *keyring_alloc(const char *description, kuid_t uid, kgid_t gid,
- 	if (!IS_ERR(keyring)) {
- 		ret = key_instantiate_and_link(keyring, NULL, 0, dest, NULL);
- 		if (ret < 0) {
-+			if (restrict_link && restrict_link->keytype)
-+				module_put(restrict_link->keytype->owner);
-+			keyring->restrict_link = NULL;
- 			key_put(keyring);
- 			keyring = ERR_PTR(ret);
- 		}
-@@ -1062,7 +1069,7 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
- 
- 		if (!restrict_type->lookup_restriction) {
- 			ret = -ENOENT;
--			goto error;
-+			goto out;
- 		}
- 
- 		restrict_link = restrict_type->lookup_restriction(restriction);
-@@ -1070,7 +1077,15 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
- 
- 	if (IS_ERR(restrict_link)) {
- 		ret = PTR_ERR(restrict_link);
--		goto error;
-+		goto out;
-+	}
-+
-+	if (restrict_link && restrict_link->keytype &&
-+	    ((restrict_link->keytype->owner &&
-+	      module_is_coming(restrict_link->keytype->owner)) ||
-+	     !try_module_get(restrict_link->keytype->owner))) {
-+		ret = -ENOENT;
-+		goto out_free_restriction;
- 	}
- 
- 	down_write(&keyring->sem);
-@@ -1088,12 +1103,21 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
- 	up_write(&keyring_serialise_restrict_sem);
- 	up_write(&keyring->sem);
- 
--	if (ret < 0) {
-+	if (ret < 0)
-+		goto out_put_module;
-+
-+	goto out;
-+
-+out_put_module:
-+	if (restrict_link && restrict_link->keytype)
-+		module_put(restrict_link->keytype->owner);
-+
-+out_free_restriction:
-+	if (restrict_link)
- 		key_put(restrict_link->key);
--		kfree(restrict_link);
--	}
-+	kfree(restrict_link);
- 
--error:
-+out:
- 	if (restrict_type)
- 		key_type_put(restrict_type);
- 
 -- 
-2.47.3
+Xin
 
+pw-bot: cr
