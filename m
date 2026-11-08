@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794173037;
-	b=gIq47lgu/c5CfLgshEa87JdnDHlFC4zSJgfHpL/rdc5XqDGDMITUp5Aj0NdGAYUBIhUt
-	 cagp+W57184zM765CzvF7NqgpVRWxm7N91UeEaTKZDibipTQJYATlmF7yxeJ07u+WiPe7
-	 O/e6PJtHS/DVAlVU/govyHgYaR6FDAbW0g8Pt5G597DVyiPTE5tvSng9tuw0tcRnE03o/
-	 tRHd1rp4+kFUlZOJGuMGgMj07mcg6sz86vWrZRpWYhzVnNqSjVU0LpOFqYBESBl6eqQl0
-	 75VtCvjnCNS3YAfuqZklHX5ugmVTuqA+LWJVn0cprfuW9ru3rxuJchLJUG9s+wYG2kA==
+	t=1794173036;
+	b=h9wjwU1rsKpcGD6e8Vj1QRgJHHMAz3rTx5caNMXYtnPpFt0+1ZZo41PdPWZTxUVIyhTt
+	 IpPwMe9iO28qjWJBhbdOdUPSKykO0Tf5bJV8qeD8afMHF/+D04mp80NAKKgdcU0kB0U3W
+	 wKp76/nnXOMTY8QnzVNg7yRAynVvYMF74vC7HR1bjxAWFzThY1F/EH1acqe3hptrMMvEo
+	 ekOyiwW3AHeTGSPgf79Nx3L4ofNQ1JnfGtLOzx6RsoEjCNrvxjwAxOtUFWuI9gGNZUQBs
+	 W0RHq78E1qA0Dh1pKcI20p6CgGQsNGOBtcyDtFHwJQ39Ojplr6WLvk/vZBcfqu3tQ8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794173037;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794173036;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ZzgA6XGsC14IAPU7geG6In3ud51Yu9iRbZaXfcFbd7c=;
-	b=pOmJe6UOZjtn3IT/E4avOV7YzsWeqGUYkuEnFBuMcw7++L9Q9iBdiPy9sLnvbxUQrqX0
-	 Zq09THx3QFpatLQUItZrdOljsQ0n7k/c04o6RNihuDIo97nF2lN4crK6vcktd5vCmcVr9
-	 Ibm6bQleADy3g1FvAwbn7osGwGvLgQha4TpbyXPZR3a3upYxfP/dDS9tyMP9CbgoAdL6d
-	 r+sTK+kfiM7nH/ChNHLGTyEc40OMSCCjkbN7kYQbAeZbgt7zNFjb1SKBciaea1SlxJwHp
-	 r34oaTnojb6J/HTWvjj4RXcWj6KVRqQFlQ25HM7RDB3KjbwDiuuRC7cHC7F1iWWPuoQ==
+	bh=V99b1R97qH/1vch1IDRgvyZu2Doy5l4KvwZ7hr979kc=;
+	b=2hw4H5PEwlPqT+epBgLkiQ2LMVZljhU53MTE62YeyOA+Ig5A63DvyEpYHAiVzHHw/ts9
+	 G6SIBxdScA5dzxvKtNGhO2cjRL1g6JMB1Ony9X8ouUV9a/r1dCR5AL14trknGOtW8J6O0
+	 XDqB8SCq4A8eOFCfk3FUwFZVXTZf0UkTxIBAjEhO8qpDLRCq6NUQ3UwRv+H3BO0LLLRtC
+	 qpuab9lsY8ry+GeYkMdwAvfbGzk01ndM3j61SMO5Ttnw9FuG43vvV4kKisEA+BQMtyjVb
+	 jJj6u0jnYHlGquiiNsB9je6hvn+XqqI5yJTjTo+aGYNJYj0Gj1+xZqmVHzfsdHGMdNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKzzqonh;
-	arc=none smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c+NzeIvt;
+	arc=none smtp.remote-ip=209.85.161.51
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B01606A338
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:23:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B01606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F109606A335
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:23:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F109606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKzzqonh
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-70059e4dab6so151198eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:23:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c+NzeIvt
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6dd7070699eso162150eaf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:23:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794173036; x=1794777836; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794173035; x=1794777835; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZzgA6XGsC14IAPU7geG6In3ud51Yu9iRbZaXfcFbd7c=;
-        b=nKzzqonhuTczE+W9bGIwkLJyyKjvwX6yUNWjBmlV+pC3fMUC5Ndhus4phkjHf1o7fn
-         h0gvh7IV/0PbOM3GmRndI9HBVX8xf3p71CgqL5P5y391hdDBj04MqgQCO52yQLtmiC60
-         hk7DhnWuSgijVsq4bubMnr2LbV97AvnDSUjAYYxiwxtKU5JIlrQh0r4vEEnmog/0+snH
-         R4WDYedlHd5MEKgniXVTg6h3xYVAe2U5I68e3KqsnyQtX6GcUfWvVw+BGJWhboFlBzvz
-         0Z0O4Dn5Irnff+UChxmR8kr/EgddIpheahTaBzhf76YdhrpInUObe9tj5Fw+kShZklIZ
-         s/xA==
+        bh=V99b1R97qH/1vch1IDRgvyZu2Doy5l4KvwZ7hr979kc=;
+        b=c+NzeIvtN5CpBoxOmvMnL1q5N37MXUnz3YsVvwCdNJoBEkkTdauZKzhQaWDoJ9dLQP
+         RbjEyrcbCsSeBcDBfQfH86dMtBunEqVH3U6YIaOuV7Ez9mqd+R2M5ryh+6mHQyaN+jP5
+         C1uguHgO4U6hPbTFtV9b7V8yMPd8hikwxDpR0M2VKFfmQpIiE9qJ939uMSf/h9Rpirja
+         VbVpC9TU2CPLi8JEwmU3WNpyzc1rBMM4jowg8gWD3n1fS/dDFwQgUrhrpnNnren8ve0F
+         W/RbECINKa6wstr9TFL0scqjePeTlleN63U7X3MdTCCobzD9wBlesPurt/dwDPiFOo5O
+         /gyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794173036; x=1794777836;
+        d=1e100.net; s=20260707; t=1794173035; x=1794777835;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZzgA6XGsC14IAPU7geG6In3ud51Yu9iRbZaXfcFbd7c=;
-        b=Y/YBYdSSS18x1F5haw4My/Rf1WCbtQYYbnVZUSHL+2sKYIfB9YWvQZjq9EuqWyWcXe
-         W+SfKT2qtcMDYcqESwsX/d+LCCRu7HL9ML+qgySCDkS7ELepxOf/41SbChto5U9o8Wh4
-         9g+mJMSsCz1+TZFr/+ELjq7a6W302iu6YQwlk44v7LNRvtus+Kt6VFAnDe46gb8Csto8
-         vi0Wal1/B1dB39cm/2zAtjBDCYdEPOgVcoMUdX9f68D/x9heJsCcAp1xHr7T07xnQYkn
-         qe7MN6Fk4zl8ldcmZ8EHi1iVSfpESUUwJknDpLcfqse3ZfQ644psssgWUL2AjXwHiU0G
-         gCUQ==
-X-Forwarded-Encrypted: i=1; AL+hErHgtNrUNYS6wIbOjf42nELSYU2biw7gm0nNjsa7FnT34sZPOuWX3DUO+/6lV37WnEvINT8qto6Gzsg3h9g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dV6pNNzRuIr3w7ydG1ENWljwhNECIAdOOm2gkjD3kHDaeI59c
-	Ep/H1jk5XlUhqMLNY4N8XNr0otYs/iEk61E2h/dl0QXzR/wVaLdWAvMt
-X-Gm-Gg: AYBFou3/RjZUSnzOA4b/Zab8cR0uycyapv6hO0nF4GarM3FWglRUJHc5Imli2c9Drqe
-	XmQrRDU/1HS+RNEtKIbksnPXrpCUFDzc/gPWl49i/zXgA/+eeTfWrCQ0Xf+2cQ7bkeP1ezP7ewS
-	hjO99EHQRu3fIaR/IBQBMpQ+7+TrYH+/NaeN4E7Mr/yEDID2dPGJsWZfDsIYFKSEgccjfdPl2i+
-	X7jPI0ASrDhQcaRWwf8vY61VWQRRzNRH9/eYhbzEj7rYGA99xAAXV1I4MzvgkUwpjKhc+eklytj
-	XyqMcwcTxAzqZGeTHrC/oKZZY75ML2SPPjit8An9Kwuj95QdBpp8AbjcBXwA/RgsowJa/78W58c
-	FY0J8MBKJz1b1l/SskzKKOW7A/udF0MnbWLotwXkvLGrApmWDDbNa2blDpMYbq+EAFKyn2EQmsM
-	GUvAQYM1YWVbo3BctO+w7Ya02lJkI4qVoHJblvQwX7QM5gaZsDIB6goRzEHFaYNO2heeZpqv8Wb
-	PBcBhIx1jzRHB2kzeJwKffbuNf5hG/BxDzvebQZAgdk2bTXiBVoyHLTyZUvSsVwL3V19Bfbk1nx
-	7Vhh0sLymnOfN0iovicwch7tGQx33D0cSdoLxuQIfpmjjCgfEKaf/25bdXG0hqf4PJoAJ1RsVDU
-	0up9vk1VsdL+tdmorbuRJ4/p18oc58+yuc1GOjHR4LnolzqdjV51MbXeXpTH6bfvLhInJ9DPgLa
-	VxnYiHB5HWMKBx9YDz89Ra45JxUckrx/XVcGgoGMT1hBlvARRrjFc=
-X-Received: by 2002:a05:6820:a29c:10b0:717:f38:c6aa with SMTP id 006d021491bc7-7170f38cb27mr789245eaf.35.1794173036399;
-        Sun, 08 Nov 2026 13:23:56 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8fbc55sm1908138eaf.12.2026.11.08.13.23.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=V99b1R97qH/1vch1IDRgvyZu2Doy5l4KvwZ7hr979kc=;
+        b=jv2xXL1L2URSYBe0v8gEX1RWdAUzrWJAmqUb+Pj3ig6j4ntcvUyGr8SGn0E5UJmfvU
+         MPjYt8JSZmwzwwZsclLih0w9xXrfD/HvT85Ru3DRXKyLl5rva6mU8VRs4aztRFBkNpQD
+         P4a6KkYu4EgUBJv06TrzFrm26AiSOAf7POo1LtCBGowygU36TLdwnqRd2Ezh9oGL4Kj6
+         JIFEMOOAs4AD4aBn4pQIj6/aCO23iMCP2bgtPvFp2YREYfH38vG1r1tDXN40m4mdO0aP
+         3nmKNqI2aDAYZDlMaG0ssXxoFolUnNvgzpitagubcs/JrKj4v9a/r3kntTt4GxLQeQ5S
+         skAA==
+X-Forwarded-Encrypted: i=1; AL+hErFJWvRRHo5/Wu4dqigTt5NyE0IDaXOCgSw3lcACHbEfaG6h5gO+A6y1qiGJtXUJ685kMqCF81C9UclW70k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ps3gay1uw69MX7WPoa4/Zld8gQH6aLZf9hNy9FrJhz8JV+y3f
+	wCRCPjE9ZV8TtXM+kF68E9oX7yeecbGBaTzU7id7cB8eUHJfYcWSgqKj
+X-Gm-Gg: AYBFou2GgBS6FYldcQnLzw2mnMg85osayzwTi7SAss/yamPmqQb3b9lB4OJ/Go1c0Da
+	KfU2EVj+bRMQdyaZ2jNKtJKNr/8TRzCHlpDGiTS4LOPj4L0eFPSDnrBc+DN625RtxPjCbRlU0s/
+	dMlZoFHYXCDZ6g/MHe+w1kKsh7PH2cTuPUzQGf2T7pnjQe9PDvIZpWgxMazQGX0MJnmYW2DdE4s
+	FdbFYemDPBq3pM1XLHFj5BZm8Ke6RKux3dgt4rt6r3NhP77eX3hk3rDoeKAc4m3gJYemv5yNwt5
+	y5o+OA3V1mHlT9UUPfOy0GlFQpRYgWiASbZqf1agi0iucj/w60osGXDY2bOESHTozVdbiiFSu4I
+	zQn/+dhiuJyeTB4rmjcjNUmffVYZTR0ZnofA9QHFEd2Tj+fiPOXdUMoefPsrSl9YQn2ZkrhUF1y
+	61QMn9E2OOEXpve2ozijm0Fi/utibF7OvvnGPM69N3OZboS92B93zFH+B2eMqfHX99H6DqyTcj1
+	ZBWqEPz3kIuvHA2Y7Wg32PfofSEqAK4PdoHD4F2KWis772NFndACVWnLxPynxKO1msXqoaaSlV5
+	zPqFONv0iG6SYMYnnefv8aiXdHk0uDIYVWMKoo2nh6V3/iIuHR+9pBcbW/13o9imTxhZ+u88osA
+	gU9ZO/E4jdf9p6cr/hZ7160IGJ1lyh/cX2/aToWg0/wA8ICEvk8tG3L+YZc9u3pTOokuCavysQ3
+	Y7k8ut4myS1+nbYyY4zX9m8JZlp3wwKlVzSELWI7nFIE1hOoq+FZ0=
+X-Received: by 2002:a05:6820:570a:10b0:702:f7c2:1937 with SMTP id 006d021491bc7-7170f35c361mr769608eaf.83.1794173035037;
         Sun, 08 Nov 2026 13:23:55 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8fbc55sm1908138eaf.12.2026.11.08.13.23.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 13:23:54 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 14:23:23 -0700
-Subject: [PATCH 2/2] mtd: rawnand: serialize bad-block marker writes during
- BBT recovery
+Date: Sun, 08 Nov 2026 14:23:22 -0700
+Subject: [PATCH 1/2] mtd: rawnand: macronix: serialize OTP access with NAND
+ operations
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-rawnand-operation-locking-v1-v1-2-565010fc5f8b@gmail.com>
+Message-Id: <20261108-submit-rawnand-operation-locking-v1-v1-1-565010fc5f8b@gmail.com>
 References: <20261108-submit-rawnand-operation-locking-v1-v1-0-565010fc5f8b@gmail.com>
 In-Reply-To: <20261108-submit-rawnand-operation-locking-v1-v1-0-565010fc5f8b@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -108,43 +108,82 @@ Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-When erasing or writing a flash-based BBT fails, write_bbt() marks the
-failed block bad before trying another reserved block. The erase and
-write helpers release the NAND locks before returning, but
-mark_bbt_block_bad() calls nand_markbad_bbm() without acquiring them.
+The Macronix OTP callbacks select a target and issue feature and page
+commands without taking the chip or controller locks. Normal NAND I/O
+can interleave with these commands, use a different target or access
+pages while OTP mode is enabled. OTP I/O can also run while the chip
+is suspended.
 
-A BBT update triggered by a bad-block marking request can therefore
-issue the recovery marker commands concurrently with other NAND I/O or
-while the chip is suspended. The chip selection and shared page/OOB
-buffers are not protected on this path.
+Make the existing NAND serialization helpers available within the raw
+NAND core and hold them across the entire OTP transaction, including
+restoring normal mode and deselecting the target. This uses the same
+lock ordering and suspend handling as normal NAND I/O.
 
-Take the chip and controller locks around the recovery marker write,
-as nand_block_markbad_lowlevel() already does for normal marker writes.
-
-Fixes: 10ffd570f117 ("mtd: nand_bbt: scan for next free bbt block if writing bbt fails")
+Fixes: e87161321a40 ("mtd: rawnand: macronix: OTP access for MX30LFxG18AC")
 Cc: stable@vger.kernel.org
+Cc: Arseniy Krasnov <AVKrasnov@sberdevices.ru>
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/nand_bbt.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/mtd/nand/raw/internals.h     | 2 ++
+ drivers/mtd/nand/raw/nand_base.c     | 4 ++--
+ drivers/mtd/nand/raw/nand_macronix.c | 2 ++
+ 3 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/nand_bbt.c b/drivers/mtd/nand/raw/nand_bbt.c
-index b0e7592a2ab7..51fe991358d6 100644
---- a/drivers/mtd/nand/raw/nand_bbt.c
-+++ b/drivers/mtd/nand/raw/nand_bbt.c
-@@ -720,10 +720,12 @@ static void mark_bbt_block_bad(struct nand_chip *this,
- 	loff_t to;
- 	int res;
+diff --git a/drivers/mtd/nand/raw/internals.h b/drivers/mtd/nand/raw/internals.h
+index b8b29341b88c..2668f527e637 100644
+--- a/drivers/mtd/nand/raw/internals.h
++++ b/drivers/mtd/nand/raw/internals.h
+@@ -81,6 +81,8 @@ extern const struct nand_manufacturer_ops toshiba_nand_manuf_ops;
+ extern const struct mtd_pairing_scheme dist3_pairing_scheme;
  
-+	nand_get_device(this);
- 	bbt_mark_entry(this, block, BBT_BLOCK_WORN);
+ /* Core functions */
++void nand_get_device(struct nand_chip *chip);
++void nand_release_device(struct nand_chip *chip);
+ const struct nand_manufacturer_desc *nand_get_manufacturer_desc(u8 id);
+ int nand_bbm_get_next_page(struct nand_chip *chip, int page);
+ int nand_markbad_bbm(struct nand_chip *chip, loff_t ofs);
+diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
+index a5b278ab9384..f125c529c62d 100644
+--- a/drivers/mtd/nand/raw/nand_base.c
++++ b/drivers/mtd/nand/raw/nand_base.c
+@@ -207,7 +207,7 @@ EXPORT_SYMBOL_GPL(nand_deselect_target);
+  *
+  * Release chip lock and wake up anyone waiting on the device.
+  */
+-static void nand_release_device(struct nand_chip *chip)
++void nand_release_device(struct nand_chip *chip)
+ {
+ 	/* Release the controller and the chip */
+ 	mutex_unlock(&chip->controller->lock);
+@@ -336,7 +336,7 @@ static int nand_isbad_bbm(struct nand_chip *chip, loff_t ofs)
+  *
+  * Lock the device and its controller for exclusive access
+  */
+-static void nand_get_device(struct nand_chip *chip)
++void nand_get_device(struct nand_chip *chip)
+ {
+ 	/* Wait until the device is resumed. */
+ 	while (1) {
+diff --git a/drivers/mtd/nand/raw/nand_macronix.c b/drivers/mtd/nand/raw/nand_macronix.c
+index 03237310852c..4fe7036ae992 100644
+--- a/drivers/mtd/nand/raw/nand_macronix.c
++++ b/drivers/mtd/nand/raw/nand_macronix.c
+@@ -380,6 +380,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_info *mtd,
+ 	int ret;
  
- 	to = (loff_t)block << this->bbt_erase_shift;
- 	res = nand_markbad_bbm(this, to);
-+	nand_release_device(this);
- 	if (res)
- 		pr_warn("nand_bbt: error %d while marking block %d bad\n",
- 			res, block);
+ 	nand = mtd_to_nand(mtd);
++	nand_get_device(nand);
+ 	nand_select_target(nand, 0);
+ 
+ 	ret = macronix_30lfxg18ac_otp_enable(nand);
+@@ -426,6 +427,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_info *mtd,
+ 			write ? "write" : "read");
+ 
+ 	nand_deselect_target(nand);
++	nand_release_device(nand);
+ 
+ 	return ret;
+ }
 
 -- 
 2.53.0
