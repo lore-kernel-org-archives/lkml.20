@@ -1,57 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794182069;
-	b=QeoLGZoH6OGC3I3WBbQYW4Wbw/M3+1W5ImDtLtLHRfcNEQUR3c4LiWYPZ4qnh/vYkdDD
-	 Q3EV7Nq2WFQXcU7wGCt49hwZhwwlz5UND02jBqnWxfjS2zva002lWRu9S8RMSxeYai26F
-	 c5Bzj7Ept4uUibLWLx+7VxiUIXl4g6DpY1sVXjCqfhE3TtaXH/ymjSdp74cQTMubd+kVN
-	 1f/2ASLGHc6R1XxKAuQZUliFJaiIDEfGDqZGvo+BPUFI3mUltyXExSn9Io/Nk79FCl++1
-	 24zlKsoUiP75/AbIOzP7acvGfcpWqS/KpuqNxM4n8lBxGf5UmrzVLW8kgeP/zHJZN2Q==
+	t=1794182110;
+	b=ra3+bvFICAU0F2k2cbRpl9fsYAj+Jhker8/ysY88SggTs8qtua4cyyfhCfm+aXSv5z1x
+	 1J1e7vI32NhiJqnemXtCRZKGhW/s2VkyDi9iKJepk4Y6IOCNpo/wiMUHA3s2rs8NOi+lv
+	 ZaM5JFFM5uZxJYU7iTOo6QR0IBtgArazwgamqOsnfdJAh+x1qKFP1SX3feek7qzH7yyOr
+	 3cfB5iB2sg/uvDyYnDldT/EIklj8uTKNGalN9+JZ07c4Sg921gVwyEdkYnd5A08u9EMtH
+	 pf7GRWb9kBEEuoNH4MF6Xo+EnTc0hcdZJBB2QlnEdDy2PSwHMXzXG8anrjElAPkqRXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794182069;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LRlQoYvznGxKaR6S5tzHrpDEO9Xei9jH7j2O0O51bpY=;
-	b=L+zVGwNJqxgyOxj8Tp1RsvAUs/6p1FAQM3YNnjBN++bCfmQqBnIw6UZpGZRfqxI6Tv+0
-	 V9nR72gjyxyZNWhPW0b8uuNgZNt1j0uLHcuXgx0LCqKJ1tyfNDh/68RuWwKwVLto4OMpk
-	 zeJwU0VKl99GLraJk596KenxDfBx8N1LtM5v6ZrbODkxL0TapUNXuTQVLAwRfphqPrSmv
-	 iZKGYmUYmfkbKTED5mLCzq9MCLN0SPlOTCT8fh+oBGcwqqGBPvu5Q1cWbMI8hDrIqqvua
-	 4zeLKOMjlVYzlN4wH0CoRPjm1be9EWOF5Aam1pkYwu36Cm407FKTe8o5Wc/aRWbvKOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794182110;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=BpndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=;
+	b=5Fro9cwmZZgSwu84z6x5okZFz4O1vQjULez05oGbIqpHjNI2h2ZL3qRzo6cP8NGJ2bUD
+	 8hA/FowSdwvO9HoytFhgxOG0rHWN1V0fA8Wl+Cq8T/0H9iXvYFrMAyE9BwB8aTi4kPJA9
+	 GCYDZyfkotfmy7slw67qsav9eofVrV5xhiLCr5x+CfzWeDHOlHcRfazaOVzDVug0F7bwh
+	 NrQaKzmjHhBFiWY1+ck3p4gCHTpX/35uBoUYKq0uKTLSeNlyTTRZLGLIPfs6IiYL5Occ7
+	 Jp8V1jmLv5UIVxqSc1CaMnodYK0je9qyj1Ot7xafv5/oivNgYqWOBdQjSSDi1QN9fNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=d7dlUsXA;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b="b+rNV/1u";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Mw9Y7Jby;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9E3606A33A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:54:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9E3606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1835606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:55:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1835606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=d7dlUsXA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794182067; x=1794441267;
-	bh=LRlQoYvznGxKaR6S5tzHrpDEO9Xei9jH7j2O0O51bpY=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=d7dlUsXAOjDTklXOFLcKnRGhcH4fRtoZ8VpUSd8aeG35IfLK3Z9YQ/6Hntk6D4IoU
-	 ePsPDCnPpbs5HBlEe8CdPBXCgyMeGKUz0Z3vkNuRnP44R8i9UWCC6je+tESZS8+G1U
-	 Lpe8gnPuqTAqGsT0kWcM3DFF9n5VdnoQKgsnJpcwjmdQLyR5+LteIqgwNGV3m7vtOf
-	 gn9OVHTnDRiQkOHmGVZ/QJNkq3vlxadkXD6DOVtUpcdnBytR/xPLrkchTmtS7V5lBw
-	 CBLsaBhQjXBsBtIAjiBLSILcwArnzzPEQwohMkZddEvcgg4jSar7fKcPWFmdBSVhrV
-	 3ybBkGTdZ0uxg==
-Date: Sun, 08 Nov 2026 23:54:21 +0000
-To: "anthony.l.nguyen@intel.com" <anthony.l.nguyen@intel.com>, "przemyslaw.kitszel@intel.com" <przemyslaw.kitszel@intel.com>
-From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ice: bound field vector section count and base offset
-Message-ID: <dSgoJeOcq27FGGEfV7i3OvTKHIbGYWsvCfu3SmthHIkzkoFdKa4al0bvTEn-nhlm-EnViuHMBWMoxqQO0PwAQKHhTQli6u6ohi5vJGh0cLQ=@proton.me>
-Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: cdd4d3cda1576c642d507a172e48d28b5099204e
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=b+rNV/1u;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Mw9Y7Jby
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5284A1D000A8
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:55:04 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Sun, 08 Nov 2026 18:55:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1794182103; x=
+	1794268503; bh=BpndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=; b=b
+	+rNV/1ui0AOHELpOlZTMNj+ewtUYIjwcvDZm/2sk5kvnTa0rb8UkhAVFdJLrPbiW
+	vOWy4+sb6CwLfr+dpTWctz4k0T+AeVmtWv2bPllIZ6+I/s/9oLGf51M1wGRQvP8x
+	+FNiS0Y5iUz8S73rmHyH6+QhXovVIamEcQf8JDeFKr0rWTt2AgdDMbYSjlApb45H
+	TNhh9uxTDkt/xn4laTEftel30H225tj4NnNnH3ej92jIFjBctm08krRnuHmnr2y3
+	Pncm20brCKV7CGSd6vt2gi7RQNVIGEJPrpbI7NHLMqQLSbWmyDArGFA8qHhDrmFk
+	2yqYuH4JR46D0/eU5vnfw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794182103; x=1794268503; bh=B
+	pndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=; b=Mw9Y7JbyFZXyzkBiy
+	Y+es4blFSDFO+lK1ag1g4F8m/ZIM7F5JLFQQ98EaN6H64ExuY2n1859z417feJd0
+	fP7i1HoJspWM522eoUO0JlhJOuFhj/CN9M5qj8QZY+jxGPMPh+HU56QRIeiC9Syp
+	DjpDqv1KgFB2TCK6SHbT1qv+KdCIo71RdmcxeudalondYzuBLj98vyhqKIKF5Lno
+	TxIjWnQ/zngqv9p9gQv6xgrrEfA0D4nyc7vgR7IXCfrgHK7v7jX5IOAP+2vgX6CQ
+	dJpTHQWKCKPY8Gwmj3tYTAwEPSJ9DjarKhxdxeDcb4bEIpfKEdkfTrjP/72gxQsy
+	bMI8g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794182103; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:FDILif3HIzvGRskKe/Dp3Q/8CDLO5nlvxOlBfjNgmMW+HYV
+	zfZtzZfTzEFgaIJvuveyYAPE9dBR96koc7pzmozmUYcs4oU19nDZ4JxbdCUVmjdi
+	b1u36YjY5mEfv7NNfkgwKt/O06S5FsElrWleCK4GHfnm4HAW3ahksHPpRS+fGaSL
+	4j2psZIPoM4j2GNtK262em3TIn1jyuzlHxnB/XPdba3xwKBxLAWBaCOg630OXN2m
+	zjkXNsNsmi1HKzTiJGZMIJTlmo48oj4wt76L+3MspY/bC0/WiA0vOBIgx8GVv/4u
+	9DPwYT+VnCMIdkZLzQn3UtK9M1fmtOPNBxO841g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:TV0oMHwgxZTxvC9kA6NQUdqRauUlF9WZ3y/3uZ4EOqo=:BpndL4iTPvg9OMSM6H3UrWIbx/z0vs888T4mTzoWqEc=;
+X-ME-Sender: <xms:1wvxamVNdlKWVrIHQp-Zbe2rF0JLpGA7oc9Rn9gFkkPV8GV3lPZDYQ>
+    <xme:1wvxakHcpNos3us5_OxNGfCBUnppLeHoin1INNbQm4oSitj7fQU6Bu-7PFw6tGgL5
+    9S0i5oUSSc1xH5FYbD7dVWwJwUhcxhS34DvW1ZSVFviWxYL-e9zUrSR>
+X-ME-Received: <xmr:1wvxaqfqFdXs-gPdw0j5ZU_c26Fp4I0qAyLdD3KtkoJH5QrYiGPjBHaxVlrxQglY>
+X-ME-Proxy-Cause: dmFkZTEyDnw7Z7VWzhWex0tucN4MtH8vIB2allEtx2PrS/GGZY0nkqQBJE8oy6qoZ7f2aq
+    CxMGjy7leTCHBM59/etU/naH5Lmf784tMvEcmZSGk+XWzl8O3T8RVYLJ4Q0cXcYWfs5xNq
+    +YYr8cVmqi54rfAcbGQXaX9Y470AIhLpjC7EebMPrH71J1WpcbbSeX6soGaovm8QPmEc54
+    83Ft5en6hEmHAH+Xu+MKtV5r4/yc9mPHzBIhBMS7C+oWKMhFARflilGEQ1nfynlX8qfZnm
+    MdeVaSNy6vME6g9V1W35fZDr5FmX8AEfCh8U66eOXBSCiD5lpp0+fslTMZNd9ZBDy28QV3
+    rnSrSg2unt/QDUq+bSERe9yo5ryQVfZcXsWe7QDfCX4bSJnVTbShz3Crh96jGw9v6WjjQx
+    FpvNB6dmVzrMVNpFaTnf+AjDUE0+jI96hqrnVWzoXvdA+5VXBmP4P0JpusRaRh1wwI5n6I
+    ERMaan5c63yMb85uDYQOWd0JaA43zqPEjOrSTz5i7sxJVCsfhmRx3rKFRg1iqNzvakXPLM
+    V1BHXC3ozjN0FaG/0QV3QLtVGLe0CcnqpZ0qhY5CR2Lx0p8arEj+5ZRRwMsN/1IhMs4s7W
+    1afNnt6PhpVRJZq4B0wVASu/HCgcvYsk5/R/Jb/KW8X/uz01/KNlDbC17B1g
+X-ME-Proxy: <xmx:1wvxatJMF5O7XfGAnvjACmNkbH1LY59yidFfZFkEtUbE-J6xA626pw>
+    <xmx:1wvxanGpwdMzxDMxtxgy2xrZj2VTzvRlVntH92ONRs8W7fT0gAqrHg>
+    <xmx:1wvxaoDsTVFvNd-Bi3bUAeXjhgvXXR8RJk7UI2D0Zoflr-YHwvgcXA>
+    <xmx:1wvxai8NbO-DVw1uaL5CGDmCf6IjrtbbHDVyh1dbUCcoDnPRyNqltg>
+    <xmx:1wvxakAVX5GTPQa_UqbUnMtuavdKiDRRtR_CD7lhxUAbxFpjuyTXc4mt>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 8 Nov 2026 18:55:03 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: Noah Weinberger <NoahWeinberger2003@proton.me>
+Cc: linkinjeon@kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH] ksmbd: check sign flag of the current compound command
+Date: Sun,  8 Nov 2026 17:54:57 -0600
+Message-ID: <20261108235457.1919632-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <IQLTi_rZrPgaD4zlFXgSybFdR3EsaBQVIorCAH3otR3SGOlNjacAL7jt2xb4mhqNNcdBMPel5CrrBxTOsKoRIFuil5wToLwoYXtR8AJ9vF8=@proton.me>
+References: <IQLTi_rZrPgaD4zlFXgSybFdR3EsaBQVIorCAH3otR3SGOlNjacAL7jt2xb4mhqNNcdBMPel5CrrBxTOsKoRIFuil5wToLwoYXtR8AJ9vF8=@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,72 +127,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On Sun, 08 Nov 2026 22:34:08 +0000, Noah Weinberger wrote:
+> smb2_is_sign_req() decides whether a command must be verified/answered
+> signed based on the FIRST command's header, even when dispatching
+> commands 2..N of a compound, so the SIGNED flag of the current command
+> is ignored and its response goes out unsigned.
 
-ice_sw_fv_handler() validates the field-vector entry index only
-against the package-supplied count, and computes the profile offset
-from a package-supplied base_offset:
+The report is right for the request side. __process_request() runs once
+per compound member, and each member's own SIGNED flag should decide
+whether its signature is checked. I found no bypass either way. A member
+of a session that requires signing is still refused when it is unsigned,
+and a signed member is still verified with its own session's key.
 
-    if (index >=3D le16_to_cpu(fv_section->count))
-        return NULL;
-    if (offset)
-        *offset =3D le16_to_cpu(fv_section->base_offset) + index;
-    return fv_section->fv + index;
+The suggested change does not fix the response side, though. It moves
+the problem there.
 
-Neither count nor base_offset is checked against the section size
-or ICE_MAX_NUM_PROFILES, and every consumer trusts the result:
-set_bit((u16)offset, bm) into a stack bitmap in ice_add_adv_recipe()
-(reached with CAP_NET_ADMIN ethtool/tc rules),
-bitmap_zero(hw->switch_info->prof_res_bm[off], ...) which indexes
-past the prof_res_bm[ICE_MAX_NUM_PROFILES] array, and the field-vector
-reads themselves which can walk past the section end. A count of 1
-with base_offset 0xfff0 in the package file is enough to reach the
-single-bit stack write.
+__handle_ksmbd_work() calls is_sign_req() a second time to decide
+whether to sign the response. That call comes after
+is_chained_smb2_message(). For every command except the last,
+is_chained_smb2_message() calls init_chained_smb2_rsp(), which has
+already moved next_smb2_rcv_hdr_off to the next request. The response
+that gets signed is the one just built, because smb2_set_sign_rsp() and
+smb3_set_sign_rsp() sign ksmbd_resp_buf_curr(). With the change, whether
+response N is signed therefore depends on the SIGNED flag of request
+N+1.
 
-The patch bounds base_offset + count to ICE_MAX_NUM_PROFILES, which
-bounds every offset consumer. (A full fix should additionally check
-the section size against count * sizeof(struct ice_fv), which needs
-the section length plumbed into the handler; this note is included
-for the maintainers.)
+If request N is signed and request N+1 is not, response N goes out
+unsigned. If request N is unsigned and request N+1 is signed, response N
+goes out signed, although a response to an unsigned request must not be
+signed.
 
-Affected version/commit: mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 =
-(v7.4-rc2 window, 2026-11-08), drivers/net/ethernet/intel/ice/ice_ddp.c:343=
--360 (ice_sw_fv_handler: only index >=3D count is checked; count and base_o=
-ffset never validated), :799 (set_bit((u16)offset, bm) in ice_get_sw_prof_t=
-ype - offset up to base_offset+count), :914 and :924 (bitmap_zero(hw->switc=
-h_info->prof_res_bm[off], ...) with unbounded off; ice_type.h:780 declares =
-prof_res_bm[ICE_MAX_NUM_PROFILES]), :846 (test_bit read), ice_flex_pipe.c:1=
-995 (source memcpy), :2262-2264 (probe-time walk)
-Longstanding parser; unchanged in the reviewed window.
+This only matters when the session does not require signing, because a
+session that requires it signs every response anyway. It also needs a
+compound that mixes signed and unsigned commands.
 
-This was found during an assisted (AI-supported) static source review of
-mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 (v7.4-rc2 window, 2026-11=
--08). The patch below has NOT been compiled and has
-NOT been runtime tested, and no reproducer was produced - the triggering
-conditions are described above instead. Please treat this as a report for
-verification rather than a battle-tested fix.
+I tested both sides on ksmbd-for-next with compounds of two
+TREE_CONNECTs, on a session that does not require signing.
 
----
-diff --git a/drivers/net/ethernet/intel/ice/ice_ddp.c b/drivers/net/etherne=
-t/intel/ice/ice_ddp.c
-index 3b2d9c4369..2d9c99eddc 100644
---- a/drivers/net/ethernet/intel/ice/ice_ddp.c
-+++ b/drivers/net/ethernet/intel/ice/ice_ddp.c
-@@ -349,6 +349,12 @@ static void *ice_sw_fv_handler(u32 sect_type, void *se=
-ction, u32 index,
- =09=09return NULL;
- =09if (index >=3D le16_to_cpu(fv_section->count))
- =09=09return NULL;
-+=09/* count and base_offset come from the package file and index the
-+=09 * switch profile tables; bound them before use.
-+=09 */
-+=09if (le16_to_cpu(fv_section->base_offset) +
-+=09    le16_to_cpu(fv_section->count) > ICE_MAX_NUM_PROFILES)
-+=09=09return NULL;
- =09if (offset)
- =09=09/* "index" passed in to this function is relative to a given
- =09=09 * 4k block. To get to the true index into the field vector
-
+Thanks,
+Ian
