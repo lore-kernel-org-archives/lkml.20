@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.32.148.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794100238;
-	b=Sl6soh2qHLU8aICxtDz5zfiGvHimyEP9OrGempNPvGNsUwQ1WBKHG9WzaoB+I6er2s13
-	 YNyWHb8IAJ92l+twCOxqJlEDZ7rT8sFgdXFwYo1dF8a/4r1adv/4w3Qz+WA9sSwobBw3r
-	 v6qK8GSB2keZJlDqfwJNUp8KGFH/oydiCbeZ5Brb4z8QHQRVhfXbSBQfbPGKeWxBjdd45
-	 +LLCN798odgtH7azELF03YSyVzk/UvG/kMnCRxBB+fQTqPWVJo7Z5QsUzfV+T7O9wpVYX
-	 eBuGgh4i/upK4b4pGZtC6yrJ2O+47DUKrcNFJxWq4OQGuokfOEBcwhfgwRkbBbxWWgQ==
+	t=1794100297;
+	b=P385mO0vJFXehUKcwKiKn4xxbKeIpjX8MovY/sBQkbY1U6nyR1VcNe7xFUbehTuEX59n
+	 Bc5IGmqYr5uSuGCpBoN394sMjJfHWYG5EqlGgomR9JJ1TOR36EWyZ3N8gOrb9jEHB4PwE
+	 XlyXyurJElMI1D/8d5jc/i7uBoFc8n+OjgSWqBrlSmjjBrEu+40LsuDI1l03t8jJ2elnT
+	 GHOun+P2xr9DN88rOejQrqp1QXTRQ4gDp2oEr3iyDbTGP4dVMKwDHdfCPUTU4jg5blquL
+	 eEQrXkAeO1IJpYyZlHLgQ7tuSZ0BcUsNvi+/otw/P37sfHj1pDjE/QblLm6NSezPJPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794100238;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794100297;
+	h=DMARC-Filter:DKIM-Signature:Date:X-sib-id:Cc:Message-Id:
+	 List-Unsubscribe-Post:Feedback-ID:To:Subject:Origin-messageId:From:
+	 List-Unsubscribe:X-CSA-Complaints:X-Mailin-EID:X-Mailer:Mime-Version:
 	 Content-Transfer-Encoding;
-	bh=prGr2rCCPYq8dfhCbZ3/nC39kFMYq8jBR7hx9f+mnLo=;
-	b=gJLV/dRFmwOe5W9oqanPqvWav7QlCIzqn9BWYGNJOZy3r5UH0Xxvoc3yCi1rKxB0xKH6
-	 83RRbIHqiRzVj4TKDQUQq1z6jHKvmZBEfkdTVDcjr8WeKKsgSDlBfVXN/IvaaekYovE9Q
-	 nO95tZiSbUscWRgn9SbeI0hU4g1yQ+4f/b0t++iK6vSr7qqoxD5fCPyP5WtSyKzhJUxBH
-	 sygKU9GzzYkjVXW9a8l77jpc8+J+gOrJEz2D/OA7Xr22Ws920Bmq/1wvyzBUhGZV4512c
-	 mEbnI/DWl1oUU8Vy/rQJhC7ReM5H7Y4NYPAl2VjLqyh+wAD57bOtRivgfRshbGA3wyQ==
+	bh=sZfzNXh4BND9cCS6sfS5q9SmaLVYUprSC4+0dzXm2Xo=;
+	b=y9WoK24KUcaDQKTRI798+oemHK28MiHAx6CF8ONWWFqnEBnL2ZG4lNIw/Pa5JC3JKZCI
+	 MLUzyTkJxYUcri81hqOFLWNbC54DBChfA0oyM2JDRcPqmtkgGNHtyIAssvpFuEhMDVl8W
+	 bxVh/zzoTuIehowOe7YN+g4/1mxe4I6lwOnCzNzwQ2I0kz/NshQuSfp1NnJIc1gx+g7Mk
+	 bOWDVkjKRJw8I4Tn1m/zUvB4NPrIJVRFkaGwXYGvFUgDpwavyiw9+vLXUagEdgpGN6GOe
+	 sxh8RewLQJ8R413FUh/O5KMlalDD83snWWUs72K05EIx19LbJpntqHvIhPg5EkzMK/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="inXbqEd/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tubot.lat;
+	spf=pass smtp.mailfrom=gy.d.sender-sib.com;
+	dkim=pass header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=VHSD3NwN;
+	arc=none smtp.remote-ip=77.32.148.25
+Received: from gy.d.sender-sib.com (gy.d.sender-sib.com [77.32.148.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4675606A326;
-	Sun,  8 Nov 2026 01:10:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBB4606A330
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:11:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FBB4606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tubot.lat
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gy.d.sender-sib.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inXbqEd/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74471F0089F;
-	Sun,  8 Nov 2026 01:10:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794100237;
-	bh=prGr2rCCPYq8dfhCbZ3/nC39kFMYq8jBR7hx9f+mnLo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=inXbqEd/xXfmjPcrGSfIfjCEz7mHVQDRMB+W3CMVltYyeEb0Ko3wi7/t4zcVxq1np
-	 0Hq7g3ZgXoFCSAU4osDVbUbwtC5dGRp/lKvUs1bdKVdf/3+XZ8vY7F2ADmlaTSiI9H
-	 U1V+dMNuuAjr4JlVYb/IGby/YXw1InoG4Tj4CiWGrcHQ+uMsgiE9UDCCWsMXUN2ePB
-	 al8CNyofwH8zIL4OPLDYyvXhHIRHMthCh8ozKHcPonsbwARIBvig0EZqz6TdIlkMlK
-	 rrDQuKK7CYH0YhWWZCp4HuIMLaiEtEz0eaYYnRRq7HcTzcI0LJ4Tu5kxTVb30GkgGV
-	 JHs4ZoE4tsNTA==
-Date: Sun, 8 Nov 2026 01:10:29 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arka Mondal <arka@arkamondal.net>
-Cc: Linus Walleij <linusw@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Peter Meerwald <pmeerw@pmeerw.net>, Matt
- Ranostay <mranostay@gmail.com>, Robert Eshleman <bobbyeshleman@gmail.com>,
- Leonard Crestez <cdleonard@gmail.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] iio: light: apds9960: Report the available lists
- via read_avail()
-Message-ID: <20261108011029.6a195efb@jic23-hlaptop>
-In-Reply-To: <20261102074700.63075-3-arka@arkamondal.net>
-References: <20261102074700.63075-1-arka@arkamondal.net>
-	<20261102074700.63075-3-arka@arkamondal.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=VHSD3NwN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tubot.lat;
+ q=dns/txt; s=brevo1; bh=sZfzNXh4BND9cCS6sfS5q9SmaLVYUprSC4+0dzXm2Xo=;
+ h=from:subject:date:to:cc:mime-version:content-transfer-encoding:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
+        b=VHSD3NwNbc48NiJY0N9vLbp4stGE25MbXdBTxSez3iDvLK2EvaVZ6gZtepmzwV6SeCnPD36Wc6OG
+        affDJ66NXpVIGbQn9ME8bRuEMGaGEzj8Y5dxuvdMhmnoY/yPDu3omkS3UTS+kk4LH9mRDbiXJlBY
+        QGRZjRm2FsO+oH6MvBGppGF6Cqti2P+SStmZUz8fuYTPJySCFI8/Qe0YRjGoG+1o+r3E/UJ3LqG8
+        jharV8dzSy3D5l3ZZugplenRX7NBqtaDTnrWwXDig+KD4ogZiCOczmcxGYPyIYaT2km0cIxeCVPh
+        zwgulj/FVtvkiIa9+WRD+rMNGL7zzKvO98Uh6Q==
+Date: Sat,  7 Nov 2026 17:11:31 -0800
+X-sib-id: o6pEpaboJ4m3AmXEEX-xdeQQnJevBjBWXeFrDn6COIsKHO7WnGNFXGa3RuQF3MBdUwXk-xSXmRzu49_x7evfBbXy2jnXIHvSXRNUuYHeKvc5YJWhuQcewkAfymprkw6O0pP1LQ6vFiHp2vHj4FcZk_yKWc9NL63S2BOPdgqrMsc3Ys_mlnLj7nVy4w
+Cc: <linux-fbdev@vger.kernel.org>,  <linux-staging@lists.linux.dev>,  <linux-kernel@vger.kernel.org>,  "DelaySystem" <delaysystem@tubot.lat>
+Message-Id: <20261108011131.1124831-1-DelaySystem@tubot.lat>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Feedback-ID: 77.32.148.25:11287567_-1:11287567:Sendinblue
+To: <sudipm.mukherjee@gmail.com>,<teddy.wang@siliconmotion.com>,<gregkh@linuxfoundation.org>
+Subject: [PATCH v2] staging: sm750fb: fix remaining spelling mistakes in readme
+Origin-messageId: <20261108011131.1124831-1-DelaySystem@tubot.lat>
+From: "DelaySystem" <DelaySystem@tubot.lat>
+X-CSA-Complaints: csa-complaints@eco.de
+X-Mailin-EID: NDczOTMwODc4fmxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmd%2BPDIwMjYxMTA4MDExMTMxLjExMjQ4MzEtMS1EZWxheVN5c3RlbUB0dWJvdC5sYXQ%2Bfmd5LmQuc2VuZGVyLXNpYi5jb20%3D
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,145 +63,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Mon,  2 Nov 2026 16:46:56 +0900
-Arka Mondal <arka@arkamondal.net> wrote:
 
-> The proximity and intensity channels put IIO_CHAN_INFO_SCALE in
-> info_mask_shared_by_type, and the intensity channels put
-> IIO_CHAN_INFO_INT_TIME there too. The values those attributes accept
-> are listed by three custom attributes: proximity_scale_available,
-> intensity_scale_available and integration_time_available. None of the
-> three carries the in_ prefix that the core gives the attribute it
-> describes, so all three are registered at the device level, and
-> userspace looking for in_proximity_scale_available,
-> in_intensity_scale_available or in_intensity_integration_time_available
-> finds nothing.
-> 
-> Report all three through read_avail() and drop the custom attribute
-> group. The two gain lists keep their exact text. The integration time
-> list becomes 0.028000 0.100000 0.200000 0.700000 instead of 0.028 0.1
-> 0.2 0.7, because the core prints IIO_VAL_INT_PLUS_MICRO with six
-> decimals. The values are unchanged.
-> 
-> Fixes: aff268cd532e ("iio: light: add APDS9960 ALS + promixity driver")
-> Signed-off-by: Arka Mondal <arka@arkamondal.net>
+Fix two spelling mistakes in the driver readme:
 
-Applied this patch to the testing branch of iio.git.
+"Silicon MOtion" -> "Silicon Motion"
+"otherparm" -> "otherparam" (matching the example above it)
 
-> ---
-> 
-> Notes:
->     Compile tested only; no relevant hardware available.
+Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
+---
+v2: resend in plain text via git send-email; v1 was corrupted by the
+webmail send path (HTML part, whitespace mangled).
 
-Fwiw it is fairly easy to stub enough to get a driver to load and
-then just check these static files.  The i2c test stuff
-in tree works, or qemu if you prefer that path.
+Note: this complements Hussain Sitamouwala's unmerged patch
+<20261104112629.180890-1-husainsitamuwala21@gmail.com>, which fixes
+"defaulty" and "althernative" in this same file. The two patches touch
+different lines and do not conflict.
 
-Perhaps if you are going to do a lot of this sort of patch
-it might be worth you exploring how to do that.
+ drivers/staging/sm750fb/readme | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> 
->  drivers/iio/light/apds9960.c | 56 +++++++++++++++++++++++++++---------
->  1 file changed, 42 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/iio/light/apds9960.c b/drivers/iio/light/apds9960.c
-> index afe520de60e2..496678c4d338 100644
-> --- a/drivers/iio/light/apds9960.c
-> +++ b/drivers/iio/light/apds9960.c
-> @@ -289,6 +289,8 @@ static const struct iio_event_spec apds9960_als_event_spec[] = {
->  	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
->  	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) | \
->  			BIT(IIO_CHAN_INFO_INT_TIME), \
-> +	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE) | \
-> +			BIT(IIO_CHAN_INFO_INT_TIME), \
->  	.channel2 = IIO_MOD_LIGHT_##_colour, \
->  	.address = APDS9960_REG_ALS_CHANNEL(_colour), \
->  	.modified = 1, \
-> @@ -304,6 +306,7 @@ static const struct iio_chan_spec apds9960_channels[] = {
->  		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
->  			BIT(IIO_CHAN_INFO_CALIBBIAS),
->  		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
-> +		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE),
->  		.channel = 0,
->  		.indexed = 0,
->  		.scan_index = -1,
-> @@ -322,6 +325,8 @@ static const struct iio_chan_spec apds9960_channels[] = {
->  		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
->  		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |
->  			BIT(IIO_CHAN_INFO_INT_TIME),
-> +		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE) |
-> +			BIT(IIO_CHAN_INFO_INT_TIME),
->  		.channel2 = IIO_MOD_LIGHT_CLEAR,
->  		.address = APDS9960_REG_ALS_CHANNEL(CLEAR),
->  		.modified = 1,
-> @@ -370,19 +375,11 @@ static const int apds9960_int_time[][2] = {
->  static const int apds9960_pxs_gain_map[] = {1, 2, 4, 8};
->  static const int apds9960_als_gain_map[] = {1, 4, 16, 64};
->  
-> -static IIO_CONST_ATTR(proximity_scale_available, "1 2 4 8");
-> -static IIO_CONST_ATTR(intensity_scale_available, "1 4 16 64");
-> -static IIO_CONST_ATTR_INT_TIME_AVAIL("0.028 0.1 0.2 0.7");
-> -
-> -static struct attribute *apds9960_attributes[] = {
-> -	&iio_const_attr_proximity_scale_available.dev_attr.attr,
-> -	&iio_const_attr_intensity_scale_available.dev_attr.attr,
-> -	&iio_const_attr_integration_time_available.dev_attr.attr,
-> -	NULL,
-> -};
-> -
-> -static const struct attribute_group apds9960_attribute_group = {
-> -	.attrs = apds9960_attributes,
-> +static const int apds9960_int_time_avail[] = {
-> +	0, 28000,
-> +	0, 100000,
-> +	0, 200000,
-> +	0, 700000,
->  };
->  
->  static const struct reg_field apds9960_reg_field_int_als =
-> @@ -786,8 +783,39 @@ static int apds9960_write_event_config(struct iio_dev *indio_dev,
->  	return 0;
->  }
->  
-> +static int apds9960_read_avail(struct iio_dev *indio_dev,
-> +			       struct iio_chan_spec const *chan,
-> +			       const int **vals, int *type, int *length,
-> +			       long mask)
-> +{
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		switch (chan->type) {
-> +		case IIO_PROXIMITY:
-> +			*vals = apds9960_pxs_gain_map;
-> +			*length = ARRAY_SIZE(apds9960_pxs_gain_map);
-> +			break;
-> +		case IIO_INTENSITY:
-> +			*vals = apds9960_als_gain_map;
-> +			*length = ARRAY_SIZE(apds9960_als_gain_map);
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		*type = IIO_VAL_INT;
-> +		return IIO_AVAIL_LIST;
-> +	case IIO_CHAN_INFO_INT_TIME:
-> +		*vals = apds9960_int_time_avail;
-> +		*type = IIO_VAL_INT_PLUS_MICRO;
-> +		*length = ARRAY_SIZE(apds9960_int_time_avail);
-> +		return IIO_AVAIL_LIST;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  static const struct iio_info apds9960_info = {
-> -	.attrs = &apds9960_attribute_group,
-> +	.read_avail = apds9960_read_avail,
->  	.read_raw = apds9960_read_raw,
->  	.write_raw = apds9960_write_raw,
->  	.read_event_value = apds9960_read_event,
+diff --git a/drivers/staging/sm750fb/readme b/drivers/staging/sm750fb/readm=
+e
+index cfa45958b9d2..dd8ba1a85695 100644
+--- a/drivers/staging/sm750fb/readme
++++ b/drivers/staging/sm750fb/readme
+@@ -1,5 +1,5 @@
+ Introduction:
+-	SM750 of Silicon MOtion is pci express display controller device.
++	SM750 of Silicon Motion is pci express display controller device.
+ 	The SM750 embedded graphics features include:
+ 	- dual display
+ 	- 2D acceleration
+@@ -27,7 +27,7 @@ About the kernel module parameter of driver:
+ 		ahead of parameters,so,it looks like:
+ 		video=3Dsm750fb:noaccel,1280x1024@60,otherparam,etc...
+ 		it equal to modular method with below command:
+-		insmod ./sm750fb.ko g_option=3D"noaccel:1280x1024@60:otherparm:etc..."
++		insmod ./sm750fb.ko g_option=3D"noaccel:1280x1024@60:otherparam:etc..."
+=20
+ 	2) if you put 800x600 into the parameter without bpp and
+ 		refresh rate, kernel driver will defaulty use 16bpp and 60hz
+--=20
+2.34.1
+
 
