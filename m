@@ -1,109 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794139592;
-	b=F+Dyp2iSe3Xosqy/7MkHLj/0tlW26ioMUM7CVheYX7wsLQbQszERRwcg60dBtNpqxddU
-	 qYsdFx1QKu6XwylwIc7nA/CyBVOfXwziOuWi9v7fZzjewJ8gMeJeGlC3h7RKBKNl5z2sh
-	 k4XIx+4u1snuTCUJ/mrwVtQtILL4dpgSntzAluO2F/AhNyingL9Q+8ljrXpszB9GaHs7y
-	 FS0vOg7U9VvhRDCBJ7q3J2rEVM9ldsyjnTiiv4ybazoJToEQElVLFU7NE/tTUFeDjXuUM
-	 YN6C+7rrxKWRmEvMVn+U5fkpsAOAXfhU9tvNIVtFCP7SkEWt19wpbDv0HHw3YwyD+Bw==
+	t=1794139880;
+	b=uhfIFvwzuQlLIxxpHKboOQ7ebA/tf/oIJMWIhH5G+AIGiqIQguQ7JB2kGoKBhUZg3358
+	 ofmU2+79tsfoI2b6TmR3uhF8CuMhj2VAznvr5LTvcFEc8av8Thi6a+kGGlXctaCYvtuKk
+	 JgBPabHgwC141hwZorzUZVHM2DHJrTXS+lvxDs4zXMo1LW5TncE+XzXnWww/Ccn1jVr9a
+	 aH+hZlqAP5OK0wjn1IGkx/2/Na7kmqE5/5fPYF3oafw0UJvnpAVREVPsai6WCA08EwVo6
+	 cBS87puxBJkRvR4togoP+VRZL1LVTLmp9+wZNW/BiwixacL0/PEdHoI7l+Q83uE8jvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794139592;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
-	b=uIlk3aV4cS3Vguaq2rHyOUt+09iR+4nR5zKimSy0hV8ik1JWAyb/bpZ2HNvYo7ZkgucF
-	 Mpg1jKK3j/xMjrcS4XPj0YJphNNRFuA04GfWobInjeukij7euDimXQmLtAswLbvciddv6
-	 O45gpWiPQ1GbLW22zwOMVIrscaM++zlS+7yHIWd6ocYmuITwSkvzMB8ACKL1HY4uqaxsq
-	 NWdpB7d6WhFPV377OuK+ThDWWU4s9wcKMpPoSnoLSxYS5+dxuB7ukbCn4PpqwC3QmZp2W
-	 TP1OXFYYVzv8DkVCD/JmykKrzgE+bLbj67g5H7uNSf1F8d6n0/gw0CBCrvcLFCiVOnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794139880;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QVI8sd699n7zElT6QIRsFdi0yYPm7wfLMGKXZlF23is=;
+	b=oqDZlS2ew5Rp9nIg+fUv3yBvqMiRrYd4gI4ZoDDgB/FUbh75wQn7G97npIt4H+vPQkNa
+	 j9dwvccoQrCZ1BLnfSZtref1C7sZpD/FpavcYHWmE8uY1s993L23ZuqpByxZ4jGyFD0OL
+	 c8AZbj/F99FDM1gxwy2wcr9RiAsht4+jSWu/EMPMOyyvEOVVQ5CUotFnsm8bYMFnRF9fN
+	 +z50au0rr3sNXYMryvt8tt+1v98Oix9QFtiwBk58WD17j8WYnuEu2/MvfDKbCvlJOS84y
+	 LFa3al51TC1wnr6TtBqLwmMAE9iKo5xuFyWgBTdC6P/+VmbjB/AvH01ngrQujP91YZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GOmBv2b6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBE3606A31C;
-	Sun,  8 Nov 2026 12:06:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEBE3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F53A606A323;
+	Sun,  8 Nov 2026 12:11:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D0E321F74B;
-	Sun,  8 Nov 2026 12:06:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794139589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
-	b=slQl8fi3i5QY2WMszjrCYzr4xlFyQgwQXl5XhTysA3sKuC6+LVzj1iLOTdCBycvVBQMHCs
-	dvvb2UQ5gWtwixefBkioUmZ+qysKXWlkDR+Y8Hj1CAlBKV/auNMUL9hAaRjf98uvRJslrW
-	hgAsUvhslIKBFpJm/0RG77qdIfr3QTo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794139589;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
-	b=TMA7RDK9fqRmPD/QvqCiOGiLli4DK81Yun0F08eY6FB8XGI86HkUMZy2s2fuMmfRnuWX+i
-	qRggqFRp9/NyNzAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794139589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
-	b=slQl8fi3i5QY2WMszjrCYzr4xlFyQgwQXl5XhTysA3sKuC6+LVzj1iLOTdCBycvVBQMHCs
-	dvvb2UQ5gWtwixefBkioUmZ+qysKXWlkDR+Y8Hj1CAlBKV/auNMUL9hAaRjf98uvRJslrW
-	hgAsUvhslIKBFpJm/0RG77qdIfr3QTo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794139589;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
-	b=TMA7RDK9fqRmPD/QvqCiOGiLli4DK81Yun0F08eY6FB8XGI86HkUMZy2s2fuMmfRnuWX+i
-	qRggqFRp9/NyNzAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5937913302;
-	Sun,  8 Nov 2026 12:06:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hXlvCcVl8GobJwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 08 Nov 2026 12:06:29 +0000
-Date: Sun, 08 Nov 2026 13:06:28 +0100
-Message-ID: <87zevjwmrf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: tiwai@suse.de,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Subject: Re: [PATCH v2] ALSA: control: Fix parsing of numeric fields
-In-Reply-To: <20261108111848.2493-1-sreekuttan2156239@gmail.com>
-References: <87a4njy53s.wl-tiwai@suse.de>
-	<20261108111848.2493-1-sreekuttan2156239@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GOmBv2b6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD491F008A2;
+	Sun,  8 Nov 2026 12:11:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794139880;
+	bh=QVI8sd699n7zElT6QIRsFdi0yYPm7wfLMGKXZlF23is=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GOmBv2b6mDfrmIW245A8RprJGp1WFAiN1Si/80n/CY3MRC93DXThe3GXj5YREGne7
+	 ZtcI3oE/ELxrK2wVEfJWDLnZ2yDJiDvxvxlbgav8bVBr78sLzOTXTZ/eyib6kvNNUO
+	 RLxMSjKJgLH6X/H+RwNPedyGKFQAtFFJ6SPhWZy+bXKxHmVLJDz0/W+/Qg6GJUDPHs
+	 PnKNlK5CcV4+kpukNZNcVXKLrOL7pt84E0EfGImVFCJKSnLIasV4RqZtLEnD0mly+F
+	 TnTXzJebKZDMnEh8rCrVTYrtbpUlOTHQEE5XdZ+3MauwpcaJIeUfxf0e5l4VMjLLuP
+	 k6+y6bK968pPg==
+Date: Sun, 8 Nov 2026 13:11:06 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
+ <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] crypto: omap-sham: remove redundant
+ pm_runtime_dont_use_autosuspend() calls
+Message-ID: <20261108131106.0fde6459@systembl0wer>
+In-Reply-To: <20261107-crypto-dont-use-autosuspend-removal-v1-1-62696ad3ff0e@kernel.org>
+References: <20261107-crypto-dont-use-autosuspend-removal-v1-1-62696ad3ff0e@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,53 +59,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 7bit
 
-On Sun, 08 Nov 2026 12:18:48 +0100,
-Sreeraj S Kurup wrote:
-> 
-> Hi Takashi,
-> 
-> I compared the approaches.
-> 
-> Using simple_strtoul() would provide an end pointer, but it is deprecated.
-> 
-> Another option is to retain kstrtoull() from the original implementation 
-> and apply the delimiter-first approach. This would minimize changes to the 
-> existing conversion logic.
-> 
-> However, since the destination is an unsigned int, kstrtouint() better matches 
-> the destination type and also detects values outside the unsigned int range.
-> 
-> I currently prefer the v2 approach, but wanted to point out this difference in 
-> overflow handling.
+On Sat, 07 Nov 2026 13:39:43 +0100
+Joshua Crofts <crofts@kernel.org> wrote:
 
-OK, thanks.  Feel free to resubmit whatever you find better :)
+> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
+> driver core is now responsible for undoing any
+> pm_runtime_use_autosuspend() calls on driver exit.
+> 
+> Remove the redundant function calls.
+> 
+> Signed-off-by: Joshua Crofts <crofts@kernel.org>
+> ---
+>  drivers/crypto/omap-sham.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
+> index 5e739415a010..72182f190084 100644
+> --- a/drivers/crypto/omap-sham.c
+> +++ b/drivers/crypto/omap-sham.c
+> @@ -2109,7 +2109,6 @@ static int omap_sham_probe(struct platform_device *pdev)
+>  	list_del(&dd->list);
+>  	spin_unlock_bh(&sham.lock);
+>  err_pm:
+> -	pm_runtime_dont_use_autosuspend(dev);
+>  	pm_runtime_disable(dev);
+>  	if (!dd->polling_mode)
+>  		dma_release_channel(dd->dma_lch);
+> @@ -2131,7 +2130,6 @@ static void omap_sham_remove(struct platform_device *pdev)
+>  	omap_sham_unregister_algs(dd->pdata);
+>  	crypto_engine_exit(dd->engine);
+>  	cancel_work_sync(&dd->done_task);
+> -	pm_runtime_dont_use_autosuspend(&pdev->dev);
 
+Okay, drop this patch for the time being - the dont_use_autosuspend() ensures
+that the .runtime_suspend callback is executed.
 
-Takashi
+Thanks.
+
+--
+Kind regards,
+Joshua Crofts
