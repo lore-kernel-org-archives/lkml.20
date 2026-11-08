@@ -1,48 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127366;
-	b=jm22AZkAaKsCKBv63cEza3vJNq/ATuyl760B4Sa3fKLCTXS6o+PNk3TgyN0fLsmVdg3z
-	 uukLnVjAFx/4aaa/y2y9IjX+7blf+4FMq+ITUBKhhbccOvUxx7hRHv8Y/2PX1DE4CzGBA
-	 qWIo7HjzCj5wnw3YYDUAP+KR+YXcbMaVl16MQQAqLrEGC56Ik0aR1nzIMohFOA84PCun8
-	 LdSS4+8JwmMWlS+vAxEQyQhAQ0pWl/OW1mkjb1qGE6GHmdrXEBu7BUZgrA5BDZfHIwfaG
-	 b9omgDNKrJ3BDKoj61NAu97fe09rHK8imLKGmvKArxDavfoP4ua1IK0jrAY3L4/Rtpg==
+	t=1794127417;
+	b=PgG/2HAmQgtaoTSyT29E2SvVTAfnBLhvc23t6gDk4gzSSMpw8s4LB2tTZEDffrPUd4mV
+	 LZKhLUrQdTOOTt7JBC39O+IijnSY1Cy9WS4ydHofoBX5QGIBrJg5PXYpiIYlRmGKQ3Ge9
+	 Jk/W5KnrQDvaAdBF4lbUhjG6aXsYZ/qdtLDXMqUS/d+u3RhqrgrIhGvUNvaA8fRxLgY1f
+	 2vjCw23eGC+CIRshq2eNc3e3zK4E2e/zBrG/76FI/frLAXCZYznIe6Iy6VfqV0DSfPh29
+	 UOHDCuYDeELCKpS53o7/ZVwadkZsMV3ivaEOBiBbFhFnqaTsUEvPkAZFzexZ6aly7/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127366;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=OvMwR2q246pcD5TId5yUQvPErCrIqP4Yqwl75kEJdv4=;
-	b=FCXhnWZOs568AhP4y+H5f0KyTvF/0rVOXdQP4N5yOYnjlB3w6UA0yJqeSrR1EOR8ZpNw
-	 cbnGKoGXwbg+/mAnieo9/kF2uYhkKYrKnb8bE+IA+QEdNJkEbuYuN6K4dxm1lloyZw8Ny
-	 CJiuzUNmnxrdabz4aCnDlP/q0dcOAjyA3Sm5pOmnFHVwv5cz+oUodcrNTgLnkq9PW9eyr
-	 DougfOODJ7zbRxLtSyIO5HRqvA0YpZrkgJU3LZ0qKY9JPdY6Ysg1/pws1ipNHT7eEAA6i
-	 JaZpJJar1N6Hs8yCRK7Z87ivi13RMNXhT+mmcwwyn3YGahkO8FO+6A6cHprGXQoGq3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127417;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aGN87J+fR9ut5Wd+2z7+FR6O85gZ4NXRmC3f+7Jm8Vo=;
+	b=DVbke9rutd8r2EjrI6ZgyibxkxkBPp2jnr3G2cIZgyJ4GdCyF68VPSEBhyt6tErkXhUW
+	 pjyCUo2dxLNPNFOCSx3fMKWmK9nCwue77h+B+pJMbmuKEqdYRGFvUAC+bxIxfAr0gqCSh
+	 LIdlUNYrWFfwFBn2B6309xLlMFHK0qgecXf82AjwlaW7ch2hH4L3AfZoAmGV/uU9Gf/Ka
+	 Lp1IdeaRX1+Li2raimTvYlBz6Oz80WuULr+WL4JZP3bECwmkTedaPOg+NMVlvS8mIjuhI
+	 VpC0q//YbxS+5M9/GuEMlKfyPWNwnkH1Q4S6n9dEdVLywgvbQhavL/avqk+vrgnHInQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+SlQOYJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5lmvdLo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDF9606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:42:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 61A72606A31C;
+	Sun,  8 Nov 2026 08:43:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+SlQOYJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7861F0089F;
-	Sun,  8 Nov 2026 08:42:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5lmvdLo
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 573541F008A1;
+	Sun,  8 Nov 2026 08:43:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794127365;
-	bh=OvMwR2q246pcD5TId5yUQvPErCrIqP4Yqwl75kEJdv4=;
-	h=From:Date:Subject:To:Cc;
-	b=R+SlQOYJPlqMQtkVfLLLVQdln/NbRUqFxW6q8kybGmJI1Ss8JrmkDqLK/CPMlI6as
-	 bIXH2ERjSanKhItHNzpQp2YWjyNIbJLQKMRBKCdsaiTxa+iQRwJ0iv2IK5Lmeqt4hM
-	 ln8SZIfloQ24RJTpkL7MMm8AkApe/fkzdJGLQ7fuN1nzuSK9MMQHP/XQObI2TnFjkz
-	 CHMCXy2uwEqTAXbWzPX0orhE1GqNVNEsTOapZD60AsVPV0SLpQvHGH7aILXYgo9SVh
-	 jJhXEO65lpzewbkcFZBljrIEo2uiIRgtJO+HutILFfIQJnCcX5OWF8pnNCN8C/3Blo
-	 9TazDZceW7c6A==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sun, 08 Nov 2026 10:42:40 +0200
-Subject: [PATCH] xen/events: replace __get_free_pages() with kmalloc()
+	s=k20260515; t=1794127417;
+	bh=aGN87J+fR9ut5Wd+2z7+FR6O85gZ4NXRmC3f+7Jm8Vo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J5lmvdLofW+igzDbnj79eHM7FWRKXZPP7h2YGY4j6A0nVGlnEEvIoKs6+jUSpYOE7
+	 uAZ3wdzOvPSyA65If4hPCyEQrjnOhaB/bmH2SXuG0rPkB+mZutvRm9p+bisx7nSyPq
+	 /cH4sZhK0q2mweLfSvJ90gplPxELAI1QAAdA9BgE7FRHSBr3wTm1Y4LclrXC9zGnM6
+	 JxXmqNwHjHzhlaGy7W6SIxTbXexrvC1hYF5EJZ7dxFkk/trMP5DDAhTnIuU9H02fjl
+	 vvgyP80ncYhlIO7f8JYTyZGNei07mvRmUx/nrqJCLlAyCGE5szEqJfmGuWhcR+Y7Fs
+	 MWoMIad2HGDoA==
+Date: Sun, 8 Nov 2026 09:43:33 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Neal Gompa <neal@gompa.dev>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Hector Martin <marcan@marcan.st>, Sasha Finkelstein <k@chaosmail.tech>, 
+	Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
+ compatible
+Message-ID: <avA1rkMvbmTiJDPC@monoceros>
+References: <20261106-apple-m5-initial-devicetrees-v3-0-cee55de54b2f@cyberchaos.dev>
+ <20261106-apple-m5-initial-devicetrees-v3-5-cee55de54b2f@cyberchaos.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,83 +66,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-b4-xen-v1-1-76095f25cbf4@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QqDMAxFf0XyvDItpeB+ZewhrVEzWByJDkH89
- 7Xb47mccw8wUiaDW3OA0oeNFynQXRrIM8pEjofC4Fsf2+iDS8HtJA67PETfZ+rHAEV+K428/47
- ujz/blp6U11pXI6GRS4qS5zotyhPL9YW2ksJ5fgHuiZ8TigAAAA==
-X-Change-ID: 20260624-b4-xen-a1cd629ce9f4
-To: Juergen Gross <jgross@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org, 
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b3fg2hf65dsjedqn"
+Content-Disposition: inline
+In-Reply-To: <20261106-apple-m5-initial-devicetrees-v3-5-cee55de54b2f@cyberchaos.dev>
 
-set_evtchn_to_irq() allocates a page for the event channel to IRQ
-number software lookup table.
 
-This buffer can be allocated with kmalloc() as there's nothing special
-about it to go directly to the page allocator.
+--b3fg2hf65dsjedqn
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
+ compatible
+MIME-Version: 1.0
 
-kmalloc() provides a better API that does not require ugly casts and
-kfree() does not need to know the size of the freed object.
+On Fri, Nov 06, 2026 at 10:24:54PM +0100, Yureka Lilian wrote:
+> The PWM controller on the Apple silicon t8142 (M5) SoC is compatible
+> with t8103. Add "apple,t8142-fpwm" as SoC specific compatible under
+> "apple,s5l-fpwm".
+>=20
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 
-Performance difference between kmalloc() and __get_free_pages() is not
-measurable as both allocators take an object/page from a per-CPU list for
-fast path allocations.
+Fine for me to let this go through apple-soc.
 
-For the slow path the performance is anyway determined by the amount of
-reclaim involved rather than by what allocator is used.
+Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
 
-Replace use of __get_free_pages() with kmalloc() and free_pages() with
-kfree().
+(I already wrote this in reply to v2 on the same day v3 was sent. So
+just forwarding the tag for v3.)
 
-Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
-This is a (small) part of larger work of replacing page allocator calls
-with kmalloc.
+Best regards
+Uwe
 
-Largely, anything that doesn't need struct page (or a memdesc in the
-future) should just use kmalloc() or kvmalloc() to allocate memory.
-Removing needless calls to page allocator helps with memdesc (aka project
-folio) conversion and gives a nicer API without casts.
----
- drivers/xen/events/events_base.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--b3fg2hf65dsjedqn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index fd16d652c81f2..8c377493429b7 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -230,7 +230,7 @@ static int set_evtchn_to_irq(evtchn_port_t evtchn, unsigned int irq)
- 		if (irq == -1)
- 			return 0;
- 
--		evtchn_row = (int *) __get_free_pages(GFP_KERNEL, 0);
-+		evtchn_row = kmalloc(PAGE_SIZE, GFP_KERNEL);
- 		if (evtchn_row == NULL)
- 			return -ENOMEM;
- 
-@@ -241,7 +241,7 @@ static int set_evtchn_to_irq(evtchn_port_t evtchn, unsigned int irq)
- 		 * thread was faster inserting it, we can drop ours.
- 		 */
- 		if (cmpxchg(&evtchn_to_irq[row], NULL, evtchn_row) != NULL)
--			free_page((unsigned long) evtchn_row);
-+			kfree(evtchn_row);
- 	}
- 
- 	WRITE_ONCE(evtchn_to_irq[row][col], irq);
+-----BEGIN PGP SIGNATURE-----
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20260624-b4-xen-a1cd629ce9f4
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrwNjIACgkQj4D7WH0S
+/k4g3AgAidRfhY4rKgEUhlf2mTx8vkNnUzoHqzB4dpQ+eTv6dAZ8nwRMnCl/9Rjk
+5U87j+aDvbDDT/u1hMpORGXfuDyHH2MWkSp+cjAHupUipA3gwhJdJVq3EC+UfXQ6
+TGrH7CSYlD1Kdyyjvg33m07H2QSgS1PjBHN2MqWHIMwfRdOQtl3NUYheaAK6mhfP
+E6bDg2PVKXLZ2Gb+ONSmFcZnNY7XMpRVLoCJU+QOwBFV5o32XqXK6jCLS8rG3Jbu
+LeYpsRLdPlZ87JVSQDlwsh/NEYrvmBRFaSgN1Lknzp8mI6O/FXJg5nz+Ivl5D20Q
+0ymfj4uU8+HsKvwrRb8uEE/Yq6Pk1g==
+=HKpk
+-----END PGP SIGNATURE-----
 
---
-Sincerely yours,
-Mike.
-
+--b3fg2hf65dsjedqn--
