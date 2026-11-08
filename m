@@ -1,58 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794103879;
-	b=DuPYKntAt0DaqFQ6sIS/Vw6Avvm8Kbq6OJnF2Tik9MlM9D6LaLy2n4QSWc+Wp2Go52IJ
-	 Ov6cCUhfp0v7r+T+ZHUNiWfo+0IPVdl6fCWDBm/dvD51MjRrR7nHi7ghfnOHtL/j34Tbi
-	 7nm2Aea9JV3pXdjSyDhUaMeBIYWN2PykQjK24g/H6K4IIMGU/rFT2BnaCXT0PDLKfqOhZ
-	 0mYb+6K5raQ9gYvLE5Kh87d3GUD4T8M2J1LaaOUFhNd2QO0TaEC4CWscMfL4bIDL0ah+a
-	 QNMhdFCZ2A3DMRAXF4bZoDoZQeINzqDcXmnJDrxP7Vm5XPqka0k2iHRWqrEVldpUE5w==
+	t=1794103973;
+	b=YpJkx8f+m+9279eOYXsBCQsFWVZzSGODNYWc8RPzqdAc08plbfPyhfKs1RuqVjKjqBSN
+	 r5efXeb6VnBzrsBMnaSBo3+xAq5FLyOeH4HyRjEnqSzcr9um2Fr3eBVuqB+G3997RSpGk
+	 EAQxx6Xs/CG4xQbTk4AjQw9Qt1q0ksHP3iOG28e7Q6KRjGQIBfT/BUE4sx7eXINp1EnST
+	 XBK6zoh1I9KNesVPHWODj+oWMqjMYDWK1/x+1Y+jLDnWwFnS2pCNKB0oBa3JUJUEgT1EJ
+	 +oc+L6UHm5JqWUDLLEUOJrZhaztrNtsA1oyfyNHg8rLTCjvEfkMjeqF5FIYZcvAYSTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103879;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=mo/Ifisr6uF13jyRhb7Rytvceb6bZ3F1oSnHvoqB9LY=;
-	b=4hncIeP35PDZNsHVhl9Oe55N8gRAzSpH9o8FiQ1OKVrHicNgQkPbxmztzHbg6cfj3u86
-	 l+PBE+0OU/su8w379kI+k6o9WdvPlXjHIwq3xcqt7iHrDmBl96E62hwsQNYtPujAMSpGD
-	 OLGD8ZFLiU5XzgM6FPpucYL0x6Tdohn3aGZUijO+VrYrrhYLtaqaixlOQA9Kddp8/Y5hk
-	 sYCUUaWfsAciPI0BkI2WWQkBgylTnz0SgrG3y1JwtJ1UKLRuTLggFOa3QPSXYtiDiDVv3
-	 UIcijC1rJU+pyBrQBysm/5REassHJrgIjaTTNYqM8ZiyZdsE+39L6bTsMii+sP8RJLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103973;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=uf1wN3T5LADeJBLEy+5sfNbB1ElO5AgtMXLT9lQ62jE=;
+	b=MiUbx10PP0hDG75Jtn8zhivOAGu4Gpc70KeE3RbzDfxsdOZsCuL2NH+WuIIXDIFYf5VW
+	 yG+NaoAPxyeje/9MHaAm5M/uBOrtXH/iDT7P5ainZ8J4dHPcUoVLF025knoxaXVw6VUrD
+	 +GJvuCY6WCtq2hC9aDHKMtO8QKowm+A1qwSgTdASb/MNg/3S3J1YkANLF+5jl0mFZDuDv
+	 G/vZNp0LhAwKFGjIrLMBs94p7nJCDW50SiMrdRBFuKoV/7ZbaFWT2dgBCHZ10buh0LAV8
+	 5ogeMpdBPpTVZW+eFz4n5OFpXppimPk+rLCzVAacAgR5nH+50JmGDUKk585L0zUVeEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoB3E8wr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=deYmsiU7;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96CA606A31C;
-	Sun,  8 Nov 2026 02:11:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C82606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C82606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoB3E8wr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154651F0089F;
-	Sun,  8 Nov 2026 02:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794103878;
-	bh=mo/Ifisr6uF13jyRhb7Rytvceb6bZ3F1oSnHvoqB9LY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DoB3E8wrWqNr+Z/dTJDg0FRgdJNgxXTKfwYt2uKSppCvWIyo4TY2TLqdwLAV9Fqp9
-	 H+NJm67lqgjDRWjeGriben+oOuj0tnTySkxDr0NguxJvJqkeE+sAbirkjCPTGWy4Lx
-	 YgWKgxNb1LnhI5jrsfTkzsdM+G11Kc91Yc3b+PHG17KVSWfsFyD5z7B4tBMta5rAMP
-	 1eWAh3SK7ylhZLYWkaDxw4TCvo4nRE0m1BJBU3nL0IAL/Dre+I55KV1/unXQ0HUBlG
-	 I6OGxn1u5ItJwBWbPoHUuPCtMw0c2c5cKSz/6PKnhPFepTx4kDSPxZn9j1mt15tZ8B
-	 6V+yVMzn5RjyQ==
-Subject: Re: [PATCH net v2 1/2] xfrm: fix IPv6 first-fragment protocol decode
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Sun, 08 Nov 2026 02:11:17 +0000
-Message-ID: <179410387761.994134.6172658851496311106@kernel.org>
-In-Reply-To: <20261103225842.3204446-3-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261103225842.3204446-3-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=deYmsiU7
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7B0D040E03BE;
+	Sun,  8 Nov 2026 02:12:49 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id tixrzEljs29d; Sun,  8 Nov 2026 02:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794103965; bh=uf1wN3T5LADeJBLEy+5sfNbB1ElO5AgtMXLT9lQ62jE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=deYmsiU7FucEWM8mO49mM4cxQUhkEhWcFsUSmmatrpbY/T3o5bgth6WNCfJmL2tZ5
+	 E5Gs9piXIpzr8kS9Y7mXk7klcnY3lQC64np1MW7D9zNA5h2alekkbYQlvKy0M7j9nJ
+	 8Q9yaqP/n4a8Irhw2KJrim0QDg246xvWkJcbmfAoC28XweubyEsLkBhoSQm1/cXROy
+	 k0upAgbCU/gQbsr4i5NuY2PZSIEcBfQ+BMOW/bEYYeNUADldT565Js1Eo1YIjoPmch
+	 6gsHxCoIhlzRKk05o3kY4YYI0icJdAWWzwQtrLiXxvroQdQEgH/TqPI0XmGuJjWvM5
+	 0Tp2rY/ED10gyEKOWKYh0ShPw4esEKxmhWoyNBPFm+1gBy7BOMlDuunbE6Z+qJp+AD
+	 i5RyK7claYCJDTj3Hhy1iweE4IMDu5iDk0PC1t1zub4ZcwoYllkqZuy310ThOLBk/2
+	 /LNVsgajHZ0KVFVTJiepYmS8MeyfrCqrzYfg2XdLk03KhPmz82AjRXagQwu8oTVwRn
+	 3ixKKLgjI/Pg+5JmRTX8LOPaFt6sk0MS2Ol6Hyy9XiIcJrd2g4pg/LnjeQ2oERK3Fi
+	 00+eg6Gs/hXt46hybIRAjTAdL5kTe5OanNa/dWSNJgn0jmp094CzlIjSpGZfHbCT7g
+	 Or2G1yo4mRt1kpZNRi7N3lIo=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 41E1D40E016C;
+	Sun,  8 Nov 2026 02:12:40 +0000 (UTC)
+Date: Sat, 7 Nov 2026 18:12:37 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Melody Wang <huibo.wang@amd.com>
+Cc: x86@kernel.org, LKML <linux-kernel@vger.kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>, ardb@kernel.org
+Subject: Re: [PATCH v6 1/7] x86/sev: Add support for Alternate Injection
+Message-ID: <20261108021237.GCau_alfV8je8IybOB@fat_crate.local>
+References: <cover.1793926736.git.huibo.wang@amd.com>
+ <53a087641c5755da7490f687652af3d07a0fafb8.1793926736.git.huibo.wang@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,106 +80,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <53a087641c5755da7490f687652af3d07a0fafb8.1793926736.git.huibo.wang@amd.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Fri, Nov 06, 2026 at 01:25:27AM +0000, Melody Wang wrote:
+> The Alternate Injection feature is a method to protect a SNP guest from
+> malicious injection attacks. It allows the guest to control the
+> interrupt injection.
+> 
+> When this feature is enabled, interrupts are injected with the help of
+> an agent called a Secure VM Service Module (SVSM) which executes in the
+> security realm of the guest and uses Restricted Injection as the sole
+> method to receive interrupts from the hypervisor.
+> 
+> Add support for Alternate Injection.
 
-Low priority / nit picks for your consideration:
+Just commit message touch ups:
 
-- [Low] The commit message describes the bug only as an IPv6 atomic
-  fragment followed by extension headers that is mis-classified on the…
-
---
-
-xfrm: fix IPv6 first-fragment protocol decode
-
-This commit makes __xfrm_decode_session() pass
-FLOW_DISSECTOR_F_PARSE_1ST_FRAG to the flow dissector for IPv6. With that
-flag, first fragments are walked through to the upper-layer protocol. It
-also keeps the port, ICMPv6 and GRE selector fields in decode_session6()
-zero for all fragments.
-
-> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-> index cea6842e6454d..4f6a5b81e3b5a 100644
-> --- a/net/xfrm/xfrm_policy.c
-> +++ b/net/xfrm/xfrm_policy.c
-
-[ ... ]
-
-> @@ -3511,10 +3517,13 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
->  			  unsigned int family, int reverse)
->  {
->  	struct xfrm_flow_keys flkeys;
-> +	unsigned int flags = FLOW_DISSECTOR_F_STOP_AT_ENCAP;
->  
->  	memset(&flkeys, 0, sizeof(flkeys));
-> +	if (family == AF_INET6)
-> +		flags |= FLOW_DISSECTOR_F_PARSE_1ST_FRAG;
->  	__skb_flow_dissect(net, skb, &xfrm_session_dissector, &flkeys,
-> -			   NULL, 0, 0, 0, FLOW_DISSECTOR_F_STOP_AT_ENCAP);
-> +			   NULL, 0, 0, 0, flags);
-
-[Severity: Low]
-This isn't a bug, but does the commit message describe a narrower scope
-than the code change? The message says:
-
-    For an atomic fragment followed by extension headers, inbound policy
-    lookup can therefore see the header after Fragment instead of the
-    actual upper-layer protocol and miss protocol selectors.
-
-The flag is set for every AF_INET6 decode. That means the change covers
-all IPv6 first fragments (offset 0, with or without MF) in every policy
-direction, not only inbound atomic fragments.
-
-On a router without nf_defrag_ipv6, fragments reach ip6_forward() without
-being reassembled. Both of these lookups go through
-__xfrm_decode_session():
-
-ip6_forward()
-    xfrm6_policy_check(NULL, XFRM_POLICY_FWD, skb)
-    xfrm6_route_forward(skb)
-
-A non-atomic first fragment is now classified by its real L4 protocol
-(for example UDP). Non-first fragments still stop early in
-__skb_flow_dissect():
-
-net/core/flow_dissector.c:__skb_flow_dissect() {
-    ...
-	case NEXTHDR_FRAGMENT: {
-	...
-		ip_proto = fh->nexthdr;
-
-		if (!(fh->frag_off & htons(IP6_OFFSET))) {
-			key_control->flags |= FLOW_DIS_FIRST_FRAG;
-			if (flags & FLOW_DISSECTOR_F_PARSE_1ST_FRAG) {
-				fdret = FLOW_DISSECT_RET_IPPROTO_AGAIN;
-				break;
-			}
-		}
-
-		fdret = FLOW_DISSECT_RET_OUT_GOOD;
-    ...
-}
-
-So the first fragment of a forwarded datagram can now be matched against
-FWD and OUT policies with a different protocol than its later fragments.
-With a destination options header after Fragment, the first fragment
-uses 17 and the later ones use 60. Before this patch, all of them used
-60.
-
-This is close to how the decoder behaved before 7a0207094f1b, so it is
-not a functional regression. Could the commit message mention the
-forward path and non-atomic first fragments? Stable backporters with
-protocol-specific tunnel or required policies on gateways will see a
-change in how forwarded fragmented traffic is handled.
-
-Could the message also say plainly that missing protocol selectors means
-plaintext traffic can bypass IPsec enforcement when the default policy
-accepts?
-
-The following patch, "xfrm: fix selector matching for IPv6 atomic
-fragments", does not change this.
+    Alternate Injection is a method to protect a SNP guest from malicious injection
+    attacks by allowing the guest to control the injection.
+    
+    When this feature is enabled, interrupts are injected with the help of an agent
+    called a Secure VM Service Module (SVSM) which executes in the security realm of
+    the guest and uses Restricted Injection as the sole method to receive interrupts
+    from the hypervisor.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103225842.3204446-2-Jeremy.Jean%40oss.cyber.gouv.fr
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
