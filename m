@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794115430;
-	b=OJv0+Oj73vknF7GQaQ2xBUBeBOU4MtL4yFLSdKgVeKJG8o1oH9BX1k065IIZRhREi89k
-	 8iuKB7vCBWFtAfBugOBbg1uwoK4DoonxXjYqELDzufmHdrAP5c71B3N68wSQkaF9xSRiI
-	 1Wb53Iscc3dIheALOn4GOGUXULmCjNvqt1LL6XYcTZNfXxaNGY1mYIsrciRzGDUF56Vb9
-	 V09cLKIbS9ddKgzNfaBXKLDHoQfYiaKiKZIlzlHjgtRpVANsiUSf6sK0BmY9d/IvxVRww
-	 cylrVF26MJpaucDMkip7lpBTYJ0rVzay6Ux6VrgtbAiHOTnbhGjTKFbAEf+w/YF9clg==
+	t=1794115493;
+	b=EWqKYHesu4hShit0qfH8FrhqwtMStrH9eJ3+40JPCHMUEz93cBL3WfPM9b+JQdtnipFm
+	 SRUW5n93KjH+fHRDp5RZIUEkK9Nymmo9nidW8uUEfs5mTNSARBselttdfuLcl6go2ZH92
+	 kfCRap94B8D9c8NvkAff5xDH0loC/F6+IlJDT/QDXVTqjE8QacoiU67Um6CjgQd141i5k
+	 BdcGxX5XCIAxu4izf38JYmr+180twhtYznkb4mi9zG3+kL3mgJdwLzv5Fc97IvqxdHD8g
+	 d5nHNCffO9jGqFJge1eKkqdCZl/naI0fnLBJned5w/lXNv2Ek9WaQR0nvOc4YU9HpUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794115430;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794115493;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=nPcc1C6VpjmCET3tBtMp/wreo0ZSVB6OHb06Azdk0dk=;
-	b=Y4Ws4gayXCJc6PJMsGoTYNiRjIFyV6nvbWqOMMh6Epc12g4YxTlqoAcOPXEHQ5v7Ynyf
-	 Y67CibADAGnUQKAf13DqYmrkhiASIIza77J86Rdqe2aRCcI6XJN/J2kX2dZS0qRLcUivE
-	 O5u1qTB2YCuvD098ERlKSHctBPvkkW5QDSso1YAUQ/cKlIg2lWwVOm01VW47K9mFEq4Tm
-	 aEE7I/AAGFqsBkmP8SSk/bCp12IlkRugRbKg4pGr3M5EDYngLWoC5rIic7PnvM4UtZ+w3
-	 okC6JR1f0/4675xUs8LgNsbPg9SOc2daaQZsjt/69CV/lG0kfETgia1z10o3P1EXCZw==
+	bh=lk+rm88B0oTn3JFpBCPa55zvIWRJD/9kM2yE66jnksQ=;
+	b=4Wu2+fjj3vYtGhpBLShsjOr/9Q2pTnRLnA4QjEsiB0kqjeg/loHluyqUPsv6panvsTzW
+	 +TLZYfxaEsAUwNTyE4aQP6451TfdpoiHnrt1CApqSGbjKr075zrM++esXx4Urdb430w78
+	 xlM+gWEkAqitH8Z34opUk3fly9ZWtQwq8zufo1puzM3OVhnk6OEBDVJoWMbMBRBd0YGKl
+	 GTzTDLltLfZGUqp8s4f7rylV+YZbUrV9vGm9ob7AxP5NhSs10FpKto4gRcdLOef7fRIV+
+	 u4IbaU4Tq70Ihsl4PZnWTzC8pjyBdfxE/NpNdnB+NLnBFDdyqenlCpKnjokBjHT4HQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Htn3eK60;
-	arc=none smtp.remote-ip=74.125.227.198
-Received: from mail-pi2-f6.google.com (mail-pi2-f6.google.com [74.125.227.198])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1GsTo57;
+	arc=none smtp.remote-ip=74.125.230.193
+Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F41606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3F41606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01B4606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:24:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F01B4606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Htn3eK60
-Received: by mail-pi2-f6.google.com with SMTP id 41be03b00d2f7-cdb536daf59so102844a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:23:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1GsTo57
+Received: by mail-qk2-f1.google.com with SMTP id d75a77b69052e-534b7b19206so2850641cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:24:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794115428; x=1794720228; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794115492; x=1794720292; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nPcc1C6VpjmCET3tBtMp/wreo0ZSVB6OHb06Azdk0dk=;
-        b=Htn3eK60m0fQRkOycYcybiHKS7qAvG3OPf96vkbPHu3ZMD+I4mmiMAPe68wmhbHVTt
-         vxAPUKAv1z2J3z/NRLXfSKprxbijGyufzKyoYOqAA5SbTOwawftDj9+8gTgtbVJ6prDY
-         9WxAz4dTJn+3zq8YJvw5Vfg6lDKh4sbhLzEodt3FWORDmigghMogbYFCj59dCmA8kfUm
-         kU+NjTMyf124tunHVWlN6A+wsV4paSiULd8JLDEGi+Fy4j0Kbg5RHGBozgSv4W6eUvBa
-         eaovykhBE6DKW6iKusPOf3vbIXY/QHrwLadW7tGN/RGs9QYo114QnO6lYAJ46jQfJlMr
-         ShAQ==
+        bh=lk+rm88B0oTn3JFpBCPa55zvIWRJD/9kM2yE66jnksQ=;
+        b=S1GsTo57AxOCV91sywu/ID1HZT25DnHCqy4omjZRaoxKM9pvL2R5jJlGpigiazXIoa
+         Zn9aKYvfDLBV7LT87E6zOV3aqYxJMtuucbXAcu7r9pKqAEtnRt7bTnZsgEk8ujeNvbKp
+         PKs487c/Wlkqa+ENvEd1/xxPoDJJEzFLA17ix5SC2M96XjntGmob6p6FyEcCcfPkD3bH
+         rJm8/xIqKUMQ8eyjzeuqcOEXcLp0pd0KmsxMNLYrR0ouuOUlvoK6rTLMQ+JwKe1zxa8K
+         d04Md+aJ1x3RD/6laoHFimo0k6peTAbCvHCPNnVcYgm39LY7WWyByb79nuPWo++r5DTX
+         wy/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794115428; x=1794720228;
+        d=1e100.net; s=20260707; t=1794115492; x=1794720292;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nPcc1C6VpjmCET3tBtMp/wreo0ZSVB6OHb06Azdk0dk=;
-        b=FEdaQu1lhUjmH01Pwq5/0/RdCmHHXVhtgfLl8bR9EHZYATHf2ejF8mM/EXvRLaqJuT
-         iupjoU+opIogrodj6CuSiqE7DZaJS7pgvJi/5ku3wz1VZk0tdaDUIyWyeDX+bP/F0uTl
-         FqHTMVUVyNKBiw4BnhbFjJWjwLsnTErIBjYM1X+IoUtT9c0NURTvHhaUU+tHWXeLKBMX
-         pMwAqFgCHPBezyQL89ihfaWsOsfMdze6VBngumntWmHiTse2mOZBArBzKICm3Kzr8+k9
-         n8c8yx6awROmENAhln9HCbp1+6U4WILH9MFa0toqoyVPT9d4vYhiBvlF1v4t5fCysOYe
-         UWSg==
-X-Forwarded-Encrypted: i=1; AL+hErFVbwQLyUis6oRcej2xtun5Tdqhh1+2m7XDnnjDx6e3wlBmCxTC7V8jNHSAprO9TS+in6vzQESyP7JjUus=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5IfGa8LUt1o1cDNiSMROFP3Ss9SU6nrOHPdVUsGcH3c86ULdY
-	rkoqxSFLLJtVthD8ad4SFX8a1MQKon9VdSmsvd5ccJE+TEv18gKH0+OO
-X-Gm-Gg: AYBFou29i+7nNQU20Z7wbd3HsKn8WJQ+ndbr1DNPB2ZdgGFrHO6B7ChFUlHSo109+Hd
-	YnEpVUW2ltPL7RMNMUdDRZh8s0dF/OjmrjZcSNt0Ncf13w1chprbGLWEsXsg1EyXYbbb+6+PLl0
-	YSsN3gQCKOy+5uHphl5sYuO8YhAByxc4Krx5D4hI49+Nbr8th7UPUCPJKhUMReuUz8Up+Mbe0LB
-	XNjt+DbkwMueIPiRGbNSflQC0We0eA/fo3h5zsZoz/457Rdq/6yOHQvfw2w2iDOCQ9ctRhlA6jJ
-	vCOlI5eqKJv86etHJqHGPy1iteRVSG4ntL2UF/WBKSWp99A7bA20Z3GoBDotCHZL/+FA5JdeA/u
-	dc8f+WM0aNeYT7wI5GC+DHVmC3L5ActXPYqai/LnsSB+LTCZi/QVvjY6/e3QgFZtUBmXjCfo5NE
-	ovwTqmDKbeYVtT4HoNn6NodPsQnWYwZntwgPJsIT4bR90HL/c8RKYyVy3+0Lxej5KkmS7zDHa+c
-	NxooggqCOkpVnPU1FXe9pn0g2BPucpK0xZ7X5uRkXkswzDt32s9kPRFkgwgSZY6jw1/VT/l9Zhg
-	PbeL4gQPp5mbxmH80I6lA5ci4uOvoy7EVqsMimjWHI8RitTiQjZVsNZq/gZdFqFmNY2wLZr62Hm
-	B2xw5RnwDl/KkJ88pL2VniJIv33hKq9y7l0eALVjoidH0Tug=
-X-Received: by 2002:a05:6a00:3313:b0:890:a995:1f61 with SMTP id d2e1a72fcca58-8b66ef0603fmr596011b3a.15.1794115428353;
-        Sat, 07 Nov 2026 21:23:48 -0800 (PST)
+        bh=lk+rm88B0oTn3JFpBCPa55zvIWRJD/9kM2yE66jnksQ=;
+        b=jDL4tAlJZCWP/BUSHn1Hk14mKF1Cu8ddfPNVhHk5qso6JM2hB4Jyq2V6DlolJ+6GU/
+         /yPh1/3fbwaPxjNBB5KAeyh8BDJLrzb3tek/y5csZHikUkVxI9LiUZFRAcjKHkgjHCTu
+         7KOASlmtvfyWU/VbkZy6X2WI7qXj2/0T/b6PMePcX++BG8QcjUbueWMMxSUV/AK1EK0o
+         alIExCCpLzJ5EFELtoqMT2JSRQTW3HtNOQYrr3iJRK/pN194nfOyF2Iizh78yJUsdIph
+         07ZZN9y7ppe5MZzQOVt3Rtc2+7dO+mqj68t17H6MgHa290aOeQGMMqfbrRLjKJKwA+8a
+         YhpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwcQPJgfsKougPLiiFlpgSouhQ7lOuQZ8s9l3Mk5emcl7HSfCZTNaDKMzkCXmqN8ChXVI2kVaS++j65VEo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0zrTX6A/dJyXdiyTAyhtEEPdr231PG5kvft476GZnRJk1NhP1
+	QNsl030SmCbHclELCdfUv9qwZC6wLVA33g+VKh+NzP6ntEnWEXD1PT54
+X-Gm-Gg: AYBFou2D0riyhkIecIVxB4ZyNokVu80CC/k7+njVLpRMuF02BkJHJ/GbxH8sPfeDkPT
+	AM6TJB8oiKd07x2iC2p1I/vt3N/b1HHIRxUC4GOYdhu1eiqn7BXScN+4qlwIUdnwo6XWrQwcTDw
+	b4/ewvDFnNLs37f54/YftVOg3USRA3flwXGdnrSDmfb3odU4xmnglrW/AqTelUd07GJX5pWYHB0
+	sa5LeA30bay1FRlkRBzpxB6mqCrf1drvYmJteuheZKvKiWj0K/x3ZRYMU47DfjgaUDkqcb3ven7
+	SrBhFMEz/50+HATWh9mnJ4g4X54P0ipXxjt6aV8B2pzDht21SzRiOXez1R08uHBIzRLGxfVK5C2
+	SQzZC7ayAzFNCmeYACWljSVKg4t7V4G2Wx/he2fQatE4aEYIZvx5t190EtoZqU9NjRCamQvnOvH
+	tlkcqml8ZSXhqknHxrTq56OKjfzb6SL/xB7TGgjCqYvJ4HGJMZpyckomTKVjsL4MvuadMi/tiyH
+	bGkn73Xyco91IVmoXN8OFTViKOAbuEiGyT5YZ+txzVI6Q5q/zmWBpkSpnaqYWaJ9Q21u7KbbXXd
+	dqCfZwQrf2wjUZkaUg2NuX0PkAwzs6yKpfUkvpDlT16jjPR78XIy2KJp0kh+drNmc1hjkdAZADo
+	t4ldkiSnPszop1UGHLAkSy2IAeg==
+X-Received: by 2002:a05:622a:1c0e:b0:536:65fb:fff5 with SMTP id d75a77b69052e-552a59777b8mr7617241cf.60.1794115491901;
+        Sat, 07 Nov 2026 21:24:51 -0800 (PST)
 Received: from [192.168.50.20] (42-98-155-143.static.netvigator.com. [42.98.155.143])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b646bd4af6sm281341b3a.2.2026.11.07.21.23.34
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55264249f97sm10491941cf.14.2026.11.07.21.24.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 21:23:48 -0800 (PST)
+        Sat, 07 Nov 2026 21:24:51 -0800 (PST)
 From: Aveline Noir <jm5905938@gmail.com>
-Date: Sun, 08 Nov 2026 16:13:33 +1100
-Subject: [PATCH 1/2] drm/amdkfd: handle SVM interval notifier registration
- failures
+Date: Sun, 08 Nov 2026 16:13:34 +1100
+Subject: [PATCH 2/2] drm/amdkfd: check HMM errors before testing range
+ validity
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-kfd-svm-baseline-errors-20261107-v1-1-9ef4008019ab@gmail.com>
+Message-Id: <20261108-kfd-svm-baseline-errors-20261107-v1-2-9ef4008019ab@gmail.com>
 References: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
 In-Reply-To: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
 To: Felix Kuehling <Felix.Kuehling@amd.com>, 
@@ -108,161 +108,33 @@ Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-The first interval notifier registration for an mm can fail while
-initializing the interval tree. svm_range_add_notifier_locked() ignores
-that error, so SET_ATTR and retry-fault handling can publish an SVM range
-without a registered notifier. Subsequent HMM access can then dereference
-an uninitialized notifier.
+If the first PFN-array allocation in amdgpu_hmm_range_get_pages() fails,
+the allocated HMM range still has a NULL notifier. The validity condition
+in svm_range_validate_and_map() calls amdgpu_hmm_range_valid() before
+checking the error, dereferencing that NULL notifier.
 
-Propagate the registration error and register staged ranges before
-publishing the SET_ATTR transaction. Remove successful registrations on
-failure before freeing the staged ranges, preserving the original ranges
-and the existing memory-accounting rollback. Also free an unpublished
-retry-fault range and return its registration error.
+Check the error first so failed requests retain their original error and
+reach the existing cleanup without testing an uninitialized HMM range.
 
-Fixes: b1c46c7d622b ("drm/amdkfd: validate svm range system memory")
+Fixes: c0de552910bb ("drm/amdkfd: clean up the code to free hmm_range")
 Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 56 +++++++++++++++++++++++++++---------
- 1 file changed, 43 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ed5e3318877b..8184cbbb829e 100644
+index 8184cbbb829e..79455e23a030 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -106,16 +106,21 @@ static void svm_range_unlink(struct svm_range *prange)
- 		interval_tree_remove(&prange->it_node, &prange->svms->objects);
- }
- 
--static void
-+static int
- svm_range_add_notifier_locked(struct mm_struct *mm, struct svm_range *prange)
- {
-+	int r;
-+
- 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms,
- 		 prange, prange->start, prange->last);
- 
--	mmu_interval_notifier_insert_locked(&prange->notifier, mm,
-+	r = mmu_interval_notifier_insert_locked(&prange->notifier, mm,
- 				     prange->start << PAGE_SHIFT,
- 				     prange->npages << PAGE_SHIFT,
- 				     &svm_range_mn_ops);
-+	if (r)
-+		prange->notifier.mm = NULL;
-+	return r;
- }
- 
- /**
-@@ -2257,6 +2262,7 @@ svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
- /**
-  * svm_range_add - add svm range and handle overlap
-  * @p: the range add to this process svms
-+ * @mm: the process address space, write locked by the caller
-  * @start: page size aligned
-  * @size: page size aligned
-  * @nattr: number of attributes
-@@ -2285,7 +2291,8 @@ svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
-  * 0 - OK, otherwise error code
-  */
- static int
--svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
-+svm_range_add(struct kfd_process *p, struct mm_struct *mm,
-+	      uint64_t start, uint64_t size,
- 	      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
- 	      struct list_head *update_list, struct list_head *insert_list,
- 	      struct list_head *remove_list, struct list_head *remap_list)
-@@ -2373,17 +2380,38 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 	}
- 
- 	/* add a final range at the end if needed */
--	if (start <= last)
-+	if (start <= last) {
- 		r = svm_range_split_new(svms, start, last,
- 					READ_ONCE(max_svm_range_pages),
- 					&new_list, update_list);
-+		if (r)
-+			goto out;
-+	}
-+
-+	/* Register all notifiers before publishing any of the new ranges. */
-+	list_for_each_entry(prange, &new_list, list) {
-+		r = svm_range_add_notifier_locked(mm, prange);
-+		if (r)
-+			goto out;
-+	}
-+	list_for_each_entry(prange, insert_list, list) {
-+		r = svm_range_add_notifier_locked(mm, prange);
-+		if (r)
-+			goto out;
-+	}
- 
- out:
- 	if (r) {
--		list_for_each_entry_safe(prange, tmp, insert_list, list)
-+		list_for_each_entry_safe(prange, tmp, insert_list, list) {
-+			if (prange->notifier.mm)
-+				mmu_interval_notifier_remove(&prange->notifier);
- 			svm_range_free(prange, false);
--		list_for_each_entry_safe(prange, tmp, &new_list, list)
-+		}
-+		list_for_each_entry_safe(prange, tmp, &new_list, list) {
-+			if (prange->notifier.mm)
-+				mmu_interval_notifier_remove(&prange->notifier);
- 			svm_range_free(prange, true);
-+		}
- 	} else {
- 		list_splice(&new_list, insert_list);
- 	}
-@@ -3011,8 +3039,12 @@ svm_range *svm_range_create_unregistered_range(struct kfd_node *node,
- 	if (is_heap_stack)
- 		prange->preferred_loc = KFD_IOCTL_SVM_LOCATION_SYSMEM;
- 
-+	r = svm_range_add_notifier_locked(mm, prange);
-+	if (r) {
-+		svm_range_free(prange, true);
-+		return ERR_PTR(r);
-+	}
- 	svm_range_add_to_svms(prange);
--	svm_range_add_notifier_locked(mm, prange);
- 
- 	return prange;
- }
-@@ -3203,11 +3235,11 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 			goto retry_write_locked;
+@@ -1901,7 +1901,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 		 * Override return value to TRY AGAIN only if prior returns
+ 		 * were successful
+ 		 */
+-		if (range && !amdgpu_hmm_range_valid(range) && !r) {
++		if (!r && range && !amdgpu_hmm_range_valid(range)) {
+ 			pr_debug("hmm update the range, need validate again\n");
+ 			r = -EAGAIN;
  		}
- 		prange = svm_range_create_unregistered_range(node, p, mm, addr);
--		if (!prange) {
-+		if (IS_ERR_OR_NULL(prange)) {
- 			pr_debug("failed to create unregistered range svms 0x%p address [0x%llx]\n",
- 				 svms, addr);
- 			mmap_write_downgrade(mm);
--			r = -EFAULT;
-+			r = prange ? PTR_ERR(prange) : -EFAULT;
- 			goto out_unlock_svms;
- 		}
- 	}
-@@ -3839,7 +3871,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 	mutex_lock(&svms->lock);
- 
- 	/* Add new range and split existing ranges as needed */
--	r = svm_range_add(p, start, size, nattr, attrs, &update_list,
-+	r = svm_range_add(p, mm, start, size, nattr, attrs, &update_list,
- 			  &insert_list, &remove_list, &remap_list);
- 	if (r) {
- 		mutex_unlock(&svms->lock);
-@@ -3847,10 +3879,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 		goto out;
- 	}
- 	/* Apply changes as a transaction */
--	list_for_each_entry_safe(prange, next, &insert_list, list) {
-+	list_for_each_entry_safe(prange, next, &insert_list, list)
- 		svm_range_add_to_svms(prange);
--		svm_range_add_notifier_locked(mm, prange);
--	}
- 
- 	list_for_each_entry(prange, &update_list, update_list)
- 		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
 
 -- 
 2.56.0
