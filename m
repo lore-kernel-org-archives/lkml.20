@@ -1,59 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794100990;
-	b=G891IcEQSHzAUDQzhGsEZ9r/+WZaRaNYxTzaK7VpgBZJ0ORt3eAXFTy4Ktu7Z2obG3ox
-	 I2WVQwy+OoG0v1GlO7uYKs908KRBSxcaf8TI0u9uQSb7FmopIapR/ug1J9kkUDc/Cz4AT
-	 jRnDaheX3mOa+GzbKE3UdsUsJQDFTVGIvDqv2C3hj1WswPEDPwd3d+uqsiKfySgA5BHYo
-	 fyeILCEn5tBmaM78QQLX+HKJ/sEv+C+Apdz8uf1dO7GZTFnOCSHWXeE/8gYsNkgi0Y8f6
-	 leLBkdVUipH/kdmzg8T1nPRXBLddHtVQyKV2FlEJFlPIkslpytcZkNQFw+7gDaP4+pQ==
+	t=1794101012;
+	b=fVSGAwbULCOsReUFW5hhUHu5dpIzmYGiJIBuBGOldh54qxTdw5QrqiAfYQzSgLca+kIH
+	 EX95Q0fmSXFCvSB61IIp2//LvUDlB5yW6j54voLh8j3On9WXGyX1qVTkxnPffRYqK5oLr
+	 tWSmrdq1z2BJTzkVePFyCRBE903Sg8qOUpJCjrAcwQgyHbghAcXN+9JcwGlPO0Eem9219
+	 M2V2Na8C49BH3q9Q6U0p834Kkb5V1y8zvLbRfJn6oy41OohP0hXAGgbdu/NKftWI+n8ZK
+	 nen3z3i8JY8Ty3ajfb2UjADNDXZFyhAIIY8LkZrERYAOJf89lfDFNeyQN2SdtK3bqNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794100990;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0Hhx1lgBK0aFxl8xffENzmOWdnlm69gGFSyOYkCk8Bs=;
-	b=E9Mwp8Td9dF5veSBniZhJc1DTYyedYausyZgaVWjbpRPrsMryzjb1KtXpCKJyfjy6rj8
-	 9pfuFwaNYrQezTTLsU2aymSckQS1+1FS6Ux1vTIdqLbZOloHOJP3TAYPBj2ZBbcL3lC5w
-	 bDhSXrMh1S+xN6xWdupBNuIp648Ml4dp0qffzoFReaqdrMbqFEarw1kyAAn3ZRcCuDbMT
-	 cdUH0bOMZS3ECLl33EHywP1YOvgMTcqnlnqbMzif+qapgvC13qR6PZgr4VBR7dfQeee2f
-	 bb58BD1nUHGx1e4FpSzANAOUMPYU3g6/CEZc9/YXtxSGqkCp0iflQhB1Y4cU9OnY39A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794101012;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EaQPKJIgHcZvrcBYOXtJ/XqbYityXldTm39GT/47PWU=;
+	b=3sCjaODU9xKVuHFMGVkWnGvREO/fXyKfFlNIFghguPzZS8ZYISMo1mXXapZYoc1/9/yu
+	 juSEwET+XIKTz3pw4FIpB5OtVQXoIpQ0wiMfDg8B29u0K+zlGZF/CaXz8ts0pqYz4+SsB
+	 KXer522pXcW33vASwNbcjI87CCxBYbUdGKmm61Y1xOGYxHqclJ0tds+WT8z772WB5w/dX
+	 ApSAz4HcQ3nuJHudCQFFNZgko/aY/QPMb/fAfYvAyJ48M4S5SmQ4q+QYT3snJ202nBcI1
+	 nT9Waf1TEYuAzwbjUnhoi24h6lSgrwNV3RMJOvzScjRSKg20GILSaGibsd4hh7YAu4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+muTwgu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ve2niqA4;
+	arc=none smtp.remote-ip=74.125.224.130
+Received: from mail-yx2-f2.google.com (mail-yx2-f2.google.com [74.125.224.130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656EC606A326;
-	Sun,  8 Nov 2026 01:23:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F96A606A330
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:23:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F96A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+muTwgu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655A91F0089F;
-	Sun,  8 Nov 2026 01:23:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794100989;
-	bh=0Hhx1lgBK0aFxl8xffENzmOWdnlm69gGFSyOYkCk8Bs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=m+muTwguWiOr2UBmGB896Epd8SufPKQhf/KvRFs8937FJzyCEV1hq39IJ530y8U+s
-	 lxHfrHoyQnC2tS/lsEczkGy3jRsL7k48VX9tZYXG1VGy+Sv46obHUJc8IDNSn7+V1Z
-	 wfYeR8dAVGW5fowR9V6TMOYTtDAQ+BR9hwlvlPvXLn5oEab342LqEL9SDrzoo0LptI
-	 R3Ad7NAQdgqqs6s9xQhD9faNtqLVkrPY4EgyEg4oJgVVljkzEhusHhCqONBVRJUM3h
-	 9kNOEssyg8uDsteeowyLFZDUPEptQEItVX7Tp5ubHd7njoezfDza1STRFUP9PwWJBa
-	 IgcOmNa8vclDQ==
-Date: Sun, 8 Nov 2026 01:23:02 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Rupesh Majhi <zoone.rupert@gmail.com>, Andy Shevchenko
- <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Eddie James
- <eajames@linux.ibm.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: pressure: dps310: put the chip in standby on
- remove
-Message-ID: <20261108012302.3d5be612@jic23-hlaptop>
-In-Reply-To: <20261104091415.710751-1-paulius.zaleckas@gmail.com>
-References: <20261102072755.17043-1-zoone.rupert@gmail.com>
-	<20261104091415.710751-1-paulius.zaleckas@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ve2niqA4
+Received: by mail-yx2-f2.google.com with SMTP id 956f58d0204a3-67beadb6dbfso70562d50.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 17:23:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794101011; x=1794705811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EaQPKJIgHcZvrcBYOXtJ/XqbYityXldTm39GT/47PWU=;
+        b=ve2niqA4RDDgqG+tXiwhezhKV6NJswF1w8qz+PAiVqAlFyszJ747lOV6zyz0reC2oo
+         yTj/ZXUixO8tzwURePEyX4s6MjwoJds/GXeP9+3LWbzHrnKop5kbdcqvB49a55P31421
+         j3ilVims/jD1ENNWTKmYPtZuOEoXo4dE+nJ10Q/uQ7uKVFcdFAp6VOpWD7M/D3VzNwIO
+         DFPhCk12Wgg2JRjAPfQP3mBXJ/YVXX8QOqelCM6gZU50wg7u0X/K0diqfQ9nvXmMvRJL
+         FFt7EsQ4LU1xFLkC1d8HwHp8TJm6opmUDdT+MX2weBj0/fPXsLo/zfhm4ve+bojCd9IF
+         XAXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794101011; x=1794705811;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EaQPKJIgHcZvrcBYOXtJ/XqbYityXldTm39GT/47PWU=;
+        b=FueNYGC1WnzgLwSMzYvae0OTLDPbAkza9CUi1wRJ0cwVUCpGulvsO3jjhPN4AwHem6
+         g+d5704NP337O1erePRThmkoYNHdEdjjsyhUS9GXTI69/lugzWZAfZEND1wrzdsn4Rbv
+         w/5rf3tlATOIn5FkiPTQC01xFrR0LKQVknf4ZHl6ZEluAeip4sOuvJT/e7WwyniWUhqA
+         ZwYWyEz5/Wb5uamt7faqN5lyh5STbImIg/vWJ2zEXIdFi73KpyjP0AEId+p5XpvPpWuI
+         33VpV2xghtI9yz1t3SO4f7gcS1b2wxr9j2bDM8E+H2KvxNKD39nb2bvGzI0iO1m6vRkH
+         UBoQ==
+X-Forwarded-Encrypted: i=1; AL+hErHSgCWm46HWtg9dsrMNZ1bIPDfskY4+lFYSdhRPP2WHE/hmKXpTQ4t0ovW9Ek7fW6nObKdT3lZFmYNUxrA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CDugAQosyKU6tz/HLimXWctdz+sQWHMon8WTo2PH0ptF+TbLS
+	qd6i1reAl0Yxs3QJvVI6EPDSs8RuSCXrdA5XnQHwn+BPCiX0EX5Mxg5J
+X-Gm-Gg: AYBFou1JfpOw4I3+YzPH32IWFmW9FYKB4d31ybcNSdbxiqNMDnbkRaUGsTE8GSha7HT
+	BaEUhHMQv0ZRRgV3obEGavY6QoUJeyYu2qhg43mhxgLn+qhGsVxIvcF2q4S+LGnwsWODzLj53u6
+	CRX/I4XRVPbsB+QF+K9nxs6G6S+x36kWK/d64mWW8dFCuznnpL/K907T/tFkCbNCttOSt+7ifH1
+	9N7kovnIIPeGmG/9WIsIvVs9Yt5ugBji+tTYmFUb3BotQZQjzYNjz+/jpb+A03kaWvr2TkQHM2b
+	K9fuwBu0mhxaudkoqudGgTatpRsNl1Puz3PxDaFHuCXXfJOXN60NN26nQaQ/4o+o5cpGFRx78JY
+	JgHcjV+arefiQRV+DnlstBllvXibgDUauqs2RBBRR+xtJPkntWfLO3DaIBFujaLiUSl3Ig/nkQF
+	HV/uRrvYx+MhVARcV0uk/8UzDlKY5SEZOd3Xi1cfpxv9WWYOHORoNdsKj9LYYEM858kmL4fWCsY
+	ecJDcTLNjx2gQoik0CJY4aiu5iUekUWJqsLDGH4OsKVvoO1kLfvt5Tj3o69BUAu15avECiFz/Dd
+	cogAR+VhE2zS90ln4+ctnzMQGha02md6iZ13g+cr
+X-Received: by 2002:a05:690e:458a:20b0:67b:f91c:109c with SMTP id 956f58d0204a3-67c3d97b1bamr148961d50.46.1794101011020;
+        Sat, 07 Nov 2026 17:23:31 -0800 (PST)
+Received: from linuxmint.. ([2802:8010:9a07:a501:b0f7:cdff:6e05:69af])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36c09705bsm4706447b3.43.2026.11.07.17.23.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 17:23:30 -0800 (PST)
+From: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] HID: wacom: replace sprintf calls with safer alternatives in wacom_sys.c
+Date: Sat,  7 Nov 2026 22:23:27 -0300
+Message-ID: <20261108012327.89115-1-nehuenlian.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANRwn3SnB97Oeg4rKBiYX2DD9r51Km5Cf3kpnAn7s2xd42c0BA@mail.gmail.com>
+References: <CANRwn3SnB97Oeg4rKBiYX2DD9r51Km5Cf3kpnAn7s2xd42c0BA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,24 +98,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed,  4 Nov 2026 11:14:15 +0200
-Paulius Zaleckas <paulius.zaleckas@gmail.com> wrote:
+> If you're going through the effort to use snprintf the string, you
+> might as well also read its return value to check to check for
+> truncation (return value greater than or equal to size) and handle
+> such an error condition appropriately.
+>
+> Jason (she/they)
 
-> On Mon, Nov 02, 2026, Rupesh Majhi wrote:
-> > Remove resets the chip, though all it needs is to stop background
-> > measurement. Write 0 to MEAS_CTRL instead.  
-> 
-> On a ZTS8032, unbind leaves MEAS_CTRL at 0 with the configuration
-> intact, and 20 unbind/bind cycles read fine.
-> 
-> Tested-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-> 
-> Paulius
-Nice and applied on to of the other series on the testing branch of
-iio.git. Thanks,
+I didn't check the return value because I noticed in almost every
+situation snprintf() is used, the return value wasn't checked.
 
-Jonathan
+Anyway, would be a good idea to return -ENAMETOOLONG after 
+checking if return value >= sizeof(bat_name)?
+Or using scnprintf() instead of snprintf() could be a cleaner option?
+:)
 
+--
+Nehuen Lian Bova
