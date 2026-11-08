@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794172301;
-	b=sDbtuaI/XNIbswXCRLiWRGzgwwyXCEIDPC8zEXvNpgDKYHd7xJs5DVxFG4Q+G13pM7XK
-	 E3yPWzfNESK9N9IEXLteoUb0GPyynQHbQUvPr3Ri45qBurjBTK58uXl87s1K8Q8g91smP
-	 gRTVmBDHfX6oTnIYW8e//s9lQfJN18Prh+2duRDewrxX1KZZBpVQaBn25wQedpJPboDEf
-	 hNPAs7M/8tbNXOLD0nrf6f/3AU4MA388MdjItsvefD+aiIQ4g5Cyfi239Rxj2Lyaj7ymO
-	 nAFr9spNxJSPeFPuUTONEwgOIX8PJ84jacvT/V2e1Ce4kiopw4X/PZPrYofoNkCAlkQ==
+	t=1794172364;
+	b=vkAX+x47OLxrZBlKo+oHkG70TEWcU8olqU5dlHnMkQr0+fq63aFgPb0mx2DpCkcozsuw
+	 e71tRUkeVJzSFovXXV5TQ8OdpE2HWXtDdr7C4fRuKiFNua0X58azJ/ibla5p6HoRiYj2C
+	 iPVk0hZ4V3evxzm6Cw4B3aXqfRW2NwAZwLgwSkk5+2PknL4bWe13ZVOEPWOvkOzAUH7DL
+	 g9Vy/JK1UBMOguuJ7gP1X36B1iahmXxK9cq0eNeZ1QT4k47LSCTMn0JiBq0dx6XDtDLki
+	 GXfmtYemjV7PVd6kl+BO/Soi6jmGvDvh5qK9RETOYoNrpR57b+0I2J1PZpzghn2SqDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794172301;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794172364;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=/tM7Th5heSIu0EjehKmDLLPeUVpt5UbMkUrc5jBJaHc=;
-	b=3RQ5o6T+8TmnM9MiqT9UoQEqEesz8VQ2kAyFMcFCyRA+9p3u0vU0J51O8sIDGyouDnZT
-	 boRTjtyHWZuQllFaGOQVLRZu/C1SaIba5mBqRkeI9r9/gx0Qo8OjMXB0kP2eeqr4YQWtm
-	 BqV6ferwA0+/dcnaJzFs5D/r7tQOl5RBRTUsBpQJB1ThTEXD22IMAI0Gw/Ky3yGzfJLU2
-	 v5B3ohW0c4RLztDd4Sko3jqPwBFvHvuDy7/eatoG8p7KMdlzkeFF024FORquYfnLq+uMC
-	 7If4Et+5KjI3vIz8qqpeM+yBK4iglr9yGisx1zHC5WgPL9W4aUNNybwcZOD8C5O1P9w==
+	bh=qlC9xsQzooMGZMAFZeEoUmEZJVGfQC5/v/wrYEO4uww=;
+	b=f9qDap/8RpLdUQ1752KCmhLb91ZcpafBn5+qxZjaTPekGFHwAcKrN6MFQMiEwjVxkAyj
+	 EGahfZZVeE+e50t1GCGqEzAkiGpqbeN6zBP/oC6tKMi1oV9PTDl3fdv+y9WMmZKHAJybN
+	 td02OyaS/a/jmk7j+Hb92xC7x3EPSwtZDkYVva4jMn0P3GRPflcGzu3nE8nd5UIPSpU41
+	 BReJCBQhpIqRt/akSwMJYOhVHgQFZXWhb7dwJK1mUhoQl36Iv/vyPQoG8VaNT6DpBvghg
+	 4FY39PLewiNiNI1r8buCjfscEBDZHjQITokX6izZzQ1s/dYRV1w+Xmq4PsvN5XX2YZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kbVzcdn9;
-	arc=none smtp.remote-ip=209.85.161.49
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvHBd2Wn;
+	arc=none smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81799606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:11:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81799606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C5C606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:12:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01C5C606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kbVzcdn9
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6dde81a6820so160063eaf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:11:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvHBd2Wn
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-5326cdde017so59974b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:12:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794172299; x=1794777099; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794172363; x=1794777163; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=/tM7Th5heSIu0EjehKmDLLPeUVpt5UbMkUrc5jBJaHc=;
-        b=kbVzcdn92NzR3ioHuL7Zysi4TmV2lBIZPG7EFR60AOfU6xCcTAn0sSs95LOm/VzAaK
-         YUUB8F9dBl5v37jOk3MrVUCEk7zC44pjGveY41UTyGkM/hATte8flR6iArHQkwewiSi4
-         MnG8lgJQxGUNHvgWBAq/xMTjmQ70j/mdhttDzzePGbSYrBtoO6bZgyVTh7hgaCeGpUc4
-         erLDO6SM9w/dDpRRt6KmlW47VQhEDteFapTYVoBdBpTt3NXOwBOm4vuDPezjGQPBhQLZ
-         YaTuCXtAIdf14dxGbDdeYe306hErmERh+W1KMDMD/RPTEpcCjhap59bzH9oKC/BoeGaw
-         Y2cg==
+        bh=qlC9xsQzooMGZMAFZeEoUmEZJVGfQC5/v/wrYEO4uww=;
+        b=zvHBd2WnZWXeDe9JkWAzywSWt7dKpPAcjChasIheOUl5zCg5ZT5G3xq4yAswh4TVaF
+         mqyrpctY6l7Ezhi/rOn9jXmN2vNwjzZolobNFUkwcffXZWPI48vfD2fBz45bCfHi53fR
+         bxQ41vDSAoQKvHyoTrQ3Bo8y6EwOvEwXKhzjgb8kTMC8/iU7GZqAHwcMfDTowrdbmY/V
+         BKdXwzhtG9zgIYEw+IzFVmr0m+b9juTpSudTdxzfZftKyoUAj5VKrtqmsZWH+1Iu3JAz
+         O/uePUGJhFPSzKMgzjfNoReZMKy3eMlbRprb5UJOqSvNzjOqL5zZtz47iX0BNs/x2Bn4
+         l1aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794172299; x=1794777099;
+        d=1e100.net; s=20260707; t=1794172363; x=1794777163;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=/tM7Th5heSIu0EjehKmDLLPeUVpt5UbMkUrc5jBJaHc=;
-        b=ptNiuvJrCEVFRsNxWGYsg5LzE6tDKy0L2RUvzoqIX7E1yXpEkIZJT0aGvXuzoQgFe0
-         8X0Nfy2bvKGURxWI+nAeZsQwKrW5yHW911pBUTqWQt1KMVKUM9itl/MIkksWgak4dfFK
-         Qr34wsMLpfMTifpSHf2z+fQG0qe1Jo7aPpg8xbm/YQwuUaOv7W1YUc15OTeNwx3o+zon
-         RMnAkm0hxtjn+vkpPMHPyw5iEh5DNjNYqVNagvC8w8LBbRxKRYjgAFNFR57wcXqMahIK
-         OkYRQUMOJEt7Jn5B1F7DUdBTpLSvyIsyIkozfE6OcEWIw63VnNGboLfCSPO3IKY72jQ/
-         Imwg==
-X-Forwarded-Encrypted: i=1; AL+hErGVjxy2IEYhIenMAKGCa/0ETTiwRMqzQhpk+V1A9+frgzJe0C9LWPyxyv/wz769KJ+D2e9gXAiGxwXZKgQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+m04eMr33BDrmqTScr46d0hnh9ebHo64vQya2gdZe2A4aCuJcU
-	nm/8AibgJ6BdXloVCre5VrulH+PVyJbZcxEi4W2xxUpK6MguHJC7cVOhy7dD4w==
-X-Gm-Gg: AYBFou2xZr5+/Eh9IzVbyGauZlj8xRILuLbc6DDeZ0nEF1uhEUnxdn2+VQHNP2+xZWA
-	gJE07Q2FrDGYQKNIAUJmz+75OOHgjUotM4xCNE84VYftFf2uhyO+/XVlg/xdsypiGnlIaovbhmp
-	nIJpclbnjQYj20lWA2CW9Q/6vorH/2eDzTU8YVKGJI+ak/0SU9LW1IKEFOAutm8EW1dr57RTB/A
-	NQJ01D8CEDjWbrPn3CQTXoWw452hHOnaXM67UjW0FlPiRCV4V1q7aJC/MYVbsRyWUlny+irTGEF
-	MNN01o+xqELW5Zbrw97TUyJCmcZ7Yxe/AXve4bNgD7xnYl5AeHlfLWVSpRwdDszgmqcEFfpwrpQ
-	jBY/hx9aFGI56x2Jt3mtWNyt9eeJ+OElQMEIMq0M/V1xYfNcTSJ8ND8D94Ek46ral6i/iV/z8Cp
-	Za44G3j51CuNO1FM+HoP7A27cOwI/nuIdOt5dowsNmf4CpqqONF9QpBmgK3VJ3/5kLzTak9vhT+
-	ZCIGsW9h7x6mZJXRbnoGl5nZHP1cCH6iPnGbafH2BFVBdxU7vn9wZbjtjrMd7u4jDQral4pqf/H
-	1COB07MJKupbwhdWlTH2KWfN2qctaIMhyl3CGd6paDPnxm6wMKCyVdYoEL4lxBTrSNcPw2UxfYC
-	l1t+UlFkEhmagyNQsd32vwYBfkFjiE6s7sysk5Qyu8ae6xfBh5TxPNskc1V+F0WPDB/Q5Glhy4H
-	+EbSPNsZd7IvPA1wD/Yafp2MUKDbLSX8cDIKelnC7ubmoJdqaed8c=
-X-Received: by 2002:a05:6820:c2cc:20b0:716:d70f:1c1c with SMTP id 006d021491bc7-7170f30f0e9mr760112eaf.90.1794172299437;
-        Sun, 08 Nov 2026 13:11:39 -0800 (PST)
+        bh=qlC9xsQzooMGZMAFZeEoUmEZJVGfQC5/v/wrYEO4uww=;
+        b=gguNfh3JHpW80h9vA7SMm7IgfcN1xPGjN5YbAiCIg4vxpaGG5SB2x5/2xDDxiPtxkK
+         T0YXPydVysgcvFPqdP+j/dQFP6VeFojTr/qjpWkt7KWLJ4DsZrfIBg05G9KN9bWbMbZe
+         SaeNztczqrkSxRgwmq+9AWkv7hNkTtsY1MAdJXa3ie2vMi8eMYQHqFzbXgnNRrljWFih
+         ob491LRQxd6LujVOdBct08lU1+pX/BGqvuS5J5UBGZopNnJsur1rPSHMMvn4VHADZO2Z
+         BvbYVf8kwsMoQ+UAQTKnTXy4ZlV85fREcJRh+K8McybOiRCQm0xQNAn0jQOTjjU6WmZW
+         ipMQ==
+X-Forwarded-Encrypted: i=1; AL+hErG89v3B0zEoJ8J9ZvPbLXTJ9ynt+1ON1AUZJ9fp9vJaxmUA8BBYMZ8zpdc5xe6qUR70C2BxriiNiOtd8+U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6WHokWxKgKwxJEQDul+K6PKbIHSZeFax765WvZN0OVBiw4mcL
+	mBiuh2TBW9XvFL+mv+DprfKPPi5qj+dCIHTgTwQ+kxx92ewLmuI/kf2c
+X-Gm-Gg: AYBFou1LJ9WKDtqAwEJUeTufh8gFgHgeKX/mJ7E7TlggXkY0EbfSyMhCKgX9tgxP9Pr
+	Ruh3QZf4lyHY8q457FmUUc6YWTEys2qBPsZh6c8sZy0b0h+FjzT0onEywaWnYjOYTi24nrRM5H+
+	Qx3FnFg8RBkKIByiK6DHFLXLHhI56tVrgoeZNhMOr9F2jp4zyzIT8G1XTytbRK/f6Pk4vt62sV9
+	YS4eLSclVtP3fzjwqbtMAbPERIYdK/8MyodN5YFW0DOduJUZtb3prZEHj9JLJ47VnadlcW4a1S8
+	KXleY8cvaEXU7If9rFmBeBmOrb3D2hWXPxTIQnX+YmNsQOebq3kITLnHCAaov4H58PLArrFcklq
+	PkwYAeGRUnYEEAAL1gI5BElK13Dy8RoeVc8hwOKDtP8MLPAn9zR+Rctme4NG38QHSdqErNlOIyB
+	Zl3tBwAWWN0Qkz3Xgb/PoKJwZF1B7if/wkPUVaKAtDs/siP0ecSsa4+IIicaCAHA0+PrHm4DnM2
+	xHWzMa64u4pVlTsOfO036xWVD3W0c+CWodFD2tScG1VlS6tFmrQprf2e3UHE5nex/V5zSfPk0/5
+	IupnBR/xxequZ8mmKWh8AovWpCNkANey87+NcBmh9aXIrRaby4QGY5tcOYWT3HGSPVBku2ZDqa2
+	wMHziRbedZBDB0sq1GbgROUq5DTWBY6aMYdj84e3+2XstHzosi5kzCMsHWotYySHwOP6HF19HYc
+	NEZGst/HC4iQ/znLdpy9gsael9qs4iza3QM5iJ7a2+WQJFDPiHZ40=
+X-Received: by 2002:a05:6808:2211:b0:551:eea6:9397 with SMTP id 5614622812f47-5681463f7b5mr1400461b6e.59.1794172362919;
+        Sun, 08 Nov 2026 13:12:42 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f5e1e93sm1970733eaf.0.2026.11.08.13.11.38
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813ac62d0sm2795191b6e.2.2026.11.08.13.12.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:11:38 -0800 (PST)
+        Sun, 08 Nov 2026 13:12:42 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 14:11:37 -0700
-Subject: [PATCH] mtd: leave the device type unset when naming fails
+Date: Sun, 08 Nov 2026 14:12:39 -0700
+Subject: [PATCH] mtd: take a reference when opening an unpartitioned master
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,55 +94,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-mtd-devname-retry-v1-v1-1-a67f332c54dd@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMzQrCMBCEX6Xs2cUmBQ2+injIz9aukCibGJTSd
- zexhzl8w8y3QiZhynAZVhCqnPmZGqjDAH6x6U7IoTHoUZ+UGg3mt4tcMJaAgWqykVCoyBerwmk
- +e6cpmNFM0AwvoZk/f/v1tnO7P8iXruwLZzOhE5v80qtmPfbsr237ARH9KoSfAAAA
-X-Change-ID: 20261108-submit-mtd-devname-retry-v1-3f7cb2ed8083
+Message-Id: <20261108-submit-mtd-master-open-reference-v1-v1-1-871aac8c6e05@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAxEr1JljUVTQYu4Cuoin4EaKWkVhwqp6
+ t1J6MKLN/Y8b0qQGKLuzaYSVhaeYwF9apSbTHyB2BdWXdv1Wrc3ko8NnClkT8FIRqJ5QaSEJxK
+ iA62ajLbDtffO4zKoYlrKlr//L4/x4KJ5w+WqrhfWCMgmE91Uo2I/1zla+/4Dh3SPI6cAAAA=
+X-Change-ID: 20261108-submit-mtd-master-open-reference-v1-a1b756dcde47
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-add_mtd_device() uses dev.type to reject a second registration of the
-same MTD. It sets that field before dev_set_name(), but the failure path
-for the name allocation leaves it set even though no device was
-registered. Retrying registration then warns and fails with -EEXIST.
+CONFIG_MTD_PARTITIONED_MASTER controls whether a master is registered
+alongside its partitions. Without that option, an unpartitioned device
+is still registered as a master and can be opened directly.
 
-Set the type only after naming succeeds. The later registration error
-paths already clear it before releasing the device.
+__get_mtd_device() skips the master while walking the parent chain and
+only takes its reference when CONFIG_MTD_PARTITIONED_MASTER is enabled.
+A direct open therefore leaves the registration reference as the sole
+reference. Unregistering the device releases its device-model and NVMEM
+state while the handle remains open.
 
-Fixes: fa06052d637b ("mtd: Convert to dynamically allocated bdi infrastructure")
+Take and release the master reference for direct opens as well. Retain
+the existing behavior for partition handles whose master is not
+registered. Decide from the original handle before walking the parent
+chain so get and put use the same condition.
+
+Fixes: 264725e35fbc ("mtd: Clean refcounting with MTD_PARTITIONED_MASTER")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/mtdcore.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mtd/mtdcore.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 491a27d0315f..4f62a13dc481 100644
+index 491a27d0315f..444615804236 100644
 --- a/drivers/mtd/mtdcore.c
 +++ b/drivers/mtd/mtdcore.c
-@@ -798,12 +798,12 @@ int add_mtd_device(struct mtd_info *mtd)
- 	/* Caller should have set dev.parent to match the
- 	 * physical device, if appropriate.
- 	 */
--	mtd->dev.type = &mtd_devtype;
- 	mtd->dev.class = &mtd_class;
- 	mtd->dev.devt = MTD_DEVT(i);
- 	error = dev_set_name(&mtd->dev, "mtd%d", i);
- 	if (error)
- 		goto fail_devname;
-+	mtd->dev.type = &mtd_devtype;
- 	dev_set_drvdata(&mtd->dev, mtd);
- 	mtd_check_of_node(mtd);
- 	of_node_get(mtd_get_of_node(mtd));
+@@ -1330,6 +1330,7 @@ EXPORT_SYMBOL_GPL(get_mtd_device);
+ int __get_mtd_device(struct mtd_info *mtd)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
++	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
+ 	int err;
+ 
+ 	if (master->_get_device) {
+@@ -1350,7 +1351,7 @@ int __get_mtd_device(struct mtd_info *mtd)
+ 		mtd = mtd->parent;
+ 	}
+ 
+-	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
++	if (master_ref)
+ 		kref_get(&master->refcnt);
+ 
+ 	return 0;
+@@ -1435,6 +1436,7 @@ EXPORT_SYMBOL_GPL(put_mtd_device);
+ void __put_mtd_device(struct mtd_info *mtd)
+ {
+ 	struct mtd_info *master = mtd_get_master(mtd);
++	bool master_ref = mtd == master || IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER);
+ 
+ 	while (mtd) {
+ 		/* kref_put() can relese mtd, so keep a reference mtd->parent */
+@@ -1445,7 +1447,7 @@ void __put_mtd_device(struct mtd_info *mtd)
+ 		mtd = parent;
+ 	}
+ 
+-	if (IS_ENABLED(CONFIG_MTD_PARTITIONED_MASTER))
++	if (master_ref)
+ 		kref_put(&master->refcnt, mtd_device_release);
+ 
+ 	module_put(master->owner);
 
 ---
 base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261108-submit-mtd-devname-retry-v1-3f7cb2ed8083
+change-id: 20261108-submit-mtd-master-open-reference-v1-a1b756dcde47
 
 Best regards,
 --  
