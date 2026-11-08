@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169448;
-	b=M1I+AOd65PyQGkeIOcG+p2z2B9wjMnfV0o173LxRnn6VkCoQpXD1e7tfpMqJhCQEuTfr
-	 W2R1UwGe5MXDxdhBChzhl/nSB+/cXhURt3wEjWkNzq2GBLHUV4cWuI98+g6e43GYKybZn
-	 JHgC4nT7ERz8aZVJ/GOd8yUrHMNl2jFNqpcAedhTpoDca80V8cE/mZWYZGIb96nZem2WY
-	 ZVR4UJSHIO8jH1X5n5x4ZCtNeXVBp5z5DzfifzOAl5tTKy5R9Wt59RaaNgktEYjxIKIam
-	 lp0VeFpsgtW1yr+QLfeDngzM4bthmSEZdkaEbEHpKMr5gArhUNWMbH9KogkHu7oiBTw==
+	t=1794169446;
+	b=o6N7E5txGH8omjaFPybSXYsYiZdslQF+jPjYHKWHN8kR9UazqxOmSDbsmGlDv7NjzDDc
+	 F0Cv45RCwO/3BsEYJpSHzkCSVEsq0mi0lgpZSzE5clpDhpqAM5C1ddbz/wNAX+/BG2GBM
+	 0Smwb3xkfoDZR3RwsvF07VKnH/2bDRgQEg4IRAQyBIJ1Lbft9gcCD0WVm5EQ5s4NiVDjF
+	 WGW6Nd1rx6IuC7qpgqBQ9DjKIDyJDJ3hoc1f0bz/axdIbqwpF1KN3l6BctyPuTTTEXG5y
+	 iHhXI2vCFaHSdrQcXYIbx4DCMZYmdbdU8pLWlG2g5Ru/yEXidWqSqbt5Larvv7Bs93A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169448;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169446;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=qBxnxqrYNuh8w5s2rZnr1aNYVJiy6M9IU64HveYhduU=;
-	b=VclXg3Jo8dmUu+EVAP7aej0d9S1svEsGRsBfNS2SQLq8ymmNf0E+TedW086Qm+TqSGoT
-	 6BHsDWJjj3DP4jnRU7YNs08LcG434y/H2MM2OzDAFZ2gZXJBIlBgryRGjbBw7VWCY45jQ
-	 lWx1yp1cOhAameuuMcxUFY9Qrt9sS/mU9smjpczcCzCPc337NIJ3ZyaGno4qANEF+SIky
-	 lIY/GcZ3JoPA60NOHl36e9peqME0VfZK6NDtjY7Wg3ShAoU05qfX2fr9WGqeEwhyqkZD+
-	 qxTPmte1vA8C9Fwwx8Cta9RMDlS66XuzoKovp/nhjUYqdYsXq7/dzvSg/2NZD9AZ8+g==
+	bh=oFdTrj/Nf7P4F9/EoStBlxIBVzLaucAwTN9JEkijf20=;
+	b=vzxeJoOaLYqIn+wIEmOzs3OGO7CzFyO97HJvDvZSgQkxm/WeyBzderFiYAgqrdYZ3MZM
+	 CYA57srXGrkfLc00+LjQCzx1RBe+Iq2UZN2PGnsSmN7ARriCsU067XUd6Ziq7HRxmcdbL
+	 DXDlS/pYlBIivD0/1s+EMktes+F1RjFfx8M6RoeNZg6sxmRwlhImIrsYBeA3fb9U/J0/Z
+	 cuZ0g8dLgpOppA9SS+DPtSXruF/WYYh/kiStLhkvj5lAcOCjtOeAQ6CaVo2QV5b8mTC0i
+	 1LkMBGOLLxgKcWjhx7Fwo+5eHukIqcDJlgOpJO2N2OtZKh1w9nwVP3KsQX5leNSfY9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNNyv2sk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kc35Fybm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDFE607761C;
-	Sun,  8 Nov 2026 20:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8876076C34;
+	Sun,  8 Nov 2026 20:24:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNNyv2sk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08ACC1F0089F;
-	Sun,  8 Nov 2026 20:24:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kc35Fybm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B951F0089F;
+	Sun,  8 Nov 2026 20:24:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169447;
-	bh=qBxnxqrYNuh8w5s2rZnr1aNYVJiy6M9IU64HveYhduU=;
+	s=k20260515; t=1794169445;
+	bh=oFdTrj/Nf7P4F9/EoStBlxIBVzLaucAwTN9JEkijf20=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZNNyv2skyLZX9fgzltd//fEhgGfmjfgctfnnXPrnYb+VyLNbzHBCD8Wbzfew4YSG9
-	 jlWYaxMLsceoSUPZC02BP2TjRXlJOQXESF5rLZ7S96od2yTx5yc9Q2t86DNnaqD1y0
-	 4pxbGhTHBYit/a98LnDlnlXVxmJq4j2E8duh8c9CU/Psmu9ngQabTdenPK6046g495
-	 mQcZn1VExYWzxWXjEqjyMHGe5AVEkogxogZ3bUAwkxJvdNVOVScAVHeY/2AiHFnrpV
-	 J8gGexVIWChYe5uoW+iG0wwiePDgb539NChvY+J9hGXETNpN2OxwMYVfEnUbZBBMmX
-	 XFsUF5N8ujbAg==
+	b=Kc35Fybm8BwXxcrwGYHfYpm4ZYxx0cFLdWNjT5pp8Sn+ekfTJuYjipWs7i3q4B09o
+	 KxKGV7Kq6EkBb2bnaA40UHYL/gfKdpVDn7OgFYJuR5YcZDoNj9NZI1TCZsPqYEyqzH
+	 lR/FK5iGu1XKA4SiQ5wNTvbw0ygn01DFKluTDSbozyNDbf8FUUBtT12Mk/pjcjfZpv
+	 Xz1dHV6gBJZgeHOWu8IIHtwKc5jkz5fUTu2VBrhnXjFsoQPQyV3zUkVo1hGcieVncN
+	 pCzowjCSvMsSS3IjceUzK4P31IqUJ0/vPJuKhY1+ZhQQ83bM/3hiJinDMyPOd0Kv5J
+	 nXtKEeY7Qo23A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	yoxcu <mick@yoxcu.de>
-Cc: Abel Vesa <abelvesa@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+	Demeter Barna <me@fromdisposition.org>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845: Route the SPMI interrupt through the PDC
-Date: Sun,  8 Nov 2026 14:20:45 -0600
-Message-ID: <179416929376.628393.7828578139046822165.b4-ty@b4>
+Subject: Re: [PATCH 0/2] arm64: dts: qcom: sm8350: Scale L3 and memory bandwidth with the CPUs
+Date: Sun,  8 Nov 2026 14:20:43 -0600
+Message-ID: <179416929388.628393.7999703057327479473.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261013203749.3078262-1-mick@yoxcu.de>
-References: <20261013203749.3078262-1-mick@yoxcu.de>
+In-Reply-To: <20261016-sm8350-cpu-bw-v1-0-044ac6dc9565@fromdisposition.org>
+References: <20261016-sm8350-cpu-bw-v1-0-044ac6dc9565@fromdisposition.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,20 +69,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 13 Oct 2026 22:37:49 +0200, yoxcu wrote:
-> The SPMI arbiter interrupt (PMIC RTC alarm, power key, charger) goes
-> directly to GIC SPI 481. In CX collapse the GIC does not detect
-> interrupts, so only interrupts routed through the PDC can wake the SoC.
+On Fri, 16 Oct 2026 06:01:14 +0000, Demeter Barna wrote:
+> Add the EPSS L3 provider and CPU OPP tables that vote for LLCC, DDR and
+> L3 bandwidth with the CPU frequency, as on SM8550 and SM8650.
 > 
-> SPI 481 is PDC pin 1. Route the interrupt through the PDC, as sc7180,
-> sm8250 and sc8280xp already do.
+> Tested on a Razer Edge 5G, whose board support is not upstream yet:
+> copy bandwidth on the A78 and X1 cores goes from 8 to 22-33 GB/s and
+> DDR latency from 200 to 125 ns. Idle power with the screen off does not
+> change; with the X1 busy on compute alone it rises by about 0.3 W.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845: Route the SPMI interrupt through the PDC
-      commit: a1a11f5f5e9b9dbc7048810b837d7d1fecebad34
+[1/2] arm64: dts: qcom: sm8350: Add the EPSS L3 provider
+      commit: e8c26ee56a03d1d774f005e7179a541b4cf3c7e1
+[2/2] arm64: dts: qcom: sm8350: Add CPU OPP tables with memory bandwidth
+      commit: 3af17a599d46d1998f80c47378ca673329d29bb7
 
 Best regards,
 -- 
