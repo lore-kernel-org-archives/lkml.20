@@ -1,70 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169497;
-	b=hNVxCzYbWi2KaiBIRDC3I9enwvOzfLeMHlkQ03MH0OHB5fQk6J6pVi4Fmgpax/i7j6nb
-	 iAL/YoLgIZpzIN6aggP/iUEV/AAxaeWmtkuYnnmUQ2+IqJJoYPbsMFVezln4vGxBBPRxE
-	 8D12WgL9Dvg67QAnNoh1vSUhb55S53D5BxJqlCROzS+E07y9mHINXQe034sHonbo/V1Df
-	 LucsAGLqn4sC0z1/Rk0MzSpgCoRShyliZjnLCZj+nNdibMEwPTbxTrn66bnwJJHopuU1e
-	 4GQBQewK36EihzmUGanAjikNiASZZaMGYhffoaurrwM3HnHm5SJai0q2XceEiKQvNPg==
+	t=1794169483;
+	b=3AyeHYOKr+n3jlJmxlGsm0p+JLb0VVgCDv2bTEEe7Lhu71CUYugcxIGEhEuI+nWRrzUX
+	 fyYs+aeZn15ZPneDa4CMLu/QiVpows0/rVFDxSs1sYoHV8bnqcDvYQq+dLxzPeKhPX9A4
+	 7r4gvdA8d9u7HlnJ86UGdBuRUOOP8pOAHliPgqCCs7NzYnNz1pDYcUDK77ktZnKAFOCtu
+	 sby4wnjg4XcorOIm1/Nnz5fNp/PurWEqpsO40WRo5hzcn4mFcfQ82+nq+loEcMVs6Z7/W
+	 /vxJ+npgL0LUepybKUn42C/NwPO78VZCmMyUBTLJhdsVSG5nniDXYYRCfoK8UPNliew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169497;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=R3v5E6SNCq7UvDHGsaVgQX7pHBfqmsknhHYIo4WDvV0=;
-	b=ciKcCusMeXM4xg6PuLgSzq/6wBxArccf+tYnH/1FdAmykFEhITixhSA5EcTk4AZ/Oad1
-	 QXLqGN2eY9AwgHYuVrQRCs9VbR1lp0IP0LpQr3TJWpUFCe30rot+Spj6UpCnseP2sdNKe
-	 gDgG78V2EovRDIakO03Lz96bfANCCZpV1jAc9DMHZNrduoiFh+NLefOQ90wjFr2eu0R6G
-	 g/dmfernDXBOhlvvkOLUZGPgM/qK8cVsBUBMVB8wTOiaSSRoC7ACfgaqYPEqApwQEVuM/
-	 UD2uwYbZwLWroRAlFaSieNHkwGmoXZa6XqQNAWWbFVrAfv+71R1CdNjxDofEljo0kPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169483;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+DxLqfIwOo7VRlUwx6jolu+5Jmc67RJLG7kDcqyLb04=;
+	b=aSpQ6dAl+FnFm1OtRaEzAQTdKLLCTD+8eXEig+p9ELP/qh2M0f9bmURJk9qWH4khxoe6
+	 /y1XWoAHeC1Jgrm/HJxe23wpU9jdmRVYuVejIojLzWOiyRSw9TQlXiadxsrRHqRpK66CT
+	 1WSz1S7Qgs+q1ac961ZF1/18IY8B3shz90lEbSAUh8tOO+MUcf/ELoVoPom5bLir2kRaj
+	 REHzjC4MVBX03E09Xtlrthyv4JCwXtYbmpPUOYARGIluCxtqWO/pNKqtBH0+IMn2c7jcr
+	 K3whkBbT95paEZgYGTA9ushahaEJxIGq6IVfFsbRmaLRZVKbHkzyVM/mue1ZFnOKx5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rendec.net;
-	spf=pass smtp.mailfrom=rendec.net;
-	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=aHzLZn9t;
-	arc=none smtp.remote-ip=80.86.107.70
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDki3D5+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFC06080C4D
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFFC06080C4D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF0F607E4B6;
+	Sun,  8 Nov 2026 20:24:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=aHzLZn9t
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 45131D4223;
-	Sun,  8 Nov 2026 22:24:45 +0200 (EET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 45131D4223
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1794169487;
-	bh=R3v5E6SNCq7UvDHGsaVgQX7pHBfqmsknhHYIo4WDvV0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=aHzLZn9tkRvOVkfpnsUMQMHZiAQWh3Gzqp4ZTW8AszPuqSZvBpI0Wt/XRSEP6uq9l
-	 rehiNqgcnUGn6vf7uYXo70S+xjC+Kg3v42oYibC+BxZYcuJ8kJyVe0qXewWwRvbo6B
-	 g+uFZ5xMFpGDnuEF3aSewpeiRs5hsMHqS3fYLYCK7OalyRJcendJtETrh8nMznB+JF
-	 EntSpYa1g6snYfARIJYyWr3DdjcW9KaKMNDgG/eN79QbO1u1Jj3hzcRhMwdDxZlLKz
-	 zHoSOLZlxPgKQq39eBkpMq4AYkmL1b0NQkNJ0TO8iWcv0JmZUdrAd4BhWsAmWCQnIr
-	 9DVViC10ITaCA==
-Message-ID: <0df179e374de91aa3e671f0fe66b45bca716e095.camel@rendec.net>
-Subject: Re: [PATCH v7 08/10] irqchip/imx-irqsteer: Dispose of child IRQ
- mappings in remove()
-From: Radu Rendec <radu@rendec.net>
-To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
- Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team	
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Fabio Estevam	
- <festevam@nabladev.com>, Jindong Yue <jindong.yue@nxp.com>,
- xuegang.liu@nxp.com, 	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Date: Sun, 08 Nov 2026 15:24:43 -0500
-In-Reply-To: <20261104073759.386777-9-Zhipeng.wang_1@oss.nxp.com>
-References: <20261104073759.386777-1-Zhipeng.wang_1@oss.nxp.com>
-	 <20261104073759.386777-9-Zhipeng.wang_1@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDki3D5+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08BF1F008A2;
+	Sun,  8 Nov 2026 20:24:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794169482;
+	bh=+DxLqfIwOo7VRlUwx6jolu+5Jmc67RJLG7kDcqyLb04=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eDki3D5+q6G1OZevm7cto9dCalFzPxfeUIZa6LfzTnm/mjweblbBv9lV4kGuPIKsj
+	 vAipsOW+97rXvQJadIkMh9FP1tMj9uvpNlP5jh4GCKTNjQRXHidflnL919XtEg5c57
+	 5ocN3ImyV1UFEtz0tnPGqI7V79amcVy+vLYqhlxLKjTsQ/cg0KkM6O1DhsEFkrlC6L
+	 3ouoz1ZbDli+c4zjLCY467kqdgzIOtESwtVSpCO1YRdHvEJmvNBnqnS3ElZrthYc2Z
+	 /6b/rU3C8tdoAW+FPNOoMS2w5afmEn0Kkg+Y6ghcbKw/rmj/Eh+c1nnrXYx+kQSLj7
+	 psjT6nr5X3G7A==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
+	Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v3 0/6] arm64: dts: qcom: nord: Add remoteproc and PMIC support
+Date: Sun,  8 Nov 2026 14:21:12 -0600
+Message-ID: <179416929206.628393.2926818723732467339.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260920084920.2201418-1-shengchao.guo@oss.qualcomm.com>
+References: <20260920084920.2201418-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,53 +67,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-11-04 at 16:37 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
-> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
->=20
-> Once the driver can be unloaded, the IRQ domain mappings handed out to
-> downstream consumers must be released on remove(), otherwise:
->=20
-> =C2=A0- a parent interrupt racing with the teardown can run the chained
-> =C2=A0=C2=A0 handler while irqsteer_data is freed (no synchronize_irq());
-> =C2=A0- downstream irq_descs keep dangling chip pointers into the unloade=
-d
-> =C2=A0=C2=A0 module.
->=20
-> Dispose of every child hwirq mapping in remove(). irq_dispose_mapping()
-> calls irq_domain_disassociate(), which runs synchronize_irq() and frees
-> the descriptor, closing both races.
->=20
-> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-> ---
-> =C2=A0drivers/irqchip/irq-imx-irqsteer.c | 4 ++++
-> =C2=A01 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx=
--irqsteer.c
-> index a14a8b80d60e..d15b806b278c 100644
-> --- a/drivers/irqchip/irq-imx-irqsteer.c
-> +++ b/drivers/irqchip/irq-imx-irqsteer.c
-> @@ -272,6 +272,7 @@ static int imx_irqsteer_probe(struct platform_device =
-*pdev)
-> =C2=A0static void imx_irqsteer_remove(struct platform_device *pdev)
-> =C2=A0{
-> =C2=A0	struct irqsteer_data *irqsteer_data =3D platform_get_drvdata(pdev)=
-;
-> +	unsigned int hwirq;
-> =C2=A0	int i, ret;
-> =C2=A0
-> =C2=A0	/*
-> @@ -294,6 +295,9 @@ static void imx_irqsteer_remove(struct platform_devic=
-e *pdev)
-> =C2=A0		irq_dispose_mapping(irqsteer_data->irq[i]);
-> =C2=A0	}
-> =C2=A0
-> +	for (hwirq =3D 0; hwirq < irqsteer_data->reg_num * 32; hwirq++)
-> +		irq_dispose_mapping(irq_find_mapping(irqsteer_data->domain, hwirq));
-> +
-> =C2=A0	irq_domain_remove(irqsteer_data->domain);
-> =C2=A0
-> =C2=A0	if (ret >=3D 0)
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+On Sun, 20 Sep 2026 16:49:14 +0800, Shawn Guo wrote:
+> This series adds ADSP and CDSP remoteproc support, the SPMI PMIC arbiter
+> and the PMIC descriptions for the Qualcomm Nord platform, and adds the
+> initial device tree for the Nord Ride Embedded board.
+> 
+> Tested on next-20260916
+> 
+> Dependencies:
+> - NMXC define: commit e484a765f543 ("dt-bindings: power: qcom,rpmhpd: Add NMXC power domain index")
+>   from git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/linux-pm.git dt
+> - Base DTS: https://lore.kernel.org/all/20260903140617.441111-1-shengchao.guo@oss.qualcomm.com/
+> - PMAU0102 thermal: https://lore.kernel.org/all/20260830101025.191697-1-shengchao.guo@oss.qualcomm.com/
+> - PMM8654AU RTC: https://lore.kernel.org/all/20260904074541.590485-1-shengchao.guo@oss.qualcomm.com/
+> 
+> [...]
+
+Applied, thanks!
+
+[1/6] arm64: dts: qcom: nord: Add support for ADSP and CDSPs
+      commit: dca3e74978c47d69688df0d6b852719db09d05ce
+
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
