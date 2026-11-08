@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794170512;
-	b=qHs031KpvX9/TxSjNcSbivbcsXyQrIGUVGO/Qptp41AvMdaMHaQm0lju0Ka0w8rpzgej
-	 lJUflKBx0bmRaKoFfmtV+5W12O8sYgwbvxLPsIAMCbsEL/2E5UvnFaQK1iVtut0arG/EK
-	 7urFtuRhCmjxjxGVHKJfrDFGZmDye1bNVbu0+mwi/p2lbw5fHLyuhk2PBZg49yXhXMpNn
-	 l4MS1YEM+oY2jgjAIWBVpca3srHtA8ksIf7cg/FECunWpdWubwu4ldeBthxsjhhHMPBfC
-	 9OMhbG7IffHqCaEfePFYpL0zKfBh4sIXQ4wd8vvbJz4ElpX06ep7MYwJqT3qut4ShzA==
+	t=1794170529;
+	b=ecwXY/My7F1jVodvPQO5kkJobAvFzDAxGtGOD4tN6OFG/Lia2aBcjWyW0NGhKNSyjCZl
+	 DhR6F/fkoqaf+ARFwkJp2saZM9r6NL1pIYZdhg8Y5gGCcR6NM66PaN2rVtKUy/5/LVYmo
+	 mJ77aMBJEq4uQ5Wbt812alzc/Fs1JLVHJ9aQM6hXTHqnGyPcJgiu2GpT6WZSR8HG37nUn
+	 eWqfMP7XCXOZLMjmzW34CD/dqJrEqel7ynWLyeovffmyv9ZE8aD6oazRUDLjx2XcWfQ0/
+	 OBlmbadyGUP2GcveMlAYj5YNCYlSQjguuvVJqazUmiaN56sM5zE+ccswiHedY2YILDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794170512;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=R26dJdkZH8TRIIct3eE1kDQoBO795NGFDunxp3krIBs=;
-	b=e7Rs9FhoylLwUgRtIJ84FDzujxMB/2+4xV7IHa6ceaCU2Gq/4723iQf8IJcrGA6Gb7y5
-	 QhQTCy073WSga311Mig3wa57axYMJQ4W+mlIoG1r+JMfQYOQs6qRQ67iSuwhDQxW9W+7J
-	 ZXt7ZO+7ZpA87ETaD8HNS9lwwnrfm4FA/jsCA9c4oizxSmMlzMsp+kcYnQzZTFzxf1g4M
-	 P1IOtLmBpM/H+1zKxRGvUoVHzGJAx451tbvakx2r0nDWeHYJjru4EdFDKvRHO3c7RntTa
-	 IDtpjRKGRy2MAU86emW66p+DcG5kHiHBM+b4BaqU8eSh8PF1Uc0fUhxEoadWSY7Eidw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794170529;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=ZyAIE4V+IPrxJ+LBwwccVXIlmn04keFT6A2ZLt8nDmM=;
+	b=jhL6ZOGCgKmIZCHj+YGkJsLOZOXORuiC/zUUN6vmEXBaxpqk4Z86hycevrh7nx6a3LOC
+	 t8YZgVaElwSqc8SX0iHOjvalVYjlHbtI9BMu4L+Ozoopt3+6ASaH04H2N+IbQO8ZzQDp7
+	 3UuKHNE/PAlLXsVZdzUnxG//61sFvRJa6ns66OROqijWDFIN6OLu6pVqoSSx1f254YqVP
+	 TotBEtvAAVRdj78tJTIfkeiu7lOh9DPTlRDb2vhsvNwyIyxJOvGHONFFEeJXUkk2W2eoN
+	 URiEJMXOnEAixxUglyOK8T0yzepVVfuOCjBhFXKyLcy89BhKSYp+aO9tHJgn/N6TtjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WajNyqCH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1650606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WajNyqCH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67BF1F0089F;
-	Sun,  8 Nov 2026 20:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794170511;
-	bh=R26dJdkZH8TRIIct3eE1kDQoBO795NGFDunxp3krIBs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=WajNyqCHUgapwJqBmikLkfTuDn5xJWaP8H2ac9Nfj4A2HV9jJEtp4+yH1KGz9b1w6
-	 0WtGFjSIMqlsbzKpioFisImukMI9hiON8l8wx0289DEAFOrrRoIPsWaZezMGU4moVT
-	 B0hg2JkzPXgWie9fDrlKJOJ8tCJtGTwkHQHpRdPo6upWxGFlA6hBnc200oPPmGWDhi
-	 0Z/qnTLcAuYfsvFMmd6pkQ9XI307IHCxxkXXmi2yASEg5ct1foLKaS5W29lIddEhpl
-	 vOk1JCrpvArMv+4s6WO4yzUbT2uhzWe74uNQivzEd49sN1rUYIQE/nVX0zkLyqENCx
-	 9iddjrZaHFcCA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>, linux-kernel@vger.kernel.org
-Cc: Radu Rendec <radu@rendec.net>
-Subject: Re: [PATCH] irqchip/ath79-cpu: Flush every write buffer of a shared
- interrupt
-In-Reply-To: <20261106221201.15054-1-rosenp@gmail.com>
-References: <20261106221201.15054-1-rosenp@gmail.com>
-Date: Sun, 08 Nov 2026 21:41:47 +0100
-Message-ID: <874idrvywk.ffs@fw13>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C924606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:42:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C924606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8255327a28fso526697a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 12:42:08 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794170528; x=1794775328;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZyAIE4V+IPrxJ+LBwwccVXIlmn04keFT6A2ZLt8nDmM=;
+        b=sESaUzsW7btiS0ekKOF91xhkkcCPcz4MEhGbfs/Askq3a709KQN0Qs9SFUCExzYee3
+         bPIsdSXjsIb0Mj8ONbDmfsLWaBxLqwwHvjEJsd9kq0KDr1TaM3jtAPDPjaJjhnXbCr8w
+         KTTwWicr4g3UPmYubkqSMK37tfGGYTTYKzUwodYsHwjrbk3Klp8gqQRz+Hmx9op1tb7r
+         ODIxWHMhraU5bUQbIOBwkbCRBNCf69lUxS3W2IcaRrRuYgs5vlNyY+/56aTwLx8Wz2LD
+         qz6sU0Tu5NsOBuMqskIiJoDZHxmP7p4IQBtFRBoHS/xcTgghuwuIg+3d5BSoFDquhxkq
+         aLAQ==
+X-Forwarded-Encrypted: i=1; AL+hErHjm1KQ0N1Qj7h570r9Qe1QZslrMzuloebILj3nX0kQlyeNHmbrVR9WbeUeO/eJEL+jJzIXn3Q7G+4G8MA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dqcjZSXf+BM0RWOnqgC8p6MDmaUY4NVXiDMyQnuq1ERefwHY5
+	S3bbwUDje/YrlN3oFW2sZEKclvY5nvtjKmgrU6CEwURa3xd2YsBrwVtmQYEsBC0VlG3lPHto+JB
+	VHxmjzUjvQjMaGtrvi+/YhGOWAVX4UOwUuLcltZAj0C7SRxnYAvgLUDwbRhM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,80 +58,368 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+X-Received: by 2002:a05:6808:509f:b0:4f4:be18:5de2 with SMTP id
+ 5614622812f47-568143a7b57mr1381696b6e.13.1794170528194; Sun, 08 Nov 2026
+ 12:42:08 -0800 (PST)
+Date: Sun, 08 Nov 2026 12:42:08 -0800
+In-Reply-To: <20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af0dea0.29ad3093.346b70.0003.GAE@google.com>
+Subject: [syzbot ci] Re: configfs: fix slab-UAF Write in config_item_put
+From: syzbot ci <syzbot+cidc5711a055bc22f3@syzkaller.appspotmail.com>
+To: a.hindborg@kernel.org, brauner@kernel.org, 
+	drifabdelmalekmohamedsaid@gmail.com, jack@suse.cz, leitao@debian.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ranhongyun1@huawei.com, syzbot@syzkaller.appspotmail.com, 
+	syzkaller-bugs@googlegroups.com, viro@zeniv.linux.org.uk
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 06 2026 at 14:12, Rosen Penev wrote:
->  
-> -static unsigned irq_wb_chan[8] = {
-> -	-1, -1, -1, -1, -1, -1, -1, -1,
-> -};
-> +static u32 irq_wb_chans[8];
->  
->  asmlinkage void plat_irq_dispatch(void)
->  {
-> -	unsigned long pending;
-> -	int irq;
-> +	unsigned long pending, chans;
-> +	int irq, chan;
->  
->  	pending = read_c0_status() & read_c0_cause() & ST0_IM;
->  
-> @@ -46,8 +47,11 @@ asmlinkage void plat_irq_dispatch(void)
->  	pending >>= CAUSEB_IP;
->  	while (pending) {
->  		irq = fls(pending) - 1;
-> -		if (irq < ARRAY_SIZE(irq_wb_chan) && irq_wb_chan[irq] != -1)
-> -			ath79_ddr_wb_flush(irq_wb_chan[irq]);
-> +		if (irq < ARRAY_SIZE(irq_wb_chans)) {
-> +			chans = irq_wb_chans[irq];
-> +			for_each_set_bit(chan, &chans, 32)
-> +				ath79_ddr_wb_flush(chan);
+syzbot ci has tested the following series
 
-So the CPU provides 8 interrupts and 32 sources, where each source has
-its own specific flush register. There is some distribution mechanism
-(firmware configured or fixed in hardware) which maps a interrupt source
-to a CPU interrupt. When two sources are mapped to the same CPU
-interrupt then they share the interrupt line, i.e. the handlers are
-requested with IRQF_SHARED, _and_ both flush registers have to be
-written to so that the interrupt handler can observe the data and figure
-out whether it should handle it or not. Correct?
+[v3] configfs: fix slab-UAF Write in config_item_put
+https://lore.kernel.org/all/20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com
+* [PATCH v3] configfs: fix slab-UAF Write in config_item_put
 
-I kinda decoded this from your change log and tried to map it to the
-code. It looks correct, but for heavens sake this needs a bit fat
-comment explaining the magic behind all of this. Even for your own sake
-as you will have forgotten the gory details three month down the road.
+and found the following issues:
+* KASAN: slab-use-after-free Write in config_item_get
+* kernel BUG in config_item_get
+* kernel BUG in configfs_symlink
 
-Btw, as this is the interrupt hotpath, this for_each_set_bit() loop is
-pretty inefficient when there is more than one interrupt source
-associated with a CPU interrupt.
+Full report is available here:
+https://ci.syzbot.org/series/6e7e3ace-c083-43ff-9d6c-4b65ef15bd2f
 
-What you want (as a patch on top) is:
+***
 
-ath79_ddr_wb_flush_many(unsigned long sources)
-{
-	__ath79_ddr_wb_flush_many(sources);
-        // Document WHY this needs to be done twice
-        // The existing comment is useless...
-	__ath79_ddr_wb_flush_many(sources);
-}
+KASAN: slab-use-after-free Write in config_item_get
 
-static __ath79_ddr_wb_flush_many(unsigned long sources)
-{
-	u32 __iomem *base = ath79_ddr_wb_flush_base;
+tree:      vfs
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/vfs/vfs.git
+base:      691edd89507f8977eb8831892c3b460edc79d73c
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/b34863a5-8646-4b81-a3b6-8d7c722db7f8/config
+syz repro: https://ci.syzbot.org/findings/4586cba9-fdc4-48a1-bbe4-43b477a6d2cf/syz_repro
 
-	for_each_set_bit(idx, &sources, 32)
-        	__raw_writel(0x1, base + idx)
+==================================================================
+BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+BUG: KASAN: slab-use-after-free in atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:252 [inline]
+BUG: KASAN: slab-use-after-free in __refcount_add include/linux/refcount.h:283 [inline]
+BUG: KASAN: slab-use-after-free in __refcount_inc include/linux/refcount.h:366 [inline]
+BUG: KASAN: slab-use-after-free in refcount_inc include/linux/refcount.h:383 [inline]
+BUG: KASAN: slab-use-after-free in kref_get include/linux/kref.h:45 [inline]
+BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90 fs/configfs/item.c:104
+Write of size 4 at addr ffff8881191a501c by task syz.1.22/5911
 
-	for_each_set_bit(idx, &sources, 32) {
-        	while (__raw_readl(base + idx) & 0x1)
-                	;
-	}
-}
+CPU: 0 UID: 0 PID: 5911 Comm: syz.1.22 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
+ atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:252 [inline]
+ __refcount_add include/linux/refcount.h:283 [inline]
+ __refcount_inc include/linux/refcount.h:366 [inline]
+ refcount_inc include/linux/refcount.h:383 [inline]
+ kref_get include/linux/kref.h:45 [inline]
+ config_item_get+0x26/0x90 fs/configfs/item.c:104
+ configfs_get_config_item fs/configfs/configfs_internal.h:127 [inline]
+ configfs_symlink+0x17d/0xa60 fs/configfs/symlink.c:167
+ vfs_symlink+0x18e/0x370 fs/namei.c:5812
+ filename_symlinkat+0x1a5/0x430 fs/namei.c:5837
+ __do_sys_symlinkat fs/namei.c:5857 [inline]
+ __se_sys_symlinkat+0x4e/0x2b0 fs/namei.c:5852
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ffbd0f9fb19
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffbd1dfb028 EFLAGS: 00000246 ORIG_RAX: 000000000000010a
+RAX: ffffffffffffffda RBX: 00007ffbd1225fa0 RCX: 00007ffbd0f9fb19
+RDX: 0000200000000780 RSI: ffffffffffffff9c RDI: 0000200000000740
+RBP: 00007ffbd1037b70 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffbd1226038 R14: 00007ffbd1225fa0 R15: 00007ffeea8f6108
+ </TASK>
 
-or something like that. For a single interrupt it's exactly the same
-outcome, but for multiple interrupts mapped to one CPU interrupt there
-is an obvious speedup potential, no?
+Allocated by task 5903:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x31c/0x600 mm/slub.c:5680
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ config_desc_make+0x23e/0x620 drivers/usb/gadget/configfs.c:730
+ configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
+ vfs_mkdir+0x411/0x660 fs/namei.c:5428
+ filename_mkdirat+0x284/0x550 fs/namei.c:5461
+ __do_sys_mkdirat fs/namei.c:5482 [inline]
+ __se_sys_mkdirat+0x35/0x150 fs/namei.c:5479
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Thanks,
+Freed by task 5908:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2780 [inline]
+ slab_free mm/slub.c:6630 [inline]
+ kfree+0x1c5/0x650 mm/slub.c:6923
+ config_item_cleanup fs/configfs/item.c:128 [inline]
+ config_item_release+0x13a/0x2d0 fs/configfs/item.c:137
+ configfs_symlink+0x7b4/0xa60 fs/configfs/symlink.c:240
+ vfs_symlink+0x18e/0x370 fs/namei.c:5812
+ filename_symlinkat+0x1a5/0x430 fs/namei.c:5837
+ __do_sys_symlinkat fs/namei.c:5857 [inline]
+ __se_sys_symlinkat+0x4e/0x2b0 fs/namei.c:5852
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-        tglx
+The buggy address belongs to the object at ffff8881191a5000
+ which belongs to the cache kmalloc-1k of size 1024
+The buggy address is located 28 bytes inside of
+ freed 1024-byte region [ffff8881191a5000, ffff8881191a5400)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1191a0
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x17ff00000000040(head|node=0|zone=2|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 017ff00000000040 ffff888100041dc0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 017ff00000000040 ffff888100041dc0 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 017ff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5697, tgid 5697 (kworker/u8:3), ts 73161807282
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1856
+ prep_new_page mm/page_alloc.c:1864 [inline]
+ get_page_from_freelist+0x220f/0x2280 mm/page_alloc.c:3935
+ __alloc_frozen_pages_noprof+0x1fe/0x410 mm/page_alloc.c:5444
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab+0x7d/0x5e0 mm/slub.c:3499
+ new_slab mm/slub.c:3550 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __do_kmalloc_node mm/slub.c:5530 [inline]
+ __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ neigh_alloc net/core/neighbour.c:525 [inline]
+ ___neigh_create+0x6da/0x21f0 net/core/neighbour.c:659
+ ip6_finish_output2+0xe06/0x1460 net/ipv6/ip6_output.c:130
+ NF_HOOK_COND include/linux/netfilter.h:314 [inline]
+ ip6_output+0x337/0x540 net/ipv6/ip6_output.c:248
+ dst_output include/net/dst.h:472 [inline]
+ NF_HOOK include/linux/netfilter.h:325 [inline]
+ ndisc_send_skb+0xcb2/0x1650 net/ipv6/ndisc.c:513
+ ndisc_send_ns+0xd7/0x160 net/ipv6/ndisc.c:672
+ addrconf_dad_work+0xa8d/0x15c0 net/ipv6/addrconf.c:4343
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+page last free pid 5696 tgid 5696 ts 63917357465 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1403 [inline]
+ __free_frozen_pages+0xc97/0xd90 mm/page_alloc.c:2954
+ __slab_free+0x269/0x2c0 mm/slub.c:5926
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4720 [inline]
+ slab_alloc_node mm/slub.c:5033 [inline]
+ kmem_cache_alloc_noprof+0x2b4/0x600 mm/slub.c:5047
+ __proc_create+0x55d/0xad0 fs/proc/generic.c:462
+ proc_create_reg fs/proc/generic.c:606 [inline]
+ proc_create_data+0xa5/0x190 fs/proc/generic.c:620
+ nfs_net_init+0x1a7/0x290 fs/nfs/inode.c:2777
+ ops_init+0x35d/0x5d0 net/core/net_namespace.c:137
+ setup_net+0x118/0x350 net/core/net_namespace.c:443
+ copy_net_ns+0x536/0x770 net/core/net_namespace.c:584
+ create_new_namespaces+0x3f0/0x6b0 kernel/nsproxy.c:132
+ unshare_nsproxy_namespaces+0x144/0x190 kernel/nsproxy.c:234
+ ksys_unshare+0x532/0x890 kernel/fork.c:3320
+ __do_sys_unshare kernel/fork.c:3386 [inline]
+ __se_sys_unshare kernel/fork.c:3384 [inline]
+ __x64_sys_unshare+0x38/0x50 kernel/fork.c:3384
+
+Memory state around the buggy address:
+ ffff8881191a4f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8881191a4f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff8881191a5000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                            ^
+ ffff8881191a5080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff8881191a5100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+***
+
+kernel BUG in config_item_get
+
+tree:      vfs
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/vfs/vfs.git
+base:      691edd89507f8977eb8831892c3b460edc79d73c
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/b34863a5-8646-4b81-a3b6-8d7c722db7f8/config
+syz repro: https://ci.syzbot.org/findings/1475de5c-5602-4f7c-97d8-fa318d3969f7/syz_repro
+
+refcount_t: addition on 0; use-after-free.
+------------[ cut here ]------------
+kernel BUG at lib/refcount.c:34!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 5904 Comm: syz.1.18 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
+Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 a7 10 51 fd e9 5d ff ff ff e8 fd c2 d9 fc 48 c7 c7 a0 98 8c 8c e8 e1 73 38 fc 90 <0f> 0b e8 e9 c2 d9 fc 48 c7 c7 20 99 8c 8c e8 cd 73 38 fc 90 0f 0b
+RSP: 0018:ffffc900030bfc68 EFLAGS: 00010246
+RAX: 000000000000002a RBX: 0000000000000002 RCX: ca30be1f7752be00
+RDX: 0000000000000000 RSI: 8000000000000001 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffc900030bf9e7 R09: 1ffff92000617f3c
+R10: dffffc0000000000 R11: fffff52000617f3d R12: 1ffff1102365c80a
+R13: ffff88811776d218 R14: ffff888117f184b4 R15: ffff8881ba75a598
+FS:  00007fcbbc6696c0(0000) GS:ffff88818be0d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fcbbb6716a0 CR3: 0000000117a68000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ __refcount_add include/linux/refcount.h:-1 [inline]
+ __refcount_inc include/linux/refcount.h:366 [inline]
+ refcount_inc include/linux/refcount.h:383 [inline]
+ kref_get include/linux/kref.h:45 [inline]
+ config_item_get+0x88/0x90 fs/configfs/item.c:104
+ configfs_get_config_item fs/configfs/configfs_internal.h:127 [inline]
+ configfs_symlink+0x17d/0xa60 fs/configfs/symlink.c:167
+ vfs_symlink+0x18e/0x370 fs/namei.c:5812
+ filename_symlinkat+0x1a5/0x430 fs/namei.c:5837
+ __do_sys_symlinkat fs/namei.c:5857 [inline]
+ __se_sys_symlinkat+0x4e/0x2b0 fs/namei.c:5852
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fcbbb79fb19
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fcbbc669028 EFLAGS: 00000246 ORIG_RAX: 000000000000010a
+RAX: ffffffffffffffda RBX: 00007fcbbba25fa0 RCX: 00007fcbbb79fb19
+RDX: 0000200000000840 RSI: ffffffffffffff9c RDI: 0000200000000800
+RBP: 00007fcbbb837b70 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fcbbba26038 R14: 00007fcbbba25fa0 R15: 00007ffd984fbca8
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
+Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 a7 10 51 fd e9 5d ff ff ff e8 fd c2 d9 fc 48 c7 c7 a0 98 8c 8c e8 e1 73 38 fc 90 <0f> 0b e8 e9 c2 d9 fc 48 c7 c7 20 99 8c 8c e8 cd 73 38 fc 90 0f 0b
+RSP: 0018:ffffc900030bfc68 EFLAGS: 00010246
+RAX: 000000000000002a RBX: 0000000000000002 RCX: ca30be1f7752be00
+RDX: 0000000000000000 RSI: 8000000000000001 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffc900030bf9e7 R09: 1ffff92000617f3c
+R10: dffffc0000000000 R11: fffff52000617f3d R12: 1ffff1102365c80a
+R13: ffff88811776d218 R14: ffff888117f184b4 R15: ffff8881ba75a598
+FS:  00007fcbbc6696c0(0000) GS:ffff88818be0d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fcbbb6716a0 CR3: 0000000117a68000 CR4: 00000000000006f0
+
+
+***
+
+kernel BUG in configfs_symlink
+
+tree:      vfs
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/vfs/vfs.git
+base:      691edd89507f8977eb8831892c3b460edc79d73c
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/b34863a5-8646-4b81-a3b6-8d7c722db7f8/config
+
+refcount_t: underflow; use-after-free.
+------------[ cut here ]------------
+kernel BUG at lib/refcount.c:37!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 1 UID: 0 PID: 5815 Comm: syz.2.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:refcount_warn_saturate+0x104/0x110
+Code: 5d ff ff ff e8 fd c2 d9 fc 48 c7 c7 a0 98 8c 8c e8 e1 73 38 fc 90 0f 0b e8 e9 c2 d9 fc 48 c7 c7 20 99 8c 8c e8 cd 73 38 fc 90 <0f> 0b 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90
+RSP: 0018:ffffc90006787c88 EFLAGS: 00010246
+RAX: 0000000000000026 RBX: 0000000000000003 RCX: 7d2d66e1f00cde00
+RDX: 0000000000000000 RSI: 8000000000000000 RDI: 0000000000000000
+RBP: ffffc90006787d88 R08: ffffc90006787a07 R09: 1ffff92000cf0f40
+R10: dffffc0000000000 R11: fffff52000cf0f41 R12: 1ffff110228fe2e2
+R13: 00000000fffffffe R14: ffff88816f8584b4 R15: 1ffff92000cf0fa0
+FS:  00007f3b9041d6c0(0000) GS:ffff8882a780d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007feda95bb440 CR3: 0000000110044000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ configfs_symlink+0x7b4/0xa60
+ vfs_symlink+0x18e/0x370
+ filename_symlinkat+0x1a5/0x430
+ __se_sys_symlinkat+0x4e/0x2b0
+ do_syscall_64+0x166/0x520
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f3b8f59fb19
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f3b9041d028 EFLAGS: 00000246 ORIG_RAX: 000000000000010a
+RAX: ffffffffffffffda RBX: 00007f3b8f826090 RCX: 00007f3b8f59fb19
+RDX: 0000200000000840 RSI: ffffffffffffff9c RDI: 0000200000000800
+RBP: 00007f3b8f637b70 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f3b8f826128 R14: 00007f3b8f826090 R15: 00007ffcd3b51e38
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:refcount_warn_saturate+0x104/0x110
+Code: 5d ff ff ff e8 fd c2 d9 fc 48 c7 c7 a0 98 8c 8c e8 e1 73 38 fc 90 0f 0b e8 e9 c2 d9 fc 48 c7 c7 20 99 8c 8c e8 cd 73 38 fc 90 <0f> 0b 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90
+RSP: 0018:ffffc90006787c88 EFLAGS: 00010246
+RAX: 0000000000000026 RBX: 0000000000000003 RCX: 7d2d66e1f00cde00
+RDX: 0000000000000000 RSI: 8000000000000000 RDI: 0000000000000000
+RBP: ffffc90006787d88 R08: ffffc90006787a07 R09: 1ffff92000cf0f40
+R10: dffffc0000000000 R11: fffff52000cf0f41 R12: 1ffff110228fe2e2
+R13: 00000000fffffffe R14: ffff88816f8584b4 R15: 1ffff92000cf0fa0
+FS:  00007f3b9041d6c0(0000) GS:ffff88818be0d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fd9936587f0 CR3: 0000000110044000 CR4: 00000000000006f0
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
