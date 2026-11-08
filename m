@@ -1,81 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794135430;
-	b=tZAIUfN0spgqhpw7TYDdp5Fdw780DcET0OvjKErMIil6cHhxaQsE7+zEKd30raNI0cqv
-	 JNmGjhnq+sRaER6czdaHZ/m4SAO3BN1NoCVxJu0whg5EACGYvmvC4blndPktZ14Pd232p
-	 OXE1UTOIXxFonHwYAfqX+/9szrGWxr9IjDmaKGPEG3Op/zzNy9/nqMkSYIlwYWtu58rjA
-	 ipiLLS5X0RgIh/md62b4UTViEq6zPDFXNEgcjZwByYhwmuwcXxx/v6MkXrvALzGH14fUL
-	 mZU6m1wpUqo2tukrax/9oAa2gvMjVoPiBYzAqZnfg1AJFELoEW5gTyqFPsi82jHJsOw==
+	t=1794135512;
+	b=O/Bw1Y80WTqnzOkxh6PhNcX1MryDajV8SrmW1dCBi0x2o/I+jr+5senzVEuil33cF9Du
+	 jIf5N/xbgliQOzKNT0zqN2pomfuzS6v7OXfLKW9h7vbbDFSI9HAR0Hj+ItHawT85l2KhL
+	 WObkArqPOHqO/8dp+qJGVDz0l1xFoZ7Dek+ZE6n6iYR4CaPEPqrbD2bmmwjmP3MEwrob2
+	 KhWKkkUVr8SpTnxXJOrPRmzheyR+0Lvdd5iRfrvT6M9/5lR3VEqHITIql1evGSgQz6MqM
+	 we6bC2WVX21qq/+cjxVSfspakpX99Lvr3lXNc4BFF6V2Yawz4X2fcPCexhVsoIiU6Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794135430;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794135512;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TwD6srxjUR1mlpO3FVThd9ARdJjbCvcuXWMQlKqn3B8=;
-	b=WG3+30/PhBO8ujMdOvgE3j5hPkbER73U4hFLILkcFCfVURtWZLrJM20LQ6GRqlONPYdI
-	 mBAFS+H0NptRrpnDgtQvVNiPwoxi1wtg8qFDg0ZLrr9LABhp4+DOEaWKpR0ij6Z/SfPik
-	 JzurcC9Ihh1nxf7h11RF5SjcvN37Qjf7SIDVlO7CIC0spL2BqIKdx3sXX4pL8fzCWbrGP
-	 hRHloaWcy8rGTrWGCAnoQ44beYpkmQow4sDHJyEjlkwLtGjPiahWah6zTp6JYDuaaZgDo
-	 7wOSt5pvdycjmYozYvIN03wJVhNa9LHm5WB2NtYuycV4UU+651c9rjHcm/t+LelZFRg==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=xZpTSZLjpiXRLgQz+yKgZHrReimr9BjYFib1X4thl4Q=;
+	b=Jr51QnZcfGFpofpM/w6LenRXibTNYCZ5nE356iAZMQSJfWQJUYjLfEDP4RJmlfr8bCVO
+	 Dkd9oCNMwzt4cqzFGrfANsLhAl+lvqYCSiGmSC7DngUqKIS+xQBm3mcCIeQg2YR4j0Cl0
+	 j3HTMaURNb85qBx221d97Pn1SH3J32RKC+1WZRiEDJuRJLqQ4xMUIbjyYuPDNwX/cXNBJ
+	 FAr9U+Ax6DmOz30JiQnby4MYpjofGQzf3pQZnzMXoFS9N5HarfmZR4TGuscn+PxAADWyj
+	 w8oWReWubtBL3pRQ4ebmY4K0JyiEw4MqCGBkVjiFar2vMTW9qB+eUWK3dviuMyabBiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRiyJ6fm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXNiNxgM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 944DF606A321;
-	Sun,  8 Nov 2026 10:57:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52948606A31C;
+	Sun,  8 Nov 2026 10:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRiyJ6fm
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7C02B1F0089F;
-	Sun,  8 Nov 2026 10:57:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXNiNxgM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB911F0089F;
+	Sun,  8 Nov 2026 10:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794135429;
-	bh=TwD6srxjUR1mlpO3FVThd9ARdJjbCvcuXWMQlKqn3B8=;
+	s=k20260515; t=1794135511;
+	bh=xZpTSZLjpiXRLgQz+yKgZHrReimr9BjYFib1X4thl4Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TRiyJ6fmFAW63gdpsdwizsp8sks3nQPXCSsVNd2T20n3ecL1W08N+jUzZxESIVAWt
-	 rhR2mdZ4qwRW/NMbHJFqpDNOPF9CXCkui9oI7PMmIUK4NxRCe2tt3hQpxEkFSNqnT0
-	 fw0KvS+KzLx48jNlOy68g7m9gUQm5PjmAAZkx6rtXjtm9xekTzjZXWKbj5B0QbYwyG
-	 JB/8XGKYPRZUhr7WB2L1DE2wA6j8fiZesr0+iLMikAA0HSFogUoI1v59TfiFrI9g6D
-	 VM/ZyMozcNPiWETPtwx8BEFg9Wkle0PgGqG+r2WbGEMNej4Yxuy0+ze7IBBhmtmmqV
-	 eurIf9dCG5Cjg==
-Date: Sun, 8 Nov 2026 12:57:05 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, bpf@vger.kernel.org,
-	dm-devel@lists.linux.dev, fsverity@lists.linux.dev,
-	keyrings@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ignat Korchagin <ignat@linux.win>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>
-Subject: Re: [PATCH v6 0/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <avBVgZt92j3OkpOG@kernel.org>
-References: <20261107195605.3929659-1-jarkko@kernel.org>
- <au-FkAtC4Gcw7Bkb@kernel.org>
- <20261107204210.GG6049@quark>
+	b=cXNiNxgMl+fncHz5npPyFiFoO3qsK1M/5wj4XkAyv/9pmjUgjLTCzb3xH2NrYgk2M
+	 e9IO4PN3DtpdqPZLm7ps39m/edZLXv64LsV47kBRTV1t0Ho4CcSrnUPgtU+CwYpSpG
+	 DRyeQlAdLSvfcHlqoev4xuoxb5fOlx2r6VlmXAM+511X/uq5WhPaTbN9jQKpCjycrd
+	 JmCsg/g12HHxX+pzceICghVbWCeDhkcnpVdxKrXH/YjRksQREeJMrXRpD5evTdkmTx
+	 nvFpWlxzurTZYslUV95Czjnd7IQUMgFNSi3isQNX6RR7cUQnSfawu3lNm5B30+4G9L
+	 AH+Y071Nq3jJA==
+Date: Sun, 8 Nov 2026 12:58:27 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
+Message-ID: <avBV048xzXRp-cnC@kernel.org>
+References: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
+ <avAr894n6lNGD9C8@kernel.org>
+ <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,89 +59,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261107204210.GG6049@quark>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
 
-On Sat, Nov 07, 2026 at 12:42:10PM -0800, Eric Biggers wrote:
-> On Sat, Nov 07, 2026 at 10:09:52PM +0200, Jarkko Sakkinen wrote:
-> > On Sat, Nov 07, 2026 at 09:56:01PM +0200, Jarkko Sakkinen wrote:
-> > > The keyrings subsystem is the sole user of assoc_array. It has over 1700
-> > > lines of code, no test suite, and a long history of bugs, with LLMs now
-> > > finding more.
-> > > 
-> > > This unfortunate outcome has evolved over time by large from the shortage
-> > > of in-kernel callers, time bandwidth and 3rd party contributors.
-> > > 
-> > > What the keyrings subsystem needs is just a generic key-value store, which
-> > > performs well with sparse key sets. Replace assoc_array with an
-> > > rhashtable-backed keyring index and remove assoc_array from the kernel.
-> > 
-> > Sashiko: https://sashiko.dev/#/patchset/20261107195605.3929659-1-jarkko%40kernel.org
-> > 
-> > Not addressing this as only one patch changed and the change was
-> > exactly:
-> > 
-> > diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-> > index 772fa0e35f9d..6761c6801edc 100644
-> > --- a/security/keys/keyring.c
-> > +++ b/security/keys/keyring.c
-> > @@ -12,7 +12,6 @@
-> >  #include <linux/security.h>
-> >  #include <linux/seq_file.h>
-> >  #include <linux/err.h>
-> > -#include <linux/delay.h>
-> >  #include <linux/jhash.h>
-> >  #include <linux/user_namespace.h>
-> >  #include <linux/nsproxy.h>
-> > @@ -101,6 +100,7 @@ static const struct rhashtable_params keyring_link_params = {
-> >         .min_size               = 4,
-> >         .nelem_hint             = 3,
-> >         .automatic_shrinking    = true,
-> > +       .insecure_elasticity    = true,
-> >  };
-> > 
-> >  static struct keyring_index *keyring_index_locked(const struct key *keyring)
-> > @@ -1225,12 +1225,8 @@ int __key_link_begin(struct key *keyring,
-> >                 if (ret < 0)
-> >                         goto error;
-> > 
-> > -               do {
-> > -                       ret = rhashtable_insert_fast(&links->ht, &link->node,
-> > -                                                    keyring_link_params);
-> > -                       if (ret == -EBUSY)
-> > -                               fsleep(100);
-> > -               } while (ret == -EBUSY);
-> > +               ret = rhashtable_insert_fast(&links->ht, &link->node,
-> > +                                            keyring_link_params);
-> >                 if (ret < 0) {
-> >                         key_payload_reserve(keyring,
-> >                                             keyring->datalen - KEYQUOTA_LINK_BYTES);
-> > 
-> > So I don't think there are any real issue with the patch set, except I
-> > will need to rebase the commits to the latest mainline.
+On Sun, Nov 08, 2026 at 04:17:02PM +0800, Huacai Chen wrote:
+> On Sun, Nov 8, 2026 at 3:59 PM Mike Rapoport <rppt@kernel.org> wrote:
+> >
+> > Gentle ping :)
+> Sorry for the late response, would you mind if I modify it to use
+> #ifdef? Usually it should be avoided, but I want to signal users that
+> KFENCE is not a usually enabled feature.
+
+Up to you :)
+
+Do you want me to resend or you can update while applying?
+ 
+> Huacai
 > 
-> It looks good to me now too, but it would be good to get a Sashiko run
-> on the latest version.  Sashiko hasn't run since v3, as it failed to
-> apply the series.  You should base the series on a commit in either
-> mainline or linux-next, and pass the '--base' option to 'git
-> format-patch' so it adds a 'base-commit' line.
-> 
-> (The only reason I've been able to apply it myself for review is that I
-> went out of my way to find your keys-rhashtable branch in git.)
-> 
-> - Eric
+> >
+> > On Sat, Oct 31, 2026 at 03:21:46PM +0200, Mike Rapoport (Microsoft) wrote:
+> > > With KFENCE enabled, resume from hibernation triggers KFENCE reports while
+> > > swsusp_asm_resume() copies the image pages, for example:
+> > >
+> > >   BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
+> > >
+> > >   Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
+> > >    swsusp_asm_resume+0x20/0x94
+> > >    hibernation_restore+0x128/0x1a0
+> > >    load_image_and_restore+0x6c/0xc8
+> > >    software_resume+0x240/0x260
+> > >    do_one_initcall+0x68/0x200
+> > >    kernel_init_freeable+0x26c/0x304
+> > >    kernel_init+0x20/0x134
+> > >    ret_from_kernel_thread+0x24/0x1d0
+> > >    ret_from_kernel_thread_asm+0xc/0x98
+> > >
+> > > During resume from hibernation, the image pages that occupy physical pages
+> > > used by the restore kernel are first loaded into free pages and then, as
+> > > the very last step, swsusp_asm_resume() copies them to their final location
+> > > pointed to by pbe->orig_address, which the hibernation core sets to
+> > > page_address() of the page in the restore kernel.
+> > >
+> > > The early KFENCE pool is allocated from memblock and normally occupies the
+> > > same physical pages in the restore kernel and in the image kernel, so these
+> > > pages are usually copied by swsusp_asm_resume().
+> > >
+> > > The KFENCE pool is remapped into the KFENCE area above vm_map_base and
+> > > set_page_address() adjusts page->virtual so that page_address() returns
+> > > the page-table mapped alias rather than the DMW address of the pool pages.
+> > >
+> > > Hence, pbe->orig_address of KFENCE pages points to that alias and
+> > > swsusp_asm_resume() writes them through the page tables. But:
+> > >
+> > > * the copy loop overwrites the kernel page tables, so a TLB refill for the
+> > >   KFENCE alias may use a partially restored page table
+> > > * the KFENCE pool pages that are protected in the restore kernel fault in
+> > >   the middle of the copy
+> > >
+> > > Convert pbe->orig_address to DMW addresses before starting the copy.
+> > >
+> > > Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > > ---
+> > > Reproduced with hibernation in QEMU, the KFENCE reports are gone with
+> > > this patch.
+> > > ---
+> > >  arch/loongarch/power/hibernate.c | 12 ++++++++++++
+> > >  1 file changed, 12 insertions(+)
+> > >
+> > > diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
+> > > index 817270410ef98..ff571ab4e8df9 100644
+> > > --- a/arch/loongarch/power/hibernate.c
+> > > +++ b/arch/loongarch/power/hibernate.c
+> > > @@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
+> > >
+> > >  int swsusp_arch_resume(void)
+> > >  {
+> > > +     struct pbe *pbe;
+> > > +
+> > > +     /*
+> > > +      * page_address() of KFENCE pages is mapped by page tables that are
+> > > +      * overwritten during restore and may be protected by KFENCE, copy
+> > > +      * through DMW instead.
+> > > +      */
+> > > +     if (IS_ENABLED(CONFIG_KFENCE)) {
+> > > +             for (pbe = restore_pblist; pbe; pbe = pbe->next)
+> > > +                     pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
+> > > +     }
+> > > +
+> > >       /* Avoid TLB mismatch during and after kernel resume */
+> > >       local_flush_tlb_all();
+> > >       return swsusp_asm_resume();
+> > >
+> > > ---
+> > > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> > > change-id: 20261027-fixes-loongarch-fd3755f33919
+> > >
+> > > --
+> > > Sincerely yours,
+> > > Mike.
+> > >
+> >
+> > --
+> > Sincerely yours,
+> > Mike.
 
-I think know what is the problem here exactly. It's the prepending bug
-fixes. Sorry, I only now realized this althouhgh it should be quite
-obvious.
-
-I updated mainline few days for the sake of v7.4-rcX PRs late this
-week (I think it was Thu or Fri) but linux-next was not up to date
-last time I checked.
-
-One I'm able to send the PR containing the fixes, I'll do that and
-once that is in the mainline. I'll send a new version of this patch
-set.
-
-Br, Jarkko
+-- 
+Sincerely yours,
+Mike.
