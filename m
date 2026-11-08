@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794115308;
-	b=g89lbqYHy+lzHaPacd6KmRw3s+aCYpME3L/Z9AOWwyhQ8UJbcyvCjkpesseqhA+NUhD+
-	 7tAKODM9l51nQVP3z9xdks+j/xNOAdmwGO6sZpU/5+H3O94KOxZlXeUnMtYkGcjiyUKE4
-	 BtMhjTUmOemRYI0KMT/jcfA/6BYWq1oZLlytlUQcntDFSh/Y7mfOBbPJVcp6EddVNEBna
-	 zyrliFmA8wpQMuLdB1TgrFkx0989Pm4R/hPCwWg1MED4aKHWAIWKFFJMbfwymmVvNKbWD
-	 t3K5s/RyufshIYw0OLNEQVJKa/4/TSd2LW331FfLOG50w1I87RX+bn6ictgbRKgAybw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794115308;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SoIh5IaJ5fx+BCvM2MKwezXGTpCbXK/6YMkiNnlkXjg=;
-	b=QnKaERJKBd4xTN3FTO2KiXk2sill866wVaritwQ9chlv0hwiFkB3TuNfJXOkGHqYvzzF
-	 2qdbg5xT/CpGHEh3Pgo9ISXcnWr9KZ3O9if95dEb5HjtbZ80S/EjLZFa1Aozu/roQCexL
-	 RpBNf5MIb4csdVBnQg7tiGBjb1ekgUhPwRWHPxVODhv1j9M4r/CsFXQy2lO5QTpX+QzVg
-	 BlUMHDce23HdWhX9942buAVcg44xmvZynyPkaKJbWutZ3BFAu3X4hpWSv/Teg5vcng6Qf
-	 LAG81mW2Sn/QF2CTsnRjIYBnzKOE6S55brFI48DhPBd33CUqI5kAtDkt7trJZLzXjZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xekfr9v3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B45606A31D;
-	Sun,  8 Nov 2026 05:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xekfr9v3
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794115308;
-	b=pXjmPdeFiLDOvvAD+y6j2jC5krQqak0nS+uoHeYw02Bp6LHq0llW+K5s9t5iHGyvnVTb
-	 ymvNRTfnUf0xAiCCZfHdA3geB54kh6iHteIkud2M8ZmKRkk4hljq0++fkMybkuQ6gsRtS
-	 uqO0mqbSHTAylDouxIDPZ7dLxPKyvz6tFOeZ4yeDRY0OEWlcr2tQGeh6RmeSxUy2qZiUc
-	 2/7qORHQaHIwAaC1hEkUtff2gHsKcfgZCcSRVwhBDthE8UsLQuA52RrLhoOz5jgnCkarT
-	 VKRToqkqW7EVVXWuKSy5At4jtfMbx6PlJFshbEiFqEZcaH9Yyia8jehjD3YQqp08B1A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794115308;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SoIh5IaJ5fx+BCvM2MKwezXGTpCbXK/6YMkiNnlkXjg=;
-	b=cyGCOdGv8aBwM3sLwEfNBkr5Z9AdV+pabUcWFzNnhjHlMLsJQs4gJbPUJK5DVdDpkcIB
-	 LbLw1vuhsRzzPI6Rrq6cCjIl5k+ITEXBO08QZ+CRmebG+1EXeRnPC38Kaf/MNHNAGIKeP
-	 YiTOlXoTxBhPdVb/9BtNW42ig8lP0Xi1mxdD+28Dh6gV3nKfzeBxm8sHhzxkangfXYTFB
-	 hIv9MuC9P822XjWMOoJotSp3BW7nB+6m7P0gTrWHLYKvHR5+EA8//Vv8SOm8E+SJlc28O
-	 AcsYOWhkZc4jQRlHw7kv/ezqEAyyh4ItWv75B/2aCO4Mo4/s0uXke+A0oVKBVOzH3MQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.128
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794115336;
+	b=EBWqBpqow0uhCGUKLPBVTxEz0DxdSpqyC0R/lfOdmV1bY7LhX9nqyPdACSDZGAleuPHS
+	 q2HFyNW4T5lwo0t5ol0g1K/3+8rZT3cpBvbSAtkYDAbinDiMnUR4g+WbhT7QXgxEAOvMZ
+	 /yJ6rE58KZqOgaxp435JlWMGxSn23E6hALxUqImPHgccnP0k+3yicnh+9XN33ECcUbMw+
+	 gfdXLkQmLwfC0TyzAzVE7Jj8veFje47ESuuxHnc7gjbHh/nwFAqzSZOw6sKDHqQN5npTO
+	 bpn0rIboPiaXiwnyFLv8xA49lhSsD5QoWI6xSwkZbPRZkciwRQxjXQNGGSI6tnVk6xQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794115336;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=eohJ0DCIaSvFxowjPTLeEGZzQ8vwQ/i8uAHLdRHVZ2Q=;
+	b=MbdKkE9/33f7qeqsNoMxzDGQLfiYh9Q7nDpoxLprvpeE5ZLGnQKwk0c/+ZPA6UCfQrAf
+	 ZbZDpAr4A2LTurpsWG1/uT5f4lU+YHkg61e41jt/AaXcG2I+vSe228q9dWW1stmXIhRWH
+	 6RY3KRpzcWgoYp1eVqQ6sGo6l1wPpV/1DO3OvLTurgHB9bwKQjtBbBcAKRVPJIKWSU1tR
+	 iBbky8npAWuok5qp4GWmbHN7pAbcXqo7lwulMD/KbgCJ/C/V1ed5pj4g+jzbMdCtjacHZ
+	 1UZbgMCbujgls+P18UCTYkdDRSrPdH+Ar+f4XtlceBKet7DZkdnMRlWz2JpHRFMQegQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IzK0WzZY;
+	arc=none smtp.remote-ip=74.125.227.128
+Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 48A481F008A2;
-	Sun,  8 Nov 2026 05:21:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794115308;
-	bh=SoIh5IaJ5fx+BCvM2MKwezXGTpCbXK/6YMkiNnlkXjg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Xekfr9v3qAfIpCpGJnv9VlsH/hJ5haZuB9kErQPFPo2lt078AOyZXgTqZw9hoafGs
-	 J5BQwIjv021SqZO0hFIjiFfYJiTdwxjpDn2ezsALj6FWJpGISwQX6eKI4/n7swpNN4
-	 XVMsa8ydANSBeMTzinC2FKp/vsu7WQHhKS8u1h4alYQQfaH1fgqrPD9pViSrXp5PC+
-	 cL9L6p4lq5sMMglFJjUANAsDBcwNOVZx8tanABoJ7zz2pNiav6eQ3iFmlgcUM+HlyF
-	 SyTkZM9JcreOP++VDxp9mjgKxT0BFnkNnuD0pg7Gf0jMM90AlmRc3JyFQ3DGgCfHos
-	 10uiJZ5duHw3w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B355947E1D;
-	Sun,  8 Nov 2026 05:21:46 +0000 (UTC)
-From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Sat, 07 Nov 2026 21:21:47 -0800
-Subject: [PATCH RFC 2/2] staging: media: tegra-video: uninterruptible
- syncpt wait for tegra20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32925606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32925606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IzK0WzZY
+Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-3b094d5f1b4so59985a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:22:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794115335; x=1794720135; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=eohJ0DCIaSvFxowjPTLeEGZzQ8vwQ/i8uAHLdRHVZ2Q=;
+        b=IzK0WzZYLOoCbFktNRWPHqUO0zKBz6tj+YNYbzXv/QeevzHLY8v7KcG/EmcDLmrJcB
+         H58Hxn6WCvaHjvhId5NxlzeNfB31OIzNCDb86YAp+4nQpIie+bcChfYvZE3Yi6lNhlM9
+         Sn/C5RgwrUXV2kREUZDnQbqdVF4adYWPT86i2SIMMZi0tExxTzw75QDXI4v6QWu7whig
+         puaamGU1z9P8eJm86e0YaayAbZI0YQnShIrNGHQVlTZYv1YErsl6RSrMYVCkh5NOlkkd
+         um/lubBCvQWuU7uVT5XrVSacekPO41Ri1EhRxNA3OwhxHbO5pnMNMhXOefR/0skphbYo
+         26rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794115335; x=1794720135;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eohJ0DCIaSvFxowjPTLeEGZzQ8vwQ/i8uAHLdRHVZ2Q=;
+        b=sy7qoL5QULlyuvcHy73b7oeZkL25lGNvZTHXIv6+bnPQbipCPV+g3DyAHNq60Fppgd
+         W969JdVd1+5qiVKLBtTcxNPKX8f/lnmTfiH7+MewdGu4cGrjme3zk8S9aDW9MACulBxa
+         0ozcE+TDsv0VU5YTkIVipalOe3bWS2fYQBwBFV8GLpJGfDOm2bEUxMXatvEi4huBZYF5
+         FcTrdxQ5DOvXGavLAg15pZvH/zfux+75Fl0iIIn/GZKf/KY2Xtx2foWkbBP2p7944GmH
+         hYLPxf6WPoDCsMtHqYAdIU2moTi3Qz7LjnT9EPObmftq92jLCAOASWbm96JwOoN8jMqJ
+         OQPg==
+X-Forwarded-Encrypted: i=1; AL+hErEnk0+glCktlk+rn+nxtfmAnSFLf+xI5FI2zi+r8A6ZjELnwRQTfQpIZ905MLQzUa5sADwEZzXIiOfRp8Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nuJRi4/Dy5wzsiwpoTTZEYzgeiHkhdf1bgCnVHgxFBC/6/kKg
+	UZu2kiar9yd0rRroXf1Fz1tNIMKm4LCSCoo+goKrTR7HBqmwP2Vionz3
+X-Gm-Gg: AYBFou3WPdXgvXK71mqM7YhgjcowrIGJ6M2FWRXFA57gjEM+mK3LSTHeATEQE6Qcd7B
+	zpAwL8zAPN2EWOF7IU7bne8etAup7dYy8yzqCtiH6V4AsgDW739pmvT5CCslLWsqKIr/E8+NEqf
+	bPLnuO7GX/w2r4IknY/U7y384SQHmywsrVUwXihddozOByBm3z+co0EpaJP+tXA9qyOvVWmRbzF
+	JkaqFT9bSlvH5p5B/ezfOxUwudcHH5XgkeqtoZNsGGmPdxbEdpU114LKOepraKb0HUzBXTkjGLl
+	UYzcIRxjAA/cw3ZX2Vg6CKctpq6zpnfZEJ0jqstqeBnXpBScQ4nXY8d66PF5E9iafxvVuZnC3mU
+	FTUc4oOGhKnfVS3qsVVqmhxoqgEGPgNHhydRKu+F+zGDYeGljYbWn4yeXf/ngidJVjtbz6uAx31
+	vftUu92as0+tv20kjO9x7GoPkDItxjghevdVUIq+jBV0uLFEvyLaCpgthjHWyvtbs0Z8tvuaHjO
+	JRCdpIcUSg9978WiFtRfWj+5RIV8uWv1ubQb41Lrh1H9Hrz+C0mSqpW54/O7Kg5lk9jgtMsb7pJ
+	GSc8VKcVjOJPWqlazDaFbZwijLM9oBTulPh5wk7WuKBsxHW7bozPn25WVzzf89W1VCGswJOe/wE
+	Yid8FBxXzgxoKsPr8bfOVwHPe5Q==
+X-Received: by 2002:a17:90b:5903:b0:3b0:9bfa:72b1 with SMTP id 98e67ed59e1d1-3b12d4dafb6mr493467a91.49.1794115335433;
+        Sat, 07 Nov 2026 21:22:15 -0800 (PST)
+Received: from [192.168.50.20] (42-98-155-143.static.netvigator.com. [42.98.155.143])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058a7b29sm5647629a91.10.2026.11.07.21.22.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 21:22:15 -0800 (PST)
+From: Aveline Noir <jm5905938@gmail.com>
+Subject: [PATCH 0/2] drm/amdkfd: fix SVM error handling
+Date: Sun, 08 Nov 2026 16:13:32 +1100
+Message-Id: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,108 +93,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-batch1-b1-host1x-wait-v1-2-8c8198adf600@tubot.lat>
-References: <20261107-batch1-b1-host1x-wait-v1-0-8c8198adf600@tubot.lat>
-In-Reply-To: <20261107-batch1-b1-host1x-wait-v1-0-8c8198adf600@tubot.lat>
-To: mperttunen@nvidia.com, thierry.reding@kernel.org
-Cc: DelaySystem <DelaySystem@tubot.lat>, dri-devel@lists.freedesktop.org, 
- luca.ceresoli@bootlin.com, gregkh@linuxfoundation.org, mchehab@kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- clamor95@gmail.com, jonathanh@nvidia.com, linux-tegra@vger.kernel.org, 
- skomatineni@nvidia.com, linux-media@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3090;
- i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=7uslf2XS4oy14/GfacExPmou0Ikg+kCKP6aBJT8Gwy0=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkf2F5ZZzAysWlkRNotNl89g+nGy8TPGo7er+YqdjzIv
- +Oh+VCoo5SFQYyDQVZMkUVMhud9/X2dOGurOSdg5rAygQxh4OIUgIm0XGb4X/4spIKP18/ewqGm
- 3nj26Vd2WyQ+d7CuiAg46yLsGbbCl+F/pXpCn+AUJ89QoWsRWSrfDBzd10m9j3WaZuyYVPFogxw
- 3AA==
-X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
- fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
-X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
- auth_id=1447
-X-Original-From: DelaySystem <DelaySystem@tubot.lat>
-Reply-To: DelaySystem@tubot.lat
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNyw6CMBBFf4XM2kl4iKi/YlyUdoBRac2MEhPCv
+ 9uiLM/NzTkzKAmTwjmbQWhi5eAjFLsM7GB8T8guMpR5eSiK/Ij3zqFOI7ZG6cGekESCKP4PDVZ
+ 1bSqX231zKiFqnkIdf9bE5fpjfbc3sq/kTY+kwlaMt0OatkIXhLj3OIkZN321dmFZvi4pfai5A
+ AAA
+X-Change-ID: 20261108-kfd-svm-baseline-errors-20261107-355a3d0c4792
+To: Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Philip Yang <Philip.Yang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, 
+ honghuan@amd.com, honglei1.huang@amd.com, psirt@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-From: DelaySystem <DelaySystem@tubot.lat>
+These patches fix two error paths found while reviewing KFD SVM range
+handling. A failed interval notifier registration can leave a published
+range without a notifier, and an HMM allocation failure can lead to a
+NULL notifier dereference during validation.
 
-The Tegra20 capture path runs in a kernel thread and retries
-host1x_syncpt_wait() in a do/while loop to survive the -ERESTARTSYS
-its unconditionally interruptible wait returns spuriously at high
-resolutions and framerates.
+The fixes were tested with targeted KUnit tests under KVM with KASAN and
+lockdep. The error paths use injected failures or equivalent failure
+states; no AMD GPU was tested.
 
-Now that host1x provides host1x_syncpt_wait_uninterruptible(), use it
-for both the frame-start and MW-ACK waits and drop the retry loops,
-fulfilling the TODO above the frame-start wait.  Timeouts still fail
-the capture as before; only the spurious signal failures go away.
-
-Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
 ---
- drivers/staging/media/tegra-video/tegra20.c | 37 ++++++++---------------------
- 1 file changed, 10 insertions(+), 27 deletions(-)
+Aveline Noir (2):
+      drm/amdkfd: handle SVM interval notifier registration failures
+      drm/amdkfd: check HMM errors before testing range validity
 
-diff --git a/drivers/staging/media/tegra-video/tegra20.c b/drivers/staging/media/tegra-video/tegra20.c
-index cdadff98eae7..e618d1722841 100644
---- a/drivers/staging/media/tegra-video/tegra20.c
-+++ b/drivers/staging/media/tegra-video/tegra20.c
-@@ -589,28 +589,14 @@ static int tegra20_channel_capture_frame(struct tegra_vi_channel *chan,
- 				  CSI_PP_START_MARKER_FRAME_MAX(0xf) |
- 				  CSI_PP_SINGLE_SHOT | CSI_PP_ENABLE);
- 
--		/*
--		 * ERESTARTSYS workaround for syncpoints is used because host1x_syncpt_wait
--		 * is unconditionally interruptible. This is not an issue with single shots
--		 * or low resolution capture, but -ERESTARTSYS occurs quite often with high
--		 * resolution or high framerate captures and if not addressed here will
--		 * cause capture to fail entirely.
--		 *
--		 * TODO: once uninterruptible version of host1x_syncpt_wait is available,
--		 * host1x_syncpt_wait should be swapped and ERESTARTSYS workaround can be
--		 * removed.
--		 */
--
- 		val = host1x_syncpt_read(chan->frame_start_sp[0]);
--		do {
--			err = host1x_syncpt_wait(chan->frame_start_sp[0],
--						 val + 1, TEGRA_VI_SYNCPT_WAIT_TIMEOUT, NULL);
--		} while (err == -ERESTARTSYS);
--
-+		err = host1x_syncpt_wait_uninterruptible(chan->frame_start_sp[0],
-+							 val + 1,
-+							 TEGRA_VI_SYNCPT_WAIT_TIMEOUT,
-+							 NULL);
- 		if (err) {
--			if (err != -ERESTARTSYS)
--				dev_err_ratelimited(&chan->video.dev,
--						    "frame start syncpt timeout: %d\n", err);
-+			dev_err_ratelimited(&chan->video.dev,
-+					    "frame start syncpt timeout: %d\n", err);
- 
- 			tegra20_csi_write(csi_chan, TEGRA_CSI_PIXEL_STREAM_PP_COMMAND(port),
- 					  CSI_PP_START_MARKER_FRAME_MAX(0xf) | CSI_PP_RESET);
-@@ -625,14 +611,11 @@ static int tegra20_channel_capture_frame(struct tegra_vi_channel *chan,
- 	}
- 
- 	val = host1x_syncpt_read(chan->mw_ack_sp[0]);
--	do {
--		err = host1x_syncpt_wait(chan->mw_ack_sp[0], val + 1,
--					 TEGRA_VI_SYNCPT_WAIT_TIMEOUT, NULL);
--	} while (err == -ERESTARTSYS);
--
-+	err = host1x_syncpt_wait_uninterruptible(chan->mw_ack_sp[0], val + 1,
-+						 TEGRA_VI_SYNCPT_WAIT_TIMEOUT,
-+						 NULL);
- 	if (err) {
--		if (err != -ERESTARTSYS)
--			dev_err_ratelimited(&chan->video.dev, "mw ack syncpt timeout: %d\n", err);
-+		dev_err_ratelimited(&chan->video.dev, "mw ack syncpt timeout: %d\n", err);
- 		goto exit;
- 	}
- 
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 58 +++++++++++++++++++++++++++---------
+ 1 file changed, 44 insertions(+), 14 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261108-kfd-svm-baseline-errors-20261107-355a3d0c4792
 
--- 
-2.34.1
-
+Best regards,
+--  
+Aveline Noir <jm5905938@gmail.com>
 
