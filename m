@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794165384;
-	b=Yc9OOfLW4TIENcBl56iFcGDksYLibfZLdx55wn0ZLXm7eiUXAmePkMnI71fNgWpmib1i
-	 l0wv1FY3J/26Fl/0H7WeMOZb+ZY6oChsGAXXIWr7IbANWPNwe/4v6fDcCnibA7S8h15n+
-	 b1rSeptPtW59ft+586Hm+wJK4EFkzHGIp3Ot1ybpj2UhNxegDOpfBDLvit83o8knARKe5
-	 ujOx28wYy4Q8z+AZYFrcISkRAx4J3/0SHPIgtxRS2SsOH0/rIRN6JIW0M7qiMxCwDLgpK
-	 fqXhpWVOo2YfP69iyOV1YtGKw11Mq+nOulMAtv/qNEk851jhIt6vwvYj2dvs14KL+jQ==
+	b=mcg/opMLaXXdW+o5oWAkkOJLVpPYW3MltkXr10a/FyljVaZkRqYJw+TiW8Sq7HKqAjxU
+	 XGyGxu2vO0/OgBdIwb98HUE5AWE+mPXApITciDaeCniDEtHorxRgtmh/NgSLzwHAAUQVx
+	 G7UBm8BtAEnBS0qGvD5FiQR5l4BLBZN7pSontdaiB0w8xxpNl+N/AduKxWy6B4PAQ2jaE
+	 9t/qnPboCFDTyHzGdDS8D0kL5+T0nM10Wl1Xro7fN0LI+JJHSkK3xAbtmXLqiqUFpCh6O
+	 ZwTlFc4WFrEFqLPMJTEyY4ALPj7qVai0MhHVcTsjhGh576BZWAlbHfeJnsapYX53oDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794165384;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EeP31xDwtklkLCBDsJsARx3xlsMptNDNnDQPe92kOMU=;
-	b=rFjhe77cYVmCJtj/8KbRK8fFFbVDkCb8T4SvB80WAacJTUPfu2k+9HIdGultxUQqDgX/
-	 sCuPRq/R6X/8ZYEDu1gt39a1BNC9DB/zRVAMsGPi2mwnWCafqtoMtjPagGPnESSmGEca/
-	 VBZ6ZsyUgGfraI+7e4p+OWiZG0hiRmI9aQDgwLjLQ5n9/cTFM3E5DBBT3Fq9+pwzVqqoZ
-	 IUkiT4WFWV1ho4Y4vj6VcTsczaTEq2nprFC/1qitUX+e7gnZz6defxY/aFCNh8sLufj54
-	 FzO2IBphFX1aKbbYMCOtQtlGImCBZ4SWiX1dl3LLjxhAzCk6qLkGeeQtwDlQB+L88nQ==
+	bh=hDPWmvInaWp2wgeM0od2Li5jTmlC0VSnDu9Tp3ujlp4=;
+	b=ZI+/9S8sq+2ltNbgzrhZccIDDLHAm9WKZ8ZZIUBeFle1fHwUaxMN1IqblLH8wXB//gVW
+	 pgCm19rrFlyvg20leHjNqoXPVkm7PSiQc7fXzn3v1eFSP+2PEFjKq8e6f+WZu3PSs4M5K
+	 EkUCIt86UQjzOXls6SqjIRiKkQHWJnELdNDkK/laIVR/cR01pOJMCm8w3l0K6hXRi47Zj
+	 OB7lwDk2bGfxDhyNInlJNkEgKByKwjm/EZ+qYEjkbtjEKVriXifm9C361m1wEm11vELVU
+	 jMOVf51TVzIX2vy0ioLWKkOnotey5WitjFlSjJ/YcIeMqxPONxoC79ky09m5JJ8RyCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hU7EM3I5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DWRYdLW0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58A1606A338;
-	Sun,  8 Nov 2026 19:16:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F29606A321;
+	Sun,  8 Nov 2026 19:16:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hU7EM3I5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498DE1F0089F;
-	Sun,  8 Nov 2026 19:16:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DWRYdLW0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0B51F008A1;
+	Sun,  8 Nov 2026 19:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794165384;
-	bh=EeP31xDwtklkLCBDsJsARx3xlsMptNDNnDQPe92kOMU=;
+	s=k20260515; t=1794165383;
+	bh=hDPWmvInaWp2wgeM0od2Li5jTmlC0VSnDu9Tp3ujlp4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hU7EM3I54v53dGUQvw/0DPNNvc2Vl2utnr+b2e0l7ztKjVHNigT8AnL6yE259Row/
-	 vj6+DTH3Uf6JOTALlbtZuuSgjos5/t+4xYFV6kGEV3e9Js0xdfye3evfjZ00duAzDI
-	 nk7IOfMWNTn3MGbWcYSXcRylbAgeLRD0+J0OlzUqcgL1/4FsbgUBlgLyuCDIiiabOP
-	 MA6AKvFqInvwlPa9f5Qm9BYaqoZbAv9+KmFQVKXijUIPSogZzRyM0t+Naz5OdEAPzc
-	 95RQbj7Cvh1ZDmFS56O4svbuIqJNmMc5iTIGaJ7el6lfh5XMIsiuSdtZP3CZl9ga0D
-	 Vi9DCn1n54U7A==
+	b=DWRYdLW03GiWffLovga+Iq0EPnZ9NHj2rUQxCvGN/uZLj1mfIAYRrpUl63hEZLGh1
+	 De44HsD471r11Pex1jM0Ayr9muj5myH/MAjuPC317KyAjisdknFpw7azOJP8AZrScv
+	 3f1GsSNjhIF6kfVuSSMSXHRFSgP9J9DBZZlYmxKp/f1Umm7+e6icYYu91JAaHFl+DC
+	 JthQKu6mwILUWW+7kI6FRkmGeGZImX7V32AtlPxZCAZl1VsX00VVxSPFXJboSKZWRM
+	 mVGQvffWVcr8T2vQ06WF83ogzi7Cl1xsteTA5hpkKK2FwrJXvt4bB061o6p1q3bqpP
+	 kGG21wZE41Unw==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 4/4] Docs/mm/damon/design: update for DAMON_FILTER_TYPE_ACTIVE
-Date: Sun,  8 Nov 2026 11:16:14 -0800
-Message-ID: <20261108191615.113362-5-sj@kernel.org>
+Subject: [RFC PATCH 2/4] mm/damon/ops-common: implement DAMON_FILTER_TYPE_ACTIVE operation
+Date: Sun,  8 Nov 2026 11:16:12 -0800
+Message-ID: <20261108191615.113362-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261108191615.113362-1-sj@kernel.org>
 References: <20261108191615.113362-1-sj@kernel.org>
@@ -66,25 +63,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Update DAMON design document for the newly added LRU-activeness DAMON
-filter type.
+Implement DAMON_FILTER_TYPE_ACTIVE operation.  Use folio_test_active()
+to show if the folio of the given memory is on an active LRU list.  The
+implementation is made on ops-common, so both vaddr and paddr gain the
+support of the filter type.
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- Documentation/mm/damon/design.rst | 1 +
- 1 file changed, 1 insertion(+)
+ mm/damon/ops-common.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index 8440c4954090e..b676be6971589 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -302,6 +302,7 @@ filter types.  Currently below filter types are supported.
- - ``pgidle_set``: Matches if the page for the memory is marked as access-idle.
- - ``hugepage_size``: Matches if the page for the memory is a part of a hugepage
-   of a given size range.
-+- ``active``: Same to that for DAMOS filters.
- 
- If such probes are registered, DAMON executes the probes for each region's
- sampling memory when it does the access :ref:`sampling
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index b9571f53e538c..2216a0023154f 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -574,6 +574,13 @@ bool damon_ops_filter_match(struct damon_filter *filter, struct folio *folio)
+ 		matched = filter->range_min <= folio_sz &&
+ 			folio_sz <= filter->range_max;
+ 		break;
++	case DAMON_FILTER_TYPE_ACTIVE:
++		if (!folio) {
++			matched = false;
++			break;
++		}
++		matched = folio_test_active(folio);
++		break;
+ 	default:
+ 		break;
+ 	}
 -- 
 2.47.3
