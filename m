@@ -1,68 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169339;
-	b=fMYQjjKJD7+jfsy+0p9vUcrul8+gDJdRnc87rdZxt2/geCYCnZbKtF3bIMrNJIg/+xIN
-	 ZRuVvwn02UBngCBYZcgL633o+BPlkTV0LGFhbC7UZOGutyPdegVnRGMpbiL1S5LI0mjJA
-	 lrVaib8Xl1ZwKCcr74yC44JRYKF03q5NGsFqMbCVZO5VWmJ6nABIXE8G/MgTblxSc91G9
-	 l7+BKstda1b0LjMjN2CUX5ni5E4EE2sXL6n+A2PUgeJ+/TUY4Gl1AUeEUTK8O9RFgObRe
-	 ltOMTvEw3YlenYE3/kgG6B9RA1Hmm7tLVZJ1+ZuTkps8pbfbQKoNgyhQUAQenU8z4Hw==
+	t=1794169340;
+	b=W2TfUKrImHHfh2MwZWbdqpNRXzORR3D7hEB4DaHfQCdMWs5ChMlDIxRGblR0oKd8LfIv
+	 uLHULGWdfv0YiLRg9/zYe2FL+zeRt3tprqmwialTGaHMZEqCEdb1i5iWzt9XFFU8pWd7L
+	 bdJDOva1gxqDm3IMw6zViUgrH+KrEWuS6aD1jS9X9ksBcbyn7fH1CWhjaAQX46D6kpym9
+	 PaD4ct61v7+noDUBkJBFZVH3bmkyWNR8FSI/6PXI4xDmyFOCEhUuIjCKKj75UiZLB4A8N
+	 dLov0M69ch54HP5cbZqaF8dDstBA8SnK3DQVHPrhMEH1mmitIGmU5A7/mtUipeGXADg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169339;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169340;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=EoA7ZL64zE/IGgu4V/DOWIYVNExZB67W/0/a1KImPkc=;
-	b=XQup4FRN0AZ9rOF48tijWgiwVK5ukHt6mydTkSsIW5Tpkw3IQpO6ltVVx69CnLquIfwd
-	 Xh5cGmDj+wmnGfVraVnDsOy+u2xKB/YcFxuc9Q5UwffT11fa1FZQoKbAm3mQ77Z5mByFJ
-	 hEC3+f2vM8Ddq2ZPwDbfiewANETQpVDxJ/CuEYAZ4RYzc/MIhhkwHbfD6RBIycjSgp6nz
-	 XdXJVdJWIZ8mEQcfh0TlAQPM0eulDucwOp0rLWRad5eN3RPjObHY7kzb+AV3EpyyOOryS
-	 6A//xdjFo7fa3yEQ9OeInzNjrfrJDh/xtrBuvEtGNCgixcye9msozG447cUxY4BR05Q==
+	bh=L0ADe7WXOQa7Uf1HfwplJh1EZvR72jfcEhBUCkhKO+8=;
+	b=vK25rZ0LQxQ/oFyCpChARCNd0m/y3A4RmRIZtivRmE84cd95xgLJu0P6u0IZOSzVFjtE
+	 D6Z+Pth2JOWcx9OOl7f81qOKjUpslK2D/bjDQFEk6H8p7d/bLNpBzycvT/SB+NHT76N7A
+	 laxxJYvvqbRv2BSGNjq4Q7Jlma6XuxhdQo2nbFG0Vxat2IsEaLO9tTx+kc0DA3X9rb8se
+	 TUA3vtTSWqqRpFaCvDSwTxkS1M5Wz/UWwwUKCMFoE/sDwSYsm97Y9eqd2JdRZuhYYI8Z6
+	 DSimYJLnY2CCLp2jj7xe6Xsoa4e8n0SQvl9T61VrVZW3kVStV7C7DlwMmXGrIx6f1qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQuVy8nE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiYhXfmZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17508608361D;
-	Sun,  8 Nov 2026 20:22:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AB4606D805;
+	Sun,  8 Nov 2026 20:22:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQuVy8nE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC0B1F008A2;
-	Sun,  8 Nov 2026 20:22:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiYhXfmZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30CE21F00906;
+	Sun,  8 Nov 2026 20:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169338;
-	bh=EoA7ZL64zE/IGgu4V/DOWIYVNExZB67W/0/a1KImPkc=;
+	s=k20260515; t=1794169340;
+	bh=L0ADe7WXOQa7Uf1HfwplJh1EZvR72jfcEhBUCkhKO+8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EQuVy8nEVUT6mIqiMntbGYcZOfQ5gfdLyoxbnawCK66Fv4eNUEEw/GFFxJbAplwDS
-	 fG1ULqe5+TVQ0FQixg4Jh0UP2k88G0AHu0AW/EIAYHOZgqzfrqJmVw3dbVz1sHUK1e
-	 QSBoYXp3Iicrw5ieDNCl6fFgJoSVSCDZFKo2KOesAoIIgRBBsj5XbugtSvduZ2Tg3s
-	 5HQbWODU8GHySb/AdRg0BamwBwVYKEBQW1eHAjib/ebgchjsqMylqLtkMouGp/7uGe
-	 23Fi44+CaZNPtf2lvFR49hiHwY1ckuVuxbAdpbR1xxb5u09xAgQngz+lvp+16cqFhJ
-	 OaBZFI6BNwL4Q==
+	b=IiYhXfmZ8lQbWXGkVn3BlePovfcHHHz2FsB5EWb/3YhoIQ8pi8TNZih6R7m+nn2Ea
+	 N9z9XO0mMt/CELizDLzncotBtiz6uDEKXff9tkjWAmr3myEhh5oJqupao+Vb9StLlh
+	 +8X7S6iXuCGz4qDe0doFvwSSiTh87ux/EegKsJcdkUhlBt0t5dHNMBoKxP5kTLB5TC
+	 iLR5UM2jznxFbRne+gO5WOxMl63F4SLf7zj+oY6t/ILDcFJSpQFudbtDTPEYiKsIYu
+	 KbqdEhJh2eSwRejBoRqna5EZd30JC/dXkRjAQlw9RdzczoDe1XF/BODiEBoCZ9bctC
+	 2E9qsGdZEeYPQ==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Joel Selvaraj <foss@joelselvaraj.com>,
-	Casey Connolly <casey@connolly.tech>,
 	David Heidelberg <david@ixit.cz>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	Petr Vorel <petr.vorel@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-google: Move panel pins into common
-Date: Sun,  8 Nov 2026 14:19:31 -0600
-Message-ID: <179416929473.628393.13331818143918670275.b4-ty@b4>
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable gpi_dma0
+Date: Sun,  8 Nov 2026 14:19:32 -0600
+Message-ID: <179416929411.628393.10081579455491465449.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261025-pixel-panel-pins-fix-v1-1-7cde6f7ca861@ixit.cz>
-References: <20261025-pixel-panel-pins-fix-v1-1-7cde6f7ca861@ixit.cz>
+In-Reply-To: <20261016-beryllium-gpi-dma-v1-1-76ade615c571@ixit.cz>
+References: <20261016-beryllium-gpi-dma-v1-1-76ade615c571@ixit.cz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,13 +70,13 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 25 Oct 2026 23:28:13 +0100, David Heidelberg wrote:
-> Both devices share the pinctrl configuration.
+On Fri, 16 Oct 2026 20:38:16 +0200, David Heidelberg wrote:
+> Used by not yet introduced tas2559 codec connected to the i2c5.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-google: Move panel pins into common
-      commit: e46dd13eb856b1fdf998ac64cff656295f738f16
+[1/1] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable gpi_dma0
+      commit: ecd550f1a9feceb4f2881d6da9bb55a6b388bef3
 
 Best regards,
 -- 
