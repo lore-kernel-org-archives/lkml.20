@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794158666;
-	b=4eGzS1QQi0BDZnMiWzB+YQGo0rhkWJk80AydqGifxgJ1wyfn3bqr95BM3MbnZOUSAve2
-	 PyPskA+mr5pT0SgKegq2G5z185Is5aiHWDqBJvSH6dN8Y2n/hdmBlqUzu4HwsdUtNZIIm
-	 jFrgNbgSn6pl2bBItjaDFEe+dmYkKFQUVFxudZ+wWFuYiT9hq6WlEJFKCl1LUKryxxH94
-	 RkB78cz8l3/+/2EdRRiUJ2axHGwyTFq5748vXz4uCpwZakk1opZE0NxiITeqVQHrjlhx9
-	 sCy6KpPl19em9ZZiHav4m/GiOd/AYVMddawNefy8k3Sc1qr1toMVbiB0Hur/WTSl+WA==
+	t=1794158667;
+	b=BuV3ag0X+DKRCxZGtDumKz4yjiYBbqGhsimNRcIuk1mRaPKkiu6JD0xadwZmzZcmofoY
+	 4CLpSv35lgpDwcRKlrI+VN3sSlLCYAtB9ajyaJm6pl6GD/0kkwQqFGNYs1nzT6uGIoTNs
+	 5dTmO9+xvDJrRTG1h9R9N/zyB5gOmkIkUibKz1FZXqXjWwPV8l/J6pvfC/SHF+gt0l5CI
+	 ycqH0JCzXcgqL8UnaAKHCxyRyDOT1P4u7gqx18TqgBko2H5f1u3zrT0DmI+J+Ay+StQNh
+	 0YU59nWtjG8Konf9XPD812cVjKu0hgp7H0mPJHFIfHb8i8nbw9QynkPnnNv33AEQnbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794158666;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794158667;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:In-Reply-To:References:
 	 Date:X-OQ-MSGID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=Uph41UkqGjQUP560n01miDrOMT1K32aU3ytT2ZOEJi8=;
-	b=Fy1RI/4GSaxLVP0q7yyWYOln4CbcHGqAj6yPeZPF1j1k9dLS/Day+2SZy711/bMUbyXD
-	 tJoVLw1YsesJaQ6zFi5q9euqv5VLps6FYSFwrxPTotZxD7NDA7Gh+i4yPPBdbmZCdLH3z
-	 PK8xascl2HfT+oxmeLipWm2bxygiURYHANF7wFlaMO0J8NwhquvtM/D3h4f7HWzVv7O0X
-	 bfx7aoReokt0GAsrnSKM1vf9BL5NO52HtxerIfllU1IkknKnsvj+cV+JDoU1SS6ufeNYw
-	 JJP6D0k7C2T6cXbdOZ8jT7SAZnVaLN1T4AeyhYXhkTMiqsQSYl2KDoMBDXcOkMLf+Hg==
+	bh=rVreDcV09/jhRW6Avy9X0VDVq0o8YVCljWqSlYfjtBc=;
+	b=P4nyEJ+jm4mLJay0EfAIsb8KL+MzT8dKsH8PIhoOPDkZz9wlcMML1/m6ftKkBx6+IiPu
+	 iwGQs4/fUBelZk8qcbOEJFGYMeXi6PMxZmZNckdBNTNaA3YQOHT7Fggf6y8spXWiCjzCL
+	 bI5CRtEhm3aQHu5GBoqKYn7iZt9h/Ib8/7fa7cKEkp78Fl1ct4IXKLff4NbyUFzTQco0f
+	 6DqD/sb2RGIQijtFUmP/SgxQDFV3lWabF0M8zl+4yHHBAFDUwCt41pP+TA2bQQkyunwLA
+	 WkvqfispVkxgFTkELG2f1pYOSklHGhfdGj36MhkhUTKJuQUaaXq7eWwzDQEfS9krucQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GTQkV0ma;
-	arc=none smtp.remote-ip=203.205.221.245
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XEDqDMeZ;
+	arc=none smtp.remote-ip=203.205.221.210
+Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEDA606A322;
-	Sun,  8 Nov 2026 17:24:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FEDA606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C195D606D80A;
+	Sun,  8 Nov 2026 17:24:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C195D606D80A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GTQkV0ma
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XEDqDMeZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794158647; bh=Uph41UkqGjQUP560n01miDrOMT1K32aU3ytT2ZOEJi8=;
+	t=1794158664; bh=rVreDcV09/jhRW6Avy9X0VDVq0o8YVCljWqSlYfjtBc=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=GTQkV0ma1+kymlQV4NILc6hlv5x7VL2Xv9t5qJDEo/46W7cSjWakGHSN4rVzOSLIF
-	 w0q4c6Vp1bsm1gyRPWhy1niHaLR3j2E4Hu31R929N2+DesA1Sb568F5uPiIrBPN4Iw
-	 nJkzoMtkGdW1sqoNfbrNHr+WufqhQYN80Swf9nXc=
+	b=XEDqDMeZi79XSwIiNuzkmh7GPg/BDTMqxaQEMDL7RIfD1ZFI6G79UxQPoumC1geXf
+	 jNhL47gCdjGXgsQ5NUdEUPZe2ZPZSS5xqSzwAuZJXuMbCl2a6vF3l9F7TX9K9s+k17
+	 SEQGkAck5Kha0CEhZ9y+pm3K4EaD+JMtqfaeWmEw=
 Received: from [127.0.1.1] ([5.195.0.150])
 	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
 	id 5F906C5D; Mon, 09 Nov 2026 01:23:57 +0800
-X-QQ-mid: xmsmtpt1794158644tu8hfzrb5
-Message-ID: <tencent_11CF2A63EA538A0E205F74A39C4000BB7F09@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJGSzjYY2IEl9ePvvG2kWUhZ183zFD0kw2L6B+33AdEX0FZFFhhf
-	 X3TtxeNaAmOnFUZ1En1MvPGRsNdXnnisuPN/Otw0nT7/zMNBS68rl3/5UdvwUvtVwEgkTReOqC4l
-	 gwq5PbXRL+7x44ibyOu97tEXzMoFAuuuow1csCiHEU3MYT2i397At9sL4mkmjm14GQGBS5eE09t3
-	 Z/agsENXtp/6Tmw5LHg+6tTWinlTkOX67A0Mv0pu5iOo+qLtWlFT6Qwyp2yeiG1TRS6SFHqenxpI
-	 Ryl7QWhrdLvmPHEaw08iJ5uIZiQS22+mEotAg72yPuSj9IOWyM8ROL1Ep4h9K4CQk9h1nGd6L/Lk
-	 MzF+2VE2Xj1eK4DQYhPGius02uXMXWlsACDsrc27ynrcx6K7BLAgxiqUhVaX2t5FazcbJS4gGaKm
-	 OUcUHMORhLxnWtrsHy4Z/C5wTla1Eo+UHMUJNZfyHcKlji/4yYU/LTmTrlt5FZ9PAbOXttWnrMKx
-	 D41AjtjuBq1AaYb/am1KpQTukq9+sbXoSTb+L72xfhOxy8j9qRM9KsymVWydslRrd9DilGQYc5bw
-	 0JPIXWJ0Amx0tAZ0bHgU2roVjEQaCDr6nhpwc7SeMv6iV/4yGAXL24CMhlz8+beE2j0YPzW3PkCy
-	 Dq5ZKOOL5+f+20dRly8Hz71uLTOoQ08V+TeqdFhz+e1xTLgs9rw0X+qZUelO/h5Ymk2QWmUE7zwN
-	 OqYr7fh2evEi0yfrpNyFKR8l3d3tO13JaqXwUqtgWks4BpX/MHzpTytI94nZyGfstnaGV5hpy9Tm
-	 XVGecZbZGXz3zrD38BWd8ZV8dozKB/yUnPFl6UaIfBLYFhj1O483ErouJaUXvXOC0cYItHgYLU6S
-	 N7c9Q4QFEWJapcYDKQ6UmRp9d8N+f9WIy/n+wD3vCF6ybgYl3OIKgNssCi+XxFNThoT5jQxEhNYx
-	 e3LaUvTohi7ouzn+2UiyrfPbhRhuhcbBF0yGeoxn6vvGSjXddJPZPjRD4vK2WN2EmvvpSOmc4DJV
-	 BzrzoOMqhWHqMpHiw6rvb6sOjt3uygVepJGWZSG1IyrcaOIPClFlujmX6TaFq9FFNvmjdEVw==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-mid: xmsmtpt1794158660tqkcohesj
+Message-ID: <tencent_E1DFCE4AF97ABBA238487CDD5BA73040DF07@qq.com>
+X-QQ-XMAILINFO: NGZp1yYNf7Y+xh03pNn9JIu4Ay+cjhNLf7DEGFLsR8FH8JSsV7cbqft0wnDQb4
+	 2WemOFW1otbO49XBdcxcK5cRixk+Xb/lwuNCHvG1mFVqjThz6FIRv+XyZBrPLh+qilUOA9s+2AmO
+	 PTABgYojcKufU0XypQHm5Afi5CxYcqbwcTDGGx0Ga1on/LYUza6rhUMHT1nVXT0UIv32ArzCgfwZ
+	 E2mVpNwOlSHYgip+3iyW6dJ/3pR9ddr5PcR3TYFqYMTI4Yz2Y7gnePw/RlkT2tBgxo4Z7QUIikEU
+	 fbe8/9eI2IlA7X/UsRv8dS43fMAS74VjVFOvcEa516KCFC/Xg/qK4B98mbp8q0at5fy8pYf57uYR
+	 IOMGfNvSb010I+4jcR7pG6Khu9qd5AyM9e5KekDZFAKe9zrUpVk2iEocGkeuIUiOgslFitchqZXl
+	 qwNiUCiTWfUha1bLNmdO12D4EyJNkomYq/5tLQ/VbLWpHw80VQSXBQ9C9SZqpsqFgTXr6wJ7nOT8
+	 ckLLzXlThIWXIMiH2XlplODg8dXNr5KjLOn/BFt0tJ9+bNTpDf+w/GRgWzcLrfghGrG52X+hR11W
+	 ABgjvMYMwIeA9+cmShcz5/+BoL0aCcsICXyhxCYZZIvL2FZ3H8kK+yE89xM8fNLBen4uTHKrxO1v
+	 lHLdX6QMoLaoTjk835nlYnQ/mHDMiwFFZJLsaTmI1UpbNkaB4PAeHFILVZ+4sZFh7WzKazFh9M9H
+	 DOTKXwXnMG9kWsaCrPUQoeNBqSVmqxe/Ubn7PzuMpL0rqwLpQEmUVs6fHRFWY9l+V1t/I3oUhhJq
+	 cRGK+AUc39+1Icx6E1GiB0MdpxvueiwSsf+G4eB/ZDUuEmVOZt66mddKTVFsdjRDpKnNdS4S7NzF
+	 wkSFjZ8/D8/LXs/s9SWk/1WB/PoGWiJDv49xVOks3Cum3YT39tFJUxVHe5V3M9Kcqu+YpI9gjr+9
+	 mb6oxu6Eru4BN4QU0r+IR7hPL4dNMZofVkq2e6VKt3lacx/9zCx+wm6MFq2DUAKBkJwMpD5kuZcx
+	 JzQWc8Aad51HAxBvpghiwDjY2CNt5BWFqayaLEaUp/oMhnqc+dQZ6r6Cwkhr0=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: Jiawen Liu <1298662399@qq.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Fabrizio Castro <fabrizio.castro.jz@renesas.com>, linux-i2c@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: i2c-rzv2m: fix runtime PM cleanup
-In-Reply-To: <tencent_A4A9EBA18AE8212574B59C8001217FC12A09@qq.com>
-References: <tencent_A4A9EBA18AE8212574B59C8001217FC12A09@qq.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Niklas =?utf-8?q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Rafael J. Wysocki <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>
+Subject: Re: [PATCH] thermal: rcar-thermal: fix runtime PM cleanup
+In-Reply-To: <tencent_64AA3EA1C81C724ED7D0A90390E677BC5205@qq.com>
+References: <tencent_64AA3EA1C81C724ED7D0A90390E677BC5205@qq.com>
 Date: Sun, 08 Nov 2026 21:22:12 +0400
-X-OQ-MSGID: <179415853265.5.6235275888247384277@qq.com>
+X-OQ-MSGID: <179415853266.5.12241913322882574102@qq.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,15 +79,17 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Andi, Geert,
+Hi Geert,
 
-Thanks for the review. The description was too vague.
+Thanks for the feedback. The description did not explain the failure path.
 
-The probe path calls pm_runtime_get_sync() without checking its result before
-initializing the controller. My proposed failure path drops the usage count,
-but returns with runtime PM still enabled. I'll review the managed-resource
-option and the complete unwind before preparing an update, and explain the
-failure path explicitly.
+The probe path ignores a failure from pm_runtime_get_sync() and continues
+initialization. If it returns at that point, the usage count increment from
+pm_runtime_get_sync() and the enabled runtime PM state both need to be
+balanced.
+
+I'll recheck the unwind against the current driver and describe the affected
+path and cleanup explicitly.
 
 Thanks,
 Jiawen
