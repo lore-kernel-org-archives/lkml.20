@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169454;
-	b=GgiiLbrHMHspUB1vHm9KHs2R61QA+fptexRXBJ+qez1xqsVCSZl0Z791uYV6lzTTrxoM
-	 43hopz2mgTX3XNeyWTvK1EcvPdri+S53PPhrY9z9lVjOR5ky4puRIKLYJ4PTSf5rb9ULE
-	 aShH9YH2/hdVSQ8fnO1RsZ1rVNatu/6glUOC1FcPSKwyXW7/c5rJ2MtafziGxwsSsGfWP
-	 HgteCulUIT5Re+JDOkLndEomS+xk0NRkbPGO3v/lYmTLIwgHHgVt/4qhI9EFqcSQShpPc
-	 2qjqHOeBjTKFEDoUyN41cZZ0WcpgH6geuFleFGObjtartSqi9lqiZqkiCSr1u9ONyvg==
+	t=1794169464;
+	b=pRU68Ev1wCdEnmI3WkvkCT78keP7UphIOELivLbDKN7pRZalwbXpsTrutCkJwaV5Qj/D
+	 AFX6mkN8Lzwi+gjyeXWH+/BDp1mzDLzDsVbUZxY4a8is8+GTEWWXQb+cw3MVhYz2QGoPI
+	 10cvHSm+8HQ/xUenBVpCIYVrLbQHMbJYVww7Tm5IUj5O2klkrzp99alfHJN01t5pzy8ci
+	 1DsElLxPAuWrO03xZERnrGNC+sUsf+cLyLSL9Q2be9GXaF7KFRm70B+FGwBLBL9NBbnn/
+	 iXL3CevlPALwmUFhFEGa7Rb4eDxyPyZizmJGN1lQMOvNBBX5pG4Ci+xotxcxymX8uPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169464;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=kcntJoPzHXmeg/Zv97SX9M5nZW3uwGreJaLFrPpkosk=;
-	b=lepAuIUCVfvWpL6ybn005UMf4QKCJ3uv4nigwIaFqJAeO+FBLjFGBjzJk9IfcCQpgoCa
-	 Jk1SHFMTq6pB4LIWSjVaoH/OphKA7Ze5nsK3dW3MAElcnspKwyBLc58YBhm28VWO83ZNw
-	 lQH9hCjEKDGN8NHBVVWeFjH2KiU55Mw7uIUGe+QJh8LSWpCCHxTp9o76f+LUFQoRuKMyE
-	 xjCKzo8Roz/Ibvu3sGZ2iGVjYqyzDqrRouIe/pcRC0FU5Jx2EKSapZ0C21ADjeYPreAmo
-	 uvZBc/JxgDZMNHbd+qJZaRtOKLC0L2mxI5mwpqHqE4BM8mdMNgJIv8PODyCixqvHO8w==
+	bh=5mw73LN/A4v3KZJkjyKOCzcglb2HZR1xIa+njPbc2FE=;
+	b=Ob64NmHiTa2uAP+711+sst5kP7ZWcqMArZZmtuvUPe2P7uR0fHim9lJQBti3nxgwTLNU
+	 +X5IsYujcMmawk7oFPw1XamU4s6JYC6pnEzwe7bGS+LcKv/Ekvx5L/dT5XtBAgNtYW2fh
+	 FqgdEF28EUjMj1UKTIYuV8/aNTpdGf+u2uAGh4+jRTY0eBrllSy1Riz8JXEY2YTyTeVdq
+	 7QdrgtLDWmVhDXYojYbSSOO/SSv9ZR3SpkQQKLR98KrP6/IqETMOh2RcNal+k4rX0vNZG
+	 H2ANV/UZVJgETwIKL483l6DgW2z8ioIzSq34QpcQSmiPyCLwtjNTHgX4HuJVb/eSxew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERtkcu4t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOw8TnSE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC0360A3838;
-	Sun,  8 Nov 2026 20:24:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7320B6076C34;
+	Sun,  8 Nov 2026 20:24:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERtkcu4t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373491F008A1;
-	Sun,  8 Nov 2026 20:24:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOw8TnSE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3712E1F008A1;
+	Sun,  8 Nov 2026 20:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169454;
-	bh=kcntJoPzHXmeg/Zv97SX9M5nZW3uwGreJaLFrPpkosk=;
+	s=k20260515; t=1794169464;
+	bh=5mw73LN/A4v3KZJkjyKOCzcglb2HZR1xIa+njPbc2FE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ERtkcu4tU/l65OIk+h94j8lXGwUEbXQUWdGRch5MBeREVpmEVLDAVRDisectAU43c
-	 +u/Eleho6jh3Fnvhj2dNLZ353stCSRJ+lpB0ZHophHyTz/zpN33Pr83AZYBZLrFWjJ
-	 GTxIL4fA+KTBrdSnvUNvsM7gR7N53MXbett9NG0fm6750bq/imi1DCdf8IFavnbAiH
-	 +SERIiZATkHZBdBkXTxPoHn3tdrPQQ0wMdfNBkrHZXeE5y+85fjxol7lQtRbb7KQVV
-	 McK9u4kAIEhwyKKhRuBnJK6ujtyeyNNrxpsVIDnU7rTn3dg3WCVhDAnmOX1uqUI6OJ
-	 59mAtFV6bAVqQ==
+	b=SOw8TnSE7gMjpA/OOeoynrrYJ/WTlzKS34O1Zi22hMieXyBfHTnvI77kj43KoQWln
+	 71E11+PjjdXhTTNCbDVxLejPz2Q/m0ZimzCBUWSz+dP1YfDSUE3W4vBCyBRzjboQ/k
+	 P0jiMWdGdJ4y/G4zHpN0CgkjIrzaY5fShElnXUsjXOG8UMPlypvq+GUGdV0DQu1pdk
+	 HkG+CKDAbSv3oyWWRSU8DC86p4INUQsKLt9SMFlxIxMzbSceHNIw3EBM744XcTRUF8
+	 MBnArBLCGsH4mEqtoJl0suS0UgiIMijcH7tVRKBGNAc3yTdrJmCU4uGdjH2Mh4ct7W
+	 pYfnAfEMwOtqg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+	Neil Armstrong <neil.armstrong@linaro.org>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 0/2] arm64: dts: qcom: kodiak: EL2 overlay for qcm6490-idp / qcs6490-rb3gen2
-Date: Sun,  8 Nov 2026 14:20:50 -0600
-Message-ID: <179416929217.628393.5520790051729545300.b4-ty@b4>
+Subject: Re: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to play audio via DisplayPort
+Date: Sun,  8 Nov 2026 14:20:58 -0600
+Message-ID: <179416929463.628393.16769183462772113988.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260803121042.3313824-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260803121042.3313824-1-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
+References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,27 +69,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 03 Aug 2026 17:40:40 +0530, Mukesh Ojha wrote:
-> All existing Kodiak board variants run the Gunyah hypervisor, which
-> means Linux can only boot at EL1 on those devices. It is possible to
-> boot Linux at EL2 on the qcm6490-idp and qcs6490-rb3gen2 variants;
-> this series adds the DT overlay that describes the IOMMU streams and
-> other kernel-owned resources needed in that mode.
-> 
-> Patch 1 is a small independent cleanup of the two board .dts files:
-> keep the wlan_ce_mem reserved region (its /delete-node/ was erroneous)
-> and drop the redundant wifi memory-region override that duplicates
-> kodiak.dtsi. Patch 2 adds the kodiak-el2.dtso overlay and wires up
-> the -el2.dtb variants in the Makefile.
-> 
-> [...]
+On Thu, 22 Oct 2026 11:36:20 +0200, Neil Armstrong wrote:
+> Add the DAI link needed to enable audio playback over the DisplayPort altmode
+> outputs for the SM8450/SM8550/SM8650 HDK & QRD boards.
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: qcm6490-idp/qcs6490-rb3gen2: Keep wlan_ce_mem and drop redundant wifi memory-region
-      commit: 4856fb5502546e8a3aae8f492e125f70f37e6ad8
-[2/2] arm64: dts: qcom: kodiak: Add EL2 overlay
-      commit: 40d8618f7109a00cfb2f44009e768f49296c4ae5
+[1/5] arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
+      commit: a583bb91f527bcc727941f1d4c18d719998da61d
+[2/5] arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
+      commit: 654a6fa2a9a0e10a7bfb9ad4c516b8098f00e0ca
+[3/5] arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
+      commit: c658034a92f87057d9a43c87507935ca10851ed8
+[4/5] arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
+      commit: 679981b6aeb777384b69258e4ec960600407e350
+[5/5] arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
+      commit: 9622685d68d671f01f04021e32e8b25fa505ad50
 
 Best regards,
 -- 
