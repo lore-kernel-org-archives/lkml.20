@@ -1,60 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169487;
-	b=PcY8fkbXa3tiAPww/w1UyZyHvdA2+4tDBKj9k6I4jqgJmBgopQMa8ikS6LECMU6shKJE
-	 ykNefz8dQzIYEgwJtouBpapRG/HwiJSsvOeLrnQJbc+23DfPqQKSCh/AOnUmEKKxR4zkJ
-	 3XLk80l3Ntb/z0Hj4K5wFXwlX3i14HUYZdBN/ColCmKaqAA+M6PxG7CrqmViktZuT9hjo
-	 3fUXdUOr0Tcw6KLak1uzW3EoDSxRwrEv9HEpGtNzxQNrzzZ8Wvnfg8UVJ0DTDFLfN5Nx0
-	 Y012VPKheXO5Nnn9wWAtZzYYr4PsRBufP+eU7KESxXFicCe9dRorDvZ/Q7+3zhtonsQ==
+	t=1794169478;
+	b=UGAQ8LQDd8ZYmJoo9YjEWRAc0mTbP2sWOFhNfiQh0SnBKfF4qISHe810kFz4athPzawM
+	 eeqCD2KiZBRULYDi7AtZgEPau65+ZoxgvSRO+5wr04JWs8UK38BQMUOOJivFkSP6g6HCy
+	 +mtCoyCE/OKdfNUcPrs9wymfqEAUGRSHM/b3CCv5kGlY29r2AXJrek7I6NEJzhobItoG5
+	 NNicqhAzFENkUmlwlVo67aOOn/8znuDSwnqr/1tzgHySKNYMVkUQnRmtVswIO+eDa+oda
+	 qANl8g/deaoh5UwEDKsAqXYuxnH4svbwOT2tp3jx3FJwmHKdfe5QGQUDyz6CKkVfqzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169487;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169478;
+	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=VtNdIhmL272RDcJm5riI8cPLLEdSVlWAJRPHhTfsZWg=;
-	b=n1nqVDZCM4zDQaqnpu8k5YDCYWfl8UH1uO1XB7y+CpVNXDoe8ATNrutJM9wjwm0J/GPs
-	 sSI02L+FTgz78ZST7jjbMCBkyLvz+Az6EGTrHRjvjAVFVUGcvrM7KalMC59GEZZ173oUP
-	 OyYOf7CmL8rwL+LE8iEFqyowTPgM3KK5CST/sUlzYBo8ThTwQLrpS9lkifgjw9Iv/W2ax
-	 VjFsBPiLv7/8gglL9OhST55nrDmuqsJCLuokxV6icDQJobHija6ycuML5DsGYdxhmuNj6
-	 j0tRB8QEbW3UfU6IZ7TRTdcVpNTZu+Ar2PM94KymZtvOY3o4xUsc3i2ANUKxxOwncQA==
+	bh=5c1izOgqQsqYqZoaqjAccBDA/0QPLj0WU1P9GweWkGs=;
+	b=KnSJOBVigS13nyUFlnNvcJAAaJ8xRSSryUmyeBb0o5aXLFpMddnMrH5lhSBYaRHfsjHC
+	 U3SPDI+yMHRYw0iYrvFdN9dbImR0ud+cBo/G4+OKeH6TpGh4g39vFga4HYg52o5Yw0zht
+	 3lrTL2fo8o2s9m+E/a6+pcBX8Eme11ePKVGvyI9bTE71Zf9nGJiz7hoab9m1sQKjsxrZx
+	 A31Mv0BEjD6hegXnQIjY7GD0gmhSWk0RrZjlZghImLD7nhTPhFK+RLu8ggEDKAQUPAt3c
+	 uI7Pw/iq30CPBuIw5BxWgCSAiM6shxq0vFGMOZHhxmqyDleeZKSc3VGSWV7rbi3LP1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SylSCJRa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owMY7KpM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5568360A6F74;
-	Sun,  8 Nov 2026 20:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3E2607D943;
+	Sun,  8 Nov 2026 20:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SylSCJRa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B561F008A3;
-	Sun,  8 Nov 2026 20:24:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owMY7KpM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F351F0089F;
+	Sun,  8 Nov 2026 20:24:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169486;
-	bh=VtNdIhmL272RDcJm5riI8cPLLEdSVlWAJRPHhTfsZWg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SylSCJRakI3orl0IHUeHJQnyLHdLEl+r5NeOJY49Jyg0EaM5FH3WinQfinHrf5Yk2
-	 /4iGvX5kU0ZBF3PVB6qMWXoVhhaH2eTnKLYNsLUgs0BK7PU8Mq+OaOqfcbsQT2ZHpx
-	 HzJLituPYQb8nwm3+9UNVEXQd50Zz0A6ykC5dp0ANzZLutv2PreR21bgGZgQUr9E/o
-	 It/kLXhoCF/lvXrQTI/z48lgngTdh/8rSRsm0E5QhaSIe2MQ4zVcnA4GoF3fjsDkyu
-	 qeRIDAFzJz7a42aGUfC6SoiW758sJmawbEztCxGy4rt8X8R14x+tDbdb7nQbmBva8Q
-	 I99jN89iO1BYw==
+	s=k20260515; t=1794169477;
+	bh=5c1izOgqQsqYqZoaqjAccBDA/0QPLj0WU1P9GweWkGs=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=owMY7KpMZrMQBttY0jyvLvSgzGUDIPrFpYEoLEgNLYIXGI75BXWMJczhDYMv1vZBq
+	 ru3fZvQ0fH2rD4i/MvpEvlwXOr5aHF0bx6sG5vw881ZXz+CCfAOfavpj5qey9QtQge
+	 dJ0uZSyf07kLRuOypsuFT7hvmJ4TLhU62mEPHcM6HRo2IbhLjBRL5KocYRQXWyrX3t
+	 JH/u5O/CwxeN6jVljMvNB9brJk3qtQTWZCZS14XvsZJpbIpon3ET9w1NsYeWj4zASL
+	 sA17xR4qM8/Fq068o+Hx2sS4QL6LMStv8BXkZpK7lVP0H5V+7knUc5VZOwtf9EMJ/Y
+	 pP235QP6lWd7w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Shujath Mohd <shujath@outlook.in>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+To: abelvesa@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	konradybcio@kernel.org,
+	taniya.das@oss.qualcomm.com,
+	ansuelsmth@gmail.com,
+	john@phrozen.org,
 	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-sony-tama: enable modem, SLPI and IPA
-Date: Sun,  8 Nov 2026 14:21:15 -0600
-Message-ID: <179416929237.628393.6934614690624200929.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Robert Marko <robimarko@gmail.com>
+Subject: Re: (subset) [PATCH v2 1/4] clk: qcom: ipq-cmn-pll: Correct IPQ8074 NSS NoC rate
+Date: Sun,  8 Nov 2026 14:21:08 -0600
+Message-ID: <179416929481.628393.14693210731870428357.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <PUZPR01MB51413DEFDD09B4661D9AED22C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-References: <PUZPR01MB51413DEFDD09B4661D9AED22C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+In-Reply-To: <20261026120920.1667982-1-robimarko@gmail.com>
+References: <20261026120920.1667982-1-robimarko@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,20 +76,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 10 Sep 2026 09:35:08 +0530, Shujath Mohd wrote:
-> Enable the modem, SLPI and IPA subsystems on Sony Xperia TAMA
-> devices and provide the corresponding firmware paths.
+On Mon, 26 Oct 2026 13:08:12 +0100, Robert Marko wrote:
+> The IPQ8074 NSS NoC bias output feeds the GCC NSS NoC clock without
+> a divider.
 > 
-> The modem requires ta-service for initialization:
-> https://github.com/andersson/ta-service
-> 
+> GCC and SSDK (Qualcomm vendor switch driver from SDK) both configure that
+> clock for 461.5 MHz, while the CMN PLL driver reports its parent at
+> 416.5 MHz.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-sony-tama: enable modem, SLPI and IPA
-      commit: 21158e4e168c02eee659de9fae4c490892060869
+[2/4] dt-bindings: clocks: qcom,gcc-ipq8074: Allow CMN PLL bias clocks
+      commit: 969f124be6cda13ea890e7330c984c6fdb512753
 
 Best regards,
 -- 
