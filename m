@@ -1,64 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794096941;
-	b=PnBvxhFDgKDXeUbFcb735ejohJGO4wqqgvnv4GGZd02QIK7S8hhCydqILQLPHBtSzxv6
-	 dOI8eMkl7gTnd/bZNPu9mq0/6aE3yAK8MsdxByHXTSjLL11nh9HM1muoklYfhERSj22Gd
-	 PXrIitN9guP2iQOQ6AaE/DPptynzKXvcnFBeuevB1/+vBG81a/2qICJi54QzJEfOXE0Fq
-	 jqcu/FA4+7E/8y4VLCrM98CJCDcR9Ss6xrkGIVre0Ip66TbLPcNBaI4ftS4Tv8ij/EX6H
-	 x1tQdAqyhNcDIoqsQD4z0vFrEuDAFJ3iMR5U5tUhPWjzBKn7ukvOLRMRk/daCP9tWsA==
+	t=1794097139;
+	b=VjuNTfGEVKqo3NoBWSCx7gUamzxXhl1h5peZDhr18U7V+Kro4bhPe/bj/HR+WkRGgKVC
+	 WO3VACC3oeL10nVx7DAIj0R8v4d1DBMM39jAL6lQpzfufWuIhxzw0CIXEpe6hyDkI0e65
+	 +b0dkhnA2sBqYiDRotqHzXrpEaJPfOnWYINfNnDRqDFuwJ7c0JAKdwJS6Smw/6hIP8yVJ
+	 QKZ0YVTev+bsYdknW2SI2NBdF40stD/0++pHjbPUkNPobgckLbQBinTpV4NvnmyvYEGHe
+	 g/cXddo1Lzu0VKaxGceHuwH3WEtow0Q8NOf0J0MJLUKlEKQ263z57L4tcuNZhJFlZ5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794096941;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=SE+KzW/T94I18zgPcOykLbpz2IWGtapWaIYEhxmOj50=;
-	b=ghYZob9C6m1uPDEJWyvDSLXxhxQ9ijkN64j1Ox86kpkdg/i+jZ3bv8yju3kfd9M5rF7y
-	 FgFJpQk7FtmV/fxovbyLqbEo9knfl3nl0MNpAgiNLkaCkeBTGZ7ELzfgTx3GFoeoYBsTv
-	 kCdsrlarXwiZ/VqSdzPoiLxp2NBZHbL1cKTD5P66+hg3ZCP/1FKIko2jtKDUjRFi89Fa5
-	 AbRSFXyQaUM3i7Q41fSK3fbKSvMXsphlfl+CU5beZSk4xAVJx5boRimVh+0/TlU7IByh5
-	 LDWop3dJUiLTvcfjF9sX6h0RIxWH077MVPSmbEVGjLllN02vIDQqNQ3LRnyBhsLYuBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794097139;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=EfxSBm3bzgzf2A9VtrSo7r03r+1kEbbvQLbRQsMqp+w=;
+	b=tDQ606RnNm7TTKudygMv/mK0RKq6KNd2CPp/Kz9AdVp4U6dJvSKuIHqjhVlGINaFVQmk
+	 luHnDvNPpjo9brdmDjsd1McLXmcmoYmGB9R/j5qmtGnmpzMTD45BkTAlIrEBPGTeA1Gbm
+	 ICstuR+4oIMZZJmrzkhMznt4e4SVcrPkNOYVt5QDC+UOuj8kxcUPllo/nh57vrkjjDGj7
+	 +rc7L5WJe/ZJRBTU6dY5okOx4HPkILQTv047IchfUA/QdOzn8jQS2wjy4KBispnL40l5C
+	 OJSYBJuC3uqTJZbgUABp9SYtvwRmGuHW7TnPm6imgygzRvoaZiR2gbgTVA2XyEke8cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVYTk1qG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2TGOyRm;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AC8606A339;
-	Sun,  8 Nov 2026 00:15:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDA1606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:18:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FDA1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVYTk1qG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A1D1F008A1;
-	Sun,  8 Nov 2026 00:15:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794096941;
-	bh=SE+KzW/T94I18zgPcOykLbpz2IWGtapWaIYEhxmOj50=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HVYTk1qGrIYtT251fFnqk/iqGP2HCFroWeE451eYwV3wfunTRpoUByJpZ6uOY90ZX
-	 Yfw8L1BEs8EXtixz64i476+gzAVksSUoXelbZp7foSsbuapIyOMEQqmDXQkz8rfZj7
-	 4CZs6F2tXd6rkAgRIz1UCygvjWpGKw1lDfSWqHetaE3M/AupAK1MQOqcwCjJ0p0jhs
-	 fHVzWL2VVfMEDuIDlujayUFZw9fIQHGz0eH/tDtliLz40UNmxxjsAvcJzGrf0SnMBw
-	 t7VfUytz+PVpRPHxM20s8d0A4tBpyIl36xghLIsGruNiLXTqgeTutBx+0enwv2A8y8
-	 6ic8BCtuFX5yg==
-Subject: Re: [PATCH net-next v10 06/11] net: ethernet: oa_tc6: Support for
- vendor specific MMS
-From: netdev-bot+sashiko@kernel.org
-To: Selvamani.Rajagopal@onsemi.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- parthiban.veerasooran@microchip.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, richardcochran@gmail.com,
- andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- edumazet@kernel.org, piergiorgio.beruto@gmail.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, jerry.ray@microchip.com, ciprian.regus@analog.com
-Date: Sun, 08 Nov 2026 00:15:39 +0000
-Message-ID: <179409693924.994134.1633626847542095748@kernel.org>
-In-Reply-To: <20261106-s2500-mac-phy-support-v10-6-31b5a69b85b7@onsemi.com>
-References: <20261106-s2500-mac-phy-support-v10-6-31b5a69b85b7@onsemi.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2TGOyRm
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1adbf62dd31so61910c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 16:18:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794097138; x=1794701938; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EfxSBm3bzgzf2A9VtrSo7r03r+1kEbbvQLbRQsMqp+w=;
+        b=d2TGOyRm9+/hxneg1TLi5SkUGIVJcqxd8tpssnCoA0seFj3UMrwvzsK5ZaHkPacPPu
+         ckxD31vn1SjS5iXNgOSzpCEG9U0T0FWN5A9KQxamnbvhyXMdKEOzB6yQ2kNXbMiayf6A
+         OEAd+KVeIC31GxBm0Ikq2kl9254iGD5WHineEOWGqTBc1Af5gHncO7GT6y6zBSSxSz0W
+         WzIkoVSoKYiecR6VFOu9nWuqeg6YmABUN8x6cCAjdd2fBfX+KUlRNC4i56W+Xx2Adq04
+         DHVi6c64AREYizRAlkRX4xS9PPwfktK6RUGferj3DRAAKN88KxW/s9dh/v+ZoIT/wF9+
+         lUPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794097138; x=1794701938;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EfxSBm3bzgzf2A9VtrSo7r03r+1kEbbvQLbRQsMqp+w=;
+        b=wwflSC800SH4NU2qJIfXy9FvK0vhjFsXgrQwrQs954DsdlD07qeyg9PILlxHKr3IHg
+         kidJM1fbNTD1T3W1/oRDfB24S5hxi6Ogoy+qqpLC45FULn1DnUW1eOCwz95XXB+KvKf8
+         sSBEvwa87IyYh+5Yj8mEuzzKnQa4ti7XXy/euXG6jfsOrJU/8CtH9rrZhQFG0Rpkv6ee
+         /ejL+CeJIr0T+2Gey1wz4YZ3eU4VqEaZsN8wzcfJbadcYYjIh2EZAR4jetxHjxnyDDC+
+         McwytwdUz7pny5GUON0T9T6xSvouEonbe3u4pSMrMnv4uWO8ddBx54DwU8MTuN34zbJw
+         p49A==
+X-Forwarded-Encrypted: i=1; AKwUvBz1SyAbNLE+BK4CDg9z2kN3wILcVDbB/YpYCvsIpJT5SnIi9PmF2UnI8RTyucurg5xvZxxc9M7rcYHzlAU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5jT4qVPZQek+DCHV6WMHINB/qcG1sTSfH0kPbO1ekDfsJK+aw
+	QystcepjtUi7w/JycH8bUIcHhPM39F37+rrovGVxKC9pF6q58RTRi1eN
+X-Gm-Gg: AYBFou0jMdvXOedmJxT4kVLGY35EUxkipDNLBxn6batEQxaH3xgW5YONyhIJtSdMkVA
+	yodPTkrmWUs3jer1tuie72nt2pJC3o6vqb1KrFyJ07HhE8AgXDgNU4yh4APiHIV2f5os/weUpu1
+	y2hJ6ueuXXZ49sDHrUWwFSKVa62hSxyMRSdv6uhiQwlgulzgpJCQlGR99gcE6e2+kFQUCB5UTMg
+	33h+iD0OwboQaUjppmL4GRfmmJ84tJLmlw+6d2bjY3OCdICNbT8feCQxDN5vdnhYC9qLdd5Yqxc
+	j4TepBM7u0K0j23eWlreCHd4gIIYOF2yMNhBp8W9amaDBjrLoync2q21+c8hmpWr+CrsOIbMBNq
+	efS7sUYapmsjn60zx/PpOhBenkH5ED8zX4BMGtL2aZaz1v4r5fYovMGJmXuB6+avzZJhUQP4FCl
+	HpWR3Tfv5tW3KE5vd/DgnlzkR0tp8aRvB34RY6AP+pO53mkCti0Bg/exoTQEHE4zo9nXY7xwAQ0
+	4tYwCD9cSsi0xQytvkqy/Cl/bmXI88WJB9qN7GzIQhSx0A+dGT6Mu87ThoN6Isce6dtLJn5r88J
+	l1Uru+u/8Ph06nejeRjTWX0c6eJhOqQ+4kfbPYRLQIZOoG6sWMXbRgvxHIzPBGFGDIs3
+X-Received: by 2002:a05:701b:4294:10b0:1b2:6c97:fecd with SMTP id a92af1059eb24-1b39fecea0amr167005c88.42.1794097138049;
+        Sat, 07 Nov 2026 16:18:58 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:5a4:1cb9:242d:4f00])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b372ed839fsm2018026c88.0.2026.11.07.16.18.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 16:18:56 -0800 (PST)
+Date: Sat, 07 Nov 2026 16:18:56 -0800
+Message-ID: <ccc5eb71825e1bd468007e548a8367e7@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: amijoy - fix memory region leak on registration failure
+In-Reply-To: <20261107160159.367919-2-blum@kernel.org>
+References: <20261107160159.367919-2-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,168 +98,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Hi Thorsten,
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 0
+On Sat, Nov 07, 2026 at 05:01:57PM +0100, Thorsten Blum wrote:
+> If input_register_device() fails in amijoy_init(), release the memory
+> region for port i before cleaning up the previously registered ports.
+>
+> Fixes: 127278ce2254 ("Input: joysticks - handle errors when registering input devices")
+> Cc: stable@vger.kernel.org
+...
+>  		err = input_register_device(amijoy_dev[i]);
+>  		if (err) {
+>  			input_free_device(amijoy_dev[i]);
+> +			release_mem_region(CUSTOM_PHYSADDR + 10 + i * 2, 2);
+>  			goto fail;
+>  		}
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Do we really need this in stable? It has been like this for 20 years,
+and only affects an unlikely input_register_device() failure (basically
+-ENOMEM during init) on Amiga hardware, so please drop Cc: stable.
 
-- [High] NULL pointer dereference on an error path in oa_tc6_init()
-  (drivers/net/ethernet/oa_tc6/oa_tc6_main.c).
-- [Medium] net: oa_tc6: oa_tc6_set_vend1_mms() called after PHY init in
-  oa_tc6_init()
-- [Medium] net: oa_tc6: NULL deref in oa_tc6_phy_exit() on capability
-  read failure
+Without the constraint of keeping the diff minimal for stable, could we
+also clean up the error handling here instead of unwinding inline (and
+out of order relative to input_allocate_device() / request_mem_region())?
+Either add cascading err_release_mem / err_free_dev labels before the
+unregister loop so unwinding happens in reverse order without repeating
+input_free_device(), or factor per-port initialization out into a small
+amijoy_setup_port() helper.
 
---
-
-net: ethernet: oa_tc6: Support for vendor specific MMS
-
-This adds oa_tc6_set_vend1_mms(), which lets a vendor driver map
-MDIO_MMD_VEND1 to one of the vendor specific MMS values (10 to 15)
-allowed by the OPEN Alliance TC6 specification. The C45 MMS lookup now
-takes the tc6 context. The new vend1_mms field defaults to -EOPNOTSUPP
-in oa_tc6_init().
-
-> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-> index e793d7fb0635f..5b2454b759740 100644
-> --- a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-
-[ ... ]
-
-> @@ -1658,6 +1672,7 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
->  	SET_NETDEV_DEV(netdev, &spi->dev);
->  	mutex_init(&tc6->spi_ctrl_lock);
->  	spin_lock_init(&tc6->tx_skb_lock);
-> +	tc6->vend1_mms = -EOPNOTSUPP;
->  	tc6->ttsc_current_id = OA_TC6_TTSCA_REG_ID;
->  	INIT_LIST_HEAD(&tc6->tx_ts_skb_q);
->  
-
-[Severity: Medium]
-This patch doesn't touch it, but oa_tc6_init() still has a broken
-unwind path. It was introduced earlier in the series by "net:
-ethernet: oa_tc6: Support for hardware timestamp".
-
-Can a failed capability read oops on a NULL phydev? In oa_tc6_init(),
-oa_tc6_update_standard_capability() is called before oa_tc6_phy_init(),
-and on failure it does goto phy_exit.
-
-At that point tc6->phydev and tc6->mdiobus are still NULL from
-devm_kzalloc(). oa_tc6_phy_exit() only bails out early when
-OA_TC6_BROKEN_PHY is set.
-
-For lan865x and S2500 it goes on to call phy_disconnect(tc6->phydev).
-That dereferences the NULL phydev in phy_is_started() straight away.
-After that, oa_tc6_mdiobus_unregister() hands a NULL tc6->mdiobus to
-mdiobus_unregister() and mdiobus_free().
-
-Any failure of the OA_TC6_REG_STDCAP read during probe gets there,
-such as an SPI transfer error or a bad control reply:
-
-lan865x_probe()/s2500_probe()
-  oa_tc6_init()
-    oa_tc6_update_standard_capability()
-      oa_tc6_read_register() fails
-    goto phy_exit
-      oa_tc6_phy_exit()
-        phy_disconnect(NULL)
-
-The neighbouring failures before oa_tc6_phy_init() simply return
-ERR_PTR(ret), including oa_tc6_unmask_macphy_error_interrupts().
-Should this branch do the same?
-
-[Severity: Medium]
-Does this setter run too late to affect PHY probing and
-initialization?
-
-struct oa_tc6 is allocated inside oa_tc6_init(), and the caller only
-gets the pointer back once oa_tc6_init() returns. By then
-oa_tc6_init() has already run oa_tc6_phy_init(), which does:
-
-oa_tc6_phy_init()
-  oa_tc6_mdiobus_register()
-    mdiobus_register()
-      PHY driver .probe() / .get_features()
-  phy_connect_direct()
-    phy_attach_direct()
-      phy_init_hw()
-        .soft_reset(), fixups, .config_init(), .config_intr()
-      phy_resume()
-
-All of that goes through oa_tc6_mdiobus_read_c45() and
-oa_tc6_mdiobus_write_c45(). At that point tc6->vend1_mms is still
-the -EOPNOTSUPP default set a few lines earlier in oa_tc6_init().
-
-So any MDIO_MMD_VEND1 access the PHY driver makes during probe, reset
-or config_init fails with -EOPNOTSUPP. The mapping only takes effect
-for accesses made after the MAC driver calls oa_tc6_set_vend1_mms(),
-as s2500_probe() does later in this series.
-
-The late store into tc6->vend1_mms is also done with no lock held,
-while the MDIO bus is already registered and the PHY attached.
-
-Would it be better to pass the VEND1 MMS into oa_tc6_init(), or into
-some config structure handed to it? Then it would be in place before
-oa_tc6_phy_init() runs.
-
-If the S2500 PHY driver is known never to touch VEND1 before the MAC
-driver gets control back, could the commit message say so?
-
-[Severity: High]
-This patch doesn't touch it, but there is a problem further down in
-oa_tc6_init(). The earlier patch in this series, "net: ethernet: oa_tc6:
-Support for hardware timestamp", added it, and it is still there at the
-tip of the series.
-
-Can the capability read failure path oops with a NULL phydev? In
-oa_tc6_init():
-
-	ret = oa_tc6_update_standard_capability(tc6);
-	if (ret) {
-		dev_err(&tc6->spi->dev, "Failed to read capability\n");
-		goto phy_exit;
-	}
-
-This runs before oa_tc6_phy_init(), so tc6->phydev and tc6->mdiobus are
-still NULL from devm_kzalloc(). The phy_exit label then calls:
-
-oa_tc6_phy_exit() {
-	if (tc6->quirk_flags & OA_TC6_BROKEN_PHY)
-		return;
-
-	phy_disconnect(tc6->phydev);
-	oa_tc6_mdiobus_unregister(tc6);
-}
-
-Only adin1140 sets OA_TC6_BROKEN_PHY, so lan865x and S2500 both reach
-phy_disconnect(NULL). phy_disconnect() calls phy_is_started(phydev) right
-away, which dereferences phydev->state. After that,
-oa_tc6_mdiobus_unregister() would also pass a NULL mdiobus to
-mdiobus_unregister().
-
-This can trigger whenever the OA_TC6_REG_STDCAP read fails during probe,
-for example on an SPI transfer error or when the control read reply
-check fails:
-
-lan865x_probe()/s2500_probe()
-  oa_tc6_init()
-    oa_tc6_update_standard_capability()
-      oa_tc6_read_register() fails
-    goto phy_exit
-      oa_tc6_phy_exit()
-        phy_disconnect(NULL)
-
-The nearby failures before oa_tc6_phy_init() (sw reset, unmask error
-interrupts, phy init) all use return ERR_PTR(ret). Should this branch do
-the same?
+Thanks.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106-s2500-mac-phy-support-v10-0-31b5a69b85b7%40onsemi.com
+Dmitry
