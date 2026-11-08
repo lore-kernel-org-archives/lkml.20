@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794125835;
-	b=mDVNhIqPljDtEqyEVxB4/ujw0P9/UVsF+pHDQ4qR9NfBdM3q0lnLumaeqHSiAbwm/NBq
-	 pa7Vmgzbc56DObGIaj0hIXEaV/0n34AvR5fDIxxcKSU+8Ahg9IoiKdnA0FHAwCZetmfcb
-	 JpfyP+/RYtWhVBEN23wRE79hX6qtIBSPTYMKgX/dpCur7HSn99t18rRHJb3ORVvufoDD6
-	 3f3HyNo3puLxb3SnrBAzMd1RojdpplbimETGlrZ94G5or2CaBO10+aMFF4Pnnxai/taec
-	 WQinh2Invq5GX0ckfVmOylIBxd5nRpUCUatNHcXXOwKZt9WLwoCZ33FC4uaX9sppfBw==
+	t=1794126063;
+	b=jozushOJEvKhRsGVYnMfL6Q19JjcbIz+HaBuA6V7etNTDbb5dAGJgL1I/4ubRfkk8AWj
+	 1oG6sN6b74ZBPfZtbRVqKwAM9AFPYQ8nfZoLBQT37sHmGa+ryXPu641WfSSGvTmcYk03R
+	 9So0xcMvu2zZQy9WdEo9d4zrlgwEIlAPm5cupNU1oF+qTmLyIbCnY6PGQ6MBcIJGbBy7Q
+	 l/vgEC77k2Pp2broIiOrQt0hhlV+HbAUibcE9g+DyC7n5CUy+7lkU8ESubm4oe3zEwJ3G
+	 V7FHkHlEiVoAW7PtCYwHmHYuZwC0PTb2S8LglBcFrtlRB0KWW4uXGJUyEHakrlGF+JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794125835;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5G5dlJmNinReA7/ecM0YTHSYy6jzMfVBo3rP1dlvGSA=;
-	b=EC+Tx25o8iHlQ6WrzeKzywcQpnTASlJ5b1u0XG++ULNBoFB9naYqQgl0jAxXcJWf8ER5
-	 pET5oOvmFAcfr1rR12/k1YHZN7Dv8+/UCTS8Xy1xRSjv1DziQtGwuINy28qGtVycywWvb
-	 TearjWLAsOD1lmp/DGxKKqooRsYmXJPI7O6VupL59rrixwqMqdLSk6MdXsfo4cSoiql7D
-	 I3X/r1ouo9mY8T6WPeLcg5o3dv31o7hF3uwn9AsPlm0PX2X82uy3Oae5jvBeLAunmbU7N
-	 6G41JqmWqIswgtuK+sDU5l1F8Tg81JA3CpNSH+dGYWNBZVVlMsQ3oYKmwqCXsd9s79A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794126063;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=znRaDR7z4oQEzsVvO4SttQcnEqRJogT5i5RITknD6U8=;
+	b=xkynZltevPACuObCxFM+mRazW7hqqc9I1hbaz71XPWPJEQelmI/+b+L4dRUtIqAd60bt
+	 9ch8sbSMsyHbTowoXMeX7Zy6xTC8Sq/jvPt+N4GTHwvDfSWKP1iMIAGiU86U/7wRy5XGe
+	 jQ5YkOuhHjApD4xnZ4fMTdu4zC/P3wNbdXnNXXcjDbh9bAKb6jqxy3h/tVZiFBocbVoSI
+	 L+iP92DbZoK4YXqflhwuMCb+BjBU+K2givSf2G3ClGahH7lPkb+Eo0a0jJcHv9xonnX6r
+	 aPJDwz2NgaGh/p2Ff9+NVO83Nln6oFdCde4bcPw6w14ifhPK8uMkF1R+QP8o4/kZ35Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V1YatT/H";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S+lUdZGG;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51290606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:17:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED2F606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:21:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DED2F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1YatT/H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E92E81F0089F
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:17:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794125834;
-	bh=5G5dlJmNinReA7/ecM0YTHSYy6jzMfVBo3rP1dlvGSA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=V1YatT/HNDFxAof6DMYsq7uFzNJzww3T6v8VeSzdPfgWasg/HCz1qbGODPIYjmBy3
-	 k3p/CjiPfAggNojvZnFP65ZwLqNaRWR/ZSCMObAC72gxeb+hGXTBHSlCEZt3oOsofZ
-	 q2Mo5n9IQaIaeRtXhaEykS9ZgrbKKVhHArRJ6ieARHl0P38i/6PrEShl2X/B+TWmAa
-	 /9MOGmalJNzd++A3tSD9LBji9t5rwPLlAusNWevVPDfT8+etUeHRSifCIaM7Vh+1jX
-	 2p3V7K2iM9EbaAT7CZnU+4bYH6zWFtmxJSBcN9mhCn9Bfj2NIUtsQtcyH2uEItHlbi
-	 BHT4/xq4b7LtA==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so352618a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:17:14 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGlhzQHGmf/IzBfrBatyLw6ndRYkF5gLdBt7ilt1Jx9Biz5QIdkMT6BAb0IJHDEtauyowrYmooeu9LmM0w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dKln0gjdGvNyMqBLJd6/Wn95lApQAPoMbHSemH8lsQK3vuuZV
-	U/miON4QrtTUgvDL8aIFoqxbbY9oHbGy2dgATMt08OabR5Dy/++3K4QXAk5pyMBKmn4JBlr7NrR
-	qorgCbqAMG70qOo2SqMRwRNMvo0gYIMQ=
-X-Received: by 2002:a05:6402:400b:b0:6b6:e8cb:643e with SMTP id
- 4fb4d7f45d1cf-6b72244119emr538367a12.23.1794125833477; Sun, 08 Nov 2026
- 00:17:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S+lUdZGG
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so564933eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:21:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794126062; x=1794730862; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=znRaDR7z4oQEzsVvO4SttQcnEqRJogT5i5RITknD6U8=;
+        b=S+lUdZGG/6N92nUw77FQqILRd8Hd8MMfNp8Nu4V7QEBCeWZbn4GjBbhObxS+s0mFfx
+         Ytijt0WABYyPO2LpqX+y1y6SnG8Qp+rWJ9l3cONVMRkW/VBEDETzTQVXI60ZldK49xqK
+         ez6Q7iEX9pObwylcu0McP/cfnST5jU7eCXs4mGDt1j2ylsDZmQ6vIAFtvmioptqtpejp
+         LG27bbRxdAhNuO+k6jplT5n0lGF1zE0qGoLrb7fVjcJjkk2d3kluft/SKjNmbSGHgqh8
+         YSPzBt5He43VCM+XtGn8NIDAZ+6tAeP5sgc3cS+kWvyd3BF0kRgrrK/63CyiQdLotdDH
+         hUZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794126062; x=1794730862;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=znRaDR7z4oQEzsVvO4SttQcnEqRJogT5i5RITknD6U8=;
+        b=XugbahssqSjwEOsDhTw4Baj0PS/sfxzju6TQfOdRub5yOqBp5V5qIGDC0LkBmq1p6K
+         w6g45xbrc42dGcmtaZuND8LYt6EbmovPfkqdXiwjUMcJDiVpnCLJYfXd1TTfSnINCAO4
+         wXhgDKELFwQfGip4xeapRMrzAv0ixcWi2aaI7rCQqPcpAg6ND0gsVWi1lbjyhsCB/hKu
+         Fd1gbbvlCgRwVBZZyAr/UpGhAtRU+II43430BCSlk7DIlWsuUbawhTMXrAR/I8ieltTj
+         gfMRgr7GpqoQJroOclMZeJygOhZaA+46Iu475mCsPqN/rJG+X4pjK+iI0Jw2lRMSEAt8
+         vZ8A==
+X-Forwarded-Encrypted: i=1; AL+hErEYRkCJloXJWzAkaXn772fNzEc1Is9sw1OkmtbfEZVeZGAVAx5tLmwyvGPWHEhNxBFWdGKhGxRtrD27I8U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JC/tFDFdtvvNMHFOoV4UM1u8YtpZLsWt9gy02G4eiP/QF0MeW
+	AoeB8UNqXhAb3EYqqxM2WycVWHMfV7DnpS7LxWdObELiKr2RbKJWbR2u
+X-Gm-Gg: AYBFou2xe6KB8F3GSEigOlUEKw8v33fZFmcmKzsQH85YLmLmeeiseclavyuLsobD0bt
+	F86eBgR4Lu4MJSPY0/I3kwet0WWutzSQyjU41KN1KG7K/GMmdXtKT3YGT9aKLBRv2daXVSS7IQE
+	DPPgqpYKHrDX5O03RBZVhLU1/eXP6VYmS3A4ezLzupFhOueSr/JhQkPLPU4slpw4d5j9ohvArte
+	4WD0AFrkimDPN1Vvuvj4AgbHP5GlPIGd7/xYkMpySr+H4Qd7PzVGaPIhkcZqT8cBszJHOvD7L1f
+	EGEhzdS1FuUryvouHz2t4SHpd840/kactRhVREQWa7kp1ElmCguBw/SDiNKUETl+6+mdN8laYwv
+	cCGeQNI+udZyRRRUL7YETwnqwCUvkH49KY/Yk7TvYU52zkpBiEcqXzo+xa4A3/aEAFN+jx/9yQP
+	qAjp0UiWNcNImZ+1YuGefpyM9flPS80R5ev1EpE7dkRPaVUOe40Cur5qN5jpsuoo14iBOgcDVJr
+	bEIM+biMNCisaXyMAUiwamdSjmOtupaBou3lxV1cvH54zk3MOEgepybWqGgLCjBrmY/1MpS+4jk
+	vQie6ZancNI257SVxpDH8/rK8ROd
+X-Received: by 2002:a05:693c:65c4:b0:36a:1f8:a56e with SMTP id 5a478bee46e88-372570db49fmr1159844eec.23.1794126061804;
+        Sun, 08 Nov 2026 00:21:01 -0800 (PST)
+Received: from gmail.com ([2a03:2880:9ff:64::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372665db733sm3349203eec.23.2026.11.08.00.21.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 00:21:01 -0800 (PST)
+Date: Sun, 8 Nov 2026 00:20:11 -0800
+From: Narcisa Vasile <narcisav.kernel@gmail.com>
+To: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	willemb@google.com, mst@redhat.com, jasowangio@gmail.com,
+	eperezma@redhat.com, willemdebruijn.kernel@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/2] net: do not run out of frags in
+ alloc_skb_with_frags()
+Message-ID: <avAwu/1w6+2TJoE6@gmail.com>
+References: <20261108100617.23840-1-yanhaishuang@cmss.chinamobile.com>
+ <20261108100617.23840-2-yanhaishuang@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,130 +101,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org> <avAr894n6lNGD9C8@kernel.org>
-In-Reply-To: <avAr894n6lNGD9C8@kernel.org>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 8 Nov 2026 16:17:02 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
-X-Gm-Features: AclHuK_evHNqSt9o4YcBLRgf6IEwJjqK3z3uypzlyoWpiPLFt8x6t0wFbOv_yL4
-Message-ID: <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
-To: Mike Rapoport <rppt@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org, 
-	loongarch@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108100617.23840-2-yanhaishuang@cmss.chinamobile.com>
 
-On Sun, Nov 8, 2026 at 3:59=E2=80=AFPM Mike Rapoport <rppt@kernel.org> wrot=
-e:
->
-> Gentle ping :)
-Sorry for the late response, would you mind if I modify it to use
-#ifdef? Usually it should be avoided, but I want to signal users that
-KFENCE is not a usually enabled feature.
+On Sun, Nov 08, 2026 at 07:06:16PM +0900, Haishuang Yan wrote:
+> alloc_skb_with_frags() rejects data_len above
+> MAX_SKB_FRAGS * (PAGE_SIZE << order) up front, but then rounds the order
+> down for the tail, so a tail of N pages is split into one frag per bit
+> set in N. A data_len that passed the check can then need more than
+> MAX_SKB_FRAGS frags, and the allocation fails with -ENOBUFS although
+> every page allocation succeeded.
+> 
+> With order 3 and 4K pages, a 516536 byte packet is 15 * 32K plus a 25016
+> byte tail, which becomes 16K + 8K + 4K, so 18 frags are needed. Sizes
+> between about 480K and 540K can be affected.
+> 
+> tun hits this when vhost-net hands it a GSO packet of such a size from a
+> guest. Nothing on the host limits the size of a guest's GSO packet to
+> 64K: virtio_net_hdr has no total length, and tun_get_user() sizes the
+> skb from the descriptor chain. Today's virtio-net drivers stay at 64K,
+> but a guest can send bigger packets by raising its own TSO limit, and
+> the host must not depend on the guest for that. Worse, vhost-net treats
+> -ENOBUFS from sendmsg() as transient: handle_tx_copy() puts the
+> descriptor back and retries it, so the vhost worker spins at 100% on
+> the same packet and the device stops passing traffic in both
+> directions. On an unmodified host, tun_get_user() returned -ENOBUFS
+> about 620,000 times per second, the tap's rx_dropped counter climbed at
+> the same rate, and this went on with no traffic until the VM was
+> destroyed.
+> 
+> Keep rounding the tail down when the remaining frags allow it, so no
+> allocation that works today changes, and use one page rounded up for
+> the whole tail otherwise. This is never larger than the full-size
+> chunks already used.
+> 
+> This was triggered while prototyping >64K TSO for virtio-net, with a
+> one-line guest virtio_net change raising its TSO limit; the host was
+> unmodified. The fix was tested with that reproducer and with the KUnit
+> test in the next patch.
+> 
+> Fixes: 09c2c90705bb ("net: allow alloc_skb_with_frags() to allocate bigger packets")
+> Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+> ---
+> Base: net 30c71476d842 ("ipv6: Check the Home Address option again before its
+> address is used"). The reproducer below was run on net-next 303d91a15925,
+> where alloc_skb_with_frags() is identical. On net: KUnit net_core 20/20
+> (kunit.py, UML x86_64), and allmodconfig W=1 build of net/core/ (arm64)
+> with no warnings.
+> 
+> Reproducer: x86_64 KVM host (i7-14700) running net-next 303d91a15925 with no
+> local changes; vhost-net, a tap NIC with mrg_rxbuf=on and rx_queue_size=1024.
+> The guest (net-next too) has a local one-line virtio_net change setting
+> netif_set_tso_max_size(dev, GSO_MAX_SIZE), plus
+> `ip link set dev ethX gso_max_size 524280 gso_ipv4_max_size 524280`; then
+> iperf3 guest -> host.
+> 
+> Without this patch: iperf3 fails, one vhost worker stays at 99.9% CPU,
+> tun_get_user() returns -105 (31014 times in 50 ms, kretprobe), the tap's
+> rx_dropped goes up by 34M during the run and keeps climbing at ~690k/s with
+> no traffic, and the guest can no longer ping the host until the VM is
+> destroyed. With this patch (same setup plus this patch on the host): 81
+> Gbit/s, no drops, and the vhost worker is idle afterwards.
+> 
+>  net/core/skbuff.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
 
-Huacai
+I think we should decouple the two parts you've pointed out:
 
->
-> On Sat, Oct 31, 2026 at 03:21:46PM +0200, Mike Rapoport (Microsoft) wrote=
-:
-> > With KFENCE enabled, resume from hibernation triggers KFENCE reports wh=
-ile
-> > swsusp_asm_resume() copies the image pages, for example:
-> >
-> >   BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
-> >
-> >   Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
-> >    swsusp_asm_resume+0x20/0x94
-> >    hibernation_restore+0x128/0x1a0
-> >    load_image_and_restore+0x6c/0xc8
-> >    software_resume+0x240/0x260
-> >    do_one_initcall+0x68/0x200
-> >    kernel_init_freeable+0x26c/0x304
-> >    kernel_init+0x20/0x134
-> >    ret_from_kernel_thread+0x24/0x1d0
-> >    ret_from_kernel_thread_asm+0xc/0x98
-> >
-> > During resume from hibernation, the image pages that occupy physical pa=
-ges
-> > used by the restore kernel are first loaded into free pages and then, a=
-s
-> > the very last step, swsusp_asm_resume() copies them to their final loca=
-tion
-> > pointed to by pbe->orig_address, which the hibernation core sets to
-> > page_address() of the page in the restore kernel.
-> >
-> > The early KFENCE pool is allocated from memblock and normally occupies =
-the
-> > same physical pages in the restore kernel and in the image kernel, so t=
-hese
-> > pages are usually copied by swsusp_asm_resume().
-> >
-> > The KFENCE pool is remapped into the KFENCE area above vm_map_base and
-> > set_page_address() adjusts page->virtual so that page_address() returns
-> > the page-table mapped alias rather than the DMW address of the pool pag=
-es.
-> >
-> > Hence, pbe->orig_address of KFENCE pages points to that alias and
-> > swsusp_asm_resume() writes them through the page tables. But:
-> >
-> > * the copy loop overwrites the kernel page tables, so a TLB refill for =
-the
-> >   KFENCE alias may use a partially restored page table
-> > * the KFENCE pool pages that are protected in the restore kernel fault =
-in
-> >   the middle of the copy
-> >
-> > Convert pbe->orig_address to DMW addresses before starting the copy.
-> >
-> > Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translati=
-on work with KFENCE")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> > Reproduced with hibernation in QEMU, the KFENCE reports are gone with
-> > this patch.
-> > ---
-> >  arch/loongarch/power/hibernate.c | 12 ++++++++++++
-> >  1 file changed, 12 insertions(+)
-> >
-> > diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hi=
-bernate.c
-> > index 817270410ef98..ff571ab4e8df9 100644
-> > --- a/arch/loongarch/power/hibernate.c
-> > +++ b/arch/loongarch/power/hibernate.c
-> > @@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
-> >
-> >  int swsusp_arch_resume(void)
-> >  {
-> > +     struct pbe *pbe;
-> > +
-> > +     /*
-> > +      * page_address() of KFENCE pages is mapped by page tables that a=
-re
-> > +      * overwritten during restore and may be protected by KFENCE, cop=
-y
-> > +      * through DMW instead.
-> > +      */
-> > +     if (IS_ENABLED(CONFIG_KFENCE)) {
-> > +             for (pbe =3D restore_pblist; pbe; pbe =3D pbe->next)
-> > +                     pbe->orig_address =3D __va(virt_to_phys(pbe->orig=
-_address));
-> > +     }
-> > +
-> >       /* Avoid TLB mismatch during and after kernel resume */
-> >       local_flush_tlb_all();
-> >       return swsusp_asm_resume();
-> >
-> > ---
-> > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> > change-id: 20261027-fixes-loongarch-fd3755f33919
-> >
-> > --
-> > Sincerely yours,
-> > Mike.
-> >
->
-> --
-> Sincerely yours,
-> Mike.
+1. For valid packets that pass the initial data_len size check,
+this patch avoids running out of frags by putting the tail into one
+larger block of pages instead of splitting it into several smaller blocks.
+
+2. The vhost cpu spin: this patch fixes it for the sizes in (1), but a
+modified guest can still trigger it by sending a larger frame (above
+~4.75 MB on x86).
+
+In that case, tun_alloc_skb() asks for a linear part above the
+kmalloc limit. The alloc_skb() allocation in this function can never
+succeed and returns -ENOBUFS, and vhost-net retries the same frame
+indefinitely.
+
+Should we also return -EMSGSIZE when header_len
+is above the kmalloc limit, like it already does for an oversized
+data_len? I'm not sure whether the errno change is acceptable?.
+
+
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 8da53d5b76fc..93e7b04ddfe6 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -6902,8 +6902,18 @@ struct sk_buff *alloc_skb_with_frags(unsigned long header_len,
+>  	while (data_len) {
+>  		if (nr_frags == MAX_SKB_FRAGS)
+>  			goto failure;
+> -		while (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << order))
+> -			order--;
+> +		if (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << order)) {
+> +			unsigned long pages = PAGE_ALIGN(data_len) >> PAGE_SHIFT;
+> +
+> +			/* Rounding the tail down to smaller pages takes one
+> +			 * frag per bit set in its page count. If not enough
+> +			 * frags are left for that, use one bigger page.
+> +			 */
+
+nit, feel free to ignore, this might read more simply as:
+
+ /* If splitting the rest into smaller pages would need
+  * more frags than we have left, use one larger page.
+  */
+
+> +			if (hweight_long(pages) > MAX_SKB_FRAGS - nr_frags)
+> +				order = order_base_2(pages);
+> +			else
+> +				order = ilog2(pages);
+> +		}
+>  
+>  		if (order) {
+>  			page = alloc_pages((gfp_mask & ~__GFP_DIRECT_RECLAIM) |
