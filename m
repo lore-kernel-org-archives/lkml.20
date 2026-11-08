@@ -1,74 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174581;
-	b=vMrcwVyhjUfgOQns3PC4osXed2rem/6h/r7eKw5oAGJCElKdP95ZU/UGPScOEtL6II6/
-	 5E6LL0/xeE7IybX4jGf0rUbY5EazW3AW2X8gGvlggraB9ZhR5hW5aZnNF3PS6jWB95tq3
-	 skLel7lpu9161aDbl2DSV0E7agAPd8oiIz7zNOcJlLOFnoCEfPXha/PtCi6GUjouHY6Tu
-	 6p1Vw61ho834O1PsswqRzNSO0YUTHfEbhm0Xp93xBbrRLa3jbfdQjfcPjpwL4wknDPHgJ
-	 IB/z+JicW6TqgxCf1JHo1j1w/x3dceMd0DH3stWmfwD8pz5afzw12PbTIq7ld0wQslA==
+	t=1794174580;
+	b=I3KnBz1CgvN/rt6bCI+cZNxIz5w7xiiU3fzLaoqxvKxXZ0NbXmv8B+39pUANQn02ZHNf
+	 1zHvMO3o0dmKXcmpdD2UgtjBB/X4xJxIa+dxwkN7Tu8uto+ou0TCo9NwLZZhAyRZh814J
+	 uDXccCjR+w7hYTwUhnKxWOC+IU0zdYmUvYp8xXwnW7w7xhJTvZC4fJAwUeSof01ZSSdsR
+	 OvicXlWhlULQ+Z1NnxbV5q51v7HCHlurnVIV4fpSc+DweutBicfQVZ5YO24SsYEX2KL0h
+	 Vye9XJXJNxu3hEnTYJjSvTy6+O9GdmqCeHhKDdIfFoUHNIRiAUakZVk0eZrSVHn27nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174581;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=U78fsP/PEvvn36IV1M9tuiaI8BwdEU7C/ICv4U6B94A=;
-	b=KUS+t+lnZeSA3F+HdJZm+A/IIoC1U0DU2R9DuoshTkxjRg9+O495JKutCp4DOt8+UN/F
-	 mRxRD8OuyVrMVD04lRX3ratEzwnaqPao3p0OoN+3/g76xQYuVVQf3TUQdSaKKltSAky9A
-	 0lL3QRFjrloYU8MpYuRVLB/YmsJupo4xOqNn8D/LRsD0aiaVnicwH4cN7UHHO8rrNqNdf
-	 Sv4SUTcfNwSA8pP5IVG/L7veDa2OOXDj8aV2/YQUaW/NEpVFc7Q8Ea8G6obfrGgZXYIuO
-	 ItszZXTqW6ZUwTdYdSR99w4xwThH9dXaTLU6+Gt30RGR5DeO8qO6xoujHbBP0dE9ycA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174580;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=3gRAP1YxlQCWGPap37hqUthvPeiuImlF2tdnQbsDgtg=;
+	b=E8rjWTyhaUTJIXHByU4eeOPEYE41z31q0sHY4Ev1PSDL+Bhl5esmaGTrIke4vfOVk8tx
+	 cpRyWTg8P5Rixt9egdnNfMou45NtFkBAumKOBVQVL00lc+PADP/RgvBTrhngZ3EE1A8rz
+	 DBKwgHRVPKZZhJQoeTkHU57LG+qB4OFQrkFRBxxAbpv20xVKrl1BhJHUwWr9/NbYwhcQu
+	 ouYwhaX8UxmogtIwrXweKtOlK8sqXdapcyhyR9a8H9Vz+WOk0VrsEINDnkTcziT0c2BHa
+	 +Pr1qR9dp8TkkbQyWmTZ+mu0HhZGP1aPUO8+DZjERaT8/p1P9MdOqsDSFQkRJYFsjTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sG5LKFrU;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bQGdva23;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=DPmEstMt;
+	arc=none smtp.remote-ip=91.218.175.120
+Received: from mta0.migadu.com (out-120.mta0.migadu.com [91.218.175.120])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9751D606D80C;
-	Sun,  8 Nov 2026 21:49:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9751D606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CB7606A331
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:49:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54CB7606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sG5LKFrU;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bQGdva23
-Date: Sun, 08 Nov 2026 21:49:31 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794174573;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U78fsP/PEvvn36IV1M9tuiaI8BwdEU7C/ICv4U6B94A=;
-	b=sG5LKFrUWN0fOd7Cr2L3IPqOQha/GQFnHWJsd8p9982uHpBLNQn+MUUrGGHDv+GjzcjJCG
-	WoYxu7TXJwxNwfqPAq0EKqLn2JP03Pc3ayq61bFahdDCI/QfKx0AeZJaepJvSwG2+HIuHF
-	OdzLG57DZI8Ng1PR+PeWCCOdTCa/4di2eUMbA4sz48uW7WKPD5bV6QUCPZckwUHBcEMz+8
-	unjv3pToX923DZp9lI56A5uefUpzytCAUc7PxlspTdRmvQs5sunRsrokl9lVMI3faI4JuI
-	e278clReQajmUb4pt6reTaEsb/laxjVYDIzC0AMioQRt2/ZcOUpQRaLzwLxNJQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794174573;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U78fsP/PEvvn36IV1M9tuiaI8BwdEU7C/ICv4U6B94A=;
-	b=bQGdva23I71Ab6XXcFwKeM7s2UzBcVmjzq1PIiiRBf2dowbGzpOafkhGAl2Wb5cQlhcOYp
-	6IlIVrgiAXKv9RDA==
-From: "tip-bot2 for Zhipeng Wang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/imx-irqsteer: Dispose of child IRQ
- mappings in remove()
-Cc: Zhipeng Wang <zhipeng.wang_1@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104073759.386777-9-Zhipeng.wang_1@oss.nxp.com>
-References: <20261104073759.386777-9-Zhipeng.wang_1@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=DPmEstMt
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=w/6qEc2cwOI6T/xUHNJh3OifoyGO3FRpW1FATx28UoM=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794174577; v=1; x=1794779377;
+ b=DPmEstMtjRJP75XGK0jU3H99b/kwySRpXknVFtHp0iwYU1/ABZ8uFcX514b/8cPt3sbvcmjr
+ 9KXWN7+ImblWVjXeAocUzJDgXApCjvsQVna4S3QT+VgyEk4J9pHMOeK4bBjEAmx5Xb4Sz25HWzu
+ TszyeNrVFw2tf3w9MIgnpzaIK2y69AvywMhXQ1u04p1hZYfTxFrKywoehlggBMWLBR6llbwbyM2
+ PuvSofRBvazxzZObKx1Eio1AH+kYw0tVt9grKv2Dma1FhYyIGE1OJujNOnGAVV7tRiTqGgmW9Xc
+ okbkwOWz2YIIvwn76oNOB3inT2J+ZJiRMBh/CINjaOz3Q==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7783f211d67b9856;
+	Sun, 08 Nov 2026 21:49:37 +0000
+X-Mizu-Trace-ID: 7783f211d67b9856
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 08 Nov 2026 14:49:12 -0700
+Subject: [PATCH v4 1/4] dt-bindings: leds: aw2013: Add awinic,aw2027
+ compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,60 +62,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179417457143.2093942.3036178522886329265.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-aw2013-aw20xx-rename-v4-1-826529beeb52@postmarketos.org>
+References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174570; l=1313;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=w/6qEc2cwOI6T/xUHNJh3OifoyGO3FRpW1FATx28UoM=;
+ b=vzfsl081FbFIiyzZnvCW2wCOy36hSI8+MO79cCOflVhL6CE5/pRgzXh4IO3i1Y+5/fQzRJZNi
+ QJ7aOlLaHCJCDAcNdRM+kj/0an2Ikp5AFWwAbhSEQqb7PcSt/S+wyTS
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-The following commit has been merged into the irq/drivers branch of tip:
+The aw2027 is largely the same as the aw2013, with the
+exception of the way the max current is written to registers.
+This exception makes it different enough to not work without
+driver modifications, but similar enough to fall under the
+umbrella of the same driver.
 
-Commit-ID:     2dc8bf99eefb6d811606b5a50e46fd507a7ab9d7
-Gitweb:        https://git.kernel.org/tip/2dc8bf99eefb6d811606b5a50e46fd507a7=
-ab9d7
-Author:        Zhipeng Wang <zhipeng.wang_1@nxp.com>
-AuthorDate:    Wed, 04 Nov 2026 16:37:56 +09:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 08 Nov 2026 22:43:44 +01:00
-
-irqchip/imx-irqsteer: Dispose of child IRQ mappings in remove()
-
-Once the driver can be unloaded, the IRQ domain mappings handed out to
-downstream consumers must be released on remove(), otherwise:
-
- - a parent interrupt racing with the teardown can run the chained
-   handler while irqsteer_data is freed (no synchronize_irq());
- - downstream irq_descs keep dangling chip pointers into the unloaded
-   module.
-
-Dispose of every child hwirq mapping in remove(). irq_dispose_mapping()
-calls irq_domain_disassociate(), which runs synchronize_irq() and frees
-the descriptor, closing both races.
-
-Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Radu Rendec <radu@rendec.net>
-Link: https://patch.msgid.link/20261104073759.386777-9-Zhipeng.wang_1@oss.nxp=
-.com
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- drivers/irqchip/irq-imx-irqsteer.c | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/devicetree/bindings/leds/leds-aw2013.yaml | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx-irq=
-steer.c
-index 234fd10..f234dec 100644
---- a/drivers/irqchip/irq-imx-irqsteer.c
-+++ b/drivers/irqchip/irq-imx-irqsteer.c
-@@ -295,6 +295,9 @@ static void imx_irqsteer_remove(struct platform_device *p=
-dev)
- 		irq_dispose_mapping(irqsteer_data->irq[i]);
- 	}
-=20
-+	for (unsigned int hwirq =3D 0; hwirq < irqsteer_data->reg_num * 32; hwirq++)
-+		irq_dispose_mapping(irq_find_mapping(irqsteer_data->domain, hwirq));
-+
- 	irq_domain_remove(irqsteer_data->domain);
-=20
- 	if (ret >=3D 0)
+diff --git a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml b/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
+index 26238446f2bd..1ad165cfe34a 100644
+--- a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
++++ b/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/leds/leds-aw2013.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: AWINIC AW2013 3-channel LED Driver
++title: AWINIC AW2013/AW2027 3-channel LED Driver
+ 
+ maintainers:
+   - Nikita Travkin <nikitos.tr@gmail.com>
+@@ -15,7 +15,9 @@ description: |
+ 
+ properties:
+   compatible:
+-    const: awinic,aw2013
++    enum:
++      - awinic,aw2013
++      - awinic,aw2027
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.56.0
+
