@@ -1,125 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794111390;
-	b=i2ukjl7j16JDnfYosxruyzSJnhx4CI8dSSHg/uRX19BYh42RoeYXexWQUHUmx7jJtf8V
-	 YMKxVQfHaAvw4YUFuQPElDaGijTOS/q6mGTp5kbRNYwB5tYEP5uc3zXHBAnIPF0gpa67F
-	 64KPtAvx2B0+YRRxK9yFBmPXzlLzgiVseIZR6QQVbz0sy6C4Ey0VvCMmXYAREB7Qq5Yk/
-	 OFFeYgudTNn8kt2bfElsRqgVwGPTgSpmUsx/kj/vbax4N5z+tVx8NJdFlQk3ry91oHzEq
-	 hQ2mp6WnF1As02VpWBn2EH6B6NQfRCaLTRDjHTsjzykCFD+CXk95fY53LY4tuDpN2rA==
+	t=1794111416;
+	b=ZNvapuOZR8EoEQnsFk9uz2nnaQyiITqtX+roMlRu1iZ8EyogltmlBddlD9BhJFb8nwDh
+	 rcbcF4G19jbl37m866w/zdFGZ0RjVR7fdU297c1TtY91nSAyLkzqzVvhUyEUk4IaA3X67
+	 As/3P3vddexhklZ5sojuuSEW4c+PpDjmICMNCycXHD4wOJZ4PXWwxGrhTisb0jKahvzrg
+	 pFqm252aTBQ2HBfp1Bp8SG6WO7ccWwEyo500N1vWVmPJhsSpN7Jmq34lfnpKrQ++2o3OY
+	 7V5vss2oHT1YcV19qsyE6QyZxAT4PYyDdz/QuvUZg3ilO/YY+fok5hA16jBtticCYkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794111390;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=EpQgNuheJiOIWw9pJZR9WmQ1BgytiRu9Rd4D/3xkxN4=;
-	b=3tHr8EBYwNqMuwap5e64nERe9bu2PXI7aNzRNu3W5sM5hUimb6aIQwhxBhVRyajYNCA9
-	 ze4I7g9bjV6yRbJ5Rdbhg5ytk/b8Gw2Y63ruNmnJzpQPlpLE1MSE1ctYXfTskwjYiZD7H
-	 69+G9HTYudYPud6zicXwtV0jEEyeA80JKf6qz4Q5TNRwVdFjReOSVtBSliiA9Q2WD/yqn
-	 j7vx+XxtJItoHFTCYaED8QRHeJboFTcyROceKkfmWUqzMH2WM/R1twXxmzBDbOz4kXdcn
-	 /W5fQHGqrbtNZxsgTCd3f/CpFx/m3oN0qg+5imHAqxKRhiDqEzNS93dp/xkJNgx5bfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794111416;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=GFeo120/e3A7s0AbOXW/TKYVSvyMqvQJzWWKOmH+HEc=;
+	b=Dvv2zSJIwonl7aYBKk3aQMyptofUM6IhAQ+kISzmi9Qvegct2usIQFIh/twPpKlfQb1d
+	 eNNIKggOs+GkJMdzvKkVAHyV5cMyiMznLKpMqSQXyM8ZnIxaf1W8e47gIrF1lMklYULhe
+	 La5Bjgn0d3C03rVtGdrSupuHfPDWeuL6EHm+rP2EIkZM2Ej8zWJCcC6oOeMCKBp/z2+sD
+	 aHqeer8m78QnclSJeGfG0DHAl2VRF2DaAisupKIFG9pzyrOpu+iSl02xzn2Gh0GFmWUNZ
+	 Z4OFKGh8l4kb2H+AhOxXUids/oMAiUEnVfNs8VybSAyKSjT/x0ESuwrf/pfH3cWQ7DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ee7cb9wC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DSq6TOEz;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OeWc0V0m;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904A6606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 04:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 904A6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FDC606A31A;
+	Sun,  8 Nov 2026 04:16:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FDC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ee7cb9wC;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DSq6TOEz
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A81PefI3368784
-	for <linux-kernel@vger.kernel.org>; Sun, 8 Nov 2026 04:16:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EpQgNuheJiOIWw9pJZR9WmQ1BgytiRu9Rd4D/3xkxN4=; b=Ee7cb9wCS4xOkNZZ
-	06ssCAvMsvhGZvDwjBrszKltQbNveFITvqXXe5wq8JNkcGfvjwC4Y1JF/+ovoqc6
-	uL11dNiBxYn8+4wD7HLdantcZEXWccAmu+o8BnBi2hH5/C7wNKMcTfzzJy/LEDX/
-	fpLr7qEoApFfken6e6u1e1ejElEntt4qhYSZgJVF7kpLCJM+Dq/nVNiSnvfmLT3c
-	wRp1URZSUCYfc38DC4Q7AzpNk75nwzcbg3Yjhf9tnrhmcmAi7gH3QIR3LyA04aPM
-	ML9wZDPyHvrkGFDvSDgf20GjkI4QtX5dAn3aDBIy5CMQ5iQquP9ECui09h3493/y
-	T26mSA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsw99j35y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:16:28 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cdaf2073b0cso55751a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 20:16:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794111388; x=1794716188; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EpQgNuheJiOIWw9pJZR9WmQ1BgytiRu9Rd4D/3xkxN4=;
-        b=DSq6TOEzD0YKWOWYpOusYl1GlmKdam4Ki9L6dMEJ3SqV7bAAv8BGo9UsB47c7pdFaz
-         Rzho3wmH10WBEhrUJQRYlpdTawaLz0184/fDhz+YrmTvHp2JxbhsRIn3IjyMbJvUsTUz
-         3yh4v4JxOkr2wSMGgks03VgaclUHAJkvsdcCjbmtRBb0GahBf0Lx0V/bIOQJ3kdwzeJV
-         AnEwjac6aaae3YjBsyWiwOPtw8YKyzK8C0zvKzK4UVVAsoR3r9dbc9h6Q7rE0mwdrffH
-         ZrmF6VofxdUd/rhho00WEHWis+Or222k/sY/V0ZXI7ed6YkQdG1QiEIF1RZhqiZJvPUj
-         AsBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794111388; x=1794716188;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EpQgNuheJiOIWw9pJZR9WmQ1BgytiRu9Rd4D/3xkxN4=;
-        b=TNvCNLvjKmkSJQg0SgBjbf7uj3Zb9qinqLorn4oJdgLFfjcNA93bdI7xgNGv9cHOZC
-         4+dAvjIdgbmi0VvqevCTMZTttFU+26dQapwe0DVGzOv7IYdBV+lT5uy6kz22bU6j5gDE
-         muMhW+Ja+p52zLajqfzrsPCzOCAUNaZFyt5uyx5nlg6q28lCgldEDDBH8xuiam/SVrGo
-         HfQpJqOXEF3Z8xgIZ/FWYQT6b0iUyg/c/OyIJFzEGxlzFSyL1XzkSC6hQ1aUBL0lHxBr
-         GX+TS6qH5byt5IauSrR75mUuRWCTkhZXsrDNC4QVgMreRkk4yV0Ch0bzwTZmhAz6TCno
-         njwA==
-X-Forwarded-Encrypted: i=1; AL+hErH5Y2Hk3stVQ/ejiZoTRvkXcM+JVYc4uIQVfidfKE1E2FjETI1+VJe716ytloR8z1hcCSHoy+U012BzPhA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Xh0QmOTT3zA6lkRxxjD79pvbg423MXlcJj1OJsNGQDlv6FAsw
-	/5jv0QFnIncdVG7q/R5IgCR94atIZgPAdoCYsDWmhyxsL3TuhPRVXeYF9p34VsNc6TwYBSGPFpY
-	HRtwVMzW3bKiirXc5UCArZPMKyCKfrmgmbYby2LAf+FHgvWPxLH3ivmh6B5p54m7KXlI=
-X-Gm-Gg: AYBFou3nxfrdqwYGuzTm7pr0t0avI3mgysjBrlejLPHI88hPA7ySvr5czRp4mf8MHih
-	T04LbGNMlGZsvnjFCqe78yyDmQYq2wLRrxYzAzxC+/9MHOu8Ga2NP6xmDjGIt4i7XB8bBJV2Ueo
-	Ustt3vtyi5byA/BGujf9SwtUlNHwkrT+HhCtD80yEUeIaAErFi3T0leuSRsI8TPnDKV0P0A71Vx
-	CQF25Gk6munOO40SpBxwdXasbV0hNXTFG6DKC+npGB7fwxbPxlZ7SvOfi1diDkSwnUpPZIpM2P/
-	X8cYT+H5RcvahhNrXGGPLdw/24wuYwffoYxnhzAZ0PFeKx9BY0p6vQ9PlErEcHxOphirva64+Cv
-	Scq70wypEqWeB1cpy4bcamJMeEHs2s3hucEQvj0ETs5OaIV+GT0tUDvnJOFbGfC3nIRhZ48E95I
-	sN9LYJL8Qn
-X-Received: by 2002:a17:90b:4fcb:b0:3a7:db88:3491 with SMTP id 98e67ed59e1d1-3b12d305c87mr431255a91.33.1794111387609;
-        Sat, 07 Nov 2026 20:16:27 -0800 (PST)
-X-Received: by 2002:a17:90b:4fcb:b0:3a7:db88:3491 with SMTP id 98e67ed59e1d1-3b12d305c87mr431235a91.33.1794111386835;
-        Sat, 07 Nov 2026 20:16:26 -0800 (PST)
-Received: from localhost ([120.244.9.94])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1278cb8e4sm1391223a91.9.2026.11.07.20.16.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 20:16:26 -0800 (PST)
-Date: Sat, 7 Nov 2026 23:16:20 -0500
-From: guodong.xu@oss.qualcomm.com
-To: Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>
-Cc: Charlie Jenkins <thecharlesjenkins@gmail.com>,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Alexandre Ghiti <alex@ghiti.fr>,
-        Samuel Holland <samuel.holland@sifive.com>,
-        Andy Chiu <andybnac@gmail.com>, Zong Li <zong.li@sifive.com>,
-        Guodong Xu <guodong.xu@linux.dev>
-Subject: Re: [PATCH 1/6] riscv: hwprobe: Report FP extensions only when
- available
-Message-ID: <qqvfduegawuoerrzwnj7drxkev63gxj4ddqaw4eqtrhsalugrd@sodih7ytwhos>
-References: <20261006075303.205216-1-radim.krcmar@oss.qualcomm.com>
- <20261006075303.205216-2-radim.krcmar@oss.qualcomm.com>
- <179133089395.137225.157195939155119911.b4-review@b4>
- <DLYFU3VAEP3D.OTOZB5Y3BADZ@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OeWc0V0m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794111413; x=1825647413;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8Q+VZbenjtYNCan7x5h6v4egymzH94QrLAWhp6uxPaM=;
+  b=OeWc0V0mZt8XM6VBpgN+zBFuettsR1RPeEirJPJzS0d08Rla0ofSv6ak
+   7a8ykUG2U4dpSaXacNaa6fxNXTX8wMi61bFbVnM2QO6LEy38CbTBWKtO3
+   aLZW34T3nWtlcWT5uNwFoKDV7E+8TTVPs0up1zxh85GvXJeuqVrdwpHWc
+   W0sZTS1yElsypzG4qnJHpX+6pHlmgtKykCWiGJGhYBmOscsGr6ODirpvX
+   9P+r3FhZvZVaF5hknYUVMmJ/wph/M+cBeUoLmv9uwGF6B+DckOOMYwORz
+   +pPoIJjP8Fl3o4BIBVMX2inptjTMm7jwpWqlnos141OuLi7zYR0kdq48n
+   w==;
+X-CSE-ConnectionGUID: UZGIcJm5TaGnVIE1LkTDLw==
+X-CSE-MsgGUID: uIdNY2HoQg+x4uLpO5hYfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2775227"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2775227"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 20:16:52 -0800
+X-CSE-ConnectionGUID: cWI89eCdT7uNvkgdyPugyw==
+X-CSE-MsgGUID: hBBQBA72R+a0W3RdhTt7AQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7597346"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 07 Nov 2026 20:16:48 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPuKj-00000000s2B-20KO;
+	Sun, 08 Nov 2026 04:16:45 +0000
+Date: Sun, 8 Nov 2026 12:16:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, vkoul@kernel.org,
+	alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
+	tiwai@suse.com, yung-chuan.liao@linux.intel.com,
+	Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+	venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
+	Mario.Limonciello@amd.com, Richard.Gong@amd.com, Poojitha.N@amd.com,
+	lee@kernel.org, Vijendar.Mukunda@amd.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH 4/4] ASoC: amd: ps: guard SDW IRQ work scheduling with
+ interrupt_enabled flag
+Message-ID: <202611081206.vQhseto9-lkp@intel.com>
+References: <20261107175339.3547918-5-Vijendar.Mukunda@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,69 +90,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DLYFU3VAEP3D.OTOZB5Y3BADZ@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: _x5QN5zw7LZW0fZzUGVbDMj2wrc9YY8I
-X-Proofpoint-GUID: _x5QN5zw7LZW0fZzUGVbDMj2wrc9YY8I
-X-Authority-Analysis: v=2.4 cv=CMq/zhrD c=1 sm=1 tr=0 ts=6aeff79c cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZvHX9x23NDWH3CQeJ2oX1w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=pGLkceISAAAA:8 a=DETRMP3d-7gSuzmK8icA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA4MDAxNiBTYWx0ZWRfXyDVgPo+frkTg
- dSHXvUCJwrTnelrtXtElFmkIe/7eKEYfvw4NavzFe734sWeFTq/pNXUnXdNn/zNupvyOqhHUxC0
- bn9vmUXDmiwPwjEEF8zeKfVsWIngtyF6HR8OUb8jrlsKPWDTWhOU+46kwpMMplkRxy86OF8tBxx
- /AfGhzXr2wiKfvTG+Mc1desTYzHmHdOG88g8SGEGxQmEFtAG6lzhX3hJj8aCoZbH2FJwhNK4Q8J
- RuoGA1RTVWPd92lFJjiDyAJj+qI6zSq53XxIygnLp0PH1CV1RZWFjSEgMVQoMKNyWJZ97bQ2tiu
- bG5nJhj+pRqO6puZsLCWV0F+j2qsknnPF3QBH8TPtO8q+tz1iUzkFC3Pr1Pq71NrjyBuTaYja67
- TzY/1Snnpo/drFnrXJwUWBOQtmnD2eZ9U7uXh/NNOOH6jQwIO/tWIYXluAFgmJezXaPyuPDZ5mh
- IwlJzbdJQXSYiFp63aQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA4MDAxNiBTYWx0ZWRfX2OS8zDPAM5vz
- qWBf6sO7UBobpaaxv8qjM4Vtp1A7EL9fIj/cn3XDQ2M5NK+LAu0NArvvjwdxftReqqc/KEpKI2C
- vrseu04igzTLvHpFurcIoPbD2uh/Tdk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-08_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- adultscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611080016
+In-Reply-To: <20261107175339.3547918-5-Vijendar.Mukunda@amd.com>
 
-Hi Radim,
+Hi Vijendar,
 
-On 2026-10-07 09:46, Radim Krčmář wrote:
->2026-10-06T16:54:53-07:00, Charlie Jenkins <thecharlesjenkins@gmail.com>:
->>
->> The vector Kconfig is gated on FPU=y so the vector instructions can't
->> ever be enabled when FPU=n.
->
->Right, I'll make the commit message clearer in v2.
->(Zve32x and hence has_vector() can technically exist without CONFIG_FPU,
-> so future implementations might require use to remove the dependency.)
->
+kernel test robot noticed the following build errors:
 
-Do you mean dropping "depends on FPU" from RISCV_ISA_V? Today it reads
-arch/riscv/Kconfig:
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on vkoul-dmaengine/next linus/master v7.4-rc1 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-   config RISCV_ISA_V
-           bool "Vector extension support"
-           depends on TOOLCHAIN_HAS_V
-           depends on FPU
+url:    https://github.com/intel-lab-lkp/linux/commits/Vijendar-Mukunda/ASoC-amd-ps-guard-adata-sdw-dereferences-with-NULL-check-in-IRQ-handler/20261107-232226
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261107175339.3547918-5-Vijendar.Mukunda%40amd.com
+patch subject: [PATCH 4/4] ASoC: amd: ps: guard SDW IRQ work scheduling with interrupt_enabled flag
+config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20261108/202611081206.vQhseto9-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611081206.vQhseto9-lkp@intel.com/reproduce)
 
-Today that dependency also gates Zve32x, Zve64x, Zvbb, Zvbc and the Zvk*,
-none of these touches floating-point state, but they are all being gated
-by CONFIG_FPU, that seems not correct.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611081206.vQhseto9-lkp@intel.com/
 
-I noticed that the _validate() callbacks in today's cpufeature.c for these
-non-F (non-D) related extensions are checked against V only, but that
-doesn't change the fact that CONFIG_RISCV_ISA_V depends on CONFIG_FPU
-(from a commit 3 years ago) in Kconfig.
+All errors (new ones prefixed by >>):
 
-I would agree with you that should be fixed.
+   sound/soc/amd/ps/pci-ps.c: In function 'acp63_irq_handler':
+>> sound/soc/amd/ps/pci-ps.c:218:55: error: 'struct amd_sdw_manager' has no member named 'interrupt_enabled'
+     218 |                         if (amd_manager && amd_manager->interrupt_enabled)
+         |                                                       ^~
+   sound/soc/amd/ps/pci-ps.c:229:55: error: 'struct amd_sdw_manager' has no member named 'interrupt_enabled'
+     229 |                         if (amd_manager && amd_manager->interrupt_enabled)
+         |                                                       ^~
 
-BR,
-Guodong
+
+vim +218 sound/soc/amd/ps/pci-ps.c
+
+   194	
+   195	static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
+   196	{
+   197		struct acp63_dev_data *adata;
+   198		struct pdm_dev_data *ps_pdm_data;
+   199		struct amd_sdw_manager *amd_manager;
+   200		u32 ext_intr_stat, ext_intr_stat1;
+   201		u16 irq_flag = 0;
+   202		u16 wake_irq_flag = 0;
+   203		u16 sdw_dma_irq_flag = 0;
+   204	
+   205		adata = dev_id;
+   206		if (!adata)
+   207			return IRQ_NONE;
+   208		/* ACP interrupts will be cleared by reading particular bit and writing
+   209		 * same value to the status register. writing zero's doesn't have any
+   210		 * effect.
+   211		 * Bit by bit checking of IRQ field is implemented.
+   212		 */
+   213		ext_intr_stat = readl(adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+   214		if (ext_intr_stat & ACP_SDW0_STAT) {
+   215			writel(ACP_SDW0_STAT, adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+   216			if (adata->sdw) {
+   217				amd_manager = dev_get_drvdata(&adata->sdw->pdev[0]->dev);
+ > 218				if (amd_manager && amd_manager->interrupt_enabled)
+   219					schedule_work(&amd_manager->amd_sdw_irq_thread);
+   220			}
+   221			irq_flag = 1;
+   222		}
+   223	
+   224		ext_intr_stat1 = readl(adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
+   225		if (ext_intr_stat1 & ACP_SDW1_STAT) {
+   226			writel(ACP_SDW1_STAT, adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
+   227			if (adata->sdw) {
+   228				amd_manager = dev_get_drvdata(&adata->sdw->pdev[1]->dev);
+   229				if (amd_manager && amd_manager->interrupt_enabled)
+   230					schedule_work(&amd_manager->amd_sdw_irq_thread);
+   231			}
+   232			irq_flag = 1;
+   233		}
+   234	
+   235		if (ext_intr_stat & ACP_ERROR_IRQ) {
+   236			writel(ACP_ERROR_IRQ, adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+   237			/* TODO: Report SoundWire Manager instance errors */
+   238			writel(0, adata->acp63_base + ACP_SW0_I2S_ERROR_REASON);
+   239			writel(0, adata->acp63_base + ACP_SW1_I2S_ERROR_REASON);
+   240			writel(0, adata->acp63_base + ACP_ERROR_STATUS);
+   241			irq_flag = 1;
+   242		}
+   243	
+   244		if (adata->acp_rev >= ACP70_PCI_REV)
+   245			wake_irq_flag = check_and_handle_acp70_sdw_wake_irq(adata);
+   246	
+   247		if (ext_intr_stat & BIT(PDM_DMA_STAT)) {
+   248			ps_pdm_data = dev_get_drvdata(&adata->pdm_dev->dev);
+   249			writel(BIT(PDM_DMA_STAT), adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+   250			if (ps_pdm_data->capture_stream)
+   251				snd_pcm_period_elapsed(ps_pdm_data->capture_stream);
+   252			irq_flag = 1;
+   253		}
+   254	
+   255		sdw_dma_irq_flag = check_and_handle_sdw_dma_irq(adata, ext_intr_stat, ext_intr_stat1);
+   256		if (sdw_dma_irq_flag)
+   257			return IRQ_WAKE_THREAD;
+   258	
+   259		if (irq_flag || wake_irq_flag)
+   260			return IRQ_HANDLED;
+   261		else
+   262			return IRQ_NONE;
+   263	}
+   264	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
