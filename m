@@ -1,78 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794140397;
-	b=AadY70B0pIBDdU4chZJcDhRvX+oaVDwZPu1YnMCedcYM+/kkZ1GUzHe/aB/3OwBWLByN
-	 /LWCNs7kD04/gSrqQmmnmDs0dZa5xwuPmfo+lSQ9l/iC71Mk1Ra7nDzGKzCo0T0WdSsiI
-	 GJdp685yXYqExMsqQu38eFQorRbcfUGCbmqxLVBXdk1oG6kGXtcOmIqcKQOANH1LZVhYo
-	 IjZplQkJ3MOvFI52e6OBOb9audVzO1MP0uC7K8toK0CkzAwoyRXNwIXWrnwTyEROZtmRf
-	 Q+X1YosEDdhA62n0KbqtvddB77M+rCsKmH5HDwrt+lC6KY1D83LM83qEIDK8TfD780Q==
+	t=1794140440;
+	b=MstQCsH6ip9V/yZ8e3k4aD/ub8g6+pijFmRBRDXi4qv31nnsj7nvk3ZpVdpBXU6z+1yH
+	 JeqejLNSJJSFSiXRfp/vo9U0e2VzMgh/6iVl3F6MZm+Zj0OcRb9lbxnrZFJKsizcUhkP8
+	 RA4asFftFdYRyH79rj8knidMD4/SVIesg5cneGDm8LLljRphVegm0ahTHNblplFqUeXZQ
+	 yWwBFMCx2P/hT6j+vu4bQ5bnMUcen7XNO8kVNF3z1k6+yHnz2faxgxH9H2S2sDOtBvicf
+	 1dpMAA7jAlexOu8aT5IJLpg9wTs+kmDz9LqEjBOmGlNjZDeZMY2Rm3eRW0bFlFRF9rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794140397;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=aGNlbqNM+Cs0D6cWPf+dVF6ZXiIEwt2+4hu0aRBpEy4=;
-	b=HNzW2UfFTVCM+B8YEjhNAn16Jm5fDFqkyGabuFP3idBsGgMI3dH4NmSJvcBA6SCrs7h/
-	 uiUTcWSy48LL2q6Pp5Ng4alNyfIpuHnD/i2oL+Dfnj5YTTiXJMn5QTEPLzjWI/mdGYMUW
-	 ZDO2PzLKYYe+Iv84WKlafIBWdhcL9Pozgxm4DXrFAxOYmmVeZlttQ7nhcktJtktHHsA2p
-	 v7371t8zqzClyr3fNjT0BBNUj1XVYu9PkYOiUvqC+gY+VuypaxoJ5b1MU1KEVCaLi+bHc
-	 TzcQp2D8tuMx+YXrBO7QR/E57+j70GmupLSIP1nhx12xo2VJQtnCRZ7RBmfEmgaZoYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794140440;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Z0y6eaBsxzUThfzx9UP13uc1XtIr/6AqzMc/qlXa2WE=;
+	b=puuJwLH4jAuEYH9N4RSUPUt5a9qkWzxgrMi4R8vmTDOP+srDbdV4fm0zNOy0lKXFQD00
+	 XGxwi1xNxx5y5rNlOVSqBgXM3rAHfxPo9+BnNb9lr6J5tU4UAzPxpghRn5oN44+F+x18k
+	 TTgSNgZhdjiozgcrQM2Vagw7HteipvPAtdACSyZGTChVmpwziEN6F6IRqvKmnwwFFpD4D
+	 afBFZCbYG2bpqMfA1GxVaXMSWdGl70iaZ7eV7v7O3pv+GabhwF/TfXnLH7SCPoCYjC2xP
+	 DTe7Xy2jtYqtz8bsb5kjU+rsvTYGZzMzfMnZtAxiqooBZMQZAn/oXRh8gf/fUWzNR0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=dTECecT2;
-	arc=none smtp.remote-ip=37.27.248.198
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXcXN9RA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE435606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:19:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE435606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A706D606A31C;
+	Sun,  8 Nov 2026 12:20:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=dTECecT2
-Received: from relay10 (localhost.localdomain [127.0.0.1])
-	by relay10.grserver.gr (Proxmox) with ESMTP id 8EDCB42E2A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:19:47 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay10.grserver.gr (Proxmox) with ESMTPS id 5A45B42D95
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:19:46 +0200 (EET)
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 8A0231FE451
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:19:45 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1794140385;
-	bh=aGNlbqNM+Cs0D6cWPf+dVF6ZXiIEwt2+4hu0aRBpEy4=;
-	h=Received:From:Subject:To;
-	b=dTECecT24G3Z/RpIPizdGthbvaDxJM4RjVV1HUDL+n1QuANPWjCosmvvTIIpwPo2U
-	 qywe4SEhxva5O53EJjLVbkc6GUmxtWkQvZbj+GTkxuslezZdgP42lfMApbMKYL8BT5
-	 xrRHmlqCfdRhzkHmvwiBxlSIZXFsYKMdz7E00zskd7RA+pXkjvuUQ6anrg/DHi/jYn
-	 py3ja7sB2FA/9iXs760KACvskezXpqotFI0IfPAKkLkaEQ/hE44ElFuIpoHo8MJX7r
-	 JVUEzOFdXDR9qBJxA8mxEwcxdPsuKfoQ35toXH8R7U7uVG1PCkXeK0RsC7VidN3Mh4
-	 +EkuuHuhtXHiA==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.215.177) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pg1-f177.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-cc758830601so19966a12.2
-        for <linux-kernel@vger.kernel.org>;
- Sun, 08 Nov 2026 04:19:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErE9divY4Wm2Lfy2PWJ3uxjDHMPWIN5sYNJW6PZwsCBIeO8vdmTbJvSsohSvGQfcAqdkpRqWSGIynp4vnW0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zrgqDcJjimuW1evujF/PbbD/QDrjLPqmO0pniOyrlalNPj2nX
-	ORtPTnu334AlAI4bIwmfJLY92vIbeJuKS0sEC858hUbJkko9RfZerHj+mOaFUeeNP8FPFbEKIAt
-	JEG9XFnwi3+9JiJzIoufnMRDpmhOPWkI=
-X-Received: by 2002:a17:903:228e:b0:2ed:472:b9d6 with SMTP id
- d9443c01a7336-2ed833ee6d6mr12879355ad.2.1794140384132; Sun, 08 Nov 2026
- 04:19:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXcXN9RA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286321F0089F;
+	Sun,  8 Nov 2026 12:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794140440;
+	bh=Z0y6eaBsxzUThfzx9UP13uc1XtIr/6AqzMc/qlXa2WE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=WXcXN9RAtzVke8mAk+NZ62s5rEXt0za8/W82KKoak73ZciYuzzw5+pDAT7UdtSRuN
+	 STz54XAdR8CsX2SZtv2jMvTu8aXUHaZAE5UQIk885OyloLtVBS4HDauEJXIUOT7nXY
+	 05ckNTPOTriPijyjbLdNzBQHCq/QdZgm5d6T31FKBLd1OCw387jXXNN8a5/cQ29cJF
+	 do4nLjJgiF6gBKSBtTF2RG6dXJux+2gogJC7I7ufZ5ptfwmXBG8wE/kWomOmXHVht4
+	 n280NRnEsVz05UhIJ7YGIrHwEXfzEPzCKdBWmCfbr49oyIyLDJPnF12FGGYYSiZRhW
+	 i3AOXngAfCeJQ==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 6C9CF2C2C473;
+	Sun, 08 Nov 2026 12:20:37 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,322 +52,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108110757.41368-1-hijae99@gmail.com>
-In-Reply-To: <20261108110757.41368-1-hijae99@gmail.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sun, 8 Nov 2026 13:19:33 +0100
-X-Gmail-Original-Message-ID: 
- <CAGwozwEKXJGBY5oZtdrrzfK-aOyYu5GaiOqkejSqbCPdeq0UJg@mail.gmail.com>
-X-Gm-Features: AclHuK8FCPhpWMw0QpO6vfYGGLkv_VEx6bXqbmnEpZ9shDu4AyH7GudJk2u6IAc
-Message-ID: 
- <CAGwozwEKXJGBY5oZtdrrzfK-aOyYu5GaiOqkejSqbCPdeq0UJg@mail.gmail.com>
-Subject: Re: [PATCH] HID: ayaneo-flip-kb: Add driver for keyboard backlight
-To: Hijae Song <hijae99@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179414038586.756180.3671768026652079373@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] spi: intel: only check locked opmenu for SW sequencer
+ operations
+From: Mark Brown <broonie@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Mauro Lima <mauro.lima@eclypsium.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Lee Jones <lee@kernel.org>, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261101200313.16411-1-rosenp@gmail.com>
+References: <20261101200313.16411-1-rosenp@gmail.com>
+Date: Sun, 08 Nov 2026 12:20:21 +0000
+Message-Id: <179414042181.3630016.5337245544547078214.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1023; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ffvScCYWLP1l8GMZTbXJdOrsNZ+RBwcDgIF/1Uc9frk=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+ZLJ/6RSbeci6Y0YSv3m5Q9ydtjmh9n5PBXjeHTy+r
+ aHk3Mm0jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkyy6G/47LzD9LB8soyt8t
+ vDRll0CNEPua9ENNSuu3fL+weNPO3AUMf7h89fldQy855yUzl86c/Sr/eFykA/Pd+6kihikNLJO
+ ecAIA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, 8 Nov 2026 at 12:08, Hijae Song <hijae99@gmail.com> wrote:
->
-> The AYANEO Flip KB has a built-in SiGma Micro USB keyboard (1c4f:007c)
-> with two HID interfaces: a boot keyboard and a vendor-defined one that
-> carries an 8-byte Feature Report (ID 0x41) controlling the RGB
-> backlight. hid-generic binds both, and the backlight is not exposed to
-> the OS.
->
-> Add a driver that exposes the backlight as a multicolor LED class
-> device, ayaneo:rgb:kbd_backlight. The report layout was determined by
-> experiments on real hardware:
->
->   byte 1-3: blue, red, green
->   byte 4:   firmware effect select (1 = static; 2 and 3 select
->             rainbow and breathing, which are not used here)
->   byte 5:   0 = off, 1 = on
->   byte 6-7: constants 0x41, 0x5a
->
-> There is no separate brightness field, so brightness is applied by
-> scaling the color bytes. GetFeature does not reflect the current state
-> and is not used.
->
-> Turning the backlight off keeps sending the configured color with
-> mode=off rather than all zeroes, so that the keyboard's own Fn+Space
-> toggle keeps working afterwards. The LED is marked
-> LED_RETAIN_AT_SHUTDOWN so unbinding the driver does not blank it.
->
-> Both interfaces are bound to this driver so hid-generic stays away; the
-> boot keyboard interface is started unchanged.
->
-> Tested on an AYANEO Flip KB: color and brightness changes through sysfs
-> and UPower, Fn+Space toggling, behavior after reboot, and a third-party
-> LED client (HueSync).
+> On controllers that use the software sequencer for register access (LPT
+> and BYT), intel_spi_supports_mem_op() rejects any operation whose opcode
+> is not in the BIOS-locked OPMENU. However the check is applied to every
+> operation, including normal data reads and writes which are always
+> executed by the hardware sequencer and never consult the OPMENU.
 
-Hi,
-I do not have the bandwidth to review this driver, but I will leave
-some broad strokes feedback.
-
-The name of the driver cannot be -flip-kb. You need to make sure it is
-generic enough to match most Ayaneo devices. There are 4 flip devices
-if I recall. Adding a driver for a single one is a tough sell. Also
-this does not control the joysticks LEDs, so naming it ayaneo flip kb
-is not appropriate. It is a niche device line, they do not sell a lot
-of units and the form factor is not what most users prefer.
-
-If this is an actual keyboard product on the market and Ayaneo is
-sourcing the part for their device (it seems so, SiGma Micro appears
-to make keyboard ICs), look-up similar devices and kernel drivers. One
-might exist already. If not, and provided that Ayaneo did not modify
-the backlight protocol, rename the driver appropriately to sigma
-something, move it to the appropriate location if there is one, such
-as the led subsystem, and match other backlight driver conventions.
-
-Provided the latter is the case and we can make a Sigma micro driver,
-I will also try to review the driver, as it is more valuable than just
-Ayaneo Flip devices
-
-Best,
-Antheas
-
-> Signed-off-by: Hijae Song <hijae99@gmail.com>
-> ---
->  drivers/hid/Kconfig              |  12 +++
->  drivers/hid/Makefile             |   1 +
->  drivers/hid/hid-ayaneo-flip-kb.c | 171 +++++++++++++++++++++++++++++++
->  drivers/hid/hid-ids.h            |   1 +
->  4 files changed, 185 insertions(+)
->  create mode 100644 drivers/hid/hid-ayaneo-flip-kb.c
->
-> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-> index aa7fa11a..bba11e4b 100644
-> --- a/drivers/hid/Kconfig
-> +++ b/drivers/hid/Kconfig
-> @@ -205,6 +205,18 @@ config HID_AUREAL
->         help
->         Support for Aureal Cy se W-01RN Remote Controller and other Aureal derived remotes.
->
-> +config HID_AYANEO_FLIP_KB
-> +       tristate "AYANEO Flip KB keyboard backlight"
-> +       depends on USB_HID
-> +       depends on LEDS_CLASS_MULTICOLOR
-> +       help
-> +         Support for the RGB backlight of the AYANEO Flip KB's built-in
-> +         keyboard. The backlight is exposed as a multicolor LED class
-> +         device.
-> +
-> +         To compile this driver as a module, choose M here: the
-> +         module will be called hid-ayaneo-flip-kb.
-> +
->  config HID_BELKIN
->         tristate "Belkin Flip KVM and Wireless keyboard"
->         help
-> diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-> index 48a863b2..4bac905c 100644
-> --- a/drivers/hid/Makefile
-> +++ b/drivers/hid/Makefile
-> @@ -35,6 +35,7 @@ obj-$(CONFIG_HID_APPLETB_KBD) += hid-appletb-kbd.o
->  obj-$(CONFIG_HID_CREATIVE_SB0540)      += hid-creative-sb0540.o
->  obj-$(CONFIG_HID_ASUS)         += hid-asus.o
->  obj-$(CONFIG_HID_AUREAL)       += hid-aureal.o
-> +obj-$(CONFIG_HID_AYANEO_FLIP_KB)       += hid-ayaneo-flip-kb.o
->  obj-$(CONFIG_HID_BELKIN)       += hid-belkin.o
->  obj-$(CONFIG_HID_BETOP_FF)     += hid-betopff.o
->  obj-$(CONFIG_HID_BIGBEN_FF)    += hid-bigbenff.o
-> diff --git a/drivers/hid/hid-ayaneo-flip-kb.c b/drivers/hid/hid-ayaneo-flip-kb.c
-> new file mode 100644
-> index 00000000..8068b7d4
-> --- /dev/null
-> +++ b/drivers/hid/hid-ayaneo-flip-kb.c
-> @@ -0,0 +1,171 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * HID driver for the AYANEO Flip KB's built-in keyboard backlight
-> + *
-> + * The keyboard enumerates as a SiGma Micro USB HID device with two
-> + * interfaces: a plain boot keyboard and a vendor-defined one carrying a
-> + * Feature Report (ID 0x41) that controls the RGB backlight. The layout
-> + * of that report was determined by testing on real hardware:
-> + *
-> + *   byte 0: report ID (0x41)
-> + *   byte 1: blue
-> + *   byte 2: red
-> + *   byte 3: green
-> + *   byte 4: firmware effect select (0 = keep previous report, 1 = static
-> + *           color, 2 = rainbow cycle, 3 = breathing, other tested values
-> + *           behave like 1); this driver only ever asks for static color
-> + *   byte 5: mode, 0 = off, 1 = on (other tested values behave like 1)
-> + *   byte 6: fixed 0x41
-> + *   byte 7: fixed 0x5a
-> + *
-> + * Copyright (c) 2026 Hijae Song
-> + */
-> +
-> +#include <linux/cleanup.h>
-> +#include <linux/hid.h>
-> +#include <linux/led-class-multicolor.h>
-> +#include <linux/leds.h>
-> +#include <linux/module.h>
-> +#include <linux/slab.h>
-> +
-> +#include "hid-ids.h"
-> +
-> +#define FLIP_KB_REPORT_ID      0x41
-> +#define FLIP_KB_REPORT_SIZE    8
-> +#define FLIP_KB_MODE_OFF       0
-> +#define FLIP_KB_MODE_STATIC    1
-> +#define FLIP_KB_EFFECT_STATIC  1
-> +
-> +struct flip_kb {
-> +       struct hid_device *hdev;
-> +       struct led_classdev_mc mc_led;
-> +       struct mc_subled subled[3];
-> +};
-> +
-> +static int flip_kb_send(struct hid_device *hdev, u8 r, u8 g, u8 b, u8 mode)
+> +static bool intel_spi_op_uses_swseq(const struct intel_spi *ispi,
+> +				    const struct intel_spi_mem_op *iop)
 > +{
-> +       u8 *buf __free(kfree) = kzalloc(FLIP_KB_REPORT_SIZE, GFP_KERNEL);
-> +       int ret;
-> +
-> +       if (!buf)
-> +               return -ENOMEM;
-> +
-> +       buf[0] = FLIP_KB_REPORT_ID;
-> +       buf[1] = b;
-> +       buf[2] = r;
-> +       buf[3] = g;
-> +       buf[4] = FLIP_KB_EFFECT_STATIC;
-> +       buf[5] = mode;
-> +       buf[6] = 0x41;
-> +       buf[7] = 0x5a;
-> +
-> +       ret = hid_hw_raw_request(hdev, FLIP_KB_REPORT_ID, buf,
-> +                                FLIP_KB_REPORT_SIZE, HID_FEATURE_REPORT,
-> +                                HID_REQ_SET_REPORT);
-> +       return ret < 0 ? ret : 0;
-> +}
-> +
-> +static int flip_kb_brightness_set(struct led_classdev *led_cdev,
-> +                                 enum led_brightness brightness)
-> +{
-> +       struct led_classdev_mc *mc_led = lcdev_to_mccdev(led_cdev);
-> +       struct flip_kb *kb = container_of(mc_led, struct flip_kb, mc_led);
-> +
-> +       if (brightness) {
-> +               led_mc_calc_color_components(mc_led, brightness);
-> +               return flip_kb_send(kb->hdev, kb->subled[0].brightness,
-> +                                   kb->subled[1].brightness, kb->subled[2].brightness,
-> +                                   FLIP_KB_MODE_STATIC);
-> +       }
-> +
-> +       /*
-> +        * An all-zero color combined with mode=off makes the keyboard's
-> +        * own Fn+Space toggle stop responding until a non-zero report is
-> +        * sent again. mode=off already blanks the backlight regardless of
-> +        * the color bytes, so send the configured intensities unscaled
-> +        * instead of collapsing them to zero.
-> +        */
-> +       return flip_kb_send(kb->hdev, kb->subled[0].intensity,
-> +                           kb->subled[1].intensity, kb->subled[2].intensity,
-> +                           FLIP_KB_MODE_OFF);
-> +}
-> +
-> +static int flip_kb_probe(struct hid_device *hdev, const struct hid_device_id *id)
-> +{
-> +       struct flip_kb *kb;
-> +       int ret, i;
-> +
-> +       ret = hid_parse(hdev);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /*
-> +        * Both interfaces match this driver, which keeps hid-generic from
-> +        * binding to them, so the boot keyboard interface must be started
-> +        * normally and left alone.
-> +        */
-> +       if (!hid_validate_values(hdev, HID_FEATURE_REPORT, FLIP_KB_REPORT_ID,
-> +                                0, 1))
-> +               return hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-> +
-> +       kb = devm_kzalloc(&hdev->dev, sizeof(*kb), GFP_KERNEL);
-> +       if (!kb)
-> +               return -ENOMEM;
-> +
-> +       kb->hdev = hdev;
-> +       hid_set_drvdata(hdev, kb);
-> +
-> +       kb->subled[0].color_index = LED_COLOR_ID_RED;
-> +       kb->subled[1].color_index = LED_COLOR_ID_GREEN;
-> +       kb->subled[2].color_index = LED_COLOR_ID_BLUE;
-> +       for (i = 0; i < 3; i++)
-> +               kb->subled[i].intensity = 255;
-> +
-> +       kb->mc_led.subled_info = kb->subled;
-> +       kb->mc_led.num_colors = 3;
-> +       kb->mc_led.led_cdev.name = "ayaneo:rgb:" LED_FUNCTION_KBD_BACKLIGHT;
-> +       kb->mc_led.led_cdev.max_brightness = 255;
-> +       /* Keep the backlight lit across driver unbind instead of blanking it. */
-> +       kb->mc_led.led_cdev.flags = LED_RETAIN_AT_SHUTDOWN;
-> +       kb->mc_led.led_cdev.brightness_set_blocking = flip_kb_brightness_set;
-> +
-> +       ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret = led_classdev_multicolor_register(&hdev->dev, &kb->mc_led);
-> +       if (ret)
-> +               hid_hw_stop(hdev);
-> +
-> +       return ret;
-> +}
-> +
-> +static void flip_kb_remove(struct hid_device *hdev)
-> +{
-> +       struct flip_kb *kb = hid_get_drvdata(hdev);
-> +
-> +       /* Unregister the LED before the transport goes away. */
-> +       if (kb)
-> +               led_classdev_multicolor_unregister(&kb->mc_led);
-> +
-> +       hid_hw_stop(hdev);
-> +}
-> +
-> +static const struct hid_device_id flip_kb_devices[] = {
-> +       { HID_USB_DEVICE(USB_VENDOR_ID_SIGMA_MICRO,
-> +                        USB_DEVICE_ID_SIGMA_MICRO_AYANEO_FLIP_KB) },
-> +       { }
-> +};
-> +MODULE_DEVICE_TABLE(hid, flip_kb_devices);
-> +
-> +static struct hid_driver flip_kb_driver = {
-> +       .name = "ayaneo-flip-kb",
-> +       .id_table = flip_kb_devices,
-> +       .probe = flip_kb_probe,
-> +       .remove = flip_kb_remove,
-> +};
-> +module_hid_driver(flip_kb_driver);
-> +
-> +MODULE_AUTHOR("Hijae Song <hijae99@gmail.com>");
-> +MODULE_DESCRIPTION("HID driver for the AYANEO Flip KB keyboard backlight");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-> index 341bf587..88302307 100644
-> --- a/drivers/hid/hid-ids.h
-> +++ b/drivers/hid/hid-ids.h
-> @@ -1309,6 +1309,7 @@
->  #define USB_DEVICE_ID_SIGMA_MICRO_KEYBOARD     0x0002
->  #define USB_DEVICE_ID_SIGMA_MICRO_USB_MOUSE    0x0034
->  #define USB_DEVICE_ID_SIGMA_MICRO_KEYBOARD2    0x0059
-> +#define USB_DEVICE_ID_SIGMA_MICRO_AYANEO_FLIP_KB       0x007c
->
->  #define USB_VENDOR_ID_SIGMATEL         0x066F
->  #define USB_DEVICE_ID_SIGMATEL_STMP3780        0x3780
-> --
-> 2.54.0 (Apple Git-157)
->
->
+> +	if (iop->exec_op == intel_spi_read_reg ||
+> +	    iop->exec_op == intel_spi_write_reg)
+> +		return ispi->swseq_reg;
 
+This will match for SPINOR_OP_WREN and SPINOR_OP_WRDI, should this be
+something like this:
+
+ 	if (iop->exec_op == intel_spi_write_reg &&
+ 	    (iop->mem_op.cmd.opcode == SPINOR_OP_WREN ||
+ 	     iop->mem_op.cmd.opcode == SPINOR_OP_WRDI))
+ 		return false;
+
+Sashiko has some analysis:
+
+   https://sashiko.dev/#/message/20261101200313.16411-1-rosenp@gmail.com
+
+-- 
+Mark Brown <broonie@kernel.org>
