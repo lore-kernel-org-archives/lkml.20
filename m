@@ -1,128 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794157159;
-	b=cre/1om5Jh+h7kGPJrX4QHvqa+GYSqL3ikkMihi6NcxSOz06AXCPrIWw5ntmeE3BEAvE
-	 pFrOHA55WptjdVODRx4//013mwoH6VloXJD8D47Zzrx5UUUIc9keSLNuwaMCjRAdae+8V
-	 RUnr/0W8lFthxhKsI7iksOIXN/toXIbzbjZ++SNTbhxLhO5XCf+eWfKJaFgwHlZqoos37
-	 AsrzVN9i6mEnTs4adQD/EEBfdwDisZmK8P++AEkuj0FgHCB1/uCRUdNQA3BViF8tj27xH
-	 oyiDDoNHTCT7klCz0VFqEYzJKipYrpbU8Kcy74XKENHmakPLbs21WlPkryV5U6FfV8w==
+	t=1794157213;
+	b=5ToBQW8FYfgBdR4og0cBCCrCbjZuHFHHjdr2lRCY2WUv5WBCho4EFopcjFcJuUhuzac/
+	 InBV7H9ygEBjBTyp7u6uYTAUyDLl4QWk4+ng1s1dQ3bPfYK6yi8YRbwLwIRo0t6SFWxWU
+	 VaIR0x3e0BqouawOSh7KtN2t+zd+DAtULlI8Vo2WZbEB85YvaBPnWLa7rbfEL/n/NgKN3
+	 dYCJjPGcCPfsDnyUuFpSU4ojpaP/lbbPx1a0//d1gPAx4iMWv+D8EU6XnrKHLb6/xUP+M
+	 DtEjQzeJej77p2wVT26E7qNQyHbd9mFjZXHq7sezpiz29l8W9BIY7fB0mC40K4neGrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794157159;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=lmwJQdwiPgvUanu0gwsKytij+Ict3+h8IPwu4vyFkUU=;
-	b=IDYdEW7Y5l5rwhPR2WEuKCkxHfnxFsDxeQfFSNLwPV3+AUJm2dmTkPJfZDPQMKxRk8Tg
-	 H5dyJqk/W20p76/N55ZxC1ev4tMCRYgdVjEfBrSpVRu4f/1XZZVjR7ZrUiCgqSwjy7rp4
-	 bdK4sH1yAqwLHmpTPONL+Hd1HEdQa/D9gRQeoJyk8YdqlbmwVkXFqAn6NrJekM6O1ouSr
-	 Aq+GK6TMKL8C4F5TpSNWvLeu29aIvADs2mZn6SwbWTZIPPwqscgc2cgpQhGBhBYbehwsS
-	 p1wUThz52qkB/yPsRZZfGXptFcLGlk5adjTNQrwkxOrMDy2cBmHAr1SfumMyIlIEErg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794157213;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Cn29Cz409bAkUNu2nlc09QH3V1QgnP/zwgBADo3882E=;
+	b=fvUQmHzqKBguWrFCLqfKEXJ1H+nKLxiIWD9B4+ksz9MZk/++h9BQi34vr0Fob1ZxDFlN
+	 52VDzcq5w8e6PiHX8We+N1RjaQ2cjkZFiIXhD/S9B/GsAsrg16xQ2T4RIu2KFx2qRFPiO
+	 VxvfJ00v0hAB+uVAFmC5r7IL7VO1xPA/JgRNLS/e9kOeM3kyYU4hLm5uwL6SeQxm0tu6J
+	 97um+qWTZOfKtYSHfT55ctMrQjFuKTICqBj/UjejoNgVIsv7RGridYrQGO09hry4Q7V0+
+	 oJfU6oHb7MTe9pFElFhgWAJ8X9DA9q9BwsOy3PiTXte57ovDLgN/GaGz03hZFHanJPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=vVWQLNs+;
-	arc=none smtp.remote-ip=209.85.219.54
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbgV3wVs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24089606A333
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24089606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5B1606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=vVWQLNs+
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91ec2d42231so2161966d6.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:59:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794157158; x=1794761958; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lmwJQdwiPgvUanu0gwsKytij+Ict3+h8IPwu4vyFkUU=;
-        b=vVWQLNs+Rnn6NOsMpjKSpUM9H3gRT4E/HZTt53PMAZ2SXIz+Low080hQm0r2oKAsG+
-         HZ5TLknOMUGXKR3KUCz20FyQXU1Y7n4k67s/O97MTY2HciAv7W5/XWWVJI3wnxiYTpJN
-         gDPuohXn6LbvsrECp0/Ji6cvN5My5wm8EgfEsTmjv66hd/4pZ3HhjPBADrWO+gshRLZX
-         1w4cJtE0RQlZSB1u8qCDumnVcL5w0oR/W9xf8l09re306PAWvYklsReVbujjFSq7ckfb
-         ysHxLPgUuyjzLYLRPYb0BIszOUV4j3JsJcseKz7sg4xVYz+KH4V8tOVQekOfo5kBRIRc
-         SzLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794157158; x=1794761958;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lmwJQdwiPgvUanu0gwsKytij+Ict3+h8IPwu4vyFkUU=;
-        b=2uBJkyzx3W3YZwM2tSSzxbs+s6yobRhLPW90W1DT7U6K4UXcNOHQAKX8jBO+itQdNr
-         WopWHXuEDhBohmYU7QFOj8nnki+3nVwUVVA1qsR+bvPFd4PGpYEq2MKgniTBIAGiJNck
-         uuPVaCcaWM745ghNqcZvOSU70V7sXmOmTKNrU1wj04BGgnnlL95Dk1lLnCcieZHd+rww
-         exiMsB0ttnnu3UasIpdav0qW1sph/ur+G7YsDfQg3YxKnxGxN0kHgVQpf0eVCyzJ2dxl
-         IR1PvMtCkAGhRwDkgKRRqUOCWwYnZLc18D7QvIhM6nms5YXlhnDgE2PS8qljQgKnH7ry
-         atqA==
-X-Forwarded-Encrypted: i=1; AL+hErFt9JMBLZVKxvWms4OFhXS0ShVvMNbGAPBiYtk5t40C2YMbf4nFXTASxJG5nY8ggEWvuNYA6CXx7G2kAgk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xeBzev4L89yi0N+wzVk5aU6ruH60jgA7JaFVUmuhTln5dE86E
-	Dw5mn+ohxgoadRe512WKAfszlis0+Vw9f40FsjHAmXkPcv4mWapIzGdy2uqWg6r7Dw==
-X-Gm-Gg: AYBFou3qBUPfPyiu12UXdHg7Er0s/8ptInHJaf6QWdyY1M/ybhFZ6JBEGPioIPsz5h1
-	TU//dskdMrP1KTNLtTJbByXYd32Cta5kPrcrK9gkDAOwp85UNLBa31nBhsIoGxs6hSQg7TZHVBC
-	JMFI4MksqV/cJJc4TKC3xyf9m8mvFR13gYbDmmxkgIzdYOS8V6ZaUxKoC5VUby98mwZWXA/w2Fm
-	V7FX9wckqHMBupK2s+vHg2Y5Q2r0uMjMoajm9gU++/D54p7AGz4vjeW+lK5KWPBLXu+vOEVJMVk
-	OZurp0zL3F0qG6GpMa1lNG46uJHeEysKytCeloCxHFUu86IG8JoiY/ckONdSatJlOcJhTuIcEen
-	NGAW9PZ+PGI8ATKpUSEgw9WRDY8twQi5PtrGB9KZrQDniXNAmrAwmUlYH3AlEpFOnVikaoS1AYp
-	h0oBC1rZtUWudPxJtL0U7epBm3wD8lx5nBul5X1QOxYdjsRjyMIKWjO8DHNXR1dWFXK8LntPskD
-	1MNmIDvruu2fkqe7oJmah6dST2qslcVB0QFl/5t2GZvp8EA6dKLqX/u4Fj7fw9zNDnP7vobra1B
-	X8L2uJkAl1VUNBN6CpxpVQi3k0ly
-X-Received: by 2002:ad4:5d62:0:b0:91e:9d64:3294 with SMTP id 6a1803df08f44-91ed240d34dmr24616736d6.30.1794157157397;
-        Sun, 08 Nov 2026 08:59:17 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ecedbefb2sm22431036d6.17.2026.11.08.08.59.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 08:59:16 -0800 (PST)
-Date: Sun, 8 Nov 2026 11:59:11 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH 05/17] USB: Lock registered interfaces during manual
- driver binding
-Message-ID: <647f3199-909d-425f-b485-b598a18844d1@rowland.harvard.edu>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
- <20261105-device-trust-core-v1-5-1e536825b4eb@nvidia.com>
- <bb83fe3c-cebb-4bc8-bfc9-24df1cf72b0b@rowland.harvard.edu>
- <20261105184442.GF8298@unreal>
- <bf756e50-c77e-40f2-916d-e88887426806@rowland.harvard.edu>
- <20261108110909.GA8635@unreal>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbgV3wVs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A1D1F0089F;
+	Sun,  8 Nov 2026 17:00:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794157213;
+	bh=Cn29Cz409bAkUNu2nlc09QH3V1QgnP/zwgBADo3882E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FbgV3wVsZqo9w2ruVmy8VP2xJrKH6PVVF1CJzV0hBpuSGPDuVaZTvJqv+3/KgVK1E
+	 GwIFHt80Cl8diJF4uGxipeEOrdoCYI01B26PI3JZzll56seXCbv1Rmogw2MAxtmTL9
+	 sf53K+UkCoJGXPSUs5G8CqLU87xbFewtkQcsC+zCFi2349cpdk2WAja/4gvQ2K9lW8
+	 cTkvwAM5VlV3QGG6zKNHGWJIZ0EQvEzeJa2wJZsqG1J7boGyWoCtWr+C0xQddg74FN
+	 pLj88z6UjrCUNEUJOmwAlORhFochQSTEon3QbIPEcvjypUMRxoqTLfV2bdLM8KoLTh
+	 ENe5yePI5pbYQ==
+Date: Sun, 8 Nov 2026 17:00:11 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hao Li <hao.li@linux.dev>, 
+	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Conor Dooley <conor@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v3 05/10] mm, slab: rework KMALLOC_RECLAIM handling of
+ SLUB_TINY
+Message-ID: <avCo3RiQS4MN3nny@minisforum>
+References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
+ <20261105-slub_tiny_rework-v3-5-0484ce59eabb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,46 +65,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261108110909.GA8635@unreal>
+In-Reply-To: <20261105-slub_tiny_rework-v3-5-0484ce59eabb@kernel.org>
 
-On Sun, Nov 08, 2026 at 01:09:09PM +0200, Leon Romanovsky wrote:
-> On Thu, Nov 05, 2026 at 03:04:18PM -0500, Alan Stern wrote:
-> > >  it ensures that the lock is
-> > > acquired when the driver is bound.
-> > 
-> > That may have been your intention when the patch was created, but if you 
-> > read the patch you'll see that it includes a whole bunch of material 
-> > not related to locking during binding.  Namely, this part:
+On Thu, Nov 05, 2026 at 09:43:54AM +0100, Vlastimil Babka (SUSE) wrote:
+> One (relatively minor) aspect of CONFIG_SLUB_TINY is the assumption that
+> letting reclaimable and non-reclaimable caches merge will save more
+> memory, which is more important on small systems than the page allocator
+> level fragmentation (where distinguishing reclaimable slabs should
+> help).
 > 
-> Once I added `device_lock()` to `bind`, I had to add it to `unbind` as well.
+> For now that has been achieved by #ifdefs that result in making the
+> SLAB_RECLAIM_ACCOUNT no-op and aliasing KMALLOC_RECLAIM to
+> KMALLOC_NORMAL on the enum values level.
+> 
+> With the goal of converting CONFIG_SLUB_TINY to a boot-time decision,
+> rework this so that SLAB_RECLAIM_ACCOUNT and KMALLOC_RECLAIM are
+> distinctly defined always.
 
-Obviously I'm not making my points clear.  Let me try again.
+Nice!
 
-The entire patch description, as you wrote it, is this:
+> Now, creation of kmalloc-rcl caches is
+> avoided by assigning a pointer to the normal kmalloc cache on the
+> kmalloc_caches array level.
+> 
+> To prepare disconnecting of this boot-time decision (and the evaluation
+> of the need for kmalloc_no_objext) from CONFIG_SLUB_TINY, introduce a
+> slub_tiny_enabled variable that's initialized to the CONFIG_SLUB_TINY
+> state.
+> 
+> There is one minor functional change for CONFIG_SLUB_TINY=y. Since
+> SLAB_RECLAIM_ACCOUNT is not 0 anymore, caches that differ only in that
+> flag will stop being mergeable. If that turns out to have a noticeable
+> impact on memory footprint, we can adjust the merging decisions to
+> ignore SLAB_RECLAIM_ACCOUNT when slub_tiny_enabled is true.
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
 
-> Interface claims hold the USB device lock, but device_bind_driver()
-> requires the target interface lock. Without it, trust-policy writes  can
-> race admission.
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
-This says nothing about holding the interface lock during unbinding.  In 
-other words, it isn't a complete description of the patch.  It implies 
-that the patch changes nothing outside the device_bind_driver() 
-function, which isn't true.
-
-Furthermore, the patch does not change any of the code in 
-usb_driver_release_interface(), which is where unbinding takes place, 
-because that routine already takes the interface lock.  So to say that 
-you had to add device_lock() to `unbind` is not accurate.
-
-Instead the patch adds a new usb_driver_release_refused_claim() routine, 
-plus code in usb_set_configuration() to call the new routine.  The patch 
-description says nothing about either of these things.  Not to mention 
-the fact that your other changes make it now possible for the driver 
-core to delete an interface claim when the interface is registered, 
-something which was not possible before.  This is another inadequacy in 
-the patch description.
-
-I'm not saying that any of the code is wrong.  But the description does 
-a very bad job of explaining the new code.
-
-Alan Stern
+-- 
+Cheers,
+Harry / Hyeonggon
