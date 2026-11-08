@@ -1,67 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794133631;
-	b=dDsMPGXPMJ5925UTyS4aoQQL4odLEYXg7IroqkIhLGNmo93Rirk1IUTc90HqyRj4vYAL
-	 Vhh81fZ6SV63dPtjmqnLXkmo4+EzQ+uLpOvhYuuJcwWVvIPLL3Boq+8h7xg8zidOzU+HW
-	 XfZTUvsMMHoUrFfIWTtpShER8ByxNppFAEC7yA6kI9DRPmFGWmbPBV8mwVIMaSSiZyR3B
-	 bBeNLcFI/ZSoBMqNXs5igxqB4tQZi1azCbRAYcDAAr15BfsN9ZlrU3Bb1MNyNVWPsZr5r
-	 neX2gWmVCCrcTI6KeYUWhcoDKKc+VD/HYKkMkVZpvKvm1MwDG944/C1PlJguHxt1jPA==
+	t=1794133938;
+	b=0XzYBRJK2YkMAmxFxQwKvr9EDrtviX0zP7oz2mCF2cVJ4Zp0IuGI84Ue7Qgx9bPt7izE
+	 QCW16ePoiJGg0QYg6dUGLz03sb/7GwO6W0WKhe1jTbWWe7Gh3X1+xBrYfpIgfLQfmIMLp
+	 cqt3zE20O3qtaW5naDrjt8+54leiU8XYtAvdc4GBoWoc34zBc/0957hCJNN2aYTsAoNNp
+	 p9lfeAwqKtPVpxjd+7CLA/kud6tCCiYCkhPwCWsuLLmNbDXMAckB9hAeunwoTHH7u81e/
+	 xpeC064hj26B+cCKeHXps6+PgM1vFawFmPHe3RzEsRUZXKL9+AmnhI+eKjUq+fELGaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794133631;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=muKBTpgIwomUfoL+ebA1PuO9dc4a3sXML+kuNL0YxMc=;
-	b=BovPvNyoOM3XmWiV04v9469eRNWln9sqgyiuT8jamCyCYc5U6BU2Py4jnZQetoMWF7Lk
-	 VqX1RSE7Jg+FxJFTJYyre+/aUYezYL5yLtq6RQrobPjk8AazLjLO/15r8u1LrO0LT61yy
-	 OMko2E3lp610zrK53hIgvhfkhpUV3Tmw7AxQI8FAZfSQR+bGEXXaxv6DbZp53ji1FEVEv
-	 HJ1P5vvcvjpyHKDFUzJq36ClKi+vqNxCOeUEpXiSZbjqg+y2vU/osoq5BFULp6VtN4WO6
-	 puTTF91d2FeRPEztmLeNtWA7/3+OAO6mhOoJkdcrCEFR8rH+EHM+7ArgodhWk/ucdeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794133938;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
+	 In-Reply-To;
+	bh=mTO5vqmcYDoZcsiEN3Hfan20qaewLLsdcI5UnvFxp4o=;
+	b=eow5Xy83R/SXAq2de3luAnb2as0HH1chI7VUvssMFlAkLlJZBZgbLmL4Cm70+aqAFpPb
+	 6KC/yWDH+81b0RunHsd6QYEy9dr1izcr+3MyRAjL4/hFbcd11ohvRfNzgpZVdDcMCEFcs
+	 6x1/wxmVve3BG81vJtt4sOtImZ25v+3mPDfrYD6jw33WPQdUcqzCiO0nXCmt3sVLJG81g
+	 4h1N/sd0mYyKczpGOub3pnWECx3bm4FGxpsN1qjqL2C3WEFr9z+tdOQGe7wWYGMwVCArf
+	 hUXG22HRRyi8FsLQKkqiTB+1LL+s4K9ZlZeKzo7RYV9R2sGC2SQxz7pvz+6d4yT5yzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=IwjcfgP9;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LrMBuAH+;
+	arc=none smtp.remote-ip=95.215.58.152
+Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47C3606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 10:27:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E47C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04E1606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 10:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04E1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=IwjcfgP9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:content-transfer-encoding
-	:in-reply-to; s=k1; bh=muKBTpgIwomUfoL+ebA1PuO9dc4a3sXML+kuNL0Yx
-	Mc=; b=IwjcfgP9iE46P2DVCrb8sqNBMdYcjPCP+KPKR5KgJZIcdkl2QaXc87hQ6
-	sp+ynLqDh6YI4nV3O/sH//uny4WjwTFNTxjflcWFA19CAYvu1xzgKBiV5rh7tQeU
-	xYPW/YrgHJPaicHFEeSzlWD4Mp8B2M2d643TDPsSCQiIycpcrd3+E2DHKBTFzxgH
-	ifisSvEKyK7l80w0ybuhVc9b/b79mY88dWUQPvalg0A6M87JZu0lvJ0rKJgTP3wh
-	Ybo3SbY+Q8/7r9y4bzZ3danVSh1+z5qT7GKf7ezMEqvHg9hnpg4rYErjT1RZK/oU
-	c1jdXwqloTmzQKHl7AGykEcnWZQGQ==
-Received: (qmail 2810692 invoked from network); 8 Nov 2026 11:27:07 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 8 Nov 2026 11:27:07 +0100
-X-UD-Smtp-Session: l3s3148p1@tsR9ScFf1Ixe20rG
-Date: Sun, 8 Nov 2026 11:27:06 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Dmitry Guzman <Dmitry.Guzman@mobileye.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	srinidhi kasagar <srinidhi.kasagar@stericsson.com>,
-	Ben Dooks <ben-linux@fluff.org>,
-	Andrea Gallo <andrea.gallo@stericsson.com>,
-	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/8] i2c: nomadik: handle pm_runtime errors
-Message-ID: <avBOeuNEVo4xn3o6@shikoro>
-References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
- <20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com>
- <CAD++jLm+m+YNhTaUnTm=dwO4p8xYe8OjZ7qhQ9_u15dnxURiVQ@mail.gmail.com>
- <auxDe0lmVCDu_iXA@shikoro>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LrMBuAH+
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gs3bePMcYIKXqQVyDCBCOpVEhgvYU3mf5TBjeYoVOkU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794133934; v=1; x=1794738734;
+ b=LrMBuAH+ZCVfir+2Ii0t+v8+EZ6WGhY/eFS0MYOYIgGO5QpaWdG3it23H9LBlJFPdADyLjvq
+ Ca2RqzLX8hKg01/B3n9xrR58v0gmsmGTO36wH6DZHje4/cKsy6c74ZW1Tjnm7nEo5FG3Ztj4OIA
+ 4Ydaq6ZeWwZ0z6F27HByt2kk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f230e04c3a206445;
+	Sun, 08 Nov 2026 10:32:14 +0000
+X-Mizu-Trace-ID: f230e04c3a206445
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,55 +55,140 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <auxDe0lmVCDu_iXA@shikoro>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 08 Nov 2026 18:32:07 +0800
+Message-Id: <DMPREBS6GFIY.1NHDQRMP9OUKQ@linux.dev>
+Cc: <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "linux-riscv" <linux-riscv-bounces@lists.infradead.org>
+Subject: Re: [PATCH RESEND v5 3/3] riscv: word-at-a-time: improve
+ find_zero() for Zbb
+From: "Ze Huang" <huang.ze@linux.dev>
+To: "Jisheng Zhang" <jszhang@kernel.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>
+X-Mailer: aerc 0.22.0.r39.g5d778487
+References: <20261107134613.17830-1-jszhang@kernel.org>
+ <20261107134613.17830-4-jszhang@kernel.org>
+In-Reply-To: <20261107134613.17830-4-jszhang@kernel.org>
 
-On Thu, Nov 05, 2026 at 10:51:07AM +0200, Wolfram Sang wrote:
-> On Thu, Nov 05, 2026 at 09:42:02AM +0100, Linus Walleij wrote:
-> > On Tue, Nov 3, 2026 at 9:30 AM Dmitry Guzman <Dmitry.Guzman@mobileye.com> wrote:
-> > 
-> > > In nmk_i2c_xfer(), pm_runtime_get_sync() is called on start and then
-> > > the controller registers are accessed without checking the return value.
-> > > If pm_runtime_get_sync() fails, access to the register of the device that
-> > > was not correctly powered on may cause a bus fault or other unpredictable
-> > > system behavior.
-> > >
-> > > Check the return value of pm_runtime_get_sync() and it if is not 0,
-> > > return the error immediately.
-> > >
-> > > Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-> > (...)
-> > > -       pm_runtime_get_sync(&priv->adev->dev);
-> > > +       i = pm_runtime_get_sync(&priv->adev->dev);
-> > > +       if (i)
-> > > +               return i;
-> > 
-> > It's a bit odd to reuse the i (= iterator...) variable for this.
-> > I would just add an int ret or int err for this.
-> 
-> Yes, please.
+On Sat Nov 7, 2026 at 9:46 PM CST, Jisheng Zhang wrote:
+> In commit f915a3e5b018 ("arm64: word-at-a-time: improve byte count
+> calculations for LE"), Linus improved the find_zero() for arm64 LE.
+> Do the same optimization as he did: "do __ffs() on the intermediate value
+> that found whether there is a zero byte, before we've actually computed
+> the final byte mask.", so that we share the similar improvements:
+>
+> "The difference between the old and the new implementation is that
+> "count_zero()" ends up scheduling better because it is being done on a
+> value that is available earlier (before the final mask).
+>
+> But more importantly, it can be implemented without the insane semantics
+> of the standard bit finding helpers that have the off-by-one issue and
+> have to special-case the zero mask situation."
+>
+> Before the patch:
+> 0000000000000000 <find_zero>:
+>    0:	c909                	beqz	a0,12 <.L1>
+>    2:	60051793          	clz	a5,a0
+>    6:	03f00513          	li	a0,63
+>    a:	8d1d                	sub	a0,a0,a5
+>    c:	2505                	addiw	a0,a0,1
+>    e:	4035551b          	sraiw	a0,a0,0x3
+>
+> 0000000000000012 <.L1>:
+>   12:	8082                	ret
+>
+> After the patch:
+>
+> 0000000000000000 <find_zero>:
+>    0:	60151513          	ctz	a0,a0
+>    4:	810d                	srli	a0,a0,0x3
+>    6:	8082                	ret
+>
+> 7 instructions vs 3 instructions!
+>
+> As can be seen, on RV64 w/ Zbb, the new "find_zero()" ends up just
+> "ctz" plus the shift right that then ends up being subsumed by the
+> "add to final length".
+>
+> But I have no HW platform which supports Zbb, so I can't get the
+> performance improvement numbers by the last patch, only built and
+> tested the patch on QEMU.
 
-I changed this to:
+Hi,
 
-@@ -730,11 +730,12 @@ static int nmk_i2c_xfer_one(struct nmk_i2c_dev *priv, u16 flags)
- static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
- 		struct i2c_msg msgs[], int num_msgs)
- {
--	int status = 0;
--	int i;
-+	int status, i;
- 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
- 
--	pm_runtime_get_sync(&priv->adev->dev);
-+	status = pm_runtime_get_sync(&priv->adev->dev);
-+	if (status)
-+		return status;
- 
- 	/* setup the i2c controller */
- 	setup_i2c_controller(priv);
+I tested patch 3 on a SpacemiT K3 board (rv64imafdcvbvh, Zbb).
 
-while applying.
+Against patch 1+2, the has_zero -> prep -> create_zero_mask -> find_zero ch=
+ain
+takes 45% less time: 3.74 ns -> 2.05 ns per call (-1.69 ns). Both versions =
+are
+built into the same image and measured alternately within one boot (6 cold
+boots).
+
+Note that this is a per-call figure, not a workload one: find_zero() runs o=
+nce
+per string operation, which takes less than 1% time of an openat() here.
+
+Method and raw data:
+https://gist.github.com/Sutter099/1c51abdb192eeedbf051ae582a1e8145#file-fzb=
+ench-md
+
+Tested-by: Ze Huang <huang.ze@linux.dev>
+
+>
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  arch/riscv/include/asm/word-at-a-time.h | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+>
+> diff --git a/arch/riscv/include/asm/word-at-a-time.h b/arch/riscv/include=
+/asm/word-at-a-time.h
+> index f2d16c1eea8d..31240133eccd 100644
+> --- a/arch/riscv/include/asm/word-at-a-time.h
+> +++ b/arch/riscv/include/asm/word-at-a-time.h
+> @@ -35,6 +35,10 @@ static inline unsigned long prep_zero_mask(unsigned lo=
+ng val,
+> =20
+>  static inline unsigned long create_zero_mask(unsigned long bits)
+>  {
+> +	if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS=
+_ZBB) &&
+> +	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB))
+> +		return bits;
+> +
+>  	bits =3D (bits - 1) & ~bits;
+>  	return bits >> 7;
+>  }
+> @@ -67,13 +71,21 @@ static inline unsigned long find_zero(unsigned long m=
+ask)
+>  {
+>  	if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS=
+_ZBB) &&
+>  	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB))
+> -		return !mask ? 0 : ((__fls(mask) + 1) >> 3);
+> +		return __ffs(mask) >> 3;
+> =20
+>  	return count_masked_bytes(mask);
+>  }
+> =20
+> -/* The mask we created is directly usable as a bytemask */
+> -#define zero_bytemask(mask) (mask)
+> +static inline unsigned long zero_bytemask(unsigned long bits)
+> +{
+> +	if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS=
+_ZBB) &&
+> +	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB)) {
+> +		bits =3D (bits - 1) & ~bits;
+> +		return bits >> 7;
+> +	}
+> +
+> +	return bits;
+> +}
+> =20
+>  #ifdef CONFIG_DCACHE_WORD_ACCESS
+> =20
+
 
