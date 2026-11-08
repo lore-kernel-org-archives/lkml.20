@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794161121;
-	b=lV/snQCBKF/Ot++hHdqRRS9xR1wGH5s8rGNMRDNf/2AwdqlJYNKnYhx12sj+2vPiuTq/
-	 9UyEPS2To+iuI740t0+0f3YdDuyzFUsfnAgFak9vCJdRiEoZgnseiFB6OASc+WKyx5TOn
-	 JyyorMEbYGLrr2js2DJu07lZItBXd4YOQFTHnFPgEjSjm93GpRkxJIMXsjuYxUelyjbZo
-	 ar5lG2YbwfjVBjaC5iMyc0hw2R44Kd6o0/1EuLQ1zgTpQmzdCk30NcynSNhw8ndhe91l+
-	 t+Pumy32fMDFoiaDr27pFPjk1bVa8u1yL38ROrCc8rtGx6sKn/K7XAImfNptRqvbOAw==
+	t=1794161135;
+	b=l3mRE0GmPtTFwzBte0b6ZAMXhiyt+NuVxyguHXOx3pCGKw7/fsH0vxCZZIXe6b4eilGs
+	 ksDe56S9StM/x4S3Sl0+43ApqtPKGYmdFsB4PMRg1bQeELOZ4mGOMkH8nd4J+ALDOY3d7
+	 0MkT39hRwGTjUjm/RICVNNXr+kHrl+tfbq3ipGl5sq7JU3YDQtKCN/Sslj02+M8hRAnvT
+	 CONLII7kr0swD7NriD/k6L5ZVBjIgE1mt9UPdfGIvhCPyxNJQUmWdgvNi4129dYqxitvD
+	 DcthfyJ2mwIbJB7aWgzO6A/PT62cV2tFQmxO1sWyWKKuq+cvJtxLLE+bPzp+615S+Qg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161135;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fe+7DTcGBmTBDi8FTxAsffrnfSNL5hvzZQwGUVeOWFQ=;
-	b=zWRuUswdHOSU4BQfS+h+OmU5y5lDgDujudmUA5XbnfbjRa7WTHjXJsCegpoEmGqht1Qs
-	 NtgKigalNQv8DPeQ0FHhRHp2vc5VFxJQmj/3iaPVzpBeO4rxxTLkoQ+XY1fylqeKMg7/u
-	 E7U6HmI6idZA3zoxi9W6J4osqKeSccQ++2jy3avYkwWKMU9n5TjOhsYkKdEWWS9Ekfyst
-	 eNHfIXPKel3fEkrBK1qM8wUJBDS+1WljjIKTOBCy1neApZeZ2F7TehpQcb462QqMOOm/p
-	 XOh8UAFPh/hmYzey3n7Q0nke11zASpuheKaDelP+9+YQrBqOYf/c67EgJLzUFv5ZZRA==
+	bh=ncjT9/9RrAC0tk5sletn5MFkxrROZxZqsmTLlhF1YTs=;
+	b=ntBEOUvGaTfEW4FeXrknEgD8EymDYk0fjErWLEWkposbdCwKLTsCKDnZlRXbGpDi6vdX
+	 pvfmeHDGTyxL2kIa8bmRqsnwHz808HWj0d+UL3axv9wKbayFlp1/QRXuyUO50RZ2qhgKh
+	 QzjpHQ2Mcsb6T65PCbc3XVOgQsA+6APLmDcJCe3P2PjJOuqslSA60NbP0AUbbKrMrrj/j
+	 RIQIDATAjVHmZJgs+CiLV56U6/QofYHKw1sz/J1n0dnSNRtoxT9F3gwIg48Rcet6sBZjo
+	 De4T5d82A6X24UdrNu975g6fgQyBVmV7NJHLEbTijd09oJaDM+hs4uuHcwggCLziurw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OtTveKvJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ls4LMEFx;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECDA606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:05:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4684606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OtTveKvJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ls4LMEFx
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794161120;
-	b=0E7tP+oxGf36dn5u3MNZvkystTBn3guzdLKnhcpOdt1mKATeZZnN11aPljPAL9bv55P+
-	 btzeFVklqrl4YN3fKHEDPXKtQyxKg1lqBzxufzQJ64gr/MFCOE3aKmkG1QXIpW20QU+eE
-	 UA8FH8etPosnetDTuTXqvv6I2zjUkwxGq4n/ciw3XFCPtPSOoHmHnsY04q8+Maq8iWi//
-	 OaSC1/DdmhZ/+22KYhXSyBw3wbHXEZrcyj6JjkncCosdbzak1ZTw8ZuHpGPw97PwRVCyh
-	 WwFmO9QLGDQkCyc4hh6uuvDQ9bV5ANZt4X4C25KkI5cREmNwwlAhB+I3D9kV5iM/Tlw==
+	t=1794161134;
+	b=WWs8y36O2GMtVrLTIRpiVySoYlgJOg/wbuUm0TP3BqObMUj3wvz/Xfixc6QNK8Z9Lu3S
+	 AmghgpMeJDDkecPkvF2aZU2EGHpgLcrT7oqN/Jp2s/sdfGhpAGFLxPpBC3R6wJ3N5jq3Q
+	 ZTNFlsAG4bqvfCaJmAEHXdQoEUCPgjqh+0lZ85YL62SbXpuq1wysciaelkFJ//lniJYY5
+	 8A25r6EpvAY8iWSxsc3m0/oBjFWGqvB7Qt+0pAvtNGsao9e2dHg0EyLd3bvLTybfdHFIg
+	 M6Wwfcz+KMJqIPFZLAikqOMMrdL9a63w7R+gqZ3tsBjtQO7QHJKWJ9zTr9u0lyzu2Og==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794161120;
+	c=relaxed/relaxed; t=1794161134;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=fe+7DTcGBmTBDi8FTxAsffrnfSNL5hvzZQwGUVeOWFQ=;
-	b=opP1CBDAR20EqBhNunwClJndeCUgAygFVcHGF5SlzAPBb+FhQymPrkUWE5B/5kuOBvU4
-	 tTM4PZ03L5t7jIwbDoUQyUsqgBW5gvgggXdhEVg690FoMCauhn46rQDfXFHGSti1QMJz8
-	 SS+yxgxqroPvm932pROLYDcwSHM74/pkNUfSgbLU11Z1qQMrUS4eM5UlfDJMYrFc9FBvS
-	 7TNu3Y+BM5sUCBafVfgSA43/uv+omk8vC5Camo9yVISDorxKMYiYc6TJM9nNEuworgI8+
-	 /ge5BS6+m2GQmScc5/805GeaOYgJ46ATKrbP7VWNoIY+9FdYrUF5+R8w1O9MOwAJ19A==
+	bh=ncjT9/9RrAC0tk5sletn5MFkxrROZxZqsmTLlhF1YTs=;
+	b=jZd3QAQZEY8JuZUwCZJEZ00NxIIgWuy7fRn3SSBK7jvXRX2tHv0R22W+OekcPl2b2y3G
+	 zUTl4DVay957qgSg/x+o5FmhV06YADHPlX1hginFkmdfowkgmUhx9wbyUZKaY/9rh5aBb
+	 o3xkn8R3BSYmuVJDAfkxZjACs/qCp8Nf8Pu9wMXK4oXjo3fcoyeN3UzsZ2wlht2QUfMLh
+	 NQ7jLQTnTD9+FJzrj9JIGULY/nLciRL8wNGKydGaiIbDUa7r36avIG1flDtnO6NDwxoM/
+	 oQj8B8HpBkjhHFjGEFxPBv84DV3RL4sIhBEvQCKWMPaG+lUckV5kEQEqPMa5R5SdX6w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 070501F0089F;
-	Sun,  8 Nov 2026 18:05:20 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id BE5811F0089F;
+	Sun,  8 Nov 2026 18:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794161120;
-	bh=fe+7DTcGBmTBDi8FTxAsffrnfSNL5hvzZQwGUVeOWFQ=;
+	s=k20260515; t=1794161134;
+	bh=ncjT9/9RrAC0tk5sletn5MFkxrROZxZqsmTLlhF1YTs=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OtTveKvJ4kiNaVg3JKYUKTEkJCIMv7C9RV/3tixGJpKRt4LclZ4RI0zNdV5qWzC8j
-	 OHuUXFFdy4atJqHSuQFp4dgU7h6jlOCbKZex/dUdYVbGBan08xfLVMqCsGAp7/G2lE
-	 Zfo7810H3vCXA4Z3v2LVAAKAnCc8ApCRXEjgPJcRjWqh2cbCkRSnZsVS186pvGYEtL
-	 jZ6RRJwXwarq3rIBM/+Hh4M7qshulacc9MitGk2VoZQcC/4S0CfsmCnwiaWhIDPXUA
-	 g0gjINS0MslnGBj5L1xWmZ3LR1Br60tMwjgxdBuKt4xBnDHYt6LPDBbWCnZRtFzDbt
-	 H/ehquEn0csWQ==
+	b=Ls4LMEFxgYm0e+eADbZWx0eu2iUpv9XYfx45feDYyLSjwPU0BsDqjiuEiL27R+AlY
+	 jYGB0twbEIsSvwoNnaobjQPKzEgJekSOcEBJtTxJsVxxJ4JaYb40IEL7sqy4iD1t+b
+	 ZYkpwTBkUy9qvW1K8jqa8WF10/8SWcfokxUCDMvvL4i6ekgSQi8P9Ku2i/PL1tr4Ji
+	 gV85wdnvnwyaHYy+98Mik5mLNciEVHDc/acvU8rOpBo1bGzcw1M3hZnVkqq/goOJQh
+	 rkTDwt4Wf4WKtGTvewM0LHvfasmZZ90vvxZah3HltJ1nTd4t/S2KXO9EAO2ttNO4nU
+	 /dV/U3a+GS08g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 794BD48016;
-	Sun,  8 Nov 2026 18:05:19 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 4CE474800A;
+	Sun,  8 Nov 2026 18:05:33 +0000 (UTC)
 From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Sun, 08 Nov 2026 18:05:19 +0000
-Subject: [PATCH bluetooth-next] Bluetooth: L2CAP: validate MPS and MTU in
- ECRED connection response
+Date: Sun, 08 Nov 2026 18:05:33 +0000
+Subject: [PATCH] ntfs3: fix bitmap corruption in attr_allocate_clusters()
+ error path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,18 +84,19 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-bt-ecred-mps-fix-v1-1-e7419bff6ee5@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAN658GoC/x2MQQqDMBQFryJ/3Q9JRLG9SukiJk/9YBNJ0iKId
- ze4nIGZgzKSINOrOSjhL1liqKAfDbnFhhksvjIZZXqt1cBjYbgEz98t8yQ7227Sg3eqb82TarY
- lVH0v3zSuP5QYy8IBe6HPeV54RjcRcgAAAA==
-To: joasantonio108@gmail.com, Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Message-Id: <20261108-ntfs3-alloc-undo-fix-v1-1-280fc5d06af6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAOy58GoC/x2MWwqAIBAArxL73YL2EOkq0YfWWguhoRVBePekz
+ xmYeSFRZEowVC9Eujlx8AVkXcG8Gb8S8lIYGtEoKYVGf7rUotn3MOPll4COHyTVWW2F02R6KOk
+ Rqeh/O045f2yVh/NmAAAA
+To: joasantonio108@gmail.com, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Cc: linux-kernel@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794161118; l=1814;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794161132; l=1878;
  i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=34wckLfEEjtqROx8Y8etwAGduFSLltsni91dcXOsWjs=;
- b=JOL67+BGboEO0cbR9h/gnaPrmUWK7g9PvIhV/Xd0Z2eTBLZCTyh4DkN/HYheJ51R09XZuflje
- K8MnIj7UoGvCJb+GiP2XSHauO2csQFIIaNgt/cSfZbNWqqcq4FtvXC6
+ bh=2dxHVeInvQx1GDisuSMbfr3SxQuAoN46Qasuyi4MfXo=;
+ b=cJGwzp38Pd/KvngKhHz5vO1+8c9AsKo8kNE8OgpzWQupgBpZmepvkR+NQ5gFotXwsa+TB8tNG
+ mX6k24MOFjKDadEbaVUEKDbP1XlADk8SEybDH05AdmK5hyukwQ5Y+r0
 X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
  pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
 X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
@@ -106,54 +107,49 @@ Content-Transfer-Encoding: 7bit
 
 From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-l2cap_ecred_conn_rsp() does not validate the MPS and MTU values from
-the peer before storing them. All other L2CAP connection paths
-(le_connect_req/rsp, ecred_conn_req, ecred_reconf_req) validate these
-values against minimums, but the ECRED connection response handler
-assigns them directly to chan->remote_mps and chan->omtu.
+The undo_alloc error path in attr_allocate_clusters() calls
+mark_as_free_ex() with len (remaining clusters to allocate) instead
+of flen (clusters actually allocated in the last iteration).
 
-When a malicious or buggy peer sends MPS=0, l2cap_segment_le_sdu()
-computes pdu_len = chan->remote_mps - L2CAP_SDULEN_SIZE, which
-underflows the u16, leading to an oversized skb allocation and
-potential memory corruption.
+After the first loop iteration, len is decremented by flen, so on
+subsequent iterations len represents only the remaining request size.
+When run_add_entry() or run_remove_range() fails, the undo frees len
+clusters starting at lcn, but only flen clusters at that position
+were actually allocated. The excess clusters may belong to other files,
+corrupting the allocation bitmap and causing silent data loss.
 
-Add the same MPS >= L2CAP_ECRED_MIN_MPS and MTU >= L2CAP_ECRED_MIN_MTU
-checks that l2cap_ecred_conn_req() already applies, refusing the
-channel if the values are below spec minimums.
+For example: a 100-cluster request where the first iteration allocates
+60 (len becomes 40), and the second allocates 20 at a new lcn. If
+run_add_entry() fails, undo frees 40 clusters at lcn when only 20 were
+allocated there, marking 20 clusters of other files as free.
+
+Fix by passing flen instead of len to mark_as_free_ex().
 
 Found by LLM-assisted manual code review.
 
-Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
+Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
 Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
- net/bluetooth/l2cap_core.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ fs/ntfs3/attrib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 4dd56e007..c3b8f0f46 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -5711,6 +5711,16 @@ static inline int l2cap_ecred_conn_rsp(struct l2cap_conn *conn,
- 				break;
- 			}
- 
-+			/*
-+			 * Validate MPS and MTU per BT Core Spec
-+			 * Vol 3 Part A Sec 10.2
-+			 */
-+			if (mtu < L2CAP_ECRED_MIN_MTU ||
-+			    mps < L2CAP_ECRED_MIN_MPS) {
-+				l2cap_chan_del(chan, ECONNREFUSED);
-+				break;
-+			}
-+
- 			chan->ident = 0;
- 			chan->dcid = dcid;
- 			chan->omtu = mtu;
+diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
+index 805acc3ed..2a75ee162 100644
+--- a/fs/ntfs3/attrib.c
++++ b/fs/ntfs3/attrib.c
+@@ -207,7 +207,7 @@ int attr_allocate_clusters(struct ntfs_sb_info *sbi, struct runs_tree *run,
+ 		if (!run_add_entry(run, vcn, lcn, flen, opt & ALLOCATE_MFT)) {
+ undo_alloc:
+ 			/* Undo last 'ntfs_look_for_free_space' */
+-			mark_as_free_ex(sbi, lcn, len, false);
++			mark_as_free_ex(sbi, lcn, flen, false);
+ 			err = -ENOMEM;
+ 			goto out;
+ 		}
 
 ---
 base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261108-bt-ecred-mps-fix-a5f18dc06329
+change-id: 20261108-ntfs3-alloc-undo-fix-e64b8b0f8ea5
 
 Best regards,
 -- 
