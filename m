@@ -1,103 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794120473;
-	b=tlHZp72ugfDO8vyfYzgbKwR26Cxjf0RRQS/g8h/CEpkfIblxiUOFEug7uCNVcI+UJHsx
-	 QFdhP1XWeT4xU1PqqI4zGluuwJ/l1DN+47qL9lhscGlRweq96vl5AkbMI839fFafhJwVV
-	 hVRhgWx9zG+L3UQm+9yfGpA5O9VHND+EZKR88fMvHQz8O0O/nZjjcSYY6Q60jWMyz9dfL
-	 M5DZVakcbJR8/FKctEEwct0rD8/TX5zl847F6hz9G8TLEOZ8y3s9LMOQGdOj/Vz/3YzeM
-	 mM1FGPREv0ZpcaeiHohIZddKrMO+jn6WPMbfw55TdJLBJgvU9zwZLwr4niq2XadHswA==
+	t=1794120581;
+	b=ldYONPqOexFlWOnCVY3eyFJb+mPtOwKg/UUxi8sRjh4k9v55eRqZGuHBXCL3nGgZRZOa
+	 U0Ca1yNH5wIQ7jLlqI0sd4gf+/qJb7b8gpKi8P2eTKheosfsYxeH4R3e1NrKAQr7ghpJG
+	 QilBn8zVeMqFjUWTD1HQNz7y2l0aPxTiNooJf0mlKMd5OkFWsKOwcAjnjLe57IDRokaBW
+	 M4G3jJdugiV4CI9n5UdOI49oIvMIUkX2/r00m6hAoybI5YPhD3N30mv/2DPbb/IywIRl6
+	 d1x3lMoztqPPIPXHSq3dszg57NjosJkW7XEsaRVTJifjWji4+L+C3KL7p7jiCaUCgSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794120473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794120581;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cKZVAumh7VUy5yuq+U1sG3RMnUiZQTey/FtdDJ1Gal4=;
-	b=gVvFE7s5Zy1uLeacIr0Ep5UzCMryMsZWniquxyEaKmjwYlzUJtKIixkqwyv5D3js4mub
-	 Qk2LMqocDcTdTdLLlzv6rU9kjjgg/nfnqgKp0XKjNOi7QVe7nCf0AcwfXWarL2E1b34+O
-	 rUbj99Sa1pRTfkkxMv3s3obrynlewyP5NHi9Odwulvvv1fbmELosFWy4+oOOHLphkTzwE
-	 goRLsqOceDwEmsZzzobw25b+G/CukW1YslXkAoTHkm3tn44MWe55D00+5tQZbYkGMluHi
-	 Hc3ut/u4M1Bcf3VOTrO/VYKJqQrsMbmFtMZHmg5NMwTGi6HKWAcRD4g7cGk37/I2NvQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=x7Z+RUwPNkJfYSyvADI+2XwTh8BlG6SdiyklPwWIP7I=;
+	b=McFnBO8CF69IMDQQW4SwfMTqYxSRu6DAt9G6cDCtVVXq7IpkVbj+a9GVaFrL1oMxCNdO
+	 BowIEPVuiSVSApW/erxDU2U7bVBxwTQNtvwwd2MxCMUG5sFkCDCnyBRY+7DVR5+drGNcf
+	 Ch8i311Q0RUQM5oqtb0XNRzo4ofUmIVYJM+xMGAt6J3R94GyDScT2h3dInyBQXA6e+aFf
+	 dWjEwzUvHSELWCqSAaIro3jfR8aSCQmv+Mk+YAUxvX8yCVMVqTltKcMoz/I5m00Epagha
+	 I2p+uuAvkMO0X7qt3NiKfrcTQeZS8BuWvDPCcA+v8SnFEZKYkQmlYWE0UkgqRBtL1zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yKM0CFgs;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iJ6EVQFZ;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679BD606A31D
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:47:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 679BD606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742DD606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 742DD606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yKM0CFgs
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so737951eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 22:47:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iJ6EVQFZ
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so1625735e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 22:49:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794120471; x=1794725271; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cKZVAumh7VUy5yuq+U1sG3RMnUiZQTey/FtdDJ1Gal4=;
-        b=yKM0CFgsy3uOk0v7hg0qZnjSn0Ndk4B798CoyjTJAdcGju0+LCU7fVjHLF4GcPSQ26
-         RXEYTrlsy5c2MftfSL6Ha65ta3uGXbCYR77lhkFFj6hTV+Or0XorCRHRl9dPeGEuAWgY
-         mKNjdwFL5koQjaaA0FaI5gKyNB+rUTfyfdmxBbbaVDaty3Yj0EMdzI3QbAiIEdwRjm8g
-         w6xhKwdRXLOMpoBRgu2iB4icwo7kNGHJ7Ag8m8krRQ3+cgvmsPRo5pvlD4QF9E+NKozm
-         zsptjvz+3HAOP5IQL4vF2ezAOozp10sNF43zz9vAErXMLgcnpDS15PpJtCoCTx9Of0CD
-         Vn9g==
+        d=gmail.com; s=20260707; t=1794120580; x=1794725380; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x7Z+RUwPNkJfYSyvADI+2XwTh8BlG6SdiyklPwWIP7I=;
+        b=iJ6EVQFZqUc1JCULdiEBgNJ84P54mp7p0pzC8E12y44CcymFXp95DeiwtpJutyDQks
+         djQPxTSogG61m8a/JgFTnpVeM/4lTbS9gfuxk06kfcT0DBMiBvLa8W7MCcCEtJ553TDU
+         q2SmlgloURYCXaAiwAtgrUV8e+Efjvh1PBAxlFtLf8ZD3owfPIgDc2gGL8RUhjzl3Czj
+         XTzv06fF3xab+Dx2oGntk1Fc4Qfw/rVua8BT0hGWjTBkdarjSWKcVyX7Vhp1tN6eOLmS
+         WzD38G4NnWMmjOLhWLJM+tHoeuacn3xcC71IiBCX/w0fd/U3O5Hmxh/F5LrYUNfICGiH
+         3tZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794120471; x=1794725271;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cKZVAumh7VUy5yuq+U1sG3RMnUiZQTey/FtdDJ1Gal4=;
-        b=qn6c/o2PU2O1fA9qTWdygYFltJF5F7a3q5BCtZg8rDtDLqcU3pGKb62wyUSXtlBmVb
-         X7suPv/yB9cVCB1U0S6I4/UzC4qF5B/KfRx+FrYkd1NMdNRhDHy4t53npLsrsGsC4WLA
-         htEdF4oWWUHxfNP1yulAqrORj8QU4dC2uLqee8GZIlNrNc3Sh58EJ4YIuQ7BF4T7m6VZ
-         K0OixwQOOaWxGL8rXvmgWbOHgTLSxumvK3Q74j9VBfcDNDvOvh/eNsNhlPHq7aPe0TGf
-         PKWVGmQ8DtvBlkwz1b3Duc7On5c9SN0mePqZ5tV+imE5XjMAA4a8eG799UIFaxUNRJij
-         8nvA==
-X-Forwarded-Encrypted: i=1; AL+hErGvofrh6XZgDLpHz0k5RgTst1xqx4zTgv+E7IfqwfxYkIZa9vPhyYAX+FvKZ/5H1fRr20ObP6I2szTBifw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WT2Ht0MOTY3FteqzBIlFacRe6k8ZdLkBHbs+E+fgbJwLSsvwt
-	bGfbTM0N+FeVh69QbzTNzvbvr/sJw7Um0eXLE2PxmIm1T9LKqe5RA7rO
-X-Gm-Gg: AYBFou0/Yx1GT4XY+wQgE1KCZuRKxsEY769AWY+ZdhVNRTzP5y/Z8tG1QZoVvHdz45x
-	hy5RH3nta712iGrPGsGvh13RlRmRsXqn3jZViECAG9YKU8uezU9bh1ZI7coHB/ieIsfy9gEYyuV
-	FtQiUr2q+xThi0hHwhjJmHFz6JOwbI2o1FxOJe4TJ9ip4qUfk+OWWuyLoXzVCRIcey6CXu+/MK2
-	HYYAPPz3HIWxrdwtVGdnFoTCO7c63PxMoFj3KRdJ6/I6+JCNjqWL8xQGHEYVoJIxEiGPZVEcm6o
-	Pi1ho+EvZ786FwpvCfjNcTKZIgSFJdM1VgTkX0DfFveyIovcGd5Sj+kfubXdVrG4EvBrN0Nruy+
-	qGAMirfTLRKiEYrXHN7SQ24t6BebaZsHB58sV6XBFVVB4csZqJGBOsWBBHJgM0q+axYGR9C+Lr5
-	Vrm9X4HthYtk3rM95bVEpxDgzm1ehVhaGYG+nAY0OTqCnw2dwH9MRpGHGud7nRvAmrZpZ+uxVbk
-	GG2RTGVXBGeSS6Mi18UvVgDpG2OOT/Nut9OxnufX/9SFiy4/+6LVsltPMM4HiETtuZoyqDr/hYr
-	VsTEmzByEzOcjW2qGMBsEGyDc0LpmAnwVuHeIzpEiIKWvT9uTw27z7LrLklNrjK8jFT97NsXaWo
-	XWA8RSGaBt6PXkewsOQfmvkEWUQ==
-X-Received: by 2002:a05:7301:7305:b0:369:d779:bcb8 with SMTP id 5a478bee46e88-3724fd69ac0mr1973804eec.0.1794120471293;
-        Sat, 07 Nov 2026 22:47:51 -0800 (PST)
-Received: from localhost.localdomain ([2406:b400:d4:acc8:a024:59b8:c312:eefd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3726039c635sm3190224eec.0.2026.11.07.22.47.44
+        d=1e100.net; s=20260707; t=1794120580; x=1794725380;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x7Z+RUwPNkJfYSyvADI+2XwTh8BlG6SdiyklPwWIP7I=;
+        b=jMsb4yN+N022QsLK+07ilo9ibTOCDeeahft1fDbuFTr6d6dhZFu0s9UadgO2bVTK3C
+         Ee8OpYNalCO9QITjbbjf8ijiJ7lpIw55ZCWdZEbtAH5YXtv7bDMETwuwqhQ5WqMlHvzz
+         uHcnBBvWuEp2IR2aTzLJ4nswslkt2jQKONCAMpvgPqSpgZuiFFWIJEJD7rw2R4nd0++M
+         4a84Qr7VhyBCQ+zEqXC3/qirEHwEguIG7SFFesiir7ph2pC32gk8NKz604fqmNmIkQEK
+         IUXZ1vwPsyMxvYhNzeKKQWv9sBv/74fz6abUxk5pcQZxB8d73Gt/NX8ChVibS8G3oVVq
+         ehrA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3IN0ujRrCnvxLRi0DfjJLROGoQ7ETX8nzGXvzK3h2XAQ0vEzHlDdrS0l+mxCYqqiyJuWuzowHkBIjT8Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+S/unxYg6lyFMDFP38susX/+JKNIXRp21pduc1aZJGArbVwYpD
+	au2QUFE0Cn3Jycr6hOHjuUhAJudSl7o3RLf8Zh9PV9M4Fv6kflDOSxLG
+X-Gm-Gg: AYBFou1Pa2snBkj8+EOcWSD6ybUBqFUp7PKTPTbSOKId4kYGki+kc9KmbPqpTMc6l8l
+	jxH1GEXV8i+Wubgb+jQARDbbRspR/j45lM0Wk+wn2nmiYhKyuJK+4P7G+R4rOERmykL6t63IqER
+	1UelP0+L1Td4RN2nMgN/koBejwWzNy7TgguhdogIRat1sWI7kyDIl6z4rQYI6CQ/DypRvDvh3Y7
+	L6a1Wb2Ltj/oLQmGSClt8iIpji1Zs/9aK74pphOflbmcn/U3RuAzfbFecxgZt05LSiuzizUItOT
+	loIajH6RcJuvoB4DeC3soQnTQl+6wEV5cMdg5q6svXtTVSTeQQsVKTu0ShYNfttIymO1f9aO7pn
+	zUQiyKKm7pYfpNNPFK/VbAAlaPavkqjf43liIf5SlAXgARdAK2LHihwTIWn5BsrlwinC55BDmcF
+	EXUxUb9BqZqUkWmrPYia+RKvD9xSj3pWY93fz3GW+kebvQ4Hi09a+yFDZ9CD+xOgFRCdRJho+bm
+	vDssrafhfYA6qfKxyN2HQUH+J6tUvVgH5IaDhzOfMMifQsNOaCtksuzhEUsvBNsQljrgVhgy2Db
+	dx3KpbkUcse77LbM+IcVw4LEfqAYpWjZs0zWvfe1znjddA==
+X-Received: by 2002:a05:600c:8712:b0:4b3:6900:280c with SMTP id 5b1f17b1804b1-4b963c7d013mr12738155e9.19.1794120579685;
+        Sat, 07 Nov 2026 22:49:39 -0800 (PST)
+Received: from localhost.localdomain ([2a06:c701:475e:f800:9c3f:1631:3855:dec8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b8fdda3358sm37582945e9.0.2026.11.07.22.49.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 22:47:50 -0800 (PST)
-From: Torra Sowmya <sowmyatorra@gmail.com>
-To: James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org
-Cc: johannes.thumshirn@wdc.com,
-	axboe@kernel.dk,
-	dlemoal@kernel.org,
-	bvanassche@acm.org,
-	linux-scsi@vger.kernel.org,
+        Sat, 07 Nov 2026 22:49:39 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: richardcochran@gmail.com,
+	netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	arnd@arndb.de,
+	john.stultz@linaro.org,
 	linux-kernel@vger.kernel.org,
-	outreachy@lists.linux.dev,
-	rostedt@goodmis.org,
-	julianbraha@gmail.com,
-	julia.lawall@inria.fr
-Subject: [PATCH] scsi: sd: Remove unused zone append tracepoints
-Date: Sun,  8 Nov 2026 12:16:26 +0530
-Message-ID: <20261108064626.5539-1-sowmyatorra@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261025151702.13434-1-sowmyatorra@gmail.com>
-References: <20261025151702.13434-1-sowmyatorra@gmail.com>
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH net v2] ptp: Report clock removal to poll waiters
+Date: Sun,  8 Nov 2026 08:49:29 +0200
+Message-ID: <20261108064928.1931917-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,128 +105,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 1846f308d66f ("scsi: sd: Use the block layer zone append
-emulation") removed the calls to scsi_prepare_zone_append and
-scsi_zone_wp_update, but left their definitions in sd_trace.h.
-Consequently, sd_zbc.c still generates code and data for events
-that have no remaining callers.
+ptp_clock_unregister() marks the clock defunct and wakes timestamp
+waiters before posix_clock_unregister() marks it a zombie. A poll
+waiter can consume the removal wakeup while the event queue is empty,
+return no events, and remain blocked until timeout after device
+removal.
 
-Remove sd_trace.h, which contains only these two events, and
-remove its include and CREATE_TRACE_POINTS definition from
-sd_zbc.c.
+Using netdevsim's mock PTP clock in an x86_64 QEMU/KVM guest,
+the unpatched kernel missed all eight epoll removal notifications.
+The four poll waits returned POLLERR only at timeout. With this
+patch, all 12 poll and epoll waits reported clock removal promptly.
 
-Fixes: 1846f308d66f ("scsi: sd: Use the block layer zone append emulation")
-Signed-off-by: Torra Sowmya <sowmyatorra@gmail.com>
+Check the defunct state after registering the poll wait queue and
+return EPOLLERR when the clock is being removed. Use READ_ONCE() for
+the lockless defunct checks and WRITE_ONCE() for the unregister store.
+
+Fixes: d94ba80ebbea ("ptp: Added a brand new class driver for ptp clocks.")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/scsi/sd_trace.h | 84 -----------------------------------------
- drivers/scsi/sd_zbc.c   |  3 --
- 2 files changed, 87 deletions(-)
- delete mode 100644 drivers/scsi/sd_trace.h
 
-diff --git a/drivers/scsi/sd_trace.h b/drivers/scsi/sd_trace.h
-deleted file mode 100644
-index cba3c0b825ba..000000000000
---- a/drivers/scsi/sd_trace.h
-+++ /dev/null
-@@ -1,84 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Copyright (C) 2022 Western Digital Corporation or its affiliates.
-- */
--#undef TRACE_SYSTEM
--#define TRACE_SYSTEM sd
--
--#undef TRACE_INCLUDE_FILE
--#define TRACE_INCLUDE_FILE sd_trace
--
--#if !defined(_SD_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
--#include <scsi/scsi_cmnd.h>
--#include <scsi/scsi_host.h>
--#include <linux/tracepoint.h>
--
--TRACE_EVENT(scsi_prepare_zone_append,
--
--	    TP_PROTO(struct scsi_cmnd *cmnd, sector_t lba,
--		     unsigned int wp_offset),
--
--	    TP_ARGS(cmnd, lba, wp_offset),
--
--	    TP_STRUCT__entry(
--		     __field( unsigned int, host_no )
--		     __field( unsigned int, channel )
--		     __field( unsigned int, id )
--		     __field( unsigned int, lun )
--		     __field( sector_t,     lba )
--		     __field( unsigned int, wp_offset )
--	    ),
--
--	    TP_fast_assign(
--		__entry->host_no	= cmnd->device->host->host_no;
--		__entry->channel	= cmnd->device->channel;
--		__entry->id		= cmnd->device->id;
--		__entry->lun		= cmnd->device->lun;
--		__entry->lba		= lba;
--		__entry->wp_offset	= wp_offset;
--	    ),
--
--	    TP_printk("host_no=%u, channel=%u id=%u lun=%u lba=%llu wp_offset=%u",
--		      __entry->host_no, __entry->channel, __entry->id,
--		      __entry->lun, __entry->lba, __entry->wp_offset)
--);
--
--TRACE_EVENT(scsi_zone_wp_update,
--
--	    TP_PROTO(struct scsi_cmnd *cmnd, sector_t rq_sector,
--		     unsigned int wp_offset, unsigned int good_bytes),
--
--	    TP_ARGS(cmnd, rq_sector, wp_offset, good_bytes),
--
--	    TP_STRUCT__entry(
--		     __field( unsigned int, host_no )
--		     __field( unsigned int, channel )
--		     __field( unsigned int, id )
--		     __field( unsigned int, lun )
--		     __field( sector_t,     rq_sector )
--		     __field( unsigned int, wp_offset )
--		     __field( unsigned int, good_bytes )
--	    ),
--
--	    TP_fast_assign(
--		__entry->host_no	= cmnd->device->host->host_no;
--		__entry->channel	= cmnd->device->channel;
--		__entry->id		= cmnd->device->id;
--		__entry->lun		= cmnd->device->lun;
--		__entry->rq_sector	= rq_sector;
--		__entry->wp_offset	= wp_offset;
--		__entry->good_bytes	= good_bytes;
--	    ),
--
--	    TP_printk("host_no=%u, channel=%u id=%u lun=%u rq_sector=%llu" \
--		      " wp_offset=%u good_bytes=%u",
--		      __entry->host_no, __entry->channel, __entry->id,
--		      __entry->lun, __entry->rq_sector, __entry->wp_offset,
--		      __entry->good_bytes)
--);
--#endif /* _SD_TRACE_H */
--
--/* This part must be outside protection */
--#undef TRACE_INCLUDE_PATH
--#define TRACE_INCLUDE_PATH ../../drivers/scsi
--#include <trace/define_trace.h>
-diff --git a/drivers/scsi/sd_zbc.c b/drivers/scsi/sd_zbc.c
-index 56e455fb5add..a7bdf089e142 100644
---- a/drivers/scsi/sd_zbc.c
-+++ b/drivers/scsi/sd_zbc.c
-@@ -20,9 +20,6 @@
+v2:
+  - ddress Sashiko's v1 review, forwarded by Simon Horman, by pairing
+    the new READ_ONCE() with WRITE_ONCE() in ptp_clock_unregister() and
+    using READ_ONCE() for both ptp_read() checks
+  - the v1 poll fix already addressed the observed removal scenario,
+    these changes are really just to make the lockless accesses consistent
+
+v1: https://lore.kernel.org/r/20261102122340.1160733-1-thnkslprpt@gmail.com/
+ drivers/ptp/ptp_chardev.c | 8 ++++++--
+ drivers/ptp/ptp_clock.c   | 2 +-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/ptp/ptp_chardev.c b/drivers/ptp/ptp_chardev.c
+index f63b45f5ee6a..dc5865e95f77 100644
+--- a/drivers/ptp/ptp_chardev.c
++++ b/drivers/ptp/ptp_chardev.c
+@@ -593,6 +593,9 @@ __poll_t ptp_poll(struct posix_clock_context *pccontext, struct file *fp,
  
- #include "sd.h"
+ 	poll_wait(fp, &ptp->tsev_wq, wait);
  
--#define CREATE_TRACE_POINTS
--#include "sd_trace.h"
--
- /* Whether or not a SCSI zone descriptor describes a gap zone. */
- static bool sd_zbc_is_gap_zone(const u8 buf[64])
- {
++	if (READ_ONCE(ptp->defunct))
++		return EPOLLERR;
++
+ 	return queue_cnt(queue) ? EPOLLIN : 0;
+ }
+ 
+@@ -616,10 +619,11 @@ ssize_t ptp_read(struct posix_clock_context *pccontext, uint rdflags,
+ 	if (cnt > EXTTS_BUFSIZE)
+ 		cnt = EXTTS_BUFSIZE;
+ 
+-	if (wait_event_interruptible(ptp->tsev_wq, ptp->defunct || queue_cnt(queue)))
++	if (wait_event_interruptible(ptp->tsev_wq,
++				     READ_ONCE(ptp->defunct) || queue_cnt(queue)))
+ 		return -ERESTARTSYS;
+ 
+-	if (ptp->defunct)
++	if (READ_ONCE(ptp->defunct))
+ 		return -ENODEV;
+ 
+ 	event = kmalloc(EXTTS_BUFSIZE, GFP_KERNEL);
+diff --git a/drivers/ptp/ptp_clock.c b/drivers/ptp/ptp_clock.c
+index 4111342d64f0..d2640325abf7 100644
+--- a/drivers/ptp/ptp_clock.c
++++ b/drivers/ptp/ptp_clock.c
+@@ -518,7 +518,7 @@ int ptp_clock_unregister(struct ptp_clock *ptp)
+ 	get_device(&ptp->dev);
+ 
+ 	/* Wake up any userspace waiting for an event. */
+-	ptp->defunct = 1;
++	WRITE_ONCE(ptp->defunct, 1);
+ 	wake_up_interruptible(&ptp->tsev_wq);
+ 
+ 	/* Tear down the POSIX clock, which removes the user interface. */
 -- 
-2.47.3
+2.43.0
 
