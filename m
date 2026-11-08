@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794165750;
-	b=E2S/DE6H3vJ8wgQCYAN5ZSc2PlEFbpK4wsTBsmmWQH9GjbSvk2tdLaY4i58iU4rngVBp
-	 9hKJN/4BDde6bmVXOfHkLnU7HvcLgRnd53GDOIYW6MJ0vqjMbI/A/FLrceyiCB1K7hmvt
-	 hbBP8NKl06tqG39+MKAooJvXLt3F4CYBgDtSv6p/SI9Rq8MPolWaGHbWxwaGBtjiK/bBu
-	 n4vUUTQckL2Auym5YqMmTQLebYWTz/V/Rwa5BGw3nY2TY8pPrEeAhC56vSep3mxWQ4Deo
-	 OSIIyCMPi3n5E0Tc7K+t0miHR9KeW5hCLcK3urXct0JeS96JFLMRWU1L9A7Cb7Mbu4A==
+	t=1794165751;
+	b=L88lkFuZxkL5NTWzGES6JeaYOHzB00u3lFQgzdV/6SCt+Vr5L48IOLpGh5ZZ4NQYkqih
+	 10PjIbR29WUL3icgZW6GQYj6XdA2YTpp330v4VHFUPvA4VYJ35Amo/kM+H8TyOAGS3+TP
+	 cbgghuZz/Qn9e9czT3YzW/L2lDFemWcv4x+6QbNSTiTLMAN567oF/3gyXyTICrv1/IfP2
+	 VjxGXGXEpqaQNGHwOWOYPlkTBpayuPbLrzvBX0QNM6bCoN/fgzb55jScCUAj1SDe+RvhI
+	 rAPGe7R4RTQ3w+qKcmjMSgaugUc4ax5bvn2h33zlkxo13JijocC75Qje2IiODMPMCbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165751;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
-	b=jC4eD+wUC2vtCW91KR0D6mIjQzI0WkCTmlXX8mKbChsrRYgJFKrPqunveHieZtekcXV8
-	 9eIH07oLF6A58MpCJKzWUD80Jt36jxg6NXq8NF9extgdyrhBJynXCWw9M+jWwPFT8rfhO
-	 BIcGL1EqJSHww1Yxt4L3XsOZsZQRmMH3WVp595+cLeIDmB8+Atc0mC7e+jT2gNs4ofFD+
-	 U1JUGbV2MZfLmlytbCqFK0miQKhy5A9ypA83+9nWgmvOy/9cryndeyDx4ZXATqnITL7sQ
-	 xI7Z8k8k9MpYYsvUdeugDNo6BAcVPTFajH1t7Z+Au+wv5zr4EKCIGfFFbtR0B6kcv5Q==
+	bh=TIAVWRl5IyIEzSAGdy1Y9O94fKWUT6y4xqwWabU5n+M=;
+	b=q/hKy//NgiKapki0BbuVzd2ybDcCKkcVpciYqTQw1jaV/frQixiIczmgXxqzv/8RMSum
+	 Lx7wv64HTGTPvjCMWilIBzoXnJF6X3bNQ84uTbQXJnRx+y3wynFYm4cMgEQPhYf58ZEoG
+	 XFeREObMPv5ey6lSmt294DcuPZBNXn90pSaXGSPQ2Dghn55e4Ry3PmDVDnXpE/Mh2gYFq
+	 whrpbDcLMC6mOx15KbQCAMdj5780LUi+O/Bl4DBIIj/zwuFaXvDnQc8cm7HaR3/dEV0j2
+	 rdKNiXs97Ky4gTGu7c0p5grTVNx3VMoFPNQZPGN+VmznixSF23rjhTN/UCm0MWP/b/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNez8Gvo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3o8jXzq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D316606A33B;
-	Sun,  8 Nov 2026 19:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57168606D80C;
+	Sun,  8 Nov 2026 19:22:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNez8Gvo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314B51F0089F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3o8jXzq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062DE1F008A6;
 	Sun,  8 Nov 2026 19:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794165750;
-	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
+	s=k20260515; t=1794165751;
+	bh=TIAVWRl5IyIEzSAGdy1Y9O94fKWUT6y4xqwWabU5n+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MNez8Gvoa9710lsf3vMIGzAL/7zD0HV16k/FSX2nXE1SreDCo+GiB/+sIFyPldqpx
-	 ynWPwdiwqVk9Em327TYzFcdBswx7bmGCsQnonb2FzKJmI1/XvsTAUfwmfXV+NQwzgD
-	 40LINNcEADzBPC+Sn80241b41xnoOcf0kndU+6r3RcK3FQzP+MRvHFaNL61/rOrJXT
-	 sd3K/9VcEuh4Sz09IEmvreNArzscQOY8elOD9yy8kMED/sL0KWnWEgU7n/c738eo6E
-	 gbee9x+GNbUf1XuEJHj/OfLG4iV6epfLu6Pmawb5c5azkfyL0aUa2GKaqB5m1W0dyW
-	 Tm7I+g/KYqGWg==
+	b=c3o8jXzqd/cfJkZdfMFZQcY+niEfkkDqeJ0S+h5xlX008yN5KWS2qxytiiJldHf8b
+	 RcRjD8XcF0XYITrHgicxWUBHGO99HRofEhk3hwIt5mpvYTmxCShKVgUK1BFB/MdtBA
+	 ayUPQryMjxoDDa1RCjF/lrqIi3oQHj3m+a4nKJ4vcv5796zJgqAN6kiSAnIkeIXo7F
+	 M5HAu04+aaQ0t9GvkCq8SwX2pHrhMlUSSYiUKJ524kioaMVIN5nb4SiXKO7VljO7P/
+	 fCXCuBZ6xr/YHEPYbS0F0Ct/6iNYVynXLeG+nKyG4IXI3xJoUTG3pKcTd9emZWZaMr
+	 nAQU0DI/gtShQ==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 6.18.y 3/5] mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
-Date: Sun,  8 Nov 2026 11:22:18 -0800
-Message-ID: <20261108192221.114362-4-sj@kernel.org>
+Subject: [PATCH 6.18.y 5/5] mm/damon/core: filter out damos address filter-split failed region
+Date: Sun,  8 Nov 2026 11:22:20 -0800
+Message-ID: <20261108192221.114362-6-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261108192221.114362-1-sj@kernel.org>
 References: <20261108192221.114362-1-sj@kernel.org>
@@ -66,53 +63,150 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMON sysfs interface reads the user-provided size range arguments for
-hugepage_size type DAMOS filter twice.  Once for validation, and once
-again for assignments to the variable that will be passed to the core
-layer.  If the user updates the arguments in parallel, an invalid size
-range could be passed to the core layer.  Avoid it by doing the
-assignments first, and then validating the assigned variables before
-passing those to the core layer.
+When an address type DAMOS filter is configured, DAMOS tries to split the
+region for the filter range, and apply DAMOS action to the filter-in
+region.  The split operation (damon_split_region_at()) could fail from
+allocation failure under extreme memory pressure.  In the case, DAMOS
+action could be applied more or less than expected, ignoring the address
+filter.
 
-User impact of the bug should be trivial.  From the core layer's
-perspective, the invalid size range is not really invalid.  It just works
-as having a weird size range.  No critical issues such as a crash or a
-leak could happen.  And sane users ain't do such parallel arguments update
-anyway.  If they do, such racy behavior is arguably somewhat expected and
-deserved.  That said, there is no reason to keep such races.
+The issue only rarely happens under extreme memory pressure.  No crash or
+leak happens.  Occasionally not applying the action to a few regions
+shouldn't be a real problem.  But applying the action to a region that the
+user has excluded via address filter could be a surprise depending on the
+use case.  It is only theoretical.  No such real case is found yet.
 
-Link: https://lore.kernel.org/20260914142327.92510-3-sj@kernel.org
-Fixes: ea1f204ba29a ("mm/damon/sysfs-schemes: add files for setting damos_filter->sz_range")
+Filter out the entire region if the split is failed.  Update
+damos_filter_match() signature to receive the error from split.  Also
+update kunit tests for the updated signature.
+
+The issue was discovered [1] by sashiko.
+
+Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
+Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org>
-(cherry picked from commit af19aff38d6faea35b10f26cca32d0e54f8aea5e)
+Cc: <stable@vger.kernel.org> # 6.6.x
+(cherry picked from commit bbeec2d8324d7aac438bb12dd2d22b184e0a8d43)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ mm/damon/core.c             | 16 ++++++++++++----
+ mm/damon/tests/core-kunit.h | 16 +++++++++++-----
+ 2 files changed, 23 insertions(+), 9 deletions(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 37e0a8bef4b1f..0f945ef043709 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2493,12 +2493,11 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
- 			filter->target_idx = sysfs_filter->target_idx;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
--			if (sysfs_filter->sz_range.min >
--					sysfs_filter->sz_range.max) {
-+			filter->sz_range = sysfs_filter->sz_range;
-+			if (filter->sz_range.min > filter->sz_range.max) {
- 				damos_destroy_filter(filter);
- 				return -EINVAL;
- 			}
--			filter->sz_range = sysfs_filter->sz_range;
- 		}
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 00cd0e2a1e341..dc8608c3cae40 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1812,13 +1812,14 @@ static void damos_update_stat(struct damos *s,
  
- 		damos_add_filter(scheme, filter);
+ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos_filter *filter,
+-		unsigned long min_sz_region)
++		unsigned long min_sz_region, int *err)
+ {
+ 	bool matched = false;
+ 	struct damon_target *ti;
+ 	int target_idx = 0;
+ 	unsigned long start, end;
+ 
++	*err = 0;
+ 	switch (filter->type) {
+ 	case DAMOS_FILTER_TYPE_TARGET:
+ 		damon_for_each_target(ti, ctx) {
+@@ -1844,12 +1845,13 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		}
+ 		/* start before the range and overlap */
+ 		if (r->ar.start < start) {
+-			damon_split_region_at(t, r, start - r->ar.start);
++			*err = damon_split_region_at(t, r,
++					start - r->ar.start);
+ 			matched = false;
+ 			break;
+ 		}
+ 		/* start inside the range */
+-		damon_split_region_at(t, r, end - r->ar.start);
++		*err = damon_split_region_at(t, r, end - r->ar.start);
+ 		matched = true;
+ 		break;
+ 	default:
+@@ -1863,10 +1865,16 @@ static bool damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos *s)
+ {
+ 	struct damos_filter *filter;
++	bool matching;
++	int err;
+ 
+ 	s->core_filters_allowed = false;
+ 	damos_for_each_filter(filter, s) {
+-		if (damos_filter_match(ctx, t, r, filter, ctx->min_sz_region)) {
++		matching = damos_filter_match(ctx, t, r, filter,
++				ctx->min_sz_region, &err);
++		if (err)
++			return true;
++		if (matching) {
+ 			if (filter->allow)
+ 				s->core_filters_allowed = true;
+ 			return !filter->allow;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 0ce6481319432..814197da4f507 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -548,6 +548,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2;
+ 	struct damos_filter *f;
++	int err;
+ 
+ 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
+ 	if (!f)
+@@ -570,28 +571,32 @@ static void damos_test_filter_out(struct kunit *test)
+ 
+ 	/* region in the range */
+ 	KUNIT_EXPECT_TRUE(test,
+-			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
++			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
++				&err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region before the range */
+ 	r->ar.start = DAMON_MIN_REGION * 1;
+ 	r->ar.end = DAMON_MIN_REGION * 2;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
++			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
++				&err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region after the range */
+ 	r->ar.start = DAMON_MIN_REGION * 6;
+ 	r->ar.end = DAMON_MIN_REGION * 8;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
++			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
++				&err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region started before the range */
+ 	r->ar.start = DAMON_MIN_REGION * 1;
+ 	r->ar.end = DAMON_MIN_REGION * 4;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
++			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
++				&err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 1);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 2);
+@@ -607,7 +612,8 @@ static void damos_test_filter_out(struct kunit *test)
+ 	r->ar.start = DAMON_MIN_REGION * 2;
+ 	r->ar.end = DAMON_MIN_REGION * 8;
+ 	KUNIT_EXPECT_TRUE(test,
+-			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
++			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
++				&err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 6);
 -- 
 2.47.3
