@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794141578;
-	b=YK4lOdiF5VETZwppI8/dHTTuwGqwYKGeObCaGOwey+2H4teTZ7T8d4KLdicA7QX2VuFM
-	 +P5AmPaWaukJ2XuNuYyhFK1yPEygN18DVvc0jTlsZEoa8ND8cFS8cx1hgUhwavirj8sG9
-	 Q+A2IPVCmZlGlZiZZBRhRPgALoakjgdw4RUPPtFITKsHWIy9wLSc4kgQATv4IV5XbLtJN
-	 vLMcfP3di3vIIJO2pQnsk2qP+ICxaMjivRt5Yxd1KCsIg9Ulajan/VA0WGx37k9ZpHAZL
-	 2X7ocIDZk4Vbc8sKw45de7kykqDj41kTCWa3gWS9yFpdBzLNLbHilEhTyLNJePoyMhw==
+	t=1794141573;
+	b=m5w8ffhd3I9behgTyMutVBOgok6Kf7imuLD50dbtusDLz0vDnjD14pOyYdSHk4qW5W8a
+	 b/1yENc8eZinvbdBX1uVhnkmvTPtKeHEpfIoyCWz+2BJrEbDpzPCK1wiSezsGodLxoCxh
+	 xDEJUeJ2wb9UXyGeLFI5jctlw4N7JdOczcLtx9ujLdHGWzExZci4/V5SrYo2ZeCBE+rfj
+	 2UP3mCBjGXCcMXLJHXDd9vlPWam2XtAhsInAVTBh5MrT3VcUr9rUPBGD60DF8ATdyxVZ5
+	 v2GD7rHV7S5gvgY7se35OsGogHcuX+heuczIv9g3+6bjS29ZYnr1Fp9svRhGnFy998Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794141578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794141573;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=I1s1PhM2oicK32SyeX3T0R0ctGmp+T+Ox2QSkZMKbMk=;
-	b=ED+XTCeSbyHqlKGb+AdnwhpGvOeRceZZhU1SxJkvhCrjL308FsGihbQBovaPackByrm0
-	 ZfoDx2MQF9q60kkMjLsfocbZTLRxxgg0IVeGJ8ZpaDSA4RL3S2crFB/3aRUbuPsB9T9Rk
-	 6iWQ6u5VOWpV4b8K/z+KDavE6MhHCMTpGIVt9I6QCaqwWjx/Utxg5GPLK84gVbqvvmjm+
-	 VvAwT2lYQ+y4bBack0yCYoYx+yOyhDrtAUHxitxc2Ocl+F0rOlikVtzj/mQbh4ZoiB4cp
-	 ly4z14hD2vUG8D26UUL7a6ZeI8cYJa/NSSPVREUkovfrjL6nZwCWqWyQbT05e2aNbVw==
+	bh=Xm1hehkTkheewVHZFkFtM4dICzsV3Hiezfso6Iy1pAw=;
+	b=YTY322FmY4VFniNzg+LPu9e3do3HiHMPITy60bqTrmVs7xkZAQaLHdCnsi0FBNiyBLGU
+	 mggqvYOVHE1g+80bbYoF7QAVHQQYR4do7lHM10uCiWymw96FIxwuxxR/fbIY7ieS+J1y8
+	 fe0AqpdEI/4m5MrsbZIYFRFu+aS+EDSnDJUeshd/ASt15dcf35+p9rTADseDeTuJGiI2c
+	 +pVwtvra58Vx6XP+KECPum90PXS7mwgYov4FxjtrxUv28eqeSDBlN2DzmlpPe9WcmSwsy
+	 Um1ni2qsSItv57n4lTwa7xKjhoQ1zYL/+1DUDC/xv9brL76ShrC1e77UOKip3M/NBTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHYeVXAD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrIvraA5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC75606D80F;
-	Sun,  8 Nov 2026 12:39:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF4A606A321;
+	Sun,  8 Nov 2026 12:39:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHYeVXAD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2170E1F0089F;
-	Sun,  8 Nov 2026 12:39:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrIvraA5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7171F008A2;
+	Sun,  8 Nov 2026 12:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794141577;
-	bh=I1s1PhM2oicK32SyeX3T0R0ctGmp+T+Ox2QSkZMKbMk=;
+	s=k20260515; t=1794141573;
+	bh=Xm1hehkTkheewVHZFkFtM4dICzsV3Hiezfso6Iy1pAw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CHYeVXADcKihAaf7y2j65gRy1WboUKilskExqrfWnU3vQMaLTMZXIB0jueARsOwBx
-	 IU7PaTECMIQvb5xVJi9SOsW+YnWLOE8+73EebCg3N3+tvaJYn89Koq3RxE9SZbEV+x
-	 gKg1WtFvgO1hWrQ89ynFbQtfmUCgCd62mHbgYAavqSSdzeJn9qkunw31A9prbNya/U
-	 c2UDyHfXCRzdlkW2pEuR1DFe6jc/MD3tDrAUALtMV5Ocvnwx9iqGRu6Z23N+6/WU1B
-	 VHKE60RpW8d2KRBBEDF8Xcj+w1RVc4Q3ViTqf3tP+jxNrw1EVUXql7pBwAv+iVT8ty
-	 AGOtkhN0IBnvA==
-Subject: Re: [PATCH net-next v4 6/8] net: dsa: motorcomm: Rely on port
- isolation for conduit port
+	b=TrIvraA5pvHZig8QlDwhdgk4IWbzIFcNTguOOouKluYYvCTJZMnfZdXrp/CZfSdAG
+	 obdRgS4qscDH7SO1Ts6OekpT7EqemNtZw1wlfN9AyRHdJT2KiCrKuEGNH6BnqNHf6P
+	 EIqbZG7hcmgE8bl6un1eMF/HjWi2Z6cPfbGXd+1cd+VtmDm4RJ6BsJwjk9gA5Wbe1T
+	 RLE0fNWb7iJA223It8+R8f/G/GFosGtdpGCP8Fcl8lV+piQV437qIVtKXVPESNki/i
+	 6QJ0GhIypa1YSSkrynFWwCFmbh7/gWzkH7cxm50blHqr6ZC3EiFyP//rMLq65ckLje
+	 M9QwIZNB601yQ==
+Subject: Re: [PATCH net-next v4 2/8] net: dsa: motorcomm: Drop VID 0 VLAN
+ table programming
 From: netdev-bot+sashiko@kernel.org
 To: mmyangfl@gmail.com
 Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  linux-kernel@vger.kernel.org
-Date: Sun, 08 Nov 2026 12:39:36 +0000
-Message-ID: <179414157668.994134.463682835559182056@kernel.org>
-In-Reply-To: <20261107121631.1040612-7-mmyangfl@gmail.com>
-References: <20261107121631.1040612-7-mmyangfl@gmail.com>
-X-sashiko-severity: High
+Date: Sun, 08 Nov 2026 12:39:32 +0000
+Message-ID: <179414157227.994134.8326158294654980832@kernel.org>
+In-Reply-To: <20261107121631.1040612-3-mmyangfl@gmail.com>
+References: <20261107121631.1040612-3-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -64,10 +64,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 1
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,191 +75,102 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] This patch inverts the isolation logic in
-  yt921x_userport_standalone()…
-- [High] This patch makes the CPU port's PORTn_ISOLATION register the
-  only hardware guard against untagged conduit traffic.
-- [Low] yt921x_isolate() (drivers/net/dsa/motorcomm/chip.c:1225-1227)
-  skips with `if (dsa_is_cpu_port(&priv->ds, port) || i == port)…
+- [Medium] The commit message says the VID 0 entry is never looked up,
+  but the driver itself can make VID 0 the classification VID, so the…
 
 --
 
-net: dsa: motorcomm: Rely on port isolation for conduit port
+net: dsa: motorcomm: Drop VID 0 VLAN table programming
 
-This patch takes the ~0 isolation that yt921x_chip_reset() writes to the
-conduit port and makes it the only drop mechanism for untagged traffic
-sent on the conduit. To do that it removes the explicit CPU port
-isolation rewrite from yt921x_port_setup(), drops the ACT_UNK drop action
-for CPU ports, and takes CPU ports out of FILTER_UNK_UCAST/MCAST.
+This commit removes the write of VLAN table entry 0 in
+yt921x_chip_setup_dsa(). That write set LEARN_DIS and all port members
+with an empty untag mask. The commit message says the hardware classifies
+priority-tagged frames to the port's PVID before the VLAN table lookup, so
+the VID 0 entry is never looked up.
 
 > diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 32701f9e687fa..1b05ac29ecd76 100644
+> index 693564aeaec14..47f06945b8c4e 100644
 > --- a/drivers/net/dsa/motorcomm/chip.c
 > +++ b/drivers/net/dsa/motorcomm/chip.c
 
 [ ... ]
 
-> @@ -1170,10 +1170,17 @@ static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
->  	pp->hairpin = false;
->  	pp->isolated = false;
+> @@ -2321,15 +2320,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+>  	if (res)
+>  		return res;
 >  
-> -	ctrl = ~dsa_cpu_ports(ds);
-> -	res = yt921x_reg_write(priv, YT921X_PORTn_ISOLATION(port), ctrl);
+> -	/* Tagged VID 0 should be treated as untagged, which confuses the
+> -	 * hardware a lot
+> -	 */
+> -	ctrls[0] = YT921X_VLAN_CTRLa_LEARN_DIS | YT921X_VLAN_CTRLa_PORTS_M;
+> -	ctrls[1] = 0;
+> -	res = yt921x_reg64_write(priv, YT921X_VLANn_CTRL(0), ctrls);
 > -	if (res)
 > -		return res;
-> +	/* Conduit ports should by controlled by tagging completely, skip
-> +	 * setting isolation to preserve the one-way isolation installed
-> +	 * by yt921x_chip_reset().
-> +	 */
-> +	if (dsa_is_cpu_port(ds, port)) {
-> +		ctrl = ~dsa_cpu_ports(ds);
-> +		res = yt921x_reg_write(priv, YT921X_PORTn_ISOLATION(port),
-> +				       ctrl);
-> +		if (res)
-> +			return res;
-> +	}
+> -
 
-[Severity: High]
-Is this condition inverted? The comment says conduit ports are skipped so
-they keep the isolation from yt921x_chip_reset(). With
-if (dsa_is_cpu_port(ds, port)), though, only CPU ports get written with
-~dsa_cpu_ports(ds), and every user port is skipped.
+[Severity: Medium]
+Is entry 0 really unreachable when the port's PVID is 0? The commit message
+says:
 
-At probe, yt921x_chip_reset() writes ~0 to every PORTn_ISOLATION register.
-yt921x_port_setup()->yt921x_userport_standalone() then runs for each port:
+  the hardware classifies them to the port's PVID before the VLAN table
+  lookup, just like untagged frames (measured on YT9215S), so the VID 0
+  entry is never looked up.
 
-  - CPU ports are overwritten with ~dsa_cpu_ports(). That clears their
-    block bits toward themselves and toward other CPU ports. This patch
-    also removes the ~0 rewrite from yt921x_port_setup(), so nothing
-    restores the one-way isolation.
+The driver itself programs a hardware PVID of 0 on VLAN-filtering ports.
+In yt921x_vlan_filtering(), br_vlan_get_pvid() gives 0 when the bridge port
+has no PVID:
 
-  - User ports are never written and stay at ~0. That also blocks them
-    toward the CPU port.
-
-Unknown unicast and multicast are still trapped. However, the driver notes
-in yt921x_bridge_flags() that broadcast can be filtered but not trapped,
-and isolation is applied after the FDB lookup. Would broadcast frames
-received on standalone user ports, such as ARP requests or DHCP, be
-dropped before they reach the host?
-
-This patch also removes the ACT_UNK drop action and the FILTER_UNK
-coverage for CPU ports in yt921x_chip_setup_dsa(). The CPU port isolation
-is now the only guard for untagged conduit traffic, and it is no longer
-~0. In multi-CPU setups, could untagged frames from one conduit be
-forwarded to another CPU port, or hairpinned back?
-
-yt921x_bridge_leave() also relies on this function to reset the
-isolation register of the leaving port:
-
-yt921x_bridge_leave()
-    yt921x_userport_standalone(priv, port);
-    yt921x_isolate(priv, port);
-
-That reset no longer happens for user ports. This is masked for now
-because yt921x_bridge() never programs user port registers (see below).
-Once that is fixed, wouldn't a port leaving a bridge keep its bridge-time
-value? It could then still forward to its former peers, because
-yt921x_isolate() only blocks the peer->port direction.
-
-The condition is unchanged at the end of the series, in "net: dsa:
-motorcomm: Support BR_FLOOD and BR_MCAST_FLOOD offloading". Was the
-intended test if (!dsa_is_cpu_port(ds, port))?
-
->  
->  	/* Turn off FDB learning to prevent FDB pollution */
->  	mask = YT921X_PORT_LEARN_DIS;
-
-[ ... ]
-
-> @@ -2302,7 +2285,7 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
->  	if (res)
->  		return res;
->  
-> -	ctrl = GENMASK(10, 0);
-> +	ctrl = GENMASK(10, 0) & ~cpu_ports_mask;
->  	res = yt921x_reg_write(priv, YT921X_FILTER_UNK_UCAST, ctrl);
->  	if (res)
->  		return res;
-> @@ -2325,13 +2308,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
->  	ctrl = 0;
->  	for (int i = 0; i < YT921X_PORT_NUM; i++)
->  		ctrl |= YT921X_ACT_UNK_ACTn_TRAP(i);
-> -	/* Except for CPU ports, if any packets are sent via CPU ports without
-> -	 * tag, they should be dropped.
-> -	 */
-> -	for_each_set_bit(port, &cpu_ports_mask, YT921X_PORT_NUM) {
-> -		ctrl &= ~YT921X_ACT_UNK_ACTn_M(port);
-> -		ctrl |= YT921X_ACT_UNK_ACTn_DROP(port);
-> -	}
-
-[Severity: High]
-This removes the drop action for CPU ports, and the hunk above takes CPU
-ports out of FILTER_UNK_UCAST/MCAST. Both changes assume the conduit keeps
-the ~0 isolation from yt921x_chip_reset(). Does that still hold after a
-bridge join?
-
-yt921x_bridge() has:
-
-static int yt921x_bridge(struct yt921x_priv *priv, u16 ports_mask)
-{
-	unsigned long targets_mask = ports_mask & dsa_cpu_ports(&priv->ds);
+	else
+		br_vlan_get_pvid(bdev, &pvid);
+	res = yt921x_port_set_pvid(priv, port, pvid);
 	...
-	/* Block from non-cpu bridge ports ... */
-	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
-		...
-		/* to non-bridge ports */
-		ctrl = ~ports_mask;
-		...
-		res = yt921x_reg_write(priv, YT921X_PORTn_ISOLATION(port),
-				       ctrl);
+	if (vlan_filtering && !pvid)
+		ctrl |= YT921X_PORT_VLAN_CTRL1_CVLAN_DROP_UNTAGGED;
 
-In the baseline this mask was ports_mask & ~priv->cpu_ports_mask, which
-matches the "Block from non-cpu bridge ports" comment. The ~ was lost in
-the earlier "net: dsa: motorcomm: Remove local cpu_ports_mask" commit in
-this series.
+yt921x_pvid_clear() does the same after the PVID VLAN is deleted, for
+example via yt921x_dsa_port_vlan_del():
 
-Both yt921x_dsa_port_bridge_join() and yt921x_bridge_flags() (on
-BR_HAIRPIN_MODE or BR_ISOLATED changes) OR dsa_cpu_ports() into
-ports_mask. The loop therefore rewrites only the CPU port register, with
-~ports_mask | BIT(cpu), which unblocks the conduit toward every bridge
-member.
+	res = yt921x_port_set_pvid(priv, port,
+				   vlan_filtering ? 0 : YT921X_VID_UNWARE);
 
-With the drop action and FILTER_UNK coverage gone, can untagged
-broadcast and unknown unicast/multicast sent on the conduit now reach the
-bridged user ports without going through the DSA tag? IPv6 link-local
-NDP/MLD/RS that the host sends on the conduit netdev would be one source
-of such frames.
+In both cases the only extra guard is CVLAN_DROP_UNTAGGED. Does that bit
+also drop priority-tagged frames? If it does not, a priority-tagged frame
+on such a port would be classified to PVID 0 and look up entry 0.
 
-The isolation registers of the bridged user ports themselves are never
-programmed, so they stay at ~0. Would learned unicast between bridge
-members then be dropped by isolation after the FDB lookup? And would
-broadcast from bridged ports be unable to reach the CPU?
+After this patch, entry 0 keeps its reset contents. The 8021q layer can
+also change it at runtime by adding VID 0 automatically:
 
-This mask is also unchanged at the end of the series, in "net: dsa:
-motorcomm: Support BR_FLOOD and BR_MCAST_FLOOD offloading".
+dsa_user_vlan_rx_add_vid(vid = 0)
+  dsa_port_vlan_add() / dsa_port_host_vlan_add()
+    yt921x_dsa_port_vlan_add()
+      yt921x_vlan_add()
 
-[Severity: Low]
-On the same subject of CPU port isolation registers, yt921x_isolate() has:
+yt921x_vlan_add() sets only the port, CPU port and untag bits, never
+LEARN_DIS:
 
-	for (int i = 0; i < YT921X_PORT_NUM; i++) {
-		if (dsa_is_cpu_port(&priv->ds, port) || i == port)
-			continue;
+	masks[0] = YT921X_VLAN_CTRLa_PORTn(port) |
+		   YT921X_VLAN_CTRLa_PORTS(priv->cpu_ports_mask);
+	ctrls[0] = masks[0];
+	...
+	return yt921x_reg64_update_bits(priv, YT921X_VLANn_CTRL(vid),
+					masks, ctrls);
 
-Should this test i instead of port? The baseline was
-(BIT(i) & priv->cpu_ports_mask) || i == port.
+No other code in the driver sets YT921X_VLAN_CTRLa_LEARN_DIS. Could the
+switch now learn source MACs and forward in hardware in VID 0 on a
+filtering port with no PVID? The Linux bridge would drop those frames.
 
-yt921x_dsa_port_bridge_leave() returns early for CPU ports, so port is
-always a user port here. As a result the CPU port registers are no longer
-skipped, and BIT(port) gets set in them. Those are the registers this
-patch says should stay as yt921x_chip_reset() left them. The extra bit
-moves the conduit toward ~0, so there is no visible forwarding regression.
+The measurement in the commit message also covers only YT9215S. The rest
+of the series does not restore a LEARN_DIS write to YT921X_VLANn_CTRL(0),
+and PVID 0 is still programmed in yt921x_vlan_filtering() and
+yt921x_pvid_clear().
 
-The wrong variable came in with "net: dsa: motorcomm: Remove local
-cpu_ports_mask" and is still there at the end of the series.
+Should the commit message cover the PVID 0 case and the loss of LEARN_DIS
+on VID 0? Or should the VID 0 programming be kept?
 
->  	res = yt921x_reg_write(priv, YT921X_ACT_UNK_UCAST, ctrl);
->  	if (res)
->  		return res;
+>  	return 0;
+>  }
+>
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107121631.1040612-1-mmyangfl%40gmail.com
