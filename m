@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225825;
-	b=pPihEynb2gB1IjqXkb9IMJSLQ9/+k24krz07ladDcdhBKqmSz9TCa/d3mqZYCapmMZn0
-	 4h8aqr8BzUWeB3WNP8KpUp3YL+9tlErNsc8wxD2qo5qozvjevhu25V86GHdidsasq/QeQ
-	 fPwqUF5CDWhhh4RufC3H8lMjAASIdHl5VpqVZkMKkijNwpjriXDBI5lLr/HXcoy7etjo/
-	 zxABgZv6WHrTiXOhBdOIWwjpZR8nDkbD8x3yd0zUQCMeGrXX8n0Pc9IqzzdZqu30ewytR
-	 +uzSW5HiqvDBGj1ZGkCBavzIMypFowk+QRLXJKof8Qh1JQHwgUFF2QF6LskiSGsnCZQ==
+	t=1794225833;
+	b=xLmVgehzpbcT9FSW3IUZfHVkbOF7MsbAAbrApkH2GVoZmMGMFneYcMXK76qJ4EOhanNo
+	 8Q0F7L+36Kg++Ht9f+Tvey5NR56TNWJXIDIJBuWdCvTSA3yWWsnwHNOg7lWngmXKJkUr7
+	 wBoGG9nqTztesC8MQSpFUsaMJDHj5h/ugAytxwKPvhVpYqXJo1+/bUSIg/aaT0unxIw6+
+	 ApOsMtPS33LEX4wdjFA4yH3pC9qUrC7Zw3KLd0G05HSl9cvDIWFa8cf4nTQTazfxTaobK
+	 rV48yozrwz6rJCGdSE1HrTHzDnjxj22kTDzBwPkXF0QnEeEwvmAUie85wfTLjGjUlJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225825;
-	h=DMARC-Filter:DKIM-Signature:Date:X-Lms-Return-Path:To:
-	 Content-Transfer-Encoding:X-Original-From:X-Mailer:From:Message-Id:
-	 Mime-Version:Content-Type:Cc:Subject;
-	bh=v7noJFWyhPyas3ihZ7WV/RNLGJABt0a32tKsgqHOSU8=;
-	b=SBbYS4pCJU3c3/19h4CYV4HSpAKjci9cxMWkk+xqPzFxuuN4a3guMopbESq1IGaDAytZ
-	 82Cr4T2JRdHc7/KV4sAKtQ2MG3Cy1K+Gl3O+jcC2qofiIMxWwgyLFAcUSXnnvG/p3FuG+
-	 hJPPZHuuIG7mSnOSdhFI2rZ800xnJN7XIZ2O04fPTxDlRs3GBYB27lhWkL/LnbDROMNE2
-	 0a3jBSZTxsLLVbM85DY4g7UeDkv6yJf+vNzpKbz7ooeKCuIOAIUHpROkt1GLqVmmKXhyb
-	 INlF2M2MUKsGKgPxh3jZcneLcBNogKS7ZzWKPM0sMuutdeB2i5WWYtNXUuSZizn4ZUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225833;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=wMtSYrvIc4h6USEC7xnaUKnHEtbCErLUvfEfWz0PR+o=;
+	b=N8JirjvoGOFv383Jz0HwhLmjJb3IoLGeAuNudoRsZ50urjg0ZfEzk7rngcR1cEWw9q/z
+	 y2nxvU76FjVC2MOwBwgV+Uy6mdHjyyrjKpbEV4vBb5dxsUORtSTeRINSjMPq8gWqjTv72
+	 FkJZ7KoXVQ7uufZuIeIMBJl7VHtvx2bSzNXQITIAinB6nYv7GCKZs6SYaTkQyazJEIOQP
+	 UoOAXpyOWpC6xBfMLqLpA4x6tw7iPwIUlikUiaTVPNo9ZvIfGw36XOnV6fDxlT91KrulB
+	 GcGyc5aIA2xGtBIsm1I2FvCWk2wFhST9ss9c1+Wc4lynuj1xK7u+jRujuKZPJpI2lSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=IvYEgYhD;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L70ClGoV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA32606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:03:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FA32606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A8E606A322;
+	Mon,  9 Nov 2026 12:03:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=IvYEgYhD
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794225817; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=v7noJFWyhPyas3ihZ7WV/RNLGJABt0a32tKsgqHOSU8=;
- b=IvYEgYhD02nctOnuL6sH/aesWRrDXnnmlyxAfjx3+e+cvQ5L013F75fMRoZQCzT3J44wEj
- 5i7lGCDU3l3dtpODVKPg8vOV5uMQ8CBapFHlRR+eMarU7ORDuH+omM1o4R44FYmkLyVB9O
- lw+hkC0T7Qh+QbxKugHfZ9KphKqh10EzebyOXLZR+egsVoJtGpzkGWkdv50HVNMjdNqHK6
- aWcljmO0FskzuFsYb9Sjgs7/rWt/UErUnxISiXAxk1oK6x6HIRggjKW5J6SqKp5M0lr97H
- 9Sk86gyhLigBtiXiepHOaxTb4XX32KC40U/or7xB3GQavIBOQrWPPtQkB+LQeg==
-Date: Mon,  9 Nov 2026 20:03:21 +0800
-X-Lms-Return-Path: <lba+26af1b697+b7d842+vger.kernel.org+qirui.001@bytedance.com>
-To: <linux-perf-users@vger.kernel.org>
-Content-Transfer-Encoding: 7bit
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-X-Mailer: git-send-email 2.52.0
-From: "Rui Qi" <qirui.001@bytedance.com>
-Message-Id: <20261109120320.75053-2-qirui.001@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L70ClGoV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB461F008A1;
+	Mon,  9 Nov 2026 12:03:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794225833;
+	bh=wMtSYrvIc4h6USEC7xnaUKnHEtbCErLUvfEfWz0PR+o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=L70ClGoVofngmEXKMSxA5TIWaEqCyQfwyRt4NsM06gjrYYqPuDZzJQpg6ULpzyrJl
+	 g7Y884d6CMPwzAJMEx07ShAulnx5SKf7ONsnzUbuJikmSRgArLj0Dl5EX98CfywkLz
+	 HGdrrt4OZhNZN6UBWsDvIhW9Wq1L99VLLT4qW+YVjpxTSjHHsrReFhPJN9eWNL3YgI
+	 MD/Y1a6kNoVSiVJZHMsIJsBpX68O7oGQ1Z009mnXT5wYxsAoOlObW0K0dFtenobA4A
+	 KVS3tayXrhn1cQbawILDy9CuDU01/sWfnH8vhOG/5QsOz4u6M4g99YDqgIbVOFxpn1
+	 QZlsD0XHvhoDg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 993CD2D3F7F6;
+	Mon, 09 Nov 2026 12:03:50 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org, 
+ driver-core@lists.linux.dev, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>, 
+ Victor Chernyakin <chernyakin.victor.j@outlook.com>
+In-Reply-To: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
+References: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v1 1/1] regmap: Add REG_FIELD_GENMASK() helper macro
+Message-Id: <179414263152.3630016.3105370657040522784.b4-ty@b4>
+Date: Sun, 08 Nov 2026 12:57:11 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,93 +65,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-kernel@vger.kernel.org>, <linux-riscv@vger.kernel.org>, 
-	<peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>, 
-	<namhyung@kernel.org>, "Rui Qi" <qirui.001@bytedance.com>
-Subject: [PATCH] perf parse-events: default data breakpoints to any size on RISC-V
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1111; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=jKSZJDE6GqUtCks2pcewI8YqyDLOdEI2/I/ufXaxSzA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+blsWX1men9aWI/eoU8BVq+t+62W2BLm88/wH5c7sO
+ nC79rZqRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACZipcbwV0is6PIsnfgHRWqP
+ cg0mJTlw6b6LbY4t67DY+25lV2CBKMP/6F8ifmxhnkkHTl1Jnb03/e02Vgfz7mUZ6l/vmCS+kpr
+ KCgA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-When the length of a data breakpoint is not specified on the command
-line, perf defaults it to HW_BREAKPOINT_LEN_4:
+On Thu, 05 Nov 2026 11:34:54 +0100, Andy Shevchenko wrote:
+> regmap: Add REG_FIELD_GENMASK() helper macro
 
-  $ perf record -e mem:0x30020:w ./prog
+Applied to
 
-That assumes the length describes a byte range that is compared
-against the address of the access, which is how the x86 debug
-registers and most other architectures work.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.5
 
-RISC-V debug triggers behave differently.  An Sdtrig mcontrol6
-trigger encodes the width of the memory access it should match, and
-it only fires for accesses of exactly that width.  Watching an 8-byte
-variable with the implicit 4-byte length therefore never triggers:
-the perf event is created and enabled, but no event is ever
-delivered:
+Thanks!
 
-  $ perf stat -e mem:0x30020:w ./prog          # 8-byte stores
-  0       mem:0x30020:w
-  $ perf stat -e mem:0x30020/8:w ./prog
-  10      mem:0x30020:w
+[1/1] regmap: Add REG_FIELD_GENMASK() helper macro
+      https://git.kernel.org/broonie/regmap/c/cbd74ec34c06
 
-The failure is silent and easily mistaken for a broken hardware
-breakpoint implementation.  Tracing hw_breakpoint_exceptions_notify()
-while the event is active confirms the trigger never fires.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Zero is a valid length for RISC-V data breakpoints: the kernel
-encodes it as size 0, which means "match any size".  That is what a
-user leaving out the length asks for, so use it as the default on
-RISC-V and keep the existing 4-byte default elsewhere.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Tested on a riscv64 kernel with hardware breakpoint support.  With the
-default length, watching an 8-byte and a 4-byte variable both count
-10 stores, while explicit lengths keep their exact-width behaviour:
-/8 only matches the 8-byte access and /4 only the 4-byte one.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
----
- tools/perf/util/parse-events.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
-index f3ba70d4f76b..b72e4b0da8a1 100644
---- a/tools/perf/util/parse-events.c
-+++ b/tools/perf/util/parse-events.c
-@@ -598,6 +598,27 @@ size_t default_breakpoint_len(void)
- #endif
- }
- 
-+/*
-+ * Default length for data breakpoints when the user did not specify one.
-+ *
-+ * Most architectures treat the length as a byte range that is compared
-+ * against the address of the access, so 4 bytes is a reasonable default
-+ * that matches most accesses.  RISC-V debug triggers (Sdtrig mcontrol6)
-+ * encode the width of the access in the trigger instead, and a trigger
-+ * only fires when the access has exactly that width.  This holds for
-+ * both RV32 and RV64.  With a fixed default, an access of a different
-+ * width silently never matches, so pass 0 on RISC-V, which the kernel
-+ * translates to "match any size".
-+ */
-+static size_t default_data_breakpoint_len(void)
-+{
-+#if defined(__riscv)
-+	return 0;
-+#else
-+	return HW_BREAKPOINT_LEN_4;
-+#endif
-+}
-+
- static int
- parse_breakpoint_type(const char *type, struct perf_event_attr *attr)
- {
-@@ -658,7 +679,7 @@ int parse_events_add_breakpoint(struct parse_events_state *parse_state,
- 		if (attr.bp_type == HW_BREAKPOINT_X)
- 			len = default_breakpoint_len();
- 		else
--			len = HW_BREAKPOINT_LEN_4;
-+			len = default_data_breakpoint_len();
- 	}
- 
- 	attr.bp_len = len;
--- 
-2.52.0
+Thanks,
+Mark
+
