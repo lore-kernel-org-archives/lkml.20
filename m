@@ -1,69 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=172.232.15.166
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794115128;
-	b=xEeakCN4YdvXIuuCvoZ291PMdl+l3vQ4jBJH37OboNFxoe4ZYdAhUf9RIMT6ONzvr3gg
-	 zZ2YiCXTVNVZOwVFoya7LwJT6zhO1ItnWs+mD9qaUyahAlxnxyYG5UGN184taRebX83qx
-	 rn8xYWoWi+SIey79pImhq2rDU5ZoBqN6eruUIT08tAdq9NmwaSbtu8f+dhqwRuNhnmw8G
-	 QO0vsB/OJpTBpzEiZ4UYz1QBNCAXhk+V8tiqSRFG9VmrqSOEkVt1PXo0AJbVvg338lUq8
-	 ST1wgvnYdeOekN8398S4UpoyuKKD4Ly9cP2TVcfCT1NcS9Ip+C+twGzrcWp9dwG3WCg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794115128;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Q7Bfjkkm4tTsSxgf0XNVqkmYHoK3twG9SMLsLcNULmo=;
-	b=mrsDHcExK/29I4anYiyxgptIlLTQPs7GlYPt4Ysoq3lk3tELN4Ax0BaD1ixwEjIzCMED
-	 oPqisYGFNoWG/zdYCtk8bVp5iITm0JPOIWpCBRkDMXAVjATHeOoQ9CLhEIb0+4qTiHJ3G
-	 yASePpqjuXhxrKw69hk1KW+dWws+Ty+V8WCx5G0spzTm93ReYHO2IUQcSXpb8hW/ioUjH
-	 w5bLMPR2fen6G53bsk8ztEdt2jcS8oZKRpapruV3P4rqSOgl5vydmRHGW/pmwnJiyO1J6
-	 K0FsIlYoHUm8pqvnI2jAPhkugQSVGrUmPKR1XhqatAGvKtL7E3h8pz1lLRuh0YF2Nug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=unwrap.rs;
-	spf=pass smtp.mailfrom=unwrap.rs;
-	dkim=pass header.d=unwrap.rs header.i=@unwrap.rs header.a=rsa-sha256 header.s=202503r header.b=J9VikNHf;
-	dkim=pass header.d=unwrap.rs header.i=@unwrap.rs header.a=ed25519-sha256 header.s=202503e header.b=l4uuMeG2;
-	arc=none smtp.remote-ip=172.232.15.166
-Received: from mail.unwrap.rs (mail.unwrap.rs [172.232.15.166])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794115308;
+	b=dDyrlSYMkgP2E7BR+VUwF5vCRErSHHrMlLkYixIZ8mw6BqxvHoz6N7X6+Urb5QPPma5e
+	 irxq/Sr71IQQMktv1PMyG9S2HV3Vuk4T4DNVGLKzsxJu19jhSSrcexDBdjvosxzuXTo5o
+	 QdR/DjIMibJLirlcsfakjwZdpAfZ2d5igFXue2wqTgOreqRvxFiSDbmGPaMA5fl/TE6w4
+	 NAXfdz8JSP26wANgRR+erPQNBxhKWIQQ15Br8DPAdvBe+Lh73wJ/n2EuPRal8yZM9JatU
+	 C01caURnCwvlDoI9ubRiX2HP5HkD7t7invzVkDczx4PlQPIRBuxmIVvmnZXH8pmuRPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794115308;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=dFRh1RIDMrDysy0Y8CMBpFk0XYpF7u7gwkMGgMDzy6I=;
+	b=xYjVWrg8wsM2lOlZC6UakZ/DtdSnTch78mefEEd7xXwTTw6wvkbCFYaIPRnDn/rjyzi7
+	 vhj+BlH5ebTotBK39tWn03GS5Un3spmrrAbCFqVHy1V7uBOcoW1vx6M++r9cEZGBpx6vA
+	 IONn+50ktv9vOFGUTTc1TdecqtSt25bbrecEIvkjX313sHeYKJ1/AX7/5cL7EzL9KjGqn
+	 B4CN3FEAFmv7uYRvlcMZd5/HfPEAMq6y4Z+T4VhHWyn7AokFYV3H0D6U6bveeb4894vys
+	 ycFbm7SSZsb7XL2EKkl462mX+CId+y6glijlIThxwu/7avoO6FEHsP1UN0O57kn4WRQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFc9nXjA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8E6606A31A;
+	Sun,  8 Nov 2026 05:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFc9nXjA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794115307;
+	b=J/FSpwGIEpF6Twig2bx35fk8AN2xHKalbG1BLG/Su7+3aV39byur2CznBAWcCJDEFMbc
+	 2JluhK8M7BuwMGFHKZLYN00TWZV2qohuFZvhodpS93Bb2AG9pwnQjmQ8U41Yx0g8AV9OD
+	 wGo/keYnD652YtxS4v/EZqvgU7oQPjUC1eGq6RJvWd5D4vErgrixVt+hp+zZu1xUqxQtM
+	 /vCAzCbAyj30Egeo0yGEGCwEs/k7OUR9oUITi3arR2b0rq6aXuUQ3QNEAVIl/vfVB95iG
+	 UlAbSC2Equ7xNoqddzPDEyHm8aVhknEnXKVYvLzq71eYcJ1cYveBBhwtoAZ5Ig7f5KA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794115307;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=dFRh1RIDMrDysy0Y8CMBpFk0XYpF7u7gwkMGgMDzy6I=;
+	b=MCy2YggIG/kHY+FZVR21Nsk+jRsb0Y+fFmTuku8+o5YY+MlW2iWxsDKCnpm2Srka2bzB
+	 8M+j7hejh/1ZSQ7DAxslbuQ6n6VzGT9oCPOXvJFuPdHmIiynsDGsO43uU4M1S5ITowFBX
+	 a/XluiqtEHTVsWLKlczfucoCVQiaedQekZPHOUs86OxDqJ9x9CyY9p4NVIek/gir2NblZ
+	 McAMJr/uP3DVcCG0ubNdcoFx2LcySjWSYulIQ9Ujq79mPqTRdzJOK+nKgT0HGvPksnH7f
+	 /tNIAJMFVZ8tl5enB/yNEL5O662ZLl6NY29+8Q7In9Uml2/fUZjREgAU5BI93uXDDaQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5EE606A31A;
-	Sun,  8 Nov 2026 05:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB5EE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unwrap.rs
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=unwrap.rs header.i=@unwrap.rs header.a=rsa-sha256 header.s=202503r header.b=J9VikNHf;
-	dkim=pass header.d=unwrap.rs header.i=@unwrap.rs header.a=ed25519-sha256 header.s=202503e header.b=l4uuMeG2
-DKIM-Signature: v=1; a=rsa-sha256; s=202503r; d=unwrap.rs; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1794115121; bh=Q7Bfjkkm4t
-	TsSxgf0XNVqkmYHoK3twG9SMLsLcNULmo=; b=J9VikNHf51Ts2Bm0THqTs28U7OQBSBUtb/hex
-	AsvcZrDTM3yDw8KO1LgYfY7LNKQPDzyK6uQ6xF7+ShUOnZqkIL4fXYr0UiiFFqQXgC6SSow0POL
-	iugyJ/XT9WwyzE3avk7UADz5gZbAHUxG3vFwY+Hgl+KZ3pA5rE+PZrMPZ2lFc4TFNSv8CIJxmsv
-	rPx0jSwmvjUiGGaed3iFtn8wI8Qs3NsiDEgH9Vg+LqR4kfzbmx1QRkY0Ua6gHgaPgHhtWILpLFY
-	GDaI3LyQ9JEYlfhMDU461ji6KRZSosmruwbg8hAWQ6dbkYEYeUgqWEliHEDdnZsy/oFsbdenxMg
-	Q1H3g==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202503e; d=unwrap.rs; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1794115121; bh=Q7Bfjkkm4t
-	TsSxgf0XNVqkmYHoK3twG9SMLsLcNULmo=; b=l4uuMeG22fYIzY4+8H2mk1LE5ddlOhH77QlGu
-	hh05avwOZDtY/4SZPam0ipEL3gou4NrGbNErmOA70p+PYP5AQ==;
-From: Cole Leavitt <cole@unwrap.rs>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Lukas Wunner <lukas@wunner.de>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-pci@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] thunderbolt: Don't resume the software CM if the host controller is gone
-Date: Sun,  8 Nov 2026 00:18:29 -0500
-Message-ID: <20261108051829.152803-1-cole@unwrap.rs>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261019042920.GX176164@black.igk.intel.com>
-References: <20261018163750.130470-1-cole@unwrap.rs> <20261018163910.132231-1-cole@unwrap.rs> <20261018163910.132231-2-cole@unwrap.rs> <20261019042920.GX176164@black.igk.intel.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3CF521F0089F;
+	Sun,  8 Nov 2026 05:21:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794115307;
+	bh=dFRh1RIDMrDysy0Y8CMBpFk0XYpF7u7gwkMGgMDzy6I=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=iFc9nXjASN6dWTwRiNKQkxQNiwswB+mxMvvKGr5EjDOotRLtKfEZtHta5STcTLsjC
+	 /+w0mpbxhtHIVUL2nZbUpCvF1121nDISyVGShXuljX1PqUtuyqIoxLd6gt93yyyPqz
+	 97A3Vu6VVaDAVVMh9rkP/ByAexH+TPhS3lmjm94EtgC3kr8pOBa9m07BpmxUVfKLR7
+	 O59NH9tEAPa8DWsdz6FksRBdiJ1KjxhmFRBg+i1DZNeyzzojqWcmysVdIeicAaQBAw
+	 czRHSBI0FOI1VLb9WeEhWMpgLofut3f2yCWtGlD1mQ1Xkyq+9c8OQP1XYqSOWsIgsO
+	 pTLb2IRJOuU1w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8B50B47E19;
+	Sun,  8 Nov 2026 05:21:46 +0000 (UTC)
+From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
+Subject: [PATCH RFC 0/2] Uninterruptible host1x syncpoint wait for Tegra
+ video capture
+Date: Sat, 07 Nov 2026 21:21:45 -0800
+Message-Id: <20261107-batch1-b1-host1x-wait-v1-0-8c8198adf600@tubot.lat>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,36 +84,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBAAv1L27EI3BSVeBR/gtfSQjatZD61ko
+ y2U/t2oxxmYWcEkqxgcmxWyvNV0GivQroGYwngX1GtlcK3bE7UH5FBiImTCNFmhBeegBbvIHXs
+ nnryH2j6z3HT5fXu4nE8w/KW9+CGxfI+wbR+zXgVRfgAAAA==
+X-Change-ID: 20261107-batch1-b1-host1x-wait-3cb3b92e9199
+To: mperttunen@nvidia.com, thierry.reding@kernel.org
+Cc: DelaySystem <DelaySystem@tubot.lat>, dri-devel@lists.freedesktop.org, 
+ luca.ceresoli@bootlin.com, gregkh@linuxfoundation.org, mchehab@kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ clamor95@gmail.com, jonathanh@nvidia.com, linux-tegra@vger.kernel.org, 
+ skomatineni@nvidia.com, linux-media@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2521;
+ i=DelaySystem@tubot.lat; h=from:subject:message-id;
+ bh=DLUckEgyR5Ni9ibN8qkK+UlCenVeIET585HOCl21B1Q=;
+ b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkf2F7NNQoS2/EpUWuyo8xRho7U69tnTPt5MWzywW1CP
+ I3nOx56d5SyMIhxMMiKKbKIyfC8r7+vE2dtNecEzBxWJpAhDFycAjCReB5Ghiff5mdefPm1PF32
+ XOykyKOvPQ1mTncoVv3YpfrKSG7Tmi2MDDMUnRZG5FvaXOP9E22qyOG+WF/mlVzW1YWTv8rHXVd
+ 15gIA
+X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
+ fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
+X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
+ auth_id=1447
+X-Original-From: DelaySystem <DelaySystem@tubot.lat>
+Reply-To: DelaySystem@tubot.lat
 
-Hi Mika,
+Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
+The Tegra20 video capture path runs in a kernel thread and waits on
+host1x syncpoints with host1x_syncpt_wait(), which is unconditionally
+interruptible: any signal aborts the wait with -ERESTARTSYS. At high
+resolutions and framerates these spurious failures are common, so the
+driver wraps both waits in do/while retry loops, with a TODO asking
+for an uninterruptible variant of the wait.
 
-On Mon, Oct 19, 2026 at 06:29:20AM +0200, Mika Westerberg wrote:
-> This is not supposed to happen with SW CM systems. I've seen a couple of
-> times Lenovo BIOS has the PCIe root port hotplug enabled and that's against
-> what the Barlow Ridge BIOS configuration checklist says. Please check if
-> there is newer BIOS (Lenovo has been fixing these) and of not report it to
-> Lenovo.
+This series proposes one: patch 1 refactors host1x_syncpt_wait() so
+the interruptible behavior is preserved exactly for existing callers
+(including two DRM ioctls that are userspace ABI and must stay
+interruptible) and adds host1x_syncpt_wait_uninterruptible() for
+in-kernel users. Patch 2 converts the Tegra20 capture waits and drops
+the retry loops and the TODO.
 
-Thanks, and sorry for the slow reply. You were right. Every oops I
-captured was on BIOS N4FET30W (1.11), where pciehp was bound to the
-Barlow Ridge root port (0000:80:1b.4, "pciehp: Slot(25)"). The machine
-now runs N4FET52W (1.33), and that root port no longer gets the hotplug
-service: only PME, AER and bandwidth control are bound to it. So the
-slow-link "replacement" that started all of this cannot happen there
-anymore.
+This is sent as an RFC because the API shape and the scope need
+agreement before a final series:
 
-Please drop this patch.
+1. Is a separate _uninterruptible() variant the shape host1x wants,
+   or would the maintainers prefer something else (for example an
+   internal helper with a flag, or a different name)?
+2. Tegra210's two waits (tegra210.c) have no retry loop: a spurious
+   -ERESTARTSYS currently fails the buffer. Should they convert to
+   the uninterruptible wait as well, or is failing on signal
+   intentional there?
+3. drivers/crypto/tegra/tegra-se-main.c also waits with
+   MAX_SCHEDULE_TIMEOUT; left out of scope here, but flagging in
+   case its maintainer wants the same treatment.
 
-For 1/2: the trigger on this machine is gone with the new BIOS, but the
-ordering problem is in pciehp itself. A device replacement detected in
-pciehp_resume_noirq() still starts the removal from the IRQ thread in
-the middle of the noirq phase, unserialized against ->resume_noirq() of
-the drivers below the port (on today's mainline, fa4ad798f6f6,
-pciehp_core.c:310 calls pciehp_request(), and pciehp_ctrl.c:145 wakes
-the IRQ thread directly unless pciehp_poll_mode is set). Bjorn, Lukas:
-if that is not worth changing without a reproducer on correctly
-configured hardware, I will drop 1/2 as well.
+drivers/staging/media/tegra-video with VIDEO_TEGRA=m, zero warnings).
+The tegra20.c change itself has no compile coverage here: that object
+builds only for 32-bit ARM (ARCH_TEGRA_2x_SOC/_3x_SOC) and no ARM
+toolchain is available, and there is no Tegra hardware for runtime
+testing. Hardware testing help is needed before any final series.
 
-Thanks,
-Cole
+Testing: compile-tested only (arm64: drivers/gpu/host1x and
+---
+DelaySystem (2):
+      gpu: host1x: add uninterruptible syncpoint wait variant
+      staging: media: tegra-video: uninterruptible syncpt wait for tegra20
+
+ drivers/gpu/host1x/syncpt.c                 | 46 ++++++++++++++++++++++-------
+ drivers/staging/media/tegra-video/tegra20.c | 37 +++++++----------------
+ include/linux/host1x.h                      |  2 ++
+ 3 files changed, 48 insertions(+), 37 deletions(-)
+---
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+change-id: 20261107-batch1-b1-host1x-wait-3cb3b92e9199
+
+Best regards,
+--  
+DelaySystem <DelaySystem@tubot.lat>
+
+
