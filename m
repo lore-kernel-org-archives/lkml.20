@@ -1,93 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=94.100.134.218
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794122609;
-	b=Kc0XQsEgpB1s/zsFlg2ttgoMIuAEeydupFkfhtgDhFT9JgttcqN1T8abB41zvpEBr3uE
-	 7r5w6/UCCVRqg9gAGSRUYMfL48gUYNUJDDP1/kH3aiMHNxHdN/ysoBFdfRUAZvk2o+D0S
-	 1Q5PJYY2+SKOmtU19bZB3vzRBiVN/3mcpYrYCr8swF0RH0XrVCRwlu2px1Ce/ni6D0NyM
-	 0oRJ8lL05knKRGZTRcO3MZOnRM/n/WCNjkXxyTIK+AV/EJhgKdsOhuJN48fxpqZOEvIwQ
-	 b5KF9tqTct1/OhkwVtBgkzrmYBU/sAmbu6lOIm8oUFuYQVlyr9fVsR1AdwvM+S7eTDw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794122609;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-cloud-security-sender:
-	 X-cloud-security-recipient:X-cloud-security-Mailarchiv:
-	 X-cloud-security-Mailarchivtype:X-cloud-security-Virusscan:
-	 X-cloud-security-disclaimer:X-cloud-security-connect:
-	 X-cloud-security-Digest:X-cloud-security:DKIM-Signature;
-	bh=GzELP9N6NjgWMoOc3csfVnuCmbbLp2kJQPAtwx4eXT4=;
-	b=e2frmmBHwCIWphBjNXlHjlqcaJu272ReiskyobSN9viOhw6MZnTCNGGAjKmUg6o/+1nU
-	 HV7j4Np1CablyxVD6D3iZFq1ILbBRdI009suPlsCbmff8DO6FKa/1xzkCLt5Xqe17oM1f
-	 pHhDyxygshIvtHEZfq+ihKXLLHH2ZZEKZD7YuqaRtna1GJk4KxpiQp+brCFQ6ePwUw+kB
-	 cXadK/+gbjF73FRvDYhN1hCbFFpO7xDEGoLbvegem6IGkons01jjbI7v7eDlAof595vpU
-	 0v5ZNJzcH8KjqsCrc4Y1w0ZFmPJRF+Byt1904oo2gTXKF0ekvqfZqiIBk6Vhk48j4jw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marcant.net;
-	spf=pass smtp.mailfrom=marcant.net;
-	dkim=pass header.d=marcant.net header.i=@marcant.net header.a=rsa-sha256 header.s=gandalf header.b="MyXo/99D";
-	dkim=pass header.d=marcant.net header.i=@marcant.net header.a=rsa-sha256 header.s=hse1 header.b=ZshCi1Ds;
-	arc=fail smtp.remote-ip=94.100.134.218
-Received: from mx-relay48-hz3-if1.hornetsecurity.com (mx-relay48-hz3-if1.hornetsecurity.com [94.100.134.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794122711;
+	b=0jJFcF+IieWj0yUfunon4L7aY5qEjJ1VhmUK7iGxQ4Sw/OlqF5b60k2mwMyZ1rGVwAIk
+	 e0naqTLQf2qTZLfeChFBsbloJJfIMIsQB6mM3ofYRlf5b7Pa14D1MY6drlNll3RstGntj
+	 YeoiB+M7wXlgz8k9ozYVcsZFjtSmy+NOkm7Z2MSGy42wwAXUVa3XbqUdNoCpJ+4bx8ksp
+	 XEAvHFBw765fGYpcK179KvBRUO3qGAKj2VtbDu4lxa4N8QlbeGBQwP2yXW+BAKWDhza7J
+	 0TQEzeftEeXV2LG5Q8ShvcN2gjVZLVgNsI6aRbCnI/JC2G8R96t0AqPBr+MX1CTGNdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794122711;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Dop4F8OKR7cXm1nUzbyU2g5S5dDo+bHScDg3mp5FzUA=;
+	b=QLoaPb5ZuCF0esP8dcaCaYUZ5gkW9YYx0CsAYXhFZ9D5b0AoVM2r8n06hUQYgjJssti9
+	 t5bQzo4VlSHFa9qZ2XG34KtEeZ1BytvKkakgwyIJrfaiTIvglxnM8REqDfHuLGZ4SNhVu
+	 UIQ+CYt/jEPBcAM1VdJZN0WrjXR/7e+3Q0WCb7JfzyxFLliPD8BQxOioNQ2PGm0OudG92
+	 5zf1MZg2tLQ+Q0XODdiKujHYu2sz4hikg6hJScooFODk5Qg4E0k2TrXBDEdGSYxEkn6UZ
+	 RczmD8aopua/wLCujFvZJPAowKEOxjy5SJFwQDXIAoTWgMRR03MnQR/LJfwa4nFUcJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0KlWNEhc;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A7606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8A7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=marcant.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marcant.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E6C606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97E6C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=marcant.net header.i=@marcant.net header.a=rsa-sha256 header.s=gandalf header.b=MyXo/99D;
-	dkim=pass (2048-bit key, unprotected) header.d=marcant.net header.i=@marcant.net header.a=rsa-sha256 header.s=hse1 header.b=ZshCi1Ds
-ARC-Authentication-Results: i=1; mx-gate48-hz3.hornetsecurity.com 1; spf=pass
- reason=mailfrom (ip=217.14.160.69, headerfrom=marcant.net)
- smtp.mailfrom=marcant.net smtp.helo=rossini.marcant.net; dkim=pass
- header.d=marcant.net header.s=gandalf header.a=rsa-sha256; dmarc=pass
- header.from=marcant.net orig.disposition=pass
-ARC-Message-Signature: a=rsa-sha256;
- bh=GzELP9N6NjgWMoOc3csfVnuCmbbLp2kJQPAtwx4eXT4=; c=relaxed/relaxed;
- d=hornetsecurity.com; h=from:to:date:subject:mime-version; i=1; s=hse1;
- t=1794122596;
- b=baNme17xd6JWaQguWhmcXrlh4jfNnYhWREjhtifiq/Nq4n4dHAIRY1Yv/V6VTCHpl7DoyNz4
- 6GmbmauzJ57pQxWiXD0L5c0buUQCRihUNPUF6VqvWkvQfY4BZPkQ14fHg03IzZW4dOI6GOFkxDZ
- Co/A4ODjCFnpvyjiGfc9lAnk280g/p1/DC0trNrmt2uweAeEgQ/rKNm8vR6Oyu6hk03u3bPh0hH
- pVtPuuDrgmn2U7VLMHTcb+cojbtGCziMVv9Wb/TNexatoX4TUvOJAwcVeR17wOKKYeImZj3J2ID
- 24VzW5kd9iRmb7VUG4mhEVuZDQ8W4UKJDTrf2Tm5SHIXQ==
-ARC-Seal: a=rsa-sha256; cv=none; d=hornetsecurity.com; i=1; s=hse1;
- t=1794122596;
- b=aqGDLRvbYDX9RCFECVn/FY1pD8pvd4yLMdMMicUi8OZuHCaSUce2DlKnsbqzCBBb3r8XNcP8
- dwzlNXwoSClqTOlY7MXpxzGC5uPoTD68hKcFLVHU5+ZhdFdbD/AwZuXllcYMeyByxyzYn+0xW4+
- lTllra+bc6Q6Mf1L5kXk0bTchEyTK/1KUclKr6uGd/R0eb9Ntffdp5ZBj5GJ6lBQUceA76/LAaU
- ct+XuS5jrVYqNJ9Yf1JcU5+0zOKyxcik3+EPRop2z/7Ox/kro84LHhZuDp0w45PalfMtSz2/RLT
- VlEI5CAwz9k8/CS9bpjjwiSbTeMo2K2qioSAm5ZXkW9KA==
-Received: from rossini.marcant.net ([217.14.160.69]) by mx-gate48-hz3;
- Sun, 08 Nov 2026 08:23:16 +0100
-Received: from futile.kalnet.hooya.de (unknown [192.168.203.16])
-	by rossini.marcant.net (Postfix) with ESMTP id A9FA9960126;
-	Sun,  8 Nov 2026 08:23:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marcant.net;
-	s=gandalf; t=1794122582;
-	bh=GzELP9N6NjgWMoOc3csfVnuCmbbLp2kJQPAtwx4eXT4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=MyXo/99DbB+xo4d6YWFSTX/VnPG1er9ywKlnexkEgUv2UwKgM5mqpuTCGEq77FHfJ
-	 YGbxXyuJba3jYXEpcRRx5OdEE/jt5wp3A0EUIbiu/czmbfXrhWKwd76kYNLETrkJ9P
-	 +zmqNfmq1dsPArw4BMkEet/w4toWsAY4dNnvhfr0=
-From: =?UTF-8?q?Andr=C3=A9=20Valentin?= <avalentin@marcant.net>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Julius Bairaktaris <julius@bairaktaris.de>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0KlWNEhc
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a315ed211so10417eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:25:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794122710; x=1794727510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dop4F8OKR7cXm1nUzbyU2g5S5dDo+bHScDg3mp5FzUA=;
+        b=0KlWNEhccXytztXcpy8QDI9lEo0PCwVFU3u38U63n6E3HSrskIS1ZoHL5zE1ahXoOA
+         Mwg5mx3WBDNu1bBTw/HUKVQ83wW6jFdSi3Et4OyKGo0pC3mlXYp7epQtek1zgT75kEod
+         8PiiomRbBg2t81RKaJiSkW3QsAr4HmgGkGqhW6Y1dipfoiIAf6mNtWLukVfPilhdAMcb
+         PKaXQ0d3GBJHy46n/1HYInRyJzZD89FNMuwtM7Sxd6295HZwv1fr+i0M5e2YRl5XsQbD
+         QcmuaxSmb/mL/FuNb1Oe+W/b0oZoCcUJstHhQKExPS4En8BAQcYulKUdD9Yj9mYGqrgy
+         USwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794122710; x=1794727510;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dop4F8OKR7cXm1nUzbyU2g5S5dDo+bHScDg3mp5FzUA=;
+        b=glM6dcWLoONdtj/ZFVfCYyhVhtMF0jSfxbfXSaeA6Ic574nKChKDPc39pCwLvlWdIN
+         CU8aOln+LsvLmCyravmcFHk4KeDctEqQPT704D++D1ETEOKcKJ1zY6fLObUjI5GkdjVZ
+         jE35RSomkRsz13GIBv+KhOVYEhJ6JqkoIfDRDY7FCrWAyLkdyhHz/+rJ2W/lHWzZheTb
+         uKgx7ap0J29At6oZImlDZE++cAWUMo+JHDTrYGh9xBqKo/OPJl1P8XDpZqFyvNHPNdSW
+         YeM09jxlQX/Ia1GmjHE2UiOKZ1XDjOP0OHcFtWB+MDUqerC1yIDMB41ilTOUf3LreOrD
+         nAnw==
+X-Forwarded-Encrypted: i=1; AL+hErEr6ij3l1t+Sl0ktS/n3SlM4hYkBJk+LTx1UvD4llelmE4qb2bZL/6ILizcWJFSZfoJoIfClntzG0fjqFs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uJRNweSdGnZiDhey+rFirRz6NctkYtaxYEz4q9v2CrkBrkG4x
+	AC2coEXQdpo+0G3GQ7SKxHUvVCh5ndz44GkdFB3a4Uv3wjKsO44iPvSs
+X-Gm-Gg: AYBFou1Kv1YvQ8f0SckJK8ymPD4uKTyQ4yrXTMaCl/xYaRM9Q625A1ZdrVE6hv/BhlF
+	bCpps/vjnEZYLhZ/HHpcJhi2ubatYNZtMMUnKWKLCUXrivJR523Cmqm3Xsyi6YuqjfN7aBA/eVe
+	5+I7B8toYgdo7Z6ZZZrSDaUWhVlp2XULDIqCTNmFjiq1NnNBca4qMMecd5ri1e/BQmcbK9QA7Y5
+	mIEt5XSMHQNwgB752jDn8uBa4XfPW7+RSiKheVOAvbVBU4++oC/tA7GBIjE9JSX8ql0x9CPbjKt
+	19nCCpyYqvXnAMXebaWnA9G/wIubY14f1aSEqoBr/yazMuPVnehFCqmwmNIMtsPxShETanDx38a
+	Z25vODsxx2NFUVaC65vb3hd5yygh3k8nF+Hgmawm9H9BkGX7TtIpp72guT69m4D8yv2YNfxoHgF
+	290psq2B7PXY2A/2JdqEBbQ+xR8Vd0Ojjki64yXLclCGa94g+O/Cixwm25RAK1GN6hqX5dFgRet
+	LO+Kch1ivjPQSD09ToBjmbKGqvHDkWoBsW02I4g07H3+RU+Uo/QbFRirFOlyakQTZE5/szz/fl+
+	HD090N/lcTr6WCY+1v9t+skU854YV3YzRgKNQyDprtlNsX9/09GbIDiBVk0fFM1UAB7N9w==
+X-Received: by 2002:a05:7301:1a11:b0:368:2c6d:ddfe with SMTP id 5a478bee46e88-370f6115a74mr6028007eec.9.1794122709628;
+        Sat, 07 Nov 2026 23:25:09 -0800 (PST)
+Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:5213:762b:b24:1be1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a16f9csm3499775eec.12.2026.11.07.23.25.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 23:25:08 -0800 (PST)
+From: Pengfei Li <ljdlns1987@gmail.com>
+X-Google-Original-From: Pengfei Li <lipengfei28@xiaomi.com>
+To: lkp@intel.com
+Cc: rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	mark.rutland@arm.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	oe-kbuild-all@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Andr=C3=A9=20Valentin?= <avalentin@marcant.net>
-Subject: [PATCH 0/2] clk: qcom: ipq6018/ipq8074: keep port 5 on uniphy1 at SGMII rates
-Date: Sun,  8 Nov 2026 08:23:00 +0100
-Message-ID: <20261108072302.2311227-1-avalentin@marcant.net>
-X-Mailer: git-send-email 2.47.3
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	zhangbo56@xiaomi.com,
+	lipengfei28@xiaomi.com
+Subject: Re: [PATCH v8 2/5] tracing: Use the stackmap from the ftrace stack recording path
+Date: Sun,  8 Nov 2026 15:24:48 +0800
+Message-Id: <20261108072448.990755-1-lipengfei28@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <202611080654.sqFxIlwl-lkp@intel.com>
+References: <20261107055139.3138633-1-lipengfei28@xiaomi.com> <20261107055139.3138633-3-lipengfei28@xiaomi.com> <202611080654.sqFxIlwl-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,57 +109,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-cloud-security-sender:avalentin@marcant.net
-X-cloud-security-recipient:linux-kernel@vger.kernel.org
-X-cloud-security-Mailarchiv: E-Mail archived for: avalentin@marcant.net
-X-cloud-security-Mailarchivtype:outbound
-X-cloud-security-Virusscan:CLEAN
-X-cloud-security-disclaimer: This E-Mail was scanned by E-Mailservice on mx-gate48-hz3 with 4jMksM0nFzz1kNbgM
-X-cloud-security-connect: rossini.marcant.net[217.14.160.69], TLS=1, IP=217.14.160.69
-X-cloud-security-Digest:33fdc7937bbbd520f6405a31ea0f80f1
-X-cloud-security:scantime:1.473
-DKIM-Signature: a=rsa-sha256;
- bh=GzELP9N6NjgWMoOc3csfVnuCmbbLp2kJQPAtwx4eXT4=; c=relaxed/relaxed;
- d=marcant.net; h=content-type:mime-version:subject:from:to:message-id:date;
- s=hse1; t=1794122595; v=1;
- b=ZshCi1DsYNjFgj6fC78tUeULq3pD4vX7M3oThUFzzADo90WZD7qww0r7/eWU614/x6p6yCje
- OUXNaUBzuOmsktvMsssiTh3F2UNATbD511ITpReABuLkm479SyeVX7dxyE1+XbHgrheHPFZ3tGH
- t1IA48jxleHBxnT47dqtmfcOwbAWIjh+jTUJqGpOCweVvZLbZQprLBpuKnYHZaEa4y+4mL92Ve9
- dVhW3nTSeMcjUc75pba99Ne7p8vedT6PMnxdGKIleeozHTLFr89aFCVVz6fNJ5LJ2wsoszJoKX0
- FOtXvjoa73yHvRwKgWwfa7y5Phs1q3Sgg9l+hgG2DRyCQ==
 
-On IPQ6018 and IPQ8074, port 5 can be clocked from uniphy1. Its RX and TX
-frequency tables offer uniphy1 only for uniphy1 at 312.5 MHz (2500BASE-X).
-In SGMII uniphy1 runs at 125 MHz, and a 1G or 100M rate that reaches the
-RCG then picks uniphy0, or stays on uniphy1 with the wrong divider. These
-two patches add uniphy1 / 1 and uniphy1 / 5, which the port 6 tables of
-gcc-ipq8074 already have for uniphy2.
+On Sun, 08 Nov 2026 06:35:01 +0800, kernel test robot wrote:
+> kernel/trace/trace.c: In function 'record_stackmap':
+> include/linux/rcupdate.h:502:9: error: dereferencing pointer to incomplete type 'struct ftrace_stackmap'
 
-This came out of a review of an OpenWrt fix for QCA8081 egress corruption
-on port 5, where the port RCGs were left on the RX clock by the
-bootloader [1]. In the sequence I can reproduce there, the rate change
-stops at the divider and the RCG keeps its parent, so these entries are
-not exercised. They matter wherever a 1G or 100M rate does reach the RCG.
+struct ftrace_stackmap is only defined in trace_stackmap.c, and GCC
+before 10 rejects typeof(*p) on the incomplete type in
+rcu_dereference_sched(). I reproduced it with GCC 8.5.
 
-Tested on IPQ6010 (MikroTik Chateau 5G R17 ax, QCA8081 on port 5) with
-6.18.55 plus the OpenWrt patches: after link-ups at 2.5G, 1G and 100M both
-port 5 RCGs stay on uniphy1 (CFG 0x300) and pass traffic at line rate,
-without errors on the port. The IPQ8074 change is build-tested only.
+v9 will move the rcu_dereference_sched() into
+ftrace_stackmap_get_cookie(), which will take the trace_array instead
+of the map.
 
-[1] https://github.com/openwrt/openwrt/pull/24566
-
-André Valentin (2):
-  clk: qcom: gcc-ipq6018: keep port 5 on uniphy1 at SGMII rates
-  clk: qcom: gcc-ipq8074: keep port 5 on uniphy1 at SGMII rates
-
- drivers/clk/qcom/gcc-ipq6018.c | 4 ++++
- drivers/clk/qcom/gcc-ipq8074.c | 4 ++++
- 2 files changed, 8 insertions(+)
-
-
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
--- 
-2.47.3
-
+-- Pengfei
