@@ -1,97 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794155015;
-	b=I73KNpYpode3VvGJbTsikamv4URp9PrUYz4YB5mf69yVPGdgnjCblRzADe0zAbbifEwk
-	 9mVqRaYzu2atgGj/SOLhOExZRgKnM92FXeqcceT56E2u69OqfUf+LcQV2BldpnOt9tkuE
-	 PFHFVYJUejoQZgG2tYRQtriRCn3RZvtgSYqbO3/xj9kZbE+ZnzMUbLXbASTdMt+VV6Yfh
-	 y1HRAQMsRVB890DTyMKrDp6csvq2lj0uwJAkTmQxFmS9nXImceMezpAo30Dwv0W++ghYr
-	 Cis9Dg54NyjC+r1l+aS4Y3w+m4LhApINr+k8sv+0ycbtgUb/KNtXtfbYLOhn1TP0Fog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794155015;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
-	b=g6Xb0QeD/b8IKhUl2+vdS92yu8e8vvYGCJqmlK1mbkBF8EgFvqbCkbIiyz0EdkJOofVb
-	 qolT+5ikfte9pdUr+VfI8/9vWC91fpfsuyqTz0lcG7XiGPqIUOQxAbLJELqUo2eukAuQ0
-	 L9bjQ6IpqHmHZIxGOI5VeTdylcoEYZSdUwkPNLI4RcHktrgr3qn/sEdUotV8sPuExiEcX
-	 EXOAhBf0yw1vofL3seZ3zAEKy0tBDX25H8MjF2lOdwUdKOWP7T9NL4Tzz8w0+sE4JPBwx
-	 NaAbCAoadC1gaqf5WYqmc9T4k407L5rxWp/eFKOD+3kabbeXvtLCU6dzupDfp++vJqg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OUFqK+OW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794155054;
+	b=yvfJcSFsBKWJu25Ee64lg40XXxhYGJ6KQ0wvOqsmsDULM3REfqdTmEuC8BlAOVo3NR5v
+	 +/0mpQtIadhhirBJCggmOXLsh/h+5p6E1l/baXwpbviH6LR/icW/yud+Oj0ovSpKTzTdO
+	 TRlfBXwSwih9zdACbB+XHc8blZQpg+igjnTfgPticQFRqqfwh1eZJG3hE7lq9GTtDXJWm
+	 kxc2oj2vOYUoQQD+50met3TH7TI9WEf0OKr/7RlHLaLeWwzIHmfU/TZKIUb8OqIykTQ+t
+	 PuIPDiQOtU1zYZCinnKTxrVCRk8afttH+wFsDIknUr52q1GJdv8FfClH2G1+6zNZV8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794155054;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UngVRw8GQWYdjyr+KULccPn5n4fj0MKRALr0nR9QvcY=;
+	b=WXyIeDAwZAygvgjYUIZuorWfktMVERF9S331qmobp9Y1IqKQ0AFsUCO3vQnnG6De8LKL
+	 r3M8t83MW3Z1F3frmtP6AkeyHiTjBflXh7fFPqbWQ7AyyFuiZVn80RN9W/1MsBuhoVDO3
+	 o5lC4GKP6/+pygnuFZ/AoKvyDs7w87N70iKic62l2qPed4c+BXpyzYtzNXhILalPuP/oC
+	 13IM/+5H5YF4EzixcX4Z8YfncTfW20djwEaSPRH6rFy/AMCor7uqh50SBKrIbOIEc1xNV
+	 xBJ2+q9cTO1Hxy4gnzaxZj1yoW5PqyKvqYQYpQ/zwJ0YnXcegesHxd8V3neZ4hXcCKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WUS2mJSK;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78782606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:23:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78782606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B89606A31C;
+	Sun,  8 Nov 2026 16:24:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87B89606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OUFqK+OW
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso156558a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:23:35 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794155014; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oo1lcl/vnmhNDXjGLVkq0UlA6/5n0204YcNw3BNXw9te8J1E5PtLG+qIb1iaQqn38x
-         FmO5L38OtOPKKdoJLETbq6YUeQUORhpoJJJyrEIy4GrYEaXFYx+Mz5mzXJhEfUUfn71c
-         dMfRDUhys6FdyD2ViGcdTzZppe1BRR0ZTyC2RDh8wdlzHIQjdPjsZu4Y5Ie+9n/rXsRl
-         tp1FNHOwxXK/3qbdz+RXFjrCd5KsksN+9jp77XQHkADS6czLnqWq9xjpm3OdzSU7BjVn
-         P7+PjbFcNheINdfIctUxGqkAI5/TL29Ly3SEsvxmN6RjoBnEN7OTf3StUFNtsV/ycBqV
-         1Wgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
-        fh=PGOZUv/c5BvKN4RC2RpRtxioB1liOA5/JUeT7/wR05w=;
-        b=pcHTbdLIJixc5ikW3F7N836/YgDNdx7t6nHzg4NiZOhWTw9gcJrhBPZJ+V7VJ5fdK3
-         xlSo9C2LJE/74aGjXOD+LE4fqhRhaOWJcaeZzqMJsvpRpu6+Q7Zj60sF7KoMgKt3i6M5
-         vu9U5xQt+GxrC78ORT+JoBkelBvudLzgEapiUSfeef25VdQNBvrU9/iLsMs5QphePpvN
-         uczfzR5yF7sTl9DvaOCul/OPlauODXG1ZjfQu02CbieLwe+fvLr4PJAdiKD9w1J1J7dY
-         E7dTKhIA/SlBO38YzXEJict07xYb+LJUM501Spdl94Zpq3rDSrss0IcGqQtRtqCydZRl
-         ymjg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794155014; x=1794759814; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
-        b=OUFqK+OWA7ELEgPkf+8E4femfusnhKNmlqHf+d/h6bhYatGYebEWPpy/PvxcaoMcku
-         hIVXl3iGhRGBQfu8nwZ/IQAc7RgK2M+uO5vBWzKLGxSC/d4OnUenrYwGBZM3RkthOChi
-         s9Ca+KJQKwAonTBOWjoVxkT07RpeRMpmjNF1ZiVt4I+PBoknX2zZyJA1pzejDeShQaEc
-         94OdqATBkeKtJrVT4cA5CHld7qJlU+FUEkIDfNiGSSKQgA0VfMFqadOBa2h351G25nrF
-         InLVHKc+PU43ZTTpYshQkb67iBhkJ1ZnTqk+g0SPviVYuZ2ggjvWcr+HY/mKOJlu1Q8S
-         9xvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794155014; x=1794759814;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
-        b=twdM9NPybtonLvN9x0zm/eqdAhqSVi1Bo2w3snIQs6HNsBs2FeM5zFk+6JXhOBAY7A
-         YW9X2KzE9VXMPorT5j6gTQk2YD9yWsVOGLeNHmtfhO2fnzSFCU+qiMtziC+19QtK0FcU
-         liaIQ89Iax+gBkZmSnFzY2t3ZQyPNq35jbehr8FrD8uGRyTrl/dmvvejGqDDUenzLssr
-         Y84uyomUmVFJf1sIzKq8gDRLGxmYEIbLH5STpNaen3HSIkeUDlyxy7yQh5ywchK+gwYn
-         p2tZ1M7/Rp56aYzYp+tqdPr3GiNZoaTVAL6KyYrAJQFmzGpXmy1peZcl7fVXP91LRpE6
-         wz0A==
-X-Forwarded-Encrypted: i=1; AL+hErFamA1/RRuY7b9ZIbRj3nRPY28TfYuOMW7KRIFihJn7xntwFdk0I6IuSw54Lfhqks/MDoV8g6WGeVXEC+A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8figaUS8T2bLOANS3C57xSL4/83m7CVodUscqAiEhcUjpMkYbJ
-	1aLmGZpwlF1AWx/AzJXgR1jbzP3iokBHx2r/OQdDYHhukWCRKxIaL5pOMEIrQ2TjMjwDFR3z9LL
-	/RLC28EFCQefEfzd7wWSBj524buWUcoqUij5uHmY=
-X-Gm-Gg: AYBFou0bFYFiiNLTjABDLOhkL5jk4yFmfoZ0Bzoql6uWOte6jI68Sou8g/nOs2n9BjF
-	aEUhNron4u/ZZAqszeaxakJlotP+l4k9BCrJMwFA+nITHWmaBMxjwH+m4dR/OfJItFkJEnzzXFd
-	sDKhyTDmG9EbYf/UCFL9egdH9614y0o3N+aHattgDU9aZFmE9k8qoVIo3zbevIXZ28KerrCt05A
-	VSylRilCRXpnlIlatKn37hzX9pPs/PoTUdWwYRW+ubSolscb8ROxjr8EPO78VrO1MvbgS9rWgl0
-	cMPgyuqA83PONnrQLHZORP10BOx36qGMvdx7xRJ0nrH7klmmycFM8a7UdEYeU/j/zkjqgbQuxqJ
-	CFmIk4xz4DgQPkqr3G/StTw1ydw+34v4vN+sLX2U=
-X-Received: by 2002:a05:6402:5d5:b0:6b5:7d7b:8e9b with SMTP id
- 4fb4d7f45d1cf-6b7224c2f0emr1191262a12.39.1794155013502; Sun, 08 Nov 2026
- 08:23:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WUS2mJSK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794155053; x=1825691053;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2z7+Kqr4x9FWONKtsCoDgKGuvbSo1KMrBeyVW4Th+1c=;
+  b=WUS2mJSK0ZAJ7wmEywlMdYguLxfVZAEvcmJ4iJP/jdLEgwT24ASNjxDW
+   yqHrcSn5K2HfiR9fxRtiuR37Kuvzt2ZSoj+PB6kn0Js+Mz7KQAE9fNPgM
+   nrgO1Y5unUSq9zCd8X/nn9ZLUkbGwV274AtA/oAa/XYaOUByXGZ4fsGPg
+   arWD6+LJoCTmCYjtJYv+8nNlTrxYvpHEC1Oq1egjXZowMLcTyTQZl7BK9
+   BU77Yo6UbxcDDG+x7QeeRS+mX9fRrDzlqMe2vx/5Oh5rpkNSiEGTwzSb3
+   0ndr2bqHHPPu9/8z+1KeXVgNEHl1oUcBQmxhKpq1e2hRP5dpFMwR4DYiC
+   A==;
+X-CSE-ConnectionGUID: /zG9wqsNQQuFy+75uawj4A==
+X-CSE-MsgGUID: dSCDuU4ER9e3Jk+mroZ6jA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2787682"
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="2787682"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 08:24:13 -0800
+X-CSE-ConnectionGUID: dK0PerLJSsyMfLXnUiUvhw==
+X-CSE-MsgGUID: TPNNuuA8TkeKE0LZmUiCnw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="7724291"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 08 Nov 2026 08:24:08 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQ5gb-00000000tAN-0ZRf;
+	Sun, 08 Nov 2026 16:24:05 +0000
+Date: Mon, 9 Nov 2026 00:23:47 +0800
+From: kernel test robot <lkp@intel.com>
+To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Sunil-kumar.Dommati@amd.com,
+	vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
+	venkataprasad.potturu@amd.com,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Siva Subramanian Ravi Saravanan <sravisar@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 3/6] ASoC: soc-acpi: move common function topology
+ helpers
+Message-ID: <202611090051.8jaT0pb0-lkp@intel.com>
+References: <20261107192744.2027264-4-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,83 +95,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: l I <paleahn@gmail.com>
-Date: Mon, 9 Nov 2026 01:23:23 +0900
-X-Gm-Features: AclHuK9mdZuqrGW00y6ghnPOTpI98t3rq9gilErH6RQdBVw6SGfvsEJSSGJmvU0
-Message-ID: <CALcE18MKy0KbTC=mb0ir-g7g_YaN5AzPS=9MELTW84tyw0JemQ@mail.gmail.com>
-Subject: [BUG] sched/rt: RLIMIT_RTTIME not reset after blocking under SCHED_OTHER
-To: peterz@infradead.org, mingo@redhat.com
-Cc: rostedt@goodmis.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107192744.2027264-4-syed.sabakareem@amd.com>
 
-Hi all,
+Hi Syed,
 
-The RLIMIT_RTTIME counter does not appear to reset when a task switches
-from SCHED_FIFO to SCHED_OTHER and then blocks. Repeating this sequence
-causes RT runtime to accumulate across sleeps, eventually triggering
-SIGXCPU even though each RT execution interval is below the limit.
+kernel test robot noticed the following build errors:
 
-The reproducer below sets RLIMIT_RTTIME to 50 ms soft / 200 ms hard,
-then repeats:
-  - Run for 8 ms under SCHED_FIFO.
-  - Switch to SCHED_OTHER.
-  - Block in nanosleep() for 10 ms.
+[auto build test ERROR on broonie-sound/for-next]
+[cannot apply to linus/master v7.4-rc1 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Expected: blocking sleep resets the RT runtime counter.
-Actual: the process is terminated by SIGXCPU.
+url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261108-005658
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261107192744.2027264-4-syed.sabakareem%40amd.com
+patch subject: [PATCH v2 3/6] ASoC: soc-acpi: move common function topology helpers
+config: csky-randconfig-1001-20261108 (https://download.01.org/0day-ci/archive/20261109/202611090051.8jaT0pb0-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611090051.8jaT0pb0-lkp@intel.com/reproduce)
 
-Reproduced on Ubuntu 7.0.0-38-generic (x86_64).
-The missing reset also appears present by source inspection in the mainline.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611090051.8jaT0pb0-lkp@intel.com/
 
-Example:
+All errors (new ones prefixed by >>, old ones prefixed by <<):
 
-#define _GNU_SOURCE
-#include <sched.h>
-#include <sys/resource.h>
-#include <time.h>
+>> ERROR: modpost: sound/soc/intel/common/snd-soc-acpi-intel-match.ko: symbol 'snd_soc_acpi_get_platform_name' undefined!
+>> ERROR: modpost: sound/soc/intel/common/snd-soc-acpi-intel-match.ko: symbol 'snd_soc_acpi_tplg_files_exist' undefined!
+>> ERROR: modpost: sound/soc/intel/common/snd-soc-acpi-intel-match.ko: symbol 'snd_soc_acpi_get_tplg_filename' undefined!
 
-static long long cpu_ns(void)
-{
-    struct timespec t;
-    if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t))
-        return -1;
-    return (long long)t.tv_sec * 1000000000 + t.tv_nsec;
-}
-
-int main(void)
-{
-    struct rlimit limit = {50000, 200000}; /* soft 50ms, hard 200ms */
-    struct sched_param fifo = {.sched_priority = 1};
-    struct sched_param normal = {.sched_priority = 0};
-
-    if (setrlimit(RLIMIT_RTTIME, &limit))
-        return 1;
-
-    for (int i = 0; i < 80; i++) {
-        if (sched_setscheduler(0, SCHED_FIFO, &fifo))
-            return 1;
-
-        long long start = cpu_ns(), now;
-        if (start < 0)
-            return 1;
-        do {
-            now = cpu_ns();
-            if (now < 0)
-                return 1;
-        } while (now - start < 8000000); /* 8ms */
-
-        if (sched_setscheduler(0, SCHED_OTHER, &normal))
-            return 1;
-
-        struct timespec sleep = {.tv_nsec = 10000000}; /* 10ms */
-        /* RT runtime should reset on blocking sleep, even under SCHED_OTHER. */
-        if (nanosleep(&sleep, 0))
-            return 1;
-    }
-    return 0;
-}
-
-
-
-Best regards,
-Geonwoo Ahn
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
