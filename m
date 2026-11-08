@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169507;
-	b=K9Z7KQIPt5uQ1rFy/7kRbUKNF1V8KjmBi6rW11B2fPC0SMZiYGnYXSA+wvhTg2/yxiXk
-	 CdH68FdOyZ1YyeA+d7FbdaQ3BaBNc2f+kGULckc1y6a/w0U43O2GAhwWSVMNvqyu7ecvA
-	 g3xT0XIMZBCEUR4tSIOdkfTfdpfk4Nx0Aq6M+Z3YNjjuzPN2XQbUKkheh0XrAO7t3iqEy
-	 8dOD7tkttGEkpRiKjW9fKYtNH0EK7Z2fjHQNByCF7WeBiXxFXgd91qwnN4ho9q8jWtmqZ
-	 RtZcjLeT3kNal1jdIUTOEt3z9bkAWjDrWvqXNvWHk1tr8e0t7N2i5dyUoWlSLxQA/8w==
+	t=1794169687;
+	b=eNrQv1xVaDGmuS4uoHdS54CLHQryT6iIgGt7ZiDGNzXRiZhcO4/l7AD2jSL80yCUPg5x
+	 GuwtjGQHpe6MhDixa0j3K3TDFZCJo7c/x4ooaLnaHCSrlS4HJKmHs7eXFGHEoaulk86ko
+	 +ExOVTiIlTzYClVjZonEdxoKy37qyCXzbYgjxs8a7wLYOExIt7lj/3sV92r+/TT3CVu1U
+	 ZXPpodQISXcB1cb12maI6oEKR4UaPZ7KXwix/kp6yd5VP98uD1wxuYyw6nIwkUAlNNbXG
+	 sfTjKiiuwxrTciqCDwFWQPJhdMOXjiheP7LwE5x821NOz9hfqiY7dr4/yc0TgTwnkXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169507;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169687;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=b76MrP8vb1NveZduxU4EPxdtvgqIJ0uwY1EaJx729tg=;
-	b=HZTXWoUoSq3m7q+2qi27PI8wulyf8cx9OcEw1o3lG4jATKtFczRoUlZ39ut5AQ5fCFp5
-	 XMEnYBmGzfmyjIMMMSVzTtc5JHKrsC5rzFWCoeZ8HfI8hN1F+TKtDzg2oAnTlevmJy5d/
-	 CYpnW68Rqe9uvBci9/bP987mT/J3Ym5ofVl7IQ3m+mjJLx6Gs56wNTf/MVFyNeU9jvxXk
-	 WdMOLdaVeDfEMtUXYM8OEbbeSCcI5jvJJw2INuMPnsGNy0A3mKW4Ne69x15g2MpjKL3Of
-	 AfY/gJsreP6pofXU+lviFlK4uvZN1YUrpxBuP9qcfOj03Frvz1W+FLJuMV3QMz7WS9A==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VCC0GT+39trwZ5tv5TKEwxsqF3LcbndkKMsSu0V1BgA=;
+	b=LNhIbMPl8BNi917wFZ2fdUrv0B/g6iaHDO4UC6H08gkZJUfB4uFWl3kfuOp89q5rLLmc
+	 VmmblQ+Hhbvx8FrMvdMzCef1UuDzk0LWUAcGsWI9KK84pXoGB7/6tZJO13xeDh+eB1NdK
+	 ZSDDuZfRM+pVO2Ph2K0iM9OK0lZ8t9xjX9XTPr6LYb9nAwVUXmJHwVrP7d5Jhhwl344aJ
+	 lwzaCTKBj+PHcCc6esT+zkrnCeSS80nEeAcC+kz7NuHdNg/feVfqaSC04a5PJdufIS52M
+	 w+EGokgrAYq3h71Uay9jExF47d6+vVtOlzw4IyqcvYcAFL8M5/3UixPj+wPKJ27n/pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Weojoug9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zk3AouPO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EB4606EEA4;
-	Sun,  8 Nov 2026 20:25:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655D5606A322;
+	Sun,  8 Nov 2026 20:28:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Weojoug9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7241F008A2;
-	Sun,  8 Nov 2026 20:25:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zk3AouPO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0585C1F008AB;
+	Sun,  8 Nov 2026 20:28:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169507;
-	bh=b76MrP8vb1NveZduxU4EPxdtvgqIJ0uwY1EaJx729tg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Weojoug9ywk0tz+ioo2wwc0Q3pNV/Kdp+BEt1GcdVM9NO52Ecwm9EPsIgEsoX+xyB
-	 DGG3WawGFWoVhluMbIkxJByVi2ci6aLh6XQiC+9RmC+0RFMINuG6PxFDfQP8RHNa6n
-	 WGoUKl6CS0pRzb3qcv8VFYB0/0NVZbwMtgonhq4B7j+wulAAenmxRPAlXSDi8sx+XY
-	 drPf8GVumdPYdcnPQ0ZFJ6AlB4CmrIU1AVMIb7KV8vY7ZqcPurdpgEmcwyfo0PFCcC
-	 w3YxFCJeNCyiJEOTJ4pjpGSFaN4nz7EVtjPsEMWgiyuhacz/LGxfOGSBAgWzQQF+eg
-	 kAgyP4Hn4Sb7Q==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: mukesh.savaliya@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] soc: qcom: geni-se: Avoid redundant transfer mode selection
-Date: Sun,  8 Nov 2026 14:21:29 -0600
-Message-ID: <179416929366.628393.10644528274382007761.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012-cache-se-mode-v1-0-22945ed0da29@oss.qualcomm.com>
-References: <20261012-cache-se-mode-v1-0-22945ed0da29@oss.qualcomm.com>
+	s=k20260515; t=1794169687;
+	bh=VCC0GT+39trwZ5tv5TKEwxsqF3LcbndkKMsSu0V1BgA=;
+	h=From:To:Cc:Subject:Date;
+	b=Zk3AouPO3OtZiNvvfPDC/JlpdAOcXBg/pmT5FDEXGMpHJBV9gAxuyjIyGrGF/C7AR
+	 RoBuKhKT9MRAPQ1TbDa9t5zzxxklEEyAxQIg5S/QPW7yWBpS7NvWCfL2vP09Dt+rDM
+	 ZOmwKRMZ7powC+6B/sMggVxushF+62vi8Cfs2unmI5G/1Jp9PfGZdZ+1O2wYkNTxHH
+	 cQwYgCaHDdXcNTUdoKkr+J67TyW0QhFY9Bn0eTfpq2uHGnXFxxwtwaTZsi9MBByGbw
+	 IhCDHSWc9N0gOiIIzVGhEnuae2XPLnTpzONtxNM0n7CWKyEX6C82HPT4yq6W5f8B2Q
+	 qRl9Iy9EBrp1A==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 6.1.y 0/2] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
+Date: Sun,  8 Nov 2026 12:27:56 -0800
+Message-ID: <20261108202759.117377-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,30 +60,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+Manually port two DAMON fixes that cherry-pick failed [1,2] and turned
+out to really need to be picked.  Note that seven patches [3-9] that
+also failed in the same day were having wrong Cc:stable@ tags, so
+ignored.
 
-On Mon, 12 Oct 2026 17:50:20 +0530, Viken Dadhaniya wrote:
-> The GENI transfer mode is commonly unchanged across consecutive transfers,
-> but geni_se_select_mode() currently reprograms mode-related registers on
-> every call.
-> 
-> Avoid redundant mode programming by caching the previously selected mode.
-> Pending GENI and DMA interrupt status is still cleared for cached selections
-> so stale completion status cannot complete a subsequent transfer after a
-> timeout, abort, or reset. GSI event routing remains enabled for cached GPI
-> mode selections.
-> 
-> [...]
+Patches that this series is porting.
 
-Applied, thanks!
+[1] https://lore.kernel.org/20261107054458-failed-6.1-90c2fa6adfed@kernel.org
+[2] https://lore.kernel.org/20261107055454-failed-6.1-5695abc4e742@kernel.org
 
-[1/2] soc: qcom: geni-se: Split IRQ status clearing from mode selection
-      commit: 3083e5dccccc504cf6c0b384d32334dfc576a92e
-[2/2] soc: qcom: geni-se: Avoid redundant transfer mode selection
-      commit: 3096ee721a7f444f67d1dbac8361bc8612c72baa
+Patches that also cherry-pick failed but deliverately ignored.
 
-Best regards,
+[3] https://lore.kernel.org/20261107054658-failed-6.1-cec08aad3def@kernel.org
+[4] https://lore.kernel.org/20261107054701-failed-6.1-1bfb9384ae0e@kernel.org
+[5] https://lore.kernel.org/20261107054705-failed-6.1-6f276422aded@kernel.org
+[6] https://lore.kernel.org/20261107054708-failed-6.1-a1c7fdaf1657@kernel.org
+[7] https://lore.kernel.org/20261107054711-failed-6.1-409d2ab6d982@kernel.org
+[8] https://lore.kernel.org/20261107054714-failed-6.1-1d2397b2c414@kernel.org
+[9] https://lore.kernel.org/20261107054721-failed-6.1-1c3352282063@kernel.org
+
+Changes from RFC
+- RFC: https://lore.kernel.org/20261107224800.340250-1-sj@kernel.org
+- None.
+
+SJ Park (2):
+  mm/damon/core: skip applying scheme if region split for quota fails
+  mm/damon/core: remove unreachable damos charge_{target,addr}_from
+
+ mm/damon/core.c | 34 ++++++++++++++++++++++++++++++----
+ 1 file changed, 30 insertions(+), 4 deletions(-)
+
+
+base-commit: 718bf49618bbf78a08ab69ed0dfffa8e8f917cfa
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.47.3
