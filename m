@@ -1,62 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169420;
-	b=i2f/koE2UvC82O4fOW9A8M2uWIzj/8WnJ77rrY2ARiL0P6DIkmHgSotrA0OFKbDoc/2F
-	 6jYjcb748m+hqPbKRvjPD0K7j9SxTSHLvVdI1m0Ds85eaFORCWMljZMHdLF/JidIr2Vu4
-	 7+wH8fphQmpRNnT3ay/GlCr1YMf0QAGKTBTO6NIo9v0qyzLDDJ5DCzJUg3rj+AchRsywP
-	 ktdN0e6rVWxi/FJCciyD4BilOsNk0Kzm5FS4wLYkq4NsE4l90oZJ36KD9styMcarUP0ry
-	 oJWS6vk+9fm0iJtWDvhL8SQpjcEsH/ryucKemPKx5JjJlCpx9+Hevp+faig5nGmpuPg==
+	t=1794169431;
+	b=WIa8xjPixUiyO2VphPaW4+c9T1qQh6f855TM+FwJW6LLDIP+5LgKS8EN5tpfxqkLIVmo
+	 uNUfigiFxsx9ZfoLu72UattjgfU4jQK+FFhZIHulM9o6RNllcikPi16BrZZ6FJB3iYwfb
+	 mgWdEBAiS+r0Cpk9NRpjfakH4zto+OfiqojYrROQtKD9GulzhJLVp2GERvZpVeJfuMoBZ
+	 r6EEEp/FJyi/k4/xe6Wf2vuCV7eLKeoBtGVZAC9KSeHLPYIE1ZVrGGKUOwFd4Ty8CWMBN
+	 LANHEbIawXrF8al3kBitNALbiSwcPI8oD9Y5Q85iruDy/jmY4rohlC/II4lHTBeV+cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169431;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=TwU2Y+hzki95ysuTi4JjEIpttEYFac5IFIOZYIJ7PSY=;
-	b=MuFKKdXyrmIL341ZlxlGuCTuFERJkZoHG0Md0tg1Pmm00Wv0CKqHApCZZnfcBp91zugk
-	 PJC+QfCTfUNQoNY+vR8FKDjNQlscNIpDVI3hAYI644tkBCEqlblnoPsyuIADWFk7Mcd+7
-	 FkSsIeGkVwd13bqDK/a6+ylarR9B5Mb0afCYmNtLSi53v/XWGpd6EZZj6nKJIjPLg4NZ9
-	 xBc9Oe0YOKig0F/ZevHwsfN8G4EVS7inDawRmG7tkXachbMP4GjYfrLdVQUkY6H64J+Ox
-	 pde6klhgvI3AtwsAERQONi2OBa5J9hhiGzwS4Ivgo7PmxC8caFpI2SOZ9lo3eHss0fQ==
+	bh=DoQ6nAPtJ8l/8dNBg0bwYAbqA1pn7f0aXlCBcs+0TMs=;
+	b=yC/zjsP6hGvcjY50XunKyilMq4cVJVNPuJR4ZrGdY5bkZ6GW50P+gNGgmUaOuGCO0gyy
+	 agDUcWsOYBREEA2TueFWW9C2MHxD/gf4zd0XP+PnaPJUKl43jTRaTLAWx7dbnmR1JsC1r
+	 2FHt5XybFBs2NCtNqwziy8le/bYI1YzQMHHCsBtll6vXcQttkhJW4ZDjytWgG5oHAnf2H
+	 HHMM/P8g0YVvJKwqDdyig7o+Ihc3mgV0YBtUX79ofB4rxgP8si9XdUwDuYXGCJehWC/gN
+	 GKWZNRVL8sDcWhYfwxUaCKQYWwJp3YZ0C3LM9TRVtNYPJSwyOkGkkf8090ok5i6IpeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSbBSaA7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORSUEUOq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907FA6073428;
-	Sun,  8 Nov 2026 20:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C9560746BD;
+	Sun,  8 Nov 2026 20:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSbBSaA7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50FD51F008A1;
-	Sun,  8 Nov 2026 20:23:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORSUEUOq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E6931F008A2;
+	Sun,  8 Nov 2026 20:23:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169420;
-	bh=TwU2Y+hzki95ysuTi4JjEIpttEYFac5IFIOZYIJ7PSY=;
+	s=k20260515; t=1794169431;
+	bh=DoQ6nAPtJ8l/8dNBg0bwYAbqA1pn7f0aXlCBcs+0TMs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TSbBSaA7M+42dFwaLKzfWP9F8130BkSFKN1tMfHZXpi/CDrncvPqBo3mppUXXEWvG
-	 TVg4St4L3QOwguIPaFmc8TZYYCFuh2uquRv4jLHGQwyyPaq9zPW19XJCmSDFiG2ku4
-	 LWy1IGsxtjGjFqYpU0SXZY59aE/kosbj1+nNRfFzQhyz7wLxBJ9cCqAr/wDEz4JwXk
-	 7xh9WuDEtGNUv0u0OMV9kN39mRNRc+vBfxOkmFaut5+Rkd8W21mkHz75/wqA6c0Oei
-	 OXNnLQHNQkrtUOk0aRpv7DN5YspAN9/PzfSMcCO//T3eP7l/468SFKmdXhegk22Ghf
-	 3ig6HL7tucffA==
+	b=ORSUEUOqP1JmNawdSzUAW0BCzzDtaWCX5/s4ex5zC2/XU12+58gCEdlFonizypBXY
+	 +AlX98CQeP+4zGgb4bUJWA0D3OgW5pvHVXz+vsttafDwTZNu5Q9eoLQVHbNcTJ82nq
+	 IM62FtmS5m+JJixvxWchFJP3NZnWg0GFRcNrbS2UEgFOjbJE+f+D9UpAqk53JC4ecz
+	 2Ul/9Kr++tVXQF6Bt9p3xlWzNu8WNVLMBlGYE7uij+RFY01szT4a/NlOXqurWaeZmC
+	 r4We3vpKYTUQTBzsw4DhYzVyLf1DKenIcT8Tn8AYbYU5uK0Tw+oYm73AdaM6yTjFbd
+	 VMeg3hgJXKe/Q==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
-	Harshal Dev <harshal.dev@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: (subset) [PATCH 1/2] firmware: qcom: pas-tee: Always initialize resource table output size
-Date: Sun,  8 Nov 2026 14:20:23 -0600
-Message-ID: <179416929546.628393.8375115262933948163.b4-ty@b4>
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-monza-som: Add ADC thermal channels
+Date: Sun,  8 Nov 2026 14:20:32 -0600
+Message-ID: <179416929503.628393.1735702945485310830.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102150110.227479-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261102150110.227479-3-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261028-monza-therm-v1-1-dfe4759c15bd@oss.qualcomm.com>
+References: <20261028-monza-therm-v1-1-dfe4759c15bd@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,20 +69,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 02 Nov 2026 16:01:11 +0100, Krzysztof Kozlowski wrote:
-> qcom_pas_tee_get_rsc_table() sets the "output_rt_size" only when the first
-> TEE invocation reports a size smaller than the input table, or when the
-> second invocation returns a non-zero size.  If the TEE reports a size
-> bigger or equal to the input size on the first call, but then returns
-> size of 0 on the second call, the function returns NULL (no table) and
-> leaves "output_rt_size" output parameter untouched.
+On Wed, 28 Oct 2026 15:17:18 +0100, Loic Poulain wrote:
+> Add ADC5 GEN3 thermistor channels to pmm8620au_0 and pmm8650au_1 ADC
+> nodes for thermal monitoring on the Monaco Monza SoM:
+> 
+> - pmm8620au_0: XO, UFS/eMMC, and SoC thermistors (AMUX1, AMUX5, AMUX6)
+> - pmm8650au_1: SDRAM thermistor (AMUX6)
+> 
+> All channels use 100K pull-up.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/2] firmware: qcom: pas-tee: Fix purely theoretical out-of-bounds read of resource table
-      commit: 203dd5eb5b223cc10f674c1b9e5be507fbd06a59
+[1/1] arm64: dts: qcom: monaco-monza-som: Add ADC thermal channels
+      commit: 99b384802d2895172f0306c4e6d846b9fff23580
 
 Best regards,
 -- 
