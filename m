@@ -1,66 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169395;
-	b=QfogC9AwiwHhCkWQv0eLXqsQNkW7blhZG0UobeyLo3poun2iEbmV42jRBBoqA+Q6MoGl
-	 yn+f49yyX4zvXpqyTDjxaWV/EZIY1iA0bgBa5WsXFaghJFE3/mzCEhWWDTjeoyLxOP0ri
-	 9lHijt8W4yQxFgx4eK6T8XQCFW1QhDe+Dq6g8a9cwOCdRPZJpx4N2dWrrCvsD+BwEPtvP
-	 /Fg+pwf/rN8F0nl9xPbM1KkeF9Z3w1VezzRNhWpL11uvz7qfxu0gyHmTv/MGAcvLujhmG
-	 Wf+hq/xDmOQZc/uY4/ZU3oqrIXJkNCONOLyMOte8lu+fiuTVDsQwG/ySxgJNN1ZSZkw==
+	t=1794169416;
+	b=ftzxd40udlCYPaq0pASK31UyFSXOGZlN0z3uVtHlTsA8HYVfDKt3E6pIk6G9L5S8u7+j
+	 Uqk2IrhnKqZM7D18PivI3M/fOvQC0LcZKI+Xer3JDljwNLWr5J828tQazgKyPyElKNt5o
+	 O+FT+jifx7XVNE1kE44Fs/qQ4s0VmGAoTo8qPB3zJZcP/LO12zINpKILklLqb/RMa2Zh3
+	 iMIskjDsmXWs9/GNdJJRavklXM9auU5zeFCcC8/0D12R7XzAZb7XlFkozbMA6aYl+Fj2w
+	 70+bIDV5MNhV0hHeftXOXXo+qtBoaZwNWLHeo6G66+qIbDZ4XKyhcxFLrvK/IRM+eOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169395;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169416;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=9coBeaa1a2tcCZf4rJ/VAAs3WKuWv+I2GdA5wSwDE3k=;
-	b=f+BX4n70QYfxIgfkArN+0SJHT3C1RNWTKlq1vKuolXZB+aoX7om7hJy0f0kaiuSy/5Nt
-	 emMBIsPwT/ZmoBu56vBNfgkXRHX987COeO+hM4fYniMoQzPXO3OekKvqpWGParKH6DWN9
-	 FN7/Tnvv9NH39PrW3d31HFwn3sjMtK0KWNLEtMWjynTMtfopmkfipuhB+MGdfXF8p+wIk
-	 Jh8xM9HrlyhfDdXD5Jd2Lzl7SA1QRZ7aD2PnI403E7JWDJYQ+HQstHoe/C+hiJzKa+8Y9
-	 wuabZiAKoAbGE8M5/DPrZJVXAcexPXj77VFjafEEQGIAfYmZ4qDGo5Ww8u8ZA39Sthg==
+	bh=lfQc8iXIa3Ze3No286j125Gsum0OmdmIGicz87DnSqg=;
+	b=0s1ox8gq5FAQC55DNIdq/6nyCilCeHXemUHjCZ+KB6XR6jEnL6+5MSnWvpbyGMIrsvnL
+	 zXXYZPmzHdeb9UW5v7ObKTEAfoHqDoPMKTYC06DndwZe6gqApcXQOmc4y6A8iYvntTdVa
+	 BdelZW/tgn2j6EFBC598UQj7UjU0E5c9oXeVOjPUSA6W9gPZ+V4l7rLysc7XZ7KpSPBcg
+	 H1w5ZtiMVimg9lqs7m4ARF9JiFNY5AXl1Ay4I9J/NgdG3SAF/DwT5rcMwX5FbfjIuKXO1
+	 wMVOSqNRPmEaMG+P+IR5HcQju2UVNfv0JazATN1NWmQlNh/c+Hwf+Vmjy4yZkuQwrGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYO5zkuv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9+FzKPZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC920606F8DE;
-	Sun,  8 Nov 2026 20:23:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A247607298E;
+	Sun,  8 Nov 2026 20:23:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYO5zkuv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397521F00904;
-	Sun,  8 Nov 2026 20:23:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9+FzKPZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A85D1F008A4;
+	Sun,  8 Nov 2026 20:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169394;
-	bh=9coBeaa1a2tcCZf4rJ/VAAs3WKuWv+I2GdA5wSwDE3k=;
+	s=k20260515; t=1794169416;
+	bh=lfQc8iXIa3Ze3No286j125Gsum0OmdmIGicz87DnSqg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lYO5zkuvXYn5P2oqqOZjynaBhZ1q8b9Vnv+4u4Y8CUjrR1aoe4Pk8l37mhHJmGmEX
-	 jfL6ZHGkNRgO3AP/uac/ptTlFbrZ1eCdgPfvry6wK/t03hdm3tqfKayqQ/RzPxPWKM
-	 C0ikSLe9iZYz8YQco2OkY4Azesy4zfpfQ15MbeMRagkwrsl7CDoxyi7eOJSZftI3gi
-	 9RfGgwuN+UmtgN2Oly3n90baB9h0zzJpUmkc4NPIyP4OLucoWZpbLMTwZ1ffBr7kpY
-	 3onxMypbw5mKwnKcf+WbKg5f0lLYVHDaXdv0fJlbiPL42EpScQbnSK2dbmMS2V/Ow/
-	 mBq3OcGhA2CPw==
+	b=U9+FzKPZ6TBQ8NazibwJOXhJGZKUF67A16k9j4TOdCis92iyRVxdbUs3wZaEujBw0
+	 BoI9oRCTl8K153zxua1133lEcfIvd2Yr3pD7rYbOsZA8ofysy4g59RN6/MppBqRwIM
+	 xAdcaz35TUmEg8MjdgsM0QrrltnPydY0xGhm7Z3iSVS+z5SNFTJY62vnTrg69MwIU+
+	 C7MavKHVncICtpwYheK01AgM5OoVa5V2zKFGCFnME2BZ7V7EsodX15zEz/qlz/UZ4L
+	 0xcRJXV8A9ko6B8Vq8Z3JUAipxEmdvlYZ5c3lrqu2x3/ofZM6Ku7AGClvl/2xiigv6
+	 HKvUQ4jLG7n6A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Xin Liu <xin.liu@oss.qualcomm.com>,
-	Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Nikita Travkin <nikita@trvn.ru>,
-	Birk Skyum <birk.skyum@pm.me>,
-	Stephan Gerhold <stephan.gerhold@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: x1: split PAS remoteproc iommus out of x1-el2
-Date: Sun,  8 Nov 2026 14:20:02 -0600
-Message-ID: <179416929249.628393.6579898779701344795.b4-ty@b4>
+Subject: Re: [PATCH 0/6] Mark USB controllers as dma-coherent
+Date: Sun,  8 Nov 2026 14:20:20 -0600
+Message-ID: <179416929518.628393.10940217407625956966.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
-References: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
+In-Reply-To: <20261030-usb-dma-coherent-v1-0-3147b8f7aa64@oss.qualcomm.com>
+References: <20261030-usb-dma-coherent-v1-0-3147b8f7aa64@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,24 +69,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 14 Sep 2026 21:42:21 +0200, Jens Glathe wrote:
-> The shared x1-el2 overlay currently attaches apps_smmu streams to
-> remoteproc_adsp/cdsp so Linux can program those SIDs when PAS is
-> used to authenticate and reset the DSPs.
+On Fri, 30 Oct 2026 00:03:37 +0530, Krishna Kurapati wrote:
+> The USB controllers on some platforms are DMA coherent but that property
+> is not marked in DT. Fix it up.
 > 
-> That is wrong for the common WoA EL2 path (slbounce + shipping
-> UEFI). There the DSPs are already running from the bootloader and
-> the SMMU probe path leaves their SIDs in bypass. Describing iommus
-> on the remoteproc nodes replaces that bypass with a translated
-> context that is never set up, and boot dies in an SMMU fault storm
-> on SID 0x1000 before userspace.
-> 
-> [...]
+> This series has only been compile tested.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: x1: split PAS remoteproc iommus out of x1-el2
-      commit: 8ba94ea5c00168124ba0c96523ecdabcde652e0f
+[1/6] arm64: dts: qcom: sdx75: Mark USB controller as DMA coherent
+      commit: 8c777d79260a946b9a7ebbea865d40e49f59b7c0
+[2/6] arm64: dts: qcom: lemans: Mark USB controllers as DMA coherent
+      commit: cab6abc29dcdf59c244050bda3d66aaa2b249292
+[3/6] arm64: dts: qcom: sm8450: Mark USB controller as DMA coherent
+      commit: 81e5244cb994a6d34038fc7aadcace59bfaae455
+[4/6] arm64: dts: qcom: qdu1000: Mark USB controller as DMA coherent
+      commit: cd5348659104430cc8372e7bf42127a88d5e69d0
+[5/6] arm64: dts: qcom: kodiak: Mark USB controllers as DMA coherent
+      commit: 2e0340fe0d5cb3bb55cae62c3571320aaaec8e68
+[6/6] arm64: dts: qcom: sm8350: Mark USB controllers as DMA coherent
+      commit: ceab259867f89a97f12b247a00ed1c306a175575
 
 Best regards,
 -- 
