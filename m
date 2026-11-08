@@ -1,75 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169434;
-	b=PGmyJG65ZofreAGI3806V3ZeAq3TaYoF4zF+FatWE7srVMvxmBQU0CQe+jNZx16zBWeU
-	 nb06ZXiivZ3VqYWRZqMB5LyYV2Fsz+09DEYk9zL9lqzjyAcazSXSlqcRqjCyzeql8PdnT
-	 ZZOKenCFo8VwIvFFuQocadMiZaE8XofJ7l5sQ/KaG2LLq2iUBWoL6sZKRHkafpUynvPKF
-	 DwLZeEZdgOCWyjeWK+a9W03k4Bo3FjGnRuK6zms76yQVclwSTriwuyofaL3J5EkCutLXI
-	 tgA9G5qdmUHnW+51LMarZ7h6fiUxCdh82Pu2rIJorriCfcKnbefU1h1p/OMyL4GrZxw==
+	t=1794169429;
+	b=YS18eDqWlLQ4fGQZHv6SLI7dbg0c37k7yY5aeUdl4l4TOr3L/PMGTZTZZ5TvlVWYB7YH
+	 rGBPNiAy8GXtOpfH2/g9lzeR8numtI9ChYB+qowH8mC3GxemSpud5sUTmVnEfJAPSEGkD
+	 1G2aSrPmTKryVwUxz+Qaa+Xbzor56V2evxWJkfNL9VqHOH4Pspa5cemmPc9vcvZUSGmHu
+	 LJl5Viv+mQEeG81M+xaY6U/65jl5tZjG2c6CokNVmiiRVKif1/DE1CwcRsLyNFND+/OZk
+	 1Ez0qVFSMM0YjhhhdHp9xhvokmhvPGO+Kl1ABhu7WRpitSYZigvHoutfg2wfqonYY0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169434;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169429;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=qBaFjQFLcBBSS0/yQ9Bg9k/67NFL5hQgBHEWS8yf9kI=;
-	b=I7rGi9Tv1pFJ7untXlJJnyRVP75n0caLsjvUyOVYbSqaw6nExgHdoqSC2dL3n48rw3Nb
-	 pfWtyuXdVvejfGyKhIcKFCmbJ9V36zf6zEX6dAIL07FQ1wGPeazbm6bMK+A+RrVlkOVMM
-	 EXCYMu2CbTEvRE/pnL43PaeiyV9jIaPa+aW3krdZq4n094Wl5n9hv23cfYv9arFJJo3mU
-	 wma+YHhCRT0n/TLgt0QZoB942LMnqKLNK9+rMv/35QTD44obqA/MZlm6Mv4YupLeavuQh
-	 iqi1ZXoVGqtABMsvJ1WbhX95iIAQRByyynk0QblcROfUTuxwmqrpXZc90e3L+k27l9Q==
+	bh=i0ZLjJo/UfIz3f09M0iovuRDq8GoCb76iB0KMLGuC6s=;
+	b=ABm/vet0wQx7Jk6KFFDSoBj3QDL/7gBOKoBFcsXLWetRejWBBKzCGrILXDm6gAss+d/7
+	 xmBFM5SLkltNkspK1ibU8wPPYpYP/Y0biVn53T5aONZby9jF0MK/RVz5JYwgLyrOjo4Tu
+	 AlRtsnw0IR8mkFSA8RedUNm5OEN5Sc1YdRKbEaZjmyu72YcE/46lXMOXY232NEC7R4iKh
+	 qqurHrAMpdZSySRCnak+NCskQtXRbTzbFGNN3HkxdNKMRV/yroFiYaVztGI5gZeO7gPpH
+	 3GTSJNwLe9ildn5JR1a6WZtMhJ/H1otKVewIYqfqmrMTyM2V/HhB0uWh22fHmWsPVsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnne1OJ+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahWlRXzo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90536074FA7;
-	Sun,  8 Nov 2026 20:23:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F866074684;
+	Sun,  8 Nov 2026 20:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnne1OJ+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523781F008BF;
-	Sun,  8 Nov 2026 20:23:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahWlRXzo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E2D1F008AB;
+	Sun,  8 Nov 2026 20:23:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169433;
-	bh=qBaFjQFLcBBSS0/yQ9Bg9k/67NFL5hQgBHEWS8yf9kI=;
+	s=k20260515; t=1794169428;
+	bh=i0ZLjJo/UfIz3f09M0iovuRDq8GoCb76iB0KMLGuC6s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mnne1OJ+viWuJ6aHQAjROXw5814T7pS5sGtHwzXTTzw4CtTQOTjZB09A/MrlGZdAB
-	 w9aHipCeUHb5sIBvOKvvIw3lKyk/HZUVL9Lv+OMU9M/suEsl0cuL+wjT2lX8c0dI9Z
-	 OpSLOiy5JcihLkbanYf7K/g0r/XK3vhWe1fMrkCvhhQGuEh3MWzRMsTz7YljPxusze
-	 fr/ymr/REBAAZRdWSVKW75U8wpzaNYgTn4ZS+sYzvb3SgBSMjIeaDcHT3bBXxJzHFS
-	 ORNPRtpAiHX5Hn5f1ayn2E4ejAAOFBZqhVcIUQST+dXfx7FSDHvl58vP7RiTfqLoj1
-	 Y/wzF7meWE64w==
+	b=ahWlRXzodFcAI9X50iZq/FgVLt6m1TBlVHBbk7o008LC0kr359j92wR7PdugRnvxt
+	 2LiIZPwqqBEBUiy+QJvgYmmc9hhEf72enEvrCXJ9qaqYV2DH5GnXkbAkmu1Plstb9R
+	 kjJwAXNDayncqvnTyVpH7MJwty4MEz9fziqioV7rGjIU8mmHMrONgai94Hv1xJEUFo
+	 45wIH+8j5fzVIj6WaMGMmHn5VaoFAeyW78/61+mWqwwqvVNyXEbt2eb4J5w2xrN41o
+	 1xb1eztu4d3V2zxhrngaQ1mtR4/95x2AOvyBWw7kq5thTjMjryn7RGoaFbS+fiWI6/
+	 SeuALJ9xsLaGQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Douglas Anderson <dianders@chromium.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	cros-qcom-dts-watchers@chromium.org,
-	Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Jasper Korten <jja2000@gmail.com>,
-	Luca Weiss <luca@lucaweiss.eu>,
-	Federico Amedeo Izzo <federico@izzo.pro>
-Subject: Re: (subset) [PATCH 0/3] Support for the Samsung Galaxy Book2 Go (SC7280)
-Date: Sun,  8 Nov 2026 14:20:33 -0600
-Message-ID: <179416929372.628393.6400266306544455392.b4-ty@b4>
+	linux-arm-kernel@lists.infradead.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v5] ARM/arm64: defconfig: Drop redundant Qualcomm interconnect entries
+Date: Sun,  8 Nov 2026 14:20:30 -0600
+Message-ID: <179416929565.628393.5609774813055347117.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
-References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+In-Reply-To: <20261104-interconnect-qcom-clean-arm64-v5-1-395baa0c0bdd@oss.qualcomm.com>
+References: <20261104-interconnect-qcom-clean-arm64-v5-1-395baa0c0bdd@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,14 +66,13 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 12 Oct 2026 20:11:02 +0200, Luca Weiss wrote:
-> Add basic support for the Samsung Galaxy Book2 Go laptop. Basic support
-> is just eDP panel support, devicetree bindings and a devicetree.
+On Wed, 04 Nov 2026 15:46:20 +0100, Krzysztof Kozlowski wrote:
+> Drop all drivers from defconfig which have defaults in Kconfig.
 
 Applied, thanks!
 
-[2/3] dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
-      commit: ac299104cdfbac5b0fa2846eff77192d804c60ef
+[1/1] ARM/arm64: defconfig: Drop redundant Qualcomm interconnect entries
+      commit: f3f0178e6d6a625ec9522f194420de99934bcb60
 
 Best regards,
 -- 
