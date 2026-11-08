@@ -1,67 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169509;
-	b=CK6f+g7WBKl7aoDfNzDB8FK7gb1y506FK7bPGzIzCqk7uKXz85tf84ww7iSRi8i/SD04
-	 T8Sy8biviJQXiUadKowvI3wxEZ+4xSpr/EUCEtWPBLbf5ZVSi9WX3WHbvGJ50wOK6HOo4
-	 lcdt8lPTi8ZjO3+grgVJGxsM2O6YQ6WtQ5EciJXJzOoqJCF2RraL10ZufJEAkwbGlHJwz
-	 Uv+yPoo2rIQI5tRb62DFo8XxJGa/Q6+IwWoDdQhbC2eXzlxHcNqpUwVLxgCbFRhCX0YnO
-	 jqRiviRud6ePhfUzfhvVEGOoOCIkRdvnNoXLUx7pK98hu7GSBRLe78385yfCUUFvF3Q==
+	t=1794169522;
+	b=e8vfr6uNa2aMqACHLmh0iojWY1ADfAEQROY4PQFCv6POjBBrXV8TgK2VEc1zRaScuowd
+	 YT4DR1FCTE8IhEeb40/sJ1VX5VCzfZF9KGfxaM4PDUIV+erDq/lDzg0x4N8STjMXyrIMg
+	 235/Rspou8X6EelH5PkVV3zfwl9WaIEEb18n6mPcB0YmxQhh4VI153fX94IEkxCpG0xeL
+	 /vgv/2D4JwYbidCMCqWM2yQ9YaaQQwlvl5EG7TO0zQWMX76+pu0/abDD2I5xkUn2yqDoO
+	 iYsFfr9CgDuT1iTXpMD6c02V2Qk5Vig9qhU2FIxJKpRgQ3XrZTXrqzhzrOHeE92nyOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169509;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169522;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=aTg+BcIijMbI1Tm0Fb4oV5T85hmX5vQ1Q0bXYVwtLoM=;
-	b=Eiv4p3ts63qZrHkhSKiomrS073ckbTII25giAOAiQbf+84FMpW6UvAQPrn72Vc0UaBHp
-	 NkWu1BmoBquFqtNhcQtxidOxtEFuwrjjXfe6EGuaPkpVAAYgaWDcURZUjv+9pvjbdA+V8
-	 IJjRK+lR2o5NnHojoxtLHyynrmKpr5c/3c5QqtTXjsj9PPl/EG3kAo/WTYYSBxfI18pEX
-	 jL8rQNFE2W3hXqdZPhgxvOozloWwVbLcyLb/aXzRMC91oJsObYdPwXtRsX19mlFCRGPE9
-	 bFpkSMEmBHH+D0A7aDYvEe51polUVh6Y0P7xCEAC4nwt2AN0J2tZwmYMUXwigZ0lfgQ==
+	bh=vEpfVgvWDM4KmL55CE5daC+CQd28CbR4NeJ6R77tUa8=;
+	b=wzOLCXXGPEz+p2BTz+r8sYhvLqtXlaezIR8+WCQ7hfki8ceXmrVRQFn/DBgOYzW4ZzL9
+	 p6EE7SROjsyTLx6Xbksen7GoNa4IylEOZ0oD6PYa/4FhT1mEwExnPGf9futh1ulEE+JCN
+	 YYrF8ITHnCESQamcyEHJdxWkxLoQNAE6JNPlo2K4Q3jL3jl6hV6LFxnPoKluznVsdJU9d
+	 0MLW1uEhX/yhyat/+oWMDwOBy12etzYkI1vekoZxOgapi7h6v+HDUgKs+v4gV+lESXa3a
+	 9qRy8s7ESVJCMhGttN935GwrZlER5+er89Wrfb8pOAln3vLWmt1bzPApLW6/Ea4Wbwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5aA0lB0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wccb2cTa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8346081EF3;
-	Sun,  8 Nov 2026 20:25:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BA76084EDB;
+	Sun,  8 Nov 2026 20:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5aA0lB0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768C81F008A6;
-	Sun,  8 Nov 2026 20:25:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wccb2cTa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF8A1F008A7;
+	Sun,  8 Nov 2026 20:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169508;
-	bh=aTg+BcIijMbI1Tm0Fb4oV5T85hmX5vQ1Q0bXYVwtLoM=;
+	s=k20260515; t=1794169522;
+	bh=vEpfVgvWDM4KmL55CE5daC+CQd28CbR4NeJ6R77tUa8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A5aA0lB0Bdob9zl3oOrj0L8396begvPJt5v5xgVo3eXP7qTx6WjxbTLojgSRvlQ3A
-	 d4NiUArFyBK1GvSnKOT6THd2bMA3smp1sXqFHTeS08hp2jgzLb/5zievsDfpRSikeE
-	 CsxAy0CYHJlGnxEG+Xf6qWt1WAow/9B9abCnRkcnqSlOJaY8y9SN7okQpMi+1y9eht
-	 MKyvjgELioNquEFEdHJ7uLIyGydDrZFVmd0gDoXOnPKtAMBSGo4+n3C/jdF1X46t57
-	 G3vR5pUAZj7HqWc7kdmGYUnS66pgeEPz2sykzi+33Q1sAiaGGzJFlgYeWCtV84iUns
-	 9KhXXmqI143mg==
+	b=Wccb2cTanQU5RcxsSs67G/KCxeoLHJ0+fvEDoloNNHWCPEqJVK9ONMQxf5LOd7XkJ
+	 1zvsZrzrFkc9TBVtHI2ylaKfgRe+/hrR5ufIIf/Jhfig44jqjkJdOLYdy6lyvXfv+c
+	 VeXCxRa7rjAgPhj/ZNkJ0sMnAJmB5PH6ueaVu8RCrvFxkC4K5ILc1gKf19PW69Hjtw
+	 qZci3QAoVNQinY6JuJm5y2o+1H7eZ5vrs717AchvU5fdXEPihYb9G/QFM55lCd6eV9
+	 CbDZJBcfX5q2lXwC9FEtpDyaJEU9IRJX6ChSgvIwFKGiXAWrh/QRg/StxEbrj7C9d9
+	 v3pFgtcOqTevw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-	Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+To: konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for CDSP compute CBs
-Date: Sun,  8 Nov 2026 14:21:30 -0600
-Message-ID: <179416929514.628393.4064137862863987691.b4-ty@b4>
+	tingwei.zhang@oss.qualcomm.com,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+	Ziyue zhang <ziyue.zhang@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/2] Initial support for Advantech SOM-DB5830 board
+Date: Sun,  8 Nov 2026 14:21:40 -0600
+Message-ID: <179416929274.628393.12037192351352245383.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
-References: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
+In-Reply-To: <20260928-b4-hamoa-come-v5-v5-0-05940cdca85b@oss.qualcomm.com>
+References: <20260928-b4-hamoa-come-v5-v5-0-05940cdca85b@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,20 +72,34 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 29 Oct 2026 20:11:45 +0530, Vinayak Katoch wrote:
-> The stream ID masks of compute-cb@12 and compute-cb@14 are wrong, so
-> these two context banks fail to probe.
-> 
-> Fix the masks:
->  - compute-cb@12: SID 0x0c2c, mask 0x20 -> 0x0
->  - compute-cb@14: SID 0x0c0e, mask 0x20 -> 0x40
+On Mon, 28 Sep 2026 11:18:47 +0800, Yuanjie Yang wrote:
+> Board layout:
+> +--------------------------------------------------+
+> |               SoM (Advantech SOM-6820)           |
+> |                                                  |
+> |   +------------------------------------------+   |
+> |   |     SiP (IQ X7181 EVK SiP)               |   |
+> |   |                                          |   |
+> |   |   +----------------------------------+   |   |
+> |   |   |   SoC (X1E80100)                 |   |   |
+> |   |   +----------------------------------+   |   |
+> |   |                                          |   |
+> |   +------------------------------------------+   |
+> |                                                  |
+> +------------------------+-------------------------+
+>                          |
+>                          |  Plugs into
+>                          v
+> +--------------------------------------------------+
+> |         Carrier Board (Advantech SOM-DB5830)     |
+> +--------------------------------------------------+
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for CDSP compute CBs
-      commit: afe52f52d645c31c201e1e575e781ccb50aa2848
+[2/2] arm64: dts: qcom: Add Advantech SOM-DB5830
+      commit: 5fb1997399eb2e27086f1cdd160a120314358f1d
 
 Best regards,
 -- 
