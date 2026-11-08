@@ -1,52 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794095957;
-	b=5WM26MtfzlRSYDu9g0W42ARNr1JPw3Y7Ckq32kfmAx+veypUsCssPi1AzINdXQeR/3sL
-	 tFtyFWlwuO+904qEI83Hil8fli5SarQoyeWq/nM2xVKyVIzN1GnKI9MxYhLX2TMYKCqW2
-	 nNMEfMFQ2H+JQf7Ex+2cEwKOMKIfAMSBhgx3f73HWC4pezSvI167pEBuFMHyCstNvwQMZ
-	 +tBHikorX9MkssfK4G+0OSW+oGWmsanyca3C7cOuUEhEp5BTBKW+ZXgnb99ALyEhshSL5
-	 x94GI9CWSSXm7y/e0qwvKW81ugCNg6Yk08C5uK8i5j9ALykZkOj6HRU0YB0DAKhXzNg==
+	t=1794096043;
+	b=kfdnfwODb+2AxWLXQc9TdbAO4nciMht4zNF0ozIHErp/o523PeYMo8qKxe/OsYBxo8mj
+	 5nmrVlZb1ShAdWqwJorIMumvkqgKlbwNb+OjLWNlmRgiMVUwFbQTCYfdbak/82Ej3UOFF
+	 8S1dM1aQodw1GRWfGrY02HgI67P5bjLKuJnaaU3NcnoHs/yf3y6RSUIPrMAAM867h9Dxt
+	 uTiB5OAXdJejBfbYGeJIYIs2yELtcFIEETYQ2ZW1roby/BuGu01elhi2OpQ2UO9ZBOqSK
+	 +a30ooZeEZ6bxbdaReSdXsy4vp8xakZ8DF3RaPBnSwKOfaPghvEwDBD1R2rwHKdo52A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794095957;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kCOZc6iAcXWp2hiznIFFu5kx2ZnmhlZFlmxyVqS3+No=;
-	b=UNbwIcATJKcVHdqzmtrIlV2aVGaaOMtdEWtFMW9ZVwWbO7PAiwlM6TYib6YYJrdsSXvK
-	 my3SVp2mGJi+r11JteiKpR3T2pN8PVvFBWSVrxWqSwMF97nyfcClo/nrt90Jp/4junj8y
-	 kI/Ivo91T96WqscBrsgd6zZrXS+l4poAFfrERwqjblIvpqNT1/wLNSdFS9hbUzRruQ4vj
-	 AeKR5OilKLKoPVnNeSM1bIqkKw+m0cQmP4TlkBiR5F536pZEgLeax4ZG9ZGRu4pjbXNcW
-	 Pe3WvZ3TUb3n2IuqFYUMcVXWOOEWAr5mYseApAjVOCGNf4QzmkodIk4pq6PViSGL6/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794096043;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
+	b=ispedPn1QKp/hNklmtHlO/YqPE79eo56Df+sV620lyYt7Bmao7zpHlFJ1iN4SvNU1lxX
+	 KtWSFNDuET01difQ3aQcfv5FWDIDnBwnIwUBfA+1qQ0PfIcDeaCfrjL8oOU/AE2F4Fyfh
+	 s9Xnh953eN9NO/t+QCXbxgOsscYuwMVQneXwYTalsaun0bTKBchUg6QX3+palEogYVwhq
+	 axHEEPw9Fy/N83DchPpK4FeuLA+q/6LzIREjZ5saNBl/li8ql0EvViGfzod9lrCAtu/kh
+	 4TxLdgjryeIM8z38LNC2w9B1xnMivp90Ps6B912JTLHtbmFHhkBfGwT3t35g7CnD98w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWZk7947;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UyCcoE0V;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F77606A326;
-	Sat,  7 Nov 2026 23:59:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF806606A32F
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:00:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF806606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWZk7947
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5BE1F0089F;
-	Sat,  7 Nov 2026 23:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794095957;
-	bh=kCOZc6iAcXWp2hiznIFFu5kx2ZnmhlZFlmxyVqS3+No=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PWZk7947Eka/Od4m8tnPaUmdGGsPIyF9eff4iSNWZwpX3g5wkQOPWKhUt+O5574nZ
-	 7O+pdGgsNBGGMdK5/tWtxgh0bOK71muEcTyxQ1Hbb2P2bcWRYbv1fVw3RwHJL+IdtR
-	 SVCxKs38Uaqoju1nZNt8Wlb6glCSZoYQRM8FDm6WOQyO0OKk435w25OmIkBAvIsNey
-	 pBxudCOK+6Cg4aa2BE73arJsBeDiekSrWE7r/eqkMV8vQu9bdfBFeShxJrekpqocvz
-	 ljtxk1w4k9hagcFQwy3NHgTWb85WulDaY/Jg9eQ4ZlmEOkScoc5ghGzR1rJIu57/kJ
-	 H/3h1V4GT0/wg==
-Date: Sun, 8 Nov 2026 00:59:12 +0100
-From: Thorsten Blum <blum@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Input: amijoy - mark amijoy_phys as __initconst
-Message-ID: <au-7ULg8TnNUBSRM@kernel.org>
-References: <20261107174739.369375-2-blum@kernel.org>
- <f7574ee1581d609d45e0ff35e6d908b0@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UyCcoE0V
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eb2437d752so1360605ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 16:00:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794096042; x=1794700842; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
+        b=UyCcoE0V29D0+WvF+zsWufPX5C8Z8DXymFDtcv8QAyqBES+fmYXKtLqDv3XPrQ3tIh
+         sgwNpiiTF1tuiviis121bucGyhVnYscH7zFWgfFFi+uVKOi1YuqqLOfE2IvHRe6TbQPm
+         UM5e6C2Ab22FfJALDj7BwVYKs8xUAP1nFNc1dwTVXV13fGxch7r4rZvSjUkwvFCHE1gZ
+         +zcjE+IEFozi4CNm6wIC1x+C6tvn69zxVzaMerdegeUNDoCPg8NRbCL+Sh1MBedAlLvz
+         HINL6ZuYc1Ep21bxmM0O4mjDyzJiiZVLvQAXCTsZv4mcC/ZrA8NT5GmCYSVStV2nSq9y
+         lM8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794096042; x=1794700842;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
+        b=ky58Sr4gszYP6BayfsaJiOMvT9YXi71xUa1OvPKX2kfDwNZIr/L5XgOcJsjkDYnDRA
+         TSomGRL0vJqE2TF/hB13gmi83HZGmw9LglC9DPOcxFXH5H1FRvA4nCFYc7uJAoS3l2nW
+         3KW+M3E7RxPSFJ4f8NtyFh3NOf0Bc/EoBr+LzmP1thm12Q9lzZDhmQ+h9K96KY/6lZSz
+         sUhbbrot2+iaHcQgofdbglBiGwzqub5sWi0IQGMSdpaAXEEJax2Gz9vyybDBBhf38t0S
+         slIjUT/kwZtNo7yCYMg0WlMVy/B8I5djiePyrcWlXoFbJUhZOpY1gGQ3Ai5jYRsC346t
+         ELZA==
+X-Forwarded-Encrypted: i=1; AL+hErFBIfSmpXVWM/5jBjAXUvyg02ckD1szRUlNbYPof8DvamqY9xoZt5a5bjQEmDu9gTwVF4NhhcZyfoacUcE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hsKbfCuZPln5zSUjnuJytArpfU3uiQxJEF7Mtd2ScYgfIyXcX
+	8kxJ72uf857YuTQ1Mu8qmBut6Uh+uzsrhP1Nh7bHz79VowpefDNLp6dcDWiYa4u8JRO/YcgaiKq
+	GIavuxQ==
+X-Received: from plrd12.prod.google.com ([2002:a17:902:aa8c:b0:2e8:774e:e582])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e742:b0:2e9:6645:e9a6
+ with SMTP id d9443c01a7336-2ed837c5df2mr1275865ad.59.1794096041686; Sat, 07
+ Nov 2026 16:00:41 -0800 (PST)
+Date: Sun, 8 Nov 2026 00:00:41 +0000
+In-Reply-To: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,47 +79,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f7574ee1581d609d45e0ff35e6d908b0@gmail.com>
+Mime-Version: 1.0
+References: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Message-ID: <au-7VgkYOwx7ec_q@google.com>
+Subject: Re: [PATCH net v2] tcp: fix authentication bypass via unsupported TCP
+ auth options
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: "=?utf-8?B?SsOpcsOpbXk=?= Jean" <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Dmitry Safonov <dima@arista.com>, Francesco Ruggeri <fruggeri@arista.com>, 
+	Salam Noureddine <noureddine@arista.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Dmitry,
+On Sat, 07 Nov 2026 22:47:33 +0000, J=C3=A9r=C3=A9my Jean wrote:
+> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
+> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
+> TCP_AO=3Dn, a packet carrying an AO option reaches the disabled
+> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
+> configured to require MD5 authentication end up accepting
+> unauthenticated data. A forged AO option skips the unsigned fast
+> path, which is the only place where tcp_inbound_hash() can return
+> SKB_DROP_REASON_TCP_MD5NOTFOUND.
+>=20
+> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
+> problem for an MD5 option on AO sockets.
+>=20
+> Note that TCP-AO depends on 64BIT: therefore, every 32-bit kernel with
+> TCP_MD5SIG=3Dy is in the vulnerable configuration.
+>=20
+> Make the disabled stubs reject options for the unsupported
+> authentication scheme. This matches the real helpers' behavior for
+> sockets without keys. It also means that kernels with TCP_MD5SIG=3Dn and
+> TCP_AO=3Dy now drop segments carrying an MD5 option on unkeyed sockets,
+> as kernels configured with TCP_MD5SIG=3Dy already do.
+>=20
+> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-On Sat, Nov 07, 2026 at 03:19:38PM -0800, Dmitry Torokhov wrote:
-> Hi Thorsten,
-> 
-> On Sat, Nov 07, 2026 at 06:47:38PM +0100, Thorsten Blum wrote:
-> > amijoy_phys is only read by the __init function amijoy_init().
-> >
-> > Also declare amijoy_phys as const.
-> ...
-> > -static char *amijoy_phys[2] = { "amijoy/input0", "amijoy/input1" };
-> > +static const char * const amijoy_phys[2] __initconst = {
-> > +	"amijoy/input0",
-> > +	"amijoy/input1",
-> > +};
-> 
-> While this technically works because __initconst only places the pointer
-> array itself into .init.rodata and leaves the string literals in .rodata,
-> I find it too subtle and fragile. input_register_device() retains the
-> dev->phys pointer for the entire lifetime of the input device, so if
-> anyone later turns amijoy_phys into a 2D char array to avoid pointer
-> indirection, the strings themselves will move into .init.rodata and
-> dev->phys will become a dangling pointer after init (with no warning
-> from modpost since the reference is inside amijoy_init()).
-
-Thanks for the feedback.
-
-> Could we either just mark amijoy_phys as const without __initconst (it
-> is only 8 bytes on m68k), or drop amijoy_phys altogether and do:
-> 
-> 	amijoy_dev[i]->phys = i ? "amijoy/input1" : "amijoy/input0";
-> 
-> in amijoy_init() (which stays in .init.text anyway)?
-
-I prefer to drop it then. v2 is here:
-https://lore.kernel.org/lkml/20261107234349.382944-3-blum@kernel.org/
-
-Thanks,
-Thorsten
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
