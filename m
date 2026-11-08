@@ -1,80 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794129875;
-	b=cfXW3u9jMulZWL4juXtzF0mbq9+QQYLwTBFKVGqdXCgVf/XHNsQVIMOxD2ZYDYhQ7HX3
-	 dTWUazDzoPCibX1a/JnZWGQ750ARPKgkMYcxJb/N6q6TC7+ODtrqc8rDyLqyDXzO+1xON
-	 lsEB0Gz/c8c8Lq7XoT7/e83jGlGPlHfxgq74sfzk4+31dmohaUs0GGTvBxF9ujrN/MpZD
-	 daBjOpOFBW4AEZANyysvLFgvOUxTV3kABBSLIAuEJoyhhaxOa/x4fGHYSGX4Uzzn3DbZ9
-	 XHZ18YjnCBHUCM8YGFX9vfOZ4u571MsNFGMPTqA56H15Qe8EBg7LXi/Xfalsi+5HRww==
+	t=1794129917;
+	b=wyJYG64A6Q4HJhaFgOu+kPx41M1qE2fnD2D6JNps78slfScbnKWJUTT8eXrhjXvS7MjE
+	 3PzD0sVo0pUufFpelDQKTKrBVLA6x8EIJcxRjBJ5V8ZUYJvBSkFXUpJXYM8AxdlpoINKL
+	 EKMQDEs7BAB3xsnlkfdQZXMdgjvnLTLcdxnV1i+kIVU+Fw5I+nu5J/3n0l5SXSgt+XAGL
+	 y4/mey0mO7t897b7KbPshGWbigxBrynysCd72JgwsbjEv9UxvqvMI5SuGWXyeRYOlws8R
+	 /Yq2l+V9L5eA/COv9mYg+xsEVWZvGxpT9+Eos91DyqOuswWOFwM3/Z1rstzxtibkOAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794129875;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=j8rq9WD1PWSJfzNjdvpugwztGTtxU4BUg3rNiZ2tRAM=;
-	b=HM3ftjnT7Clo+sb61zpD86IhyixSdSvbABFeam1p84uYQaZ6ysQHchZoLqNNoWs7T9Bc
-	 oymAuRHKfN3n+ayfPnq478a1Y5/UuhKORt5PTMhd/VojIkxfQpEYWiNH3Bod6wfLr0ZRb
-	 nr1jotW+gVZV03bYOpmEBKXzebIb8PUcwjrQTjOnZ21zpGkFJ/Bj/EeNt9+mtt8XCutVK
-	 p53c2buVFuUCwb1Q79BMrzapowsfg0kiln5aUjPIlXZAH7gtJI6MJ9NX7tQU26eHsr4oB
-	 sjWitzOYncwP/38ovKjzEape2V38dhvq+09wn0aGiMjUvq6jGCl2x3AGrUD3jX51AWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794129917;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=u5YlrDxz3fhgoLFhtNbY64UsUoj272lyDf/p6ZFjQg8=;
+	b=NdDufC3L43h+nBXIMj4olymBYu2hSVcjYxSGpgWLeQ4K5kd628u6QLu2a1d4OTgKQeBk
+	 bytGI/3QYF+kKWxasuKyIW/Nd6qC7K6FNIdWSsRSFmgmD+WnPg6Iv2DfoszWE9/pZctCn
+	 TeJg0eBYqwo5/6ySIVRgjyn13FnMZOQIpSZJvEmw311KVwC7go/m0HzTZM3qPfG/2e2/D
+	 T1iJ3m/ubq5idXo0iU39sbVjiUlI2uukFYT8BHy5c0F8gshsVZmHmwj4LrjA+/m8FgzPL
+	 zAkFwwo/7i5QPA7SqFE/kpAO2ySD+SQZzBR/pxiKxN0PM7IjSRItZNLKhfdzvS8IHSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tK8QjT2N;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1DAA606A322;
-	Sun,  8 Nov 2026 09:24:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1DAA606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJIgxY18;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA1B606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:25:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA1B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tK8QjT2N
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJIgxY18
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a56e05568aso654665e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:25:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=tK8QjT2NhGmyW4wmOO8RrBskFx5hXGRg9xwQtBhc/8hgQCR1MVmMHh7y3w2pikytdDaCu87d5ldS2
-	 K8li6vmXmuoohPvT7aO4VNHVQntXl1cGSzPPX3dJBrmhnEPI6BG6G/KfxcJJrNZs6qau8mhhzK1yAV
-	 jZxkiMqF6PnZxl1U=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af03fc6296-c043a;
-	Sun, 08 Nov 2026 17:24:31 +0800 (CST)
-X-RM-TRANSID:2ee96af03fc6296-c043a
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[74.82.203.40])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af03fc1270-639ea;
-	Sun, 08 Nov 2026 17:24:31 +0800 (CST)
-X-RM-TRANSID:2ee76af03fc1270-639ea
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	netdev@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 2/2] virtio_net: Keep AF_XDP zero-copy pools bound across suspend
-Date: Mon,  9 Nov 2026 02:23:55 +0900
-Message-ID: <20261108172417.56607-2-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179411647719.994134.8428591729717130295@kernel.org>
-References: <20261107125723.33547-1-yanhaishuang@cmss.chinamobile.com> <20261107125723.33547-3-yanhaishuang@cmss.chinamobile.com> <179411647719.994134.8428591729717130295@kernel.org>
+        d=gmail.com; s=20260707; t=1794129916; x=1794734716; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u5YlrDxz3fhgoLFhtNbY64UsUoj272lyDf/p6ZFjQg8=;
+        b=QJIgxY18WSwnNUneA2ZLjD9PT/hXl0JGW4CB/urRU2xZdVYnabdiGjCygZGi8Kv82w
+         YmdJcV3HCr2gHBaVFLfCjL5P9e3l9WL5W0WZHfYqpQwES9Cu0Sb+QCDjNJGCwaKqBJzH
+         OVQtdIsSBzBdaKMCcyljv6fSBODPo7uKhVtazyEC8K3GVkYGqo5RWQUBbJzi6gPUXj1w
+         oSyABB/VblU9KYptkCASdwTJOGtM+8VO1exF9yRHMMq28/tGFdhCyKxEB/RKxxyHhn35
+         wovAJPC6oRg11d9XF8++g4yOcu6v6OAmcyuHDecFCZDB8e61LFTCrMsoA0gVAHtjQ3fI
+         aCpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794129916; x=1794734716;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u5YlrDxz3fhgoLFhtNbY64UsUoj272lyDf/p6ZFjQg8=;
+        b=lzATDBymUEYbxcG3TOr/8fUI4w/iIazVQlxHNEPkLcdK5CS5xtnAdcu55RvbzAvXFc
+         CuyxrNw/YY3Q6psfWUQS6DwSAJCVYxb+A46+VdWhsTFWZw4cLKQGkvbhMpSxyi6z7meW
+         Lby14B8BnzwkjnzLNKL4NhhgpJJge+gwETHCLkzTsfmC7HnPa0FKHuv6Kk8Q2dRDNKkP
+         NaWsn8hMGp7ZCQlXKUDjFtJSzI2YkIespe7zHtAu4lEsSZ/vkg8gIyC9Y1wrssCkW9yM
+         x4WYiV4IUh+9YAuY6MC7L1kc2XSI+gPHGz05YQtNegwEMv2iEWqgEcCpHVYRxGLri3ac
+         nQYg==
+X-Forwarded-Encrypted: i=1; AL+hErHgZy29j0OlcSi9nsAkA7iua4+lvDa+qR2Hay94Kecqre88BTU/8aFyiGzbCAEVrRA0PWHxHDFfj2dyoPc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85LB+6i9IgKNv7zOTSCI0QnxRWycMaQHO2yLr+S2iWQmmjxBo6
+	h8rS9oCvmffGpIGDhm3hnSd0+OfQT/J9bQsmI24fEHKbe2RO1uOTUdeK
+X-Gm-Gg: AYBFou2QorEjGPdKuANuNE9DIQksrt0MtorPR2C8hqtdK1l09a1VS4V5sWpfJzpq8+I
+	fQhaLkvu9h6Tgtduw8A0VCCR6SzAqK4wWI1bSJ5W/VSPz61EI3nQPEBhNQQ19oyLpERI2MPCh3Y
+	cq8RS4lY1MdVwuZe7xgQ/R7san/Tqo0SDhOjC+qWL/JD0thhEAb6fBAtQVbyYAE4fZ39Fvmm4DI
+	IdRh4RGuL6NS+IoxPU0N1z5QZQ3+pSDwkjsNZb0+yaJStNvvr/K8gvFoGtpgJ/1+2Ho7KA2JImw
+	vHRb9dHsKfzAh1gVcTcYwX4/E3wBQwUib5hpaPy/HzlNs5yndsK75SnKxGf6OTkG97RyL7BEaR9
+	WoR17+6RC/t60f9v2OjrGUyYO8WR+dyLdLdK+73DOsRtp7ybY0cYKo8cKSsCmANTUq6eAvBIfXe
+	L9Afs4Hn1NXmo38TdYWyPuASApfOpJfMf2jJXdmZW2BXmlKsa3/9RLdaHPoXZcAWCkbQurSVPHr
+	/be9VQwUAIBGGzFh9cmkR/U3sYYeGAK16nVeU9XFn0XAqiMljAy5ytiIh9X4cJ9Z3SD9TfasrgF
+	E8pO/kpgeqGIPfxbw68a8ia8klhBEbLnZN9SBl+Hn87qv5rbra6tPiw=
+X-Received: by 2002:a05:6000:4a12:b0:48e:6651:d82b with SMTP id ffacd0b85a97d-49580c083admr2176808f8f.2.1794129915708;
+        Sun, 08 Nov 2026 01:25:15 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9a9ffsm3083064f8f.30.2026.11.08.01.25.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 01:25:14 -0800 (PST)
+Date: Sun, 8 Nov 2026 12:25:10 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
+	tj@kernel.org, ziqianlu@bytedance.com
+Subject: Re: [PATCH v2 02/12] sched/core: Introduce rq_drop_lock()
+Message-ID: <avA36psY6pULqy8X@scheduler.schedules>
+References: <20261107115913.261163891@infradead.org>
+ <20261107120206.858693648@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,42 +99,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261107120206.858693648@infradead.org>
 
-On Sun, Nov 08, 2026 at 05:41:17AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> - [High] virtnet_xsk_pools_unbind() calls virtnet_xsk_pool_disable() for
->   pools whose AF_XDP sockets are still XSK_BOUND.
-> - [High] virtio_net: stale DMA addresses in free_list after unaligned XSK
->   pool rebind
-> - [High] virtio_net: uninitialized xsk_hdr_dma_addr used in
->   virtnet_xsk_pool_enable()
-> - [Medium] virtnet_xsk_pools_unbind()
->   (drivers/net/virtio_net.c:6063-6072) loops over max_queue_pairs and…
+Hi Peter,
 
-Thanks, I went through all four against the code and they all hold.
+On Sat, Nov 07, 2026 at 12:59:15PM +0100, Peter Zijlstra wrote:
+> Currently rq_unpin_lock() serves a dual purpose, it pairs with both
+> rq_pin_lock() and rq_repin_lock(). That is:
+> 
+> 	rq_pin_lock()
+> 	  rq_unpin_lock()
+>           rq_repin_lock()
+> 	rq_unpin_lock()
+> 
+> In prepration of making the temporary drop and the final drop
 
-The three High ones come from the same mistake: the patch reuses
-virtnet_xsk_pool_disable()/enable(), which assume the socket is
-already unbound, while the sockets are still bound and the device is
-still running. That opens the window against the RX path redirecting
-to the socket, unmaps and remaps the pool behind buffers sitting on
-its free_list, and lets TX NAPI run before xsk_hdr_dma_addr is set.
+nit. 'prepration' should be 'preparation' :-).
 
-For v2 I'll stop unmapping and remapping the pool across suspend.
-Freeze will keep the pool DMA mapping and only stash the driver's
-per-queue xsk state after virtnet_freeze_down() has stopped NAPI, and
-restore will attach it to the new queues before virtnet_open(). That
-should remove all three problems instead of patching each one.
+> distinct, this needs another function. Introduce and use
+> rq_drop_lock() for the temporary drop, like:
+> 
+> 	rq_pin_lock()
+> 	  rq_drop_lock()
+>           rq_repin_lock()
+> 	rq_unpin_lock()
+> 
 
-The Medium one is right too. A pool can be left bound on a queue at
-or above curr_queue_pairs after native XDP is detached. As noted, that
-comes from virtnet_xdp_set() not checking for bound pools, which
-predates this patch. I'll fix it there as a separate patch in the
-series, so suspend no longer has to handle that case.
+Yeah well sadly I couldn't find anything aside from a nit :-(.
 
-v2 will be retested with KASAN for both aligned and unaligned pools.
+I couldn't even find 1 missed place that we didn't transfered to
+rq_drop_lock().
 
-pw-bot: cr
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
 
 
+Cheers.. Woo..
+
+Kayra
