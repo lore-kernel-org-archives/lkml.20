@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794138862;
-	b=ZZCKGD7Ci5yCTG2zg8AB7G/3JBxqZWFuEC47Z6wLojmY0XgXw4gxRRGk9WGAR1KvdeJG
-	 LX9Z02P79jGgIMiL7oER3C3sDvoMGjLh4h4eKUXXQjvkvO1vQGGyVq5A3aChYqX0KkuFq
-	 ux5DV6gJZCctPe3oy15yfov27UBSpEPBs0JFnSVL9wbeIawqUuVGz4HC1j92snZOUxCTV
-	 vCHjRUXt3y527OWngo5CBx0c+7J9pEGJgVaA2RNXNPLIKLfL56hFXAAzOU3Z7oer6LYKu
-	 UgpzGoTefqs+Gn9ITAPeKZ73EJ3xwCpKuejDjdmDISBg4DJnXKtOqsv6SLxbVD2UDdA==
+	t=1794138896;
+	b=RUa6UIZZXJXYUsq8t4IvV9zaacHSx5no1jsyGl7IVVgy3ezhWbeIgN9CtQSBujR+ouHh
+	 /ZUCmgwej2sqw9ln7fdGST/rJoQskwF96N8FrzwgxKeWgLm6APJ3UE/3Q2LDF65/zRfzk
+	 PQ1Mk2fxNxQKtC1ytRC3MOUwPJRwund7uqq6aYS6Sfx1Tydf2C3EAtFIk56ENTdKIKkQ3
+	 SZXY+IvN3U55A2IZoBBtvSgssZwe1LVgE1gFaM/z9pmwVq0MXeZObl1ujpn1DAyS1UddL
+	 CIYghjnesQ0HY9awJEBn0d25CMxnZpGEBHCOzITu2ffWvFnOLKmiwF0BMPOXmiwyeZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138862;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=+hSDoeCHV95MTcU0exwJ09QYlst4DO6dsxKv2LnugqM=;
-	b=lvBTYTzt04bOFPRaR3iaRitot1gm/1xOoyqLKVG2R/qP49P0R63+wu40BNoujh8b+p7Y
-	 cIyALoEXw+BXq4aD6FUIdan9oWIMVDNVzPJVRNbl37IRvUsNmpGWDchm5UVBuVA48BUvf
-	 AoFY04WcZ+ZahXqq1Jzu/Krj4ovHyDbdNRbNxYQa0rjsuA0LhliZrLsXnlUwO1P36AOUf
-	 vw3SgE3hyxWPVovqVaKjlq5Xqmd53+DJoWGE2kpJ2oBYvR24JvKqBQF9y1e4gtBeUiS+5
-	 u07Wv1pAz7/UAK5IvLWRxyBvrcykstgNNs49OPXsIxNZNETXb3c+IJEKFVjPB3qz4UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138896;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BHVUQx1P4ANp37N/y+cseBVegL9EZWxWZ+7QojdeYnQ=;
+	b=KhNPaWV5qsUQ977bxH6RPdDdA9F7gPq/wyLCbv4Vc/euCk2dMeGec5JBWvDktYNr2gdR
+	 nIa5Ixv+zDfe651ELU+d+rK/GWNtKX+v0HFrD2AmhR2tMQnmWtZMM7992g5M8+71blmg4
+	 IZlsUR4WvbkYgW+1n88ovaBSVJxmCy2n1o1PGniJue0E6pMZ97rtkAbW9mDS9/NG7ffXi
+	 9125MA4DgaoreubqYgp3pIl7R/QHOet8DpsEviHf/0Doc91rXXIT10TyDfiUBWWMnCbpp
+	 c4rhqDbBSi3pLnVole9TQ46iWV8CcYp9U+ah1r7AweyrZfMzheBoeKlNDsHmt8EsZdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoHgcRgQ;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRmer0kb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E171606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:54:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E171606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E40A606A31C;
+	Sun,  8 Nov 2026 11:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoHgcRgQ
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso63224eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:54:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794138861; x=1794743661; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+hSDoeCHV95MTcU0exwJ09QYlst4DO6dsxKv2LnugqM=;
-        b=JoHgcRgQpO4mryH5LvbiD1VQN5AbJycvWNP7w5k5/l8/3Zf3lyKstieOp2M2+BcANc
-         RYxfXH977egJuwbFIB49WvOGV/YX8MMTw1wbFFf/iGfKCdKvunfbC2FSlTot4ZqF1DX1
-         oFnRRt/Loezl1hjAZtl2MhRYXtZfj42MPtZedSnZSzzrp3G8XpFwaw9JsyqXqTz+mAXZ
-         QJxgET/pE3W/nsn9snm1CoRmafeQid0r+YjrAJUAPQHmQbC+0fsgM47/zG4nenU8aVRU
-         TCLf59Pl+8g0AL21BO0wbGlhcFljFhwJ6+Tetj035tKC+sGno1bgSkq/U8tKT20ggNxG
-         QBHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794138861; x=1794743661;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+hSDoeCHV95MTcU0exwJ09QYlst4DO6dsxKv2LnugqM=;
-        b=re7Z/M6Z+eVsTXqRwNO6nyjqeNmCaVu6rIrN1QzlyJ4nkTW1Qwc7gV8W2HbmA5GI/e
-         sgT6GiJAsc2tFOFWyOd2q9npTZQiDXN3R71yeXSB9N2bD2Jn/EvVnb4HlCnvE3Zf8LJA
-         AO4ae56EbwvXxQPOC4HEwabKc00YcukOSvNy1Kkq4zXK7NW18LPisAs7VI5UK+lnv8N5
-         l+906e6/dBdGsVkgEI0aDSRANsJD7xYSkUuBfTiT9fP7g2nKRJ+iMzUI33CwmIZfJNAE
-         dgosfjJcjkek3m9semvB6Xw4lNRkYR2kJU/wP+M2JPIZ9inJFmxDudl8dvYfNshDaR7G
-         CXaw==
-X-Forwarded-Encrypted: i=1; AL+hErHnjOlWLZc2YBaeEnWFjXfT1X3V5gk+NNv9Q0slhbsgGAcmdSb44bEi3OMNUwMJcfhr77kQxBN6Q0p0quE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VKFtcOe2Cr6jDIbWP2Xmvxn4ZAIiLfSHjS7kEkSipcK+ewaUM
-	OzptvX6rFu+k3ikT/MVWEWKaeoW4OlgEG5jvf+xcMAUK7GdwBggNCiiL
-X-Gm-Gg: AYBFou2RH2A5+6AwlmVgvLTQxbJCYGB02Z+3d/OduZHNIV3+pgREuHaOxuDBaOh9+zG
-	QLo4xiPPtO6l5ufbiNL0KHPqYfdI9YE6gpyMzqFI7y66Bx8spcYw9TjXhEiM/pESZZnw/pXQb0S
-	NYO36mbZgzpLWLcBOEMFpunQh97st1uDD7ZYB9GjcJ9EkSXhwHTjyavwUD7rfM9BFEx8DVTbF9j
-	qtQWoYw0HdR8Hgtubmnwai0L70/kbwGfH2mUl88aSAMv+RDWzvxwPyRCJlelFoRnNM/ixpvrp4/
-	OOHrWQZL8XTFAOVZ/j3ZtEUzH87VmiuK+1S+xaZO3KyAk+5WaYsI0VK1GDxCWSDfW7LohyOaaB3
-	c1KhT2S32rgPo5j7/swCXe1ncL0Pt2qtZAY0ibBwCJ2kn58qfBSQUdveDMM8Surq0ofsJLXfvlx
-	+FsCK4KvoOMNI8oedK09ZcKEkyCixz2Cm2Ihn/euXV72WcdU2mzvJ7ohzj1DJlPR5cB6U3J5GrT
-	2VeOerpvwGQhRYeA+0yGWyAMVGGwGGzZyZSk44nOnIqKkpHn1BUxJzWqPhWzxoCzxFrdMpMdxS5
-	xA/vt86baUsvRdfAK0X2/HA4qEmG2Fk=
-X-Received: by 2002:a05:7301:c83:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-372566144c7mr2538503eec.10.1794138860540;
-        Sun, 08 Nov 2026 03:54:20 -0800 (PST)
-Received: from [127.0.0.1] ([45.198.20.201])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a179c1sm4715288eec.11.2026.11.08.03.54.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 03:54:19 -0800 (PST)
-Date: Sun, 08 Nov 2026 03:54:19 -0800 (PST)
-From: alyandra5b@gmail.com
-To: sammiee5311@gmail.com
-Cc: tiwai@suse.de, perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] ALSA: ump: clear stale RPN selector on NRPN change
-Message-ID: <179413877928.27072.4989388975502966406@localhost>
-In-Reply-To: <20261108113645.1730429-1-sammiee5311@gmail.com>
-References: <20261107111056.667-1-alyandra5b@gmail.com>
- <87pkwgyck9.wl-tiwai@suse.de>
- <20261107142950.125901-1-sammiee5311@gmail.com>
- <CAJYQYHxrpmBPiyMiS2oK8eugUMR=KFmf9D5jwLdoYUYQgKkXjw@mail.gmail.com>
- <878q33y4z4.wl-tiwai@suse.de>
- <20261108113645.1730429-1-sammiee5311@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRmer0kb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83BF41F0089F;
+	Sun,  8 Nov 2026 11:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794138895;
+	bh=BHVUQx1P4ANp37N/y+cseBVegL9EZWxWZ+7QojdeYnQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NRmer0kbeW5B6STgfperEMCztCA8C1eXyYu5SPaggrJzyVxMju+AEJE3D5Mh5ap2m
+	 UeRATlnCLYQCXhwHuherqkeT1onfsqcTveIIPkGPdk5TL2Qi3sUaBBSypboA9pkCRy
+	 YMwnHpP/dNz7obras9Q1ZuqI5LQrhHYvi8CGLyrSvtsG6exkK7wbuE5q9NI49YCLVW
+	 LnoXF2lRqilrVylImSjSVBSGTbR3edGrI0WybEfk2szZfi9Pt/Kj/kX/lNykMlzhBK
+	 L8e4s0ECglJREOZYbJzLa5oJo8yxZjfzNDTZ6EF8ZPoXNHn93yImHR/sOKkEz3/aMP
+	 brG5oCZCJr90w==
+Date: Sun, 8 Nov 2026 12:54:33 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
+	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
+	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
+	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
+	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
+	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
+	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
+Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avBikocxPXRos_GF@debian>
+References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
+ <20261105125154.83478-1-geert@linux-m68k.org>
+ <aux8LYQkGSNjCGHv@devuan>
+ <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+ <au7TvMP0YhW2e_oM@debian>
+ <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
+ <avBglVuXPjbKnWwl@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,16 +72,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="z7wg63skqeylt2ym"
+Content-Disposition: inline
+In-Reply-To: <avBglVuXPjbKnWwl@debian>
 
-Hello HyeongJun and Takashi,
 
-Yes, that sounds good to me.
+--z7wg63skqeylt2ym
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Alejandro Colomar <alx@kernel.org>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
+	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
+	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
+	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
+	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
+	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
+	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
+Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avBikocxPXRos_GF@debian>
+References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
+ <20261105125154.83478-1-geert@linux-m68k.org>
+ <aux8LYQkGSNjCGHv@devuan>
+ <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+ <au7TvMP0YhW2e_oM@debian>
+ <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
+ <avBglVuXPjbKnWwl@debian>
+MIME-Version: 1.0
+In-Reply-To: <avBglVuXPjbKnWwl@debian>
 
-I'm happy with putting my patches first, followed by yours, and moving the te=
-sts into a separate selftest patch.
+> Date: 2026-11-08 12:49:08+0100
+> From: Alejandro Colomar <alx@kernel.org>
+>
+> Hi Maciej,
+>=20
+> > Date: 2026-11-08 11:05:51+0000
+> > From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+> >
+> > On Sat, 7 Nov 2026, Alejandro Colomar wrote:
+> >=20
+> > > Hi Maciej,
+> > >=20
+> > > > Date: 2026-11-07 02:44:23+0000
+> > > > From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+> > > >
+> > > > On Thu, 5 Nov 2026, Alejandro Colomar wrote:
+> > > >=20
+> > > > > Do you think strafterprefix() would be better?  Do you have any o=
+ther
+> > > > > suggestions?
+> > > >=20
+> > > >  FWIW strsuffix() seems an obvious choice to me.  After all what th=
+e API=20
+> > > > does is request the string's suffix beyond the specified leading pa=
+rt.
+> > >=20
+> > > Actually, strsuffix() is something else:
+> > >=20
+> > > 	char *
+> > > 	strsuffix_(const char *str, const char *suffix)
+> > > 	{
+> > > 		ptrdiff_t  off;
+> > >=20
+> > > 		off =3D strlen(str) - strlen(suffix);
+> > > 		if (off < 0)
+> > > 			return NULL;
+> > >=20
+> > > 		if (!streq(str + off, suffix))
+> > > 			return NULL;
+> > >=20
+> > > 		return str + off;
+> > > 	}
+> > >=20
+> > > It finds the start of a suffix in a string.  That is:
+> > >=20
+> > > 	strcmp(strsuffix("foobar", "bar"), "bar") =3D=3D 0;
+> >=20
+> >  Hmm, I'd have called that strskipto().  If that's not possible for som=
+e=20
+> > reason (I can't see it used in Linux), then strskip() or strskipover()=
+=20
+> > could be used for this API.
 
-Thanks for offering to adapt the sequencer test and incorporate my test cases=
-. I think this would be a cleaner approach.
+Another issue with the name strskipto() is that the name doesn't make it
+clear whether the second argument is a string, or a list of characters.
 
-Best regards,
-Alyandra
+That is, would strskipto() something similar to strpbrk(3)?
+It's not clear from the name.  From strprefix() and strsuffix(), the
+meaning of the second argument is clear from the function name.
+
+
+Cheers,
+Alex
+
+>=20
+> strsuffix() exists in many projects, and in all of them it seems to have
+> these semantics (or very similar ones).
+>=20
+> Just look at a Debian code search of those names.
+>=20
+> The strprefix() and strsuffix() pair of functions are widely
+> implemented, and while the exact details of the return value differ
+> slightly (some return just a boolean, others return a pointer that can
+> be used as a boolean too), the overall semantics of them are quite
+> consistent.  strsuffix() has less drift than strprefix().
+>=20
+> If we added strsuffix() here with the semantics commonly attributed to
+> strprefix(), and then had strskipto() with the semantics commonly
+> attributed to strsuffix(), I'd expect programmers to eventually get
+> confused and use the wrong one.=20
+>=20
+>=20
+> Have a lovely day!
+> Alex
+>=20
+> >=20
+> >  FWIW,
+> >=20
+> >   Maciej
+>=20
+> --=20
+> <https://www.alejandro-colomar.es>
+
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--z7wg63skqeylt2ym
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrwYvkACgkQ64mZXMKQ
+wqkx6BAAlb7cMjGl5jTUSPTQsPNzOhKUBvaTO4Y15M+n+/XhKFuxB6LuZ//e8tqm
+Cw78YmBH0aqOPJFdgp+n6wQq8hEO8uF9/e/tw842SQps9qSCoPzKRVSmb2l3KjvO
+6aIUau9u7I2t6Hc1nLyR5bIRvpRBN5SLCOGAJJOpEqgXamBS3hJtzpLQpHlVL/k4
+RaDfQh9HeQsuVFMh2NxNsBEAao+Ooj0X+LklJCQI3Oddz9+sxUGQWt556jYS0LHT
+h2i2EckYB3WwbjZqUZA3aSAUeQp5n3JfS4UcLl2j+S30lB3StB7iVVNPd9198SyZ
+RzcKtU0ecxnBkLE0wKJGkZ2iuqSXR5rUxTOQb+S1hwbsORhNQVsyd7t67GTFX2oM
+86gXv/0pH3LJfbnMgTjgn2FPfqRVLrH4CQQouvsxInL/j/mLcdOFi40GqVzyUw/P
+2t8E2bE21ZCIdL8/vrOJhPxcLdrRZQbOHACb5CWp0Z4wnSOoRoVi+UA+wTW6V7Lf
+NfsBe92am3aFory4pzqiBScjkPux01+LOOouj3rTnD/AzOEHDNS7yDsCc5aNvDUC
+LlSxy7b3BuJRnsAeMnOMNZ+MXlP6HDL0UmaXumT97Sb1HlMf6BAqoMVzr0D4CyJ+
+I0HHWr5h/yKJl2GcovzTcmXIcMNBUsKnM8bJTvmbLRbsN1t9628=
+=TmP3
+-----END PGP SIGNATURE-----
+
+--z7wg63skqeylt2ym--
