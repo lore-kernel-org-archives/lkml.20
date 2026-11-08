@@ -1,80 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.189.83
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794171223;
-	b=dHC0ndC7GYT2UVsWuRVCpMyfp3tm8RzgzFZdHyElGHie1KONFF1UYvH1RHl9e4S4K+I6
-	 NCQJuast5v2DSG8rf4gIyh0RiVMTUDlljh8LjZv/5RHjAqdGifyWznSJdTS/pUXYLadjp
-	 h8e/7M99cJR45QxuCEDNDJA85FCxPRGJt5a1xh+s5S38gof8UY6elNIGad/V2znfpolMK
-	 vXAxq11gyl4nPSrc+MGqTTQqICEJkuZbOU5p7fUU5paDSoLrDnVdtlXrhUI8Xacmo4gLJ
-	 g9HailFhlhV9E4kz5XstviKkvmUDHABTvA2C1zhmMlj6muFlXtRv+hsmKu7gJImlx5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794171223;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=e/3pPBGnBIMYiIi6ztyK5TxrJUDF7cio2r7awt76SK4=;
-	b=mts35Pb0spVPbonkoq5aSlHgGhNNnswN806tkaKAjoW8VvzMjTHELpEJ+sueeNQepXjj
-	 ZGG4pcNlKQaBTGz8KV99BYjhKGshQRUC32ixge/lvdkzOrvjO72G1YeoyCCxOZNJoJ37O
-	 vXbCNOmc5g2qCyK6JPcljet1lsNRw7HiX0Rdq0uH25uzqtV6JtKSxNsWkXzUPPDLQHU3d
-	 rHfvixGKGYPSjs979I5iwCzK5dLcDEtTVhqkFLYre6gYVpLmEF2bUvLEvQW8DRxDZ1B6l
-	 JmNHfYFZ2ETbVC81x2zKKowlh/nRJIpMuKwf8qKt2MnelGJW5AHpCTcREKwga5bnKwA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=byhOVwYq;
-	arc=none smtp.remote-ip=66.163.189.83
-Received: from sonic306-21.consmr.mail.ne1.yahoo.com (sonic306-21.consmr.mail.ne1.yahoo.com [66.163.189.83])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794171226;
+	b=CV5NUVMON1zEC/yTf6RGZe5/wz2heySZ1jAoUgH3URdLFud2iMdsoYRFYScx4YTRVaZE
+	 sS6dCNvNZObmPk9IkKUuGplXTEagTDGEFonm8RZx4ek73lL7wE5rUuVenia0S7hbnZLn4
+	 LCKK4wpXUNJX5oRu5TaeePNLOByhNvBWT6rnMog3JzNANP4zegON2mNinH1wUEWerri6T
+	 4GuHkhMl1b2m87hum16w35c7m5nzknjCz214f6Su6QHnbhj203QtchGRoFH8b9Y6AKFPc
+	 3E+6NP3Y0vPY6wMKU0QkiRwvmeyDANdtGLrNjRX7fqljnKO4+ZXhgulFBU5BhPtbgdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794171226;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=i5HDg/CFXsBlwdhC2HztgZaTS7W3/FOOnLOcAl13fDI=;
+	b=t2v0LXatRjdWGrhiPBLmggyPZ8VJbqn0n6K5CiHt5pYfELYTEP7wSD7WbV/NkJ4Npesu
+	 +BMSweTw9Uvu7IXf9jOguhfv5jIuZNHGpMDtmi9YtFcVxp9XAkCnpzWWa5xy9fL9Y79ax
+	 6rWtD4ojCdCmYogpKH7nk0JjUpAH9U11pYq/df4D0GN7f8RY/dPPK+gxk8IQyr0NgrSSW
+	 SScXVUzST2PfrJhJjcjQR03HhfJVUAQ1YKVahqggx4o5YPDDfItD7aX2vX9XiCnUhFOim
+	 ++cmvOEXtfy+bLQz6vvYdJqjbxCfQBoJiqJCyEKxQqQtZQrSgb025N7Dw+O5n3NCUMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V5BALTeJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBAC606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CBAC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4BD606A32A;
+	Sun,  8 Nov 2026 20:53:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC4BD606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=byhOVwYq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794171221; bh=e/3pPBGnBIMYiIi6ztyK5TxrJUDF7cio2r7awt76SK4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=byhOVwYqH1Aza48vpRJ4LjGjOjfIAQXumAA/b2x7aiZ8TbeJ51qhc0R7B5hTqjGxOlDMkeuZHYviK2g3C/4jb0cYaoquCFkYdoHf8Kh0h+MCW12TFZa91qZ2pjUQwweRT7bAw5T4eEHaVJ4NABo7FAatlV6GYmYkk66DG+Wb0fajMWDEAt5Sm6Mmk1D/BJ257H4WGqoNzgF5E1ZDkx/xqOSQOO/hhkX5XkLYJGu+uYYeBGm4JCuphz8KUk9KYTmJxX6/50+dfltfF4pDHxukO2tzbi2FMQvrx0nIjdrMH8I0/T8VAy8R1nrmYty1f1B2sGaEkztrGzfXda3N6IuZhA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794171221; bh=bfbRY13LtdKfiFRgGEqBHhC0t1aLNx8+za0tHZYb/SC=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=DyFh9zEmpmNtV93lkurnqAgHG/mtGTM4Hmcg31EJUCcEBaZaHWwIKRK5xqQjHxcl5p6dlEg/UGJcg/ZkmjcB+jsjUiW+tCtl5o5lyIGXhEjMSW+ZP6dOSGiAa71SpA0d+bpcR6VtGpYSsjkzxdZ/Xjnpj8s75/BJ50a0LLH90Bv6QfmyFJYKAKWbzgXHp9BNbvgwfw9xU8Aii73uCA2R2IwYZlif8ILOiud4MXo5+WHivALnGtrGVB1FLPZHz/xx3srrtiJriZl4v1bx1BLDWusc/rLLD6wu2qi20R/2QWxb33ISnp4rBCYD388Ub+e9CAmiQwOCl2EagBsSGXHlyA==
-X-YMail-OSG: X7lC0_kVM1k708JTOK6ZygPyY4o8Jok51aUXM7sDPReFjcldjTYWzcZS5L4Ckmn
- rCg3QFkUUCZD6kMtZw5.FOzDpuVQ9s9m3xgIzvneHlW1sH5quIPJQ.HqFJ2EQc2Lgl2hiznduCdo
- a445tWutLgsd27OBJ8AICmHz5l9bJRz1_8BSn39.XUwPXp.JiQsQD1ytP2ujzWYg4zFY9Kb3ODP5
- YU2MvRSRsAdhnnPUA_QcPPZEqMvGPCyr5uZ.GlWKSxO3gh0WKIzt5DHDPPrMMS6PFMdxvEPazaN5
- 13hASrHtLmY8q2x5cGWTgu_qfzeQfU6jY3x3j23w2nMgLylurBn4gfDjb017fT5V7qOGKp_J2HHt
- hv6tV4hORcGneUujDvXevLl77v2t.8gNn4qqzpqcT_WZohfNOXWybaczU.GgPZ8wbKN4UDRPq6Vc
- MViinPL9q0KdSJOQRy.LImEFLR3E_nkc0D9IWpeFDxQGyWVHjVY4RFHBEm_tv1UYWDFlgDrPErqt
- OoJN3hMsWNWNLCnPGSp0J6OtppEywbsky8E54ZXbPjbcdo5UEzX8P_kd1kJZLuLfZJKuT5_AOjG7
- fUB09D7qG2T.ZUqLHMIM_lD0.n75rw46gHRKmx8.Ewkz4iQ7nBkBXnmuBgZOFc7y5DUI8hZzw77F
- RNc48YpxP44RgvUsQGJHqZIPnqkEKKhynbTQReO7kyUItMK7BUH7Yw_RkHP2s1ivUhz4gFmSQRdM
- gGvAoQutoQnCWmjzxiy9eOXoEIipcyr5hS5xHNiY5zEZxwZ7M4iUXJ09tDmxnjPxFRi4dEM6_GnV
- fzB2Jdod7aefEt1eDX3045F3hL96QPrxL.TOw5nZ8YgwCPTubcfQuoA.AVgz_sFALNrtlFiLCzIU
- aDKGT1C01_0O6Y5DJCTzqh0Hkln2VbAhjO2HRhHOFmXc1y_HzuMWxhkWIjbNwoBrIvD1CDS2EBGF
- Nn6sI8bJEcCBCRzWz_xD0C_mBSdTxEibsadCsqD3BItmF1cSf.MFrEAd_cH_tm..Q.0ohc71EXXb
- 9juu94wQz3.jTvqhDeV9qleNZRZjrhkLMP20DISu_iWVFNZJXSKtDl.wOyhbPniFUs7XskUrry8F
- 4HzXoM2p6IxTpfU4amoBl2L2FVDKH1FkOXCrbaNNjAVUaaFY2ODdzPTakP.xx1XzZGCbOPSNMsHa
- 3dZMDpBwbddGsfgcg8Im0Lh7kE0j6I8OhNDCNMVQqZ40ahZEyif3T2LNRHbO1MhsN9JdbX4Lj42r
- xL1RgLhL8wJnjM.rtmdJF7d8vMDyZ7apdAHWtszIBoX50WpV.cYvsLjKluEktEF9TalpxBqeONI.
- 02l8YjbZQFMm7dQIPa_oMJIwx5O7yEnMy5tRM6h1RkOXwhS544bqBNWY3zhakhMw5jf_GLHCZJZ7
- t6Kg51NnS6ausIIA4loAnLdWLux_2hTgblSWZWlYY4O547L0I80Olm3TQwYjMSjk2XgrVGrHYYDl
- iFrSkk5IjguKtUhHpzxV09py1xC2nI.lRqrB3GSE1RWeywAbbMTIS32hK55QHPGdYacQCcnRuncr
- hA9GlHJK_9Zo1Rdh2WbP_4P8GTnaqe0t5zpXJ0QgUJNpE3Oun2cNYhL5Vd0tOZ8yy3klVEaCz_rv
- Vc_v92HfnwTE..GuvE9wRzXIa.ohg1Yi4aXpYDCoi.k8g7SFsk7JsVAf0Mgy4JS0VCzZeXTmJXcc
- DJCuEHlGfiGYt9mP2rBhh6BsuKiiA4_pndpwHbnp7XSFCkAZFYqHv.8w_HTZZ1qfOciA6o7U9aQv
- oZwKq8MRfdHOSrUTxIjsJzCXfDbOnpa5SkLM9C2_kfQ4liRVq82uX_b2_v3vQThxg.QvlXR0nnBB
- DRvI3xvSXDotqGPfn44pSSQWQ0ruCqIfoWux1Yi3m2EtWqD2KrHGeWG36_k4PwAg12FS2W758.uS
- 01bfnPhpehfn2WrnmFEYJ6ACVAPaqARi_cpWenvPjudJ9xWcj1I.R5i2jr98rO16tJcN_6kZ2ZZp
- .uWG1ncAdvjGayjtBrIJFpqxSX_WCzZCBUip.iN75cJkVIrd.3WPOlqus8X_tW1JiTUDdfaPuDDA
- tkdCJoFrwx_._9XGmGFlH3XHDp50_Ab_F3ENWXg1Ex30hFaSu4JJpX.hdC8hvBM0vLME86oSG07J
- 7RBMynpdnWOKILkSarCuVv8_.mYaueIflc9TMJrMiY3CqwpvPMVoLTYPU8eXMoA7VxpqzFmtnvOp
- DpeHJFf4Ws2Ihh6enurOqSVXykATVgfHDPzydCMKSBXDGTlkfJsMmCcxnhGNN9gmLBuxNEdfyZIe
- mXWftIciHDDvEBaF3uF3gBAtKucbLQip9qS73fnKOlONG.RFvWal5
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 10da040a-9b43-41bc-8977-490da0709b1a
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic306.consmr.mail.ne1.yahoo.com with HTTP; Sun, 8 Nov 2026 20:53:41 +0000
-Received: by hermes--production-ir2-5dd9bf4598-c2rmk (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c961121125a6f0b424c88f0430981591;
-          Sun, 08 Nov 2026 20:53:38 +0000 (UTC)
-Message-ID: <f84cfedb-b551-4316-8d2b-4d6e06fc151b@yahoo.com>
-Date: Sun, 8 Nov 2026 21:53:33 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V5BALTeJ
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E3A6D2018FE;
+	Sun, 08 Nov 2026 21:53:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794171219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i5HDg/CFXsBlwdhC2HztgZaTS7W3/FOOnLOcAl13fDI=;
+	b=V5BALTeJENP1YESVLx1Gcp7W+mqsXwBYJ2g4H9tYntdi/t2TWVSWD1ZUbEzG9Ad3s2oAAs
+	9kBbVGkIb8UPt4cpfueJioDweACCIK1mAMsefhcjJDYtXtMVRbSxnY/doigwfjvvwz3xBg
+	uLSdtVYcx6HHwDeDvcE0RT6kK/JG7TEgucP1qpqbQXk/rOA+tUgfAxuz5elFVeWy2dJyaW
+	DkHbQWV66/h97tRke/1MuJG90DcvvWIhvTj8Z6ZAvPEaGEHAne7naA5Lu56E5jFXlXrUFs
+	x97gazaF/rD9cqMiFFZ0VnLBfinKADEvXCmMmbp5LUbvQaTYScuKkH1RysJcpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794171219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i5HDg/CFXsBlwdhC2HztgZaTS7W3/FOOnLOcAl13fDI=;
+	b=Q7ZrjeXkpXiNrL4JWBL3fdB5IOXw+uWTFeEPAQrO3rx6tzwUt3Azn5Mdka7FLTC8A048Mp
+	RHmIN3pbcze1SsRNqldbZGYawVcKLC3KgaHTh2RQVmIbz73TR6Q836zotD/IAwh1yzO43C
+	KzDOOlkpshj9ragHaHC5kpJrbtE+ydkIpeG7rFDlmKqOWICy3RKCRb1eQFemisyQHRnQ8Y
+	tgOl/mva8UW7f9J3tgfVT2hCNOBngVxsWqeyyFihi/IQ0MJo4IqUjz2hOT6lxaleO/nIe2
+	X1VsRTNGCVhTsTzbQ1b/EeaxFPLIf3XefV6sKEbgc+kU0UnZU9OiOaQs/HJruQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794171219; a=rsa-sha256;
+	cv=none;
+	b=ZbChf1Sh6/twsuXtKEeEDK73VGsuwq3KMNewBv54/TL2ElXAZhwrgLo3TOofP0FtLai6qL
+	6LM9YWcl2BvqO9TsxSYc9GhOOmRgn1xSd+X49O1GYuYV3gWvM/8zn6M6tSPu9mzrq6oX/s
+	bzlUF0/Mt5Q7jEOHA+5PV+PxcQvUsAYlrg0zUvE5B1ucV9GjJCL+/JtnLGeiD0+quLC0Ai
+	5ppWmy+20MmhX9+DIyxl+8tCJ2tRsrOPUXD5QBumeXm1aZmlDcWPgtwe/E/K24pwX4CHYj
+	UleFGp7ueAeDNIuNQT/nBxPr6ilyZmm0xcqfIqlc1xXFvPpistx+2PI1WxUAHQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xQ9tT-003EmL-2Z;
+	Sun, 08 Nov 2026 21:53:39 +0100
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 7DC075E3E77;
+	Sun, 08 Nov 2026 20:47:37 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sun, 08 Nov 2026 21:47:25 +0100
+Subject: [PATCH can-next v5 4/6] can: gs_usb:
+ gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation
+ fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,36 +99,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v9 08/11] net: dsa: realtek: rtl8365mb: re-latch
- the family D SerDes
-To: Johan Alvarado <contact@c127.dev>, alvin.sipraga@analog.com
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, gusfmora@gmail.com,
- kuncy7@gmail.com, fabianotassotti@gmail.com, gabonpivovich@gmail.com
-References: <9b73858d-fc09-4988-8bab-fd7b88db9412@yahoo.com>
- <39e46930-0d24-46d6-8861-5dd309bb7640@yahoo.com>
- <1e8da5e3-0d1c-4ce6-bb3c-4b9b7a5789a6@c127.dev>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <1e8da5e3-0d1c-4ce6-bb3c-4b9b7a5789a6@c127.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Message-Id: <20261108-gs_usb-fixes-v5-4-d52dd4940d46@pengutronix.de>
+References: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+In-Reply-To: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
+ Eric Evenchick <eric@evenchick.com>, 
+ Maximilian Schneider <max@schneidersoft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-d7211
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1983; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=gkhuiVcqrJlOGPMm9/NnRTfd01cTxBDmpdwQfK7dDZA=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6cP+Zj9j/ug9nOE9H2/9wOBNzzfoUX+muj6Em3+99N
+ Him1ce8uqOUhUGMi0FWTJFl6Y8TigKBDqW9LxMmwcxhZQIZwsDFKQATWV/AyNDq95Thd8eibvem
+ E/qRa2WlsyST7VrZQqdlPV3ieH5+zxmG/9W/P14tyGZyltu58ozT7RnVyW+YfA4+9Lr+X/+QZUU
+ PGyMA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-On Sun, Nov 8, 2026 Johan Alvarado wrote:
-> I'm still investigating and will report back once I have something
-> concrete. Until then I would ask to hold off on patch 8.
+If the allocation of an SKB fails in gs_usb_receive_bulk_callback(), the
+function neither updates the statistics nor checks whether an overflow flag
+is set in the host frame.
 
-Hi Johan,
+Instead of directly resubmitting the URB, first update the dropped RX
+statistics then check if an overflow flag is set.
 
-OK, I will hold off on patch 8 until I hear from you.
+Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
+Fixes: 26949ac935e3 ("can: gs_usb: add CAN-FD support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/usb/gs_usb.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-The logs and the board for this are with Oleg Gavrilov (Cc'd), who
-co-developed the patch. Oleg, could you please send Johan whatever he
-asks for?
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index 1527163e8c35..a42dba9d158e 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -673,8 +673,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
+ 		if (hf->flags & GS_CAN_FLAG_FD) {
+ 			skb = alloc_canfd_skb(netdev, &cfd);
+-			if (!skb)
+-				goto resubmit_urb;
++			if (!skb) {
++				stats->rx_dropped++;
++
++				goto check_overflow;
++			}
+ 
+ 			cfd->can_id = le32_to_cpu(hf->can_id);
+ 			cfd->len = data_length;
+@@ -686,8 +689,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 			memcpy(cfd->data, hf->canfd->data, data_length);
+ 		} else {
+ 			skb = alloc_can_skb(netdev, &cf);
+-			if (!skb)
+-				goto resubmit_urb;
++			if (!skb) {
++				stats->rx_dropped++;
++
++				goto check_overflow;
++			}
+ 
+ 			cf->can_id = le32_to_cpu(hf->can_id);
+ 			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
+@@ -728,6 +734,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 		netif_wake_queue(netdev);
+ 	}
+ 
++check_overflow:
+ 	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
+ 		stats->rx_over_errors++;
+ 		stats->rx_errors++;
 
-Best regards,
-Mieczyslaw
+-- 
+2.53.0
+
