@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794176944;
-	b=PrURr1uih1DV4eXVWlsv6mssKL9Sv/SvtSyvqrxtM/Pet5GT4EMDLVXE2zRFghi6BiGb
-	 B0finF8xW+u3wj4hDhNEPN21TwTC7M0MrIfj5UXgtEL8GDeUTJobws6I2Fc5jEFASoQUa
-	 rK/OCv7FOmmq09gI61MBl6lp52gpjJzZr+6LF7bSgsI/r/uspi/MW8rnJLPADhdDbc9Wy
-	 gQuvPOYicr7702jhZArcf+lsfNRQUgYRYJ/+WqIRoCj04C5W+XPw4EaUNf/f6KdQHsPu9
-	 AszyQxbWteESyuelR+xYD5+qK38a6oaf0UO//JpfSTUG7HO+DljDiUVhbZAMvNppWIg==
+	t=1794176981;
+	b=EeVn2FbsFhs2SyDlbkj3ZQV3Ov/r4I5IbWG+mIg+BdDwc+crKnLl8xOpNJHGOFtfLE8G
+	 EgJ8hULa5DwO+QjbSjOeI6ot6FjEA/Qk/pUhh5XwwzhuKukiuruK3H3cWFDKTnyFfJNFM
+	 f6+M5TgPotaSXSQPbCpkw09I7eiCfR0iAbflT9UIzN7j39nvYIf3moewfGS2LoswuweJL
+	 d2DE3bf/eRMFrpqcoZC4tIrG/vL5Fma9Gxe2DVzOOJAvJCuuREnBfpEROuezshE95XB8k
+	 njiOw2XmHKMHbbReeEmupeVG9WLnVXriBg+1w9Ar31MDDLPA90Rkp1QjIt/t5WqX5hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794176944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794176981;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=dTgEUA8Whje8A1OUq4d6k9QZorEeZrIRrczqzkk+kks=;
-	b=L3VM8CNz9d0biGx9LetHSZ1WqiymeggVyzOSnsJNKZFkyJhKuUypxYd6zB2UDK4AxlFf
-	 THQP355BhHkabAFm8653QXTvHYQ/6fJyLNJohx6mVxgIH0AD+RWFckY0gQcHbtv5l0TVl
-	 GcxcBZ5LJFzi4z2ch7Vch5fU3h7GcAdv5MxuCX5q3+9gPErUffH/QMhT/ZcLFQ6Z0o463
-	 3vvSVg2pXWrCTmwAeBmhgP8PqPRiRfyVWfA8RdJX/NGaNwtXqEjZf5dij0713zcizkEIf
-	 z2wQCCXxRNjmLnsrQr7f7jd2ILMwnFlLWnlBjwaS7bj9I03+bVPc7VQcOSTyyZIcwtg==
+	bh=Cl3KK+7ELAnJwxTVwpv5cn9kYvFlfkJEccGLK/+EL88=;
+	b=uhExAVjll4aADGufdhVrYXz+qNH4KC52/vaU+cXrjt3giJCBMExM7xxibYtksarMNDYd
+	 QQidQIONIVtOqPC3SAMK1AU4SuVWvX70urMDpu/2prLiU+BPmVCE1kMbU99wBQL44SZ2Q
+	 YWwrXaX6Px2gh0+kTZeS5EZtO7GQ5I8ltK2muF3KUDH4b3y7W7uB19yBk8pr2hXfVitUm
+	 zSgqa7t3oiQwlnKLhe6lBw6cnY5Kru4WW7rQX/OoRZ5+S/4BHpJldvoTezfwEnPBbMbyo
+	 UywT6V9Sirm9qtP6c87/DXJdF/4EsmY/uAmAPbq2b7OhIBYktDDwi89x4kZe7sZ56Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=B8LxDbZK;
-	arc=none smtp.remote-ip=79.135.106.31
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=to3WP2ay;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3B7606A333
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:29:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F3B7606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0982B606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:29:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0982B606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=B8LxDbZK
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=to3WP2ay
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794176940; x=1794436140;
-	bh=dTgEUA8Whje8A1OUq4d6k9QZorEeZrIRrczqzkk+kks=;
+	s=protonmail2; t=1794176978; x=1794436178;
+	bh=Cl3KK+7ELAnJwxTVwpv5cn9kYvFlfkJEccGLK/+EL88=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=B8LxDbZKxBRfDSErb38VaNElqbgnbbOZ4ivQgdMmZ0FWlIu0Q4JisWUPCrpQqykx8
-	 mrKY1UI8VzPMzwLkvmG/4+xlkLBgQiwt+26gES4TM4OX2dN9qrQT8Hb8wkB1uRYhab
-	 wWLWy9Sv4VbHnMKR3/SlWV8JZvjScKv0fp9lnPYv6ewaVPqquAZFAxXaH2iRealge1
-	 Wh3s4MnIBOtj7ucWDvba7xDA8XGiXKCZveVG3GEbcb2uyPI3NRAWKEpTXDcPIy6bEF
-	 FwQh1zXnHDOvdMZg8dZdQV+HszujY5Bz0cyf1y+65YHpMj9IIr+r6V231FTqV0Z9aU
-	 73Ha28pCQ+3/A==
-Date: Sun, 08 Nov 2026 22:28:57 +0000
-To: "david@ixit.cz" <david@ixit.cz>, "davem@davemloft.net" <davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
+	b=to3WP2ayz9nl2rMQ3K7KlV3we2gmA6niCrqD/wGQvHEFPrlUOw0DW1nkC6Z/FDITc
+	 9TVHiziBh8cO6eRnx/f4FfKLwvfrEn/cVVRqyDrr9gWTOd6XrEJ5Gdk3FqVijoh+C9
+	 T85fkffQzP5hVBcGsksXOtJgbAYAtVQhcCkAA6KiWRW4a8jq5kWW5drRP1GLKhpWpr
+	 GV/WBAwe7wzo30G8LsP7KqYu3FuATnmJQax+9FtrJZqxuC1rMhMHw6F+zsDWj/00Fq
+	 yWmc0KYKRSaDb/f4+KVUZqjzO1yq+EuM9Kpc7EP329KRwMPhjK4KguUPbxMwZtMI8w
+	 0NeT14SVboMGw==
+Date: Sun, 08 Nov 2026 22:29:35 +0000
+To: "djogorchock@gmail.com" <djogorchock@gmail.com>, "vi@endrift.com" <vi@endrift.com>, "jikos@kernel.org" <jikos@kernel.org>, "bentiss@kernel.org" <bentiss@kernel.org>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] nfc: llcp: pull DM reason byte before use
-Message-ID: <mcyWWpY9VDnsb1o6EnHOMwEinRkPRORIx9_O6DMiKhWHsDIrbITdgbL2PkFkJKgxIIs_0euqmOIT9eCZVFZ9-F8y_g_dFysV8EEOHP6UxmY=@proton.me>
+Cc: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] HID: nintendo-switch2-usb: check URB before use and reset state on free
+Message-ID: <HP2LhXZGIipAd2XxKx7dDh8q3SopkJRAxo8IQkuyMxTlR0YfO3rS3CT9NqUkg3ispO72yfhC7Oa4MoZdXgo6lNIEjC1WvQFlrKreFzCnmFM=@proton.me>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: 65cf35a35a1c99d57c2a0634a4bf03a81f010983
+X-Pm-Message-ID: 65647a40c734b711a0eec75365196c3c131bf883
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,21 +66,43 @@ Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-__nfc_llcp_recv() only pulls the two-byte LLCP header before
-dispatching, but nfc_llcp_recv_dm() reads skb->data[2] for the DM
-reason code. A two-byte DM PDU (or the AGF-wrapped equivalent) from a
-remote peer therefore reads one byte past skb->len. The HDLC handler
-pulls its extra byte; the DM handler does not.
+Proposed-fix limitation: the checks below do not establish URB or
+interface lifetime across the pointer check, lock release, and subsequent
+use. These proposed changes may therefore not resolve the teardown race
+or the late-work use-after-free described below. Please review the
+locking and work/interface lifetime before treating this as a complete
+fix; this is an incomplete proposal for maintainer review, not a
+validated resolution.
 
-With current drivers the read stays inside the over-allocated skb, so
-this is a KMSAN-visible uninitialized read rather than a slab overread,
-and the value only steers the reason-code switch. The patch pulls the
-extra byte first.
+switch2_bulk_in() calls schedule_work() after dropping bulk_in_lock, so
+the work can be queued after switch2_usb_free_in_urbs() has returned
+from cancel_work_sync(). free_in_urbs() NULLs bulk_in[i].urb but never
+resets bulk_in[i].state, so the late work still sees NS2_URB_IN and
+dereferences urb->urb->transfer_buffer / urb->urb->actual_length on a
+NULL pointer - the existing !urb->urb check sits after those
+dereferences:
+
+    if (urb->state !=3D NS2_URB_IN)
+            continue;
+    spin_unlock_irqrestore(...);
+    if (ns2_usb->cfg.parent) {
+            err =3D switch2_receive_command(..., urb->urb->transfer_buffer,
+                                    urb->urb->actual_length);   <-- NULL de=
+ref
+    ...
+    if (!urb->urb)   <-- too late
+
+A malicious or misbehaving controller (or an unplug racing active
+traffic) wins a narrow window to trigger this; the outcome is an oops
+in workqueue context, and a use-after-free if the work runs after the
+interface data is released. The patch re-checks urb->urb under the lock
+before using it and resets the URB state when freeing, mirroring what
+switch2_usb_shutdown() already does.
 
 Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd =
-(v7.4-rc1, 2026-11-07), net/nfc/llcp_core.c:1278-1290 (nfc_llcp_recv_dm), l=
-lcp_core.c:1620-1633 (caller's pull).
-Longstanding code.
+(v7.4-rc1, 2026-11-07), drivers/hid/hid-nintendo-switch2-usb.c:51-121 (comp=
+letion), 209-240 (free path), 288-316 (work).
+New driver merged in this window (zero prior field exposure).
 
 This was found during an assisted (AI-supported) static source review of
 mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); e=
@@ -92,27 +114,31 @@ verification rather than a battle-tested fix.
 
 Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
 ---
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index 74bf817..733e643 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -1276,13 +1276,16 @@ static void nfc_llcp_recv_cc(struct nfc_llcp_local =
-*local,
- }
+diff --git a/drivers/hid/hid-nintendo-switch2-usb.c b/drivers/hid/hid-ninte=
+ndo-switch2-usb.c
+index 8b3b684..c846cef 100644
+--- a/drivers/hid/hid-nintendo-switch2-usb.c
++++ b/drivers/hid/hid-nintendo-switch2-usb.c
+@@ -231,6 +231,7 @@ static void switch2_usb_free_in_urbs(struct switch2_usb=
+ *ns2_usb)
 =20
- static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
--=09=09=09     const struct sk_buff *skb)
-+=09=09=09     struct sk_buff *skb)
- {
- =09struct nfc_llcp_sock *llcp_sock;
- =09struct sock *sk;
- =09u8 dsap, ssap, reason;
- =09bool connecting =3D false;
+ =09=09ns2_usb->bulk_in[i].urb =3D NULL;
+ =09=09ns2_usb->bulk_in[i].data =3D NULL;
++=09=09ns2_usb->bulk_in[i].state =3D NS2_URB_FREE;
+ =09=09spin_unlock_irqrestore(&ns2_usb->bulk_in_lock, flags);
 =20
-+=09if (!pskb_may_pull(skb, LLCP_HEADER_SIZE + 1))
-+=09=09return;
-+
- =09dsap =3D nfc_llcp_dsap(skb);
- =09ssap =3D nfc_llcp_ssap(skb);
- =09reason =3D skb->data[2];
+ =09=09usb_kill_urb(urb);
+@@ -298,6 +299,11 @@ static void switch2_usb_message_in_work(struct work_st=
+ruct *work)
+ =09=09urb =3D &ns2_usb->bulk_in[i];
+ =09=09if (urb->state !=3D NS2_URB_IN)
+ =09=09=09continue;
++=09=09=09/* urb->urb is NULLed by switch2_usb_free_in_urbs() while we
++=09=09=09 * may still run; re-check under the lock before using it.
++=09=09=09 */
++=09=09=09if (!urb->urb)
++=09=09=09=09continue;
+ =09=09spin_unlock_irqrestore(&ns2_usb->bulk_in_lock, flags);
+=20
+ =09=09if (ns2_usb->cfg.parent) {
 
