@@ -1,62 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794162012;
-	b=R+xMvyxAXx9VC+asLzN8dMlRx29uMfF93Q1XtAs+IQkwgMhKr5Ch1RmyBGPG5XzDF7sA
-	 YrKiysGNStIdfsgbeuJCms1dppOVzV/icuTbLYGWeJDAsB5T+gGhiSkpYDwWU90gthdYb
-	 Z2tIeK+SEo4AvsW6C/ai8pe9SGFVyNLL0kJGE5q7h6PeDN/cQPfzvjMLZSpuxQ3E5HjoW
-	 NCPMBOgBYeoaoGGn+N7L+xUsjbHbzRRexIOQDUKHuqQtA/VmSPbnBxVXhnkoFCsr/a5He
-	 pLlv95Maqhr8m7oh0uMnXRlLKy0Es63i8x/LEnv5UAs5PGqeaoAs95tLk/CcNedMrJQ==
+	t=1794162026;
+	b=D4/ZmnFZa8fsSljyYNa6IyoWgoCX6udkv0hSOqaJIvp328Unwo2/6Jt0F+6JgNBWGOkj
+	 81F9dwu6XrQjv/IkcWX99B+fDixmmn/EBSoIHppQu1TcnH5hXqfDsYmTIJWQFQDel/RC/
+	 dP/NJYKpiSA6XkdBI6sUHnDGc7kZ63i6K5QqSIFc86/5WTqIPD9bEVlEr7mBvOPLoF1fT
+	 SRcdS2mtRMOqrYjnl829CJ68NvuPuua5Fa58thSdaOJG9WYJnC1m3SnC1JmdWkXBaPYh0
+	 Gl9ZdRl4cpBB1CZkjN5COMVM4oFfROxcj6u/8wLco9Hsg1Gz/AuOPDHUE3u/gf4FgvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794162012;
-	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=I1oaPtMYd1CpuNQ+9RV9pHUSZcdWTLTk3KLAz0I7Ch0=;
-	b=Icd6y0A+B7F4nhIiJKfE7OxMiNZz7NBkTt/Vb50pS1Pby3tnDlCV4AQ1FewBICQDGKuy
-	 RW7TDbjBGBvJjm+pQonagpCjVdsj4LjZs/4oZf+JWXRhagpm/npHoxoh+xGHvoR1s4gPh
-	 WX2DqjNqOVRC0UnRLXX/tFlJzcQ9//oUh187GDr1c31gJukjS8y5z0YqLtWlEXFK4T34/
-	 qb2DRiFaRnwkpo7xljJpTpVxSAXMKq6J+m0b4fOXUn0JqtzlY+rMN4jHKvOjLZqs27gS2
-	 1nqUyaZ9PLsBv0NQEnf6JFCF7tBnNkuWz8BPbJv/MRwLjMkdHnTvfzGRGfIfPY/0krQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794162026;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PbR35XiVVIWraPGWWcvFvDs5I54IAhzBzMiggypBFzw=;
+	b=ZDb1G/8JstAXxBVAcALkOll93/6v8XaT8vWMhVb3Zwbeg/DHVQP/wNwy1A6Bak0bSGi4
+	 gpDXtBhoIqhjtB9S5fCaKmk5Q2SiDj75HLXILWth+NfLapltoGVCOfuw8kl5mwbSsAE/p
+	 QhQq/eJl+PevApbifhBcm5vaGw/XOG4sMRXncr+b9tK1pQIiuGEt4+eco1EuTkYJYI4kY
+	 vqyRtM4ZW+/jzKlgLV5uFcxj5nE4VprVJ4/IJfkEdrcCTINZAtCkM5wP5ZEbiSgNExsDg
+	 DIWH/0KW2uP8Za9Gkcm7N3iW2+IMpypDYO9ntaO/N/YYUyiecBVybHcaDrp3GPUrCWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=hGCaEe0V;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b="ieVkY/My";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0BSP1A+9;
+	arc=none smtp.remote-ip=202.12.124.149
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD430606A31C;
-	Sun,  8 Nov 2026 18:20:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD430606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA82606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:20:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA82606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=hGCaEe0V
-Date: Sun, 8 Nov 2026 19:20:00 +0100
-X-Lima-ML-UUID: 31c93440-a169-4383-9b5a-bcdeee7649e1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1794162002;
-	bh=I1oaPtMYd1CpuNQ+9RV9pHUSZcdWTLTk3KLAz0I7Ch0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=hGCaEe0VjzEMBXn7xs/UKaj1ZXlPeFL9R85SWBzQWXZEqnlcmPlLUECB3jMrK0aGq
-	 g3SiWWoonspu2pemV+70VeFWpbKD09snI2l6LkXyLgLahuj8CL6WrTpUDto+JaARYl
-	 23LvzYg/g/zHwfDFXCdLo84bji7SIn8lePgfyX4IKXEKxFwWKhFILeCq3kLVPtEY06
-	 ZDR6cMkOkLgbFJOIOk4/SKqd7+ud2avndL/4/KDSRRa4TIa/4S+oiDQlQ7aBsurehU
-	 eHT51WlWEknjeKNCQD2v5vcfkHvJ97qfabt9alAcZu9ju8Ex31VJTLm1k56ZBjVVXI
-	 xKXYZfBjPEOuA==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
- linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
- brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] wifi: brcmfmac: AWDL for AirDrop on Apple T2 Macs
-Message-ID: <20261108192000.2a1d416e@kait2en-mbp15-1>
-In-Reply-To: <c93fa1b2-9d05-4536-9025-6c4d1e6e6b5f@broadcom.com>
-References: <20261104151547.70333-1-dev@deq.rocks>
-	<c93fa1b2-9d05-4536-9025-6c4d1e6e6b5f@broadcom.com>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=ieVkY/My;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0BSP1A+9
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfout.stl.internal (Postfix) with ESMTP id 664251D000A9
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 13:20:24 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Sun, 08 Nov 2026 13:20:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794162023; x=1794248423; bh=PbR35XiVVIWraPGWWcvFv
+	Ds5I54IAhzBzMiggypBFzw=; b=ieVkY/MyUQjict4emdgBNUWBAQkGWLTriVLHv
+	hUwMmA0qOivsC8aBMqwGjNNBKumy9gSGNWkZWgJOf6akY0+sZZZPqs+GQZhlWeoV
+	BN2GqSAMJ7m8Jb6Jq+5vw56Iew3ND3uoYA5RjI4ruS9Fz4kcqEjMsM1DIrrEJXTe
+	+L+XMsl0PTvvFGj1Lcu/Yz1zpfLfDfuQ9Of8lQ1OuwXuJIYdCuTMxP2pFs7dr8dh
+	cRgZFy0ZbLU/QKvMQgy8Qdf2zobXaJ2JkXmWR77V114wB6EQ2IaLaWfgv1CUjn4d
+	RSOshKMhh5rJTrXqR//OtGUuYRT3dpTk3LuipIH+tYABBrOow==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794162023; x=1794248423; bh=PbR35XiVVIWraPGWWcvFvDs5I54IAhzBzMi
+	ggypBFzw=; b=0BSP1A+9Q/jZ+pn1jTUWs03EC2WshDsfmxpaujfuy6nnLpSYUAC
+	ujfCOTAsi4N0VKvNBcEgX80mhx7ywRUnUt0uTNBqIiauiz8v4SP/Nixxrl7BTKRk
+	a8jEBeAYpbT1KF1cPiAFuSCkeD1xcLa/Da6Ky0ITBkUnVFaNx1w1yPGsLUMEeI8Q
+	/Ys++J3s9qnD1PPUyfD8OpK4MT8yl0QnyDS5YIBM297qzvpxa9fQ0XZYbDBL2gRl
+	LCZH6w01lhg5BHXhSUJx1MhwkbC+d+yjRiRBawYc/s3pmJD0oZp5zYYhXSOo8wqT
+	lRQwQZOBGFkVd2iSz93Xq4zE7JeN2FZ7iRA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794162023; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Wm2PdQJVHven58B16HYTu7Efz/GXbkO4ryROwN/vt1nDafC
+	yX6KB6+KC7WzBvtj/g7sKelrC7A31fiMqwTBVGPXdXYzSSx94bnBWeQC1RmxZRAt
+	afEQzY7AQQgRaDmbDOzeE/Ca5GDLrYT03TZ46w5OkDVFRGZh+RjmNT2bJPYbkWEW
+	AgoAmJMMBN+8frl4qAImTAhmg1aIAjeS+iB1yzt5ZsQfWj9FEmGdyEB+cT200dhA
+	BBOjCsBKsohvcrShDRRFdcq8ANF8s/VLPSBeA4UTptl3toRTfQEKC92RAJ/N0KAz
+	pV4oP/BBvgN/+2VQf15BKhNYIys2k4DRZ7sTS5Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:1jug1UyKWT71b9GkrDBBCB8olC6QuXKeGuVlzpNj7vg=:wUxsHYGFCU3zkHneFwyevYZjfEzbUrcHmIieWC5JXMk=;
+X-ME-Sender: <xms:Zr3wajrDLKQ3ByRE26Hqmdt6BmIrL43jsxMYgvvtdKlua-asZIXmyw>
+    <xme:Zr3wauWpnPJs0ROp6h7he09zMZzQL4hHUxaodsEnKeh_pMg8IEmJeCRIHoTzvw88r
+    FEqg2NCbYrXE9JsiJaUN5OGCGlSbLfvL_17iR3NbHBxD8We4wPKtAZT>
+X-ME-Received: <xmr:Zr3wauboKIpO3x8rCoKr0gL30mxTj7hUZDScR_E-cOR6NpYx1w4Bk6JYhfLrkAJk>
+X-ME-Proxy-Cause: dmFkZTEz4lTyiNlrhfEqdBUEbs0DMfQN8NYKzX9n13W2b6fXSHzuYZC4bA0OGY4WpAnTTJ
+    of/ZS2XdmZzbr7hs2WU/xDrkqIc+G656ONabJgxwSG/JiAcHkpAtbN2RlclHMCZo+0lnIs
+    1UUOWyZ4EiLzGsQSazJpKutoo8RgUkqUPZiv94lbNlGvIVJ7JNLY5gEluO1giqNIqnGc4Y
+    hJxakEtZzGPXmfMnUdvpnSao0lF6SmoXM+u35V+DMsSFzOjlrUtpBJKcTu3vm5pAC0+DUq
+    y3qUT32erocSLB24gevKxkGL993tCtua0yNuhVqVQL0/ZCSUkLPJcrtfyC2Su/MPYjZjKe
+    ho9ww9PiNzwYwwGXiY2Nsxp6HvT/w7kdIhyw8irroiIAL9dPgASibqURvhALn1Olr9uf42
+    /LbEn2dsUruMOuRyM18Q8E1kUwctpKpE/BZw7bQHltovOi5kSVy1hzfhxOfc3FdU0fw68+
+    /WS4yjGaSilII0L7LWPRAQZBfQwuowvpsbHYNSTeBrUM3wrM7FDFnHEeHe6nQTqVAooSTN
+    KDnm0rS6pCRQyCsZ7h6OwLVXYzTVtT31ZCShLkj/2nidScTJXCrpCRu660Nc974Xgu1dkT
+    TBXv9eVHITdZb6yxjWo1InSzKvKFQi+4izfTezqatNeyDL73h/PVyUx4wT+w
+X-ME-Proxy: <xmx:Zr3warct_w5nb88av92VvvTF7UZR7JiRlzA1Of5cQwk0w76ZIwnaCw>
+    <xmx:Zr3wao08R_DZ5zNHyy84KTc8T_Yb4w1fzsZ6L_nYQLrImZu3hbp7nA>
+    <xmx:Zr3waiJxIPWGZXlc9lBY4BzLfsjIhNhQu2BPe23HgYAdz_y12S9wBg>
+    <xmx:Zr3wanF1Wd-ECdGQt8XWbJtbIDV0UiultFZLKvTzocwwPRMubduLUw>
+    <xmx:Z73waoOF7xYMYOpSvHadnPHK9uJ5t0X9iTL_u9XxsM5HmHwCRIM7zrjC>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 8 Nov 2026 13:20:22 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: [PATCH v3 0/2] ksmbd: fix explicit DACL checks and parent-derived rights
+Date: Sun,  8 Nov 2026 12:20:09 -0600
+Message-ID: <20261108182011.1888520-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,69 +125,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 8 Nov 2026 16:41:37 +0100
-Arend van Spriel <arend.vanspriel@broadcom.com> wrote:
+smb_check_perm_dacl() mishandles explicit access requests. It can turn a
+deny ACE into a grant, ignore earlier deny ACEs, and treat guest and
+anonymous sessions as Authenticated Users. This can grant read or write
+access that the stored DACL does not grant.
 
-> I really have no idea how to deal with this series. AWDL is not part
-> of the IEEE 802.11 so I can imagine the kernel wireless subsystem
-> does not care to support this. From driver perspective I am not keen
-> on supporting this upstream either. My limited understanding of AWDL
-> was that it was Apple's variant of TDLS (802.11z).
->
-> So what does AWDL provide to user-space and could the same be
-> accomplished by TDLS?
+The function also ignores rights granted by the parent directory.
+FILE_DELETE_CHILD can grant DELETE on a child, and FILE_LIST_DIRECTORY
+can grant FILE_READ_ATTRIBUTES.
 
-Hi Arend,
+Patch 1 evaluates explicit requests in DACL order and excludes guest and
+anonymous sessions from Authenticated Users. Patch 2 obtains explicitly
+requested DELETE and FILE_READ_ATTRIBUTES rights from the parent DACL.
 
-I think I can be direct here. My submission is a long shot. If I were in
-your place I wouldn't be keen on it either...
+Patch 2 uses the authentication state added by patch 1. It also restores
+parent-derived rights that patch 1 can remove from guests. Backport the
+patches in order.
 
-But! AirDrop is the feature people miss most when they move from macOS
-to Linux. Also you may have noticed Google reversed AirDrop in early
-2026 and newer Pixel and Samsung devices ship with it. So there is a
-huge demand. Especially for former macOS users. Those often have a
-complete Airdrop "ecosystem" at home. Personally, I don't use it. But
-that is what I was told by our community members.
+Older stable trees first need commit cc2f133e80eb ("ksmbd: fix maximum
+allowed access checks") and the preceding DACL fixes through "ksmbd:
+grant a caller what its groups and OWNER RIGHTS ACEs allow".
 
-However, on our Macs the firmware already implements AWDL, the driver is
-the only missing piece. And it will work on T2 and Apple Silicon Macs
-alike. Maybe even on some pre-T2 Macs. So we would give a huge ammount
-of users big grins on their faces.
+Changes since v2:
+- Patch 1: keep the POSIX ACL fallback from replacing the DACL result
+  when an Authenticated Users ACE is present, including for guest and
+  anonymous sessions. Namjae found that the fallback could otherwise
+  grant access denied by the DACL.
+- Rebase onto the current ksmbd-for-next.
 
---
+Changes since v1:
+- Patch 2: let group and OWNER RIGHTS ACEs decide the strict parent
+  check before the POSIX ACL fallback. Sashiko's review of v1 found that
+  a POSIX ACL entry could otherwise hide a FILE_DELETE_CHILD grant.
+- Patch 2: add a comment on which MAXIMUM_ALLOWED requests omit group
+  ACEs.
 
-Re TDLS: to my understanding, TDLS needs both peers associated to the
-same AP. AWDL needs no AP at all. The peers agree on availability
-windows and a channel schedule among themselves, so two devices
-exchange data while they are on different networks or on no network at
-all. Like on a train or at a customer site. That is what AirDrop
-depends on, and it is why it can't be built on TDLS.
+v1: https://lore.kernel.org/linux-cifs/20261107062233.1579198-1-icb@fastmail.org/
+v2: https://lore.kernel.org/linux-cifs/20261107231941.1824289-1-icb@fastmail.org/
 
-IIRC the closest standard is Wi-Fi Aware (NAN), not TDLS. But... to be
-perfectly honest with you. If we can't get awdl into the kernel, I am
-not keen on changing it to NAN. Then let one of those kernel modifying
-distros pick it up and let them do what they want.
+Both patches were tested with KASAN on ksmbd-for-next 6f42553e493d.
+Its fs/smb/server tree is identical to current head 2f14fe2d5895.
+smbtorture results are unchanged.
 
-> From the explanation above it seems AWDL provides more knobs to
-> user-space, but not sure whether the awdl%d interface is merely a
-> control interface or actually passing data through it (patch 5
-> implies it does).
+This series was developed with LLM assistance.
 
-It passes data. awdl%d is the data interface, AirDrop runs over IPv6
-link-local on it. The vendor commands only carry the AWDL action
-frames and the peer setup, the schedule itself runs in the firmware.
+Ian Bridges (2):
+  ksmbd: evaluate the DACL in order for explicit access requests
+  ksmbd: let the parent's DACL grant DELETE and FILE_READ_ATTRIBUTES
 
-> If my memory does not fail me then adding vendor commands is
-> generally pushed back.
-
-Agreed. They wont like it. Hence "long shot". But worth a try maybe.
-nl80211 has no AWDL interface type, which is why I went with vendor
-commands. If there is any interface you and Johannes would rather see,
-let me know.
+ fs/smb/server/mgmt/user_config.h   |   5 ++
+ fs/smb/server/smb2pdu.c            |  11 ++-
+ fs/smb/server/smbacl.c             | 133 +++++++++++++++++++++++++----
+ fs/smb/server/smbacl.h             |   2 +-
+ fs/smb/server/tests/smbacl_kunit.c |   4 +-
+ 5 files changed, 131 insertions(+), 24 deletions(-)
 
 
-Best,
-Andre
+base-commit: 2f14fe2d589583ce649b2bf1b449cc9839abda8b
+-- 
+2.47.3
+
