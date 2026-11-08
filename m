@@ -1,117 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794149903;
-	b=46oRiRG9xIVoWAAwyuktzBCJrQ7pmjmJvzr1hZxvIiXKDiaYI1vtex6TSOXHp8uG8XiH
-	 ZCr1hHvhcjvnzkLFGLnmKT+RmuFXfCsm21aF/6uMPcXDigy5bXim8q8QvnlrFp+s6O5un
-	 V31dojppW3I1NB0S8Fx8sOH5Ow0rAwAYn7HAvd1Sz/G2uX7AUgY0mq+mih3O1BOr9aDyi
-	 dkLKZ4J8ACD/kAsRKtWSzEcuWtBmi4WQjeaPAPrmILTDkkQL1P/TTSJyTQx9PLAZczfgF
-	 Jzw2m85kEsMPgmrnTt7Smsa7UBs9rAtIyZX5b53m9oIr0UjPYeAHrNzA0y4+nn/nDeQ==
+	t=1794149948;
+	b=E8M0SWJ7HE8hOS5YzDKQVKmzc7KiDPdKPL0DQJUO6165X+AQf4WYkuf7+qwwPKb8DM1a
+	 WZMS0dm1rVJ6eECMQhuenihZyD4RRzWJc08xGcKReLiCJWUrUJR3vYWtWJzZUZvtv9EVg
+	 cA32CDyoCqCrip5bXFAntDTZiHK0nfQEYyDEq4Uz/czBpuuHWso9rx35wWXdYwOnxmwwe
+	 Ms9PriP2tAgdhvFHn20Uk/Q1Lj8k+i62PTYTddOaYce0/iXkWBFWK0mK1VH1AirfS2fbx
+	 gDa5HsIkCDX+QSzskz1/FJfFgJPHD2c9XH/BzzgeN114n2r7paHi/kh8KtxffXhFUXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794149903;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=9G8iDq9PgStkjmR+yV5JSPWsbqrzQ4CGM0C2KH6B3hI=;
-	b=42wEQgZi7dsExqcNDyO3WA2EDs2gxXkVYtHpRjT0qw4V/tKLh73SVWtR4OTV6JeSiT1d
-	 Bfs7kSBW2Vp8/58cJX133atOB0Qv0RbLkGrCUMNUdpB7pMkGfPr99mtWxZq951LWj4ad+
-	 h2mi6lrizszhHaQXOAvqrQ9aaPiT/qiedfj1+zvKWiUpe6P9UKSgFcqMvyikx7X87MtF2
-	 FyJA6EjIXo23FJou7vukmQJTPi0QUt+2ekN29kckrzgmxSRwX2jbI2DE8xIjxfG3wejDm
-	 LlU0avU0HT0F35c+ZEiErivexU5JsOARH01z0ur3eZwwaISNiYL+Ae7cU/oRItsVojA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794149948;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=46GXHeUALtpO4O3TOALhIC4HG0bGJ4xyjvuRvhuOfq0=;
+	b=T+Vb/iVb/gzn5f/JhKQ2VzA7cg0oMWLDR12E9xmeDmi+TaHwRsvvrKFqwtLlhR3bHiMV
+	 cgiZm+2XCOsYNw/sU6YusGF2WOMOwQ+ZVVPinPCc0PIEDAn2UmIBmGlQ1WKWLlxo5pTZG
+	 8zZIpmtn7vnFc4ZYd/XGRkbi11l0dRI8HzebFBzMdAAltcPS0SuiN1uVwA6ytzF6iybEZ
+	 ySwIwkDLZWYOG5pPZjeRxhqH8nbmDAfEWeQNm4BW0MGxEj7LW4VxAyEl93GXeawgGUwPY
+	 xAYWFJm6/SjM1aIIBYpiwkgLwtWP1wU9PK3aS0yJeY7WzB6mbjjHwKKd0RkDIwdy+iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=GK42ABHy;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0eC0qwAa;
-	arc=none smtp.remote-ip=103.168.172.150
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+mgnbqn;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB789606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB789606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47865606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47865606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=GK42ABHy;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0eC0qwAa
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id F16DDEC058F
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:58:21 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Sun, 08 Nov 2026 09:58:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1794149901; x=1794236301; bh=9G8iDq9PgS
-	tkjmR+yV5JSPWsbqrzQ4CGM0C2KH6B3hI=; b=GK42ABHyjBtdZT3jPCUSYX7jxL
-	O+a6kIhNL09GUpYqD/jfA30j1rRoAqkw3ihFAUhcmNyTVdmKDFJYhsUGl8owJ3lN
-	Fjl/B/sXfDq4ZVvxEhYlerI3kh+pD9f4rtI2mGy0mDqdWy/LqrINfQ4cocvTIH4q
-	sYm7vw+NRAL9h7z6Z37DdhFIcI+/1JhLh0OnZjA2FYumNGlh4JOdTN7wx/d6vH+k
-	4ZQYWOD3RnyB4pynE833Zz2yK/X3NL7IPwpVa3kH3e26wsTIEzhp+R0sgVMzPmQ1
-	jE/isXCy054cXhHAO8ES0I1PpSCpuATxGNU0L/BfEkmZV2Lc/0bRf4jkg7tw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794149901; x=1794236301; bh=9G8iDq9PgStkjmR+yV5JSPWsbqrzQ4CGM0C
-	2KH6B3hI=; b=0eC0qwAaFWFVLOIZyG4V3PFu4nYgGrm7GW9vSqBj9as/vJRAar7
-	Keg/DYEnt2297sZd43L/sMcKH7Qfi8CEBTJdGj6fEO0D2ohCUlw6AMcsYCUtUuR2
-	Ig0WD5Ji5hQRYu6U5XYf2GtHg52W47MqyeVwlZ6zOtLwUV18k7xBfidOeB9R7RtD
-	OtLI7KKv/VLkCAR+wMlOBrqS7YqBYQ9MQjyNZmwl6YXIljSaeuRlw8LYF32WqGSk
-	YddmVZsIzdU7P0mprh+CAuetmGKP53ZqyIuAGwzDbKYa5K2gLrSTIlYBaZP0PxXp
-	XTrZrUd2YIOWlx4x/7CLUTqbf7CA46vM5DQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794149901; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:MdHO9v3+QhnAbCLKsW9yxVcZ+LDAKYcH61k3QdC6fgbq2O2
-	cKuYABEkfEnovQmP/bEwcy31U087wLclPIg7WeX7F38lR1SQ/NHgCf+L3df5Dl1W
-	zlmt/rDmVDiZSHNTaHvnhpo+gQ2o+G+V76hZP18iyPtmsYb9Q0VH927q5hdwmyKp
-	uWIUttXGAn8ivTvqUWQMi6FHYSUD8UB1i8AMXvxvYhpNp01OlyH21h7TNT+8CXPT
-	+mK6juRtbv6BA/wlD+Wct9gW77e32/TQ+UjTAzMFy7qsBRrKirnNuB0MYNKNLSLj
-	R3VovZ+v6wS55rblSUjxQrDdrcdfkfUGDqc47aA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:FVyg89EHhanLbUX+laxjF8YLXPMSx/LDlmdfiJ03Z3c=:CEgt00gN0SsvFLw1HJqV8+/SJMLe87wDDOVUlEnHRF0=;
-X-ME-Sender: <xms:DY7watBszlm3goS9QnMsC-Gp_1lHJyNUYonfhfC29_fhVaXtl1qCsw>
-    <xme:DY7wakeOY2b7m8CSgmR1FqPAHwAfNkOM6q2_9NtMqfbiAjAkoxTvQXoq3atu9Hmfz
-    Po7rAvC-5pFHFwvJ5P-1uSSRPXcDLsOPHSp91Ih_P53DR5BxzuWEzU>
-X-ME-Received: <xmr:DY7wakKm5BsrHEARH_yqJ3DjXzxF8jyKm1UFJGc_TMbla-JxMpz6yNugCxbYcyzb00NkbNjSmDwMPvvfsmRvPufZcQsZFqXdqTA>
-X-ME-Proxy-Cause: dmFkZTEHaGvpM3yxaQgu7rtFJBM85WX2facGuVlKhrud5kZMZGJGAOISDqwmz6jyz80blO
-    wFnvuQ+m27u39K5gByo/qMS1BLzGiNq1BRkmQyy2hF12i2ibFLohw6efovrLPzcmPSNOV+
-    miVWWlsRsC6ziQhIxNbhhhfHh+0Ow3eEH1YtfkMFsanYBY0y8Y7sinzZ7xGJcQgJyThpab
-    2T2NhRphpP4DzlG3paTwC1s40JSsocbvuTMJ6Ka/u1qxrn0JfZ0tLEZhXu56wJk4SzA+ok
-    qB3lnuQ4sNxBb3PhUEXIkRRGuL+nSL3rIigFQZ605d5V+T5H/ioElZ+yvKEo2O+HxhrFVy
-    S9nWH2NPcFxXRD+8VygpJa5YhRlra+pu6HcvORoCZpqn4DcQAYMSq8qcb9Wevlg2Sy7rYw
-    XCuHk/P9H9q/jxQihgkORYjSScwJZMgGWD5q7dVS/KPQzsojZqZgsOXRZmhjD9b53wbTXR
-    jlizqXWJpUajNTwE6BxevGgOFYOhK82RUXPuk13lg6JK9BPfelAkT33Lw4JNQA0CqEQbRv
-    FI/KyJhVI9yRfc6QVqWNM7igKd0qcpzhGU1EC5a81E2LW717KD/8q+NnBzhIieuSl3b4WJ
-    tX6bbuJmeYIA3jb3od+FGXmk0NayAiW87XHE9wMWVk5HgG6ItW47NBd/T26w
-X-ME-Proxy: <xmx:DY7wan1XA8ZCjYIXi7Qyk39YzIfBzX4CaCvv7LGHUxBa92lLlxRUpg>
-    <xmx:DY7waujoBaYELkOLySvqVA4BNbILcaDUq0P-VmfpW-3AD3n6QiUz7A>
-    <xmx:DY7waoUKksn_a4PdtRnoXSJcRS9acH5fKSuIDq9_WZnRHx8zj_aLEw>
-    <xmx:DY7watXHs3ciSeTtk4Bu82bRFmp-_bdaI71i9VuMxOI0WlEcEdc3Kg>
-    <xmx:DY7wapU9UPUHTu8dgLy5yDRN2iV0y_DaXSvrzpSr-QYlK6RCk0YuXaKQ>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 09:58:21 -0500 (EST)
-Date: Sun, 8 Nov 2026 15:58:20 +0100
-From: Janne Grunau <j@jannau.net>
-To: Sven Peter <sven@kernel.org>
-Cc: Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: apple: Fix swapped paddr and size shift
-Message-ID: <20261108145820.GA1462246@robin.jannau.net>
-References: <20261108-b4-sart-fix-v1-1-dab7dc1e9adb@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+mgnbqn
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso247191eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:59:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794149947; x=1794754747; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=46GXHeUALtpO4O3TOALhIC4HG0bGJ4xyjvuRvhuOfq0=;
+        b=I+mgnbqnq8NSHuqYlXQCBRsCwEE4OSEQinRr8N0VZR0arR5lJW+qfCv8UvBUUbAt1A
+         iuNEdhaiHT5wbCtr0NgDNbh48EXeKcpGcaJZszJnqmKYY6z5U3E7veLLoAjgfQmxcYbI
+         JmwYZwMdrk6PAc5Yq2opy2NeE8Ns4p9GNTn5qsxTBDmYfYaVZgbenDQNJpseaGv71hEL
+         IzcqwNqVhVdURUQvExrPOvJSU09getdEEbZeaHkZ//MDYaHZJZh758RQ4kLPXtqv0tlB
+         c0JPbzbwIdq925YL/RhIsc1eAj6H9AHwfkKLa/2RLe2lI/PDG6FNJGBWO2PgUC01qL0i
+         lWMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794149947; x=1794754747;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=46GXHeUALtpO4O3TOALhIC4HG0bGJ4xyjvuRvhuOfq0=;
+        b=N93213ZBNtxXBKDqnnWKCxREpqFDOENE0EFH+D2Bj3FKyd0t1w6z5eipy93IEZ3Kr1
+         B0w12DlqvliZfnJwaA8LJkwbgceXkYF9Yz8q3M5vH81vPD6CkGnv+MSZfR2RH/MdVSAr
+         TZ06TSkSHTLAp/bPJT/iekzQQP7F+YXQ6x8rUTHKJE1BibpUYdM1QsBKxF7w4x9ELYUF
+         P5odhqX8qiLj73EdCJl7+k5rMBPopj6PHwWPADerO/wuEXsn7rQxZJ9zq+Uu+mYbJ4hy
+         Bu2PC8nvT3cGgzQwvhahNf0FI9SmMoJQsyVNvuhD+B7S1RFVGNikLAzFKOKAULHII438
+         I3Ig==
+X-Forwarded-Encrypted: i=1; AL+hErEfKFqFIyiUhdN/LhMXZkNOAYG+2CK7e037iV83Qbi3p6pm9ww7EIYmbQH+2YDRf7TqW4kN3yeRsGTVwLM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pLDEBxJ23UMpKOedHd7pt6zWeAz63U88qBxDPYc7YzV21z/1Z
+	1cOU8lYQPS11RiQvN4OEY6xFa2k3OKgIthV0MQIYNKdh9OQrxHyluevk
+X-Gm-Gg: AYBFou1nTwOhm2SjUBqcd5tARE/1VrZZOktgfeDQCTut/jIT6kp5j4yxoLUKTGFg3P9
+	eu70+e4NyewVfc2jiZrRhd/EDJfBA6zFZ5w6dIPYyfADbC4ome3Pw1Qw3UUSkGHOPwXml1sag/S
+	7F946UiTRtY72bAXvERLAWxKpiDydvW3opnRgR/Chq0NRvPaaU1bf0dKC9DtWmepc96qFiiN2kd
+	lDX4/Sb7QzBqqG2+29Tn76u00yEmtELyNtpgg1WfDgn7W3keCRhQOzymEyOLdcNc4EdzSCjTrfp
+	J4jpCkFNWr4i2p85FxDoySdc0klR5Wcw8ylWA7TydnN0AieR6PViTpsiTVGYYsM+035VnH8/aoy
+	7+7TpG59ZpYgt5PXeJfHmVs2YMFnDWHvMFi3WoeUMKiVbSeTqTrSQF5bX9ejX9/F9G7gZn+FM//
+	NZ8Ad/pmfikZM4sMs4bq6WUu4BPodVJ+ilMyPmwJ45/r6AX+VIV/g72s5jDVqv4wVXQuMY7jLKX
+	RLwbvLmyjEV50BYbP2kyfekv+iBIkY9MXAS8GixcgvS5l43DAuIHStVS9ccVPOaxacdzU9ZVRkW
+	8xF85tgiyDqi+n+FsDp/XbswmYFi3ilWOvS8O5coS+hWJm4q/mI9kJO1rMJzXQtbJw==
+X-Received: by 2002:a05:7300:680e:b0:36b:d3dd:2e85 with SMTP id 5a478bee46e88-372575c63fcmr3296545eec.36.1794149947219;
+        Sun, 08 Nov 2026 06:59:07 -0800 (PST)
+Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265c06c61sm5679879eec.14.2026.11.08.06.59.02
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 08 Nov 2026 06:59:06 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,38 +89,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261108-b4-sart-fix-v1-1-dab7dc1e9adb@kernel.org>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH net-next v2 0/4] tcp: fix tcp_base_mss on passive
+ connections and test MTU probing
+From: Esko Mobius <echoowall@gmail.com>
+In-Reply-To: <179414895487.488859.839196891969031483@kernel.org>
+Date: Sun, 8 Nov 2026 22:58:50 +0800
+Cc: davem@davemloft.net,
+ pabeni@redhat.com,
+ ncardwell@google.com,
+ horms@kernel.org,
+ kuba@kernel.org,
+ kuniyu@google.com,
+ shuah@kernel.org,
+ edumazet@kernel.org,
+ linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ panweiping3@gmail.com,
+ netdev@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <6A5F2D50-D257-4F6B-A1B6-BE08489591F6@gmail.com>
+References: <20261108-mtu-probing-series-v2-0-355d6490c3db@gmail.com>
+ <179414895487.488859.839196891969031483@kernel.org>
+To: netdev-bot+sinfo@kernel.org
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Sun, Nov 08, 2026 at 03:35:11PM +0100, Sven Peter wrote:
-> Right now we assign the paddr shift to the size shift and vice-versa.
-> Luckily, this doesn't matter because they are the same for all SART
-> versions but fixing this doesn't hurt.
-> 
-> Fixes: b170143ae111 ("soc: apple: Add SART driver")
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  drivers/soc/apple/sart.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soc/apple/sart.c b/drivers/soc/apple/sart.c
-> index 66b99955b395..5f1f9ec5d311 100644
-> --- a/drivers/soc/apple/sart.c
-> +++ b/drivers/soc/apple/sart.c
-> @@ -258,8 +258,8 @@ static int sart_set_entry(struct apple_sart *sart, int index, u8 flags,
->  	if (paddr & ((1 << sart->ops->paddr_shift) - 1))
->  		return -EINVAL;
->  
-> -	paddr >>= sart->ops->size_shift;
-> -	size >>= sart->ops->paddr_shift;
-> +	paddr >>= sart->ops->paddr_shift;
-> +	size >>= sart->ops->size_shift;
->  
->  	if (size > sart->ops->size_max)
->  		return -EINVAL;
+> How the issue was discovered
+Hi,
 
-Reviewed-by: Janne Grunau <j@jannau.net>
+This came up while adding packetdrill coverage for tcp_mtu_probing=2.
+The test work involved comparing the initial send MSS and what happened
+after the first probe was acknowledged on active and passive IPv4
+connections.
 
-Janne
+With tcp_base_mss=1024, the active connection started at 1024 as
+expected. The passive connection started at 1460, and its send MSS
+dropped to 1242 after the first probe was acknowledged. That led to
+checking the passive setup path, where tcp_v4_syn_recv_sock() called
+tcp_sync_mss() before tcp_init_transfer() enabled MTU probing.
+
+Thanks,
+Yongjian
