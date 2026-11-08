@@ -1,58 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.231.106.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794152680;
-	b=2oj/0VXyYVpUYHScmxXyuRyXilNXjv6VWESeWsNMpQTfXjcTYjBCSK+/2vEjBjnW2PUg
-	 WNq1s10DPH2hqQ8uycKSevqiRy4TEkvSbCXC0YLwCTHbcVVKfhepLQIKVsSceOQThelQW
-	 RCnVVHFu1mAykE/dQTFYQ0QeA/N8MtBY4y19odhIYVch3X/yRg0jjS52FNUiBgTZcC2W2
-	 ofqap26Xba7INeIKP4Hq0lCRu95aFNKzlQmKPre8jSXZsr3D1gYelNnMNHwF63HfWqMmB
-	 W1dzB02NgzyQAwEQHI37ZGWMi+fIWdnLK1YfTUkzEG5Tc4oG25QzBb11kdu0Z+uycsg==
+	t=1794152709;
+	b=axpeU6qKxClzYQ4I1XMAedZpv+caaNrgr1esm71bUElz0zD43lB1IoUZZPAeNIPhB4yt
+	 GBj//hzK7OSd02OZBe6DFs03aEPYqODmO2BhxmLf1W+WziZQ+E2hUuhpwBWD4ZCLpreFw
+	 rG8wPHlo3j4/42/KxmIN8OZkyueh4un7K2eleekuaSMXoKmJs7Ct9KVQzKmuNFhm9bnu9
+	 O8W0qaFUKLNJDPBe6BYadZV28IZ/tiH0w4VRp3J8exPWOZg0CDQBRxY2XwSsW1gw9Vc+r
+	 o6GtMgvXWrer3BQVulay0cVWqhaCkd/hiwKNeOJZ09Fr0BEtpFl3omXibB4YSn0E+wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794152680;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=CGTrufR5u551vPqeL8Q+XJZMetV7BiZ7/CTz+720Qbo=;
-	b=rgVrotX2olIHg41Nu95EvnxWbq/LA+r6l8grE3LIelpvEkuTzPMTtBcqK4L+IhVABkzx
-	 ea+1D/pI89yXUjCoiDziMQFzc38uHj4I2ZsAx14MJBPLgZ7QAfoFNB0oRDnZaxXmMH34I
-	 a3LWSI5C0wZnSUws1gc0N/t4KHEJmRKkYg0wLiPF/vPuWoJSw80dPvbCL076kiBahxRFt
-	 yLS5OY5StPZ4lCNaZLOmwsChT8B6d8BT1V5fMERB5Rt4RXVJvvcU/SEuDCGHB9J2MwOBJ
-	 xYeP7wehD++OOPniPQYLWjYW1IK3P2zi7Bh1hoKeHn/F27yVMIEVJWF9axoP7MKZ1SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794152709;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=IYgeKW2ILwzKm0XojR9/sa2c/Zca6UEWbaskTpVbLWc=;
+	b=R/crbH2JfHD0x3VxwqZMeGsj0nipTq6tyNoJha+8aeBjzGkdPpUAsSpNdR1vW7tiJJqX
+	 q7zv0LKcKXy2xu2RG1JtGgVpSOh27SxrFqYy2hxyDaSOLgEO+4DKNFsanUn052YE738Rk
+	 Ib6iycammVK9o0zEgVlT+8dWhh/jhsLACTj+JLCpnXE9Yhjzjh+6fdgnBR3h/Kjm0XUbR
+	 6WsWw27f4SdTFxR4s1QmtHFAnRd671qP6UAGK6F/P9cDoNG+HPDGqXriEyJmrZZqS+H/X
+	 BNlGkuWmqczXPSkh8oQWn4MBtAE679MlzD5Oenns13cHd0m27We8/j1HJVYAA11Z65A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=klattorp.se;
-	spf=pass smtp.mailfrom=klattorp.se;
-	dkim=pass header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b="Hy/UKf5T";
-	arc=none smtp.remote-ip=94.231.106.230
-Received: from smtp-out2.simply.com (smtp-out2.simply.com [94.231.106.230])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81E1606A31C;
-	Sun,  8 Nov 2026 15:44:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C81E1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=klattorp.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=klattorp.se
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b=Hy/UKf5T
-Received: from [192.168.1.45] (81-228-203-110-no2102.tbcn.telia.com [81.228.203.110])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KrJyKC2/";
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.simply.com (Simply.com) with ESMTPSA id 4jMy053fw9z1DDhC;
-	Sun,  8 Nov 2026 16:44:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=klattorp.se; s=simplycom2;
-	t=1794152677;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CGTrufR5u551vPqeL8Q+XJZMetV7BiZ7/CTz+720Qbo=;
-	b=Hy/UKf5TEHjR1thBp6W0sZpBTN8gOvj5uTz88jJ9YmEsYhZpHcJw7QiZTs/QFvOwhCXL8X
-	qmfOlnwXNCxSP2zY3Znm/tZpDL0RgDM54cBgYl7Q+DvBPGxjAVtFWEMVpNTSvscPC6t9fg
-	F8iqwW40lIqgwZy5M7lYzmG9vItLetbq6btzWhYCaZzOpYIvifElEfv3qa63EXGYGyYgXn
-	kJ7PAzNm3wFmV41rFpbDTnV4V0cvAQzjJzkhvzPKop4ntNOc1TYAfohmoUV5pcNw/Lxm+N
-	YhTSOUjY0pepMqTkxy7xSdnxp9ykxT6cw3PQAX67sfRAd//19RJNPhCA7TMuhQ==
-Message-ID: <ce39c36e-cb6e-4239-b14d-528eab9b132d@klattorp.se>
-Date: Sun, 8 Nov 2026 16:44:36 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A750606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A750606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KrJyKC2/
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so484395e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:45:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794152707; x=1794757507; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IYgeKW2ILwzKm0XojR9/sa2c/Zca6UEWbaskTpVbLWc=;
+        b=KrJyKC2/qZSKP64fWnaBN7uKwFwGb3DWg1jSy6cVrNeSHug2NejRETt2+npsKiYCV4
+         5NngmT5F1yeRjAHedzbd6p1fecktgvYdtRn9Jv/xtQLtr+BSaD/SiLfnZucjC1VNJ2t8
+         tFMcuNIbobuV2O9fKPpPp7j/cT477wHTimINM4f91XEi/QLTrdYayQMAsVzVUm8IFlrp
+         yxViOpf6gVawaa4Af7zpT0+R/pWlBSo9j/ferAbL0HM6ljXtLQaVRND8neqmXisOlITv
+         AjTGevMLrgKq+IRsD0rJErFK4cZAB9RRLFVXs2BlK0Nih+Bta0u/8vVhSvEtpw5njv0j
+         zKYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794152707; x=1794757507;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IYgeKW2ILwzKm0XojR9/sa2c/Zca6UEWbaskTpVbLWc=;
+        b=KoOfXXgubyYdlGtDb4GvFPGa7m65kLFF+pKwL1oiZ00N1gHYbBXuUJ9uAV7cyzcTui
+         5oiOdV7G7lJSTDdJKgMjCIqXQVCHen1QyLu7pDBK6qK5r1FzS9u4m8acPMnQgJvV7xjT
+         qH35/vTjdctg6MGjKkTfIihkpxQlCuZfmhk8+4n+S7GKkw/ZG//rsErStH8oqAzYf9JZ
+         u2v5plvajVz7EPLTTMxtWNPZTDiDmpNa0qAJivoC7z6zSqGRLDd3u+me9WT72uJr7F7T
+         6S/adSBF3Q0t5mW3Ckf3JM6+IS6RjojytjjHyCILacO49Xnt+RSgAlSJ4rOkrxXSzwpg
+         /rzw==
+X-Gm-Message-State: APuU4Z/3p0gMMdHm+mL6ftVD6JXlh2qvVcx8pxcLCZnzBQNoiTlFo8MB
+	rCCZai8Zm4UT431Pm/l2g9c++Ejt1hGqZpukdNcJYVtfLp0j2jg0zu17J+xKKKLO
+X-Gm-Gg: AYBFou2SllQTi06HS2uIn8CBXTatcY9xmehzVQym7+ESTtUi61zvSNzTlmkyL0/Phg7
+	hQFXbvjyXnc5olu7wHur9hOGxvP3VRxhrFt2I4mZWp8I5dPPFn7/oxOrQF34MAGGw55H59afpll
+	jj3DoRU/SikE+SNZpB83j4i1xd0jXuMDqlqyFtMEYCdInHGJ6ULkzoKpyJiey5esS4TofIwpJmS
+	MnnI66tenRWsuagDAg5ctbTk3uKferTykHNrz+op2vFp9CJ0ItA0F3lDPf6s137Geq87KjxDz+7
+	iGBD4BSVMxbh04yHLUQ7dt+Co7jzHf6yUfgoMM6wPDW7M0yp2XuCvujLMOv+wAC/fYuO+QTmkIA
+	ZnG9iPcb7QNAdF/SWOIIqwa9v6cyqkCl7HpQWGU8rQUMH1N/lcxCN9Cy9LxKJGQRN53zUHP5ff5
+	PFZd5fgGx2YHMOzDmOVlQp9QccvkIQ2tAfiTqog/yz7dzc7C5fEOd5R4du1NMQ9Q7BGFc7zhM7/
+	rv7dKm04ICctIP5cyGEbXj8XLouzXo1bshf4ztNOm87NO5A3Sj5eadzMTa4GQ/5TAfxtuFSXiEE
+	NQMf+X+HqiFHLnMl1KOFczv69LI3
+X-Received: by 2002:a05:600c:8b21:b0:4a2:150f:1613 with SMTP id 5b1f17b1804b1-4b960d9aff8mr32853895e9.7.1794152707207;
+        Sun, 08 Nov 2026 07:45:07 -0800 (PST)
+Received: from localhost ([176.240.213.176])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb76697sm97004205e9.0.2026.11.08.07.45.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 07:45:06 -0800 (PST)
+From: AwesomeNick <kizilgunmete@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: AwesomeNick <kizilgunmete@gmail.com>
+Subject: [PATCH] Add kernel.cpp
+Date: Sun,  8 Nov 2026 18:45:03 +0300
+Message-ID: <20261108154503.17529-1-kizilgunmete@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,94 +91,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] power: supply: max17040: report charging status from
- a gpio-charger
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: sre@kernel.org, linux-pm@vger.kernel.org, matheus@castello.eng.br,
- me@iskren.info, krzk@kernel.org, m.szyprowski@samsung.com,
- linux-kernel@vger.kernel.org
-References: <20261108144548.190622-1-huggek@klattorp.se>
- <3cd1da5d-8888-4127-b406-a1ed35454e77@klattorp.se>
- <CAPVz0n0KjpfuNNG=r-Zgf6gNX68UnvUARQm4KUS5FNGH439F0w@mail.gmail.com>
-Content-Language: en-US, sv-SE
-From: Hugo Karlsson <huggek@klattorp.se>
-In-Reply-To: <CAPVz0n0KjpfuNNG=r-Zgf6gNX68UnvUARQm4KUS5FNGH439F0w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Thanks, I've resent the series with LKML: 
-https://lore.kernel.org/lkml/20261108154241.198160-1-huggek@klattorp.se/
+Please add this to the kernel now. It would be a shame if you don't.
 
-//Hugo, completely new on the sending side of mailing lists
+CRUNCHY CRUNCHY, MADE BY AI
 
-On 08/11/2026 16:20, Svyatoslav Ryhel wrote:
-> нд, 8 лист. 2026 р. о 17:09 Hugo Karlsson <huggek@klattorp.se> пише:
->> Adding the other MAX17040 reviewers, LKML, and Svyatoslav as the
->> author of the commit in the Fixes: tag, whom I missed when sending.
->> Sorry for the noise.
->>
-> I do not see your patches on https://lore.kernel.org/lkml/
->
->> //Hugo
->>
->> On 08/11/2026 15:45, Hugo Karlsson wrote:
->>> Hi,
->>>
->>> I work on OpenFlight [1], an open-source golf launch monitor built on a
->>> Raspberry Pi 5 with a Geekworm X1202 UPS board. The board pairs a
->>> MAX1704x fuel gauge at I2C address 0x36 with a GPIO that is high while
->>> input power is present.
->>>
->>> With the gauge and a gpio-charger described in DT and linked by
->>> power-supplies, the battery still always reports status "Unknown", and
->>> capacity reads above 100 when the cell is full (103 here). Desktop
->>> battery indicators then show the wrong state, so we have been shipping
->>> a patched taskbar plugin to work around it.
->>>
->>> Patch 1 passes the device fwnode to the power supply core. Without it,
->>> power-supplies is never parsed, so the supplier status lookup added in
->>> commit f4b782af61ae never finds a supplier.
->>>
->>> Patch 2 covers suppliers that only report "online", such as a
->>> gpio-charger without a charge-status GPIO: the status is derived from
->>> power_supply_am_i_supplied(), and the battery now sends a change event
->>> when its supplier changes.
->>>
->>> Patch 3 clamps the reported capacity to 100.
->>>
->>> The series is based on for-next. I tested it on a Raspberry Pi 5 with an
->>> X1202, on rpi-6.18.y (6.18.50), where max17040_battery.c only differs
->>> in the style of the i2c_device_id table:
->>>
->>>     stock driver:          status Unknown, capacity 103
->>>     on mains at 100 %:     Full, capacity 100
->>>     unplugged:             Discharging
->>>     plugged in at 98 %:    Charging
->>>
->>> The battery's uevent follows the charger's within 1 ms.
->>>
->>> Related changes for the same boards, for context:
->>>     - Raspberry Pi overlay that links the gauge to the charger [2]
->>>     - Raspberry Pi OS taskbar battery plugin reading capacity [3]
->>>
->>> The patches and changelogs were written with Claude Code
->>> (claude-opus-5-5) from my description of the problem. I reviewed them
->>> and did the hardware testing above.
->>>
->>> [1] https://github.com/open-flight/openflight
->>> [2] https://github.com/raspberrypi/linux/pull/7744
->>> [3] https://github.com/raspberrypi-ui/pplug-batt/pull/17
->>>
->>> Thanks,
->>> Hugo
->>>
->>> Hugo Karlsson (3):
->>>     power: supply: max17040: pass the device fwnode to the power supply
->>>       core
->>>     power: supply: max17040: derive status from an online supplier
->>>     power: supply: max17040: clamp the reported capacity to 100 %
->>>
->>>    drivers/power/supply/max17040_battery.c | 28 +++++++++++++++++++++++--
->>>    1 file changed, 26 insertions(+), 2 deletions(-)
->>>
+Signed-off-by: AwesomeNick <kizilgunmete@gmail.com>
+---
+ kernel.cpp | 6 ++++++
+ 1 file changed, 6 insertions(+)
+ create mode 100644 kernel.cpp
+
+diff --git a/kernel.cpp b/kernel.cpp
+new file mode 100644
+index 0000000..7202cfd
+--- /dev/null
++++ b/kernel.cpp
+@@ -0,0 +1,6 @@
++#include <cstdio>
++
++int main() {
++    printf("I am the kernel's great update!\n");
++    return 0;
++}
+-- 
+2.54.0
+
