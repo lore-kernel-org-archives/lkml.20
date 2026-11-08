@@ -1,61 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794133564;
-	b=MS9fFgOfsK38PrXeGVt2XvDzoCGhWHwWy67RjojPeLIY5FI4vc2niKgXDtZxA6s7FFjM
-	 JnQkYGaIX5QcJOLfuv+f5gH39xMyNGy4LtYXWaJsvOoVIBNNKV+2DM8ZvC6zeQlq0uBpS
-	 FoQVOJdovHaoaMPkvTLljvyX+wxad8u5wt3x24lVVs/and/vB7BQtQ5W5m7l2nscjTm7A
-	 K0iwGnIn7ED+/BYn/lP5xswY4vDXkeIB2JIgc/YqYbVq8ca7sU2OKE6ed6R7Ry9olUOI5
-	 DdfkKqA2TZDSEjM3Z6zVEhjxDg/IPRDImc0VQX3V+MGf954sg8oMT9IQYzNDuXC1//w==
+	t=1794133631;
+	b=dDsMPGXPMJ5925UTyS4aoQQL4odLEYXg7IroqkIhLGNmo93Rirk1IUTc90HqyRj4vYAL
+	 Vhh81fZ6SV63dPtjmqnLXkmo4+EzQ+uLpOvhYuuJcwWVvIPLL3Boq+8h7xg8zidOzU+HW
+	 XfZTUvsMMHoUrFfIWTtpShER8ByxNppFAEC7yA6kI9DRPmFGWmbPBV8mwVIMaSSiZyR3B
+	 bBeNLcFI/ZSoBMqNXs5igxqB4tQZi1azCbRAYcDAAr15BfsN9ZlrU3Bb1MNyNVWPsZr5r
+	 neX2gWmVCCrcTI6KeYUWhcoDKKc+VD/HYKkMkVZpvKvm1MwDG944/C1PlJguHxt1jPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794133564;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=OZKd7UL0PMg7SZvKKrHXQKu1+Br0xSNuwmhcAnHuW3Q=;
-	b=ueC8IcsA8EYSyT5osBwK6SHXGKpVc3MuaSnsyckCKZ4Wkf2Zktd+X1cOJoeenoLM+rSf
-	 J0gbQAjNfNk1qmqmP59rx1D7lDrdL1GKmxJtxUybQE27rABBBPhbcCvDR12ftRIn2COxe
-	 wPsAQO3sve7hEZYZV9ZGceWIgPS9rtZnfjf7j/aohJfOydiJkNDTNplLXPqpgHlzb5sXn
-	 7YVRRbUbf9OXd8UyxxL4xXaGMbov4Fx6eIMCkDR8kJrpe4abC+0x9wyV6u2AMKOUyqM0s
-	 daj8vB7QDmk2LIC5g/ygQVkUpGIo8gMxqsaq+qezZDB37ICnIc2xjj1rPSItW6eS69g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794133631;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=muKBTpgIwomUfoL+ebA1PuO9dc4a3sXML+kuNL0YxMc=;
+	b=BovPvNyoOM3XmWiV04v9469eRNWln9sqgyiuT8jamCyCYc5U6BU2Py4jnZQetoMWF7Lk
+	 VqX1RSE7Jg+FxJFTJYyre+/aUYezYL5yLtq6RQrobPjk8AazLjLO/15r8u1LrO0LT61yy
+	 OMko2E3lp610zrK53hIgvhfkhpUV3Tmw7AxQI8FAZfSQR+bGEXXaxv6DbZp53ji1FEVEv
+	 HJ1P5vvcvjpyHKDFUzJq36ClKi+vqNxCOeUEpXiSZbjqg+y2vU/osoq5BFULp6VtN4WO6
+	 puTTF91d2FeRPEztmLeNtWA7/3+OAO6mhOoJkdcrCEFR8rH+EHM+7ArgodhWk/ucdeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=bgG1KZaR;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=IwjcfgP9;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71FF606A332;
-	Sun,  8 Nov 2026 10:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C71FF606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47C3606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 10:27:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E47C3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=bgG1KZaR
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 786BC82A;
-	Sun,  8 Nov 2026 11:23:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794133419;
-	bh=NavTTZ7ZkEEOB6jJh+9OjoHvxAWHwRxZqBP52iXkHls=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bgG1KZaRHxWxcpTl/7rEJoSb4atW020FZAK2wFeryszSYNa28Iz5Z9RG2QVHBJmbT
-	 NSOPAU3JbWNsFV3tvPH7FsvPbB0S9X743+3RW5tblsQWcs4Ene/Pt/Zk1FblWht5RU
-	 S2EJWWv/yvphZxaiLl08R2j/PMpeVa8R4h6hjkcE=
-Date: Sun, 8 Nov 2026 12:25:59 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: DelaySystem <DelaySystem@tubot.lat>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=IwjcfgP9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:content-transfer-encoding
+	:in-reply-to; s=k1; bh=muKBTpgIwomUfoL+ebA1PuO9dc4a3sXML+kuNL0Yx
+	Mc=; b=IwjcfgP9iE46P2DVCrb8sqNBMdYcjPCP+KPKR5KgJZIcdkl2QaXc87hQ6
+	sp+ynLqDh6YI4nV3O/sH//uny4WjwTFNTxjflcWFA19CAYvu1xzgKBiV5rh7tQeU
+	xYPW/YrgHJPaicHFEeSzlWD4Mp8B2M2d643TDPsSCQiIycpcrd3+E2DHKBTFzxgH
+	ifisSvEKyK7l80w0ybuhVc9b/b79mY88dWUQPvalg0A6M87JZu0lvJ0rKJgTP3wh
+	Ybo3SbY+Q8/7r9y4bzZ3danVSh1+z5qT7GKf7ezMEqvHg9hnpg4rYErjT1RZK/oU
+	c1jdXwqloTmzQKHl7AGykEcnWZQGQ==
+Received: (qmail 2810692 invoked from network); 8 Nov 2026 11:27:07 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 8 Nov 2026 11:27:07 +0100
+X-UD-Smtp-Session: l3s3148p1@tsR9ScFf1Ixe20rG
+Date: Sun, 8 Nov 2026 11:27:06 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Dmitry Guzman <Dmitry.Guzman@mobileye.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	srinidhi kasagar <srinidhi.kasagar@stericsson.com>,
+	Ben Dooks <ben-linux@fluff.org>,
+	Andrea Gallo <andrea.gallo@stericsson.com>,
+	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: What should bridge drivers use instead of
- __v4l2_subdev_state_alloc()?
-Message-ID: <20261108102559.GA103930@killaraus.ideasonboard.com>
-References: <20261108013106.1162346-1-DelaySystem@tubot.lat>
+Subject: Re: [PATCH 6/8] i2c: nomadik: handle pm_runtime errors
+Message-ID: <avBOeuNEVo4xn3o6@shikoro>
+References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
+ <20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com>
+ <CAD++jLm+m+YNhTaUnTm=dwO4p8xYe8OjZ7qhQ9_u15dnxURiVQ@mail.gmail.com>
+ <auxDe0lmVCDu_iXA@shikoro>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,43 +73,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261108013106.1162346-1-DelaySystem@tubot.lat>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <auxDe0lmVCDu_iXA@shikoro>
 
-On Sat, Nov 07, 2026 at 05:31:06PM -0800, DelaySystem wrote:
+On Thu, Nov 05, 2026 at 10:51:07AM +0200, Wolfram Sang wrote:
+> On Thu, Nov 05, 2026 at 09:42:02AM +0100, Linus Walleij wrote:
+> > On Tue, Nov 3, 2026 at 9:30 AM Dmitry Guzman <Dmitry.Guzman@mobileye.com> wrote:
+> > 
+> > > In nmk_i2c_xfer(), pm_runtime_get_sync() is called on start and then
+> > > the controller registers are accessed without checking the return value.
+> > > If pm_runtime_get_sync() fails, access to the register of the device that
+> > > was not correctly powered on may cause a bus fault or other unpredictable
+> > > system behavior.
+> > >
+> > > Check the return value of pm_runtime_get_sync() and it if is not 0,
+> > > return the error immediately.
+> > >
+> > > Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+> > (...)
+> > > -       pm_runtime_get_sync(&priv->adev->dev);
+> > > +       i = pm_runtime_get_sync(&priv->adev->dev);
+> > > +       if (i)
+> > > +               return i;
+> > 
+> > It's a bit odd to reuse the i (= iterator...) variable for this.
+> > I would just add an int ret or int err for this.
 > 
-> Hello,
-> 
-> While working on drivers/staging/media/tegra-video I ran into the FIXME
-> above __tegra_channel_try_format() in vi.c (added by commit 40aaab9d773b
-> in 2022):
-> 
-> 	/* FIXME: Drop this call, drivers are not supposed to use
-> 	 * __v4l2_subdev_state_alloc(). */
-> 
-> The driver needs a scratch TRY state to negotiate formats with the remote
-> sensor subdev from video-node ioctl context, where no subdev file handle
-> exists. I looked for the intended replacement, but:
-> 
-> - there is no non-dunder allocator in drivers/media or include/media;
-> - v4l2_subdev_call_state_try() is documented for legacy non-MC drivers
->   only, has no in-tree users, and allocates one state per call, while the
->   driver needs one state across enum_frame_size + set_fmt + get_crop;
-> - the active-state APIs have the wrong semantics here, since try_fmt must
->   not disturb ACTIVE state;
-> - the same FIXME is still present in mainline vsp1 and staging atomisp,
->   and mainline stm32-dcmi still calls the dunder directly, with (as far
->   as I can tell) zero conversions since the 2022 rename.
-> 
-> So my question: is a new core helper the intended direction for the
-> bridge-driver scratch-TRY-state case, and if so, is there any guidance
-> on the shape it should take? Or is there an existing pattern I missed?
-> 
-> If a new helper is the answer, I am happy to implement it and convert
-> the in-tree users.
+> Yes, please.
 
-No, that's not the answer.
+I changed this to:
 
--- 
-Regards,
+@@ -730,11 +730,12 @@ static int nmk_i2c_xfer_one(struct nmk_i2c_dev *priv, u16 flags)
+ static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 		struct i2c_msg msgs[], int num_msgs)
+ {
+-	int status = 0;
+-	int i;
++	int status, i;
+ 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
+ 
+-	pm_runtime_get_sync(&priv->adev->dev);
++	status = pm_runtime_get_sync(&priv->adev->dev);
++	if (status)
++		return status;
+ 
+ 	/* setup the i2c controller */
+ 	setup_i2c_controller(priv);
 
-Laurent Pinchart
+while applying.
+
