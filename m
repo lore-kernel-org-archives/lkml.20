@@ -1,78 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794159157;
-	b=4h+J+oF+wQRFJAM+DYnu+P4st1gP/h2AhbI9kJd4jH43P0+dW/Y9v6HZWowTcbY7phlu
-	 XgcACO52wrSI2Ifd0+YAy/IKSTfcuFmSYa0k3gMUbgkbPJhIH9cNaszA6S1e3hBzEAaCG
-	 K4mcaj+eysKzC1uGaD0YMDNNuz5ShTtNS+kAb1kdgsOFi2VzmXK177sUxWv6fX84zjIRM
-	 23meAtmZxcCGglUiJpA6ErirgIoHuXeFQk0cWZAipdVYQy13JzU6p4cye783gYZPaFaAU
-	 YlPZbxXymJb1z1z99pY/2Ek/pTGbwNrY1Of0ZGr0YC8KLGpvMC9DSTj+maSa1hPSU2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794159157;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cagCFfTvM+9wVb3lPuXmm6+aD0IF0v6nyTxnGm3PL10=;
-	b=kf0LjtJD+Fozn+wUV/KSlZF4yHyHnFY6mrjg+fq7NnaWJUUxQO3r8bRiwsxc/l6lX7gV
-	 MrCw7Q5Sl+Dfi5zRTTsfD21Q6D1muKHZIjBUFrWxzj2A9Z2e4MF1UHD+w0Wxra/xtePMD
-	 HnHCBtDvX5rRLhEpdYE2lCA2deO7blcj57Iz95YkivJ+EN8LECG5KQSh4O0946GJ0T+Ie
-	 CkdL8LmYxoNDehlBzlo78P5jcGWb4rll5oD7ZlmF7OXgC/giHP3A5K++hvn5AAlXFl+2N
-	 o5XKzUsjNcdOl70L4+G/PJglkx0Hb97k9xkKxbmiXWWPxwsH8HeSDaUA38vLvu+5hiw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqH0RjWq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E674E606A321;
-	Sun,  8 Nov 2026 17:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqH0RjWq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794159156;
-	b=xLGLBHMEAByRjS2ZirckltTtZdHjEmBOsNdqa2SkJolJBImastmMau3kpHvyV0m9GJ0N
-	 SnFxARIjY/bAqZYX6fYlEt+gGlOfCeeoJqtCFjNDoKsJhiSVcEHTUa5/uwgksfFMCWHAa
-	 vhSf48BHW+Ao+rgVucMp7ZsGLoFKnsp7/4H/yD5ZuVrNuEBVZKfjuL8D6MVIguv6wfbM5
-	 ws9vGCO8NA72AMp9l6wwvynI2WC5aYePX83FWEjmWmFIBt7lD10236sCWGXJoDwuVm9IR
-	 odrC01XAFWCDA4VHyyK7lWMv1Rt9zNDqmT0XRqs9CQgQrlCQMazk1BBLAMjuFBdDQiA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794159156;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=cagCFfTvM+9wVb3lPuXmm6+aD0IF0v6nyTxnGm3PL10=;
-	b=ew8Q38f+bhGiv7yIxvYe64LMUy26EC0AZY0wM3pf0LSZorfZe+vK39Vj6Ef1WCp0+sSa
-	 U7RzJLudO6aypNn6Gv/8en5pkz/splYpWmguM+JgYHrHMr1m6uY5JtVuJGsUlSM3VoZsU
-	 jPj+7q+tT51fkXggYuoZwsT73alIp8U11ZtS+rI9W20A5/7W75toR0IxJ20e0H4huZ+9k
-	 8r6hQ0LaIyIsGSEp4Qb/Z4xAeaN65mN3/S7xrvWtJ7xPTgVnPwaWNLq+QAIRiAbl6NRoG
-	 c7IpnagfX3uOvCzG63OaGHpp81Cg8Tw1N8y2YsmQF4BtlpnltyFmpcU3SAugC5kp9XA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794159186;
+	b=sbj+DHRbvCiAgilU/Rz1rqH9TJutA+88g3DsDH5h0O4p9xcr4rGS7nouY/OlM5kJf85U
+	 e28DzBzVIboH2n1+TKW1RQiqNI6mLycJ3xXDw8KQaRZhT0b0EG0U1nfL1uTt452ayeDCo
+	 B0/ENoa7QbU6mJWByEUJS2carbNLfqpaN0gPmiO9EIEsUc2qlk2cw9yBNEL4bTIf/iyCf
+	 pDg/v0yC0ctIB5wIwftOQyafP0nJYlHjbcL+KXXO7pfFCusPH2OtuL6enANXBukMsZ4PN
+	 nz+m207Pxmif7V0VNLCvKdu4hi9nBi5hugzp9M6TUEpLKIifG85zz4iu03lSnCEEqyw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794159186;
+	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
+	 X-Forward-Email-Sender:X-Forward-Email-Version:
+	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
+	 X-Report-Abuse-To:Mime-Version:Content-Transfer-Encoding:Content-Type:
+	 Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=mmRDTsFTMdkB1knSlLyF6ragoIMpPyE7Nd3fqt3pBKI=;
+	b=MsbwK3wWuf/67Yor1h9zM1fRSvWBEkDg+u0v3lkVVXKp+DUUv7935jdWuGD/sxStAdxC
+	 1d1h50F9VCknh2N+YqEW3HCqfmkoWbK/Ob4E+7eqJb8f31XzDblw8vbPHs/4eAPWBpBlH
+	 j5WZyJoDXDKk/0zB2Hcgw5aKauCAbzfBvn9mtv8DGB2TnnVftCt8OVCj5YonSfcGeP1UI
+	 7wSp1YndVFaKIc624CJFe2kT4gEETh8enlaZ/IVbCUScp07W8MeUXFQ/C9Uw53UGG0vX9
+	 5V/gkOAWkvH8UxwugzPgL8l/4dNG27x/+/JSfVIsPhjp4WIswLBCiqb6oIno75LCnmg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ubuntu.com;
+	spf=pass smtp.mailfrom=fe-bounces.ubuntu.com;
+	dkim=pass header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=hUH62b6w;
+	arc=none smtp.remote-ip=149.28.215.223
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 04F101F0089F;
-	Sun,  8 Nov 2026 17:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794159156;
-	bh=cagCFfTvM+9wVb3lPuXmm6+aD0IF0v6nyTxnGm3PL10=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=PqH0RjWq7mju4E/NArDTC5aadcQdQv7fgMY4+LgtdVOWzIX8G7/PiJjExof0+hhVh
-	 UEgNgmBw58QOcd2yO5kLK/Xzo3V0o1ZFMDjJFW8GVv0+r7ERSOq1hbqeiov8753UvZ
-	 GIp46gEdRzbbq7Ch9C95vI9h8LtPhufTL3qB628gvUvFb0B3++ASIyYXt6zuSlawhw
-	 mxBGNXa64Yh+xJlvRdvPRj/S7HbbYl2I7DYHMX3glSgeDfG7hrQRUoaQZlNv6RDMks
-	 XlyD7GxHR/9GQE2j1xrpAqjqmre9Hb4i6e8xXsHftmwLxXs7mzDSWgrRjuKmYANs0+
-	 d25hIH3XwwZwg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A18A48003;
-	Sun,  8 Nov 2026 17:32:35 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Sun, 08 Nov 2026 18:32:17 +0100
-Subject: [PATCH] hwmon: (pmbus/core) Add a vout_command debugfs entry
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084A3606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:33:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 084A3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.a=rsa-sha256 header.s=fe-953a8a3ca9 header.b=hUH62b6w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1794159179;
+ bh=mmRDTsFTMdkB1knSlLyF6ragoIMpPyE7Nd3fqt3pBKI=;
+ b=hUH62b6wWLBQaAHtKJmhGM8hS/IgZWJAg9FAPlzX6nxk7E1AFgrue1+f2e0Wxu+S1eIKEgK+6
+ sEvU543Nw/HnzaLYnOWE73w1luC6CZZH+AgblbWKUrMz0eg7DfE1xQLk6l1DcEEzCv6D0MIVMmA
+ PzlENqckvChaKYAt3ZnvXm1bS9UtX4zLYUl90GRVF/6Zxg2vJBUS7IgE7bFB08PY40xSYvW2F3Y
+ lrA+XJ+KfVLXoTgT4zj8GKpF9gALE3U/i3RtK7YQyC0UVmpq2rf401FxvR16R1/xznypzK1y9fN
+ YitKq34puxj+dX1lGM9uuf/PwoDW4WmjavVVk62kgSIA==
+X-Forward-Email-ID: 6af0b240935e4de7801c9067
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.19.13
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,124 +61,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v1-1-c7a063efb91c@free.fr>
-X-B4-Tracking: v=1; b=H4sIACCy8GoC/x2NSQrDMAwAvxJ0riByIC39SunBi5z64AUpDoWQv
- 9f0OHOYOUFZEis8pxOEj6SplgF0m8B/bNkYUxgMZjYr0fzAWAV7013YZmzZdcWj9h19zdmWgIF
- d3+KQhGvkhb1Z7o4sjGATjun7n73e1/UDWSKhhHwAAAA=
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794159154; l=3250;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=dfNk0v5rH84dOXRM4vSF3mXu/2YsTYVFhl+RaSVniq0=;
- b=2jjtGHQUZBJrA/BT9ZSY4zAJkL7F6wkTkWtgmZkX0UaFri1AsKdo/iiPX4KAP62+8UhCe/Nfe
- 4RnFr/UTfemBjeD99mYedkXgjvj0B9/wDryA0XDbCWEgD1EoaqkMvRW
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Sun, 08 Nov 2026 12:32:46 -0500
+Message-Id: <DMQ0CENBZQGW.L35BD1BXYE9Z@ubuntu.com>
+Cc: <linux-arm-kernel@lists.infradead.org>,
+ <linux-perf-users@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <asahi@lists.linux.dev>, "Yuvan Shen"
+ <yuvanshen09@gmail.com>, "Nick Chan" <towinchenmi@gmail.com>
+Subject: Re: [PATCH 00/13] drivers/perf: apple_m1: Add M3/M4/A18 Pro Support
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: <myrialsarvay@gmail.com>, "Will Deacon" <will@kernel.org>, "Mark
+ Rutland" <mark.rutland@arm.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Sven Peter" <sven@kernel.org>, "Janne Grunau"
+ <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Marc Zyngier"
+ <maz@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
+In-Reply-To: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
 
-From: Vincent Jardin <vjardin@free.fr>
+On Tue Nov 3, 2026 at 5:14 AM EST, Myria Sarvay via B4 Relay wrote:
+> This series adds support for the CPU PMU in the new M3, M4 and A18 SoCs
+> presed in apple devices. These PMUs have new encodings for events, along
+> with larger codes for these events. All of these events are as Apple
+> describes them in the various kpep files found under /usr/share/kpep on
+> macOS 27. More events may exist, but we have no idea of their affinity,
+> or what they actually count, so we don't include them here.
+>
+> These patches have been tested on my own M2 (t8133-j413) and M3
+> (t6031-j514c) devices, as well as by Yuvan on their M4 (t8132-j713)
+> device.
+>
+> If possible, the device tree changes should probably go through
+> apple-soc, as this is where the recently picked up M4 Pro/Max dts are.
+>
+> Tested-by: Yuvan Shen <yuvanshen09@gmail.com> # on t8132-j713
+> Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
+> ---
+> Myria Sarvay (12):
+>       dt-bindings: arm: pmu: Add Apple M3/M4/A18 Pro SoC CPU PMU compatib=
+les
+>       drivers/perf: apple_m1: Remove unused variables
+>       drivers/perf: apple_m1: Support per-implementation event size
+>       drivers/perf: apple_m1: Use macros for per-implementation init func=
+tions
+>       drivers/perf: apple_m1: Add Apple M3 Series Support
+>       drivers/perf: apple_m1: Add Apple M4 Series Support
+>       drivers/perf: apple_m1: Add Apple A18 Support
+>       arm64: dts: apple: t603x: Add PMU Device Nodes
+>       arm64: dts: apple: t8122: Add PMU Device Nodes
+>       arm64: dts: apple: t604x: Add PMU Device Nodes
+>       arm64: dts: apple: t8132: Add PMU Device Nodes
+>       arm64: dts: apple: t8140: Add PMU Device Nodes
+>
+Maybe the folder should be renamed to 'apple_arm' or something like
+that?
 
-The vout hwmon attributes and the regulator get_voltage() callback
-both report READ_VOUT.
-
-On a regulator whose configuration applies a load line (droop),
-READ_VOUT sits below the setpoint under load by design, so user space
-cannot see what the regulator was actually set to.
-
-max20730 already exposes a driver-specific vout_command entry. Add
-vout<page>_command to the PMBus core debugfs, for every page with VOUT
-and a readable VOUT_COMMAND, in millivolts like the in*_input attributes.
-
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- drivers/hwmon/pmbus/pmbus_core.c | 42 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 40 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-index 37b650b85d1c..1ad5523a9624 100644
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -3833,6 +3833,33 @@ static int pmbus_debugfs_get_status(void *data, u64 *val)
- DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_status, pmbus_debugfs_get_status,
- 			 NULL, "0x%04llx\n");
- 
-+static int pmbus_debugfs_get_vout_command(void *data, u64 *val)
-+{
-+	struct pmbus_debugfs_entry *entry = data;
-+	struct i2c_client *client = entry->client;
-+	struct pmbus_data *pdata = i2c_get_clientdata(client);
-+	struct pmbus_sensor s = {
-+		.page = entry->page,
-+		.reg = entry->reg,
-+		.class = PSC_VOLTAGE_OUT,
-+		.convert = true,
-+	};
-+	int rc;
-+
-+	guard(pmbus_lock)(client);
-+
-+	rc = _pmbus_read_word_data(client, entry->page, 0xff, entry->reg);
-+	if (rc < 0)
-+		return rc;
-+
-+	s.data = rc;
-+	*val = pmbus_reg2data(pdata, &s);
-+
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_vout_command,
-+			 pmbus_debugfs_get_vout_command, NULL, "%lld\n");
-+
- static ssize_t pmbus_debugfs_block_read(struct file *file, char __user *buf,
- 					size_t count, loff_t *ppos)
- {
-@@ -3940,11 +3967,11 @@ static void pmbus_init_debugfs(struct i2c_client *client,
- 	 * device specific:
- 	 *	ARRAY_SIZE(pmbus_debugfs_block_data) + 2
- 	 * page specific:
--	 *	ARRAY_SIZE(pmbus_debugfs_status_data) + 1
-+	 *	ARRAY_SIZE(pmbus_debugfs_status_data) + 2
- 	 */
- 	entries = devm_kcalloc(data->dev,
- 			       ARRAY_SIZE(pmbus_debugfs_block_data) + 2 +
--			       data->info->pages * (ARRAY_SIZE(pmbus_debugfs_status_data) + 1),
-+			       data->info->pages * (ARRAY_SIZE(pmbus_debugfs_status_data) + 2),
- 			       sizeof(*entries), GFP_KERNEL);
- 	if (!entries)
- 		return;
-@@ -4013,6 +4040,17 @@ static void pmbus_init_debugfs(struct i2c_client *client,
- 						    &pmbus_debugfs_ops);
- 			}
- 		}
-+
-+		if ((data->info->func[page] & PMBUS_HAVE_VOUT) &&
-+		    pmbus_check_word_register(client, page, PMBUS_VOUT_COMMAND)) {
-+			entries[idx].client = client;
-+			entries[idx].page = page;
-+			entries[idx].reg = PMBUS_VOUT_COMMAND;
-+			scnprintf(name, PMBUS_NAME_SIZE, "vout%d_command", page);
-+			debugfs_create_file(name, 0444, debugfs,
-+					    &entries[idx++],
-+					    &pmbus_debugfs_ops_vout_command);
-+		}
- 	}
- }
- 
-
----
-base-commit: d4193d2a0ffa407478bce4a094e1ae085ceb38ec
-change-id: 20261108-for-upstream-pmbus-vout-command-debugfs-v1-6fe3ec237b1a
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
+> Nick Chan (1):
+>       drivers/perf: apple_m1: Support per-implementation event tables
+>
+>  Documentation/devicetree/bindings/arm/pmu.yaml |   8 +
+>  arch/arm64/boot/dts/apple/t6030.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t6031-base.dtsi      |  12 +
+>  arch/arm64/boot/dts/apple/t6041.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t8122.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t8132.dtsi           |  12 +
+>  arch/arm64/boot/dts/apple/t8140.dtsi           |  12 +
+>  drivers/perf/apple_m1_cpu_pmu.c                | 664 +++++++++++++++++++=
++++---
+>  8 files changed, 662 insertions(+), 82 deletions(-)
+> ---
+> base-commit: acb925da49876e74b806ccd48a7518d2d3368e5d
+> change-id: 20260929-m3-plus-pmu-events-e4010ab44135
+>
+> Best regards,
+> -- =20
+> Myria Sarvay <myrialsarvay@gmail.com>
 
