@@ -1,118 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.38
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794166325;
-	b=gDO/MRtPsPmWVFimvPfO91NuyOAzS2Jeut0XacBTuhdXeDmu0hGVrv0CIKk+jC+mTitG
-	 jdJj0qbxeUQcsodPZeWEEm5ry0ZDfWoopKVj54rpR52X+9MzewWEbtTzjH9odYClypFdT
-	 k+mTYZsqbMo+B+mgtMYZn5ar5r+qI+Be3wE1zIkvv0GYbk03qFTEAtgvEiXFSJeZ62WAw
-	 JhqdxH28nGFTBl1rz+0PQiVmipvJ51S7Elq3MeXQMC82spb33K1C8WcapSSkTfo3MPWhm
-	 bXfiKbaEkjSqxJ64yTKoEDNTW6DYAxzkQlCiRRxx9aq5OJTaJqcszPX5yUpEgfNWmng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166325;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9HUtdZJ9XLLFCha34yuudb7CicOBsCnYTd+vd0PBeFg=;
-	b=SSFWhObM6fgIJ80kWALdX8S+7r36zB1julmRKed2vxsla7N96/ReF7EUjzLBuBR3BlLv
-	 sjulJe9RcGrPuJbS4o3xJRSQwpo45Wrw8dAotZ2XUzoH1hkwQPrOJaLo/FryzHjuwArZr
-	 zWVpuIUI4FEwEeG44hknTzkY8PN8LYThj+/liSWw+CgrvFIl2ZGUQaNwPvSrhApeErefc
-	 ZJeLv0pW8jSd1xT5fV6P7fm0tT4m2C57gtSA+yInBxOazHEBn/HGf8K/d5j7Pcb+zdbNJ
-	 yuKSNrZoZtHZaL4S1RC8KW6secDVcG8zevlUU+mzQDCNGRmI5iqOb5NU58qgt+k4qbQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0wyLa9OQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.38
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010038.outbound.protection.outlook.com [52.101.56.38])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794166330;
+	b=u6djcJHm3g3tdQE31cjggEDfR0myApfz4ItDoK3iaXjuOqBGkKRXiFdr7/XhZOSfIdF1
+	 vgwzgEXxbn0RWHkfW4zs867Smb0PlcxVtGUUCU87UDzeC36yBuc//g+xLj9M0k8U/dnQx
+	 +5OHenHWotMjHcGc4A6bxFQjVWaFBVqVvMmWUNTyFM497LZUZXOq3xVP7vVoIz5ItqBDF
+	 NKmzdrhRl4q9tu+MRU7tzbqnzCZxFR2v/mhlv4Q7YxylFXh+Bt9fdoMY0ZKsjjS/GFsKM
+	 H9ADJbq3x/R5Z1wu9Imck8m9M5AS9/d50p3JSof39S5ZncdQIcEwmhAL6kEBd6ejUqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794166330;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=H0KhdtJ508lIJ8z9fPM7Hp6z8VLh9WO5XJIlqHrGSeQ=;
+	b=mKVmuYi58dzLKuezxsT+tcxAVjZXwT43ngJvtcA6lPaKXz6ZSncpgKOZ2nFcSwE25fio
+	 mG2q+Dty4pR7qSUn4XNe70hx5KHb/N8mCGRN6XA9Gm5xtMIC9tgBhuMgWIByBa3qQ/by+
+	 lQsztPti3OyeofTRRg/tYtF1dtgxBt2wWiZo/th4zKpvCrsuUq4p4FKMOutcTRDYS0L19
+	 7dfnWdSoLEwqLHQP4+PwvKppPBYgLe7xNy1YD8KlJtFfHXNvu2v34ebNRo6UKb99Y1h+Y
+	 9U6OCfnKhIzuFt1eiwk8aQt9DZCUYSRIlpSpo75e9i8/UlOI1qh8zGjvcvAIVjxUmqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BKdm/aR/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B49606A31C;
-	Sun,  8 Nov 2026 19:32:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92B49606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0BB606A323;
+	Sun,  8 Nov 2026 19:32:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0wyLa9OQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X/qsSup6GFM4L5onMQlC42fxzIXDYzC1RO4wIOhc7D6nBCwBylm46xbYz4UGkH5jvgDlj+pzuVfhpp0BTQkJ8+amA3TxokpUKP1+zU+6JYrTTcmNaNdAeJLyQrxKLwQaVOhP/gKVacpKaTvwJZYnwGZVAHuyDRi7BeUR29/v86S1dDhNoZGOvj00UAz+1UUl+H7wYBEOtjHb5Kd95GuV69cKu0wyf+A2377J+fpQmOjW1IzULddBy138GWfdE0TuFEIwOp8FFihn9AuWJkx2aK6+YwxvNY34UEsxP3fZXOIPrFPjAO3RxTM01tMzkusGsxLk3uRjDGNFNy/G3d212Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9HUtdZJ9XLLFCha34yuudb7CicOBsCnYTd+vd0PBeFg=;
- b=jNJVYGxASzTI9o4o2feFydZnFpeKv2T8CgiF0KMxy45cyFY/2r2EudxuxZzQkyG9WLGKntQQvyRIuneEEUULyfHFNS+/vH+WPJWiV9MXk8tdeXWpm3UEM59dGN4v9p0h0/xFghmG2k89vBEJfzYeL7p8pZEg76i6D55JMck8lgtYgfBtrL571CoLr0uVMyz86m53lUJV09S6QUFmSiqPpVBN5I5tRHSOkTLICqqew6MCEBrXnr7TAhSIlJnXt5IpKuFmNXO88KdqiKaML7jKr4w4tkwHCVRnCUNbPOcJdZIfIwDOyyypfR+QJglA/ZTF5wff1BjSPHL5209IzlyoCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9HUtdZJ9XLLFCha34yuudb7CicOBsCnYTd+vd0PBeFg=;
- b=0wyLa9OQMK90HginfGb4EQD9LgtzfA8IYCAjMDIwYMvhoGqki2nRn7Af9PR7cho83rX9BDg/koCD3/A8WdP1IBHwjgLmzuIswZimIQKqpyI4UB4Wbjusc+x90FjQNq7BwPSWBJMeurzNnO4wxzGib8N+vd0evV7/Unr1LDDaLyE=
-Received: from CYXPR02CA0091.namprd02.prod.outlook.com (2603:10b6:930:ce::6)
- by DM4PR12MB7549.namprd12.prod.outlook.com (2603:10b6:8:10f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sun, 8 Nov
- 2026 19:31:58 +0000
-Received: from PH3PEPF0005961B.namprd05.prod.outlook.com
- (2603:10b6:930:ce:cafe::a0) by CYXPR02CA0091.outlook.office365.com
- (2603:10b6:930:ce::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Sun, 8
- Nov 2026 19:31:58 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- PH3PEPF0005961B.mail.protection.outlook.com (10.167.243.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sun, 8 Nov 2026 19:31:57 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 8 Nov
- 2026 13:31:46 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 8 Nov
- 2026 13:31:45 -0600
-Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 8 Nov 2026 13:31:36 -0600
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-To: <broonie@kernel.org>
-CC: <Sunil-kumar.Dommati@amd.com>, <vijendar.mukunda@amd.com>,
-	<Mario.Limonciello@amd.com>, <venkataprasad.potturu@amd.com>, "Syed Saba
- Kareem" <Syed.SabaKareem@amd.com>, Vijendar Mukunda
-	<Vijendar.Mukunda@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, "Jaroslav
- Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, "Mario Limonciello (AMD)"
-	<superm1@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>, Aaron Ma <aaron.ma@canonical.com>,
-	"open list:AMD ASoC DRIVERS" <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 2/6] ASoC: amd: acp: add SoundWire speaker quirks for Dell platforms
-Date: Mon, 9 Nov 2026 01:00:30 +0530
-Message-ID: <20261108193119.2308421-3-syed.sabakareem@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261108193119.2308421-1-syed.sabakareem@amd.com>
-References: <20261108193119.2308421-1-syed.sabakareem@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BKdm/aR/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B031F008A4;
+	Sun,  8 Nov 2026 19:32:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794166329;
+	bh=H0KhdtJ508lIJ8z9fPM7Hp6z8VLh9WO5XJIlqHrGSeQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BKdm/aR/x97UNvlW/q08oNJJpTTrg81mh0jrtANQqOIZ3BToBUeu3ro/0PIMkeOIB
+	 fZTbQo7tQ0u6GZJwOAu//wHwOxje9W+WIf/ZJwWcEyyhIo7noizeuH5F0lbLKTF4hW
+	 k03nmtTCy6bS7cJYEJB7c+QFMsxdzPm8eh7xZ9oL1wSIIhByFZrpLkFaFwW6/QMu1I
+	 UO1MYD/PcSrzETfmBCxGAzUCEcnTDe5PzhHzocDdB+mEYEXLOPWDjFb3g74lxPML6a
+	 QtPhIrJ2LhyBjndXGLCxrt1/B6U1yO5leJFvNUzMnWL4Xn4hChX6pAECdPc+SncLZv
+	 fX7XHAGtIULlg==
+Message-ID: <sashiko-outbox-203956@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 21/29] cgroup/cpuset: Reserve the bandwidth in the
+ root domain a task moves to
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261108185406.1549770-22-mathieu.desnoyers@efficios.com>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-22-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 19:32:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,106 +60,236 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH3PEPF0005961B:EE_|DM4PR12MB7549:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92d99a22-6157-423f-f342-08df3dcef407
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|7416014|1800799024|22082099003|18002099003|11063799006|56012099006|10067099003|261026121527099003|261102123227099003|261022075727099003|261021123027099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	aKZ7ewr1LN0zUfLv7gDMp9quE1gWmRT7ser4ijT7qjaNa4+6zpIze/n2K5lrh3kgFsVaXL5Pdyg5CvcLlcwcbdkRuQRWL8L5B9vcwgXTwdRTks3JQpjkzUFW2BJJHVgUHF/U/Qgj5IBstF38+hIfxb8E0seTmPzLkbEGGrV3w2PWqTkZFT7vA5dvRoDzDte3535vUGn64PQZy7lLHe0STW4cQH64Wu9VkUdimmsnwXOu/C8gP6N9uZnNYg6bX7MH86H6WBLq4/1nZqSmnT6lobe7OI6Fee+SJ34TY1COlst8zQfzAgg55jVKlQ3Q7H0OH92kbD1yPvc/Ant4MHTS7CZEhyj8ebFn3+CrH+GQ/fGsoNbYmH/7HBA57C9ZOgUfbKlaZijUNxS9srxg4tsLPiuTWwOViIRyofBi7uutT+rOzzxNr+pMKzMcckeVG31UZQ0pED/v7pLBj8VdVfWKw6i0lepKfWlf0TkiYl/WsUrUyqiVHTeZvdG7CyfciUApdOGiW2PmGPi+Aj6ick3h0azDC52CaL5Yj3Of6MkLvU/sTN9a0AFwWDOHNWzodK+o1tfAw0lHJ3/dSDu/n9eop6uH/J5PAL0LMoaWW05oy+gK5k3qXpQIJsif2IK2CTOsqDtthLrsR7GlklD4luQYDp2P2DD7J8lmqtVi/DNThdXfmvMMYpkyxc4hkkayGmrd2bLtoGZyM0A4tvHvb7Zakw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(7416014)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(261026121527099003)(261102123227099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	26Wq8a9lgBJP+rrupvC+7kB5JLOs9t4XOnORMXDXyXx/A7wHuEMLsRXcPo+oV2W+OHAMqke84f5+zMyhqPQoq5c5sEwvY16v8EUnPVpQzShL/Z4POXeWbwhGvQboTaCn/UkWbdynWDamBvg6ltNGKsn3JUUiygqnpz/0g7/i6Y3+btY2SDUuo2tGd+WMuKLA5daKwi0zp6yoy2WpyXqYGxwvXt1kDqP5fchkHe8wEXWvMdY1q02Wm5xF53bGGUUVPM575sa+klWk7AvIAUlG6NN8thkOpxbLi7P/ph22xvGtUgLLDzIEpHsRNFk7Fhis/4R2NKcuWqYO48jHwNq2g4ZwnQrBxjVrIdeaWJ76VNedRuLoYgAS7DrcqLEo1UG5oz65KcyGXT5O+Su5YNdLYLeIlGLWjgDXt4WSmLumAj65mdk3cjnQmPNpIJ/qRdRL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 19:31:57.5911
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92d99a22-6157-423f-f342-08df3dcef407
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH3PEPF0005961B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7549
 
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] sched/deadline: __dl_task_bw_move_cpu() skips move on
+  spanning cpumask
+- [Medium] sched/deadline: per-CPU reservation mismatch when task_cpu()
+  changes
+- [Medium] sched/core: equal cpumask early exit skips
+  set_cpus_allowed_dl()
+--
 
-Add sof_sdw_quirk_table DMI entries for the Dell 0EF1, 0EF2, 0EF3, 0EF4,
-0F12 and 0F13 platforms, setting the ASOC_SDW_CODEC_SPKR quirk so that
-the SoundWire speaker amplifiers are enabled on these systems.
+commit 3d21f1cc814c2706665d48f13e93dc3e9c2ac11e
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/acp/acp-sdw-sof-mach.c | 48 ++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+cgroup/cpuset: Reserve the bandwidth in the root domain a task moves to
 
-diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-index 1d7487c87265..4e21d85d4724 100644
---- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-@@ -47,6 +47,54 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 		},
- 		.driver_data = (void *)RT711_JD2,
- 	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0EF1"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0EF2"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0EF3"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0EF4"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0F12"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "0F13"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
- 	{}
- };
- 
--- 
-2.43.0
+This commit reserves SCHED_DEADLINE bandwidth per target CPU during cpuset
+attach so that tasks moving into cpusets spanning multiple root domains or
+retaining user affinity have their bandwidth accounted in the root domain
+they actually move to.
 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 3a538b42dcdd4..7df1ee4afb550 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -3224,6 +3224,22 @@ static int __set_cpus_allowed_ptr_locked(struct ta=
+sk_struct *p,
+>  		goto out;
+>  	}
+> =20
+> +	/*
+> +	 * The caller made room for the deadline bandwidth of @p in the root
+> +	 * domain of ctx->dl_bw_cpu. The new mask can span two root domains:
+> +	 * keep @p in that one. Also wake a sleeping @p up on dest_cpu, since
+> +	 * select_fallback_rq() could pick a CPU of the other one.
+> +	 */
+> +	if ((ctx->flags & SCA_DL_BW_RESERVED) &&
+> +	    cpumask_test_cpu(ctx->dl_bw_cpu, cpu_valid_mask) &&
+> +	    cpumask_test_cpu(ctx->dl_bw_cpu, ctx->new_mask)) {
+> +		if (!cpumask_test_cpu(dest_cpu,
+> +				      cpu_rq(ctx->dl_bw_cpu)->rd->span))
+> +			dest_cpu =3D ctx->dl_bw_cpu;
+> +		if (!task_on_rq_queued(p))
+> +			p->wake_cpu =3D dest_cpu;
+> +	}
+> +
+>  	do_set_cpus_allowed(p, ctx);
+> =20
+>  	return affine_move_task(rq, p, rf, dest_cpu, ctx->flags);
+
+[Severity: Medium]
+What happens when set_cpus_allowed_bw_reserved() is called for a task
+whose p->cpus_mask already equals ctx->new_mask, while p->dl.dl_bw_cpu
+still points to another root domain?
+
+Earlier in __set_cpus_allowed_ptr_locked(), the cpumask_equal() check
+returns early before reaching the SCA_DL_BW_RESERVED logic or
+do_set_cpus_allowed():
+
+kernel/sched/core.c:__set_cpus_allowed_ptr_locked() {
+    ...
+	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
+		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
+			if (ctx->flags & SCA_USER)
+				swap(p->user_cpus_ptr, ctx->user_mask);
+			goto out;
+		}
+    ...
+}
+
+If an earlier unreserved affinity change (such as sched_setaffinity() to
+isolated CPUs 1-2 while p->dl.dl_bw_cpu is on housekeeping CPU 0) already
+set p->cpus_mask to {1, 2}, attaching the task to a cpuset where
+cpus_attach is {1, 2} reserves bandwidth on CPU 1 in cpuset_can_attach().
+__set_cpus_allowed_ptr_locked() then takes the goto out path without
+calling set_cpus_allowed_dl(), leaving ctx->dl_bw_moved at 0.
+cpuset_free_dl_bw() frees the new reservation on CPU 1 and the task's
+bandwidth remains recorded in the old root domain on CPU 0.
+
+[ ... ]
+
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 0326527dd2d1e..8d9e55bca9439 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -3558,6 +3558,9 @@ static unsigned int dl_task_root_domain_cpu(struct =
+task_struct *p)
+>  	return cpu;
+>  }
+> =20
+> +static int __dl_task_bw_move_cpu(struct task_struct *p,
+> +				 const struct cpumask *new_mask);
+> +
+>  static void set_cpus_allowed_dl(struct task_struct *p,
+>  				struct affinity_context *ctx)
+>  {
+> @@ -3572,14 +3575,17 @@ static void set_cpus_allowed_dl(struct task_struc=
+t *p,
+>  	 * rebuild of the accounting. Moving it without room would leave no
+>  	 * root domain counting it.
+>  	 *
+> +	 * The caller made room in the root domain of ctx->dl_bw_cpu, the CPU
+> +	 * it expects the move to record. Move the bandwidth only if the move
+> +	 * records that CPU. The affinity or the CPU of @p may have changed.
+> +	 *
+>  	 * Report in @ctx the bandwidth moved. The caller read the record
+>  	 * without the runqueue lock, so it must count only what this reports.
+>  	 */
+>  	if ((ctx->flags & SCA_DL_BW_RESERVED) &&
+> -	    dl_task_needs_bw_move(p, ctx->new_mask)) {
+> +	    __dl_task_bw_move_cpu(p, ctx->new_mask) =3D=3D ctx->dl_bw_cpu) {
+>  		unsigned int src_cpu =3D dl_task_root_domain_cpu(p);
+>  		struct dl_bw *src_dl_b =3D &cpu_rq(src_cpu)->rd->dl_bw;
+> -		unsigned int cpu;
+> =20
+>  		/*
+>  		 * We now free resources of the root_domain we are migrating
+> @@ -3593,12 +3599,8 @@ static void set_cpus_allowed_dl(struct task_struct=
+ *p,
+>  			raw_spin_unlock(&src_dl_b->lock);
+>  		}
+> =20
+> -		/*
+> -		 * cpuset_can_attach() made room in the root domain of the new
+> -		 * mask. That root domain counts the bandwidth from now on.
+> -		 */
+> -		cpu =3D cpumask_any_and(ctx->new_mask, cpu_active_mask);
+> -		p->dl.dl_bw_cpu =3D cpu < nr_cpu_ids ? (int)cpu : -1;
+> +		/* Record the CPU the caller made room on. */
+> +		p->dl.dl_bw_cpu =3D ctx->dl_bw_cpu;
+>  		p->dl.dl_bw_gen =3D dl_bw_gen;
+>  		ctx->dl_bw_moved =3D p->dl.dl_bw;
+>  	}
+> @@ -3606,8 +3608,15 @@ static void set_cpus_allowed_dl(struct task_struct=
+ *p,
+>  	set_cpus_allowed_common(p, ctx);
+>  }
+> =20
+> -bool dl_task_needs_bw_move(struct task_struct *p,
+> -			   const struct cpumask *new_mask)
+> +/*
+> + * Return the CPU that a move of @p to the CPUs of @new_mask records with
+> + * its bandwidth. That is the CPU @p is on, if @p can stay there. Else it
+> + * is the first active CPU of @new_mask, a housekeeping one if there is
+> + * one. Return -1 if the bandwidth stays in the root domain that counts
+> + * it. The caller holds the rq lock of @p.
+> + */
+> +static int __dl_task_bw_move_cpu(struct task_struct *p,
+> +				 const struct cpumask *new_mask)
+>  {
+>  	unsigned int cpu;
+> =20
+> @@ -3617,10 +3626,39 @@ bool dl_task_needs_bw_move(struct task_struct *p,
+>  	 * their bandwidth: dl_add_task_root_domain() leaves them out.
+>  	 */
+>  	if (!dl_task(p) || dl_entity_is_special(&p->dl) || !p->dl.dl_bw)
+> -		return false;
+> +		return -1;
+> =20
+>  	cpu =3D dl_task_root_domain_cpu(p);
+> -	return !cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask);
+> +	if (cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask))
+> +		return -1;
+
+[Severity: Medium]
+Can __dl_task_bw_move_cpu() return -1 for a spanning new_mask even when
+the task will be placed onto a CPU in a different root domain?
+
+When cpu_rq(cpu)->rd->span intersects new_mask, __dl_task_bw_move_cpu()
+returns -1 without checking where the task will actually run, and
+cpuset_attach_task() then calls set_cpus_allowed_ptr() without
+SCA_DL_BW_RESERVED.  Because __set_cpus_allowed_ptr_locked() only clamps
+dest_cpu and p->wake_cpu to the bandwidth root domain when
+SCA_DL_BW_RESERVED is set, the task is not kept in cpu_rq(cpu)->rd->span.
+
+For example, with isolcpus=3Ddomain,1,2 (CPUs 1-2 in def_root_domain, CPUs 0
+and 3 in the housekeeping root domain), if a task running on CPU 0 is
+moved to a mask of {1, 2, 3}, cpu_rq(0)->rd->span ({0, 3}) intersects
+{1, 2, 3} at CPU 3, so __dl_task_bw_move_cpu() returns -1.
+__set_cpus_allowed_ptr_locked() can then pick CPU 1 or 2 via
+cpumask_any_and_distribute() (or select_fallback_rq() on wakeup if the
+task was sleeping on CPU 0), moving the task into def_root_domain while
+its bandwidth stays accounted in the housekeeping root domain without
+admission control in def_root_domain.
+
+> +	/*
+> +	 * A task moved asleep is still on a CPU of the root domain it left.
+> +	 * If the new mask holds that CPU, the task wakes up there.
+> +	 */
+> +	cpu =3D task_cpu(p);
+> +	if (cpu_active(cpu) && cpumask_test_cpu(cpu, new_mask))
+> +		return cpu;
+> +	cpu =3D cpumask_first_and_and(new_mask, cpu_active_mask,
+> +				    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
+> +	if (cpu >=3D nr_cpu_ids)
+> +		cpu =3D cpumask_any_and(new_mask, cpu_active_mask);
+> +	return cpu < nr_cpu_ids ? (int)cpu : -1;
+> +}
+
+[Severity: Medium]
+Can a wakeup or migration between cpuset_can_attach() and
+set_cpus_allowed_dl() cause __dl_task_bw_move_cpu() to return a different
+CPU in the same destination root domain and skip the bandwidth move?
+
+Suppose task p sleeps on CPU 1 in root domain {0, 1, 2, 3} and was earlier
+migrated while asleep into a partition on CPU 4, setting p->wake_cpu =3D 4
+and p->dl.dl_bw_cpu =3D 4 while task_cpu(p) remains 1.  When p is moved back
+to {0, 1, 2, 3}:
+
+CPU0                              CPU1
+cpuset_can_attach()
+  dl_task_bw_move_cpu(p, {0..3})
+    task_cpu(p) =3D=3D 1 -> returns 1
+  reserves bw in cpuset_dl_bw[1]
+                                  try_to_wake_up(p)
+                                    set_task_cpu(p, 4)
+cpuset_attach_task()
+  dl_task_bw_move_cpu(p, {0..3})
+    task_cpu(p) =3D=3D 4
+    cpumask_first_and_and() -> 0
+  cpuset_dl_bw[0].sum is 0
+  set_cpus_allowed_ptr(p, ...)    <-- bw move skipped
+
+Even though CPU 0 and CPU 1 belong to the same destination root domain,
+matching on the exact CPU number misses the reservation in
+cpuset_dl_bw[1] (and the same mismatch can happen between
+cpuset_attach_task() and set_cpus_allowed_dl()).  cpuset_free_dl_bw() then
+frees the reservation on CPU 1 and p's bandwidth remains recorded on CPU 4
+in the source partition's root domain.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261108185406.1549=
+770-1-mathieu.desnoyers@efficios.com?part=3D21
