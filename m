@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794103679;
-	b=LBrn3vNzj56q0nQZc9yxokrkMQwf2CkksioL+Txi57zIxeqDyN04bGAuanBioELN5J9h
-	 sbNJ/AKY7OsiCrQ77M1afRYb+yrLUHMqvVMEG4yjFWgzHPXdqaWB73VjEG7X0x8kjhKwC
-	 9H7mLW5lULzO5LyprJ+/JX5q4ifMBFXlufKZ35aIRsnQfIgNmsrfHIhxwdDURXTKgHcne
-	 rYcIHLnuHZZkOKIXYlZZCJ7qa8OzOGOEAZeMAh9MuI2hO/ziUiOojdeE0bvt9G5oVIPEB
-	 qnkTDWPLwrFGwfClR7xS+tjDhITYSpCieuCglTOUSkXNyn87H10jJS+F2Nk2pZPrYCA==
+	t=1794103680;
+	b=5FEDLtLnDPvRrBELND4Z3obFRROaTsas422n+Ga1/DozLGNZ5LrY028VOEezzSwKyGYn
+	 twWhokHHTFfW+z1CdhKx1xIjMd5LbQgCECVjhgda7F7TJc2JXjWC/RY7ipFEpW2UcccVq
+	 5DbpKesfXxBEShw8ZUgnG8bR1GBQYhOQ6bmG25hQqiHE46sF5h9CEdz1yyXLgpuMDwNB7
+	 uu4y/GXOX/P+QcJ+yJGAd+KSrHblzqXvDp0VV8O7w+39v5zNtd4/jG0eWgOB3+Sic46oo
+	 uIITaJMH/BQlX5+iQsnOFf4g7evU57NK8IEXqyhIOiF67hdvNRldFCLhI/QQ6PaPcZw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103679;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103680;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7rEbBmnrDSPRKg4CdtX+9qsizNsk+ESguTdy29rXj/A=;
-	b=wX04h+cP7JYVXFQZRpe7XYPjkmfkoHW1k6V12RRFW8ybEsYtQHnXI3P4vMcs7Pz6NOcV
-	 YH6FU7vl5fJnTWqBbIwJS1moxv0aj4ZgXo5d7VcBZLaXgMv0gPO0WJZJkwQgsJ8CgkiNA
-	 vpsfZAYYuU2qf4p4wHOP75oeas6457rIcHwsM5G5CyKPClyUpvyTjqwO33L1VbgJw1w3q
-	 HnWd3PpSEEP0BDIB/P7qSM60gu2fQx/Rk0kEb3Sk0qtmZfPKv3ocTFbrELMdm16BexNOr
-	 SqcxBYh2heoWgjd7ZYpltcXXUXHbw+d7hFTxSxiur4xKNwzbyUxmiDz5wsP/TOqq4vQ==
+	bh=87H5Q/GdEWoPiwduaYdCRfiks0gJDFzk7ec+dSsPriE=;
+	b=0Xn81FZ+AGe2eeSHIfq2x7EL1lSBJtYbE2+tYnIhH2CIQHY6ooGN5HZREJFXUUaD6NkN
+	 WFFuEhaDLVXGnV6U9AmK2HN5RSwdWqqd2SQm1F+aDjA4tRyVtKS7kWk35jS8A3IvU8MCn
+	 v2Xvr4OKACTI8r7O31NVEbP4o3/vB9fwoG9fldrnj1klqFLnWD+HoReQVdvvn8NLxyhgN
+	 RQhHdyzulcFKTAuvjIqM4TqpOhJHIpoFEkUr1xht/t7fJsq4SE/LNXfv0ifxUAQaR04f/
+	 Ew0oMTjVZEcB4Z9nwi+6V8dx3Ulhz85qmpvvJqUqzFqM74rK3PLm/0VN9eqfqj19z3Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8NiJNno;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeKkFyw9;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FE7606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C6B606A32A;
 	Sun,  8 Nov 2026 02:07:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8NiJNno
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeKkFyw9
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794103678;
-	b=d3TBcRhkRxPnjB4a2lk7p2QOI7xTtPClsSqIU1Ny6QDyAd0HHjQi1+Zduaw17M3QV4TF
-	 UBWHOyLoNQIbDgLa0ZC8XFwaPzz7k8cuucdGuAT5LZy9Lm6MTrugUfap81ifuaHFQHFhZ
-	 PnXpX5k1CTiXxMn7Hn1xB72NDDQ8W1hnFKV3FriRRapJlGGW9KcFRiLzRSowRte8C3pzK
-	 fXwKYMdY5HueJdKHRqGSJGRLbHMUQd3aE+eMBk9ZZXp5BFoZ29u2M1+6Iz/8EDyRlD+Ul
-	 0CAbuVm8l5ldhZNXNo6IOvoPSzI4lesnGUup+8tDO3hqehx+81gsLjNIGVlf7NXU1Aw==
+	t=1794103679;
+	b=iqCh/gwh9OPdkMUENO0HVsQQ1y98Z+ttd9+Vj/VYtofrV4PivsSaAJZ2eQvPC7GMlibn
+	 Xo04X5I2mrMeMeAQLxmILUbvT8Giq9IIBmuhaPJmIcOryeP8W2aQgedQzeWC81bfUQrzD
+	 vewXc8HRHG97D9hmKdNMrHFSz3M2/ba2ZmlasPBs/KKISLfoZ02WtP1HxOwUOXWrQBXRz
+	 XwnAX9Yw629hRgWJ0pH9xYRk+NqJsaplXePk+VEvwtL+mf6ekMzm6iySgUFwnV7ZX5idQ
+	 mfkQcLh+0+zlC+YbgV50i6e1HJ7VGftkMB937A9S5U5lWDQDliitTpk35zoDLSnIGSQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794103678;
+	c=relaxed/relaxed; t=1794103679;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7rEbBmnrDSPRKg4CdtX+9qsizNsk+ESguTdy29rXj/A=;
-	b=jbqkLbDGC2HpUIVn678RtqlAeNJyejdXpkhy1dld53HKUG7qNiybIUCmhhzL34+q6ylK
-	 VMd2jGUR0bb4IGuNrh4HiglJgVvQb/6j/c4EyOrchWcvfmPcW6lOFaP+zva0AbzBLGML0
-	 Y/7aydjFksXzfsOlqmifx2+73Rihe6ITkDO4hB7uaFcQsUAwrqPhDSsmk5ufIS1XmlCQn
-	 RR6LtGsiW6t5QLujwa8vuDnS7wcgvLJkVqRLfIp9GIS7Zg/sP1wXlw+R4WTfgjqb57j1o
-	 ABVeq+jXOYATAPm5jNHQY7PZqhtHTAyo+aiW/yQTfINrnxs9mo+UE4BNA/5T8VS9JyA==
+	bh=87H5Q/GdEWoPiwduaYdCRfiks0gJDFzk7ec+dSsPriE=;
+	b=llxIArX0vfpEX5KNOUXnUSnQ2nIYGSDsPD/qNrXP04Pf5CodJH8hVoFpX4ldm8rrYZYf
+	 ubK2sZOtt23QHXCcV9ed1dcBpDSHTD2bfvwxLq/5Wr0lcewAn3Wif42DwITdzlGLgPpxQ
+	 kQUcORFdDwpOCn+yFzdZPsomi8hxVuzTy4LDqyMUj31GwJVQtF6uMKELkX/wSb3H3lzk4
+	 x7IIXwELqdXzOz+5JMKvpngPwYRRrN3IKBDxJgUaNKSp5XZ5y92ww6zwAGBOxBDwNFthk
+	 iY9cx+PHBPz6yhxVIgpsaU0RST10+Qy/XQHJ4xUYF45bFlq2u3e0RgIDhHA0DSPMOJA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EB7371F008A3;
-	Sun,  8 Nov 2026 02:07:57 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 066211F008A4;
+	Sun,  8 Nov 2026 02:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794103678;
-	bh=7rEbBmnrDSPRKg4CdtX+9qsizNsk+ESguTdy29rXj/A=;
+	s=k20260515; t=1794103679;
+	bh=87H5Q/GdEWoPiwduaYdCRfiks0gJDFzk7ec+dSsPriE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=b8NiJNnopuPtFWQPxbxQgrYiP+gdl920zSDlS6spWvXPs1bgeCYQymPrjLdfARC6N
-	 NDVd9TKl8a9flFqwNm/PAf9rB4pxsbgAQ7Ae0qID+wFtCLcL2mqt31kws4n3K77CPF
-	 l06AYJqppHo9KoVKW7e3WdfHRpKxrM8qsQp1zYfj938on5N1XP2sTcVb8s2pRUu3cT
-	 LGGQtkbDB+G6ELAeizXk+aMBaoOZLTc/2kM76AesNTrNIMfFNZQQ9iS9CrcqlcA0QI
-	 8ukiTF2D1Ve3+03hGqKz0aqKmrAXWYfEG07jrYqAdpfzvS+Uv3aGe7TYMvfUtW+Pfb
-	 wG6cwOnaeYnTQ==
+	b=EeKkFyw9MEAbGJfywYWFCzSFkNV2O9nUwer8pjbgtjIExXqdxBA7bPUIQQbuhVCS6
+	 iqfqU2O/vJlw0gYJdxIaHfoF0vtif8hoPiKEOVCRWmHPtwf7Tt2PhH832a2ZwvWhHr
+	 YvOa8gMmZ4MsnvI+i4HFZblskeKXk8vKwCLulISmzMKZZTKo3r1r5gWNMEjlKOR/TB
+	 QuoTbhpd6XYl3YiS8nJupA8dpuWWOqdHJthzPl+eDL8Mb0plUU/B2Bp8O7oytSuAJ4
+	 B894M5130d6NvsbHCFsJZXde+rgxcY3gwLlODDc3AVgy3K1WJYI802EwgLl0mjk+C/
+	 9dCDdC9eN7x7w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 76D8347DA5;
+	by lkml.kernel.org (Postfix) with ESMTP id 862C147DA9;
 	Sun,  8 Nov 2026 02:07:57 +0000 (UTC)
 From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Sat, 07 Nov 2026 20:07:57 -0600
-Subject: [PATCH 3/4] staging: octeon: fix race condition and log macro in
- ethernet-rgmii.c
+Date: Sat, 07 Nov 2026 20:07:58 -0600
+Subject: [PATCH 4/4] staging: octeon: fix IRQ leak error path and remove
+ dst.h from ethernet-spi.c
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,18 +84,18 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-octeon-phy-series-v2-v1-3-d7ab0b4b3f17@gmail.com>
+Message-Id: <20261107-octeon-phy-series-v2-v1-4-d7ab0b4b3f17@gmail.com>
 References: <20261107-octeon-phy-series-v2-v1-0-d7ab0b4b3f17@gmail.com>
 In-Reply-To: <20261107-octeon-phy-series-v2-v1-0-d7ab0b4b3f17@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
  =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794103676; l=2398;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794103676; l=1371;
  i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=c7IDkn8SsaMFf7JTubke6cF4FA0eUXNFWJMVYKLJlz0=;
- b=ejVMpeDFts9z8ypXvJWKWYaHqkpq0YIfv9Q8umP+IaHJxqu4hUOEtrazb1kEeFyz+ApFr1osg
- J3t7W19oEB9DaUS22iRxqcRrK3GyDtTuLs4/JzZcabMvUMd+/esigxA
+ bh=R/oKIlw7zjOe4R9w3qzlWN0J7x8RLy9bbUrOjNfj+Cs=;
+ b=ycL/v3qP6qmuTouVF+wEqXfmlomp+Zc3Ei01cVp8NvU0Jl9UNxJkTCm8UdFhftsom8hmKvKJj
+ Zs3PNjOT33RDIGAdXXcl9xH/OP/Ll1cKxiXgKBplSJkY9km2KOEes/D
 X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
  pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
 X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
@@ -106,69 +106,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-Fix a race condition in cvm_oct_check_preamble_errors() by moving the
-read assignment of priv->link_info inside the global_register_lock
-protected critical section. This prevents unsynchronized read-accesses
-concurring with status mutations from concurrent polling contexts.
+Fix a resource leak in cvm_oct_spi_init() by properly validating the
+return value of cvm_oct_common_init(). If the common initialization
+fails, perform a rollback by decrementing the spi port counter and
+releasing the shared RML interrupt handler via free_irq().
 
-Additionally, modernize the message output by replacing the obsolete
-printk_ratelimited() call with netdev_notice_ratelimited().
+Additionally, clean up the file header by removing the unused inclusion
+of <net/dst.h>.
 
 Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
- drivers/staging/octeon/ethernet-rgmii.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/staging/octeon/ethernet-spi.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/octeon/ethernet-rgmii.c b/drivers/staging/octeon/ethernet-rgmii.c
-index 0c4fac31540a..a9a245b5580a 100644
---- a/drivers/staging/octeon/ethernet-rgmii.c
-+++ b/drivers/staging/octeon/ethernet-rgmii.c
-@@ -9,8 +9,6 @@
+diff --git a/drivers/staging/octeon/ethernet-spi.c b/drivers/staging/octeon/ethernet-spi.c
+index 699c98c5ec13..e6ebc879ccad 100644
+--- a/drivers/staging/octeon/ethernet-spi.c
++++ b/drivers/staging/octeon/ethernet-spi.c
+@@ -8,7 +8,6 @@
+ #include <linux/kernel.h>
  #include <linux/netdevice.h>
  #include <linux/interrupt.h>
- #include <linux/phy.h>
--#include <linux/ratelimit.h>
 -#include <net/dst.h>
  
  #include "octeon-ethernet.h"
  #include "ethernet-defines.h"
-@@ -56,14 +54,14 @@ static void cvm_oct_check_preamble_errors(struct net_device *dev)
- 	union cvmx_helper_link_info link_info;
- 	unsigned long flags;
- 
--	link_info.u64 = priv->link_info;
--
- 	/*
- 	 * Take the global register lock since we are going to
- 	 * touch registers that affect more than one port.
- 	 */
- 	spin_lock_irqsave(&global_register_lock, flags);
- 
-+	link_info.u64 = priv->link_info;
+@@ -206,7 +205,14 @@ int cvm_oct_spi_init(struct net_device *dev)
+ 		cvm_oct_spi_enable_error_reporting(INTERFACE(priv->port));
+ 		priv->poll = cvm_oct_spi_poll;
+ 	}
+-	cvm_oct_common_init(dev);
++	r = cvm_oct_common_init(dev);
++	if (r) {
++		number_spi_ports--;
++		if (number_spi_ports == 0)
++			free_irq(OCTEON_IRQ_RML, &number_spi_ports);
++		return r;
++	}
 +
- 	if (link_info.s.speed == 10 && priv->last_speed == 10) {
- 		/*
- 		 * Read the GMXX_RXX_INT_REG[PCTERR] bit and see if we are
-@@ -74,7 +72,7 @@ static void cvm_oct_check_preamble_errors(struct net_device *dev)
- 		union cvmx_gmxx_rxx_int_reg gmxx_rxx_int_reg;
+ 	return 0;
+ }
  
- 		gmxx_rxx_int_reg.u64 = cvmx_read_csr(CVMX_GMXX_RXX_INT_REG
--							(index, interface));
-+		(index, interface));
- 		if (gmxx_rxx_int_reg.s.pcterr) {
- 			/*
- 			 * We are getting preamble errors at 10Mbps. Most
-@@ -83,8 +81,8 @@ static void cvm_oct_check_preamble_errors(struct net_device *dev)
- 			 * disable preamble checking and do it in software.
- 			 */
- 			cvm_oct_set_hw_preamble(priv, false);
--			printk_ratelimited("%s: Using 10Mbps with software preamble removal\n",
--					   dev->name);
-+			net_notice_ratelimited("%s: Using 10Mbps with software preamble removal\n",
-+					       dev->name);
- 		}
- 	} else {
- 		/*
 
 -- 
 2.56.0
