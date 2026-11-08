@@ -1,78 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=157.180.73.62
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147994;
-	b=gdwMOR4XEHmvb74pkFsDJuSsyXf0D0FHF/Ep9ttgAIewVa4zXQa7yI3bXePQEkyWR+Wh
-	 iPPSn37b2dhKqZ1GNUVa1iLD8U8vCErQoNQDEpW/rvdWQwJhzGSw4ZsFQcDDAkJTgxlhC
-	 nSK08x36B7TJB6+/YfpCJF3WwPRlgVazeREg9fuhAaIzMTa+U8++ihNXZdLZ+ab1Qpl2/
-	 xaGxaqpjm8ryihNnYNtNdu+UHRVVTL3IiwbbdwTX5VrbIYys/k2P4xR9oB1hKQ4OXddxY
-	 McWwwhIIu/mwwODNvs+Fw24mK1kcUbgBHJNLu2sCZQO35UYSytuYf6fYswsrQRuBirw==
+	t=1794148006;
+	b=LbAPIKKPoRGWkajoi+1cdUlzctroMqm+jkirb1QrUjPhAwNxyrnTF49mtXX2stOCDr3X
+	 tM/qM/loP2850fnb2FW4UTnp2vIU8ZpCBShRQKrRSAkUE8Yn0MYfXU1FoMARpHqJjt9Xu
+	 ipm02FKxojT4ydDMncD3Qo0tDISAX1qrqHW6dvX0xzrLxRM0WN6tqwxPikd4g8OkqyMyq
+	 KJtL2bLAULWADQ2e7hpjNVVpEnmhHiD4VFvJDuvPFuT1l4R14MdDkW1qAmSsBL/Y5E/c3
+	 GUNjwOYE+aqCHCX2FWtZYw9gtpfbtrgEjyFZEk/HOdsQz0nEA8MBuXo7F57FYeiZzOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147994;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=fPRAwt6gCc/aeEGAwUvTMhd29rocLRC7MawVr2saLj8=;
-	b=4L/q1z8nYOyEUf6CHkQFov714fbuOaLN23pgmuPHK4adHa9dFmq1AwsGUtcj9E3Y9sRf
-	 6OxOOb/g2mi8g5PtKdXo1PcJK3eX/9yMpj3g67CtbVA46MdXZgDsuLeaf7RsECMR2yfh/
-	 cDkI7uvWmKvDR1k2UZzXMTFL5J2rO/XR6t537ZfEepgwlcaefsgQk+JX6DisOo0toBWMQ
-	 6SrhuruMtth6FE5PuBMdX7AROHLM5mBiflSNHLoUy79CF+Z1ATAuvuaq3C+sv4OXahptu
-	 H0spTNDdNcdN0zYkdfaJSvkB9mHhho4Z9DZGap4rxWQVtly9zeRwg2SvVhzZwVqIUJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794148006;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=anI1ChYfeZjCgF1xgVXnWSsm/4XxjRJS3uHT+I8cNNc=;
+	b=d5ji8soaBrx8t1btIWhwSWskcfW8dIr5Kaz5EAA+jQ6N3+Kq1P5ShSo9rIv2uzAxqxVV
+	 /lLDi8y8M3HvRIYsfaa/wO3dHiXQkkis6iNgqCaCQfxPRhg8ZNEa9lkTrIUsgW/JV/QzN
+	 gBMapKmmVD+AQYfMR/VVS/OsbBSMOu++I9jLZg8Gqv91i/9BBmsppuOl9JVqwZ2K6YsZ5
+	 hTgk78iLj0b378DgA8DchltKqmcCJmNtyeR00yuFRX4wxo+LE4DyyNllEj6W8v7zys7Zv
+	 +P275yvgTZS7i8ntBo7BtptRnc1gEyA9fLtQw5OjoybIbehy6lUvFr17HjWYaGSSbXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=BtB9zKpD;
-	arc=none smtp.remote-ip=157.180.73.62
-Received: from relay14.grserver.gr (relay14.grserver.gr [157.180.73.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WbqiPByv;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E87606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09E87606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA58606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BA58606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=BtB9zKpD
-Received: from relay14 (localhost [127.0.0.1])
-	by relay14.grserver.gr (Proxmox) with ESMTP id 525073EB18
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:26:31 +0000 (UTC)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay14.grserver.gr (Proxmox) with ESMTPS id AE6B13EAB2
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:26:30 +0000 (UTC)
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id B0F8F1FF28F
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:26:29 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1794147990;
-	bh=fPRAwt6gCc/aeEGAwUvTMhd29rocLRC7MawVr2saLj8=;
-	h=Received:From:Subject:To;
-	b=BtB9zKpDwW5Gx0nY9CL45GPVHinFFsoytQsR3JBd5oz1TvshwZqyQoLkGxGEzgzLF
-	 DXPnvczGA8/YExiGXTqGA8LN90LTJIfrbYxmyPEuVlQEMeKwGhEDoLE8hhsg38hi5L
-	 C8/o5bOWj3X8fL2QXEzyvBZWeL4WZzTzqjelr/M1iXl9EYyaO3+3zL9kZG6emjZW07
-	 fUoBZ/5X6kKYCRh5lTk0LdJiPHXV/aNdkjYT1tqYhyHIWXZnOw2qPVAy5PVI3VEPwV
-	 PFKhC06JnH+nePr9phT34A9FpqV2LOCL9GhISoD0STlzl5I0jVyJZBArnrbrATTTc9
-	 bR6zs78hrTRzw==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.214.179) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f179.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2e987b4a710so512575ad.1
-        for <linux-kernel@vger.kernel.org>;
- Sun, 08 Nov 2026 06:26:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErHx2x8sK79LNWQrf0OaQlAwi6ImSZdWSZ/z2G4DzpvO38Vac1DybnAwGMCgu/VE6MOIf3DbTagp3bOb6Hg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XrH+em+3Lc+XZFaiQUc0TX+Wk2oH5vBlntZJhozV/tCywcCFo
-	LOl4L7OrVexTZoDJZb49JcUP2q38t1kRfubiT43m8dfF5vC5k7Wxihe6IhCOe7iiKJw7QIQmOxq
-	Cl9dkDfiHVjgIBEaUEiEQU3oWHgU5xCM=
-X-Received: by 2002:a17:903:2290:b0:2ea:1079:e518 with SMTP id
- d9443c01a7336-2ed83036768mr10542495ad.0.1794147988317; Sun, 08 Nov 2026
- 06:26:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WbqiPByv
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f2f262b19so127525eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:26:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794148004; x=1794752804; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=anI1ChYfeZjCgF1xgVXnWSsm/4XxjRJS3uHT+I8cNNc=;
+        b=WbqiPByvbZWkV1GSGzcT8Qm15ysm76YJWuKHyCwgIkO6CDl9nnMxOKrPIsIwhFXy4h
+         oZyo/1AGKqXdIbshvRbqMIB6QrDqRXp/IXU6CROm4rQb0BXE6RiCV3YUr9sATuJDEBrE
+         7MPjn+ZsKskGRCPfKse5i4j29teUHM68CuJbUZnih+jinn8bBM7eaugZTU1tOQbIWvBF
+         v3bRyo92R4VzyOaSyYYZVh+gpfRF18amhhe1TyRBSTEQSyXLGfcgc80hXqjqT+lWh6MQ
+         X1o1ZUxtAX20mHmdsN9hY2wJwlw6ZTR6lGxJRzbT0y7B+oDz8F4KfTIknor7Ysd9HESy
+         Mpgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794148004; x=1794752804;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=anI1ChYfeZjCgF1xgVXnWSsm/4XxjRJS3uHT+I8cNNc=;
+        b=TwjzcAEJvGXypDfNCg07BV8aF0MCJgXv55IRqoi8qmPyvaNKpjTb1jr98JXElSRrXf
+         h7BAgrCHO+ZYZRHLeqs6paHprmvsecgZRxJM3Cc7FZBLTXOezTyQlkwlV4xqLJe97QaB
+         KR3BwvP1I+r6OSQ/F1nPKHX2ZA+tHGjohGzhugVDqVAdiwwF3FEAMkXPDhNHjgUe/gR3
+         SB+VsOOXRFA5UcuLQqRHrHAlAhCapNEoBTbOSgd0xfX2ELfrpSYM+HdP5GRkkK2Zvc4t
+         o6JlpT14kmC8aXob1f6FhSi/LvVg+kbvJRnG88N3wGNDqLWPYyVMtTLVMmiIhIULfjFF
+         LaZA==
+X-Gm-Message-State: APuU4Z+goT+I6XvRA8miQ2+JofXrAlSHHb0fY0gfD/UBy9+KQneT20bH
+	WFiTfUZ64EIAORXCxkkLbIWVfrp01FlPoGeAPqXxw37HzEoaCmtkOPPg17NEg44Mj2gAQU0L
+X-Gm-Gg: AYBFou1mC1VMBCwGJ5SHgSZGpTmQA23GIWYJCFV0gpeAJPlKwJT9/gZMvdwM49lT0th
+	qLJc7/WpkQ649OZMgRjnpxrZN9x2uunxQVoAGA7y5NPZTCJEgfL1DBXFG0b3cHhZtmMXL0l+g1T
+	ODspLlPz6L/swbN77CORcoA2rHTiy/5HEoFgESGjTpod5JMaZZD5UOJ0ZORipYRg7HVg/QAW5uA
+	kvNOp3O8hd3OcGe2eVWMgNy16FEEEaQWCW53ITyhlAoEQWqJfvS3G7P6AnJ+sDbD6KQLQzdhgLO
+	2AQEUaEmhRQjwpHCQzTvgFMZ05f1rt+vZcas70yuXrkWtTiu2IIc/ukcNH0ag6y9sncXvkLJuVj
+	T8PZySj75wR+JTqSpHhMi7gWrlc9vPGK88RRRo6fEM3A1Bi/JvUzI2cA/xDMHkQEltN1hBwEVwj
+	vk4xSnQ3v7K1B0AbpuJBbfqvCcttV7rVKdNVW4exOaMxSB0yPA4PLjQvIlP5hVpiux5v6q13c5D
+	7tRSr4CEnKPtH4LB+Q+6XI+r6+ZArPILmMOEcoHxRNKOBfBptM1/bSEtcD9mxAIGcuSjlIvzn4e
+	3SmOa6GiwkcKdEJPU+LfeoeR8nFmTlVeXSKJXucfeFbuWeUr1/1rmZK/80De/gFb66pG16sV/ur
+	VnRp+rsHAyLCMsxYh/jj6/5wUUAWr18LF1cDr2cMY8CIHl8I=
+X-Received: by 2002:a05:701b:424b:20b0:1b2:32e1:3bb4 with SMTP id a92af1059eb24-1b39fed71a0mr2656735c88.18.1794148004300;
+        Sun, 08 Nov 2026 06:26:44 -0800 (PST)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771e5728sm5601098c88.16.2026.11.08.06.26.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 06:26:43 -0800 (PST)
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Mon, 09 Nov 2026 01:23:46 +1100
+Subject: [PATCH] mm/damon/paddr: add KUnit tests for addr_unit conversion
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,101 +90,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: 
- <CAGwozwEKXJGBY5oZtdrrzfK-aOyYu5GaiOqkejSqbCPdeq0UJg@mail.gmail.com>
- <20261108135505.67330-1-hijae99@gmail.com>
-In-Reply-To: <20261108135505.67330-1-hijae99@gmail.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sun, 8 Nov 2026 15:26:17 +0100
-X-Gmail-Original-Message-ID: 
- <CAGwozwHoTDCw63MoP2S6Qd1dk9Ym-=_E1e3oXOXkoWNfJxmUVQ@mail.gmail.com>
-X-Gm-Features: AclHuK8Ya8THLxcfdbiN4O0gUBtp_pOnojK24EKP4Xp8y6ZVUjHgAMUFgotFdxA
-Message-ID: 
- <CAGwozwHoTDCw63MoP2S6Qd1dk9Ym-=_E1e3oXOXkoWNfJxmUVQ@mail.gmail.com>
-Subject: Re: [PATCH] HID: ayaneo-flip-kb: Add driver for keyboard backlight
-To: Hijae Song <hijae99@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179414799008.1249111.4084081055945355294@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-test-damon-paddr-addr-unit-kunit-v1-1-bd10bb87be98@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWN2wrCMBBEf6Xss4tN8P4rxYdctjZKtiVJVSj9d
+ 9MEXwbOMJxZIFJwFOHWLBDo7aIbOYPYNWAGxQ9CZzODbOVJiPaKiWJCq/zIOClrA5aY2SV8ldS
+ yP5MUx4OlC2TNFKh333LR3SvHWT/JpM27LbSKhDooNsNWVW2V/W/33iPTB9b1B4FX6YSyAAAA
+X-Change-ID: 20261109-test-damon-paddr-addr-unit-kunit-b2f7e2154de8
+To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, damon@lists.linux.dev, linux-mm@kvack.org
+X-Mailer: b4 0.16.0
 
-On Sun, 8 Nov 2026 at 14:55, Hijae Song <hijae99@gmail.com> wrote:
->
-> Hi Antheas,
->
-> Thanks for the feedback.
->
-> > If this is an actual keyboard product on the market and Ayaneo is
-> > sourcing the part for their device, look-up similar devices and kernel
-> > drivers.
->
-> I checked. hid-sigmamicro only fixes the 0x0059 report descriptor, and
-> I found no SiGma Micro backlight driver on lore.
->
-> > The name of the driver cannot be -flip-kb. You need to make sure it is
-> > generic enough to match most Ayaneo devices.
->
-> 1c4f:007c also appears on the AYANEO Slide in hhd-dev/hwinfo, with the
-> same vendor interface (report ID 0x41, 7-byte feature report). I only
-> have a Flip KB, so I can only test the byte layout there.
->
-> Matias's hid-ayaneo already claims 1c4f:0002 behind a DMI check for
-> AYANEO 3. Would you prefer that I add 007c backlight support to
-> hid-ayaneo once it is merged, or keep a separate driver named after
-> the chip? I lean towards hid-ayaneo, since the Slide may work the same
-> way, but I would like your view first.
+damon_pa_phys_addr() and damon_pa_core_addr() convert between DAMON core
+addresses and physical addresses using addr_unit.  addr_unit lets 32-bit
+kernels with a 64-bit phys_addr_t monitor physical memory above 4 GiB,
+but no test covers the conversions.
 
-Mmmm so Ayaneo does not have a vid and may trample the pid of another
-device. That is not good. There is no guarantee this led profile is
-used by a different vendor.
+Add a KUnit suite for both helpers, including a case for addresses above
+4 GiB that is skipped when phys_addr_t is 32-bit.
 
-There are two options:
- - Adding the keyboard to the hid-ayaneo driver
-     - This would happen after it merges
-     - There is 0 common logic between the rgb device and the keyboard device
-     - Driver registers a different led sysfs ABI and has convoluted
-dmi handling
-     - The driver would devolve
- - Adding a scoped driver for the keyboard
-     - You can start now
-     - Can tightly scope to keyboard device
-     - name can be hid-ayaneo-kbd unless other vendor is found
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+---
+KUnit passes on x86_64 and i386.  Selftests pass on x86_64, except for
+damos_quota.py, which is flaky even without this patch.
+---
+ mm/damon/Kconfig             | 12 ++++++++++
+ mm/damon/paddr.c             |  2 ++
+ mm/damon/tests/.kunitconfig  |  4 ++++
+ mm/damon/tests/paddr-kunit.h | 55 ++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 73 insertions(+)
 
-I would tend towards the latter. hid-ayaneo has plenty of work to
-merge. The controller firmware is quite unstable. Even my
-implementation in userspace is buggy. But that's fine... Windows is
-buggy too.
+diff --git a/mm/damon/Kconfig b/mm/damon/Kconfig
+index 34631a44cdec..6f8722fcf464 100644
+--- a/mm/damon/Kconfig
++++ b/mm/damon/Kconfig
+@@ -65,6 +65,18 @@ config DAMON_VADDR_KUNIT_TEST
+ 
+ 	  If unsure, say N.
+ 
++config DAMON_PADDR_KUNIT_TEST
++	bool "Test for DAMON physical address space operations" if !KUNIT_ALL_TESTS
++	depends on DAMON_PADDR && KUNIT=y
++	default KUNIT_ALL_TESTS
++	help
++	  This builds the DAMON physical address operations Kunit test suite.
++
++	  For more information on KUnit and unit tests in general, please refer
++	  to the KUnit documentation.
++
++	  If unsure, say N.
++
+ config DAMON_SYSFS
+ 	bool "DAMON sysfs interface"
+ 	depends on DAMON && SYSFS
+diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
+index 5b773012a876..e89cb14ee17b 100644
+--- a/mm/damon/paddr.c
++++ b/mm/damon/paddr.c
+@@ -479,3 +479,5 @@ static int __init damon_pa_initcall(void)
+ }
+ 
+ subsys_initcall(damon_pa_initcall);
++
++#include "tests/paddr-kunit.h"
+diff --git a/mm/damon/tests/.kunitconfig b/mm/damon/tests/.kunitconfig
+index 144d27e6ecc5..9279f0c82be7 100644
+--- a/mm/damon/tests/.kunitconfig
++++ b/mm/damon/tests/.kunitconfig
+@@ -9,6 +9,10 @@ CONFIG_PAGE_IDLE_FLAG=y
+ CONFIG_DAMON_VADDR=y
+ CONFIG_DAMON_VADDR_KUNIT_TEST=y
+ 
++# for DAMON paddr ops
++CONFIG_DAMON_PADDR=y
++CONFIG_DAMON_PADDR_KUNIT_TEST=y
++
+ # for DAMON sysfs interface
+ CONFIG_SYSFS=y
+ CONFIG_DAMON_SYSFS=y
+diff --git a/mm/damon/tests/paddr-kunit.h b/mm/damon/tests/paddr-kunit.h
+new file mode 100644
+index 000000000000..9839cc233071
+--- /dev/null
++++ b/mm/damon/tests/paddr-kunit.h
+@@ -0,0 +1,55 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Data Access Monitor Unit Tests
++ */
++
++#ifdef CONFIG_DAMON_PADDR_KUNIT_TEST
++
++#ifndef _DAMON_PADDR_TEST_H
++#define _DAMON_PADDR_TEST_H
++
++#include <kunit/test.h>
++
++static void damon_test_pa_phys_addr(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, damon_pa_phys_addr(0x1000, 1), 0x1000);
++	KUNIT_EXPECT_EQ(test, damon_pa_phys_addr(0x40000, 0x1000), 0x40000000);
++}
++
++static void damon_test_pa_core_addr(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, damon_pa_core_addr(0x1000000, 0x1000), 0x1000);
++	/* The conversion rounds down. */
++	KUNIT_EXPECT_EQ(test, damon_pa_core_addr(0x1fff, 0x1000), 1);
++	KUNIT_EXPECT_EQ(test, damon_pa_core_addr(0xfff, 0x1000), 0);
++}
++
++static void damon_test_pa_addr_over_4g(struct kunit *test)
++{
++	unsigned long addr = 0xffffffffUL;
++	unsigned long addr_unit = 0x1000;
++	u64 pa = 0xffffffff000ULL;
++
++	if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
++		kunit_skip(test, "phys_addr_t is 32-bit");
++
++	KUNIT_EXPECT_EQ(test, damon_pa_phys_addr(addr, addr_unit), pa);
++	KUNIT_EXPECT_EQ(test, damon_pa_core_addr(pa, addr_unit), addr);
++}
++
++static struct kunit_case damon_paddr_test_cases[] = {
++	KUNIT_CASE(damon_test_pa_phys_addr),
++	KUNIT_CASE(damon_test_pa_core_addr),
++	KUNIT_CASE(damon_test_pa_addr_over_4g),
++	{},
++};
++
++static struct kunit_suite damon_paddr_test_suite = {
++	.name = "damon-paddr",
++	.test_cases = damon_paddr_test_cases,
++};
++kunit_test_suite(damon_paddr_test_suite);
++
++#endif /* _DAMON_PADDR_TEST_H */
++
++#endif	/* CONFIG_DAMON_PADDR_KUNIT_TEST */
 
-I have two comments for your current version:
-  - remove all flip kbd references, name AYANEO_KBD
-  - use brightness values of 0 and 1, no scaling. DEs know how to
-handle these values by toggling.
-     - another option is 0-3, which looks nicer, but let's not get too
-deep into this
-  - use devm to register the led structure, drop remove entry point.
-Use devm prior to starting the device so that register code stays with
-initialization
-  - check if led subsystem is appropriate. I am not sure of the
-correct place. If not, current location is fine
-  - initialize host values to ff ff ff so on first write we get a nice
-white color
-  - if there is only one effect, brightness 0 is off. Do not add an
-effect handler
+---
+base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+change-id: 20261109-test-damon-paddr-addr-unit-kunit-b2f7e2154de8
 
-With 2-3 revisions this should be good to go. While at it, try to find
-a Slide user
-
-Best,
-Antheas
-
-> I will also fix the two sashiko comments in v2.
->
-> Thanks,
-> Hijae
->
+Best regards,
+--  
+Aveline Noir <jm5905938@gmail.com>
 
