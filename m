@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169442;
-	b=GsmTQo9YcqimXKgx4eIbMlr89UJJId2al4YqVOizPuo3lU8yXQiRYqBiP+qw2F/CmIfl
-	 kWPgvAu7CFkJtTl5Ymi4lBpV9WIWfC50CgqUlyABjRLHUx1lfBo/SDcau5lBeXFvCRxzq
-	 My5MWeecm45sfuMmMRAzjxRphkM/+oC7GBOYh2tv5mOryn6LJ00/gYeu4h65BJR8YwfDu
-	 WyJjGODS9/9DkW4gB5PgzKyeQynQb3NHdCxlXwDeQxORSCDFw1+q+qsYx31fBRfReEE0s
-	 ELWwYwfM1M79T1QSiO9tuNxwW2BmXygxVJcY1zgn7TfywL32RlP8Lf2blQQRC0mvc7A==
+	t=1794169437;
+	b=alURRHXFotSpLS4XQO49efJtiUHDbjwTtsgRIeASbiksE8oVyAYnYtDgipTn1ltDVVDJ
+	 aIL8epBfQYNq8eaofzu3W+hq2yDAGkzgrOQb7TmG/7Q8OQNMV0lvnk/ul7NuFFEeqD7eH
+	 CLdawOH8A8Rr9xz+e+/NqF20uKn+WrHd75NWGAI7ZTLqaKuC591lEvHdAiDCnxt6iSytn
+	 wmJ9u0A0KaUIEKx7tXb5k7aenEsIdRpG8t0+PMx/O6/CTz+YB0LgeKKM0vN3BF1hs52Qz
+	 smOLG4EEHeQeK3A3Kggr2HqZTk9ze8Mgz5nFEyxXmQRVMX7qzk9nYWNE3QXqeDkDktA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169437;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=vrR/r3Ek6bQg2j8c20IraZaSWW4eL9t1WoWUs4dKmWE=;
-	b=ei7ciLFlpkER9tHgTnmYueAzHdjkHyXEd168Y6D9mo7sE3NG2L48kUq8V278OxahbIUF
-	 eTECmRzX7xjTw84NhhHs7DjYLinj4MI12SXjS1t8mRAaC8okD/VSE2oUuZ/vSjaFP5t2g
-	 RFC70gCEKp7oqnBx1dlK+BkwkFfokPpC/w+L2q6m1B85c8NtbueVSLmuCPwznFZCHAzYp
-	 sqfH2M/A/GjzM84PWbeibCKkdd657XLC1QMPi6By+Dz30x5uVtkKN+SIjK1iGGshrmeCk
-	 vxMX2N4fgqov4xmGhz4a/U7FRKbJ/OiPYzOST25qWWX5HRIVPUMEs1MatE8Rc1kQ62g==
+	bh=EOuvkZGjoqdAJ+SsqA9nlZOgNgVUmg8j/+ZfM27XG3I=;
+	b=Foq7kKeHFmSwd4F/Fm3oRBDi8WtSWDYzGSeslz3+TQHsAd1QU3O0TwzwwLIlUcJddHyu
+	 jYXaVPQsJp/Ifst0Bzq+8sGSbwxSLzqoctic/f4JeQvRDlCnFB2BCh7i8K4DcGfK4beOI
+	 dhuS9ZRadnPeqYOZb515qQ4ri/0xFQ2O4HYQQ52SGIL7801Jj8xGsEolqxa/D76i2olpG
+	 aloz0IOoxxejvdZY95THre6RJmlUgazSIw7WCGCLLT0kR2kZD3bHWWUtj5MwaUjVpRxoE
+	 OPAF2IxdNGuOdlsP9YwoTHKJ+uVVj+iNha3npZ3P3PMRXXnGnatEurVS3HJpQhxrB3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R8AOGdh5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYGZXky;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10681606A33B;
-	Sun,  8 Nov 2026 20:24:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE660759A1;
+	Sun,  8 Nov 2026 20:23:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R8AOGdh5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C2B1F008A5;
-	Sun,  8 Nov 2026 20:24:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYGZXky
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403C51F008A3;
+	Sun,  8 Nov 2026 20:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169441;
-	bh=vrR/r3Ek6bQg2j8c20IraZaSWW4eL9t1WoWUs4dKmWE=;
+	s=k20260515; t=1794169437;
+	bh=EOuvkZGjoqdAJ+SsqA9nlZOgNgVUmg8j/+ZfM27XG3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R8AOGdh5bHOunVHaTJiUsGGtgiqsbICyObmPsD4i8XI6Xt7WTJ5+bLTxYk/5Prvpl
-	 zD3MUW8es887mWGjykKMi4um63nhLMsLUgq9P5RZmtU5qD3cOnMAd8+4TNnK4/hsvw
-	 iiytl0aSSR3A3Eqv1JAoIJDjQXGthzT8r1/jvlSZhjfj3n8nABsCfrhcOa/zbuHHqO
-	 ZT1bq1v+l/9onFMt0EWiky6cClWEqSoMs8O0FKxKoCYvCbNHTfSxcu5jxGc66NK6oB
-	 2zwoTrhnWJZ1kuFGN8J6CypehFcoHUz+iXNFuKmL0E4ept1ca4R5mdDfRO5yiU61RO
-	 GySPR6UP1onAg==
+	b=kdYGZXkytXaYNYIpYTNsRR585ps0M6wyXQshAGBRQdNqL6/gZO6zZGoUEnO3SAzzj
+	 +/Intdv6QDH2l8SofaLWkZlfGwkk/5k+cBRpdo+134EZ2cNOCfZtHUcoDXU3DCJm0M
+	 VZ+VsPh1t16tGABQvA/z7uMwoiaVXnkTVkET/JyYQ24i8ED9yJ2vStHq8kCcTOibvB
+	 tn6kL2P6RWSJiX16yn02N323e5RzVI/3Z/8FrhL3eouAbQ1Pf+WEl/Jd94WUfn1Wa8
+	 47ycgCkOdBvlvkdI5F5Zt/uubyV6u0xFTNosc58FxEbLZfo9i6/rs43snKOpc/s0Us
+	 UAKf+6iYckNiQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Andrei-Alexandru Bleortu <me@andrei-z.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+To: konradybcio@kernel.org,
+	Luke Macken <luke@phorex.org>
+Cc: abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	srinivas.kandagatla@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] clk: qcom: gcc-ipq5018: stop UBI0 clocks from reclocking their parents
-Date: Sun,  8 Nov 2026 14:20:40 -0600
-Message-ID: <179416929320.628393.11631379533983350306.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add Elan touchpad at 0x15
+Date: Sun,  8 Nov 2026 14:20:36 -0600
+Message-ID: <179416929384.628393.4815391569642209330.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002121920.994608-1-me@andrei-z.com>
-References: <20261002121920.994608-1-me@andrei-z.com>
+In-Reply-To: <20261014234949.1730808-1-luke@phorex.org>
+References: <20261014234949.1730808-1-luke@phorex.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,23 +70,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 02 Oct 2026 15:19:18 +0300, Andrei-Alexandru Bleortu wrote:
-> ubi0_axi_clk_src and three UBI0 bus branches (gcc_ubi0_cfg_clk,
-> gcc_ubi0_utcm_clk, gcc_ubi0_nc_axi_clk) carry CLK_SET_RATE_PARENT, so a
-> rate request on them is propagated to GPLL0 or to the NoC clock sources
-> that the rest of the SoC runs from. The first patch is the one seen
-> failing: a 400 MHz request on ubi0_axi_clk_src made GPLL0 the top of the
-> rate change, re-ran set_rate on every GPLL0 consumer and hung the eMMC
-> controller. The second applies the same reasoning to the bus branches.
+On Wed, 14 Oct 2026 17:49:49 -0600, Luke Macken wrote:
+> Like the T14s Gen 6, the Gen 7 ships with either a Synaptics touchpad at
+> I2C address 0x2c or an Elan one at 0x15. The dts only describes the
+> Synaptics part, so on Elan units (e.g. 22A7000VUS) the touchpad@2c probe
+> fails silently (nothing answers at that address) and there is no
+> touchpad, while an I2C scan finds the device at 0x15.
+> 
+> Describe both, as x1e78100-lenovo-thinkpad-t14s.dtsi does; the absent one
+> fails probe harmlessly. Both share the interrupt GPIO, so move the
+> tpad_default pinctrl state from the Synaptics node to the i2c0 bus node
+> rather than have two nodes claim the same pin.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] clk: qcom: gcc-ipq5018: drop CLK_SET_RATE_PARENT from ubi0_axi_clk_src
-      commit: 43c6655e538de45b18a42838c956f103858c1437
-[2/2] clk: qcom: gcc-ipq5018: drop CLK_SET_RATE_PARENT from UBI0 NoC branches
-      commit: a36030400a2d82a81fc7f021fe4f7e2bbf229115
+[1/1] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add Elan touchpad at 0x15
+      commit: 06b7a31608876dca5a99a9ea528281f2c8dc18e1
 
 Best regards,
 -- 
