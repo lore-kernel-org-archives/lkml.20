@@ -1,48 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794142464;
-	b=hMYjRLHYfLAx+6Hp6GsBS7JCni7uQLoeUDYh8zSmQWDvCC+oY3o8RA6/xoOhKVq35MND
-	 Z3hZt9gNthJe5VJPBY3MfKnnuLfsAcr6X7VwI+jnbeI5LdVEUGUd4jHTPTdKK8LYW3Ejo
-	 Jkej2UO26Qjltn+l5D13Ncp8uS8x6MTnPTBck917ZkwavWEupQTx4Spjxg9aoT306aa/g
-	 V4hR3BI7Nxb8rQvD5LSWsm3Yl2oLebv3dF334abZyTeXOrEl3TVbUlRfMwwTEST1Ri1eF
-	 pFiN5VljYP8w8PiIm3h/8Rr9VCQgJg5qVh9unSqUzTkbiRVkkjdASCe2oUV1Jgt4jIQ==
+	t=1794142584;
+	b=JYK6XCwCZxPvHQkkhqdZsCihj6KiNctuX6SykEvo8ejEBv/Z7PG/9zI171v9Ocq6ySNv
+	 YavJ+mSzGYqumDddKuVQ0N1+smCXy7s3GmtHpRvhtuezoNjC55pZs2r5vM00C/uF/z9W9
+	 2lBL0CcDXoyI4AOBCd5zcryhVRuQ7aHNrE94Jtvrr6On9MYfGKDborPLzSzGGILPC0dtj
+	 y6d3lQXgWCUgcw2mJHwdJ+UpUvII0bkWQgtM9BuAHVkYEdP/ZLVbF01mR9eTPt6ldulDq
+	 XA8YFcKjMV8hOzLE9kH0P1MOHIhGOq343TgM99oMXlKS2rSr6Dg+Zr0q+k+VpQnHAKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794142464;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=vd+Z3vrrpLkt6u4mXKHz+DlhTxBkA17cRmDQo5h223E=;
-	b=0hKaEMI6JIQOeO/+lPmfn9JqJLce72SwlEL0BUrEclAe2e5LxDSM+qF6VhbQtWKzd2TF
-	 B7FaXEWmzqzRJbR1CF0qcgC+4gSRpo/g7VlAwqiXvl9g1Ryh0tzfP7Y+jvOe5dGChmEVu
-	 gXndYzGBAxB76H+Aq5ROTT2O2o/fijuCQZ+bh4IJUe0ctA3QcWcKkiKzcTI0UGG0LtNdN
-	 1ShsZq91vMBfC1ycKbRM4ZgRhIp2oJBUUTqxmYyL+NqPLCRMr1GZ/UZhbp7MrjxPoQpim
-	 7HXDJY+vA1pnE33JgVpnt0zdg681Zk8eWutdVGbQE0AG+o27CqqMneMCpYbUqcny1Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794142584;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=84P1pX4lpO1OaC5mRIJtD7cq9/wTHeywebmO1thFbP4=;
+	b=sZdYxsBKvZznvLvE7zbX3l2YatNW2pwR23CwiDLAaEn1RO7pJxph6ksSkvux3o+55x2G
+	 7B7WlPMkl6EMat2GW4OBEjFgKhYorPPROdlYcrSYJRx2FHFPiZ/FUSEP9Q1K9ly3iC3Jr
+	 4Vz5x98cKdZ+xuIQKobNDfpMmmvDWvb3j4iVMueK3CJ58kNFmEen2Je7w13SzF+PEVtbr
+	 n7KCjZff/WT1AOTMdcTMNCbd8F0Jx/Va/DCYKpbdE+UuZpvU+G/pMeuCa4z0m+rJFHGYv
+	 zjr9aq1o/IxRvuR0KsHkN1PmtZi2w09DgRG3qED4SDSVWO2Zqdli4JyYJjB0//FAQEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CLPkB7s5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fQ3k+R4T;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBC6606A322;
-	Sun,  8 Nov 2026 12:54:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EBD606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2EBD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CLPkB7s5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6841F008A1;
-	Sun,  8 Nov 2026 12:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794142463;
-	bh=vd+Z3vrrpLkt6u4mXKHz+DlhTxBkA17cRmDQo5h223E=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=CLPkB7s5n7m/gzX8F9ip745FIGgn05IizUp77hyic6NZRR9DKupjmvL58iC06twpj
-	 9wWKbY7OuzAFhy9/mL4P2QA6RE1IIbbz+wiL3VAQatEPoRPMwEF4LPyd2rMumRfvov
-	 a3dxHNQkPXSXhyRGwbAMljXTgkIIouHrxCx5RMKkrlMmhgmhPzNm6IkQ4NHd91lxki
-	 dC1AFxXzpo1fdZTq0KMSmsaI1Goh5JNGppiZF7EfQdlvmjVRFl1xHqnpi5mgTrMBUb
-	 CAPi3PbvnwOwi1r/BeFeRQ+R9N6gqHAQ7IPkslMewvmShVNq6CZHiNSrEj8yQB243T
-	 Q0VKRhZNHC79Q==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 22E292C5FB64;
-	Sun, 08 Nov 2026 12:54:21 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fQ3k+R4T
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so619385e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:56:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794142582; x=1794747382; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=84P1pX4lpO1OaC5mRIJtD7cq9/wTHeywebmO1thFbP4=;
+        b=fQ3k+R4TuSIVy1/ILvvwM/1nQWgb0HmiYPFP30x/5WAe9G30RaXrSD/nAL16Z0KqUg
+         mJaqeIkU8lz482fRKlicx39SSzEEYgvFrWkkAkq2q8eI02PSFxCQY9ekK5yew+zaOU8J
+         RuBvSGpK1K6UJMR9I3DiyWkCC7UtENOoCFN3DJX09l9LDdFCQbhoKn81m7DG0hyjBws6
+         yhD0z74OvTdOuY+hkvfwkgYwtarHtazXr4pMMNJdQ7g1TrA5wVz/7h/brxcH6jUSoRtm
+         oy6rwMs+nmz17rXcbcRlNvOJpbFgwT+okYNScssnsVIhr5Zz8ukfZu6N0I9YDZ80ZLad
+         OAaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794142582; x=1794747382;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=84P1pX4lpO1OaC5mRIJtD7cq9/wTHeywebmO1thFbP4=;
+        b=FANdaC9cwqW59ELpPDsExbDh+2WjWpXZ376CpJhU60mCRVYPj/rmaZG1qKJwGbI4N0
+         tb4hqW2ufk63U+T7OgJxpKXfri0cm3tx6OXgejPnajEuRPfFVotQi5zClNS8mV4Psa/u
+         +oRyTewms12GoI58rrlSVW19Arj6a0NWh7y20h/kOnqqCvSqj7BawVCpRCYMyacHxWU/
+         oSB4xs0yoiyC2z3jIG5t71Yrz0ESElPkn+fl93kTi0ER/iznlxwDBLkV2soa54++BH68
+         tfcyfEFxC8o1vSfFpkiR8pg2qUG2FHuCqvPzxqkPISAs1c5LwzUJrJKoHKL7uo3i5cKj
+         zQmA==
+X-Forwarded-Encrypted: i=1; AL+hErHfVO+mpralbfSjrrM6MR9+a0e7TN2WxIPzb9t544LBVuUk6Ogehmpjytlyd81jHrfndtpKcI8VXQfkB6I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CicYvIXSxwEEJ/w1zyXxgpptKQX1HrGLSqpw8S/ZLQ8I0czsO
+	hCBMbSY/F4IwyhD9gE57rw13aEpotAlGADAXfWziDhTsP0b9c8CKMYH8
+X-Gm-Gg: AYBFou0MpxSjMYBV7KOJwQeB3SPXa4V1Bh5VsRca82+QdyhR6YKCAIfkfUZRJ/TwMBO
+	O79uowCZ8YXeU8LewPm2+S/t7I/hp0dS50H3S9p8YKlszy7BvvqsVNDJbOWPTk9VvM0siII3xaI
+	xY+PdiQhN2IcTa6RjjgRzaQg6weiuAg8rLnp1JI5ZnopYT92mtYaW24EuI4mfMXbYeIdkzdriBj
+	WeQAgSdqfQvqq9ngKw2sy+XU73mRykjZDOMhtWyEmv5wNnnvN8m2kcWxITceG0cACY2j8kEHRUo
+	gfrWo2YL1OmD4lwVJN3yF/YmWTQD9rc7rALpSIe63GwgUveCO+p+v/fcLWysoU4xZc6e2Hojd5r
+	xLqNOfTkMq/k3ed2NHBmMFApRtVYgs+ev/dXQAPJcvLZYvZoEUadymRLSr4iniDpo+0fG7fmbIS
+	PtP9BJ6TNSbNEL8tYZh/cZhoKZRoZdGxJ/oQSKUviDkkcpXU2l90GqEVG9GeyHp1usf5S5zwTUX
+	hoTXOVlb3FKCviWVXP4S0DZvWnyTQIlHBmfKOZJn9mCg2NwQOGz/Bk4Z9judaMoEjSjNUgyd+68
+	t4kgYUBkY3DW2wj04uZLMPENcxzg2KoDVg==
+X-Received: by 2002:a05:600c:4f86:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4b960d9b17dmr26242365e9.9.1794142581814;
+        Sun, 08 Nov 2026 04:56:21 -0800 (PST)
+Received: from LAPTOP-AVI.lan ([147.235.199.14])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597d0a775sm4114641f8f.55.2026.11.08.04.56.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 04:56:21 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH v2] fs/stat: reject invalid flags for empty paths
+Date: Sun,  8 Nov 2026 14:56:18 +0200
+Message-ID: <20261108125617.2383285-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,48 +97,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/4] ASoC: arizona: always parse device properties
- regardless of platform data
-From: Mark Brown <broonie@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- David Rhodes <david.rhodes@cirrus.com>, Lee Jones <lee@kernel.org>, 
- patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev
-In-Reply-To: <20261105-arizona-asoc-v1-2-25ec7338446e@gmail.com>
-References: <20261105-arizona-asoc-v1-0-25ec7338446e@gmail.com>
- <20261105-arizona-asoc-v1-2-25ec7338446e@gmail.com>
-Date: Sun, 08 Nov 2026 12:54:20 +0000
-Message-Id: <179414246010.3630016.7821414370886873553.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=718; i=broonie@kernel.org;
- h=from:subject:message-id; bh=jratIdgZGKMpYCQ5KW/IK2PJzXOICNrWFYpFpvSpgzk=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+FPyZnbb6u5bIHWfeLyzVTKUqj6Jlfj1x3ZegzPCSY
- 8G75h/BHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZiIxC6Gf4YfHl0RCEji7GmR
- 27fA4GdU7rW1+bdbUib7vNtRsuTBEV5GhoXfhFWUZr4RfCyQ7Nl1ouicRo7mZNvoaMGY/FrvOUw
- fWQE=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-> Always parse device properties in the Arizona jack detection driver and
-> codec drivers even when platform data is provided, allowing DT, ACPI,
-> or software node properties to augment platform data configurations.
+vfs_fstatat() and statx() take the file descriptor fast path for empty
+paths when AT_EMPTY_PATH is set. These paths bypass the flag validation
+in vfs_statx(), allowing unsupported flags such as AT_RECURSIVE to
+succeed.
 
-> @@ -1184,7 +1184,7 @@ static int arizona_extcon_device_get_pdata(struct device *dev,
->  					   struct arizona *arizona)
->  {
->  	struct arizona_pdata *pdata = &arizona->pdata;
-> -	unsigned int val = ARIZONA_ACCDET_MODE_HPL;
-> +	unsigned int val = pdata->hpdet_channel ?: ARIZONA_ACCDET_MODE_HPL;
+Return -EINVAL for unsupported flags in the vfs_fstatat() fast path,
+and validate flags in vfs_statx_fd() as is already done in vfs_statx().
 
-This changes the default from ARIZONA_ACCDET_MODE_MIC to
-ARIZONA_ACCDET_MODE_HPL, and might be clearer if written using a normal
-logic statement.
+Fixes: e896474fe485 ("getname_maybe_null() - the third variant of pathname copy-in")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+v2:
+- return -EINVAL directly for unsupported flags in vfs_fstatat()
+- validate flags in vfs_statx_fd() instead of changing statx()
+  dispatch (as suggested by Jan Kara)
 
+ fs/stat.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/fs/stat.c b/fs/stat.c
+index a2e63c6c45b7..3013e4ece011 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -322,6 +322,11 @@ static int vfs_statx_fd(int fd, int flags, struct kstat *stat,
+ 			  u32 request_mask)
+ {
+ 	CLASS(fd_raw, f)(fd);
++
++	if (flags & ~(AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT |
++		      AT_EMPTY_PATH | AT_STATX_SYNC_TYPE))
++		return -EINVAL;
++
+ 	if (fd_empty(f))
+ 		return -EBADF;
+ 	return vfs_statx_path(&fd_file(f)->f_path, flags, stat, request_mask);
+@@ -371,8 +376,12 @@ int vfs_fstatat(int dfd, const char __user *filename,
+ {
+ 	CLASS(filename_maybe_null, name)(filename, flags);
+ 
+-	if (!name && dfd >= 0)
++	if (!name && dfd >= 0) {
++		if (flags & ~(AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT |
++			      AT_EMPTY_PATH | AT_STATX_SYNC_TYPE))
++			return -EINVAL;
+ 		return vfs_fstat(dfd, stat);
++	}
+ 
+ 	return vfs_statx(dfd, name, flags | AT_NO_AUTOMOUNT,
+ 			 stat, STATX_BASIC_STATS);
+
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
 -- 
-Mark Brown <broonie@kernel.org>
+2.43.0
+
