@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169414;
-	b=vGEBERy78GXVzTbewoKdxfDEUznsFHx4WCop4xXYdXxQYfe5Is0YeYTLbmucvAm1+e3G
-	 9Uuu6c2wOrSZATGeotidvr+6MgYY4Hib7RJYIrvgmrXxXYVJKb0d7m8bv/eLsAFq58f10
-	 NTd0+KBYFONxMibXvIwiGgNa9uz/v81Lntl/lQIAut5BYIxS0NEz+3zei3A0WDf/gCEjv
-	 /n/QFyH+QmVsf8WgNYGonFJPKPTwnsUUtarGxkRVtB9ws7QhYxE7LFrQQYbuKxg5o5tXN
-	 srW6E8N0uxMN/dv+72qZY141fGabv460oHvybdFBcb/H6eMvOrdk+1o7eqUXPxEQulQ==
+	t=1794169410;
+	b=ZAjC//pXKcZ6i9VL8ADFAFPAlfvDPqrmple62CZe7i1pI/qNGbpYM6CnpjzYG4/2hKY5
+	 yWl4AC1piel9KZmhZYZB0SGehGsntN3Y8BY6XnYJ/nRLcUQpa+F1rfhBh2Mvx2z9ld3FU
+	 zvBAkHXNKbEbxPC4f7T3Ccjb9aV9hON39kFl0Lji537nP/krh5Q48gp9aTROKyWT8S71c
+	 oJ9h85T5hedLapvZpez0aHpouaPyydykRd1BUA4tRzYd8eLgOfcpsB0hCnu5BR/PyPNtA
+	 8CD2dqA71xDMcr7sOWVtobVGHP9KFpR7zqdMcqEUy0RL8lUxu56W4CfJWnqPDNiEduQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169410;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=cKVCJp860o0T5Qa255it9obpPutgvMPgczrhnqgjomg=;
-	b=LsJ6ShdntAfJWNAYTOP3wgtIp2GoB5KHWOF/40x2Qb1gBbZzOWzMxMWiiUfpSwoCvAZ8
-	 LjfQAkmDa8T9nn+iJ/7AxsjXHodmprhHtTxTW0VG24kdqqpAlQT3e35N4M7NKui0hvInm
-	 qWI9L90ZMt1QcYbZ97dVjK4Yop0kRHJAt6KQ8G3dTvGPqqMe19crPxm79P46NmRu8jOeJ
-	 0acmqXXZ28bBLNWY7swIgwKzfPf8VtPvLcElpW2uaCw+FVZ3+KKieAcLOU3LNkceHy3JE
-	 BGM1Sj2lJYqhASqG6Tyl+NlCf4+rAyyu2qOT8tXvKcPSl2MgT/Or/idXEbHzxtQnnIw==
+	bh=1dtWyhD7jwZKZFG5AGRcSW6g5SyHSgdWtbJuXnuJu0A=;
+	b=tdo9P2NPj0FpW+3LqfiYCbJP3WgYH2SC5wE/QJeJjDJoGnAbfiChZWq4Jpthbe621cdF
+	 KHQYYWBb4fGb6i+OkIwjyBcotRKfCSchaSN0AZg4eiW3JmrBSU+4jH7P4tm2IxTOd8ltV
+	 FRiiNoQX15GRORcxg8ru6i+wML2Apqk71thPvAssE0lcwf6tpS5IGP8D5fbBr7Yi8Z9gq
+	 /xc9krm4YYHgcnoLiqTSwNRIBq+wHOHokJvUlwxfdYAShqsAif8NkteTIIwsrPiJxPiZY
+	 P6nAA4DOBhiLTyujvqAVKARLnpguZ4qB3czqlKDTod0EtRtC+U808efrl/bg7uKQAuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQ2HSaDH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hup9f5vz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C8F6071FF1;
-	Sun,  8 Nov 2026 20:23:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ABE6071630;
+	Sun,  8 Nov 2026 20:23:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQ2HSaDH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA7D1F008A4;
-	Sun,  8 Nov 2026 20:23:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hup9f5vz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B21C1F008BE;
+	Sun,  8 Nov 2026 20:23:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169414;
-	bh=cKVCJp860o0T5Qa255it9obpPutgvMPgczrhnqgjomg=;
+	s=k20260515; t=1794169409;
+	bh=1dtWyhD7jwZKZFG5AGRcSW6g5SyHSgdWtbJuXnuJu0A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hQ2HSaDHoT1ogyWdycol7fZnK+QXSI/zSb9fmE1D1UBsKr8OkJmDykaDyjK/SZrKI
-	 GMGTknWjuYDCoauiFQvT3B5wKtPCsMsodoGJ0Izv9qAaWlKC0dMYkGJ93nEQqSSUfb
-	 OD3Uujv6Dooqg7wOZ/a1HF1bzfOhb4CGrY/tjepM+DM3BU3cQxiD9Hsni3kJFMZNy9
-	 icMoutPgQnhIDDaItW9t8U+yAP6OtPGqcmtrrozYVT6t6SMNjbfdIeljXCiaIoODbx
-	 NUC/slOO1usbHIuw/pD5VcNb/jmF+EXdc0UE+oxx9TOTFDiFLYzUzc0c/8MLB39Lsz
-	 RmwavuURyMRBg==
+	b=hup9f5vzJANYZxWKk2z1XOYjN/I6tNFz4AtFtfySO4N7Ino1xcI4DIiHYzGCZVXgF
+	 QETxiJHpuvvvpCASBLQiepdQY5GxY8+WLHXkNxsbvDbEOcbLY9DxRiP2el0Z6FuhoI
+	 sVE0ISYFveLTXAKN5iVmO9ETql44rtBER8OJJEz1PtW+yUwa5NKp+W92y44OId5jmW
+	 ArZr0ggFG1KhFJOHZy6fl3z/AI8LJUvu3Yq2I3V9KdrR57zE1RfXHqeZ00hCafxj+g
+	 3In948WocHpQ4C8RtDURWNbqCFfWAGecHEtH1HyDQxy6fWMmBhrrA/4OuxM8FgBNdE
+	 M9XflQaM+lxeQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] soc: qcom: pmic_pdcharger_ulog: Match on SoCCP
-Date: Sun,  8 Nov 2026 14:20:18 -0600
-Message-ID: <179416929568.628393.3526348606720397673.b4-ty@b4>
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 0/3] Add support for reporting boot status on Qualcomm IPQ9574 and IPQ5332
+Date: Sun,  8 Nov 2026 14:20:14 -0600
+Message-ID: <179416929436.628393.11004902662518300994.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261104-topic-soccp_ulog-v1-1-e6e108ad049e@oss.qualcomm.com>
-References: <20261104-topic-soccp_ulog-v1-1-e6e108ad049e@oss.qualcomm.com>
+In-Reply-To: <20261019-imem_restart_reason-v3-0-e6b1ff5de841@oss.qualcomm.com>
+References: <20261019-imem_restart_reason-v3-0-e6b1ff5de841@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,15 +70,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 04 Nov 2026 19:43:29 +0100, Konrad Dybcio wrote:
-> The battery management firmware, as well as the logging service, is
-> provided by SoCCP on most SoCs that feature one. Add the match entry to
-> enable logging on such platforms.
+On Mon, 19 Oct 2026 22:16:15 +0530, Kathiravan Thirumoorthy wrote:
+> Similar to IPQ5424, add the IMEM node and the restart-reason child node
+> on IPQ9574 and IPQ5332 to enable reporting of watchdog boot status.
 
 Applied, thanks!
 
-[1/1] soc: qcom: pmic_pdcharger_ulog: Match on SoCCP
-      commit: 303b54549f40401b9c6e6036226b81a57ec9127c
+[1/3] dt-bindings: sram: Document IMEM found in Qualcomm's IPQ9574 and IPQ5332
+      commit: dbec23d260c9db8bad6537ecf6aea40c475f5352
 
 Best regards,
 -- 
