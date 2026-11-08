@@ -1,65 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.32.148.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794101436;
-	b=5lGW93u8NhIuM1TGeVx7tdPhCKqRnx+f+Czq2hQ+Ge2GU8BjUNxOywBz3LBWMzmuuoCu
-	 BY1gR56e1UUXvNt8PajwL/5TwxafhGWqOGL0ZZrdv8b2X5z/nJ91mL7EQOdMCyVT/gKb3
-	 ODZY7V+guJ40BN5fvtH/Wp2RL1Wh8MUiscMO/vMMwATbv9b/HbKyQFP8tDaulUnd/pwyo
-	 BLpV8AHYtoFx80DxhhlzRe7+mVSkcWlOuWZc58zIFyIbZeZZg9IsTc3oIc/Dp6bGovvXH
-	 3r6LFbDh3KVszmMPk3tPewLYLCkV0FIuwHC+oTO6kN9NLoPLGyb9xQIOP1e1XtZsZcw==
+	t=1794101473;
+	b=C484mm5quk2HEMaKTI38BNfWJ0WJVCE/DOfytdMLHeNgwBvbjj0siz7Gy+5+uISUAJsZ
+	 Y2x3IgQ6BgkXJmAFjYMBdu136210UT48tByjtPdyV8FihMAsMWQPNWFAlvk7woC2iIuGP
+	 vta5m4PU1VSAVKAF2KRABff+uingAAW+VKBjZyBy10j1aOzz/b5jjVtIIReRIKlJOuTqe
+	 +tSP2Tg3FsTKON+9YFseMf9isqyTisUX8c63fsc1ypBk+vLj2bnfvefd0fNGOI9//xHmM
+	 PbfpNkGA6eLXUde/XUpOHM1gkl3nJT2ZXam9xMMqVwcSs4KC7BG+0bNkS63MFU5MRAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794101436;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794101473;
+	h=DMARC-Filter:DKIM-Signature:List-Unsubscribe:X-Mailin-EID:Date:
+	 Subject:X-sib-id:Cc:List-Unsubscribe-Post:Feedback-ID:From:
+	 X-CSA-Complaints:To:Message-Id:Origin-messageId:X-Mailer:Mime-Version:
 	 Content-Transfer-Encoding;
-	bh=cxolDekYi/UpNdRDGBoRVJhDPItFeUatyKLS8M2gJd8=;
-	b=0NAtXSZTbLfx4OKruoTCmHY6A54AvhygV0XMl9DcnBEl9RKQPm8L0zESboF/G6CjmJdk
-	 6XXDmlE/HRLtazSHxwptjz2TUlfTPxw09hKFDqw2CfsLTX+6DbdiWzTyIUBBc3PHzizJt
-	 oigpknTPFHc4dfFFLfz7IcAOERLhY9uCandczWCl8FMFdFCjSUsgrOV0WVHqccAUA6iHh
-	 48MHUBnUeYKe8m3KDAuClGdp8sZtgqeYnhqathD9i+UZUFlYu8RGl+ErZqWn7qMVJUByh
-	 n4CrSq/Xw71B/pOybGG4RUOE/j6WZd4oUpxs1wELm8hAVkLhcKbI097MZQrtkJnPa0g==
+	bh=aZoT8Rsgv6ZRpZog2Yv8ZExkygxeRKZGgV/LAEavvwk=;
+	b=u2aS7246QT4YbbnaTOg5DHjJxSrmAYqMwZixXnBUWvyU7WLWHOj+nWGJDVEp6j3XiyK+
+	 TdGI+jEnmANG3Q5LZMef/7jM8F8XOIAvROxrAiZPNlm/yiyznK/40MWp5OSYlgLUJk1zV
+	 SbRtMGOJN8/6Z5EkJDa9VqwF81bmzNu2FH14mp+wRMqNwuNs0XRXoDV5bEdzJ24MmSouR
+	 giMrOd6UARb41wc99GMf+No3zDVlOoTpzmedFADZKSX4/K0qTg8FLo3ExN4aPCZTFv7QT
+	 MZFaK3FOi2ojNxPjWcaJ7AYZb5THXaCXE13bP49vBto86PPmCUD+ViOaRYSnJnsJ/8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Tw9X5/QG";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tubot.lat;
+	spf=pass smtp.mailfrom=gy.d.sender-sib.com;
+	dkim=pass header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=CcFYoaW+;
+	arc=none smtp.remote-ip=77.32.148.25
+Received: from gy.d.sender-sib.com (gy.d.sender-sib.com [77.32.148.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD87606A326;
-	Sun,  8 Nov 2026 01:30:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857FC606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:31:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 857FC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tubot.lat
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gy.d.sender-sib.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tw9X5/QG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3461F0089F;
-	Sun,  8 Nov 2026 01:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794101435;
-	bh=cxolDekYi/UpNdRDGBoRVJhDPItFeUatyKLS8M2gJd8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tw9X5/QG378HL3UXqjnxQX0TMDoKQRQ/FFnl55QeNxaImlwSCIgnzVX7WUvDIEymB
-	 P7WGd+KS774yQdxm4BQ+5jJylK4wOFeGjiBqFLBeEyMOa6unRaddZNs5L93sr5cd+F
-	 5yrVlKF5zo+sKkNYTUtnsDIpP3qDiV1BVnFlvQFYHFPTRVr9WAE75iPGo5PwlQCyJi
-	 3YhLGsPAREjTUNjJqsHqVh/RtLgk0+BKYP6NuBQ4P7Ly5Pr98XnFgds+w607MkQ/Z3
-	 DniI9hGXwcp5/aLaAU0ub04c5HvchRnJxKjpnOznyEtb21Z16tqpNW7B2i9Qv4B7/p
-	 4p+ok4OGD8hqA==
-Date: Sun, 8 Nov 2026 01:30:28 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Vidhu Sarwal <vidhu.linux@gmail.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, Shuah Khan
- <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v2 0/3] iio: proximity: Add Benewake TF-Luna LiDAR
- driver
-Message-ID: <20261108013028.5d68c966@jic23-hlaptop>
-In-Reply-To: <20261102222056.30f23d75@jic23-hlaptop>
-References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
-	<20261102-massive-busy-woodlouse-8d0bbb@quoll>
-	<CAFqz8LJZQ+tw6wmLS-1FXvt6OxBESPEyz2-uK4D7B8X8epoKhg@mail.gmail.com>
-	<21b771dc-e9cd-46b9-a456-0950ae1270a3@oss.qualcomm.com>
-	<20261102222056.30f23d75@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=CcFYoaW+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tubot.lat;
+ q=dns/txt; s=brevo1; bh=aZoT8Rsgv6ZRpZog2Yv8ZExkygxeRKZGgV/LAEavvwk=;
+ h=from:subject:date:to:cc:mime-version:content-transfer-encoding:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
+        b=CcFYoaW+eY9ZzEkm5gRfVsZLLlFDpttb0gqYlNbek1P117GEAZii1j2hQEdUANjc+Hj6MmVKLJOJ
+        FeAuSo2RELNVkTa4f68de/pBJ6YXLk2uK/yWtoT3LH7v/iK7d5pYCIx6VGZrjQyrlL+vedpelnjU
+        1hdKD0nLOT4KyxXSLhePiAhbGGMGWg23MlyEsxglPC56dVK64U+eG1SGUDCTOj9L7OXVPeDuBqU2
+        b54Nt96C2CxjUqs+r88q2cAAksZ30iC1sPao62NsqUPXQ6g498P4C9Z9+WwKlpdlvqJhWOWB02PS
+        0vPJ7pxVDoBaLcPEHZXRlk23TLvqmwqPMSqirQ==
+X-Mailin-EID: NDczOTMwODc4fmxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmd%2BPDIwMjYxMTA4MDEzMTA2LjExNjIzNDYtMS1EZWxheVN5c3RlbUB0dWJvdC5sYXQ%2Bfmd5LmQuc2VuZGVyLXNpYi5jb20%3D
+Date: Sat,  7 Nov 2026 17:31:06 -0800
+Subject: What should bridge drivers use instead of __v4l2_subdev_state_alloc()?
+X-sib-id: WTpt27AtIWNK979gJMuyWc59mWQ46UsvjtK4R3zhT1CWXJ9scF9IdaGbPGYQ6uabuqA47izbUIfIhp_CWdLTC60lGiC1OnrqWPi8OMCd-XpwOBJ0AOt82WNHLkhalpNxUZyL7kP_WHk33QhTiHeV0R9GKuoGDBL8UKyow0--rlbjklIbM2GPTAaCdQ
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>,  "Sakari Ailus" <sakari.ailus@linux.intel.com>,  "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>,  "Hans Verkuil" <hverkuil+cisco@kernel.org>,  "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>,  "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>,  <linux-kernel@vger.kernel.org>,  "DelaySystem" <delaysystem@tubot.lat>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Feedback-ID: 77.32.148.25:11287567_-1:11287567:Sendinblue
+From: "DelaySystem" <DelaySystem@tubot.lat>
+X-CSA-Complaints: csa-complaints@eco.de
+To: <linux-media@vger.kernel.org>
+Message-Id: <20261108013106.1162346-1-DelaySystem@tubot.lat>
+Origin-messageId: <20261108013106.1162346-1-DelaySystem@tubot.lat>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +63,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2 Nov 2026 22:20:56 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
 
-> On Mon, 2 Nov 2026 13:23:56 +0100
-> Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> wrote:
-> 
-> > On 02/11/2026 12:48, Vidhu Sarwal wrote:  
-> > > On Mon, Nov 02, 2026 at 11:47:56AM +0100, Krzysztof Kozlowski wrote:    
-> > >> What changed exactly? b4 diff fails, the patchset cannot be applied on
-> > >> any known upstream revision I tried.    
-> > > 
-> > > I am really sorry for that, I didn't realise it was based on Jonathan's
-> > > iio.git (testing branch) instead of linux-next. Patch 3 conflicts in the    
-> > 
-> > That is fine in general, I'll wait for next linux-next.  
-> Might be a little longer. I've pushed out now. Was just waiting for
-> anything nasty from the bots on after rebasing on rc1 before pushing
-> out.
+Hello,
 
-Applied to the testing branch of iio.git.
+While working on drivers/staging/media/tegra-video I ran into the FIXME
+above __tegra_channel_try_format() in vi.c (added by commit 40aaab9d773b
+in 2022):
 
-thanks
+	/* FIXME: Drop this call, drivers are not supposed to use
+	 * __v4l2_subdev_state_alloc(). */
 
-Jonathan
+The driver needs a scratch TRY state to negotiate formats with the remote
+sensor subdev from video-node ioctl context, where no subdev file handle
+exists. I looked for the intended replacement, but:
 
-> 
-> J
-> > 
-> > Best regards,
-> > Krzysztof  
-> 
-> 
+- there is no non-dunder allocator in drivers/media or include/media;
+- v4l2_subdev_call_state_try() is documented for legacy non-MC drivers
+  only, has no in-tree users, and allocates one state per call, while the
+  driver needs one state across enum_frame_size + set_fmt + get_crop;
+- the active-state APIs have the wrong semantics here, since try_fmt must
+  not disturb ACTIVE state;
+- the same FIXME is still present in mainline vsp1 and staging atomisp,
+  and mainline stm32-dcmi still calls the dunder directly, with (as far
+  as I can tell) zero conversions since the 2022 rename.
+
+So my question: is a new core helper the intended direction for the
+bridge-driver scratch-TRY-state case, and if so, is there any guidance
+on the shape it should take? Or is there an existing pattern I missed?
+
+If a new helper is the answer, I am happy to implement it and convert
+the in-tree users.
+
+Thank you,
+DelaySystem
 
