@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794148354;
-	b=QmxjCbwSVTpWmzxdM0QTCPexTHqMUJ3pJJgZlxLCKUhprU0FRxs3fHHMUHIfTqRNXn9h
-	 cJw3uGc0p/JwJLsbTKeCV1x4aFDIEhpUmUZySvhVQGpmVFaHY/p9PgrTGW46xom+8hDIk
-	 29sptL6onvyzB0Q0ZRrjN3zzFZH8Mrip6uWPaL5Kb3GMd4XVviZeek3B149Udv2CIQZSQ
-	 /L69k/uo8OtsY4HtxjMIW8b2ZV3LXLRkFYtCZ8TsdqHIwFdDPMejRkg3H2lsr9ygzpQpd
-	 q0CSXDS+QIrrSUjShJYnlFNoPdSOPBkRUfbpya0MuLINDYfbE1gTvbiEnwJ26FvXtXw==
+	t=1794148446;
+	b=tFeUz9mef3YqpGM+XTR4tl5yVltJQoItGJmX0rVvHU/+uaRfL0hCEaG0J69cqqIAoY9p
+	 kf0ba35NP2RbcHZrY63mL9ulJpzMN3juL2bn7w3kUOh7hptmSaEKF2xW9pbXZ9Eg0vJ6d
+	 6bEqWyxxuiVjDxdN6IIFeec1lXWx75HKB9P2ZYqu8zTLkxRVnA/paSFmF40Ywql9k9Uvu
+	 83L4TPDoNZ19xz5k96w6gPS/KvYK+bRPKgMNu5pWwbfBh6rLCSz5Z6e3CK2QGV9DxeLlY
+	 bEVC+lBbOz/kuZcElyg/6I93Rj8ZXjIwG9bfLltsQ1Z0VCf22VYC7sShxWaWWBJjEJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794148354;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=nvGC0z4fP87Q3DNdC7jZAtQrTk9sOxwklIjxWNv7DB+FsIENx33CLDNTU2NNbUW6Xsee
-	 T/qF4iticnRkgmtWvgZHgYVi6+0aeFhvXnetHi3Fus5PHzAfV7MaV+u6rr5Cjaq4XFcw7
-	 P+durMGsL5HajgJoRvLbsIk53JnUdRQszQFcDlzAOgoy3bmIT36AwEcsQ7lwphViz9liG
-	 mHfkn18LDuZy1Dzo7o0GtXW6qIE+qpZATR6T9z4E5dgPRLuHORkYvDqCXZaDsMjSkBbkF
-	 x16f2KODdVDB4k4SR9zsH+4VfWjW2d6L36GsfMch61OORoxtreloPSagRwM/nBen0LA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794148446;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=1//uqtjICj44uy7P8QVwmNqhHAj9tnbXTw/EVuTChBo=;
+	b=ZOGeoiGj33lISIBY+lf7VxQZ7+0IeMVPtBqNPY+B00XzujF7wVB/JLj+boud7IzuGJwQ
+	 yHvhwiO0ebX/0mEcH0AfL90afJYlS1BJcLKw2yzfoJW3SSoyzK5iu9krEVdL54qRbb455
+	 yynpscAwC3wz/WrcpXiITF2+FqvfSAOJLsavhoBgr6I7y9CMPq3F4xxs35peTlNNTOu9t
+	 Q8OZz07vUOfKTtf567jvt604R9xMkyWYG5cK0IdIL/uWQVG3nuDL0uwfuS0H3Of3p529m
+	 elgQ2IGQb09fHLOJUngPwH+MOCXzt/mr+9a0k1zQdDyeLpgEgOUeLjz7mxq7CsJVKKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LP9W2yxO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPdw6PTY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B755B606A31C;
-	Sun,  8 Nov 2026 14:32:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7B8606A31C;
+	Sun,  8 Nov 2026 14:34:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LP9W2yxO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26A01F0089F;
-	Sun,  8 Nov 2026 14:32:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPdw6PTY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6071F0089F;
+	Sun,  8 Nov 2026 14:34:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794148353;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LP9W2yxOa6pPb9hHHkWjSbMzRpX7dUppXa0DgOK73S3SS3UcwIwIqnzhslVmbEZOd
-	 b01uyadKpH/rztQ5bNueyzPvOtAUtBYKFOXtSnSh6aZ4SpSgR7XBnp5votWcE82ZSE
-	 nX7VWrn0omDdcb+qUliVb5NaZogqate61DI4FeeJUN0r/6IFECUVN/jA5wqF5Y3jsM
-	 GjdOyxTJ/fBVqu/F3Lod1kdxT6tIkCxvZccSBfECxk3aXBa6c6ddlOdeXK+mEEbzXC
-	 cGT1tfttyEsVKelMV7lqCfYOt05a2lAV92NCNtr5+VK4uTj/jGRkRqP7EabF6Eby3j
-	 gFi1zpXh9xzLw==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Sabrina Dubroca <sd@queasysnail.net>, "David S. Miller" <davem@davemloft.net>,
- Boris Pismenny <borisp@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
- Mark Bloch <mbloch@nvidia.com>, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH ipsec v2 0/7] xfrm: fix ESP IV generation and ESN authentication
-Date: Sun, 08 Nov 2026 14:32:32 +0000
-Message-ID: <179414835216.488859.15220784201816281188@kernel.org>
-In-Reply-To: <20261108142652.1330952-1-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261108142652.1330952-1-Jeremy.Jean@oss.cyber.gouv.fr>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1794148446;
+	bh=1//uqtjICj44uy7P8QVwmNqhHAj9tnbXTw/EVuTChBo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=OPdw6PTYjC/vej+V217u0ttIjMDcXqYAAyN/xnSVNFbGrzUKrAohfmnHQTHIaFnYW
+	 A81rXqrkwk+USIwXhm6DSxFNzEXSJ+nnsgQ4WWb7LbLUnWh+R8brP9MwJhXZr/VoiL
+	 E85dehNN/2m+sDjFygwRPFi2RzzUit8fHqRVlRi0ohNIT15fdFqZAB64OopONYDIFq
+	 GafPiNsCQvJBVJRwPeiATmj/AcROevTJ3yBlOIZpOJ3vW/+e1+fQsw5YGdcaOQw0wq
+	 gCw7ZmmXb+sBSe8XWE/YkAYPUldJD304Xf3BeRiacxT9MDV5QDWR7SWr4vOW2xrT6l
+	 DAn6IGdx4CM+w==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id E1B462C89DD1;
+	Sun, 08 Nov 2026 14:34:03 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
+ Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Frank.Li@oss.nxp.com
+Cc: imx@lists.linux.dev, vkoul@kernel.org, Frank Li <Frank.Li@nxp.com>
+In-Reply-To: <20261103215824.1823272-1-Frank.Li@oss.nxp.com>
+References: <20261103215824.1823272-1-Frank.Li@oss.nxp.com>
+Subject: Re: [PATCH 1/1] spi: replace chan->device->dev with
+ dmaengine_get_provider_device()
+Message-Id: <179414106233.3630016.17157846219971798429.b4-ty@b4>
+Date: Sun, 08 Nov 2026 12:31:02 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,29 +66,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1156; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=TN/StEkvmSxlu5HCIHF37V2V9EC9a6Yj6ifjtAqTSRk=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+dEQXNs1TObq3ademz713JpT0sTT2uEbtvKaw9ko5P
+ yNPdoBcRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACZi/Zfhv9MzjiAD//4DtY2P
+ cie9PlpsJOPzKlb3uv3Snjz78KwXbxkZpv1xEdmzmTPFxpaD577Stk12B4I/ZvflLVx2yM08/n0
+ iFwA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi!
+On Tue, 03 Nov 2026 16:58:23 -0500, Frank.Li@oss.nxp.com wrote:
+> spi: replace chan->device->dev with dmaengine_get_provider_device()
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Applied to
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Thanks!
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+[1/1] spi: replace chan->device->dev with dmaengine_get_provider_device()
+      https://git.kernel.org/broonie/spi/c/12acfe305495
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
