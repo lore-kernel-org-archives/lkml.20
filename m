@@ -1,61 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169489;
-	b=dJW6PPwtF2Ntwdy0vRYaRLPfC7SgVrnb4GqQPlm/nLAqFFiVHygt3kjUkU8hD0KUh9kC
-	 L5STrPmNJsWx6RGiqDNITnpxbNiIT7FMymNW4/s3DcyXRXEyB5alNerxlTEOqCus8ZR9m
-	 qF9RnvLMDBBcWj+lWBJ34sMO+ZkK2CXZGEDdwBmr3sktqgZaz2b/Mtb8lKBhbVRxtaE8F
-	 eFUxhIyhnGYWW/u3KO8OiUsB6i/z6SpIzyI5d6UmDgPihcALDYAdYVNbEX6YKhY9dRbIU
-	 87+PtH9QeWVRZgYol7gTdVo99mWhob3LRApKwbbPafB60fKJMhwCg97ZyjujuvG1lAQ==
+	t=1794169506;
+	b=tj+2j+fqHCWSYFS7PfWQ2XM/4YbHZHhYLYJDZTOIWZq4vkj4Cqp0CPAQP8nVPFjx2TAx
+	 oshHKIGJRyjHIptHEXKOtzKFG7g9vRLTRGmyeNWoeep6/zaj7noof9jXq4m5gZLI3pwKX
+	 5d/cvLWNYyWf6uc4zgv/8wbcv20QWlBzBtiWJyrzkXNPGekx3YK0WOBb8a/kDg57kp58h
+	 JHKr1KDo8AcPJ9/WLbutJ1G91WDGYMnq8GqFEoinEk66p5CtzYaNVqGEzLf5PCo5cxLuf
+	 A6tOJA3VrnJPxpNNh0CrxO1R7FzUQPR36ZSST1xRYmUjowgz2TP4eJU6qzQGzPuUr3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169489;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169506;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=w8uhzyRaGWUhsMu8IuTgrC6/zzS19CC2AK16twSCOAg=;
-	b=Pm+Zmbpad1TRZUWJhub1JOqSvmqgrP6US5gLh2iHwfjBRnsfJDXpL3vttHHLruOkOfub
-	 NlHk5M+DXvJqLXhnqgRn1TPnMAkZi4kvcrpI8/LF0q9uDpLh1R7CWuutbc4bol5a+psg8
-	 QY0BSxaO2UZnS52QDOyY8rji13y8MiNHV0jLkXnHHmcSkv7Lz+yG5Q//UrQT0XlQT36Nl
-	 pXDSIfTMooqAzvZEPdYakgA0mPt8kgon2bErN632OLzUMbDiyHioOrwx50ANGNK2Bz3ow
-	 1YX7eMGgKNMiGViAAR/GtfO913tnmfFVfn/aC+ZXDNSABEtltRW6H+NpEZ4qJ6wQoTg==
+	bh=iQ9ARUoUTIbvEIUpxfeikfyS2HAGENasCHzlEuGZ6QQ=;
+	b=MoKlfvKtrZroi/gqrEi6tvSFDQ6S5yX9vMDwGlvFR+n1njVcTuAEU40qQ0wDzPOg2bdV
+	 jYmspXBXHaf68RcdsBik4/1iDDQldSOZa3er9fncFdBzyrjEzqNPszDg8wiClJC5nq36p
+	 J5k1DJq8FAUHY/zRDXLboTf0dOZpEJIhcVKeCy0ZsT1USfB5HasoZ0I/aOlFNvQA8MW5n
+	 4TKpix8gNQnJPCWPhdQy/+SX9HzuT5AcjOZj/KqltXpoQ9j7kYRwWCgtGKwB4pInWdAPf
+	 I7eqE07v33dq3aqMU3JfZokH5EZzm5hzEoXzNFfOHs5OHaT4HgBsWnzBKxg3YD5xryw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD8Bvp4H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yke1aVcE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DA3607F90E;
-	Sun,  8 Nov 2026 20:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81521606D821;
+	Sun,  8 Nov 2026 20:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD8Bvp4H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B221F008A3;
-	Sun,  8 Nov 2026 20:24:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yke1aVcE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB781F008A3;
+	Sun,  8 Nov 2026 20:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169489;
-	bh=w8uhzyRaGWUhsMu8IuTgrC6/zzS19CC2AK16twSCOAg=;
+	s=k20260515; t=1794169506;
+	bh=iQ9ARUoUTIbvEIUpxfeikfyS2HAGENasCHzlEuGZ6QQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lD8Bvp4HeheZMCP413Pe9fuF9EGPm7XGR6yMIO97W0wdUIbtBEvloNBUTpPmqQskE
-	 GSx6IlzJX4eQFxKyzwHBvaWWYrQs1xVIY1au0V/sQjTBnjjeT7kn4Cmctk7s37Lhnj
-	 828flgL2ifSzdrQ0GbhskoYKqYUgAIxq2KIhFnZ6M4zermnF9J69vlgO8lXIKhklMS
-	 nkeqqaWF+XhMyfPN+gMmyLlva0NYbmwnXigoqToFgAenXi+ZuVEU5rbdfG3+hW8Wwe
-	 MeSR2gidg/P4uty7aLxhSGETwMg5IsxmcwEB+8HfrKpsnv/4zOFD7wuVc8Vot9ibaZ
-	 2e7BqntL1gehA==
+	b=Yke1aVcENI1SW2kEifMV6BRaW/NqItTpFOvClv7Fj/zr36MwSkKHr+mtUVr+pijPA
+	 QNG9zORcIlPFtJfpT8k3yEcnoggXQUmcPMRbn69umFdoGpfOOd/n9Y05oOLzuA2h9z
+	 brCrPKI1VjdRgIh/xu4CCgOZSqWQC2MQxYrwxRnFyJuirTLhqlqGO6L1CA+hqr/xl8
+	 /8BtWTFyd2FhxqMjnNXGVKFZZPdaB8n3QkXeGpZtnJ3Dkxm1BpyzvrAKTk1D9NPkG6
+	 v0yEl82gtiQsmGDqFIGmX7v+FYcPRBIAFBlRTUfhf3lDCRHm/lTBvCISDIQEvpIpNf
+	 oC03VULomUo+w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: linux-arm-msm@vger.kernel.org,
-	Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org,
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: Re: (subset) [PATCH 0/4] arm64: dts: qcom: Add support for Mahua QCB
-Date: Sun,  8 Nov 2026 14:21:17 -0600
-Message-ID: <179416929487.628393.4140437529266261587.b4-ty@b4>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v6 0/2] media: qcom: Add support for the iris codec on shikra
+Date: Sun,  8 Nov 2026 14:21:28 -0600
+Message-ID: <179416929307.628393.5080812119939735078.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
-References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
+References: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,20 +78,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 27 Oct 2026 17:19:51 +0530, Sivansh Gupta wrote:
-> Add initial device tree support for the Mahua QCB. The QCB (Qualcomm
-> Compute Board) is a board built on the Qualcomm Mahua SoC. Mahua is a
-> 12 core derivative of the Glymur SoC.
+On Thu, 01 Oct 2026 19:11:55 +0530, Vikash Garodia wrote:
+> The shikra platform uses AR50_LITE IP core as video en/decoder codec
+> block (the same as agatti platform). Extend iris driver to support this
+> platform. This has been tested on the Qualcomm shikra boards, shikra-cqm-evk,
+> shikra-cqs-evk and shikra-iqs-evk boards with HFI Gen2 firmware.
 > 
-> Unlike the CRD, the QCB is suitable for compute workloads,
-> power measurements and oscilloscope-based hardware validation.
+> v4l2-compliance results:
 > 
 > [...]
 
 Applied, thanks!
 
-[2/4] firmware: qcom: scm: Allow QSEECOM on the Mahua QCB
-      commit: 82868a465851cc47ccf483efca2f54f0257e6328
+[1/2] arm64: dts: qcom: shikra: Add Iris video codec node
+      commit: aebb53e7149abcd724a8788366716645c0f5c849
+[2/2] arm64: dts: qcom: shikra-evk: Enable Iris core
+      (no commit info)
 
 Best regards,
 -- 
