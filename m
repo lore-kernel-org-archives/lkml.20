@@ -1,60 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169311;
-	b=KmgKFdpXIcMjAix2oAu3N8A9+Ci4rqW1liZAyfbsg0mhlNhmetGiEvbfCr8NbOv8KhHF
-	 p4CBIvch33TDnS0DUrDnnJefZOFHBYK9K8Ff2LYc1suQo92FoAMCa0j1fLhsRgcNwg+yk
-	 n6E+SMSZm8Ai3tdzsvPoKL0ezgn98/xKsPM6qsg3HSE4+cDpISmu3bxGxmFRdkYeRpZJp
-	 LUDzvalIpcNxX56UKR9mJjhAa4B6myTO0ovcfN6FYEBibrHRJaLb30S8Qh7TAYmAo0q8n
-	 d478A9YvIefsQA+9yrhSkG9399QM4/8VqAI506MWpgAJupefLzl3YNHneCNfqMVDUeg==
+	t=1794169323;
+	b=r9+JUiECyHbi6YInZG6WJAS8+cvC9DWGI9jmAWK48ATRQpRUXwnnBGwYJdEkNQzby12x
+	 yxpn8lFOJNySpNUwW8JKPOcjk1AtAwKpx4ZKLwR7dwrnv1ORKEMdBycHKYYvpxo4CuU2k
+	 9CRq8FT7/lylCqBU1xwXW8KptqNf9LJpTFgb+P7vFOQF7REYSasHy2ciRGmoX377+Re+W
+	 WeSKEoRP0CG9DqPcowpiOSYp92YPpbLVBC9uEm/YefJMqtiNOjG/ag61UZbwQF1cb/+uX
+	 vQyCdQ+8D/V80AfHTkvXCM9PQfvsvgmhnljP5RwkNArfOEEIaWvCBXgf37A2CHIbj9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169311;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169323;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=IJ3DlpOU/rMKKraE49XwNCskWUFX3fET/XBrktPpB8A=;
-	b=5CjqKmKMAyn4CwiqDxX0N3gl/cUrQGP1OD7fDGfxFXObmkUoLrGI6WGBzKKHc89GfUYU
-	 Oytf7rSlm5Znxk+tPDMAJyUnKlZF7VWawmoLvdd3Ohb1g0lpa+LCLc8P3vO3s5TKQzYNL
-	 VEVZdkxwj2hdK2EKT7Hkc6yuoA37fWTB15WhJLddET4XT0Xe9OtRg1gWa6IqPuGGjKYt4
-	 ZdK/c6q3auadutuF6hOtFsO2MWgb3DeaHZvEhq9jms5osrclQs6SDNfPTRls0QbG8KufU
-	 ptffYIn30FcT1hsydO+kyfhwsxcyTq+O2OSocD8ly/j2XISJP59So1rLTgFIEOV6O2Q==
+	bh=1Lg5aR9cJlK0c0fy15wrBWhYR9j7aaIkGY9kHxc4nno=;
+	b=fqvYVh9C88RBKc+N6Sh0whIKyj+SIX5UG4yUZ2vjEeVPEnautZC2VANDosvy71qCp9Um
+	 VObJXa27heKI3YQ0h7WYidq2CosOI8hL+4XU0u36nCKgmXT7gSZipjA89k4HkwXQbjDRB
+	 SBRQHU5RFi7f9nHKwt9t04MBHVtyzIAIQU8V/TlAxn8pAvtVWTUaPuLsZz46hbXKFh37p
+	 yx/kh0SQ0aX3c8HHycdwN9sjPaNlEtamBAxP2mptJRMkUEkkmO/eTEiUi9Nw2YMy/6YEG
+	 WpSv+bz1jbW1ppyH0iJbblfqS4wLSf1ITGPJ3iZmyoeuWicQlY7fyfTbjxCipnVjtCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9e0v5lD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wi9TWyXu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F88606A334;
-	Sun,  8 Nov 2026 20:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2375606D817;
+	Sun,  8 Nov 2026 20:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9e0v5lD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9A481F008A3;
-	Sun,  8 Nov 2026 20:21:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wi9TWyXu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869C11F0092F;
+	Sun,  8 Nov 2026 20:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169310;
-	bh=IJ3DlpOU/rMKKraE49XwNCskWUFX3fET/XBrktPpB8A=;
+	s=k20260515; t=1794169323;
+	bh=1Lg5aR9cJlK0c0fy15wrBWhYR9j7aaIkGY9kHxc4nno=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V9e0v5lD796HQirWWZeeh22grTZ1SMiZNn+Ig/LWK+LgEt2Ct9aHQM0U5V3UAmSP+
-	 nBS45sj3AGwn1f1HZoKnTs6/vS3Td+WiIoeNEM2gP7O1r9krxPdJnACwyJ9n1CfAWv
-	 vkWH8Lb0RHcrrMSBrounkkgJA1DH/iZ0+fKOL2QolLOnlVgi2vgvxe6VJoAanlbhLf
-	 mZCqq19gMDxw/P7dZkzCjcmuxZPJWCTAj2MZ3e6maA+iiPEVVB84aKkPMJh44vDF3r
-	 9cGKX4s36ix2QtCMrKMWd6Cya2sku6S4Jrblglgm/DH6mFe+d9S5ca/khyFbOvHFdr
-	 1N2mVdmszmPqQ==
+	b=Wi9TWyXuFoWP2Pqcq0u8/GU4DWsQkFUlF/loo+s9CBU9ANoQ2bBw1Pb8rIOXgOErD
+	 7Xb/2fLuTNPCnKvUF5RQlW7xgvzqXp6vsbmC1QrwqouVwwQ70GJ7pJQ/kdjl0IioyI
+	 hflhQdtFDHpbjc8OjXiCjezxYR+1z7ZlZE68QYPHRFkMZECKZ/juuliiK26BeYRNVg
+	 8OcZQbeSzhIyDb3rNdmMqlt+QFRtfueCFKHzbgVRa4dz52fDRFyNihtFUluB7JQ7cl
+	 XK+K/8YyH3u5K1Lcr/3SjNGPmIyOM2erqF2k7/XBwYgaUjQnBvl6O6orIG7tF0aGEL
+	 veLQapRD1GV+A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexander Koskovich <akoskovich@pm.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>,
 	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] soc: qcom: pmic_glink_altmode: Fix use-after-free of work items on unbind
-Date: Sun,  8 Nov 2026 14:19:10 -0600
-Message-ID: <179416929536.628393.16734740753688451624.b4-ty@b4>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/6] Enable some more hardware on the Nothing Phone (3a)
+Date: Sun,  8 Nov 2026 14:19:19 -0600
+Message-ID: <179416929530.628393.9745437066564765057.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102-pmic-glink-altmode-teardown-uaf-v1-1-377d92e3b5e2@oss.qualcomm.com>
-References: <20261102-pmic-glink-altmode-teardown-uaf-v1-1-377d92e3b5e2@oss.qualcomm.com>
+In-Reply-To: <20261030-asteroids-dts-updates-v2-0-66a56c537749@pm.me>
+References: <20261030-asteroids-dts-updates-v2-0-66a56c537749@pm.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,20 +71,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 02 Nov 2026 13:07:19 +0200, Abel Vesa wrote:
-> The altmode context, including the enable_work and the per-port work
-> items, is devm-allocated, but nothing cancels the work items on unbind.
-> A PDR or GLINK notification can queue them on the system workqueues, so
-> if the device gets unbound while one is pending or running, devres frees
-> the context, the typec handles and the pmic_glink client under it, and
-> the worker then dereferences freed memory.
-> 
-> [...]
+On Fri, 30 Oct 2026 22:41:25 +0000, Alexander Koskovich wrote:
+> This series enables UFS, Bluetooth, Wi-Fi, IPA, and the display panel
+> for the Nothing Phone (3a).
 
 Applied, thanks!
 
-[1/1] soc: qcom: pmic_glink_altmode: Fix use-after-free of work items on unbind
-      commit: dc95951a6ceb6982eb357bac6a503aacf1e7d105
+[1/6] arm64: dts: qcom: milos: consolidate IPA properties
+      commit: 2201c0bb932d4cacb14843f997db76470f978f49
+[2/6] arm64: dts: qcom: milos-nothing-asteroids: Enable UFS
+      commit: a44dec637b78d146ea40278844137f9308f927ea
+[3/6] arm64: dts: qcom: milos-nothing-asteroids: Enable Bluetooth
+      commit: 780a9233e791c1a7a7531c43f38d7bdf45eecee8
+[4/6] arm64: dts: qcom: milos-nothing-asteroids: Enable WiFi
+      commit: f7ddb90396fa68571337adfb09975688d03cfa5b
+[5/6] arm64: dts: qcom: milos-nothing-asteroids: Enable IPA
+      commit: 234311ff4e60b7b3737f48f06cbfdc9d28c32d0f
+[6/6] arm64: dts: qcom: milos-nothing-asteroids: Enable panel
+      commit: d72c2b5d2e03405792c529d8ad9db5f2ecd9eaae
 
 Best regards,
 -- 
