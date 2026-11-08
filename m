@@ -1,61 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169461;
-	b=psTnr3VLfR4yLZo6/rZRjmCYRMh+kXqALyZKmmHvpwzdFFVAnZj/kd5h71MqV5XkOsdI
-	 45oAV+DL7JaYrhrwzHw9wH4Ti++Ou5ooIyzzFbUJC9n6fdxni1ZaNmGFlyJNKRASrUIEt
-	 vIQIttBWBhKZjctuWyghdDahEXbQ8clcMJEwqj9nSwXFGyzc6WACDe6gqWirrdOJbSk5J
-	 KrBSS2CjvApD53p1E4aLW9S2vd2vMk04iaRVJHIMIxNqqSEeoik6yAcQtGSD51A8CKxE6
-	 NLXOFTS6x/5ZP3GZqL2tIBJkbjiiapaOGf8PMqdRKftsOMT/A46zO5g9eu9BUaGs+CQ==
+	t=1794169472;
+	b=gNg4TmQd1yxGjhFgTIiIz7EXjLy5pKVc28Lku8RXxDW4j6/Ohk/Ni+Yqn4Xda3P50gWx
+	 2mkZeFWW8sbGC49YlHCHP0LyCW3qzpQuDuZROEZcJ4nBq9JhyrIIWejOsC5Tmv7ZlR5o7
+	 IbzGVgHsKZ9Rg64zZpA336uNAGY7H9cF4jxLRDKB47DdzOmr4uo+RNUadgHXDvnD00J7p
+	 DbtwNp/Th0U8dKx793Xs4Exyt7uS9o4eUvWxbrWX7g0QR8ElbgqPgHppBXtTcTfYUvS/r
+	 1MLrdKKDuzaHsM2S4fJFPgp+AlWpJDgJ8u9POf0ek1qCKEjvoAnGMa+ZqI5U5xq/7Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169461;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169472;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=TOYGxs/bQ9Tq7NOUir9oenKz66BF+F0Bxw2RyNMcyVE=;
-	b=359JQIlUF+uRZ/pQxefXMhNg4jYYjD0kY9pNoCWIJbgCmk58l4ErdPgg09QV7+Se4cY6
-	 YZ2LQw+68n787bT/xG1v35E59fEvyj7uDKl6RS/N58huB5bPhS3Vy2vo5anl9EW4IUK9l
-	 bRGZWntGP6x2RdydMDHG8Bcv/W8qKkH1WoEvi8EcXc44gNYTF5RkkyMwrB6YSR07nAe9b
-	 GnMvoWu/f7XKSycPELIdtKbNmvwKAV6ip1AFh0qAMKzVfDeebm4Tj8zhzte7lxO/O5nN+
-	 xH+SPuags7HBbhjorAR6fWhq/kadw8cbNOmWQ9GlBFwV1IMpdlRP+I2ql7EgiZB8FRw==
+	bh=1qj5y87MsXlthtvZZz8XPLqswZ+P7fk/lt42PqGvom8=;
+	b=v3hhyGFj/DKokbZdcyxVNvR2rVh+Ywhd0LXFSCa7JTmVJS4ps461itxA+C1iqntXEAxS
+	 0K9uVahw6uBQFpr5X4wEX6tRFAmTPLkNizukWztdIcGMhtlCA/hBT1ouXSQjdrAAHBa6i
+	 o5ftYh/FtXOdWRJB+lCkn8ToX1ifg8IDsoPV9P6kgbUwPXUe76HpCWx2kemkPR1wx2nt3
+	 iRxIDpVUVHGy8uc8Yq2KENxASqT2uhUnTcnk1pz7ov6OtO2/+Kp2VWG5e/kq6cEtHLXYM
+	 /QlA7hCufzErYu8xjYlcdWkoy08e6pTJA3h7tPKkzLajT/WfOMxvA7EZTB3oEgIeB3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnrSE2cR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qd4h5e5N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7E46079439;
-	Sun,  8 Nov 2026 20:24:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818C5607C5C0;
+	Sun,  8 Nov 2026 20:24:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnrSE2cR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BB71F008A7;
-	Sun,  8 Nov 2026 20:24:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qd4h5e5N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 901AD1F008BF;
+	Sun,  8 Nov 2026 20:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169461;
-	bh=TOYGxs/bQ9Tq7NOUir9oenKz66BF+F0Bxw2RyNMcyVE=;
+	s=k20260515; t=1794169472;
+	bh=1qj5y87MsXlthtvZZz8XPLqswZ+P7fk/lt42PqGvom8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DnrSE2cRdhygAOyfJG8FnVQNGYdHibwEau8YyxhQ7IhtogI0UC3VuR/+y2K7aWhlV
-	 mQuailQan3kKieIwGCWVqVieNgCFHlD6p3D8+BbWfWJ/xBMETglH1Y+WMvfYVL613V
-	 46aNRYMVssodf5TkOy0EAfsDdQpl/7VeqSSaHftX1dCX0NtEJNB6XQTCFDYcZvLZ6s
-	 KNcxMjMcmQuphmqypwUFBDYM7Z7LhO+kvl78BBnTM4icJrqwbZgFsznPPwmSoCA7Hh
-	 SEgdbzZ7dvYO3r/6XjLlagwI8PFvoFAQI5Vr/DwSieZ2AXdQz08nI6VmpTP17VBlrS
-	 vpI5mRhbIv/zA==
+	b=Qd4h5e5Nu4wcvRZs0U8ziIXcQyLPVqXRbzN0kDAbpXNFr6M9iZPVvWCEiwyH/97PS
+	 guhL44mxVarxRPmq76fSaR4JW8ORP8Mz5fmFLEHONo22GUSYfiJ3Z2SHWQyW0zZ2ID
+	 aaKpPee8a1kaJXORQ/eqFK6PbrRSKpfCM1xxsxHcm75XlX+EuHOnu89IICLu4H2wH5
+	 Aaex8mWRb0FjvAZUvMnGpKK0OyOuMZwRUSqi8xT58anzpTZ6+P0IAU8VnAx8gMNaQ0
+	 1otXIKFLQjy4r6s/d6+tcTpFOWPYgvsuv9YSNhfPNPK/2hshdZCERHPggNyu4+JJp1
+	 1RE89s9df2J8A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	Peter Chen <peter.chen@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Navya Malempati <navya.malempati@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+	Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
+	Jack Pham <jack.pham@oss.qualcomm.com>,
+	Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: eliza: Add RPMh sleep stats
-Date: Sun,  8 Nov 2026 14:20:56 -0600
-Message-ID: <179416929548.628393.9194330704381395356.b4-ty@b4>
+Subject: Re: (subset) [PATCH v2 0/4] arm64: dts: qcom: Set snps,resume-hs-terminations for M31 eUSB2 PHY platforms
+Date: Sun,  8 Nov 2026 14:21:04 -0600
+Message-ID: <179416929418.628393.5000758873214058787.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261103-stats-v1-1-3dc062db66b3@oss.qualcomm.com>
-References: <20261103-stats-v1-1-3dc062db66b3@oss.qualcomm.com>
+In-Reply-To: <20261019021547.1694088-1-peter.chen@oss.qualcomm.com>
+References: <20261019021547.1694088-1-peter.chen@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,14 +77,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 03 Nov 2026 18:21:44 +0530, Navya Malempati wrote:
-> Add RPMh stats to read low power statistics for various subsystem
-> and SoC sleep modes.
+On Sun, 18 Oct 2026 19:15:43 -0700, Peter Chen wrote:
+> The DWC3 controllers on Qualcomm SoCs paired with the M31 eUSB2 PHY
+> need GUCTL1[10] (RESUME_OPMODE_HS_HOST) set for host-mode USB2 L2/L1
+> resume, as required by the HPG. Without it, a USB2 HS device cannot be
+> reset after it is runtime resumed: PORTSC.PR never clears
+> (PORTSC = 0xe11) and the hub driver fails with
+> "port_wait_reset: err = -16".
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: eliza: Add RPMh sleep stats
-      commit: edba09592c123cbc19ccb844e5c9d320a09185e8
+[4/4] arm64: dts: qcom: hawi: Set snps,resume-hs-terminations for USB controller
+      commit: 3c7371a907cff175fe316fce61e875e3f8db0897
 
 Best regards,
 -- 
