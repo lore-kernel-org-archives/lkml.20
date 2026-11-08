@@ -1,92 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177364;
-	b=DVBFP5iDXFJB+coqQMWAcff8BcZWHht85hYeesvilkJ/Ru+H+xCB+x2ResA6HeTxmwcf
-	 tXD8otd+H1uj3xa21LGEq8s1r902+ReIoewfx9CR/NCX6hQftjn2jedjFCqSNDW95beTh
-	 iSL0WS0P1r3rmiPplmHbQv5hAXD2eQKlCcPArfslhwEL3Q//zdWq9NyeoFW988WyW9TX3
-	 +CVeqj9h7v3MlZll5bnmT1F7DF0yGojuNcwb60Ls5XSq2dvxs9EtqwoZWdR0SxBTtrwTS
-	 UnZ+vPpwBimDT2xcAb+mqgRZWrI7b7a74M/bUUHU/SEVzDSVcxsqczUKrmIvxEgxxzw==
+	t=1794177369;
+	b=KKNYEgCIeRdVLBJyYZaZq+oVCOLDJ7/RuZgQzDcb08JKdfQ0rHWC/q9WPYKE3HQzIjZ+
+	 p2LGXegIjoagxMW8rp+9Ieu2Z2wjCY9c2ioAZ+P20GZUFpnZP63wh/sqFyr3zkzZjn2iq
+	 DZ4bu4/UBczCavn1hom+A3i8N9aAkp388zqbVz1TMQTZ5rX9njYmg7Kb9wdtuit+U9kQc
+	 qLcE6ktmJrQ8ZMvZk9Ozi9GVubCkZ41cxDOeqKmcGtPMNeNT72Af2LnY3qD0V7h8Piuud
+	 fnMYb6Dk7Fzz6GaTkry/7And3LvHy9WWibQiNRy6PppKqhRN2SCT0hxLuHH9OH6yzFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177369;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=yjigVlqZ7YlJzjIRljgnWOG1b/RgP2qYk03IHWd+kyQ=;
-	b=nRGMCHs7BeGfQdzU51aMwp05FpnYXPpt2E1ocNUQwU9xwKa/ymfZWFk68GY3n0pkjRxY
-	 IM1Jjeo95C/+atxI62P4ir9RA18n4WllM2iM4mjosse55gK2dWlDPUj7pq/QKO3o57t9J
-	 mWzFLaF1OnM10PzskHVKA8gzWTNOumKDqTCac1fb3/hHUWDlzWTJVsMr7E+gnYqqiBDcz
-	 UeZ70h1SAp9jqArZu7TDWfRO9oKZfeB4CBlTz9TDWC3rlmmO6+9o8YxGkflKjL+1cxCCM
-	 s0ge0AnnQpE71BeBftlxkAiQkdI1zVuJQDy/qQuerShRCqZjFFNqzRlspvT0JmLyEVw==
+	bh=62VFOg8MBQwHAYCXFCSU2NA7xtVlUF2RJoBXeGfN2Ak=;
+	b=M2cKpUHRJMiFS0gnWPEUCekC1RxMFr5mEHqLA8e+gguiVSaTfE91ODJABcf3lqbBOaL4
+	 6TOve4a0JpQNdhjwtMO+GOtjGnVYAHtrqMlUug/sRII1xo36bnl4fD8a8L2Yas8xqYgjB
+	 VtEgKE3Y4p5p9uYH7jP35m10WmKZQLdmG7qxAbHbwIlx2tzxjh3w0wDGDoTb5DB7fHmiA
+	 VPGbvXvSHMIgwd9Ma0WWbbxHO4Y1Er4eHzk7OCCcClL3fl2A+ERg+FC2Mm7+p825wEO4i
+	 5lEwEXuvwkfaP91liBT0Qi3qIc0//8CJ+RD/XLLPE9IQBLbmsjUHk916kjmHmJNYx/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qPdEvlXN;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QnUYllcq;
+	arc=none smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344F8606D82E
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:36:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 344F8606D82E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3276B606EEA8
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:36:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3276B606EEA8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qPdEvlXN
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so346080a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:36:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QnUYllcq
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b587591414so315912a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:36:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177363; x=1794782163; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794177368; x=1794782168; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yjigVlqZ7YlJzjIRljgnWOG1b/RgP2qYk03IHWd+kyQ=;
-        b=qPdEvlXN/8NYW+AIFOUBAaAsmqasuqAXI+HQki9oDLjkSxLb6+KPwYlg0VepThaJ4u
-         jhs0LZWMGL2Hti/VATF3AZ49ta8ezuKTNpoKCxa6Rm22lXmIENvG5E6MIfWkYMbA9J7i
-         7M3BOY/40qFCSj+vzVzMjgYEWgWXhd7YDXjyfrGPZ4nKMkLAMqbKr9tADXgNZurxlGQ9
-         21eI+WhVw1SaZrxx1xiGxKCVDzj74mh0ZAo2Dw63UKwoWmTQN5MgMTPqzV2lnmfdOiK3
-         LBgvVAOq1j8lH1z7UO4wy4D7mcL77tqTof8+IQAdAfyPYuYQiwXG2BFuCqTi4GIM1uAj
-         t0mA==
+        bh=62VFOg8MBQwHAYCXFCSU2NA7xtVlUF2RJoBXeGfN2Ak=;
+        b=QnUYllcqes2uRUEHKIf8dGsbZO+dZMH3dFyctkPLkJcF5UcUN1RMmWfZut99JVGJQ+
+         PS+fsuOvEAK0SLcPD/toeULEOekIFAXvoBXHUVGXkKrAtxyAVt7Vv/v59B68uWYDZ0P9
+         ZZP/+6/Prr2xCYasYCWamghb+iZ9TDhWh6pFeCnfpPs6Shwwk3F0b4t1ivgite0dOJFu
+         kXwzIKFWl08hqJnR5IB/yiVxYKNI2L7zjKKKbeikUbgmYSidPfYkxDTZHIEWx25zKw+/
+         qSOpnCUVY2nlp6MCxzS0lJc5icxNouiW7DDZnI/Y/OEh753VbsKBX45PC4WtvdHl2CGq
+         bMow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177363; x=1794782163;
+        d=1e100.net; s=20260707; t=1794177368; x=1794782168;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yjigVlqZ7YlJzjIRljgnWOG1b/RgP2qYk03IHWd+kyQ=;
-        b=NwvU0byDv7bKshdyo87rCmnyn8IYPq7TZ2BNr0aMSNFe3qkcyxLS1IC8L7oaqU2GcK
-         /gss+hPXxO4rfl4bq/GaAyF43PSpPCJewGAoa26rHMJVfv/N34a5ClR+yUFN+F5rRMG1
-         g6aJk1yVXjHSvTtrBqUnxSdn/2ASJsubCkTQuOuyoZBShgWl6wkzbGF7+cHxT1YFd036
-         BWbVk5SXXKyHb7hNmmgXmL3WF5OZyuTVhhQYUfkjqopK9/89YBSKFfVLNO5KVzOMQ2R1
-         av8dCxzkjpm1D7LkRvK7wLEANU3KMX2HlEEikiwvD/OaJl4RuwTkoeXOaSjvdzI9PuLI
-         pGiw==
-X-Forwarded-Encrypted: i=1; AL+hErH3WrTP/oMGLrUY2V6XgT1AwwKggZ7b3KgrRSuQarw8/yEOlw46GJh46flawge6me2e74h6x4aqlnyfGc4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IVox6mCkSBTZ6S+H8dsmSAnszYrPk1L2WQUliTGS1UlspyzWz
-	w1v8PGSMDfKnFZS/A1cu9ZKRGy1/bTZcPJWeqmVNe9ebvviK0BVP+AWR
-X-Gm-Gg: AYBFou0T7Km3cUjtPiBCzpKBERZozPRFQHfyY28qe1ifDtpTRhUhE+46dPj7ONaAy/8
-	q3/QlUv1cg4mPn+1MYJ1atfc3hRiShtYKjJ+msPQtIB8grTtIuh4hCBgYsf7LyGqILtRzMmC6qT
-	IS+UH42PZB4wocJbRhiSbzAHDm0j+/fA4WbJLiJrHWhiiXHkwxYQsL7sOPg2sVa4QehrNdt+vXA
-	ehJYbEr9g3mOTJpMxwVJbYNQb/01RbNwS/3T5CuCEnS5I2s5FI9hT/BGiZalCcQH23MMMJdyfwh
-	+mh8U3qx2X1S+3QB8KY6p3Kc50yM6ymbCvOOEK5VBPssRDKa3Gek3xpmO6NlxbZs4DvOMoY7a+6
-	QiQdmWwhsxRQMvrBk3ERw2LSHUx1jiPNoM5RWnquF2lJyUqy6j2w8qaRnC8Cb9zqAjnlJJzovXL
-	bpQrd3ESflwruQrrjLnZhKIy3DemARO7byqxcl849skDDhpasHCJOMp4qhzrXyV/A8H+T9KqQXe
-	yaZLArAbSSecPpjvWkoxcgW2bQLN/cPut1CBwAgNBISxQuNO9blRhaA3noTvpYAMqq54ssRdFSM
-	8n/dnom/WAIEwxD6iJBUqKuUU7b5cacMvPww9ONBEr3GozRV2u8cci/BUJsuO0937rZTMm4=
-X-Received: by 2002:a05:6402:5288:b0:6b7:1d67:eeec with SMTP id 4fb4d7f45d1cf-6b7224522bamr1427849a12.14.1794177362272;
-        Sun, 08 Nov 2026 14:36:02 -0800 (PST)
+        bh=62VFOg8MBQwHAYCXFCSU2NA7xtVlUF2RJoBXeGfN2Ak=;
+        b=HhEQVnNtkdNiikqsTmrI2kRlC95oAySxnIL1sZJuVXGOB7EbO2frTrRsxGSgAiIX1S
+         8+oZ7uTZfXTe3ERNpIJ1d0p/Adzn9g7YGuehGgCmrODLt8mTJ9I+pKYXBtpJE0PAtH4v
+         Q9ax4j1q/oxd7bf3vPOH7EAqoE/sA+AtU4sjLSH73sHaaU+8VV8dilcAjjlxNnsYra6Y
+         2ha9tjpgugmURrXmNtp64gSPkKUUKmcGbne7katYpOmv/WpCxlR6u6GIyep+sOhgwGfj
+         WWiqdEpK2QxiYG3YK0dqBIdZs4S3PKBY64umKDfc1S7oqgCJz+7akSsNsBNgwRFPTmC6
+         ViqA==
+X-Forwarded-Encrypted: i=1; AL+hErFfBDQBhERK9kMCHKaXzYZ2F8tyMECOwpmusq6l3NHYrYNtmNkh7w3KfM5eo7R3akEHWYdqV+sIXS8cWuo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mhfZ2EK7LzxCoZcopH82LjMnpgRSHUvMVWA+HrqmPEfdWVFgT
+	hR7v85umyPsUUPWQxodU1Ukp8Otu43240BnjeUBGSUDcs/7SA9EXrItL
+X-Gm-Gg: AYBFou08o968ojbFJUzgGkwAC3SUSseHcxaPUVGuf9UhUforfmo0xs1WZ24vPkyFdGb
+	qCDgjaqarPoHwJve+CCDSLfS43ikh+1zX6A6SJDj/rHnXSpTDIZMtl5P0kn0655II7LiLp2mLo8
+	r03z7U3bStLG94SQfM6LakGebgPHnJ5hmRt3LdfK7lUqtRb7J+qnH2/HKm/dazxYcMKNZLMAZhy
+	Wb2xkGovSuk/SGdbi+j1PfTNvzkK3QzZQhPFeHSNLY128Xvzs5DntZunzUQGPDjkH0bHvTt37zS
+	x0Jvftrsv1ApRNJy8M0dXDY5yJRzTiq3hNEbVNfv+FYCwcAAPLdiAmefNWQpwG0wxZQ+sYmKr8p
+	EP7ArAlcORi6pnmG4/Lw+t940XHEvL9OOOdv9vHi5IqIgLMiZyoHJpB5TvTnD9D46hBFV6C5c6M
+	ow0JN2wenTiDx6Xiy6I41gO6DtFER6CP44yfsX5l346dLxeE9PPa49ec6RzYDOsSI1Q5K4SGBJ4
+	48bd8oheuZNMbaNNHeaq67LEeoA2LqavN/+WXyiHv5MVSJUCKy1p30jzYkRB0mMIvax2PJfIZk0
+	ywW7kbg2IXPkOn4QylApx2Fv/i7ZKBQBTVAv5iq5BiiV+iBPq18UH3m1auraDTD6jsbroww=
+X-Received: by 2002:a05:6402:3787:b0:6b7:1b3b:d309 with SMTP id 4fb4d7f45d1cf-6b7224c54abmr1481109a12.33.1794177367600;
+        Sun, 08 Nov 2026 14:36:07 -0800 (PST)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebc7b0sm859272a12.14.2026.11.08.14.36.01
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebc7b0sm859272a12.14.2026.11.08.14.36.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:36:01 -0800 (PST)
+        Sun, 08 Nov 2026 14:36:06 -0800 (PST)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com
 Cc: sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linmag7@gmail.com
-Subject: [PATCH 5/9] sparc32: preset modified and referenced bits in kmap PTEs
-Date: Sun,  8 Nov 2026 23:34:15 +0100
-Message-ID: <20261108223516.1125534-6-linmag7@gmail.com>
+	linmag7@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH 9/9] sparc32: enroll and order CPUs before switching address spaces
+Date: Sun,  8 Nov 2026 23:34:19 +0100
+Message-ID: <20261108223516.1125534-10-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261108223516.1125534-1-linmag7@gmail.com>
 References: <20261108223516.1125534-1-linmag7@gmail.com>
@@ -101,43 +102,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Preset SRMMU_DIRTY and SRMMU_REF in kernel kmap PTEs, matching
-PAGE_KERNEL. These mappings do not use hardware M/R transitions for user
-dirty/accessed accounting. The protection applies to persistent PKMAP
-entries as well as transient local mappings.
+The task-switch macro records a CPU in the incoming active_mm mask, but
+kthread_use_mm() changes address spaces without switching tasks. A
+shootdown can therefore miss a CPU using that mm.
 
-ROSS SPARC RISC User's Guide, section 4.2.1.1, describes hardware table
-walks and PTE updates when a write or translating operation encounters an
-unset M/R bit. Presetting the bits avoids those updates for kernel
-accesses. A whole-context cache flush does not perform that translating
-access.
+Move enrollment to switch_mm(), before installing the context. User task
+switches and activate_mm() pass here, as does kthread_use_mm(). Lazy
+kernel threads inherit the already active mm on that CPU; they do not
+introduce a different hardware context. Keep CPU bits until mm teardown,
+as in the preceding fix, and remove the duplicate switch_to() update.
 
-This also provides the PTE convention needed by subsequent alias
-reconciliation, but does not by itself provide that protocol.
+SPARC32 smp_mb() currently expands to a compiler barrier. The hash lock in
+set_bit() is acquired before the mask store, so it does not provide a
+hardware StoreLoad fence after enrollment. Use STBAR followed by a native
+LDSTUB of a private stack byte before changing the context. STBAR orders
+prior stores before the atomic operation, including under PSO; LDSTUB
+blocks subsequent memory operations. The memory clobber orders the
+compiler. SPARC Architecture Manual V8 sections 6.2 and 6.3 describe these
+rules.
 
+The shootdown side updates PTEs using native SWAP before inspecting the mm
+mask. A newly enrolling CPU must publish its bit before accessing the new
+address space: either a concurrent shootdown includes it, or it observes
+the updated tables. A returning CPU remains enrolled and cannot be
+omitted. Do not rely on processor-specific cache maintenance or a later
+refcount operation for this ordering. The local helper does not change the
+general SPARC32 barrier implementation and acquires no shared lock.
+
+Cc: stable@vger.kernel.org
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/sparc/include/asm/highmem.h | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ arch/sparc/include/asm/switch_to_32.h |  1 -
+ arch/sparc/mm/srmmu.c                 | 16 ++++++++++++++++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/arch/sparc/include/asm/highmem.h b/arch/sparc/include/asm/highmem.h
-index 14b03f348823..d451232625d3 100644
---- a/arch/sparc/include/asm/highmem.h
-+++ b/arch/sparc/include/asm/highmem.h
-@@ -30,7 +30,12 @@ void sparc32_kmap_local_cache_flush(unsigned long vaddr);
- void sparc32_kmap_local_tlb_flush(unsigned long vaddr);
- void sparc32_kmap_local_post_map(unsigned long vaddr, pte_t pteval);
+diff --git a/arch/sparc/include/asm/switch_to_32.h b/arch/sparc/include/asm/switch_to_32.h
+index 42eeafcb8a41..1d9855abbc00 100644
+--- a/arch/sparc/include/asm/switch_to_32.h
++++ b/arch/sparc/include/asm/switch_to_32.h
+@@ -58,7 +58,6 @@ extern struct thread_info *current_set[NR_CPUS];
+ #define switch_to(prev, next, last) do {						\
+ 	SWITCH_ENTER(prev);								\
+ 	SWITCH_DO_LAZY_FPU(next);							\
+-	cpumask_set_cpu(smp_processor_id(), mm_cpumask(next->active_mm));		\
+ 	__asm__ __volatile__(								\
+ 	"sethi	%%hi(here - 0x8), %%o7\n\t"						\
+ 	"mov	%%g6, %%g3\n\t"								\
+diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
+index d3634bcb048d..e5c136c8ecd7 100644
+--- a/arch/sparc/mm/srmmu.c
++++ b/arch/sparc/mm/srmmu.c
+@@ -467,6 +467,18 @@ static void __init sparc_context_init(int numctx)
+ 		add_to_free_ctxlist(ctx_list_pool + ctx);
+ }
  
--#define kmap_prot __pgprot(SRMMU_ET_PTE | SRMMU_PRIV | SRMMU_CACHE)
-+/*
-+ * Kernel kmap mappings do not need hardware dirty/accessed tracking.
-+ * Match PAGE_KERNEL and avoid M/R updates during translated accesses.
-+ */
-+#define kmap_prot __pgprot(SRMMU_ET_PTE | SRMMU_PRIV | SRMMU_CACHE | \
-+			   SRMMU_DIRTY | SRMMU_REF)
- extern pte_t *pkmap_page_table;
++/* Order CPU enrollment before accesses through the new context. */
++static inline void sparc32_mm_context_barrier(void)
++{
++#ifdef CONFIG_SMP
++	unsigned char scratch = 0;
++
++	/* STBAR orders prior stores; LDSTUB blocks subsequent loads. */
++	asm volatile("stbar\n\tldstub %0, %%g0"
++		     : "+m" (scratch) : : "memory");
++#endif
++}
++
+ void switch_mm(struct mm_struct *old_mm, struct mm_struct *mm,
+ 	       struct task_struct *tsk)
+ {
+@@ -479,6 +491,10 @@ void switch_mm(struct mm_struct *old_mm, struct mm_struct *mm,
+ 		srmmu_ctxd_set(&srmmu_context_table[mm->context], mm->pgd);
+ 	}
  
- /*
++	/* kthread_use_mm() can enter an mm without a task switch. */
++	cpumask_set_cpu(smp_processor_id(), mm_cpumask(mm));
++	sparc32_mm_context_barrier();
++
+ 	if (sparc_cpu_model == sparc_leon)
+ 		leon_switch_mm();
+ 
 -- 
 2.43.0
 
