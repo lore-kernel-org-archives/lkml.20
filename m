@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794141150;
-	b=5RJ2AaA4+liALLUr4RNqPFGxIVR9gOwkpK0x2aJ+FK6HNfpRUF2g0gU2dfWuzc+aNu7C
-	 pJi1UiRHqy6UoTgd20pDwQVckwo62DBrBE39XbuUF9/5vCtdQWxcK5/L5yOlwM/K5TA/w
-	 OGgKMpABpYcS3LBQ8f/Aoa0++9HSrQsUPb4LtgyAypWoAjEZUpPCyXxedSSGYvbv2CBNq
-	 NPHPlAoZ05Q0dgcDpyQC82mQqYdvXHQ7YKN7KDjlqeL5TkdHbCta7/JUYkpSMGi6ygQs3
-	 XV4GONFvNOAhayNMlFqONjx7QrrC71IrsgqJitA5UFvS7uKdKor6mCj6jHCosN3S1DQ==
+	t=1794141155;
+	b=39o2yFTy/u+SqnUo5zgpZ3JnmDJpIEYHF1wBOfI3kp+PIoLMf8iR72PHJqZCaljfjr0N
+	 zkiMUPRjA11XwoImOC7q1W9CMxRvfikqXh+HlByJSkYqYxcYazWsi4w2BuAa/j4AbTYln
+	 7UuZt/pncKOgiYFz4e1Dm+Sb9kjnYFOGSh4OlXKAzxgn6+gBGTzE+INL93UYAUgWLMBfu
+	 yOzrEYdM8QxGz/npdPwHrUhSRAXR6NmpLMeGWXtlOhNZNPXH6rXwF0n3+kUyvbEb6zCEB
+	 FzMRBuhMC1VGHgfQqeq65AjFzNaGKwlg++x6sDVWeo6k6p99nwhwK9g1Bl8Ndon1kNw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794141150;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QWdpxBY5f9SrIiP9qlqTJHu1UmLoydUe6EBqvkilw3k=;
-	b=vlY1f7zP1GJXcEqDR0AxYU8A2vcrzAktx62kVLCOQhEt2YNO4W9Zuzu79i79bSikuHy+
-	 fAfF8D6+wm2zTVNyoxasMDglqbUp1IIgeINCsf5CzO+i5IZf2K6njkyMuJn0C49pPOcuH
-	 ZxcTmClLILRrQardJF7SJRvoiMPwpaUsMY66LNtHCBPb/U9Zj9+AwwlQUbEE5cbOeT4rF
-	 irZATfRLfiP2VMONk4S4mFxMQc539XsuO1m286pyt6L5XvPTV+Int53F9Gbcv6ZpKzyhZ
-	 LdFHNJkUKDoDPMcNffY9T6/GO2WucA5SK7AEYRLZdgM9Iz6Na2pdeyugEcBH8juDNeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794141155;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1tb1rlv5upXEuUm1cKuFA83fMwXrR6g7cRh9cWFDULI=;
+	b=39LW/zzbMrYY3CvtiBBS3+ipsZhLLLXgjCz3jbPHTubT7LK8yMCx9u7V8NyZmt2tvINo
+	 JRHRCuuJTAn+Ds6NY7NxMU9b24UI3+GwtZbQGstzwK/TqoggZmTaMQuHxml156G1uOimP
+	 5GNwgGtLCBQnIsCTYdT5wxnLFhJK9cGogbGAvr/vceTJASkFipYjC5aI6loRPChhPEqF0
+	 fwrgoBKPS7xMRMhhyWa2qmfS+3b9T9tA/hywFx9n6Scoaf/7zGzcgY2FrdpSQcoOGkj2n
+	 9pSh1bGC6Pf786zthXSooeq4EbOX2jqFDy7SmH2FFhw/yCA65A8edRJZzoOgbVqtw5g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRwyiFCH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5G6CuIB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96D1606A339;
+	Sun,  8 Nov 2026 12:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5G6CuIB
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794141154;
+	b=R4ePuv23TbygEJ2z8pVqp5wllq9bfyGvO3Ep9IBjQA9RxDyc7TDG+aPoohlkyNbmlnMm
+	 v9/ODcd8fBawpUiycQ6/7UyB/H3s3iPIrClC3Q3K4cwHM9qCeX+mR6y5uE0HIoWjEq5zn
+	 5PZjIxrzYSoivhiIFs3nlDK7ar1dBjGs6EUUFxUiORx7FOWnVYGJPKWD9h4uXJQC1dMDs
+	 UOFKonoeoku+StaoL5HiuGHSxWsylekFogafGixmWtt6Ylqh3w1aT41sBah7oJvwqysGq
+	 GJmttS4TpAwPl9ucxfKmmrGfvkUkVvQKQH5Pdc0N6ovNTmC4PX4I2kwMXpgPSPDrygQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794141154;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1tb1rlv5upXEuUm1cKuFA83fMwXrR6g7cRh9cWFDULI=;
+	b=QoyJUvtMKEANAnHb07Jv2j6njN8rcWw+SsuvstzB9VBXOmSxa7NVdLt04XjKjufEcEgg
+	 /O9fDAvojws2TA0NX5z7m74ppXNNVz4APkjYGcfCjol+5VPdGQ9e6zWhEjffhA2invakT
+	 2F6GzxAMru8OCViL87QX4gypTLGrzUfjps8Cbb5pNcHpYXjh/VzYTlx2kw0QUoBUwdIHz
+	 bDf+1+ZIWUUGxUKXQ3Sc/56tN4BIGOfgJa15KwW3/s0X2/5Fi4kensgUHvuMZOpFwJS9V
+	 CfJnLIrNz8+QjtHcMEkLknGlKkZa/bviVG1iy5vGu75sirDF6JwliQnWMlRQcS0eQvw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8162B606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:32:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8162B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRwyiFCH
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so158651eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:32:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794141150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TPB12TJc1N+MH5tCb9tLb1N0vyh1WFP5gWGDkYGWgiDxlQaS5HdQ2nNvzGE8gdgPfC
-         fE3af2azkoTEgPhj8KFZ7V3XCPZGOLiE6PXwxXDNdEeqULlvOKR0qYQ4zG7bwazq52EL
-         HyvbKslWPZmmKxnPjwq9GfDs3cBbNtBIEGO/h36osQajFEPpSKRkbOpiLmEh9BiStvim
-         h/VTfehoRnEcT6zwOyJ1JFL//DogTzlvwlU8GsifPvkfUtcCe7T1S6gSKwXhEqWLwPV3
-         n37piPiaRmKTVX1fT4vynn0/ZtLwlpHHK/0M95+sAFqZnWY/L3bp04mtRmC5GF0ADNRp
-         5wKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QWdpxBY5f9SrIiP9qlqTJHu1UmLoydUe6EBqvkilw3k=;
-        fh=CRZBw8iWwEeEN/97wwJW53TNDd3YZF9EMR5Y0bRSkQ0=;
-        b=Yqof7DW9dStKp+NCHpRbBE9Un6Gjq+DYnuNgtDjlf/Gt2/dHRBUdgOuyRqzenZS+HK
-         jLhBUrDEAlTCwKhErIh78zEQP6QN5Q5iQDAJs0ITkYvxg5KI14BcxQ63UdXYuqnN3KkE
-         VVCqRmxXkbezR7vrpm5Hk8hUAWHNLCyQnOMfa7UmsLvhMiW6JlFhIP8zMvDosCCBsHnq
-         PTOm7/SsAqqN1Ck2Z+vR7hO70G1o5/ZtL4pP5u1EGuyHKFunF2tl0lDsFiBkkRZv4zOC
-         5v9zswYoG04KqsfUl/w7uR9WqNzoSXcJ14q/pwpczesmFdZw9rNPnpr39VQsJAKaEI9Z
-         cFIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794141150; x=1794745950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QWdpxBY5f9SrIiP9qlqTJHu1UmLoydUe6EBqvkilw3k=;
-        b=VRwyiFCHsdY3Jpa0rIAYOhJl7wrp0P3/eYwNVbjsLivYJYE3+6CsRNAdl3rZAwftQw
-         l5u5RvFU0L9kJpV7mJLpNPipOqYOlPZy9OGAwPTgFBLeRPct3RnmcYf2T5qREXEtRt53
-         KqfGfsgZ0EYpyDNaQ0nA/Hg5HChetXfPD//KZ57e3HLLRlRXZCqecLY/NT8LxTR1+g1T
-         dsJ7Q8O4LjHuPRrUj2b8iMSNN3z/TXAgAiS3KUqSTJ0DRjLEBZ8imi9fLzKDJqLxutQt
-         8rPX75rYRvq4JgfVs79jcu8mz4NFugvxaBm50cBC35I5PpaSU7Lt72XAcae+nz6v4NNQ
-         6XJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794141150; x=1794745950;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QWdpxBY5f9SrIiP9qlqTJHu1UmLoydUe6EBqvkilw3k=;
-        b=TSUtxfpc/SObIQIpzm5dqNH/4VtFXzu1YTxbA3qCXZvTVnWwXKFCGxB+nhr0xIfWbU
-         rzNFOGYVyUU8DunAlWxd8auKigG5FKZvofkqGJXac5Sd6Rntx675KCTrRybxwX3ytvbr
-         23vBXwyNTq44tofnWBxUvInaoaRlAmnawYwHuDFzN1arvhmmNPzGsyScqPj0EtkPowl5
-         P6JQHDdf98lbw/JYfLla4CNW+4B5oDJWXT8/js50zmwrldMCL/xcOvR1uJejBCGagYxi
-         8BsqLgGJGC6/NwnM5bxJAJxIZBA1kd0pfgk7dh++JxyWJVyMpN3PUPMQfnPF1+8QLKp4
-         QS/w==
-X-Forwarded-Encrypted: i=1; AL+hErG4QXIhmRrGIodEzltAkguX1kpTbniG0z87d5Sg1QzaO53AkSGn9art2Ff1iauKZILhw8P27p0YKfdOSec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85/eN5Ule2wbvRe9PJJhONztZmugecgRo9lUlXdOZCvvmyAjHx
-	IWiyOuVwN7UUCCPItFodRFBMDohYIJftJL2KfUr9q3Ue1sHJ7fOcWS4gHP2Maft2v2KdynB0xba
-	ok6zAmHGG7065AXHrSNB+vGlMbdpy0fE=
-X-Gm-Gg: AYBFou2A4mZPWhD3xsxHIlOl5I0ks+5k3FLxwbAnpYPC16kTsv3boucdNwrPo4JnOI6
-	+xv6FgkdGpwVoBG13Yix7JlsASbacuouvgvv8vzRnVjwRhGevaZADRL7QS5JWU3jUN+lEFSag14
-	5mQvPZ5sUrhLKtVo1BDUG+mjX9QuDzcxDoGXE6pvUgR4U7HfH3R5ZeuFbETXwwvRZIbVoNIICzd
-	w3HcABUhZ4OIPViH3Q7ZDu3/UzJjZuvdOwrMlxodRw5ysEBiabG5Saa8Cv1gikKI9edtjig/ZvQ
-	2UEBfZUp/4nWwf8dthzz/OLp9N9ra1aqykljHTBVWzAWYkVRGDWGaDXyR02Mwl363jqI3Mhw8vA
-	Blx0MrlNVzkfyPrtpHyUSdrCzTPidaplFHBDMwVZzim4Od/K5yPhp/3vv5xl+VQmM2j8/EomVPl
-	xNDASSHKwfWJZBXQ==
-X-Received: by 2002:a05:693c:62cd:b0:370:ff2:f78d with SMTP id
- 5a478bee46e88-37256614c62mr2989725eec.8.1794141149593; Sun, 08 Nov 2026
- 04:32:29 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 144CD1F008A3;
+	Sun,  8 Nov 2026 12:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794141154;
+	bh=1tb1rlv5upXEuUm1cKuFA83fMwXrR6g7cRh9cWFDULI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=T5G6CuIBT6+ntKqlup4W1kXvlpF+U407taLldskgYYMcA8okVVCYhCjNEnVkZrEyJ
+	 WM+GZF8eX57ESdpx03brZezXKaN1DsTSmYfUfX1nCH8qIe6YN3aEpXl9jNP9bAT7vN
+	 qkp7Frhp5gObhPvtHra+iGz+sQyYeqoUio/J3qUf0gpUG+y6sWA2hWrhrknNhzuja/
+	 5DsJG2dT5pa6Zp0BuxRUZhVIoPJYFxM9EHf2DRIeOjG8ieyNe7mxY+gZPtpR/HmUkC
+	 ++i3sTHFSZm4C9E4anQmKIEXcN5EBbqSkVnR8liUG3/89r7NjHSlEdS8sQl4oPLck5
+	 iAfQlLH2lY7kA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8170747F79;
+	Sun,  8 Nov 2026 12:32:32 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sun, 08 Nov 2026 12:32:27 +0000
+Subject: [PATCH v3 06/10] drm/panel: s6e3ha8: Assert reset GPIO in
+ unprepare
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,119 +83,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108075848.257145-1-hj351016@gmail.com> <avBrPjvw_5EH_W5r@kernel.org>
-In-Reply-To: <avBrPjvw_5EH_W5r@kernel.org>
-From: khj <hj351016@gmail.com>
-Date: Sun, 8 Nov 2026 21:32:18 +0900
-X-Gm-Features: AclHuK-wkJTST75ujvma9IGtuUWYkl4oaDisXKEz5d6-YrVvIkqMRKq-RLJUzHw
-Message-ID: <CAGr5VtNphPZtGC9MSLQcMCUWBKUYPC_ufqpb1YZ=WBPm=oZb1w@mail.gmail.com>
-Subject: Re: [PATCH] tpm: flush timeout work outside buffer_mutex to avoid deadlock
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Tadeusz Struk <tadeusz.struk@intel.com>, linux-integrity@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-crosshatch-panel-v3-6-87dd4ec4f7cc@ixit.cz>
+References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
+In-Reply-To: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
+To: Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1129; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=YoR8O/9CziH74UhYPjrFBAlu0YEV4HfID7khfmE7WHM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GvfEC5NRlkhJL4+HcK7VBEhx7z6sDuyw0I76
+ DppDT7mhqGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBr3wAKCRBgAj/E00kg
+ cjoDD/9J5mFkylqCbm65T/GFGtuzKg7d4xB5v+2mc+08FOvjJu5iwKFz9xcbIE+z/lOPY9UVXr+
+ 3fQPgIQsbNRr2AlfAKzdurdzikQrqYMWNKFD0nwYr5mfUPTcxH+6wwNP+2OHNgT66Gv0+yn9IVv
+ uZVxm1wU8/1Nnuj+apUbt+1ujM1d01by8IQ0Ml7Gui4W1+x6FESeKMEFwVZE7z8nrVV/Df7UTin
+ sX6khTTWJyAUEi0zf+aT9cgGt/Meqg+hPBoCqFdtkU4RQaWxKlj/usrTQKgKHlq8EATeKvL2z+1
+ J2UpRG59L5KOq+9RmTiZLoxvPYgVbGMcUkjrPOClhX47Lsms+tBhCuagu2I8sF0RVqXfqHnt8Z3
+ a+duinbh++ZG43mJVKK/TfJx3I4xKJ/Wc9a0ZzR0nlG4GL+GSpnCI3aCmXN+fQg1diqhmewf0E1
+ pTi4JPpZvkg4W/OI0CjHrXzvKYbtYih0CyPm59bx5rdMls6ulJUl7Mud04s4cKRgvYsSeLgWjgf
+ sWXZMl5N5aI90hQngHzFPYwBKewB+1xC8bahBrxYC7Q8G+UhvjBx3KmsatsIvR6AfVuc5FxmyPo
+ zg5/4s3M/k2+7SwPDJVQcqeNOBm7EKpjpKS8G75mGkNFWg4SBWuQGkbCq8zly5UxOehgE6FW/Nx
+ N5U5J0n8iTfGRdw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-Thanks, renamed to 'flush' in v2.
+From: David Heidelberg <david@ixit.cz>
 
-2026=EB=85=84 11=EC=9B=94 8=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 9:29, J=
-arkko Sakkinen <jarkko@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Sun, Nov 08, 2026 at 04:58:48PM +0900, hyunjungg wrote:
-> > From: Hyunjung Ko <hj351016@gmail.com>
-> >
-> > tpm_common_read() flushes priv->timeout_work while holding
-> > priv->buffer_mutex:
-> >
-> >       mutex_lock(&priv->buffer_mutex);
-> >       ...
-> >       if (!priv->response_length) {
-> >               *off =3D 0;
-> >               timer_delete_sync(&priv->user_read_timer);
-> >               flush_work(&priv->timeout_work);
-> >       }
-> >       mutex_unlock(&priv->buffer_mutex);
-> >
-> > The flushed handler, tpm_timeout_work(), takes the same buffer_mutex at
-> > its start. user_reader_timeout() schedules timeout_work from the
-> > user_read_timer, which is armed while a response is pending. If that
-> > timer fires and timeout_work starts running while a reader holds
-> > buffer_mutex, flush_work() waits for timeout_work to finish while the
-> > reader holds the mutex, and timeout_work blocks acquiring that same
-> > mutex -> deadlock. lockdep would report this as a circular locking
-> > dependency between buffer_mutex and the work.
-> >
-> > Before commit 9488585b21be ("tpm: add support for partial reads") the
-> > timer deletion and the work flush ran before buffer_mutex was taken;
-> > that commit moved them into the mutex-held section, introducing the
-> > flush-under-lock cycle.
-> >
-> > Flush timeout_work after dropping buffer_mutex. The timer is still
-> > deleted under the lock, so no new timeout work can be queued once the
-> > mutex is released, and the flush no longer runs under the lock the work
-> > needs.
-> >
-> > Found by static analysis (a checker for cancel/flush-sync of a work
-> > performed under a lock that the work's handler also takes) and confirme=
-d
-> > by code inspection. Not reproduced at runtime: it requires the
-> > deprecated user-space read timeout to fire while a read holds
-> > buffer_mutex, so the deadlock is established by inspection rather than =
-an
-> > observed lockdep splat.
-> >
-> > Fixes: 9488585b21be ("tpm: add support for partial reads")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> > ---
-> >  drivers/char/tpm/tpm-dev-common.c | 13 ++++++++++++-
-> >  1 file changed, 12 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-d=
-ev-common.c
-> > index 6569212..f9b18ef 100644
-> > --- a/drivers/char/tpm/tpm-dev-common.c
-> > +++ b/drivers/char/tpm/tpm-dev-common.c
-> > @@ -132,6 +132,7 @@ ssize_t tpm_common_read(struct file *file, char __u=
-ser *buf,
-> >  {
-> >       struct file_priv *priv =3D file->private_data;
-> >       ssize_t ret_size =3D 0;
-> > +     bool flush_timeout =3D false;
->
-> Rename this as flush.
->
-> >       int rc;
-> >
-> >       if (!size)
-> > @@ -164,9 +165,19 @@ out:
-> >       if (!priv->response_length) {
-> >               *off =3D 0;
-> >               timer_delete_sync(&priv->user_read_timer);
-> > -             flush_work(&priv->timeout_work);
-> > +             flush_timeout =3D true;
-> >       }
-> >       mutex_unlock(&priv->buffer_mutex);
-> > +
-> > +     /*
-> > +      * tpm_timeout_work() acquires buffer_mutex, so flushing it while=
- that
-> > +      * mutex is held deadlocks if the timeout work is already running=
- and
-> > +      * waiting for the lock. Flush after dropping the mutex; the time=
-r is
-> > +      * deleted above under the lock, so no new timeout work can be qu=
-eued.
-> > +      */
-> > +     if (flush_timeout)
-> > +             flush_work(&priv->timeout_work);
-> > +
-> >       return ret_size;
-> >  }
-> >
-> > --
-> > 2.43.0
-> >
->
-> Br, Jarkko
+For correct shutdown, the reset should be asserted.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+index 99290913de69a..2591b8c1a7753 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+@@ -58,16 +58,17 @@ static int s6e3ha8_get_modes(struct drm_panel *panel,
+ 
+ 	return drm_connector_helper_get_modes_fixed(connector, priv->desc->mode);
+ }
+ 
+ static int s6e3ha8_unprepare(struct drm_panel *panel)
+ {
+ 	struct s6e3ha8 *priv = to_s6e3ha8(panel);
+ 
++	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+ 	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
+ }
+ 
+ static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
+ {
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+ 	usleep_range(5000, 6000);
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+
+-- 
+2.55.0
+
+
