@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794144944;
-	b=XSdILf7acQMKPoJvL1gwIfUVta299ltgqdWpWN84U2IvcGZdsYRbgfMVql8iIZGqeaZd
-	 k5JFTiJ0xNop0sQlw4qCAoabC0Law2InE9+Od3qcCQUh4FcqLsh4lHqAx85dCi00IJgUi
-	 0rW7U93ifIW3Ks/OCKTvDBwNF09s7FksvnZEvZ+mYDhFXZSuLtIR08LJ0SKJ+tGN1CCoS
-	 ZkkDgdllSxFtqsNTtKc5/V332jdGhkOEUfFkcKXivUyPokvWuJTTaiL1VFNdisrwCeep3
-	 uucjK5Q1toxvDVN5Z8pd+D6jkl1Oqxr1cD8hWuXUigXtujZ8OLoncRwghBbrmCaaYSA==
+	t=1794145113;
+	b=S/MHuSF56npegBs4NEJHDxIivVkBTIAneAz6E9p/BdliTIZjvpyZBAzB9X5qv9Ihi6UP
+	 xb6jWsrz616xTBQ5gW8VZuztQCH1BEO69ty7vSsQEFvAcH/LkAZ2wAHUrfcUnwXAc2Kri
+	 0HyFc3QeG66xMbjM9uPGmDHZ6n5DmDIFFjL1vI8XIc3uTz/MnJ7HJDmKtUxxe9EzKT9M/
+	 zmga7n/K5EoMEzXNWmvb2m8/6e1Xy+cbvGCajfDYSYiSCsDaurz2rzu4dTOSUoIiCHaDn
+	 QCXrL5aVXdqWSpIVJrt0+K5l9QOrmEtJUtB/LCNuAxB1Vq7yTlskB3buiG1MI+s69Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794144944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794145113;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8Ng0uZYQ+LIwIwtwHGERv4b3yBKSq7JDf+ArUiIqJ40=;
-	b=zDw1TC2ddfYntCX3HFcIfUVZCn/VqN+XQ3rv5AIimOYBylnbmQy/UD8vQrQGQRyMxOrp
-	 bdUBjAf1mr0KnksP0D1FkhZkPjsGjn0f/SL4c7jk1sdx9XzvJjjNwi9Ubne46cnactQcY
-	 I7G0CGAYrOZUJPQohbQvC7dEPtL8p4sTplmL4JFybusOfprflUJpHk3btXl7Ht4GzfOyP
-	 MPNgDUQiNkYFRZi/6PRNUPcFhzUd2GwgnWF4UQ4fWT5LfHyzjh5AO9xfl61E/Xph6uvSE
-	 Ew0fIOf8XjuqmV9wTBTW0tYO6SN+q28DcG2Q9RwmOoCZtFa/2WvlYH1w4iGh2nDarsQ==
+	bh=OxFXA2A8vf97MLqDI2dXStFoDohf1oeX4s7Z28iiyTE=;
+	b=l7gUObJxlgyTvup89J4yOVmjt92DVKDerLhUaYlrPvX4yNGHs54qy6Mc8p6bgpIlSRbq
+	 u/V90/K8i2fyJydUIdGewyQHDI+/u5Vh77OyibcRyyph3LSyaNTbrEhoHblONHYkv09zl
+	 T8cJuGR1BRVwAX56grhoZfsdWNfqQmJYsO48vI0G/RadC8T1jkS5Z7lJdHIwh4mXs1IGh
+	 AhBN0+f5aLKa2TcTJlSgNxGVuFmv+Wyz89bXM1LdsfjUdGBf3AiLzfphoavfwSSU6Hl/M
+	 Jq3wIo6jMzk7O21x4teN/rBZKQD7iWYjZYGTvyXDNRm6PRuxVxOvl6aVP+uYVcmOZ/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QiOpTURZ;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OndAluFL;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110A5606A330
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 13:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110A5606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01340606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 13:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01340606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QiOpTURZ
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36f8cdd30beso226280eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 05:35:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OndAluFL
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15ea896ddc8so180399c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 05:38:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794144943; x=1794749743; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794145112; x=1794749912; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Ng0uZYQ+LIwIwtwHGERv4b3yBKSq7JDf+ArUiIqJ40=;
-        b=QiOpTURZzmEjqzsZNZGoZhVtaJpehNpJR2dhcXWm+iWH8i56iAlf8lXP5pYk4OInWA
-         VSCvL1x8DzeVfP9rr4NJzSFnyr3RdAxa1QS0LYa4CKs1Aorp+qZHAZC6PgpX6aK8knZl
-         /+5KIu+KCMFR4H+acsGttQkDkbA40xEMdDPAtc1VN+0qsbHNoc/05W3Lxp6sSTHCMNTp
-         yopzT2st7Y3BCgbhcacd2Hz1dWMVoNKI9COGbMV1WbP27UGlvpsl7xJLMrATltAx26hn
-         zycTVLaKC56zOhcssbzpE+ht1YasA4C91eJ0PjEerjFYFMn/p6q4KyY/0x73pkgOduHl
-         FPTg==
+        bh=OxFXA2A8vf97MLqDI2dXStFoDohf1oeX4s7Z28iiyTE=;
+        b=OndAluFLYQ0ImKAKq1jHnVrqGsXubi2j/NdImWBrrb5hYsZFLTPTaGF3DKFkO/tcoS
+         t2DV+AWof8yg+skrFd5sosrJQe/T3NtDsYBQdeg9ivuLcShfR6LGmS93ycc7SvKPKFqk
+         vkVtgwCZJKSPUFnUvCIKh7O8Skj5BgOCOcp+BgEtbhXACxwMgwt0KfdjBuWKqcOy2TkJ
+         9vVupA1eEDOOuOCOm9dtdIhGZef+5X9gFVBrCdXv7Rvb8y0hH/BhAlQGfxop7xAEPHR/
+         wVQvoDCqUZGPEiEzvRXXJ+oVxWrDA1ODwzL8XCbUjZHdHwwMcfbuyHYSq8Hb//WEkqsM
+         aAJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794144943; x=1794749743;
+        d=1e100.net; s=20260707; t=1794145112; x=1794749912;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8Ng0uZYQ+LIwIwtwHGERv4b3yBKSq7JDf+ArUiIqJ40=;
-        b=vpPpZ90jEjQQhqNW8jkSubet84al6tpV5sVHRsyEkrCcqc1FYNUtVUIwcxhsk/91Mz
-         EDydqxDV62vp4j468z3RA37YB3B7kJq93xCmU8YwpPm3g1CLNpzRVXtrwvrB5NYLxNZ4
-         xRlaF9UnH13Y2he90cB9dM17AqLvHmEyrWwAAN1Zjdi70zZ5PEpbg4kLN+zxwIpz/6nT
-         2eaDF4m+39g8919+zP8JHf+K1KCeiCiKZOMjbUivpzmRH48yBNrejFr0oZhlff3XNdaE
-         QsxEsC2RfnmmPk4wgwqsV6MnFG7QOwvV2X/bkm+txEcweMLRv7czB3H2GJWjAhaOLFsC
-         JLcg==
-X-Forwarded-Encrypted: i=1; AL+hErFTN3O4W5P+TZ1M0JOQ/7pzTC1zAuFY5mXhNAPnZVN+1XvhzwoCDo5sj4xdCaxVNOhzd/KssgZxu+cKutM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YqBLrVSSgBJ7fil/T1JnJLmn5cFeTF/Adzu8mCQ1mAnr2n9ZF
-	JDI7zHW/Ee4YCDTxgkEW51QQ+TfaHoCzTs3hhD+yaB4vDNCo4M4gc9ZS
-X-Gm-Gg: AYBFou0/R7tL3mwFumO//mBZTilYs3vdp0nNQQes1POWOnnG0CHuAIg6mBodCkhmqY1
-	8TCfjUhrAMtvS+sHWdSMDt92ElZisBCpJd+mxjBsB5hhgMRT8A8vEnIwqeaDkypb6RcTU72mWSo
-	d9rOvmACKFVuAcHM3kFW3CkXW6zxS0clXXPzntxXyQXVbw2wOPzWOlgSU4xez5O8dPwcgzObolf
-	1ITFb6yrDCLEFH9x9Q4XSDoml55+xkPqgBOTt0Yl9DCf+HcS8O2RrMTDleGgi+ARTJ/6DafpezC
-	xw+hZJaXERZ5Z4wVDE4Zssx2n7spjb9qg6fENfnM8UEqE6RapEAsUrmnu1xTRaRghdAu/K0OE59
-	d4UWOb8oqf++L/huLbsLTTWYN3y7Jb85PgOH6XyjTdNNV4HhZC4VhLU5Lgb4gr9ANfR6lYXUA0N
-	d3rOjvH+gdnp6Xevcclbfzg3/sEw3iWZj1tCD+LvdjajItGaYqoKDLKTFotSwkpOPFAAB9vg+hB
-	syUc3Y5sEYQHfh8PnXV2/T4JVvmA3eFaSOZlL+FeqvDS/hOZjNti3xBtG5P4GCOnPuKCD5fjVnk
-	H3GvzAKnjxNbtdLg5qONX6oIDaGBT7qISZWfvv3LeDEKslRp
-X-Received: by 2002:a05:7301:6701:b0:36a:79e7:2fd with SMTP id 5a478bee46e88-3725f010ed3mr3895058eec.40.1794144942126;
-        Sun, 08 Nov 2026 05:35:42 -0800 (PST)
+        bh=OxFXA2A8vf97MLqDI2dXStFoDohf1oeX4s7Z28iiyTE=;
+        b=lFOR1Zxj4CD8QNirMPIu/E+tHeYRC20uspuoSZtObTncGqaxT25mqSSPtEQ2CGpwhn
+         9w0CQiMpUaPaRAYMkbbd+lgkTlA9JOB9Qgn2c8sI/Ese++uLSaL4aTfYEV9y6h0RXKfj
+         +RLGRdsvNXg0SgnciRQRWepQceIQEO4VL1Ba0MdxesCCvWzBfRUDHEuywDjgxYIYPsc4
+         99yqSwcdyTKLBh2+MhHC+hOt9seTw9JlBQTeq9Typg3GBZVpLV2QHrCGjWfUqls4fqvi
+         elFOOdfprnMpkuPx+sW+n4R6Xfn/52dwI4olMYF8ltlEfjMgDlgXseQag2/BdO1jesIA
+         XHfQ==
+X-Forwarded-Encrypted: i=1; AL+hErHE/WD4B9RtOk3qVseM7Vfm3EhSmWa0ti/I7CW2IEadNNHro548rjpXdM1aVil8U6HvB/1vt3BT3cfs6UA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88S6ocA/auTDGi5Ez7CJ9dYACJRbjTHV3lC2R4MdqanDVOoHWZ
+	uNAzjCiAByU7IcoAMCO5dy2pxkwixYC4mVrPOZAsFI4VdoPN2QyOD25dUvoTaxOJ
+X-Gm-Gg: AYBFou2i0pUl96N5/OMxvfFar34J0RvD4CpksPn6yq/6FaiOAkWLYV/l1ZwOzoSFKQ9
+	FdwQQpuKO0JOg7ak2gT4PVm408raf1pNcg0lY1BJBcwJJxR/aQ1eYQcP0Tw7+oQztYn8QEjTUDe
+	VU5FZPBukJjvRRS2F6tMonf9R8deAJ/DTp5MJwYjQ+/aXJqD2bUqrjdLF55Kxi27Ghicwg+L1mk
+	ZrkYaWrzFiz9tepu3866Z7yyukTfUYX+tB4haQee1Tl537vSigC4pyuGnbchoA8mZvWZqhKrBi6
+	+q27hH3hnfi8ciV6QXQ2t3fHzTsALSzHc25vyH2Z1Hb0p7qWyqWGu0HUjKWp7pwbunAtmQb8GUQ
+	bQ44+16iXeXIj0rNpn4gORY2w9Kuge1voYFm58iL68oD2hxaNr3LOCGhG4a5mt5FRS1/XaiPTjk
+	sf0rfjKnr4H05x+1NWYQxdIEAtU06IivjvedzzYFjJ/uT7T5eq/U07cYDRLLFdAKJRrV+eth5D5
+	LUwHgTl8ar2JBd2j0cC9XISvPTps/2D18qICK/qcDgs2EkUVDriHIbGFA5kIFYhmZ1BeIaoleMe
+	7Qan2hClKwjzV8GrOKFf7a2IEtND8H1UmkjvzM5us7gcfrhMaYU6eT+BW/6E0yiLbpf38g==
+X-Received: by 2002:a05:7022:5f1b:b0:1b1:251f:d732 with SMTP id a92af1059eb24-1b39fea9b18mr2244971c88.31.1794145111975;
+        Sun, 08 Nov 2026 05:38:31 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a16c49sm5239413eec.10.2026.11.08.05.35.39
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37561ccabsm5515696c88.12.2026.11.08.05.38.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 05:35:41 -0800 (PST)
+        Sun, 08 Nov 2026 05:38:30 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ruslan Bilovol <ruslan.bilovol@gmail.com>,
-	linux-usb@vger.kernel.org,
+To: Jiri Kosina <jikos@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v3] usb: gadget: f_uac1_legacy: disable OUT ep and drain work on teardown
-Date: Sun,  8 Nov 2026 22:35:32 +0900
-Message-ID: <20261108133532.532633-1-hj351016@gmail.com>
+Subject: [PATCH] HID: microsoft: cancel ff_worker on remove to avoid use-after-free
+Date: Sun,  8 Nov 2026 22:38:21 +0900
+Message-ID: <20261108133821.535139-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,97 +102,40 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-f_uac1_legacy enables the OUT endpoint in f_audio_set_alt() and queues
-usb_requests whose completion handler f_audio_complete() dereferences the
-f_audio (req->context) and audio->out_ep, and which schedules
-audio->playback_work. However f_audio_disable() is empty and nothing
-disables the endpoint or drains the work on teardown, so:
+ms_play_effect() schedules ms->ff_worker to send the force-feedback
+report. ms is devm-allocated, so it is freed only after ms_remove()
+returns. Commit 1cfc77a64b71 ("HID: microsoft: move FF initialization
+to .input_configured()") dropped the cancel_work_sync(&ms->ff_worker)
+call that the remove path previously had, so an ff_worker scheduled just
+before the device goes away can still run after ms (and ms->hdev,
+ms->output_report_dmabuf) has been freed -- a use-after-free.
 
- - f_audio_complete() can run after kfree(audio) (the UDC gives back
-   pending requests on the still-enabled endpoint during unbind), using
-   freed memory -- a use-after-free; and
- - a playback_work still pending runs f_audio_playback_work() against the
-   freed f_audio -- a second use-after-free.
+Cancel ff_worker before hid_hw_stop() in ms_remove(), restoring the
+teardown the driver had before the FF-init rework (and matching
+hid-bigbenff). cancel_work_sync() is safe even if ff_worker was never
+initialized: ms is zero-allocated, so the work reads as idle.
 
-Disable the OUT endpoint in f_audio_disable(): the UDC then gives back the
-outstanding requests, so f_audio_complete() stops touching @audio and no
-new playback_work is queued. f_audio_disable() runs in atomic context
-(reset_config() holds cdev->lock), and usb_ep_disable() is safe there.
-
-Drain the work from f_audio_free() instead, where sleeping is allowed:
-cancel_work_sync(&audio->playback_work) before gaudio_cleanup() tears down
-audio->card (which f_audio_playback_work() -> u_audio_playback()
-dereferences) and before kfree(audio). The endpoint is already disabled by
-the time f_audio_disable() has run, so the work cannot be re-queued and
-cancel_work_sync() is sufficient.
-
-Found by static analysis and an automated reviewer; the playback_work
-use-after-free was reproduced with KASAN under dummy_hcd (slab-use-after-
-free in u_audio_playback() from f_audio_playback_work() after
-f_audio_free(); a delay was added to the streaming path to make the
-schedule-vs-free race deterministic). The out_ep/f_audio_complete
-use-after-free is established by code inspection.
-
-Fixes: c6994e6f067c ("USB: gadget: add USB Audio Gadget driver")
+Fixes: 1cfc77a64b71 ("HID: microsoft: move FF initialization to .input_configured()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-v3: Fix the v2 regressions found in review:
-    - Do NOT cancel_work_sync() in f_audio_disable(): that callback runs in
-      atomic context (reset_config() under cdev->lock), so the sleeping
-      cancel would be a sleep-in-atomic. Only usb_ep_disable() (atomic-safe)
-      stays in f_audio_disable(); the work is drained from f_audio_free().
-    - Drop the play_queue/copy_buf drain added in v2: audio->copy_buf can
-      alias a buffer already on play_queue (f_audio_set_alt altset 0 queues
-      it without clearing the pointer) and can hold ERR_PTR(-ENOMEM), so
-      freeing it there double-freed / dereferenced an error pointer. That
-      buffer-leak + copy_buf aliasing is a separate pre-existing issue and
-      is left for a dedicated fix.
-    - Correct the Fixes: tag to the original driver commit c6994e6f067c.
+ drivers/hid/hid-microsoft.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-v2: https://lore.kernel.org/linux-usb/20261108122645.421721-1-hj351016@gmail.com/
- drivers/usb/gadget/function/f_uac1_legacy.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
-index 7c8d60c..c07f323 100644
---- a/drivers/usb/gadget/function/f_uac1_legacy.c
-+++ b/drivers/usb/gadget/function/f_uac1_legacy.c
-@@ -697,7 +697,17 @@ static int f_audio_get_alt(struct usb_function *f, unsigned intf)
- 
- static void f_audio_disable(struct usb_function *f)
+diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
+index a7d3493..462fdaf 100644
+--- a/drivers/hid/hid-microsoft.c
++++ b/drivers/hid/hid-microsoft.c
+@@ -384,6 +384,9 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ }
+ static void ms_remove(struct hid_device *hdev)
  {
--	return;
-+	struct f_audio *audio = func_to_audio(f);
++	struct ms_data *ms = hid_get_drvdata(hdev);
 +
-+	/*
-+	 * Disable the OUT endpoint: the UDC gives back any outstanding
-+	 * usb_requests, so f_audio_complete() stops dereferencing @audio and
-+	 * no further playback_work is queued. This callback runs in atomic
-+	 * context (reset_config() holds cdev->lock), so it must not sleep;
-+	 * the work is drained from f_audio_free() instead.
-+	 */
-+	if (audio->out_ep)
-+		usb_ep_disable(audio->out_ep);
++	cancel_work_sync(&ms->ff_worker);
+ 	hid_hw_stop(hdev);
  }
  
- /*-------------------------------------------------------------------------*/
-@@ -943,6 +953,15 @@ static void f_audio_free(struct usb_function *f)
- 	struct f_audio *audio = func_to_audio(f);
- 	struct f_uac1_legacy_opts *opts;
- 
-+	/*
-+	 * The OUT endpoint was disabled in f_audio_disable(), so no new
-+	 * playback_work can be queued. Drain any still-pending work here, in
-+	 * sleepable context and before gaudio_cleanup() tears down the card
-+	 * that f_audio_playback_work() -> u_audio_playback() dereferences,
-+	 * otherwise the work runs against freed memory.
-+	 */
-+	cancel_work_sync(&audio->playback_work);
-+
- 	gaudio_cleanup(&audio->card);
- 	opts = container_of(f->fi, struct f_uac1_legacy_opts, func_inst);
- 	kfree(audio);
 -- 
 2.43.0
 
