@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794111987;
-	b=S7hLp0n++rrpX+II/peeKVZmJ1bQLydlCL9GrBglB5Lm3W/GXjHSpR0o4IqZMYZ4q/xR
-	 wYJzz8OkCrxyCVs7zm0mEw0Obc9l/xNZr4HgqRpOlz+gNqgYTGYwntTFlmo5CpkqzNBIW
-	 TjpnsVYfrfma+uBdzXlKPvagAiWOFs3w/w6zmkyauhQDndAVlx14f9Eu/oewowEeawsv7
-	 ZLL/9J9kbTaihvk5XZP464HN1WU7Pr3dc80dKpjaJMokyuEXR6OfJBWZtx1fch9/B1hjb
-	 Xb+OzFMuRuYb8gaBTcf0LRJBMXIXOjxo+ax2o4BkR/vukTw7ODBRDLb+KwCflCyWd5g==
+	t=1794111996;
+	b=lCeDJUEAviDRxPsSB8nHXXMcTl1K/vUBgVPDU8jCxJpUvv0ZiYjGtZtheCli2XXATbKJ
+	 dBczxuN9miJReC5xuHhE9DIkxacTVdr9MSBPQmqUkbb4O3V1sDKmrQUXZRCMcmJpwh6Cy
+	 av3UujcY9TrFxQuopgg2HMCVF6ZYnMM0b96AI/GLnelTyvbZ2IX1U81jVj0rX/JK2Oa91
+	 Y9Ir4X3rIbc457UUoHe6QewYpZo6+b+Jg76v8XB7xluLXII9ombOXURhw4R30bNqdlQg4
+	 /7E6QfgE84i0sW4d45J3IfMS9TUU+HoGdwBLzT35xxGbxHWHRZnZQQfXJyxrERjWpBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794111987;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794111996;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8VwTVjzVBE3sZdY/bqGZDMPlbD8bcC2MNX+1REQD2iM=;
-	b=5nw0gn/oMe+0fLOvX2CnyTgYmTza661J7IjM4xo63ZJNjETQdfPzcjEZSw6Hu3iVsZkt
-	 n6UQ3ETe0WG6PZ+tOiec7rBoO1Og+G4RZig/b6WtWV1NK00NljqHm0fNYDkPFKbfagi3g
-	 cFqFNAYkOmDUtdqA45PLHEIlAWY8H7vcx6y9c54XwHFKeNDT1p0Fg0ArOpsTqKKF3gDlW
-	 av//Xi6SDuuJhBSYVJnROffTAGCPjvRcD83eG74sqPQ91j0bgWNfzKtiALfQ4UHihMj7g
-	 uMVFPmWUOP+PAYhLqvsVZfTLJvNdpdYZy8ELyp7LjsYUMjZxHBYM8j2sOjM+cPWvVag==
+	bh=njyJJB6va/RqrZ7iHDzS1u9pLjUtbXjnhiE6IUdL/0g=;
+	b=R62ea8fJqRrO2cmm88cbLClF41olazD8o2BNzKUap91wbYZJ0G2YV9W1o+W+M7P4wLJA
+	 QZx6JTUBlKNj9gewSVrN09c6myTywHm0wlFGsa9aVe8/ZoSX52VyVUPZqhFrPfGhb7H2I
+	 3EBH+tEYOe0HWPxmrU468BRx8z0mDKigt5NLY4PGj1mBy+vJf1l5hXNgpup4YiWZp5nB7
+	 nW64B7tlBTJglkkgFHjFwkJvuK9p6BKBdaCxhLp1qdfeADUm8i43HDTAe+AKcAeZXMABX
+	 mBUb24y+vIfIQW7ueSxqoYGOIJUjNIoWzGsFWHSRO92kOoUU0rt3tCSALlpHy3dDKmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="j/fPd0cp";
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grc0VMcV;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B893D606A31A;
-	Sun,  8 Nov 2026 04:26:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B893D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132B9606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 04:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 132B9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=j/fPd0cp
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 6707940E03E4;
-	Sun,  8 Nov 2026 04:26:23 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id iJlV_KB44njB; Sun,  8 Nov 2026 04:26:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794111980; bh=8VwTVjzVBE3sZdY/bqGZDMPlbD8bcC2MNX+1REQD2iM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j/fPd0cpOp75azdi04OqBwaDYMDz42+uOx7jGukqaYL6hEkmvaSknKfH/L/NnHVAS
-	 zg2MSzp/1D7mtAUommgMgudvBaV93xQl2op+Z3GWaPmqH789VF6YoSYKO3IrjXU94W
-	 XuykEaIKKW6CFpzhAL5ZI53K4XtAASiSRPG9xyQEx2rcNE5aVy3mUx/uNc/N+8Pzkr
-	 malm2kWVu0RxSI6QZLFdViOkRSnInwWu3nS/VOV8htzR2gIuAkl0Wzvi73Nh22im5e
-	 hrs7ipatT+6HaExvVM1AvnuuKwjC529EKZDESXbcGWuZxa6Wf0MsI498ibURbkQStA
-	 yrTzb6OqY1IRGxLaynj87/34z9RHY8zCRiG9p9R9Nkf6+2De4VzGRdQZtuHQrvbDMT
-	 MRlS00NaOpXBYNRY916hk2RpChIMJUzm3m3ZO9lBhg2fXBNHykXJBZmOCIA8yhzkdy
-	 hzBd7K5TU6peqS7lfRctFM4u9yeRCnHKBad2wK9Vx5RuXZKcWXnfx+rs1wdcXZLc9c
-	 IXBSG0WU0m6qbxknguYzFejbsfKcvtozANdRr0/7ntAdt0LMI7IzbLo73RC5iG3KWd
-	 mQOtv8jZU+dkUhXfrgc1z5TrQUtygVXCtVfoIW9TIS2a0T84uUQV2kyxuXRj5N7/aw
-	 zpz/lOvcIgb/ADvrBhNC9yOg=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A28EB40E01E1;
-	Sun,  8 Nov 2026 04:26:05 +0000 (UTC)
-Date: Sat, 7 Nov 2026 20:26:02 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Tony Luck <tony.luck@intel.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	Borislav Petkov <bp@suse.de>
-Subject: Re: [PATCH v5 6/9] EDAC/aspeed: Replace regmap with direct register
- access
-Message-ID: <20261108042602.GDau_52vqJcQSrUAf0@fat_crate.local>
-References: <20261007-edac-v5-0-5c31fc5df4cf@aspeedtech.com>
- <20261007-edac-v5-6-5c31fc5df4cf@aspeedtech.com>
- <20261105045635.GBauwMg0oqd2tVPH-4@fat_crate.local>
- <TYZPR06MB7920FD1C150DCB201DB88367F2742@TYZPR06MB7920.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grc0VMcV
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-37071c0f42aso442792eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 20:26:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794111995; x=1794716795; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=njyJJB6va/RqrZ7iHDzS1u9pLjUtbXjnhiE6IUdL/0g=;
+        b=grc0VMcV3BVdh7jhhMbrgmrNGnHzKK6cEnqHqxstWAnN/QYUJwS5zwEhIFMRAI0sVV
+         9Fw206AdgEWJmCY2ufV0R0u6UdpM0+lISrWzgFQNlb2WaGkUM7cNkA8AJN/z8TvBYw3z
+         TdrCrm8TGkLzV5G8Mz74TLTag0Hd/EQAkYKqxUnmAruUUQlBX066Qe2o01oFl3XwCk8C
+         vdzAiLuwiq00MBMY5TW3jDKtz9UP2u+vFWondWDSntenxoTH0trLQlea5WPFJQWZzB+6
+         YYCTwJDFOxp3IRD0CMJCJ6S+55aljkGiot5N9+LY2L2GcqWCsubWXF8PXS2M+0M+Bz8n
+         I1eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794111995; x=1794716795;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=njyJJB6va/RqrZ7iHDzS1u9pLjUtbXjnhiE6IUdL/0g=;
+        b=N4b9CPsvItpNkD4/C0z1s6cWftHfuQpzfiLaFZngUOf/tY0nl01TwfqokaGjRAgEv1
+         ZqGo8pOBKR2QMrZ8oTdMGTDyJCHFJuFbLrBXtQ3w6EIMCdAioHYwWqt6eEETGPFyy0br
+         jPRaDRAu92zIMSYo5hO6xA3QuaQsyQY4J+2J+qecY8yT8NmuBb5HDXMrHhw9BmTeaNPb
+         sIjSlQFm/lEZ4QdBErdHBZQrTs6tbZ6mJ7QKtmGLvg2fO/LiFYgXj2+Cp/W3QOZQ01WO
+         w8QcLxuDC6iqMFId1hu4qebkwHsWpz0s3IIVMM5B4+UC84XO0JqGW3Lua6HH42IzKxG3
+         EBKw==
+X-Forwarded-Encrypted: i=1; AL+hErFAAB8ka6LUZbZUfn6lhIls6RcYG3hMti401QHfZ7lbL0D8Vu4pZxlDYWU/iQynpz5DSYu5kdd+YAI5XDs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ebhnr3Ob9zpV7PyoNPnFkgcKZfTXezlpl1q0HQUPkn2gxmGU9
+	rqAUQ5rnjCIZnvR/a3Un80KZQrWk25qNHHdcKYOeWu7+QVCzmolPoakg
+X-Gm-Gg: AYBFou21tQvuP+/ABKewI/AE0bX17DCtfqKRmcPSf90n5ViI8KTLwMJRltUt281BABs
+	ZeHbyHL+kEVrE1IccJhAwf4pU4Hm7+bxsyrtpC8j9T/VtVQQCYJ0IV9EIw1v1Bbjyjf/VLv3Jh9
+	frWDUzkiI5NQIvmLc/e6XySYgsVA+qaBIOdubOuGHRGJrCyzR/fN4hB6UHW0qahXNtNiEriHT0V
+	fQxSyHu/c+98ITgTGJYGeVhleYC3H1HixbNq7xVzdfVeLLcxrsiocEKJshSFtnaFF+UkXW6UOpS
+	zb0upTEINcSwO3ML4DienFo1xeJk3b67hIB+sn4681qScF9JnMnk4yP/eCGFZckCVoAbyZlIo1Q
+	cY3rIJdpsvvo10s9wO09f8wlsP0qoKJsrwstNEDhmxfjP9MZMRRlMUd9ojPpZlijdmH/qoRLs1i
+	/+xsTPQkDoOo3zXqEEG/QMAp0reYshxy3NJfg2gW/beXfHtVdci2WRpx7ckkwgypeSGDo8wtNXE
+	i3cU9qw3nI/SfQUxToUmK+h2cTH1jCZeEd4sAyFhEF7FQegm1J+1Y1ABkggl6dIEopSPNWoEN8b
+	CeNFOhpB04BQBQ702eZQdSLu5ihnsCT1t41jUcgvsB6yyboJFWhnOSQJETiFVHd1rpOkZrerNMq
+	FjCMY9Dx/NeQfJQ==
+X-Received: by 2002:a05:7300:79c9:b0:36c:b1a9:542 with SMTP id 5a478bee46e88-3725e04de3emr1622032eec.29.1794111995038;
+        Sat, 07 Nov 2026 20:26:35 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:5a4:1cb9:242d:4f00])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a16c49sm2251480eec.10.2026.11.07.20.26.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 20:26:34 -0800 (PST)
+Date: Sat, 7 Nov 2026 20:26:31 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] Input: amijoy - remove amijoy_phys
+Message-ID: <au_59Ml4mAdZzg8a@google.com>
+References: <20261107234349.382944-3-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,29 +96,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <TYZPR06MB7920FD1C150DCB201DB88367F2742@TYZPR06MB7920.apcprd06.prod.outlook.com>
+In-Reply-To: <20261107234349.382944-3-blum@kernel.org>
 
-On Sun, Nov 08, 2026 at 02:01:45AM +0000, Ryan Chen wrote:
-...
+On Sun, Nov 08, 2026 at 12:43:47AM +0100, Thorsten Blum wrote:
+> amijoy_phys has only two entries and is only used by amijoy_init().
+> Select the physical path directly and remove the array.
+> 
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 
-> Patches 7/9 and 8/9 follow the same changes.
-
-Ok, pls use
-
-https://git.kernel.org/pub/scm/linux/kernel/git/bp/bp.git/log/?h=edac-drivers-aspeed
-
-to put your changes ontop.
-
-> Thanks your help.
-
-Same here.
-
-Thx!
+Applied, thank you.
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Dmitry
