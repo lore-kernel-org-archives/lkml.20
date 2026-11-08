@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794149398;
-	b=UDcpD/KVAC8lSjiKMEeZiBa+nkdEZBzBtm0M1dtwWMrHaZTXHCIBTPwABirdcFcsfehR
-	 APykly6j+DCwOuLaahWlounjSASd/144b9VvkJ5+Uo8xlM1rzl1yc+5VMvgOcR1XIOpmy
-	 Xr9IJbCQMxeD9qi5dj1X5pBK4n9gQH+ewoiZD28kjjZQLskuQI2PjNvlaKiz3UsRrtDUl
-	 xIVzr415PQPJ41dhq7hM+7rJLoUJ29KnqVIXlPsAFXMIJsIgQRz2sb5nO4PWa0S6VDHDG
-	 OFRLD3n/gmLTqvR/CZrqNnMYQpx2BOee+yK46wq0BkJzjLLkftOL0o/FS0s5LkLsqEw==
+	b=N6puMS4l7f4E31HifdmStTa/Nu+c3OpubxqfjBrH8KCkRGpLy6UDnEuuR+sLwkQvAUJT
+	 TtJOQlklSVG1Zc/OT4DtggaT8o3lgT6DHUyTtCuI9lYWmewPf4V1XshEzy2Wa0mLIrX3X
+	 RtkcRWXDzF1nwecjabJkIIeuQvI0oVAbf3EYOl1xKbfCrHMJz2gcahJQangK36WDqsxoi
+	 4MDRFaUZje7sRvb32binOX8pfjvwzXA1qC4f+yvYb1+O2HuKjIsVgw7hGOTp/r+L07Vag
+	 73UxzHRmG+MhaNwCK5thOQAdwJPA62lYuJ7xVDn9G21X0zmc4IZLN5q8ozYr9P99a3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794149398;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WveXipwhMzIMi4QC31qttPIMCtV8M6uDwDZ0Zoo1AZE=;
-	b=vicXMC9VQrmEg3odxbtmKjlh/ppePmGayyQks2DwDEGT0DSqL4m6fG8meQpwJ+m4ZjTe
-	 MqoPYKf0GEYMtxf1enxfH41a/Apa6aq1y6SIM8bhvYZwhRc18cEzr2K+LOISH27Xa7J2Q
-	 HJ4TOfD59a0Q5LTCgednzDezJpXydCH6d8+HaYU4b5YSiiW18TQpqMGF5VCNrtw3bw+XP
-	 8Rp3EQZNw7LwhyG2ARVy8Ql308wDyOv7B7DcF5kwH4XaWa6SaeJHSlsl2NhT8RMXPC20i
-	 qmWovvIPW+/rygvV93efGZhfabWWO+lOBJSwiLlpKvsaNMe2CjaodVpu+kcf4LOXSMA==
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ZhEKc45wg9ja/I6OBslZH8YXgn2o7121d7yFkBAteOI=;
+	b=am8mwQsru8pGmzVm3pCy+8OEPxQYGF9X1PhY5ITNZ6knZ1r6fgoSKvzno/0RgIaJFnTA
+	 nYYV+j0ueuOQNv6sCHeAR8QRePC2CQyWTaWM8g3qkyMIY/4YxFK+yK+sFHbKt8nfQpkoY
+	 x54qCdaNuRjeRBLTXKMAqOhGgPpZ89yZge0g8Xtx+kUQM7KYgIubaUu2DF8a8dgjosign
+	 RbArebamWpbLryKkR07MlmTUUTW3d5tPLdqvzYZOuErQiopV/fCLy9JyieRlfr/FqlFQo
+	 LzAsRqo7llJAkJ4HfLVTSpw2SuIahpWJgglc4ZHBvfOMHgQSbr4pIxXIypWLt5RR04A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=aN2GqYj0;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=B82dEkbu;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7146606A322;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C61D606A320;
 	Sun,  8 Nov 2026 14:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7146606A322
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C61D606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=aN2GqYj0
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=B82dEkbu
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794149397;
-	bh=WveXipwhMzIMi4QC31qttPIMCtV8M6uDwDZ0Zoo1AZE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aN2GqYj0ovQWp4cQqPVrkvDSyj0J8wQMgwwZoauWxveyJ718yePrQq+s7EJ4KEDxY
-	 7NRRKL+G2aOisx5rd0D9hr8KtgLPLWn4AiugcGhw9m2x1ykv61/oBiai60rEK0S4o4
-	 5nu/lGG1/bcTmUsmSIWrUBNFuNSuV1wDKabICQCpUC32u4klJVE80k9ePx2zKVHOsd
-	 WinmUQz1cnTGLyr8hqohQPmdk+ygRcN52DEFkjbjh/SPMFHv8nQTHImegGAiNTC404
-	 n+yDa+Z86VikVh1F3cy84qoisVPkBdCiTLfhWOKfHE5NXTi4RjP4ILBEibDN18nVS1
-	 4DrQKLAcc0OMA==
+	s=smtpout1; t=1794149396;
+	bh=ZhEKc45wg9ja/I6OBslZH8YXgn2o7121d7yFkBAteOI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=B82dEkbuKRiY1S6yHi73o/TIC4ID0vJFWBAJ2BEzk7c36akTQhNXTjFk0wBC/b2+7
+	 FMoYHfrYwNQWqmnE5UcQDJkhsour1KU7dTyOpMZYMGUI2oj1hMfGwcWz6e/ZKwMPEL
+	 sDNguSUC4r1Dg6tjsY0p7PpM7Iey99OqDw6LD6absWU7bNFq7gatvxU39VsF3cgfMB
+	 8++pdUTKTx3G/NWhTyQP/vlPfud8iy94stS+Lx10c8etAr4ROaa3oPQleYJCg4nU0L
+	 vNO9DFgQ9AkWOC3gwNQjYs6HE+v2XYbnoo2/nFhICFm5AmVnXji3OTWSTZMBBcaSPY
+	 5I0YCRtn/yglg==
 Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jMwn073jYzMk7;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jMwn02gRLzMk4;
 	Sun, 08 Nov 2026 09:49:56 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: tglx@kernel.org,
@@ -57,12 +56,10 @@ Cc: linux-kernel@vger.kernel.org,
 	andrealmeid@igalia.com,
 	shuah@kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2 3/4] selftests/futex: Retry the wake in futex_waitv instead of sleeping
-Date: Sun,  8 Nov 2026 09:49:51 -0500
-Message-Id: <20261108144952.1531160-4-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v2 0/4] selftests/futex: Fix flaky futex_wait and futex_waitv tests
+Date: Sun,  8 Nov 2026 09:49:48 -0500
+Message-Id: <20261108144952.1531160-1-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261108144952.1531160-1-mathieu.desnoyers@efficios.com>
-References: <20261108144952.1531160-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,138 +71,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The private_waitv and shared_waitv tests start a waiter thread, which
-calls futex_waitv() with a timeout of 1s. The main thread sleeps 10ms,
-then expects futex_wake() to wake that waiter. So the test assumes that
-the waiter reaches futex_waitv() within 10ms.
+Hi Thomas, Peter,
 
-A busy machine breaks this. The built-in locktorture at times holds a
-spinlock for 100ms with preemption off. With it, the tests of
-futex_waitv failed in about 1% of the runs in 8-CPU VMs, on v7.4-rc1.
-In each failure, futex_wake() found no waiter in private_waitv or
-shared_waitv.
+The futex_wait and futex_waitv selftests assume that a waiter thread
+blocks within 10ms, and that the main thread wakes it in time. Under
+load, both assumptions fail. With the built-in locktorture, the tests
+failed in 0.5% to 1% of the runs in 8-CPU VMs. Repeated runs of
+futex_waitv also run out of System V shared memory segments.
 
-The two tests also do not join the waiter. A test can then end before
-the waiter checks what futex_waitv() returned.
+These four patches fix both problems:
 
-Fix this as the previous patch does for futex_wait. The waiter sets a
-flag once futex_waitv() returns. The main thread retries futex_wake()
-every millisecond until it sees that flag, and expects one waiter woken
-in all. The waiter waits without a timeout. If a wake is lost, the
-timeout of the kselftest harness ends the test. Join the waiter at the
-end of each test, and check that the join succeeds.
+ 1  Let the futex_waitv() helper take no timeout.
+ 2  Retry the wake in futex_wait until the waiter has returned, instead
+    of sleeping a fixed time.
+ 3  Do the same in futex_waitv, and join its waiter.
+ 4  Remove the shared memory segments that the tests create.
 
-With this patch, the tests passed 4000 runs of 4000 in the same VMs.
+How this was developed
+======================
 
-Fixes: 5e59c1d1c78c ("selftests: futex: Add sys_futex_waitv() test")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
----
- .../selftests/futex/functional/futex_waitv.c  | 50 +++++++++++++------
- 1 file changed, 35 insertions(+), 15 deletions(-)
+An LLM coding assistant wrote these patches and their messages, under
+my direction and review.
 
-diff --git a/tools/testing/selftests/futex/functional/futex_waitv.c b/tools/testing/selftests/futex/functional/futex_waitv.c
-index 4858d5faeecf..ccfa31fd20fa 100644
---- a/tools/testing/selftests/futex/functional/futex_waitv.c
-+++ b/tools/testing/selftests/futex/functional/futex_waitv.c
-@@ -20,25 +20,20 @@
- #include "futex2test.h"
- #include "kselftest_harness.h"
- 
--#define WAKE_WAIT_US 10000
-+#define WAKE_RETRY_US 1000
- #define NR_FUTEXES 30
- static struct futex_waitv waitv[NR_FUTEXES];
- u_int32_t futexes[NR_FUTEXES] = {0};
-+static int waiter_done;
- 
- 
- void *waiterfn(void *arg)
- {
- 	struct __test_metadata *_metadata = (struct __test_metadata *)arg;
--	struct timespec to;
- 	int res;
- 
--	/* setting absolute timeout for futex2 */
--	ASSERT_EQ(clock_gettime(CLOCK_MONOTONIC, &to), 0)
--		TH_LOG("gettime64 failed");
--
--	to.tv_sec++;
--
--	res = futex_waitv(waitv, NR_FUTEXES, 0, &to, CLOCK_MONOTONIC);
-+	res = futex_waitv(waitv, NR_FUTEXES, 0, NULL, CLOCK_MONOTONIC);
-+	__atomic_store_n(&waiter_done, 1, __ATOMIC_RELEASE);
- 	if (res < 0) {
- 		EXPECT_EQ(res, NR_FUTEXES - 1)
- 			TH_LOG("futex_waitv failed: %s", strerror(errno));
-@@ -50,6 +45,25 @@ void *waiterfn(void *arg)
- 	return NULL;
- }
- 
-+/*
-+ * Wake the waiter of @uaddr until it has returned from futex_waitv(). The
-+ * waiter may not have reached futex_waitv() yet, and a wake then finds no
-+ * waiter. Return how many waiters futex_wake() woke, or -1 on error.
-+ */
-+static int wake_waiter(void *uaddr, unsigned int flags)
-+{
-+	int res, woken = 0;
-+
-+	while (!__atomic_load_n(&waiter_done, __ATOMIC_ACQUIRE)) {
-+		res = futex_wake(uaddr, 1, flags);
-+		if (res < 0)
-+			return res;
-+		woken += res;
-+		usleep(WAKE_RETRY_US);
-+	}
-+	return woken;
-+}
-+
- TEST(private_waitv)
- {
- 	pthread_t waiter;
-@@ -66,14 +80,17 @@ TEST(private_waitv)
- 	}
- 
- 	/* Private waitv */
-+	waiter_done = 0;
- 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, _metadata), 0)
- 		TH_LOG("pthread_create failed");
- 
--	usleep(WAKE_WAIT_US);
--
--	res = futex_wake(u64_to_ptr(waitv[NR_FUTEXES - 1].uaddr), 1, FUTEX_PRIVATE_FLAG);
-+	res = wake_waiter(u64_to_ptr(waitv[NR_FUTEXES - 1].uaddr), FUTEX_PRIVATE_FLAG);
- 	EXPECT_EQ(res, 1)
- 		TH_LOG("futex_wake private returned: %d %s", res, res < 0 ? strerror(errno) : "");
-+
-+	res = pthread_join(waiter, NULL);
-+	EXPECT_EQ(res, 0)
-+		TH_LOG("pthread_join failed: %s", strerror(res));
- }
- 
- TEST(shared_waitv)
-@@ -104,15 +121,18 @@ TEST(shared_waitv)
- 		waitv[i].__reserved = 0;
- 	}
- 
-+	waiter_done = 0;
- 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, _metadata), 0)
- 		TH_LOG("pthread_create failed");
- 
--	usleep(WAKE_WAIT_US);
--
--	res = futex_wake(u64_to_ptr(waitv[NR_FUTEXES - 1].uaddr), 1, 0);
-+	res = wake_waiter(u64_to_ptr(waitv[NR_FUTEXES - 1].uaddr), 0);
- 	EXPECT_EQ(res, 1)
- 		TH_LOG("futex_wake shared returned: %d %s", res, res < 0 ? strerror(errno) : "");
- 
-+	res = pthread_join(waiter, NULL);
-+	EXPECT_EQ(res, 0)
-+		TH_LOG("pthread_join failed: %s", strerror(res));
-+
- 	for (i = 0; i < NR_FUTEXES; i++)
- 		shmdt(u64_to_ptr(waitv[i].uaddr));
- }
+Changes since v1
+================
+
+- v1 was patch 2 alone. It retried the wake for up to 5s, and gave the
+  waiter a timeout of 10s. Both bounds were timing assumptions too. In
+  v2, the main thread retries until the waiter has returned from
+  futex_wait(), and the waiter waits without a timeout.
+- New patches 1, 3 and 4.
+
+Based on v7.4-rc1, 6628e7d4c6b2.
+
+v1: https://lore.kernel.org/all/20261108142309.1527337-1-mathieu.desnoyers@efficios.com/
+
+Mathieu Desnoyers (4):
+  selftests/futex: Let futex_waitv() take no timeout
+  selftests/futex: Retry the wake in futex_wait instead of sleeping
+  selftests/futex: Retry the wake in futex_waitv instead of sleeping
+  selftests/futex: Remove the shared memory segments of the futex tests
+
+ .../selftests/futex/functional/futex_wait.c   | 59 +++++++++++++------
+ .../selftests/futex/functional/futex_waitv.c  | 52 +++++++++++-----
+ .../selftests/futex/include/futex2test.h      | 14 +++--
+ 3 files changed, 86 insertions(+), 39 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.47.3
 
