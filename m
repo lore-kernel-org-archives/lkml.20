@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177072;
-	b=eERSaSuVpnWZn5b8cJTn40RMVih4pA2SKLVwcTJ39TWYGPf2CPfW3XwyKtN6fwZUM6ut
-	 gJCUixCguQTEU1RXLnh+KqORwbr9TTrmH2nDcNcpT9wryRnWaTuEaQW3yfBlbs8x3kDZQ
-	 ZoXQDarP3B0E3Q5UrAQ1AnXoFyIOPeW0OxgiFVeF3wQvkZhTC7D/wKnGKFin0YCBgngz4
-	 5DhD699e4IHtVuG4nHin4YyxOXCD+lYRxx8XPvEyCD9BWzttm2qaGn1Af/vTzqern1qcz
-	 Gr0BK+OsaWB7yCvHxkLA99dozVFyUFEdHaxXyGpCEz9EyOEgMD3F5ccvVYhD/C51Jaw==
+	t=1794177110;
+	b=nj8U4COCiOZdjqpfebGjbC7bqSz+5tSJqjceuA7Tpl+0Wdc90SHQFlBr9XE8LCDJmrDd
+	 h3839xgKEvULYE4ed6jcKiJhQ7skhdAuLe3tVaEG6UdJoRBG80K6gE944Izi3SDWCxZz2
+	 RBaMFDH9SIpAtN2Fi5IhTAyMKVROlK4w9o+oHCatj2RtQXv6FKNM//X9NW/LFoVrrkXK5
+	 pTlzl2yaQklJ2lubR4+8vVBZzOcLRRGi1YDdi6/JQfL7NzmuFxqGzW6yRQxcBM/I/gtCn
+	 1mebu1aWcpp4gDroP/pSdQE67ZK6z4RoX8MZLPBTYJEsicf3cOxxCpTqDGTPp5eCFfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177072;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177110;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=hrR6uj82ahGfQqaO3EwipOvU/f/xUlTfwnwZhxjl76c=;
-	b=EWKYtDtAPxRY99F+V7yfduOBDwuA/t92MhA+3aAVMTnoqrveiv3j1LqecezN5axCACTR
-	 BZCgP/B6bYp64JhBbYa3NKZXKs3snrU2tE0983yAz8x56QgRHPG916X7jUOFF+YWDP9pa
-	 BcQGYouymXVr1b87PnaMncxegcBWzyOr1cZsw1seAhBCdrVPBHFU933gA8QZOIm789gfc
-	 6uVs20lttVYULeipPe7FTkggzbh7YH9iaEVN8X4Xg6BpWAkbF3G+pd2zdJcFdatniLsnX
-	 tCP8nBJnCjmVVQpG+Sy8/K8hsTCEW+LWkMNETz8jbtznnf2QZrzi5QRbLD3jEMdEJRQ==
+	bh=5cijfvKlEQggiNPs5sr9WSeATZw23mxFpMifA1tF1xw=;
+	b=K2j3GvMOrU/GmRU30aA9rZ1AnYN4/X9dBeTkDNryTOKz90DCAp1yuPqP1nU4Ir9kYslh
+	 tjXtqg5PTNAXNK/StQMh3MLssTaLHzdg1khA6K4gzouzq32AC/0UpLK8rVd6scAYrKzxg
+	 NVRPmSDPbRGahFaEKJ1DlsxxETFQY7o1RYhOW7GGzkezrvTigz7rJNgRQVJOft6GHMCYC
+	 MvdkG++aSfG3MOqqLZwHDw0SGaAnGqS8r7/9HeXmWmM/Cdu5tEwiB/7eVutRJyr6hi7Fo
+	 yIa7BLq6KSs9/HUsO6v071itvCNy4S3aXpjnhRc23BDVvxVR1pkUs99FJLL/wfMUCjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=mFTHf5TF;
-	arc=none smtp.remote-ip=185.70.43.100
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=QaI44+Ey;
+	arc=none smtp.remote-ip=109.224.244.116
+Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF8C606A331
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF8C606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F1E606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:31:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F1E606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=mFTHf5TF
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=QaI44+Ey
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794177067; x=1794436267;
-	bh=hrR6uj82ahGfQqaO3EwipOvU/f/xUlTfwnwZhxjl76c=;
+	s=protonmail2; t=1794177106; x=1794436306;
+	bh=5cijfvKlEQggiNPs5sr9WSeATZw23mxFpMifA1tF1xw=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=mFTHf5TFf7pz7nD7JJqYXcJfFZV7+IWxpkOnDapWSq0S5T6VlsdsYlgwuX29P8n3/
-	 jIoM6KCyqtl39W+9Oz7k5xIMzWxxUHO/T20keouB6FoEiNOYXe0W9SFzDEeLQXH14J
-	 LbGjG3S4+be9QmGGI51K6hDRcn8+QiEAYHTnpB0959bc/GRsjd3tPhyhJPiy2zZJCB
-	 mPhFmxFIJ4aUwsqLgrk/XhDnTwydTqsAc2mQDWKP6E+YNgHI0DPyobfVsQbS3hDtzO
-	 j8bB7D+D0V7d2BoJL/pz+//it5/2OHEQZrbSRkBJtCxUBMOkaV2LHjfmNh4fzlJxZB
-	 GumiUYx0oAzMw==
-Date: Sun, 08 Nov 2026 22:31:02 +0000
-To: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, "christian.koenig@amd.com" <christian.koenig@amd.com>, "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.com" <simona@ffwll.com>
+	b=QaI44+EyZnRGILiwTwALpKHXpPLr+1fYjuyS6bOVWQHgSI9dhZmFpTPUNqgsF31d/
+	 Cyx2L7Jk1mrFV7yMM29xB9mfuC6jMI84Xg9DpKeJmnLNGdom1HE4OGD2KS45nNEOmd
+	 4LttuEL3illvyrlJ0ylG7tC0U5QpJdYW2kWf9AIgi5qHHXA9hBSvxYy/xUFRIb/KCF
+	 bORKEJlj2F6TWlo50JAbPKGQ7MXZXjxaO4OuyyBgCxzX104doE4w5oyXBpvue3/eKe
+	 C7YMH1pfwe3W+ry9PSvdVvaU0OhwtP1K3vPNf5RGfY79cUvk/ga0faVtqWuKrdDZk6
+	 BNYcLEFN0P70Q==
+Date: Sun, 08 Nov 2026 22:31:42 +0000
+To: "andrew@lunn.ch" <andrew@lunn.ch>, "olteanv@gmail.com" <olteanv@gmail.com>, "davem@davemloft.net" <davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/amdgpu/atom: do not dereference NULL vbios string pointer
-Message-ID: <4VYoOFUjYIK--SKrUsijHVOOHA6ruEc8z_hXR_OMj7syXD6492lPaEKmsRRV3iLW1QAkn2X29F7_-lVKnIx4vUE1KQtKx8Zdk8sX_rFaZIA=@proton.me>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] net: dsa: sja1110: pull meta timestamps before reading them
+Message-ID: <mnJ9l2Ebi69wyTB5k6FBEnjRESb0SmEnlqwaQAOEJ1x5qRQJ3ZMVAdX7Bn9-yWEnQ0iv_3KLoI1yUVCc88IJOVGGow9rOyG6Y54sPMeW0zQ=@proton.me>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: adc73b7730ce65d5d72be26e93817641b3bd221b
+X-Pm-Message-ID: ee58b5b60b300db1b03a557a2b54e220ed71265f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,27 +66,23 @@ Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-In atom_get_vbios_pn(), when the part-number string is empty and
-atom_find_str_in_rom() cannot find the ATOMBIOS anchor, the fallback
-computes NULL + sizeof(BIOS_ATOM_PREFIX) - 1, i.e. (unsigned char *)8:
+sja1110_rcv_meta() walks (n_ts + 1) ten-byte timestamp records starting
+at skb->data + 2, but the only linearization on the path is the 4-byte
+pskb_may_pull() in sja1110_rcv_inband_control_extension(); nothing
+covers the meta payload and nothing compares it against skb->len. A
+truncated meta frame (or a non-linear skb) therefore reads up to ~320
+bytes past the linear data and feeds garbage into the PTP timestamp
+handlers.
 
-    vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
-    if (vbios_str =3D=3D NULL)
-            vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
-
-The subsequent range check is false for a near-NULL pointer, so the
-value survives and *vbios_str dereferences address 8 - a NULL-page oops
-during probe with a malformed VBIOS that passes the magic checks. The
-recent hardening of the neighboring date/version/build helpers closed
-their OOB reads; this fallback path was left intact.
-
-Simply leave the part number empty when the anchor is not found.
+The in-band header is generated by the switch itself, so on correctly
+functioning silicon the fields are self-consistent; this is hardening
+against buggy or compromised switch silicon and against short-skb
+conduit paths. The patch pulls the meta payload before the loop.
 
 Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd =
-(v7.4-rc1, 2026-11-07), drivers/gpu/drm/amd/amdgpu/atom.c:1491-1503 (atom_g=
-et_vbios_pn).
-Pointer-arithmetic-on-NULL is pre-existing; this window's hardening series =
-made it the sole fallback outcome.
+(v7.4-rc1, 2026-11-07), net/dsa/tag_sja1105.c:529-573 (sja1110_rcv_meta), 5=
+75-598 (caller).
+Longstanding code.
 
 This was found during an assisted (AI-supported) static source review of
 mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); e=
@@ -98,20 +94,22 @@ verification rather than a battle-tested fix.
 
 Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
 ---
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu=
-/atom.c
-index 1a599d5..7598606 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1493,8 +1493,6 @@ static void atom_get_vbios_pn(struct atom_context *ct=
-x)
+diff --git a/net/dsa/tag_sja1105.c b/net/dsa/tag_sja1105.c
+index bfe1f74..caa6659 100644
+--- a/net/dsa/tag_sja1105.c
++++ b/net/dsa/tag_sja1105.c
+@@ -537,6 +537,12 @@ static struct sk_buff *sja1110_rcv_meta(struct sk_buff=
+ *skb, u16 rx_header)
+ =09struct dsa_switch *ds;
+ =09int i;
 =20
- =09if (vbios_str =3D=3D NULL || *vbios_str =3D=3D 0) {
- =09=09vbios_str =3D atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 6=
-4);
--=09=09if (vbios_str =3D=3D NULL)
--=09=09=09vbios_str +=3D sizeof(BIOS_ATOM_PREFIX) - 1;
- =09=09if (vbios_str >=3D p_rom + ctx->bios_size)
- =09=09=09vbios_str =3D NULL;
- =09}
++=09if (!pskb_may_pull(skb,
++=09=09=09   2 + (n_ts + 1) * SJA1110_META_TSTAMP_SIZE)) {
++=09=09kfree_skb(skb);
++=09=09return NULL;
++=09}
++
+ =09cpu_dp =3D conduit->dsa_ptr;
+ =09ds =3D dsa_switch_find(cpu_dp->dst->index, switch_id);
+ =09if (!ds) {
 
