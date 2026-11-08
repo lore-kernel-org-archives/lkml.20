@@ -1,105 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794173311;
-	b=NmL9k9lYm6AmsgFY1Zhtc5Lh6wwQnI8TMRPA0GYQcSHMOllpmdWPJIYrGz0W5trdAUy6
-	 HFwE6vLUnQBB/TeSO5dmLjQnQLKeIyi3N5T4DUD8h6MohI4dSOtISwC+SxfuJyxHTh+rn
-	 0XRVjARqlYy+iw4D8HPhonDqNpQ51ZCbS1iXsaQSfCEVYB3tPkBBGVTobLlQLdz0t2WVA
-	 s0B0fYUqXExHdCj0KEoGc5R8MdynxqX2pUl3U13VOngu1sJsgGqYSnem4VSc64CkY+wwD
-	 49+8MpFCctmjhaqCqAFA968DGwS3gCRDDk6ruAY6zVgutNhjGKVEZkYVxbzcyMVhMuQ==
+	t=1794173443;
+	b=o5aKK+cR6ovV7M5oNK/u9bSZaMosRkIeQO/nh/HcyHyhM2n4470+wwxD4+usMBaRvG3r
+	 ZI+Fn4AsXU//VflYSU59slmXLifu7oMp5pKCFcCcX0ejqPLVI+BA5ZqowXH+m4fYjZdKw
+	 c5siKZU+XmhtXB2SCrNzUbaS6notkGn7Qya7hYyh3iqVawSATOBFK2so+OM9MaLiFqKHa
+	 FZb2ghtS1JJDlYS/WXUtD6tgYjCb7O1dUcQ8bhEXR6auJ5YySik+v83Blf+dms6AIhpMC
+	 P0tuFnaVcKtvpDcF/KX3slCyht2RLfddH0Q66ij581gR08JYwwSFsd1ZiSjZcwspxdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794173311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rNVFVaUcgRGLJ0+IH7bBFs2bHZ28CGULMybIpv6NCcA=;
-	b=xQDDZcaww3yuGrEdRgEHBGkhYJmT75oLXX41+6tF1hW4k9QbNFzdWg8NNIn8pcdXfr3d
-	 qQ/+ueRNquh+OtiD1pzbLNv/fq/hY3h5bE4eGOdjRjEvkqSUrpPcJyDCKtGhaCIpl6OOi
-	 jkJYliGlaQwhvdpYxiCG43CWbQA/FHDAZMC05+uf8+H8y4hqnYv6jbd7w9JaBt+XQB3UN
-	 ee18YhkYBq5/EzupbTsWkxsQtEl3onDn896EOJhl4MkoW8AXEwhjnAKZc/o4hHcCXbSVQ
-	 2HBouivugTV6+j4B8XDEbwOzYgu7Ktgg5mlPo3n03CUtqCaCuAZGI4mNkyZmxHoUtlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794173443;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Jw+/Fkc20+Qp4XR5VO/LxheUCUIT4ctMVUZLv2aVJAc=;
+	b=3+q4wt45roLs49WtnmigBxx5AcdrE7Ffqyv/ca4DCTe88WDeDf3h7UH7T8f+Z61OYwWT
+	 321/NVX3lzMu1LxTHI8y6VCC8OboiC/CZF7qrLCGz4SeFW2bZgOGbptMLpNUECHIkwk0i
+	 FeNWfPj8phm94HEOvgYkTtM9nA9PCrU7YcZE5V4brIXWYxauDzUKraBRWjpEiAqZPULqS
+	 HkY7dBdNaEsrs//o+vAvAJEq2eYE+ldlmwvBJKeDkoS2ZEgx0rQVaFEZOlYO+mrYtl1xQ
+	 C3UZnabNH2lxT3dw67GNaMfSYeGTKoskoqxYwmOIrh5pjHwxxSnWMPOebsrRq83Zaew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y+F+2Bwm;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7FxV7XM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05011606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:28:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05011606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CB3606A31C;
+	Sun,  8 Nov 2026 21:30:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y+F+2Bwm
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so1935805e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:28:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794173309; x=1794778109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rNVFVaUcgRGLJ0+IH7bBFs2bHZ28CGULMybIpv6NCcA=;
-        b=Y+F+2BwmYv0DtI5WOVJMdRg207Njhn6eyGCR6e0FzV4rgq1N/TQt94orO7XzdbyVDr
-         69xU8w3l9e3PvI+9rmrpR/oUU3a8C6uBuSHNUhGmsDGhXQlM1dBkod8PZ9j+n2D5ZDfy
-         ooO+ylP0lqi3cUDo18KJelZ6kbyoIvhqXAVcePTpfYbNfxkUArhC8R6BXN15GlV1Hrs6
-         Ll4GWvpnPmDLVkACkZxFQ0ymePnrTlDBAbaW1FlGnmHG21eFkEW8SZa3VwXMCkIIHLbi
-         9ETtdJ4lA0RlOYRNSgae95R8OI0XM/86YfYu2VtV36V8P/c6bo+Oy+M2oyBzFPL10dd7
-         UYoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794173309; x=1794778109;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rNVFVaUcgRGLJ0+IH7bBFs2bHZ28CGULMybIpv6NCcA=;
-        b=Yw3QKTanM5lNt19COW0lE2+wdEXywB+MxhNj4y+xAgr3T//qWRylk69n7sPsBPC32E
-         1zV/Mu3KxlnktYeB+MboXta/iO4VKMzXgRnvxc64mdRaAbiiHE3dA+TlFrHUOdAiWxrP
-         8AK4OaTGiYfQ2NVO+HO//qZTVYZFIUZhMe1slfnh8TTmvv70R0VFqzE6i1La/tJM+4ip
-         15LdYMBKdHaMNjQjCjzKi6GG7Et00zKpkuZx/8LjaCQfPkYHDKf+vvaJM+X0LnEiX834
-         5A2YOOsjJqLHZ6dI8Bg0O96Ed8oujju2JlnkRVmFxd0p4vELqDd2VCrjAStVlw2Cghp2
-         eK+Q==
-X-Forwarded-Encrypted: i=1; AL+hErHOZ6SaLtR3RcXmEEVMH8NHqLEhYjWGK0WgpaN+raBLTcpMWXM3shH304oY74ZNoqoazLD65PnEMbXDDAs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qtD3NQ3aOQie5Ng0wOw7ZHo7N/V8KkBbTG7Mpd7et5Z44ouow
-	tsDY/12ycuFxCCk6HNnhCx8pkB42bUTLfTnjxE8PEnSx+zKPaiCXzlKq
-X-Gm-Gg: AYBFou2e9G9h8AOB7e6booBTJSzJxQ462AThtZwMXysQWMrfH6sakkMliL6sJTHrVw8
-	xnAy7WOmb3tsdAMizyaaCcvKMxx5JLqPyK644a5APzus2hMoozaNXW5bwOJZqQAhbiTFclPboyL
-	FZlOMIR4C5KA8SV1mrLdEt4Ye1yZITG9Ki6MM8ge4QaVcQgw0nyXgezFtmgJRYJ8rgzSOZwk+/Y
-	zboTV0kI1pu6s0DjA6mkdPceHV4NnDyugtBXMIrsUEAjzG8tqW5Z6RGNtcKTThuoTmAbKnNVycS
-	Xaa5O/UWc+pJ1tjm2skYJ6jZBVaV/S7L3MalOmOGX9wSaYFmiCNrq7CIq14uleiPPK9nR0qd2B6
-	ro82yjsCkeOkt+tMIbYf113JtXXauRS4gid34si6lTpUIHJDACkgaRu2QkxgoGSdPG6a3gkKZwb
-	UihBniELdgs4HFG5vqAA4MnKfv+xn4qSFMa5qp95SES51TBaVCS3PL06Ka7YwRpvvxeXWh1ltIQ
-	oeuj/Zto98U6bhaJXVWj9PcIrgGs5KSej2rB6yoieWEtq+MkOvHHyHQuWo3LGCpGBQouDKPX3EE
-	7C2EPlH8uBPc/U4K8+xkrzfWT5jozrs2Fw==
-X-Received: by 2002:a05:600c:c16b:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4b963c6754fmr40690035e9.13.1794173309099;
-        Sun, 08 Nov 2026 13:28:29 -0800 (PST)
-Received: from hp-z640.fritz.box ([109.76.148.69])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597091400sm5692050f8f.32.2026.11.08.13.28.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:28:28 -0800 (PST)
-From: Owen O'Hehir <oo.hehir@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-rtc@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	"ziv.xu" <ziv.xu@starfivetech.com>,
-	Conor Dooley <conor@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: [PATCH v2 0/4] rtc: Add StarFive JH7110 RTC support
-Date: Sun,  8 Nov 2026 21:28:22 +0000
-Message-ID: <20261108212826.15890-1-oo.hehir@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7FxV7XM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663951F0089F;
+	Sun,  8 Nov 2026 21:30:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794173443;
+	bh=Jw+/Fkc20+Qp4XR5VO/LxheUCUIT4ctMVUZLv2aVJAc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=j7FxV7XMRjRBVBjDNqZB72oA6jNKCIgXW5mW9v9+7afoWjL/Y4/xiKO+32hlJypep
+	 ql2qzXBguSaxKXlPqwF0qxBYD2YhHmjOAWVuUxc9IHQ+pPSBj9VJee+3nfHiMZi4LY
+	 BWEV6CTemNlAcLukfktIV7W6dFicWad8WWkJwe7ae7k8BSaqaQbF6JfIBohwQehv1c
+	 GIVnSnk1jkaHCMKtKD02iB1H0vrjNO9heeqYwwpgsRij9HwVtNFPUM3VaDMc8mvISc
+	 31NUc/hyZ9vuaARvFnTbQE50pvjtlD7AL7RecIVu3DcX2RiNR5i3jYqCwUnbC/WZSc
+	 2Fq+v9gYLlPSQ==
+Subject: Re: [PATCH net 1/2] net: macb: credit unsent frames to BQL in
+ macb_tx_error_task()
+From: netdev-bot+sashiko@kernel.org
+To: nb@tipi-net.de
+Cc: theo.lebrun@bootlin.com, conor.dooley@microchip.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ sean.anderson@linux.dev, robert.hancock@calian.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sun, 08 Nov 2026 21:30:41 +0000
+Message-ID: <179417344193.994134.16378845352525630728@kernel.org>
+In-Reply-To: <20261107-nb-macb-tx-error-task-net-v1-1-a2aac5d64d52@tipi-net.de>
+References: <20261107-nb-macb-tx-error-task-net-v1-1-a2aac5d64d52@tipi-net.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,65 +64,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The JH7110 has an RTC in its always-on domain that mainline does not
-support. This series adds a binding, a driver, a MAINTAINERS entry and
-the SoC DT node.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The driver is based on the StarFive vendor driver (rtc-starfive.c,
-commit ebac2b5 in the StarFive 6.12 tree), reworked for mainline:
-- hardware calibration and the default time set in probe are dropped
-- wakeup uses the generic wake IRQ helpers instead of the irq_desc hack
-- set_time waits for the counter to load the new time
-- read_time re-reads if the time rolls over between TIME and DATE
-- the offset rounds to the nearest step and follows the sysfs sign
-  convention (positive = slower)
-- the 32.768 kHz counter clock is described in the binding and enabled
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Thanks to ziv.xu and Hal Feng at StarFive for the original driver.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Tested on a VisionFive 2 v1.3B with next-20261105 and v7.3.1: setting
-and reading the time across the 2000-2099 range (out-of-range years
-refused), leap day and century rollover, the alarm interrupt with
-cancel, the offset, the rate over 60 s, and setting the system clock at
-boot. Not tested: suspend wakeup, drift over hours, and keeping time
-across a power-off, as the board has no RTC battery connector.
+- [High] The fix leaves a second site with the same bug.
 
-Known behaviour: the RTC loses about the length of a reboot across a
-warm reboot; the counter appears to stop during reset. After the
-StarFive vendor kernel the first boot found an invalid time. I would
-appreciate an opinion on whether this is expected of the hardware or
-something the driver should handle.
+--
 
-Changes in v2:
-- dt-bindings: list myself as maintainer instead of the RTC subsystem
-  maintainer (as requested by Conor)
-- MAINTAINERS: new patch adding an entry for the driver & binding
-- driver: drop the <linux/mod_devicetable.h> include (as requested by Uwe)
+net: macb: credit unsent frames to BQL in macb_tx_error_task()
 
-v1: https://lore.kernel.org/r/20261106175600.3877614-0-oo.hehir@gmail.com
+This commit moves the BQL packets/bytes accounting in macb_tx_error_task()
+out of the "TX complete" branch. Every frame removed from the ring is now
+credited through netdev_tx_completed_queue(), whether it was sent or not.
+This stops the DQL in-flight count from leaking on each TX error.
 
-Owen O'Hehir (3):
-  dt-bindings: rtc: Add StarFive JH7110 RTC
-  MAINTAINERS: Add entry for the StarFive JH7110 RTC driver
-  riscv: dts: starfive: jh7110: Add the RTC node
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index f087f278f9e56..b6105f915fe35 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
 
-ziv.xu (1):
-  rtc: Add StarFive JH7110 RTC driver
+[ ... ]
 
- .../bindings/rtc/starfive,jh7110-rtc.yaml     |  85 +++++
- MAINTAINERS                                   |   7 +
- arch/riscv/boot/dts/starfive/jh7110.dtsi      |  14 +
- drivers/rtc/Kconfig                           |  11 +
- drivers/rtc/Makefile                          |   1 +
- drivers/rtc/rtc-jh7110.c                      | 323 ++++++++++++++++++
- 6 files changed, 441 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.yaml
- create mode 100644 drivers/rtc/rtc-jh7110.c
+> @@ -1428,6 +1426,12 @@ static void macb_tx_error_task(struct work_struct *work)
+>  			desc->ctrl = ctrl | MACB_BIT(TX_USED);
+>  		}
+>  
+> +		/* BQL has to see every frame leaving the ring, sent or not */
+> +		if (skb) {
+> +			packets++;
+> +			bytes += skb->len;
+> +		}
+> +
+>  		macb_tx_unmap(&bp->info, tx_skb, 0);
+>  	}
+>  
 
+[Severity: High]
+The commit message describes the problem in general terms: "The frames
+dropped on a TX error are never returned to BQL." Does
+macb_hresp_error_task() leak in the same way?
 
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+macb_interrupt_misc() queues it as BH work when the hardware reports
+HRESP:
+
+macb_interrupt_misc() {
+    ...
+	if (status & MACB_BIT(HRESP)) {
+		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+    ...
+}
+
+It then resets the TX rings and restarts the queues. It never calls
+netdev_tx_completed_queue() or netdev_tx_reset_queue():
+
+macb_hresp_error_task() {
+    ...
+	netif_tx_stop_all_queues(netdev);
+	netif_carrier_off(netdev);
+
+	bp->macbgem_ops.mog_init_rings(ctx);
+
+	/* Initialize TX and RX buffers */
+	macb_init_buffers(bp);
+    ...
+	netif_carrier_on(netdev);
+	netif_tx_start_all_queues(netdev);
+}
+
+gem_init_rings() and macb_init_rings() mark every TX descriptor TX_USED
+and set txq->head = txq->tail = 0. Every frame between tail and head was
+already charged in macb_start_xmit():
+
+	netdev_tx_sent_queue(netdev_get_tx_queue(bp->netdev, q),
+			     skb->len);
+
+So DQL would count those bytes as in flight forever. After enough HRESP
+events, the queue would stay stopped with an empty ring. Only
+macb_close() would recover it, through netdev_tx_reset_queue().
+
+This commit carries the same Fixes: tag as the BQL introduction, and that
+commit missed both paths. Could the HRESP ring reset path be covered here
+too, or in a companion patch, so that backports get both fixes?
+
+On a side note, this HRESP path also seems to reset head and tail
+without unmapping the DMA buffers or freeing the tx_skb->skb entries. Are
+those skbs and DMA mappings leaked as well?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107-nb-macb-tx-error-task-net-v1-0-a2aac5d64d52%40tipi-net.de
