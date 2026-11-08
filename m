@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794163344;
-	b=rsVXCKMXP86+1YbHXCCZShc166ILeSBLXcTZWPo1EsrbiWf4L44XIvkkCw9Zs3eeWvkQ
-	 fE6ZX6jTjY//EvetCZvcBgyR6NYDpkW8PMIoRO6/Aixxt7o7cv1tgq5nD/eAKcOJd70NN
-	 ym25EjG2+Yv241akpJEFfJkjJUYcAg0FVAMZ86YJTZY0WK80wU85dZuNLDF7fNQA3tgSp
-	 pAGJpIxw27PeFxIeLIyd0FjHzq3iQ6FUL1FQjF5MAXu4yxykSlYssgOFRtzHGxN1KYcqR
-	 q07XHWX3EqDRTnCBMoctbsFlxoGfnwGEJN2wUnOT+fjpHZiOAAc7MnGI/7MrJczHNZQ==
+	t=1794163565;
+	b=jIFrjkohrZP3FFVgjebnTX1atcxIkcyiERYHbM2VYP5V5+PkFW7mgep1LA9qM8yuEbDU
+	 jH8c49pZ0I84+ALArxfqoFfMi+TD2/NtXfj6jj9KJ48JWHiHN48kY1rDHicpDwZYAoCl4
+	 r+QvayOO9/1rV1qwrEfeMz4agRFxzY2gmbANGpvo4Y73cJvvjafU8PF1LvdjY9VBSYCvg
+	 eBCuzDrhPzUt/gQf/tBsUXUyy4PZcK9wF+cPXhI8pQZB9xMStyaIIeAzjzTDnfEthgQ75
+	 iVWYIVF5oeWXZt3+oUIDIzSmBrKmLwQghMj7ThrwgVh1J9ZWY8w9RKjj2zzpDgXOjtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794163344;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=EM+BKWt4qwzUpc6TxNvTqkkxw5pmvwQIxEMFwIpwtx0=;
-	b=AUYzDRBOX59gaqhQZHw11QnnDmqwd9XzcrdlUiKFbprniPyYFWva1FISO514/nJMhpOs
-	 kJ8x2quz3PfjMj8XY6Fri07aiCRffwg20wOuR31naxRfr8RergOu3XvE4Re8gca9i6P30
-	 Sy/tJsuKqkr7uQFfwMjcxhCh+fbemk4Lq20xAEmTaMeN70G/ez2nkZVaNlDIoloPyRYRM
-	 b36lcGmnd7GbUp7cFJkx7GZW8r1OF1e5DVDjWB1Mfa8T2MTWgaz6BdTcj9wQ7BIDOHUKQ
-	 B20sNXfkcCSwooMbxmwDcz5IkhNbdDbgJoUjjLeGjEcBQKge9rruvpUdiODsW9IM1bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794163565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=j1sJ/9YGm5C/rib3cghBM+5FlV732aX+12bHjvjsrbE=;
+	b=L4uUwLZ+7Nf4y32Kwyn7Fn+8mv1/QgCT2qOdmSzqocB8Df8AS+Dbul7PXVDJTsLlD5dC
+	 rxMCT1WqOnA+j05KUU7IGzmsbllFrGCuFhnuX4sXvRedtbx5J3sJpUQLWryTQPHDKMeNg
+	 ZRJzinPGQC+4WziFo1biIB7cksHLXzQLgYvYpdoaQ1P0jZCzmrqPk4J/MBC0vvdebdMu8
+	 BSB5gbETs3FpB9djKujVVV0PvUOlfg3UcTJEfW8k6TcYLNf6JKTGIQbLpbwLeO783nPC3
+	 tvlO4zlYntZX0TNcl/0XDKvbjs1whfINLKU65nOMuwmHooxAoUZgMVjvqLEW4zAh7Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cbk7Jl0C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yZSzrZ4v;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA59606A31C;
-	Sun,  8 Nov 2026 18:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52096606A323
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:46:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52096606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cbk7Jl0C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195541F0089F;
-	Sun,  8 Nov 2026 18:42:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794163343;
-	bh=EM+BKWt4qwzUpc6TxNvTqkkxw5pmvwQIxEMFwIpwtx0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Cbk7Jl0CHUlbf6HkaoU3Gff0oNVHqfbuurTq1I36kg3ktZZRmbeh3bhCJmz9/X4VP
-	 NSE893k/yJ4p66Lqlx3JqYLeAXRzc05D1Ip4PHiCEC5x0UbxfhL7DWW6J1yHWStf9V
-	 VA+wbHWuRakTi+juvqgaqyxrI64nScLc6I0N3e4LBgHMAKUDtbhX3su532zEO7nguI
-	 YnfKMxwi0DAcZwzZNQ5d2v5Rs6wHi1rmjPH9in49vAUw3YMg+3N5t2gPC60UZ+Qqn7
-	 vz4hViHObYP6T+fk5h8Q9doaIWVS0tzhO8yuH+Tym4S72bUEKvMQSWJ0Q6VCds7b9N
-	 fLkBDVFzAqoiQ==
-Subject: Re: [PATCH net] ipv4: route: don't blackhole in-use routes when
- retiring fnhe routes
-From: netdev-bot+sashiko@kernel.org
-To: me@chasehil.tz
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, weiwan@google.com, linux-kernel@vger.kernel.org
-Date: Sun, 08 Nov 2026 18:42:22 +0000
-Message-ID: <179416334264.994134.10564853189016691004@kernel.org>
-In-Reply-To: <20261104182058.2673882-1-me@chasehil.tz>
-References: <20261104182058.2673882-1-me@chasehil.tz>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yZSzrZ4v
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36f8cdd30beso524762eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:46:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794163563; x=1794768363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j1sJ/9YGm5C/rib3cghBM+5FlV732aX+12bHjvjsrbE=;
+        b=yZSzrZ4vK20wQlrZIB3Sbp19mP7sEOxJpc5rOtSrrsunDn44bnEQP0Cd0vLNkg7Lh/
+         4zJ4uDuz+6Lv2hQ9mGY6hgZDnBdB1AqH1rJS7+i2lH+wDbOA+HW4zpjA6QUID+S4qiE6
+         uP34e901SHxw203NolOPZTHcSRohWcJH6qe2kooxErHdyz7elfxMVc/qVgycodnbfk8O
+         jMYYhgHll8M22Ydc5YBBOnIq3gvSn7t7gsu+ND8mMGGwu2CcK7OcUVzwrMuRnJAsX7ZZ
+         1ak60R14/nh8s3P9jbOatf/XcyUoSRYw1zVdyUY3IwT3RuydYrkk2/84Dr0k2hhBW13w
+         Bpkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794163563; x=1794768363;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j1sJ/9YGm5C/rib3cghBM+5FlV732aX+12bHjvjsrbE=;
+        b=medcntlcgBV085T4uc3Dv6msyA5x08z8Ja8ijUfOJp0Qqz3NpYzKXuXaNF5W18I1Dx
+         86+48a+YNoU9ir9mIq3Qx51qZIaOdfTBEbfEKL5WjgmuApMtzpW/qMtbtjndnf909+dk
+         J+O8z3EaLFae4VBeT6h80AkKrvN3KKZWMbXMvLSDt4r44BfIRwYfIxa2GHpMI7UUZ/Xg
+         Xj/fkVfzmNgVmehRhKh7OVUcwOyD3LxAw9T7TUsU3fwTbLYE14cgIkds1ju36H0fPN72
+         Gx9NwH7vl+M985fxHGYbxdC247epshrfw7DqNH3I7ds7GxAJOFzWholGJNg46vcuNqW6
+         taSA==
+X-Forwarded-Encrypted: i=1; AL+hErFIIwgEMtn67Redm4G2FRJvZkI2s2UWn/dNAxWUQ6dprWmcRypxZLtNEXt1g/AbsYikAOIQRmh68l5zAy8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8C4pWk/uq0g7oogoyORGfRzsdCfE668m1U/gunjK85FjVT+Z0k
+	jxZdQYJCK2ZNfKpeS+7Q0WgjCCl5D7AdREPq93VO0M9Ldx7ymdPuD9DbmxAGlA==
+X-Gm-Gg: AYBFou2ri0I3vVQGpSmPaz+San+AilU6p+BASas1To4+n0oP5aLbAhsayuH/lfdT5cY
+	1Ow5LquaxZd2oKYj8b1KvZkbexes/RAf3KNIlzVA/KFsJxSKtPVzNUC4XSA84uOkp3Ta6jxLvqS
+	tSzexowqAVbe7wqvlBzh7aPgUKmGbXK0ZmNAlj91bB+8lP5r08taV0rmElfE0nAWuGqO0fqIuxZ
+	CZwY0iL7mqHykeZYNPrvC/+Kz3km39WAfnaQ5fRsGNCTcE22OGRxaLYVbf4exJW24GA7WzUflEU
+	0mni7fygkGBnepDUhfudvSJWzl2PhVf/yZ0/RXZWzEaWGgIn0KId38BEdzoi77b6sPFjdbwHH91
+	7VLVKZAxmNpC4/nE3gFrzLcKrSeBf0tp6cp8SSe1ITOgxsHnPBsC368LtDrVaQIH4A8YCOtFPVm
+	Z+1vnNdTdWBzRgoU6r3nZUbxf5jn6LrMH6ryZDWfiG5oX+n3BSTvPAcXYzYZEapqnoMjCYeItn7
+	uZkEKrFIe39PgRMqFMrUA9/CFuXylsNO7i+gXbJiMFR8DnRWDlmPXq7wJ0RVgG6G3mZs+CaMJ6w
+	xh9/aKviVMXNr3+MeeAUPtXKa9vklMcDfPLb1ybkhA==
+X-Received: by 2002:a05:693c:8059:b0:35d:f7f4:bc1c with SMTP id 5a478bee46e88-3725d781ba8mr4321414eec.6.1794163563300;
+        Sun, 08 Nov 2026 10:46:03 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265ff3415sm6429023eec.18.2026.11.08.10.46.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 10:46:02 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Ravi Bangoria <ravi.bangoria@amd.com>
+Subject: [PATCH] perf vendor events amd: Fix a misspelled JSON key
+Date: Sun,  8 Nov 2026 18:46:00 +0000
+Message-ID: <20261108184600.3810059-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,129 +99,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+ls_inef_sw_pref.all is listed without a description on Zen 4, Zen 5 and
+Zen 6.  Its three JSON entries spell BriefDescription as
+"BriefDescript6ion", and jevents.py reads the keys it knows by name, so
+the text is dropped and the generated table ends up with an empty
+description field.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Spell the key correctly.  Only the key changes; the text, event names,
+codes, umasks and expressions are untouched.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 658448281d19 ("perf vendor events amd: Add Zen 4 core events")
+Fixes: 45c072f2537a ("perf vendor events amd: Add Zen 5 core events")
+Fixes: 2f42fb0661d9 ("perf vendor events amd: Add Zen 6 core events")
 
-- [Medium] One fnhe retirement path still calls dst_dev_put() on routes
-  that may be in use, and it comes from the same Fixes target.
-- [Low] The commit ends with a "Co-authored-by: Claude Opus 5.5
-  <noreply@anthropic.com>" trailer.
+Written with Hermes Agent, an LLM assistant.
 
---
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+---
+ tools/perf/pmu-events/arch/x86/amdzen4/cache.json      | 2 +-
+ tools/perf/pmu-events/arch/x86/amdzen5/load-store.json | 2 +-
+ tools/perf/pmu-events/arch/x86/amdzen6/load-store.json | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-ipv4: route: don't blackhole in-use routes when retiring fnhe routes
+diff --git a/tools/perf/pmu-events/arch/x86/amdzen4/cache.json b/tools/perf/pmu-events/arch/x86/amdzen4/cache.json
+index e6d710cf3ce2..01c848a9dbb3 100644
+--- a/tools/perf/pmu-events/arch/x86/amdzen4/cache.json
++++ b/tools/perf/pmu-events/arch/x86/amdzen4/cache.json
+@@ -182,7 +182,7 @@
+   {
+     "EventName": "ls_inef_sw_pref.all",
+     "EventCode": "0x52",
+-    "BriefDescript6ion": "Software prefetches that did not fetch data outside of the processor core for any reason.",
++    "BriefDescription": "Software prefetches that did not fetch data outside of the processor core for any reason.",
+     "UMask": "0x03"
+   },
+   {
+diff --git a/tools/perf/pmu-events/arch/x86/amdzen5/load-store.json b/tools/perf/pmu-events/arch/x86/amdzen5/load-store.json
+index b1994539ece8..774da0bfa0dd 100644
+--- a/tools/perf/pmu-events/arch/x86/amdzen5/load-store.json
++++ b/tools/perf/pmu-events/arch/x86/amdzen5/load-store.json
+@@ -351,7 +351,7 @@
+   {
+     "EventName": "ls_inef_sw_pref.all",
+     "EventCode": "0x52",
+-    "BriefDescript6ion": "Software prefetches that did not fetch data outside of the processor core for any reason.",
++    "BriefDescription": "Software prefetches that did not fetch data outside of the processor core for any reason.",
+     "UMask": "0x03"
+   },
+   {
+diff --git a/tools/perf/pmu-events/arch/x86/amdzen6/load-store.json b/tools/perf/pmu-events/arch/x86/amdzen6/load-store.json
+index 4291eb59426f..4adba70bffb1 100644
+--- a/tools/perf/pmu-events/arch/x86/amdzen6/load-store.json
++++ b/tools/perf/pmu-events/arch/x86/amdzen6/load-store.json
+@@ -351,7 +351,7 @@
+   {
+     "EventName": "ls_inef_sw_pref.all",
+     "EventCode": "0x52",
+-    "BriefDescript6ion": "Software prefetches that did not fetch data outside of the processor core for any reason.",
++    "BriefDescription": "Software prefetches that did not fetch data outside of the processor core for any reason.",
+     "UMask": "0x03"
+   },
+   {
 
-The patch stops calling dst_dev_put() on routes retired from a nexthop
-exception in rt_bind_exception() and fnhe_flush_routes(). The new
-fnhe_retire_route() helper instead marks the route DST_OBSOLETE_DEAD,
-puts it on the uncached list and drops the reference, so CPUs still
-using the route are not switched to blackhole_netdev.
-
-> Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>
-
-[Severity: Low]
-This isn't a bug, but checkpatch.pl doesn't recognise the Co-authored-by
-tag. It isn't in $signature_tags, so checkpatch warns about it with
-BAD_SIGN_OFF "Non-standard signature".
-
-Documentation/process/coding-assistants.rst says an AI-assisted fix "must
-pass the checkpatch.pl checks". Documentation/process/generated-content.rst
-asks for tool use to be disclosed in the changelog or cover letter, not in
-a custom trailer.
-
-Switching to Co-developed-by would not fix this. checkpatch requires a
-matching Signed-off-by right after Co-developed-by, and
-coding-assistants.rst does not allow AI agents to add a Signed-off-by.
-
-Could the trailer be removed and the tool use disclosed in the changelog
-text instead?
-
-> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-> index 3a90c8d28b940..cd69242afab07 100644
-> --- a/net/ipv4/route.c
-> +++ b/net/ipv4/route.c
-> @@ -573,6 +573,17 @@ static void ip_rt_build_flow_key(struct flowi4 *fl4, const struct sock *sk,
->  
->  static DEFINE_SPINLOCK(fnhe_lock);
->  
-> +/* Other CPUs may still be using @rt, so don't dst_dev_put() it.
-> + * rt_flush_dev() handles it if its device is unregistered.
-> + * Marking it dead makes ipv4_dst_check() fail for users that cached it.
-> + */
-> +static void fnhe_retire_route(struct rtable *rt)
-> +{
-> +	WRITE_ONCE(rt->dst.obsolete, DST_OBSOLETE_DEAD);
-> +	rt_add_uncached_list(rt);
-> +	dst_release(&rt->dst);
-> +}
-
-[Severity: Medium]
-Is there one more fnhe retirement path that still blackholes in-use
-routes? Commit 95c47f9cf5e0 ("ipv4: call dst_dev_put() properly"), the
-Fixes target, also added dst_dev_put() to rt_fibinfo_free() in
-net/ipv4/fib_semantics.c. That function is used on fnhe routes when the
-owning fib_info or nexthop is freed:
-
-free_fib_info()
-  call_rcu_hurry(free_fib_info_rcu)
-    fib_nh_release()
-      fib_nh_common_release()
-        free_nh_exceptions()
-          rt_fibinfo_free(&fnhe->fnhe_rth_input)
-          rt_fibinfo_free(&fnhe->fnhe_rth_output)
-
-net/ipv4/fib_semantics.c:rt_fibinfo_free() {
-    ...
-	dst_dev_put(&rt->dst);
-	dst_release_immediate(&rt->dst);
-}
-
-The RCU grace period before free_fib_info_rcu() covers noref users.
-However, __mkroute_output() hands out fnhe_rth_output with a reference:
-
-	rth = rcu_dereference(*prth);
-	if (rt_cache_valid(rth) && dst_hold_safe(&rth->dst))
-		return rth;
-
-Also, __nf_queue() calls skb_dst_force() on queued skbs. Both of those
-holders can outlive the grace period.
-
-For example, a UDP sender could get the dst and then sleep copying user
-data in ip_make_skb() while the route is deleted. Its later
-ip_send_skb()->dst_output() would then go to dst_discard_out().
-
-Another case is a forwarded skb queued to NFQUEUE at POSTROUTING and
-reinjected after rt_fibinfo_free(). It goes through
-ip_finish_output()->__ip_finish_output()->ip_skb_dst_mtu(), sees the
-blackhole_netdev MTU of 68, and ip_fragment() can send ICMP_FRAG_NEEDED
-with mtu 68 to the remote source. That is the symptom described in the
-commit message.
-
-The commit message says "Do the same for routes retired from an fnhe",
-and the comment above says not to dst_dev_put() routes other CPUs may
-still be using. Could rt_fibinfo_free() handle fnhe routes the same way:
-mark them DST_OBSOLETE_DEAD, add them with rt_add_uncached_list() and
-drop the reference?
-
-Commit 5018c59607a5 also left the matching dst_dev_put() calls in
-rt_fibinfo_free_cpus() and for nhc_rth_input, which affect non-fnhe
-cached routes.
-
-> +
->  static void fnhe_flush_routes(struct fib_nh_exception *fnhe)
->  {
->  	struct rtable *rt;
-
-[ ... ]
-
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104182058.2673882-1-me%40chasehil.tz
+2.53.0
+
