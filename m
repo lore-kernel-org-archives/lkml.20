@@ -1,63 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169319;
-	b=du6e+jzoXGYMoP2TbQAWt+AXrda+Vcu7oHkXifbWbPZsiDZHyKbGC5Mc3dTd13fDRl6W
-	 rrDq9kRo8/V9zzieqH0adoZmcAZPjQlBqWoA3/9VYpzmijubyxQ46CmdtsDo1O6Oi0nEO
-	 uWeP4+40J8GBm3J+PUBSor+CnVgb17+ENGeUYfkyUxIJ2bKMtJVgQ4Y148zQt6yvzzEbD
-	 N6U2Onwoxz7h/gc+OdC2JgzGJBBe6QFyRHWn5EkH5Z7EaqhIGKmv79uANz27LZ6cZOVnZ
-	 7Wgs9AxlRDrHWT4p6WihcnukrS3tDO7Df0GoGrIaoXbcORToAQzDcv85f85HbHCpw4A==
+	t=1794169336;
+	b=kbnxEqzVwkgYjuPHibNl5CHiT2u5nW0Rf1ic4I9lMXmwjixwRZhxg94PztgAraefF+dZ
+	 YQa/XLmvWF2fG3YSalzDkAAFDnmom9k2/SS1+m2aKs2+AcUZbZX7rDalIobaIk4pS+zh2
+	 Fl7gYsfPJJ5tNZlRigS2TUS1mrxG4uSkJ4ZR9sSnW5sLx5Ve7Y/1iDTok3PjLE9A1q6QB
+	 Lo7NWkkJl01umQLqeabb+T5aiwovtSw9Reku8eRCmpWWKrQl80td4aaYrdmsGrdmpzjhv
+	 9wcLGMVF28OtRup7dggTOWuxOdwSsA1iKPom6yoHmnihgGRGkCm4PFGU0pYdiBwmqBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169336;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=drp5MuIHZpgXaRWUy+nFQgGDIxOMoiE8kLZT6iuwaNw=;
-	b=YKIN9jagrXPFV11m7XfarMUgtwnL8qb5Y0JW84Vjhjj4O8jzVT+VTwqPA3g1PoblnIg9
-	 lSl8+/sF29JDFwhlMPwnGl14e/1ie7s4O7XzDInA2L8CMxnhzVlDUn/lxy9mmVE7w3qXu
-	 XaR1tWDZhQN43Bw4Mn4PfFRCuNvdKpxhw5mMDPabHFAD8sGPgSBNskZWUKeXf2jZneWTQ
-	 rBUCLibAmzr8e2ydHl+zECg2IzayoOhuocDzU43K+zdn5LNnhNRVerXPz2R8UKhktjTHN
-	 +Ce8mVf5dhpeTaLfPHOym2TNg6dwiVoDDVpjvKGC4k/zkeesyngxH9l4hydNUNpLrpQ==
+	bh=EKBrfLOvz3MXTyqngwRKL2A0PiYWXU35H99I8H+ItMM=;
+	b=efpqRIiHc1v7m+z8OYFWNgIUTjPyUbmUqZm+/VMenVScd/dwUfpLAuqoM6eQySOegPkv
+	 0Ix6jtmg28fvUfxHFyk2M8gPDVOmRPbgqvuFOHs7Fl/w6M8qPilKVky1CqXPvDJefrLSq
+	 +fbbN6aeG8KWued3i1evPhGyckCiJmmq+GgMFUqvk5sChl1ATg25bizOhTf5JyhOHjLp+
+	 Zf9D3JkrrrsbQyQPaUwbHGfV7hKI4/JUtLqfO3uhHKCjQmgvOU+c5TkRwA9i4FG8vFo76
+	 gxK4v4FdbptrJtWiWJqaH3lZqw74LQPXoMjaTh/sZ03BjUyvs2Z4vCMJYyNJViq8NHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REpq5aiu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CG8iRepc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC215606A320;
-	Sun,  8 Nov 2026 20:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF439606D806;
+	Sun,  8 Nov 2026 20:22:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REpq5aiu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252EC1F008A4;
-	Sun,  8 Nov 2026 20:21:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CG8iRepc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 997B41F008A3;
+	Sun,  8 Nov 2026 20:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169318;
-	bh=drp5MuIHZpgXaRWUy+nFQgGDIxOMoiE8kLZT6iuwaNw=;
+	s=k20260515; t=1794169335;
+	bh=EKBrfLOvz3MXTyqngwRKL2A0PiYWXU35H99I8H+ItMM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=REpq5aiuHy2YQdvlIjNp9HxLW3w++Y1dKgWlpztrCx47nlSSGMbn9rN5GGU0XvF0u
-	 No37nFFbwHETtwIq7djiJgScuTkcWeoZPpt0T41dNhLc3kBzH4Jj65QUqjX7dlwQ+g
-	 UqwwUqPZTK8eTaNIb/Brtqd4ccgq0nlYqd5SeRXHzC9tQrtoFU8oAa8/yqvXWox9gJ
-	 P4b1IbumKpqPbPDI/hgcOOF9Ku0w7kIcj426FoIuGu6E6uHljM52Akujl/wdsAf38T
-	 nGlwaiaVOI/4coFw4wq+HIfDPMyX1Yn4SaJvuwmMt+zup2gO1VOrkZup0OIQ4DG34q
-	 hbTORHUrZ1BMQ==
+	b=CG8iRepcchBpKeQy04ZVb9O8jY1kgi/zQe4B58G6k9/Hz0Zi5yYcb6ShW90gnC5Ge
+	 DYH6wdKeZc95B05uW9iZZwYI6hWWIsWfJBlCdJPIk8jAot+dOPeD+Hn5l7h7I1VGVa
+	 PjPnRjw1fcTMEwr36TWHy4XG1xoy++P/vrhMxoc2HnZ/ZyFDLqysbP/mOhCHGsg61S
+	 s9brLqFEVnzO06s0q7/WddBKohLKsb0fG5ev8FeZ6x4YzNioNSsLFDZRiRbZt20Hi2
+	 WZgdW8yRSd5xsccx7ahl4H74sZb5F8M/l4EIMmZFrgabEhfmjuX74UC4wmYqmNHvhQ
+	 v48c7npJPKdEQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
-Cc: linux-arm-msm@vger.kernel.org,
+To: konradybcio@kernel.org,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	johannes.goede@oss.qualcomm.com,
+	stephan.gerhold@linaro.org,
+	conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnaud Ferraris <aferraris@debian.org>,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: sdm670-google-common: set chassis-type property
-Date: Sun,  8 Nov 2026 14:19:16 -0600
-Message-ID: <179416929528.628393.737482504530891704.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal zones for PMICs
+Date: Sun,  8 Nov 2026 14:19:29 -0600
+Message-ID: <179416929467.628393.8362598893010731460.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
-References: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
+In-Reply-To: <20261023123914.8641-1-daniel.lezcano@oss.qualcomm.com>
+References: <20261023123914.8641-1-daniel.lezcano@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,14 +70,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 30 Oct 2026 22:27:38 +0100, Guido Günther wrote:
-> The Pixel 3a/3a XL are mobile phones, we should ensure userspace can be
-> aware of that by setting the `chassis-type` property.
+On Fri, 23 Oct 2026 14:39:14 +0200, Daniel Lezcano wrote:
+> The ThinkPad T14s needs thermal mitigation under sustained workloads to
+> limit temperature rise before thermal shutdown. EC interrupt-driven thermal
+> monitoring is not yet supported, so use the board temperature sensors
+> exposed through the PMK8550 VADC to provide mitigation now.
+> 
+> Describe the sensors near DRAM, the fan/heatpipe, the GPU and CPU PMICs,
+> the charger, the WWAN area and the USB-C ports. The DRAM-area sensor faces
+> the keyboard, while the fan/heatpipe-area sensor faces the back cover.
+> These are internal board measurements rather than direct measurements of
+> the user-contact surfaces.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: sdm670-google-common: set chassis-type property
-      commit: 7018a35af1e64a346e91f928e3e1bda1729bdbe0
+[1/1] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal zones for PMICs
+      commit: 54c0271b5780c62097428067ff44834f8f2a59c1
 
 Best regards,
 -- 
