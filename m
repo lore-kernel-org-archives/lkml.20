@@ -1,69 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169471;
-	b=k6ZMJ9QxbSGTsr340XwCXDSQdns/rvwLGZT0Enf4IMzlJv1rmDn91+AkcR7LpHb2VoDe
-	 Z0BN358YCmBQdhVPhAdl/JFddhSVANJWfuVDrbvAe1iyGU4D+6P/wYJg82q+5bjmVGOBw
-	 gnk4So94h7idUulH5T2teFIeJWQTv7g3nT2y/LXYg9T1fv+8qpIkcTuDpqasBJHKszCMp
-	 n1tolxwJWAFqdtOyc8tmXzUiCRfqL6z4DZ0e5FNPM66oZ8jDPzCismM4rxrS+/Zy3Jg8S
-	 7kz9pF4lcKbcdPMe6+VGJ8jR2i6Db7aDSQZatiBWCAI8SETjE97wsWm5F7aEIu2JAzg==
+	t=1794169476;
+	b=VUQcExvUb569rC4nvdzTAty4DOIhXdC7bNkKpwk1Mjdm0gAUpJY9lV3BGtlXySoXl/me
+	 5koxxuJVRY3TJGYpIAY7w+FwxyG54Z5rBuNH/27GCQJ6zJbuAIzCS57mJJYa9bhHKXEZw
+	 XKMXEeUYIaFqMYRSoD5WEqcOvXtceFccoLT7nESpJDdo0lPOodjcFjVcMZGOoIaP586YY
+	 +T0v4gJU9hseYh4sPdadrwmB/QmJUeNuCVh6Y151JR8tqPRGWxdWwHmwizb2rs9yiaTa4
+	 +LnaLaIObMUj17S6bUhInpLyOYI9Oupxow/amVL6mUm9hR/A5h+08UUNbFWrN02r6Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169471;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169476;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=SNHbRrHlscvHCkYoqUCmKrf39a7siHdxMQNb9fFGUAU=;
-	b=uztBAKjMFvnudhiXaz/Ng7eU8x+JkcBKcvOdqeSJIV/RXM4vAyepI+U1FJmRwcJTkQZt
-	 EY5vtouF86lGmTNSs+bCmLF6JvRlReA6cY+ad5NXH/kzVy8WDeYceDlaW5Qsr4p61PIJd
-	 mSi96ImUqMKV5NSSNFNYS+uz81HcorQgxhynqDplfJv0gdvakdc1/uISR4zFnirWSrj6g
-	 b7oOrERozGNhPBSgyZNnAougCWebPpLGhaca9JESqzV26+ladCxO7bKUNX03SF/QSzSjI
-	 oPq346/Sbwf4GSigujd8Off81j2P3ZRMnJnAw7FCWMvlz2mHqRLZB/kzDek1VZPWVhQ==
+	bh=7ggyIcwYOM80LKMycSmwhM+8vTZbUAlXjcnBi2PVQ/c=;
+	b=JMIBZtUnkNR2LTdGx6iFZapq0NywQt9unpPluY2A7x0UffI/MLxroUmDXP1QKVndwmwx
+	 k4/Y4sL2a5iosH9sQ2YjwOrRHk2hx4R5ydYQN2CtEMcAKNi03+Pu2ALiMLMavVl72dcPe
+	 lPo146vknn7qacUh+P2rvW8hEt6EqJqwQ+4DpTNDLp3GijnVvbSV2/Rr88ECk3jyTh2n+
+	 syZnvpu6fpszTzvJjPHbQ377bXeFy+fuAt4l1M1ffPI0DqFMuF70XOlzHMfw+WQ0bgGbU
+	 i554uLXn/epMExeUw3lmBW60v8fF2779BANM+peCeyapJq1SyDmbp2uj1w2Ei/oVw4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpk2ZWgS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6iU+ZOK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1193607BB0D;
-	Sun,  8 Nov 2026 20:24:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ABD607CECC;
+	Sun,  8 Nov 2026 20:24:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpk2ZWgS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C78141F008BE;
-	Sun,  8 Nov 2026 20:24:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6iU+ZOK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25451F008BC;
+	Sun,  8 Nov 2026 20:24:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169470;
-	bh=SNHbRrHlscvHCkYoqUCmKrf39a7siHdxMQNb9fFGUAU=;
+	s=k20260515; t=1794169475;
+	bh=7ggyIcwYOM80LKMycSmwhM+8vTZbUAlXjcnBi2PVQ/c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kpk2ZWgSsAg+Tl5bjWN/xBRYNYLAguiuZqykIr4DtVpnG/6QCQPSqjaFPL03naBAk
-	 Y7RnPbDKXVafqj0TtoAIN6h+RVKNqvVeHL3t/eCs1z2y4ypk6aeU8zR5bxodEccKE/
-	 2DYd6uuA7XuqI74l3fu0LNl8G89Y9N7rsS42FksM1285+X3dvOpyuI0c70t0CKOqhP
-	 Gxp3hm44nidlfXZEoYK5IzEMyvjhFBoenH0v1tuDswlxOKeMif87bmqQWfAVhkMvlG
-	 8QpDOio5j4Lq21dLk5N1/OKz2Bds8nmu1XCJc/y0n66hzmA3lBA5hEmw+M7JslcSy6
-	 bYJaY8KSSVBdQ==
+	b=g6iU+ZOK1wknp7xZDrf6hGTPCHcs2M4SnZr443rrFu+1LzdL2SQt7EbGXe7DwIbnk
+	 o8qomeBS6PNHZLWewHFY/3FCGfVTjFbg5zYHi5kaH2rjokMlwFrHPTrIqCh+kMYSXh
+	 scXqbKM9JwVLlAO3PcPMEsNA2CvBoAz1zTOjPQJBIYrPIJcfDZ8PKwrO7ySJxM9HcP
+	 VMpsEqTJ9of5EIWUAh/n2DbysGeROOZua2/MWL8lvk73Q+hFcntNJzJb9c0hp7u1vH
+	 GLQMIFfpU/HlCHvgl+AI7zunhJhyMTe6Pp0x4c5m14XD6r5XVgcIIeCFT6X2MKcEV0
+	 P62PjPg9n65OQ==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Peter Chen <peter.chen@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-	Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
-	Jack Pham <jack.pham@oss.qualcomm.com>,
-	Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	linux-arm-msm@vger.kernel.org,
+	"Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 1/1] arm64: dts: qcom: glymur: Set snps,resume-hs-terminations for USB controllers
-Date: Sun,  8 Nov 2026 14:21:03 -0600
-Message-ID: <179416929405.628393.6125566619525822663.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: qcom: ipq6018: Drop undocumented 'qcom,ipq6018-wcss-pil'
+Date: Sun,  8 Nov 2026 14:21:07 -0600
+Message-ID: <179416929556.628393.15466602761506698116.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016091336.2715717-1-peter.chen@oss.qualcomm.com>
-References: <20261016091336.2715717-1-peter.chen@oss.qualcomm.com>
+In-Reply-To: <20261103225845.984564-1-robh@kernel.org>
+References: <20261103225845.984564-1-robh@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,20 +68,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 16 Oct 2026 02:13:36 -0700, Peter Chen wrote:
-> The DWC3 controllers on Glymur are paired with the M31 eUSB2 PHY.
-> According to HPG, host-mode USB2 L2/L1 resume with this PHY, GUCTL1[10]
-> (RESUME_OPMODE_HS_HOST) must be set.
-> 
-> Without this bit setting, USB2 HS device cannot be reset after it is
-> runtime resumed. For example, after:
-> 
-> [...]
+On Tue, 03 Nov 2026 16:58:44 -0600, Rob Herring (Arm) wrote:
+> The 'qcom,ipq6018-wcss-pil' is not documented nor used by any driver in
+> the kernel, so remove it.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur: Set snps,resume-hs-terminations for USB controllers
-      commit: 45cf7caf54392c64d1046b88cc9ffcfdf52af968
+[1/1] arm64: dts: qcom: ipq6018: Drop undocumented 'qcom,ipq6018-wcss-pil'
+      commit: 67b58fac77db8d2653e53266f62964cba96397fb
 
 Best regards,
 -- 
