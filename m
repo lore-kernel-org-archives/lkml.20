@@ -1,63 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169465;
-	b=fnv4qN97Dx+HCyZFfC/WuXs+ftDLGVOBHOVtwvyHNZSIJIv4LnCzsOcW6Jto469oAVb6
-	 V835sQvbcbK17IETi4dcH8SPpNK9n0TbdMYsVhNJN7LJc36dXimLObwJv7nCf0shGELQJ
-	 DAQlpA3szg56iire5RyB7UkwPYuk9j59N40nrFLEky1/nIa5bdjJzHyJCj35p+/fYhJqv
-	 puA1cMWz0NDEx1trtKFGMU4ydMfpp7oaY2x6PecDpn5reXg9x7OFELw7X65+IDgjuv2v5
-	 oSNmOE6QAr3u5VkVfmGFUtkbGT0poXZNq6Z1mpqXFAed1FzS+Cb0ixIfvxtLseQpx1Q==
+	t=1794169450;
+	b=vE5Tq9SS4PoONlLkuD21h+c6An64fzjoFxH6Nlxd9NfDH9ylfcnRE4Fwsy5KBjZrw7xm
+	 jMqkFPCTcdcOwlSFzKcOSjQ1+tvVtHSeQnQdE11WgDPAAbMRhk4yDgCixkA1IavBCH3kE
+	 i9sB2Qcc9Rgs1uGDhO1IebdQB+N9dX1q35xc7x0IMtbGQVVVPw9DZWUyqe4TJe46RjFfm
+	 gkYeMiAeZgS+bUdVcra4ui6MH3silj+bi+ukunK8wFPDk2INCBc02hac1kfgYs1yCOFEb
+	 bOG/fjVqtVIY0uc5g7exQ1tNsvi6l9145GXEQdVfJqDaNAm5nBidyzM7CNvwNS+ldcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169465;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169450;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=n6N/bEIXZaIV4f0J7zo3jGCxDzx9d7Kua/mIE+rUuQM=;
-	b=jqTH1VdlkA4boVh5PpjvtGLWpyMD8wrcDcjtpsN5YXVlbK2moazcp7NAiqf6N61Alrhg
-	 Q1k+zOJPqkTEZYr/lGnhSNUObULcFVeYcDWpMSPgkkJzLZ34j0CchomRGUlkij+N3dXcZ
-	 6LKt/jSElbTMXb0kho1tB4JR3WB1/fCJFYfFKAs65lhSXaZV3kl8jFnlf0uaG2W7AKq8m
-	 3RbXj8p+qv+y6YDoBbXGGvslp9QP5NQnJxpeeULltwNd3ISdR5qkogEjs0qNRUfeMV6x4
-	 xDDK6APKcd03/SZNsi7PH8zItx2wPnwKWUIfgYpUsfffr1sd2JFsO969GULTkviKCZA==
+	bh=DOkuGSYX7az1iSHCoVCPOdIABXdrfT561STZnCj2quw=;
+	b=WTixgLhR4KhzoOo1/yo2MfAKZfHDsa7Hxo5M1d8q/yQXSZXssAbLEbu/xap7we/JEPqy
+	 2RQ4UBvmtTHJDAtbrnYfe6oeqJ7fulOkhSMCibP9+dsLyk/h4ZjbnxFLm4AaOe/xIxtaO
+	 Su+bkshgl83Ql2CazEXu6S4A+tXCqIlpkWgE6px+zSJvIuV0Abd/hye1PsgI3KEP3K71t
+	 9xdvzk4sCc7zcLyp2Ps3zGL1NAjthZFWIaJOEk8Q3wjM6aLM0s0wAfHr7OW6d/X6pJduv
+	 rqmlHO2uZiZos//lgiV9w37ddfPzuLdSqL74dNmVTWnfNNN94P/DToj8XHrEyik/JKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RINOYv1z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYCQnkiY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A40A607A740;
-	Sun,  8 Nov 2026 20:24:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879636078010;
+	Sun,  8 Nov 2026 20:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RINOYv1z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE221F0089F;
-	Sun,  8 Nov 2026 20:24:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYCQnkiY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50FA01F00923;
+	Sun,  8 Nov 2026 20:24:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169465;
-	bh=n6N/bEIXZaIV4f0J7zo3jGCxDzx9d7Kua/mIE+rUuQM=;
+	s=k20260515; t=1794169450;
+	bh=DOkuGSYX7az1iSHCoVCPOdIABXdrfT561STZnCj2quw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RINOYv1zllflqLC3+st0ZOZO/1q/ZIIccySWqxG2ya19WZnrHSQPLUQZJO5/UeX4l
-	 0X00gyIGkwiLE7XjC/sq/VcvXxZ7iSDKcP5re542tW+K5e0m0aUwmcXBuvTNic53+a
-	 CqcfJET1fUr1ii1S3HdkJu7QYy+nVR+7yhrPRN8dMQFh+FKD5Qqhjs44TL0AiZfvc2
-	 nSC6FYFiQvE+0OpRJqgKiE4i1fGqDxE+ykjldZmxJWtTTAnNagA28YHeUrNIUsLdcI
-	 GD0yIKiV7xfCltsEo1fg0GO55lsyitKpzGmGw+AudGkN53MhEG8rx+p2PsstHCLZAG
-	 uSWYthLus4W+A==
+	b=EYCQnkiYL+M1rraqWfE+/hMFJToKFBDYHIGc7l5FzVs5XlWt2Poc2dBanDjC1m0Fl
+	 KnsW4rGkBI2OmK9TTF3CAC/hfQ7S5vEEsEJntXgvV7bhY8esuUAAzCCpJSCuKiJuvh
+	 ELnvqZS6TUT3SlUoGvw/REKh5xprb4EeK4gaRLvWMXMOHIb7vPxrP7A25w4y/KtaB2
+	 +OPSenq6EqFCThN5n+QjvNW15GQF21pwiXaZP9cm9v90nH0EfmZchJH/BCe+b7LsnS
+	 2qJuDYOjCbBz/94XNDUwAlnXomZ0dK83rP2df+cSZQeaokQJc5PV8vtdi3GzsAYwKn
+	 PZBxXIOVF90NA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v6 0/3] arm64: dts: qcom: allow SM[456]50 HDK board to play audio via I2S
-Date: Sun,  8 Nov 2026 14:20:59 -0600
-Message-ID: <179416929474.628393.2029895802703743256.b4-ty@b4>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/7] arm64: dts: qcom: shikra: Enable audio on EVK boards
+Date: Sun,  8 Nov 2026 14:20:47 -0600
+Message-ID: <179416929477.628393.5736814085032983289.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261026-topic-sm8x50-next-hdk-i2s-v6-0-0bd654b8388d@linaro.org>
-References: <20261026-topic-sm8x50-next-hdk-i2s-v6-0-0bd654b8388d@linaro.org>
+In-Reply-To: <20261026-shikra_audio_dts-v4-v4-0-cfebe0809467@oss.qualcomm.com>
+References: <20261026-shikra_audio_dts-v4-v4-0-cfebe0809467@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,24 +72,36 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 26 Oct 2026 10:50:35 +0100, Neil Armstrong wrote:
-> Following [1], this adds the necessary settings to setup
-> the I2S link to the HDMI bridge to allow audio playback.
+On Mon, 26 Oct 2026 17:14:28 +0530, Mohammad Rafi Shaik wrote:
+> This series enables the Shikra audio path on EVK targets by adding the QAIF
+> CPU endpoint, GPR/APM/PRM services, SoundWire and LPASS macro nodes, and
+> board-level sound card wiring for CQM, CQS and IQS variants.
 > 
-> All dependencies are merged v7.3-rc1
-> 
-> [1] https://lore.kernel.org/all/20260724182446.1484894-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> Shikra EVK variants use different audio components and processing
+> architectures:
+> - CQM/CQS use an I2S-based path with WSA885x amplifiers and
+>   PM4125 + Rouleur codec components.
+> - CQS uses modem-DSP based audio processing.
+> - IQS uses a third-party MAX98091 codec with modem-DSP support.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
-      commit: c6675cb43fccfdcef1bc64c771c576195ed269d6
-[2/3] arm64: dts: qcom: sm8550-hdk: Enable I2S for HDMI
-      commit: 84feb53ed8a80aa274b030f37e602db03611c304
-[3/3] arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
-      commit: 51b94c0b3d65b3f8b6d1ca9489bcf26e21a59f07
+[1/7] arm64: dts: qcom: shikra: Add QAIF CPU node for audio
+      commit: 65039c993039ba7903b01a1b08ae78889da0d719
+[2/7] arm64: dts: qcom: shikra: Add gpr node
+      commit: 388834e31ed2170756c26321620f38b61a9d657d
+[3/7] arm64: dts: qcom: shikra: Add soundwire and macro nodes
+      (no commit info)
+[4/7] arm64: dts: qcom: shikra-cqm-evk: Enable sound card support
+      (no commit info)
+[5/7] arm64: dts: qcom: shikra-cqs-evk: Enable sound card support
+      (no commit info)
+[6/7] arm64: dts: qcom: shikra-iqs-evk: Enable sound card support
+      (no commit info)
+[7/7] arm64: defconfig: Enable Qualcomm PM4125 and WSA885X drivers
+      commit: 6f769d4e24a6b8280edbd0da410183e39f33c25c
 
 Best regards,
 -- 
