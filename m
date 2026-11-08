@@ -1,88 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169467;
-	b=fFtmw3SbJlOdUANmewgeZOIZhPq5fwoIBfqMcJjMHcAZcQuEI3ChmFSqz7kBGb2TuQ/I
-	 yb9Jar4K+Qa6KxwRrtSCu20UcJqrKrXt0wyUWx/X+hLthimFysjJ5YLINTIU2muHsjtpf
-	 ErJIvW2cfLvZKs0xOQFj8peSyNny9zS1w4lSKnSg1ucBMiqaaR94q6OZK/F+uCXLc1nIj
-	 kc+TFvEaH60z0T/7oWSGXpv74NfHN6nlxH5ezJZos7QudXzjpmUDOcByBfvDX/zUYxzzX
-	 rhG7/rpJN0+aAm7vV5jj2Twgi7oEz8P1DIOqwUtpvDG/sOllGTwCQVVhO195Xsumddw==
+	t=1794169497;
+	b=hNVxCzYbWi2KaiBIRDC3I9enwvOzfLeMHlkQ03MH0OHB5fQk6J6pVi4Fmgpax/i7j6nb
+	 iAL/YoLgIZpzIN6aggP/iUEV/AAxaeWmtkuYnnmUQ2+IqJJoYPbsMFVezln4vGxBBPRxE
+	 8D12WgL9Dvg67QAnNoh1vSUhb55S53D5BxJqlCROzS+E07y9mHINXQe034sHonbo/V1Df
+	 LucsAGLqn4sC0z1/Rk0MzSpgCoRShyliZjnLCZj+nNdibMEwPTbxTrn66bnwJJHopuU1e
+	 4GQBQewK36EihzmUGanAjikNiASZZaMGYhffoaurrwM3HnHm5SJai0q2XceEiKQvNPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169467;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=q0L5KoeSSJ9JnTFnKpazoYgvFNGkegOX+bYFdABwfpw=;
-	b=tf2ieHV1KEeLHXdMqVCZMgLiGZxbMUQ2IUVoJ8CrHrLLkyh5xo/JN1VRP2uANHy2Ju9D
-	 1aK7OYli5GzYXpQUlBwtTM34bNpdlAGwq7JGBysD2MM8thn9ZX/QRKiuuXgJEIeDYxXfF
-	 llaZOLfCp+Pv/t3gdNTIw70yYWX+XSoGux+cQqJOeJYU3hLqfw5UAnB8zg9CgNJA+btp5
-	 hTk+zLDoKvH0r5ORa7vvaIGp7rr8HqVE3Nae60KgWD6UhOP0Lk0jRiFprhJSOyI16bEVT
-	 dz5kz18eamMp1tGHZLi9u8Po4+0QV25Bf6nZxeS8wEBGq7oKYUH8w8GPzZkg66opJOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169497;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=R3v5E6SNCq7UvDHGsaVgQX7pHBfqmsknhHYIo4WDvV0=;
+	b=ciKcCusMeXM4xg6PuLgSzq/6wBxArccf+tYnH/1FdAmykFEhITixhSA5EcTk4AZ/Oad1
+	 QXLqGN2eY9AwgHYuVrQRCs9VbR1lp0IP0LpQr3TJWpUFCe30rot+Spj6UpCnseP2sdNKe
+	 gDgG78V2EovRDIakO03Lz96bfANCCZpV1jAc9DMHZNrduoiFh+NLefOQ90wjFr2eu0R6G
+	 g/dmfernDXBOhlvvkOLUZGPgM/qK8cVsBUBMVB8wTOiaSSRoC7ACfgaqYPEqApwQEVuM/
+	 UD2uwYbZwLWroRAlFaSieNHkwGmoXZa6XqQNAWWbFVrAfv+71R1CdNjxDofEljo0kPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcHNMHbe;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rendec.net;
+	spf=pass smtp.mailfrom=rendec.net;
+	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=aHzLZn9t;
+	arc=none smtp.remote-ip=80.86.107.70
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32071607A77B
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:24:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32071607A77B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFC06080C4D
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:24:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFFC06080C4D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcHNMHbe
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a215e64962so2550475e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 12:24:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794169465; x=1794774265; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q0L5KoeSSJ9JnTFnKpazoYgvFNGkegOX+bYFdABwfpw=;
-        b=OcHNMHbe6+Tr5tBKj3Gx21HnsTCetKKcEAwi0Rw2V8sch6vR/a4C4Q8Q612oZhdRqJ
-         N2b0PjiuTqdulkbxYXlm+LU/nj1FHo+cE6x1xsGSPg7diqZpRa2ZfPr6YpcOnNJRhW9r
-         fiCZKxy0bzcDpqhU+9fsgtTevyNyR/YxIw1snxETcUqb6NHsydLgd9kaf2w0dmrOayS1
-         Y2ev+T2O8QZh2vpgnAtekOkOhmSQMcEhZExKkupYfRTlVo4U1yI6wXJOR0uthiUY9MZ4
-         2HVhWDhKoQs0eUfz2cT87I+XMeEAFqleexf/f1VZMnjnX/oLxZcIS5BLlw/0YkR830I6
-         At9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794169465; x=1794774265;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q0L5KoeSSJ9JnTFnKpazoYgvFNGkegOX+bYFdABwfpw=;
-        b=ASeJckTQLSE0TR5HiS07sOv0PbHm/vRACw6PEYnbzUsGQrfrTTmzByVNpKPMhqJ4C5
-         TTv4ekD59Mp/OrICpTlvCPP2P5Fw4ptmzU6DZUd180ZLHN/ZrpdKFk5yUzXHy6V6GBMD
-         RLmc0eip62FeK6rTUPId7TraloC4rc+165rptuYVGFZRHDIi05oVsOWVMzByWUlitsCc
-         0pZb8u/V+1oQl/tksGogHwmqRq6PKVQE1m94GE4/ktHMIbNsYp4nFxaG6AjoeQ66PcJ6
-         vdroTZ9+p7kKMP9fb8GYksxT9hkB5eq2SKvJmuamyQwiUoMf0+JNWgv3+LH5vjB7LG8M
-         Zf+A==
-X-Forwarded-Encrypted: i=1; AL+hErG0b+Dr0EqGo/P0bgUncn33hYx4zmLmFvSa3+VaUYQTawK67OZDz4FFz5N3rKJiWO7JPblC5NLh3DgUEJc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z90/R3urmBqKTlo9hLT0gJDpJ0P8bFmNggsAYzxg1jBhCU6tHoO
-	Zq4sd5pJ4AduwBel2kftZ2+3bHgUJT5XGhVbrV/+lQNL3OecZtzV7ZW/
-X-Gm-Gg: AYBFou2W0NQgIG+uLIJDBR5xGVrUITH5ZGab9jTo34WY/e8OaLXhu7mKcs5j76p09y3
-	9Z5DZzZbKz98+UFjf+SLdNUxVYnbCmPlb63mdEjKv1ECvbh7awKOiIwwkkzCvO2F8m7wCkwq8h4
-	SIsye9BgSQ1ap2aMFIhciIVvKhXDKjLDz1B5fsxygsgdrpgmljUS77WaparFrPNTSUnEbZSbx3f
-	kHEDjwDx7YMKdw71aWzhettVJgK/P/1x6c+rY/p4ZQSSwkDB9ksXi0F6BA25mb/WGpVhw8agzwq
-	/nfL0OnCY+L+En1RI2k0yQQV0vDKRb8oPePrQ6W3rzgsh/k36N9tCD+7FSfdDvqKD3Lq/jODT4C
-	YRuRo4xgSAqU2+taBIi1Nqqzfpu5Wce+TI/HNyUJrLzUTouKclHiYhjY4DGwy/sgsSHVzkPLZn8
-	hmdAOWYiXk7sNZ58RK4DdjxzlHEZGavE3Aeym2RG4qwaIiQO6ARWrJmxJ23FDKZBjtG2cAEWGxE
-	ZGAmzeXOQPNkCbRcFBSA2ZbCNZ+OCKtL0T62NtyaMR7mBNxcRN2j/Tht6JFdGye2R0zy+peBnka
-	yf7Gv9poducjC2hObuEuvUFEmwfz19IvMe34X801fmMFeU3N6AT67A==
-X-Received: by 2002:a05:600c:811b:b0:49f:e8bf:8f9b with SMTP id 5b1f17b1804b1-4b94d7632b5mr38260125e9.4.1794169465512;
-        Sun, 08 Nov 2026 12:24:25 -0800 (PST)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90619bc91sm80029115e9.2.2026.11.08.12.24.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 12:24:25 -0800 (PST)
-From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Date: Sun, 08 Nov 2026 21:23:49 +0100
-Subject: [PATCH v2 2/4] selftests/landlock: Test that layering does not
- break refer
+	dkim=pass (2048-bit key, unprotected) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=aHzLZn9t
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 45131D4223;
+	Sun,  8 Nov 2026 22:24:45 +0200 (EET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 45131D4223
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1794169487;
+	bh=R3v5E6SNCq7UvDHGsaVgQX7pHBfqmsknhHYIo4WDvV0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=aHzLZn9tkRvOVkfpnsUMQMHZiAQWh3Gzqp4ZTW8AszPuqSZvBpI0Wt/XRSEP6uq9l
+	 rehiNqgcnUGn6vf7uYXo70S+xjC+Kg3v42oYibC+BxZYcuJ8kJyVe0qXewWwRvbo6B
+	 g+uFZ5xMFpGDnuEF3aSewpeiRs5hsMHqS3fYLYCK7OalyRJcendJtETrh8nMznB+JF
+	 EntSpYa1g6snYfARIJYyWr3DdjcW9KaKMNDgG/eN79QbO1u1Jj3hzcRhMwdDxZlLKz
+	 zHoSOLZlxPgKQq39eBkpMq4AYkmL1b0NQkNJ0TO8iWcv0JmZUdrAd4BhWsAmWCQnIr
+	 9DVViC10ITaCA==
+Message-ID: <0df179e374de91aa3e671f0fe66b45bca716e095.camel@rendec.net>
+Subject: Re: [PATCH v7 08/10] irqchip/imx-irqsteer: Dispose of child IRQ
+ mappings in remove()
+From: Radu Rendec <radu@rendec.net>
+To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
+ Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team	
+ <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Fabio Estevam	
+ <festevam@nabladev.com>, Jindong Yue <jindong.yue@nxp.com>,
+ xuegang.liu@nxp.com, 	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Date: Sun, 08 Nov 2026 15:24:43 -0500
+In-Reply-To: <20261104073759.386777-9-Zhipeng.wang_1@oss.nxp.com>
+References: <20261104073759.386777-1-Zhipeng.wang_1@oss.nxp.com>
+	 <20261104073759.386777-9-Zhipeng.wang_1@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,86 +74,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261108-b4-landlock-refer-nonfs-layer-v2-2-2b405fc1b3aa@gmail.com>
-References: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
-In-Reply-To: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
-To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, 
- Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
- Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>, 
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, 
- =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-X-Mailer: b4 0.15.2
 
-Regression test to exercise that layered Landlock domains do not
-accidentally deny the LANDLOCK_ACCESS_FS_REFER access right.  This
-used to be the case when layering a non-filesystem ruleset with a
-filesystem-enforcing ruleset.  In that case, REFER operations that
-would have been allowed for the individual rulesets would get denied
-when layering the same rulesets.
+On Wed, 2026-11-04 at 16:37 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
+> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+>=20
+> Once the driver can be unloaded, the IRQ domain mappings handed out to
+> downstream consumers must be released on remove(), otherwise:
+>=20
+> =C2=A0- a parent interrupt racing with the teardown can run the chained
+> =C2=A0=C2=A0 handler while irqsteer_data is freed (no synchronize_irq());
+> =C2=A0- downstream irq_descs keep dangling chip pointers into the unloade=
+d
+> =C2=A0=C2=A0 module.
+>=20
+> Dispose of every child hwirq mapping in remove(). irq_dispose_mapping()
+> calls irq_domain_disassociate(), which runs synchronize_irq() and frees
+> the descriptor, closing both races.
+>=20
+> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+> ---
+> =C2=A0drivers/irqchip/irq-imx-irqsteer.c | 4 ++++
+> =C2=A01 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx=
+-irqsteer.c
+> index a14a8b80d60e..d15b806b278c 100644
+> --- a/drivers/irqchip/irq-imx-irqsteer.c
+> +++ b/drivers/irqchip/irq-imx-irqsteer.c
+> @@ -272,6 +272,7 @@ static int imx_irqsteer_probe(struct platform_device =
+*pdev)
+> =C2=A0static void imx_irqsteer_remove(struct platform_device *pdev)
+> =C2=A0{
+> =C2=A0	struct irqsteer_data *irqsteer_data =3D platform_get_drvdata(pdev)=
+;
+> +	unsigned int hwirq;
+> =C2=A0	int i, ret;
+> =C2=A0
+> =C2=A0	/*
+> @@ -294,6 +295,9 @@ static void imx_irqsteer_remove(struct platform_devic=
+e *pdev)
+> =C2=A0		irq_dispose_mapping(irqsteer_data->irq[i]);
+> =C2=A0	}
+> =C2=A0
+> +	for (hwirq =3D 0; hwirq < irqsteer_data->reg_num * 32; hwirq++)
+> +		irq_dispose_mapping(irq_find_mapping(irqsteer_data->domain, hwirq));
+> +
+> =C2=A0	irq_domain_remove(irqsteer_data->domain);
+> =C2=A0
+> =C2=A0	if (ret >=3D 0)
 
-Link: https://github.com/landlock-lsm/linux/issues/67
-Link: https://github.com/landlock-lsm/go-landlock/issues/66
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- tools/testing/selftests/landlock/fs_test.c | 39 ++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
-
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index f725882fa4a7..b92cb988a39f 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -2612,6 +2612,45 @@ TEST_F_FORK(layout1, refer_denied_by_default4)
- 				layer_dir_s1d1_refer);
- }
- 
-+/*
-+ * Regression test for layered domains: The two enforced Landlock layers both do
-+ * not restrict the tested "refer" operations on their own, so they should also
-+ * not restrict them when they are layered.
-+ */
-+static void test_layering_does_not_break_refer(
-+	struct __test_metadata *const _metadata,
-+	const struct landlock_ruleset_attr *const non_fs_attr)
-+{
-+	ASSERT_EQ(0, unlink(file1_s1d2));
-+
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_REFER, layer_dir_s1d1_refer);
-+
-+	drop_access_rights(_metadata, non_fs_attr);
-+
-+	EXPECT_EQ(0, test_rename(file1_s1d1, file1_s1d2));
-+	EXPECT_EQ(0, test_rename(file1_s1d2, file1_s1d1));
-+	EXPECT_EQ(0, test_exchange(file2_s1d1, file2_s1d2));
-+	EXPECT_EQ(0, test_exchange(file2_s1d2, file2_s1d1));
-+}
-+
-+TEST_F_FORK(layout1, layering_with_net_does_not_break_refer)
-+{
-+	const struct landlock_ruleset_attr attr = {
-+		.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP,
-+	};
-+
-+	test_layering_does_not_break_refer(_metadata, &attr);
-+}
-+
-+TEST_F_FORK(layout1, layering_with_scoped_does_not_break_refer)
-+{
-+	const struct landlock_ruleset_attr attr = {
-+		.scoped = LANDLOCK_SCOPE_SIGNAL,
-+	};
-+
-+	test_layering_does_not_break_refer(_metadata, &attr);
-+}
-+
- /*
-  * Tests walking through a denied root mount.
-  */
-
--- 
-2.56.0
-
+Reviewed-by: Radu Rendec <radu@rendec.net>
