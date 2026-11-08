@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177181;
-	b=bXxwc8zij5OjHVs1EdOTQ+ZZVJGlXpoIwlIjGCvGufZluZq87gRozX3kuMGVsLcEGDMF
-	 jDorY/md1+nXclRGWj1RMmH+kf4aiLIyG2iDx1zlStV903fXnKUzjvMXrJ5G6kMH4FgRf
-	 SpQ2MTw5B/rg46DHrLiCWmvQi7zBwYJqiA8mrDlt6xtg+7wtfoe03LCPZYMx2QMOeU8Pu
-	 ZT8qwEQ3+T1IDba6PsDM1f9x7o8X7xo6x2h6QXCC3ptbQZK9a51lwC5t869O3DYMXK1Zg
-	 eDQHWqBkBJhWZ3RLL4zGVljGvA211v89RWpCLq7X7Hi19IvEHH79LXSQsg3gPWT0+yQ==
+	t=1794177179;
+	b=Rxh440Ri17lLd9rsaIKsDRRhibs3h0ICbFwODpEVsxDU4jfMwkno/X2uBDj2jvwRXIY7
+	 wVI6Psd3FJIdYq2N7lzuJoU63YClHe7LHmy/w0hXE1hwz/vagsOudUEeBr6TBy18loJTR
+	 XDqLyYrF7m6CRUkgsl0RTlhNyirE6ln5vKPO7tUOfGSn6icciNMHY2oSTHN4sGR3wAi6W
+	 84kmIajI04WNc1bS5LMNLhfn5aiBtuZ2vjnFJpd8n7oyT8bUMs5mELK7kggq5pdKx1q5+
+	 fMwLN5DEHxo9GzhdX5gYPyyELv2QmPDOD9cum9oml1VXAR+zlAi/0L6R2CTyIH3yiBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177179;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=YMj96xyXamRlNHvJIKz7F8bG9fRJ2XR/rAxoOAsux64=;
-	b=Sf3xZLRgdmmnsL4mcbEEgsHiqsiurW7Aj5kxi3UZisb61fkz++byln/fqQqVOVhNX6ZR
-	 2LmZn4IAioP101cKmGmQ36jNQO8RLsdUyzn7CNqs3rpSFM5wVwhLiz9Q6e568TxQOHeZC
-	 C2f5NWySNZ4g+cyRLxzsHcM0nkOhJqnJJ0Xc+EJpeZf46EVv+4zEJlLbEp0yueLWIL1LD
-	 tQWLG3yrO2Ww8u2fe8FPGSTWQIuU6opuYCLNWAsuwz+GsoHO0l5vOZXOL0H2AjG/gOJ2S
-	 mMkpkExD0M018pIni6ggziVzCWp59z/3IycyMkCDgvWjKjfycEy9SuUT8RwcrSvF/ew==
+	bh=ZgBAYp6aSHgh2UGYksaSW/6IjKs1l3nEYgboAEjjug0=;
+	b=f8G7eniXwXOXx0maEcrYZMXYpa/755VrrcllII/K8TQriE8rBqYvmYajkdVJU/dfSFxM
+	 dbD1gdK70UKY0D4pO4Ng1T/quieZzcGeihdlOK3Uz3af3POImN+XmbpMd4rOHMoTlSana
+	 HKWU9Ya1DC/wyMSLc6h+ZaeHEhB+IHiy+revTCPlhHeM8FMhbLQ6C98EA2zDDVslM/Tve
+	 ZWYejV+tr4IU6AJbsXlGmXhClbCDq7SF85e+GPOBPd5yIrrb1BL/wyn2K55IgVtagP0TY
+	 Fq+CsTRg7PETxn29rnDeYHJ7QZj+jM7OjCiIhYqNeWbQRG1q9LlFCNTDGVoKgXXRnEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b="zvFTt/Dg";
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=v0OOwBLe;
+	arc=none smtp.remote-ip=109.224.244.18
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418AB606D801
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:33:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 418AB606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7441E606A323
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:32:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7441E606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=zvFTt/Dg
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=v0OOwBLe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794177179; x=1794436379;
-	bh=YMj96xyXamRlNHvJIKz7F8bG9fRJ2XR/rAxoOAsux64=;
+	s=protonmail2; t=1794177176; x=1794436376;
+	bh=ZgBAYp6aSHgh2UGYksaSW/6IjKs1l3nEYgboAEjjug0=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=zvFTt/DgL0JKAuCW3DjlnYZGnDr7m19yuHr4HAzWvoVK2B+vIMatCtAYzK8kVjB0d
-	 ODV1QWk8E/g3UK8EOM4YWCPSEyZ6LbXK3yzm62BgAW+ktxYo0A3avar1Y5Hqe74AnG
-	 8e4T329aBtMaactWCsTlavmP9oR6sVnuGwtSVXF8lPwgsPbXAzmtiW81BOdfb7y4ZC
-	 5F9u7werg0YutwJMNKcJtz7kHrfDk+aeWdFe/xRXgeZk43SXS46eESfn/NaDKIj5Sw
-	 BSEj8bkjRzliJEsJyDYcB+CG8OBmGEAAQA0WFeyQV7iGFV4FIjTJc8EOTuNdF4uJFh
-	 VqHz+y64reDrA==
-Date: Sun, 08 Nov 2026 22:32:55 +0000
-To: "slava@dubeyko.com" <slava@dubeyko.com>, "glaubitz@physik.fu-berlin.de" <glaubitz@physik.fu-berlin.de>, "frank.li@vivo.com" <frank.li@vivo.com>
+	b=v0OOwBLemlbjCrQF6I+GFKlFfAlJiS9WAr+fTBHoY9RTAeAwQraImnyjjW/k0Bfxz
+	 Kvg3glBuEt0yTg4Vr5oH5rOABaN8jzwa8vphQYcYUWdG2iCodVNsFWbbkDOPlag819
+	 EqsAmnyo7C2kTgqkb29vgLXdVrKpJasM2BYHsWNnXjbpwW19Uy0okM5aSHQAbBD7II
+	 6piU9XLHLO9t/vZhjqU4wxi5oZN8pf+b6RwDKc0qEp7PWNQqhefRbn1sTmXl9tch81
+	 2rtC2mrS/jfHvbF9iTDGzItgPhL3mdbCRLYjR4OTx/hjnYScL0U8wX/iwNgvoSj/TY
+	 JqJj1VBd9v0ZA==
+Date: Sun, 08 Nov 2026 22:32:51 +0000
+To: "nkapron@google.com" <nkapron@google.com>, "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] hfsplus: enforce legacy sequence fixup table invariant
-Message-ID: <XizPhPDPPpkNfPh9_zn3vMVegijzle2lWWBSUgdPB3tpi8xMB2qBIDun8c_X7eyFVMgq0zBlmGikFuBstwkN-O0l2bfQcmA5gtxudDOHUQg=@proton.me>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] usb: gadget: f_hid: free report list on release
+Message-ID: <1QsGBy1k7rgvDtVuIrw8wkuScqkmKf-h2yKjARCmaLFH2TFGvlr8izECUG0Pq-FRMo3NqA6bmTOayxrZ8xc0xwSOKjLLpz9flCzQomrlnqk=@proton.me>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: 870331d8d3b4d5d6feda88c12d0079b4584fa434
+X-Pm-Message-ID: b516be455eb068567a30e49e16bf2be43d708eeb
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,21 +66,19 @@ Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-hfsplus_fixup_legacy_sequences() can grow *len and memmove the tail
-upward with no check that the replacement fits the caller's buffer -
-safety rests entirely on every table entry satisfying repl_len <=3D
-match_len. The table is regenerated from Unicode data, and the sibling
-decomposer asserts its invariants at build time, so this one deserves a
-guard too. With the current table the invariant holds (no entry grows a
-sequence), so this is purely regression protection:
+Entries added to hidg->report_list by the GADGET_HID_WRITE_GET_REPORT
+ioctl are never freed: hidg_release() releases report_desc,
+set_report_buf and hidg itself, but never walks the list (and
+hidg_unbind() does not either). Each distinct report_id used over the
+lifetime of a function instance therefore leaks one entry (~72 bytes),
+which adds up across gadget reconfiguration cycles.
 
-    if (WARN_ON_ONCE(f->repl_len > f->match_len))
-            continue;
+Free the list when the device's last reference is dropped.
 
 Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd =
-(v7.4-rc1, 2026-11-07), fs/hfsplus/tables.c:3701-3742, callers fs/hfsplus/u=
-nicode.c:551,670.
-New table/code added in this window.
+(v7.4-rc1, 2026-11-07), drivers/usb/gadget/function/f_hid.c:679-682 (list a=
+dd), 121-128 (hidg_release).
+The report-list mechanism is newer; the leak is present at HEAD.
 
 This was found during an assisted (AI-supported) static source review of
 mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); e=
@@ -92,25 +90,24 @@ verification rather than a battle-tested fix.
 
 Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
 ---
-diff --git a/fs/hfsplus/tables.c b/fs/hfsplus/tables.c
-index 2101201..0b2aabd 100644
---- a/fs/hfsplus/tables.c
-+++ b/fs/hfsplus/tables.c
-@@ -3709,6 +3709,13 @@ void hfsplus_fixup_legacy_sequences(u16 *buf, int *l=
-en)
- =09=09for (j =3D 0; j < ARRAY_SIZE(hfsplus_legacy_seq_fixups); j++) {
- =09=09=09struct hfsplus_legacy_seq_fixup *f =3D
- =09=09=09=09=09=09&hfsplus_legacy_seq_fixups[j];
+diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/funct=
+ion/f_hid.c
+index 3c6b43d..dcf6dce 100644
+--- a/drivers/usb/gadget/function/f_hid.c
++++ b/drivers/usb/gadget/function/f_hid.c
+@@ -121,6 +121,13 @@ static inline struct f_hidg *func_to_hidg(struct usb_f=
+unction *f)
+ static void hidg_release(struct device *dev)
+ {
+ =09struct f_hidg *hidg =3D container_of(dev, struct f_hidg, dev);
++=09struct report_entry *entry, *tmp;
 +
-+=09=09=09=09=09=09/* A replacement must never be longer than the sequence =
-it
-+=09=09=09=09=09=09 * replaces: the caller's buffer is sized to the origina=
-l
-+=09=09=09=09=09=09 * length and *len may not grow.
-+=09=09=09=09=09=09 */
-+=09=09=09=09=09=09if (WARN_ON_ONCE(f->repl_len > f->match_len))
-+=09=09=09=09=09=09=09continue;
- =09=09=09u16 *src, *dst;
- =09=09=09size_t copy_len;
- =09=09=09int k;
++=09list_for_each_entry_safe(entry, tmp, &hidg->report_list, node) {
++=09=09list_del(&entry->node);
++=09=09kfree(entry);
++=09}
++
+=20
+ =09kfree(hidg->report_desc);
+ =09kfree(hidg->set_report_buf);
 
