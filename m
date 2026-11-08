@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794172602;
-	b=EtZDgTfx+Ad9XVTuLwyEQFBX3y3ykiodrbkS/Ydr4JjQBoewmg1CjJzahDHy55TuYjCG
-	 cLaWYTLqiGfKk3Y65ZDka9hY56Z4TtOaD+6I8Xf0/3/QUH5GUJ2SQMKaOnMK6hHlHOAu+
-	 kpctod01snR3SsiRF9tJgvAyWZPdynY7ZPCtWh1o4ST0hB7k4cqk63YnrvevcBUS+yUDz
-	 D8lzcIATaDD7r421qkdJ76PcYHfl0kNo899cpXMRqkMsZyNrPI69TkmCqaiqfcVDgqQtw
-	 jx43dEMNNOY8XgVW5kpLq+g7/Fnf8sB0bR/5VF99qosvqeeQo2MjlZaSydaYWaDFM+Q==
+	t=1794172658;
+	b=AusuVpkEZOw2PQzREacUBb3s99q8rdtOpKP80KF9pMbtwMwGokzWErMtvV7gVu4FIA0f
+	 CfymH8DCR0vQ7KypKiMHv2ysLBkvI2OMq/eqXyz/mc3JEWWbrtYMBfRlFlAy+xxia7Czn
+	 9WVEl5E6PGa5ndoKx9g38OYKeNWQIc3Y/m82EHFOPl6s9g6fabpur1cr/Bu8uveoW7r7m
+	 WTRiSiTkGiP+oOGe8mxPkbaUq32YiXz9G9mXJvoU5m47VvL2wEDFLegNw5yY1YuCFp5qI
+	 2u6Rt5ueu4nr/hxmxaoeiH7vVc0hBdQXy2/nUk4NYfiMBLNnvFd0kERdncMYJBmNkXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794172602;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=YqppGydY2lVpcg6U6RxDeq0X7ii+knKFWwlrA7dV7j4=;
-	b=rmTWhQYKY2OVKT6xXhGyfCY9nH6u4dzTxI84prsK2j9bobRX8y4GIfkBuCobWodf5z2E
-	 Lu+VrQPqZM5K1NO0EpAc7dTRzZ9pk0u8dFa6OcWS/i+mBrAHo1C7GMupm0tX/HNbV8B1Q
-	 lJbk2XOx6U0I+7UEL4xwViMDYNhG4ds1rsDMBH5gIEjvjWngSUi9xcJBDq421XJSSFEU1
-	 Ir+affPmcmGD0I+r28Ik9mVvS5bhEs+LTIKEiI3gSaTsXf62ZHampDEljsJdjpjeOZW/6
-	 S0cqLXJKfh46TVQC6QBhAFh+QBW4UkU/lF8Man0z+vO7Jlo0gafjFutqJjW/yOhb0Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794172658;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=6gO1pl1wSi/CmrOfFJOtMtdYZqyh6rJDv4/cfMzxrdY=;
+	b=lrXiNlyP7NdGkLmwmtpBttynRjDX/XCh4MGA/wLP5AEwrK+UJFojr+5NEzL14655mNjT
+	 CmwumUJtMbB824Jms5w8D8ZSckeYCRxxoFckOQK1n2wWfhO6faj6UKZsOJVXrts866bJQ
+	 YWFGUymJ2UOUwxjXmS53D7TfvOmM8FQBmRzOlLd5hVqpPx8fnvRrMIqYxE/+SWh/zXd8t
+	 nxg2gJl0vKk6LxYXlmefmmMuCRh0bteXjD7vCo9N0/HxicpOJSV4/gS+ObIkSwjx53XD1
+	 trVIyzEsxk9B9MWLt00SX1yybuaWXBYgzPb0j82TZq5D00SPupLqlgTz8yJhymFmu7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h8AWoA0O;
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/WtAD6Y";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6DB606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:16:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE6DB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F75606A31C;
+	Sun,  8 Nov 2026 21:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h8AWoA0O
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-702dedeb70dso128632eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:16:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794172601; x=1794777401; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YqppGydY2lVpcg6U6RxDeq0X7ii+knKFWwlrA7dV7j4=;
-        b=h8AWoA0OWxbqjyWSNiYXEzTizNbayTb0xZvvXcqCgkbk2w6HrwjoDDPGXFLH/fsHDO
-         BDyEC1UwljkkYsQwQnpdWzQFEYIVN99b+HFiVsQrgGCKlGMGz9PcaP57xeV17t6Nz/S/
-         gHkBA4kiJt3gn1lxJxuScSF382vlSUtXxg9JA1pmbjpkCc9oovDuzn1bws859QUX2aek
-         w7pIy4d9VWt4Iaey/v74OrK9GqNo+Hz5qSlJ7kVutNNBYDHUjGLjz+Mc6L/qdDMDKG01
-         AS8nZFrBadASG1JTaDpel7dwavlnGnsHdS3p7XxN3CGMpp71D9eDK9fDgFncwCT6XS2e
-         CHqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794172601; x=1794777401;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YqppGydY2lVpcg6U6RxDeq0X7ii+knKFWwlrA7dV7j4=;
-        b=ChpIVPux2pjQLVy32P3QqhMFp8/Y3uaxsZKZZ0EKS+dna7XofP/cA4hw1R+/Cal98G
-         ACUA88t+TxLsvGEbwZFxr1zO33vInHlHVKq3UMdlKB9lCZ5hEgVG7BwvWyrxzaWt95iV
-         jmq1gf0w7kT6l2lQSv0ptU8e5wSjS54xylhzd/5Txt0v7PmhlNDIdfmbrdlq207CXH2S
-         nGyBjTcfyaifj7bfIMZlnpkJifEFqHjIDeKvAmojsn8bvT0gzD/M22k/XWqgUIQPuf9i
-         O7U4sneyHHEU8WkEegDrArZjUKOuGXj4Tg5ypPGrteBAoJ2tftulyEeitWjNDDGK3CMj
-         oeXA==
-X-Forwarded-Encrypted: i=1; AL+hErErhm5Ql+T0SnaMbXWQi1nsAlsL1LPE4rdgetPKDotFF7ycQ9tYbDTvj6LGSVrjIZ2vYIFGGqLauYKLXG4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/s0rN8svCp7BN27wWuDw1spdk/o5fcI0Xp4JAG1k0JMN7wLO01
-	VAkXvrLoFwZsl7ZIej9At8CIWAExK8s9goYzfyoiq4bAal3s0j0duXbh
-X-Gm-Gg: AYBFou3cgxMfm8bV1loZja8Vy+8HZ6KX397Wb3qMuoNjeyuuKr3bPJg/AqG7y5NVW9S
-	i5SAWxWM/L8kSz8Am3ePG70/tde5IHxi7gtqJ4lsQP328IFup/ycQTJktYeawK554B/09wXf3nF
-	sw03GyxCNUIelNt2zR7PXU5hR+B3vixqeNWd6lmsWRw2qKKtCHh58Pd5dJdgSmYeew15stE1dlk
-	VerDoMTyphBpXl1CegmRbPgHcMk8vwSCF4c/FQrlq+yeLO7Ekgpl9qT4Addrr8JfC4UVKcH2b+U
-	pBMm/fsohB1QN6C6TsqO0HJZE2TAZJLGrS+GIOYDFceGPteAeVAbuMio+B+i6L8Ve8+J4cXrIaE
-	2ObEaC7zI8tOXslHgdrnJEArPKs/9LeH0qkHSA7DiFJe8SzbNfhFK2eAholHGJobDTRXzYf0Lse
-	vKMmmErwdgfnn5P32VbcZ4dPZPnlOlhCtUSA4wt3IRFlPEECVgP9e4mnoWgxaZD16zwUV1UaBnz
-	7OFcq5ON6bZGg+l4RS6L+LgU3KfXasL9UVH51WchYFXMoFOarjEfHG4EKG/6k6h2I1Uo0FNgZd5
-	b15ka/SBIFT7QQLI9Vg+qxJzKNP8rL4TQc1MmSUWiYjPxTdDspyVZWvo3e2uLJ6Hf3tjDQFfQAU
-	IFmVMSTAYBfW2cnEEn9hJGLSzMwPz0u5jzbz7oenr9hX1wkWdW1rDOV962E8NUAioe0GJQm3W4C
-	21bc3Z9FYrS6KBkHACczNDkXu6QalMGPtPSRKge/INV/ArSWj3O5o=
-X-Received: by 2002:a05:6820:1381:b0:70a:df8e:8f64 with SMTP id 006d021491bc7-7170f259c8bmr1073868eaf.22.1794172600816;
-        Sun, 08 Nov 2026 13:16:40 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8fbc55sm1896378eaf.12.2026.11.08.13.16.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:16:40 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH 0/3] mtd: rawnand: qcom: unwind failed child initialization
-Date: Sun, 08 Nov 2026 14:16:34 -0700
-Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v1-0-509f30a9e14d@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/WtAD6Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9028E1F0089F;
+	Sun,  8 Nov 2026 21:17:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794172658;
+	bh=6gO1pl1wSi/CmrOfFJOtMtdYZqyh6rJDv4/cfMzxrdY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=H/WtAD6YbkJSr0XVa93K4LpCGXTJvumUwvgS9yCnzCnEoQL3+lwsEKrFPADTUrYnO
+	 sup33dtntMNvEsTKbU/lanvKZdex9a3bScPa+hHpVXRK2gmI/R9nU1nreAgeebXnvc
+	 hVF1Hv/fXjN9KmHVpC7kSzXFtPO0eFlBI/0B9//mnWeJe8rk6Dax6K2KjH6HdUnCce
+	 nVvcb7yE4N8YRN9z5DoWlWriJzT2QqIX00sn8rA2uEFHTCzK3Nhtv606oiC6IjBDc/
+	 J/wnQH7dT7l3pLMdnZ1zZdcCd2ZKRXW4GW62h/ub0ycImIgN+J3fruVsfCKZW6mdIq
+	 FE7DjgVKbMJ6Q==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Alex Elder <elder@riscstar.com>, radu@rendec.net, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: Daniel Thompson <daniel@riscstar.com>, p.zabel@pengutronix.de,
+ mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+ danielt@kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] irqchip: introduce TC9564 SoC MSIGEN support
+In-Reply-To: <20261012190245.3988619-3-elder@riscstar.com>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-3-elder@riscstar.com>
+Date: Sun, 08 Nov 2026 22:17:34 +0100
+Message-ID: <871p8vvx8x.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,48 +61,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXN3Q6CMAyG4VshPbaBzSCJt2I82E+RGtmwm4SEc
- O9uevh+aZ7ukEiYElybHYRWThxDCXVqwE0mPAjZlwbd6YtS3YDpY2fO+HZxxmCCRzfxy+Mi0RK
- SSJSEq8KxJz10Z6MG00PBFqGRt9+j2/3fRXqSy1WvF9YkQismuKlOc/Zt9dtAW4bj+AKcTNgMq
- gAAAA==
-X-Change-ID: 20261107-submit-qcom-nand-child-probe-errors-v1-f5e2703a17a5
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Christian Marangi <ansuelsmth@gmail.com>, 
- Sricharan R <quic_srichara@quicinc.com>, 
- Md Sadre Alam <quic_mdalam@quicinc.com>, 
- Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain
 
-Keep the shared BAM transaction usable when resizing it fails, validate
-the boot-partition layout before publishing a chip, and propagate child
-probe failures after unregistering any previously published chips.
+On Mon, Oct 12 2026 at 14:02, Alex Elder wrote:
+> +config TC9564_MSIGEN
+> +	tristate "Toshiba TC9564 MSI distributor"
+> +	depends on TC9564_PCI
+> +	depends on GENERIC_IRQ_CHIP
 
-The layout and allocation fixes make cleanup safe before the final patch
-adds the missing controller-wide probe unwind.
+  s/depends/select/
 
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Otherwise this relies on some other driver to select GENERIC_IRQ_CHIP...
 
----
-James Hilliard (3):
-      mtd: rawnand: qcom: parse boot partitions before registering MTD
-      mtd: rawnand: qcom: retain the BAM transaction if replacement fails
-      mtd: rawnand: qcom: unwind registered chips on child probe failure
+> +/**
+> + * struct tc9564_msigen - Context for MSIGEN IRQ domain
+> + * @ioaddr:	Pointer to mapped MSIGEN memory
+> + * @irq:	IRQ number for MSIGEN
+> + */
+> +struct tc9564_msigen {
+> +	void __iomem *ioaddr;
+> +	unsigned int irq;
 
- drivers/mtd/nand/raw/qcom_nandc.c | 56 ++++++++++++++++++++++-----------------
- 1 file changed, 32 insertions(+), 24 deletions(-)
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261107-submit-qcom-nand-child-probe-errors-v1-f5e2703a17a5
+https://docs.kernel.org/process/maintainer-tip.html#struct-declarations-and-initializers
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+> +};
+> +
+> +#define HWIRQ_COUNT			25
+> +
+> +#define MSI_OUT_EN_OFFSET		0x0000
+> +#define MSI_MASK_CLR_OFFSET		0x000c
+> +#define MSI_MASK_VALUE			BIT(0)
+> +#define MSI_INT_STS_OFFSET		0x0010
+> +
+> +static void tc9564_msigen_irq_handler(struct irq_desc *desc)
+> +{
+> +	struct irq_domain *irq_domain = irq_desc_get_handler_data(desc);
+> +	struct irq_chip *chip = irq_desc_get_chip(desc);
+> +	struct irq_chip_generic *gc;
+> +	unsigned long status;
+> +	unsigned long hwirq;
+> +
+> +	gc = irq_get_domain_generic_chip(irq_domain, 0);
+> +
+> +	chained_irq_enter(chip, desc);
+> +
+> +	status = irq_reg_readl(gc, MSI_INT_STS_OFFSET);
+> +	for_each_set_bit(hwirq, &status, HWIRQ_COUNT)
+> +		generic_handle_domain_irq(irq_domain, hwirq);
 
+You want to use generic_handle_demux_domain_irq(), which allows you to
+actually implement affinity settings for individual interrupts. 
+
+> +	/*
+> +	 * Clear the MSI flag. Most interrupts within TC9564 are level-high
+> +	 * type. If any interrupts are still asserted then clearing this flag
+> +	 * will cause the (edge-triggered) MSI to be regenerated.
+> +	 */
+> +	irq_reg_writel(gc, MSI_MASK_VALUE, MSI_MASK_CLR_OFFSET);
+> +
+> +	chained_irq_exit(chip, desc);
+> +}
+> +static int tc9564_msigen_irq_domain_init(struct irq_domain *irq_domain)
+> +{
+> +	struct tc9564_msigen *msigen = irq_domain->host_data;
+> +
+> +	irq_set_chained_handler_and_data(msigen->irq, tc9564_msigen_irq_handler,
+> +					 irq_domain);
+
+No line break required. You have 100 characters. All over the place.
+
+> +/* Find the PCI device we're associated with (not necessarily the parent) */
+
+What does that mean and why is this platform device driver dealing with
+a PCI device in the first place?
+
+This really wants proper comments explaining this in the source _and_
+the change log of this patch. And no, your sloppy cover letter
+explanation does not cut it at all.
+
+> +static struct pci_dev *tc9564_msigen_find_pci_dev(struct device *dev)
+
+> +static int tc9564_msigen_probe(struct platform_device *pdev)
+> +{
+> +	struct irq_domain_chip_generic_info dgc_info;
+
+Struct is uninitialized. 
+
+> +	struct device *dev = &pdev->dev;
+> +	struct irq_domain *irq_domain;
+> +	struct tc9564_msigen *msigen;
+> +	struct irq_domain_info info;
+
+Ditto. Look at other drivers how this is done correctly.
+
+> +	struct reset_control *reset;
+> +	struct pci_dev *pci_dev;
+> +	struct clk *clk;
+> +	int ret;
+> +
+> +	pci_dev = tc9564_msigen_find_pci_dev(dev);
+> +	if (IS_ERR(pci_dev))
+> +		return dev_err_probe(dev, PTR_ERR(pci_dev),
+> +				     "failed to find PCI device\n");
+
+See bracket rules in the documentation I linked to or simply get rid of
+that line break. Same all over the place.
+
+> +	dgc_info.name = "tc9564-msigen";
+> +	dgc_info.handler = handle_level_irq;
+> +	dgc_info.irqs_per_chip = HWIRQ_COUNT;
+> +	dgc_info.num_ct = 1;
+> +	dgc_info.init = tc9564_msigen_irq_chip_init;
+> +	dgc_info.exit = tc9564_msigen_irq_chip_exit;
+> +
+> +	info.fwnode = of_fwnode_handle(dev->of_node);
+> +	info.domain_flags = IRQ_DOMAIN_FLAG_DESTROY_GC;
+> +	info.size = HWIRQ_COUNT;
+> +	info.hwirq_max = HWIRQ_COUNT;
+> +	info.ops = &irq_generic_chip_ops;
+> +	info.host_data = msigen;
+> +	info.dgc_info = &dgc_info;
+> +	info.init = tc9564_msigen_irq_domain_init;
+> +	info.exit = tc9564_msigen_irq_domain_exit;
+
+Both initializations (except for info.host_data) can be done at the
+declaration with a static initialization, which avoids that parts of the
+structs contain random stack content. No?
+
+Please look through the sashiko comments as well.
+
+Thanks,
+
+        tglx
