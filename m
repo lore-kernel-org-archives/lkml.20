@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794181380;
-	b=Xn0vVP7I5+x63gzwfKeoc1T9DBbapzj1FZZki4LsJFbZz/7Fu6bk28Bp9gAQxQ15uKKB
-	 p03sCyqr8t7sB3W0Qk20keWzQYa0WoffxhoSfJ+DE4f9drlNRQqcYyHGGS1ssensqSjSu
-	 sMgbCFPypntJiMF9D6PaVkWbf8O10b1B4+86aF7en7RgMdM0l1JHmaxLN2/kYDFdj/wy4
-	 DdbUmV1lz+oeYV71wWA1rVyfvrpFrOju6F3BywMgdcX9y455nm7HvdL498PiBjbNVVAJP
-	 bEeYqltAN8wRjgXhXDSTlKE1eF8pt70e9wvuK8NtyoXWaGnN6YzvByIBa98gVdBtyuw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794181380;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=opqy2dA7s0XteS99ezevufI2qSC2s/Ry0FAQ5nqTeqE=;
-	b=DgJ/e1Hw7Jj6OCUkciONVo7ltjjN3INgJZM8jsHekJTGXCUtPH99H2tvk6NehDpjSMa2
-	 Cx0lBXgXaGzZTWSjKAWSSwYMLdfeBDvYDvlvHuDGKVsfyxBZZPTpfMnyI8X7kFIelfnnT
-	 XBs1tysguFmyG+P7xtorQwfC2C7DyTGE5nvU8onR/FuoDGTuBucVjO3VIyRdjfFYbi27z
-	 TZ7MG967UWGYe4QkoHP3mHeU2oguF4LWUhwQLfvhN6kdJP8zJO0MweAgLZkgfgoTb1kyi
-	 Gkwm0lThAOjcLn6BxbN0zkcK4WPwOUMTppiM6BrOK2qRCtzQL96rOqs0aAhgNXijsXQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEVvfpFq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52E3606A31C;
-	Sun,  8 Nov 2026 23:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEVvfpFq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794181379;
-	b=MOQ4AbK8V/yPLffbmri5g8+7In+Pss3Cm+vmzKtVJ42Ar7gAvDI/ihBq4umIxJax9XPY
-	 wLuOj/0RkwPKW/z7k3B+lBUjIjQ/XvcBz0cN+Qzm+ncTc9PoP5vOxa5zYLxzpyUFqCdT3
-	 xVpeys1YfYy6wczuz8nwEBDff3VNiSIjkjGj1b1qonjVadMW7nDfGYeHp7taBcHFkPCxs
-	 GFSqflsMIDfAWDxLbP+G/UgIqzgDnncyCY0jHwAye4L9rFVD7ckGQeNDTLcVa5Ur2sBFX
-	 mh1BeQV7pTCjDJrYGXGmUMQsYzxPKmDVfuhyBe8f3qCfBuAB/mDl1G9I4u6neWxqm/Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794181379;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=opqy2dA7s0XteS99ezevufI2qSC2s/Ry0FAQ5nqTeqE=;
-	b=0Kp2+6gPRUgzjQCSL6x/v/FUwSxfzOqyoSrDxRU9lTGaDVHlC/R/kIEaYf68e6S/5nYt
-	 yn8Y3EJDoVptdUNUsRCYysTR4me0/cINjEqSlvDaUbaNflZDtUEvnbXDfS2LoJkXD5T/Q
-	 AT5cLwTF9bMZi9BKGXkg16RQV7X0ENvcbiYSg+nJmAFI+mojYLQ0xIOcrE3nHECLnBLie
-	 +B8sKyVpwXd7qsSILNirEOrkwQgE4zrx8f0IkPEk1tMhTGd0RvXWq01+StazM5fDKHJsK
-	 BsD8xl0n4iFPRi4XycjzIWoYSPprG4u6xAGVyD5/hlVTlCxYYWTLsnwtPAT1yo7VUfg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794181512;
+	b=q4usbxb4lLg8EUWcMIEUebLknT48AMLoUz9o+lO//Zrpb4d09mtVgcW9o0c6u7+aYcrL
+	 p561G6g9jlq/add3jnSBzr7YUgttROIxSsRlvZDl/biIsDuiGZTsh74wuiM2m0sfmwlyG
+	 0dRM0i5Q5+AqssWn4Z5mi43YxscPdk0ID/xCf6H9/3MFByPUKa8pFW8kKm9/AbM+4EBYi
+	 i04XdnMu7B2mKvvkfQnMHqKvBr1cdxi4ASRbyonD6nEXXzMVZ1QNElB1k0w0q2C7tcLGi
+	 JLzzwszISChwXj/ckDLvBUpl4mI8EE0hx1tZfTpM7TZRDLvDG1qahwTqQWp6sO039gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794181512;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VikSRRRNpdKJE0WF6UFdQBJodvSbYqajLrXcSX/fVls=;
+	b=Ai+qj1c9K+Or7qm+x8F01wubz41+d6hQ6ul2vfKOsySkC3pARilqN0lICSZrzNE8oB/u
+	 +P4Ah1qEJvPFPvG8c/aOfgrio7bKAfjgDqOuqbAi7ERpuhGR3PIix+I5WjucZZdCzFIlZ
+	 xUjiskQAlvzPEzzmpw1b7LdISv4gWbkNDY5kbYEM3+21e+ERbA1mo2z6VUOQyIWQPP1wk
+	 dpqVCveMzggYwFsAKNTv19D7MTAWvrtNK6n44v0kVd0HlQfpsh9emkFC7kPul9xC6fLx5
+	 kmwEVqentNmvGngbyc9xkzcTfDG4ZN2QfDUvnQAx6+S+Rj/NHlfat2QMwzPcgmfGo/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linuxtx.org;
+	spf=pass smtp.mailfrom=linuxtx.org;
+	dkim=pass header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b="o0zIiT/t";
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ACFF31F0089F;
-	Sun,  8 Nov 2026 23:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794181379;
-	bh=opqy2dA7s0XteS99ezevufI2qSC2s/Ry0FAQ5nqTeqE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=DEVvfpFqQEmAPTfamJyLOgrBAkvk4GYGAaEBffroiizTE8ebhrN9sILzj+MO72ifY
-	 7z20XOvFR6F/ub+sREaAQllA8SijwsnR4mz28LedVDWTGy1M0AzVWYoI7rEAZEa5SM
-	 +Q72c5/fELEQRmUJMK5LRtyfbifFgI+0Dsmok8jxyZEeG7R6cDTdczw6STk9iZQNCr
-	 S+xmdXRa/w6MKsR8gqK4px+E4kA7e4OrbHGFdsG3g5XTAzO5Y0aWf1gKiJRNAaBDpB
-	 KVvkeMLaNw9RKw0dlFmb1sP7826TAjVRvXd0Hy59aiSXYlW8lgFtz4xtOvCSPPdOyX
-	 S9MPLrDafwj/w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0C35348181;
-	Sun,  8 Nov 2026 23:42:58 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 09 Nov 2026 00:42:54 +0100
-Subject: [PATCH RFC] crypto: caam - never share the gcm and skcipher
- descriptors serially
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D2E606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:45:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18D2E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=linuxtx.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b=o0zIiT/t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxtx.org;
+	s=protonmail; t=1794181507; x=1794440707;
+	bh=VikSRRRNpdKJE0WF6UFdQBJodvSbYqajLrXcSX/fVls=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=o0zIiT/tiBwjSHE7zGKqqHB6XIuIsQSY3I1aU6HJmdyW8KD1Czpcev33me2g9BD0E
+	 zLGmcUOqUTrZiq11hrBzYbGQyqGDzGBF8321xmCfkla/nfwfpejz1zjb8df6nn2Wo0
+	 dk278k1osBlJ/nxNCTdz8axmy2FkXaY8TVeiJ1ewVVVuDP7XZaJACASU4pl3zKqzle
+	 i9cHBYY0/BCJyvK3M9Rr2iBPRi/VCvy9OhQA4NHTs66t6M1UZImjo74u5qkB1QsBQA
+	 edMn3Fc2Sf3qerL/Vjru8HNGLYmofAWoZ3OjAcUiaGwiRMDjMJLCEm+o/IAF4D5xkT
+	 XPZLlsFaMp8gw==
+Date: Sun, 08 Nov 2026 23:44:58 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Justin Forbes <jmforbes@linuxtx.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
+Message-ID: <l47r12UjQ37KpnSfiFLGWoj3CmSMXtXpMu6w_v110bmVBq_CvgmiSZcW-ORmp53F8G8U6dklhzsqXZEIV5O_BNubJnIl30AqXxpL7hiLqWg=@linuxtx.org>
+In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
+References: <20261107134939.434104957@linuxfoundation.org>
+Feedback-ID: 225434474:user:proton
+X-Pm-Message-ID: af00ea36dc055098ae50b0bf4e714589887acbfd
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,97 +64,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-for-upstream-caam-shdsc-share-never-v1-v1-1-65a1dd146db2@free.fr>
-X-B4-Tracking: v=1; b=H4sIAP0I8WoC/x2NsQoCMRAFf+XY2oUk4im2gh9gKxYhefG2MHfsa
- hCO+3eDzcA0MysZVGB0HlZSNDGZaxe/GyhNsT7BkrtTcGH03p24zMqfxd6K+OIUO2zKljqjgis
- alJtnjOVYDnAxhz312KIo8v2P7nS7XuixbT+z/oCIfQAAAA==
-To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
- Pankaj Gupta <pankaj.gupta@nxp.com>, 
- Sahil Malhotra <sahil.malhotra@nxp.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794181377; l=2652;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=GjgJFHU6i0RDErS9t9bCe4m/vvJ6D6x0VQ3z3zcG9iA=;
- b=fPogTEoHycur6tnNhWpxrxlaar2/uhPjtIH747LHL7Aord5CzukTNCgAotCO74RcK1cmyuAVH
- SAHlGW8k7vED9aFiXbxAxzF/uXFjuZzk1+4rYLGtEuSZfDd87qsEi+q
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Vincent Jardin <vjardin@free.fr>
+On Saturday, November 7th, 2026 at 7:01 AM, Greg Kroah-Hartman <gregkh@linu=
+xfoundation.org> wrote:
 
-The gcm and skcipher shared descriptors were built with HDR_SHARE_SERIAL,
-so the SEC runs the jobs of one key one after the other:
-it leads to about 4 Gbps per key on LX2160A, whatever the number of
-CPUs or queues. No hardware reason for this code has been found.
+> This is the start of the stable review cycle for the 7.3.4 release.
+> There are 1257 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>=20
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
+>=20
+> The whole patch series can be found in one patch at:
+> =09https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.4=
+-rc1.gz
+> or in the git tree and branch at:
+> =09git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.g=
+it linux-7.3.y
+> and the diffstat can be found below.
+>=20
+> thanks,
+>=20
+> greg k-h
 
-From benchmarks, when built with HDR_SHARE_NEVER, the performance
-is much better and scales: for instance with one CPU, AES-128-GCM,
-the gains are:
-  - 325 -> 592 MB/s at 1420 B
-  - 498 -> 6283 MB/s at 16 KiB
+Tested rc1 (with the reverted problematic patch) against the Fedora build s=
+ystem (aarch64, ppc64le, s390x,x86_64), and boot tested x86_64. No regressi=
+ons noted.
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- drivers/crypto/caam/caamalg_desc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/crypto/caam/caamalg_desc.c b/drivers/crypto/caam/caamalg_desc.c
-index 04c1105eb1f5..32d614a3431d 100644
---- a/drivers/crypto/caam/caamalg_desc.c
-+++ b/drivers/crypto/caam/caamalg_desc.c
-@@ -639,7 +639,7 @@ void cnstr_shdsc_gcm_encap(u32 * const desc, struct alginfo *cdata,
- 	u32 *key_jump_cmd, *zero_payload_jump_cmd, *zero_assoc_jump_cmd1,
- 	    *zero_assoc_jump_cmd2;
- 
--	init_sh_desc(desc, HDR_SHARE_SERIAL);
-+	init_sh_desc(desc, HDR_SHARE_NEVER);
- 
- 	/* skip key loading if they are loaded due to sharing */
- 	key_jump_cmd = append_jump(desc, JUMP_JSL | JUMP_TEST_ALL |
-@@ -765,7 +765,7 @@ void cnstr_shdsc_gcm_decap(u32 * const desc, struct alginfo *cdata,
- {
- 	u32 *key_jump_cmd, *zero_payload_jump_cmd, *zero_assoc_jump_cmd1;
- 
--	init_sh_desc(desc, HDR_SHARE_SERIAL);
-+	init_sh_desc(desc, HDR_SHARE_NEVER);
- 
- 	/* skip key loading if they are loaded due to sharing */
- 	key_jump_cmd = append_jump(desc, JUMP_JSL |
-@@ -1463,7 +1463,7 @@ void cnstr_shdsc_skcipher_encap(u32 * const desc, struct alginfo *cdata,
- 	bool is_chacha20 = ((cdata->algtype & OP_ALG_ALGSEL_MASK) ==
- 			    OP_ALG_ALGSEL_CHACHA20);
- 
--	init_sh_desc(desc, HDR_SHARE_SERIAL | HDR_SAVECTX);
-+	init_sh_desc(desc, HDR_SHARE_NEVER | HDR_SAVECTX);
- 	/* Skip if already shared */
- 	key_jump_cmd = append_jump(desc, JUMP_JSL | JUMP_TEST_ALL |
- 				   JUMP_COND_SHRD);
-@@ -1539,7 +1539,7 @@ void cnstr_shdsc_skcipher_decap(u32 * const desc, struct alginfo *cdata,
- 	bool is_chacha20 = ((cdata->algtype & OP_ALG_ALGSEL_MASK) ==
- 			    OP_ALG_ALGSEL_CHACHA20);
- 
--	init_sh_desc(desc, HDR_SHARE_SERIAL | HDR_SAVECTX);
-+	init_sh_desc(desc, HDR_SHARE_NEVER | HDR_SAVECTX);
- 	/* Skip if already shared */
- 	key_jump_cmd = append_jump(desc, JUMP_JSL | JUMP_TEST_ALL |
- 				   JUMP_COND_SHRD);
-
----
-base-commit: 82e91fe19fb838f235f7c8829afc1eb389c93bdf
-change-id: 20261108-for-upstream-caam-shdsc-share-never-v1-e6f7f5e0ad23
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
-
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
