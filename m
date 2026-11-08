@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794123996;
-	b=mtYQOrqWeMwVcDXIvaDXhtVL07meGvOJTABR7G6+PWAiOGIKp/ADVUqBz0kAZGVsy5wx
-	 kbdQ4dYnLjizCoa6UWltZtFZ3symoOhvaBwPiJGE9lohJRg99HBvMxspQ4xHwE2z7z7NV
-	 3wf39YcAcgLPyqOKcQ1hCGzLnZdUe4HmJRwII7woMQY9azbfNuGeIor9zGuHhMjdYSDb6
-	 WAniIJmaMSDa/aWnWg5svWU3xwp1CG1ExUjNTjUmlisqIwlXz4mPTtoZ1JSZI/ps3DNc1
-	 4HEdXFD4OPMX24KmZE0VmpCF+wAJKGmxQYKWBlLrnOQPz7E+UmqFMJ5xem+UPVMKJnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794123996;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794124057;
+	b=TojfuyeVQYHQvk/LaPvDCJl6gjVEO/hESRtNvUgF+zno806v0gGvn016vpkn2H8QFJX/
+	 h/aOifNzVx1Q7vIW04vBoSv669mNKi9GQalteEhTt8LORYXyu9gbqTnyzrHwdIBOeDh+j
+	 tcXHQgLu+O3eGNMVdzrGvYQOg3VXv42mBVKt5J6ZOMlRafc/OL47VkSWOqLRAyWgLzdHm
+	 3hcD8BpZu7rAfDWiE4zqefwr8J3/c/89pEWYTLWo2IqqOAUC5pUJQZZPo7cKPB276j2ua
+	 kvjrnAoJMt4WMcy8llTxlrE4yAZ8pLoiVGmC71Zehpaqm22WfIjE8ueak8FQOfH+zaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794124057;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xz37wOUeL+YQ92f30AjLn2EszBNt4cJV/UqqJ2db2fc=;
-	b=hlj7IYgmTgGVb5X4kqOYbZLCi68rpvv5mgEH2NZCcwns3f4Ylf4sldVPC78UuSnyUjnZ
-	 E3ksCR3lS9ydPSNst/jTLag9E2gfMPFEYdxPXLnX+LwIc5Y/e8OCtiEMkt/+ZA/TSUYWi
-	 L/GisVlBNczYJdErrqyN7gCJ8lj6KUPCRy9q/u3wKpjIX7u4+O2IXa7vLsQRTtHPkPFy9
-	 WQJ0K1si6pC7iNteFXjQmEKdmY1wVkmtzdqLfvlR/pnlyifbzUp18ABrgWnwNaIQQymIh
-	 ZYFeHr7YvrXJwdbv8MBFpE5DF5ElczUh3kpHDTC5+lcVC0J390IYyWvYDfzngzZWUVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+3u+1mXse830YNAARv07fietRfMx8v03rEL53YZE7+Q=;
+	b=w63sB20IwwXZI9rw/LzZZ4+42sGeU7+mzzu3iEELQTD15huV61R4mJ4esHwbCW1OdXGM
+	 xW4kND2AxhyexVi05r2X9wYTkZhpbhUQAKE5FrR9SnFKf6Uo7QgiRTTqH2NOw3+lycY7T
+	 WEv/99wp85ZRwH7TZMPbkCK1XvLi0+Bib2boonI3Tg0FsPSgd7IPELoeWNpeYFC+naGoJ
+	 6yaQX5pyqhzBtgvyq1m9psXw6KHAHhrnRBpq84saVQkxNO46nR/axUnwxulZN2uea9Yhq
+	 d6pJDpcpe/PgBWqL/8KTNa0/8/f9nijKdIkchYB2BYZ4hlIMBRvd/oXCp6AgC6xC2Uw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9u+jvG3;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vTXaTsIV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40871606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:46:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40871606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7AB606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:47:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7AB606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9u+jvG3
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso2030455e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:46:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vTXaTsIV
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1ae18eb9b69so110055c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:47:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794124056; cv=none;
+        d=google.com; s=arc-20260327;
+        b=di3f0gY2z4H25GGHTSW1306mIg1yf3GsYmtFeE4mP9DoFagD+fd+ICdFUchOJdeQKe
+         HJ5RcI7oJzgprEGbVVX8YfaETDswa8mCCsI1KIAfC6xSrgUSawo3oghlvlZNHkvnNr3s
+         ia8dAXwDytNyol6wD7tNhWWKUfccIrrOFs1HzbhRLu25SaXKYi63MFydi/BrskFS2Bga
+         CuVCjyAMWSUW+rr2P4B01ylXVQqagusNjkEJUxvODYGJYr9jl4KUtbQKdL9R4fWWkh/9
+         NX/zfxog3CT3FbcpqCjwSocgJSEZdXhfs36FQebFSlRwT5BDDSEBwPtz9CyfOPnpK9lp
+         S1ZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+3u+1mXse830YNAARv07fietRfMx8v03rEL53YZE7+Q=;
+        fh=eFGsci0TgsZalkdWOy6BZ/RHms+IhvSgS/urmNpapnc=;
+        b=N/DImLuCH8ZLb16w/iacbLiqlZ6zcdYSZv0c5S/O/ORAs8qmH6qGHoqsl+8pjDIb9H
+         m+SftCjfhOZHLvSGwh3MdPCJdJGj6JhpWyndAepmtn0C0r25xIGRulW8LPI2S+GIX9oI
+         zqcNwswGwBXJDHXtRe/mya02m03F4kG3kbWNKnr3s3B9Ya0KUn92inqPGDYvxdYYQArn
+         +RwvDveVk1+raxx3F1zbq93HdOUaFO4x9oXQ17HFckefWem5DmJ5Me7ll0OOaLLflHLV
+         kXhXRGJFGHrio1UfgjAutzp4pEFQPU4tdFNpqqy0hZLOLJRCvm/ZL3hnkMThZFbnfMJN
+         kxTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794123994; x=1794728794; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794124056; x=1794728856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xz37wOUeL+YQ92f30AjLn2EszBNt4cJV/UqqJ2db2fc=;
-        b=F9u+jvG3MwNdXciPw+QO0vFuXu1J/VIA6s/bydFqYNv0QU2SLARysZYJ5RpL+u9bXi
-         5onsZniXZudkXW7nEt4/jVT78LY/3TQZmTg3o+CIcKdwhjBxURvfz1IHSBGHPYkGP7m5
-         5lGBZOA/4rojtkX7+/HwNzfmQtDRGF25MVqovQw8RupIkzWepW1//iQB845j1+zpKlE5
-         OomxKPXNhv+LAkcqnWFAxsxnS+6LNqg9KkpuVCTGy/stBcLS2cWnPUZ6foneZP9Hzz7r
-         GKoYLrSGfyK+YwD7Z5f/Q91oz0ct3ZVs4UESZI3137UVlHiQqy/tW8wUeeHuInmAKsc4
-         d+uw==
+        bh=+3u+1mXse830YNAARv07fietRfMx8v03rEL53YZE7+Q=;
+        b=vTXaTsIVp2bR/FEn7rIldrR++PsdwOMJyYtmAqqyV/mDS5FYpyTDDA4jvfii+LqwP+
+         dXDGNeUJqSzOq720bWED35E6uPf9P2SPF9Hg1pzx6rCH96jgcZz28YaTNp3Z1IGsPr7S
+         8hR4qe434K+8/UnJkzs+z5h+oOqwuU7gZK3YuHzm3jLw96AmPSHgohYJz9Jmb/inmh55
+         uoNmaG98bBFQGgfoiKF8jfgQ6KgMUzIVoMUbsfll6/oTOIkVz56p5Reyc4wo9x/6JQv1
+         f2zYlBegngvN44lct/a46gC51rhYNVnzLgrq/RAw03TtYqDOcYroh+FyJ6Jn8QDYnsSe
+         R2OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794123994; x=1794728794;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794124056; x=1794728856;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xz37wOUeL+YQ92f30AjLn2EszBNt4cJV/UqqJ2db2fc=;
-        b=t/A5hZfBgMQD5sLB4QZoewz3XaaKqTPADcAD5LWapTJTY1PdYNCTqThMvju3CeaWyg
-         kIswEt0Np0XLB01XT/5yoEsluXozjVy1/Vq8TZ4REwt9dkkELY01b2ZOzrqvm5yITYO7
-         iPlLTQIf8LOWJeY5VFgGx3BWZUhAg835odrmZEym44kQTwVMyBF3Prc/LG2rOFqZpnYk
-         umgU0Pea6gc+QjS2NJ4XWNUb9dN1VPbU6ryYh1Ayc3Oug3Ua75EBjzQzT29MUnnxhWyK
-         dNOKiJn+rW40gd4hgVe3s68p5+j1MDi6+P6lNq+8pp1VZAGlnh704dmjNvgaT38GQX/I
-         +YyQ==
-X-Forwarded-Encrypted: i=1; AL+hErHbY9lBcu4eZBlz4fENSbyoS71hG3hRs/2ftTcRuZhrGXxIvxcWbnmZPaeRrB7RRKetU3EMVmubBeozWBo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sQUGHUSPYZmD2/jFdTL098rX7orpjyni1dRTgZDhC/y6ml/zx
-	JLbeEtVKrNRWfDfMlEj5Tyc5owqHIy1QtugdhU80S1n6pcal9Yhs2XD1
-X-Gm-Gg: AYBFou3NBaY1qpXFS0DuBhtcVrKcJ4pbXwLbSNagzgRYQ6nQN6pQdZIzNRPoNsZLoCP
-	WI1bft6UVOrvqxBxFJDKs37tX14fA7Ax2rJFC57frdF0wp0pVAWbaMQZbxOSFlEPDHe3wW7NP9M
-	QYRqFg9C7g6uLFDGNi50Mz1qiuMAvP/OGQoSlzSxQtjHYN1tUAEWeWf6pIodU2qnNC2xYY3AUoF
-	rOJ61RovvQXBm7YKfd1BGpAIpE8YYPAsGeuMweZrKLraDw1hUq0nFrKI5vAqnRinH5iscY2ZDWm
-	PR3XnY1GIqv+HMzqzfFbiMH4bww+cfcbuy3+fEd6pkcrKNFnGYw4UXINbOgPGXAQ+0uKsg2UeDB
-	3aynBa0ZNBaoUhOnkAg6V1gvC6DJykKb3P7j0cRrsUCiJs3hLOFm0e+kKSeaEfBquiIq3bhX6/0
-	bb0cbbZrqP/MVMebcE9vIdvq95mEAhYF1uOj+AdZrDRvNluGtkzngsvrxkvpy9x7+hPlasep1IN
-	dLu+rx3TM+aqiXxMsIhxVNxkYhQyZfMPojO1zEHsZxllf0kH7j3bRvH29BGu/cYQdUr2cKiWaEj
-	9yEU3Onit7VOzP+tv2gP3afCyue3JTLH4YiLLr5DTE2qFUvDqfScGVNucoGaRkuoldGbAS/JhaG
-	v5zvg81QcwM+pXAwc+/NX6Wv7PEw=
-X-Received: by 2002:a05:600c:1c0e:b0:4a8:9a2f:d27 with SMTP id 5b1f17b1804b1-4b963c6d797mr16655595e9.25.1794123993190;
-        Sat, 07 Nov 2026 23:46:33 -0800 (PST)
-Received: from localhost (brnt-04-b2-v4wan-170138-cust2432.vm7.cable.virginm.net. [94.175.9.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62edb4sm162132985e9.1.2026.11.07.23.46.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 23:46:31 -0800 (PST)
-Date: Sun, 8 Nov 2026 07:46:31 +0000
-From: Stafford Horne <shorne@gmail.com>
-To: Sahil Siddiq <sahilcdq0@gmail.com>
-Cc: jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
-	naveen@kernel.org, davem@davemloft.net, mhiramat@kernel.org,
-	pjw@kernel.org, wangruikang@iscas.ac.cn, namcao@linutronix.de,
-	kees@kernel.org, linux-openrisc@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] openrisc: Add KProbes
-Message-ID: <avAo140Wc1CerVwf@antec>
-References: <20260930202744.50489-1-sahilcdq0@gmail.com>
- <20261026201240.107462-3-sahilcdq0@gmail.com>
+        bh=+3u+1mXse830YNAARv07fietRfMx8v03rEL53YZE7+Q=;
+        b=qJ54onKKswdl2lq4YSXbhBu4x1dUgK84y0Pj2EHgXcnsVfQ8QAQMi8TAAaD3RJrg3o
+         rcgKyFfs5XMJACPIXadArzDRq4Imw33f+8TAtshhSPpKoknOrBzpKUMlCLwRJwxGF7Ci
+         fUo8Rc1ik1ETbrcib+SyRK751not3DlolKFR3Qqf2WQ4267gjfS30nO1bYRm8Vk5MJDK
+         vU/LbC2IZ6Smmd8QuWnI5sA+fmmYoqXtYZomHdfmUc1jVbFt/nEJOxxuHJoj2RaYrDyc
+         JCcOOBDcrs9BbZnwkcoPZ0EoCx7o++GhubJrZTJEBVWc3xseznd6dN9Cm5ukqpya+Q6X
+         aWGQ==
+X-Forwarded-Encrypted: i=1; AL+hErEohFwudFO0RWJirqU0cDn1sHCMpARXB3x2Uk2zbPyZipJD5d2LbaCXy2Ss9JhkIJKwpttb/GDUht+jI1s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rqYync5SByuWrLpDNGHeyIvBaZgyNIOdNJ0IGoJf+ZTE9lyFr
+	9yf/YbQUF+nYU/ZnXACz0fdGu7AOPOLhJgbBmijyO43U7gkA00SbMxfy5wYVbqVmgOYvbtFcgXi
+	XQx1cf0eh+Jq5zGwGyJ4FiCs8ulQE+McKo7qTjd8=
+X-Gm-Gg: AYBFou07gEltTh0wm9fjLlwlKxaEC3fd5gMO8bfVf/wgnTpiz9RJkXE57e4jwAKvU/O
+	EpkY1RE2gqyG1oYAgmw9EsZeqdofy6fwXEYqK745JalnzhJU3aKY+Uooe9bZBWZC71wTTDExKDH
+	Kb6qVpSdFROm5gEWszeRRcEPuAn84/rLSqFvWvCQaZbPjahE35YCuBqX6d6IwnVmVNQQKeEi2VR
+	1JYeg+2kvazlf7xxLQBCujjBQCMdZ0S6A16pFtQeg5Kha4MhKuevj8bX7QY9z5QejhlssAcR4Fu
+	k0KTm759qtA4EVV94pbbW+qRjpH+Pmz2pnhYnqGwaSRA3z2d1KQ7a3QNYHULKmvP3Kary59aWSq
+	x/rVTS2tQXvdxgI+lu5AIpr7Im7baKfEV6sTeBmf7ZeUN+IrJvXMmk/Y1SY35xQJ2/byg
+X-Received: by 2002:a05:7023:d08:b0:1a4:4194:fc04 with SMTP id
+ a92af1059eb24-1b39fee24c3mr1357876c88.28.1794124056106; Sat, 07 Nov 2026
+ 23:47:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,1000 +104,325 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026201240.107462-3-sahilcdq0@gmail.com>
+References: <20261107063726.3388730-1-hj351016@gmail.com> <179412117075.994134.3223982666310946745@kernel.org>
+In-Reply-To: <179412117075.994134.3223982666310946745@kernel.org>
+From: khj <hj351016@gmail.com>
+Date: Sun, 8 Nov 2026 16:47:23 +0900
+X-Gm-Features: AclHuK87SL6WE7SWisw0Zo0rIquffDMZDke6cCWcKrt96_L0Ez15ObIZ4QBMLWU
+Message-ID: <CAGr5VtOgm523z1mPuScHLaAYypQjSj=eOZqvn63cKet_sLTC-Q@mail.gmail.com>
+Subject: Re: [PATCH net] net: ti: icss-iep: fix deadlock when disabling PPS
+To: netdev-bot+sashiko@kernel.org
+Cc: danishanwar@ti.com, rogerq@kernel.org, netdev@vger.kernel.org, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 01:42:38AM +0530, Sahil Siddiq wrote:
-> Add KProbes support for OpenRISC. This work is primarily based
-> on similar work done for LoongArch, MIPS and RISC-V.
-> 
-> KProbes make it possible to trap at almost any address in the
-> kernel to collect performance/debugging info.
-> 
-> Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
-> ---
-> Changes v2 -> v3:
-> - arch/openrisc/kernel/kprobes.c:
->   - (kprobe_local_irq_save): New function
->   - (kprobe_local_irq_restore): Likewise
->   - (arch_prepare_kprobe): Use copy_from_kernel_nofault()
->   - (post_kprobe_handler): Enable preemption before returning early for reentered KProbe
->   - (setup_singlestep): Disable IRQs by toggling bits in SR register
->   - (kprobe_breakpoint_handler): Use result from get_kernel_nofault()
->   - (kprobe_fault_handler):
->     Enable preemption after handling reentered KProbe
->     Restore IRQs by toggling bits in SR register
-> 
-> Changes v1 -> v2:
-> - arch/openrisc/include/asm/kprobes.h:
->    - (struct prev_kprobe): Add restore_pc
->    - (struct kprobe_ctlblk): Move restore_pc from global "struct arch_specific_insn"
-> - arch/openrisc/kernel/kprobes.c:
->    - Use macros instead of magic values
->    - Use "get_kernel_nofault" instead of directly dereferencing address
->    - (insns_need_simulation): Use "daley slot" static key
->    - (arch_prepare_kprobe): Prevent KProbe insertion if instruction in delay slot also requires simulation
->    - (save_previous_kprobe): Use "restore_pc"
->    - (restore_previous_kprobe): Likewise
->    - (post_kprobe_handler): Don't re-enable preemption if KProbe is nested
->    - (setup_singlestep): Use "restore_pc"
->    - (reenter_kprobe): Return false in case of unrecoverable KProbe
->    - (kprobe_singlestep_handler): Enable interrupt in pt_regs->sr
->    - (kprobe_fault_handler): Likewise
-> 
->  arch/openrisc/Kconfig                   |   1 +
->  arch/openrisc/configs/or1ksim_defconfig |   2 +
->  arch/openrisc/configs/virt_defconfig    |   2 +
->  arch/openrisc/include/asm/asm.h         |  22 ++
->  arch/openrisc/include/asm/break.h       |  19 ++
->  arch/openrisc/include/asm/insn-def.h    |   6 +
->  arch/openrisc/include/asm/kprobes.h     |  77 +++++
->  arch/openrisc/kernel/Makefile           |   1 +
->  arch/openrisc/kernel/entry.S            |  16 +
->  arch/openrisc/kernel/kprobes.c          | 426 ++++++++++++++++++++++++
->  arch/openrisc/kernel/traps.c            |  29 ++
->  arch/openrisc/lib/memcpy.c              |   2 +
->  arch/openrisc/lib/memset.S              |   4 +
->  arch/openrisc/mm/fault.c                |   5 +
->  samples/kprobes/kprobe_example.c        |   8 +
->  15 files changed, 620 insertions(+)
->  create mode 100644 arch/openrisc/include/asm/asm.h
->  create mode 100644 arch/openrisc/include/asm/break.h
->  create mode 100644 arch/openrisc/include/asm/kprobes.h
->  create mode 100644 arch/openrisc/kernel/kprobes.c
-> 
-> diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
-> index 9156635dd264..d240533b424b 100644
-> --- a/arch/openrisc/Kconfig
-> +++ b/arch/openrisc/Kconfig
-> @@ -27,6 +27,7 @@ config OPENRISC
->  	select HAVE_ARCH_JUMP_LABEL
->  	select HAVE_ARCH_JUMP_LABEL_RELATIVE
->  	select HAVE_PCI
-> +	select HAVE_KPROBES
->  	select HAVE_UID16
->  	select HAVE_PAGE_SIZE_8KB
->  	select HAVE_REGS_AND_STACK_ACCESS_API
-> diff --git a/arch/openrisc/configs/or1ksim_defconfig b/arch/openrisc/configs/or1ksim_defconfig
-> index 769705ac24d5..24d2915e7609 100644
-> --- a/arch/openrisc/configs/or1ksim_defconfig
-> +++ b/arch/openrisc/configs/or1ksim_defconfig
-> @@ -10,7 +10,9 @@ CONFIG_EXPERT=y
->  # CONFIG_KALLSYMS is not set
->  CONFIG_BUILTIN_DTB_NAME="or1ksim"
->  CONFIG_HZ_100=y
-> +CONFIG_OPENRISC=y
+Thanks, this is a good catch. All three are the same underlying point:
+dropping ptp_clk_mutex before the drain lets a work item that was already
+queued (or latched by the IRQ just before the compare was disabled) run
+icss_iep_cap_cmp_work() after PPS has been turned off, where it re-arms
+CMP1 and emits a stale PPS event.
 
-I am not sure this is needed, did you generate this file with make
-savedefconfig?  I thought CONFIG_OPENRISC would be set for every openrisc build
-by default so not needed in the *_defconfig.
+v2 fixes that by guarding the handler: it now returns early, under
+ptp_clk_mutex, when neither pps_enabled nor perout_enabled is set, so a
+late or stale work does nothing instead of touching the (just-disabled)
+compare hardware or emitting an event. That covers the "handler already
+blocked on the mutex" case and the "pending work starts between unlock and
+cancel" case.
 
->  CONFIG_JUMP_LABEL=y
-> +CONFIG_KPROBES=y
->  CONFIG_MODULES=y
->  # CONFIG_BLOCK is not set
->  CONFIG_SLUB_TINY=y
-> diff --git a/arch/openrisc/configs/virt_defconfig b/arch/openrisc/configs/virt_defconfig
-> index 0b9979b35ca8..2eccb506032f 100644
-> --- a/arch/openrisc/configs/virt_defconfig
-> +++ b/arch/openrisc/configs/virt_defconfig
-> @@ -11,8 +11,10 @@ CONFIG_OPENRISC_HAVE_INST_SEXT=y
->  CONFIG_NR_CPUS=8
->  CONFIG_SMP=y
->  CONFIG_HZ_100=y
-> +CONFIG_OPENRISC=y
->  # CONFIG_OPENRISC_NO_SPR_SR_DSX is not set
->  CONFIG_JUMP_LABEL=y
-> +CONFIG_KPROBES=y
->  # CONFIG_COMPAT_BRK is not set
->  CONFIG_NET=y
->  CONFIG_PACKET=y
-> diff --git a/arch/openrisc/include/asm/asm.h b/arch/openrisc/include/asm/asm.h
-> new file mode 100644
-> index 000000000000..aafe08029b4b
-> --- /dev/null
-> +++ b/arch/openrisc/include/asm/asm.h
-> @@ -0,0 +1,22 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Macros for OpenRISC asm
-> + *
-> + * Linux architectural port borrowing nearly verbatim from
-> + * LoongArch and Arm. All original copyrights apply as per
-> + * the original source declaration.
-> + */
-> +
-> +#ifndef __ASM_ASM_H
-> +#define __ASM_ASM_H
-> +
-> +#ifdef CONFIG_KPROBES
-> +#define _ASM_NOKPROBE(symbol)			\
-> +	.pushsection "_kprobe_blacklist", "aw";	\
-> +	.long symbol;				\
-> +	.popsection
-> +#else
-> +#define _ASM_NOKPROBE(symbol)
-> +#endif
-> +
-> +#endif /* __ASM_ASM_H */
-> diff --git a/arch/openrisc/include/asm/break.h b/arch/openrisc/include/asm/break.h
-> new file mode 100644
-> index 000000000000..04a74d863eef
-> --- /dev/null
-> +++ b/arch/openrisc/include/asm/break.h
-> @@ -0,0 +1,19 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * OpenRISC trap codes used internally by the kernel
-> + *
-> + * Linux architectural port borrowing liberally from similar works of
-> + * others.  All original copyrights apply as per the original source
-> + * declaration.
-> + *
-> + * Modifications for the OpenRISC architecture:
-> + * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
-> + */
-> +
-> +#ifndef __ASM_BREAK_H
-> +#define __ASM_BREAK_H
-> +
-> +#define BRK_KPROBE_BP       512     /* Kprobe break */
-> +#define BRK_KPROBE_SSTEPBP  1024    /* Kprobe single-step software implementation */
-> +
-> +#endif /* __ASM_BREAK_H */
-> diff --git a/arch/openrisc/include/asm/insn-def.h b/arch/openrisc/include/asm/insn-def.h
-> index ccbda049171f..3680c0a94faf 100644
-> --- a/arch/openrisc/include/asm/insn-def.h
-> +++ b/arch/openrisc/include/asm/insn-def.h
-> @@ -54,6 +54,12 @@ struct pt_regs;
->  
->  #define OPENRISC_INSN_SIZE	4
->  
-> +/* Helpers for working with l.trap */
-> +static inline unsigned long __emit_trap(unsigned long code)
-> +{
-> +	return (code & OPENRISC_MASK_BCODE) | OPENRISC_INSN_TRAP;
-> +}
-> +
->  static __always_inline unsigned char get_6_bit_opcode(unsigned long insn)
->  {
->  	return (insn >> OPENRISC_OPCODE_SHIFT) & OPENRISC_OPCODE_MASK;
-> diff --git a/arch/openrisc/include/asm/kprobes.h b/arch/openrisc/include/asm/kprobes.h
-> new file mode 100644
-> index 000000000000..2b5847002141
-> --- /dev/null
-> +++ b/arch/openrisc/include/asm/kprobes.h
-> @@ -0,0 +1,77 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * OpenRISC Linux
-> + *
-> + * Linux architectural port borrowing liberally from similar works of
-> + * others.  All original copyrights apply as per the original source
-> + * declaration.
-> + *
-> + * OpenRISC implementation:
-> + * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
-> + */
-> +
-> +#ifndef __ASM_OPENRISC_KPROBES_H
-> +#define __ASM_OPENRISC_KPROBES_H
-> +
-> +#include <asm-generic/kprobes.h>
-> +
-> +#ifdef CONFIG_KPROBES
-> +#include <asm/break.h>
-> +#include <asm/cacheflush.h>
-> +
-> +#define	 __ARCH_WANT_KPROBES_INSN_SLOT
-> +
-> +struct pt_regs;
-> +struct kprobe;
-> +
-> +typedef u32 kprobe_opcode_t;
-> +
-> +/*
-> + * MAX_INSN_SIZE is used as the number of slots in an executable
-> + * page for single-stepping out of line (SSOL). We need two slots
-> + * since we single-step using software breakpoints. The probed
-> + * instruction is placed in the first slot with a breakpoint
-> + * instruction in the second slot.
-> + */
-> +#define MAX_INSN_SIZE	2
-> +
-> +/* Architecture specific copy of original instruction */
-> +struct arch_specific_insn {
-> +	/* copy of original instruction */
-> +	kprobe_opcode_t *insn;
-> +};
-> +
-> +struct prev_kprobe {
-> +	struct kprobe *kp;
-> +	unsigned int status;
-> +	unsigned long restore_pc;
-> +};
-> +
-> +/* per-cpu kprobe control block */
-> +struct kprobe_ctlblk {
-> +	unsigned int kprobe_status;
-> +	unsigned long irq_flags;
-> +	/* address of next instruction in case of SSOL */
-> +	unsigned long restore_pc;
-> +	struct prev_kprobe prev_kprobe;
-> +};
-> +
-> +#define flush_insn_slot(p)		do { } while (0)
+On the concurrent-sysfs window (pps_enable_store / period_store not
+serialized against the ioctl path): with the guard, a work cancelled by a
+disable that races a fresh enable simply bails if the enable has not yet
+set the flag; I don't think this patch can fully close the ptp_sysfs
+serialization gap, which predates it.
 
-On openrisc I think we need to implement flush_insn_slot.  As our
-copy's only affect data caches instruction caches may end up being
-stale.  This is really hard to detect as context switches invalidate
-a lot of the instruction cache lines, but not all.
+On the pre-existing perout/teardown issue you flagged (High): you're
+right that icss_iep_perout_enable(.., 0) never drains iep->work, and that
+icss_iep_exit() clears iep->ptp_clock before the perout disable runs, so a
+work queued during perout can still reach ptp_clock_event() on teardown.
+The handler guard reduces but does not fully close that, because on the
+teardown path perout_enabled can still be set when the work runs. I'd
+prefer to fix the perout-disable drain and the exit ordering as a separate
+change rather than fold a teardown rework into this deadlock fix =E2=80=94 =
+happy to
+send it as a follow-up unless you'd rather have it here.
 
-I fixed this for text patching recently with commit aca063c90245
-("openrisc: Fix jump_label smp syncing")
+Not tested on real hardware (no TI ICSSG/PRU device); the above is from
+code inspection.
 
-> +#define kretprobe_blacklist_size	0
-> +
-> +void arch_remove_kprobe(struct kprobe *p);
-> +int kprobe_fault_handler(struct pt_regs *regs, int trapnr);
-> +bool kprobe_breakpoint_handler(struct pt_regs *regs);
-> +bool kprobe_singlestep_handler(struct pt_regs *regs);
-> +#else /* !CONFIG_KPROBES */
-> +static inline bool kprobe_breakpoint_handler(struct pt_regs *regs)
-> +{
-> +	return false;
-> +}
-> +
-> +static inline bool kprobe_singlestep_handler(struct pt_regs *regs)
-> +{
-> +	return false;
-> +}
-> +#endif /* CONFIG_KPROBES */
-> +#endif /* __ASM_OPENRISC_KPROBES_H */
-> diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
-> index 150779fbf010..2ac824867963 100644
-> --- a/arch/openrisc/kernel/Makefile
-> +++ b/arch/openrisc/kernel/Makefile
-> @@ -14,6 +14,7 @@ obj-$(CONFIG_SMP)		+= smp.o sync-timer.o
->  obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
->  obj-$(CONFIG_MODULES)		+= module.o
->  obj-$(CONFIG_OF)		+= prom.o
-> +obj-$(CONFIG_KPROBES)		+= kprobes.o
->  obj-y	+= patching.o
->  
->  clean:
-> diff --git a/arch/openrisc/kernel/entry.S b/arch/openrisc/kernel/entry.S
-> index c7e90b09645e..cd28bf1f7a3b 100644
-> --- a/arch/openrisc/kernel/entry.S
-> +++ b/arch/openrisc/kernel/entry.S
-> @@ -15,6 +15,7 @@
->  #include <linux/linkage.h>
->  #include <linux/pgtable.h>
->  
-> +#include <asm/asm.h>
->  #include <asm/processor.h>
->  #include <asm/unistd.h>
->  #include <asm/thread_info.h>
-> @@ -640,6 +641,7 @@ ENTRY(_sys_call_handler)
->  	/* r30 is the only register we clobber in the fast path */
->  	/* r30 already saved */
->  /*	l.sw    PT_GPR30(r1),r30 */
-> +_ASM_NOKPROBE(_sys_call_handler)
+pw-bot: cr
 
-How is this working for these not function symbols?  _ASM_NOKPROBE registers a
-sybmol (in this case just a macro address) into the _kprobe_blacklist.  I think
-withing kprobe.c it uses these _kprobe_blacklist entries to detect ranges that
-cannot be probed.  However, in this case I think you are not able to get range
-information.
-
->  _syscall_check_trace_enter:
->  	/* syscalls run with interrupts enabled */
-> @@ -652,12 +654,14 @@ _syscall_check_trace_enter:
->  	l.sfne	r30,r0
->  	l.bf	_syscall_trace_enter
->  	 l.nop
-> +_ASM_NOKPROBE(_syscall_check_trace_enter)
->  
->  _syscall_check:
->  	/* Ensure that the syscall number is reasonable */
->  	l.sfgeui r11,__NR_syscalls
->  	l.bf	_syscall_badsys
->  	 l.nop
-> +_ASM_NOKPROBE(_syscall_check)
->  
->  _syscall_call:
->  	l.movhi r29,hi(sys_call_table)
-> @@ -668,12 +672,14 @@ _syscall_call:
->  
->  	l.jalr  r29
->  	 l.nop
-> +_ASM_NOKPROBE(_syscall_call)
->  
->  _syscall_return:
->  	/* All syscalls return here... just pay attention to ret_from_fork
->  	 * which does it in a round-about way.
->  	 */
->  	l.sw    PT_GPR11(r1),r11           // save return value
-> +_ASM_NOKPROBE(_syscall_return)
->  
->  #if 0
->  _syscall_debug:
-> @@ -708,6 +714,7 @@ _syscall_check_trace_leave:
->  	l.sfne	r30,r0
->  	l.bf	_syscall_trace_leave
->  	 l.nop
-> +_ASM_NOKPROBE(_syscall_check_trace_leave)
->  
->  /* This is where the exception-return code begins... interrupts need to be
->   * disabled the rest of the way here because we can't afford to miss any
-> @@ -744,6 +751,7 @@ _syscall_check_work:
->  	/* _work_pending needs to be called with interrupts disabled */
->  	l.j	_work_pending
->  	 l.nop
-> +_ASM_NOKPROBE(_syscall_check_work)
->  
->  _syscall_resume_userspace:
->  //	ENABLE_INTERRUPTS(r29)
-> @@ -800,6 +808,7 @@ _syscall_resume_userspace:
->  	l.mtspr r0,r13,SPR_EPCR_BASE
->  	l.mtspr r0,r15,SPR_ESR_BASE
->  	l.rfe
-> +_ASM_NOKPROBE(_syscall_resume_userspace)
->  
->  /* End of hot path!
->   * Keep the below tracing and error handling out of the hot path...
-> @@ -829,6 +838,7 @@ _syscall_trace_enter:
->  
->  	l.j	_syscall_check
->  	 l.lwz	r8,PT_GPR8(r1)
-> +_ASM_NOKPROBE(_syscall_trace_enter)
->  
->  _syscall_trace_leave:
->  	l.jal	do_syscall_trace_leave
-> @@ -836,6 +846,7 @@ _syscall_trace_leave:
->  
->  	l.j	_syscall_check_work
->  	 l.nop
-> +_ASM_NOKPROBE(_syscall_trace_leave)
->  
->  _syscall_badsys:
->  	/* Here we effectively pretend to have executed an imaginary
-> @@ -845,6 +856,7 @@ _syscall_badsys:
->  	 */
->  	l.j	_syscall_return
->  	 l.addi	r11,r0,-ENOSYS
-> +_ASM_NOKPROBE(_syscall_badsys)
->  
->  /******* END SYSCALL HANDLING *******/
->  
-> @@ -870,6 +882,7 @@ EXCEPTION_ENTRY(_trap_handler)
->  
->  	l.j     _ret_from_exception
->  	 l.nop
-> +_ASM_NOKPROBE(_trap_handler)
->  
->  /* ---[ 0xf00: Reserved exception ]-------------------------------------- */
->  
-> @@ -1004,6 +1017,8 @@ ENTRY(_ret_from_exception)
->  	 l.nop
->  	l.j	_resume_userspace
->  	 l.nop
-> +_ASM_NOKPROBE(_ret_from_exception)
-> +_ASM_NOKPROBE(_ret_from_intr)
->  
->  ENTRY(ret_from_fork)
->  	l.jal	schedule_tail
-> @@ -1038,6 +1053,7 @@ ENTRY(ret_from_fork)
->  
->  	l.j	_syscall_return
->  	 l.nop
-> +_ASM_NOKPROBE(ret_from_fork)
->  
->  /* ========================================================[ switch ] === */
->  
-> diff --git a/arch/openrisc/kernel/kprobes.c b/arch/openrisc/kernel/kprobes.c
-> new file mode 100644
-> index 000000000000..0b8762e340d5
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/kprobes.c
-> @@ -0,0 +1,426 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Kernel probes (KProbes) for OpenRISC
-> + *
-> + * Linux architectural port borrowing liberally from similar works of
-> + * others.  All original copyrights apply as per the original source
-> + * declaration.
-> + *
-> + * OpenRISC implementation:
-> + * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
-> + */
-> +
-> +#include <linux/kprobes.h>
-> +#include <asm/cpuinfo.h>
-> +#include <asm/insn-def.h>
-> +#include <asm/text-patching.h>
-> +
-> +DEFINE_PER_CPU(struct kprobe *, current_kprobe);
-> +DEFINE_PER_CPU(struct kprobe_ctlblk, kprobe_ctlblk);
-> +
-> +#define KPROBE_BP_INSN		__emit_trap(BRK_KPROBE_BP)
-> +#define KPROBE_SSTEPBP_INSN	__emit_trap(BRK_KPROBE_SSTEPBP)
-
-Could you maybe add a comment about why these instructions are not supported?
-
-> +static bool insn_not_supported(kprobe_opcode_t insn)
-> +{
-> +	switch (insn) {
-> +	case OPENRISC_INSN_CSYNC:
-> +	case OPENRISC_INSN_MSYNC:
-> +	case OPENRISC_INSN_PSYNC:
-> +		return true;
-> +	}
-> +
-> +	if ((insn & OPENRISC_MASK_TRAP) == OPENRISC_INSN_TRAP)
-> +		return true;
-> +
-> +	if ((insn & OPENRISC_MASK_SYS) == OPENRISC_INSN_SYS)
-> +		return true;
-> +
-> +	if ((insn & OPENRISC_MASK_MACRC) == OPENRISC_INSN_MACRC)
-> +		return true;
-> +
-> +	unsigned char opcode = get_6_bit_opcode(insn);
-> +
-> +	switch (opcode) {
-> +	case OPENRISC_OPCODE_RFE:
-> +	case OPENRISC_OPCODE_LWA:
-> +	case OPENRISC_OPCODE_MFSPR:
-> +	case OPENRISC_OPCODE_MTSPR:
-> +	case OPENRISC_OPCODE_SWA:
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +NOKPROBE_SYMBOL(insn_not_supported)
-> +
-> +static bool is_branch_insn(kprobe_opcode_t insn)
-> +{
-> +	unsigned char opcode = get_6_bit_opcode(insn);
-> +
-> +	switch (opcode) {
-> +	case OPENRISC_OPCODE_BF:
-> +	case OPENRISC_OPCODE_BNF:
-> +	case OPENRISC_OPCODE_J:
-> +	case OPENRISC_OPCODE_JAL:
-> +	case OPENRISC_OPCODE_JALR:
-> +	case OPENRISC_OPCODE_JR:
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +NOKPROBE_SYMBOL(is_branch_insn)
-> +
-> +static bool is_pc_insn(kprobe_opcode_t insn)
-> +{
-> +	unsigned char opcode = get_6_bit_opcode(insn);
-> +
-> +	if (opcode == OPENRISC_OPCODE_ADRP)
-> +		return true;
-> +
-> +	return false;
-> +}
-> +NOKPROBE_SYMBOL(is_pc_insn)
-> +
-> +static bool insns_need_simulation(kprobe_opcode_t insn, bool *exec_delay_slot)
-> +{
-> +	*exec_delay_slot = false;
-> +
-> +	if (is_branch_insn(insn)) {
-> +		if (static_branch_likely(&delay_slot))
-> +			*exec_delay_slot = true;
-> +		return true;
-> +	}
-> +
-> +	if (is_pc_insn(insn))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +NOKPROBE_SYMBOL(insns_need_simulation)
-> +
-> +int arch_prepare_kprobe(struct kprobe *p)
-> +{
-> +	kprobe_opcode_t insn;
-> +	kprobe_opcode_t prev_insn, next_insn;
-> +	bool exec_delay_slot = false;
-> +
-> +	/* Attempt to probe at unaligned address */
-> +	if ((unsigned long)p->addr & 0x3)
-> +		return -EILSEQ;
-> +
-> +	if (unlikely(copy_from_kernel_nofault(&insn, p->addr, OPENRISC_INSN_SIZE)))
-> +		return -EFAULT;
-> +
-> +	p->opcode = insn;
-> +
-> +	if (insn_not_supported(insn)) {
-> +		pr_notice("Can't insert KProbe at blacklisted instruction.\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (copy_from_kernel_nofault(&prev_insn, p->addr - 1,
-> +			OPENRISC_INSN_SIZE) == 0 && is_branch_insn(prev_insn)) {
-> +		if (static_branch_likely(&delay_slot)) {
-> +			pr_notice("Can't insert KProbe in delay slot.\n");
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	if (copy_from_kernel_nofault(&next_insn, p->addr + 1, OPENRISC_INSN_SIZE) == 0 &&
-> +	    insns_need_simulation(next_insn, &exec_delay_slot) && is_branch_insn(insn)) {
-> +		if (static_branch_likely(&delay_slot)) {
-> +			pr_notice("Can't insert KProbe if following instruction is in a delay slot and depends on PC.\n");
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	if (insns_need_simulation(insn, &exec_delay_slot) && !exec_delay_slot) {
-> +		p->ainsn.insn = NULL;
-> +	} else {
-> +		/*
-> +		 * Single step probed instruction or, in case of branch instructions, single
-> +		 * step instruction in delay slot.
-> +		 */
-> +		p->ainsn.insn = get_insn_slot();
-> +		if (!p->ainsn.insn)
-> +			return -ENOMEM;
-> +
-> +		if (exec_delay_slot)
-> +			patch_insn_write(p->ainsn.insn, next_insn);
-> +		else
-> +			patch_insn_write(p->ainsn.insn, p->opcode);
-> +		patch_insn_write(&p->ainsn.insn[1], KPROBE_SSTEPBP_INSN);
-> +	}
-> +
-> +	return 0;
-> +}
-> +NOKPROBE_SYMBOL(arch_prepare_kprobe);
-> +
-> +void arch_arm_kprobe(struct kprobe *p)
-> +{
-> +	patch_insn_write(p->addr, KPROBE_BP_INSN);
-> +	flush_insn_slot(p);
-> +}
-> +NOKPROBE_SYMBOL(arch_arm_kprobe);
-> +
-> +void arch_disarm_kprobe(struct kprobe *p)
-> +{
-> +	patch_insn_write(p->addr, p->opcode);
-> +	flush_insn_slot(p);
-> +}
-> +NOKPROBE_SYMBOL(arch_disarm_kprobe);
-> +
-> +void arch_remove_kprobe(struct kprobe *p)
-> +{
-> +	if (p->ainsn.insn) {
-> +		free_insn_slot(p->ainsn.insn, 0);
-> +		p->ainsn.insn = NULL;
-> +	}
-> +}
-> +NOKPROBE_SYMBOL(arch_remove_kprobe);
-> +
-> +static void set_current_kprobe(struct kprobe *p)
-> +{
-> +	__this_cpu_write(current_kprobe, p);
-> +}
-> +NOKPROBE_SYMBOL(set_current_kprobe);
-> +
-> +static void save_previous_kprobe(struct kprobe_ctlblk *kcb)
-> +{
-> +	kcb->prev_kprobe.kp = kprobe_running();
-> +	kcb->prev_kprobe.status = kcb->kprobe_status;
-> +	kcb->prev_kprobe.restore_pc = kcb->restore_pc;
-> +}
-> +NOKPROBE_SYMBOL(save_previous_kprobe);
-> +
-> +static void restore_previous_kprobe(struct kprobe_ctlblk *kcb)
-> +{
-> +	kcb->kprobe_status = kcb->prev_kprobe.status;
-> +	kcb->restore_pc = kcb->prev_kprobe.restore_pc;
-> +	set_current_kprobe(kcb->prev_kprobe.kp);
-> +}
-> +NOKPROBE_SYMBOL(restore_previous_kprobe);
-> +
-> +/*
-> + * kprobe_local_irq_(save|restore) disable/enable interrupts
-> + * on exiting from the exception handler respectively. This is
-> + * achieved by toggling the IEE and TEE bits in regs->sr with
-> + * the changes taking effect after returning from the exception
-> + * handler.
-> + *
-> + * Interrupts need to be disabled for the period during which an
-> + * instruction is single-stepped.
-> + */
-> +static void __kprobes kprobe_local_irq_save(struct kprobe_ctlblk *kcb,
-> +						struct pt_regs *regs)
-> +{
-> +	kcb->irq_flags = regs->sr;
-> +	regs->sr = (regs->sr & ~(SPR_SR_IEE|SPR_SR_TEE)) | ARCH_IRQ_DISABLED;
-> +}
-> +
-> +static void __kprobes kprobe_local_irq_restore(struct kprobe_ctlblk *kcb,
-> +						struct pt_regs *regs)
-> +{
-> +	regs->sr = kcb->irq_flags;
-> +}
-> +
-> +static void post_kprobe_handler(struct kprobe *cur, struct kprobe_ctlblk *kcb,
-> +				struct pt_regs *regs)
-> +{
-> +	instruction_pointer_set(regs, kcb->restore_pc);
-> +
-> +	if (kcb->kprobe_status == KPROBE_REENTER) {
-> +		restore_previous_kprobe(kcb);
-> +		preempt_enable_no_resched();
-> +		return;
-> +	}
-> +
-> +	kcb->kprobe_status = KPROBE_HIT_SSDONE;
-> +
-> +	if (cur->post_handler)
-> +		cur->post_handler(cur, regs, 0);
-> +
-> +	reset_current_kprobe();
-> +	preempt_enable_no_resched();
-> +}
-> +NOKPROBE_SYMBOL(post_kprobe_handler);
-> +
-> +static void setup_singlestep(struct kprobe *p, struct pt_regs *regs,
-> +			     struct kprobe_ctlblk *kcb, int reenter)
-> +{
-> +	kprobe_opcode_t insn;
-> +
-> +	if (reenter) {
-> +		save_previous_kprobe(kcb);
-> +		set_current_kprobe(p);
-> +		kcb->kprobe_status = KPROBE_REENTER;
-> +	} else {
-> +		kcb->kprobe_status = KPROBE_HIT_SS;
-> +	}
-> +
-> +	/* Emulate instruction if required. */
-> +	insn = p->opcode;
-> +	if (is_pc_insn(insn)) {
-> +		simulate_pc(regs, insn);
-> +		kcb->restore_pc = regs->pc;
-> +		/* No SSOL is required here, so call post-process immediately. */
-> +		post_kprobe_handler(p, kcb, regs);
-> +		return;
-> +	}
-> +
-> +	if (is_branch_insn(insn)) {
-> +		simulate_branch(regs, insn);
-> +		/* Save target addr before updating PC to SSOL slot */
-> +		kcb->restore_pc = regs->pc;
-> +	} else
-> +		kcb->restore_pc = regs->pc + OPENRISC_INSN_SIZE;
-> +
-> +	if (p->ainsn.insn) {
-> +		/* Disable IRQs before single stepping */
-> +		kprobe_local_irq_save(kcb, regs);
-> +		instruction_pointer_set(regs, (unsigned long)p->ainsn.insn);
-> +	} else {
-> +		/*
-> +		 * The instruction is a branch but delay slots are disabled.
-> +		 * Simply call the post-handler.
-> +		 */
-> +		post_kprobe_handler(p, kcb, regs);
-> +	}
-> +}
-> +NOKPROBE_SYMBOL(setup_singlestep);
-> +
-> +static bool reenter_kprobe(struct kprobe *p, struct pt_regs *regs,
-> +			   struct kprobe_ctlblk *kcb)
-> +{
-> +	switch (kcb->kprobe_status) {
-> +	case KPROBE_HIT_SS:
-> +	case KPROBE_HIT_SSDONE:
-> +	case KPROBE_HIT_ACTIVE:
-> +		kprobes_inc_nmissed_count(p);
-> +		setup_singlestep(p, regs, kcb, 1);
-> +		break;
-> +	case KPROBE_REENTER:
-> +		pr_warn("Unrecoverable KProbe detected.\n");
-> +		dump_kprobe(p);
-> +		WARN_ON_ONCE(1);
-> +		return false;
-> +	default:
-> +		WARN_ON(1);
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +NOKPROBE_SYMBOL(reenter_kprobe);
-> +
-> +bool kprobe_breakpoint_handler(struct pt_regs *regs)
-> +{
-> +	struct kprobe *p, *curr_kprobe;
-> +	struct kprobe_ctlblk *kcb;
-> +	kprobe_opcode_t *addr = (kprobe_opcode_t *)regs->pc;
-> +	kprobe_opcode_t insn;
-> +
-> +	/*
-> +	 * We don't want to be preempted for the entire
-> +	 * duration of kprobe processing.
-> +	 */
-> +	preempt_disable();
-> +
-> +	kcb = get_kprobe_ctlblk();
-> +	curr_kprobe = kprobe_running();
-> +	p = get_kprobe(addr);
-> +	if (p) {
-> +		if (curr_kprobe) {
-> +			if (reenter_kprobe(p, regs, kcb))
-> +				return true;
-> +		} else {
-> +			/* Probe hit */
-> +			set_current_kprobe(p);
-> +			kcb->kprobe_status = KPROBE_HIT_ACTIVE;
-> +			/*
-> +			 * If there's no pre-handler or it returns 0, continue
-> +			 * processing the KProbe as usual. A non-zero return
-> +			 * value implies the saved registers have been modified
-> +			 * and the execution path might deviate from what's
-> +			 * expected. Reset the KProbe and return.
-> +			 */
-> +			if (!p->pre_handler || !p->pre_handler(p, regs)) {
-> +				setup_singlestep(p, regs, kcb, 0);
-> +			} else {
-> +				reset_current_kprobe();
-> +				preempt_enable_no_resched();
-> +			}
-> +			return true;
-> +		}
-> +	}
-> +
-> +	/*
-> +	 * The breakpoint instruction was removed right after we hit it
-> +	 * possibly by another cpu. If the original instruction was also
-> +	 * a trap instruction then return to the trap handler for further
-> +	 * processing, else no further processing is required.
-> +	 */
-> +	if (get_kernel_nofault(insn, addr) < 0
-> +		|| (insn & OPENRISC_MASK_TRAP) != OPENRISC_INSN_TRAP) {
-> +		preempt_enable_no_resched();
-> +		return true;
-> +	}
-> +
-> +	preempt_enable_no_resched();
-> +	return false;
-> +}
-> +NOKPROBE_SYMBOL(kprobe_breakpoint_handler);
-> +
-> +bool kprobe_singlestep_handler(struct pt_regs *regs)
-> +{
-> +	struct kprobe *cur = kprobe_running();
-> +	struct kprobe_ctlblk *kcb = get_kprobe_ctlblk();
-> +	unsigned long addr = instruction_pointer(regs);
-> +
-> +	if (cur && (kcb->kprobe_status & (KPROBE_HIT_SS | KPROBE_REENTER)) &&
-> +	    ((unsigned long)&cur->ainsn.insn[1] == addr)) {
-> +		/* Single stepping has been completed. Enable IRQs. */
-> +		kprobe_local_irq_restore(kcb, regs);
-> +		post_kprobe_handler(cur, kcb, regs);
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +NOKPROBE_SYMBOL(kprobe_singlestep_handler);
-> +
-> +int kprobe_fault_handler(struct pt_regs *regs, int trapnr)
-> +{
-> +	struct kprobe *cur = kprobe_running();
-> +	struct kprobe_ctlblk *kcb = get_kprobe_ctlblk();
-> +
-> +	switch (kcb->kprobe_status) {
-> +	case KPROBE_HIT_SS:
-> +	case KPROBE_REENTER:
-> +		/*
-> +		 * The instruction being single-stepped caused a page fault.
-> +		 * Reset the current KProbe and set PC to the probe's address.
-> +		 * Then allow the page fault handler to continue as usual.
-> +		 */
-> +		instruction_pointer_set(regs, (unsigned long)cur->addr);
-> +
-> +		if (kcb->kprobe_status == KPROBE_REENTER)
-> +			restore_previous_kprobe(kcb);
-> +		else
-> +			reset_current_kprobe();
-> +
-> +		kprobe_local_irq_restore(kcb, regs);
-> +		preempt_enable_no_resched();
-> +		break;
-> +	}
-> +
-> +	return 0;
-> +}
-> +NOKPROBE_SYMBOL(kprobe_fault_handler);
-> +
-> +int __init arch_init_kprobes(void)
-> +{
-> +	return 0;
-> +}
-> diff --git a/arch/openrisc/kernel/traps.c b/arch/openrisc/kernel/traps.c
-> index a59abbca3555..2d6b29ea8c4f 100644
-> --- a/arch/openrisc/kernel/traps.c
-> +++ b/arch/openrisc/kernel/traps.c
-> @@ -30,10 +30,12 @@
->  #include <linux/kallsyms.h>
->  #include <linux/uaccess.h>
->  
-> +#include <asm/break.h>
->  #include <asm/bug.h>
->  #include <asm/fpu.h>
->  #include <asm/insn-def.h>
->  #include <asm/io.h>
-> +#include <asm/kprobes.h>
->  #include <asm/processor.h>
->  #include <asm/unwinder.h>
->  #include <asm/sections.h>
-> @@ -216,10 +218,37 @@ asmlinkage void do_trap(struct pt_regs *regs, unsigned long address)
->  	if (user_mode(regs)) {
->  		force_sig_fault(SIGTRAP, TRAP_BRKPT, (void __user *)regs->pc);
->  	} else {
-> +		unsigned long trap, bcode;
-> +
-> +		if (get_kernel_nofault(trap, (unsigned long *)regs->pc) < 0)
-> +			return;
-> +
-> +		/*
-> +		 * Trap instruction was probably removed and no further processing
-> +		 * is required.
-> +		 */
-> +		if ((trap & OPENRISC_MASK_TRAP) != OPENRISC_INSN_TRAP)
-> +			return;
-> +
-> +		bcode = (trap & OPENRISC_MASK_BCODE);
-> +		switch (bcode) {
-> +		case BRK_KPROBE_BP:
-> +			if (kprobe_breakpoint_handler(regs))
-> +				return;
-> +			break;
-> +		case BRK_KPROBE_SSTEPBP:
-> +			if (kprobe_singlestep_handler(regs))
-> +				return;
-> +			break;
-> +		default:
-> +			break;
-> +		}
-> +
->  		pr_emerg("KERNEL: Illegal trap exception 0x%.8lx\n", regs->pc);
->  		die("Die:", regs, SIGILL);
->  	}
->  }
-> +NOKPROBE_SYMBOL(do_trap)
->  
->  asmlinkage void do_unaligned_access(struct pt_regs *regs, unsigned long address)
->  {
-> diff --git a/arch/openrisc/lib/memcpy.c b/arch/openrisc/lib/memcpy.c
-> index e2af9b510804..701262a40134 100644
-> --- a/arch/openrisc/lib/memcpy.c
-> +++ b/arch/openrisc/lib/memcpy.c
-> @@ -16,6 +16,7 @@
->  
->  #include <linux/export.h>
->  
-> +#include <linux/kprobes.h>
->  #include <linux/string.h>
->  
->  #ifdef CONFIG_OR1K_1200
-> @@ -122,4 +123,5 @@ void *memcpy(void *dest, __const void *src, __kernel_size_t n)
->  }
->  #endif
->  
-> +NOKPROBE_SYMBOL(memcpy);
->  EXPORT_SYMBOL(memcpy);
-> diff --git a/arch/openrisc/lib/memset.S b/arch/openrisc/lib/memset.S
-> index c3ac2a8b68d3..14e63af12d73 100644
-> --- a/arch/openrisc/lib/memset.S
-> +++ b/arch/openrisc/lib/memset.S
-> @@ -9,6 +9,8 @@
->   * Copyright (C) 2015 Olof Kindgren <olof.kindgren@gmail.com>
->   */
->  
-> +#include <asm/asm.h>
-> +
->  	.global memset
->  	.type	memset, @function
->  memset:
-> @@ -92,3 +94,5 @@ memset:
->  
->  4:	l.jr		r9
->  	 l.ori		r11, r3, 0
-> +
-> +_ASM_NOKPROBE(memset)
-> diff --git a/arch/openrisc/mm/fault.c b/arch/openrisc/mm/fault.c
-> index 29e232d78d82..5263a832562f 100644
-> --- a/arch/openrisc/mm/fault.c
-> +++ b/arch/openrisc/mm/fault.c
-> @@ -14,6 +14,7 @@
->  #include <linux/mm.h>
->  #include <linux/interrupt.h>
->  #include <linux/extable.h>
-> +#include <linux/kprobes.h>
->  #include <linux/sched/signal.h>
->  #include <linux/perf_event.h>
->  
-> @@ -55,6 +56,9 @@ asmlinkage void do_page_fault(struct pt_regs *regs, unsigned long address,
->  
->  	tsk = current;
->  
-> +	if (kprobe_page_fault(regs, vector))
-> +		return;
-> +
->  	/*
->  	 * We fault-in kernel-space virtual memory on-demand. The
->  	 * 'reference' page table is init_mm.pgd.
-> @@ -351,3 +355,4 @@ asmlinkage void do_page_fault(struct pt_regs *regs, unsigned long address,
->  		return;
->  	}
->  }
-> +NOKPROBE_SYMBOL(do_page_fault)
-> diff --git a/samples/kprobes/kprobe_example.c b/samples/kprobes/kprobe_example.c
-> index 53ec6c8b8c40..84e26ebef70b 100644
-> --- a/samples/kprobes/kprobe_example.c
-> +++ b/samples/kprobes/kprobe_example.c
-> @@ -59,6 +59,10 @@ static int __kprobes handler_pre(struct kprobe *p, struct pt_regs *regs)
->  	pr_info("<%s> p->addr = 0x%p, era = 0x%lx, estat = 0x%lx\n",
->  		p->symbol_name, p->addr, regs->csr_era, regs->csr_estat);
->  #endif
-> +#ifdef CONFIG_OPENRISC
-> +	pr_info("<%s> p->addr = 0x%p, pc = 0x%lx, status = 0x%lx\n",
-> +		p->symbol_name, p->addr, regs->pc, regs->sr);
-> +#endif
->  
->  	/* A dump_stack() here will give a stack backtrace */
->  	return 0;
-> @@ -100,6 +104,10 @@ static void __kprobes handler_post(struct kprobe *p, struct pt_regs *regs,
->  	pr_info("<%s> p->addr = 0x%p, estat = 0x%lx\n",
->  		p->symbol_name, p->addr, regs->csr_estat);
->  #endif
-> +#ifdef CONFIG_OPENRISC
-> +	pr_info("<%s> p->addr = 0x%p, status = 0x%lx\n",
-> +		p->symbol_name, p->addr, regs->sr);
-> +#endif
->  }
->  
->  static int __init kprobe_init(void)
-
-I think this is looking pretty good.
-
-Thank You,
-
--Stafford
+2026=EB=85=84 11=EC=9B=94 8=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 3:59, <=
+netdev-bot+sashiko@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 (1) =C2=B7 Medium: 3 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The patch moves cancel_work_sync(&iep->work) out of the
+>   ptp_clk_mutex critical section in icss_iep_pps_enable()=E2=80=A6
+> - [Medium] After the patch, an icss_iep_cap_cmp_work() instance can run
+>   after icss_iep_pps_enable(0) has disabled and cleared the compare=E2=80=
+=A6
+> - [Medium] The commit message says that because the compare is disabled
+>   before the drain, 'no new work can be scheduled once the mutex is=E2=80=
+=A6
+>
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the shared
+>   iep->work is never drained when periodic output (perout) is disabled,=
+=E2=80=A6
+>
+> --
+>
+> net: ti: icss-iep: fix deadlock when disabling PPS
+>
+> This commit moves cancel_work_sync(&iep->work) in icss_iep_pps_enable()
+> out of the ptp_clk_mutex critical section. The PPS disable path then no
+> longer waits for icss_iep_cap_cmp_work() while it holds the mutex that th=
+e
+> work handler needs.
+>
+> > diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/eth=
+ernet/ti/icssg/icss_iep.c
+> > index ec085897edf09..6264061a4eab3 100644
+> > --- a/drivers/net/ethernet/ti/icssg/icss_iep.c
+> > +++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
+>
+> [ ... ]
+>
+> > @@ -607,7 +608,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep=
+, int on)
+> >       } else {
+> >               ret =3D icss_iep_perout_enable_hw(iep, &rq.perout, on);
+> >               if (iep->cap_cmp_irq)
+> > -                     cancel_work_sync(&iep->work);
+> > +                     drain_work =3D true;
+> >       }
+> >
+> >       if (!ret)
+> > @@ -616,6 +617,15 @@ static int icss_iep_pps_enable(struct icss_iep *ie=
+p, int on)
+> >  exit:
+> >       mutex_unlock(&iep->ptp_clk_mutex);
+>
+> [Severity: Medium]
+> Once the mutex is dropped here, can icss_iep_cap_cmp_work() run against
+> compare hardware that has just been disabled and cleared?
+>
+> There seem to be two ways for this to happen:
+>
+>   - A handler already blocked in mutex_lock(&iep->ptp_clk_mutex) now
+>     continues. This is the case the patch fixes.
+>
+>   - A work item that was pending but not yet started begins running
+>     between mutex_unlock() and cancel_work_sync(). In that case
+>     cancel_work_sync() only waits for it to finish.
+>
+> The handler doesn't check pps_enabled or perout_enabled after it takes th=
+e
+> mutex:
+>
+> icss_iep_cap_cmp_work() {
+>         mutex_lock(&iep->ptp_clk_mutex);
+>
+>         ns =3D readl(iep->base + reg_offs[ICSS_IEP_CMP1_REG0]);
+>         ...
+>         ns_next =3D ns + iep->period;
+>         writel(lower_32_bits(ns_next),
+>                iep->base + reg_offs[ICSS_IEP_CMP1_REG0]);
+>         ...
+>         pevent.pps_times.ts_real =3D ns_to_timespec64(ns);
+>         pevent.type =3D PTP_CLOCK_PPSUSR;
+>         pevent.index =3D 0;
+>         ptp_clock_event(iep->ptp_clock, &pevent);
+>         ...
+> }
+>
+> icss_iep_perout_enable_hw(on=3D0) has just written 0 to CMP1_REG0/REG1. T=
+he
+> late handler would then set CMP1 to 0 + iep->period, which undoes the
+> "clear CMP regs" step. It would also send a PTP_CLOCK_PPSUSR event with a
+> zero (1970) timestamp.
+>
+> pps_event() doesn't check whether PPS is enabled. It records the assert,
+> increments assert_sequence, wakes /dev/ppsN readers and calls
+> pps_kc_event(), all after userspace has turned PPS off.
+>
+> Before this patch, the blocked case deadlocked and the pending case was
+> cancelled under the mutex, so this behaviour is new.
+>
+> Should icss_iep_cap_cmp_work() return early under the mutex when neither
+> pps_enabled nor perout_enabled is set?
+>
+> >
+> > +     /*
+> > +      * Drain the capture-compare work only after dropping ptp_clk_mut=
+ex.
+> > +      * icss_iep_cap_cmp_work() acquires ptp_clk_mutex itself, so call=
+ing
+> > +      * cancel_work_sync() while the mutex is held deadlocks when a ha=
+ndler
+> > +      * instance is already running and waiting for that same mutex.
+> > +      */
+> > +     if (drain_work)
+> > +             cancel_work_sync(&iep->work);
+>
+> [Severity: Medium]
+> The drain now runs outside ptp_clk_mutex and doesn't re-check
+> pps_enabled or perout_enabled. Could it cancel work that belongs to a
+> later enable?
+>
+> pps_enable_store() and period_store() in drivers/ptp/ptp_sysfs.c call
+> ops->enable() without ptp->pincfg_mux. That means they aren't serialized
+> against the PTP_ENABLE_PPS ioctl path or against each other.
+>
+> One possible sequence:
+>
+> CPU0 (disable)                       CPU1 (sysfs enable)
+> icss_iep_pps_enable(iep, 0)
+>   pps_enabled =3D false
+>   mutex_unlock()
+>                                      icss_iep_pps_enable(iep, 1)
+>                                        program CMP1, set CMP_EN
+>                                        pps_enabled =3D true
+>                                      first CMP1 hit:
+>                                      icss_iep_cap_cmp_irq()
+>                                        schedule_work(&iep->work)
+>   cancel_work_sync(&iep->work)
+>     removes the new session's work
+>
+> icss_iep_cap_cmp_work() is the only code that moves CMP1 forward. Once
+> its work is cancelled, no further compare events or PPS pulses are
+> produced, while the driver still reports pps_enabled =3D=3D true.
+>
+> The other order is possible as well. Suppose an old-session work instance
+> is blocked in mutex_lock() and gets the mutex after CPU1's enable. It
+> would read the new boundary B from CMP1, write B + period and send a
+> PPSUSR event stamped B before time B arrives. The first real edge of the
+> new session would be skipped.
+>
+> Before this patch the cancel ran under ptp_clk_mutex, so a concurrent
+> enable had to wait for it.
+>
+> [Severity: Medium]
+> The commit message says:
+>
+>     The hardware compare is
+>     already disabled by icss_iep_perout_enable_hw() before the drain, so =
+no new
+>     work can be scheduled once the mutex is released.
+>
+> Is that guaranteed? icss_iep_cap_cmp_irq() reads pps_enabled with no lock
+> and no ordering against this path. Nothing calls
+> synchronize_irq(iep->cap_cmp_irq) before the drain:
+>
+> icss_iep_cap_cmp_irq() {
+>         val =3D readl(iep->base + reg_offs[ICSS_IEP_CMP_STAT_REG]);
+>         if (val & BIT(1)) {
+>                 writel(BIT(1), iep->base + reg_offs[ICSS_IEP_CMP_STAT_REG=
+]);
+>                 if (iep->pps_enabled || iep->perout_enabled)
+>                         schedule_work(&iep->work);
+>         ...
+> }
+>
+> Suppose a CMP1 hit was latched just before CMP_EN was cleared, and its
+> handler on CPU1 has already read pps_enabled =3D=3D true.
+>
+> CPU0 can then set pps_enabled =3D false, drop the mutex and call
+> cancel_work_sync(). That call returns immediately because nothing is
+> pending.
+>
+> CPU1 then calls schedule_work(), and the work runs after PPS has been
+> disabled.
+>
+> On teardown, ptp_clock_unregister() -> ptp_disable_all_events() ->
+> icss_iep_pps_enable(0) runs first. After that the pps source and
+> ptp_clock are released, and icss_iep_exit() sets iep->ptp_clock to NULL.
+> A work item queued this late could call ptp_clock_event() on a freed or
+> NULL ptp_clock.
+>
+> On PREEMPT_RT the handler is force-threaded and can be preempted between
+> the flag read and schedule_work(), so the window is wider there.
+>
+> The old code had the same race with a larger window. However, the commit
+> message's argument depends on this window being closed.
+>
+> Would a synchronize_irq() after clearing pps_enabled, together with a
+> state check in the work handler, close it?
+>
+> > +
+> >       return ret;
+> >  }
+> >
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but the perout disable path ha=
+s
+> a related problem. icss_iep_cap_cmp_irq() also queues iep->work when
+> perout_enabled is set, but icss_iep_perout_enable(..., 0) never drains it=
+:
+>
+> icss_iep_perout_enable() {
+>         ...
+>         ret =3D icss_iep_perout_enable_hw(iep, req, on);
+>         if (!ret)
+>                 iep->perout_enabled =3D !!on;
+>
+> exit:
+>         mutex_unlock(&iep->ptp_clk_mutex);
+>
+>         return ret;
+> }
+>
+> On teardown, icss_iep_exit() unregisters the clock and sets it to NULL
+> before perout is turned off:
+>
+> icss_iep_exit() {
+>         if (iep->ptp_clock) {
+>                 ptp_clock_unregister(iep->ptp_clock);
+>                 iep->ptp_clock =3D NULL;
+>         }
+>         icss_iep_disable(iep);
+>
+>         if (iep->pps_enabled)
+>                 icss_iep_pps_enable(iep, false);
+>         else if (iep->perout_enabled)
+>                 icss_iep_perout_enable(iep, NULL, false);
+>         ...
+> }
+>
+> The ptp_disable_all_events() call inside ptp_clock_unregister() only
+> disables EXTTS and PPS. The PPS disable returns -EBUSY while perout is
+> enabled, so the work isn't drained there either.
+>
+> Can a work item queued while perout is active run icss_iep_cap_cmp_work()
+> after this point? It could be queued before teardown, or by an IRQ that
+> arrives before CMP_EN is cleared. If it runs, ptp_clock_event() would use
+> a NULL or freed iep->ptp_clock and pps_device.
+>
+> This can be reached from ndo_stop via prueth_emac_common_stop(), or from
+> prueth_remove(). It needs an IEP with an iep_cap_cmp interrupt and the
+> icssg_prueth clockops, which set n_per_out =3D 1.
+>
+> Also, iep->ptp_clock =3D NULL is assigned without holding ptp_clk_mutex.
+>
+> Should icss_iep_perout_enable() also call cancel_work_sync() on disable?
+> And should icss_iep_exit() drain iep->work before it unregisters the
+> clock?
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261107063726.3388730-1-hj351016%40gmail.com
