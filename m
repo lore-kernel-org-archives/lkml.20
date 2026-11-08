@@ -1,65 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.137.112.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147799;
-	b=2PAz2maaTiZ93n2yxULg94IjIgcqLUsFc492FZbyeeOdsoaTcJtJVSWkQkGHLbsIbR2q
-	 ZlONOjK0zZKl2kQPSbX5A3bXEvqtpQnizbgx1eOQ5WOhv+IJI32xqcIeC8yT0Mtb7+1Hn
-	 5X9yt0uZaaUiEvlKdK4ILmFSQ8Wz/hSm2FVk7fWNDBQZkSkkvXX2s5oSg2zMcMK2l7jqy
-	 pw6VCS9AS5ir3HlsUBTcHmwR4BGjFK2Hdd94aDGXTAqbs0G+v7sstzPD8meYRxuV6jY2T
-	 5VywkWBxLPf6lx50ZfItC24syao8OQig4K+ocM/R0zvTRdhVc0mj4Ekf9PGtmG6cXxQ==
+	t=1794147842;
+	b=msm2JGQYVlXOJTGXh/iKkJCMAk23F82HWWyOCOYKzZcg5G+edBymVygqoIs0E22hzUMe
+	 r5UDHvDq9ST5BaeXB3eBvB4WTIxQy+39YhIzFW6HUNIK55Td5TYuHbF7kFsDAQbdgUr0F
+	 goyoLzIHoQ+1i2mpefG2S278GWKFiwBeKluKbwcmjwtVje6QwYBt4NmUhZ+H8ntvb8pUl
+	 deMhZUIb8FRceHF3bCBGi97UyE6RBdJiRY9wWq7M1QZUpV+jxpOzByeSp9EIGINp0geJQ
+	 3xVi9Zhg82BW5ZzQk1mx0q7k+9EkK9YAfEOFs7tbnJLc9WYj5GCxWmzGE8D4zJQ+K0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147799;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=gG+88wZUi/y1Vveym/bPnrUsXqEu+rY4Y/0wdGlvsFA=;
-	b=yLDHFuUhnb4fftosqdAlS3sidYdFoNWeWAo7XKNq/VLWyJ7+Z1IdQzi4pX9vooAw3MDp
-	 sgWoWX18LHcO9k6qJCAB4irVo0QElu61QFEFnEcOs/kE5U0VtA/W14X0P/8XyWy9JmxXU
-	 Nq3dslwDjtE9yeW9UIdrMNsI66P6S3ATmzKSudcHIt2F+VDZ/HhXX7E7rH9k9hUALwUhY
-	 3mYfJK3BjBfeKJkqCzIizLuZxyAR17SC/xOPRXTMPbKVfpGXkdX/31X/WUYy3omrOkxHQ
-	 y6sDitqe0lTS3YZ6rwbkvlTFKEZXQBWdWaeeW9A4YI1eMjra4yJBkrVD1wkTkLCnz+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794147842;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=tO9kSL/xN8Y10+a6avUg71v47JzAd9km3qSicQjl954=;
+	b=FlWw4DcsywPg7PoRwhgXMcBx2aH3IXjg/ZD96DxCxc9K4TQjMODBgxIOGPSrkEJrVwFu
+	 jx7O0y5PaiVFblEBzpvInMWvdHMGoGppbwoAHaoHCBSAQkEEhNkHhcLDlWQtlhF6HbkJm
+	 NKUug49mIJk57DCe+JyyjsVm5Lxmz4M0oydIWMy5x2dhs469/01WvF2MnQGqql/aQfn+o
+	 YvvRxZ4MQgNiCctC2J2qYXh+ErVpf01wLDUo6bizqJcXggz6BqVyh0AqFSJwWPPldHHfC
+	 DbfwuISmcwgo1jUSGYy6dJ1TvLgdI+Tf/Sji1UIOS+XbrEFiQ1nQ1NppVyDVOz6EhnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=KmhMSfKG;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	dmarc=pass header.from=vicb.net;
+	spf=pass smtp.mailfrom=vicb.net;
+	dkim=pass header.d=vicb.net header.i=@vicb.net header.a=rsa-sha256 header.s=f747d04263f05989 header.b=NuDrcowj;
+	arc=none smtp.remote-ip=203.137.112.168
+Received: from mx0.gmx.wtf (mx0.gmx.wtf [203.137.112.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89436606A332;
-	Sun,  8 Nov 2026 14:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89436606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0499606A320;
+	Sun,  8 Nov 2026 14:24:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0499606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vicb.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vicb.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=KmhMSfKG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794147797;
-	bh=gG+88wZUi/y1Vveym/bPnrUsXqEu+rY4Y/0wdGlvsFA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=KmhMSfKGaxO9tKxXEjvFJrmTyZf+j8HXCvghmKXjQFYbSf28ffi+zbV7QKcFktAoL
-	 pCNEiEC+/nsOej9VmUpuETduHhll1WzIg7KA7KIoPt6DleEgVTO1sy+EzLLst+dbV6
-	 R1LgNn4IiiIAUt1H+XHPbWesCTKSqU3JNE5tWSWVLsO8XZBKb8Y25DoeMP0zqPvydO
-	 QqaUUXwT/SbPFXU9/Y9XU0K06vanF9RHlsx6YA7wLdTtRoFm5k+AIx+UKxNqBXB64c
-	 6DEkI1uVGTr0cLOhooRBkJYiD5khFBKhM1HWOR/JmryGFBw8kkxRwRKRjq6XoICmHY
-	 BAEPuo2HmfD5g==
-Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jMwBF2kCPzMmP;
-	Sun, 08 Nov 2026 09:23:17 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: tglx@kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	dvhart@infradead.org,
-	dave@stgolabs.net,
-	andrealmeid@igalia.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH] selftests/futex: Retry the wake in futex_wait instead of sleeping
-Date: Sun,  8 Nov 2026 09:23:09 -0500
-Message-Id: <20261108142309.1527337-1-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key, unprotected) header.d=vicb.net header.i=@vicb.net header.a=rsa-sha256 header.s=f747d04263f05989 header.b=NuDrcowj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vicb.net;
+	s=f747d04263f05989; t=1794147833;
+	bh=tO9kSL/xN8Y10+a6avUg71v47JzAd9km3qSicQjl954=;
+	h=Date:From:To:Subject:From;
+	b=NuDrcowjLdNhnlvUmfjrfqfCOOO3fRkamqLxP+l5raLl12hQkN940qM4JvqE8uptD
+	 5h2SCKEnql78bI1adTc6jU0j8DCT2Cos1H2IuVHzp0YgIBqg7D4cJ+xTDCoEae7Xts
+	 fxOiJ1upmP1N4ZlxDrbacGS++KlXjSMNAUx0dGPIVfuQ70prCWdEAnMczcSyvgDzvN
+	 2fmKtIayC31Rv8pvRYs7pJFGML40EIM5fOa3Vxxuk+dWBqB5d6J81r7BK0S9T2woxc
+	 USOit4Qmw0UiaopeNCv+jTUQeMGS080cDB098lpMlrUHdK6uYkP42ZuAyMHKNn/WKE
+	 qUFFIAIEdEsng==
+Date: Sun, 8 Nov 2026 15:23:51 +0100
+From: Vic B <linux@vicb.net>
+To: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	Kees Cook <keescook@chromium.org>
+Subject: [PATCH] security: Restrict unprivileged access to /proc/config.gz
+Message-ID: <avCF9zEHV48EHjgG@vicb.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,125 +57,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Each futex_wait test starts a waiter thread, which calls futex_wait()
-with a 30ms timeout. The main thread sleeps 10ms, then expects
-futex_wake() to wake one waiter. So the test assumes that the waiter
-reaches futex_wait() within 10ms, and that the main thread runs again
-within 30ms.
+When using CONFIG_IKCONFIG_PROC, the built-in configuration is
+world-readable through /proc/config.gz, which somewhat weakens existing
+address hiding defences, as it allows an unprivileged user to simply
+read built-in config from the running kernel and build their own copy
+with identical System.map.
 
-A busy machine breaks both. The built-in locktorture at times holds a
-spinlock for 100ms with preemption off. With it, private_futex failed in
-about 0.5% of the runs in 8-CPU VMs, on v7.4-rc1.
-Timestamps showed two cases. The waiter started up to 75ms late, after
-the wake. Or the main thread woke up to 105ms late, after the waiter
-had timed out.
+This patch adds a configuration option to restrict access to
+/proc/config.gz to superuser only.
 
-Fix this by retrying futex_wake() every millisecond until it wakes the
-waiter, for up to 5s. Give the waiter a timeout of 10s, so that it
-outlasts the retries. The tests then wait for the waiter, instead of
-assuming when it runs.
-
-With this patch, private_futex passed 6000 runs of 6000 in the same VMs,
-and the three tests 2000 runs of 2000.
-
-Fixes: c3d128581f64 ("selftests: futex: Add futex wait test")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Signed-off-by: Vic B <linux@vicb.net>
 ---
- .../selftests/futex/functional/futex_wait.c   | 39 ++++++++++++-------
- 1 file changed, 26 insertions(+), 13 deletions(-)
+ kernel/configs.c |  8 +++++++-
+ security/Kconfig | 27 +++++++++++++++++++++++++++
+ 2 files changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/futex/functional/futex_wait.c b/tools/testing/selftests/futex/functional/futex_wait.c
-index 5292f5d2c3b5..e7ebc7d8be1d 100644
---- a/tools/testing/selftests/futex/functional/futex_wait.c
-+++ b/tools/testing/selftests/futex/functional/futex_wait.c
-@@ -14,8 +14,9 @@
- #include "futextest.h"
- #include "kselftest_harness.h"
+diff --git a/kernel/configs.c b/kernel/configs.c
+index a28c79c5f713..11106164756f 100644
+--- a/kernel/configs.c
++++ b/kernel/configs.c
+@@ -37,6 +37,12 @@ asm (
+ extern char kernel_config_data;
+ extern char kernel_config_data_end;
  
--#define timeout_ns  30000000
--#define WAKE_WAIT_US 10000
-+#define WAIT_TIMEOUT_S	10
-+#define WAKE_RETRY_US	1000
-+#define WAKE_TRIES	5000
- #define SHM_PATH "futex_shm_file"
- 
- void *futex;
-@@ -32,8 +33,8 @@ static void *waiterfn(void *arg)
- 	struct timespec to;
- 	int res;
- 
--	to.tv_sec = 0;
--	to.tv_nsec = timeout_ns;
-+	to.tv_sec = WAIT_TIMEOUT_S;
-+	to.tv_nsec = 0;
- 
- 	res = futex_wait(futex, 0, &to, args->flags);
- 	if (res) {
-@@ -45,6 +46,24 @@ static void *waiterfn(void *arg)
- 	return NULL;
- }
- 
-+/*
-+ * Wake the waiter of @uaddr. The waiter thread may not have reached
-+ * futex_wait() yet, so retry until futex_wake() wakes it, for up to
-+ * WAKE_TRIES times WAKE_RETRY_US. Return what futex_wake() last returned.
-+ */
-+static int wake_waiter(void *uaddr, unsigned int flags)
-+{
-+	int i, res = 0;
++#ifdef CONFIG_SECURITY_IKCONFIG_RESTRICT
++#define IKCONFIG_MODE S_IRUSR
++#else
++#define IKCONFIG_MODE S_IRUGO
++#endif
 +
-+	for (i = 0; i < WAKE_TRIES; i++) {
-+		res = futex_wake(uaddr, 1, flags);
-+		if (res)
-+			break;
-+		usleep(WAKE_RETRY_US);
-+	}
-+	return res;
-+}
+ static ssize_t
+ ikconfig_read_current(struct file *file, char __user *buf,
+ 		      size_t len, loff_t * offset)
+@@ -57,7 +63,7 @@ static int __init ikconfig_init(void)
+ 	struct proc_dir_entry *entry;
+ 
+ 	/* create the current config file */
+-	entry = proc_create("config.gz", S_IFREG | S_IRUGO, NULL,
++	entry = proc_create("config.gz", S_IFREG | IKCONFIG_MODE , NULL,
+ 			    &config_gz_proc_ops);
+ 	if (!entry)
+ 		return -ENOMEM;
+diff --git a/security/Kconfig b/security/Kconfig
+index f7bf6cdc6229..0e8b8947150a 100644
+--- a/security/Kconfig
++++ b/security/Kconfig
+@@ -19,6 +19,33 @@ config SECURITY_DMESG_RESTRICT
+ 
+ 	  If you are unsure how to answer this question, answer N.
+ 
++config SECURITY_IKCONFIG_RESTRICT
++	bool "Restrict unprivileged access to /proc/config.gz"
++	depends on IKCONFIG_PROC
++	default n
++	help
++	  The built-in configuration of the running kernel may be used to build
++	  an identical kernel and expose information about kernel addresses,
++	  which can make exploiting easier.
 +
- TEST(private_futex)
- {
- 	struct waiter_args *args = malloc(sizeof(*args));
-@@ -61,10 +80,8 @@ TEST(private_futex)
- 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, args), 0)
- 		TH_LOG("pthread_create failed");
- 
--	usleep(WAKE_WAIT_US);
--
- 	TH_LOG("Calling private futex_wake on futex: %p", futex);
--	res = futex_wake(futex, 1, FUTEX_PRIVATE_FLAG);
-+	res = wake_waiter(futex, FUTEX_PRIVATE_FLAG);
- 	EXPECT_EQ(res, 1)
- 		TH_LOG("futex_wake private returned: %d %s", res, res < 0 ? strerror(errno) : "");
- 
-@@ -106,10 +123,8 @@ TEST(anon_page)
- 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, args), 0)
- 		TH_LOG("pthread_create failed");
- 
--	usleep(WAKE_WAIT_US);
--
- 	TH_LOG("Calling shared (page anon) futex_wake on futex: %p", futex);
--	res = futex_wake(futex, 1, 0);
-+	res = wake_waiter(futex, 0);
- 	EXPECT_EQ(res, 1) {
- 		TH_LOG("futex_wake shared (page anon) returned: %d %s",
- 		       res, res < 0 ? strerror(errno) : "");
-@@ -161,10 +176,8 @@ TEST(file_backed)
- 	ASSERT_EQ(pthread_create(&waiter, NULL, waiterfn, args), 0)
- 		TH_LOG("pthread_create failed");
- 
--	usleep(WAKE_WAIT_US);
--
- 	TH_LOG("Calling shared (file backed) futex_wake on futex: %p", futex);
--	res = futex_wake(shm, 1, 0);
-+	res = wake_waiter(shm, 0);
- 	EXPECT_EQ(res, 1) {
- 		TH_LOG("futex_wake shared (file backed) returned: %d %s",
- 		       res, res < 0 ? strerror(errno) : "");
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
++	  Selecting this option makes the built-in configuration in
++	  /proc/config.gz readable to superuser only.
++
++	  This is mostly useful with custom kernels, as distribution kernels
++	  tend to have their configuration and address maps available online.
++
++	  If you decide to restrict access to built-in config with this option
++	  for the above reasons, you should also make sure that access to the
++	  on-disk kernel image, configuration and System.map is restricted as
++	  well, e.g. by making the /boot directory accessible to superuser
++	  only.
++
++	  When using packaged kernels or image-based updaters, keep in mind
++	  that kernel packages or update images may also be accessible to
++	  unprivileged users via package manager or updater caches, or from
++	  network repositories. In such cases it's a good idea to restrict
++	  access to these as well.
++
+ choice
+ 	prompt "Allow /proc/pid/mem access override"
+ 	default PROC_MEM_FORCE_PTRACE
 -- 
 2.47.3
 
