@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794182115;
-	b=Qdg2ItoyPD9tG3hjfS2QFiTTZOgR76/tfgQeS9Y1G8WFWqjQ9nNL6VcOqQILBmaxwYvE
-	 ZRksuPuo3+IC4IO0f3HoQILOCehbpHcJ5tXklYvGYOe4D2Ycd/r5a+AsIIrnI9CoNL8jR
-	 23fk2ZXqCLbgz2bYNlIGz0NwE+eaEq8FK2lpBosWTSdgkXd/Pt7FpwuzOoStMJngwFGrS
-	 MQXAaModZMEJvRC0Ed8BCrtz/jBal+WaU4iEyLPE27bZwZ/sjT22cxEODmX2HiqpFGFMF
-	 zJDNACcQLcp3gf9sPpgLXJoS3Q0QRvT8xQeDw7+NPlZJ0HSz7qe7ZVrQW3ClZaUiezA==
+	b=4DOhOHKNIU/AeAHTyDwMrx9iJhmQSSV9W+8sGgPRbbuh8zS4OFNGNMez8yfczDo0Kw1Z
+	 9DyilXhAHSbS3zvGLVdwttnnXUVShUqjrooW3pNl2PPRmvG+LAmbw1TLhOYGb/Yq+qEwv
+	 x6PvVHYswluvSEdZ7UpUi76ax/FYmznYkNKFl+STxR2K/PIeR/56z55qR5Xbs7uWtbkE1
+	 nUpGCPa8H0tinF8rxv1xwUM5XPdUUUo+rq7/H1LnIqjvkki9F4n9oERVnyq3r4tlgeIov
+	 jrlvfCO2KKQElWvCpabiHtuGwLlW0tq5UcLVfCUiSXh1ZQcEu90FkI+tEGPl1qMHrVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794182115;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LlwLIJIo3WRDHPhp+jT9Zside115erkeBhAFWROWUrE=;
-	b=l0xp7jAlNogvil0Hn2hc3Ep1SnmdikJxUe2WBafakPGx2H1RlIHlMJGcxurwDTi8HfUp
-	 cux7gEd3MdDKbMmvnoT/vtNtJwR41cdY6MBr+t5o+UF6HFABLPHYTP5o56g+grmJF5tH+
-	 1pHAYccXsPxy4oP8jWP+6bYnxthQp1nQZD9rJMLFLvtuRGkHm1c3dVFGOZ4BOrIvUxLDB
-	 VMt3KNROz7Ha5I3M5dKLGK22fzplQrPiA8UzcgdCr5mIwDS7uMJnkGSbTbfH4mZs8KX3a
-	 AAjS6esww7/COx6Ii2id9gTtYwb5jwUQSQ+hXQxwu8LgQraQsp22QnA5JPvCnT1jRyg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ipAq0GFpqeILnCbmHOCNtPSgE8BRxRY1/yFPd6rARKE=;
+	b=SzY1EH8caatsaiyKA0kdQ3BdqOMtngD3Pq1AHtsohOyKdiYSwaQ4sjEX0ROmhkbYV8rO
+	 66dkgCYOlDAfGsJgCXehGpUzdHKKAfUp2hKgPrFg++TgpfT27bQBDXDdy/N6iu3wCI/Yg
+	 4awR/N6lYaaRmB//TxY4my3j1tiassCpJa6nLqkrs14n/xMuL85bSkjkrLRUnkj8csFPu
+	 BcxtEnIf7szZeAi0jLjQQi3fD6EnMV2wcj9bJE4cOTuEpbgbzS6JkXtqEoAy9mNA328nT
+	 pzr+qrblewqV4GRQooc+FULZY+CPQX8WU6NkEvykZ0fo0DaCllWeth1lGtRjwnmMp9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b="q3NEh/Qc";
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KZBIczwu;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18701606A33E
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:55:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18701606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9311D606A337
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:55:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9311D606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=q3NEh/Qc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794182112; x=1794441312;
-	bh=LlwLIJIo3WRDHPhp+jT9Zside115erkeBhAFWROWUrE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=q3NEh/QcxZlDhTEvQcRxaXA3WJmWicwSv/++zuJBAsl4oDWbzjEbk6P7QwRnjN4bv
-	 z2WR0KXhZBilchswNT7GZnp3+NSOzEIg+0L6EfMu0/onXQxf009xIvFhLVwDhyrtHd
-	 mQ1xRYa5PuBfto81ygIt2xZFpeXcaVkdZoLlBMqOTemXal0U9HvjXp/Z3bVM/yehRT
-	 JIrBdB5/RDKdrsj1ngEtMmcA0tE7y9xF3aHAplsmEzSkqY5tjr6fYTXO2eIYffj0tK
-	 7pFPsl4ocklrhJQm+gS3eTNBQ8gIRuQnyWdUxx5BpBNmdwzMr4lo7o5RSu63/+z1Zf
-	 c5MtDyyvGhzMw==
-Date: Sun, 08 Nov 2026 23:55:06 +0000
-To: "anthony.l.nguyen@intel.com" <anthony.l.nguyen@intel.com>, "przemyslaw.kitszel@intel.com" <przemyslaw.kitszel@intel.com>
-From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ice: clamp package info count to the response buffer
-Message-ID: <sjs92jrAG9X58za0SnZA1OOA4Db3R79dv436O7U-AytolZQYhuWSppqWG-OobUCTshYLEhYP6LgQAlvVSGMJhdUj9DSi6of3Q6huctkjXQg=@proton.me>
-Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: ed649a71fc7a2a23f607e4270626c917b61a0ae9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KZBIczwu
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e987b4a710so1362785ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 15:55:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794182115; x=1794786915; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ipAq0GFpqeILnCbmHOCNtPSgE8BRxRY1/yFPd6rARKE=;
+        b=KZBIczwuLkGkhh8jOtFgXeYfwkZdQ1LFnHavSzMhfPHIZq/O/vzePbTmIhhSjCHqcH
+         fcRvmWKFvWGt0ot7/blINy35dq/XvsSXPCnzieM/BG7cWTxWf5mRHGL1z7tw7EzjnpiI
+         Gslrrc072qMkBZv5oldz1diYmgX0GhNT4XF17lpSOfWLmx5CQJ21zr9GJE7XxNvPXMv2
+         O0KukkwKNkGQ7ErDczOigHd2d3hKlcukilY3bl7q7aemWaK6e4+6Bu7/Yg4Qgz0QamIu
+         DNmqR6IcSR/1IqZECcXPaV8jPmsvrBO1hy5wmC9deeppANk77/h/7fhkspVd0Jhi/Nra
+         zWWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794182115; x=1794786915;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ipAq0GFpqeILnCbmHOCNtPSgE8BRxRY1/yFPd6rARKE=;
+        b=TPO0W79wwRZa2JEJuXhR5wH2L2feFMir1KxSiK89RyViQ1ztGIKTld/vdlUCOz97BI
+         dF/JEYkyTo8SZKZuIW7rGiYtpHRVz1t5DYjvdlL7MFSDMRGU66IKRzzhvjdqm3PfF1HE
+         MEgCbrenCJOOlTfwdEfoDH8xcHSyEEtOKvQ7z19jK33U3D96VsEpZfj2O5PB/shUYCoj
+         47U9JyOU4MsaeZBdqX5ujNemctwwAfmz8Nhy6HLD5gd0L/ldGU4HUwJm3fzQnINvi1mx
+         rUQ0xhBhWzYv+fGqb/N79e7/XJ/zxf1EhLuYEhTNl9nD8nspThJ39PA7le6gOFZH56HM
+         beeA==
+X-Forwarded-Encrypted: i=1; AL+hErFSkIgb26ImGG9wXofZZjLRSIsFjX4eCjQJNmTvYgEnxVoR4WnajUhn+TWp8UPaRWbgLr5VheMA9EOdKzE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NVJMZ7fM7ZxsDpFgprJ43HsTptxmWYR4/05t/IK61i9kNXqB/
+	ae1UikoAJAMURvkq4d2/sWDH2oJL0x+M/eYyFQh0P3lPZZE2Hkl0/BPL
+X-Gm-Gg: AYBFou2PIYDWxfoM+F/ZF0+uOL9jBYKvAr6j46tB7fPp6fqFjwN1hJ+I3cdiEucZ97O
+	Pgb6nq4FGvRNTnYWDaGaAl6w7lsFjzYHamuVuPsscEH9tn0hEMExn2MsWkriWwMaBpqfqcs9DSi
+	i56oWEFaXrAKE9hVMHG/8Z3QtxU9rlzaTqoewKW5Bl1BcWOZMBnn3ifjtpszL/V+Sn4P3zjeOYC
+	XguofO4Fh7KqXaSzF+3sR1v+16EML3ugKtPqY0LkDVps65ZLyYeTu9SLXyQz7ZlQo2QVyzPoKx8
+	p1LAy4jwzfpTeJVQ5Xy8Eb74buaZwBJTYN4xEY2/yZ+1emtudAPFIiAzkgukUjWsgAykoKQX1mK
+	wRNFqg2ElWbaH5ELP5CMyS2Du34EdZY91dNVyeh3rcyfxLxhTIuwj5LB6plmJ2Ip27HHfIdwbRh
+	9DMqcRzvHsrkgnLVX21mTigkBQM5fFwihUd0ARZni+jCuRzm1zTw9rK0MW8obGiuHgLLHaGk18k
+	FjMV9ZNzfmSiJMJhKXDf8H+AHH1oj0mtuEKkXp4dydNeJgQoqHAnZSaP7J83npnMDgRNeostEvt
+	jDP65IEC4HIrcrGuFWZJXFsc4I8ndUevhY+ck31TXKmVXX044TZBi75i5zJtsb09qPyOch9ITac
+	Ss7ZUFX9GQlNjsHCU25nLLdw65Qpwv6lS/1osgA+O1GMAHR8=
+X-Received: by 2002:a17:903:acb:b0:2e9:93b7:23fc with SMTP id d9443c01a7336-2ed6809d0dfmr37072905ad.17.1794182114866;
+        Sun, 08 Nov 2026 15:55:14 -0800 (PST)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81722edesm6095215ad.55.2026.11.08.15.55.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 08 Nov 2026 15:55:13 -0800 (PST)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v21 02/12] ALSA: pcm: report partial progress under the stream lock
+Date: Mon,  9 Nov 2026 08:54:47 +0900
+Message-ID: <20261108235457.12688-3-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261108235457.12688-1-mynameisjune111@gmail.com>
+References: <20261108235457.12688-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,66 +107,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Staged capture can make readable data available before a complete period
+has elapsed. Skipping notification leaves a blocked reader asleep, while
+using the period-interrupt path for this event can infer a false ring
+wrap when the notification is delayed.
 
-ice_get_pkg_info() and the DDP-load compatibility check iterate
-over the count field of the admin-queue GET_PKG_INFO response, but
-the response buffer is a flexible array sized ICE_PKG_CNT (4):
-
-    DEFINE_RAW_FLEX(struct ice_aqc_get_pkg_info_resp, pkg_info, pkg_info,
-                    ICE_PKG_CNT);
-    ...
-    for (i =3D 0; i < le32_to_cpu(pkg_info->count); i++) {
-
-A device (or compromised firmware) that reports more than four
-entries makes both loops read past the stack buffer, and the
-'active package' name/version handling then copies out-of-bounds
-stack data into hw->active_pkg_name. The patch clamps both loops to
-the buffer size.
-
-Affected version/commit: mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 =
-(v7.4-rc2 window, 2026-11-08), drivers/net/ethernet/intel/ice/ice_ddp.c:199=
-3-2015 (ice_get_pkg_info: DEFINE_RAW_FLEX(..., ICE_PKG_CNT =3D 4) then for =
-(i =3D 0; i < le32_to_cpu(pkg_info->count); i++)), :2067-2077 (same pattern=
- with pkg->count)
-Longstanding; converted to DEFINE_RAW_FLEX at some point without adding the=
- clamp.
-
-This was found during an assisted (AI-supported) static source review of
-mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 (v7.4-rc2 window, 2026-11=
--08). The patch below has NOT been compiled and has
-NOT been runtime tested, and no reproducer was produced - the triggering
-conditions are described above instead. Please treat this as a report for
-verification rather than a battle-tested fix.
+Add snd_pcm_progress_under_stream_lock() to update the hardware pointer
+through the non-interrupt path and notify readers and fasync listeners.
+It runs under the caller's PCM stream lock and does not tick the PCM
+timer. The driver must release its pointer and trigger locks before
+calling it. Existing period notification callers keep their current
+behavior.
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 
 ---
-diff --git a/drivers/net/ethernet/intel/ice/ice_ddp.c b/drivers/net/etherne=
-t/intel/ice/ice_ddp.c
-index 3b2d9c4369..bb037ee96b 100644
---- a/drivers/net/ethernet/intel/ice/ice_ddp.c
-+++ b/drivers/net/ethernet/intel/ice/ice_ddp.c
-@@ -1998,7 +1998,7 @@ static enum ice_ddp_state ice_get_pkg_info(struct ice=
-_hw *hw)
- =09if (ice_aq_get_pkg_info_list(hw, pkg_info, size, NULL))
- =09=09return ICE_DDP_PKG_ERR;
-=20
--=09for (i =3D 0; i < le32_to_cpu(pkg_info->count); i++) {
-+=09for (i =3D 0; i < le32_to_cpu(pkg_info->count) && i < ICE_PKG_CNT; i++)=
- {
- #define ICE_PKG_FLAG_COUNT 4
- =09=09char flags[ICE_PKG_FLAG_COUNT + 1] =3D { 0 };
- =09=09u8 place =3D 0;
-@@ -2067,7 +2067,7 @@ static enum ice_ddp_state ice_chk_pkg_compat(struct i=
-ce_hw *hw,
- =09if (ice_aq_get_pkg_info_list(hw, pkg, size, NULL))
- =09=09return ICE_DDP_PKG_LOAD_ERROR;
-=20
--=09for (i =3D 0; i < le32_to_cpu(pkg->count); i++) {
-+=09for (i =3D 0; i < le32_to_cpu(pkg->count) && i < ICE_PKG_CNT; i++) {
- =09=09/* loop till we find the NVM package */
- =09=09if (!pkg->pkg_info[i].is_in_nvm)
- =09=09=09continue;
+include/sound/pcm.h  |    1 +
+ sound/core/pcm_lib.c |   19 +++++++++++++++++++
+ 2 files changed, 20 insertions(+)
 
+diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+--- a/include/sound/pcm.h
++++ b/include/sound/pcm.h
+@@ -1182,6 +1182,7 @@
+ int snd_pcm_lib_ioctl(struct snd_pcm_substream *substream,
+ 		      unsigned int cmd, void *arg);                      
+ void snd_pcm_period_elapsed_under_stream_lock(struct snd_pcm_substream *substream);
++void snd_pcm_progress_under_stream_lock(struct snd_pcm_substream *substream);
+ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream);
+ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
+ 				     void *buf, bool interleaved,
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -1919,6 +1919,25 @@
+ EXPORT_SYMBOL(snd_pcm_period_elapsed_under_stream_lock);
+ 
+ /**
++ * snd_pcm_progress_under_stream_lock - Report progress without a period IRQ
++ * @substream: PCM substream
++ *
++ * Context: PCM stream lock held, with no driver pointer or trigger locks held.
++ * Updates the pointer and wakes readers for partial-period transfers. Unlike
++ * a period notification, this does not imply an elapsed period or tick the PCM
++ * timer. The same pointer, trigger and timestamp callbacks may be invoked.
++ */
++void snd_pcm_progress_under_stream_lock(struct snd_pcm_substream *substream)
++{
++	if (PCM_RUNTIME_CHECK(substream) || !snd_pcm_running(substream))
++		return;
++	snd_pcm_update_hw_ptr(substream);
++	snd_kill_fasync(substream->runtime->fasync, SIGIO, POLL_IN);
++}
++EXPORT_SYMBOL_GPL(snd_pcm_progress_under_stream_lock);
++
++
++/**
+  * snd_pcm_period_elapsed() - update the status of runtime for the next period by acquiring lock of
+  *			      PCM substream.
+  * @substream: the instance of PCM substream.
