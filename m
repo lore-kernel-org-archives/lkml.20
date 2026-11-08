@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794114416;
-	b=yT3noetZcfDaehYt/deuMBw7+gFpBdEueLAGPPsgNzx/xLASL+XCdFjkoDJdQr2BdHy2
-	 PsdsS2pBah8uNr/FxO4s7DT+24JRIJrCwkxjrocPF+/4J1ZToxmmD1ndY2qoTIXYwffVn
-	 D0u8qjKfNqQST6Tq1A9hKup6eOsxtie32pwtOeJu4d9dqDpT1uzFpd7PQWqjHSlpLX3lE
-	 G3/mB5bj2EGSdjd7FxJ84W7xF6yXmgzYALMDMO7Pmk0NOo9b90IlY9KolIuIUBNPsu3LW
-	 329n7rEVZkQpGazrDiVu90Vb+QBVQewOPodeceG9TbKXIDLVRJST66HqsrGGub5aKJg==
+	t=1794114805;
+	b=0sForK+eZrgU/kcTRkkSAmMxwaUWm+eCMVrOtTwf7TC97lfYO0WCvnuR6qWdK2iop3ZJ
+	 DW7JYJ2JoMczs6Cx0J81u2pR7lGDqOjhewIWOZvbziTzKtJUWcuMNCHij3A8de7t3lDDs
+	 KavKM41MVt9JMTob1zPtObjDd+hCmm4O8twuy+KJgtaSQ7pnhDDl9TPe4ppO5OX9HpmKR
+	 EI7tXuRVM/ZHSu2ciNUA79SrrDM7wLGf6R7jY1naiCP2lwdUvOVQJXNW9spfbSrEaTEJ0
+	 oful7BOYW/IlkbjEwSxhLynO4DyM2J6NQ50C/y7JC1xNCltz1wa8qaMPW4sbtDJx/Yg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114416;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114805;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
-	b=a+VbGJGy8l2ttrbD/Ks/97S8hj5bYSCtINPpmd50VPDewZr5PWsW5IQNIzh6S+W8C0l3
-	 0INcyvc01EgLqyRnoDV6Qip3yb7OOVs2/8chkmmsJiVKBsiKysCKox/juMHT0VfI4FSPa
-	 CsfK5YPcG9mBENQHzwpDgviNIRNZ9NetIE6kp055yCNZVrrZ7A1T+3JMmFhR9AA+ELWbH
-	 gi4LMul9qEO/a2wK8FXuiTe+n7KvXgOBwnkhY87MLVACISuKC4iJMVps3MOYNsUlYlM5c
-	 ZHJEojHOfoLpL6D22fVKA1gU6Gnp9MDSPFsNOXD/aGBsfS041iJjE+t7nlTzWOLIXxA==
+	bh=tBv1HO+8MaH5NzZpx2131rviAviguXtqgAPNO0YP1pE=;
+	b=tZAqBa9WoMgEQfBxJ0bJJ5QCkPSuJewmNFJg6ko8GglQfEka4N8LlPG5p1H4dNwU0Zpu
+	 0zLeK0DNHzK12W1EIe+dYbZahELTz2+vSQMOetk9PE1J8xazBcNfEAuabOZlw9XgoMJM0
+	 S0PjRmeffb1v0Edp7jDLs8s87XQFQ067cr95KYkKzG67g3gLGyZnDY5mKrxytcEgOyJKi
+	 YHf7X0qw4eV2W75KRkwbhsosb4tv7n43rUHIdT0+QahLOBdCVaqgZJQeuyHQtz27MSwUI
+	 7VmKYIN7fO1mJLWV/c1LrF7lm0L/qYCSncBBwV6vnVYoQ3scICKJgbiMTz7NU4oXGEA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n3lOJzt1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr9kI0te;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F07F606A31A;
-	Sun,  8 Nov 2026 05:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6132606A31A;
+	Sun,  8 Nov 2026 05:13:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n3lOJzt1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr9kI0te
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794114416;
-	b=vHFcTRlLO8qvcS7kc1A2Uqh1gbeQ0U4aTjyUp9VFXdPKXZYDAGJyqppGRQZLCMLjC9jZ
-	 y5In0hX43KhjXImlRHoZmsgrQO4Aqz/HkMYhl0t9vEpgMr40h7Nv2M9wfYc7LXg6PClyU
-	 AG5BH2vgKdzotMJJ5iBvZkDsDXg2ukfa9NX5WTORnBxAXpdcx1/2yXXAbCZHPHhisRclU
-	 lKlK/wmqws0v2q8jywq3y/LeeF1JQ7Hu2ZYw9Ls2IG0m25chGQFQqdcgx/2xBvB6eTGwA
-	 BIzMe2p4gdXv8zyrbKSmua16yihsKuGEUnOG+DMfjVc78AHlx/+HZM59pdoS0f+Nw8Q==
+	t=1794114804;
+	b=IGugQXJwL22NUY+fjL9K46ALBDNmZeORRyzoptYmKNUILWcL1mC6iqf/AS6w+VynlO6V
+	 W48o1cXuYX3Ir96++ee570prCw2t17ZNhNgW6Nh6md1cREC5jB382eOfv/c/716J9qh72
+	 Ji0b/Tq8zRI+ZpYcx4+j+5pBLW9hkKh+T4PjOzZpXj62EAAOVKAb/intRX43PI+OEuWJs
+	 5yt+Ri8dtAvQ11YMa/JloQxCpvsTkTkTnQXwFaZ1+539lkPdgv6+dJyxS012n8ueUwi3e
+	 SGqzN9nnuAqFcuLzZtMgrue30fcQs6nQreZEUVR6EoG+yAAUM2zkR3+NKW4gn7ZCf9g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794114416;
+	c=relaxed/relaxed; t=1794114804;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
-	b=wxxgrZ2NQbYzg+lTQwT9OXMpbDLF/jvYXWirmBfdyJDOLnZKMylZtu5v1we1b7k1ARYN
-	 l40qBT6+4mtwCOVsnMNBgYUPYva3YLYtIMYnaLPWKQeGJ9bVxoXV4hsoRIPM2EJX3qJqY
-	 9klnQsR0kkrVHHVRnTo7B/hxvA84ZCJ6B0k7HhKorpjV1r988cVC0Hv4h2NrLGPkcvbLc
-	 B2bYSLvoDjloxQ7xJ/uDMCSUplQsWOcPFpRSIBCk8xcd8WNBGvhknY0mE3osmD2DD/xTx
-	 HuAix2ElZk/o5vqOh/9LwtOf8V8nkCuTGFDBga/gNA8t0gmvhtzqBt+GKtNmSfxow2w==
+	bh=tBv1HO+8MaH5NzZpx2131rviAviguXtqgAPNO0YP1pE=;
+	b=jXnGnW1HqQR34dlMLM2jk1tZssyxnQ2bALpanUHP6GMNi5Q6QJu82yI8pLXGVlJ/aMH8
+	 3zNgJXhRK2gZ/0OGSqCj5UyV7Tx5mFm2M1HMG9T8cwGdU/IYiTr5zFdYpTE8j1kK1V8Ue
+	 nByvgzSTOME/RfMNCxKPnvGXDECrvtcZjO/uysycwu2BMUOSwOZHfhSt/PKtk+bBhdI1h
+	 cWR93bBNfZDZn1RP3alXAZZr7Uaxixhogbk5KYR1Cwyp6hld8dLaKG7CSu9390+2oCJOk
+	 lKxzOEcmdh+tXA63+pmUHfwR06Efw0j1dg9tLliBeU7eMpiKCCZqdb6th3jrqXTM7WA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 85D421F0089F;
-	Sun,  8 Nov 2026 05:06:55 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id A09071F0089F;
+	Sun,  8 Nov 2026 05:13:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794114416;
-	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
+	s=k20260515; t=1794114804;
+	bh=tBv1HO+8MaH5NzZpx2131rviAviguXtqgAPNO0YP1pE=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=n3lOJzt1DhcnFWAcKq9WlrWuNyYvo44tVqVEa8zInf+rW+2RDVUXWqFhVNav0y/dU
-	 OqG6+fmu54V3HF4n7boBuCK90C1q+XIk8Dh+bijjf4LSRB+KlAyR8vSCLpmEBNv/L6
-	 OC1cFF8PNJKSw3gYehk3tylWQe3ha0kKywklP8W2evnj63LHTG9kkJQINvYKF4ywG5
-	 9lzlfBqagplQQ/j5nmuGNl8zMrUNKGGN3Y3PC8L4F3rDbDrTqBCdBi2IV6HzrqbmOu
-	 Go/L8f0RB+QLTOIAE0DMwFp9VHz7rqIzq0CsGZLiuFkTQS5GnQI/sE11yWNOVmtfJ5
-	 3zCIV3YELl2dg==
+	b=gr9kI0teHy8JYaj0vd2F1tso2yADVFhzDgRIDSGMgm4F4aIWf1rA8TSi0vDyUL9IJ
+	 o5L+1SE6/0zBM4RpMh2NBaokEWT/1+M2+J1IrXIsHGtmQT4YYrMNbwof4O93mIicPf
+	 RBpBTGuBZZX1WmiI0qEl+E6DyEVpFZDtJ4blEugGiHyk8zbT0zAJnuJuRSI1TvcpwY
+	 f08u118C6BVWNNC+d5MYYSTMUXZM+ZrMjphK83BZdNRs5uiIIqmxbM2B2ENtao4fuD
+	 VdkNzyonVCYk/ebmSz14rP1SwiKsFQp4aLjk7yom1M8K75H+FostngWXYj4+kbti+w
+	 blLQSZyPXzZQg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E69C447DF7;
-	Sun,  8 Nov 2026 05:06:54 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id F20C047E05;
+	Sun,  8 Nov 2026 05:13:22 +0000 (UTC)
 From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Sat, 07 Nov 2026 21:06:54 -0800
-Subject: [PATCH] staging: media: tegra-video: use dev_err_probe() in CSI/VI
- probe
+Date: Sat, 07 Nov 2026 21:13:23 -0800
+Subject: [PATCH] staging: iio: adc: ad7816: use dev_err_probe() for GPIO
+ lookups
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,24 +84,24 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-batch1-s2-tegra-probe-v1-1-b4775e6437e5@tubot.lat>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDQAxA4atI1g1MBmqpVyldzE/UuFBJpqUg3
- r2jLr/FexsYq7BB12yg/BWTZa6gWwNpDPPAKLkavPMtkXtgDCWNhOax8KABV10iY879nenpsqM
- ItV2Ve/md39f7sn3ixKkcM9j3P5PoQpN5AAAA
-X-Change-ID: 20261107-batch1-s2-tegra-probe-ddf5e190d01b
-To: luca.ceresoli@bootlin.com, mchehab@kernel.org, skomatineni@nvidia.com, 
- thierry.reding@kernel.org, jonathanh@nvidia.com, gregkh@linuxfoundation.org
-Cc: linux-tegra@vger.kernel.org, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+Message-Id: <20261107-batch1-s3-warn-v1-1-4fc38341ca38@tubot.lat>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdOEjgSGr2I4bKVKPUyzApoQ3
+ p2px+/w/zuYZBWDS7VDlk1Nn6mA6gp4DukuqFMxuMZ1RE2PMSw8E1qL75ATOj/w4LmPRB5K9Mp
+ y089veB3/tjU+hJfvBY7jBFQOt1hyAAAA
+X-Change-ID: 20261107-batch1-s3-warn-289c98c7b118
+To: nuno.sa@analog.com, jic23@kernel.org, dlechner@baylibre.com, 
+ gregkh@linuxfoundation.org, Michael.Hennerich@analog.com, andy@kernel.org
+Cc: linux-staging@lists.linux.dev, linux@analog.com, 
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
  DelaySystem <DelaySystem@tubot.lat>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2702;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1972;
  i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=HadRakgfetZKfm5cBPmgCO0PbLmnRqlErwjrkQRxrOE=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfmPMuPLl/SnLyI83elVuCq5deXp+gs9VSV9vGtVnsL
- 4/BnnCxjlIWBjEOBlkxRRYxGZ739fd14qyt5pyAmcPKBDKEgYtTACbyfSkjw+l9nf7nRc6vPrqd
- +YjtL/9w3+s3g+x+RqyTSO6x9N9R9ZLhf+bJ2cf/qnf7eF06clJtf9ulDZpRR6bd+WEUENDC+O2
- qJh8A
+ bh=/dZESaHHxJHhLeUXDlNHKxcjmakcm6DTe+ZTrXLn33w=;
+ b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfWD4t2bDKqnq67s85Mr/1JV9fvep+fmbqL/Yte2qKN
+ LMX+l1P6yhlYRDjYJAVU2QRk+F5X39fJ87aas4JmDmsTCBDGLg4BWAiF4QY/tcG5uh+2zCf3eWD
+ zpuSCbnZUR//x5pyS+eEWUWsmdjBfJ/hn+3hwoNS2uoTJBisTGqu876eXBO9la0gSPGTzk32ANa
+ /fAA=
 X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
  fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
 X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
@@ -112,76 +112,54 @@ Content-Transfer-Encoding: 7bit
 
 From: DelaySystem <DelaySystem@tubot.lat>
 
-Clock, populate and other probe-time resource lookups can return
--EPROBE_DEFER.  Convert the remaining open-coded dev_err() + return
-sites in tegra_csi_probe() and tegra_vi_probe() to dev_err_probe(),
-which suppresses the error message on deferral and records the deferral
-reason.  This matches the existing dev_err_probe() use in vip.c and in
-the regulator/MIPI paths of tegra_csi_probe() itself.
+GPIO lookups can return -EPROBE_DEFER.  Convert the rdwr and convert
+GPIO lookup failures in ad7816_probe() to dev_err_probe(), which
+suppresses the error message on deferral and records the deferral
+reason.  The busy-GPIO path is left untouched: its optionality is the
+subject of a separate proposed change.
 
 No functional change other than defer handling.
 
 Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
 ---
- drivers/staging/media/tegra-video/csi.c |  6 ++----
- drivers/staging/media/tegra-video/vi.c  | 16 ++++++----------
- 2 files changed, 8 insertions(+), 14 deletions(-)
+ drivers/staging/iio/adc/ad7816.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/staging/media/tegra-video/csi.c b/drivers/staging/media/tegra-video/csi.c
-index 5a5fca378ae6..9ec04ad3a893 100644
---- a/drivers/staging/media/tegra-video/csi.c
-+++ b/drivers/staging/media/tegra-video/csi.c
-@@ -810,10 +810,8 @@ static int tegra_csi_probe(struct platform_device *pdev)
- 		csi->clks[i].id = csi->soc->clk_names[i];
+diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+index 2a15d7598abb..11292216dfb5 100644
+--- a/drivers/staging/iio/adc/ad7816.c
++++ b/drivers/staging/iio/adc/ad7816.c
+@@ -381,20 +381,14 @@ static int ad7816_probe(struct spi_device *spi_dev)
  
- 	ret = devm_clk_bulk_get(&pdev->dev, csi->soc->num_clks, csi->clks);
--	if (ret) {
--		dev_err(&pdev->dev, "failed to get the clocks: %d\n", ret);
+ 	chip->id = spi_get_device_id(spi_dev)->driver_data;
+ 	chip->rdwr_pin = devm_gpiod_get(&spi_dev->dev, "rdwr", GPIOD_OUT_HIGH);
+-	if (IS_ERR(chip->rdwr_pin)) {
+-		ret = PTR_ERR(chip->rdwr_pin);
+-		dev_err(&spi_dev->dev, "Failed to request rdwr GPIO: %d\n",
+-			ret);
 -		return ret;
 -	}
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to get the clocks\n");
- 
- 	csi->vdd = devm_regulator_get(&pdev->dev, "avdd-dsi-csi");
- 	if (IS_ERR(csi->vdd))
-diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
-index d8c77d1290ef..34507a52016e 100644
---- a/drivers/staging/media/tegra-video/vi.c
-+++ b/drivers/staging/media/tegra-video/vi.c
-@@ -1875,11 +1875,9 @@ static int tegra_vi_probe(struct platform_device *pdev)
- 	vi->soc = of_device_get_match_data(&pdev->dev);
- 
- 	vi->clk = devm_clk_get(&pdev->dev, NULL);
--	if (IS_ERR(vi->clk)) {
--		ret = PTR_ERR(vi->clk);
--		dev_err(&pdev->dev, "failed to get vi clock: %d\n", ret);
++	if (IS_ERR(chip->rdwr_pin))
++		return dev_err_probe(&spi_dev->dev, PTR_ERR(chip->rdwr_pin),
++				     "Failed to request rdwr GPIO\n");
+ 	chip->convert_pin = devm_gpiod_get(&spi_dev->dev, "convert",
+ 					   GPIOD_OUT_HIGH);
+-	if (IS_ERR(chip->convert_pin)) {
+-		ret = PTR_ERR(chip->convert_pin);
+-		dev_err(&spi_dev->dev, "Failed to request convert GPIO: %d\n",
+-			ret);
 -		return ret;
 -	}
-+	if (IS_ERR(vi->clk))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(vi->clk),
-+				     "failed to get vi clock\n");
- 
- 	if (!pdev->dev.pm_domain) {
- 		ret = -ENOENT;
-@@ -1888,11 +1886,9 @@ static int tegra_vi_probe(struct platform_device *pdev)
- 	}
- 
- 	ret = devm_of_platform_populate(&pdev->dev);
--	if (ret < 0) {
--		dev_err(&pdev->dev,
--			"failed to populate vi child device: %d\n", ret);
--		return ret;
--	}
-+	if (ret < 0)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "failed to populate vi child device\n");
- 
- 	vi->dev = &pdev->dev;
- 	vi->ops = vi->soc->ops;
++	if (IS_ERR(chip->convert_pin))
++		return dev_err_probe(&spi_dev->dev, PTR_ERR(chip->convert_pin),
++				     "Failed to request convert GPIO\n");
+ 	if (chip->id == ID_AD7816 || chip->id == ID_AD7817) {
+ 		chip->busy_pin = devm_gpiod_get(&spi_dev->dev, "busy",
+ 						GPIOD_IN);
 
 ---
 base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261107-batch1-s2-tegra-probe-ddf5e190d01b
+change-id: 20261107-batch1-s3-warn-289c98c7b118
 
 Best regards,
 --  
