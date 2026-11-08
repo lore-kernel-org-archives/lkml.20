@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794168909;
-	b=Gju0vKehoqGkA1RElDOUCD8ZOz6eiaJVaYsedIhazHgn0bAG3g7+FGl2BjCgnAiSG5Vx
-	 EhiG5diuux6+PV1tEtLbyPMnbdCfKcxiovjDvd8DPpvSqOFp3D1L6o6nbnZd7UfwhUNNw
-	 F53s/6l/ZQNqMuU721QkWra0voXvi0U0ML8xzROSXUlCmunxXprOIiaRG7SBVFM/ztORG
-	 xHPsk14O/C0DuVX1OLcJav1XZFWlSxWJVzRkArcC95fA4zPgBaagkFi7fQnr7rZWpHRNf
-	 MyS9UdiGf3Uq7Cpi4qudtIMUNUkEjYrQ1vYVe4anSyT4mjfbna62KmLsnlInwvkeQCA==
+	t=1794168908;
+	b=KlWq30VTd/nI6JoExujPRXHlwm279p+5d8EVyNQU28g55Wi74wQSQItZI5ADsx6d6gYN
+	 FDn4eMEjcSPoF4lQva417SCgmZqZkkQ4cPfH7qCmTeFDWVOBuxEK/Xcgw++wQD03JV2GP
+	 Y+ot87KYNRi0yMXzVAYBytfQEQxVVihXT/4mtTyyDpPLM1v2tNUgjYc5aKCm/ZhRgDjJK
+	 qX5ZLnS3S1EHSHdqP/NYWR5hkg6ur5L6hDiOLoJ5yNRktHxWOu/iEkarXxbvs26/LjAQA
+	 Eeg26qpKRBW2JhIapmQfiYlgcCVrjLQ61yUofBiMn9T6f501PRTKaA52Pu6KxwIHdjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794168909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794168908;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dECklwOd4xlNmvN3OSaJ4I8wcJsGZw3Lw9lBlak0+Zw=;
-	b=ksCMwC3T4S6DIqZU6UUruH3YIuO+ow6QzdJVNgpaa4WrQhgK3L9r+5k98OUoKDs4jkMw
-	 LRFNNQqG/G1EEu8SmXzTRBsE+TW5xj51WO8KElYnVj1GWeRHonhRyxM5vdwoJ1S4QX1HF
-	 v4OslOOBTlEMQOBTAfk498IycNkFbWK0B6O9WLrHO3L8UH5KETig6Kw9VJpO3drjp4QIN
-	 Yi5ICgKFnCvMZge7hn4H7jjsQXGgsjomURI2JUoCTa3btInoY3ITyNdVoRDPpu9ykJUvj
-	 Oih5hnfX/YCh7DiR5ttX+/ev2Y9AB0J4hddbpyTxaHwVDSADJfPoHC6rvfZMDFDALrw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=P75XztLr5IL9Ot3tsv1xaB+BM49nfqPilwdmFEEROM0=;
+	b=dLTI8GrMg7I5NnHJQf+LrUvVw95WtqzFFvjqh3VrL96WuzC4aUmoHsDNy9Micp6Z7Mr5
+	 EWXl9n/0IqAQLRf/YxtyP7S6OFFTeJTf9dNrZH4G6rgzdmKvjreyVBcuBLtrQMd7iASzP
+	 UsGwOWcePqsB/NliEnP116IfruvlRTvf7H58Y/tziyRAnEZG7h2VfvSptJGbnrP0BVPrU
+	 U0h1vCPYIS9cWDCQv6HR520R2WWekN21DhfK672iEoiJLUCLQged20pK56VOoJBK/wKzL
+	 L0Jtsy0E1ebvuBEIS4JDEFfL3u/1OuG5c8g/iLRdzPi6EIAApmaTIiz62Z6SXa9YCzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTAwnfME;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l6fD9mCr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C45606A33A;
-	Sun,  8 Nov 2026 20:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTAwnfME
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14481F0089F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740E5606A321;
 	Sun,  8 Nov 2026 20:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l6fD9mCr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD22F1F0089F;
+	Sun,  8 Nov 2026 20:15:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794168909;
-	bh=dECklwOd4xlNmvN3OSaJ4I8wcJsGZw3Lw9lBlak0+Zw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LTAwnfMEsvSFbLjwqnFYcCAs4S0/lDhCFRuaXuAZCX56sSlXQ89h4tUvh7dpLlZ1m
-	 krBONDu+XOF2umWiJZ+Vsovl47kKYjM5fH7bUuSum0TIKyFgvKQB+H0KnUP9nT1NJ6
-	 iT5k79I8qztVPOM2PTxKxn7b5wTA/t+ZNZyh453TJaFCat1RSacv/YMtsiIK7qyP7P
-	 hMwGD1wd+7sWDTLGO51y3CTTiKoysKmRnQTPHtTLPXU2o1d1El2ZcYDl7aTmZXokJF
-	 5smheUGWZrticD8L0UndQcKTeqTwTbD3hMDibg3NCrNawRXxMRWx3H6vgVPdR5HTi7
-	 FutAhU7JzBr3Q==
+	s=k20260515; t=1794168908;
+	bh=P75XztLr5IL9Ot3tsv1xaB+BM49nfqPilwdmFEEROM0=;
+	h=From:To:Cc:Subject:Date;
+	b=l6fD9mCrsJ5XYRkRAQHVZUO1675trAEW+KF3H1cCmc/LSK+grgE06c2UvConlo0Wj
+	 Bdmd08hoePlpA/3hGQlSCCE6oZU7Y9vklQl7VX8p6Z90KdeW/GL0BDRBdXMAb5+J9v
+	 siNuw8mhtAp81z3UMeXPDTYS6puGmIHtx93+rVEd99ITuiIKuE6/S1x/Mmq+G8WujM
+	 K69WMhyBq18HVmTxaQWxc4Ly/h6IP8KKdqh1EtNbLSYI74pEfgPKrLCa/bfOvBeOY4
+	 /y/PmQni3lqEhg4foZJJ/RqiJrdsImciUta62n2xWNO7Gx96kpakRUH0myv1Dm7bMk
+	 3ImyhU2ClPk9Q==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 6.6.y 3/3] mm/damon/core: remove unreachable damos charge_{target,addr}_from
-Date: Sun,  8 Nov 2026 12:14:55 -0800
-Message-ID: <20261108201456.116824-4-sj@kernel.org>
+Subject: [PATCH 6.6.y 0/3] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
+Date: Sun,  8 Nov 2026 12:14:52 -0800
+Message-ID: <20261108201456.116824-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261108201456.116824-1-sj@kernel.org>
-References: <20261108201456.116824-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,80 +62,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+Manually port three DAMON fixes that cherry-pick failed [1-3] and turned
+out to really need to be picked.  Note that seven patches [4-10] that
+also failed in the same day were having wrong Cc:stable@ tags, so
+ignored.
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+Patches that this series is porting.
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+[1] https://lore.kernel.org/20261107053211-failed-6.6-90c2fa6adfed@kernel.org
+[2] https://lore.kernel.org/20261107053907-failed-6.6-bbeec2d8324d@kernel.org
+[3] https://lore.kernel.org/20261107053915-failed-6.6-5695abc4e742@kernel.org
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
+Patches that also cherry-pick failed but deliverately ignored.
 
-Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Cc: <stable@vger.kernel.org> # 5.19.x
-(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+[4] https://lore.kernel.org/20261107053348-failed-6.6-6f276422aded@kernel.org
+[5] https://lore.kernel.org/20261107053350-failed-6.6-cec08aad3def@kernel.org
+[6] https://lore.kernel.org/20261107053353-failed-6.6-409d2ab6d982@kernel.org
+[7] https://lore.kernel.org/20261107053355-failed-6.6-1bfb9384ae0e@kernel.org
+[8] https://lore.kernel.org/20261107053357-failed-6.6-a1c7fdaf1657@kernel.org
+[9] https://lore.kernel.org/20261107053400-failed-6.6-1d2397b2c414@kernel.org
+[10] https://lore.kernel.org/20261107053402-failed-6.6-1c3352282063@kernel.org
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 99e934a6d1ce9..61d45d40fc1d3 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1088,6 +1088,27 @@ static void damos_set_effective_quota(struct damos_quota *quota)
- 	quota->esz = esz;
- }
- 
-+
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
-+{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
-+
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
-+		}
-+	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
-+}
-+
- static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- {
- 	struct damos_quota *quota = &s->quota;
-@@ -1115,6 +1136,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 		damos_set_effective_quota(quota);
- 	}
- 
-+	damos_fix_stale_charge_pointers(c, s);
-+
- 	if (!c->ops.get_scheme_score)
- 		return;
- 
+Changes from RFC
+- RFC: https://lore.kernel.org/20261107222202.331476-1-sj@kernel.org
+- None.
+
+SJ Park (3):
+  mm/damon/core: skip applying scheme if region split for quota fails
+  mm/damon/core: filter out damos address filter-split failed region
+  mm/damon/core: remove unreachable damos charge_{target,addr}_from
+
+ mm/damon/core-test.h | 11 +++++-----
+ mm/damon/core.c      | 48 ++++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 46 insertions(+), 13 deletions(-)
+
+
+base-commit: 9990534f18e75bebba6b6a557012d1253980de9e
 -- 
 2.47.3
