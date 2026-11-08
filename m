@@ -1,61 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169464;
-	b=pRU68Ev1wCdEnmI3WkvkCT78keP7UphIOELivLbDKN7pRZalwbXpsTrutCkJwaV5Qj/D
-	 AFX6mkN8Lzwi+gjyeXWH+/BDp1mzDLzDsVbUZxY4a8is8+GTEWWXQb+cw3MVhYz2QGoPI
-	 10cvHSm+8HQ/xUenBVpCIYVrLbQHMbJYVww7Tm5IUj5O2klkrzp99alfHJN01t5pzy8ci
-	 1DsElLxPAuWrO03xZERnrGNC+sUsf+cLyLSL9Q2be9GXaF7KFRm70B+FGwBLBL9NBbnn/
-	 iXL3CevlPALwmUFhFEGa7Rb4eDxyPyZizmJGN1lQMOvNBBX5pG4Ci+xotxcxymX8uPw==
+	t=1794169475;
+	b=oWWskfNCfxumwXLRxvfaIc5xD1uWiK99SYCNf7P5aVUOWOAKOuS3rjWJDQTvK+dG+dQ/
+	 3nFCAxTGFclnJxZwiFX8sbcbrAsjoMmN5K4/B/X7DWD1piiVkJB6ioUopoLelPmexAgyW
+	 cS3DW/m6aaVaRZW16vUkaU2UvcVc2pPC2096eSsD1kjqr7a3oa93GrTtA1QfUoDvEZKGt
+	 YB52jT+iIgdZBdZAXW5/R1YvPS0nx1qpGx2vfDYAe4WV2CsxPFbajKvwQp/m8m+SNP43u
+	 my+FWs9q5RCw/jl6TISqRGJFByzlxMD5Xef8R9n69mTbOPlzXzd7hcbmC43PKODT9Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169464;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169475;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=5mw73LN/A4v3KZJkjyKOCzcglb2HZR1xIa+njPbc2FE=;
-	b=Ob64NmHiTa2uAP+711+sst5kP7ZWcqMArZZmtuvUPe2P7uR0fHim9lJQBti3nxgwTLNU
-	 +X5IsYujcMmawk7oFPw1XamU4s6JYC6pnEzwe7bGS+LcKv/Ekvx5L/dT5XtBAgNtYW2fh
-	 FqgdEF28EUjMj1UKTIYuV8/aNTpdGf+u2uAGh4+jRTY0eBrllSy1Riz8JXEY2YTyTeVdq
-	 7QdrgtLDWmVhDXYojYbSSOO/SSv9ZR3SpkQQKLR98KrP6/IqETMOh2RcNal+k4rX0vNZG
-	 H2ANV/UZVJgETwIKL483l6DgW2z8ioIzSq34QpcQSmiPyCLwtjNTHgX4HuJVb/eSxew==
+	bh=3c3r7h6NQhJOxwz/O9+t6Q01aTCnppsPh2tJ2tniiSw=;
+	b=uw8M1jsXF39nIVyjCaUGIXoFcAaDa5YcSsKqm27Foxl7L0QiC+DsIDDxuH550bgTAgre
+	 ud8UgdklPbgaq3HWYxbDCtlGHui1SyMj6gWfog5KY0e5wKtCKXPg2CcVN3eeYf9t72OTn
+	 ROby6vMAMyuImuhhT+XKud4tpYMttGkuuCCrxxtAiy+FLXQDi2tp3s01Yr+b5UEfFF1c4
+	 Z0YRAaT/UnPm9iV0bvx7O3ZqTc2yFaABO6jGN9lM6w0mxz3U4we6vtxHT9gH6X4enaUso
+	 Nz2YWejfTNp66WXZFz3FTqpXTRbZJ936utv7rXztZvoQduTpQtUx651v5taNBnSGNtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOw8TnSE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ccej0zyJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7320B6076C34;
-	Sun,  8 Nov 2026 20:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DF9607C5F9;
+	Sun,  8 Nov 2026 20:24:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOw8TnSE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3712E1F008A1;
-	Sun,  8 Nov 2026 20:24:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ccej0zyJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 849301F0089F;
+	Sun,  8 Nov 2026 20:24:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169464;
-	bh=5mw73LN/A4v3KZJkjyKOCzcglb2HZR1xIa+njPbc2FE=;
+	s=k20260515; t=1794169474;
+	bh=3c3r7h6NQhJOxwz/O9+t6Q01aTCnppsPh2tJ2tniiSw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SOw8TnSE7gMjpA/OOeoynrrYJ/WTlzKS34O1Zi22hMieXyBfHTnvI77kj43KoQWln
-	 71E11+PjjdXhTTNCbDVxLejPz2Q/m0ZimzCBUWSz+dP1YfDSUE3W4vBCyBRzjboQ/k
-	 P0jiMWdGdJ4y/G4zHpN0CgkjIrzaY5fShElnXUsjXOG8UMPlypvq+GUGdV0DQu1pdk
-	 HkG+CKDAbSv3oyWWRSU8DC86p4INUQsKLt9SMFlxIxMzbSceHNIw3EBM744XcTRUF8
-	 MBnArBLCGsH4mEqtoJl0suS0UgiIMijcH7tVRKBGNAc3yTdrJmCU4uGdjH2Mh4ct7W
-	 pYfnAfEMwOtqg==
+	b=Ccej0zyJcXpxE2EU1O2jHU89w+F794yKeeKnRDsvq0UT2JNbxxWRfpP0Ywouw53bh
+	 i+snF+VeOMKhlPIgq9QUNhk0Qm0Lm6l+3TRiRM36kJqos1pUOZ7qVZ7i2AL7QrhJDG
+	 7SF6/hQug4tp/Qf2nVRDF8MeokTnP3zwQnGHlurUVSD0Um3LoNoXD4kZymeoBO+10v
+	 5puNOp5W3FeZDHIDCkPinKf5+Cad1WPkg1joWx7eLNZS8bQA8lp1mwbHvBH6Ui8Ryd
+	 rJyD0GmCPgXMSrnU0ZdKeVBJTqmoXfsXFzie4OmYNOKQ8vD1BJxmYaokPP9CihT3Tj
+	 vQQ7Q/UL2Deig==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>
+	Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to play audio via DisplayPort
-Date: Sun,  8 Nov 2026 14:20:58 -0600
-Message-ID: <179416929463.628393.16769183462772113988.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: shikra-iqs-som: Correct PM8150 L10 voltage range
+Date: Sun,  8 Nov 2026 14:21:06 -0600
+Message-ID: <179416929282.628393.3229975484137044010.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
-References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
+In-Reply-To: <20260929-fix_l10_max-v2-1-2fccd87115e7@oss.qualcomm.com>
+References: <20260929-fix_l10_max-v2-1-2fccd87115e7@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,22 +72,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 22 Oct 2026 11:36:20 +0200, Neil Armstrong wrote:
-> Add the DAI link needed to enable audio playback over the DisplayPort altmode
-> outputs for the SM8450/SM8550/SM8650 HDK & QRD boards.
+On Tue, 29 Sep 2026 14:05:18 +0530, Rakesh Kota wrote:
+> On Shikra IQS, the L10 rail supplies the SD card's VMMC. Its maximum
+> voltage must be limited to 3.3 V because the derived VQMMC voltage on
+> L2 supports up to approximately 3.3 V. Allowing VMMC to reach 3.544 V
+> can drive VQMMC beyond its supported range, potentially causing SD
+> bus bit errors and resulting in the voltage negotiation failure:
+> 
+> l2: unsupportable voltage range: 3500000-3296000uV
+> 
+> [...]
 
 Applied, thanks!
 
-[1/5] arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
-      commit: a583bb91f527bcc727941f1d4c18d719998da61d
-[2/5] arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
-      commit: 654a6fa2a9a0e10a7bfb9ad4c516b8098f00e0ca
-[3/5] arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
-      commit: c658034a92f87057d9a43c87507935ca10851ed8
-[4/5] arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
-      commit: 679981b6aeb777384b69258e4ec960600407e350
-[5/5] arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
-      commit: 9622685d68d671f01f04021e32e8b25fa505ad50
+[1/1] arm64: dts: qcom: shikra-iqs-som: Correct PM8150 L10 voltage range
+      commit: 53503055101c2ef25e3a58d1e75b1a5c3ae84402
 
 Best regards,
 -- 
