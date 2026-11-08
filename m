@@ -1,103 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794124690;
-	b=ewXcnG1U1dOymh6cHR4VtKLxA4hx7ouwwPwffUF/wSW0E7v1nhHnNowU6nfNxXySGanb
-	 ECQ1TlQmiAz51Dku7p+lwauK4xrYgha1HiAEyyPYm5dWEp25jUK6I+Er97091qHxnQGE0
-	 OPvHnPA9yX5pu7SOnJcr2IJcGwWD0HH1CD6cnkdOuqbzAWs3oUszU4f51dm2bI1h1CUKg
-	 iLLsk6eRzDNXa3XgGoOG2OnepdJTM1SR1xz4pTYYKmFG/W3ncs14UNNswQ7paccyIT/g3
-	 4nvR5KCcd/r7QZBWZaFg1Jesqdooqpp8282bPGUklK8m/Kgqc/qqiw0j/XOBM/Y3yXw==
+	t=1794124693;
+	b=UoeKmkPnPHaDSJoFfPavHGmiZ+W7BGFDjW99INb1vQVPiJV5pZPLjcA3ADenTmpBUXi3
+	 dJFs2DoA8u52GvFtEA+56jmL5UCH2ZDUNkrX5JVK0Zm+SfFqOJhoKTGk1A2N/uTw+kifg
+	 sWGy37yH63RTr1C+Hxfvgigm1/ms+UUxTZ/fNcF/g8if9rB42kZeQ/cdW/jdmo2unrA6S
+	 awfSGJ58HRitd3arjoByHDsWk75fcC+XGt/h5jJYd+VMLNkTwCusVBHJFtgzHOt3klBLW
+	 3qoDUWrGL0USCjXusD1RNQ9/ZggCcqgvtejSfy9pQXBFxgT+UiVN6q5sm5rYc+zSE3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794124690;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794124693;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zgeza4WC3yHtTC4XeH+C9X3JS6p9k1oxyKbAx3haHms=;
-	b=dhSl57bqCTH0eSy+oxHg2S2QR4YBYG2rBJAD6h2ok8K9bW/Qw2w6J2JrcEpXWbFky1Mq
-	 R1+zpLP74bKJkuFVGjYirt65rSFGHDEIc5Qmmhc30wnQMpeBt+AHCKWnQX3QZUcKX3Mam
-	 ACpTcvxPxFNUbCqWhP1RrjusB9vcfvKW0dDrje37pMNGml8bFrefk4Zk4ckB7AuEAPm64
-	 KAjLV7m48/DLZEXyHkIYKxw0Cg/ZdyaX+iSGWTSghRNAdFoKHM3EaBBVTYE5122lW+lCI
-	 HC3bHKewUZGvXlLNisrVkxoFF9NH58x2zA0KfqJkTlurdIALYPtvCRi+ON+rj4dc1yQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=MxlVXrp6rlOPl7F6z/PePk753r6QIMo4ZGdlX0mzQgY=;
+	b=ZmDOWJZpcjipVmYd6OOuDVXaZMnH5xf1j8ok1rGXRrFMRXwHe4F+ZfqPuqFn0W8QK6eG
+	 0MNzuIID+BiCaX7yaYmuIN4/vwN/PqSqgvm7lznpyKfrLiGoskkOoQ1vO7d0jtoAzyjm9
+	 0CbIgEovfqQNpFHRW75/8D+I8b6hMSf3vXmXR0Txyac1GWGl9Z6qSNFjpNIfZr1QbthON
+	 bUxBgezXXNj4QfBsMgEtK6rdf9IoixlntUGSpzIKlZlLyw2Sx4DpuBjztcJG1INFStt/8
+	 Yep4bcO4J6G5FFw2eAG0yxeXVeVPBJMpXuq1SffObnpoSgka9FUgcZSMQlq/M34jfaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qad3ATKw;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="d/D0VLJo";
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84BA606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:58:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A84BA606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A347606A331
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:58:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A347606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qad3ATKw
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36ff9c9da34so437251eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:58:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d/D0VLJo
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso222349f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:58:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794124689; x=1794729489; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zgeza4WC3yHtTC4XeH+C9X3JS6p9k1oxyKbAx3haHms=;
-        b=Qad3ATKwCXvJqdKNKnyFzWipniErv7sF3Cj4lCeNbrLPQELU2/qlY30jns4PKlrg2+
-         PzaN7lelPiLTttcy/QXqcvQGuXc9EXKIWbEcVsOWOjC9ffJ//nCGUZjsMQeYLRsTYCUU
-         lHOjKftASDA8jeg4kQ20vhtBFYHqghroIOS1FI7IVV9blTjR3bZIWD3vUOY0rutk86Vi
-         lVlTAFcIAgyIdJPxOnVKcF5Q4d2T3Kyjbe5SwsfvWvvoJ8VZQzDAtLvuTpzVXwJ2Lifw
-         +pM49GfBcyKTj4z0ZcPtYNtZ5tMpiBHkNKtFbvLp5CYBMbFxkwoxgPz9jrKxdfPniV3z
-         x9Fg==
+        d=gmail.com; s=20260707; t=1794124692; x=1794729492; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MxlVXrp6rlOPl7F6z/PePk753r6QIMo4ZGdlX0mzQgY=;
+        b=d/D0VLJotg4qrzbZoi23OlLMY9CkzcHSQ9zbQJaGcaeL6tBoozZi4l+KQtVcckRoc+
+         l6LNPyQum/KASsPE+flmFY755tb4OkB6dYSPRVVZMTYrDwfef6jPzrQsJ3I5conwO2Gk
+         C83KJ1pRBBrmYC5I5JxqT0/XBPFbYuYv+syfetAiWt5+ELBJcJ4oklBsokzhHV+Z/1vl
+         nR/iJxco0OX7X7NNAF4nbyfmgPFFpTgv+zhKfoD4ISPihr1BHA9uDBZoeU+iY+lSwXGA
+         DQi48yfwWe6CNhbUpDgTGhQYFG3olYNeyKAVg40MeMhR6aq+qQH8jQDNuMhsQd6SnPB3
+         Irbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794124689; x=1794729489;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zgeza4WC3yHtTC4XeH+C9X3JS6p9k1oxyKbAx3haHms=;
-        b=EI74G0mw4r5nSJ1/XuKvsmNGj5Qj9JGBiFH9Sw6RP4BSQO9UsZptZIk15XDn/Dj2lj
-         uR9R6lv77HaiMgi/uzJx4xtSHpGg85Ssp3t29Vs0xmhDcXAMo8lIaphw2czHVdOrB1ml
-         iqp33ZfFEIdxuUlxSYUqqIkkGObEnZ/gY4RsNoXcTly/84ca3zUE4XemL0fz100je1rx
-         bPFJHhlILNWHbUhJLiMVrHkyYcZSlofZMSeN5eklOzLigc7EcSv/Bgv+aNorlFVlv+ZJ
-         Bt2Pn4y8KQUfr3jf/FB3XR6RiUL/iynErNFYlCJxuJtcJgEvRKZ1NvUO/HYLbFAItaO7
-         jAgw==
-X-Forwarded-Encrypted: i=1; AL+hErE3nrXU5TqYvNq/687Ga9vycLuVQuUvCpDkw7risIU7ACLA3bjIq6kz/kNRHiXmv8QTklXDRMBMUQeIQqY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9aY/AKm7Uqnj2E3OCvBoqU4u/KCuuizdNSMA1Gzk2qKgLv1SCI
-	PTBILmB7YkuXify0PA2rHkkAoS+TeROpc8Tx22sr/xfLLjex1bqEykNd
-X-Gm-Gg: AYBFou1zlmB7PiyZvIK9gc/xrS5i3BnvNDYVXBV/UE0DyMdR6sVBsrjFFNUs1kd0K1k
-	dTVTxr4mvTUjWsC/J/cg2QWWf13vOCC7HLexAfD844bM/5sNKUG55IPfutWxSMHv0S8Jnyb8qRX
-	hA3KcUDourJWfcmYU8bFpOSdeVMJgHB/iFPHL1tvTQP/502DfmoPAkRUr376B12t7i2Zs5DzxXs
-	sIYPZpQF8OHbioAjLVScb8ixfWegPgBU4EejDsMCfIH0oDlHCemYL18DPtFDB8n4BQdC+EixjW5
-	xLCztKcu/KST+/l4gHthmaEpzyqDrWK7j7FDJCmZ+CqudxEgIp1I0LhBpiWSWXHGtRVDfMIG/0z
-	Ox4y7dTYB0HxYjOlkm6FXvvwT6Gy3QCQQ6CE+XxL0U8vkWCT040rBFDqjC73UoNuvi27O6k+Ks0
-	W6+AmpxVI5SYCHreZ1EHAnkhMjgjQjdAe3ThVVY8vHD6nfmQh5lSjD80/2/cOz4FnoRT0aKo16H
-	u7pwyQIwokI4QfDiVPobThjD4BsuMx8fRPr7810VhWQnvkjP+x0a+tHC4rpYLwbhmYGJNprPufF
-	2GVDmrZmP96+7jn2lNfGpGq0t6z6IfY7FNdW+PWcnPr8BekqYF7ldhHq5npOxbnuTi8mPZnCRyx
-	3YeKm1P560bO+Tv0mq1/EMR1sRg==
-X-Received: by 2002:a05:7300:6822:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-37256bf17efmr2190444eec.23.1794124688659;
-        Sat, 07 Nov 2026 23:58:08 -0800 (PST)
-Received: from localhost.localdomain ([2406:b400:d4:acc8:a024:59b8:c312:eefd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372660f385bsm3866093eec.20.2026.11.07.23.57.57
+        d=1e100.net; s=20260707; t=1794124692; x=1794729492;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MxlVXrp6rlOPl7F6z/PePk753r6QIMo4ZGdlX0mzQgY=;
+        b=PIIaYtgH8UFCBvqKmN6U4veIjhuTPPdc+8vGflj+1/ftp8jkZApFh5uZvcGi6aiCCw
+         h3ah9brCuqfQfSg7FZq+bxkqRTqxrdmeBhAhEkyG0unfUDj1zuW7jhqb/FqfFOnS+v8R
+         9JphJimouUGImjeqHz0o01xZRMZd23FlID9rIQAgOJn6MD/CYGdf2Umqj75LQGHX6YC8
+         CM5lJqjABMLFdlWNCN+FSFIfO2ERh/4Ic6G7QwHyYcn2rv8w9jDqsQ81gcH9n5C3FZdZ
+         IxM1t3/QDV/G8hzEJPn0B7NuT3okKxyLP+pGOHvge0hMMSppZo7FccnmI7pjHDyDHCdD
+         AOJA==
+X-Forwarded-Encrypted: i=1; AL+hErHWYslJzhJANS2lXMGdFzTVp4L9WX15RkpfrPIgRkNLvIv0PTAbsCzKfWCfSHOV1TaTSWMZSTv9aUltCCk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hDipjVNjVSMT8pS6n9bfUxNTntX3UwHOVQxXdz7eSQntq8x/S
+	UfOWe2xgkdHCogmvF8RKaQ+Jbztec+q7Uyf7GejNItXkKMH/3Akf/+je
+X-Gm-Gg: AYBFou31opsJp6evZh4WqW3eij0ptkzRcEN/xVX5Ah5tSgzFEEHC97xhlbzXDlOI85b
+	sV5poC72z3BUSsLDfxTo7qEC9hk+CamVBeb3EWj6zagCOidFqfm9cQYMFKQ/VDEF6uK5wCdPksC
+	7HYhoZEg7hkpmejCJ6YvoucpBEu0VinsUMzSX3SxHMHGZk3lQD3WFen6t7DdvSZqEeLH70PSSCl
+	+CWhZvQO7yf+gb/P7nOOVMzaMMZ3J+xwZcK1Sq1P2omaS9cjfcMako2ZnDPFeczv32RJvrNgv6L
+	a0oABcpsscJzWrtn9da6VpZPEXyKNM72kOfiAgrP96xKuYKgzdVyGhm92th8CjBzAd/Ozqy6TqX
+	Rp/XrwOkwxu0Rao9jphbmMIc8E8FM3JbJfVwlJ0hfpOP7dbwwG9Xl98uc/TtxDCirFaVHpVysjD
+	N5XdfJZvtTR+VSLiUMbZOKdWstZDuwiDeIfUjy87jFvAWpeUSAn3lijHJKeYqp49OPtq45scDTZ
+	267yeldY7ZziWGa1qUWGdvGuxcBFtxOoY3LTbi57SS6N1XMtZ2vuXlbZmyNV9aSPY7JTg6X4KUB
+	EolCi4AllpFl624/oX3zq0fMdemOEaRiDT037Bs1zFlfeQEmMTUbsVDM/5xxmSFk62xrWGjFGE8
+	y1z1v6w==
+X-Received: by 2002:a05:6000:2388:b0:491:68e2:bf2f with SMTP id ffacd0b85a97d-4958d021480mr1459790f8f.52.1794124691575;
+        Sat, 07 Nov 2026 23:58:11 -0800 (PST)
+Received: from localhost (brnt-04-b2-v4wan-170138-cust2432.vm7.cable.virginm.net. [94.175.9.129])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597186eb9sm2616918f8f.35.2026.11.07.23.58.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 23:58:08 -0800 (PST)
-From: Torra Sowmya <sowmyatorra@gmail.com>
-To: matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: airlied@gmail.com,
-	simona@ffwll.ch,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	outreachy@lists.linux.dev,
-	rostedt@goodmis.org,
-	julianbraha@gmail.com,
-	julia.lawall@inria.fr
-Subject: [PATCH v4] drm/xe: Remove unused xe_vm_restart and xe_vma_flush tracepoints
-Date: Sun,  8 Nov 2026 13:23:35 +0530
-Message-ID: <20261108075335.13248-1-sowmyatorra@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261108060418.4554-1-sowmyatorra@gmail.com>
-References: <20261108060418.4554-1-sowmyatorra@gmail.com>
+        Sat, 07 Nov 2026 23:58:11 -0800 (PST)
+Date: Sun, 8 Nov 2026 07:58:10 +0000
+From: Stafford Horne <shorne@gmail.com>
+To: Sahil Siddiq <sahilcdq0@gmail.com>
+Cc: jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
+	naveen@kernel.org, davem@davemloft.net, mhiramat@kernel.org,
+	pjw@kernel.org, wangruikang@iscas.ac.cn, namcao@linutronix.de,
+	kees@kernel.org, linux-openrisc@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] openrisc: Add Kretprobes
+Message-ID: <avArkiSOmUfSrmYF@antec>
+References: <20260930202744.50489-1-sahilcdq0@gmail.com>
+ <20261026201240.107462-5-sahilcdq0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,64 +101,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026201240.107462-5-sahilcdq0@gmail.com>
 
-Commit f3e9b1f43458 ("drm/xe: Remove async worker and rework sync
-binds") removed the calls to trace_xe_vm_restart() and
-trace_xe_vma_flush(), but left both event definitions behind.
+On Tue, Oct 27, 2026 at 01:42:40AM +0530, Sahil Siddiq wrote:
+> Add Kretprobes support for OpenRISC. Kretprobes allow a probe to be
+> fired when a function returns. They are built on top of the generic
+> rethook framework and also require the KProbe mechanism introduced
+> in the previous commit. This work is primarily based on similar work
+> done for RISC-V.
+> 
+> Kretprobes work by inserting a KProbe at a function's entry point.
+> When the function begins to execute, the KProbe is fired and its
+> pre-handler replaces the function's return address with that of the
+> rethook trampoline. The trampoline in turn calls the kretprobe handler.
+> Control is returned to the original caller following this.
+> 
+> Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
+> ---
+> Changes v2 -> v3:
+> - arch/openrisc/kernel/rethook_trampoline.S:
+>   (save_all_base_regs): Save SR and SP registers
+>   (restore_all_base_regs): Restore SR register
+> 
+> Changes v1 -> v2: New commit
+> 
+>  arch/openrisc/Kconfig                     |   2 +
+>  arch/openrisc/kernel/Makefile             |   1 +
+>  arch/openrisc/kernel/rethook.c            |  32 +++++++
+>  arch/openrisc/kernel/rethook.h            |   8 ++
+>  arch/openrisc/kernel/rethook_trampoline.S | 111 ++++++++++++++++++++++
+>  5 files changed, 154 insertions(+)
+>  create mode 100644 arch/openrisc/kernel/rethook.c
+>  create mode 100644 arch/openrisc/kernel/rethook.h
+>  create mode 100644 arch/openrisc/kernel/rethook_trampoline.S
+> 
+> diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
+> index d240533b424b..82365eb8f574 100644
+> --- a/arch/openrisc/Kconfig
+> +++ b/arch/openrisc/Kconfig
+> @@ -28,6 +28,8 @@ config OPENRISC
+>  	select HAVE_ARCH_JUMP_LABEL_RELATIVE
+>  	select HAVE_PCI
+>  	select HAVE_KPROBES
+> +	select HAVE_KRETPROBES
+> +	select HAVE_RETHOOK
+>  	select HAVE_UID16
+>  	select HAVE_PAGE_SIZE_8KB
+>  	select HAVE_REGS_AND_STACK_ACCESS_API
+> diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
+> index 0c1cade09e0c..e36537cea319 100644
+> --- a/arch/openrisc/kernel/Makefile
+> +++ b/arch/openrisc/kernel/Makefile
+> @@ -15,6 +15,7 @@ obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
+>  obj-$(CONFIG_MODULES)		+= module.o
+>  obj-$(CONFIG_OF)		+= prom.o
+>  obj-$(CONFIG_KPROBES)		+= kprobes.o
+> +obj-$(CONFIG_RETHOOK)		+= rethook.o rethook_trampoline.o
+>  obj-$(CONFIG_OR_KPROBES_KUNIT)	+= tests/
+>  obj-y	+= patching.o
+>  
+> diff --git a/arch/openrisc/kernel/rethook.c b/arch/openrisc/kernel/rethook.c
+> new file mode 100644
+> index 000000000000..50ef6715d044
+> --- /dev/null
+> +++ b/arch/openrisc/kernel/rethook.c
+> @@ -0,0 +1,32 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Generic return hook for OpenRISC. Depends on KProbes.
+> + *
+> + * Linux architectural port borrowing liberally from similar works of
+> + * others.  All original copyrights apply as per the original source
+> + * declaration.
+> + *
+> + * OpenRISC implementation:
+> + * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
+> + */
+> +
+> +#include <linux/kprobes.h>
+> +#include <linux/rethook.h>
+> +#include "rethook.h"
+> +
+> +unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs)
+> +{
+> +	return rethook_trampoline_handler(regs, regs->gpr2);
+> +}
+> +NOKPROBE_SYMBOL(arch_rethook_trampoline_callback)
+> +
+> +void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount)
+> +{
+> +	/* Store original return address and frame pointer */
+> +	rhn->ret_addr = regs->gpr9;
+> +	rhn->frame = regs->gpr2;
+> +
+> +	/* Set return address to trampoline */
+> +	regs->gpr9 = (unsigned long)arch_rethook_trampoline;
 
-Remove the unused definitions from xe_trace_bo.h to avoid
-generating code and data for events with no remaining callers.
+Though this will work, in the kernel code we prefer to regs->gpr[n] syntax
+for accessing gprs.  So to be consistent could you use that?  i.e. regs->gpr[9];
 
-With the tested x86-64 configuration, size reports a reduction of
-888 bytes in xe_trace_bo.o, from 20262 to 19374 bytes: 296 bytes
-in text and 592 bytes in data.
+> +}
+> +NOKPROBE_SYMBOL(arch_rethook_prepare)
+> diff --git a/arch/openrisc/kernel/rethook.h b/arch/openrisc/kernel/rethook.h
+> new file mode 100644
+> index 000000000000..332306a5c380
+> --- /dev/null
+> +++ b/arch/openrisc/kernel/rethook.h
+> @@ -0,0 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#ifndef __OPENRISC_RETHOOK_H
+> +#define __OPENRISC_RETHOOK_H
+> +
+> +unsigned long arch_rethook_trampoline_callback(struct pt_regs *regs);
+> +void arch_rethook_prepare(struct rethook_node *rhn, struct pt_regs *regs, bool mcount);
+> +
+> +#endif
+> diff --git a/arch/openrisc/kernel/rethook_trampoline.S b/arch/openrisc/kernel/rethook_trampoline.S
+> new file mode 100644
+> index 000000000000..5e8fd5a65222
+> --- /dev/null
+> +++ b/arch/openrisc/kernel/rethook_trampoline.S
+> @@ -0,0 +1,111 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Author: Sahil Siddiq <sahilcdq0@gmail.com>
+> + */
+> +
+> +#include <linux/linkage.h>
+> +
+> +#include <asm/asm.h>
+> +#include <asm/asm-offsets.h>
+> +#include <asm/ptrace.h>
+> +
+> +	.text
+> +
+> +	.macro save_all_base_regs
+> +	l.sw	PT_GPR2(r1),r2
+> +	l.sw	PT_GPR3(r1),r3
+> +	l.sw	PT_GPR4(r1),r4
+> +	l.sw	PT_GPR5(r1),r5
+> +	l.sw	PT_GPR6(r1),r6
+> +	l.sw	PT_GPR7(r1),r7
+> +	l.sw	PT_GPR8(r1),r8
+> +	l.sw	PT_GPR9(r1),r9
+> +	l.sw	PT_GPR10(r1),r10
+> +	l.sw	PT_GPR11(r1),r11
+> +	l.sw	PT_GPR12(r1),r12
+> +	l.sw	PT_GPR13(r1),r13
+> +	l.sw	PT_GPR14(r1),r14
+> +	l.sw	PT_GPR15(r1),r15
+> +	l.sw	PT_GPR16(r1),r16
+> +	l.sw	PT_GPR17(r1),r17
+> +	l.sw	PT_GPR18(r1),r18
+> +	l.sw	PT_GPR19(r1),r19
+> +	l.sw	PT_GPR20(r1),r20
+> +	l.sw	PT_GPR21(r1),r21
+> +	l.sw	PT_GPR22(r1),r22
+> +	l.sw	PT_GPR23(r1),r23
+> +	l.sw	PT_GPR24(r1),r24
+> +	l.sw	PT_GPR25(r1),r25
+> +	l.sw	PT_GPR26(r1),r26
+> +	l.sw	PT_GPR27(r1),r27
+> +	l.sw	PT_GPR28(r1),r28
+> +	l.sw	PT_GPR29(r1),r29
+> +	l.sw	PT_GPR30(r1),r30
+> +	l.sw	PT_GPR31(r1),r31
+> +	/* Save SR in pt_regs */
+> +	l.mfspr	r13,r0,SPR_SR
+> +	l.sw	PT_SR(r1),r13
+> +	/* Save SP in pt_regs as it was prior to setting up this frame */
+> +	l.addi	r13,r1,PT_SIZE
+> +	l.sw	PT_SP(r1),r13
+> +	.endm
+> +
+> +	.macro restore_all_base_regs
+> +	/* Restore SR from pt_regs */
+> +	l.lwz	r13,PT_SR(r1)
+> +	l.mtspr	r0,r13,SPR_SR
+> +	/*
+> +	 * r1 doesn't need to be explicitly restored from pt_regs. When
+> +	 * arch_rethook_trampoline_callback finishes, it restores SP to
+> +	 * what it was before its frame was set up.
+> +	 */
+> +	l.lwz	r2,PT_GPR2(r1)
+> +	l.lwz	r3,PT_GPR3(r1)
+> +	l.lwz	r4,PT_GPR4(r1)
+> +	l.lwz	r5,PT_GPR5(r1)
+> +	l.lwz	r6,PT_GPR6(r1)
+> +	l.lwz	r7,PT_GPR7(r1)
+> +	l.lwz	r8,PT_GPR8(r1)
+> +	/* Return address in r9 is stale, so don't restore it */
+> +	l.lwz	r10,PT_GPR10(r1)
+> +	l.lwz	r11,PT_GPR11(r1)
+> +	l.lwz	r12,PT_GPR12(r1)
+> +	l.lwz	r13,PT_GPR13(r1)
+> +	l.lwz	r14,PT_GPR14(r1)
+> +	l.lwz	r15,PT_GPR15(r1)
+> +	l.lwz	r16,PT_GPR16(r1)
+> +	l.lwz	r17,PT_GPR17(r1)
+> +	l.lwz	r18,PT_GPR18(r1)
+> +	l.lwz	r19,PT_GPR19(r1)
+> +	l.lwz	r20,PT_GPR20(r1)
+> +	l.lwz	r21,PT_GPR21(r1)
+> +	l.lwz	r22,PT_GPR22(r1)
+> +	l.lwz	r23,PT_GPR23(r1)
+> +	l.lwz	r24,PT_GPR24(r1)
+> +	l.lwz	r25,PT_GPR25(r1)
+> +	l.lwz	r26,PT_GPR26(r1)
+> +	l.lwz	r27,PT_GPR27(r1)
+> +	l.lwz	r28,PT_GPR28(r1)
+> +	l.lwz	r29,PT_GPR29(r1)
+> +	l.lwz	r30,PT_GPR30(r1)
+> +	l.lwz	r31,PT_GPR31(r1)
+> +	.endm
+> +
+> +SYM_CODE_START(arch_rethook_trampoline)
+> +	/* Allocate enough space on stack for pt_regs */
+> +	l.addi	r1,r1,-PT_SIZE
+> +	save_all_base_regs
+> +
+> +	l.addi	r3,r1,0	/* pt_regs */
+> +	l.jal	arch_rethook_trampoline_callback
+> +	l.nop
 
-Fixes: f3e9b1f43458 ("drm/xe: Remove async worker and rework sync binds")
-Signed-off-by: Torra Sowmya <sowmyatorra@gmail.com>
----
-Changes in v4:
-- Combine the xe_vm_restart and xe_vma_flush removals as requested
-  by Steven. This replaces the separate patches for these events.
-- Report the measured combined object-size reduction.
+Could you indent the delay slot? For example:
 
-Changes in v3:
-- Add the Fixes tag.
+	l.jal	...
+	 l.nop
 
-Changes in v2:
-- Document the measured object-size reduction.
+> +
+> +	/* use the result as the return-address */
+> +	l.addi	r9,r11,0
+> +
+> +	restore_all_base_regs
+> +	l.addi	r1,r1,PT_SIZE
+> +
+> +	l.jr	r9
+> +	l.nop
 
- drivers/gpu/drm/xe/xe_trace_bo.h | 10 ----------
- 1 file changed, 10 deletions(-)
+Indent here too.
 
-diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_trace_bo.h
-index 86323cf3be2c..a6802f6d3a01 100644
---- a/drivers/gpu/drm/xe/xe_trace_bo.h
-+++ b/drivers/gpu/drm/xe/xe_trace_bo.h
-@@ -115,11 +115,6 @@ DECLARE_EVENT_CLASS(xe_vma,
- 			      __entry->end, __entry->ptr)
- )
- 
--DEFINE_EVENT(xe_vma, xe_vma_flush,
--	     TP_PROTO(struct xe_vma *vma),
--	     TP_ARGS(vma)
--);
--
- DEFINE_EVENT(xe_vma, xe_vma_pagefault,
- 	     TP_PROTO(struct xe_vma *vma),
- 	     TP_ARGS(vma)
-@@ -228,11 +223,6 @@ DEFINE_EVENT(xe_vm, xe_vm_cpu_bind,
- 	     TP_ARGS(vm)
- );
- 
--DEFINE_EVENT(xe_vm, xe_vm_restart,
--	     TP_PROTO(struct xe_vm *vm),
--	     TP_ARGS(vm)
--);
--
- DEFINE_EVENT(xe_vm, xe_vm_rebind_worker_enter,
- 	     TP_PROTO(struct xe_vm *vm),
- 	     TP_ARGS(vm)
--- 
-2.47.3
+> +SYM_CODE_END(arch_rethook_trampoline)
 
+Thanks,
+
+-Stafford
