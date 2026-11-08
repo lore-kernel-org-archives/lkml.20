@@ -1,59 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794141573;
-	b=m5w8ffhd3I9behgTyMutVBOgok6Kf7imuLD50dbtusDLz0vDnjD14pOyYdSHk4qW5W8a
-	 b/1yENc8eZinvbdBX1uVhnkmvTPtKeHEpfIoyCWz+2BJrEbDpzPCK1wiSezsGodLxoCxh
-	 xDEJUeJ2wb9UXyGeLFI5jctlw4N7JdOczcLtx9ujLdHGWzExZci4/V5SrYo2ZeCBE+rfj
-	 2UP3mCBjGXCcMXLJHXDd9vlPWam2XtAhsInAVTBh5MrT3VcUr9rUPBGD60DF8ATdyxVZ5
-	 v2GD7rHV7S5gvgY7se35OsGogHcuX+heuczIv9g3+6bjS29ZYnr1Fp9svRhGnFy998Q==
+	t=1794141805;
+	b=wzdneNjiMr0DeEyWbbe7kyuahQHAwdYJ3HLfygtu0yqhRHsGtH0eXYLwv4gvr5KAPVK1
+	 CizxKaaVFspHzoX2bO0R69WQN6i+E2vZNwjrJPmIdRL/VSjJDYtgO/XySImd8bEKEj5Ot
+	 h5OSOsR2+ZxqOgC89lQL6c1N8HB7vzwXfP9K+4LyKUtSOwU8LPb0d2YYxDdBFZlr9A7jE
+	 qNXFLw8JSjuM29kbWK5B7wrnFIfxfQmBK8YghjWHXhH7q7ZMIZ7X0iKIxs4taG+/gKcXQ
+	 jmY2ef8esE/XFp2asYGoPFc0VOW6cp+EFIOhwFqqwCUzYhY6DbL1Z89BrgX/CwhZPcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794141573;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Xm1hehkTkheewVHZFkFtM4dICzsV3Hiezfso6Iy1pAw=;
-	b=YTY322FmY4VFniNzg+LPu9e3do3HiHMPITy60bqTrmVs7xkZAQaLHdCnsi0FBNiyBLGU
-	 mggqvYOVHE1g+80bbYoF7QAVHQQYR4do7lHM10uCiWymw96FIxwuxxR/fbIY7ieS+J1y8
-	 fe0AqpdEI/4m5MrsbZIYFRFu+aS+EDSnDJUeshd/ASt15dcf35+p9rTADseDeTuJGiI2c
-	 +pVwtvra58Vx6XP+KECPum90PXS7mwgYov4FxjtrxUv28eqeSDBlN2DzmlpPe9WcmSwsy
-	 Um1ni2qsSItv57n4lTwa7xKjhoQ1zYL/+1DUDC/xv9brL76ShrC1e77UOKip3M/NBTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794141805;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=Ym7EP5Cjk8x6mQl6YSgRpYbehxPfCPdy6bTh8yYVcI4=;
+	b=KgIlaFDdhybmFL6y072B4JhHuA3BCnfm/rLrD136IrT2qglMi6+RyB9z3zQiOhlXf6oY
+	 1SJLAocWe+x2VbHpOmEBxtoUo1VETkQ1qTxbV2VkazF4J9DIJz2iXaoGbZmX/lzyFYC3c
+	 IFuMdogYs+1oVC4QnzJnQSsVvH76sffQflvwTDcD4UI+BTvq1HX2neiTPvkTpV3GvnDKJ
+	 Gk8C1WOhZuXMUxYiOa4E4t75p3EUYagKZhtGCMugoS+kb+j34OehbPuKbOx/Nhd1t+FW2
+	 pj3rOjH+tbcpA0858eqO8kUDy2m7iroR4LCMkleAt8/7wTibx2KXlXLPzBb7/5ax97A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrIvraA5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OcDt0mXq;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="/Y5Qr5HA";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF4A606A321;
-	Sun,  8 Nov 2026 12:39:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499A2606A336;
+	Sun,  8 Nov 2026 12:43:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 499A2606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrIvraA5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7171F008A2;
-	Sun,  8 Nov 2026 12:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794141573;
-	bh=Xm1hehkTkheewVHZFkFtM4dICzsV3Hiezfso6Iy1pAw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=TrIvraA5pvHZig8QlDwhdgk4IWbzIFcNTguOOouKluYYvCTJZMnfZdXrp/CZfSdAG
-	 obdRgS4qscDH7SO1Ts6OekpT7EqemNtZw1wlfN9AyRHdJT2KiCrKuEGNH6BnqNHf6P
-	 EIqbZG7hcmgE8bl6un1eMF/HjWi2Z6cPfbGXd+1cd+VtmDm4RJ6BsJwjk9gA5Wbe1T
-	 RLE0fNWb7iJA223It8+R8f/G/GFosGtdpGCP8Fcl8lV+piQV437qIVtKXVPESNki/i
-	 6QJ0GhIypa1YSSkrynFWwCFmbh7/gWzkH7cxm50blHqr6ZC3EiFyP//rMLq65ckLje
-	 M9QwIZNB601yQ==
-Subject: Re: [PATCH net-next v4 2/8] net: dsa: motorcomm: Drop VID 0 VLAN
- table programming
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Sun, 08 Nov 2026 12:39:32 +0000
-Message-ID: <179414157227.994134.8326158294654980832@kernel.org>
-In-Reply-To: <20261107121631.1040612-3-mmyangfl@gmail.com>
-References: <20261107121631.1040612-3-mmyangfl@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OcDt0mXq;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=/Y5Qr5HA
+Date: Sun, 08 Nov 2026 12:43:19 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794141802;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ym7EP5Cjk8x6mQl6YSgRpYbehxPfCPdy6bTh8yYVcI4=;
+	b=OcDt0mXq9QTkZy8OzgJCVap/ESJodQNl2QidcYTFezHSlYj3pr/2G8W287dfdr0E8htlho
+	c183jHYaEWHCFb7sdxQLSVs1t/tJ3IhPQDCu6cpxvklTrpCunlKjREWwk6fbG71B5BHNJA
+	drEgMj4lO7WHyMCYnaX5FhdtBMp/yBC6XjZCaX3tlJPNOmUMk3F2xp56VrvjWyiHl/02wV
+	y6FJbl69CE1Ef/zWgx+F0b9sHN3YofxwbNLtZX8RYxduXb1chL/gTw4ok6iq4jm9wpG2ch
+	JXUIhNmSRcdC0MtXE0zvC5C8KFU2YPZxAXNdxuRW0RH/xZdlwO444CX8g2uCeQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794141802;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ym7EP5Cjk8x6mQl6YSgRpYbehxPfCPdy6bTh8yYVcI4=;
+	b=/Y5Qr5HAKiG/dasXvrIjcZHXEOj/Uwc4OVq49QaBbuVUXfz+TypwDa9FK+KcuEPY+aGAMP
+	KjgdYcKkephHB7AA==
+From: "tip-bot2 for Sasha Levin" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: core/rseq] selftests/rseq: Select only implemented architecture
+ variants
+Cc: Sasha Levin <sashal@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261014200157.1365258-1-sashal@kernel.org>
+References: <20261014200157.1365258-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,114 +78,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Message-ID: <179414179935.2093942.14842774422125478289.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The following commit has been merged into the core/rseq branch of tip:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Commit-ID:     9ad0f2d93caf9b1b70c3f239e72b241313caa21f
+Gitweb:        https://git.kernel.org/tip/9ad0f2d93caf9b1b70c3f239e72b241313c=
+aa21f
+Author:        Sasha Levin <sashal@kernel.org>
+AuthorDate:    Wed, 14 Oct 2026 16:01:57 -04:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Sun, 08 Nov 2026 13:41:53 +01:00
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+selftests/rseq: Select only implemented architecture variants
 
-- [Medium] The commit message says the VID 0 entry is never looked up,
-  but the driver itself can make VID 0 the classification VID, so the…
+The rseq headers implement a limited set of targets, and only the
+little-endian ARM, arm64 and RISC-V variants. Building the suite for
+LoongArch or for the unsupported endian variants fails in the
+architecture dispatch of rseq.h.
 
---
+Ask the target compiler which architecture it builds for before
+selecting the tests and scripts, so that unsupported targets build,
+install and emit an empty runlist through the ordinary lib.mk rules.
+Pass USERCFLAGS to the probe as well, since lib.mk expands the
+generated program lists before it appends USERCFLAGS to CFLAGS, and
+filter out only the linker options that the preprocessor would warn
+about. If the compiler cannot be run, select the tests so that the
+build fails instead of turning the problem into an empty suite.
 
-net: dsa: motorcomm: Drop VID 0 VLAN table programming
+This does not add LoongArch support and does not address the remaining
+compiler-specific build failures on supported targets.
 
-This commit removes the write of VLAN table entry 0 in
-yt921x_chip_setup_dsa(). That write set LEARN_DIS and all port members
-with an empty untag mask. The commit message says the hardware classifies
-priority-tagged frames to the port's PVID before the VLAN table lookup, so
-the VID 0 entry is never looked up.
+Fixes: ccba8b64452b ("rseq/selftests: Provide Makefile, scripts, gitignore")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20261014200157.1365258-1-sashal@kernel.org
+---
+ tools/testing/selftests/rseq/Makefile | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 693564aeaec14..47f06945b8c4e 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-
-[ ... ]
-
-> @@ -2321,15 +2320,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
->  	if (res)
->  		return res;
->  
-> -	/* Tagged VID 0 should be treated as untagged, which confuses the
-> -	 * hardware a lot
-> -	 */
-> -	ctrls[0] = YT921X_VLAN_CTRLa_LEARN_DIS | YT921X_VLAN_CTRLa_PORTS_M;
-> -	ctrls[1] = 0;
-> -	res = yt921x_reg64_write(priv, YT921X_VLANn_CTRL(0), ctrls);
-> -	if (res)
-> -		return res;
-> -
-
-[Severity: Medium]
-Is entry 0 really unreachable when the port's PVID is 0? The commit message
-says:
-
-  the hardware classifies them to the port's PVID before the VLAN table
-  lookup, just like untagged frames (measured on YT9215S), so the VID 0
-  entry is never looked up.
-
-The driver itself programs a hardware PVID of 0 on VLAN-filtering ports.
-In yt921x_vlan_filtering(), br_vlan_get_pvid() gives 0 when the bridge port
-has no PVID:
-
-	else
-		br_vlan_get_pvid(bdev, &pvid);
-	res = yt921x_port_set_pvid(priv, port, pvid);
-	...
-	if (vlan_filtering && !pvid)
-		ctrl |= YT921X_PORT_VLAN_CTRL1_CVLAN_DROP_UNTAGGED;
-
-yt921x_pvid_clear() does the same after the PVID VLAN is deleted, for
-example via yt921x_dsa_port_vlan_del():
-
-	res = yt921x_port_set_pvid(priv, port,
-				   vlan_filtering ? 0 : YT921X_VID_UNWARE);
-
-In both cases the only extra guard is CVLAN_DROP_UNTAGGED. Does that bit
-also drop priority-tagged frames? If it does not, a priority-tagged frame
-on such a port would be classified to PVID 0 and look up entry 0.
-
-After this patch, entry 0 keeps its reset contents. The 8021q layer can
-also change it at runtime by adding VID 0 automatically:
-
-dsa_user_vlan_rx_add_vid(vid = 0)
-  dsa_port_vlan_add() / dsa_port_host_vlan_add()
-    yt921x_dsa_port_vlan_add()
-      yt921x_vlan_add()
-
-yt921x_vlan_add() sets only the port, CPU port and untag bits, never
-LEARN_DIS:
-
-	masks[0] = YT921X_VLAN_CTRLa_PORTn(port) |
-		   YT921X_VLAN_CTRLa_PORTS(priv->cpu_ports_mask);
-	ctrls[0] = masks[0];
-	...
-	return yt921x_reg64_update_bits(priv, YT921X_VLANn_CTRL(vid),
-					masks, ctrls);
-
-No other code in the driver sets YT921X_VLAN_CTRLa_LEARN_DIS. Could the
-switch now learn source MACs and forward in hardware in VID 0 on a
-filtering port with no PVID? The Linux bridge would drop those frames.
-
-The measurement in the commit message also covers only YT9215S. The rest
-of the series does not restore a LEARN_DIS write to YT921X_VLANn_CTRL(0),
-and PVID 0 is still programmed in yt921x_vlan_filtering() and
-yt921x_pvid_clear().
-
-Should the commit message cover the PVID 0 case and the loss of LEARN_DIS
-on VID 0? Or should the VID 0 programming be kept?
-
->  	return 0;
->  }
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107121631.1040612-1-mmyangfl%40gmail.com
+diff --git a/tools/testing/selftests/rseq/Makefile b/tools/testing/selftests/=
+rseq/Makefile
+index 977da55..ce8721e 100644
+--- a/tools/testing/selftests/rseq/Makefile
++++ b/tools/testing/selftests/rseq/Makefile
+@@ -18,10 +18,22 @@ LDLIBS +=3D -lpthread -ldl
+ # still track changes to header files and depend on shared object.
+ OVERRIDE_TARGETS =3D 1
+=20
+-TEST_GEN_PROGS =3D basic_test basic_percpu_ops_test basic_percpu_ops_mm_cid_=
+test \
++comma :=3D ,
++RSEQ_ARCH_SUPPORTED =3D $(shell printf '\043if defined(__x86_64__) || define=
+d(__i386__) || \
++	defined(__ARMEL__) || defined(__AARCH64EL__) || \
++	defined(__PPC__) || defined(__mips__) || defined(__s390__) || \
++	defined(__or1k__) || (defined(__riscv) && __BYTE_ORDER__ =3D=3D __ORDER_LIT=
+TLE_ENDIAN__)\n1\n\043endif\n' | \
++	$(filter-out -fuse-ld=3D%,$(CC)) $(filter-out -L% -Wl$(comma)%,$(CFLAGS) $(=
+USERCFLAGS)) \
++	-E -P -x c - || echo 1)
++
++TEST_GEN_PROGS =3D $(if $(filter 1,$(RSEQ_ARCH_SUPPORTED)),$(RSEQ_TEST_GEN_P=
+ROGS))
++TEST_GEN_PROGS_EXTENDED =3D $(if $(filter 1,$(RSEQ_ARCH_SUPPORTED)),$(RSEQ_T=
+EST_GEN_PROGS_EXTENDED))
++TEST_PROGS =3D $(if $(filter 1,$(RSEQ_ARCH_SUPPORTED)),$(RSEQ_TEST_PROGS))
++
++RSEQ_TEST_GEN_PROGS =3D basic_test basic_percpu_ops_test basic_percpu_ops_mm=
+_cid_test \
+ 		 param_test_benchmark param_test_mm_cid_benchmark
+=20
+-TEST_GEN_PROGS_EXTENDED =3D librseq.so \
++RSEQ_TEST_GEN_PROGS_EXTENDED =3D librseq.so \
+ 	param_test \
+ 	param_test_compare_twice \
+ 	param_test_mm_cid \
+@@ -31,7 +43,7 @@ TEST_GEN_PROGS_EXTENDED =3D librseq.so \
+ 	slice_test \
+ 	check_optimized
+=20
+-TEST_PROGS =3D run_param_test.sh run_syscall_errors_test.sh run_legacy_check=
+.sh run_timeslice_test.sh
++RSEQ_TEST_PROGS =3D run_param_test.sh run_syscall_errors_test.sh run_legacy_=
+check.sh run_timeslice_test.sh
+=20
+ TEST_FILES :=3D settings
+=20
