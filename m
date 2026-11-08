@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174579;
-	b=kDHyCnB5nVyv6spWpiy2rV9r3DEL1SAI29xFLYWSZdW6uu9+3X5fGehxtHjjfOvzADxF
-	 sxVk7Qdxw6xPCHQmf+qFyZB9zybp1QEBKs5lczx6OMQPx03VTbafN2DgctZ6GlL1eg+vA
-	 zlLff7lN0zgVhsZL2acOPNZinN4a9qKXJ2YfdOMLEUnF094z0/tyvFtA894cJkJaavfBP
-	 jeM5qv833LkM2MCwR4E2dpHvG0RQ8EFqTmMGls/uyfoRXlze3t2TWS7QiSdpFNfubcKDF
-	 fB/krJU3wwm41VxT3SfbA1mrIAcB1LTiin/gpQcZ2wci1UUYD5X3Ux8WAlFcr4ojgOA==
+	t=1794174583;
+	b=2bGNJAApfaXyM4n9CNTgZq21eFEuywfPuNWBxYhukjBDB8c77KDzp7NkCKOxc13Eogq2
+	 dULKx9yicvIojh/ggbUnMfTRmNkCsXzlSqOG2GNNVQbIfQPKJO1ajXNThyf38XRAOnlPK
+	 9CaZvkA1REYVwg212NHCTf+4fWIbl04imlHqYsPtt81PczqYhfDl/Zl798WkG27JHJcyd
+	 eqCZTlGM3tBBxn2MGdpIa9b/5Zfnn5chHHJ86vM62Ma2/pZPUw68rwLXYAO8vLGzR7g7t
+	 Qp5E1+1fdsHIFecTp2WcBXrarjWEC7TG4Pwv9AELAUb/XgC8SgmGs+0CaDnnZmvNvAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174579;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=KFPAacR3ZSEdhOATUhQzQ2plE5F5/Xupnk5prIZHxcY=;
-	b=URFZjlIQRWdW+OtAPF3FdfWGn6oMyajzlexTzvQHOMAVp7jEWyeONJhntlTkm09NPhSR
-	 XOXmBkdffVjA1hjgqycEYY1XjbF1U+qxovpKDdhy7m6CBNLtnba60qesYcNUqMr0yWcj8
-	 +4go2vxQFZSm91aT05vKxPZ7aqkj3Yhq/zRNgQ4fFTciShcoo1D0BOjx1Zjotsp48jkTq
-	 LdaylyVTIaTtFKv6HMXBYkRseMxjrZFtNC2Q3opU4CY4tZb1GOtEwDXY8LJwhKiexF/8v
-	 YYLGR6mFRh7iusT9C/Y6rtygIxv0dj5rmJNdzQaOgoF4723DFUnbP0YDb2rHhQIWbsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174583;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+TwsPHLOwb34n682qcPLKZ3VuEl7ybbeCtYLA4lwg4Q=;
+	b=3UyV2f/ooLg2T6MvHHQi0fZQxHqB2DMQAEhNQOrza42s5CeYjTkr8BIVqre8vfrk3iGB
+	 QOpGujt1iehc3Xslm3MOhNVWDzgVsjBDa74So1DfBVywGVKEHJ8NZa4Gte+H9i4oJl9Ma
+	 H0JlvXTNI1b4sLdSnkbTiA/J8dQKX6/dzVYullcJQCaI2+1ad7Ng9WJeC6JS4Ez66S6xd
+	 1qUBHzQfSqKkYe9iHBzYGkZGTTC9Fb3oxDqdHCyGYqFCJFiZKZ39kKo9Te3+sfod5rp6M
+	 fsMrF8C4jk3C+rDbMVMyyNZR+AU1VtIZFKRYba1Jz9Ao4meqpJ5sEfc51SajDMqUQkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rVAweZ3B;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="E+ZHg1/A";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	arc=none smtp.remote-ip=91.218.175.111
+Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25372606A330;
-	Sun,  8 Nov 2026 21:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25372606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rVAweZ3B;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=E+ZHg1/A
-Date: Sun, 08 Nov 2026 21:49:30 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794174571;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KFPAacR3ZSEdhOATUhQzQ2plE5F5/Xupnk5prIZHxcY=;
-	b=rVAweZ3BF9OCSWq2/HqZbU+gMs2SHu6O+FoYg2ig5vd7506eK/cniNRkmWolPFheaeB1Xr
-	3ZHb1GOSSwaujJpewfVggVOr7fnqTaaJlMoNc1IDlOcuO6QZLozSMxlQzaLaC0as93WM4q
-	DIZyzGXIGsW62+mL7koZKuLCys3xBk1O6+oCpH0VaTZmlSraFyciqlMoIgMwHs344Uk5zQ
-	2wXaGMXtUzCFrnJMUM4UPev1Q9j6Rh+un7yLJnJ9cyV7uDOJtwZmd/3NWePpKIrdP/YFt/
-	ga709i/hzP7i+FePagvI2dVUgvvWgiuRPBifcdsOewExPfnZDxXB0FqinrmSqQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794174571;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KFPAacR3ZSEdhOATUhQzQ2plE5F5/Xupnk5prIZHxcY=;
-	b=E+ZHg1/AS426G1BQzOdvU766Y2or0fDIEEv2wwlhDFIVEEiRd+0yJQ0mGpqkb7Agb154SR
-	EiPtYxPXG8B20yCg==
-From: "tip-bot2 for Zhipeng Wang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: irq/drivers] genirq/irqdomain: Add devm_irq_domain_create_linear()
-Cc: Zhipeng Wang <zhipeng.wang_1@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Radu Rendec <radu@rendec.net>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261104073759.386777-10-Zhipeng.wang_1@oss.nxp.com>
-References: <20261104073759.386777-10-Zhipeng.wang_1@oss.nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7801E606A323
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7801E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rSxBoFd8yi4ayeN+0LcJZMJqNNHJYlNR0g1yFAosofk=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794174574; v=1; x=1794779374;
+ b=lscAILz8sSDU7lK8pPBRQsgo6WbolR7x27tev+iy8Mh/GZnWsonyzYtN2pn5ozf75Yvjw/Eo
+ Bv+5TdLh3DslfXwevo1VlH78QW7gA2SJacTKCjgkTRoWczSSVjsLDkmqCWqDs+qw4CSXLeDBb94
+ aDzefsU/vDHPMYTelL5q7VpUS7NolmwkJ6IDvK/vbUNbuKlNsifXJ2+HqIVf8kkzWsymPESVbtT
+ rlKpeW8xgXODxFyxf/qx62M6z8QpiQvQqgmDnED5+A1qzXG9R3BqpDQEAgV9THXLm0UgaN/Ounk
+ 1whp4aSCZI+zNuFT+UgGHLly5RiF4ghJtq4seEWa+PpSw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id de6896dd19b37bbd;
+	Sun, 08 Nov 2026 21:49:33 +0000
+X-Mizu-Trace-ID: de6896dd19b37bbd
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Subject: [PATCH v4 0/4] leds: aw2013: Add AW2027 support
+Date: Sun, 08 Nov 2026 14:49:11 -0700
+Message-Id: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,88 +59,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179417457003.2093942.1785721322103496168.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQwW7CMAwG4FdBOZPJdmhDd+I9EIc0cSFCNCwpX
+ SfUdyftpokDFSfrt5Qv1n8XiaPnJD5XdxG598mHNofNeiXsybRHlt7lLAiohAq0NN8EqOYxDDJ
+ yay4sXUNK2aIitKXIT6+RGz/M7P6Q88mnLsSf+Zcep+0bsEcJ0lZGuwbJaMDdNaTuYuKZu5A+Q
+ jyKye3p30KAYsGibCFs2db5Tq2LBUs9WUgLlpruMjU2zkEBdfnCGn8LiPx1y3V2fy2M4wNBfud
+ kbAEAAA==
+X-Change-ID: 20260907-aw2013-aw20xx-rename-df233c5921c6
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174570; l=2493;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=rSxBoFd8yi4ayeN+0LcJZMJqNNHJYlNR0g1yFAosofk=;
+ b=B+RflLJkBClvn5XesEBOCHj6bPWkEuzWGRNpZex3RGQd7Y0Zn7LvWvlLiVEe77jR49n5z4Hv9
+ TUdEPvQuIM1BW190CCE1m8ev199al2tICtc4lxFaH8dhOxLaIJqqxK9
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-The following commit has been merged into the irq/drivers branch of tip:
+Refer to PATCH 2 for a full description of the similarities and
+differences between AW2013 and AW2027.
 
-Commit-ID:     8d095487a7bef8e060e360eb4d85aa1ab0fd62a5
-Gitweb:        https://git.kernel.org/tip/8d095487a7bef8e060e360eb4d85aa1ab0f=
-d62a5
-Author:        Zhipeng Wang <zhipeng.wang_1@nxp.com>
-AuthorDate:    Wed, 04 Nov 2026 16:37:57 +09:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 08 Nov 2026 22:43:44 +01:00
+I'm hoping the sashiko reviews about unbalanced regulators that I was 
+struggling to fix are covered by 
+https://lore.kernel.org/linux-leds/20261021123406.3163547-1-lee@kernel.org/
+and I can drop my failed attempts to fix them.
+Let me know if I misunderstood.
 
-genirq/irqdomain: Add devm_irq_domain_create_linear()
+I'll do my best to address all of Sashiko's comments, but it might take
+me some time to circle back, don't bother reviewing until I've done
+this.
 
-irq_domain_create_linear() has no devres-managed counterpart, so a
-driver that wants a linear revmap domain tied to the device lifetime has
-to open-code an irq_domain_info and call devm_irq_domain_instantiate()
-directly.
+This PATCH resulted out of discussions pertaining to
+sdm660-mainline/linux, a close-to-mainline fork for Qualcomm Snapdragon 660
+devices, specifically for the BlackBerry KEY2 Keyboard Backlight,
+in the following GitHub PR: https://github.com/sdm660-mainline/linux/pull/218
 
-Add devm_irq_domain_create_linear() as the devres-managed sibling of
-irq_domain_create_linear(): it builds the same linear-revmap
-irq_domain_info and hands it to devm_irq_domain_instantiate(), so the
-domain is removed when the owning device is unbound. The return
-convention matches irq_domain_create_linear() (NULL on failure).
-
-Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Radu Rendec <radu@rendec.net>
-Link: https://patch.msgid.link/20261104073759.386777-10-Zhipeng.wang_1@oss.nx=
-p.com
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- include/linux/irqdomain.h | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Changes in v4:
+- Drop sashiko fixes covered by https://lore.kernel.org/linux-leds/20261021123406.3163547-1-lee@kernel.org/
+- Rename the chip id register value to reflect that it covers more chips
+  (https://www.awinic.com/en/driver/AW2027DNR/640)
+- Address preliminary review comments from Lee Jones
+- Link to v3: https://lore.kernel.org/r/20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org
 
-diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
-index 3ba75a4..d8caafc 100644
---- a/include/linux/irqdomain.h
-+++ b/include/linux/irqdomain.h
-@@ -457,6 +457,36 @@ static inline struct irq_domain *irq_domain_create_linea=
-r(struct fwnode_handle *
- 	return IS_ERR(d) ? NULL : d;
- }
-=20
-+/**
-+ * devm_irq_domain_create_linear - Allocate and register a linear revmap
-+ *				   irq_domain tied to the device lifetime.
-+ * @dev:	Device that owns the domain. The domain is removed via devres
-+ *		when the device is unbound.
-+ * @fwnode:	pointer to interrupt controller's FW node.
-+ * @size:	Number of interrupts in the domain.
-+ * @ops:	map/unmap domain callbacks
-+ * @host_data:	Controller private data pointer
-+ *
-+ * Returns: Newly created irq_domain, or NULL on failure.
-+ */
-+static inline struct irq_domain *devm_irq_domain_create_linear(struct device=
- *dev,
-+							       struct fwnode_handle *fwnode,
-+							       unsigned int size,
-+							       const struct irq_domain_ops *ops,
-+							       void *host_data)
-+{
-+	const struct irq_domain_info info =3D {
-+		.fwnode		=3D fwnode,
-+		.size		=3D size,
-+		.hwirq_max	=3D size,
-+		.ops		=3D ops,
-+		.host_data	=3D host_data,
-+	};
-+	struct irq_domain *d =3D devm_irq_domain_instantiate(dev, &info);
-+
-+	return IS_ERR(d) ? NULL : d;
-+}
-+
- static inline struct irq_domain *irq_domain_create_tree(struct fwnode_handle=
- *fwnode,
- 							const struct irq_domain_ops *ops,
- 							void *host_data)
+Changes in v3:
+- Drop rename
+- Capitalize commit subject
+- Extra tweaks to cleanup patches (preventing more unbalanced regulator
+  stuff)
+- Whitespace fiddling
+- Link to v2: https://lore.kernel.org/r/20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org
+
+Changes in v2:
+- Reduce renames to internal driver scope, to prevent breaking compat
+- Address Sashiko Review Comments
+- Split renames into a separate commit to make the actual changes easier
+to identify
+- Change from RFC to PATCH
+- Link to v1: https://lore.kernel.org/r/20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org
+
+---
+Paul Sajna (4):
+      dt-bindings: leds: aw2013: Add awinic,aw2027 compatible
+      leds: aw2013: Add AW2027 support
+      leds: aw2013: Use dev_err_probe
+      leds: aw2013: Move assignment of chip->num_leds
+
+ .../devicetree/bindings/leds/leds-aw2013.yaml      |   6 +-
+ drivers/leds/leds-aw2013.c                         | 177 +++++++++++++++++----
+ 2 files changed, 146 insertions(+), 37 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20260907-aw2013-aw20xx-rename-df233c5921c6
+
+Best regards,
+-- 
+Paul Sajna <sajattack@postmarketos.org>
+
