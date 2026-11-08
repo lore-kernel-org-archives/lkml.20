@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794105809;
-	b=yon3/oN4VmH05V06QBssaXYsKKfbVElRml2oTNXnRqIoAq4DJ2e/uFwpJ4RqsJ7EHFPD
-	 /3WPfdulVg3jf/7RIpv5kQQPDWPL8s9xM/i/le1Rsqffs376YMjIWwnBlKlQVzMKFZUxN
-	 g43y4EfwA3Y70SPWJQM9CrvxXZdF9iNXCS2fTB1AKHfsmjS7Hn1nHDPV2zP8k5ylgfYMZ
-	 JJnnAL7VE1rp65obQPSWW8r0F3o69W+xXwB/CGHSDWKcgrCoRamwVD4sJRiX1a95EKVi8
-	 tAHl9dgGrRw77v7XK+hVtpp8mzSAUL2O7iITBSBSIP/W8Sp7Cia5QwB63RApdElkqqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794105809;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NFuoGXXrkyFliEzMqju+9q+B5cpIirOFosUPmdC6VLM=;
-	b=Rst8mndcOMuzJy5To4k9xullD7QWKJ9Rf0hTFXA9k570UisBBKAK7DZzD/E5J7hPSxHR
-	 6lAtxU7o3WBvWdjIQfyb+URdvG6afcwYoB0TwFlnQE5lY56Ro3eFe6SumiBXZw9vcrKq9
-	 bozwPs2/0sPtVz/ft8d2Rmazx4IOSQLqTHObx6aMNETHPzWKFa7cHdnTSEuFo1mtrX9H8
-	 YIgcoksVTlsWdHJA+FLW0BoeIRTAInZhbHRYdouRX3JBCzwFffrrh1lZVQPQ2bpb51HGO
-	 uhXxbfmVKTeOoFxKDBZ0W2mNQczpgiqFq9qSr4Aj1KBWhsrhR0jZWxGvZCamjSGHh0g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jl9pwlY6;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794106023;
+	b=Z7Ajl5sq1ppT27aK4ZnDkPNPlq3Fz5DJcxTg2ggG3Es9upi5cfMFKR9Q99gZHUyh6LgN
+	 SY5jb/9jtCNQMsoenmG2yXHeF5kCA0O0FrLUMSXeE9jkE8Ma9nEKc+41HXODsLJaktVTD
+	 O/YjZ0CYvFnVUClI7W5Se+vGdkOkfKyfPTXXC2pW8f8mHXfZ3Czs9c9PTThUaNun1xG2t
+	 BnjoGQFHqguMv5PC2V937UIDq3a9kwk2s1g87RYnsU1FhtpviSslIOv8ZITyXCU0nTs44
+	 FgQZWhqkqx1MAo1mOS9jHG86dHd/7D8iqiJ6VoF8Iq9zh6tbWHUBPHoa/NNbqnq4RIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794106023;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Jw5WrrpD4rkxZry1Jgz9645HneA+oD0QP510BD17yrI=;
+	b=NtEPfTkG11s8mGi0W91ZJaNJ7ci+D3NUiEpeBd3OV0uBRaJ7d8PTXPdgl+5KY0U0qtz/
+	 VGrW9UCDamVFQecUkm1EG/esFLrra4/ZFInOeYLWKYK22mvUbYb/5at5NUp5LHYeK671Z
+	 ZYjQnJrhDPFDahg0LZSRo0qFnUt4ywEgAg6GNOpFbyKOV5eoMVJ0AxtX28HS9etMxCGeu
+	 uzE5JKhRqYZERknjatZMM9fbgL5y98a97gr1L1tRkANgGCuGtCzUI+HRL8ztmDNPIjiQx
+	 Y0+dt2mKR+9bgKc9kUnz5AmL0vhPcWhxt094NeyUWfCRe9Y6LBDlQV59oUAZM/WC2Zw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYaVgxhL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1ED606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:43:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE1ED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2111606A31A;
+	Sun,  8 Nov 2026 02:47:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jl9pwlY6
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3720addb068so221957eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:43:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1794105808; x=1794710608; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NFuoGXXrkyFliEzMqju+9q+B5cpIirOFosUPmdC6VLM=;
-        b=Jl9pwlY6Vz8xlJjs9eT7zB2WA7ep53ej4TTB6op5RXS+tQr+kUo6q8+nqH0cWxg9mV
-         PUvdsc0gXlDmdLJcC7H4qJTR6t04xcbZT9aot/C9RIt1pJh1xHBqYTriHsQfOCz1YLWD
-         zfJFnaeaySI8KlwMOkjt9fth0DtjnRHtVtFonr+ShnG1xghQIR2aWntFTfLMf4iRS6OU
-         EYzqYzHJGff+dyDJkJTYnGqSdiYYy6iyyAoducnEJjfoWKgz64MSFCPidpF8bk9psPrG
-         x+JsF4OJXq8lj1hRQifAHtXf9oV9pOthlqo2MrsAq3gUsn760llk2LhRHMqa/g1qS86b
-         cirQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794105808; x=1794710608;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NFuoGXXrkyFliEzMqju+9q+B5cpIirOFosUPmdC6VLM=;
-        b=CLQPMXkmGrDsoVT2hdp9IU+6nxYzDlOVKPXhQOO8c/BdhB2+3/la5zHo3YX7VDHyDS
-         lNqA1J6dsewzGtYyWOA7LPNL8dcceC3bMcsYzJSPBw2uVAzi+jZNNTroiFUwAbWk9TcX
-         7HFB8OPAWHjsPxD1/6bHE/6g2+DpyiZG05IkP3ocUtWqN088BTtpZe7Xl4eSyq04uGV2
-         nz0Nmqk8/1H1iPGiplZ8V4QPZV3X+A3YVMA4CMrRI57fl+eyKnS3/IVcuRVmLqQk/4oC
-         PA7mUCroUzTc0YtquzpmTyNH63bqFkB5AmamS/ucjNYlblBclhYXUM4Xf7oN25E8/VKT
-         bV5Q==
-X-Forwarded-Encrypted: i=1; AL+hErET24cxQ0yR+ckLzPrP2UavRLFJA1qcpFfUvrQ3/35O9QnPfTYkjuZdeetfgHvUiyurLymOBoJVZkrOKpk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LwDMHAT4xQwd5bXI6SxrtxwNbpOJm2/+nWWbofeTaAmwsJ0hF
-	JZC3y1aPDTvODeigFr8Cz/1n+IZiqLhn5N9wnGuN4KZmu8KPH+YMckQFiwqv1VMAAQ==
-X-Gm-Gg: AYBFou00atrulhw2Y1xJhVWbCs7AUIgy0NnlyM/mZoQK/EZbgoingkDcFFqVR1aebvX
-	A85kEVv31QC+nisqys7O220OND929pq8KiXvC1BnktUng2rp9tEPnHhDPyG6wfWv2oL27a9BB08
-	iivrBpx96+jvtGi3J+YjsYUtjqMcNJ1ss/BXE4OPdlKVZOhn6Or7rRbJwLux7oxY86k0MI0PDIe
-	A45uHB+TX+Fy9PYWWCJ6wqqfMN+qsHcopirkWKoh5QmV7buwwAbnMHiPius5sWuq3g8h5GvHzvg
-	kSx0xdcZPGqWoVyM4DK35ywAgsMWDEyTgzt1MSR6rssTDMuryXZok9ODFGb9qoQZRjGndg9wUPC
-	JcrbfLwf0bcMg7i+K90CPH3ygfmqWfttVgvCgoNgQstGq15mWciSPXw8Qk7tuYLoOqvEZlJGZ9y
-	GEDRIh4dMyHkl3d2SOuPtcmxrItKW8zcusHODcTPLydds2DjgAC1d1qt4zYuq08E5MSjUkwqFCo
-	Rkxyu3igUrd6DGiiknsaEtHu51wV6slkyuHKX4qKnqZi+hs+Ic9jMDfqNzyK2N5Y+p6VX1ayQtG
-	F/bcpY2EYtM9U8pbkA8tn9PQ+/eJCRmKPnN8IvMD18RUg/T+tGzbp1KZsTtMqGIsdX0jVCYAIUe
-	bz0uo/1ZS2w==
-X-Received: by 2002:a05:693c:62dc:b0:36f:5746:3369 with SMTP id 5a478bee46e88-3725807c859mr1143986eec.24.1794105807738;
-        Sat, 07 Nov 2026 18:43:27 -0800 (PST)
-Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372665db8bbsm1681203eec.22.2026.11.07.18.43.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 18:43:27 -0800 (PST)
-From: Matthew Parker <mparker@arista.com>
-To: pratyush@kernel.org,
-	mwalle@kernel.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Matthew Parker <mparker@arista.com>,
-	Adam Calabrigo <adamc@arista.com>
-Subject: [PATCH v2] mtd: spi-nor: gigadevice: Add support for GigaDevice GD25B512
-Date: Sun,  8 Nov 2026 02:43:17 +0000
-Message-ID: <20261108024317.898917-1-mparker@arista.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYaVgxhL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794106022;
+	b=FZCTjwbfr39Tb1vxQOIIloMEY7D+1tmrIf1KGgVlHdYXZj/9T1h4s/4lU+MjCgqggfeI
+	 TNdWQxqfD5KsLQbF14715FD2NJxndj0ayVTd8MBxmxG5X5IlxSp23m9q01IzS8vVq3BiZ
+	 zk2MLEs+O97X5dfIW7bI1ZUWQOThu6eV4IrdHxHh//r+o6bqeYKpwJT1p/DvFI87iuCTR
+	 jjfzsOrUF3BQeZUSk3aOg+rWxmCI903bLOLaoIwsHQUS0rvAKTEIxaOX4j+rWQHafC0e8
+	 vVwqbkL8bvhGCKzjINLZ/Mx4xq7YSUnwEHUH8n0QP9UnWxJ554LHkXDZ/p74edwYilQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794106022;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Jw5WrrpD4rkxZry1Jgz9645HneA+oD0QP510BD17yrI=;
+	b=VbKbJdVa124/5syaFzQOiKnGH5FOWlikU3fYIc1kFpqoYFtb278+HEe0TNf5ZUaIXyHb
+	 ol8hgBURtFFdzo3HAED0IZU4zED+De5d5yfWi0c6qFwXWTBx4ss2FIsNgu3ljba5FyrNF
+	 mZQrjccCvkZBpDFNy1sNnPXBu2s7x3Y1ZN4VJsallo6ERGNGMfA/xkf7BuWXn9gErqRqj
+	 r9GKiZMjaLDnbCjX0GXAnVYnzXGGYElTH5NeHwwc5GPxxLK4Ou7MqiHunLDJOQMecmdpX
+	 6oNINWWS2YsoKZ6k4N57JDc0o2eLvMd4p/H+S3GhT3Q0GQhM9zMMCcWQo98CfcNAjDA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id A52A01F0089F;
+	Sun,  8 Nov 2026 02:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794106022;
+	bh=Jw5WrrpD4rkxZry1Jgz9645HneA+oD0QP510BD17yrI=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=EYaVgxhLCQQ+gpqwGRWq5zu7V5PLhu3Ib+5j8mFD35EgUwUjbVq8/4zaan15GvBu7
+	 bGE4zfFy3ZBRWcvq1zlYFbe/pWFC2qhhJOFVl/hvyAAlcd0dbDLHLIc5RlikthTkLv
+	 s+iTIXZnyqTlYh6819J4jMn59jy224YZyyA/lJeVCpnGvDrfYji1y3jaFey2sZkGFE
+	 Oggw+uyV7MZ+d8pdtQubv97vXXbAHr2DPJ88v3b71dzqlmofJso0IAQWOMAwavvE5P
+	 dOB9S5SEcB0+Z2/sr6ugK0iWwSLz60cNKATTsUCx3n9uPjBL6zAt5W3cQd7Tg+enM3
+	 E7tq77+MgR7oA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F3FE747DB8;
+	Sun,  8 Nov 2026 02:47:00 +0000 (UTC)
+From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
+Date: Sat, 07 Nov 2026 18:47:00 -0800
+Subject: [PATCH] media: staging: tegra-video: csi: use active state for
+ frame interval
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,40 +83,238 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-staging-csi-interval-v1-1-4860ac021065@tubot.lat>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDtgQo3VqxQXMU7TKRIlk4og3
+ t2oy7f4fwOhyCTQFhtEWlh4ChnqUYD72uAJecgGXWqjVFmjJOs5eHTCyCFRXOyIjal19ewb44Y
+ X5HSO9OH12r672/Lvf+TS+YJ9PwCILw1reAAAAA==
+X-Change-ID: 20261107-staging-csi-interval-967254b96cd8
+To: luca.ceresoli@bootlin.com, gregkh@linuxfoundation.org, 
+ thierry.reding@kernel.org, skomatineni@nvidia.com, mchehab@kernel.org, 
+ jonathanh@nvidia.com
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ DelaySystem <DelaySystem@tubot.lat>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7208;
+ i=DelaySystem@tubot.lat; h=from:subject:message-id;
+ bh=RFWR0QKV3z3LtnLnQBGjQGyiW1c3/1+A78zjLwzdzP8=;
+ b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFnvHy2x/CDdoV5ypyZpyY8UJ5EawcRpNpc3Fc/bKZdis
+ UrdksOgo5SFQYyDQVZMkUVMhud9/X2dOGurOSdg5rAygQxh4OIUgImUuTIyPJ//pfI+89ODqx4u
+ 31aZVZORPuPOs0X3pK+3FebrrL+/q4aR4fgm51j9gq9+nM/FSuWaTZxvbIhqXVLQVm/wf5XN91I
+ jNgA=
+X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
+ fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
+X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
+ auth_id=1447
+X-Original-From: DelaySystem <DelaySystem@tubot.lat>
+Reply-To: DelaySystem@tubot.lat
+Content-Transfer-Encoding: 7bit
 
-Add support for the GigaDevice GD25B512 512Mbit (64 MiB) SPI NOR flash.
+From: DelaySystem <DelaySystem@tubot.lat>
 
-The chip exposes valid JESD216B SFDP tables including 4-byte address
-instruction tables, from which geometry and opcodes are discovered.
-Status register locking is enabled. Read, write, and erase functionality
-across the full memory array have been tested on hardware.
+Convert tegra_csi_{get,set}_frame_interval to the V4L2 subdev active
+state API, resolving the FIXME asking for TRY format support via the
+active state.
 
-Cc: stable@vger.kernel.org # v6.1+
-Co-developed-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Matthew Parker <mparker@arista.com>
+The interval now lives in the per-pad subdev state instead of the
+driver-private csi_chan->framerate field:
+- add csi_init_state() to seed each pad's interval from the TPG
+  framerate table at the channel's current format,
+- initialize the state with v4l2_subdev_init_finalize() in channel
+  probe and release it with v4l2_subdev_cleanup() on teardown,
+- re-sync the interval in csi_set_format() when the format changes,
+  matching the previous behavior where the format path refreshed the
+  stored framerate,
+- validate the pad index against the entity's num_pads in both the
+  get and set paths.
+
+With the state handling both ACTIVE and TRY buffers, the TRY path now
+works instead of returning -EINVAL, and the .set_frame_interval op
+(which wrongly pointed at the get helper) is fixed to the new set
+helper.
+
+Non-TPG builds keep returning -ENOIOCTLCMD as before.
+
+Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
 ---
-v2:
- - Drop .fixup_flags per modern SFDP discovery conventions.
+ drivers/staging/media/tegra-video/csi.c | 80 ++++++++++++++++++++++++++++-----
+ drivers/staging/media/tegra-video/csi.h |  2 -
+ 2 files changed, 70 insertions(+), 12 deletions(-)
 
- drivers/mtd/spi-nor/gigadevice.c | 3 +++
- 1 file changed, 3 insertions(+)
+diff --git a/drivers/staging/media/tegra-video/csi.c b/drivers/staging/media/tegra-video/csi.c
+index 5a5fca378ae6..629b543c76c1 100644
+--- a/drivers/staging/media/tegra-video/csi.c
++++ b/drivers/staging/media/tegra-video/csi.c
+@@ -111,7 +111,6 @@ static void csi_chan_update_blank_intervals(struct tegra_csi_channel *csi_chan,
+ 	if (index >= 0) {
+ 		csi_chan->h_blank = frmrate[index].h_blank;
+ 		csi_chan->v_blank = frmrate[index].v_blank;
+-		csi_chan->framerate = frmrate[index].framerate;
+ 	}
+ }
+ 
+@@ -178,6 +177,9 @@ static int csi_set_format(struct v4l2_subdev *subdev,
+ 	struct v4l2_mbus_framefmt *format = &fmt->format;
+ 	const struct v4l2_frmsize_discrete *sizes;
+ 	unsigned int i;
++	const struct tpg_framerate *frmrate;
++	struct v4l2_fract *interval;
++	int index;
+ 
+ 	if (!IS_ENABLED(CONFIG_VIDEO_TEGRA_TPG))
+ 		return -ENOIOCTLCMD;
+@@ -199,6 +201,16 @@ static int csi_set_format(struct v4l2_subdev *subdev,
+ 	format->code = tegra_csi_tpg_fmts[i].code;
+ 	format->field = V4L2_FIELD_NONE;
+ 
++	/* keep the frame interval in sync with the format */
++	frmrate = csi_chan->csi->soc->tpg_frmrate_table;
++	index = csi_get_frmrate_table_index(csi_chan->csi, format->code,
++					    format->width, format->height);
++	if (index >= 0) {
++		interval = v4l2_subdev_state_get_interval(sd_state, fmt->pad);
++		interval->numerator = 1;
++		interval->denominator = frmrate[index].framerate;
++	}
++
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+ 		return 0;
+ 
+@@ -217,20 +229,53 @@ static int tegra_csi_get_frame_interval(struct v4l2_subdev *subdev,
+ 					struct v4l2_subdev_state *sd_state,
+ 					struct v4l2_subdev_frame_interval *vfi)
+ {
+-	struct tegra_csi_channel *csi_chan = to_csi_chan(subdev);
++	if (!IS_ENABLED(CONFIG_VIDEO_TEGRA_TPG))
++		return -ENOIOCTLCMD;
++
++	if (vfi->pad >= subdev->entity.num_pads)
++		return -EINVAL;
+ 
++	vfi->interval = *v4l2_subdev_state_get_interval(sd_state, vfi->pad);
++
++	return 0;
++}
++
++static int tegra_csi_set_frame_interval(struct v4l2_subdev *subdev,
++					struct v4l2_subdev_state *sd_state,
++					struct v4l2_subdev_frame_interval *vfi)
++{
+ 	if (!IS_ENABLED(CONFIG_VIDEO_TEGRA_TPG))
+ 		return -ENOIOCTLCMD;
+ 
+-	/*
+-	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
+-	 * subdev active state API.
+-	 */
+-	if (vfi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
++	if (vfi->pad >= subdev->entity.num_pads)
+ 		return -EINVAL;
+ 
+-	vfi->interval.numerator = 1;
+-	vfi->interval.denominator = csi_chan->framerate;
++	*v4l2_subdev_state_get_interval(sd_state, vfi->pad) = vfi->interval;
++
++	return 0;
++}
++
++static int csi_init_state(struct v4l2_subdev *sd,
++			  struct v4l2_subdev_state *state)
++{
++	struct tegra_csi_channel *csi_chan = to_csi_chan(sd);
++	const struct tpg_framerate *frmrate;
++	struct v4l2_fract *interval;
++	unsigned int i;
++	int index;
++
++	frmrate = csi_chan->csi->soc->tpg_frmrate_table;
++	index = csi_get_frmrate_table_index(csi_chan->csi,
++					    csi_chan->format.code,
++					    csi_chan->format.width,
++					    csi_chan->format.height);
++
++	for (i = 0; i < sd->entity.num_pads; i++) {
++		interval = v4l2_subdev_state_get_interval(state, i);
++		interval->numerator = 1;
++		interval->denominator =
++			index >= 0 ? frmrate[index].framerate : 0;
++	}
+ 
+ 	return 0;
+ }
+@@ -438,7 +483,7 @@ static const struct v4l2_subdev_pad_ops tegra_csi_pad_ops = {
+ 	.get_fmt		= csi_get_format,
+ 	.set_fmt		= csi_set_format,
+ 	.get_frame_interval	= tegra_csi_get_frame_interval,
+-	.set_frame_interval	= tegra_csi_get_frame_interval,
++	.set_frame_interval	= tegra_csi_set_frame_interval,
+ };
+ 
+ static const struct v4l2_subdev_ops tegra_csi_ops = {
+@@ -446,6 +491,10 @@ static const struct v4l2_subdev_ops tegra_csi_ops = {
+ 	.pad    = &tegra_csi_pad_ops,
+ };
+ 
++static const struct v4l2_subdev_internal_ops tegra_csi_internal_ops = {
++	.init_state = csi_init_state,
++};
++
+ struct v4l2_subdev *tegra_channel_get_remote_csi_subdev(struct tegra_vi_channel *chan)
+ {
+ 	struct media_pad *pad;
+@@ -642,6 +691,16 @@ static int tegra_csi_channel_init(struct tegra_csi_channel *chan)
+ 		return ret;
+ 	}
+ 
++	subdev->internal_ops = &tegra_csi_internal_ops;
++	ret = v4l2_subdev_init_finalize(subdev);
++	if (ret < 0) {
++		dev_err(csi->dev,
++			"failed to initialize subdev state: %d\n", ret);
++		media_entity_cleanup(&subdev->entity);
++		subdev->dev = NULL;
++		return ret;
++	}
++
+ 	if (!IS_ENABLED(CONFIG_VIDEO_TEGRA_TPG)) {
+ 		ret = v4l2_async_register_subdev(subdev);
+ 		if (ret < 0) {
+@@ -696,6 +755,7 @@ static void tegra_csi_channels_cleanup(struct tegra_csi *csi)
+ 		if (subdev->dev) {
+ 			if (!IS_ENABLED(CONFIG_VIDEO_TEGRA_TPG))
+ 				v4l2_async_unregister_subdev(subdev);
++			v4l2_subdev_cleanup(subdev);
+ 			media_entity_cleanup(&subdev->entity);
+ 		}
+ 
+diff --git a/drivers/staging/media/tegra-video/csi.h b/drivers/staging/media/tegra-video/csi.h
+index f0277cb42446..25aff2581f06 100644
+--- a/drivers/staging/media/tegra-video/csi.h
++++ b/drivers/staging/media/tegra-video/csi.h
+@@ -53,7 +53,6 @@ struct tegra_csi;
+  * @csi_port_nums: CSI channel port numbers
+  * @pg_mode: test pattern generator mode for channel
+  * @format: active format of the channel
+- * @framerate: active framerate for TPG
+  * @h_blank: horizontal blanking for TPG active format
+  * @v_blank: vertical blanking for TPG active format
+  * @mipi: mipi device for corresponding csi channel pads, or NULL if not applicable (TPG, error)
+@@ -71,7 +70,6 @@ struct tegra_csi_channel {
+ 	u8 csi_port_nums[GANG_PORTS_MAX];
+ 	u8 pg_mode;
+ 	struct v4l2_mbus_framefmt format;
+-	unsigned int framerate;
+ 	unsigned int h_blank;
+ 	unsigned int v_blank;
+ 	struct tegra_mipi_device *mipi;
 
-diff --git a/drivers/mtd/spi-nor/gigadevice.c b/drivers/mtd/spi-nor/gigadevice.c
-index 6a2e6ebda148..fe05c0f0370d 100644
---- a/drivers/mtd/spi-nor/gigadevice.c
-+++ b/drivers/mtd/spi-nor/gigadevice.c
-@@ -64,6 +64,9 @@ static const struct flash_info gigadevice_nor_parts[] = {
- 		.id = SNOR_ID(0xc8, 0x40, 0x19),
- 		.name = "gd25q256",
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
-+	}, {
-+		.id = SNOR_ID(0xc8, 0x47, 0x1a),
-+		.flags = SPI_NOR_HAS_LOCK,
- 	}, {
- 		.id = SNOR_ID(0xc8, 0x60, 0x16),
- 		.name = "gd25lq32",
--- 
-2.51.0
+---
+base-commit: a41e364995bbcfa627418a70fe913c35b7510728
+change-id: 20261107-staging-csi-interval-967254b96cd8
+
+Best regards,
+--  
+DelaySystem <DelaySystem@tubot.lat>
+
 
