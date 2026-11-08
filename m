@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794144002;
-	b=GQZJfJckgajdoLj7hyM4gXzXyxkEfcTJTPDS4Q9CoCYLyQoVASTJ6yMkxFv5nqmkNIyp
-	 hPLLYlvIzmBgoVbVNfd88xa2BajvrFfUTSLLdQgAiYI9szf8g+gDv9fhlLcsogsyTva71
-	 MOTTn1Aq7ftnjuaej0vc9FrBjQVrTSomHFHZPVCQnF37Mi6WjxIXxrHT3m/qe4wgXygwX
-	 ztCEQX9aiz5lAcYlouzq3UPK8OSvKXKR0uhtofRsP/EWKhFyQb1GG6FpFiFU3rMt9Di9R
-	 E5KexUoktobR4/mzwTbxG36IIVRIdnEngHjaxuhHgTjd1MmyM3dB9473/pJcFsBj4dw==
+	t=1794144042;
+	b=atwAiI2f1XjLrpvJBn/61VzhvkPhHJcL0TRAfS4UpymGumsF/ROxUANAJXtn8eqm1oWA
+	 anXyBZFw/0ssyKAEiZ4mIPpNlS6tX7yVPxqTXjSakIJKX5Vfk7moGmhF5DKb76pDv5h+a
+	 GaRAGENtLTpqljRGFqOs3sV0YdTqheg2cWP1UPWvlTkw7L7xqNYZUE/L3FzJoFV82qhJT
+	 N/Foq+s8bSLGv38UveLZGGhD2ZI8D/D7m0URhWbR2qecsqylg3bttJ7/tidN2QDxiTcQk
+	 b+TAiVIR4CqwEdhht4wghm1hkpMl0wcgcgoks+RYBlgshdWsc313zKKX+wDy2QXDWcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794144002;
-	h=DMARC-Filter:DKIM-Signature:References:X-Lms-Return-Path:
-	 Content-Type:Content-Transfer-Encoding:Date:Message-Id:To:Cc:Subject:
-	 From:Mime-Version:In-Reply-To;
-	bh=glAGYBxr9sTII+Z0+FTDJt+J6Ci+v2krTtxy4Ai80mU=;
-	b=JXjrdGR2D8bY8IDqrfd9NlVuYormVaRsC/XsIQ6PXp8q1kgLXm2Ol4sj//rDqHHGQ3AZ
-	 coa3lgfCEtfQZJtCZgNjKBUnXLlxke7mvpXIjcBCV0Oe4Ay50zw2tVCAl7afymYmYqXlF
-	 bbBoRF4/J2SO5N4A71hI2z3GdLSXN+JCrSVE+wjuiMWM8jX5QIbqA8duF6MDlOB0uCg6R
-	 zglwnroUWOlXQPXXvPo88Su0mJkpbSuk9pGdyCwq94IDggHmIY79NIqhDhYtmFWTzSYzS
-	 j1hDO/WKlJz6HwPs4dtIGKGc/DvR715ingr9DJEmqnTIZmsyKQRQ9qvNXLFAZcLuVjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794144042;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=AxuQz5LK3GiuVobsA9FvWNWs2WJqoUY+Mb4H5LniejY=;
+	b=vQI3zEKCM8A59jdEZycvLmf/7W7rYRm+bE4loblgNuL9bw2BCN94a1yyiv2Th3s/gjfk
+	 7N4tFd6YrGDnd7TViplgGQ8er4H5s/NnJRjT/qz6L2mIl370B7ubagulZJiMfysLW36lo
+	 jYJysKrlDzxpWrFoxMLEggzY/HjL6lenpjC4r8hnmqK1WbBFSM7vE/dKR2jdOHBia+uZi
+	 e7+AGiThOia2veJFmTPvj1ciODYuFz5tlnBpichom436hLoLRcWkN9apcz71Evxh71iIL
+	 8e6RRtUJUZTsXeT+G7mVKJ+Hp/H51tL4TNwJ3WqHkKDv0xStI2x/YCMN9d8jK3oiqvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ghfWUstJ;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A02606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 13:20:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39A02606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ghfWUstJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794143996; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=glAGYBxr9sTII+Z0+FTDJt+J6Ci+v2krTtxy4Ai80mU=;
- b=ghfWUstJZXjjA03UMOezExuNjOlqxQin4oay+mC/Q2cD8//ZBP41m91NYYNsj5rbPAUwG9
- xit7MQQIBFkrOShE5Z5XtmIEecQ3K55WPR/05whzi/Yf7XdX9Yxl70eyRtRSQEQXBq/W44
- IDheuMaRBDdq+4dM3XJ/0IAj3HdbG76dGQFGDL6yQb0lfxpN/VsKo01SN6qyRVlwQJxOx6
- XeMthFW7awi0NBGkXMkOP+M3p9iywQZZOWPdG/r9AGHmQxWDuWyHjB125wUoka8hrCaJy7
- +6L/xP+AOHFu6JSe1Zrx+xXYmew06tG+EerM4bUmdLCdqlj/tCRp6DUDRwMFgw==
-References: <cover.1793604327.git.weiguixiong@bytedance.com> <4f21cadf18325a5829a27a8cd7107240e8e92c7a.1793604327.git.weiguixiong@bytedance.com>
-	<ab483f3d-e036-452e-bf58-6c87e59ae3bb@intel.com>
-X-Lms-Return-Path: <lba+16af076fa+e6cbf8+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 08 Nov 2026 21:19:52 +0800
-Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.48cfd4ee.a91f.48fa.aaeb.1a775cee80d6@bytedance.com>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: <x86@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, 
-	"Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, 
-	"Chang S . Bae" <chang.seok.bae@intel.com>, 
-	"Shuah Khan" <shuah@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-kselftest@vger.kernel.org>, 
-	"Guixiong Wei" <weiguixiong@bytedance.com>
-Subject: Re: [PATCH v4 2/2] selftests/x86/amx: Test dynamic fpstate cleanup across exec()
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C367606A321;
+	Sun,  8 Nov 2026 13:20:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C367606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1794144039; x=1825680039;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=JLH0TVSF7/Dj1JD2tP+0+XyeKgziUbRuQS+T9+oJsjE=;
+  b=YcVsdW0F9+THulazwJj2ojdXMgyWO+nSp7K/vZQZWDJRAFG33EBb5SSW
+   yhJVvi0+AdPweyibhwXuJoLjN+/ce6fhTRhXmim5GFztKSkk/YhGs4ASU
+   mS23IQbciXC7kTkyWXG3BzfPgS8zFX8Z3MgK7k6zecFkelrZ3LrEoh+Ue
+   6w3DaXuRA4FH+b4m+6bDddubgTGBDlTt8TNUCq2rD1B+ahkpq5+Dgqbjy
+   g3qVLy/Z46FyBNZAQGNfZDdVoPm2mKxS+R0siSV3ezXCHUYlDSGiV9EmA
+   Rust5a2njmoLthecLNwRaiaZUlmrg9bHvDlQ9doAEf/lZxGR97n8ySwBm
+   A==;
+X-CSE-ConnectionGUID: 2x4g6s2ITqGDO7ABlUHd6w==
+X-CSE-MsgGUID: JBdGUtXuT0KpKYqfArpw4g==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 15:20:27 +0200
+X-CSE-ConnectionGUID: YPgsWQeNT9K0LOvGBXfyiA==
+X-CSE-MsgGUID: koslSIjWTMyBeFcTUZAnBQ==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.2])
+  by ces02_data.me-corp.lan with SMTP; 08 Nov 2026 15:28:30 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Sun, 08 Nov 2026 15:20:26 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Sun, 08 Nov 2026 15:20:11 +0200
+Subject: [PATCH 2/5] MIPS: CM: export the symbols needed to access the GCRs
+ from a module
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,78 +65,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <ab483f3d-e036-452e-bf58-6c87e59ae3bb@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-i6500-cm3-pmu-v1-2-bd119584891a@mobileye.com>
+References: <20261108-i6500-cm3-pmu-v1-0-bd119584891a@mobileye.com>
+In-Reply-To: <20261108-i6500-cm3-pmu-v1-0-bd119584891a@mobileye.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Fu Chao-Ying <chao-ying.fu@globalfoundries.com>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+X-Mailer: b4 0.16.0
 
+Allow modules to use the GCR and CPC accessors from asm/mips-cm.h and
+asm/mips-cpc.h:
 
-> From: "Chang S. Bae"<chang.seok.bae@intel.com>
-> Date:=C2=A0 Sat, Nov 7, 2026, 00:41
-> Subject:=C2=A0 Re: [PATCH v4 2/2] selftests/x86/amx: Test dynamic fpstate=
- cleanup across exec()
-> To: "Guixiong Wei"<weiguixiong@bytedance.com>, <x86@kernel.org>
-> Cc: "Thomas Gleixner"<tglx@kernel.org>, "Ingo Molnar"<mingo@redhat.com>, =
-"Borislav Petkov"<bp@alien8.de>, "Dave Hansen"<dave.hansen@linux.intel.com>=
-, "H . Peter Anvin"<hpa@zytor.com>, "Chang S . Bae"<chang.seok.bae@intel.co=
-m>, "Shuah Khan"<shuah@kernel.org>, <linux-kernel@vger.kernel.org>, <linux-=
-kselftest@vger.kernel.org>
-> On 11/2/26 02:30, Guixiong Wei wrote:
-> > ---
-> > =C2=A0 tools/testing/selftests/x86/amx.c | 251 ++++++++++++++++++++++++=
-+++++-
-> > =C2=A0 1 file changed, 249 insertions(+), 2 deletions(-)
-> >=C2=A0
->=C2=A0
-> The code looks an overkill to me. I also considered using kmemleak, but=
-=C2=A0
-> this vmallocinfo looks to be efficient.
->=C2=A0
-> The other way would be adding a script on top of a small change to amx.c=
-=C2=A0
-> file. See the attachment.
->=C2=A0
-> Can you please try running this on your side and see if it works?
->=C2=A0
-> PS: I sent this yesterday but it didn't go through. I switched *.sh to=C2=
-=A0
-> *.txt in the attachment.
->=C2=A0
-> Thanks,
-> Chang
->=C2=A0
-Hi Chang,
+- mips_gcr_base and mips_cpc_base are the mapped register blocks;
+- the CPS_ACCESSOR macros consult mips_cm_is64 on every 64-bit register
+  access;
+- mips_cm_lock_other() / mips_cm_unlock_other() are the only way to
+  reach the registers of another cluster through the redirect block.
 
-Thanks for the suggestion and the test patch. The AMX -> exec reproducer
-does exercise the leaking path and was useful for validating the fix.
+This is a prerequisite for building the CM3 PMU driver as a module.
 
-I tested it on an Intel Xeon 6519P-C system with AMX support.
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+ arch/mips/kernel/mips-cm.c  | 5 +++++
+ arch/mips/kernel/mips-cpc.c | 2 ++
+ 2 files changed, 7 insertions(+)
 
-On the unfixed kernel, three runs of 10 execs each consistently
-increased the __xfd_enable_feature allocations by 10 entries / 163840
-bytes per run.
+diff --git a/arch/mips/kernel/mips-cm.c b/arch/mips/kernel/mips-cm.c
+index 7c9c5dc38823..afe0664e4dcf 100644
+--- a/arch/mips/kernel/mips-cm.c
++++ b/arch/mips/kernel/mips-cm.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/errno.h>
++#include <linux/export.h>
+ #include <linux/of.h>
+ #include <linux/percpu.h>
+ #include <linux/spinlock.h>
+@@ -14,8 +15,10 @@
+ #include <asm/mipsregs.h>
+ 
+ void __iomem *mips_gcr_base;
++EXPORT_SYMBOL_GPL(mips_gcr_base);
+ void __iomem *mips_cm_l2sync_base;
+ int mips_cm_is64;
++EXPORT_SYMBOL_GPL(mips_cm_is64);
+ bool mips_cm_is_l2_hci_broken;
+ 
+ static char *cm2_tr[8] = {
+@@ -373,6 +376,7 @@ void mips_cm_lock_other(unsigned int cluster, unsigned int core,
+ 	 */
+ 	mb();
+ }
++EXPORT_SYMBOL_GPL(mips_cm_lock_other);
+ 
+ void mips_cm_unlock_other(void)
+ {
+@@ -389,6 +393,7 @@ void mips_cm_unlock_other(void)
+ 
+ 	preempt_enable();
+ }
++EXPORT_SYMBOL_GPL(mips_cm_unlock_other);
+ 
+ void mips_cm_error_report(void)
+ {
+diff --git a/arch/mips/kernel/mips-cpc.c b/arch/mips/kernel/mips-cpc.c
+index 3e386f7e1545..4a8bd56bc2e8 100644
+--- a/arch/mips/kernel/mips-cpc.c
++++ b/arch/mips/kernel/mips-cpc.c
+@@ -6,6 +6,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/errno.h>
++#include <linux/export.h>
+ #include <linux/percpu.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+@@ -14,6 +15,7 @@
+ #include <asm/mips-cps.h>
+ 
+ void __iomem *mips_cpc_base;
++EXPORT_SYMBOL_GPL(mips_cpc_base);
+ 
+ static DEFINE_PER_CPU_ALIGNED(spinlock_t, cpc_core_lock);
+ 
 
-With the updated fix applied to v7.3-rc5:
-=C2=A0 - three runs of 10 execs: no increase
-=C2=A0 - one run of 1000 execs: no increase
-=C2=A0 - 24 concurrent workers, 500 execs each: no increase
-=C2=A0 - the existing AMX selftest still passed
+-- 
+2.43.0
 
-I noticed a few issues in the test harness itself:
-=C2=A0 1. test_exec() waits for the child but does not check WIFEXITED() or
-=C2=A0=C2=A0 =C2=A0 WEXITSTATUS(), so a failed exec can still be reported a=
-s success.
-=C2=A0 2. $NUM_ITERATION in the single-quoted awk program is interpreted as
-=C2=A0=C2=A0 =C2=A0 an awk field reference, not the shell variable. It need=
-s to be
-=C2=A0=C2=A0 =C2=A0 passed with -v, for example:
-=C2=A0=C2=A0 =C2=A0 =C2=A0 awk -v iterations=3D"$NUM_ITERATION" '... iterat=
-ions ...'
-=C2=A0 3. amx_exec.sh prints "[FAIL]" for a detected leak but still exits
-=C2=A0=C2=A0 =C2=A0 with status 0.
-=C2=A0 4. Failures while collecting /proc/vmallocinfo or running amx_64 can
-=C2=A0=C2=A0 =C2=A0 be converted into "[OK] no memory leak".
-
-So the reproducer idea looks good to me, while the harness needs the above =
-fixes.
-
-Thanks,
-Guixiong
