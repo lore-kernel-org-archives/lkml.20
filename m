@@ -1,66 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794109134;
-	b=Bk7okmbzyRmF41R+hA0qLUdC9j/fNiqdRXxfA4/7Z0lIKlDPlInHeCFSJR4mZtu72ZLY
-	 jdk+PxpZB9DMfnbxn+Zp2eqZl/OQoNd4ouZIakY58+uBBJGWbv4gjZlN7dSF0MV2dzBIk
-	 RaJxeUslk/AIMnT99q06KzaRGhu7MOp2gdL//yl7lJdhfuOcIwvZk6urmCifWm2lsAI2a
-	 537EqtBkH3uZ/++nNVO2LiDzzc1ck0OhSb7QevLeffwyyozsZPSvT/0MG2T6u2WVmmsPU
-	 n/ZFj1X662rhchqY89gry2ncy82DllEMCPXpQ/b4a+/1T8SE3PH9JlQUd+e0Y9/a0aQ==
+	t=1794109255;
+	b=Sq8sOynIrumiAkJq9pBhXFGkGlq+knqBE3ErTlD8WmuQoKVr/Js8Ez7CL1f6SiK/+yIc
+	 VbLduZhzqUbBVthHamvXDaO2p6bRpw9LchHLEb+Ybq/0MK6+6r94FZ3KDEQLpi/0wLE+e
+	 sR+Ng1jJ34S2RfPpvG2ODGrkYaPJZmCmX2ppfiQQBcdd4cdOnzIqFjciAkekJvfvYW3Ma
+	 Pbl0a1o3SlmKpq3k7/5D+zGpgUZFdWH/z5thoPxr+P5fdNmWfvJVG14Vz5PLwfrVEJIzc
+	 PZS54fk+CVddoCJqSlYafNxY+ACIa422H+yBoDG83JSfgF/qNiXsT3ZNC32U5bEhnIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794109134;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aqIBkvYtPDzucqzURlNJHvsSFZfARn8ZXT0xMDf3Rh8=;
-	b=3DwSCGUI7AAkBEK4MNWbmae/4RV0cIebK2L+JP1vUr/3KUTJ8z4ojaaxaoxlx0pjv9re
-	 PB1hz7uKheITc/J/+mP53Cjg6TKw7tW8+tNDhCD83awavf5BNLElGEmGAaVfU4BkaaZhs
-	 ucavBCKUbQ+Gn0rOoXU7rWRLzhuQ5H3dZUy8r+fEa2P1jNtOQuFI/FJ0FK6A7sYZ0/OeA
-	 KtP8+SjqqSzeM3bYj4nA+ZH48WON0NDso7u8A5bvK4v4oVCbz/T9jZARBu138m0ZkNAr8
-	 jz+tqzh+AaTsRam9hSbfBdUNyXZRYpN1RPHWlnzX0rCOjYhLLhYsZeuSGI0FmbAkF9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794109255;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:User-Agent;
+	bh=ZXPOl0YSd6S/HY373Pp8Ndi01/j4+eSRlC/6LdJKdNo=;
+	b=aqcL9cYg6xVk7ihrEtXcnHXgcPoGdxAAzHrNo+8qoxTyVl+LPamJoVLYtPvGnYtB40jy
+	 Upw/QyIHpo9oGz46blCF/yEN5KdEjCgEV91OW4tjFqCVJufKKKBYr1vW4uoNzNXa2+ZoB
+	 SMHp4PrtxbiI8bPzV/QnaOCObH8/Ka+zhqKi71xoSXFp76Gi03tOtGANOHyrbDAENRot5
+	 Rv/H2hP4ci1OkSXT+AexrUqJcwckdpavMFXsO40mGenqPfeUtNuAHgyFklH2r1WAvVeP7
+	 05N9vxA1E+uXaHwM9oJQM79alvP8wO1F1wiEdYqST6faK3okvn3KhSphaOn5FjFpnPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=afLoJzB1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ssV0Ow6m;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2689606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 03:38:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD1F606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 03:40:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BD1F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=afLoJzB1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D9D1F0089F;
-	Sun,  8 Nov 2026 03:38:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ssV0Ow6m
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so30896a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 19:40:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794109133;
-	bh=aqIBkvYtPDzucqzURlNJHvsSFZfARn8ZXT0xMDf3Rh8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=afLoJzB1WJd62ZVIdjlUhcM4M+pnhm1CygxJ49d0Dh8W1jKx+sCyLJh9NKPaNiO4M
-	 0jaeBPIufSpBUfQZeuzGXCgpF0Jznn4ssk1SD4r5xejfYLoNWxt0sA1g477AkjlHqv
-	 ZKUfkDSwJe6juqWXaGr0YlcQ5oMdoMR8D0XIJfKQ=
-Date: Sat, 7 Nov 2026 19:38:52 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
- Breno Leitao <leitao@debian.org>, David Gow <david@davidgow.net>, Tejun Heo
- <tj@kernel.org>, Ryota Sakamoto <sakamo.ryota@gmail.com>, Karl Mehltretter
- <kmehltretter@gmail.com>, Marco Elver <elver@google.com>, Pasha Tatashin
- <pasha.tatashin@soleen.com>, Kir Chou <note351@hotmail.com>, Lorenzo
- Stoakes <ljs@kernel.org>, Borislav Petkov <bp@alien8.de>, Kuan-Wei Chiu
- <visitorckw@gmail.com>, Petr Mladek <pmladek@suse.com>, Eric Biggers
- <ebiggers@kernel.org>, Guan-Chun Wu <409411716@gms.tku.edu.tw>, Andy
- Shevchenko <andriy.shevchenko@intel.com>, Geert Uytterhoeven
- <geert@linux-m68k.org>, Dmitry Antipov <dmantipov@yandex.ru>, Thomas
- Maarseveen <maarseveent@gmail.com>, Nickolai Zeldovich
- <nickolai@csail.mit.edu>, Thomas Gleixner <tglx@kernel.org>, Adam
- Harshbarger <handyhandyman.adam@gmail.com>
-Subject: Re: [PATCH v3] lib/tests: add KUnit tests for the priority sorted
- list (plist)
-Message-Id: <20261107193852.8320bdbf82cf6899c3153171@linux-foundation.org>
-In-Reply-To: <20261108-plist-v3-tags-2-yuehongwu@cmss.chinamobile.com>
-References: <20261107-plist-kunit-v3-1-yuehongwu@cmss.chinamobile.com>
-	<20261106230658.69acd5b571d1ee361cc2c849@linux-foundation.org>
-	<20261108-plist-v3-tags-2-yuehongwu@cmss.chinamobile.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=chrisdown.name; s=google; t=1794109254; x=1794714054; darn=vger.kernel.org;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZXPOl0YSd6S/HY373Pp8Ndi01/j4+eSRlC/6LdJKdNo=;
+        b=ssV0Ow6mgW7f5vWoB5Rm9hkU/P9UCskCMT0YZ1fcy3WfqJu2hl4Rj5Qnru/7scCM2/
+         P+W62xx+jEA59fRFnG+o4efOP5Do9D9E1giXvA6mVrNl93JK2k9jy+ps8heTQgdZfQhO
+         W+J/6T+71fAMKiKyA7L73pVBucx6LdgQ8O9s8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794109254; x=1794714054;
+        h=user-agent:content-disposition:content-type:mime-version:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZXPOl0YSd6S/HY373Pp8Ndi01/j4+eSRlC/6LdJKdNo=;
+        b=jpU4Gfojwr6zmQE5NOxIHwY41XQoRgdQAVNauZkkwPwGJ+KyU8L+dFvLkUR2RD7PDT
+         lr2HmsRYv6uTcCwdVCZjOW2EgrE88qO0TWDjYmKJ62jPcCQPIC8vWuwR5FIaAPmWjU8g
+         9WI3CwtHITzVuak6rVce2wjcpAF58XUMlb8x3Bw0Bps+uLDFUIkJ279Ua39ulBVlM3mj
+         Ja2iU1tXMvKkOWlX4BxETh//Zj2a8QuW681dW2Fy72PZpWCtVZh2kzSzX+QvtQ9ofQsg
+         3p4YKKgm1K7GrDO6mD3wmU6NvCmo7waVP3WisVhzWv0Yw9SusnXZqjN8kcLya3WGQiZo
+         M0iQ==
+X-Forwarded-Encrypted: i=1; AL+hErFW0l21gNFwjHXwBwMOHOKToY6wnyPIVIp2n4B9RzcvWHVp129FfLEDALcrzokxxF4OSv50P4Fk2yUFfjA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uDulLMabkA6YQ+kAZ8jfs2GY4c3AI1jPT0yl9RhgapeA//LJG
+	QUyJM6Ed5lfd8zPo0K3pEWQgcswgGVDrmOxoFx2dLnnGarCiZ583AiQI/2kxg1dJdD4=
+X-Gm-Gg: AYBFou1+uK+F7y3I8xHQqH7/5ZI6No2+cDt0tIcxaGNjEdIV5XYNXHaphBuS4XwXA+P
+	wSOeKFLgBlFoMSqRe0tA4SUCKPafkpGzqxKbHLNV4TQ7LynaSoHt1aw/VD4P6nj/dvTRktHxNOm
+	TlKJJS1DEzimShJt7fbhFJr+KQm3PmNTMd8l0p+7/sXPVhdc5EAnr98NPrAHrjmZNWnG8bSmh4h
+	zSCDfb08nLdjn9orjENZYlBBZ0TuNidDNkvY9vx2vJHqDOtB2KmsjTvS+tkGYgHdXWwai1/vw5P
+	GB6fokg08uj/Ez65kGFLuifoBhBW0CUyi7E23Zl5zaKqrD9610c6FR3kBwNs+sZsiBhMg1DogFE
+	ZZkYDfLmwYoSHqijcnSFQs+ERGaPkvB9OIG1G9sZ/c7OZ0riqaiVNrSAVm8kyD7Bf3sTFPjjRTq
+	8EKC2oJoKTv5XK0be4/LFbXVqueaKMUbGY4KTDmkgViFhdF28xSZk6+7HI5Yy8UYqWT3nMtPydm
+	8sPhWm780UJ7OZalOKU5YDSNCdAhpfMrikvRK4sVy2DV+IKrQ0aCqdKuEIGVvCk5tQ0faGCgjSC
+	wdQfDcOipXo1X8eQNbo/eBf4oEFtAsQdBgPckMoJHXsijLwGwSIRTWMEWgV30Uhavv2l6cQ6cGk
+	UiMZWSzIGzA/V+EeHcWZC0M7CpNFt+YfFj0dweooZcKOq/zYjbhKOLi9wtqnlOJymXsZMWsolW8
+	WEpHIbqdm0sS+T7GRAog0paQubEIwZmB5KNSf7er/Ra1pFvKBNSDxl
+X-Received: by 2002:a17:90b:1e48:b0:3ac:9c37:942e with SMTP id 98e67ed59e1d1-3b12d5933a0mr344498a91.49.1794109254287;
+        Sat, 07 Nov 2026 19:40:54 -0800 (PST)
+Received: from localhost ([50.175.87.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058d3310sm5374560a91.15.2026.11.07.19.40.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 19:40:52 -0800 (PST)
+Date: Sat, 7 Nov 2026 19:40:50 -0800
+From: Chris Down <chris@chrisdown.name>
+To: rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org
+Cc: graf@amazon.com, kexec@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH] kho: Don't release incoming bootmem areas when kho_init()
+ fails
+Message-ID: <au_vQhHAcJbkryXN@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,33 +93,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-On Sun, 08 Nov 2026 11:37:00 +0800 Yuehong Wu <wuyuehong@cmss.chinamobile.com> wrote:
+kho_populate() adds the incoming bootmem areas without reserving
+them. memblock_free_all() then hands the remainder to the buddy
+allocator.
 
-> Hi Andrew,
-> 
-> Geert pointed out that the Reported-by/Closes/Suggested-by tags in the
-> plist KUnit patch do not belong there, and I agree - they describe the
-> history of earlier revisions rather than an upstream bug.  I am dropping
-> them.
-> 
-> The copy in mm-nonmm-unstable currently carries them: do you prefer a v4
-> with the tags removed, or would you rather edit the patch in place?  There
-> is no code change either way.
+Unfortunately however, if kho_init() fails, err_free_bootmem
+currently frees every area with free_reserved_area(). This can free
+pages still backing early allocations or free buddy pages a second
+time.
 
-np, I edited in place.
+To fix this, let's only free the areas on a cold boot when
+kho_reserve_bootmem() reserved them.
 
-> For the record on the TRIM_UNUSED_KSYMS question: I measured both
-> configurations on next-20261027 and saw exactly what Eric described - with
-> the test as a module the three exports stay in Module.symvers and
-> __ksymtab_plist_* is present in vmlinux; built into the kernel they are
-> trimmed, which is harmless.
+Fixes: c609c144b0e8 ("kexec: add KHO parsing support")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Chris Down <chris@chrisdown.name>
+---
+ kernel/liveupdate/kexec_handover.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Yeah it's a pain and I see no general fix.  
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 6f1f55fe3181..a566ad6634d8 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -1899,11 +1899,13 @@ static __init int kho_init(void)
+ 	kho_radix_destroy_tree(tree);
+ err_free_bootmem:
+ 	kho_out.fdt = NULL;
+-	for (int i = 0; i < kho_bootmem_cnt; i++) {
+-		void *start = __va(kho_bootmem[i].addr);
+-		void *end = start + kho_bootmem[i].size;
++	if (!fdt) {
++		for (int i = 0; i < kho_bootmem_cnt; i++) {
++			void *start = __va(kho_bootmem[i].addr);
++			void *end = start + kho_bootmem[i].size;
+ 
+-		free_reserved_area(start, end, -1, "");
++			free_reserved_area(start, end, -1, "");
++		}
+ 	}
+ 	kho_enable = false;
+ 	return err;
 
-# CONFIG_TRIM_UNUSED_KSYMS is not set
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+-- 
+2.54.0
 
-there.
