@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794155732;
-	b=uerH4hvCS9+6Ak0P4IzfATEhkOjn9fhmjUTdfPKB3i4M49rvj4vZ6nGOG5d5L8Jiwj4z
-	 8sCrV17KtfKgfo777K8zDUHpIE9mk+XquJwCf6NKucSDRs5KxQuvugT11rI14P8LjYKmz
-	 RLCP3gW5zfn5Bld9FTCne1DPY1lbtGrce2s/qSpwiXA/eVZnUWOGsx7qGYWg6tqXljE9Y
-	 BAkXBSbiqywzP5Mq/eqWYOl++Q5BYUcApj3QPijQtIHuvxVvuwklLlwDBj2e8OZVHJiJ2
-	 RaV99nPdnhpFieLMEwS/X5+/ZmrIF4W1OMHZ0YbUVsIBJ70psI/oFouw7uqzwCwzisw==
+	t=1794156021;
+	b=Na77GqEqo8ZneiyFmWRszxBeoAETfKHRNDfsexMDADM8JkkBNc/21Q23KduJU1KgcGg5
+	 AI9VcpZXPlo29ASPVhqP4gO5IivUlxc8mjc8wetF6KJp6b7a3s6bl883A9XCQr6TrhvuU
+	 jba+JEMmkuCpG1tWzoPtymIQfQ56vj98t+as/HSl6aA4tbxpJfpPcv7fA7s9H2yiZR189
+	 jH7K5Gijbx1WX+KMcMi3IAxoPY80bBJtJ32ELPZ1H+z1Co6W2n6n+KcvkXudE/CEFpgHY
+	 eOvYeLnM7xJ5joaB8oVHs3W8ZdPJ5lSEXhyOvHZ15WCfw221RMKVe+WKkjHsqhqRHHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794155732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=vUMpCh0+ME16WhcfFd1W/qBu+AGK/hHn1T2S4rTNv3g=;
-	b=kc5ELYOrxUQkWiRK9+yG5L/ME1ZIszQ414KIatlVMTWt2qLHhxzDBlHDwdhVpGBbBJyY
-	 JjHIfo6DUV77JTEBK8hWEaVH7WIYUA2EVQI/sKP9LF+LSLFmUy+en4uAn2Xcf3OO9t9+T
-	 zEsV21hq3kCpTxD76T0NtC/ITdhXbu9fLuDHLwrxaYJemflqoNY/3wthyywaerg9sLfaa
-	 sG4PoeZ4n2eR++CRHhJ7zq7xsvgbTInabpnBKPDccZw/GvbmLsHLpuB6K2rBre7tEOwTX
-	 IuJz4auW38oBC7ykt/hLcKQA89RQsMxzRcshAmHll3IkZy+ZC2EUdunsT37y77GVD6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794156021;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Qg44TA9M4xQVsgU9++esQTwRSc5BCFel6jJqsRyWYGw=;
+	b=17NZBGRTE15qVEMnRJYqLhFdcVRQbe8bRRagtKqNuh4O4lehyPt9EUb9lst1IMqvuxgc
+	 xQ4hvmm7aMIjSrxalstW8V8opE2ZhEoQmaPM0L/2Q3Jcbl5gurKbFE3pSeUSTeLWMB9iS
+	 VSwfU2ekVFhMmoTRXYk2taKjBtQKvA7ZzDsrBSGqLRrKZX1pfynS0RjAt8wdB2H28JwO/
+	 eJ6AfiCf9EOuy0L5CwESGN+vcTBeV+6MNHa4Ld43eg3RgT8z6xANPJoKj9llZaWlfoJGl
+	 lZbKyh0wSsMfe8LS60mPyrNDTK7ToS2wHogY0CTxqknn2r8Ms8fZHZaW9GFm6O3JYoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=VlzD26K8;
-	arc=none smtp.remote-ip=209.85.222.51
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oS1XWR2K;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FF4606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:35:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1FF4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B717606A31C;
+	Sun,  8 Nov 2026 16:40:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=VlzD26K8
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-999b2b06bd7so73097241.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:35:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794155731; x=1794760531; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vUMpCh0+ME16WhcfFd1W/qBu+AGK/hHn1T2S4rTNv3g=;
-        b=VlzD26K8SrGNunC/7F1+1qL2zKFYLs7VRim98OHvoJTESTsW4VX08zNaQT/vTHVLag
-         OrMyEXZTEW+/k67T5plFhxnmGPwSPCoMvffgIicU9+Id4rF8dCtmzOJBGyTBFv5gp0Ex
-         MvP3N3+qQHaR/3YHY2z3Xn4TmarvSZGWhlUe9Y3wL3gsFL6cV2yzmGFpOyrPoWB0/Zpy
-         j6+k43jKp6GvlJ8dLZ5GYqc472yx135y+sDubhOP7rV/+YY55T9VUPLaQTPQJSnEbLLc
-         LEQYcB3v4QFZJc40yu6SnwNC61U4StJkgIWobrRyeGVkyX5volN0hQ77m7Z1Ws4GNb1c
-         Af3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794155731; x=1794760531;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vUMpCh0+ME16WhcfFd1W/qBu+AGK/hHn1T2S4rTNv3g=;
-        b=uDSdR/L1CfOHSDIrapw8QYrq9cEj8ba/Nko3Sp6uDP0DF6Dl+5i7xIoswv/obPmDKe
-         0/xl3vTIq/brY77IjrTQ9VsOfWImd4spg6EHgUGk52MGLSsw/Q2Sze1FHmBJSai13L1R
-         UZ3tdtVbopdD495Cfa57G+ADg29tawLrQSX2MZaRAUDjEEKCe3sg+0OzNAd6bhMOHtn/
-         dmsT+AdeaAsfUlJWAoVnTGlUw8qou3ewGCnxUdC0bAWWYhgk58HoUSFIaqZa6tAiGhM3
-         r0fhGyTmf9SU2fxxMfjjH7phTZLST9COPZWdJR5ZMNrVu0imX8loLSyAmNDfpiPsbt5x
-         U9yw==
-X-Forwarded-Encrypted: i=1; AL+hErEZyU4+Ux9xPCm9N0hJAupxFPDcLrJ/ubsb/MH6iE/BBKbqy7cbjkexR2oI4XRkH00DZa1u5TKTrs2GrN8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+naHn9nDyNVfaSLHj/fsoTjfTCK3pOMk0c3EFWCr3pUwYs4Rn3
-	pm5+2AJpz0Fe4CCfPHsHl7k8AN3liWnz2/46YUP4HeBZMaJyTFOstLrPJBpdKlAmzCs=
-X-Gm-Gg: AYBFou2ITUG7MGQNKy4D46cWMwWk/ZjvSiG0RdmBFkLe13hD8bp+OO/cQkpFurjyset
-	BorCPpC4P5PKADrRS2pLBtzUub94oAo++l20cjyrxkiUfXZQrsbcm8HvUUKxPH/+FDVY8nl1rqE
-	tTTEnPEssSor/lJuTVvwb9Y+e2huaYk8SWpcefqlBGKqyFQSwhVlIutazMaXU/zm8Ccf3r5N9Ja
-	bMLz2OzkeSslvQh7zTQwzpMUcwyfyThXZlh3+tdmIkoDQMnLbZBKLm/1buxtfzk4kb64BaqFHUt
-	BZSe5I9QixU+3jW3EhXh0gALjt1fsGLLmUserBNH0plkrZTGm5gBtgyUmMvxDhGkgNncztOg3oC
-	h6byVh7owqlO3vToJL6ebmG2TIEZPvisaW4P5KDprx7XKzkinlvZsD+blWLES+FxlAA/nxmcI7N
-	9eLHF0NPn3GxxtzBSXKcec8tN3WC2+BRhxkEdfI3yeL8/IMWafbq+ZQ/DHkKHfpQzwRvdyV/cTS
-	k2GUNKtjhEV0+FzFN+6MkUwl7DZKR3QUcBNkcuyLUjkMNWTfpZIvZS11nsVPcn3GF+pgiBrnoX3
-	3qbTIyxymKUiTVhbFDKapSsVQ6I/mkn6nib7z849zAeL/H311lSNa8sdvcXKALrWNMrj9XuztqP
-	MB0TchOVq9AI6enrG4OKLpQR8uRPdu5OcrassrXOYkSpOfBc=
-X-Received: by 2002:a05:6102:6b0a:b0:7cf:61e8:c508 with SMTP id ada2fe7eead31-7d2db0bcd81mr562845137.21.1794155730709;
-        Sun, 08 Nov 2026 08:35:30 -0800 (PST)
-Received: from soleen.c.googlers.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d2db5ef806sm2095957137.6.2026.11.08.08.35.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 08:35:29 -0800 (PST)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
- Alexander Graf <graf@amazon.com>, Greg Thelen <gthelen@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Evangelos Petrongonas <epetron@amazon.de>, kexec@lists.infradead.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261023054518.3258350-1-gthelen@google.com>
-References: <20261023054518.3258350-1-gthelen@google.com>
-Subject: Re: [PATCH] kho: check fdt_phys in is_kho_boot()
-Message-Id: <179415569586.625723.12004410702455553565.b4-ty@b4>
-Date: Sun, 08 Nov 2026 11:34:55 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oS1XWR2K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94D51F0089F;
+	Sun,  8 Nov 2026 16:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794156021;
+	bh=Qg44TA9M4xQVsgU9++esQTwRSc5BCFel6jJqsRyWYGw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oS1XWR2KgUtsY9nrSeFZRlEiBJjrNUdF4Dz66WNBglG1fdOpQKm+n9o7iJ+FFWawf
+	 ewxXzC99klbSXc+mT01LhnKBDo1OWw9QS/HvQI7jjsptYY8tWZDhYXkmEe0/nwfsmW
+	 CW1IYIRZ4HRZ2ongslj0N1Werk/gTWxMmnm8SDS04rvnUYT6/Wzxx8N9Pdia4fjNXr
+	 vS4let5TnuBE/H1RG1DNT5wl8WYHPl2lx2wGrMEPV9fNhz+XVcHDYuz1kGVgZ6L6fp
+	 1iKVCVd4LStTUBJQ1ToaBUtoOz3pzzFRpURgl9x/PHUlS37V+2JbdK5p0eNZzH92vT
+	 nX6JHa01WSBEQ==
+Date: Sun, 8 Nov 2026 16:40:17 +0000
+From: Simon Horman <horms@kernel.org>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>
+Cc: netdev-bot+sinfo@kernel.org,
+	Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
+	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: qualcomm: rmnet: bound TX aggregates on
+ byte-limit update
+Message-ID: <20261108164017.GE18859@horms.kernel.org>
+References: <20261031221052.1642262-1-Jeremy.Jean@oss.cyber.gouv.fr>
+ <20261031221052.1642262-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <179348482309.3286.17799482231932078029@kernel.org>
+ <20261108141812.GA18859@horms.kernel.org>
+ <5a28b58c53e167ea8b6e0218fb63f54f@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,39 +65,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=332;
- i=pasha.tatashin@soleen.com; h=from:subject:message-id;
- bh=pntAOEp28rvpPJmjiHSWGEkBLb5e9psS4E+7JdTPPpo=;
- b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq8KTRkK+pdagJG3uuwOjoIOYQWkYDjK1Z7kQiA
- uyff3mUlEaJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCavCk0QAKCRC7dyhM23N6
- 3nAQD/46TScYr5fNbB1l95VJdBlbmbfFCXWVTm4C/4Pc22h6gzpojjQSQyRcS68ZsbRODtMydmF
- QWzNl02NZS7CDiZYXl7kz7ZP0+fIETuQP8kHfwdJB+r6agGnF2lx82uuL6283oNWzVCwJ1RFlyx
- Rx8WsaGF2wmD6e2HW2OxhPevs7tjbytuUautMqdt9bZ2YurWVTcojCDhITzB6RpBW/2ZFMYbToS
- ubEQgkPjY2L4wqvywV5bvWsDwWjwmbHI6wgY5wPghqVm1KztgAnfDm2dRsPGhvftXGw4vta2JI5
- 7AZWqYy8eZTamFmqjlYczr+NG/A4yPm5tKrpe5xnWzIjho0uyOcxOvio1eIZYfQqzIL9UPkEN0y
- m9LnNz5ROzzuYN8uU4ag18A9TDcoMCtLAfzrHk10Xc+G+MkTtKgcqMqSfE99OiYAo5ZWCg9Y7K8
- EQDHDOEljbZgrcE9yZQrfFUcVikND22cEbFAUFx8hqV6mW0qmpkq2PjMyc6iKx/qMPNf1jleIMA
- iph/Eq7sMIqOEojUUO4c6gM98NnbjIEdDIfIXp2zD27fxFURTpSC0admJ06ae8+M+NSzczMCpSj
- bu6i9WZkMBq1lfjIViJunX22yYZ39dyz53PEJGsNz7hRNPEz94UUaROONBl6D/6+JUSpGKjH/Yu
- OSNWBBtibvZWKyw==
-X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
- fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5a28b58c53e167ea8b6e0218fb63f54f@oss.cyber.gouv.fr>
 
-On Thu, 22 Oct 2026 22:45:18 -0700, Greg Thelen wrote:
-> kho: check fdt_phys in is_kho_boot()
+On Sun, Nov 08, 2026 at 03:36:01PM +0100, Jérémy Jean wrote:
+> On 2026-11-08 15:18, Simon Horman wrote:
+> > On Sat, Oct 31, 2026 at 10:13:43PM +0000, netdev-bot+sinfo@kernel.org
+> > wrote:
+> > > Hi!
+> > > 
+> > > This is an automated message. This series looks like a fix, but its
+> > > commit messages seem to be missing some information:
+> > > 
+> > >  - How the issue was discovered, e.g. hit in production, hit during
+> > >    development, syzbot report, manual code inspection, LLM or static
+> > >    analysis tool scan.
+> > > 
+> > >  - Whether the issue was actually triggered, or is only theoretical
+> > >    (e.g. found by code inspection). If it was triggered please include
+> > >    the symptoms, like the stack trace or error messages.
+> > > 
+> > >  - What hardware the change was tested on. For driver fixes please
+> > >    mention the device (and if relevant firmware version) used for
+> > >    testing, or say that the change was not tested on real hardware.
+> > > 
+> > > Please do not repost the series just to address the above. Instead,
+> > > reply to this email with the missing information, so that reviewers
+> > > can take it into account. If the series needs another revision for
+> > > other reasons, please include the information in the commit messages
+> > > then.
+> > > 
+> > > The evaluation is done by an LLM so it may be wrong, if you think
+> > > that is the case please reply and explain.
+> > 
+> > Hi Jérémy,
+> > 
+> > I would appreciate it if you could take a moment to respond to
+> > the questions posed by the bot above.
+> 
+> Hello Simon,
+> 
+> Sure, here are some answers:
+> * The bug was found by LLM-assisted code review.
+> * The bug was triggered by a software reproducer with a KASAN enabled
+>   kernel under QEMU VM.
+> * It has not been tested on real hardware.
 
-Applied, thanks!
+Thanks, much appreciated.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git/log/?h=fixes
+Overall this looks good to me.
 
-[1/1] kho: check fdt_phys in is_kho_boot()
-      commit: 58c5852ca96c58cdfdb9646870b217fc54d06a97
-
-Best regards,
--- 
-Pasha
-
+Reviewed-by: Simon Horman <horms@kernel.org>
 
