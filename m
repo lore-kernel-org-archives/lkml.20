@@ -1,115 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794179668;
-	b=4ApXv3dJ93R/Cq1mL6KNt+VVQzu4WwvhCUzUfhjkHGbHVKpGBr2xXkSJj5BjR1fDM5zb
-	 cmJi93kuiSIPqYuPFfby1Ty4GU0pgp99Wd+JcQZoL/E4nuxBw8fVbdEtcGtztrQuumon2
-	 KUB+nRJNgM4Kw1ptGq/Pf05wUdUU21dVUB3K+tunLnd5wRkvGd1gFWtlOJ+R+ERf7vslI
-	 RPMbqzeIVV4xGyTKLWBO6M8CN2RsoLiyNk20Pz9g0I5Vlyp5u6p89LkG0G6rggxnEr8Gh
-	 Flhv03vLtCa3j+22SKT8N4datq36Vks0uYm35L0wpN4wcY1+v2wHvyi64zqHNoTkt2Q==
+	t=1794179833;
+	b=1TzZiPL1a3lXKiAkI5Uqx6PnwJCayuEBh/0ez5jUYcJZIjR0bv/LwudShj3jgBqwgCqC
+	 tNmcahtROL5eGkBr6Bc6Ih8lHaJCGDva91+VTl9apRKKkj1ELXg5ifhw8ENeEc6g00h0f
+	 LpSZmn+0/BMhqAB5Vtf51Hcpm81MyMTbdnT99QqWNK6VEXYUeOWkMl0fTMKltJZP7fGvV
+	 0rgrVRbOgV1TbBFKmoIfCKnICoxh5X9Wutbeq8ed/fQsJk2js8D/70jpMbJCZcEmpngVY
+	 c+EfjHVjmyV/f8DIbENzAumTzSdHF0xqK89ndx1Qqm91sVjI1djXdTMvkFdTeSeAceQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794179668;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=;
-	b=aCM+cQ3872vb9qnJ9cTZSG0WmvDBkreLi8ktdOTeXwrJ38Pq0ojS/NOVzCVR5BBz+dpo
-	 GGVn1TGuebfST0J7H1ye7+gGCYDw0MpesxR9JIndBKNtNiWN8zRQz+iTrRMXRaRM7hStX
-	 gjyszhbxXd61vzi3VNv6xD39H8D0APTkaTGxWnE+NEik2JR8QNCULTFGM1lRbG6i65sEE
-	 1LqsCS0VgdDpV8jlXPSVKaQY4qS6R75yV5z+7+608MWJPgj3TKgSIAHYkXDHaIxJ7GNHQ
-	 QzEgkgr8VxR1FKBJNGNPZAGvDVtgxRx/hRp8j5ki4B9aEcvdCF7TaJfxUPGqrZpNWcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794179833;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=C2reihoSd8+x5X3GrAOxEQiq3mx4R4XS9zazh7fb3Us=;
+	b=iKjVfM/fO1m1z3hgJTNXSaD8i2UT8rqYQDCz05zIYJ2g22Gszsx8zCQARBVEuWaBWkW5
+	 kEyaLq/UxuX23tiLYQRGBz7CaXJv/rGqXWSRMdKEqeTcU3jD3gh+UIe8jNGCiHAeRNWYP
+	 +zPpeMLCp6fv8ApV0p0H10d063PXvKTCwlPDrSlMJ1/0lrMcxmZ+L3AIjaSZgX+ijXUGQ
+	 WCejvaSzkj75Xel/KcYDN+y/KJ/Wc40BP+ZuGrbN/uODF9/3bAAw7XEZjppHHA+6q9c70
+	 UwefYwOdyadkEWchRVFkIEnr6QXj0q+OFnAzCstfsRuBXLXrf2oaFgxHd20VuSCU50g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b="KwuWbxw/";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=X2P1bdvb;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jpGUSey5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA557606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:14:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA557606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B17F606A31C;
+	Sun,  8 Nov 2026 23:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=KwuWbxw/;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=X2P1bdvb
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 67AA31D000D8
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:14:27 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-01.internal (MEProxy); Sun, 08 Nov 2026 18:14:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794179666;
-	 x=1794266066; bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=; b=
-	KwuWbxw/zo5TLrD2TcYvheNN/qkTpIVJx+2rHWLGVioQsfRkj685yibqOrrvSz0m
-	40v9gg+I055zObbUdZTVm+XGeqqvDi6VxzpEPn5wNt17cxvL+tZLCWVomN2YuVYw
-	9rGghAxaN0H82ZOmlyWdmma5ulGYhsKzG9wlZO7gPUQkulL3No5h1ar0f6QrQ0Z3
-	kavXLZ+CILHL4N9cAEEhKlresJsgiY9VIOCt8UfqJ/hP1yXySr14AGZclPwhQJq1
-	PZKsfUag+SHY37cJ1b9FWyt38Bwf8UNnY6MTW7AhWLVc7gUSLDZ15zvyDV27S0Cd
-	tmFrX8i5EliZia0g0bzHiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794179666; x=
-	1794266066; bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=; b=X
-	2P1bdvbQyaENQwR4FX2wXrWhFGKkE785tadR6ZvnFQ6mNGlS2obqXaoU1J8+HR18
-	K9t/5GWY5xM7QRabjotWO3EK5r1O2dDVXAG4kwZJslBKRCu5SJCPDxI7ySvlTn9N
-	f4EfR/rCZM8iriHUBmX+NllE+7bdYHq9pNfrMyFOqCIt16dZlupEhYfF7afJ1Ede
-	X+afkJpHFxQOOH2rQUZforbo5COOBvVqtWo03XvL+arNitQX3MRrgHnlZW4j/aXw
-	WAIawD5IidM5qpQSJxT2vMJheQNMovOS/1xkmmtPlW5Bf8sW4pJHmo9BOJT0jNTO
-	PZGBMPNKRkgz5yE9dccog==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794179666; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:JKtc+y4mDbFLNB7loK3IRZFKm9nuc6kQ9y0hMumcY/VKsFV
-	bB6ltUrPJfhx1hg6g3RU6x4HDozJ5ka25Ycl9zCUybXbe7TbGyctjqehlv1KxLxF
-	kD2grPJlUPKC4ThLNVqKxq4WW1U6PcVfjHsUrloJpNcfgG+rtZu5MyugPCOzrABU
-	+ZXn+LjhWws02meqifG41VAQ9/jM61gQ/h+hSP3VfNV96ebUBCp0CP6lJ8zF92vv
-	mJVytRa3dRaVCMYGIMA+1F2WOdJX8uhg8vegMvH9LJXQUeYE3eb60oqIrEmXRTo7
-	ykAO7lrtXMqeD4UchC9giQ4K5XQiv9cv3dMtEKQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:wy5u7/1MaRfs0p+iCHyBGgZdTfbVRHkS3B4qkZoX5fs=:22a1v4R3sAKcl4JqYTnxduwYEnj56hUDUbWWFqEiG6s=;
-X-ME-Sender: <xms:UQLxav3t0VLfuUkX_KpEq_uLQQq1ul4Cbz6InmOBeXBqXTQ-Py5MYA>
-    <xme:UQLxaudWfnQ98waFXqnuZkV-XVCB045yUlQ-y3qKH06NEs5vuLkruqCh5px_jhZtp
-    znt5AuRz6lJq04UFDbGiInSteypauxwEIne4al-b0L-N1CM02irt2Q>
-X-ME-Received: <xmr:UQLxahCYjAnaYot7SSkLPTeeGfZxFtsdiziAwL6M2ELzmauHEDX0Rh3200ebwJ5CZVH4U2QKdIlRF3U9swFPNUjvV91gkOi_>
-X-ME-Proxy-Cause: dmFkZTEobYK1tOekNqVcRoyz46yFPQttzPtHZOkE5HGQvatBgJILl7eANID4IzPTfJdUdp
-    7lRTRVKafPfvdv2C2D5iL3BBGJcBS2ZS9uCCBIgy9W7bM3v+yU4vqBYLYdJFvxwCDN+hU2
-    UhPeo40p9ycN04kyVW5Cpyt3vxYIyhVYaqhlMIh3b4ygMgrQ8LV9IehnFj1IEOROX9FO2b
-    OID9LPD1Gejnf5U+TwOyql+xAwBj2z4gyJhN4Ua1RlkckZ1sIPOTFSuBufrXInWv2BFzTg
-    5b+cf2SuERpEOoJAQ/4hTyus7FQtCAFqs1iffrupU5mMDAZ+mv1RF8IEh6TcNQWgSzMDp2
-    t9PotslwPd6QXg/A09izOaJWVmRn8jN+bUcpb2RTgtynov5bm8yDf9kodr2bpaGmsciVtx
-    clmCao4BHHzufX1ag0DS761SCVkXKWgy7Nm2+POjvCe4wFrJHbo20i5ysaxnj8lCRGuKbi
-    VC0przaQ6NSu1O3a/RXvmMgjkAH9AsiT+0PPn/9Vtx0opGG8QekkJIytxz3QwJi09cdZO3
-    gOoPcUF0HC2dCPPaVIU01M7t5nGdqnGwgwFAJwhZU5B49bk5OL4S+Et0ffH17aOiS69/9/
-    QG9eGYQflUXIgURzyJQdjKvT9hXtspQ25iz+LqpvcJsMBWDI0t3ubyytNLIg
-X-ME-Proxy: <xmx:UQLxag3QDA6k2_AhbXaFVBocCMQjZ8TLwXluL4IoWAhm7OZdRQ-CPA>
-    <xmx:UQLxahNIiytpZaIIoR_mxe_D_17AZzx1QCgxOZ-czerH0js2AMnV7Q>
-    <xmx:UQLxaudpTkMc6ZUc72KgfUBlsTOUe5WSkZ5V1dc7-vwIqu7X5Ay29w>
-    <xmx:UQLxatM-olQK6wwhliSmIFTe83H65vJBMhhBQQOZ_5djk0pnQeSQog>
-    <xmx:UgLxav-7w-Iu-d_gyjeD1lCT_SD5iLDvqMtwo8yztICtDV13zMwVtqKu>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 18:14:23 -0500 (EST)
-Message-ID: <e9380707-ba1a-4728-8abb-7b1e0335f3db@pobox.com>
-Date: Sun, 8 Nov 2026 15:14:22 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jpGUSey5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3A21F0089F;
+	Sun,  8 Nov 2026 23:17:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794179833;
+	bh=C2reihoSd8+x5X3GrAOxEQiq3mx4R4XS9zazh7fb3Us=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jpGUSey5vvxY92S+HSf4OjpfJZrKayxou0qil8Xw8HI0KUYAGMdJ8qvI5skRIcVqJ
+	 V5OeCHHEYJ3Vf7jlLwQ00IKnbUyWU+PCNZ5C14m/P6TfbC4CerkGeqUBMWvt/9CSU3
+	 vOzZ1fPI7/x4s7fTfR07RFmFucr1tUU/gKar+9Xx92BCNdmPpYjJV2UMvcEC5enA99
+	 Jx1lPLuRKGwGKwbC2/W88g1DCeh6wsi5yzGUV/QN8NRyP61gx6Tuvw15s+PLAYb0jk
+	 qoWrt82mORcGdsnMmq+Iuo9quSFeAd3RLRtXGLGwClBr0T9S2hIDA3ZcbAEC6UE+kw
+	 AHaXbFVtg0DeA==
+Date: Sun, 8 Nov 2026 23:17:07 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Carlo Caione <ccaione@baylibre.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 6/7] dt-bindings: clock: Add Amlogic S7 peripherals clock
+ controller
+Message-ID: <20261108-resurrect-mumbo-10daa7ac0cf0@spud>
+References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
+ <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
+ <20261106-unwilling-preoccupy-156dbb310448@spud>
+ <au4p0xYEFkgEU6T4@macbook>
+ <20261106-headband-buckwheat-fecbd459ee85@spud>
+ <au5RoF6BooP14xhY@macbook>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,51 +73,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-To: Sasha Levin <sashal@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261107134939.434104957@linuxfoundation.org>
- <f65916c7-470b-4f64-84d1-da8cf4c8e7e8@pobox.com>
- <f6e0e225-a80e-49ee-9555-be300f169503@pobox.com>
- <20261108-rc-reply-02-xfs-sched-ext-7.3.4-rc1@kernel.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261108-rc-reply-02-xfs-sched-ext-7.3.4-rc1@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hSqhUowhvI7bmoOF"
+Content-Disposition: inline
+In-Reply-To: <au5RoF6BooP14xhY@macbook>
 
-On 11/8/26 8:44 AM, Sasha Levin wrote:
->>> 7.3.4-rc1, 6.18.63-rc1, and 6.12.117-rc1 are all giving me the same build
->>> error with clang that I previously had with 7.3.2-rc1 and 6.18.61-rc1,
->>> due to the same xfs patch as before ("xfs: cross-reference the primary
->>> superblock"):
-> 
->> I took 7.3.4-rc1, reverted "sched_ext: Fix the stall watchdog testing
->> and blaming the wrong sched under bypass", and added the fix to
->> initialize error to 0 in xchk_superblock() in fs/xfs/scrub/agheader.c
->> (quoted above).
-> 
-> Thanks for testing. Both problems are now dropped: the sched_ext patch from
-> 7.3, and "xfs: cross-reference the primary superblock" from 7.3, 6.18 and 6.12
-> (it had come back after the earlier drop).
+--hSqhUowhvI7bmoOF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I took 7.3.3 and applied stable-queue as of commit
-39e32a361d2fca269cec12e8669e2bd3b84844d9 ("drop 24 patches based on RC
-review feedback"), and retested on 2 of my amd64 systems and my arm64
-virtual machine.
+On Fri, Nov 06, 2026 at 11:27:38PM +0100, Carlo Caione wrote:
+> On Fri, Nov 06, 2026 at 20:48:01 +0100, Conor Dooley wrote:
+> > On Fri, Nov 06, 2026 at 08:34:37PM +0100, Carlo Caione wrote:
+> > > On Fri, Nov 06, 2026 at 17:34:14 +0100, Conor Dooley wrote:
+> > >=20
+> > > > > +    #include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
+> > > > > +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
+> > > > > +
+> > > > > +    soc {
+> > > > > +        #address-cells =3D <2>;
+> > > > > +        #size-cells =3D <2>;
+> > > > > +
+> > > > > +        clock-controller@0 {
+> > > > > +            compatible =3D "amlogic,s7-peripherals-clkc";
+> > > > > +            reg =3D <0x0 0x0 0x0 0x49c>;
+> > > >=20
+> > > > What's with the weird numbers in this example?
+> > > >=20
+> > > > Examples don't have to be real, but when it looks like this the
+> > > > immediate thought is that the modelling of the device might be
+> > > > incorrec.t
+> > >=20
+> > > The numbers are actually real, but the example simply lost their cont=
+ext
+> > > because I copied the node from the S7 dtsi (not yet submitted), where
+> > > the controller sits under the APB bus node (bus@fe000000) and the bus
+> > > ranges make the addresses relative to it.
+> > >=20
+> > > 		apb: bus@fe000000 {
+> > > 			compatible =3D "simple-bus";
+> > > 			reg =3D <0x0 0xfe000000 0x0 0x480000>;
+> > > 			#address-cells =3D <2>;
+> > > 			#size-cells =3D <2>;
+> > > 			ranges =3D <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
+> > >=20
+> > > 			clkc_periphs: clock-controller@0 {
+> > > 				compatible =3D "amlogic,s7-peripherals-clkc";
+> > > 				reg =3D <0x0 0x0 0x0 0x49c>;
+> > > 				#clock-cells =3D <1>;
+> > > 				...
+> > >=20
+> > > In V2 I'll use an absolute address for the sake of clarity (PLL has t=
+he
+> > > same issue).
+> >=20
+> > Before you do that, can you please share with me the s7 dtsi? Cos surely
+> > you've got it in some git repo online somewhere.
+>=20
+> The S7 dtsi is already upstream at [0], the peripheral clock controller
+> and PLL will be enabled in that DTSI with a following series after the
+> bindings and the drivers in this set are acked, following the diffs that
+> will be submitted:
 
-It's now building successfully and working well, with no regressions
-observed.
+Right. The device does seem to have nodes of odd sizes and start
+addresses, so this at least is not making anything worse.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+--hSqhUowhvI7bmoOF
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavEC8wAKCRB4tDGHoIJi
+0kSzAP9D+07DueUyQidEmOTviYikdTVwB4OjYhIW3eDHUkvnNAEAw27P7rZuFiZP
+JlFXjpIzLkFe/xvXdJ5/TibIL+soSAc=
+=F15I
+-----END PGP SIGNATURE-----
+
+--hSqhUowhvI7bmoOF--
