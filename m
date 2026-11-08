@@ -1,64 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169522;
-	b=e8vfr6uNa2aMqACHLmh0iojWY1ADfAEQROY4PQFCv6POjBBrXV8TgK2VEc1zRaScuowd
-	 YT4DR1FCTE8IhEeb40/sJ1VX5VCzfZF9KGfxaM4PDUIV+erDq/lDzg0x4N8STjMXyrIMg
-	 235/Rspou8X6EelH5PkVV3zfwl9WaIEEb18n6mPcB0YmxQhh4VI153fX94IEkxCpG0xeL
-	 /vgv/2D4JwYbidCMCqWM2yQ9YaaQQwlvl5EG7TO0zQWMX76+pu0/abDD2I5xkUn2yqDoO
-	 iYsFfr9CgDuT1iTXpMD6c02V2Qk5Vig9qhU2FIxJKpRgQ3XrZTXrqzhzrOHeE92nyOg==
+	t=1794169524;
+	b=ZoikITUxYYfhMDaMO3Tk055kgPD9xtq4UNJwfa78EYGITKzWQQbH/1QEE3JoXMzWE2Bi
+	 59qn3Vfxk8BrvTm52r8Yg4lFRorn6dfcLO1CGtkXN1Cb4T8fLu9q1cB+OybZ6/MdIqPDq
+	 veS+kuWHB5jCWeETp1LJTqnhfDCW4tmnGojefX8oh4RXK+TBB3GZ9nCwvzwmwUJK4tugg
+	 QqJcx0Zw03+1PPx4moSTQlKf93A0+9wucl8H/OK7TA4/XWhTHGQjfEtH3C94B8fEHCc50
+	 ZoW8Mj5pVCm9EXZ8U5rs2jmV9viFpBIZV1qJOSyxocl/ZCm7shXX9k79elXXhtXJOng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169522;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169524;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=vEpfVgvWDM4KmL55CE5daC+CQd28CbR4NeJ6R77tUa8=;
-	b=wzOLCXXGPEz+p2BTz+r8sYhvLqtXlaezIR8+WCQ7hfki8ceXmrVRQFn/DBgOYzW4ZzL9
-	 p6EE7SROjsyTLx6Xbksen7GoNa4IylEOZ0oD6PYa/4FhT1mEwExnPGf9futh1ulEE+JCN
-	 YYrF8ITHnCESQamcyEHJdxWkxLoQNAE6JNPlo2K4Q3jL3jl6hV6LFxnPoKluznVsdJU9d
-	 0MLW1uEhX/yhyat/+oWMDwOBy12etzYkI1vekoZxOgapi7h6v+HDUgKs+v4gV+lESXa3a
-	 9qRy8s7ESVJCMhGttN935GwrZlER5+er89Wrfb8pOAln3vLWmt1bzPApLW6/Ea4Wbwg==
+	bh=h+YBdfasWpLm6Da4YFjegeB5DsXOdDZJeYTsCIItuZk=;
+	b=INbnx7ql87ScLfas3W7n65fXIzRyQUbc5KAmJYBSVaSdJQKecNgppptn0s3CUaqY1uve
+	 szh7kF0ftdRP1O+6IVZjbiLUQ3EBXQjgObO0FNFvQuhTtMA2wJmwNxpwFRkLnlMafZ2ve
+	 3Ylv0IImzChw4sdNWPXQXEMTGVZBAQSBqqQ88IOeRkj7uHX9cmWmcv7XnvunMrMGV2CvP
+	 6zRwns373HN7XsiEe9NrG/VvWcLxobHnay87ayDbrDpzpaRIp05zaMGd/vD4sJmt+TDSS
+	 q0XA2ImoBmnR6ppf7QYQaB9Tn+vnyBoV4wzvCD5A48M6LxmfSKo7ZqFGkfGNoDznPBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wccb2cTa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jgg9ZHRt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BA76084EDB;
-	Sun,  8 Nov 2026 20:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE6E606B11E;
+	Sun,  8 Nov 2026 20:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wccb2cTa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF8A1F008A7;
-	Sun,  8 Nov 2026 20:25:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jgg9ZHRt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931D21F0089F;
+	Sun,  8 Nov 2026 20:25:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169522;
-	bh=vEpfVgvWDM4KmL55CE5daC+CQd28CbR4NeJ6R77tUa8=;
+	s=k20260515; t=1794169524;
+	bh=h+YBdfasWpLm6Da4YFjegeB5DsXOdDZJeYTsCIItuZk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wccb2cTanQU5RcxsSs67G/KCxeoLHJ0+fvEDoloNNHWCPEqJVK9ONMQxf5LOd7XkJ
-	 1zvsZrzrFkc9TBVtHI2ylaKfgRe+/hrR5ufIIf/Jhfig44jqjkJdOLYdy6lyvXfv+c
-	 VeXCxRa7rjAgPhj/ZNkJ0sMnAJmB5PH6ueaVu8RCrvFxkC4K5ILc1gKf19PW69Hjtw
-	 qZci3QAoVNQinY6JuJm5y2o+1H7eZ5vrs717AchvU5fdXEPihYb9G/QFM55lCd6eV9
-	 CbDZJBcfX5q2lXwC9FEtpDyaJEU9IRJX6ChSgvIwFKGiXAWrh/QRg/StxEbrj7C9d9
-	 v3pFgtcOqTevw==
+	b=Jgg9ZHRtp2aFb1ctTf+1WzewU4bqbjl6oJzdo5K92bObWbIna6Gk+KnT/QhnrUXxn
+	 wHgdcERK1g12NFpxAU2P0XcitIojeBmVSER1cVH3HEbLlPmQhI5AKQ00zKxzydkFtw
+	 KoEvodnpAO5y1SBaCTflFDyQG0wvwcblYKREkjc12BSxOZJBts/l9bzsAw2YOTACrx
+	 v605wfx5Ee3AM/TYoQVcEujpYWjmCmXFhadXPAEKyy5xx9c2KI3UDdF9jBjc2e2C+N
+	 BLxOQDE4Jeu1GSNuHG8cJiu0hQDuIrT0J3N81mBrHACz9JQfIma7SfYAvzUC19X5cT
+	 tRR5OadNErIfQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Zhiyuan Sheng <zhiyuan.sheng@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	tingwei.zhang@oss.qualcomm.com,
-	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-	Ziyue zhang <ziyue.zhang@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/2] Initial support for Advantech SOM-DB5830 board
-Date: Sun,  8 Nov 2026 14:21:40 -0600
-Message-ID: <179416929274.628393.12037192351352245383.b4-ty@b4>
+	cheng.jiang@oss.qualcomm.com,
+	wei.deng@oss.qualcomm.com,
+	shuai.zhang@oss.qualcomm.com,
+	xiuzhuo.shang@oss.qualcomm.com,
+	jinwang.li@oss.qualcomm.com,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: eliza-evk: Fix M.2 W_DISABLE2# GPIO polarity
+Date: Sun,  8 Nov 2026 14:21:41 -0600
+Message-ID: <179416929520.628393.9104719158063560519.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928-b4-hamoa-come-v5-v5-0-05940cdca85b@oss.qualcomm.com>
-References: <20260928-b4-hamoa-come-v5-v5-0-05940cdca85b@oss.qualcomm.com>
+In-Reply-To: <20261030030906.3856759-1-zhiyuan.sheng@oss.qualcomm.com>
+References: <20261030030906.3856759-1-zhiyuan.sheng@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,34 +76,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 28 Sep 2026 11:18:47 +0800, Yuanjie Yang wrote:
-> Board layout:
-> +--------------------------------------------------+
-> |               SoM (Advantech SOM-6820)           |
-> |                                                  |
-> |   +------------------------------------------+   |
-> |   |     SiP (IQ X7181 EVK SiP)               |   |
-> |   |                                          |   |
-> |   |   +----------------------------------+   |   |
-> |   |   |   SoC (X1E80100)                 |   |   |
-> |   |   +----------------------------------+   |   |
-> |   |                                          |   |
-> |   +------------------------------------------+   |
-> |                                                  |
-> +------------------------+-------------------------+
->                          |
->                          |  Plugs into
->                          v
-> +--------------------------------------------------+
-> |         Carrier Board (Advantech SOM-DB5830)     |
-> +--------------------------------------------------+
-> 
-> [...]
+On Fri, 30 Oct 2026 11:09:06 +0800, Zhiyuan Sheng wrote:
+> The W_DISABLE2# signal of the M.2 E key connector is active-low as
+> defined in the PCI Express M.2 Specification. Fix the w-disable2-gpios
+> polarity by using GPIO_ACTIVE_LOW instead of GPIO_ACTIVE_HIGH.
 
 Applied, thanks!
 
-[2/2] arm64: dts: qcom: Add Advantech SOM-DB5830
-      commit: 5fb1997399eb2e27086f1cdd160a120314358f1d
+[1/1] arm64: dts: qcom: eliza-evk: Fix M.2 W_DISABLE2# GPIO polarity
+      commit: cfd8ac5860d6f528239121aa5bb87d6ed8c20d7f
 
 Best regards,
 -- 
