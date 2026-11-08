@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794128677;
-	b=XL+Cu4D3Pila2/3aQL4/5HFKIao4MVO3fZhvet/uDGYemv98CTd52ChtsDiCcLluQKGB
-	 oeMcpCOTWe3P2ZOBKvV61tGewWKzniTQWGe3kuECytPbP27Ox6Of8OI3g8YYv1egv/7K0
-	 r4ojxQmtEWoAfAlB8PrM18s4pM8KNDIbTUjU14Tp2fF+llcmjvVsuwaEu2nwQjJ+hcA2o
-	 gTQ+n2U6ytaJobN91wBLvxuX5lg3AUrW+6JG7oMfAw+bAHJ791hGoCDyZtNZcWODZyVPt
-	 kJRueMUdKHgG06mBzezlUAz1Xb3cRQsnO4iNSxGLwHzeriE5kbq2MqjZPLyOR6+iajg==
+	t=1794128678;
+	b=f1d+keTotNXn9oI/88gnxJ0I+vrkXaAVrhAyMuuiEH+anxCMZsmlpYV53XJoyew5zxHf
+	 05bQ7ibjBQWdlJd/2td31hchIVFlrnv44FfNQQcOjEdHZxqX1i3ZxniCGeIYgfP0LcMJH
+	 Go6eYLsHrg3uQI5Fn3AaJaM0MTL++06TKmPtzhorFFNG2td2B0rvdM3THXm1KnRBgK8/+
+	 pkdfF4IUmzS9LDdheyRu6NBxo4w6SBKz/+2twYm8gLSLXEWzglrA1vYY8e0Y0xSFuPY7r
+	 oh5rj+djOBIZjMdK+0DYqYQ5cteWpx7lgW2M41oSZpPoUSnnogwX+dQ+pT2/YAM2Glg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794128677;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Queue-Id:X-Rspamd-Server:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=g+uPuVo7hdDQxbdPOA+21fd2Xo9/nEzItzLhxNDIk0E=;
-	b=VwahmxIzyn9A6PU1zQrFG5920NhdaapKU4+Xl8fqQUAeqBqrwqSxH0qP2vxW1i75EgGp
-	 hXzt4D6W6iyQYRpZlhgKg9hgz3CUCCG8P0jCBbEKEqE0sU+nolmNZRZF3Cdgq+Mb28G0Z
-	 EH94WfiZTURq8/ko4LIKKRjH2IBbrUc1wCGI4ARp+gQdUJevPFJqP0Owp1r8vwusW+Bhr
-	 lfT0Dnf9ypbD/62ayZ0HOAA8mwB2Aeb4zNIzMxD/7ijb4mP1oiWlYUJQcrHpAt0Z6xZy2
-	 /yG5fO69AaAcNUFiLfocVPkp42Dn4BY0Iz4Hq2clFLl09DTzJz36DqCh5tbH3g4PLyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794128678;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=9Fekj84/ogn/fq4bKg6J4Il6J5X5oZC9LiyDjaHRbcE=;
+	b=gWX6dz+eRP5mgWC5ZxZ0Jxfaj8tZwBV/1mwIW6dpru/ROjABgeFsTXbvwllzMVvn5h4e
+	 xLBCR9scZNlgiiCSSYwe+4LBxTBratww1/YJsFxbvgZPdxQERpXAWKM4Cmq/Ps/dXIwRj
+	 6VtWBrkrtmdFlqvKYUs2Fgnpx2vef/CGFdvU1DFpmTsh7yBHGsJmuhoUJikITWsk0bnAu
+	 TB6NGE+3f66JoKisT+qskzgQC4tD+IL+2AZN69HLxhLXRTaX6pzsZFCzbgafg5+RoIElL
+	 AHDxhp9hu5w8LHTiWUi7guYqL+oxVwySJBEPWpNcQ7ewJ6sCxsmnb0op7rD8Y0+rD5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmRapOy4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D35606A335;
-	Sun,  8 Nov 2026 09:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D35606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 9A22280465;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8525C606D807;
+	Sun,  8 Nov 2026 09:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmRapOy4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AAD01F008A4;
 	Sun,  8 Nov 2026 09:04:35 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf14.hostedemail.com (Postfix) with ESMTPA id A5B902F;
-	Sun,  8 Nov 2026 09:04:33 +0000 (UTC)
-Message-ID: <671a7f6bda4ec81f56e3eb7ee287bce4a96b9d5d.camel@perches.com>
-Subject: Re: [PATCH 0/4] checkpatch: improve exit criterias
-From: Joe Perches <joe@perches.com>
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, Andy Whitcroft
-	 <apw@canonical.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Date: Sun, 08 Nov 2026 01:04:32 -0800
-In-Reply-To: <20261108-checkpatch-fixes-hash-v1-0-d49b3085c20b@oss.qualcomm.com>
-References: 
-	<20261108-checkpatch-fixes-hash-v1-0-d49b3085c20b@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794128678;
+	bh=9Fekj84/ogn/fq4bKg6J4Il6J5X5oZC9LiyDjaHRbcE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=lmRapOy4NqvhzXhzk7xPJQXImpvxDVibo0juEmmKPRV1XVxgLZY8T3VnhUYswyGbg
+	 Oa67RyP3lSP8LT+koDXLye5576tGYWzDdfFdBTBh5x/DJ1S/JeHRmkyWiq5oEFdSB0
+	 4Xlbt/BW7blWhz6RrewuCbCik8OKgsJrz4z2b5LnwMRjbim3miA/LOxTsm0yqVLaBy
+	 mgLQWIsmAVkFXAj34xtzQzWfwwOCVfrLTn2MIzc4+q1sty415nctK1SmLgzsgAAfCs
+	 wccjt+DMBSYV949bSTu6RJc65l5z3snium2a4QclzAApshdh2GVHl+k8KVGp4k5Tbp
+	 lua/ZKTVx+rYw==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Sun, 08 Nov 2026 10:58:36 +0200
+Subject: [PATCH 05/14] s390/sclp_con: Replace get_zeroed_page() with
+ kzalloc()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,19 +53,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: A5B902F
-X-Rspamd-Server: rspamout08
-X-Stat-Signature: gmbmb9drrituzxrzi86i834pzj96o6r4
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1/zxib4s+/H/4MC6B6hGX7GC5VUPIHsRDg=
-X-HE-Tag: 1794128673-423947
-X-HE-Meta: U2FsdGVkX19k4dYIRe3m9MiVG2RJQEukPdiYBS8Tdcfp1YV/9KMlonnYfRUUgkEug9XY3vC3BO17h74vH2CTW2TyxK+nZvcCu84GT3gm7aIN15wYmSUqWG8I7Cx0O8U4ULBWAkOaAfGm7d3D4I95FSrpYHK2LhhyX5eC8KOq21h9Akp4iE6sbpaQryiXbWqXIcRu9Edlzze0v/BwKiwxmzeD5VeNXry4DZ3SPxGL/vZoX2EMNZBu77FIHxGHcPhXL2XNg7t7AsIgAATeKv2sIqbt19mOad6lR4pQ3AbpOTMBpaIjxgaAAZSzmWFtynYvqm/5Y47v3NvH7XhVQBQ1RrLfOPQCf4IZ8jwNY3bMvhM=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-s390-sclp-ready-v1-5-3e7c90eb6676@kernel.org>
+References: <20261108-s390-sclp-ready-v1-0-3e7c90eb6676@kernel.org>
+In-Reply-To: <20261108-s390-sclp-ready-v1-0-3e7c90eb6676@kernel.org>
+To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Sven Schnelle <svens@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org
+X-Mailer: b4 0.16.1-dev
 
-On Sun, 2026-11-08 at 04:21 +0000, Bjorn Andersson wrote:
-> When invoking checkpatch with the --mailback argument over a range of
-> patches the tool unexpectedly exits successfully on the first clean
-> patch. For example:
->=20
->   ./scripts/checkpatch.pl --mailback --git v7.3-rc1..
+sclp_console_init() allocates the SCCBs that are used as the output
+buffers of the SCLP line mode console.
 
-Why is it useful to do this?
+These buffers can be allocated with kmalloc() as there's nothing special
+about them to go directly to the page allocator.
+
+kmalloc() provides a better API that does not require ugly casts and
+kfree() does not need to know the size of the freed object.
+
+Performance difference between kmalloc() and __get_free_pages() is not
+measurable as both allocators take an object/page from a per-CPU list for
+fast path allocations.
+
+For the slow path the performance is anyway determined by the amount of
+reclaim involved rather than by what allocator is used.
+
+Replace use of get_zeroed_page() with kzalloc() and free_page() with
+kfree().
+
+Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ drivers/s390/char/sclp_con.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/s390/char/sclp_con.c b/drivers/s390/char/sclp_con.c
+index d8544c485808e..9d096d7b59687 100644
+--- a/drivers/s390/char/sclp_con.c
++++ b/drivers/s390/char/sclp_con.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/kmod.h>
++#include <linux/slab.h>
+ #include <linux/console.h>
+ #include <linux/init.h>
+ #include <linux/panic_notifier.h>
+@@ -272,7 +273,7 @@ static void __init __sclp_console_free_pages(void)
+ 
+ 	list_for_each_safe(page, p, &sclp_con_pages) {
+ 		list_del(page);
+-		free_page((unsigned long)page);
++		kfree(page);
+ 	}
+ }
+ 
+@@ -294,7 +295,7 @@ sclp_console_init(void)
+ 		return rc;
+ 	/* Allocate pages for output buffering */
+ 	for (i = 0; i < sclp_console_pages; i++) {
+-		page = (void *) get_zeroed_page(GFP_KERNEL | GFP_DMA);
++		page = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 		if (!page) {
+ 			__sclp_console_free_pages();
+ 			return -ENOMEM;
+
+-- 
+2.53.0
+
