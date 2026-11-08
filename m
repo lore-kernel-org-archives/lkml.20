@@ -1,107 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794138454;
-	b=g0uftxEqjX2qXGEOObQmUhOykXENKnniIfYpFwM4r3eowjV/BHTlRCJd6wBt97aSmbbk
-	 swGYt7PlqB1pQPp4F8vf49TEIPI4gZTp0YH21LVylboqYc1tnByGmS9VCTZdGZnIawVRF
-	 QCbABtokdEcx9ZoudcnGmL9Bt/muGz8Oel8t1GPQGtL693RsArj9ogp+QXmsMwLdC61vB
-	 NPlWaMb7P54rgt+o1R1V6Ck5N6gx5fbDZ4vEd09CmW/QK6ZARZ1CvwEAlX+taZt3EAY8l
-	 i5CAlb2Nn7TK9C307E9hx+R0AuSPyI2EGm+61GITVtSGhfe86F7neEyI3K32Dwuxwuw==
+	t=1794138459;
+	b=z1ST9Y9dJzEG4ermGB6hxMzwzDrs+x2Rev9tJoY/tAJqMe8gfrbzJuCn85HCGeBaq1yW
+	 /3TMGWQWzRaHlNtyd4lx4WMSOaHl38ijGj2Rf+34TtVDvGuN0OXJ3MZH9zBr8E/u/JB6M
+	 WlTUyV/oIMmm9j5aljAUA3evnlBGHfCAjnPhP10GEABC03zNILRNRBV9uSDNBCicxGyEw
+	 kRXHrpDNlxwl+ZanppfJsPrBI1y+y2mjQ3T54JNQK756YIuWI6tQxUnIXoJZZ96WotvgN
+	 df+2StyEyz754Eq3yPWnOmnLBMt34QW4FSflfO+fnR+SdatVVg9PexinczefkOnzfpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138459;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1Y8EnhS7o4bUUaMd+9kBk4x0A+szwvlZw6MXN768V/Y=;
-	b=dyfZjc5mqsqRNJsa51vuCGTFiMZeYzR5rewj/vIit+AhkwBc0iACuT36zfhidrQWZ95R
-	 iIwHc1KP/xLkMI04bAX6UlOExPLJvUKrlHUdjKXcBx4ypZAAXRlJzdJXwVEMnBByXGZ3A
-	 G69/dM/3AJERZ8cZovOasnEcrXFVVZGUBMCrEGFlkWNcw4PUeG2dK82bjsfQiG4gjV9sE
-	 Ab+TQuBu2pOjMpSdsxn8FQX6EeEkNMY2cvslaTuwbJrpuOglyume5786QcKyVrNMM8WWZ
-	 f0siKomPEo9+CrFOMbAy8N+xdcujlAOsw9DowkIGgs542iSXVEDdcj7YEzKJ3aO1OrQ==
+	bh=H6Hvjmx3E6u8slnggZfsBaEM6lqcy8rkOeo4cE7U+mg=;
+	b=GLQWxnaobUja+EWPsbYGD2xO1tbMe0zVPqwc/ar/hqvUB0w8rAE5PKq0ylQZc+bGKI8/
+	 xRWO9eOSNL4CPLGCGuS5ly7FS7eBGZc4UHsvkJLopa+DsPrbmfTaw3EghwhvtEermqrRs
+	 /VdozyVOL5S8QRWYFnzcqIM0R7mX/TMwelqbXkaLyNxDE2Sdk5MW66+WkuM6CvuGrP8Oh
+	 A5HyzpQNSmU4QyF2YFby98N3vJiZNDWB1Uz+KkPZPAxgfaN1/5g+HwTT2wtcE8AxwMeVJ
+	 KniCQ8iXhsFjG4F/0pHFF3aXLz0p3O8Y7QZSY4R/hizvZuw9vglJdbs7QwMtrof2bMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bairaktaris.de;
 	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=jETELm1Y;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=xGhIG1Tp;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9BF606A322
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:47:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA9BF606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA2C606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EA2C606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=jETELm1Y
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso7022366b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:47:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=xGhIG1Tp
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso7901366b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:47:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1794138452; x=1794743252; darn=vger.kernel.org;
+        d=bairaktaris.de; s=google; t=1794138457; x=1794743257; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1Y8EnhS7o4bUUaMd+9kBk4x0A+szwvlZw6MXN768V/Y=;
-        b=jETELm1Y5XaG/cTJQLXmABBnB7mhSrc9sbdzZ8p6mRRmgHV6onkf4q2pry8PzMZRQH
-         CH3dm5/SCZE/MiaWN8wHHtD5qpo7gm7/gf2xECMQK5aRfgidLCfRdXBlZ/8Z84tYRx4E
-         L8X7ejBSFMFF0wYbSupve7tvU2wwgTNX0paVCHqto+8VRqZf+zRPv/fYjo+RcUGem6Nx
-         xZzYZGGDn7gWrr11CH3oOkoXoDM+rWsPHna29fDctTyHMdBpsJAUCNcBzAOWQ0Q2RXy2
-         IJVzJEbaQIPslyg/cSnz/2UpxAYa+aTS3enUxQM2GyQLLYSa9DXrrsmMAb7puxXIafq0
-         eSZA==
+        bh=H6Hvjmx3E6u8slnggZfsBaEM6lqcy8rkOeo4cE7U+mg=;
+        b=xGhIG1Tplo1kH9dcB87zNLRAt3n/9K6PYwIBoLwd1L4PGtDHMoa8ORQHH49CXGl9AY
+         KHDU+thupviKWfIb5fg6X0wyKGPB0wQ7sQps9IcQQo1QTs8nRmtX/dxj8AlW/IfZg+XC
+         LZ2UmmtM+0M1xXmprmFruUDKQxNtQZU4cczvKKk3Gug42TgbBgxuUJpJki8AwO4mvdtl
+         Ni7PzH/PMnw/Uqr9wrI9TqtH13nkEFfPNaLr3M0mJGNQ9afzY7CWJ4R2g2xW6h/r6OT1
+         7I2mxijr2UL9YS9ccTF2nIpOnqXrwXBosMfmzJcTAfHNvR/fjqpNC0kSZrzl5Rxy9UnI
+         QkKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794138452; x=1794743252;
+        d=1e100.net; s=20260707; t=1794138457; x=1794743257;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1Y8EnhS7o4bUUaMd+9kBk4x0A+szwvlZw6MXN768V/Y=;
-        b=vvDQzIH2CBKIR7XWRdcJ3S+rEFsWGuj3VGWg4Rblspb2qCPaA67SSVuAJaiq88zr4V
-         0ux0nkKSEkJb68JK7h3foAnCwtiAGNDFz2T5Pcf3UxgWFye+llaXUuAKyEhOpSSo/zAw
-         0Zkz1N0WnPaBwQSFhCfF7aiOq+dWTvabeSJHQQJ0ss0uiMuuAjSdXi3MqR27RmwCmnTM
-         FCRfUmZWSkjpgdIjXeN1rns103c9PraMJWW2iU8VcuYMIP7rHLYN0CxhOJDxijMO1F2K
-         QqehQQOsz/dbfeY9QEPbFObcWLtLxOWAup63OhSIj75KDp1rzUJQ6EaKnzv2k0DoBT1M
-         gsQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxL7nCJrBr60zKR7F455rvRCi/sS5KGVEKI4zsWonjCgSJ5bdtfwSpJkcdoOEsgwoHoXabW9JmA63dftQU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BVnnfG998pXMpv/11M+/O3SiYg3s/dxnC+f0YfuM/J9hdAsL0
-	GvUS5GgSkwKopEF4Up4y87mT09wRQLg4Pr/JUlOFAk6kBVs0EGnGEiWOonftE2R0hg==
-X-Gm-Gg: AYBFou1T8JFll1wUVlrjHryasFpKCrEJTamBAXov0iOYr7jCQN/fmwMGuWuPIwc+0q5
-	oDvR15fSrVP9dWDkl/fbVpDK7SxA2X5apFS15cBb7rH9YFRkkaa0jZ6S5nh6iWt4HPslp5RXuE1
-	HQVMztV0lF/YhZ1RMCkO4ai2rv9l4ITvhi1daDdYffn9kgVPHu1lhwDEeqEXicm8pnPSVcj63MQ
-	ffRRRGS0lKXl1vew28zmGa4YxeWFT1eWH31BTxgC4gK0bvdCSPRBdzT3nXka26NWUOw8bybDqKM
-	g/VGAb6sFJu7pu7zqb086a76n6ILacJ8a/S3cY1Q25Q2EOxdKV+Gd6G2IJF2c25y73eINf+zD+S
-	hgw6fMOeyEhznZ4wRQ+ZafMQIcLkKdIrxRr8BowAIPmgScuW0O9sHiHqmNQVoz/RneRthQiZ+WI
-	e56fBrzIhPBwPPjZKemqf884mCNjqiWMcBfWiaR5lAtfGMeEWHDKP8+tqiZDRjguCpWg3Uylw5U
-	vF88yjJ64dO0mC1BYYO4KChq1wYHInR6XFew9YHymVOI6TSGJ3yYILbA80KlrRiWMyO3W9cbEW/
-	bl41/bDl6O6CESJEiFBwAB8AL2cPaExaT1D9R4mgOy/LeJJSq13WTbH+7G0iW0+xEa2XAQuD9OT
-	PCZ0p1GD5wajXbwsa23l4sDVGOUu7lKYyyG89Q0+rAoqbOyT2ITtjF1XMWNdOVJx+ff5RgQvi7b
-	XXHLMZ4umO3hSA7FB3NpV3Gk++MUabNZ6mt0Vfz2wEBsayIYTMXiwoXgh87wnWqKtjzdK8x6eA4
-	a8/yOY+jNtXKRnWLNbd7wNsGSD3weEgaMATbrBDKPtPf7k3jBI3iO666zUVVwvoOaUAaNbGcAPC
-	+AX+2VcCQMiotGDsLA==
-X-Received: by 2002:a17:907:80b:b0:c4d:2cb4:7bbd with SMTP id a640c23a62f3a-c4d6d7c1ac0mr93601366b.47.1794138452222;
-        Sun, 08 Nov 2026 03:47:32 -0800 (PST)
+        bh=H6Hvjmx3E6u8slnggZfsBaEM6lqcy8rkOeo4cE7U+mg=;
+        b=UBZtLZLo/zX4+AQavb9Un49AUIedeys+Pfr2EDBg0ZcPr6yBqH6OqP3HeVMyiyNdn4
+         qDOKg3TS5qOlajCYWzBKslSL69qyotiShal6ztF6WMSYo45FUAxh81OPPUK+8rAmgkOV
+         c+lmi+O4QAQHCuF30x4UJeRmYKE+FRq1OMp75v+SAxfZ279YbTkOevO2eGY7w1Q47gCC
+         emmbnm7/L8GzweArauM2Nt+rLjX7P0rdlZ8wgz8k8RRXH/CTS+u4cgfjC1KE85sCjWsN
+         K+CReC3ifYftCUx+CB4rpAuiDLnafkYxel4b2+xiHBEb3aS5maTFGGDxDziD5Z4cnUKl
+         nEaA==
+X-Forwarded-Encrypted: i=1; AL+hErHnBIZOekCXTCVjUeCGaoV+Ksw+FCqAv7Ni2sgFfdDZVLWWv20xQq84K2Uzo60S6gcxbBCwATptZiS6v2U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Kmic94JW/noKtxBi92gXWsaAxJDOPFd1m8fhuPdjXKlO1a9iX
+	XeXUN0kRGayDzeL2JlMp1+5QCjp2nXf6dRIzesGMdqejH8a81lImT2s3H566x0h8QA==
+X-Gm-Gg: AYBFou2MKuP/EIA8iT/vqT0Fi28U/h284CtuJSwyRFEd6ccdjAceYGpoBb/nRI9jYGA
+	rFpV8RTicvH4qLZOH+pgYI/2dGmBLEnQyBCSbMjuS2soqeNCvGzOgte26NMxFlIVoYGHFl7ox8L
+	85BUHQLn1gXcvmgDSXSlAeOwKYJ4TWHnjXP4R/wF2u4JEqxQXmCn+uFGBAVzi+bTDNOC9LzyRA+
+	OdBqluQPwV8OFPNBo8OaTXey0AvmkW2PedVP10otprTjDub6vY/NTBXfiT7CGZYYSnhFcq5Jhvb
+	C0okY1kuhrR6tndXrYPuZEp4K9/7oShHs06gDX5FD8qdHVVyjHTTaOIuS00wl4XUaz8s7YWBuv/
+	dAtubISwasKVMSinRmg24ZHHkGsQD8MyLfBeAjzAAC4L7+CJkTSbmfGT8RpnEhN648na0ainGap
+	D/xtPpUJJA187d31zBB6ab3Qd5qbNly1i/D2zeY2f9IWkRlcWGy9aoOOFccs3IwnJCX1ylcWznX
+	nADDBcQlj6nAEc8oxvJae6TDIvlitZ5vq6vDjUY/u6MYz4/SnMUyqbrid/ddTSejYssMyHfIVZF
+	S08jF+4P4OWQmJw7bFzCWsTtEkdHzt4HAdblaa80JTlSrdTOlTBIWGODPOy7aTtNqz0oQD/jSEz
+	N6Eqpms62n/ES8sw2/5QARy9VsZGQGRW2SG3CtmRV97GeD+Y8fopTRsmEzoQb+m+30+uv/Wpey0
+	8ocgQKIo/xssdCvvHYJUEeuhQs1TWlY4o3ik66t9OGp43zMmSa3iYwW3yCKDwkVJWsqJQB+JqAp
+	FsFGG1zejRx1YDrlj7AZciGzb3SlI4xaNQ+9y2tEGhtQz4sgPsiI+OFVSvQKbzJ7GxE10akqeGt
+	DWvtof8ZZKzlYcHrEA==
+X-Received: by 2002:a17:906:4792:b0:c4d:31c5:e30 with SMTP id a640c23a62f3a-c4d6d7ced04mr87104766b.49.1794138457495;
+        Sun, 08 Nov 2026 03:47:37 -0800 (PST)
 Received: from Desktop (p54afff19.dip0.t-ipconnect.de. [84.175.255.25])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a99320bsm56079066b.67.2026.11.08.03.47.29
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ed3b32sm490083a12.23.2026.11.08.03.47.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 03:47:31 -0800 (PST)
+        Sun, 08 Nov 2026 03:47:36 -0800 (PST)
 From: Julius Bairaktaris <julius@bairaktaris.de>
-To: razor@blackwall.org
-Cc: netdev@vger.kernel.org,
-	bridge@lists.linux.dev,
+To: netdev-bot+sinfo@kernel.org
+Cc: razor@blackwall.org,
 	idosch@nvidia.com,
+	andrew@lunn.ch,
+	andrew+netdev@lunn.ch,
+	olteanv@gmail.com,
+	netdev@vger.kernel.org,
+	bridge@lists.linux.dev,
 	davem@davemloft.net,
 	edumazet@kernel.org,
 	kuba@kernel.org,
 	pabeni@redhat.com,
 	horms@kernel.org,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	vladimir.oltean@nxp.com,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: bridge: fdb: hold hash_lock when an entry roams
-Date: Sun,  8 Nov 2026 12:47:31 +0100
-Message-ID: <20261108114731.123174-1-julius@bairaktaris.de>
+Subject: Re: [PATCH net-next 0/2] net: dsa: fix host fdb refcount when an entry roams
+Date: Sun,  8 Nov 2026 12:47:37 +0100
+Message-ID: <20261108114737.124573-1-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <01600be7-3d8b-48b2-a59a-1125eb452714@blackwall.org>
-References: <20261004124254.3525496-1-julius@bairaktaris.de> <01600be7-3d8b-48b2-a59a-1125eb452714@blackwall.org>
+In-Reply-To: <cover.1794134495.git.julius@bairaktaris.de>
+References: <cover.1794134495.git.julius@bairaktaris.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,20 +114,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-(Resent with the lists on Cc; the first copy went to the To:
-address only.)
+> - How the issue was discovered, e.g. hit in production, hit during
+>   development, syzbot report, manual code inspection, LLM or static
+>   analysis tool scan.
 
-On 04/10/2026 15:44, Nikolay Aleksandrov wrote:
-> Absolutely not, this was made intentionally. Taking the hash_lock would further kill learning
-> and roaming scaling. Surely switchdev drivers must have dealt with this for some time
-> now, if you'd like to fix it do it so the software path isn't affected.
+Hit during development on a Xiaomi AX3600 (IPQ8074) running OpenWrt's
+qca-ppe DSA switch driver. A station roaming between a DSA user port
+and a Wi-Fi AP port of the same bridge logged
 
-The fix moved to DSA, with br_fdb_update() unchanged: "[PATCH net-next
-0/2] net: dsa: fix host fdb refcount when an entry roams". DSA no longer
-counts the roam events; when it handles each event from its workqueue,
-it looks up where the bridge has the entry. The only bridge change is
-that RCU lookup and the filter it shares with br_switchdev_fdb_notify().
+  qca-ppe 3a000000.ppe: port 5 failed to delete 02:5a:0b:a2:1a:46 vid 0 from fdb: -2
 
-https://lore.kernel.org/netdev/cover.1794134495.git.julius@bairaktaris.de/
+3-6 times per address when the two ports received on different CPUs,
+and not at all when they shared one CPU (4 runs each). The dsa_loop
+harness described in the cover letter reproduces it on net-next.
 
 Julius
