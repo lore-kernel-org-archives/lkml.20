@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794167514;
-	b=VtJ7KETII5s01b9SMkq3PX91C1gjOf6NZwpn7PwJElseF2ixiDcgFVw3L2Rqa8GC/CSi
-	 dakARKeq/1PZO0AWIK6tAlKRnzPGfRcsZ3lcauuYxmvHlIPyiZnq95e/GcEvT8hbqXIbT
-	 nuca9zg9s7aIdmPSCzhUPMcxTavZhx/gCVYmarLTm52W2gq5sfbczOcdG0wdnHC5H/ZHb
-	 qehfk+duxaEpq1Pk+Of48nAfF2m9g2L2GG2tn14uGvrULBmGn6v1fOV7mUVrC3Pkeq4Ex
-	 prs7Edh2XxcCyIuh0zik7ZyLsda9Ohu8HHzog9RZs5AivagxNIMGJbDuT0/KhKJK5oQ==
+	t=1794167513;
+	b=m1r8npLmENIhsDnIlHrDBCs2P2+v4zRBqiqVujRXHxp4vrwCVK4237JmJwu+EE+mQqAa
+	 4vFK0r97iO1PeWfLjOvBiGMsY/kVuAuFNaWNeLKYUH3l+eJMc8+kx1ctyb4UpZswGGDKo
+	 ZcIZi+A0uOJsicDRlh8MwKWHLV0km9/RczPFchyePCnJutG1IU4OfXCPtbqW0RZNdMP5X
+	 o99imzVtgXMdOESeyPqqPOc8T9ehVzP3VudFXMg4J+QpEuaFWris/3oXXPOob0GX1tczp
+	 ZKhKqCQ4VuiXX/jEKM0E8rXCvK2qsumzd0vTXKoUF64jAUM4Yp8p8MlKOdQLBJ4wd2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794167514;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794167513;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WPf2icVK/e9KPEuHFkG431PIxwdSKi/zxFeSHw01Gc8=;
-	b=Ubc2ty4VrGWHi/jEdqWYNczQJE88IQYjOhZC516ca1pqVKLcmUdkLRLnwRxaWmS78D5u
-	 Agn9BluZShnVd4iZqa9JWT6NzB/vF8aFodidUFK4cgINA72L+Kx+sGBymK9VHH9RFgnGz
-	 8nDuQ1I5lU0Shik/t8urCMHQp8AlobCoQTIxNmgpIbGqdBHykzQpCVDjvSybkiGcUjSNZ
-	 jdmkQDz+1K72lExnLv+9huLl+UxHn47N+2Vzd4YuQhfFRQCImCme6qFvNm/UC5BL77TBH
-	 qbkJcclkGiJCifQCBZkSjSpmCuTuydiyHWee6ASj6s/9ozomy0dqBZr1URnToxykSpA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OJAr4xLTV8QiOwhk6gGpqr46jyVyTKNFU7LHvyqTRTs=;
+	b=vhiuMwn0d7+2KrmgGCM6Hjq+7H4CvaWeKJaREZnUTv6weMX7hfwtHoZZGuvKGoyQs3N+
+	 X8m3gXUC8IgEeWNd5aiLP0iW8KwpC+lTHWMwMXTrNOxHM0BFspiZopl3BYNokLtHNPx4i
+	 pj+9wfQdxvCKYCUmPDBHqMB8vRUd6hSitRGO/qde6OcL0abKrc/SLMty4WY4Dz4EruL0N
+	 rzL75PHlTCQ593xSFuZmx6xVl3cbFwW03woa6BW7cS5FYU1V4T8W3R5vJj+y49pUf7zGQ
+	 eNvFwcWV3v1I/yrj6mAZJdDXAd4J4ykZGjmhqylFPzrCyWSIBz2OwYr9nn/lck7WvTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeyY2b0U;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E4XJY5Et;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499BC606A332;
-	Sun,  8 Nov 2026 19:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeyY2b0U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E021B1F008A3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81141606A31C;
 	Sun,  8 Nov 2026 19:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E4XJY5Et
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDFD11F0089F;
+	Sun,  8 Nov 2026 19:51:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794167514;
-	bh=WPf2icVK/e9KPEuHFkG431PIxwdSKi/zxFeSHw01Gc8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aeyY2b0U+pVvzfaEu7crV5Q638Y6kIWS973xwV4XFRmGvJloYgfALxwwnftPYNWAz
-	 d8EGZM2evKBPjgNjn+aTz898OjjvLMz4E4arzIekSwelFlp+F85rrR5bQjgO8xz2WU
-	 VpJwSR6o8QzW3XZRNuzZ6aM7S0t4z4tfj1noDvDNZ9gClfV1oV+3VnVWQCNXwlzNTL
-	 PmZp/8LSUaHpTFdX4jBqrovLJyIdObNTZJB4o4kFCi/jzVFA3IK77vOJYz0iRHthlw
-	 fLcS/12S41EFbZzTGYkspxL+zkyDiQKRkvhMD2mF3cVIpua/bpcJHokGTdr0NO5wUI
-	 qC1tPjt1wMLSg==
+	s=k20260515; t=1794167513;
+	bh=OJAr4xLTV8QiOwhk6gGpqr46jyVyTKNFU7LHvyqTRTs=;
+	h=From:To:Cc:Subject:Date;
+	b=E4XJY5Etd4ycRs2IGY1YQ9/0VbDTr7XLpuGSttyjyxlozycuUxa+fQ4LjIRepbV3q
+	 AdBNR74SA8BowS5r+jit8dUOUzLsoTFMvZ1U7L0dKsq519Sp5Z72DJJFeD3hs3b2EX
+	 BkIpVLyldzMZWaGmQrnOqV79F6Ek4RG/cFOXQo7deN1XP8xk57TEyHUs0ZoQOEh7Gb
+	 NGR8x8L4TUrzt5tJKccxcptbseIzXbziAHx32uht1yrqf6LpzH8QwMRyGXWOziv2BO
+	 ukUpeJHzbYOFZWhgZIMnSWiTOOJFjjKyJQjNPiH4Zb57ZGnnaiYFoJQWOolZhRIDFO
+	 xwscjWhn774VQ==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
 	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 6.12.y 2/5] mm/damon/paddr: respect folio end for DAMOS actions except STAT
-Date: Sun,  8 Nov 2026 11:51:41 -0800
-Message-ID: <20261108195145.115792-3-sj@kernel.org>
+Subject: [PATCH 6.12.y 0/5] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
+Date: Sun,  8 Nov 2026 11:51:39 -0800
+Message-ID: <20261108195145.115792-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261108195145.115792-1-sj@kernel.org>
-References: <20261108195145.115792-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,65 +65,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A few functions for applying DAMOS actions including pageout, lru_[de]prio
-and migrate_{hot,cold} in DAMON physical address space operation set
-(paddr) collect folios of the given region by getting the folios of
-region-internal addresses.  Then, those functions apply the action to the
-collected folios at once.  The collection starts from the region start
-address and advances the address by the size of the folio of the address
-until it goes out of the region.  If the start address is in the middle of
-a large folio, and if the next folios are small, some of the next folios
-could be skipped.  Fix the issue by advancing the address to exactly the
-start address of the next folio.
+Manually port five DAMON fixes that cherry-pick failed [1-5] and turned
+out to really need to be picked.  Note that seven patches [6-12] that
+also failed in the same day were having wrong Cc:stable@ tags, so
+ignored.
 
-The user impact is that DAMOS action is applied to less than expected
-amount of memory.  Given the best effort nature of DAMON, it is no big
-problem, but it is clearly a bug that is better to be fixed.
+Patches that this series is porting.
 
-The issue was discovered [1] by Sashiko.
+[1] https://lore.kernel.org/20261107051942-failed-6.12-90c2fa6adfed@kernel.org
+[2] https://lore.kernel.org/20261107051944-failed-6.12-1613ac9edf38@kernel.org
+[3] https://lore.kernel.org/20261107051946-failed-6.12-29c6084658af@kernel.org
+[4] https://lore.kernel.org/20261107052624-failed-6.12-bbeec2d8324d@kernel.org
+[5] https://lore.kernel.org/20261107052626-failed-6.12-5695abc4e742@kernel.org
 
-Link: https://lore.kernel.org/20260901131850.98037-4-sj@kernel.org
-Link: https://lore.kernel.org/20260517234112.89245-1-sj@kernel.org [1]
-Fixes: 3a06696305e7 ("mm/damon/ops: have damon_get_folio return folio even for tail pages")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org> # 6.15.x
-(cherry picked from commit 1613ac9edf385c35f171a25610e2706a7e6afad6)
----
- mm/damon/paddr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Patches that also cherry-pick failed but deliverately ignored.
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index a6b1de97b1e8a..6bac269cd679e 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -273,7 +273,7 @@ static unsigned long damon_pa_pageout(struct damon_region *r, struct damos *s)
- 		else
- 			list_add(&folio->lru, &folio_list);
- put_folio:
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
- 	}
- 	if (install_young_filter)
-@@ -306,7 +306,7 @@ static inline unsigned long damon_pa_mark_accessed_or_deactivate(
- 			folio_deactivate(folio);
- 		applied += folio_nr_pages(folio);
- put_folio:
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
- 	}
- 	return applied * PAGE_SIZE;
-@@ -483,7 +483,7 @@ static unsigned long damon_pa_migrate(struct damon_region *r, struct damos *s)
- 				folio_is_file_lru(folio));
- 		list_add(&folio->lru, &folio_list);
- put_folio:
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
- 	}
- 	applied = damon_pa_migrate_pages(&folio_list, s->target_nid);
+[6] https://lore.kernel.org/20261107051949-failed-6.12-df7d9a0f8d91@kernel.org
+[7] https://lore.kernel.org/20261107052123-failed-6.12-6f276422aded@kernel.org
+[8] https://lore.kernel.org/20261107052125-failed-6.12-a1c7fdaf1657@kernel.org
+[9] https://lore.kernel.org/20261107052128-failed-6.12-1bfb9384ae0e@kernel.org
+[10] https://lore.kernel.org/20261107052130-failed-6.12-cec08aad3def@kernel.org
+[11] https://lore.kernel.org/20261107052132-failed-6.12-409d2ab6d982@kernel.org
+[12] https://lore.kernel.org/20261107052135-failed-6.12-1d2397b2c414@kernel.org
+
+Changes from RFC
+- RFC: https://lore.kernel.org/20261107214525.304638-1-sj@kernel.org
+- None.
+
+SJ Park (5):
+  mm/damon/core: skip applying scheme if region split for quota fails
+  mm/damon/paddr: respect folio end for DAMOS actions except STAT
+  mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+  mm/damon/core: filter out damos address filter-split failed region
+  mm/damon/core: remove unreachable damos charge_{target,addr}_from
+
+ mm/damon/core.c             | 59 ++++++++++++++++++++++++++++++-------
+ mm/damon/paddr.c            |  6 ++--
+ mm/damon/tests/core-kunit.h | 11 +++----
+ 3 files changed, 58 insertions(+), 18 deletions(-)
+
+
+base-commit: 749e25da48308e7fd273cf1a64a27020e4fd1118
 -- 
 2.47.3
