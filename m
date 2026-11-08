@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794136948;
-	b=ToTDHzFs08ntnuhCBADwpDnT4lCPHkl7I4FFBd0eewHcN2+8LB2P97T0bLz1NrSWk50O
-	 8aiJiKkmXMojPgdTeCO5eZfvdk9sMLvmwrJE/F2Bych014wed+gYbkDN1GJw+L6WxOA91
-	 Gghn25w9uXvwY/N3dotltt2PoQibiaEpnUO9oT3P8XDOzmEelTEx/24MrA68oLZoNf5ib
-	 O9fqJMUbdVo6QOcA5xPJtU2iHJbaT7FMzowkNE0Uy26X6/BHsslaBym4R3SLr2pOcXqHi
-	 2j5z9WRClFFGzTfYmndHDXOXL1aPvph29k2N4hWm8kURwYk5b4oeDNann2Bzg09XfDg==
+	b=tXSqDPrLh3TduOCjkg21D5+OsXe/1+D7iauBFKLDg1+Knk0rY8/HylbuY6O6rNmGdSDC
+	 Gqudfo13qlav4m5RQRhk7r3iff1Xt5zAvOtRN/5eV8h2yaBlWudvp9dNrvJw2Rd0joznd
+	 60ZSO/Eev2aL9jDPWIwizduz/lXFftx1srndYSUbxi5HbeUEPas8BaeXZ7Ms9WOD/sXFl
+	 mJSThuVdFFayXc9cUcPgFieD4V9sqXBHh02P8f8Szlrd36yt5zSdRKZ/7lOmGhsUblhe0
+	 zhLr6hoUXbgIF2zITsLYL80W4KSuL3ypu0JsP7RChhgirBaTn3zJzUTSWaNj5nn0i4A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794136948;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=30rCFzNr9gY6z8lRfGlzbPoFTDqBDmH9lBypvenCwWI=;
-	b=QPcCQinYT62U4Guw20hlhq/1Wu+Fni7FYs9u1tRHv9g9mH8h3ytB3L3Fw1NsHlcafc/N
-	 3M2xfSCdGSolQtpAXFo7Dna/dFcQleC8CV3lvaFjSoDWRc+9W3Y+AnnDaAJKyZcK4X/+w
-	 T5sYzB5PZTP1dEbISJLrD8/n3A2IUZkpd3EXea+9PxSHYJk6f54RrEyx9Udhb6WAuW45i
-	 5aGYIc/yj8u8wnH43jrx0VOj92wmxvzarQlKrkYesmoGlopkOBrUwXG+XpK5ulLNh0Zkb
-	 +zGNwMhYBmzWBg+vmpeacktJkLI4GGxI1laZwPlbfZsIXfPyt+PbhmMyBmqfmYsSY9w==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=W/58ODSxMLt+iMgV2qP5B56+KOjf7jLiaxB4ZCqjUs8=;
+	b=sDiYsQyte1hQ1vR28Bqxe3pqQ7OYxi1p2EBgS8ZvzWmZKiimr26yYBNVNQpK7mfTrFHZ
+	 E9yBgCsLksvzyEiCOGJJeVC8d7mP4eLJzaRaLkQF6TfNXQTOeYqPEXw2qIUz6twXs57yh
+	 rBJHS8vkHolQCAjdUU+PWiNbgKSXlqZR8SmIr4qGfm5+rbKqd5rPTgktmzjtGlpgg1IGg
+	 JK6lQff+BZwC51RdcZozhwjiBV0eIpiLkLW1Pk88LS1rNMzAE98AaHIJ8cbgNzVjRYFQO
+	 2bAqAr8bsbQf5Fv4ekb67DRcBAJwYXioDoJn+VNwNB00hzajEUg1TBsZX0zPLu1jzzw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOR8xuDd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBuJWin;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DB1606A333;
-	Sun,  8 Nov 2026 11:22:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCC3606A326;
+	Sun,  8 Nov 2026 11:22:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOR8xuDd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBuJWin
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794136948;
-	b=lOmS75wEtHiInCYxXBJTj/HjZeQ5Zr0tXqUEhbwee90t+q1O2OagCj9GvtMLKyqeKFuD
-	 jTIzowGli86mtz3hH2PXdCrI+Bkt5JrrOLzC+0alcaqeDqjtPqP25rFEoHGaZ5TCTlkf/
-	 VCkdiehcm1kJB6nx2h3gdYtY58F/6Fog2YcK5xkNfiRnad2XvVIljxWzxUUELDNGvYZtX
-	 1dgii8FIGSvTZs8CT++sK30TET8CsXG7TSj+qf99Bqu30HyERkUOb8yCUOsGNuxpIX4z6
-	 dGWshdGZ/J1eqzQ4sJdABUWUyoVKvR8tVQWfMtYlkHomQl8tSa3dlfkUeUHYk7oMd3Q==
+	t=1794136947;
+	b=rD25eM3YFrdn6UqBCPlR3/A/FO5oq8ikT8k9vQkx5zR1Z09pLFOPw2Nb2e/a83kAJwtH
+	 BZGtgayJokoY5PWlAO04rkt8ddqwoDZv1Vne5mf/wNms3ArdssZy3F+N/4/GWX9vsTfFS
+	 Ie4Ln8Kqji7QZu3Bo8my6yEPj23PT0lCYbovLHzJEoT63vIphXwslVpeVVgmgzSwRdFFH
+	 5CBSwOd4KUOmBCI2CofXWLjxga4wN2ZjmOV5MG/18DawG/mY28cwRasFwR6TSmKNO2XE6
+	 N/5HN5gEtZZbh6359a6XR7jW2NdVq+pi1mcEK3xE7EaLFpqwA5JcDJc1eY83fAU94Qw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794136948;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=30rCFzNr9gY6z8lRfGlzbPoFTDqBDmH9lBypvenCwWI=;
-	b=fX+g2fGl5RrdOKw8vAGNb9KJxu8AgbCGyiKy6UZx6S6YGnl6DkVNWnCz0sRaoZDpRNbg
-	 oyS3/PSXuJYU0GoOh8x5tvI7U1hExAMc+98i1NLwDg/Y5O0MCaRg7ln1Is42tuGurq7BV
-	 raF/FWrdDiLH0QEY9I5StLjYa9G5fLXbYxcsVcFQ20T4QbYhB967s8UuhLyL14VqTA3Yr
-	 weq8zmbvs+ZON2eBksz95NxahTfR6+gjwDgdBC9tg3WL9+8HdNaxd3JnJL2rdS36IOww2
-	 4yfUS3ST+UFHenHBNOukevRPkxmm7PQtQoL6tbfuO9igFB4ocYFXKcPcjPQqddrUArw==
+	c=relaxed/relaxed; t=1794136947;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=W/58ODSxMLt+iMgV2qP5B56+KOjf7jLiaxB4ZCqjUs8=;
+	b=IIYOFJ1SDT7VqbJRjEL6gchT1CsZwYCx9C1wqE0S3qZ55onGg/H/rpW6aZN2SdNQJqu+
+	 yBP4fvyYtPhZwbJCxYpMXOCqHGTbakgKKYKiw0DAuS3Dd+DHmEGhhoER/jiIeS50erRMO
+	 DRPKasfsHTsD07lWeK+sKhu+CLUnqWVy9WV1ZhW4nJdMLQ0d11Ls7R0MZrM0N107+b1f7
+	 wUWRWW2Tx6SdX+RJCYKFCaltzSt5fPkL+ks8kaWkt+GhhHVtLXtxFkqsMt/rTV7ZTyFLH
+	 GaZqEZ3ruvHjPhyTt8E3fF1FjElyOq/yWAAks5OjSkfMBw7QfnE3E6AY+CiDIPDWkzA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id F1D8D1F008A1;
+	by smtp.kernel.org (Postfix) with ESMTPS id DCDEF1F0089F;
 	Sun,  8 Nov 2026 11:22:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794136948;
-	bh=30rCFzNr9gY6z8lRfGlzbPoFTDqBDmH9lBypvenCwWI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=oOR8xuDdu9dp0jYASM/2d9OxF0vvcTzKGurfIouZV6U4+FImVyq8Ow8bGw+5nD68+
-	 eCZj5DIsG36JwwvJQ2o0ohd7604dFpf6MbNY8gwjfL8y7HfWpif1r/yporpZopeFXw
-	 PasrjkEFVgIPCaQ4TG2GxpcmGnNnKtOrwgbJbus2j1CoPsC46U94JYLg2Z3ehq5/e4
-	 IjUSz9bvC76gTC5fd4WvdkwOmbR3926K6LIoiQHIRNM/B9oSDVnaPRWL+NBRRiHgp0
-	 7T3sQlvxwgfiZ5JQK5Pb7WP0kv53tS6JLSiKyWqvEoeafirrGwwGoq/1AkGiEzU5l+
-	 PGNSpXcdpGKlA==
+	s=k20260515; t=1794136947;
+	bh=W/58ODSxMLt+iMgV2qP5B56+KOjf7jLiaxB4ZCqjUs8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=HJBuJWinfAlmCSZWcUeH5DhJFOIs2vshonr3ZYyrWpi7ILudZL8Ta8G2v6pLuHlFc
+	 NYem7zRlE48yUPzMcL/EC6K9Sb4y5Qu7VxP5+DjmCZ2OO5xw6hlgVeRyCapWfhud8D
+	 UmgXiF2+XkugIkP+LJWgMSecRbZrFOfJtTBOhQRJbK1f938gkhIAQ1+h0Cj1tj6MA3
+	 tXnKBc2l1OxQzOvSA+KVTk9jUVWvdS4/8Qa8XwoPmCbXztCUH1wlGzmiooQdZZ2zwB
+	 LaZJXJjdb6qRTJI7eMyxnIVT6b0CdQk79zF9jVv4Jknx6JCo4AqMhb3R0ZSgUQRdww
+	 sBgCm0L/UGytg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 87BEF47EE3;
+	by lkml.kernel.org (Postfix) with ESMTP id 72F3347EFF;
 	Sun,  8 Nov 2026 11:22:26 +0000 (UTC)
 From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Sun, 08 Nov 2026 12:22:25 +0100
-Subject: [PATCH 1/2] dt-bindings: power: supply: Add Silicon Mitus SM5714
- fuel gauge
+Subject: [PATCH 0/2] power: supply: Add Silicon Mitus SM5714 fuel gauge
+Date: Sun, 08 Nov 2026 12:22:24 +0100
+Message-Id: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,112 +84,57 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-b4-sm5714-fuel-gauge-v1-1-c659b6c0884a@dxdmail.cc>
-References: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
-In-Reply-To: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M2wpAQBBAf0XzbGpHWPyKPDDGmnJrN1Ly7zaPp
+ 845DwTxKgGa5AEvlwbdtwiUJsBzvzlBHSNDZrKSyFQ45BjWwlKO0ykLuv6MDvMglqkmNgwxPbx
+ Mev/btnvfD/4vLNlmAAAA
+X-Change-ID: 20261108-b4-sm5714-fuel-gauge-ccbe7c191c0c
 To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Nizat Mikayilli <nacht@dxdmail.cc>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794136945; l=2545;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794136945; l=1211;
  i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=Cmh7YjU6/OabK3s0Tan26kUaXZen4FX7P/sskBlVdP0=;
- b=i4iCortCNP29TqalR0jK9yohaOIfM5L3HjlJHL47n1R9XTWJmh+DN7gyPc1B7YgVeMMcLSnIJ
- x7vjEp53nlmCuXaUVO2DQIacLXFXyVBzMC/cbuQqQwsAkJcO1F7Mdfp
+ bh=G4eLbQVc7Ut3i550ga26bqAGN7kV6jqBGKLCtmfUKLc=;
+ b=DLCmbW5H/qvvM7izdoeqCMWESI+C+PhwFfIouDn7sRaNwibvHzMEW6u7cfLiekx19DKpR0/gR
+ J9d0opx947kC8Ha8ouYy5QjlR+HeIG24m4AGgGYHnQ0+/XhvrdcGWKc
 X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
  pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
 X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
  auth_id=1111
 X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
 Reply-To: nacht@dxdmail.cc
-Content-Transfer-Encoding: 7bit
 
-From: Nizat Mikayilli <nacht@dxdmail.cc>
+The Samsung Galaxy Tab S9 Wi-Fi uses the fuel gauge of the Silicon
+Mitus SM5714. This series adds a binding and a small driver for it,
+which reports the state of charge, voltage, current and status.
 
-The Silicon Mitus SM5714 includes a MUIC, a charger and a fuel gauge,
-each at its own I2C address. Add a binding for the fuel gauge as a
-separate device, like the MAX77705 fuel gauge.
+The fuel gauge node for the tablet will be sent with its board series:
+https://lore.kernel.org/r/20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc
+
+I tested it on the tablet, with the USB cable in and out, and the
+power-supply selftest passes.
 
 Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 ---
- .../supply/siliconmitus,sm5714-fuel-gauge.yaml     | 47 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 +++
- 2 files changed, 53 insertions(+)
+Nizat Mikayilli (2):
+      dt-bindings: power: supply: Add Silicon Mitus SM5714 fuel gauge
+      power: supply: Add Silicon Mitus SM5714 fuel gauge driver
 
-diff --git a/Documentation/devicetree/bindings/power/supply/siliconmitus,sm5714-fuel-gauge.yaml b/Documentation/devicetree/bindings/power/supply/siliconmitus,sm5714-fuel-gauge.yaml
-new file mode 100644
-index 000000000000..777b64bade5d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/power/supply/siliconmitus,sm5714-fuel-gauge.yaml
-@@ -0,0 +1,47 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/power/supply/siliconmitus,sm5714-fuel-gauge.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Silicon Mitus SM5714 fuel gauge
-+
-+maintainers:
-+  - Nizat Mikayilli <nacht@dxdmail.cc>
-+
-+description:
-+  The Silicon Mitus SM5714 includes a MUIC, a battery charger with a flash LED
-+  driver and a fuel gauge, each on its own I2C address. The fuel gauge measures
-+  the battery voltage and current and estimates the state of charge.
-+
-+allOf:
-+  - $ref: power-supply.yaml#
-+
-+properties:
-+  compatible:
-+    const: siliconmitus,sm5714-fuel-gauge
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        fuel-gauge@71 {
-+            compatible = "siliconmitus,sm5714-fuel-gauge";
-+            reg = <0x71>;
-+            monitored-battery = <&battery>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..2875017d21c2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25713,6 +25713,12 @@ S:	Supported
- F:	Documentation/devicetree/bindings/net/wireless/silabs,wfx.yaml
- F:	drivers/net/wireless/silabs/
- 
-+SILICON MITUS SM5714 FUEL GAUGE DRIVER
-+M:	Nizat Mikayilli <nacht@dxdmail.cc>
-+L:	linux-pm@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/power/supply/siliconmitus,sm5714-fuel-gauge.yaml
-+
- SILICON MOTION SM712 FRAME BUFFER DRIVER
- M:	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
- M:	Teddy Wang <teddy.wang@siliconmotion.com>
+ .../supply/siliconmitus,sm5714-fuel-gauge.yaml     |  47 +++++
+ MAINTAINERS                                        |   7 +
+ drivers/power/supply/Kconfig                       |  10 +
+ drivers/power/supply/Makefile                      |   1 +
+ drivers/power/supply/sm5714-battery.c              | 221 +++++++++++++++++++++
+ 5 files changed, 286 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261108-b4-sm5714-fuel-gauge-ccbe7c191c0c
 
+Best regards,
 -- 
-2.56.0
+Nizat Mikayilli <nacht@dxdmail.cc>
 
 
