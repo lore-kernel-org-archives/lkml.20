@@ -1,58 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.64.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794105310;
-	b=mMcBcwYkWtRELtJQHH4ebwC047N9M13sslFJzf+ZPTP9pLmVSH5AIge2HBPhrGV2RIP7
-	 ZhNmHugh/h2BLRv3ZZBJxhEhhcY5zfDDDuJ80muX3vcOkMVhGtZDZXjYmQg4ORn7a+s3D
-	 wuXY1PxwHdEiXaM7A+FgQPcWoPk1GK8kj0SvQOyQ1GZIFiMJYApInGk9WhTiggnkV3JaW
-	 OS/Csu5WbedhZWoH/G+CCwwkxax/XuuKQwnOaF1OekG29Jz1R1Sdrt+92npeDZt0gHnTt
-	 w78SqJRP78oMGBLhqIUvGKmd9dym9pFwqSCHDTd8UwoW+DKNTlCW5Xf6ZK4OEEEzPWg==
+	t=1794105388;
+	b=pHa3urpmi59khfPNFR9RSe9GWgY8q+h96PMRnPiPeOmG8TC4pYfC1XFcnmK2YAttgUe6
+	 tZd1HWyLn9bt1KynZVB/GYboK/amVVdwOHlnnrLYnheafbWe52sxSTcqEPnPyd1Rf5dzz
+	 uIIV8jdLwKuOcB6pLwzOMS/LRMPvmL1JvjGZ8di+QFsMDp4iP/mM9irJyNJM69urCWnz8
+	 Cftv8YvHCaXhcdEn3zi2z5NkKRvD/TZvejD6+tFvi1S58nEEXwh/ksLLeKSfXB/kyYNdf
+	 AthHpqZf36dXM1stKgRE7qvfvlid5iTa+HxtVQj3e4bhsTmaxN81Yb3KE2ohYeUIHAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794105310;
-	h=DMARC-Filter:DKIM-Signature:References:Reply-To:Cc:User-Agent:
-	 Received:Content-Type:From:Subject:Mime-Version:In-Reply-To:Date:
-	 Message-Id:Content-Transfer-Encoding:X-Lms-Return-Path:To:
-	 X-Original-From;
-	bh=dIGQ7eFrFlqilOLIYga1HIT7xjtRLeM8O7PmQE2HBkE=;
-	b=YJEMB+GkRbBQ8xecbCuv4djMW7UF2Go5cN0KF70X2lOn+SRDd9yWZv3DiLrItZxwemih
-	 lZEbx7w20hwr3awh3WHZeHA4vrdnbv7dIH+6uIDyLg3RYiKPdeXXsEvS2/IoJ6uO+BnKm
-	 EXeE6oULmlPxOhSWTFsguwQmhuJYtsGBsJrc6cqWdQ9YBBxdOih52WyhWnW84LmQu2fjW
-	 1OX4a8wxdNjpS5zSFqrsIv0r+Tl3OKnmNHZ3j7iLp7p0CfbhbW+ghqg6GAt14pGbh1+le
-	 GLc3lUDQLKmtPDp8rNAWXQ00xUZdR1MW0aYIloAUAhGWbV76UcuVLf2AdeXeOS4KolA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794105388;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Mailer;
+	bh=dcxb2OtDZ2muNlnYwXVmi2FrKAeiyS26nrso39IWX/w=;
+	b=ANqe8TgIMSW69C9wwauHXbjz44HsU4FXoeWZA5c9TumHCipOjQt+ApWk6RZGLEXDLlnR
+	 azWPUq4xPYVhu5Mw6nM09rVpo+/MQSP1gcuOd2YG2yO7wTVAOAfdMVGG1YQDsbTHd5RbC
+	 XN7YXvZPvuy6CdBOeE1rhs9vnFxcFKE7LyFnIfNsoklLIpnwaAsPOp1KRNubx/nZwYzEh
+	 hh699UEaCaeK9B8WPY+DhsfLZBRYXgYlXK/luU37QAsGZBSgUtYQkHIEnI3vhZkzUrtV9
+	 QIE70hXNh3tgAlvthtEYSsdHpV3d1wcUPKHoHV7D4/3t7kHAtAyNd5/uStgYFxuJRaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=D1oNLB7h;
-	arc=none smtp.remote-ip=209.127.231.18
-Received: from va-2-18.ptr.blmpb.com (va-2-18.ptr.blmpb.com [209.127.231.18])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=bBXIheQH;
+	arc=none smtp.remote-ip=34.2.64.18
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com [34.2.64.18])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5292606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:35:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5292606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F5C606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:36:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86F5C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=D1oNLB7h
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1794105301;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=dIGQ7eFrFlqilOLIYga1HIT7xjtRLeM8O7PmQE2HBkE=;
- b=D1oNLB7hcmv9zuQ5nejNyeJb49LJFqdSDnfqv/EGezidyfuw3hn3VeDuWXnpnaLgW52GWb
- WpKqi17vIsA7+Qrr9/hc1fmfwBGaPkb332zCmBIYoomoY+cv9nb7NkpQpARmN3EJpoPmNq
- VuJnQig+vYO9At8FMitB2t/jZeWOg50JWH4///XuX6quBYkdLq7/8o8oK8AUJca0XO2WSG
- GHwbpiQe8JtVYbOdO2bH73g/31HZKfaL43zcwOsvqlCgdOM+gmsfrZfLAMfpH4WE90thjf
- +KXMybxUAc4JSN9VnuIPIFoPoGAJTQiBww7S1pTslWQCH59ULMkdj3oNZpEQsw==
-References: <20261102083815.127751-1-wozizhi@huaweicloud.com> <20261102083815.127751-2-wozizhi@huaweicloud.com> <bc03d165-55fa-4029-b653-eb5359a2816c@fygo.io> <ecaeda04-e90b-450b-a591-3cc3cc85fb5f@huaweicloud.com>
-Reply-To: yukuai@fygo.io
-Cc: <linux-kernel@vger.kernel.org>, <yangerkun@huawei.com>, 
-	<chengzhihao1@huawei.com>, <wozizhi@huawei.com>
-User-Agent: Mozilla Thunderbird
-Received: from [192.168.1.104] ([39.182.0.55]) by smtp.larksuite.com with ESMTPS; Sun, 08 Nov 2026 02:34:59 +0000
-Content-Type: text/plain; charset=UTF-8
-From: "yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH V3 1/3] md/raid0: reject a takeover whose zones cannot cover the array
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=bBXIheQH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794105386; bh=dcxb2OtDZ2muNlnYwXVmi2FrKAeiyS26nrso39IWX/w=; h=From:To:Cc:Subject:In-Reply-To:References:Date:From:Subject:Reply-To; b=bBXIheQHu0SvcMOSLTjw706BU7+KpQcDYr3MRp6pN7btbVd0IqAFOVc0hPUs7dKvIzLQy4/HnmOwNpghMoRP8e2bJRbE1etTC8NJUFe18ZlKk7ZSFggV5CP13kQH9W+8JjbztpI6pt8bo5YXHHD/MpmSMLm/+N8NiKocQOz7/ZZ83f+s+1/NqEW1HKWY++rWXNHR6MuAiLAk1D/wyIzmd1bpWInNliDgbbM7QCphUb0nIhMOGtolIoehrUsAj9qdv4Y6UMdaDSrG4qSW5/Lszh0EXlvlsONFnhmFEd/7fH+ileH3Q2HMw7wwCInE9eXLEnXCUVYfCw5tyEboyIi2zA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794105386; bh=NIKF3KvlpZRIvQ54dVaflu6TbBSVYybC9rBEarJRkmG=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=SbSedStOkcoVNC9/KjQQQmgyPa8ov1+ycYj67sZyzvSAleXbWMBIcYxQhboBEnCQ9ezOVJRmtoLVUi7XHjMOiB+udvALqdht9ScLiOH8vCnlmqXej9g3l1UAJ8bpc7lIl/Tth6YAVEWpXuq9mujKilOCmPKCrvDmc9Cm4KGybYDDqBQB5q3Gvr4/AeVoT491OLU2PVgs4KO3VyhqHP4RqK3Yk7FcKQVG+MCou3R5CPy+Qi6snC+wXbXzFQWffPDxG7YAtUDY5Myplcf5FzVPfxPekyJOVUa4gWyj+44DCwSuUzhxrqhIjgimIQ7JV7DPDgJs0XdMa3SotHokMdEadg==
+X-YMail-OSG: 4aUzieAVM1mn1oUFG.qwRuh0GMKf0az9o_mr5O8MypTDB5rsKSa6KIR38SSMTSu
+ 7E6nYVBpsBuSKeCASftOq5saanr5xgS5Ss7g4XSfTvsftyJaLosvaxP9.xC_k_BEuVq55YB9wyrc
+ 9aOw_tNLcaxqjMggMNxcIugbKu3056r_oTs5tBsnyb1Al_.5X33Y8FQz3Ejr47b34s937_ezyqVZ
+ LozEWxJeSWcHBE8Ijcxtoj28.qSsJMPKf7Wmxp33S945qrrSIRZ4OHxii8iOua8089l8fBjYuG.0
+ DVGUD926X5ianJoA74AdiSe2g4ZMZ6eKnGRX3WyPmWLs7HVCm_ryqIyt5xVEZOIPSo7tk5sCFXN4
+ Mpoyevq4YF3h6mwczfSsY8G6FShDrCIuUAf0O1_nwmQ5jxLNwxCvMxEfaCDZgHE_o3GkjRxncvAX
+ yZpBoQ4VLraTScHhcitrTE2Q.AcfBnAS.uHUZsoX.Wvw2Bp2UWbrnx04Oj7RYy5_z0gHoacvA743
+ 8eVTqj1BdC8Nstb4D9gnO66WbXTcFEC7N54XTj2K517NpVDwJtYc.8yHUgJhF5Jh.Sq_JEOzFrnK
+ EkhNJiAH2DqLbGLm4VtaXqINcOGz_WMbEPWChc8J151d3ZBUE2BbpHMB1PkfFGgn._Xb0VUhYSUF
+ fvZMvEcrq3B3yhMucqbtz1FbvTdqHVHrOoQrG77cwjN1zzTQ.H0dmv.i8SudknB.4mAm6qfF0xX0
+ CfnlJLAgQ7651Zye_7DCMs5ov_H.5KTalZ5dPgWEGBIdvTGlr4XxCIf9I2Dp60GuIaqSlhGGwL0j
+ kAVqvsbJwuM.Zj97uh20ubDg9mIhKQUYgAEz_etZWDoj1Re6zlC4DezEue2mHI8wDYba4nrFoMqt
+ 9IG.60i3vOU0g34WNn73s4r3JppVap.BHrsGz9mSnBQsl31gT9yMYCgvbANCA5A3HKOZtLm9k_UI
+ ALPx6VeYt7vEbaJvT7DA3beKIPilJQfBszB.FkuflUxhAUa_A2Z_HJsv81cDsGY2uzYs1QqJLmLs
+ EqknLQwNcETWjS3M457lf3XZhOggQc7moxFh_9f0DpfEPLRC2ZqAslnLiyEEHJic4OzsrOm1dVos
+ Uorhtnc2GmX3R1M7DvYaMOV.fNyoXdi2ftQjYkWtkjB4fZpbTQyD7xKEPzClbYYkysTZXcG1QL_T
+ ujed0jj9Qgz7BfUlTCyZxywuvyvv_9OOym2GMl4nqBV9jiReCla759ZWmolJcn7AMraM3ombnZmO
+ pKHLSQC89MHNJgXIYe8DiD9sM5ORJCBZFS45FpCkFJurM6vr6w0ic34L7qfu1ePnsqDtONYIAZJk
+ ThbTQKsOL3w8.YN4ucgeUar3ysfyTq26qhWe7_LINtqCS6TBeZLG2UsPQ9ZxpDFhLcD2Sy3LagfP
+ yf0b_IObFiZymHTDGJk3CvA0IMzq.eWGCYL9H6814YtNebLQLkg3ahAZHdWQ3krDOTTsPDk.79VR
+ Y8qF_icglQxCLwqLBsBZWCt7zS9jdUWNYCmWnICW.7ESpbXQpiFlBi9aE5E2ku7Eb4WaTE2XdHkx
+ OEr1fDMBNesmauavjvZIzZN0493HOnAU97u_PTW4Yb8mDHnwQz8eGOh_.GDouxwiqgKcJvibKiks
+ Qq7WhN01vxi_czjMFjM493J4IGw16zqqOKx65SFg_sj.EQ1xE3nUEKxhG_8vqXx7tVg5lMAtIDzt
+ 8rNj4f4UnuNE5W9NDGzm1yb2HXVsxGBECi3uGSl8gGSQzTNQHqAWihiVWiqA8UfNC3PPzCmxypJn
+ vR7Q6DUn4y6KEZtsG9NnwD3aPQzMEgfdHjG5CeRTp6acjUSXN6W3h3nxXPwYsHVnaH.bJGD6JdRE
+ 0thRYQNv0oDN1W_aeixoXdu9WT3R2VshYGnNYHmqESoZODGoEElCuNvrireePdSbq6NlAHn5VfKS
+ _j4zFsWExFkoulRSwm45NwOwzDCSvGGuI0ZRiTf2hyeyA6PuyYP3LA9hXE.QsFo09n0VuWlWMcgM
+ aXtJr7exM62dGLhpYr68-
+X-Sonic-MF: <capitain_jack@yahoo.com>
+X-Sonic-ID: d406044c-29f3-4bc3-8f6e-0bfb07efa539
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-104 with HTTP; Sun, 8 Nov 2026 02:36:26 +0000
+Received: from dip61.lsn.bf1.yahoo.com ([67.195.177.70])
+          by hello (SMTP) with SMTP ID 76980b0d153db45702007aab87c25563;
+          Sun, 08 Nov 2026 02:36:24 +0000 (UTC)
+From: Daniel Campos Ramos <capitain_jack@yahoo.com>
+To: Lorenzo Stoakes <ljs@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
+In-Reply-To: <179252139906.1666014.10596432029920554734@yahoo.com>
+References: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
+ <179252139906.1666014.10596432029920554734@yahoo.com>
+Date: Sat, 07 Nov 2026 23:36:21 -0300
+Message-ID: <179410538124.1716246.9582944258691673781@yahoo.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,218 +90,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <ecaeda04-e90b-450b-a591-3cc3cc85fb5f@huaweicloud.com>
-Date: Sun, 8 Nov 2026 10:34:56 +0800
-Message-Id: <f3d1b920-9e57-479d-8169-25e68bfe8bac@fygo.io>
-Content-Transfer-Encoding: quoted-printable
-X-Lms-Return-Path: <lba+26aefdfd4+c95376+vger.kernel.org+yukuai@fygo.io>
-To: "Zizhi Wo" <wozizhi@huaweicloud.com>, <song@kernel.org>, 
-	<magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, "yu kuai" <yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
+MIME-Version: 1.0
+X-Mailer: WebService/1.1.26943 mail.core.serving.mcws.prd.acl:role.token.mcws.jsmtp.yahoo
 
-Hi,
+Hi Lorenzo, Linus,
 
-=E5=9C=A8 2026/11/6 16:20, Zizhi Wo =E5=86=99=E9=81=93:
-> Hi=EF=BC=8Cyukuai
->
-> =E5=9C=A8 2026/11/6 14:34, yu kuai =E5=86=99=E9=81=93:
->> Hi,
->>
->> =E5=9C=A8 2026/11/2 16:38, Zizhi Wo =E5=86=99=E9=81=93:
->>> From: Zizhi Wo <wozizhi@huawei.com>
->>>
->>> If a raid0 takeover builds strip zones that cover less than the=20
->>> advertised
->>> array size, the block layer still accepts I/O for the whole size.
->>> raid0_make_request() hands any request past the zones to the mapping=20
->>> code,
->>> which fails to map it and triggers a BUG_ON.
->>>
->>> The zones are built from the member sizes in rdev->sectors, which=20
->>> may not
->>> match the size the array already advertises, so the zones can come out
->>> covering less than it. The extreme case is a member with no size=20
->>> recorded
->>> at all: an array created without metadata imports its devices through
->>> md_import_device(dev, -1, -1), which never sets rdev->sectors, and
->>> bind_rdev_to_array() does not reject such a member either, because its
->>> check that mddev->dev_sectors fits inside a member is skipped when
->>> rdev->sectors is zero.
->>>
->>> Refuse a raid0 takeover when its zones cannot cover the size the=20
->>> gendisk
->>> advertises. This prevents the takeover from silently shrinking the=20
->>> array,
->>> mirroring the rule raid5_start_reshape() and raid10_start_reshape()=20
->>> apply
->>> to a reshape.
->>>
->>> The check iterates the same devices and uses the same rounding as
->>> create_strip_zones(). It does not skip devices with rdev->raid_disk=20
->>> < 0:
->>> such devices cannot be raid0 members, so counting them only=20
->>> overestimates
->>> the coverage and, if present, the takeover fails later in
->>> create_strip_zones() anyway.
->>>
->>> Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and=20
->>> Raid10->Raid0 takeover")
->>> Fixes: fc3a08b85b7a ("Add raid1->raid0 takeover support")
->>> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
->>> ---
->>> =C2=A0=C2=A0 drivers/md/raid0.c | 37 ++++++++++++++++++++++++++++++++++=
-+++
->>> =C2=A0=C2=A0 1 file changed, 37 insertions(+)
->>>
->>> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
->>> index 35e103f0c2c3..fccc62a5fecc 100644
->>> --- a/drivers/md/raid0.c
->>> +++ b/drivers/md/raid0.c
->>> @@ -643,6 +643,34 @@ static void raid0_error(struct mddev *mddev,=20
->>> struct md_rdev *rdev)
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>> =C2=A0=C2=A0 }
->>> =C2=A0=C2=A0 +/*
->>> + * Refuse a takeover whose strip zones cannot cover the capacity=20
->>> the gendisk
->>> + * advertises: raid0 derives those zones from the sizes of its=20
->>> members, so
->>> + * find_zone() cannot map I/O that falls beyond them.
->>> + */
->>> +static int raid0_takeover_check(struct mddev *mddev, int chunk)
->>> +{
->>> +=C2=A0=C2=A0=C2=A0 sector_t capacity =3D get_capacity(mddev->gendisk);
->>> +=C2=A0=C2=A0=C2=A0 sector_t coverage =3D 0;
->>> +=C2=A0=C2=A0=C2=A0 struct md_rdev *rdev;
->>> +
->>> +=C2=A0=C2=A0=C2=A0 rdev_for_each(rdev, mddev) {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sector_t sectors =3D rdev->=
-sectors;
->>> +
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sector_div(sectors, chunk);
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 coverage +=3D sectors * chu=
-nk;
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0 if (coverage < capacity) {
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_warn("md/raid0:%s: refus=
-ing takeover, zones cover only=20
->>> %llu of %llu sectors\n",
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mdn=
-ame(mddev), (unsigned long long)coverage,
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (un=
-signed long long)capacity);
->>
->> Other than raid1, other levels already have mddev->chunk_secotrs set,=20
->> and raid456/raid10 already
->> have a full functional raid0, their takeover can not fail.
->>
->> Noted normally mdadm will set rdev->sectors and 1.x metadata will=20
->> reject zero rdev->sectors in super_1_load.
->> However, it's still possible raid1 can be created with rdev->sectors=20
->> be zero, this is the root cause of the
->> problem syzbot reported.
->>
->
-> Please consider the following two cases, both of which reproduce the
-> same BUG_ON locally for me:
->
-> 1. An array created without metadata leaves rdev->sectors at 0. This
-> isn't raid1-specific =E2=80=94 raid10 hits the same BUG_ON too. raid45 on=
-ly
-> escapes because raid0_takeover_raid45() overwrites rdev->sectors with
-> mddev->dev_sectors first; raid0_takeover_raid10() doesn't.
+A follow-up to my 20 October note, with controlled numbers.
 
-This is still legacy usage, and root cause is still that rdev->sectors be 0=
-.
+The principle is the compiler's, applied to comments: prepare once what the machine reads, and keep what people read beside it.
+The web already does this: minifiers remove 48 to 70% of JavaScript bytes in one study, and source maps lead back to the original.
+Debian does it for binaries: stripped in the package, debug symbols in -dbgsym.
+Lean Code does it for the text a system reads: headers, scripts, settings.
 
->
-> 2. Even with valid non-zero rdev->sectors, growing the chunk of a
-> running raid45 can make the post-takeover coverage smaller than the
-> previously advertised gendisk capacity. E.g. create a raid5 with
-> component_size=3D8K, chunk=3D4K, run it, then change chunk to 16K and run
-> raid0_takeover_raid45().
+Every changed file has three forms:
+1. The authored source, unchanged, in the source package.
+2. The machine form, installed: comment-only lines removed; blank lines, directives and code untouched.
+3. The human form, the complete authored text, in a <package>-lc-hr companion at the same version.
+The human form costs nothing at build or run time, so documentation can grow there, better grounded, paid for once by the person who reads it.
+Line numbers shift on purpose; a tool finds a machine-form line by its content in the authored source (dpkg-stereo --resolve PATH:LINE).
+An earlier form inserted #line directives: it cost about 21% more preprocessing and silently disabled -Wmisleading-indentation. It is gone.
 
-How can chunksize grow to 16k in this case?
+Measured, per file type (instructions with perf):
+- Kernel headers, linux-headers 7.3.1, 50.7 to 46.9 MB (-7.5%): preprocessing -0.78%, compiling -0.52%.
+- libstdc++, 864 headers (-23.6% bytes): preprocessing -2.7 to -3.0% instructions and -3.9 to -4.3% cycles; -O2 objects byte-identical; one compile of bits/stdc++.h reads 1.9 MB less.
 
->
-> So I think the real root cause is that the size changes across the
-> takeover, and rdev->sectors =3D=3D 0 is just one special case of it. That=
-'s
-> why the patch compares coverage against the gendisk capacity on every
-> takeover path.
->
-> For case 2, the problem exists even without a takeover: if the chunk
-> change shrinks the usable size, I/O from the upper filesystem will break
-> just the same. So I'm now inclined to reject a chunk change in raid5/10
-> when it would shrink the usable array size, and additionally check rdev-
-> >sectors for raid1/10 at the takeover path. What do you think?
+Measured, the whole system: a 2016 AMD A10 laptop, 28,500 installed files lean, then restored to the originals, then lean again:
+- DKMS module builds against the kernel headers: 6 to 9% faster warm, 1 to 6% cold. That is more than the instruction counts, which points at reading and caching; the two are not separated yet.
+- Programs use 3 to 6% less memory; boot time is unchanged; installed package files take 140 MB less disk.
+- The cost: 0.4 to 0.8 s more per dpkg run for the integrity check (about 64 ms in the current version), and a full verification takes 22 s instead of 11.
+- Modules built lean are identical to each other; against the original headers, modules whose macros carry header line numbers differ in those numbers only.
 
-There is always a top rule that running array can be mounted, hence any
-changes should not introduce data lost.
+Scaled, as estimates rather than measurements; I found no reliable count of Linux machines, so per million, to multiply by any fleet:
+- A developer building 1 hour a day against kernel headers saves 15 to 22 hours a year; per million such machines, 15 to 22 million hours.
+- Per million machines: 140 TB less disk, and 3.8 TB less page cache where the kernel headers are kept.
+- A desktop user who never compiles comes out about even.
 
->
-> Thanks,
-> Zizhi Wo
->
->> Although raid0_takeover_raid1() already calculate chunksect by=20
->> mddev->array_sectors, which is exactly the
->> real rdev->sectors for raid1, and it should be guaranteed such=20
->> takeover can succeed. However, as it's legacy
->> usage that rdev->sectors can be zero, I'll suggest just checking=20
->> rdev->sectors in raid0_takeover_raid1() and
->> reject if it's 0.
->>
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
->>> +=C2=A0=C2=A0=C2=A0 }
->>> +
->>> +=C2=A0=C2=A0=C2=A0 return 0;
->>> +}
->>> +
->>> =C2=A0=C2=A0 static void *raid0_takeover_raid45(struct mddev *mddev)
->>> =C2=A0=C2=A0 {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct md_rdev *rdev;
->>> @@ -665,6 +693,9 @@ static void *raid0_takeover_raid45(struct mddev=20
->>> *mddev)
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rdev->sect=
-ors =3D mddev->dev_sectors;
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 if (raid0_takeover_check(mddev, mddev-=
->chunk_sectors))
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR_PTR(-EINVAL);
->>> +
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Set new parameters */
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_level =3D 0;
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_layout =3D 0;
->>> @@ -707,6 +738,9 @@ static void *raid0_takeover_raid10(struct mddev=20
->>> *mddev)
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR=
-_PTR(-EINVAL);
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 if (raid0_takeover_check(mddev, mddev-=
->chunk_sectors))
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR_PTR(-EINVAL);
->>> +
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Set new parameters */
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_level =3D 0;
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_layout =3D 0;
->>> @@ -750,6 +784,9 @@ static void *raid0_takeover_raid1(struct mddev=20
->>> *mddev)
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* array s=
-ize does not allow a suitable chunk size */
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR=
-_PTR(-EINVAL);
->>> =C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 if (raid0_takeover_check(mddev, chunks=
-ect))
->>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ERR_PTR(-EINVAL);
->>> +
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Set new parameters */
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_level =3D 0;
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mddev->new_layout =3D 0;
->>
->
---=20
-Thanks,
-Kuai
+For scale: GCC 16 builds the kernel about 2.6% slower than GCC 15 in one report; Ingo Molnar's first header attempts gave barely 4% before Fast Kernel Headers reached 50 to 80% with over 2,000 commits; your series reports allmodconfig up to 36% faster.
+This stacks with all of them, with no source change.
+
+I am not proposing anything for the kernel tree.
+If a defconfig or allmodconfig comparison on the kernel's own include/, with the objects checked, would be useful, I can run it.
+Methods and raw data:
+https://github.com/Sparky-OS/sparky-stereo-os/blob/main/docs/proofs/lean-code-a10-aba.md
+https://github.com/Sparky-OS/sparky-stereo-os/blob/main/docs/proofs/lean-code-compile-cycles.md
+
+Daniel Campos Ramos
