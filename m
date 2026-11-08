@@ -1,83 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794153741;
-	b=OI1amVfCwphd5FvRZYTTsWO+0fvE39/b6Z/F7Aja5mLWKtPuJg20a8NHwexvXbYMIm3f
-	 iIkF4jjOA0Ln8eU01CuwMUnmvXYYl00rDelWs3bQ889LZkfi6umS4IWtS8EJgUW/bkUOg
-	 TKRbMy8w7iGj85v3iSiqvGRh2RqpCKQ0OSVeOmjbPhmAmXcGy6h7SmARIcBWkQc2PdYgq
-	 wGck6yR5DQQByaDP95IlTsfaq7HIGa2Ih1J/MHc/YHB59PB1Eu1ZPrhDV1L0c8iR0JY2H
-	 SGy8UWbJQz72kYs8QzZSSpRXOWHBnHHfsrsIJtzuuUaTvwTxTPt2IIodSqOKl1bSxQQ==
+	t=1794153948;
+	b=W/Aq712qmjhLusT1ermD5vaoUsD2p4WS9btrL3T4dFuAwaI1fw2u6WKmE4H7R+pZBh9o
+	 O5THEwgMCXBkjYyOPDzYe79xYHwHC2AMPdJVJfIQF4cGeQMlPvXbEzoFTCQFYNoETaylZ
+	 yY2hYy9pnw5m9rq5X7LPgU6eijJ+YqZMYyUtc62YYiTsebwvLo7XOFUEzbmGFLN2qKwAZ
+	 5GzswtBR5Z9HxOROVqVEnPmhc+GzHSChWfqCmlwZ9JHCeYBAwI7xLuu+5TgEMbOFNxPB5
+	 DRE6IEi8i9AjP6MUFqn2nDoJ2Ctaim7za/5RgJyhCvNOuNqt/g2QQPuf1bDFElZg3Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794153741;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=ej30WceHDvxYCHBRpxgFnbxKwm/1PhHk2tRvt9APK+k=;
-	b=C3SxUfd/IQE41DNX+TlFC0DRjB3pGZI5+wG311DU5BvTvt9WZ4yynx++oCGVu1f4fO6b
-	 xTs5vEBq3/hWD8I3PcfG+3wXAuD3E9j9efR4QwDE6XFYwAcb7RIjGqngstU2R5hfTJLDI
-	 Q1XdyLxefGbEPybevi+FqrfIyCHx9ckR7ckedzLBf2l+Z5lB0H3I2kut5t2h3q33RmuyU
-	 dDdXY/rpJV3hCgCvIr0eTFHQ4Wn0YH0x4TSRZHR4GkKqZW6QrsgQ0KzkRR7I5gFvcl38G
-	 9Pnpw5wqVg7zqCub9gVMDv1GofuQZLEySHjAlEyC18K5OsQBabWXSxYBqQKApeTsflw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794153948;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kb5blHaKqccC5gFIB9Xm+5chHCNmaHVStUhLCGbz+FY=;
+	b=uyEB5mFEbutoaALqnZUtO0ZPAPJsk4jjEy7PGVtjSDzyhYGfpPbKfnXyHJtAa61NIJ22
+	 mEVOLwczQgVO9/rnXZteEb6LUOzxr9eywJVTr3rofxL6TScBPtxyQQbHav/oQAYbaBUB5
+	 lOQJLkems4jjZnsfjxOxr2M8Seoe6D0Tg7Xer6kvf4zNkNjquUZE6bvOg5UAjOTT7FoBz
+	 hX7czuGsx8keKrmt3U/2SBTxbXqEQdMA1shFQfSl/X2mLHCni9vUEKY6+84ciDBnxQNpc
+	 l+fvMBlrH5ZWMUHLzgQfpwn+yUK9j0OeEztxgvRLion8YEDosJeP+I42Urcc5hcHSxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="iOvQYmm/";
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oRFfYqgi;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B826B606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:02:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B826B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B74F606A31C;
+	Sun,  8 Nov 2026 16:05:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B74F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=iOvQYmm/
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id PrGNxznA4OOJnQ5LXxwJlE; Sun, 08 Nov 2026 16:02:20 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Q5LXx9TYo3nNNQ5LXxMLcc; Sun, 08 Nov 2026 16:02:19 +0000
-X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6af09d0b
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=_jlGtV7tAAAA:8 a=ubTP0OvWGwm60-eT7C4A:9 a=CjuIK1q_8ugA:10
- a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=ej30WceHDvxYCHBRpxgFnbxKwm/1PhHk2tRvt9APK+k=; b=iOvQYmm/kI38VNWHr/X7dMB1fk
-	c0MBgFttyqNqrj4o/wauJR4XgNdw330swRLXIV3rlUIvOCgAdfJGyTNzxDFfDVzrOEpeOnOx6LyJP
-	E6PF1MWSO3QYqYpa32LpH9HVTIxkXqOntsMu7SG0nXn+w5IyCr3lNEAe7sOxEMuNKm47xtyMZm2lJ
-	dsVjmRHDfWZuFZA440FPdFnTWmrKQ8xR+WTtr+5P/FWX4AbNZWxh/7G1FPRa434XZA54XHiYA6S0p
-	/aNFYebxGDs3bDxD38hZ2zQC7GcAIbtiQBdnpzOpia6mCSqFkB5iuZzdG+rWetEvuND5TuwWtQcNP
-	7xmBv3tg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:53492 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQ5LW-00000000xnL-3vFA;
-	Sun, 08 Nov 2026 21:32:19 +0530
-Date: Sun, 8 Nov 2026 08:02:18 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Alistair Francis <alistair@alistair23.me>,
-	Andreas Kemnade <andreas@kemnade.info>, linux-hwmon@vger.kernel.org,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/5] regulator: sy7636a: bind to the I2C device
- directly
-Message-ID: <1ad52663-696e-4a6c-8f78-c75e3cd84102@roeck-us.net>
-References: <20261108093602.329554-1-pmazzini@gmail.com>
- <20261108093602.329554-4-pmazzini@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oRFfYqgi
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DBA0F33D;
+	Sun,  8 Nov 2026 17:03:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794153797;
+	bh=F59l12QQkYD4c+deJ4LOY0pRkA3JLhepmViebcp+JTc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oRFfYqgiqbGxSzBuHVdSZypY0wU45bJQ5jtP7Y1Bqyb8fTJoCnZYY/qREXVNdKJnR
+	 SFFqk4eu5kmy4s1OvIkpTAderXVb35sGrzV8ca4EnTYeH6rGD0szU4n10oqqqJ7umI
+	 dV0gxaj8sXweRXviycqHtl/YSu1RnZkGFqy95gBY=
+Message-ID: <8a1ff8b8-93b6-4853-a108-a3d0a45ca055@ideasonboard.com>
+Date: Sun, 8 Nov 2026 18:05:34 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,40 +54,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108093602.329554-4-pmazzini@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQ5LW-00000000xnL-3vFA
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:53492
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHH1+AEQiAxCwf1nz5Pk9KQCh+irZnJ26MXc7J6ajqt6VoK4aEUqRHnDz1coiSIVjw3i/4KF6MpME02O2z7EZnXfzyaWK0uLD2Hhp1BIUiKOjFRdCEiE
- 2WVu++K28Imr/oumTpsbb3P43287oe4ZiRv+ehqpolYlq0HjSfr7ey9XySuIhB6PRIibYqG0fdquJZP/jTQSIsRLrw9Djdt3zX1bJRlQdQK068bGZ5J+CCRA
+User-Agent: Mozilla Thunderbird
+Subject: Re: What should bridge drivers use instead of
+ __v4l2_subdev_state_alloc()?
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ DelaySystem <DelaySystem@tubot.lat>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, linux-kernel@vger.kernel.org
+References: <20261108013106.1162346-1-DelaySystem@tubot.lat>
+ <20261108102559.GA103930@killaraus.ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20261108102559.GA103930@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 08, 2026 at 09:36:00AM +0000, Pablo Mazzini wrote:
-> Bind the regulator to the chip directly, as the TPS65185 and FP9931
-> drivers do, and have it create an auxiliary device for the hwmon driver,
-> instead of simple-mfd-i2c creating a cell for each. Drop the MFD glue
-> and header. It now probes before the GPIOs may be ready, so report the
-> power good GPIO with dev_err_probe(). The hwmon driver then only
-> accesses the chip after vin-supply is enabled.
+Hi,
+
+On 08/11/2026 12:25, Laurent Pinchart wrote:
+> On Sat, Nov 07, 2026 at 05:31:06PM -0800, DelaySystem wrote:
+>>
+>> Hello,
+>>
+>> While working on drivers/staging/media/tegra-video I ran into the FIXME
+>> above __tegra_channel_try_format() in vi.c (added by commit 40aaab9d773b
+>> in 2022):
+>>
+>> 	/* FIXME: Drop this call, drivers are not supposed to use
+>> 	 * __v4l2_subdev_state_alloc(). */
+>>
+>> The driver needs a scratch TRY state to negotiate formats with the remote
+>> sensor subdev from video-node ioctl context, where no subdev file handle
+>> exists. I looked for the intended replacement, but:
+>>
+>> - there is no non-dunder allocator in drivers/media or include/media;
+>> - v4l2_subdev_call_state_try() is documented for legacy non-MC drivers
+>>    only, has no in-tree users, and allocates one state per call, while the
+>>    driver needs one state across enum_frame_size + set_fmt + get_crop;
+>> - the active-state APIs have the wrong semantics here, since try_fmt must
+>>    not disturb ACTIVE state;
+>> - the same FIXME is still present in mainline vsp1 and staging atomisp,
+>>    and mainline stm32-dcmi still calls the dunder directly, with (as far
+>>    as I can tell) zero conversions since the 2022 rename.
+>>
+>> So my question: is a new core helper the intended direction for the
+>> bridge-driver scratch-TRY-state case, and if so, is there any guidance
+>> on the shape it should take? Or is there an existing pattern I missed?
+>>
+>> If a new helper is the answer, I am happy to implement it and convert
+>> the in-tree users.
 > 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> No, that's not the answer.
+I think converting to MC is the answer. At least for a staging driver.
 
-For hwmon:
+  Tomi
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
