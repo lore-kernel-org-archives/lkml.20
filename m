@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794182171;
-	b=uNmesd+UBoaufr2L8LXScrDuSK7BounNLlgPGRIvUXKQcmjED9zB1lWHJW8kUjPU85Ts
-	 ToXAUJVDGKyXEi/+k/DuQqpcNbGLCxT3kGh6KsAIlOCRg7DHrOHKuzzyzowY7sN9/imB7
-	 handBHOgUP7AqpdrZ6bsYVhW0p6pw5dj78mMWXloxQFVjaUhvy0rRIcXzsOhSMDn54I9P
-	 lRBQpU6snvHLtKeWz0ED3KPhlJmwRTjc4CG/7OpdIYgQigsGd4skip7olrhOeff1VA5OS
-	 BbUdZoHqhd57IR3DPrtLFh6NyW/lgFpfrrG7ze5ksjCSiL7jPtC46+k4ZjbMj/bRRUA==
+	t=1794182216;
+	b=lIxvuxsCvGpKnVc5xm/5/Ng98nbFTiVXGiUkLOKaATbXGI+TUDBqcE75xh84j+p77v5l
+	 Hi+nu0SNze/iLNcOb3ypjEjPj89UDfciu6G8hYg9T3anHyNaYOFPPLw1jrlmaJVavqmZD
+	 0RnJsIZ/gmNZBVFbr5JBhNkxoj1QdmrBY9gxclkCMSIsCtMYL7zGaCmTy4xnRjpJ3ueo6
+	 DNS6U4xQTNrm6Lj+asOBCD+ATgbKChVb/UeJLw1VFfjit917PFrIvH6hVIZt0X6qKCry3
+	 qxJthBQ5YeL2bvql4DclPyfrPRnDe9uUdoPCMmMjgBHE0Qq6Yv3Gyxk/nfphHkom9OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794182171;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794182216;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Qt1zeuxdUDup0vjiAGJocYp3FrinfLcYS5z3WSk9EAE=;
-	b=WSfdOvQ6hpeNLEzvCz41uVR+DWL3rWB/qKp3crXtAcMe7P6e8myyAYcINbg3bDNBkJ6z
-	 87LiX1RrhheWJeCn5m9774a2hrJFBGWmsSyT/LIYQZ3X6mdKbiNgsiLVJadca3x7Izme6
-	 pPXEFcszFyIDCSzK2AIa0yPZMm2ydS2+SM8JHcy9nJh4BOfXGkrShpq4r6FH/uPkXeaNC
-	 nkDQkRKPLsZ+OVVk/qGOeVzTYX5fkmGRRDbfhi1vROsIAR3wTS9o/N4yMxEXAz3q0UHJh
-	 5IPCfhO5R3gfN9W0KxMoud96vstAaBL1NQNfOc0VOMcJoFZjMqONFeyPI2uG0vmYYlQ==
+	bh=MJW8N/bCptGqVujyyJa1efebwWocnO2Ib6jx/p8Co5I=;
+	b=W8G1cUHv3vHftPMbeatT95InQfvlKbWy+bcbnyIjA9vKzHdO0cYqchD3+97dcJDWBYPk
+	 1S2p+ykW2q1ZhLmzJD5k/Qp6Cinl2MmHs25zGOgJ6IuN1nLg3GBivnmTTdGZumZf7lDVx
+	 TVKRZOGx4ECw/+tz0crHkbv+BIH8/dVb77xL3seYbMBCrlAupefOHmTuBnSw40YayDzX5
+	 UM1790OuyB0TvK1lelb8yjIruxVdZUOio5s2KP5pEcjDrv6rjK/wXs7EfhLuAbc/HH+V3
+	 tFdNtvTJREAWiMBvmavb42jgkmjT6T+nVU/KbBpCJLXO5KN0uO9vBBrxBoPatDx26sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b="j+Vg/9VZ";
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=fvphmuqjrfdwtmq23ycfpudnei.protonmail2 header.b=yCkISfC5;
+	arc=none smtp.remote-ip=185.70.43.16
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213C5606A322
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 213C5606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D84606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:56:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D84606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=j+Vg/9VZ
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=fvphmuqjrfdwtmq23ycfpudnei.protonmail2 header.b=yCkISfC5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794182168; x=1794441368;
-	bh=Qt1zeuxdUDup0vjiAGJocYp3FrinfLcYS5z3WSk9EAE=;
+	s=fvphmuqjrfdwtmq23ycfpudnei.protonmail2; t=1794182213;
+	x=1794441413; bh=MJW8N/bCptGqVujyyJa1efebwWocnO2Ib6jx/p8Co5I=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=j+Vg/9VZE9AI520kUOFx5S6Tf8jcC1WSgzkW2lfYLKsjSvDvI1621GqWLoAjOL96G
-	 ROOjyp1BhYf18IIY4Yv1bv8JP6XdZWB+C+ks2tcKLSjI/53qr9pTriYgcdgOymuzoW
-	 DeETN3Mg7QLu/JmaG4vFVKduky2w9+Za930q8I3kLlvH7tq3qPJ2EoBKZBVE4ZtjGG
-	 6urqYxd6Q4UIvKjPPDIZ8Z76Z3NqHjep9egT0GgCs45a65WSrhqubE9yaeHRGFFUpw
-	 Iehu9wD0AUJbqcqZtKxu85MZMCWwzGMcHMhVpVGazLsTAf45ld8ou2j2QqOZBdpRZr
-	 G7kLB+0ngUTvw==
-Date: Sun, 08 Nov 2026 23:56:02 +0000
+	b=yCkISfC5Dc8+OOHSA6mNmum2fO4+KpRhmxoROiz/TggqgSatOUd95PDru0oQkdh/e
+	 jJpaFpuQaSJdZ0pjsIvIFgoEyU0ysBKVUW9o5L3hA5Tt6G7iwPWr0FCVO+/ySLbrWO
+	 F7Y8hAx0nhqrW/6prS33/JfU45zUaj0h/s73pCBpztkesy2Px3SFs2SR9Kxz5922ll
+	 Pk1bqiaMzUgl/GGXBnx3qx9fTMF2Y6zBuXpV/LUpK6A7xOiW2BTc7dSxXnMnDqQmUz
+	 Y9wp9ksRRnMGg4nRUjOSAUS2Cx+JsVvWlESiKLH3e/6hsCC7wr+c5wbyu/qt2vcK0v
+	 HuMLX8cgxvf8A==
+Date: Sun, 08 Nov 2026 23:56:48 +0000
 To: "lyude@redhat.com" <lyude@redhat.com>, "dakr@kernel.org" <dakr@kernel.org>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
 Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/nouveau/bios: fix u32 overflow in nvbios_addr() bounds check
-Message-ID: <F1RMJglEKbUzY1tsFmGLfELM-ZZe2K4V_4LwFEOfnZRs3wVOtsvAagfSueZK675dqsKQ_1ib4eChkv4ruONXnhk6tG-tGo0MyfMrPE9S4g0=@proton.me>
+Subject: [PATCH] drm/nouveau/bios: cap init script nesting depth
+Message-ID: <G3ZimZOZlItufllm5LR-ZRqoCo-h1QHacMCwFBHkYMjFTbdf5zFKkZ6mapaYVWYHw9rMh2mB18OYq1tOnMFP-Pn8W2M9Rsq-EBpL2HI8tJw=@proton.me>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: a887073bdea8cec9393d61020284cfe2a962dcf0
+X-Pm-Message-ID: 141651b0d4db0c1beb5def9c9ac606ec682f31fb
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,25 +66,28 @@ Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-The central nvbios bounds check overflows in u32:
+INIT_SUB_DIRECT executes a sub-table by recursing into
+nvbios_exec() after redirecting init->offset to a u16 address taken
+from the VBIOS:
 
-    if (unlikely(*addr + size > bios->size))
-        return false;
+    save =3D init->offset;
+    init->offset =3D addr;
+    if (nvbios_exec(init)) { ... }
+    init->offset =3D save;
 
-*addr can legitimately approach 2^32 after the image0/imaged
-remapping earlier in the function (which adds bios->imaged_addr to
-the caller's address), so *addr + size can wrap and pass the check;
-&bios->data[addr] is then a wild pointer about 4 GB past the mapping.
-Every VBIOS table access (nvbios_rd08/16/32, nvbios_pointer) goes
-through this helper. The patch rewrites the check in the
-overflow-free form.
+A sub-table that directs to itself (directly or via a cycle)
+therefore recurses without any limit - the init->nested counter is
+incremented and decremented but never checked anywhere. The result
+is unbounded recursion and kernel stack exhaustion when the script
+runs at devinit/display-init time. The patch caps the depth at 16,
+which is far above anything a legitimate image needs.
 
 Affected version/commit: mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 =
-(v7.4-rc2 window, 2026-11-08), drivers/gpu/drm/nouveau/nvkm/subdev/bios/bas=
-e.c:36-46 (nvbios_addr: if (unlikely(*addr + size > bios->size)) with u32 *=
-addr and u32 size), :52-78 (nvbios_pointer/nvbios_rd08/16/32 route every ta=
-ble access through it), consumers e.g. perf.c:38, vmap.c:36
-Longstanding check.
+(v7.4-rc2 window, 2026-11-08), drivers/gpu/drm/nouveau/nvkm/subdev/bios/ini=
+t.c:1343-1363 (init_sub_direct sets init->offset =3D addr and calls nvbios_=
+exec() recursively, restoring afterwards), :2302-2319 (nvbios_exec: init->n=
+ested++ / nested-- with no limit; the counter is bookkeeping only)
+Longstanding interpreter.
 
 This was found during an assisted (AI-supported) static source review of
 mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 (v7.4-rc2 window, 2026-11=
@@ -94,18 +97,20 @@ conditions are described above instead. Please treat this as a report for
 verification rather than a battle-tested fix.
 
 ---
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/base.c b/drivers/gpu/=
-drm/nouveau/nvkm/subdev/bios/base.c
-index fd3192df45..20735fba4a 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/base.c
-@@ -38,7 +38,7 @@ nvbios_addr(struct nvkm_bios *bios, u32 *addr, u8 size)
- =09=09*addr +=3D bios->imaged_addr;
- =09}
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c b/drivers/gpu/=
+drm/nouveau/nvkm/subdev/bios/init.c
+index 3f888fb979..93d090d529 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c
+@@ -2304,6 +2304,10 @@ nvbios_exec(struct nvbios_init *init)
+ =09struct nvkm_bios *bios =3D init->subdev->device->bios;
 =20
--=09if (unlikely(*addr + size > bios->size)) {
-+=09if (unlikely(size > bios->size || *addr > bios->size - size)) {
- =09=09nvkm_error(&bios->subdev, "OOB %d %08x %08x\n", size, p, *addr);
- =09=09return false;
- =09}
+ =09init->nested++;
++=09if (init->nested > 16) {
++=09=09error("init table nesting too deep\n");
++=09=09return -EINVAL;
++=09}
+ =09while (init->offset) {
+ =09=09u8 opcode =3D nvbios_rd08(bios, init->offset);
+ =09=09if (opcode >=3D ARRAY_SIZE(init_opcode) ||
 
