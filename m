@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794161763;
-	b=bKpP8TrLYaG+cTg7MgH/w+BmdsLOx5UZQa0GU82XGAFEftZ7ub+BXCDghRx+t9UWRkg1
-	 4UPBU5GSjxutUpcMhAtFJObmMRAJ7nb6W07QCQe4mmhK6e4bsu93SAF40zxvLIWqQMD3U
-	 zGhmCE4Aa9rLO6mAI58OVGuk3ppcXX5Ryu2VNe4cI1xWsykqPkaf0QQheYv+bgpGdeixV
-	 XOmv9DowI2oj7Iurr1BfWf9ZJ2cicekDV07UTlJNyR4JleWzD27+4BZjQ6OfHk+koO6nN
-	 999pN6kPoe+jFteGcw5ZzfT2xARp674v8Yots0hM58+Gfqs/59wzQ7St930x1u9AfqQ==
+	t=1794161857;
+	b=AqpkZxGcnfgLNVC2kEdOSgvFqwEK5fI4KhBeq4gGwpXxhYPzV5UODQhZwdKqhruvkLFa
+	 iIe2HHv21Yd58kqPfTgiqmrMgpd4+zSslau5UfMF8C2PxxmlGdLYKxNzOd4JRqxSjvP0J
+	 QmaKu3aNoA3V4inlSV1wSH7sFDw7LzNkpIsg8g0tStkrf+YwXRzwqbGhHi2pMmaq1kcI0
+	 J5zDUADDb2uuF9oFwzymXvGV57aZc9RWZs9GLEkvIaQfEbACvYRerlYTJ5BLt9EpvqqgC
+	 ptAOqAzwA+MZ55Gn1kjqxMlr2rvOudou0Z9P2/6WU74ZSni5OUdJyrYDav1D9VxtINw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161763;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=GUFk98TMKKPDdEafxwRQ9vChNe9Wtu9NCqjC9pH+E74=;
-	b=yG+eklOxXfkQyZEKVhveJnxrH+59KKyvQshN9ZsTVdFl4yyZO2zcqlX+LTLpZiTXJlO6
-	 V0WURNQ2lLcLLOyszIFZX4qsF/jG6EJa1ut+TZP+mytqEt7V4vw0KaPh8vcHNP3bgynPJ
-	 ax3dk5QJS62tOsXnDjU/V9VTWzWVCgJHNe22cIFkPLP9nkRgGIChwb+fTVtxaUIdAbmZn
-	 JL1Sj46odwe1IzdAtWtTL1du17Sq2OFck+IDs0J+0XSa/BfwG+pawRH4HHZOgjMB+5WsP
-	 2Kla6Gpz8ez5aWhp6CfViRN6yc3y2BSbdENfgT4OvZ63oqPpfpVtF2CqtL9XG4gq8Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161857;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=g4hSmDe/hNxM+mVYy6mm3ToAC8B9Vj/cAi+kvaP3/tw=;
+	b=aYj7et84qdQFFE9Vxq0O361dD0ydfV2bJg6dv74yRvB9x3Phv+DxuFBOZsh2giyoNPOA
+	 1hMC6/p4LucJs6AEIxMkZVpdh0tUHYQiX13F/7a6awW6WX+VlEzDy26n9V+lhbenDtniv
+	 NVYpQDIJZqnXRlaELiKhbyCto1U4Gv2dO2jtWbyif/3B21aiqlPkMkL4I5ZO5pBIqgmAt
+	 Y4UerW/SCKX57OHO7p9ax6yodneczwcYZ7zDdutKntSzN2YF5cIOCvgKYsc0Olyb62Mx5
+	 H/IF/V1zxbwSPYlGiknCs6yPCr7CgXO/MMV+igCAY3AFy1AD97b9KtydOz6fiPWWC6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.160.71
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAkHLf5B;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F02606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0F02606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-45ecb9dd589so130660fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:16:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794161761; x=1794766561;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GUFk98TMKKPDdEafxwRQ9vChNe9Wtu9NCqjC9pH+E74=;
-        b=goi02lQXqST4e0ricxHJ8m3fZxknHHjcEBuSFw3CiYfjKnYoBX097MEwsI+99s5YTl
-         oRtFhlNpOheYDkJmBpy71jumTy+6XThujtqY1wnlpf09BOmNrTR+jeq0fYfm0RjZV+Lz
-         uUIdJvt6xiWRWN9LZs85EgbukEsWmTh0HhCHAUdImLYi0Yqixi++YKaH8OljXWaUnvgo
-         JWplQezwAxfsy5VOO2+AGlyTaHwHpqkYi6kh2lHRuBU8JVf0U2tZOFdJB870WRvB9n7i
-         +bjyWYPTh/XRvU+cl1nMDQslsl4JZgLLpDM+lhGFth4v/8Bj3v1sVTxnfsYyK0z2nopX
-         MrZQ==
-X-Forwarded-Encrypted: i=1; AL+hErHtJDSZHldsopFWkxdfH5XFwRswDpRxG0/Lr8FYmIFcgBdm4pjRCWyJ9YsXYDY+Z/gb9yMfGOJro2v8PxY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZRhMiB7mdERwMuHg5BJJcYX5qWTtotSZEjztwikode/uGLzVz
-	/7gH4OstJ61elsF/eG/8l1JWZfspsHsx29b0Rv9Gur7Vl+7IAdCHeL5otTFwo84OreHrypzhLau
-	0/Mhczm139GOaC9RJEJTzSZYGyfGuzw6qrVHcCvP5d+Bn7vHkWyh/nxnxLTs=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FF8606A31C;
+	Sun,  8 Nov 2026 18:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAkHLf5B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6208F1F0089F;
+	Sun,  8 Nov 2026 18:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794161856;
+	bh=g4hSmDe/hNxM+mVYy6mm3ToAC8B9Vj/cAi+kvaP3/tw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hAkHLf5B2tv9F1+dzjDqdVR6k60D/15cmhkxtgW897siA9SGc0XscJqjW4V/ech4K
+	 yw4+9h2O/FbgBD1BN1G6gPOX5mRPlKi0hUZ5cvwoWE1bIZwdq+QUcCsQFvYBMnHbyN
+	 WGgBu3JWpqhRt+n23qKZZJbXARtzGL9jgaQX/1h+DOLJzl858I8c4rws/umvBP0qW+
+	 s7phRIXI/RdWSD3keJZ5xTw47MTDzittQDNDjWQx6IO7JsyRV6VgSLFp6vC3MpHyBj
+	 JwMrf8s/nt18oV4+im+WnzWjrdwAsHo13pxY26pXPdUaOLfrRG7cZeVivDVJ3wVmky
+	 dEFab83yXXfJw==
+Message-ID: <4a6ae329-0d73-4ab7-bd87-7acafcb8778b@kernel.org>
+Date: Sun, 8 Nov 2026 19:17:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,44 +51,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:23c7:b0:4e4:86b1:f7a0 with SMTP id
- 5614622812f47-568147212e5mr1152091b6e.53.1794161761733; Sun, 08 Nov 2026
- 10:16:01 -0800 (PST)
-Date: Sun, 08 Nov 2026 10:16:01 -0800
-In-Reply-To: <6a56fb92.c90005c7.37d349.003c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af0bc61.5a668245.1aceb6.0010.GAE@google.com>
-Subject: Re: [syzbot] [usb?] [media?] INFO: trying to register non-static key
- in __vb2_queue_cancel
-From: syzbot <syzbot+2302c5dc59995fbb8089@syzkaller.appspotmail.com>
-To: gautambhadori9@gmail.com, hokage.newbie@gmail.com, 
-	hverkuil+cisco@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-usb@vger.kernel.org, 
-	m.szyprowski@samsung.com, mchehab+huawei@kernel.org, mchehab@kernel.org, 
-	michail.tatas@gmail.com, pimyn@google.com, syzkaller-bugs@googlegroups.com, 
-	tfiga@chromium.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] phy: apple: atc: Add initial M3 series support
+To: Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
+ <20261108-t8122-phy-v1-3-c2783b2a53a8@chaosmail.tech>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20261108-t8122-phy-v1-3-c2783b2a53a8@chaosmail.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-syzbot has bisected this issue to:
 
-commit 288254383674be25b26cf137bc12bfe38fefbad6
-Author: Hans Verkuil <hverkuil+cisco@kernel.org>
-Date:   Tue May 19 10:07:59 2026 +0000
+On 11/8/26 16:43, Sasha Finkelstein wrote:
+> Adds initial support for the new t8122 phy. USB/TB only for now, DP
+> will fail to negotiate
+>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>   
+[...]
+>   /**
+>    * struct apple_atcphy - Apple Type-C PHY device struct
+>    * @np: Device node pointer
+> @@ -599,9 +647,10 @@ struct apple_atcphy {
+>   		struct apple_tunable *lane_usb4[2];
+>   	} tunables;
+>   
+> +	const struct atcphy_hw *hw;
+>   	enum atcphy_mode mode;
+> -	bool swap_lanes;
+>   	int dp_link_rate;
+> +	bool swap_lanes;
 
-    media: em28xx: use v4l2_device release callback
+ugh.. somehow dropped this comment from the email i just sent..
+is there any reason you move swap_lanes around here?
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=11227f8d580000
-start commit:   f909e534f5e3 Merge tag 'scsi-fixes' of git://git.kernel.or..
-git tree:       upstream
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=13227f8d580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=15227f8d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
-dashboard link: https://syzkaller.appspot.com/bug?extid=2302c5dc59995fbb8089
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=170e74e1580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15c43da9580000
 
-Reported-by: syzbot+2302c5dc59995fbb8089@syzkaller.appspotmail.com
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+Sven
 
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+
+
