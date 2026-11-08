@@ -1,61 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169385;
-	b=M3VCzCL5YjSXGhOqLvXP7xW6ZFJsD7inDOdmY01m8A7FmN+q6d3Fyhrisi1cGaZ50VpQ
-	 wHVNWyomKLN1VsIIjzUv/bSkLMkaHMnPZE5FfKm6VHOD5c/u0An83nGCoYw0X4rOBGWzA
-	 1AAqYZRwyc5qBt8/WildfqGbeHEtcVpZcjExDRL0d6oUdmkVL3wWAMjI5Xsv+x4PHY5bS
-	 IWRBroFsw4mdwByZNBoWXVnHUVgTnp/ld/PG4JmBBOBEecEmMH3Vz28ldIgfiTvLlZ6Qv
-	 Nqs+GRgHwyoY9K0dY3/okLn047S8Yjs8QyMmYu3K34WtJ4N26ccChT5dUVkCGcj/OHA==
+	t=1794169386;
+	b=q/NamCOty1qzXY7bRjUZjgvoHCZAaJ6LWDPHZMXbzgBjTjmYw3mID3E8o5XBsb4YPKfh
+	 shx7vVXpFMu7bbWHWSu5XVsPQ4lD+ZIj17w0cyRGm6I+13E4M4F405bvtxnqm3P8JARLr
+	 87kRmNYY7svRQD88oyLIy94pgzDnAcFHZDDjBsTNGhct2krYQjI4ORNRrqULkMaOoAyI1
+	 Ubu/i7bmrgZcUuRxPJEPqZzhYpkrYDNIlvXxhsKka5YLEO96qgkCIjt895kXaDb1qC8HO
+	 7LjOunVco8xGcVj/Gr3HgJYloP5CKNNiByUM6fmELmKem6Di45i5tCAwHGDvZUlDICw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169385;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169386;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=G8ZInKyMiYCEvt1+kivlCkkmODdcHnH/jt+X2SPvf+Y=;
-	b=WT8wfUwzxIqnqhGhfcqKCbfxHfNQffkwx2hGwqh3UgA+/6L4UY+cFhBL6MG8K0SrMA9z
-	 Kz+ot2kO/7JoWUjkuyjuS+qgzwCot3vdkAl9tbMY/6xSsmM6dIqo6gegxJBIlsbRaHbpK
-	 rMlYHnRTEitW9fnJXEjm7QPHfh7qU5FmklIIKVTFyJcYd7uOFb6Da0HXE4u/gUqfYk2lf
-	 oXju5cRlsrCZsmmXSbEPez8eEq1DK2dY2Oqf7aLq9/dJQsP2SXV6+L22oUIMxTojIVS3p
-	 /uunVaesrR1kM4zimgUI/rvELT8te5GpMpdYdkgXLBc/aYxPrDLdNhEEnQrADKJg2QQ==
+	bh=IMaQtWfkI2+nDAxSWxsRjzUPOhBE/O3gBqUNL4FUSOs=;
+	b=lBy7iNOfEjA7YJHZaNmUgQj6CjBXTm61NIGs3hslnamGEay1ZBz9BXcXbIHWtm0NhIs1
+	 dDXo+1FDDzEs5eO8DcCwEIBG0oj5vsEIIj1owwbWuOGVNCIN+TRf4KLoRDCzgu16gjSiy
+	 z0XBYr2EaxKx08usZ/wNhOKlYupkFeJlOD6gR8iUZV9w78KnJf7oPlVXO+uXo9oI8VYT0
+	 IPM+XEu05yh5IiWwtaU5HKuF+tc5Y7AQSauo0ZzhefbWx6WoruYUUhM/ywF/ADCaMOckD
+	 vFwFLhgeM8CiTwNI8t8r5jM+9eAGoHPgGfehV87GUMDwkbbDMtT39zAPzNNvS4ZCiTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yir4YigR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DX5feHJO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6E1606D11B;
-	Sun,  8 Nov 2026 20:23:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E551606D12E;
+	Sun,  8 Nov 2026 20:23:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yir4YigR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF661F008BC;
-	Sun,  8 Nov 2026 20:23:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DX5feHJO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E9A1F00902;
+	Sun,  8 Nov 2026 20:23:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169385;
-	bh=G8ZInKyMiYCEvt1+kivlCkkmODdcHnH/jt+X2SPvf+Y=;
+	s=k20260515; t=1794169386;
+	bh=IMaQtWfkI2+nDAxSWxsRjzUPOhBE/O3gBqUNL4FUSOs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yir4YigRBa/Xh1h7wEWcoEfmSqbyqtbYkjP8Y0J5JlbPGVp1bSt462tkC1JAaIES0
-	 JqrWp6o9t6zoP4sYQJemHZAU2g8ONHVWHRjDK/++sId+nv4Kc3j4h1pWVxJHVIkhW0
-	 U4gMni93UgSEi6Ju6T+QdM5zcm19cIIQvZDbQrabeyK0E50Ia9S6vClACDMvdb7sdh
-	 GjgdZbUMW29GR7B/W9Qa4iivyt97Cc4+wYILcho5ZeEPFMmmE7FCfFp9Zc4QyQKRkg
-	 E+tU+KPRJncsP+PWkDM88mDCgtazUlYxicbCpP4AhA/q4LlBx8M6g4bILgnFqqc5T4
-	 wwW355i+h+t+A==
+	b=DX5feHJOnRjzf9N0BsJP5nGg+9WIgOxrWw1PkxR3q9fht1Mgq1Yuzt4shUC/fG4gZ
+	 tuo0tO9Me5OgehKRlAkzH2P8c4EZ3hnZkpxHPXq/AZzCKPNTsPXlamdyylIJw+urNv
+	 MSuEMIzCC7sI+xphijghlbwWbWFyFqs0EWKjAc2LzsU+hnpY6IY+O3IgzLi6tlR7du
+	 nZiCuKPtSEIgkZ0yjtW6R2dWTCxBDanhYyAwYYUgwNsRYtP1+h5RfxCYv68c+P8ixd
+	 +t3WVhZ3lB8V4hZ6tbPdSUYEdVgMs0thgXomxhNj4tGhCTaRoCXmME0mvtbIm9DbPk
+	 Gk10fIFolbyWw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ivan Verbovoy <ivanverbovoy@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+To: Abel Vesa <abelvesa@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+	Imran Shaik <imran.shaik@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm8150-microsoft-surface-duo: fix da7280 pinctrl state name
-Date: Sun,  8 Nov 2026 14:19:56 -0600
-Message-ID: <179416929553.628393.10439136050675894033.b4-ty@b4>
+Subject: Re: [PATCH] clk: qcom: gcc-glymur: Use PWRSTS_RET_ON flag for USB GDSCs
+Date: Sun,  8 Nov 2026 14:19:57 -0600
+Message-ID: <179416929391.628393.13767365264983463444.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261103-a1-duo-da7280-pinctrl-v1-1-be1a6dd10f20@gmail.com>
-References: <20261103-a1-duo-da7280-pinctrl-v1-1-be1a6dd10f20@gmail.com>
+In-Reply-To: <20261016-glymur-usb-ret-on-v1-1-1790a523fd9c@oss.qualcomm.com>
+References: <20261016-glymur-usb-ret-on-v1-1-1790a523fd9c@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,21 +71,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 03 Nov 2026 21:27:19 +0200, Ivan Verbovoy wrote:
-> The pinctrl core applies a device's "default" state by itself and the
-> da7280 driver requests no state of its own, so the state named
-> "da7280_default" is never selected: gpio42 stays as the firmware left it
-> and its pull-up is not applied. The interrupt line is open-drain and
-> level-low; after a suspend/resume cycle it stays low and the threaded
-> handler runs continuously (about 2900 times a second) with no event in
-> the chip, which slows the whole system down.
+On Fri, 16 Oct 2026 11:58:44 +0530, Jagadeesh Kona wrote:
+> The USB GDSCs on Glymur are currently configured with PWRSTS_OFF_ON,
+> which allows the GDSC framework to fully collapse these power domains
+> during gdsc_disable(). When these GDSCs collapse, the corresponding USB
+> configurations are not retained in USB host mode use-cases and this breaks
+> the resume of USB controller from suspend.
+> 
+> To avoid this, configure the USB GDSC power states to PWRSTS_RET_ON. This
+> prevents the GDSC from powering off during gdsc_disable(), and allows
+> hardware to retain the USB configurations across USB host mode use-cases.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sm8150-microsoft-surface-duo: fix da7280 pinctrl state name
-      commit: 9c4d2fc8911a9be378c6f6ee19bc792858e15c32
+[1/1] clk: qcom: gcc-glymur: Use PWRSTS_RET_ON flag for USB GDSCs
+      commit: 39477c344da4ecc63229d9d7518857ff37f7fa96
 
 Best regards,
 -- 
