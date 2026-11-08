@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794178822;
-	b=hFkfnhpDOdY8/iRIqhY/dkLeEd3ZwiLeDTX68dMEOuQ8fJn8uQVW0L4t8XfIk6EGt7Ij
-	 vqor7MfC2LpmAEuaSgYxUEWpfLLjfWZJ9G9U9aW2HGfpr1Jxc2QxvQ9yq2PZ8g+QPbASU
-	 /9L+t+iao5DEAO7WSv+K06zvH8hfljW1oqo3pFM1W/ViVOEChP8Du2RoT2C3V8i3U4bGe
-	 +bIfWV+c/POwijjeYp6bEDaKv8do1tjS+z0Etcw532VByZ+iMkYE5RfEVX/HXBQZTeY1R
-	 XSSbVlKFcsd4EAjpY6hbHtkh9LiikGIvJxzyzYIaRPcVv3wjuc1xwktw3LqUteOvNxA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794178822;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yKK1iMirP9JBVABMoXQcasHTn/ArdnE6y45L4tRRNZk=;
-	b=gj9WvIvIhUFOvuBS4di/i6qJkR3xhq6CAEbb4ZnnyZp3X2LBsbYEEWJ4ZSrmY17ijd0T
-	 PLO+vBlK+yJd8vz3dgCs055koqi1YCXD0Voqlit2GAmZ1scVL1/1WcPb3hQrpGtK7SJkA
-	 S/M4w/qcjnir72iZaQVWHvoVZOYoE/DMARU7J90YR70qMibJkCp4E7CD+9GTMiKUQoeb2
-	 +uRdmLgMFXwxqHzMmDK0IyJPstPXUkOXeBW0micClk0WXZJRD+n+ndJZ/EkuMxRDTIW5n
-	 QyL8YMGHvqhnXmdrtMwt/Pggr0g4gkWg9vFuDXFV4NwTmookiqXe8JpV49aQiFwhymw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6CvuqTS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794178981;
+	b=RveM6g0n40I9Ezhb61C9V+KeuyHG8yUvWnjgccG3IIjyDKvAwMrwm0YJRkSiYPqzpQqs
+	 J1X0My1frksx4MdMebTCMxxs6SovS2rlW1Nl/rwjHJSx1+y52JIrzxdafrNc3V+xkfQDe
+	 Ec3BlE4ORLuR418SCZf/ogobqKIE1jUDPN8xdDxiAaqMQ2tbQDTxHfa84ct1kQH7SC5YW
+	 BB/l9B0qIED2kw1NmeQ8Wj9jl6gFTFLC0y5zHs5ijQ3ibuz57Z2Q+0Zj6/I+2ft2e0dYG
+	 epwH+Tpy623f7AuqfyjRIynLhHMQ1dcHXsieXeD41a75Sr0CuDcRye2mnxrtCyhTCbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794178981;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7lRipA1U3Vpr3W1XgShy4/lSpEPy2KcuVCNI6tVZLPM=;
+	b=EfhO4yALfmyQaW7pnJMGkX/iBgtyME9gDJHkipC7EcDtU5tVOB3Aacft0MgeUa/fvpnX
+	 bjcLeILmEo2KxeGGcVMPcR2v9E7iomzhrGbvq7PIapHCjNU1I6iIElNdN4URv91LidmbB
+	 qfq7jBYXgzcGX/+qA/ylokhAF8opf7B3vH7q4n6us3n3POgMskO4AivH7al9Lqf3PKfGS
+	 oXIRQ2C1zU6xGCYhIsKEZFcGy0mLVXrxI8RuZs6i43IZ0clC4HLIEcew87+j9Gst1fPob
+	 AjlQm6Z60GOjdmncTCG58hclmoeQM/ZjHWJ+ZvK/gi7lEggM/Oyc8kYBn0mQBJZIxiw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KW4avC1O;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF08606A31C;
-	Sun,  8 Nov 2026 23:00:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC660606A31C;
+	Sun,  8 Nov 2026 23:03:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6CvuqTS
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794178821;
-	b=Orb8S4LW6ClGvzu6V0Clx+RcQWDe8/ElJeTs/gW0IU4dVbraV7G6b/QD71sCtNWvb5CU
-	 oSvQwnDVJ1Pp7V6kq2oX7ebc6ARnn4zb4KnlXFJDhA4ckx781BUCFDM0Ki/gv2Yv/Jy33
-	 ZPRoSaQ+6gxMjafBRiWrBCpNVCR7m0msCuHutxqJAFzVG3Ti9g2SUr+Kt06mQrqJS2QT4
-	 PU9m/K6aFxXgnmZP6IKACzyND03vZbZQ6RvW3IRpX//14siyK6r5Dx68w8oQOh72Wc4je
-	 Fo12w+MW2YOSzvDNCdnC9ufcnQ8SOGvuT7gPuGJL05aZ1tCIVAxJJjgVFggbwilraeg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794178821;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=yKK1iMirP9JBVABMoXQcasHTn/ArdnE6y45L4tRRNZk=;
-	b=QEOe6Bl5dGnQ6lZXLaUPORvoGbQkOLhSv2cTf8s7+qMEyf56NLtzx0CICMf/FZagJzMX
-	 t4nrChluXpOunw3uHhdAdQ7OVkL+80z9A5IQlrwXQbc0hCVBAiokXUw2abqdaCOIchcEw
-	 yMbMunnNPTXI3nQ5VJzk2yK/g/4Q9ALcrgdydaJK/p1u9ppelHoFCi6UFW4sIbEYhtuJL
-	 om8rCKJucAWyyrh+d8A3c3VCBmXGiIWDDETIUZ1Q8utm1xjnNTDV2omJCRDz+2WvgpeEC
-	 P34vOVkNxIXdhb7jl4uvnjdQH0ENV4cNlrAsb4RjNyo9JxnrX6YcB0q/mMlKyqR6SLw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9D0471F008A3;
-	Sun,  8 Nov 2026 23:00:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KW4avC1O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA871F0089F;
+	Sun,  8 Nov 2026 23:02:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794178821;
-	bh=yKK1iMirP9JBVABMoXQcasHTn/ArdnE6y45L4tRRNZk=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=I6CvuqTSfn6c0ISdqAWhqvU7/I4f69ERBV6ndg8vbwtxyBCY4UopGZ+8tmKCze+f+
-	 DlqUXEqjlsvb02jSZWNs3oTSIej01h1AQo+cBTiz+oiPXrWK3C2F7JlIvKF0q7r+el
-	 DqtLtOZVif4sWxIWPBEjyvk0+9aa3noveEsmyWNxeFJFEYvAlvuTjjpJa7c+1Yt8x/
-	 zHN+WqEucyfIzWWnN6ly40Fz2i73PFbmILZjxXs8SvSlDAbIJP50eP9uqvapo2lOTM
-	 JT4TLxjwbBVFZsFj/eyLuBBUnYF6v5euHPSz1Q4SRiR7UZyGnHq6C56GI7y95oV1h3
-	 FnpKPPVjXEavQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2D5AD48126;
-	Sun,  8 Nov 2026 23:00:20 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Sun, 08 Nov 2026 23:00:18 +0000
-Subject: [PATCH v2] arm64: dts: rockchip: Describe more of the power tree
- on Kobol Helios64
+	s=k20260515; t=1794178980;
+	bh=7lRipA1U3Vpr3W1XgShy4/lSpEPy2KcuVCNI6tVZLPM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KW4avC1Oy7f9fYLC0CwIcCL61e9F/iM0JHkURcTzMGWEJuQpl94GKC9AsuSMi3LJ8
+	 b2M98SuhcyUyS43870lM9KPtzQQpx3r1EUSN+DoG/SkrrRw9TeX6WFIeyxrZqJcyFB
+	 lOUopIOie5P3vneIvOiBvfTkZLdRDWuFrwxRxl2UuSjJ7nBnCcaQkoZmWnOfJqBe7U
+	 my1C7FtW/TAKIv5ZOZz/mWG/cAAlZveYdgNhzveoFKENVRTANjAHkhzavNVbG4nvvE
+	 CkGVOgV2N5vEsEWKAjVTi5Y2kgIONf0bFMMps460v6/aE7n3gU2eGhxshhp7rEer+Q
+	 ArlOEEJ/y9xzg==
+Date: Sun, 8 Nov 2026 23:02:55 +0000
+From: Conor Dooley <conor@kernel.org>
+To: admin@tsv-stahl-riesa.de
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kevin Tsai <ktsai@capellamicro.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: Add Capella CM3217
+Message-ID: <20261108-diploma-profound-df9901bb55f6@spud>
+References: <20261106-upstream-iio-cm3217-v2-0-d97adde9171c@tsv-stahl-riesa.de>
+ <20261106-upstream-iio-cm3217-v2-1-d97adde9171c@tsv-stahl-riesa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,178 +65,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-helios64-power-tree-v2-1-639ac2fc5ad7@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAAH/8GoC/32NQQrCMBBFr1Jm7UgSm7G68h7SRUlGO1CakpSol
- Nzd2AO4fA/++xskjsIJrs0GkbMkCXMFc2jAjcP8ZBRfGYwypJUmHHmSkKjFJbw44hqZ0Z5NR61
- zTJagLpfID3nv1XtfeZS0hvjZT7L+2f+9rFHhSXtynXdWXcxNhnycMvSllC+R/i/yswAAAA==
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4317; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=q4DkBQaFCKCe8qKMF/toFq0OPupIRXkfyB7nLuL7qmg=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkf/jNbv11+JHHf5IcVenLHrfkWbXvKM6fu6otn6re47
- hhb7PZm7yhlYRDjYpAVU2SZcEjjVsaSq3/9PcwfwMxhZQIZwsDFKQATMXdmZLhp+/n4ZovfUQLr
- S1jc1h1UMs2+E/CnvTLz+ns9MT8nOzOGf5rWPOxn5h2cZJ/hJfKn7fmXe+FnueI+vN9Zuck1eUr
- aUwYA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iTafg9FVNCC4/vZk"
+Content-Disposition: inline
+In-Reply-To: <20261106-upstream-iio-cm3217-v2-1-d97adde9171c@tsv-stahl-riesa.de>
 
-From: Igor Velkov <iav@iav.lv>
+--iTafg9FVNCC4/vZk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add the regulators that the Helios64 schematic shows and the device
-tree does not describe yet:
+On Fri, Nov 06, 2026 at 09:56:29PM +0100, Patrick Fischer via B4 Relay wrot=
+e:
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+> The Capella CM3217 is an ambient light sensor with an I2C interface but
+> without registers and without an interrupt line. It always answers on
+> the two addresses 0x10 and 0x11. The node describes the first address;
+> the second one is fixed.
+>=20
+> The sensor is used in the NVIDIA Tegra Note 7 and the NVIDIA Shield
+> Tablet.
+>=20
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> ---
+>  .../bindings/iio/light/capella,cm3217.yaml         | 51 ++++++++++++++++=
+++++++
+>  1 file changed, 51 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/light/capella,cm3217.y=
+aml b/Documentation/devicetree/bindings/iio/light/capella,cm3217.yaml
+> new file mode 100644
+> index 000000000000..7f2a0d5d0243
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/light/capella,cm3217.yaml
+> @@ -0,0 +1,51 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/light/capella,cm3217.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Capella CM3217 ambient light sensor
+> +
+> +maintainers:
+> +  - Patrick Fischer <admin@tsv-stahl-riesa.de>
+> +
+> +description:
+> +  The CM3217 is an I2C ambient light sensor without registers or interru=
+pt
+> +  line.
+> +
+> +properties:
+> +  compatible:
+> +    const: capella,cm3217
+> +
+> +  reg:
+> +    description:
+> +      The sensor always occupies the two fixed I2C addresses 0x10 and 0x=
+11.
+> +      Writing a byte to 0x10 sets command byte 1 (shutdown and IT_T), re=
+ading
+> +      a byte from it returns the high byte of the light count. Writing a=
+ byte
+> +      to 0x11 sets command byte 2 (FD_IT), reading a byte from it return=
+s the
+> +      low byte. Only the first address is given here, the second one is
+> +      implied.
+> +    const: 0x10
 
-- RK808 DCDC_REG3 vcc_ddr_s3, LDO_REG6 vcc1v5_s3 and SWITCH_REG1
-  vcc3v3_sys_s0 (sheet 6),
-- the fixed 0.9 V regulator vcc0v9_s3, fed from vcc3v3_sys_s3 (sheet 8),
-- the hard disk supplies vcc5v0_hdd and vcc12v_hdd, fed from
-  vcc12v_dcin_bkup (sheets 4 and 9).
-
-The hdd_a_power and hdd_b_power switches each take both vcc5v0_hdd and
-vcc12v_hdd (sheet 5). A regulator has one vin-supply, so the two disk
-supplies stay without a consumer. They feed the disks through those
-switches.
-
-Link: https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on Helios64 with a 7.3-rc7 kernel, on v1 of this patch; the DTS
-hunks are unchanged in v2. All six regulators register, and the disks
-and Ethernet work.
----
-Changes in v2:
-- Drop patch 2 (unused RK808 outputs) after Chen-Yu Tsai's remark.
-- Rebase on for-next.
-- Link to v1: https://lore.kernel.org/r/20261016-helios64-power-tree-v1-0-31d6c8dc5092@iav.lv
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 63 ++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index f13ea2df7a30..61e50c3e7ef2 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -248,6 +248,16 @@ usblan_power: regulator-usblan-power {
- 		vin-supply = <&vcc5v0_usb>;
- 	};
- 
-+	vcc0v9_s3: regulator-vcc0v9-s3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc0v9_s3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		vin-supply = <&vcc3v3_sys_s3>;
-+	};
-+
- 	vcc1v8_sys_s0: regulator-vcc1v8-sys-s0 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc1v8_sys_s0";
-@@ -285,6 +295,16 @@ regulator-state-mem {
- 		};
- 	};
- 
-+	vcc5v0_hdd: regulator-vcc5v0-hdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_hdd";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc12v_dcin_bkup>;
-+	};
-+
- 	vcc5v0_perdev: regulator-vcc5v0-perdev {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc5v0_perdev";
-@@ -342,6 +362,16 @@ vcc12v_dcin_bkup: regulator-vcc12v-dcin-bkup {
- 		vin-supply = <&vcc12v_dcin>;
- 	};
- 
-+	vcc12v_hdd: regulator-vcc12v-hdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc12v_hdd";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+		vin-supply = <&vcc12v_dcin_bkup>;
-+	};
-+
- 	vdd_log: regulator-vdd-log {
- 		compatible = "pwm-regulator";
- 		pwms = <&pwm2 0 25000 1>;
-@@ -479,6 +509,16 @@ regulator-state-mem {
- 				};
- 			};
- 
-+			vcc_ddr_s3: DCDC_REG3 {
-+				regulator-name = "vcc_ddr_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
- 			vcc1v8_sys_s3: DCDC_REG4 {
- 				regulator-name = "vcc1v8_sys_s3";
- 				regulator-always-on;
-@@ -518,6 +558,19 @@ regulator-state-mem {
- 				};
- 			};
- 
-+			vcc1v5_s3: LDO_REG6 {
-+				regulator-name = "vcc1v5_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <1500000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <1500000>;
-+				};
-+			};
-+
- 			vcc3v0_s3: LDO_REG8 {
- 				regulator-name = "vcc3v0_s3";
- 				regulator-always-on;
-@@ -530,6 +583,16 @@ regulator-state-mem {
- 					regulator-suspend-microvolt = <3000000>;
- 				};
- 			};
-+
-+			vcc3v3_sys_s0: SWITCH_REG1 {
-+				regulator-name = "vcc3v3_sys_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
- 		};
- 	};
- 
-
----
-base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
-change-id: 20261016-helios64-power-tree-572864cce656
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
+I think this should actually contain both addresses, the i2c-controller
+binding permits children with "one or many i2c target addresses".
 
 
+> +
+> +  vdd-supply: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        light-sensor@10 {
+> +            compatible =3D "capella,cm3217";
+> +            reg =3D <0x10>;
+> +            vdd-supply =3D <&vdd_2v85_sen>;
+> +        };
+> +    };
+> +...
+>=20
+> --=20
+> 2.56.0
+>=20
+>=20
+
+--iTafg9FVNCC4/vZk
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavD/nwAKCRB4tDGHoIJi
+0t57AQDK4maf/RAmwAOplIx96ejSTOlAFhIoFS2LwLIGDZZTyAEAhEcFFs0JdsKK
+EZsNHK083RmofibAX2Ik7eUBl8PGdgU=
+=6wfh
+-----END PGP SIGNATURE-----
+
+--iTafg9FVNCC4/vZk--
