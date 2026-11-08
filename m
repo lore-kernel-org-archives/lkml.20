@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794098978;
-	b=DjUj3evB6QcfFIyNbVDSVe6L1qoVQYWgu81dbGkt86442f3YdpqlmhMwyc9TyHU3HUwK
-	 WFVAjbn95DuH/Jh7wZNbnJJptbCL+Kc+rc+9/J55/mtK6E00wDM9YmunrKhquTzEgU/15
-	 zm6A+rB0HkVhHGbjFr+Iy1EZ4lXnq1Ter8eU4aFgpLBfjZoDeMCckdXZ4FNOQl7HmkUZ1
-	 ktfzbvPkgCPXcq7Kb0f8GLNN0xOjvBrNYVa5fqPibTdnGbKZx3JPLk8TcSdjTgFdt6N2D
-	 rIlKvjH5vUnkRuekHEg5GBmNAzHDSK44xgVeu1SoUpgc1rlrWYdXPs4R6sqRjyB2PLA==
+	t=1794099006;
+	b=0OfrybqTwSAG/eVc3wnSaXBzGCL0zs4Z9+YnwQxxTPWkRvCirnu1CvOJK6tM4mQWVZCR
+	 SyHWKlFcQoOzJ2oQqT2Hoc4Gvg/Ab8jQdAky9jsGEij7nrNaY3ARXweDSmk7mTU4m+Wd0
+	 EOt9ZlUDyNJqQf0I7QZlH9rUy//cvCGEKNuuTTnB6CiM4fkZven7xwYhkqSbUVQ56SGr7
+	 /mm/wGFMaaYyNvLkh+EXY0/VX2cFEvv13vRi5Cvg4bPY3/mabmR6EI2O0AaCqj6cINr5f
+	 OacjeSb98mGBr0NYthuLNJeQhLxjot/P53SyqSo5i14EL7UwKqybYhGW9UKvA0Vbimg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794098978;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=miYEEFkV8Z9i/2WhkZJGbAnT2PZHJfO76Fege8iJvSk=;
-	b=RuYLMeoMzWWQggQngsRm/RsoJmszvvAJ6dOMX8O/p5MFR2Ql/AKoUN28P4+s5TpedShK
-	 8Ic2MHMc6rFIT9rMJanqc95gXNnRExgKsFpJL1VRFp5dLQ1/lQRDbV9JwRiRhDkB21kNP
-	 yoQcixJ+tFuJ9vBRjUKF+gpNTul7O4SQgRXigP4GZvyM3LKgPHqHxSWZYpokDY1wltpgA
-	 nbUDaXLkN447s7qlVjpL1hnstREju4h7SziYIwPoQr9wSBDeX6xlHX63bk3vWwOjeUGPW
-	 gHqD4911/h3cfVebXaXat+HYkDZtIOlYYUVNLG8gTIXCgIm8RBVQ8tMzDhSPShXRtNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794099006;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ycBAJ5FrW0Yh7SIfNsCJabTC+sDYF8E9sGOo3X3r0nI=;
+	b=gWL5KDlArsgm8CJLs0rcNQoU6S1+KedDOQE1EBlZB3WID1gdOkOddM2DDkH6LbD2P/A+
+	 zjn8dNaZ5kxwkvw8YbgOjGnTEbaJN17d/rVOvyViUcH1TBaniRv3Q8r7xo1gUXGSjlZeH
+	 LMnQcs4GtcfXuSF0rvd/uqq1NviLCrRF8sKrerp+8ymdjTQKQFk2xU76QZcJEEhg8DPPj
+	 Hneb46MX106jzmuZ1nXljANNZPdGPNNdMIcV1PvkHzihkT77NGx3QysOkf/ZPYPVC6LnM
+	 XlEtcDKUwZ/1wrMiA2MzNU0M+2SfmBxzUcxLxL8QE7OkR6BLB3hxuclhoKm1Nk0X1ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ex6ux7odynbm3d3bieiceub7qm.protonmail2 header.b=rjuH4+CM;
-	arc=none smtp.remote-ip=185.70.43.103
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hH91j/p8";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEED6606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEED6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AE6606A326;
+	Sun,  8 Nov 2026 00:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=ex6ux7odynbm3d3bieiceub7qm.protonmail2 header.b=rjuH4+CM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=ex6ux7odynbm3d3bieiceub7qm.protonmail2; t=1794098973;
-	x=1794358173; bh=miYEEFkV8Z9i/2WhkZJGbAnT2PZHJfO76Fege8iJvSk=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=rjuH4+CMOxjvkJtxk5T3cPqA+hWog5zbhsiunsiTk6KP5CDu6Ts7//q2IFKfrHSaH
-	 axhY4DX7/x0nkBsJ4uKg+3x91maZTMHHNZZA2m4bboG3MPBLGg6lrcUTtyB/FbPbbd
-	 RPhWUm/9HLK+I7HvukYX6MHpeBsQxJ/DeKA3P1tax2KgmuHLDgzzwmDPBX2Tff31Wx
-	 2zamqDJAAPkstFd26trhlynV6g21bxA4Q0LSLJLdTRUnCjleWCnrqu0+H4KCfw66mi
-	 Mm1lELCU099/HwHFi96t6jalQVwtg9J8Khxh/oapMaq+1SXf1nHJNrKlf1g2S3MD8b
-	 PLwcL9kswAMNg==
-Date: Sun, 08 Nov 2026 00:49:29 +0000
-To: Cong Wang <cwang@multikernel.io>
-From: Yun Wang <7z0423arsenova@proton.me>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [kmorph] QEMU test report: takeover OK, a build break, two config traps
-Message-ID: <20261108004716.3828406-1-7z0423arsenova@proton.me>
-Feedback-ID: 227066774:user:proton
-X-Pm-Message-ID: 6e9de18d4efdc9a5741a003cdf1f8a901846ef61
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hH91j/p8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111D01F0089F;
+	Sun,  8 Nov 2026 00:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794099005;
+	bh=ycBAJ5FrW0Yh7SIfNsCJabTC+sDYF8E9sGOo3X3r0nI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hH91j/p8jm9mBLU0t1QKs/LdcrZWQshTeiAqbQNsHa3wndeKtCBa0Z9mbrfSIs6WF
+	 pmgAwLfmgHqtF2hRFa956/5sqtKFxIkv17uFLNNCWPfR9jiTGEVhLInOsYtsMUP4kn
+	 IBKk0SEJSws6zzvV/XM/clY2n11lmferDIeX8b72WvEwoqnCiG9BtEUeH8iLhDx54R
+	 GCD62uT7jQooJlt0qLKJr5OgArPGrtMIk4QaRpjzE/uXXPEPAkfZN17nkCE7gqWpoe
+	 pxSKMB151o5Uk4xvM3pAPA2wVChupXbuCy9H40OJ+4DGIUlwKaTv66ShWkPMsOQbTu
+	 ncml3NaccwVBQ==
+Message-ID: <sashiko-outbox-203503@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net v6 3/6] amt: reject a gateway Query or Data from
+ 0.0.0.0 before a relay is learned
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Omar Ramadan" <omar@blockcast.net>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261107004935.2627329-4-omar@blockcast.net>
+References: <20261107004935.2627329-1-omar@blockcast.net>
+ <20261107004935.2627329-4-omar@blockcast.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 08 Nov 2026 00:50:04 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,174 +60,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Cong,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] amt: wrong Fixes trailer commit in amt_rcv() remote_ip check fix
+--
 
-After your announcement [1] I tried multikernel + kmorph in a QEMU/KVM
-guest on x86_64. The takeover itself worked: 10 of 10 runs, with the
-predecessor crashed by sysrq-c. I also hit a build break and two
-configuration traps that the next tester will probably meet; details
-and a fix below.
+commit 96318be241052a6271835580e7680bbadcc12e44
+Author: Omar Ramadan <omar@blockcast.net>
 
-Tested: multikernel/linux 57fd249 (7.0.0-mk4), kmorph 9ec046e,
-GCC 16.2.1, QEMU 11.1.3 (q35, KVM, 4 vCPUs, 4 GiB). The lines named
-below are unchanged on master (77a05a4), and kmorph main is still
-9ec046e.
+> amt: reject a gateway Query or Data from 0.0.0.0 before a relay is learned
+>
+> A gateway's amt_rcv() admits a Membership Query or Multicast Data
+> message when "saddr !=3D remote_ip" is false. remote_ip is 0 before
+> discovery has learned a relay (and is reset to 0 by amt_dev_open(), by
+> amt_dev_stop(), and when the gateway gives up after its Requests go
+> unanswered), so a packet whose source is 0.0.0.0 would otherwise pass
+> the equality check and could spoof a Query or inject multicast data.
+> IPv4 input accepts a 0.0.0.0 source only on a limited broadcast, so the
+> sender has to be on the gateway's link.
+>
+> Reject both when no relay is learned: a 0 remote_ip must match nothing, so
+> guard the check with !remote_ip. A Query is queued before its event worker
+> processes it, so the relay address can also change in that window. Recheck
+> the packet source against the current remote_ip in the handler and discard
+> stale Queries. Discovery is unaffected because Relay Advertisements are
+> validated against discovery_ip, not remote_ip.
+>
+> Found by code inspection while writing the IPv6 receive path for the
+> AMT IPv6 outer transport; not triggered at runtime.
+>
+> Fixes: b9022b53adad ("amt: add control plane of amt interface")
+> Assisted-by: LLM
+> Signed-off-by: Omar Ramadan <omar@blockcast.net>
 
-1) Build break: CONFIG_INTEL_IOMMU=3Dy with CONFIG_IRQ_REMAP=3Dn
+[Severity: Low]
+Commit b9022b53adad ("amt: add control plane of amt interface") only added
+the control plane setup; amt_rcv() and amt_membership_query_handler() were
+introduced in cbc21dc1cfe9 ("amt: add data plane of amt interface"), and
+deferred query handling was added in 30e22a6ebca0 ("amt: use workqueue for
+gateway side message handling").  Should the Fixes: tag reference those
+commits instead?
 
-     drivers/iommu/intel/iommu.c:2806:35: error: 'struct intel_iommu'
-     has no member named 'ir_table'
+  Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+  Fixes: 30e22a6ebca0 ("amt: use workqueue for gateway side message handlin=
+g")
 
-   intel_iommu_claim() uses iommu->ir_table unconditionally, but the
-   member only exists under CONFIG_IRQ_REMAP (iommu.h:733).
-   x86_64_defconfig + kvm_guest.config + the MULTIKERNEL options hits
-   it, and so does this one command after "make prepare" on that
-   config:
-
-     make O=3Dbuild drivers/iommu/intel/iommu.o
-
-   The patch below follows the intel_irq_remap_claim() pattern already
-   in iommu.h: a small helper in irq_remapping.c, a stub for
-   !CONFIG_IRQ_REMAP next to the existing one, and iommu.c calls only
-   the helper, so there is no #ifdef in the .c file. checkpatch
-   --strict is clean. With it, the config that failed above builds as
-   a full bzImage (0 errors, 0 warnings), drivers/iommu/intel/ also
-   builds with IRQ_REMAP on, and kmorph takeovers worked on the
-   patched IRQ_REMAP=3Dn kernel in QEMU (10 of 10). QEMU has no vIOMMU
-   here, so intel_iommu_claim() itself did not run. The three files are
-   identical on master (77a05a4), so it applies there as is.
-
-Signed-off-by: Yun Wang <7z0423arsenova@proton.me>
-
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 7cec65cf5..d28928abe 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2802,8 +2802,8 @@ int intel_iommu_claim(u64 base)
- =09up_write(&dmar_global_lock);
-=20
- =09iommu_pmu_register(iommu);
--=09pr_info("%s: claimed; DMA translated%s by this kernel\n",
--=09=09iommu->name, iommu->ir_table ? " and interrupts remapped" : "");
-+=09pr_info("%s: claimed; DMA translated%s by this kernel\n", iommu->name,
-+=09=09intel_irq_remap_active(iommu) ? " and interrupts remapped" : "");
- =09return 0;
-=20
- out_unlock:
-diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
-index ad6c2287c..005bec130 100644
---- a/drivers/iommu/intel/iommu.h
-+++ b/drivers/iommu/intel/iommu.h
-@@ -1222,10 +1222,16 @@ static inline bool dmar_unit_foreign(struct intel_i=
-ommu *iommu)
-=20
- #ifdef CONFIG_IRQ_REMAP
- void intel_irq_remap_claim(struct intel_iommu *iommu);
-+bool intel_irq_remap_active(struct intel_iommu *iommu);
- #else
- static inline void intel_irq_remap_claim(struct intel_iommu *iommu)
- {
- }
-+
-+static inline bool intel_irq_remap_active(struct intel_iommu *iommu)
-+{
-+=09return false;
-+}
- #endif
-=20
- void iommu_flush_write_buffer(struct intel_iommu *iommu);
-diff --git a/drivers/iommu/intel/irq_remapping.c b/drivers/iommu/intel/irq_=
-remapping.c
-index 9e5042fdb..a5aa32d1c 100644
---- a/drivers/iommu/intel/irq_remapping.c
-+++ b/drivers/iommu/intel/irq_remapping.c
-@@ -1205,6 +1205,17 @@ void intel_irq_remap_claim(struct intel_iommu *iommu=
-)
- =09raw_spin_unlock_irqrestore(&irq_2_ir_lock, flags);
- }
-=20
-+/**
-+ * intel_irq_remap_active - Whether interrupts are remapped through a unit
-+ * @iommu: the DMAR unit
-+ *
-+ * Return: true when @iommu has an interrupt remapping table.
-+ */
-+bool intel_irq_remap_active(struct intel_iommu *iommu)
-+{
-+=09return !!iommu->ir_table;
-+}
-+
- static struct intel_iommu *remapping_unit(u64 base)
- {
- =09struct dmar_drhd_unit *drhd;
-
-2) "kmorph arm" fails with ENOMEM on a 2 GiB x86_64 guest
-
-     Baseline: failed to allocate 132 MB on node -1: -12
-     kmorph: error: pool initialisation failed: Cannot allocate memory
-
-   mk_take_memory() only tries ZONE_MOVABLE and ZONE_NORMAL, and below
-   4 GiB x86_64 has neither: /proc/zoneinfo shows Normal and Movable
-   with present 0, everything is in DMA32. With -m 4G (2 GiB above the
-   PCI hole) "kmorph arm" takes 0.6 to 0.8 s. The README transcript
-   shows 2047 MB of RAM, so a clearer error or a README note would
-   help. I did not try movablecore=3D.
-
-3) A successor with no boot-time PCI device adopts no PCI function
-
-   Without devices=3D in kmorph.conf the takeover logs
-
-     Failed to move device 0000:00:1f.2: -1
-     kmorphd: adopted 0 devices: 0 reset, 0 quiesced
-
-   From reading the code: mk_pcifront_host_fenced() returns early when
-   the successor has no PCI bus, so mk_pcifront_direct_access stays
-   false and mk_pcifront_adopt_function() returns -EPERM
-   (pcifront.c:150-153 and 704). The same VM with
-   devices=3D0000:01:00.0 instead logs "Host fenced: config space is
-   reached directly through ECAM", adopts three functions, and the
-   e1000e comes up as eth1. Without devices=3D, kmorphd's network
-   restore also waits about 3 s per NIC that never shows up, so
-   panic -> TAKEN_OVER took 6.8 s instead of 0.9 s (7 runs). The
-   README lists devices=3D as optional. This one is also on the kmorph
-   tracker, with the log lines:
-
-     https://github.com/multikernel/kmorph/issues/2
-
-Timing with devices=3D set and the defaults (5 x 100 ms probes), n =3D 10,
-min / median / max in seconds on one host clock:
-
-   panic -> fence starts                 0.51 / 0.56 / 0.61
-   fence starts -> TAKEN_OVER            0.29 / 0.34 / 0.39
-   panic -> shell on successor console   0.93 / 0.97 / 1.04
-
-Two more sessions of 10 runs (the second on the patched kernel above)
-gave the same picture: median panic -> TAKEN_OVER 0.91 and 0.90 s.
-The series were run by scripts Claude generated; I also re-ran the
-README commands by hand once (10 of 10, median 0.91 s).
-
-This is a console-only image: no service, no traffic, no real
-hardware, no vIOMMU. It says nothing about the nginx figure.
-
-Two smaller things. kmorphd logs through one /dev/kmsg fd, which the
-kernel rate-limits to 10 lines per 5 s unless printk.devkmsg=3Don, so on
-a default command line "state TAKEN_OVER" never shows. Details:
-
-   https://github.com/multikernel/kmorph/issues/1
-
-And the successor boots without a swiotlb ("No low mem": its 128 MB
-are above 4 GiB). I did not test a 32-bit-DMA device after a takeover,
-so that one is a question, not a bug.
-
-The QEMU rig, the logs and the exact commands are available if you
-want them.
-
-[1] https://lore.kernel.org/all/au5M_M_RzWfXLr0T@pop-os.localdomain/
-
-Thanks,
-Yun Wang
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261107004935.2627=
+329-1-omar@blockcast.net?part=3D3
