@@ -1,62 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169492;
-	b=jyMf8p8/c9kNV/NjwiJfOb3KFI/in7UAPYU+aBtSlsAE8Qvx9L11R+BEuAB9LdV1jGpg
-	 3of5viRMzXj+pZdD+gvrm1ZnrwwIHg/BywFwrcYyu9LwyROSrkIxEKTBrYhFufEmo9bw/
-	 OEnEuvaVwG4da90dSdVYcYe+bjQltbDCEqSYCXxUpXBGDjUc05Tl+qeyiUoA//xW9JNcy
-	 17GZjFUzCkI/OC5P0Gj38IFNSvSLvsiLPoPLyJupHFo4v6meSe+tXI8IAubaw9M+2iRUf
-	 mzjqq1APPdGV5r8eQ/RuqW10UvwmKi6CtLOUNE0GaiZOBtXucpMsISZ3vktdniaKb0Q==
+	t=1794169489;
+	b=dJW6PPwtF2Ntwdy0vRYaRLPfC7SgVrnb4GqQPlm/nLAqFFiVHygt3kjUkU8hD0KUh9kC
+	 L5STrPmNJsWx6RGiqDNITnpxbNiIT7FMymNW4/s3DcyXRXEyB5alNerxlTEOqCus8ZR9m
+	 qF9RnvLMDBBcWj+lWBJ34sMO+ZkK2CXZGEDdwBmr3sktqgZaz2b/Mtb8lKBhbVRxtaE8F
+	 eFUxhIyhnGYWW/u3KO8OiUsB6i/z6SpIzyI5d6UmDgPihcALDYAdYVNbEX6YKhY9dRbIU
+	 87+PtH9QeWVRZgYol7gTdVo99mWhob3LRApKwbbPafB60fKJMhwCg97ZyjujuvG1lAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169489;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=QqI2BeVuF5y/RGOq7tOqreiH+gzsy68D7SybMVh4HLc=;
-	b=b035y9H4JRpS3mv/dYFcmTDgtFNM1fm4pp5MrezIWKdF13Y1Tdecvv/dOer9fRM4+DaP
-	 vNuxCjfjbpGlwfCqYE6ve8AR7ptySUmgCudZ21Ftgbr/OdkGn0Mu38HUlkj1gQLka3/bI
-	 nCx+hqOYLeD79bQbsJd9UsMDdbiVusdiqhbkOIxNxHAAQcP30ouU/8t9zhJIhBswN/EZE
-	 tPslJZE+Envzsg/CgOI3srQ0FTBVVcnLLVpf6ici3pQaEppPhJTR4SsXwwB5+0a9vUi8G
-	 jsTq0w5C9X7UOOBXMPlXBQhPJBBwRp1auL38MWz+E1rURVYhjJ1hVvOyBcofFeBqekQ==
+	bh=w8uhzyRaGWUhsMu8IuTgrC6/zzS19CC2AK16twSCOAg=;
+	b=Pm+Zmbpad1TRZUWJhub1JOqSvmqgrP6US5gLh2iHwfjBRnsfJDXpL3vttHHLruOkOfub
+	 NlHk5M+DXvJqLXhnqgRn1TPnMAkZi4kvcrpI8/LF0q9uDpLh1R7CWuutbc4bol5a+psg8
+	 QY0BSxaO2UZnS52QDOyY8rji13y8MiNHV0jLkXnHHmcSkv7Lz+yG5Q//UrQT0XlQT36Nl
+	 pXDSIfTMooqAzvZEPdYakgA0mPt8kgon2bErN632OLzUMbDiyHioOrwx50ANGNK2Bz3ow
+	 1YX7eMGgKNMiGViAAR/GtfO913tnmfFVfn/aC+ZXDNSABEtltRW6H+NpEZ4qJ6wQoTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y4dr/ZFe";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD8Bvp4H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C6A606A9CD;
-	Sun,  8 Nov 2026 20:24:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DA3607F90E;
+	Sun,  8 Nov 2026 20:24:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y4dr/ZFe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FB31F008A2;
-	Sun,  8 Nov 2026 20:24:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD8Bvp4H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B221F008A3;
+	Sun,  8 Nov 2026 20:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169491;
-	bh=QqI2BeVuF5y/RGOq7tOqreiH+gzsy68D7SybMVh4HLc=;
+	s=k20260515; t=1794169489;
+	bh=w8uhzyRaGWUhsMu8IuTgrC6/zzS19CC2AK16twSCOAg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y4dr/ZFeRROsf+B4ZeDAN/4RMZtJlYdga2OFk8mVzw7nBI9WKl2GLi2ZvxfU84cBD
-	 ntBokYTcC0QtEteDSxmpojr3Crxo4v49mNfxc0I5pJPIczJilztgnWTwEN8SxHWmmx
-	 17o6E7KAX/ll/0KrICQ++jVelcsgiPcL29eatpm4kaGrUxBwgxAqep5xeOxDYV16tQ
-	 7tVbmpxREu4GcsH+8qCCPUT8zf/v81+A/S0m3U19t/bGHv1ZJUX8pAoI2SdYNVmgX+
-	 OEQdka0lC/kcZ++pTJBu5DrS4RR3U61FTpaNb4rarH3T7yeGXBla9wN6V6d90NYlNv
-	 YfKwpafA5P0Vg==
+	b=lD8Bvp4HeheZMCP413Pe9fuF9EGPm7XGR6yMIO97W0wdUIbtBEvloNBUTpPmqQskE
+	 GSx6IlzJX4eQFxKyzwHBvaWWYrQs1xVIY1au0V/sQjTBnjjeT7kn4Cmctk7s37Lhnj
+	 828flgL2ifSzdrQ0GbhskoYKqYUgAIxq2KIhFnZ6M4zermnF9J69vlgO8lXIKhklMS
+	 nkeqqaWF+XhMyfPN+gMmyLlva0NYbmwnXigoqToFgAenXi+ZuVEU5rbdfG3+hW8Wwe
+	 MeSR2gidg/P4uty7aLxhSGETwMg5IsxmcwEB+8HfrKpsnv/4zOFD7wuVc8Vot9ibaZ
+	 2e7BqntL1gehA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Xilin Wu <sophon@radxa.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+To: linux-arm-msm@vger.kernel.org,
+	Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dragon@radxa.com,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3] arm64: dts: qcom: sc8280xp: add missing QUP pinctrl states
-Date: Sun,  8 Nov 2026 14:21:19 -0600
-Message-ID: <179416929510.628393.15246454384618080287.b4-ty@b4>
+	konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: Re: (subset) [PATCH 0/4] arm64: dts: qcom: Add support for Mahua QCB
+Date: Sun,  8 Nov 2026 14:21:17 -0600
+Message-ID: <179416929487.628393.4140437529266261587.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
-References: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
+In-Reply-To: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
+References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,25 +69,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 29 Oct 2026 15:52:32 +0800, Xilin Wu wrote:
-> Add the missing tlmm pinctrl states for the SC8280XP QUP engines so common
-> I2C, SPI and UART pinmux definitions are available from the SoC dtsi.
-> Populate all 24 engines using the SC8280XP lane-to-GPIO mapping, including
-> the non-linear QUP instances, and keep the mux function names aligned with
-> the driver-supported qup0..qup23 names.
+On Tue, 27 Oct 2026 17:19:51 +0530, Sivansh Gupta wrote:
+> Add initial device tree support for the Mahua QCB. The QCB (Qualcomm
+> Compute Board) is a board built on the Qualcomm Mahua SoC. Mahua is a
+> 12 core derivative of the Glymur SoC.
 > 
-> Define common four-wire UART electrical defaults in the SoC dtsi: CTS uses
-> bus hold, RX uses a pull-up, and RTS/TX use 2 mA drive with no bias. This
-> matches the Bluetooth UART configuration used by the existing boards, lets
-> them reference the shared QUP state directly, and removes duplicated
-> board-local pinctrl definitions.
+> Unlike the CRD, the QCB is suitable for compute workloads,
+> power measurements and oscilloscope-based hardware validation.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sc8280xp: add missing QUP pinctrl states
-      commit: 08e237329a6a7aac877e978246609db9a49d2519
+[2/4] firmware: qcom: scm: Allow QSEECOM on the Mahua QCB
+      commit: 82868a465851cc47ccf483efca2f54f0257e6328
 
 Best regards,
 -- 
