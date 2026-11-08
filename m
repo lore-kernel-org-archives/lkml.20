@@ -1,78 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794126837;
-	b=OwrFnUwdJQU5r6eiT6Xg910v6fS7bzD6LzTBSjN+W119BJo617GIubg4m5oKloB7uVeN
-	 9GQANTAi/aNXTfq3ZyudIzr3usGo526BXel5EFJOVtYFJze9wlYGXPTZy7CfXDiBWjWaK
-	 C5jjZRbYFpXtULOAQTPWftdjgpMC2JqdmuR5oHc+Q65zBT8d0YGJRsOQj8uoSbQvgW2w2
-	 WYWgl01otcbbfD/w11FvsII97+tfRN/nXYJT70kl/1eR7OnNqZX8cG85Jg0FnWvUBALD0
-	 fM5jvyyd8/wEGU6T+6pvUuMN0a5zCVMybOmweCcF00lAh1mk3Ztgf/45kDYTq8bZd4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794126837;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l6RLTnHlfDijZ2OGcuwJQZfLo4/XS8Wt011NfZM0g+U=;
-	b=c+MGkJshKcxxSlRPVaXetkil3jjXqbuLTSq3bndLaHYadgNBsWdH271SxkfMe3xzBa6u
-	 shwbn9326BqTNVV56k51PvIs8v/G/QdCMTvO7AQlsLZGTA4e8LJvoQJJyvXTMckZTFdQs
-	 xlroD3UAAMX7Rg/V4YEejHCuRvUkSpvnaGVGUDjXWSPms+X85wnCve3TGbPzTlwLNM/be
-	 43i6CDDMoqW2N/SrwZ1kF22xTKWzQqK4E9+izBxb8LNcwNEetaw08u7fdwg1rn9VLWhEh
-	 Kr2tFBVUe62UTXWhCUHhGi1drYG3AciZ6SiuM4bwWGJDvprudUdm/uRHsrNDDxuVq8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgAmNJ8O;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E51606A321;
-	Sun,  8 Nov 2026 08:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgAmNJ8O
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794126837;
-	b=3CKneHghXUuQ+Xg12O9DQ63wajyF8apPJ9Yjyuo6RVDLhFvky4BNtJuwNxRCoAe/5Eqh
-	 +AqFUHp84E/9IAhCK4zvjJ/MAKyDc8myTmprYb443lXtJHsDgMLVNx7R3X14xWNbgFrMo
-	 h/M6DZNxPaSDwKOk3OmLiNucwVe2vfIKKYlR82bDzoyDNgPVm8DS6SP6xLU2xtnjJpBor
-	 6MV7P1UKaFCIzK8y0SYazIuK1knY2zjcTlycWh648uYq+5GMVdV09F0Tzj7ydDtVS6Nag
-	 LI32qXl/6sb3aNEXAT8JW4LBEQQvtPEoCqNOQsZQn2Pc0SJn1O+7ElmJduxZwgP7DeA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794126837;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l6RLTnHlfDijZ2OGcuwJQZfLo4/XS8Wt011NfZM0g+U=;
-	b=RnqsNBjhPMsRbB1JfyvFDnWu7p5+DEmxjKrFD9GWpsI1Qr+31yZsiGSqWGyoejWXwydP
-	 6kwzRusHeb8SHbIJ1QPEZ0bU5FtZyfqMRaVEKbaCp4MHwBXd99P8A5Lq6jmS87EVAuyll
-	 I18T8HqWafuBhVF9fNCBbzQooSxAuAHmA3UaFO07Ffd4jxbJS3UzS4M4Gio0UFJWZ+URM
-	 KgaK9COYYLowVLcizRFmWbyV08N6gnaYFuL8suhcNq1SZKUohNxrNex5arChJOQRXTFmb
-	 /z7G26q/BiqA+FdJvUQCMUYEG8RbjFQlhSVE+N4uIUVMFoRxZPNHBpiXQBQjXgUHNiA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794127059;
+	b=d7XAj3XojalHl6uSgPS4euSWfHinkQFxeS9V8iuzlkN2NiXGRTNtF2UAdNbFtPfu7uci
+	 2NaK2mQlfcIffooysclff2ty1ba0DZUxxp3xxZCzaMkIV4cnl0j4RMs9z10zZ5sXptDJl
+	 jdif62l8NAqxTIaEmdcfb6mVqtjlf2mKQ1OxiJX3wmmZOsrgSmdIrE4qtdsTsFT+GjzY2
+	 28EfKLzd34xsx2PxrqJG1XzwehabLOFhEBK8xGj/pmDDHNln9Co+PDBncyCPjuXK3Mep2
+	 iIiCh9+tvMphd7CFnQCjwE1pEsZnJ+Qgf7NKFQyMKfcMIrCfPVm+P94wyKueI5pzoxw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127059;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=W9Ut5Tx0R51AH+pmP3Heuh8Ql+5ThEQrrnH7J3z+HIk=;
+	b=WrSyNWlm1Ul9XT4LAvwEe6gcgCa8MZ1Dl4PyMz7HT2X6/AZz7xVXMJhaaQcCn2P2WZvT
+	 SeFhqUfkGpMWO/sWUtKnp3d9XRxDQgGdKT6nFOdsCtHp3mNe+bMgYdZQOZNM+cPIUXzpS
+	 9dDLe1JbkyJaGD6o/9r0acBUwKzAv5BLs9RlA0zFrtq7jMAPh27YPw8ySxAWx+hz44kMg
+	 O4wHMi9Kk0Zlz5oLmA1rR83EbA0piYY5d2v6AKGAMywahXomoapbqAxG8T0uVsol8hCUI
+	 +hC8BZMFNDrjZz4bruiwqsIA47as7BCWMEvSiTWX37CzU8EPsCZ6Z2vlshUmqldStLg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="KRl1/c0P";
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 53BE21F008A2;
-	Sun,  8 Nov 2026 08:33:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794126837;
-	bh=l6RLTnHlfDijZ2OGcuwJQZfLo4/XS8Wt011NfZM0g+U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LgAmNJ8OV/v3hqTurw45NUi35z380PROCWaBPVgjTprb0gLXTg/gVhotAI9SeMFPu
-	 TZLVUNw/XBkIr9uCzuX9FDrB0ir3uIsazRhNRNBU9zPX9h/RONrzMn8/SQFWLTenJ8
-	 UXvlhzMUZn/kTyIbzXA1pGz3z8TXXwZnurjZg8/gIxhvHb8zfxY/ygDGC4CiEI8vWs
-	 YZV2QtvnvXVfwCMgD4sZAloWfGL37rZxOAkPIpfVF4Tg5ejyIRiq9cc+dSnfZ5vYR2
-	 8csFoBvAZJcW+nOTIIIT2iBE3/sCrnN4+rWwNA+/+OSAg/HuZHfG+IYoWsH41vtkMd
-	 Y8ecVqTxzeRVw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D041247E90;
-	Sun,  8 Nov 2026 08:33:55 +0000 (UTC)
-From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Sun, 08 Nov 2026 09:33:54 +0100
-Subject: [PATCH 2/5] Input: s6sy761 - check the multitouch axis ranges
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF182606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:37:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF182606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=KRl1/c0P
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a210470b49so1237225e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:37:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794127056; x=1794731856; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W9Ut5Tx0R51AH+pmP3Heuh8Ql+5ThEQrrnH7J3z+HIk=;
+        b=KRl1/c0PPnSdSq1ZKNqLBa03Uz+GxGU61qJiBhlqoyYmXnNVvI8Q1SPnzFP7uLh/QL
+         DktUd+TgERSpUddShdGXWLCdk1O1O/4zQ30BEZdaa5ruAIuRLY2wfhbK+Hp2OM0mvy1E
+         6nPtXk75nCi6cL2NmqmzTnk+JkN7Ra2h5WHeLZ72VeEiTYKmKHaSPIKVOgtFk1Uo3oWn
+         iv7eqDXDwDWRx2rJW62u58uT3IXmPKqoniLuxEHWgOXhVsZE4cOGaPXa23C5rp2RfgGz
+         DNWBM/uFcC9Y3MwnKik9kqRh2KF+Dfr5/sxr7HLpkXoIwi+Ef+zt4h15kG/Og1JYVFxF
+         taQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794127056; x=1794731856;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W9Ut5Tx0R51AH+pmP3Heuh8Ql+5ThEQrrnH7J3z+HIk=;
+        b=fNSFyoyeLwio5ALnjuOA04dkd6QvXmyfZjRWScai9vaLHRkn5UATi4z1N62X/a0aju
+         Q0kjY1rQsTxy0yG87FtLA5pYSq3koXzV0DvwnXHiysRSEwrqApsDWNQFK+lyAk/CmP9/
+         zhW1pABYWBo2U11yFCDsmzxWs+1DDfMdwPCnhZbUxEUDokGhIDlWuDUnqiou8VppkBZX
+         5gTvDLYfzX6V7flbqsLjOeijcd6CIj9I4N9KdWCxAHpmTWhR6Db96EEiUXxLsqMpc22R
+         umY6lqjdoyXZEl7L6NzIJHlM3VheMA4pbvzT4JIbyfhtyBYYpOD++kXaA2sM4gcWv2dC
+         6dHg==
+X-Forwarded-Encrypted: i=1; AL+hErEDT3Zp6F4CaD/O9L3Jm253ShdDQDvbiFMxMLuBM2zPhka0/ZQKIWfNoJ+MQn6WKecXSKKrx+8BbbiHlg8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xcPbVZt+dERV4QxT2wOikzNbqHvimdhkcBH97M2GULh2EPzRp
+	5uRVbaDO0Ys5XVqTM+HJvW48XJGGS8bxOXR87SffbCPEYPC+/l9A6WVjYXJvEnd1B3jSU0DJ951
+	KCz4RgVw=
+X-Gm-Gg: AYBFou1Y6IMCsz9/Nq5s01zWtHAg4nGB8r9lJwvUHg9fxpviyXerPZk4rVICJfbwdUH
+	l2wYqdj36pj5l2mNcJJ7oXkghvDIWVecuPDmHPZkmRaWi+lB4v9A5PRkUdO6mZzwmgeWNp/qV1i
+	1f/2M/NHLS6LF6Jr/7qu03ykHoA+O/sk/4+OGWIH90NS3nZPiplkGYpvBSm88VeXb2QDgAOqkwQ
+	xiQKC5eWUXv349PrtneRooosRlIItFqiHGpvH+mUXZUOQVEjn5RxfxwkyOpKtTIokYpZfLlLPBU
+	p1GlVlUrNtZ/lD4eWIoAtVakjMUqOBQobCXdk6ce6Om99qRZCfpahHEwqF+Vc4iO+gMoebF2E0u
+	EkiiSere10p6aHuO6VdIsEGqMnX0uCJ7C+fBAQzMFWqBcKSsv0f6tV3gdLxZy5VVkjP1Uk70NlJ
+	1ViPItHJZs49fc1k2w/xck8zM3HsoHezpOJoHleUFtJfDRtMoZSKLMdGJNHJBNxn6eEgte3PgtN
+	7mr92flg6SQyfMtK8m7+lmy83BgVtxt2yUK6xZOTRQyyKFYBwIly+xhgEcFSUE1BtQy6j9qQ/NT
+	uERvBm4xUOFTtCSaMmD2oecswka7ZI9x
+X-Received: by 2002:a05:600c:468d:b0:4a1:e00b:a0ea with SMTP id 5b1f17b1804b1-4b94d7634demr18663215e9.1.1794127056384;
+        Sun, 08 Nov 2026 00:37:36 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4b7e32ad610sm320858215e9.3.2026.11.08.00.37.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 00:37:35 -0800 (PST)
+Date: Sun, 8 Nov 2026 09:37:34 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Owen O'Hehir <oo.hehir@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	linux-rtc@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	Hal Feng <hal.feng@starfivetech.com>, "ziv.xu" <ziv.xu@starfivetech.com>, 
+	Conor Dooley <conor@kernel.org>
+Subject: Re: [PATCH 2/3] rtc: Add StarFive JH7110 RTC driver
+Message-ID: <avA0OjTMLYrQtkzt@monoceros>
+References: <20261106175600.3877614-1-oo.hehir@gmail.com>
+ <20261106175600.3877614-3-oo.hehir@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,60 +105,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-b4-s6sy761-fts1ba90a-v1-2-999b3cfaf82d@dxdmail.cc>
-References: <20261108-b4-s6sy761-fts1ba90a-v1-0-999b3cfaf82d@dxdmail.cc>
-In-Reply-To: <20261108-b4-s6sy761-fts1ba90a-v1-0-999b3cfaf82d@dxdmail.cc>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Henrik Rydberg <rydberg@bitmath.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
- Nizat Mikayilli <nacht@dxdmail.cc>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794126835; l=1089;
- i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=a/pLroNBJtz3o9lo3KhseD8iBVAsH+uHttUxd7UDP/Y=;
- b=HDWPyass2lu1SrTdwK3bIsGL+a9szaSH9KZOW10verBpSAF0TUy8ldGdqh3EZOQbTQ7buF9Y3
- yNjZ9fmjPdRDH4ahPgNth/xO+BvbDIoFNbMjpetwRcXhx8sOQhMHtmy
-X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
- pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
-X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
- auth_id=1111
-X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
-Reply-To: nacht@dxdmail.cc
-Content-Transfer-Encoding: 7bit
-
-From: Nizat Mikayilli <nacht@dxdmail.cc>
-
-The axis check runs before input_mt_init_slots() copies the multitouch
-ranges to ABS_X and ABS_Y, so it warns on every probe. Check
-ABS_MT_POSITION_X and ABS_MT_POSITION_Y instead.
-
-Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
-Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
----
- drivers/input/touchscreen/s6sy761.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
-index 967fd222f0d6..59166865d397 100644
---- a/drivers/input/touchscreen/s6sy761.c
-+++ b/drivers/input/touchscreen/s6sy761.c
-@@ -449,8 +449,8 @@ static int s6sy761_probe(struct i2c_client *client)
- 
- 	touchscreen_parse_properties(sdata->input, true, &sdata->prop);
- 
--	if (!input_abs_get_max(sdata->input, ABS_X) ||
--	    !input_abs_get_max(sdata->input, ABS_Y)) {
-+	if (!input_abs_get_max(sdata->input, ABS_MT_POSITION_X) ||
-+	    !input_abs_get_max(sdata->input, ABS_MT_POSITION_Y)) {
- 		dev_warn(&client->dev, "the axis have not been set\n");
- 	}
- 
-
--- 
-2.56.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="w6dqbkxjdqv4qjrl"
+Content-Disposition: inline
+In-Reply-To: <20261106175600.3877614-3-oo.hehir@gmail.com>
 
 
+--w6dqbkxjdqv4qjrl
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/3] rtc: Add StarFive JH7110 RTC driver
+MIME-Version: 1.0
+
+Hello,
+
+On Fri, Nov 06, 2026 at 05:55:59PM +0000, Owen O'Hehir wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
+
+Please don't include <linux/mod_devicetable.h>. You can (and IMHO
+should) assume that <linux/platform_device.h> does provide struct
+of_device_id and just drop <linux/mod_devicetable.h>. If you insist on
+IWYU, please use <linux/device-id/of.h> instead to not get a bunch of
+unneeded dependencies.
+
+Best regards
+Uwe
+
+--w6dqbkxjdqv4qjrl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrwNMoACgkQj4D7WH0S
+/k562gf+NM6dtuk+VWVwvfDXf9+p3g0jKrADlgWKDDzFhosSn+83jWZrSSeCdQHN
+atEMR3M+GFDakfjamoCsKhlrIcVely5FAoEsrgBRIKs669FxDnv1DsNATMVzwwg3
+Eg7y2DbMRNDqwG3W1huzFANgVlJwJnxjNyAzkIwjXJ4ysfKo82m5VmiPfRGvzsWU
+UiBFjyKSYAmyZcKKgFfWPIkhzz2TybMy3giCRfuzG25nzmdfTurBybDNOR7u1SJo
+P7610P2PM85V5G1mowLZWnrdVsYYv0dj/eReQgJzlnvNrPQbypbe37ci9ygplOE8
+GyU8LEPvbAlhS3+i4v73X+olcVCOKA==
+=o5i2
+-----END PGP SIGNATURE-----
+
+--w6dqbkxjdqv4qjrl--
