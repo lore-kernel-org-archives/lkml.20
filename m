@@ -1,73 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794165653;
-	b=UpkATJZxS1R4pTD11hii44Ew2SKmdHY2ZrhwvjTdor1WqJSDTTdZZ8+P+BIHAcVc10kH
-	 Wo2+LxPGhZXDjpmwJtT8/+F7ShpSr4qNeLE9V9Odm2yNOEeIHd3bH9oCOVHd2NBU2lQy/
-	 dubXhLME+Gbl+8koHWFzmwI1LtNfd5cEzTUgdsIQr01gUD0nwf2n1oK5O9aAjYTtluvhV
-	 UH7kCGSEgvzZ/rQuZsyN8Djlo4frR9aTcJAd1ymue+1w9PH04IYsWAJpga3qUZClwddfM
-	 tII/uSoHfD+CyckfUVZwmvG1XoD7nX7UlUu1CJjk5iqxTSAqD65G12RVMahzNR2YsZQ==
+	t=1794165655;
+	b=Fm6vGCFY2uRwwwiHb2RkktOLEE3MRUMd11YKJEH8zvboa7qwdWMKpgMFouXB+m+Y5efA
+	 3agzHGxvpJe3d7iiZjQcmnmVKT/cmUXb3YzNM6/PSxN7kYe6zV8PeatxCvqp5YzC1mb0b
+	 uvIpvx7M8MBnkAeUZpkt/pSH7IxMplraIpXxd+ghELzgInglB55BEBX5JYl3JLT2Yl1L5
+	 JBXBaJqLAxDdy0TqgLhCQsy//0HCgbmCv6XonKaYkodYnCFIeZ0lmRRLuW9dWObfXWz9S
+	 OdufQfOyYNH4T8cLZ/9DtgIUsJv32OakuM1yo3GFGVNaSzXaNdFSE+HdD19mnu6f8hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165653;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
-	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-MIME-Autoconverted;
-	bh=nET1WJNk3mHLCrQL6NVnuBWMpCe5epTVs5C8Nj7DNa0=;
-	b=0uqeZaep6RzhSmXKRsFnjDf4bwQ+Q4VXUv6IswraJUZn+J5CuoT1xx3vBIbwQKIq2X+N
-	 a/pIfq9QC9FN//SWF9ex9XBksfaX9FQlNDF1Pe7c7/sUzRh434uW2c6MebTmKfm4WYpZ6
-	 +dxMKgtBKBt8fXIG+ex//8Sa9zfsj7/uVflfhH3ygPQ6Lscg1NK1LWuOiADZRR1KJV5Rg
-	 e6zRfuos0EctsKCQ1vd2OFSFXk1BqEQNZk911a/yWUbrEhdBqabpRGPIssP48aKavJX/8
-	 /25p9G9NWT3JIOSTwL25E9Dp6/G9QFOKn4Nns9EMiGaQNoJO61tqQamb4CRBlrNqNGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165655;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/BOOKQBNkJ2h331uHqW5sD5W9IEZRjh1wOOx6OQVw2c=;
+	b=y3BzKLVdjWb6/IlIX2dt3NwlvmPT59EmEP1MhSum0czABlZRWKwnay6pXr9BSykPyXtc
+	 fqEWWeL3fx2KM7W0Vx+tCDizGdIkV6pj38IETgr3u6TcKpS4BNI8+icNEYH6w3vkz5kgr
+	 JlvPt5+dezfkpP38ARC/rUIuzfCBfwjqe5zB+QxmP8dbtd3bk0PlPDFOvKLkNj5eTd9B6
+	 ouS50CLWLKgnsTGgssLuGryrRVvfmxYsr2dtuVo6ka/D/3pf7jIUbvidI+PKOV3+P8k/D
+	 bxdDWXwzwGeCTFAoLjsTcZpkk3UZ8m5zNejqKz6v8lwhBk1q+/+P83Bmgrg2nFenkxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=c127.dev;
-	spf=pass smtp.mailfrom=c127.dev;
-	dkim=pass header.d=c127.dev header.i=@c127.dev header.a=rsa-sha256 header.s=purelymail3 header.b=bYrUBH4i;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=Qby1ahSP;
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="no/4CrUJ";
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CDE606A333
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:20:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91CDE606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=c127.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E93606A332
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:20:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70E93606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=c127.dev header.i=@c127.dev header.a=rsa-sha256 header.s=purelymail3 header.b=bYrUBH4i;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=Qby1ahSP
-DKIM-Signature: a=rsa-sha256; b=bYrUBH4iUsBPghbZDki/P3a8hQZmHlPyPkwCo1+aE65BNeEEifHU7dtas/0ClkJjmUUwOJf2rIGrzBo7LOJ6IupdxaBQfop8Q1jkhsxRUPfdPy8wD6o65WnvpAR9AELFGtOwmxxB7pTeABTg7ltrlChYeKdvQuE5cI/4kVc+SBacYi+eXdsezcJ97jAy645t9XG0kV0sjdhb2/Mu1OEejqdT+kj9vxM3v2D+JiFmmPWTxD1uSfqXOgOXXTvadK/oiEmmuG/oMdgvkcQTPO24BZCmZZRp5beoq7hX/6NykXX+mEzfra68LQD0N0Skr35xorNCSiWveED5n90WilxLJw==; s=purelymail3; d=c127.dev; v=1; bh=nET1WJNk3mHLCrQL6NVnuBWMpCe5epTVs5C8Nj7DNa0=; h=Received:From:To:Subject:Date:Message-ID;
-DKIM-Signature: a=rsa-sha256; b=Qby1ahSPpZ5NkonjottD6WZtcXGrm2Ur5blwqmp97dQHox6qWoUirBypQoEwuzpTh5gv5eYEXLjnytS8UATZTYVp+goO+QT2DPt6a7I6VJzhJPyBwvYdL1usSwBs6BBIZ3oV6K/MhdP2CG36PM8uhOVkk3VGQqefE7TvhGEFD7o1NLDyrrDPZCsCGxYn+WocB9mOKFXumwbBxSkGODWVDWSeue4DW3AfBE7GUXuztHjjNzepb4PKMXLk0Ha2R1JbIr+1biul/6JIC+ET0KxLHcIdUpRPWNUA2SEHevg6Z7d64kWGfyPc933Aarx982GHGLhTWjYw1Ig4EBchBywDSQ==; s=purelymail3; d=purelymail.com; v=1; bh=nET1WJNk3mHLCrQL6NVnuBWMpCe5epTVs5C8Nj7DNa0=; h=Feedback-ID:Received:From:To:Subject:Date:Message-ID;
-Feedback-ID: 1017243:43747:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 322991363;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Sun, 08 Nov 2026 19:20:06 +0000 (UTC)
-From: Johan Alvarado <contact@c127.dev>
-To: alvin.sipraga@analog.com
-Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-    linusw@kernel.org,
-    andrew@lunn.ch,
-    olteanv@gmail.com,
-    kuba@kernel.org,
-    davem@davemloft.net,
-    edumazet@google.com,
-    pabeni@redhat.com,
-    linux@armlinux.org.uk,
-    luizluca@gmail.com,
-    maxime.chevallier@bootlin.com,
-    netdev@vger.kernel.org,
-    linux-kernel@vger.kernel.org,
-    gusfmora@gmail.com,
-    kuncy7@gmail.com,
-    fabianotassotti@gmail.com,
-    gabonpivovich@gmail.com
-Subject: Re: [PATCH net-next v9 08/11] net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
-Date: Sun, 08 Nov 2026 14:13:05 -0500
-Message-ID: <1e8da5e3-0d1c-4ce6-bb3c-4b9b7a5789a6@c127.dev>
-In-Reply-To: <39e46930-0d24-46d6-8861-5dd309bb7640@yahoo.com>
-References: <9b73858d-fc09-4988-8bab-fd7b88db9412@yahoo.com> <39e46930-0d24-46d6-8861-5dd309bb7640@yahoo.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=no/4CrUJ
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso170134f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 11:20:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794165654; x=1794770454; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/BOOKQBNkJ2h331uHqW5sD5W9IEZRjh1wOOx6OQVw2c=;
+        b=no/4CrUJwSv/ZObw8Fvp8ImnvcHzO0eqwwqjjqLegaeGZohS4Tqgs9NC5SrAgiwGxc
+         TQv4F8lvRKx5uN5G15rNPdQ/6ILpHl+d7CPJ/Az8TS7KATaQJtIiPLznarMwJuu1M8vI
+         5utFUU5FuMszJEJXYkOV8Ev54UZ6k+YtSxiYMtpuwPJjgT5u6lDIUzijITv9G6LuvlFV
+         Vc+0ID7IX98MXs5NNU/rodtzbabZxqBIcOiMB3QVFP2KQav7x5qHdMvtaW3W7x63yrKt
+         g1HF3GLjdpOebBCC1/mObhOZ7CrR/yMfUZ1buaOAGIpouZqrtwPIO0RbDXcwY+3pR00o
+         PDyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794165654; x=1794770454;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/BOOKQBNkJ2h331uHqW5sD5W9IEZRjh1wOOx6OQVw2c=;
+        b=gowUr+OTnEXgNERyip3uEKUISUZYyZv9OAbjOaRn+TSvF7k843TnMqsAeMApGG1TDR
+         12jpFA8nDbj2Cbq6aTxm66Iptc1vy6vymIqsfJFqPL1GU2ndCwMKjkeYQJyHJ7Q3//y6
+         aTTkDCpHYL8/VFHsWMooBTqe9esOGk2aH7+rXZFX52b/Bzwl368LL4waQH9A56OJb+wO
+         GYfZy4kuVSMb1yiBJWR1iqNmqiyVW4HTreKeIb0UGhkppSjOviBJgjMsuyQbBPzxCCff
+         OkUu9X+d4AuonUu5pK1+ZJSIDtWY7WYOsCNkDdYk665dRxIcJtzH6DdwzAsw8MALS7g7
+         XCCg==
+X-Forwarded-Encrypted: i=1; AL+hErEWsdykGOIvI286zwMLpzy51LISX83r8RPnGNs5lsjXMtTbY7fr1EYn8WCdoSzTi05G3vOFrlfYwtnMzVc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/E/c9xjEPSkqwH5CHBhomjjFhee3X6OJ1WsCjC+eMpYJEVTHZc
+	ipWj2Ph7wmDQRTBo/MM+EMBqzf6xPp9dFAqwRQdy98YH7Sxixuscmr0wy2TpNAwc
+X-Gm-Gg: AYBFou3vFXv53bZMjG1/vjCzKv09b/yb/2dbY4SO0H8X1nymD5Tv+eTTADpXNWC/71G
+	qXylt7+rPF69aToKgzi5TFP7S6s+3vHdKJmxAtHTvmRaF/CKEWZwQB7TJtPA9hLAHkEQbnH9nDL
+	TwHNNKYRhlLphJGrxly/S+kM5RuSb7yeRwd4+I3qko3PkXmXMs3lKwLUUUxcyl70I1nlVUmi4/5
+	BdcqxuTOzDYvHH2XMU6Tq0czc63U3YV6qhKUyywPZmkYqm53WOcm0GWARCmlrc15htWHz9UTNkQ
+	uZOmz8WrEEPWArIdWDbIUqZupJ/EatElpdLh+acwMAKmjIO0g0EmnWKflAr/3LZbeKmMjeiKZ0H
+	KGmVQDuce4B8P+7llNFNMB4ZbsjEpHOT20RtQOM4gbvs9OyJmNu1giCmOEgH1uqjzq2XYpy1wRl
+	k8uLIudW3DvkZSMhEETkWmeNMelDtl8zwvtJXVs32Y4PetWFVpzhKaBCBSsBYiTf9+Dab9kn+Em
+	J/HyE+WHldl8jkyBLxVU9BLx98yI2O+eY4MxC1UNTyo3xtXBFNt8yUL4nVjyHmBc+YRW6ZY6yWg
+	h9K/hNrSS/wavQgKLWr2F1Wwok/KtLgYG4amYpC3VMSjBUpDJON0ZuEN6ABC4FdFWdfBAApdjj0
+	pPHnQRFkx8xVomZxryfwA7nFY9AXlPmCmcXlBoCW0Ks58jgdJO6jy8yvah0kvvga417K9OPJAXe
+	xOJpAniz7Ttbtur5/Cp39lRRHiWF2iZFa+
+X-Received: by 2002:a5d:6f0f:0:b0:488:8347:a110 with SMTP id ffacd0b85a97d-4958852d7camr4675476f8f.7.1794165653516;
+        Sun, 08 Nov 2026 11:20:53 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a02-3100-a16e-6b01-f478-4cea-a156-2612.310.pool.telefonica.de. [2a02:3100:a16e:6b01:f478:4cea:a156:2612])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597b2066esm5651250f8f.52.2026.11.08.11.20.51
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 08 Nov 2026 11:20:53 -0800 (PST)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-parisc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] parisc: irq: Trace hardirq state in do_cpu_irq_mask()
+Date: Sun,  8 Nov 2026 20:20:41 +0100
+Message-Id: <20261108192042.14425-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,17 +100,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+Content-Transfer-Encoding: 8bit
 
-Hi Alvin, Mieczyslaw,
+intr_extint calls do_cpu_irq_mask() with PSW[I] already clear. Since
+commit 044d0d6de9f5 ("lockdep: Only trace IRQ edges"), its
+local_irq_disable() then skips trace_hardirqs_off(), and lockdep
+assertions fail in the timer tick:
 
-Thanks for adding me. I'm looking into this on my side, and I suspect
-the problem may be somewhere else rather than in this driver.
+  WARNING: kernel/rcu/tree.c:2739 at rcu_sched_clock_irq+0x618/0x1f84
 
-I'm still investigating and will report back once I have something
-concrete. Until then I would ask to hold off on patch 8.
+The return to a context with PSW[I] set has not been annotated since
+TRACE_IRQFLAGS_SUPPORT was enabled. Annotate both transitions.
 
-Best regards,
-Johan Alvarado
+Fixes: 366dd4ea9d5f ("parisc: Fix ftrace function tracer")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Assisted by an LLM.
+
+Tested under QEMU hppa (32-bit, -smp 2, PREEMPT, PROVE_LOCKING) on
+mainline d48723711bae: 13 to 18 lockdep warnings per boot before, none
+after (two boots each and one with ftrace=irqsoff). Locking selftests
+pass.
+
+The exit annotation assumes intr_return does not call
+preempt_schedule_irq(). It currently never does: intr_do_preempt tests
+PSW_D rather than PSW_I ("bb,<,n %r20, 31 - PSW_SM_I"), and a kprobe
+saw no calls. Fixing that needs the same annotation after
+preempt_schedule_irq().
+
+ arch/parisc/kernel/irq.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/arch/parisc/kernel/irq.c b/arch/parisc/kernel/irq.c
+index dff66be65d290..d9f6cb04e4bcf 100644
+--- a/arch/parisc/kernel/irq.c
++++ b/arch/parisc/kernel/irq.c
+@@ -497,7 +497,7 @@ asmlinkage void do_cpu_irq_mask(struct pt_regs *regs)
+ #endif
+ 
+ 	old_regs = set_irq_regs(regs);
+-	local_irq_disable();
++	trace_hardirqs_off();
+ 	irq_enter_rcu();
+ 
+ 	eirr_val = mfctl(23) & cpu_eiem & per_cpu(local_ack_eiem, cpu);
+@@ -535,6 +535,8 @@ asmlinkage void do_cpu_irq_mask(struct pt_regs *regs)
+  out:
+ 	irq_exit_rcu();
+ 	set_irq_regs(old_regs);
++	if (!irqs_disabled_flags(regs->gr[0]))
++		trace_hardirqs_on();
+ 	return;
+ 
+  set_out:
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+
+-- 
+2.39.5 (Apple Git-154)
+
