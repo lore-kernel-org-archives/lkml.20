@@ -1,61 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794181643;
-	b=gjKWXuqWnSdjKqv9F6UxBLcIhZt5cvI1fz/xMcdGkrPBvt/gAS32vf7fOloEhNoiq/sN
-	 cYsfBZ37EXRlF9rEOcOh1N30k2Iy08h1eZEb5gxa+GxsoDIr2sVSohDmZPTvczzrkDPUJ
-	 xB9kmBt9DeuO+kCxZjwBq6VMKExIqceV15OsTVuRmY46bKMiSOpoeMaUbCvKnLeeInMUg
-	 Pto8eGhEIj26wTBeiZaahyoj0IzURy6IaOvSoH81H+YM96T4YkdkJ+DiecETvpr5/1Flb
-	 f1ILDJRXpKf/+mby5OlJuNROEUYQmhJc29d3EP/TKczvq2b6pmzf4mmkO6mZq1yrNAg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794181643;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UP64zfTLF9tzwFCB408JdJLYh5zQ49iXwMbnRPTqyVY=;
-	b=yZ+4ASkEXJu89QYljQrKvD9clwJ9YQ6tup4wFdCWehLKDnCeOkpS6D4vrcOTd6/RTL7X
-	 j21xyMVNgFrrm4NHHIh2aCsuD0wvdlzs1IGTeVJsBLzzlJiV6/QyCdqTleWAtgQpdM5IY
-	 lhsVNTaRHY427QTihFi/crzb2QXeYYMfmIQTsG85dRwENwQ8EZGDdk1gpOW3Rp9P304uF
-	 arRYSZuG1Rjed4oSnn4aq0eFTJmTbsr0cIN8JPVX4wdCpuA8F/2jJ2zQ7zFDFPZiFHwTG
-	 LJbFGzvYzAdz9m+fXVboCABChrM5NYl6JKVKQlJQiDIDl9eotSRUNsMf8RvZxbXNh9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h0MPp3oF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794181647;
+	b=qQ4grg7GQt3+9LwG+21QocZTyGkYtDnqfba74YYMrDubPyqASslNxKUnDypsoN2VDYz9
+	 vlwKyfVdbIW7ZvjmK2tHaboSsJKd24FFRWXam/srnPJ1AMsoMlaF5LZ+TMojhafVQ70PE
+	 WixiVcG1y4HQXImi8QdOsx+sea/OGwxX7U+vwcuWFUmLnwcz36k3urJgRrrwkiuOaQwI3
+	 2FQfumpCDEAuI0m3Q1jylkPW/vt/GtIbcwDmHtEhHNKVrGa4v4lKSlDOMzSaDej5D8m2+
+	 Ib9z0JXr8iZX4JnjtxdU/ny8KlWuyy7/u/7Fa9N1C9RoC7vU18ADwIjPG7exOk2yGaA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794181647;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=IpWZS9cPNLpCpEb8Lx2dVgIBiAiU2xuD/6ks6S4rHHg=;
+	b=pMqwWGMrY9WeG3SocHRFBuyXRKf/H28pcSRpMkARwCKu2GVwZDB277d6OdOpzz6qcyPc
+	 F7DMc3kB+JQIUeb0syjY8EaucFZ3f5tJVrYOh0tbM/m2wkPHgw8yEicM6hf2jfyAY8RI/
+	 tfNtIqb6R4SfmOF/jSmtfs8mHz89KxUVTtpaX6qgYNQcUuKXC2w9YSwua8wGnQGy+5x9w
+	 isEsa5ov85GXro1/ivQEkCp0yVBbbxhgcKZ7Y+u7rAWWRM/iazlvLIjzeWOfHvfyChjIR
+	 Pkg1I2AH98HsiQQHmyJ95pTEsZ3gDt38ZFB/K7aBiFGcYUcMieGt6GxagpA4GH8RPmg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SN+Vwlfb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.23
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010023.outbound.protection.outlook.com [52.101.56.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B115606A32A;
-	Sun,  8 Nov 2026 23:47:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F735606A337
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F735606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h0MPp3oF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878971F0089F;
-	Sun,  8 Nov 2026 23:47:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794181642;
-	bh=UP64zfTLF9tzwFCB408JdJLYh5zQ49iXwMbnRPTqyVY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=h0MPp3oF//jAiLET/XF4dib17f9UwhTWlIAfpfyMXk62i7uJz0g5Tshr2hYdZIND6
-	 xj61yixRJLKVMtxsUYZJFVGPoUiUHKElCPewdN2TuXxfFilOq+EqOdvQNTo0qDhdKA
-	 dX7xOaqPb8Es4+liSMndH/aUeF5I6mdCkh9JXHlj8KXBT3BWc824azl+FMkBht+Vty
-	 Yi78vltPGOamXGjRl+8LSlpjaa6Bool+2srfgikgUdJjgHzCWi7JyKLqo4ZYpmvknt
-	 1hc5mEKtphGdcMwg4ydNYF7k/Z/1CsadhkY6mcDiovvffdQvBCJYgsc5FdJ6jqo9g0
-	 Yeb5JslTuUKwA==
-Date: Sun, 8 Nov 2026 23:47:19 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Lee Jones <lee@kernel.org>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v1 3/4] iio: adc: Add support for MAX8907 ADC cell
-Message-ID: <20261108234719.42ede7b3@jic23-hlaptop>
-In-Reply-To: <20261108095634.100517-4-clamor95@gmail.com>
-References: <20261108095634.100517-1-clamor95@gmail.com>
-	<20261108095634.100517-4-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SN+Vwlfb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=psFymd35XK3JhE+pbhjx4tvc+d0wuEJtXlgOvPbGfb6NIZ99t0obNNPKbkq6kR0oHoco+jwP1tdF5UiKo9Xx/iHJoIWlzZ/7w25Ks4K5JdKHZqrasrCFA3fW60PenbY4s0S7zoX2uxJ19NT9sRa3ORhLckaa4hJXEJ22ZCE381OS4iwy54nrp1ghPZWEDqTXx7F3SlzKMLVDj5716lDBmnnSmNwf7VGXwQwQ7jITy6blQxBA3Gd1sY1rWUb3jlXcwuxQMrSSwKXLohCWG5cbxxTMnHgcIrM6dlVMVsZtX+5fAwdNC2uKtYnpM21GaPKRRW5HU3+erMJ2CeZr2sudnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IpWZS9cPNLpCpEb8Lx2dVgIBiAiU2xuD/6ks6S4rHHg=;
+ b=YdbSHWhsGOT2C/tJWen42zVf29aqxlozwXKO/PxDF3Jm7CBsOksSOsxBv+f5IcvcOdz7CPp+cVw0+nsHQ+V9/OVh+CNB+kD6p1F9+jpedKrc7A12Zm4hgChWauBsGHvo64QIKvmyZ0dw0QNZaJMWtMZdNXB0N0BwYfoHSt71Gvl/xKwkjplzPNaIJl61Y2VfWm/TyvqWI9/m9olJ2DMRXzBoOqJsbN0pGtVa2UgALmxCLX1Zw3+0AqUOMklTWcxIsYsszbOC9z3TUEemM+Khh8eVyrTqlV+ui9VQ7uY5VC8kzQO2aqZsgLF1a+kQLzeodHKjQ53mDweQzxj0tiDiLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IpWZS9cPNLpCpEb8Lx2dVgIBiAiU2xuD/6ks6S4rHHg=;
+ b=SN+VwlfbUknxTfG9OOTwASXlFiwyH0pnApVxByICnRZ5KGJ0CXQEyXGCq4D6qg5dybONJ6udYrlng7SSM0bpHnDU2QDN3G2w9Fuc9CnIpZv9ca1YK7JX2zeEBPI1TEgQCOm8XYc6atoqX4nAtXkBhXrrXRrSbU58RXxOACoMySTYpfCHsgSNO3sp+3+r1ebBcJZ2/mwIKUPbupOFd5LrUf6ZpMoei/MvLRdnHIJpdQ8uwdz1dRBAvMa3mX+Ve8F/dJ1/CU5re0J9R4Ol1EI0EjgkySrnBMMfmFH1zeHGnOlRjyXvxsW05fmoc9J7AgJCIxcyXwpU6T+1m6JKDLIOfA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB7742.namprd12.prod.outlook.com (2603:10b6:8:102::18)
+ by IA0PR12MB7579.namprd12.prod.outlook.com (2603:10b6:208:43c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Sun, 8 Nov 2026
+ 23:47:24 +0000
+Received: from DM4PR12MB7742.namprd12.prod.outlook.com
+ ([fe80::8df:c519:298a:94f6]) by DM4PR12MB7742.namprd12.prod.outlook.com
+ ([fe80::8df:c519:298a:94f6%6]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
+ 23:47:23 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Joel Fernandes <joelagnelf@nvidia.com>,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org
+Subject: [PATCH 4/4] kasan: Avoid an unrelated RCU warning in the callback test
+Date: Sun,  8 Nov 2026 18:47:12 -0500
+Message-ID: <20261108234714.3713501-4-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261108234714.3713501-1-joelagnelf@nvidia.com>
+References: <20261108234714.3713501-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN0P222CA0005.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:531::8) To DM4PR12MB7742.namprd12.prod.outlook.com
+ (2603:10b6:8:102::18)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,280 +103,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB7742:EE_|IA0PR12MB7579:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a3618f3-531f-41f9-3c49-08df3df2a31d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|261021121427099003|56012099006|261022075727099003|261022105027099003|11063799006|261028144727099003|261009221227099003|261009223027099003|261026140227099003|261021123027099003|261102123227099003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	UZr3Y4iPdLgjMi8pPo+IVnfnKtlSqG0d9EG7krTYZh1UB1PpqkCmzX99BJlDM9oyuDD9SKrieahREmWSw74UGRrkhGjTraygzd9wEibMKpRsjOQeagcNA9/zmtv8Hm7+HMZm5anNf9GFAsXVxCcQfgyTmZpxw0Omq4muOBgA4wXXp381k2xWfF9D+mKNteUheoz8/5x//r8s/o1LY8Q7jFi0oklGLzUY36O0mZg237jgbxM5MOYR6FJSUtfi13JvPNnSspGjThRxMRRrJuQAqbuTqxLbdW/y+vI9efsu3idw5kuMhyxBBB8V+jAGV7ef8kgAB/Vj4BOitfcwJWE6HYITOvyLKf3dmLYOwBqroiS7pku7NyOFMKRvlKwwv1Rt7ZwKydQ2xKcGVzE38hW3LX1zGuBTH80Jng2wJd5+aZNkxtW2NTOquriMrr0pd3afs9Mk61yhnZoDLzwIeNGRMjl2cg0eaSqwHfhYD+8aR9/mSP+CZ2ZYJObjo3UhPtzsWRpUppmLADJD9XQz9cLm0apCh3PHoGbtHY8CtcXH0Q9yw1XcRUtEo/HHNrcvxvaad+Q5H+QbMs6SVWrLgY/cMslQ/iqxbHxjMsCpvxlQfd1UcvkT1jqvL5Zbh8nioPpmIMxFsQn04Qn2mQNLycvBhj7ZQta73ruhzfw0Q2hFX7U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB7742.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261021121427099003)(56012099006)(261022075727099003)(261022105027099003)(11063799006)(261028144727099003)(261009221227099003)(261009223027099003)(261026140227099003)(261021123027099003)(261102123227099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?xyPB3RSoPErouTvf6n0sLwrwGkxWbN9uqk8rwWzry1PI+4vIhNoELJr2RlQ2?=
+ =?us-ascii?Q?pvpB6dMblSBYUuziQ/uxXWYtGkYrdyfTdef5OsnJxJsnf04BcOjzNACbGnoj?=
+ =?us-ascii?Q?nYsRYKrQc+ggcAoemW24Spx6RHVXkWJEg3X74JWJPrxmEpJ5iIK2J4d+NdCH?=
+ =?us-ascii?Q?/5Mr0Hf75Luj4p8wVJ9RYxq4PH7Xvmq2/7ZbHQfyViBRtUh6Gq9xRDycR66H?=
+ =?us-ascii?Q?oQWqwY5LCjSxZRGQyX+oDGOhANpRuG7N+G0yQePMyTi0Fbi65fOVjSogksT0?=
+ =?us-ascii?Q?yJ8atx9w0NW+cam533FDJe/O3GXQ9A8++yhPapeLc/9cxV5ZrtTUt+eYm0vF?=
+ =?us-ascii?Q?uQ+O//jrDnKXOEzrUQ6XeO4ueadE/q50dz5LyqdvPxy0jm3Pdv+IFr0JomBN?=
+ =?us-ascii?Q?aig0C5+UPfHB3e8+zEcwVbEbEwo5JlEu0Rqrl7HMBf13vSCHJWm3r9PXrp/C?=
+ =?us-ascii?Q?PNTyZfmHlRg0TfPtcM1OO3rL3mblFEIAx8qYmfzHkOkMK2HJc8d/TXC/xgde?=
+ =?us-ascii?Q?y4lEWU11V9Ag0RcJmgQbVxoXh+DUMdyIO2I+atnAzNQNo9wZXRwBjI0733je?=
+ =?us-ascii?Q?ttoOSLJAa/BnjPp1oC1y28UEm8wtHIxplwnQR8sfPd/Gj37gMqhnuupzQmhy?=
+ =?us-ascii?Q?8BaTUJe76SNMkkIw0UARoOwtK8HSBsQFcSCCms85aCcHlCM0DrJQpkvs+twg?=
+ =?us-ascii?Q?iCOYn8LZoL3T4D0QVru+We83nkq5rHh40mQT/HabVNkhap5pSKivM546gA8C?=
+ =?us-ascii?Q?zNv3wswOcsDiKI4Vkd5rVItM3/qh5WKwyOoGI5uFoH8aEJZlHWHw/cGK8Tbf?=
+ =?us-ascii?Q?vGohqnvfDi2hZ06w4+M2gTt1b9uFbT91feQd+UcKoRpLEoBL/0jqAuP4nO4u?=
+ =?us-ascii?Q?8tk+a7vvDgLy4a2gObk9Yp+l4tB6d1yfxVlAEbTTKswvOUPXUxfTzWZXup8Q?=
+ =?us-ascii?Q?gmqeW9EKtouT7XCX0fIzU4Kdqzm+jD6uO49xNqTm0z+8sq4XdOOX4gSAbLVq?=
+ =?us-ascii?Q?Gux14GQn96sn07De7r7+ODS5HbIsdi8J1v2P7GyKpKcN6pfjCCPvaUQB7bVA?=
+ =?us-ascii?Q?Q7r1sNbxrolRYbT86lHbY2n4HHDch348frpMNEtjLQmXEyxyWifcEGvoF9zF?=
+ =?us-ascii?Q?MKZubRtf9AtR/rQnTGIzzacDLuEa0/eVBhsShrgot1tfJihTi/5qV5ie05WW?=
+ =?us-ascii?Q?sEYGJ7pypSAH2Rjv2Bw435s1cFXIKiaT6FyGIdfl155NbDmo22XlHlHb5N3N?=
+ =?us-ascii?Q?AL3+oqTLf6pBtHcOLb4Pvb72VHITizlr+dXdHoN3c/M522vmo+V2Zq2fSf5i?=
+ =?us-ascii?Q?GypYdMDR/lxDuFDoXniKYZ/T1hYUcGEW9jn8YMWWjxn/otm6vv2848wL47Ly?=
+ =?us-ascii?Q?2jB8oyBs9T1xnpQi23kpdsA5fyuiErHpCwN4ugH0ZAUHIhGVvkOU23sWKQm0?=
+ =?us-ascii?Q?GQ0CP15WvrOiVALqJWKeurjkosBq0bO8uKrg1JA4NNmXaHrde5ivywco2mgg?=
+ =?us-ascii?Q?2g3r94w+yRFdkflWGbmSsGsAOz9Ix0v8MuwAeBzozFYBaW5xfRNo7Jw3ZDMv?=
+ =?us-ascii?Q?W7VAVpsZ0S8N5vEj4tnOr8p/ErLqrhJunzBLw5h1NwU4WMxuD96KTzvYQaVU?=
+ =?us-ascii?Q?BMtdRqujhqU1PKleMYwdB1dpXH1Zb9tXBoi65qdq4np3NvghnCjTfTBAlzoe?=
+ =?us-ascii?Q?IOEza4ZntK33FwOLweURA2eOMDOkCXOLeBJe3md+04lqiNT9lNcWNPDawQMX?=
+ =?us-ascii?Q?rZVua4qYtw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a3618f3-531f-41f9-3c49-08df3df2a31d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB7742.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 23:47:23.9128
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zVgCVi0N0IjjTmPGGziJgccIyQwsi1WNZ03yyGpKjAh6740k2aTILEBbVGMNHLRKUbj430Lb0yPYBTek+JhmoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7579
 
-On Sun,  8 Nov 2026 11:56:33 +0200
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+rcu_uaf() passes a false protection condition to
+rcu_dereference_protected(), which produces a suspicious-RCU-usage
+warning before the intended KASAN failure occurs.
 
-> The MAX8907 PMIC has a dedicated ADC cell, which provides 8 ADC channels
-> with information about different parts of the power system, including the
-> battery, charger/plug, jack and thermal readings.
+The pointer refers to a fresh allocation that has not been published to
+readers. State that protection condition explicitly, leaving the intended
+tests intact.
 
-This is an unusual driver structure.  Seems like we really have
-a number of different i2c devices inside one package.  Is the only
-unified bit the power control?  
+Test:
+Built with CONFIG_KASAN_KUNIT_TEST=m
+Booted Qemu guest (8 CPUs), ran modprobe kasan_test filtered to kasan.*rcu_uaf*
 
-I appreciate you just want to add a new feature to this ancient
-driver but it does feel like things would much simpler if the
-i2c regmap was registered in here rather than the parent using
-a platform device to wrap what seems to be a largely independent
-i2c device.
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ mm/kasan/kasan_test_c.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I'll be looking from some input from Lee for the MFD aspects and
-whether he is happy with adding stuff to this driver with its
-current structure.  Doesn't make that much difference to the IIO
-part either way.
-
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-
-Other than that various minor things inline.
-
-
-> diff --git a/drivers/iio/adc/max8907-adc.c b/drivers/iio/adc/max8907-adc.c
-> new file mode 100644
-> index 0000000000000..d1acb5bc95c15
-> --- /dev/null
-> +++ b/drivers/iio/adc/max8907-adc.c
-> @@ -0,0 +1,195 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include <linux/iio/iio.h>
-> +#include <linux/kernel.h>
-
-Don't include that.  Figure out which more specific
-headers in are in use and include those instead.
-
-> +#include <linux/module.h>
-> +#include <linux/mfd/max8907.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +
-> +/* MAX8907_ADC_RES_CNFG1 */
-> +#define RES_AUX1			BIT(7)
-> +#define RES_AUX2			BIT(6)
-> +#define RES_VCHG			BIT(5)
-> +#define RES_VBBATT			BIT(4)
-> +#define RES_VMBATT			BIT(3)
-> +#define RES_ISNS			BIT(2)
-> +#define RES_THM				BIT(1)
-> +#define RES_TDIE			BIT(0)
-> +
-> +/* MAX8907_ADC_AVG_CNFG1 */
-> +#define AVG_AUX1_EN			BIT(7)
-> +#define AVG_AUX2_EN			BIT(6)
-> +#define AVG_VCHG_EN			BIT(5)
-> +#define AVG_VBBATT_EN			BIT(4)
-> +#define AVG_VMBATT_EN			BIT(3)
-> +#define AVG_ISNS_EN			BIT(2)
-> +#define AVG_THM_EN			BIT(1)
-> +#define AVG_TDIE_EN			BIT(0)
-> +
-> +/* MAX8907_ADC_ACQ_CNFG1 */
-> +#define T_ACQ_AUX1			BIT(7)
-> +#define T_ACQ_AUX2			BIT(5)
-> +#define T_ACQ_VCHG			BIT(3)
-> +#define T_ACQ_VBBATT			BIT(1)
-> +
-> +/* MAX8907_ADC_ACQ_CNFG2 */
-> +#define T_ACQ_VMBATT			BIT(6)
-> +#define T_ACQ_ISNS			BIT(4)
-> +#define T_ACQ_THM			BIT(2)
-> +#define T_ACQ_TDIE			BIT(0)
-> +
-> +/* MAX8907_ADC_SCHED */
-> +#define AUTOSCH_ENABLE			BIT(1)
-> +#define AUTOSCH_TIME			BIT(0)
-> +
-> +#define TO_REG(n)			((n) & 0xff)
-> +#define TO_MEASURE(n)			(((n) >> 8) & 0xff)
-
-Similar to below, Give this a prefix.  Same for all the defines
-above.
-
-> +
-> +enum {
-> +	TDIE, THM, ISNS, VMBATT, VBBATT, VCHG, AUX2, AUX1
-
-I'd prefix these. Chances of a naming clash in the long
-run are high enough that usual IIO style is to prefix pretty
-much everything with the driver name.
-
-> +};
-> +
-> +static const u32 max8907_default_ref[] = {
-Index these off the enum. Makes it easier to check what
-the value is for a specific channel.
-	[MAX8907_TDIE] = 4096,
-	[...]
-
-> +	4096, 4096, 4096, 8192, 8192, 8192, 2500, 4096
-> +};
-> +
-> +#define MAX8907_CHAN(_type, _idname, _datasheet_name) {		\
-> +	.type = (_type),					\
-> +	.address = MAX8907_REG_##_idname##_MSB |		\
-> +		   MAX8907_REG_##_idname##_MEASURE << 8,	\
-> +	.indexed = 1,						\
-> +	.channel = (_idname),					\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
-> +			      BIT(IIO_CHAN_INFO_SCALE),		\
-> +	.scan_index = (_idname),				\
-> +	.scan_type = {						\
-> +		.format = IIO_SCAN_FORMAT_UNSIGNED_INT,		\
-> +		.realbits = 12,					\
-> +		.storagebits = 16,				\
-> +		.endianness = IIO_CPU,				\
-> +	},							\
-> +	.datasheet_name = (_datasheet_name),			\
-> +}
-> +
-> +static const struct iio_chan_spec max8907_adc_channels[] = {
-> +	MAX8907_CHAN(IIO_VOLTAGE, TDIE,   "tdiode"),
-> +	MAX8907_CHAN(IIO_VOLTAGE, THM,    "thermistor"),
-> +	MAX8907_CHAN(IIO_CURRENT, ISNS,   "isense"),
-> +	MAX8907_CHAN(IIO_VOLTAGE, VMBATT, "vmbatt"),
-> +	MAX8907_CHAN(IIO_VOLTAGE, VBBATT, "vbbatt"),
-> +	MAX8907_CHAN(IIO_VOLTAGE, VCHG,   "vcharge"),
-> +	MAX8907_CHAN(IIO_VOLTAGE, AUX2,   "aux2"),
-> +	MAX8907_CHAN(IIO_VOLTAGE, AUX1,   "aux1"),
-> +};
-> +
-> +static int max8907_adc_read(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	struct regmap **regmap = iio_priv(indio_dev);
-> +	unsigned char data[2] = { 0, 0 };
-
-No need for those 0.  = { }; is defined to do the same thing.
-There are some subtleties around that, but the kernel has used
-build options for a long time (and self tests to ensure that form
-is fine).  It is also part of more recent C specs.
-
-Use u8 rather than char.
-
-
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = regmap_write(*regmap, TO_MEASURE(chan->address), 0);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = regmap_bulk_read(*regmap, TO_REG(chan->address), data, 2);
-
-sizeof(data);
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = ((data[0] << 8) | data[1]) >> 4;
-
-Use get_unaligned_be16() then a shift.
-better still use a __be16 as the buffer.
-
-> +
-> +		return IIO_VAL_INT;
-> +
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = max8907_default_ref[chan->channel];
-> +		*val2 = chan->scan_type.realbits;
-> +
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const struct iio_info max8907_adc_info = {
-> +	.read_raw = &max8907_adc_read,
-> +};
-> +
-> +static int max8907_adc_init(struct regmap *regmap)
-> +{
-> +	u32 value;
-> +	int ret;
-> +
-> +	/* Enable internal voltage reference. Exact purpose of bits is not known. */
-> +	ret = regmap_update_bits(regmap, MAX8907_REG_TSC_CNFG1, GENMASK(1, 0), BIT(1));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Check for internal reference IRQ */
-> +	ret = regmap_read_poll_timeout(regmap, MAX8907_REG_TSC_STA_INT, value,
-> +				       !(value & MAX8907_MASK_NREF_OK), 0, 1000);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Enable ADC scheduler with 1 second interval */
-> +	ret = regmap_update_bits(regmap, MAX8907_REG_ADC_SCHED,
-> +				 AUTOSCH_ENABLE | AUTOSCH_TIME, AUTOSCH_TIME);
-
-return regmap_update_bits()
-
-Bit odd to unset AUTOSCH_ENABLE in something that is commented as turning
-it on.  That is probably a field that needs a rename. 
-I'd also like those field names to reflect that they are in ADC_SCHED.
-
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static int max8907_adc_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct max8907 *max8907 = dev_get_drvdata(dev->parent);
-> +	struct iio_dev *indio_dev;
-> +	struct regmap **regmap;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*regmap));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	regmap = iio_priv(indio_dev);
-> +
-> +	*regmap = max8907->regmap_adc;
-> +
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = max8907_adc_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(max8907_adc_channels);
-> +	indio_dev->name = dev_name(dev);
-> +	indio_dev->info = &max8907_adc_info;
-> +
-> +	iio_device_set_parent(indio_dev, dev->parent);
-
-Why this choice for the parent?  What is wrong with having the
-platform device in between?  Needs a comment.
-
-> +
-> +	/* Enable ADCREF */
-If it's called ADCREF can we just include that as part of the field
-name and remove need for the comment?
-> +	ret = regmap_set_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
-> +			      MAX8907_MASK_RST_CFG_INT_REF_EN);
-
-Need to be more consistent with register vs field names. I'm fine
-with either form but it should be the same for how you shorten
-RESET_CONFIG
-
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = max8907_adc_init(max8907->regmap_adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
+diff --git a/mm/kasan/kasan_test_c.c b/mm/kasan/kasan_test_c.c
+index b9e167ed5be3..4e23765d722c 100644
+--- a/mm/kasan/kasan_test_c.c
++++ b/mm/kasan/kasan_test_c.c
+@@ -967,8 +967,9 @@ static void rcu_uaf(struct kunit *test)
+ 	ptr = kmalloc_obj(struct kasan_rcu_info);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ptr);
+ 
++	/* The freshly allocated object has not been published to readers. */
+ 	global_rcu_ptr = rcu_dereference_protected(
+-				(struct kasan_rcu_info __rcu *)ptr, NULL);
++				(struct kasan_rcu_info __rcu *)ptr, true);
+ 
+ 	KUNIT_EXPECT_KASAN_FAIL_READ(test,
+ 			call_rcu(&global_rcu_ptr->rcu, rcu_uaf_reclaim);
+-- 
+2.54.0
 
