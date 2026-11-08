@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794161580;
-	b=WlS5nVk6s5zIoymxfiH5TVufDQzwteseaPpJqwUtvClIPiXoZemCotLyAAQvlmOeRX+R
-	 qqR1ZV8S/FYe9SRwHpPXa5NmdaCg9ROqLsSsWQ2M98g6HFisqTbMwXsGOmYFJ+XOtxEf3
-	 hsWpL2j9knA4EjNBihEMZdRhPxumnpUjVlQu3zgwVnYBoMp1f7HvhEXW3rkJYkJUjG1Dt
-	 nFM1vBSd4g5/WAjFa7EhixYw21TWqm/YxpYqurL+Kr4gmBmhduCf9xIU1ZBo1/ognydQp
-	 tRal2ewVLyZpXA25ckeTyjbzuyqThvdsV8mWrgiueTJ8vYOYxi9yXy7rbrx7oxVSfQg==
+	t=1794161630;
+	b=vUeJvBeVhIJQmACOtWzYtaSlGZDXIMPqj6wRXAs6rxv4Dt9FUedi3lusE6tAEDP6Uh/R
+	 KKHOqRt8so6sjODCw2nkZozvSH5OjdQW7OvnCbVkpsQcxoa27WoreR113XmUCbR0OYyHb
+	 3hmXLvky5wpMkQLxEQEdWJSe/JnedMqBWO/1Tsb/WbiLzs0VrzMNfzW5I9zBA6uIDrIWF
+	 UTCQtBNU4aLmMUCN7mtvVYjxnut7DoyBRHjDxFLIPJoCEVY6poA4vghN8EwAyKLVxijJv
+	 u7dFxX/01ZF9gMAKsR0015PDPqCKTYOgNZCaLW0zKiP8MYoBzXqfnknokPtePi7cFQA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161580;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=V7mrn4Tdcq2AN261SQzO3UjqbYkOVkf4ISU4JjFBUeA=;
-	b=icDgnzy1fWWnj23Pqm25AYSLXC2tqn8wasI8wODMI5TSTklatva+WqSVJSYB9ELd4iS1
-	 5oQ3Up+RHXHDcrk9uS19WBnut/K3bn7Di/QQeRJXlBmzPFyZwHdGD8/3KIn0VD5D+nWkW
-	 +i3QXlKFIZ+fWGPHIeKNVieVto7G0MsrP1deI5oOkPgUwfEoVQkxvOjgALwLJMSz81eTK
-	 d76A6rDYLIBvG4515H13aBhiQdupr62Mh7EPmziOpH0frPhz08pU2mJ16Q/7Ymyo4LFrx
-	 QuAPxYAtu6TszPIN+LAzDusn/Pdl6QkFAjAmDVHeAXTKPbrDZpTX1bLx2qpkZmP3Ofg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161630;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jmId1om6flGY5tBdpI+ToBUStvL9K42v9lOzIrG/5Pk=;
+	b=YRzUVdktGCI4RqBsCVknWFzsZspTmxBL1F0Fzh2AGrNK5sqwQi7n4m3MlAAANEgsjPW5
+	 fuZIFqXkh5vlF3UG8tVjJkuwdTG9wRdGCRTdIdbYMqL+0OUiu1xI3biS16ZXIUo++YuQY
+	 Y1XM9XPcGR7OzhOlUone0IYtqkIdek6qjAhFml5GBvguXYyp1ZbjTHFdRVRHUZVwj9y9C
+	 f/rgsdIpjh2YXfEuItkQ8Blq3Gt6Ae77dyrrQ99twPF/x9GunvDVfJF8fQ37NsM06Odzi
+	 JwT07av1PFL6jZD4Pu+JyUQvSSonv7bkqVlndCt25Gzmq0mGrHoPG4C6tGOHWvc0GQg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBte9H9u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.51
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBTCIqZt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FD3606A31C;
+	Sun,  8 Nov 2026 18:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBTCIqZt
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794161630;
+	b=x3ngTFpqJNm9xGJ3ydw6OPnM1HgTnw59WOyVKXCAVx+CT7mo0VoalU462+62E3sWZL97
+	 jXutfnoHcrSWpPdsAlrLYnmU+hVONsgLyUI2S2vb/Ssp1KTOg83xoXCWFgimJHo43ixiO
+	 eiSBwrSjfYDQ8uegs8N8tpL7ZC50uzxznTD2UBbHdVUL639FU7+Vg+82cWAa4UvHdyz2x
+	 6l6U14U3/lPtCp15W+jxUhhednBNmcZvY0mTj1Iw7CAPHviVXJuANZKv9HNC0D+ATqSgK
+	 s8TMB34hZdVNfheDS+NvhD19jV7zVmYBEVQvOtgwH0yBiaIR4aYmje1uwVTdPDWbY/w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794161630;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=jmId1om6flGY5tBdpI+ToBUStvL9K42v9lOzIrG/5Pk=;
+	b=rpfgm7vANp1SSeS8caOZS7NziojH/VJl/uJ+iTIMwxp5nNEn8hm5wnv54HHtMCVjU/Ka
+	 z+n2oSOvD6lq52Vg771byVitzQdR/OkvxWgIJqHcvZbswzCVTxJn5lBmRBOrm9Zrpfdws
+	 d/jCTBM85FC4vry396y0iUL8Yuj80KaKXiBa7+E+b98Tz9unaYUqTas3BMuhfN1LsUVHs
+	 XZum5e5Ke/siPa/c840gyPcygk1Nc8NuDuSlSBFCaWW+4R4cqn2hZeJg3FmpYaB8j2ZXU
+	 GlNcvVeBA9RD+ooz4bB8J3MBNrbCDKv1XS9EBouHalb0l06yzXeX1/9be3qwcxZ7uDA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3ABA606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3ABA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBte9H9u
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4a85c656c58so135762fac.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:12:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794161579; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FzeqjFeGDaKzWGeobqflW39NaFew9W/gmnjO5wBzjAbiyxc1hecUFKKXZmXA9CqGCR
-         P0oSUMYe1ARxeZFs0aRhC2igHrqWenfxj7VgEzhqckZijQTuXMKByGJrla94/tB100f8
-         jPmEtVtJhNlNTxXBwCUwkKK0gJ8vRgm0bBGtX+hF0S1wxlxjdJkJtqp3ABJrGB/Wj0mr
-         9jYHAvhhVSHydQB5IdJmOwlp7XbuDMOKGC6P5y5/WlL2QGqX6qD5LkveoV0bxyJ/SLoT
-         b040eVTzIOmo685yq9EcIDANFWdAYO0gWIGzOoMu0aSzsPgr6oYpd8R5M1NKCKjFpTwv
-         RZ/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=V7mrn4Tdcq2AN261SQzO3UjqbYkOVkf4ISU4JjFBUeA=;
-        fh=4QA8Du+uEiDNQIg0Gr9XY8qM6ZNfmLsUzorNGpF/CuE=;
-        b=Jh8yM5ffcCmYK8NZh/BzIglm4Viszn8oLdgC8AO3xom5oeCHxWp0lPsGtzjsjTUnxR
-         yc7uxyGOivzRsu+JaNx359yq42GDX3aqaFRN4emiuAZRt9ZQGPDPZy/7m4RSB5xVwnQz
-         MdOgIxmIu/9TMzonYwjWx4jZ/QXLSBuRWjQ2r7pRCQAZHpvTuiaObtCMSmioyW0vQ70q
-         U3AzUp9HXD56LeAZAoROUJLVpUY1QLgj05eIqcaYyt+x3qlVJ1m/UjhT5REO6NksEbMh
-         U77+t8Eh+I4hB/XxKrf7B8giaGsnCheXkc/HxuBIZxLbuPlVN+PZNPcWZ9kvEHJki4s+
-         Pb4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794161579; x=1794766379; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V7mrn4Tdcq2AN261SQzO3UjqbYkOVkf4ISU4JjFBUeA=;
-        b=qBte9H9uJHuVxe/196AT1r7QBpCHdNmjNqpstnpvNZGR0QBVo72LMlLSFIJA4+27N1
-         Zej90nX4PUxdwy/Ayphs/PIYHRJKFsN4N5cRzTuWi6Dv0N1+nzKgD/TiLQeFBPJ3nWpa
-         xvSxrvilo87iNKC2OTcmRdckuD1sgQrmDXYBvYIhxZnVXJloJo90JtlTid41WZy29p2C
-         rPddl1kLM68ENEzA8ek8z82LfUNt4xW+QPqQnLwCLk+mHqj44JkUdf49DSDTKAku5gCe
-         qOrVRdcBqvB8wXmvmwF0FSeQopNHl8n0MBOAY/eYaWVgGWPtsw2fYYm6tgaVwEVs6+Xg
-         zEfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794161579; x=1794766379;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V7mrn4Tdcq2AN261SQzO3UjqbYkOVkf4ISU4JjFBUeA=;
-        b=pgD3Q9igBPcPklB3OAiX+IUE0NXYvjtMpn6S52QaqfvdRk2fb1x0/Tt5bHAys1h75b
-         0o7yFDE9Fprcfwkmdo/Lfdf4pbTH4TjbLLoZjafVLAnfaRvaRJdAs/GXdBbPJJ+YLTnD
-         EXVDVzxqY5OU7po/sEWodOoIrq3uOmHUaOoyEaK7DCXMHydTytyVbgfwymwqzqrYUCzN
-         /c8xof16Vlz7xXXNVXEJmJnSPXmCAcG4vmiH+5YRMb3UjKng0wr2eO82dasQtG1RUEp1
-         37AP5XRQ3T0aux6o9eUab7gvgVncBBaSxOm+ycSJXJSh5ASE31utpOZ7JJnFVNZsRAB4
-         nTTw==
-X-Forwarded-Encrypted: i=1; AL+hErGgsJda0Wp6HoVVdU9TCYOLPoGWtK0TbWbf3K5+myoc880GxyR2WI2F9QQqRQyB90OXYXpjaInRm6AlWEA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PQMhJZ7nB3ZYSsrRWH8ILtPH1HJWHFQ4WNBpmEZnkfLsfBIlt
-	QVgOhajhaEZ30oJJ4Ykg5VHlF+64iZOg8QNk5abil1I3cFaRUOUCyWrkoj0m33Bt+Aaovkc7u5G
-	0yK3TkriihPsdmZA4zOKndAqtgHmgp78=
-X-Gm-Gg: AYBFou1MHl3eR8duLu4dWOIk5hpM8hPZ2wLCsWFR1UwO+ChKt9jyvLwTT36Hav45I/h
-	XjNqybjXsJHVngNTCA8Yro59XSEBLazxBWmQqacgl5dk+ivlfNyk+KHl48jgWR4ZRR1gNWc8I6i
-	xZz97Xqcc+8PDrKmS8GhmB2B6/XkwCsOYDR5/yCmitSPptq9tqUW55OZdoKQbt2IIMv+fu2Srxz
-	hB9uOON7GKSzkYunzM+7reaMnWTzGjEGZeVq5Yedt8aWeU75BzQR1YKzBHptWGXMsMFcnYD7u9q
-	yL0Cb3/s3E7+iredHx+jkO95rhaa11iTxqEi+5jTTb8L5r/M5MyrClykZ0su0qh5H4IaRlGQkcu
-	USU+pnLcirrrGrwiDOSXCEUcUFFFhK3FeyUGMgaeifrUlBBhV9Be0FxWplBUZOUSv76Jf
-X-Received: by 2002:a05:6808:690b:b0:53c:7298:3598 with SMTP id
- 5614622812f47-568145b6024mr1440894b6e.31.1794161578638; Sun, 08 Nov 2026
- 10:12:58 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 63A791F0089F;
+	Sun,  8 Nov 2026 18:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794161630;
+	bh=jmId1om6flGY5tBdpI+ToBUStvL9K42v9lOzIrG/5Pk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=mBTCIqZtQjMuen8LvG4Er2aE2YSTRTFrdyyM+KsdyVxXkQqgMT9pXpy1q3EyqUgoX
+	 BWmeSYr0YoaWnSt+wTw5uB3tuDzRZSjcGL9l9Glr+f5o7yHWXtLRJQ6O2V9pKR91Q8
+	 biXzAa+Ux2P0gPU1gLD8XuuGp5HQmRUSpOM7AQzrTtsYYq1R6+hKVLr4cwmUk1eYhN
+	 20IKyUWqj1Quk6GyicIAhWqLKT3J2rK//Nskp9arJX4LlCxKSd65ta7jjbXfAEkaRW
+	 izYUwEmgXthvyYL4BoHzVA8idkLzHHufjRzZeClhO1OBd0LkY1Z30UlyJErcfyDVwi
+	 FahyEdBlAK97g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EBF994800A;
+	Sun,  8 Nov 2026 18:13:48 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sun, 08 Nov 2026 18:13:46 +0000
+Subject: [PATCH v2] gpio: rockchip: restore the bank registers after
+ hibernation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,60 +83,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103095256.949327-1-hjf3108@gmail.com> <20261103095256.949327-3-hjf3108@gmail.com>
- <ea79031bd2324090bb1b39b3c3f18a36@realtek.com>
-In-Reply-To: <ea79031bd2324090bb1b39b3c3f18a36@realtek.com>
-From: Jie Feng <hjf3108@gmail.com>
-Date: Mon, 9 Nov 2026 01:12:22 +0700
-X-Gm-Features: AclHuK_DEGYGJmBL4I9-G70XKz8DCYgi6jcsy_kS1NLIHIqLvm8fk4Pm0FhqqFA
-Message-ID: <CABOQOSV0Uys3VigkU4xoT-wfBmRk3UyxJ1KJ5dLDVA6vy=k6tA@mail.gmail.com>
-Subject: Re: [PATCH rtw-next 2/5] wifi: rtlwifi: rtl8192d: report no signal
- for frames without PHY status
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-b4-gpio-rockchip-hib-v2-1-27d3d510cb73@iav.lv>
+X-B4-Tracking: v=1; b=H4sIANm78GoC/4WNQQqDMBBFryKz7hQTjWJX3qO4iHFihhYTkhJax
+ Ls39QLlr96H//4OiSJTglu1Q6TMif1WQF4qME5vKyEvhUHWshOi7nFucQ3sMXrzMI4DOp6xr5V
+ p7KLk3A5QpiGS5fepvU+FHaeXj5/zJYtf+0eYBZYMtl1E12ilaGSdr88M03EcX1QwGW+1AAAA
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>, Jianqun Xu <jay.xu@rock-chips.com>, 
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8075; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=pGwx8SsOKIXW7baXOGJItsGIAi4ZK2TYXNeKKRDBN58=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkfdt95v874c0H2PoHHGhw/VZxXOP87cV/G3mLhHoPpv
+ 00rPD5YdpSyMIhxMciKKbJMOKRxK2PJ1b/+HuYPYOawMoEMYeDiFICJ/MthZJhTLW8wI75r9hyP
+ mjfSYvFb1S5uOP3o+EObP4srttyaaFXByPDqz1o1JSWmleWdzzK2dnn2XYp/N3XSofMWa483f50
+ qwcEOAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-On Sun, 8 Nov 2026 at 11:13, Ping-Ke Shih <pkshih@realtek.com> wrote:
->
-> Ho Jie Feng <hjf3108@gmail.com> wrote:
-> > Only the first frame of an A-MPDU comes with the PHY status.
-> > This makes mac80211 report the correct value when queried from iw.
-> >
-> > Test results (2.4 GHz):
-> >    before after
-> > TX 6.1    5.2
-> > RX 29.1   27.1
->
-> How does improper RX_FLAG_NO_SIGNAL_VAL affect throughput?
-I included the throughput numbers as a regression test, to show that it does not
-cause any speed regressions. It should not affect throughput.
-> >
-> > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> > ---
-> >  drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c
-> > b/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c
-> > index 9f9a34492030c6..a8910cdbfa0979 100644
-> > --- a/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c
-> > +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192d/trx_common.c
-> > @@ -425,6 +425,9 @@ bool rtl92d_rx_query_desc(struct ieee80211_hw *hw, struct rtl_stats *stats,
-> >                                                      stats->rx_bufshift);
-> >                 _rtl92d_translate_rx_signal_stuff(hw, skb, stats, pdesc,
-> >                                                   p_drvinfo);
-> > +       } else {
-> > +               /* Only the first frame of an A-MPDU has the PHY status. */
->
-> It is clear that this branch is !phystatus, so no need comment.
-Will be removed in v2 of the patch series.
+From: Igor Velkov <iav@iav.lv>
 
-> > +               rx_status->flag |= RX_FLAG_NO_SIGNAL_VAL;
-> >         }
-> >         /*rx_status->qual = stats->signal; */
-> >         rx_status->signal = stats->recvsignalpower + 10;
-> > --
-> > 2.53.0
->
+Restore from hibernation follows a cold boot. The boot kernel probes
+the GPIO banks, sets every interrupt enable bit, leaves the trigger of
+each line it did not request at the reset value, and then hands over
+to the image. The image restores only the interrupt masks, so a line
+it had set up for both edges comes back with the reset trigger.
+
+On ODROID-M1 the headphone detect line (GPIO0_B0) is requested for
+both edges and is low with nothing plugged in. After a power loss in
+hybrid sleep its reset trigger fires again as soon as the edge handler
+acknowledges it, and the system does not come back.
+
+The rest of the bank also comes back as the boot kernel left it. On
+the same board, debounce requested on GPIO3_C1 was off after a power
+loss in hybrid sleep.
+
+Save the interrupt registers with the masks and write them back before
+unmasking. Save the output values, directions and debounce of every
+bank, including banks with no interrupt in use, in the noirq phase,
+before the drivers that use the lines resume, and write them back on
+resume. gpio-dwapb saves the same registers. When the bank kept its
+registers, this writes back what is already there.
+
+Fixes: 936ee2675eee ("gpio/rockchip: add driver for rockchip gpio")
+Cc: stable@vger.kernel.org
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on v7.3.3 with the Armbian rockchip64 config:
+- ODROID-M1 (RK3568, GPIO v2): hybrid sleep with the power removed during
+  sleep 4/4, debounce register bits kept; deep sleep 10/10. Without the
+  patch 0/5.
+- ROCK Pi 4A (RK3399, GPIO v1): hibernation with the power removed 3/3,
+  both-edge emulation and debounce register bits kept. Without the patch
+  the debounce bit was lost and the line got a spurious interrupt (1 run).
+---
+Changes in v2:
+- Also save and restore the output values, directions and debounce of
+  every bank, in the noirq phase (Heiko asked about them).
+- Restore the saved polarity of emulated both-edge lines instead of taking
+  it from the pin level, which dropped an edge that came during sleep
+  (Sashiko).
+- Link to v1: https://lore.kernel.org/r/20261107-b4-gpio-rockchip-hib-v1-1-19f4d163a55e@iav.lv
+---
+ drivers/gpio/gpio-rockchip.c       | 66 ++++++++++++++++++++++++++++++++++++--
+ drivers/pinctrl/pinctrl-rockchip.h | 18 +++++++++++
+ 2 files changed, 81 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+index 0f46ff095a24..4c68a62d7985 100644
+--- a/drivers/gpio/gpio-rockchip.c
++++ b/drivers/gpio/gpio-rockchip.c
+@@ -487,17 +487,33 @@ static void rockchip_irq_suspend(struct irq_data *d)
+ {
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+ 	struct rockchip_pin_bank *bank = gc->private;
++	const struct rockchip_gpio_regs *reg = bank->gpio_regs;
+ 
+-	bank->saved_masks = irq_reg_readl(gc, bank->gpio_regs->int_mask);
+-	irq_reg_writel(gc, ~gc->wake_active, bank->gpio_regs->int_mask);
++	bank->saved_masks = irq_reg_readl(gc, reg->int_mask);
++	bank->saved_en = rockchip_gpio_readl(bank, reg->int_en);
++	bank->saved_type = rockchip_gpio_readl(bank, reg->int_type);
++	bank->saved_polarity = rockchip_gpio_readl(bank, reg->int_polarity);
++	if (bank->gpio_type == GPIO_TYPE_V2)
++		bank->saved_bothedge = rockchip_gpio_readl(bank, reg->int_bothedge);
++	irq_reg_writel(gc, ~gc->wake_active, reg->int_mask);
+ }
+ 
+ static void rockchip_irq_resume(struct irq_data *d)
+ {
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+ 	struct rockchip_pin_bank *bank = gc->private;
++	const struct rockchip_gpio_regs *reg = bank->gpio_regs;
+ 
+-	irq_reg_writel(gc, bank->saved_masks, bank->gpio_regs->int_mask);
++	/*
++	 * Restore from hibernation follows a cold boot: write the interrupt
++	 * registers back before we unmask.
++	 */
++	rockchip_gpio_writel(bank, bank->saved_en, reg->int_en);
++	rockchip_gpio_writel(bank, bank->saved_type, reg->int_type);
++	rockchip_gpio_writel(bank, bank->saved_polarity, reg->int_polarity);
++	if (bank->gpio_type == GPIO_TYPE_V2)
++		rockchip_gpio_writel(bank, bank->saved_bothedge, reg->int_bothedge);
++	irq_reg_writel(gc, bank->saved_masks, reg->int_mask);
+ }
+ 
+ static void rockchip_irq_enable(struct irq_data *d)
+@@ -805,6 +821,49 @@ static void rockchip_gpio_remove(struct platform_device *pdev)
+ 	gpiochip_remove(&bank->gpio_chip);
+ }
+ 
++static int rockchip_gpio_suspend_noirq(struct device *dev)
++{
++	struct rockchip_pin_bank *bank = dev_get_drvdata(dev);
++	const struct rockchip_gpio_regs *reg = bank->gpio_regs;
++	unsigned long flags;
++
++	raw_spin_lock_irqsave(&bank->slock, flags);
++	bank->saved_dr = rockchip_gpio_readl(bank, reg->port_dr);
++	bank->saved_ddr = rockchip_gpio_readl(bank, reg->port_ddr);
++	bank->saved_debounce = rockchip_gpio_readl(bank, reg->debounce);
++	if (bank->gpio_type == GPIO_TYPE_V2) {
++		bank->saved_dbclk_div_en = rockchip_gpio_readl(bank, reg->dbclk_div_en);
++		bank->saved_dbclk_div_con = readl(bank->reg_base + reg->dbclk_div_con);
++	}
++	raw_spin_unlock_irqrestore(&bank->slock, flags);
++
++	return 0;
++}
++
++static int rockchip_gpio_resume_noirq(struct device *dev)
++{
++	struct rockchip_pin_bank *bank = dev_get_drvdata(dev);
++	const struct rockchip_gpio_regs *reg = bank->gpio_regs;
++	unsigned long flags;
++
++	/* Restore from hibernation follows a cold boot: write the bank back. */
++	raw_spin_lock_irqsave(&bank->slock, flags);
++	rockchip_gpio_writel(bank, bank->saved_dr, reg->port_dr);
++	rockchip_gpio_writel(bank, bank->saved_ddr, reg->port_ddr);
++	if (bank->gpio_type == GPIO_TYPE_V2) {
++		writel(bank->saved_dbclk_div_con, bank->reg_base + reg->dbclk_div_con);
++		rockchip_gpio_writel(bank, bank->saved_dbclk_div_en, reg->dbclk_div_en);
++	}
++	rockchip_gpio_writel(bank, bank->saved_debounce, reg->debounce);
++	raw_spin_unlock_irqrestore(&bank->slock, flags);
++
++	return 0;
++}
++
++static DEFINE_NOIRQ_DEV_PM_OPS(rockchip_gpio_pm_ops,
++			       rockchip_gpio_suspend_noirq,
++			       rockchip_gpio_resume_noirq);
++
+ static const struct of_device_id rockchip_gpio_match[] = {
+ 	{ .compatible = "rockchip,gpio-bank" },
+ 	{ .compatible = "rockchip,rk3188-gpio-bank0" },
+@@ -817,6 +876,7 @@ static struct platform_driver rockchip_gpio_driver = {
+ 	.driver		= {
+ 		.name	= "rockchip-gpio",
+ 		.of_match_table = rockchip_gpio_match,
++		.pm	= pm_sleep_ptr(&rockchip_gpio_pm_ops),
+ 	},
+ };
+ 
+diff --git a/drivers/pinctrl/pinctrl-rockchip.h b/drivers/pinctrl/pinctrl-rockchip.h
+index 950097699643..855a21bd3703 100644
+--- a/drivers/pinctrl/pinctrl-rockchip.h
++++ b/drivers/pinctrl/pinctrl-rockchip.h
+@@ -303,6 +303,15 @@ struct rockchip_drv {
+  * @db_clk: clock of the gpio debounce
+  * @irq: interrupt of the gpio bank
+  * @saved_masks: Saved content of GPIO_INTEN at suspend time.
++ * @saved_dr: output values, saved at suspend time.
++ * @saved_ddr: directions, saved at suspend time.
++ * @saved_en: interrupt enables, saved at suspend time.
++ * @saved_type: interrupt level/edge type, saved at suspend time.
++ * @saved_polarity: interrupt polarity, saved at suspend time.
++ * @saved_debounce: debounce enables, saved at suspend time.
++ * @saved_bothedge: interrupt both-edge enables (GPIO v2), saved at suspend time.
++ * @saved_dbclk_div_en: debounce clock divider enables (GPIO v2), saved at suspend time.
++ * @saved_dbclk_div_con: debounce clock divider (GPIO v2), saved at suspend time.
+  * @pin_base: first pin number
+  * @nr_pins: number of pins in this bank
+  * @name: name of the bank
+@@ -332,6 +341,15 @@ struct rockchip_pin_bank {
+ 	struct clk			*db_clk;
+ 	int				irq;
+ 	u32				saved_masks;
++	u32				saved_dr;
++	u32				saved_ddr;
++	u32				saved_en;
++	u32				saved_type;
++	u32				saved_polarity;
++	u32				saved_debounce;
++	u32				saved_bothedge;
++	u32				saved_dbclk_div_en;
++	u32				saved_dbclk_div_con;
+ 	u32				pin_base;
+ 	u8				nr_pins;
+ 	char				*name;
+
+---
+base-commit: 0fa38ba784896f2fc32c9dacd33822f844b21906
+change-id: 20261107-b4-gpio-rockchip-hib-705c3fd52b49
+
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
+
+
