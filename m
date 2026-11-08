@@ -1,76 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794096043;
-	b=kfdnfwODb+2AxWLXQc9TdbAO4nciMht4zNF0ozIHErp/o523PeYMo8qKxe/OsYBxo8mj
-	 5nmrVlZb1ShAdWqwJorIMumvkqgKlbwNb+OjLWNlmRgiMVUwFbQTCYfdbak/82Ej3UOFF
-	 8S1dM1aQodw1GRWfGrY02HgI67P5bjLKuJnaaU3NcnoHs/yf3y6RSUIPrMAAM867h9Dxt
-	 uTiB5OAXdJejBfbYGeJIYIs2yELtcFIEETYQ2ZW1roby/BuGu01elhi2OpQ2UO9ZBOqSK
-	 +a30ooZeEZ6bxbdaReSdXsy4vp8xakZ8DF3RaPBnSwKOfaPghvEwDBD1R2rwHKdo52A==
+	t=1794096082;
+	b=H+v0Fqf+VKS+diymuYp/ORNpOvrdakZ4c9/ioeazBMpWUajFA5fMoQz2vJXQgoT2nN6k
+	 Tnz2MnZ1qlTp5nMRRUA5fwCUwA3NudzpJTHSi7Uv9v7E0CedUsYHXOwWOhHxExBIm/jkr
+	 DdWsI2pwlxh+fOujvLSWBc974skO/YgaeX8AAGfgClXC4T5C0R9uUla3f/7MVs5bidNM/
+	 8lEMx5FumoWwMOgh+r31cuaLHn0PupXPCRBQumcJvGu+Pv1OYTOgtIBukw/mkX6+ENRez
+	 PVo72xQx+Ht0p+CFvBkdsjDaugX6e942jB+yxdNiSShvnSJ3ny0auSennmzXc698KSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794096043;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
-	b=ispedPn1QKp/hNklmtHlO/YqPE79eo56Df+sV620lyYt7Bmao7zpHlFJ1iN4SvNU1lxX
-	 KtWSFNDuET01difQ3aQcfv5FWDIDnBwnIwUBfA+1qQ0PfIcDeaCfrjL8oOU/AE2F4Fyfh
-	 s9Xnh953eN9NO/t+QCXbxgOsscYuwMVQneXwYTalsaun0bTKBchUg6QX3+palEogYVwhq
-	 axHEEPw9Fy/N83DchPpK4FeuLA+q/6LzIREjZ5saNBl/li8ql0EvViGfzod9lrCAtu/kh
-	 4TxLdgjryeIM8z38LNC2w9B1xnMivp90Ps6B912JTLHtbmFHhkBfGwT3t35g7CnD98w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794096082;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=HuqvdMhd+3FXASHW/XnQtAhHLkKifWf1J8izzLIV5ZM=;
+	b=k4UxyCdB8qmH+8Qgk7MaVAqe3L0JByiJBwBRW245K6OGpTZU88LOCECO9eS+avIP9CMR
+	 nXD36Rnqka8IxP7k6hrGRjvm3p7KpC+nH6ipEXi4DNd3J04bwzvvkOi34sbDa4D7/Fq+j
+	 Ch7bcUrFF5qI6z6NsxBvxD4EVeqoBdSwce6Lib6q39wSk5fYbqf+TqJNjPrY6Dd6bV73H
+	 CuxoSgwmrDU8LSnaZt2thP2Ajfk/4AWCuButNA0bwR+PHzExJRQD3Aox2qW/d4dW0ZlcE
+	 2MTqBUAFgx1Q4yqzsFtr9rv3A+RL0dKAgeyWjGfykKvIRdOh0TD5NkVjsygsQTucYSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UyCcoE0V;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N++lbpHh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF806606A32F
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF806606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD6C606A331;
+	Sun,  8 Nov 2026 00:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UyCcoE0V
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eb2437d752so1360605ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 16:00:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794096042; x=1794700842; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
-        b=UyCcoE0V29D0+WvF+zsWufPX5C8Z8DXymFDtcv8QAyqBES+fmYXKtLqDv3XPrQ3tIh
-         sgwNpiiTF1tuiviis121bucGyhVnYscH7zFWgfFFi+uVKOi1YuqqLOfE2IvHRe6TbQPm
-         UM5e6C2Ab22FfJALDj7BwVYKs8xUAP1nFNc1dwTVXV13fGxch7r4rZvSjUkwvFCHE1gZ
-         +zcjE+IEFozi4CNm6wIC1x+C6tvn69zxVzaMerdegeUNDoCPg8NRbCL+Sh1MBedAlLvz
-         HINL6ZuYc1Ep21bxmM0O4mjDyzJiiZVLvQAXCTsZv4mcC/ZrA8NT5GmCYSVStV2nSq9y
-         lM8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794096042; x=1794700842;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
-        b=ky58Sr4gszYP6BayfsaJiOMvT9YXi71xUa1OvPKX2kfDwNZIr/L5XgOcJsjkDYnDRA
-         TSomGRL0vJqE2TF/hB13gmi83HZGmw9LglC9DPOcxFXH5H1FRvA4nCFYc7uJAoS3l2nW
-         3KW+M3E7RxPSFJ4f8NtyFh3NOf0Bc/EoBr+LzmP1thm12Q9lzZDhmQ+h9K96KY/6lZSz
-         sUhbbrot2+iaHcQgofdbglBiGwzqub5sWi0IQGMSdpaAXEEJax2Gz9vyybDBBhf38t0S
-         slIjUT/kwZtNo7yCYMg0WlMVy/B8I5djiePyrcWlXoFbJUhZOpY1gGQ3Ai5jYRsC346t
-         ELZA==
-X-Forwarded-Encrypted: i=1; AL+hErFBIfSmpXVWM/5jBjAXUvyg02ckD1szRUlNbYPof8DvamqY9xoZt5a5bjQEmDu9gTwVF4NhhcZyfoacUcE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hsKbfCuZPln5zSUjnuJytArpfU3uiQxJEF7Mtd2ScYgfIyXcX
-	8kxJ72uf857YuTQ1Mu8qmBut6Uh+uzsrhP1Nh7bHz79VowpefDNLp6dcDWiYa4u8JRO/YcgaiKq
-	GIavuxQ==
-X-Received: from plrd12.prod.google.com ([2002:a17:902:aa8c:b0:2e8:774e:e582])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e742:b0:2e9:6645:e9a6
- with SMTP id d9443c01a7336-2ed837c5df2mr1275865ad.59.1794096041686; Sat, 07
- Nov 2026 16:00:41 -0800 (PST)
-Date: Sun, 8 Nov 2026 00:00:41 +0000
-In-Reply-To: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N++lbpHh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493901F008A2;
+	Sun,  8 Nov 2026 00:01:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794096082;
+	bh=HuqvdMhd+3FXASHW/XnQtAhHLkKifWf1J8izzLIV5ZM=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=N++lbpHhcqcVSHIPU6dBqOqY9mlp3tcUfaR+h/uJfAZDcTi1mizMJqkfLDIrfjLGc
+	 T8FwrWG4TqMXY3+0agTwPg/lDFusXHszqaw17e259l4cf+/v+znecpCDGj6vjYeVdj
+	 YeXpbGhs2QgB0fx2F4XALdcYen+t7yDTx9kkAolAIb51DBTK6HZjrxwl4zJb5ySqCI
+	 JEYphOF1zrb187Dk1RZRG9tgIK7Tpy4UxfmWTzZVzNIkoHQi9ef+oy4wOorUvYW2Zv
+	 HN01TjDkYnQY9YRFsR2KtRfhBHLmyQGRlMWzkF06Im9Pvl5p0JcWLIIdXWE3nUrlcv
+	 NkrlX84xBxImg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3B2BF3808220;
+	Sun,  8 Nov 2026 00:01:22 +0000 (UTC)
+Subject: Re: [GIT PULL] Btrfs fixes for 7.4-rc2
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <cover.1794085177.git.dsterba@suse.com>
+References: <cover.1794085177.git.dsterba@suse.com>
+X-PR-Tracked-List-Id: <linux-btrfs.vger.kernel.org>
+X-PR-Tracked-Message-Id: <cover.1794085177.git.dsterba@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git for-7.4-rc1-tag
+X-PR-Tracked-Commit-Id: 8c66a6aa59a5df1d672d72b7cd379d897ff73200
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: fa4ad798f6f681031775266044ba1b0cf3c670bd
+Message-Id: <179409608100.1384930.3247728165087919113.pr-tracker-bot@kernel.org>
+Date: Sun, 08 Nov 2026 00:01:21 +0000
+To: David Sterba <dsterba@suse.com>
+Cc: torvalds@linux-foundation.org, David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,44 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Message-ID: <au-7VgkYOwx7ec_q@google.com>
-Subject: Re: [PATCH net v2] tcp: fix authentication bypass via unsupported TCP
- auth options
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: "=?utf-8?B?SsOpcsOpbXk=?= Jean" <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	Dmitry Safonov <dima@arista.com>, Francesco Ruggeri <fruggeri@arista.com>, 
-	Salam Noureddine <noureddine@arista.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, 07 Nov 2026 22:47:33 +0000, J=C3=A9r=C3=A9my Jean wrote:
-> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
-> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
-> TCP_AO=3Dn, a packet carrying an AO option reaches the disabled
-> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
-> configured to require MD5 authentication end up accepting
-> unauthenticated data. A forged AO option skips the unsigned fast
-> path, which is the only place where tcp_inbound_hash() can return
-> SKB_DROP_REASON_TCP_MD5NOTFOUND.
->=20
-> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
-> problem for an MD5 option on AO sockets.
->=20
-> Note that TCP-AO depends on 64BIT: therefore, every 32-bit kernel with
-> TCP_MD5SIG=3Dy is in the vulnerable configuration.
->=20
-> Make the disabled stubs reject options for the unsupported
-> authentication scheme. This matches the real helpers' behavior for
-> sockets without keys. It also means that kernels with TCP_MD5SIG=3Dn and
-> TCP_AO=3Dy now drop segments carrying an MD5 option on unkeyed sockets,
-> as kernels configured with TCP_MD5SIG=3Dy already do.
->=20
-> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+The pull request you sent on Sat,  7 Nov 2026 22:04:25 +0100:
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+> git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git for-7.4-rc1-tag
+
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/fa4ad798f6f681031775266044ba1b0cf3c670bd
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
