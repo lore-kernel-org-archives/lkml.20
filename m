@@ -1,96 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.110
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794150676;
-	b=ee6b4pTOvBsIPPHjbC+PrVV+spve5HPDVz+0hhIadcVwy/8qrgGbCakndCsVdwiZOPDh
-	 /TldgxafnNZTYfiLjAH4S9n/QSolmRhXah4GG7szbBfD1CKcAVmumHsDFuAqyJRc50opl
-	 LSU1xZoiiRJ3FZV0vMdM9HOYS82EQ8igmBOcgzvOMeZY/34owi65IRo5L8FiiiH4Exx9/
-	 RHbIaef+tknuAm4Wf+qpxTyn7jXpFX0loalDmtjesI6WguQXsHv8Un1pbfaoWfBi997ce
-	 wuN5IJ1k1WAevNpKCVWIXW8kIXkxQjSH2bpWkCia/5BVgz7ZaCy78v1A2eqt4MMEaGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794150676;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dV0+nMccyWQarc/69+RlgOpFFjLXGm9DFJg4qh1dscE=;
-	b=46pgSVQzyAxGAW01RyX866xcKy0kULKoEaDcsLx+jS73g+tpcyQ/RqANGDlp6zK2CC1F
-	 uMoTN8SK9oWo4ybMpz53WvyXXrDxENoS1t6n7xnY2M7YrTinJVnMwqmCbfdUeGqg53R4G
-	 pgEq/nwVs+rhfTAVXaEqi/KLVluosXjYhO3j12XLjND1WxORdBNQSnrxE6CsVQJsYIJPI
-	 uNUoC2328wpBjsiA6UZlVdNEbNnrHfn4lYtrxqR61qgaAwTcCR5t9D4xlHtEDdII40R+F
-	 8SVG7PaWGs1r7GE5duowfR64DwURUXVp5921qoA5C6FUoEt5sc3g20PYc3o9sNl+edg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=b0LjkS7W;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.110
-Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022110.outbound.protection.outlook.com [40.107.193.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794150695;
+	b=RXfzfh48/Zsiu4itBsZgQDVWfD0wKp2NT84O5mSJWg+kQqBFFG9EPL3oDvOZh5fAdT2v
+	 h7eHRXQ6/8bq3SOobVRns9WDzk66CK56oWt7/DSoqC/seujHY5X8pG5Gb370EJaCzJmhe
+	 9SIHh3NUAZIv9eAXq/OtVuIL6rueazrxFscsql+pIdAe/DJJzQ2VYu16HS43u67N6hVOk
+	 PlQFSzAXEJ0I8AeeZgK6ZGrPiS2rioWst1Y3m2nTLXPgdg/SApE1YBmHtQ7YHYelha4NG
+	 MobnXG8wfPFoiurzaXE7t7+5qt7tsUbvTd7q3xMHJoNMNLLEgv+pAQtkZRArlVpsTMg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794150695;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 In-Reply-To:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=i5PPzRt+yxwpbv/xozk5+L1M/Zvyd7L2ZCDx2pqWy3g=;
+	b=kn0oOh+gBgeHbCMTkin62VBlW8J9RqFFafXqM6ZDf0weg4+Tbv15g41+yh99J4rgDFCB
+	 JSZPyYgujVQ30BPYrDuarjyCIq0Mb6f4gJ4xmsnVCM1CZzbLXHp2y4/+P4HI2xDHvrMNN
+	 UVb8BvuTKSqfVD1nMO3hpVAqH6BD9Ziw26Cp4c4s57Mx9II6/+Zj2jrwyHX+U9JXGLGhh
+	 WSZKDvHuC6NqpTSpzhhQIXaP8Q0QvwQ2rraQoFrE4+NdQKlOmuFz1p+w8cx0XWWvP79W8
+	 YlyvAbZV7Sg52uKzSUbxyEDkMUSgeD2yoNicHyZpScSUITMN3Texoon09WnnYNBeLAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VgEv6dDP;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7F4606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:11:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A7F4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7808D606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:11:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7808D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=b0LjkS7W
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T1tCXxvPQ1GIgiYxTghfmq1+K5rxikfHiIHKQKlzCbXezT/mVgqQ2WlB2FBivfPqQyBM3nG7JPDdtHn9dob0TH7qHJvRLD/kqc0965SBBeaQ0KpM4Ki6/Vp6cI+4eN3QcUzKqQZMEqsqoVflysBRuvbTpIB/dbSsgxr47HenXHJd4HcWHZEwomOSm9TN+1u/NJI7h+kzaQcAz9drIXKPvHhR8ovh4kgZfZjmEloTUr760hrkRV6oWalLm9zq5Se/0audV9jH8yceV74PDyvoDbPBlIoQdVZRjkaki+r1bQhbyQhObWBDfMLrfY9+/MZoC8fR4n3OfOPcSQMlh3PlKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dV0+nMccyWQarc/69+RlgOpFFjLXGm9DFJg4qh1dscE=;
- b=pNPn1kTju8G4IvoRYhjcGuV1s/lWUgc9gl2GU65mCwavYleOPRaaaEzYNsTVfDcoEHRwd8oZ1cRElrQpNrre2eEHJzsZMPXz+49eAV/vp+7r2qlTb99Nrq4pjgdypb6ZuLLunmXC20JVBEH0wdiOjhyrncYdhz5ZQZGUIoEDjTXUS6aaG4ErjVQdasosyGMfS/JMLYhCoK2miIeael53G4h6SQP5DKRhX9jCpv1tCaoPaOQBeo67Ik0pnwxGlmiYxPq3HQAr5JyurB38VQ7gJE/qtom7gBj+2JYfTUGeSkpyVRb/08dRp9l5CREoseKhwsw7ABwZ7/X8F6oKt9pjLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dV0+nMccyWQarc/69+RlgOpFFjLXGm9DFJg4qh1dscE=;
- b=b0LjkS7WLto53ev6JMji3HuakPYNDLSFO3TOTRWNdTEuiFDRSHL9ChZVMvvsmRP1ACzBvFjO5tW77vfdoDtTkFNSibRp8ZL5f8pap03g37bQQkWQq60EuAu8GdGIqo3YE/HpEzQyIGljemiN7rYOzc1t2RHgSpnCZMlQ1lNwOsxeNAFgM0FJlgjdi3WObMyFIYhUCr6Zm6hPhlXcoVloZJBZbWoZ0gH10jo4IgPkea4+KxYctoCkQbuXHtY8Bg1U2JuFoZkDCSXkD9spqkYW18k/LGvZRdDZwMPs9nMxJyYhdy34QyL3ieGspq67UUobqoN8Xg3VSZMjN9pFGobbPw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YQ1PR01MB373984.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:cb::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
- 2026 15:11:14 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
- 15:11:13 +0000
-Message-ID: <ad50c5d1-45fe-43d6-998a-714b520a0d2b@efficios.com>
-Date: Sun, 8 Nov 2026 10:11:13 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 20/26] sched/deadline: Credit a rebuild to the CPU
- recorded with the task's bandwidth
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, linux-kernel@vger.kernel.org
-References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
- <20261107014451.1487825-21-mathieu.desnoyers@efficios.com>
- <sashiko-outbox-202515@kernel.org>
-Content-Language: en-US
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-In-Reply-To: <sashiko-outbox-202515@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0158.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::21) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VgEv6dDP
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36d69ab3c2bso193483eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:11:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794150694; x=1794755494; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:in-reply-to
+         :date:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i5PPzRt+yxwpbv/xozk5+L1M/Zvyd7L2ZCDx2pqWy3g=;
+        b=VgEv6dDPvu0Z5b+IMKhS7/k/c2BLJe1AgyQEMMUsgamTt5OUW/nH/nRYHB4v56RYpy
+         7OfTZNlokFlvYSQcqWbwzraNYY1K4Xf6q3nKoMe9mM42yzYOJ1kbzWtb1ujKOlr7Kad5
+         lRFjXyIt9zWu9CoM9pFX4o+OCwbb4StF6Z2z9iOBlmj6A3HfaxWHc2o6OyhATw9x7SYK
+         o38rBOSjqDHyOPubLR2fW9EQ9RnBldP06Wqm4PupDGRbNdndX54LvLJbTAc9cg61YouM
+         CRbxeha+Z5zIHwdOPxfBhjvUf476zOAfll4sagKS55gMwQOW9rEAdWoNmMDZwQRkNckO
+         TYCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794150694; x=1794755494;
+        h=content-type:cc:to:from:subject:message-id:references:in-reply-to
+         :date:mime-version:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i5PPzRt+yxwpbv/xozk5+L1M/Zvyd7L2ZCDx2pqWy3g=;
+        b=Kb5ag9PuzTSL3cxdfeTMtbQumF4aAaC/0VyeffRZJRVwJKfi8gPOx9kY314AReHi+R
+         rI1BOTv+WUqM3nyPa+yXS2oOTYtK+uQu94jDJ8ZGe4lSS3T1cScctyKyVojAcd+qYsWm
+         LYUgOGS4juvvcsMwkt4e8AjXKo3VVZIA4j1wbsmAf7k3M9ppsOSnLQIk4uAcKwMvXPJW
+         TvNe3KFUoDtaGjF6fuSpA8gW0v4f6wdVGTe/XC78HVmF4RlVk4OLnvaKomEtVvbYx55T
+         A+TpBk2m1Bhn9GXEJ+dqKe3rW+eCgLtEsFM+b35efG7SdAzIelxUe4lwaUYYEr/zQmD1
+         QHiA==
+X-Forwarded-Encrypted: i=1; AL+hErHwadcGyCnDv0TDNS0DN8EE3nz/1DXeCXn0xAfwnCbZ+beizTPx6GpmulamogV51ySOWr4svsDv+ec99Us=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OavYOJQ63UnzQskbWVVzKh2TEY2uE5XXce/HPKvUcIk7oSDwI
+	q1egBrQU2N1FucdMGKjMXkbbSYi3r1NomLNKd/RzRZfcPXCUPgVdOK2cMF3tIjpq+9vc12hWfhd
+	qljPMLELHmtwtv+nzXQAVnx94c9OYNQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,86 +72,227 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB373984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01430a13-3f6f-4055-2e5e-08df3daa8792
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|56012099006|261022105027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	5IKbBK4oJWZYCmivoI1fOdXuCzLmxVi0GgOy5y/iMYFgfOetIGH6i3Za6vDCoRe+DwsCPp2LaOjtPQ/TATJiCy/XfTYCd/ucqWbRW3YqJltul9m9y2/7p+OineHNAhex1rGgcc6kNzjSbqE1g3pyxyyDyd4Ipae/HmooVbYafCFpG6U4dlsp/lb/26ZdVI6E3NjChfgcD5hSfptRidzydnnUN6DONH7CLe96bv6XMIkeP6fS2PuTBOjGjto1dR1/N99SKzSnkFKUkxUn3UrfVa+HG713fRa5QtK5qGYx5yAFCM7Uf0KEGbchV3cGNdcx4LRM1ZKhbcoifuC6XbXFi3Pz9ngyw1oRnttWcJ4+yGkgwRYF+NeOEQVeqNPfSgZH00EEIUzYD6t+c6xfzRlTwQzQ8QnL4pDcW6uux1OC596tVGMNRZ+x37uCd2WOkYDMymlRZgxZW5Z9JIK1cu+4hfWNQr3IPuD9HrZU84qcqKk+c/2954btkRbwXiVhM+7qhZraE6Ypit3i7Sb+LXx+8haPFol3A2SshVU0M+zX/wkzyBJAiPUd7wKv1s0DwnP+G/R2NBZGi1NvIsEybt8HZnbkyn+11Y9iGWRuwA4MR+g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(56012099006)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1VNazBNa2k3NURsTlk3aHVnMUZ2TU5IbitMVmhOVnFKdHUyV3ZCVlZLOWJX?=
- =?utf-8?B?RUVRZHU4SHZUckpkeVZOaUpIclA5bk9ESmVQT3djRStPN0I3eUl0OGw3MEVK?=
- =?utf-8?B?MWFXN0c2UWg0SVhTVFB3NWwrMFR4bGlDM2RjSkZ0TGUwanFhb3d4anRpb2d3?=
- =?utf-8?B?Q1c2OHJYSi90YmtBQ1NPS3dac2JXV0tlUnYzbjRJU3BCeWIvbE5rbWNIMzZH?=
- =?utf-8?B?MFlZckJZblBNRUZGb0hTNmFQK1h0cFJYQWhnUGU5YmFyK1l2dUl2NC9HZEQv?=
- =?utf-8?B?Wmd2Q0dEbjRkUWg2NCtlb2o0S2cyNnFtRktFWktYczk3dDJtOUlnYmhkMmZj?=
- =?utf-8?B?MlRyeElnTCtOVmxCdGk4ekZoTWZPQ0lOOERCYUdBQXVZdVlqaVVIZjZ3Q1B3?=
- =?utf-8?B?TW1adkl3QXNJNWJydVFIdEIrR3dpVCtCN3NiRGdPVk45b3N6SVl0azlkYWRF?=
- =?utf-8?B?eFhKYUQ3MFZPL3Nud1hEQW5ZWkV6VzZSRUg5cWpSMk5aVFpDT0lYR29DQ0RQ?=
- =?utf-8?B?Si8wWHBjdXliNGhlMWxUZlBxUm5yMVpZKzd4TGdYTDlmUnNmTzYydWtYZGpp?=
- =?utf-8?B?aU9pSWdKa0hMQzQ4T1MyNHc1cG1TbkRGK0tYdk8yWURvTXZVZzdJVmczcGxR?=
- =?utf-8?B?ekY1NVUzTHJxU1hlVUtVa2xUUC9oY3czY0l5dnEvYUVrc3dIWWVwK0hJUGwv?=
- =?utf-8?B?Wlk3eGxHWkN3dUFyNHlNQkh2Vkh3SjZicU5wU0l0dnhFSWg5VFo5T2R5d3Bu?=
- =?utf-8?B?ZGI2V1VsT3M4aGxUdTZuem1QalBGdHhVL1AvNzNPOWFZa0xDekJOTUozRWxB?=
- =?utf-8?B?YmxTakptN25IRzlhUlpMY3hIanpYbkc5SUl2ZE9tdkVpMGp2OUxzRUFTeTFx?=
- =?utf-8?B?UUMvSTM4UVFtNmNmTWw2VGtMc2dsLytYelJOMlNObXlsWVJ6ZGExVTdiUmY2?=
- =?utf-8?B?b0FQaW9oTTNVMWNvWXFTSVdxM294V2EwTGRaNWp1UkY4NFBtOFNrYk9EcmdE?=
- =?utf-8?B?QzNONnkrc2QrSWJ3eE5SNllvWWxTd2FzVndESDNvWm5XWXZBSzEzR3J1WEJi?=
- =?utf-8?B?YlJMYUVQN2oyWGZjRzRpUWtDbmNkMGp0UjhYcWF5cWFYU1lLbXc4TEFBU0tP?=
- =?utf-8?B?VmZJdXFmQ0lpdnRRY1N2dUZYWjA0WUhCcUxWM2V4bUo1aTlBQUVLZEVsRWI4?=
- =?utf-8?B?OXZkMGF4VzR5ZjRLVjdlSi9FcVloYW1MOXhjTFVvTUM2R1dvb0toOEdoeFpM?=
- =?utf-8?B?bExmYzRTa1cwMm5tZ0ZCQVlkUEorcXFReGliVi9ncVB1dVc4ODF4U2NiSzRx?=
- =?utf-8?B?cm5iNEJ2aXgzcXcxWlY1UUF1WXJHTElqTnNMZmw4QjI0WlpjWWJ1WDRNT0k3?=
- =?utf-8?B?VGU4aUloWUw1T0xQUkhIZ3VZb2dTd2dJNklqdHVsRnFGVExzZS9EUGZOSlpq?=
- =?utf-8?B?WmJ6UEowR3FYN3VqcytNNENhRXoyOW1HT0cxaDdEWjZIODBtdmFrRzhwMTJh?=
- =?utf-8?B?V0dOZTEyV203MGhxdmxEUTRsWm5JSU5zeGE1VlVPRHlEUENwVWM3WG1SNnJB?=
- =?utf-8?B?THNTRnF1ZlRON05qWDNuNlBoeENoTXErT05hZW9QdEM1NVExYWV6ZUhrTklI?=
- =?utf-8?B?SFhrL3FWNG55SUYyWk9hUGRRc0JuMml5KzlvcnhtaVpEZ3FObktxNFhFYVYx?=
- =?utf-8?B?Zm9LU2g4TlF6U3NoelJlek02cGpMZ0ZmWGJJeTV6K2dFMXdmZ05SYy9aa2hE?=
- =?utf-8?B?M3N0MU52eTluUUFhOVZnYm0wSDdJUWxYOEZJcmc3MnZpUUhTQUV0OEQ5OGhN?=
- =?utf-8?B?M2tpOC91VDBrY0ZQak9vSmpGWG1TYTltdm9vNUNYS25ZRzIwUDlZSWxpZCs3?=
- =?utf-8?B?VFRTSkdFNHRjaGorSDlqTWpQcStIRFpuWVliaFFvaS8zS1owUFVJdFJtWE1x?=
- =?utf-8?B?emg2MUNuK1VUdEFlcGFjQndsajZQclYrWkhtVHZBUENsdFFmbmQwR3NpTmFU?=
- =?utf-8?B?Y0pXTExjZ2lqQ3p1eG15OVF2RXYxRUxXYXFuSkNjbUZNR3ppU21jRitUOWFE?=
- =?utf-8?B?L3M0TmVqdHVrUGgvTllWVnZBWTY3blhhRXgwbWpGVnJxU2pWNzF3UnpWS25X?=
- =?utf-8?B?Mm15NlZNdGFrUzZVOWVmVSsraHoxVENLd1UrbGljWTJIN3NsT2RVb3QyMFYv?=
- =?utf-8?B?SkZUT2UxVEhxdFY5RjRzazdoYXJGZjA4dXVJMEt4M0xPRVJ2SmU1RVFraE9l?=
- =?utf-8?B?VVVUbDRna3ByQklpZkNhL292clIybFRzMnU5RjhjSWRISkZ6SmQ4d3ExOTRq?=
- =?utf-8?B?SnN2WkcyQVpRMC9HUnJHSWdHQnJvZDBSZWYwbFZNbWdoSjdTekZMY1k0Nlp4?=
- =?utf-8?Q?+9KF74VhGHuzFifs=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01430a13-3f6f-4055-2e5e-08df3daa8792
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 15:11:13.8993
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dw268wJqHtkPXscikgAQTQ6Y5KYm7MW8n1PqZnR0PIUvuFUztmKonL/6YzzHiQ2BYPVdnpmyDMlLyDLIlLseDrYztexikzswvgxD4uy0Lio=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB373984
+X-Received: from dyay2.prod.google.com ([2002:a05:693c:62c2:b0:368:83bc:cb15])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:8845:b0:372:390e:1499 with SMTP id 5a478bee46e88-37256de84b0mr3157313eec.21.1794150693165;
+ Sun, 08 Nov 2026 07:11:33 -0800 (PST)
+Date: Sun, 08 Nov 2026 15:11:32 GMT
+In-Reply-To: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
+References: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
+Message-ID: <18e61a8cb2ff887c.3137322e32332e3235332e313736.9d011.0000sendgmr@google.com>
+Subject: [PATCH 2/2] rust_binder: account for deferred work size in Thread::read()
+From: Chris Wiseman <chriswiseman@google.com>
+To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-11-06 21:48, sashiko-bot@kernel.org wrote:
-> stale dl_bw_cpu used by dl_task_rebuild_cpu() after fallback migration
-> dl_task_rebuild_cpu() disagrees with select_fallback_rq() on isolated CPUs
+When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
+BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
+inner.work_list without setting inner.process_work_list. On the next
+blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
+returns true and Thread::read() checks only whether the remaining output
+buffer can fit a single transaction (4-byte command code plus
+size_of::<uapi::binder_transaction_data_secctx>()).
 
-Right, both. In v5 the rebuild takes the CPU the task is on first, if it
-is active and in the task's mask. A new patch after this one moves the
-bandwidth and the record when a task must leave its CPU. That covers a
-task that select_fallback_rq() places in another root domain. Its
-selftest cases run with isolcpus=domain.
+If userspace provides a read buffer with 76 bytes remaining after the
+initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
+calls Self::get_work(), sleeps in Process.ready_threads, and receives an
+incoming synchronous transaction queued behind the deferred
+BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
+writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
+bytes, and iteration 2 exits the loop without delivering the incoming
+transaction, leaving it stranded in the thread-local work_list.
 
-Thanks,
+Add a size(&self) -> usize method to DeliverToRead returning the maximum
+number of bytes that do_work() may write to the user read buffer, and
+sum the sizes of all deferred items in inner.work_list when
+use_proc_queue is true. Include deferred_size on the right-hand side of
+the while condition in Thread::read() so the thread does not wait for
+global events when the output buffer lacks room for both its deferred
+work items and an incoming transaction, and subtract work.size() as each
+item is popped so subsequent loop iterations do not double-count items
+already written to writer.
 
-Mathieu
+Suggested-by: Alice Ryhl <aliceryhl@google.com>
+Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+---
+ drivers/android/binder/freeze.rs           |  4 +++
+ drivers/android/binder/node.rs             |  8 +++++
+ drivers/android/binder/node/wrapper.rs     |  4 +++
+ drivers/android/binder/rust_binder_main.rs |  8 +++++
+ drivers/android/binder/thread.rs           | 34 ++++++++++++++++------
+ drivers/android/binder/transaction.rs      |  4 +++
+ 6 files changed, 53 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
+index 69e058e6d818..5103bfac781f 100644
+--- a/drivers/android/binder/freeze.rs
++++ b/drivers/android/binder/freeze.rs
+@@ -152,6 +152,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>() + size_of::<BinderFrozenStateInfo>()
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(m, "{}has frozen binder\n", prefix);
+diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
+index efdafc202e27..4f4c892cba58 100644
+--- a/drivers/android/binder/node.rs
++++ b/drivers/android/binder/node.rs
+@@ -754,6 +754,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        2 * (size_of::<u32>() + 2 * size_of::<u64>())
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(
+@@ -1149,6 +1153,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>() + size_of::<u64>()
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         let inner = self.inner.lock();
+diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
+index edfbccf6e6da..37826349eafb 100644
+--- a/drivers/android/binder/node/wrapper.rs
++++ b/drivers/android/binder/node/wrapper.rs
+@@ -93,6 +93,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        2 * (size_of::<u32>() + 2 * size_of::<u64>())
++    }
++
+     #[inline(never)]
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(
+diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
+index 56c786475237..361f3a987235 100644
+--- a/drivers/android/binder/rust_binder_main.rs
++++ b/drivers/android/binder/rust_binder_main.rs
+@@ -163,6 +163,10 @@ fn do_work(
+     /// Generally only set to true for non-oneway transactions.
+     fn should_sync_wakeup(&self) -> bool;
+ 
++    /// Returns the maximum size in bytes that [`DeliverToRead::do_work`] may write to the read
++    /// buffer.
++    fn size(&self) -> usize;
++
+     fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
+ }
+ 
+@@ -279,6 +283,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>()
++    }
++
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(m, "{}", prefix);
+         if self.skip.load(Relaxed) {
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 3ca5c95695e4..af7a340adcb3 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1599,13 +1599,20 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+             UserSlice::new(UserPtr::from_addr(read_start as usize), read_len as usize).writer(),
+             self,
+         );
+-        let (in_pool, has_transaction, thread_todo, use_proc_queue) = {
++        let (in_pool, has_transaction, thread_todo, use_proc_queue, mut deferred_size) = {
+             let inner = self.inner.lock();
++            let use_proc_queue = inner.should_use_process_work_queue();
++            let deferred_size = if use_proc_queue {
++                inner.work_list.iter().map(|w| w.size()).sum()
++            } else {
++                0
++            };
+             (
+                 inner.is_looper(),
+                 inner.current_transaction.is_some(),
+                 !inner.work_list.is_empty(),
+-                inner.should_use_process_work_queue(),
++                use_proc_queue,
++                deferred_size,
+             )
+         };
+ 
+@@ -1630,15 +1637,20 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+ 
+         // Loop doing work while there is room in the buffer.
+         let initial_len = writer.len();
+-        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
++        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 + deferred_size
++        {
+             match getter(self, wait && initial_len == writer.len()) {
+-                Ok(Some(work)) => match work.into_arc().do_work(self, &mut writer) {
+-                    Ok(true) => {}
+-                    Ok(false) => break,
+-                    Err(err) => {
+-                        return Err(err);
++                Ok(Some(work)) => {
++                    let work = work.into_arc();
++                    deferred_size = deferred_size.saturating_sub(work.size());
++                    match work.do_work(self, &mut writer) {
++                        Ok(true) => {}
++                        Ok(false) => break,
++                        Err(err) => {
++                            return Err(err);
++                        }
+                     }
+-                },
++                }
+                 Ok(None) => {
+                     break;
+                 }
+@@ -1798,6 +1810,10 @@ fn should_sync_wakeup(&self) -> bool {
+         false
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>()
++    }
++
+     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+         seq_print!(
+             m,
+diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+index 48ac942bb75a..6909d7a8a219 100644
+--- a/drivers/android/binder/transaction.rs
++++ b/drivers/android/binder/transaction.rs
+@@ -762,6 +762,10 @@ fn should_sync_wakeup(&self) -> bool {
+         !self.flags.is_oneway()
+     }
+ 
++    fn size(&self) -> usize {
++        size_of::<u32>() + size_of::<BinderTransactionDataSecctx>()
++    }
++
+     fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
+         self.debug_print_inner(m, tprefix);
+         Ok(())
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.56.0.317.g454f8302e1-goog
+
