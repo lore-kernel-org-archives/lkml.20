@@ -1,52 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794124793;
-	b=Z2Z3EDAj0yRVBoG6cYCEJAwbyZla/t4GlZKiTfRsI4nx0piq46FzU91YePRx4CRS+pQg
-	 pi+fNkapoPDfXUY47FXFd41kkOt8aeV2pgwJfgVSVILc9NZceTCKbxtXJ2PswCgd/OSUd
-	 lqKMWnw41b8gA8uZch0ELYjfcTltgfs1t6cU9YR/6edXeZOMKQLEu2Yywq8IwBpr7fcYl
-	 rBe0rJyE8Ire2pqulAOWMOrNEKCQlaQKw+EizNj0Js6asxtyh1eVMQWVw+llMcbIfVXRG
-	 GnPjCb9TCRPY6negETL3a5Wn/8HSMHJT+ugwAx4BgseXiXaFQSB0OxWfQHtU6bnKKKg==
+	t=1794124864;
+	b=L4WHB6jlftjG+6xJwNQkVqSeN/c7/BqO5QqiTVIYbjA6HIEp7uCDrRIWqvdpoQmFO8ID
+	 1SA7djk8wjjNdgFnVJOhWv0KhEBSqZNpHZwlu/8THLcjw/xugAeEN7IDQiJYvoXKqGt1m
+	 tPkXqPC8TeYWtt6HBL3KjU2y1wEyYVXWmLEdEsxlp3ep5Cd7/NXKLgf/4BuRLgD3si4sM
+	 YT246c9o5v8vzCcywNh3r8jgHCO5tTGbmDSbtckjhPSWb/bkVWVieb+2cFbJUwncKxyLP
+	 mehji4ff9hEtOfY6UDACMnKk1UOkl9cjo/vqgrplWAvFRpjJnSbpMPWhaHchMbmFI9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794124793;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kiWdoUL35CtK4AqpYlqytBUDE4prNrZdQBOX59MoB6Q=;
-	b=Wuvy/2Mlk9r77G7ehx1Qj02wkV1q/Y6bknEdD9E+Hr/zQ4iUpfHXtDRPYGIPzvmeKiuw
-	 HLE+pqH73IVLe+DjnrJZsd+FGRrXE5WZTgMEbakM9ne5YpHZA4uoFFryQ+9ekhEEuJq4G
-	 /lvyYkFPyxLJbjcZbEwIQ2WBp3FdsGF1NNUU4aUIeZb0ZvOdJ3CuFBrCuQRwx2UB2+Tet
-	 2bLQQdH/XAooDI3fIeVPqdx//G8mfnhBmSChhrlODnWulvlljGwzb+T1ZZxfpj6U0i755
-	 V+zRtz53kkhyFK1CjRxlPIKBFZ2/+BmmRZvhpHyQ/lnAeKBk4cw+/KC71u043y2JkYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794124864;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type:Content-Transfer-Encoding;
+	bh=J88EOnTp6DDyQWMN+uJw6KY8yryRm72G2AQk7g82/uM=;
+	b=mUDSC46mx8/mtHgkKT9fzySPDpiDCJFmlL2hlMo3v5HbKXeYWEgbC/CpolS947KDkOmH
+	 uLd8MgpY4bZ9cS2nu/InvFJH15ErMXXjJoyzZ63Y0gFoK7WWegGi5yKU2UAfnXPr9ElQA
+	 NxBkXsYQGvi1DzbdEBAmTPq9+tf3QJZNuLjq8dDCTQ02tMGni1g8p6PvjYnDxD7gcdpR+
+	 VJ3pUeLrhH/Ay9hlMTu+5n2EI+y/zfQnAkIh5vyxPJ6FIcZQ1x/LDURJFFVUleV5Fk4Bb
+	 nSfj7Ym+e2D52V+mscvfZxoILdXGJ5UCkKQq8GojdhCSPLbNY2SWUtXMj5MKw5D746Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KU8+Oqyd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2513E606A320;
-	Sun,  8 Nov 2026 07:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KU8+Oqyd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A93D1F0089F;
-	Sun,  8 Nov 2026 07:59:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794124792;
-	bh=kiWdoUL35CtK4AqpYlqytBUDE4prNrZdQBOX59MoB6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KU8+OqydZHEZXN/+TG8ILc1PNHKh2vWp7gMa7DE6Q1h5MszIKjTR44HBtcSD5xWF/
-	 WGQb+vaULnSmHrV7CaaS0xw6Nilxb+LcvNGqrhOHwHA+IswpAaaw6H6kB8MMVmbWy7
-	 NjMeqTI4nx5hl8DgP9Qx0ADl3keAj1QN1d5bvyBWM3SHxXHZOFl4jS3/8ercXnnvSl
-	 MDE9gs4B9BxhVotzyHHLes3aMGjmRmUgKp4Ouw7tqvNbFALy3tRwoDuy40+ZASca7l
-	 AkGfBToogtiaGAraKSFxdcjDeUqWp6G8ZgXqb2ExtwXvbyx0b/t1xz0RNR2/hRqhQk
-	 KYmjUyxXj5cSg==
-Date: Sun, 8 Nov 2026 09:59:47 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
-Message-ID: <avAr894n6lNGD9C8@kernel.org>
-References: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42CB606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:01:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C42CB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f8281066c4so321312b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:01:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794124863; x=1794729663;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J88EOnTp6DDyQWMN+uJw6KY8yryRm72G2AQk7g82/uM=;
+        b=pp8EyYetiUbiUGw5mVySEUqDshu4e+fSWnk/qCXpdia+5Pb4tmwZP+6xsEv3iTc5+Z
+         Xv9VvBkOQ+DCl81r5YqMu0srK5FXP7/mBkCo8+mV8ONN/3hWFcIqCYUofF4zB7eRqXhF
+         +3aHFgq7/qER3x+o9ylcisT6ntKWo4gIX8GF7fq5WJaiRWFhD6br8cjMsDjcIrEPZSfD
+         ol/bkYt4rNYAT21ai7XYD4qcFJxcVKREpjiFgkk60hM/v5BgmVOyi6eVr7Scc4GGvPz3
+         HlZ/b90LaxQQrKItSuNEkW7K9rumIycesC0kYsD0tMOORZhMUxUfS7c81nFSlKoCPTTm
+         QaMA==
+X-Forwarded-Encrypted: i=1; AKwUvByhf/fv5e1CBEJgVdp3tHfhrRQLbTYe/pcbnbIUxZSrHy6XK4hvAvRGZpGhHIohwErldnpYnGm6LwrL4oI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CKQJ83dI+xzIHoxhXj5CkZUcKTGsrvKU4adMH1p7+RELMZMMh
+	4NJoqf9HesqTpAINwTsI/aEsD5QLj2S6A6a6FfYsUOykoAPLjMQMNGtOvH2rjliy/d9p7WNFtwh
+	6tNmnICZe5X3lDCvgMGJBr5j1xF1Jagq0Vj5pN71N3Ps9C5YCl221DHkCnnI=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,96 +58,236 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
+X-Received: by 2002:a05:6808:2389:b0:4e0:1d24:cec1 with SMTP id
+ 5614622812f47-568143748bfmr467480b6e.5.1794124862848; Sun, 08 Nov 2026
+ 00:01:02 -0800 (PST)
+Date: Sun, 08 Nov 2026 00:01:02 -0800
+In-Reply-To: <2056587.PYKUYFuaPT@sven-l14>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af02c3e.4dd4714a.f8d02.000e.GAE@google.com>
+Subject: Re: [syzbot] [arm?] BUG: workqueue lockup in batadv_tt_purge
+From: syzbot <syzbot+61b202fdc410840f0198@syzkaller.appspotmail.com>
+To: antonio@mandelbit.com, b.a.t.m.a.n@lists.open-mesh.org, 
+	davem@davemloft.net, linux-kernel@vger.kernel.org, marek.lindner@mailbox.org, 
+	netdev@vger.kernel.org, omermetekaya0@gmail.com, sven@narfation.org, 
+	sw@simonwunderlich.de, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Gentle ping :)
+Hello,
 
-On Sat, Oct 31, 2026 at 03:21:46PM +0200, Mike Rapoport (Microsoft) wrote:
-> With KFENCE enabled, resume from hibernation triggers KFENCE reports while
-> swsusp_asm_resume() copies the image pages, for example:
-> 
->   BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
-> 
->   Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
->    swsusp_asm_resume+0x20/0x94
->    hibernation_restore+0x128/0x1a0
->    load_image_and_restore+0x6c/0xc8
->    software_resume+0x240/0x260
->    do_one_initcall+0x68/0x200
->    kernel_init_freeable+0x26c/0x304
->    kernel_init+0x20/0x134
->    ret_from_kernel_thread+0x24/0x1d0
->    ret_from_kernel_thread_asm+0xc/0x98
-> 
-> During resume from hibernation, the image pages that occupy physical pages
-> used by the restore kernel are first loaded into free pages and then, as
-> the very last step, swsusp_asm_resume() copies them to their final location
-> pointed to by pbe->orig_address, which the hibernation core sets to
-> page_address() of the page in the restore kernel.
-> 
-> The early KFENCE pool is allocated from memblock and normally occupies the
-> same physical pages in the restore kernel and in the image kernel, so these
-> pages are usually copied by swsusp_asm_resume().
-> 
-> The KFENCE pool is remapped into the KFENCE area above vm_map_base and
-> set_page_address() adjusts page->virtual so that page_address() returns
-> the page-table mapped alias rather than the DMW address of the pool pages.
-> 
-> Hence, pbe->orig_address of KFENCE pages points to that alias and
-> swsusp_asm_resume() writes them through the page tables. But:
-> 
-> * the copy loop overwrites the kernel page tables, so a TLB refill for the
->   KFENCE alias may use a partially restored page table
-> * the KFENCE pool pages that are protected in the restore kernel fault in
->   the middle of the copy
-> 
-> Convert pbe->orig_address to DMW addresses before starting the copy.
-> 
-> Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> ---
-> Reproduced with hibernation in QEMU, the KFENCE reports are gone with
-> this patch.
-> ---
->  arch/loongarch/power/hibernate.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
-> index 817270410ef98..ff571ab4e8df9 100644
-> --- a/arch/loongarch/power/hibernate.c
-> +++ b/arch/loongarch/power/hibernate.c
-> @@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
->  
->  int swsusp_arch_resume(void)
->  {
-> +	struct pbe *pbe;
-> +
-> +	/*
-> +	 * page_address() of KFENCE pages is mapped by page tables that are
-> +	 * overwritten during restore and may be protected by KFENCE, copy
-> +	 * through DMW instead.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_KFENCE)) {
-> +		for (pbe = restore_pblist; pbe; pbe = pbe->next)
-> +			pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
-> +	}
-> +
->  	/* Avoid TLB mismatch during and after kernel resume */
->  	local_flush_tlb_all();
->  	return swsusp_asm_resume();
-> 
-> ---
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> change-id: 20261027-fixes-loongarch-fd3755f33919
-> 
-> --
-> Sincerely yours,
-> Mike.
-> 
+syzbot has tested the proposed patch but the reproducer is still triggering=
+ an issue:
+BUG: workqueue lockup in nsim_fib_event_work
 
--- 
-Sincerely yours,
-Mike.
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on veth1_to_bridge with own address as source addr=
+ess (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+BUG: workqueue lockup - pool cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 stuck f=
+or 34s!
+Showing busy workqueues and worker pools:
+workqueue events: flags=3D0x100
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D4 refcnt=3D5
+    pending: nsim_dev_hwstats_traffic_work, vmstat_shepherd, 2*ovs_dp_masks=
+_rebalance
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D33 refcnt=3D34
+    in-flight: 26:nsim_fib_event_work for 35s nsim_fib_event_work ,4951:nsi=
+m_fib_event_work for 31s ,1503:nsim_fib_event_work for 22s ,1091:nsim_fib_e=
+vent_work for 15s
+    pending: 3*nsim_dev_hwstats_traffic_work, 2*ovs_dp_masks_rebalance, psi=
+_avgs_work, 3*ovs_dp_masks_rebalance, psi_avgs_work, drm_fb_helper_damage_w=
+ork, 2*l2cap_info_timeout, psi_avgs_work, 2*l2cap_info_timeout, 4*ovs_dp_ma=
+sks_rebalance, 3*rht_deferred_worker, psi_avgs_work, reg_todo, 3*nsim_fib_e=
+vent_work
+workqueue events_unbound: flags=3D0x2
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D5 refcnt=3D6
+    in-flight: 14:nsim_dev_trap_report_work for 5s
+    pending: 2*nsim_dev_trap_report_work, toggle_allocation_gate, flush_mem=
+cg_stats_dwork
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D15 refcnt=3D16
+    in-flight: 5376:cfg80211_wiphy_work for 25s cfg80211_wiphy_work ,1178:c=
+fg80211_wiphy_work for 32s cfg80211_wiphy_work ,1372:cfg80211_wiphy_work fo=
+r 35s cfg80211_wiphy_work ,5377:nsim_dev_trap_report_work for 7s ,58:cfg802=
+11_wiphy_work for 33s cfg80211_wiphy_work ,49:cfg80211_wiphy_work for 23s c=
+fg80211_wiphy_work ,40:cfg80211_wiphy_work for 31s cfg80211_wiphy_work
+    pending: 2*macvlan_process_broadcast
+workqueue events_power_efficient: flags=3D0x82
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D4 refcnt=3D5
+    pending: fb_flashcursor, wg_ratelimiter_gc_entries, 2*neigh_managed_wor=
+k
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D3 refcnt=3D4
+    in-flight: 1350:gc_worker for 16s ,144:neigh_periodic_work for 20s
+    pending: do_cache_clean
+workqueue events_dfl_long: flags=3D0x2
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D11 refcnt=3D12
+    pending: 11*defense_work_handler
+workqueue netns: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D4
+    in-flight: 12:cleanup_net for 36s
+workqueue mm_percpu_wq: flags=3D0x108
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: vmstat_update
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: vmstat_update
+workqueue writeback: flags=3D0x4a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D4 MAYDAY
+    in-flight: 33(RESCUER):wb_workfn for 31s
+workqueue mld: flags=3D0x40108
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D4
+    pending: mld_dad_work
+    inactive: 2*mld_dad_work
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D108
+    pending: mld_dad_work
+    inactive: mld_dad_work, 8*mld_ifc_work, 4*mld_dad_work, mld_ifc_work, m=
+ld_dad_work, 10*mld_ifc_work, mld_dad_work, 3*mld_ifc_work, mld_dad_work, 1=
+1*mld_ifc_work, mld_dad_work, mld_ifc_work, mld_dad_work, mld_ifc_work, 3*m=
+ld_dad_work, 10*mld_ifc_work, 3*mld_dad_work, 7*mld_ifc_work, 2*mld_dad_wor=
+k, 3*mld_ifc_work, mld_dad_work, mld_ifc_work, mld_dad_work, mld_ifc_work, =
+mld_dad_work, mld_ifc_work, mld_dad_work, 17*mld_ifc_work, mld_dad_work, 3*=
+mld_ifc_work, 5*mld_dad_work
+workqueue ipv6_addrconf: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D248 MAYDAY
+    in-flight: 2822(RESCUER):addrconf_dad_work for 0s
+    pending: mayday_cursor_func
+    inactive: 242*addrconf_dad_work
+workqueue bat_events: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D50 MAYDAY
+    in-flight: 2854(RESCUER):batadv_dat_purge for 7s
+    inactive: batadv_bla_periodic_work, batadv_dat_purge, batadv_bla_period=
+ic_work, batadv_dat_purge, batadv_bla_periodic_work, batadv_dat_purge, bata=
+dv_bla_periodic_work, batadv_dat_purge, batadv_bla_periodic_work, batadv_iv=
+_send_outstanding_bat_ogm_packet, batadv_mcast_mla_update, 4*batadv_iv_send=
+_outstanding_bat_ogm_packet, batadv_purge_orig, 2*batadv_iv_send_outstandin=
+g_bat_ogm_packet, 4*batadv_purge_orig, 4*batadv_iv_send_outstanding_bat_ogm=
+_packet, 2*batadv_tt_purge, 4*batadv_iv_send_outstanding_bat_ogm_packet, 3*=
+batadv_tt_purge, batadv_mcast_mla_update, batadv_purge_orig, batadv_iv_send=
+_outstanding_bat_ogm_packet, batadv_tt_purge, 4*batadv_mcast_mla_update, ba=
+tadv_dat_purge
+workqueue wg-kex-wg0: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
+workqueue wg-kex-wg1: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 4767:wg_packet_handshake_receive_worker for 21s
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg0: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 932:wg_packet_decrypt_worker for 22s
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-kex-wg2: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    in-flight: 4813:wg_packet_encrypt_worker for 14s
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
+workqueue wg-kex-wg0: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
+workqueue wg-kex-wg1: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_encrypt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker
+pool 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 hung=3D14s workers=3D6 idle:=
+ 4847 9 10
+pool 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 hung=3D34s workers=3D9 idle:=
+ 24 4738 5269 5303 4950
+pool 8: cpus=3D0-1 flags=3D0x6 nice=3D0 hung=3D0s workers=3D12 manager: 537=
+8
+Showing backtraces of busy workers in stalled worker pools:
+pool 6:
+task:kworker/1:1     state:R  running task     stack:0     pid:26    tgid:2=
+6    ppid:2      task_flags:0x4208060 flags:0x00000010
+Workqueue: events nsim_fib_event_work
+Call trace:
+
+
+Tested on:
+
+commit:         532df11b batman-adv: tt: batch BH re-enable during TT ..
+git tree:       https://git.open-mesh.org/batadv.git disable-bh
+console output: https://syzkaller.appspot.com/x/log.txt?x=3D137967a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3Da3c0ea8c3fd7635=
+3
+dashboard link: https://syzkaller.appspot.com/bug?extid=3D61b202fdc410840f0=
+198
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+
+Note: no patches were applied.
