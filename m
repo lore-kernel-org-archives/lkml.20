@@ -1,79 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794136948;
-	b=tXSqDPrLh3TduOCjkg21D5+OsXe/1+D7iauBFKLDg1+Knk0rY8/HylbuY6O6rNmGdSDC
-	 Gqudfo13qlav4m5RQRhk7r3iff1Xt5zAvOtRN/5eV8h2yaBlWudvp9dNrvJw2Rd0joznd
-	 60ZSO/Eev2aL9jDPWIwizduz/lXFftx1srndYSUbxi5HbeUEPas8BaeXZ7Ms9WOD/sXFl
-	 mJSThuVdFFayXc9cUcPgFieD4V9sqXBHh02P8f8Szlrd36yt5zSdRKZ/7lOmGhsUblhe0
-	 zhLr6hoUXbgIF2zITsLYL80W4KSuL3ypu0JsP7RChhgirBaTn3zJzUTSWaNj5nn0i4A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794136948;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=W/58ODSxMLt+iMgV2qP5B56+KOjf7jLiaxB4ZCqjUs8=;
-	b=sDiYsQyte1hQ1vR28Bqxe3pqQ7OYxi1p2EBgS8ZvzWmZKiimr26yYBNVNQpK7mfTrFHZ
-	 E9yBgCsLksvzyEiCOGJJeVC8d7mP4eLJzaRaLkQF6TfNXQTOeYqPEXw2qIUz6twXs57yh
-	 rBJHS8vkHolQCAjdUU+PWiNbgKSXlqZR8SmIr4qGfm5+rbKqd5rPTgktmzjtGlpgg1IGg
-	 JK6lQff+BZwC51RdcZozhwjiBV0eIpiLkLW1Pk88LS1rNMzAE98AaHIJ8cbgNzVjRYFQO
-	 2bAqAr8bsbQf5Fv4ekb67DRcBAJwYXioDoJn+VNwNB00hzajEUg1TBsZX0zPLu1jzzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBuJWin;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794137080;
+	b=anztmRcKmZRLXjpSRKJxpEMAO8++FdsIszdvSqj5OaMZkyfTzyzaJxt9jhtb0dTaPOEu
+	 PqPXXdF8C+ozjpRiA2Ye9ObDu2R5yx/F67k9OdvlbgY9vv5Y4vL7Xw2NJsM9z3cLjv5Jk
+	 I4lX9O+qFCg5YAE44FKgJCJ0jXyFypNhnYlz9ikRMhqMS1rdzbEoTspS9eweDK3DNtDY7
+	 O//VErSN7fzFzmQY9dKXE+46877alAtgX3eeiQrUjgg9f8DyNkxsGDbX2HL0StUlpL2At
+	 6jKCrlhAeXBUnFWlhP5gN1MvwNlhN1cClgi64/+lgAgSowyZYykgQP073hE8QnNiKbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794137080;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+MPLl1OB9PXd1EmEIm/8JyVcMtBeW139H0LapCZJXuE=;
+	b=F/gBcQ45JQ0bUmNRqN5nfg7qaVNtqagDzgff3i3Dl0LaSX9BT6150Z+PdqDFCn0TgPrs
+	 ghdnQTXOLfm95B/FEinxa4UCOrhqOOhRpbhyhD4ouXXwgsved+ZbXUGxsxokghXLi8q75
+	 spcYGeJHiqxGOJvwSXMym8VCNtivLQkPOGWP9AC/qb2X0FnVhTSWo5i4xWtXRjX+Lpk9a
+	 nbBIvvASxJHrh61q9EbqnGB6L2e61HRLKZzBfg7U8CXgQBsk4gBt657FFaCgyl6HYeuLI
+	 ht4KSxQA0DxmYtKFgkRMKtfQHzk0FIMgB7OMEJec+hUwNRgzRheLzIJaYWzA2SJIaoQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BOqu+OlC;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCC3606A326;
-	Sun,  8 Nov 2026 11:22:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADDB606A31C;
+	Sun,  8 Nov 2026 11:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBuJWin
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794136947;
-	b=rD25eM3YFrdn6UqBCPlR3/A/FO5oq8ikT8k9vQkx5zR1Z09pLFOPw2Nb2e/a83kAJwtH
-	 BZGtgayJokoY5PWlAO04rkt8ddqwoDZv1Vne5mf/wNms3ArdssZy3F+N/4/GWX9vsTfFS
-	 Ie4Ln8Kqji7QZu3Bo8my6yEPj23PT0lCYbovLHzJEoT63vIphXwslVpeVVgmgzSwRdFFH
-	 5CBSwOd4KUOmBCI2CofXWLjxga4wN2ZjmOV5MG/18DawG/mY28cwRasFwR6TSmKNO2XE6
-	 N/5HN5gEtZZbh6359a6XR7jW2NdVq+pi1mcEK3xE7EaLFpqwA5JcDJc1eY83fAU94Qw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794136947;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=W/58ODSxMLt+iMgV2qP5B56+KOjf7jLiaxB4ZCqjUs8=;
-	b=IIYOFJ1SDT7VqbJRjEL6gchT1CsZwYCx9C1wqE0S3qZ55onGg/H/rpW6aZN2SdNQJqu+
-	 yBP4fvyYtPhZwbJCxYpMXOCqHGTbakgKKYKiw0DAuS3Dd+DHmEGhhoER/jiIeS50erRMO
-	 DRPKasfsHTsD07lWeK+sKhu+CLUnqWVy9WV1ZhW4nJdMLQ0d11Ls7R0MZrM0N107+b1f7
-	 wUWRWW2Tx6SdX+RJCYKFCaltzSt5fPkL+ks8kaWkt+GhhHVtLXtxFkqsMt/rTV7ZTyFLH
-	 GaZqEZ3ruvHjPhyTt8E3fF1FjElyOq/yWAAks5OjSkfMBw7QfnE3E6AY+CiDIPDWkzA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DCDEF1F0089F;
-	Sun,  8 Nov 2026 11:22:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BOqu+OlC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A575D1F0089F;
+	Sun,  8 Nov 2026 11:24:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794136947;
-	bh=W/58ODSxMLt+iMgV2qP5B56+KOjf7jLiaxB4ZCqjUs8=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=HJBuJWinfAlmCSZWcUeH5DhJFOIs2vshonr3ZYyrWpi7ILudZL8Ta8G2v6pLuHlFc
-	 NYem7zRlE48yUPzMcL/EC6K9Sb4y5Qu7VxP5+DjmCZ2OO5xw6hlgVeRyCapWfhud8D
-	 UmgXiF2+XkugIkP+LJWgMSecRbZrFOfJtTBOhQRJbK1f938gkhIAQ1+h0Cj1tj6MA3
-	 tXnKBc2l1OxQzOvSA+KVTk9jUVWvdS4/8Qa8XwoPmCbXztCUH1wlGzmiooQdZZ2zwB
-	 LaZJXJjdb6qRTJI7eMyxnIVT6b0CdQk79zF9jVv4Jknx6JCo4AqMhb3R0ZSgUQRdww
-	 sBgCm0L/UGytg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 72F3347EFF;
-	Sun,  8 Nov 2026 11:22:26 +0000 (UTC)
-From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Subject: [PATCH 0/2] power: supply: Add Silicon Mitus SM5714 fuel gauge
-Date: Sun, 08 Nov 2026 12:22:24 +0100
-Message-Id: <20261108-b4-sm5714-fuel-gauge-v1-0-c659b6c0884a@dxdmail.cc>
+	s=k20260515; t=1794137079;
+	bh=+MPLl1OB9PXd1EmEIm/8JyVcMtBeW139H0LapCZJXuE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=BOqu+OlCww4cwJNjsZG9YYZlPwSzvGahUH491F72XIUw0EAF7GB1nxw5cnQaCYtfZ
+	 i3gGzbpoidkRIT75lW1H0hpYgUNAbvurfdbXanvUgtYG0uqKEwdlHBpA638nIf5QpM
+	 SYjj3ofcCIT0GP3Izw0x9SrKdDDKyTe7yNhMVPe7UJw1piLvvCkFeWfOfpLZmWvxA2
+	 zjxXuNDC/Wa0HsBrFL5EHL5XAwPC5B0bpD3ycmY1+XJDxXlrjUiV50ExXD6ejGDmFM
+	 L9fo8HdYg+IS/pS9x5jjoY2XDHd7TcwWLYL/cergKW8DU3Xif7Dywl0Mg+WU/1ntZ/
+	 wS8zq3PCVONTw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 5C74B2BF91E1;
+	Sun, 08 Nov 2026 11:24:37 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,56 +54,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M2wpAQBBAf0XzbGpHWPyKPDDGmnJrN1Ly7zaPp
- 845DwTxKgGa5AEvlwbdtwiUJsBzvzlBHSNDZrKSyFQ45BjWwlKO0ykLuv6MDvMglqkmNgwxPbx
- Mev/btnvfD/4vLNlmAAAA
-X-Change-ID: 20261108-b4-sm5714-fuel-gauge-ccbe7c191c0c
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nizat Mikayilli <nacht@dxdmail.cc>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794136945; l=1211;
- i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=G4eLbQVc7Ut3i550ga26bqAGN7kV6jqBGKLCtmfUKLc=;
- b=DLCmbW5H/qvvM7izdoeqCMWESI+C+PhwFfIouDn7sRaNwibvHzMEW6u7cfLiekx19DKpR0/gR
- J9d0opx947kC8Ha8ouYy5QjlR+HeIG24m4AGgGYHnQ0+/XhvrdcGWKc
-X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
- pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
-X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
- auth_id=1111
-X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
-Reply-To: nacht@dxdmail.cc
+Subject: Re: [PATCH v2 3/3] ASoC: SDCA: Add port constraints into
+ sdca_asoc_set_constraints()
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, 
+ yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20261106150926.2587108-4-ckeepax@opensource.cirrus.com>
+References: <20261106150926.2587108-1-ckeepax@opensource.cirrus.com>
+ <20261106150926.2587108-4-ckeepax@opensource.cirrus.com>
+Date: Sun, 08 Nov 2026 11:24:36 +0000
+Message-Id: <179413707633.3630016.13654136728294242171.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2289; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=+igR0cQt3uqI5+VxGBTuU6s0hlFK+Cjmjfs8gLtFnsY=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+RH/VTLt0ek1B96v5L1/+/Wo0NWZB5JYjkdNu8PLP0
+ gmyW/bneUcpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmckWX4b93jeIt40D/Jzp6
+ U0sqm+WPBlTFzHUtrP4u/DczuTpinTTD/8Tsc4f1f1yNvVD488s88Um707R8FdjrTvR8L2HSS30
+ bww8A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-The Samsung Galaxy Tab S9 Wi-Fi uses the fuel gauge of the Silicon
-Mitus SM5714. This series adds a binding and a small driver for it,
-which reports the state of charge, voltage, current and status.
+> Currently the SDCA code constrains the params based on the DisCo for
+> the SDCA Terminal used. However, it ignores the properties of the
+> SoundWire port, which in some cases may further constrain the allowed
+> params. Add additional constraints to apply these restrictions.
 
-The fuel gauge node for the tablet will be sent with its board series:
-https://lore.kernel.org/r/20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc
 
-I tested it on the tablet, with the USB cable in and out, and the
-power-supply selftest passes.
+> +static int get_port_masks(struct sdw_slave *sdw, unsigned int port,
+> +			  struct snd_pcm_substream *substream,
+> +			  unsigned int *word_mask, unsigned int *ch_mask)
+> +{
 
-Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
----
-Nizat Mikayilli (2):
-      dt-bindings: power: supply: Add Silicon Mitus SM5714 fuel gauge
-      power: supply: Add Silicon Mitus SM5714 fuel gauge driver
+> +
+> +	for (i = 0; i < nprop; i++) {
+> +		if (prop[i].num != port)
+> +			continue;
+> +
+> +		if (prop[i].num_words) {
+> +			for (j = 0; j < prop[i].num_words; j++)
+> +				*word_mask |= BIT(prop[i].words[j] - 1);
 
- .../supply/siliconmitus,sm5714-fuel-gauge.yaml     |  47 +++++
- MAINTAINERS                                        |   7 +
- drivers/power/supply/Kconfig                       |  10 +
- drivers/power/supply/Makefile                      |   1 +
- drivers/power/supply/sm5714-battery.c              | 221 +++++++++++++++++++++
- 5 files changed, 286 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261108-b4-sm5714-fuel-gauge-ccbe7c191c0c
+The shifting would be broken if there were ever any 32 bit Soundwire
+systems, and I guess we might get warnings on coverage builds.
 
-Best regards,
+> +		/* Only handle the number of channels for constraints. */
+> +		if (prop[i].num_ch_combinations) {
+> +			for (j = 0; j < prop[i].num_ch_combinations; j++)
+> +				*ch_mask |= BIT(hweight32(prop[i].ch_combinations[j]) - 1);
+> +		} else if (prop[i].num_channels) {
+> +			*ch_mask = GENMASK(prop[i].num_channels - 1, 0);
+> +		} else {
+> +			*ch_mask = GENMASK(prop[i].max_ch - prop[i].min_ch, 0);
+
+Should we handle the case where max_ch and min_ch read as 0?
+
+> +int sdca_asoc_set_constraints(struct device *dev, struct sdw_slave *sdw,
+> +			      struct regmap *regmap,
+>  			      struct sdca_function_data *function,
+>  			      struct snd_pcm_substream *substream,
+>  			      struct snd_soc_dai *dai)
+>  {
+
+> +	constraints->channels.count = ARRAY_SIZE(constraint_list);
+> +	constraints->channels.list = constraint_list;
+> +	constraints->channels.mask = cluster_ch_mask & port_ch_mask;
+
+If there's no overlap in the two masks this will end up as 0 which the
+core will interpret as no mask and no constraint will be applied.
+
+> +	ret = snd_pcm_hw_constraint_list(substream->runtime, 0,
+> +					 SNDRV_PCM_HW_PARAM_SAMPLE_BITS,
+> +					 &constraints->width);
+
+Are we mixing up physical width and sample width here?  A device with up
+to 24 bit samples needs 32 bit words, and something that supports 32 but
+not 24 might offer S24_LE.  SNDRV_PCM_HW_PARAM_FORMAT might be a better
+fit here.
+
 -- 
-Nizat Mikayilli <nacht@dxdmail.cc>
-
-
+Mark Brown <broonie@kernel.org>
