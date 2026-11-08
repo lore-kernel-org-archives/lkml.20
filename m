@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794138644;
-	b=yEWkxl7J0+/ubcgnSyrL+ukKQHNUcYWav2zZZICyYUC0LtlVzh8hB/FUZS+xgDhbq2Rv
-	 MqojvWccghZS8SVnj6dvjBDp/kVmc613Zhc/S33mfss0bzJLsbOGdkpW95UQYSRqJHk50
-	 8OMLHx1Hw+G2fKJlIItn+/tXs1qf88hX8FEMPgMMYqpdBlW79ZXNaVA1wApjCpfAUi1BM
-	 NFtSAuCvPI4XJXgsMU4Ay4A3NP4W0QlUxfbBVtV6yEVlls7nTIHHDp3rOQPNCKBUKRe1F
-	 Y4ayOPrqG1bbWKyxOr11RMuIye66qqk6B6djTypGZtwOQ6lqCW3CyrkifwU3JLrbUEQ==
+	t=1794138862;
+	b=ZZCKGD7Ci5yCTG2zg8AB7G/3JBxqZWFuEC47Z6wLojmY0XgXw4gxRRGk9WGAR1KvdeJG
+	 LX9Z02P79jGgIMiL7oER3C3sDvoMGjLh4h4eKUXXQjvkvO1vQGGyVq5A3aChYqX0KkuFq
+	 ux5DV6gJZCctPe3oy15yfov27UBSpEPBs0JFnSVL9wbeIawqUuVGz4HC1j92snZOUxCTV
+	 vCHjRUXt3y527OWngo5CBx0c+7J9pEGJgVaA2RNXNPLIKLfL56hFXAAzOU3Z7oer6LYKu
+	 UgpzGoTefqs+Gn9ITAPeKZ73EJ3xwCpKuejDjdmDISBg4DJnXKtOqsv6SLxbVD2UDdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138644;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=iFs5od5bXdQ2LegEpfRcPnj5K0IUuQOJdja1+2xaK9M=;
-	b=okOF2vKgjZCIlqiq5es0rBDoRy/uT7WmTkFSUcKmL4q+/sIXbqB+6piB0vAf4/ejt2gl
-	 yIP7IXbkESOPEeiOq3qjvRFFq09f9rtfe7oBa0T9mcOTGbtlrVpgYdSx3J/jwypUD1nYY
-	 4HDKXBBYdvPqcdCe17vFJwKpxUTjs58eGuWlYuxVC9K1oU2TmdD1omEVOWwMY2xRILWFK
-	 2aiePhgJMAbPM9S8vMP4J+hI0XcLw4k6vNRmQzcxa++oU20zQHruIOin2DWNUNJOF63jI
-	 dKK1NF/vZ1eBwKbtJvZyVQQ2uc2wbctgYU2OBsoX2ZtLi2WNrz+q3TeIuEL4Xd2Xgiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138862;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=+hSDoeCHV95MTcU0exwJ09QYlst4DO6dsxKv2LnugqM=;
+	b=lvBTYTzt04bOFPRaR3iaRitot1gm/1xOoyqLKVG2R/qP49P0R63+wu40BNoujh8b+p7Y
+	 cIyALoEXw+BXq4aD6FUIdan9oWIMVDNVzPJVRNbl37IRvUsNmpGWDchm5UVBuVA48BUvf
+	 AoFY04WcZ+ZahXqq1Jzu/Krj4ovHyDbdNRbNxYQa0rjsuA0LhliZrLsXnlUwO1P36AOUf
+	 vw3SgE3hyxWPVovqVaKjlq5Xqmd53+DJoWGE2kpJ2oBYvR24JvKqBQF9y1e4gtBeUiS+5
+	 u07Wv1pAz7/UAK5IvLWRxyBvrcykstgNNs49OPXsIxNZNETXb3c+IJEKFVjPB3qz4UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EX+JTdfk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoHgcRgQ;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A388606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E171606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:54:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E171606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EX+JTdfk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D633D1F008A3
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:50:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794138643;
-	bh=iFs5od5bXdQ2LegEpfRcPnj5K0IUuQOJdja1+2xaK9M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EX+JTdfkulIwbmfRHO3BEyl0Mu/jQohxptPSymEDIoS7NCbGzJiGpt00ug2c6rpbo
-	 nr2vnWFTrHuuIrYLxBOpkdjUvgnfmx9L/ba9Kf6o8AN1kE71tmQDOGldfr6wFYHUSj
-	 1O8yfbtpEgK8TbHGdk30hfMnAa9KodMpxpqTOwZZgsqb5nRyViGomK7vsskZBAMdBQ
-	 /P68vjTboM8dbp4jPtnFcpQR454+GA6TYHGcPs/2ugGAZQutcQeMad5I+l9zoz/VA4
-	 WVEiUotakbacQLqNf1dOFYzpF1yV15k7BUrmtGvBsdCYsPf3AFbhOxZe/2buEJkbrU
-	 dzzF1a0Znwr2Q==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4cdc606b47so8113866b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:50:43 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBziqkemkHeARVRgJPY5WTwUUknPg1jWoBzIIpLl6ZbO+7jK1cbre8gALHPulg58YKBtE79CyFQmaodVzY0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9n7kQQWRrTxJHcBpB0ZuYudk3sfHjakODDRqbZx9R+dDRl6XhE
-	x6kW1zaN/BvmZQuC/XXf6tk1E0m0QTpA3MkzsGpwpRJcS5v/hLuKdiq0SL9w0rYBkwQxiJ98zlK
-	LlrI8jH+zk5aS76dDzhTiopoevs6nqMs=
-X-Received: by 2002:a17:907:2d8d:b0:c4d:4be1:4197 with SMTP id
- a640c23a62f3a-c4d6db2179bmr97283866b.41.1794138642533; Sun, 08 Nov 2026
- 03:50:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoHgcRgQ
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso63224eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:54:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794138861; x=1794743661; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+hSDoeCHV95MTcU0exwJ09QYlst4DO6dsxKv2LnugqM=;
+        b=JoHgcRgQpO4mryH5LvbiD1VQN5AbJycvWNP7w5k5/l8/3Zf3lyKstieOp2M2+BcANc
+         RYxfXH977egJuwbFIB49WvOGV/YX8MMTw1wbFFf/iGfKCdKvunfbC2FSlTot4ZqF1DX1
+         oFnRRt/Loezl1hjAZtl2MhRYXtZfj42MPtZedSnZSzzrp3G8XpFwaw9JsyqXqTz+mAXZ
+         QJxgET/pE3W/nsn9snm1CoRmafeQid0r+YjrAJUAPQHmQbC+0fsgM47/zG4nenU8aVRU
+         TCLf59Pl+8g0AL21BO0wbGlhcFljFhwJ6+Tetj035tKC+sGno1bgSkq/U8tKT20ggNxG
+         QBHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794138861; x=1794743661;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+hSDoeCHV95MTcU0exwJ09QYlst4DO6dsxKv2LnugqM=;
+        b=re7Z/M6Z+eVsTXqRwNO6nyjqeNmCaVu6rIrN1QzlyJ4nkTW1Qwc7gV8W2HbmA5GI/e
+         sgT6GiJAsc2tFOFWyOd2q9npTZQiDXN3R71yeXSB9N2bD2Jn/EvVnb4HlCnvE3Zf8LJA
+         AO4ae56EbwvXxQPOC4HEwabKc00YcukOSvNy1Kkq4zXK7NW18LPisAs7VI5UK+lnv8N5
+         l+906e6/dBdGsVkgEI0aDSRANsJD7xYSkUuBfTiT9fP7g2nKRJ+iMzUI33CwmIZfJNAE
+         dgosfjJcjkek3m9semvB6Xw4lNRkYR2kJU/wP+M2JPIZ9inJFmxDudl8dvYfNshDaR7G
+         CXaw==
+X-Forwarded-Encrypted: i=1; AL+hErHnjOlWLZc2YBaeEnWFjXfT1X3V5gk+NNv9Q0slhbsgGAcmdSb44bEi3OMNUwMJcfhr77kQxBN6Q0p0quE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VKFtcOe2Cr6jDIbWP2Xmvxn4ZAIiLfSHjS7kEkSipcK+ewaUM
+	OzptvX6rFu+k3ikT/MVWEWKaeoW4OlgEG5jvf+xcMAUK7GdwBggNCiiL
+X-Gm-Gg: AYBFou2RH2A5+6AwlmVgvLTQxbJCYGB02Z+3d/OduZHNIV3+pgREuHaOxuDBaOh9+zG
+	QLo4xiPPtO6l5ufbiNL0KHPqYfdI9YE6gpyMzqFI7y66Bx8spcYw9TjXhEiM/pESZZnw/pXQb0S
+	NYO36mbZgzpLWLcBOEMFpunQh97st1uDD7ZYB9GjcJ9EkSXhwHTjyavwUD7rfM9BFEx8DVTbF9j
+	qtQWoYw0HdR8Hgtubmnwai0L70/kbwGfH2mUl88aSAMv+RDWzvxwPyRCJlelFoRnNM/ixpvrp4/
+	OOHrWQZL8XTFAOVZ/j3ZtEUzH87VmiuK+1S+xaZO3KyAk+5WaYsI0VK1GDxCWSDfW7LohyOaaB3
+	c1KhT2S32rgPo5j7/swCXe1ncL0Pt2qtZAY0ibBwCJ2kn58qfBSQUdveDMM8Surq0ofsJLXfvlx
+	+FsCK4KvoOMNI8oedK09ZcKEkyCixz2Cm2Ihn/euXV72WcdU2mzvJ7ohzj1DJlPR5cB6U3J5GrT
+	2VeOerpvwGQhRYeA+0yGWyAMVGGwGGzZyZSk44nOnIqKkpHn1BUxJzWqPhWzxoCzxFrdMpMdxS5
+	xA/vt86baUsvRdfAK0X2/HA4qEmG2Fk=
+X-Received: by 2002:a05:7301:c83:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-372566144c7mr2538503eec.10.1794138860540;
+        Sun, 08 Nov 2026 03:54:20 -0800 (PST)
+Received: from [127.0.0.1] ([45.198.20.201])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a179c1sm4715288eec.11.2026.11.08.03.54.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 03:54:19 -0800 (PST)
+Date: Sun, 08 Nov 2026 03:54:19 -0800 (PST)
+From: alyandra5b@gmail.com
+To: sammiee5311@gmail.com
+Cc: tiwai@suse.de, perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ALSA: ump: clear stale RPN selector on NRPN change
+Message-ID: <179413877928.27072.4989388975502966406@localhost>
+In-Reply-To: <20261108113645.1730429-1-sammiee5311@gmail.com>
+References: <20261107111056.667-1-alyandra5b@gmail.com>
+ <87pkwgyck9.wl-tiwai@suse.de>
+ <20261107142950.125901-1-sammiee5311@gmail.com>
+ <CAJYQYHxrpmBPiyMiS2oK8eugUMR=KFmf9D5jwLdoYUYQgKkXjw@mail.gmail.com>
+ <878q33y4z4.wl-tiwai@suse.de>
+ <20261108113645.1730429-1-sammiee5311@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,152 +104,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
- <avAr894n6lNGD9C8@kernel.org> <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
- <avBV048xzXRp-cnC@kernel.org>
-In-Reply-To: <avBV048xzXRp-cnC@kernel.org>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 8 Nov 2026 19:50:31 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6Paunrio+OX6JchQr3JOfLJW=1D_GGVzCjyAn53291Qw@mail.gmail.com>
-X-Gm-Features: AclHuK_oerMpFdYcgrwKmLKMjsGFuCdSpGwy5J6w8hQgR6esaNKhIPEaZQlT5sI
-Message-ID: <CAAhV-H6Paunrio+OX6JchQr3JOfLJW=1D_GGVzCjyAn53291Qw@mail.gmail.com>
-Subject: Re: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
-To: Mike Rapoport <rppt@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org, 
-	loongarch@lists.linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 8, 2026 at 6:58=E2=80=AFPM Mike Rapoport <rppt@kernel.org> wrot=
-e:
->
-> On Sun, Nov 08, 2026 at 04:17:02PM +0800, Huacai Chen wrote:
-> > On Sun, Nov 8, 2026 at 3:59=E2=80=AFPM Mike Rapoport <rppt@kernel.org> =
-wrote:
-> > >
-> > > Gentle ping :)
-> > Sorry for the late response, would you mind if I modify it to use
-> > #ifdef? Usually it should be avoided, but I want to signal users that
-> > KFENCE is not a usually enabled feature.
->
-> Up to you :)
->
-> Do you want me to resend or you can update while applying?
-I will update while applying.
+Hello HyeongJun and Takashi,
 
-Huacai
+Yes, that sounds good to me.
 
->
-> > Huacai
-> >
-> > >
-> > > On Sat, Oct 31, 2026 at 03:21:46PM +0200, Mike Rapoport (Microsoft) w=
-rote:
-> > > > With KFENCE enabled, resume from hibernation triggers KFENCE report=
-s while
-> > > > swsusp_asm_resume() copies the image pages, for example:
-> > > >
-> > > >   BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
-> > > >
-> > > >   Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
-> > > >    swsusp_asm_resume+0x20/0x94
-> > > >    hibernation_restore+0x128/0x1a0
-> > > >    load_image_and_restore+0x6c/0xc8
-> > > >    software_resume+0x240/0x260
-> > > >    do_one_initcall+0x68/0x200
-> > > >    kernel_init_freeable+0x26c/0x304
-> > > >    kernel_init+0x20/0x134
-> > > >    ret_from_kernel_thread+0x24/0x1d0
-> > > >    ret_from_kernel_thread_asm+0xc/0x98
-> > > >
-> > > > During resume from hibernation, the image pages that occupy physica=
-l pages
-> > > > used by the restore kernel are first loaded into free pages and the=
-n, as
-> > > > the very last step, swsusp_asm_resume() copies them to their final =
-location
-> > > > pointed to by pbe->orig_address, which the hibernation core sets to
-> > > > page_address() of the page in the restore kernel.
-> > > >
-> > > > The early KFENCE pool is allocated from memblock and normally occup=
-ies the
-> > > > same physical pages in the restore kernel and in the image kernel, =
-so these
-> > > > pages are usually copied by swsusp_asm_resume().
-> > > >
-> > > > The KFENCE pool is remapped into the KFENCE area above vm_map_base =
-and
-> > > > set_page_address() adjusts page->virtual so that page_address() ret=
-urns
-> > > > the page-table mapped alias rather than the DMW address of the pool=
- pages.
-> > > >
-> > > > Hence, pbe->orig_address of KFENCE pages points to that alias and
-> > > > swsusp_asm_resume() writes them through the page tables. But:
-> > > >
-> > > > * the copy loop overwrites the kernel page tables, so a TLB refill =
-for the
-> > > >   KFENCE alias may use a partially restored page table
-> > > > * the KFENCE pool pages that are protected in the restore kernel fa=
-ult in
-> > > >   the middle of the copy
-> > > >
-> > > > Convert pbe->orig_address to DMW addresses before starting the copy=
-.
-> > > >
-> > > > Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} trans=
-lation work with KFENCE")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > > > ---
-> > > > Reproduced with hibernation in QEMU, the KFENCE reports are gone wi=
-th
-> > > > this patch.
-> > > > ---
-> > > >  arch/loongarch/power/hibernate.c | 12 ++++++++++++
-> > > >  1 file changed, 12 insertions(+)
-> > > >
-> > > > diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/powe=
-r/hibernate.c
-> > > > index 817270410ef98..ff571ab4e8df9 100644
-> > > > --- a/arch/loongarch/power/hibernate.c
-> > > > +++ b/arch/loongarch/power/hibernate.c
-> > > > @@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
-> > > >
-> > > >  int swsusp_arch_resume(void)
-> > > >  {
-> > > > +     struct pbe *pbe;
-> > > > +
-> > > > +     /*
-> > > > +      * page_address() of KFENCE pages is mapped by page tables th=
-at are
-> > > > +      * overwritten during restore and may be protected by KFENCE,=
- copy
-> > > > +      * through DMW instead.
-> > > > +      */
-> > > > +     if (IS_ENABLED(CONFIG_KFENCE)) {
-> > > > +             for (pbe =3D restore_pblist; pbe; pbe =3D pbe->next)
-> > > > +                     pbe->orig_address =3D __va(virt_to_phys(pbe->=
-orig_address));
-> > > > +     }
-> > > > +
-> > > >       /* Avoid TLB mismatch during and after kernel resume */
-> > > >       local_flush_tlb_all();
-> > > >       return swsusp_asm_resume();
-> > > >
-> > > > ---
-> > > > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> > > > change-id: 20261027-fixes-loongarch-fd3755f33919
-> > > >
-> > > > --
-> > > > Sincerely yours,
-> > > > Mike.
-> > > >
-> > >
-> > > --
-> > > Sincerely yours,
-> > > Mike.
->
-> --
-> Sincerely yours,
-> Mike.
+I'm happy with putting my patches first, followed by yours, and moving the te=
+sts into a separate selftest patch.
+
+Thanks for offering to adapt the sequencer test and incorporate my test cases=
+. I think this would be a cleaner approach.
+
+Best regards,
+Alyandra
