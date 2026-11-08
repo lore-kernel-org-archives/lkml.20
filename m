@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794157554;
-	b=2qsE+U0bkd3un6TWG1xyam+v0PjZJ5goGqVstzZ7O0g4jOhAN9YIS6kt2YxhTZhKeQ2J
-	 dE7kgJTsPC0QSy3i2+uu9GPhnzDyZRAgan8D6ukYTTU2UoQ+/jM0KT8omdFy9x3DB4HRd
-	 btrl+9Q7Z4QTGGiHrJz5oQPXxuKkuz+HtcGkjSXi/0YQM9WVZaMa2sMLlbcyuNlZcVnCm
-	 N1voQMzv7P9kMkPl4pzVkBS/bGuj/m9YoM234gNHCokE4ZeHTMP5PN+VF9yhKaKXEoPfZ
-	 XPC1HdQe5qUsVkiwdIhjMizvWLnYBG9DlkcZ3nj6kQhy5GyK1ltAFPGBsPfdHVN+Ogw==
+	t=1794157588;
+	b=dlEO9dKsYBwXXl3rlHEKXfv0STOt5ZDObpna5GqxA2LNxc9PFwhh7f/5gVOeBBqilS7e
+	 qktQ54NupvAtt1S1kpMK7NaSMN5noiURLqjYdIulC4dSUJUUChXawxZP2Rqazw+k11bHH
+	 NvQqiDkgdRRJ/m8GIsAyuEX7FUhEX0+H9EelVloultoWWReqmmNJ8rSc0gKnjGUDVgsmz
+	 R12UDa+cFT9ap43zYHdVqzSXUY3hlbayd+yBozOS8SC5g+2MNikBxK8nmPukqXzFXM9r1
+	 FdSUqlOpoSjQMz9mPpxXsIS9ycC++a2Sg0FPjTGmMHvjWff0Cl/HR7tsev+ExAKng3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794157554;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=OBtzH8SdKX6PFWDQWi8/2OLkMnONA7NSL81PIjNaI1Y=;
-	b=AWa3Cx+sLryW0qp1rawA4em1qX0ICJa4EwNyO+54J1x0l/TESUQKtqJiCWx8JROy4JtE
-	 pzFJRliL4nWhKvn0H1HtYjbEW7VUuHB7VvIwfoMh2DyqtmO15RZXXFSU8HExfkBXb0WEM
-	 OaCnp6zdpCfxnuUYdXAwmdZOUOH6Qhy2+HFA30UQ/iIjWnfByqhhQMJFDAKkb8CLPZZjO
-	 crbETC29G/8xRgLfAeAYVLlqv1PtKEaoSWcioSr3Uzk8gOau0X40UxsshdaCO4ICbo0yH
-	 Bql5xSi0Zcuiy7qxVCXWuRyO1W+x1OGc8wBJfaP9s96Tph1FHUdWGIeWWyb5RHwWLIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794157588;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=IEd3jpYcDB0NK70MyV6liue2t6+43KsA976DKWNPe50=;
+	b=E0HR4AHk/PuGPkZqh4Wo124VNqnS3uJrZYwWXS43dTT755zJi/LB5K0PFs5niyti1cND
+	 hRlTvRUqJlg3vCt7/yRYf3SffK7MvYEQ5xdThZ214FssG5ugsGXMFRogo7tnAPqOayg8y
+	 HIAItuRpgOg2JtxXehqqSBrNxiFrsbZP717tkBB1YYzeFFI5RarEAEHRNiboqOSGesgsZ
+	 uZw9A3njP9mx2prh5XjKTIj80SiFX2YwEUgZQD0AAHKouMsdbjTH9nhP6is4Sh6JBRTMg
+	 RxK81q9Vp2IOTpABd++hN6uxWxKyHsImxisLQNLO5pE8GSmTFQibmBGbqz5MJR9CbOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3jZ7sEZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V9MbJkdE;
+	arc=none smtp.remote-ip=91.218.175.4
+Received: from mta0.migadu.com (out-4.mta0.migadu.com [91.218.175.4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCB0606A31C;
-	Sun,  8 Nov 2026 17:05:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D897606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D897606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3jZ7sEZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0F41F0089F;
-	Sun,  8 Nov 2026 17:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794157553;
-	bh=OBtzH8SdKX6PFWDQWi8/2OLkMnONA7NSL81PIjNaI1Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O3jZ7sEZY8NENOgN+VZdm/lQ4jhwTTwtfjuuN5HxKPvwulp+skS5l6fD9lvL2B8LV
-	 b1sfbfezrodHV0KljFrB8w2qNFFAbRl4ll6QDMZHpJ6sgOp5bNKiQpxzZ1PbmyQqLm
-	 WAHTUc/KsjHTdEqzxiB/EYKrGJsFGO0249UhytJ/2eomMsS9dJ8w/Flqb3cvWFXig4
-	 LwoSXfHD1GogM3gYQjc/LXjJkJ0YRhWPKd6atvUSpMgZfi3hAp4ELEoSbab3d/vB6l
-	 mC1BlHNiBGnEWGexewRKqbOxTJmRSxr4BmjOF54cYzS0OhPZnwEJJU0i6y469NeWke
-	 Gixdg56uMF9kA==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 537062D0D762; Sun, 08 Nov 2026 17:05:51 +0000 (GMT)
-Date: Sun, 8 Nov 2026 17:05:51 +0000
-From: Mark Brown <broonie@kernel.org>
-To: hyunjungg <hj351016@gmail.com>
-Cc: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: twl6040: cancel jack-detect work on component
- remove
-Message-ID: <4d6c1da5-bb74-4fde-9cd5-9f361da26bda@sirena.org.uk>
-References: <20261107142006.3711973-1-hj351016@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V9MbJkdE
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JkojSWXaqiTE4m7MsVL3k+FVelopN8MwdLMIVVaO17Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794157584; v=1; x=1794762384;
+ b=V9MbJkdENmHNBeEfotWF+AMWMIuReMh3cMogaPPYpCteLNr+wC4V4KGEcKLFKMuaUjS7dHr/
+ K3ddnXkXT3nWGA9mOrrn7vgz69jBW10m45EYdgFgK++emJu4r7GNjQhBNSwqNOvXs2uzQk34NmS
+ fcetf0UxKuqHf3DfXX0TdLSY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 89021f10fe198751;
+	Sun, 08 Nov 2026 17:06:24 +0000
+X-Mizu-Trace-ID: 89021f10fe198751
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <3fc46788-d86d-44c5-8606-385d96fede4d@linux.dev>
+Date: Sun, 8 Nov 2026 17:06:21 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,36 +58,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cvlDbwXVb7DopO/R"
-Content-Disposition: inline
-In-Reply-To: <20261107142006.3711973-1-hj351016@gmail.com>
-X-Cookie: Whoever dies with the most toys wins.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] iomap: remove the atomic write length check in
+ iomap_dio_bio_iter_one()
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christian Brauner <brauner@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+References: <20261107-blkdev-atomic-bounce-v1-0-f66344262096@columbia.edu>
+ <20261107-blkdev-atomic-bounce-v1-2-f66344262096@columbia.edu>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20261107-blkdev-atomic-bounce-v1-2-f66344262096@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 11/8/26 04:24, Tal Zussman wrote:
+> bio_iov_iter_get_pages() and bio_iov_iter_bounce_write() now fail a
+> REQ_ATOMIC bio that doesn't cover the whole iterator, so the bio here
+> always covers iomap_length() and the check can't trigger. Remove the
+> check.
+> 
+> Suggested-by: John Garry <john.garry@linux.dev>
+> Link: https://lore.kernel.org/all/82978d5c-3e08-48e9-bf0a-7913e1cd0507@linux.dev/
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
---cvlDbwXVb7DopO/R
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: John Garry <john.garry@linux.dev>
 
-On Sat, Nov 07, 2026 at 11:20:06PM +0900, hyunjungg wrote:
-> From: Hyunjung Ko <hj351016@gmail.com>
->=20
-> twl6040_remove() frees the plug IRQ but does not drain the delayed
-> jack-detect work that the IRQ arms, so the work can run after the
-> component and its devm-allocated private data have been freed.
+This looks ok. But I am just thinking that a CoW-based atomic write does 
+not have the single bio restriction, so we don't need to fail the atomic 
+in this case. However, we should have consistent rules for iovec's 
+whether it's a block device or regular file for ext4 or xfs, so this 
+makes sense.
 
-This doesn't apply against current code, please check and resend.
+thanks
 
---cvlDbwXVb7DopO/R
-Content-Type: application/pgp-signature; name="signature.asc"
+BTW, you could be a real hero and add an xfstests case for this also.
 
------BEGIN PGP SIGNATURE-----
+> ---
+>   fs/iomap/direct-io.c | 14 --------------
+>   1 file changed, 14 deletions(-)
+> 
+> diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
+> index ad041ac3252a..aca7cbaea4af 100644
+> --- a/fs/iomap/direct-io.c
+> +++ b/fs/iomap/direct-io.c
+> @@ -370,15 +370,6 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
+>   		goto out_put_bio;
+>   	ret = bio->bi_iter.bi_size;
+>   
+> -	/*
+> -	 * An atomic write bio must cover the complete length.  If it doesn't,
+> -	 * error out.
+> -	 */
+> -	if ((op & REQ_ATOMIC) && WARN_ON_ONCE(ret != iomap_length(iter))) {
+> -		ret = -EINVAL;
+> -		goto out_bio_release_pages;
+> -	}
+> -
+>   	if (dio->flags & IOMAP_DIO_WRITE)
+>   		task_io_account_write(ret);
+>   	else if ((dio->flags & IOMAP_DIO_USER_BACKED) &&
+> @@ -393,11 +384,6 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
+>   	iomap_dio_submit_bio(iter, dio, bio, pos);
+>   	return ret;
+>   
+> -out_bio_release_pages:
+> -	if (dio->flags & IOMAP_DIO_BOUNCE)
+> -		bio_free_folios(bio);
+> -	else
+> -		bio_release_pages(bio, false);
+>   out_put_bio:
+>   	bio_put(bio);
+>   	return ret;
+> 
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavCr6gAKCRAv73Ows9A4
-ieajAP9y90FSW9womqL3t5vBzMwzESBB386z8EDUJEqr/uWZqAD/RZbBwKsuUiKH
-1UqkeGeROrCAgK7yEPt6JOoDjb/64Qw=
-=RQY6
------END PGP SIGNATURE-----
-
---cvlDbwXVb7DopO/R--
