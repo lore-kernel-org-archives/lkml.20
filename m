@@ -1,63 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169384;
-	b=uNuY1i678Iw9VoNdHB6RWYkAkZaZW7iB0A/5yf8FhKWiFTtw4bmcrsgM6EHefj6PAoPG
-	 gTrA1HKdCSAmKA3+7V1nK8fejpHz8RcgZd3g22ha8A8GWnrvmw1fZNc1LbXXMKaYTUx8e
-	 RG5PqdCtaFOCrYL0HtRSiIoCfsONf98IIg4cSd00ymiuyT1bkIm7QPH6Mk9Z+P8fsNtJj
-	 2e+nomcZl2sAQ5QnFUv5G8FM/NgrcLU9l7EQz7N2j1Dcnaqm/lNaj+LG3bW+lbWJjI5sX
-	 3AiF1OPErBQ4slyTnYdn22xsbKMJFx01+Bk62gB7hGYlcNx/BaiAawRXwDnzabkAzOg==
+	t=1794169406;
+	b=UD5nWTnsUCtuYdN+b27mjked0x6y7dDgPUoyq0GeEZ67taGUNMJBJfT3Jo+eY0XftAtP
+	 HGXsIcKtOUxL6GpZjFxqCWRAms6EyBW/5oBEu9DI3oVClXwMdGHEnTaU1OoXLbAEBxEc/
+	 XrRARPBZJc3ccTb95sqBsJqOvwaLl37WxtNN0LEAovu2k9vPkuWrNvyyBbbG5gXEHY68n
+	 xXnsKA5+O/bt8/gKnryeTGM9NSSwiVF+xU2sJFmI+A3mQ7S96lqnQQsBIhQCJ8oB0l9iP
+	 JIld4nUiKd9J4Lrfpc8xFwkU2WQiA/YNOTVwaGbuWq3a6C74YmCLL8PmF83pdG/aB0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169406;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uOdj+LCGkUSdpj58vrEitqjzSgwqN0eEuoUdTrdn7sY=;
-	b=ysQlf3Cx5oazqSprkux49cTzMz/am3AbwZo6fFCdRQ2bIgIbi8fEx8P0Od6/X9A9ADrg
-	 vHM90/RjG6je5kA6sSTM5KAWgisBwd/KeYoSzJHcbTZq6woqJgUhjo7BdaUH9LwF4TxxY
-	 /z4GP2rK1WGUkNXGovh/fTmqef6Pce30JP0serfTVop/WWNN3aOLSZ2wEuWhD+Oemg6cm
-	 eRSkB8UaZ9Xh5NlQWZQEnTRdelIwB/eZgyVKhlNlVoOF59wcrl0TEJha34SnGFLoFNcD0
-	 4+WuxTswPgcNEVGw/BYYYaeQ8CSF9EsK2yjJ3Y880JJ18Eq/Jgi8MCohkZDzZUPrKig==
+	bh=YwiO6kC7xgkKgsJ+rcPZuZEngA6rKjGO8VVd1QP813I=;
+	b=sAROm6wT4RaxLlqen/b5GxKjl75zuEIq6PBISiUiwgy/PDTSRE6SAQl4HnUI5+YQ3asl
+	 R73arPH2KR35g97u+1MjTnyW8OwC3zwBOCzBQCsBSTd4XUv/HOq9pIVYTeH61f3gLm5Fc
+	 P3SiXErc8eUncCFSeeKwKaRafIoTZ1IEatwKeQRra7cSZkSSU9PQin1gE+vaPI1vcC+GA
+	 yVEiPepUl/tbc5XG4FP49dl0zV8tc/iF4Wa8OF0uOurrl5ZSCFc9Br/X5uZWlUeMrL7G9
+	 a9ONRz7ft5Gi0gtE5BRG2+XtY3huZlJzJFAlr763e31CVLFYxUnZ0fzScEPMiRiNcNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kBG5zsCj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBvfnMPl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E673C606D101;
-	Sun,  8 Nov 2026 20:23:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0506070CF3;
+	Sun,  8 Nov 2026 20:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kBG5zsCj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE7D1F008BD;
-	Sun,  8 Nov 2026 20:23:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBvfnMPl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66331F008A2;
+	Sun,  8 Nov 2026 20:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169383;
-	bh=uOdj+LCGkUSdpj58vrEitqjzSgwqN0eEuoUdTrdn7sY=;
+	s=k20260515; t=1794169406;
+	bh=YwiO6kC7xgkKgsJ+rcPZuZEngA6rKjGO8VVd1QP813I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kBG5zsCjpqGCont84sHcyVQRg63m1NOcflsEulc6NhqHcHXyrBC8iluQKQXElUk0u
-	 dfOAmtk6Eo38YNSQoJ6XmbcK/6qWLwvBXr0Pgk5U2CmHTQyYLg24WNbEKDaePmV7dz
-	 Y81f6ze673y//ooq4pARvzrhcvIwOrLabbBLN+jiPdObZYRtHnNSrOJ4iYD9bwfYWa
-	 Nc3V/JoTmKJ/xWvzMCrxlJVRZRaA/6mNbhQkMItLHKm1bzVgiR9LasXyd2mqoJS1H8
-	 H67IUsEMddz/9/U/qdWft5fkY+0QivP2qvyX1liVQW/3Yr40UpM8uUJx6C96P2IT++
-	 ehbgrJ24sabJw==
+	b=UBvfnMPledfIodrZgmMlVyyIVC1z7F/sd4ewvolyfY7NxsKNUl25T6xS/1Nw7wGQS
+	 iaPtfnl7m3vujAHeR8nUaWulcPoE/mdyEJoJBaEjUJ6ZxeVj9OdAUo3viJcHc4cwV+
+	 7ijl5tB02imn8k3qTLUaAnL7BGtlg77fH8MnygnM6LuyQDOWLfw/2VXnmlq6Vgt0ib
+	 1zon1Ym7PKTjHBI3rWvxdPo5QX/XbvlwQDZHn8n2X42qI+FbfBG6YN7uCEGZ/AYFbq
+	 g2qdIICndF4WYFoC2qeo420QDSm3BC9c0al1g7d+DKqy/eV5I57dX3OvbPUSOphzqY
+	 +5KBoojikEhyw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-qcs615: Add additional frequencies for GP clocks
-Date: Sun,  8 Nov 2026 14:19:55 -0600
-Message-ID: <179416929401.628393.3615974621730593014.b4-ty@b4>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Mark L4C regulator as boot-on to save power
+Date: Sun,  8 Nov 2026 14:20:11 -0600
+Message-ID: <179416929351.628393.11241637858419849510.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com>
-References: <20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com>
+In-Reply-To: <20261009-b4-regulator-boot-on-l4c-v1-1-7b76c2b2ea76@oss.qualcomm.com>
+References: <20261009-b4-regulator-boot-on-l4c-v1-1-7b76c2b2ea76@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,14 +72,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 16 Oct 2026 14:42:20 +0530, Imran Shaik wrote:
-> Add support for 10kHz and 100kHz GCC GP clock frequencies required for
-> display backlight PWM functionality on Qualcomm QCS615 (Talos) SoC.
+On Fri, 09 Oct 2026 17:36:05 +0530, Kamal Wadhwa wrote:
+> On current Glymur Rev-1 boards, the third USB controller and PHY are
+> not enabled, so the L4C regulator has no active consumers. The
+> regulator node cannot be removed, however, since Rev-2 boards will
+> enable the corresponding USB hardware.
+> 
+> This rail may have been left enabled by the bootloader. The RPMH
+> regulator driver cannot query real hardware state, so without
+> regulator-boot-on the core assumes the rail is already off and never
+> issues an explicit disable during late cleanup, leaving it enabled
+> indefinitely while unused.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] clk: qcom: gcc-qcs615: Add additional frequencies for GP clocks
-      commit: 23ce9f87cfc56b6ddbd683725720448dd4fb200f
+[1/1] arm64: dts: qcom: glymur-crd: Mark L4C regulator as boot-on to save power
+      commit: 09096b4ea1bd00730b1a10584b6405119fd28fc4
 
 Best regards,
 -- 
