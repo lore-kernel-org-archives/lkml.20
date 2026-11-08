@@ -1,45 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794139127;
-	b=UFjij2Y58TU+6giFqEdrp++0S2T8Vrn8hPGaLUQKFbbq5Tu+BDlkgHAFRdPsABGYmIxP
-	 prZcIsaYDzJ4MKpBa7gSQrIE89N437R8gxWb4cxdaQWBFuGvvBvIss4OO3k3t2ncFs2/N
-	 iKnHLful9yqG+B1//U0mF3/nIZBmd05V5rfuYy65KWCiX+cVQhmBAJysCUGL/6uv3Rdbw
-	 Lwa531dUuRI5uEbVBObBCPxNhWtMo06idpCvcjgzfpdOqu4nQ1NhfcxXRsFj6Dk1ub6xw
-	 6TJDMLQtl5ZO1rpkH4ygZRi3cNzepEuePKWp+iJOQMbdIDWqbU0rKZ7Gnu8UHb6poUw==
+	t=1794139592;
+	b=F+Dyp2iSe3Xosqy/7MkHLj/0tlW26ioMUM7CVheYX7wsLQbQszERRwcg60dBtNpqxddU
+	 qYsdFx1QKu6XwylwIc7nA/CyBVOfXwziOuWi9v7fZzjewJ8gMeJeGlC3h7RKBKNl5z2sh
+	 k4XIx+4u1snuTCUJ/mrwVtQtILL4dpgSntzAluO2F/AhNyingL9Q+8ljrXpszB9GaHs7y
+	 FS0vOg7U9VvhRDCBJ7q3J2rEVM9ldsyjnTiiv4ybazoJToEQElVLFU7NE/tTUFeDjXuUM
+	 YN6C+7rrxKWRmEvMVn+U5fkpsAOAXfhU9tvNIVtFCP7SkEWt19wpbDv0HHw3YwyD+Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794139127;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=frdSBuiNZsaClAfWL1rszk93uoKIYFoT/2az2pnoHt4=;
-	b=tWuqIF4Idhl3X9bmIWOWz1V5RqvWsBBoppemHxZTcSYWxo2+ISWmaovd47fCwdTKFzQL
-	 6OpC7LqD8LbHx6urhwiaNJeWgx5Ko4rp2qO0j7W5qGC+dbTqT2NNR8/3CgfI4VjTlyR+3
-	 8wnMcA/U9V9dQGs+EDp9zLVwBwdQc8o3ykekuIl5cm8vF5LDOYbdDoLgPLPMqDQsEaeim
-	 9LPNxZMV9/VCT72CRAb5VLrXn7uvXqfIiKjQ8yveWQeogtOrX594sghaVAsup6ancTGnH
-	 Yk4/0XTig7+i61xMwKJAuS4LBQWyggsPC3MtEOBlgEUKACArZBl0cUGRVcUoTaZFvbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794139592;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
+	b=uIlk3aV4cS3Vguaq2rHyOUt+09iR+4nR5zKimSy0hV8ik1JWAyb/bpZ2HNvYo7ZkgucF
+	 Mpg1jKK3j/xMjrcS4XPj0YJphNNRFuA04GfWobInjeukij7euDimXQmLtAswLbvciddv6
+	 O45gpWiPQ1GbLW22zwOMVIrscaM++zlS+7yHIWd6ocYmuITwSkvzMB8ACKL1HY4uqaxsq
+	 NWdpB7d6WhFPV377OuK+ThDWWU4s9wcKMpPoSnoLSxYS5+dxuB7ukbCn4PpqwC3QmZp2W
+	 TP1OXFYYVzv8DkVCD/JmykKrzgE+bLbj67g5H7uNSf1F8d6n0/gw0CBCrvcLFCiVOnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=fail reason="signature verification failed" header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItgUl6Pz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C146606A321;
-	Sun,  8 Nov 2026 11:58:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBE3606A31C;
+	Sun,  8 Nov 2026 12:06:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEBE3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItgUl6Pz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A932C1F0089F;
-	Sun,  8 Nov 2026 11:58:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794139126;
-	bh=frdSBuiNZsaClAfWL1rszk93uoKIYFoT/2az2pnoHt4=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=ItgUl6PztSGNn2uQTaSE+c6elZ9dMsyQ66yn/YThcn1L1YS4hJFN5IQlHvj/kF/z1
-	 2d/R7zA2en/UUgYrH/8IyMFqGeJtvBopjb584BWfSR2dG/uCQvL8WWgq7iczslSCHW
-	 g9jh31BAYYxunw1f8Ybd70aYzBl7tUwxFyf83fm2gqAAuXqBEIzgRMhXPK+sWrknzs
-	 yMomCSE/ysWqphi5xPPltDnJvmfe7v1TaeNySdKNo6HydM3ejnHBPeHMRBnoylZmCQ
-	 ut7bXtq2vbcTEu6vTCD0q452CzUGVIplVMci32BvaekxFaPtw37zCLVdnVlEtEhCt/
-	 qcPGw/hRNSamQ==
-Content-Type: multipart/mixed; boundary="===============7105721968340737727=="
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=slQl8fi3;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TMA7RDK9
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D0E321F74B;
+	Sun,  8 Nov 2026 12:06:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794139589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
+	b=slQl8fi3i5QY2WMszjrCYzr4xlFyQgwQXl5XhTysA3sKuC6+LVzj1iLOTdCBycvVBQMHCs
+	dvvb2UQ5gWtwixefBkioUmZ+qysKXWlkDR+Y8Hj1CAlBKV/auNMUL9hAaRjf98uvRJslrW
+	hgAsUvhslIKBFpJm/0RG77qdIfr3QTo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794139589;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
+	b=TMA7RDK9fqRmPD/QvqCiOGiLli4DK81Yun0F08eY6FB8XGI86HkUMZy2s2fuMmfRnuWX+i
+	qRggqFRp9/NyNzAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794139589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
+	b=slQl8fi3i5QY2WMszjrCYzr4xlFyQgwQXl5XhTysA3sKuC6+LVzj1iLOTdCBycvVBQMHCs
+	dvvb2UQ5gWtwixefBkioUmZ+qysKXWlkDR+Y8Hj1CAlBKV/auNMUL9hAaRjf98uvRJslrW
+	hgAsUvhslIKBFpJm/0RG77qdIfr3QTo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794139589;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ec8qdUAub/BPOp+QURrhrzJhXLAMgc5zg47bvM6M0Og=;
+	b=TMA7RDK9fqRmPD/QvqCiOGiLli4DK81Yun0F08eY6FB8XGI86HkUMZy2s2fuMmfRnuWX+i
+	qRggqFRp9/NyNzAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5937913302;
+	Sun,  8 Nov 2026 12:06:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hXlvCcVl8GobJwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 08 Nov 2026 12:06:29 +0000
+Date: Sun, 08 Nov 2026 13:06:28 +0100
+Message-ID: <87zevjwmrf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Cc: tiwai@suse.de,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Subject: Re: [PATCH v2] ALSA: control: Fix parsing of numeric fields
+In-Reply-To: <20261108111848.2493-1-sreekuttan2156239@gmail.com>
+References: <87a4njy53s.wl-tiwai@suse.de>
+	<20261108111848.2493-1-sreekuttan2156239@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,67 +112,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-Id: <61dfc5e627706ca6bd1b23fbc8e9e4af7196ac827d3089fcc038079536f848eb@mail.kernel.org>
-In-Reply-To: <20261108110406.97495-2-cuiyunhui@bytedance.com>
-References: <20261108110406.97495-2-cuiyunhui@bytedance.com>
-Subject: Re: [PATCH v9 1/3] riscv: implement this_cpu operations
-From: bot+bpf-ci@kernel.org
-To: cuiyunhui@bytedance.com,pjw@kernel.org,palmer@dabbelt.com,aou@eecs.berkeley.edu,alex@ghiti.fr,dennis@kernel.org,tj@kernel.org,cl@gentwo.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,bjorn@kernel.org,pulehui@huawei.com,puranjay@kernel.org,thuth@redhat.com,ajones@ventanamicro.com,ben.dooks@codethink.co.uk,rkrcmar@ventanamicro.com,samuel.holland@sifive.com,zong.li@sifive.com,conor.dooley@microchip.com,tglx@kernel.org,debug@rivosinc.com,seanwascoding@gmail.com,andybnac@gmail.com,menglong8.dong@gmail.com,cyrilbur@tenstorrent.com,wangruikang@iscas.ac.cn,atishp@rivosinc.com,apatel@ventanamicro.com,linux-riscv@lists.infradead.org,linux-kernel@vger.kernel.org,linux-mm@kvack.org,bpf@vger.kernel.org,arnd@arndb.de,nathan@kernel.org,nick.desaulniers+lkml@gmail.com,morbo@google.com,justinstitt@google.com,qingfang.deng@siflower.com.cn,linux-arch@vger.kernel.org,llvm@lists
- .linux.dev,dave@stgolabs.net,emil@etsalapatis.com,ihor.solodrai@linux.dev,broonie@kernel.org,cuiyunhui@bytedance.com
-Cc: ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sun,  8 Nov 2026 11:58:45 +0000 (UTC)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
---===============7105721968340737727==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sun, 08 Nov 2026 12:18:48 +0100,
+Sreeraj S Kurup wrote:
+> 
+> Hi Takashi,
+> 
+> I compared the approaches.
+> 
+> Using simple_strtoul() would provide an end pointer, but it is deprecated.
+> 
+> Another option is to retain kstrtoull() from the original implementation 
+> and apply the delimiter-first approach. This would minimize changes to the 
+> existing conversion logic.
+> 
+> However, since the destination is an unsigned int, kstrtouint() better matches 
+> the destination type and also detects values outside the unsigned int range.
+> 
+> I currently prefer the v2 approach, but wanted to point out this difference in 
+> overflow handling.
 
-> riscv: implement this_cpu operations
-
-TL;DR: this_cpu_write_N casts val without parentheses, so expressions like
-"zero - 1" or "a < 0" may store different values than the generic code on
-RISC-V; no in-tree caller found that triggers it.
-
-> diff --git a/arch/riscv/include/asm/percpu.h b/arch/riscv/include/asm/percpu.h
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/riscv/include/asm/percpu.h
-
-[ ... ]
-
-> +#define this_cpu_write_1(pcp, val)	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
-> +#define this_cpu_write_2(pcp, val)	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
-> +#define this_cpu_write_4(pcp, val)	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
-> +
-> +#ifdef CONFIG_64BIT
-> +#define this_cpu_write_8(pcp, val)	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
-> +#endif
-
-Should these casts be (unsigned long)(val)?  this_cpu_write() passes val
-through unparenthesized, so the cast binds only to the first operand of an
-expression, which changes the stored value compared to the generic
-implementation:
-
-  u64 pcp; u32 zero = 0;
-  this_cpu_write(pcp, zero - 1);
-    generic:  0x00000000ffffffff
-    here:     (unsigned long)zero - 1 = 0xffffffffffffffff
-
-  int a = -1;
-  this_cpu_write(int_pcp, a < 0);
-    generic:  1
-    here:     (unsigned long)a < 0, which is always 0
-
-This is the same problem arm64 fixed in 885bff055a0f ("arm64: percpu: Fix
-this_cpu_write() casting").  I did not find an in-tree caller that
-currently triggers it, but a future caller passing a binary expression
-would get a different value on RISC-V only.
+OK, thanks.  Feel free to resubmit whatever you find better :)
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42475504268
---===============7105721968340737727==--
+Takashi
