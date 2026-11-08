@@ -1,50 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794134091;
-	b=dH/yIsKHfV1yIpaqoIBxh216hkx3Nj1Xbe197mTyoBRoVkKmeADRhq9/mefSJsKCNz0p
-	 RRLcfuRP4E2WjTQVheWWfAqUUpDe9H4OqMLb2XTFWLeS780yM6RIQgXoR7sE+dHcg6tUO
-	 rfX1Uc23sfTSAVG8qfrf84DxwuGY57/5fGMGPuj0ybvlR63Q9OSrGVhjbx4KObCUyPvpY
-	 F7Q0DsewcY1Tfw1YO3c8CXTrn28tRsGKuRLYuYTzhJcW784D4gQTEU2O5rAXMum/KkX3O
-	 qMuvgOy9hCJLnDSagvnpVSnfrsOO8ozED5QvAE7Sf9fIDFJs8MZEsU29GCa9LFR9big==
+	t=1794134133;
+	b=lLn87ns9AWY31b3wA0ZA6eo4XDM2Q13GL2CkRGio/y5NYmZiqqjOqhk5Z+GX+jSzdlOV
+	 uuyYpZJNn5SLzZx6G/lZT9mIDhy/pXjt06sNCGL/w4T3WQNccOxZwmTjNmbjBvTUa+/LU
+	 Ui20R9wnMPsR2ML9Aiu4Q1UGozAekFfNGYl++GjB5rl5gE472J0iWAkGmCoiR2EhdoRAU
+	 GGqzKoB8BoIwzRXEa2STd8hWBVEDDsuew9b31L1Nix7qGhJRriqXMOTNAZUdmd6TY92/s
+	 pnxzmVDVCb7Gvpf/ng/Gv5Nx/QS+YJH+GD5iRyGU5Mq7SpakkRg/z74dnpV96PLqpkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794134091;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=dx+VU+aV7WDRsPAOIw4cTsWt00OkUh2pxMvvkULPiOk=;
-	b=YEcLlMAGaakGQ4SXJRcjGVTZL8w4TIEbTOTnyqgqCY2p9FWqXDm8JGNhCZdw5nufHvww
-	 T0wMRxUQBEAulCB0/gQl5G/emV1o0wWOxgQ+1v3JGwbWGi0M41DjMhmCHkSlKUEv0sbi7
-	 vcM+zi6BTyKWDP7+wtsIJgjsq5MMSzxlw2l8n/RG4VlHNPU84RDYqcv0oEms07mue2RSF
-	 5Sf9o7w3i2D3GALxbjfLO3TyO029EaZlBuGk6erXjuMPQ/Xdo1n1ST/30HEyHNsT4ALdN
-	 w/GKM54bFX7dfHSp5ZdWJAl2YQDo0Sm47wTwlkc4vpTpD7ZBnuoGW9vBQfgNxBr2/+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794134133;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=biMNnuk3Zlmj9i5odT0zZonccKXcOUkOod+xD4mMBfI=;
+	b=uRNWcpJTwwIvxR6j1Evsw+aDRz6SDzwpcBqM5G28VkdNYNIWsYhtTAyNWIyr3zjQpmf4
+	 g3Wjp3SzPsi2LALmfbH2tj7fL3bF0UIhQ323eCsj+pk77GjIgpoP241JeP/gzC1FATXod
+	 C3TEGOnBYPM95C9btCWdV2yDvXR5SDIPinr8paPwY3A1jldN6hu0RUWqkqrHBifidqbLu
+	 l7vVYubixcb/jv/xqfQYyueZpG3OBsvCwRzMnNe5/Ryoqod3exPI07BIglFo4ncnOOm/4
+	 k5zgpp26AyvCAssCrI2pjjF1HJdTG050TQch/jDXIponAaULsNAOGpHDQUTZKZwKg9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6m3DuiP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D1A606A31C;
-	Sun,  8 Nov 2026 10:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D1A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXtLlDUPBq1pKZAA--.18305S2;
-	Sun, 08 Nov 2026 18:34:43 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
- vulab@iscas.ac.cn
-Subject: [PATCH net v2] net: cxgb: Fix skb reference leak in ESPI workaround timers
-Date: Sun, 08 Nov 2026 10:34:53 -0000
-Message-ID: <20261108101200.2147806-1-vulab@iscas.ac.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBAD4606A31C;
+	Sun,  8 Nov 2026 10:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6m3DuiP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634381F0089F;
+	Sun,  8 Nov 2026 10:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794134132;
+	bh=biMNnuk3Zlmj9i5odT0zZonccKXcOUkOod+xD4mMBfI=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=S6m3DuiPCro/XVd9cTVILY+yPCtzVh9cHIV+UfdN6l8+YrF40Kn2cFHQ8q2z1DCtD
+	 4s8UKkireKEwxex+AFmUaSCEcEbwna400Hlm3HcUr961wosTKtozeUVLHX0k0hgrGv
+	 uZ6aTNHBksLDsX3C5IogzhsQTh3Xs2kdeyhJHHOmpaOoKvXYIB9Gl3AZj7mXsDBz5o
+	 DQa5n3qXqViIIUWS1gpYcwxv6BrOmAh9CH/wvwTdBtscnuQyIpNj7m+BsLgrITzmsN
+	 ECGCu7Tq6B5AdbnecxOgF9vIU0YfCNvDhOsOnyyrN2tYALCRMaBr/OyvfiBufmCWxv
+	 KNAz4FCcHKIKw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 7861D2BDF2ED;
+	Sun, 08 Nov 2026 10:35:30 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,90 +52,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:zQCowAAXtLlDUPBq1pKZAA--.18305S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJFyfWr18GF48GrW8Xr1UJrb_yoW5XF45pw
-	4DWa47A3yDJrWIkayxAw4rXF9xua1ktFWrKFyfJw4rurn8Jr4jvryIqF1YgF4DAFZ3Wa4a
-	yrs8Jan3Krs0yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
-	Jw1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
-	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43
-	ZEXa7VU1K9aJUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggFA2rv4zKpNAABsA
+Subject: Re: [PATCH 17/25] spi: atcspi200: add optional interrupt support
+From: Mark Brown <broonie@kernel.org>
+To: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Ben Zong-You Xie <ben717@andestech.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>, 
+ Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Minas Harutyunyan <hminas@synopsys.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Randolph_Sheng-Kai_Lin=28=E6=9E=97=E8=81=96=E5=87=B1=29?= <randolph@andestech.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org
+In-Reply-To: <20261106-mt2824-v1-17-86087eaf5af4@bootlin.com>
+References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+ <20261106-mt2824-v1-17-86087eaf5af4@bootlin.com>
+Date: Sun, 08 Nov 2026 10:35:28 +0000
+Message-Id: <179413412862.3424803.13503591139483354665.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1694; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=nZ4p7qaMdUmUqeh0nBYdZQklXm66HLo9DRQs7Nyk6nw=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+BBSp6d+beeDcy2WPH+13K7z/edOeA5c2WgYkFUt/2
+ b5CKJGPq6OUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATSVFgZPg3m+NHgS/D5yks
+ Qh36OjbTa86LF9nmHJ6w4fPxPbf/ip8GqtBw2vv6YbL1paYdsqznI81qzuZ5rO73OWFmLW6uxv2
+ KBwA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Sun, 8 Nov 2026 10:09:23 +0000
-Subject: [PATCH net v2] net: cxgb: Fix skb reference leak in ESPI workaround
- timers
+> For PIO transfers, the driver busy-polls the FIFO empty/full flags and
+> the SPI active bit for completion. When the controller's interrupt is
+> available, use it instead of polling to keep the FIFO serviced and to
+> detect the end of transfer.
 
-espibug_workaround_t204() and espibug_workaround() take an extra
-reference with skb_get() on the cached ARP skb before handing it to
-t1_sge_tx(), so that the skb survives until the DMA has completed.
+> +static irqreturn_t atcspi_irq(int irq, void *dev_id)
+> +{
 
-When the command queue is full, t1_sge_tx() returns NETDEV_TX_BUSY
-without queueing the skb, and both callers ignore the return value, so
-the extra reference is never dropped.
+> +	if (st & ATCSPI_TX_FIFO_INT) {
+> +		n = min(atcspi_tx_fifo_avail(spi, status), spi->tx_words);
+> +		atcspi_fifo_write(spi, spi->tx_ptr, n);
+> +		spi->tx_words -= n;
+> +		spi->tx_ptr = (unsigned char *)spi->tx_ptr + n * num_byte;
 
-Drop the extra reference when t1_sge_tx() reports that it did not consume
-the skb.
+You're casting away const here for some reason...
 
-The candidate was found with static analysis tools; DeepSeek and GPT-6.1
-Sol were used to audit it and to help prepare this fix.
+> +	regmap_read(spi->regmap, ATCSPI_CTRL, &ctrl);
+> +	ctrl &= ~(CTRL_TX_THRES | CTRL_RX_THRES);
+> +	ctrl |= FIELD_PREP(CTRL_TX_THRES, spi->txfifo_size / 2) |
+> +	FIELD_PREP(CTRL_RX_THRES, spi->rxfifo_size / 2);
 
-Fixes: f1d3d38af757 ("[PATCH] chelsio: add support for other 10G boards")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Also fix the same leaked reference in espibug_workaround(), the
-  single-port T2 timer callback, which has the identical pattern.
-- Apologies for the very late respin; v1 was sent in a batch that went
-  well over the netdev posting limits.
-- Dropped Cc: stable@vger.kernel.org. This only leaks a reference on an
-  error path in an old driver, so I leave the backport decision to you.
-- Rebased on current mainline (fa4ad798f6f6). Build-tested on x86_64
-  with W=1 (CONFIG_CHELSIO_T1=m): the cxgb module builds without warnings
-  and checkpatch.pl is clean. The NETDEV_TX_BUSY path was not exercised
-  at runtime.
-- Link to v1: https://lore.kernel.org/all/20260917105425.2147804-1-vulab@iscas.ac.cn/
+Weird indentation of the continuation.
 
- drivers/net/ethernet/chelsio/cxgb/sge.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> +	if (spi->tx_words) {
+> +		unsigned int status, nb_words;
+> +
+> +		regmap_read(spi->regmap, ATCSPI_STATUS, &status);
+> +		nb_words = min(atcspi_tx_fifo_avail(spi, status), spi->tx_words);
+> +		atcspi_fifo_write(spi, spi->tx_ptr, nb_words);
+> +		spi->tx_words -= nb_words;
+> +		spi->tx_ptr = (unsigned char *)spi->tx_ptr + nb_words * num_byte;
+> +	}
+> +
+> +	regmap_write(spi->regmap, ATCSPI_INTR_ST, ATCSPI_INTR_ALL);
+> +	regmap_write(spi->regmap, ATCSPI_INTR_EN, en);
 
-diff --git a/drivers/net/ethernet/chelsio/cxgb/sge.c b/drivers/net/ethernet/chelsio/cxgb/sge.c
-index d8fca697874a..87e6dbcc3ed7 100644
---- a/drivers/net/ethernet/chelsio/cxgb/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb/sge.c
-@@ -2052,7 +2052,8 @@ static void espibug_workaround_t204(struct timer_list *t)
- 			 * the skb once the DMA has completed.
- 			 */
- 			skb = skb_get(skb);
--			t1_sge_tx(skb, adapter, 0, adapter->port[i].dev);
-+			if (t1_sge_tx(skb, adapter, 0, adapter->port[i].dev))
-+				dev_kfree_skb_any(skb);
- 		}
- 	}
- 	mod_timer(&sge->espibug_timer, jiffies + sge->espibug_timeout);
-@@ -2084,7 +2085,8 @@ static void espibug_workaround(struct timer_list *t)
- 	                 * skb once the DMA has completed.
- 	                 */
- 	                skb = skb_get(skb);
--	                t1_sge_tx(skb, adapter, 0, adapter->port[0].dev);
-+			if (t1_sge_tx(skb, adapter, 0, adapter->port[0].dev))
-+				dev_kfree_skb_any(skb);
- 	        }
- 	}
- 	mod_timer(&sge->espibug_timer, jiffies + sge->espibug_timeout);
+Do we need the TX interrupt if everything fit into the FIFO?
+
+> +	regmap_write(spi->regmap, ATCSPI_INTR_EN, 0);
+> +	regmap_write(spi->regmap, ATCSPI_INTR_ST, ATCSPI_INTR_ALL);
+
+This just blindly clears all the interrupts, including the under/overrun
+interrupts but we didn't handle them all.
+
 -- 
-2.34.1
-
-
+Mark Brown <broonie@kernel.org>
