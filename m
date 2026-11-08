@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.242
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794158654;
-	b=znReis/if3SAEz7p5aBOkFy4/1u12cQYN1zJpckZbuiJ8tUW1IJTRjPbSakEzdpq2D43
-	 GYUhmBm4Y7QS8r+JhIYGRufFb9LQw/2+LiZnf6qNWcHuyihyFFdOc9HdYXOxp5nnbzr8W
-	 7FcVcSNFqQhVTGuKa5B5k/SawBKx951voiDXWI6vois/MTS4esyCES0UsaBN+Nk8fR882
-	 ECEV6WfhBaS3+oTWZUHK//EIapDTm7EEPsoMvPHEKgLrfI2BWLMBJxLWBibUG7GhL5En2
-	 E3aGdXNXv/J0khpUb5HZC/LViaijEZzVt192UFleEEM3AyN3tfbrXEC9Ut7rFsEmfoA==
+	t=1794158666;
+	b=4eGzS1QQi0BDZnMiWzB+YQGo0rhkWJk80AydqGifxgJ1wyfn3bqr95BM3MbnZOUSAve2
+	 PyPskA+mr5pT0SgKegq2G5z185Is5aiHWDqBJvSH6dN8Y2n/hdmBlqUzu4HwsdUtNZIIm
+	 jFrgNbgSn6pl2bBItjaDFEe+dmYkKFQUVFxudZ+wWFuYiT9hq6WlEJFKCl1LUKryxxH94
+	 RkB78cz8l3/+/2EdRRiUJ2axHGwyTFq5748vXz4uCpwZakk1opZE0NxiITeqVQHrjlhx9
+	 sCy6KpPl19em9ZZiHav4m/GiOd/AYVMddawNefy8k3Sc1qr1toMVbiB0Hur/WTSl+WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794158654;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794158666;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:In-Reply-To:References:
 	 Date:X-OQ-MSGID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=HbNpAbrZVEZQTlmCEV2LYqZfmhBEuxDyUHjVFrUu/Dw=;
-	b=RD5W4uyDS+Ee9QHkIhOL5UHzDJv427e2rIDghwM7vQ6aPLmmYmH9Xl4pb1/nRpW/6+cL
-	 6kNrptt0iaqrijgTry7HqSAWl96cMIOl5DEvKDtmT0QRyJmjmjVd9I1PsWTpUOda7U/kZ
-	 vnhIqQc61KbTNzyoimaQ86FLf/7o47xavBbr2HKz4N/dqr150JPtzmsAsTeugaLBvPpNd
-	 C461mwEL8O27VQdAbBKiBWBqWZTGGqt7ZvMxshWaTXapNi+fqJipuzkrNLSqmUSCUtF8I
-	 pV2YXVD6G/G5p7uJkYk4BBfAYEvvqTP9JOnBtRZuqDQ5RQjcUPPeC3MtTdjTE4ZRx7Q==
+	bh=Uph41UkqGjQUP560n01miDrOMT1K32aU3ytT2ZOEJi8=;
+	b=Fy1RI/4GSaxLVP0q7yyWYOln4CbcHGqAj6yPeZPF1j1k9dLS/Day+2SZy711/bMUbyXD
+	 tJoVLw1YsesJaQ6zFi5q9euqv5VLps6FYSFwrxPTotZxD7NDA7Gh+i4yPPBdbmZCdLH3z
+	 PK8xascl2HfT+oxmeLipWm2bxygiURYHANF7wFlaMO0J8NwhquvtM/D3h4f7HWzVv7O0X
+	 bfx7aoReokt0GAsrnSKM1vf9BL5NO52HtxerIfllU1IkknKnsvj+cV+JDoU1SS6ufeNYw
+	 JJP6D0k7C2T6cXbdOZ8jT7SAZnVaLN1T4AeyhYXhkTMiqsQSYl2KDoMBDXcOkMLf+Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=MR9U6oZx;
-	arc=none smtp.remote-ip=203.205.221.242
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GTQkV0ma;
+	arc=none smtp.remote-ip=203.205.221.245
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6794A606A339
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:24:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6794A606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEDA606A322;
+	Sun,  8 Nov 2026 17:24:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FEDA606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=MR9U6oZx
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GTQkV0ma
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794158645; bh=HbNpAbrZVEZQTlmCEV2LYqZfmhBEuxDyUHjVFrUu/Dw=;
+	t=1794158647; bh=Uph41UkqGjQUP560n01miDrOMT1K32aU3ytT2ZOEJi8=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=MR9U6oZx6DgD50LJX+pBj+h2vxoP4KD6JyvS48TlLtKqYMyEQnieoTzhy6Dfpf6RY
-	 oe+OIqLytOOmkqO8KmVuqMzYce58iHCn6A8jh0emO3skA+Y5tNFYz9+U3HcGO/IOFV
-	 ZYIqRGWgbKBLT2vG37EN3paHTCQmocNk6SgBIXOQ=
+	b=GTQkV0ma1+kymlQV4NILc6hlv5x7VL2Xv9t5qJDEo/46W7cSjWakGHSN4rVzOSLIF
+	 w0q4c6Vp1bsm1gyRPWhy1niHaLR3j2E4Hu31R929N2+DesA1Sb568F5uPiIrBPN4Iw
+	 nJkzoMtkGdW1sqoNfbrNHr+WufqhQYN80Swf9nXc=
 Received: from [127.0.1.1] ([5.195.0.150])
 	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
 	id 5F906C5D; Mon, 09 Nov 2026 01:23:57 +0800
-X-QQ-mid: xmsmtpt1794158641tzukiaruw
-Message-ID: <tencent_A1BF4495D1F5E54524907BBA2A4ED480FC08@qq.com>
-X-QQ-XMAILINFO: NQJsl5QovJ//diN/Mrg6brYvtP6sEdsD1yFOwDkqqSRL/drc/dnK8D7SLPoCcc
-	 2/QWI5q1buzhzfLlCn9m90dyi5SBT5N7Ws1U8tCwG8XKZJ1amKZprNexE1TTvvyl1jR0cflLc6nf
-	 7gj4432lrkVFkjTXfSdxvoC5yrYuHXW0JvUWs813mUoBodgk6a33cvmNeGJrHS/EwE347tTKlXSi
-	 27fXEQ2tCwCLSq9mEO/H2LQmxCwBGJ0RSd8mqOadHc5neu6VeIFm0MLqVCUkyPvbQxWK5J7WuEnM
-	 nvBQvWCyQNj2vgxuyIvhjz7dev6Muwj+aa8ZMJaAJ9uI2QyaDvEe8dKxk7xJjroDphqK3io/Nr+r
-	 k0jD8bN7Qv3yVOgmQt6zBgDmCFevr77tiSYTzimWTaxI8wnFoG06dr7nKHhy7iNTLOhVkQvudDz/
-	 hLUwbbavm6BRzdYUaDMhb6KVZzV5EQGaW1WxuqyCy5p7ZswPvHjH7Scv40qL2xThO3ND7aQmd+N+
-	 J6ais06FoCePQOpbQ92v9LpwHstJAnOh6MbWzH2aA/Kepp7X3oSjSXC7V/3YlkqJlWY3MvIQbbWU
-	 NgYjLi3fDfr0UUUpZHeDmYbi/mmVVp5XbLqhKrqvrIrS9M8SKj7sA74aPzdV2R5ximA+M0tPjl6n
-	 jHCozvAAEoijsWwdVzfk5QaxK8sPier0nczUGA49UEaDiAPh59qTxeiA9ct1+gz5jU7TXiUQOnDi
-	 hIZwGIQ9NTu7FlyIUZQAVerLWAQOo/ZERADw+rkw6o1/iH+CnuuyVaQTvCsjPVVVosuLHo9uaPI2
-	 0vUCtdcfbSmQDu7JT5UIa6aR9AqDu2xtGtheKnMcnOxLX5SKHQ2EERc0A8tGP6nnaGEcAYLCOJr5
-	 /QUQIO6tzBiFQy9rDYKCeWZSO8qg4tjdYA2c68S7y1WpxEf1vxtGk3mEGtxPsyJAOOktiUErJaSZ
-	 Zk3CFeuvEnhqDk49wYG/E3ihW9F51idglGPvdXO4mPqzR0eCvdtpJX+uUBeHM040mFsIfmREotxe
-	 QLEU+9jVhzGtckxvE+n2qmjFdgL5CQcsVN78RlRMcl2AxDVGntNENdLvqVW8k=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-mid: xmsmtpt1794158644tu8hfzrb5
+Message-ID: <tencent_11CF2A63EA538A0E205F74A39C4000BB7F09@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJGSzjYY2IEl9ePvvG2kWUhZ183zFD0kw2L6B+33AdEX0FZFFhhf
+	 X3TtxeNaAmOnFUZ1En1MvPGRsNdXnnisuPN/Otw0nT7/zMNBS68rl3/5UdvwUvtVwEgkTReOqC4l
+	 gwq5PbXRL+7x44ibyOu97tEXzMoFAuuuow1csCiHEU3MYT2i397At9sL4mkmjm14GQGBS5eE09t3
+	 Z/agsENXtp/6Tmw5LHg+6tTWinlTkOX67A0Mv0pu5iOo+qLtWlFT6Qwyp2yeiG1TRS6SFHqenxpI
+	 Ryl7QWhrdLvmPHEaw08iJ5uIZiQS22+mEotAg72yPuSj9IOWyM8ROL1Ep4h9K4CQk9h1nGd6L/Lk
+	 MzF+2VE2Xj1eK4DQYhPGius02uXMXWlsACDsrc27ynrcx6K7BLAgxiqUhVaX2t5FazcbJS4gGaKm
+	 OUcUHMORhLxnWtrsHy4Z/C5wTla1Eo+UHMUJNZfyHcKlji/4yYU/LTmTrlt5FZ9PAbOXttWnrMKx
+	 D41AjtjuBq1AaYb/am1KpQTukq9+sbXoSTb+L72xfhOxy8j9qRM9KsymVWydslRrd9DilGQYc5bw
+	 0JPIXWJ0Amx0tAZ0bHgU2roVjEQaCDr6nhpwc7SeMv6iV/4yGAXL24CMhlz8+beE2j0YPzW3PkCy
+	 Dq5ZKOOL5+f+20dRly8Hz71uLTOoQ08V+TeqdFhz+e1xTLgs9rw0X+qZUelO/h5Ymk2QWmUE7zwN
+	 OqYr7fh2evEi0yfrpNyFKR8l3d3tO13JaqXwUqtgWks4BpX/MHzpTytI94nZyGfstnaGV5hpy9Tm
+	 XVGecZbZGXz3zrD38BWd8ZV8dozKB/yUnPFl6UaIfBLYFhj1O483ErouJaUXvXOC0cYItHgYLU6S
+	 N7c9Q4QFEWJapcYDKQ6UmRp9d8N+f9WIy/n+wD3vCF6ybgYl3OIKgNssCi+XxFNThoT5jQxEhNYx
+	 e3LaUvTohi7ouzn+2UiyrfPbhRhuhcbBF0yGeoxn6vvGSjXddJPZPjRD4vK2WN2EmvvpSOmc4DJV
+	 BzrzoOMqhWHqMpHiw6rvb6sOjt3uygVepJGWZSG1IyrcaOIPClFlujmX6TaFq9FFNvmjdEVw==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 From: Jiawen Liu <1298662399@qq.com>
-To: Andreas Kemnade <andreas@kemnade.info>, Markus Elfring <Markus.Elfring@web.de>, kernel-janitors@vger.kernel.org
-Cc: Grygorii Strashko <grygorii.strashko@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>, Kevin Hilman <khilman@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-omap@vger.kernel.org, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpio: omap: handle clk_prepare failure in probe
-In-Reply-To: <20260820154323.0a7c7929@kemnade.info>
-References: <tencent_B4F504456790E8BA3C4EAB80F4BFB6954E08@qq.com> <20260820154323.0a7c7929@kemnade.info>
+To: Andi Shyti <andi.shyti@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Fabrizio Castro <fabrizio.castro.jz@renesas.com>, linux-i2c@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: i2c-rzv2m: fix runtime PM cleanup
+In-Reply-To: <tencent_A4A9EBA18AE8212574B59C8001217FC12A09@qq.com>
+References: <tencent_A4A9EBA18AE8212574B59C8001217FC12A09@qq.com>
 Date: Sun, 08 Nov 2026 21:22:12 +0400
-X-OQ-MSGID: <179415853265.5.12140574398809517213@qq.com>
+X-OQ-MSGID: <179415853265.5.6235275888247384277@qq.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,15 +79,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Andreas, Markus,
+Hi Andi, Geert,
 
-Thanks for looking into this. I don't have evidence that the debounce clock
-in an existing configuration has a prepare operation that can fail, so my
-original description should not imply an observed failure.
+Thanks for the review. The description was too vague.
 
-I'll check the clock providers and the devm_clk_get_prepared() option before
-deciding whether an update is warranted, including whether a stable tag
-would be appropriate.
+The probe path calls pm_runtime_get_sync() without checking its result before
+initializing the controller. My proposed failure path drops the usage count,
+but returns with runtime PM still enabled. I'll review the managed-resource
+option and the complete unwind before preparing an update, and explain the
+failure path explicitly.
 
 Thanks,
 Jiawen
