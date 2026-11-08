@@ -1,109 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794105628;
-	b=ujBsV5wh8xCsfORZLX3KSIKBKobhaLYhuKNnEWURnQ6r/W0NRecr07e/2VSya5ZRmS91
-	 DetvyFrErktbUwwCZ4v7V52eDv2DZ++08oMERW8w2riPYXO6MFTi1xsnn6o5vN6WNO5+u
-	 nx7i1aG1Z37x42DkXiskzohZt0PIQvTtPcNU1s+jArnRRVcfvV8TaniqaQutI1N5htMUF
-	 YClBuTHPuRZvIOQ0WSEKJKM8Pdx6jcgX8IKhJRg29br/tndpyiRtjJFteVShLZtrAB6b3
-	 lDwOExRxpQcrKeybU1UwZ3MdX46o0zN0yJ69tsgi/DiN+CPM6YY1GKnD//cj4fQYC8Q==
+	t=1794105809;
+	b=yon3/oN4VmH05V06QBssaXYsKKfbVElRml2oTNXnRqIoAq4DJ2e/uFwpJ4RqsJ7EHFPD
+	 /3WPfdulVg3jf/7RIpv5kQQPDWPL8s9xM/i/le1Rsqffs376YMjIWwnBlKlQVzMKFZUxN
+	 g43y4EfwA3Y70SPWJQM9CrvxXZdF9iNXCS2fTB1AKHfsmjS7Hn1nHDPV2zP8k5ylgfYMZ
+	 JJnnAL7VE1rp65obQPSWW8r0F3o69W+xXwB/CGHSDWKcgrCoRamwVD4sJRiX1a95EKVi8
+	 tAHl9dgGrRw77v7XK+hVtpp8mzSAUL2O7iITBSBSIP/W8Sp7Cia5QwB63RApdElkqqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794105628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794105809;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=oKWYlAcY6So6bitWGtla4+mL7IVkoD8l6fm1ubuoUDc=;
-	b=iMQa3hiMM99thJ7cY6E+FERfxd6292hOB9HlgQga4z0gS/JkNT6KIgGiZuVQblKMhsGc
-	 cc3YOTlgM1T137yshmIScY0Z8SWDDiwi/oleIzaADI5y7l8B4Wvh4sE0tTA6HyrpCKD8B
-	 MayvoiAHvPT+tbNMOS4sIb/8lD6Yf0Z3+ILvAjQvd4NXOnHRbnaphn2qLNiZ1hQa2OyNO
-	 POgDCVNHNXGZjKhXmwFSUUmRZMBdZdPcU3AicRvp9PwFdKzQzzjCe1hSSgCUzQNW/iYJp
-	 W4EWyo1tH2WzYrQdsQ+wyhvP9xD7mIpy+2tm7aVdpHgQttyp4e4Br5YySznhAz+j7Ug==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NFuoGXXrkyFliEzMqju+9q+B5cpIirOFosUPmdC6VLM=;
+	b=Rst8mndcOMuzJy5To4k9xullD7QWKJ9Rf0hTFXA9k570UisBBKAK7DZzD/E5J7hPSxHR
+	 6lAtxU7o3WBvWdjIQfyb+URdvG6afcwYoB0TwFlnQE5lY56Ro3eFe6SumiBXZw9vcrKq9
+	 bozwPs2/0sPtVz/ft8d2Rmazx4IOSQLqTHObx6aMNETHPzWKFa7cHdnTSEuFo1mtrX9H8
+	 YIgcoksVTlsWdHJA+FLW0BoeIRTAInZhbHRYdouRX3JBCzwFffrrh1lZVQPQ2bpb51HGO
+	 uhXxbfmVKTeOoFxKDBZ0W2mNQczpgiqFq9qSr4Aj1KBWhsrhR0jZWxGvZCamjSGHh0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="UXwIo/X0";
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dmarc=pass header.from=arista.com;
+	spf=pass smtp.mailfrom=arista.com;
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jl9pwlY6;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894DB606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:40:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 894DB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1ED606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE1ED606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UXwIo/X0
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1ae18eb9b69so56166c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:40:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jl9pwlY6
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3720addb068so221957eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:43:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794105627; x=1794710427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oKWYlAcY6So6bitWGtla4+mL7IVkoD8l6fm1ubuoUDc=;
-        b=UXwIo/X0nMEY8pSegQDtBBDEYOgg9buMlNfVpUCJaCPxyDBW4GKuSMiS2XCK+ywzep
-         YLB+FEBPjeG0bpzVlVZjMHkwFPnHmvbNMfI/9AKQC7cDXrmyc22Dm2q1c0QBbHcovDJM
-         c6TJ73vjHeeun2Op2KyYulh+TNEFpB58UO+7biqirYqdHGmbO+KDXbpOr9SiWBjvW2lZ
-         +hfZ7CgxvpS1YkJIRXIz13FGfANie7uYVWLJWTpLaIV75vKq8eNHpF07P+Hr/z1w/H+W
-         preiWv4kx455lOfOGj0+SIf+7MGQBF3kBa6Lb1UgmN7odrLkuXd+JN8FOYBXmF8RPEjI
-         tYDg==
+        d=arista.com; s=google; t=1794105808; x=1794710608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NFuoGXXrkyFliEzMqju+9q+B5cpIirOFosUPmdC6VLM=;
+        b=Jl9pwlY6Vz8xlJjs9eT7zB2WA7ep53ej4TTB6op5RXS+tQr+kUo6q8+nqH0cWxg9mV
+         PUvdsc0gXlDmdLJcC7H4qJTR6t04xcbZT9aot/C9RIt1pJh1xHBqYTriHsQfOCz1YLWD
+         zfJFnaeaySI8KlwMOkjt9fth0DtjnRHtVtFonr+ShnG1xghQIR2aWntFTfLMf4iRS6OU
+         EYzqYzHJGff+dyDJkJTYnGqSdiYYy6iyyAoducnEJjfoWKgz64MSFCPidpF8bk9psPrG
+         x+JsF4OJXq8lj1hRQifAHtXf9oV9pOthlqo2MrsAq3gUsn760llk2LhRHMqa/g1qS86b
+         cirQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794105627; x=1794710427;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oKWYlAcY6So6bitWGtla4+mL7IVkoD8l6fm1ubuoUDc=;
-        b=XF5QzA8DJ8BOqt8quIw06FGUSgY8YnfrZzxSo5pNW2VxOGD3LUwFvLjxWcdKteSNwL
-         pr70D64Ie0qC7cLUelCf6fdttzCZ+sOPytZt5pASXktAie1rrNsapv2mzCc1Sl3CTZlP
-         o9yJFcx5wTEwTSrj1NVTCdE1++/d0m5rImmNOn83tRSCS0qFntG6r+kkyG/pvSaqqxdL
-         vLsZzP4Vfv5Dt/B9xdlQps9WISZJgGJw9kSAmD59HCKQoE+NR2pGiD2DUi6310g9kjgx
-         dsK0kqOlnautEdXoPgOUWJUDwTid0kAWQhjIsR8VRxb5o5cMRuclmakVegcXWlZ7nt5p
-         ljVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1evsJ6KV12gQo5kfkSfb0EMPlbUhtBFNzO6ved6WCat14fbxNQ9rKm1XwqyBy9At7iLDg3JcckTPV6IQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9v0tmZUAUrDcTfWoCjBQqMi09VWZSbjNwPwdyUCAjk4Sj5Y/EU
-	IK8ae2h0VGAkp+skKbJhuFkkQfu9uCfZ0sXTX8HGEQSQ2o3ZKl2oW2fu
-X-Gm-Gg: AYBFou0OyRdZoDCKMr888z+w5Wf6PbdA6zpekCZ3UyS3kfkUPjmPRltOH8tqneQ6jOu
-	JS0vkjmj0OtVBiCjdY6E7irSjtC7OQ1tL48eTMFVDboRatwzzI8ODpsBmNrcRj3Uou3tvZWhF9u
-	GZA9HZoghFHhHdwdrBonez0xeGh7CEOerZEGQINDclYiEGPFOncTMe80NIA3K/NlOppzBx3J0ot
-	2RQKngZaYm5c1e47eHL/BrSivShvJ6CyRqb5kzlkyUa5DpgXzdN95pejmAfN1cJ3zDNO7aZrCTV
-	LDTBe8q+AZICz93I7ToVkwv9FN6+nYmU4Pg7kivFw+gD5WOSuINjY7fUzYyyJK3pf4ORUbwpz1p
-	fao4fvMnywek8TYVqUdpuI/9B7xN//aSdE7YaygwRsoH2XMMrZYoI1lZPf89ogFBKND8WN1EbOU
-	OhigzPlpSohu1e6F/OBfSEpiaMbVMOvMhFT50sEwR711E+fr6BBVsUfawLX5HXqH/1QA6IBbyCF
-	V+VDs1F3HDrkFuv7vJ39oV/dI7BnfkgxEPEoSYExRXj76XgdXVEswwWIFV3fLpzLl7FK/VpVKWg
-	zEkBbNmyJRzopZam9T/P
-X-Received: by 2002:a05:7022:29b:b0:182:6c6c:d876 with SMTP id a92af1059eb24-1b39fec1c25mr452900c88.8.1794105627500;
-        Sat, 07 Nov 2026 18:40:27 -0800 (PST)
-Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771e5728sm2228842c88.16.2026.11.07.18.40.22
+        d=1e100.net; s=20260707; t=1794105808; x=1794710608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NFuoGXXrkyFliEzMqju+9q+B5cpIirOFosUPmdC6VLM=;
+        b=CLQPMXkmGrDsoVT2hdp9IU+6nxYzDlOVKPXhQOO8c/BdhB2+3/la5zHo3YX7VDHyDS
+         lNqA1J6dsewzGtYyWOA7LPNL8dcceC3bMcsYzJSPBw2uVAzi+jZNNTroiFUwAbWk9TcX
+         7HFB8OPAWHjsPxD1/6bHE/6g2+DpyiZG05IkP3ocUtWqN088BTtpZe7Xl4eSyq04uGV2
+         nz0Nmqk8/1H1iPGiplZ8V4QPZV3X+A3YVMA4CMrRI57fl+eyKnS3/IVcuRVmLqQk/4oC
+         PA7mUCroUzTc0YtquzpmTyNH63bqFkB5AmamS/ucjNYlblBclhYXUM4Xf7oN25E8/VKT
+         bV5Q==
+X-Forwarded-Encrypted: i=1; AL+hErET24cxQ0yR+ckLzPrP2UavRLFJA1qcpFfUvrQ3/35O9QnPfTYkjuZdeetfgHvUiyurLymOBoJVZkrOKpk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LwDMHAT4xQwd5bXI6SxrtxwNbpOJm2/+nWWbofeTaAmwsJ0hF
+	JZC3y1aPDTvODeigFr8Cz/1n+IZiqLhn5N9wnGuN4KZmu8KPH+YMckQFiwqv1VMAAQ==
+X-Gm-Gg: AYBFou00atrulhw2Y1xJhVWbCs7AUIgy0NnlyM/mZoQK/EZbgoingkDcFFqVR1aebvX
+	A85kEVv31QC+nisqys7O220OND929pq8KiXvC1BnktUng2rp9tEPnHhDPyG6wfWv2oL27a9BB08
+	iivrBpx96+jvtGi3J+YjsYUtjqMcNJ1ss/BXE4OPdlKVZOhn6Or7rRbJwLux7oxY86k0MI0PDIe
+	A45uHB+TX+Fy9PYWWCJ6wqqfMN+qsHcopirkWKoh5QmV7buwwAbnMHiPius5sWuq3g8h5GvHzvg
+	kSx0xdcZPGqWoVyM4DK35ywAgsMWDEyTgzt1MSR6rssTDMuryXZok9ODFGb9qoQZRjGndg9wUPC
+	JcrbfLwf0bcMg7i+K90CPH3ygfmqWfttVgvCgoNgQstGq15mWciSPXw8Qk7tuYLoOqvEZlJGZ9y
+	GEDRIh4dMyHkl3d2SOuPtcmxrItKW8zcusHODcTPLydds2DjgAC1d1qt4zYuq08E5MSjUkwqFCo
+	Rkxyu3igUrd6DGiiknsaEtHu51wV6slkyuHKX4qKnqZi+hs+Ic9jMDfqNzyK2N5Y+p6VX1ayQtG
+	F/bcpY2EYtM9U8pbkA8tn9PQ+/eJCRmKPnN8IvMD18RUg/T+tGzbp1KZsTtMqGIsdX0jVCYAIUe
+	bz0uo/1ZS2w==
+X-Received: by 2002:a05:693c:62dc:b0:36f:5746:3369 with SMTP id 5a478bee46e88-3725807c859mr1143986eec.24.1794105807738;
+        Sat, 07 Nov 2026 18:43:27 -0800 (PST)
+Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372665db8bbsm1681203eec.22.2026.11.07.18.43.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 18:40:26 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Stefan Roesch <shr@devkernel.io>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-mm@kvack.org,
+        Sat, 07 Nov 2026 18:43:27 -0800 (PST)
+From: Matthew Parker <mparker@arista.com>
+To: pratyush@kernel.org,
+	mwalle@kernel.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] mm/ksm: align smart scan skips with the scan number
-Date: Sat,  7 Nov 2026 21:40:19 -0500
-Message-ID: <20261108024019.1195186-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <7df793d7-55dd-40db-8455-1f22bb44193c@kernel.org>
-References: <20261107-bug-mm-ksm-smart-scan-align-skips-v3-0-16d5ce8b5fd6@gmail.com> <20261107-bug-mm-ksm-smart-scan-align-skips-v3-1-16d5ce8b5fd6@gmail.com> <7df793d7-55dd-40db-8455-1f22bb44193c@kernel.org>
+	stable@vger.kernel.org,
+	Matthew Parker <mparker@arista.com>,
+	Adam Calabrigo <adamc@arista.com>
+Subject: [PATCH v2] mtd: spi-nor: gigadevice: Add support for GigaDevice GD25B512
+Date: Sun,  8 Nov 2026 02:43:17 +0000
+Message-ID: <20261108024317.898917-1-mparker@arista.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,46 +104,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 11/7/26 20:51, David Hildenbrand (Arm) wrote:
-> On 11/7/26 17:57, Qiliang Yuan wrote:
->>                               before     after      after/before
->>   pairs merged (of 420)       361        420        116%
->>                               334        420        126%
->>   pages looked at per scan    1792       2048       114%
->>
-> 
-> Oh, I was wondering whether this should actually go to stable? Do you think the
-> above is rather an extreme case, and most users won't really run into it that
-> severely?
+Add support for the GigaDevice GD25B512 512Mbit (64 MiB) SPI NOR flash.
 
-I don't think it is an extreme case, and the test above rather
-understates it: it makes the second page of a pair mergeable while the
-first one is still young. The age of an rmap_item only grows, and is not
-reset when the page content changes, so on a long running system most
-unmerged pages are past age 8 and each is looked at every ninth scan, on
-a phase of its own.
+The chip exposes valid JESD216B SFDP tables including 4-byte address
+instruction tables, from which geometry and opcodes are discovered.
+Status register locking is enabled. Read, write, and erase functionality
+across the full memory array have been tested on hardware.
 
-To check that case, I let 1800 pairs of unique pages age for 32 scans,
-with the second page of each pair made mergeable 1 to 9 scans after the
-first, and then gave both pages of each pair the same new content:
+Cc: stable@vger.kernel.org # v6.1+
+Co-developed-by: Adam Calabrigo <adamc@arista.com>
+Signed-off-by: Adam Calabrigo <adamc@arista.com>
+Signed-off-by: Matthew Parker <mparker@arista.com>
+---
+v2:
+ - Drop .fixup_flags per modern SFDP discovery conventions.
 
-  kernel           pairs merged after 16 / 32 / 256 scans
-  before the fix    112 /  200 /  200
-  with the fix     1666 / 1800 / 1800
+ drivers/mtd/spi-nor/gigadevice.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Before the fix only the pairs whose phases match, one in nine, get
-merged, and the others stay unmerged. Three more runs of 64 scans and
-one with 128 scans of aging gave 200 and 1800 each time.
-
-It is limited to content that is not in the stable tree yet, since KSM
-pages are never skipped and later copies merge with them, and the cost
-is memory that stays unmerged. With smart scan on by default since v6.7
-and the fix being small, I'd lean towards stable.
-
-I'll send a v4 in the next day or two, which also makes the new selftest
-helpers treat a short read or write of smart_scan as an error, and can
-add Cc: stable to patch 1 there if you agree.
-
+diff --git a/drivers/mtd/spi-nor/gigadevice.c b/drivers/mtd/spi-nor/gigadevice.c
+index 6a2e6ebda148..fe05c0f0370d 100644
+--- a/drivers/mtd/spi-nor/gigadevice.c
++++ b/drivers/mtd/spi-nor/gigadevice.c
+@@ -64,6 +64,9 @@ static const struct flash_info gigadevice_nor_parts[] = {
+ 		.id = SNOR_ID(0xc8, 0x40, 0x19),
+ 		.name = "gd25q256",
+ 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
++	}, {
++		.id = SNOR_ID(0xc8, 0x47, 0x1a),
++		.flags = SPI_NOR_HAS_LOCK,
+ 	}, {
+ 		.id = SNOR_ID(0xc8, 0x60, 0x16),
+ 		.name = "gd25lq32",
 -- 
-Thanks,
-Qiliang
+2.51.0
+
