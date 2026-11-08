@@ -1,48 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794140440;
-	b=MstQCsH6ip9V/yZ8e3k4aD/ub8g6+pijFmRBRDXi4qv31nnsj7nvk3ZpVdpBXU6z+1yH
-	 JeqejLNSJJSFSiXRfp/vo9U0e2VzMgh/6iVl3F6MZm+Zj0OcRb9lbxnrZFJKsizcUhkP8
-	 RA4asFftFdYRyH79rj8knidMD4/SVIesg5cneGDm8LLljRphVegm0ahTHNblplFqUeXZQ
-	 yWwBFMCx2P/hT6j+vu4bQ5bnMUcen7XNO8kVNF3z1k6+yHnz2faxgxH9H2S2sDOtBvicf
-	 1dpMAA7jAlexOu8aT5IJLpg9wTs+kmDz9LqEjBOmGlNjZDeZMY2Rm3eRW0bFlFRF9rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794140440;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Z0y6eaBsxzUThfzx9UP13uc1XtIr/6AqzMc/qlXa2WE=;
-	b=puuJwLH4jAuEYH9N4RSUPUt5a9qkWzxgrMi4R8vmTDOP+srDbdV4fm0zNOy0lKXFQD00
-	 XGxwi1xNxx5y5rNlOVSqBgXM3rAHfxPo9+BnNb9lr6J5tU4UAzPxpghRn5oN44+F+x18k
-	 TTgSNgZhdjiozgcrQM2Vagw7HteipvPAtdACSyZGTChVmpwziEN6F6IRqvKmnwwFFpD4D
-	 afBFZCbYG2bpqMfA1GxVaXMSWdGl70iaZ7eV7v7O3pv+GabhwF/TfXnLH7SCPoCYjC2xP
-	 DTe7Xy2jtYqtz8bsb5kjU+rsvTYGZzMzfMnZtAxiqooBZMQZAn/oXRh8gf/fUWzNR0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXcXN9RA;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794140540;
+	b=4mNgmyqqfKdAlu9AfLkjpdEOoZE8aL3Pgi8fqeZTUD3yZet47JsF4m/CDWOl8lj6luQd
+	 jtkwiDGg2uilY5xaPRZiSUlwzJFAzDjQIKGmrcqmJz3oE/L2bw0crLaMewQ8t6dQ/A7dp
+	 q+KDjYvYpSJRdRlvqq33jfDpKec5cdim1kbSG6Zz2/3qkvoyCbcKFgX0S6NFtH8wIIOVi
+	 8zXD5eeZAiHxFKKuSyqeZmJW9xJknKt6Xb4nHHOMvoUrwdnfkG/lHQUGbiajJI52FqCoM
+	 HZUStsdPRDhONsWrZ/q7d5uIqW6imGTWH/8xwWkuC2+ODiYxB5QN7EIo/oKpsfKFcoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794140540;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hlwDfAWixxLMJCq47/jSDrmTm/cfckcxssqkHPbjDEA=;
+	b=kg7k8jOlCHHoDkbO2KHCBhpXVQicGHoj02llA2s/poEkabGFAbNYiOblVBIIUiFdZ8Zd
+	 eug4H/FAWn3hXQc5CiWYNSUVn4Fukv8CjBT6rXTTr2jAgapQrRKEpwnvXCkl1yUNR21BZ
+	 HJcdI3p7eDlistQwv21aa/upwKDoKdaD2Akq620SDPpORopp8oldMQ4G25Oi1qVU2vseS
+	 tX55F9be3YRL8Mcst49Cg08IkNtoqPCKyWob413xlcBWGyyYBOXhdQ2SS6I+pbDs2GW7j
+	 vMZAMD/D/igg/gIDr9KOlaYW4yeDQ+j9iZjf4DEW8gJmWwUemkr6DUpa1ixL4n5ZVrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sr8Gt4td;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F24606A31C;
+	Sun,  8 Nov 2026 12:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sr8Gt4td
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794140539;
+	b=kWl3meqhVBD3hOywCf6gxr9DoYc1eOFD5sLBRgvnuEWKNqYfqi7oxyRyezeMA7JAGi5P
+	 N9dDgh/oHkCUCW/IXkBGvIWCQvqWhMaqplsnxLzQkPOFjjETFQL75Boo1szwEZvgCv797
+	 O7ouD2GQfu24Si5Q2qOQPMJyyASS9+Vb9cpI/s9HZXG8sEht1mEqL01yB6C9hY6vWobjr
+	 pJuP9vLpEl+t5J9keHcjeXVzNRy6uVi+FkkkP1HbS3k0v7eiOg26+FmIw8e3hGe+V1Av8
+	 fP9ZB4xmkHjdoDa9fbwzAQrdedI2tEiXRAepGhlvko1kx7BQ+q/5XxOw/uq2lBCHYgA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794140539;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hlwDfAWixxLMJCq47/jSDrmTm/cfckcxssqkHPbjDEA=;
+	b=kMwyFpCo+0x/Jlu7CQdeBsij61KjFx5hYfriddeJ3B9f3BufaVFgqh53Z5UeufMscADi
+	 MBnQh+797KLjG/36topHrLYxJNfU8BQXu4YsO/Ig/B/Gm0Ggk2KnsN8Bdj3pwE/Y9p7O0
+	 Bz7KVm4/gv5ByI1cRwF49z/r4n1hcIYLz2t/LZYC/agXaKoPIK0EB2ZEy9sjMSTiHDMf4
+	 /JR1IECuRDLpJyicqKpqtuYeT3K9O1w3uTJ8k5L0lZHtmXucrcrTLNp3XgHqg/HoG2L07
+	 1CzP7oVukK4HCsXtbNwYD0yjFvHUCVh7tqangwwao5/fPV7C/JYB6JoFBbcgRvgjtTg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A706D606A31C;
-	Sun,  8 Nov 2026 12:20:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXcXN9RA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286321F0089F;
-	Sun,  8 Nov 2026 12:20:40 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 333151F0089F;
+	Sun,  8 Nov 2026 12:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794140440;
-	bh=Z0y6eaBsxzUThfzx9UP13uc1XtIr/6AqzMc/qlXa2WE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=WXcXN9RAtzVke8mAk+NZ62s5rEXt0za8/W82KKoak73ZciYuzzw5+pDAT7UdtSRuN
-	 STz54XAdR8CsX2SZtv2jMvTu8aXUHaZAE5UQIk885OyloLtVBS4HDauEJXIUOT7nXY
-	 05ckNTPOTriPijyjbLdNzBQHCq/QdZgm5d6T31FKBLd1OCw387jXXNN8a5/cQ29cJF
-	 do4nLjJgiF6gBKSBtTF2RG6dXJux+2gogJC7I7ufZ5ptfwmXBG8wE/kWomOmXHVht4
-	 n280NRnEsVz05UhIJ7YGIrHwEXfzEPzCKdBWmCfbr49oyIyLDJPnF12FGGYYSiZRhW
-	 i3AOXngAfCeJQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 6C9CF2C2C473;
-	Sun, 08 Nov 2026 12:20:37 +0000 (GMT)
+	s=k20260515; t=1794140539;
+	bh=hlwDfAWixxLMJCq47/jSDrmTm/cfckcxssqkHPbjDEA=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Sr8Gt4tdn0hLH03YD7ht00AszNrTOtCEjy/MRz+fTYJ0QnEdUFOj/3oUx7RmNS0dG
+	 o9gBe9/9DdYd/WJncE1iNiF3XGJgW9MvFUJPTzRczZMVXLgOL5BHFnCp2sQpKWU/4X
+	 On8Y5U7BRI0h1goXXSiY62Du/sksjzDtH3Df1F9l7sR9geX9638wH/1cadAGgFdbxp
+	 VtCYMgIA3MIujTBWUXTFxinSChni4VI838b/ElWWLqzGsX+GztnhSOEujP8O60idTe
+	 rXBsf04xlz/81DRnT1/+MLL4Sv+VQt3Dg9EbuwQoK2lgYf1VNmQuh16mer9nC0ki3u
+	 RIST+q3c/pMCA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A2D8147F4A;
+	Sun,  8 Nov 2026 12:22:18 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Sun, 08 Nov 2026 06:22:17 -0600
+Subject: [PATCH] staging: octeon: fix parameter alignment in octeon-stubs.h
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,55 +83,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] spi: intel: only check locked opmenu for SW sequencer
- operations
-From: Mark Brown <broonie@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Mauro Lima <mauro.lima@eclypsium.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Lee Jones <lee@kernel.org>, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261101200313.16411-1-rosenp@gmail.com>
-References: <20261101200313.16411-1-rosenp@gmail.com>
-Date: Sun, 08 Nov 2026 12:20:21 +0000
-Message-Id: <179414042181.3630016.5337245544547078214.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1023; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ffvScCYWLP1l8GMZTbXJdOrsNZ+RBwcDgIF/1Uc9frk=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+ZLJ/6RSbeci6Y0YSv3m5Q9ydtjmh9n5PBXjeHTy+r
- aHk3Mm0jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkyy6G/47LzD9LB8soyt8t
- vDRll0CNEPua9ENNSuu3fL+weNPO3AUMf7h89fldQy855yUzl86c/Sr/eFykA/Pd+6kihikNLJO
- ecAIA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-Id: <20261108-octeon-stubs-alignment-v1-v1-1-bafda8c63890@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ6CMBBG4auQWTsJ7aKgVzEuaPnFSXRqOoWYE
+ O5uw/JbvLeToQiMbt1OBZuYZG1wl47Sa9IFLHMz+d4H5/qRc6rIylbXaDy9ZdEPtPLmGCmMVz9
+ jiDFQ678FT/md7/vjOP5Fy77AawAAAA==
+X-Change-ID: 20261108-octeon-stubs-alignment-v1-ec6892de7bb6
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794140538; l=1698;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=JhZbbg8mmsWsZGrss6itWiBifitqXmu5fPEs6ExXPGM=;
+ b=97IOllAc7FI5DXvg50t2Si1YgrP1oxIp9SGhWaB+djwiNnLE767P5ojNp74IlZ/XEUI4/CYLr
+ pkRoZ5zUHHIDU7VRKtf4uQxGZbPBwf8x4moO5h1IJQrLh4YvCiCoKL6
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
+Content-Transfer-Encoding: 8bit
 
-> On controllers that use the software sequencer for register access (LPT
-> and BYT), intel_spi_supports_mem_op() rejects any operation whose opcode
-> is not in the BIOS-locked OPMENU. However the check is applied to every
-> operation, including normal data reads and writes which are always
-> executed by the hardware sequencer and never consult the OPMENU.
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-> +static bool intel_spi_op_uses_swseq(const struct intel_spi *ispi,
-> +				    const struct intel_spi_mem_op *iop)
-> +{
-> +	if (iop->exec_op == intel_spi_read_reg ||
-> +	    iop->exec_op == intel_spi_write_reg)
-> +		return ispi->swseq_reg;
+Wrap cvmx_pko_send_packet_finish() declaration to align parameters
+with the opening parenthesis while keeping line lengths within limits.
 
-This will match for SPINOR_OP_WREN and SPINOR_OP_WRDI, should this be
-something like this:
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+---
+This patch improves human readability and code style consistency across the 
+stub declarations of the Cavium Octeon network driver.
 
- 	if (iop->exec_op == intel_spi_write_reg &&
- 	    (iop->mem_op.cmd.opcode == SPINOR_OP_WREN ||
- 	     iop->mem_op.cmd.opcode == SPINOR_OP_WRDI))
- 		return false;
+1. Wrap and properly indent cvmx_pko_send_packet_finish() parameters to 
+   align cleanly with the function's opening parenthesis.
 
-Sashiko has some analysis:
+Oscar Alejandro Sánchez Lucero (1):
+  staging: octeon: fix parameter alignment in octeon-stubs.h
+---
+ drivers/staging/octeon/octeon-stubs.h | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-   https://sashiko.dev/#/message/20261101200313.16411-1-rosenp@gmail.com
+diff --git a/drivers/staging/octeon/octeon-stubs.h b/drivers/staging/octeon/octeon-stubs.h
+index 9c1968b7e2d1..7fcafabdc78b 100644
+--- a/drivers/staging/octeon/octeon-stubs.h
++++ b/drivers/staging/octeon/octeon-stubs.h
+@@ -1386,9 +1386,11 @@ static inline void cvmx_pko_send_packet_prepare(u64 port, u64 queue,
+ 						enum cvmx_pko_lock use_locking)
+ { }
+ 
+-static inline enum cvmx_pko_status cvmx_pko_send_packet_finish(u64 port,
+-		u64 queue, union cvmx_pko_command_word0 pko_command,
+-		union cvmx_buf_ptr packet, enum cvmx_pko_lock use_locking)
++static inline enum cvmx_pko_status
++cvmx_pko_send_packet_finish(u64 port, u64 queue,
++			    union cvmx_pko_command_word0 pko_command,
++			    union cvmx_buf_ptr packet,
++			    enum cvmx_pko_lock use_locking)
+ {
+ 	return 0;
+ }
 
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261108-octeon-stubs-alignment-v1-ec6892de7bb6
+
+Best regards,
 -- 
-Mark Brown <broonie@kernel.org>
+Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+
+
