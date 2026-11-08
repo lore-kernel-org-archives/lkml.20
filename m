@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127764;
-	b=zShq8CpTYBCGF/dOFbHimqmmaeB6+mtBrs8UhVvC3BsLzw99jwFtgwwC9qFQODdz/QM6
-	 DJdyhZcauxKOYSbLKSbPQnwWR3/XpgOUyKr+B7WtrMrp361iH6X8BC21hmbwU4uFfsfeH
-	 hvlscMOtkL1f13a5SLpkQyJVuTT3kIWrwR+EcRxekkFCXtYFj8JNlVk8UM7wR8pxlhXe8
-	 y0IZIEdrgzgRGobGsNdcnyEiAA8tPfNRCKwkcsbrLr2pF5D1eJ2zrobWDFRDoC99wgmn2
-	 WcOozCSjpPDyyozoTw4olNlMsTTRhUYYMRwpe8ATOZMQPV5uGU8wBhQ2IvgLteYNc7A==
+	t=1794127748;
+	b=rvhSCWImbhVVF06bOiJ/48HdMc9UgzajcqbK9Nz1sUYk8lce3joala9MfMaae2mOyTKy
+	 b+Qzk89VPeg55TnYcgpn+PAW5x8JXKR7vCA+dUAqgdAdkBXpFcBJDE7i786HGfslhTUJM
+	 SoMAO0N+9dqArxKLBPbu9TgGi7ksqaaofwLw7erJedXTltgmscO+EA3y5y9a0xQ05qecL
+	 6/t66P+sICRbeOUduV1yi1kSTX13mAGeh3ot5F0PXeDsiOme2EhUGyoAJ4Djo4WIirCci
+	 EUitJFPglDKCx2+4XvsS2AsBo92wmklYycR7lLs5Mk6aLE1XP6CQACjD3InTV5Nt3Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127764;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127748;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=H0/h2A5rwxJVNDSipV463VVDQJBhqLVmF0Nxvl0ClsM=;
-	b=kJT1B2yI7DrFuZgiuosgU4EkCnXt7KLw4ZXZcFH6vwIhBOWOnwOUK/iPEMa6C3G+KkDj
-	 POAGPdwMR90fP4tTifK4P7466MAEnvsulSWllQYheBQTQxMzYYzQitsaWDd5cGKuvCOlx
-	 N6vCwQcaEkwuDwYnhs5l6cmPy2/WP8wMq42wxpngK1E0kZrRTIFxmWsfXD0ePwgdxWwtx
-	 TLwvSuqj1sRYgaavC5Q58qVzUEGjvtPjqlfQAb1u9zQ+0Qg7sIqfNlFHRqOA8Q1ecc76k
-	 nukq3COH/MdycznuQno1Li4TW3/X0cVsAo6Nkv07PsGfkqZp5hSjH8aHa/ElrKEq9iQ==
+	bh=9vCF5k78rkiAQGJjEpE8px/2xJwLOSb14zi+Ub19SbU=;
+	b=MH1P8XWEYgO5OOhxVksUC39kBNTDoXUSw6CAYSc0C1c0LZJNp08K2CvphR1SztLpqBKV
+	 cJBUTS4XwI95MGdeHMcTRjVMra8d5/oIJBT1FNY7yvVR+GAu3FbwmcInzaOdWK/pUx2Gy
+	 IC9oj+9aGg0IyczyKrN3QAZ5V517jqF30dN4yB9pgjvwXKGTMKM7HFBl8bCra60O5vtGv
+	 hRukG4oY/8XkQJDNLAzhZg3L66U7s6RZAeaqvZXDIfpXRMRNtwhIjTgR1HG5hX7a2ClJT
+	 XMXEXKqzV7g8yFCIYW5HYb2CHwseJ8XGtd7IrV5iQQKqRBSKpkP/npyCYoOGoxvsfug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3LnY97A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7sKL3ij;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E336B606A33A;
-	Sun,  8 Nov 2026 08:49:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A93F606A323;
+	Sun,  8 Nov 2026 08:49:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3LnY97A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB541F0089F;
-	Sun,  8 Nov 2026 08:49:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7sKL3ij
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21E151F008A1;
+	Sun,  8 Nov 2026 08:49:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794127758;
-	bh=H0/h2A5rwxJVNDSipV463VVDQJBhqLVmF0Nxvl0ClsM=;
+	s=k20260515; t=1794127748;
+	bh=9vCF5k78rkiAQGJjEpE8px/2xJwLOSb14zi+Ub19SbU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=L3LnY97A1SL8QgstjBbwFfQ0TcuCvOVWGbAi+Pvhq73TMaxhAzAZTxGr34Hw4XIc+
-	 80VpQzH0GrADK+Fecfhpg01a6PP1Nu8xD0RZOuPDS98IRWNWYyy6hSlKq/RNdG0SfR
-	 VLy46A96daD9K8EDQqVdOUFqHVEi7B6tUhIbpcAwQOWs1foo1cUu0loUG5IasH3MJE
-	 5G6PhjCSkAUB2O7XwQ9zKDKQypic1YVwkNcmzK1TUXIggJen2dQRGf03syqSRn921/
-	 nohv5C68eyceCV/EmZu+mkWF0f7YVGKwPbUIQBoQN96+8toclCnpdStMRjq8MeXud1
-	 mrLVHbQ56XRdQ==
+	b=m7sKL3ijuMxiCN4KBljYFZ4jfDx+8OwrmAzhjpzdOxERJ5fhUwGeGoaN28nsVVx5d
+	 M0Gh1a7ABrwYOrUh4ZIFHfUnB6vPmYrVaRa5nghTSf8i3sHnwHIJ4LjFFQVYGlDPXk
+	 A1AiuYKdUw/GULPXZfb69YhWrQxyrgQnPCthHkx53FdjGQjvHHjdu5MmR540QVQDuU
+	 i93q1Pl3aWsLWnRCWcsXaQiyaH/uFIBGb8QoNm7qyL93gBF+4kVRkE7fygLRGnjDsL
+	 gWN4tne3+Fx9t0iQ7SONlmf7NJHPquOjLTfOpWexeJOkxxvyf9WBCwtCsLW8ZUfWV6
+	 zKDeEbDYvKruQ==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sun, 08 Nov 2026 10:49:01 +0200
-Subject: [PATCH 4/5] s390/uvdevice: Replace get_zeroed_page() with
- kzalloc()
+Date: Sun, 08 Nov 2026 10:48:58 +0200
+Subject: [PATCH 1/5] s390/zcore: Replace __get_free_page() with kmalloc()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-s390-char-ready-v1-4-3db507722530@kernel.org>
+Message-Id: <20261108-s390-char-ready-v1-1-3db507722530@kernel.org>
 References: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
 In-Reply-To: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
 To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
@@ -68,11 +67,11 @@ Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
  linux-kernel@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org
 X-Mailer: b4 0.16.1-dev
 
-uvio_list_secrets() allocates the buffer that receives the list of
-secrets returned by the Ultravisor.
+zcore_reipl_init() allocates buffers that keep a copy of the IPL block
+and of the OS info structure of the crashed system.
 
-This buffer can be allocated with kmalloc() as there's nothing special
-about it to go directly to the page allocator.
+These buffers can be allocated with kmalloc() as there's nothing special
+about them to go directly to the page allocator.
 
 kmalloc() provides a better API that does not require ugly casts and
 kfree() does not need to know the size of the freed object.
@@ -84,33 +83,53 @@ fast path allocations.
 For the slow path the performance is anyway determined by the amount of
 reclaim involved rather than by what allocator is used.
 
-Replace use of get_zeroed_page() with kzalloc() and free_page() with
+Replace use of __get_free_page() with kmalloc() and free_page() with
 kfree().
 
 Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- drivers/s390/char/uvdevice.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/s390/char/zcore.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/s390/char/uvdevice.c b/drivers/s390/char/uvdevice.c
-index 4d274a2ee84dd..5375cbef2810c 100644
---- a/drivers/s390/char/uvdevice.c
-+++ b/drivers/s390/char/uvdevice.c
-@@ -371,13 +371,13 @@ static int uvio_list_secrets(struct uvio_ioctl_cb *uv_ioctl)
- 	    uv_ioctl->argument_len % UVIO_LIST_SECRETS_LEN != 0)
- 		return -EINVAL;
- 
--	zpage = (void *)get_zeroed_page(GFP_KERNEL);
-+	zpage = kzalloc(PAGE_SIZE, GFP_KERNEL);
- 	if (!zpage)
+diff --git a/drivers/s390/char/zcore.c b/drivers/s390/char/zcore.c
+index 1ab7400a3c10f..92e31a8a7f242 100644
+--- a/drivers/s390/char/zcore.c
++++ b/drivers/s390/char/zcore.c
+@@ -224,7 +224,7 @@ static int __init zcore_reipl_init(void)
+ 		return rc;
+ 	if (ipib_info.ipib == 0)
+ 		return 0;
+-	zcore_ipl_block = (void *) __get_free_page(GFP_KERNEL);
++	zcore_ipl_block = kmalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!zcore_ipl_block)
  		return -ENOMEM;
- 
- 	rc = uvio_get_list(zpage, uv_ioctl);
- 
--	free_page((unsigned long)zpage);
-+	kfree(zpage);
- 	return rc;
+ 	if (ipib_info.ipib < sclp.hsa_size)
+@@ -235,7 +235,7 @@ static int __init zcore_reipl_init(void)
+ 	if (rc || (__force u32)csum_partial(zcore_ipl_block, zcore_ipl_block->hdr.len, 0) !=
+ 	    ipib_info.checksum) {
+ 		TRACE("Checksum does not match\n");
+-		free_page((unsigned long) zcore_ipl_block);
++		kfree(zcore_ipl_block);
+ 		zcore_ipl_block = NULL;
+ 	}
+ 	/*
+@@ -244,7 +244,7 @@ static int __init zcore_reipl_init(void)
+ 	 * to continue dump processing, considering that os_info could be
+ 	 * corrupted on the panicked system.
+ 	 */
+-	os_info = (void *)__get_free_page(GFP_KERNEL);
++	os_info = kmalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!os_info)
+ 		return -ENOMEM;
+ 	rc = memcpy_hsa_kernel(&os_info_addr, __LC_OS_INFO, sizeof(os_info_addr));
+@@ -266,7 +266,7 @@ static int __init zcore_reipl_init(void)
+ 			os_info_flags = 0;
+ 	}
+ out:
+-	free_page((unsigned long)os_info);
++	kfree(os_info);
+ 	return 0;
  }
  
 
