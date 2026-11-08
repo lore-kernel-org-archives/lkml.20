@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794140945;
-	b=moqwZti5VSTSj6hj0z4C7HmtshMGbL4KItYopIbczotCfguNIQ3fqzIwloZtOhGXeXeK
-	 0WmtFCNNeraTm7RuTlv1sQ2NwgeuZp5eeCnHuKf0KmwNrjRHLnLOBS99EvTwMLShY0V75
-	 0pOxbaT7PxXl43PYfUnQpLikBeY4h4LdAFFQhjuGq7hN45f+x9Zz49Ne8Nye8DDhGml78
-	 2nDlAZwsnDgKE3L8Uep931mkR6QjtLUW8dO/X0S1XzerPFHd8EFFhNjpQP/tqemE8+60x
-	 KmxBoyyjieWcCZW/7NX7VZi+XC4vY5y92bBBLtTuk3spRHqIikOduBxNdfGwsVGGMOQ==
+	t=1794140946;
+	b=d1QTXFMHMwvPJ4C4g4ApJWJPWq752KxizMVwO/4nxv846/VCNztvFSPMdPPazTy330WX
+	 Z9mRDZzcDhc+hYqZ2GBENd0hmVp8xH/wFaSOi9SuvpUT7k6ZWrgPO2mI2x9+MTrYRf13R
+	 UTyvTPDtF/q2JValeb0WqSsNb0hajs3aKGpMfDcTDYmUrPW8slOLTK+IxZHPeTaTKfeUR
+	 tIjwJ6zAmjvJmetOA4CMnLqNM/xrzRU7lGeq7DBx2qU3OAw/PihDAilxymw0c06B+RJMy
+	 It4kLPr3Lf8+A+Dljy9MsIfO5bppJWauH/ZM8Bf26A6YmebKPa1UeGgL6uBfIc5MQqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794140945;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8Si8+elJrOqJ4FlfCJWkOKmX5QdVoxka9MT8fi02MVY=;
-	b=3CTMG2Fxty/clV7dXhdSyvy5mSpduKEz51Po+OE4qSMzXnmmB9F1lIcZ5p+p90h1UgB7
-	 FBBfvcYbyeAEVuEc6LntIpQdPjCersIbra3wO8PDoKkWYSFoReOA1PvlMGgIyLea71xbk
-	 BcIveDJ6XRCK7W3BrCWJzPyup3+evuL2l/RCUVr2XV4lwYdiSX8TVI9FgUKddgDAItP9b
-	 QNtraxWjvCUOWqKTsygXAs+3dSHrpxzi2IB2B5fgrlZWA0nHIjDkG4Z3gmjyVCl+1dXhT
-	 JVFBrWc4CwsU49Yrgp0lgtIdWjiJSeO3W5zNv882nFLIH+bwIPwbWyOe34oNw+fwimA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794140946;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=RVhkD7YAATaAmFlE4izSXP4SPBrd+d/pegcKjvFmQzY=;
+	b=lxx+Ty4fzzI8mhKKTd6UhdNmKSinp10hcwBTL5+YxWaolOijkyi4RNXKbOCJDwPzKXgU
+	 muxxKBY1uWgbQoWZz0H4FjcIHKiuiatYCVqon49QymAXESB6t0CBiBTg+oHtDQBensj/Z
+	 kk+8Uapj9NVAD9VeMdzGz8eJRFTbGE2VqGc6kx+dm3BZTvL/RsG2lYLNQrPhjb8witPJY
+	 9ConhHEUFzXYlakBLyyfhv3kJ78lBJjdmZXNOXyRUpmU/PNagSH2faFleQFr64KIs6ERk
+	 KV5weBn0C051Gq/dk0qYZF58bCcyF89/htcvxlE6yaHYNiYkC+jFlerHtb9wMCSf8tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S+Yg+so/";
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C41F606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:29:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C41F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S+Yg+so/
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3704d30b84fso87045eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:29:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794140944; x=1794745744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Si8+elJrOqJ4FlfCJWkOKmX5QdVoxka9MT8fi02MVY=;
-        b=S+Yg+so/wrYSMEqce3JawMB8vT2zIoQojZ/DHUYMAuB5JrUIMjTCcq/nFfwR38Rqgt
-         6e4j3Rr3HdIB+zBUDjJzr7VFBOs8LZRU0hSmSWAgqYRY+c4yiQqdYHa3aNVm4Lk6rtFt
-         EadmBXCYDUD8OpJablBSr7NsiOt0bMSooAhCOr5fPlSWe+i1CsGj0a0WCso9uaXh2/4n
-         aM9vHDv+d81UjDxeyl34pBEl3R/xzIASSnA9eEtXc7pCNSWS+7aU+b1Ux9UOpI9dbxd0
-         b9jBLeMU8Es4H7PeoLjhUOVcaZp76C3YXdTk2AbMwpW5nYamlDQ7r+jojZ8JRLkBIjVF
-         pudQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDD7606A335
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:29:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DDD7606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-844bc76180bso87045a34.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:29:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794140944; x=1794745744;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Si8+elJrOqJ4FlfCJWkOKmX5QdVoxka9MT8fi02MVY=;
-        b=ECPghjddCsIJ8QKRwx4qvTmrgdD2kzmnhEB9o8uYkAQNz90fk3JU+Ki2O4I7okFXDy
-         f97oUKyzzRjbg1kJTr7XGX6Z0kh97rO7im60gEJd5r7/yXOsrHPVzHIj+V73BQY158sB
-         l5o5rDSpj69NhnT7NWOeBuxfPReK5J0Kq4lasv92rOPIww7oKvUFQkoctGABXLpGe1nk
-         YMPkFufiQzoSAKRkPQ3CvovdFttrq12InqS1cR2Gw2AQ3FInSWbS1Y5AdlOTEMi2u09I
-         n5oEjd5R09pE+aMMomdU8ElyNL0ARLgbi7N33LRK6hITMWdEctZUkED9wFZsAiQyo4/b
-         /KUw==
-X-Forwarded-Encrypted: i=1; AL+hErFLsF4AaVCIGBDMvvAZX78t3LjRgjIKIhpta5pYUkUqyV4wIZalMkxys/0RdeBHM9FgxvFZYwo7H16nw+E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1Oa5cmpQY6NuFfgAjCWp6YNcLebeJWD35/vR4Koh+/4k+bBmL
-	ukzR4cuuQWbBibOvr76Cx7JdfYg94qOBbUBiBxRr+CuhOJBevWA255lMgi2pc/KQpWcQdA==
-X-Gm-Gg: AYBFou3u6phwdjBbbrgwLcqaEoaIEnzXBdeB3n5l8SaUJigVSfPqPVXyCuLXku7UkdY
-	3JIHgXLFn7gMiLjwrMl46B39hOc+Wohdrlc8UAeovKSxlIhuFzzJwTlVvaxC0EyFM3FIK5y4efa
-	wNeRSxHSs1mIy4N18X7Nekie+OxOPyCO3jRcBWEkMsSLTcLe8csfc0AgU9lwaH+IdLqxICZWVr6
-	6cYeMD4MlvQZe1sLol7THQBfj1bfK3orePP8z47jWyOw5viGIFLR5guhV200RV8Ug6S5p/rnNIY
-	6nad0w+rSQolpfFzaH6ZOKMlJWTGrbV6WBjw0jArv5fA0ONFWjdIFU+M0WoTXAhElk4B+vJM+bv
-	+Vh3YfxnkNFwo6no5yjvEfUuHJ60AbQ4OTY6XSlyXaylncqVbsjTvDOYvhvcSFuPs2NrMgkxD5i
-	cQ7kyIk38JbH2Fkf64dXNkcjAhiH+aQgVjdNszwnBVOZxIz+qVCiVjmSLdFOKg8r07Y5IZv/ovO
-	brNiFCNpPrVXbsaTXx+2bygTHr9hmbYpCLp901QqHenA+TdgfIovgD+2Jx2SM3DpvEehw5e9aSF
-	pV0kgwmpx0iWPGtAAl3Nr7Fp1KpaGMpWbOCQV4XGqLrT3Bh/5RFtp8CNdcaDz1T5HA05XdWlhpk
-	SZvXn9PtEEXRRyk4Fcz+4RpOyRb5aCi3l
-X-Received: by 2002:a05:7022:418c:b0:1b2:3448:840f with SMTP id a92af1059eb24-1b39fecac01mr3000460c88.7.1794140944129;
-        Sun, 08 Nov 2026 04:29:04 -0800 (PST)
-Received: from codespaces-88e7e5.2t4prynt4dlezbzls5ze3dxsqg.rx.internal.cloudapp.net ([13.71.3.101])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3731487edsm6036253c88.2.2026.11.08.04.29.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 04:29:03 -0800 (PST)
-From: Lame Morupisi <lamemorupisi12@gmail.com>
-To: hansg@kernel.org
-Cc: mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Lame Morupisi <lamemorupisi12@gmail.com>
-Subject: [PATCH] staging: media: atomisp: Fix block comment formatting
-Date: Sun,  8 Nov 2026 12:28:40 +0000
-Message-ID: <20261108122840.85622-1-lamemorupisi12@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1794140945; x=1794745745;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RVhkD7YAATaAmFlE4izSXP4SPBrd+d/pegcKjvFmQzY=;
+        b=b1LzWEcmOP4vUQCU6v85QgEGG8CJrgS3r2Zw+Mle8iQcdAK0atmcumrpaASIaiCw9b
+         cBLkxSddacvg/ybWjvUdAvcYFJTZnhSp6D7TQdRLf5F7xBZwqhHzr6MrSVTQMkMfEObm
+         RZDAeX3KL0ZG00+kjdAFuGnOU3q5KiWBlD3udxgnuqacLBDc+ZiYjFetFvkcgRw6hI3N
+         yTJ55JGiWHyr8Z+XM16T6UtqGlagzuD+a2ZyGUYM4ejQjhc5e1PDiQosY8p3zrjd9D95
+         AEvLe/J8CFo+MZCgPQjtWtUsbnGGj36V5RsYpscwVE6FVICu0Oo8Sjz8XW7BEvIjW/oM
+         F7wA==
+X-Forwarded-Encrypted: i=1; AL+hErELqZDsqJ7huKLJTdX5r1vy6zHOIGIIv9K+0ecvyojcqHryd2qFZCUyesFOPgw2oouZP7PJMkFlavrWRis=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mp8oYWl3bk34PjV1xXHCLmnmXVDZfPDws0WWaz4R1JK0AizhG
+	ZzdaIGS8ye9r9ftckYYAHhcHjayJNQ/OSXBKpiHINW6GVu/I5mwEgp0chJxuz7CHXL6BC4tfRmI
+	324DZ44IQXG/y2PDCSP1v02e08Xnb77u08ahjYmltceF3g0edAjrX+bJB+5U=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,62 +58,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:5087:b0:4d6:90f3:74b1 with SMTP id
+ 5614622812f47-568147123e6mr863926b6e.49.1794140945618; Sun, 08 Nov 2026
+ 04:29:05 -0800 (PST)
+Date: Sun, 08 Nov 2026 04:29:05 -0800
+In-Reply-To: <CACbwGuQCm_TQHkeBsMJQaPMEojvp-3LLs=+qGPh4sf8OoH7HGg@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af06b11.5a668245.1aceb6.000a.GAE@google.com>
+Subject: Re: [syzbot] [driver-core?] INFO: task hung in usb_set_configuration
+From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
+To: gbughunter8@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Align the multiline comment describing the MIPI frame memory
-layout with the kernel coding style.
+Hello,
 
-Move the opening comment delimiter to its own line and align
-the subsequent lines consistently. This is a formatting-only
-change and does not affect driver functionality.
+syzbot tried to test the proposed patch but the build/boot failed:
 
-Signed-off-by: Lame Morupisi <lamemorupisi12@gmail.com>
----
- .../staging/media/atomisp/pci/sh_css_mipi.c   | 31 ++++++++++---------
- 1 file changed, 16 insertions(+), 15 deletions(-)
+owned.c:1: error: VRP_SYZBOT_SWEEP_1108_7e42c91d
 
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_mipi.c b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
-index 971b685cd..57179298d 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_mipi.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
-@@ -130,21 +130,22 @@ ia_css_mipi_frame_calculate_size(const unsigned int width,
- 		even_line_bytes = odd_line_bytes;
- 	}
- 
--	/*  a frame represented in memory:  ()- optional; data - payload words.
--	*  addr		0	1	2	3	4	5	6	7:
--	*  first	SOF	(SOL)	PACK_H	data	data	data	data	data
--	*		data	data	data	data	data	data	data	data
--	*		...
--	*		data	data	0	0	0	0	0	0
--	*  second	(EOL)	(SOL)	PACK_H	data	data	data	data	data
--	*		data	data	data	data	data	data	data	data
--	*		...
--	*		data	data	0	0	0	0	0	0
--	*  ...
--	*  last		(EOL)	EOF	0	0	0	0	0	0
--	*
--	*  Embedded lines are regular lines stored before the first and after
--	*  payload lines.
-+	/*
-+	 * a frame represented in memory: () - optional; data - payload words.
-+	 * addr         0       1       2       3       4       5       6       7:
-+	 * first        SOF     (SOL)   PACK_H  data    data    data    data    data
-+	 *              data    data    data    data    data    data    data    data
-+	 *              ...
-+	 *              data    data    0       0       0       0       0       0
-+	 * second       (EOL)   (SOL)   PACK_H  data    data    data    data    data
-+	 *              data    data    data    data    data    data    data    data
-+	 *              ...
-+	 *              data    data    0       0       0       0       0       0
-+	 * ...
-+	 * last         (EOL)   EOF     0       0       0       0       0       0
-+	 *
-+	 * Embedded lines are regular lines stored before the first and after
-+	 * payload lines.
- 	*/
- 
- 	words_per_odd_line = (odd_line_bytes + 3) >> 2;
--- 
-2.56.0
 
+Tested on:
+
+commit:         09321e9d add redacted production placement sweep
+git tree:       https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-09321e9 main
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8bdeea7ee6735f91
+dashboard link: https://syzkaller.appspot.com/bug?extid=c22bb42560ec86726aba
+compiler:       
+
+Note: no patches were applied.
