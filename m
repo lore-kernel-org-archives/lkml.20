@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794166411;
-	b=wM9loUq+wVDPbPJ9/yEy/M13w0Jk1zKthdaX6owFecQs/d/raUuvKe7XeMu+a2MF1cxR
-	 EOuk4P1gbZ52bbPsPacxSy2dlpQ3h4nB3pmi2Dl8QN8bC44plwAXlQtCUjriRsv1VfRkk
-	 ykgViYH1Bh/iFYfaJ+TAss8SO8Ks68E96/H5vGq6Kof7swKa1loNmkiQB8X2KiMPp9DMn
-	 yeBKJ0Ig7ik8clc+HFa5ZyJ+qRNlP5udqi6vRBYEZuHoZwbYCJsmdrZ0pvmTaVSpwQC+Z
-	 ZvCtveFQuZlHBNeGvZ9kSaM8Pdmr6vOldvxovxtPYMLSd+QsW7De/tRY4ehPjy6ixgg==
+	t=1794166417;
+	b=Y2+jPpYLiYt5/J/gHJLiD+U5yjdDhzKHQjaX7Pa3LNLQePWleG9A8cCJigKjPxERrtY7
+	 pN6DLmxSA3RoORP3n0Ij9z0h9JRd084pcMgXovu88TH7p3DdYq7RZ68a+cvI4oij/EScZ
+	 VshJxb3oD7t3ZAcKsRh7hirW7sVJlvwOPuBOKGkhy1Ws3SSHpoHDOAI2N2UqskBYdr0y3
+	 VPCwSS/cNym6zBVsOB9qGJ6niwi36vbZ1or6a+WfxkihEi6XYxWi2UADjYRy8iJg1LPH6
+	 Hon0GGTKailOuyb5v+Hexx0LH0tuVTuoh+p/jh/yTRaXZfghSRw1dSS6Gd4z8dbG2Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794166417;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=WqK6mbkkkr10tJsOCL0yXCIykxjGMKDl1nexZ/2ocm0=;
-	b=1+J1QKzvXtF/Ga8Mp8MDe2DCUWM3XPXBY1+MI12uYmfvfGwuEfgatFFWvr1iV60WYgwa
-	 PCHIwAxuD+vkSGtWS7kddNdZ/YgCSo4IlwrLu6ta6vCdQQj770gyI6rfgIMD4MvYnCrzb
-	 0bz0T5pY8tLLzutV3TgT2cBsNz/D9rEt1Y/TMtDhB1ASqW7CRSXzDZr/orQImKnQ+minG
-	 5f2Tyg70eYzdaNoO8Bsq+Vmh636au0M56PN5wCBqN1iJBt88U5sD5pTJjOnTG7NgpaRte
-	 k49PIr1xFxnZPlu9e6x7SVolRggsnbglRpORfWRRekkme4BaftLZx6488qt6CbjO69Q==
+	bh=gA1PeZUXcKToREHFxU8m4mbzxqXNLHeYj9MYxhwCIdI=;
+	b=oC31e0hjTruGG/eFw461yEnxcUxirTbbE8at8gRhVY0jEsr1XLTC8q61xo2ZD+t7VnU3
+	 cBL2zmFLXpGVGPIPLlYRu0Z+esQ9tGpnQGS/229vf4CczYQi+fA/F90Si5nemIb8ZqEqi
+	 PN5x/QQbS31sRZeJh77YuQGqMg+y+H9RkLEkq8aKKJV5j/EEA1LiqvzEZ47uVmvEeitN6
+	 9fSR57bV44CVwRpep6LfvZO21YSF935XQN5xUKhSJOuIax9CI/4WAk+iRc897ED95y9eb
+	 oEQFSLLDJ4adTT5JrWfoTulG26EC7tGcfQjh6UfwjIh4HT7GZfq3LTz+Vi+X4DJqkMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKYCg9zE;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HwaFUCdA;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7C1606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B7C1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF55606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:33:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AF55606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKYCg9zE
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so1327215e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 11:33:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HwaFUCdA
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so1520415e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 11:33:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794166410; x=1794771210; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794166415; x=1794771215; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WqK6mbkkkr10tJsOCL0yXCIykxjGMKDl1nexZ/2ocm0=;
-        b=rKYCg9zEstncFeVERCI4gFaRQ4+MCWWde09Mvr9+128puGqE2s8SfEobtov/KyEz54
-         lKEnboECfCv9T7JU2b8hdRtRhgG7mk2j63Mxv3eSdbTiihvgQcrCztzKAjiymEXcScGf
-         CY/PvPu6mFVFphfy4Am1KNVwC1TiBzLDeCAurTFxKIox9XmcanxvhL73s1+FnTi+18J5
-         NMoGngeJnsoGNs6gkFoACWjcn8sNC8SV7JauIEUrMWNp9Ja956iJVkhAaxZwdmueDjdS
-         RZAb8DcjR+n2YMH2ZIz73XWr4uB+cupsIqS3u3uhnoNlP8zr790beIGIKQ65cRPnx//B
-         WeDw==
+        bh=gA1PeZUXcKToREHFxU8m4mbzxqXNLHeYj9MYxhwCIdI=;
+        b=HwaFUCdAt+Xw41B7z/+FLruyKnlq74ZrsmSnfp/iZU7lSdNtzxNg15FDV5/3soK5Td
+         B2wx4vKxjcfxqpq4Tp7pURnslhroX/hNBcIiQaWoszhKDoCjW4ssI3AWAKCTZDq8kIQb
+         5sm/FpleXuNqMy6tYke/DpkgHdFnhMGxEaUam1wVFxhlh+m38TvMTC6rPCSnU7NRYzPJ
+         E7huMSuzwXeN6/7i3ss9fozIE8+9yizvmte3lwPEIENb8Z2E7ZliP0na3EXWqx9eTove
+         0bCk7RySOdsPCMFVdOQa+55QG0THQAz5CD07155JXGe2my61w4Iq0hocL/uBjAzlQOTp
+         Lmng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794166410; x=1794771210;
+        d=1e100.net; s=20260707; t=1794166415; x=1794771215;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WqK6mbkkkr10tJsOCL0yXCIykxjGMKDl1nexZ/2ocm0=;
-        b=0hX6y91VcRjqxo16uW63i9uPxGa/1LYVTbCSO0NJP4bYNx9EMH0kAOH1No8U7BR5b+
-         1I+A3jrl2LF4N2hzP+AaifybGsI1W0GfSoaEl1780JDXqIycLSAb44XumqpMZrUGT594
-         Jylya35GWO2SJi1BhRh2wkkKurH0LTPvBaiMrYXNKY0CSlf1XhhZo5qKnnPVJQcTccfD
-         boKmeESm2s8sNBFS5xUzwifho5Ar4N7efzz7TNIChWpx/2hRjeKNAsESJ2EdIV7q4o88
-         STjMvLbCbxS8CNPovRHJ+TdJ36g7So9JI76zICxIqI5Khbmua77RbgrhQHBwcKATp1ea
-         I08A==
-X-Forwarded-Encrypted: i=1; AL+hErHxE0Z6Ur2GacsHo1EdzwSw6z5z3v3zzhcLn4z+OiUjOTBhKKBl7W90JHi7yhScJza3RirfuwqGIz8VEN0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+maSi5cKdheUd5ITx5yzZ3Y7TvGy5sH+eQCqhmd6KQR1Oa+kTM
-	hM5GOVbs00BeyKcatFi3T/02cuphKLave9A46yt+/4noJ5qemAU0JddJ
-X-Gm-Gg: AYBFou3Vr/ijy5G14/Z0ZcwYY0quDMnSViN8RT4fbbBMJiVTB4oNjJuwoq1rPFYfZhm
-	777lKiC9QYfeLJG78pbr4p7rODJGhTPGinL5bDWZpMnGz0Fo2kDpbcJrhGxPtAbI1uXibbKSvul
-	0NV1vv85goicvYg5yR9PHIozVx1ER8yyTbR4neGJ6H6k699i7VPni7nShc+9NcK7tYR28mNA1gB
-	YMmSx2P+MEU2Pw+F2zmJ7VAzsHywfoVDEtCW3NHG0eLqGWqoh5BpCq4ws1DFjCUakDXia+Z8vfs
-	42LtnK80hcwBF2TT1s0oYofh0ytBJh4VT7tDlI77mNDj01BeNJlAWW1jG1wcrRzTeES8R4UinqV
-	AJCj63dl7DcImoqZaXmmgHSs8URmitcpFQLDct2IkeRddUOz/+c31wfQrX/6UHLCroUv48oIflr
-	5mZzK1NB8ue97K319//0a5HAqH+cnjMzMoSmk84okV0N5+ubobXbWfyjsXqlYkU1vVJm96LtsGK
-	ZXJseueoj4ptOwCRt6baHHcknLr+c+6ZX+4Qiqzi9npJh4alNEOBkA8B9q7BSTXDjvl038BQlJs
-	mBLS2HgqsLP14tqW7NAfEOwhi1Ha1GG0dAMFPBB/Qw==
-X-Received: by 2002:a05:600c:8b70:b0:4a2:fd2:985d with SMTP id 5b1f17b1804b1-4b963c73ab1mr41078225e9.12.1794166409692;
-        Sun, 08 Nov 2026 11:33:29 -0800 (PST)
+        bh=gA1PeZUXcKToREHFxU8m4mbzxqXNLHeYj9MYxhwCIdI=;
+        b=JxO8NwiCHho8iBasK762dfyzy+5Rf5agcBYE9cSC0LrZhY+KpseIJLQ0tNmhIr10tA
+         yIkn10Frh98dsRpoi8HGK0kHqmenx8KHFA7DYjcFTBjn4YP3UGReZ9t5RWmF4SfzJ645
+         Y9NclYX+Uli42OAE4LXzycLfKA8ZuuoqgnjGJNPbhGTaT6ieu6dvrIpZ3GXBRi4Si8Mg
+         LZTFEAGP4EnZ1i0oZlzDihdJlmVI7mEDY2yMAWVAZBTr4/Ir4HYDBByCvLs0ALy6fWiM
+         jVzGQTJlkm2Lr1fbLBnjO5bF55XbdDC36aFi9mLeK1Xj2TTZZN+P4GxN041T9bjx5A1z
+         6tkQ==
+X-Forwarded-Encrypted: i=1; AL+hErH2YLB612AUh4kNYZM8c7fe3GgSWadHnjr/eZI1MMr0GMaYZy6YDpK75LUSenQqkJzmg41CHGmEzx52Z2M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rGCrqfBlLDIqZIrK5C6MMe3wTcF5/SgByr6E7YjzqX8p6eVHq
+	FYSXI1vIiNXCzlBkQSsZOWI9pzcGh4gxc1zR2fcVxO1+i5xLHjwDcbiz
+X-Gm-Gg: AYBFou2HMe203A+IxlHAEZ4V1+VLln+2bIWI8vVDsRA2IMREB1APeL3mkD3zXIGHmS5
+	yD1ZUtM0Cg+8rNIoxPxl1xM7LqKJkbhWaQuS6kjDXLlHyATgfnyERSAy3j243ux3NzcRR6Ri9O/
+	Bcb+CesvRaqiz+NOrl4FLHPO6pFdndgm5ph+S8NipZpkSo65PFVDncuJiiIK+3eduOQl3dvF/os
+	lKQQer+GD6PBGCg6MM0t/iWPf7qYietTNxeAro7ZRU4QR6+2tW27gR4/E9chyJWfxuZQndC1aDj
+	HE/CObWPaugbv+ZY48bQaxs4FFIX91fOp8WxtNXfxYijbehtlgWO2jDRga2ReENDSLi8OeBuHyr
+	HxL5rHrldIDIi5nXTldh9EzXzjaRvEUwRs61761vW64UY2pqFEzFs5Sj0ZAFaROC1nrgScCpYR5
+	uL17OhUVkQ/ZjrENl14UdVAx/jFK3xJoKUsLsQCG1hiRP2+wn7gHOzBbKh6sW1YLNimbkm8DxF3
+	+8sylQrUGfshm5DPnxByc7rxLe8TXmCVQqY+0VaHJt2yFPAia5+CwVpP7lAB1MDCtuVMxNUgKtz
+	YO48iOFXspzwYoy63mBDDUS/0Oiayr5I2+Y+/l91hg==
+X-Received: by 2002:a05:600c:1d18:b0:4a6:42cc:bf6c with SMTP id 5b1f17b1804b1-4b960d9bb75mr43471715e9.7.1794166415480;
+        Sun, 08 Nov 2026 11:33:35 -0800 (PST)
 Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbfa121sm105422115e9.1.2026.11.08.11.33.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbfa121sm105422115e9.1.2026.11.08.11.33.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 11:33:28 -0800 (PST)
+        Sun, 08 Nov 2026 11:33:34 -0800 (PST)
 From: Oarora Etimis <oaroraetimis@gmail.com>
-Date: Sun, 08 Nov 2026 19:33:10 +0000
-Subject: [PATCH 2/4] drm/vkms: precompute the gamma LUT for every channel
- value
+Date: Sun, 08 Nov 2026 19:33:11 +0000
+Subject: [PATCH 3/4] drm/vkms: add a KUnit test for the precomputed LUT
+ table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-lut-v1-2-f762d70ae4cd@gmail.com>
+Message-Id: <20261108-lut-v1-3-f762d70ae4cd@gmail.com>
 References: <20261108-lut-v1-0-f762d70ae4cd@gmail.com>
 In-Reply-To: <20261108-lut-v1-0-f762d70ae4cd@gmail.com>
 To: Louis Chauvet <louis.chauvet@bootlin.com>, 
@@ -113,201 +113,102 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Oarora Etimis <oaroraetimis@gmail.com>
 X-Mailer: b4 0.15.2
 
-apply_lut() interpolates every channel of every pixel: three calls to
-apply_lut_to_channel_value(), each computing a fixed-point LUT index and
-lerping the two neighbouring entries. In virtme-ng with two CPUs, that
-makes kms_plane@pixel-format-source-clamping take 78.9-83.8 s and
-kms_plane@pixel-format 160.1-167.8 s over ten runs.
+build_lut_table() turns a per-pixel interpolation into a table lookup, so
+a wrong entry changes the composed output with no other symptom.
 
-A channel value is a u16, so a channel has only 65536 possible inputs.
-Compute them once per LUT change into three tables of 65536 u16, in one
-allocation of 384 KiB, and let apply_lut() index them by the channel value
-itself; composing a pixel then costs three reads. The two subtests drop to
-4.87-4.90 s and 9.70-9.84 s.
+Compare every entry against apply_lut_to_channel_value() for the same
+channel and value, for a 4-entry LUT whose channels differ and for the
+256-entry sRGB one. The check stops at the first mismatch and prints its
+channel, value and both results.
 
-Entries come from the same apply_lut_to_channel_value(), so the composed
-output stays bit-identical to the per-pixel path.
-
-The tables are built in vkms_composer_worker(), outside the composer lock,
-on a frame with a CRC pending whose blob differs from the one they were
-built from. Holding a reference on that blob keeps its address from being
-recycled, so comparing pointers stays a valid identity test for contents
-that are immutable once published. They are allocated with kvmalloc() in
-vkms_crtc_init() and freed by a device action that also drops the blob
-reference - registered before the workqueue, so the workqueue is destroyed
-first.
-
-When there is no LUT the tables keep their previous contents; apply_lut()
-returns on the NULL base before indexing them.
-
-This patch depends on patch 1: it declares gamma_lut and clears
-lut_length when there is no LUT. Applied alone, this patch does not
-compile, and the rebuild check would build from a NULL base.
+The tables are built with apply_lut_to_channel_value(), so this proves the
+lookup matches the interpolation, not that the LUT arithmetic is right;
+vkms_color_srgb_inv_srgb() covers the latter.
 
 Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
 ---
- drivers/gpu/drm/vkms/vkms_composer.c | 37 ++++++++++++++++++++++++++++++------
- drivers/gpu/drm/vkms/vkms_composer.h |  3 +++
- drivers/gpu/drm/vkms/vkms_crtc.c     | 24 +++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_drv.h      |  6 ++++++
- 4 files changed, 64 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/vkms/tests/vkms_color_test.c | 54 ++++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 1d5658bbd493..5bbc34113250 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -111,21 +111,37 @@ VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut
- }
- EXPORT_SYMBOL_IF_KUNIT(apply_lut_to_channel_value);
+diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+index 1a1c7cac2f15..cdbb74d16b5e 100644
+--- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
++++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+@@ -88,6 +88,21 @@ static const struct vkms_color_lut test_linear_lut = {
+ 	.channel_value2index_ratio = 0xf000fll
+ };
  
-+/*
-+ * Precompute the LUT for every 16-bit channel value, so that composing a
-+ * pixel becomes one table lookup instead of an interpolation.
-+ */
-+VISIBLE_IF_KUNIT void build_lut_table(const struct vkms_color_lut *lut, u16 *lut_table)
++/* Channels differ, so a table built with the wrong channel does not match. */
++static struct drm_color_lut test_distinct_array[] = {
++	{ 0x0000, 0x0000, 0x0000, 0 },
++	{ 0x1000, 0x6000, 0xb000, 0 },
++	{ 0x2000, 0x4000, 0x9000, 0 },
++	{ 0xffff, 0xffff, 0xffff, 0 },
++};
++
++static const struct vkms_color_lut test_distinct_lut = {
++	.base = test_distinct_array,
++	.lut_length = ARRAY_SIZE(test_distinct_array),
++	/* drm_fixp_div(drm_int2fixp(lut_length - 1), drm_int2fixp(0xffff)) */
++	.channel_value2index_ratio = 0x30003ll
++};
++
+ static void vkms_color_test_get_lut_index(struct kunit *test)
+ {
+ 	s64 lut_index;
+@@ -393,6 +408,44 @@ static void vkms_color_ctm_3x4_bt709(struct kunit *test)
+ 	KUNIT_EXPECT_LT(test, out.b, 0x100);
+ }
+ 
++static void vkms_color_test_check_lut_table(struct kunit *test,
++					    const struct vkms_color_lut *lut,
++					    const u16 *table)
 +{
-+	enum lut_channel channel;
 +	int i;
 +
-+	for (channel = LUT_RED; channel < LUT_RESERVED; channel++) {
-+		for (i = 0; i < LUT_TABLE_ENTRIES; i++)
-+			lut_table[channel * LUT_TABLE_ENTRIES + i] =
-+				apply_lut_to_channel_value(lut, i, channel);
++	for (i = 0; i < LUT_RESERVED * LUT_TABLE_ENTRIES; i++) {
++		enum lut_channel channel = i / LUT_TABLE_ENTRIES;
++		u16 value = i % LUT_TABLE_ENTRIES;
++		u16 expected = apply_lut_to_channel_value(lut, value, channel);
++
++		if (table[i] != expected) {
++			KUNIT_FAIL(test, "channel %d, value %#06x: 0x%04x != 0x%04x",
++				   channel, value, table[i], expected);
++			return;
++		}
 +	}
 +}
-+EXPORT_SYMBOL_IF_KUNIT(build_lut_table);
- 
- static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buffer *output_buffer)
- {
--	if (!crtc_state->gamma_lut.base)
--		return;
-+	const struct vkms_output *out = drm_crtc_to_vkms_output(crtc_state->base.crtc);
-+	const u16 *table = out->gamma_lut_table;
- 
--	if (!crtc_state->gamma_lut.lut_length)
-+	if (!crtc_state->gamma_lut.base || !crtc_state->gamma_lut.lut_length)
- 		return;
- 
- 	for (size_t x = 0; x < output_buffer->n_pixels; x++) {
- 		struct pixel_argb_u16 *pixel = &output_buffer->pixels[x];
- 
--		pixel->r = apply_lut_to_channel_value(&crtc_state->gamma_lut, pixel->r, LUT_RED);
--		pixel->g = apply_lut_to_channel_value(&crtc_state->gamma_lut, pixel->g, LUT_GREEN);
--		pixel->b = apply_lut_to_channel_value(&crtc_state->gamma_lut, pixel->b, LUT_BLUE);
-+		pixel->r = table[LUT_RED * LUT_TABLE_ENTRIES + pixel->r];
-+		pixel->g = table[LUT_GREEN * LUT_TABLE_ENTRIES + pixel->g];
-+		pixel->b = table[LUT_BLUE * LUT_TABLE_ENTRIES + pixel->b];
- 	}
- }
- 
-@@ -653,6 +669,15 @@ void vkms_composer_worker(struct work_struct *work)
- 	if (!crc_pending)
- 		return;
- 
-+	/* Rebuild only when the LUT differs from the one the table was built from. */
-+	if (gamma_lut != out->gamma_lut_blob) {
-+		if (crtc_state->gamma_lut.lut_length)
-+			build_lut_table(&crtc_state->gamma_lut, out->gamma_lut_table);
 +
-+		drm_property_blob_put(out->gamma_lut_blob);
-+		out->gamma_lut_blob = gamma_lut ? drm_property_blob_get(gamma_lut) : NULL;
-+	}
-+
- 	if (wb_pending)
- 		ret = compose_active_planes(active_wb, crtc_state, &crc32);
- 	else
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.h b/drivers/gpu/drm/vkms/vkms_composer.h
-index 04dd5646f672..b0ee93ba6dbe 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.h
-+++ b/drivers/gpu/drm/vkms/vkms_composer.h
-@@ -17,11 +17,14 @@ enum lut_channel {
- 	LUT_RESERVED
- };
- 
-+#define LUT_TABLE_ENTRIES	(1U << 16)
-+
- #if IS_ENABLED(CONFIG_KUNIT)
- u16 lerp_u16(u16 a, u16 b, s64 t);
- s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
- u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
- 			       enum lut_channel channel);
-+void build_lut_table(const struct vkms_color_lut *lut, u16 *lut_table);
- void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct drm_color_ctm_3x4 *matrix);
- #endif
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-index fe17f49305a9..c6ac90fbca2b 100644
---- a/drivers/gpu/drm/vkms/vkms_crtc.c
-+++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-@@ -11,6 +11,7 @@
- #include <drm/drm_vblank.h>
- #include <drm/drm_vblank_helper.h>
- 
-+#include "vkms_composer.h"
- #include "vkms_drv.h"
- 
- static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
-@@ -203,6 +204,14 @@ static const struct drm_crtc_helper_funcs vkms_crtc_helper_funcs = {
- 	.handle_vblank_timeout = vkms_crtc_handle_vblank_timeout,
- };
- 
-+static void vkms_release_gamma_lut(struct drm_device *dev, void *data)
++static void vkms_color_test_build_lut_table(struct kunit *test)
 +{
-+	struct vkms_output *out = data;
++	const struct vkms_color_lut *luts[] = {
++		&test_distinct_lut,
++		&srgb_eotf,
++	};
++	u16 *table;
++	int l;
 +
-+	kvfree(out->gamma_lut_table);
-+	drm_property_blob_put(out->gamma_lut_blob);
++	table = kunit_kzalloc(test, LUT_RESERVED * LUT_TABLE_ENTRIES * sizeof(*table),
++			      GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, table);
++
++	for (l = 0; l < ARRAY_SIZE(luts); l++) {
++		build_lut_table(luts[l], table);
++		vkms_color_test_check_lut_table(test, luts[l], table);
++	}
 +}
 +
- struct vkms_output *vkms_crtc_init(struct drm_device *dev, struct drm_plane *primary,
- 				   struct drm_plane *cursor)
- {
-@@ -235,6 +244,21 @@ struct vkms_output *vkms_crtc_init(struct drm_device *dev, struct drm_plane *pri
- 	spin_lock_init(&vkms_out->lock);
- 	spin_lock_init(&vkms_out->composer_lock);
- 
-+	/*
-+	 * Allocate before composer_workq: drmm frees in reverse order, so the
-+	 * workqueue (and any running worker) is destroyed before this table is
-+	 * freed.
-+	 */
-+	vkms_out->gamma_lut_table = kvmalloc_array(LUT_RESERVED * LUT_TABLE_ENTRIES,
-+						   sizeof(*vkms_out->gamma_lut_table),
-+						   GFP_KERNEL | __GFP_ZERO);
-+	if (!vkms_out->gamma_lut_table)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = drmm_add_action_or_reset(dev, vkms_release_gamma_lut, vkms_out);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	vkms_out->composer_workq = drmm_alloc_ordered_workqueue(dev, "vkms_composer", 0);
- 	if (IS_ERR(vkms_out->composer_workq))
- 		return ERR_CAST(vkms_out->composer_workq);
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 381483aa4fb0..065a7b07b4ab 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -214,6 +214,10 @@ struct vkms_crtc_state {
-  *		      writeback)
-  * @composer_state: Protected by @lock, current state of this VKMS output
-  * @composer_lock: Lock used internally to protect @composer_state members
-+ * @gamma_lut_table: Precomputed gamma LUT indexed by the 16-bit channel value. Allocated
-+ *		     in vkms_crtc_init() and freed with the device.
-+ * @gamma_lut_blob: Blob @gamma_lut_table was built from. Holds a reference so that the
-+ *		    blob cannot be freed and reused at the same address with other contents.
-  */
- struct vkms_output {
- 	struct drm_crtc crtc;
-@@ -226,6 +230,8 @@ struct vkms_output {
- 	struct vkms_crtc_state *composer_state;
- 
- 	spinlock_t composer_lock;
-+	u16 *gamma_lut_table;
-+	struct drm_property_blob *gamma_lut_blob;
+ static struct kunit_case vkms_color_test_cases[] = {
+ 	KUNIT_CASE(vkms_color_test_get_lut_index),
+ 	KUNIT_CASE(vkms_color_test_lerp),
+@@ -400,6 +453,7 @@ static struct kunit_case vkms_color_test_cases[] = {
+ 	KUNIT_CASE(vkms_color_srgb_inv_srgb),
+ 	KUNIT_CASE(vkms_color_ctm_3x4_50_desat),
+ 	KUNIT_CASE(vkms_color_ctm_3x4_bt709),
++	KUNIT_CASE(vkms_color_test_build_lut_table),
+ 	{}
  };
  
- struct vkms_config;
 
 -- 
 2.55.0
