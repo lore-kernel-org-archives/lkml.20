@@ -1,58 +1,151 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794121168;
-	b=19pNAsHJ7WyvS4Ky9vkGiFhYUet+6B2RdvfTJQTOYQxyeqVqgluCGG5s5mmh1mCA1PYa
-	 CjQo5GbVFwpmWvVGr0WYZGU9LFJVKF0oYnQ5cEZPNjbdUqo/sIIamw5IXptCTKD4UO3ni
-	 RBYaD2pvnJgmd8HGndDUqvIACV5itQW1kcFXb5GZ6PnTeo9pbjkHRm+t58cC37E/QrjPG
-	 IOimKlQ+wDKLd4MkK2BWTfHiL/GfvweaCmO+dzDq1+BTRpqs4y6aXtcJmZGWjPfMcNECr
-	 WSVV4/sf6iHMJ8+lmDErLUMPVKYRjURyrviJyUOinTGDgahFXxXQewnTDz4jydd2fnQ==
+	t=1794121193;
+	b=qggmxFGrulrUHHQ6EqRUnO4j5qNCEokYdjHElaT2e85P5+gmAgyf/nwpPnKG+zfbdBnK
+	 uHYNQHOvtys8drxh6cLWYyCsWAwH//6SZ9PA8b76SYjyAIeTyuxdh0iAdo6Lg0wG9/jME
+	 pbA+hqa2LdM2a/vxzp+ifSV2fBhlVQLpgCA8Yjh3pbN9XzZfEeU9KY0LTS/lwZ390Vr7l
+	 TLU58p1fCR13Mpgg28YZd65g2Fp6DSdZWGGoVgN52bbEAUGasKf0j6Y9SxAv19TgJS7ZR
+	 XUkphJhuNUVXmgItf4Nn80tpA0VHXux9KQR+mRwYAp0iQoFV0g7jbk1Qhf+bsQYlm8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794121168;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TxIUb5bWZGmoAUzDYkV/qaWh4k4doHszwohpd1hGknw=;
-	b=cTS4jGLl+1WqV+vBiC4DGZOvZqewDAX2xuGQBBVQT4U3ROxs3GymK/cXsQ080QzKPaOm
-	 kAj3ADztdas7n3OuUq2vNhbaddOLvknsk1Po4pI9xxJu+gfAoNZ+ipgsh5P7arZFHfqu8
-	 C3YDK6yA70QYf/yyBJZiSTwTxkFizQhyUKmskZEcglxs8WXNjlIXDGq8V0vGs5vp4C7Tm
-	 SPfJLt+ABp5r9+rkC+rnoP6B8/9buG2DDaoUOaoqI3sW1f2d39/XinKWtyP496TWSQEso
-	 lyBJbvYD77+mPLpsmNUw90WKjJTklFjLTokbp0xLqy8t5qavdOb4+i+hTdjez1tOV3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794121193;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=EfQbylsCpIAnslSqVxcBOCtEodurG+HUimJi3ylSZas=;
+	b=F17uFAtlgJfJRWIzvPaocCqaTF4rrXQ7fsTuZiIb3ul/Y630iqHjtmsAPNG5d1US4oBM
+	 wL1RcFcRUx3+N2GsCKEZvMkvgvicoBPLAOcQ8xsFzDqAyoJ/G+m4iB5rQ2/LzOo5IZR8/
+	 AINeFZq5tglU3klZeH1Qi+z8sP0IWZK3Esmhjw4AXS/XfgglwxsOuGHSqOYH6UZZUVl8J
+	 ta21yACFWtUTzEjuE6hVIYzZ7fMVqc7V/z4EFoFbV4nXZjeBDPuEf6W1X3MjKxjj7a43A
+	 PHbBH2mcDLzQadF2VmXCAVs1EpVOv+9MEdML4X76hLYaxr+YFMNXzhdp/vt38YgbDKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xpy7CNth;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b="nyj/NjMM";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mop2sp4r;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4D9606A31A;
-	Sun,  8 Nov 2026 06:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41407606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:59:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41407606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xpy7CNth
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678F61F0089F;
-	Sun,  8 Nov 2026 06:59:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794121167;
-	bh=TxIUb5bWZGmoAUzDYkV/qaWh4k4doHszwohpd1hGknw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Xpy7CNthMHn7JInJJ7zre/OqP5C8GcTpHaAlrXr7G+LZmitImXzREGNi8Acd3uiy/
-	 98Mv1j0teruR8uzB/8vZJflMq1xUKNjP0vftBPeJ9sLaGTVPv1/p07cViCdHqE9Osn
-	 Fhy6zhNjTAopyoC9ni7qR1s4H6Z9aC6u+mJQ7FW5ry7aPVh6h3csm8rGiKTvGK1gYU
-	 ZcNxMLybVNYi7nWKBJq1uUJ2NJlJzMbjMDWgTgsga4g+UopjTdOaWr20Ir0l/ltiQ/
-	 GHOxM5SQR40nA6apXUStl0Z5+FtpqrRJEJyTZiUbom1wghv6DfAYo8+V+TnLyh/3Wo
-	 oglY2IQYn0t9g==
-Subject: Re: [PATCH net 1/3] net: atl1: disable work before freeing the netdev
-From: netdev-bot+sashiko@kernel.org
-To: 0xbeac@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 08 Nov 2026 06:59:26 +0000
-Message-ID: <179412116691.994134.8959848817104495766@kernel.org>
-In-Reply-To: <20261104063245.23402-2-0xbeac@gmail.com>
-References: <20261104063245.23402-2-0xbeac@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=nyj/NjMM;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mop2sp4r
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 9BBF91D0013C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:59:52 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sun, 08 Nov 2026 01:59:52 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1794121187; x=
+	1794207587; bh=EfQbylsCpIAnslSqVxcBOCtEodurG+HUimJi3ylSZas=; b=n
+	yj/NjMMexDg+rlV2fUiql+lwYWIfnNa8sqpiM7W4Z9SC4tY5t6zSdTRdLSmvKdbR
+	HTRZUuJscZk1lAbbPW8qPjFwt8BIvGmJRuIVzAFrP5jcVfc7uJocXQtpVzk3IEhK
+	NkDww1LgRMMKPwCx48waCQvARBizy8EYSk5uYVqcSGrXg7Evz0+65kp3hUOz+Raj
+	O7fOkXi79Sr64wS+/pcY4iOpcX5FwG+8dfPIPVfvuhSTbQwf5GUXhtsLXw8Q3+bF
+	wsoH8B3xnl2VXnthK5rNu1IlytuR+Zgj0JcAYeqOqsP+zX1o+hl4iKmaOxeP1rnj
+	xMV6+rDZiBQ4/qjOOhv3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794121187; x=1794207587; bh=E
+	fQbylsCpIAnslSqVxcBOCtEodurG+HUimJi3ylSZas=; b=mop2sp4rvIQ9X7YQ9
+	0RlubFjZzPyYf1YKy6iPIOLR9TsknTeruwkfFGEEFTbKop8uhIUjyDKkpRFlVTFo
+	kZAkIflE2So4tri2zw2OedyxT2YYlMRTdJIyNTAJzlINg6b59udlahYBp6unyMDT
+	GWKDavtrxUZQrc7XKy573IoOwk3kGZp6py63YPi8aYc/to7qpwEnioH2KMCd5pBc
+	7qRsdDgYAKoez5UcXFwRhIt2PghWBk1/+Hq0HHojr6xcEIOzuXqimkMxQ5Y1zYLs
+	BfyqXeBv+jH53algvrPu0z1tzaetgziq+lvBQnKHtp3l18iGgeUSW02tujr+XL/m
+	QWlgg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794121187; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:OFkuxNpBkO5fZ/yhc0+8WctnU6Mjx7rbO7SqCQy4pFBjCin
+	l0uenv0tSJQUF9N7Ny9l9ZNUl1OHSwDRTgctrg5mrtXhCBWMo76UBDB7dSWcJ96O
+	ZDsfs+YuDDH3nD86aGXgYRAFnboJIMZ/+P6sT3yvdNiZZ5b46bAMa2eNbx0O655b
+	kiz+wDOpQsc3BvNyGysNVQEv8qs0LKd8H90ETPWNJK5HZPkx+2e0xKHMIslIityV
+	cbJK7nli6tX1KT8lefairzP36cmURVlavndqDIFjxM1i3+IRnvvl31FiSnF4xBsG
+	VvvIVMeZzAhmcnf2hqwgMSAqEzBf2yg5sjoPEiA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:i0uMcOJV4Txg3uXy8svWGAM+fGmcjkhIe099c7B65Vw=:PFJmZpPQ7hOYq6GyLPKUjFxHooG32hWaNu/MYQEiFdw=;
+X-ME-Sender: <xms:4x3wasEElednTwhBg53F73pvHctZugiGaoVk1D4VKxGqnlB_Z2L61A>
+    <xme:4x3wahe3gkc84wPIjapIbE8Xv71bWGPhN7GSSu2KmO2bqIirgd2A1z2zQo8AitQGI
+    dF7OBM5Z_lU2eX6dEWSgIJaPLAPHYx9yRUb1GzDoJKFbpBoSHz5Vm9_>
+X-ME-Received: <xmr:4x3wava6r1t9OqZ8JsqfspvhwZFlXzRnspVGs63b_2exYwuhdbyZKO_ywBRMgoD_YaaKTjW9>
+X-ME-Proxy-Cause: dmFkZTFKhclCCJN9i5LFQp5fvn9DylL5PDR95+qcmUDEkBDvAaUlhVhO6JW1PTcA0oiilr
+    afxU+kS37MwfkRVrV2sLhNS1OkBSH9hrpfUYkvEeAEfTx8oUhC1lvQdEqsrvfO12L2kPDm
+    Y90xvEv61R5vWsABT3XVmqKcWsSTBPoQRHs33ySAWpN7mh8mIX7nfmpu6Q5St0DdZLVl6o
+    GJpMHUC7TjUVqLMHfqfKk9SHn10f5lL6CdG6YeehrsosttZtbM1aNiFk46XYC+svmJcMBn
+    4w1I3sJZaXrv8SSndHCWUOH7cbPZHBY65Sr1oZjnZZRxSV2wTTFO+3xU/Lmvhk4YCMlhrD
+    d8VrwNk0rqjoxg0rgtVyiUIqLKvl1cfJCmGEQpGCCSL22Di3houcbmHV2KWk9Gy7CGyQFw
+    LScFVe2L9bN00I9vTKwsVZjgHcuSIOcibMMaxFmdry5AP9zy5JqvB2t0A4ATAW9JhssOM6
+    mgVMRSuTrFNRpqV8HyuLwsjFvVM5dgsfwsFu2n1yWX5cngVOA0D7sKLl7Kg6e2Js6RvUzi
+    4jsiXM3XQ+Q4EbiddfEFl+Odx/6wkw+wPdtCPrbFf3rq5wIa0nWZ4KWoDn0Z4IbwuLFiyE
+    Y7vGCUjrDzAcKXrXMFlDMtOUbixTZ/WK1uZn0idCqXESM0vCdcxG+tym3MYw
+X-ME-Proxy: <xmx:4x3watIDd-7W-wCokvJaM3siszwMwqx_-aW02aVJJGeYYrja-HSrkQ>
+    <xmx:4x3wamhDM260Mks_j3mCba8sCckeATFyz0cbF2gZaTDBw66k0vpm-g>
+    <xmx:4x3wahsYJSPIUFBx2VTytSbRBPlrTHMdaJSBu_rwaWZ9zBVNVb6rcQ>
+    <xmx:4x3waiEIIo8SXyfzC0Hmkoi1CWERb-FOJHofGcgpasGCJ73Uafv-jw>
+    <xmx:4x3wavPkeJxdkq8E2gmNddFzhgkefGWv_tn1sVw4BJfejKmD9RQuJ0qF>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 8 Nov 2026 01:59:39 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	shawn.lin@rock-chips.com,
+	finley.xiao@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v16 01/16] accel/rocket: request the core clocks by name
+Date: Sun,  8 Nov 2026 19:59:02 +1300
+Message-ID: <20261108065917.135194-2-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261108065917.135194-1-gahing@gahingwoo.com>
+References: <20261108065917.135194-1-gahing@gahingwoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,167 +155,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: Igor Paunovic <royalnet026@gmail.com>
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+rocket_core_init() never sets the .id of the clocks, so all four are
+requested with a NULL name and each one resolves to the first clock in the
+DT, aclk.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+As a result aclk is taken and enabled four times, while hclk, pclk and the
+NPU compute clock are never enabled by the driver. It only works today
+because the power-domain driver enables those clocks for it.
 
-- [Medium] The commit message offers atl2_remove() as a correct sibling:
-  "atl2_remove() cancels both works and deletes the timer before…
+Give the four clocks their names, in the order the binding defines: aclk,
+hclk, npu and pclk.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  atl1_reset_dev_task()…
+With that, a DT that lacks any of these clock-names fails probe with
+-ENOENT instead of running on the wrong clock.
 
---
+Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
+[Jiaxing: shortened the commit message]
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+---
+ drivers/accel/rocket/rocket_core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-net: atl1: disable work before freeing the netdev
-
-This patch changes atl1_remove() to call disable_work_sync() on
-reset_dev_task and link_chg_task before unregister_netdev(). After that,
-it deletes the PHY config timer. The goal is to stop either work from
-running after free_netdev().
-
-> Disable both works synchronously before unregistering the interface,
-> then delete the PHY configuration timer.  disable_work_sync() drains a
-> queued or running instance and rejects a later queue_work(), which a
-> plain cancel_work_sync() would not.  Deleting the timer after the works
-> have stopped also prevents a running link work from rearming it.
-> atl2_remove() cancels both works and deletes the timer before
-> unregistering for the same reason.
-
-[Severity: Medium]
-Is atl2_remove() a correct precedent here? By the reasoning in this
-message, it looks like atl2 still has the same use-after-free:
-
-drivers/net/ethernet/atheros/atlx/atl2.c:atl2_remove() {
-    ...
-	set_bit(__ATL2_DOWN, &adapter->flags);
-
-	timer_delete_sync(&adapter->watchdog_timer);
-	timer_delete_sync(&adapter->phy_config_timer);
-	cancel_work_sync(&adapter->reset_task);
-	cancel_work_sync(&adapter->link_chg_task);
-
-	unregister_netdev(netdev);
-    ...
-}
-
-When the cancel_work_sync() calls run, the IRQ is still requested. It is
-only freed by atl2_close(), from inside unregister_netdev(), and
-dev_watchdog is still active as well. That leaves these paths able to
-queue work again after the cancels:
-
-  atl2_intr()
-    schedule_work(&adapter->reset_task);      (link-down and DMA errors)
-  atl2_intr() -> atl2_check_for_link()
-    schedule_work(&adapter->link_chg_task);   (ISR_PHY or ISR_MANUAL)
-  dev_watchdog -> atl2_tx_timeout()
-    schedule_work(&adapter->reset_task);
-
-None of these check __ATL2_DOWN. atl2_close() and atl2_down() never
-cancel the works, so anything queued in that window can still be pending
-at free_netdev().
-
-The ordering is also the reverse of what the message says is needed.
-atl2 deletes the timers before it cancels the works, and relies on
-__ATL2_DOWN to block rearming. But atl2_reset_task() ->
-atl2_reinit_locked() -> atl2_up() runs:
-
-	clear_bit(__ATL2_DOWN, &adapter->flags);
-
-atl2_up() also sets MASTER_CTRL_MANUAL_INT, which can raise a manual
-interrupt that queues link_chg_task again.
-
-No other patch in the series touches atl2.c. Should the message stop
-describing atl2_remove() as equivalent, or should atl2_remove() get the
-same conversion?
-
-> diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
-> index 2883e9462f6fd..2bd35c3cfc820 100644
-> --- a/drivers/net/ethernet/atheros/atlx/atl1.c
-> +++ b/drivers/net/ethernet/atheros/atlx/atl1.c
-> @@ -3132,6 +3132,18 @@ static void atl1_remove(struct pci_dev *pdev)
->  
->  	adapter = netdev_priv(netdev);
->  
-> +	/*
-> +	 * reset_dev_task is queued from the interrupt handler and from the
-> +	 * tx watchdog; link_chg_task is queued from the interrupt handler
-> +	 * when ISR_GPHY reports a link event.  Disable both before
-> +	 * unregistering the interface so that neither a pending nor a late
-> +	 * queue attempt can run after free_netdev().
-> +	 */
-> +	disable_work_sync(&adapter->reset_dev_task);
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can
-atl1_reset_dev_task() race with atl1_close() and the ethtool
-reconfiguration paths? It takes no lock and does not check
-netif_running():
-
-drivers/net/ethernet/atheros/atlx/atl1.c:atl1_reset_dev_task() {
-    ...
-	netif_device_detach(netdev);
-	atl1_down(adapter);
-	atl1_up(adapter);
-	netif_device_attach(netdev);
-}
-
-atl1_close() (ndo_stop), atl1_change_mtu(), atl1_set_link_ksettings(),
-atl1_set_ringparam() and atl1_nway_reset() all run atl1_down() and
-atl1_up() under RTNL. Nothing serializes them against this work, and
-atl1_close() does not cancel it:
-
-drivers/net/ethernet/atheros/atlx/atl1.c:atl1_close() {
-    ...
-	atl1_down(adapter);
-	atl1_free_ring_resources(adapter);
-	return 0;
-}
-
-Here is one possible sequence:
-
-  atlx_tx_timeout() or atl1_intr()
-    queue reset_dev_task
-  ip link set dev ethX down
-    __dev_close_many()           (no netif_device_present() check)
-      atl1_close()
-        atl1_down()              napi_disable(), free_irq(), ring cleanup
-        atl1_free_ring_resources()
-  kworker: atl1_reset_dev_task()
-    atl1_down()
-      napi_disable()
-        netdev_lock(n->dev);
-        napi_disable_locked(n);  spins forever, SCHED never clears
-
-When that happens, the kworker blocks while holding the netdev instance
-lock. A later atl1_open() -> atl1_up() -> napi_enable() -> netdev_lock()
-would then deadlock with RTNL held.
-
-If the work instead runs at the same time as close or ethtool -G, both
-CPUs end up in atl1_down(). That can call free_irq() twice and double
-free skbs in atl1_clean_rx_ring() and atl1_clean_tx_ring(). It can also
-let atl1_set_ringparam() or atl1_close() free the descriptor rings while
-the worker's atl1_up() is refilling them in atl1_alloc_rx_buffers().
-
-With this patch applied, this disable_work_sync() would also wait forever
-on a worker stuck that way. Should the reset work take rtnl_lock() and
-check netif_running(), as other drivers do in their reset tasks?
-
-> +	disable_work_sync(&adapter->link_chg_task);
-> +	timer_delete_sync(&adapter->phy_config_timer);
-> +	adapter->phy_timer_pending = false;
-> +
-
-[ ... ]
-
+diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
+index b3b2fa9ba645..5dd260bacbff 100644
+--- a/drivers/accel/rocket/rocket_core.c
++++ b/drivers/accel/rocket/rocket_core.c
+@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+ 
++	core->clks[0].id = "aclk";
++	core->clks[1].id = "hclk";
++	core->clks[2].id = "npu";
++	core->clks[3].id = "pclk";
+ 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104063245.23402-1-0xbeac%40gmail.com
+2.43.0
+
