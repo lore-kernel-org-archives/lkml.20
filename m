@@ -1,64 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169357;
-	b=wAYmGpmBS90j9uoLz0YWE+vR6dsTaYDCsJpGMk8qGeAMSpriQcFKH5SAnKS2wxv3TmMS
-	 k53N+Y7pbfvzV6gfN7234kkBrIeREkYCXXF3s3l/+3nO+E7WYmjwCQSGP4ChvheU7v45q
-	 oN0HG0FKNMkSfxDg+MCsd4jZdACG9YIURhqy+D3QT2G8fYokO9q+yPLCQA/AxZY74bgFh
-	 Bc1lJqEyK3tnnzsz8Xm3CYCZgDO2cDwE5pfh8ARTskTqNHO/vGGEQsM73NMkXpkcZvdU8
-	 lp4FSjHudrf0GmxD52uyIgxvrNRxPjT+dCZiMvMAFFl5SzutAeUCqkA5zDl70w8KcNQ==
+	t=1794169358;
+	b=o/96FdLFgnOGMi8UIqvSr+ERpTiaFXbseBLqtrJhG+v1alg0bIofILtHJ5cgvwz4l0yV
+	 p3UVie5/54mRizCVlXyZjEA3olIRsXdw4shS31KPafpvYwzABwjdOCpA/AcITL1IcTO/o
+	 GKOY2zcDK4G9k4Cl+6MoROUQvGtEDn25AtkqlzQ79vwvgkv1Cs7FbCIZ1ccutmY1BBgaO
+	 zflu5QrsFEUE15fYxwh7tyCs875Y/X8Eit9SXioZHKom6/COhoHHXb9SeKhOSJtGGWs+B
+	 cbVcnZGFou6gzV4MG0dYgO5K5jD5GgGqSFjmzawSFtVU5cs/m6puiDS3b/kLfKvXv6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169358;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=upPLFoD78FXRin8MRh1mfyaTKvL+JMbeOe8yOjqBx6U=;
-	b=cqJYiu1ZNvFh0PDvFhG77X3O1pwoMh5Ux1rJii+m5HJOq0oBZYP+7Z86kM2AYLAr/qHC
-	 VuYyMsi9jMgO4BK1pJs0otwWg4n1ibDgVBzr6OROAaRK36vrrgvJaYapfhKiFWETeHq+f
-	 aj7XpeJ0tKV+M2GbIYFsjQ88wwyWo/6HKuT7STiST3G11yUlijTjL4zTRVIAKLhN5MfG6
-	 SpVjv2sZeEw7/YIdY042WjBWvz9yon/8BxFyy5U/N0sr7y9MUu3y8pdo9jCTmtKRlAB2b
-	 8Mf0QLO1USj7maFXpGsQYYetYj4J3jo/zRK447uUBK/Iu+loChVPjT9cQc7XrJ39tLg==
+	bh=J59kU0NVCcqYcr4shnDVtEhKulCk9RJGDvqLm+9RUSc=;
+	b=nFxjMEr0NzGmui+3CDmtIjE4NGdbD02UTLT+XXCnCoXu0CflkAY1AdmKpCLfny6bhsIx
+	 7ZQczBLW8e/vdWtsYSVEz8VQzXCdrlqu/I6U83q0Q/k1GWYkyJTs8DxTrX7s3cB5oFIWW
+	 rADykfoVBZ8LedXsEvY9X0+J4o61YwOjVLqMFd0z+IWj8T29h1piy0FQYqtaSSz1rRQGC
+	 Wv+XiRm3M6DfTOZjNvE8/3wSwtxlTtZlUYqw6znb4qnMucdyt6pavL0+N5lxP6MRApn1n
+	 2Na+ZHJJ7MKmv1rYJHdMs8t+Apn1bKrIGEGpmvuzSZlKuFImc3n6Z9wZnkfAJ6H39nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOAqKlGs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4KPBTtw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870CD60A6F75;
-	Sun,  8 Nov 2026 20:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F00F606A9C7;
+	Sun,  8 Nov 2026 20:22:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOAqKlGs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0977F1F0089F;
-	Sun,  8 Nov 2026 20:22:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4KPBTtw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664191F008A4;
+	Sun,  8 Nov 2026 20:22:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169357;
-	bh=upPLFoD78FXRin8MRh1mfyaTKvL+JMbeOe8yOjqBx6U=;
+	s=k20260515; t=1794169358;
+	bh=J59kU0NVCcqYcr4shnDVtEhKulCk9RJGDvqLm+9RUSc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lOAqKlGsnjXSV21/T5smoYtdNla1zkSW4WkU9OHO4A37KX5l4/hbtlzCwBptD9rkQ
-	 jKFROwdGpMXgJXqyadRPWe1e+bWfOvg7+MYptBva3X5SrUeqx/I5tgYK2A6LefGAQY
-	 kgJbNbuHv7rvKBto+yH5+irTMC28bAUyUQDu5BGY7+mhbngOffzQ98emsnfLrvDQ7M
-	 VeY9bZ10ZgddwXPEqTiPXbbnoyqr21RaPdEBzGSS0zqmkj9h/7pjAw5GywN/9Rt1Wi
-	 IgoDkM+cOMt5izIC57HlGg5NnrRG29aYjj5G40Q5eJhuOH+TqqwOopu2io8FW1b5CJ
-	 PHs+dTmnslJeA==
+	b=N4KPBTtwxdfeO33j0snI3WixpQ5qj7i1AjR2HH6MslKeNXDaucOkegW4TbWpDMQkn
+	 babnYxm5I6dLY5mNfHI3TJFS37P1Z3btryQ41YvrOe3WTNqVA8rdzj9W1GyJ3tFsFA
+	 0Cm9NxVRiGVR1AvvXYqRQKYxABi9GTfCcDXyU/uJWloXThmgfpo/2Tw1Vecopulwr0
+	 sgtSvPUNEK69y49unFFvYE8SDY6nX1czaHwEsSQmU7+egn84BwMJI+cdvq4nAyYTW2
+	 wggxbV4Nem5+IYPx+PEY1mMs1NcoqDc4OPxvJcQlzbDfmoWPzUxi8Mu0osrAJ/QZDR
+	 W4pI07n1I46Pg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabricio Akio <fabricioakio@gmail.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	Alexey Minnekhanov <alexeymin@postmarketos.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
+To: Abel Vesa <abelvesa@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
 	Martin Botka <martin.botka@somainline.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	Fabricio Akio <fabricioakio@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sdm630: Add interconnect paths to the BLSP I2C and SPI controllers
-Date: Sun,  8 Nov 2026 14:19:42 -0600
-Message-ID: <179416929353.628393.10028590160844820723.b4-ty@b4>
+Subject: Re: [PATCH] clk: qcom: mmcc-sdm660: Do not keep the video core clock always on
+Date: Sun,  8 Nov 2026 14:19:43 -0600
+Message-ID: <179416929337.628393.6548300714899601564.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
-References: <20261009-sdm630-blsp-paths-v1-1-6a86ba193e8e@gmail.com>
+In-Reply-To: <20261008-mmcc-sdm660-video-core-v1-1-3a772ad6a436@gmail.com>
+References: <20261008-mmcc-sdm660-video-core-v1-1-3a772ad6a436@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,25 +71,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 09 Oct 2026 17:49:30 -0300, Fabricio Akio wrote:
-> The QUP I2C and SPI controllers move their data through the BLSP BAM
-> DMA engines, which reach DDR as the aggregation NoC masters BLSP_1 and
-> BLSP_2. No path is described for them, so nothing requests bandwidth for
-> those masters while a transfer runs.
+On Thu, 08 Oct 2026 18:49:18 -0300, Fabricio Akio wrote:
+> video_core_clk_src is marked CLK_IS_CRITICAL, so it is kept prepared and
+> enabled from boot, and with it its parent XO, which the RPM then can
+> never shut down. Nothing records why: the clock only feeds the video
+> codec, whose driver enables the core clock it needs, and the same clock
+> is not critical on MSM8996 or MSM8998.
 > 
-> Describe the path from each controller's BLSP master to DDR, as the
-> vendor kernel votes it. On a Motorola Moto X4 (SDM630), with the
-> boot-time interconnect votes released and system-level sleep enabled,
-> an I2C transfer running as the SoC entered that sleep hung the SoC
-> without these paths; with them, 5,000 transfers ran through about 3,000
-> sleep entries.
+> Drop the flag.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm630: Add interconnect paths to the BLSP I2C and SPI controllers
-      commit: 0e8c6ca9ac42a99a9cbd760f59ce47b6c61162ab
+[1/1] clk: qcom: mmcc-sdm660: Do not keep the video core clock always on
+      commit: 72ce3d44229962bfd63fbfe8765d83f7a22906ed
 
 Best regards,
 -- 
