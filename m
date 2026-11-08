@@ -1,67 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169373;
-	b=JCLdSagF8HxeG3ilthzhBuQZ2X9Xxjuzg2E2GAtm55MJoeV+nE2JrSvRJNkAMyXA3h7Q
-	 lcJuMysyqo4+NVr7hvgUR384/iQIhwCZx0J3250VGks+w7U5Yk8H/rPQ+uV6H7qXUa+Wm
-	 xupMM0fSx3RB0hLHGRpGwxi+mIzFoNrFsiWd7PC4ow2LbrQwR2T3BP6yfvz+lsvb/RvgE
-	 u6LuveCh/5eH6FoEhbwjEMgM5tAUGrrsM99fFTwDqqUQaVxA2+2MThK0PCBygyOqX79mO
-	 MY/DnKGAVueUnXT4MDCKA9VS6SgWHHrszLWvqBneO1f7Hv1TTEHdoFNp81Sq9pQQ/1g==
+	t=1794169395;
+	b=QfogC9AwiwHhCkWQv0eLXqsQNkW7blhZG0UobeyLo3poun2iEbmV42jRBBoqA+Q6MoGl
+	 yn+f49yyX4zvXpqyTDjxaWV/EZIY1iA0bgBa5WsXFaghJFE3/mzCEhWWDTjeoyLxOP0ri
+	 9lHijt8W4yQxFgx4eK6T8XQCFW1QhDe+Dq6g8a9cwOCdRPZJpx4N2dWrrCvsD+BwEPtvP
+	 /Fg+pwf/rN8F0nl9xPbM1KkeF9Z3w1VezzRNhWpL11uvz7qfxu0gyHmTv/MGAcvLujhmG
+	 Wf+hq/xDmOQZc/uY4/ZU3oqrIXJkNCONOLyMOte8lu+fiuTVDsQwG/ySxgJNN1ZSZkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169395;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=p7WDi4J3BaaoDlmRYlpEKF1Z7u9lZhsCUSzEymvpXW0=;
-	b=3gL08p497OGsjtuRT97fXcHLl8SKLBQbq9Ayy1TY96ZBGMZL24xCWGO99cnN4dxaWZmF
-	 2iGDnF15WMRPzoHQSydBlMq6sHcLfEGD8jnPwkLqwAViZVapOi8Q2muFw+37pSL79LHk5
-	 8c3bMCCNZG5w8rq60p0MeGEYNnhMVD66qYnb7zObl9iYb0ITD3+feIEP0g6rhAnGwu+ey
-	 /wOxabTXNOKrmmNE/ilmsQnWZj5UTf4iO1/DuQlDakyPpgJ4rtYtmwm1yBO7eA3PZwzDc
-	 BMq/mXacc9I6cwRppOVpVOkvuViMYCHxT3nGaUOX9INqsw9LxPv+nI5NcoAxfd3fAoA==
+	bh=9coBeaa1a2tcCZf4rJ/VAAs3WKuWv+I2GdA5wSwDE3k=;
+	b=f+BX4n70QYfxIgfkArN+0SJHT3C1RNWTKlq1vKuolXZB+aoX7om7hJy0f0kaiuSy/5Nt
+	 emMBIsPwT/ZmoBu56vBNfgkXRHX987COeO+hM4fYniMoQzPXO3OekKvqpWGParKH6DWN9
+	 FN7/Tnvv9NH39PrW3d31HFwn3sjMtK0KWNLEtMWjynTMtfopmkfipuhB+MGdfXF8p+wIk
+	 Jh8xM9HrlyhfDdXD5Jd2Lzl7SA1QRZ7aD2PnI403E7JWDJYQ+HQstHoe/C+hiJzKa+8Y9
+	 wuabZiAKoAbGE8M5/DPrZJVXAcexPXj77VFjafEEQGIAfYmZ4qDGo5Ww8u8ZA39Sthg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPV0j0iH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYO5zkuv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2F7606A33D;
-	Sun,  8 Nov 2026 20:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC920606F8DE;
+	Sun,  8 Nov 2026 20:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPV0j0iH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C2B1F008A3;
-	Sun,  8 Nov 2026 20:22:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYO5zkuv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397521F00904;
+	Sun,  8 Nov 2026 20:23:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169373;
-	bh=p7WDi4J3BaaoDlmRYlpEKF1Z7u9lZhsCUSzEymvpXW0=;
+	s=k20260515; t=1794169394;
+	bh=9coBeaa1a2tcCZf4rJ/VAAs3WKuWv+I2GdA5wSwDE3k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hPV0j0iHWCaO/hPw6eNhThoLb+wiwUp5pszcWTRfUH0dx9Mf1aRGnKy2g7ONGlyk/
-	 dY7cRrDr97OzyWSVD/xa/NOdJvWVoLSLsAjVplsKwvfRty+LytOzc/7nbj8+d+RqBq
-	 pcJVPBAkfsn/y4s0CiKyy6/Ettrz+3O1Z6ifvAf8YVjt6ZzsaFmRFMuMUlQIhtWJzt
-	 3ymgm5GjKVZSh7sk0cvB9S+qF7oFig4tc/Z9cYTAdF/VMk9L+HRR3T+LWhVHEil+Gg
-	 530eyzOKvaN/i4thu3WYGvSSEK7ZSza+6H7DkeY36ZTRHE0leJO64PVm9FuLRH8Gc0
-	 xUrMCSFCtDUmw==
+	b=lYO5zkuvXYn5P2oqqOZjynaBhZ1q8b9Vnv+4u4Y8CUjrR1aoe4Pk8l37mhHJmGmEX
+	 jfL6ZHGkNRgO3AP/uac/ptTlFbrZ1eCdgPfvry6wK/t03hdm3tqfKayqQ/RzPxPWKM
+	 C0ikSLe9iZYz8YQco2OkY4Azesy4zfpfQ15MbeMRagkwrsl7CDoxyi7eOJSZftI3gi
+	 9RfGgwuN+UmtgN2Oly3n90baB9h0zzJpUmkc4NPIyP4OLucoWZpbLMTwZ1ffBr7kpY
+	 3onxMypbw5mKwnKcf+WbKg5f0lLYVHDaXdv0fJlbiPL42EpScQbnSK2dbmMS2V/Ow/
+	 mBq3OcGhA2CPw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Xin Liu <xin.liu@oss.qualcomm.com>,
+	Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Nikita Travkin <nikita@trvn.ru>,
+	Birk Skyum <birk.skyum@pm.me>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/2] arm64: dts: qcom: Add Kalambo SoC and CRD
-Date: Sun,  8 Nov 2026 14:19:49 -0600
-Message-ID: <179416929409.628393.10887631985173736936.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: x1: split PAS remoteproc iommus out of x1-el2
+Date: Sun,  8 Nov 2026 14:20:02 -0600
+Message-ID: <179416929249.628393.6579898779701344795.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016-b4-kalambo-crd-v9-0-11e6a40b68e2@oss.qualcomm.com>
-References: <20261016-b4-kalambo-crd-v9-0-11e6a40b68e2@oss.qualcomm.com>
+In-Reply-To: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
+References: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,19 +74,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 16 Oct 2026 03:30:21 -0700, Gopikrishna Garmidi wrote:
-> Qualcomm Kalambo SoC is derived from Mahua SoC with CPU cluster 0
-> removed, leaving only cluster 1 present.
+On Mon, 14 Sep 2026 21:42:21 +0200, Jens Glathe wrote:
+> The shared x1-el2 overlay currently attaches apps_smmu streams to
+> remoteproc_adsp/cdsp so Linux can program those SIDs when PAS is
+> used to authenticate and reset the DSPs.
 > 
-> This series documents the board compatibles and adds the SoC and
-> Compute Reference Device (CRD) device trees.
+> That is wrong for the common WoA EL2 path (slbounce + shipping
+> UEFI). There the DSPs are already running from the bootloader and
+> the SMMU probe path leaves their SIDs in bypass. Describing iommus
+> on the remoteproc nodes replaces that bypass with a translated
+> context that is never set up, and boot dies in an SMMU fault storm
+> on SID 0x1000 before userspace.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: Add Kalambo SoC
-      commit: 5200756cf5af4aa463b5d9537947ba195e43c112
-[2/2] arm64: dts: qcom: Add Kalambo CRD
-      commit: b3474dad57457dd3bfbf9035fd61faf421b73523
+[1/1] arm64: dts: qcom: x1: split PAS remoteproc iommus out of x1-el2
+      commit: 8ba94ea5c00168124ba0c96523ecdabcde652e0f
 
 Best regards,
 -- 
