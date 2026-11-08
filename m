@@ -1,75 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174584;
-	b=BCnUGZzUhiHP0IYloL5Dt1EUgJqX95HRL8s3puO/LI9SQe5YLBfFOvIp3b/CsfqR/YRI
-	 tP1brboJJFQjxecdl8lHKrIVWXSj+pSPdfVms0l5OaKJK0wfUlvy9qfXZqSgKPIr0VEXB
-	 DbXRGGx/5uIvE3WZMMLbgNSpdtmvyoVxrS8OuYz2jtc7tzD37edfOvtHjMZC4v6ZU0ljx
-	 iMtNBk2Bz7T/uLqFfn2YMLQhEA5RGoIT7arV19OtECwC+dmt1D+0J2ijh/p1KrVbIYY+1
-	 rqC6tgFFSiil4yl28kSDIwcrjRXkROLlTeUIsDsXyFfQuHYPDsk2Wkqy5tilT77BvYw==
+	t=1794174586;
+	b=2DQtsilMTPsaJ5/M1+GKrpY6jwtFL3TevRKrnctsKKjEPT78lX5rDBFt/t68XQjvVpGF
+	 O8eezoAz7tRXlDDpIdyEjiQpNjT5N8WnMdSORrieqAw5u5jKFIe81KbcFvJEtUCEFUSsz
+	 iFHuNBLjRoMAtcP+9YLnezls009iSBCoQM3YfPRWX1Q9z5dDSOiIVUDLKjzSXn561zRmt
+	 u4O/0YO5K+Xrgy7Va+16ComjKOva4TWvMGM8LLpsBO876pAFW6n7SNP5F47zv/4vj89g8
+	 bxj+GuG9XqFQ1gHNWzs/VpQGaqigNe8HfQ1NbTtf2nPGuScsL1MZDwDqPvRtsVoS7Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174584;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=OqvzTyZPXyzSB1ICTeehLx70j4vNN9GemJRAdZX9HYo=;
-	b=YkWxarsQfwke5n7+QKt/xfZE8PBvrs33ALFsdqAyIOPwo5GOmyrpoJIlyqb6iyB7rd1U
-	 6R+euYiM2yME+tT+olRHbyLsCFdw5wKTKIwOUGFf4fwdMS5MJ5ynbBmQjQg2ORiv6+2lH
-	 dATObkVBart8kzUDS2sgFZCwqBL03ixDA0nC/gucXjp9mFXaoM1Ocspmu8KbEa/ZlYbhe
-	 rCp7MAVu1oCyl1cRNzvlz9BBAjEg1UO+aCTTaFF+mFMqJQiwN9yWJ6sWYKeMKu1lJzYIh
-	 dhHHeyM1RAKGA2iFM7TSxoygR4M/AGDh7u+bfgbXv6CDNDmfoEQsqeggpqG0TXsTS5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174586;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=S8Pm/n09QeJ9mrcsdqqS5p/lHipZEoXnNYS0XuM2wRA=;
+	b=3Z3g1BQZt94SWS4V4mGJBsiHqgZTqGQgcYaq14b1lKA5PJ6RG6b1ayrH9JXhRxa/hp4g
+	 JvzT53TXYbnQHfaOcr4q8ji2WBtren4OCjbGN8l+4tUo39aCZo3Emznk+duH3jmTeT4BT
+	 C/BBeYzEm8zRXG/LOX34Sxk13XksMKSyqxctjpyPBdSm+JEEFEbsWkqFz1ZHPS0iPMWbz
+	 UjsepymRrax6ze5ejStchvK2cpvvXhJSmLHs6KNc8OJTEgKqq4hDvgWl0mMZfJZZL0kLb
+	 7cIxTRP7q41QH5gqcbDkp10YDZCYWrnYo2rKyXaNDiigsgR6jmodNgoSNmBL6k5Acaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=nSGxH0Ld;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=w0pG3U+B;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=oi2FSJ2D;
+	arc=none smtp.remote-ip=95.215.58.173
+Received: from mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657F6606A33F;
-	Sun,  8 Nov 2026 21:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657F6606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC04606D822
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC04606D822
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=nSGxH0Ld;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=w0pG3U+B
-Date: Sun, 08 Nov 2026 21:49:38 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794174580;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OqvzTyZPXyzSB1ICTeehLx70j4vNN9GemJRAdZX9HYo=;
-	b=nSGxH0LdT3metJ7Vqu1CfHAZhEzV7sNXbTNKS30d9Tvlpxmn7yAj3wi65iP29PXjVDuHUD
-	p4eDsspzR6l/3uyZyXMJ8Zus4fewBzE3XokV6Ak0d0T8MsJdK6smJg1NItGS1kc7zOEm6Y
-	31dZpI0XzB7c6muei2oEXV7s4t7pItOPvBn0JIGvCwPldAToAw+lzLgnAEnFUz4v6ZsLYY
-	IuwkFbhDVJe8JD4CaQIt8qMQByhK3nJ00LJoMzt7iBhnUS3F1veJi5zYo+zGObTcSmCAcg
-	KMH9/mg/0xJ24Q0Bu9dhn32G55fiyPeNWiphsn0WzI9qL3mLg/Xh/cqwyxqDJg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794174580;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OqvzTyZPXyzSB1ICTeehLx70j4vNN9GemJRAdZX9HYo=;
-	b=w0pG3U+B8pb3RrCCz60+6pQpYxKSazpWPE96O13JGEoiSWb0Byfh6uSbNWfyUrnKWTlK64
-	dWcuxp0k6nKljvBw==
-From: "tip-bot2 for Zhipeng Wang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/imx-irqsteer: Dispose of parent IRQ
- mappings in remove()
-Cc: Zhipeng Wang <zhipeng.wang_1@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Radu Rendec <radu@rendec.net>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261104073759.386777-4-Zhipeng.wang_1@oss.nxp.com>
-References: <20261104073759.386777-4-Zhipeng.wang_1@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=oi2FSJ2D
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/o6wOm30wKWAccJPIaNGqqcoA4cZTpqG6mOHk1GcwkM=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794174584; v=1; x=1794779384;
+ b=oi2FSJ2DqC/PpsEnsFCD7/4R95msF1h8tFCyxC9SJDl+WZyyGWYZAoW304c0+xMvWTzO35yK
+ hjZ+Rb4MPyRDVTqw3WJBUy4MWjQbObUH38kILcNTjnr7bd+TILJYwXdbWy4rKKLWp2ZCnJR9az+
+ enNoBGspqbbFyWO5h0SLuHu5nKFvjTFwydHrjzsrKE6Wmho1noSUQA64na/b6KUjnX20wL8xkI/
+ 4uq8bvFJaGvWJsFz4L27gwpIqArDHrqloY4V7yDjvLhqeIWf1wIXF6bJzvikjnSXxKLUz5TezOz
+ P1GlDLzFs6P4ccSVzAerC6SjAlkd7iDfAogw0GFhVNsqA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6b83b700a7331a96;
+	Sun, 08 Nov 2026 21:49:43 +0000
+X-Mizu-Trace-ID: 6b83b700a7331a96
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 08 Nov 2026 14:49:14 -0700
+Subject: [PATCH v4 3/4] leds: aw2013: Use dev_err_probe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,66 +61,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179417457856.2093942.2052902008742745714.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-aw2013-aw20xx-rename-v4-3-826529beeb52@postmarketos.org>
+References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794174570; l=2778;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=/o6wOm30wKWAccJPIaNGqqcoA4cZTpqG6mOHk1GcwkM=;
+ b=JqdK4qC1RkNkP5oe5jg8GR5Z0CTl7id0IxtRdasoGJiUERpFRDytia+GYhOoN+GIdCGolyZuo
+ afLayZ16xpMB5v9gczUT359Ki9XXum3pVJJ+fzE7P9FTbB29XNbtDbC
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-The following commit has been merged into the irq/drivers branch of tip:
+Failure to use dev_err_probe() for regulator requests violates
+LED subsystem guidelines. (At least according to sashiko [1])
 
-Commit-ID:     d2803ccf1334b8efbbeef704cc8b6b2a62d42d76
-Gitweb:        https://git.kernel.org/tip/d2803ccf1334b8efbbeef704cc8b6b2a62d=
-42d76
-Author:        Zhipeng Wang <zhipeng.wang_1@nxp.com>
-AuthorDate:    Wed, 04 Nov 2026 16:37:51 +09:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 08 Nov 2026 22:43:43 +01:00
+The original driver didn't use it, but it's worth cleaning up
+while I'm here.
 
-irqchip/imx-irqsteer: Dispose of parent IRQ mappings in remove()
+[1]: https://github.com/sashiko-dev/sashiko/blob/main/third_party/prompts/kernel/subsystem/leds.md?plain=1#L71
 
-probe() maps the parent output interrupts with irq_of_parse_and_map(),
-but remove() only unchains the handlers and never disposes of those
-mappings, leaking them on unbind. The child mappings handed out by the
-domain are freed by their consumers and, together with the domain, are
-now torn down by devres, so remove() only has to dispose of the parent
-mappings it created itself.
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
+Reviewed-by: David Heidelberg <david@ixit.cz>
 
-Dispose of the parent mappings alongside the chained-handler teardown.
-
-Fixes: 0136afa08967 ("irqchip: Add driver for imx-irqsteer controller")
-Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Radu Rendec <radu@rendec.net>
-Link: https://patch.msgid.link/20261104073759.386777-4-Zhipeng.wang_1@oss.nxp=
-.com
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- drivers/irqchip/irq-imx-irqsteer.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/leds/leds-aw2013.c | 28 +++++++++++++---------------
+ 1 file changed, 13 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx-irq=
-steer.c
-index 766756e..b9ea1e8 100644
---- a/drivers/irqchip/irq-imx-irqsteer.c
-+++ b/drivers/irqchip/irq-imx-irqsteer.c
-@@ -272,14 +272,13 @@ out:
- static void imx_irqsteer_remove(struct platform_device *pdev)
- {
- 	struct irqsteer_data *irqsteer_data =3D platform_get_drvdata(pdev);
--	int i;
-=20
--	for (i =3D 0; i < irqsteer_data->irq_count; i++) {
-+	for (int i =3D 0; i < irqsteer_data->irq_count; i++) {
- 		if (!irqsteer_data->irq[i])
- 			break;
-=20
--		irq_set_chained_handler_and_data(irqsteer_data->irq[i],
--						 NULL, NULL);
-+		irq_set_chained_handler_and_data(irqsteer_data->irq[i], NULL, NULL);
-+		irq_dispose_mapping(irqsteer_data->irq[i]);
+diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
+index a51b72de21ac..cf8e4b0a4572 100644
+--- a/drivers/leds/leds-aw2013.c
++++ b/drivers/leds/leds-aw2013.c
+@@ -459,9 +459,8 @@ static int aw2013_probe(struct i2c_client *client)
+ 
+ 	chip->regmap = devm_regmap_init_i2c(client, chip->cdef->regmap_cfg);
+ 	if (IS_ERR(chip->regmap)) {
+-		ret = PTR_ERR(chip->regmap);
+-		dev_err(&client->dev, "Failed to allocate register map: %d\n",
+-			ret);
++		ret = dev_err_probe(&client->dev, PTR_ERR(chip->regmap),
++				    "Failed to allocate register map\n");
+ 		goto error;
  	}
-=20
- 	irq_domain_remove(irqsteer_data->domain);
+ 
+@@ -471,30 +470,29 @@ static int aw2013_probe(struct i2c_client *client)
+ 				      ARRAY_SIZE(chip->regulators),
+ 				      chip->regulators);
+ 	if (ret < 0) {
+-		if (ret != -EPROBE_DEFER)
+-			dev_err(&client->dev,
+-				"Failed to request regulators: %d\n", ret);
++		ret = dev_err_probe(&client->dev, ret,
++				    "Failed to request regulators\n");
+ 		goto error;
+ 	}
+ 
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(chip->regulators),
+ 				    chip->regulators);
+ 	if (ret) {
+-		dev_err(&client->dev,
+-			"Failed to enable regulators: %d\n", ret);
++		ret = dev_err_probe(&client->dev, ret,
++				    "Failed to enable regulators\n");
+ 		goto error;
+ 	}
+ 
+ 	ret = regmap_read(chip->regmap, AW2013_RSTR, &chipid);
+ 	if (ret) {
+-		dev_err(&client->dev, "Failed to read chip ID: %d\n",
+-			ret);
++		ret = dev_err_probe(&client->dev, ret,
++				    "Failed to read chip ID\n");
+ 		goto error_reg;
+ 	}
+ 	if (chipid != chip->cdef->chip_id) {
+-		dev_err(&client->dev, "Chip reported wrong ID: %x\n",
+-			chipid);
+-		ret = -ENODEV;
++		ret = dev_err_probe(&client->dev, -ENODEV,
++				    "Chip reported wrong ID: %x\n",
++				     chipid);
+ 		goto error_reg;
+ 	}
+ 
+@@ -509,8 +507,8 @@ static int aw2013_probe(struct i2c_client *client)
+ 	ret = regulator_bulk_disable(ARRAY_SIZE(chip->regulators),
+ 				     chip->regulators);
+ 	if (ret) {
+-		dev_err(&client->dev,
+-			"Failed to disable regulators: %d\n", ret);
++		ret = dev_err_probe(&client->dev, ret,
++				    "Failed to disable regulators\n");
+ 		goto error;
+ 	}
+ 
+
+-- 
+2.56.0
+
