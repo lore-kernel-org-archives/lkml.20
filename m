@@ -1,104 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794176144;
-	b=m5fvov9WvpLPbdpwDfxitA/+r/je3baHpYGV+qo2kMhzeFAegkxdpAD0kf7H/O3325nE
-	 7yjYY223s0XdAiUSqvTfSLwNZCwNc1FRGZdOhv371b6ejDY8lmoE9zlZrKfGN56GpA2sN
-	 ykOWDott15K/VK79uywOFC9tiR1ZgIfadxShZF86HnKGm7neS2cG0wd6sbN/3oODY3PPR
-	 2lD8wO96HlSh03Y8dT0J9BxMMwF4w9oGKQYkiLv1aKgAY6q/loL3TBqW3cXvT9UZG/TtZ
-	 k/7EUAnFVOKbDv/I9v4BTb0XCRGqcGW8H2zazEsctmDQMtZo3+EIWZSUTzCZnvDhPOQ==
+	t=1794176592;
+	b=czKvCEqs8zL4LCJSHq81NuaZuJgc4U3/bLF61TTD9NqWfRkVwORIUl4tFKZyaw4eqqjm
+	 v8dadlTKWoESK7OYhkiKDmvlyM/B6b/45PlyPMOtjUM2YsDzGEPykmOVI2u1/hjrfS7Y7
+	 7bUg3fGJApLXzhDcDeS3vNZimgdYblcXHFqXD4wO4+utUpX6501/H6FQya3DMegUtZ105
+	 gRN6Fu2P1ASYiT8C1hVekjULbK3D6xWqX8atauMLrjUPzUdDKWCL3s+ltI40lexM7uYxp
+	 BaH9Z7D+bf4rR06camu/KsBMzTBdUawhd2TypoLPPU2/sTdcOK3ECEJ8mxTGK9qMT8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794176144;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Uvr+F/2JK1AaGLCznMP5hvSKtAyjP1MI/tlzlJAmTmQ=;
-	b=TUPs5zKo60rR4y78QEbxbGC3jrmhCScV6b1S2XyqxIt31b3uY6EgypDHjXPuubALDpbi
-	 jcSJOglIl31iCpOKZUr7F/nL81VS4vaALeUmq/hjflTmDQlUsqgrav/5+ztN4OSiylqxq
-	 Sl8sTRvqj/gpNu07t4Xg5O2S6NNnwr7i/0LVBfETLp2fTyFkJeUoEISjQj+B9FU0ifEuV
-	 y+ilSyJ/POJvHehTIKvfWChB8sKHm0w2xLkDOCQklNTptEv8htWzwmJoxidWqtmseJ7td
-	 XVkTjQERJgPC1hw6SMqQDs4vTOokgWQlfNxmwrcUnAhIzcW5X40ayewXT8y4EDS4Spw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794176592;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Ti4G1+U++r64+s/VifPd0SRhQ8L9S1XNkJ2HCTXQirQ=;
+	b=EcN+ohs3s73G4QuYFydSsZl5lj/ESoYeCCdl2fE18mRD1kfEltgC49yZldQixiSpfMlh
+	 Xem7MiJXT9MJWD4pnspO1ERIOeG6hEbkl5n1CktO4sIwL74m7ijUYkhyfEeJ2ZTMlMPXy
+	 pqSo0SGKjfv61TOvZ+IhvYLfICJLDoDPDde+K0LwT2/WSj/VcVsHx17TuZptnl6ll5O5B
+	 rV25Xv39q4EIoX87KF5h+FvlXRUFTeUAShdOT6xM7UH83qReTiXYtZt573Kh2htWBbIWp
+	 yv0eqpZHnYSdzpkkRmVzJM9Vuzy+GZCEayNhEmOxzQnqAaJaQM4Fa/bq+eZVuyCMkbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jahs.net;
-	spf=pass smtp.mailfrom=jahs.net;
-	dkim=pass header.d=jahs-net.20260707.gappssmtp.com header.i=@jahs-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AGCI9h3L;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFGVPMAY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D966B606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:15:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D966B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jahs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jahs.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F3D606A31C;
+	Sun,  8 Nov 2026 22:23:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jahs-net.20260707.gappssmtp.com header.i=@jahs-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AGCI9h3L
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a208d93758so2752215e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:15:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jahs-net.20260707.gappssmtp.com; s=20260707; t=1794176142; x=1794780942; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uvr+F/2JK1AaGLCznMP5hvSKtAyjP1MI/tlzlJAmTmQ=;
-        b=AGCI9h3LqFo/LTv7FSC7qIhFizMYFvrWo4Q28P7cagweU/yIHSP1hF4RZH0mMHNI0s
-         l3/7cj30FwDvYGAgAyV7hOMA/I/DARh48a5+puSUEWF02JMUi+g7ugf3pmEXn2OSLysj
-         8ixnhAeOiijBeV6/vGJzbydEgg36w9HoCnz/ApkVsLPgzdxiNq+vuT7Lc2kxI9wp0PVw
-         Z++z249mvd0vNWcZKPNCxdsQVMt3CbdnSswbf+/6NRj2K++KrDHSmYRvvAiQfrBAHasf
-         WH5EITQ/JZzLPNCCjm/6ckUpS/z/jLD1FTu5wZrPQsKtCcuCqyPuYgvSWbrnkKH8ktla
-         e5sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794176142; x=1794780942;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uvr+F/2JK1AaGLCznMP5hvSKtAyjP1MI/tlzlJAmTmQ=;
-        b=BWJsI8ftMqbHn1+AEci6fRRlLUvkpB0rPtEkjSp/XIxFqznK0xBZqH22ugAApFW93j
-         4MZ6Z5qRxRoEJ5dZnv6uFAZ0W3W+sX3f7eIqSXxQGiVDkwmmoCGKQ9q9b47UfPjGP5wM
-         dAm0QZcSK5o6IKrQcmgnSSVVsSfjXc7xkHd8jrck8xhf/xIWIsXsQq2sm4Sfy8183OaY
-         6XIxLYDyL+kK+biYSox8y1axzriMRFs9HAdb1FLBGnpp0s9ujgwJitSiYnHLb+dpAXxi
-         pzg2gziQvNxqfALQ7JnIibCFNOrlq9prE5O4AZFagq+J0NU7eARFuQqM80Qvx3rt4YwO
-         U4HA==
-X-Forwarded-Encrypted: i=1; AL+hErFlDR3vV3PZBAsfFQfkTbLd+eaqPafZm3muZZjAD+3ADhkC/fSrF+9TjoRiP+dm4nkONGcwLJEl3pqd4oc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+R5qQw7b8+6qoFnCgzVSPnu7LuREvvT0ItfY9WvISkw1KnZxT8
-	VdUgoXirEBRRS+oOEFIAE5OH7gwQCfAsWXyoXaT0P4bwbRC0gcKpHyAD5+Rd5pQgHg==
-X-Gm-Gg: AYBFou1c/rfVIsX0OKNa6Ftob/hQSXxilhPJmmM9mQDKxa+Iz7fa+G17i6EYjA6QmDf
-	TGFflykbcULaV9NSHuwoDAW42NvbAzWOo+hDRzma2+R6/io3ginP4Oot5OGcJMh2lxpITz8h6pq
-	PRxP8M6HjS3tKHQ5vTERQDaum5UYfxSTJC5FYdtwWIiEFX+E38MjJGzMrLazbV/Bh6VtA+zRi13
-	cGQgB6ZkS082JtEAooompRHZkZdPzeiClF8hpX+Hdq4uCLt28e8bzbUXw4lbIWz/H5CksSqoIbk
-	khO9dWMlPUcWbPu0zp6m/GNv2GNrC4KtTDNl8qcKMei9xDaZW6oUnKwilOPwSzIsH31YMZwEeiQ
-	zGLCUou0O5pJFTgAJGkBAS6mFKier7BrqQWCQVjk7njA3TVEaHQcYNCoWlcD3k7CRMEDULdG8WK
-	PWg2GNuTZdi3b0HGItIrtUyU787DABzH7pI2uqq8DeKVmgtkGguIVQrNYIPPq8kY9dvtai3L1dy
-	JYrEhth2R9qoFYvKQGEdqkEztoYwHZi93CXYDmuAmGzD0YEYy4TVXu2zc7t2RgdX5Jnh9mv7Wdw
-	w+GTSbbhZ8CjjNLYZT+kWZSpLkJgPHPatrJG4dOO
-X-Received: by 2002:a05:600c:4e87:b0:4a1:e69d:90e8 with SMTP id 5b1f17b1804b1-4b963c8e6e7mr40922425e9.22.1794176141294;
-        Sun, 08 Nov 2026 14:15:41 -0800 (PST)
-Received: from mbp2019.tail53dac2.ts.net ([2a00:23cc:b5dc:701:a5b4:75a8:ede:9f7e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm76735525e9.0.2026.11.08.14.15.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:15:40 -0800 (PST)
-From: James Skillen <jahs@jahs.net>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Andre Eikmeyer <dev@deq.rocks>,
-	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
-	amd-gfx@lists.freedesktop.org,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jesse Zhang <Jesse.Zhang@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFGVPMAY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3021F0089F;
+	Sun,  8 Nov 2026 22:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794176591;
+	bh=Ti4G1+U++r64+s/VifPd0SRhQ8L9S1XNkJ2HCTXQirQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GFGVPMAYtxdpxCwlUCFbHhQga1qAA798L9tVY14dDe+evAPIMl65oh58ysDCjAD7m
+	 x70ZM7tCBRcUN6315gJXURu97dfH3PywxdS1ZEgvxOs1ooHBBwXPTz/wo6evZIpYxr
+	 IetLyuTxMqOIAmnFFO/GwAxBf49hb80JGJPDM970IeJWcgHhmggHQYfFoOh/aa+DHF
+	 K63Pt0e1qLMRFtbHXa3AI/WBi9vbSkZnIxxUEfiyy+uPvPzWMk+aJLGNWcKAByG0jA
+	 9e3dxQAUe37gTFOrSZsrG+UZiJHaYsCuhaekiy4RVbLbUTXaAgVi8+v6qVHC+WvPMI
+	 O4PNE3TeMojtw==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the MacBookPro16,1
-Date: Sun,  8 Nov 2026 22:15:38 +0000
-Message-ID: <20261108221538.32132-1-jahs@jahs.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
-References: <20261024162109.307247-1-dev@deq.rocks> <20261102232450.61301-1-jahs@jahs.net> <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org
+Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
+Date: Sun,  8 Nov 2026 23:22:59 +0100
+Message-ID: <20261108222259.138366-1-ojeda@kernel.org>
+In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
+References: <20261107134957.653319350@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,71 +74,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Alex,
+On Sat, 07 Nov 2026 08:33:36 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.12.117 release.
+> There are 1536 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
 
-On Tue, 3 Nov 2026 09:35:29 -0500, Alex Deucher wrote:
-> Can you try this patch instead:
-> https://patchwork.freedesktop.org/patch/765668/?series=174386&rev=2
+I did another run with the Rust block one reverted, and with that,
+I get my usuals results:
 
-Many thanks for following this up, and for checking with the Windows
-team.
+  https://lore.kernel.org/stable/20261108163608.122524-1-ojeda@kernel.org/
 
-I tested v5 ("drm/amd/pm: defer UCLK DPM on selected Apple Navi
-GPUs") on the same MacBookPro16,1 (Pro 5300M, 1002:7340 rev 0x43,
-106b:0210, VBIOS 113-D32207P1-019). Kernel 7.3.3 plus the t2linux
-patches, v5 applied unmodified. Its navi10_ppt.c differs from
-amd-staging-drm-next 178d00b only in the error returns of
-navi10_force_clk_levels ("return 0" vs "return ret"); none of these
-tests took an error path there. Panel on the Radeon, dcdebugmask=0x1
-as before, and SMU messages logged with
-amdgpu.dyndbg="file smu_cmn.c +p".
+i.e.
 
-v5 works as described: UCLK is left out of the allowed mask at init
-(SetAllowedFeaturesMaskLow 0xa7dfbfb3, stock 0xa7dfbfbb) and enabled
-with EnableSmuFeaturesLow(0x8) about 1.2 s after DC init. It boots
-cleanly, as stock does on this board. It does not change the UCLK
-levels, and the hang is in level 2:
+  Boot-tested under QEMU for Rust x86_64, arm64 and riscv64;
+  built-tested for loongarch64:
 
-                     UCLK levels       UCLK level 2 pinned at idle,
-                     (MHz)             ~5 min after boot
-  stock 7.3.3        95/496/736/750    SMU no response after 3.4 s,
-                                       GPU reset fails, machine hangs
-  v5                 95/496/736/750    SMU no response after 3.5 s,
-                                       same
-  v5 + trained       95/496/598/736    ok, also under load (below)
-  levels
+  Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-"Machine hangs": a heartbeat sent over the network every 5 s stopped
-within ~10 s of the failed GPU reset in both runs, so it was the whole
-machine, not only the display.
+I hope that helps!
 
-v5, SMU messages around the pin:
-
-  [311.750451] smu send message: SetSoftMaxByFreq(27), resp: 0x00000001
-               in params:000202e0
-  [311.750635] smu send message: SetSoftMinByFreq(26), resp: 0x00000001
-               in params:000202e0
-  [315.231058] SMU: No response msg_reg: 12 resp_reg: 0
-
-For the last row the levels came from a pp_table upload with the
-umc_info training points, the values Andre's patch sets in the
-driver. v5's late enable ran again after the SMU restart. Forced
-switches through every level transition at idle, level 2 pinned under
-llama.cpp and memtest_vulkan, memtest_vulkan with forced switches
-every 3 s, and a load run at DPM auto all passed, with no SMU or ring
-errors. So on this board v5 and the corrected levels work together.
-
-The root cause is in the board's VBIOS: its pptable UCLK levels
-(736/750 MHz) don't match the umc_info training points (598/736 MHz).
-A corrected VBIOS would be the clean fix; failing that, a driver check
-that uses umc_info when the two disagree (a no-op on a correct VBIOS)
-seems the practical one.
-
-The testing above and this reply were prepared with help from
-claude-opus-5-5; I have checked the results and the text.
-
-Kind regards,
-James
+Cheers,
+Miguel
