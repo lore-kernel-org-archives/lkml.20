@@ -1,78 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794140540;
-	b=4mNgmyqqfKdAlu9AfLkjpdEOoZE8aL3Pgi8fqeZTUD3yZet47JsF4m/CDWOl8lj6luQd
-	 jtkwiDGg2uilY5xaPRZiSUlwzJFAzDjQIKGmrcqmJz3oE/L2bw0crLaMewQ8t6dQ/A7dp
-	 q+KDjYvYpSJRdRlvqq33jfDpKec5cdim1kbSG6Zz2/3qkvoyCbcKFgX0S6NFtH8wIIOVi
-	 8zXD5eeZAiHxFKKuSyqeZmJW9xJknKt6Xb4nHHOMvoUrwdnfkG/lHQUGbiajJI52FqCoM
-	 HZUStsdPRDhONsWrZ/q7d5uIqW6imGTWH/8xwWkuC2+ODiYxB5QN7EIo/oKpsfKFcoA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794140540;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hlwDfAWixxLMJCq47/jSDrmTm/cfckcxssqkHPbjDEA=;
-	b=kg7k8jOlCHHoDkbO2KHCBhpXVQicGHoj02llA2s/poEkabGFAbNYiOblVBIIUiFdZ8Zd
-	 eug4H/FAWn3hXQc5CiWYNSUVn4Fukv8CjBT6rXTTr2jAgapQrRKEpwnvXCkl1yUNR21BZ
-	 HJcdI3p7eDlistQwv21aa/upwKDoKdaD2Akq620SDPpORopp8oldMQ4G25Oi1qVU2vseS
-	 tX55F9be3YRL8Mcst49Cg08IkNtoqPCKyWob413xlcBWGyyYBOXhdQ2SS6I+pbDs2GW7j
-	 vMZAMD/D/igg/gIDr9KOlaYW4yeDQ+j9iZjf4DEW8gJmWwUemkr6DUpa1ixL4n5ZVrQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sr8Gt4td;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F24606A31C;
-	Sun,  8 Nov 2026 12:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sr8Gt4td
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794140539;
-	b=kWl3meqhVBD3hOywCf6gxr9DoYc1eOFD5sLBRgvnuEWKNqYfqi7oxyRyezeMA7JAGi5P
-	 N9dDgh/oHkCUCW/IXkBGvIWCQvqWhMaqplsnxLzQkPOFjjETFQL75Boo1szwEZvgCv797
-	 O7ouD2GQfu24Si5Q2qOQPMJyyASS9+Vb9cpI/s9HZXG8sEht1mEqL01yB6C9hY6vWobjr
-	 pJuP9vLpEl+t5J9keHcjeXVzNRy6uVi+FkkkP1HbS3k0v7eiOg26+FmIw8e3hGe+V1Av8
-	 fP9ZB4xmkHjdoDa9fbwzAQrdedI2tEiXRAepGhlvko1kx7BQ+q/5XxOw/uq2lBCHYgA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794140539;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hlwDfAWixxLMJCq47/jSDrmTm/cfckcxssqkHPbjDEA=;
-	b=kMwyFpCo+0x/Jlu7CQdeBsij61KjFx5hYfriddeJ3B9f3BufaVFgqh53Z5UeufMscADi
-	 MBnQh+797KLjG/36topHrLYxJNfU8BQXu4YsO/Ig/B/Gm0Ggk2KnsN8Bdj3pwE/Y9p7O0
-	 Bz7KVm4/gv5ByI1cRwF49z/r4n1hcIYLz2t/LZYC/agXaKoPIK0EB2ZEy9sjMSTiHDMf4
-	 /JR1IECuRDLpJyicqKpqtuYeT3K9O1w3uTJ8k5L0lZHtmXucrcrTLNp3XgHqg/HoG2L07
-	 1CzP7oVukK4HCsXtbNwYD0yjFvHUCVh7tqangwwao5/fPV7C/JYB6JoFBbcgRvgjtTg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794140559;
+	b=y8OZfzqWU04O5Ah7mQYh5fAp8b/PuepOwTC6e2oEhu7Likiin4njaS6xYFKhADqn53U0
+	 R/hF0upVAgES02h3Avr2gf7KeKltVt1mw+cOVA4Yv9IDpRE9pdG4JFupuc21+9qzoA0c7
+	 vZ9WUAVhd7yMSQClBir1gfohxZNhjQOhTNUEh0q+JRGXVxeXkjNdjceAaHU7oaZf0eZpg
+	 2LKNvzn4O5WxMt1b6sROBcEaJpgEj/5Jc/1or3sDTL2Ri/ZRc6DdxOjNF8LSgQ5cb7Cw4
+	 ceheKjr32k6MP0LHJXQ/NuJNdPxw62rfHNqN2XUdaXuT311kqyVIPpz79JdVrwK55Vg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794140559;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=1w/+zxadcdaplVrywoHB9I3O0CbHSzdEDvT3XdVCLzA=;
+	b=IFqA5Ptq9y81zOsNSUPLYoFj+jjo18OBWljPC8yeAcWNNJ4MqPTdalpW0gWSjie86NIX
+	 cXmoZ93GKG+2nlzTDDcc9DcLij49+M7eM/O2pszqf9k9SStVmTeqEfAeCyV63NIPG+nTj
+	 8BsgoCfmRpvwtrsO+zeJ7MtRoB3PgtJsZP8tQlEhWAe3/u49bGUdTvfx2kIq7dRVi4B7g
+	 XQKctH4/IbYWkilr7SJpv4+jGH0nx2zKODHx1Qhkm7lWoASAtQCebCyEUC+/AIMwWzK3C
+	 OiXphGIgEaE2aAlPL3PJy3OkJ+wxaVJnT+q02y4jf9OSyN7GYJVg2cqKQR8rzSvFlsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 333151F0089F;
-	Sun,  8 Nov 2026 12:22:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794140539;
-	bh=hlwDfAWixxLMJCq47/jSDrmTm/cfckcxssqkHPbjDEA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Sr8Gt4tdn0hLH03YD7ht00AszNrTOtCEjy/MRz+fTYJ0QnEdUFOj/3oUx7RmNS0dG
-	 o9gBe9/9DdYd/WJncE1iNiF3XGJgW9MvFUJPTzRczZMVXLgOL5BHFnCp2sQpKWU/4X
-	 On8Y5U7BRI0h1goXXSiY62Du/sksjzDtH3Df1F9l7sR9geX9638wH/1cadAGgFdbxp
-	 VtCYMgIA3MIujTBWUXTFxinSChni4VI838b/ElWWLqzGsX+GztnhSOEujP8O60idTe
-	 rXBsf04xlz/81DRnT1/+MLL4Sv+VQt3Dg9EbuwQoK2lgYf1VNmQuh16mer9nC0ki3u
-	 RIST+q3c/pMCA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A2D8147F4A;
-	Sun,  8 Nov 2026 12:22:18 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Sun, 08 Nov 2026 06:22:17 -0600
-Subject: [PATCH] staging: octeon: fix parameter alignment in octeon-stubs.h
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E47B606A31C;
+	Sun,  8 Nov 2026 12:22:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E47B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnfbOGafBqDjmbAA--.19953S2;
+	Sun, 08 Nov 2026 20:22:31 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: baojun.xu@ti.com,
+ perex@perex.cz,
+ tiwai@suse.com,
+ linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org,
+ vulab@iscas.ac.cn
+Subject: Re: [PATCH] ALSA: hda/tas2781: Fix ACPI device double put in
+ tas2781_read_acpi()
+Date: Sun, 08 Nov 2026 11:42:36 +0000
+Message-ID: <20261108114236.3185000-1-vulab@iscas.ac.cn>
+In-Reply-To: <87eced7hyk.wl-tiwai@suse.de>
+References: <20260917164520.2163024-1-vulab@iscas.ac.cn>
+ <87eced7hyk.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,74 +57,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-octeon-stubs-alignment-v1-v1-1-bafda8c63890@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ6CMBBG4auQWTsJ7aKgVzEuaPnFSXRqOoWYE
- O5uw/JbvLeToQiMbt1OBZuYZG1wl47Sa9IFLHMz+d4H5/qRc6rIylbXaDy9ZdEPtPLmGCmMVz9
- jiDFQ678FT/md7/vjOP5Fy77AawAAAA==
-X-Change-ID: 20261108-octeon-stubs-alignment-v1-ec6892de7bb6
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794140538; l=1698;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=JhZbbg8mmsWsZGrss6itWiBifitqXmu5fPEs6ExXPGM=;
- b=97IOllAc7FI5DXvg50t2Si1YgrP1oxIp9SGhWaB+djwiNnLE767P5ojNp74IlZ/XEUI4/CYLr
- pkRoZ5zUHHIDU7VRKtf4uQxGZbPBwf8x4moO5h1IJQrLh4YvCiCoKL6
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:zQCowADnfbOGafBqDjmbAA--.19953S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYS7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxGrwCF
+	04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I0En4kS14v26r126r1DMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JjUgAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIFA2rv4qjTQAAAsU
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+Hi Takashi,
 
-Wrap cvmx_pko_send_packet_finish() declaration to align parameters
-with the opening parenthesis while keeping line lengths within limits.
+Sorry for the very late reply.
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
----
-This patch improves human readability and code style consistency across the 
-stub declarations of the Cavium Octeon network driver.
+You are right, the double put was already fixed by commit 8bec01c80e79,
+and in current mainline (7.4-rc1) tas2781_read_acpi() no longer releases
+adev in its error path at all, so there is nothing left to fix. Please
+disregard my patch and feel free to mark it as superseded.
 
-1. Wrap and properly indent cvmx_pko_send_packet_finish() parameters to 
-   align cleanly with the function's opening parenthesis.
+Thanks for the pointer and for your patience.
 
-Oscar Alejandro Sánchez Lucero (1):
-  staging: octeon: fix parameter alignment in octeon-stubs.h
----
- drivers/staging/octeon/octeon-stubs.h | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/octeon/octeon-stubs.h b/drivers/staging/octeon/octeon-stubs.h
-index 9c1968b7e2d1..7fcafabdc78b 100644
---- a/drivers/staging/octeon/octeon-stubs.h
-+++ b/drivers/staging/octeon/octeon-stubs.h
-@@ -1386,9 +1386,11 @@ static inline void cvmx_pko_send_packet_prepare(u64 port, u64 queue,
- 						enum cvmx_pko_lock use_locking)
- { }
- 
--static inline enum cvmx_pko_status cvmx_pko_send_packet_finish(u64 port,
--		u64 queue, union cvmx_pko_command_word0 pko_command,
--		union cvmx_buf_ptr packet, enum cvmx_pko_lock use_locking)
-+static inline enum cvmx_pko_status
-+cvmx_pko_send_packet_finish(u64 port, u64 queue,
-+			    union cvmx_pko_command_word0 pko_command,
-+			    union cvmx_buf_ptr packet,
-+			    enum cvmx_pko_lock use_locking)
- {
- 	return 0;
- }
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261108-octeon-stubs-alignment-v1-ec6892de7bb6
-
-Best regards,
--- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
+Wentao
 
