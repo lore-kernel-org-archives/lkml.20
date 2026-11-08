@@ -1,58 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.231.106.230
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794150554;
-	b=oG6a8P3xVoQTB9vy5GhkH1PPe+gNW7ampwLsme+CPh30k1W8FEKhQ5jw0FFrkQgn9AZG
-	 2Q/3aFMngjwP2ujdz25qp8GCbJwYCD4+OGikOepqWYRLNSOANS9U8D1w8yst6D0mU2KGX
-	 X0LReYb0euIHZt0OQjRDgK6gko9a567AskPKnI3GLGYyFvkH/2GwEGz21PKuvnqsZTe4n
-	 Yq5MmtwU0WUjIGoB95vAzMwiytFsUp69Lat0ro4DAkpEM0qROuEEEbOLbqp7mQGpvE3jg
-	 DBNhM0qpqZf+KBr5bKt/HFmgnLm+P9h4jCQRY8tz98Wdwizs3OoaYccWqN8uORa6vrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794150554;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eZ9X5JmqE+6Ign1BGIGBRDm4FK8j/iFGtRIwdvBYSmM=;
-	b=E6Eq3tzURkg7ub2WjPwezoLP5oY7F4E+y2xe0mhiyOoC09cdQuY0YDRZ4/DLpFuaR29E
-	 rYx/qF7sUUJYKKyuZaT4Eb2EevRq+YW/DQ1CBP8p0tkM04klxIZBRFYdCiuvt0FUWKlpx
-	 guSf/Tg0a48wDjCm37LHheDMNLpwvwtYNGiDFEiUAJgOL0NUDs3sOkI/M5tVKe8VR/SE6
-	 LQJpM22dXXRgXCX71F0P5QEeZM2J9vTiT8H5lQFdtIf09xT+pyBiAWKSyH4nmUcbODoHL
-	 /9ruQdZCItt16mQhItq+88xkiJeILTj6KXcmPaexwhejyYdsr5RzadHO3/XJ4CDzYfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=klattorp.se;
-	spf=pass smtp.mailfrom=klattorp.se;
-	dkim=pass header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b="H/AEgOi2";
-	arc=none smtp.remote-ip=94.231.106.230
-Received: from smtp-out2.simply.com (smtp-out2.simply.com [94.231.106.230])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.117
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794150619;
+	b=WhClQFA68Mf4fm5Lgrpixg5AneTEAmEXQyFfo0J7JumXoD+bMjeiH729RB1sRWGcxohs
+	 pNM/dhrbNCjmo+Z7RCTS8xnUsoRj4Rfn5bk7i1GttSU6JQuvrxPWUP6b4R9tq/7YSzx+n
+	 04Uhx7y+F9FPqaAjjYHeLVwHxhMRTH2DI1GDuvqltZPG8Hj7eIxb9Fm8M+VqqqfJ5BAbb
+	 +9T62VxgaMII7BGYjt9ms7uDY5mQw8temqe0rbywpBSQkL7VGBAsJdM5dO8HQaXi1j4oE
+	 vcbZUsvwU000skJSHq+H0gRXkO1Q7Mj28QdP/B8XWsehI0Ydg8h4U/XOKzYRwZHa/eA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794150619;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=NTubyfFtpyK+QuUhhoD1YDzUSx8hcDa6GkgrBLxOqbg=;
+	b=jkVENHddJoPqofBlS/ZmwiyK+iXKWn6OFVqtPesp4iQB80DQaEU1ZYyrqzuwb/IillFL
+	 5DTOPwyiDpezxu4zNf+erSU7FLNQrFYei/UYBu4aotoYQxSntM7j9+OAF2oyyoiD4UbET
+	 HTfyS8rKbuGuAiglrOachPYuJY1tcBidOStL7b0fbmDwJzLaeEHpR220lH/O324Iirkik
+	 Ydpb+mwHQeKufO9b8+1hf3CXJ4HQbeeL0LPFi0gITwVVbm6IBrijhvigjBe2vvcYmPGqE
+	 BXcRsXh4W533nrPjKXeoDLeuOwFSemEcZH6KF6Ry/bIndpUUIMt5X2p//s+JcN/lAIw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="L/t5d7mW";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.117
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020117.outbound.protection.outlook.com [52.101.191.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8F5606A31C;
-	Sun,  8 Nov 2026 15:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A8F5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=klattorp.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=klattorp.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24B9606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D24B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b=H/AEgOi2
-Received: from [192.168.1.45] (81-228-203-110-no2102.tbcn.telia.com [81.228.203.110])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.simply.com (Simply.com) with ESMTPSA id 4jMxCC3sQnz1DQsm;
-	Sun,  8 Nov 2026 16:09:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=klattorp.se; s=simplycom2;
-	t=1794150551;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eZ9X5JmqE+6Ign1BGIGBRDm4FK8j/iFGtRIwdvBYSmM=;
-	b=H/AEgOi2KWQizzw0yVFETqJ1lKwW+9yut0Dl7MxqzsxKZLhOGQ4hiTV9J5Kma+DaaYTKJN
-	WG+9aNwk/EkdGPTsq3S6p1UB8DYjhixFvKKPezVNgl8X1T0HYND6rHfvfMFSXjw5Ioez9x
-	80mwl3SdjUIrIjkoL3+LcKKvDrFQBWZIZaLMsQujZYpBrwcmDiDM4mM+KnFf5ijSUgdmWx
-	TswH9LIp406Bawt77doLrAvKZ0b+fwQjh8jZm4btcvFvcUMI+QYzW7nBNooJ6Cv+nPD6bK
-	jNiONzV9CNn5MG7HDt1tcr2LyAYN4ZerGVyExsxrvewiIP+yAqU0Pl7z7vw1+w==
-Message-ID: <3cd1da5d-8888-4127-b406-a1ed35454e77@klattorp.se>
-Date: Sun, 8 Nov 2026 16:09:10 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=L/t5d7mW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TRxF20MDDLkU4xHXBt6TJtznTbledqmnaq1X8oQSKyPUqSSHnMpJjGrAc0FSbKsh1D9Gm06YJReMiDEsmyGBwjr4nIGgK2nCD5LIEkrNp97jdZAOvOXzJbKvHpQZizKS9hmnN2IQNIHqvAvTzDYiAHDTZ89x+KmfbMBZ39Goxxk6kynvgrfF5vIcBh76oxBtbgT8RZdh+AD9+5QTvsjBeZuLUc7jQLPIZNnw9XzybQ+5nGIKtbnqKoYcP7tQ7wrWVhYTMSq6vzkjMM1Ezba83kLQVwRtlr2GqmZvTJi0lnU/GBA4A+ZlGG/vYLt52I64+s+omH0MGsZRh8WM26e11A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NTubyfFtpyK+QuUhhoD1YDzUSx8hcDa6GkgrBLxOqbg=;
+ b=DoNbzRcyfJWMLqAFud4BnruPQ7EyoIHZCsDpnsL++GHPQ2RJJPmQNeV17hdL9rJS6cHb1B5bwAsnlyeHjvu67uVZ44RaZ7J8BS211O2uVmL61qiwCqzt2WwAZUb3WNtO71SBuMUVvM365OKrq4eOiswY4A1GrNS+olt3IE+Q7rkXnKt9lDu58HHJdEXuXbG/xx0IebRb2JBGm6JmfUt9CwDu/KE8s6MJfM5F0WVQbrjKxBmAEqeGYj8Z5pej1LLqTcyGs6F0UHS2t24DHAJjUvy6BJvFjzdn7SbLy+HCsw2qNTO41frxflbMdqljfbpcq3aQbso/gl6Xf9MMUrw2Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NTubyfFtpyK+QuUhhoD1YDzUSx8hcDa6GkgrBLxOqbg=;
+ b=L/t5d7mW+P2PsjlQgCS7gRcjJYYQrURNHjutOv/0vskCQYBxv9bXq+fJBlSSLGSxM/lqU0Z7xs7u41ePuIbMQIpai+Kmt5D1l3DCEBgEfpPLuU7E02a/wnpEci/4QJ+ozLVatgZmvHen+BmM0AyFlx6cot1I0FSiZS5rNEAqvLDxb56dlSIiYTKS+bYTl8KR43Nb3s3zBCl/AP5hnHD7PLnE4wBjzN1nEZuuYybNtC1hGHJEpaTHkdaamwudDvTukF0IcYyxArcwLjhaf8qn9bdni/yNGbnXhXFbw5sVcFsNC+ySXvtMk+3k/Odqym5vaeSvWtO0kwMegX41EkyWpQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YQ1PR01MB373984.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:cb::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
+ 2026 15:10:17 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
+ 15:10:17 +0000
+Message-ID: <7a8f6db2-aa1d-4881-be1c-09a2d8af5290@efficios.com>
+Date: Sun, 8 Nov 2026 10:10:16 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 16/26] sched/deadline: Record the root domain holding a
+ task's bandwidth
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, linux-kernel@vger.kernel.org
+References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
+ <20261107014451.1487825-17-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-202514@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-202514@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0173.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8b::16) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,83 +100,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] power: supply: max17040: report charging status from
- a gpio-charger
-To: sre@kernel.org
-Cc: linux-pm@vger.kernel.org, matheus@castello.eng.br, me@iskren.info,
- krzk@kernel.org, m.szyprowski@samsung.com, linux-kernel@vger.kernel.org,
- clamor95@gmail.com
-References: <20261108144548.190622-1-huggek@klattorp.se>
-Content-Language: en-US, sv-SE
-From: Hugo Karlsson <huggek@klattorp.se>
-In-Reply-To: <20261108144548.190622-1-huggek@klattorp.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB373984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21922160-3560-40f4-e30b-08df3daa65ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|56012099006|261021121427099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	YrfB54woAigcFLfnVcJhmz3HmB0cbJaotcyp9lgDuD+P2ryBcFwWYBB7bOSnhDC42A/YxE6FLrXphQ3KDzSTc7Aon+fodxX7RcpepiEWdO7EMUwwZem5LH3ueeK86UT1iJ3Zx9agLysSf54BgEOr3d7RRHy8NlTXoW4jdiw7+QFnEl88IH+5PLJ4sQlTat6p1bUUL5cnY2CvHtX3MMF4sYE5/9+RUWORfJyJ6dsxgKnnodjlqlVRE0hqbiyOlROMZBuxO6Ak1zmH1qjlC9FX2gw7yxcqdjdLV0ZLMQDtERk+xJDrHpAowy6rlrOTEPh8WhHydV0OCA/2HfkqmzGg+ZleUH5Ww5B4Jtm3oGZIlnDmx2pfsCqiD4pgjjLdW5uAduW9u5bK8sngtIeiAznrQTdtdkk2MhPjctjP7vVI4KIZzIq5hJMgU5xWT20j9U6zpG6AkEa8dRcTXi2HCHiuebM5R2G/DyM7tErYwBXX7hisKEL1xS/1ssV4lku1T/SO+nRe6vxk5UdD7Ysu5sskD2PkI3NT//a73GLbU+9bjILp2XMKJNsGqbPKFypHM3dfcm0qufoiT6d1aiTdulGIqKJb7R2z0zc+9GPKwH78bww=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(56012099006)(261021121427099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dURaWnFyeUgwcjcrSW80Vnoxb0JJTjhheWlWY011ZjBBZjFIMDNyTW0vb3lM?=
+ =?utf-8?B?V0tDWUxHbGhWWmxiLzRoVTAwTHNvVERiQkl0SXprS2FBQjZnWEFWSGVsVnFx?=
+ =?utf-8?B?SlhwbVR5djlwTmx1NTRoZWo2amlMSzAraW05ZTRVMXdrV0I2MDRUNXZUYmJa?=
+ =?utf-8?B?VFZLRWtiUnRic1lNc3lOU2lKSm1DbHNqTGdCMTQrdEJqR1lCR3hzVEp1KzN1?=
+ =?utf-8?B?Q09ybXJrU0ZTUUJacVJUUndZKzNyR3RlT0RuTDZ4ZENyY3A5TGFtMU5LLzJC?=
+ =?utf-8?B?N28ybkttemRzeDZXb2dyVytzLzFjckpaR2MxS0lxSGpFZy9jTE91KzZUbzNS?=
+ =?utf-8?B?YWtCNWhMekk0SUE5VUNUTTZiVjM3NW41azRFSGFSYkloeDRVNjU2TDZTV0xj?=
+ =?utf-8?B?SlpHQkxDQkpYaE9RQ3NxSTBIM24xR29ab2o0bUxEM1JrVVVFVWt3cXNqNkdX?=
+ =?utf-8?B?TlBEMDBqbk5ReXFQMEJ1L21sTis2OGhrSmNtdkhhVFpsc1hmbFJhVWNYV0ZK?=
+ =?utf-8?B?VHRMLzJ0ZGhYMkRXSGZkd0IveW51SGMvM29VdkRhM3E5dHhONVVHVDk5TEhr?=
+ =?utf-8?B?UzhJaUVpMDJBUlNEbG44Z2xtb2hCUEQ4R1gyK3ZWVmhKa2J2K0NKMjExcVly?=
+ =?utf-8?B?enZ2T2x5azRxTEoyWVZTUkNZVWF0SVQ5UE9CSEExUlVBaTUzMTJTazZreU5v?=
+ =?utf-8?B?eXU0MWJpWCtURmw4ZkFvcnVETlFIV2c2QUFLM1JPbWRPMzdkb2FjZTNFR2FY?=
+ =?utf-8?B?cC80bGNLdHQ4Q05zN0I3QnZ5WVA0U3NPK3o0RTF3V1QrOWd6QitUcG9CWU52?=
+ =?utf-8?B?VGZLdmM1RWVRSk9hd2RHRzdaMkNBV21WYUhORit2UkZsRlpvRk4zN29jcVdI?=
+ =?utf-8?B?U2JEK0dFeWtFUENhdnY3MmpVQmdNN1BmTXBhZ09OR2FOdkJvbmRETk9pWkcz?=
+ =?utf-8?B?T0J6b1F3QWNLZU1uRnUrZjR1SU5VTWhBYncyOG9KY2QrMFpVM1Jxc0drbDJH?=
+ =?utf-8?B?UktwNGNPZ2ozbjFtcGIvVTd5ZU16WEhpNmlIK0FLWXh0aWhhOEY0UUthcktw?=
+ =?utf-8?B?cFdKYTNjWTdIb2tlYk5ITlVVQi9XYkV6QnhaK3hjS0N6TVBabHhhczhheWtS?=
+ =?utf-8?B?emdnN3dRamtobUVwNEZqZlhSdTF0UTRlUUE3bDY1b0pEc1ZEWDFVZXRFUHdQ?=
+ =?utf-8?B?OVIvRnhwczVCNkhHWWQzMmU0SGF6ZzZLd200RU9BdFM2Z2xDdy9vL0o1ejhJ?=
+ =?utf-8?B?WWthSlR2QVhrbDlqMXFmdExsRnBRTjhIWlNqelJNUzZzR0EvZE03QkNnVnFu?=
+ =?utf-8?B?VHVCNkVuOTMwZG1YY3RXNk4yL0dUWWRxTEtBUFFiV3o2V29BUHRrTEZzdzQ4?=
+ =?utf-8?B?T3o5Q0ZJbUZQNTN1K2xsdzlwd3pPNWVKZll5S2NRMEVXQ1lwNVpQLzNsaTNI?=
+ =?utf-8?B?blVJTTVvMjlrY0hyRXNUT2lWZWw5WkRSOTl4MTFyaVBFMnUzeVZ5MyttTGt5?=
+ =?utf-8?B?TFVqam1NaDAveFRFSGRzUEU3dGoxMHljNUJiaGdVeVdML01WZGJockY5VWxB?=
+ =?utf-8?B?Q213bEdTVXJkekZTbjUwRDlGSk1IOGovMWpuc3ZYUnpkWVZkSk1IL1czQW01?=
+ =?utf-8?B?Q2l3Q0xxWjlaUWk1eGZQaU96M2c1Y2YxMm16OU9ybWhDSkdzTm5Ma1kyenZK?=
+ =?utf-8?B?K25rWnRhWlpzanZ0NlowYjVqSkFrbjVSVmgyQmJibXhWS0MxR29TaVhUSzli?=
+ =?utf-8?B?VVBOTGp3T3BwL2FKSVVpelRGcGNwVU1UUTJ4UEVtTXVtMkVPeTRPdDB0Kzky?=
+ =?utf-8?B?WmZON1owUEJ0RWRWRlhISllXMU85V0V6Y2pWR01zZVc0MW1BMU9CNEJrRDZ6?=
+ =?utf-8?B?RnRiT2RaVUp4L1oyZGNGSWMyMFlTeEozelNjbDFVekExdFA4Ly9qNWM2aGxU?=
+ =?utf-8?B?OUFFVXJONTJ0ZVFoMm5GOThZVU8wL2E5NDdRbno5bUd2Q3A0M1VqanNiQlZm?=
+ =?utf-8?B?YlNPMUFkVGdJK1dOQUlNeWpmekFqblBmMjJ0Mmg1cXhhcUFweWQ4MmcybFFv?=
+ =?utf-8?B?bVk5TXRUZ2xQakdMbGZCaUEvN29NN3BYQ2w0aU5Kc1dUVEV3V0RmSWxDZUlj?=
+ =?utf-8?B?bW5IT1d1Q1FVOFRaZzhORmZZU09tbERIdXBXb3kyS1NwZ3p0WGVYNW16WkM5?=
+ =?utf-8?B?dkw4TTJVTGFpMjBqQzZaMWZqbU5PU1I2WWdpVzRqT3l5eTBuTENORG1OY0xt?=
+ =?utf-8?B?YityK1lFL0N0NXh3TDN0MUttaTJaRTVZcEcyZmplOG5LWnBGbmx4b1gyYXE2?=
+ =?utf-8?B?ellTWkpKdTdkdHczZnM1dDZkWGZzVXBWMnVSSThpd2Y0N0FMUVdhSW40MklJ?=
+ =?utf-8?Q?Sw/+4jlbUgcewvTw=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21922160-3560-40f4-e30b-08df3daa65ca
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 15:10:17.2134
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OxPm8Nex84rPXSJU+RKww/mWuIytGu6zmX1z1AcrV6bKiCd7k8MIc+NboJpQEDU8pl1EwIXy1Wh14WNH5us4hUDUAVZnhjV0PF2+0EeNxD4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB373984
 
-Adding the other MAX17040 reviewers, LKML, and Svyatoslav as the
-author of the commit in the Fixes: tag, whom I missed when sending.
-Sorry for the noise.
+On 2026-11-06 21:35, sashiko-bot@kernel.org wrote:
+ > dl_task_undepart() loses departed state on PI boost
 
-//Hugo
+This is the case that the v4 cover lists under "Not changed". A boosted
+departed task counts as a deadline task. A rebuild meanwhile counts it
+once, where it runs, and records that CPU. The deboost then releases it
+from there. A deboost that races the rebuild drops the bandwidth until
+its 0-lag time. dl_bw_gen then keeps the release from removing anything.
 
-On 08/11/2026 15:45, Hugo Karlsson wrote:
-> Hi,
->
-> I work on OpenFlight [1], an open-source golf launch monitor built on a
-> Raspberry Pi 5 with a Geekworm X1202 UPS board. The board pairs a
-> MAX1704x fuel gauge at I2C address 0x36 with a GPIO that is high while
-> input power is present.
->
-> With the gauge and a gpio-charger described in DT and linked by
-> power-supplies, the battery still always reports status "Unknown", and
-> capacity reads above 100 when the cell is full (103 here). Desktop
-> battery indicators then show the wrong state, so we have been shipping
-> a patched taskbar plugin to work around it.
->
-> Patch 1 passes the device fwnode to the power supply core. Without it,
-> power-supplies is never parsed, so the supplier status lookup added in
-> commit f4b782af61ae never finds a supplier.
->
-> Patch 2 covers suppliers that only report "online", such as a
-> gpio-charger without a charge-status GPIO: the status is derived from
-> power_supply_am_i_supplied(), and the battery now sends a change event
-> when its supplier changes.
->
-> Patch 3 clamps the reported capacity to 100.
->
-> The series is based on for-next. I tested it on a Raspberry Pi 5 with an
-> X1202, on rpi-6.18.y (6.18.50), where max17040_battery.c only differs
-> in the style of the i2c_device_id table:
->
->    stock driver:          status Unknown, capacity 103
->    on mains at 100 %:     Full, capacity 100
->    unplugged:             Discharging
->    plugged in at 98 %:    Charging
->
-> The battery's uevent follows the charger's within 1 ms.
->
-> Related changes for the same boards, for context:
->    - Raspberry Pi overlay that links the gauge to the charger [2]
->    - Raspberry Pi OS taskbar battery plugin reading capacity [3]
->
-> The patches and changelogs were written with Claude Code
-> (claude-opus-5-5) from my description of the problem. I reviewed them
-> and did the hardware testing above.
->
-> [1] https://github.com/open-flight/openflight
-> [2] https://github.com/raspberrypi/linux/pull/7744
-> [3] https://github.com/raspberrypi-ui/pplug-batt/pull/17
->
-> Thanks,
-> Hugo
->
-> Hugo Karlsson (3):
->    power: supply: max17040: pass the device fwnode to the power supply
->      core
->    power: supply: max17040: derive status from an online supplier
->    power: supply: max17040: clamp the reported capacity to 100 %
->
->   drivers/power/supply/max17040_battery.c | 28 +++++++++++++++++++++++--
->   1 file changed, 26 insertions(+), 2 deletions(-)
->
+The move in (ii) is admitted in the destination by cpuset_can_attach(),
+as for any deadline task. In (iii) the walk counts each deadline task
+from zero, and the release removes it once. v5 documents the deboost
+race in the comments.
+
+ > stale dl_bw_cpu when dl_bw is zero misroutes bandwidth
+
+Right. No move updates the record of a bandwidth of 0. v5 makes
+sched_dl_overflow() use the task's CPU for it, and adds a selftest case.
+
+Thanks,
+
+Mathieu
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
