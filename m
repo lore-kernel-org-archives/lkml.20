@@ -1,79 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169723;
-	b=W735+6645l6t7T+hxGpJJcxt/68DNH9oFZP4QjB8ROI55HTDqDfhllMWs5dkoFTSMej+
-	 rFavevwi9GXMUylESCrfY9nerwLeGoYzVXOJmcINwbyXBZv3GlcETcCUKRziDCo0mP4Ov
-	 +LnOBe+AqWucVItc0y4+dZrkYkjY4a81mMAPHGlBYf0icKRaxNT12l6LVGEQFC2O6AkG0
-	 JRs2lU7MUUq2F+kPZ776HzbOOgwwQMyGiZvI0IbamTyYybdu+SO0il2NPO7erj/+p5j85
-	 rPIekuAfpKQMSsyvh9WBTdjiob+wdADjxxBuX8ojvjDNFut5W+k4XhjgFtbNChYeABA==
+	t=1794169816;
+	b=U5f24NLAFqfMt4kafXkEBr6w76JtpGo1bKUDK7u28+WLSw5AwSI8ilD2xRSps5eRQrRA
+	 /4fdjAOJPLcWDk6YWsCjayhPuLOHSlZXBvQQAfWshr1ubLkJjeYvqsw0oLs7x9i7mFWjo
+	 n9eEvOsNsW94R4APi9A9PvSzcP8nZqIlVG7ac08v53hN5OzE8SYqQUfSw9iXLZYvEtwH7
+	 XEgt6QouBPQWIWQajOFPa8CMdZXS943dhDhjlWqhSoLNX5PBWb7M7O0tvcloFtlduTUfH
+	 R4TKzIYx/JFBMXSr1BnOJ2zEmdoimpOksd4YRlNinL1/nfNcU2tvzt0x4YQmeFOoy+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169723;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=wcKESyKlUe53z2QO1nYuSnZfwG6Mb4uKZfngmDr9m+s=;
-	b=yNKHO+tUlRi5wgBL2m+Lis4NteUHsKEtCiMiw+FZVpgcJ7ebkpuUh2XoCna/0PJgXNCv
-	 Dia5NObYqZNvIwCcZx+o7SHwZoWPjwmU44bQxd8VasUtvLAzdjNixhgVHBWocVcuqgo3P
-	 G077vjEKr//cOhMWW8Z2RwNStZ67hO6udC/wp903suQIAFIwnX8gLTmn1jluCFz6/n8hB
-	 oOQ5E3Os1j3Tt4nmwJzcX6UMvxflqKhYOGj4vLuTSNlewnaGSEO6AqjlXUTq+AsCoFsEp
-	 QF0+rp/q1FYWeC591rZXYN6X7aG4AYH/XzMr5tGUw75PSlER9E6h08CtSpYNmvZQLBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169816;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=CLg0dkhkAHqwvH4NqaW3nQ9pKyM6DLsfJFXhxQWDQ00=;
+	b=TPk42m2ywN9KMkOp7ShGw3blD2ToGL6GOHPKMK9zYOJ/1G1T7+jiT+Uqc0WcDrl8Np/i
+	 duk+jp51AjSG5v00mD19SFLAeNSuZ/FSSpvMoYrFCtRDcLUwsFksGd8mDWPjIPN2xlM/p
+	 0/Hy5Gt/oJwewSaIrvPBlcCSnmi1CS8t2M8B9VzSxRTDtFzY00ZuluDj8ygEFGNrzAoJP
+	 ceyRe8tOirfa8NmC12xt+tM7p6XhrnrCoKbEZI//GkLiR/AJNh//hEyXwt0/ThFY4U6sQ
+	 4a9c0ZWD1TFsQSHrhEODERDZYDcp0HG59dY1B32XSTuMQFh/qwf5+5EXKdteCKKfd6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GtQ74TfS;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=rendec.net;
+	spf=pass smtp.mailfrom=rendec.net;
+	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=i4poTfs6;
+	arc=none smtp.remote-ip=80.86.107.70
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D93B606A334;
-	Sun,  8 Nov 2026 20:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D93B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563C0606D80E
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 563C0606D80E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GtQ74TfS
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9BA5340E03FF;
-	Sun,  8 Nov 2026 20:28:38 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id rJWilwZAF7WO; Sun,  8 Nov 2026 20:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794169715; bh=wcKESyKlUe53z2QO1nYuSnZfwG6Mb4uKZfngmDr9m+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GtQ74TfSGkD7TRvT2iWVY3SynnnUOQGBEDhAlJkLNo73XS+Un9sROdycb5XsYxC6+
-	 Sx47AgPzAv0LDaaokC4CoUiuZVHsuBhokQQ7U5WwzU/XphT6JMSjQPEeNMls6MYd8M
-	 +LSdoHT4yf89y4e8oP6R0KvduSmitj2vOwiTAHVzH9aGxWfbHh/s7k90xQd1eLEhWg
-	 0Zcc8nhh426LIWvU7F35BMwLwdfyRRVM2BaB/Nl6RIoMrL72ynCwWppnmdwghCuBPS
-	 rvsbYTcKoKKCJF347nHXtRWDMfrnfdIFo1Em8FrR1OEdwbEeKlPfiuOLouds54ArmP
-	 zFxl8cZZpdDw5/kDtTOYMbp9KLrswwoURZ2zi2K76Mpmc5VFvFfT4a7QfwVms1ncF0
-	 8jtMshlSY7gZmyNITOHkSQluggabL8hotOrvo+0KJdps9MvdrtlA0yVXfLId+rUSEK
-	 6cO/0IptDhIC7rOGk+qm/HmBto7bsmKhOvBJZrJQstolq9ayPHCGOBUIOFxdtqJxkO
-	 iKt84nZgFp3ebM70urX99RFdqDTtPGZGz+WtquVap+iKB7UZKRjm1aKrLbgfI4a4Wb
-	 EePKTEr+iZKVNruBrXgLJMvxexPq9m8pv80oR9aC41vtFhGvEl9ONaQnLvadbT0wub
-	 tcwpXM90f9rLw5rgk6b2wEaY=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E456140E016C;
-	Sun,  8 Nov 2026 20:28:22 +0000 (UTC)
-Date: Sun, 8 Nov 2026 12:28:20 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Rik van Riel <riel@surriel.com>
-Cc: Tony Luck <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH] x86/mce: Restore rate limit on MCE logged message
-Message-ID: <20261108202820.GCavDbZJgmwKqysH4X@fat_crate.local>
-References: <20261108143751.3af49e48@fangorn>
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=i4poTfs6
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 39EDFD4223;
+	Sun,  8 Nov 2026 22:30:11 +0200 (EET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 39EDFD4223
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1794169813;
+	bh=CLg0dkhkAHqwvH4NqaW3nQ9pKyM6DLsfJFXhxQWDQ00=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=i4poTfs6sLriei2b8QRGHlw6KjyTG6NLgwR+p3tAfmpwrNOONvb8J77ZkXxCA8CL3
+	 sYO03+q9Hfzuaklw4QWATFZIvjr3StGH5Q50CzVOxzMFbF0jO25m27QiCyuq5QTiIo
+	 DqnkQrOGyVI1Bh0WsAi9HAeCarhrfENIHg+m9apQdrXKKbA7pl5nkE23uIBulrv2lA
+	 M0XEpsFyWZgq+lAOtg0C7elFUGWh0nYDdws+3END/2OoNC/BZiN+1OQIA2qLVKFMxW
+	 SK25IMV8g6j2S6yZAWzU2V7ckPD/GigjTvfcIwYUU3nav3gxA33A7iWEKuRj9KId9k
+	 ChTKFNl9KelFw==
+Message-ID: <912bdd213166ff7d6c24580896b92bb0a3edea78.camel@rendec.net>
+Subject: Re: [PATCH v7 10/10] irqchip/imx-irqsteer: Use
+ devm_irq_domain_create_linear()
+From: Radu Rendec <radu@rendec.net>
+To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
+ Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team	
+ <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Fabio Estevam	
+ <festevam@nabladev.com>, Jindong Yue <jindong.yue@nxp.com>,
+ xuegang.liu@nxp.com, 	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Date: Sun, 08 Nov 2026 15:30:09 -0500
+In-Reply-To: <20261104073759.386777-11-Zhipeng.wang_1@oss.nxp.com>
+References: <20261104073759.386777-1-Zhipeng.wang_1@oss.nxp.com>
+	 <20261104073759.386777-11-Zhipeng.wang_1@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,31 +74,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261108143751.3af49e48@fangorn>
 
-On Sun, Nov 08, 2026 at 02:37:51PM -0500, Rik van Riel wrote:
-> FCommit ea324444ece9f moved the "Machine check events logged"
-> print from mce_notify_irq() into mce_log() and dropped its
-> two-per-minute rate limit as a side effect.
-> 
-> A particularly unhappy system can spew out around 100 million
-> of those "Machine check events logged" messages every hour,
-> without that rate limit. A large fleet may have several unhappy
-> systems, leaving the netcons infrastructure somewhat flustered.
+On Wed, 2026-11-04 at 16:37 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
+> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+>=20
+> Replace irq_domain_create_linear() with the new
+> devm_irq_domain_create_linear() helper, so the IRQ domain is released
+> automatically on unbind and remove() no longer has to call
+> irq_domain_remove(). No functional change.
+>=20
+> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+> ---
+> =C2=A0drivers/irqchip/irq-imx-irqsteer.c | 7 +++----
+> =C2=A01 file changed, 3 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx=
+-irqsteer.c
+> index d15b806b278c..da6e8d1bbec1 100644
+> --- a/drivers/irqchip/irq-imx-irqsteer.c
+> +++ b/drivers/irqchip/irq-imx-irqsteer.c
+> @@ -248,8 +248,9 @@ static int imx_irqsteer_probe(struct platform_device =
+*pdev)
+> =C2=A0	if (ret)
+> =C2=A0		return ret;
+> =C2=A0
+> -	data->domain =3D irq_domain_create_linear(dev_fwnode(&pdev->dev), data-=
+>reg_num * 32,
+> -						&imx_irqsteer_domain_ops, data);
+> +	data->domain =3D devm_irq_domain_create_linear(&pdev->dev, dev_fwnode(&=
+pdev->dev),
+> +						=C2=A0=C2=A0=C2=A0=C2=A0 data->reg_num * 32,
+> +						=C2=A0=C2=A0=C2=A0=C2=A0 &imx_irqsteer_domain_ops, data);
+> =C2=A0	if (!data->domain) {
+> =C2=A0		dev_err(&pdev->dev, "failed to create IRQ domain\n");
+> =C2=A0		return -ENOMEM;
+> @@ -298,8 +299,6 @@ static void imx_irqsteer_remove(struct platform_devic=
+e *pdev)
+> =C2=A0	for (hwirq =3D 0; hwirq < irqsteer_data->reg_num * 32; hwirq++)
+> =C2=A0		irq_dispose_mapping(irq_find_mapping(irqsteer_data->domain, hwirq=
+));
+> =C2=A0
+> -	irq_domain_remove(irqsteer_data->domain);
+> -
+> =C2=A0	if (ret >=3D 0)
+> =C2=A0		pm_runtime_put_noidle(&pdev->dev);
+> =C2=A0}
 
-I need more info here. How are you running those systems?
-
-Usually, correctable errors are consumed by the CEC and you don't see
-anything. So you must be doing something else.
-
-.config and dmesg pls.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Reviewed-by: Radu Rendec <radu@rendec.net>
