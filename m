@@ -1,92 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.3
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794159701;
-	b=gbV+Il6nib6kJEqHz5JEHW0kBZvGmF6p22c5SaDNI4aGQP9wQosO+dbnstOLdRsRVtJc
-	 fz4IljRWIn5ElxxmrAXYtDt8p8fhu+YlTk9pSqHQlNzKQB7u069nB+6dFvi3TPoeVpmkO
-	 LXeazYnk60E/aOmxdDc9sqUEzD8jk+miXjCILkESK5HBwhAh+7SUob/Y4tMej2pIqu5RF
-	 nCR0bl+D4SCe+/ztAFCywbICH3+Dguylcm7LG0zA3whEd8XxvQhgicR2fEMNvu3glkJum
-	 9//zN9qU61YREe3QBVJss/JwBVF9c7iRZP0/0LLk6QcB2aTrs8ostraMlFk2QuKbblA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794159701;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
-	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
-	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=GuCEUk+D57C1uh6zVqLkb4f3+lp4MzyMcZvNcQqPZDg=;
-	b=t3HGEa9WR3EhV9dnvDtthBTk75JzGWbePi3DyOXa7eZONRPlCZnrAfweiWC63oLrYn14
-	 QPxea6Fclk3ZBqGUwdY691lwvDJdSlkeQQJcaoUkJuISOC9Fsrmve/RA7kxUHz9jNfkUl
-	 5RgymA7x5EbMFz7ZyBQfS2MQcovWT/QR5N1k7zGeKhqtPNm9XTxizFZ2ac9JbHGDIqL9R
-	 owkry+uCDz5b6/fqC2QiSA9QF3GFfmGgY/ui9Nd3ENC/OB8GzQV08UH2/CFS7as7s6KXL
-	 2OQTRSl8fftM3CZYKIMmxWkyQbp87yw7R0z09aPq1UcWDBiU5I8WKmAXHwY77MCLKWQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=iUxO5nuL;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=epkPDNn0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.3
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794160338;
+	b=Vtl4diyiwpPTvYYyzLMO2DLt1JuFUr1fF6wFhaZRThsMEN37ztCOE+X2KbHRiPDv2zvv
+	 1z/h6kq3TiJ6R1cjCRsAv2j7jLIfbLdMaUC5gquf71o+qsou7cIRJ7TlJxKU/InvS1Why
+	 hkiuW0OrfVR07X6j1YZBuQm01R2/XdnZtWc6ml5wm9CcEg7BxGIBP1TFIBcKatWxs5o0k
+	 +SiSK7jYpckaWOa/GKnT+6YA4LUO/1SECYmtZl0g1E75PuoClvoeaBlEyaknqwoiPYmpI
+	 NxVTOEGsyzl+IjrzuaW6B7tp9sE9nrF/EVfrdhwDn5cHud9WO2v9F1KLqcKFLENj9rg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794160338;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZbsGt/Yaewv8ArPLycAYYXmDqJHO01ChanNYScKiO+c=;
+	b=3jYuZYz471W50P0ph/9Z+0nn/pPSfzt3NtCcsm8fptutvPwW+GLkjZLZQHfizf6DSM8Z
+	 uEPoprH/USTnSoPb1b/7IJgx00reg7inQgJsdzRfv3fU7wnpCrAgCvxb/dB6j79/g4RNC
+	 f2yLMaVdr5OBuzfVhpJN29kyQhZAe03dgm9ng0/e/OakRZqM4DVcdmzGllxPfOcVM3xHs
+	 arm3J2uAL8+ZQCvH7d7Lyjc08itZYRBHOiM1RbWjmrdTzYWm0Tg8jByjZkxukEr2hF6OA
+	 H48L2m/kBx8BPqXX5WsTA33YiqsIa6TKSF9amtSurQMbbM/lBdL5fEv5/lT7M7LNkMQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nolknHvS;
+	arc=none smtp.remote-ip=209.85.160.48
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C63D606A31C;
-	Sun,  8 Nov 2026 17:41:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C63D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CBF606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 17:52:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11CBF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=iUxO5nuL;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=epkPDNn0
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794159699;
-	 b=TqLcRlNhrBPathawZxhOrFHvrJ46KTOclJ7quqaKI/mYtTVHKhAxgsjc3tKSpJ4ZW8YVzumTfx
-	  hLJvD44+E47LorZ8Ff7oBdDoQlZNM5ZwE9diS46KuHggJZoGJSJcLYjN1kLp6pJ2bRo4O3XY8N
-	  rzQIC8jQvDkHC3ewBf1EqDDtFOIn7b9zq/QrqyY9MxeeKakMZu66vuRR1tCOfYCc5OlbDSpMET
-	  wHaynHjQ4AcNYhjoCjUtpBAaL+e52sAiVnJKQqoVweyb4eNCDGvTabghPgCqAr44195JneqyN9
-	  zDdSdKAQbEIzVhWmgqLbQwoerB8Euf197Ga9jElU8N0z0A==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794159699;
-	bh=f6VW1MvnrvYMrfcCLmWVZetubLXwndYussOEkJ8pShI=;
-	h=Cc:To:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	  Subject:Date:From:DKIM-Signature:DKIM-Signature;
-	b=JgsUySuRsd8KsyY1wuoV8GADGuGF5Hw5ZYjv2OCu6lHuPF2aJdG38Y85KoXDTUdpyFinkRt2Ax
-	  6gmC0ltFyYMrEeOP0unPMhv4LuKC0KorZgh137/mBWfH1Z3Sa2b2D82n0RGc4VtW9efWbGnMAM
-	  o6DRuKM4z9hCGEOoRrJEfJxs9JCLLgvVJcZB1AcWAP+eq/86Y4Zn9wESkx8kcVLjwIbpkgWxD8
-	  m+V9b4scxZ/GJIP0yTKTP+V8kyYBJG4jNj+xmesJKAMpGYVq+qMzBX6itbSJXQgIii/0CZXGFK
-	  lxnCD85lnqu/iMagnexOrMlNSlBukI7k3TKJzp2ilfXScA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
-	:Date:From:Reply-To:List-Unsubscribe;
-	bh=GuCEUk+D57C1uh6zVqLkb4f3+lp4MzyMcZvNcQqPZDg=; b=iUxO5nuLW5XeIhFH+59a5iGjVU
-	FWd1RSHBBxyF7IyQP7OkMPe/MesngtPYFb8tmKxVFhZmC/B01XpO1A3wbii3owrrK9PpJGMDzH6s9
-	6ZO1MQnusizLQH7k8ZSPxS/hUdhgV8Lg9i565DK17st7IPPBmbkrZOrcoTbbub3NJ4kU=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQ6tX-00000005FKE-42Gt;
-	Sun, 08 Nov 2026 17:41:32 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=GuCEUk+D57C1uh6zVqLkb4f3+lp4MzyMcZvNcQqPZDg=; b=epkPDNn0n1mGyBXyhhYFXxiiSB
-	kOl0mAii8NQbLgzIAAK+rzOJcL7SQo08LqvUCSqk496EBOXWC2sL20l9OV8gfRCU1hzKJgiA73U96
-	TNEB4SJ8lS+2vJrXxRCc20ybHCE5jBUcxu0JXAn2iTAsBLZP7N+R+R/RMAFuUHZVUpNc=;
-Received: from [79.17.15.196] (port=60387 helo=[192.168.178.158])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xQ6tT-00000000EOl-31vG;
-	Sun, 08 Nov 2026 17:41:27 +0000
-From: Francesco Valla <francesco@valla.it>
-Date: Sun, 08 Nov 2026 18:41:17 +0100
-Subject: [PATCH] spi: virtio: move teardown to .remove()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nolknHvS
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-48ed188ee81so80911fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 09:52:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794160337; x=1794765137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZbsGt/Yaewv8ArPLycAYYXmDqJHO01ChanNYScKiO+c=;
+        b=nolknHvSLtnEw0mNYq1xDNKKwNZ80yOhtr4P6+0Cly55+qNwwJ0aLUpghOW397MonE
+         arPaf4+fjBCN7cj6gVPvczwqp/iQwZk7JFvP/O32pG1miypIAXCxNbZuClZulIsjmKtx
+         MC7mIWP4eVReH5yy1ggGYsEl5lRDNXM6zqiE4chPSAqFV/t55pzBECUIdRmvDnX29IMQ
+         S4EfhVU5QKlReigkhwALskWeIREbV+1XnrTllMuG/9OkOBzkCmyyv8VKrkUUtsFteeAM
+         AKRPgCFSrGvn9b0wXV1AQekQdPWe4/Qu0K0eSFxHdzTnDQSiMq7ZFuZKCeZ+hqzJDrqK
+         U6FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794160337; x=1794765137;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZbsGt/Yaewv8ArPLycAYYXmDqJHO01ChanNYScKiO+c=;
+        b=lB97UeCFMMwYfLFIqj2xZ0SJjqe+aRhbqv+apAm4xr3nPkNsWsx5qG0fszrsjg9+6N
+         qYSrBFIpEZT64MnNFsZVaZwb/25Z333jDSi++9IYSXK7DcIdhSIH9uj9yCI7N9gSgH5c
+         Hm7KSLi508ut0RORDpL40COHbeUwNF70NstNlix4VPs8bNYb7E+D6By/mpaTgi19jX5Z
+         FIhHJcBVyqhd0/7pwQHOSU8tNdXBYbLVCq8ggON3SMM7mKjDHmMpc67IuZDMhPFNAsPT
+         jBWKBVRncRFU5lSDydYXmzaDOQ8mYtF/7IaFmuijr4/kbLgo4r1rGvWeGtN3FHj/8JPC
+         mbzw==
+X-Forwarded-Encrypted: i=1; AL+hErGajcIvyMrxF84+2HodXiZngc0MrJfIg/9e9qr0Lj4bvjk9twKXlIeXiFxlg4HzdSktIeRPyTEceNePwOg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ehBN1cB8yXeCooX+ttOcE67aOSKTwey/ky8xH+BG/OtJTneVb
+	YMruOWXSWMUFCObcM6910adKM2Zhs+fEv0ZNfATtZahvGS3z1/VGeziU
+X-Gm-Gg: AYBFou3p2nsvthbsb2vF4hvIP4i65zw+1jHTmM4K/1Fmvtq8BeFxi6fDqLopc0R1lLQ
+	IiGk0tnCImkLZtYzPXzp1Ty6+lutj/jxKuw5rO6etDw+RaghqSLwcEjlYtUUvSDK/qQfEGnl+RW
+	0ZXkPdkVR//4lu7J6elqpMDJcwq9VaFWXu0Wrt7tFGm1UWCBG/CwNx05XzLeJBWc3icr9t90l+q
+	F5EXVxflNEvxgksg/ZkfFnYQ2XquCpCI3uM4/AnKFyDEUJ+i138tTvF05k4vMGFNsu8VsR/LFhW
+	oQrbuohhRWd40dQDO9dgFvgBLDpmgSD9dkXXhXFloXE6otusncLEQ5tEeS+oMyeRVDsfSp9qJ+3
+	m33POvIG5gQrY7BNlRs1iQZHY2+HpXrllX6ltSXZYt3zQianwY8IS4hcIpy0RQokswkAltMCAol
+	efLUvgFuX9Cb7WHpnxIFCCygnD1WLmUHp1fgHPq3OouOLTo4cnf87GZ8m+UkdNfyx5RVym3yBdX
+	/pKwOtamWTTk/+yFJPmSOMwEaB60aS3kvb1xG2S3JAhPOhFECURgJ913xP8y4Yvs04WI+9smz4m
+	ZpAz8n61o3meEtSpk4cHNRTz/1Mnojq/o/L+/S5Q+cdIODje
+X-Received: by 2002:a05:6871:3321:b0:4a6:fa51:3c89 with SMTP id 586e51a60fabf-4adecbadfb9mr1009105fac.51.1794160336736;
+        Sun, 08 Nov 2026 09:52:16 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade6a26d74sm2682674fac.15.2026.11.08.09.52.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 09:52:15 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v2] HID: microsoft: fix use-after-free of ff_worker on teardown
+Date: Mon,  9 Nov 2026 02:52:05 +0900
+Message-ID: <20261108175205.722820-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,129 +98,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-spi_virtio_remove-v1-1-fda5f0996290@valla.it>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrBtIgrahV5ESNE7rCDUyo0EQ7
- 27U5Vv8v4EgEwq8iw0YEwnFMcM8Cgh9M/5QUZcNVtunMdopmcgn4pmiZ/zHhMoF66pGd+XLVpC
- 7ifFL6/WsP7dlaQcM8zmCfT8A9Kn3Z3UAAAA=
-X-Change-ID: 20261108-spi_virtio_remove-8c285a0d4725
-To: Mark Brown <broonie@kernel.org>
-Cc: virtualization@lists.linux.dev, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Francesco Valla <francesco@valla.it>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2813; i=francesco@valla.it;
- h=from:subject:message-id; bh=f6VW1MvnrvYMrfcCLmWVZetubLXwndYussOEkJ8pShI=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkftjjl+K7q3WhZ8XnW0iO7mT6kTuUKfaRSdrA2uslFb
- ZeteubFjlIWBjEuBlkxRZaQdTfu7Zlr/i1tA+MjmDmsTCBDGLg4BWAiGW8ZGb4aX3+5jD8l7dTr
- sKDHjA37tkx9Inh8Hr+wr5/qml2Kl/Yx/FN0vlzMdfz7j2dJ+5se3Jpj8f36fy/bjMqWHy1XLq6
- okuMDAA==
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 302caa1e16385c5e8fff079d2a365b1d
-X-AntiAbuse: ID - 302caa1e16385c5e8fff079d2a365b1d
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xQ6tX-00000005FKE-42Gt-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Transfer-Encoding: 8bit
 
-The .remove() callback is not marked as optional for a virtio_driver,
-and thus a missing one is a bug. Moreover, the virtio framework expects
-a driver to reset the device it controls during teardown and explicitly
-checks for this reading the device status and WARNing in case it is
-still running. Any devm cleanup action gets however called after that
-check, leading to the WARN_ON condition to always be true for
-spi-virtio; thus, an empty remove() is not an option.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Move the cleanup actions to the .remove() callback of the driver and
-adapt the surrounding code to the new behavior.
+ms_play_effect() schedules ms->ff_worker to send the force-feedback
+report; ms (and ms->output_report_dmabuf) is devm-allocated, so it is
+freed by devres after ms_remove() returns. The work was never cancelled
+on teardown, so ms_ff_worker() could run against freed memory.
 
-Fixes: f98cabe3f6cf ("SPI: Add virtio SPI driver")
-Signed-off-by: Francesco Valla <francesco@valla.it>
+Draining the work is not quite enough on its own:
+
+ - hid_hw_stop() in ms_remove() unregisters the input device, whose
+   teardown (input_ff_flush() -> ms_play_effect()) can re-queue ff_worker,
+   so the work must be cancelled *after* hid_hw_stop(), not before;
+ - ff_worker was only INIT_WORK()'d in ms_input_configured() for devices
+   with force-feedback, so cancelling it unconditionally would hit the
+   WARN_ON(!work->func) in __flush_work() for the other MS devices; and
+ - if hid_hw_start() fails in ms_probe() after force-feedback was
+   registered, its unwind can likewise schedule ff_worker, which was then
+   left pending when ms_probe() returned.
+
+Initialise ff_worker unconditionally in ms_probe() (so it is always valid
+to cancel), cancel it on the hid_hw_start() error path, and cancel it in
+ms_remove() after hid_hw_stop().
+
+Not runtime-tested (requires MS force-feedback hardware).
+
+Fixes: 73c5b254c365 ("HID: microsoft: Add rumble support for Xbox One S controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- drivers/spi/spi-virtio.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+v2: Address the review of v1 (which just added cancel_work_sync before
+    hid_hw_stop):
+    - Cancel ff_worker AFTER hid_hw_stop(), since the input-device teardown
+      in hid_hw_stop() can re-queue it via input_ff_flush() ->
+      ms_play_effect().
+    - Initialise ff_worker unconditionally in ms_probe() so cancelling it
+      does not hit WARN_ON(!work->func) for non-FF MS devices (it was only
+      INIT_WORK()'d for FF devices in ms_input_configured()).
+    - Also cancel it on the ms_probe() hid_hw_start() error path, where a
+      failed start can likewise leave the work queued.
 
-diff --git a/drivers/spi/spi-virtio.c b/drivers/spi/spi-virtio.c
-index 26f9711c99b3..2eeb79ff5aa2 100644
---- a/drivers/spi/spi-virtio.c
-+++ b/drivers/spi/spi-virtio.c
-@@ -315,10 +315,8 @@ static int virtio_spi_find_vqs(struct virtio_spi_priv *priv)
- }
+    v1: https://lore.kernel.org/linux-input/20261108133821.535139-1-hj351016@gmail.com/
+ drivers/hid/hid-microsoft.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
+index a7d3493..1042a52 100644
+--- a/drivers/hid/hid-microsoft.c
++++ b/drivers/hid/hid-microsoft.c
+@@ -334,9 +334,6 @@ static int ms_input_configured(struct hid_device *hdev, struct hid_input *hidinp
+ 	if (!list_is_first(&hidinput->list, &hdev->inputs))
+ 		return 0;
  
- /* Function must not be called before virtio_spi_find_vqs() has been run */
--static void virtio_spi_del_vq(void *data)
-+static void virtio_spi_del_vq(struct virtio_device *vdev)
- {
--	struct virtio_device *vdev = data;
+-	ms->hdev = hdev;
+-	INIT_WORK(&ms->ff_worker, ms_ff_worker);
 -
- 	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
+ 	ms->output_report_dmabuf = devm_kzalloc(&hdev->dev,
+ 						sizeof(struct xb1s_ff_report),
+ 						GFP_KERNEL);
+@@ -361,6 +358,14 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	hid_set_drvdata(hdev, ms);
+ 
++	/*
++	 * Initialise ff_worker unconditionally so it is always valid to
++	 * cancel on the probe-error and remove paths, even for devices
++	 * without force-feedback (where it is never scheduled).
++	 */
++	ms->hdev = hdev;
++	INIT_WORK(&ms->ff_worker, ms_ff_worker);
++
+ 	if (quirks & MS_NOGET)
+ 		hdev->quirks |= HID_QUIRK_NOGET;
+ 
+@@ -377,6 +382,7 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 				HID_CONNECT_HIDINPUT_FORCE : 0));
+ 	if (ret) {
+ 		hid_err(hdev, "hw start failed\n");
++		cancel_work_sync(&ms->ff_worker);
+ 		return ret;
+ 	}
+ 
+@@ -384,7 +390,16 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
  }
-@@ -347,21 +345,26 @@ static int virtio_spi_probe(struct virtio_device *vdev)
- 	if (ret)
- 		return dev_err_probe(&vdev->dev, ret, "Cannot setup virtqueues\n");
- 
--	/* Register cleanup for virtqueues using devm */
--	ret = devm_add_action_or_reset(&vdev->dev, virtio_spi_del_vq, vdev);
--	if (ret)
--		return dev_err_probe(&vdev->dev, ret, "Cannot register virtqueue cleanup\n");
--
- 	virtio_device_ready(vdev);
- 
--	/* Use devm version to register controller */
--	ret = devm_spi_register_controller(&vdev->dev, ctrl);
--	if (ret)
-+	ret = spi_register_controller(ctrl);
-+	if (ret) {
-+		virtio_spi_del_vq(vdev);
- 		return dev_err_probe(&vdev->dev, ret, "Cannot register controller\n");
-+	}
- 
- 	return 0;
- }
- 
-+static void virtio_spi_remove(struct virtio_device *vdev)
-+{
-+	struct spi_controller *ctrl = dev_get_drvdata(&vdev->dev);
-+
-+	spi_unregister_controller(ctrl);
-+
-+	virtio_spi_del_vq(vdev);
-+}
-+
- static int virtio_spi_freeze(struct device *dev)
+ static void ms_remove(struct hid_device *hdev)
  {
- 	struct spi_controller *ctrl = dev_get_drvdata(dev);
-@@ -415,6 +418,7 @@ static struct virtio_driver virtio_spi_driver = {
- 	},
- 	.id_table = virtio_spi_id_table,
- 	.probe = virtio_spi_probe,
-+	.remove = virtio_spi_remove,
- };
- module_virtio_driver(virtio_spi_driver);
++	struct ms_data *ms = hid_get_drvdata(hdev);
++
++	/*
++	 * hid_hw_stop() unregisters the input device, whose teardown can
++	 * re-queue ff_worker via input_ff_flush() -> ms_play_effect(). Drain
++	 * the work after hid_hw_stop() so it cannot run against the
++	 * devm-freed ms once ms_remove() returns.
++	 */
+ 	hid_hw_stop(hdev);
++	cancel_work_sync(&ms->ff_worker);
+ }
  
-
----
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261108-spi_virtio_remove-8c285a0d4725
-
-Best regards,
---  
-Francesco Valla <francesco@valla.it>
+ static const struct hid_device_id ms_devices[] = {
+-- 
+2.43.0
 
