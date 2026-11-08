@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.32.148.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794100188;
-	b=xBq7Z7SXZSbKeFdPNnqdgZq9LAoDpoCDWQXyus2bpUQfvjqIHPOzxNXnNnM6fFJ6edT2
-	 5fujQC86B7piyqek6e3dOoIaYoz+nWGKgMQulwMsg1TCuT3BMSPC9/B1JQDXQLWs955AX
-	 0JSM70JWv3sue1md5K7bkLLBph/T0ahCzoFqHIb+U/FUbL11m3MN3Wygz+aQ2a/a54v31
-	 dsakHCgGrOhTFkOmC19cWRYLOt6ClOLAKoyEfnHF+xPfi4FYRCPphm3m+bqsDf2URdteH
-	 7UNAZCMJDniGISClfb74rd7BHKKxq/c8Topx+fRp6JaA0xHYbBhKduuxJKGbZkI5jqg==
+	t=1794100238;
+	b=Sl6soh2qHLU8aICxtDz5zfiGvHimyEP9OrGempNPvGNsUwQ1WBKHG9WzaoB+I6er2s13
+	 YNyWHb8IAJ92l+twCOxqJlEDZ7rT8sFgdXFwYo1dF8a/4r1adv/4w3Qz+WA9sSwobBw3r
+	 v6qK8GSB2keZJlDqfwJNUp8KGFH/oydiCbeZ5Brb4z8QHQRVhfXbSBQfbPGKeWxBjdd45
+	 +LLCN798odgtH7azELF03YSyVzk/UvG/kMnCRxBB+fQTqPWVJo7Z5QsUzfV+T7O9wpVYX
+	 eBuGgh4i/upK4b4pGZtC6yrJ2O+47DUKrcNFJxWq4OQGuokfOEBcwhfgwRkbBbxWWgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794100188;
-	h=DMARC-Filter:DKIM-Signature:List-Unsubscribe:X-Mailin-EID:Subject:
-	 Message-Id:Origin-messageId:List-Unsubscribe-Post:Feedback-ID:From:
-	 X-CSA-Complaints:To:Date:X-sib-id:Cc:X-Mailer:Mime-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794100238;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=JklxAbPBaLydgyuBapQPXeWi+Bu2/32FWWJiqNnbyR8=;
-	b=4HZIBs0qfI2a7VzOSaJUtJmyFFgBY8ozR4yyzGccdxQ0SQXQ5/4iNfGcTUnsI2zpOBzP
-	 WASaAmBN2nOtENJyA7cIeWjD+0m7ay8P3FmWrB86Kk7+ZmpWJvdmR7nnSP+iHdZnFY14p
-	 Yrl0x3Pg24aDiBmsPKWtGJa2lIABj3F+kPPjcNEc0CQmiCm0wsXtgGxnUVugGx5tAjA6H
-	 VTekUzuQLMQ+xv9fiTFrH0/7vkTedMnVvwa6ufo7Io2cUlGykDgqMsZ5Wypc6olvO4Y7X
-	 MCHAT+SoPdm7hHOD1BI+yNS4DWoWWXyB4C0FTyHzdVo4K0eK5Wle1gWzrKujP+hkAAA==
+	bh=prGr2rCCPYq8dfhCbZ3/nC39kFMYq8jBR7hx9f+mnLo=;
+	b=gJLV/dRFmwOe5W9oqanPqvWav7QlCIzqn9BWYGNJOZy3r5UH0Xxvoc3yCi1rKxB0xKH6
+	 83RRbIHqiRzVj4TKDQUQq1z6jHKvmZBEfkdTVDcjr8WeKKsgSDlBfVXN/IvaaekYovE9Q
+	 nO95tZiSbUscWRgn9SbeI0hU4g1yQ+4f/b0t++iK6vSr7qqoxD5fCPyP5WtSyKzhJUxBH
+	 sygKU9GzzYkjVXW9a8l77jpc8+J+gOrJEz2D/OA7Xr22Ws920Bmq/1wvyzBUhGZV4512c
+	 mEbnI/DWl1oUU8Vy/rQJhC7ReM5H7Y4NYPAl2VjLqyh+wAD57bOtRivgfRshbGA3wyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tubot.lat;
-	spf=pass smtp.mailfrom=gy.d.sender-sib.com;
-	dkim=pass header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=KW0dakTc;
-	arc=none smtp.remote-ip=77.32.148.25
-Received: from gy.d.sender-sib.com (gy.d.sender-sib.com [77.32.148.25])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="inXbqEd/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CA4606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53CA4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tubot.lat
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gy.d.sender-sib.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4675606A326;
+	Sun,  8 Nov 2026 01:10:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=KW0dakTc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tubot.lat;
- q=dns/txt; s=brevo1; bh=JklxAbPBaLydgyuBapQPXeWi+Bu2/32FWWJiqNnbyR8=;
- h=from:subject:date:to:cc:mime-version:content-transfer-encoding:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
-        b=KW0dakTcvW0IUiuALNtwldOMf10poFdGvCd9pFuF3Mx9CT5nXeUQz7yaRZdzs13enHi2RdhiCeMR
-        Tb5uwzhsMIRWW4QoYrfarl/K+ElWNoAPff+gLy/pL6SFIBxzv2FD5jznUctSAtcfH9bdboMmJ9yu
-        thUI2QYBlcgW6GN2i1fxXHvtNio5UwC6k0GOPxolme3At681v4tc1go6kJeToHbpaDWhMkrpFVU0
-        SOs8BIn+1B7k9Jq1AvErLxkpTqXuLT0yWv4vBfvCNux9i30mecYOELnwlxTh5jI4uOsUB5gVh+oh
-        napEZub5E7lPVio8jojbOCDEPjr30fJS9YwfLg==
-X-Mailin-EID: NDczOTMwODc4fmxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmd%2BPDIwMjYxMTA4MDEwOTQxLjExMjE0MzMtMS1EZWxheVN5c3RlbUB0dWJvdC5sYXQ%2Bfmd5LmQuc2VuZGVyLXNpYi5jb20%3D
-Subject: [PATCH] staging: nvec: convert to DEFINE_SIMPLE_DEV_PM_OPS()
-Message-Id: <20261108010941.1121433-1-DelaySystem@tubot.lat>
-Origin-messageId: <20261108010941.1121433-1-DelaySystem@tubot.lat>
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-Feedback-ID: 77.32.148.25:11287567_-1:11287567:Sendinblue
-From: "DelaySystem" <DelaySystem@tubot.lat>
-X-CSA-Complaints: csa-complaints@eco.de
-To: <marvin24@gmx.de>,<gregkh@linuxfoundation.org>
-Date: Sat,  7 Nov 2026 17:09:41 -0800
-X-sib-id: QD4-G9yk2ur-MP5yUFjrl6DmeN2nRyN5gmqCFSdGxrX3TtCEoHlCxd6SQ6O9oNLaLs8rfF_vwKfFyQ4Ab50_D7DwXKzZcbbvpNpp4ymOK0296_rNM4gCRpBkzR4q9b49CVUc8cl01UpP-wLR-AvVIRwafOrJNRH67RCT-3UVaXfmF_CN5TWTgfsXvQ
-Cc: <ac100@lists.launchpad.net>,  <linux-tegra@vger.kernel.org>,  <linux-staging@lists.linux.dev>,  <linux-kernel@vger.kernel.org>,  "DelaySystem" <delaysystem@tubot.lat>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inXbqEd/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74471F0089F;
+	Sun,  8 Nov 2026 01:10:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794100237;
+	bh=prGr2rCCPYq8dfhCbZ3/nC39kFMYq8jBR7hx9f+mnLo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=inXbqEd/xXfmjPcrGSfIfjCEz7mHVQDRMB+W3CMVltYyeEb0Ko3wi7/t4zcVxq1np
+	 0Hq7g3ZgXoFCSAU4osDVbUbwtC5dGRp/lKvUs1bdKVdf/3+XZ8vY7F2ADmlaTSiI9H
+	 U1V+dMNuuAjr4JlVYb/IGby/YXw1InoG4Tj4CiWGrcHQ+uMsgiE9UDCCWsMXUN2ePB
+	 al8CNyofwH8zIL4OPLDYyvXhHIRHMthCh8ozKHcPonsbwARIBvig0EZqz6TdIlkMlK
+	 rrDQuKK7CYH0YhWWZCp4HuIMLaiEtEz0eaYYnRRq7HcTzcI0LJ4Tu5kxTVb30GkgGV
+	 JHs4ZoE4tsNTA==
+Date: Sun, 8 Nov 2026 01:10:29 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arka Mondal <arka@arkamondal.net>
+Cc: Linus Walleij <linusw@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Peter Meerwald <pmeerw@pmeerw.net>, Matt
+ Ranostay <mranostay@gmail.com>, Robert Eshleman <bobbyeshleman@gmail.com>,
+ Leonard Crestez <cdleonard@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] iio: light: apds9960: Report the available lists
+ via read_avail()
+Message-ID: <20261108011029.6a195efb@jic23-hlaptop>
+In-Reply-To: <20261102074700.63075-3-arka@arkamondal.net>
+References: <20261102074700.63075-1-arka@arkamondal.net>
+	<20261102074700.63075-3-arka@arkamondal.net>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,113 +64,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon,  2 Nov 2026 16:46:56 +0900
+Arka Mondal <arka@arkamondal.net> wrote:
 
-Convert the deprecated SIMPLE_DEV_PM_OPS() to DEFINE_SIMPLE_DEV_PM_OPS()
-and pm_sleep_ptr() in the nvec core and nvec-mouse drivers.
+> The proximity and intensity channels put IIO_CHAN_INFO_SCALE in
+> info_mask_shared_by_type, and the intensity channels put
+> IIO_CHAN_INFO_INT_TIME there too. The values those attributes accept
+> are listed by three custom attributes: proximity_scale_available,
+> intensity_scale_available and integration_time_available. None of the
+> three carries the in_ prefix that the core gives the attribute it
+> describes, so all three are registered at the device level, and
+> userspace looking for in_proximity_scale_available,
+> in_intensity_scale_available or in_intensity_integration_time_available
+> finds nothing.
+> 
+> Report all three through read_avail() and drop the custom attribute
+> group. The two gain lists keep their exact text. The integration time
+> list becomes 0.028000 0.100000 0.200000 0.700000 instead of 0.028 0.1
+> 0.2 0.7, because the core prints IIO_VAL_INT_PLUS_MICRO with six
+> decimals. The values are unchanged.
+> 
+> Fixes: aff268cd532e ("iio: light: add APDS9960 ALS + promixity driver")
+> Signed-off-by: Arka Mondal <arka@arkamondal.net>
 
-This lets us drop the CONFIG_PM_SLEEP guards around the suspend and
-resume callbacks, and reduces kernel size when CONFIG_PM_SLEEP is
-disabled. No functional change.
+Applied this patch to the testing branch of iio.git.
 
-Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
----
-v2: resend in plain text via git send-email; v1 was corrupted by the
-webmail send path (HTML part rejected by vger, tabs expanded to spaces).
+> ---
+> 
+> Notes:
+>     Compile tested only; no relevant hardware available.
 
-Build-tested: arm64 defconfig with MFD_NVEC=3Dm and SERIO_NVEC_PS2=3Dm,
-under both CONFIG_PM_SLEEP=3Dy and =3Dn; both build with zero warnings.
+Fwiw it is fairly easy to stub enough to get a driver to load and
+then just check these static files.  The i2c test stuff
+in tree works, or qemu if you prefer that path.
 
- drivers/staging/nvec/nvec.c     | 8 ++------
- drivers/staging/nvec/nvec_ps2.c | 6 ++----
- 2 files changed, 4 insertions(+), 10 deletions(-)
+Perhaps if you are going to do a lot of this sort of patch
+it might be worth you exploring how to do that.
 
-diff --git a/drivers/staging/nvec/nvec.c b/drivers/staging/nvec/nvec.c
-index 41cbdfdc1da6..afe384cbd960 100644
---- a/drivers/staging/nvec/nvec.c
-+++ b/drivers/staging/nvec/nvec.c
-@@ -763,14 +763,12 @@ static void tegra_init_i2c_slave(struct nvec_chip *nv=
-ec)
- 	enable_irq(nvec->irq);
- }
-=20
--#ifdef CONFIG_PM_SLEEP
- static void nvec_disable_i2c_slave(struct nvec_chip *nvec)
- {
- 	disable_irq(nvec->irq);
- 	tegra_i2c_writel(I2C_SL_NEWSL | I2C_SL_NACK, nvec->base + I2C_SL_CNFG);
- 	clk_disable_unprepare(nvec->i2c_clk);
- }
--#endif
-=20
- static void nvec_power_off(void)
- {
-@@ -910,7 +908,6 @@ static void tegra_nvec_remove(struct platform_device *p=
-dev)
- 		pm_power_off =3D NULL;
- }
-=20
--#ifdef CONFIG_PM_SLEEP
- static int nvec_suspend(struct device *dev)
- {
- 	int err;
-@@ -942,9 +939,8 @@ static int nvec_resume(struct device *dev)
-=20
- 	return 0;
- }
--#endif
-=20
--static SIMPLE_DEV_PM_OPS(nvec_pm_ops, nvec_suspend, nvec_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(nvec_pm_ops, nvec_suspend, nvec_resume);
-=20
- /* Match table for of_platform binding */
- static const struct of_device_id nvidia_nvec_of_match[] =3D {
-@@ -958,7 +954,7 @@ static struct platform_driver nvec_device_driver =3D {
- 	.remove =3D tegra_nvec_remove,
- 	.driver  =3D {
- 		.name =3D "nvec",
--		.pm =3D &nvec_pm_ops,
-+		.pm =3D pm_sleep_ptr(&nvec_pm_ops),
- 		.of_match_table =3D nvidia_nvec_of_match,
- 	}
- };
-diff --git a/drivers/staging/nvec/nvec_ps2.c b/drivers/staging/nvec/nvec_ps=
-2.c
-index e6234d29e264..2fb34f0d0dca 100644
---- a/drivers/staging/nvec/nvec_ps2.c
-+++ b/drivers/staging/nvec/nvec_ps2.c
-@@ -134,7 +134,6 @@ static void nvec_mouse_remove(struct platform_device *p=
-dev)
- 	serio_unregister_port(ps2_dev.ser_dev);
- }
-=20
--#ifdef CONFIG_PM_SLEEP
- static int nvec_mouse_suspend(struct device *dev)
- {
- 	/* disable mouse */
-@@ -156,9 +155,8 @@ static int nvec_mouse_resume(struct device *dev)
-=20
- 	return 0;
- }
--#endif
-=20
--static SIMPLE_DEV_PM_OPS(nvec_mouse_pm_ops, nvec_mouse_suspend,
-+static DEFINE_SIMPLE_DEV_PM_OPS(nvec_mouse_pm_ops, nvec_mouse_suspend,
- 			 nvec_mouse_resume);
-=20
- static struct platform_driver nvec_mouse_driver =3D {
-@@ -166,7 +164,7 @@ static struct platform_driver nvec_mouse_driver =3D {
- 	.remove =3D nvec_mouse_remove,
- 	.driver =3D {
- 		.name =3D "nvec-mouse",
--		.pm =3D &nvec_mouse_pm_ops,
-+		.pm =3D pm_sleep_ptr(&nvec_mouse_pm_ops),
- 	},
- };
-=20
---=20
-2.34.1
-
+> 
+>  drivers/iio/light/apds9960.c | 56 +++++++++++++++++++++++++++---------
+>  1 file changed, 42 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/iio/light/apds9960.c b/drivers/iio/light/apds9960.c
+> index afe520de60e2..496678c4d338 100644
+> --- a/drivers/iio/light/apds9960.c
+> +++ b/drivers/iio/light/apds9960.c
+> @@ -289,6 +289,8 @@ static const struct iio_event_spec apds9960_als_event_spec[] = {
+>  	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+>  	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) | \
+>  			BIT(IIO_CHAN_INFO_INT_TIME), \
+> +	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE) | \
+> +			BIT(IIO_CHAN_INFO_INT_TIME), \
+>  	.channel2 = IIO_MOD_LIGHT_##_colour, \
+>  	.address = APDS9960_REG_ALS_CHANNEL(_colour), \
+>  	.modified = 1, \
+> @@ -304,6 +306,7 @@ static const struct iio_chan_spec apds9960_channels[] = {
+>  		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+>  			BIT(IIO_CHAN_INFO_CALIBBIAS),
+>  		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
+> +		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE),
+>  		.channel = 0,
+>  		.indexed = 0,
+>  		.scan_index = -1,
+> @@ -322,6 +325,8 @@ static const struct iio_chan_spec apds9960_channels[] = {
+>  		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
+>  		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |
+>  			BIT(IIO_CHAN_INFO_INT_TIME),
+> +		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE) |
+> +			BIT(IIO_CHAN_INFO_INT_TIME),
+>  		.channel2 = IIO_MOD_LIGHT_CLEAR,
+>  		.address = APDS9960_REG_ALS_CHANNEL(CLEAR),
+>  		.modified = 1,
+> @@ -370,19 +375,11 @@ static const int apds9960_int_time[][2] = {
+>  static const int apds9960_pxs_gain_map[] = {1, 2, 4, 8};
+>  static const int apds9960_als_gain_map[] = {1, 4, 16, 64};
+>  
+> -static IIO_CONST_ATTR(proximity_scale_available, "1 2 4 8");
+> -static IIO_CONST_ATTR(intensity_scale_available, "1 4 16 64");
+> -static IIO_CONST_ATTR_INT_TIME_AVAIL("0.028 0.1 0.2 0.7");
+> -
+> -static struct attribute *apds9960_attributes[] = {
+> -	&iio_const_attr_proximity_scale_available.dev_attr.attr,
+> -	&iio_const_attr_intensity_scale_available.dev_attr.attr,
+> -	&iio_const_attr_integration_time_available.dev_attr.attr,
+> -	NULL,
+> -};
+> -
+> -static const struct attribute_group apds9960_attribute_group = {
+> -	.attrs = apds9960_attributes,
+> +static const int apds9960_int_time_avail[] = {
+> +	0, 28000,
+> +	0, 100000,
+> +	0, 200000,
+> +	0, 700000,
+>  };
+>  
+>  static const struct reg_field apds9960_reg_field_int_als =
+> @@ -786,8 +783,39 @@ static int apds9960_write_event_config(struct iio_dev *indio_dev,
+>  	return 0;
+>  }
+>  
+> +static int apds9960_read_avail(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       const int **vals, int *type, int *length,
+> +			       long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (chan->type) {
+> +		case IIO_PROXIMITY:
+> +			*vals = apds9960_pxs_gain_map;
+> +			*length = ARRAY_SIZE(apds9960_pxs_gain_map);
+> +			break;
+> +		case IIO_INTENSITY:
+> +			*vals = apds9960_als_gain_map;
+> +			*length = ARRAY_SIZE(apds9960_als_gain_map);
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +		*type = IIO_VAL_INT;
+> +		return IIO_AVAIL_LIST;
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		*vals = apds9960_int_time_avail;
+> +		*type = IIO_VAL_INT_PLUS_MICRO;
+> +		*length = ARRAY_SIZE(apds9960_int_time_avail);
+> +		return IIO_AVAIL_LIST;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>  static const struct iio_info apds9960_info = {
+> -	.attrs = &apds9960_attribute_group,
+> +	.read_avail = apds9960_read_avail,
+>  	.read_raw = apds9960_read_raw,
+>  	.write_raw = apds9960_write_raw,
+>  	.read_event_value = apds9960_read_event,
 
