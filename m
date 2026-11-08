@@ -1,72 +1,91 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794163891;
-	b=UPsyOfOh7OlaiGKnVG1cFoCZJ7+Ki251QnIuEZtJvKMGKcUJPbathNceGuAywdc/F99j
-	 x0qcOFhzWi5xPeVMjJ6lGduLFpfj7Qyyq43X2H7Z2w0seEc1+x4snxgyk7sa7pY795m4I
-	 LhH/rVwgSDi7xv8cZTyjUxf2zejQ499PWto/nDXLz/XfAmz+Rybo3QLTzunHRi54zeVW6
-	 Vg/Bvq4kXjETDlrkqLsBVvJ/6yfu8ZimcFSKGdhopg8aTFRTrhcxCwGBrcTxQ55lcRRc2
-	 3HIhqZ8u2mAMSLdZOIATg9zA9H8UbiJHSTCba5QxNtB0jIYSuBm+KUPgiGxviqHey2g==
+	t=1794164059;
+	b=be4OybaX0UWl5XejJz45xIDGrbVO4LJVLNikFAR+9LjFgErO17bo/DmJ+BhYa/hm8Go+
+	 OdQSxjEM03ssP+Mq4C87vYJHcsKs8u3zRIRr3FEaSq/Ca6zKqWqMsN/DDaVkJAl4xqsFG
+	 IDLb2EJa3tTTkzoOToqsRrbQETA+HvzxdSNVn0TvNXOKNPTBM5klaRUePlNLexwMA+Quv
+	 Xc5iiyrZtgS2R/LgzhO6rjlSc+x3hXwY5C4Y96sOyHL3T8HgajvvwES2TCWcbUzgScBLm
+	 wVsokgl6KlKY/6LMQcZBHpvRrYg2stS6RGay8idONiBcEMHCjssBDCP4p370w6KWxjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794163891;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794164059;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=hUOpDAvT+YMtqJM1uLKyhDMMzL6pBi7M7Ox4NWirryU=;
-	b=5tixKSO1KMY19wuGzZd8CuF32E/+8wOD0UpDGj8Xd1vhmMb0mgn0GxkODZ3yLSCkCtU6
-	 ZxSOcbgqHdDxauyYigsTSRpUylWm+lA1wlJwQ2/p2nfdplTS+5Wmoer167kI+zp5TOpbv
-	 fli7pzWE3pOHf/i/MMO87H3OLL7sgvw3D3owrBZlXjXHlsNoAIVVqzqur09cAnlWz66z+
-	 zjwz+BTtt2pxW6DGUE7LoaXFFRWVFa9ZfvkrDF4jkT4TfN1vnY2LDG9nKYluiXkljYmW+
-	 HeH2PaY7hwbzvWbDzedCs7hpXYB9ocV51ejDH2B8eLVbhbtUcyAGtRimOJU0mdsyTNA==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QrZa6e0JD0lct8uAlK8UrXwI3QzrNKc9JZDyt1pikXM=;
+	b=2xVOE+9hMyCFeIg1umYqdENPMtLSectAgciurVPC3svIqcpTfrwUOoH8ekTwM0scWA4X
+	 nRQvQcibQQxEwwEhRQmFUj7Vlxnh98bk2l1yDt8Md1MAJtdY1dOLwOobqTt8fcQ2L4LDf
+	 LWqbVH8QXup6eEOhnpWYKr8zn/4nh8HGfpA0SXvN9bT4w9W9DLfU1QHEtrRky1zo7Dz3l
+	 FdVwI3SEws2GhH56ZDDSj2hLx29o0PMrE8o0WAzQ2VJUR0olU9N2rPuC5Ma/W8t4x8wWk
+	 /OSXKm98VzT+VVhbTPR3twfKkBywmL8wxxqOBajpPLVbqGQrkLOjaEhl19geB884mfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=ZunSun+K;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=eQdWvPWn;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1FC606A31C;
-	Sun,  8 Nov 2026 18:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B1FC606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F157B606D80A;
+	Sun,  8 Nov 2026 18:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F157B606D80A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=ZunSun+K
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=eQdWvPWn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794163890;
-	bh=hUOpDAvT+YMtqJM1uLKyhDMMzL6pBi7M7Ox4NWirryU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ZunSun+KFFRK+AC7fKBT+KrAvvVLHk2t9D9q2JDkXd6VGHh7LmmQzVo/7ncokG8zM
-	 m9UC3VJWq03rEGc9arrIvZCc6TEOZBhrSxKGyF7iP+8gHKU9vZsNQCKv8D+SAFxiaK
-	 ORolno/M4aBFsVzq2CtR48N2AAlGQ0Syqm0Q6S/9YDQEg5VEUUoJDFw7242N61CPXM
-	 dMpW3RD8n/tT8cWKrL34H4c/mAm1Zc6rgOIUoiqPbrzCusR/f2yZ9ngA0fGdE6frlL
-	 JY9Hs1OjcVTCuIWkvtqvg01EweQY79ijPJlCHTlsQC1HTpE6RsQ6t6jJ9snjR6jpGS
-	 4XEhphPpIPKCA==
+	s=smtpout1; t=1794164058;
+	bh=QrZa6e0JD0lct8uAlK8UrXwI3QzrNKc9JZDyt1pikXM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=eQdWvPWnTw89FMWn2HQvPemvosCK3HlARLCbMfrO7mEVFu/UBKr6vNn6Lv6NbrkHq
+	 j/F23xEnHYGckUhbxy3xtLP7P7yLmcMWe7gXB+vQn5pp+ItHkMombdrSBnzS0mSR4o
+	 4SsbBRgrxKeCCLb8ohjoIpMuG592OvmLe3bocskOy9jS4y9jS0BMgbN1p5HnaaMP0y
+	 0jQRu0tRfVLMcER+ZHG4YFto0gsnDQJCNV9XrhARc6fAKWnw8quDRmJS4rVv/pAp6k
+	 6LTpBw9DhUHcZFYaO/fLyhwljr/oFVbui4aOz8CwV9rGgX7L7QVeND5L2YOwADUKg5
+	 xlGAKedkLwnnw==
 Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jN27j6mp5zMvb;
-	Sun, 08 Nov 2026 13:51:29 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jN2Bx6TqSzMkD;
+	Sun, 08 Nov 2026 13:54:17 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: frederic@kernel.org,
+To: juri.lelli@redhat.com,
 	peterz@infradead.org,
 	mingo@redhat.com,
-	juri.lelli@redhat.com,
 	vincent.guittot@linaro.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
 	dietmar.eggemann@arm.com,
 	rostedt@goodmis.org,
 	bsegall@google.com,
 	mgorman@suse.de,
 	vschneid@redhat.com,
 	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
 	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
 	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] sched/isolation: Fix suspicious RCU usage without CONFIG_CPUSETS
-Date: Sun,  8 Nov 2026 13:51:29 -0500
-Message-Id: <20261108185129.1549419-1-mathieu.desnoyers@efficios.com>
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v5 04/29] sched: Let a task boosted by a deadline waiter change its policy
+Date: Sun,  8 Nov 2026 13:53:41 -0500
+Message-Id: <20261108185406.1549770-5-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,73 +97,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 03ff73510169 ("cpuset: Update HK_TYPE_DOMAIN cpumask from
-cpuset"), cpuset can change the HK_TYPE_DOMAIN mask at run time. Readers
-use RCU. housekeeping_dereference_check() also accepts readers that hold
-a lock which keeps cpuset partitions from changing: the CPU hotplug
-write lock or cpuset_mutex. During boot, before cpuset is writable, it
-accepts all readers.
+A SCHED_OTHER or SCHED_FIFO task that holds an rt_mutex can be boosted
+into the deadline class by a deadline waiter. Then a sched_setattr() or
+sched_setscheduler() call on it fails with EBUSY, unless it asks for
+SCHED_DEADLINE. sysrq-n would not reset it either.
 
-Without CONFIG_CPUSETS, nothing changes the mask after boot. But the
-check still asks for one of these locks. In that configuration,
-rebuild_sched_domains() holds only cpus_read_lock(). It calls
-partition_sched_domains(1, NULL, NULL). That reads
-housekeeping_cpumask(HK_TYPE_DOMAIN). sched_rt_handler() calls
-rebuild_sched_domains() on each read or write of sched_rt_period_us and
-sched_rt_runtime_us. So with isolcpus=domain, a read of
-/proc/sys/kernel/sched_rt_runtime_us gives:
+The admission test runs "if setscheduling to SCHED_DEADLINE (or
+changing the parameters of a SCHED_DEADLINE task)", as its comment
+says. sched_dl_overflow() then handles three cases, by the task's
+policy: the task enters, leaves or stays in SCHED_DEADLINE. But the
+call site tests dl_task(p). That tests the priority, so a boosted task
+passes it. For such a task and another policy, sched_dl_overflow()
+matches no case and returns -1.
 
-  WARNING: suspicious RCU usage
-  kernel/sched/isolation.c:62 suspicious rcu_dereference_check() usage!
-  [...]
-  locks held by cat/91: 3, last CPU#3:
-   [...]
-   #1: (cpu_hotplug_lock){++++}-{0:0}, at: sched_rt_handler+0xb5/0xf0
-   #2: (sched_domains_mutex){+.+.}-{4:4}, at: partition_sched_domains+0x37/0x990
-  [...]
-  Call Trace:
-   lockdep_rcu_suspicious.cold+0x4e/0x9f
-   housekeeping_cpumask+0xaa/0xb0
-   partition_sched_domains+0x8e6/0x990
-   sched_rt_handler+0xc3/0xf0
-   proc_sys_call_handler+0x1cf/0x250
+Fix this by testing the policy, with task_has_dl_policy(). A boosted
+task has no bandwidth of its own to admit or release.
 
-The report is a false positive. It needs CONFIG_PROVE_RCU and isolcpus=
-with the domain flag, which is also the default when no flag is given.
-Test runs that check the kernel log for lockdep reports flag it.
+Now sysrq-n can take a boosted task out of the class.
+normalize_rt_tasks() calls __sched_setscheduler() without pi, so the
+task gets its normal priority. Nothing then drops the boost. At the
+unlock, rt_mutex_setprio() sees no change of priority. The pi_se of the
+task would keep pointing to the waiter, which can exit. So also drop the
+boost in __setscheduler_dl_pi() when the task leaves the class, as
+rt_mutex_setprio() does.
 
-Fix this by accepting all readers when CONFIG_CPUSETS is off.
+The boosted_owner_policy case of deadline_bw_test, added later in this
+series, fails with EBUSY on v7.4-rc1. It passes with this series. The
+sysrq_boosted_owner case of deadline_switch_test tests the sysrq-n path.
 
-This change was developed with assistance from an LLM.
-
-Fixes: 03ff73510169 ("cpuset: Update HK_TYPE_DOMAIN cpumask from cpuset")
-Link: https://lore.kernel.org/all/20261108145931.1532447-1-mathieu.desnoyers@efficios.com/
+Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Waiman Long <longman@redhat.com>
 ---
-This patch was first posted inside the bug report linked above. Since
-then, it has Waiman's Reviewed-by. The code is unchanged.
+ kernel/sched/syscalls.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
- kernel/sched/isolation.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/kernel/sched/isolation.c b/kernel/sched/isolation.c
-index 156025ef81b7..dac9a1735198 100644
---- a/kernel/sched/isolation.c
-+++ b/kernel/sched/isolation.c
-@@ -43,6 +43,10 @@ static bool housekeeping_dereference_check(enum hk_type type)
- 		if (system_state <= SYSTEM_SCHEDULING)
- 			return true;
- 
-+		/* No cpuset, so the mask never changes after boot */
-+		if (!IS_ENABLED(CONFIG_CPUSETS))
-+			return true;
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 894f93a80d5d..56ce2352e89e 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -304,6 +304,13 @@ static inline void __setscheduler_dl_pi(int newprio, int policy,
+ 			scope->flags |= ENQUEUE_REPLENISH;
+ 		}
+ 	}
 +
- 		/* CPU hotplug write locked, so cpuset partition can't be overwritten */
- 		if (IS_ENABLED(CONFIG_HOTPLUG_CPU) && lockdep_is_cpus_write_held())
- 			return true;
-
-base-commit: 006991aa89974378ee579416dba87adc22cd60fd
++	/*
++	 * Without pi, as from normalize_rt_tasks(), a boosted task can leave
++	 * the class. Drop its boost then, as rt_mutex_setprio() does.
++	 */
++	if (!dl_prio(newprio))
++		p->dl.pi_se = &p->dl;
+ }
+ #else /* !CONFIG_RT_MUTEXES */
+ static inline void __setscheduler_dl_pi(int newprio, int policy,
+@@ -691,12 +698,17 @@ int __sched_setscheduler(struct task_struct *p,
+ 	 * is available. Keep this check last. If a later check failed,
+ 	 * nothing would give back the bandwidth it reserves.
+ 	 *
++	 * Test the policy, not the priority. A task boosted into the class
++	 * by priority inheritance has no bandwidth of its own to admit or
++	 * release.
++	 *
+ 	 * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
+ 	 * there is nothing to admit. The parameters in attr may also be
+ 	 * stale: sys_sched_setattr() read them from the task without a lock.
+ 	 */
+ 	if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
+-	    (dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
++	    (dl_policy(policy) || task_has_dl_policy(p)) &&
++	    sched_dl_overflow(p, policy, attr)) {
+ 		retval = -EBUSY;
+ 		goto unlock;
+ 	}
 -- 
 2.47.3
 
