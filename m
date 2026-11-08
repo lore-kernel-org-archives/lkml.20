@@ -1,96 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794171851;
-	b=hVziMY1cuvfAiFjSdFX850UsGbEy/zyVtLqe0Cs6syAn2vX3HhPDBDBAB/jgaCKh4y35
-	 5NbtIegaBkkwEyIT4/3k78u3gcj26cXJdJudozmUKTL0gJXouqctwfavAmylkqjvLhHcK
-	 RgRIMAnFrzNAVYVZ0lGz38WWqNqzMvJgCtO1AvCKGTLanoU2N7Mamkk0CaJqsTqODw/d7
-	 /b5QDnQ0Je5D6V+0xwLybwhWdb9zaa4fLU/1g2/22JqFcPp5+WfyIDu6ZKfYgXGfHjvdm
-	 hAswHfkx5YaId2Ivd4cG8k5+EDP+j1rTtaJVL8bbncw7aLO5xh6ggvkkbBAD7ZMcgyQ==
+	t=1794171865;
+	b=riuTmmWs1kcs8sT9gZu/EiwxcTCbsTOxQYOjIn3dER7aX/4sZ15OwEsSHVNyTYcg5cJv
+	 y9npFu3XfVfNB05dc0Wb9yR8E9g4Ie+uSLKCSYHQhYP+08Nja8ZwByIzxsdwzJC8Gnx1M
+	 PlZBJ3F17sEEqpXHqiLOUcDIDLtUvQJqHw64YoiXVwP8yUgNJbYaZmR1h+FAHfqzcau6Z
+	 N1qaHerAPgzWmKI81/nWfs8ad6cCY8dAFprQzT2e8E/N2tgveJSfwHcKYMYlz9kxllakC
+	 MWJdM56F2DlF0yLLZW5+tKhN8zC1GQzUd8gzYkAB+bJzXS5EpfrgUWE+uAVuS42WJjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794171851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794171865;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eIb7bdwJudGm44awRNyhi/z38sBFIBc01LhzAmpW+h4=;
-	b=OwhXY/Pehn8FRNvXUlYAFScuN5F9CC1Mj3dgLk0TzELb2/N/RZW3o2djiUTIsKlqQe30
-	 n1eUtZY3HbyxWeVkAt5h0f73bvSn0VWRoew2oqxnkjQkmn/48oTZmC725rDAdAnkszCQ9
-	 gQIwKZwqjPznM/ZKO8R9iyfiqTuJxyEp1Gzk00czBDr9bXTjapp5JdvQwkzBYBYbSrPoq
-	 z51Far2hokR2JPa7Q1/dEF0J2XbdZCXKufquz3k0/2yPIeYdbx1pc7POGKdEoLzcrCbX4
-	 sTikqM5oKXQnaMJ+ySqHQQnoCT2MP0MYXcdLrel0YvQUmOa9xRGHIaDwVjPY0AVkmXA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=5GT+YOwt4Wk5UaYozi9TZs9C5IMfkSYjhBBTrIEYhmQ=;
+	b=Vx7MWKPcnjw+xHp0XM13R/2sSux6nXacZDceFmLHiKuG5hH5Y1CquVI4URsXGLnYFnZj
+	 qitaG26YxcGn1Y3EJJkjJERPSye0JGLV6YKz403ibWO47tnJMUnW4nuIgxAoyEIuYEDbp
+	 XgYXn/k1nm5jSwLKoK2+CVZzenKTiPzJH4+YdnOPONb9iFJjY+NJLTZkk9W2Ip247Ps5F
+	 lTBL/fKBgU3Ugm9pITlXfCRcDnoKRjkRoTZEY4CsJdP/XO5XfqhAMi0+lpl60ADu04HXk
+	 U6eB3hccfX/taXft3E5Q/WVtEfHcSyCplW93lOisDK7yFEuu+XLWYmWR2ZwYB673yFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m96FZTEu;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="QtEgshp/";
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFC5606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DFC5606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E2C606A335
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:04:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37E2C606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m96FZTEu
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so130314a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:04:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QtEgshp/
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a76f0cce5fso112509fac.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:04:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794171850; x=1794776650; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eIb7bdwJudGm44awRNyhi/z38sBFIBc01LhzAmpW+h4=;
-        b=m96FZTEuIAb1CYOvgLsTEIMyqu1plbocUGEaOJnkyQkNav2+Oz1eUD1BpW3lwJpXTp
-         kMHAbNkuMouCdo4oJe/tv+AwLFqY4uj0pvCBai177lKT1eaB27LpwOsRmUh36dFYEPGk
-         ZgE+/VT5cgtbEe9NZTjFdnYWB5w8wL5NUD0AMhFUmTW3PGHe6dgp/OQ1HvubR5VW23qx
-         mhb3DDxokoWis8dAGrQt6mKrBXYsepIj8yVr8Ucp99nz06j6L9ZC1FkGmhXRUaKNnqbD
-         jBliXU7M0Xx6yntrVDoYxirnPsTr7SOADi21fooV7Uwhh5GMij8v1BWTDhQH0bTywPVk
-         kIxA==
+        d=gmail.com; s=20260707; t=1794171864; x=1794776664; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5GT+YOwt4Wk5UaYozi9TZs9C5IMfkSYjhBBTrIEYhmQ=;
+        b=QtEgshp/hMdeDywBQqrU8jr4TeOfNd23D70HubU4cWYXtrvU0f8+P1tZtrSSRhL8h4
+         NkZI+unS2oj9gniScMyAsi7iQhS3EddiwtjuwolxsaNF8WYQovDw62JQ8itQ0CnZuVUc
+         LgHniQiVENtOjxwE4e2c45rUFubF6Bh3l9sMUqGK5cNNQoPhGiYcbHnyLr7vbBaTmfHW
+         IlefwwyscLyhVnL1kLE8rRtyGHXUL96gA4dGHQwBCQ7NBm/Cdp8060cDsHwJUR7KTAG/
+         dT+Xd924Q0l6IeuFJ9aA8NCbxaF86vaiFyO0u4KaY2HFwJ8ZNU5cII2Bn5x+ko+aPnIz
+         biBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794171850; x=1794776650;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eIb7bdwJudGm44awRNyhi/z38sBFIBc01LhzAmpW+h4=;
-        b=b1ziAd0VuSQ9ukY3o7PG/olnAwCgA9KddVIPls5eWejQTIQJlThCBp3I13Z6n2fBr5
-         HGZ/KtRhxx8kxC99NaJrLsQ1TAc9yoYPngXgXc9tM8CUHuWCa+At4FyQi7hmjhmkFT8Z
-         FVSQ/QbuzTqPBC99uv2QhfViTigXjZLxEc6ZuFxr7CuWEzhzA/lJmzdaDhowKvEiJxO9
-         pPMNljzcKl/WMlh7CLVpdtJ2T5lxVzkbQF61jByyeTSpJpnGb2kYyAiKzeFOKLXnrn03
-         Plz3cku/JLflkTBpBfmSmrBP6xcfOptmectbwH6/RHHu24IZjaElVSZRTrFk2YkW9ttK
-         wbTA==
-X-Forwarded-Encrypted: i=1; AL+hErFb739RHgBIC5L1+eyxp6y3+t50gjefqMkQy9nM7NPgJOfrllO9etwQu0hwCMFu+wJ+G8hqleVtEhl7xoc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ejS7KiVMhR5Yqto+HNNyxLYKmEz63iT03cTQI2sNUUVlKP5BU
-	jx2nHS0FmnxuC3vv7HEy1us5Dm5jg+tegyBJb4x9f3RybznVpBKQ6iYFBViOLQ==
-X-Gm-Gg: AYBFou1INbBTB3erP9TE9Ofsbw8sC+MWTJEEA+JeJn+ZTc5GuSiPfJ9mJhe7q5eEI6z
-	xl/WjDObljAXCal6iGXaEAEaBJQOReIm3ScIQP6ihOE1Ewbj3yqrWAV5KzF8b1dpgSFX1Tohjz2
-	jtUhlkdN8oMMTNWzV3CsqVWOLZDOQVwd13ZmUz/heCIXkd8TMUYKWn3SA9leo5HTMgoXZPFgu/h
-	IX6mRZoihBrBm9Ot0BEI20ucQZCmxBlYsEWoutr3yCN90d5IxboCIjsQYtIGjX+3bKIivzRBcLF
-	ZW96fyC1HPvuZjqdWkvYQR+U0NBOqPxHGU5+QoZivjlaq8bih1AnZjbPsrQzyth0r6mzT0DXSrZ
-	xTdT9VkTIcsC5WiVHYs14Y4jsX71CeZOwEvg202jVZvpEit4KEw1daW8l0y0bOcewLa2O6ZzsUO
-	/J78LhD54Skagpb0dVwsJtvn7hJz1RBRlQ8LV569gXixh02O7WpTtymJyn5nl37oYpICLXfI90b
-	CyUcX0JMElsbEbg97Bg3oGgwjbV+J2pTUjvzJpGNjLq9RJ9blZBcXQpAAJpURJrb9YkGcWsZfKZ
-	8zIW70ssx8yR9OO7U4Lv43i+9YMBCOKh8tOe5kUFcUIL0UgkiWAhig==
-X-Received: by 2002:a17:90b:4a51:b0:3a4:b30b:b501 with SMTP id 98e67ed59e1d1-3b12d0e965amr2097709a91.9.1794171850235;
-        Sun, 08 Nov 2026 13:04:10 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:28::1d2:30])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1279158c4sm4209414a91.14.2026.11.08.13.04.07
+        d=1e100.net; s=20260707; t=1794171864; x=1794776664;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5GT+YOwt4Wk5UaYozi9TZs9C5IMfkSYjhBBTrIEYhmQ=;
+        b=MvaKGeB4jn442k4NLXhvLLEKcBBIyEBHdVNr9UHSe99BmdHEy0L3r2oQLJSrcdwLbe
+         Ca3XnlGQFIWl/iC17x4Naei5dzAKXRD5RF8q18s660RmaQwSExycYSHKoNoQOIH/ICVf
+         9deiLPLokjAlaZ30W1nrJ5bCJBE9P6/RYQXwT/Kl3fPRvBfdAfN8JwpuDMBOECECBTJF
+         h4ywIY5TIDQnAM2GAxYDRxx4no/RcF6+t6l5nMuhbO0KB3TVT2h1OZ7cmhSd0Z3GO1+7
+         OW2+sdx7mmPTgNNgPnwN2MghtqgHJvJa0J6I+tCOkduA/wUpGrS25vhkzON3AWlNzTDU
+         XGeA==
+X-Forwarded-Encrypted: i=1; AL+hErG+A0M/UvtcjOViil9EEL1fOxHQKOx8ZO9xVB2mAmTpsMJWNIUcNrmrPj4Eg6hbrOtBDlq8zXVnH26YWrI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/COzW6bT9Q/MyD0ey9dsaD7Frkasn7BLsg/qlf0r8DQKn71Fug
+	2UeKR3vDAii2Z7c1gMh7vhhB+4DEaafnoB+GUABiUJflTBmUa6a65uzKzmLwoQ==
+X-Gm-Gg: AYBFou18wEoFn/xZ2Zzy45lMSNn1hLAIfOj4TcPSEPj0KfsTNo6yflkUUtrU8l1WVNm
+	9Tv0FGq0OZ05l8UdMXWtEuGsa1qOqeGWTna/jc6TSZJZBBNhOcUyBon47NMpNh6BJOooK1GsrXr
+	E6zg85QevW5sEA8MAOtroYnlsLCg0JvUSbfJzH2tnKYMUYfsdr3hA28sf1c7ZR27696pc2KkVVA
+	EqXfN4Rd2URXJEa43CbDS7Fy8qF+nMKfySmrAbpJoUtU1qtH6/c8pvyKK1WY7tLOsh//wyqKkvy
+	0eD/PaIHVhIeMJ05bKFgQwYq0zNUTk31d4aRk6u7/ycpvyM8BEYhFGiW+g42BsPFppnQJ56PL1d
+	pNfzfmvZNQZOJ5UstHreotUVVFIn/0F7eYc+8DhppBKBY3oJeVtUpDS73uKq3KtGab6fVLvKP6f
+	JE9bFUZGNMnHb3iinTY9ltu4xmPfhxYhIWxq5raFdG8xGz+JS8l3Irgx5PCcjdtSnZ0DV2zlGVr
+	rigtlVqj/N6XTLihL1b5ZNo3XStNk122kr3jyv9GNwc97C7u72cbjgjMn+CUiX+AtlXygBPwZfM
+	/yI0XeSgnK1xi2r67QYx+o82nP2GHRugrsH9VH3Oze/YxwsPvO0xejyHGUcx7YQYPi0OZpXfy8o
+	jYgWWer3lnhLgV7yACzNlXKt7mylGMQfIjgiJMN8hGFDUKES4fx2GHBA5d6jZwtltneAUJvXAkq
+	wnXwpmFomPS4bkxxin/4SlTTdNprf/bZPqn5JuZ80Ul/kkpyecnt6a
+X-Received: by 2002:a05:6870:538b:b0:49d:d617:b692 with SMTP id 586e51a60fabf-4adecb98a9dmr1074710fac.49.1794171863950;
+        Sun, 08 Nov 2026 13:04:23 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade695a5a6sm3597440fac.10.2026.11.08.13.04.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:04:09 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: dsa: motorcomm: Reread port flags on bridge joining
-Date: Mon,  9 Nov 2026 05:03:54 +0800
-Message-ID: <20261108210357.1633411-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sun, 08 Nov 2026 13:04:23 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 08 Nov 2026 14:04:21 -0700
+Subject: [PATCH] mtd: rawnand: r852: prevent card work from being requeued
+ during shutdown
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,46 +93,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-submit-r852-shutdown-work-v1-v1-1-8e448ad7c54c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2w7CIBBEf6XZZzcCltb4K8YHLltBU2qAXpKm/
+ y7oyyRnMnN2SBQ9Jbg1O0RafPJTKMBPDRinwpPQ28IgmOg4Zz2mWY8+Y7xKgcnN2U5rwHWKb1w
+ 4cjkQa+WlZ10LRfGJNPjtp78//lz+LzK5OutCq0SoowrG1WrM9hxUKEFbhuP4AqcfqoagAAAA
+X-Change-ID: 20261107-submit-r852-shutdown-work-v1-15fe04537064
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Maxim Levitsky <maximlevitsky@gmail.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ David Woodhouse <dwmw2@infradead.org>, stable@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-DSA replays neither BR_ISOLATED nor BR_HAIRPIN_MODE on join (e.g. a LAG
-member rejoining its bond), so the cached flags survive into the next
-bridge join and program stale hairpin and port isolation state. Sync
-them from the bridge port.
+The card interrupt can queue card_detect_work after shutdown cancels it
+but before interrupts are disabled. The worker can then access the
+controller after pci_disable_device(), and can enable card interrupts
+again while processing the event.
 
-Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+Disable and drain the delayed work before turning off interrupts and the
+PCI device. Later queue attempts are rejected while the IRQ handler can
+still acknowledge events until interrupt teardown completes.
+
+Fixes: 67e054e91924 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/dsa/motorcomm/chip.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/mtd/nand/raw/r852.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 33e5fc127244..fcc3a299ed66 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -1405,6 +1405,9 @@ yt921x_dsa_port_bridge_join(struct dsa_switch *ds, int port,
- 			    struct netlink_ext_ack *extack)
+diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
+index 92c47d351c27..bf1c1be7f2aa 100644
+--- a/drivers/mtd/nand/raw/r852.c
++++ b/drivers/mtd/nand/raw/r852.c
+@@ -1007,7 +1007,7 @@ static void r852_shutdown(struct pci_dev *pci_dev)
  {
- 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct yt921x_port *pp = &priv->ports[port];
-+	struct net_device *brport_dev;
-+	struct dsa_port *dp;
- 	u16 ports_mask;
- 	int res;
+ 	struct r852_device *dev = pci_get_drvdata(pci_dev);
  
-@@ -1414,7 +1417,12 @@ yt921x_dsa_port_bridge_join(struct dsa_switch *ds, int port,
- 	ports_mask = dsa_bridge_ports(ds, bridge.dev);
- 	ports_mask |= priv->cpu_ports_mask;
- 
-+	dp = dsa_to_port(ds, port);
-+	brport_dev = dsa_port_to_bridge_port(dp);
-+
- 	mutex_lock(&priv->reg_lock);
-+	pp->isolated = br_port_flag_is_set(brport_dev, BR_ISOLATED);
-+	pp->hairpin = br_port_flag_is_set(brport_dev, BR_HAIRPIN_MODE);
- 	res = yt921x_bridge_join(priv, port, ports_mask);
- 	mutex_unlock(&priv->reg_lock);
- 
--- 
-2.53.0
+-	cancel_delayed_work_sync(&dev->card_detect_work);
++	disable_delayed_work_sync(&dev->card_detect_work);
+ 	r852_disable_irqs(dev);
+ 	synchronize_irq(dev->irq);
+ 	pci_disable_device(pci_dev);
+
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20261107-submit-r852-shutdown-work-v1-15fe04537064
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
