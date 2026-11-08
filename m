@@ -1,75 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794103615;
-	b=hKXJCfmyCfuusEF8wrIe71zroJhNBESwYGibI3IaNsrZZEJjLoB5s0KfDdpBW7QFWkJl
-	 rk6NLv2I5gVbc1XaEUPPUmDeIPu+K+BahYlPLACHI+s1nS82xMpFI6hqu6p2Jv+GJnrU6
-	 VxFciKhhV4EI3BiM1RjYM+B3J5grPZyhkcSeQq2da8cCs+Aqkrasu3So5Am+vk9MXs1++
-	 qXzRY2L8CVfsK+JxVbyTX+dELk5EBz/PoYIu7tH10eb3ZNrloqW5pPgEHx6P4e4KUPQ1e
-	 NqDEN0d5Iy58VAnMTItxfp4GqhIgjlqnxlolrL+oE/a4z7ggWLC2JJHOQIpAnlPODog==
+	t=1794103666;
+	b=E91KAHTyqyQBfzYTNs7XQQsOAwM8EW4WmzZ0CFMhHPsMA6gpbY+0sbM5evb8K84mseC+
+	 oPDcgaS4fWP2Q/z/MIVCBV1gJJ3laCEYxqqOCuXdgZCqgU/c8i9VtsZQq5AQt5RBa3mSe
+	 lf21Pkz13MDPikWuMhHsUxRy3YkNafPDP/tnsYF3e5geNw/5rZ5heDt+Hhzm8ErjagDgB
+	 gfo8xbLnddrbiuM05QwA6Qktk8RDeUQzJ4CX1ibGUUwYpDMivOj3WFoSVjxPwz8MrfAYN
+	 A47lh9fQCDjWcCIXbH42d3HQ10VvRl8ameX91bGztbjYviM7GX/VFpjF71Ih2SuTkVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103615;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KiQq1DcVKDH0MMQmkbVjLblOBj15HRy/K6PdBPfpb4o=;
-	b=J7M91i1S72B3FZwr1R2LTJuDFxEiJUkZLU8C+aONzuQGBGZ/hPH44spK1VRRaYmrW0tS
-	 C+Z9z7CXvEfjxheLAPeJIYxD4CfYU9AL2ubTwu9RQAs/iyKETzckKMCp8KpuRygLwad6b
-	 dIBNl77BsylDsJbRQSvio9PWIkK52q1fncUH9fCejs+iwm7XUEqM2SxRBd63j5wB5d45w
-	 j02mwhm60cq7+Ib4DrVJ5jIYgpWgVmXyziDOZzihLZaj690MRhkIwY2G1DGQMCzGQogHi
-	 p02r05VrkkdPo/fsCoY4Kt16Uk/ejeO4nlmiuutjbJ3+Lh15wBuOg6MUj4JHf9GrZ9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103666;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
+	b=lxHRTcoDYczEcROiCMLMQFfFloxlbiTOzDZ9HnJjAssGizc4wp5mJJVWbxExIMJHsYsW
+	 Sw8mORlcsEODZVO0qS+j837WyZjoAYG8bzhiEDGJRvYDwIcwKx0wKvOK31tH8STldLWVd
+	 9g/K2/4LVM4IE2r2sacqLL2PhWlKsGHrt9aacIhr1PNGM2LrXACjAGle6hQVHcduXXiNJ
+	 K9GN+VByA3BnWk0znLg79TIzqps97X1sG9evlqVBOzUnE1g2kQB6/6w+CGaX5tJpGwCRj
+	 HYsM45RsrQnFtYsD/NK6d6o6GiYBn8BtMFhRp1AclnyIv1XvL4nNI5MuDGTmKZeQmYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=m3NB5rXQ;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44EC1606A320;
-	Sun,  8 Nov 2026 02:06:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44EC1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=arista.com;
+	spf=pass smtp.mailfrom=arista.com;
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=IhKUbDQj;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE4D606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:07:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE4D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=m3NB5rXQ
+	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=IhKUbDQj
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37198ed3727so663487eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:07:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=m3NB5rXQ9VWQOPzJE1kqCuOB882Lr1gYx/kQZJzSp7IWBBhpGgijBGuUea+jmFsPws8niPgZTK9g8
-	 4w0xOfPAZRaNtrXtxiZg+WjfFwCk1+iBeg+YmeKCcWCGyphZTy5iazbOl+oPEZgk7ciy7UQjj4XEfc
-	 zVTmEnQaRl2u/8ms=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56aefd938c9a-b7105;
-	Sun, 08 Nov 2026 10:06:51 +0800 (CST)
-X-RM-TRANSID:2ee56aefd938c9a-b7105
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[74.82.203.40])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56aefd91c07a-59b0a;
-	Sun, 08 Nov 2026 10:06:51 +0800 (CST)
-X-RM-TRANSID:2ee56aefd91c07a-59b0a
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	willemb@google.com,
-	mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	willemdebruijn.kernel@gmail.com,
+        d=arista.com; s=google; t=1794103664; x=1794708464; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
+        b=IhKUbDQjcYwTGbkZe+oDjkxeTzfQ9brHcWJG8mz//DTeK96at5NbhgVoUSsGkrROa/
+         6vaZPnWPziU01Vrla4WrTIAT8eUgFic7dlYAamPszk6Vp2k30wWxNSIt4TT2QE6YqaP/
+         sZ8MHHCQclybKt2FpVZEgZvkT2NIpn2iz5gBvfj6wyOSe+ZFgpenJkNCCKcwcyYTwG8w
+         k7Uy23KBK40TOng7YPsY6Co+zZxCeRjUHQx2Ig7pgPhr9kv2zN9TnFHM9rzMtmfnCxeh
+         GQn+zzvj1jgR50EmhbNgftjX9wvkFdiCg5FnfH0r8Ik3AUwnfJfvEgP/Vn+Yi7JZOHwh
+         IfPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794103664; x=1794708464;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
+        b=b05cwUUzoX8BEWCKX6l28NH8bFiECQOoVDFxTeBmYhIjP6mMzLnRQq3xiMsGkPutRF
+         edqnZI6xmuWFiaehTkTgvbopioATibjAV7f8egfa5iV8+t7bdkb7KzmYFXnPEOrBAlNv
+         I0uup+9zUJrXUl8uabtdjDc9A0OHHE9Fh3I+56xGiPpFWfNwKsPAGxr0jHfxkIAisnZB
+         P1IGeJ7rGxpjyRH/1+QjabY2kL3obXrFkxedWKKAWZF5/m7kMVtyvNsMf7JQDuM1NnMe
+         VPfNPJZ1Q/I1RKfQqR7tUrcLQcBkZNzkBlgxf2W3mdR/FCgLMdO73HZb2GoUsG2ieKaW
+         0i3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzxKnN81/OFsvxc6wpr/NYZupKmmU852gUlN9QnBC5jx6gxaOdVRHrPGAn9bo2GH+IdOtWcV4Odjbfsys8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JgLcUreFiPg3m927TgyeEM9Qaf7qsNACyBLcAeMsm9e3tKYqI
+	YgSK20KNpRgW5KIt3jE84wW7plAvZKEcWuswRnE2scqqk648uZ7xpwAMfiDlrwaPEw==
+X-Gm-Gg: AYBFou0ADVNGLkL10m4CBFQxMPDgcRdYq9mjxXTWhb8xy0nRJPtb6wvzAk4+f2OnUTn
+	a+HI0dvC4y/m+UKcfUXbOBK3sNLIno6uO3UWCNsHD+U8+svFPlU3SKYFEAtcPqVd12t6DIBTtCg
+	zaeKGy31fzzAMOgsbyiVy5TDbUW1plsRO+qgSUiQqUT7g8X75Q5O4L2kPLoQDNMJGttV76YAMfn
+	1KwJXXl0bmdPqh7zN+PvjOZwMpBWx1s+F5JY6pO1DGDedUsjSPOFhQ7rACRkKF09D+jt599hj71
+	TN/6UjKU8Uktxddt+Crly64IkRbqCw+xNwKQn442yMAr8cIaBIiPtvnGbflU0UD5aQJp3j7C9lw
+	HkD2Q3QeYbBu08hlVhwfEFG665YVQIrNeyrwJiCTc/TrLHjDCTVGwnykANccbKPKKE8fS6sfcPk
+	jTGYYy7TE8aoDX9+8Pk7dBuEBgV09+vzISCvSCyI3U5ihkI9Nv+B8cvHjdyizyhyIfCvt1qRj6Z
+	04L9DlqEGFh03ambvx4FXP5Xen567J0T+G0xGj3pZKD+DaH5d1XTYN/HDikpl2+bGRFbEvAf3Op
+	wqQ/zTCU+iSqsnQidj6ykFWY9T6UoDTjEN6g6L4ps1NFZh55BhiPA7r4kjvTTmsk
+X-Received: by 2002:a05:7022:170d:b0:1ae:d447:6c84 with SMTP id a92af1059eb24-1b269b21bf7mr4108916c88.19.1794103663378;
+        Sat, 07 Nov 2026 18:07:43 -0800 (PST)
+Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.17])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37561ccabsm2133832c88.12.2026.11.07.18.07.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 18:07:42 -0800 (PST)
+From: Matthew Parker <mparker@arista.com>
+To: pratyush@kernel.org,
+	mwalle@kernel.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-Subject: [PATCH net 1/2] net: do not run out of frags in alloc_skb_with_frags()
-Date: Sun,  8 Nov 2026 19:06:16 +0900
-Message-ID: <20261108100617.23840-2-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261108100617.23840-1-yanhaishuang@cmss.chinamobile.com>
-References: <20261108100617.23840-1-yanhaishuang@cmss.chinamobile.com>
+	stable@vger.kernel.org,
+	Matthew Parker <mparker@arista.com>,
+	Adam Calabrigo <adamc@arista.com>
+Subject: [PATCH v2] mtd: spi-nor: issi: Add support for ISSI IS25LP512MG
+Date: Sun,  8 Nov 2026 02:07:12 +0000
+Message-ID: <20261108020712.897714-1-mparker@arista.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,94 +103,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-alloc_skb_with_frags() rejects data_len above
-MAX_SKB_FRAGS * (PAGE_SIZE << order) up front, but then rounds the order
-down for the tail, so a tail of N pages is split into one frag per bit
-set in N. A data_len that passed the check can then need more than
-MAX_SKB_FRAGS frags, and the allocation fails with -ENOBUFS although
-every page allocation succeeded.
+Add support for the ISSI IS25LP512MG 512Mbit (64 MiB) SPI NOR flash.
 
-With order 3 and 4K pages, a 516536 byte packet is 15 * 32K plus a 25016
-byte tail, which becomes 16K + 8K + 4K, so 18 frags are needed. Sizes
-between about 480K and 540K can be affected.
+The device provides JESD216B SFDP tables which accurately describe
+geometry, erase types, and read-write opcodes. Flash read, write, and
+erase operations across the full 64 MiB array have been verified on
+hardware.
 
-tun hits this when vhost-net hands it a GSO packet of such a size from a
-guest. Nothing on the host limits the size of a guest's GSO packet to
-64K: virtio_net_hdr has no total length, and tun_get_user() sizes the
-skb from the descriptor chain. Today's virtio-net drivers stay at 64K,
-but a guest can send bigger packets by raising its own TSO limit, and
-the host must not depend on the guest for that. Worse, vhost-net treats
--ENOBUFS from sendmsg() as transient: handle_tx_copy() puts the
-descriptor back and retries it, so the vhost worker spins at 100% on
-the same packet and the device stops passing traffic in both
-directions. On an unmodified host, tun_get_user() returned -ENOBUFS
-about 620,000 times per second, the tap's rx_dropped counter climbed at
-the same rate, and this went on with no traffic until the VM was
-destroyed.
-
-Keep rounding the tail down when the remaining frags allow it, so no
-allocation that works today changes, and use one page rounded up for
-the whole tail otherwise. This is never larger than the full-size
-chunks already used.
-
-This was triggered while prototyping >64K TSO for virtio-net, with a
-one-line guest virtio_net change raising its TSO limit; the host was
-unmodified. The fix was tested with that reproducer and with the KUnit
-test in the next patch.
-
-Fixes: 09c2c90705bb ("net: allow alloc_skb_with_frags() to allocate bigger packets")
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+Cc: stable@vger.kernel.org # v6.1+
+Co-developed-by: Adam Calabrigo <adamc@arista.com>
+Signed-off-by: Adam Calabrigo <adamc@arista.com>
+Signed-off-by: Matthew Parker <mparker@arista.com>
 ---
-Base: net 30c71476d842 ("ipv6: Check the Home Address option again before its
-address is used"). The reproducer below was run on net-next 303d91a15925,
-where alloc_skb_with_frags() is identical. On net: KUnit net_core 20/20
-(kunit.py, UML x86_64), and allmodconfig W=1 build of net/core/ (arm64)
-with no warnings.
+v2:
+ - Drop .name, .size, and .parse_sfdp per modern SFDP discovery
+   conventions.
+ - Rely solely on JESD216B SFDP parsing with SPI_NOR_QUAD_PP.
 
-Reproducer: x86_64 KVM host (i7-14700) running net-next 303d91a15925 with no
-local changes; vhost-net, a tap NIC with mrg_rxbuf=on and rx_queue_size=1024.
-The guest (net-next too) has a local one-line virtio_net change setting
-netif_set_tso_max_size(dev, GSO_MAX_SIZE), plus
-`ip link set dev ethX gso_max_size 524280 gso_ipv4_max_size 524280`; then
-iperf3 guest -> host.
+ drivers/mtd/spi-nor/issi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Without this patch: iperf3 fails, one vhost worker stays at 99.9% CPU,
-tun_get_user() returns -105 (31014 times in 50 ms, kretprobe), the tap's
-rx_dropped goes up by 34M during the run and keeps climbing at ~690k/s with
-no traffic, and the guest can no longer ping the host until the VM is
-destroyed. With this patch (same setup plus this patch on the host): 81
-Gbit/s, no drops, and the vhost worker is idle afterwards.
-
- net/core/skbuff.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 8da53d5b76fc..93e7b04ddfe6 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -6902,8 +6902,18 @@ struct sk_buff *alloc_skb_with_frags(unsigned long header_len,
- 	while (data_len) {
- 		if (nr_frags == MAX_SKB_FRAGS)
- 			goto failure;
--		while (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << order))
--			order--;
-+		if (order && PAGE_ALIGN(data_len) < (PAGE_SIZE << order)) {
-+			unsigned long pages = PAGE_ALIGN(data_len) >> PAGE_SHIFT;
-+
-+			/* Rounding the tail down to smaller pages takes one
-+			 * frag per bit set in its page count. If not enough
-+			 * frags are left for that, use one bigger page.
-+			 */
-+			if (hweight_long(pages) > MAX_SKB_FRAGS - nr_frags)
-+				order = order_base_2(pages);
-+			else
-+				order = ilog2(pages);
-+		}
- 
- 		if (order) {
- 			page = alloc_pages((gfp_mask & ~__GFP_DIRECT_RECLAIM) |
+diff --git a/drivers/mtd/spi-nor/issi.c b/drivers/mtd/spi-nor/issi.c
+index 2f057d731df2..d2b812050550 100644
+--- a/drivers/mtd/spi-nor/issi.c
++++ b/drivers/mtd/spi-nor/issi.c
+@@ -101,6 +101,9 @@ static const struct flash_info issi_nor_parts[] = {
+ 	}, {
+ 		.id = SNOR_ID(0x9d, 0x60, 0x19),
+ 		.name = "is25lp256",
++	}, {
++		.id = SNOR_ID(0x9d, 0x60, 0x20),
++		.flags = SPI_NOR_QUAD_PP,
+ 	}, {
+ 		.id = SNOR_ID(0x9d, 0x70, 0x16),
+ 		.name = "is25wp032",
 -- 
-2.43.0
-
-
+2.51.0
 
