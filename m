@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177193;
-	b=cAv5aKWbT6zem+vK6RPUUNMevYj3y1sFLebsfFWkzL0otGwN+x4pBwwWodYATNfdin5I
-	 vnbVuAda+r+7Yb8HTbOgSBl0VX1qfcW1fgcodyd8hCxXbtwshWl7Tqeo4F+fqD9YP74CG
-	 WrV84JDT0lJJ8nnvK1am7FDhlx4+mE59HHCSa1YU7XYjCVvy0gvGoE/JlAldjIaKInLNF
-	 E5i7YDSOhiQf2YBZEJAogWXAnoBqoiLedWSOum847pwZ79EzEWTpLEAJ+K5xTdx/JR8Zm
-	 GguKDviZ6YXtbpklv3N4rYv+r500N+rBXDAbWfEjYNx+oAL57vjO0SqVQwT3re++SPA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177193;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=PkdH+wEUMUSeDLAeSoZy2bnkjMkJXd9IxOdgSs+yng8=;
-	b=NuDTzkNr/kBsQDZtg5mAezOB8+AS7AWaaTmuSYIkVffZ6sqhYtF2E2nxX/o6/csDtZzh
-	 WI7WNtiXufbNyILJjfvQTczGRhumqePa6ewfEgvZFdVOegD+1Iar5swucSwAQNWkOjsef
-	 sop6Pk+3qVg55317bulknSVjtP46jCt8nstBcgxZT5kqHzU3z/aNF3OmuSq8iY/reu58r
-	 6jNV8qN5ypM+LCA/4wlvbI8ztGn/vURR6XZCJTbjmfSMb/gmKODO4U035klNZz87qWIcf
-	 Dqs2XEvvMCI7Pnu09dOrtiYOdGFPVohMBlZNkjwmgqJ2DvoRdMwwtIrjFQ8FcWxVyjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=umCAbGL+;
-	arc=none smtp.remote-ip=209.85.160.50
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794177178;
+	b=BavDIdCL58P+iuqXeRxoAVwIxVzOaJCmZwoigqO/cGlxL+POTt0lyTN1wS/oBxgeYVhP
+	 NEoQRd5CZ2kqCTkMvZGFKdUECdOpINtDFuweVPnH1x7J7UXKrqcVnXPx7L1rKIHeLgdgR
+	 M9DX9F8gw84V5yQI8lLe2CkqBNWWrSm9ncXTNL9+2n7p6T991YNf6aq2ilGf/joa483uY
+	 Ih7PhMouHTkTZxv72S46PVtaQ6zhClCEfQsKRpMUJN96IFAcQyk7gQAG7Zu4iw4hL9llz
+	 JsuFnnRdNrrwWCteptOcyG9uswA3HvkPc+PN+nfBhD4gUXgAaUnRCabNm8iu4aLz3DA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177178;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
+	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
+	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
+	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=IOpdWZT5jQspO42tQiglJXQ5sVQceKP+1KcvLTgvESA=;
+	b=Bz+DoK7/X060y4k8v8o90q50XcH9xlgklwuNaUs9goPTMDoz5e1TgX6v9yJdCRCE5Ava
+	 sfDWYB2xiGrluFqpPjAkGWyoYd4xsrQYzZ/QEGjuiS45lpqoBERPHzBQa3/VnWcoChzGq
+	 e0xrTXOd6EgYldhW911Fn+s8cuVLS8ISjW+jbU6/Bspl8/AWJHCEZ1ieB397atdhq6IP2
+	 ue/ecE6LNvP/mMoC1uZ7lBYHsWiaTUlXQ9x3Kq4PsxlqpW1EP8EnXwbiwZAqS43ANyHU/
+	 KkBktZe/xR0LKsZx+E+uligwoORpaQsjYPBuGg4Uk12N1wEgB+HS7KrFhgY+97qicEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=nMK9Z1RC;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b="atn9Jad/";
+	arc=fail smtp.remote-ip=185.56.87.1
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC00606D80C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:33:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC00606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35173606A321;
+	Sun,  8 Nov 2026 22:32:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35173606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=umCAbGL+
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-49429181ce9so204668fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:33:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177192; x=1794781992; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PkdH+wEUMUSeDLAeSoZy2bnkjMkJXd9IxOdgSs+yng8=;
-        b=umCAbGL+7eK2RSXF3PTPeizN2u4fnldl8IaFPRWXZIv/kGAY5sLqwglRyGbID2YvAN
-         /8cx18GwT3pMgPMb7luW1s9BWY88rgn+CvKoocJMIlgqMZeo5FGdk3lP+FJ3cY1D2B/n
-         jJKmzUjV/RaYyBq3enqyfcj5iCYx9Zn44c0rGWnwX5n//vVqnVrQRoN4a7PW23Hj8Fdi
-         60bjHtbGXSsW7LYIz3ysO7lOBTHc9ooaOYDTOd8WzynPtx5n6eCyc2UMNwS3gK6IaOY9
-         +3qXO10txO/kAbkPyA9uKfPSVXgzuJgnTndbEmPhNIvgdi5tpiZXCZEua/EOOdDc8kjA
-         1VFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177192; x=1794781992;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PkdH+wEUMUSeDLAeSoZy2bnkjMkJXd9IxOdgSs+yng8=;
-        b=OsxOSRgamPv2gFsaU3lh9fxy6lZVwc6X6+GFgHs1F2RgRRfky7ZqR7kQ0h48c6OtL9
-         52PAruLnG/nMHx7mJ7vN0UihV+sU43ldnvl7hJ1H6lBSZHPkA6YdABG036q+iREXmGdM
-         ovlcBEc3/dBuXTjhnw0mlZ9H02Xbbarg2BbIoE1xcWJdqt8JpI4LfZQAQSIKrHJDEvMW
-         wToIXeTC78/KXjL7lTcfZ/8WtS7P8beN7epfm9I9lr+TJ70m4/4mtl7M/KdnaErh4VNo
-         xUvoVtpR6q6WEGsKZdioohAbfrfc9F4xMLPiycI9ZKWVLSRGMJKnhE74XiKm2LHwtpHJ
-         mdNg==
-X-Forwarded-Encrypted: i=1; AL+hErEOd7AdDE5jtBZOUxDrju1RSS82wgxN47slzaqnAxVToiK3+rjduaRvOAYz3A1aDYCuleINiqSmmkJfSq8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8J8sv5Sk8Icnk0r06NYKDLmmJ17HLFX8JxH4uRctMeNI5NrzY+
-	SObvx4rHmWYhakGuIRostDtrShc2Afb8WUSKb63gNyPDsEmSTAA29FoI
-X-Gm-Gg: AYBFou0tKvD8cADHHdrgw0yvRQNj7F9X0YzZdLpjnu0xJFH3ycc+CCcHiE5YRmmSvUM
-	SAh4qJCC2+kFxyA2PrKldBkNSOd4BoaFoIJ3MubGKFsU0jC2tlEZaH5Pr4DLjkuzcAXZWPalZ4h
-	G4NYegu6O2YkgSUfmm7X+4gwcXQRQaQt0FSufN1rokEkjazXUapkyBbddd+jI/Z3VHiTqb3SPAM
-	cLk0QtPQd9wWTkYjS7cWteuxLur4qIA/0fYW2Zrb1Dx7M61bH0ugmoCobDDopKqo10IgONh3V/6
-	Q7b3Kp+J6JmA1XP5EX566v0vQH9K5EC4Sv7IpkE8g/DCy79wm7Md/0OPC/ALAp57Y+JAte6JhB5
-	Yn2rGOgL51kX6RN7AgK2xhksNrfhHLfMFgArmgS5gBiHMZFI5eJ4x/axvO5VANWOJ3EPS1xOWKR
-	21w1mbQW5fkCaM1/FaI0+zwTE3qHMbvtXiAqjGYhDJwSHUR9IhOgFcX981XVb2Ohaln6rVDZkqR
-	06N4/60bBXCXatIsZfNDPA6cHlp86BUhYJ7m8IOpfR93fKIUJGD1eit5dUiuQjWqOHvhOztcPqL
-	aHSjaxKvsjr6ocuQzcYWNnJ71PCID5d/5JS0AMliwFp1pKth3BBb48LYAAl8GMUCitYxBT3NCxJ
-	zZGlZ12syUupOiQRfofeFefXhixD+uglYmv69YCObP06h+sdcgLKeF+25gRUTtEfqf189IdEpg5
-	BLm0+ddDmMiOzPexXHbJbxHl9Yj1WPEvS+hCeNxl9yJiAW14nA3i4=
-X-Received: by 2002:a05:6870:a414:b0:48f:e3f5:c41c with SMTP id 586e51a60fabf-4adecbf500fmr1245207fac.61.1794177192413;
-        Sun, 08 Nov 2026 14:33:12 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade6a326fdsm3563668fac.17.2026.11.08.14.33.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:33:11 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 15:33:04 -0700
-Subject: [PATCH] mtd: rawnand: macronix: preserve OTP operation errors
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=nMK9Z1RC;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=atn9Jad/
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794177177;
+	 b=Qik9vE6xcOUsXuIeX6bmHWzzBWyZIIDflDinLmWGr/gBvWdQGlKo8MaZdrPpupYaZWyCu5EROD
+	  36fJz7N1rfCkLrTsYsJqF+YSIDitFdbAugoN3Fav5lLHZ4bdjDMF9Q1kKzMjGqINuwl2MAxBAL
+	  e3NySyYF5sG+Lbh1Xhx7gR2GsTvR/VGbEW9iIJ41C21BC9/VvMUZmt5BSKXzprBQ/4H28lbuUX
+	  jXRmkdfHdPaWOB6k5UqQ7u2Uj0uTv6jI/ZHFkKBVypkodo8bAQlj3FA8W22LNROSPcikGLZyjX
+	  Sq6QNw6pzVNqemBwE0T8hIQG7JYVGZQEJXOrLS92Jx9zTQ==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com; s=arckey; t=1794177177;
+	bh=pmrvNLhlmFVHCgF5l6VSvUtW2U2YRZNxylG1l1bIewc=;
+	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
+	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
+	b=vqGC0tFf6Yg0HCGii5ie443PYWf+RYaHezpegCHkigHx+h2uMf9tsh2Bo2WqOwxCek1WObvyWH
+	  WyZjWUkDYLMwI4Nnf8rzfV3Vsa4g1UAoSu/4DcgRjlLGroFRLd80RkygIae8BYkguzWrEn36Ke
+	  ei8CF/mQ7EARUM94FuKF36qP0C/APPeiCPt9Zmi+gSRjZT1nawbEcQe/Htpijgoq7gl82S05ZF
+	  a/NhGgdCgLz+LNkXVoGJiERk70cbxpetx1PMePR/d1rjPf1yKxicejqS+gfPJWV3hVXlO2qtLD
+	  Hyb6Bz/qdPMJ4nHTwaWXumzieO7KInGJlpn6UD/WbjN22Q==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+	:Date:From:Reply-To:List-Unsubscribe;
+	bh=IOpdWZT5jQspO42tQiglJXQ5sVQceKP+1KcvLTgvESA=; b=nMK9Z1RCrOMCUsPIySIZGLvjQH
+	NAGaF8ToSFpcLIjD5lAzxy0C+DSo9+60bkypqvv/XrtRqklp8fGcOfIwnPbVO/FEJ+mDTiJrVxue3
+	ZgmGdBWoAWLEZFF6zF+sj24lBklGhPo+7pu5888a2uUZpLGyCmLeJ7LvqyGqiCfe7HnA=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xQBRW-00000008TgT-2e83;
+	Sun, 08 Nov 2026 22:32:55 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=IOpdWZT5jQspO42tQiglJXQ5sVQceKP+1KcvLTgvESA=; b=atn9Jad/n7J6b8OEqGa26BIo4d
+	TxT1CktUQFBi1rW9vZgb5fuVsGKnQklR0FE5+O3/vlow7EjaYK37avc95gq4r84gA0g7fDf1IlBlb
+	eqHZML7Nx336uOiVa3Ve+Gw6AM1sNFefmI1wL3B7nrMm8NVA1QwkHdWjZA1dGZ5/l1mY=;
+Received: from [79.17.15.196] (port=64784 helo=[192.168.178.158])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xQBRS-000000006ZR-0BEL;
+	Sun, 08 Nov 2026 22:32:50 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Sun, 08 Nov 2026 23:32:37 +0100
+Subject: [PATCH 1/4] remoteproc: virtio: Decouple vdev from the parent pdev
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,74 +98,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-macronix-otp-errors-v1-v1-1-8f64a2ad5a10@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqDMAyF4VeRXC/MKsxurzK8qG2cGZhK2okgv
- vvqdhP4w+HbIZEyJXhUOyitnDhKCXOpwE9OXoQcSkNTNzdjaovpM8yccXZeo/CGMS9IqlETrgb
- r0badbe+m8wGKsSiNvP38Z//vArzJ5xM9F4NLhIM68dP5mnO4ipNyaMtwHF+SDBugoQAAAA==
-X-Change-ID: 20261108-submit-macronix-otp-errors-v1-0f83783917cd
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Arseniy Krasnov <AVKrasnov@sberdevices.ru>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Message-Id: <20261108-remoteproc_pdev_decouple-v1-1-3dc2fad4951d@valla.it>
+References: <20261108-remoteproc_pdev_decouple-v1-0-3dc2fad4951d@valla.it>
+In-Reply-To: <20261108-remoteproc_pdev_decouple-v1-0-3dc2fad4951d@valla.it>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Joakim Zhang <joakim.zhang@cixtech.com>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3636; i=francesco@valla.it;
+ h=from:subject:message-id; bh=pmrvNLhlmFVHCgF5l6VSvUtW2U2YRZNxylG1l1bIewc=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkffkzYvM2kZEZsk2tlhK/WJf61u+6rPGdh8usTVajQO
+ lEo+PVqRykLgxgXg6yYIkvIuhv39sw1/5a2gfERzBxWJpAhDFycAjARm0JGhtO6a+Ifzp1z4b75
+ muyfXrkXpjz0LZvbuNJxXUF8ZfC/t1MZ/umyrWE8t/3ezzvlJQ81boc+a7/Mtj6M0z+4VsX+bwA
+ zOxcA
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: d03ddc932c225c7750ba240bf1ca6465
+X-AntiAbuse: ID - d03ddc932c225c7750ba240bf1ca6465
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xQBRW-00000008TgT-2e83-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-qv6g.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-The OTP read/write helper replaces the result of enabling OTP mode or
-transferring data with the result of disabling OTP mode. Successful cleanup
-therefore hides an earlier failure. The read wrapper can report an empty
-transfer instead of the error, while the write wrapper converts it to
--ENOSPC because no bytes were reported.
+The rproc-virtio platform device can have a lifetime different from the
+virtio_device it registers. During cleanup (e.g.: when a remoteproc is
+stopped) the platform device is de-registered by the remoteproc core,
+but the related virtio_device might be released later; if this happens,
+rproc_virtio_dev_release() will try to de-reference a NULL pointer as
+part of vdev_to_rvdev(). This can easily be reproduced with
+CONFIG_DEBUG_KOBJECT_RELEASE.
 
-Keep the operation result and the cleanup result separately. Return the
-original error when an operation fails, or the cleanup error when the
-operation succeeded. Still attempt to disable OTP mode after an enable
-failure, since the failed command may already have changed the device.
+Remove the access to the platform device structure from the cleanup path
+and interact instead with its backing device, whose refcount was
+explicitly increased during rproc_add_virtio_dev() and will be
+decremented as part of rproc_virtio_dev_release(). The same is done for
+the pdev de-reference inside vdev_to_rvdev(), even if no more used
+during cleanup, to maintain the same access pattern.
 
-Fixes: e87161321a40 ("mtd: rawnand: macronix: OTP access for MX30LFxG18AC")
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/r/sashiko-outbox-204080@kernel.org/
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+While at it, fix the comments on the specific matter.
+
+Fixes: 1d7b61c06dc3 ("remoteproc: virtio: Create platform device for the remoteproc_virtio")
+Signed-off-by: Francesco Valla <francesco@valla.it>
 ---
- drivers/mtd/nand/raw/nand_macronix.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/remoteproc/remoteproc_virtio.c | 22 ++++++++--------------
+ 1 file changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/nand_macronix.c b/drivers/mtd/nand/raw/nand_macronix.c
-index 03237310852c..16847f28b19d 100644
---- a/drivers/mtd/nand/raw/nand_macronix.c
-+++ b/drivers/mtd/nand/raw/nand_macronix.c
-@@ -377,7 +377,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_info *mtd,
- 	size_t bytes_handled;
- 	off_t offs_in_page;
- 	u64 page;
--	int ret;
-+	int ret, cleanup_ret;
+diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+index 12f55a81cfa0..7979b2570998 100644
+--- a/drivers/remoteproc/remoteproc_virtio.c
++++ b/drivers/remoteproc/remoteproc_virtio.c
+@@ -49,11 +49,7 @@ static int copy_dma_range_map(struct device *to, struct device *from)
  
- 	nand = mtd_to_nand(mtd);
- 	nand_select_target(nand, 0);
-@@ -420,14 +420,14 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_info *mtd,
- 	if (ret)
- 		dev_err(&mtd->dev, "failed to perform OTP IO: %i\n", ret);
- 
--	ret = macronix_30lfxg18ac_otp_disable(nand);
--	if (ret)
-+	cleanup_ret = macronix_30lfxg18ac_otp_disable(nand);
-+	if (cleanup_ret)
- 		dev_err(&mtd->dev, "failed to leave OTP mode after %s\n",
- 			write ? "write" : "read");
- 
- 	nand_deselect_target(nand);
- 
--	return ret;
-+	return ret ? ret : cleanup_ret;
+ static struct rproc_vdev *vdev_to_rvdev(struct virtio_device *vdev)
+ {
+-	struct platform_device *pdev;
+-
+-	pdev = container_of(vdev->dev.parent, struct platform_device, dev);
+-
+-	return platform_get_drvdata(pdev);
++	return dev_get_drvdata(vdev->dev.parent);
  }
  
- static int macronix_30lfxg18ac_write_otp(struct mtd_info *mtd, loff_t to,
+ static struct rproc *vdev_to_rproc(struct virtio_device *vdev)
+@@ -348,7 +344,7 @@ static const struct virtio_config_ops rproc_virtio_config_ops = {
+ 
+ /*
+  * This function is called whenever vdev is released, and is responsible
+- * to decrement the remote processor's refcount which was taken when vdev was
++ * to decrement the platform device's refcount which was taken when vdev was
+  * added.
+  *
+  * Never call this function directly; it will be called by the driver
+@@ -357,14 +353,13 @@ static const struct virtio_config_ops rproc_virtio_config_ops = {
+ static void rproc_virtio_dev_release(struct device *dev)
+ {
+ 	struct virtio_device *vdev = dev_to_virtio(dev);
+-	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+ 
+-	kfree(vdev);
++	of_reserved_mem_device_release(dev->parent);
++	dma_release_coherent_memory(dev->parent);
+ 
+-	of_reserved_mem_device_release(&rvdev->pdev->dev);
+-	dma_release_coherent_memory(&rvdev->pdev->dev);
++	put_device(dev->parent);
+ 
+-	put_device(&rvdev->pdev->dev);
++	kfree(vdev);
+ }
+ 
+ /**
+@@ -372,8 +367,7 @@ static void rproc_virtio_dev_release(struct device *dev)
+  * @rvdev: the remote vdev
+  * @id: the device type identification (used to match it with a driver).
+  *
+- * This function registers a virtio device. This vdev's partent is
+- * the rproc device.
++ * This function registers a virtio device with the platform device as parent.
+  *
+  * Return: 0 on success or an appropriate error value otherwise
+  */
+@@ -450,7 +444,7 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
+ 	vdev->dev.parent = dev;
+ 	vdev->dev.release = rproc_virtio_dev_release;
+ 
+-	/* Reference the vdev and vring allocations */
++	/* Reference the parent device, which will be used during teardown. */
+ 	get_device(dev);
+ 
+ 	ret = register_virtio_device(vdev);
 
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261108-submit-macronix-otp-errors-v1-0f83783917cd
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.56.0
 
