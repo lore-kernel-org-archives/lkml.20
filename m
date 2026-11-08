@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794142254;
-	b=F89m86A+OuM0r6pDV4VJGjtsC5PmXTZFA3fw1m7Sp63dUtXyijqj1cd7dHdqta3yZAJP
-	 7bcpICB36FLVZhUvvyyiBpiaLimX1KpqxKTDFptr8uqOtPc0Yhki35sd0rWoy68JAZv3n
-	 YJ7LYwN5mEVkibdsMyEj7q4U9NNmUcW4rydzh90TNa/9OySzBPNPm60uKUlxjgWMTWuxl
-	 mNjYuryPgLkvm3m5Q7XSsh+Z2MWTB2ZNNhKT6thSx3p0Tf+WPOmtps8cYXn6M5jYdWAON
-	 JcsxY73S+Bq0rQYG4t2qAteMIpglw/jVj7cF8G+2IDv0cnsRLASmn8UJCgVNNjrr7og==
+	t=1794142257;
+	b=aAITEYDbaowLF7l7e8m5aRXhlCtEM4mb7eTDpMgEAsObr/ZrQWBgVBBP40GIOuziTNxS
+	 UVZBWzZqyBFl7d4bWMR3/HGDK3bJCuSzbjnmPTGfe5ZkxxIV3s+D2EzcWGUt08eO+b2JC
+	 bc+kayjkZMj/7QON+7wI4xzgJxrew2EjN/D9dJvEMhZC+QaUnJGibvlPyxeTVAvbTD8BV
+	 ejUgKTOy9P1XngcXR812BQpILhEURGPfJwU233q5ZRXr7ZAH4sArgkYizmdgtI7dnIrAt
+	 Fd0byRjh6GfFRFEHZv79SFvgHQrOsSgAT14bKe5mwUF7kzQSgG9+a0chJn0ekE+r2wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794142254;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hitSk203Z3MDehzTSnWVcqfGrv0NFSDEbEoJVDBHWNE=;
-	b=VE6O+QAuJdgVBGRuBf62SHgN3iKjUUpkKy7NMKC1YePBg0pjEFjCyRwTEufLqjxg4VQ+
-	 IJUDPuZN5XmQSZaF6rNXAVRUAu052k/92wiU43pv+ym+4EhNDhP8b1FpLHXjxAgyTqQry
-	 PYuRgTopLZ9YIWKF0a/3GwAi+L0vaF0AZNDcyDwraHRFQSOb39wbuSye2O7pSZ+Gyv1vc
-	 +FhhEfpJ/hWXwzXbfdKhLyt2esxBX68AFayxyrfTBpwpfiZHsI2dVhLjT3Q+r8S9IbvLZ
-	 Mv7x5K+eCB195Fh+bMHWiTy/9licD6Nun7z+f1pYBDUnfFUM9BurDRRIyisW0VYUf9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794142257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=CBqySVJkYZ3V4pcutw3q75Mc5exUd/PgRrxhtsJ1kBg=;
+	b=DBvC8toAShknISnWNHNRiCLBcbGYZ8cvv2mGau6Vhe5kxC9oiUcrNXRAZg7abImgMB2K
+	 EGRVc8ajTqt1rTYI4nnAIAlWHuyjwW0QdzZJuX1mfhOc6syNqhfZ/URE9rViH+1PI5zxJ
+	 SYNz8KNYLH9yJ11ckejSU9IUlHVkSt9navGY4fRFjQy9UBlJdIX+NY34kCK0GcMEmUzKP
+	 1mzjnqXywGyoRrkRiXOkLcBfN0oMSNlfpUa98mqdUiGcAcL4Wvn/fqtaOiqCMLnGG2Nvn
+	 13yhAFJUAt+my+5bVNeF+4fBi4qIyoSFS0/4wtkH7gZY9hkpmbpR/j8/XMS/zsxfP0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGei4xjN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="uepg/btE";
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46606606A322
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:50:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A035B606A333
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A035B606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGei4xjN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35DF1F008A1
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794142253;
-	bh=hitSk203Z3MDehzTSnWVcqfGrv0NFSDEbEoJVDBHWNE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AGei4xjNLRaUPimc4nH7X8n1Z4Xf2LB0U2cjSsWsnXVDMQ8qDK+kKyex1fFyrFDs3
-	 5+Ax3fhz5HaAsUih/bbiaOAt8uK69JrscOKg9+1toClqsetiE3h8f+v4Ju9qn/tS4a
-	 waFOLUfgzqXwaweUeDB2s906WCfVuDTiMC0qhBfqHLVCd3vb9VP6FuQmbKBobs2cz/
-	 Lg9etFfqaJxfy0dEwMvU4aGUpQtNVIWK0E0wN9EB3V/v8FALzZbyy6I5IgS8PCy6e7
-	 3tGfNu9lyUZLqi7bu5hy2EJE9CfmydtWbE/SGN3t8ybLLzDh7GOpKldGrGAUnE/aRW
-	 h4kxDXjd1VKfQ==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b5669a5100so99650a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:50:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHS+j2G+DrFam+Gsi/IudTTOyl2VUnAcmS4BY7fIpPzwl2B6lyVyt0E6/+rW6TloACY7fQQ9NeenV4tbgA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OlAPmW17iNJCV0MFYuca069FZjVylMGgPtpteYBgYDuoufBdh
-	7/yJ0DkAYWnAH0VNBG7ZmRCBZk8jOhPBYT0W0ugSX09TifdVWLiNBMc3ULMBrMFMq8FDQsjxTjR
-	87PFY80zkBLwKvkIgGSS02nvGRYpZygU=
-X-Received: by 2002:a05:6402:1e91:b0:6b7:170:bd17 with SMTP id
- 4fb4d7f45d1cf-6b7224624bcmr864837a12.33.1794142252407; Sun, 08 Nov 2026
- 04:50:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uepg/btE
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e10a70540so37614f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:50:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794142255; x=1794747055; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CBqySVJkYZ3V4pcutw3q75Mc5exUd/PgRrxhtsJ1kBg=;
+        b=uepg/btEh1J6bzh+gCN9Zj151yxywAD+XZyJKu18FAlnmkYGvq9vMoe6aQHBM1R6uF
+         AnFnlIyP2ySnYWchtG2uv4R6ZSxMvxqSAh33/wTEqSI1NGBHxaGoQKNrG2ro2fwHqQg5
+         jfNoUQ/LZi9mi2IZdDIv8eaya8PVhQKP3xG7uYj8v29Fdgdjym5PRGWjQKk0DIqdeX2G
+         bcmgmsb0hjv1ENLFfU+sILBcNSwGPGHniEziDKM2XXmbIGo9k+B6GskpKTTGXdQ7QHv9
+         2laYe09lrVfLN/6gJtUR3JUO+IMnPbyAp2ZF9WQMGDTb976f4wZ+7N9NYUgofancqiEP
+         QjPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794142255; x=1794747055;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CBqySVJkYZ3V4pcutw3q75Mc5exUd/PgRrxhtsJ1kBg=;
+        b=wosus44F7zBVOl/B/oEaAZ5Jpvs1qQGZYm/U6OYkaHYf2QKCB1VmdSTZnVplw4gtXh
+         ggBzHCHxBdVx2PXMqNc+yREHsLWTO65t6EYi3wdUQLC+9qlydaG7pco24Bj4Kkkgw1br
+         OB7bOiqzo9UnmgqMSSkN4wQuYVzkowdeG759lXpRL55VsiDNcQyru4XjdXJHp1IEUiF0
+         X/J0n0ZBL3gLMa8yIgay5VxnJxUrldUZpsg3vqlELn7q3Dx4c90TfSSIWA1jkX7Ukoub
+         z9Fd3Ovtsc1RkuLDb87GfDz/MKBbKIXiSO6F7LGTxgpiHfSql+z64ov54dRr31wZVTTO
+         3Lsg==
+X-Gm-Message-State: APuU4Z/beP5EhIySbRiGMjdDW41Q69mGlOadlgzJq4+13AhckFDLKnVj
+	i76nFtImOmtU7qypr9vmbXy2eRRDK//oQXMSbcTvyzwY7j6buo+YoDz2
+X-Gm-Gg: AYBFou1UP0HsxaNjvxC/cAjXkerwh6j6U2PnFf8KgEkphhc4BTencvdjsbbSIDHGbPL
+	cEaPgAWw+tCj+c1SIDLce7XKml9hJRZcjI7mipoF2Qf/GNu5SZPA9b7m6tMW50hMOGrUKgVbRrx
+	4Sv/GQ0ZNZ5Tz8TIQfC1TJj+l1NnkLjbBY3btBaoQqGi4s/CIdvsBFOYv5mam0lABtfW4/NqYjE
+	t8lRinvggirNZHMz3ATSyOjTiSk+JxHEe4dlt5pn292Vm6Dft8TH3Rq9C6uiSIIREjEFR/sSRAv
+	jQQ1U7P323IpQifUcU4ULSBuJ56e4ISYj3gZdVwpjsm1etkCZqTsBn7GKarprXHQhAAK54tOklG
+	mv/WW/jXXORmr0LRHuRFUfvCzTFoWV3JLeWzktFqIyrWjUgvcdWHJbjuVbij3DwswcWRWhhL6oX
+	shAqMgU6N4f8TJiqQfkeg5t9yo/BfhA2f5PsI7250+8tIreSZSNKX5/ui5fxNU0hReeijZiuZNl
+	U5nJ0LQxhegaixbkCyHDc8vpjW40SLpTfkx9apJDwc/uqEFaAnb9lrVmvye3oZdxov2FT4Erssh
+	rJTIgj4Ze59k0YBupL8IKP0DUNQOusLwMa/AKrzCCVI=
+X-Received: by 2002:a05:6000:2881:b0:488:89c7:31aa with SMTP id ffacd0b85a97d-495842b8bc6mr3133440f8f.39.1794142254769;
+        Sun, 08 Nov 2026 04:50:54 -0800 (PST)
+Received: from fedora.jkuat.ac.ke ([41.204.187.5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495e725c4ccsm2177680f8f.53.2026.11.08.04.50.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 04:50:54 -0800 (PST)
+From: Bramwel Barack <bramwelbarack89@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Bramwel Barack <bramwelbarack89@gmail.com>
+Subject: [PATCH] tty: n_null: remove legacy BUG_ON() from module initialization
+Date: Sun,  8 Nov 2026 15:50:31 +0300
+Message-ID: <20261108125031.33753-1-bramwelbarack89@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,202 +94,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
- <20261108080323.468892-1-wahidzk0091@gmail.com>
-In-Reply-To: <20261108080323.468892-1-wahidzk0091@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 8 Nov 2026 21:50:39 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9=crUmmGbO1vcPsdz-GmWoHxD_W_bRv2PQ_Db3Q+EkCQ@mail.gmail.com>
-X-Gm-Features: AclHuK-VpXbvUoIWbOObTZtRbEASwgLKvE2W7SQOC2nRaKVoxuPrbaCZOAMIEcE
-Message-ID: <CAKYAXd9=crUmmGbO1vcPsdz-GmWoHxD_W_bRv2PQ_Db3Q+EkCQ@mail.gmail.com>
-Subject: Re: [PATCH v4] ntfs: convert a named $DATA stream safely when making
- room in a record
-To: Wahid Khan <wahidzk0091@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 8, 2026 at 5:03=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> w=
-rote:
->
-> When an attribute has to grow and the mft record is full,
-> ntfs_resident_attr_resize() walks the other resident attributes and
-> converts them to non-resident ones. For $DATA it always opens the
-> unnamed data inode of the base inode, even if the attribute found is a
-> named stream:
->
->   tvi =3D ntfs_iget(sb, base_ni->mft_no);
->   ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
->
-> value_len is the length of the stream, so it does not match the
-> attribute that ntfs_attr_make_non_resident() looks up for the unnamed
-> inode, and the WARN_ON() on entry fires:
->
->   WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
->    ntfs_resident_attr_resize
->    ntfs_attr_expand_locked
->    ntfs_expand_for_write
->    ntfs_file_write_iter
->    vfs_write
->
-> It does not need a damaged volume. A file with an alternate data stream
-> whose record has no room left is enough.
->
-> Open a named stream by name with ntfs_attr_iget(), as is done for the
-> other attribute types in this loop, and keep ntfs_iget() for the
-> unnamed one. The loop runs with the mft record lock held and takes no
-> lock of the stream inode, so converting a stream from here needs more
-> care than the plain lookup gives:
->
-> - A reader of the stream holds the folio lock and then takes the mft
->   record lock in ntfs_read_iomap_begin_resident(), the conversion takes
->   them the other way round and waits for folio 0. Take the folio with
->   FGP_NOWAIT in this loop and skip the attribute if it is busy. The loop
->   only tries to free space.
->
-> - A stream that is in the inode cache can be open, being written, being
->   removed or already unlinked. A write that passed its residency check
->   before the conversion carries on with a non-resident attribute, and
->   a stream in the middle of ntfs_stream_finish_remove() is converted
->   under its feet. Convert only a stream that is not cached, and none of
->   a file that is being deleted or has no links left.
->
-> - The lookup of a stream ignores case, so a stream whose name differs
->   only in case from an earlier one resolves to that one and the length
->   does not match again. Compare the names exactly.
->
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
-> ---
-> v4: v3 (convert a named stream via ntfs_attr_iget()) can deadlock against
->     a reader of the stream and has other races with an open or removed
->     stream. Each is reproduced with a forced make-room pass and a debug
->     delay, fails on v3 and passes here: reader/converter deadlock
->     (hung task), write continuing on a converted attribute (iomap_iter
->     WARNINGs, recursive locking), unlinked file with an open stream (mft
->     record reported corrupt), stream converted during its own removal,
->     and a stream pair that differs only in case (WARN in
->     ntfs_attr_make_non_resident).
-> v3: use ntfs_attr_iget() for a named stream instead of skipping it (v2).
->
->  fs/ntfs/attrib.c | 57 +++++++++++++++++++++++++++++++++++++++++-------
->  fs/ntfs/inode.c  | 19 ++++++++++++++++
->  fs/ntfs/inode.h  |  2 ++
->  3 files changed, 70 insertions(+), 8 deletions(-)
->
-> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-> index ce7c1b524180..c824bd3ea9fa 100644
-> --- a/fs/ntfs/attrib.c
-> +++ b/fs/ntfs/attrib.c
-> @@ -1975,7 +1975,21 @@ int ntfs_resident_attr_value_resize(struct mft_rec=
-ord *m, struct attr_record *a,
->   * inode i_size is that this is not necessarily uptodate.  This happens =
-when
->   * ntfs_attr_make_non_resident() is called in the ->truncate call path(s=
-).
->   */
-> +static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u3=
-2 data_size,
-> +               bool nowait);
-> +
->  int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_si=
-ze)
-> +{
-> +       return __ntfs_attr_make_non_resident(ni, data_size, false);
-> +}
-> +
-> +/*
-> + * With @nowait the folio lock is only tried: a caller that holds mrec_l=
-ock
-> + * must not wait for a folio lock, the read path takes them the other wa=
-y
-> + * round. Fails with -EAGAIN if the folio is locked.
-> + */
-> +static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u3=
-2 data_size,
-> +               bool nowait)
->  {
->         s64 new_size;
->         struct inode *vi =3D VFS_I(ni);
-> @@ -2056,10 +2070,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode=
- *ni, const u32 data_size)
->                  * outside all ntfs locks, we need to get the folio now.
->                  */
->                 folio =3D __filemap_get_folio(vi->i_mapping, 0,
-> -                                           FGP_CREAT | FGP_LOCK,
-> +                                           FGP_CREAT | FGP_LOCK |
-> +                                           (nowait ? FGP_NOWAIT : 0),
->                                             mapping_gfp_mask(vi->i_mappin=
-g));
->                 if (IS_ERR(folio)) {
-> -                       err =3D -ENOMEM;
-> +                       err =3D nowait ? -EAGAIN : -ENOMEM;
->                         goto err_out;
->                 }
->
-> @@ -4933,18 +4948,44 @@ static int ntfs_resident_attr_resize(struct ntfs_=
-inode *attr_ni, const s64 newsi
->                 if (a->type =3D=3D AT_DATA && !value_len)
->                         continue;
->
-> -               if (a->type =3D=3D AT_DATA)
-> +               if (a->type =3D=3D AT_DATA && !a->name_length) {
->                         tvi =3D ntfs_iget(sb, base_ni->mft_no);
-> -               else
-> -                       tvi =3D ntfs_attr_iget(VFS_I(base_ni), a->type,
-> -                               (__le16 *)((u8 *)a + le16_to_cpu(a->name_=
-offset)),
-> -                               a->name_length);
-> +               } else {
-> +                       __le16 *name =3D (__le16 *)((u8 *)a +
-> +                                       le16_to_cpu(a->name_offset));
-> +
-> +                       /*
-> +                        * A named $DATA stream is converted only if nobo=
-dy has
-> +                        * it open: an open one can be unlinked, being re=
-moved
-> +                        * or in use. Its file must not be going away eit=
-her.
-> +                        */
-> +                       if (a->type =3D=3D AT_DATA) {
-> +                               if (NInoBeingDeleted(base_ni) ||
-> +                                   !VFS_I(base_ni)->i_nlink)
-> +                                       continue;
-> +                               tvi =3D ntfs_attr_ilookup(VFS_I(base_ni),=
- a->type,
-> +                                               name, a->name_length);
-> +                               if (tvi) {
-> +                                       iput(tvi);
-> +                                       continue;
-> +                               }
-> +                       }
-> +                       tvi =3D ntfs_attr_iget(VFS_I(base_ni), a->type, n=
-ame,
-> +                                       a->name_length);
-> +                       /* the lookup ignores case for streams, ours does=
- not */
-> +                       if (!IS_ERR(tvi) && a->type =3D=3D AT_DATA &&
-> +                           memcmp(NTFS_I(tvi)->name, name,
-> +                                  a->name_length * sizeof(__le16))) {
-> +                               iput(tvi);
-> +                               continue;
-> +                       }
-> +               }
->                 if (IS_ERR(tvi)) {
->                         ntfs_error(sb, "Couldn't open attribute");
->                         continue;
->                 }
->
-> -               if (ntfs_attr_make_non_resident(NTFS_I(tvi), value_len)) =
-{
-> +               if (__ntfs_attr_make_non_resident(NTFS_I(tvi), value_len,=
- true)) {
-Can you check Sashiko's review comments?
+The use of BUG_ON() in module initialization paths is heavily deprecated
+as it triggers a kernel panic and crashes the entire system for non-fatal
+registration failures. If tty_register_ldisc() fails (e.g., if the slot
+is already occupied), it should be handled gracefully.
 
-https://sashiko.dev/#/patchset/20261108080323.468892-1-wahidzk0091%40gmail.=
-com
+Modernize the initialization path by capturing the return value of
+tty_register_ldisc(), logging a clean error message via pr_err(), and
+propagating the error code back up to the module loader.
 
-Thanks.
+Signed-off-by: Bramwel Barack <bramwelbarack89@gmail.com>
+---
+ drivers/tty/n_null.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/n_null.c b/drivers/tty/n_null.c
+index 5a429d923eb3..886f6789f872 100644
+--- a/drivers/tty/n_null.c
++++ b/drivers/tty/n_null.c
+@@ -32,7 +32,14 @@ static struct tty_ldisc_ops null_ldisc = {
+ 
+ static int __init n_null_init(void)
+ {
+-	BUG_ON(tty_register_ldisc(&null_ldisc));
++	int ret;
++
++	ret = tty_register_ldisc(&null_ldisc);
++	if (ret) {
++		pr_err("n_null: failed to register line discipline (%d)\n", ret);
++		return ret;
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.56.0
+
