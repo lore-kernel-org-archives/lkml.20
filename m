@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794128103;
-	b=KctXRsi9cBjq5tGgALjymVJrPYSwYeKheQpxbX7nDwcv/e7YkjYKLXJroBPA3TssI0FI
-	 pkwWcLaFNfAh7Y/JQnb/64WT5vMPNDBzN+vqdThXdCRQiADY/x6dPc7Q4Uml3gSImUcVM
-	 snSSZ+AzHPhO167k5BIG6u/IDMobHUgogiFDvxMlWTUmyCEUsAVfYkWpOW+4u2rUyTf3M
-	 i8BdZyXFWWAd55HxKbqi4UvrSYMR5aUES5PquxWJzp2Zg9m1YGHTqubOJSA1yT+MaLF3I
-	 vpqslenzyP0n28vD3JquvD1DOra1YcGWn3EW8haW6wp1OHHHWGAF4hpubKcDrUyRXjQ==
+	t=1794128307;
+	b=K4evQ7XwHCJcr/k2UnnPL3o4WgpvC6tbrasxooimqMZ8/hCJNlrUTYKn3QR49jwtnupy
+	 zCdPLp0kluNB/EcJy1wHaN0BfdwGgNJs03isHAAU0MrTxFiwzHyoJfC2MnATCiwyTdWR8
+	 McEIxjIakkQBld8GlpB0tvuMeEQ2OHWdxwm/MW61gV1iAywqHfF9+HFNOlRH8UotCuakm
+	 SEFGE+cyKD8kzpBohbTlRPcCxKeD8BhyB1mzs/eAFLpMrD8aV7ceMKO7ZLmi4jjYFClRQ
+	 n83QrRuo/n0jcDLfhh5Mh1kZ0mW7yP98aI/nrsJbAXHItgKui6sogr29mo7cswAMhuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794128103;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=V6FT4KAZBmJIi4It1KRfQsBThfynsYK7WB3H1EWORGY=;
-	b=VWvEav1RWd3j2gb2q89G8g1SYWl2TbKTCEZzImhUrWoSRIKn8qXZ3y7YdkV4RbZ1WUdK
-	 WFRJ0UZ6bpBJPqQEDCZ8CbXj7y3F5VuAqff5oiMY+YH7GY1bo9v9f9i5IUQef1J6lju/I
-	 MKrASGF2fQirNtGAZyAaVwB8pXuMvvNEqelVl70rGNubKUTP2OtTTDIkxf5//YVCSrGqz
-	 n8HpNU97jjudKCxHswNX5mqKAZX3WwaGJ+bOAN2Oxn4qORYrBf0Y36oBllXAWsDN9MddM
-	 4cU+gtec/ZYpNhWYffje4zSZ3XTR4SuoamyxlPYrASl5xdGavRCT7TkJfDK2rm8OkMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794128307;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=1Z7DDRTiLz4S+Y9ky1zlt3K66s/Vk46YLWiQrEagZjQ=;
+	b=oTnsWNmVunzOGC1zjj760peLHUUk0obTP/4XFAtL3MqQou9l/Y4DIQlecgY8lBUJXhNj
+	 jCo3AlbP2iXbaoDB1mCN3gum9LIGVtUC14o1go4pzc6DU0X9KqvWivwBJLFDnCSCGSC0o
+	 rXas+FsWTXg/S8vO/jETFx51SUL5TolMmA+N+pCzEpT802pLZelx+K8fMXvEwP118J57/
+	 /m/2yc3z/bLfWXOYb1+dss+5Ex5bSEPsayoJjOcnRSSBTIORKi/gnE6/kAXIwY55ZSMwo
+	 1wUBtpzMGKOz2tCHyknGwz8QA4XzYLp6FXyjZA4D/awPjX/573R7NU3fAPanInYPGxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iGxefxpe;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TlvcMMb4;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0867606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0867606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE90606A31C;
+	Sun,  8 Nov 2026 08:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE90606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iGxefxpe
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so410185e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:55:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794128101; x=1794732901; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V6FT4KAZBmJIi4It1KRfQsBThfynsYK7WB3H1EWORGY=;
-        b=iGxefxpeWce+3+/L5xQxAOe9XHTUrTRccukwyIuf9W3zkFLhxQqPAQnER/eTnywxkx
-         GBd6+id7tYtbEFdtnx37i6RIN2YRJlfGW/0ephEz5wONi1Umg5z5+5s3jfhEThPqu1zQ
-         jJydZA//88B7Iz3K/bLwqeOYsMRiN8JuEyuECTWcazPurL4YBCtvx4Fwmu4JA71KYLxE
-         rVA30uMooXgVIwYwcnP4OVlgO5hiEb2/F4OsBREy1x79eqH8lcmA2Npq20ZHneKH3GqR
-         63rE3io5iFrmqDYqKzyHMdWt1q2PTQtqAm2/rNTLp0tZP/VlFWKebNqh4i6WeWER1SVs
-         UEiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794128101; x=1794732901;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V6FT4KAZBmJIi4It1KRfQsBThfynsYK7WB3H1EWORGY=;
-        b=e88Xt5WxnxrhBdBf8DHg+CaxSRCNLnJUjg9b1we5nYWxq8857HmI6WYQMIDsnyU8TL
-         S5s0f9EcvHNBcC4wVmuCqXag8U9R+S+724QXc5XVtQbSQwek8wayUh2sq1moQovb3YpS
-         d1REJOjr703qmnPkmqV2FHjkfQjr5/DsoIJOUJvyh5HEsdt7WZmuvd4ZIO08hr31LH8d
-         Ned+Zvf/wKNvZQVklWwZVS2gMuQTpNKkM2VQdVjnMQ25vHMfdquECrbzRUNv04tXCfGe
-         r3e6qPZYFFXSbpjOVpFk0WUBc3ZebREl/lx1XolHsk71LTkbTqySGA5FQW/ZFJH+YUSq
-         7GGA==
-X-Forwarded-Encrypted: i=1; AL+hErEtK14oiCLOWtFIuub1B4KkrrvcsHqnIHytmZ6RLdQDmc9cN+0jy6IJ36G3wOMxl9AlZrTWBZNwGTdmwNQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6hWTmwJwmJnvSD7HO7lKDeZy9cozIv7HRGT2jn5yIMyuML5fo
-	ywut1oWED0LH+qbna6pfgbplTdfIoRvycz1Hr/GOxpee9BXOMMLC6pVX
-X-Gm-Gg: AYBFou27g5JrKippeDeifKHgPHD/hr8GH2Y/SlvVWqero3T3Az7XumrxnHkkS45ayFf
-	QsjHtuOfGqX+3P/nf8dUcMkBmy4fLVxE4oc4zsODmZOpVU6fzEXguADtuev3PELDRHaJ7sKigB/
-	KeVhGG+IbXLMaC9yfnu2lGv4RPr3qZJggCxjhzngQ4B0+nNPklHdVxFEgY3OBvm6+KRnlQ2mwZ8
-	ZvvztN4kzxMlRygvmpS4W0zhM09S1LA/KkRYntsNeFr0xW2g36tORUZQ85Bj7nJeIc5j56TIPxV
-	cj7uGY/JgFSWnvqP2v75M2xH0HFOoExPRbWL1jGd1XwR0Zs8srXMALX76qIKz4h5DhYxGalnLpC
-	H0YPexJXtXi72pjgnESoDmNlaVth+o/yvdC09p9af1MtML8nIFSgaZDMt+1vJE2mW5FxQcDjcMp
-	/V9rR7WOBXnVnwRef2aRlBzlcbamaACONe4ILrRiCjlkollKvvwQ3IMVRuvjxpY4kEt87eizs6X
-	UqyIftYcRJL23PYTYhjcxA1fhWr58ESamzTmaXu8tMStE9qDDdiiQ4rf59ysBu7QhgJg9LwBQEt
-	2XalVp9vnIvVO66HUvdWOM93M0ucEpgIanHp+4bWJ4WN6AIWU6AkF2W9CKiWv3uDJis=
-X-Received: by 2002:a05:600c:4504:b0:4a2:526b:d40f with SMTP id 5b1f17b1804b1-4b943f76422mr18343555e9.0.1794128100763;
-        Sun, 08 Nov 2026 00:55:00 -0800 (PST)
-Received: from localhost.localdomain ([2a06:c701:475e:f800:9c3f:1631:3855:dec8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad610sm322985835e9.3.2026.11.08.00.54.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 00:55:00 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: willy@infradead.org,
-	jack@suse.cz,
-	akpm@linux-foundation.org,
-	joannelkoong@gmail.com
-Cc: linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH v2] mm/page-writeback: avoid unnecessary strictlimit background wakeups
-Date: Sun,  8 Nov 2026 10:54:57 +0200
-Message-ID: <20261108085456.2093096-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TlvcMMb4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=1Z7DDRTiLz4S+Y9ky1zlt3K66s/Vk46YLWiQrEagZjQ=;
+	b=TlvcMMb4LRq8373tAZ00PG8i0w8qNJ4WUt6oeXNdHkA8iUriWcmBPLLqPYUzCM
+	RVbNoMrbjXlDOr5T9DeVNqlA4AdZax+2KVQlWNQERMLcJxrBqhOkF69zOHdUVyDx
+	ZhhTJZBVnF39ISVxdkJ75DDnXVFK8Z0R3/WRLpd/rwe9M=
+Message-ID: <58f35b77-4fb4-4813-a9a3-836345656581@163.com>
+Date: Sun, 8 Nov 2026 16:57:54 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,60 +51,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI/VPD: Add Realtek 8126 to VPD blacklist
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260522114135.2104890-1-18255117159@163.com>
+ <lfml4kmr4r3l44hcx7vfrcks2z355ri5emr5umynnzoncyopjl@5to6f3e67owz>
+Content-Language: en-US
+From: Hans Zhang <18255117159@163.com>
+In-Reply-To: <lfml4kmr4r3l44hcx7vfrcks2z355ri5emr5umynnzoncyopjl@5to6f3e67owz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3X+iSOfBqsHL6GQ--.4558S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF43JFy5tr13uFWUAF1kKrg_yoW8Wr4xpr
+	s8Ga18CF4rWr18WF4qgws0kas8Za4ktFy0krySgwnF9an5Gr15Ar9IkF9Y9Fn8t398Xr17
+	Xwn0v348Wan0gF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziApndUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7BNJ7GrwOZPqhAAA3E
 
-balance_dirty_pages() includes pages under writeback in
-gdtc->wb_dirty when checking the per-wb background threshold for
-strictlimit BDIs. However, wb_over_bg_thresh() only considers
-reclaimable dirty pages when deciding whether to start more
-background writeback.
 
-This can repeatedly wake the background worker even when there are
-too few dirty pages to write. In a 15-second FUSE writeback test,
-background wakeup requests dropped from 2657 to 682 (74% drop),
-while writeback_start events remained nearly unchanged at 99 and 98.
 
-Check wb_over_bg_thresh() before starting background writeback through
-the strictlimit condition. Leave the global background threshold
-check and the wakeup required for dirty throttling unchanged.
+On 7/15/26 21:44, Manivannan Sadhasivam wrote:
+> On Fri, May 22, 2026 at 07:41:34PM +0800, Hans Zhang wrote:
+>> The Realtek 8126 Ethernet controller advertises VPD capability but
+>> returns invalid data when VPD is read, leading to kernel messages
+>> like:
+>>
+>>    r8169 ... invalid VPD tag 0x00 (size 0) at offset 0; assume
+>>    missing optional EEPROM
+>>
+>> and pcilib reporting "sysfs_read_vpd: read failed: No such device".
+>>
+>> Add the device to the VPD blacklist to suppress these errors.
+>>
+>> Signed-off-by: Hans Zhang <18255117159@163.com>
+> 
+> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> 
 
-Fixes: 0437906841d0 ("mm: start background writeback based on per-wb threshold for strictlimit BDIs")
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
+Hello Bjorn,
 
-v2:
-- explain the preliminary strictlimit threshold check
+Gentle ping.
 
-v1: https://lore.kernel.org/r/20261031070515.3042848-2-thnkslprpt@gmail.com
+Best regards,
+Hans
 
- mm/page-writeback.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index 499a35473e4f..0529b4a7e99c 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -1824,9 +1824,15 @@ static int balance_dirty_pages(struct bdi_writeback *wb,
- 			balance_domain_limits(mdtc, strictlimit);
- 		}
- 
-+		/*
-+		 * gdtc->wb_dirty includes pages under writeback, so use it as
-+		 * a cheap preliminary check before wb_over_bg_thresh() decides
-+		 * whether background writeback is needed.
-+		 */
- 		if (!writeback_in_progress(wb) &&
- 		    (nr_dirty > gdtc->bg_thresh ||
--		     (strictlimit && gdtc->wb_dirty > gdtc->wb_bg_thresh)))
-+		     (strictlimit && gdtc->wb_dirty > gdtc->wb_bg_thresh &&
-+		      wb_over_bg_thresh(wb))))
- 			wb_start_background_writeback(wb);
- 
- 		/*
 
-base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
--- 
-2.43.0
+> - Mani
+> 
+>> ---
+>>   drivers/pci/vpd.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/pci/vpd.c b/drivers/pci/vpd.c
+>> index 153394a652d3..fbc34cd842ac 100644
+>> --- a/drivers/pci/vpd.c
+>> +++ b/drivers/pci/vpd.c
+>> @@ -590,6 +590,7 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_LSI_LOGIC, 0x002f, quirk_blacklist_vpd);
+>>   DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_LSI_LOGIC, 0x005d, quirk_blacklist_vpd);
+>>   DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_LSI_LOGIC, 0x005f, quirk_blacklist_vpd);
+>>   DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ATTANSIC, PCI_ANY_ID, quirk_blacklist_vpd);
+>> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_REALTEK, 0x8126, quirk_blacklist_vpd);
+>>   /*
+>>    * The Amazon Annapurna Labs 0x0031 device id is reused for other non Root Port
+>>    * device types, so the quirk is registered for the PCI_CLASS_BRIDGE_PCI class.
+>> -- 
+>> 2.43.0
+>>
+>>
+> 
 
