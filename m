@@ -1,48 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794138550;
-	b=zHMter+i6Z8Br6zHUhz9W+KZ0zpZnrR1jXBgzJGiwM6f4g2NJ1dnlSK5fWci8YFM/1yz
-	 /QYGu9YQLrj8AEdJEPpcmr0mpRI9QNg5BIDqyZKuc9fsJL9IhWVhTTvYpK3K/MEwvp9BS
-	 Zw1a8HMwy6h/szmjJYYK4S8r8Bpip2IvoyvinrsZf59w5UoZzWytAD+NcTJuNnRcDiWAi
-	 v2DEjIqICT48lQ9K8rRM0zWEY/dFwzsxLbZYyz6zMYh5m+fsMpRvy7L6wIS4RkSXmdTpw
-	 BEX6n5cobryq54kyb1TzEG4dEnJUqf8lfYb15wHUmw9m9u1GSVP7o7aIINOWY9tOAvg==
+	t=1794138573;
+	b=myx/ycoNwjQ3WUpxpGzca2dblD+baCOd02ja4X3YblML55DdnEMxwV/uZPYI2yRfEBZh
+	 o2l+ZD+tk+Q5yOa7fd3kcqgbGTCc09ncDRbydWI/BK+78sbkKFCBHyLJW41m6xl1wvLdo
+	 dQxZx8t0TRyT56ONHxGzx+2gs316vb8gMqYvlz3qyZY8lw7lNf67aMFnk5Qqes3EpQmcF
+	 ka/QMLKSd5/oJ2DDG3IyEgFiqT8roDSygr8uzvDOEIIoxytqTkY5qc+EXijSEmNKVUqio
+	 cooTPcbRxx/eTMoXRN1RUDiV/gGdI4u3SDTrBBE48qm0H8zGzMzJ98/OvT43Ffd+Rew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138550;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=DSWbuaX0SJuwDI4LQsCoGiLcfjjnNXDBy8qwE7KddlA=;
-	b=s5GjJLGuXfEfwsj+h2UsDiGIdnq1xC7tqGlbhv6zRSbDHJaZBMJu1JVKiGSdD5BchVTD
-	 ekcXyE6NU5/hL5kOT1Hvvj6aDGEFE+LDxswfGI+MJWxnhpeFXOXvFTUyflEAQjWbcdK+t
-	 /tF7deZKrJ2UtjPAF+kQ2SudsiK/xs014gVWgIDJL68zDwJxFj12H4PTZF8eTqNFePPhr
-	 vL11eL1DGAvFpapnv03MNqTnU749M34eLemS6WP2+tVKpguahwOpCPmHwNSqssWblozz8
-	 pOP0oRyRBx1yJap7JfN3HO/Z8GfWVOk4PE0XdwkczlQL+oVSElK4cOAkH9MoUalOp6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138573;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zvxQB2We17Pd9AVGxDxc0HxbcCZhbdPDH3x64E2+vEI=;
+	b=T+js0GVfZbSUaXtkyc9YgYP4dsizFmUdNrAnhJd81mFBWwCnrKZ0tawaglpxe5Oa0cfW
+	 hnwKBqguHlzVlhanzZexoOKRE2Hz8QRckcKUyJziaUQ+UMXdQkiC4DxdykQs1topT4Iau
+	 juV8HF3mS9iMjvgxda8kSAzh13QHULe5yTrqfkNFM6b2RvdoK0r9ei5eUQJcxbYi3WuJl
+	 fqGuyazu9TnMciRW299ecq+LN83y3lv0u9rvZmWJKGyr7w5a0z9n8czGhea/6VSwYTIbp
+	 oDmuGb43Nv0ipP1HCjSnlg418i6T1mdJSjYkvzL7Y4jv6bmqjHlVul3TzPX3oqdMtIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMz0X66j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dshvpHJt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B395606A33E;
-	Sun,  8 Nov 2026 11:49:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81663606A31C;
+	Sun,  8 Nov 2026 11:49:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMz0X66j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A8E1F0089F;
-	Sun,  8 Nov 2026 11:49:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dshvpHJt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401DA1F0089F;
+	Sun,  8 Nov 2026 11:49:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794138550;
-	bh=DSWbuaX0SJuwDI4LQsCoGiLcfjjnNXDBy8qwE7KddlA=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=WMz0X66jbpOohzsjuh9vxcswu8HYEcikxFzY4dXmi1VM8IX8FrDwIjI7tvd/d85/G
-	 t5WPkKOgnDBMk7EesnJ1q3pISxPevscLytTJMTBfNyo7fS4+T/6glOsSRggAkZsOmo
-	 TaTl84edzchzGKPlrys2DoZ7Byu6/PMotPFE+oypk2gRy2M56iQvjagHW+1+Cpgf3e
-	 ZvipXoZyLGKpc+/FN7GgQmLBI4kJf0qsKxDaMe+eB+1V2wH+eRmIKK6FZoiRnwt0gG
-	 tYofxFgjId/uxbnTcW87RYa/uBvsLyFupyIpqJcbm6hJvqYjXW82LbH+xQtzD8tslb
-	 OaRa+9Qh9rUmw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id F0C312BF95D0;
-	Sun, 08 Nov 2026 11:49:07 +0000 (GMT)
+	s=k20260515; t=1794138573;
+	bh=zvxQB2We17Pd9AVGxDxc0HxbcCZhbdPDH3x64E2+vEI=;
+	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
+	b=dshvpHJt/uRIqLO6GrNL1j2pq6r7gm46b+jZytxPhLgCE/u+VL6n3ZEY3+BTxHH8S
+	 shxmmbgBPRIDhr/tyVnu6VkUynGd3ht01QXb7LYRo6XRb4otAO2G2ISGNx0/FcjZPN
+	 e3+rZ78n4EdjFMJz7sd2bpHCGugpZUt/dZ6ICgiccg2mln2ahjLHyoULU2IO0/Nr6V
+	 af9qC4zT0Uc5C2jY1+rSVMkyeuu1aymZ7D59a9he+kTKP08bR+Q+Cz3xIu7HDhLETA
+	 uFLBSW9ScjwbXteQ/tXLYK3tLsK9buzaLtJ9kjxLppuAwH6JWlKj1P46+ig4amIVQZ
+	 e1jKEohLhxNMA==
+Date: Sun, 8 Nov 2026 12:49:08 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
+	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
+	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
+	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
+	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
+	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
+	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
+Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avBglVuXPjbKnWwl@debian>
+References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
+ <20261105125154.83478-1-geert@linux-m68k.org>
+ <aux8LYQkGSNjCGHv@devuan>
+ <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+ <au7TvMP0YhW2e_oM@debian>
+ <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,151 +71,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/3] ASoC: codecs: rk3308: restore audio and
- headphone support
-From: Mark Brown <broonie@kernel.org>
-To: Xing Zheng <zhengxing@rock-chips.com>
-Cc: broonie@kernel.org, heiko@sntech.de, linux-sound@vger.kernel.org, 
- luca.ceresoli@bootlin.com, lgirdwood@gmail.com, perex@perex.cz, 
- tiwai@suse.com, linux-kernel@vger.kernel.org, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- huangtao@rock-chips.com, sugar.zhang@rock-chips.com, lxt@rock-chips.com, 
- xing.zheng@rock-chips.com
-In-Reply-To: <20261101044149.2018744-3-zhengxing@rock-chips.com>
-References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-3-zhengxing@rock-chips.com>
-Date: Sun, 08 Nov 2026 11:49:06 +0000
-Message-Id: <179413854645.3630016.583220481348524508.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5345; i=broonie@kernel.org;
- h=from:subject:message-id; bh=+YDT/dn4HPJjiVmxqxZl4zbdPOrhe2/fO2TYbbPmE6s=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+JG7OuXHtxJ6vy/a0HpcWWPnpTOEN098lq8UKmb80d
- STefN49oaOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATOS7DyHCjw7O+intRWv3l
- fQ+NQ2NKN+StFNvT+JRh26O0M1duFbsyMtz657SIkyEzQ8NnpTbP3NXcfXn7Fte92lr2Pc/Lunf
- XY34A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="syfb4cjgbu7o5clx"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
 
-> Restore the vendor analog enable and disable order and settling delays
-> through shared DAPM supply events for codec revisions A, B and C. Use
-> virtual intermediate widgets to prevent coalesced or repeated analog
-> writes without adding startup, shutdown or hw_free DAI operations.
 
-This change is far too big and complex to be a single patch, doing a
-whole bunch of different things with limited overlap.  It's all really
-difficult to follow, please split it up into independent changes.  The
-jack detection should be split out at a minimum, and probably there
-should be multiple refactorings.
+--syfb4cjgbu7o5clx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+List-Id: <linux-hardening.lore.kernel.org>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
+	brgl@kernel.org, dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com, 
+	driver-core@lists.linux.dev, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl, joe@perches.com, johan@kernel.org, 
+	kees@kernel.org, laurent.pinchart@ideasonboard.com, lenb@kernel.org, 
+	linusw@kernel.org, linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, namhyung@kernel.org, 
+	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org, 
+	sakari.ailus@linux.intel.com, saravanak@kernel.org, schwab@linux-m68k.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
+Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <avBglVuXPjbKnWwl@debian>
+References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
+ <20261105125154.83478-1-geert@linux-m68k.org>
+ <aux8LYQkGSNjCGHv@devuan>
+ <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
+ <au7TvMP0YhW2e_oM@debian>
+ <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
+MIME-Version: 1.0
+In-Reply-To: <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
 
-> +static int rk3308_codec_output_routes(struct rk3308_codec_priv *rk3308)
-> +{
-> +	static const struct snd_soc_dapm_route routes[][2] = {
-> +		{
-> +			{ "L_LINEOUT_EN", NULL, "DAC_L_HPMIX_SEL" },
-> +			{ "R_LINEOUT_EN", NULL, "DAC_R_HPMIX_SEL" },
-> +		}, {
-> +			{ "L_HPOUT_EN", NULL, "DAC_L_HPMIX_SEL" },
-> +			{ "R_HPOUT_EN", NULL, "DAC_R_HPMIX_SEL" },
-> +		},
-> +	};
-> +	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(rk3308->component);
-> +	u32 mask = rk3308->dac_output == 11 ? 3 :
-> +		rk3308->dac_output == 0 ? 1 : 2;
+Hi Maciej,
 
-Magic numbers...  I have no idea what this is intended to mean.
+> Date: 2026-11-08 11:05:51+0000
+> From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+>
+> On Sat, 7 Nov 2026, Alejandro Colomar wrote:
+>=20
+> > Hi Maciej,
+> >=20
+> > > Date: 2026-11-07 02:44:23+0000
+> > > From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+> > >
+> > > On Thu, 5 Nov 2026, Alejandro Colomar wrote:
+> > >=20
+> > > > Do you think strafterprefix() would be better?  Do you have any oth=
+er
+> > > > suggestions?
+> > >=20
+> > >  FWIW strsuffix() seems an obvious choice to me.  After all what the =
+API=20
+> > > does is request the string's suffix beyond the specified leading part.
+> >=20
+> > Actually, strsuffix() is something else:
+> >=20
+> > 	char *
+> > 	strsuffix_(const char *str, const char *suffix)
+> > 	{
+> > 		ptrdiff_t  off;
+> >=20
+> > 		off =3D strlen(str) - strlen(suffix);
+> > 		if (off < 0)
+> > 			return NULL;
+> >=20
+> > 		if (!streq(str + off, suffix))
+> > 			return NULL;
+> >=20
+> > 		return str + off;
+> > 	}
+> >=20
+> > It finds the start of a suffix in a string.  That is:
+> >=20
+> > 	strcmp(strsuffix("foobar", "bar"), "bar") =3D=3D 0;
+>=20
+>  Hmm, I'd have called that strskipto().  If that's not possible for some=
+=20
+> reason (I can't see it used in Linux), then strskip() or strskipover()=20
+> could be used for this API.
 
-> +	int i, ret;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(routes); i++) {
-> +		if (!((mask ^ rk3308->output_routes_mask) & BIT(i)))
-> +			continue;
-> +		if (mask & BIT(i))
-> +			ret = snd_soc_dapm_add_routes(dapm, routes[i], ARRAY_SIZE(routes[i]));
-> +		else
-> +			ret = snd_soc_dapm_del_routes(dapm, routes[i], ARRAY_SIZE(routes[i]));
-> +		if (ret)
-> +			return ret;
-> +		rk3308->output_routes_mask ^= BIT(i);
-> +	}
+strsuffix() exists in many projects, and in all of them it seems to have
+these semantics (or very similar ones).
 
-This is dynamically hotpluggin DAPM routes at runtime which is a really
-weird way of doing things.  Why are you doing things this way?  Normally
-routing changes would done through DAPM routing changes in mux and mixer
-widgets.  Why are you doing things this way?  It's a lot of code, and
-the userspace impacts are likely to cause confusion.
+Just look at a Debian code search of those names.
 
-> +	if (!ret && rk3308->hpdet_jack)
-> +		snd_soc_jack_report(rk3308->hpdet_jack,
-> +				    output ? SND_JACK_HEADPHONE : 0, SND_JACK_HEADPHONE);
+The strprefix() and strsuffix() pair of functions are widely
+implemented, and while the exact details of the return value differ
+slightly (some return just a boolean, others return a pointer that can
+be used as a boolean too), the overall semantics of them are quite
+consistent.  strsuffix() has less drift than strprefix().
 
-This is going to report that the user has inserted or removed something
-physically based on a control write, this is obviously not something
-that should happen.  The user can physically see if something has been
-plugged and this is going to report something different...
+If we added strsuffix() here with the semantics commonly attributed to
+strprefix(), and then had strskipto() with the semantics commonly
+attributed to strsuffix(), I'd expect programmers to eventually get
+confused and use the wrong one.=20
 
-> +static int rk3308_codec_hpdet_init(struct platform_device *pdev,
-> +				   struct rk3308_codec_priv *rk3308)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *np = dev->of_node;
-> +	int ret;
-> +
-> +	if (rk3308->codec_ver == ACODEC_VERSION_A ||
-> +	    of_property_read_bool(np, "rockchip,no-hp-det") ||
 
-Why do we need this property, the machine driver sets up the jack?
+Have a lovely day!
+Alex
 
-> +	    !of_find_property(np, "rockchip,detect-grf", NULL))
+>=20
+>  FWIW,
+>=20
+>   Maciej
 
-of_property_present()
+--=20
+<https://www.alejandro-colomar.es>
 
-> +		if (headphone)
-> +			for (gain = 0; gain <= max(gain_l, gain_r); gain++) {
-> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON05,
-> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
-> +					min_t(unsigned int, gain, gain_l));
-> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON06,
-> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
-> +					min_t(unsigned int, gain, gain_r));
-> +			}
-> +		rk3308_codec_resync_adcs(rk3308);
-> +	} else {
-> +		/* Vendor DAC disable steps 3-19, after the external amps are off. */
-> +		if (hp & (RK3308_DAC_L_HPOUT_EN | RK3308_DAC_R_HPOUT_EN))
-> +			for (gain = max(gain_l, gain_r); gain >= 0; gain--) {
-> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON05,
-> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
-> +					min_t(unsigned int, gain, gain_l));
-> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON06,
-> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
-> +					min_t(unsigned int, gain, gain_r));
-> +				usleep_range(200, 300);
-> +			}
+--syfb4cjgbu7o5clx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The ramp down has a delay but the ramp up doesn't, is that intentional?
+-----BEGIN PGP SIGNATURE-----
 
-> -	SND_SOC_DAPM_ADC("ADC1_WORK", "Capture", RK3308_ADC_ANA_CON05(0), 2, 0),
-> -	SND_SOC_DAPM_ADC("ADC2_WORK", "Capture", RK3308_ADC_ANA_CON05(0), 6, 0),
-> -	SND_SOC_DAPM_ADC("ADC3_WORK", "Capture", RK3308_ADC_ANA_CON05(1), 2, 0),
-> -	SND_SOC_DAPM_ADC("ADC4_WORK", "Capture", RK3308_ADC_ANA_CON05(1), 6, 0),
-> -	SND_SOC_DAPM_ADC("ADC5_WORK", "Capture", RK3308_ADC_ANA_CON05(2), 2, 0),
-> -	SND_SOC_DAPM_ADC("ADC6_WORK", "Capture", RK3308_ADC_ANA_CON05(2), 6, 0),
-> -	SND_SOC_DAPM_ADC("ADC7_WORK", "Capture", RK3308_ADC_ANA_CON05(3), 2, 0),
-> -	SND_SOC_DAPM_ADC("ADC8_WORK", "Capture", RK3308_ADC_ANA_CON05(3), 6, 0),
-> +	SND_SOC_DAPM_ADC("ADC1_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(0), 2, 0),
-> +	SND_SOC_DAPM_ADC("ADC2_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(0), 6, 0),
-> +	SND_SOC_DAPM_ADC("ADC3_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(1), 2, 0),
-> +	SND_SOC_DAPM_ADC("ADC4_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(1), 6, 0),
-> +	SND_SOC_DAPM_ADC("ADC5_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(2), 2, 0),
-> +	SND_SOC_DAPM_ADC("ADC6_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(2), 6, 0),
-> +	SND_SOC_DAPM_ADC("ADC7_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(3), 2, 0),
-> +	SND_SOC_DAPM_ADC("ADC8_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(3), 6, 0),
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrwYacACgkQ64mZXMKQ
+wqkRchAAk7Ihn4b58E/Hn3+rnKnyWcl3yUktkNoXv57jaatoQ4k4UdEM8+n6lv54
+QPtw5GlkOCKy01lMhcqoGtQEiBwVUg4ehBAF/wlu2GmylbPKY9B8sVbI6y7BNa3l
+p5uVeMjzWnfat12d0kvtvnZhGQ6cyWA6o3cv68TICTzzxUtkj+Xw8L/+8B+xDClD
+XcCL7EGTKiQ4b4mPEozYVptgJttcFEKLs+RzqjWsWYtF8JvTc0S27Q1R1dKwjd0U
+daI90XK6pQUnhbKft+x/YsyFPmbedGOBIuocJmIxWuOTPTpU5aFSFWLJCy+oDI1Y
+FEeXQGkoyXvemC2CfE5fRWByj0ME88MXhgrIh+Oo+/x85ue1oMaMutI7IqRyLlQs
+aeQLqElEQoyfIJyrQK03tdGb6hAp2epHQfu5dEHDr4BcQTsBaC0V9CHy/q5gxaby
+X77WtUiarWePT4aZ3BwBtRMZoFWc7+3VLPJMIjiLiEGkS8wBJOnhZQmm9TdEQlUf
+Q3AnOHpMPA/zsNjck/YNrV3yqKeMSvt5TMud9dctRrFfTvIzw0rZDlAxO5/KE+RT
+xt2B3MckutS7bOqdTe3b+eMUqByUxT/dnT1i7/GfPDFfR9Zc6F6qR3XNb3UALJ8f
+sBvfXHrS8kbeJoyolzOgxRijRzFBhteZAmDR8BV5ekkeSpOHYDw=
+=W23Q
+-----END PGP SIGNATURE-----
 
-Why the rename?
-
--- 
-Mark Brown <broonie@kernel.org>
+--syfb4cjgbu7o5clx--
