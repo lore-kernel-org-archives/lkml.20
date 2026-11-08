@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794154919;
-	b=ZZ9aCkqusTcQjzhW5yK+Uo9ekLdWmLB3KU09RXBuaLBuRMeVAdWUWN2sRziSg/HbMnrm
-	 cG+1lwNJlH+j+rIm0e7wUYOhq/wdLWLuuFgGLcYrXb+DHYGQZ231a05L60ALsATP3meA+
-	 NDY2IL+VCFcaK+wgh8PLJV64mEBkHj9rsaBy2i6LJ4mKoNg08xofRy25EYpWbEN3DI3BE
-	 ynwlV6z5dYsb0iAo9sl4YDACuJKMHRMiawlWNTHAx8o42KcBUW5pLS+fwyyIrum3uptD5
-	 KyUjg2dZHWnpS34trghAHSpx57lCoOoUsyc7zGiumF/CiB6N1B/aCDc9X/+AREYrPCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794154919;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794155015;
+	b=I73KNpYpode3VvGJbTsikamv4URp9PrUYz4YB5mf69yVPGdgnjCblRzADe0zAbbifEwk
+	 9mVqRaYzu2atgGj/SOLhOExZRgKnM92FXeqcceT56E2u69OqfUf+LcQV2BldpnOt9tkuE
+	 PFHFVYJUejoQZgG2tYRQtriRCn3RZvtgSYqbO3/xj9kZbE+ZnzMUbLXbASTdMt+VV6Yfh
+	 y1HRAQMsRVB890DTyMKrDp6csvq2lj0uwJAkTmQxFmS9nXImceMezpAo30Dwv0W++ghYr
+	 Cis9Dg54NyjC+r1l+aS4Y3w+m4LhApINr+k8sv+0ycbtgUb/KNtXtfbYLOhn1TP0Fog==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794155015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=NqiEvNJc2p38Ujj7TawQCPTCe9qdBp/ccFJptwABHsY=;
-	b=lt2wKiIW4k4+djKVyqBOQ3nxgxjoelU0oTKGXF2/0ttGXIu4p1yaJJrxse+Rjdit2/f4
-	 EOUYmACv3BY6WXLezCzjgfaqouXcehNg38OEPSAipYpi+JPEi67ysN6CnVz4IEkWbPRF1
-	 WG8bVo1yjLz11x7pvcUhGBotVLCY7kl8IP0D3W3OEx7wP9rCiKS6Vrwrew7vzwyrrAYv0
-	 +EkEJvrvrxqdaVayowM2N7XQXxz1IcGqrYrE/gnjF1KEIP/IFPErWpQ0Fzra3Ss6+LBrn
-	 BHKnE7j4hHSkVAx/FkatdvVvwr57YLPgN+Cz23z5Eqji0WIsP+yhbODm35LZ9fj9kEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
+	b=g6Xb0QeD/b8IKhUl2+vdS92yu8e8vvYGCJqmlK1mbkBF8EgFvqbCkbIiyz0EdkJOofVb
+	 qolT+5ikfte9pdUr+VfI8/9vWC91fpfsuyqTz0lcG7XiGPqIUOQxAbLJELqUo2eukAuQ0
+	 L9bjQ6IpqHmHZIxGOI5VeTdylcoEYZSdUwkPNLI4RcHktrgr3qn/sEdUotV8sPuExiEcX
+	 EXOAhBf0yw1vofL3seZ3zAEKy0tBDX25H8MjF2lOdwUdKOWP7T9NL4Tzz8w0+sE4JPBwx
+	 NaAbCAoadC1gaqf5WYqmc9T4k407L5rxWp/eFKOD+3kabbeXvtLCU6dzupDfp++vJqg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ByZKqEY2;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OUFqK+OW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF5F606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF5F606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78782606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:23:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78782606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ByZKqEY2
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso785435e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:21:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OUFqK+OW
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso156558a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:23:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794155014; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oo1lcl/vnmhNDXjGLVkq0UlA6/5n0204YcNw3BNXw9te8J1E5PtLG+qIb1iaQqn38x
+         FmO5L38OtOPKKdoJLETbq6YUeQUORhpoJJJyrEIy4GrYEaXFYx+Mz5mzXJhEfUUfn71c
+         dMfRDUhys6FdyD2ViGcdTzZppe1BRR0ZTyC2RDh8wdlzHIQjdPjsZu4Y5Ie+9n/rXsRl
+         tp1FNHOwxXK/3qbdz+RXFjrCd5KsksN+9jp77XQHkADS6czLnqWq9xjpm3OdzSU7BjVn
+         P7+PjbFcNheINdfIctUxGqkAI5/TL29Ly3SEsvxmN6RjoBnEN7OTf3StUFNtsV/ycBqV
+         1Wgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
+        fh=PGOZUv/c5BvKN4RC2RpRtxioB1liOA5/JUeT7/wR05w=;
+        b=pcHTbdLIJixc5ikW3F7N836/YgDNdx7t6nHzg4NiZOhWTw9gcJrhBPZJ+V7VJ5fdK3
+         xlSo9C2LJE/74aGjXOD+LE4fqhRhaOWJcaeZzqMJsvpRpu6+Q7Zj60sF7KoMgKt3i6M5
+         vu9U5xQt+GxrC78ORT+JoBkelBvudLzgEapiUSfeef25VdQNBvrU9/iLsMs5QphePpvN
+         uczfzR5yF7sTl9DvaOCul/OPlauODXG1ZjfQu02CbieLwe+fvLr4PJAdiKD9w1J1J7dY
+         E7dTKhIA/SlBO38YzXEJict07xYb+LJUM501Spdl94Zpq3rDSrss0IcGqQtRtqCydZRl
+         ymjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794154917; x=1794759717; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NqiEvNJc2p38Ujj7TawQCPTCe9qdBp/ccFJptwABHsY=;
-        b=ByZKqEY2fqDhKWoL3BQKBZjth+x/iOlR20ruT+hrURNxCRwqYtsum7eZaEhd63rm50
-         +GHBf5keyZIJ8BcMAlMHs7ZqsCdBnHF5w6cKrAqTxfqgHcqd5LZUhSdc/J/1gf4lqQaX
-         5UsxhwT0VO/ynoe2i+sWqm9U+7By9WCmpaY0Lox+wkZPKASr25srJMuEjQHsG6shkRoX
-         zhsnz6GCHInxjthTYMvu7UTKBmUrrtFOAyIO9PXkdTuZBmhEsZGDOJ3mKNTIsAygQd5g
-         Tjq/dCJww5DtLMaK56lq+wtOcBNcgqgy63lXfEQXZnFZTlaw3naDMUuP1VQzT8d77Qf2
-         yBQw==
+        d=gmail.com; s=20260707; t=1794155014; x=1794759814; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
+        b=OUFqK+OWA7ELEgPkf+8E4femfusnhKNmlqHf+d/h6bhYatGYebEWPpy/PvxcaoMcku
+         hIVXl3iGhRGBQfu8nwZ/IQAc7RgK2M+uO5vBWzKLGxSC/d4OnUenrYwGBZM3RkthOChi
+         s9Ca+KJQKwAonTBOWjoVxkT07RpeRMpmjNF1ZiVt4I+PBoknX2zZyJA1pzejDeShQaEc
+         94OdqATBkeKtJrVT4cA5CHld7qJlU+FUEkIDfNiGSSKQgA0VfMFqadOBa2h351G25nrF
+         InLVHKc+PU43ZTTpYshQkb67iBhkJ1ZnTqk+g0SPviVYuZ2ggjvWcr+HY/mKOJlu1Q8S
+         9xvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794154917; x=1794759717;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20260707; t=1794155014; x=1794759814;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=NqiEvNJc2p38Ujj7TawQCPTCe9qdBp/ccFJptwABHsY=;
-        b=b/ymI3GwJ4ersW+oe0nOuF3QvVqHBweWjR+iZWXm/R/VR6XZ4WNh+T0t1gq6aW9MQx
-         7xDIh2lWklwXO9m4V1Qida5L4qXSLcMfBrCbaG0Wgwba2RPOmGJ2Cqb4+xuScnNl0Pmd
-         r0lCdcOUJAzw7T4y0qgJWrBw9341cAjm8gPFVyuM4dJNMqi/1oFjGlBNBdWG0ia3PSUx
-         kDTA6OaqDilYFpQpc4RRBJBrZA1srALv+E8lFhHRbnxvy999Yw/M1RWe2ynhv1IVtjl6
-         Szu4XvR9PTd3Fspn8gKpy3pCXcRA1YaEYGuShAUKvKsWPM7+cDssXt8W902haZT1iNA0
-         diqw==
-X-Forwarded-Encrypted: i=1; AL+hErEMOyF7Y+Q8afL4zdE3H1CcS7bMOVKowK4Kf7BBE2Mnm6d/kh+WIueGLdikvAm4e/05n4jlqn/n71rvB9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9S+aHPb5qeCrxOreBiF05JwgqlSuLpD47w5mjZjhVWJmwv0ure
-	hvgarFmrn7KhOAs7q6Cnciq/v/QZcNyMOP3vpyCxJW4F2qRU3WbrUWus
-X-Gm-Gg: AYBFou1bb6Vxo2YAUMyWp6OM1ZPVWEBkChE5keG6LELPSERuLVO5vh17T6okE6BHg3W
-	EwwtPFVegc5itJu30QcOYWXbmfVBkBK8Oy4KNSBpS3y7QMbIXZXURo+6wpGN/KMHq+L/EUc4p7n
-	pTKau4G3qqSGDH+K2trTAUSidtpMdII6uMTkHI0KAiY0005DO+/MbyObt2eP0mZzFkBFE0jFUrf
-	LzJ4udEwj0fPHGNqfteNfRWGHWgK7lpQ1RBcZUapG9y61qcdP2+X5iN0pVtFV+pKWdD8jZYcspO
-	Cqt0jNzN6sm+/YMp9O5z3LiD8ycE2/IXWtdBiTcR1MASjlXyCWub4lFQf0/+YIU/EK6Q8fJXx/z
-	L6SNj/7ildYxjMACsqtc6NMfRgCXH8xJFO3R+RleMSYbX0ceN3nmw+WXn0Ac1SxqpU6clFM+gUL
-	XbpI/epvowJP4M+xsflu7UPumabfJQL/eaYjFFpFq0FBVgDJw9A8eeAJQvDPFi71qcmkravvSTq
-	EsGEcHs5DmEtfHg8TJk59rlaVGlOPWdUNBJOET7tn/cENcm72wG9w+LxYMARhCqSmsHE9Ux28yT
-	4JX4ySfOfdim65x3uixDkYAkvJTMMLo51hs0FrVXxCHaM+SmHYli
-X-Received: by 2002:a05:600c:3f16:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4b9633cee64mr34051605e9.18.1794154917053;
-        Sun, 08 Nov 2026 08:21:57 -0800 (PST)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7d54d6f93sm272669515e9.0.2026.11.08.08.21.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 08:21:56 -0800 (PST)
-Date: Sun, 8 Nov 2026 17:21:51 +0100
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: Shi Lecun <shilc2025@mail.sustech.edu.cn>
-Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	gnoack@google.com, Fengwei Zhang <zhangfw@sustech.edu.cn>,
-	Bryam Vargas <hexlabsecurity@proton.me>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: landlock: clarify F_SETOWN signal scoping
-Message-ID: <20261108.5b4268b47da6@gnoack.org>
-References: <20261107.2f1fa9977739@gnoack.org>
- <4C69C1457B12AD80+20261108055048.3745750-1-shilc2025@mail.sustech.edu.cn>
+        bh=l+jeaBV1F8PaU18cJisCNk8O0OmFxHipaZWtTUasJGI=;
+        b=twdM9NPybtonLvN9x0zm/eqdAhqSVi1Bo2w3snIQs6HNsBs2FeM5zFk+6JXhOBAY7A
+         YW9X2KzE9VXMPorT5j6gTQk2YD9yWsVOGLeNHmtfhO2fnzSFCU+qiMtziC+19QtK0FcU
+         liaIQ89Iax+gBkZmSnFzY2t3ZQyPNq35jbehr8FrD8uGRyTrl/dmvvejGqDDUenzLssr
+         Y84uyomUmVFJf1sIzKq8gDRLGxmYEIbLH5STpNaen3HSIkeUDlyxy7yQh5ywchK+gwYn
+         p2tZ1M7/Rp56aYzYp+tqdPr3GiNZoaTVAL6KyYrAJQFmzGpXmy1peZcl7fVXP91LRpE6
+         wz0A==
+X-Forwarded-Encrypted: i=1; AL+hErFamA1/RRuY7b9ZIbRj3nRPY28TfYuOMW7KRIFihJn7xntwFdk0I6IuSw54Lfhqks/MDoV8g6WGeVXEC+A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8figaUS8T2bLOANS3C57xSL4/83m7CVodUscqAiEhcUjpMkYbJ
+	1aLmGZpwlF1AWx/AzJXgR1jbzP3iokBHx2r/OQdDYHhukWCRKxIaL5pOMEIrQ2TjMjwDFR3z9LL
+	/RLC28EFCQefEfzd7wWSBj524buWUcoqUij5uHmY=
+X-Gm-Gg: AYBFou0bFYFiiNLTjABDLOhkL5jk4yFmfoZ0Bzoql6uWOte6jI68Sou8g/nOs2n9BjF
+	aEUhNron4u/ZZAqszeaxakJlotP+l4k9BCrJMwFA+nITHWmaBMxjwH+m4dR/OfJItFkJEnzzXFd
+	sDKhyTDmG9EbYf/UCFL9egdH9614y0o3N+aHattgDU9aZFmE9k8qoVIo3zbevIXZ28KerrCt05A
+	VSylRilCRXpnlIlatKn37hzX9pPs/PoTUdWwYRW+ubSolscb8ROxjr8EPO78VrO1MvbgS9rWgl0
+	cMPgyuqA83PONnrQLHZORP10BOx36qGMvdx7xRJ0nrH7klmmycFM8a7UdEYeU/j/zkjqgbQuxqJ
+	CFmIk4xz4DgQPkqr3G/StTw1ydw+34v4vN+sLX2U=
+X-Received: by 2002:a05:6402:5d5:b0:6b5:7d7b:8e9b with SMTP id
+ 4fb4d7f45d1cf-6b7224c2f0emr1191262a12.39.1794155013502; Sun, 08 Nov 2026
+ 08:23:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,50 +101,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4C69C1457B12AD80+20261108055048.3745750-1-shilc2025@mail.sustech.edu.cn>
+From: l I <paleahn@gmail.com>
+Date: Mon, 9 Nov 2026 01:23:23 +0900
+X-Gm-Features: AclHuK9mdZuqrGW00y6ghnPOTpI98t3rq9gilErH6RQdBVw6SGfvsEJSSGJmvU0
+Message-ID: <CALcE18MKy0KbTC=mb0ir-g7g_YaN5AzPS=9MELTW84tyw0JemQ@mail.gmail.com>
+Subject: [BUG] sched/rt: RLIMIT_RTTIME not reset after blocking under SCHED_OTHER
+To: peterz@infradead.org, mingo@redhat.com
+Cc: rostedt@goodmis.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 08, 2026 at 01:50:48PM +0800, Shi Lecun wrote:
-> The signal scope check for asynchronous I/O notifications uses the
-> Landlock domain saved when fcntl(F_SETOWN) configures the recipient.
-> Adding LANDLOCK_SCOPE_SIGNAL later therefore does not retroactively
-> restrict these pre-existing registrations.
-> 
-> Document this boundary in the IPC scoping section and link to the fcntl
-> documentation for I/O availability signaling.
-> 
-> Link: https://lore.kernel.org/linux-security-module/20261107.2f1fa9977739@gnoack.org/
-> Suggested-by: Günther Noack <gnoack3000@gmail.com>
-> Signed-off-by: Shi Lecun <shilc2025@mail.sustech.edu.cn>
-> ---
->  Documentation/userspace-api/landlock.rst | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
-> index 3d45b956b640..cc9c5b102b8d 100644
-> --- a/Documentation/userspace-api/landlock.rst
-> +++ b/Documentation/userspace-api/landlock.rst
-> @@ -499,6 +499,10 @@ The operations which can be scoped are:
->      This limits the sending of signals to target processes which run within the
->      same or a nested Landlock domain.
->  
-> +    For signaling of I/O availability (:manpage:`F_GETSIG(2const)`), Landlock
-> +    checks are done with respect to the Landlock domain at the time of
-> +    ``fcntl(F_SETOWN)``.
-> +
->  ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
->      This limits the set of abstract :manpage:`unix(7)` sockets to which we can
->      :manpage:`connect(2)` to socket addresses which were created by a process in
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> -- 
-> 2.56.0
-> 
+Hi all,
 
-Reviewed-by: Günther Noack <gnoack3000@gmail.com>
+The RLIMIT_RTTIME counter does not appear to reset when a task switches
+from SCHED_FIFO to SCHED_OTHER and then blocks. Repeating this sequence
+causes RT runtime to accumulate across sleeps, eventually triggering
+SIGXCPU even though each RT execution interval is below the limit.
 
-Thanks, looks good!
+The reproducer below sets RLIMIT_RTTIME to 50 ms soft / 200 ms hard,
+then repeats:
+  - Run for 8 ms under SCHED_FIFO.
+  - Switch to SCHED_OTHER.
+  - Block in nanosleep() for 10 ms.
 
-–Günther
+Expected: blocking sleep resets the RT runtime counter.
+Actual: the process is terminated by SIGXCPU.
+
+Reproduced on Ubuntu 7.0.0-38-generic (x86_64).
+The missing reset also appears present by source inspection in the mainline.
+
+Example:
+
+#define _GNU_SOURCE
+#include <sched.h>
+#include <sys/resource.h>
+#include <time.h>
+
+static long long cpu_ns(void)
+{
+    struct timespec t;
+    if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t))
+        return -1;
+    return (long long)t.tv_sec * 1000000000 + t.tv_nsec;
+}
+
+int main(void)
+{
+    struct rlimit limit = {50000, 200000}; /* soft 50ms, hard 200ms */
+    struct sched_param fifo = {.sched_priority = 1};
+    struct sched_param normal = {.sched_priority = 0};
+
+    if (setrlimit(RLIMIT_RTTIME, &limit))
+        return 1;
+
+    for (int i = 0; i < 80; i++) {
+        if (sched_setscheduler(0, SCHED_FIFO, &fifo))
+            return 1;
+
+        long long start = cpu_ns(), now;
+        if (start < 0)
+            return 1;
+        do {
+            now = cpu_ns();
+            if (now < 0)
+                return 1;
+        } while (now - start < 8000000); /* 8ms */
+
+        if (sched_setscheduler(0, SCHED_OTHER, &normal))
+            return 1;
+
+        struct timespec sleep = {.tv_nsec = 10000000}; /* 10ms */
+        /* RT runtime should reset on blocking sleep, even under SCHED_OTHER. */
+        if (nanosleep(&sleep, 0))
+            return 1;
+    }
+    return 0;
+}
+
+
+
+Best regards,
+Geonwoo Ahn
