@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794137508;
-	b=hsLxFH0med1HYHNwGOS7ZoPPb8cdrdO9KWIyFcl4LxRxrK7IRyyZZeY5IslU7GOz8wOp
-	 y7rosKls3zyg3FWg0OIWRVd1SX4K9VM3fBAisNZ+WsT4bSOOS+hvJNOBnmbx6isueXApc
-	 ZhMW5ilChi5iaYALONDSAPGSxj51MAH0YKGYl47/HrLD5XMG6iollfqUqKmqhuFVwPxOp
-	 j++AcdHRtqZmV4wB2jrEyKUOqigt9DR5uhTfrLYVNh8aNSoQYvxTNIyPu8DTEl7lq4umX
-	 JOdtQJfOybzZGC5Vr1pQMNXm/wTlAnNCV8Mv4bXnpvLsOb0Gb1XLfk9OKRd7GrllIog==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794137508;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=KRL+3tegb75sy7FkitCyQ9xbROLrywZN8vIUkPBp9iQ=;
-	b=NIrZs9hwnXpEn76lVWaqpbmwKzD63bTxkwhBLSbI7j83W5ZScSYAFwyM/h24OrHkEL6v
-	 pzc/NzUma8Ap+pYVsxh35U4BEJxYr9xqrDEbQXi8ZvtgiKK6NAd24w5rMmD6hsShqGxj2
-	 wkO2Vg7tv2z2gh/mGPScCtwbwVeG+1VFCxMG+l4Wv6WMkW2PaDxNyLDcNgGrMBzo0kk+5
-	 NmU/ujoJUsRcYHyXbAfuVd/aON7nd3hM1Rqyu6dSmztKjVMl9ukA6huccJqb78Skl+e0y
-	 sQwFC+v7zjUnaid+D1YVdZ+5h/9Z4rfLLjMEseaNis1HyHJYdxJThJ73MR0Pq7RNFwA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794137682;
+	b=V5EieBHukdttAvnipqP9gI50PN9i1TKApWjAwPU+ELNmyh2y4MP3naYDV71vekNS/cLy
+	 OJ3kqFLSSDWXcqSAhfnqm+DhXBjfgmyL1wjBI6I20mn8i197su3WqlTatk32cTeBRcIz9
+	 94fIMhBH3F6+HbyE1s2l6KW+FCrj2d0PFuYVzeViTRRvRfV92RqKwquFrb4h1w7s5Hf4X
+	 rOI5NZjiIpMFeXF4vadxh7A4EFbRauwfrzhv+S0vfrS4YDxxd6lU6eCu9wF1IQqqNzyrf
+	 Y/f6mSmriQcT25bEzA+wBNLCfZahVocMOR2QT46SNTW7R1Tnz5+9JBgHq1aAq3rlc9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794137682;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=Y1BqCg6FQT1AjtUzsLTaBZc+kZ81QLlrLa48MgGSidla6V8uYGPVruTSpDiXB/8QnadY
+	 hf+pVHBL3RTLqB2zk3MKDNyHtw7zQepY5xURKNOYXTPd8KCawJJClnWvQp3X/B3cksyq/
+	 KD6pS3DtS8YDzM5FJZ7sFjS3eOm9+j9JC5HlL5T7WBHCrGRfEaThbj0UH97xblU6q60lT
+	 TLtXSAcj8hvBeDuUHLbgLO3se+b0Ufm4XthwZ1jrriHvoPE4wvN1+DHKb411W8hYGOrIa
+	 6Std0Xel/OOPy8qzYxatKZ9HJonYgwzSEi9JojllB2BZVkOL7iVaiNhmuMShJjVjEow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4phKShs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8C5606A31C;
+	Sun,  8 Nov 2026 11:34:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4phKShs
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794137681;
+	b=NM9Fi8rrt5YNCNf/OeifaEVDn+bqb9ZcADo5hZrDeK9AVFO4YDlrOPREZg32BV8l9nZE
+	 AxHKX+3Op89XpxAa2zNps5XUMVytr4FtSUgEvJ9UkmphN0L+pUVqWan6Iz1YIC8aRpV0G
+	 vcOoY46ROdv8182Ht6BPF7PDul/vgJfY4wgF8njewmGUFuGSLj2kCr2L5uVjQwFRKyx0a
+	 PA81T0m4HJ1DVzEp6bNhekcDcTlinSMHz7dMILUDcjv6TU4rjF3uuVmuV7jBIJooiT0cF
+	 1OMUGb2I5YFBUpv67Es87J3b2E2/EJwy9nyAlTRpKNXzsVOcw31FNHfhBn2k7f9kPhg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794137681;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=S4U84FbJMTwHtvp8jyw/yToMoHC9EMp42lJH1YFIgDZsiLpW5lRaQ9Sa4bwSoK6E8v1C
+	 xO1f3i9tnTUoYZ5SwirkMqPntc9AAVmVsow9YuYTJEtHFjYZjiS6PDQLbs5p13rRunN2l
+	 ge9auoGqX6ZwAgqzv7xTXILLKDShLhIppP4UcGtlvIo+bdi0qlCkRr5/1qwkgEhdZjwN5
+	 c74qksvxTHCuINXoK9gASI9WcdVXGLSMs7gIU0zFvAgOfiuxo0CLSvfcclNuDj5B3M2SZ
+	 AjRDuo9QfUULV/MWyAItqYAgbxClinEJwPzU8QkF5dkwjWKqdKvnWqVJ/btCZuLuyzQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA03606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:31:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAA03606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c467e19391so29115b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:31:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794137507; x=1794742307;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KRL+3tegb75sy7FkitCyQ9xbROLrywZN8vIUkPBp9iQ=;
-        b=fgGiPV3RQCmjNrMBt1YddOEImwKJqc2E4cr8S52R70ldvUleptJ5l4+w3Q2XTEKhSF
-         jTVAebEybyOhgAvLTYi3/7YK2aN2mSZEPRZNx2S+3KZ3NvPW3f85OY4YMAsd/NiHR33n
-         LY10p+PLGj2CLhwRDhCTGRfew1IbYwORQHiEpqJk8r3dyeSSSMt83zWR+KWPXpaHB0N5
-         HQOm4gR8g2j6oifWRbeoAJy8vgymuXvsgf8d+XaQwY9smXfp2DjxEiHryTGDdMIYhelZ
-         Kw1x3mfBZnTqtAnustEwg62Wv1gJPACStHpki98KjRxM0RcuwI/d+VrrmDFYfUH+bvJR
-         uYbQ==
-X-Gm-Message-State: APuU4Z9RTRgnbluOVt49tX8m6cfCaLj80Z5q4rQc3kTidQtswOWejFhO
-	Q01728MPLnYpc4lRAmcky/e3UcAKKNrfaEpBnf7JtX8chXx1M/yI2rnk4s3iA3FlDtdqMbUSVmn
-	SULuYnSa+P6v8HejTQ5J63eIfFhN0N5XJg24n6q+QU3K5+CLjH+3ElR/QK14=
+	by smtp.kernel.org (Postfix) with ESMTPS id C4F921F008A3;
+	Sun,  8 Nov 2026 11:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794137681;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=N4phKShsnuVPT9bSG5HGbp2ly6lelu5KmPLmwis51hHqeczdww7dQTm2pe2KM1MGz
+	 xEiJVK+JKfQbvkIU/YbotXTRisgQrM4BQfbLtkjzXCqDMGFRlWQL7PuugFxSlQcSd1
+	 cwSRkNg80/7obgLeEcTgXpplOBBGdjYoYAj6n1+fgIDacNvuSC30wTO32Zrx+xKNfh
+	 +yuVH5hRhFe/gOUeDyoKHd+g+LKLZEbe06soPoZ6NBwbyHOpADdQxU2O6CQDwre4Kb
+	 8eo3RpA3ytWTCelDA35CDC8sw9JF6dDz7YL64a0fkmKg9fW+brDERPe/oHpyBflrXw
+	 BddJW6n24qnZA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4BAB247F15;
+	Sun,  8 Nov 2026 11:34:40 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Sun, 08 Nov 2026 19:33:30 +0800
+Subject: [PATCH net v8 03/10] can: rockchip_canfd: retry the outstanding TX
+ buffer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,27 +83,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6809:1c6:20b0:568:185e:e69 with SMTP id
- 5614622812f47-568185e0ec6mr293457b6e.13.1794137506769; Sun, 08 Nov 2026
- 03:31:46 -0800 (PST)
-Date: Sun, 08 Nov 2026 03:31:46 -0800
-In-Reply-To: <6a8c5208.dbb3a75c.7844.0005.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af05da2.f50b2b3a.2c0de7.0008.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-rockchip-canfd-restart-close-v8-3-3e7a23fd9eae@qq.com>
+References: <20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae@qq.com>
+In-Reply-To: <20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: Cunhao Lu <1579567540@qq.com>, linux-can@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794137678; l=1735;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=mAdiDJWuUPvQyM82hTpk52wGLUSpbq2jpnpY6emM93U=;
+ b=5PD3i2rXvndHL9umpnZZAsui/1VjENqN/gRejX7O7unl+AadS6RIjqskIrEeKTbuOi2Z5U+n+
+ V5DughzQwSGAMzCZBZhEjnvCjwIxOfZtZl3wXwGzioCjFv+ItgjAm8I
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+From: Cunhao Lu <1579567540@qq.com>
 
-***
+rkcanfd_xmit_retry() uses tx_head to select the buffer for the erratum 6
+retransmission. With a TX FIFO depth of one, the masked head and tail
+indices both select buffer 0. With two buffers and one outstanding frame,
+tx_head selects the next free buffer instead of the pending one.
 
-Subject: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
-Author: gbughunter8@gmail.com
+Use tx_tail to retry the outstanding buffer. Otherwise, the pending echo
+entry can remain incomplete and leave the TX queue stopped.
 
-#syz test:
-https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-62aaeae
-main
+Backports must include the preceding TX serialization fix or equivalent
+synchronization. It prevents completion and retry from observing a newly
+published head before its initial TX command and serializes the
+MODE/CMD/MODE sequences used by submission and retry.
+
+Fixes: a5605d61c7dd ("can: rockchip_canfd: enable full TX-FIFO depth of 2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+
+---
+Changes in v8:
+- Apply the retry-slot correction after TX serialization.
+---
+ drivers/net/can/rockchip/rockchip_canfd-tx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+index caa71cf8e39a..8998b7855d15 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+@@ -63,8 +63,8 @@ static void rkcanfd_start_xmit_write_cmd(const struct rkcanfd_priv *priv,
+ 
+ void rkcanfd_xmit_retry(struct rkcanfd_priv *priv)
+ {
+-	const unsigned int tx_head = rkcanfd_get_tx_head(priv);
+-	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_head);
++	const unsigned int tx_tail = rkcanfd_get_tx_tail(priv);
++	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_tail);
+ 
+ 	lockdep_assert_held(&priv->tx_lock);
+ 
+
+-- 
+2.34.1
+
+
