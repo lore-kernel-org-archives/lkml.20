@@ -1,66 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794122308;
-	b=XhGSUtNO7gpZc/xcPAK8Y+b0K14JyKFcZQEzmnx+FiUHWXVG5MoI+IwLU2pe+q2GLE8y
-	 MwM0l/xGhBStzhXMI/envhR0u3OwUdw7lIoCJaYosfR70mlJHtnBN42nQeHARQ8BwkEnW
-	 z7QFCV4vJxDimSWlAkBCFZHWnQetV63rDVs6NtO4CYX2gNV4nUJYRbROYYp3Gjn6pLGhH
-	 dE5xPb8rn707VEQJMLXuWT+IkMEpwnfQ7MPsYpe3HUpj94w6mko2zBKryXWkVVCkMO8Zg
-	 AkZP3mR18EQckATUOBaP/J2IcGSjzfEs2GgwcJA4SgrYEw4KRYMf+WGbFCBKT5ZFk3g==
+	t=1794122332;
+	b=e65hNrxsVbOaezji9VbiE9q7TfGDTsaTT+fVh1Gnfftbg9dpZG9Kf27tx4JKRVFqj2Mc
+	 xrJF1pbq+4EaqyfegAPEi/j/kSvcIRJTIUIdP8fRNmQvInj2BRjIdaW6gejwpUBPtC/t7
+	 bz7j6EgxDw8VFyecjdxEtcjLs73dhw+TkkJ5rqvnVu4FQsYXrv3BtBuhXfwRyP+M+aXFI
+	 54DZ+gSKiK0RSW8lr/86uVQTqZvTp49ruB54ZUIbbCkdcpJH/T9VdmVKIPrAqH/gu0ONR
+	 CKDRR8L9M7sbQRZPsdy7CCnpN2HepHj8WR00qtBDAUhHTW1wVFN/b5VthZ5oT7hhXMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794122308;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=rp00DiKSxgo0zNtK24eQEtuDxTngsNsV2eHoN50n1pY=;
-	b=2eJ8oO0WtIas41H+RSP9DLHaK8JYVJ3Qa2I8ufv1pEUmY7clIEr3BYA8Mxcfdlw1pxer
-	 NH5V3oYSqQR2qH1gdz8BjL6dE0XsFbvyXRaEeYwpUM8PiOrG+lRo/1GQtMAlRLFpbPKrG
-	 mU1Uch5sELG7Lt6VKT9+BmAKutCoA2tVhmhT5g5nMl4/cl2619AJ3zoBPfFU5ZPjDhd7n
-	 SBRG5yEPgkBKtYcieItQU5uS/T5uibRcGYqSE64qdoJRI8GrxSlT1Q+dliOYnIqXITg9C
-	 cbeNP5QOZc1ctOQ5kVVBwmH4Oy1HBkAH6Rp7+tTkQCwwIErrCltZlwpDfankFbvfeOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794122332;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=o1AfnpvDOdIlxUV6w1EJOtOgU3PvW3osh1278II251U=;
+	b=BywyLb+S++5OlowygINMGS7IMgPTbPkT4YCbzPPJCLHUJPH9jn0/1ujVVa89YQ9rxTXQ
+	 i1g9R8ElFv6pL7J1VnpbnvLP4HKiKM/ldpK0UuxmfmaPV/xL3t83s5t7NFLYJN4OOsgVI
+	 BMLIIPnkUPCKtd2ZoYoQ6yS+MtrPsGDxdYfjgCsRNiOsMiZwKrWYkQvpHLztYya6CgtUM
+	 dJYTpDXMSpJFlgYei0sIZiupS+aa2hqdMkO/GdF9d6fLHrCdkqj3jJyIKgZU+qm7tjcoJ
+	 asKO47huboDpp/IQoDLx5ehQftEyqTfwFhpHIH5FiTvPUF/RKPGu/8ZmtYfkyTZgWiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH1l6BqP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990B0606A322;
-	Sun,  8 Nov 2026 07:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH1l6BqP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D111F008A1;
-	Sun,  8 Nov 2026 07:18:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794122308;
-	bh=rp00DiKSxgo0zNtK24eQEtuDxTngsNsV2eHoN50n1pY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bH1l6BqPf0NPLte0hdP1howIC+6VwVqzOWf8WeOFz/Rw0OhK07gIlCHCZH5AnicOF
-	 kB/NDEfmBHsEl9Mk/d6+2UHpqTziFmT/uhz5Xh/tZjjbSa3AtAe2obdNf8O7gg4wgd
-	 M4uCrouUoNZ0d5ATNHjihFfg6chwpWVWLxvfzbIiaXYi/D+EtGIqNwxkpMs9q2s6CE
-	 P3a2rPh21qW/Wr/9TR8loAAAyYn1PNfoLUOMrO41GWqDEpTOrWwkDMHJgDfeDHeyC0
-	 Ytp9rzwE/av3YJEZt7kxUBmNxQi3+vA9zQe2Ex4ogfGjXbe4LEonZwHqRRnOOEWh++
-	 CtTaNnMwl1t7w==
-Subject: Re: [PATCH net v5 3/4] igb: do not split AF_XDP zero-copy frames over
- several Rx buffers
-From: netdev-bot+sashiko@kernel.org
-To: tkusters@aweta.nl
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- sven.auhagen@voleatech.de, richardcochran@gmail.com, kurt@linutronix.de,
- sriram.yagnaraman@ericsson.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- maciej.fijalkowski@intel.com, p@1g4.org, stable@vger.kernel.org,
- piotr.kwapulinski@intel.com, aleksandr.loktionov@intel.com,
- alexander.nowlin@intel.com
-Date: Sun, 08 Nov 2026 07:18:26 +0000
-Message-ID: <179412230633.994134.8603408637757773209@kernel.org>
-In-Reply-To: <20261104-igb-rx-ts-fix-v5-3-bf4b4367129a@aweta.nl>
-References: <20261104-igb-rx-ts-fix-v5-3-bf4b4367129a@aweta.nl>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BDB606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:18:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40BDB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jMkmT3Tq7z5BNRf;
+	Sun, 08 Nov 2026 15:18:49 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A87Iekl022379;
+	Sun, 8 Nov 2026 15:18:41 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sun, 8 Nov 2026 15:18:42 +0800 (CST)
+X-Zmail-TransId: 2afa6af02252fd4-686a2
+X-Mailer: Zmail v1.0
+Message-ID: <20261108151842879F_ON2AUBnuh5imOx8oZ1w@zte.com.cn>
+Date: Sun, 8 Nov 2026 15:18:42 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,157 +56,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <lee@kernel.org>, <mfd@lists.linux.dev>
+Cc: <tharvey@gateworks.com>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvMl0gbWZkOiBnYXRld29ya3MtZ3NjOiBQcm9wYWdhdGUgSTJDIHdyaXRlIGFuZCBzdG9yZSBlcnJvcnM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A87Iekl022379
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Sun, 08 Nov 2026 15:18:49 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF02259.000/4jMkmT3Tq7z5BNRf
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+The GSC regmap bus wraps register accesses in an I2C retry loop to work
+around a chip errata, but gsc_write() throws away the result of the last
+transfer.  Every write through regmap therefore looks successful, and
+gsc_powerdown()'s existing error checks can never fire.  The powerdown
+sysfs attribute has the same problem on a smaller scale: it ignores both
+the argument parse error and the value returned by gsc_powerdown().
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+1/2 returns the last transfer result from gsc_write(), so regmap_write()
+and gsc_powerdown()'s checks start to work.  2/2 returns the kstrtol()
+and gsc_powerdown() errors from gsc_store() instead of reporting a
+successful store; its gsc_powerdown() error path is only reachable with
+1/2 applied.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The patches apply independently and can be applied in either order,
+although 2/2's gsc_powerdown() error path only becomes reachable once
+1/2 is in place.  The read counterpart in gsc_read() is handled by a
+separate patch and is not a dependency here.
 
-- [Medium] This patch makes igb_setup_srrctl()
-  (drivers/net/ethernet/intel/igb/igb_main.c, around line 4842) program…
-- [Low] Two new comments in drivers/net/ethernet/intel/igb/igb_xsk.c
-  contradict each other.
+Shao Mingyin (2):
+  mfd: gateworks-gsc: Propagate I2C write errors
+  mfd: gateworks-gsc: Propagate errors from gsc_store()
 
---
+ drivers/mfd/gateworks-gsc.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-igb: do not split AF_XDP zero-copy frames over several Rx buffers
-
-This patch programs SRRCTL.BSIZEPKT for AF_XDP zero-copy rings with the
-same 2 KiB or 3 KiB buffer size as the other rings. Before, it used the
-XSK frame size, rounded down to 1 KiB granularity. It also refuses XSK
-pools and MTU changes when the frame plus the timestamp header would not
-fit the XSK frame.
-
-Link: https://lore.kernel.org/all/20261028083344.3047350-3-p@1g4.org/
-
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index cf9911137bd31..b286adedad5df 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -4833,9 +4833,13 @@ void igb_setup_srrctl(struct igb_adapter *adapter, struct igb_ring *ring)
->  	u32 srrctl = 0;
->  	u32 buf_size;
->  
-> -	if (ring->xsk_pool)
-> -		buf_size = xsk_pool_get_rx_frame_size(ring->xsk_pool);
-> -	else if (ring_uses_large_buffer(ring))
-> +	/* SRRCTL.BSIZEPKT has a 1 KiB granularity, so programming the XSK
-> +	 * frame size would round it down and split frames over several
-> +	 * buffers. XSK rings use the same buffer size as the other rings.
-> +	 * While XDP is attached, the receive length limit keeps frames
-> +	 * within the XSK frame, see igb_xsk_frame_fits().
-> +	 */
-> +	if (ring_uses_large_buffer(ring))
->  		buf_size = IGB_RXBUFFER_3072;
->  	else
->  		buf_size = IGB_RXBUFFER_2048;
-
-[Severity: Medium]
-Is a receive length limit always in force here while XDP is attached?
-With 2 KiB chunks and the default headroom, the XSK frame is 1792 bytes.
-BSIZEPKT is now 2048 or 3072.
-
-With VFs allocated, igb_set_rlpml() leaves the global RLPML at
-MAX_JUMBO_FRAME_SIZE. Only the PF pool's VMOLR carries the limit:
-
-drivers/net/ethernet/intel/igb/igb_main.c:igb_set_rlpml() {
-    ...
-	if (igb_xdp_is_enabled(adapter)) {
-		pool_rlpml = min(pool_rlpml, adapter->max_frame_size);
-		if (!vfn)
-			rlpml = min(rlpml, adapter->max_frame_size);
-	}
-	wr32(E1000_RLPML, rlpml);
-
-	/* the PF pool's VMOLR is used on these MACs, see igb_set_rx_mode() */
-	if (hw->mac.type < e1000_82576 || hw->mac.type > e1000_i350)
-		return;
-    ...
-}
-
-e1000_i354 is greater than e1000_i350, so the VMOLR write is skipped
-there. igb_probe_vfs() only rules out VFs on i210, i211 and 82580, and
-igb_enable_sriov() has no MAC type check.
-
-Take an i354 PF with VFs and XSK zero-copy active. Could a peer that sends
-a frame longer than the XSK frame make the NIC write up to 2048 or 3072
-bytes, plus the timestamp header, starting at chunk + headroom? That
-would run into the next UMEM chunk, or past the end of the last one. It
-would be up to 256 bytes with 2 KiB buffers. With 3 KiB buffers it would
-be about 1.3 KiB, for example MTU 1600 on 2 KiB chunks, which
-igb_xsk_frame_fits() accepts.
-
-The igb_xsk_frame_fits() checks in igb_xsk_pool(), igb_xsk_pool_enable()
-and igb_change_mtu() only compare adapter->max_frame_size against the XSK
-frame size. They only help if the MAC actually drops frames above
-max_frame_size.
-
-igb_clean_rx_irq_zc() passes the descriptor length to xsk_buff_set_size()
-without checking it against the XSK frame size. The later patch in the
-series, "igb: drop AF_XDP zero-copy frames that span several Rx buffers",
-only drops frames without EOP. An over-long frame that fits in one 2 or
-3 KiB hardware buffer has EOP set and would still be delivered.
-
-Before this patch, BSIZEPKT was rounded down to at most the XSK frame
-size. Frames were split, but the NIC could not write outside the frame.
-
-Two hardware details could not be verified: whether i354 silicon exposes
-SR-IOV, and whether the PF pool VMOLR, which is never programmed on i354,
-limits the length anyway.
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
-> index ce4a7b58cad2f..fb04df82272ac 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_xsk.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
-> @@ -91,7 +91,20 @@ struct xsk_buff_pool *igb_xsk_pool(struct igb_adapter *adapter,
->  	if (!igb_xdp_is_enabled(adapter))
->  		return NULL;
->  
-> -	return (pool && pool->dev) ? pool : NULL;
-> +	if (!pool || !pool->dev)
-> +		return NULL;
-> +
-> +	/* the MTU check in igb_change_mtu() does not see a pool on a queue
-> +	 * that was hidden at the time, for example by SR-IOV
-> +	 */
-> +	if (!igb_xsk_frame_fits(pool, adapter->max_frame_size)) {
-
-[ ... ]
-
-> @@ -110,6 +123,10 @@ static int igb_xsk_pool_enable(struct igb_adapter *adapter,
->  	    qid >= netdev->real_num_tx_queues)
->  		return -EINVAL;
->  
-> +	/* igb_change_mtu() keeps this true while the pool is bound */
-> +	if (!igb_xsk_frame_fits(pool, adapter->max_frame_size))
-> +		return -EOPNOTSUPP;
-
-[Severity: Low]
-This isn't a bug, but does this comment contradict the one added to
-igb_xsk_pool() above? That one says igb_change_mtu() does not see a pool
-on a queue that was hidden at the time.
-
-igb_change_mtu() finds pools through xsk_get_pool_from_qid(). That
-returns NULL for a queue_id at or above both real_num_rx_queues and
-real_num_tx_queues. So a pool bound on a hidden queue is not checked, and
-igb_xsk_pool() can later drop it from zero-copy. The commit message
-describes the same case.
-
-Could this comment be reworded so it does not claim that igb_change_mtu()
-always keeps this true while the pool is bound?
-
->  	err = xsk_pool_dma_map(pool, &adapter->pdev->dev, IGB_RX_DMA_ATTR);
->  	if (err)
->  		return err;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104-igb-rx-ts-fix-v5-0-bf4b4367129a%40aweta.nl
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
