@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169480;
-	b=jsXL65IkAWX0ck5Y89fWWqNmOFc5NDmvazPx17+OEd1oBOmKpsgX3FRn7WvZx3eDZIvn
-	 38DrGo50tnZPK0fyk6imAl99XYpZQdcF62skRbzaS1YljOYZzggIBNAQIuCce8xaoDOsn
-	 mZztnjZZT4mGVhPa5tyPu2EJz0o8lnEVozSpI6rxcaURZbGOQZH47PU96votwObPfhGO+
-	 MDtSAtqKL+6khoSOt2eOkgENn0/DFuTW5xk0yVoILzx7kdOJ3Ab0FKL9AxxqPANMwtCoO
-	 /VPyenc2wm4QR83aFBzfoAA4+MGLfUVtS1KDh60V6lchccxsqDq5JAVSoX4Rv1EwNjA==
+	t=1794169458;
+	b=Apl35qP1GH825CUYD3+/37k8pwZRBVv45bFldQao/s78JhK65hF5lBzknBA/jz1w0ZPl
+	 FUUkVhEGl+6Xq9wU+5Fxx/0LQMPzm+TbhrpDT5xBKuindJWmCbppmnwCBByxPM+v9b7RU
+	 0CD6FLIfjo9J32LwNo5QFXc4s4A28Ryxxzg0kmL9qt/0fy41H5TpRXaC5ZEOE8D6x0BoA
+	 LIYNmkQJ0EzTGtqzMeVd22AcJ5ZtAPnIBcGyAnaakk92EO0mW+Fdc0DJCixUFQEguWnPX
+	 LNBkLZtDSnm+FEF8oAKOHBPsJ/D0gDG8aJTLIy4AlpH9dOJW+EZedQM8NCtebUYsHiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169458;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=GfvYLsTHz3/l6HskiI7P/bM0T6VoeKCGPimmsCzetPM=;
-	b=jpAjOUCY2LNrYK/KHzAn9YvlpiL0yNlUQOSPvAoBZVmw0aD57cyq1OHLrpJv7J+ALMc4
-	 BT7TlqvLdKqiW2Bdz5KOVhxwi1QXPQZXi49H0dJSZUytAdg7MYGJtKu4f8xl/ZwseedoQ
-	 sVYz4PukMLjduojIsgYYoSvHF3h5kRYZ0ypGq2kxCRmIVKZoGTVLianZN1xoJed+FJmGL
-	 ozXtQ7QIz/F++4ho68y9ilx6JoHDXYF9M5K0FuODAEBD4Uqe89P8d+++BVgjRcvrSCS7i
-	 M8W9u4jDk1m8eAA7sjHGOEnKJ7KFbAYaXvAgZSt+G9Q3o/Svwn1fDplXVq73WIE+1VA==
+	bh=knsOuQxv7z99zN/nJ0HIhzuTCBqbTWFDFKW1SjAZuZs=;
+	b=kaeAmqSeD/EiWpHJD27f+vfulYoCdUJDbzNie8+nXEokWbZ8UD0o6t8iA6XvgNfXMS/W
+	 53hj2p8Y8MW2XHTE/MNI7K6joZ2sN98HQGYFTmbSY9iD157BxbCo04S7QHNuL1Z63KIYy
+	 D2Bv5fHX4aeHXw+TEHbEfm4zrQNEykZHUfDjxL9SpADgIJB2P7A6o4gWZOIUjvZuaNpxo
+	 0kFWCSwMIFuswner7177GTO4MDao6A8bOIK7cOczpaqcJ+jgz/5ovqiRGi9tmTwYRKpKU
+	 i/XmpUICIf9U932F/HfcBDtGaZj4c1GV/ViacRKwsXDzUsfBxKr6yESt5Nn2dCwBLKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xy4R28FC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cy862oaQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E099607E485;
-	Sun,  8 Nov 2026 20:24:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4FD6078AAC;
+	Sun,  8 Nov 2026 20:24:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xy4R28FC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033B21F0089F;
-	Sun,  8 Nov 2026 20:24:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cy862oaQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DB91F008A7;
+	Sun,  8 Nov 2026 20:24:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169480;
-	bh=GfvYLsTHz3/l6HskiI7P/bM0T6VoeKCGPimmsCzetPM=;
+	s=k20260515; t=1794169457;
+	bh=knsOuQxv7z99zN/nJ0HIhzuTCBqbTWFDFKW1SjAZuZs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xy4R28FClJpA1TsKuWRv3sn8Bk00uG0kg8aUPf0i91OpjyOMi9dqNc1bNkzMJ1N40
-	 UqGJTGmZf2P9CzrZjS8Ptg+g5brdAfFW/refwO0ytpNOjdLJAYrorNwNUvEXlpyYdC
-	 TCHPmcMjUut+F/zo0j2TgjbiCiec/+vP3Bw6FGrHJ1xrpIjSRzMsbLEtnzf2BZ7Qgd
-	 59CVF3pRzHTaPJzUv3GEvey4J7AxRWiSOMXDPnYQghSFhVwBPCfCz7TRwtUkiqwz7d
-	 DtbHUdn4JMTYAXehN/NIi8x4z3K8K8G9nOxnsuuw/5roTUKjc32cs9lJJ79A3d0eGO
-	 5ui7TLMfUbPZQ==
+	b=cy862oaQh2lmv155w7/OG65SVVO5XDSgAgwLsZxx7z7dAVSED2hpZcdiaYvMNDvmu
+	 YvM91WN43UmRzjZWe9WkeBW+ojd/uG3jyn/iDMhNrHU1LThjcE2HW7pib5/7rVxx++
+	 TitZ7dKS4Y3eBpRWxX8Ms7p0UET+vMfSn//tXAjouPsxZLgKzuVm8rYL6OfFbY0ueO
+	 RaaZygHKOuZHu7QJZnRLnpXuhzFQyPnFnvkytm0mbnyj3aKhQCk5BuBDwfUB5DCbFf
+	 leFjH+0NXOF2vQ2BGwF1rOBbsqR8nlijtyBvRCBgcSHJCeelptGH7JC5Clo5DSeZ3o
+	 w/3swHXE1Fj9w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Georgi Djakov <djakov@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-	Pushpendra Singh <pussin@qti.qualcomm.com>,
-	devicetree@vger.kernel.org,
+	Abel Vesa <abelvesa@kernel.org>,
+	Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Arpit Saini <arpit.saini@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add BWMON support for Nord SoC
-Date: Sun,  8 Nov 2026 14:21:10 -0600
-Message-ID: <179416929256.628393.9310772869242339111.b4-ty@b4>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/4] arm64: qcom: dts: Add display support for Qualcomm Shikra
+Date: Sun,  8 Nov 2026 14:20:53 -0600
+Message-ID: <179416929287.628393.5571647288691112633.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924073222.1000666-1-shengchao.guo@oss.qualcomm.com>
-References: <20260924073222.1000666-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260930-shikra-dt-changes-v5-0-8eaf658a0e38@oss.qualcomm.com>
+References: <20260930-shikra-dt-changes-v5-0-8eaf658a0e38@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,28 +72,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 24 Sep 2026 15:32:20 +0800, Shawn Guo wrote:
-> The series adds BWMON support for Nord SoC by documenting the compatible
-> and adding DTS nodes.
+On Wed, 30 Sep 2026 16:45:10 +0530, Nabige Aala wrote:
+> This series adds display support for the Qualcomm Shikra platform.
 > 
-> Georgi's Acked-by on the binding suggests that we can apply it via
-> soc tree.
+> It introduces the Qualcomm Shikra MDSS display subsystem support
+> at the SoC level, and enables display on the Qualcomm Shikra CQS
+> EVK and CQM EVK boards with the required DSI panel nodes.
 > 
-> Changes for v2:
-> - Fix "reg" length to be 0x500 for all three bwmon nodes (Thanks Konrad!)
-> - Combine bindging and DTS as one series
-> - Link to v1:
->   https://lore.kernel.org/all/20260831090134.585588-1-zhangfei.gao@oss.qualcomm.com/
->   https://lore.kernel.org/all/20260922080416.484280-1-shengchao.guo@oss.qualcomm.com/
+> Dependencies:
+> https://lore.kernel.org/all/20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com/
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: interconnect: qcom-bwmon: add nord cpu-bwmon compatible
-      commit: 829c6f29642d0832af2aef566f9f2078a9100027
-[2/2] arm64: dts: qcom: nord: Add bwmon node for Nord
-      commit: 82e95d1e9dc0afa36b7fad6bf93445b76fc23446
+[4/4] arm64: defconfig: Enable ILI7807S DSI panel driver
+      commit: 2aac58ae1dcb80a0eac632c268f1b3462f150fe7
 
 Best regards,
 -- 
