@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794166399;
-	b=poApqM26FekY970JGgVmOZY4lY0RImylwyvQUPmIo93w2VPf/cV6J7fgWussWCwzUNKt
-	 1uZMP7q2xIXMtmxEIDP16Jr3jF8Vxi/wflABCz5rQeTdYYSfI0h3LasFTx9KaXtOVPLb3
-	 vVvHkOLkeMz/n/gxsAJfX/6FtDJupvNP/suOichfEInXMCKWHLPta1mh4w+OLvjAE0pI3
-	 8aZzHoevJyYxMWK1+3f47WfQUiUnCsROauqTuQvNrD8YLaI/GmzZ13oW1/SXjyD9skXR8
-	 DMKA0T3f9Tg+75CjzMeO6t+xQQflxVJhcB8fFImOfFEDgYcAjVqttpZXAtgfFqWeKoQ==
+	t=1794166405;
+	b=LDy/nIarxAlrmiN6WHlkHbW2nAcKXv+dAkXyewHosEECmXC444SEYVJqoGYaaqBuOVgH
+	 FkVZJj4osF3n6z97qNOZlRaE5zpyjV0S8JFf6n0sLTl4O9wxkwUAwVok19T5IrKPvHr/K
+	 GTxZ5RR0VE/y8UD3dekeu5v2e9Drqs2Xf4msHlDhn20GxsKwPWBZzu+0lXf9yVXuLeles
+	 03rxCJVBfFmgQPS0lPeQH6llM2aooW08IJBjBxF8WBobEEDBc6EgLRw5UI5ZZqz+ZcTQq
+	 43LNwJzGLOomZN0O7XY9wGXmUs+N3GzSvIGxOUtMb93uNt61erPaMBAvFJXJM6vDMMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166399;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794166405;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=RN6tgwL6B1vPW3b9gCBznsfhVUtrE6LF+pImFI4kNIg=;
-	b=gBwRmsWkeXRJwtwD1VeceIO1uRSPHtRs7yJiyg1H0Yk5JK3AovokuQFlha18cK6/5pdn
-	 cd6EnZXELRVvEM3QPqMRRarJItacTrjv96hTxNzFJZqsmWw1iwmV7eJR4CpPLL+dF6IQ+
-	 l3zp0KxL+LV8X88WTDLmBqmkiYyRlksSW+f44A7jv3zEYQ5gSyRD9QJuIykp1Cgqv5WKA
-	 GCHYd2FRLiyPxltzdfLlKqKBVGkNdJjTkR2+2dJOV7f2/wee+y0xGmDJSMIB3+mBoyQ1s
-	 wbDf9vVQWVjd8GwpVByGI7h1T873zJGB80Vi42b05Dp2JMryr71nWQ3rIUSoWDAKkIQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=eVRDROiDIUNDs50key7MrVecbdDqxRi5PolkiFkUUc0=;
+	b=spwK+2r0BdbAxO3PrFbdej+AK3p7IBnJE0Q0SWvhlBhXQ8nE4UhEz5yd806/hQJa7L6s
+	 J0rDQkbGpysMDX8kDwNodju34pxEAHHp7p62kkDRx73E7oBXVbOh8sJRZ+55POkO+SUJ1
+	 sqiFVeeTk9RELUAQyodIZnzH1dTca197Ts12clZkpFDNly6LD5NxNMOhyEK1HJYmPqjiG
+	 lCHVVjncCfN5KOt+hur2CHWYXaNIu8x3yygG/FUEbWlyv56SlRcx7mliGf9ra6tkFYbcm
+	 2dtpwS1KCyW5F2OPBwSVvXSUp8krYJsdvT1OAwYWB8ZkbfllOhIHDIY0P9xhCXVDJ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UTvH7vON;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RECRtHww;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9793D606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:33:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9793D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10ECD606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:33:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10ECD606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UTvH7vON
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so3303015e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 11:33:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RECRtHww
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a214af2076so1443055e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 11:33:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794166397; x=1794771197; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RN6tgwL6B1vPW3b9gCBznsfhVUtrE6LF+pImFI4kNIg=;
-        b=UTvH7vONZbc8N/egrsEsm2GcpoX+D6aQTnbYJvCqaDKF+PyEjkQj8wQWBKOX8M9bBj
-         aYFCjwLMeneGRwDwiT1Yn91VJRwSB1EDiVQOGnaLU09/raBNK9UawghLkpUAlZ/tQhlm
-         bPhTxirPMFWRWQmPvjHJXxfg9yvWTZRJEgVP1X2o5AkHZsk4REBb9f3LcUknTh3ACzG5
-         XgmxAkK/DVugmD+PYKUQsQgl3Z/B8ZApxNkv0H8VD/NjAgnilRYsLKvnJRDaqdKm1Xfi
-         JUG1Us2cyFiHWHigXTy9iiuqOFcFh1EYDcM7BAOVX/snXYIjT2HLpHNxUIW2OpjVGbs0
-         0+0Q==
+        d=gmail.com; s=20260707; t=1794166403; x=1794771203; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eVRDROiDIUNDs50key7MrVecbdDqxRi5PolkiFkUUc0=;
+        b=RECRtHwweD7cE5g2BeDl5p1qqR0hX2+1zIG4eoi+MTj3VSh9sOZEfEPGb0bXqwRENj
+         yQKKAPwXIolCj5afEMVLUf+6IhTMdYrye4Pe2joW9noRHRB12EbL8Y8jUrOm2kaMt6Qz
+         b1RCPaHq/hY347YPDyjJejSQy1p/BsaOIBOrBSOeccdz7siaAfgFYZ4mUckNDxBjwYqJ
+         TbiQdkQRPij7DTlN6WOWWq2DR1QlcPd/j6pkfLpcJC4L48OOy1IOG2lHYBUomcu34BBp
+         4CIPpkaJ08SJHmYSWCpQmpHCqmDyZIfzaDojKGBRtjBBa2ydeZVeWeZxTdgFjq1kwRG+
+         HMzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794166397; x=1794771197;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RN6tgwL6B1vPW3b9gCBznsfhVUtrE6LF+pImFI4kNIg=;
-        b=UERN+FWTyU4y32bGq7BJhBtNBd2DSQceO5RqyhuKLxFwXYSIIndSY5uL0K+YLp/Yi1
-         SL17OwjIi8CgpeW1iuymg2HiMsnilrOc7h/t7/0JDiwJTZg5VXFW+nZtc8Wrv6bMGwaL
-         ZFjmeY4KO2viW4/OwpQFp6pL77fSPwGVQhxuqo6cBJly03rL4I58Yq54ERgNY/WcFov1
-         AuiUmtuxLPUrHa5JK+6r53tXmndaqHQ5e3IGD8Sd3fahRYfw9CroBgQ0BNR/1PrSCAag
-         Lqqcib8HVhee8jQGm7lQwBDtNEnoV+hmht+UbJeiF1GAPsv5R57LdzGksX1JAPEztSqL
-         2KLQ==
-X-Forwarded-Encrypted: i=1; AL+hErEJ/N0TVhPUdJ1j3I6hI60C639V0RNoI/h52acGgK4Mt65XCWnxdSNDjatCX9a58YMsgaySi97rQz8z5zA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/p9xn+nlc/emjS0tHsmwyRXo6kNAcudJPjCwTUn0NHRSX7OKBA
-	epEAwRFuwLlrzWEQMjIqKFHgGG2pnz8RPV7FbnyUt+/r/tFc5CaDMs0s
-X-Gm-Gg: AYBFou30FUrRPpTgF0h691f3h96v0JAJkZFD/vxz5E6JV/57z94B+6eTqZXKkbU5uL5
-	jvemOnV3K0E3ecJuRbuYrAme8hbaz9c8nHdIqeGMe7qD2TulLNgeSegwEelVwelnyCh67cf4Ibb
-	+69gcbXI6P3Te6l6CayrXjaVeEugbME5C/17nDSocamYQNivNUVYbvLiSHheBo/FowfjFbSYn50
-	jcQaFsfYr739JdArmfC5sTWjhtOAVnMuY6fo9/xjP1o9ZliGJ399TzPKOJpxcH72Bieik0T3IGc
-	eqWxS58mwRFc+T3HBje7iH2w/S00gG/khopQLddYOLYDd3r8fAacTaZi51XJG8cmjommqSQArSq
-	qzIrt8YYtPRp+KgAy/gmQ+L0RV5wiB39eAIT4IH7TGdq7kMHBz6Q5jQFUJwqNiPrOPV1uizjdwY
-	d52DKShLG56RoR65r3Pe4AYuFNJO2OdkuilZc0IXOJUlCZBr60W0Wc9GcNM5ipMTF9ZCcLMR+uS
-	BCfJyR0i7j/rLsE5vQcrO7PcNbrIUvC4yKv96btthG4S5Cu1I7UODHTt4hw0E9ThTbgu31bEfvL
-	AZ5wwQEItK/bhGvwn10/gvCLrEcmQTrcaT4QOgVSnSesz9zXPl/iNz71ZXlblLY=
-X-Received: by 2002:a05:600c:3b8f:b0:4a6:42cc:bf65 with SMTP id 5b1f17b1804b1-4b963c6674fmr45033395e9.17.1794166396932;
-        Sun, 08 Nov 2026 11:33:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794166403; x=1794771203;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eVRDROiDIUNDs50key7MrVecbdDqxRi5PolkiFkUUc0=;
+        b=TrCLwsZ8NU1+yvTGar888OHhrmNt9zqvUKSLY/1s8+/c/ejV8AlQO0ljjIOQPksrSV
+         bN7Y2sc0cCAdcmDWJbyQ1F4sk4qQmd+/baCg/KW9UUM8ws3ivDqHttqFWT1VI2TVDDyC
+         tEeW0AesVQF/zRmyNsENA3gcZB6r/fPJfkWpLXUZL3lCcHAjzhkAAOhpPQOYPoNRI2O8
+         2xT0n2q5O2riX+iUFYHm6enBqJ5/FpThagWhn38mcjAo8kncY8cN1VmIApaigRYiTuMa
+         iveX0yeC4z+YjApZ6kBHljk5Gh0919Y7xHsGKsSeuHx0JEC0NdfhI5cofK9GhP07cu2s
+         s8lg==
+X-Forwarded-Encrypted: i=1; AL+hErGjKtlWrv4saCUzfNjTL12RNJYcml9b9QYeGYgsrzsawlw3I61nI+HZhfDDkw2hC5WsLDR8mb3/URyQpaA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WZue8uRJ64eTqcr/1nk210OkuyvFbPlS2MRaZud2XnvtARtaX
+	M1lG14zomuMDBE9hEFWCPwwfhdFARWrJTuEh+JZMM1pBcOy00y9cZJM6
+X-Gm-Gg: AYBFou3CsvnC2AHk2rJ27ODt7aHy0/A9Bo69Dio/DRsoeAHCabegUAGc0D3GcwEQMwS
+	em6M/Tk7a1lz4tx2sUV92JR6XqGFteKJ6haC+Ud6GyWw/nxFk+T5pb0uM9nca0f5FUADaPVmP7m
+	9CY0+TRIdUXbC60JvXBeqsuqy7Hr6rWh3Ts6sMT4npTvWH8P0+349CK/BGts94b3RRzD+L7oVbF
+	yCkxuYhRDwFjrEhixWYBlUfI2U3bxFtBuU9NqBTRDifzAUWNrKr3bnlyY9gZRAOnGehnBnOYnvw
+	yAnFn+BgVIPTd6IxW4KHtdCm5UjJRXiidDY6JwoIbcZ9BMAX6cvk1yZIt9lKLSCvaTOwG491EM/
+	nt8qOkJkbOU2gEICrUt/QbXe6ZZBJfEq+E23ZqHLcVXdoTPE/qlHdX1qc0voUeHWrk5RjhxFYr6
+	2dByLR3NdMnJuPw4LZDXAbrOnBycIzzzA+ZiV4L0cC1/kN5JmgRO6u1ycq5NnPi+LshH7QhErI5
+	P/i+LVT79rjss9ebqWm2JGrbPXv+l/x3DpG05uwYZGbaKurgU7pCfJ4kuEZod7D6Ov4UWM2lv9m
+	IsatmJZCNc42CNpoXqGfO6/1iBMUsC+/j7SqwoqAc+7epA5I7uFsS5PAsBfcykJd
+X-Received: by 2002:a05:600c:19c9:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4b963c855cfmr39830655e9.22.1794166403387;
+        Sun, 08 Nov 2026 11:33:23 -0800 (PST)
 Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbfa121sm105422115e9.1.2026.11.08.11.33.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbfa121sm105422115e9.1.2026.11.08.11.33.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 11:33:16 -0800 (PST)
+        Sun, 08 Nov 2026 11:33:22 -0800 (PST)
 From: Oarora Etimis <oaroraetimis@gmail.com>
-Subject: [PATCH 0/4] drm/vkms: speed up composition with a precomputed
- gamma LUT
-Date: Sun, 08 Nov 2026 19:33:08 +0000
-Message-Id: <20261108-lut-v1-0-f762d70ae4cd@gmail.com>
+Date: Sun, 08 Nov 2026 19:33:09 +0000
+Subject: [PATCH 1/4] drm/vkms: use the gamma LUT of the state being
+ composed
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,10 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBjF8VfRd221sSSvIhdsB5+ENqSWdzdc/
- up/TiAPx/BUJYEcTva8LhEqTciM7TJAsI2mTGaFUrIU87EL3VvkFtDagGK5OfR8fS9189sf3QS
- zv1O67we9oNo7ZwAAAA==
-X-Change-ID: 20261108-lut-4fde3dee44ce
+Message-Id: <20261108-lut-v1-1-f762d70ae4cd@gmail.com>
+References: <20261108-lut-v1-0-f762d70ae4cd@gmail.com>
+In-Reply-To: <20261108-lut-v1-0-f762d70ae4cd@gmail.com>
 To: Louis Chauvet <louis.chauvet@bootlin.com>, 
  Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Melissa Wen <melissa.srw@gmail.com>, 
@@ -114,55 +113,65 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Oarora Etimis <oaroraetimis@gmail.com>
 X-Mailer: b4 0.15.2
 
-Four patches: a fix so that a frame takes the gamma LUT from the state it
-is built from, a table that turns applying it into a lookup, a test, and
-the CI entries that can go once the timeouts are gone.
+The worker can fall behind a commit, so crtc->state may be newer than the
+state the frame is built from, and the frame would mix planes of one state
+with the LUT of another. Take the LUT from crtc_state->base.gamma_lut.
 
-apply_lut() samples the gamma LUT: every channel of every pixel gets a
-fixed-point index and an interpolation between two neighbouring entries.
-On a 1024x768 mode that is 2.36 million interpolations per frame, and
-kms_plane@pixel-format takes 160.1-167.8 s while
-pixel-format-source-clamping takes 78.9-83.8 s, over ten runs each. CI
-lists both as Timeout in drivers/gpu/drm/ci/xfails/vkms-none-fails.txt.
+Clear lut_length and channel_value2index_ratio in the else branch as well,
+so that gamma_lut is either complete or entirely empty. Nothing reads them
+while base is NULL - apply_lut() returns on that - but the next patch
+decides whether to rebuild its table from lut_length alone, and a non-zero
+length next to a NULL base would have it build from a NULL LUT.
 
-A channel value is a u16, so a channel has only 65536 possible outputs.
-Patch 2 computes them once per LUT change into three tables (384 KiB) and
-applies the LUT by indexing them, which leaves the composed output
-bit-identical to the interpolated path. The two subtests take 4.87-4.90 s
-and 9.70-9.84 s.
+A zero-length blob takes that branch too. It used to leave lut_length at 0
+and channel_value2index_ratio at drm_fixp_div(-1, 0xffff), which nothing
+read either.
 
-Patch 1 is the fix I posted on 22 October
-(<20261022215803.621996-1-oaroraetimis@gmail.com>), and patch 2 builds on
-it. Patch 4 removes the two xfail entries and has to be merged with patch
-2: on its own the subtests still time out.
-
-The other approach I considered. drm_fixp_msbset() computes fls64() with a
-62-step loop; replacing it with fls64() is three lines, needs no memory,
-no cache and no lifetime, and returns the same values. In a userspace copy
-of the same functions the LUT phase goes from 153.9 ms to 10.5 ms per
-frame, ~15x, where the tables give 0.9 ms, ~170x. I have not measured the
-subtests with it, so I have no wall clock for it. It is not part of this
-series.
-
+Fixes: db1f254f2cfa ("drm/vkms: Add support to 1D gamma LUT")
+Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
 ---
-Oarora Etimis (4):
-      drm/vkms: use the gamma LUT of the state being composed
-      drm/vkms: precompute the gamma LUT for every channel value
-      drm/vkms: add a KUnit test for the precomputed LUT table
-      drm/ci: drop the kms_plane pixel-format xfails for vkms
+ drivers/gpu/drm/vkms/vkms_composer.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/ci/xfails/vkms-none-fails.txt |  2 -
- drivers/gpu/drm/vkms/tests/vkms_color_test.c  | 54 +++++++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_composer.c          | 47 ++++++++++++++++++-----
- drivers/gpu/drm/vkms/vkms_composer.h          |  3 ++
- drivers/gpu/drm/vkms/vkms_crtc.c              | 24 ++++++++++++
- drivers/gpu/drm/vkms/vkms_drv.h               |  6 +++
- 6 files changed, 125 insertions(+), 11 deletions(-)
----
-base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
-change-id: 20261108-lut-4fde3dee44ce
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index 0fc915a954ba..1d5658bbd493 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -609,6 +609,7 @@ void vkms_composer_worker(struct work_struct *work)
+ 							  struct vkms_crtc_state,
+ 							  composer_work);
+ 	struct drm_crtc *crtc = crtc_state->base.crtc;
++	struct drm_property_blob *gamma_lut = crtc_state->base.gamma_lut;
+ 	struct vkms_writeback_job *active_wb = crtc_state->active_writeback;
+ 	struct vkms_output *out = drm_crtc_to_vkms_output(crtc);
+ 	bool crc_pending, wb_pending;
+@@ -625,19 +626,22 @@ void vkms_composer_worker(struct work_struct *work)
+ 	crtc_state->frame_end = 0;
+ 	crtc_state->crc_pending = false;
+ 
+-	if (crtc->state->gamma_lut) {
++	/* crtc->state may be newer than the state this frame is built from. */
++	if (gamma_lut && gamma_lut->length) {
+ 		s64 max_lut_index_fp;
+ 		s64 u16_max_fp = drm_int2fixp(0xffff);
+ 
+-		crtc_state->gamma_lut.base = (struct drm_color_lut *)crtc->state->gamma_lut->data;
++		crtc_state->gamma_lut.base = (struct drm_color_lut *)gamma_lut->data;
+ 		crtc_state->gamma_lut.lut_length =
+-			crtc->state->gamma_lut->length / sizeof(struct drm_color_lut);
++			gamma_lut->length / sizeof(struct drm_color_lut);
+ 		max_lut_index_fp = drm_int2fixp(crtc_state->gamma_lut.lut_length - 1);
+ 		crtc_state->gamma_lut.channel_value2index_ratio = drm_fixp_div(max_lut_index_fp,
+ 									       u16_max_fp);
+ 
+ 	} else {
+ 		crtc_state->gamma_lut.base = NULL;
++		crtc_state->gamma_lut.lut_length = 0;
++		crtc_state->gamma_lut.channel_value2index_ratio = 0;
+ 	}
+ 
+ 	spin_unlock_irq(&out->composer_lock);
 
-Best regards,
---  
-Oarora Etimis <oaroraetimis@gmail.com>
+-- 
+2.55.0
 
