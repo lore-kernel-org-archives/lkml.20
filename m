@@ -1,63 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127684;
-	b=SasfBdP4y6iEpdgGjmNkcbVn00iwA+WKz/cb6r8XY/xxqfBihHmMoe2YTSShDj2M1f+X
-	 iqf5yBbmfOtj/8EU0SaBTRVZ4Yy/vwegsIhrdtXLM3xgVIInLHoiANi2JscofMzFEhxR7
-	 9Gs10230P0ksHjfc+ImnxniGUBMq6Z5+hd7KYgPzu7Ui7aBvsqKFweVNKf3mJlCfVEyk8
-	 CC0kh8g+9STQSLO7oewB7oaZ7hAdg+8neRXgLnZ/ddDGdr54pAYA1XFb7H98JPIMsVhbg
-	 i0WJcIxXGpVBxtE9tOqwuPTxa2q7Fqxbl0w8JCnWfr+n8/ZuxHhQBceMZa4RWiqCKfQ==
+	t=1794127761;
+	b=Y7Q/N8aOcprWqp2uz+1UZF83NO9oBgsHEyC7KaKlcpagqv4gKoi9vSBsS9CT9XvC6dDO
+	 tQfO93zs9CwgzlpTuNQMnuYGWS1dSDfT5FYbLhRuRufKzhpsPAgfa/m1trn/m06qkPGJs
+	 dWLgiNDHfe7sC5tyWt8rjnMTPeps1vxw8jDRor3vFiu8stKcTjTmX0IvPP0qS0wMDClr8
+	 u4h51imvugDiJbcPPNKY74gBxpMJB/CEPUHh9GRM0F90F+MpamVpcwLzF+2VYlbJ7ahGL
+	 /LU8CjgccMI60S2Mxix+4JEuDy+ziJyTwQWJfJ13BF6kJh56kHRy/Il3iY/ReKguXEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127684;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hYQT1iQSwsWlveP/FynCeMcR1777Wf6i9C77SMccBzs=;
-	b=joBf+Hqk0uTeX9C4YJ9S07hTUlHN+OxGKGZDKMOaQGfijV7Mgzr3HViE6N+0DUtE6d9N
-	 na6UaRxWXX+7X5ldMnev/lACy5bJ5dZ6ntlmeO1BHdzb2NJ9DhGZTrMfgZRLIPd6GDrYw
-	 o3gxyPDAK2BlKANotuHOwfSZSd/n3TnqKFo8c4tyLtos7w36hEFZsWY8nXPb4pLiVfwVx
-	 DfGj7zTbKmPytcZZ3+J52Uy3rNaSHGsgukZACzv4woAwn1HQeSiKSfWgsNyLq1q1fBNcl
-	 FEGkmmYa/UeNso3djCJYINf6XFmc91iFgORBlkhUcV6ojlrhBoimKJw4RJmNvDMxipg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127761;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+	b=Y2j9WT9S+uD8H8ff/xBfpGliv1dPlhijkUfMVwQP4TvME3dUGbLhqDeNhU9TBhIj/xoU
+	 uYjt9WgqS83JvUfmYb7VFoLKwk+3HXRlxa9ej7AnqwNwdojQeTXXb5qZWyExQYnilhi1Y
+	 lAxxf9g/yQ1ByQ78BKya/oTqADBvFosZoDgTBVSc3cSRldpF60aL3HRJLdHlRdXBmkIyJ
+	 ZnMeH1NLADBfOLN577zoYn08wY4sNiv6wszTR76DJRx+zbvadWRTNJxtNYbSz0iijDLEt
+	 gEhol4GXdCT6xD2xo+JDy50KKYPkV2UfKRTT3e88EUA7XLsob1IsYlO1PW2jyHJw+YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdhHIcBU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfFbYqnm;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id AF25E606A31C;
-	Sun,  8 Nov 2026 08:48:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A222606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A222606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cdhHIcBU
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 954681F0089F;
-	Sun,  8 Nov 2026 08:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794127683;
-	bh=hYQT1iQSwsWlveP/FynCeMcR1777Wf6i9C77SMccBzs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cdhHIcBUGL1DwEzHNq9EeqVORPfy/7Lwlnhw2LDIqiQUv8o3U8IyJtPXB0+duiRwy
-	 xSucdJ2mmZKm0uHL9ddexlHHiUSqzcJXww/f0q3UD5n92prMlCooafMZY34x3gWk/a
-	 sTXFr/6pFSgJv7TLwMJXKzfh8jvGq+cESUX6bIMHlpGbhcsDmQmRSe9vDQXHXcCkPh
-	 5Cg26OuGBG5vlsOpNqPbqHS2758xD5bRXxG7HnOX4qwQdzEWsfqYi/9BQFN/v9gwbQ
-	 8at/mRxwdOZkbBLVwYpJCYBjpIZT5dpBwTY2YTpDzuO2zLPO6513gDlIsEI/Vm4KHW
-	 nPGYipMLqIu0g==
-Date: Sun, 8 Nov 2026 09:48:00 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Hector Martin <marcan@marcan.st>, Sasha Finkelstein <k@chaosmail.tech>, 
-	Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
- compatible
-Message-ID: <avA2hReZKJL8KFUB@monoceros>
-References: <20261106-apple-m5-initial-devicetrees-v3-0-cee55de54b2f@cyberchaos.dev>
- <20261106-apple-m5-initial-devicetrees-v3-5-cee55de54b2f@cyberchaos.dev>
- <avA1rkMvbmTiJDPC@monoceros>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfFbYqnm
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36e795af1d4so31834eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:49:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794127760; x=1794732560; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=rfFbYqnmrqZfeWjWTp72T2kiiZhsdPB9BB0dU1LZ9it1fl5s2iKLAlHTaYG4zuMcfQ
+         aon2lxlRuyluT5v7V4y4M0i49WylN7ZlE4DEAsT61KXKnBObk7y2cza/8+Q6//dCWHwd
+         Pk/s3VH5/0Eh0I7vvj2lF0Vlw2tdiNJu9KyesOB/pxE1w9p4jwZ3qiv+RyL8yWEV+KUz
+         C6O243ilvNmZPtiONvUrTtpchpq8bjYafhBBUGYATAKJB/U5LdzkxJvXSMKJTjRGl4Gl
+         E3H9TSPHOWLgwIxjWlicEMEPGJanc56c0D+2cGoLKVbLr34FIpZgdCxvSixQyjkk1Ud1
+         XSUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794127760; x=1794732560;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=HbtE+3LMouu7Y6gI/6/WiRwj4vdXNrtsbssp3NDgZtgKDPTFzGRyhVjepWTI4W+Jju
+         Ysq8UoHFI5hw4kEv8Igv5rnflca2DcvBtwg3CDXPLed6ILZMdN9JrYP4LiEDgzSWSs6M
+         tEzmFYFYFcUStEvjyM0uUPuidBIBOZJfttrZy4Ssd5xPIVeUpmvOoqTZeWuBaj1x70h8
+         FdlswLqqhdGrLRAv7yjIVA0XSZvEdDA1Xsup9TsoyE9Sx39hpjA6QEKg/+5jiu32XyqR
+         vx08CkBwVaJ8IyuUlQGxAJyWdcb7Ii0Rrek0QmlhYVRBvO3aVxqNgxcvURah6xndh17F
+         4ixQ==
+X-Forwarded-Encrypted: i=1; AL+hErFf6Izv9z+8Nc5T5zkqCKr3ZtbaYmtDdKsxr9uyz2eZMrUprmEZKcah88Ag1VCGPL6fea+BX+dEZTPXJ9g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZlEz531sxpUZFBkk8RqNFuDV4MlPmXaM59G5T2JwLHUQ2JHZu
+	5f5FyQVhADHLiHDyZBDoLhnUZ+05ZpUnVJIbMq63rttne9gQa/Pv9wWA
+X-Gm-Gg: AYBFou2bUNUputIgHt7IZFWbNJ02alWYBGHiloWhvVRepiSG0xlV5CPNIZyo5qa0YnJ
+	KhmgBlX+oKu+Pt4bOccQ0A6Ccue0Ey9XjB6oeY8q7QQLw6Aamv/QqFo3JqzROy7EP/9OEJJPCqk
+	0hXZ2UGsUQqPccVmuKdExzejo3jeY6ww6hpJatAsez0d/8b8ITFlgVo73vT5JZ5Jh6QRVdnlgpf
+	LUgTGiEBfLAtosdVLPBren5/3bCtkqY9dzq+Jr1THJTgCpYOQPV/55ErsoXZ4FyoC/9iz6D2zhn
+	a47yuPca+XU0CjsjEc7JgvfYwwPGvfOx8fPZnWej/pTuZ0rwrzHGVDeQCfIDY2p5Zti9DHXHTpw
+	xxWQwmkc2ljnEXhLLAJbHtXfUtBFr8Pw/tp9pre/ztbcmrjNdSMrzV04coFiXHoIMv5lYAb272O
+	88K/WfUHuc0DBLS/j/VxWRx+XLlQm/3bBxX1J9nfRKGelKctQCLbziaJYxrZ7WE/DwxK2faA8Lo
+	Bf6KN/sUAezZR4t/wUAY7kOQF8YvaPieZSmVOYP7QfL7si+nFnEyGU1dpc5DLuxqWOuOHrwoQwp
+	kXq1iW6VzjqUe32TUvuKix7cb2IAgIsr9J+lbW2ppZxp5uM/JRs=
+X-Received: by 2002:a05:693c:20cd:20b0:364:377c:cabe with SMTP id 5a478bee46e88-370f8170360mr5884840eec.24.1794127760230;
+        Sun, 08 Nov 2026 00:49:20 -0800 (PST)
+Received: from localhost.localdomain ([103.177.253.80])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d6088sm4445529eec.25.2026.11.08.00.49.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 00:49:19 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: mani@kernel.org
+Cc: angelogioacchino.delregno@collabora.com,
+	bhelgaas@google.com,
+	kwilczynski@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	lpieralisi@kernel.org,
+	matthias.bgg@gmail.com,
+	robh@kernel.org,
+	ryder.lee@mediatek.com,
+	sreekuttan2156239@gmail.com
+Subject: Re: [PATCH v6] PCI: mediatek: Fix integer truncation and handle oversized resources
+Date: Sun,  8 Nov 2026 08:48:21 +0000
+Message-ID: <20261108084821.2827-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <179389361906.20463.1092137538074974205.b4-ty@b4>
+References: <179389361906.20463.1092137538074974205.b4-ty@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,60 +107,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4zgarb7k2vkd62n2"
-Content-Disposition: inline
-In-Reply-To: <avA1rkMvbmTiJDPC@monoceros>
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
---4zgarb7k2vkd62n2
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
- compatible
-MIME-Version: 1.0
+Thanks for applying the patch!
 
-Hello,
-
-On Sun, Nov 08, 2026 at 09:43:37AM +0100, Uwe Kleine-K=F6nig wrote:
-> On Fri, Nov 06, 2026 at 10:24:54PM +0100, Yureka Lilian wrote:
-> > The PWM controller on the Apple silicon t8142 (M5) SoC is compatible
-> > with t8103. Add "apple,t8142-fpwm" as SoC specific compatible under
-> > "apple,s5l-fpwm".
-> >=20
-> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
->=20
-> Fine for me to let this go through apple-soc.
->=20
-> Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
->=20
-> (I already wrote this in reply to v2 on the same day v3 was sent. So
-> just forwarding the tag for v3.)
-
-Oh, however I already acked the (implicit) v1 on Oct 27[1], please make
-sure to pick up tags when sending out a new revision (or mention why you
-didn't) to save maintainer time.
-
-Thanks
-Uwe
-
-[1] https://lore.kernel.org/all/auBgZhx0qcbAgHnF@monoceros/
-
---4zgarb7k2vkd62n2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrwNz0ACgkQj4D7WH0S
-/k5bbAf/VUi/eOyCBOz+RaTap74L+qL1XDuN4e956ywIcsS1NBkWSQaBWwNlV6H+
-pjPo6dozWYBNJXR2FW4AutssKdTHbXaYzs1gNQ1yuLb+n41RWcuTlAmRmtLShWZs
-Y9I/+os8WcXECFf5TGTVYX7UJUXlKazj9cFnpz0d8rqbszXWFo7vW5NUxmi4b+Cl
-5nXgFGTJ+FZN+FzlfT96Dk9TaGSGCb4BjayHMZakKeC2VdWTi/EgtB9pMDOJ91k7
-yOmmyv+p0ESkl0XEoTncCa3V78XpYZGz6IYS74flWYs9epw9l5qEvU8fEEFbKUIo
-yaZSkXCtDUT1o93z4tLmyPXWu4H6Rw==
-=LzhV
------END PGP SIGNATURE-----
-
---4zgarb7k2vkd62n2--
+Best regards,
+Sreeraj
