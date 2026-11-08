@@ -1,79 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794130994;
-	b=4Mg9A4tR4eY14R/qqARpQ1GN6aG31MERZgaD0XGOBdsDG9w9RK7gq2uWmqHwU+z3vfXt
-	 tSE+/u42BeStRnpIBD9IYqpJ7TwRRsgX2w7JEpUTrIrXuc13g9G1klxwiGXuT6C0VPb9U
-	 jLdUD5KnNYdVrdtoKoxJwU5w4cX4LIg0jYtOYpE8SrjKI1/+UC/v212QsooVvLYdufALc
-	 7vQgEIthEz76ym8eq913lgfXI57295cF4gJL/8ej2k/ofcChHO8YfyggZwi1glKxYSD8F
-	 Y055o6JyYhTWskRraCI4dGzkineswealMLEuuZMOGvs/BdECDyrVVaaUB1JOBUgoYyg==
+	t=1794131001;
+	b=ixz0Ms5HaSHyxWdAsp07YaAmFqq0kk+ryXq2KEqiqCMEuaP//W+ONYdbXYoefMgE6Ict
+	 +6q507M2aQTGk6mDpQiKO07z00U3RFFpoB/DbVcM3pKBIAVaXsyyRq0tmcQWOAKxeo/T9
+	 tBz5+HsS/hYAtxQNUDceUJmpzbEPl8Awz+9CEejIXUpcSAw8+U7hNs68EVJk5FDbPBwK5
+	 O9wkjtzqfcBQXxYNMezaRF6cLVHVBVTmq5gWRU6ic0sNEu7r+SHzPIAfQRqbfKJHpF5fx
+	 17J9/HAVOlTVp6Wkwz4eOAGRumgENLxu4QICBsZbuM8FVVOpVi89xEcfyRmqEM3ynBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794130994;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1TfJu2adm+ZzBFTjOpLNElhJnMO9Oc2JJFoITNsDH30=;
-	b=LXuHZ5JMPYamAcVfI7eDjGYTIl0Wp+BPZj5LSLDsmA5LXv8+pTE7ioNyaqhtm5JY49PX
-	 klfHKWo+yYVsoZaneynWfhZahBfj1O+RERd7hFs6Zv0BCRiBTQ1gY53sT12Ei0wOADf36
-	 QFUKdabAwTuJrFIwEfhapbnClQwBa+1qeOkbHC5YekgA9DjpEZiF4B50vl5v8EDQLFKhg
-	 VgWGaLUla6XYYECK1R9pKYt6udS5If3SdW0o5+b48UwLe6nUTHAyo8LbkHDS34fRXiyyP
-	 DCGPfDPg3j1CfBesfefLOSin3nfzTpNOFkb1spdEKLKvoJeNuKRUD2qPQ0U2acTDt/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794131001;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zATDjvi0ueP4ucWse6X9jXoZiNkvGsfI7v1aTgEFm+4=;
+	b=3kfTNZD6vzX4QG3Hr5hkU6FGB5BJ//IYBCIsC5aWxeaZWHJAUuyjTRAruzBdjST40eEx
+	 LngR8I8ttPq15jiQCYdIRsoLBWKsyGXJu2TSMu5szX+mD1bVkfSdz5feIQ6SxAFNWgQW/
+	 1sAynOapJyJOGI7MeNGAQIYfeaRUS9IpfR8M+rCkHVvytSYRi0ZdtxfplNswGcMc+nHxf
+	 DPF3sxqnYruAixpUkk0qljTQkjR95ZoSZCJKXVAi3oitEYRGfNAvtS3VwukeOB3XmIKMe
+	 g+R9AwdfbEPsgM3aoc94exTQFcIw+Aek2Yp93dgX1n6V+g034Lm1uUJmsS7Hxf5XLow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NLKQtqu9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u6p8wtb9;
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294E9606A31C;
-	Sun,  8 Nov 2026 09:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68875606A33E
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:43:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68875606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NLKQtqu9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380291F0089F;
-	Sun,  8 Nov 2026 09:43:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794130993;
-	bh=1TfJu2adm+ZzBFTjOpLNElhJnMO9Oc2JJFoITNsDH30=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NLKQtqu9KoBpvVemvr3gK8+r55tcl/IZvyK3DlMM4PIx/qDHOpZ6LGdrIfe9CjiVZ
-	 D2Inmhxp4c1qHagh7o0MgD+1FzLPWEJhaWnordfS0b4p9ikkfMmAlegxxgvzLcTLDe
-	 SX5mGp5a5Q0EqNA9SK7IyD+lEoAE/rXm8Y3mvalP9Dv2uY1ZDSsLeALm5JMZySudec
-	 V2bX+Azw7NrtCsO9dS3g1vVG4TRDw2wr1EHQy+sAN//03BX999u1aJZqWrSjjks6GI
-	 6HVJejdNwgh5DOCj7v6Z41VNiGZ5qlyA3n8rcJTAFsznpKMFgwCYxeFfXggJ8rXvXW
-	 g0pAolA+j3TvQ==
-Date: Sun, 8 Nov 2026 17:22:56 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Chao-ying Fu <chao-ying.fu@globalfoundries.com>,
-	torvalds@linux-foundation.org, olof@lixom.net,
-	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
-	Boqun Feng <boqun@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Luke Nelson <luke.r.nels@gmail.com>, Xi Wang <xi.wang@gmail.com>,
-	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
-	Pu Lehui <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] riscv: build kernel atomics from LR/SC when Zaamo
- is disabled
-Message-ID: <avA_cIffTse24u3m@xhacker>
-References: <20261105-lrsc-only-v5-0-f0648f57b2e1@mobileye.com>
- <20261105-lrsc-only-v5-1-f0648f57b2e1@mobileye.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u6p8wtb9
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so10150a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:43:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794131000; x=1794735800; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zATDjvi0ueP4ucWse6X9jXoZiNkvGsfI7v1aTgEFm+4=;
+        b=u6p8wtb9fGXkf1QKwGVd3g69+9r04WtTaYtjfGj7wq4qgRW/X+UN/lSqD5TxyLeRpT
+         US5wOzpyna4Juh9NH/EJdadRj1Cxk6Roc1MxQW8aPfYQZOVVSciJd3hCaqR1LiLUB2Ei
+         Ow9WXKJXacJawdejKJ+0dO8shVKOKvUzUJL67ca/Cb+42PAjCC86e7zRFpRSx8qcI86F
+         Ppj6LIVCirt/lr0/HBNjFJ8lMetYn0/m4t2aBp0HmTAktV1xNEp4Xgim3z9rwhCmLLF0
+         XxfjfHP0aN2qm5dkiNHcJOUTBCUGCBYe7B9I2ZW7oA3AMhM5+f/Chdie3/SwKXPSlhkE
+         XBVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794131000; x=1794735800;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zATDjvi0ueP4ucWse6X9jXoZiNkvGsfI7v1aTgEFm+4=;
+        b=h8bNdlKT3m2VYNfzldMmQFgBkSYmMGemdZYUbjUXmnj731n1kvqZz9e/lK2F9qPr3R
+         uLyMjB91FKJwpdtM6GGOX/ckJEP5Wk07Ae+x6POdsd2TszzSV/pI2qQz8JYrjhLBxm6M
+         1U2KV7VWCqnMFJp1nIUHGwihQS+K72v2rubOwG+3HY0mRV1zTN37Oq3F6BCwOfimjncm
+         kZU1hfoD8ZomrvCbxrq5yr1gFderulEyPsBndJbRCGHtrg1n0IfvZo6YTpxVieSocnKz
+         ztNeUukOohrasZHX1wclwT2uoHWN+oeb73DZxqscZFbEnOWaDNpeU6KMHHIbZa1PRDPr
+         dd/A==
+X-Forwarded-Encrypted: i=1; AL+hErEgLPuioszgElPFjWWKoevJslNsroZvxNlTT6kSec1UhXm0xmrWAQ/p6bGLWRAN6birVvplrB2ZCRfo038=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UObJHl06iqq3l0t7KE23wR+IISn1YkJRkhoyGz4l4B73IDxai
+	FtcJEPJxrJOZSVLPulW+FM/eSysHmEcZDNomc5PLWI/MZMQbGNC9TKe9
+X-Gm-Gg: AYBFou1Yvb8oLlFRZ+wzKMhTXBH7NQ79eAWArsz80AZ6v8KyBn+OjpMUbIvQJTf8DZf
+	AkOuVk1ZneXaLY2wp3vtdfBrnho2I3oyrZuX2QrmnVhaTHcFISd+ozqZBj7YCBj6RElyxC3gJgx
+	e/odgYhAGvj/CfCBzCPuPd0pYGnBVxuTnWHMDPNyUy0NATwDLSVX64WvEDu0jLlIVKnOfuWzUSW
+	z0lYNOgFos6HPhU39RBPwc8GVx8Q2Vllo8alxi7ggaoUz7EkGcShZqPSeReIPWR5GSSZakB2lnW
+	BXmI5540zU6NdyCcfd2S26Cg2z2azk3B19sxFqVW9jX4qrv7w9lmNGBBvrRVp6BRvbATu6lHr8W
+	V27fXd5l55TaUeifEaBWVtVeS4kvDTPm7ZHwqrSQWd0N1fFsxAhK2PTtYrVhSCWVDhNWiVmRqiL
+	4o6BIZWJa4sOibplieJe5VyEXk0a8P61iKAQqt9zBoaskXeViF9Ps5zTf+gLKtQhLG1jgtdqe8K
+	xPy2sG3EMwLlZZgHOwFnGbpyxmLwjWSDG24AC/cekeQgTPYwhwK95b1NNYZUQ2gv1vTJD2LQx5/
+	ppHwz4f3Z3O2Tn7lnnnKwHnySL8sf+LhNJpC+29HMpT3Hg2xV1HPO9QrjsX/2YK5rQyyVVELXjt
+	U9PpLPUJIlQ==
+X-Received: by 2002:a05:6402:1ece:b0:6b5:6546:f7f2 with SMTP id 4fb4d7f45d1cf-6b722462a1cmr546791a12.37.1794130999707;
+        Sun, 08 Nov 2026 01:43:19 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ea56f2sm436321a12.8.2026.11.08.01.43.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 01:43:17 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Esben Haabendal <esben@geanix.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Nikita Travkin <nikita@trvn.ru>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/4] iio: light: ltr501: Switch to read_avail() op from manual attribute registration
+Date: Sun,  8 Nov 2026 11:42:50 +0200
+Message-ID: <20261108094253.83899-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261108094253.83899-1-clamor95@gmail.com>
+References: <20261108094253.83899-1-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,527 +113,339 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105-lrsc-only-v5-1-f0648f57b2e1@mobileye.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 06:37:36PM +0200, Vladimir Kondratiev wrote:
-> The A extension is Zaamo plus Zalrsc. On some CPUs Zaamo is present
-> only formally. MIPS P8700 traps every AMO instruction into M-mode and
-> emulates it there, so the extension is supported but very slow. A
-> typical uncontended atomic increment costs:
-> 
->   native AMO                                     2..5 cycles
->   LR/SC, private L1 reservation monitor         6..12 cycles
->   LR/SC, PoC (L2) reservation monitor       about 40 cycles
->   AMO emulated by an M-mode trap           about 600 cycles
-> 
-> The last two were measured on the eyeq7h hardware. On such a CPU the
-> kernel must use LR/SC for every atomic.
-> 
-> Add RISCV_ISA_ZAAMO, default y. The default keeps "a" in -march and
-> the generated code unchanged. When it is disabled, -march carries
-> _zalrsc instead of "a", and atomic_*, bitops, xchg, futex and the
-> early boot code use LR/SC loops. The sequence is chosen with the
-> preprocessor, on CONFIG_RISCV_ISA_ZAAMO like the other ISA options in
-> the headers, because the assembler rejects AMO mnemonics once -march
-> lacks Zaamo. A kernel built this way runs on any hart that implements A; it just
-> does not use AMO. It is therefore a plain option, not a NONPORTABLE
-> one, and the hart keeps advertising "a" to userspace, which is true.
-> 
-> The choice is made at compile time rather than with alternatives.
-> Nearly every CPU has a native A extension, and an alternative would
-> inflate all those kernels with the nops needed to pad one AMO to the
-> size of an LR/SC loop, at every atomic site, for the benefit of a few.
-> 
-> Turning Zaamo off needs a compiler that accepts _zaamo and _zalrsc in
-> -march. GCC 15.1 is the first release that does.
-> TOOLCHAIN_HAS_ZALRSC_ZAAMO checks for it; with an older compiler the
-> option stays at y.
-> 
-> Add RISCV_ISA_ZALRSC as well, always y, because cmpxchg and the
-> conditional atomics are LR/SC sequences that Zaamo cannot replace. It
-> exists as the Kconfig counterpart of RISCV_ISA_EXT_ZALRSC in hwcap.h,
-> added by commit 35173b666a16 ("riscv: add parsing for Zaamo and Zalrsc
-> extensions"). The two sets are used together, for instance by
-> rv_ext_enabled() in the BPF JIT, so an extension the kernel can be
-> built for has both. RISCV_ISA_A, the counterpart of RISCV_ISA_EXT_A,
-> follows the same rule and puts "a" in -march.
-> 
-> Three sets of extensions provide every atomic Linux needs. "a" is what
-> the kernel supports today. Zalrsc plus Ziccrse is what this patch adds:
-> every atomic is a constrained LR/SC loop, and Ziccrse is the
-> forward-progress guarantee for such loops. Zaamo plus Zacas would do as
-> well, with CAS loops in place of LR/SC as on x86. This patch leaves
-> that option open: RISCV_ISA_ZALRSC is where it would go, by allowing
-> "n" there and making amocas the base implementation.
+Switch to the read_avail() operation from manual attribute group
+registration. This eliminates the need for per-chip attribute_group
+structures and related ltr501_chip_info iio_info entries.
 
-'A' is part of linux's existing RISC-V minimum ISA from day1. So every
-piece of riscv arch code and linux userspace is written with that in mind.
-Making an im_zalrsc kernel work addresses the implemenation gaps(though I
-doubt current series close all gaps, e.g what about rust? rust part still
-assumes IMA), but would not by itself justify changing that minimum
+Adjust LTR501_INTENSITY_CHANNEL to account for the new
+info_mask_*_available layout, allowing the removal of _shared since all
+intensity channels share the same layout of available entries.
 
-Your system already implements 'A' through firmware, the motivation
-of this series is performance. As Palmer pointed out, could you plz
-provide representative workload results showing the benefit warrants
-another supported ISA configuration and its maintenance cost?
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/iio/light/ltr501.c | 192 +++++++++++++++----------------------
+ 1 file changed, 76 insertions(+), 116 deletions(-)
 
-I'm not in favour of lowering the baseline which was set up from
-day1 solely to accommodate this implementation's AMO performance.
-Until that broader policy change is justified and determined by
-the riscv maintainers, I think retaining A as a mandatory and keep
-this serie out of tree is the best.
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index 302be2fc314c5..1ddd0dfd55ea2 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -133,6 +133,22 @@ static const struct ltr501_gain ltr559_ps_gain_tbl[] = {
+ 	{0, 15624},
+ };
+ 
++static const int int_time_avail[] = {
++	0, 50000,
++	0, 100000,
++	0, 200000,
++	0, 400000
++};
++
++static const int samp_freq_avail[] = {
++	20, 0,
++	10, 0,
++	5,  0,
++	2,  0,
++	1,  0,
++	0,  500000
++};
++
+ struct ltr501_chip_info {
+ 	u8 partid;
+ 	const struct ltr501_gain *als_gain;
+@@ -145,8 +161,6 @@ struct ltr501_chip_info {
+ 	bool no_irq_support;
+ 	struct iio_chan_spec const *channels;
+ 	const int no_channels;
+-	const struct iio_info *info;
+-	const struct iio_info *info_no_irq;
+ };
+ 
+ struct ltr501_data {
+@@ -582,14 +596,18 @@ static const struct iio_event_spec ltr501_pxs_event_spec[] = {
+ 	},
+ };
+ 
+-#define LTR501_INTENSITY_CHANNEL(_idx, _addr, _mod, _shared, \
+-				 _evspec, _evsize) { \
++#define LTR501_INTENSITY_CHANNEL(_idx, _addr, _mod, _evspec, _evsize) { \
+ 	.type = IIO_INTENSITY, \
+ 	.modified = 1, \
+ 	.address = (_addr), \
+ 	.channel2 = (_mod), \
+ 	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+-	.info_mask_shared_by_type = (_shared), \
++	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) | \
++				    BIT(IIO_CHAN_INFO_INT_TIME) | \
++				    BIT(IIO_CHAN_INFO_SAMP_FREQ), \
++	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE), \
++	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) | \
++					     BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+ 	.scan_index = (_idx), \
+ 	.scan_type = { \
+ 		.sign = 'u', \
+@@ -609,19 +627,18 @@ static const struct iio_event_spec ltr501_pxs_event_spec[] = {
+ 
+ static const struct iio_chan_spec ltr501_channels[] = {
+ 	LTR501_LIGHT_CHANNEL(),
+-	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH, 0,
++	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH,
+ 				 ltr501_als_event_spec,
+ 				 ARRAY_SIZE(ltr501_als_event_spec)),
+-	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR,
+-				 BIT(IIO_CHAN_INFO_SCALE) |
+-				 BIT(IIO_CHAN_INFO_INT_TIME) |
+-				 BIT(IIO_CHAN_INFO_SAMP_FREQ),
+-				 NULL, 0),
++	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR, NULL, 0),
+ 	{
+ 		.type = IIO_PROXIMITY,
+ 		.address = LTR501_PS_DATA,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+ 			BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME) |
++						     BIT(IIO_CHAN_INFO_SAMP_FREQ),
+ 		.scan_index = 2,
+ 		.scan_type = {
+ 			.sign = 'u',
+@@ -638,14 +655,10 @@ static const struct iio_chan_spec ltr501_channels[] = {
+ 
+ static const struct iio_chan_spec ltr301_channels[] = {
+ 	LTR501_LIGHT_CHANNEL(),
+-	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH, 0,
++	LTR501_INTENSITY_CHANNEL(0, LTR501_ALS_DATA0, IIO_MOD_LIGHT_BOTH,
+ 				 ltr501_als_event_spec,
+ 				 ARRAY_SIZE(ltr501_als_event_spec)),
+-	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR,
+-				 BIT(IIO_CHAN_INFO_SCALE) |
+-				 BIT(IIO_CHAN_INFO_INT_TIME) |
+-				 BIT(IIO_CHAN_INFO_SAMP_FREQ),
+-				 NULL, 0),
++	LTR501_INTENSITY_CHANNEL(1, LTR501_ALS_DATA1, IIO_MOD_LIGHT_IR, NULL, 0),
+ 	IIO_CHAN_SOFT_TIMESTAMP(2),
+ };
+ 
+@@ -1111,111 +1124,67 @@ static int ltr501_write_event_config(struct iio_dev *indio_dev,
+ 	return -EINVAL;
+ }
+ 
+-static ssize_t ltr501_show_proximity_scale_avail(struct device *dev,
+-						 struct device_attribute *attr,
+-						 char *buf)
++static int ltr501_read_avail(struct iio_dev *indio_dev,
++			     struct iio_chan_spec const *chan,
++			     const int **vals, int *type, int *length, long mask)
+ {
+-	struct ltr501_data *data = iio_priv(dev_to_iio_dev(dev));
++	struct ltr501_data *data = iio_priv(indio_dev);
+ 	const struct ltr501_chip_info *info = data->chip_info;
+-	ssize_t len = 0;
+-	int i;
+-
+-	for (i = 0; i < info->ps_gain_tbl_size; i++) {
+-		if (info->ps_gain[i].scale == LTR501_RESERVED_GAIN)
+-			continue;
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%d.%06d ",
+-				 info->ps_gain[i].scale,
+-				 info->ps_gain[i].uscale);
+-	}
+ 
+-	buf[len - 1] = '\n';
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE:
++		if (chan->type == IIO_INTENSITY) {
++			int valid_als_gains[ARRAY_SIZE(ltr559_als_gain_tbl) * 2];
++			int j = 0;
++
++			for (int i = 0; i < info->als_gain_tbl_size; i++) {
++				if (info->als_gain[i].scale == LTR501_RESERVED_GAIN)
++					continue;
++
++				valid_als_gains[j++] = info->als_gain[i].scale;
++				valid_als_gains[j++] = info->als_gain[i].uscale;
++			}
++
++			*length = j;
++			*vals = (const int *)valid_als_gains;
++		} else {
++			*length = info->ps_gain_tbl_size * 2;
++			*vals = (const int *)info->ps_gain;
++		}
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		return IIO_AVAIL_LIST;
+ 
+-	return len;
+-}
++	case IIO_CHAN_INFO_INT_TIME:
++		*vals = int_time_avail;
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		*length = ARRAY_SIZE(int_time_avail);
++		return IIO_AVAIL_LIST;
+ 
+-static ssize_t ltr501_show_intensity_scale_avail(struct device *dev,
+-						 struct device_attribute *attr,
+-						 char *buf)
+-{
+-	struct ltr501_data *data = iio_priv(dev_to_iio_dev(dev));
+-	const struct ltr501_chip_info *info = data->chip_info;
+-	ssize_t len = 0;
+-	int i;
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		*vals = samp_freq_avail;
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		*length = ARRAY_SIZE(samp_freq_avail);
++		return IIO_AVAIL_LIST;
+ 
+-	for (i = 0; i < info->als_gain_tbl_size; i++) {
+-		if (info->als_gain[i].scale == LTR501_RESERVED_GAIN)
+-			continue;
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%d.%06d ",
+-				 info->als_gain[i].scale,
+-				 info->als_gain[i].uscale);
++	default:
++		return -EINVAL;
+ 	}
+-
+-	buf[len - 1] = '\n';
+-
+-	return len;
+ }
+ 
+-static IIO_CONST_ATTR_INT_TIME_AVAIL("0.05 0.1 0.2 0.4");
+-static IIO_CONST_ATTR_SAMP_FREQ_AVAIL("20 10 5 2 1 0.5");
+-
+-static IIO_DEVICE_ATTR(in_proximity_scale_available, S_IRUGO,
+-		       ltr501_show_proximity_scale_avail, NULL, 0);
+-static IIO_DEVICE_ATTR(in_intensity_scale_available, S_IRUGO,
+-		       ltr501_show_intensity_scale_avail, NULL, 0);
+-
+-static struct attribute *ltr501_attributes[] = {
+-	&iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
+-	&iio_dev_attr_in_intensity_scale_available.dev_attr.attr,
+-	&iio_const_attr_integration_time_available.dev_attr.attr,
+-	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+-	NULL
+-};
+-
+-static struct attribute *ltr301_attributes[] = {
+-	&iio_dev_attr_in_intensity_scale_available.dev_attr.attr,
+-	&iio_const_attr_integration_time_available.dev_attr.attr,
+-	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+-	NULL
+-};
+-
+-static const struct attribute_group ltr501_attribute_group = {
+-	.attrs = ltr501_attributes,
+-};
+-
+-static const struct attribute_group ltr301_attribute_group = {
+-	.attrs = ltr301_attributes,
+-};
+-
+ static const struct iio_info ltr501_info_no_irq = {
+ 	.read_raw = ltr501_read_raw,
+ 	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr501_attribute_group,
++	.read_avail = ltr501_read_avail,
+ };
+ 
+ static const struct iio_info ltr501_info = {
+ 	.read_raw = ltr501_read_raw,
+ 	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr501_attribute_group,
+-	.read_event_value	= &ltr501_read_event,
+-	.write_event_value	= &ltr501_write_event,
+-	.read_event_config	= &ltr501_read_event_config,
+-	.write_event_config	= &ltr501_write_event_config,
+-};
+-
+-static const struct iio_info ltr301_info_no_irq = {
+-	.read_raw = ltr501_read_raw,
+-	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr301_attribute_group,
+-};
+-
+-static const struct iio_info ltr301_info = {
+-	.read_raw = ltr501_read_raw,
+-	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr301_attribute_group,
+-	.read_event_value	= &ltr501_read_event,
+-	.write_event_value	= &ltr501_write_event,
+-	.read_event_config	= &ltr501_read_event_config,
+-	.write_event_config	= &ltr501_write_event_config,
++	.read_avail = ltr501_read_avail,
++	.read_event_value = &ltr501_read_event,
++	.write_event_value = &ltr501_write_event,
++	.read_event_config = &ltr501_read_event_config,
++	.write_event_config = &ltr501_write_event_config,
+ };
+ 
+ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+@@ -1226,8 +1195,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0) | BIT(1),
+ 		.als_gain_mask = BIT(3),
+ 		.als_gain_shift = 3,
+-		.info = &ltr301_info,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1238,8 +1205,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0),
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+-		.info = &ltr301_info,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1251,7 +1216,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+ 		.no_irq_support = true,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1264,8 +1228,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0) | BIT(1),
+ 		.als_gain_mask = BIT(3),
+ 		.als_gain_shift = 3,
+-		.info = &ltr501_info,
+-		.info_no_irq = &ltr501_info_no_irq,
+ 		.channels = ltr501_channels,
+ 		.no_channels = ARRAY_SIZE(ltr501_channels),
+ 	},
+@@ -1278,8 +1240,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0),
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+-		.info = &ltr501_info,
+-		.info_no_irq = &ltr501_info_no_irq,
+ 		.channels = ltr501_channels,
+ 		.no_channels = ARRAY_SIZE(ltr501_channels),
+ 	},
+@@ -1548,7 +1508,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 				     &data->near_level))
+ 		data->near_level = 0;
+ 
+-	indio_dev->info = data->chip_info->info;
++	indio_dev->info = &ltr501_info;
+ 	indio_dev->channels = data->chip_info->channels;
+ 	indio_dev->num_channels = data->chip_info->no_channels;
+ 	indio_dev->name = name;
+@@ -1573,7 +1533,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 		if (ret)
+ 			goto powerdown_on_error;
+ 	} else {
+-		indio_dev->info = data->chip_info->info_no_irq;
++		indio_dev->info = &ltr501_info_no_irq;
+ 	}
+ 
+ 	ret = iio_triggered_buffer_setup(indio_dev, NULL,
+-- 
+2.53.0
 
-> 
-> Suggested-by: Chao-ying Fu <chao-ying.fu@globalfoundries.com>
-> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-> ---
->  arch/riscv/Kconfig               | 53 ++++++++++++++++++++++++++++++++++++++++
->  arch/riscv/Makefile              | 16 +++++++++---
->  arch/riscv/include/asm/atomic.h  | 52 ++++++++++++++++++++++++++++++++++++++-
->  arch/riscv/include/asm/bitops.h  | 47 +++++++++++++++++++++++++++++++++++
->  arch/riscv/include/asm/cmpxchg.h | 16 ++++++++++++
->  arch/riscv/include/asm/futex.h   | 45 ++++++++++++++++++++++++++++++++++
->  arch/riscv/kernel/entry.S        |  7 ++++++
->  arch/riscv/kernel/head.S         | 12 +++++++++
->  8 files changed, 243 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index 5874ca30f4f6..07d15a0bb379 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -730,6 +730,59 @@ config RISCV_ISA_ZACAS
->  
->  	  If you don't know what to do here, say Y.
->  
-> +config TOOLCHAIN_HAS_ZALRSC_ZAAMO
-> +	bool
-> +	default y
-> +	depends on !64BIT || $(cc-option,-mabi=lp64 -march=rv64im_zaamo_zalrsc)
-> +	depends on !32BIT || $(cc-option,-mabi=ilp32 -march=rv32im_zaamo_zalrsc)
-> +
-> +config RISCV_ISA_ZAAMO
-> +	bool "Zaamo extension support for AMO atomics" if TOOLCHAIN_HAS_ZALRSC_ZAAMO
-> +	default y
-> +	help
-> +	  Use AMO instructions for kernel atomic memory operations. When
-> +	  disabled, those operations are built from LR/SC and the kernel
-> +	  is compiled with zalrsc instead of the A extension.
-> +
-> +	  Disable this for a CPU where AMO is much slower than LR/SC. That
-> +	  is the case when AMO instructions are emulated by a trap into
-> +	  M-mode, as on the MIPS P8700: an emulated atomic costs hundreds
-> +	  of cycles where LR/SC costs tens. Such a CPU still advertises
-> +	  the A extension, and userspace still sees it.
-> +
-> +	  A kernel built without Zaamo runs on any CPU that implements the
-> +	  A extension; it only does not use AMO.
-> +
-> +	  The compiler must accept _zaamo and _zalrsc in -march to make
-> +	  this choice. GCC 15.1 is the first release that does. With an
-> +	  older compiler the option stays enabled and -march keeps the A
-> +	  extension.
-> +
-> +	  If you don't know what to do here, say Y.
-> +
-> +config RISCV_ISA_ZALRSC
-> +	def_bool y
-> +	help
-> +	  Zalrsc provides LR/SC. cmpxchg and the conditional atomics are
-> +	  LR/SC sequences, so this is always enabled.
-> +
-> +	  It exists because asm/hwcap.h already has RISCV_ISA_EXT_ZALRSC
-> +	  next to RISCV_ISA_EXT_ZAAMO, and the kernel pairs each
-> +	  RISCV_ISA_EXT_<ext> it can be built for with a
-> +	  CONFIG_RISCV_ISA_<ext>; rv_ext_enabled() in the BPF JIT, for
-> +	  example, tests both.
-> +
-> +	  Zaamo plus Zacas could provide every atomic as well, with CAS
-> +	  loops in place of LR/SC. This option is where that would go,
-> +	  by allowing it to be disabled.
-> +
-> +config RISCV_ISA_A
-> +	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
-> +	help
-> +	  The A extension is Zaamo plus Zalrsc. This is the Kconfig
-> +	  counterpart of RISCV_ISA_EXT_A, for the same reason as
-> +	  RISCV_ISA_ZALRSC above, and puts "a" in -march.
-> +
->  config TOOLCHAIN_HAS_ZBB
->  	bool
->  	default y
-> diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
-> index 44f5a439741a..5cdc9cc017bb 100644
-> --- a/arch/riscv/Makefile
-> +++ b/arch/riscv/Makefile
-> @@ -58,8 +58,9 @@ ifeq ($(CONFIG_SHADOW_CALL_STACK),y)
->  endif
->  
->  # ISA string setting
-> -riscv-march-$(CONFIG_ARCH_RV32I)	:= rv32ima
-> -riscv-march-$(CONFIG_ARCH_RV64I)	:= rv64ima
-> +riscv-march-$(CONFIG_ARCH_RV32I)	:= rv32im
-> +riscv-march-$(CONFIG_ARCH_RV64I)	:= rv64im
-> +riscv-march-$(CONFIG_RISCV_ISA_A)	:= $(riscv-march-y)a
->  riscv-march-$(CONFIG_FPU)		:= $(riscv-march-y)fd
->  riscv-march-$(CONFIG_RISCV_ISA_C)	:= $(riscv-march-y)c
->  riscv-march-$(CONFIG_RISCV_ISA_V)	:= $(riscv-march-y)v
-> @@ -75,9 +76,16 @@ else
->  riscv-march-$(CONFIG_TOOLCHAIN_NEEDS_EXPLICIT_ZICSR_ZIFENCEI) := $(riscv-march-y)_zicsr_zifencei
->  endif
->  
-> -KBUILD_BASE_ISA = -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)fd([^v_]*)v?/\1\2/')
-> +KBUILD_BASE_ISA = -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima?|rv64ima?)fd([^v_]*)v?/\1\2/')
->  export KBUILD_BASE_ISA
->  
-> +# Without "a", name the sub-extensions. Zaamo can be off only when the
-> +# compiler accepts _zaamo and _zalrsc in -march.
-> +ifneq ($(CONFIG_RISCV_ISA_A),y)
-> +riscv-march-$(CONFIG_RISCV_ISA_ZAAMO) := $(riscv-march-y)_zaamo
-> +riscv-march-$(CONFIG_RISCV_ISA_ZALRSC) := $(riscv-march-y)_zalrsc
-> +endif
-> +
->  # Remove F,D,V from isa string for all. Keep extensions between "fd" and "v" by
->  # matching non-v and non-multi-letter extensions out with the filter ([^v_]*)
->  KBUILD_CFLAGS += $(KBUILD_BASE_ISA)
-> @@ -85,7 +93,7 @@ KBUILD_CFLAGS += $(KBUILD_BASE_ISA)
->  KBUILD_AFLAGS += -march=$(riscv-march-y)
->  
->  # For C code built with floating-point support, exclude V but keep F and D.
-> -CC_FLAGS_FPU  := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima|rv64ima)([^v_]*)v?/\1\2/')
-> +CC_FLAGS_FPU  := -march=$(shell echo $(riscv-march-y) | sed -E 's/(rv32ima?|rv64ima?)([^v_]*)v?/\1\2/')
->  
->  KBUILD_CFLAGS += -mno-save-restore
->  
-> diff --git a/arch/riscv/include/asm/atomic.h b/arch/riscv/include/asm/atomic.h
-> index 616b8b332ac5..3b189bea1d08 100644
-> --- a/arch/riscv/include/asm/atomic.h
-> +++ b/arch/riscv/include/asm/atomic.h
-> @@ -50,6 +50,7 @@ static __always_inline void arch_atomic64_set(atomic64_t *v, s64 i)
->   * have the AQ or RL bits set.  These don't return anything, so there's only
->   * one version to worry about.
->   */
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  #define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
->  static __always_inline							\
->  void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
-> @@ -59,7 +60,23 @@ void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
->  		: "+A" (v->counter)					\
->  		: "r" (I)						\
->  		: "memory");						\
-> -}									\
-> +}
-> +#else
-> +#define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
-> +static __always_inline							\
-> +void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
-> +{									\
-> +	register c_type ret, temp;					\
-> +	__asm__ __volatile__ (						\
-> +		"1:	lr." #asm_type " %1, %0\n"			\
-> +		"	" #asm_op " %2, %1, %3\n"			\
-> +		"	sc." #asm_type " %2, %2, %0\n"			\
-> +		"	bnez %2, 1b\n"					\
-> +		: "+A" (v->counter), "=&r" (ret), "=&r" (temp)		\
-> +		: "r" (I)						\
-> +		: "memory");						\
-> +}
-> +#endif
->  
->  #ifdef CONFIG_GENERIC_ATOMIC64
->  #define ATOMIC_OPS(op, asm_op, I)					\
-> @@ -84,6 +101,7 @@ ATOMIC_OPS(xor, xor,  i)
->   * There's two flavors of these: the arithmetic ops have both fetch and return
->   * versions, while the logical ops only have fetch versions.
->   */
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  #define ATOMIC_FETCH_OP(op, asm_op, I, asm_type, c_type, prefix)	\
->  static __always_inline							\
->  c_type arch_atomic##prefix##_fetch_##op##_relaxed(c_type i,		\
-> @@ -108,6 +126,38 @@ c_type arch_atomic##prefix##_fetch_##op(c_type i, atomic##prefix##_t *v)	\
->  		: "memory");						\
->  	return ret;							\
->  }
-> +#else
-> +#define ATOMIC_FETCH_OP(op, asm_op, I, asm_type, c_type, prefix)	\
-> +static __always_inline							\
-> +c_type arch_atomic##prefix##_fetch_##op##_relaxed(c_type i,		\
-> +					     atomic##prefix##_t *v)	\
-> +{									\
-> +	register c_type ret, temp;					\
-> +	__asm__ __volatile__ (						\
-> +		"1:	lr." #asm_type " %1, %0\n"			\
-> +		"	" #asm_op " %2, %1, %3\n"			\
-> +		"	sc." #asm_type " %2, %2, %0\n"			\
-> +		"	bnez %2, 1b\n"					\
-> +		: "+A" (v->counter), "=&r" (ret), "=&r" (temp)		\
-> +		: "r" (I)						\
-> +		: "memory");						\
-> +	return ret;							\
-> +}									\
-> +static __always_inline							\
-> +c_type arch_atomic##prefix##_fetch_##op(c_type i, atomic##prefix##_t *v)	\
-> +{									\
-> +	register c_type ret, temp;					\
-> +	__asm__ __volatile__ (						\
-> +		"1:	lr." #asm_type ".aqrl %1, %0\n"			\
-> +		"	" #asm_op " %2, %1, %3\n"			\
-> +		"	sc." #asm_type ".aqrl %2, %2, %0\n"		\
-> +		"	bnez %2, 1b\n"					\
-> +		: "+A" (v->counter), "=&r" (ret), "=&r" (temp)		\
-> +		: "r" (I)						\
-> +		: "memory");						\
-> +	return ret;							\
-> +}
-> +#endif
->  
->  #define ATOMIC_OP_RETURN(op, asm_op, c_op, I, asm_type, c_type, prefix)	\
->  static __always_inline							\
-> diff --git a/arch/riscv/include/asm/bitops.h b/arch/riscv/include/asm/bitops.h
-> index 3c1a15be54d8..ab3ffc3bfcfc 100644
-> --- a/arch/riscv/include/asm/bitops.h
-> +++ b/arch/riscv/include/asm/bitops.h
-> @@ -170,12 +170,17 @@ static __always_inline int variable_fls(unsigned int x)
->  
->  #if (BITS_PER_LONG == 64)
->  #define __AMO(op)	"amo" #op ".d"
-> +#define __LR	"lr.d"
-> +#define __SC	"sc.d"
->  #elif (BITS_PER_LONG == 32)
->  #define __AMO(op)	"amo" #op ".w"
-> +#define __LR	"lr.w"
-> +#define __SC	"sc.w"
->  #else
->  #error "Unexpected BITS_PER_LONG"
->  #endif
->  
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  #define __test_and_op_bit_ord(op, mod, nr, addr, ord)		\
->  ({								\
->  	unsigned long __res, __mask;				\
-> @@ -194,6 +199,35 @@ static __always_inline int variable_fls(unsigned int x)
->  		: "+A" (addr[BIT_WORD(nr)])			\
->  		: "r" (mod(BIT_MASK(nr)))			\
->  		: "memory");
-> +#else
-> +#define __test_and_op_bit_ord(op, mod, nr, addr, ord)		\
-> +({								\
-> +	unsigned long __res, __mask, __temp;			\
-> +	__mask = BIT_MASK(nr);					\
-> +	__asm__ __volatile__ (					\
-> +		"1: " __LR #ord " %0, %1\n"			\
-> +		#op " %2, %0, %3\n"				\
-> +		__SC #ord " %2, %2, %1\n"			\
-> +		"bnez %2, 1b\n"					\
-> +		: "=&r" (__res), "+A" (addr[BIT_WORD(nr)]), "=&r" (__temp)	\
-> +		: "r" (mod(__mask))				\
-> +		: "memory");					\
-> +	((__res & __mask) != 0);				\
-> +})
-> +
-> +#define __op_bit_ord(op, mod, nr, addr, ord)			\
-> +do {								\
-> +	unsigned long __res, __temp;				\
-> +	__asm__ __volatile__ (					\
-> +		"1: " __LR #ord " %0, %1\n"			\
-> +		#op " %2, %0, %3\n"				\
-> +		__SC #ord " %2, %2, %1\n"			\
-> +		"bnez %2, 1b\n"					\
-> +		: "=&r" (__res), "+A" (addr[BIT_WORD(nr)]), "=&r" (__temp)	\
-> +		: "r" (mod(BIT_MASK(nr)))			\
-> +		: "memory");					\
-> +} while (0)
-> +#endif
->  
->  #define __test_and_op_bit(op, mod, nr, addr) 			\
->  	__test_and_op_bit_ord(op, mod, nr, addr, .aqrl)
-> @@ -337,12 +371,25 @@ static __always_inline void arch___clear_bit_unlock(
->  static __always_inline bool arch_xor_unlock_is_negative_byte(unsigned long mask,
->  		volatile unsigned long *addr)
->  {
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  	unsigned long res;
->  	__asm__ __volatile__ (
->  		__AMO(xor) ".rl %0, %2, %1"
->  		: "=r" (res), "+A" (*addr)
->  		: "r" (__NOP(mask))
->  		: "memory");
-> +#else
-> +	unsigned long res, temp;
-> +
-> +	__asm__ __volatile__ (
-> +		"1: " __LR ".rl %0, %1\n"
-> +		"xor %2, %0, %3\n"
-> +		__SC ".rl %2, %2, %1\n"
-> +		"bnez %2, 1b\n"
-> +		: "=&r" (res), "+A" (*addr), "=&r" (temp)
-> +		: "r" (__NOP(mask))
-> +		: "memory");
-> +#endif
->  	return (res & BIT(7)) != 0;
->  }
->  
-> diff --git a/arch/riscv/include/asm/cmpxchg.h b/arch/riscv/include/asm/cmpxchg.h
-> index 662e160b0522..883dc4aa1dc3 100644
-> --- a/arch/riscv/include/asm/cmpxchg.h
-> +++ b/arch/riscv/include/asm/cmpxchg.h
-> @@ -57,6 +57,7 @@
->  	}									\
->  })
->  
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  #define __arch_xchg(sfx, prepend, append, r, p, n)			\
->  ({									\
->  	__asm__ __volatile__ (						\
-> @@ -67,6 +68,21 @@
->  		: "r" (n)						\
->  		: "memory");						\
->  })
-> +#else
-> +#define __arch_xchg(sfx, prepend, append, r, p, n)			\
-> +({									\
-> +	__typeof__(*(__ptr)) temp;					\
-> +	__asm__ __volatile__ (						\
-> +		prepend							\
-> +		"1:	lr" sfx " %0, %1\n"				\
-> +		"	sc" sfx " %2, %3, %1\n"				\
-> +		"	bnez %2, 1b\n"					\
-> +		append							\
-> +		: "=&r" (r), "+A" (*(p)), "=&r" (temp)			\
-> +		: "r" (n)						\
-> +		: "memory");						\
-> +})
-> +#endif
->  
->  #define _arch_xchg(ptr, new, sc_sfx, swap_sfx, prepend,			\
->  		   sc_append, swap_append)				\
-> diff --git a/arch/riscv/include/asm/futex.h b/arch/riscv/include/asm/futex.h
-> index 6f3bc9bdb85e..58f12bf2af68 100644
-> --- a/arch/riscv/include/asm/futex.h
-> +++ b/arch/riscv/include/asm/futex.h
-> @@ -19,6 +19,7 @@
->  #define __disable_user_access()		do { } while (0)
->  #endif
->  
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  #define __futex_atomic_op(insn, ret, oldval, uaddr, oparg)	\
->  {								\
->  	__enable_user_access();					\
-> @@ -32,6 +33,27 @@
->  	: "memory");						\
->  	__disable_user_access();				\
->  }
-> +#else
-> +#define __futex_atomic_op(insn, ret, oldval, uaddr, oparg)	\
-> +{								\
-> +	int temp;						\
-> +								\
-> +	__enable_user_access();					\
-> +	__asm__ __volatile__ (					\
-> +	"1:	lr.w.aqrl %[ov], %[u]			\n"	\
-> +	"	" insn "				\n"	\
-> +	"2:	sc.w.aqrl %[t], %[t], %[u]		\n"	\
-> +	"	bnez %[t], 1b				\n"	\
-> +	"3:						\n"	\
-> +	_ASM_EXTABLE_UACCESS_ERR(1b, 3b, %[r])			\
-> +	_ASM_EXTABLE_UACCESS_ERR(2b, 3b, %[r])			\
-> +	: [r] "+r" (ret), [ov] "=&r" (oldval),			\
-> +	  [t] "=&r" (temp), [u] "+m" (*(uaddr))			\
-> +	: [op] "Jr" (oparg)					\
-> +	: "memory");						\
-> +	__disable_user_access();				\
-> +}
-> +#endif
->  
->  static inline int
->  arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
-> @@ -43,6 +65,7 @@ arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
->  	uaddr = untagged_addr(uaddr);
->  
->  	switch (op) {
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  	case FUTEX_OP_SET:
->  		__futex_atomic_op("amoswap.w.aqrl %[ov],%z[op],%[u]",
->  				  ret, oldval, uaddr, oparg);
-> @@ -63,6 +86,28 @@ arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
->  		__futex_atomic_op("amoxor.w.aqrl %[ov],%z[op],%[u]",
->  				  ret, oldval, uaddr, oparg);
->  		break;
-> +#else
-> +	case FUTEX_OP_SET:
-> +		__futex_atomic_op("mv %[t], %z[op]",
-> +				  ret, oldval, uaddr, oparg);
-> +		break;
-> +	case FUTEX_OP_ADD:
-> +		__futex_atomic_op("add %[t], %[ov], %z[op]",
-> +				  ret, oldval, uaddr, oparg);
-> +		break;
-> +	case FUTEX_OP_OR:
-> +		__futex_atomic_op("or %[t], %[ov], %z[op]",
-> +				  ret, oldval, uaddr, oparg);
-> +		break;
-> +	case FUTEX_OP_ANDN:
-> +		__futex_atomic_op("and %[t], %[ov], %z[op]",
-> +				  ret, oldval, uaddr, ~oparg);
-> +		break;
-> +	case FUTEX_OP_XOR:
-> +		__futex_atomic_op("xor %[t], %[ov], %z[op]",
-> +				  ret, oldval, uaddr, oparg);
-> +		break;
-> +#endif
->  	default:
->  		ret = -ENOSYS;
->  	}
-> diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
-> index 61b7a7716697..ba2db6804a6c 100644
-> --- a/arch/riscv/kernel/entry.S
-> +++ b/arch/riscv/kernel/entry.S
-> @@ -73,7 +73,14 @@
->  	beq	a2, zero, .Lnew_valid_map_cpus_restore_context
->  
->  	/* Atomically reset the current cpu bit in new_valid_map_cpus */
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  	amoxor.d	a0, a1, (a0)
-> +#else
-> +1:	lr.d	a2, (a0)
-> +	xor	a2, a1, a2
-> +	sc.d	a2, a2, (a0)
-> +	bnez	a2, 1b
-> +#endif
->  
->  	/*
->  	 * A sfence.vma is required here. Even if we had Svvptc, there's no
-> diff --git a/arch/riscv/kernel/head.S b/arch/riscv/kernel/head.S
-> index f6a8ca49e627..dc3862ed29c4 100644
-> --- a/arch/riscv/kernel/head.S
-> +++ b/arch/riscv/kernel/head.S
-> @@ -265,7 +265,19 @@ SYM_CODE_START(_start_kernel)
->  	/* Pick one hart to run the main boot sequence */
->  	la a3, hart_lottery
->  	li a2, 1
-> +#ifdef CONFIG_RISCV_ISA_ZAAMO
->  	amoadd.w a3, a2, (a3)
-> +#else
-> +	/*
-> +	 * hart_lottery is a small 32-bit counter. add is valid on RV32
-> +	 * and RV64; sc.w stores the low 32 bits.
-> +	 */
-> +1:	lr.w t0, (a3)
-> +	add t1, t0, a2
-> +	sc.w t1, t1, (a3)
-> +	bnez t1, 1b
-> +	mv a3, t0
-> +#endif
->  	bnez a3, .Lsecondary_start
->  #endif /* CONFIG_RISCV_BOOT_SPINWAIT */
->  
-> 
-> -- 
-> 2.43.0
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
