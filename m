@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794153320;
-	b=inEgdRSZua8H4RsyH3d19V+dQYER3KC9rkLpNm14R5gBjgnyezG/insLYPYkSXpbZ4Ul
-	 ESo5NGxUPnRLCLeBTNVuqGH3KNfU8cnEDHn9W2/HFxDzbNzCffiagEDWKXzN6+JCD0YPQ
-	 20Ys7JvttTxFuWRcd75pAOy4Tqb8lJSFbR6I6VGUReOINokon3D63IGaoHcY0R3+zjc4Y
-	 +zVlXYGvOWOohkuVLGq2ivXtw9OGUb5MBdLx3qb5GTGT6PylcRortEL05uUWG3ECgT2jF
-	 n8ICQ/AjugemdyusW6t7mRL/Xdb3hBCV98TTUqWBjmK9QGBHPjjvno0vroKDkVkd7EA==
+	b=Etq2qTSXEjih2TWJNez8JXf+BHuGc9cuC/q9RxjYrw3zWxwpEj4UYpMkyT/wYHZnmQIh
+	 Bkh8A508HkKzoVNLiG5Ua0kQH554cO1JmfReGo7cNaFlklBaCPgbtwVbVQs6BohsPLRnk
+	 c5rJvEuFsL4Vj1S+rgnYGbk2RGTY4vPG++Hujp/RFYnT5jTxrE3VEbP/emS2qv8uf5DY4
+	 lG+XoVTamcnwehyB9T8599sYwXWER+RWVotLRsFCjd+lwWnD8xKyjzXLwKu9YCR77DOQA
+	 yrmT4hvdDYqBrQzVff9ipK1OcEUJRnhnbZMiH6dSv89tqSRPmANiNafs6GF0B4u1PLg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794153320;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=LvMIPwXGFg1XneApC90M26IpMbrU8r6YTUanv8t5q+0=;
-	b=xsX22ACel5NAo4x6npsfgZrsOC5tDRnuaMuFw/2R+CpnNF7K0RWTGPhmRW1XSiTYS22T
-	 PS7E31HB+vJVc5BURx5LlcKjJ+RtxUTp1fRH3HWuDAfWhv+8kWM/njKbq3cz+f+w3IesZ
-	 5W5HHHEpWgUlWGt4KEux2nxKQfSEGAkGVE6a9fuzTMl5cDHABJbb3V1afxXarn6HN8Lqd
-	 JK4cxqtTHOk5wIEo8YCW5rpH0GjTQQBM3KuHrdzo+l+2AgEdVeVdz4/cc8TG4MfbpLyyw
-	 3CI2LduEIincMtuoklCjbqDYl9Yh9WoAwRXMevwBGSC1xh/j4q++PZ4nA0lExKTEt8A==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=naRY3LivuuNp7aOaJBA7q72WcB6N6bwNBYS0Qj5pXrM=;
+	b=XZi8CKDCibbtiJAPHPcowicerROQhEiflvgEwaSsax2pd9qdZM6aYAjD6bXWv8gKKDqE
+	 Ln8xwo3bzxO+kjSBk24Ph3xh5ZRFhuEgNwXW90ge7/zQw39HHM54CxLDH7iLZkzW39iUO
+	 EG4Y27K3QhLExK9YYULoBhEk1NIaLtQjFFtvMT3mXP1U1Vc/U8NZB5zzmx3X7kCsD1G3l
+	 m8Jh9Vp9Qpt7AA1I7akpBRcyrqsvhdejBdVib5vcR5qnDq87JD7B85syjkcg2US7Vvcx1
+	 61g6CfGfMWHMhTurbvkpwgizxmQNsJYyjVWN58/9xKXdtNiJs1mAD/AD9Wbci8lvWUw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VyoaD/PO";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviItnhg;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA5F606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB27606A320;
 	Sun,  8 Nov 2026 15:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VyoaD/PO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviItnhg
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794153319;
-	b=UgPTXuzxM0EamG7V5mXllRelS1Vkl52LIBsuyXaE/852hABo5juryRcgIh2WPkZ5sww2
-	 YQxhJdXNpYbPMWAx8XaA1EUNfihErAbGUH9j5iRbL4Cxz8QwpmvvaFIZYG/gVrxMfDFen
-	 ECDjFlx74kn/hh5VruafmLE8hreYXaCQjyz7AqQZgWBR9rL39UfAMJCglSM9OOnerR7j9
-	 9XtTTUJLBMa4Rpw2bBHWv3jlO7sv8vsNRrnYgF4gepNO26CMqFItlmuLavTmNsnOtZlsN
-	 wlpDl4JAEp1ztxtmgtZnZuEpGmQbR+OLAenwegwFsRj9VhEx3Gh9iWUjLRGYQAPqhdg==
+	b=wA21mHqVLBaSiwq5EXrDhnTQWRqbg4jykUbkwWZogoXtCLEYsnLch6LYNWnD5457v0wQ
+	 7LpvgKUi2RkjY5AwY2RKrRhxHIXVYkH+POfqQUEVZ23l3DavQR1lOvtsRyj457qgzsmLR
+	 NRImVZJ3xqq6wwJIIf6pEAgLc0fRnJMw/+IeO5QygoU0cJNYD20BGRgFpsZB/yaTapuJV
+	 olXMKizR7mx/vlDWQYk+l+2aAPxzO7DfPU/JX8we059T32SSuHnMf7P1NG4vua3ET2Dnq
+	 LM2gNOSQGxsDXqpAVwJZQYvRx0eyvp3TGdZV892SR/KnMKVkMD6RxdsBHz5Up+0S2dw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794153319;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=LvMIPwXGFg1XneApC90M26IpMbrU8r6YTUanv8t5q+0=;
-	b=ehCa/9G6OCLgR2cZ8StdUkqkkV1dtVSdACIsv3LQ4IoPOD/RJIjxrLXuIhb6+mgG37Ng
-	 XCHqShSJITdI7dRaGJD2F+7LPfVqrw2VTeXj6GDPGbCKQwYZL8UQi9RHw9SqPJnfI2WXR
-	 RIVCAfdLr6XTMsN1zbZV9EphnR5SOy4QgmDkGvgEby+7CWRe0FgV6SCeZpdY9TyNpc2K9
-	 236gbhEYEuNvZ50RU3UIr7Q906EvsNorzJ9JnsEE0xd5UZCu9vJpP0H+tlOVpJZBNQTg/
-	 RG2tkE81/IWi2EPSgbcHeSssY0FkNfK/UY4V6yY0DEPGZ8kEaKM/nSLbCsHUMXA7sTA==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=naRY3LivuuNp7aOaJBA7q72WcB6N6bwNBYS0Qj5pXrM=;
+	b=mVWyNRy+85Fc12H9PjXyy7wpXCJxVIg3Jw/LYOTWIPCwStLQZ3fKivD30HnlVZbbnW2O
+	 M2+CRb1Xfl8MiEqKKoV4xqN9wzm/m5rBZugcLCergqDPvWVUkmo5w5+GXPzq+XrhaHCCY
+	 S9V/GChCO18yUyNJ1dzec6a5QMn4RWUPvR/v0FHm1+obFJVJX8v5wZZWWBOQw21OSY91c
+	 M/9MX3dRmD8Kw+jC7SD0u1v6WvdwgO5F1bkIj8dGOVNflAeoaCOcaXNWfE/Nznw4ywF0U
+	 eKIUdhbQvLKvRDj+tOKDvx8Pu3T64XorG9KJ7zkIqPNzY91I0GyFguu1bn4Ofuc2f4Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C79971F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id D54841F008A1;
 	Sun,  8 Nov 2026 15:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794153319;
-	bh=LvMIPwXGFg1XneApC90M26IpMbrU8r6YTUanv8t5q+0=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=VyoaD/POHW+DgfUvpVNhXEvJ92V7vS3AjqT/ZAfbfVy6PQUQ2Iq91kjq81d46WWHs
-	 Dv0G/srGdrCBl/h1/MZREhioHDiRQNJvPN3/7lQqz1YDP1arwJjA66Nmm3QLiQraTM
-	 nJuuT0m6TEaLQybozjpQsbwq+BZXkLN0znsggtJz4+dK+AtvxsUngKLurYc1uz/tDF
-	 a0UTVqL6qAzR2Mg2GaWWqE4LtRQhfAlUR5+TyMb/16dlJGl3tIMqoU6xVzKDtqIDKY
-	 ObbuvxHZA9PBmkTegNOy5zLuyWFkDG4/pktX+254T7BCRbDWL69RmNNBjQYwfnsC0d
-	 u8tgr6Tbn3wXQ==
+	bh=naRY3LivuuNp7aOaJBA7q72WcB6N6bwNBYS0Qj5pXrM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hviItnhgF0f/4nu17J8UHPhDSfyFdVWR75Rn+7wVVN0QMon9bz27/aAWR7h4KuRJN
+	 dRlWcgdt1xH4zCb9BErgC9tdXBom+t2FWWhngRoUGVBuAPdFPm6N2qFdt31lez/IdT
+	 4z6QpK6k0aPM6J0cigZfPzITwf6a+kr1/jcGYgYvon+1YEHmOoCXZr7gsiBBGkBVXT
+	 tigrVSw+T+CVHGZtWQBruIyvLjaCINpyNGOV26uuH+5mUDs+3ypMG/Leiu8Jf6IdI1
+	 rx0ZN1OWumjsqIz4tWVlmhv8lNtqH13fMiwTedHPAP120QvzKpUHo7Q+GyQufX2A3f
+	 pdLJsFnaSxVpg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3F6B347FE4;
+	by lkml.kernel.org (Postfix) with ESMTP id 5622747FCB;
 	Sun,  8 Nov 2026 15:55:18 +0000 (UTC)
 From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Subject: [PATCH 0/2] Input: wacom_w9000 - add support for Wacom WEZ01
-Date: Sun, 08 Nov 2026 16:55:16 +0100
-Message-Id: <20261108-b4-wacom-w9000-wez01-v1-0-c2b5e3466187@dxdmail.cc>
+Date: Sun, 08 Nov 2026 16:55:17 +0100
+Subject: [PATCH 1/2] dt-bindings: input: touchscreen: wacom,w9007a-lt03:
+ Add Wacom WEZ01
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,55 +84,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrDIBBA0auEWWdgRoq0uUrIwtgxnUU1KMTQ4
- N0rWb7F/xcUySoFpuGCLIcWTbGDxwH8x8VNUN/dYMhYZnri+sDqfPpifRERVvkR4xpMEG+d42C
- hp3uWoOe9nZfW/vK+tM5mAAAA
-X-Change-ID: 20261108-b4-wacom-w9000-wez01-bf2fec6aa1f6
+Message-Id: <20261108-b4-wacom-w9000-wez01-v1-1-c2b5e3466187@dxdmail.cc>
+References: <20261108-b4-wacom-w9000-wez01-v1-0-c2b5e3466187@dxdmail.cc>
+In-Reply-To: <20261108-b4-wacom-w9000-wez01-v1-0-c2b5e3466187@dxdmail.cc>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Hendrik Noack <hendrik-noack@gmx.de>
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Nizat Mikayilli <nacht@dxdmail.cc>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794153317; l=1082;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794153317; l=1172;
  i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=8XkiUPix4eRLdqxcZAiV0Titd2an3O/18ecr23mOFlE=;
- b=0V0q+sHIVc9jvjTC76iCBVo2+++7cuTURsWSlDAmS7xlYDHvBH72lt4A6hKdUPReWmzTRnD7y
- 5TwdDJCnC1GA1CeapkWYaS7MgPAukdmd9FAWVLyjtPyrr+tHBYu9AD9
+ bh=zq0lqjUM9FPeexdWfMB8KmeYqsPCzR+RvN5Mv4EBnCA=;
+ b=Oyt4cvYMINkHSVaq/j/EVgTsYe+L1Dt788tUrL5ktHt2lFF/o29J9V5Gwo7bd5NL0OiWL6+3P
+ yON+NPF8H7CAnk9aTsKEutT+xIR6zZvBdbnq1Zu8TmsPyWzyhIYhJF2
 X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
  pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
 X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
  auth_id=1111
 X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
 Reply-To: nacht@dxdmail.cc
+Content-Transfer-Encoding: 7bit
 
-The Samsung Galaxy Tab S9 Wi-Fi uses a Wacom WEZ01 for its S Pen. It
-has the same query and coordinate layout as the W9000 series, so these
-patches add it to wacom_w9000.
+From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-The digitizer node for the tablet will be sent with its board series:
-https://lore.kernel.org/r/20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc
+The Wacom WEZ01 is the S Pen digitizer of the Samsung Galaxy Tab S9. It
+is not compatible with the W9002 or W9007A: it is queried with a plain
+32-byte read that returns the query at offset 16, and its 17-byte
+coordinate messages carry a packet type in the first byte.
 
-I tested it on the tablet. I don't have a device with a W9002 or W9007A,
-so for those it is only compile-tested.
+Its firmware differs between devices (the Galaxy Z Fold5 reports the
+buttons differently), so the compatible has the Tab S9 codename as a
+suffix, like the W9007A entries.
 
 Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 ---
-Nizat Mikayilli (2):
-      dt-bindings: input: touchscreen: wacom,w9007a-lt03: Add Wacom WEZ01
-      Input: wacom_w9000 - add support for Wacom WEZ01
+ .../devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml         | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../input/touchscreen/wacom,w9007a-lt03.yaml       |  1 +
- drivers/input/touchscreen/Kconfig                  |  2 +-
- drivers/input/touchscreen/wacom_w9000.c            | 53 ++++++++++++++++++----
- 3 files changed, 47 insertions(+), 9 deletions(-)
----
-base-commit: f7a8b89bc067fa1cbcd3312539bc0d61810d3280
-change-id: 20261108-b4-wacom-w9000-wez01-bf2fec6aa1f6
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml b/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml
+index 6d1da6a435d3..7b541c91de36 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-lt03.yaml
+@@ -24,6 +24,7 @@ properties:
+       - wacom,w9002
+       - wacom,w9007a-lt03
+       - wacom,w9007a-v1
++      - wacom,wez01-gts9
+ 
+   reg:
+     maxItems: 1
 
-Best regards,
 -- 
-Nizat Mikayilli <nacht@dxdmail.cc>
+2.56.0
 
 
