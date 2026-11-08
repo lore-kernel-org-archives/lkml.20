@@ -1,63 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169381;
-	b=LRCbzP5O7M6IB9nvRvjp56Hzb6UCmt11Mhl8FIR3lq2y8PL6nBdaV5upltLf50VfN5KK
-	 OA1uyPxrXphKmOE6UUFZRMS9x6xzx2LlEL10mRtny1x5rApJ1bpHZk3rpQ+/URsFEry13
-	 N2vb44EXIxrMjlwDecYDCfdcSP09/Iwumj9lFLpen7TBpRrZXKUMnXB7RXLiT3l72Zgbb
-	 qeJsAU+fBNhFTyel1Dq01k9yYkHBIm3Pl5TBOV26kP/EubA7jyymzkysRFGt84XnsVqh1
-	 4oIbRPoArqtycv4IVyZwq93+/8mAiP7XtG3NQh6uS2/AqZjG4meDx5jhygutlg77FbQ==
+	t=1794169372;
+	b=xWMjqdGK3IKLz8TEmUabh15hjBiFMBtgJAT8C1Zwy9itFOfdEQza9T191HKXwHklr/Eo
+	 cVBVtc/UaEWLC4hfz7FYu+RjrDfBEA+Eon1F5hVe3cVGf1o0O/dxdSe+vTxcdDsxiJjwZ
+	 0D2REm3ZTKq6ILDKMULX3qt5qWJO+a90xUiw64ms8Ik1m5pnoP+lNdQE2smr/GcTMlzjB
+	 OOE1WbcqGsr3pS895GhPiWNBFoVhoaa/sPfWMG4VQ/k+bmJ6BdDlTX20AkEVTxOv/ozJV
+	 mecHVwYenfLUUaLVktPUlhW87PLHsA3SwZ0ODTapIeCGANf0gMOT3TkO+Ez+2kEajZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169381;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169372;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=MA767eBMFY+AgdzEUS3U7TTeVRTve0+I5z7cZs/TKF8=;
-	b=A5mpmvfz4LeohRfJf0DpvxBCNpxwGSsEltpLuo/mBqX8va0PSKAYjjBlzYdmJjJRsoET
-	 0CTDqFIXS7MkMEbJ9Rgh6s+2xe9L/SveE0ZzU6qHZgWFiUbXXnETYMeoLIf5uNS3/dbQA
-	 tor5c1ADWqsWsw2FpAKqnx7d1FuJZRWEreXbP5d0FC0mPDLE45vbJ+dYuIyKJTjMvOopo
-	 Q4rHHo8eJ9qxAFzpPcEzRrCqZvydYmzlla6/Z1+FOHK/HeIEwA4dlnp4oumhfBZC1k0sX
-	 A7MtwC7Go/A1REzWWjHRTYIs2Jt78xX29I/OEiW4KZ54QF8ONs+WXC+tIeqbloarOIA==
+	bh=EbzYZKw4Z4Se0P5JJESGy35Jk+CQhKCQTQ2rrP07VGM=;
+	b=0paHMS+hufaj5jo8WGR2cjEcAHubW6d5gcv71OluX1GoYIcQJFI5sGClPqkwwIkAMpQU
+	 lQpEQ/6ufqXuUCl0Kufkog1Py91mRxDxDQcvy2eOcCXOV+rszb0+ndlc5S4+0/mGmSE2k
+	 nusc5pJAnx8lVk3UL/ysyDE3ZwrX7wQhlq7LS/1M6UTgFmmnvjDmkGT2aj9UtHxg6DGGI
+	 zF+ngEw0lXyGnnOOJfrLaiW5O4nT0AsiowjDL2GnSMoJGN1O7HEho3BEtkOhXxapRZ1jR
+	 F0mphFLPNvySQoaTmgG3VccPEYh7FMmzHMNo+VVpSX8OVsqbWSQeVWMl5XawmZYJ5tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cbz/01tD";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Of2ZblCq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3EF606C760;
-	Sun,  8 Nov 2026 20:23:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F087E606BA56;
+	Sun,  8 Nov 2026 20:22:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbz/01tD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAEB11F008BD;
-	Sun,  8 Nov 2026 20:22:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Of2ZblCq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08F51F0089F;
+	Sun,  8 Nov 2026 20:22:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169381;
-	bh=MA767eBMFY+AgdzEUS3U7TTeVRTve0+I5z7cZs/TKF8=;
+	s=k20260515; t=1794169371;
+	bh=EbzYZKw4Z4Se0P5JJESGy35Jk+CQhKCQTQ2rrP07VGM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cbz/01tDBuBdOlJ5Bgh18a618ajKhJfIRDBxZ1lgUMczbIrdaL23aS1JKwauR3FdF
-	 zjRd6x+5ei1gdn7DToaWJjzmifgpnvKPbzxYkC0ZR/C0ya0J5W80yGnF1EGlKKaNC8
-	 Is4jOLivvuDNhm9m1SvsHu3zvzSoCBwmw13BiQveIzjaFk5hF5sjvIuKkqFngWr4P2
-	 qreHEDiGLvVdyLzHDUvkj2TpjExa0/XPXwhYGswRcPHhv6ybhzrqaWEfyv22siK3iG
-	 L9YLV7qqxT0eZk/WmfMIT7qFDxXiyOR4ZyVM+5FNRj2eIPlgurdhK8IoFZawuczItP
-	 vfbXKFhFb+9TA==
+	b=Of2ZblCqksLyI3601ikVvMQVdDnmrdQgSjCNRnJlLx4ajHed5Pfy0p3YMUxrvSc4y
+	 x0d19HLapmrTJwUusGHJEPuTSe1XGddpG9Wms6iF+MS4XhUgKc6Nw38r8OEr1Vl5+X
+	 +kGEUd6kKkGvLDd9pxCiq1kZCLdzf1H3mJ2Nmd6hOfRdghmYBWaT6ojxDKmW79Ciff
+	 ApVqGo3fNy2oPqQSSVGHfh9bDb8nghYcQZIvMLNpvFGkoN0bAnAP5/AqVcb21zoDGv
+	 lzh3SmMaAgHe32GREVHCieNFiGtqQO6sn90B6WLH5I034sDeAiFk61E1UYhu3J3CkK
+	 w5Ve1QzveaI7Q==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Igor Belwon <igor.belwon@mentallysanemainliners.org>
-Cc: linux-arm-msm@vger.kernel.org,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/2] arm64: dts: qcom: Add support for the Xiaomi 17 Ultra series of devices
-Date: Sun,  8 Nov 2026 14:19:53 -0600
-Message-ID: <179416929444.628393.14790231637289198553.b4-ty@b4>
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/3] arm64: dts: qcom: Add Microsoft Surface Laptop 8th Edition
+Date: Sun,  8 Nov 2026 14:19:48 -0600
+Message-ID: <179416929485.628393.4784056878909364367.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020-nezha-v5-0-04898d6b5f80@mentallysanemainliners.org>
-References: <20261020-nezha-v5-0-04898d6b5f80@mentallysanemainliners.org>
+In-Reply-To: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
+References: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,22 +73,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 20 Oct 2026 16:19:13 +0200, Igor Belwon wrote:
-> This series adds support for the Xiaomi 17 Ultra series of devices,
-> consisting of the Chinese domestic region version of the device as well
-> as the EEA version. The only real difference in the devices is the
-> battery capacity.
+On Tue, 27 Oct 2026 00:33:32 -0700, Gopikrishna Garmidi wrote:
+> This series adds initial support for the Microsoft Surface Laptop 13.8"
+> 8th Edition. It's built on Mahua, the 12-core variant of Glymur with
+> cluster2 fused off.
 > 
-> Currently only basic devicetree support is added, with driver support
-> for the display panel as well as other hardware blocks to be added in
-> future patch series.
+> As on the Surface Laptop 7, the keyboard, fan and platform profile are
+> handled by the Surface Aggregator Module over UART. The rest of the
+> board is close to the Qualcomm reference design.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: qcom: Document Xiaomi 17 Ultra devices
-      commit: 7678f72bbfa3d0551c414bf2e34c9b520b4210ab
+[2/3] firmware: qcom: scm: Allow QSEECOM on Surface Laptop 8th Edition
+      commit: d3daf22e99cdec6e684d6d062adde7b081402902
 
 Best regards,
 -- 
