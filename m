@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794131554;
-	b=hQRpeprAww83jAvOXlRP0f1TXxfytwiTJXYANkSMIkmW7KbI5xx4R4lrp1uMtQIOtCYP
-	 3Jsn/h25Wup+RmXHMTn5hyYb4DTXweqntkvHtAaI/17OiHhTN308jFyAcxcCnLtwsucnY
-	 NWfDtbaLje6NNnC4bpBsgEzw8jEWWPpWCPzy8btJXHy9sU1WiRQkBPJDlbjqQ5QeaxD+y
-	 rr5dv7YJo0w8j+igTtCJEzAj7rGxlTXdGEr3qFO6wmFCzofQcSe/H0KqU6SJVxjT1BEhF
-	 5m1i3XW+EarYBJh0445lhdQtlageJAXI7sfIf/YxD+hhpzGs0gXyFfm3kj0P3+otdvQ==
+	t=1794131626;
+	b=GBFjRRexvZrijMjrqxvAeGAV6V4krN3PYfvg5t7X+ZxBJLzSRP+FSNiQq8qmBelJcWgD
+	 0kvIsFn5xmMcjEFFNVxFEmoedQsYcP1+E9ROKIMYrW78jpL7MtTRSb75e7g3hQ3c0Gipx
+	 jbPAhRpR3OyXRqkRRgmFVEBlEIcJykK3suXEQFqzsLT3w/h9plOjQ/HfQNuavkMObqQZm
+	 IyFq/VigNl3FAZxDFw2ltb6aC9hX1P1E31RHApl0XHU+oYiRfM6MLFhdDg2YmDu6ty6Np
+	 CLMBD7nItGeIuAj4jP/PHwqn71wFpMazwcbTdH9cbg5Uxd2Y9uMbtIbvusrrIUpCPzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794131554;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ETZrdZOhArsLJy6lMGfpmdf9xjZhQqXb8yfOpDMN3NA=;
-	b=sM8WlUgUld+SmmUixMFMog1Hui1JLCyyqQcC2/hKU+1P3cgBzTJWn2rnUec8Dy6p+WcQ
-	 OXfvn0ZKFdpigcHNLbs9sfLh0id9XX9xFgXa8C76cSQeopWkkcoLOFx4WNIcACrUlgSF7
-	 uSh32sL8KUJptIlTt1YwSXIXQJ7xOczTFvq4fPUk9hvtf+9mtEKJXYaCtB0HuHILfoKLj
-	 MEAiiQumgD0viR9MhQG8LfYWf4+9RhRQrB35CUXlWQJ0Ofiq0MwFnRiElgZu9SE6eKo+/
-	 44gpR3kVERzCtx0Wla52rKf1l+e/oRDi4ff2xWENZYV7M3kGCeXYUQmROM83xGzPPiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794131626;
+	h=DMARC-Filter:Received:Subject:From:To:Cc:In-Reply-To:References:Date:
+	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=d9oSnze2vw3oc+VVxfYM2BcxQUZjEbs0B685TTsdPkk=;
+	b=4XDKWatcNiZYH4nzTYa5yENcvu6WhjuQ9jad5nrDn/whLOhoIivu5hxv+kjkMijOCSDo
+	 EBniNj30jQuJaEMwX3QjPM7dPKCCcmb+dakcSqBmGShwzRedVx08UNCfOdVcJQuw8ZCCl
+	 zRyZs6UrNXICDtL0ivnDasxmdTO4V9yS5KOhnJ+ouZDnerZ9Z4KflFOM8UTlVoAco9/am
+	 FsUeJENxQJfLE+jbe0VKKz9q3Ob3Y6WdKTLM1t0114DJGTYwhkZrAImYL9ncbwp1c2XTV
+	 GOFggX2iC4xgXP8waPdqGaavQx1n0NYOFgmPOtsYDY9U/ehp9UrvIUu1HypvxCO9XDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=GlxO93ck;
-	arc=none smtp.remote-ip=203.205.221.210
-Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78B0606A31C;
-	Sun,  8 Nov 2026 09:52:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E78B0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=GlxO93ck
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1794131543;
-	bh=ETZrdZOhArsLJy6lMGfpmdf9xjZhQqXb8yfOpDMN3NA=;
-	h=From:To:Cc:Subject:Date;
-	b=GlxO93ckU55VsTseTvtWcSrnEqEGqAHLogbTVKYOG/vABViwhLDnsQWrcTaXbvwa+
-	 7LEp8yN7QWROR3/KQgOeKEebKtVbFQMeylJKN9Bs955j3NzecZs2tRnhtGlgM4JTjv
-	 JbYXsJELHxRLDG2hipbuL6fP1MKupsJrwq79V8gk=
-Received: from nixos.tail04abde.ts.net ([153.37.85.101])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id D048084E; Sun, 08 Nov 2026 17:52:04 +0800
-X-QQ-mid: xmsmtpt1794131524tc8ruwjyr
-Message-ID: <tencent_9286255027243E5338FE93692C54FEC21D09@qq.com>
-X-QQ-XMAILINFO: NeHZ50d3l/WZZDI+hYRr+tDmWArJfUVTHPa+8sr5iM9Efq5jqswzS2oyHLVcmD
-	 LOwnbIEC57Iksl93J96/icqxhEX6PtMGLXeoyHb26adkHXE51RtYamXxm59UqW/4Fh5s7bNY9R/o
-	 rTCL4DwZoDoendL2bqwUqto1hhI1nmbdCpqK8tnsKzT4RPsLhTlKuOuhyr14lDYAlIug42qHP//F
-	 iWivMFdmTwIMyJtY3LuTArh0pzPYyE3k7sAyOmWEc9QrfwGHTvAgl0X0OnGz0U2vQRqSoebrmitI
-	 wf11aaB2HJix3yLi2pAkHZRGh8Tr20+6C0YdYXx4DPE378VkS7nq4s+6nsSbU6bYmNomgl8lNUup
-	 M5BtWh2VvzkkSBlaqaH1d+1DRZfaGLQzkZRKR7zxQEHEwlf7QrOjS164uSJi28k+I0qBT/v/yfBL
-	 MGskVnvfrfq2W/t6WTAjhi2jkV4W2fNfNfwsfb6Hgr8aoVh7vRFshsS8To7zpmhn15w/IhokLsx6
-	 /B96N+ghe523MRrDW0m2jyCXMjKdlJJX4l/uQyzmJ8fW+vbhHjVxOXsoXJWEe4Q4ec0YJThAWPOs
-	 Rc5KgbJKGeFMy4LZZbrIjqEGEoeiKMO4ba4w4+eWy7dFls9//jnCqQ1n1dSEXGqN4NE2rQAtvRKS
-	 TPHCkoMs5nNwKe6FxIH5Ant9bxhLpUP0ZIYDRBqpaQHXah0C/j9WcU2PQLdWVhZr5Hv+mKQL/tdR
-	 5o8sLNLPALrmdzaqUAYlSdk3In+KNZI2jHJAwiDWjGQKGIoeFAQs4wB2Vn9lacrDuKChAuVdSreu
-	 PMiTyTwjsJzheBb6rZIXbGm5xZFodx6I0jEesL7jbnhgBCm5TWpHpWotgtzPymdkDXTiyDUKmCnh
-	 QVlIAdjFFHU+TM1ZIRi45UxqNu+2fC3x+nKrnGqIodQmbMVqgX5dGwA9eAHma7YYxkNy/Tp7QwK4
-	 bn6hTTEBHKoiIwPcNMrx84BAozfFvdF1uYKert47QhLUuGRrJC6f/0WRDT2akHSH0vYuWWbNTZcY
-	 Al174WrhN4NvzXb5HFg3lBeOTryhAmB0QKQ7phG8LkmQlGvrq46XGrZwgQgJvpVe1dFg5oAzLHqH
-	 OqI0+p
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Jiajun Wang <ryan1202@foxmail.com>
-To: tony.luck@intel.com,
-	bp@alien8.de
-Cc: xiyou.wangcong@gmail.com,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] RAS/CEC: Fix decay work delay calculation
-Date: Sun,  8 Nov 2026 17:52:01 +0800
-X-OQ-MSGID: <20261108095201.2393382-1-ryan1202@foxmail.com>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A36606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:53:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A36606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3ELabRvBq5PiYAA--.38431S2;
+	Sun, 08 Nov 2026 17:53:31 +0800 (CST)
+Subject: Re: [PATCH] mailbox: mtk-cmdq: Fix GCE clock reference leak in
+ cmdq_get_clocks()
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jason-JH Lin <jason-jh.lin@mediatek.com>,
+ Jassi Brar <jassisinghbrar@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>
+In-Reply-To: <2026091720-erased-urchin-8903@gregkh>
+References: <20260917093745.2144930-1-vulab@iscas.ac.cn>
+ <2026091720-erased-urchin-8903@gregkh>
+Date: Sun, 08 Nov 2026 09:53:42 -0000
+Message-ID: <179413162201.2723269.10723981032501014855@iscas.ac.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,52 +58,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3ELabRvBq5PiYAA--.38431S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFWxWF4DtrWxuF43WrW7Jwb_yoWDGrb_Wa
+	yvyr9rWw18XFW7ta1DCr4UZrWSg3yUu345G348Xa13t34UXFsrXFs8K3s3ZFy3KFWSqFnr
+	Grn8Aw13Aw47ZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAI
+	w28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
+	FksPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIFA2rv4kic0wAAs9
 
-The conversion from a timer to delayed work left two issues in the
-decay work scheduling.
+Hi Greg,
 
-The initial delay is passed to schedule_delayed_work() in seconds,
-although the function expects jiffies. This schedules the first decay
-after 86400 jiffies rather than 24 hours, or approximately 86 seconds
-with CONFIG_HZ=1000. Use secs_to_jiffies() to convert the delay.
+Sorry for the very late reply, and for the confusion and extra work this
+caused. You are right: I kept sending patches while not answering the
+review comments on the ones I had already sent, so it looked like the
+patches were coming from an unattended bot. They were not bot output, but
+I skipped the part that matters, and having to drop them is work I caused.
 
-When rearming the work, cec_mod_work() passes the relative delay to
-round_jiffies(), which expects an absolute expiration time. Use
-round_jiffies_relative() to round the delay instead.
+For transparency about how they were produced: the candidate issues came
+from our static analysis tooling, and I used DeepSeek and GPT-6.1 Sol to
+help audit the candidates and prepare the fixes. I decide what to send and
+I am responsible for it; the problem was that I sent far more than I could
+follow up on.
 
-Fixes: 0ade0b6240c4 ("RAS/CEC: Convert the timer callback to a workqueue")
+I have stopped sending new patches. I am going through the outstanding
+feedback manually, one thread at a time, and will reply to each one. I will
+not send patches in batches again, and will only submit what I can review,
+test and answer questions about myself.
 
-Signed-off-by: Jiajun Wang <ryan1202@foxmail.com>
----
-Build-tested on x86_64 with CONFIG_RAS_CEC=y.
-Not runtime-tested.
+Sorry again for the noise.
 
- drivers/ras/cec.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/ras/cec.c b/drivers/ras/cec.c
-index 15f7f043c8efd..3c61c2aa78f2e 100644
---- a/drivers/ras/cec.c
-+++ b/drivers/ras/cec.c
-@@ -166,7 +166,7 @@ static void cec_mod_work(unsigned long interval)
- 	unsigned long iv;
- 
- 	iv = interval * HZ;
--	mod_delayed_work(system_percpu_wq, &cec_work, round_jiffies(iv));
-+	mod_delayed_work(system_percpu_wq, &cec_work, round_jiffies_relative(iv));
- }
- 
- static void cec_work_fn(struct work_struct *work)
-@@ -582,7 +582,7 @@ static int __init cec_init(void)
- 	}
- 
- 	INIT_DELAYED_WORK(&cec_work, cec_work_fn);
--	schedule_delayed_work(&cec_work, CEC_DECAY_DEFAULT_INTERVAL);
-+	schedule_delayed_work(&cec_work, secs_to_jiffies(CEC_DECAY_DEFAULT_INTERVAL));
- 
- 	mce_register_decode_chain(&cec_nb);
- 
--- 
-2.56.0
+Regards,
+Wentao Liang
 
