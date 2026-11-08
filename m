@@ -1,62 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794099379;
-	b=KbO+gL8iICCDYTcDlTkqS3cNAH66XiTYn+z6O8E5OirF7fm6STIj6RF9ehdo9cvgDQXE
-	 Wygl2LQ+p9+sl46RHGbFo72Nayjfq67pmnVcfgTVUZ67SxfstBHixN3K5nT+XAJJI24NU
-	 cV4/zPcjeLF0qu4USo0FksmOsxw5WnhMq/WIJgVbkSWIGBulNvbGS0iGRWCAjrYpUi4ac
-	 UNJGrkIIdzOtiIlCn22lHEmt5qqb/b2o+36T7P6kX4meEu1xZg6+pgMLQuXEehET9uRVY
-	 jltCZAbusZ0p1DKeHsEJQdatWXMPdTNCQgs0LRBoHH0rj9Ixm8vC+Ov9AiqRK9XT7Aw==
+	t=1794099449;
+	b=Z7RxcHbqtbBezc6j4mOLn5sHIbeCCHbgWKubAIOKReuINc5C9DNrYnMGkntBzzfIsbzX
+	 V0ml1JHt9Y/Rrq9txLFpTeIPUSQ/Xa2q9fMjHONrx6pQAz4lKHQkrTU9R2TZeILSjXoYW
+	 0LZzmT5pdTc9OMZ68HrRFmekpa67BlnuUEDgZzT9iV35m3DK+iWmnYBnjwkyDI8CUU41R
+	 0z7a3lgUhbCqep2GGJeFXoY+yIgGr8J0jK4z10CqMdDqULmRMZh7wb68WvtSuoM5omR5F
+	 kTfTFXUeK7FuT1kaL1pezLUIe4NAniqJts5q6EDwZVrXr3GaXCO7OQp21LVzCuvIvTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794099379;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SI3q7E7jEhFxFVdYMt07AMqwaHWirFgexnffniyxwmY=;
-	b=o9tS6s/GUJ1hBVK3nx+g+NGj+NYWiXhDkOhIoAy5haWy0X0lyBN7AC7RdTA6kzTaA8MX
-	 HYhLIbFlPcHSttY4S+JVervDxdbBL1RJoLGIPn2OH5x1RCYmzXc2WOic23u/1nQUNyIIH
-	 zwEmb+MturhqiYBePiIe9vXOwBm3kTEBE81JwLITEh1hnl9i4AalSasnlKOlLwbnEwwct
-	 q8ghirUOmkwbApOeCSsaDvcRd5JWJXdKt9mjFFWrgbxRakGSJpT22nB1zqfwmDtoQ2Nm+
-	 cmsUUFHwRnjV+RSMlJqPWAE7/Ugc3AvBWmAU7aRIwoXWEn6mVMUPrcZC08rYKNK/QGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794099449;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=JFV6FRFGFzrW/Jb5MYHwW55jLaxvQFKJ8HKecXYgAmI=;
+	b=3wT7PhQnEwHknzpY4/FIfDuR31mxkBKWOi+nLXjBXbMS/B+8B9QPLCiBHaXqEGpx7DqJ
+	 +XkXJjUR3fGiM08GSafSTmUH+cksaYV6JFxtyaB2F/44thp86tIPClKzbZ//jrSQEpaMm
+	 lsPJXhcOJr/nwqjqY8k1/43xlQN1NtewBQi802p+TetTEHrgc7TeAAP3ArCoyXxGuJgBy
+	 yOSEFbAe9k3c+2uWdASKrwvjTQca4bPNzAVXZ/p36r+H70rnrxjTCTcIbET+M3+WYcP+k
+	 vQ5mn0wkQEfomyx2oFv/D6ibGKY+hZpvmNLTf4NLkbZz4qHtFNJ0H6OjIF02SUzCIhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPd+u5qx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sakamocchi.jp;
+	spf=pass smtp.mailfrom=sakamocchi.jp;
+	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=lriz+nWi;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LTTXCPth;
+	arc=none smtp.remote-ip=202.12.124.153
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923A4606A326;
-	Sun,  8 Nov 2026 00:56:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF59E606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:57:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF59E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPd+u5qx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87501F0089F;
-	Sun,  8 Nov 2026 00:56:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794099379;
-	bh=SI3q7E7jEhFxFVdYMt07AMqwaHWirFgexnffniyxwmY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lPd+u5qx+8E92fTTLeeKEH4arVT5m7zeLeSvu8ww8+oHMO2yVJOn2lrVHHLjQMonE
-	 dyXAuoUyacT9Z2U+WPfg/UgZOvmrDKFtJOq4IwzKbNe5blvfz6SayumyBrVs4DrD8+
-	 CNQuahZJk/50xaFrwmxJECXxR6eLcD8L8vk7o3XJDLnUgEtzPjJYHclKGo9VYmDRvx
-	 RVvenCVGDTHBLnAGroo3qXrkyupw7i+7xjDNvFJYWV5z49IQGYSplo6mZ7cwK82eMd
-	 xGcrx3W1ldxnzDGUMZUy4pdwq83JWy7wHEffEwi8XG60q1oDKP313uTMNelnv2NurL
-	 iEp1jKoQ2YSig==
-Date: Sun, 8 Nov 2026 00:56:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v5 7/8] iio: imu: adis16607: Add external clock sync
- support
-Message-ID: <20261108005609.7e8823f1@jic23-hlaptop>
-In-Reply-To: <20261102-adis16607-v5-7-4f98b0d271ac@analog.com>
-References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
-	<20261102-adis16607-v5-7-4f98b0d271ac@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm3 header.b=lriz+nWi;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LTTXCPth
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id D54107A011B
+	for <linux-kernel@vger.kernel.org>; Sat,  7 Nov 2026 19:57:27 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Sat, 07 Nov 2026 19:57:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794099447; x=1794185847; bh=JFV6FRFGFzrW/Jb5MYHwW
+	55jLaxvQFKJ8HKecXYgAmI=; b=lriz+nWiUVqGH5wl8rjpU4q/fxBDShKqXw1Gz
+	bSjlxzIbihcKYJFCrdnUcnyB/+FEFmIponl7wls8htUuv4kMhYuZb4eMHM2KFtcN
+	POSPqxrj4qvUlCGN1VMXlgNSxExGH/td6B2j7nNe/7qP5RRzQlx6QgdyhInnXUHV
+	ThbzxxuxLsntTK8GRZLFGt9eDKKUoTHa5IpRQYO04AB8fp00SWY1hlJQIse2RIRh
+	+6LF6IhT6EVqOjXVd2N8UO4M5LHDfN8HUIV9hzsUu5tLqTk8P3VMmsN4yHdjkD0w
+	N0DOGDGqANreL5DSQTVTciCzF4FPuAcSYe7XCzvYYyxvqlkPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794099447; x=
+	1794185847; bh=JFV6FRFGFzrW/Jb5MYHwW55jLaxvQFKJ8HKecXYgAmI=; b=L
+	TTXCPthPypySAOZw7vnY0pJ0KFREGlXQ3gqWzQ21H5od26bF85kzdM6Gb+JfhgMN
+	F9M/6BE1xSMUXFm6FXsv8hrYEUdpDsdQ1bwVxJiElY0+U+l2ucaeeb+8YPpAOZ0+
+	/pdkYtNyM4ubAmleQCxiws5j1P2/g3+6169ivE3689ORadD3qiKkDd0EqmIf64tm
+	NhJV1iBxKKU2nNCbEM+tlQeJGk7R9pI6KYO2VRMG+Y0Of4IuFzwl+AuL2ecppDq5
+	1foXDVHZrSrXt2fsRogsFY+gbSlGczKho01ze9HgyqeUSVFWJkrvOlzG3YG/sUW0
+	c4aCj07DQfNmTBAaSlPjg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794099447; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:XMIoXgdw96DDIxtP9ER3++CMhgs6tt1tV1ZxONEIunUqHOe
+	i6Ttj92Fju87imn3WDLsiSDvSrnJVB6zKEiHDiyRbbSijuM9pp1wO4cO9q3FG0y3
+	WnyTADnA8P0wORbYmEa+58oeC2PJungKj3ktZEv8uGGfY0dF3cO0Xgkv0dIJuVgD
+	FO+vAQENbffr1K/jI89WlFXvWSEW38swp4ozPzGn+mE3Icm2YgnnLQTMkTzyI7Zd
+	0zabKkSeQPir7v/zKO+BJuUhLcDKBgJz2fYrcN9toRIXHtREavbc+oVrUEVs0a1R
+	+FS96HXfrAniyae8ZhuplNyJC3FnUGGLAU9u11g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	mail-followup-to,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:zNStppknJdRETK+n4fcvn1eHW8MGaTYLhTJESOw+pKw=:wh/H2joZFlwy0rexRO4U9D9slTIWbwPJFpXGotbrdD8=;
+X-ME-Sender: <xms:98jvamwOnPBujcfDn_0_oAVI_LIb1YvY19n2wmxQyQDnp9dGM26t9Q>
+    <xme:98jvaqCvwYOlNW_0BFyksKL3hkgHwefH5MIk_9R0hr6EzcgsnhZAswgWWDrYOpE9p
+    JeaDNFpOzkx5xtIP90d8jRBoDlOllGC_2iEAkijByoHULBT3XFg4ARl>
+X-ME-Received: <xmr:98jvarYCIy-EV3Tbd3XUXpNVVks4cmhl_q3of-CJcL0T6ata8qsw2q8i9zAQgPnTJknuZAuqPXbEuzt8ymCMP7r-SIGm21U>
+X-ME-Proxy-Cause: dmFkZTF9RlUtHqgWxDlfkibMUdMyg8Zug8+T6+v5kdd0GBRpqgmqUGwiGPc7vSeF/zMDEN
+    5ZMnGvFBiVAQtpu9spIIFPKa7OoEJHFNLTHFr89fF9SAlEyMF/NC//H661HgNKRdZAn0Sw
+    Ziywf/giZi0lF+tg28BHPNEgcgRJX5hqc/4NwxGF7isxk7pkGyCSiQbE5pHPqqVx098i3Y
+    Jd/9JEaGsqrpRxQc+2bcVi9YTtTnl9YbUn75QIk9zBCBum5gPLPMpzmzmwD9eNoQJqw2AS
+    31n49wWiLsOXBdzhUKHOZzAhekTyP3T+OAxg9FN5FjZZEdvmRYrBsIRGd/tlyDRKxea4q+
+    K2Q+CUWY2/1qXiUNl1Pdxq+aTKUh03b0x3BWxrEzYacgZe/nOWHzI8WbFJ6QHfgbfs9qwj
+    d5gku1wjaB6EzKO5jyu5kyTORp5BdJr3jV5yjAV6H9tIgfR6XIWmAjWjKrA0n7Jt3A3vGx
+    Fs6WYTtpB474rhNIwLG3sWF11IYnnB1VivB2ZZK9J2xS4wjUfDf28tPHJTktmZhgac+Nj/
+    MnaWe790xiY28dypzejIfhJtOZbnuZV44pnLxTbQ6rQYJscPNB9E9BusqV1BlqOLnbEZEq
+    ZkCSbp24qmaeYYYKuLUqJJwYlXnOOd9KACZXLvwpK83vBbcRkADPk8njG+qA
+X-ME-Proxy: <xmx:98jvaqgsseSxffe_xVDLxLipjRiDpnFGnaqml9psOWq5bLqiJSQS5A>
+    <xmx:98jval79QdYgmM2O9pqUCi7Ox2DMfFxJY_Sl8VQlJi_YuvLtZXBuRw>
+    <xmx:98jvap4Vkv0u9YrKjkx5c51-xnRoLA1pTuptAP0E4COpR555ewxSNQ>
+    <xmx:98jvahc2MZazt9KraTcZMSYbBBYC8lQbxpAlsKLCYTTDyfMaBG4H_w>
+    <xmx:98jvamt8q7af7-QXUIkcbzpJdkBr8ooeSxMybKnIhOiUsea4iCg5zWiG>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 7 Nov 2026 19:57:26 -0500 (EST)
+Date: Sun, 8 Nov 2026 09:57:23 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net
+Subject: [GIT PULL] firewire fixes for v7.4-rc2
+Message-ID: <20261108005723.GA1751953@sakamocchi.jp>
+Mail-Followup-To: torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,100 +121,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, 02 Nov 2026 11:25:43 +0200
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+Hi Linus,
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add support for an optional external clock (clocks property),
-> selecting between SYNC_DIRECT (1 kHz to 8 kHz) and SYNC_SCALED (1 Hz
-> to 400 Hz) depending on the supplied frequency, with the internal
-> 8 kHz clock used as the default when no clock is provided.
-> 
-> The clock rate is requested as exclusive since the sample period and
-> the sync scale are derived from it. In scaled mode the sync scale is
-> chosen when the sampling frequency is set, so that the requested rate
-> is matched as closely as possible while keeping the clock multiplied
-> at or below the internal rate. Loss of sync or of the PLL lock is
-> reported from the trigger handler, as the device keeps sampling
-> without it.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-Hi,
+Please pull the following fix for a regression introduced in v7.4-rc1.
 
-Mostly a few stray changes that belong in earlier patches.
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
-Make sure to check series for this stuff. It is easy to clean up
-and patch tidiness issues like this can just slow down getting
-your code merged.
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
-Jonathan
+are available in the Git repository at:
 
->  
->  struct adis16607 {
-> @@ -115,6 +138,9 @@ struct adis16607 {
->  	const struct adis16607_chip_info *info;
->  	unsigned long clk_freq_mHz;
->  	u64 sample_period_ns;
-> +	unsigned long ext_clk_Hz;
-> +	u32 sync_mode;
-> +	u16 sync_scale;
->  	u16 fifo_watermark;
->  	/* IIO buffer for reordered data - sized for max channels */
->  	IIO_DECLARE_BUFFER_WITH_TS(u8, data, ADIS16607_SCAN_DATA_SIZE);
-> @@ -407,11 +433,18 @@ static void adis16607_fifo_drain(struct iio_dev *indio_dev, s64 irq_timestamp)
->  
->  	adis_dev_auto_lock(&st->adis);
->  
-> -	/* Check if FIFO threshold is met */
+  git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.4-rc2
 
-Move the comment in the earlier patch, not here. It is perfect
-valid in its new location back in that patch, so why add to
-the code churn here?
+for you to fetch changes up to 4acd5f806bf5569bfa3a45ea6a525936197df10c:
 
->  	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
->  	if (ret)
->  		return;
->  
-> +	/* The device keeps sampling without sync, so only warn about it */
-> +	if (diag_stat & ADIS16607_DIAG_SYNC_LOST)
-> +		dev_warn_ratelimited(&st->adis.spi->dev, "external sync lost\n");
-> +
-> +	if (diag_stat & ADIS16607_DIAG_DPLL_UNLOCKED)
-> +		dev_warn_ratelimited(&st->adis.spi->dev, "sync PLL unlocked\n");
-> +
-> +	/* Check if FIFO threshold is met */
->  	if (!(diag_stat & ADIS16607_FIFO_THR_MET_MASK))
->  		return;
+  firewire: ohci: avoid potential deadlock when queueing AT local requests (2026-11-03 12:55:19 +0900)
 
->  static int adis16607_config_clk(struct adis16607 *st)
->  {
+----------------------------------------------------------------
+firewire fixes for v7.4-rc2
 
-> +	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, &dec);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Sample period is (dec + 1) / clk_freq, with clk_freq_mHz in
-> +	 * millihertz. Same u64-first scheme as adis16607_set_freq().
-> +	 */
-> +	period_ns = NSEC_PER_SEC;
+- Fix a race in the 1394 OHCI driver, introduced in v7.4-rc1
+Queueing an AT local request in interrupt context can race with dequeueing
+requests in a workqueue without disabling interrupts, potentially leading
+to a deadlock.
 
-Move this in earlier patch to avoid churn here.
+----------------------------------------------------------------
+Takashi Sakamoto (1):
+      firewire: ohci: avoid potential deadlock when queueing AT local requests
 
->  	period_ns *= MILLIHZ_PER_HZ;
-> +	period_ns *= dec + 1;
->  	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL(period_ns,
->  						     st->clk_freq_mHz);
-> +
+ drivers/firewire/ohci.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Unrelated change. Check for these and move to the correct patch.
 
->  	return 0;
->  }
->  
-> 
+Regards
 
+Takashi Sakamoto
