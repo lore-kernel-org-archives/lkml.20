@@ -1,80 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794138543;
-	b=NYKItP3BUSKp8KcjZ6Xzb48zQ54EIza5plX52czOf6TKI/2g7BHQA2phHZH5XMqnwrZp
-	 k8c8kBF6jyDLE3pDMluvdh+PaPW4fDZwLkE3o53y5tFBk7O0JAkKdqmsdjBRhc60+cz23
-	 VGnrzjWpUJ6hJMZkzAB+xU4rtXllT3oEMshwzBIrj8MDVYjRgbBgiyo+uEsQ0aih7iI/9
-	 41xeI1bj6fvsVU7IlWjo72+ygfaX+o+uXqbmcaXVhESZZYbxCXYEBpA7jJEWcloMn/tu3
-	 wjqdWDaEKf0yKUATSO+wlHCzBiCzrdhg+LsS8Snql/ffYkBB75dvqHLAnmUn9+vabAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138543;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ynID4k2pCOB0b2/csxbYKul3BDekmqX8aGtMTBsU8gE=;
-	b=VAJuB+B49iA9GNf79TyaAGh3ZjxqzCLac76M1auPHp+kFOEzI50XB6nG1FKXSyCym9Ce
-	 iar9gPdJRuxhaGcX70mUbG0j3+nn9GHBEfrHafYoxIK2dHH5CXPzwNloGg/1IHKBw+9Gc
-	 6VksOHLPr/yUby5zmDE/h7e/TVySSzJQK35MOK7dUX0XghdnTRh3xTRbFIzPh12I6rKlp
-	 kVSOIe+QX6pMZXrDJST94op9DTRBnn8xUqMzN7Ch4yeKqI55Xi+5tcF2a6cfD373bQrum
-	 uZiuQ2XjbBwhANaU5kyAk/y/JBNS8oF4baMzV7FEBsm+71XSeVDhGtiuUYuHfoCM/mw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LmP5587I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794138550;
+	b=zHMter+i6Z8Br6zHUhz9W+KZ0zpZnrR1jXBgzJGiwM6f4g2NJ1dnlSK5fWci8YFM/1yz
+	 /QYGu9YQLrj8AEdJEPpcmr0mpRI9QNg5BIDqyZKuc9fsJL9IhWVhTTvYpK3K/MEwvp9BS
+	 Zw1a8HMwy6h/szmjJYYK4S8r8Bpip2IvoyvinrsZf59w5UoZzWytAD+NcTJuNnRcDiWAi
+	 v2DEjIqICT48lQ9K8rRM0zWEY/dFwzsxLbZYyz6zMYh5m+fsMpRvy7L6wIS4RkSXmdTpw
+	 BEX6n5cobryq54kyb1TzEG4dEnJUqf8lfYb15wHUmw9m9u1GSVP7o7aIINOWY9tOAvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138550;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=DSWbuaX0SJuwDI4LQsCoGiLcfjjnNXDBy8qwE7KddlA=;
+	b=s5GjJLGuXfEfwsj+h2UsDiGIdnq1xC7tqGlbhv6zRSbDHJaZBMJu1JVKiGSdD5BchVTD
+	 ekcXyE6NU5/hL5kOT1Hvvj6aDGEFE+LDxswfGI+MJWxnhpeFXOXvFTUyflEAQjWbcdK+t
+	 /tF7deZKrJ2UtjPAF+kQ2SudsiK/xs014gVWgIDJL68zDwJxFj12H4PTZF8eTqNFePPhr
+	 vL11eL1DGAvFpapnv03MNqTnU749M34eLemS6WP2+tVKpguahwOpCPmHwNSqssWblozz8
+	 pOP0oRyRBx1yJap7JfN3HO/Z8GfWVOk4PE0XdwkczlQL+oVSElK4cOAkH9MoUalOp6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMz0X66j;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEF1606A322;
-	Sun,  8 Nov 2026 11:49:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B395606A33E;
+	Sun,  8 Nov 2026 11:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LmP5587I
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794138543;
-	b=OcNLZ8HJgF2rBXpRoYFlzsindFiCvgeJvJd3nYFQABw4QzIkSxm7NDRtiVj45oTMpiZb
-	 taXiLN1h/3vTrJTyr6btRd26fOKZqgR8SHUhyERRLV3ua5kpLqRaYU9t99jWhu/yFFdNa
-	 Vk2ivp6Gp4BTeob7jCJhwy/OxdJAQmolhwZ/pfI9tgcC6bYypwS+40Z3oagvcvO0mYelJ
-	 +Q8s2Ut0IkozoAbrU97d9/lp7VNDAiskmVI9I0PeXL3jzy2zp7q/WLEkFfxoxEa4QXw5p
-	 RJBVehtQyae6gqOxZ9qmH1dqq7iR/lXeOPX8+yGFY0SHV/R2SdYxnh+RRBpb5Tj3Zdg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794138543;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ynID4k2pCOB0b2/csxbYKul3BDekmqX8aGtMTBsU8gE=;
-	b=RhvJ3++UvTDsZFXUkRI4er+XxjeqolgDKVamTpINmhp+Aij/hFCB6hKAi6k33FnJy4pI
-	 Usbc5JbIQvzSi8H6rvZ+jlOqw8GceKGGfPEWaAVykCOWPtA4pLYD8o6rBWain78YG/1SW
-	 NW3ej1GW/88u9tkVR/uExZKtITbK2NynGD61KF7SlB7xgAK78KCpcUrX8Kzvz1EFQvon8
-	 U7Ypx8kp1nfF9zG1u4Z1Kb0vDRFekspr7h65qBl6gwLWfAEhHn/rjxs+GjJAn+xeJ2nNk
-	 yfi2lKN63Y9w0/XOcxnAxsnmJzfqwwxkNtjE6L1Mv9TSBsMyVBsqsjbQo68uDwhh5SQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1DC331F0089F;
-	Sun,  8 Nov 2026 11:49:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMz0X66j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A8E1F0089F;
+	Sun,  8 Nov 2026 11:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794138542;
-	bh=ynID4k2pCOB0b2/csxbYKul3BDekmqX8aGtMTBsU8gE=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=LmP5587IeyXa6DyDC7OWPI9cJdpihtq32MsSrWLDewqL0/rE7009XtUpe3vzMMCWp
-	 Y5aGSEWyOe2cmP6MZNTsBco1qnjvA4QMMUAVfpjXAZpYY16GLfbbvwnlyep/Rb07CT
-	 0WIEFw7lV3hdyPI3Gog4pmsY3QAM9MGobqEN5Z4AGw0HFM8O0DAIziqOV0KEOGeOvt
-	 VWAe5z2b7256vg+w67jtf1koAXkTVksqrfC1C2ITPsbO5bTdGDqosuSbX7mhIn8jsM
-	 isWxrATo269j19pDAlU8/EHBAfE+5kyP1HGfkOfODYoYhFbXbe41Mro6L1KvZl4vNA
-	 XNZTAOjCf6eIw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 701BC47F1D;
-	Sun,  8 Nov 2026 11:49:01 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Subject: [PATCH 0/3] Subject: [PATCH 0/3] staging: octeon: Fix
- initialization pathways, parsing, and modernize statistics
-Date: Sun, 08 Nov 2026 05:48:59 -0600
-Message-Id: <20261108-octeon-init-pipeline-v1-v1-0-eb2c6c956279@gmail.com>
+	s=k20260515; t=1794138550;
+	bh=DSWbuaX0SJuwDI4LQsCoGiLcfjjnNXDBy8qwE7KddlA=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=WMz0X66jbpOohzsjuh9vxcswu8HYEcikxFzY4dXmi1VM8IX8FrDwIjI7tvd/d85/G
+	 t5WPkKOgnDBMk7EesnJ1q3pISxPevscLytTJMTBfNyo7fS4+T/6glOsSRggAkZsOmo
+	 TaTl84edzchzGKPlrys2DoZ7Byu6/PMotPFE+oypk2gRy2M56iQvjagHW+1+Cpgf3e
+	 ZvipXoZyLGKpc+/FN7GgQmLBI4kJf0qsKxDaMe+eB+1V2wH+eRmIKK6FZoiRnwt0gG
+	 tYofxFgjId/uxbnTcW87RYa/uBvsLyFupyIpqJcbm6hJvqYjXW82LbH+xQtzD8tslb
+	 OaRa+9Qh9rUmw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id F0C312BF95D0;
+	Sun, 08 Nov 2026 11:49:07 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,61 +53,150 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMBBF0V+RWXfARCu2v1K6KOmzfSCTkIgI4
- r8bXJ7FvbsUZKLIs9klY2VhtAp3ayT8P/aD8lstvvWDc+2oMSyIpjQumpgw06CrU/g7wtBP/QO
- d1DplTNyu8+t9HCedG/ndaQAAAA==
-X-Change-ID: 20261108-octeon-init-pipeline-v1-e25ec64f49e3
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794138540; l=1714;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=w+LxKXpc5/OueBx6E2vSnL8lEwk3W2G5TdRTpGXBCVA=;
- b=4IlX1Expen/V/qIyYipHD40SSx4qgmLDskV1to9gu6SYOp5F7ytQkD9/mHgUh8iHz41vEYbh4
- w4V7QgSZJsOA60hYXKFZtCkYWrEZrkuymcg41qrzlL/gtDrBeYbFbOX
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 2/3] ASoC: codecs: rk3308: restore audio and
+ headphone support
+From: Mark Brown <broonie@kernel.org>
+To: Xing Zheng <zhengxing@rock-chips.com>
+Cc: broonie@kernel.org, heiko@sntech.de, linux-sound@vger.kernel.org, 
+ luca.ceresoli@bootlin.com, lgirdwood@gmail.com, perex@perex.cz, 
+ tiwai@suse.com, linux-kernel@vger.kernel.org, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ huangtao@rock-chips.com, sugar.zhang@rock-chips.com, lxt@rock-chips.com, 
+ xing.zheng@rock-chips.com
+In-Reply-To: <20261101044149.2018744-3-zhengxing@rock-chips.com>
+References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-3-zhengxing@rock-chips.com>
+Date: Sun, 08 Nov 2026 11:49:06 +0000
+Message-Id: <179413854645.3630016.583220481348524508.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5345; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=+YDT/dn4HPJjiVmxqxZl4zbdPOrhe2/fO2TYbbPmE6s=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+JG7OuXHtxJ6vy/a0HpcWWPnpTOEN098lq8UKmb80d
+ STefN49oaOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATOS7DyHCjw7O+intRWv3l
+ fQ+NQ2NKN+StFNvT+JRh26O0M1duFbsyMtz657SIkyEzQ8NnpTbP3NXcfXn7Fte92lr2Pc/Lunf
+ XY34A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-This series resolves critical initialization issues, structural edge cases 
-in string tokenization, and infrastructure modernizations within the core 
-ethernet interface logic of the Cavium Octeon staging driver (ethernet.c).
+> Restore the vendor analog enable and disable order and settling delays
+> through shared DAPM supply events for codec revisions A, B and C. Use
+> virtual intermediate widgets to prevent coalesced or repeated analog
+> writes without adding startup, shutdown or hw_free DAI operations.
 
-1. Fix a missing hardware resource cleanup step in the cvm_oct_probe() error 
-   handling path by ensuring cvmx_pko_disable() is invoked dynamically prior 
-   to device detachment.
-2. Replace an unsafe prefix-matching strstr() evaluation within the 
-   pow_send_list check with accurate comma-separated tokenization using 
-   strsep() and strict strcmp() checking.
-3. Migrate the legacy 32-bit ndo_get_stats net_device_ops callback to the 
-   modern 64-bit ndo_get_stats64 atomic interface infrastructure to prevent 
-   counter wrap-around bugs on SMP platforms.
+This change is far too big and complex to be a single patch, doing a
+whole bunch of different things with limited overlap.  It's all really
+difficult to follow, please split it up into independent changes.  The
+jack detection should be split out at a minimum, and probably there
+should be multiple refactorings.
 
-Oscar Alejandro Sánchez Lucero (3):
-  staging: octeon: disable PKO before device removal in probe error path
-  staging: octeon: match exact interface names in pow_send_list
-  staging: octeon: convert from ndo_get_stats to ndo_get_stats64
+> +static int rk3308_codec_output_routes(struct rk3308_codec_priv *rk3308)
+> +{
+> +	static const struct snd_soc_dapm_route routes[][2] = {
+> +		{
+> +			{ "L_LINEOUT_EN", NULL, "DAC_L_HPMIX_SEL" },
+> +			{ "R_LINEOUT_EN", NULL, "DAC_R_HPMIX_SEL" },
+> +		}, {
+> +			{ "L_HPOUT_EN", NULL, "DAC_L_HPMIX_SEL" },
+> +			{ "R_HPOUT_EN", NULL, "DAC_R_HPMIX_SEL" },
+> +		},
+> +	};
+> +	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(rk3308->component);
+> +	u32 mask = rk3308->dac_output == 11 ? 3 :
+> +		rk3308->dac_output == 0 ? 1 : 2;
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
----
-Oscar Alejandro Sánchez Lucero (3):
-      staging: octeon: disable PKO before device removal in probe error path
-      staging: octeon: convert from ndo_get_stats to ndo_get_stats64
-      staging: octeon: match exact interface names in pow_send_list
+Magic numbers...  I have no idea what this is intended to mean.
 
- drivers/staging/octeon/ethernet.c | 55 +++++++++++++++++++++++++--------------
- 1 file changed, 36 insertions(+), 19 deletions(-)
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261108-octeon-init-pipeline-v1-e25ec64f49e3
+> +	int i, ret;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(routes); i++) {
+> +		if (!((mask ^ rk3308->output_routes_mask) & BIT(i)))
+> +			continue;
+> +		if (mask & BIT(i))
+> +			ret = snd_soc_dapm_add_routes(dapm, routes[i], ARRAY_SIZE(routes[i]));
+> +		else
+> +			ret = snd_soc_dapm_del_routes(dapm, routes[i], ARRAY_SIZE(routes[i]));
+> +		if (ret)
+> +			return ret;
+> +		rk3308->output_routes_mask ^= BIT(i);
+> +	}
 
-Best regards,
+This is dynamically hotpluggin DAPM routes at runtime which is a really
+weird way of doing things.  Why are you doing things this way?  Normally
+routing changes would done through DAPM routing changes in mux and mixer
+widgets.  Why are you doing things this way?  It's a lot of code, and
+the userspace impacts are likely to cause confusion.
+
+> +	if (!ret && rk3308->hpdet_jack)
+> +		snd_soc_jack_report(rk3308->hpdet_jack,
+> +				    output ? SND_JACK_HEADPHONE : 0, SND_JACK_HEADPHONE);
+
+This is going to report that the user has inserted or removed something
+physically based on a control write, this is obviously not something
+that should happen.  The user can physically see if something has been
+plugged and this is going to report something different...
+
+> +static int rk3308_codec_hpdet_init(struct platform_device *pdev,
+> +				   struct rk3308_codec_priv *rk3308)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *np = dev->of_node;
+> +	int ret;
+> +
+> +	if (rk3308->codec_ver == ACODEC_VERSION_A ||
+> +	    of_property_read_bool(np, "rockchip,no-hp-det") ||
+
+Why do we need this property, the machine driver sets up the jack?
+
+> +	    !of_find_property(np, "rockchip,detect-grf", NULL))
+
+of_property_present()
+
+> +		if (headphone)
+> +			for (gain = 0; gain <= max(gain_l, gain_r); gain++) {
+> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON05,
+> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
+> +					min_t(unsigned int, gain, gain_l));
+> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON06,
+> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
+> +					min_t(unsigned int, gain, gain_r));
+> +			}
+> +		rk3308_codec_resync_adcs(rk3308);
+> +	} else {
+> +		/* Vendor DAC disable steps 3-19, after the external amps are off. */
+> +		if (hp & (RK3308_DAC_L_HPOUT_EN | RK3308_DAC_R_HPOUT_EN))
+> +			for (gain = max(gain_l, gain_r); gain >= 0; gain--) {
+> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON05,
+> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
+> +					min_t(unsigned int, gain, gain_l));
+> +				regmap_update_bits(rk3308->regmap, RK3308_DAC_ANA_CON06,
+> +						   RK3308_DAC_x_HPOUT_GAIN_MSK,
+> +					min_t(unsigned int, gain, gain_r));
+> +				usleep_range(200, 300);
+> +			}
+
+The ramp down has a delay but the ramp up doesn't, is that intentional?
+
+> -	SND_SOC_DAPM_ADC("ADC1_WORK", "Capture", RK3308_ADC_ANA_CON05(0), 2, 0),
+> -	SND_SOC_DAPM_ADC("ADC2_WORK", "Capture", RK3308_ADC_ANA_CON05(0), 6, 0),
+> -	SND_SOC_DAPM_ADC("ADC3_WORK", "Capture", RK3308_ADC_ANA_CON05(1), 2, 0),
+> -	SND_SOC_DAPM_ADC("ADC4_WORK", "Capture", RK3308_ADC_ANA_CON05(1), 6, 0),
+> -	SND_SOC_DAPM_ADC("ADC5_WORK", "Capture", RK3308_ADC_ANA_CON05(2), 2, 0),
+> -	SND_SOC_DAPM_ADC("ADC6_WORK", "Capture", RK3308_ADC_ANA_CON05(2), 6, 0),
+> -	SND_SOC_DAPM_ADC("ADC7_WORK", "Capture", RK3308_ADC_ANA_CON05(3), 2, 0),
+> -	SND_SOC_DAPM_ADC("ADC8_WORK", "Capture", RK3308_ADC_ANA_CON05(3), 6, 0),
+> +	SND_SOC_DAPM_ADC("ADC1_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(0), 2, 0),
+> +	SND_SOC_DAPM_ADC("ADC2_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(0), 6, 0),
+> +	SND_SOC_DAPM_ADC("ADC3_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(1), 2, 0),
+> +	SND_SOC_DAPM_ADC("ADC4_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(1), 6, 0),
+> +	SND_SOC_DAPM_ADC("ADC5_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(2), 2, 0),
+> +	SND_SOC_DAPM_ADC("ADC6_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(2), 6, 0),
+> +	SND_SOC_DAPM_ADC("ADC7_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(3), 2, 0),
+> +	SND_SOC_DAPM_ADC("ADC8_WORK", "HiFi Capture", RK3308_ADC_ANA_CON05(3), 6, 0),
+
+Why the rename?
+
 -- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
-
+Mark Brown <broonie@kernel.org>
