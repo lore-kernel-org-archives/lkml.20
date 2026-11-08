@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794141156;
-	b=cIEVL0Xtxt8M9FI27KkJAyOyPgJDxmcXc5aNNVlFEzYcC2YA9THbYL10CldLNKleiFMP
-	 4j4qjnDWvnbWs+bu+5blQ3ya2stVYbr8WOk9punVLN2E2+OQ8gnkt177Sk+rBM+LT2WpU
-	 Und3CdZjwNaRvviOJy4wHGREpd+yEUV+mqjktbgz0m0cV1nNQur7G1Bq84LlE5Ozigs+Y
-	 MQuZEQDYjaJJeH1B2WRZoZy0XJNjXCw2iMm/OUmBkaxlYsQwV9/5JgQ4zSG570l3IitqG
-	 DMn32D/PoL8E+SrVoo6RP2T8PdOB6fmwtUUPlWNHhY98AydyLo53WgEU5AnE+ZW/5WA==
+	b=s9I48+/E6QY0th1j9jhZYuSe1z15Wkl4YK7DLWZpr2jnSLY3IbmWA1l4CwY3DKbt1Hu1
+	 Muaw6yCuADNu3ZdjMfBUt+VFoN1NCxFfh37qdhegjBhHGxz8r8pAV9mlB5HUEU6SNVqEo
+	 TbXDlDlDGW7iQnoFkOOlolqMNqjv4LLzXEQeC52OjpiKBX8HMqAK4CTL0L7NWCBR6WIEz
+	 NF8TQs4/n6n+cvyMMd+ekk3ipN3IdXN/e0Yc6H3c67kVR/VX0xG7vsqGhO5mIEfquOaE5
+	 uk5zhfBuoIfJc51vmcJW4Vd5uW0MOxj0tVwUHB5JtiJUaSJlxfovig3qvWDesBzEORg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794141156;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Dsp45tZtZaqYSc++F4CsJdx9ni/qUkKDRyAOPigWEPA=;
-	b=2QFdE0oxiCwWTBN9wIbcRyRF+zKsCqK+i1fT6LgCJTEx19qkvjCQJOpw9rhRSb1RaoAU
-	 1VT1AOh/cALJlnPg+OypfmHhJoYJPfD4WxYrHSBCLp/6diR9OAeP2xTjOXtZPg5abV4WY
-	 LY0FWNLonUusCA9XdZnR3Qqr59Blvmga/eFoodybZY9kcpoDqwfrGaHSrbbLJu8qviDRr
-	 h1Paly3uCk0EQS0dGOHn32+EQzoe0MFPNvr8z2mI1NQuVJthvnLK+CSvq9zeHDA2ozqdn
-	 PzFjk3ZPg+Ilxo0PNMK/okxzZmWF+eqrH8mk3y3I0bo1uZvV8XSeXKh4xHL82U9mz2A==
+	bh=ZhAFgXtLTILBunJRERJ4GYfsQ5zP9NaqDvH7DIGzEms=;
+	b=lWHxmsTKK6W/UiCys7mN3zbxk7jSWkWn3U355DixGlZw9Hbh45cmsv6XO03i70RdNQIJ
+	 JwgOTouNxXAAOXyTixke8Lydb0G3pPGnGkVE1CxaazqCMRydmZhge8yRQ8nO50wfjogTW
+	 7ykMIv9MiizMHb3eEJFj39faoayehw3zjWpl/2vfXboNbnsJWe+kGzz/H6ThjuhXi2Y0O
+	 WRR6e2bO8E5X2XkFd8+0o36CODXuvcaZnxmfaVMuT2wyGEbfq71Sxq3oe0yqGWhmmYtV7
+	 j3y5fIlsHmet7oHYOOrtJChBY5hptQmj6LzZmzNxF5J82v8+CYXOaD9B/f3n9NMUq2w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQNtPXSn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeUC84D7;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B38606D812;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BE3606D816;
 	Sun,  8 Nov 2026 12:32:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQNtPXSn
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeUC84D7
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794141156;
-	b=TWjL02lEqWRaZkKDmA4Hm/B0msDc7ilb6XxGfFA3a4HbeKvlp0nYl55uPky6gCF02UF5
-	 66Pr5j4a6F0MtWy9sQkQRlB6kfq5PfdHdSXfvFSiBn4wWMrhOTALPOrtZzFw5Hqlr9OUs
-	 Nl5J/AlhkVovE4MuaOGhPoZVMEcDogEraR7Ym2QOQFix1lEL+y5FmhpfLvJyA2En9uv42
-	 V7KaM2TSmlNiV8ffV8vIxPDdbCIwPGiQhAiaG5GyTAz/U7RGrOxY16u+wTMnWGVLnjbIx
-	 vE7lwTbDZIJD/Yq6fUMtI8W12ZiYB+JUNcNw+SJl7flKRTbWArqDdhXUnrLFCTWweRw==
+	b=C40Vy58AVVuY6FQRH9OB97LUrO4Vbul+i6WOTM7erQI1VMP60X4nK8SDZnJVR7ipU7CX
+	 JRvMD6YDWILM47W6gVeF5kBMb1o2lMTomVgmz1E+4I9yvFRomlPOIXRIZ/jPSekAVjikJ
+	 QnIZYZD/ct+QRgo9K9X+9pztIkMzYFS7WdhHOMU01T+ur1UzK+A/vTYd/wrCJz+KOldao
+	 soqs0QgcidI74RMYfi66Es24POZm166DLD2VjO7zMLILWpGOIpfApf329D7kZ5Slmr4Z8
+	 SyBrbmemubBJ8Yo9AkiDMZ4nsNgjlvK/lCa/5w3f0ycWsfQ8jkygpZWUZWsXKmMfjbg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794141156;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Dsp45tZtZaqYSc++F4CsJdx9ni/qUkKDRyAOPigWEPA=;
-	b=cqS0uTcS2fiHaRE/JnUu1Z1/QIbKBaVMEWJnljXGBIFWxDlk08spdxcJigpgmbffRl8E
-	 1n52x5brtCEe6U+1GCqgmCy0MnG6a4zVV0gmkFm8pPBYEqn07g1p1FUct1l+Ry5EsO1P2
-	 8iMhuoY2eFMA/CEiaRrrM25eTPJKMkeAIdsA1zegkO2aK9HgepfRzmMrlBLWstdZ/T1M9
-	 nIkgOWHx7jCJ3pnOZadgBR551+GxdAzeVrJz5WbGYYFcmi8dk1pcW+kZFHNTdfAI8q3yO
-	 jX5pDkA1wgDdC93bZUwb3LqInNW1ciTEhCBS7fcdea/XXa09ygwQ8IOWWztx08mOpOQ==
+	bh=ZhAFgXtLTILBunJRERJ4GYfsQ5zP9NaqDvH7DIGzEms=;
+	b=b3kaLPYRgzI7ps9W5V7defULzrDCeE6tcexzHUbnKtdEzO8YbaG7iE9aYWoYnf7xAkIi
+	 yK4fsHY/jwg9rNm2/xyZUyxIid9A1fc0huDWt04Y8hN1S+gJl5gE3bHtC5YZlnQZ+pSgK
+	 NkSzOHqzmqYScBqSpAKq/OQ5GdCfK0u8cZjeInUnwiZUtMGUWkd+WLDsvFUkH9HHfPAUU
+	 aXv5t+HEAikV8i0qnd1qgNG59YKJJo0YRq8p46hEpLjBpQaWes5qoT6D2ZvHKzaAltMmM
+	 dtKwdfOtA82wkdUTOgph2X0yxi+j+MGJuT5s+0tTdZF9wnspTPdjjMuPhtOcxvOq2EA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E4BF31F00906;
+	by smtp.kernel.org (Postfix) with ESMTPS id AB1121F008BF;
 	Sun,  8 Nov 2026 12:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794141156;
-	bh=Dsp45tZtZaqYSc++F4CsJdx9ni/qUkKDRyAOPigWEPA=;
+	bh=ZhAFgXtLTILBunJRERJ4GYfsQ5zP9NaqDvH7DIGzEms=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=CQNtPXSnME3/mOrCBgRfnd/fRzdiC6KceZVakwaLYTNkuQqdcoZ1g3DA4cx6rTltj
-	 iWuy3Rlt5In/dJ61CfpiVkw1YW6kGdMNyZKFL60B79pSSTik1i0H3+tgMmREhAt/Nq
-	 Hk6GW4z/K/gyl47/oe7UyJ/xDNt8ZcpxowpSZjhiWbzuJVD/tB0MTQTe81IKjCWq8G
-	 MGeGZ10vO4iFtdFtRJlvKgiEqbwGx0wdRFsN7Ow6MtWXySpE4Kd/1u4gF2iC4hh4m5
-	 Av/JnEw2jvmVN98lOP0FZunBM0bJc61nzX2liqII99TD75QND+TkCaJftEbLOKV+G1
-	 iPJ4yyb2NEwRQ==
+	b=jeUC84D7FI6c2FJro3xyf05UhWI7AMyoHR+jhovSWqd9Dse6fo2PZdYjo8v4ArYNo
+	 7MKOY7hMNuvB5nOuCJy70Jm4dHNwsAUOhzVlLtDm95rjevinV2rX0EMEvI1CFc4Ry/
+	 1tBdDewMRYEf2lsdrj8tDrcA2rqqQo8k5yOL3051ct3Tjpw5cvx1DVTqV5C7nhgwtx
+	 2yWdvgcoWuK43vZTLPZl4E+E7rSDID0cmAqj3LjS11782qV9VH/w2lj6kpfOQnT7hE
+	 B+R47T+l7sJivxrBZEI93oIHzd0DAZchjL1ioPpY0EdQUOG40ZCAmDeOYa9aXSf0uQ
+	 4IkARc4vzLP1w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C02CB47F89;
+	by lkml.kernel.org (Postfix) with ESMTP id A128847F81;
 	Sun,  8 Nov 2026 12:32:32 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 08 Nov 2026 12:32:31 +0000
-Subject: [PATCH v3 10/10] arm64: dts: qcom: sdm845-google-crosshatch: Add
- display panel
+Date: Sun, 08 Nov 2026 12:32:29 +0000
+Subject: [PATCH v3 08/10] arm64: dts: qcom: sdm845-samsung-starqltechn:
+ Update panel compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-crosshatch-panel-v3-10-87dd4ec4f7cc@ixit.cz>
+Message-Id: <20261108-crosshatch-panel-v3-8-87dd4ec4f7cc@ixit.cz>
 References: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
 In-Reply-To: <20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -102,21 +102,21 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2243; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1444; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=QFnr4Iy2wJCXJX07eMOq9LU+21ab3o9NMfZAs83u37o=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GvfzCKzQDlWDUrFr9huD1SqWucMmluVS6GAz
- a2Dsr/3ew+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBr3wAKCRBgAj/E00kg
- ch4eD/4ytefeCYqNZf8oeoLbcDiX7Zgzf6Y1sezaokg1spJHnY1ZPj2xnCFHYvqnWzMgYbOhYeP
- z5AItIq8dZUYOy/OoGjwtQoAchWCkslWuzob91KOCEHJMd+yhDVDuS4iq4nUxikZ/J1r6R9Pqhb
- lYDmaKvmuofYstmkNeqjPvMUze507RgNTxXhll+RZM7UO/KNlIq2yfVYOD+oMXqX5fiNnP31q/m
- Ay59dOqVLmv8jGjLsj5ZaEhKD4URmdf4+6/mMU7+PtxJyttjs+XXx0h9NcPxciUAgLDlD0DiER6
- Yktm/bVlbCiFMozz76HorYBHNqsCK6E+VoRZhsZYgpGAsiaAZOJKFMymfbaFREXuKpKcMfMwtSc
- dWZgKWX6DU+EPI8Momk6cSShd5pOMnCEjy2u4xFM+IEHGvbGExQC/Fg76UTPkVqJXszYX8TTt5N
- 4A5JgYv6t5PiU8YCuN5L8tQBGHKW298eEumEbVXd0yCGc3s/rZ++D8W5apm+B9/R/9+0Xhm1p3b
- mIkLkGLyepA5Zbv+XvTD9B5AlxCZwrlKv/3GCv0+3UbsDREkhrCr/mHakly6Qu4ytP8S16L2opX
- XgoPkINdRbS7P1sZ/7YpopjtptO/wGLZlaCgN3Zk34PfpvXoL0vWHcjUup607G2Km6MoYFPFWJ+
- AAzjnsjRj3QO7wg==
+ bh=x6P5UdtWDbDVtREtjJhW7uE5AV7f8NAB6Gz3Qx7Wn2k=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GvfpE76WxZbbuHgYNw7/amRn5Y4xNwub3ONk
+ 18lfENrVPeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBr3wAKCRBgAj/E00kg
+ cnBDD/9ifPfx37wSDxdubEvukkufVdYXyzuaauRzzvEcZv1yQFKHdRZrQqGuF1X09cWyPHtsWUO
+ u41NdafRPKWDSLTELibxJsxCWFe/Lejeue5VYYI2csrSz9Q5S3Dnr78Uu0RAviIk/1JZI9z6CEe
+ iY6YkNTJuOYBK9QlshsJGBGwIJOVcWeotdxQd1rSMRhULuRVmsIcboe5o8iMKYSACaut8YyNu+m
+ o674qI7xOG4QSNOlyp7+Mg0NBxeYAmontqBmifPYXBS+TP6yG5tsBBlr45ylEY2/mh2eWVP+Ywx
+ QFXNmXTEUIcsxp5lPe1NZCMF7OskbTIMmpIweiZOVE5bBfh5VIqAIlgc7HME0gqFCoNaViYt5Bf
+ oycUHwi1lCQ77vvhf9efczm0jrKvb+expyq6iPG//CuL6XWijIYlWW+GiufhziYW37gbmMOT0Nn
+ qtL/2qWdYGRXBO1IBuERF8ANUvRrdPCDcsOeF9/9JMlnYK7tcHIdT3zsk2eqtM6YjmEbJI/iGXt
+ Vri5VI3x34oETQBUMAy7ZiJ1buORYs5whZgZjueb1L+Qfkps88yUc2GH3JkrjMt4Ze/OCPcl9jT
+ fsY20DNS715onNXcILRolqHixhluUA1iI4C7A7TjqRzUve6Ul11d3PxmKkWAg0US81AgQ9Y1F22
+ 8e2lTCeRXkxK62w==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -126,98 +126,47 @@ Content-Transfer-Encoding: 7bit
 
 From: David Heidelberg <david@ixit.cz>
 
-Wire up the Samsung AMB630QY01 AMOLED panel on the Pixel 3 XL and drop
-the MDSS/DISPCC disables that kept simple-framebuffer alive.
+Original compatible describing only the DDIC used, but omit describing
+the panel used (Samsung AMB577PX01), which we have no way to detect.
 
+New compatible allows without breaking ABI fixing the inverted reset.
+
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../boot/dts/qcom/sdm845-google-crosshatch.dts     | 60 +++++++++++++++++++---
- 1 file changed, 52 insertions(+), 8 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-index 2a81ca1d00b1b..3b788757b7303 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-@@ -10,27 +10,71 @@ / {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+index bd59f1dcd96dc..c156ed3733b4e 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+@@ -262,23 +262,23 @@ &mdss {
+ 	status = "okay";
  };
  
- &battery {
- 	charge-full-design-microamp-hours = <3480000>;
- 	voltage-min-design-microvolt = <3600000>;
- 	voltage-max-design-microvolt = <4400000>;
- };
+ &mdss_dsi0 {
+ 	vdda-supply = <&vreg_l26a_1p2>;
+ 	status = "okay";
  
--&dispcc {
--	/* Disable for now so simple-framebuffer continues working */
--	status = "disabled";
--};
--
- &framebuffer0 {
- 	width = <1440>;
- 	height = <2960>;
- 	stride = <(1440 * 4)>;
- };
- 
--&mdss {
--	/* Disable for now so simple-framebuffer continues working */
--	status = "disabled";
-+&ibb {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-over-current-protection;
-+	regulator-pull-down;
-+	regulator-soft-start;
-+};
-+
-+&lab {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-soft-start;
-+	regulator-pull-down;
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vdda_mipi_dsi0_1p2>;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "samsung,s6e3ha8-amb630qy01";
-+		reg = <0>;
-+
-+		vdd3-supply = <&vreg_l14a_1p8>;
-+		vci-supply = <&vreg_l28a_3p0>;
-+		vddpos-supply = <&lab>;
-+		vddneg-supply = <&ibb>;
-+
+ 	panel@0 {
+-		compatible = "samsung,s6e3ha8";
++		compatible = "samsung,s6e3ha8-amb577px01";
+ 		reg = <0>;
+ 		vci-supply = <&s2dos05_ldo4>;
+ 		vddr-supply = <&s2dos05_buck>;
+ 		vdd3-supply = <&s2dos05_ldo1>;
+ 		te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
+-		reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
 +		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&panel_default>;
-+		pinctrl-names = "default";
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&panel_in>;
-+	qcom,te-source = "mdp_vsync_e";
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vdda_mipi_dsi0_pll>;
-+
-+	status = "okay";
- };
+ 		pinctrl-0 = <&dsi_default &dsi_te>;
+ 		pinctrl-1 = <&dsi_suspend &dsi_te>;
+ 		pinctrl-names = "default", "suspend";
  
- &wifi {
- 	qcom,calibration-variant = "Google_crosshatch";
- };
+ 		port {
+ 			panel_in: endpoint {
+ 				remote-endpoint = <&mdss_dsi0_out>;
+ 			};
 
 -- 
 2.55.0
