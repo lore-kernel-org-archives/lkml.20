@@ -1,93 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794136087;
-	b=TAisKlDiWen8HJAVVcQDBQl4gWi8bHjuJqT9nkxPjFLpY87aJutJJAdGyTdAQdfVTpZT
-	 zC+fMIDQ92uWpiTREwahcuVqmFdRWu1qdjoR67eF0RDSQpu+EFjnwvQ5/CD2fkkIuj3Ig
-	 XDCRQpumCibhEXzArumAYG4iWPKu4YSxXJkSg9ZpRwTSeX8md/EJPfQ6Zxy2IvD+eI3n5
-	 Bq0ouyyhZH/35mig7+bvqQEwVVTbQtMqfR7vT/EhRakW310nIpp0N3vE7mjlgferZsak8
-	 1Yhc4NfuKX0UxzFNYdAgCCSf9W3LKuimRS4OI89HO03HRyq2voGlsAuFyXcTlxX4QUA==
+	t=1794136128;
+	b=4eBdVYoLvMmfWBdgRnw64NAVg9ftPPpQcXcd8Ln/tep6OOWhB9vV9Hw9tQjMSbVQG9l5
+	 lHo21e0AN/QOVFGXmWg50sGeuwB5BTVxg2tCi1CxD2myXZMmg7XUNhX9uCpFwj5qrncDT
+	 Kiel4yM6cJLmkMTpLNSooSWFK67DmYg02KwkRpck4A17Mc6uwHQEwO/sOE1pSBNbZBipL
+	 Vhdk6vD4JqPA8qz1BG7F8ClgrqW+SjblwKUvRpGFh0mER/PlcduZT2iBCunG4SDIioXCL
+	 +2whRYq5hWZSV334IMcjlvLi2eg1R55NBuvasdtbhfXzdtTA4VD9nDq0g2qqAAVnR/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794136087;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kDXz5lIwn5l3qkSLFAnkDkLHOlG7ul+kDS5VLR45/PA=;
-	b=TkG3ghy/b3h0ZVeRW9E263w4Mspf8AxEV1Pq1383r7CfPs5BUE2g49NW+sJyiUdMdXv/
-	 pXip5ug/BNWlO6ndPo36lqfZsix2uN5+5HsY22a3EAvYW29pARxPsOMS3FoMPjMEK5gTx
-	 OwvqHUizGZk6BJfMNfoHBYEiA7nGVQxMrtW8DjaHHS2jnDobHqHheAlFmZFvsojF/uXgv
-	 yFmbmk/fOBtoGiyEHpBEr/6CCuM4C1NcpLKwtFsa9A5/8sw0oxTb4xpkeaJhxFtiqBLAB
-	 rSoaydnASis4kJs3X+eymKjxJ4cCHWau3lIi2HvQdQ+jKZXe/3ubQsF5OUJ9yeTVeXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794136128;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=V7Ody8JeXMkzLZHv8olvL0aHefA5IpIC1Vs5enrss/o=;
+	b=TplGH/1l9tmI4mSo+dY72TE6ZSEYQyD8pCpA1ZjbumGqA1dEROW657IvwC6I6xwWIpIE
+	 ViWwtN9KC6hMsvARH691l/BfTVn2yi1y2yDEOC2AsrPyADu9XaGeeXIjFteqAgHtadpme
+	 mazVRKaNDHWFG7LGXbyixcQ0sovGb7Yu3hYIPWCcXA2oTduXo3k4vbm7thmkoQKPr8eBb
+	 TXRgoqo0JgOLVGFxYTnl2y4c4TxwotoMbwnPsdlTAsC0bi6iyD+g+yq51G5sKweL48qwK
+	 i9e3GLX3XjT4UJKULa6v+c052zc4tCkNAho/SM/Kojcj0bvRZ2zdj63QDBit0IVKHig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YVSRet9c;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jdLyfXwi;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B40606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09B40606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B299606A31C;
+	Sun,  8 Nov 2026 11:08:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B299606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YVSRet9c
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso189254eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:08:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794136086; x=1794740886; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kDXz5lIwn5l3qkSLFAnkDkLHOlG7ul+kDS5VLR45/PA=;
-        b=YVSRet9cCkpS2JqTJABqgue3CzMJiwqT+A+QNAMdXW63nac/bxNClgFF+XSvTtL6wU
-         V/jcBUzXOsljLLwcMM8YMs44AJqtTpjg4NdKzI6Q32Opat1yrkWkb/sRhi9Eyx1syGYC
-         8BIw+TBWHps98mNGQPZeeDCADf40TKmGkX8RUAzCGPS+rNFn2ZQA5O4tCSSBYrooBntW
-         EvhQx+L8aNqju8DNnvjMTDGSEhmq49qe5J7czGH38kuiGdVk8gxXUh+RsKD3fhblq6L/
-         M7eN26Kug9raknfPyODuMI66PFSck+94Fm8R2Eg/h3yV03q3ivPgZMcBN5pnq5eHGcoC
-         NVwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794136086; x=1794740886;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kDXz5lIwn5l3qkSLFAnkDkLHOlG7ul+kDS5VLR45/PA=;
-        b=zkl5492CmnNutqe5x+Z8CRcKc67C+YmwQBFmXwie6YTBOy9xAMRGoB9+jG8ppjfz3X
-         Kv35Vt9I4Zqk20up/geox8mohv/oZNa7uu17k29pP4f7ZUIbJSlMgGuRHAf9+o2sUWu1
-         +cDJl9R3O1qyUlx8fUHAwVYLzd1JgWYvkZLUiUrGt6BF/w2xds/otRbaUbfjo3MgZhq9
-         ToFL5TY3z2iQtP97p2Hry7U6ndj5Dn4fkKYYIv+pLkR7d2CL3DA2WDYzPAnh8qm31OVG
-         8CO601DfZCySS8HzQwg/gHH9k8Bnu/Xv0rFxZcO1MpLTddOOse6HbJ/rGvWiJtAlLRBI
-         TyGA==
-X-Forwarded-Encrypted: i=1; AL+hErGlLOPbC/hP8TaZk/7k41AVdh+rF/QlxGx10fQ5bWja2I531T38YKTNYC2UH7SgcsOZfMSIm8VJaeiJNzQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iNRO079yGhC6RCwljmcNKY+HJUyn6BAXov4cxvXWYeMEfB91j
-	OK+vczr97HU++82DVVoj9MzU27LhS/nmXrEIkggwgil4cvgtGx/iF+A=
-X-Gm-Gg: AYBFou0AE9ugC3EJV4PDSpXaJeCaSgW2q9pNYHjYeIH5wHO4awwL45JfhjUYkXUjreL
-	AqMryNei4hUIoQHVY53mm19fQTWtbGQvNBr4kwNTaIgbTDmDNGwDt4ZC3uJBjnjG8727/kydtk2
-	68qXn08JPyfi8DmWLMRVjgtf8Y7oV0uyx8JS58/iN/je5kvPhE/i4w1vnrhgawAHbqD40scJPOA
-	Bhv8FL/po9WMBHl4DE0lncl6EGj8ylkOBaLfzBATnOvN6i5aYnBzzAJAjKPRT6mjFgk5sHKbfcL
-	jlX9LWyem92S+cMfQt5XdttOICPdjU8I0xxMIJilHdtCsxGY0voebIq63IYbyRNd0gURJVLRggY
-	Hz1sf5ARwKdLUexuHWdbSHP09iRjeluahHmkM49M9I6Io0yznd64S5zKs1mhr9AwPEkTsZZc+Du
-	nODiBwvbQJWaaEo8Z2GgisS06zRTIDPLioayH4f/BB8jgEIvcB84fqM1ZOGJHeDugHUSUDLR48g
-	ejOj4rAAx20j/gBmP6XFgQ9Ld6Ffb9Qv9IvF5NHSDgZ3cn0B9i3VMO+KMTu4VPeFcyQ8wv1TI6u
-	b88EsUyynBQgjuEkpOAxpjfkmPgeQw5SrzKrvYcuJtukj7D4FiLtJZf4xnpN4jrhAFpMwu4=
-X-Received: by 2002:a05:7022:b0c6:b0:190:d0d9:3110 with SMTP id a92af1059eb24-1b39ff2dademr1703886c88.45.1794136085922;
-        Sun, 08 Nov 2026 03:08:05 -0800 (PST)
-Received: from localhost.localdomain ([1.251.173.69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e8911sm5569287c88.5.2026.11.08.03.08.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 08 Nov 2026 03:08:05 -0800 (PST)
-From: Hijae Song <hijae99@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	Hijae Song <hijae99@gmail.com>
-Subject: [PATCH] HID: ayaneo-flip-kb: Add driver for keyboard backlight
-Date: Sun,  8 Nov 2026 20:07:57 +0900
-Message-ID: <20261108110757.41368-1-hijae99@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jdLyfXwi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794136125; x=1825672125;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zUrwpjHmgX2sQEIOLj74SCTZplyzWE0AapO1fDycG+I=;
+  b=jdLyfXwii19UvnLeA9lyKB5vepgK01dCXzCBTZ4w9MNQVRHAUSibaIqp
+   62RbfMiZktjIKsRnEQTMafNPMW0A2ChyQuWAeOz4XJG33vVhMH5S2yqJ4
+   4cDltidvSa5zHwbGh0HYKK0/GmfTB8QEFXJ7vlNkIowbAuw+ZZZDLqaye
+   +akmkeYuLP/gXV5SVngHlPcG+PkxD+ouO+WJCszCO1kUCLzUJVRpixIuK
+   fALAFGRVW/yc0quLKZzxA4qq5BQNIeqtCZlAufeFGrw1nayLTQV9jGbRL
+   wrBC8e7xgwqCMzOyLuBX8ngjVQWxRzLLNhR0KfLkjmIfjfbycjJJwuxin
+   Q==;
+X-CSE-ConnectionGUID: 5g4huqhORrGcCjDuLJyaRQ==
+X-CSE-MsgGUID: 3DJe66kKRZalHydhALr/fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2766788"
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="2766788"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 03:08:45 -0800
+X-CSE-ConnectionGUID: 6fFzp7XqRk67eSIeTVIQLQ==
+X-CSE-MsgGUID: D6Sz5yH7Q3CFYCsZnSwV/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="7540748"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 08 Nov 2026 03:08:41 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQ0lK-00000000sqN-0FOf;
+	Sun, 08 Nov 2026 11:08:38 +0000
+Date: Sun, 8 Nov 2026 19:08:27 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, vkoul@kernel.org,
+	alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
+	tiwai@suse.com, yung-chuan.liao@linux.intel.com,
+	Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+	venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
+	Mario.Limonciello@amd.com, Richard.Gong@amd.com, Poojitha.N@amd.com,
+	lee@kernel.org, Vijendar.Mukunda@amd.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH 3/4] ASoC: SOF: amd: guard SDW IRQ work scheduling with
+ interrupt_enabled flag
+Message-ID: <202611081921.O3dE9COW-lkp@intel.com>
+References: <20261107175339.3547918-4-Vijendar.Mukunda@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,273 +90,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107175339.3547918-4-Vijendar.Mukunda@amd.com>
 
-The AYANEO Flip KB has a built-in SiGma Micro USB keyboard (1c4f:007c)
-with two HID interfaces: a boot keyboard and a vendor-defined one that
-carries an 8-byte Feature Report (ID 0x41) controlling the RGB
-backlight. hid-generic binds both, and the backlight is not exposed to
-the OS.
+Hi Vijendar,
 
-Add a driver that exposes the backlight as a multicolor LED class
-device, ayaneo:rgb:kbd_backlight. The report layout was determined by
-experiments on real hardware:
+kernel test robot noticed the following build errors:
 
-  byte 1-3: blue, red, green
-  byte 4:   firmware effect select (1 = static; 2 and 3 select
-            rainbow and breathing, which are not used here)
-  byte 5:   0 = off, 1 = on
-  byte 6-7: constants 0x41, 0x5a
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on vkoul-dmaengine/next linus/master v7.4-rc1 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-There is no separate brightness field, so brightness is applied by
-scaling the color bytes. GetFeature does not reflect the current state
-and is not used.
+url:    https://github.com/intel-lab-lkp/linux/commits/Vijendar-Mukunda/ASoC-amd-ps-guard-adata-sdw-dereferences-with-NULL-check-in-IRQ-handler/20261107-232226
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261107175339.3547918-4-Vijendar.Mukunda%40amd.com
+patch subject: [PATCH 3/4] ASoC: SOF: amd: guard SDW IRQ work scheduling with interrupt_enabled flag
+config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20261108/202611081921.O3dE9COW-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611081921.O3dE9COW-lkp@intel.com/reproduce)
 
-Turning the backlight off keeps sending the configured color with
-mode=off rather than all zeroes, so that the keyboard's own Fn+Space
-toggle keeps working afterwards. The LED is marked
-LED_RETAIN_AT_SHUTDOWN so unbinding the driver does not blank it.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611081921.O3dE9COW-lkp@intel.com/
 
-Both interfaces are bound to this driver so hid-generic stays away; the
-boot keyboard interface is started unchanged.
+All errors (new ones prefixed by >>):
 
-Tested on an AYANEO Flip KB: color and brightness changes through sysfs
-and UPower, Fn+Space toggling, behavior after reboot, and a third-party
-LED client (HueSync).
+>> sound/soc/sof/amd/acp.c:589:36: error: no member named 'interrupt_enabled' in 'struct amd_sdw_manager'
+     589 |                         if (amd_manager && amd_manager->interrupt_enabled)
+         |                                            ~~~~~~~~~~~  ^
+   sound/soc/sof/amd/acp.c:621:37: error: no member named 'interrupt_enabled' in 'struct amd_sdw_manager'
+     621 |                                 if (amd_manager && amd_manager->interrupt_enabled)
+         |                                                    ~~~~~~~~~~~  ^
+   2 errors generated.
 
-Signed-off-by: Hijae Song <hijae99@gmail.com>
----
- drivers/hid/Kconfig              |  12 +++
- drivers/hid/Makefile             |   1 +
- drivers/hid/hid-ayaneo-flip-kb.c | 171 +++++++++++++++++++++++++++++++
- drivers/hid/hid-ids.h            |   1 +
- 4 files changed, 185 insertions(+)
- create mode 100644 drivers/hid/hid-ayaneo-flip-kb.c
 
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index aa7fa11a..bba11e4b 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -205,6 +205,18 @@ config HID_AUREAL
- 	help
- 	Support for Aureal Cy se W-01RN Remote Controller and other Aureal derived remotes.
- 
-+config HID_AYANEO_FLIP_KB
-+	tristate "AYANEO Flip KB keyboard backlight"
-+	depends on USB_HID
-+	depends on LEDS_CLASS_MULTICOLOR
-+	help
-+	  Support for the RGB backlight of the AYANEO Flip KB's built-in
-+	  keyboard. The backlight is exposed as a multicolor LED class
-+	  device.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called hid-ayaneo-flip-kb.
-+
- config HID_BELKIN
- 	tristate "Belkin Flip KVM and Wireless keyboard"
- 	help
-diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index 48a863b2..4bac905c 100644
---- a/drivers/hid/Makefile
-+++ b/drivers/hid/Makefile
-@@ -35,6 +35,7 @@ obj-$(CONFIG_HID_APPLETB_KBD)	+= hid-appletb-kbd.o
- obj-$(CONFIG_HID_CREATIVE_SB0540)	+= hid-creative-sb0540.o
- obj-$(CONFIG_HID_ASUS)		+= hid-asus.o
- obj-$(CONFIG_HID_AUREAL)	+= hid-aureal.o
-+obj-$(CONFIG_HID_AYANEO_FLIP_KB)	+= hid-ayaneo-flip-kb.o
- obj-$(CONFIG_HID_BELKIN)	+= hid-belkin.o
- obj-$(CONFIG_HID_BETOP_FF)	+= hid-betopff.o
- obj-$(CONFIG_HID_BIGBEN_FF)	+= hid-bigbenff.o
-diff --git a/drivers/hid/hid-ayaneo-flip-kb.c b/drivers/hid/hid-ayaneo-flip-kb.c
-new file mode 100644
-index 00000000..8068b7d4
---- /dev/null
-+++ b/drivers/hid/hid-ayaneo-flip-kb.c
-@@ -0,0 +1,171 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * HID driver for the AYANEO Flip KB's built-in keyboard backlight
-+ *
-+ * The keyboard enumerates as a SiGma Micro USB HID device with two
-+ * interfaces: a plain boot keyboard and a vendor-defined one carrying a
-+ * Feature Report (ID 0x41) that controls the RGB backlight. The layout
-+ * of that report was determined by testing on real hardware:
-+ *
-+ *   byte 0: report ID (0x41)
-+ *   byte 1: blue
-+ *   byte 2: red
-+ *   byte 3: green
-+ *   byte 4: firmware effect select (0 = keep previous report, 1 = static
-+ *           color, 2 = rainbow cycle, 3 = breathing, other tested values
-+ *           behave like 1); this driver only ever asks for static color
-+ *   byte 5: mode, 0 = off, 1 = on (other tested values behave like 1)
-+ *   byte 6: fixed 0x41
-+ *   byte 7: fixed 0x5a
-+ *
-+ * Copyright (c) 2026 Hijae Song
-+ */
-+
-+#include <linux/cleanup.h>
-+#include <linux/hid.h>
-+#include <linux/led-class-multicolor.h>
-+#include <linux/leds.h>
-+#include <linux/module.h>
-+#include <linux/slab.h>
-+
-+#include "hid-ids.h"
-+
-+#define FLIP_KB_REPORT_ID	0x41
-+#define FLIP_KB_REPORT_SIZE	8
-+#define FLIP_KB_MODE_OFF	0
-+#define FLIP_KB_MODE_STATIC	1
-+#define FLIP_KB_EFFECT_STATIC	1
-+
-+struct flip_kb {
-+	struct hid_device *hdev;
-+	struct led_classdev_mc mc_led;
-+	struct mc_subled subled[3];
-+};
-+
-+static int flip_kb_send(struct hid_device *hdev, u8 r, u8 g, u8 b, u8 mode)
-+{
-+	u8 *buf __free(kfree) = kzalloc(FLIP_KB_REPORT_SIZE, GFP_KERNEL);
-+	int ret;
-+
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	buf[0] = FLIP_KB_REPORT_ID;
-+	buf[1] = b;
-+	buf[2] = r;
-+	buf[3] = g;
-+	buf[4] = FLIP_KB_EFFECT_STATIC;
-+	buf[5] = mode;
-+	buf[6] = 0x41;
-+	buf[7] = 0x5a;
-+
-+	ret = hid_hw_raw_request(hdev, FLIP_KB_REPORT_ID, buf,
-+				 FLIP_KB_REPORT_SIZE, HID_FEATURE_REPORT,
-+				 HID_REQ_SET_REPORT);
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static int flip_kb_brightness_set(struct led_classdev *led_cdev,
-+				  enum led_brightness brightness)
-+{
-+	struct led_classdev_mc *mc_led = lcdev_to_mccdev(led_cdev);
-+	struct flip_kb *kb = container_of(mc_led, struct flip_kb, mc_led);
-+
-+	if (brightness) {
-+		led_mc_calc_color_components(mc_led, brightness);
-+		return flip_kb_send(kb->hdev, kb->subled[0].brightness,
-+				    kb->subled[1].brightness, kb->subled[2].brightness,
-+				    FLIP_KB_MODE_STATIC);
-+	}
-+
-+	/*
-+	 * An all-zero color combined with mode=off makes the keyboard's
-+	 * own Fn+Space toggle stop responding until a non-zero report is
-+	 * sent again. mode=off already blanks the backlight regardless of
-+	 * the color bytes, so send the configured intensities unscaled
-+	 * instead of collapsing them to zero.
-+	 */
-+	return flip_kb_send(kb->hdev, kb->subled[0].intensity,
-+			    kb->subled[1].intensity, kb->subled[2].intensity,
-+			    FLIP_KB_MODE_OFF);
-+}
-+
-+static int flip_kb_probe(struct hid_device *hdev, const struct hid_device_id *id)
-+{
-+	struct flip_kb *kb;
-+	int ret, i;
-+
-+	ret = hid_parse(hdev);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Both interfaces match this driver, which keeps hid-generic from
-+	 * binding to them, so the boot keyboard interface must be started
-+	 * normally and left alone.
-+	 */
-+	if (!hid_validate_values(hdev, HID_FEATURE_REPORT, FLIP_KB_REPORT_ID,
-+				 0, 1))
-+		return hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-+
-+	kb = devm_kzalloc(&hdev->dev, sizeof(*kb), GFP_KERNEL);
-+	if (!kb)
-+		return -ENOMEM;
-+
-+	kb->hdev = hdev;
-+	hid_set_drvdata(hdev, kb);
-+
-+	kb->subled[0].color_index = LED_COLOR_ID_RED;
-+	kb->subled[1].color_index = LED_COLOR_ID_GREEN;
-+	kb->subled[2].color_index = LED_COLOR_ID_BLUE;
-+	for (i = 0; i < 3; i++)
-+		kb->subled[i].intensity = 255;
-+
-+	kb->mc_led.subled_info = kb->subled;
-+	kb->mc_led.num_colors = 3;
-+	kb->mc_led.led_cdev.name = "ayaneo:rgb:" LED_FUNCTION_KBD_BACKLIGHT;
-+	kb->mc_led.led_cdev.max_brightness = 255;
-+	/* Keep the backlight lit across driver unbind instead of blanking it. */
-+	kb->mc_led.led_cdev.flags = LED_RETAIN_AT_SHUTDOWN;
-+	kb->mc_led.led_cdev.brightness_set_blocking = flip_kb_brightness_set;
-+
-+	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	ret = led_classdev_multicolor_register(&hdev->dev, &kb->mc_led);
-+	if (ret)
-+		hid_hw_stop(hdev);
-+
-+	return ret;
-+}
-+
-+static void flip_kb_remove(struct hid_device *hdev)
-+{
-+	struct flip_kb *kb = hid_get_drvdata(hdev);
-+
-+	/* Unregister the LED before the transport goes away. */
-+	if (kb)
-+		led_classdev_multicolor_unregister(&kb->mc_led);
-+
-+	hid_hw_stop(hdev);
-+}
-+
-+static const struct hid_device_id flip_kb_devices[] = {
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_SIGMA_MICRO,
-+			 USB_DEVICE_ID_SIGMA_MICRO_AYANEO_FLIP_KB) },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(hid, flip_kb_devices);
-+
-+static struct hid_driver flip_kb_driver = {
-+	.name = "ayaneo-flip-kb",
-+	.id_table = flip_kb_devices,
-+	.probe = flip_kb_probe,
-+	.remove = flip_kb_remove,
-+};
-+module_hid_driver(flip_kb_driver);
-+
-+MODULE_AUTHOR("Hijae Song <hijae99@gmail.com>");
-+MODULE_DESCRIPTION("HID driver for the AYANEO Flip KB keyboard backlight");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index 341bf587..88302307 100644
---- a/drivers/hid/hid-ids.h
-+++ b/drivers/hid/hid-ids.h
-@@ -1309,6 +1309,7 @@
- #define USB_DEVICE_ID_SIGMA_MICRO_KEYBOARD	0x0002
- #define USB_DEVICE_ID_SIGMA_MICRO_USB_MOUSE	0x0034
- #define USB_DEVICE_ID_SIGMA_MICRO_KEYBOARD2	0x0059
-+#define USB_DEVICE_ID_SIGMA_MICRO_AYANEO_FLIP_KB	0x007c
- 
- #define USB_VENDOR_ID_SIGMATEL		0x066F
- #define USB_DEVICE_ID_SIGMATEL_STMP3780	0x3780
--- 
-2.54.0 (Apple Git-157)
+vim +589 sound/soc/sof/amd/acp.c
 
+   566	
+   567	static irqreturn_t acp_irq_handler(int irq, void *dev_id)
+   568	{
+   569		struct amd_sdw_manager *amd_manager;
+   570		struct snd_sof_dev *sdev = dev_id;
+   571		const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
+   572		struct acp_dev_data *adata = sdev->pdata->hw_pdata;
+   573		unsigned int base = desc->dsp_intr_base;
+   574		unsigned int val;
+   575		int irq_flag = 0, wake_irq_flag = 0;
+   576	
+   577		val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET);
+   578		if (val & ACP_DSP_TO_HOST_IRQ) {
+   579			snd_sof_dsp_write(sdev, ACP_DSP_BAR, base + DSP_SW_INTR_STAT_OFFSET,
+   580					  ACP_DSP_TO_HOST_IRQ);
+   581			return IRQ_WAKE_THREAD;
+   582		}
+   583	
+   584		val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->ext_intr_stat);
+   585		if (val & ACP_SDW0_IRQ_MASK) {
+   586			snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->ext_intr_stat, ACP_SDW0_IRQ_MASK);
+   587			if (adata->sdw) {
+   588				amd_manager = dev_get_drvdata(&adata->sdw->pdev[0]->dev);
+ > 589				if (amd_manager && amd_manager->interrupt_enabled)
+   590					schedule_work(&amd_manager->amd_sdw_irq_thread);
+   591			}
+   592			irq_flag = 1;
+   593		}
+   594	
+   595		if (val & ACP_ERROR_IRQ_MASK) {
+   596			snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->ext_intr_stat, ACP_ERROR_IRQ_MASK);
+   597			snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->acp_sw0_i2s_err_reason, 0);
+   598			/* ACP_SW1_I2S_ERROR_REASON is newly added register from rmb platform onwards */
+   599			switch (adata->pci_rev) {
+   600			case ACP_RMB_PCI_ID:
+   601			case ACP63_PCI_ID:
+   602			case ACP70_PCI_ID:
+   603			case ACP71_PCI_ID:
+   604			case ACP72_PCI_ID:
+   605				snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SW1_I2S_ERROR_REASON, 0);
+   606				break;
+   607			default:
+   608				break;
+   609			}
+   610			snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->acp_error_stat, 0);
+   611			irq_flag = 1;
+   612		}
+   613	
+   614		if (desc->ext_intr_stat1) {
+   615			val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->ext_intr_stat1);
+   616			if (val & ACP_SDW1_IRQ_MASK) {
+   617				snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->ext_intr_stat1,
+   618						  ACP_SDW1_IRQ_MASK);
+   619				if (adata->sdw) {
+   620					amd_manager = dev_get_drvdata(&adata->sdw->pdev[1]->dev);
+   621					if (amd_manager && amd_manager->interrupt_enabled)
+   622						schedule_work(&amd_manager->amd_sdw_irq_thread);
+   623				}
+   624				irq_flag = 1;
+   625			}
+   626			switch (adata->pci_rev) {
+   627			case ACP70_PCI_ID:
+   628			case ACP71_PCI_ID:
+   629			case ACP72_PCI_ID:
+   630				wake_irq_flag = amd_sof_check_and_handle_acp70_sdw_wake_irq(sdev);
+   631				break;
+   632			}
+   633		}
+   634		if (irq_flag || wake_irq_flag)
+   635			return IRQ_HANDLED;
+   636		else
+   637			return IRQ_NONE;
+   638	}
+   639	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
