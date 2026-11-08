@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794162571;
-	b=RtciqEkKGMowMh13jv7AxEtzIeprfASsXCXXB+aorXFVXY8A0PajYgK60OGs+DtbKRjf
-	 QbUIdSB3aL1+mAZKInv0hWtFaQWdCJ5uDFnR6uroXTqjfrNO3WtlkCAAj+Wj2A7Nw4gVx
-	 ZVMbo98IoMtbjO2CDF6u2E13qeFv4LRRxNxz4oSgzzjeekXGArPvSzKlOuk4KuqOL9YDl
-	 kih20btfi380w5LqBd/kAihyQwWTFQkPKWyOGN39AAnybY2K+THtk3N3kwwUoAxWADtzU
-	 0XZRt3+FoHXq1bke5xQSXQaDkQrldsfyuUQhyD2g1scufGZWOzBvKBrynP5jkzrVeWg==
+	t=1794162575;
+	b=wH//cxNP+r2CZTiGeDZa3zHP52H3/mMVVkp0pxrS3hVjaQbzg1tLMmlwkbfZD0whdBUI
+	 gUzd01Dp8O6SrjrK5dgl2k2ll48Ofe6C4dsSoJVuyrMPDD8ueBY6Wze/OoLDIYv2rWpeF
+	 rfA7ldslg9quLF5cNbBQwzwOV4s/lD1TlMmOxG7VzZ+6oO0bRag/NeHtVwWyaPZ3THKKu
+	 DjKpsLXPWULEdaeyjIhpHPMyKVmUMiyDdv9lTdISH/FX8rlo4usKRTNN1huTG+0ZA02ZB
+	 Mt/yqvRMjvCGZnrx9P9O2YqmpFU7IlJ7dpOY06bVlMniyVOHWmLzf2XGvMVhknmSarg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794162571;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794162575;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BzkQiIfcLEfWegWq0FERlNVk/16k6R+noDnnrMFOSWI=;
-	b=B5k0IvobgKXn2QrOpCysNuzEFuZJZZ1N08EuR/ELdQ9kPqZUn2xd6Nr9lbV1ufBstS1t
-	 Za0pszcDwDmICnBYopSRL/LAhmUEzTXvOQPozqscvJ7KvuBg/TfOsQmbhfeiZW5leK0mc
-	 jqUwiFoSOPq57ZOdIOApRh1SZ5L6mIZfCaSesDfNUqoE9oFEwzidzeI6lakHEsHueQBgc
-	 vUmu4L3LYPn0cg0+OH1QE3UA9Cw1QRSDLY8UQYfs/1hSRWQJf+Oc6DPuLNmHC3kVdSUuL
-	 9nnP21eeVG9katNBh388+kD9Up28e9GuL2gdWwOyUajmxSNr3ldJNigstx7ETUiSuhw==
+	bh=MdEqkKSdZF8rNouTB1DOceTxdJHEgpqHYMARfNT3BWE=;
+	b=INM/FGeBremseYt3bkm5InDwv/USd8UkPSxHj15IQmiUNgDkiWX2NvOosFe6l09jANHR
+	 ThCRbTTeJfHFTqZrN71hs+CWmNZ9EzyP2082//LYsw087layFIPQmW3QcwiE91kpzUbWi
+	 qZQq41K1qumXpq1BGkEPP8kRfNS4Elx9ozUlxHnUhXydNrvTj/0e3lKxfoTa8eSRSYyao
+	 0hIMydRBUiCyKSRq5SdYVa0agqupcP9lk+7ngh/NecXQrcxMKhW2cdY2u+yiG4nSg6fjW
+	 PlQ5un/pt1J9oUi3AM43bViXyz2yaVtaWzcy7iMgVfA5h3QszJ0eIa8aRLzrjR5WxVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q62r1FqQ;
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttbBnHyp;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F11D606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:29:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F11D606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855B7606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:29:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 855B7606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q62r1FqQ
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b4c8b51b58so124420b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:29:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttbBnHyp
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b5e5e64494so64134b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:29:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794162570; x=1794767370; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794162575; x=1794767375; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BzkQiIfcLEfWegWq0FERlNVk/16k6R+noDnnrMFOSWI=;
-        b=q62r1FqQ0xmPaFcqn17m9G2It44P/MJ72snHBR5g2fTrpEdhfWsCssekVZOodumzYz
-         7C5ieA2AXVSh7jnzqZXvOTLCIzrao38dh8EMA66iYPDg/Coi5TX3W3+h97AdP+mW/w7U
-         RbS7vfvfZ5wrgSsRXwn7jJDSH/aCurvR7mfnmeh9Vsgxp9xF1TQg5iIn4j5/R2EZGS4g
-         h1DGNkA1z8yI3ixswdzf5ILk4YC/c/dWB1I4+Tn0IVRkt8aQMwEZZ5km2q7Mo9fUVGGV
-         Xyv9e3dawLhzrWV+6qMacUZf6Gs/c7VqP8kPLQwsATkYOQA7aXdYiddWLhrHKofQTbTv
-         gwFQ==
+        bh=MdEqkKSdZF8rNouTB1DOceTxdJHEgpqHYMARfNT3BWE=;
+        b=ttbBnHypf5CxMR05XVMr6MYTSiXBM/zngM2uF1jVCCFwHmqcBFpMYOYVLeCpFhX+4N
+         T9KMzxyotCkf1KMDz/0HAp1JyaK6iJJ7U1fx+3ekaEn4ree9rUcjT7bDlJB4YzjWPHuK
+         mmsZFozCLJHk3GdMvNRCcyyDOY3NHHoObh24IsOWvfGn2F7c3umz0IPUOWIRYZeBJDTe
+         Zvq2GU6ofLQ26YKg9dcDUGNDQyLV07151SaQhL89N3zwXc3bf1cqgjYuLdak4jRG0AP6
+         A//zdDvmamLxIw5qsS6hclYiOCV3L1lvELNDWFDaAenKP2XQqdo2HtX2IChi6IgsHaHz
+         UiKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794162570; x=1794767370;
+        d=1e100.net; s=20260707; t=1794162575; x=1794767375;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BzkQiIfcLEfWegWq0FERlNVk/16k6R+noDnnrMFOSWI=;
-        b=QYrKrUSEQxl+deiTlTpoovT4eMjuAZ0OajOlLZ3821f7nLYBIeuiaKtwp9c4nY7Cl1
-         bej1v50QCMeq5FIJJlUd+VDWg1L1knUNDNUVXViZgfNy5IWW0CVVSzHU0NK+S39lTeoF
-         bi+v5D3sTPPT6XGK4JdXIhGQeVhwF6jYZ+Wi4rjvsqRF+EkaJAZfYWt5Zw3rWfzqJ7Gr
-         lWg3zBSO4xUKd91vwRfvvVKmeT9ZWt9SAsCSrhcucXk4oTPtZraA1wi387FheMynsY4Z
-         CYIs+DhqJFQ5GQWEkbJEGj5hzgXZcS90NkF+EkvqQxVg2DvQ3FDbM+DY2josoWglm8rh
-         HOMQ==
-X-Gm-Message-State: APuU4Z8h/qa5z8N0oiXh19fMJlzK45c2bnwM5pKTeMJcIlUnmtQo8yNl
-	EodncMqawSJSnisxhkDI9aaPkWzXAmPuS6ABRclk87F8TsmiGrAOcYJd
-X-Gm-Gg: AYBFou1eE5D6zq8mkzyWjwGf+EoOoAVypQb1ZSUQd1b2Hw5hcvwLVao1JAUD+PxRv2v
-	3UA8YlHZYoiv8YByloBrRnmE7yI6E0xivwRL3WN9RT+vhpH1wNlt8AHQD9K12yaR/Na1LlHU3Vn
-	qWU5fE0kI3OfvW4jdRTlFGgvUuFpe5LOUaBzqR4ComX3kfi+PSErKTXG3g1p8/69Zb9/lgJHsEG
-	mIIEuuz5tBofeGbps4V4oS8BU1weNNOmQUrQDOOgHtAK/oPKxJKqS1GKOYSGVe3o2MdufmhQt0k
-	REdUjhrkM/6W0SYGvp68bm9dDYnXyZlzHP9BZwF9v0ubO6+g4hFOwFJ+ZCdmbIt+jKrE0L32i1i
-	4SGFpgHxRa4cDl6OaZ6SVvUJyVWaRyCJj9xKTb8QgfKsPxSNkrBn5gD4w+xVXS49FVG7N3ZEYlC
-	DT7/7gcTBKUkTz3ojpN33L8lj2Orn8vHWcm+b+08pdz73fa8qlrQFtMJAEBy3zst+OVUuKkNvYQ
-	FO5FniRS1e4Ov03m9cC6VlcQYlu5snqX/ffdtUNK4Gm0fMMP1+42zblA7UYMVchfunhpYG7cB4R
-	RmpBrkaUtyD4yvgcPjOErdSUEjE9wXI735VQH0lk3n7Qgcg04VQWvSvNu05mtHZYdh9aH8vICJB
-	o6rBmZt8WoZmh9sxRm2vzt52DaoAn
-X-Received: by 2002:a05:6a00:1c9c:b0:869:84b4:4b36 with SMTP id d2e1a72fcca58-8b66ee0c6d9mr1873502b3a.16.1794162570228;
-        Sun, 08 Nov 2026 10:29:30 -0800 (PST)
+        bh=MdEqkKSdZF8rNouTB1DOceTxdJHEgpqHYMARfNT3BWE=;
+        b=ocwEcSrZxnX9juoe31SHtFpbcqBdKCGk1HIa+ho/HX+m1v0kqV7U8L3zyJ+XrDRFLL
+         ZPgwV0mAUmmyoQ35dK7r63MrnfYM4b+ptl0eHL1sIits6UGYn6DOvpg1XVKFQ5tr4rJS
+         EF6JydxtTyILGo8LcHz04yq796RgK9e2YaSpxcFf5AgxxSTWl2z0ujj39ZZDAZ7956ea
+         AulkcaUfsUet7hlFLEFIm3EpCLBGh5DwSbqqO7raBdaqRwSuKqGAYTLiANeu+a74S0xe
+         Jj5/AEjVB+xoiwdGlT+f08vjTZUmS21AK9+OI3wY1XKvVde2qofNrCFnVY6AGAacrSbe
+         PUtA==
+X-Gm-Message-State: APuU4Z9/4ztbZPNcDo94awsGv6xeJKAsHE6Tm/MfAzKnj1dyyoLX8731
+	DHH61mN42uMARUe+MRDGWoGYfIrWG50ZQahEmZQLa1eiOltvDkYBzerk
+X-Gm-Gg: AYBFou1SOO1SPGWJ8NZ5HM4IOGfyqL/aEas2Jy+z62PA1/3ijiH7uZBitIhsn+LA/X2
+	kLco/XXuPRNEb6cdbfpTqYl10cFWeF9pNSrmNDj8Bm00Ux2Uxn5aUnSFQqirCDd7IyM68rvLtyu
+	ah/altcB+d0ln30UEZH8+gXweJALh0ghEYz04ATkIheDrZdu7WVD9Z/jxMs5c6BANVqfnNE5Pnw
+	5qpCveiUX6FO7M2WKwhOOGTyPNk2bLqLV6CfuyjQYVl6T9Im+MFx4hpjUfSoWVW/dpwqkqsPG+/
+	sy5ZRd2kwBdA9lcmMJxQC2MVl+3httkSNiX0v128c09xbxu7ATnwMgkeqoZNbWgZLEjTVxt65kW
+	VcxpEHd4gvEmvW4EvYQrZm+pu9UNCkvqE+m63xPPRKByOOHnrXrhjs6XD4itjPM9ZToh/CLlbbN
+	q18nBSeA8Dz+snqA7OYdWjbmqOhAY20Ih5A1ITkdHhgKDGYiSJ4IXLpVkHFu8rpz3c0kMYvkTU3
+	/yW0XNsjVnfNPd5jHb6i72YOGduO1Pp/4AgN6sbXOF6J+ugpHK5jMDbkCowjxn2fDgSVxsq1YE3
+	KITERpHiBv4w0fCt5/onegvJqV+44l84tA54iykql/DkvdujZ8soB8ghckN011qqBjxYszUUqex
+	uqSbKEz5wIAGDaRIujBs1xJbKBWp2
+X-Received: by 2002:a05:6a00:339a:b0:8a0:1dab:fd50 with SMTP id d2e1a72fcca58-8b66c4017demr1724424b3a.20.1794162574625;
+        Sun, 08 Nov 2026 10:29:34 -0800 (PST)
 Received: from localhost.localdomain ([2401:f40:1397:9:5496:ab84:534b:ad67])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b6498209a5sm692938b3a.36.2026.11.08.10.29.27
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b6498209a5sm692938b3a.36.2026.11.08.10.29.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 10:29:29 -0800 (PST)
+        Sun, 08 Nov 2026 10:29:34 -0800 (PST)
 From: Zeshan Ahmed Nobin <zeshanahmednobin@gmail.com>
 To: linux-wireless@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	Ping-Ke Shih <pkshih@realtek.com>,
 	Luka Gejak <luka.gejak@linux.dev>,
 	Kalle Valo <kvalo@kernel.org>
-Subject: [PATCH RESEND rtw-next v2 1/2] wifi: rtw88: 8822c: fix out-of-bounds access in cck_pd_set
-Date: Mon,  9 Nov 2026 00:28:36 +0600
-Message-ID: <20261108182837.682661-2-zeshanahmednobin@gmail.com>
+Subject: [PATCH RESEND rtw-next v2 2/2] wifi: rtw88: 8822c: ignore nrx values without CCK PD registers
+Date: Mon,  9 Nov 2026 00:28:37 +0600
+Message-ID: <20261108182837.682661-3-zeshanahmednobin@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261108182837.682661-1-zeshanahmednobin@gmail.com>
 References: <20261108182837.682661-1-zeshanahmednobin@gmail.com>
@@ -101,74 +101,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rtw8822c_phy_cck_pd_set() reads the bandwidth from a 2-bit register
-field and uses it as the first index into dm_info->cck_pd_lv[], which
-only has entries for 20 and 40 MHz.
+rtw8822c_phy_cck_pd_set() reads nrx, the number of CCK RX paths minus
+one, from a 2-bit register field. The driver only ever sets it to 0 or
+1, for one or two RX paths (see rtw8822c_config_cck_rx_path()), and
+rtw8822c_cck_pd_reg[] only has registers for those two values; its
+entries for nrx 2 and 3 are all zero.
 
-When the chip stops responding on the PCIe bus, register reads return
-all ones and bw becomes 3. The function then reads cck_pd_lv[3][nrx],
-past the end of the array. If that byte differs from new_lvl, it calls
-rtw8822c_phy_cck_pd_set_reg(), which rejects bw with WARN_ON(), and
-then writes new_lvl to cck_pd_lv[3][nrx] anyway. UBSAN reports the
-first of these accesses as:
+A device that stops responding can return any value. On USB, a failed
+read returns whatever an earlier read left in the buffer, so bw can be
+0 or 1 while nrx is 2 or 3. When the level then changes,
+rtw8822c_phy_cck_pd_set_reg() gets past its WARN_ON(), which only
+checks nrx against RTW_RF_PATH_MAX, and calls rtw_read32_mask() and
+rtw_write32_mask() on register 0x0 with a zero mask. Both compute
+__ffs(0), which is undefined, and the write puts back whatever was read
+from register 0x0.
 
-  UBSAN: array-index-out-of-bounds in .../rtw88/rtw8822c.c:4407:21
-  index 3 is out of range for type 'u8 [2][4]'
-  Workqueue: phy0 rtw_watch_dog_work [rtw88_core]
-  Call Trace:
-   <TASK>
-   __ubsan_handle_out_of_bounds+0xdd/0x120
-   rtw8822c_phy_cck_pd_set+0x33c/0x510 [rtw88_8822c]
-   rtw_phy_dynamic_mechanism+0x310/0x330 [rtw88_core]
-   rtw_watch_dog_work+0x217/0x330 [rtw88_core]
-
-Return early when bw is out of range. The chip is already unusable at
-that point; this only stops the driver from corrupting its own state.
+Return early when rtw8822c_cck_pd_reg[] has no registers for nrx; bw
+has already been checked at that point.
 
 The fix and this message were drafted with an AI coding assistant
 (Claude Opus 5.5 by Anthropic), then reviewed and tested by the
 submitter.
 
+Reported-by: Luka Gejak <luka.gejak@linux.dev>
+Closes: https://lore.kernel.org/linux-wireless/f6a7d3272fe7635c6a83698dfab5d85500437ca6@linux.dev/
 Fixes: 479c4ee931a6 ("rtw88: add dynamic cck pd mechanism")
-Cc: stable@vger.kernel.org
 Signed-off-by: Zeshan Ahmed Nobin <zeshanahmednobin@gmail.com>
 ---
 
 Notes:
-    Testing, on an RTL8822CE in an ASUS TUF Gaming A15 (FA506IU) whose chip
-    intermittently drops off the PCIe bus:
-    - Without this patch, on Ubuntu's 6.8.0-147 and 7.0.0-42 kernels, 22 of
-      the 23 boots with a chip failure logged three UBSAN reports for the
-      reads, the WARN_ON() and one report for the write; the other logged
-      neither. Boots without a failure logged neither. The trace above is
-      from 7.0.0-42, whose line numbers are three lower than mainline here.
-    - With v1 applied to 6.8.0-147, 5 boots with chip failures logged no
-      UBSAN report and no WARN_ON().
-    - v2 on 6.8.0-147, with a debug-only change that forces bw to 3 on a
-      working chip: in 12 s the function ran 6 times and returned early each
-      time, with no UBSAN report and no WARN_ON(). With the new check also
-      skipped, the same input brought back the UBSAN reports for the three
-      reads and the write and the WARN_ON(), plus two more for
-      pd_lvl[cur_lvl] and cs_lvl[cur_lvl] ("index 36 is out of range for
-      type 's8 [5]'").
+    Testing, only on an RTL8822CE (PCIe). There a failed read gives all
+    ones, so bw is 3 as well and patch 1 returns first. A debug-only change
+    forced nrx to 2 on a working chip instead:
+    - With this patch, in 12 s the function ran 6 times and returned early
+      each time. rtw8822c_phy_cck_pd_set_reg() was never called with nrx 2,
+      and there was no UBSAN report.
+    - With the new check skipped, rtw8822c_phy_cck_pd_set_reg() ran with
+      nrx 2, and UBSAN reported "shift exponent 64 is too large for 32-bit
+      type 'unsigned int'" in rtw_read32_mask() and rtw_write32_mask().
+    - Not tested on USB hardware.
     - Build-tested on rtw-next (dc16902cad9c) with W=1: no warnings.
 
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/net/wireless/realtek/rtw88/rtw8822c.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-index 09315d23e2c4..6343568285bc 100644
+index 6343568285bc..acd192684bb1 100644
 --- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
 +++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-@@ -4406,6 +4406,13 @@ static void rtw8822c_phy_cck_pd_set(struct rtw_dev *rtwdev, u8 new_lvl)
- 	nrx = (u8)rtw_read32_mask(rtwdev, 0x1a2c, 0x60000);
- 	bw = (u8)rtw_read32_mask(rtwdev, 0x9b0, 0xc);
+@@ -4413,6 +4413,14 @@ static void rtw8822c_phy_cck_pd_set(struct rtw_dev *rtwdev, u8 new_lvl)
+ 	if (bw >= ARRAY_SIZE(dm_info->cck_pd_lv))
+ 		return;
  
 +	/*
-+	 * cck_pd_lv[] only has entries for 20 and 40 MHz. A chip that stops
-+	 * responding on the PCIe bus reads back as all ones, giving bw = 3.
++	 * rtw8822c_cck_pd_reg[] only has registers for one and two RX paths
++	 * (nrx 0 and 1); its entries for nrx 2 and 3 are all zero. A device
++	 * that stops responding can still return those values.
 +	 */
-+	if (bw >= ARRAY_SIZE(dm_info->cck_pd_lv))
++	if (!rtw8822c_cck_pd_reg[bw][nrx].mask_pd)
 +		return;
 +
  	rtw_dbg(rtwdev, RTW_DBG_PHY, "lv: (%d) -> (%d) bw=%d nr=%d cck_fa_avg=%d\n",
