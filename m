@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794101756;
-	b=tYk3vFHRKl2L9u/0TdkOruWUS+5r68f/1Ur7nWNOIbTODkREd+jfGPf2b8eFngn8RiC/
-	 +iBlNfgeaTMf15Akwa8engMYCU9vjj1LgvXu+qAUpxUERkUwJsXDjv7lLcmOUt/FpiOxI
-	 atg7yQRlyFakZQDsVah15JRbK9qZkiX1WWumem/GKtW6C6oorexCR4bJdE5UVT8mY60Ih
-	 ttULc/23I/NKDmc8cBUB8qcJsyWOHmj7CqzI1SHE9ALAQo7MkVnCC2knqbixhEtRIHO7v
-	 cUXWPLcLvUCeU6k0Sv7eA1Lz2czSLSvHpkDauYsGdUk0C6+12ArF5fPnt54TkMTwpUQ==
+	t=1794101801;
+	b=d9cSuwALZcjzGYzoetRT0AX9ItkMkwhaDhTG2PqcpW4aqYPkmxIVst0NRHt/p/kEEnQG
+	 2Mn1vnTY4S+oJAnZG6dYO+HFPQMK//GAqw2JoVNVTdu6zMmxxQlsGAcxqK+1JGZcLA4Y0
+	 DyBQO8/1JEA9i5RzgIyVjvisXQ+jYoyEoEZt32pLZcC5BQhuwL+wKugj8cHZ4mHw4JEtr
+	 cxNI0XADi8ZiSnoYlXHTDu+aMYGTaJ/RiEsG/cxmm5OZSebM2H6zCGB20YL0Fke/InT4h
+	 bc0JlaWE40XgCy0upiYwom9zeFPlMZzIO63b3rHGMKc5dcDDbMb7IIz+4eFtiM+XlQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794101756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=gp1dlJYmM8w8ntmi7bQBqlanLKPIa5O7ZBIuoOP2eTo=;
-	b=v3d3NdRry9Ln1QKhNjUDlakjrM//CinPqw4BdR/BnWsjR3zDSsXD1hqs2ZXypwnODbsW
-	 ztHWthpNu6T9uWsoIrXre7SAq5gd4YW7qtNMC1r91o8hPQen+u2sLBL+D9cwXjvrHPLAS
-	 z1+1PzQohAM0cNE3gdFyTH5AHIes8Vm7cicFOc39pUmaELoJ/kfy3yJKKH1cvCtqImhka
-	 7xQgjSY1IS8mIxJquZTk3+GgV5To+oXszqsArzSn6aa1xrMUfnYa26bhQWuGTqbT30P9r
-	 KiHcR+GpfpQO7PNVtXAZvdDFj/KzPDEAlHSjTObxqfjltLYb0mx7w1vB1rC33goMEfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794101801;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=zF3Gxv5mNvsoF0jBmnl43ffjhA6CkmbaNScKmRFBOeY=;
+	b=TFAZlzskhU2686DNC9gxnD4tA4UI9kQh4rwm0k8fgQOgaewTsfvHBJzIzjQ9iFj5Yntr
+	 ilHBic4bLDZxOeAIUEFuRq1bo9ubaDCLENRg3BuU5NFFDCvE3rzd92rsfMya9VYO+81k+
+	 hI/hiuE0nzsCK5u785J84A06wnIJcelonJsIqatiEE2zd13Tt4GagSPrzA+LuN0d0u82+
+	 h7AklaQZN3af0svZf2CJtDWIgC/DAKP4QzgoOw/xLhoLc61P4O95jjXdhOr9VaTENP6qY
+	 xudwPx+l/1iaTIGAAOpuS2+AUgosXE1h52N35vNqNdaAWSp4RUw64H66WlU43B+vTUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LPKx7euy;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GtuieLeI;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CAA606A333
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:35:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28CAA606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58946606A331
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:36:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58946606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LPKx7euy
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso616645e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 17:35:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794101754; x=1794706554; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gp1dlJYmM8w8ntmi7bQBqlanLKPIa5O7ZBIuoOP2eTo=;
-        b=LPKx7euykCc6fTmtO5pRIlQXGah7shoNbqdlnxNCJxyMKwTVSHYyg8Sf1ZEjPHW8vw
-         PVVUK7e96QGKdUmMifjk+4oTHEcAnnj1OvCxM1wyHGfXBLNKZFOlpFWNxQbDPQoQYOqk
-         MSWTlnNYM325/0NwLgUjhJoPaAzBUeVczhO0Puz5mq38WEvUgvy1Nwv12ditwAuDEgtQ
-         JxewrpdwQOeebFoWjKSyn6DtVp2jWlC4YmrcgZG23vdKL7bDTPPS5xWyS0JNFRGgcrwm
-         9g5RvnYCofGfkgSVnF5GVnJ6wCQSNDmyRRxYCQ0essSOMX5oRn3Pte9+lT3kRKE0BLMA
-         hJ8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794101754; x=1794706554;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gp1dlJYmM8w8ntmi7bQBqlanLKPIa5O7ZBIuoOP2eTo=;
-        b=asec8cXGNjLVEbXMiFenbdQS7gMbGanl8YgzR8nZUWX/oRbU4LAJ+OA6P4VMgWbYgV
-         DuDqmTAtE2i9VhbENSh4ErdtfzbKAgz7xDDLqvwjuxo8f853aRSA0nuTeCv0PKjOpfQQ
-         VtOMODD2f8vxZNVWaR/j6MzUnLJIexJNXmiIZ8t+2QWFaSnvYccz5ZCAzmq9vJdlje9C
-         KivDz9iko0MrfT+zXMZWTmeO6h5YyNBD8E0q/VgUA2lOGt0ngDVNdBiL9r8Aq3Vpg0pO
-         aVok+7gF+Qk5ajLc7yZm26Dr5yc0IilTCXz9K8JA+qYrCqK/0jDxUCvdy/UiZlPz0QLd
-         iRMA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1BqHok8UWadyp8DQCPiGlFTOUbMCkFcwnMNngYcSpa2oclHmPwC0PZN0maCSNA3rOdcNK4weTYsT3HYY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ybZC4DNxE19QYy4HVIEpsfCrffuFMyvTeRkI7pyORfdCleCBM
-	KsmA0CSQFSFT9TsLkOAsEf9bBgxB56x/sihyD6xiRUN6/sKROpi5TNmQSGK3fXiyi1Y=
-X-Gm-Gg: AYBFou07A1flKRMMrqO4OR8hORcswBtHOnBcM6s4EdX28HCtzvUAOul09nJxdHFlIu0
-	N9pALGt3lRiV2i0sSelNaR5Hdqh0USHDnRpHdA0HvtQ7zR1T15o4EZvy0Mt4drO6df2ccLyjxmM
-	+ar57csD5lPlFEnCeEPvOMtlEAcOQDwnO4oT/YF1ISehsd2Eg5gAxESAQUzCtWopJN4YdPxZi0b
-	i/zv3Dpi7FvegoEvJKYdfrdS4LVzJ4sELM4pjKJwLZ0s/lenw6jtWJIM8noGxfdccfKVAtJYpn2
-	80IwjL5MIzK6MHM9xw+PlE3p3KjYpr2UzDaRzffh0OOIz3Z2iyC6OZ/jv4y453VWuoOx7jQHVVL
-	aWargtn/5ZCnlW7226VA+suTivAVkqu6pFpeEKbcvofom2BvY/Sct0h+W4AY7+llbl2idqpDuBf
-	HrVM6LeA88FtfLyXqu5Ro9XzQxlcU9vSZIanXR9nnU2J+4c+tW+kORHtrB3myKBa0M85GLM0dYh
-	wn1qhcD/h1VCAimqbxiLTZjF9lvFBFIvhqgY6okTS4HpRS2SVGY8zfpvHMQPfH8snfgTr7AmqvR
-	73x5/C0P8A97L+heuCJXEIi+jzwZGMRz0pyVDBobpOdsNXPDdOrR3mgVjmIHiEKTimYIj60YxQO
-	oZOwgB7PIWj4O8TqaYS6xP11SZmSa0La8qkOkCW/l7tFzk6qym90+2QE5UxyHpythTexaQ0qsgZ
-	R/BiyV/525p8HtJh4XheN9tQdcF/SnhWH38ePPWi8b7wEmGiSpZnM=
-X-Received: by 2002:a05:600c:5397:b0:4a2:267:25b3 with SMTP id 5b1f17b1804b1-4b963c8715fmr5551595e9.35.1794101754249;
-        Sat, 07 Nov 2026 17:35:54 -0800 (PST)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb134ccsm103722785e9.10.2026.11.07.17.35.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 17:35:52 -0800 (PST)
-Date: Sun, 8 Nov 2026 02:35:49 +0100
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sparc/iommu: Use raw_cpu_read() for iommu_hash_common in
- iommu_tbl_range_alloc()
-Message-ID: <au_RHuVI6noT1W0X@gmail.com>
-References: <20261107195147.70084-1-kmehltretter@gmail.com>
- <155ec5c6c5f6d4287a420191cb3927eba1d97526.camel@physik.fu-berlin.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GtuieLeI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794101800; x=1825637800;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=BOHxs0N36neXsxcIO83qLPTK6oCogbPnkM8eMU4sIDE=;
+  b=GtuieLeIeztxsmvmND8NH18tw12ydxHTVRG6RF/fWp5E8CBCtJyyKLnB
+   if2YJFklB2iNKUX3C1zw1pbUDqkR10ZbpbemdmtcbtgReYbiWdMEJX5oV
+   P5UaN5P0M+3cA74Q+Knpu4hCwnyinCP1hfnYdy7HQigwpv0cT580zJ+H1
+   wT1WzeZ89A9o3STqzlDMeVIFCkVHPYHunKk7TJ0kL+UxNPH2SxhWLhSQk
+   mePtO64qubDrq/my+6FN8hEXl/tAaCpcYf4Ay8CmK5iDRClZw6OyS6CJb
+   hDUI//+yTdz1R12TKHrxyNIN6aUbO6bXwbKpeLwqmWfxcY4QaJcUS1jeO
+   g==;
+X-CSE-ConnectionGUID: FS17nwAHRjOcK7Je4MztoA==
+X-CSE-MsgGUID: 3XetlloZSLSVuCn7TK53bA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2765148"
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="2765148"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2026 17:36:39 -0800
+X-CSE-ConnectionGUID: xhsdsWCQR2SbJEixjPOIrA==
+X-CSE-MsgGUID: 2QXC4M2nR3CkvvjnF0r9FA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
+   d="scan'208";a="7750550"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 07 Nov 2026 17:36:37 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPrpj-00000000rtb-2e2r;
+	Sun, 08 Nov 2026 01:36:35 +0000
+Date: Sun, 8 Nov 2026 09:36:22 +0800
+From: kernel test robot <lkp@intel.com>
+To: Phillip Lougher <phillip@squashfs.org.uk>, akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Phillip Lougher <phillip@squashfs.org.uk>
+Subject: Re: [PATCH 10/18] Squashfs: sanity check directory metadata block
+ location
+Message-ID: <202611080942.VKgPZf4A-lkp@intel.com>
+References: <20261107052843.725239-11-phillip@squashfs.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,49 +86,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <155ec5c6c5f6d4287a420191cb3927eba1d97526.camel@physik.fu-berlin.de>
+In-Reply-To: <20261107052843.725239-11-phillip@squashfs.org.uk>
 
-On Sat, Nov 07, 2026 at 10:13:51PM +0100, John Paul Adrian Glaubitz wrote:
-> On Sat, 2026-11-07 at 20:51 +0100, Karl Mehltretter wrote:
-> > Fixes: ff7d37a50202 ("Break up monolithic iommu table/lock into finer graularity pools and lock")
-> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> > ---
-> > Assisted by an LLM.
-> > 
-> > Tested on v7.4-rc1 (d48723711bae) under QEMU sparc64 (sun4u, -smp 2)
-> > with PREEMPT and DEBUG_PREEMPT. Without this patch, two consecutive
-> > boots emit three "BUG: using __this_cpu_read() in preemptible
-> > [00000000] code: swapper/0/1" diagnostics in iommu_tbl_range_alloc().
-> > With this patch, two consecutive boots complete without the
-> > __this_cpu_read() preemption diagnostic.
-> 
-> According to your Fixes tag, this bug was introduced in 2015. However,
-> I have to admit I have never seen this message, neither on sun4u nor
-> on sun4v machines.
-> 
-> Is there a reliable way to reproduce this bug?
-> 
+Hi Phillip,
 
-Hi Adrian,
+kernel test robot noticed the following build warnings:
 
-Yes. It needs PREEMPT=y and DEBUG_PREEMPT=y. Debian's sparc64 kernel
-uses PREEMPT_VOLUNTARY, so a kernel built from that config cannot
-print it.
+[auto build test WARNING on brauner-vfs/vfs.all]
+[also build test WARNING on linus/master v7.4-rc1]
+[cannot apply to akpm-mm/mm-everything next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-sparc64_defconfig with PREEMPT, DEBUG_PREEMPT and lockdep, booted with
+url:    https://github.com/intel-lab-lkp/linux/commits/Phillip-Lougher/Squashfs-convert-SQUASHFS_COMPRESSED_-to-inline-functions/20261107-052826
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git vfs.all
+patch link:    https://lore.kernel.org/r/20261107052843.725239-11-phillip%40squashfs.org.uk
+patch subject: [PATCH 10/18] Squashfs: sanity check directory metadata block location
+config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20261108/202611080942.VKgPZf4A-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project fc9576e3b179738d99c5babe5cd9d6c1f883e0db)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611080942.VKgPZf4A-lkp@intel.com/reproduce)
 
-  qemu-system-sparc64 -M sun4u -m 512 -nographic -no-reboot \
-      -kernel arch/sparc/boot/image \
-      -append "console=ttyS0 loglevel=7 panic=-1"
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611080942.VKgPZf4A-lkp@intel.com/
 
-prints three reports on every boot, from the pata_cmd64x and sunhme
-probes.
+All warnings (new ones prefixed by >>):
 
-Danish Khateeb saw the same reports:
-https://lore.kernel.org/r/20260923144909.414968-1-danishkhateeb03@gmail.com/
+>> fs/squashfs/namei.c:141:6: warning: variable 'dire' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+     141 |         if (block < 0)
+         |             ^~~~~~~~~
+   fs/squashfs/namei.c:231:8: note: uninitialized use occurs here
+     231 |         kfree(dire);
+         |               ^~~~
+   fs/squashfs/namei.c:141:2: note: remove the 'if' if its condition is always false
+     141 |         if (block < 0)
+         |         ^~~~~~~~~~~~~~
+     142 |                 goto data_error;
+         |                 ~~~~~~~~~~~~~~~
+   fs/squashfs/namei.c:133:33: note: initialize the variable 'dire' to silence this warning
+     133 |         struct squashfs_dir_entry *dire;
+         |                                        ^
+         |                                         = NULL
+   1 warning generated.
 
-It is only a warning. The per-CPU value only picks the first pool to
-try, and each pool has its own lock.
 
-Thanks,
-Karl
+vim +141 fs/squashfs/namei.c
+
+   123	
+   124	
+   125	static struct dentry *squashfs_lookup(struct inode *dir, struct dentry *dentry,
+   126					 unsigned int flags)
+   127	{
+   128		const unsigned char *name = dentry->d_name.name;
+   129		int len = dentry->d_name.len;
+   130		struct inode *inode = NULL;
+   131		struct squashfs_sb_info *msblk = dir->i_sb->s_fs_info;
+   132		struct squashfs_dir_header dirh;
+   133		struct squashfs_dir_entry *dire;
+   134		u64 block = squashfs_dir_start(squashfs_i(dir)->start, msblk);
+   135		int offset = squashfs_i(dir)->offset;
+   136		int err, length;
+   137		unsigned int dir_count, size;
+   138	
+   139		TRACE("Entered squashfs_lookup [%llx:%x]\n", squashfs_i(dir)->start, offset);
+   140	
+ > 141		if (block < 0)
+   142			goto data_error;
+   143	
+   144		dire = kmalloc(sizeof(*dire) + SQUASHFS_NAME_LEN + 1, GFP_KERNEL);
+   145		if (dire == NULL) {
+   146			ERROR("Failed to allocate squashfs_dir_entry\n");
+   147			return ERR_PTR(-ENOMEM);
+   148		}
+   149	
+   150		if (len > SQUASHFS_NAME_LEN) {
+   151			err = -ENAMETOOLONG;
+   152			goto failed;
+   153		}
+   154	
+   155		length = get_dir_index_using_name(dir->i_sb, &block, &offset,
+   156					squashfs_i(dir)->dir_idx_start,
+   157					squashfs_i(dir)->dir_idx_offset,
+   158					squashfs_i(dir)->dir_idx_cnt, name);
+   159	
+   160		while (length < i_size_read(dir)) {
+   161			/*
+   162			 * Read directory header.
+   163			 */
+   164			err = squashfs_read_metadata(dir->i_sb, &dirh, &block,
+   165					&offset, sizeof(dirh));
+   166			if (err < 0)
+   167				goto read_failure;
+   168	
+   169			length += sizeof(dirh);
+   170	
+   171			dir_count = le32_to_cpu(dirh.count) + 1;
+   172	
+   173			if (dir_count > SQUASHFS_DIR_COUNT)
+   174				goto data_error;
+   175	
+   176			while (dir_count--) {
+   177				/*
+   178				 * Read directory entry.
+   179				 */
+   180				err = squashfs_read_metadata(dir->i_sb, dire, &block,
+   181						&offset, sizeof(*dire));
+   182				if (err < 0)
+   183					goto read_failure;
+   184	
+   185				size = le16_to_cpu(dire->size) + 1;
+   186	
+   187				/* size should never be larger than SQUASHFS_NAME_LEN */
+   188				if (size > SQUASHFS_NAME_LEN)
+   189					goto data_error;
+   190	
+   191				err = squashfs_read_metadata(dir->i_sb, dire->name,
+   192						&block, &offset, size);
+   193				if (err < 0)
+   194					goto read_failure;
+   195	
+   196				length += sizeof(*dire) + size;
+   197	
+   198				if (name[0] < dire->name[0])
+   199					goto exit_lookup;
+   200	
+   201				if (len == size && !strncmp(name, dire->name, len)) {
+   202					unsigned int blk, off, ino_num;
+   203					long long ino;
+   204					blk = le32_to_cpu(dirh.start_block);
+   205					off = le16_to_cpu(dire->offset);
+   206					ino_num = le32_to_cpu(dirh.inode_number) +
+   207						(short) le16_to_cpu(dire->inode_number);
+   208					ino = squashfs_mkinode(blk, off);
+   209	
+   210					TRACE("calling squashfs_iget for directory "
+   211						"entry %s, inode  %x:%x, %d\n", name,
+   212						blk, off, ino_num);
+   213	
+   214					inode = squashfs_iget(dir->i_sb, ino, ino_num);
+   215					goto exit_lookup;
+   216				}
+   217			}
+   218		}
+   219	
+   220	exit_lookup:
+   221		kfree(dire);
+   222		return d_splice_alias(inode, dentry);
+   223	
+   224	data_error:
+   225		err = -EIO;
+   226	
+   227	read_failure:
+   228		ERROR("Unable to read directory block [%llx:%x]\n",
+   229			squashfs_i(dir)->start, squashfs_i(dir)->offset);
+   230	failed:
+   231		kfree(dire);
+   232		return ERR_PTR(err);
+   233	}
+   234	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
