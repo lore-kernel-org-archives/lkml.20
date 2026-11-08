@@ -1,68 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169524;
-	b=ZoikITUxYYfhMDaMO3Tk055kgPD9xtq4UNJwfa78EYGITKzWQQbH/1QEE3JoXMzWE2Bi
-	 59qn3Vfxk8BrvTm52r8Yg4lFRorn6dfcLO1CGtkXN1Cb4T8fLu9q1cB+OybZ6/MdIqPDq
-	 veS+kuWHB5jCWeETp1LJTqnhfDCW4tmnGojefX8oh4RXK+TBB3GZ9nCwvzwmwUJK4tugg
-	 QqJcx0Zw03+1PPx4moSTQlKf93A0+9wucl8H/OK7TA4/XWhTHGQjfEtH3C94B8fEHCc50
-	 ZoW8Mj5pVCm9EXZ8U5rs2jmV9viFpBIZV1qJOSyxocl/ZCm7shXX9k79elXXhtXJOng==
+	t=1794169521;
+	b=4ETmProz1Sqk0kJFqJM1fAzyqUWivy1K64yU0PTDAWlw4J+mugAh7xSu9BO2wXIGRyvx
+	 pEoj8CuuebibDlrh/qgLrDwo8WVJXsVGPP0LL5P3j+qJgpiOJZyJgVjmPUlqkq9EQAmVm
+	 lKmvxfkzOz00li3bpH8ffmzrSwlHZ1FLaJVNHv1AEPGqAKJ6lKngOLr6pTfE11q7RveoX
+	 VCcvyJeuawffiGjv9edcVbFm6/IwH/cWBkREoj4ZQ9DYLL8tWEENwDB5B6P8mCuPkHKgb
+	 UyynJ9kBdxyr7M3z3qTAwOu+g7fndNuI8ZkGv0zZ9l/ldNCADIw6RQ6vdopvBRRGCbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169524;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169521;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=h+YBdfasWpLm6Da4YFjegeB5DsXOdDZJeYTsCIItuZk=;
-	b=INbnx7ql87ScLfas3W7n65fXIzRyQUbc5KAmJYBSVaSdJQKecNgppptn0s3CUaqY1uve
-	 szh7kF0ftdRP1O+6IVZjbiLUQ3EBXQjgObO0FNFvQuhTtMA2wJmwNxpwFRkLnlMafZ2ve
-	 3Ylv0IImzChw4sdNWPXQXEMTGVZBAQSBqqQ88IOeRkj7uHX9cmWmcv7XnvunMrMGV2CvP
-	 6zRwns373HN7XsiEe9NrG/VvWcLxobHnay87ayDbrDpzpaRIp05zaMGd/vD4sJmt+TDSS
-	 q0XA2ImoBmnR6ppf7QYQaB9Tn+vnyBoV4wzvCD5A48M6LxmfSKo7ZqFGkfGNoDznPBg==
+	bh=QQ+a1x5ipR+uAc/CHE+yw8EV8Rf49q1irZDy55fRu1I=;
+	b=MXl25QY8naUEx9neWFw+yLFBIlfkxMOBH3LEW1NBMITt2d8M5QBJko61s/f4SUsCkzm+
+	 C4X4+ULamx6lTmxepfSXmbL4MQWym2K9iMSGByRRQDv/ji78opaM3gpk+HcxtmBtdW+Yx
+	 IIjqj4mRYbUCCvYylNMOjH24Nghl0bZuvCwbj6OxwXBN0KfpdzGyfhpt2mK2weyyAvxYJ
+	 wxkXzkq7tW9jVcFioyWPuEPy/yXrRyisSnULR4NTA6B+ZW0UVv4sUEWRe74Fgx5PWNn1x
+	 ZfkvoC/VkVwJbk2SbzUxzuzuQ6QlNhIArQT7Q+mkGXDDpEoBGF2kXRDSHncq/USR9Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jgg9ZHRt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRTLVRXq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE6E606B11E;
-	Sun,  8 Nov 2026 20:25:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2257F6084EC3;
+	Sun,  8 Nov 2026 20:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jgg9ZHRt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931D21F0089F;
-	Sun,  8 Nov 2026 20:25:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRTLVRXq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FF71F008A1;
+	Sun,  8 Nov 2026 20:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169524;
-	bh=h+YBdfasWpLm6Da4YFjegeB5DsXOdDZJeYTsCIItuZk=;
+	s=k20260515; t=1794169521;
+	bh=QQ+a1x5ipR+uAc/CHE+yw8EV8Rf49q1irZDy55fRu1I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jgg9ZHRtp2aFb1ctTf+1WzewU4bqbjl6oJzdo5K92bObWbIna6Gk+KnT/QhnrUXxn
-	 wHgdcERK1g12NFpxAU2P0XcitIojeBmVSER1cVH3HEbLlPmQhI5AKQ00zKxzydkFtw
-	 KoEvodnpAO5y1SBaCTflFDyQG0wvwcblYKREkjc12BSxOZJBts/l9bzsAw2YOTACrx
-	 v605wfx5Ee3AM/TYoQVcEujpYWjmCmXFhadXPAEKyy5xx9c2KI3UDdF9jBjc2e2C+N
-	 BLxOQDE4Jeu1GSNuHG8cJiu0hQDuIrT0J3N81mBrHACz9JQfIma7SfYAvzUC19X5cT
-	 tRR5OadNErIfQ==
+	b=MRTLVRXqnEB4tqbuH3Rsb518y+8jeXhsYVumYW6MsHoaTw6gTdRIUatM8z+FJHMjr
+	 0yY5GeJniQgDIE2wUywKNwuInao8PgfQ58p69iPpuhCL/Ex2epvWgd0l9ZASEo82mQ
+	 sPgSfgwvpiUFkSSBVhASmW7HcHql2ril6hzjGNDoKjHsTi3YnMoTHjfiLAGCshouOJ
+	 8I+rHSWoAbW48l5EA9wpYB//6Cag0kDIb03/u8SDjoPn7uUn5ODMeypSBUC7PtzsLV
+	 MihM8FjdcFO4xofwfei0c39UGo/vRV99rxi2axCv4jvw3DsppV9lvTwsF1R7ciijpX
+	 aQW1R+/oNNSsw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Zhiyuan Sheng <zhiyuan.sheng@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+To: konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	cheng.jiang@oss.qualcomm.com,
-	wei.deng@oss.qualcomm.com,
-	shuai.zhang@oss.qualcomm.com,
-	xiuzhuo.shang@oss.qualcomm.com,
-	jinwang.li@oss.qualcomm.com,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: eliza-evk: Fix M.2 W_DISABLE2# GPIO polarity
-Date: Sun,  8 Nov 2026 14:21:41 -0600
-Message-ID: <179416929520.628393.9104719158063560519.b4-ty@b4>
+	tingwei.zhang@oss.qualcomm.com
+Subject: Re: [PATCH] arm64: dts: qcom: hamoa: Add EL2 overlay for hamoa-advantech-som-db5830
+Date: Sun,  8 Nov 2026 14:21:39 -0600
+Message-ID: <179416929512.628393.7892490884985269075.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030030906.3856759-1-zhiyuan.sheng@oss.qualcomm.com>
-References: <20261030030906.3856759-1-zhiyuan.sheng@oss.qualcomm.com>
+In-Reply-To: <20261029-come_kvm-v1-1-576afbde32c4@oss.qualcomm.com>
+References: <20261029-come_kvm-v1-1-576afbde32c4@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,15 +70,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 30 Oct 2026 11:09:06 +0800, Zhiyuan Sheng wrote:
-> The W_DISABLE2# signal of the M.2 E key connector is active-low as
-> defined in the PCI Express M.2 Specification. Fix the w-disable2-gpios
-> polarity by using GPIO_ACTIVE_LOW instead of GPIO_ACTIVE_HIGH.
+On Thu, 29 Oct 2026 15:55:43 +0800, Yuanjie Yang wrote:
+> Add support for building an EL2 combined DTB for the
+> hamoa-advantech-som-db5830 in the Qualcomm DTS Makefile.
+> 
+> The new hamoa-advantech-som-db5830-el2.dtb is generated by combining
+> the base hamoa-advantech-som-db5830.dtb with the x1-el2.dtbo overlay,
+> enabling EL2-specific configurations required by the platform.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: eliza-evk: Fix M.2 W_DISABLE2# GPIO polarity
-      commit: cfd8ac5860d6f528239121aa5bb87d6ed8c20d7f
+[1/1] arm64: dts: qcom: hamoa: Add EL2 overlay for hamoa-advantech-som-db5830
+      commit: 0040fe9aca53ffdd9e71f39462d8e40517f7bd3b
 
 Best regards,
 -- 
