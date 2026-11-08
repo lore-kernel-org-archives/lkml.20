@@ -1,78 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794161267;
-	b=GQCjVkJNnFfVcTeHE+YTsfCZ04b5T9sAC1Ubt3Q9KK1YVb8XkKRJIFUBj1FZdZpB1BL7
-	 nzMOVOT0BrYTRKcOe0et7oj41rgHdOeAmXd3MMyJaRdvcrXkFde3ghikKLwyfCTdo7Ib0
-	 WJYF38L4k7d+gZWTVbyDJ8pKu2jo+3L1Q2fczPfgxpUEgj6+e4V4WUITL1wl4eHARMPn6
-	 4cQZYLVkYpGjWV8b9uz7D/xm8Wm3JFW7XsyZY6ukDXASxJBWLCdzgzgZn83DK/AXLdrug
-	 ZI8PcKnxz/oujBlH7oM7jtTs7+e/OGTNO2DdMNk632T1aPWMH6lGeDMq4iR9u6TJz4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161267;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ggiYpXk3Lzwp+xYqAP9DpjCuhXF5AKHntpj9iUKybaU=;
-	b=M2KhkVEyW9VwGjyuPiLVUYMxb0n3YdGWiOYAcHE2pUBjgyBEcgKNSth0XoQJe8os10tY
-	 i3i5misxHThoyctq8r5c/KRm9MLSIriKyJTk+R22NJFudCGjHsPgJmjhkK6QeSo7cIpSO
-	 grYNJ3+UQZezu399Agsx/PUKK8gozYrcfia9lbuMEXfpQRPuwr+LS/RzqHAej8miYALfI
-	 srVpQZ/ncApEYSLIvV3zZkyVdgc2Xd5834//XYngAvgtuvgFaUWolQ6sJ9nqv9QjOEGaQ
-	 SMJzfVe/nkRO3EQ/ft7lqXiK0w+YU9UMB1bD89E4OjE7rbrJDdaJI8MkeC2IHnt/eBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkRQ7Nmf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794161304;
+	b=IK1g4bsQ84pmRB+K3yw55PAOYdvY8ZMNSRhRlNX8TpLpxAiXr8+a7M+8FDGGEDRvFFb+
+	 E+iM3X9KoUFJ3em5CGvSFJP82jFuA3LupSMccQxYYUxQwEKN18hw2ziXdij8BE0BQa3h5
+	 Gq4TVzkpjbTLcR9FDbTVECanMK0e/5S6Oi3aB7pen72jb1mqIpPRqinBe8f/MBEBt7KN9
+	 WJGWisYgB6S2/YTUo1Sn+Vl8xCtFyHawSJJ1Ta8IUiby7aDo5wsT4z/Thb2wiXIaVZcUd
+	 yH4ydQRtTSHgCnTbF23xQ7dm+oMr5QrJyH3YdvhjICRxlezskBXxwekgzVQ+FkQRQuQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161304;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=hluAb+u4MAIUnFzQo43pqKEMj8/Sw2PVJm6MzV5xKxg=;
+	b=xCeP6OqlosIFct/MXVWAPPAlQsJoYeAttoElezyes2itYZcLrhUHY2jCyYg93LxtEVoT
+	 jiE25aohz+Vle4QU8D9IBEed8tGNOEpXVQAw34G+RPzlmNtTEFnJJEw5cv93XQVNzcTXT
+	 wHplmxB40HfjdD/6z0RzhQYzVTVvivc/dHQGXNhBBLqJoqPIOVgHTMxzEWP/y+t8pdbC0
+	 rfPfT5dhbTn3eBvnIZnp8BYkRcZrZVKCGLFvAWx+ACt2MauutrvyK9URLwdgLtkWqCQnF
+	 4Qehn2+5H2nmGS8RNOTH5fKvgUdazhaDsEh7m1EOYJRVKTgamkXhoSIaUSBhFN+QHcw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ssg7XHl+;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB2D606A31C;
-	Sun,  8 Nov 2026 18:07:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B458606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:08:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B458606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkRQ7Nmf
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794161266;
-	b=lPjf2cz42622sgtgyN97UJ+b2o3dOq9JPykqnQ+k04SvTjzG4o2YFvjwbFLAGyaFpxEQ
-	 0wycoa+xqB8Qp4gdq6h3ilIPs0B1+jrxOFACjNIKqKgwz4VAC7kbDcDzxXxQuMgX++FMw
-	 AFDkiGsZoBj+hLSBBmW/lle+nvGuqGiY/T2hR0lsgiwp0a8kdN/iNsJ3H+/nUVH2F4bXq
-	 bIPQ96wi77QNbPr4z8PAhXpMElocJoewkqlkiZyZS8K/zSV/t07kgtwzg1L4qAaGm5nns
-	 3JNGpjL5JeWSSrqj+P4ntwwojA/YwWQQW9Q8jntLJ/0b42teK1xlRJeMdzdLwNm0Avg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794161266;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ggiYpXk3Lzwp+xYqAP9DpjCuhXF5AKHntpj9iUKybaU=;
-	b=HnZf+mqKfv2N/DfqDsZGaoyigkV2S42jLcLZWhOvGRPzIv7ohtQQ6G/8KJwQtu3TbVhu
-	 yaRGfS2Qizf7xwx88EGZ1sDKM5rqsO5fHPFm66JQm8XcW6boueaqlH+5B+UjZWlEm4GK0
-	 YxNjryu9Tm0t9pyaIGX7rdkiQKobEFXa8Zrmsvsr0Ai76pLRjxx82RrB9F0RGZU0sfVej
-	 Ul7c4j44IDBMIFSRIhsUlI3e3daxYESaBcg/c6WgglJfl5KFFoAusfsXjNkR5a1sGMAVm
-	 ZwyCxTitxuHhYKs4JXuumAXed3crKNazOQbT2fTAFFBGqF8BzIu1UzR4MS3LutMLcdw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2A6721F0089F;
-	Sun,  8 Nov 2026 18:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794161266;
-	bh=ggiYpXk3Lzwp+xYqAP9DpjCuhXF5AKHntpj9iUKybaU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=CkRQ7NmfmG8gHq8MQU5i8MmWirDhVEmdDghzXrUy0689QlnvCh5Z/AKJTvAW0R9i0
-	 m/EtdlJxjM7kE020vFCZUqw5MuLLJL1TXQzfmLbDIsRt7ZFTkCeibWxUBfT6Y8DfU8
-	 spiVaO0iynOf3O5zZmU7f+QDEDaqPwa0pK4T7b0jsC6rigR9vszLt9jju76HEGKI3i
-	 yxvHYmBZ9pgPECO9ET7QoX3V40WN9KHLtRaxm8LmaMG69pTmlRM+ZzWSxuc8bvODDQ
-	 PNlB5JJg4YKRDUrzc0DHjlTMn+kgVmwM/bFn3a2Dpn4gw0j8qGRtvv+5sQi9QFUtWS
-	 T5kiAhdiXJwJQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AFF4748011;
-	Sun,  8 Nov 2026 18:07:45 +0000 (UTC)
-From: Alban Munari via B4 Relay <devnull+alban.kernel.gmail.com@kernel.org>
-Date: Sun, 08 Nov 2026 18:05:39 +0000
-Subject: [PATCH] tpm: Fix the value of TPM2_SE_TRIAL
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ssg7XHl+
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id Q4ZfxknW4RiNxQ7JSxDhV3; Sun, 08 Nov 2026 18:08:18 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Q7JRxD9YE3nNNQ7JRxP7Nf; Sun, 08 Nov 2026 18:08:17 +0000
+X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6af0ba91
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=IK6l0-zAR1a87pk_dmcA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=hluAb+u4MAIUnFzQo43pqKEMj8/Sw2PVJm6MzV5xKxg=; b=ssg7XHl+J0PC
+	7LhjN5cw5Ugq38qTNzf1pWZ8iZzS5YWBXo9umHWQhbgdHNnW8FLQZBIsyreXLPFA/SOeATKV5eRnd
+	TRZa5ljOnx2Ql/66LqH0XJkjLw6epfe5KGJZCI2qjeIlDOQPOugypgsTI6I/v1TXzEfeKiHdUSoEO
+	STs3aL44Gibl7qDuj3qHBAynJaiMLG8iMl84Jw0wAN1wLzNNSJbB7auCKfa4c+mE+PF7ELziV/Wf6
+	vK9KwPKNtCFZQo8dtL73XoYiWdQDDEWxzbaXrrgfjSsAW/QNy2KaMUStoohLUMhWw1QcenH71d+eB
+	SbpeYBbG7FKBl7lL18hWGQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33184)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQ7JR-00000002J2h-1E60;
+	Sun, 08 Nov 2026 23:38:17 +0530
+Message-ID: <7ad9c540-ef80-4dc5-9a36-ddc9de07f957@roeck-us.net>
+Date: Sun, 8 Nov 2026 10:08:16 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,74 +75,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-tpm-se-trial-v1-1-492218f9de41@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwML3ZKCXN3iVN2SoszEHF1TC4Ok1DTLJJM0Q3MloJaCotS0zAqwcdG
- xEH5xaVJWanIJyAyl2loA2450enAAAAA=
-X-Change-ID: 20261108-tpm-se-trial-580bef9b4f17
-To: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alban Munari <alban.kernel@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794161265; l=1447;
- i=alban.kernel@gmail.com; s=hephaestus; h=from:subject:message-id;
- bh=oXjBD4XWIC/ZjW4m/+tswgFBCuflIPHtvzC/8fbK08o=;
- b=rnhjKXXFmP/oNAF4G5smGF3owTZwVYlv7Fam4wDkci8AXwYUuHEwnNgwdB2Qzu9kQsIdWedUA
- j6B8RlB09pACHIdSJWu10IRT+c6fJ1mVZYTKQnJAydA6WGepGio0RLJ
-X-Developer-Key: i=alban.kernel@gmail.com; a=ed25519;
- pk=E4gTLxHRk8yuKicoDcjhUfRHnlctgbnlV9dmOwM5338=
-X-Endpoint-Received: by B4 Relay for alban.kernel@gmail.com/hephaestus with
- auth_id=1455
-X-Original-From: Alban Munari <alban.kernel@gmail.com>
-Reply-To: alban.kernel@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (pmbus/core) Add a vout_command debugfs entry
+To: vjardin@free.fr
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v1-1-c7a063efb91c@free.fr>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v1-1-c7a063efb91c@free.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQ7JR-00000002J2h-1E60
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:33184
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfK0CIhDsh9/NUj4humrNhLQtGR969eE5MFOow5PImxlPZ5D3zMgRtjYszI+9fBBIGPdSpJp4aoqvT2SFoq5/K4qFgxInR9TfU49DhPxkCxwKb1kSS0cL
+ fQMEea736KWhueMRGSsZ/34RLirfT4ICk6Ibfxu4sDYB33mi6t1QgWix24hIWiBub+KK+y4wWAR9mVdjJ9Rylmj6xRkQkavsBAWhxMbGHDHX1bwUQmWNcKj8
 
-From: Alban Munari <alban.kernel@gmail.com>
+On 11/8/26 09:32, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+> 
+> The vout hwmon attributes and the regulator get_voltage() callback
+> both report READ_VOUT.
+> 
+> On a regulator whose configuration applies a load line (droop),
+> READ_VOUT sits below the setpoint under load by design, so user space
+> cannot see what the regulator was actually set to.
+> 
+> max20730 already exposes a driver-specific vout_command entry. Add
+> vout<page>_command to the PMBus core debugfs, for every page with VOUT
+> and a readable VOUT_COMMAND, in millivolts like the in*_input attributes.
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
+>   drivers/hwmon/pmbus/pmbus_core.c | 42 ++++++++++++++++++++++++++++++++++++++--
+>   1 file changed, 40 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+> index 37b650b85d1c..1ad5523a9624 100644
+> --- a/drivers/hwmon/pmbus/pmbus_core.c
+> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> @@ -3833,6 +3833,33 @@ static int pmbus_debugfs_get_status(void *data, u64 *val)
+>   DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_status, pmbus_debugfs_get_status,
+>   			 NULL, "0x%04llx\n");
+>   
+> +static int pmbus_debugfs_get_vout_command(void *data, u64 *val)
+> +{
+> +	struct pmbus_debugfs_entry *entry = data;
+> +	struct i2c_client *client = entry->client;
+> +	struct pmbus_data *pdata = i2c_get_clientdata(client);
+> +	struct pmbus_sensor s = {
+> +		.page = entry->page,
+> +		.reg = entry->reg,
+> +		.class = PSC_VOLTAGE_OUT,
+> +		.convert = true,
+> +	};
+> +	int rc;
+> +
+> +	guard(pmbus_lock)(client);
+> +
+> +	rc = _pmbus_read_word_data(client, entry->page, 0xff, entry->reg);
+> +	if (rc < 0)
+> +		return rc;
+> +
+> +	s.data = rc;
+> +	*val = pmbus_reg2data(pdata, &s);
+> +
 
-The TPM 2.0 Library specification, Part 2: Structures, defines the
-session types (TPM_SE) as TPM_SE_HMAC = 0x00, TPM_SE_POLICY = 0x01 and
-TPM_SE_TRIAL = 0x03. TPM2_SE_TRIAL is defined as 0x02, which is not a
-session type: TPM2_StartAuthSession with it fails with TPM_RC_VALUE on
-the sessionType parameter, as swtpm 0.11.0 shows.
+Why not use the already existing pmbus_vout_command_mv() ?
 
-No code in the kernel uses TPM2_SE_TRIAL, so nothing changes at run
-time. The TPM 2.0 selftests already define it as 0x03 in
-tools/testing/selftests/tpm2/tpm2.py.
-
-This change was found and written with an AI coding assistant (Claude
-Opus 5.5, Anthropic), while building trial sessions on an AMD fTPM with
-the value 0x03.
-
-Fixes: 699e3efd6c64 ("tpm: Add HMAC session start and end functions")
-Signed-off-by: Alban Munari <alban.kernel@gmail.com>
----
- include/linux/tpm_command.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/tpm_command.h b/include/linux/tpm_command.h
-index fc446a1282e2..076ee8ce816c 100644
---- a/include/linux/tpm_command.h
-+++ b/include/linux/tpm_command.h
-@@ -171,7 +171,7 @@ struct tpm1_get_random_out {
- enum tpm2_session_types {
- 	TPM2_SE_HMAC	= 0x00,
- 	TPM2_SE_POLICY	= 0x01,
--	TPM2_SE_TRIAL	= 0x02,
-+	TPM2_SE_TRIAL	= 0x03,
- };
- 
- enum tpm2_timeouts {
-
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261108-tpm-se-trial-580bef9b4f17
-
-Best regards,
---  
-Alban Munari <alban.kernel@gmail.com>
-
+Thanks,
+Guenter
 
