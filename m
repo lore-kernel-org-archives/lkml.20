@@ -1,102 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794096438;
-	b=hIYZG+Lybom/Hifs4wajIgtV9oEBTdEJ+XL5/45cib9igMkX8JiYnvIdLrZ25PSdNTJo
-	 TZNo0cqRkpVCLqy3zIUhfJ19QYiykBJAccuArY0Bionblte2tbKLew01S2ILDeJAd5aJ9
-	 laUOtTMvHwjs/ipzyUYTWP2hh1eh5xwV2nYQ3+2AHp8CLDvHHLrXGsIvbBqwrkGcidYGw
-	 NsBUFUxNI2AD5LEiMcbMQh8JR9do+3h1k/h+gS7BtPfXtB2Q5eo0pBJASdk3nnDnhW6mc
-	 Xc6Dm2YlSRNF+7JBDK9dSXyx3XfXYRoe7PiEeQcVbPRXcmgsht2VHw5UmKkU8fwKhNw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794096438;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794096749;
+	b=mafrmJbM2oeEHe4snyaQHqGIxWHczsiJVrj8aMCJV1mfSFTbAmobd7J/VfjjPJACBeHg
+	 CKGPPzi5zxOpKfmyQg/OKO1LX3G28dBMfK4vO2Up4fxOHDLRqOE2ivw3GjxOimehDS2eJ
+	 NXbzIMO4hgKG5Ekc+SW9xzQe0NaHRxeGztWNXjLN2DJI7zgb/hw/tvei8COhUsUi5+j4X
+	 9Di7Sna+qZy/yC/0rpYawdMadhqx0Z0Z/IKwl/RNsD1qeUVmGm7Fb3r9Vp8NeGfZRIl91
+	 e4KP33cfNL/WxyTEv8ZGLgj3+6gxjgbxxSb/Hp0Kv8Fii/dXSa8N2GWiViZqffeLs2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794096749;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aLLoc0xRBwl/ZGo6WGJQ8sG3lRdUqK6Mnkv9+kWc41A=;
-	b=S90xprcCofl69fM9FtFmuivSV7hKTRIFwOLoS5aiFOZ6mnGQSRWN3p7u05kE4fMoveDA
-	 AbOwAjOgT6tB3dm7wa7Yqe93flCxyPvM3lwjCCStVsV38/z2aVUkgPt/CC7FkXLXPqNsH
-	 ALmMz5oEwrw2v0gs2g8ilYKEpW0DXylK9YQtgpBjfYdoSk0z9OiVz15u4hF8L5+GawQwn
-	 TvNw6BySfi1xhup8S5oznPFs+1Sv3ut1MTchvsnlKmCZkZuGqvZv2W/Fz0ZRDa6rcmZY8
-	 mzS8Eu1ARX9qTsedDzI4YkK8qXafV6fIeNEkv9HR+WA15PEhG2aZWzLBKUBDGKVqR7w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ijw1U2kb1kzZv7aGgFzZ0Z47dFymm7tkHOWXjQdf5qQ=;
+	b=KCxHKu6LzOxopSRGND+8sbrKctHKHj9krWePXPYfzD+PHZm6bDZP8krGPb0qFDJUWa36
+	 XSz2FjfyUxe5mVoaADn/4jpVmTb/7hIZUFUhccuWVGmignNbrbmtNyMjcnxrsWGUpnlyp
+	 XWiDkafrZAO7BEE6gffk7bGjdrzNCY0KhnwA2VNSTpVe1+7v3golzi7yV4ROsGOgzOp+e
+	 Amh/eArvOsqdhdGL0Dd3sxg3pajbEca/z7dDsA09NkhzeK1E/D9whgw/XNNxYx5F7oxd5
+	 YhO+qQO2+bI7NZ4V8Cf37Z4RpYPNU6o+CSJmUR3m7cujmCQ710tc4Va/B2khiqAwpFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AZb4taJP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P48FoCU2;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D9D606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:07:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10D9D606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C88606A32E
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:12:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61C88606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AZb4taJP
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso160037a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 16:07:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794096436; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UqTQ+MExi0ARe3d3ReJ/l/zmwSYTOv66/dPgVUUdsV7O9MsNQMtQL+vju3Ztv2oULh
-         YmAPqFkA+lNzzqC1da7hHywlNQHF6Cl0MZGVepw3IO1FdI+s+EgDcSuKPMxBhE0SYjFU
-         VhwUIhk/cB5BTgY7wToPEB6ph90f1DIHs+FnnYMrSEfzefrwTpiErOXv2UpMVBivptCz
-         fZpahdFbX6M0Aiqr7ewQViFNyvwUqoW5xd4+c3t0hMj8n2eB1gODtzKbSp9DYxXDs0rj
-         k6RhTzOfGZTSRn/4o7dasozzi9y6Hjc57uTgB/tVoXBjIRrUKhbWscvqRxT7SlXRVnxe
-         xdCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aLLoc0xRBwl/ZGo6WGJQ8sG3lRdUqK6Mnkv9+kWc41A=;
-        fh=XVrh8xo2m5sZIKR8cTdfz60e7rhf0+ArxlDc5fDk+BA=;
-        b=oohIWXaURVvjDZnI41rscLoGqk61QKu4A2yVmiv3HXs+M7E5z4O3u17MYbkbg7G9k0
-         GhDWh8mvZJxyajgUQexLa53t+5vB8MIBylA1apCZ6hN9FNsWHqG5xentGIes1wwAvpGz
-         FUrFcc7TsNVX0MRlE5nVvFoASCl0bk0M5FAAZaUaOLjfdWCUBAXJvbDDqL3zU1aU68NW
-         0SO2ocX7G4Cd/18BiY3YWwJz9yzh2sC5CWQd4ZlZ7RRsu3cXkewaHvWUWoDKW+Zy5Gql
-         d9ALGu+qfyuRoFkdx/Gh8661TnxZeOYQnRLkbOwejQ/6KaMWGTuimCYMWZywX+SfpKq8
-         Fumg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P48FoCU2
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e977109392so421755ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 16:12:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794096436; x=1794701236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aLLoc0xRBwl/ZGo6WGJQ8sG3lRdUqK6Mnkv9+kWc41A=;
-        b=AZb4taJP7QgpmgO+zRWdgaGa927bsAhxTloCpxEcsGhNdMqWGVnqKMmKRHAc/0Y1Tc
-         i29BzOVJ5ixxRepPjrsRtZVc9XVjymSiUNkj553b9r1QVvMj6KtZOiYgCroS5sdeUvSS
-         YzGF2zYyiUjFqJUo0Zcmwa8M7xFnZ2LgYyGoYlrDH/BQHSG5y0pEWt8UO3NLhcmycuva
-         241KWSv6edpqhuSAE3S/tG4l0mdC+DgMDYAv4R4dbdK/S5GmfKW2NYKDItz03y53V5bz
-         VJJ/UGkteqSsWuwDeVjX7vPx20xI3EuYBoiA/d7u5hKG2nxwxMncRrAyEj1z7BAmVD+a
-         xvXw==
+        d=gmail.com; s=20260707; t=1794096748; x=1794701548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ijw1U2kb1kzZv7aGgFzZ0Z47dFymm7tkHOWXjQdf5qQ=;
+        b=P48FoCU2wJLuOW0KvMaQuorD4bSsAXGz0958TAY4PSp1uQZOn2l2Zl98oZ08R42vL5
+         XqpiwXtmXaOPqg2GomlOeekqpRjWYs/24dJ9uKCF3FRL0BECVCZjRkRWDh0HWto71KxC
+         h8CJLG9PwqIr8MU4A0BtRMwxxKswSUr0vYKF9SCjhG+MfFw7QCyqwkE9L3Vp+Kg32W69
+         uTtyTgpY7ij5PCuiwHjWLxvvsViLr0BJn3E7ssYSp01C5a7qqvvZJZay1eD1AdPN77OF
+         EPrnk2Hk2QGwjEI+CBlU2zPqyLH+0MLDJn9cTsfCdun/TMWwe7whJc/ki9yUrWfV3+66
+         nM4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794096436; x=1794701236;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aLLoc0xRBwl/ZGo6WGJQ8sG3lRdUqK6Mnkv9+kWc41A=;
-        b=FFdyaziSIN/8M6Qox9t3OaGAxYMnXbFrzHvUhWmr5jGmLhSNcfojhdae82r1g3LEk5
-         yWzEo2gtY0m4BSvXn4jzlBSiXdkPZD6TKpO4J1TT19zn36IOi6lt1oRjSD9idY9G6dOD
-         2W9q4WiGqUuNzpRnIuxeMmU17k5/LAW8Y96/TkYdBIs7lOY6uFx945VoYiroJNJAg5px
-         k0NUMTa06rNfQvgjrng1AedRl0BSGJdt63wSkb4wrNFUvoN0oaKzRdmpOOklbbi8DyHJ
-         P4Q2l4kySz9LoJ7gqEXwu0Pm2rLVKK/c7y6HoOuhT5iWdiGvFQWbGaXfT+K/WLRm1rGp
-         K/DA==
-X-Forwarded-Encrypted: i=1; AL+hErFbxoT+XVn2FgZ38vl9MhvBuNne2N2FdUzNQKFzCvtfRI0goHPdYUJtjW+IfTGQT7ROPJSQRJvXPBbfpyY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8A/7nGNoCZuGbV+iy8llIILvMwKPEAL0cMKXXQvwyUh+kPYYzx
-	kFrCn0ZW6N6zUbbrwgLlJ+CM7sTwhBJVwgTEUa1bdt6iVGqxBWd3ViKLjEWINpjcmwUd/rOoqt9
-	3HZMzm7Y5hn+VJpmZLVf3kq2xpoa+J+k=
-X-Gm-Gg: AYBFou1rTR/EkcgwQgOCO3p0NJG5RNmCi05elZ+FIam+RINw82Okf2Ejtb+s+/dx4YE
-	IaEdttIrpUayTvG7Ei3h5rTcoHJt+feifbKwBysrmsrLzQzCX8LcMHp9IEs4Dn3+kfnRJFHKG3W
-	f0PPq+q3QZkgpiAGQ8PksyGczhOkkKdcRDqE5IuAdSWLDuIOCGR2W04ZhkRxgQABOZVV642on3H
-	z1KmcpqcXcmntHuaXaUoAyQTchjEuSJJKsowt+2scjp8jU2qJxYmSbfwE9S9K4lb1EuSzGt3tSY
-	GEe15x0/DY7NNp/1OKFee8lFf/oU73klplxXkkMRPahcfzYPq0TaIfAfuvmwOXkKyexCXJZUAZO
-	sxnjcTsS6wGgctSgMGhmkx46lrL/9Xu3rahkTiBvG2tuuqC6+ODggJCTrQ/WNdk+zFkoLgRDUim
-	26ARwxXMrNz1l3+iyrsPPcz6C+x+iC7W0wN5JaH/IcpTml0lIm5Vb/ibKuQiy4YCzbZoI8AWzZK
-	ZJaFmdAijmWPSWgbajWt7bBAlePvd9Js8nHHzXSK8WX4IAtKQ==
-X-Received: by 2002:a05:6402:3202:b0:6b5:646d:be3b with SMTP id
- 4fb4d7f45d1cf-6b722462c1bmr139907a12.18.1794096436370; Sat, 07 Nov 2026
- 16:07:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794096748; x=1794701548;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ijw1U2kb1kzZv7aGgFzZ0Z47dFymm7tkHOWXjQdf5qQ=;
+        b=NtCs3Cgl8RRq2qXh4WuZ3xGMYCU2U5TqHcuKkuhvbsy3drO1/ShZNWsibjCo8lOxYD
+         2b4uvcUjpgjyUINzqBotx3HsOFgM44qxtRwjnr50KRbL8HfDShKn4yLrtpWU3vLDdumk
+         /7nnjkkvHPZVEgVSy5ELDuLkZiRfvKgpUor+Q3SqV+1YEIN3Ls3IESfJ6XTI05bVdgb+
+         ciRVJ+P+6bT5ITHFOKytTKCkIzW+xeEucVC4EEWrz34ag2hxh7iE6MPwEEN/Obx7uQcu
+         CXSUlJKLj/UEtI+1mGOd7OUaJar09eVNObsQFCrzTmMem07ffidtRtNk7Of7lBfV6zU0
+         1hlA==
+X-Forwarded-Encrypted: i=1; AL+hErHatFbM0/1z3gacsXpNJWSMiDpCPtLzjlzY7B+AQXHRY06jhECji1b4L/zP70oDixe5ezpPSpMFLuh7sdE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ftz2oYRv4jvPp4b/AEUh6qBg6F4z2442Mjx+B6doi7hWizXIn
+	Kbi/tj/h9fled+vOgai0Fw+PY6N08/VZqDDsPUOSCNqGCC6sAP372Oli
+X-Gm-Gg: AYBFou0McnL7HPkxkxVCDssa2vVcKB1j3QotsFei0B1WlfqNbyZS3lm3fQv0dV3DoX0
+	78YGcklnoXalOOLjIA2CRmDeljSx4Od3zpbZvUZmDuQF9BiOVn0FAUi003rpxPfvDSgTXw4s9dt
+	Wtw8VN38QSZiE7jSewMirrWCkKJgx7aGkujpQJIYsTkRDdbCfoA4CiGUU2Coh1Swfoaz0cwD7Xh
+	GmAZFY24RV4YwJAqUMQd+3ZYalJiWiTAGVL9/EAytDusU1VXstTpF48FCnUW8u5skdB0P5FgQOr
+	Q2tehRnD5/fLppfVTi1NqwkB+1DhWpWOmh4IUfj/MOESbPQFYUdUF21o38PCg/bM7ouHgXvW8RP
+	tSoLcldl794Il3SzcRIez0EfImHUfzFC9dSgWxLqNz6JL2coQL37y6zYcpNU+MY2bUXUhvvWQVR
+	FzCIF3Z4RRvu5bY47uPj4Gy9GQN3MawSKXKgG2IBMvT4tcnnEBKrXxBkCDM+QtSrnkXje7O4pvu
+	XI0eblqunqRcSVP3s4C02iB83+e/MMOXMuJCPklw9e846rDu3LX6U86X9rgLcIfj91BSxJ8K6r3
+	NgmyrGdk7aiWUro+uqPOLHDH0NYYoDNgtZlp2tO31HiqLLKtHyBhjcX69aJktnVVY1iuwFikGtB
+	nHs7W9+sktoCCehzCCwZpwYuzFDBSZCnuMNLKwGbplmhFvGh0m5WU4BypxFQEA6fP
+X-Received: by 2002:a17:902:f612:b0:2ed:18cc:d3a4 with SMTP id d9443c01a7336-2ed83784326mr1769335ad.46.1794096747574;
+        Sat, 07 Nov 2026 16:12:27 -0800 (PST)
+Received: from sanjays-pc.govzhome.govindz.co.nz ([203.94.55.80])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81712282sm614905ad.50.2026.11.07.16.12.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 16:12:25 -0800 (PST)
+From: Sanjay Govind <sanjay.govind9@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rosalie Wanders <rosalie@mailbox.org>,
+	Brenton Simpson <appsforartists@google.com>,
+	Sanjay Govind <sanjay.govind9@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: sony: fix sleeping in atomic context in RB3 Pro raw event handler
+Date: Sun,  8 Nov 2026 13:10:58 +1300
+Message-ID: <20261108001057.29776-2-sanjay.govind9@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,62 +100,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105231417.119930-1-rosenp@gmail.com> <59326527-5002-483a-b418-fef18eeab5d4@lunn.ch>
-In-Reply-To: <59326527-5002-483a-b418-fef18eeab5d4@lunn.ch>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sat, 7 Nov 2026 16:07:04 -0800
-X-Gm-Features: AclHuK_6K2L6LJvgG9zaPsn_XSuhmhRlq2dPAWbQ9XPKBewY97fg0FWq5sGwZf4
-Message-ID: <CAKxU2N_wqu_HmX59B-M4htLq2HbBpdcd_f2cChn1QayANPUTFw@mail.gmail.com>
-Subject: Re: [PATCH net] net: ibm: emac: fix MR0 write in emac_rx_enable()
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jeff Garzik <jeff@garzik.org>, 
-	David Gibson <david@gibson.dropbear.id.au>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 7, 2026 at 9:35=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Thu, Nov 05, 2026 at 03:14:17PM -0800, Rosen Penev wrote:
-> > When an asynchronous RX disable is still in progress, emac_rx_enable()
-> > waits for MR0[RXI] with
-> >
-> >       while (!(r =3D in_be32(&p->mr0) & EMAC_MR0_RXI) && n)
-> >
-> > which assigns only the RXI bit to r, as & binds tighter than =3D. The
-> > following write of r | EMAC_MR0_RXE then clears every other MR0 bit,
-> > including TXE, and TX stays stopped until the watchdog resets the EMAC.
-> >
-> > This path is taken when RX is restarted after an RX descriptor error.
-> >
-> > Tested on a Cisco Meraki MX60.
-> >
-> > Fixes: 1d3bb996481e ("Device tree aware EMAC driver")
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >  drivers/net/ethernet/ibm/emac/core.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/etherne=
-t/ibm/emac/core.c
-> > index 640618c0a09e..b676b286e339 100644
-> > --- a/drivers/net/ethernet/ibm/emac/core.c
-> > +++ b/drivers/net/ethernet/ibm/emac/core.c
-> > @@ -249,7 +249,7 @@ static void emac_rx_enable(struct emac_instance *de=
-v)
-> >               if (unlikely(!(r & EMAC_MR0_RXI))) {
-> >                       /* Wait if previous async disable is still in pro=
-gress */
-> >                       int n =3D dev->stop_timeout;
-> > -                     while (!(r =3D in_be32(&p->mr0) & EMAC_MR0_RXI) &=
-& n) {
-> > +                     while (!((r =3D in_be32(&p->mr0)) & EMAC_MR0_RXI)=
- && n) {
-> >                               udelay(1);
-> >                               --n;
->
-> This sort of code should really make use of iopoll.h
-I agree. Is it appropriate for net?
->
->         Andrew
+Rock Band 3 Pro instruments only send navigation reports until they
+receive a magic SET_REPORT feature request. When such a report is seen,
+rb3_pro_instrument_raw_event() sends that request directly through
+rb3_pro_instrument_enable_full_report(), which does a GFP_KERNEL
+allocation and a synchronous hid_hw_raw_request().
+
+The raw event handler is called from the URB completion handler in
+softirq context, and on USB hid_hw_raw_request() ends up in
+usb_control_msg(), which sleeps. Plugging in an RB3 Pro instrument
+therefore triggers:
+
+  BUG: scheduling while atomic
+  ...
+  softirq: huh, entered softirq 0 HI ... preempt_count 101, exited with 0
+
+This was reported on a Mustang guitar (12ba:2430).
+
+Move the request to process context by registering
+rb3_pro_instrument_enable_full_report() as the send_output_report
+callback of the existing state worker. The raw event handler now only
+schedules the work, keeping the 8 second rate limit. The state worker
+is already cancelled by sony_cleanup() on remove and on probe failure,
+and sony_schedule_work() is a no-op once cancellation has started, so
+no new teardown is needed.
+
+Fixes: 7245b0017d12 ("HID: sony: add support for more instruments")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sanjay Govind <sanjay.govind9@gmail.com>
+---
+
+Notes:
+    Reproduced and tested with a Santroller device emulating a 12ba:2430
+    guitar: without the fix, 'BUG: scheduling while atomic' is logged every
+    8 seconds; with the fix no more warnings are logged.
+    
+    The fix and changelog were written with the help of an AI coding
+    assistant (Claude Opus 5.5).
+
+ drivers/hid/hid-sony.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
+index 50f5ad6bbeb4..9ee175f9e58d 100644
+--- a/drivers/hid/hid-sony.c
++++ b/drivers/hid/hid-sony.c
+@@ -630,7 +630,7 @@ static int ghl_init_urb(struct sony_sc *sc, struct usb_device *usbdev,
+  * Sending HID_REQ_SET_REPORT enables the full report. Without this
+  * Rock Band 3 Pro instruments only report navigation events
+  */
+-static int rb3_pro_instrument_enable_full_report(struct sony_sc *sc)
++static void rb3_pro_instrument_enable_full_report(struct sony_sc *sc)
+ {
+ 	struct hid_device *hdev = sc->hdev;
+ 	static const u8 report[] = { 0x00, 0xE9, 0x00, 0x89, 0x1B,
+@@ -647,14 +647,14 @@ static int rb3_pro_instrument_enable_full_report(struct sony_sc *sc)
+ 
+ 	buf = kmemdup(report, sizeof(report), GFP_KERNEL);
+ 	if (!buf)
+-		return -ENOMEM;
++		return;
+ 
+ 	ret = hid_hw_raw_request(hdev, buf[0], buf, sizeof(report),
+ 				  HID_FEATURE_REPORT, HID_REQ_SET_REPORT);
++	if (ret < 0)
++		hid_dbg(hdev, "failed to enable full report: %d\n", ret);
+ 
+ 	kfree(buf);
+-
+-	return ret;
+ }
+ 
+ static int djh_turntable_mapping(struct hid_device *hdev, struct hid_input *hi,
+@@ -1098,10 +1098,10 @@ static int rb3_pro_instrument_raw_event(struct sony_sc *sc, u8 *rd, int size)
+ 	if (size < 25 || rd[24] != 0x02)
+ 		return 0;
+ 
+-	/* Only attempt to enable full report every 8 seconds */
++	/* Only attempt to enable full report every 8 seconds, from the worker */
+ 	if (time_after(jiffies, sc->rb3_pro_poke_jiffies)) {
+ 		sc->rb3_pro_poke_jiffies = jiffies + secs_to_jiffies(8);
+-		rb3_pro_instrument_enable_full_report(sc);
++		sony_schedule_work(sc);
+ 	}
+ 
+ 	return 0;
+@@ -2217,6 +2217,7 @@ static int sony_input_configured(struct hid_device *hdev,
+ 		hdev->quirks |= HID_QUIRK_SKIP_OUTPUT_REPORT_ID;
+ 
+ 		sony_init_raw_event_handler(sc, rb3_pro_instrument_raw_event);
++		sony_init_output_report(sc, rb3_pro_instrument_enable_full_report);
+ 	} else if (sc->quirks & SIXAXIS_CONTROLLER_USB) {
+ 		/*
+ 		 * The Sony Sixaxis does not handle HID Output Reports on the
+-- 
+2.56.0
+
