@@ -1,55 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794173142;
-	b=wkZNch7c9mUw2aj1sqQGOWvZZRTTTC92rk7VT+eB+XZP4OXBUU0P5qfAz9WxyX8BCSnc
-	 sVIVbsSpRl1GfAXya8RMmdB8KavibILWlwv3QV2UIZAr3XxG8ZWOVKaos5qP8exuFK9k8
-	 WDi62q6Pi4+qIfbBrcW42nkn6IPlzG6FyNL5cQOWHK0cEy9te5arrE73Z/dLL7u/UOM5P
-	 URysUuo5GYSOBRx0lwbGMp4G4nMj+se9ZlAnXdDo0GyV1Z8u6JO+giqZStRCBkfF/x8CC
-	 Avp3pBD9XEpOZx2SUH7h8CHCeeWYqFjWV7d34PjgNZWy56kXfH3roMwGdwb9Ixd7GgQ==
+	t=1794173314;
+	b=DzT8oqLdlFFh29PAg9y7goE1NnONP6w6uaQIWKrz7VgRg04q7jvbjZlEWReTc0MkivC4
+	 BTH6ToK4Xu7RTol71MDLK7o8ey2pW/K17Zqy/MNQCNVU+VJHtlDiP4M+hTS4GaKCMn3UD
+	 8TlfqL6Yy7jkv+RnnN56UZpGjlQc75DSYEVcDabUTF1dgsIPBgrc7fm4gEKvVXw6mDSXM
+	 DECVXyCkuGKWJF2mkAbB3t4W8iiDrQW9/n4L29Zo/RLeDcaKZSCqGW3u+ZtuIFL0C6EQ5
+	 uEjDTNr6RxYmchXKKnYAIkQQITVja+1qa2EbtXYstCsInM2HZfRT+rloKIp/S76kHDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794173142;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bKEHoOfE111HoCliQNT4ASit67LTkTVYJszuxD9vPKU=;
-	b=JAICOa1egNIadEk/PdZqnEvucIRbt9jKPHdwa9PLbSJmTInz5XoZycftOgAIWMfYA4Xy
-	 /QbynsehN1stx16rC/5tM8T4OQb6U/KYNw9VEw2xLUftmnhBi8OkQ5YckC6IxsGirehx+
-	 4WrLFsW4E7KiA/sN/ENhIvcH1uyeTIUH6yUzddooSJBoqvXISkiGt1WTINou6iEPnHpUr
-	 6lj0kz7jelkyUxddR94l8PB/qp6wf27MEOLMtSnByVYzzbqJNi+hZro6MsxbHeSyU/A8L
-	 QyrFbhCQstNBLZfLfrdrwjyf7JOyfs+jtvna5xktV317QezUVSxc2YgqMBOCT/JPK1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794173314;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QXRVCJ6p53mhv78a1V9znscskgidqnRubCEiNV0CGUQ=;
+	b=eISi202deU/W8g6dTaj588BanKs5GeGhviUGaQv52pN3yDAUC9L5XwcC9lK94eb9Vjc1
+	 clq3LrtvWrcLhp2a/UHFjYxuEnsasY8ePt4+TpRjXhp/8/P6+dEv+hPYxVCgKb8qVAEC2
+	 aBgyuZLfM2RO6fRQYM1ifv17DLxnl2wEBvqMXAwClxVxAYOwX6i/+KZYlreUXZKCXcaIT
+	 HGou/we9gcljeNlV2HQhd6Y6rxdZu9rzxbpAFa2BVqFP4kW841qZJ9eGKKKgZF5/RD7dr
+	 2nXtTnkBwZOQT/FEl3gOsNcp3oXfpupPbxJAnTfY8AjuYchwshhNU1uAPPxFlfxQPpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaKJ0aKi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XL57eWKD;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBFE606A31C;
-	Sun,  8 Nov 2026 21:25:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C87606A32A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:28:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86C87606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaKJ0aKi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B731F0089F;
-	Sun,  8 Nov 2026 21:25:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794173141;
-	bh=bKEHoOfE111HoCliQNT4ASit67LTkTVYJszuxD9vPKU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eaKJ0aKiTdgiSeCKi8RR55h2hUagHCHkFM1evp/ZYCOgGbGyzZDfbtMc1G08HEOYq
-	 qnwZ2oxm/vIUy/xXwx7iXTae5gYMbKWJtWW1mqPiV7AABkEJJCck1LPhUCjj12XHy3
-	 C3knnHuCVoibMMYqFxTxJHm8Cno2RNhRvKL13DCUVzMVKZgmJOuK2r2EN3D9HZYiWL
-	 nwP/aeajYNhDO4dkfr1Ta1GwIaKZAY45x3pX5AynDvCM6JwwB42fW1SAcmwD6hQKV2
-	 FO+sD07FXvmhFRC9XKR7D4vr/rZYJNle4WrDaZR8IkeyirVetwnM6UbMnmncyq3E5a
-	 0T8Y9XXBuMLqQ==
-Date: Sun, 8 Nov 2026 22:25:35 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org, 
-	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
- drivers
-Message-ID: <avDmyLYpWOQ2WB-i@debian>
-References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
- <20261108210232.13800dd3@pumpkin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XL57eWKD
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491971ac844so258578f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:28:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794173313; x=1794778113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QXRVCJ6p53mhv78a1V9znscskgidqnRubCEiNV0CGUQ=;
+        b=XL57eWKD2uSIcrWKMYH6JeAdiayS1nITNSJ6dRBeiD5M1VHBITmr+3boaUCWUOXPfS
+         fuhPT0Cm+8KFc9DJY+p6tgTcg8cgRE/GLbzcbZkJJWbJCEw/g90pwPxX5GOKeAZLEjAn
+         WkP7dbiM7+YTF4PoAZCpF6KznK4QsxdADNm8cN5YrAr0Ae8FzEh9IgeIKCeWTLcfcBs+
+         Cajlw3AAq9MoU4zlV9JI6ne05Tn9tMTd8KoP8OPLVRQMGj5lI09Xpt0kx96GE0QvCvjJ
+         sb7J211O3xzW632+9Q6m2vjahMDfgUYE2mLdSzb1ErY//CWCF4glgBju2qPMgXhJNiRO
+         31TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794173313; x=1794778113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QXRVCJ6p53mhv78a1V9znscskgidqnRubCEiNV0CGUQ=;
+        b=19ffN2SOJxK72muHTBxZwQGaAP4GWqrCqY0/TTkLT8JJvl149/qM5+O+SbKsyJ+hVM
+         qs86hI6oTPi7fe3YfKA7/4DyLq2lGzV0M/xhziE6QbJxe6mW1NAsmnzRzpPnUoGVpdg9
+         QXgMM+DOA7LIawz75RB88/VOc1uqEx5kRXIDmyHcIy17Vw40Z1A+/9chWW/ob2fzYJ3B
+         pyDTpPqIuQBVXjgPt32Remxo24N+DkuDuguyAeMTWqjtlMrnZroaAYKUIY71tbPlSfcS
+         N1kf+PaC/laNBGoiy+AvFSjsg0fM0GSX2gwzvam+sbfSYNg7yJiCX0JR3FqQLiavDEvI
+         XycA==
+X-Forwarded-Encrypted: i=1; AL+hErE0tQb0Z86VXC1VH4ld8XOmiRtI8Jvb7atvyqlvLHwkdQXbKMWPONIhNPLfMYu4kaeTVA5pLGrPBVvyzxY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ss5Q470sdW9brDLMErbT7USBbKpuCTBXavvZV49eex6kOFVxo
+	Jarj1aCjQbXeiYNZlFrQGEBnxcMVIewZXDb74e36+Di75zoE7pr/AhZL
+X-Gm-Gg: AYBFou0qu3mFIEbUucmlSsZMaGTdOLYWgHVJ9Mu5BZZJGqE2hpdKXnKsxasxsqK1I5V
+	Sp5NmYIRcnkGI161yuiq3m3k7EQTkC0PweQq40LMfZ1lBNso0yQ/symZR+OksV5C2tLHNO2n2RD
+	puTp7bTuF34xn50lk532+tXXHCPXukz0P2MwQEZLEBpvQfMfIx9iKBUrteB443EgwtSgqxJ1wIK
+	xfyxAbx0Y7NeENhFcLEyNWPiGdZZQvSO83lHcddhX7K2Hj9CGAl9ZBpYwkemtzWs3MUp+qObsxE
+	eYv2v/lfEf25PlWH4ECIKUXYgR00OVBNh1XSOD+qQZPwpxG6kMGoAXI2HCCgvrRI5yRXtrCAuGs
+	lTajmbbW7LGxANvfd4PQ+ugbmhNJClCHQBOR+QrTFi2RO38agDOPlpNtWP/oC498QFeFXtl0L4D
+	H7tnkX0/vVg/u9F07ECeUFv2QgfImoncUJ12JksdR3pogEJbXkoEQjqS4nrQbwsasjlJ4NvoGH5
+	rT4kFhRhJe/Sl7huWH/w1q3m19Ml88iq+q48Eh2vvKPNj9Jcu6ViWcJHSbuXyB001h5gtw0jLQm
+	MrZGGG0aCT17gpUj++ax0VITAEADrslXgA==
+X-Received: by 2002:a05:6000:260b:b0:48b:108:48cf with SMTP id ffacd0b85a97d-495844a312emr4255528f8f.25.1794173312645;
+        Sun, 08 Nov 2026 13:28:32 -0800 (PST)
+Received: from hp-z640.fritz.box ([109.76.148.69])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597091400sm5692050f8f.32.2026.11.08.13.28.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 13:28:30 -0800 (PST)
+From: Owen O'Hehir <oo.hehir@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-rtc@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Hal Feng <hal.feng@starfivetech.com>,
+	"ziv.xu" <ziv.xu@starfivetech.com>,
+	Conor Dooley <conor@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Subject: [PATCH v2 1/4] dt-bindings: rtc: Add StarFive JH7110 RTC
+Date: Sun,  8 Nov 2026 21:28:23 +0000
+Message-ID: <20261108212826.15890-2-oo.hehir@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261108212826.15890-1-oo.hehir@gmail.com>
+References: <20261108212826.15890-1-oo.hehir@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,174 +112,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="25eotijdriyozm5s"
-Content-Disposition: inline
-In-Reply-To: <20261108210232.13800dd3@pumpkin>
+Content-Transfer-Encoding: 8bit
 
+Describe the RTC in the always-on domain of the StarFive JH7110 SoC.
 
---25eotijdriyozm5s
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org, 
-	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
- drivers
-Message-ID: <avDmyLYpWOQ2WB-i@debian>
-References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
- <20261108210232.13800dd3@pumpkin>
-MIME-Version: 1.0
-In-Reply-To: <20261108210232.13800dd3@pumpkin>
+Signed-off-by: Owen O'Hehir <oo.hehir@gmail.com>
+---
+ .../bindings/rtc/starfive,jh7110-rtc.yaml     | 85 +++++++++++++++++++
+ 1 file changed, 85 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.yaml
 
-Hi David,
+diff --git a/Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.yaml b/Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.yaml
+new file mode 100644
+index 000000000..a88ab91ab
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.yaml
+@@ -0,0 +1,85 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/starfive,jh7110-rtc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JH7110 Real Time Clock
++
++maintainers:
++  - Owen O'Hehir <oo.hehir@gmail.com>
++
++description:
++  The RTC in the always-on domain of the StarFive JH7110 SoC. It counts BCD
++  time and date from a 32.768 kHz clock and has an alarm, a frequency offset
++  adjustment and millisecond and one-second pulse outputs.
++
++allOf:
++  - $ref: rtc.yaml#
++
++properties:
++  compatible:
++    const: starfive,jh7110-rtc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: Millisecond pulse
++      - description: One-second pulse
++      - description: Alarm and calibration events
++
++  interrupt-names:
++    items:
++      - const: ms-pulse
++      - const: sec-pulse
++      - const: rtc
++
++  clocks:
++    items:
++      - description: APB bus clock
++      - description: Calibration reference clock
++      - description: 32.768 kHz counter clock
++
++  clock-names:
++    items:
++      - const: apb
++      - const: cal
++      - const: 32k
++
++  resets:
++    items:
++      - description: 32.768 kHz counter domain reset
++      - description: APB bus reset
++      - description: Calibration reset
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++  - clocks
++  - clock-names
++  - resets
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/starfive,jh7110-crg.h>
++    #include <dt-bindings/reset/starfive,jh7110-crg.h>
++
++    rtc@17040000 {
++        compatible = "starfive,jh7110-rtc";
++        reg = <0x17040000 0x10000>;
++        interrupts = <10>, <11>, <12>;
++        interrupt-names = "ms-pulse", "sec-pulse", "rtc";
++        clocks = <&aoncrg JH7110_AONCLK_RTC_APB>,
++                 <&aoncrg JH7110_AONCLK_RTC_CAL>,
++                 <&aoncrg JH7110_AONCLK_RTC_32K>;
++        clock-names = "apb", "cal", "32k";
++        resets = <&aoncrg JH7110_AONRST_RTC_32K>,
++                 <&aoncrg JH7110_AONRST_RTC_APB>,
++                 <&aoncrg JH7110_AONRST_RTC_CAL>;
++    };
+-- 
+2.43.0
 
-> Date: 2026-11-08 21:02:32+0000
-> From: David Laight <david.laight.linux@gmail.com>
->
-[...]
->=20
-> seq_buf is just OTT.
-> Using to replace a single strcat() is just silly.
-> There is no point doing these patches until there is a sensible alternati=
-ve.
-
-Agree.
-
-[...]
-> >  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
-> > -	strscpy(v->card, tea->card, sizeof(v->card));
-> > -	strlcat(v->card, " TEA5777", sizeof(v->card));
->=20
-> What is wrong with (and almost OTT):
-> #define TEA5777 " TEA5777"
-> 	BUILD_BUG_ON(sizeof(TEA5777) <=3D sizeof(v->card))
->=20
-> 	len =3D strscpy(v->card, tea->card, sizeof(v->card) - sizeof(TEA5777) + =
-1);
-
-I can answer this one: bugs (particularly, off by one) are quite prone
-in such code.
-
-=46rom the Authors of strlcat(3), you can look at OpenBSD's manual page:
-
-	Since it is known how many characters were copied the first
-	time, things can be sped up a bit by using a copy instead of an
-	append:
-
-		char *dir, *file, pname[PATH_MAX];
-		size_t n;
-
-		...
-
-		n =3D strlcpy(pname, dir, sizeof(pname));
-		if (n >=3D sizeof(pname))
-			goto toolong;
-		if (strlcpy(pname + n, file, sizeof(pname) - n) >=3D sizeof(pname) - n)
-			goto toolong;
-
-	However, one may question the validity of such optimizations, as
-	they defeat the whole purpose of strlcpy() and strlcat().  As a
-	matter of fact, the first version of this manual page got it
-	wrong.
-
-> 	if (len < 0)
-> 		goto fail;
-> 	memcpy(v->card + len, TEA5777, sizeof(TEA5777);
->=20
-> What might be useful is a helper that would let you write:
-> 	len =3D strscpy(v->card, tea->card);
-> 	len =3D strscpy_at(v->card, len, " TEA5777" [, implied_length]);
-> 	if (len < 0)
-> 		goto fail;
-
-Indeed, as said in other threads, I have such an API:
-
-	p =3D v->card;
-	e =3D ARRAY_END(v->card);
-	p =3D stpecpy(p, e, tea->card);
-	p =3D stpecpy(p, e, " TEA5777");
-	if (p =3D=3D NULL)
-		goto fail;
-
-Linus didn't like my function name.  We could indeed call it strscpy_at().
-
-
-Have a lovely night!
-Alex
-
->=20
-> David
->=20
-> > +
-> > +	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-> > +	seq_buf_puts(&s, (const char *)tea->card);
-> > +	seq_buf_puts(&s, " TEA5777");
-> > +	seq_buf_terminate(&s);
-> > +
-> >  	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
-> >  	return 0;
-> >  }
-> > diff --git a/drivers/media/radio/tea575x.c b/drivers/media/radio/tea575=
-x.c
-> > index c37315226c42..e49228eb7c46 100644
-> > --- a/drivers/media/radio/tea575x.c
-> > +++ b/drivers/media/radio/tea575x.c
-> > @@ -9,6 +9,7 @@
-> >  #include <linux/module.h>
-> >  #include <linux/init.h>
-> >  #include <linux/slab.h>
-> > +#include <linux/seq_buf.h>
-> >  #include <linux/sched.h>
-> >  #include <asm/io.h>
-> >  #include <media/v4l2-device.h>
-> > @@ -221,10 +222,15 @@ static int vidioc_querycap(struct file *file, voi=
-d  *priv,
-> >  					struct v4l2_capability *v)
-> >  {
-> >  	struct snd_tea575x *tea =3D video_drvdata(file);
-> > +	struct seq_buf s;
-> > =20
-> >  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
-> > -	strscpy(v->card, tea->card, sizeof(v->card));
-> > -	strlcat(v->card, tea->tea5759 ? " TEA5759" : " TEA5757", sizeof(v->ca=
-rd));
-> > +
-> > +	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-> > +	seq_buf_puts(&s, (const char *)tea->card);
-> > +	seq_buf_puts(&s, tea->tea5759 ? " TEA5759" : " TEA5757");
-> > +	seq_buf_terminate(&s);
-> > +
-> >  	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
-> >  	return 0;
-> >  }
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---25eotijdriyozm5s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrw6M8ACgkQ64mZXMKQ
-wqnrxA//SB1OVwBLezPpyZI5ZaVSWgNmrH3YCjoGeAmMBl5SlwMMD5qpn14298F6
-wJZBoeiqHmvcCG8HXMN9Vv8djtEB3Z7xbBSb6bIl1ybpeWsU0AGT62maRT/7Js57
-XW5wt9IHf8eerjfS+3HfKSrkkqL6/IvOuWlXXY/ckVZEapBlCJO/Ra7WdLM8wsTA
-LCny+GEr0Xi6RkfURgDDRqKNPMJgk3WVy3WDU5G7fnclB/nt2/YnGcgVc6baxd03
-/GoocN9i/gfGlP5rWTS12G9ToA599dCxSzp/zcQxLZ2d12Zw1jUzh1eLx3NBBIIH
-ts7NxPFTlQOI+9+kFwah9LUmlA2IBAfFjVGXZEkw+7YoGacRqBRn+T9954/u/sx6
-r/ok9Hj7kbvyf7rdKNkmGud9En+nLgmRXm+OesxX8QL9yB0FeVDXvb/5dIGIO1O4
-w/V5oD+XxaMBIIlbO87HCkpwnQ0et0dbtIKhZV8/bEFTxyi2NMORh6vGhEsaCmZX
-uKh04FN6r0gvtnpmG4pqifhN8GF4IplIt5ELBUZqnYOy5xndU5C3LRHRron1Jw63
-gTzdZa3Yoh1b1F3ZyPDUqefbkmrfXtSMz1uMygtZMt9y0yaIaPVxddq40MqrFo9m
-JlRKECbPYTqi0sP/5DbPxIfCKIXHl6R/1m370GpazMX0toZWaQ8=
-=Phyf
------END PGP SIGNATURE-----
-
---25eotijdriyozm5s--
