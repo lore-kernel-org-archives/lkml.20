@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794070888;
-	b=uykfu6NXmgSt/08/HvqdxUQVrzEyHecSq6KGSlGATewd7qsA33+XcDyTnAW8UUpEKuSn
-	 Y36b8pvGAl77bYQ6+JiXLbz4c5pvjDLD/xJXt6iqkteQwAYSf7jAuyZidZrEnJHs5IVZy
-	 2wmk7M7LiUaTZUmj+iFIfC4jNN8FJC7I9qtUjApS2sAPkBnm9+oYty3y4+a6dJN0uz0he
-	 Rfwrdqt/nD1wE9jeVxIPrgdTHzgv2mMWQkqNlBgZ1Vqu3pucGtZeaC/73cMvJ+Bwj9wYs
-	 xozS0efEpqXWPxCAY9BW0LT0I9vMXFJwMKEwLbIq2T7py6uQRfd34ba1gid2/JQDhLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070888;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uzjNXgt46wd9zIfWGFy0z8XRbAiX3V0Ch45qLXmgn0M=;
-	b=OfMBwzKXay9ynCib5CXopTaEr4gJw9T7g9+AnXXTJNOVocY05MvDe7cC7r3fLXzT1nQG
-	 wYRhwzB7YuOSbRhk/uc/KAK1Prk1sXUhoE0mfLnqLjGYPBh4OZPQqHHz2sFd62MGTHQu7
-	 b5MuX1A4KOO1teeCXFiq5EvJpJ5p7FBdc4G6DWrlib4cSgpryEOzYkRV6Yiys5JBkiag/
-	 osAsk95KATlfqEPn68g53YXh003GHQFIVLb6gWFaso5HPcDQ6QMzP7yPGxhXFKMkPfgJP
-	 aNgm63J7/4Kwv6gnlE75+Scp3y3jEEBn4U+tMQPYHioksZWTIlQQ4mKEJ6pspiqdyIA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/LsD9Ap";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794070893;
+	b=AWFTnXcLp84BpHw28SGTB6ByDFLAmb7nNT1tJUtQhfudRCUgpE+GmSuRwMRGLxfItWo4
+	 8v07W+ThP59wkuyIUvw8i/Sw7/T6J4ZLpt34w5XSd7wDWeg1NVYrknDApCXXiZdbmdK99
+	 gbyiP5mecyh/f+vFagZkffqTH1cjR1HRSWA38ZCnBzJJpUhKFSVMnfXH20P9sL25mQsr0
+	 MDQvSg0NKpejwIZj3s9K4gdH7wfI4V/palXExWbCaF4tjTq158H8mYtWTvh7H/TvGoevA
+	 hi3Ye1Y/KFmTODTndkvXwLOSU80s1ZicZle2hW8+gnr5/bO6si1UWesZVPgmz+yvU5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070893;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=puiDWva68t/nBSAljGVXrMVIkkqCBXfuvA08W8pFV60=;
+	b=lN43d060qkNntHOfBwNke0/IQ8GJW+oChJkpFL92vkPhEcUariFtvuqHn+FUZa8bvuZr
+	 4t1y+Y0hSOUbiGZv5dLyJIW+0A2Ru9szZWlk5DqwIZKsy9pAfmRiSjuJgZ9qtb4WuVgYG
+	 0UAZWAsyBzKKCGJdV0+AjuZzzSTW4dzeCGvma/E+Vc56SqcC2zXhK+hwOFX2tTLhS4Wqr
+	 GgF+MSIONMaBKwnj0jsS1g4CjTfZcMGU652Kir9Qywu0Fc/EAqFu6M7OCgwJnYgETMPEn
+	 4Z30Z2+VPk5fo6gyR5PhtWilgjm00Nw1yVnDIzKKhyiBbkNFkZmjf/rHT48dmQ8IGeg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=epahJ1dU;
+	arc=none smtp.remote-ip=203.205.221.236
+Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DAB606A334;
-	Sat,  7 Nov 2026 17:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CFC606D81C;
+	Sat,  7 Nov 2026 17:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05CFC606D81C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/LsD9Ap
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794070888;
-	b=2mbS07L0TxB8pQwcZwmVxQwFyAySJFn7TS6tLqaWFuDg5MCOq5xojOG+JcWGlCF/vThO
-	 oADY6Hh8ZsmzUqIPM1blW85hEuLDIYUffecJw3pBrA0uSKkoC6/BNZA9P/6G/BWALOsT7
-	 Xmn1yb0MfvxivGZ6RIEofv5NSWOL6vLfuDS8QVRrC5x58UP3FQ3yzVfEndaKDYaDQzF//
-	 2nyeWMILvMo0LoKd4Yj4FilLoPy6SDGrwFNfB48W0xKy5NluziCh7el9cJtKVZ7j8lfaK
-	 0dGy5LuzX8ugo31bnxyzv2FymiH6YVbEjZ4EMQeT9rvc3ycVoPF3FzQigILFaPUtc3A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794070888;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uzjNXgt46wd9zIfWGFy0z8XRbAiX3V0Ch45qLXmgn0M=;
-	b=S2neqICYnORdWQqVqv8wUsfNRA88Jv/9vXjumqgT3yq8OWmccI2MFaU8sNMECrlqmCS+
-	 /3aUMtY7+rDWVLva2i+FKZmOHFXJx6YfT+2mRWjMHNhc09n/4g7tocQi1G4jbuzHDzOJl
-	 A3VnnEDD5LbbDX3OJq2HMTF6AsDcUGShO7Tl5yWx/f/826eiutAAMzte2a1nfqmXDWw/u
-	 JspKrOt3iEl8nWfx+gXc2XOGNdTknzeIURbywqo9HhnzXaMxnkeI8T8IJgHX5eYsl+WBB
-	 l5IUV4VwW4alfmV6U+70BIfYpXgx4zjSYq20P71kLygO3ignZHM2+BsyZKTRnKc3kWQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1E2DB1F008A1;
-	Sat,  7 Nov 2026 17:01:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794070888;
-	bh=uzjNXgt46wd9zIfWGFy0z8XRbAiX3V0Ch45qLXmgn0M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=b/LsD9ApkIw8gH3eqvwVX3ndU+nDYPCTQEzfCJZYYnPtZSvRD1Q+teoLvbOWsnIsw
-	 qwf896np5c2vBLkZvhOgq4fNicOKKA/m+tSp0zXq/6tMAL/LkZ5hr2f4eSZZ0OvtBu
-	 5gIh1VqwlxRPNyIEhe15hN/r2HTfYbDoOiFNx4mOOHzWBqYDE7fB0+YdjrqVTa6XJz
-	 DBHYRCsdPHIFJ3Vq5uflc9QMs9STt+rlc8+dMkU4e+DB97I4qqu2rD6ImJqedwdEK/
-	 PLKe/3zViueWsAEp8BJV93SlM8Vx3mv89/egL8+fqCLZHoPL8qmJqkd5Iq+Z4JHlXR
-	 mO5mVWDCBRlUA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8314347C86;
-	Sat,  7 Nov 2026 17:01:26 +0000 (UTC)
-From: Hleb Shauchenka via B4 Relay <devnull+me.marleb.org@kernel.org>
-Date: Sat, 07 Nov 2026 18:00:45 +0100
-Subject: [PATCH net-next v2 1/3] dt-bindings: net: ethernet-phy: add
- property #thermal-sensor-cells
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=epahJ1dU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794070883; bh=puiDWva68t/nBSAljGVXrMVIkkqCBXfuvA08W8pFV60=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=epahJ1dUWc3RS2RCSsRoctaIOekPyW/8tYXVgiBO5hHcDz3a2bFZJDePInd6VAgrb
+	 oCnuuBDsKROuEpBZ0rxuMqmRrJo1Fw7WOp3s/eusCXN7Q6Gb+3naiuc0jzWMCtIlmd
+	 v5nmwJxVW5P842wox5PsluykWLtK/Bk697KlfKYc=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 55014FA; Sun, 08 Nov 2026 01:01:21 +0800
+X-QQ-mid: xmsmtpt1794070881temyhvmk8
+Message-ID: <tencent_EBEADAF7CF88B39381E959548BCF46146006@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnLTqLnB0FOBJXnACMgTIeP71lHhMrysP0OZY3przdDZkmY41g8tS
+	 dyiR8iKxHd3t1cXlica5RDzYXrdAB/xk2EISR45WkQ2X9awR01aq+fCrXYNg3P4vojYQIOd8OiD7
+	 Z80KqyL6uBl1CrIIRsCQat+ozsizI8lpQDi4q8/iKUc4yCT7z9NyIRyF/eQr0il/h8LOXRuQqbOB
+	 2T6fEDF4Zv+x2jsAZFW0EnckIcdAfP0UXbVsH2F6Db1yl+Uim+Np3f4n/JfAiYcWAZMQFx2OeS0R
+	 AGwwC0+ldbxGEdqFUEK5in7hiL1HeFEo+7kBueZnrhliCQosEcnBXhzIjF1W62Z70ibvSNZcHF4T
+	 +lgax6tRyTAzlh/h5Szz5tvlSS9wMT87EPzZAokpQV5wuzg0pWP7WUP1jrRVTBndJRUe0UbbKwho
+	 l9qHj/opL21k7/tE/V8lm5lebY9x84ecoC/nv5fuq2ZB0FFDbmQqixdqKNb1L/TexOpKutHqAu1W
+	 a6jmH95VteuWYp14/h7t9wp7VknxxmrOtLm8JptZFEbJypslU48/kEPGDNyJEzG5rnojfB9v+flG
+	 fZnAWXCB2sXOgUfJbOmIJg2SomKyQwcqB2QVAm7yy2c2d1epi/Y4XT4l6B8fObd9Wa58oVoxerKX
+	 rygzudvIiVnAnk5ACeyzh1+AOV1iYUq/gjvrH8PG0q85uWVTvpxihLJYDiR9sTIPhMuOjvV0Ffac
+	 JyERkv2i5Ji1Nu/idl1K5wynXmIv1w941Quba1nx1JeqJe8K5Ru6qit0E5HRsIu3eN9REg73I+JG
+	 lUMZy4nEYH3EjORRQ3AjZrSPIQMEgUXqgyPv7uoBc1q0X2itpPTzr58zTrkVXjpCK4ltsO27YZTd
+	 8Hv6VlLZZndfgurQsZyMTAbVgfHeBVH5b7nxvq1YrILpPc8EbOwUqcL4cRqHIKwe/VtoX+nt0WSd
+	 L8ZiIUU4utGCtekZH9JlzgYoxLjTfcmYSWOv2iVBoSSuEY3HbGBFyX1cvtSs9rHwXAZx9CwQHaU5
+	 vnfLmvaO26q1rRW9LFfrnLkbOsYpoi9+1x9RuWhM2RDpYZB9SqHf6eWPoPDM7Ne6MZYMaNrHpZDC
+	 Btg8eUUt/sqggXobwAMW2w1Rya7R1kG2fgztMy
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ufs: validate fs_cgsize when reading the superblock
+Date: Sun, 08 Nov 2026 10:00:00 +0800
+X-OQ-MSGID: <patch-ufs-cgsize-20261108@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,73 +76,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+In-Reply-To: <c5-ufs-cgsize-ubsan-20261031@qq.com>
+References: <c5-ufs-cgsize-ubsan-20261031@qq.com>
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-realtek-hwmon-tz-v2-1-6b9a69d44470@marleb.org>
-References: <20261107-realtek-hwmon-tz-v2-0-6b9a69d44470@marleb.org>
-In-Reply-To: <20261107-realtek-hwmon-tz-v2-0-6b9a69d44470@marleb.org>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Hleb Shauchenka <me@marleb.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1484; i=me@marleb.org;
- h=from:subject:message-id;
- bh=VRuFxemFp//Th1i9H61fWbV1u2h1anUlOxoYWqWx9q0=;
- b=owJ4nJvAy8zAJTZJnM368y8lXsbTakkMWe8jU1vCJM7/avVac2vXYu5HlrZ79kdtD3cWWFmz8
- LDbsbav/T4dpSwMYlwMsmKKLJuai0Sfrox+61q9JwtmDisTyBAGLk4BmIjvHUaGrZvXHbo7iUX1
- +dPNhrZzD4s9NW/csG6zxL/Wt18fXWpj9mL4w8/16nh+7c1XC1fqBbrLVt815mT2lNnPf6xuy3f
- RxT7XuQGD2ktR
-X-Developer-Key: i=me@marleb.org; a=openpgp;
- fpr=B2837215E5A95BED457BBC6A9217063BF3FA220D
-X-Endpoint-Received: by B4 Relay for me@marleb.org/default with
- auth_id=1394
-X-Original-From: Hleb Shauchenka <me@marleb.org>
-Reply-To: me@marleb.org
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-From: Hleb Shauchenka <me@marleb.org>
+fs_cgsize is read from disk into uspi->s_cgsize without any check.
+Its only consumer derives a buffer count from it:
 
-The Aquantia and Marvell PHY drivers register their hwmon temperature
-sensor with the thermal framework, and a following patch does the same
-for Realtek PHYs, so a thermal zone can reference the PHY node through
-thermal-sensors. That requires #thermal-sensor-cells in the PHY node,
-which no PHY binding allows: dtbs_check rejects it under MDIO buses
-whose PHY children use unevaluatedProperties: false, such as
-realtek,rtl9301-mdio.
+	UCPI_UBH(ucpi)->count =3D uspi->s_cgsize >> sb->s_blocksize_bits;
+	...
+	for (i =3D 1; i < UCPI_UBH(ucpi)->count; i++) {
+		UCPI_UBH(ucpi)->bh[i] =3D sb_bread(...);
 
-Allow it in the common PHY binding.
+struct ufs_buffer_head.bh[] has UFS_MAXFRAG (8) entries, so a crafted
+fs_cgsize whose block shift exceeds 8 writes past the array while
+loading a cylinder group. fs_cgsize of zero, or smaller than the
+fragment size, produces a zero count and leaves the cylinder group in
+a half-initialized state.
 
-This patch was prepared with AI assistance (Claude Opus 5.5), after an
-AI review of the previous posting pointed out the missing property.
+Reject those values where the rest of the geometry is already
+validated.
 
-Signed-off-by: Hleb Shauchenka <me@marleb.org>
+Reported-by: Guikun Yang <yangguikun19@qq.com>  (bug report of 2026-10-31, <c=
+5-ufs-cgsize-ubsan-20261031@qq.com>)
+Signed-off-by: Guikun Yang <yangguikun19@qq.com>
 ---
- Documentation/devicetree/bindings/net/ethernet-phy.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ fs/ufs/super.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
-index df50c4c33..e2e9e615f 100644
---- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
-+++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
-@@ -269,6 +269,12 @@ properties:
-       have to be placed on board. When omitted, the PHYs default will be left as
-       is.
- 
-+  '#thermal-sensor-cells':
-+    const: 0
-+    description:
-+      Present when the PHY has a temperature sensor that thermal zones can
-+      reference.
-+
-   marvell,reg-init:
-     $ref: /schemas/types.yaml#/definitions/uint32-matrix
-     deprecated: true
+diff --git a/fs/ufs/super.c b/fs/ufs/super.c
+index 1111111..2222222 100644
+--- a/fs/ufs/super.c
++++ b/fs/ufs/super.c
+@@ -1140,6 +1140,14 @@ static int ufs_fill_super(struct super_block *sb, void=
+ *data, int silent)
+ 	uspi->s_cgsize =3D fs32_to_cpu(sb, usb1->fs_cgsize);
++	if (!uspi->s_cgsize ||
++	    uspi->s_cgsize < uspi->s_fsize ||
++	    (uspi->s_cgsize >> sb->s_blocksize_bits) > UFS_MAXFRAG) {
++		pr_err("%s(): invalid cylinder group size (%u)\n",
++		       __func__, uspi->s_cgsize);
++		goto failed;
++	}
+ 	uspi->s_ntrak =3D fs32_to_cpu(sb, usb1->fs_ntrak);
 
--- 
-2.56.0
+Tested on the image from the bug report: the crafted fs_cgsize is now
+rejected at mount with the message above instead of writing past
+bh[]; the unmodified image still mounts.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+--
+2.43.0
 
