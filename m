@@ -1,109 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794149242;
-	b=12RmhVZVmQkQ2GpEfTJ+CqTPlc9GLt7nm6yxUSpmqVm+LpQGw3RrdOZdIEVvODO0nLKC
-	 ARwcQ/l7/Pm7X7FmmVhWSRTLoBbEmf8zkXClWk9xXz2mtdRYI4a24x2FFfRN3oV5YKKru
-	 AiMWc+P4TDKwQcOdb3AKdzV4sVC9t1o+06eE78dncVMfms4el+LekNlEBYDAYqiyTJuy2
-	 kVbFPiNT30JeF+dK38Bl0L0o0DnQTrNE3TJ8vaSCNnD90KN5Nr6aRbNlK9Rma5bh8L7D+
-	 4RFdB1bgVowyFAJPrgYSoCLeoNuShQZhtTTdJlclyuQKfoXZ3O9gj3NzkPXSKki7iBg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794149242;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794149306;
+	b=W5H+ogmUUBZV/sNZiUriRRdOoWiv0kkW9WXpahoHi0dM/zD1YBsWMYvbQNz18vn9BNfU
+	 nM3bKp79HDmJqZfeR6gbZiSEg7lt1DAfB6IUqfCP65dIc342p84BsO6GaOhEaBsLpn9Yg
+	 D9T5/5nmkhh7T1XpoJHsfEXIQ+3jJMv4yGE4QN/GqPA9pIj62EsNpNNEYAHNJJhxTZn20
+	 1UJOCeHdphQe9E1Dr9Hf+B/kMt2e0vxElHOqT+7lBWGep74IvIDqKepwmQ+6KW+ht5SuH
+	 CcYLtr3/ZO8YPP6Ih6kGMR1TccKZDUkc4JJB0fbpAzpFdi23fkT8EBxKMLvu+ynd0KQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794149306;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0JULXnRo86HLIVjSE/ozuXF9QO2DLs0cXMWvTzF3qn8=;
-	b=syBFqcSxi3jDmsbXZTOYc5N1i3xMgWOHIC7r4OXpgR2jc+kMAxw8Es3rSIdDf0egnUpV
-	 xUt9Rr3mlouJ5txQTiAk/HeTRRsqRF535DpEE6I/xcXvp/fThTAiijSj6tcGye19YDStV
-	 Fsp3qwW8QCCxyYp52bfAFnaqvkCo2FoNCtCNjigm6S9lb6O4SoqAdkefXg1arH6l8UZ8o
-	 5fTsbFw2t6orwYrqbHeb48+LIrT9ICkewbVgbgNXoXOPubXNwyLmlENdpZU3XRF1t6/qK
-	 BhoIdtWgl96gsAA+uviTF124f3KFNxfF3HdVQKUA+FhYqoWym814u4m9KsDvFDC4yIA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+	b=vvH8DdHB7Om9sCB5z0P3ogczy7o/KJ4YJvz7M5qQPJRlVGXgpPapKBEL3Pc5hyrcVpeI
+	 U0/KmR7RGZdF758tmrY/qk9v788GVYS8hD3VeQRPAlLJ61th6SFXr5+2QuRd1eAcn/Bmt
+	 4xQLOURNTIydI4jjuickPtyHDrx2FqWEeWNyUITJNZvvOQ/FgulMuYczFPzon90+FfBhY
+	 WjjJ5KvrgOVbINt7k1bsalhQTxOz8ZdAASfZlz3tUsnnHW84yfEtAgNXt8jO12aYpSyCM
+	 60QRUC8cAape7dgto8fTebKWjplXtj1hrnDrsmXhzw570nc2929wcwH2TQisQowAR+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4xrUWgT;
-	arc=none smtp.remote-ip=209.85.222.54
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M89O7Eav;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA29F606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:47:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA29F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAB6606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DAB6606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4xrUWgT
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-99911ead46dso56990241.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:47:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M89O7Eav
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso862545e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:48:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794149304; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cAlXDsld22e7bAjQkZhjTN6ixEfbPwf/xsHlBZLM96Mkue/JZC5hEl8STbaorSXQPG
+         mxAaKuwidcIMTrJEYY8ujhnq6psqKfqbknmB0Mj2HUepuKLXHatvXMv/ZSRTytrC44S7
+         BVogqQHrITqrDB/W2GZ78WyyvCZQuApLFIKjBcrAtZCut16B2T3zQ0VzuJWln79rbUPa
+         2HyBUM0ohEs9slqyfNFdSSFSXv0F2qmKANQnZb7urPLu36ukPA4UaW/582vQoRN1fCAo
+         MFI+f+TZUZNayiCo7hzcV/Milr+k2esYhBxYwPpoVTDl5m/I/WwyNAYApRGWckgptjZF
+         xmYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+        fh=J57C93oLeHkuYa/JGL7dAov1iavSukx8N1xxiwYsWN4=;
+        b=H5rAkeSw7im9o6w+wJdpT3QzDacrBZ6/24mYll4DeNIaIxATHAcLXTjq/zxlmabbXO
+         tcHsZSBzN3BtBg+5ARcWj7drjwJObQ9CoF9yodTErRpaOAHfYvM27fCUsIrHQYq8tpwh
+         5XCFNMRdbKoRj2uG/99RCBvtMBc9gEuOEWQ4nNR3PyWlXNAONFhrq64CzKqIEdYP6Zvz
+         UAbX+NgnD1Q6uPIC0Bextij3b1kW6rRSfiXd0rz/hw7veOW5GnNT55ZEDLJXu1oDKD5o
+         sTWeaAw8GMolazYA7LfG9jSvgWxCGBnFiFmfflBAE5SoQcb3IbSUT4CN0d5NV6pscNjI
+         3i/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794149241; x=1794754041; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0JULXnRo86HLIVjSE/ozuXF9QO2DLs0cXMWvTzF3qn8=;
-        b=Z4xrUWgTEXoSZf61sz94mFYlfQums2nt0QPefvmUtLCB4R/vgWtotFq9TLBLJEq4G7
-         j1Rb+FGgfCN3jzYXibimWvaV9/6P4IBW3lSRcbgDZMqDuQudo7z+YR08qESm5dn1YsbG
-         Gz3kKp6y5HJwdoQ5xAhy4CDbzlLIext5PVII/g7equldt+t1mgHe3Z45LkOAqeTM1HXX
-         eBIybtNSrtnospCJ0R+u/e7ZHd4JvY0EPJQpJOavI/AnO/s8zQonStKKV5s9FXEnllUo
-         rBmfIOfICoW086IicNKtlrN6/xzxExjJ/KjQWjuUeIwGWd2f8+7DwpGoIaj4uMw23Mr3
-         xmJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794149241; x=1794754041;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794149304; x=1794754104; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0JULXnRo86HLIVjSE/ozuXF9QO2DLs0cXMWvTzF3qn8=;
-        b=lJLP52G8WNoFftWHWMkmjs3X402TfOSQdviwoHbXjY5jNlchpbc19yXBgmONKojG3i
-         Du2j6WjJaGEZVqxNpxVcE8dHLHa8/74VmGz+tfcgknslegFKSXcYbLNqbFEFO4UVwV5f
-         CINavsI+V5ydNJ/C1QUi970AAs3QpyJnhv4Xdp2PLMR1AX1FzN4dtuK1l418K5x4fTCw
-         gI6sM5J5o/7VBTs9Pnah9l56KQqdTvGMhdh0ubREu6bSmuLiCdDXK+6npCIgjFwat+wp
-         6R9QSwolvu9Do8FqdWkL88nzMqf4FE1cZlSOBBUKi+LOhjUw6b0JUT2a1JiB2dWsryYd
-         8lGQ==
-X-Forwarded-Encrypted: i=1; AL+hErE6OOxtK22YA0WDw6yshvzHUsio9JaYm5QLHn3s3rFoS1/HQwu+1i5e1KaCgHNnwvThI/R7LnxD3DmrGIk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9A7kXCRpFNIiOaoeIF6f+1Alr7rq7bSEQD+EgP7lhl50EEgzJM
-	wh9EvJqL3JRRnqyUp30gWTWTxbjlfsv5VDsORYoq/dzFJ3/FSFQWrot+
-X-Gm-Gg: AYBFou1LmnchGUiab58t41EPH2KbFaj9drAiK6OrD9MjJSsLwVFU4nJLwJoA+QqjGod
-	DKBeShi9jUnbiIFwIg7/LkGYYxtZuAL3TF1E7XhOxBZy2LBnl8XtR0kFE/vkEnPQCUd+i8WBy1N
-	jqfk0cMJk/Zo3osLj+5LHNMl/Fv24UXDU7LEcnV11YJF1vbC22XIZ3x9OTwrEAQqQqVkl48rEp/
-	jsAX9zCFswhj+e756qZUrikEYo+4QrbuEeoilRmBkQJKwytp+2fG4ENML0HX+8gnMpRyLe19URW
-	TVWgfR+ykOBDOiU/wt6Qqi++/p4ZgK1cUhiwc8SP9C8KZiiODhdnJJzApniglRgNRufAmTPyKwZ
-	4OJb7D8X657KRlijhCba8vO7JSvExjzGJ/nleCQZMrMiqgd55ARjDZhohKQyCOUUxm5XcYY0ei4
-	tFsL+VFPN77nE0AW69vgC82Zl0LZWWh4uvEZGOg5dIjMtg6jcR2keRUee0ug278iGzhE3kbseFN
-	K4IDjF3yWsEAMcauB3TAd6NgLP0Rp9bGG8ljk1gJSHoRGyz40dY7okH3GPych+1rAfU9/RHkbkX
-	lofXwZtjyCw6UaLWiPxgb2vSKj0ieUfGHyZNbl9BGkqBY8oYCu6ZIGOB0e17CERE4glQWqYwq9A
-	7xmqpKgNQAL7vufZGsUvi0tfZ6xSnYEdtsqWRMDL1mCfDhMrtosyzVjzl/zSdybxs1jKnfKQ=
-X-Received: by 2002:a05:6102:c09:b0:7c3:e156:da3c with SMTP id ada2fe7eead31-7d2db19223cmr459510137.15.1794149240821;
-        Sun, 08 Nov 2026 06:47:20 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c02a28e4asm1839813241.8.2026.11.08.06.47.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 06:47:19 -0800 (PST)
-Date: Sun, 08 Nov 2026 09:47:19 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Daniel Zahka <daniel.zahka@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Donald Hunter <donald.hunter@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.1735f64577408@gmail.com>
-In-Reply-To: <20261106-psp-v3-0-a8dd38f5a727@gmail.com>
-References: <20261106-psp-v3-0-a8dd38f5a727@gmail.com>
-Subject: Re: [PATCH net-next v3 0/5] psp: support rekeying psp protected tcp
- connections
+        bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+        b=M89O7Eav+NpL1KqjMFVjw5iimIbpfy/0FQfp5RsxTeLQo/jL4ljSEZt+csLG0XgNQG
+         7gmTLcUa3Ox1lX+Cq+ptOazATthaTntkflV6T0LnwYHpmzkv7JBIROJfcp3grtuzuZ5o
+         +xvuRc6fZ43kmkCyGHMLQcDhcZXphFCeGHi4i2+tXEOFB7lyTIu/ICjylpIPF08BEQDF
+         bZFmY5k2cqcKVdQg3gdw3mcXTaS4Z0bCA2KTwChkyMQ/8XERMIcV4hXcQ3r76D7Ods36
+         6KArQhsNgtsOLOEtt4ZnfwUIPNNjnjKq+Q4EgDoGy/hUCfjf+/dDa0GWJYMrgpRjXT7r
+         Wt8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794149304; x=1794754104;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=72njd0xQ5iZD4pPKmsLG/N0Oqv9jSjZrxN3BfMccT4k=;
+        b=dNbUuntN55FvArvO7v5yQIwR7uZRldkJcwddV9d4NMLXzGS4AtOEqNZSGJyA5Q9ooB
+         3J7vqUCQrjU4V6F10Yw1iYUyrV0PweCVSrbVIdDY3wQK7VhBY1NSJ6Xe2n3UTrbtdZLG
+         nt12hxMFgjAnj/mQEt1GPl2Hba6BCZRiGC6VvPS1zPnQtfio7eB0eZDS2WaT19TH0iAj
+         2HkFZiDh9Y06+Howg+JR5fAuAXvpBfxsEM+qehpFEHh4X31ggbDck5JZWW6X2JcTxKaW
+         0iK5XPBwyOOTs7sZtDNEn+G+bYJ/cXvByLA9DMkX2piXBmthW7Cs7Iz3GAaV8+tH1126
+         DUYg==
+X-Forwarded-Encrypted: i=1; AL+hErEpEveV3/R7rUfgYpnQuJFqSBwhz35LTqeQ0eVEnjMeVxZvn7UXh56IaOg2JCZ5I52ubgCHCAAZ199FHAw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WNn6i4BuHwLs5/XhBK4ZE7VrIUAY3afWltqUzypOsVCeUYupO
+	acmTBIA3QbXk9m4y344xk1zMjo0ukAYWW//h2vZnhuYez2jMbSbcHt7FG4k3f3oJym6Z8yeZFWV
+	Nn2O7wo8IySC+2SJYSBQG0odo7A7kKX8=
+X-Gm-Gg: AYBFou1Br1oEfYnpdJ5Pj42q3mWyX8AKS8EQhOb0AruP/mf8DS2O9YDu0m3nlVMZyDp
+	QJBpEvS5WIFKnszioKU/GRXH8GAklgtLFYrBaU8+gzCmWGnsh97WT0CUPC+BW28vwBpMKoF6dt/
+	nBEKkh8IRUghKpawfhH4BwMdob/QiQlyta9DJpcLB2O0AmmVR9h69vP8MV9N6RyU3/4FO54t725
+	hf1A4MRL4smx4AEDazezu5n7EYv6QO13Astt9kxFW7x5tVTbmLW6aVBlRuTeBiIFoWev/DXRkzz
+	FOLtnkhxeA9QDABTI6P3jMjLF3/JNNHJzb9GjwBXGvkaZjmvnPXt8PBEJX+JtWiG6hQh5f872i4
+	tOl5oPjIvGRWmGpod4xwBtCiExlJydjXgEzN9bPcQY00Zo67G3qNsqSgS8skjESk4pUh4wCA=
+X-Received: by 2002:a05:600c:800c:b0:4b6:267a:dd6e with SMTP id
+ 5b1f17b1804b1-4b963c9b704mr33733845e9.28.1794149304259; Sun, 08 Nov 2026
+ 06:48:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,80 +103,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+References: <20261105-tle493d-v1-2-3246e91e6394@gmail.com> <SN1PR12MB25289B6D8FD76DE3160299B5A5762@SN1PR12MB2528.namprd12.prod.outlook.com>
+In-Reply-To: <SN1PR12MB25289B6D8FD76DE3160299B5A5762@SN1PR12MB2528.namprd12.prod.outlook.com>
+From: Viral Patel <viral8854@gmail.com>
+Date: Sun, 8 Nov 2026 20:18:12 +0530
+X-Gm-Features: AclHuK8k8SGGyofgHCdVBkLXPFoEz1YfhP16T0j4rlTWnfJa_LPLI57xmzGezk0
+Message-ID: <CAFkCdFzQBHMc1CvOJFQY+mtepU12UrEQfWyNdY+rWUYW5CG7tQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] iio: magnetometer: add Infineon TLE493D-W2B6 driver
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	dlechner@baylibre.com, jic23@kernel.org, krzk+dt@kernel.org, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com, 
+	robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Daniel Zahka wrote:
-> A note on v3:
-> To keep this series short, I have split off some of the content that
-> appeared in v2, and also have planned future work that will make this
-> feature more robust, but not necessary to start. Here is the current
-> queue of follow up series:
->  1. core tracked tx-key-count stat and SADB drain test case (from v2). I
->     see this as able to stand alone as a series, and I also would like
->     to report key deletion errors, but will have to touch mlx5 for that.
->  2. core to end grace period if BQL is stalled. I think this deserves
->     its own series for human discussion.
->  3. Rate limiting rekey uAPIs. This has been suggusted by the bot, but
+On Fri, 6 Nov 2026 at 19:13, Victor Chernyakin wrote:
+> > Based on the TLE493D-W2B6 User Manual v1.11 and Datasheet v1.2.
+> >
+> > Datasheet: https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle493d-w2b6-datasheet-en.pdf
+>
+> You should link to the user manual too, since that's where most of
+> the information relevant to programming the driver is.
+> I see that it's not available from the Infineon website without a login,
+> but it's easy to find elsewhere:
+>
+> https://assets.sourcengine.com/datasheets/c9ebe749-34ab-4924-ab2b-aa7d4dd15e25.pdf
 
-Hey, I'm not a bot! :P
+Agreed, thanks. In v2 I'll link Infineon's own copy:
 
->     whether or not it is needed depends on a bit on the deployment
->     model.
-> 
-> Original cover letter:
-> 
-> The PSP architecture spec states the need for rekeying connections in
-> the event of a device key rotation. After a device key rotation has
-> occurred, a new rx derived key needs to be generated and sent out to the
-> other end of the connection sometime before the next device key rotation
-> occurs.
-> 
-> Because PSP connections involve two different keys at each endpoint,
-> one for decrypting ingress traffic, and one for encrypting egress
-> traffic, there are two types of rekeying events that need to be
-> supported. From the perspective of one endpoint of the connection:
-> 
-> 1. rx rekey: we need to allocate a new spi + decryption key pair to
->    provide to our peer.
-> 
-> 2. tx rekey: our peer has provided us with a new spi + encryption key
->    pair which we should use for encrypting traffic immediately.
-> 
-> In the case of rx rekeying, there is a period where it makes sense to
-> accept packets authenticated from either the previous or current spi. To
-> deal with that, we allow a psp_assoc to remember the last spi that was
-> valid on a socket due to a rekey. If authentication state does not match
-> the most recent assoc, the stored state from the previous assoc will be
-> tried.
-> 
-> In the case of tx rekeying, as soon as we install the new tx key, we
-> have no use for the previous one, and it can be disposed of immediately.
-> The only catch is in the case where hw uses a key handle in tx
-> descriptor state, as opposed to inlining the key directly. In this
-> case, psp core needs to be sure that any of these unaccounted for
-> references to key state are gone by the time it tries to sync a deleted
-> key to hw.
-> 
-> To deal with this race condition, we introduce a different path to key
-> deletion for psp_assocs removed from the socket during a tx rekey. psp
-> core will use bql byte counters filled out by the driver to determine a
-> conservative grace period where key handles can be disposed of.
-> 
-> Lastly, some test cases for rekeying are included that go through key
-> rotations and rekeying.
-> 
-> There are some packetdrill tests that are queued for upstreaming [1].
-> 
-> Future work can include a time based rate limit on the rx-assoc/tx-assoc
-> uAPIs to prevent an untrusted user from creating lots of wasted PSP
-> assocs and consuming SPIs, SADB space, etc. For now, users should use
-> network namespaces, or otherwise not present PSP devices to users that
-> could abuse this.
-> 
-> [1]: https://github.com/danieldzahka/packetdrill/commits/psp-rekey/
-> 
-> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+  Register details are from the TLE493D-W2B6 User Manual v1.11, which
+  Infineon provides after a free registration:
+  https://www.infineon.com/gated/infineon-tle493d-w2b6-usermanual-en_dc6d4e62-cde1-4d4b-87bb-c3368e25e35c
 
-For the series: Reviewed-by: Willem de Bruijn <willemb@google.com>
+I'd rather use the vendor URL than a third-party mirror, which might
+not stay up.
+
+> > +/* I2C addresses selected by IICadr, i.e. the default of variants A0 to A3 */
+> > +static const u8 tle493d_i2c_addrs[] = { 0x35, 0x22, 0x78, 0x44 };
+>
+> The manual seems to list these addresses as 0x6A, 0x44, 0xF0, 0x88 (Table 4,
+> p. 14). Can you explain how you go from those values to the ones in
+> the code?
+
+Table 4 gives the addresses in 8-bit form, that is, the 7-bit address
+shifted left by one with the R/W bit in bit 0. Linux uses 7-bit
+addresses, so 0x6A >> 1 = 0x35, 0x44 >> 1 = 0x22, 0xF0 >> 1 = 0x78
+and 0x88 >> 1 = 0x44. The hardware agrees: the driver probes my A0
+part at 0x35 on a Pi 5.
+
+I'll add that to the comment in v2.
+
+Thanks,
+Viral
